@@ -186,7 +186,7 @@ struct D2CvRsdsStrc
 };
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);
-BOOLEAN __stdcall sub_00404850_IsAtLeast1C(unsigned int nValue);
+BOOLEAN __stdcall AUTOMAP_IsDebugDirectorySizeValid(unsigned int nValue);
 static bool __stdcall sub_004049A0_ReadImageInfo(D2CrashModuleStrc* pModule, const D2ImageDosHeaderStrc* pImage);
 static bool sub_00404F80_ReadNb10(D2CrashModuleStrc* pModule, const D2CvNb10Strc* pCv);
 static bool sub_00404FF0_ReadRsds(const D2CvRsdsStrc* pCv, D2CrashModuleStrc* pModule);
@@ -375,7 +375,7 @@ int __cdecl sub_0044BFF0_IsSet()
 }
 
 // 0x0045FDD0
-int __cdecl sub_0045FDD0_IsSet()
+int __cdecl INV_IsPopupDismissed()
 {
     return gnGlobal_007A5254 != 0;
 }
@@ -387,7 +387,7 @@ int __cdecl sub_0047EC40_IsSet()
 }
 
 // 0x0048A690
-int __cdecl sub_0048A690_HasHoverItem()
+int __cdecl INV_HasHoverItem()
 {
     return gdwGlobal_007BCBF4 != 0;
 }
@@ -825,10 +825,10 @@ static bool sub_004047D0_GetDebugDirectory(unsigned long* pSize, unsigned long* 
     }
     *pSize = nSize;
     *pRva = nRva;
-    return (!nRva && !nSize) || (nRva && sub_00404850_IsAtLeast1C(*pSize));
+    return (!nRva && !nSize) || (nRva && AUTOMAP_IsDebugDirectorySizeValid(*pSize));
 }
 
-BOOLEAN __stdcall sub_00404850_IsAtLeast1C(unsigned int nValue)
+BOOLEAN __stdcall AUTOMAP_IsDebugDirectorySizeValid(unsigned int nValue)
 {
     return nValue >= 0x1C;
 }
@@ -910,7 +910,7 @@ static bool __stdcall sub_004049A0_ReadImageInfo(D2CrashModuleStrc* pModule, con
     if (sub_004047D0_GetDebugDirectory(&nSize, &nRva, &pNt->OptionalHeader) && nRva && nSize)
     {
         const D2ImageDebugDirStrc* pDirs = (const D2ImageDebugDirStrc*)((const char*)pImage + nRva);
-        if (!IsBadReadPtr(pDirs, nSize) && sub_00404850_IsAtLeast1C(nSize))
+        if (!IsBadReadPtr(pDirs, nSize) && AUTOMAP_IsDebugDirectorySizeValid(nSize))
         {
             sub_00404900_FindCodeView(pImage, pDirs, pModule, nSize);
         }

@@ -2,7 +2,7 @@
 
 
 int __fastcall sub_0040C720_ReleaseReferences(int nArg);                                                                      // 0x0040C720
-void __fastcall sub_00469A60_ResetKeyConfig(int nArg);                                                                     // 0x00469A60
+void __fastcall CMDTBL_ResetKeyConfig(int nArg);                                                                     // 0x00469A60
 void __fastcall sub_00478A00(void* pCel);                                                                   // 0x00478A00
 extern "C" void __cdecl sub_00517ABB(void* pMemory);                                                        // 0x00517ABB
 
@@ -15,13 +15,13 @@ int __cdecl sub_0040D530_Call0040C720()
 }
 
 // 0x004A5010
-void __cdecl sub_004A5010_Call00469A60()
+void __cdecl TEXT_ResetKeyConfigDefaults()
 {
-    sub_00469A60_ResetKeyConfig(0);
+    CMDTBL_ResetKeyConfig(0);
 }
 
 // 0x004A51E0
-void __cdecl sub_004A51E0_FreeCelFile()
+void __cdecl TEXT_FreeTextSliderCel()
 {
     if (gpCelFile_007C02BC)
     {

@@ -37,8 +37,8 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
-void __fastcall sub_00452E50_DrawRectangleBorder(D2RectStrc* pRect); // 0x00452E50
-void* __cdecl sub_00453AB0(); // 0x00453AB0
+void __fastcall UI_DrawRectangleBorder(D2RectStrc* pRect); // 0x00452E50
+void* __cdecl UI_GetFocusCel(); // 0x00453AB0
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 
@@ -126,7 +126,7 @@ void __fastcall sub_004B8100_DrawDialog(D2ClientDialogStrc* pDialog)
     else
     {
         sub_0046EFD0_DrawFramedBox(tRect.nLeft, tRect.nTop, tRect.nRight - tRect.nLeft + 1, tRect.nBottom - tRect.nTop + 1, 0, 1);
-        sub_00452E50_DrawRectangleBorder(&tRect);
+        UI_DrawRectangleBorder(&tRect);
     }
 
     for (D2DialogWidgetNodeStrc* pNode = pDialog->pWidgets; pNode; pNode = pNode->pNext)
@@ -158,7 +158,7 @@ void __fastcall sub_004B8100_DrawDialog(D2ClientDialogStrc* pDialog)
 
             if (pDialog->nMode == 2)
             {
-                tContext.pCellFile = sub_00453AB0();
+                tContext.pCellFile = UI_GetFocusCel();
                 tContext.nFrame = gnSelectionFrame_007C0E50 % 7;
                 sub_004F6480(&tContext, nLineX - 24, nLineY + 4, -1, 5, 0);
                 sub_004F6480(&tContext, pLine->nWidth + nLineX + 2, nLineY + 4, -1, 5, 0);

@@ -67,10 +67,10 @@ void __stdcall sub_004DA2A0_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, 
 void __stdcall sub_004DA690_ReplaceMotionFlag1With8(D2UnitStrc* pUnit);                                     // 0x004DA690
 void __fastcall sub_004DA6E0_SetMotionFlag20(D2UnitStrc* pUnit, int bSet);                                  // 0x004DA6E0
 void __fastcall sub_004E1C80_CltMissileInitDiabWall(D2UnitStrc* pMissile, int nArg);                                   // 0x004E1C80
-D2UnitStrc* __fastcall sub_004E31C0_CltDo(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);               // 0x004E31C0
+D2UnitStrc* __fastcall SKILLDESC_CltDoRandomMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);               // 0x004E31C0
 void __fastcall sub_004EA010_SkillDescLine(D2UnitStrc* pUnit, void* pArg, D2SkillsTxt* pSkillsTxtRecord, int nArg3, int nArg4, int nArg5, int nArg6); // 0x004EA010
 void __fastcall sub_004F2440_OnStateRemove(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);       // 0x004F2440
-int __fastcall sub_004F3A60(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nParam1, int nParam2, int nParam3); // 0x004F3A60
+int __fastcall SKILLDESC_CreateCorpseExplosionMissiles(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nParam1, int nParam2, int nParam3); // 0x004F3A60
 int __fastcall sub_004F3CE0_CreateSkillMissiles(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nParam1, int nParam2, int nParam3); // 0x004F3CE0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit);                                               // 0x00620250
@@ -626,7 +626,7 @@ int __fastcall sub_004F0B50_TimedMissile(D2UnitStrc* pUnit, int nSkillId, int nS
         return 0;
     }
 
-    D2UnitStrc* pMissile = sub_004E31C0_CltDo(pUnit, nSkillId, nSkillLevel);
+    D2UnitStrc* pMissile = SKILLDESC_CltDoRandomMissile(pUnit, nSkillId, nSkillLevel);
     if (!pMissile)
     {
         return 0;
@@ -923,7 +923,7 @@ int __fastcall sub_004F3C80_UseSkillParamsA(D2UnitStrc* pUnit, int nSkillId, int
     const int nParam1 = SKILLS_GetParam1(pSkill);
     const int nParam2 = SKILLS_GetParam2(pSkill);
     const int nParam3 = SKILLS_GetParam3(pSkill);
-    return sub_004F3A60(pUnit, nSkillId, nSkillLevel, nParam1, nParam2, nParam3);
+    return SKILLDESC_CreateCorpseExplosionMissiles(pUnit, nSkillId, nSkillLevel, nParam1, nParam2, nParam3);
 }
 
 // 0x004F3E50

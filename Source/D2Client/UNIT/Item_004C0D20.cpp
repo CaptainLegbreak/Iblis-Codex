@@ -76,7 +76,7 @@ typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState,
 
 void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatList, StatListRemoveCallback pfnCallback); // 0x00625CE0
 
-void __fastcall sub_004C21E0_StatRemoveCallback_ToggleStateOff(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x004C21E0
+void __fastcall SKILLDESC_ToggleStateOffCallback(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x004C21E0
 
 #pragma pack(push, 1)
 
@@ -110,7 +110,7 @@ void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x0046807
 
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
 
-void __cdecl sub_00487990_ResetHover(); // 0x00487990
+void __cdecl INV_ResetHover(); // 0x00487990
 
 void __fastcall sub_004B2A00(int nUnitId); // 0x004B2A00
 
@@ -573,7 +573,7 @@ void __fastcall sub_004C21F0_SetState36(D2UnitStrc* pUnit)
     {
         pStatList = STATLIST_AllocStatList(0, 2, 0x0C, !pUnit ? 6 : pUnit->dwUnitType, !pUnit ? -1 : pUnit->dwUnitId);
         STATLIST_SetState(pStatList, STATE_UNINTERRUPTABLE);
-        STATLIST_SetStatRemoveCallback(pStatList, sub_004C21E0_StatRemoveCallback_ToggleStateOff);
+        STATLIST_SetStatRemoveCallback(pStatList, SKILLDESC_ToggleStateOffCallback);
     }
     else
     {
@@ -665,7 +665,7 @@ void __fastcall sub_004C2C80(D2GSPacketSrv9D* pPacket)
     int bLoD = sub_0044DCC0();
     int nInventoryRecordId = UNITS_GetInventoryRecordId(pOwner, nPage, bLoD);
     INVENTORY_Return(".\\UNIT\\Item.cpp", 1231, pInventory, tItemSave.nX, tItemSave.nY, nInventoryRecordId, 1, nPage);
-    sub_00487990_ResetHover();
+    INV_ResetHover();
 
     if (pOwner->dwUnitType == UNIT_PLAYER)
     {

@@ -11,7 +11,7 @@ extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_00711470; // 0x00711470
 extern int gnMiniMapX_007A51DC; // 0x007A51DC
 extern int gnMiniMapY_007A51D8; // 0x007A51D8
-void __cdecl sub_00457520_UpdateAutomapLayout(); // 0x00457520
+void __cdecl AUTOMAP_UpdateAutomapLayout(); // 0x00457520
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -54,7 +54,7 @@ void __fastcall sub_00457640(int bForce)
         return;
     }
 
-    sub_00457520_UpdateAutomapLayout();
+    AUTOMAP_UpdateAutomapLayout();
     switch (gdwGlobal_007A5150)
     {
     case 1:

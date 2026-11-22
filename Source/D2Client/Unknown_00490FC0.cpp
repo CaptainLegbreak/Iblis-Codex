@@ -26,7 +26,7 @@ extern int gdwGlobal_007BCBF0;  // 0x007BCBF0
 extern int gnGlobal_007BCBEC;  // 0x007BCBEC
 extern int gnGlobal_007BCA4C;  // 0x007BCA4C
 extern int gnGlobal_007BCBD8;  // 0x007BCBD8
-static void __stdcall sub_00487BA0_Forward(int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7)
+static void __stdcall INV_ForwardTradeClick(int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7)
 {
     if (!nArg2)
         return;
@@ -105,7 +105,7 @@ int __fastcall sub_00490FC0(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, in
             else if (gdwGlobal_007BCBF0 < MV(0x13))
             {
                 pItem = INVENTORY_GetItemFromBodyLoc(pInventory, nBodyLoc);
-                sub_00487BA0_Forward((int)pPlayer, (int)pItem, 1, gnGlobal_007BCA4C, gnGlobal_007BCBD8, 0, 0);
+                INV_ForwardTradeClick((int)pPlayer, (int)pItem, 1, gnGlobal_007BCA4C, gnGlobal_007BCBD8, 0, 0);
             }
             break;
         case 5:

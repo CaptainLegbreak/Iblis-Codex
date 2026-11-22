@@ -30,7 +30,7 @@ Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc); // 0x00526
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 unsigned short __fastcall sub_004E6CE0_GetStringId(int nId, int nIndex); // 0x004E6CE0
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
-void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
+void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 extern int gnGlobal_007A2858; // 0x007A2858
 extern int gnGlobal_00711470; // 0x00711470
 extern int gnGlobal_007A285C; // 0x007A285C
@@ -61,14 +61,14 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __stdcall sub_00467F20_MsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x00467F20
 void __stdcall sub_00467FA0_MsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
 void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg); // 0x004785B0
-int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
+int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
 D2SkillDescTxt* __fastcall sub_004A89D0_SkillDescRec(int nSkillId); // 0x004A89D0
 void* __fastcall sub_004A8C80_GetSkillValue(D2SkillsTxt* pSkillsTxt); // 0x004A8C80
 int __fastcall sub_004AA8B0_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
 int __cdecl sub_004AA900_IsStateOrValue(); // 0x004AA900
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-void __fastcall sub_004EEF00_ShowSkillPopup(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nArg, int nX, int nY); // 0x004EEF00
-void __fastcall sub_004EF410_ShowSkillPopupB(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nArg, int nX, int nY); // 0x004EF410
+void __fastcall SKILLDESC_ShowSkillPopup(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nArg, int nX, int nY); // 0x004EEF00
+void __fastcall SKILLDESC_ShowSkillPopupB(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nArg, int nX, int nY); // 0x004EF410
 void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift); // 0x004F64B0
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
@@ -162,7 +162,7 @@ int gnAutomapWidth_007A5220; // 0x007A5220
 static void __stdcall sub_004AAAA0_DrawSkillTreeText(const Unicode* wszText, int nY)
 {
     const int nTextY = gnGlobal_00711470 + gnGlobal_007A285C + nY - 0x1E0;
-    sub_004A7080(gnAutomapWidth_007A5220 - gnGlobal_007A2858 - 0x5A, nTextY, gnAutomapWidth_007A5220 - gnGlobal_007A2858, wszText, 0);
+    TEXT_DrawCenteredText(gnAutomapWidth_007A5220 - gnGlobal_007A2858 - 0x5A, nTextY, gnAutomapWidth_007A5220 - gnGlobal_007A2858, wszText, 0);
 }
 
 // 0x004AACE0
@@ -313,15 +313,15 @@ Done:
     sub_0046EFD0_DrawFramedBox(gnGlobal_0071146C - gnGlobal_007A2858 - 0x59, nBoxY + 5, 0x5A, 0x14, gbColor_007C0C50, 6);
     if (bShow1082)
     {
-        sub_004A7080(gnGlobal_0071146C - gnGlobal_007A2858 - 0x59, nBoxY + 0x14, 0x5A, D2LANG_GetStringFromTblIndex(0x1082), 0);
+        TEXT_DrawCenteredText(gnGlobal_0071146C - gnGlobal_007A2858 - 0x59, nBoxY + 0x14, 0x5A, D2LANG_GetStringFromTblIndex(0x1082), 0);
     }
     if (bShow1081)
     {
-        sub_004A7080(gnGlobal_0071146C - gnGlobal_007A2858 - 0x59, nBoxY + 0x14, 0x5A, D2LANG_GetStringFromTblIndex(0x1081), 0);
+        TEXT_DrawCenteredText(gnGlobal_0071146C - gnGlobal_007A2858 - 0x59, nBoxY + 0x14, 0x5A, D2LANG_GetStringFromTblIndex(0x1081), 0);
     }
     if (bShow1080)
     {
-        sub_004A7080(gnGlobal_0071146C - gnGlobal_007A2858 - 0x59, nBoxY + 0x14, 0x5A, D2LANG_GetStringFromTblIndex(0x1080), 0);
+        TEXT_DrawCenteredText(gnGlobal_0071146C - gnGlobal_007A2858 - 0x59, nBoxY + 0x14, 0x5A, D2LANG_GetStringFromTblIndex(0x1080), 0);
     }
 }
 
@@ -432,9 +432,9 @@ static void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSki
     if (nMouseX > nX && nMouseX < nX + 0x30 && nMouseY > nY - 0x30 && nMouseY < nY)
     {
         if (nState != -1)
-            sub_004EEF00_ShowSkillPopup(sub_00463DD0_GetPlayerUnit(), nSkillId, nSkillLevel, 0, nX, nY);
+            SKILLDESC_ShowSkillPopup(sub_00463DD0_GetPlayerUnit(), nSkillId, nSkillLevel, 0, nX, nY);
         else
-            sub_004EF410_ShowSkillPopupB(sub_00463DD0_GetPlayerUnit(), nSkillId, nSkillLevel, 0, nX, nY);
+            SKILLDESC_ShowSkillPopupB(sub_00463DD0_GetPlayerUnit(), nSkillId, nSkillLevel, 0, nX, nY);
     }
 
     if (nBaseLevel || nSkillLevel)

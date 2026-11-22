@@ -21,7 +21,7 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);           
 int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
-int __fastcall sub_0049AAA0_GetCenteredStringX(unsigned short nStringIndex, int nCenterX);                  // 0x0049AAA0
+int __fastcall TEXT_GetCenteredStringX(unsigned short nStringIndex, int nCenterX);                  // 0x0049AAA0
 int __cdecl sub_00468730();                                                                                 // 0x00468730
 int __cdecl sub_00468740();                                                                                 // 0x00468740
 D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry);               // 0x004795A0
@@ -106,18 +106,18 @@ static void __stdcall sub_0049AF60_DrawButtonHint(unsigned short nString1, unsig
     {
         sub_0049AAF0_DrawTextFrame(0, nString1, nCenterX, 0);
         {
-            const int nTextX = sub_0049AAA0_GetCenteredStringX(nString1, nCenterX);
+            const int nTextX = TEXT_GetCenteredStringX(nString1, nCenterX);
             sub_00502320(D2LANG_GetStringFromTblIndex(nString1), nTextX + gnGlobal_007A2858, nY1 - gnGlobal_007A285C, nColor, nUnused);
         }
         return;
     }
     sub_0049AAF0_DrawTextFrame(nString2, nString1, nCenterX, 1);
     {
-        const int nTextX = sub_0049AAA0_GetCenteredStringX(nString1, nCenterX);
+        const int nTextX = TEXT_GetCenteredStringX(nString1, nCenterX);
         sub_00502320(D2LANG_GetStringFromTblIndex(nString1), nTextX + gnGlobal_007A2858, nY1 - gnGlobal_007A285C, nColor, nUnused);
     }
     {
-        const int nTextX = sub_0049AAA0_GetCenteredStringX(nString2, nCenterX);
+        const int nTextX = TEXT_GetCenteredStringX(nString2, nCenterX);
         sub_00502320(D2LANG_GetStringFromTblIndex(nString2), nTextX + gnGlobal_007A2858, nY2 - gnGlobal_007A285C, nColor, nUnused);
     }
 }
@@ -226,7 +226,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                                 {
                                     sub_0049AAF0_DrawTextFrame(0, 0x1019, 0x6E, 0);
                                     {
-                                        const int nTextX = sub_0049AAA0_GetCenteredStringX(0x1019, 0x6E);
+                                        const int nTextX = TEXT_GetCenteredStringX(0x1019, 0x6E);
                                         sub_00502320(D2LANG_GetStringFromTblIndex(0x1019), nTextX + gnGlobal_007A2858, 0x37 - gnGlobal_007A285C, 1, 0);
                                     }
                                     return;
@@ -239,11 +239,11 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                             }
                             sub_0049AAF0_DrawTextFrame(0x101B, 0x101A, 0xA0, 1);
                             {
-                                const int nTextX = sub_0049AAA0_GetCenteredStringX(0x101A, 0xA0);
+                                const int nTextX = TEXT_GetCenteredStringX(0x101A, 0xA0);
                                 sub_00502320(D2LANG_GetStringFromTblIndex(0x101A), nTextX + gnGlobal_007A2858, 0x32 - gnGlobal_007A285C, 0, 0);
                             }
                             {
-                                const int nTextX = sub_0049AAA0_GetCenteredStringX(0x101B, 0xA0);
+                                const int nTextX = TEXT_GetCenteredStringX(0x101B, 0xA0);
                                 sub_00502320(D2LANG_GetStringFromTblIndex(0x101B), nTextX + gnGlobal_007A2858, 0x41 - gnGlobal_007A285C, 0, 0);
                             }
                             return;
@@ -273,22 +273,22 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                             {
                                 sub_0049AAF0_DrawTextFrame(0x1011, 0x1010, 0xFF, 1);
                                 {
-                                    const int nTextX = sub_0049AAA0_GetCenteredStringX(0x1010, 0xFF);
+                                    const int nTextX = TEXT_GetCenteredStringX(0x1010, 0xFF);
                                     sub_00502320(D2LANG_GetStringFromTblIndex(0x1010), nTextX + gnGlobal_007A2858, 0x32 - gnGlobal_007A285C, 0, 0);
                                 }
                                 {
-                                    const int nTextX = sub_0049AAA0_GetCenteredStringX(0x1011, 0xFF);
+                                    const int nTextX = TEXT_GetCenteredStringX(0x1011, 0xFF);
                                     sub_00502320(D2LANG_GetStringFromTblIndex(0x1011), nTextX + gnGlobal_007A2858, 0x41 - gnGlobal_007A285C, 0, 0);
                                 }
                                 return;
                             }
                             sub_0049AAF0_DrawTextFrame(0x100F, 0x100E, 0xFF, 1);
                             {
-                                const int nTextX = sub_0049AAA0_GetCenteredStringX(0x100E, 0xFF);
+                                const int nTextX = TEXT_GetCenteredStringX(0x100E, 0xFF);
                                 sub_00502320(D2LANG_GetStringFromTblIndex(0x100E), nTextX + gnGlobal_007A2858, 0x32 - gnGlobal_007A285C, 0, 0);
                             }
                             {
-                                const int nTextX = sub_0049AAA0_GetCenteredStringX(0x100F, 0xFF);
+                                const int nTextX = TEXT_GetCenteredStringX(0x100F, 0xFF);
                                 sub_00502320(D2LANG_GetStringFromTblIndex(0x100F), nTextX + gnGlobal_007A2858, 0x41 - gnGlobal_007A285C, 0, 0);
                             }
                             return;
@@ -300,22 +300,22 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                         {
                             sub_0049AAF0_DrawTextFrame(0x1013, 0x1012, 0x114, 1);
                             {
-                                const int nTextX = sub_0049AAA0_GetCenteredStringX(0x1012, 0x114);
+                                const int nTextX = TEXT_GetCenteredStringX(0x1012, 0x114);
                                 sub_00502320(D2LANG_GetStringFromTblIndex(0x1012), nTextX + gnGlobal_007A2858, 0x32 - gnGlobal_007A285C, 0, 0);
                             }
                             {
-                                const int nTextX = sub_0049AAA0_GetCenteredStringX(0x1013, 0x114);
+                                const int nTextX = TEXT_GetCenteredStringX(0x1013, 0x114);
                                 sub_00502320(D2LANG_GetStringFromTblIndex(0x1013), nTextX + gnGlobal_007A2858, 0x41 - gnGlobal_007A285C, 0, 0);
                             }
                             return;
                         }
                         sub_0049AAF0_DrawTextFrame(0x1015, 0x1014, 0x114, 1);
                         {
-                            const int nTextX = sub_0049AAA0_GetCenteredStringX(0x1014, 0x114);
+                            const int nTextX = TEXT_GetCenteredStringX(0x1014, 0x114);
                             sub_00502320(D2LANG_GetStringFromTblIndex(0x1014), nTextX + gnGlobal_007A2858, 0x32 - gnGlobal_007A285C, 0, 0);
                         }
                         {
-                            const int nTextX = sub_0049AAA0_GetCenteredStringX(0x1015, 0x114);
+                            const int nTextX = TEXT_GetCenteredStringX(0x1015, 0x114);
                             sub_00502320(D2LANG_GetStringFromTblIndex(0x1015), nTextX + gnGlobal_007A2858, 0x41 - gnGlobal_007A285C, 0, 0);
                         }
                         return;
@@ -326,14 +326,14 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                         {
                             sub_0049AAF0_DrawTextFrame(0, 0x1017, 0x128, 0);
                             {
-                                const int nTextX = sub_0049AAA0_GetCenteredStringX(0x1017, 0x128);
+                                const int nTextX = TEXT_GetCenteredStringX(0x1017, 0x128);
                                 sub_00502320(D2LANG_GetStringFromTblIndex(0x1017), nTextX + gnGlobal_007A2858, 0x37 - gnGlobal_007A285C, 0, 0);
                             }
                             return;
                         }
                         sub_0049AAF0_DrawTextFrame(0, 0x1016, 0x128, 0);
                         {
-                            const int nTextX = sub_0049AAA0_GetCenteredStringX(0x1016, 0x128);
+                            const int nTextX = TEXT_GetCenteredStringX(0x1016, 0x128);
                             sub_00502320(D2LANG_GetStringFromTblIndex(0x1016), gnGlobal_007A2858 + nTextX, 0x37 - gnGlobal_007A285C, 0, 0);
                         }
                         return;

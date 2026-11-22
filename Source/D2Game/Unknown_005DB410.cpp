@@ -32,11 +32,11 @@ void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc*, D2UnitStrc*); // 0
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 void __fastcall SKILLS_AddDamagePercentBonus(D2UnitStrc*, int); // 0x005DB6A0
-int __fastcall sub_004F4110_GetSkillParam5(int); // 0x004F4110
+int __fastcall SKILLDESC_GetSkillParamSix(int); // 0x004F4110
 void __fastcall SKILLS_RewindUnitAnimation(D2UnitStrc*, int); // 0x0056E210
 
 typedef char DamageSizeCheck[sizeof(D2DamageStrc) == 0x70 ? 1 : -1];
-int __fastcall sub_004EFC20_GetSkillParam2(int nSkillId); // 0x004EFC20
+int __fastcall SKILLDESC_GetSkillParamTwo(int nSkillId); // 0x004EFC20
 int __fastcall D2GAME_RollElementalDamage_6FD14DD0(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel); // 0x0056E0C0
 int __fastcall SKILLS_GetMeleeSearchRange(D2UnitStrc* pUnit); // 0x0056E510
 void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int a4); // 0x0057D4F0
@@ -225,7 +225,7 @@ int __fastcall sub_005DBA40_CreateSkillMissile(D2GameStrc* pGame, D2UnitStrc* pU
     {
         SKILLS_SetParam2(pSkill, GetTargetType(pNextTarget));
         SKILLS_SetParam3(pSkill, GetTargetId(pNextTarget));
-        SKILLS_RewindUnitAnimation(pUnit, sub_004F4110_GetSkillParam5(nSkillId));
+        SKILLS_RewindUnitAnimation(pUnit, SKILLDESC_GetSkillParamSix(nSkillId));
     }
     return 1;
 }

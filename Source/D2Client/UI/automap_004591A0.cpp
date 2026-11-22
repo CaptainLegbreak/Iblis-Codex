@@ -56,11 +56,11 @@ extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
 
-void __cdecl sub_004584C0();                                                                         // 0x004584C0
+void __cdecl AUTOMAP_SaveAutomapLayer();                                                                         // 0x004584C0
 
-void __cdecl sub_00458680_ResetAutomapCells();                                                                         // 0x00458680
+void __cdecl AUTOMAP_ResetAutomapCells();                                                                         // 0x00458680
 
-void __cdecl sub_00458750();                                                                        // 0x00458750
+void __cdecl AUTOMAP_LoadAutomapLayer();                                                                        // 0x00458750
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 
@@ -76,13 +76,13 @@ int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);              
 
 D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId);                                         // 0x0061E470
 
-void __stdcall sub_00458F40_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevealAll, D2AutomapLayerStrc* pLayer); // 0x00458F40
+void __stdcall AUTOMAP_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevealAll, D2AutomapLayerStrc* pLayer); // 0x00458F40
 
 void __stdcall DUNGEON_GameTileToClientCoords(int* pX, int* pY);                                              // 0x00643310
 
-D2AutomapCellStrc* __cdecl sub_00457C30();                                                       // 0x00457C30
+D2AutomapCellStrc* __cdecl AUTOMAP_AllocAutomapCell();                                                       // 0x00457C30
 
-int __fastcall sub_00457B00(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot); // 0x00457B00
+int __fastcall AUTOMAP_InsertAutomapCell(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot); // 0x00457B00
 
 extern "C" const char szAutomapFile_006D66F0[];                                                             // 0x006D66F0
 
@@ -129,7 +129,7 @@ struct D2CropRectStrc
 
 int __cdecl sub_0045AE90();                                                                                 // 0x0045AE90
 
-static int __cdecl sub_004576C0();                                                                          // 0x004576C0
+static int __cdecl AUTOMAP_GetAutomapFade();                                                                          // 0x004576C0
 
 int __cdecl sub_00492C10();                                                                                 // 0x00492C10
 
@@ -251,10 +251,10 @@ static D2AutomapLayerStrc* sub_00458D40_InitAutomapLayer(int nLayerNo)
 
     if (pLayer != gpAutomapContext_007A5164)
     {
-        sub_004584C0();
-        sub_00458680_ResetAutomapCells();
+        AUTOMAP_SaveAutomapLayer();
+        AUTOMAP_ResetAutomapCells();
         gpAutomapContext_007A5164 = pLayer;
-        sub_00458750();
+        AUTOMAP_LoadAutomapLayer();
     }
 
     return pLayer;
@@ -383,12 +383,12 @@ void __stdcall sub_004591A0_AddTownCelsCallback(int nLevelId, int nPickedFile, i
             D2_ASSERT(nPosY >= -0x8000 && nPosY <= 0x7FFF, 0x778);
             D2_ASSERT(nPickedFile >= -0x8000 && nPickedFile <= 0x7FFF, 0x779);
             {
-                D2AutomapCellStrc* pCell = sub_00457C30();
+                D2AutomapCellStrc* pCell = AUTOMAP_AllocAutomapCell();
                 pCell->fSaved = 0;
                 pCell->nCellNo = nPickedFile;
                 pCell->xPixel = nPosX;
                 pCell->yPixel = nPosY;
-                sub_00457B00(pCell, &pLayer->pExtras);
+                AUTOMAP_InsertAutomapCell(pCell, &pLayer->pExtras);
             }
 next:
             ++nPickedFile;
@@ -406,7 +406,7 @@ int __fastcall sub_00457450_Abs(int nValue)
     return nValue < 0 ? -nValue : nValue;
 }
 
-static int __cdecl sub_004576C0()
+static int __cdecl AUTOMAP_GetAutomapFade()
 {
     if (gdwGlobal_007A5150 == 1 && gdwAutoMapFade_007A51A8 == 1)
     {
@@ -416,7 +416,7 @@ static int __cdecl sub_004576C0()
 }
 
 // 0x00459440
-void __fastcall sub_00459440(D2AutomapCellStrc* pCell, D2AutomapDrawStrc* pInfo)
+void __fastcall AUTOMAP_DrawAutomapCells(D2AutomapCellStrc* pCell, D2AutomapDrawStrc* pInfo)
 {
     if (!pCell)
     {
@@ -441,7 +441,7 @@ void __fastcall sub_00459440(D2AutomapCellStrc* pCell, D2AutomapDrawStrc* pInfo)
 
     if (nY >= pInfo->nTop)
     {
-        sub_00459440(pCell->pPrev, pInfo);
+        AUTOMAP_DrawAutomapCells(pCell->pPrev, pInfo);
     }
 
     if (nY >= pInfo->nTop && nY <= pInfo->nBottom && nX >= pInfo->nLeft && nX <= pInfo->nRight)
@@ -453,7 +453,7 @@ void __fastcall sub_00459440(D2AutomapCellStrc* pCell, D2AutomapDrawStrc* pInfo)
         tData.pCellFile = pInfo->pCelFile;
         tData.nDirection = 0;
 
-        switch (sub_004576C0())
+        switch (AUTOMAP_GetAutomapFade())
         {
         case 1:
             if (pInfo->pCelFile == gpAutomapCel_007A5168 && !gdwGlobal_007A5150)
@@ -470,7 +470,7 @@ void __fastcall sub_00459440(D2AutomapCellStrc* pCell, D2AutomapDrawStrc* pInfo)
                     const int nDist = (nDistX > nDistY ? nDistY + 2 * nDistX : nDistX + 2 * nDistY) / 2;
                     if (nDist < 0x96)
                     {
-                        nDrawMode = sub_004576C0() == 2 ? 1 : 2;
+                        nDrawMode = AUTOMAP_GetAutomapFade() == 2 ? 1 : 2;
                         if (nDist < 0x64)
                         {
                             nDrawMode = 1;
@@ -534,7 +534,7 @@ void __fastcall sub_00459440(D2AutomapCellStrc* pCell, D2AutomapDrawStrc* pInfo)
 
     if (nY <= pInfo->nBottom)
     {
-        sub_00459440(pCell->pNext, pInfo);
+        AUTOMAP_DrawAutomapCells(pCell->pNext, pInfo);
     }
 }
 

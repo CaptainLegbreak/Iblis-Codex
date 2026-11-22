@@ -58,7 +58,7 @@ void __cdecl sub_0044DA40(); // 0x0044DA40
 
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
-void __cdecl sub_00454980(); // 0x00454980
+void __cdecl UI_RegisterKeyConfigHandlers(); // 0x00454980
 
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
@@ -80,13 +80,13 @@ int __fastcall sub_00469D90(int nA, int nB); // 0x00469D90
 
 void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
-void __cdecl sub_0049FE10(); // 0x0049FE10
+void __cdecl TEXT_FreeTextPanelCels(); // 0x0049FE10
 
 bool __stdcall sub_004A2970(int nX, int nY); // 0x004A2970
 
-void __fastcall sub_004A3FE0(int nMode); // 0x004A3FE0
+void __fastcall TEXT_ToggleQuestLog(int nMode); // 0x004A3FE0
 
-void __fastcall sub_004A45C0_MoveSelection(int nStep); // 0x004A45C0
+void __fastcall TEXT_MoveKeyConfigSelection(int nStep); // 0x004A45C0
 
 void __fastcall sub_004A6260(int nId); // 0x004A6260
 
@@ -140,7 +140,7 @@ public:
     virtual ~ListBoxWrapper();
 };
 
-void __fastcall sub_004B8020(void* pRes); // 0x004B8020
+void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 
 extern D2ClientDialogStrc* gpListDialog_007BF1B0; // 0x007BF1B0
 
@@ -152,7 +152,7 @@ int gnGlobal_007C02B0; // 0x007C02B0
 
 #define SOUND_ID 4
 
-int __stdcall sub_004A2970_IsMouseOnButton(int nX, int nY);
+int __stdcall TEXT_IsMouseOnQuestButton(int nX, int nY);
 
 ListBoxWrapper* gpListBox_007BF1B4; // 0x007BF1B4
 
@@ -335,7 +335,7 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
-void __stdcall sub_004A3220_LoadQuestPage(int nPage, int nArg); // 0x004A3220
+void __stdcall TEXT_LoadQuestPage(int nPage, int nArg); // 0x004A3220
 
 void __cdecl sub_0044DA70(); // 0x0044DA70
 
@@ -343,9 +343,9 @@ int __cdecl sub_0044DCC0(); // 0x0044DCC0
 
 void __fastcall sub_004A1320_OpenTextPanel(unsigned short nStringId, int bSide, int bSound); // 0x004A1320
 
-void __fastcall sub_0049E7E0_SetTextCallback(D2TextCallback pfnCallback, void* pContext); // 0x0049E7E0
+void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext); // 0x0049E7E0
 
-int __fastcall sub_004A27B0_CloseQuestText(void* pContext, int nArg, int nValue); // 0x004A27B0
+int __fastcall TEXT_CloseQuestText(void* pContext, int nArg, int nValue); // 0x004A27B0
 
 extern D2QuestSlotRectStrc gaQuestSlots_00723EB0[]; // 0x00723EB0
 
@@ -545,7 +545,7 @@ char gabQuestFlagsA_007BF356[42]; // 0x007BF356
 
 extern "C" B27RecordHandler __fastcall sub_005173D3_ExchangeRecordHandler(B27RecordHandler handler); // 0x005173D3
 
-static inline int sub_004A1930_FindEntryIndex(int nId);
+static inline int TEXT_FindEntryIndex(int nId);
 
 static int __stdcall sub_004A26F0_GetTabAtPoint(int nY, int nX);
 
@@ -560,7 +560,7 @@ static unsigned char sub_004A2610_HitTestButtonA(int nX, int nY);
 static void sub_004A27D0_OpenQuestDescription(int nSlot);
 
 // 0x0049A950
-void __cdecl sub_0049A950_DrawPanelCel()
+void __cdecl TEXT_DrawPanelCloseButton()
 {
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
@@ -571,7 +571,7 @@ void __cdecl sub_0049A950_DrawPanelCel()
 }
 
 // 0x0049AA50
-int __stdcall sub_0049AA50_IsMouseInRect(int nX, int nY, int nWidth, int nHeight)
+int __stdcall TEXT_IsMouseInRect(int nX, int nY, int nWidth, int nHeight)
 {
     int nMouseX = sub_00468730();
     int nMouseY = sub_00468740();
@@ -589,7 +589,7 @@ int __stdcall sub_0049AA50_IsMouseInRect(int nX, int nY, int nWidth, int nHeight
 }
 
 // 0x0049CEC0
-void __stdcall sub_0049CEC0_KeyMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_WaypointKeyMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (pMsg->uMessage == 0x102 && pMsg->wParam == 9)
     {
@@ -614,7 +614,7 @@ void __stdcall sub_0049CEC0_KeyMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0049D440
-void __cdecl sub_0049D440_LoadTextSettings()
+void __cdecl TEXT_LoadTextSettings()
 {
     memset(gData_007BF1B0, 0, 0x9F);
     unsigned long nValue;
@@ -629,7 +629,7 @@ void __cdecl sub_0049D440_LoadTextSettings()
 }
 
 // 0x0049D4D0
-void __stdcall sub_0049D4D0_FreeTextList(D2TextListStrc* pList)
+void __stdcall TEXT_FreeTextList(D2TextListStrc* pList)
 {
     int nCount = 0;
     D2TextNodeStrc* pNode = pList->pFirst;
@@ -660,7 +660,7 @@ void __stdcall sub_0049D4D0_FreeTextList(D2TextListStrc* pList)
 }
 
 // 0x0049DA10
-void __stdcall sub_0049DA10_EatMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_EatMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
@@ -668,7 +668,7 @@ void __stdcall sub_0049DA10_EatMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0049E810
-void __cdecl sub_0049E810_SetPanelRect()
+void __cdecl TEXT_SetPanelRect()
 {
     D2RectStrc tRect;
     tRect.nTop = gnGlobal_007225FC;
@@ -680,21 +680,21 @@ void __cdecl sub_0049E810_SetPanelRect()
 }
 
 // 0x0049FE60
-void __stdcall sub_0049FE60_CloseMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_CloseTextPanelMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
     sub_00455F20(16, 2, 0);
-    sub_0049FE10();
+    TEXT_FreeTextPanelCels();
 }
 
 // 0x004A01A0
-void __cdecl sub_004A01A0_CloseListBoxDialog()
+void __cdecl TEXT_CloseMessageLogDialog()
 {
     if (gpListDialog_007BF1B0)
     {
-        sub_004B8020(gpListDialog_007BF1B0);
+        DIALOG_DestroyDialog(gpListDialog_007BF1B0);
         gpListDialog_007BF1B0 = 0;
     }
 
@@ -712,7 +712,7 @@ int __cdecl sub_004A1760_Forward()
 }
 
 // 0x004A1770
-void __stdcall sub_004A1770_KeyUpMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_KeyUpMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     gnGlobal_007BF1FA = 0;
     if (GetTickCount() - gnGlobal_007BF22C < 100)
@@ -733,7 +733,7 @@ void __stdcall sub_004A1770_KeyUpMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004A1870
-void __stdcall sub_004A1870_HotkeyMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_HotkeyMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_00469D90(7, 1))
     {
@@ -744,28 +744,28 @@ void __stdcall sub_004A1870_HotkeyMsgHandler(SMSGHANDLER_PARAMS* pMsg)
         }
     }
 
-    sub_004A1770_KeyUpMsgHandler(pMsg);
+    TEXT_KeyUpMsg(pMsg);
 }
 
 // 0x004A18C0
-void __stdcall sub_004A18C0_KeyDownMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_KeyDownMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (pMsg->wParam != 0x73)
     {
-        sub_004A1870_HotkeyMsgHandler(pMsg);
+        TEXT_HotkeyMsg(pMsg);
     }
 }
 
 // 0x004A18E0
-static inline void sub_004A18E0_SetIndex(int nIndex)
+static inline void TEXT_SetQuestIndex(int nIndex)
 {
     gnIndex_007BF2B9 = nIndex;
 }
 
 int __fastcall sub_M115_Emit_004A18E0(int nIndex, int nId)
 {
-    sub_004A18E0_SetIndex(nIndex);
-    return sub_004A1930_FindEntryIndex(nId);
+    TEXT_SetQuestIndex(nIndex);
+    return TEXT_FindEntryIndex(nId);
 }
 
 // 0x004A18F0
@@ -779,7 +779,7 @@ void __cdecl sub_004A3050()
 }
 
 // 0x004A1910
-static inline int sub_004A1910_FindQuestIndex(int nKey)
+static inline int TEXT_FindQuestIndex(int nKey)
 {
     for (int i = 0; i < 41; i++)
     {
@@ -790,7 +790,7 @@ static inline int sub_004A1910_FindQuestIndex(int nKey)
 }
 
 // 0x004A1930
-static inline int sub_004A1930_FindEntryIndex(int nId)
+static inline int TEXT_FindEntryIndex(int nId)
 {
     for (int i = 0; i < 41; i++)
     {
@@ -803,7 +803,7 @@ static inline int sub_004A1930_FindEntryIndex(int nId)
 int __fastcall sub_M224_Emit_004A1910(int nIndex, int nKey)
 {
     gnIndex_007BF2B9 = nIndex;
-    return sub_004A1910_FindQuestIndex(nKey);
+    return TEXT_FindQuestIndex(nKey);
 }
 
 static void sub_004A2220_SetQuestPage(int nPage)
@@ -860,7 +860,7 @@ extern "C" void __cdecl sub_004A01E0_ClearList(void)
 }
 
 // 0x004A2390
-extern "C" void __cdecl sub_004A2390_ResetGlobals(void)
+extern "C" void __cdecl TEXT_ResetQuestGlobals(void)
 {
     gByte_007BF2B1 = 0;
     gByte_007BF2B2 = 0;
@@ -873,7 +873,7 @@ extern "C" void __cdecl sub_004A2390_ResetGlobals(void)
     gByte_007C0260 = 0;
 }
 
-void __stdcall sub_004A3E40_OnLeftButtonDown(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     int nX = D2_LOWORD(pMsg->lParam);
     int nY = D2_HIWORD(pMsg->lParam);
@@ -905,7 +905,7 @@ void __stdcall sub_004A3E40_OnLeftButtonDown(SMSGHANDLER_PARAMS* pMsg)
             {
                 sub_004A2760(gnGlobal_007C0255);
                 sub_004A2220_SetQuestPage(nIndex);
-                sub_004A3220_LoadQuestPage(gnGlobal_007C0255, 1);
+                TEXT_LoadQuestPage(gnGlobal_007C0255, 1);
                 sub_004A2390_ResetQuestSelection();
             }
         }
@@ -944,13 +944,13 @@ void __stdcall sub_004A3E40_OnLeftButtonDown(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
-void __stdcall sub_004A42A0_OnLeftButtonUp(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     int nX = D2_LOWORD(pMsg->lParam) - gnGlobal_007A2858;
     int nY = D2_HIWORD(pMsg->lParam) + gnGlobal_007A285C;
     if (gbGlobal_007BF2B2)
     {
-        if (sub_004A2690_HitTestButtonB(nX, nY)) sub_004A3FE0(0);
+        if (sub_004A2690_HitTestButtonB(nX, nY)) TEXT_ToggleQuestLog(0);
     }
     else if (!gbGlobal_007BF2B3)
     {
@@ -988,7 +988,7 @@ void __stdcall sub_004A42A0_OnLeftButtonUp(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004A2550
-void __cdecl sub_004A2550_FreeQuestCels()
+void __cdecl TEXT_FreeQuestCels()
 {
     if (gpCelFile_007BF2D5)
     {
@@ -1031,9 +1031,9 @@ void __cdecl sub_004A2550_FreeQuestCels()
 }
 
 // 0x004A2600
-void __cdecl sub_004A2600_FreeQuestPanel()
+void __cdecl TEXT_FreeQuestPanel()
 {
-    sub_004A2550_FreeQuestCels();
+    TEXT_FreeQuestCels();
 }
 
 static void sub_004A2390_ResetQuestSelection()
@@ -1124,7 +1124,7 @@ static int __stdcall sub_004A26F0_GetTabAtPoint(int nY, int nX)
 }
 
 // 0x004A2760
-void __cdecl sub_004A2760_SendQuestUpdates()
+void __cdecl TEXT_SendQuestUpdates()
 {
     for (int i = 0; i < gnQuestCount_007BF2A0; ++i)
     {
@@ -1138,10 +1138,10 @@ void __cdecl sub_004A2760_SendQuestUpdates()
 }
 
 // 0x004A27B0
-int __fastcall sub_004A27B0_CloseQuestText(void* pContext, int nArg, int nValue)
+int __fastcall TEXT_CloseQuestText(void* pContext, int nArg, int nValue)
 {
     gbGlobal_007BF2B3 = 0;
-    sub_0049E7E0_SetTextCallback(0, pContext);
+    TEXT_SetTextCallback(0, pContext);
     return 0;
 }
 
@@ -1167,12 +1167,12 @@ static void sub_004A27D0_OpenQuestDescription(int nSlot)
         return;
     }
     sub_004A1320_OpenTextPanel(wTextId, 1, 0);
-    sub_0049E7E0_SetTextCallback(sub_004A27B0_CloseQuestText, 0);
+    TEXT_SetTextCallback(TEXT_CloseQuestText, 0);
     gbGlobal_007BF2B3 = 1;
 }
 
 // 0x004A2840
-void __stdcall sub_004A2840_OpenPanelMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_CloseQuestPanelMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
@@ -1190,7 +1190,7 @@ void __stdcall sub_004A2840_OpenPanelMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004A28D0
-void __cdecl sub_004A28D0_ResetButton()
+void __cdecl TEXT_ResetQuestButton()
 {
     if (gnGlobal_007C0255 < 5)
         sub_004A2760(gnGlobal_007C0255);
@@ -1201,7 +1201,7 @@ void __cdecl sub_004A28D0_ResetButton()
 }
 
 // 0x004A2900
-static int sub_004A2900_GetButtonLayout(int nMode)
+static int TEXT_GetButtonLayout(int nMode)
 {
     if (sub_004538D0(6) && !sub_004538D0(2))
     {
@@ -1243,7 +1243,7 @@ static int sub_E10_GetButtonLayoutCopy(int nMode)
 }
 
 // 0x004A2970
-int __stdcall sub_004A2970_IsMouseOnButton(int nX, int nY)
+int __stdcall TEXT_IsMouseOnQuestButton(int nX, int nY)
 {
     const int nMode = sub_0045AE90();
     const int nIndex = sub_E10_GetButtonLayoutCopy(nMode);
@@ -1256,11 +1256,11 @@ int __stdcall sub_004A2970_IsMouseOnButton(int nX, int nY)
 }
 
 // 0x004A2A20
-void __stdcall sub_004A2A20(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_QuestButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
-    if ((unsigned char)sub_004A2970_IsMouseOnButton(nX, nY))
+    if ((unsigned char)TEXT_IsMouseOnQuestButton(nX, nY))
     {
         gbGlobal_007BF2B0 = 1;
         sub_004B9A00(SOUND_ID, 0, 0, 0, 0);
@@ -1276,7 +1276,7 @@ void __stdcall sub_004A2A20(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004A2A80
-void __cdecl sub_004A2A80_DrawButton()
+void __cdecl TEXT_DrawQuestButton()
 {
     if (sub_00463DF0())
     {
@@ -1316,12 +1316,12 @@ void __cdecl sub_004A2A80_DrawButton()
     sub_004F6480(&tCel, nCelX, nCelY, -1, 5, 0);
 
     tCel.pCellFile = gpGlobal_007C02DC;
-    tCel.nFrame = gbGlobal_007BF2B0 && (unsigned char)sub_004A2970_IsMouseOnButton(sub_00468730(), sub_00468740());
+    tCel.nFrame = gbGlobal_007BF2B0 && (unsigned char)TEXT_IsMouseOnQuestButton(sub_00468730(), sub_00468740());
     sub_004F6480(&tCel, nCelX + 3, nCelY - 4, -1, 5, 0);
 }
 
 // 0x004A2C30
-void __fastcall sub_004A2C30_SelectQuestPage(int nCondition)
+void __fastcall TEXT_SelectQuestPage(int nCondition)
 {
     int nIndex = -1;
     for (int i = 0; i < 41; ++i)
@@ -1337,14 +1337,14 @@ void __fastcall sub_004A2C30_SelectQuestPage(int nCondition)
 }
 
 // 0x004A2C70
-void __fastcall sub_004A2C70_ClearUnitFlag92(D2UnitStrc* pUnit)
+void __fastcall TEXT_ClearCainFlag(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwClassId == 0x92)
         pUnit->dwFlags &= ~2u;
 }
 
 // 0x004A2C90
-void __fastcall sub_004A2C90_ClearUnitFlag20F(D2UnitStrc* pUnit)
+void __fastcall TEXT_ClearNihlathakFlag(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwClassId == 0x20F)
         pUnit->dwFlags &= ~2u;
@@ -1359,14 +1359,14 @@ extern "C" int __cdecl sub_00489840_ModeInGroup()
 }
 
 // 0x004A3000
-extern "C" void __cdecl sub_004A3000_ResetFlag()
+extern "C" void __cdecl TEXT_ResetQuestButtonState()
 {
     if (gB27_007BF298 == 1)
         gB27_007BF298 = 0;
 }
 
 // 0x004A3020
-void __cdecl sub_004A3020_ClearQuestFlags()
+void __cdecl TEXT_ClearQuestFlags()
 {
     for (int i = 0; i < 41; ++i)
     {
@@ -1430,7 +1430,7 @@ extern "C" void __fastcall sub_00535780_SetPlayers(unsigned int count)
 }
 
 // 0x004A30A0
-void __cdecl sub_004A30A0_TriggerOnceD3()
+void __cdecl TEXT_LoadDurielCofsOnce()
 {
     if (!gbGlobal_007C025D)
     {
@@ -1440,7 +1440,7 @@ void __cdecl sub_004A30A0_TriggerOnceD3()
 }
 
 // 0x004A30C0
-void __cdecl sub_004A30C0_TriggerOnce219()
+void __cdecl TEXT_LoadAncientsCofsOnce()
 {
     if (!gbGlobal_007C025E)
     {
@@ -1452,20 +1452,20 @@ void __cdecl sub_004A30C0_TriggerOnce219()
 }
 
 // 0x004A3100
-extern "C" void __fastcall sub_004A3100_SetPacketValue(unsigned int value)
+extern "C" void __fastcall TEXT_SetQuestPacketValue(unsigned int value)
 {
     gB27_007C025F = 1;
     gB27_007C0265 = value;
 }
 
 // 0x004A3110
-char __cdecl sub_004A3110_GetFlag025F()
+char __cdecl TEXT_HasQuestPacketValue()
 {
     return gbGlobal_007C025F;
 }
 
 // 0x004A3120
-char __cdecl sub_004A3120_IsQuestUnitPresent()
+char __cdecl TEXT_IsQuestUnitPresent()
 {
     if (gbGlobal_007C0260 && sub_004639B0_FindServerSideUnit(gnQuestUnitId_007C0261, 1))
     {
@@ -1504,7 +1504,7 @@ static inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
 }
 
 // 0x004A3150
-void __fastcall sub_004A3150_SpawnQuestUnits(int nX, int nY)
+void __fastcall TEXT_SpawnQuestUnits(int nX, int nY)
 {
     if (gbGlobal_007C025F)
     {
@@ -1520,7 +1520,7 @@ void __fastcall sub_004A3150_SpawnQuestUnits(int nX, int nY)
 }
 
 // 0x004A3410
-void __cdecl sub_004A3410_ResetQuestPanel()
+void __cdecl TEXT_ResetQuestPanel()
 {
     SRegSaveValue("Diablo II", "GAMEOVER", 0, 0);
     gnGlobal_007BF298 = 0;
@@ -1557,14 +1557,14 @@ void __cdecl sub_004A3410_ResetQuestPanel()
 }
 
 // 0x004A4110
-void __stdcall sub_004A4110_ButtonUpMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_QuestButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     int nX = pMsg->nXpos;
     int nY = pMsg->nYpos;
     if (sub_004A2970(nX, nY) && gbGlobal_007BF2B0)
     {
         sub_00455F20(17, 1, 0);
-        sub_004A3FE0(0);
+        TEXT_ToggleQuestLog(0);
         gbGlobal_007BF2B0 = 0;
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
@@ -1577,14 +1577,14 @@ void __stdcall sub_004A4110_ButtonUpMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004A4780
-int __stdcall sub_004A4780_IsAbovePanelLine(int nY)
+int __stdcall TEXT_IsAbovePanelLine(int nY)
 {
     int nHalf = (gnGlobal_0071146C - 620) / 2;
     return nY < nHalf + (gnGlobal_0071146C - nHalf * 2 - 49) / 3 * 2 + 18;
 }
 
 // 0x004A5A40
-void __stdcall sub_004A5A40_PrevEntryMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_PrevEntryMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
@@ -1596,7 +1596,7 @@ void __stdcall sub_004A5A40_PrevEntryMsgHandler(SMSGHANDLER_PARAMS* pMsg)
     int nOldIndex = gnGlobal_007C02B0;
     do
     {
-        sub_004A45C0_MoveSelection(-1);
+        TEXT_MoveKeyConfigSelection(-1);
     }
     while (*(int*)pEntries[gnGlobal_007C02B0].nId == 0x39);
 
@@ -1611,7 +1611,7 @@ void __stdcall sub_004A5A40_PrevEntryMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004A5AB0
-void __stdcall sub_004A5AB0_NextEntryMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_NextEntryMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
@@ -1623,7 +1623,7 @@ void __stdcall sub_004A5AB0_NextEntryMsgHandler(SMSGHANDLER_PARAMS* pMsg)
     int nOldIndex = gnGlobal_007C02B0;
     do
     {
-        sub_004A45C0_MoveSelection(1);
+        TEXT_MoveKeyConfigSelection(1);
     }
     while (*(int*)pEntries[gnGlobal_007C02B0].nId == 0x39);
 
@@ -1638,7 +1638,7 @@ void __stdcall sub_004A5AB0_NextEntryMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004A5B30
-void __stdcall sub_004A5B30_SetFlagMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_SelectSecondaryColumnMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
@@ -1658,7 +1658,7 @@ void __stdcall sub_004A5B30_SetFlagMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004A5B90
-void __stdcall sub_004A5B90_ClearFlagMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_SelectPrimaryColumnMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
@@ -1678,7 +1678,7 @@ void __stdcall sub_004A5B90_ClearFlagMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004A5BF0
-void __stdcall sub_004A5BF0_SelectEntryMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_ClearEntryKeyMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
@@ -1705,7 +1705,7 @@ void __stdcall sub_004A5BF0_SelectEntryMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004A5D70
-void __stdcall sub_004A5D70_RegisterMsgHandlers(int bReset)
+void __stdcall TEXT_UnregisterKeyConfigHandlers(int bReset)
 {
     sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_00724738, 6);
     sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_0072478C, 1);
@@ -1713,13 +1713,13 @@ void __stdcall sub_004A5D70_RegisterMsgHandlers(int bReset)
     sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_0072472C, 1);
     if (bReset)
     {
-        sub_00454980();
+        UI_RegisterKeyConfigHandlers();
         gnGlobal_007C02B8 = 0;
     }
 }
 
 // 0x004A5F70
-void __stdcall sub_004A5F70_ApplyEntryMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_ApplyEntryMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
@@ -1747,7 +1747,7 @@ void __stdcall sub_004A5F70_ApplyEntryMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004A6310
-void __stdcall sub_004A6310_ToggleMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_WheelCaptureMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
@@ -1762,7 +1762,7 @@ void __stdcall sub_004A6310_ToggleMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004A6350
-void __stdcall sub_004A6350_CommandMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_ButtonCaptureMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
@@ -1786,7 +1786,7 @@ void __stdcall sub_004A6350_CommandMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004A6580
-int __fastcall sub_004A6580_IsInPanelButton(int nMode, int nX, int nY)
+int __fastcall TEXT_IsInPanelButton(int nMode, int nX, int nY)
 {
     if (nMode == 2)
     {
@@ -1810,7 +1810,7 @@ int __fastcall sub_004A6580_IsInPanelButton(int nMode, int nX, int nY)
 }
 
 // 0x004A7080
-void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor)
+void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor)
 {
     int nSpan = nRight - nLeft + 1;
     int nWidth = sub_00501820(wszText);
@@ -1823,7 +1823,7 @@ void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszTe
 }
 
 // 0x004A8D50
-void __fastcall sub_004A8D50_UpdateButton(short* pId, int nState, int nA, int nB, int nX, int nY)
+void __fastcall TEXT_UpdateSkillButtonHover(short* pId, int nState, int nA, int nB, int nX, int nY)
 {
     int nMouseX = sub_00468730();
     int nMouseY = sub_00468740();

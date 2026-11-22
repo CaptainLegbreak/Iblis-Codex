@@ -73,17 +73,17 @@ extern D2MsgHandlerEntryStrc gtHotkeyHandlers_00712974[2]; // 0x00712974
 
 void __cdecl sub_00469780_SaveKeyConfig(); // 0x00469780
 
-void __cdecl sub_004694A0_BindMouseHotkeys(); // 0x004694A0
+void __cdecl CMDTBL_BindMouseHotkeys(); // 0x004694A0
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 
 void __cdecl sub_0044C6B0(); // 0x0044C6B0
 
-void __cdecl sub_004A01E0_ClearListFlags(); // 0x004A01E0
+void __cdecl TEXT_ClearListFlags(); // 0x004A01E0
 
 void __fastcall sub_0044BEA0_SetValue(int nValue); // 0x0044BEA0
 
-void __stdcall sub_004698D0_LoadKeyConfig(int bInstallDir); // 0x004698D0
+void __stdcall CMDTBL_LoadKeyConfig(int bInstallDir); // 0x004698D0
 
 extern D2HotkeyStrc gtHotkeysSaved_007A6B18[NUM_HOTKEYS]; // 0x007A6B18
 
@@ -93,7 +93,7 @@ struct D2KeyBindingStrc;
 
 struct D2HotkeyActionStrc;
 
-int __fastcall sub_00469AE0_IsValidKey(unsigned short nKey); // 0x00469AE0
+int __fastcall CMDTBL_IsValidKey(unsigned short nKey); // 0x00469AE0
 
 
 typedef void (__cdecl* D2HotkeyCallback)();
@@ -120,7 +120,7 @@ extern Unicode gwszKeyText_007A741C[4]; // 0x007A741C
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
-const Unicode* __fastcall sub_00469DE0_GetKeyText(int nKey, int nArg2); // 0x00469DE0
+const Unicode* __fastcall CMDTBL_GetKeyText(int nKey, int nArg2); // 0x00469DE0
 
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 struct D2KeyConfigFileStrc
@@ -139,19 +139,19 @@ int __fastcall sub_004069A0_CloseFile(void* hFile); // 0x004069A0
 int __fastcall sub_004069B0_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x004069B0
 
 // 0x004690A0
-void __cdecl sub_004690A0_HotkeyCmd4()
+void __cdecl CMDTBL_HotkeyClearScreen()
 {
     sub_0044C6B0();
 }
 
 // 0x004691B0
-void __cdecl sub_004691B0_HotkeyClearListFlags()
+void __cdecl CMDTBL_HotkeyClearMessages()
 {
-    sub_004A01E0_ClearListFlags();
+    TEXT_ClearListFlags();
 }
 
 // 0x00469200
-void __cdecl sub_00469200_HotkeyClearValue()
+void __cdecl CMDTBL_HotkeyStandStillRelease()
 {
     sub_0044BEA0_SetValue(0);
 }
@@ -165,7 +165,7 @@ int gnGlobal_007A7424; // 0x007A7424
 int gnGlobal_007A7428; // 0x007A7428
 
 // 0x00469370
-void __cdecl sub_00469370_CallBoundCommand()
+void __cdecl CMDTBL_CallBoundCommand()
 {
     if (gpfnBoundCommand_007A6F8C)
     {
@@ -190,7 +190,7 @@ static inline int HOTKEY_CheckWheelKey(int nCommand, int nKey)
 }
 
 // 0x004694A0
-void __cdecl sub_004694A0_BindMouseHotkeys()
+void __cdecl CMDTBL_BindMouseHotkeys()
 {
     gpfnBoundCommand_007A7404 = 0;
     gpfnBoundCommand_007A7408 = 0;
@@ -256,7 +256,7 @@ void __cdecl sub_004694A0_BindMouseHotkeys()
 
 
 // 0x004698D0
-void __stdcall sub_004698D0_LoadKeyConfig(int bInstallDir)
+void __stdcall CMDTBL_LoadKeyConfig(int bInstallDir)
 {
     char szLang[4];
     char szPath[0x104];
@@ -300,25 +300,25 @@ void __stdcall sub_004698D0_LoadKeyConfig(int bInstallDir)
 }
 
 // 0x00469A50
-static inline void sub_00469A50_LoadKeyConfig(int bInstallDir)
+static inline void CMDTBL_LoadKeyConfigInline(int bInstallDir)
 {
-    sub_004698D0_LoadKeyConfig(bInstallDir);
+    CMDTBL_LoadKeyConfig(bInstallDir);
 }
 
 // 0x00469A60
-void __fastcall sub_00469A60_ResetKeyConfig(int bInstallDir)
+void __fastcall CMDTBL_ResetKeyConfig(int bInstallDir)
 {
-    sub_004698D0_LoadKeyConfig(bInstallDir);
+    CMDTBL_LoadKeyConfig(bInstallDir);
     for (int i = 0; i < NUM_HOTKEYS; ++i)
     {
         gtHotkeys_007A6F90[i].nKey = HOTKEY_UNBOUND;
     }
     memcpy(gtHotkeys_007A6F90, gaKeyTable_00712220, sizeof(gtHotkeys_007A6F90));
-    sub_004694A0_BindMouseHotkeys();
+    CMDTBL_BindMouseHotkeys();
 }
 
 // 0x00469AE0
-int __fastcall sub_00469AE0_IsValidKey(unsigned short nKey)
+int __fastcall CMDTBL_IsValidKey(unsigned short nKey)
 {
     switch (nKey)
     {
@@ -369,7 +369,7 @@ static __declspec(noinline) int sub_00469420_CheckWheelKey(int nId, unsigned sho
 }
 
 // 0x00469C20
-int __fastcall sub_00469C20_QueryKey(int nId, int nMode, int nCommand, unsigned short* pKey)
+int __fastcall CMDTBL_QueryKey(int nId, int nMode, int nCommand, unsigned short* pKey)
 {
     const unsigned short nKey = (unsigned short)nCommand;
     if (pKey)
@@ -382,7 +382,7 @@ int __fastcall sub_00469C20_QueryKey(int nId, int nMode, int nCommand, unsigned 
     }
 
     int bError = 1;
-    if (sub_00469AE0_IsValidKey(nKey))
+    if (CMDTBL_IsValidKey(nKey))
     {
         if (!sub_00469420_CheckWheelKey(nId, nKey, pKey))
         {
@@ -426,28 +426,28 @@ int __fastcall sub_00469C20_QueryKey(int nId, int nMode, int nCommand, unsigned 
 
 void __fastcall sub_M110_Emit_00469A50(int bInstallDir)
 {
-    sub_00469A50_LoadKeyConfig(bInstallDir + 1);
+    CMDTBL_LoadKeyConfigInline(bInstallDir + 1);
 }
 
 // 0x00469D20
-void __cdecl sub_00469D20_SaveHotkeys()
+void __cdecl CMDTBL_SaveHotkeys()
 {
     memcpy(gtHotkeysSaved_007A6B18, gtHotkeys_007A6F90, sizeof(gtHotkeys_007A6F90));
-    sub_004694A0_BindMouseHotkeys();
+    CMDTBL_BindMouseHotkeys();
 }
 
 // 0x00469D40
-void __cdecl sub_00469D40_SaveAndBindHotkeys()
+void __cdecl CMDTBL_SaveAndBindHotkeys()
 {
     sub_00469780_SaveKeyConfig();
-    sub_004694A0_BindMouseHotkeys();
+    CMDTBL_BindMouseHotkeys();
 }
 
 // 0x00469D50
-void __cdecl sub_00469D50_RestoreHotkeys()
+void __cdecl CMDTBL_RestoreHotkeys()
 {
     memcpy(gtHotkeys_007A6F90, gtHotkeysSaved_007A6B18, sizeof(gtHotkeys_007A6F90));
-    sub_004694A0_BindMouseHotkeys();
+    CMDTBL_BindMouseHotkeys();
 }
 
 static inline unsigned short sub_00469AA0(int nA, int nB)
@@ -464,7 +464,7 @@ static inline unsigned short sub_00469AA0(int nA, int nB)
 }
 
 // 0x00469DE0
-const Unicode* __fastcall sub_00469DE0_GetKeyText(int nA, int nB)
+const Unicode* __fastcall CMDTBL_GetKeyText(int nA, int nB)
 {
     const unsigned short nKey = sub_00469AA0(nA, nB);
     if (nKey == 0xFFFF)
@@ -798,7 +798,7 @@ static inline unsigned short FindHotkeyKey_Inline(int nId, int nMode)
 }
 
 // 0x0046A530
-const Unicode* __fastcall sub_0046A530_GetKeyName(int nA, int nB)
+const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB)
 {
     switch (FindHotkeyKey_Inline(nA, nB))
     {
@@ -865,13 +865,13 @@ const Unicode* __fastcall sub_0046A530_GetKeyName(int nA, int nB)
     case 0x2E:
         return D2LANG_GetStringFromTblIndex(0xF39);
     }
-    return sub_00469DE0_GetKeyText(nA, nB);
+    return CMDTBL_GetKeyText(nA, nB);
 }
 
 D2KeyBindingStrc gaBindings_007A6F90[114]; // 0x007A6F90
 
 // 0x0046A940
-void __stdcall sub_0046A940_DispatchHotkey(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall CMDTBL_DispatchHotkey(SMSGHANDLER_PARAMS* pMsg)
 {
     int nKey = pMsg->wParam;
     for (int i = 0; i < 114; ++i)
@@ -894,7 +894,7 @@ void __stdcall sub_0046A940_DispatchHotkey(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0046AA20
-void __fastcall sub_0046AA20_SetHotkeyHandlers(int bEnable, int bFlag)
+void __fastcall CMDTBL_SetHotkeyHandlers(int bEnable, int bFlag)
 {
     gnGlobal_007A7418 = bEnable;
     if (bEnable)
@@ -926,7 +926,7 @@ void __fastcall sub_0046AA20_SetHotkeyHandlers(int bEnable, int bFlag)
 }
 
 // 0x0046AC70
-void __cdecl sub_0046AC70_EnableHotkeyHandlers()
+void __cdecl CMDTBL_EnableHotkeyHandlers()
 {
     sub_0046AAE0_LoadKeyConfig();
     gnGlobal_007A7418 = 1;
@@ -938,7 +938,7 @@ void __cdecl sub_0046AC70_EnableHotkeyHandlers()
 }
 
 // 0x0046ACB0
-void __cdecl sub_0046ACB0_DisableHotkeyHandlers()
+void __cdecl CMDTBL_DisableHotkeyHandlers()
 {
     gnGlobal_007A7418 = 0;
     if (gnGlobal_007A7428 == 1)

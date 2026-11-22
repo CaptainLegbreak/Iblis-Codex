@@ -93,11 +93,11 @@ D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x0
 
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
-void __stdcall sub_00487A10_SelectItemPageTab(unsigned char nTab); // 0x00487A10
+void __stdcall INV_SelectItemPageTab(unsigned char nTab); // 0x00487A10
 
-void __cdecl sub_00487ED0_SetupPanelButtons(); // 0x00487ED0
+void __cdecl INV_SetupPanelButtons(); // 0x00487ED0
 
-int __fastcall sub_004B3230_GetTickPair(int* pUnitId); // 0x004B3230
+int __fastcall NPCMENU_GetInteractNpcId(int* pUnitId); // 0x004B3230
 
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
@@ -163,7 +163,7 @@ int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsi
 
 int __cdecl sub_004F59A0(); // 0x004F59A0
 
-void __fastcall sub_00451E10_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451E10
+void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451E10
 
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
@@ -190,15 +190,15 @@ extern "C" unsigned int __cdecl strlen(const char* szString);
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 
-Unicode* __fastcall sub_004521C0_PrefixLevelText(Unicode* pText, int nDigit); // 0x004521C0
+Unicode* __fastcall INV_PrefixColorCode(Unicode* pText, int nDigit); // 0x004521C0
 
 Unicode* __fastcall sub_00452300_StripStringAndNextChar(Unicode* pText); // 0x00452300
 
 int __fastcall sub_0047A170_TestNotFlag4(int nUnitId); // 0x0047A170
 
-void __fastcall sub_0048BBE0_SetNameText(const Unicode* wszName, int nUnused, int nArg); // 0x0048BBE0
+void __fastcall INV_OpenRecipeScroll(const Unicode* wszName, int nUnused, int nArg); // 0x0048BBE0
 
-void __fastcall sub_0049E3A0_PrintChatLine(const Unicode* wszText, char nColor); // 0x0049E3A0
+void __fastcall TEXT_PrintChatLine(const Unicode* wszText, char nColor); // 0x0049E3A0
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
@@ -212,7 +212,7 @@ void __stdcall CHAT_FreeHoverMsg(void* pMemoryPool, D2HoverTextStrc* pHoverText)
 
 extern int gnGameFrame_007BF20E; // 0x007BF20E
 
-static bool sub_0049E250_IsLanguageCompatible(int nLangId);
+static bool TEXT_IsLanguageCompatible(int nLangId);
 
 struct T0044CB60
 {
@@ -257,13 +257,13 @@ void __fastcall sub_00467430(void* pRect); // 0x00467430
 
 void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
-void __stdcall sub_0049D4D0_FreeTextList(void* pList); // 0x0049D4D0
+void __stdcall TEXT_FreeTextList(void* pList); // 0x0049D4D0
 
-void __cdecl sub_0049FE10(); // 0x0049FE10
+void __cdecl TEXT_FreeTextPanelCels(); // 0x0049FE10
 
-T0044CB60* __stdcall sub_004A0320_BuildTextLines(const Unicode* wszText, int* pLineCount, unsigned short* pMaxLines); // 0x004A0320
+T0044CB60* __stdcall TEXT_BuildTextLines(const Unicode* wszText, int* pLineCount, unsigned short* pMaxLines); // 0x004A0320
 
-void __fastcall sub_004B8020(void* pRes); // 0x004B8020
+void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 
 void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
 
@@ -356,9 +356,9 @@ int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x004
 
 void __cdecl sub_0044DA40(); // 0x0044DA40
 
-void __cdecl sub_0049FA10_DrawPanelFrame(); // 0x0049FA10
+void __cdecl TEXT_DrawPanelFrame(); // 0x0049FA10
 
-void __stdcall sub_0049FBA0_OpenTextPanel(int bFlag); // 0x0049FBA0
+void __stdcall TEXT_OpenTextPanel(int bFlag); // 0x0049FBA0
 
 extern D2ClientTextDataStrc* gpTextData_007BF228; // 0x007BF228
 
@@ -531,9 +531,9 @@ static bool sub_0049E280_ConvertHoverText(int nLangId, Unicode* wszText, const c
 
 static void __stdcall sub_0049F410_SetHoverText(int nLangId, const char* szText, D2UnitStrc* pUnit);
 
-int __cdecl sub_004A0030_DialogCallback(); // 0x004A0030
+int __cdecl TEXT_CloseMessageLogCallback(); // 0x004A0030
 
-void __fastcall sub_004B7C00_AddWidget(D2ClientDialogStrc* pDialog, void* pWidget, int nArg8, int nArgC); // 0x004B7C00
+void __fastcall DIALOG_AddWidget(D2ClientDialogStrc* pDialog, void* pWidget, int nArg8, int nArgC); // 0x004B7C00
 
 D2ClientDialogStrc* __fastcall sub_004B7EB0_CreateDialog(int nArg1, int nArg2, int nArg8, int nArgC, int nArg10, int nArg14,
     int nArg18, int nArg1C, int nArg20, int nArg24, int nArg28); // 0x004B7EB0
@@ -653,7 +653,7 @@ void* gpCelFile_007BF270; // 0x007BF270
 void* gpCelFile_007BF274; // 0x007BF274
 
 // 0x00491940
-void __cdecl sub_00491940_ResetNpcPanel()
+void __cdecl TEXT_ResetNpcPanel()
 {
     gnGlobal_007BCE30 = 0;
     gnGlobal_007BCC40 = -1;
@@ -666,10 +666,10 @@ void __cdecl sub_00491940_ResetNpcPanel()
     }
     gnGlobal_007BCBEC = 0;
     gdwGlobal_007BCBF0 = 1;
-    sub_00487ED0_SetupPanelButtons();
+    INV_SetupPanelButtons();
 
     int nNpcId;
-    if (sub_004B3230_GetTickPair(&nNpcId))
+    if (NPCMENU_GetInteractNpcId(&nNpcId))
     {
         D2UnitStrc* pNpc = sub_00463990(nNpcId, 1);
         int bMatched = 0;
@@ -702,7 +702,7 @@ void __cdecl sub_00491940_ResetNpcPanel()
                 break;
             }
         }
-        sub_00487A10_SelectItemPageTab(gnSelectedTab_007BCC04);
+        INV_SelectItemPageTab(gnSelectedTab_007BCC04);
         if (bMatched)
         {
             gnGlobal_007BCC08 = GetTickCount() + 500;
@@ -711,7 +711,7 @@ void __cdecl sub_00491940_ResetNpcPanel()
 }
 
 // 0x004939B0
-void __cdecl sub_004939B0_LoadPopupHireling()
+void __cdecl TEXT_LoadPopupHireling()
 {
     gnGlobal_007BEECC = 0;
     sub_00455F20(0x23, 0, 0);
@@ -724,7 +724,7 @@ void __cdecl sub_004939B0_LoadPopupHireling()
 }
 
 // 0x0049D2E0
-int __fastcall sub_0049D2E0_IsAsciiChar(const unsigned short* pChar)
+int __fastcall TEXT_IsAsciiChar(const unsigned short* pChar)
 {
     return *pChar < 0x80;
 }
@@ -745,26 +745,26 @@ int __fastcall sub_0049D300_GetFieldA4(D2TextFieldA4Strc* pRecord)
 }
 
 // 0x0049D3B0
-static inline void sub_0049D3B0_SetWidthFromWord(D2TextWidthStrc* pRecord)
+static inline void TEXT_SetWidthFromWord(D2TextWidthStrc* pRecord)
 {
     pRecord->nWidth = pRecord->wWidth;
 }
 
 void __fastcall sub_M111_Emit_0049D3B0(D2TextWidthStrc* pRecord, int* pDone)
 {
-    sub_0049D3B0_SetWidthFromWord(pRecord);
+    TEXT_SetWidthFromWord(pRecord);
     *pDone = 1;
 }
 
 // 0x0049D570
-void __fastcall sub_0049D570_SaveTextDisplaySetting(unsigned long nValue)
+void __fastcall TEXT_SaveTextDisplaySetting(unsigned long nValue)
 {
     gnGlobal_007BF1F6 = nValue;
     SRegSaveValue("Diablo II", "Text Display Beta", 0, nValue);
 }
 
 // 0x0049D590
-unsigned int __fastcall sub_0049D590_CalcTextOffset(unsigned int nValue)
+unsigned int __fastcall TEXT_CalcTextOffset(unsigned int nValue)
 {
     return 0x70 - (nValue >> 10);
 }
@@ -798,7 +798,7 @@ void __fastcall sub_0049D8E0_DrawTextList(D2TextListStrc* pList, int nX, int nY)
 }
 
 // 0x0049DA30
-void __fastcall sub_0049DA30(D2UnitStrc* pUnit)
+void __fastcall TEXT_SetHoverUnit(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
@@ -812,14 +812,14 @@ void __fastcall sub_0049DA30(D2UnitStrc* pUnit)
 }
 
 // 0x0049DA60
-void __fastcall sub_0049DA60_ToggleTextHandlers(int nMode)
+void __fastcall TEXT_ToggleTextHandlers(int nMode)
 {
     if (nMode == 0)
     {
         if (gbStarted_007BF27C == 1)
         {
             gbStarted_007BF27C = 0;
-            sub_00451E10_UnregisterHandlerTable((void*)sub_004F59A0(), gaTextMsgHandlers_00722600, 7);
+            AUTOMAP_UnregisterHandlerTable((void*)sub_004F59A0(), gaTextMsgHandlers_00722600, 7);
         }
     }
     else if (nMode == 1 && gbStarted_007BF27C == 0)
@@ -842,7 +842,7 @@ int __fastcall sub_0049DAC0_IsStateZeroOrOne(D2TextStateStrc* pRecord)
 }
 
 // 0x0049DAE0
-void __fastcall sub_0049DAE0_AdjustTextPos(D2TextBoxPosStrc* pBox, D2TextPointStrc* pPoint)
+void __fastcall TEXT_AdjustTextPos(D2TextBoxPosStrc* pBox, D2TextPointStrc* pPoint)
 {
     pPoint->nX -= pBox->wWidth / 2;
     pPoint->nY -= 50;
@@ -850,7 +850,7 @@ void __fastcall sub_0049DAE0_AdjustTextPos(D2TextBoxPosStrc* pBox, D2TextPointSt
 }
 
 // 0x0049DB10
-D2ClientStringListStrc* __fastcall sub_0049DB10_CloneStringList(D2ClientStringListStrc* pSource)
+D2ClientStringListStrc* __fastcall TEXT_CloneStringList(D2ClientStringListStrc* pSource)
 {
     D2ClientStringListStrc* pCopy = (D2ClientStringListStrc*)FOG_Alloc(0x26, ".\\UI\\text.cpp", 0x9D0, 0);
     memset(pCopy, 0, 0x26);
@@ -865,7 +865,7 @@ D2ClientStringListStrc* __fastcall sub_0049DB10_CloneStringList(D2ClientStringLi
 }
 
 // 0x0049E250
-static bool sub_0049E250_IsLanguageCompatible(int nLangId)
+static bool TEXT_IsLanguageCompatible(int nLangId)
 {
     const int nCurrentLangId = STRTABLE_GetLanguage();
     if (!(nCurrentLangId == nLangId))
@@ -885,8 +885,8 @@ static bool sub_0049E250_IsLanguageCompatible(int nLangId)
     return true;
 }
 
-// build: context sub_0049F490_HandleHoverTextPacket
-void __fastcall sub_0049F490_HandleHoverTextPacket(D2GSPacketSrv26* pPacket)
+// build: context TEXT_HandleChatPacket
+void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket)
 {
     if (pPacket->nUnitType == 0 && !sub_0047A170_TestNotFlag4(pPacket->dwUnitGUID))
         return;
@@ -913,7 +913,7 @@ void __fastcall sub_0049F490_HandleHoverTextPacket(D2GSPacketSrv26* pPacket)
 
     if (pPacket->nMessageType == 4)
     {
-        sub_0049E3A0_PrintChatLine(wszText, pPacket->nMessageColor);
+        TEXT_PrintChatLine(wszText, pPacket->nMessageColor);
         return;
     }
 
@@ -926,7 +926,7 @@ void __fastcall sub_0049F490_HandleHoverTextPacket(D2GSPacketSrv26* pPacket)
         Unicode::win2Unicode(wszC, pPacket->szName, 0x10);
         sub_005269D0(0x264, wszA, D2LANG_GetStringFromTblIndex(0xE4A), wszC, wszB);
         sub_00452300_StripStringAndNextChar(wszA);
-        sub_0049E3A0_PrintChatLine(wszA, 2);
+        TEXT_PrintChatLine(wszA, 2);
     }
     else if (pPacket->nMessageType == 2)
     {
@@ -939,19 +939,19 @@ void __fastcall sub_0049F490_HandleHoverTextPacket(D2GSPacketSrv26* pPacket)
             Unicode::strcat(wszA, D2LANG_GetStringFromTblIndex(0xE46));
             sub_005267E0(wszB, wszText);
             Unicode::strcat(wszA, wszB);
-            sub_0049E3A0_PrintChatLine(wszA, 2);
+            TEXT_PrintChatLine(wszA, 2);
             return;
         }
         if (nTextLen > 0x131)
             return;
         sub_005267E0(wszA, wszText);
-        sub_0049E3A0_PrintChatLine(wszA, 2);
+        TEXT_PrintChatLine(wszA, 2);
     }
     else if (pPacket->nMessageType == 1)
     {
         if (pPacket->nUnitType == 0 || pPacket->nUnitType == 1)
         {
-            sub_0049E3A0_PrintChatLine(wszText, pPacket->nMessageColor);
+            TEXT_PrintChatLine(wszText, pPacket->nMessageColor);
             return;
         }
         const int nNameLen = strlen(pPacket->szName);
@@ -961,18 +961,18 @@ void __fastcall sub_0049F490_HandleHoverTextPacket(D2GSPacketSrv26* pPacket)
             Unicode wszD[0x10];
             Unicode::win2Unicode(wszD, pPacket->szName, 0x10);
             sub_005267E0(wszA, wszD);
-            sub_004521C0_PrefixLevelText(wszA, 4);
+            INV_PrefixColorCode(wszA, 4);
             sub_005267E0(wszB, D2LANG_GetStringFromTblIndex(0xFD0));
             Unicode::strcat(wszB, wszText);
-            sub_004521C0_PrefixLevelText(wszB, 0);
+            INV_PrefixColorCode(wszB, 0);
             Unicode::strcat(wszA, wszB);
-            sub_0049E3A0_PrintChatLine(wszA, pPacket->nMessageColor);
+            TEXT_PrintChatLine(wszA, pPacket->nMessageColor);
             return;
         }
         if (nTextLen > 0x131)
             return;
         sub_005267E0(wszA, wszText);
-        sub_0049E3A0_PrintChatLine(wszA, pPacket->nMessageColor);
+        TEXT_PrintChatLine(wszA, pPacket->nMessageColor);
     }
     else if (pPacket->nMessageType == 5)
     {
@@ -989,7 +989,7 @@ void __fastcall sub_0049F490_HandleHoverTextPacket(D2GSPacketSrv26* pPacket)
             for (Unicode* p = wszE; p->wChar; ++p)
                 ;
         }
-        sub_0048BBE0_SetNameText(wszE, nLang, pPacket->nMessageColor);
+        INV_OpenRecipeScroll(wszE, nLang, pPacket->nMessageColor);
     }
 }
 
@@ -1017,7 +1017,7 @@ static void sub_0049D3C0_MeasureTextBox(T00479230* pBox)
     pBox->nHeight = pBox->nLines * 0x0F + 6;
 }
 
-void __stdcall sub_0049D410_FreeTextBox(T00479230* pTextBox)
+void __stdcall TEXT_FreeTextBox(T00479230* pTextBox)
 {
     if (pTextBox)
     {
@@ -1027,17 +1027,17 @@ void __stdcall sub_0049D410_FreeTextBox(T00479230* pTextBox)
 }
 
 // 0x0049E300
-void __cdecl sub_0049E300_FreeMainTextBox()
+void __cdecl TEXT_FreeMainTextBox()
 {
     if (gpTextBox_007BF1A8)
     {
-        sub_0049D410_FreeTextBox(gpTextBox_007BF1A8);
+        TEXT_FreeTextBox(gpTextBox_007BF1A8);
         gpTextBox_007BF1A8 = 0;
     }
 }
 
 // 0x0049E390
-unsigned long __cdecl sub_0049E390_GetTimeoutTick()
+unsigned long __cdecl TEXT_GetTimeoutTick()
 {
     return GetTickCount() + 10000;
 }
@@ -1053,7 +1053,7 @@ void __stdcall sub_0049E800_Nop()
 }
 
 // 0x0049E860
-void __cdecl sub_0049E860_ClearHint()
+void __cdecl TEXT_ClearHint()
 {
     if (gnHintId_007BF260)
     {
@@ -1066,12 +1066,12 @@ void __cdecl sub_0049E860_ClearHint()
 }
 
 // 0x0049F3D0
-void __fastcall sub_0049F3D0_FreeHoverText(D2HoverTextStrc* pHoverText)
+void __fastcall TEXT_FreeHoverText(D2HoverTextStrc* pHoverText)
 {
     T00479230* pTextBox = CHAT_GetUsedFromHoverMsg(pHoverText);
     if (pTextBox)
     {
-        sub_0049D410_FreeTextBox(pTextBox);
+        TEXT_FreeTextBox(pTextBox);
         CHAT_SetUsedInHoverMsg(pHoverText, 0);
     }
     CHAT_FreeHoverMsg(0, pHoverText);
@@ -1087,7 +1087,7 @@ static bool sub_0049E280_ConvertHoverText(int nLangId, Unicode* wszText, const c
     }
 
     MultiByteToWideChar(0, 1, szText, 0x100, wszText, 0x100);
-    if (sub_0049E250_IsLanguageCompatible(nLangId))
+    if (TEXT_IsLanguageCompatible(nLangId))
         return true;
 
     for (; wszText->wChar; ++wszText)
@@ -1119,12 +1119,12 @@ static void __stdcall sub_0049F410_SetHoverText(int nLangId, const char* szText,
 }
 
 // 0x0049F960
-void __cdecl sub_0049F960_ResetTextBox()
+void __cdecl TEXT_ResetTextBox()
 {
     sub_00467430(0);
     if (gpTextBox_007BF0A4)
     {
-        sub_0049D410_FreeTextBox(gpTextBox_007BF0A4);
+        TEXT_FreeTextBox(gpTextBox_007BF0A4);
         gpTextBox_007BF0A4 = 0;
     }
     if (gnHintId_007BF260)
@@ -1148,7 +1148,7 @@ void __cdecl sub_0049F960_ResetTextBox()
 }
 
 // 0x0049FE10
-void __cdecl sub_0049FE10()
+void __cdecl TEXT_FreeTextPanelCels()
 {
     if (gpCelFile_007BF270)
     {
@@ -1168,14 +1168,14 @@ void __cdecl sub_0049FE10()
 }
 
 // 0x0049FEA0
-void __stdcall sub_0049FEA0_PanelClickMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_PanelClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     int nX = (unsigned short)pMsg->lParam;
     int nY = (unsigned short)((unsigned int)pMsg->lParam >> 16);
     if (nY < gnGlobal_00711470 - 0x30 && nX < gnGlobal_0071146C / 2)
     {
         sub_00455F20(0x10, 2, 0);
-        sub_0049FE10();
+        TEXT_FreeTextPanelCels();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
@@ -1184,7 +1184,7 @@ void __stdcall sub_0049FEA0_PanelClickMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0049FF10
-void __cdecl sub_0049FF10_DispatchTextData()
+void __cdecl TEXT_DispatchTextData()
 {
     if (!gpTextData_007BF228)
         return;
@@ -1192,14 +1192,14 @@ void __cdecl sub_0049FF10_DispatchTextData()
     const int nTag = gpTextData_007BF228->dwTag;
     if (nTag == 0x20736B62)
     {
-        sub_0049FBA0_OpenTextPanel(0);
+        TEXT_OpenTextPanel(0);
         return;
     }
     if (nTag == 0x20646B62)
     {
         if (!gnGlobal_007BF254)
         {
-            sub_0049FBA0_OpenTextPanel(1);
+            TEXT_OpenTextPanel(1);
             return;
         }
     }
@@ -1207,7 +1207,7 @@ void __cdecl sub_0049FF10_DispatchTextData()
     {
         return;
     }
-    sub_0049FA10_DrawPanelFrame();
+    TEXT_DrawPanelFrame();
 }
 
 extern "C" { unsigned int gValue_007BF098; } // 0x007BF098
@@ -1219,7 +1219,7 @@ extern "C" { unsigned int gValue_007BF0A0; } // 0x007BF0A0
 extern "C" { unsigned int gValue_007BF2A8; } // 0x007BF2A8
 
 // 0x0049FF60
-extern "C" void __fastcall sub_0049FF60_AcceptWordPacket(const PacketWords* packet)
+extern "C" void __fastcall TEXT_AcceptWordPacket(const PacketWords* packet)
 {
     if (packet->kind == 4)
     {
@@ -1231,7 +1231,7 @@ extern "C" void __fastcall sub_0049FF60_AcceptWordPacket(const PacketWords* pack
 }
 
 // 0x004A0030
-int __cdecl sub_004A0030_DialogCallback()
+int __cdecl TEXT_CloseMessageLogCallback()
 {
     sub_00455F20(0x18, 1, 0);
     return 1;
@@ -1251,30 +1251,30 @@ extern "C" void __fastcall sub_00524280_InitializeDigest(unsigned int index)
 
 // build: symbol ??0ListBoxWrapper@@QAE@HHHHHHHHH@Z 0x004BF8F0
 // 0x004A0050
-void sub_004A0050_OpenListBoxDialog()
+void TEXT_OpenMessageLogDialog()
 {
     if (gpListDialog_007BF1B0)
     {
         return;
     }
-    gpListDialog_007BF1B0 = sub_004B7EB0_CreateDialog(5, 0x1E, (int)sub_004A0030_DialogCallback, 0, 0, 0, 0,
+    gpListDialog_007BF1B0 = sub_004B7EB0_CreateDialog(5, 0x1E, (int)TEXT_CloseMessageLogCallback, 0, 0, 0, 0,
         gnGlobal_0071146C - 0x14, gnGlobal_00711470 - 0x82, 0, 0);
     sub_004B8370_SetField5C(gpListDialog_007BF1B0, 1);
     sub_004B85F0_AddTextLine(gpListDialog_007BF1B0, D2LANG_GetStringFromTblIndex(0xFC3), 0x15, 0, 4, 1, 0, 0);
     sub_004B85F0_AddTextLine(gpListDialog_007BF1B0, D2LANG_GetStringFromTblIndex(0x1030), gnGlobal_00711470 - 0xA5, 0,
-        0, 1, sub_004A0030_DialogCallback, 1);
+        0, 1, TEXT_CloseMessageLogCallback, 1);
     gpListBox_007BF1B4 = new ListBoxWrapper(5, 0x41, gnGlobal_0071146C - 0x14, gnGlobal_00711470 - 0xC8, 2, 0, 0xD, 0,
         1);
     if (gpListBox_007BF1B4)
     {
-        sub_004B7C00_AddWidget(gpListDialog_007BF1B0, gpListBox_007BF1B4, 0x19, 0x1E);
+        DIALOG_AddWidget(gpListDialog_007BF1B0, gpListBox_007BF1B4, 0x19, 0x1E);
         sub_0049E340();
         sub_004B82F0_Select(gpListDialog_007BF1B0, -1);
     }
 }
 
 // 0x004A05E0
-T00479230* __fastcall sub_004A05E0_CreateTextBox(const Unicode* wszText, int nMode)
+T00479230* __fastcall TEXT_CreateTextBox(const Unicode* wszText, int nMode)
 {
     T00479230* pTextBox = (T00479230*)FOG_Alloc(sizeof(T00479230), ".\\UI\\text.cpp", 0x65D, 0);
     if (nMode == 3)
@@ -1285,7 +1285,7 @@ T00479230* __fastcall sub_004A05E0_CreateTextBox(const Unicode* wszText, int nMo
     }
 
     const int nOldFont = sub_00502EF0(8);
-    pTextBox->pFirst = sub_004A0320_BuildTextLines(wszText, &pTextBox->nLines, &pTextBox->f_14);
+    pTextBox->pFirst = TEXT_BuildTextLines(wszText, &pTextBox->nLines, &pTextBox->f_14);
     pTextBox->nWidth = 0x145;
     pTextBox->nHeight = 0x70;
     pTextBox->nField1A = 0;
@@ -1299,7 +1299,7 @@ T00479230* __fastcall sub_004A05E0_CreateTextBox(const Unicode* wszText, int nMo
 }
 
 // 0x004A0680
-void __cdecl sub_004A0680_FreeTextResources()
+void __cdecl TEXT_FreeTextResources()
 {
     if (gdwGlobal_007BF250)
     {
@@ -1308,18 +1308,18 @@ void __cdecl sub_004A0680_FreeTextResources()
     }
     if (gpTextBox_007BF0A4)
     {
-        sub_0049D410_FreeTextBox(gpTextBox_007BF0A4);
+        TEXT_FreeTextBox(gpTextBox_007BF0A4);
         gpTextBox_007BF0A4 = 0;
     }
     if (gpTextBox_007BF1A8)
     {
-        sub_0049D410_FreeTextBox(gpTextBox_007BF1A8);
+        TEXT_FreeTextBox(gpTextBox_007BF1A8);
         FOG_Free(gpTextBox_007BF1A8, ".\\UI\\text.cpp", 0x6E4, 0);
         gpTextBox_007BF1A8 = 0;
     }
     if (gpListDialog_007BF1B0)
     {
-        sub_004B8020(gpListDialog_007BF1B0);
+        DIALOG_DestroyDialog(gpListDialog_007BF1B0);
         gpListDialog_007BF1B0 = 0;
     }
     if (gpListBox_007BF1B4)
@@ -1327,11 +1327,11 @@ void __cdecl sub_004A0680_FreeTextResources()
         delete gpListBox_007BF1B4;
         gpListBox_007BF1B4 = 0;
     }
-    sub_0049FE10();
+    TEXT_FreeTextPanelCels();
     sub_00467430(0);
-    sub_0049D4D0_FreeTextList(gtTextList_007BF1E4);
-    sub_0049D4D0_FreeTextList(gtTextList_007BF1EA);
-    sub_0049D4D0_FreeTextList(gtTextList_007BF1F0);
+    TEXT_FreeTextList(gtTextList_007BF1E4);
+    TEXT_FreeTextList(gtTextList_007BF1EA);
+    TEXT_FreeTextList(gtTextList_007BF1F0);
     gnHintSound_007BF24B = 0;
 }
 
@@ -1340,13 +1340,13 @@ void __fastcall sub_004A1510_ShowTextBox(unsigned short nStringId)
 {
     if (gpTextBox_007BF1A8)
     {
-        sub_0049D410_FreeTextBox(gpTextBox_007BF1A8);
+        TEXT_FreeTextBox(gpTextBox_007BF1A8);
         gpTextBox_007BF1A8 = 0;
     }
 
     const Unicode* wszText = D2LANG_GetStringFromTblIndex(nStringId);
     const int nOldFont = sub_00502EF0(0x0D);
-    gpTextBox_007BF1A8 = sub_004A05E0_CreateTextBox(wszText, 3);
+    gpTextBox_007BF1A8 = TEXT_CreateTextBox(wszText, 3);
     sub_00502EF0(nOldFont);
     if (gpTextBox_007BF1A8)
     {
@@ -1360,7 +1360,7 @@ void __fastcall sub_004A1510_ShowTextBox(unsigned short nStringId)
 }
 
 // 0x004A28A0
-extern "C" void __fastcall sub_004A28A0_AcceptShortPacket(const PacketShorts* packet)
+extern "C" void __fastcall TEXT_AcceptShortPacket(const PacketShorts* packet)
 {
     switch (packet->kind)
     {

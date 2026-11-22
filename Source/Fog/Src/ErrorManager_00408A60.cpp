@@ -27,7 +27,7 @@ void __fastcall sub_00401740_SetText(const char* szText); // 0x00401740
 void __fastcall sub_00403F60_SetCrashHandler(void* pfnHandler, void* pContext, int nUnused); // 0x00403F60
 int __fastcall sub_00406B60_GetModuleDirectory(char* szPath, unsigned int nSize); // 0x00406B60
 void __cdecl sub_004076B0_LogSystemInfo(); // 0x004076B0
-void __cdecl sub_00407DE0_CaptureSystemInfo(); // 0x00407DE0
+void __cdecl AUTOMAP_CaptureSystemInfo(); // 0x00407DE0
 void __cdecl sub_00407F20_ExitHandler(); // 0x00407F20
 int __fastcall sub_004082E0_CrashHandler(D2CrashInputStrc* pInput); // 0x004082E0
 int __cdecl sub_0040D5B0_LoadImageHlp(); // 0x0040D5B0
@@ -143,7 +143,7 @@ void __fastcall FOG_InitErrorMgr(const char* szProgramName, const char* szVersio
         FOG_ASSERT(gdwBitMasks_006CE268[i] == nMask, 0x576);
         FOG_ASSERT(gdwInvBitMasks_006CE2E8[i] == ~nMask, 0x577);
     }
-    sub_00407DE0_CaptureSystemInfo();
+    AUTOMAP_CaptureSystemInfo();
     sub_00410540_InitLogSystem();
     if (bLogToFile)
     {

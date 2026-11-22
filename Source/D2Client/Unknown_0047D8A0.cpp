@@ -17,7 +17,7 @@ int __cdecl sub_0044DB30(); // 0x0044DB30
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
 int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __cdecl sub_004979E0(); // 0x004979E0
-int __cdecl sub_004979F0(); // 0x004979F0
+int __cdecl HIREABLES_GetBeltRowCount(); // 0x004979F0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 extern D2OptionHeaderStrc gOptionHeader_00713044; // 0x00713044
@@ -166,7 +166,7 @@ int __cdecl sub_0047EB50_IsAnyLeftPanelOpen()
         bResult = 1;
         gdwGlobal_007BC968 = bResult;
     }
-    if ((sub_004538D0(0x1F) || sub_004979E0()) && sub_004979F0() > 1)
+    if ((sub_004538D0(0x1F) || sub_004979E0()) && HIREABLES_GetBeltRowCount() > 1)
     {
         bResult = 1;
         gdwGlobal_007BC968 = bResult;

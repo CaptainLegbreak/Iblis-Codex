@@ -19,17 +19,17 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                               
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg);                       // 0x00455F20
-void __cdecl sub_00487990_ResetHover();                                                                     // 0x00487990
-void __fastcall sub_004B3C20(int nValue);                                                                   // 0x004B3C20
-void __fastcall sub_004B8020(void* pRes);                                                                   // 0x004B8020
+void __cdecl INV_ResetHover();                                                                     // 0x00487990
+void __fastcall NPCMENU_EndNpcInteraction(int nValue);                                                                   // 0x004B3C20
+void __fastcall DIALOG_DestroyDialog(void* pRes);                                                                   // 0x004B8020
 int __cdecl sub_004B1D70_FindNpcEntry();                                                                    // 0x004B1D70
-void __stdcall sub_004B5890_OpenNpcPanel(int nStringIndex, int nEntryIndex);                               // 0x004B5890
-void __stdcall sub_004B5AD0_OpenConfirmDialog(int nStringIndex);                                            // 0x004B5AD0
+void __stdcall NPCMENU_OpenNpcPanel(int nStringIndex, int nEntryIndex);                               // 0x004B5890
+void __stdcall NPCMENU_OpenConfirmDialog(int nStringIndex);                                            // 0x004B5AD0
 int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
-void __cdecl sub_004B53F0();                                                                                // 0x004B53F0
+void __cdecl NPCMENU_OnTransactionResult();                                                                                // 0x004B53F0
 void __cdecl sub_004B5640_OpenNpcMenu();                                                                                // 0x004B5640
-int __cdecl sub_004B51A0_NpcMenuAction4B();                                                                                 // 0x004B51A0
-int __cdecl sub_004B5200_NpcMenuAction6D();                                                                                 // 0x004B5200
+int __cdecl NPCMENU_TravelToKurastDocks();                                                                                 // 0x004B51A0
+int __cdecl NPCMENU_TravelToHarrogath();                                                                                 // 0x004B5200
 int __cdecl sub_004B5C60_Handler();                                                                         // 0x004B5C60
 int __cdecl sub_004B6D10_OpenConfirm();
 
@@ -49,7 +49,7 @@ void __fastcall sub_004B6390_HandleNpcTransaction(D2GSPacketSrv2A* pPacket)
     gnGlobal_007C0C73 = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
     if (gnGlobal_007C0C6B == 5)
     {
-        sub_004B53F0();
+        NPCMENU_OnTransactionResult();
         return;
     }
     if (gnGlobal_007C0C6B == 10)
@@ -76,22 +76,22 @@ int __cdecl sub_004B6C70_OpenNpcMenu()
     if (!NPC_GET_INTERACT_UNIT())
     {
         gnGlobal_007C0C6B = 0;
-        sub_00487990_ResetHover();
-        sub_004B3C20(gnGlobal_007C0D25);
+        INV_ResetHover();
+        NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
         sub_00455F20(8, 1, 0);
         return 0;
     }
 
     if (gpDialog_007C0D6B)
     {
-        sub_004B8020(gpDialog_007C0D6B);
+        DIALOG_DestroyDialog(gpDialog_007C0D6B);
         gpDialog_007C0D6B = 0;
     }
 
     gnGlobal_007C0C6B = 1;
     int nEntry = sub_004B1D70_FindNpcEntry();
     gpNpcEntry_007C0C7D = &gaNpcEntries_00726850[nEntry];
-    sub_004B5890_OpenNpcPanel(0xD35, nEntry);
+    NPCMENU_OpenNpcPanel(0xD35, nEntry);
     return 1;
 }
 
@@ -101,21 +101,21 @@ int __cdecl sub_004B6D10_OpenConfirm()
     if (!NPC_GET_INTERACT_UNIT())
     {
         gnGlobal_007C0C6B = 0;
-        sub_00487990_ResetHover();
-        sub_004B3C20(gnGlobal_007C0D25);
+        INV_ResetHover();
+        NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
         sub_00455F20(8, 1, 0);
         return 0;
     }
 
     if (gpDialog_007C0D6B)
     {
-        sub_004B8020(gpDialog_007C0D6B);
+        DIALOG_DestroyDialog(gpDialog_007C0D6B);
         gpDialog_007C0D6B = 0;
     }
 
     gnGlobal_007C0C6B = 1;
     sub_004B1D70_FindNpcEntry();
-    sub_004B5AD0_OpenConfirmDialog(0x2BA0);
+    NPCMENU_OpenConfirmDialog(0x2BA0);
     return 1;
 }
 

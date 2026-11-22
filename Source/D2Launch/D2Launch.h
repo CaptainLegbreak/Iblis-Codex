@@ -187,7 +187,7 @@ void __fastcall D2SOUND_10034(int nArg); // 0x005148F0
 int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
 void __fastcall sub_0040B3C0(void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __fastcall sub_00433460_ShowMessage(const Unicode* pText, void (__cdecl* pfnDone)()); // 0x00433460
-void __fastcall sub_0043C540(char* szName, char nClass, char* pData, int nFlags); // 0x0043C540
+void __fastcall AUTOMAP_InitCharSaveHeader(char* szName, char nClass, char* pData, int nFlags); // 0x0043C540
 void __fastcall sub_0043C6B0(char* szName); // 0x0043C6B0
 void __fastcall sub_004F96F0_ControlClearState(D2WinControlStrc* pControl, int nFlags); // 0x004F96F0
 void __fastcall sub_004F9740_ControlSetState(D2WinControlStrc* pControl, int nFlags); // 0x004F9740

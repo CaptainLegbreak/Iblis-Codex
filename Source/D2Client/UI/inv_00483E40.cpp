@@ -48,7 +48,7 @@ int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);         
 
 void __cdecl sub_0044DA70();                                                                                // 0x0044DA70
 
-int __fastcall sub_00453A90_GetUIVarUnchecked(int nUIVar);                                                  // 0x00453A90
+int __fastcall UI_GetUIVarUnchecked(int nUIVar);                                                  // 0x00453A90
 
 int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 
@@ -68,17 +68,17 @@ int __cdecl sub_0047A560();                                                     
 
 void __fastcall sub_004823E0_ReleaseCacheEntry(int nId);                                                    // 0x004823E0
 
-void __stdcall sub_004873A0_HandleClick(SMSGHANDLER_PARAMS* pMsg);                                          // 0x004873A0
+void __stdcall INV_UpdateInventoryHover(SMSGHANDLER_PARAMS* pMsg);                                          // 0x004873A0
 
-void __cdecl sub_00487990_ResetHover();                                                                     // 0x00487990
+void __cdecl INV_ResetHover();                                                                     // 0x00487990
 
 void __fastcall sub_0049FF90_Close(int nArg, D2ClientStateStrc* pState);                                    // 0x0049FF90
 
-int __cdecl sub_004B34A0();                                                                                 // 0x004B34A0
+int __cdecl NPCMENU_IsAnyDialogOpen();                                                                                 // 0x004B34A0
 
-int __fastcall sub_004B3230_GetTickPair(int* pUnitId);                                                // 0x004B3230
+int __fastcall NPCMENU_GetInteractNpcId(int* pUnitId);                                                // 0x004B3230
 
-void __cdecl sub_004B3ED0();                                                                                // 0x004B3ED0
+void __cdecl NPCMENU_CloseNpcShop();                                                                                // 0x004B3ED0
 
 void __fastcall sub_004CB9C0_Request(int nArg, int nId);                                                    // 0x004CB9C0
 
@@ -234,7 +234,7 @@ int __cdecl sub_004DF870(); // 0x004DF870
 
 void __cdecl sub_004DF890(); // 0x004DF890
 
-void __fastcall sub_004E42E0_UpdateEnvironSounds(unsigned int nTick); // 0x004E42E0
+void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int nTick); // 0x004E42E0
 
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
@@ -246,7 +246,7 @@ extern char gbCinematicBusy_007BC9D7; // 0x007BC9D7
 
 extern char gbCinematicChain_007BC9D8; // 0x007BC9D8
 
-static unsigned char sub_00482C70_GetFlagIndex(unsigned char nFlags);
+static unsigned char INV_GetFlagIndex(unsigned char nFlags);
 
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
 
@@ -302,9 +302,9 @@ struct D2NpcButtonStrc
 
 int __cdecl sub_0044DA30(); // 0x0044DA30
 
-void __cdecl sub_00453EC0(); // 0x00453EC0
+void __cdecl UI_CancelCursorItemUse(); // 0x00453EC0
 
-void __fastcall sub_00454150_OpenGoldPanel(int nMode); // 0x00454150
+void __fastcall UI_OpenGoldPanel(int nMode); // 0x00454150
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
@@ -326,13 +326,13 @@ void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
 
 void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int nArg1, unsigned int nArg2, unsigned int nArg3); // 0x004786D0
 
-void __cdecl sub_004835B0_LoadUiRecords(); // 0x004835B0
+void __cdecl INV_LoadUiRecords(); // 0x004835B0
 
 int __cdecl sub_004979E0(); // 0x004979E0
 
-int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
+int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
 
-void __fastcall sub_0049FF90_OpenTextData(D2UnitStrc* pUnit, D2ClientTextDataStrc* pTextData); // 0x0049FF90
+void __fastcall TEXT_OpenTextData(D2UnitStrc* pUnit, D2ClientTextDataStrc* pTextData); // 0x0049FF90
 
 void __cdecl sub_004B8CB0(); // 0x004B8CB0
 
@@ -374,7 +374,7 @@ int __stdcall INVENTORY_GetWieldType(D2UnitStrc* pUnit, D2InventoryStrc* pInvent
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
-void __stdcall sub_00483E40_DrawItemSockets(D2UnitStrc* item, D2InventoryGridInfoStrc* grid, int x, int y); // 0x00483E40
+void __stdcall INV_DrawItemSockets(D2UnitStrc* item, D2InventoryGridInfoStrc* grid, int x, int y); // 0x00483E40
 
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
@@ -478,7 +478,7 @@ int __stdcall ITEMS_GetBonusLifeBasedOnClass(D2UnitStrc* pPlayer, int nValue); /
 
 int __stdcall ITEMS_GetBonusManaBasedOnClass(D2UnitStrc* pPlayer, int nValue); // 0x0062A620
 
-static void __stdcall sub_00486BD0_GetPlacementCell(D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGrid, unsigned int nX, unsigned int nY, int* pCellX, int* pCellY);
+static void __stdcall INV_GetPlacementCell(D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGrid, unsigned int nX, unsigned int nY, int* pCellX, int* pCellY);
 
 #pragma pack(push, 2)
 
@@ -498,11 +498,11 @@ int __cdecl sub_004B3500(); // 0x004B3500
 
 extern D2PanelButtonStrc gaPanelButtons_007BC9E0[]; // 0x007BC9E0
 
-static void sub_00487E20_SetButtonA(int nButton); // 0x00487E20
+static void INV_SetBuyButton(int nButton); // 0x00487E20
 
-static void sub_00487E60_SetButtonB(int nButton); // 0x00487E60
+static void INV_SetSellButton(int nButton); // 0x00487E60
 
-static void sub_00487EA0_ClearButton(int nButton); // 0x00487EA0
+static void INV_ClearButton(int nButton); // 0x00487EA0
 
 void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
@@ -582,7 +582,7 @@ static int gnGlobal_007BCE94; // 0x007BCE94
 
 
 // 0x00480780
-int __fastcall sub_00480780_SetPathTargetUnit(D2UnitStrc* pUnit, int nUnitType, int nUnitId)
+int __fastcall INV_SetPathTargetUnit(D2UnitStrc* pUnit, int nUnitType, int nUnitId)
 {
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
     D2UnitStrc* pTarget = sub_00463990(nUnitId, nUnitType);
@@ -595,7 +595,7 @@ int __fastcall sub_00480780_SetPathTargetUnit(D2UnitStrc* pUnit, int nUnitType, 
 }
 
 // 0x004824A0
-int __stdcall sub_004824A0_FreeCacheEntries(unsigned int nFree, int bTwoPasses, int bCheckAge)
+int __stdcall INV_FreeCacheEntries(unsigned int nFree, int bTwoPasses, int bCheckAge)
 {
     const unsigned int nTarget = gdwCacheUsed_007BC9D0 - nFree;
     const unsigned int dwNow = gdwGlobal_007BC9BC;
@@ -641,11 +641,11 @@ int __stdcall sub_004824A0_FreeCacheEntries(unsigned int nFree, int bTwoPasses, 
 }
 
 // 0x00482C20
-void __cdecl sub_00482C20_Tick()
+void __cdecl INV_TickSound()
 {
     if (sub_004DF870())
     {
-        sub_004E42E0_UpdateEnvironSounds(gdwGlobal_007BC9BC);
+        SKILLDESC_UpdateEnvironSounds(gdwGlobal_007BC9BC);
         sub_004DCAA0_UpdateLevelSong(gdwGlobal_007BC9BC);
         sub_00482B40_UpdateCache(gdwGlobal_007BC9BC);
         sub_004BA020(gdwGlobal_007BC9BC);
@@ -656,7 +656,7 @@ void __cdecl sub_00482C20_Tick()
 }
 
 // 0x00482C70
-static unsigned char sub_00482C70_GetFlagIndex(unsigned char nFlags)
+static unsigned char INV_GetFlagIndex(unsigned char nFlags)
 {
     if (nFlags & 0x01)
         return 7;
@@ -674,7 +674,7 @@ static unsigned char sub_00482C70_GetFlagIndex(unsigned char nFlags)
 }
 
 // 0x00483310
-void __cdecl sub_00483310_ResetCinematicFlags()
+void __cdecl INV_ResetCinematicFlags()
 {
     gbCinematicStop_007BC9D4 = 0;
     gbCinematicWide_007BC9D6 = !sub_0040EB10();
@@ -689,7 +689,7 @@ unsigned char __cdecl sub_00483350_IsCinematicBusy()
 }
 
 // 0x004834A0
-const Unicode* __fastcall sub_004834A0_SkipBracketTag(const Unicode* pString)
+const Unicode* __fastcall INV_SkipBracketTag(const Unicode* pString)
 {
     int n = sub_00526800(pString);
     for (; n > 0; --n)
@@ -711,12 +711,12 @@ int __fastcall sub_00482C70_Shim(const unsigned char* pFlags, int nCount)
 {
     int nSum = 0;
     for (int i = 0; i < nCount; ++i)
-        nSum += sub_00482C70_GetFlagIndex(pFlags[i]);
+        nSum += INV_GetFlagIndex(pFlags[i]);
     return nSum;
 }
 
 // 0x00483AE0
-static int sub_00483AE0_IsInRect(int nX, int nY)
+static int INV_IsInTradeOtherGrid(int nX, int nY)
 {
     if (nX > gnGlobal_007BCB1C && nX < gnGlobal_007BCB20 && nY >= gnGlobal_007BCB24 && nY <= gnGlobal_007BCB28)
     {
@@ -726,7 +726,7 @@ static int sub_00483AE0_IsInRect(int nX, int nY)
 }
 
 // 0x00483B10
-static int sub_00483B10_IsInRect(int nX, int nY)
+static int INV_IsInTradeGrid(int nX, int nY)
 {
     if (nX > gnGlobal_007BCA34 && nX < gnGlobal_007BCA38 && nY >= gnGlobal_007BCA3C && nY <= gnGlobal_007BCA40)
     {
@@ -785,12 +785,12 @@ static int sub_00483BF0_IsInRect(int nX, int nY)
 
 int __cdecl sub_E04_Emit_00483AE0(int nX, int nY)
 {
-    return sub_00483AE0_IsInRect(nX, nY);
+    return INV_IsInTradeOtherGrid(nX, nY);
 }
 
 int __cdecl sub_E04_Emit_00483B10(int nX, int nY)
 {
-    return sub_00483B10_IsInRect(nX, nY);
+    return INV_IsInTradeGrid(nX, nY);
 }
 
 int __cdecl sub_E04_Emit_00483B40(int nX, int nY)
@@ -809,7 +809,7 @@ int __cdecl sub_E04_Emit_00483BF0(int nX, int nY)
 }
 
 // 0x00483C20
-static int sub_00483C20_IsInRect(int nX, int nY)
+static int INV_IsInSidePanelRect(int nX, int nY)
 {
     if (nX >= gnGlobal_007BCB30 && nX < gnGlobal_007BCB34 && nY >= 0 && nY <= gnGlobal_007BCB3C)
     {
@@ -819,7 +819,7 @@ static int sub_00483C20_IsInRect(int nX, int nY)
 }
 
 // 0x00483E10
-int __cdecl sub_00483E10_IsNpcStateIdle()
+int __cdecl INV_IsNpcStateIdle()
 {
     if (gdwGlobal_007BCBF0 == 0 || gdwGlobal_007BCBF0 == 1 || gdwGlobal_007BCBF0 == 3 || gdwGlobal_007BCBF0 == 2 || gdwGlobal_007BCBF0 == 4)
     {
@@ -829,7 +829,7 @@ int __cdecl sub_00483E10_IsNpcStateIdle()
 }
 
 // 0x00483E40
-void __stdcall sub_00483E40_DrawItemSockets(D2UnitStrc* item, D2InventoryGridInfoStrc* grid, int x, int y)
+void __stdcall INV_DrawItemSockets(D2UnitStrc* item, D2InventoryGridInfoStrc* grid, int x, int y)
 {
     if (!ITEMS_CheckItemFlag(item, 0x10, 1120, ".\\UI\\inv.cpp"))
         return;
@@ -1010,9 +1010,9 @@ static int sub_00483F80_IsUnusableQuestBook(D2ItemsTxt* pItemsTxt)
 }
 
 // 0x00483FF0
-void __stdcall sub_00483FF0_DrawUnitInventory(D2UnitStrc* pUnit)
+void __stdcall INV_DrawUnitInventory(D2UnitStrc* pUnit)
 {
-    sub_004835B0_LoadUiRecords();
+    INV_LoadUiRecords();
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2InventoryGridInfoStrc* pGrid;
     const int nType = !pUnit ? 6 : pUnit->dwUnitType;
@@ -1117,7 +1117,7 @@ void __stdcall sub_00483FF0_DrawUnitInventory(D2UnitStrc* pUnit)
             sub_0046EE80_DrawItemCel(pItem, pGrid->nGridBoxWidth * nX + pGrid->nGridLeft, pGrid->nGridBoxHeight * nY + pGrid->nGridTop);
             if (ITEMS_CheckIfSocketable(pItem) && ITEMS_GetMaxSockets(pItem) > 0 && ITEMS_CheckItemFlag(pItem, 0x800, 0x51C, szInvCpp_006D9BC0))
             {
-                sub_00483E40_DrawItemSockets(pItem, pGrid, pGrid->nGridBoxWidth * nX + pGrid->nGridLeft, pGrid->nGridBoxHeight * nY + pGrid->nGridTop);
+                INV_DrawItemSockets(pItem, pGrid, pGrid->nGridBoxWidth * nX + pGrid->nGridLeft, pGrid->nGridBoxHeight * nY + pGrid->nGridTop);
             }
             goto Next;
         }
@@ -1265,7 +1265,7 @@ static int sub_00486860_IsOverWeaponSwapTab(int nX, int nY)
     return 0;
 }
 
-int __cdecl sub_00486AE0_GetPanelX()
+int __cdecl INV_GetPanelX()
 {
     if (!sub_0044DCC0())
     {
@@ -1316,7 +1316,7 @@ static void __stdcall sub_00486E60_ClickOutsidePanel(int nY, SMSGHANDLER_PARAMS*
     {
         return;
     }
-    if (sub_00498DC0_MouseMoveMsg(pMsg))
+    if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg))
     {
         return;
     }
@@ -1330,7 +1330,7 @@ static void __stdcall sub_00486E60_ClickOutsidePanel(int nY, SMSGHANDLER_PARAMS*
     }
     if (sub_00468830() == 6)
     {
-        sub_00453EC0();
+        UI_CancelCursorItemUse();
     }
     if (sub_0045AE90() == 3 && gdwGlobal_007BCBF0 == 0 && nX < gnGlobal_0071146C / 2)
     {
@@ -1344,14 +1344,14 @@ static void __stdcall sub_00486E60_ClickOutsidePanel(int nY, SMSGHANDLER_PARAMS*
 
 void __stdcall sub_E05_Emit_00486E60(SMSGHANDLER_PARAMS* pMsg); // 0x00486E60
 
-void __stdcall sub_00486EF0_NpcPanelMouseMove(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall INV_NpcPanelMouseMove(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nY = pMsg->nYpos;
     const int nX = pMsg->nXpos;
     gbGlobal_007BCE90 = 0;
     gnGlobal_007BCE94 = 0;
     D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
-    if (!sub_00498DC0_MouseMoveMsg(pMsg))
+    if (!AUTOMAP_IsCursorOverMiniPanelButton(pMsg))
     {
         if (sub_00486E10_IsInNpcPanelRect(nX, nY))
         {
@@ -1365,11 +1365,11 @@ void __stdcall sub_00486EF0_NpcPanelMouseMove(SMSGHANDLER_PARAMS* pMsg)
         gnGlobal_007BCE30 = 0;
         if (sub_00486DA0_IsOverGoldButton(nX, nY) && !gnGlobal_007BCE2C)
         {
-            sub_00454150_OpenGoldPanel(1);
+            UI_OpenGoldPanel(1);
         }
     }
     sub_0044DA70();
-    if (sub_00483AB0_IsInInvRect(nX, nY) && !sub_00498DC0_MouseMoveMsg(pMsg))
+    if (sub_00483AB0_IsInInvRect(nX, nY) && !AUTOMAP_IsCursorOverMiniPanelButton(pMsg))
     {
         pMsg->lResult = 0;
         pMsg->bReturn = 1;
@@ -1377,7 +1377,7 @@ void __stdcall sub_00486EF0_NpcPanelMouseMove(SMSGHANDLER_PARAMS* pMsg)
     }
 }
 
-static void __stdcall sub_00487000_UpdateGridHover(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, D2UnitStrc* pCursorItem, unsigned int nX, unsigned int nY, int nPage, D2InventoryGridInfoStrc* pGrid)
+static void __stdcall INV_UpdateGridHover(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, D2UnitStrc* pCursorItem, unsigned int nX, unsigned int nY, int nPage, D2InventoryGridInfoStrc* pGrid)
 {
     const int nRecord = UNITS_GetInventoryRecordId(pPlayer, nPage, sub_0044DCC0());
     int nCellX = (nX - pGrid->nGridLeft) / pGrid->nGridBoxWidth;
@@ -1469,7 +1469,7 @@ static void __stdcall sub_00487000_UpdateGridHover(D2UnitStrc* pPlayer, D2Invent
     gdwGlobal_007BCBF8 = 0;
 }
 
-static void __stdcall sub_00487230_UpdateBodyLocHover(int nBodyLoc, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory)
+static void __stdcall INV_UpdateBodyLocHover(int nBodyLoc, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory)
 {
     if (INVENTORY_GetCursorItem(pInventory))
     {
@@ -1521,7 +1521,7 @@ static void __stdcall sub_00487230_UpdateBodyLocHover(int nBodyLoc, D2UnitStrc* 
     gdwGlobal_007BCBF8 = 0;
 }
 
-void __stdcall sub_004873A0_HandleClick(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall INV_UpdateInventoryHover(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30() || sub_00463DF0())
     {
@@ -1536,10 +1536,10 @@ void __stdcall sub_004873A0_HandleClick(SMSGHANDLER_PARAMS* pMsg)
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    sub_004835B0_LoadUiRecords();
+    INV_LoadUiRecords();
     D2InventoryStrc* pInventory = pPlayer->pInventory;
     int bHandled = 0;
-    if (!sub_00498DC0_MouseMoveMsg(pMsg) && sub_00483AB0_IsInInvRect(nX, nY))
+    if (!AUTOMAP_IsCursorOverMiniPanelButton(pMsg) && sub_00483AB0_IsInInvRect(nX, nY))
     {
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
@@ -1547,7 +1547,7 @@ void __stdcall sub_004873A0_HandleClick(SMSGHANDLER_PARAMS* pMsg)
         if (nX >= gGrid_007BCB88.nGridLeft && nX <= gGrid_007BCB88.nGridRight && nY >= gGrid_007BCB88.nGridTop && nY <= gGrid_007BCB88.nGridBottom)
         {
             D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pInventory);
-            sub_00487000_UpdateGridHover(pPlayer, pInventory, pCursorItem, nX, nY, 0, &gGrid_007BCB88);
+            INV_UpdateGridHover(pPlayer, pInventory, pCursorItem, nX, nY, 0, &gGrid_007BCB88);
             gnGlobal_007BCC20 = 0;
             gnGlobal_00721E38 = 1;
             return;
@@ -1556,7 +1556,7 @@ void __stdcall sub_004873A0_HandleClick(SMSGHANDLER_PARAMS* pMsg)
         {
             if (nX >= gaCompGrids_007BCC58[nBodyLoc].rect.nLeft && nX <= gaCompGrids_007BCC58[nBodyLoc].rect.nRight && nY >= gaCompGrids_007BCC58[nBodyLoc].rect.nTop && nY <= gaCompGrids_007BCC58[nBodyLoc].rect.nBottom)
             {
-                sub_00487230_UpdateBodyLocHover(nBodyLoc, pPlayer, pInventory);
+                INV_UpdateBodyLocHover(nBodyLoc, pPlayer, pInventory);
                 gnGlobal_00721E38 = 1;
                 return;
             }
@@ -1577,14 +1577,14 @@ void __stdcall sub_004873A0_HandleClick(SMSGHANDLER_PARAMS* pMsg)
         {
             gnSelectedTab_007BCC04 = 1;
             D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pInventory);
-            sub_00487000_UpdateGridHover(pPlayer, pInventory, pCursorItem, nX, nY, 1, &gGrid_007BCB18);
+            INV_UpdateGridHover(pPlayer, pInventory, pCursorItem, nX, nY, 1, &gGrid_007BCB18);
             bHandled = 1;
         }
         else if (sub_00483B10_IsInGrid7BCA30(nX, nY))
         {
             gnSelectedTab_007BCC04 = 2;
             D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pInventory);
-            sub_00487000_UpdateGridHover(pPlayer, pInventory, pCursorItem, nX, nY, 2, &gGrid_007BCA30);
+            INV_UpdateGridHover(pPlayer, pInventory, pCursorItem, nX, nY, 2, &gGrid_007BCA30);
             bHandled = 1;
         }
         gnSelectedTab_007BCC04 = nOldTab;
@@ -1608,11 +1608,11 @@ void __stdcall sub_004873A0_HandleClick(SMSGHANDLER_PARAMS* pMsg)
             D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pInventory);
             if (sub_0044DCC0())
             {
-                sub_00487000_UpdateGridHover(pPlayer, pInventory, pCursorItem, nX, nY, 4, &gGrid_007BCA78);
+                INV_UpdateGridHover(pPlayer, pInventory, pCursorItem, nX, nY, 4, &gGrid_007BCA78);
             }
             else
             {
-                sub_00487000_UpdateGridHover(pPlayer, pInventory, pCursorItem, nX, nY, 4, &gGrid_007BCB40);
+                INV_UpdateGridHover(pPlayer, pInventory, pCursorItem, nX, nY, 4, &gGrid_007BCB40);
             }
         }
         else
@@ -1634,7 +1634,7 @@ void __stdcall sub_004873A0_HandleClick(SMSGHANDLER_PARAMS* pMsg)
         {
             gnSelectedTab_007BCC04 = 3;
             D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pInventory);
-            sub_00487000_UpdateGridHover(pPlayer, pInventory, pCursorItem, nX, nY, 3, &gGrid_007BCB70);
+            INV_UpdateGridHover(pPlayer, pInventory, pCursorItem, nX, nY, 3, &gGrid_007BCB70);
         }
         else
         {
@@ -1661,7 +1661,7 @@ void __stdcall sub_004873A0_HandleClick(SMSGHANDLER_PARAMS* pMsg)
     gnGlobal_00721E38 = 0;
 }
 
-int __cdecl sub_00487BE0_ResetButtons()
+int __cdecl INV_ResetNpcButtons()
 {
     gaNpcButtons_007BC9E0[0].bActive = 0;
     gaNpcButtons_007BC9E0[1].bActive = 0;
@@ -1689,7 +1689,7 @@ int __cdecl sub_004888C0_CanUseCursor()
     return 0;
 }
 
-void __stdcall sub_004889D0_TradeMouseMove(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall INV_NpcShopMouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gdwGlobal_007BCBF0 == 0 || gdwGlobal_007BCBF0 == 1 || gdwGlobal_007BCBF0 == 3 || gdwGlobal_007BCBF0 == 2 || gdwGlobal_007BCBF0 == 4)
     {
@@ -1702,7 +1702,7 @@ void __stdcall sub_004889D0_TradeMouseMove(SMSGHANDLER_PARAMS* pMsg)
             return;
         }
         int nUnitId;
-        if (gdwGlobal_007BCBF0 && sub_004B3230_GetTickPair(&nUnitId))
+        if (gdwGlobal_007BCBF0 && NPCMENU_GetInteractNpcId(&nUnitId))
         {
             D2UnitStrc* pUnit = sub_00463990(nUnitId, 1);
             if (pUnit)
@@ -1714,7 +1714,7 @@ void __stdcall sub_004889D0_TradeMouseMove(SMSGHANDLER_PARAMS* pMsg)
                     pMsg->lResult = 0;
                     if (nX >= gGrid_007BCB58.nGridLeft && nX <= gGrid_007BCB58.nGridRight && nY >= gGrid_007BCB58.nGridTop && nY <= gGrid_007BCB58.nGridBottom)
                     {
-                        sub_00487000_UpdateGridHover(pUnit, pInventory, 0, nX, nY, gnSelectedTab_007BCC04, &gGrid_007BCB58);
+                        INV_UpdateGridHover(pUnit, pInventory, 0, nX, nY, gnSelectedTab_007BCC04, &gGrid_007BCB58);
                         pMsg->bReturn = 1;
                         pMsg->lResult = 0;
                         gnGlobal_00721E38 = 0;
@@ -1723,11 +1723,11 @@ void __stdcall sub_004889D0_TradeMouseMove(SMSGHANDLER_PARAMS* pMsg)
                 }
             }
         }
-        sub_004873A0_HandleClick(pMsg);
+        INV_UpdateInventoryHover(pMsg);
     }
 }
 
-static void sub_00488E10_SelectButtonByKey(int nKey)
+static void INV_SelectButtonByKey(int nKey)
 {
     gaNpcButtons_007BC9E0[0].bActive = gaNpcButtons_007BC9E0[0].nKey == nKey;
     gaNpcButtons_007BC9E0[1].bActive = gaNpcButtons_007BC9E0[1].nKey == nKey;
@@ -1735,9 +1735,9 @@ static void sub_00488E10_SelectButtonByKey(int nKey)
     gaNpcButtons_007BC9E0[3].bActive = gaNpcButtons_007BC9E0[3].nKey == nKey;
 }
 
-void __cdecl sub_00488F10_OpenTradeFromButton(); // 0x00488F10
+void __cdecl INV_RestoreSelectedShopButton(); // 0x00488F10
 
-static int sub_00489430_IsOverButtonA(int nX, int nY)
+static int INV_IsOverTradeButtonLeft(int nX, int nY)
 {
     if (nX > gnGlobal_007A2858 + 0xDF && nX < gnGlobal_007A2858 + 0xFF
         && nY > gnGlobal_00711470 + gnGlobal_007A285C - 0x60 && nY < gnGlobal_00711470 + gnGlobal_007A285C - 0x40)
@@ -1747,7 +1747,7 @@ static int sub_00489430_IsOverButtonA(int nX, int nY)
     return 0;
 }
 
-static int sub_00489480_IsOverButtonB(int nX, int nY)
+static int INV_IsOverTradeButtonRight(int nX, int nY)
 {
     if (nX > gnGlobal_007A2858 + 0x113 && nX < gnGlobal_007A2858 + 0x133
         && nY > gnGlobal_00711470 + gnGlobal_007A285C - 0x60 && nY < gnGlobal_00711470 + gnGlobal_007A285C - 0x40)
@@ -1757,7 +1757,7 @@ static int sub_00489480_IsOverButtonB(int nX, int nY)
     return 0;
 }
 
-void __stdcall sub_00489580_StashMouseMove(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall INV_TradePanelMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gdwGlobal_007BCBF0 != 0xB)
     {
@@ -1771,14 +1771,14 @@ void __stdcall sub_00489580_StashMouseMove(SMSGHANDLER_PARAMS* pMsg)
     gbGlobal_007BCE90 = 0;
     gnGlobal_007BCE94 = 0;
     D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
-    if (!sub_00498DC0_MouseMoveMsg(pMsg) && !INVENTORY_GetCursorItem(pInventory) && sub_00486E10_IsInNpcPanelRect(nX, nY))
+    if (!AUTOMAP_IsCursorOverMiniPanelButton(pMsg) && !INVENTORY_GetCursorItem(pInventory) && sub_00486E10_IsInNpcPanelRect(nX, nY))
     {
         sub_004B8CB0();
         return;
     }
     if (!sub_00483B10_IsInGrid7BCA30(nX, nY))
     {
-        if (sub_00489430_IsOverButtonA(nX, nY))
+        if (INV_IsOverTradeButtonLeft(nX, nY))
         {
             if (gnGlobal_007BCE18 && gnGlobal_007BCE20)
             {
@@ -1791,7 +1791,7 @@ void __stdcall sub_00489580_StashMouseMove(SMSGHANDLER_PARAMS* pMsg)
             sub_00420290_BreakHandlerChain(pMsg);
             return;
         }
-        if (sub_00489480_IsOverButtonB(nX, nY))
+        if (INV_IsOverTradeButtonRight(nX, nY))
         {
             if (gnGlobal_007BCE1C && gnGlobal_007BCE24)
             {
@@ -1805,7 +1805,7 @@ void __stdcall sub_00489580_StashMouseMove(SMSGHANDLER_PARAMS* pMsg)
             sub_00420290_BreakHandlerChain(pMsg);
             return;
         }
-        if (sub_00498DC0_MouseMoveMsg(pMsg) == 1)
+        if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg) == 1)
         {
             gnGlobal_007BCE20 = 0;
             gnGlobal_007BCE18 = 0;
@@ -1815,7 +1815,7 @@ void __stdcall sub_00489580_StashMouseMove(SMSGHANDLER_PARAMS* pMsg)
         }
         if (sub_00486DA0_IsOverGoldButton(nX, nY) && !gnGlobal_007BCE2C)
         {
-            sub_00454150_OpenGoldPanel(2);
+            UI_OpenGoldPanel(2);
         }
         if (gnGlobal_007BCE9C)
         {
@@ -1873,7 +1873,7 @@ static int sub_00489920_IsOverCloseButton(int nX, int nY)
 
 static int sub_00489980_IsOverTransmuteButton(int nX, int nY)
 {
-    if (nX > sub_00486AE0_GetPanelX() && nX < sub_00486AE0_GetPanelX() + 0x28
+    if (nX > INV_GetPanelX() && nX < INV_GetPanelX() + 0x28
         && nY > sub_00486B00_GetPanelY() - 0x23 && nY < sub_00486B00_GetPanelY() + 5)
     {
         return 1;
@@ -1881,7 +1881,7 @@ static int sub_00489980_IsOverTransmuteButton(int nX, int nY)
     return 0;
 }
 
-void __stdcall sub_00489A30_CubeMouseMove(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall INV_StashMouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gdwGlobal_007BCBF0 == 0xC || gdwGlobal_007BCBF0 == 0xD)
     {
@@ -1891,7 +1891,7 @@ void __stdcall sub_00489A30_CubeMouseMove(SMSGHANDLER_PARAMS* pMsg)
         gnGlobal_007BCBD8 = nY;
         if (sub_00483AB0_IsInInvRect(nX, nY) || sub_00483B40_IsInCubeGrid(nX, nY))
         {
-            sub_004873A0_HandleClick(pMsg);
+            INV_UpdateInventoryHover(pMsg);
             return;
         }
         gdwGlobal_007BCBE4 = 0;
@@ -1902,7 +1902,7 @@ void __stdcall sub_00489A30_CubeMouseMove(SMSGHANDLER_PARAMS* pMsg)
     }
 }
 
-void __stdcall sub_00489AC0_CubeClick(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall INV_StashClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gdwGlobal_007BCBF0 != 0xC && gdwGlobal_007BCBF0 != 0xD)
     {
@@ -1916,7 +1916,7 @@ void __stdcall sub_00489AC0_CubeClick(SMSGHANDLER_PARAMS* pMsg)
     gnGlobal_007BCA4C = nX;
     gnGlobal_007BCBD8 = nY;
     D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
-    if ((!sub_004979E0() || !sub_00498DC0_MouseMoveMsg(pMsg)) && !INVENTORY_GetCursorItem(pInventory) && sub_00486E10_IsInNpcPanelRect(nX, nY))
+    if ((!sub_004979E0() || !AUTOMAP_IsCursorOverMiniPanelButton(pMsg)) && !INVENTORY_GetCursorItem(pInventory) && sub_00486E10_IsInNpcPanelRect(nX, nY))
     {
         sub_00455F20(0x19, 1, 0);
         return;
@@ -1940,13 +1940,13 @@ void __stdcall sub_00489AC0_CubeClick(SMSGHANDLER_PARAMS* pMsg)
     gnGlobal_007BCE3C = 0;
     if (!sub_004979E0() && sub_00486DA0_IsOverGoldButton(nX, nY) && !gnGlobal_007BCE2C)
     {
-        sub_00454150_OpenGoldPanel(3);
+        UI_OpenGoldPanel(3);
     }
     if (sub_00489920_IsOverCloseButton(nX, nY) && !gnGlobal_007BCE2C)
     {
-        sub_00454150_OpenGoldPanel(4);
+        UI_OpenGoldPanel(4);
     }
-    if (sub_00498DC0_MouseMoveMsg(pMsg) == 1)
+    if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg) == 1)
     {
         gnGlobal_007BCE20 = 0;
         gnGlobal_007BCE3C = 0;
@@ -1994,7 +1994,7 @@ static int sub_00489FB0_IsOverButtonC(int nX, int nY)
     return 0;
 }
 
-static void sub_004865D0_AppendBookCharges(Unicode* pText)
+static void INV_AppendBookCharges(Unicode* pText)
 {
     const Unicode* pColorEnd = D2LANG_GetStringFromTblIndex(0xF9E);
     D2_ASSERT(ITEMSIsA(gdwGlobal_007BCBF4, 0x35), 0xC43);
@@ -2036,7 +2036,7 @@ int __cdecl sub_E05_Emit_00486860(); // 0x00486860
 int __cdecl sub_E05_Emit_00489FB0(int nX, int nY); // 0x00489FB0
 
 // 0x00484C90
-static int sub_00484C90_FormatEarName(Unicode* pText, D2UnitStrc* pItem)
+static int INV_FormatEarName(Unicode* pText, D2UnitStrc* pItem)
 {
     if (ITEMS_CheckItemFlag(pItem, 0x1000000, 0x6EA, ".\\UI\\inv.cpp"))
     {
@@ -2058,7 +2058,7 @@ static int sub_00484C90_FormatEarName(Unicode* pText, D2UnitStrc* pItem)
 }
 
 // 0x00484D30
-static int __stdcall sub_00484D30_FormatEarNameTo(Unicode* pOut, const Unicode* pFormat, D2UnitStrc* pItem)
+static int __stdcall INV_FormatEarNameTo(Unicode* pOut, const Unicode* pFormat, D2UnitStrc* pItem)
 {
     if (ITEMS_CheckItemFlag(pItem, 0x1000000, 0x70B, ".\\UI\\inv.cpp"))
     {
@@ -2073,17 +2073,17 @@ static int __stdcall sub_00484D30_FormatEarNameTo(Unicode* pOut, const Unicode* 
 
 int __fastcall sub_A15_Emit_00484C90(Unicode* pText, D2UnitStrc* pItem)
 {
-    return sub_00484C90_FormatEarName(pText, pItem);
+    return INV_FormatEarName(pText, pItem);
 }
 
 int __fastcall sub_A15_Emit_00484D30(Unicode* pOut, const Unicode* pFormat, D2UnitStrc* pItem)
 {
-    return sub_00484D30_FormatEarNameTo(pOut, pFormat, pItem);
+    return INV_FormatEarNameTo(pOut, pFormat, pItem);
 }
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x00486370
-static void __stdcall sub_00486370_AppendItemFormulaText(D2UnitStrc* pItem, D2ItemFormulaRecordStrc* pRecord, Unicode* pBuffer)
+static void __stdcall INV_AppendItemFormulaText(D2UnitStrc* pItem, D2ItemFormulaRecordStrc* pRecord, Unicode* pBuffer)
 {
     if (!pItem || !pRecord || !pRecord->nDescType)
     {
@@ -2157,7 +2157,7 @@ static void __stdcall sub_00486370_AppendItemFormulaText(D2UnitStrc* pItem, D2It
 }
 
 // 0x00486670
-static void __stdcall sub_00486670_AppendSocketedGemLetters(Unicode* pText, D2UnitStrc* pItem)
+static void __stdcall INV_AppendSocketedGemLetters(Unicode* pText, D2UnitStrc* pItem)
 {
     D2InventoryStrc* pInventory = pItem->pInventory;
     if (!pInventory)
@@ -2206,12 +2206,12 @@ static void __stdcall sub_00486670_AppendSocketedGemLetters(Unicode* pText, D2Un
 void __stdcall sub_Q05_Emit_00486370(D2ItemFormulaRecordStrc* pRecord, Unicode* pOut)
 {
     Unicode wszBuffer[0x400];
-    sub_00486370_AppendItemFormulaText(gdwGlobal_007BCBF4, pRecord, wszBuffer);
+    INV_AppendItemFormulaText(gdwGlobal_007BCBF4, pRecord, wszBuffer);
     sub_005267E0(pOut, wszBuffer);
 }
 
 // 0x00486BD0
-static void __stdcall sub_00486BD0_GetPlacementCell(D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGrid, unsigned int nX, unsigned int nY, int* pCellX, int* pCellY)
+static void __stdcall INV_GetPlacementCell(D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGrid, unsigned int nX, unsigned int nY, int* pCellX, int* pCellY)
 {
     D2_ASSERT(pItem, 0x14E8);
 
@@ -2263,7 +2263,7 @@ static void __stdcall sub_00486BD0_GetPlacementCell(D2UnitStrc* pItem, D2Invento
 }
 
 // 0x00487A10
-void __stdcall sub_00487A10_SelectItemPageTab(unsigned char nTab)
+void __stdcall INV_SelectItemPageTab(unsigned char nTab)
 {
     if (nTab >= 5)
     {
@@ -2274,7 +2274,7 @@ void __stdcall sub_00487A10_SelectItemPageTab(unsigned char nTab)
         return;
     }
     int nUnitId;
-    if (!sub_004B3230_GetTickPair(&nUnitId))
+    if (!NPCMENU_GetInteractNpcId(&nUnitId))
     {
         return;
     }
@@ -2325,10 +2325,10 @@ void __stdcall sub_00487A10_SelectItemPageTab(unsigned char nTab)
 
 void __stdcall sub_00486BD0_Emit(D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGrid, unsigned int nX, unsigned int nY, int* pCellX, int* pCellY)
 {
-    sub_00486BD0_GetPlacementCell(pItem, pGrid, nX, nY, pCellX, pCellY);
+    INV_GetPlacementCell(pItem, pGrid, nX, nY, pCellX, pCellY);
 }
 
-static void sub_00487E20_SetButtonA(int nButton)
+static void INV_SetBuyButton(int nButton)
 {
     gaPanelButtons_007BC9E0[nButton].nString = 0xD07;
     gaPanelButtons_007BC9E0[nButton].nCel = 2;
@@ -2337,7 +2337,7 @@ static void sub_00487E20_SetButtonA(int nButton)
     gaPanelButtons_007BC9E0[nButton].bActive = 1;
 }
 
-static void sub_00487E60_SetButtonB(int nButton)
+static void INV_SetSellButton(int nButton)
 {
     gaPanelButtons_007BC9E0[nButton].nString = 0xD08;
     gaPanelButtons_007BC9E0[nButton].nCel = 3;
@@ -2346,7 +2346,7 @@ static void sub_00487E60_SetButtonB(int nButton)
     gaPanelButtons_007BC9E0[nButton].bActive = 1;
 }
 
-static __declspec(noinline) void sub_00487EA0_ClearButton(int nButton)
+static __declspec(noinline) void INV_ClearButton(int nButton)
 {
     gaPanelButtons_007BC9E0[nButton].nString = 0;
     gaPanelButtons_007BC9E0[nButton].nCel = 1;
@@ -2367,11 +2367,11 @@ static int sub_00623C60(D2UnitStrc* pUnit)
 }
 
 // 0x00487ED0
-void __cdecl sub_00487ED0_SetupPanelButtons()
+void __cdecl INV_SetupPanelButtons()
 {
     const int bValue = sub_004B3500();
     int nUnitId;
-    if (!sub_004B3230_GetTickPair(&nUnitId))
+    if (!NPCMENU_GetInteractNpcId(&nUnitId))
         return;
 
     D2UnitStrc* pUnit = sub_00463990(nUnitId, 1);
@@ -2381,8 +2381,8 @@ void __cdecl sub_00487ED0_SetupPanelButtons()
     if (bValue)
     {
         gnMaxTab_007BCC05 = 1;
-        sub_00487E20_SetButtonA(0);
-        sub_00487E60_SetButtonB(1);
+        INV_SetBuyButton(0);
+        INV_SetSellButton(1);
         gaPanelButtons_007BC9E0[2].nString = 0;
         gaPanelButtons_007BC9E0[2].nCel = 1;
         gaPanelButtons_007BC9E0[2].nType = 1;
@@ -2405,9 +2405,9 @@ void __cdecl sub_00487ED0_SetupPanelButtons()
         case 0x200:
         case 0x201:
             gnMaxTab_007BCC05 = 3;
-            sub_00487E20_SetButtonA(0);
-            sub_00487E60_SetButtonB(1);
-            sub_00487EA0_ClearButton(2);
+            INV_SetBuyButton(0);
+            INV_SetSellButton(1);
+            INV_ClearButton(2);
             break;
 
         case 0x9A:
@@ -2416,8 +2416,8 @@ void __cdecl sub_00487ED0_SetupPanelButtons()
         case 0x101:
         case 0x1FF:
             gnMaxTab_007BCC05 = 3;
-            sub_00487E20_SetButtonA(0);
-            sub_00487E60_SetButtonB(1);
+            INV_SetBuyButton(0);
+            INV_SetSellButton(1);
             gaPanelButtons_007BC9E0[2].nString = 0xD0A;
             gaPanelButtons_007BC9E0[2].nCel = 4;
             gaPanelButtons_007BC9E0[2].nType = 1;
@@ -2454,10 +2454,10 @@ void __cdecl sub_00487ED0_SetupPanelButtons()
 }
 
 // 0x00488910
-void __stdcall sub_00488910_ResetCursorMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall INV_ResetShopCursorMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if ((gdwGlobal_007BCBF0 == 1 || gdwGlobal_007BCBF0 == 2 || gdwGlobal_007BCBF0 == 3 || gdwGlobal_007BCBF0 == 4 || gdwGlobal_007BCBF0 == 9)
-        && !sub_00453A90_GetUIVarUnchecked(5))
+        && !UI_GetUIVarUnchecked(5))
     {
         gnGlobal_007BCBE0 = 0;
         sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory));
@@ -2465,7 +2465,7 @@ void __stdcall sub_00488910_ResetCursorMsg(SMSGHANDLER_PARAMS* pMsg)
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
         gnGlobal_007BCE9C = 0;
-        sub_004B3ED0();
+        NPCMENU_CloseNpcShop();
         gnGlobal_007BCA4C = 0;
         gnGlobal_007BCBD8 = 0;
         gdwGlobal_007BCBE4 = 0;
@@ -2482,9 +2482,9 @@ void __stdcall sub_00488910_ResetCursorMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00488E70
-void __stdcall sub_00488E70_KeyMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall INV_OpenChatKeyMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (sub_00453A90_GetUIVarUnchecked(5) || sub_004B34A0())
+    if (UI_GetUIVarUnchecked(5) || NPCMENU_IsAnyDialogOpen())
     {
         return;
     }
@@ -2498,7 +2498,7 @@ void __stdcall sub_00488E70_KeyMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00489060
-int __stdcall sub_00489060_ClickMsg(SMSGHANDLER_PARAMS* pMsg)
+int __stdcall INV_InvRectClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
@@ -2506,14 +2506,14 @@ int __stdcall sub_00489060_ClickMsg(SMSGHANDLER_PARAMS* pMsg)
     gnGlobal_007BCBD8 = nY;
     if (nX >= gnGlobal_007BCAA0 && nX < gnGlobal_007BCAA4 && nY >= gnGlobal_007BCAA8 && nY <= gnGlobal_007BCAAC)
     {
-        sub_004873A0_HandleClick(pMsg);
+        INV_UpdateInventoryHover(pMsg);
         return 1;
     }
     return 0;
 }
 
 // 0x004894D0
-void __stdcall sub_004894D0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall INV_TradeMouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gdwGlobal_007BCBF0 != 0xB)
     {
@@ -2527,10 +2527,10 @@ void __stdcall sub_004894D0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
         || (nX > gnGlobal_007BCA34 && nX < gnGlobal_007BCA38 && nY >= gnGlobal_007BCA3C && nY <= gnGlobal_007BCA40)
         || (nX > gnGlobal_007BCB1C && nX < gnGlobal_007BCB20 && nY >= gnGlobal_007BCB24 && nY <= gnGlobal_007BCB28))
     {
-        sub_004873A0_HandleClick(pMsg);
+        INV_UpdateInventoryHover(pMsg);
         return;
     }
-    sub_00487990_ResetHover();
+    INV_ResetHover();
     sub_00502280_SetPopUpText(0, -1, -1, 0, 0);
 }
 
@@ -2540,7 +2540,7 @@ static inline int InRect(int nX, int nY, int nLeft, int nRight, int nTop, int nB
 }
 
 // 0x0048A0F0
-void __stdcall sub_0048A0F0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall INV_CubeMouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gdwGlobal_007BCBF0 != 0xE)
     {
@@ -2553,7 +2553,7 @@ void __stdcall sub_0048A0F0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
     if (InRect(nX, nY, gnGlobal_007BCAA0, gnGlobal_007BCAA4, gnGlobal_007BCAA8, gnGlobal_007BCAAC)
         || InRect(nX, nY, gnGlobal_007BCB74, gnGlobal_007BCB78, gnGlobal_007BCB7C, gnGlobal_007BCB80))
     {
-        sub_004873A0_HandleClick(pMsg);
+        INV_UpdateInventoryHover(pMsg);
     }
     else
     {
@@ -2566,7 +2566,7 @@ void __stdcall sub_0048A0F0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0048B0A0
-void __stdcall sub_0048B0A0_DrawMercEmptyBodyLocs(D2UnitStrc* pUnit)
+void __stdcall INV_DrawMercEmptyBodyLocs(D2UnitStrc* pUnit)
 {
     D2GfxDataStrc tGfx;
     memset(&tGfx, 0, sizeof(tGfx));
@@ -2626,7 +2626,7 @@ void __stdcall sub_0048B0A0_DrawMercEmptyBodyLocs(D2UnitStrc* pUnit)
 }
 
 // 0x0048BD80
-void __stdcall sub_0048BD80_ClickMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall INV_CloseRecipeScrollClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nMaxY = gnGlobal_00711470 - 0x31;
     const int nHalfWidth = gnGlobal_0071146C / 2;
@@ -2643,7 +2643,7 @@ void __stdcall sub_0048BD80_ClickMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00497C50
-void __stdcall sub_00497C50_DrawSlotIcon(int nFrame)
+void __stdcall INV_DrawWarningIcon(int nFrame)
 {
     int nX = gnGlobal_0071146C - 0x37;
     int nY = 0x9B;
@@ -2693,12 +2693,12 @@ struct D2UnitStrc;
 
 int __cdecl sub_M133_Emit_00483C20(int nX, int nY)
 {
-    return sub_00483C20_IsInRect(nX, nY);
+    return INV_IsInSidePanelRect(nX, nY);
 }
 
 void __stdcall sub_P09_Emit_00486670(Unicode* pText)
 {
-    sub_00486670_AppendSocketedGemLetters(pText, gdwGlobal_007BCBF4);
+    INV_AppendSocketedGemLetters(pText, gdwGlobal_007BCBF4);
 }
 
 #include "gen/data/Source/D2Client/UI/inv_00483E40.inc"

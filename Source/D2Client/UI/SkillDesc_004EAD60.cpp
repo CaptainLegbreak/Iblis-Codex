@@ -25,7 +25,7 @@ extern unsigned int gdwBitMasks_006CE268[];
 void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight);
 int __fastcall sub_00502EF0(int nArg);
-void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor);
+void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor);
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill);
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
@@ -248,11 +248,11 @@ static void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin,
     {
         sub_00502EF0(1);
     }
-    sub_004A7080(gnGlobal_007A2858 + nLeft, gnGlobal_00711470 + gnGlobal_007A285C + nY - 480, gnGlobal_007A2858 + nRight, wszText, nColor);
+    TEXT_DrawCenteredText(gnGlobal_007A2858 + nLeft, gnGlobal_00711470 + gnGlobal_007A285C + nY - 480, gnGlobal_007A2858 + nRight, wszText, nColor);
 }
 
 // 0x004EAD60
-void __fastcall sub_004EAD60_DrawWeaponPhysElemDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
+void __fastcall SKILLDESC_DrawWeaponPhysElemDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
 {
     if (!pSkill)
     {
@@ -316,7 +316,7 @@ int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor)
 }
 
 // 0x004EBB50
-void __fastcall sub_004EBB50_DrawKickDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
+void __fastcall SKILLDESC_DrawKickDamagePercent(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
 {
     if (!pSkill || !pSkillsTxt)
     {
@@ -875,7 +875,7 @@ static int __stdcall sub_004ECCF0_AddSummonDamage(D2UnitStrc* pUnit, Unicode* ws
 }
 
 // 0x004ECF50
-int __stdcall sub_004ECF50_AddMonsterDamage(Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nBonusMin, int nBonusMax)
+int __stdcall SKILLDESC_AddMonsterDamage(Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nBonusMin, int nBonusMax)
 {
     D2MonStatsTxt* pMonStatsTxt = MonStatsTxtRecord(pSkillsTxt->wSummon);
     if (!pMonStatsTxt)
@@ -1181,7 +1181,7 @@ int __fastcall sub_D06_Emit_004EDEA0(D2UnitStrc* pUnit, Unicode* wszText, D2Skil
         sub_004ECCF0_AddSummonDamage(pUnit, wszText, nSkillId, nSkillLevel, pSkillsTxt);
         return 1;
     case 19:
-        sub_004ECF50_AddMonsterDamage(wszText, pSkillsTxt, nCalcA, nCalcB);
+        SKILLDESC_AddMonsterDamage(wszText, pSkillsTxt, nCalcA, nCalcB);
         return 1;
     case 20:
         sub_004ED0D0_AddNextLevelParam(nSkillLevel, nSkillId, wszText);

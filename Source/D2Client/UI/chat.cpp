@@ -48,7 +48,7 @@ extern Unicode gwszChatLine_007BB638[]; // 0x007BB638
 
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
-bool __cdecl sub_0047B010_IsImeLanguage(); // 0x0047B010
+bool __cdecl CHAT_IsImeLanguage(); // 0x0047B010
 
 int __cdecl sub_004F59A0(); // 0x004F59A0
 
@@ -108,25 +108,25 @@ unsigned char gbChatInputOpen_007BB5E1; // 0x007BB5E1
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
 // 0x0047A980
-int __cdecl sub_0047A980_IsNumberDisplayEnabled()
+int __cdecl CHAT_IsNumberDisplayEnabled()
 {
     return gtClientFlagsLow_00712EFC.bNumberDisplay;
 }
 
 // 0x0047A9A0
-void __fastcall sub_0047A9A0_SetClientFlags(int nFlags)
+void __fastcall CHAT_SetClientFlags(int nFlags)
 {
     gdwGlobal_00712EFC = nFlags;
 }
 
 // 0x0047AA30
-int __cdecl sub_0047AA30_HasClassOverride()
+int __cdecl CHAT_HasClassOverride()
 {
     return gtClientFlags_00712EFC.bClassOverride;
 }
 
 // 0x0047AD60
-static void sub_0047AD60_RefreshCandidates(HIMC hImc)
+static void CHAT_RefreshCandidates(HIMC hImc)
 {
     unsigned long nListCount;
     unsigned long nSize = ImmGetCandidateListCountA(hImc, &nListCount);
@@ -149,7 +149,7 @@ static void sub_0047AD60_RefreshCandidates(HIMC hImc)
 }
 
 // 0x0047AE00
-void __stdcall sub_0047AE00(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall CHAT_ImeNotifyMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     unsigned long nSentence;
 
@@ -232,13 +232,13 @@ void __stdcall sub_0047AE00(SMSGHANDLER_PARAMS* pMsg)
     case 5:
         if (gnLanguageId_007BB5DC == 9)
         {
-            sub_0047AD60_RefreshCandidates(hImc);
+            CHAT_RefreshCandidates(hImc);
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
         }
         if (gnLanguageId_007BB5DC == 8)
         {
-            sub_0047AD60_RefreshCandidates(hImc);
+            CHAT_RefreshCandidates(hImc);
             pMsg->lResult = 0;
             pMsg->bReturn = 1;
         }
@@ -270,7 +270,7 @@ void __stdcall sub_0047AE00(SMSGHANDLER_PARAMS* pMsg)
     case 3:
         if (gnLanguageId_007BB5DC == 9)
         {
-            sub_0047AD60_RefreshCandidates(hImc);
+            CHAT_RefreshCandidates(hImc);
             pMsg->lResult = 0;
             pMsg->bReturn = 1;
         }
@@ -290,7 +290,7 @@ void __stdcall sub_0047AE00(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0047B010
-bool __cdecl sub_0047B010_IsImeLanguage()
+bool __cdecl CHAT_IsImeLanguage()
 {
     if (gnLanguageId_007BB5DC == 9)
     {
@@ -310,7 +310,7 @@ bool __cdecl sub_0047B010_IsImeLanguage()
 }
 
 // 0x0047B090
-void __cdecl sub_0047B090_InitChatIme()
+void __cdecl CHAT_InitChatIme()
 {
     sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtChatHandlers_00712F4C, 4);
     gnLanguageId_007BB5DC = STRTABLE_GetLanguage();
@@ -318,7 +318,7 @@ void __cdecl sub_0047B090_InitChatIme()
         return;
 
     gbChatInputOpen_007BB5E1 = 0;
-    if (!sub_0047B010_IsImeLanguage())
+    if (!CHAT_IsImeLanguage())
         return;
 
     const unsigned short nLangId = GetSystemDefaultLangID();
@@ -397,7 +397,7 @@ void __cdecl sub_0047B090_InitChatIme()
 
 
 // 0x0047B2E0
-void __cdecl sub_0047B2E0_CloseChatInput()
+void __cdecl CHAT_CloseChatInput()
 {
     sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtChatHandlers_00712F4C, 4);
     if (gbChatInputOpen_007BB5E1)
@@ -432,14 +432,14 @@ void __cdecl sub_0047B4E0()
 }
 
 // 0x0047B9C0
-void __cdecl sub_0047B9C0_RecallChatLine()
+void __cdecl CHAT_RecallChatLine()
 {
     memcpy(gwszChatLine_007BB638, gwChatHistory_007BB840[gnChatIndex_007BB5D8], sizeof(gwChatHistory_007BB840[0]));
     gnChatCaret_007BB5E8 = sub_00526800(gwChatHistory_007BB840[gnChatIndex_007BB5D8]);
 }
 
 // 0x0047BD00
-bool __fastcall sub_0047BD00_IsNarrowText(const Unicode* pText)
+bool __fastcall CHAT_IsNarrowText(const Unicode* pText)
 {
     const int nLength = sub_00526800(pText);
     for (int i = 0; i < nLength; i++)
@@ -451,7 +451,7 @@ bool __fastcall sub_0047BD00_IsNarrowText(const Unicode* pText)
 }
 
 // 0x0047BDC0
-void __cdecl sub_0047BDC0_ClearChatLine()
+void __cdecl CHAT_ClearChatLine()
 {
     memset(gwszChatLine_007BB638, 0, 0x202);
     gnChatCaret_007BB5E8 = 0;

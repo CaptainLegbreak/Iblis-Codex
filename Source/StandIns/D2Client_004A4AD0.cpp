@@ -21,8 +21,8 @@ struct D2ClientListEntryStrc
 #pragma pack(pop)
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
-int __cdecl sub_004A44C0_GetMaxFirstEntry(); // 0x004A44C0
-int __stdcall sub_004A4780_IsAbovePanelLine(int nX); // 0x004A4780
+int __cdecl TEXT_GetMaxFirstEntry(); // 0x004A44C0
+int __stdcall TEXT_IsAbovePanelLine(int nX); // 0x004A4780
 
 extern int gnGlobal_0071146C; // 0x0071146C
 extern D2ClientListEntryStrc* gpListEntries_00724264; // 0x00724264
@@ -94,7 +94,7 @@ static __forceinline int sub_F08_VisibleLines()
 }
 
 // 0x004A44C0
-int __cdecl sub_004A44C0_GetMaxFirstEntry()
+int __cdecl TEXT_GetMaxFirstEntry()
 {
     int nCount = gnEntryCount_007C0274;
     for (int i = 0; i < sub_F08_VisibleLines(); ++i)
@@ -116,22 +116,22 @@ static __forceinline int sub_F08_NoOtherPressed(int nIndex)
 }
 
 // 0x004A4500
-void __fastcall sub_004A4500_ScrollList(int nStep)
+void __fastcall TEXT_ScrollKeyConfigList(int nStep)
 {
     if (nStep < -1)
     {
         for (int i = nStep; i < 0; ++i)
-            sub_004A4500_ScrollList(-1);
+            TEXT_ScrollKeyConfigList(-1);
         return;
     }
     if (nStep > 1)
     {
         for (int i = 0; i < nStep; ++i)
-            sub_004A4500_ScrollList(1);
+            TEXT_ScrollKeyConfigList(1);
         return;
     }
 
-    const int nMax = sub_004A44C0_GetMaxFirstEntry();
+    const int nMax = TEXT_GetMaxFirstEntry();
     if (nStep < 0)
     {
         const int nPrev = gnFirstVisible_007C02AC <= 0 ? gnFirstVisible_007C02AC : gnFirstVisible_007C02AC - 1;
@@ -148,20 +148,20 @@ void __fastcall sub_004A4500_ScrollList(int nStep)
 }
 
 // 0x004A45C0
-void __fastcall sub_004A45C0_MoveSelection(int nStep)
+void __fastcall TEXT_MoveKeyConfigSelection(int nStep)
 {
     if (!nStep)
         return;
     if (nStep < -1)
     {
         for (int i = nStep; i < 0; ++i)
-            sub_004A45C0_MoveSelection(-1);
+            TEXT_MoveKeyConfigSelection(-1);
         return;
     }
     if (nStep > 1)
     {
         for (int i = 0; i < nStep; ++i)
-            sub_004A45C0_MoveSelection(1);
+            TEXT_MoveKeyConfigSelection(1);
         return;
     }
 
@@ -186,7 +186,7 @@ void __fastcall sub_004A45C0_MoveSelection(int nStep)
     {
         const int nTrackTop = sub_F08_TrackTop();
         gnFirstVisible_007C02AC = nSelected;
-        gnThumbY_007C02CC = nSelected * sub_F08_TrackSpan() / sub_004A44C0_GetMaxFirstEntry() + nTrackTop;
+        gnThumbY_007C02CC = nSelected * sub_F08_TrackSpan() / TEXT_GetMaxFirstEntry() + nTrackTop;
         return;
     }
 
@@ -198,7 +198,7 @@ void __fastcall sub_004A45C0_MoveSelection(int nStep)
         if (gnGlobal_007C02B0 < nLast)
             break;
 
-        const int nMax = sub_004A44C0_GetMaxFirstEntry();
+        const int nMax = TEXT_GetMaxFirstEntry();
         const int nNew = nFirst >= nMax ? nFirst : nFirst + 1;
         if (nNew <= nMax)
             nFirst = nNew;
@@ -208,7 +208,7 @@ void __fastcall sub_004A45C0_MoveSelection(int nStep)
 }
 
 // 0x004A4720
-static int sub_004A4720_GetLineAt(int nY)
+static int TEXT_GetKeyConfigLineAt(int nY)
 {
     int nIndex = gnFirstVisible_007C02AC;
     const int nCount = gnEntryCount_007C0274;
@@ -233,9 +233,9 @@ static int sub_004A4720_GetLineAt(int nY)
     return nCount < 0 ? nCount : nCount - 1;
 }
 
-static __declspec(noinline) int sub_004A47C0_GetButtonAt(int nX, int nY);
+static __declspec(noinline) int TEXT_GetKeyConfigButtonAt(int nX, int nY);
 // 0x004A47C0
-static int sub_004A47C0_GetButtonAt(int nX, int nY)
+static int TEXT_GetKeyConfigButtonAt(int nX, int nY)
 {
     unsigned int i;
     for (i = 0; i < 3; ++i)
@@ -248,7 +248,7 @@ static int sub_004A47C0_GetButtonAt(int nX, int nY)
 }
 
 // 0x004A47F0
-static int sub_004A47F0_IsInList(int nX, int nY)
+static int TEXT_IsInKeyConfigList(int nX, int nY)
 {
     const int nHalf = (gnGlobal_0071146C - 0x26C) / 2;
     const int nLeft = nHalf + 0x12;
@@ -262,9 +262,9 @@ static int sub_004A47F0_IsInList(int nX, int nY)
     return 0;
 }
 
-static __declspec(noinline) int sub_004A4860_IsOnUpArrow(int nX, int nY);
+static __declspec(noinline) int TEXT_IsOnUpArrow(int nX, int nY);
 // 0x004A4860
-static int sub_004A4860_IsOnUpArrow(int nX, int nY)
+static int TEXT_IsOnUpArrow(int nX, int nY)
 {
     if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
     {
@@ -275,9 +275,9 @@ static int sub_004A4860_IsOnUpArrow(int nX, int nY)
     return 0;
 }
 
-static __declspec(noinline) int sub_004A48B0_IsOnDownArrow(int nX, int nY);
+static __declspec(noinline) int TEXT_IsOnDownArrow(int nX, int nY);
 // 0x004A48B0
-static int sub_004A48B0_IsOnDownArrow(int nX, int nY)
+static int TEXT_IsOnDownArrow(int nX, int nY)
 {
     if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
     {
@@ -288,9 +288,9 @@ static int sub_004A48B0_IsOnDownArrow(int nX, int nY)
     return 0;
 }
 
-static __declspec(noinline) int sub_004A4900_IsAboveThumb(int nX, int nY);
+static __declspec(noinline) int TEXT_IsAboveThumb(int nX, int nY);
 // 0x004A4900
-static int sub_004A4900_IsAboveThumb(int nX, int nY)
+static int TEXT_IsAboveThumb(int nX, int nY)
 {
     if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
     {
@@ -300,9 +300,9 @@ static int sub_004A4900_IsAboveThumb(int nX, int nY)
     return 0;
 }
 
-static __declspec(noinline) int sub_004A4950_IsOnThumb(int nX, int nY);
+static __declspec(noinline) int TEXT_IsOnThumb(int nX, int nY);
 // 0x004A4950
-static int sub_004A4950_IsOnThumb(int nX, int nY)
+static int TEXT_IsOnThumb(int nX, int nY)
 {
     if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
     {
@@ -312,9 +312,9 @@ static int sub_004A4950_IsOnThumb(int nX, int nY)
     return 0;
 }
 
-static __declspec(noinline) int sub_004A49A0_IsBelowThumb(int nX, int nY);
+static __declspec(noinline) int TEXT_IsBelowThumb(int nX, int nY);
 // 0x004A49A0
-static int sub_004A49A0_IsBelowThumb(int nX, int nY)
+static int TEXT_IsBelowThumb(int nX, int nY)
 {
     if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
     {
@@ -331,13 +331,13 @@ void __stdcall sub_004A4AD0_Press(int nX, int nY)
     if (gnGlobal_007C0284)
         return;
 
-    const int bInList = sub_004A47F0_IsInList(nX, nY);
-    const int bUp = sub_004A4860_IsOnUpArrow(nX, nY);
-    const int bDown = sub_004A48B0_IsOnDownArrow(nX, nY);
-    const int bPageUp = sub_004A4900_IsAboveThumb(nX, nY);
-    const int bThumb = sub_004A4950_IsOnThumb(nX, nY);
-    const int bPageDown = sub_004A49A0_IsBelowThumb(nX, nY);
-    const int bButton = sub_004A47C0_GetButtonAt(nX, nY) != 3;
+    const int bInList = TEXT_IsInKeyConfigList(nX, nY);
+    const int bUp = TEXT_IsOnUpArrow(nX, nY);
+    const int bDown = TEXT_IsOnDownArrow(nX, nY);
+    const int bPageUp = TEXT_IsAboveThumb(nX, nY);
+    const int bThumb = TEXT_IsOnThumb(nX, nY);
+    const int bPageDown = TEXT_IsBelowThumb(nX, nY);
+    const int bButton = TEXT_GetKeyConfigButtonAt(nX, nY) != 3;
 
     if (sub_F08_NoOtherPressed(7) && !bInList && !bUp && !bDown && !bPageUp && !bThumb && !bPageDown && !bButton)
     {
@@ -352,15 +352,15 @@ void __stdcall sub_004A4AD0_Press(int nX, int nY)
         {
             const int nTop = sub_F08_ListTop();
             if (nY < nTop + 0x28)
-                sub_004A45C0_MoveSelection(-1);
+                TEXT_MoveKeyConfigSelection(-1);
             if (nY > nTop + 0x136)
-                sub_004A45C0_MoveSelection(1);
+                TEXT_MoveKeyConfigSelection(1);
 
             const int nOldD4 = gnGlobal_007246D4;
             const int nOldSelected = gnGlobal_007C02B0;
-            const int nLine = sub_004A4720_GetLineAt(nY);
+            const int nLine = TEXT_GetKeyConfigLineAt(nY);
             gnGlobal_007C02B0 = nLine;
-            gnGlobal_007246D4 = sub_004A4780_IsAbovePanelLine(nX);
+            gnGlobal_007246D4 = TEXT_IsAbovePanelLine(nX);
             if (gpListEntries_00724264[nLine].nId == 0x39)
             {
                 gnGlobal_007246D4 = nOldD4;
@@ -375,7 +375,7 @@ void __stdcall sub_004A4AD0_Press(int nX, int nY)
         if (gnGlobal_007C0280 && GetTickCount() > gdwLastTick_007C02C0 + 0x32)
         {
             gdwLastTick_007C02C0 = GetTickCount();
-            sub_004A4500_ScrollList(-1);
+            TEXT_ScrollKeyConfigList(-1);
         }
     }
 
@@ -385,7 +385,7 @@ void __stdcall sub_004A4AD0_Press(int nX, int nY)
         if (gnGlobal_007C0280 && GetTickCount() > gdwLastTick_007C02C0 + 0x32)
         {
             gdwLastTick_007C02C0 = GetTickCount();
-            sub_004A4500_ScrollList(1);
+            TEXT_ScrollKeyConfigList(1);
         }
     }
 
@@ -395,7 +395,7 @@ void __stdcall sub_004A4AD0_Press(int nX, int nY)
         if (gnGlobal_007C0280 && GetTickCount() > gdwLastTick_007C02C0 + 0x32)
         {
             gdwLastTick_007C02C0 = GetTickCount();
-            sub_004A4500_ScrollList(1 - sub_F08_VisibleLines());
+            TEXT_ScrollKeyConfigList(1 - sub_F08_VisibleLines());
         }
     }
 
@@ -410,7 +410,7 @@ void __stdcall sub_004A4AD0_Press(int nX, int nY)
         if (gnGlobal_007C0280)
         {
             const int nTop = sub_F08_ListTop();
-            sub_004A4500_ScrollList((gnDragThumbY_007C02A4 - nTop - gnDragMouseY_007C02A8 + nY - 0x2F)
+            TEXT_ScrollKeyConfigList((gnDragThumbY_007C02A4 - nTop - gnDragMouseY_007C02A8 + nY - 0x2F)
                 * (gnThumbRange_007C027C + 1) / sub_F08_TrackSpan() - gnFirstVisible_007C02AC);
         }
     }
@@ -421,13 +421,13 @@ void __stdcall sub_004A4AD0_Press(int nX, int nY)
         if (gnGlobal_007C0280 && GetTickCount() > gdwLastTick_007C02C0 + 0x32)
         {
             gdwLastTick_007C02C0 = GetTickCount();
-            sub_004A4500_ScrollList(sub_F08_VisibleLines() - 1);
+            TEXT_ScrollKeyConfigList(sub_F08_VisibleLines() - 1);
         }
     }
 
     if (sub_F08_NoOtherPressed(6) && bButton)
     {
         gaPressed_007C0288[6] = gnGlobal_007C0280;
-        gnPressedButton_007C02B4 = sub_004A47C0_GetButtonAt(nX, nY);
+        gnPressedButton_007C02B4 = TEXT_GetKeyConfigButtonAt(nX, nY);
     }
 }

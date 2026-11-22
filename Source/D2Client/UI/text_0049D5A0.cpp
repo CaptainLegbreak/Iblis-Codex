@@ -32,7 +32,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);                                // 0x006CC544
 
-void __fastcall sub_00452E50_DrawRectangleBorder(D2RectStrc* pRect);                                               // 0x00452E50
+void __fastcall UI_DrawRectangleBorder(D2RectStrc* pRect);                                               // 0x00452E50
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 int __stdcall D2Win_10125();                                                                                // 0x00501A40
 void __fastcall sub_00501DF0_DrawClippedFontText(const Unicode* pText, int nX, int nY, int nTextColor, int nSkipLines, int nDrawLines); // 0x00501DF0
@@ -47,7 +47,7 @@ extern int gnGlobal_007BF264;                                                   
 extern int gnGlobal_007BF278;                                                                               // 0x007BF278
 
 // 0x0049D590
-unsigned int __fastcall sub_0049D590_CalcTextOffset(unsigned int nValue)
+unsigned int __fastcall TEXT_CalcTextOffset(unsigned int nValue)
 {
     return 0x70 - (nValue >> 10);
 }
@@ -113,7 +113,7 @@ static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec)
         tRect.nTop = gnGlobal_007225FC - 6;
         tRect.nRight = gnGlobal_007BF278 + 0x146;
         tRect.nBottom = gnGlobal_007225FC + 0x75;
-        sub_00452E50_DrawRectangleBorder(&tRect);
+        UI_DrawRectangleBorder(&tRect);
     }
 
     T0044CB60* pLine = pRec->pLines;
@@ -128,7 +128,7 @@ static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec)
         {
             if (nPos < 0x17800)
             {
-                int nY = sub_0049D590_CalcTextOffset(nPos);
+                int nY = TEXT_CalcTextOffset(nPos);
                 if (gnGlobal_007BF1F6 || gnGlobal_007BF1FA)
                 {
                     sub_00502320(pLine->wszText, gnGlobal_007BF278 + 0x10, gnGlobal_007225FC + nY, 0, 0);
@@ -165,7 +165,7 @@ static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec)
 
             if (pPrev)
             {
-                int nY = sub_0049D590_CalcTextOffset(nFirstPos) - 0x12;
+                int nY = TEXT_CalcTextOffset(nFirstPos) - 0x12;
                 int nLines = nY < 0x12 ? nY : 0x12;
 
                 sub_0049D5A0_DrawClippedLine(pPrev, nY, 3, 0, nLines);
@@ -175,7 +175,7 @@ static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec)
         T0044CB60* pNext;
         if (pLast && (pNext = pLast->pNext) != 0)
         {
-            int nY = sub_0049D590_CalcTextOffset(nLastPos + 0x400);
+            int nY = TEXT_CalcTextOffset(nLastPos + 0x400);
             int nSkip = nY - 0x5E;
             int nHeight = D2Win_10125();
             if (nSkip < nHeight)
@@ -200,7 +200,7 @@ static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec)
 
         if (nTailPos < 0x1C000)
         {
-            int nY = sub_0049D590_CalcTextOffset(nTailPos + 0x400);
+            int nY = TEXT_CalcTextOffset(nTailPos + 0x400);
             int nLines = nY < 0x12 ? nY : 0x12;
             if (nLines)
             {
@@ -246,16 +246,16 @@ extern char gHandlerTable_00722600[]; // 0x00722600
 
 int __cdecl sub_00514CC0(); // 0x00514CC0
 int __fastcall sub_004B95C0_IsHintPlaying(void* pHint); // 0x004B95C0
-void __stdcall sub_0049D410_FreeTextBox(D2TextScrollStrc* pTextBox); // 0x0049D410
+void __stdcall TEXT_FreeTextBox(D2TextScrollStrc* pTextBox); // 0x0049D410
 void __fastcall sub_00467430_SetSelectionRect(const D2SelectionRectStrc* pRect); // 0x00467430
-void __cdecl sub_0049F960_ResetTextBox(); // 0x0049F960
-void __fastcall sub_004B3D10_CancelAndFlag(void* pHint); // 0x004B3D10
-void __cdecl sub_00453AE0(); // 0x00453AE0
+void __cdecl TEXT_ResetTextBox(); // 0x0049F960
+void __fastcall NPCMENU_CancelNpcAndFlag(void* pHint); // 0x004B3D10
+void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
 void* __stdcall sub_004F59A0(); // 0x004F59A0
-void __fastcall sub_00451E10_UnregisterHandlerTable(void* hWnd, void* pTable, int nCount); // 0x00451E10
+void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, void* pTable, int nCount); // 0x00451E10
 
 // 0x004A0770
-static int __stdcall sub_004A0770(int bIgnore, D2TextScrollStrc* pTextBox)
+static int __stdcall TEXT_AdvanceTextBox(int bIgnore, D2TextScrollStrc* pTextBox)
 {
     if (bIgnore)
     {
@@ -272,12 +272,12 @@ static int __stdcall sub_004A0770(int bIgnore, D2TextScrollStrc* pTextBox)
             gnPanelOpen_007BF1BC = 1;
             if (!gbHintActive_007BF20A && gpTextBox_007BF0A4)
             {
-                sub_0049D410_FreeTextBox(gpTextBox_007BF0A4);
+                TEXT_FreeTextBox(gpTextBox_007BF0A4);
                 gpTextBox_007BF0A4 = 0;
                 sub_00467430_SetSelectionRect(0);
             }
 
-            sub_0049F960_ResetTextBox();
+            TEXT_ResetTextBox();
             if (gpfnClose_007BF258)
             {
                 return gpfnClose_007BF258(gpCloseArg_007BF25C, 0, 0);
@@ -289,16 +289,16 @@ static int __stdcall sub_004A0770(int bIgnore, D2TextScrollStrc* pTextBox)
             }
             else if (gbHintActive_007BF20A)
             {
-                sub_004B3D10_CancelAndFlag(gpHint_007BF202);
+                NPCMENU_CancelNpcAndFlag(gpHint_007BF202);
             }
 
-            sub_00453AE0();
+            UI_StartUIVarDelay();
             gbHintActive_007BF20A = 0;
             sub_00467430_SetSelectionRect(0);
             if (gbHandlers_007BF27C == 1)
             {
                 gbHandlers_007BF27C = 0;
-                sub_00451E10_UnregisterHandlerTable(sub_004F59A0(), gHandlerTable_00722600, 7);
+                AUTOMAP_UnregisterHandlerTable(sub_004F59A0(), gHandlerTable_00722600, 7);
             }
 
             return 0;
@@ -315,7 +315,7 @@ int __stdcall sub_004A0770_Shim()
     D2TextScrollStrc* pTextBox = gpTextBox_007BF0A4;
     if (pTextBox && (pTextBox->nState == 1 || pTextBox->nState == 0))
     {
-        return sub_004A0770(gnPanelOpen_007BF1BC, pTextBox);
+        return TEXT_AdvanceTextBox(gnPanelOpen_007BF1BC, pTextBox);
     }
 
     return 0;

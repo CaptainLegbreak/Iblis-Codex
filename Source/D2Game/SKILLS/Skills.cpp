@@ -300,7 +300,7 @@ struct D2EffectStrc
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 
-int __fastcall sub_004E6CA0_GetSkillParamByLevel(int nSkillId, int nSkillLevel); // 0x004E6CA0
+int __fastcall SKILLDESC_GetSkillParamByLevel(int nSkillId, int nSkillLevel); // 0x004E6CA0
 
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 
@@ -2576,7 +2576,7 @@ void __fastcall SKILLS_ApplyAreaEffect(D2GameStrc* pGame, D2EffectStrc* pEffect)
     int nParam = pEffect->nParam;
     if (!nParam)
     {
-        nParam = sub_004E6CA0_GetSkillParamByLevel(pEffect->nSkillId, pEffect->nSkillLevel);
+        nParam = SKILLDESC_GetSkillParamByLevel(pEffect->nSkillId, pEffect->nSkillLevel);
     }
 
     D2UnitFindArgStrc unitFindArg = {};

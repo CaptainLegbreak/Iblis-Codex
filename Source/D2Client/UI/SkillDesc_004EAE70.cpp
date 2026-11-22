@@ -44,7 +44,7 @@ void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth,
 
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 
-void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
+void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 
 void __fastcall sub_004E9870_DrawTwoTexts(const Unicode* wszText1, const Unicode* wszText2, int nLeft, int nY, int nRight, int nColor1, int nColor2); // 0x004E9870
 
@@ -319,7 +319,7 @@ static void __stdcall sub_004E96E0_DrawDamageRange(int nMin, int nMax, int nColo
     {
         sub_00502EF0(1);
     }
-    sub_004A7080(gnGlobal_007A2858 + nLeft, gnGlobal_00711470 + gnGlobal_007A285C + nY - 480, gnGlobal_007A2858 + nRight, wszText, nColor);
+    TEXT_DrawCenteredText(gnGlobal_007A2858 + nLeft, gnGlobal_00711470 + gnGlobal_007A285C + nY - 480, gnGlobal_007A2858 + nRight, wszText, nColor);
 }
 
 // 0x004EAE70

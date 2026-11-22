@@ -67,9 +67,9 @@ void __fastcall sub_004BA840(int nHandle); // 0x004BA840
 
 int __fastcall sub_004E40A0(int nRange); // 0x004E40A0
 
-extern "C" int __fastcall sub_004E4100_RandomInRange(int nMin, int nMax); // 0x004E4100
+extern "C" int __fastcall SKILLDESC_RandomInRange(int nMin, int nMax); // 0x004E4100
 
-static void sub_004E4240_ResetEntryPairs(int nIndex); // 0x004E4240
+static void SKILLDESC_AddEnvironSoundRefs(int nIndex); // 0x004E4240
 
 struct D2MonTypeTxt
 {
@@ -95,9 +95,9 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 extern "C" D2CharStatsTxt* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nClass); // 0x004833E0
 
-D2MonTypeTxt* __fastcall sub_004E4640_GetMonTypeTxtRecord(int nMonType); // 0x004E4640
+D2MonTypeTxt* __fastcall SKILLDESC_GetMonTypeTxtRecord(int nMonType); // 0x004E4640
 
-void __fastcall sub_004E48B0_BuildText(D2UnitStrc* pUnused, Unicode* wszOut, int nUnused); // 0x004E48B0
+void __fastcall TEXT_AppendUndeadDamageBonus(D2UnitStrc* pUnused, Unicode* wszOut, int nUnused); // 0x004E48B0
 
 unsigned short __fastcall sub_004E6CE0_GetStringId(int nId, int nIndex); // 0x004E6CE0
 
@@ -141,9 +141,9 @@ extern D2FileIndexTextStrc gaFileIndexText_0072D6C0[]; // 0x0072D6C0
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-static int __stdcall sub_004E4C50_GetStatDisplayValue(int nValue, D2ItemStatCostTxt* pRecord, D2UnitStrc* pUnit, int nStatId); // 0x004E4C50
+static int __stdcall SKILLDESC_GetStatDisplayValue(int nValue, D2ItemStatCostTxt* pRecord, D2UnitStrc* pUnit, int nStatId); // 0x004E4C50
 
-int __stdcall sub_004E4CE0_IsStatGroupUniform(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int nStatId, int nValue, D2ItemStatCostTxt* pRecord, int* pIsSame); // 0x004E4CE0
+int __stdcall SKILLDESC_IsStatGroupUniform(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int nStatId, int nValue, D2ItemStatCostTxt* pRecord, int* pIsSame); // 0x004E4CE0
 
 static void __stdcall sub_004E5E90_BuildFileIndexStatText(D2UnitStrc* pUnit, Unicode* pOut, D2FileIndexTextStrc* pTable);
 
@@ -163,7 +163,7 @@ D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic)
 
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
 
-int __fastcall sub_004E8FE0_AttackRatingCallback(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int nArg3, int nArg4, int nLevel, D2SkillStrc* pSkill, int nArg7, D2UnitStrc* pItem); // 0x004E8FE0
+int __fastcall SKILLDESC_AttackRatingCallback(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int nArg3, int nArg4, int nLevel, D2SkillStrc* pSkill, int nArg7, D2UnitStrc* pItem); // 0x004E8FE0
 
 int gnGlobal_007C8C7C; // 0x007C8C7C
 
@@ -200,7 +200,7 @@ void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth,
 
 int __fastcall sub_00502EF0(int nArg);
 
-void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor);
+void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor);
 
 void __fastcall sub_004E9870_DrawTwoTexts(const Unicode* wszText1, const Unicode* wszText2, int nLeft, int nY, int nRight, int nColor1, int nColor2);
 
@@ -230,7 +230,7 @@ int __stdcall SKILLS_GetMaxElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkil
 
 int __stdcall SKILLS_GetElementalLength(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bFlag);
 
-static void sub_004E4240_ResetEntryPairs(int nIndex)
+static void SKILLDESC_AddEnvironSoundRefs(int nIndex)
 {
     int nId = nIndex * 4 + 0xA9C;
     for (int i = 3; i; --i)
@@ -247,7 +247,7 @@ static inline float GetEnvironVolume_Inline()
 }
 
 // 0x004E42E0
-void __fastcall sub_004E42E0_UpdateEnvironSounds(unsigned int dwTick)
+void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
 {
     if (!sub_004DF870())
         return;
@@ -374,7 +374,7 @@ void __fastcall sub_004E42E0_UpdateEnvironSounds(unsigned int dwTick)
             if (nHandle)
             {
                 const int nSign = sub_004E40A0(2) ? 1 : -1;
-                const int nPan = sub_004E4100_RandomInRange(0x1C2, 0x2EE) * nSign;
+                const int nPan = SKILLDESC_RandomInRange(0x1C2, 0x2EE) * nSign;
                 const int nPanVolume = sub_004E4120(0x64);
                 sub_004B99A0(nHandle, nPan, nPanVolume, 0);
                 gnGlobal_007C8C98 = dwTick;
@@ -389,9 +389,9 @@ void __fastcall sub_004E42E0_UpdateEnvironSounds(unsigned int dwTick)
         for (int nId = 0xAA0; nId < 0xB3D; nId += 4)
             sub_00482370(nId);
         if (nEntryA)
-            sub_004E4240_ResetEntryPairs(nEntryA);
+            SKILLDESC_AddEnvironSoundRefs(nEntryA);
         if (nEntryB)
-            sub_004E4240_ResetEntryPairs(nEntryB);
+            SKILLDESC_AddEnvironSoundRefs(nEntryB);
         gnGlobal_007C8C7C = nLevelId;
     }
 }
@@ -477,7 +477,7 @@ static void __stdcall sub_004E49C0_CollectCombinedStats(D2UnitStrc* pUnit, D2Sta
         pCombined->tMagic.bCombined = 1;
 }
 
-static int __stdcall sub_004E4C50_GetStatDisplayValue(int nValue, D2ItemStatCostTxt* pRecord, D2UnitStrc* pUnit, int nStatId)
+static int __stdcall SKILLDESC_GetStatDisplayValue(int nValue, D2ItemStatCostTxt* pRecord, D2UnitStrc* pUnit, int nStatId)
 {
     if (pRecord->nOp >= 2 && pRecord->nOp <= 5)
     {
@@ -496,7 +496,7 @@ static int __stdcall sub_004E4C50_GetStatDisplayValue(int nValue, D2ItemStatCost
     return nValue;
 }
 
-int __stdcall sub_004E4CE0_IsStatGroupUniform(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int nStatId, int nValue, D2ItemStatCostTxt* pRecord, int* pIsSame)
+int __stdcall SKILLDESC_IsStatGroupUniform(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int nStatId, int nValue, D2ItemStatCostTxt* pRecord, int* pIsSame)
 {
     if (!pRecord->wDescGrp)
         return 0;
@@ -511,7 +511,7 @@ int __stdcall sub_004E4CE0_IsStatGroupUniform(D2UnitStrc* pUnit, D2StatListStrc*
         {
             *pIsSame = i == nStatId;
             const int nStat = STATLIST_GetStatValue(pStatList, i, 0);
-            if (nValue != sub_004E4C50_GetStatDisplayValue(nStat, pOther, pUnit, i))
+            if (nValue != SKILLDESC_GetStatDisplayValue(nStat, pOther, pUnit, i))
                 return 0;
         }
     }
@@ -530,9 +530,9 @@ static int __stdcall sub_004E4D80_BuildStatText(D2UnitStrc* pUnit, D2StatListStr
     if (!pRecord)
         return 0;
 
-    int nDisplay = sub_004E4C50_GetStatDisplayValue(nValue, pRecord, pUnit, nStatId);
+    int nDisplay = SKILLDESC_GetStatDisplayValue(nValue, pRecord, pUnit, nStatId);
     int bIsSame = 1;
-    const int bUniform = sub_004E4CE0_IsStatGroupUniform(pUnit, pStatList, nStatId, nDisplay, pRecord, &bIsSame);
+    const int bUniform = SKILLDESC_IsStatGroupUniform(pUnit, pStatList, nStatId, nDisplay, pRecord, &bIsSame);
     if (bUniform && !bIsSame)
         return 0;
 
@@ -893,7 +893,7 @@ static int __stdcall sub_004E4D80_BuildStatText(D2UnitStrc* pUnit, D2StatListStr
             sub_005267E0(pOut, pText);
         }
 
-        D2MonTypeTxt* pMonType = sub_004E4640_GetMonTypeTxtRecord(nLayer);
+        D2MonTypeTxt* pMonType = SKILLDESC_GetMonTypeTxtRecord(nLayer);
         if (!pMonType)
             break;
 
@@ -1261,7 +1261,7 @@ void __fastcall sub_004E60A0_AddSetPropText(D2UnitStrc* pUnit, Unicode* pOut, in
 
     if (bQuantity && ITEMSIsA(pUnit, 57) && !STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_UNDEADDAMAGE_PERCENT, 0))
     {
-        sub_004E48B0_BuildText(pUnit, wszQuantity, 128);
+        TEXT_AppendUndeadDamageBonus(pUnit, wszQuantity, 128);
         sub_00526700(pOut, wszQuantity);
     }
 
@@ -1541,20 +1541,20 @@ static int __stdcall sub_004E93A0_EvaluateForEachWeapon(int* pValue1, int* pValu
     return 1;
 }
 
-static int __stdcall sub_004E94E0_AttackRatingForEachWeapon(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int* pValue3, int* pValue4, D2SkillStrc* pSkill, int nLevel)
+static int __stdcall SKILLDESC_AttackRatingForEachWeapon(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int* pValue3, int* pValue4, D2SkillStrc* pSkill, int nLevel)
 {
-    return sub_004E93A0_EvaluateForEachWeapon(pValue1, pValue2, 0, pValue3, pValue4, 0, pSkill, sub_004E8FE0_AttackRatingCallback, 0, pUnit, nLevel);
+    return sub_004E93A0_EvaluateForEachWeapon(pValue1, pValue2, 0, pValue3, pValue4, 0, pSkill, SKILLDESC_AttackRatingCallback, 0, pUnit, nLevel);
 }
 
 void __fastcall sub_H14_Emit_004E9510(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nLevel, int* pValue1, int* pValue2, int* pValue3, int* pValue4)
 {
     if (UNITS_CanDualWield(pUnit))
     {
-        sub_004E94E0_AttackRatingForEachWeapon(pUnit, pValue1, pValue2, pValue3, pValue4, pSkill, nLevel);
+        SKILLDESC_AttackRatingForEachWeapon(pUnit, pValue1, pValue2, pValue3, pValue4, pSkill, nLevel);
         return;
     }
 
-    sub_004E93A0_EvaluateForEachWeapon(pValue1, pValue2, 0, pValue3, pValue4, 0, pSkill, sub_004E8FE0_AttackRatingCallback, 0, pUnit, nLevel);
+    sub_004E93A0_EvaluateForEachWeapon(pValue1, pValue2, 0, pValue3, pValue4, 0, pSkill, SKILLDESC_AttackRatingCallback, 0, pUnit, nLevel);
 }
 
 static int sub_004E6FB0_GetETypeColor(int nEType)
@@ -1772,13 +1772,13 @@ static void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin,
     {
         sub_00502EF0(1);
     }
-    sub_004A7080(gnGlobal_007A2858 + nLeft, gnGlobal_00711470 + gnGlobal_007A285C + nY - 480, gnGlobal_007A2858 + nRight, wszText, nColor);
+    TEXT_DrawCenteredText(gnGlobal_007A2858 + nLeft, gnGlobal_00711470 + gnGlobal_007A285C + nY - 480, gnGlobal_007A2858 + nRight, wszText, nColor);
 }
 
 // build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x004E9D20
-void __fastcall sub_004E9D20_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
+void __fastcall SKILLDESC_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
 {
     if (!pSkill)
     {

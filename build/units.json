@@ -1763,52 +1763,52 @@
     {
      "va": "0x00404850",
      "length": 14,
-     "name": "sub_00404850_IsAtLeast1C"
+     "name": "AUTOMAP_IsDebugDirectorySizeValid"
     },
     {
      "va": "0x00407DE0",
      "length": 318,
-     "name": "sub_00407DE0_CaptureSystemInfo"
+     "name": "AUTOMAP_CaptureSystemInfo"
     },
     {
      "va": "0x0040E850",
      "length": 24,
-     "name": "sub_0040E850_ReadTimeStampCounter"
+     "name": "AUTOMAP_ReadTimeStampCounter"
     },
     {
      "va": "0x0040F350",
      "length": 123,
-     "name": "sub_0040F350_CloseStaleLogs"
+     "name": "AUTOMAP_CloseStaleLogs"
     },
     {
      "va": "0x00412000",
      "length": 128,
-     "name": "sub_00412000_ReleaseFreeBlocks"
+     "name": "AUTOMAP_ReleaseFreeBlocks"
     },
     {
      "va": "0x00414220",
      "length": 50,
-     "name": "sub_00414220_PowInt"
+     "name": "AUTOMAP_PowInt"
     },
     {
      "va": "0x0043C540",
      "length": 340,
-     "name": "sub_0043C540"
+     "name": "AUTOMAP_InitCharSaveHeader"
     },
     {
      "va": "0x00451E10",
      "length": 85,
-     "name": "sub_00451E10_UnregisterHandlerTable"
+     "name": "AUTOMAP_UnregisterHandlerTable"
     },
     {
      "va": "0x00452580",
      "length": 97,
-     "name": "sub_00452580_GetHoverMonsterName"
+     "name": "AUTOMAP_GetHoverMonsterName"
     },
     {
      "va": "0x00457420",
      "length": 21,
-     "name": "?sub_00457420_FreeCaches@@YIXH@Z"
+     "name": "?AUTOMAP_FreeCaches@@YIXH@Z"
     },
     {
      "va": "0x00457440",
@@ -1818,22 +1818,22 @@
     {
      "va": "0x00457520",
      "length": 285,
-     "name": "?sub_00457520_UpdateAutomapLayout@@YAXXZ"
+     "name": "?AUTOMAP_UpdateAutomapLayout@@YAXXZ"
     },
     {
      "va": "0x004576C0",
      "length": 40,
-     "name": "?sub_004576C0@@YAHXZ"
+     "name": "?AUTOMAP_GetAutomapFade@@YAHXZ"
     },
     {
      "va": "0x004576F0",
      "length": 75,
-     "name": "?sub_004576F0@@YIHH@Z"
+     "name": "?AUTOMAP_SetAutomapFade@@YIHH@Z"
     },
     {
      "va": "0x00457B00",
      "length": 291,
-     "name": "?sub_00457B00@@YIHPAUD2AutomapCellStrc@@PAPAU1@@Z"
+     "name": "?AUTOMAP_InsertAutomapCell@@YIHPAUD2AutomapCellStrc@@PAPAU1@@Z"
     },
     {
      "va": "0x00457C30",
@@ -1842,12 +1842,12 @@
     {
      "va": "0x00457CF0",
      "length": 329,
-     "name": "?sub_00457CF0_RevealAutomapTile@@YGXPAUD2DrlgTileDataStrc@@PAUD2AutomapRoomStrc@@PAPAUD2AutomapCellStrc@@@Z"
+     "name": "?AUTOMAP_RevealAutomapTile@@YGXPAUD2DrlgTileDataStrc@@PAUD2AutomapRoomStrc@@PAPAUD2AutomapCellStrc@@@Z"
     },
     {
      "va": "0x00457E40",
      "length": 51,
-     "name": "sub_00457E40_AddAutomapCell"
+     "name": "AUTOMAP_AddAutomapCell"
     },
     {
      "va": "0x00457E80",
@@ -1867,17 +1867,17 @@
     {
      "va": "0x00458470",
      "length": 69,
-     "name": "?sub_00458470_StoreCells@@YIXPAUD2AutomapCellStrc@@@Z"
+     "name": "?AUTOMAP_StoreCells@@YIXPAUD2AutomapCellStrc@@@Z"
     },
     {
      "va": "0x00458680",
      "length": 83,
-     "name": "?sub_00458680_ResetAutomapCells@@YAXXZ"
+     "name": "?AUTOMAP_ResetAutomapCells@@YAXXZ"
     },
     {
      "va": "0x004586E0",
      "length": 110,
-     "name": "?sub_004586E0_UnlinkAutomapLayer@@YGXPAXPAII@Z"
+     "name": "?AUTOMAP_UnlinkAutomapLayer@@YGXPAXPAII@Z"
     },
     {
      "va": "0x00458750",
@@ -1887,7 +1887,7 @@
     {
      "va": "0x00458CF0",
      "length": 65,
-     "name": "sub_00458CF0_PushNode"
+     "name": "AUTOMAP_PushAutomapLayer"
     },
     {
      "va": "0x00458D40",
@@ -1897,17 +1897,17 @@
     {
      "va": "0x00458F40",
      "length": 219,
-     "name": "?sub_00458F40_RevealRoomTiles@@YGXPAUD2ActiveRoomStrc@@HPAUD2AutomapLayerStrc@@@Z"
+     "name": "?AUTOMAP_RevealRoomTiles@@YGXPAUD2ActiveRoomStrc@@HPAUD2AutomapLayerStrc@@@Z"
     },
     {
      "va": "0x00459020",
      "length": 278,
-     "name": "?sub_00459020_UpdateAutomapReveal@@YAXXZ"
+     "name": "?AUTOMAP_UpdateAutomapReveal@@YAXXZ"
     },
     {
      "va": "0x00459140",
      "length": 11,
-     "name": "?sub_00459140_Refresh@@YAXXZ"
+     "name": "?AUTOMAP_SkipAutomapReveal@@YAXXZ"
     },
     {
      "va": "0x00459150",
@@ -1916,27 +1916,27 @@
     {
      "va": "0x0045A050",
      "length": 69,
-     "name": "?sub_0045A050_DrawLevelName@@YAXXZ"
+     "name": "?AUTOMAP_DrawLevelName@@YAXXZ"
     },
     {
      "va": "0x0045A280",
      "length": 36,
-     "name": "?sub_0045A280_FreeAutomapCels@@YAXXZ"
+     "name": "?AUTOMAP_FreeAutomapCels@@YAXXZ"
     },
     {
      "va": "0x0045A4C0",
      "length": 248,
-     "name": "?sub_0045A4C0_InitAutomap@@YAXXZ"
+     "name": "?AUTOMAP_InitAutomap@@YAXXZ"
     },
     {
      "va": "0x0045A5C0",
      "length": 93,
-     "name": "?sub_0045A5C0_FreeAutomap@@YAXXZ"
+     "name": "?AUTOMAP_FreeAutomap@@YAXXZ"
     },
     {
      "va": "0x0045A620",
      "length": 225,
-     "name": "?sub_0045A620_InitAutomapColors@@YAXXZ"
+     "name": "?AUTOMAP_InitAutomapColors@@YAXXZ"
     },
     {
      "va": "0x0045A720",
@@ -1955,82 +1955,82 @@
     {
      "va": "0x0045AFE0",
      "length": 13,
-     "name": "?sub_0045AFE0_SetMouseOffsets@@YIXHH@Z"
+     "name": "?AUTOMAP_SetAutomapOffsets@@YIXHH@Z"
     },
     {
      "va": "0x0045AFF0",
      "length": 151,
-     "name": "sub_0045AFF0_ScreenToMap"
+     "name": "AUTOMAP_ScreenToMap"
     },
     {
      "va": "0x0045B1E0",
      "length": 510,
-     "name": "sub_0045B1E0_DrawUnitTileRect"
+     "name": "AUTOMAP_DrawUnitTileRect"
     },
     {
      "va": "0x0045B3E0",
      "length": 91,
-     "name": "sub_0045B3E0_DrawRoomTileRects"
+     "name": "AUTOMAP_DrawRoomTileRects"
     },
     {
      "va": "0x0045B440",
      "length": 166,
-     "name": "sub_0045B440_UpdateAutomapOrigin"
+     "name": "AUTOMAP_UpdateAutomapOrigin"
     },
     {
      "va": "0x0045B4F0",
      "length": 244,
-     "name": "sub_0045B4F0_DrawRoomCollision"
+     "name": "AUTOMAP_DrawRoomCollision"
     },
     {
      "va": "0x0045D3E0",
      "length": 197,
-     "name": "sub_0045D3E0_RefreshItemStats"
+     "name": "AUTOMAP_RefreshItemStats"
     },
     {
      "va": "0x0045FA40",
      "length": 243,
-     "name": "sub_0045FA40"
+     "name": "AUTOMAP_ProcessUnitPacketBuffer"
     },
     {
      "va": "0x0045FE30",
      "length": 157,
-     "name": "sub_0045FE30_ButtonDownMsg"
+     "name": "AUTOMAP_PopupButtonDownMsg"
     },
     {
      "va": "0x004601F0",
      "length": 227,
-     "name": "sub_004601F0_TwoButtonDownMsg"
+     "name": "AUTOMAP_PopupTwoButtonDownMsg"
     },
     {
      "va": "0x004602E0",
      "length": 245,
-     "name": "sub_004602E0_TwoButtonUpMsg"
+     "name": "AUTOMAP_PopupTwoButtonUpMsg"
     },
     {
      "va": "0x00460930",
      "length": 110,
-     "name": "sub_00460930_SetUnitLightRadius"
+     "name": "AUTOMAP_SetUnitLightRadius"
     },
     {
      "va": "0x004609A0",
      "length": 79,
-     "name": "sub_004609A0_SetUnitLightColor"
+     "name": "AUTOMAP_SetUnitLightColor"
     },
     {
      "va": "0x00461AC0",
      "length": 119,
-     "name": "?sub_00461AC0_IsInAuraRange@@YIHPAUD2SkillStrc@@PAUD2UnitStrc@@PAH2@Z"
+     "name": "?AUTOMAP_IsInAuraRange@@YIHPAUD2SkillStrc@@PAUD2UnitStrc@@PAH2@Z"
     },
     {
      "va": "0x00462EE0",
      "length": 118,
-     "name": "sub_00462EE0_GetItemComponent"
+     "name": "AUTOMAP_GetItemComponent"
     },
     {
      "va": "0x00463180",
      "length": 223,
-     "name": "sub_00463180_UpdatePathAndMove"
+     "name": "AUTOMAP_UpdatePathAndMove"
     },
     {
      "va": "0x0046EFD0",
@@ -2040,22 +2040,22 @@
     {
      "va": "0x0046F0C0",
      "length": 170,
-     "name": "?sub_0046F0C0@@YIXPAUD2UnitStrc@@HH@Z"
+     "name": "?AUTOMAP_RemoveUnitOverlay@@YIXPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x00480C10",
      "length": 108,
-     "name": "?sub_00480C10_DispatchUnitCommand@@YIHHPAUD2UnitStrc@@PAUD2UnitTargetStrc@@H@Z"
+     "name": "?AUTOMAP_DispatchUnitCommand@@YIHHPAUD2UnitStrc@@PAUD2UnitTargetStrc@@H@Z"
     },
     {
      "va": "0x00498DC0",
      "length": 187,
-     "name": "?sub_00498DC0_MouseMoveMsg@@YIHPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?AUTOMAP_IsCursorOverMiniPanelButton@@YIHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004C5420",
      "length": 79,
-     "name": "?sub_004C5420_RequestAtTarget@@YIPAUD2UnitStrc@@PAU1@HHH@Z"
+     "name": "?AUTOMAP_RequestAtTarget@@YIPAUD2UnitStrc@@PAU1@HHH@Z"
     }
    ]
   },
@@ -14547,42 +14547,42 @@
     {
      "va": "0x004521C0",
      "length": 176,
-     "name": "?sub_004521C0_PrefixLevelText@@YIPAUUnicode@@PAU1@H@Z"
+     "name": "?INV_PrefixColorCode@@YIPAUUnicode@@PAU1@H@Z"
     },
     {
      "va": "0x00454970",
      "length": 9,
-     "name": "_sub_00454970_GetScreenHeightMinus49"
+     "name": "_INV_GetScreenHeightMinusPanel"
     },
     {
      "va": "0x0045FDD0",
      "length": 12,
-     "name": "?sub_0045FDD0_IsSet@@YAHXZ"
+     "name": "?INV_IsPopupDismissed@@YAHXZ"
     },
     {
      "va": "0x004776F0",
      "length": 11,
-     "name": "_sub_004776F0_SetModeValue4"
+     "name": "_INV_SetRenderModeGlide"
     },
     {
      "va": "0x00477700",
      "length": 11,
-     "name": "_sub_00477700_SetModeValue5"
+     "name": "_INV_SetRenderModeOpenGL"
     },
     {
      "va": "0x00477710",
      "length": 11,
-     "name": "_sub_00477710_SetModeValue6"
+     "name": "_INV_SetRenderModeDirect3D"
     },
     {
      "va": "0x00477720",
      "length": 11,
-     "name": "_sub_00477720_SetModeValue7"
+     "name": "_INV_SetRenderModeRave"
     },
     {
      "va": "0x00477EE0",
      "length": 130,
-     "name": "sub_00477EE0_SendPacket69"
+     "name": "INV_SendLeaveGame"
     },
     {
      "va": "0x00478010",
@@ -14592,22 +14592,22 @@
     {
      "va": "0x004790B0",
      "length": 64,
-     "name": "sub_004790B0_FindNodeValues"
+     "name": "INV_FindNodeValues"
     },
     {
      "va": "0x0047AD10",
      "length": 67,
-     "name": "sub_0047AD10_ResetSelectionMsg"
+     "name": "INV_ResetImeCompositionMsg"
     },
     {
      "va": "0x0047B070",
      "length": 24,
-     "name": "sub_0047B070_SetHandled"
+     "name": "INV_SetMsgHandled"
     },
     {
      "va": "0x0047BC70",
      "length": 42,
-     "name": "sub_0047BC70_LowClickMsg"
+     "name": "INV_CloseChatOnPanelClickMsg"
     },
     {
      "va": "0x0047EC40",
@@ -14617,42 +14617,42 @@
     {
      "va": "0x0047F8C0",
      "length": 111,
-     "name": "sub_0047F8C0_Crypt"
+     "name": "ApplyKeystream"
     },
     {
      "va": "0x0047FFB0",
      "length": 70,
-     "name": "sub_0047FFB0_CallServiceWithTime"
+     "name": "INV_CallServiceWithTime"
     },
     {
      "va": "0x004802E0",
      "length": 51,
-     "name": "sub_004802E0_CallHolderSlot2"
+     "name": "INV_ProcessWardenRequest"
     },
     {
      "va": "0x00482CA0",
      "length": 348,
-     "name": "?sub_00482CA0_RaiseAuxLevel@@YIXH@Z"
+     "name": "?INV_UpdateAuxBattleNetAddress@@YIXH@Z"
     },
     {
      "va": "0x00483300",
      "length": 8,
-     "name": "_sub_00483300_SetByteFlag7BC9D4"
+     "name": "_INV_StopCinematic"
     },
     {
      "va": "0x00483340",
      "length": 8,
-     "name": "_sub_00483340_SetByteFlag7BC9D8"
+     "name": "_INV_ChainCinematic"
     },
     {
      "va": "0x00484A70",
      "length": 152,
-     "name": "?sub_00484A70_GetClassNameText@@YAPBUUnicode@@I@Z"
+     "name": "?INV_GetClassNameText@@YAPBUUnicode@@I@Z"
     },
     {
      "va": "0x00485240",
      "length": 460,
-     "name": "?sub_00485240_GetItemDamageRange@@YGXPAUD2UnitStrc@@0HHPAH11@Z"
+     "name": "?INV_GetItemDamageRange@@YGXPAUD2UnitStrc@@0HHPAH11@Z"
     },
     {
      "va": "0x00485410",
@@ -14661,17 +14661,17 @@
     {
      "va": "0x00486640",
      "length": 42,
-     "name": "?sub_00486640_AppendStrings@@YAXPAUUnicode@@@Z"
+     "name": "?INV_AppendStringLine@@YAXPAUUnicode@@@Z"
     },
     {
      "va": "0x004868B0",
      "length": 197,
-     "name": "?sub_004868B0_LoadNpcPanelCels@@YAXXZ"
+     "name": "?INV_LoadInvPanelCels@@YAXXZ"
     },
     {
      "va": "0x00486980",
      "length": 323,
-     "name": "?sub_00486980_FreeNpcPanelCels@@YAXXZ"
+     "name": "?INV_FreeInvPanelCels@@YAXXZ"
     },
     {
      "va": "0x00486AD0",
@@ -14681,7 +14681,7 @@
     {
      "va": "0x00486AE0",
      "length": 26,
-     "name": "?sub_00486AE0_GetPanelX@@YAHXZ"
+     "name": "?INV_GetPanelX@@YAHXZ"
     },
     {
      "va": "0x00486B00",
@@ -14691,7 +14691,7 @@
     {
      "va": "0x00486B30",
      "length": 68,
-     "name": "?sub_00486B30_IsNpcStateA@@YAHXZ"
+     "name": "?INV_IsTradeStateInteractive@@YAHXZ"
     },
     {
      "va": "0x00486B80",
@@ -14726,12 +14726,12 @@
     {
      "va": "0x00487990",
      "length": 56,
-     "name": "?sub_00487990_ResetHover@@YAXXZ"
+     "name": "?INV_ResetHover@@YAXXZ"
     },
     {
      "va": "0x00487B30",
      "length": 62,
-     "name": "?sub_00487B30_ResetNpcState@@YAXXZ"
+     "name": "?INV_ResetNpcState@@YAXXZ"
     },
     {
      "va": "0x00487B70",
@@ -14741,72 +14741,72 @@
     {
      "va": "0x00487B80",
      "length": 18,
-     "name": "?sub_00487B80_SetNpcStateTrade@@YAXXZ"
+     "name": "?INV_SetNpcStateTrade@@YAXXZ"
     },
     {
      "va": "0x00487BA0",
      "length": 57,
-     "name": "?sub_00487BA0_Forward@@YGXHHHHHHH@Z"
+     "name": "?INV_ForwardTradeClick@@YGXHHHHHHH@Z"
     },
     {
      "va": "0x00487BE0",
      "length": 59,
-     "name": "?sub_00487BE0_ResetButtons@@YAHXZ"
+     "name": "?INV_ResetNpcButtons@@YAHXZ"
     },
     {
      "va": "0x00487C20",
      "length": 63,
-     "name": "?sub_00487C20_ResetButtonsFromState5@@YAXXZ"
+     "name": "?INV_ResetNpcButtonsFromPending@@YAXXZ"
     },
     {
      "va": "0x00487C60",
      "length": 51,
-     "name": "?sub_00487C60_SetNpcState6@@YAXXZ"
+     "name": "?INV_AdvancePendingNpcState@@YAXXZ"
     },
     {
      "va": "0x00487CC0",
      "length": 109,
-     "name": "?sub_00487CC0_SelectFirstButton@@YAXXZ"
+     "name": "?INV_SelectFirstButton@@YAXXZ"
     },
     {
      "va": "0x00487D30",
      "length": 11,
-     "name": "?sub_00487D30_SetNpcState7@@YAXXZ"
+     "name": "?INV_SetNpcStateMenuReturn@@YAXXZ"
     },
     {
      "va": "0x00487D40",
      "length": 93,
-     "name": "?sub_00487D40_ResetButtonsFromState7@@YAXXZ"
+     "name": "?INV_ResetButtonsFromMenuReturn@@YAXXZ"
     },
     {
      "va": "0x00487DA0",
      "length": 53,
-     "name": "?sub_00487DA0_SetButtonD@@YAXH@Z"
+     "name": "?INV_SetRepairAllButton@@YAXH@Z"
     },
     {
      "va": "0x00487DE0",
      "length": 53,
-     "name": "?sub_00487DE0_SetButtonC@@YAXH@Z"
+     "name": "?INV_SetRepairButton@@YAXH@Z"
     },
     {
      "va": "0x00487E20",
      "length": 55,
-     "name": "?sub_00487E20_SetButtonA@@YAXH@Z"
+     "name": "?INV_SetBuyButton@@YAXH@Z"
     },
     {
      "va": "0x00487E60",
      "length": 55,
-     "name": "?sub_00487E60_SetButtonB@@YAXH@Z"
+     "name": "?INV_SetSellButton@@YAXH@Z"
     },
     {
      "va": "0x00487EA0",
      "length": 47,
-     "name": "?sub_00487EA0_ClearButton@@YAXH@Z"
+     "name": "?INV_ClearButton@@YAXH@Z"
     },
     {
      "va": "0x004880F0",
      "length": 13,
-     "name": "?sub_004880F0_ClearClickPos@@YAXXZ"
+     "name": "?INV_ClearClickPos@@YAXXZ"
     },
     {
      "va": "0x00488100",
@@ -14815,7 +14815,7 @@
     {
      "va": "0x00488890",
      "length": 39,
-     "name": "?sub_00488890_IsNpcStateMenu@@YAHXZ"
+     "name": "?INV_IsNpcShopState@@YAHXZ"
     },
     {
      "va": "0x004888C0",
@@ -14825,72 +14825,72 @@
     {
      "va": "0x00488DF0",
      "length": 30,
-     "name": "sub_00488DF0_HandledMsg"
+     "name": "INV_ConsumeMsg"
     },
     {
      "va": "0x00488EC0",
      "length": 76,
-     "name": "sub_00488EC0_KeyMsg"
+     "name": "INV_ShopKeyMsg"
     },
     {
      "va": "0x00489190",
      "length": 129,
-     "name": "?sub_00489190_ClickNpcPanel@@YIHPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?INV_ClickNpcPanel@@YIHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x00489220",
      "length": 202,
-     "name": "?sub_00489220_LoadShopPanelCels@@YAXXZ"
+     "name": "?INV_LoadShopPanelCels@@YAXXZ"
     },
     {
      "va": "0x004892F0",
      "length": 98,
-     "name": "?sub_004892F0_FreeNpcCels@@YAXXZ"
+     "name": "?INV_FreeNpcCels@@YAXXZ"
     },
     {
      "va": "0x00489360",
      "length": 203,
-     "name": "?sub_00489360_SetTradePanelOpen@@YIXH@Z"
+     "name": "?INV_SetTradePanelOpen@@YIXH@Z"
     },
     {
      "va": "0x00489770",
      "length": 39,
-     "name": "sub_00489770_HandledIfState11"
+     "name": "INV_TradeBlockMsg"
     },
     {
      "va": "0x004897A0",
      "length": 58,
-     "name": "sub_004897A0_HandledIfState11Ex"
+     "name": "INV_TradeCancelMsg"
     },
     {
      "va": "0x004897E0",
      "length": 89,
-     "name": "?sub_004897E0_UpdateSound@@YIXHH@Z"
+     "name": "?INV_UpdateTradeAcceptSound@@YIXHH@Z"
     },
     {
      "va": "0x00489860",
      "length": 13,
-     "name": "?sub_00489860_IsNpcState4@@YAHXZ"
+     "name": "?INV_IsSellMode@@YAHXZ"
     },
     {
      "va": "0x00489880",
      "length": 30,
-     "name": "_sub_00489880_ClearAndTransition"
+     "name": "_INV_ReturnToStashState"
     },
     {
      "va": "0x00489A10",
      "length": 32,
-     "name": "?sub_00489A10_OpenUIVar25@@YAXXZ"
+     "name": "?INV_CloseStashAndNotify@@YAXXZ"
     },
     {
      "va": "0x00489CE0",
      "length": 132,
-     "name": "sub_00489CE0_HandledIfState12"
+     "name": "INV_StashCloseMsg"
     },
     {
      "va": "0x00489D70",
      "length": 46,
-     "name": "sub_00489D70_KeyNoRepeatMsg"
+     "name": "INV_KeyNoRepeatMsg"
     },
     {
      "va": "0x00489DA0",
@@ -14899,97 +14899,97 @@
     {
      "va": "0x00489E00",
      "length": 75,
-     "name": "?sub_00489E00_OpenUi@@YAXXZ"
+     "name": "?INV_OpenStashPanel@@YAXXZ"
     },
     {
      "va": "0x00489E50",
      "length": 137,
-     "name": "?sub_00489E50_LoadStashPanelCels@@YAXXZ"
+     "name": "?INV_LoadStashPanelCels@@YAXXZ"
     },
     {
      "va": "0x00489EE0",
      "length": 107,
-     "name": "?sub_00489EE0_CloseUiAndSend@@YAXXZ"
+     "name": "?INV_CloseStashPanel@@YAXXZ"
     },
     {
      "va": "0x00489F50",
      "length": 91,
-     "name": "?sub_00489F50_CloseUiArchives@@YAXXZ"
+     "name": "?INV_ResetStashPanel@@YAXXZ"
     },
     {
      "va": "0x0048A050",
      "length": 116,
-     "name": "?sub_0048A050_CloseQuestPanel@@YAXXZ"
+     "name": "?INV_CloseCubePanel@@YAXXZ"
     },
     {
      "va": "0x0048A0D0",
      "length": 17,
-     "name": "?sub_0048A0D0_SendPanelClosed@@YAXXZ"
+     "name": "?INV_SendTransmute@@YAXXZ"
     },
     {
      "va": "0x0048A3B0",
      "length": 39,
-     "name": "sub_0048A3B0_HandledIfState14"
+     "name": "INV_CubeBlockMsg"
     },
     {
      "va": "0x0048A3E0",
      "length": 127,
-     "name": "sub_0048A3E0_HandledIfState14Ex"
+     "name": "INV_CubeCloseMsg"
     },
     {
      "va": "0x0048A460",
      "length": 71,
-     "name": "?sub_0048A460_CloseCubePanel@@YAXXZ"
+     "name": "?INV_OpenCubePanel@@YAXXZ"
     },
     {
      "va": "0x0048A4B0",
      "length": 80,
-     "name": "?sub_0048A4B0_LoadCubePanelCel@@YAXXZ"
+     "name": "?INV_LoadCubePanelCel@@YAXXZ"
     },
     {
      "va": "0x0048A500",
      "length": 50,
-     "name": "?sub_0048A500_CloseUiArchive@@YAXXZ"
+     "name": "?INV_ShutdownCubePanel@@YAXXZ"
     },
     {
      "va": "0x0048A540",
      "length": 190,
-     "name": "?sub_0048A540_QuestCodeUpdate@@YIXH@Z"
+     "name": "?INV_QuestCodeUpdate@@YIXH@Z"
     },
     {
      "va": "0x0048A600",
      "length": 44,
-     "name": "?sub_0048A600_FreeHoradricCel@@YAXXZ"
+     "name": "?INV_FreeHoradricCel@@YAXXZ"
     },
     {
      "va": "0x0048A630",
      "length": 68,
-     "name": "sub_0048A630_EnterState1"
+     "name": "INV_EnterNpcMenuState"
     },
     {
      "va": "0x0048A680",
      "length": 11,
-     "name": "?sub_0048A680_Clear@@YAXXZ"
+     "name": "?INV_ClearPanelPage@@YAXXZ"
     },
     {
      "va": "0x0048A690",
      "length": 12,
-     "name": "?sub_0048A690_HasHoverItem@@YAHXZ"
+     "name": "?INV_HasHoverItem@@YAHXZ"
     },
     {
      "va": "0x0048A6A0",
      "length": 58,
-     "name": "?sub_0048A6A0_ResetNpcCursor@@YAXXZ"
+     "name": "?INV_ResetNpcCursor@@YAXXZ"
     },
     {
      "va": "0x0048A6E0",
      "length": 11,
-     "name": "_sub_0048A6E0_SetFlag7BCE28"
+     "name": "_INV_SetTradeFlag"
     },
     {
      "va": "0x0048A6F0",
      "length": 11,
-     "name": "?sub_0048A6F0_Clear@@YAXXZ"
+     "name": "?INV_ClearTradeFlag@@YAXXZ"
     },
     {
      "va": "0x0048A700",
@@ -14998,32 +14998,32 @@
     {
      "va": "0x0048A730",
      "length": 90,
-     "name": "?sub_0048A730_ResetEquipSounds@@YAXXZ"
+     "name": "?INV_ResetEquipSounds@@YAXXZ"
     },
     {
      "va": "0x0048A790",
      "length": 53,
-     "name": "sub_0048A790_IsCursorInRect"
+     "name": "INV_IsCursorInRect"
     },
     {
      "va": "0x0048A7D0",
      "length": 183,
-     "name": "?sub_0048A7D0_DrawUnitName@@YGXPAUD2UnitStrc@@@Z"
+     "name": "?INV_DrawUnitName@@YGXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0048A890",
      "length": 247,
-     "name": "?sub_0048A890_DrawPanelLabels@@YAXXZ"
+     "name": "?INV_DrawPanelLabels@@YAXXZ"
     },
     {
      "va": "0x0048B290",
      "length": 338,
-     "name": "?sub_0048B290@@YGHPAUD2UnitStrc@@0PAH@Z"
+     "name": "?INV_CanMercEquipItem@@YGHPAUD2UnitStrc@@0PAH@Z"
     },
     {
      "va": "0x0048B3F0",
      "length": 325,
-     "name": "?sub_0048B3F0_DrawMercEquipHighlights@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?INV_DrawMercEquipHighlights@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0048B540",
@@ -15033,52 +15033,52 @@
     {
      "va": "0x0048B640",
      "length": 58,
-     "name": "?sub_0048B640_GetMercUnit@@YAPAUD2UnitStrc@@XZ"
+     "name": "?INV_GetMercUnit@@YAPAUD2UnitStrc@@XZ"
     },
     {
      "va": "0x0048B7C0",
      "length": 647,
-     "name": "?sub_0048B7C0_HandleMercInvClick@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?INV_MercInvClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x0048BBE0",
      "length": 39,
-     "name": "sub_0048BBE0_SetNameText"
+     "name": "INV_OpenRecipeScroll"
     },
     {
      "va": "0x0048BE00",
      "length": 119,
-     "name": "?sub_0048BE00_CutBracketToken@@YIXPAUUnicode@@PBU1@@Z"
+     "name": "?INV_CutBracketToken@@YIXPAUUnicode@@PBU1@@Z"
     },
     {
      "va": "0x00492770",
      "length": 69,
-     "name": "sub_00492770_KeyIfReadyMsg"
+     "name": "INV_WeaponSwapKeyMsg"
     },
     {
      "va": "0x00493100",
      "length": 275,
-     "name": "?sub_00493100_DrawNumber@@YGXHH@Z"
+     "name": "?INV_DrawIconNumber@@YGXHH@Z"
     },
     {
      "va": "0x004953C0",
      "length": 78,
-     "name": "?sub_004953C0_GetCenteredX@@YIHGH@Z"
+     "name": "?INV_GetCenteredX@@YIHGH@Z"
     },
     {
      "va": "0x00496720",
      "length": 127,
-     "name": "sub_00496720_ButtonReleaseMsg"
+     "name": "INV_HelpCloseButtonMsg"
     },
     {
      "va": "0x004967F0",
      "length": 395,
-     "name": "?sub_004967F0_LoadPanelCels@@YAXXZ"
+     "name": "?INV_LoadPanelCels@@YAXXZ"
     },
     {
      "va": "0x00497300",
      "length": 311,
-     "name": "?sub_00497300_DrawKeyBindingPopup@@YAXXZ"
+     "name": "?INV_DrawKeyBindingPopup@@YAXXZ"
     },
     {
      "va": "0x004A17D0",
@@ -15088,12 +15088,12 @@
     {
      "va": "0x004A7A80",
      "length": 11,
-     "name": "_sub_004A7A80_ClearFlag7C02EC"
+     "name": "_INV_ClearGoldDialogFlag"
     },
     {
      "va": "0x004AA0C0",
      "length": 34,
-     "name": "sub_004AA0C0_SetSlot"
+     "name": "INV_SetHotkeySkillSlot"
     },
     {
      "va": "0x004AA8F0",
@@ -15103,12 +15103,12 @@
     {
      "va": "0x004B1050",
      "length": 58,
-     "name": "sub_004B1050_GetMonsterValue"
+     "name": "INV_GetMonsterOwnerGuid"
     },
     {
      "va": "0x004B92E0",
      "length": 63,
-     "name": "sub_004B92E0_GetTableByte"
+     "name": "INV_GetTableByte"
     }
    ],
    "flags": [
@@ -16251,22 +16251,22 @@
     {
      "va": "0x00451910",
      "length": 6,
-     "name": "sub_00451910"
+     "name": "UI_IsRecordingEnabled"
     },
     {
      "va": "0x00451960",
      "length": 6,
-     "name": "sub_00451960"
+     "name": "UI_IsRecordHandlerInstalled"
     },
     {
      "va": "0x00451980",
      "length": 6,
-     "name": "sub_00451980"
+     "name": "UI_IsPlaybackEnabled"
     },
     {
      "va": "0x00451990",
      "length": 6,
-     "name": "sub_00451990"
+     "name": "UI_IsReplayActive"
     },
     {
      "va": "0x004525F0",
@@ -16275,7 +16275,7 @@
     {
      "va": "0x004526C0",
      "length": 264,
-     "name": "?sub_004526C0_BuildImmunityText@@YAXPAUD2UnitStrc@@@Z"
+     "name": "?UI_BuildImmunityText@@YAXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004527D0",
@@ -16284,22 +16284,22 @@
     {
      "va": "0x00452AF0",
      "length": 234,
-     "name": "?sub_00452AF0_GetPartyText@@YGXPAUD2UnitStrc@@PAUUnicode@@HPAH2@Z"
+     "name": "?UI_GetPlayerHoverName@@YGXPAUD2UnitStrc@@PAUUnicode@@HPAH2@Z"
     },
     {
      "va": "0x00452BE0",
      "length": 137,
-     "name": "?sub_00452BE0_ShowUnitHoverName@@YGXPAUD2UnitStrc@@H@Z"
+     "name": "?UI_ShowUnitHoverName@@YGXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x00452C70",
      "length": 168,
-     "name": "?sub_00452C70_GetRosterText@@YGHPAUD2UnitStrc@@PAUUnicode@@PAH2@Z"
+     "name": "?UI_GetRosterHoverName@@YGHPAUD2UnitStrc@@PAUUnicode@@PAH2@Z"
     },
     {
      "va": "0x00452D20",
      "length": 291,
-     "name": "?sub_00452D20_DrawPetHover@@YAXXZ"
+     "name": "?UI_DrawPetHover@@YAXXZ"
     },
     {
      "va": "0x00452E50",
@@ -16308,57 +16308,57 @@
     {
      "va": "0x00453100",
      "length": 548,
-     "name": "?sub_00453100_DrawDeathScreen@@YAXXZ"
+     "name": "?UI_DrawDeathScreen@@YAXXZ"
     },
     {
      "va": "0x00453330",
      "length": 315,
-     "name": "?sub_00453330_DrawPartyMemberText@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?UI_DrawPartyMemberText@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004535D0",
      "length": 20,
-     "name": "?sub_004535D0_DrawPartyTexts@@YAXXZ"
+     "name": "?UI_DrawPartyTexts@@YAXXZ"
     },
     {
      "va": "0x004535F0",
      "length": 69,
-     "name": "?sub_004535F0_SetSlotClass@@YGXPAUD2SlotOwnerStrc@@GHHH@Z"
+     "name": "?UI_SetSlotClass@@YGXPAUD2SlotOwnerStrc@@GHHH@Z"
     },
     {
      "va": "0x00453640",
      "length": 652,
-     "name": "?sub_00453640_SetPanelHotkeys@@YAXPBUD2PanelHotkeysStrc@@@Z"
+     "name": "?UI_SetPanelHotkeys@@YAXPBUD2PanelHotkeysStrc@@@Z"
     },
     {
      "va": "0x00453900",
      "length": 12,
-     "name": "?sub_00453900_IsActive@@YAHXZ"
+     "name": "?UI_IsDialogOpen@@YAHXZ"
     },
     {
      "va": "0x00453AA0",
      "length": 6,
-     "name": "sub_00453AA0"
+     "name": "UI_GetPentspinCel"
     },
     {
      "va": "0x00453AB0",
      "length": 6,
-     "name": "sub_00453AB0"
+     "name": "UI_GetFocusCel"
     },
     {
      "va": "0x00453AC0",
      "length": 13,
-     "name": "?sub_00453AC0@@YAXXZ"
+     "name": "?UI_DisableUIVarDelay@@YAXXZ"
     },
     {
      "va": "0x00453AD0",
      "length": 11,
-     "name": "?sub_00453AD0@@YAXXZ"
+     "name": "?UI_EnableUIVarDelay@@YAXXZ"
     },
     {
      "va": "0x00453B30",
      "length": 120,
-     "name": "?sub_00453B30_DrawStoredUnitNumber@@YAXXZ"
+     "name": "?UI_DrawStoredUnitNumber@@YAXXZ"
     },
     {
      "va": "0x00453EE0",
@@ -16367,67 +16367,67 @@
     {
      "va": "0x00453FD0",
      "length": 3,
-     "name": "sub_00453FD0"
+     "name": "UI_GoldSpinnerDefaultCallback"
     },
     {
      "va": "0x00454080",
      "length": 184,
-     "name": "?sub_00454080_ConfirmGoldDialog@@YAHXZ"
+     "name": "?UI_ConfirmGoldDialog@@YAHXZ"
     },
     {
      "va": "0x00454140",
      "length": 11,
-     "name": "?sub_00454140_ClosePanelCallback@@YAHXZ"
+     "name": "?UI_CancelGoldDialog@@YAHXZ"
     },
     {
      "va": "0x00454570",
      "length": 33,
-     "name": "?sub_00454570_ClearGoldPanel@@YAXXZ"
+     "name": "?UI_ClearGoldPanel@@YAXXZ"
     },
     {
      "va": "0x004545A0",
      "length": 5,
-     "name": "?sub_004545A0_ClosePanel@@YAXXZ"
+     "name": "?UI_CloseGoldPanel@@YAXXZ"
     },
     {
      "va": "0x004545B0",
      "length": 16,
-     "name": "?sub_004545B0_UpdateGoldPanel@@YAXXZ"
+     "name": "?UI_DrawGoldPanel@@YAXXZ"
     },
     {
      "va": "0x004545C0",
      "length": 62,
-     "name": "?sub_004545C0_TogglePanelHandlers@@YIXH@Z"
+     "name": "?UI_TogglePanelHandlers@@YIXH@Z"
     },
     {
      "va": "0x00454650",
      "length": 229,
-     "name": "?sub_00454650_ReadWholeFile@@YIPAXPBDPAK@Z"
+     "name": "?UI_ReadWholeFile@@YIPAXPBDPAK@Z"
     },
     {
      "va": "0x004547A0",
      "length": 6,
-     "name": "sub_004547A0"
+     "name": "UI_GetLoadingAct"
     },
     {
      "va": "0x00454840",
      "length": 6,
-     "name": "sub_00454840"
+     "name": "UI_IsLoadingScreenActive"
     },
     {
      "va": "0x00454980",
      "length": 39,
-     "name": "?sub_00454980@@YAXXZ"
+     "name": "?UI_RegisterKeyConfigHandlers@@YAXXZ"
     },
     {
      "va": "0x004549B0",
      "length": 10,
-     "name": "?sub_004549B0_ToggleListDialog@@YAXXZ"
+     "name": "?UI_ToggleListDialog@@YAXXZ"
     },
     {
      "va": "0x004549C0",
      "length": 12,
-     "name": "?sub_004549C0_IsPanelAllocated@@YAHXZ"
+     "name": "?UI_IsGoldPanelOpen@@YAHXZ"
     },
     {
      "va": "0x004549D0",
@@ -16436,32 +16436,32 @@
     {
      "va": "0x00454F30",
      "length": 1400,
-     "name": "?sub_00454F30_DrawUnitHover@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?UI_DrawUnitHover@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00455720",
      "length": 952,
-     "name": "?sub_00455720_SetPanelHandlers@@YIXH@Z"
+     "name": "?UI_SetPanelHandlers@@YIXH@Z"
     },
     {
      "va": "0x00455AE0",
      "length": 1080,
-     "name": "?sub_00455AE0_ClearPanelHandlers@@YIXH@Z"
+     "name": "?UI_ClearPanelHandlers@@YIXH@Z"
     },
     {
      "va": "0x004565E0",
      "length": 527,
-     "name": "?sub_004565E0_DrawLoadingScreen@@YIXH@Z"
+     "name": "?UI_DrawLoadingScreen@@YIXH@Z"
     },
     {
      "va": "0x004567F0",
      "length": 380,
-     "name": "?sub_004567F0_ToggleMiniPanel@@YAXXZ"
+     "name": "?UI_ToggleMiniPanel@@YAXXZ"
     },
     {
      "va": "0x00456EE0",
      "length": 1044,
-     "name": "?sub_00456EE0_DrawUIPanels@@YIXPAUD2ViewStrc@@@Z"
+     "name": "?UI_DrawUIPanels@@YIXPAUD2ViewStrc@@@Z"
     },
     {
      "va": "0x00457510",
@@ -16471,27 +16471,27 @@
     {
      "va": "0x00457740",
      "length": 6,
-     "name": "sub_00457740"
+     "name": "UI_GetAutomapCenters"
     },
     {
      "va": "0x00457770",
      "length": 6,
-     "name": "sub_00457770"
+     "name": "UI_GetAutomapLeft"
     },
     {
      "va": "0x004577B0",
      "length": 6,
-     "name": "sub_004577B0"
+     "name": "UI_GetAutomapParty"
     },
     {
      "va": "0x004577E0",
      "length": 6,
-     "name": "sub_004577E0"
+     "name": "UI_GetAutomapPartyNames"
     },
     {
      "va": "0x0045A710",
      "length": 6,
-     "name": "sub_0045A710"
+     "name": "UI_GetAutomapMode"
     },
     {
      "va": "0x0045AE60",
@@ -16506,17 +16506,17 @@
     {
      "va": "0x0045AFA0",
      "length": 6,
-     "name": "sub_0045AFA0"
+     "name": "UI_GetAutomapOffsetX"
     },
     {
      "va": "0x0045AFB0",
      "length": 6,
-     "name": "sub_0045AFB0"
+     "name": "UI_GetAutomapOffsetY"
     },
     {
      "va": "0x0045BA70",
      "length": 14,
-     "name": "sub_0045BA70"
+     "name": "UI_ClearPair"
     },
     {
      "va": "0x0045F7A0",
@@ -16526,47 +16526,47 @@
     {
      "va": "0x0045FBC0",
      "length": 155,
-     "name": "?sub_0045FBC0_DrawCelPair@@YGXH@Z"
+     "name": "?UI_DrawCelPair@@YGXH@Z"
     },
     {
      "va": "0x0045FD80",
      "length": 68,
-     "name": "?sub_0045FD80_DrawCenteredString@@YAXXZ"
+     "name": "?UI_DrawCenteredString@@YAXXZ"
     },
     {
      "va": "0x0045FFC0",
      "length": 159,
-     "name": "?sub_0045FFC0_DrawCenteredStrings@@YAXXZ"
+     "name": "?UI_DrawCenteredStrings@@YAXXZ"
     },
     {
      "va": "0x004600F0",
      "length": 115,
-     "name": "?sub_004600F0_DrawCenteredStringPair@@YAXXZ"
+     "name": "?UI_DrawCenteredStringPair@@YAXXZ"
     },
     {
      "va": "0x00460430",
      "length": 80,
-     "name": "?sub_00460430_FreeCels@@YAXXZ"
+     "name": "?UI_FreeCels@@YAXXZ"
     },
     {
      "va": "0x00463D80",
      "length": 7,
-     "name": "sub_00463D80"
+     "name": "UI_FreeUnitModStats"
     },
     {
      "va": "0x00466DD0",
      "length": 6,
-     "name": "sub_00466DD0"
+     "name": "UI_GetHoverClassId"
     },
     {
      "va": "0x00467400",
      "length": 6,
-     "name": "sub_00467400"
+     "name": "UI_HasSelectedUnit"
     },
     {
      "va": "0x00468030",
      "length": 6,
-     "name": "sub_00468030"
+     "name": "UI_GetCursorFrame"
     },
     {
      "va": "0x004680A0",
@@ -16581,27 +16581,27 @@
     {
      "va": "0x0046BC70",
      "length": 22,
-     "name": "?sub_0046BC70_SetTimerUnitId@@YIHPAUD2UnitStrc@@@Z"
+     "name": "?UI_SetTimerUnitId@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0046F980",
      "length": 6,
-     "name": "sub_0046F980"
+     "name": "UI_GetGfxMemory"
     },
     {
      "va": "0x0046F990",
      "length": 6,
-     "name": "sub_0046F990"
+     "name": "UI_GetCofMemoryUsed"
     },
     {
      "va": "0x0046F9A0",
      "length": 6,
-     "name": "sub_0046F9A0"
+     "name": "UI_GetCofMemoryLimit"
     },
     {
      "va": "0x00476AF0",
      "length": 18,
-     "name": "?sub_00476AF0_ClearGlobals@@YAXXZ"
+     "name": "?UI_ClearGlobals@@YAXXZ"
     }
    ],
    "flags": [
@@ -17731,72 +17731,72 @@
     {
      "va": "0x00453910",
      "length": 384,
-     "name": "?sub_00453910_CanSetUIVar@@YAHHH@Z"
+     "name": "?UI_CanSetUIVar@@YAHHH@Z"
     },
     {
      "va": "0x00453A90",
      "length": 8,
-     "name": "?sub_00453A90_GetUIVarUnchecked@@YIHH@Z"
+     "name": "?UI_GetUIVarUnchecked@@YIHH@Z"
     },
     {
      "va": "0x00453AE0",
      "length": 24,
-     "name": "?sub_00453AE0@@YAXXZ"
+     "name": "?UI_StartUIVarDelay@@YAXXZ"
     },
     {
      "va": "0x00453B00",
      "length": 44,
-     "name": "?sub_00453B00_SendMouseMove@@YAXXZ"
+     "name": "?UI_SendMouseMove@@YAXXZ"
     },
     {
      "va": "0x00453D90",
      "length": 65,
-     "name": "?sub_00453D90_RunSequenceA@@YAXXZ"
+     "name": "?UI_LoadPlayerUI@@YAXXZ"
     },
     {
      "va": "0x00453DE0",
      "length": 132,
-     "name": "?sub_00453DE0@@YAXXZ"
+     "name": "?UI_FreePlayerUI@@YAXXZ"
     },
     {
      "va": "0x00453E70",
      "length": 70,
-     "name": "?sub_00453E70_GetLevelName@@YIPBGH@Z"
+     "name": "?UI_GetLevelName@@YIPBGH@Z"
     },
     {
      "va": "0x00453EC0",
      "length": 21,
-     "name": "?sub_00453EC0@@YAXXZ"
+     "name": "?UI_CancelCursorItemUse@@YAXXZ"
     },
     {
      "va": "0x00453FC0",
      "length": 8,
-     "name": "?sub_00453FC0_GoldPanelClose@@YAHXZ"
+     "name": "?UI_GoldPanelCloseCallback@@YAHXZ"
     },
     {
      "va": "0x00453FE0",
      "length": 155,
-     "name": "?sub_00453FE0_GoldSpinnerChanged@@YAHXZ"
+     "name": "?UI_GoldSpinnerChanged@@YAHXZ"
     },
     {
      "va": "0x00454790",
      "length": 7,
-     "name": "?sub_00454790_SetValue@@YIXH@Z"
+     "name": "?UI_SetLoadingAct@@YIXH@Z"
     },
     {
      "va": "0x004547B0",
      "length": 132,
-     "name": "?sub_004547B0@@YIXXZ"
+     "name": "?UI_FreeLoadingScreen@@YIXXZ"
     },
     {
      "va": "0x00454850",
      "length": 33,
-     "name": "?sub_00454850_TickElapsed@@YAHXZ"
+     "name": "?UI_TickElapsed@@YAHXZ"
     },
     {
      "va": "0x00454880",
      "length": 226,
-     "name": "?sub_00454880_GetHoverRect@@YIHPAUD2RectStrc@@@Z"
+     "name": "?UI_GetHoverRect@@YIHPAUD2RectStrc@@@Z"
     },
     {
      "va": "0x00455F20",
@@ -17806,12 +17806,12 @@
     {
      "va": "0x00456300",
      "length": 581,
-     "name": "?sub_00456300_CloseUIVars@@YIHHH@Z"
+     "name": "?UI_CloseUIVars@@YIHHH@Z"
     },
     {
      "va": "0x00456D80",
      "length": 339,
-     "name": "?sub_00456D80_ShutdownUI@@YAXXZ"
+     "name": "?UI_ShutdownUI@@YAXXZ"
     }
    ]
   },
@@ -17822,7 +17822,7 @@
     {
      "va": "0x00454150",
      "length": 1052,
-     "name": "?sub_00454150_OpenGoldPanel@@YIXH@Z"
+     "name": "?UI_OpenGoldPanel@@YIXH@Z"
     },
     {
      "va": "0x00468770",
@@ -18268,7 +18268,7 @@
     {
      "va": "0x00457F40",
      "length": 690,
-     "name": "?sub_00457F40_OpenAutomapFile@@YAPAXXZ"
+     "name": "?AUTOMAP_OpenAutomapFile@@YAPAXXZ"
     },
     {
      "va": "0x004584C0",
@@ -18281,7 +18281,7 @@
     {
      "va": "0x00459700",
      "length": 1215,
-     "name": "?sub_00459700_PaintAutomap@@YAXXZ"
+     "name": "?AUTOMAP_PaintAutomap@@YAXXZ"
     },
     {
      "va": "0x00459BC0",
@@ -18291,32 +18291,32 @@
     {
      "va": "0x00459E90",
      "length": 345,
-     "name": "?sub_00459E90_DrawGameInfoLines@@YAXXZ"
+     "name": "?AUTOMAP_DrawGameInfoLines@@YAXXZ"
     },
     {
      "va": "0x00459FF0",
      "length": 88,
-     "name": "?sub_00459FF0_DrawStringLine@@YAXXZ"
+     "name": "?AUTOMAP_DrawStringLine@@YAXXZ"
     },
     {
      "va": "0x0045A0A0",
      "length": 122,
-     "name": "?sub_0045A0A0_DrawVersionLine@@YAXXZ"
+     "name": "?AUTOMAP_DrawVersionLine@@YAXXZ"
     },
     {
      "va": "0x0045A120",
      "length": 103,
-     "name": "?sub_0045A120_DrawLocalIpLine@@YAXXZ"
+     "name": "?AUTOMAP_DrawLocalIpLine@@YAXXZ"
     },
     {
      "va": "0x0045A190",
      "length": 231,
-     "name": "?sub_0045A190_DrawDifficultyLine@@YAXXZ"
+     "name": "?AUTOMAP_DrawDifficultyLine@@YAXXZ"
     },
     {
      "va": "0x0045A2B0",
      "length": 523,
-     "name": "?sub_0045A2B0_ReloadAutomapCels@@YAXXZ"
+     "name": "?AUTOMAP_ReloadAutomapCels@@YAXXZ"
     },
     {
      "va": "0x0045A760",
@@ -20436,67 +20436,67 @@
     {
      "va": "0x004690A0",
      "length": 5,
-     "name": "?sub_004690A0_HotkeyCmd4@@YAXXZ"
+     "name": "?CMDTBL_HotkeyClearScreen@@YAXXZ"
     },
     {
      "va": "0x004691B0",
      "length": 5,
-     "name": "?sub_004691B0_HotkeyClearListFlags@@YAXXZ"
+     "name": "?CMDTBL_HotkeyClearMessages@@YAXXZ"
     },
     {
      "va": "0x00469200",
      "length": 7,
-     "name": "?sub_00469200_HotkeyClearValue@@YAXXZ"
+     "name": "?CMDTBL_HotkeyStandStillRelease@@YAXXZ"
     },
     {
      "va": "0x00469370",
      "length": 58,
-     "name": "?sub_00469370_CallBoundCommand@@YAXXZ"
+     "name": "?CMDTBL_CallBoundCommand@@YAXXZ"
     },
     {
      "va": "0x004694A0",
      "length": 420,
-     "name": "?sub_004694A0_BindMouseHotkeys@@YAXXZ"
+     "name": "?CMDTBL_BindMouseHotkeys@@YAXXZ"
     },
     {
      "va": "0x004698D0",
      "length": 373,
-     "name": "?sub_004698D0_LoadKeyConfig@@YGXH@Z"
+     "name": "?CMDTBL_LoadKeyConfig@@YGXH@Z"
     },
     {
      "va": "0x00469A50",
      "length": 7,
-     "name": "?sub_00469A50_LoadKeyConfig@@YAXH@Z"
+     "name": "?CMDTBL_LoadKeyConfigInline@@YAXH@Z"
     },
     {
      "va": "0x00469A60",
      "length": 57,
-     "name": "?sub_00469A60_ResetKeyConfig@@YIXH@Z"
+     "name": "?CMDTBL_ResetKeyConfig@@YIXH@Z"
     },
     {
      "va": "0x00469AE0",
      "length": 318,
-     "name": "?sub_00469AE0_IsValidKey@@YIHG@Z"
+     "name": "?CMDTBL_IsValidKey@@YIHG@Z"
     },
     {
      "va": "0x00469C20",
      "length": 248,
-     "name": "?sub_00469C20_QueryKey@@YIHHHHPAG@Z"
+     "name": "?CMDTBL_QueryKey@@YIHHHHPAG@Z"
     },
     {
      "va": "0x00469D20",
      "length": 26,
-     "name": "?sub_00469D20_SaveHotkeys@@YAXXZ"
+     "name": "?CMDTBL_SaveHotkeys@@YAXXZ"
     },
     {
      "va": "0x00469D40",
      "length": 10,
-     "name": "?sub_00469D40_SaveAndBindHotkeys@@YAXXZ"
+     "name": "?CMDTBL_SaveAndBindHotkeys@@YAXXZ"
     },
     {
      "va": "0x00469D50",
      "length": 26,
-     "name": "?sub_00469D50_RestoreHotkeys@@YAXXZ"
+     "name": "?CMDTBL_RestoreHotkeys@@YAXXZ"
     },
     {
      "va": "0x00469DE0",
@@ -20513,17 +20513,17 @@
     {
      "va": "0x0046AA20",
      "length": 181,
-     "name": "?sub_0046AA20_SetHotkeyHandlers@@YIXHH@Z"
+     "name": "?CMDTBL_SetHotkeyHandlers@@YIXHH@Z"
     },
     {
      "va": "0x0046AC70",
      "length": 49,
-     "name": "?sub_0046AC70_EnableHotkeyHandlers@@YAXXZ"
+     "name": "?CMDTBL_EnableHotkeyHandlers@@YAXXZ"
     },
     {
      "va": "0x0046ACB0",
      "length": 41,
-     "name": "?sub_0046ACB0_DisableHotkeyHandlers@@YAXXZ"
+     "name": "?CMDTBL_DisableHotkeyHandlers@@YAXXZ"
     }
    ]
   },
@@ -23681,22 +23681,22 @@
     {
      "va": "0x0047A980",
      "length": 13,
-     "name": "?sub_0047A980_IsNumberDisplayEnabled@@YAHXZ"
+     "name": "?CHAT_IsNumberDisplayEnabled@@YAHXZ"
     },
     {
      "va": "0x0047A9A0",
      "length": 7,
-     "name": "?sub_0047A9A0_SetClientFlags@@YIXH@Z"
+     "name": "?CHAT_SetClientFlags@@YIXH@Z"
     },
     {
      "va": "0x0047AA30",
      "length": 12,
-     "name": "?sub_0047AA30_HasClassOverride@@YAHXZ"
+     "name": "?CHAT_HasClassOverride@@YAHXZ"
     },
     {
      "va": "0x0047AD60",
      "length": 148,
-     "name": "?sub_0047AD60_RefreshCandidates@@YAXPAX@Z"
+     "name": "?CHAT_RefreshCandidates@@YAXPAX@Z"
     },
     {
      "va": "0x0047AE00",
@@ -23705,17 +23705,17 @@
     {
      "va": "0x0047B010",
      "length": 86,
-     "name": "?sub_0047B010_IsImeLanguage@@YA_NXZ"
+     "name": "?CHAT_IsImeLanguage@@YA_NXZ"
     },
     {
      "va": "0x0047B090",
      "length": 588,
-     "name": "?sub_0047B090_InitChatIme@@YAXXZ"
+     "name": "?CHAT_InitChatIme@@YAXXZ"
     },
     {
      "va": "0x0047B2E0",
      "length": 196,
-     "name": "sub_0047B2E0_CloseChatInput"
+     "name": "CHAT_CloseChatInput"
     },
     {
      "va": "0x0047B4E0",
@@ -23725,17 +23725,17 @@
     {
      "va": "0x0047B9C0",
      "length": 50,
-     "name": "?sub_0047B9C0_RecallChatLine@@YAXXZ"
+     "name": "?CHAT_RecallChatLine@@YAXXZ"
     },
     {
      "va": "0x0047BD00",
      "length": 40,
-     "name": "?sub_0047BD00_IsNarrowText@@YI_NPBUUnicode@@@Z"
+     "name": "?CHAT_IsNarrowText@@YI_NPBUUnicode@@@Z"
     },
     {
      "va": "0x0047BDC0",
      "length": 41,
-     "name": "?sub_0047BDC0_ClearChatLine@@YAXXZ"
+     "name": "?CHAT_ClearChatLine@@YAXXZ"
     }
    ]
   },
@@ -24873,17 +24873,17 @@
     {
      "va": "0x00480780",
      "length": 57,
-     "name": "sub_00480780_SetPathTargetUnit"
+     "name": "INV_SetPathTargetUnit"
     },
     {
      "va": "0x004824A0",
      "length": 259,
-     "name": "sub_004824A0_FreeCacheEntries"
+     "name": "INV_FreeCacheEntries"
     },
     {
      "va": "0x00482C20",
      "length": 74,
-     "name": "?sub_00482C20_Tick@@YAXXZ"
+     "name": "?INV_TickSound@@YAXXZ"
     },
     {
      "va": "0x00482C70",
@@ -24892,7 +24892,7 @@
     {
      "va": "0x00483310",
      "length": 37,
-     "name": "?sub_00483310_ResetCinematicFlags@@YAXXZ"
+     "name": "?INV_ResetCinematicFlags@@YAXXZ"
     },
     {
      "va": "0x00483350",
@@ -24902,17 +24902,17 @@
     {
      "va": "0x004834A0",
      "length": 58,
-     "name": "?sub_004834A0_SkipBracketTag@@YIPBUUnicode@@PBU1@@Z"
+     "name": "?INV_SkipBracketTag@@YIPBUUnicode@@PBU1@@Z"
     },
     {
      "va": "0x00483AE0",
      "length": 41,
-     "name": "?sub_00483AE0_IsInRect@@YAHHH@Z"
+     "name": "?INV_IsInTradeOtherGrid@@YAHHH@Z"
     },
     {
      "va": "0x00483B10",
      "length": 41,
-     "name": "?sub_00483B10_IsInRect@@YAHHH@Z"
+     "name": "?INV_IsInTradeGrid@@YAHHH@Z"
     },
     {
      "va": "0x00483B40",
@@ -24932,12 +24932,12 @@
     {
      "va": "0x00483C20",
      "length": 37,
-     "name": "?sub_00483C20_IsInRect@@YAHHH@Z"
+     "name": "?INV_IsInSidePanelRect@@YAHHH@Z"
     },
     {
      "va": "0x00483E10",
      "length": 38,
-     "name": "?sub_00483E10_IsNpcStateIdle@@YAHXZ"
+     "name": "?INV_IsNpcStateIdle@@YAHXZ"
     },
     {
      "va": "0x00483E40",
@@ -24950,22 +24950,22 @@
     {
      "va": "0x00484C90",
      "length": 156,
-     "name": "?sub_00484C90_FormatEarName@@YAHPAUUnicode@@PAUD2UnitStrc@@@Z"
+     "name": "?INV_FormatEarName@@YAHPAUUnicode@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00484D30",
      "length": 120,
-     "name": "?sub_00484D30_FormatEarNameTo@@YGHPAUUnicode@@PBU1@PAUD2UnitStrc@@@Z"
+     "name": "?INV_FormatEarNameTo@@YGHPAUUnicode@@PBU1@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00486370",
      "length": 601,
-     "name": "?sub_00486370_AppendItemFormulaText@@YGXPAUD2UnitStrc@@PAUD2ItemFormulaRecordStrc@@PAUUnicode@@@Z"
+     "name": "?INV_AppendItemFormulaText@@YGXPAUD2UnitStrc@@PAUD2ItemFormulaRecordStrc@@PAUUnicode@@@Z"
     },
     {
      "va": "0x00486670",
      "length": 255,
-     "name": "?sub_00486670_AppendSocketedGemLetters@@YGXPAUUnicode@@PAUD2UnitStrc@@@Z"
+     "name": "?INV_AppendSocketedGemLetters@@YGXPAUUnicode@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00486BD0",
@@ -24974,7 +24974,7 @@
     {
      "va": "0x00487A10",
      "length": 288,
-     "name": "sub_00487A10_SelectItemPageTab"
+     "name": "INV_SelectItemPageTab"
     },
     {
      "va": "0x00487ED0",
@@ -24983,27 +24983,27 @@
     {
      "va": "0x00488910",
      "length": 189,
-     "name": "sub_00488910_ResetCursorMsg"
+     "name": "INV_ResetShopCursorMsg"
     },
     {
      "va": "0x00488E70",
      "length": 75,
-     "name": "sub_00488E70_KeyMsg"
+     "name": "INV_OpenChatKeyMsg"
     },
     {
      "va": "0x00489060",
      "length": 78,
-     "name": "sub_00489060_ClickMsg"
+     "name": "INV_InvRectClickMsg"
     },
     {
      "va": "0x004894D0",
      "length": 169,
-     "name": "sub_004894D0_MouseMoveMsg"
+     "name": "INV_TradeMouseMoveMsg"
     },
     {
      "va": "0x0048A0F0",
      "length": 152,
-     "name": "sub_0048A0F0_MouseMoveMsg"
+     "name": "INV_CubeMouseMoveMsg"
     },
     {
      "va": "0x0048B0A0",
@@ -25012,12 +25012,12 @@
     {
      "va": "0x0048BD80",
      "length": 105,
-     "name": "sub_0048BD80_ClickMsg"
+     "name": "INV_CloseRecipeScrollClickMsg"
     },
     {
      "va": "0x00497C50",
      "length": 157,
-     "name": "sub_00497C50_DrawSlotIcon"
+     "name": "INV_DrawWarningIcon"
     },
     {
      "va": "0x00498A20",
@@ -25047,12 +25047,12 @@
     {
      "va": "0x00482E00",
      "length": 44,
-     "name": "?sub_00482E00_ArchiveFilePresent@@YAHPBD@Z"
+     "name": "?INV_ArchiveFilePresent@@YAHPBD@Z"
     },
     {
      "va": "0x00482E30",
      "length": 180,
-     "name": "?sub_00482E30_BuildLocalizedVideoPath@@YAXPADPBD1@Z"
+     "name": "?INV_BuildLocalizedVideoPath@@YAXPADPBD1@Z"
     },
     {
      "va": "0x00482EF0",
@@ -25065,7 +25065,7 @@
     {
      "va": "0x004835B0",
      "length": 941,
-     "name": "?sub_004835B0_LoadUiRecords@@YAXXZ"
+     "name": "?INV_LoadUiRecords@@YAXXZ"
     },
     {
      "va": "0x004839D0",
@@ -25082,42 +25082,42 @@
     {
      "va": "0x00484B10",
      "length": 377,
-     "name": "?sub_00484B10_AppendEtherealSocketed@@YGXPAUD2UnitStrc@@PAUUnicode@@@Z"
+     "name": "?INV_AppendEtherealSocketed@@YGXPAUD2UnitStrc@@PAUUnicode@@@Z"
     },
     {
      "va": "0x00484DB0",
      "length": 210,
-     "name": "?sub_00484DB0_AppendQuantity@@YGXPAUD2ItemsTxt@@PAUD2UnitStrc@@PAUUnicode@@@Z"
+     "name": "?INV_AppendQuantity@@YGXPAUD2ItemsTxt@@PAUD2UnitStrc@@PAUUnicode@@@Z"
     },
     {
      "va": "0x00484E90",
      "length": 340,
-     "name": "?sub_00484E90_AppendDurability@@YGXPAUD2UnitStrc@@PAUUnicode@@@Z"
+     "name": "?INV_AppendDurability@@YGXPAUD2UnitStrc@@PAUUnicode@@@Z"
     },
     {
      "va": "0x00484FF0",
      "length": 165,
-     "name": "?sub_00484FF0_AppendNumberLine@@YGXHPAUUnicode@@@Z"
+     "name": "?INV_AppendLabeledNumber@@YGXHPAUUnicode@@@Z"
     },
     {
      "va": "0x004850A0",
      "length": 194,
-     "name": "?sub_004850A0_AppendReqStr@@YGXPAUD2ItemsTxt@@HPAUUnicode@@@Z"
+     "name": "?INV_AppendReqStr@@YGXPAUD2ItemsTxt@@HPAUUnicode@@@Z"
     },
     {
      "va": "0x00485170",
      "length": 194,
-     "name": "?sub_00485170_AppendReqDex@@YGXPAUD2ItemsTxt@@HPAUUnicode@@@Z"
+     "name": "?INV_AppendReqDex@@YGXPAUD2ItemsTxt@@HPAUUnicode@@@Z"
     },
     {
      "va": "0x00485BE0",
      "length": 341,
-     "name": "?sub_00485BE0_AppendBlockChance@@YGXPAUUnicode@@PAUD2ItemsTxt@@PAUD2UnitStrc@@@Z"
+     "name": "?INV_AppendBlockChance@@YGXPAUUnicode@@PAUD2ItemsTxt@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00485D40",
      "length": 414,
-     "name": "?sub_00485D40_AppendThrowDamage@@YGXPAUD2UnitStrc@@PAUD2ItemsTxt@@PAUUnicode@@@Z"
+     "name": "?INV_AppendThrowDamage@@YGXPAUD2UnitStrc@@PAUD2ItemsTxt@@PAUUnicode@@@Z"
     },
     {
      "va": "0x00486100",
@@ -25127,7 +25127,7 @@
     {
      "va": "0x004861D0",
      "length": 406,
-     "name": "?sub_004861D0_AppendAttackSpeed@@YGXPAUUnicode@@PAUD2UnitStrc@@@Z"
+     "name": "?INV_AppendAttackSpeed@@YGXPAUUnicode@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0048A990",
@@ -25174,12 +25174,12 @@
     {
      "va": "0x00485EE0",
      "length": 544,
-     "name": "?sub_00485EE0_AppendDefense@@YGXPAUD2UnitStrc@@0PAUUnicode@@@Z"
+     "name": "?INV_AppendDefense@@YGXPAUD2UnitStrc@@0PAUUnicode@@@Z"
     },
     {
      "va": "0x004865D0",
      "length": 108,
-     "name": "?sub_004865D0_AppendBookCharges@@YAXPAUUnicode@@@Z"
+     "name": "?INV_AppendBookCharges@@YAXPAUUnicode@@@Z"
     },
     {
      "va": "0x00486770",
@@ -25189,7 +25189,7 @@
     {
      "va": "0x00486820",
      "length": 64,
-     "name": "?sub_00486820_IsMouseInBox@@YGHHHHH@Z"
+     "name": "?INV_IsMouseInBox@@YGHHHHH@Z"
     },
     {
      "va": "0x00486860",
@@ -25209,7 +25209,7 @@
     {
      "va": "0x00486EF0",
      "length": 265,
-     "name": "?sub_00486EF0_NpcPanelMouseMove@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?INV_NpcPanelMouseMove@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x00487000",
@@ -25218,22 +25218,22 @@
     {
      "va": "0x00487230",
      "length": 353,
-     "name": "?sub_00487230_UpdateBodyLocHover@@YGXHPAUD2UnitStrc@@PAUD2InventoryStrc@@@Z"
+     "name": "?INV_UpdateBodyLocHover@@YGXHPAUD2UnitStrc@@PAUD2InventoryStrc@@@Z"
     },
     {
      "va": "0x004873A0",
      "length": 925,
-     "name": "?sub_004873A0_HandleClick@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?INV_UpdateInventoryHover@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004889D0",
      "length": 299,
-     "name": "?sub_004889D0_TradeMouseMove@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?INV_NpcShopMouseMoveMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x00488E10",
      "length": 81,
-     "name": "?sub_00488E10_SelectButtonByKey@@YAXH@Z"
+     "name": "?INV_SelectButtonByKey@@YAXH@Z"
     },
     {
      "va": "0x00488F10",
@@ -25242,17 +25242,17 @@
     {
      "va": "0x00489430",
      "length": 65,
-     "name": "?sub_00489430_IsOverButtonA@@YAHHH@Z"
+     "name": "?INV_IsOverTradeButtonLeft@@YAHHH@Z"
     },
     {
      "va": "0x00489480",
      "length": 65,
-     "name": "?sub_00489480_IsOverButtonB@@YAHHH@Z"
+     "name": "?INV_IsOverTradeButtonRight@@YAHHH@Z"
     },
     {
      "va": "0x00489580",
      "length": 495,
-     "name": "?sub_00489580_StashMouseMove@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?INV_TradePanelMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x00489920",
@@ -25267,12 +25267,12 @@
     {
      "va": "0x00489A30",
      "length": 139,
-     "name": "?sub_00489A30_CubeMouseMove@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?INV_StashMouseMoveMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x00489AC0",
      "length": 516,
-     "name": "?sub_00489AC0_CubeClick@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?INV_StashClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x00489FB0",
@@ -25287,17 +25287,17 @@
     {
      "va": "0x0048A190",
      "length": 536,
-     "name": "?sub_0048A190_CubeMouseMove@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?INV_CubeClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x0048B680",
      "length": 305,
-     "name": "?sub_0048B680_MercPanelClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?INV_MercPanelClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x0048BA50",
      "length": 389,
-     "name": "?sub_0048BA50_MercPanelHoverMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?INV_MercPanelHoverMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x0048BC10",
@@ -25330,7 +25330,7 @@
     {
      "va": "0x0048CEA0",
      "length": 333,
-     "name": "?sub_0048CEA0_AppendItemSetName@@YGXPBUUnicode@@PAU1@@Z"
+     "name": "?INV_AppendShopPriceText@@YGXPBUUnicode@@PAU1@@Z"
     },
     {
      "va": "0x0048CFF0",
@@ -25339,7 +25339,7 @@
     {
      "va": "0x0048DB80",
      "length": 515,
-     "name": "?sub_0048DB80_DrawBaseItemTooltip@@YAXXZ"
+     "name": "?INV_DrawTransmogrifyTooltip@@YAXXZ"
     },
     {
      "va": "0x0048FFE0",
@@ -25376,7 +25376,7 @@
     {
      "va": "0x004886C0",
      "length": 454,
-     "name": "?sub_004886C0_DrawButtonHoverText@@YAXXZ"
+     "name": "?INV_DrawButtonHoverText@@YAXXZ"
     },
     {
      "va": "0x00488B00",
@@ -25385,22 +25385,22 @@
     {
      "va": "0x0048BE80",
      "length": 471,
-     "name": "?sub_0048BE80_FormatArgs@@YAXPAUUnicode@@PBU1@ZZ"
+     "name": "?INV_FormatArgs@@YAXPAUUnicode@@PBU1@ZZ"
     },
     {
      "va": "0x004917C0",
      "length": 372,
-     "name": "?sub_004917C0_OnGridClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?INV_GridClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x00492510",
      "length": 603,
-     "name": "?sub_00492510_CubeButtonDown@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?INV_StashButtonDownMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004927C0",
      "length": 550,
-     "name": "?sub_004927C0_CubeButtonUp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?INV_CubeButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     }
    ],
    "flags": [
@@ -25494,17 +25494,17 @@
     {
      "va": "0x00491940",
      "length": 387,
-     "name": "sub_00491940_ResetNpcPanel"
+     "name": "TEXT_ResetNpcPanel"
     },
     {
      "va": "0x004939B0",
      "length": 71,
-     "name": "sub_004939B0_LoadPopupHireling"
+     "name": "TEXT_LoadPopupHireling"
     },
     {
      "va": "0x0049D2E0",
      "length": 10,
-     "name": "?sub_0049D2E0_IsAsciiChar@@YIHPBG@Z"
+     "name": "?TEXT_IsAsciiChar@@YIHPBG@Z"
     },
     {
      "va": "0x0049D2F0",
@@ -25519,17 +25519,17 @@
     {
      "va": "0x0049D3B0",
      "length": 8,
-     "name": "?sub_0049D3B0_SetWidthFromWord@@YAXPAUD2TextWidthStrc@@@Z"
+     "name": "?TEXT_SetWidthFromWord@@YAXPAUD2TextWidthStrc@@@Z"
     },
     {
      "va": "0x0049D570",
      "length": 25,
-     "name": "?sub_0049D570_SaveTextDisplaySetting@@YIXK@Z"
+     "name": "?TEXT_SaveTextDisplaySetting@@YIXK@Z"
     },
     {
      "va": "0x0049D590",
      "length": 11,
-     "name": "?sub_0049D590_CalcTextOffset@@YIII@Z"
+     "name": "?TEXT_CalcTextOffset@@YIII@Z"
     },
     {
      "va": "0x0049D8E0",
@@ -25539,12 +25539,12 @@
     {
      "va": "0x0049DA30",
      "length": 28,
-     "name": "?sub_0049DA30@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?TEXT_SetHoverUnit@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0049DA60",
      "length": 90,
-     "name": "?sub_0049DA60_ToggleTextHandlers@@YIXH@Z"
+     "name": "?TEXT_ToggleTextHandlers@@YIXH@Z"
     },
     {
      "va": "0x0049DAC0",
@@ -25554,12 +25554,12 @@
     {
      "va": "0x0049DAE0",
      "length": 36,
-     "name": "?sub_0049DAE0_AdjustTextPos@@YIXPAUD2TextBoxPosStrc@@PAUD2TextPointStrc@@@Z"
+     "name": "?TEXT_AdjustTextPos@@YIXPAUD2TextBoxPosStrc@@PAUD2TextPointStrc@@@Z"
     },
     {
      "va": "0x0049DB10",
      "length": 170,
-     "name": "sub_0049DB10_CloneStringList"
+     "name": "TEXT_CloneStringList"
     },
     {
      "va": "0x0049E250",
@@ -25568,12 +25568,12 @@
     {
      "va": "0x0049E300",
      "length": 50,
-     "name": "?sub_0049E300_FreeMainTextBox@@YAXXZ"
+     "name": "?TEXT_FreeMainTextBox@@YAXXZ"
     },
     {
      "va": "0x0049E390",
      "length": 12,
-     "name": "?sub_0049E390_GetTimeoutTick@@YAKXZ"
+     "name": "?TEXT_GetTimeoutTick@@YAKXZ"
     },
     {
      "va": "0x0049E7F0",
@@ -25588,57 +25588,57 @@
     {
      "va": "0x0049E860",
      "length": 53,
-     "name": "?sub_0049E860_ClearHint@@YAXXZ"
+     "name": "?TEXT_ClearHint@@YAXXZ"
     },
     {
      "va": "0x0049F3D0",
      "length": 61,
-     "name": "?sub_0049F3D0_FreeHoverText@@YIXPAUD2HoverTextStrc@@@Z"
+     "name": "?TEXT_FreeHoverText@@YIXPAUD2HoverTextStrc@@@Z"
     },
     {
      "va": "0x0049F960",
      "length": 165,
-     "name": "?sub_0049F960_ResetTextBox@@YAXXZ"
+     "name": "?TEXT_ResetTextBox@@YAXXZ"
     },
     {
      "va": "0x0049FE10",
      "length": 76,
-     "name": "?sub_0049FE10@@YAXXZ"
+     "name": "?TEXT_FreeTextPanelCels@@YAXXZ"
     },
     {
      "va": "0x0049FEA0",
      "length": 92,
-     "name": "?sub_0049FEA0_PanelClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?TEXT_PanelClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x0049FF10",
      "length": 66,
-     "name": "?sub_0049FF10_DispatchTextData@@YAXXZ"
+     "name": "?TEXT_DispatchTextData@@YAXXZ"
     },
     {
      "va": "0x0049FF60",
      "length": 43,
-     "name": "@sub_0049FF60_AcceptWordPacket@4"
+     "name": "@TEXT_AcceptWordPacket@4"
     },
     {
      "va": "0x004A0030",
      "length": 21,
-     "name": "?sub_004A0030_DialogCallback@@YAHXZ"
+     "name": "?TEXT_CloseMessageLogCallback@@YAHXZ"
     },
     {
      "va": "0x004A0050",
      "length": 334,
-     "name": "?sub_004A0050_OpenListBoxDialog@@YAXXZ"
+     "name": "?TEXT_OpenMessageLogDialog@@YAXXZ"
     },
     {
      "va": "0x004A05E0",
      "length": 151,
-     "name": "?sub_004A05E0_CreateTextBox@@YIPAUD2TextBoxStrc@@PBUUnicode@@H@Z"
+     "name": "?TEXT_CreateTextBox@@YIPAUD2TextBoxStrc@@PBUUnicode@@H@Z"
     },
     {
      "va": "0x004A0680",
      "length": 227,
-     "name": "?sub_004A0680_FreeTextResources@@YAXXZ"
+     "name": "?TEXT_FreeTextResources@@YAXXZ"
     },
     {
      "va": "0x004A1510",
@@ -25648,7 +25648,7 @@
     {
      "va": "0x004A28A0",
      "length": 38,
-     "name": "@sub_004A28A0_AcceptShortPacket@4"
+     "name": "@TEXT_AcceptShortPacket@4"
     },
     {
      "va": "0x004BF650",
@@ -25728,17 +25728,17 @@
     {
      "va": "0x00492C20",
      "length": 665,
-     "name": "?sub_00492C20_LoadHirelingIcons@@YAXXZ"
+     "name": "?HIREABLES_LoadHirelingIcons@@YAXXZ"
     },
     {
      "va": "0x00492EC0",
      "length": 122,
-     "name": "?sub_00492EC0_FreeHirelingIcons@@YAXXZ"
+     "name": "?HIREABLES_FreeHirelingIcons@@YAXXZ"
     },
     {
      "va": "0x00492FA0",
      "length": 116,
-     "name": "?sub_00492FA0_DrawFittedText@@YGXHHHPAUUnicode@@@Z"
+     "name": "?HIREABLES_DrawFittedText@@YGXHHHPAUUnicode@@@Z"
     },
     {
      "va": "0x00493020",
@@ -25753,7 +25753,7 @@
     {
      "va": "0x00493220",
      "length": 25,
-     "name": "?sub_00493220_ToggleAmount@@YAXPAH0@Z"
+     "name": "?HIREABLES_ToggleAmount@@YAXPAH0@Z"
     },
     {
      "va": "0x00493240",
@@ -25762,17 +25762,17 @@
     {
      "va": "0x00493340",
      "length": 225,
-     "name": "?sub_00493340_UpdateHirelingPanel@@YAXXZ"
+     "name": "?HIREABLES_UpdateHirelingPanel@@YAXXZ"
     },
     {
      "va": "0x00493430",
      "length": 122,
-     "name": "?sub_00493430_PetIconClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?HIREABLES_PetIconClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004934B0",
      "length": 20,
-     "name": "?sub_004934B0_GetPlayerCursorItem@@YAPAUD2UnitStrc@@XZ"
+     "name": "?HIREABLES_GetPlayerCursorItem@@YAPAUD2UnitStrc@@XZ"
     },
     {
      "va": "0x004934D0",
@@ -25786,32 +25786,32 @@
     {
      "va": "0x004942D0",
      "length": 48,
-     "name": "?sub_004942D0_GetHelpMenuSetting@@YAHXZ"
+     "name": "?HIREABLES_GetHelpMenuSetting@@YAHXZ"
     },
     {
      "va": "0x00494320",
      "length": 129,
-     "name": "?sub_00494320_LoadHelpCels@@YAXXZ"
+     "name": "?HIREABLES_LoadHelpCels@@YAXXZ"
     },
     {
      "va": "0x00494EE0",
      "length": 76,
-     "name": "?sub_00494EE0_FreeHelpCels@@YAXXZ"
+     "name": "?HIREABLES_FreeHelpCels@@YAXXZ"
     },
     {
      "va": "0x00496990",
      "length": 378,
-     "name": "?sub_00496990_FreePanelCels@@YAXXZ"
+     "name": "?HIREABLES_FreePanelCels@@YAXXZ"
     },
     {
      "va": "0x00497270",
      "length": 23,
-     "name": "?sub_00497270_InitTextColorA@@YAXXZ"
+     "name": "?HIREABLES_InitTextColorA@@YAXXZ"
     },
     {
      "va": "0x00497290",
      "length": 20,
-     "name": "?sub_00497290_InitTextColorB@@YAXXZ"
+     "name": "?HIREABLES_InitTextColorB@@YAXXZ"
     },
     {
      "va": "0x004979E0",
@@ -25821,7 +25821,7 @@
     {
      "va": "0x004979F0",
      "length": 68,
-     "name": "?sub_004979F0@@YAHXZ"
+     "name": "?HIREABLES_GetBeltRowCount@@YAHXZ"
     }
    ]
   },
@@ -26109,22 +26109,22 @@
     {
      "va": "0x00496CF0",
      "length": 222,
-     "name": "?sub_00496CF0_ValidateActiveSkills@@YAXXZ"
+     "name": "?PANEL_ValidateActiveSkills@@YAXXZ"
     },
     {
      "va": "0x00496DD0",
      "length": 418,
-     "name": "?sub_00496DD0_GetSmoothedOrbValue@@YAHH@Z"
+     "name": "?PANEL_GetSmoothedOrbValue@@YAHH@Z"
     },
     {
      "va": "0x00496F80",
      "length": 387,
-     "name": "?sub_00496F80_DrawLifeOrb@@YAXXZ"
+     "name": "?PANEL_DrawLifeOrb@@YAXXZ"
     },
     {
      "va": "0x00497110",
      "length": 319,
-     "name": "?sub_00497110_DrawManaOrb@@YAXXZ"
+     "name": "?PANEL_DrawManaOrb@@YAXXZ"
     },
     {
      "va": "0x00497440",
@@ -26134,7 +26134,7 @@
     {
      "va": "0x004975B0",
      "length": 450,
-     "name": "?sub_004975B0_DrawStaminaBar@@YAXXZ"
+     "name": "?PANEL_DrawStaminaBar@@YAXXZ"
     },
     {
      "va": "0x00497780",
@@ -26144,7 +26144,7 @@
     {
      "va": "0x004977C0",
      "length": 262,
-     "name": "sub_004977C0_DrawStateButton"
+     "name": "PANEL_DrawMiniPanelButton"
     },
     {
      "va": "0x00497CF0",
@@ -26154,27 +26154,27 @@
     {
      "va": "0x00498120",
      "length": 487,
-     "name": "?sub_00498120@@YAXXZ"
+     "name": "?PANEL_DrawLifeManaText@@YAXXZ"
     },
     {
      "va": "0x00498310",
      "length": 39,
-     "name": "?sub_00498310_UpdateLevelTimer@@YAXXZ"
+     "name": "?PANEL_UpdateLevelTimer@@YAXXZ"
     },
     {
      "va": "0x00498340",
      "length": 138,
-     "name": "_sub_00498340_UpdateTooltip"
+     "name": "_PANEL_UpdateMiniPanelTooltip"
     },
     {
      "va": "0x00498630",
      "length": 208,
-     "name": "sub_00498630_DrawBorderFrameLeft"
+     "name": "PANEL_DrawBorderFrameLeft"
     },
     {
      "va": "0x00498700",
      "length": 223,
-     "name": "sub_00498700_DrawBorderFrameRight"
+     "name": "PANEL_DrawBorderFrameRight"
     },
     {
      "va": "0x004987E0",
@@ -26188,37 +26188,37 @@
     {
      "va": "0x00498C00",
      "length": 13,
-     "name": "?sub_00498C00_CloseOnSpace@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?PANEL_CloseUIVarsMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x00498C10",
      "length": 61,
-     "name": "?sub_00498C10_BeltHotkey@@YAXH@Z"
+     "name": "?PANEL_BeltHotkey@@YAXH@Z"
     },
     {
      "va": "0x00498C50",
      "length": 62,
-     "name": "?sub_00498C50_BeltHotkey0@@YAXXZ"
+     "name": "?PANEL_BeltHotkeyFirst@@YAXXZ"
     },
     {
      "va": "0x00498C90",
      "length": 62,
-     "name": "?sub_00498C90_BeltHotkey1@@YAXXZ"
+     "name": "?PANEL_BeltHotkeySecond@@YAXXZ"
     },
     {
      "va": "0x00498CD0",
      "length": 62,
-     "name": "?sub_00498CD0_BeltHotkey2@@YAXXZ"
+     "name": "?PANEL_BeltHotkeyThird@@YAXXZ"
     },
     {
      "va": "0x00498D10",
      "length": 62,
-     "name": "?sub_00498D10_BeltHotkey3@@YAXXZ"
+     "name": "?PANEL_BeltHotkeyFourth@@YAXXZ"
     },
     {
      "va": "0x00498D90",
      "length": 43,
-     "name": "?sub_00498D90_SetUiRecordIndex@@YIXH@Z"
+     "name": "?PANEL_SetBeltType@@YIXH@Z"
     },
     {
      "va": "0x00498E80",
@@ -26228,12 +26228,12 @@
     {
      "va": "0x00498E90",
      "length": 11,
-     "name": "?sub_00498E90_SetRecordMode@@YAXXZ"
+     "name": "?PANEL_SetBeltExpandedMode@@YAXXZ"
     },
     {
      "va": "0x00498EA0",
      "length": 411,
-     "name": "?sub_00498EA0_DrawExperienceBar@@YAXXZ"
+     "name": "?PANEL_DrawExperienceBar@@YAXXZ"
     },
     {
      "va": "0x00499040",
@@ -26242,37 +26242,37 @@
     {
      "va": "0x00499D10",
      "length": 208,
-     "name": "?sub_00499D10_BeltClick@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?PANEL_BeltClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x00499E10",
      "length": 20,
-     "name": "?sub_00499E10_SetRedColour@@YAXXZ"
+     "name": "?PANEL_SetRedColour@@YAXXZ"
     },
     {
      "va": "0x00499E30",
      "length": 17,
-     "name": "?sub_00499E30_SetBlackColour@@YAXXZ"
+     "name": "?PANEL_SetBlackColour@@YAXXZ"
     },
     {
      "va": "0x0049C0A0",
      "length": 76,
-     "name": "?sub_0049C0A0_LoadPartyCels@@YAXXZ"
+     "name": "?PANEL_LoadPartyCels@@YAXXZ"
     },
     {
      "va": "0x0049C0F0",
      "length": 110,
-     "name": "?sub_0049C0F0_FreePartyCels@@YAXXZ"
+     "name": "?PANEL_FreePartyCels@@YAXXZ"
     },
     {
      "va": "0x0049C3D0",
      "length": 146,
-     "name": "?sub_0049C3D0_DrawPartyPanel@@YAXXZ"
+     "name": "?PANEL_DrawPartyPanel@@YAXXZ"
     },
     {
      "va": "0x004BE340",
      "length": 206,
-     "name": "sub_004BE340_CountLinesInView"
+     "name": "PANEL_CountLinesInView"
     }
    ],
    "flags": [
@@ -26297,12 +26297,12 @@
     {
      "va": "0x004978D0",
      "length": 73,
-     "name": "?sub_004978D0_DrawBeltBoxFrame@@YGXHH@Z"
+     "name": "?PANEL_DrawBeltBoxFrame@@YGXHH@Z"
     },
     {
      "va": "0x00497920",
      "length": 190,
-     "name": "?sub_00497920_DrawCursorBeltBox@@YAXPAUD2InventoryStrc@@@Z"
+     "name": "?PANEL_DrawCursorBeltBox@@YAXPAUD2InventoryStrc@@@Z"
     },
     {
      "va": "0x00497A40",
@@ -26315,12 +26315,12 @@
     {
      "va": "0x00497FE0",
      "length": 306,
-     "name": "?sub_00497FE0_DrawDurabilityIcons@@YAXXZ"
+     "name": "?PANEL_DrawDurabilityIcons@@YAXXZ"
     },
     {
      "va": "0x004983D0",
      "length": 606,
-     "name": "?sub_004983D0_DrawControlPanelFrame@@YAXH@Z"
+     "name": "?PANEL_DrawControlPanelFrame@@YAXH@Z"
     },
     {
      "va": "0x00498930",
@@ -26334,7 +26334,7 @@
     {
      "va": "0x00499450",
      "length": 170,
-     "name": "?sub_00499450_DrawControlPanel@@YAXXZ"
+     "name": "?PANEL_DrawControlPanel@@YAXXZ"
     },
     {
      "va": "0x004996A0",
@@ -26438,57 +26438,57 @@
     {
      "va": "0x00499FC0",
      "length": 85,
-     "name": "?sub_00499FC0_DrawPanelCel@@YGXPAXHHH@Z"
+     "name": "?PARTY_DrawPanelCel@@YGXPAXHHH@Z"
     },
     {
      "va": "0x0049A020",
      "length": 57,
-     "name": "?sub_0049A020_FreeRosterUnits@@YAXXZ"
+     "name": "?PARTY_FreeRosterUnits@@YAXXZ"
     },
     {
      "va": "0x0049A060",
      "length": 42,
-     "name": "?sub_0049A060_FillRecord@@YGXPAUD2SevenIntStrc@@HHHHHHH@Z"
+     "name": "?PARTY_FillRecord@@YGXPAUD2SevenIntStrc@@HHHHHHH@Z"
     },
     {
      "va": "0x0049A090",
      "length": 309,
-     "name": "?sub_0049A090_InitRosterUnit@@YAXPAUD2StoredUnitRecordStrc@@PAUD2RosterUnitStrc@@H@Z"
+     "name": "?PARTY_InitRosterUnit@@YAXPAUD2StoredUnitRecordStrc@@PAUD2RosterUnitStrc@@H@Z"
     },
     {
      "va": "0x0049A1D0",
      "length": 202,
-     "name": "?sub_0049A1D0_AddRosterUnit@@YAXHPAUD2StoredUnitRecordStrc@@@Z"
+     "name": "?PARTY_AddRosterUnit@@YAXHPAUD2StoredUnitRecordStrc@@@Z"
     },
     {
      "va": "0x0049A2A0",
      "length": 25,
-     "name": "?sub_0049A2A0_IsFirstEntryAtLeastNine@@YAHXZ"
+     "name": "?PARTY_IsPlayerHostileLevel@@YAHXZ"
     },
     {
      "va": "0x0049A2C0",
      "length": 259,
-     "name": "?sub_0049A2C0_DrawRosterName@@YGXHHHPBD@Z"
+     "name": "?PARTY_DrawRosterName@@YGXHHHPBD@Z"
     },
     {
      "va": "0x0049A3D0",
      "length": 132,
-     "name": "?sub_0049A3D0_DrawRosterClass@@YGXHHH@Z"
+     "name": "?PARTY_DrawRosterClass@@YGXHHH@Z"
     },
     {
      "va": "0x0049A510",
      "length": 111,
-     "name": "?sub_0049A510_DrawPartyButtons@@YAXXZ"
+     "name": "?PARTY_DrawPartyButtons@@YAXXZ"
     },
     {
      "va": "0x0049A580",
      "length": 181,
-     "name": "?sub_0049A580_DrawPlayerName@@YAXXZ"
+     "name": "?PARTY_DrawPlayerName@@YAXXZ"
     },
     {
      "va": "0x0049A640",
      "length": 66,
-     "name": "?sub_0049A640@@YAXXZ"
+     "name": "?PARTY_RebuildRosterUnits@@YAXXZ"
     },
     {
      "va": "0x0049A690",
@@ -26497,7 +26497,7 @@
     {
      "va": "0x0049C270",
      "length": 337,
-     "name": "?sub_0049C270_DrawPartyRows@@YAXXZ"
+     "name": "?PARTY_DrawPartyRows@@YAXXZ"
     }
    ],
    "flags": [
@@ -26571,47 +26571,47 @@
     {
      "va": "0x0049A950",
      "length": 96,
-     "name": "sub_0049A950_DrawPanelCel"
+     "name": "TEXT_DrawPanelCloseButton"
     },
     {
      "va": "0x0049AA50",
      "length": 79,
-     "name": "sub_0049AA50_IsMouseInRect"
+     "name": "TEXT_IsMouseInRect"
     },
     {
      "va": "0x0049CEC0",
      "length": 131,
-     "name": "sub_0049CEC0_KeyMsgHandler"
+     "name": "TEXT_WaypointKeyMsg"
     },
     {
      "va": "0x0049D440",
      "length": 76,
-     "name": "sub_0049D440_LoadTextSettings"
+     "name": "TEXT_LoadTextSettings"
     },
     {
      "va": "0x0049D4D0",
      "length": 152,
-     "name": "sub_0049D4D0_FreeTextList"
+     "name": "TEXT_FreeTextList"
     },
     {
      "va": "0x0049DA10",
      "length": 30,
-     "name": "sub_0049DA10_EatMsgHandler"
+     "name": "TEXT_EatMsg"
     },
     {
      "va": "0x0049E810",
      "length": 74,
-     "name": "sub_0049E810_SetPanelRect"
+     "name": "TEXT_SetPanelRect"
     },
     {
      "va": "0x0049FE60",
      "length": 50,
-     "name": "sub_0049FE60_CloseMsgHandler"
+     "name": "TEXT_CloseTextPanelMsg"
     },
     {
      "va": "0x004A01A0",
      "length": 54,
-     "name": "?sub_004A01A0_CloseListBoxDialog@@YAXXZ"
+     "name": "?TEXT_CloseMessageLogDialog@@YAXXZ"
     },
     {
      "va": "0x004A1760",
@@ -26621,22 +26621,22 @@
     {
      "va": "0x004A1770",
      "length": 92,
-     "name": "sub_004A1770_KeyUpMsgHandler"
+     "name": "TEXT_KeyUpMsg"
     },
     {
      "va": "0x004A1870",
      "length": 71,
-     "name": "sub_004A1870_HotkeyMsgHandler"
+     "name": "TEXT_HotkeyMsg"
     },
     {
      "va": "0x004A18C0",
      "length": 22,
-     "name": "sub_004A18C0_KeyDownMsgHandler"
+     "name": "TEXT_KeyDownMsg"
     },
     {
      "va": "0x004A18E0",
      "length": 6,
-     "name": "?sub_004A18E0_SetIndex@@YAXH@Z"
+     "name": "?TEXT_SetQuestIndex@@YAXH@Z"
     },
     {
      "va": "0x004A18F0",
@@ -26646,12 +26646,12 @@
     {
      "va": "0x004A1910",
      "length": 29,
-     "name": "?sub_004A1910_FindQuestIndex@@YAHH@Z"
+     "name": "?TEXT_FindQuestIndex@@YAHH@Z"
     },
     {
      "va": "0x004A1930",
      "length": 29,
-     "name": "?sub_004A1930_FindEntryIndex@@YAHH@Z"
+     "name": "?TEXT_FindEntryIndex@@YAHH@Z"
     },
     {
      "va": "0x004A2300",
@@ -26661,17 +26661,17 @@
     {
      "va": "0x004A2390",
      "length": 53,
-     "name": "_sub_004A2390_ResetGlobals"
+     "name": "_TEXT_ResetQuestGlobals"
     },
     {
      "va": "0x004A2550",
      "length": 162,
-     "name": "?sub_004A2550_FreeQuestCels@@YAXXZ"
+     "name": "?TEXT_FreeQuestCels@@YAXXZ"
     },
     {
      "va": "0x004A2600",
      "length": 5,
-     "name": "?sub_004A2600_FreeQuestPanel@@YAXXZ"
+     "name": "?TEXT_FreeQuestPanel@@YAXXZ"
     },
     {
      "va": "0x004A2610",
@@ -26701,12 +26701,12 @@
     {
      "va": "0x004A2760",
      "length": 72,
-     "name": "?sub_004A2760_SendQuestUpdates@@YAXXZ"
+     "name": "?TEXT_SendQuestUpdates@@YAXXZ"
     },
     {
      "va": "0x004A27B0",
      "length": 21,
-     "name": "?sub_004A27B0_CloseQuestText@@YIHPAXHH@Z"
+     "name": "?TEXT_CloseQuestText@@YIHPAXHH@Z"
     },
     {
      "va": "0x004A27D0",
@@ -26716,162 +26716,162 @@
     {
      "va": "0x004A2840",
      "length": 88,
-     "name": "sub_004A2840_OpenPanelMsgHandler"
+     "name": "TEXT_CloseQuestPanelMsg"
     },
     {
      "va": "0x004A28D0",
      "length": 38,
-     "name": "?sub_004A28D0_ResetButton@@YAXXZ"
+     "name": "?TEXT_ResetQuestButton@@YAXXZ"
     },
     {
      "va": "0x004A2900",
      "length": 100,
-     "name": "?sub_004A2900_GetButtonLayout@@YAHH@Z"
+     "name": "?TEXT_GetButtonLayout@@YAHH@Z"
     },
     {
      "va": "0x004A2970",
      "length": 176,
-     "name": "?sub_004A2970_IsMouseOnButton@@YGHHH@Z"
+     "name": "?TEXT_IsMouseOnQuestButton@@YGHHH@Z"
     },
     {
      "va": "0x004A2A20",
      "length": 93,
-     "name": "?sub_004A2A20@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?TEXT_QuestButtonDownMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004A2A80",
      "length": 429,
-     "name": "?sub_004A2A80_DrawButton@@YAXXZ"
+     "name": "?TEXT_DrawQuestButton@@YAXXZ"
     },
     {
      "va": "0x004A2C30",
      "length": 55,
-     "name": "?sub_004A2C30_SelectQuestPage@@YIXH@Z"
+     "name": "?TEXT_SelectQuestPage@@YIXH@Z"
     },
     {
      "va": "0x004A2C70",
      "length": 21,
-     "name": "?sub_004A2C70_ClearUnitFlag92@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?TEXT_ClearCainFlag@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004A2C90",
      "length": 21,
-     "name": "?sub_004A2C90_ClearUnitFlag20F@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?TEXT_ClearNihlathakFlag@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004A3000",
      "length": 20,
-     "name": "_sub_004A3000_ResetFlag"
+     "name": "_TEXT_ResetQuestButtonState"
     },
     {
      "va": "0x004A3020",
      "length": 37,
-     "name": "?sub_004A3020_ClearQuestFlags@@YAXXZ"
+     "name": "?TEXT_ClearQuestFlags@@YAXXZ"
     },
     {
      "va": "0x004A30A0",
      "length": 31,
-     "name": "?sub_004A30A0_TriggerOnceD3@@YAXXZ"
+     "name": "?TEXT_LoadDurielCofsOnce@@YAXXZ"
     },
     {
      "va": "0x004A30C0",
      "length": 53,
-     "name": "?sub_004A30C0_TriggerOnce219@@YAXXZ"
+     "name": "?TEXT_LoadAncientsCofsOnce@@YAXXZ"
     },
     {
      "va": "0x004A3100",
      "length": 14,
-     "name": "@sub_004A3100_SetPacketValue@4"
+     "name": "@TEXT_SetQuestPacketValue@4"
     },
     {
      "va": "0x004A3110",
      "length": 6,
-     "name": "?sub_004A3110_GetFlag025F@@YADXZ"
+     "name": "?TEXT_HasQuestPacketValue@@YADXZ"
     },
     {
      "va": "0x004A3120",
      "length": 35,
-     "name": "?sub_004A3120_IsQuestUnitPresent@@YADXZ"
+     "name": "?TEXT_IsQuestUnitPresent@@YADXZ"
     },
     {
      "va": "0x004A3150",
      "length": 161,
-     "name": "?sub_004A3150_SpawnQuestUnits@@YIXHH@Z"
+     "name": "?TEXT_SpawnQuestUnits@@YIXHH@Z"
     },
     {
      "va": "0x004A3410",
      "length": 221,
-     "name": "?sub_004A3410_ResetQuestPanel@@YAXXZ"
+     "name": "?TEXT_ResetQuestPanel@@YAXXZ"
     },
     {
      "va": "0x004A4110",
      "length": 99,
-     "name": "sub_004A4110_ButtonUpMsgHandler"
+     "name": "TEXT_QuestButtonUpMsg"
     },
     {
      "va": "0x004A4780",
      "length": 62,
-     "name": "sub_004A4780_IsAbovePanelLine"
+     "name": "TEXT_IsAbovePanelLine"
     },
     {
      "va": "0x004A5A40",
      "length": 111,
-     "name": "sub_004A5A40_PrevEntryMsgHandler"
+     "name": "TEXT_PrevEntryMsg"
     },
     {
      "va": "0x004A5AB0",
      "length": 121,
-     "name": "sub_004A5AB0_NextEntryMsgHandler"
+     "name": "TEXT_NextEntryMsg"
     },
     {
      "va": "0x004A5B30",
      "length": 88,
-     "name": "sub_004A5B30_SetFlagMsgHandler"
+     "name": "TEXT_SelectSecondaryColumnMsg"
     },
     {
      "va": "0x004A5B90",
      "length": 88,
-     "name": "sub_004A5B90_ClearFlagMsgHandler"
+     "name": "TEXT_SelectPrimaryColumnMsg"
     },
     {
      "va": "0x004A5BF0",
      "length": 128,
-     "name": "sub_004A5BF0_SelectEntryMsgHandler"
+     "name": "TEXT_ClearEntryKeyMsg"
     },
     {
      "va": "0x004A5D70",
      "length": 104,
-     "name": "sub_004A5D70_RegisterMsgHandlers"
+     "name": "TEXT_UnregisterKeyConfigHandlers"
     },
     {
      "va": "0x004A5F70",
      "length": 136,
-     "name": "sub_004A5F70_ApplyEntryMsgHandler"
+     "name": "TEXT_ApplyEntryMsg"
     },
     {
      "va": "0x004A6310",
      "length": 63,
-     "name": "sub_004A6310_ToggleMsgHandler"
+     "name": "TEXT_WheelCaptureMsg"
     },
     {
      "va": "0x004A6350",
      "length": 86,
-     "name": "sub_004A6350_CommandMsgHandler"
+     "name": "TEXT_ButtonCaptureMsg"
     },
     {
      "va": "0x004A6580",
      "length": 85,
-     "name": "sub_004A6580_IsInPanelButton"
+     "name": "TEXT_IsInPanelButton"
     },
     {
      "va": "0x004A7080",
      "length": 60,
-     "name": "sub_004A7080"
+     "name": "TEXT_DrawCenteredText"
     },
     {
      "va": "0x004A8D50",
      "length": 153,
-     "name": "sub_004A8D50_UpdateButton"
+     "name": "TEXT_UpdateSkillButtonHover"
     }
    ]
   },
@@ -26882,17 +26882,17 @@
     {
      "va": "0x0049AAA0",
      "length": 78,
-     "name": "?sub_0049AAA0_GetCenteredStringX@@YIHGH@Z"
+     "name": "?TEXT_GetCenteredStringX@@YIHGH@Z"
     },
     {
      "va": "0x0049DC40",
      "length": 657,
-     "name": "?sub_0049DC40_DrawTextList@@YAXXZ"
+     "name": "?TEXT_DrawMessageList@@YAXXZ"
     },
     {
      "va": "0x0049E8F0",
      "length": 540,
-     "name": "?sub_0049E8F0_FormatPartyEvent@@YAHPAUUnicode@@PAUD2GSPacketSrv5A@@@Z"
+     "name": "?TEXT_FormatPartyEvent@@YAHPAUUnicode@@PAUD2GSPacketSrv5A@@@Z"
     },
     {
      "va": "0x0049EB10",
@@ -26901,7 +26901,7 @@
     {
      "va": "0x0049F490",
      "length": 1058,
-     "name": "?sub_0049F490_HandleHoverTextPacket@@YIXPAUD2GSPacketSrv26@@@Z"
+     "name": "?TEXT_HandleChatPacket@@YIXPAUD2GSPacketSrv26@@@Z"
     },
     {
      "va": "0x004A0E70",
@@ -26918,27 +26918,27 @@
     {
      "va": "0x004B9010",
      "length": 66,
-     "name": "?sub_004B9010_SetNameFromPacket@@YIXPAUD2NamePacketStrc@@@Z"
+     "name": "?TEXT_SetNameFromPacket@@YIXPAUD2NamePacketStrc@@@Z"
     },
     {
      "va": "0x004BE410",
      "length": 231,
-     "name": "?sub_004BE410_DrawClippedText@ListBoxImplementation@@QAEXPBUUnicode@@HHH@Z"
+     "name": "?DrawClippedText@ListBoxImplementation@@QAEXPBUUnicode@@HHH@Z"
     },
     {
      "va": "0x004E48B0",
      "length": 268,
-     "name": "?sub_004E48B0_BuildText@@YIXPAUD2UnitStrc@@PAUUnicode@@H@Z"
+     "name": "?TEXT_AppendUndeadDamageBonus@@YIXPAUD2UnitStrc@@PAUUnicode@@H@Z"
     },
     {
      "va": "0x004E6720",
      "length": 163,
-     "name": "?sub_004E6720_BuildItemPropTextB@@YIXPAUD2UnitStrc@@HHPAUUnicode@@HH@Z"
+     "name": "?TEXT_BuildItemPropTextB@@YIXPAUD2UnitStrc@@HHPAUUnicode@@HH@Z"
     },
     {
      "va": "0x004ED3F0",
      "length": 142,
-     "name": "?sub_004ED3F0_DrawHintText@@YGXHH@Z"
+     "name": "?TEXT_DrawHintText@@YGXHH@Z"
     },
     {
      "va": "0x006CACD0",
@@ -27099,7 +27099,7 @@
     {
      "va": "0x0049C580",
      "length": 206,
-     "name": "?sub_0049C580_LoadPanelCels@@YAXXZ"
+     "name": "?TEXT_LoadWaypointPanelCels@@YAXXZ"
     },
     {
      "va": "0x0049D370",
@@ -27114,12 +27114,12 @@
     {
      "va": "0x0049D410",
      "length": 42,
-     "name": "?sub_0049D410_FreeTextBox@@YGXPAUD2TextBoxStrc@@@Z"
+     "name": "?TEXT_FreeTextBox@@YGXPAUD2TextBoxStrc@@@Z"
     },
     {
      "va": "0x0049D9A0",
      "length": 106,
-     "name": "?sub_0049D9A0_DrawTextBoxAt@@YAHPAUD2TextBoxStrc@@PAUD2RectStrc@@@Z"
+     "name": "?TEXT_DrawTextBoxAt@@YAHPAUD2TextBoxStrc@@PAUD2RectStrc@@@Z"
     },
     {
      "va": "0x0049DEE0",
@@ -27133,7 +27133,7 @@
     {
      "va": "0x0049FA10",
      "length": 398,
-     "name": "?sub_0049FA10_DrawPanelFrame@@YAXXZ"
+     "name": "?TEXT_DrawPanelFrame@@YAXXZ"
     },
     {
      "va": "0x004A0200",
@@ -27147,7 +27147,7 @@
     {
      "va": "0x004A0D20",
      "length": 333,
-     "name": "?sub_004A0D20_DrawObjectHoverText@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?TEXT_DrawObjectHoverText@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004A23D0",
@@ -27157,17 +27157,17 @@
     {
      "va": "0x004A5190",
      "length": 78,
-     "name": "?sub_004A5190_InitTextSlider@@YAXXZ"
+     "name": "?TEXT_InitTextSlider@@YAXXZ"
     },
     {
      "va": "0x004B23E0",
      "length": 192,
-     "name": "?sub_004B23E0_InitPartyPanel@@YAXXZ"
+     "name": "?TEXT_InitNpcMenu@@YAXXZ"
     },
     {
      "va": "0x004BE020",
      "length": 56,
-     "name": "?sub_004BE020_LoadTextSliderCel@@YAXXZ"
+     "name": "?TEXT_LoadTextSliderCel@@YAXXZ"
     }
    ],
    "flags": [
@@ -27303,17 +27303,17 @@
     {
      "va": "0x004A0B30",
      "length": 485,
-     "name": "?sub_004A0B30_DrawUnitHoverText@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?TEXT_DrawUnitHoverText@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004A3FE0",
      "length": 229,
-     "name": "?sub_004A3FE0@@YIXH@Z"
+     "name": "?TEXT_ToggleQuestLog@@YIXH@Z"
     },
     {
      "va": "0x004A40D0",
      "length": 64,
-     "name": "?sub_004A40D0_SetRecord@@YIXPBUD2Record42Strc@@@Z"
+     "name": "?TEXT_SetQuestRecord@@YIXPBUD2Record42Strc@@@Z"
     },
     {
      "va": "0x004A4260",
@@ -27323,17 +27323,17 @@
     {
      "va": "0x004A42A0",
      "length": 320,
-     "name": "?sub_004A42A0_OnLeftButtonUp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?TEXT_QuestLButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004A44C0",
      "length": 55,
-     "name": "?sub_004A44C0_GetMaxFirstEntry@@YAHXZ"
+     "name": "?TEXT_GetMaxFirstEntry@@YAHXZ"
     },
     {
      "va": "0x004A4500",
      "length": 177,
-     "name": "?sub_004A4500_ScrollList@@YIXH@Z"
+     "name": "?TEXT_ScrollKeyConfigList@@YIXH@Z"
     },
     {
      "va": "0x004A45C0",
@@ -27342,62 +27342,62 @@
     {
      "va": "0x004A4720",
      "length": 83,
-     "name": "?sub_004A4720_GetLineAt@@YAHH@Z"
+     "name": "?TEXT_GetKeyConfigLineAt@@YAHH@Z"
     },
     {
      "va": "0x004A47C0",
      "length": 48,
-     "name": "?sub_004A47C0_GetButtonAt@@YAHHH@Z"
+     "name": "?TEXT_GetKeyConfigButtonAt@@YAHHH@Z"
     },
     {
      "va": "0x004A47F0",
      "length": 102,
-     "name": "?sub_004A47F0_IsInList@@YAHHH@Z"
+     "name": "?TEXT_IsInKeyConfigList@@YAHHH@Z"
     },
     {
      "va": "0x004A4860",
      "length": 75,
-     "name": "?sub_004A4860_IsOnUpArrow@@YAHHH@Z"
+     "name": "?TEXT_IsOnUpArrow@@YAHHH@Z"
     },
     {
      "va": "0x004A48B0",
      "length": 80,
-     "name": "?sub_004A48B0_IsOnDownArrow@@YAHHH@Z"
+     "name": "?TEXT_IsOnDownArrow@@YAHHH@Z"
     },
     {
      "va": "0x004A4900",
      "length": 76,
-     "name": "?sub_004A4900_IsAboveThumb@@YAHHH@Z"
+     "name": "?TEXT_IsAboveThumb@@YAHHH@Z"
     },
     {
      "va": "0x004A4950",
      "length": 71,
-     "name": "?sub_004A4950_IsOnThumb@@YAHHH@Z"
+     "name": "?TEXT_IsOnThumb@@YAHHH@Z"
     },
     {
      "va": "0x004A49A0",
      "length": 91,
-     "name": "?sub_004A49A0_IsBelowThumb@@YAHHH@Z"
+     "name": "?TEXT_IsBelowThumb@@YAHHH@Z"
     },
     {
      "va": "0x004A4A00",
      "length": 16,
-     "name": "?sub_004A4A00_IsOnButton@@YAHHH@Z"
+     "name": "?TEXT_IsOnKeyConfigButton@@YAHHH@Z"
     },
     {
      "va": "0x004A4A10",
      "length": 103,
-     "name": "?sub_004A4A10_IsOnSelectedLine@@YAHHH@Z"
+     "name": "?TEXT_IsOnSelectedLine@@YAHHH@Z"
     },
     {
      "va": "0x004A4A80",
      "length": 32,
-     "name": "?sub_004A4A80_IsOnPressedButton@@YAHHH@Z"
+     "name": "?TEXT_IsOnPressedButton@@YAHHH@Z"
     },
     {
      "va": "0x004A4AA0",
      "length": 33,
-     "name": "?sub_004A4AA0_IsOnlyPressed@@YIHH@Z"
+     "name": "?TEXT_IsOnlyPressed@@YIHH@Z"
     },
     {
      "va": "0x004A4FA0",
@@ -27407,82 +27407,82 @@
     {
      "va": "0x004A5010",
      "length": 7,
-     "name": "?sub_004A5010_Call00469A60@@YAXXZ"
+     "name": "?TEXT_ResetKeyConfigDefaults@@YAXXZ"
     },
     {
      "va": "0x004A5020",
      "length": 30,
-     "name": "?sub_004A5020_AcceptKeyConfig@@YAXXZ"
+     "name": "?TEXT_AcceptKeyConfig@@YAXXZ"
     },
     {
      "va": "0x004A5040",
      "length": 32,
-     "name": "?sub_004A5040_CancelKeyConfig@@YAXXZ"
+     "name": "?TEXT_CancelKeyConfig@@YAXXZ"
     },
     {
      "va": "0x004A51E0",
      "length": 26,
-     "name": "?sub_004A51E0_FreeCelFile@@YAXXZ"
+     "name": "?TEXT_FreeTextSliderCel@@YAXXZ"
     },
     {
      "va": "0x004A5200",
      "length": 107,
-     "name": "?sub_004A5200@@YIXH@Z"
+     "name": "?TEXT_ToggleKeyConfigPanel@@YIXH@Z"
     },
     {
      "va": "0x004A59D0",
      "length": 105,
-     "name": "?sub_004A59D0_HandleHotkeyAction@@YGHPAUD2HotkeyActionStrc@@@Z"
+     "name": "?TEXT_KeyConfigWheelMsg@@YGHPAUD2HotkeyActionStrc@@@Z"
     },
     {
      "va": "0x004A5C70",
      "length": 133,
-     "name": "?sub_004A5C70@@YGXPAUMessage@@@Z"
+     "name": "?TEXT_CancelKeyConfigMsg@@YGXPAUMessage@@@Z"
     },
     {
      "va": "0x004A5D00",
      "length": 97,
-     "name": "?sub_004A5D00_OpenSliderHandlers@@YAXXZ"
+     "name": "?TEXT_RegisterKeyCaptureHandlers@@YAXXZ"
     },
     {
      "va": "0x004A5DE0",
      "length": 121,
-     "name": "?sub_004A5DE0_CloseSliderHandlers@@YAXXZ"
+     "name": "?TEXT_CloseKeyCaptureHandlers@@YAXXZ"
     },
     {
      "va": "0x004A5E60",
      "length": 175,
-     "name": "?sub_004A5E60_Release@@YAXHH@Z"
+     "name": "?TEXT_ReleaseKeyConfigPress@@YAXHH@Z"
     },
     {
      "va": "0x004A5F10",
      "length": 91,
-     "name": "?sub_004A5F10_ButtonUpMsgHandler@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?TEXT_KeyConfigButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004A6460",
      "length": 31,
-     "name": "?sub_004A6460_LoadLevelCels@@YAXXZ"
+     "name": "?TEXT_LoadLevelCels@@YAXXZ"
     },
     {
      "va": "0x004A6480",
      "length": 51,
-     "name": "?sub_004A6480_FreeLevelCels@@YAXXZ"
+     "name": "?TEXT_FreeLevelCels@@YAXXZ"
     },
     {
      "va": "0x004A64C0",
      "length": 177,
-     "name": "?sub_004A64C0_UpdateStatButtons@@YAXXZ"
+     "name": "?TEXT_UpdateLevelUpButtons@@YAXXZ"
     },
     {
      "va": "0x004A65E0",
      "length": 74,
-     "name": "?sub_004A65E0_IsMouseOnLeftButton@@YAHXZ"
+     "name": "?TEXT_IsMouseOnStatButton@@YAHXZ"
     },
     {
      "va": "0x004A6690",
      "length": 74,
-     "name": "?sub_004A6690_IsMouseOnRightButton@@YAHXZ"
+     "name": "?TEXT_IsMouseOnSkillButton@@YAHXZ"
     },
     {
      "va": "0x004A66E0",
@@ -27495,37 +27495,37 @@
     {
      "va": "0x004A6840",
      "length": 223,
-     "name": "?sub_004A6840_LeftButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?TEXT_StatButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004A6920",
      "length": 222,
-     "name": "?sub_004A6920_RightButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?TEXT_SkillButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004A6A00",
      "length": 102,
-     "name": "?sub_004A6A00_CheckUiVars@@YG_NH@Z"
+     "name": "?TEXT_IsStatButtonHidden@@YG_NH@Z"
     },
     {
      "va": "0x004A6B30",
      "length": 537,
-     "name": "?sub_004A6B30_DrawLeftPanelButtons@@YAXXZ"
+     "name": "?TEXT_DrawStatButton@@YAXXZ"
     },
     {
      "va": "0x004A6D50",
      "length": 73,
-     "name": "?sub_004A6D50_CheckUiVars@@YG_NH@Z"
+     "name": "?TEXT_IsSkillButtonHidden@@YG_NH@Z"
     },
     {
      "va": "0x004A6E60",
      "length": 538,
-     "name": "?sub_004A6E60_DrawRightPanelButtons@@YAXXZ"
+     "name": "?TEXT_DrawSkillButton@@YAXXZ"
     },
     {
      "va": "0x004A7180",
      "length": 379,
-     "name": "?sub_004A7180_DrawHoverLevelText@@YAXHHH@Z"
+     "name": "?TEXT_DrawBlockChanceHover@@YAXHHH@Z"
     },
     {
      "va": "0x004A7300",
@@ -27535,12 +27535,12 @@
     {
      "va": "0x004A7660",
      "length": 84,
-     "name": "?sub_004A7660_SplitAtNewline@@YIHPAUUnicode@@PAPAU1@@Z"
+     "name": "?TEXT_SplitAtNewline@@YIHPAUUnicode@@PAPAU1@@Z"
     },
     {
      "va": "0x004A7A90",
      "length": 11,
-     "name": "?sub_004A7A90_SetFlag@@YAXXZ"
+     "name": "?TEXT_SetGoldDialogFlag@@YAXXZ"
     },
     {
      "va": "0x004A7AD0",
@@ -27602,37 +27602,37 @@
     {
      "va": "0x0049DA50",
      "length": 8,
-     "name": "?sub_0049DA50_ClearFlag@@YAXXZ"
+     "name": "?TEXT_ClearHoverUnit@@YAXXZ"
     },
     {
      "va": "0x0049DBC0",
      "length": 113,
-     "name": "?sub_0049DBC0_AddToHistory@@YIXPAUD2TextNodeStrc@@@Z"
+     "name": "?TEXT_AddToHistory@@YIXPAUD2TextNodeStrc@@@Z"
     },
     {
      "va": "0x0049E340",
      "length": 71,
-     "name": "?sub_0049E340_FillListBox@@YAXXZ"
+     "name": "?TEXT_FillListBox@@YAXXZ"
     },
     {
      "va": "0x0049E7E0",
      "length": 13,
-     "name": "?sub_0049E7E0_SetTextCallback@@YIXP6IHPAXHH@Z0@Z"
+     "name": "?TEXT_SetTextCallback@@YIXP6IHPAXHH@Z0@Z"
     },
     {
      "va": "0x0049E8B0",
      "length": 53,
-     "name": "?sub_0049E8B0_GetTextUnit@@YAPAUD2UnitStrc@@XZ"
+     "name": "?TEXT_GetTextUnit@@YAPAUD2UnitStrc@@XZ"
     },
     {
      "va": "0x0049F8C0",
      "length": 49,
-     "name": "?sub_0049F8C0_ClearHoverText@@YIXPAUD2HoverClearPacketStrc@@@Z"
+     "name": "?TEXT_ClearHoverText@@YIXPAUD2HoverClearPacketStrc@@@Z"
     },
     {
      "va": "0x0049F910",
      "length": 72,
-     "name": "?sub_0049F910_GetTextString@@YIPBUUnicode@@G@Z"
+     "name": "?TEXT_GetTextString@@YIPBUUnicode@@G@Z"
     },
     {
      "va": "0x0049FF00",
@@ -27642,37 +27642,37 @@
     {
      "va": "0x0049FF90",
      "length": 109,
-     "name": "?sub_0049FF90_OpenTextData@@YIXPAUD2UnitStrc@@PAUD2ClientTextDataStrc@@@Z"
+     "name": "?TEXT_OpenTextData@@YIXPAUD2UnitStrc@@PAUD2ClientTextDataStrc@@@Z"
     },
     {
      "va": "0x004A0000",
      "length": 12,
-     "name": "?sub_004A0000@@YAHXZ"
+     "name": "?TEXT_IsTextBoxOpen@@YAHXZ"
     },
     {
      "va": "0x004A0010",
      "length": 21,
-     "name": "?sub_004A0010_FreeTextLists@@YAXXZ"
+     "name": "?TEXT_FreeTextLists@@YAXXZ"
     },
     {
      "va": "0x004A01E0",
      "length": 27,
-     "name": "?sub_004A01E0_ClearListFlags@@YAXXZ"
+     "name": "?TEXT_ClearListFlags@@YAXXZ"
     },
     {
      "va": "0x004A02F0",
      "length": 37,
-     "name": "?sub_004A02F0_ToggleListDialogUI@@YAXXZ"
+     "name": "?TEXT_ToggleListDialogUI@@YAXXZ"
     },
     {
      "va": "0x004A0880",
      "length": 57,
-     "name": "?sub_004A0880_CloseTextUnit@@YAXXZ"
+     "name": "?TEXT_CloseTextUnit@@YAXXZ"
     },
     {
      "va": "0x004A08C0",
      "length": 305,
-     "name": "?sub_004A08C0_CloseText@@YAHXZ"
+     "name": "?TEXT_CloseText@@YAHXZ"
     }
    ]
   },
@@ -27740,7 +27740,7 @@
     {
      "va": "0x004A1600",
      "length": 289,
-     "name": "?sub_004A1600_HandleHoverTextPacket@@YIXPAUD2HoverTextPacketStrc@@@Z"
+     "name": "?TEXT_HandleNpcTextPacket@@YIXPAUD2HoverTextPacketStrc@@@Z"
     },
     {
      "va": "0x004A1950",
@@ -27761,7 +27761,7 @@
     {
      "va": "0x004A4180",
      "length": 219,
-     "name": "?sub_004A4180_TestCondition@@YIHH@Z"
+     "name": "?TEXT_TestQuestCondition@@YIHH@Z"
     },
     {
      "va": "0x004A43E0",
@@ -28427,7 +28427,7 @@
     {
      "va": "0x004AA3A0",
      "length": 736,
-     "name": "?sub_004AA3A0_BuildSkillRows@@YIXPAUD2UnitStrc@@HHHH@Z"
+     "name": "?SPELLSEL_BuildSkillRows@@YIXPAUD2UnitStrc@@HHHH@Z"
     }
    ],
    "flags": [
@@ -28452,7 +28452,7 @@
     {
      "va": "0x004A9BD0",
      "length": 409,
-     "name": "sub_004A9BD0_SkillSelectClickHandler"
+     "name": "SPELLSEL_SkillSelectClickMsg"
     }
    ]
   },
@@ -28735,37 +28735,37 @@
     {
      "va": "0x004AD0C0",
      "length": 215,
-     "name": "sub_004AD0C0_StateOverlayBurst"
+     "name": "NPCMENU_StateOverlayBurst"
     },
     {
      "va": "0x004AD1A0",
      "length": 335,
-     "name": "sub_004AD1A0_StateOverlayCross"
+     "name": "NPCMENU_StateOverlayCross"
     },
     {
      "va": "0x004AD510",
      "length": 212,
-     "name": "sub_004AD510_StateEffect"
+     "name": "NPCMENU_StateStartEffect"
     },
     {
      "va": "0x004ADB20",
      "length": 152,
-     "name": "sub_004ADB20_StateOverlayAtPath"
+     "name": "NPCMENU_StateOverlayAtPath"
     },
     {
      "va": "0x004ADBC0",
      "length": 283,
-     "name": "sub_004ADBC0_StateMonOverlay"
+     "name": "NPCMENU_StateMonOverlay"
     },
     {
      "va": "0x004B1240",
      "length": 56,
-     "name": "?sub_004B1240_UsePacket7@@YIXPAUD2ClientPacket7Strc@@@Z"
+     "name": "?NPCMENU_SetMinionSpawnClass@@YIXPAUD2ClientPacket7Strc@@@Z"
     },
     {
      "va": "0x004B1620",
      "length": 28,
-     "name": "?sub_004B1620_GetInteractNpc@@YAPAUD2UnitStrc@@XZ"
+     "name": "?NPCMENU_GetInteractNpc@@YAPAUD2UnitStrc@@XZ"
     },
     {
      "va": "0x004B1640",
@@ -28775,7 +28775,7 @@
     {
      "va": "0x004B1830",
      "length": 140,
-     "name": "?sub_004B1830_GetFreeStringId@@YIGG@Z"
+     "name": "?NPCMENU_GetFreeStringId@@YIGG@Z"
     },
     {
      "va": "0x004B1980",
@@ -28795,12 +28795,12 @@
     {
      "va": "0x004B1DD0",
      "length": 176,
-     "name": "?sub_004B1DD0_OpenTimedDialog62@@YAHXZ"
+     "name": "?NPCMENU_ResurrectMercWait@@YAHXZ"
     },
     {
      "va": "0x004B1E80",
      "length": 211,
-     "name": "?sub_004B1E80_OpenTimedDialog36@@YAXXZ"
+     "name": "?NPCMENU_HireMercWait@@YAXXZ"
     },
     {
      "va": "0x004B1F80",
@@ -28810,12 +28810,12 @@
     {
      "va": "0x004B2020",
      "length": 231,
-     "name": "?sub_004B2020_OpenTimedDialog34@@YAHXZ"
+     "name": "?NPCMENU_IdentifyItemsWait@@YAHXZ"
     },
     {
      "va": "0x004B2110",
      "length": 173,
-     "name": "?sub_004B2110_FreeResources@@YAXXZ"
+     "name": "?NPCMENU_FreeDialogs@@YAXXZ"
     },
     {
      "va": "0x004B21C0",
@@ -28835,37 +28835,37 @@
     {
      "va": "0x004B2220",
      "length": 33,
-     "name": "?sub_004B2220_SetEntryHandler@@YAXH@Z"
+     "name": "?NPCMENU_SetIdentifyEntry@@YAXH@Z"
     },
     {
      "va": "0x004B2250",
      "length": 282,
-     "name": "?sub_004B2250_ResetHandlers@@YAXXZ"
+     "name": "?NPCMENU_ResetHandlers@@YAXXZ"
     },
     {
      "va": "0x004B2370",
      "length": 27,
-     "name": "?sub_004B2370_SendPacket38@@YIXH@Z"
+     "name": "?NPCMENU_SendNpcAction@@YIXH@Z"
     },
     {
      "va": "0x004B2390",
      "length": 70,
-     "name": "sub_004B2390_CheckMonStatsFlag"
+     "name": "NPCMENU_ClearInteractOverlay"
     },
     {
      "va": "0x004B24A0",
      "length": 276,
-     "name": "?sub_004B24A0@@YAXXZ"
+     "name": "?NPCMENU_FreeNpcMenu@@YAXXZ"
     },
     {
      "va": "0x004B25C0",
      "length": 96,
-     "name": "?sub_004B25C0_OnPacketSub3@@YIXPAUD2NpcPacketStrc@@@Z"
+     "name": "?NPCMENU_OnNpcPacketStoreSubId@@YIXPAUD2NpcPacketStrc@@@Z"
     },
     {
      "va": "0x004B2620",
      "length": 17,
-     "name": "?sub_004B2620_CopyQuestBuffer@@YIXPAE@Z"
+     "name": "?NPCMENU_CopyQuestBuffer@@YIXPAE@Z"
     },
     {
      "va": "0x004B2640",
@@ -28875,12 +28875,12 @@
     {
      "va": "0x004B2900",
      "length": 50,
-     "name": "?sub_004B2900_CloseDialog@@YAXXZ"
+     "name": "?NPCMENU_CloseWaitDialog@@YAXXZ"
     },
     {
      "va": "0x004B2940",
      "length": 150,
-     "name": "?sub_004B2940@@YAXXZ"
+     "name": "?NPCMENU_FinishTransaction@@YAXXZ"
     },
     {
      "va": "0x004B29E0",
@@ -28910,12 +28910,12 @@
     {
      "va": "0x004B2A80",
      "length": 69,
-     "name": "?sub_004B2A80_ResetHoverForItem@@YIXH@Z"
+     "name": "?NPCMENU_ResetHoverForItem@@YIXH@Z"
     },
     {
      "va": "0x004B2E20",
      "length": 12,
-     "name": "?sub_004B2E20_IsQuestActive@@YAHXZ"
+     "name": "?NPCMENU_IsNpcMenuActive@@YAHXZ"
     },
     {
      "va": "0x004B2E30",
@@ -28929,17 +28929,17 @@
     {
      "va": "0x004B3230",
      "length": 13,
-     "name": "?sub_004B3230_GetTickPair@@YIHPAH@Z"
+     "name": "?NPCMENU_GetInteractNpcId@@YIHPAH@Z"
     },
     {
      "va": "0x004B3290",
      "length": 53,
-     "name": "?sub_004B3290_ResetSlots@@YAXXZ"
+     "name": "?NPCMENU_ResetSlots@@YAXXZ"
     },
     {
      "va": "0x004B32F0",
      "length": 62,
-     "name": "?sub_004B32F0@@YAXXZ"
+     "name": "?NPCMENU_ResetNpcMenu@@YAXXZ"
     },
     {
      "va": "0x004B3330",
@@ -28949,17 +28949,17 @@
     {
      "va": "0x004B3340",
      "length": 25,
-     "name": "?sub_004B3340_OnUiPacket2@@YIXG@Z"
+     "name": "?NPCMENU_ReloadHirelingPopup@@YIXG@Z"
     },
     {
      "va": "0x004B3380",
      "length": 237,
-     "name": "?sub_004B3380@@YIXPAUD2PacketRecord6Strc@@@Z"
+     "name": "?NPCMENU_OnNpcWantsInteract@@YIXPAUD2PacketRecord6Strc@@@Z"
     },
     {
      "va": "0x004B3470",
      "length": 47,
-     "name": "?sub_004B3470_IsNpcQuestActive@@YAHXZ"
+     "name": "?NPCMENU_IsNpcTalkActive@@YAHXZ"
     },
     {
      "va": "0x004B3560",
@@ -28969,22 +28969,22 @@
     {
      "va": "0x004B3610",
      "length": 68,
-     "name": "?sub_004B3610_CloseTradeDialog@@YAXXZ"
+     "name": "?NPCMENU_CloseTradeDialog@@YAXXZ"
     },
     {
      "va": "0x004B3790",
      "length": 154,
-     "name": "sub_004B3790_RemoveInventoryClientUnits"
+     "name": "NPCMENU_RemoveInventoryClientUnits"
     },
     {
      "va": "0x004B3830",
      "length": 57,
-     "name": "@sub_004B3830_ClearNpcInventoryAndSound@4"
+     "name": "@NPCMENU_ClearNpcInventoryAndSound@4"
     },
     {
      "va": "0x004B3D10",
      "length": 33,
-     "name": "?sub_004B3D10_CancelAndFlag@@YIXH@Z"
+     "name": "?NPCMENU_CancelNpcAndFlag@@YIXH@Z"
     },
     {
      "va": "0x004B3DE0",
@@ -28994,12 +28994,12 @@
     {
      "va": "0x004B3ED0",
      "length": 57,
-     "name": "?sub_004B3ED0@@YAXXZ"
+     "name": "?NPCMENU_CloseNpcShop@@YAXXZ"
     },
     {
      "va": "0x004B3F10",
      "length": 152,
-     "name": "?sub_004B3F10_CloseByState@@YAXXZ"
+     "name": "?NPCMENU_CloseByState@@YAXXZ"
     },
     {
      "va": "0x004B3FB0",
@@ -29014,12 +29014,12 @@
     {
      "va": "0x004B4070",
      "length": 84,
-     "name": "?sub_004B4070_ClosePanel73@@YAHXZ"
+     "name": "?NPCMENU_CloseConfirmDialog@@YAHXZ"
     },
     {
      "va": "0x004B4DB0",
      "length": 533,
-     "name": "?sub_004B4DB0_OpenGreetingDialog@@YAXXZ"
+     "name": "?NPCMENU_OpenGreetingDialog@@YAXXZ"
     },
     {
      "va": "0x004B5320",
@@ -29032,12 +29032,12 @@
     {
      "va": "0x004B5890",
      "length": 570,
-     "name": "?sub_004B5890_OpenNpcPanel@@YGXHH@Z"
+     "name": "?NPCMENU_OpenNpcPanel@@YGXHH@Z"
     },
     {
      "va": "0x004B5AD0",
      "length": 237,
-     "name": "?sub_004B5AD0_OpenConfirmDialog@@YGXH@Z"
+     "name": "?NPCMENU_OpenConfirmDialog@@YGXH@Z"
     }
    ],
    "flags": [
@@ -29062,12 +29062,12 @@
     {
      "va": "0x004B5810",
      "length": 64,
-     "name": "?sub_004B5810@@YAHXZ"
+     "name": "?NPCMENU_CloseSubMenuToMain@@YAHXZ"
     },
     {
      "va": "0x004B65F0",
      "length": 35,
-     "name": "?sub_004B65F0_Initialize@@YAHXZ"
+     "name": "?NPCMENU_InitTravelLutGholeinHandler@@YAHXZ"
     }
    ]
   },
@@ -29078,12 +29078,12 @@
     {
      "va": "0x004B6620",
      "length": 35,
-     "name": "?sub_004B6620_InitHandler@@YAHXZ"
+     "name": "?NPCMENU_InitTravelKurastDocksHandler@@YAHXZ"
     },
     {
      "va": "0x004B6680",
      "length": 44,
-     "name": "?sub_004B6680_InitHandler@@YAHXZ"
+     "name": "?NPCMENU_InitTravelHarrogathHandler@@YAHXZ"
     }
    ]
   },
@@ -29099,17 +29099,17 @@
     {
      "va": "0x004B1A80",
      "length": 246,
-     "name": "?sub_004B1A80_OnSelectMessage@@YAHXZ"
+     "name": "?NPCMENU_OnSelectMessage@@YAHXZ"
     },
     {
      "va": "0x004B1B80",
      "length": 118,
-     "name": "?sub_004B1B80_SendNpcMessageFE@@YAHXZ"
+     "name": "?NPCMENU_PlayIntroMessage@@YAHXZ"
     },
     {
      "va": "0x004B1C00",
      "length": 118,
-     "name": "?sub_004B1C00_SendNpcMessage152@@YAHXZ"
+     "name": "?NPCMENU_PlayGossipMessage@@YAHXZ"
     },
     {
      "va": "0x004B1C80",
@@ -29123,7 +29123,7 @@
     {
      "va": "0x004B2AD0",
      "length": 835,
-     "name": "?sub_004B2AD0_GetTradeCostText@@YIHPAUD2UnitStrc@@HPAHPAUUnicode@@H@Z"
+     "name": "?NPCMENU_GetTradeCostText@@YIHPAUD2UnitStrc@@HPAHPAUUnicode@@H@Z"
     },
     {
      "va": "0x004B3240",
@@ -29132,47 +29132,47 @@
     {
      "va": "0x004B34A0",
      "length": 81,
-     "name": "?sub_004B34A0@@YAHXZ"
+     "name": "?NPCMENU_IsAnyDialogOpen@@YAHXZ"
     },
     {
      "va": "0x004B3510",
      "length": 79,
-     "name": "?sub_004B3510@@YIXPAUD2NpcMonListPacketStrc@@@Z"
+     "name": "?NPCMENU_FlagNpcEntries@@YIXPAUD2NpcMonListPacketStrc@@@Z"
     },
     {
      "va": "0x004B3C20",
      "length": 228,
-     "name": "?sub_004B3C20@@YIXH@Z"
+     "name": "?NPCMENU_EndNpcInteraction@@YIXH@Z"
     },
     {
      "va": "0x004B3D40",
      "length": 145,
-     "name": "?sub_004B3D40_NpcMenuTradeB@@YAHXZ"
+     "name": "?NPCMENU_OpenGambleShop@@YAHXZ"
     },
     {
      "va": "0x004B3E10",
      "length": 182,
-     "name": "?sub_004B3E10_RefreshNpcEntries@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?NPCMENU_RefreshNpcEntries@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004B4380",
      "length": 580,
-     "name": "?sub_004B4380_UpdateNpcInteract@@YAXXZ"
+     "name": "?NPCMENU_UpdateNpcInteract@@YAXXZ"
     },
     {
      "va": "0x004B5C20",
      "length": 64,
-     "name": "?sub_004B5C20_ClosePanel77@@YAHXZ"
+     "name": "?NPCMENU_CloseHireDialog@@YAHXZ"
     },
     {
      "va": "0x004B6410",
      "length": 35,
-     "name": "?sub_004B6410_InitHandler@@YAHXZ"
+     "name": "?NPCMENU_InitHireHandler@@YAHXZ"
     },
     {
      "va": "0x004B6980",
      "length": 81,
-     "name": "?sub_004B6980_SetNpcMenuState@@YIXGH@Z"
+     "name": "?NPCMENU_SetNpcMenuState@@YIXGH@Z"
     },
     {
      "va": "0x004B6A30",
@@ -29329,57 +29329,57 @@
     {
      "va": "0x004AD5F0",
      "length": 233,
-     "name": "?sub_004AD5F0_StateOverlayOrSpawn@@YIXPAUD2UnitStrc@@HH@Z"
+     "name": "?NPCMENU_StateDurielDeath@@YIXPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004AD6E0",
      "length": 420,
-     "name": "?sub_004AD6E0_StateMissileBurst@@YGXHPAUD2UnitStrc@@H@Z"
+     "name": "?NPCMENU_StateMissileBurst@@YGXHPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x004AD890",
      "length": 73,
-     "name": "?sub_004AD890_StateBurstOnFrame@@YIXPAUD2UnitStrc@@HH@Z"
+     "name": "?NPCMENU_StateBurstOnFrame@@YIXPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004AD8E0",
      "length": 50,
-     "name": "?sub_004AD8E0_StateBurst@@YIXPAUD2UnitStrc@@HH@Z"
+     "name": "?NPCMENU_StateBurst@@YIXPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004AD920",
      "length": 73,
-     "name": "?sub_004AD920_StateBurstNeutral@@YIXPAUD2UnitStrc@@HH@Z"
+     "name": "?NPCMENU_StateBurstNeutral@@YIXPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004AD970",
      "length": 426,
-     "name": "?sub_004AD970_StateMissileSplit@@YIXPAUD2UnitStrc@@HH@Z"
+     "name": "?NPCMENU_StateMissileSplit@@YIXPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004ADCE0",
      "length": 151,
-     "name": "?sub_004ADCE0_StateRequests@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?NPCMENU_StateRequests@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004ADD80",
      "length": 8,
-     "name": "?sub_004ADD80_StateRequestsCallback@@YIXPAUD2UnitStrc@@HH@Z"
+     "name": "?NPCMENU_StateRequestsCallback@@YIXPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004AE080",
      "length": 29,
-     "name": "@sub_004AE080_MaskedPayloadWord@8"
+     "name": "@NPCMENU_GetMonsterTypeFlags@8"
     },
     {
      "va": "0x004B2E70",
      "length": 140,
-     "name": "?sub_004B2E70_MenuBack@@YAHXZ"
+     "name": "?NPCMENU_MenuBack@@YAHXZ"
     },
     {
      "va": "0x004B2F00",
      "length": 67,
-     "name": "?sub_004B2F00_MenuClose@@YAHXZ"
+     "name": "?NPCMENU_MenuClose@@YAHXZ"
     },
     {
      "va": "0x004B3360",
@@ -29389,27 +29389,27 @@
     {
      "va": "0x004B35B0",
      "length": 87,
-     "name": "?sub_004B35B0_NpcMenuHandler@@YAHXZ"
+     "name": "?NPCMENU_OpenItemServicePanel@@YAHXZ"
     },
     {
      "va": "0x004B3660",
      "length": 151,
-     "name": "?sub_004B3660_TradeMenuHandler@@YAHXZ"
+     "name": "?NPCMENU_HireMercHandler@@YAHXZ"
     },
     {
      "va": "0x004B3700",
      "length": 35,
-     "name": "?sub_004B3700_InitHandler@@YAHXZ"
+     "name": "?NPCMENU_InitImbueHandler@@YAHXZ"
     },
     {
      "va": "0x004B3730",
      "length": 35,
-     "name": "?sub_004B3730_InitHandler@@YAHXZ"
+     "name": "?NPCMENU_InitSocketHandler@@YAHXZ"
     },
     {
      "va": "0x004B3760",
      "length": 35,
-     "name": "?sub_004B3760_InitHandler@@YAHXZ"
+     "name": "?NPCMENU_InitPersonalizeHandler@@YAHXZ"
     },
     {
      "va": "0x004B3C00",
@@ -29419,32 +29419,32 @@
     {
      "va": "0x004B4010",
      "length": 84,
-     "name": "?sub_004B4010_NpcMenuCloseDialog6F@@YAHXZ"
+     "name": "?NPCMENU_CloseSubMenuDialog@@YAHXZ"
     },
     {
      "va": "0x004B40D0",
      "length": 228,
-     "name": "?sub_004B40D0_ShowNpcMessage@@YGXDH@Z"
+     "name": "?NPCMENU_ShowNpcMessage@@YGXDH@Z"
     },
     {
      "va": "0x004B41C0",
      "length": 21,
-     "name": "?sub_004B41C0_NextNpcMessage@@YAHXZ"
+     "name": "?NPCMENU_NextNpcMessage@@YAHXZ"
     },
     {
      "va": "0x004B41E0",
      "length": 176,
-     "name": "?sub_004B41E0_GreetNpcMessage@@YAHXZ"
+     "name": "?NPCMENU_GreetNpcMessage@@YAHXZ"
     },
     {
      "va": "0x004B4290",
      "length": 28,
-     "name": "?sub_004B4290_NpcMenuSend38@@YAHXZ"
+     "name": "?NPCMENU_ConfirmNpcAction@@YAHXZ"
     },
     {
      "va": "0x004B42B0",
      "length": 197,
-     "name": "?sub_004B42B0_NpcMenuTrade@@YAHXZ"
+     "name": "?NPCMENU_OpenTradeShop@@YAHXZ"
     },
     {
      "va": "0x004B45D0",
@@ -29469,7 +29469,7 @@
     {
      "va": "0x004B4730",
      "length": 253,
-     "name": "?sub_004B4730_NpcMenuTalk@@YAHXZ"
+     "name": "?NPCMENU_NpcMenuTalk@@YAHXZ"
     },
     {
      "va": "0x004B4830",
@@ -29478,7 +29478,7 @@
     {
      "va": "0x004B4CF0",
      "length": 177,
-     "name": "?sub_004B4CF0_NpcMenuReturn@@YAHXZ"
+     "name": "?NPCMENU_NpcMenuReturn@@YAHXZ"
     },
     {
      "va": "0x004B5140",
@@ -29488,12 +29488,12 @@
     {
      "va": "0x004B51A0",
      "length": 89,
-     "name": "?sub_004B51A0_NpcMenuAction4B@@YAHXZ"
+     "name": "?NPCMENU_TravelToKurastDocks@@YAHXZ"
     },
     {
      "va": "0x004B5200",
      "length": 89,
-     "name": "?sub_004B5200_NpcMenuAction6D@@YAHXZ"
+     "name": "?NPCMENU_TravelToHarrogath@@YAHXZ"
     },
     {
      "va": "0x004B5260",
@@ -29503,7 +29503,7 @@
     {
      "va": "0x004B52C0",
      "length": 89,
-     "name": "?sub_004B52C0_NpcMenuAction01@@YAHXZ"
+     "name": "?NPCMENU_TravelToRogueEncampment@@YAHXZ"
     }
    ],
    "flags": [
@@ -29709,7 +29709,7 @@
     {
      "va": "0x004B7150",
      "length": 40,
-     "name": "?sub_004B7150_HoverFirstTypedItem@@YAXPAUD2ClientDialogStrc@@@Z"
+     "name": "?DIALOG_HoverFirstEnabledLine@@YAXPAUD2ClientDialogStrc@@@Z"
     },
     {
      "va": "0x004B7180",
@@ -29718,17 +29718,17 @@
     {
      "va": "0x004B7200",
      "length": 101,
-     "name": "?sub_004B7200_UpdateHoverItem@@YGHPAUSMSGHANDLER_PARAMS@@PAUD2ClientDialogStrc@@@Z"
+     "name": "?DIALOG_UpdateHoverItem@@YGHPAUSMSGHANDLER_PARAMS@@PAUD2ClientDialogStrc@@@Z"
     },
     {
      "va": "0x004B7270",
      "length": 108,
-     "name": "?sub_004B7270_DialogMouseMotion@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?DIALOG_MouseMoveMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004B72E0",
      "length": 252,
-     "name": "?sub_004B72E0_OnLButtonUp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?DIALOG_LButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004B73E0",
@@ -29737,12 +29737,12 @@
     {
      "va": "0x004B7570",
      "length": 93,
-     "name": "?sub_004B7570_HandleDialogKey@@YGXHPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?DIALOG_HandleDialogKey@@YGXHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004B75D0",
      "length": 53,
-     "name": "?sub_004B75D0_OnDialogKey@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?DIALOG_KeyMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004B7610",
@@ -29767,47 +29767,47 @@
     {
      "va": "0x004B7970",
      "length": 83,
-     "name": "?sub_004B7970_IsDialogKey@@YAHPAUD2ClientDialogStrc@@H@Z"
+     "name": "?DIALOG_IsChatKey@@YAHPAUD2ClientDialogStrc@@H@Z"
     },
     {
      "va": "0x004B79D0",
      "length": 182,
-     "name": "?sub_004B79D0_DialogEnterMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?DIALOG_EnterMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004B7A90",
      "length": 175,
-     "name": "?sub_004B7A90_DialogKeyDownMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?DIALOG_KeyDownMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004B7B40",
      "length": 11,
-     "name": "?sub_004B7B40@@YAXXZ"
+     "name": "?DIALOG_InitDialogs@@YAXXZ"
     },
     {
      "va": "0x004B7B50",
      "length": 106,
-     "name": "?sub_004B7B50@@YAXXZ"
+     "name": "?DIALOG_FreeDialogs@@YAXXZ"
     },
     {
      "va": "0x004B7BC0",
      "length": 58,
-     "name": "?sub_004B7BC0_InitDialog@@YAXPAUD2ClientDialogStrc@@@Z"
+     "name": "?DIALOG_InitDialog@@YAXPAUD2ClientDialogStrc@@@Z"
     },
     {
      "va": "0x004B7C00",
      "length": 93,
-     "name": "?sub_004B7C00_AddWidget@@YIXPAUD2ClientDialogStrc@@PAXHH@Z"
+     "name": "?DIALOG_AddWidget@@YIXPAUD2ClientDialogStrc@@PAXHH@Z"
     },
     {
      "va": "0x004B7C60",
      "length": 102,
-     "name": "?sub_004B7C60@@YAXXZ"
+     "name": "?DIALOG_LoadDialogHotkeys@@YAXXZ"
     },
     {
      "va": "0x004B7CD0",
      "length": 475,
-     "name": "?sub_004B7CD0_CreateDialogFromFile@@YIPAUD2ClientDialogStrc@@HHHHHH@Z"
+     "name": "?DIALOG_CreateDialogFromFile@@YIPAUD2ClientDialogStrc@@HHHHHH@Z"
     },
     {
      "va": "0x004B7EB0",
@@ -29817,7 +29817,7 @@
     {
      "va": "0x004B8020",
      "length": 222,
-     "name": "?sub_004B8020@@YIXPAX@Z"
+     "name": "?DIALOG_DestroyDialog@@YIXPAX@Z"
     }
    ]
   },
@@ -30321,7 +30321,7 @@
     {
      "va": "0x004BAC00",
      "length": 66,
-     "name": "sub_004BAC00_HitTest"
+     "name": "HitTestButton"
     },
     {
      "va": "0x004BAC70",
@@ -30376,12 +30376,12 @@
     {
      "va": "0x004BBEF0",
      "length": 66,
-     "name": "sub_004BBEF0_HitTestUp"
+     "name": "HitTestUpArrow"
     },
     {
      "va": "0x004BBF40",
      "length": 66,
-     "name": "sub_004BBF40_HitTestDown"
+     "name": "HitTestDownArrow"
     }
    ]
   },
@@ -31030,17 +31030,17 @@
     {
      "va": "0x004BE720",
      "length": 66,
-     "name": "sub_004BE720_HitTestTopRow"
+     "name": "HitTestScrollUp"
     },
     {
      "va": "0x004BE770",
      "length": 78,
-     "name": "sub_004BE770_HitTestBottomRow"
+     "name": "HitTestScrollDown"
     },
     {
      "va": "0x004BE7C0",
      "length": 76,
-     "name": "sub_004BE7C0_HitTestRows"
+     "name": "HitTestScrollTrack"
     },
     {
      "va": "0x004BE860",
@@ -31055,7 +31055,7 @@
     {
      "va": "0x004BEC40",
      "length": 121,
-     "name": "sub_004BEC40_GetEntryData"
+     "name": "GetListEntryData"
     },
     {
      "va": "0x004BED40",
@@ -31110,27 +31110,27 @@
     {
      "va": "0x004BF9D0",
      "length": 87,
-     "name": "?sub_004BF9D0@@YAXXZ"
+     "name": "?USEITEM_InitUseItemPanel@@YAXXZ"
     },
     {
      "va": "0x004BFA30",
      "length": 50,
-     "name": "sub_004BFA30_MouseMoveMsg"
+     "name": "USEITEM_MouseMoveMsg"
     },
     {
      "va": "0x004BFA70",
      "length": 117,
-     "name": "?sub_004BFA70_ToggleUseMode@@YAXPAUD2UnitStrc@@@Z"
+     "name": "?USEITEM_ToggleUseMode@@YAXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004BFC50",
      "length": 343,
-     "name": "?sub_004BFC50_OnClick@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?USEITEM_ClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BFDB0",
      "length": 30,
-     "name": "sub_004BFDB0_BreakMsg"
+     "name": "USEITEM_EatMsg"
     },
     {
      "va": "0x004BFDD0",
@@ -31144,37 +31144,37 @@
     {
      "va": "0x004C0090",
      "length": 107,
-     "name": "?sub_004C0090_CloseUseItemPanel@@YAXXZ"
+     "name": "?USEITEM_CloseUseItemPanel@@YAXXZ"
     },
     {
      "va": "0x004C0100",
      "length": 65,
-     "name": "?sub_004C0100@@YAXXZ"
+     "name": "?USEITEM_FreeUseItemPanel@@YAXXZ"
     },
     {
      "va": "0x004C0150",
      "length": 136,
-     "name": "?sub_004C0150_OnPanelClose@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?USEITEM_OnPanelCloseMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004C02F0",
      "length": 133,
-     "name": "?sub_004C02F0_ClosePanel@@YAHXZ"
+     "name": "?USEITEM_ClosePanel@@YAHXZ"
     },
     {
      "va": "0x004C0380",
      "length": 189,
-     "name": "sub_004C0380_OpenPanel"
+     "name": "USEITEM_OpenPanel"
     },
     {
      "va": "0x004C0620",
      "length": 21,
-     "name": "?sub_004C0620_OpenPanelMode1@@YIXH@Z"
+     "name": "?USEITEM_OpenNpcItemPanel@@YIXH@Z"
     },
     {
      "va": "0x004C0D00",
      "length": 27,
-     "name": "?sub_004C0D00_Reset@@YAXXZ"
+     "name": "?USEITEM_LeaveGame@@YAXXZ"
     }
    ]
   },
@@ -31584,7 +31584,7 @@
     {
      "va": "0x004C21E0",
      "length": 12,
-     "name": "?sub_004C21E0_StatRemoveCallback_ToggleStateOff@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
+     "name": "?SKILLDESC_ToggleStateOffCallback@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     },
     {
      "va": "0x004C2240",
@@ -34992,72 +34992,72 @@
     {
      "va": "0x004E1FF0",
      "length": 466,
-     "name": "?sub_004E1FF0_SkillCltDoMissileWall@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoMissileWall@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004E2630",
      "length": 140,
-     "name": "?sub_004E2630_SkillDoFrameSteps@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoFrameSteps@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004E2A40",
      "length": 232,
-     "name": "?sub_004E2A40_ComponentMissile@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoComponentMissileA@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004E2B30",
      "length": 232,
-     "name": "?sub_004E2B30_ComponentMissile@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoComponentMissileB@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004E2C20",
      "length": 288,
-     "name": "?sub_004E2C20_WeaponOrSkillMissile@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoWeaponOrSkillMissile@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004E2ED0",
      "length": 101,
-     "name": "?sub_004E2ED0_InitCappedChargedPath@@YIXPAUD2UnitStrc@@H@Z"
+     "name": "?SKILLDESC_InitCappedChargedPath@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x004E3050",
      "length": 12,
-     "name": "?sub_004C21E0_StatRemoveCallback_ToggleStateOff@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
+     "name": "?SKILLDESC_ToggleStateOffCallback@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     },
     {
      "va": "0x004E3060",
      "length": 266,
-     "name": "?sub_004E3060_CltDoPrgState@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoPrgState@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004E31C0",
      "length": 361,
-     "name": "?sub_004E31C0_CltDo@@YIPAUD2UnitStrc@@PAU1@HH@Z"
+     "name": "?SKILLDESC_CltDoRandomMissile@@YIPAUD2UnitStrc@@PAU1@HH@Z"
     },
     {
      "va": "0x004E37C0",
      "length": 327,
-     "name": "?sub_004E37C0_MissileAtTargetOffset@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoMissileAtTargetOffset@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004E3910",
      "length": 138,
-     "name": "?sub_004E3910_MissileIfCollision@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoMissileIfCollision@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004E3A30",
      "length": 113,
-     "name": "?sub_004E3A30_FirstMissile@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoFirstMissile@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004E3D70",
      "length": 312,
-     "name": "?sub_004E3D70_OwnerMissileEvent@@YIHHPAUD2UnitStrc@@0HHH@Z"
+     "name": "?SKILLDESC_OwnerMissileEvent@@YIHHPAUD2UnitStrc@@0HHH@Z"
     },
     {
      "va": "0x004E3EB0",
      "length": 353,
-     "name": "?sub_004E3EB0_ScatterMissile@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoScatterMissile@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004E4030",
@@ -35067,42 +35067,42 @@
     {
      "va": "0x004E4100",
      "length": 19,
-     "name": "@sub_004E4100_RandomInRange@8"
+     "name": "@SKILLDESC_RandomInRange@8"
     },
     {
      "va": "0x004E4120",
      "length": 16,
-     "name": "@sub_004E4120_RandomSpread@4"
+     "name": "@SKILLDESC_RandomSpread@4"
     },
     {
      "va": "0x004E41E0",
      "length": 26,
-     "name": "?sub_004E41E0_IsCycleOutside1To3@@YAHXZ"
+     "name": "?SKILLDESC_IsOutsideDayCycle@@YAHXZ"
     },
     {
      "va": "0x004E4220",
      "length": 26,
-     "name": "?sub_004E4220_TouchRange@@YAXXZ"
+     "name": "?SKILLDESC_ClearEnvironSoundRefs@@YAXXZ"
     },
     {
      "va": "0x004E4240",
      "length": 52,
-     "name": "?sub_004E4240_ResetEntryPairs@@YAXH@Z"
+     "name": "?SKILLDESC_AddEnvironSoundRefs@@YAXH@Z"
     },
     {
      "va": "0x004E4640",
      "length": 37,
-     "name": "?sub_004E4640_GetMonTypeTxtRecord@@YIPAUD2MonTypeTxt@@H@Z"
+     "name": "?SKILLDESC_GetMonTypeTxtRecord@@YIPAUD2MonTypeTxt@@H@Z"
     },
     {
      "va": "0x004E4C50",
      "length": 141,
-     "name": "?sub_004E4C50_GetStatDisplayValue@@YGHHPAUD2ItemStatCostTxt@@PAUD2UnitStrc@@H@Z"
+     "name": "?SKILLDESC_GetStatDisplayValue@@YGHHPAUD2ItemStatCostTxt@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x004E4CE0",
      "length": 158,
-     "name": "?sub_004E4CE0_IsStatGroupUniform@@YGHPAUD2UnitStrc@@PAUD2StatListStrc@@HHPAUD2ItemStatCostTxt@@PAH@Z"
+     "name": "?SKILLDESC_IsStatGroupUniform@@YGHPAUD2UnitStrc@@PAUD2StatListStrc@@HHPAUD2ItemStatCostTxt@@PAH@Z"
     },
     {
      "va": "0x004E5A10",
@@ -35111,37 +35111,37 @@
     {
      "va": "0x004E67D0",
      "length": 116,
-     "name": "sub_004E67D0_BuildItemPropText"
+     "name": "SKILLDESC_BuildItemPropText"
     },
     {
      "va": "0x004E6C50",
      "length": 24,
-     "name": "?sub_004E6C50_ValidateMonsterId@@YIHH@Z"
+     "name": "?SKILLDESC_ValidateMonsterId@@YIHH@Z"
     },
     {
      "va": "0x004E6C70",
      "length": 43,
-     "name": "?sub_004E6C70@@YIHH@Z"
+     "name": "?SKILLDESC_GetSkillParamFive@@YIHH@Z"
     },
     {
      "va": "0x004E6CA0",
      "length": 57,
-     "name": "?sub_004E6CA0_GetSkillParamByLevel@@YIHHH@Z"
+     "name": "?SKILLDESC_GetSkillParamByLevel@@YIHHH@Z"
     },
     {
      "va": "0x004E6D40",
      "length": 77,
-     "name": "?sub_004E6D40_GetSkillDescStrName@@YAGH@Z"
+     "name": "?SKILLDESC_GetSkillDescStrName@@YAGH@Z"
     },
     {
      "va": "0x004E6D90",
      "length": 77,
-     "name": "?sub_004E6D90_GetSkillDescStrShort@@YAGH@Z"
+     "name": "?SKILLDESC_GetSkillDescStrShort@@YAGH@Z"
     },
     {
      "va": "0x004E6E80",
      "length": 27,
-     "name": "?sub_004E6E80_ApplyAiCurseDivisor@@YAHH@Z"
+     "name": "?SKILLDESC_ApplyAiCurseDivisor@@YAHH@Z"
     },
     {
      "va": "0x004E6FF0",
@@ -35151,17 +35151,17 @@
     {
      "va": "0x004E7900",
      "length": 39,
-     "name": "?sub_004E7900_AppendStringLine@@YAHPA_WG@Z"
+     "name": "?SKILLDESC_AppendStringLine@@YAHPA_WG@Z"
     },
     {
      "va": "0x004E9160",
      "length": 243,
-     "name": "?sub_004E9160_GetAttackRateValues@@YGHPAUD2UnitStrc@@0PAH1HPAUD2SkillStrc@@@Z"
+     "name": "?SKILLDESC_GetAttackRateValues@@YGHPAUD2UnitStrc@@0PAH1HPAUD2SkillStrc@@@Z"
     },
     {
      "va": "0x004E9590",
      "length": 43,
-     "name": "?sub_004E9590_SkillDescAttackRate@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HPAH333@Z"
+     "name": "?SKILLDESC_DescAttackRate@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HPAH333@Z"
     },
     {
      "va": "0x004E9870",
@@ -35171,142 +35171,142 @@
     {
      "va": "0x004EB940",
      "length": 238,
-     "name": "?sub_004EB940_DrawWeaponDamageWithParam@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+     "name": "?SKILLDESC_DrawWeaponDamageWithParam@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
     },
     {
      "va": "0x004EDA20",
      "length": 93,
-     "name": "?sub_004EDA20_RefreshSkills@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?SKILLDESC_RefreshSkills@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004EFC20",
      "length": 43,
-     "name": "?sub_004EFC20_GetSkillParam2@@YIHH@Z"
+     "name": "?SKILLDESC_GetSkillParamTwo@@YIHH@Z"
     },
     {
      "va": "0x004EFC50",
      "length": 43,
-     "name": "?sub_004EFC50_GetSkillParam3@@YIHH@Z"
+     "name": "?SKILLDESC_GetSkillParamThree@@YIHH@Z"
     },
     {
      "va": "0x004EFC80",
      "length": 43,
-     "name": "?sub_004EFC80_FourthSkillParam@@YIHH@Z"
+     "name": "?SKILLDESC_GetSkillParamFour@@YIHH@Z"
     },
     {
      "va": "0x004EFCB0",
      "length": 57,
-     "name": "?sub_004EFCB0_GetSummonLevel@@YIHHH@Z"
+     "name": "?SKILLDESC_GetSummonLevel@@YIHHH@Z"
     },
     {
      "va": "0x004EFCF0",
      "length": 256,
-     "name": "?sub_004EFCF0_TurnedMissile@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoTurnedMissile@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F0160",
      "length": 132,
-     "name": "?sub_004F0160_SoundMissile@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoSoundMissile@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F01F0",
      "length": 351,
-     "name": "?sub_004F01F0_DirectionMissile@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoDirectionMissile@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F11D0",
      "length": 415,
-     "name": "?sub_004F11D0_MissileLine@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoMissileLine@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F1370",
      "length": 186,
-     "name": "?sub_004F1370_FirstMissileTurned@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoFirstMissileTurned@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F1850",
      "length": 150,
-     "name": "?sub_004F1850_MissileFanA@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoMissileFanA@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F18F0",
      "length": 150,
-     "name": "?sub_004F18F0_MissileFanB@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoMissileFanB@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F1990",
      "length": 150,
-     "name": "?sub_004F1990_MissileFanC@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoMissileFanC@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F2340",
      "length": 149,
-     "name": "?sub_004F2340_MissileRows@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoMissileRows@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F25A0",
      "length": 297,
-     "name": "?sub_004F25A0_RepeatMissile@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoRepeatMissile@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F2720",
      "length": 109,
-     "name": "?sub_004F2720_TargetMissile@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoTargetMissile@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F29F0",
      "length": 202,
-     "name": "?sub_004F29F0_MissileScatterAtTarget@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoMissileScatterAtTarget@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F2E90",
      "length": 136,
-     "name": "?sub_004F2E90_UnitEffect@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoUnitEffect@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F33B0",
      "length": 127,
-     "name": "?sub_004F33B0_PositionMissile@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoPositionMissile@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F3680",
      "length": 396,
-     "name": "?sub_004F3680_SpawnMissileTowardTarget@@YGHPAUD2UnitStrc@@HHH@Z"
+     "name": "?SKILLDESC_SpawnMissileTowardTarget@@YGHPAUD2UnitStrc@@HHH@Z"
     },
     {
      "va": "0x004F3810",
      "length": 84,
-     "name": "?sub_004F3810_SkillCltStartMissileC@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltStartMissileC@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F38D0",
      "length": 206,
-     "name": "?sub_004F38D0_ParamMissile@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoParamMissile@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F39A0",
      "length": 181,
-     "name": "?sub_004F39A0_SetTargetParams@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltStartSetTargetParams@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F4110",
      "length": 43,
-     "name": "?sub_004F4110_GetSkillParam5@@YIHH@Z"
+     "name": "?SKILLDESC_GetSkillParamSix@@YIHH@Z"
     },
     {
      "va": "0x004F47B0",
      "length": 311,
-     "name": "?sub_004F47B0_TargetedMissile@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoTargetedMissile@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F48F0",
      "length": 315,
-     "name": "?sub_004F48F0_MirrorMissiles@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoMirrorMissiles@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F4F40",
      "length": 164,
-     "name": "?sub_004F4F40_GetMonSkillSound@@YIHPAUD2UnitStrc@@H@Z"
+     "name": "?SKILLDESC_GetMonSkillSound@@YIHPAUD2UnitStrc@@H@Z"
     }
    ]
   },
@@ -35460,7 +35460,7 @@
     {
      "va": "0x004E6DE0",
      "length": 77,
-     "name": "?sub_004E6DE0_GetSkillDescStrLong@@YAGH@Z"
+     "name": "?SKILLDESC_GetSkillDescStrLong@@YAGH@Z"
     },
     {
      "va": "0x004E6EA0",
@@ -35475,7 +35475,7 @@
     {
      "va": "0x004E6F60",
      "length": 76,
-     "name": "?sub_004E6F60_GetETypeDamageStr@@YAGH@Z"
+     "name": "?SKILLDESC_GetETypeDamageStr@@YAGH@Z"
     },
     {
      "va": "0x004E6FB0",
@@ -35494,12 +35494,12 @@
     {
      "va": "0x004E7430",
      "length": 73,
-     "name": "?sub_004E7430_FormatSignedDecimal@@YGHPA_WHHH@Z"
+     "name": "?SKILLDESC_FormatSignedDecimal@@YGHPA_WHHH@Z"
     },
     {
      "va": "0x004E7480",
      "length": 29,
-     "name": "?sub_004E7480_FormatIntOrDecimal@@YAHPA_WHHH@Z"
+     "name": "?SKILLDESC_FormatIntOrDecimal@@YAHPA_WHHH@Z"
     },
     {
      "va": "0x004E7650",
@@ -35529,7 +35529,7 @@
     {
      "va": "0x004E7B90",
      "length": 153,
-     "name": "?sub_004E7B90_AppendLabelDecimal@@YGHGPA_WHHH@Z"
+     "name": "?SKILLDESC_AppendLabelDecimal@@YGHGPA_WHHH@Z"
     },
     {
      "va": "0x004E7C30",
@@ -35574,12 +35574,12 @@
     {
      "va": "0x004E83B0",
      "length": 46,
-     "name": "?sub_004E83B0_AppendSkillDescStrLong@@YAHPA_WH@Z"
+     "name": "?SKILLDESC_AppendSkillDescStrLong@@YAHPA_WH@Z"
     },
     {
      "va": "0x004E84F0",
      "length": 199,
-     "name": "?sub_004E84F0_AppendManaValue@@YGHHPA_W@Z"
+     "name": "?SKILLDESC_AppendManaValue@@YGHHPA_W@Z"
     },
     {
      "va": "0x004E8D90",
@@ -35589,12 +35589,12 @@
     {
      "va": "0x004E8EC0",
      "length": 287,
-     "name": "?sub_004E8EC0_GetAttackRatingValues@@YGHPAUD2UnitStrc@@0PAH1HPAUD2SkillStrc@@@Z"
+     "name": "?SKILLDESC_GetAttackRatingValues@@YGHPAUD2UnitStrc@@0PAH1HPAUD2SkillStrc@@@Z"
     },
     {
      "va": "0x004E8FE0",
      "length": 32,
-     "name": "?sub_004E8FE0_AttackRatingCallback@@YIHPAUD2UnitStrc@@PAH1HHHPAUD2SkillStrc@@H0@Z"
+     "name": "?SKILLDESC_AttackRatingCallback@@YIHPAUD2UnitStrc@@PAH1HHHPAUD2SkillStrc@@H0@Z"
     },
     {
      "va": "0x004E9260",
@@ -35604,22 +35604,22 @@
     {
      "va": "0x004E94E0",
      "length": 41,
-     "name": "?sub_004E94E0_AttackRatingForEachWeapon@@YGHPAUD2UnitStrc@@PAH111PAUD2SkillStrc@@H@Z"
+     "name": "?SKILLDESC_AttackRatingForEachWeapon@@YGHPAUD2UnitStrc@@PAH111PAUD2SkillStrc@@H@Z"
     },
     {
      "va": "0x004E9510",
      "length": 115,
-     "name": "?sub_004E9510_SkillDescAttackRating@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HPAH333@Z"
+     "name": "?SKILLDESC_DescAttackRating@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HPAH333@Z"
     },
     {
      "va": "0x004E95C0",
      "length": 75,
-     "name": "?sub_004E95C0_SkillDescAttackRatingOffhand@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HPAH333@Z"
+     "name": "?SKILLDESC_DescAttackRatingOffhand@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HPAH333@Z"
     },
     {
      "va": "0x004E9610",
      "length": 70,
-     "name": "?sub_004E9610_WeaponDamageCallback@@YIHPAUD2UnitStrc@@PAH11HHPAUD2SkillStrc@@H0@Z"
+     "name": "?SKILLDESC_WeaponDamageCallback@@YIHPAUD2UnitStrc@@PAH11HHPAUD2SkillStrc@@H0@Z"
     },
     {
      "va": "0x004E9660",
@@ -35927,7 +35927,7 @@
     {
      "va": "0x004EDC30",
      "length": 9,
-     "name": "?sub_004EDC30_AddSecondsPlus@@YAHGHPAUUnicode@@@Z"
+     "name": "?SKILLDESC_AddSecondsPlus@@YAHGHPAUUnicode@@@Z"
     },
     {
      "va": "0x004EDC40",
@@ -35982,32 +35982,32 @@
     {
      "va": "0x004E99F0",
      "length": 808,
-     "name": "?sub_004E99F0_DrawWeaponDamage@@YGXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HP6IH0PAH33HH1H0@ZHHHHHH@Z"
+     "name": "?SKILLDESC_DrawWeaponDamage@@YGXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HP6IH0PAH33HH1H0@ZHHHHHH@Z"
     },
     {
      "va": "0x004EA170",
      "length": 207,
-     "name": "?sub_004EA170_DrawDualWieldLine@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+     "name": "?SKILLDESC_DrawDualWieldLine@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
     },
     {
      "va": "0x004EA240",
      "length": 207,
-     "name": "?sub_004EA240_DrawDualWieldLineNoElem@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+     "name": "?SKILLDESC_DrawDualWieldLineNoElem@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
     },
     {
      "va": "0x004EA310",
      "length": 311,
-     "name": "?sub_004EA310_DrawWeaponDamageLine@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+     "name": "?SKILLDESC_DrawWeaponDamageLine@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
     },
     {
      "va": "0x004EA790",
      "length": 512,
-     "name": "?sub_004EA790_DrawWeaponStatDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+     "name": "?SKILLDESC_DrawWeaponStatDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
     },
     {
      "va": "0x004EAA30",
      "length": 104,
-     "name": "?sub_004EAA30_DrawOtherHandDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+     "name": "?SKILLDESC_DrawOtherHandDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
     },
     {
      "va": "0x004EAF90",
@@ -36016,7 +36016,7 @@
     {
      "va": "0x004EB240",
      "length": 77,
-     "name": "?sub_004EB240_DrawSkillWeaponDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+     "name": "?SKILLDESC_DrawSkillWeaponDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
     },
     {
      "va": "0x004EB640",
@@ -36052,7 +36052,7 @@
     {
      "va": "0x004ED530",
      "length": 53,
-     "name": "?sub_004ED530_HasOnlyBonusLevels@@YAHPAUD2UnitStrc@@H@Z"
+     "name": "?SKILLDESC_HasOnlyBonusLevels@@YAHPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x004ED570",
@@ -36114,7 +36114,7 @@
     {
      "va": "0x004E9D20",
      "length": 747,
-     "name": "?sub_004E9D20_DrawWeaponAndSkillDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+     "name": "?SKILLDESC_DrawWeaponAndSkillDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
     }
    ],
    "flags": [
@@ -36176,7 +36176,7 @@
     {
      "va": "0x004EAD60",
      "length": 260,
-     "name": "?sub_004EAD60_DrawWeaponPhysElemDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+     "name": "?SKILLDESC_DrawWeaponPhysElemDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
     },
     {
      "va": "0x004EBB50",
@@ -36546,17 +36546,17 @@
     {
      "va": "0x004F30A0",
      "length": 249,
-     "name": "?sub_004F30A0_TargetPrgOverlay@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoTargetPrgOverlay@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F31A0",
      "length": 228,
-     "name": "?sub_004F31A0_PrgOverlay@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CltDoPrgOverlay@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F3A60",
      "length": 540,
-     "name": "?sub_004F3A60@@YIHPAUD2UnitStrc@@HHHHH@Z"
+     "name": "?SKILLDESC_CreateCorpseExplosionMissiles@@YIHPAUD2UnitStrc@@HHHHH@Z"
     }
    ]
   },
@@ -60619,7 +60619,7 @@
     {
      "va": "0x005ADAF0",
      "length": 12,
-     "name": "?sub_004C21E0_StatRemoveCallback_ToggleStateOff@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
+     "name": "?SKILLDESC_ToggleStateOffCallback@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     },
     {
      "va": "0x005ADB00",
@@ -66270,7 +66270,7 @@
     {
      "va": "0x005C9290",
      "length": 101,
-     "name": "?sub_004E2ED0_InitCappedChargedPath@@YIXPAUD2UnitStrc@@H@Z"
+     "name": "?SKILLDESC_InitCappedChargedPath@@YIXPAUD2UnitStrc@@H@Z"
     }
    ]
   },
@@ -66873,7 +66873,7 @@
     {
      "va": "0x005D3310",
      "length": 12,
-     "name": "?sub_004C21E0_StatRemoveCallback_ToggleStateOff@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
+     "name": "?SKILLDESC_ToggleStateOffCallback@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     },
     {
      "va": "0x005D3320",

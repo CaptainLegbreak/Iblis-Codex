@@ -15,7 +15,7 @@ int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __cdecl sub_00463DF0(); // 0x00463DF0
 void __cdecl sub_0048A6F0_ClearValue(); // 0x0048A6F0
 void __fastcall sub_00478600_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
-void __fastcall sub_004B8020(void* pRes); // 0x004B8020
+void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 D2ClientDialogStrc* __fastcall sub_004B7EB0_CreateDialog(int nArg1, int nArg2, int (__cdecl* pfnArg8)(),
     int (__cdecl* pfnArgC)(), int nArg10, int nArg14, int nArg18, int nArg1C, int nArg20, int nArg24, int nArg28); // 0x004B7EB0
 void __fastcall sub_004B8370(void* pPanel, int nValue); // 0x004B8370
@@ -97,13 +97,13 @@ void __fastcall sub_004B8940_CloseWait(int bReopen)
     gbGlobal_007C0E80 = 0;
     if (gpDialog_007C0E6C)
     {
-        sub_004B8020(gpDialog_007C0E6C);
+        DIALOG_DestroyDialog(gpDialog_007C0E6C);
         gpDialog_007C0E6C = 0;
     }
 
     if (gpDialog_007C0E64)
     {
-        sub_004B8020(gpDialog_007C0E64);
+        DIALOG_DestroyDialog(gpDialog_007C0E64);
         gpDialog_007C0E64 = 0;
     }
 

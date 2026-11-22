@@ -73,15 +73,15 @@ struct Obj004B8580 {
 };
 
 extern char gbGlobal_007C0E80; // 0x007C0E80
-int __cdecl sub_004549C0_IsPanelAllocated(); // 0x004549C0
+int __cdecl UI_IsGoldPanelOpen(); // 0x004549C0
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl sub_00463DF0(); // 0x00463DF0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 void __fastcall sub_00478600_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
-void __cdecl sub_00487B30_ResetNpcState(); // 0x00487B30
-void __cdecl sub_0048A6F0_Clear(); // 0x0048A6F0
+void __cdecl INV_ResetNpcState(); // 0x00487B30
+void __cdecl INV_ClearTradeFlag(); // 0x0048A6F0
 void __fastcall sub_004B8100_DrawDialog(D2ClientDialogStrc* pDialog);
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nTextColor, int nAlign); // 0x00502280
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -94,18 +94,18 @@ extern D2ClientDialogStrc* gpDialog_007C0E64; // 0x007C0E64
 extern D2ClientDialogStrc* gpDialog_007C0E6C; // 0x007C0E6C
 extern int gnGlobal_007C0E7C; // 0x007C0E7C
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-void __fastcall sub_004B8020(void* pRes); // 0x004B8020
+void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
-int __fastcall sub_00453A90_GetUIVarUnchecked(int nUIVar); // 0x00453A90
+int __fastcall UI_GetUIVarUnchecked(int nUIVar); // 0x00453A90
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
-void __fastcall sub_00489360_SetTradePanelOpen(int bOpen); // 0x00489360
-void __fastcall sub_004897E0_UpdateSound(int nArg1, int nArg2); // 0x004897E0
-void __cdecl sub_00489E00_OpenUi(); // 0x00489E00
-void __cdecl sub_00489F50_CloseUiArchives(); // 0x00489F50
-void __cdecl sub_0048A460_CloseCubePanel(); // 0x0048A460
-void __cdecl sub_0048A6E0_SetFlag7BCE28(); // 0x0048A6E0
+void __fastcall INV_SetTradePanelOpen(int bOpen); // 0x00489360
+void __fastcall INV_UpdateTradeAcceptSound(int nArg1, int nArg2); // 0x004897E0
+void __cdecl INV_OpenStashPanel(); // 0x00489E00
+void __cdecl INV_ResetStashPanel(); // 0x00489F50
+void __cdecl INV_OpenCubePanel(); // 0x0048A460
+void __cdecl INV_SetTradeFlag(); // 0x0048A6E0
 int __cdecl sub_004B85E0(); // 0x004B85E0
 void __fastcall sub_004B8940_CloseWait(int bReopen); // 0x004B8940
 int __cdecl sub_004B8AD0_OpenWait(); // 0x004B8AD0
@@ -190,10 +190,10 @@ struct D2UiPacketStrc_004B9210
 #pragma pack(pop)
 
 void __fastcall sub_004A28A0_OnUiPacket1(D2UiPacketStrc_004B9210* pPacket); // 0x004A28A0
-void __fastcall sub_004B3340_OnUiPacket2(unsigned short nArg); // 0x004B3340
+void __fastcall NPCMENU_ReloadHirelingPopup(unsigned short nArg); // 0x004B3340
 void __fastcall sub_004B25C0_OnUiPacket3(D2UiPacketStrc_004B9210* pPacket); // 0x004B25C0
 void __fastcall sub_0049FF60_OnUiPacket4(D2UiPacketStrc_004B9210* pPacket); // 0x0049FF60
-extern "C" void __fastcall sub_004A3100_SetPacketValue(unsigned int value); // 0x004A3100
+extern "C" void __fastcall TEXT_SetQuestPacketValue(unsigned int value); // 0x004A3100
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 
 struct D2CinematicPacketStrc
@@ -202,7 +202,7 @@ struct D2CinematicPacketStrc
     unsigned char nCinematic;
 };
 
-void __fastcall sub_00482EF0_PlayCinematic(int nIndex); // 0x00482EF0
+void __fastcall INV_PlayCinematic(int nIndex); // 0x00482EF0
 
 
 struct D2UnkFieldsStrc
@@ -340,7 +340,7 @@ struct D2EntryNode004B9CD0Strc
 };
 
 unsigned int __cdecl sub_00481820(); // 0x00481820
-extern "C" int __fastcall sub_004E4100_RandomInRange(int nMin, int nMax); // 0x004E4100
+extern "C" int __fastcall SKILLDESC_RandomInRange(int nMin, int nMax); // 0x004E4100
 extern D2EntryNode004B9CD0Strc* gpEntryNodes_007C5458; // 0x007C5458
 
 // 0x004B82F0
@@ -504,7 +504,7 @@ void __cdecl sub_004B8730_DrawDialogHover()
 {
     int nX = sub_00468730();
     int nY = sub_00468740();
-    if (gnGlobal_007C0E7C > 2 && !sub_004549C0_IsPanelAllocated())
+    if (gnGlobal_007C0E7C > 2 && !UI_IsGoldPanelOpen())
     {
         if (nX >= gnGlobal_007A2858 + 0x111 && nX <= gnGlobal_007A2858 + 0x133 && nY >= 0xA8 - gnGlobal_007A285C && nY <= 0xCA - gnGlobal_007A285C)
             D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1023), gnGlobal_007A2858 + 0xEF, 0xA7 - gnGlobal_007A285C, 0, 0);
@@ -523,8 +523,8 @@ void __cdecl sub_004B8730_DrawDialogHover()
             {
                 sub_00478600_SendShorts(0x4F, 2, 0, 0);
                 sub_00455F20(0x17, 1, 0);
-                sub_0048A6F0_Clear();
-                sub_00487B30_ResetNpcState();
+                INV_ClearTradeFlag();
+                INV_ResetNpcState();
                 gnGlobal_007C0E7C = 0;
             }
             return;
@@ -553,7 +553,7 @@ unsigned long gdwTick_007C0E70; // 0x007C0E70
 int __cdecl sub_004B8A30_OnCancel()
 {
     sub_004B9A00(2, 0, 0, 0, 0);
-    sub_004B8020(gpDialog_007C0E64);
+    DIALOG_DestroyDialog(gpDialog_007C0E64);
     gpDialog_007C0E64 = 0;
     gnGlobal_007C0E7C = 3;
     sub_00478600_SendShorts(0x4F, 3, 0, 0);
@@ -564,7 +564,7 @@ int __cdecl sub_004B8A30_OnCancel()
 int __cdecl sub_004B8A80_OnClose()
 {
     sub_004B9A00(2, 0, 0, 0, 0);
-    sub_004B8020(gpDialog_007C0E64);
+    DIALOG_DestroyDialog(gpDialog_007C0E64);
     gpDialog_007C0E64 = 0;
     gnGlobal_007C0E7C = 7;
     sub_00478600_SendShorts(0x4F, 2, 0, 0);
@@ -576,7 +576,7 @@ int __cdecl sub_004B8A80_OnClose()
 int __cdecl sub_004B8BA0_OnClose2()
 {
     sub_004B9A00(2, 0, 0, 0, 0);
-    sub_004B8020(gpDialog_007C0E6C);
+    DIALOG_DestroyDialog(gpDialog_007C0E6C);
     gpDialog_007C0E6C = 0;
     gnGlobal_007C0E7C = 7;
     gdwTick_007C0E70 = GetTickCount();
@@ -590,15 +590,15 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
     switch (pPacket[1])
     {
     case 21:
-        sub_0048A460_CloseCubePanel();
+        INV_OpenCubePanel();
         return;
 
     case 16:
-        sub_00489E00_OpenUi();
+        INV_OpenStashPanel();
         return;
 
     case 17:
-        sub_00489F50_CloseUiArchives();
+        INV_ResetStashPanel();
         return;
 
     case 12:
@@ -622,13 +622,13 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
                     return;
                 }
 
-                sub_0048A6F0_Clear();
+                INV_ClearTradeFlag();
                 gdwTick_007C0E70 = 0xFFFFFFFF;
             }
 
             gnGlobal_007C0E7C = 1;
             sub_004B8BF0_OpenWait2();
-            sub_00489360_SetTradePanelOpen(0);
+            INV_SetTradePanelOpen(0);
             return;
         }
 
@@ -677,7 +677,7 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
             }
 
             gnGlobal_007C0E7C = 2;
-            sub_00489360_SetTradePanelOpen(0);
+            INV_SetTradePanelOpen(0);
             return;
         }
 
@@ -685,29 +685,29 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
         return;
 
     case 2:
-        sub_004897E0_UpdateSound(0, 0);
+        INV_UpdateTradeAcceptSound(0, 0);
         sub_004B8940_CloseWait(0);
         return;
 
     case 5:
-        if (!sub_00453A90_GetUIVarUnchecked(0x17))
+        if (!UI_GetUIVarUnchecked(0x17))
         {
             return;
         }
 
         gdwTick_007C0E70 = 0xFFFFFFFF;
-        sub_00489360_SetTradePanelOpen(1);
+        INV_SetTradePanelOpen(1);
         switch (gnGlobal_007C0E7C)
         {
         case 3:
             gnGlobal_007C0E7C = 5;
         case 5:
-            sub_004897E0_UpdateSound(0, 1);
+            INV_UpdateTradeAcceptSound(0, 1);
             return;
 
         case 4:
             gnGlobal_007C0E7C = 6;
-            sub_004897E0_UpdateSound(1, 1);
+            INV_UpdateTradeAcceptSound(1, 1);
             return;
 
         case 6:
@@ -720,36 +720,36 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
         }
 
     case 6:
-        if (!sub_00453A90_GetUIVarUnchecked(0x17))
+        if (!UI_GetUIVarUnchecked(0x17))
         {
             return;
         }
 
         sub_00478600_SendShorts(0x4F, 8, (unsigned short)(gdwGlobal_007C0E68 >> 16), (unsigned short)gdwGlobal_007C0E68);
         gdwTick_007C0E70 = 0xFFFFFFFF;
-        sub_00489360_SetTradePanelOpen(1);
+        INV_SetTradePanelOpen(1);
         switch (gnGlobal_007C0E7C)
         {
         case 7:
             gnGlobal_007C0E7C = 3;
         case 3:
-            sub_004897E0_UpdateSound(0, 0);
+            INV_UpdateTradeAcceptSound(0, 0);
             return;
 
         case 4:
         case 5:
         case 6:
-            sub_004897E0_UpdateSound(0, 0);
+            INV_UpdateTradeAcceptSound(0, 0);
             gnGlobal_007C0E7C = 3;
             return;
 
         case 1:
             gdwGlobal_007C0E78 = 0;
-            sub_004897E0_UpdateSound(0, 0);
+            INV_UpdateTradeAcceptSound(0, 0);
             gnGlobal_007C0E7C = 3;
             if (gpDialog_007C0E6C)
             {
-                sub_004B8020(gpDialog_007C0E6C);
+                DIALOG_DestroyDialog(gpDialog_007C0E6C);
                 gpDialog_007C0E6C = 0;
             }
             return;
@@ -760,11 +760,11 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
         }
 
     case 14:
-        sub_0048A6E0_SetFlag7BCE28();
+        INV_SetTradeFlag();
         return;
 
     case 15:
-        sub_0048A6F0_Clear();
+        INV_ClearTradeFlag();
         return;
     }
 }
@@ -976,11 +976,11 @@ void __fastcall sub_004B9210_DispatchUiPacket(D2UiPacketStrc_004B9210* pPacket)
     switch (pPacket->nType)
     {
     case 36:
-        sub_004A3100_SetPacketValue(pPacket->nArg);
+        TEXT_SetQuestPacketValue(pPacket->nArg);
         return;
 
     case 2:
-        sub_004B3340_OnUiPacket2(pPacket->nArg);
+        NPCMENU_ReloadHirelingPopup(pPacket->nArg);
         return;
 
     case 1:
@@ -1029,7 +1029,7 @@ void __cdecl sub_004BE060()
 // 0x004B9320
 void __fastcall sub_004B9320_PlayCinematicFromPacket(const D2CinematicPacketStrc* pPacket)
 {
-    sub_00482EF0_PlayCinematic(pPacket->nCinematic);
+    INV_PlayCinematic(pPacket->nCinematic);
 }
 
 // 0x004B9340
@@ -1217,7 +1217,7 @@ void __cdecl sub_004B9EB0_PlayRandomSound()
 {
     if (sub_00481820() % 3 == 0)
     {
-        const int nSound = sub_004E4100_RandomInRange(0xB76, 0x1230);
+        const int nSound = SKILLDESC_RandomInRange(0xB76, 0x1230);
         sub_004B9A00(nSound, 0, 0, 0, 0);
     }
 }

@@ -392,7 +392,7 @@ void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...);              
 
 void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...);                // 0x00410660
 
-unsigned __int64 __cdecl sub_0040E850_ReadTimeStampCounter(); // 0x0040E850
+unsigned __int64 __cdecl AUTOMAP_ReadTimeStampCounter(); // 0x0040E850
 
 extern "C" const char gszNewline_006FFCB0[];                                                                // 0x006FFCB0
 
@@ -1356,7 +1356,7 @@ int __cdecl sub_0040E870_MeasureCpuMHz()
     const unsigned long dwStart = GetTickCount();
     __int64 tCount1;
     QueryPerformanceCounter(&tCount1);
-    const __int64 nTsc1 = sub_0040E850_ReadTimeStampCounter();
+    const __int64 nTsc1 = AUTOMAP_ReadTimeStampCounter();
     while (GetTickCount() - dwStart < 10)
     {
         Sleep(0);
@@ -1368,7 +1368,7 @@ int __cdecl sub_0040E870_MeasureCpuMHz()
     }
     __int64 tCount2;
     QueryPerformanceCounter(&tCount2);
-    const __int64 nTsc2 = sub_0040E850_ReadTimeStampCounter();
+    const __int64 nTsc2 = AUTOMAP_ReadTimeStampCounter();
     GetTickCount();
     __int64 tFrequency;
     QueryPerformanceFrequency(&tFrequency);

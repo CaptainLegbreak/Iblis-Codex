@@ -41,7 +41,7 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);        
 int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
 D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
 D2BitBufferStrc* __cdecl sub_004B32D0();                                                           // 0x004B32D0
-int __stdcall sub_004B92E0_GetTableByte(int nUnused, int nIndex);                                           // 0x004B92E0
+int __stdcall INV_GetTableByte(int nUnused, int nIndex);                                           // 0x004B92E0
 const unsigned short* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                       // 0x00524A30
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 unsigned short* __fastcall sub_00526700(unsigned short* pDest, const Unicode* pSource);                   // 0x00526700
@@ -64,8 +64,8 @@ extern void* gapCelFiles_007BF2E1[];                                            
 extern unsigned char gabQuestFlagsA_007BF356[];                                                             // 0x007BF356
 extern unsigned char gabQuestFlagsB_007BF380[];                                                             // 0x007BF380
 
-// build: context sub_004A1950_BuildQuestText
-static void sub_004A1950_BuildQuestText(D2QuestTextMsgStrc* pMsg)
+// build: context TEXT_BuildQuestText
+static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg)
 {
     pMsg->wTitle = 0xE8C;
     pMsg->wDesc = 0xE8C;
@@ -392,7 +392,7 @@ static void sub_004A1950_BuildQuestText(D2QuestTextMsgStrc* pMsg)
     pMsg->nState = 3;
 }
 
-void __stdcall sub_004A3220_LoadQuestPage(int nPage, int bReset)
+void __stdcall TEXT_LoadQuestPage(int nPage, int bReset)
 {
     int nCount = 0;
     int nFound = 0;
@@ -439,7 +439,7 @@ void __stdcall sub_004A3220_LoadQuestPage(int nPage, int bReset)
                 tMsg.wszText[k] = 0;
             }
             tMsg.nQuestId = gaQuestTable_00723F30[nCount].nQuestId;
-            sub_004A1950_BuildQuestText(&tMsg);
+            TEXT_BuildQuestText(&tMsg);
             if (tMsg.f_263 || !tMsg.nState)
             {
                 nCount = 41;
@@ -476,9 +476,9 @@ void __stdcall sub_004A3220_LoadQuestPage(int nPage, int bReset)
     }
 }
 
-int __fastcall sub_004A4180_TestCondition(int nCondition)
+int __fastcall TEXT_TestQuestCondition(int nCondition)
 {
-    if (!sub_004B92E0_GetTableByte(0, nCondition))
+    if (!INV_GetTableByte(0, nCondition))
     {
         return 0;
     }
@@ -513,7 +513,7 @@ int __fastcall sub_004A4180_TestCondition(int nCondition)
                     tMsg.wszText[k] = 0;
                 }
                 tMsg.nQuestId = nQuestId;
-                sub_004A1950_BuildQuestText(&tMsg);
+                TEXT_BuildQuestText(&tMsg);
                 if (tMsg.nStep >= 5)
                 {
                     break;
@@ -527,8 +527,8 @@ int __fastcall sub_004A4180_TestCondition(int nCondition)
     return 0;
 }
 
-void __stdcall sub_004A3220_LoadQuestPage(int nPage, int bReset);                                           // 0x004A3220
-static void sub_004A1950_BuildQuestText(D2QuestTextMsgStrc* pMsg);                                          // 0x004A1950
+void __stdcall TEXT_LoadQuestPage(int nPage, int bReset);                                           // 0x004A3220
+static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg);                                          // 0x004A1950
 
 
 struct T0044CB60
@@ -633,7 +633,7 @@ void __cdecl sub_004A34F0_DrawQuestPage()
     if (!gtQuestLog_007BF298.pCelD5)
     {
         sub_004A23D0_LoadPanelCels();
-        sub_004A3220_LoadQuestPage(0, 1);
+        TEXT_LoadQuestPage(0, 1);
     }
 
     if (gtQuestLog_007BF298.pCelD5)
@@ -726,7 +726,7 @@ void __cdecl sub_004A34F0_DrawQuestPage()
             if (pEntry->nPage == gtQuestLog_007BF298.nPage && pEntry->bEnabled && pEntry->nCelId < 0x1B && gtQuestLog_007BF298.apCel[pEntry->nCelId] && gtQuestLog_007BF298.f_8 < 6)
             {
                 gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8].nQuestId = pEntry->nQuestId;
-                sub_004A1950_BuildQuestText(&gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8]);
+                TEXT_BuildQuestText(&gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8]);
                 int nFrame;
                 switch (gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8].nState)
                 {

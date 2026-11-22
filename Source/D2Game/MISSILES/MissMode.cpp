@@ -201,7 +201,7 @@ void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned cha
 
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
 
-void __cdecl sub_00476AF0_ClearGlobals();
+void __cdecl UI_ClearGlobals();
 
 int __fastcall MONSTERSPAWN_SpawnRandomMonsterForLevel(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x005B3570
 
@@ -251,7 +251,7 @@ int __stdcall MISSILE_EvaluateMissileFormula(D2UnitStrc* pMissile, D2UnitStrc* p
 
 void __fastcall MISSMODE_AddDamageValue(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nDamage); // 0x005A9270
 
-int __fastcall sub_004E6CA0_GetSkillParamByLevel(int nSkillId, int nSkillLevel); // 0x004E6CA0
+int __fastcall SKILLDESC_GetSkillParamByLevel(int nSkillId, int nSkillLevel); // 0x004E6CA0
 
 int __stdcall SKILLS_GetElementalLength(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bFlag); // 0x00644F20
 
@@ -287,7 +287,7 @@ int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
 typedef int(__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 
-int __fastcall sub_004F4110_GetSkillParam5(int nSkillId); // 0x004F4110
+int __fastcall SKILLDESC_GetSkillParamSix(int nSkillId); // 0x004F4110
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
@@ -557,9 +557,9 @@ D2UnitStrc* __fastcall SKILLS_FindNextAuraTarget(D2GameStrc* pGame, D2UnitStrc* 
 
 unsigned short __stdcall D2Common_10201(D2DynamicPathStrc* pDynamicPath); // 0x00648EB0
 
-int __fastcall sub_004EFC20_GetSkillParam2(int); // 0x004EFC20
+int __fastcall SKILLDESC_GetSkillParamTwo(int); // 0x004EFC20
 
-int __fastcall sub_004EFCB0_GetSummonLevel(int, int); // 0x004EFCB0
+int __fastcall SKILLDESC_GetSummonLevel(int, int); // 0x004EFCB0
 
 typedef char D2MissilesTxt_size_check[sizeof(D2MissilesTxt) == 0x1A4 ? 1 : -1];
 
@@ -2552,9 +2552,9 @@ int __fastcall MISSMODE_SrvHit17_Howl(D2GameStrc* pGame, D2UnitStrc* pMissile, D
             return 1;
         if (!STATES_CheckState(pTarget, nState))
         {
-            const int nMaxLevel = STATLIST_UnitGetStatValue(pOwner, 12, 0) + nSkillLevel + sub_004EFC20_GetSkillParam2(nSkillId);
+            const int nMaxLevel = STATLIST_UnitGetStatValue(pOwner, 12, 0) + nSkillLevel + SKILLDESC_GetSkillParamTwo(nSkillId);
             if (nMaxLevel > STATLIST_UnitGetStatValue(pTarget, 12, 0))
-                AIUTIL_ApplyTerrorCurseState(pGame, pOwner, pTarget, nSkillId, sub_004CC7C0_GetSkillMissileRange(nSkillId, nSkillLevel), sub_004EFCB0_GetSummonLevel(nSkillId, nSkillLevel));
+                AIUTIL_ApplyTerrorCurseState(pGame, pOwner, pTarget, nSkillId, sub_004CC7C0_GetSkillMissileRange(nSkillId, nSkillLevel), SKILLDESC_GetSummonLevel(nSkillId, nSkillLevel));
         }
     }
     return 0;
@@ -2936,10 +2936,10 @@ int __fastcall MISSMODE_SrvHit28_GrimWardScare(D2GameStrc* pGame, D2UnitStrc* pM
         return 1;
     }
 
-    const int nDistance = sub_004E6CA0_GetSkillParamByLevel(nSkillId, nLevel);
+    const int nDistance = SKILLDESC_GetSkillParamByLevel(nSkillId, nLevel);
     if (PATH_ComputeSquaredDistance(CLIENTS_GetUnitX(pSubMissile), CLIENTS_GetUnitY(pSubMissile), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit)) < nDistance * nDistance)
     {
-        AIUTIL_ApplyTerrorCurseState(pGame, pSubMissile, pUnit, nSkillId, sub_004E6C70(nSkillId), sub_004F4110_GetSkillParam5(nSkillId));
+        AIUTIL_ApplyTerrorCurseState(pGame, pSubMissile, pUnit, nSkillId, SKILLDESC_GetSkillParamFive(nSkillId), SKILLDESC_GetSkillParamSix(nSkillId));
     }
 
     return 1;
@@ -3295,7 +3295,7 @@ int __fastcall sub_004CCF00_CltHitClearGlobals(D2UnitStrc* pMissile, D2UnitStrc*
 {
     if (!pUnit)
     {
-        sub_00476AF0_ClearGlobals();
+        UI_ClearGlobals();
         return 1;
     }
     return 0;
@@ -4083,7 +4083,7 @@ void __fastcall MISSMODE_SrvDmg07_Warcry_ShockWave(D2GameStrc* pGame, D2UnitStrc
     int nStunLength = pMissilesTxtRecord->dwDmgParam[0];
     if (nStunLength <= 0)
     {
-        nStunLength = sub_004E6CA0_GetSkillParamByLevel(nSkillId, nLevel);
+        nStunLength = SKILLDESC_GetSkillParamByLevel(nSkillId, nLevel);
     }
 
     pDamage->dwStunLen = nStunLength;
@@ -4458,7 +4458,7 @@ static int MISSMODE_GetPierceFlags(D2UnitStrc* pMissile)
 }
 
 // 0x005ADAF0
-void __fastcall sub_004C21E0_StatRemoveCallback_ToggleStateOff(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
+void __fastcall SKILLDESC_ToggleStateOffCallback(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
 {
     STATES_ToggleState(pUnit, nState, 0);
 }

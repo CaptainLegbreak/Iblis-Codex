@@ -6,10 +6,10 @@ D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x0047
 extern D2CelFileStrc* gpGlobal_007A523C; // 0x007A523C
 extern D2CelFileStrc* gpGlobal_007A5240; // 0x007A5240
 extern D2CelFileStrc* gpGlobal_007A5244; // 0x007A5244
-void __stdcall sub_0045FBC0_DrawCelPair(int bFirst); // 0x0045FBC0
+void __stdcall UI_DrawCelPair(int bFirst); // 0x0045FBC0
 void __cdecl sub_0045FC60_DrawLoadingTexts(); // 0x0045FC60
 void __stdcall sub_0045FD20_DrawPanelCel(int nFrame); // 0x0045FD20
-void __cdecl sub_0045FD80_DrawCenteredString(); // 0x0045FD80
+void __cdecl UI_DrawCenteredString(); // 0x0045FD80
 void __cdecl sub_004684C0(); // 0x004684C0
 extern int gnGlobal_007A524C; // 0x007A524C
 
@@ -31,10 +31,10 @@ void __cdecl sub_0045FDE0_DrawLoadingScreen()
         return;
     D2GFX_ClearScreen(0);
     sub_004FB0D0();
-    sub_0045FBC0_DrawCelPair(1);
+    UI_DrawCelPair(1);
     sub_0045FC60_DrawLoadingTexts();
     sub_0045FD20_DrawPanelCel(gnGlobal_007A524C);
-    sub_0045FD80_DrawCenteredString();
+    UI_DrawCenteredString();
     sub_004684C0();
     D2GFX_EndScene();
 }

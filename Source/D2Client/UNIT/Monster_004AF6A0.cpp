@@ -229,7 +229,7 @@ int __fastcall sub_004804A0_SetPathTargetPos(D2UnitStrc* pUnit, int nX, int nY);
 
 void __fastcall sub_004804E0_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nMode, int nTargetX, int nTargetY); // 0x004804E0
 
-int __fastcall sub_00480780_SetPathTargetUnit(D2UnitStrc* pUnit, int nUnitType, int nUnitGUID);            // 0x00480780
+int __fastcall INV_SetPathTargetUnit(D2UnitStrc* pUnit, int nUnitType, int nUnitGUID);            // 0x00480780
 
 void __fastcall sub_00480D20_SetModeOverlay(D2UnitStrc* pUnit, int nMode);                                  // 0x00480D20
 
@@ -250,7 +250,7 @@ void __fastcall sub_004AF890_SpawnBloodMissiles(D2UnitStrc* pUnit, int nArg1, in
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3);          // 0x004B9A00
 
-D2UnitStrc* __fastcall sub_004C5420_RequestAtTarget(D2UnitStrc* pUnit, int nRequest, int nArg3, int nArg4); // 0x004C5420
+D2UnitStrc* __fastcall AUTOMAP_RequestAtTarget(D2UnitStrc* pUnit, int nRequest, int nArg3, int nArg4); // 0x004C5420
 
 void __fastcall sub_004C6EB0_StartSkillOnUnit(D2UnitStrc* pUnit, D2MonCommandStrc* pCommand);              // 0x004C6EB0
 
@@ -1175,7 +1175,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 1);
         nValue = pCommand->nX;
         sub_004643F0_SetTargetByGUID(pUnit, nValue, pCommand->nY);
-        if (sub_004AE080(pUnit, 1) || !sub_00480780_SetPathTargetUnit(pUnit, nValue, pCommand->nY))
+        if (sub_004AE080(pUnit, 1) || !INV_SetPathTargetUnit(pUnit, nValue, pCommand->nY))
         {
             sub_004AE1D0_RefreshMonsterMode(pUnit);
             break;
@@ -1233,7 +1233,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
 
         sub_00480E70_SetUnitMode(pUnit, pRecord->nIndex);
         if (sub_004AFBC0_HasMonStatsFlag(pUnit, pRecord))
-            sub_00480780_SetPathTargetUnit(pUnit, nValue, pCommand->nY);
+            INV_SetPathTargetUnit(pUnit, nValue, pCommand->nY);
         break;
     }
 
@@ -1445,7 +1445,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
             goto LABEL_MODE0;
 
         case MONSTER_DOPPLEZON:
-            sub_004C5420_RequestAtTarget(pUnit, 0x148, 0, 1);
+            AUTOMAP_RequestAtTarget(pUnit, 0x148, 0, 1);
             goto LABEL_MODE0;
 
         case MONSTER_HYDRA1:

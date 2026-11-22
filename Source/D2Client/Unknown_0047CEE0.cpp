@@ -22,8 +22,8 @@ int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int n
 void __cdecl sub_0044DA40(); // 0x0044DA40
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
-D2CelFileStrc* __cdecl sub_00453AA0(); // 0x00453AA0
-int __cdecl sub_00454850_TickElapsed(); // 0x00454850
+D2CelFileStrc* __cdecl UI_GetPentspinCel(); // 0x00453AA0
+int __cdecl UI_TickElapsed(); // 0x00454850
 void __fastcall sub_00502680_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nA, int nB, int nC); // 0x00502680
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 void __stdcall sub_0047E260_DrawOptionSlider(D2OptionEntryStrc* pEntry, int nY, int nColor, int bNoCel); // 0x0047E260
@@ -301,7 +301,7 @@ void __cdecl sub_0047E3D0_DrawOptions()
 
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = sub_00453AA0();
+    tContext.pCellFile = UI_GetPentspinCel();
     if (gnOptionArrowFrame_007BC944)
     {
         tContext.nFrame = 8 - gnOptionArrowFrame_007BC944;
@@ -315,7 +315,7 @@ void __cdecl sub_0047E3D0_DrawOptions()
     sub_004F6480(&tContext, gnGlobal_0071146C / 2 - gnOptionMaxWidth_007BC95C - 0xF9, nArrowY, -1, 5, 0);
     tContext.nFrame = gnOptionArrowFrame_007BC944;
     sub_004F6480(&tContext, gnGlobal_0071146C / 2 + 0xF9, nArrowY, -1, 5, 0);
-    if (sub_00454850_TickElapsed())
+    if (UI_TickElapsed())
     {
         gnOptionArrowFrame_007BC944 = (gnOptionArrowFrame_007BC944 + 1) % 8;
     }

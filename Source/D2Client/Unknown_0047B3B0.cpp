@@ -84,12 +84,12 @@ int __cdecl sub_004E0140_ToggleSoundMode12(); // 0x004E0140
 void __stdcall D2GFX_SetPerspective(int bPerspective); // 0x004F51E0
 void __stdcall D2GFX_SetBlendShadows(int bBlendedShadows); // 0x004F5200
 void __fastcall sub_0044BA20(int nResolution); // 0x0044BA20
-void __fastcall sub_0045A720_SetAutomapMode(int nMode); // 0x0045A720
-int __fastcall sub_004576F0(int nFade); // 0x004576F0
-int __cdecl sub_00457740(); // 0x00457740
+void __fastcall AUTOMAP_SetAutomapMode(int nMode); // 0x0045A720
+int __fastcall AUTOMAP_SetAutomapFade(int nFade); // 0x004576F0
+int __cdecl UI_GetAutomapCenters(); // 0x00457740
 int __fastcall sub_00457750_SaveAutomapCenters(int nValue); // 0x00457750
-int __cdecl sub_004577B0(); // 0x004577B0
-int __cdecl sub_004577E0(); // 0x004577E0
+int __cdecl UI_GetAutomapParty(); // 0x004577B0
+int __cdecl UI_GetAutomapPartyNames(); // 0x004577E0
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 extern D2ViewStrc* gpView_007A0640; // 0x007A0640
@@ -101,8 +101,8 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void __fastcall sub_0044BE80(int bAlwaysRun); // 0x0044BE80
-int __cdecl sub_004576C0(); // 0x004576C0
-int __cdecl sub_0045A710(); // 0x0045A710
+int __cdecl AUTOMAP_GetAutomapFade(); // 0x004576C0
+int __cdecl UI_GetAutomapMode(); // 0x0045A710
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 extern "C" const char gszDiablo2_006CC8B8[];
 extern "C" const char gszResolution_006CC8AC[];
@@ -124,18 +124,18 @@ void __cdecl sub_K04_EmitUse(int nValue);
 
 int __cdecl sub_0044DB30(); // 0x0044DB30
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
-void __fastcall sub_004A3FE0(int nMode); // 0x004A3FE0
-int __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2); // 0x00456300
-void __cdecl sub_00453AC0(); // 0x00453AC0
+void __fastcall TEXT_ToggleQuestLog(int nMode); // 0x004A3FE0
+int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
+void __cdecl UI_DisableUIVarDelay(); // 0x00453AC0
 void __fastcall sub_0047E090(int bSaveState, int nMenu); // 0x0047E090
-void __cdecl sub_00453AD0(); // 0x00453AD0
-void __cdecl sub_00453AE0(); // 0x00453AE0
+void __cdecl UI_EnableUIVarDelay(); // 0x00453AD0
+void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 int __cdecl sub_00468830(); // 0x00468830
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 int __cdecl sub_004979E0(); // 0x004979E0
-int __cdecl sub_004979F0(); // 0x004979F0
+int __cdecl HIREABLES_GetBeltRowCount(); // 0x004979F0
 int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 void __cdecl sub_0044DA40(); // 0x0044DA40
 void __cdecl sub_0044DA70(); // 0x0044DA70
@@ -604,7 +604,7 @@ void __fastcall sub_0047D370_AutoMapModeChanged(D2OptionEntryStrc* pEntry, SMSGH
     {
         pEntry->nValue = 0;
     }
-    sub_0045A720_SetAutomapMode(pEntry->nValue);
+    AUTOMAP_SetAutomapMode(pEntry->nValue);
     SRegSaveValue("Diablo II", "AutoMapMode", 0, pEntry->nValue);
 }
 
@@ -615,7 +615,7 @@ void __fastcall sub_0047D3F0_AutoMapFadeChanged(D2OptionEntryStrc* pEntry, SMSGH
     {
         pEntry->nValue = 0;
     }
-    sub_004576F0(pEntry->nValue);
+    AUTOMAP_SetAutomapFade(pEntry->nValue);
     SRegSaveValue("Diablo II", "AutoMapFade", 0, pEntry->nValue);
 }
 
@@ -628,7 +628,7 @@ void __fastcall sub_0047D470_AutoMapCentersChanged(D2OptionEntryStrc* pEntry, SM
 // 0x0047D480
 void __fastcall sub_0047D480_AutoMapCentersLoad(D2OptionEntryStrc* pEntry, int nArg)
 {
-    pEntry->nValue = sub_00457740();
+    pEntry->nValue = UI_GetAutomapCenters();
 }
 
 // 0x0047D490
@@ -640,7 +640,7 @@ void __fastcall sub_0047D490_AutoMapPartyChanged(D2OptionEntryStrc* pEntry, SMSG
 // 0x0047D4A0
 void __fastcall sub_0047D4A0_AutoMapPartyLoad(D2OptionEntryStrc* pEntry, int nArg)
 {
-    pEntry->nValue = sub_004577B0();
+    pEntry->nValue = UI_GetAutomapParty();
 }
 
 // 0x0047D4C0
@@ -652,7 +652,7 @@ void __fastcall sub_0047D4C0_AutoMapPartyNamesChanged(D2OptionEntryStrc* pEntry,
 // 0x0047D4D0
 void __fastcall sub_0047D4D0_AutoMapPartyNamesLoad(D2OptionEntryStrc* pEntry, int nArg)
 {
-    pEntry->nValue = sub_004577B0() && sub_004577E0();
+    pEntry->nValue = UI_GetAutomapParty() && UI_GetAutomapPartyNames();
 }
 
 // 0x0047D9A0
@@ -746,7 +746,7 @@ int __cdecl sub_0047D1F0_GammaEnabled()
 // 0x0047D4B0
 int __cdecl sub_0047D4B0_PartyNamesEnabled()
 {
-    return sub_004577B0();
+    return UI_GetAutomapParty();
 }
 
 // 0x0047D3B0
@@ -758,8 +758,8 @@ void __fastcall sub_0047D3B0_LoadAutoMapMode(D2OptionEntryStrc* pEntry, int nArg
     {
         dwValue = 0;
     }
-    sub_0045A720_SetAutomapMode(dwValue);
-    pEntry->nValue = sub_0045A710();
+    AUTOMAP_SetAutomapMode(dwValue);
+    pEntry->nValue = UI_GetAutomapMode();
 }
 
 // 0x0047D430
@@ -770,9 +770,9 @@ void __fastcall sub_0047D430_LoadAutoMapFade(D2OptionEntryStrc* pEntry, int nArg
     if (dwValue > 4)
     {
         dwValue = 0;
-        sub_004576F0(dwValue);
+        AUTOMAP_SetAutomapFade(dwValue);
     }
-    pEntry->nValue = sub_004576C0();
+    pEntry->nValue = AUTOMAP_GetAutomapFade();
 }
 
 // 0x0047DF00
@@ -944,14 +944,14 @@ static void sub_0047EC50_DoSlotAction(int nButton)
         break;
     case 6:
         OutputDebugStringA("Panel quest log toggle\n");
-        sub_004A3FE0(0);
+        TEXT_ToggleQuestLog(0);
         break;
     case 7:
-        sub_00456300_CloseUIVars(0, 0);
-        sub_00453AC0();
+        UI_CloseUIVars(0, 0);
+        UI_DisableUIVarDelay();
         sub_0047E090(1, 0);
-        sub_00453AD0();
-        sub_00453AE0();
+        UI_EnableUIVarDelay();
+        UI_StartUIVarDelay();
         break;
     }
 }
@@ -985,7 +985,7 @@ void __stdcall sub_0047ED90_SlotsClickMsg(SMSGHANDLER_PARAMS* pMsg)
         int nOffset = 0;
         for (int i = 0; i < nCount; ++i)
             gnSlotState_007BC8F8[i] = 0;
-        if (sub_004979E0() && sub_004979F0() > 1)
+        if (sub_004979E0() && HIREABLES_GetBeltRowCount() > 1)
             nOffset = -0x76;
         if (gdwGlobal_007BC968)
             nOffset -= 0x76;

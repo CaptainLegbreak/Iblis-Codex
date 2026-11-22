@@ -48,9 +48,9 @@ extern int gnGlobal_007A285C; // 0x007A285C
 extern int gnGlobal_007C02F4; // 0x007C02F4
 extern D2BeltSlotStrc gtSlots_00724A48[4]; // 0x00724A48
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
-int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
+int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
 int __cdecl sub_00468830(); // 0x00468830
-void __cdecl sub_00453EC0(); // 0x00453EC0
+void __cdecl UI_CancelCursorItemUse(); // 0x00453EC0
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
@@ -138,15 +138,15 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00
 void* __cdecl sub_00454600_GetBuySellButtonCells(); // 0x00454600
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 int __cdecl sub_00466DC0(); // 0x00466DC0
-int __cdecl sub_00466DD0(); // 0x00466DD0
+int __cdecl UI_GetHoverClassId(); // 0x00466DD0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 char* __fastcall sub_0047A210_GetUnitName(D2UnitStrc* pUnit); // 0x0047A210
-void __cdecl sub_00499E30_SetBlackColour(); // 0x00499E30
-int __stdcall sub_004A7340_GetPercentA(int nAttackRating); // 0x004A7340
+void __cdecl PANEL_SetBlackColour(); // 0x00499E30
+int __stdcall TEXT_GetChanceToHit(int nAttackRating); // 0x004A7340
 int __cdecl sub_004A74A0_GetPercentB(); // 0x004A74A0
-void __fastcall sub_004EDA20_RefreshSkills(D2UnitStrc* pUnit); // 0x004EDA20
+void __fastcall SKILLDESC_RefreshSkills(D2UnitStrc* pUnit); // 0x004EDA20
 int __fastcall sub_004EDA80_CallSkillDescFunc(D2UnitStrc* pUnit, int bLeft); // 0x004EDA80
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
@@ -168,7 +168,7 @@ int __stdcall STATES_CheckStateMaskArmRedOnUnit(D2UnitStrc* pUnit); // 0x0063A5F
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 int __stdcall INVENTORY_GetEquippedShield(D2InventoryStrc* pInventory, D2UnitStrc** ppItem); // 0x0063C8F0
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
-static void sub_004A7180_DrawHoverLevelText(int nX, int nY, int nValue); // 0x004A7180
+static void TEXT_DrawBlockChanceHover(int nX, int nY, int nValue); // 0x004A7180
 static void __stdcall sub_004A7AE0_DrawHoverToHit(int nX, int nY, int nLeftChance, int nRightChance); // 0x004A7AE0
 
 
@@ -192,7 +192,7 @@ extern "C" int gnValue_007C0C3C; // 0x007C0C3C
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 void __stdcall sub_004A9D70_ClearSkillHotkeys(D2SkillsTxt* pSkillsTxt, int nQuantity); // 0x004A9D70
-void __fastcall sub_004AA3A0_BuildSkillRows(D2UnitStrc* pUnit, int nX, int nArg3, int nArg4, int nArg5); // 0x004AA3A0
+void __fastcall SPELLSEL_BuildSkillRows(D2UnitStrc* pUnit, int nX, int nArg3, int nArg4, int nArg5); // 0x004AA3A0
 void __stdcall sub_004AAAE0_DrawPagedPanel(void* pCellFile, int nPage); // 0x004AAAE0
 void __cdecl sub_004AACE0_DrawSkillTreeTexts(); // 0x004AACE0
 void __stdcall sub_004AB310_DrawTabHoverText(int nValue); // 0x004AB310
@@ -208,10 +208,10 @@ void __stdcall sub_K05_EmitUse(int nValue);
 // 0x004A76C0
 static int sub_004A76C0_ClaimLeftPanelClick(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (D2GFX_GetResolutionMode() == 2 && !sub_00498DC0_MouseMoveMsg(pMsg) && pMsg->nXpos <= gnGlobal_0071146C / 2 && pMsg->nYpos < gnGlobal_00711470 - 0x2F)
+    if (D2GFX_GetResolutionMode() == 2 && !AUTOMAP_IsCursorOverMiniPanelButton(pMsg) && pMsg->nXpos <= gnGlobal_0071146C / 2 && pMsg->nYpos < gnGlobal_00711470 - 0x2F)
     {
         if (sub_00468830() == 6)
-            sub_00453EC0();
+            UI_CancelCursorItemUse();
         pMsg->bReturn = 1;
         sub_00420290_BreakHandlerChain(pMsg);
         return 1;
@@ -344,7 +344,7 @@ static inline D2CharStatsTxt* sub_CharStatsTxtRecord(int nClass)
 }
 
 // 0x004A7080
-void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor)
+void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor)
 {
     int nSpan = nRight - nLeft + 1;
     int nWidth = sub_00501820(wszText);
@@ -389,7 +389,7 @@ static int sub_004A70C0_GetWieldedTypeStatMax(D2UnitStrc* pUnit)
     return nBest;
 }
 
-static void sub_004A7180_DrawHoverLevelText(int nX, int nY, int nValue)
+static void TEXT_DrawBlockChanceHover(int nX, int nY, int nValue)
 {
     if (nValue < 5)
     {
@@ -428,7 +428,7 @@ static void sub_004A7180_DrawHoverLevelText(int nX, int nY, int nValue)
         }
     }
 
-    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(sub_00466DD0());
+    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(UI_GetHoverClassId());
     D2_ASSERT(pMonStatsTxtRecord, 0x15C);
 
     Unicode* wszText = (Unicode*)anText;
@@ -452,7 +452,7 @@ static void __stdcall sub_004A7AE0_DrawHoverToHit(int nX, int nY, int nLeftChanc
         anText[k] = 0;
     }
 
-    sub_00499E30_SetBlackColour();
+    PANEL_SetBlackColour();
 
     int bLeft = 0;
     int bRight = 0;
@@ -550,14 +550,14 @@ void __cdecl sub_004A7D00_DrawCharStats()
 
         D2PointsTextStrc wszPoints;
         sub_00502EF0(6);
-        sub_004A7080(gnGlobal_007A2858 + 0xB, gnGlobal_00711470 + gnGlobal_007A285C - 0x7D, gnGlobal_007A2858 + 0x58, D2LANG_GetStringFromTblIndex(0xFEB), 1);
-        sub_004A7080(gnGlobal_007A2858 + 0xB, gnGlobal_007A285C + gnGlobal_00711470 - 0x75, gnGlobal_007A2858 + 0x58, D2LANG_GetStringFromTblIndex(0xFEC), 1);
+        TEXT_DrawCenteredText(gnGlobal_007A2858 + 0xB, gnGlobal_00711470 + gnGlobal_007A285C - 0x7D, gnGlobal_007A2858 + 0x58, D2LANG_GetStringFromTblIndex(0xFEB), 1);
+        TEXT_DrawCenteredText(gnGlobal_007A2858 + 0xB, gnGlobal_007A285C + gnGlobal_00711470 - 0x75, gnGlobal_007A2858 + 0x58, D2LANG_GetStringFromTblIndex(0xFEC), 1);
 
         int anPoints[3];
         wsprintfA((char*)anPoints, "%i", STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0));
         sub_00502EF0(1);
         win2Unicode(&wszPoints.w0, (const char*)anPoints, 9);
-        sub_004A7080(gnGlobal_007A2858 + 0x5C, gnGlobal_00711470 + gnGlobal_007A285C - 0x78, gnGlobal_007A2858 + 0x7F, &wszPoints.w0, 0);
+        TEXT_DrawCenteredText(gnGlobal_007A2858 + 0x5C, gnGlobal_00711470 + gnGlobal_007A285C - 0x78, gnGlobal_007A2858 + 0x7F, &wszPoints.w0, 0);
     }
 
     if (STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0))
@@ -596,8 +596,8 @@ void __cdecl sub_004A7D00_DrawCharStats()
                 if (nPos < nLength)
                 {
                     Unicode* pSecond = pChar + 1;
-                    sub_004A7080(nLeft, nY - 4, nRight, wszLine, 0);
-                    sub_004A7080(nLeft, nY + 4, nRight, pSecond, 0);
+                    TEXT_DrawCenteredText(nLeft, nY - 4, nRight, wszLine, 0);
+                    TEXT_DrawCenteredText(nLeft, nY + 4, nRight, pSecond, 0);
                     goto NEXT_TEXT;
                 }
 
@@ -608,17 +608,17 @@ void __cdecl sub_004A7D00_DrawCharStats()
             ++nPos;
         }
 
-        sub_004A7080(nLeft, nY, nRight, wszLine, 0);
+        TEXT_DrawCenteredText(nLeft, nY, nRight, wszLine, 0);
 NEXT_TEXT:;
     }
 
-    sub_004EDA20_RefreshSkills(pPlayer);
+    SKILLDESC_RefreshSkills(pPlayer);
     sub_00502EF0(0);
-    const int nLeftChance = sub_004A7340_GetPercentA(sub_004EDA80_CallSkillDescFunc(pPlayer, 1));
-    const int nRightChance = sub_004A7340_GetPercentA(sub_004EDA80_CallSkillDescFunc(pPlayer, 0));
+    const int nLeftChance = TEXT_GetChanceToHit(sub_004EDA80_CallSkillDescFunc(pPlayer, 1));
+    const int nRightChance = TEXT_GetChanceToHit(sub_004EDA80_CallSkillDescFunc(pPlayer, 0));
     const int nPercent = sub_004A74A0_GetPercentB();
     sub_004A7AE0_DrawHoverToHit(nMouseX, nMouseY, nLeftChance, nRightChance);
-    sub_004A7180_DrawHoverLevelText(nMouseX, nMouseY, nPercent);
+    TEXT_DrawBlockChanceHover(nMouseX, nMouseY, nPercent);
     sub_00502EF0(1);
 
     tCel.pCellFile = sub_00454600_GetBuySellButtonCells();
@@ -631,7 +631,7 @@ NEXT_TEXT:;
     if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
     {
         D2CharStatsTxt* pCharStatsTxtRecord = sub_CharStatsTxtRecord(pPlayer->dwClassId);
-        sub_004A7080(gnGlobal_007A2858 + 0xC1, gnGlobal_007A285C + gnGlobal_00711470 - 0x1C7, gnGlobal_007A2858 + 0x136, (const Unicode*)pCharStatsTxtRecord->wszClassName, 0);
+        TEXT_DrawCenteredText(gnGlobal_007A2858 + 0xC1, gnGlobal_007A285C + gnGlobal_00711470 - 0x1C7, gnGlobal_007A2858 + 0x136, (const Unicode*)pCharStatsTxtRecord->wszClassName, 0);
 
         const char* szName = sub_0047A210_GetUnitName(pPlayer);
         const unsigned int nChars = sub_005262A0_Utf8CountChars(szName, strlen(szName)) + 1;
@@ -648,7 +648,7 @@ NEXT_TEXT:;
         }
 
         win2Unicode(wszText, szName, 0x80);
-        sub_004A7080(gnGlobal_007A2858 + 0xD, gnGlobal_00711470 + gnGlobal_007A285C - 0x1C7, gnGlobal_007A2858 + 0xA0, wszText, 0);
+        TEXT_DrawCenteredText(gnGlobal_007A2858 + 0xD, gnGlobal_00711470 + gnGlobal_007A285C - 0x1C7, gnGlobal_007A2858 + 0xA0, wszText, 0);
         sub_00502EF0(1);
     }
 
@@ -868,13 +868,13 @@ NEXT_TEXT:;
             }
 
             sub_00525350_FormatUInt(wszText, nValue, 0x80);
-            sub_004A7080(gaCharFields_00724928[i].nX + gnGlobal_007A2858, gaCharFields_00724928[i].nY + gnGlobal_007A285C + gnGlobal_00711470 - 0x1E0, gaCharFields_00724928[i].nX2 + gnGlobal_007A2858, wszText, 0);
+            TEXT_DrawCenteredText(gaCharFields_00724928[i].nX + gnGlobal_007A2858, gaCharFields_00724928[i].nY + gnGlobal_007A285C + gnGlobal_00711470 - 0x1E0, gaCharFields_00724928[i].nX2 + gnGlobal_007A2858, wszText, 0);
             nColor = 0;
             continue;
         }
         case STAT_EXPERIENCE:
             sub_00525350_FormatUInt(wszText, nValue, 0x80);
-            sub_004A7080(gaCharFields_00724928[i].nX + gnGlobal_007A2858, gaCharFields_00724928[i].nY + gnGlobal_007A285C + gnGlobal_00711470 - 0x1E0, gaCharFields_00724928[i].nX2 + gnGlobal_007A2858, wszText, 0);
+            TEXT_DrawCenteredText(gaCharFields_00724928[i].nX + gnGlobal_007A2858, gaCharFields_00724928[i].nY + gnGlobal_007A285C + gnGlobal_00711470 - 0x1E0, gaCharFields_00724928[i].nX2 + gnGlobal_007A2858, wszText, 0);
             nColor = 0;
             continue;
 
@@ -921,7 +921,7 @@ NEXT_TEXT:;
         }
 
 DRAW_FIELD:
-        sub_004A7080(gaCharFields_00724928[i].nX + gnGlobal_007A2858, gaCharFields_00724928[i].nY + gnGlobal_007A285C + gnGlobal_00711470 - 0x1E0, gaCharFields_00724928[i].nX2 + gnGlobal_007A2858, wszText, nColor);
+        TEXT_DrawCenteredText(gaCharFields_00724928[i].nX + gnGlobal_007A2858, gaCharFields_00724928[i].nY + gnGlobal_007A285C + gnGlobal_00711470 - 0x1E0, gaCharFields_00724928[i].nX2 + gnGlobal_007A2858, wszText, nColor);
         nColor = 0;
         if (nFont != 0xE)
         {
@@ -1175,20 +1175,20 @@ void __cdecl sub_004AA7E0_ResetSkillIcons()
     if (gbGlobal_007C07FC)
     {
         gtSkillIconState_007C0300.bFlag = 0;
-        sub_004AA3A0_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), 0x50, 1, 0, 0);
+        SPELLSEL_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), 0x50, 1, 0, 0);
     }
     if (!gbGlobal_007C07FC)
     {
         gtSkillIconState_007C0300.bFlag = 0;
-        sub_004AA3A0_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), gnGlobal_0071146C - 0x80, 0, 0, 0);
+        SPELLSEL_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), gnGlobal_0071146C - 0x80, 0, 0, 0);
     }
     if (gbGlobal_007C07FC)
     {
-        sub_004AA3A0_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), 0x50, 1, 1, 0);
+        SPELLSEL_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), 0x50, 1, 1, 0);
     }
     if (!gbGlobal_007C07FC)
     {
-        sub_004AA3A0_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), gnGlobal_0071146C - 0x80, 0, 1, 0);
+        SPELLSEL_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), gnGlobal_0071146C - 0x80, 0, 1, 0);
     }
 }
 

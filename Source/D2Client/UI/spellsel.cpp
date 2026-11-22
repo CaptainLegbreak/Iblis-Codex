@@ -40,7 +40,7 @@ int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill);                             
 extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit,D2SkillStrc* skill); // 0x004D9FC0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus);                     // 0x006442A0
 void __fastcall sub_004A9870_DrawSkillSlot(D2SkillsTxt* pSkillsTxt, int nOwner, int nCharges, int nState, int nX, int nY, int bLeft); // 0x004A9870
-void __fastcall sub_004A8D50_UpdateButton(D2SkillsTxt* pSkillsTxt, int nState, int nLevel, int nCharges, int nX, int nY); // 0x004A8D50
+void __fastcall TEXT_UpdateSkillButtonHover(D2SkillsTxt* pSkillsTxt, int nState, int nLevel, int nCharges, int nX, int nY); // 0x004A8D50
 void __fastcall sub_004AA1F0_DrawSkillQuantity(D2SkillsTxt* pSkillsTxt, int nState, int nQuantity, int nX, int nY); // 0x004AA1F0
 
 static inline D2SkillsTxt* CLIENT_GetSkillsTxtRecord(int nSkillId)
@@ -67,7 +67,7 @@ static inline D2SkillDescTxt* CLIENT_GetSkillDescTxtRecord(int nSkillId)
 }
 
 // 0x004A9A00
-static int __stdcall sub_004A9A00(int nX, int bLeft, int nY, D2SkillStrc* pSkill, int nState)
+static int __stdcall SPELLSEL_AddSkillSlot(int nX, int bLeft, int nY, D2SkillStrc* pSkill, int nState)
 {
     gtHotkeySlots_007C0300.nX[gtHotkeySlots_007C0300.nCount] = nX;
     gtHotkeySlots_007C0300.nY[gtHotkeySlots_007C0300.nCount] = nY;
@@ -83,7 +83,7 @@ static int __stdcall sub_004A9A00(int nX, int bLeft, int nY, D2SkillStrc* pSkill
 }
 
 // 0x004AA3A0
-void __fastcall sub_004AA3A0_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int bLeft, int bNoSlots, int bNoDraw)
+void __fastcall SPELLSEL_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int bLeft, int bNoSlots, int bNoDraw)
 {
     int nY = gnGlobal_00711470 - 0x56;
     int nMaxRow = 0;
@@ -149,12 +149,12 @@ void __fastcall sub_004AA3A0_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int 
             {
                 if (!bNoDraw)
                     sub_004A9870_DrawSkillSlot(pSkillsTxt, nOwner, nCharges, nState, nX, nY, bLeft);
-                nX = sub_004A9A00(nX, bLeft, nY, pSkill, nState);
+                nX = SPELLSEL_AddSkillSlot(nX, bLeft, nY, pSkill, nState);
             }
             else
             {
                 if (!nQuantity)
-                    sub_004A8D50_UpdateButton(pSkillsTxt, nState, SKILLS_GetSkillLevel(pUnit, pSkill, 1), nCharges, nX, nY);
+                    TEXT_UpdateSkillButtonHover(pSkillsTxt, nState, SKILLS_GetSkillLevel(pUnit, pSkill, 1), nCharges, nX, nY);
                 else
                     sub_004AA1F0_DrawSkillQuantity(pSkillsTxt, nState, nQuantity, nX, nY);
                 nX += nStepX;

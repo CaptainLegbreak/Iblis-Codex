@@ -70,7 +70,7 @@ public:
     virtual int Slot11();
     virtual void sub_004BAC60_SetUnk24(int nValue);
 
-    int sub_004BAC00_HitTest(SMSGHANDLER_PARAMS* pMsg);
+    int HitTestButton(SMSGHANDLER_PARAMS* pMsg);
 
     int nX;
     int nY;
@@ -122,8 +122,8 @@ public:
 class SpinnerImplementation : public UIWidget
 {
 public:
-    int sub_004BBEF0_HitTestUp(SMSGHANDLER_PARAMS* pMsg);
-    int sub_004BBF40_HitTestDown(SMSGHANDLER_PARAMS* pMsg);
+    int HitTestUpArrow(SMSGHANDLER_PARAMS* pMsg);
+    int HitTestDownArrow(SMSGHANDLER_PARAMS* pMsg);
 
     char unk0x08[8];
     int nUpX;
@@ -194,7 +194,7 @@ public:
 };
 
 // 0x004BAC00
-int ButtonImplementation::sub_004BAC00_HitTest(SMSGHANDLER_PARAMS* pMsg)
+int ButtonImplementation::HitTestButton(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nMouseX = pMsg->nXpos;
     const int nMouseY = pMsg->nYpos;
@@ -208,7 +208,7 @@ int ButtonImplementation::sub_004BAC00_HitTest(SMSGHANDLER_PARAMS* pMsg)
 // 0x004BAC70
 int ButtonImplementation::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (sub_004BAC00_HitTest(pMsg))
+    if (HitTestButton(pMsg))
     {
         f_20 = 1;
         sub_004B9A00(4, 0, 0, 0, 0);
@@ -224,7 +224,7 @@ int ButtonImplementation::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
     {
         return 0;
     }
-    if (sub_004BAC00_HitTest(pMsg))
+    if (HitTestButton(pMsg))
     {
         f_20 = 0;
         return pfnCallback();
@@ -269,7 +269,7 @@ void EditBoxImplementation::sub_004BB5B0_Slot12(char* szBuffer)
 }
 
 // 0x004BBEF0
-int SpinnerImplementation::sub_004BBEF0_HitTestUp(SMSGHANDLER_PARAMS* pMsg)
+int SpinnerImplementation::HitTestUpArrow(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nMouseX = pMsg->nXpos;
     const int nMouseY = pMsg->nYpos;
@@ -281,7 +281,7 @@ int SpinnerImplementation::sub_004BBEF0_HitTestUp(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004BBF40
-int SpinnerImplementation::sub_004BBF40_HitTestDown(SMSGHANDLER_PARAMS* pMsg)
+int SpinnerImplementation::HitTestDownArrow(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nMouseX = pMsg->nXpos;
     const int nMouseY = pMsg->nYpos;

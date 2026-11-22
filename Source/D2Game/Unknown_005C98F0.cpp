@@ -32,7 +32,7 @@ int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Uni
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
-int __fastcall sub_004EFC20_GetSkillParam2(int nSkillId); // 0x004EFC20
+int __fastcall SKILLDESC_GetSkillParamTwo(int nSkillId); // 0x004EFC20
 void __fastcall D2GAME_RollPhysicalDamage_6FD14EC0(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel); // 0x0056E170
 int __fastcall D2GAME_RollElementalDamage_6FD14DD0(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel); // 0x0056E0C0
 void __fastcall SUNITDMG_ExecuteEvents(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int bMissile, D2DamageStrc* pDamage); // 0x0057C6C0
@@ -59,7 +59,7 @@ extern const int gnHydraOffsetX_006E312C[]; // 0x006E312C
 extern const int gnHydraOffsetY_006E3120[]; // 0x006E3120
 int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
-int __fastcall sub_004E6CA0_GetSkillParamByLevel(int nSkillId, int nSkillLevel); // 0x004E6CA0
+int __fastcall SKILLDESC_GetSkillParamByLevel(int nSkillId, int nSkillLevel); // 0x004E6CA0
 D2AiControlStrc* __fastcall AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit); // 0x00541860
 void __fastcall SUNIT_SetAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
 int __fastcall D2GAME_GetXAndYFromTargetUnit_6FD14020(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pX, int* pY); // 0x0056D2C0
@@ -129,7 +129,7 @@ int __fastcall SKILLS_SrvDo021_Telekinesis(D2GameStrc* pGame, D2UnitStrc* pUnit,
             if (DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
                 return 0;
             int bKnockback = 0;
-            if (SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < sub_004EFC20_GetSkillParam2(nSkillId))
+            if (SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < SKILLDESC_GetSkillParamTwo(nSkillId))
                 bKnockback = 1;
             D2DamageStrc damage;
             memset(&damage, 0, sizeof(damage));
@@ -196,7 +196,7 @@ int __fastcall SKILLS_SrvDo144_Hydra(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
         if (pOwner)
             pUnit = pOwner;
     }
-    const int nExpireFrame = pGame->dwGameFrame + sub_004E6CA0_GetSkillParamByLevel(nSkillId, nSkillLevel);
+    const int nExpireFrame = pGame->dwGameFrame + SKILLDESC_GetSkillParamByLevel(nSkillId, nSkillLevel);
     D2SummonArgStrc summonArg;
     memset(&summonArg, 0, sizeof(summonArg));
     summonArg.dwFlags |= 1;

@@ -6,7 +6,7 @@ struct D2WaypointLayoutStrc { int nCellX,nCellY,nTextX,nTextY,unknown10,unknown1
 struct D2WaypointEntryStrc { int nLevelId; unsigned char bEnabled; };
 #pragma pack(pop)
 extern "C" void* __cdecl memset(void*,int,unsigned int);
-void __cdecl sub_0049C580_LoadPanelCels(); // 0x0049C580
+void __cdecl TEXT_LoadWaypointPanelCels(); // 0x0049C580
 int __cdecl sub_00463DF0(); // 0x00463DF0
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
@@ -21,7 +21,7 @@ D2BitBufferStrc* __cdecl sub_004B32D0_GetQuestFlags(); // 0x004B32D0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc*,int,int); // 0x0065C310
 void* __cdecl sub_00454600_GetCloseButtonCell(); // 0x00454600
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc*); // 0x0061A1B0
-const Unicode* __fastcall sub_00453E70_GetLevelName(int nLevelId); // 0x00453E70
+const Unicode* __fastcall UI_GetLevelName(int nLevelId); // 0x00453E70
 void __fastcall sub_00502320(const Unicode*,int,int,int,int); // 0x00502320
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short); // 0x00524A30
 int __fastcall sub_00501820(const Unicode*); // 0x00501820
@@ -48,7 +48,7 @@ static inline int GetWaypointPanelBottom() { return gnScreenHeight_00711470+gnOf
 // 0x0049C9C0
 void __cdecl sub_0049C9C0_DrawWaypointPanel()
 {
-    sub_0049C580_LoadPanelCels();
+    TEXT_LoadWaypointPanelCels();
     if(sub_00463DF0())
     {
         sub_00455F20(20,1,0);
@@ -149,7 +149,7 @@ void __cdecl sub_0049C9C0_DrawWaypointPanel()
             tGfx.nFrame=0;
             TEXTURE_CelDraw(&tGfx,gaLayouts_007224E8[nRow].nCellX+gnOffsetX_007A2858,gaLayouts_007224E8[nRow].nCellY-gnOffsetY_007A285C,-1,5,0);
         }
-        sub_00502320(sub_00453E70_GetLevelName(gaWaypoints_007BF03C[nRow].nLevelId),gaLayouts_007224E8[nRow].nTextX+gnOffsetX_007A2858,gaLayouts_007224E8[nRow].nTextY-gnOffsetY_007A285C,nColor,0);
+        sub_00502320(UI_GetLevelName(gaWaypoints_007BF03C[nRow].nLevelId),gaLayouts_007224E8[nRow].nTextX+gnOffsetX_007A2858,gaLayouts_007224E8[nRow].nTextY-gnOffsetY_007A285C,nColor,0);
     }
     if((unsigned int)(nMouseX-273)<=35 && (unsigned int)(nMouseY-387)<=33)
     {

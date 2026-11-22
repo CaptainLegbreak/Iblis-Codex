@@ -89,7 +89,7 @@ Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource);       
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 void __fastcall sub_0042F530_ClearUnicode(Unicode* pChar);                                                  // 0x0042F530
 void __stdcall sub_00403040_VectorConstructor(void* pArray, unsigned int nSize, int nCount, void (__fastcall* pfnConstructor)(Unicode*)); // 0x00403040
-void __fastcall sub_004521C0_PrefixLevelText(Unicode* wszText, int nLevel);                                // 0x004521C0
+void __fastcall INV_PrefixColorCode(Unicode* wszText, int nLevel);                                // 0x004521C0
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);                              // 0x00483360
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __cdecl sub_0044DCA0_GetGameType();                                                                     // 0x0044DCA0
@@ -101,8 +101,8 @@ int __fastcall sub_004A9A90_FindSkill(D2UnitStrc* pUnit, int nSkillId);         
 int __fastcall sub_004A9AE0_FindSkill(D2UnitStrc* pUnit, int nSkillId);                                     // 0x004A9AE0
 int __fastcall sub_004A9B30_FindSkill(D2UnitStrc* pUnit, int nSkillId);                                     // 0x004A9B30
 int __fastcall sub_004A9B80_FindSkill(D2UnitStrc* pUnit, int nSkillId);                                     // 0x004A9B80
-void __stdcall sub_004ED3F0_DrawHintText(int nArg1, int nStringIndex); // 0x004ED3F0
-int __stdcall sub_004ECF50_AddMonsterDamage(Unicode* wszText, D2SkillsTxt_H* pSkillsTxt, int nBonusMin, int nBonusMax); // 0x004ECF50
+void __stdcall TEXT_DrawHintText(int nArg1, int nStringIndex); // 0x004ED3F0
+int __stdcall SKILLDESC_AddMonsterDamage(Unicode* wszText, D2SkillsTxt_H* pSkillsTxt, int nBonusMin, int nBonusMax); // 0x004ECF50
 int __stdcall sub_004ED150_AddSummonDamageBonus(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, D2SkillsTxt_H* pSkillsTxt, int nSkillLevel); // 0x004ED150
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty);                   // 0x00611D30
 int __stdcall DATATBLS_CalculateMonsterStatsByLevel(int nMonsterId, int nGameType, int nDifficulty, int nLevel, short nFlags, D2MonStatsInitStrc* pMonStatsInit); // 0x006538A0
@@ -175,9 +175,9 @@ static inline int SkillParam_0D0(int nSkillId, int nLevel)
     return pSkillsTxt->dwParam[0] + (nLevel - 1) * pSkillsTxt->dwParam[1];
 }
 
-static unsigned short sub_004E6F60_GetETypeDamageStr(int nEType);
+static unsigned short SKILLDESC_GetETypeDamageStr(int nEType);
 // 0x004E6F60
-static unsigned short sub_004E6F60_GetETypeDamageStr(int nEType)
+static unsigned short SKILLDESC_GetETypeDamageStr(int nEType)
 {
     switch (nEType)
     {
@@ -246,7 +246,7 @@ static int __stdcall sub_004E73E0_FormatSignedInt(Unicode* wszText, int bPrefixS
 }
 
 // 0x004E7430
-static int __stdcall sub_004E7430_FormatSignedDecimal(Unicode* wszText, int bPrefixSign, int nValue, int nFraction)
+static int __stdcall SKILLDESC_FormatSignedDecimal(Unicode* wszText, int bPrefixSign, int nValue, int nFraction)
 {
     int szText_[8]; char* const szText = (char*)szText_;
     if (bPrefixSign && nValue >= 0)
@@ -258,12 +258,12 @@ static int __stdcall sub_004E7430_FormatSignedDecimal(Unicode* wszText, int bPre
 }
 
 // 0x004E7480
-static int sub_004E7480_FormatIntOrDecimal(Unicode* wszText, int bPrefixSign, int nValue, int nFraction)
+static int SKILLDESC_FormatIntOrDecimal(Unicode* wszText, int bPrefixSign, int nValue, int nFraction)
 {
     if (!nValue && !nFraction)
         return 0;
     if (nFraction)
-        return sub_004E7430_FormatSignedDecimal(wszText, bPrefixSign, nValue, nFraction);
+        return SKILLDESC_FormatSignedDecimal(wszText, bPrefixSign, nValue, nFraction);
     return sub_004E73E0_FormatSignedInt(wszText, bPrefixSign, nValue);
 }
 
@@ -375,7 +375,7 @@ static int __stdcall sub_004E7A90_AppendScaledValue(Unicode* wszOut, int bPrefix
     if (!nValue)
         return 0;
 
-    sub_004E7480_FormatIntOrDecimal(wszText, bPrefixSign, nValue / 256, nValue % 256 * nMultiplier / 256);
+    SKILLDESC_FormatIntOrDecimal(wszText, bPrefixSign, nValue / 256, nValue % 256 * nMultiplier / 256);
     if (wStr1 != 0x1506)
         sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr1));
     sub_00526700(wszOut, wszText);
@@ -386,7 +386,7 @@ static int __stdcall sub_004E7A90_AppendScaledValue(Unicode* wszOut, int bPrefix
 }
 
 // 0x004E7B90
-static int __stdcall sub_004E7B90_AppendLabelDecimal(unsigned short wStr, Unicode* wszOut, int bPrefixSign, int nValue, int nFraction)
+static int __stdcall SKILLDESC_AppendLabelDecimal(unsigned short wStr, Unicode* wszOut, int bPrefixSign, int nValue, int nFraction)
 {
     int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
     for (int i = 0; i < 32; ++i)
@@ -395,7 +395,7 @@ static int __stdcall sub_004E7B90_AppendLabelDecimal(unsigned short wStr, Unicod
     if (!nValue && nFraction <= 0)
         return 0;
 
-    sub_004E7480_FormatIntOrDecimal(wszText, bPrefixSign, nValue, nFraction);
+    SKILLDESC_FormatIntOrDecimal(wszText, bPrefixSign, nValue, nFraction);
     sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr));
     sub_00526700(wszOut, wszText);
     sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
@@ -593,7 +593,7 @@ int __stdcall sub_004E82A0_AppendSecondsTwentieths(Unicode* wszOut, unsigned sho
 int __stdcall sub_004E83E0_AppendSecondsThirds(Unicode* wszOut, unsigned short wStr, int nValue); // 0x004E83E0
 
 // 0x004E84F0
-static int __stdcall sub_004E84F0_AppendManaValue(int nValue, Unicode* wszOut)
+static int __stdcall SKILLDESC_AppendManaValue(int nValue, Unicode* wszOut)
 {
     const Unicode* wszStr1 = D2LANG_GetStringFromTblIndex(0x5300);
     const Unicode* wszStr2 = D2LANG_GetStringFromTblIndex(0x5304);
@@ -623,7 +623,7 @@ static int __stdcall sub_004E85C0_AppendManaCost(Unicode* wszOut, int nSkillId, 
         return 0;
 
     if (nValue)
-        return sub_004E84F0_AppendManaValue(nValue, wszOut);
+        return SKILLDESC_AppendManaValue(nValue, wszOut);
 
     D2SkillDescTxt* pSkillDescTxt = sub_004A89D0_SkillDescRec(nSkillId);
     if (!pSkillDescTxt)
@@ -643,7 +643,7 @@ static int __stdcall sub_004E85C0_AppendManaCost(Unicode* wszOut, int nSkillId, 
         return sub_004E79E0_AppendLabelValue(wszOut, (unsigned short)nSkillId, nCost >> 8, 0);
 
     if (nMultiplier <= 10)
-        return sub_004E7B90_AppendLabelDecimal((unsigned short)nSkillId, wszOut, 0, nCost / 256, nCost % 256 * 10 / 256);
+        return SKILLDESC_AppendLabelDecimal((unsigned short)nSkillId, wszOut, 0, nCost / 256, nCost % 256 * 10 / 256);
 
     return sub_004E7A90_AppendScaledValue(wszOut, 0, nCost, (unsigned short)nSkillId, 0x1506, nMultiplier);
 }
@@ -688,7 +688,7 @@ static int __stdcall sub_004EC140_AddElemRange(Unicode* wszText, int nMin, unsig
     int szNumber_[8]; char* const szNumber = (char*)szNumber_;
     if (!nString)
     {
-        nString = sub_004E6F60_GetETypeDamageStr(nElemType);
+        nString = SKILLDESC_GetETypeDamageStr(nElemType);
         if (!nString)
         {
             return 0;
@@ -950,7 +950,7 @@ static int __stdcall sub_004EC900_AddDecimalLine(Unicode* wszText, unsigned shor
     int wszNumber_[16]; Unicode* const wszNumber = (Unicode*)wszNumber_;
     for (int i = 0; i < 16; ++i)
         wszNumber_[i] = 0;
-    sub_004E7430_FormatSignedDecimal(wszNumber, bPlus, nWhole, nFraction);
+    SKILLDESC_FormatSignedDecimal(wszNumber, bPlus, nWhole, nFraction);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringBefore));
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9D));
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
@@ -1127,7 +1127,7 @@ static int __stdcall sub_004EDB30_AddSeconds(int nFrames, unsigned short nString
 
     if (nTenths)
     {
-        sub_004E7430_FormatSignedDecimal(wszNumber, bPlus, nSeconds, nTenths);
+        SKILLDESC_FormatSignedDecimal(wszNumber, bPlus, nSeconds, nTenths);
     }
     else
     {
@@ -1178,7 +1178,7 @@ static inline void AppendString(Unicode* wszText, unsigned short nString)
 }
 
 // 0x004EDEA0
-int __fastcall sub_004EDEA0_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt_H* pSkillsTxt, int nSkillId, int nSkillLevel, int nManaValue, int nLine, int nLevelBonus)
+int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt_H* pSkillsTxt, int nSkillId, int nSkillLevel, int nManaValue, int nLine, int nLevelBonus)
 {
     int nCalcA;
     int nCalcB;
@@ -1300,12 +1300,12 @@ int __fastcall sub_004EDEA0_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2
             const int nLevel = nCalcA;
             if (nLevel > 0)
             {
-                sub_004521C0_PrefixLevelText(wszLine, nLevel);
+                INV_PrefixColorCode(wszLine, nLevel);
             }
         }
         sub_00526700(wszText, wszLine);
         sub_005267E0(wszLine, D2LANG_GetStringFromTblIndex(0xF9E));
-        sub_004521C0_PrefixLevelText(wszLine, nLevelBonus);
+        INV_PrefixColorCode(wszLine, nLevelBonus);
         sub_00526700(wszText, wszLine);
         break;
 
@@ -1353,12 +1353,12 @@ int __fastcall sub_004EDEA0_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2
             const int nLevel = nCalcA;
             if (nLevel > 0)
             {
-                sub_004521C0_PrefixLevelText(wszLine, nLevel);
+                INV_PrefixColorCode(wszLine, nLevel);
             }
         }
         sub_00526700(wszText, wszLine);
         sub_005267E0(wszLine, D2LANG_GetStringFromTblIndex(0xF9E));
-        sub_004521C0_PrefixLevelText(wszLine, nLevelBonus);
+        INV_PrefixColorCode(wszLine, nLevelBonus);
         sub_00526700(wszText, wszLine);
         break;
 
@@ -1474,16 +1474,16 @@ int __fastcall sub_004EDEA0_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2
         sub_005269D0(0x100, wszLine, D2LANG_GetStringFromTblIndex(nStringA), D2LANG_GetStringFromTblIndex(nStringB));
         if (nCalcA > 0)
         {
-            sub_004521C0_PrefixLevelText(wszLine, nCalcA);
+            INV_PrefixColorCode(wszLine, nCalcA);
         }
         sub_00526700(wszText, wszLine);
         sub_005267E0(wszLine, D2LANG_GetStringFromTblIndex(0xF9E));
-        sub_004521C0_PrefixLevelText(wszLine, nLevelBonus);
+        INV_PrefixColorCode(wszLine, nLevelBonus);
         sub_00526700(wszText, wszLine);
         break;
 
     case 41:
-        sub_004ECF50_AddMonsterDamage(wszText, pSkillsTxt, nCalcA, nCalcB);
+        SKILLDESC_AddMonsterDamage(wszText, pSkillsTxt, nCalcA, nCalcB);
         break;
 
     case 42:
@@ -1515,11 +1515,11 @@ int __fastcall sub_004EDEA0_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2
         sub_005269D0(0x100, wszLine, D2LANG_GetStringFromTblIndex(nStringA), D2LANG_GetStringFromTblIndex(nStringB));
         if (nCalcA > 0)
         {
-            sub_004521C0_PrefixLevelText(wszLine, nCalcA);
+            INV_PrefixColorCode(wszLine, nCalcA);
         }
         sub_00526700(wszText, wszLine);
         sub_005267E0(wszLine, D2LANG_GetStringFromTblIndex(0xF9E));
-        sub_004521C0_PrefixLevelText(wszLine, nLevelBonus);
+        INV_PrefixColorCode(wszLine, nLevelBonus);
         sub_00526700(wszText, wszLine);
         break;
 
@@ -1552,19 +1552,19 @@ int __fastcall sub_004EDEA0_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2
         break;
 
     case 53:
-        sub_004ED3F0_DrawHintText(sub_004A9A90_FindSkill(pUnit, nSkillId), nStringA);
+        TEXT_DrawHintText(sub_004A9A90_FindSkill(pUnit, nSkillId), nStringA);
         break;
 
     case 54:
-        sub_004ED3F0_DrawHintText(sub_004A9AE0_FindSkill(pUnit, nSkillId), nStringA);
+        TEXT_DrawHintText(sub_004A9AE0_FindSkill(pUnit, nSkillId), nStringA);
         break;
 
     case 55:
-        sub_004ED3F0_DrawHintText(sub_004A9B30_FindSkill(pUnit, nSkillId), nStringA);
+        TEXT_DrawHintText(sub_004A9B30_FindSkill(pUnit, nSkillId), nStringA);
         break;
 
     case 56:
-        sub_004ED3F0_DrawHintText(sub_004A9B80_FindSkill(pUnit, nSkillId), nStringA);
+        TEXT_DrawHintText(sub_004A9B80_FindSkill(pUnit, nSkillId), nStringA);
         break;
 
     case 57:
@@ -1741,7 +1741,7 @@ extern const unsigned int gdwBitMasks_006CE268[];                               
 
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill);                            // 0x00644140
 
-int __stdcall sub_004E7120_AddProgressiveDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor); // 0x004E7120
+int __stdcall SKILLDESC_AddProgressiveDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor); // 0x004E7120
 
 int __stdcall STATES_CheckStateMaskDamBlueOnUnit(D2UnitStrc* pUnit);                                        // 0x0063A380
 
@@ -1860,7 +1860,7 @@ int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage
         D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
         if (pSkillsTxt && (pSkillsTxt->nFlags[3 >> 3] & gdwBitMasks_006CE268[3 & 7]))
         {
-            sub_004E7120_AddProgressiveDamage(pUnit, pMinDamage, pMaxDamage, pColor);
+            SKILLDESC_AddProgressiveDamage(pUnit, pMinDamage, pMaxDamage, pColor);
         }
     }
 

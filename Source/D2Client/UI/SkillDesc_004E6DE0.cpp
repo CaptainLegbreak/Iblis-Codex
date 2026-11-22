@@ -95,7 +95,7 @@ int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage
 
 typedef int (__fastcall* SKILLWEAPONFN)(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int nArg3, int nArg4, int nLevel, D2SkillStrc* pSkill, int nArg7, D2UnitStrc* pItem);
 
-static int sub_004E83B0_AppendSkillDescStrLong(wchar_t* wszOut, int nSkillId);
+static int SKILLDESC_AppendSkillDescStrLong(wchar_t* wszOut, int nSkillId);
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
@@ -107,23 +107,23 @@ extern "C" const char szFmtDec_006DBE94[]; // 0x006DBE94
 
 __declspec(noinline) static int __stdcall sub_004E73E0_FormatSignedInt(wchar_t* wszText, int bPrefixSign, int nValue);
 
-__declspec(noinline) static int __stdcall sub_004E7430_FormatSignedDecimal(wchar_t* wszText, int bPrefixSign, int nValue, int nFraction);
+__declspec(noinline) static int __stdcall SKILLDESC_FormatSignedDecimal(wchar_t* wszText, int bPrefixSign, int nValue, int nFraction);
 
-static int sub_004E7480_FormatIntOrDecimal(wchar_t* wszText, int bPrefixSign, int nValue, int nFraction);
+static int SKILLDESC_FormatIntOrDecimal(wchar_t* wszText, int bPrefixSign, int nValue, int nFraction);
 
-int __fastcall sub_004E8FE0_AttackRatingCallback(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int nArg3, int nArg4, int nLevel, D2SkillStrc* pSkill, int nArg7, D2UnitStrc* pItem);
+int __fastcall SKILLDESC_AttackRatingCallback(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int nArg3, int nArg4, int nLevel, D2SkillStrc* pSkill, int nArg7, D2UnitStrc* pItem);
 
-static unsigned short sub_004E6DE0_GetSkillDescStrLong(int nSkillId);
+static unsigned short SKILLDESC_GetSkillDescStrLong(int nSkillId);
 
 static void __stdcall sub_004E6EA0_ApplyColdSkillBonus(int* pValue1, int* pValue2, D2SkillsTxt* pSkillsTxt);
 
 static void __stdcall sub_004E6F00_ApplyFireSkillBonus(int* pValue1, int* pValue2, D2SkillsTxt* pSkillsTxt);
 
-static unsigned short sub_004E6F60_GetETypeDamageStr(int nEType);
+static unsigned short SKILLDESC_GetETypeDamageStr(int nEType);
 
 static int sub_004E6FB0_GetETypeColor(int nEType);
 
-int __stdcall sub_004E7120_AddProgressiveDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor);
+int __stdcall SKILLDESC_AddProgressiveDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor);
 
 
 
@@ -137,7 +137,7 @@ static int __stdcall sub_004E79E0_AppendLabelValue(unsigned short wStr, int bPre
 
 static int __stdcall sub_004E7A90_AppendScaledValue(unsigned short wStr1, unsigned short wStr2, int nMultiplier, wchar_t* wszOut, int bPrefixSign, int nValue);
 
-static int __stdcall sub_004E7B90_AppendLabelDecimal(unsigned short wStr, wchar_t* wszOut, int bPrefixSign, int nValue, int nFraction);
+static int __stdcall SKILLDESC_AppendLabelDecimal(unsigned short wStr, wchar_t* wszOut, int bPrefixSign, int nValue, int nFraction);
 
 static int __stdcall sub_004E7C30_AppendValueLabel(unsigned short wStr, int bPrefixSign, wchar_t* wszOut, int nValue);
 
@@ -155,21 +155,21 @@ static int __stdcall sub_004E80F0_AppendLabelRange(wchar_t* wszOut, int bSeparat
 
 static int __stdcall sub_004E81C0_AppendLabelValueLabels(unsigned short wStr1, unsigned short wStr2, unsigned short wStr3, int bPrefixSign, wchar_t* wszOut, int nValue);
 
-static int __stdcall sub_004E84F0_AppendManaValue(int nValue, wchar_t* wszOut);
+static int __stdcall SKILLDESC_AppendManaValue(int nValue, wchar_t* wszOut);
 
 static void sub_004E8D90_AddElementalStatDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, unsigned char nType);
 
-static int __stdcall sub_004E8EC0_GetAttackRatingValues(D2UnitStrc* pUnit, D2UnitStrc* pItem, int* pValue1, int* pValue2, int nLevel, D2SkillStrc* pSkill);
+static int __stdcall SKILLDESC_GetAttackRatingValues(D2UnitStrc* pUnit, D2UnitStrc* pItem, int* pValue1, int* pValue2, int nLevel, D2SkillStrc* pSkill);
 
 static D2UnitStrc* sub_004E9260_MergeOtherHandWeapon(D2UnitStrc* pUnit);
 
-static int __stdcall sub_004E94E0_AttackRatingForEachWeapon(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int* pValue3, int* pValue4, D2SkillStrc* pSkill, int nLevel);
+static int __stdcall SKILLDESC_AttackRatingForEachWeapon(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int* pValue3, int* pValue4, D2SkillStrc* pSkill, int nLevel);
 
-void __fastcall sub_004E9510_SkillDescAttackRating(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nLevel, int* pValue1, int* pValue2, int* pValue3, int* pValue4);
+void __fastcall SKILLDESC_DescAttackRating(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nLevel, int* pValue1, int* pValue2, int* pValue3, int* pValue4);
 
-void __fastcall sub_004E95C0_SkillDescAttackRatingOffhand(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nLevel, int* pValue1, int* pValue2, int* pValue3, int* pValue4);
+void __fastcall SKILLDESC_DescAttackRatingOffhand(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nLevel, int* pValue1, int* pValue2, int* pValue3, int* pValue4);
 
-int __fastcall sub_004E9610_WeaponDamageCallback(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, int nBonus, int nAdd, D2SkillStrc* pSkill, int nSrcDam, D2UnitStrc* pItem);
+int __fastcall SKILLDESC_WeaponDamageCallback(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, int nBonus, int nAdd, D2SkillStrc* pSkill, int nSrcDam, D2UnitStrc* pItem);
 
 static void __stdcall sub_004E9660_AddScaledWeaponDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, D2UnitStrc* pItem, int* pColor, D2SkillStrc* pSkill, int nRatio);
 
@@ -189,7 +189,7 @@ extern int gnScreenY_007A285C; // 0x007A285C
 
 extern int gnPanelY_00711470; // 0x00711470
 
-void __fastcall sub_004A7080(int nX, int nY, int nRight, const wchar_t* wszText, int nColor); // 0x004A7080
+void __fastcall TEXT_DrawCenteredText(int nX, int nY, int nRight, const wchar_t* wszText, int nColor); // 0x004A7080
 
 struct Unicode;
 
@@ -234,7 +234,7 @@ static D2SkillDescTxt* sub_H14_GetSkillDescTxtRecord(int nSkillDesc)
 }
 
 // 0x004E6DE0
-static unsigned short sub_004E6DE0_GetSkillDescStrLong(int nSkillId)
+static unsigned short SKILLDESC_GetSkillDescStrLong(int nSkillId)
 {
     D2SkillDescTxt* pSkillDescTxt = 0;
     D2SkillsTxt* pSkillsTxt = sub_H14_GetSkillsTxtRecord(nSkillId);
@@ -249,7 +249,7 @@ static unsigned short sub_004E6DE0_GetSkillDescStrLong(int nSkillId)
 
 int sub_H14_Emit_004E83B0(wchar_t* wszOut, int nSkillId)
 {
-    return sub_004E83B0_AppendSkillDescStrLong(wszOut, nSkillId);
+    return SKILLDESC_AppendSkillDescStrLong(wszOut, nSkillId);
 }
 
 static D2SkillsTxt* sub_D05_GetSkillsTxtRecord(int nSkillId)
@@ -294,7 +294,7 @@ static void __stdcall sub_004E6F00_ApplyFireSkillBonus(int* pValue1, int* pValue
 }
 
 // 0x004E6F60
-static unsigned short sub_004E6F60_GetETypeDamageStr(int nEType)
+static unsigned short SKILLDESC_GetETypeDamageStr(int nEType)
 {
     switch (nEType)
     {
@@ -333,7 +333,7 @@ static int sub_004E6FB0_GetETypeColor(int nEType)
 }
 
 // 0x004E7120
-int __stdcall sub_004E7120_AddProgressiveDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor)
+int __stdcall SKILLDESC_AddProgressiveDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor)
 {
     for (int i = 0; i < sgptDataTables->nProgressiveStates; ++i)
     {
@@ -397,7 +397,7 @@ static __declspec(noinline) int __stdcall sub_004E73E0_FormatSignedInt(wchar_t* 
 }
 
 // 0x004E7430
-static __declspec(noinline) int __stdcall sub_004E7430_FormatSignedDecimal(wchar_t* wszText, int bPrefixSign, int nValue, int nFraction)
+static __declspec(noinline) int __stdcall SKILLDESC_FormatSignedDecimal(wchar_t* wszText, int bPrefixSign, int nValue, int nFraction)
 {
     char szText[32];
     if (bPrefixSign && nValue >= 0)
@@ -409,12 +409,12 @@ static __declspec(noinline) int __stdcall sub_004E7430_FormatSignedDecimal(wchar
 }
 
 // 0x004E7480
-static int sub_004E7480_FormatIntOrDecimal(wchar_t* wszText, int bPrefixSign, int nValue, int nFraction)
+static int SKILLDESC_FormatIntOrDecimal(wchar_t* wszText, int bPrefixSign, int nValue, int nFraction)
 {
     if (!nValue && !nFraction)
         return 0;
     if (nFraction)
-        return sub_004E7430_FormatSignedDecimal(wszText, bPrefixSign, nValue, nFraction);
+        return SKILLDESC_FormatSignedDecimal(wszText, bPrefixSign, nValue, nFraction);
     return sub_004E73E0_FormatSignedInt(wszText, bPrefixSign, nValue);
 }
 
@@ -526,7 +526,7 @@ static int __stdcall sub_004E7A90_AppendScaledValue(unsigned short wStr1, unsign
     if (!nValue)
         return 0;
 
-    sub_004E7480_FormatIntOrDecimal(wszText, bPrefixSign, nValue / 256, nValue % 256 * nMultiplier / 256);
+    SKILLDESC_FormatIntOrDecimal(wszText, bPrefixSign, nValue / 256, nValue % 256 * nMultiplier / 256);
     if (wStr1 != 0x1506)
         sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr1));
     sub_00526700(wszOut, wszText);
@@ -537,7 +537,7 @@ static int __stdcall sub_004E7A90_AppendScaledValue(unsigned short wStr1, unsign
 }
 
 // 0x004E7B90
-static int __stdcall sub_004E7B90_AppendLabelDecimal(unsigned short wStr, wchar_t* wszOut, int bPrefixSign, int nValue, int nFraction)
+static int __stdcall SKILLDESC_AppendLabelDecimal(unsigned short wStr, wchar_t* wszOut, int bPrefixSign, int nValue, int nFraction)
 {
     wchar_t wszText[32];
     for (int i = 0; i < 32; ++i)
@@ -546,7 +546,7 @@ static int __stdcall sub_004E7B90_AppendLabelDecimal(unsigned short wStr, wchar_
     if (!nValue && nFraction <= 0)
         return 0;
 
-    sub_004E7480_FormatIntOrDecimal(wszText, bPrefixSign, nValue, nFraction);
+    SKILLDESC_FormatIntOrDecimal(wszText, bPrefixSign, nValue, nFraction);
     sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr));
     sub_00526700(wszOut, wszText);
     sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
@@ -740,15 +740,15 @@ static int __stdcall sub_004E81C0_AppendLabelValueLabels(unsigned short wStr1, u
 }
 
 // 0x004E83B0
-static int sub_004E83B0_AppendSkillDescStrLong(wchar_t* wszOut, int nSkillId)
+static int SKILLDESC_AppendSkillDescStrLong(wchar_t* wszOut, int nSkillId)
 {
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(sub_004E6DE0_GetSkillDescStrLong(nSkillId)));
+    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(SKILLDESC_GetSkillDescStrLong(nSkillId)));
     sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
     return 1;
 }
 
 // 0x004E84F0
-static int __stdcall sub_004E84F0_AppendManaValue(int nValue, wchar_t* wszOut)
+static int __stdcall SKILLDESC_AppendManaValue(int nValue, wchar_t* wszOut)
 {
     const wchar_t* wszStr1 = D2LANG_GetStringFromTblIndex(0x5300);
     const wchar_t* wszStr2 = D2LANG_GetStringFromTblIndex(0x5304);
@@ -778,7 +778,7 @@ static int __stdcall sub_004E85C0_AppendManaCost(wchar_t* wszOut, int nSkillId, 
         return 0;
 
     if (nValue)
-        return sub_004E84F0_AppendManaValue(nValue, wszOut);
+        return SKILLDESC_AppendManaValue(nValue, wszOut);
 
     D2SkillDescTxt* pSkillDescTxt = sub_004A89D0_SkillDescRec(nSkillId);
     if (!pSkillDescTxt)
@@ -796,7 +796,7 @@ static int __stdcall sub_004E85C0_AppendManaCost(wchar_t* wszOut, int nSkillId, 
     if (nMultiplier > 10)
         return sub_004E7A90_AppendScaledValue(wStr, 0x1506, nMultiplier, wszOut, 0, nCost);
 
-    return sub_004E7B90_AppendLabelDecimal(wStr, wszOut, 0, nCost / 256, nCost % 256 * 10 / 256);
+    return SKILLDESC_AppendLabelDecimal(wStr, wszOut, 0, nCost / 256, nCost % 256 * 10 / 256);
 }
 
 static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDamage, int* pColor, int nAdd, D2SkillStrc* pSkill, int nSrcDam, D2UnitStrc* pItem, int bStatBonus, D2UnitStrc* pUnit, int nBonus)
@@ -946,7 +946,7 @@ static void sub_004E8D90_AddElementalStatDamage(D2UnitStrc* pUnit, int* pMinDama
 }
 
 // 0x004E8EC0
-static int __stdcall sub_004E8EC0_GetAttackRatingValues(D2UnitStrc* pUnit, D2UnitStrc* pItem, int* pValue1, int* pValue2, int nLevel, D2SkillStrc* pSkill)
+static int __stdcall SKILLDESC_GetAttackRatingValues(D2UnitStrc* pUnit, D2UnitStrc* pItem, int* pValue1, int* pValue2, int nLevel, D2SkillStrc* pSkill)
 {
     if (!pUnit || !pSkill)
         return 0;
@@ -988,9 +988,9 @@ static int __stdcall sub_004E8EC0_GetAttackRatingValues(D2UnitStrc* pUnit, D2Uni
 }
 
 // 0x004E8FE0
-int __fastcall sub_004E8FE0_AttackRatingCallback(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int nArg3, int nArg4, int nLevel, D2SkillStrc* pSkill, int nArg7, D2UnitStrc* pItem)
+int __fastcall SKILLDESC_AttackRatingCallback(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int nArg3, int nArg4, int nLevel, D2SkillStrc* pSkill, int nArg7, D2UnitStrc* pItem)
 {
-    return sub_004E8EC0_GetAttackRatingValues(pUnit, pItem, pValue1, pValue2, nLevel, pSkill);
+    return SKILLDESC_GetAttackRatingValues(pUnit, pItem, pValue1, pValue2, nLevel, pSkill);
 }
 
 // 0x004E9260
@@ -1077,17 +1077,17 @@ static int __stdcall sub_004E93A0_EvaluateForEachWeapon(int* pValue1, int* pValu
 }
 
 // 0x004E94E0
-static int __stdcall sub_004E94E0_AttackRatingForEachWeapon(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int* pValue3, int* pValue4, D2SkillStrc* pSkill, int nLevel)
+static int __stdcall SKILLDESC_AttackRatingForEachWeapon(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int* pValue3, int* pValue4, D2SkillStrc* pSkill, int nLevel)
 {
-    return sub_004E93A0_EvaluateForEachWeapon(pValue1, pValue2, 0, pValue3, pValue4, 0, pSkill, sub_004E8FE0_AttackRatingCallback, 0, pUnit, nLevel);
+    return sub_004E93A0_EvaluateForEachWeapon(pValue1, pValue2, 0, pValue3, pValue4, 0, pSkill, SKILLDESC_AttackRatingCallback, 0, pUnit, nLevel);
 }
 
 // 0x004E9510
-void __fastcall sub_004E9510_SkillDescAttackRating(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nLevel, int* pValue1, int* pValue2, int* pValue3, int* pValue4)
+void __fastcall SKILLDESC_DescAttackRating(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nLevel, int* pValue1, int* pValue2, int* pValue3, int* pValue4)
 {
     if (UNITS_CanDualWield(pUnit))
     {
-        sub_004E94E0_AttackRatingForEachWeapon(pUnit, pValue1, pValue2, pValue3, pValue4, pSkill, nLevel);
+        SKILLDESC_AttackRatingForEachWeapon(pUnit, pValue1, pValue2, pValue3, pValue4, pSkill, nLevel);
         return;
     }
 
@@ -1096,13 +1096,13 @@ void __fastcall sub_004E9510_SkillDescAttackRating(D2UnitStrc* pUnit, D2SkillStr
         pItem = INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
     *pValue1 = 0;
     *pValue2 = 0;
-    sub_004E8EC0_GetAttackRatingValues(pUnit, pItem, pValue1, pValue2, nLevel, pSkill);
+    SKILLDESC_GetAttackRatingValues(pUnit, pItem, pValue1, pValue2, nLevel, pSkill);
 }
 
 // 0x004E95C0
-void __fastcall sub_004E95C0_SkillDescAttackRatingOffhand(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nLevel, int* pValue1, int* pValue2, int* pValue3, int* pValue4)
+void __fastcall SKILLDESC_DescAttackRatingOffhand(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nLevel, int* pValue1, int* pValue2, int* pValue3, int* pValue4)
 {
-    sub_004E94E0_AttackRatingForEachWeapon(pUnit, pValue1, pValue2, pValue3, pValue4, pSkill, nLevel);
+    SKILLDESC_AttackRatingForEachWeapon(pUnit, pValue1, pValue2, pValue3, pValue4, pSkill, nLevel);
     *pValue1 = *pValue3;
     *pValue2 = *pValue4;
     *pValue3 = 0;
@@ -1110,7 +1110,7 @@ void __fastcall sub_004E95C0_SkillDescAttackRatingOffhand(D2UnitStrc* pUnit, D2S
 }
 
 // 0x004E9610
-int __fastcall sub_004E9610_WeaponDamageCallback(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, int nBonus, int nAdd, D2SkillStrc* pSkill, int nSrcDam, D2UnitStrc* pItem)
+int __fastcall SKILLDESC_WeaponDamageCallback(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, int nBonus, int nAdd, D2SkillStrc* pSkill, int nSrcDam, D2UnitStrc* pItem)
 {
     sub_004E86F0_GetWeaponDamage(pMinDamage, pMaxDamage, pColor, nAdd, pSkill, nSrcDam, pItem, 0, pUnit, nBonus);
     return sub_004E89A0_GetElementalDamage(pUnit, pMinDamage, pMaxDamage, pColor, pSkill);
@@ -1157,7 +1157,7 @@ extern "C" int __stdcall sub_D05_Emit_4E80F0(wchar_t* p, int f, int b, unsigned 
 extern "C" int __stdcall sub_D05_Emit_4E81C0(unsigned short w1, unsigned short w2, unsigned short w3, int b, wchar_t* p, int n) { return sub_004E81C0_AppendLabelValueLabels(w1, w2, w3, b, p, n); }
 
 // build: context sub_D05_Emit_4E83B0
-extern "C" int __stdcall sub_D05_Emit_4E83B0(wchar_t* p, int n) { return sub_004E83B0_AppendSkillDescStrLong(p, n); }
+extern "C" int __stdcall sub_D05_Emit_4E83B0(wchar_t* p, int n) { return SKILLDESC_AppendSkillDescStrLong(p, n); }
 
 extern "C" int __stdcall sub_D05_Emit_4E85C0(wchar_t* p, int s, int l, int m, D2SkillsTxt* t, int v) { return sub_004E85C0_AppendManaCost(p, s, l, m, t, v); }
 
@@ -1166,7 +1166,7 @@ extern "C" void __stdcall sub_D05_Emit_4E6EA0(int* a, int* b, D2SkillsTxt* t) { 
 extern "C" void __stdcall sub_D05_Emit_4E6F00(int* a, int* b, D2SkillsTxt* t) { sub_004E6F00_ApplyFireSkillBonus(a, b, t); }
 
 // build: context sub_D05_Emit_4E6F60
-extern "C" unsigned short __stdcall sub_D05_Emit_4E6F60(int n) { return sub_004E6F60_GetETypeDamageStr(n); }
+extern "C" unsigned short __stdcall sub_D05_Emit_4E6F60(int n) { return SKILLDESC_GetETypeDamageStr(n); }
 
 extern "C" void __stdcall sub_D05_Emit_4E8D90(D2UnitStrc* u, int* a, int* b, unsigned char t) { sub_004E8D90_AddElementalStatDamage(u, a, b, t); }
 
@@ -1264,11 +1264,11 @@ static void __fastcall sub_004E96E0_DrawDamageRange(int nMin, int nMax, int nCol
         sub_00502EF0(1);
     }
 
-    sub_004A7080(gnScreenX_007A2858 + nLeft, gnScreenY_007A285C + gnPanelY_00711470 + nY - 480, gnScreenX_007A2858 + nRight, tText.wsz, nColor);
+    TEXT_DrawCenteredText(gnScreenX_007A2858 + nLeft, gnScreenY_007A285C + gnPanelY_00711470 + nY - 480, gnScreenX_007A2858 + nRight, tText.wsz, nColor);
 }
 
 // 0x004EA990
-void __fastcall sub_004EA990_DrawSkillDamage(D2UnitStrc* pUnit, int nParam, D2SkillsTxt* pSkillsTxt, int nLevel, int nLeft, int nY, int nRight)
+void __fastcall SKILLDESC_DrawSkillDamage(D2UnitStrc* pUnit, int nParam, D2SkillsTxt* pSkillsTxt, int nLevel, int nLeft, int nY, int nRight)
 {
     if (!nParam || !pSkillsTxt)
     {
@@ -1286,7 +1286,7 @@ void __fastcall sub_004EA990_DrawSkillDamage(D2UnitStrc* pUnit, int nParam, D2Sk
 }
 
 // 0x004EB460
-void __fastcall sub_004EB460_DrawThrowDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
+void __fastcall SKILLDESC_DrawThrowDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
 {
     if (!pSkill || !pSkillsTxt)
     {
@@ -1398,7 +1398,7 @@ static void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc* pUnit, int* pMin, i
 }
 
 // 0x004EB830
-void __fastcall sub_004EB830_DrawWeaponDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
+void __fastcall SKILLDESC_DrawBoostedElemDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
 {
     if (!pSkill || !pSkillsTxt)
     {

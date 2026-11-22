@@ -172,7 +172,7 @@ int __fastcall SKILLS_DoInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkill
     return 1;
 }
 
-int __fastcall sub_004E2630_SkillDoFrameSteps(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLDESC_CltDoFrameSteps(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
     const int nRepeats = SKILLS_GetParam1(pSkill);
@@ -206,7 +206,7 @@ int __fastcall sub_004E2630_SkillDoFrameSteps(D2UnitStrc* pUnit, int nSkillId, i
 }
 
 // 0x005C9290
-void __fastcall sub_004E2ED0_InitCappedChargedPath(D2UnitStrc* pMissile, int nSeedOffset)
+void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nSeedOffset)
 {
     if (!pMissile)
     {

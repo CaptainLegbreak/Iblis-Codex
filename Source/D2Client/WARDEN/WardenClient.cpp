@@ -182,7 +182,7 @@ void __cdecl sub_00466FE0(); // 0x00466FE0
 
 void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
 
-T00479230* __fastcall sub_004A05E0_CreateTextBox(const Unicode* wszText, int nMode); // 0x004A05E0
+T00479230* __fastcall TEXT_CreateTextBox(const Unicode* wszText, int nMode); // 0x004A05E0
 
 void __fastcall sub_004C5C40_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, AREASCANFN pfCallback, void* pArg, int bCheckType); // 0x004C5C40
 
@@ -204,7 +204,7 @@ void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg
 
 void __stdcall sub_004912A0_HandlePanelClick(SMSGHANDLER_PARAMS* pMsg); // 0x004912A0
 
-int __stdcall sub_004934D0_CheckBoxAction(int nArg); // 0x004934D0
+int __stdcall HIREABLES_CanEquipHirelingItem(int nArg); // 0x004934D0
 
 int __fastcall sub_004A8C80_GetSkillValue(D2SkillsTxt* pSkillsTxt); // 0x004A8C80
 
@@ -212,7 +212,7 @@ int __fastcall sub_004A8D30_GetSkillState(D2UnitStrc* pUnit, D2SkillStrc* pSkill
 
 void __fastcall sub_004A9690_DrawSkillInfoBase(int nValue, D2SkillsTxt* pSkillsTxt, int nOwnerGUID, int nCharges, int nState, int nX, int nY, int nArg); // 0x004A9690
 
-void __fastcall sub_004A8D50_UpdateButton(short* pId, int nState, int nA, int nB, int nX, int nY); // 0x004A8D50
+void __fastcall TEXT_UpdateSkillButtonHover(short* pId, int nState, int nA, int nB, int nX, int nY); // 0x004A8D50
 
 void __fastcall sub_004AA1F0_DrawSkillQuantity(short* pId, int nState, int nQuantity, int nX, int nY); // 0x004AA1F0
 
@@ -244,7 +244,7 @@ int __fastcall sub_00463EB0_GetGfxField38(D2UnitStrc* pUnit); // 0x00463EB0
 
 int __fastcall sub_004791B0_IsOwnedByPlayer(D2UnitStrc* pUnit); // 0x004791B0
 
-void __cdecl sub_0047B9C0_RecallChatLine(); // 0x0047B9C0
+void __cdecl CHAT_RecallChatLine(); // 0x0047B9C0
 
 void __stdcall sub_0047BA80_StepChatIndex(int nDelta); // 0x0047BA80
 
@@ -427,7 +427,7 @@ struct D2RC4Strc
     unsigned char j;
 
     void sub_004E09B0_Init(const unsigned char* pKey, unsigned int nKeySize); // 0x004E09B0
-    void sub_0047F8C0_Crypt(unsigned char* pData, unsigned int nSize);       // 0x0047F8C0
+    void ApplyKeystream(unsigned char* pData, unsigned int nSize);       // 0x0047F8C0
 };
 
 struct D2WardenFindArgStrc
@@ -541,12 +541,12 @@ void __stdcall sub_0047BCA0_ChatKeyDown(SMSGHANDLER_PARAMS* pMsg)
     switch (nKey)
     {
     case 0x26:
-        sub_0047B9C0_RecallChatLine();
+        CHAT_RecallChatLine();
         sub_0047BA80_StepChatIndex(1);
         break;
     case 0x28:
         sub_0047BA80_StepChatIndex(-1);
-        sub_0047B9C0_RecallChatLine();
+        CHAT_RecallChatLine();
         break;
     }
 }
@@ -782,7 +782,7 @@ static int __stdcall sub_0047FC70_LoadModule(const unsigned char* pData, const u
     }
     D2RC4Strc tRc4;
     tRc4.sub_004E09B0_Init(pKey, 0x10);
-    tRc4.sub_0047F8C0_Crypt(pBuffer, nSize);
+    tRc4.ApplyKeystream(pBuffer, nSize);
     if (!sub_0047FA20_VerifyModuleSignature(szName, pBuffer, gabModulus_006D8D18, gabExponent_006D8D14, 4, 0, nSize, 0x100))
     {
         SMemFree(pBuffer, ".\\WARDEN\\WardenClient.cpp", 0x17C, 0);
@@ -1042,7 +1042,7 @@ void __stdcall sub_004936E0_ClickMsg(SMSGHANDLER_PARAMS* pMsg)
         gnGlobal_007BEEE8 = 0;
         return;
     }
-    if (sub_004934D0_CheckBoxAction(1))
+    if (HIREABLES_CanEquipHirelingItem(1))
     {
         sub_004785B0_SendPacket3(0x61, 0);
         pMsg->bReturn = 1;
@@ -1131,7 +1131,7 @@ void __fastcall sub_00496BE0_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkil
     }
     else
     {
-        sub_004A8D50_UpdateButton(&pSkillsTxt->nSkillId, nState, nSkillLevel, nCharges, nX, nY);
+        TEXT_UpdateSkillButtonHover(&pSkillsTxt->nSkillId, nState, nSkillLevel, nCharges, nX, nY);
     }
 }
 
@@ -1260,7 +1260,7 @@ void __fastcall sub_004A1320_OpenTextPanel(unsigned short nStringId, int bSide, 
 
     gnGlobal_007BF1BC = 0;
     const int nOldFont = sub_00502EF0(8);
-    gpTextBox_007BF0A4 = sub_004A05E0_CreateTextBox(D2LANG_GetStringFromTblIndex(nStringId), 2);
+    gpTextBox_007BF0A4 = TEXT_CreateTextBox(D2LANG_GetStringFromTblIndex(nStringId), 2);
     D2_ASSERT(gpTextBox_007BF0A4, 0x1063);
     sub_00502EF0(nOldFont);
 

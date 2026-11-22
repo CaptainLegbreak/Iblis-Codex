@@ -153,7 +153,7 @@ unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-int __fastcall sub_004E6C50_ValidateMonsterId(int nMonsterId);                                              // 0x004E6C50
+int __fastcall SKILLDESC_ValidateMonsterId(int nMonsterId);                                              // 0x004E6C50
 
 void __fastcall COLLISION_ReplaceTileCollision(D2ActiveRoomStrc* pRoom, D2DrlgTileDataStrc* pTileData, D2TileLibraryEntryStrc* pTileLibraryEntry); // 0x0064C860
 
@@ -330,7 +330,7 @@ inline unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, i
 }
 
 // 0x004E6C50
-inline int __fastcall sub_004E6C50_ValidateMonsterId(int nMonsterId)
+inline int __fastcall SKILLDESC_ValidateMonsterId(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -377,7 +377,7 @@ static void __stdcall DRLGROOMTILE_AddTilePresetUnits(D2DrlgTileDataStrc* pTileD
             switch (nUnitType)
             {
             case 1:
-                nUnitId = sub_004E6C50_ValidateMonsterId(nUnitId);
+                nUnitId = SKILLDESC_ValidateMonsterId(nUnitId);
                 nMode = 1;
                 break;
 

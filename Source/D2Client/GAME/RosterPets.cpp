@@ -43,7 +43,7 @@ int __cdecl sub_0044DA30();                                                     
 
 void __cdecl sub_0044DA70();                                                                                // 0x0044DA70
 
-void __cdecl sub_00453AE0();                                                                                // 0x00453AE0
+void __cdecl UI_StartUIVarDelay();                                                                                // 0x00453AE0
 
 int __cdecl sub_00468730();                                                                                 // 0x00468730
 
@@ -51,9 +51,9 @@ int __cdecl sub_00468740();                                                     
 
 void __fastcall sub_00478AB0_RemoveType7(int nUnused, int nKey);                                            // 0x00478AB0
 
-void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor);  // 0x004A7080
+void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor);  // 0x004A7080
 
-int __stdcall sub_004B92E0_GetTableByte(int nUnused, int nIndex);                                           // 0x004B92E0
+int __stdcall INV_GetTableByte(int nUnused, int nIndex);                                           // 0x004B92E0
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
@@ -188,7 +188,7 @@ void __stdcall sub_00467FA0_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
 // 0x0046BD50
 int __stdcall sub_0046BD50_GetPulseColor(unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue)
 {
-    if (gnGlobal_007A745C || !sub_004B92E0_GetTableByte(0, 1))
+    if (gnGlobal_007A745C || !INV_GetTableByte(0, 1))
     {
         return 0;
     }
@@ -403,7 +403,7 @@ void __fastcall sub_0049A460_DrawPanelLabel(int nType, int nUnused, int nY, int 
     }
 
     int nLeft = gnGlobal_007A2858 + nX;
-    sub_004A7080(nLeft, nY - gnGlobal_007A285C - 2, nLeft + 0x35, D2LANG_GetStringFromTblIndex(nStringId), nColor);
+    TEXT_DrawCenteredText(nLeft, nY - gnGlobal_007A285C - 2, nLeft + 0x35, D2LANG_GetStringFromTblIndex(nStringId), nColor);
 }
 
 // 0x004A5980
@@ -444,7 +444,7 @@ void __stdcall sub_004B76D0_TimedCallbackMsg(SMSGHANDLER_PARAMS* pMsg)
         if (pfnCallback)
         {
             pfnCallback();
-            sub_00453AE0();
+            UI_StartUIVarDelay();
         }
     }
 }

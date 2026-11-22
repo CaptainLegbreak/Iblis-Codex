@@ -39,15 +39,15 @@ void __stdcall sub_00467F20_MsgHandler(SMSGHANDLER_PARAMS* pMsg);
 void __stdcall sub_00467FA0_MsgHandler(SMSGHANDLER_PARAMS* pMsg);
 void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg);
 void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2);
-int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg);
-void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor);
+int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg);
+void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor);
 D2SkillDescTxt* __fastcall sub_004A89D0_SkillDescRec(int nSkillId);
 void* __fastcall sub_004A8C80_GetSkillValue(D2SkillsTxt* pSkillsTxt);
 int __fastcall sub_004AA8B0_GetSkillMaxLevel(int nSkillId);
 int __cdecl sub_004AA900_IsStateOrValue();
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);
-void __fastcall sub_004EEF00_ShowSkillPopup(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nArg, int nX, int nY);
-void __fastcall sub_004EF410_ShowSkillPopupB(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nArg, int nX, int nY);
+void __fastcall SKILLDESC_ShowSkillPopup(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nArg, int nX, int nY);
+void __fastcall SKILLDESC_ShowSkillPopupB(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nArg, int nX, int nY);
 void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift);
 void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);
@@ -145,7 +145,7 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nMouseX = pMsg->nXpos;
     int nMouseY = pMsg->nYpos;
-    if (sub_00498DC0_MouseMoveMsg(pMsg))
+    if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg))
         return;
 
     D2UnitStrc* pPlayer = sub_00463DD0();
@@ -311,7 +311,7 @@ void __stdcall sub_004ABC30_SkillTreeLButtonUp(SMSGHANDLER_PARAMS* pMsg)
 
     const int nClassId = pPlayer->dwClassId;
     sub_00467FA0_MsgHandler(pMsg);
-    if (sub_00498DC0_MouseMoveMsg(pMsg))
+    if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg))
         return;
 
     if (!gnGlobal_007C0C4C)
@@ -466,9 +466,9 @@ void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSkillsTxt,
     if (nMouseX > nX && nMouseX < nX + 0x30 && nMouseY > nY - 0x30 && nMouseY < nY)
     {
         if (nState != -1)
-            sub_004EEF00_ShowSkillPopup(sub_00463DD0(), nSkillId, nSkillLevel, 0, nX, nY);
+            SKILLDESC_ShowSkillPopup(sub_00463DD0(), nSkillId, nSkillLevel, 0, nX, nY);
         else
-            sub_004EF410_ShowSkillPopupB(sub_00463DD0(), nSkillId, nSkillLevel, 0, nX, nY);
+            SKILLDESC_ShowSkillPopupB(sub_00463DD0(), nSkillId, nSkillLevel, 0, nX, nY);
     }
 
     if (nBaseLevel || nSkillLevel)

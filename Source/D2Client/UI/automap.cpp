@@ -273,7 +273,7 @@ void __fastcall sub_004823E0(int index);
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
-const Unicode* __fastcall sub_00453E70_GetLevelName(int nLevelId); // 0x00453E70
+const Unicode* __fastcall UI_GetLevelName(int nLevelId); // 0x00453E70
 
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
 
@@ -347,7 +347,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
-void __cdecl sub_0045A2B0_ReloadAutomapCels(); // 0x0045A2B0
+void __cdecl AUTOMAP_ReloadAutomapCels(); // 0x0045A2B0
 
 int __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg); // 0x00461250
 
@@ -462,7 +462,7 @@ void __cdecl sub_0044DA70(); // 0x0044DA70
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
 
-int __fastcall sub_004B3230_GetTickPair(int* pLow); // 0x004B3230
+int __fastcall NPCMENU_GetInteractNpcId(int* pLow); // 0x004B3230
 
 int __fastcall sub_004AE360_IsUniqueMonster(D2UnitStrc* pUnit); // 0x004AE360
 
@@ -470,9 +470,9 @@ int __fastcall sub_004AE380_IsMinionMonster(D2UnitStrc* pUnit); // 0x004AE380
 
 void __fastcall sub_004ADEA0_GetMonsterName(D2UnitStrc* pUnit, Unicode* wszName, int nLength, unsigned short nNameId); // 0x004ADEA0
 
-D2AutomapCellStrc* __cdecl sub_00457C30(); // 0x00457C30
+D2AutomapCellStrc* __cdecl AUTOMAP_AllocAutomapCell(); // 0x00457C30
 
-int __fastcall sub_00457B00(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot); // 0x00457B00
+int __fastcall AUTOMAP_InsertAutomapCell(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot); // 0x00457B00
 
 void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 
@@ -619,7 +619,7 @@ D2AutomapRoomStrc* __fastcall sub_0061AAE0_GetAutomapRoom(D2ActiveRoomStrc* pRoo
 
 D2DrlgTileDataStrc* __stdcall sub_006196A0_GetWallTiles(D2ActiveRoomStrc* pRoom, unsigned int* pCount); // 0x006196A0
 
-void __stdcall sub_00458DC0_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2AutomapCellStrc** ppRoot); // 0x00458DC0
+void __stdcall AUTOMAP_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2AutomapCellStrc** ppRoot); // 0x00458DC0
 
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
 
@@ -627,7 +627,7 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
 int gbRevealAutomap_007A51A0; // 0x007A51A0
 
-void* __cdecl sub_00457F40_OpenAutomapFile(); // 0x00457F40
+void* __cdecl AUTOMAP_OpenAutomapFile(); // 0x00457F40
 
 int __fastcall sub_004069B0_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x004069B0
 
@@ -639,7 +639,7 @@ int __fastcall sub_004069A0_CloseFile(void* hFile); // 0x004069A0
 
 void __fastcall sub_00458440_CountCells(D2AutomapCellStrc* pCells, unsigned int* pCount); // 0x00458440
 
-void __fastcall sub_00458470_StoreCells(D2AutomapCellStrc* pCells); // 0x00458470
+void __fastcall AUTOMAP_StoreCells(D2AutomapCellStrc* pCells); // 0x00458470
 
 extern D2AutomapRecordStrc* gpAutomapRecord_007A0638; // 0x007A0638
 
@@ -647,7 +647,7 @@ void* gpAutomapSaveBuffer_007A5154; // 0x007A5154
 
 extern int gnAutomapCelFrames_007A5178[4]; // 0x007A5178
 
-void __stdcall sub_00458F40_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevealAll, D2AutomapLayerStrc* pLayer); // 0x00458F40
+void __stdcall AUTOMAP_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevealAll, D2AutomapLayerStrc* pLayer); // 0x00458F40
 
 int gdwAutoMapFadeSaved_007A51AC; // 0x007A51AC
 
@@ -673,7 +673,7 @@ int gnGlobal_007A51F0; // 0x007A51F0
 
 static D2AutomapLayerStrc* sub_00458D40_InitAutomapLayer(int nLayerNo);
 
-void __cdecl sub_00459020_UpdateAutomapReveal();
+void __cdecl AUTOMAP_UpdateAutomapReveal();
 
 int gnPlayerX_007A5200; // 0x007A5200
 
@@ -702,20 +702,20 @@ D2AutomapCellBlockStrc* gpCellBlocks_007A5158; // 0x007A5158
 
 int gnCellCount_007A515C; // 0x007A515C
 
-void __stdcall sub_00457E40_AddAutomapCell(unsigned short nCellNo, unsigned short xPixel, unsigned short yPixel, D2AutomapCellStrc** ppRoot, unsigned int fSaved);
+void __stdcall AUTOMAP_AddAutomapCell(unsigned short nCellNo, unsigned short xPixel, unsigned short yPixel, D2AutomapCellStrc** ppRoot, unsigned int fSaved);
 
 WardenModule* gpSlotHolder_007BC990; // 0x007BC990
 
 WardenModule* gpPendingWarden_007BC994; // 0x007BC994
 
 // 0x00404850
-BOOLEAN __stdcall sub_00404850_IsAtLeast1C(unsigned int nValue)
+BOOLEAN __stdcall AUTOMAP_IsDebugDirectorySizeValid(unsigned int nValue)
 {
     return nValue >= 0x1C;
 }
 
 // 0x00407DE0
-void __cdecl sub_00407DE0_CaptureSystemInfo()
+void __cdecl AUTOMAP_CaptureSystemInfo()
 {
     D2OsVersionInfoStrc tVersion;
     D2MemoryStatusStrc tMemory;
@@ -759,7 +759,7 @@ void __cdecl sub_00407DE0_CaptureSystemInfo()
 }
 
 // 0x0040E850
-unsigned __int64 __cdecl sub_0040E850_ReadTimeStampCounter()
+unsigned __int64 __cdecl AUTOMAP_ReadTimeStampCounter()
 {
     unsigned __int64 nTicks;
     __asm
@@ -772,7 +772,7 @@ unsigned __int64 __cdecl sub_0040E850_ReadTimeStampCounter()
 }
 
 // 0x0040F350
-void __cdecl sub_0040F350_CloseStaleLogs()
+void __cdecl AUTOMAP_CloseStaleLogs()
 {
     char szPath[0x104];
     int bLog = 0;
@@ -796,7 +796,7 @@ void __cdecl sub_0040F350_CloseStaleLogs()
 }
 
 // 0x00412000
-void __cdecl sub_00412000_ReleaseFreeBlocks()
+void __cdecl AUTOMAP_ReleaseFreeBlocks()
 {
     int i = 0;
     gnFreeBlockSweep_007788C8 = 0;
@@ -825,7 +825,7 @@ void __cdecl sub_00412000_ReleaseFreeBlocks()
 }
 
 // 0x00414220
-double __fastcall sub_00414220_PowInt(double x, int nExp)
+double __fastcall AUTOMAP_PowInt(double x, int nExp)
 {
     const double one = 1.0;
     unsigned int nBits = nExp >= 0 ? (unsigned int)nExp : (unsigned int)-nExp;
@@ -843,7 +843,7 @@ double __fastcall sub_00414220_PowInt(double x, int nExp)
 }
 
 // 0x0043C540
-void __fastcall sub_0043C540(const char* szName, unsigned char nClass, unsigned char* pStream, unsigned short wFlags)
+void __fastcall AUTOMAP_InitCharSaveHeader(const char* szName, unsigned char nClass, unsigned char* pStream, unsigned short wFlags)
 {
     memset(&gtCharSaveHeader_0077AC10, 0, 0x14F);
     gtCharSaveHeader_0077AC10.dwMagic = 0xAA55AA55;
@@ -907,7 +907,7 @@ inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 }
 
 // 0x00451E10
-void __fastcall sub_00451E10_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount)
+void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount)
 {
     D2_ASSERT(hWnd, 0x166);
     for (unsigned int i = 0; i < nCount; ++i)
@@ -917,14 +917,14 @@ void __fastcall sub_00451E10_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntr
 }
 
 // 0x00452580
-int __fastcall sub_00452580_GetHoverMonsterName(D2UnitStrc* pUnit, int nArg)
+int __fastcall AUTOMAP_GetHoverMonsterName(D2UnitStrc* pUnit, int nArg)
 {
     int nTick;
     if (sub_0045AE90() == 3)
     {
         return 0;
     }
-    if (sub_004B3230_GetTickPair(&nTick))
+    if (NPCMENU_GetInteractNpcId(&nTick))
     {
         return 0;
     }
@@ -938,7 +938,7 @@ int __fastcall sub_00452580_GetHoverMonsterName(D2UnitStrc* pUnit, int nArg)
 }
 
 // 0x00457420
-void __fastcall sub_00457420_FreeCaches(int bFree)
+void __fastcall AUTOMAP_FreeCaches(int bFree)
 {
     D2CMPTileCacheDestroy(bFree);
     D2CMPSpriteCacheDestroy(bFree);
@@ -951,7 +951,7 @@ void __fastcall sub_00457440_Nop(int nUnused)
 }
 
 // 0x00457520
-void __cdecl sub_00457520_UpdateAutomapLayout()
+void __cdecl AUTOMAP_UpdateAutomapLayout()
 {
     if (gnGlobal_007A51F0 != sub_00492C10() && gdwGlobal_007A5150 == 1)
     {
@@ -995,7 +995,7 @@ void __cdecl sub_00457520_UpdateAutomapLayout()
 }
 
 // 0x004576C0
-int __cdecl sub_004576C0()
+int __cdecl AUTOMAP_GetAutomapFade()
 {
     if (gdwGlobal_007A5150 == 1 && gdwAutoMapFade_007A51A8 == 1)
     {
@@ -1005,7 +1005,7 @@ int __cdecl sub_004576C0()
 }
 
 // 0x004576F0
-int __fastcall sub_004576F0(int nFade)
+int __fastcall AUTOMAP_SetAutomapFade(int nFade)
 {
     if (gdwGlobal_007A5150 == 1 && nFade == 1)
     {
@@ -1019,7 +1019,7 @@ int __fastcall sub_004576F0(int nFade)
 }
 
 // 0x00457B00
-int __fastcall sub_00457B00(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot)
+int __fastcall AUTOMAP_InsertAutomapCell(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot)
 {
     D2AutomapCellStrc* pRoot = *ppRoot;
     D2AutomapCellStrc* pRotate = pRoot;
@@ -1039,7 +1039,7 @@ int __fastcall sub_00457B00(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot
         }
         if (nDiff < 0)
         {
-            nResult = sub_00457B00(pCell, &pRoot->pPrev);
+            nResult = AUTOMAP_InsertAutomapCell(pCell, &pRoot->pPrev);
             if (nResult)
             {
                 switch (pRoot->wWeight)
@@ -1061,7 +1061,7 @@ int __fastcall sub_00457B00(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot
         }
         else if (nDiff > 0)
         {
-            nResult = sub_00457B00(pCell, &pRoot->pNext);
+            nResult = AUTOMAP_InsertAutomapCell(pCell, &pRoot->pNext);
             if (nResult)
             {
                 switch (pRoot->wWeight)
@@ -1106,7 +1106,7 @@ void __fastcall sub_J02_EmitSetAutomapContext(D2AutomapLayerStrc* pContext, D2Au
 }
 
 // 0x00457C30
-D2AutomapCellStrc* __cdecl sub_00457C30()
+D2AutomapCellStrc* __cdecl AUTOMAP_AllocAutomapCell()
 {
     D2AutomapCellBlockStrc* current = gpCellBlocks_007A5158;
     D2AutomapCellBlockStrc* previous = 0;
@@ -1141,7 +1141,7 @@ D2AutomapCellStrc* __cdecl sub_00457C30()
 }
 
 // 0x00457CF0
-static void __stdcall sub_00457CF0_RevealAutomapTile(D2DrlgTileDataStrc* pTileData, D2AutomapRoomStrc* pRoom, D2AutomapCellStrc** ppRoot)
+static void __stdcall AUTOMAP_RevealAutomapTile(D2DrlgTileDataStrc* pTileData, D2AutomapRoomStrc* pRoom, D2AutomapCellStrc** ppRoot)
 {
     if (pTileData->dwFlags & 0x40000)
     {
@@ -1157,7 +1157,7 @@ static void __stdcall sub_00457CF0_RevealAutomapTile(D2DrlgTileDataStrc* pTileDa
     {
         return;
     }
-    D2AutomapCellStrc* pCell = sub_00457C30();
+    D2AutomapCellStrc* pCell = AUTOMAP_AllocAutomapCell();
     int nX = pRoom->nPosX + pTileData->nPosX;
     int nY = pRoom->nPosY + pTileData->nPosY;
     sub_00643310_MapToAutomapPos(&nX, &nY);
@@ -1173,24 +1173,24 @@ static void __stdcall sub_00457CF0_RevealAutomapTile(D2DrlgTileDataStrc* pTileDa
     pCell->nCellNo = nCell;
     pCell->xPixel = nX;
     pCell->yPixel = nY;
-    sub_00457B00(pCell, ppRoot);
+    AUTOMAP_InsertAutomapCell(pCell, ppRoot);
 }
 
 // 0x00457E40
-void __stdcall sub_00457E40_AddAutomapCell(unsigned short nCellNo, unsigned short xPixel, unsigned short yPixel, D2AutomapCellStrc** ppRoot, unsigned int fSaved)
+void __stdcall AUTOMAP_AddAutomapCell(unsigned short nCellNo, unsigned short xPixel, unsigned short yPixel, D2AutomapCellStrc** ppRoot, unsigned int fSaved)
 {
-    D2AutomapCellStrc* pCell = sub_00457C30();
+    D2AutomapCellStrc* pCell = AUTOMAP_AllocAutomapCell();
     pCell->fSaved = fSaved;
     pCell->nCellNo = nCellNo;
     pCell->xPixel = xPixel;
     pCell->yPixel = yPixel;
-    sub_00457B00(pCell, ppRoot);
+    AUTOMAP_InsertAutomapCell(pCell, ppRoot);
 }
 
 // 0x00457E80
 static void __stdcall sub_00457E80_AddUnitAutomapCell(int nCellNo, D2AutomapCellStrc** ppRoot, D2UnitStrc* pUnit)
 {
-    D2AutomapCellStrc* pCell = sub_00457C30();
+    D2AutomapCellStrc* pCell = AUTOMAP_AllocAutomapCell();
     const int nX = UNITS_GetClientCoordX(pUnit) / 10 + 1;
     const int nY = UNITS_GetClientCoordY(pUnit) / 10 - 3;
     D2_ASSERT(nX >= -0x8000 && nX <= 0x7FFF, 0x3C5);
@@ -1199,10 +1199,10 @@ static void __stdcall sub_00457E80_AddUnitAutomapCell(int nCellNo, D2AutomapCell
     pCell->nCellNo = nCellNo;
     pCell->xPixel = nX;
     pCell->yPixel = nY;
-    sub_00457B00(pCell, ppRoot);
+    AUTOMAP_InsertAutomapCell(pCell, ppRoot);
 }
 
-void __stdcall sub_00458DC0_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2AutomapCellStrc** ppRoot)
+void __stdcall AUTOMAP_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2AutomapCellStrc** ppRoot)
 {
     for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
     {
@@ -1278,7 +1278,7 @@ void __stdcall sub_00458DC0_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2Automap
 // 0x00458200
 static void sub_00458200_WriteAutomapLayer(D2AutomapSaveStrc* pSave)
 {
-    void* hFile = sub_00457F40_OpenAutomapFile();
+    void* hFile = AUTOMAP_OpenAutomapFile();
     if (hFile == (void*)-1)
     {
         return;
@@ -1350,13 +1350,13 @@ void __fastcall sub_00458440_CountCells(D2AutomapCellStrc* pCells, unsigned int*
 }
 
 // 0x00458470
-void __fastcall sub_00458470_StoreCells(D2AutomapCellStrc* pCells)
+void __fastcall AUTOMAP_StoreCells(D2AutomapCellStrc* pCells)
 {
     if (!pCells)
     {
         return;
     }
-    sub_00458470_StoreCells(pCells->pPrev);
+    AUTOMAP_StoreCells(pCells->pPrev);
     if (!pCells->fSaved)
     {
         unsigned short* pBuffer = (unsigned short*)gpAutomapSaveBuffer_007A5154;
@@ -1368,11 +1368,11 @@ void __fastcall sub_00458470_StoreCells(D2AutomapCellStrc* pCells)
         ++pBuffer;
         gpAutomapSaveBuffer_007A5154 = pBuffer;
     }
-    sub_00458470_StoreCells(pCells->pNext);
+    AUTOMAP_StoreCells(pCells->pNext);
 }
 
 // 0x00458680
-void __cdecl sub_00458680_ResetAutomapCells()
+void __cdecl AUTOMAP_ResetAutomapCells()
 {
     if (gpAutomapContext_007A5164)
     {
@@ -1392,7 +1392,7 @@ void __cdecl sub_00458680_ResetAutomapCells()
     }
 }
 
-void __cdecl sub_004584C0()
+void __cdecl AUTOMAP_SaveAutomapLayer()
 {
     D2AutomapLayerStrc* pLayer = gpAutomapContext_007A5164;
     if (!pLayer)
@@ -1414,25 +1414,25 @@ void __cdecl sub_004584C0()
     {
         tSave.pFloors = FOG_Alloc(tSave.dwFloorSize, ".\\UI\\automap.cpp", 0x4EA, 0);
         gpAutomapSaveBuffer_007A5154 = tSave.pFloors;
-        sub_00458470_StoreCells(gpAutomapContext_007A5164->pFloors);
+        AUTOMAP_StoreCells(gpAutomapContext_007A5164->pFloors);
     }
     if (tSave.dwWallsSize)
     {
         tSave.pWalls = FOG_Alloc(tSave.dwWallsSize, ".\\UI\\automap.cpp", 0x4F1, 0);
         gpAutomapSaveBuffer_007A5154 = tSave.pWalls;
-        sub_00458470_StoreCells(gpAutomapContext_007A5164->pWalls);
+        AUTOMAP_StoreCells(gpAutomapContext_007A5164->pWalls);
     }
     if (tSave.nObjects)
     {
         tSave.pObjects = FOG_Alloc(tSave.nObjects, ".\\UI\\automap.cpp", 0x4F8, 0);
         gpAutomapSaveBuffer_007A5154 = tSave.pObjects;
-        sub_00458470_StoreCells(gpAutomapContext_007A5164->pObjects);
+        AUTOMAP_StoreCells(gpAutomapContext_007A5164->pObjects);
     }
     if (tSave.dwExtraSize)
     {
         tSave.pExtras = FOG_Alloc(tSave.dwExtraSize, ".\\UI\\automap.cpp", 0x4FF, 0);
         gpAutomapSaveBuffer_007A5154 = tSave.pExtras;
-        sub_00458470_StoreCells(gpAutomapContext_007A5164->pExtras);
+        AUTOMAP_StoreCells(gpAutomapContext_007A5164->pExtras);
     }
     sub_00458200_WriteAutomapLayer(&tSave);
     if (tSave.pFloors)
@@ -1446,7 +1446,7 @@ void __cdecl sub_004584C0()
 }
 
 // 0x004586E0
-static void __stdcall sub_004586E0_UnlinkAutomapLayer(void* hFile, unsigned int* pOffsets, unsigned int nPrev)
+static void __stdcall AUTOMAP_UnlinkAutomapLayer(void* hFile, unsigned int* pOffsets, unsigned int nPrev)
 {
     unsigned long nCount = 0;
     if (nPrev)
@@ -1464,13 +1464,13 @@ static void __stdcall sub_004586E0_UnlinkAutomapLayer(void* hFile, unsigned int*
 }
 
 // 0x00458750
-void __cdecl sub_00458750()
+void __cdecl AUTOMAP_LoadAutomapLayer()
 {
     if (!gpAutomapContext_007A5164)
     {
         return;
     }
-    void* hFile = sub_00457F40_OpenAutomapFile();
+    void* hFile = AUTOMAP_OpenAutomapFile();
     if (hFile == (void*)-1)
     {
         return;
@@ -1499,7 +1499,7 @@ void __cdecl sub_00458750()
             sub_004069B0_ReadFile(hFile, &tSave.dwExtraSize, 4, &nCount, 0);
             if (tSave.nLayerNo != gpAutomapContext_007A5164->nLayerNo)
             {
-                sub_004586E0_UnlinkAutomapLayer(hFile, anOffsets, nRecord);
+                AUTOMAP_UnlinkAutomapLayer(hFile, anOffsets, nRecord);
                 break;
             }
             if (tSave.dwFloorSize)
@@ -1512,10 +1512,10 @@ void __cdecl sub_00458750()
                 {
                     if ((short)pData[i] >= gnAutomapCelFrames_007A5178[0])
                     {
-                        sub_004586E0_UnlinkAutomapLayer(hFile, anOffsets, nRecord);
+                        AUTOMAP_UnlinkAutomapLayer(hFile, anOffsets, nRecord);
                         break;
                     }
-                    sub_00457E40_AddAutomapCell(pData[i], pData[i + 1], pData[i + 2], &gpAutomapContext_007A5164->pFloors, 1);
+                    AUTOMAP_AddAutomapCell(pData[i], pData[i + 1], pData[i + 2], &gpAutomapContext_007A5164->pFloors, 1);
                 }
                 FOG_Free(pData, ".\\UI\\automap.cpp", 0x586, 0);
             }
@@ -1529,10 +1529,10 @@ void __cdecl sub_00458750()
                 {
                     if ((short)pData[i] >= gnAutomapCelFrames_007A5178[0])
                     {
-                        sub_004586E0_UnlinkAutomapLayer(hFile, anOffsets, nRecord);
+                        AUTOMAP_UnlinkAutomapLayer(hFile, anOffsets, nRecord);
                         break;
                     }
-                    sub_00457E40_AddAutomapCell(pData[i], pData[i + 1], pData[i + 2], &gpAutomapContext_007A5164->pWalls, 1);
+                    AUTOMAP_AddAutomapCell(pData[i], pData[i + 1], pData[i + 2], &gpAutomapContext_007A5164->pWalls, 1);
                 }
                 FOG_Free(pData, ".\\UI\\automap.cpp", 0x59B, 0);
             }
@@ -1548,10 +1548,10 @@ void __cdecl sub_00458750()
                     {
                         if ((short)pData[i] >= gnAutomapCelFrames_007A5178[0])
                         {
-                            sub_004586E0_UnlinkAutomapLayer(hFile, anOffsets, nRecord);
+                            AUTOMAP_UnlinkAutomapLayer(hFile, anOffsets, nRecord);
                             break;
                         }
-                        sub_00457E40_AddAutomapCell(pData[i], pData[i + 1], pData[i + 2], &gpAutomapContext_007A5164->pObjects, 1);
+                        AUTOMAP_AddAutomapCell(pData[i], pData[i + 1], pData[i + 2], &gpAutomapContext_007A5164->pObjects, 1);
                     }
                     FOG_Free(pData, ".\\UI\\automap.cpp", 0x5B3, 0);
                 }
@@ -1570,10 +1570,10 @@ void __cdecl sub_00458750()
                 {
                     if ((short)pData[i] >= gnAutomapCelFrames_007A5178[tSave.fSaved])
                     {
-                        sub_004586E0_UnlinkAutomapLayer(hFile, anOffsets, nRecord);
+                        AUTOMAP_UnlinkAutomapLayer(hFile, anOffsets, nRecord);
                         break;
                     }
-                    sub_00457E40_AddAutomapCell(pData[i], pData[i + 1], pData[i + 2], &gpAutomapContext_007A5164->pExtras, 1);
+                    AUTOMAP_AddAutomapCell(pData[i], pData[i + 1], pData[i + 2], &gpAutomapContext_007A5164->pExtras, 1);
                 }
                 FOG_Free(pData, ".\\UI\\automap.cpp", 0x5CE, 0);
             }
@@ -1584,7 +1584,7 @@ void __cdecl sub_00458750()
 }
 
 // 0x00458CF0
-void __stdcall sub_00458CF0_PushNode(int nValue)
+void __stdcall AUTOMAP_PushAutomapLayer(int nValue)
 {
     D2AutomapLayerStrc* pNode = (D2AutomapLayerStrc*)FOG_Alloc(sizeof(D2AutomapLayerStrc), ".\\UI\\automap.cpp", 0x5ED, 0);
     D2AutomapLayerStrc* pHead = gpAutomapNodes_007A5160;
@@ -1627,7 +1627,7 @@ static D2AutomapLayerStrc* sub_00458D40_InitAutomapLayer(int nLayerNo)
 }
 
 // 0x00458F40
-void __stdcall sub_00458F40_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevealAll, D2AutomapLayerStrc* pLayer)
+void __stdcall AUTOMAP_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevealAll, D2AutomapLayerStrc* pLayer)
 {
     unsigned int nCount = 0;
     D2AutomapRoomStrc* pRoom = sub_0061AAE0_GetAutomapRoom(pActiveRoom);
@@ -1637,7 +1637,7 @@ void __stdcall sub_00458F40_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int b
         D2DrlgTileDataStrc* pTileData = &pTiles[i];
         if (!(pTileData->dwFlags & 8) && ((pTileData->dwFlags & 0x20000) || gbRevealAutomap_007A51A0 || bRevealAll))
         {
-            sub_00457CF0_RevealAutomapTile(pTileData, pRoom, &pLayer->pFloors);
+            AUTOMAP_RevealAutomapTile(pTileData, pRoom, &pLayer->pFloors);
         }
     }
     pTiles = sub_006196A0_GetWallTiles(pActiveRoom, &nCount);
@@ -1646,14 +1646,14 @@ void __stdcall sub_00458F40_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int b
         D2DrlgTileDataStrc* pTileData = &pTiles[i];
         if (!(pTileData->dwFlags & 8) && ((pTileData->dwFlags & 0x20000) || gbRevealAutomap_007A51A0 || bRevealAll))
         {
-            sub_00457CF0_RevealAutomapTile(pTileData, pRoom, &pLayer->pWalls);
+            AUTOMAP_RevealAutomapTile(pTileData, pRoom, &pLayer->pWalls);
         }
     }
-    sub_00458DC0_RevealRoomObjects(pActiveRoom, &pLayer->pObjects);
+    AUTOMAP_RevealRoomObjects(pActiveRoom, &pLayer->pObjects);
 }
 
 // 0x00459020
-void __cdecl sub_00459020_UpdateAutomapReveal()
+void __cdecl AUTOMAP_UpdateAutomapReveal()
 {
     if (gnRevealSkip_007A51A4)
     {
@@ -1693,7 +1693,7 @@ void __cdecl sub_00459020_UpdateAutomapReveal()
     for (unsigned int i = 0; i < nNumRooms; ++i)
     {
         if (nLayerNo == DATATBLS_GetLevelDefRecord(DUNGEON_GetLevelIdFromRoom(ppRoomList[i]))->dwLayer)
-            sub_00458F40_RevealRoomTiles(ppRoomList[i], 0, pLayer);
+            AUTOMAP_RevealRoomTiles(ppRoomList[i], 0, pLayer);
     }
 }
 
@@ -1774,12 +1774,12 @@ void __stdcall sub_004591A0_AddTownCelsCallback(int nLevelId, int nPickedFile, i
             D2_ASSERT(nPosY >= -0x8000 && nPosY <= 0x7FFF, 0x778);
             D2_ASSERT(nCel >= -0x8000 && nCel <= 0x7FFF, 0x779);
             {
-                D2AutomapCellStrc* pCell = sub_00457C30();
+                D2AutomapCellStrc* pCell = AUTOMAP_AllocAutomapCell();
                 pCell->fSaved = 0;
                 pCell->nCellNo = nCel;
                 pCell->xPixel = nPosX;
                 pCell->yPixel = nPosY;
-                sub_00457B00(pCell, &pLayer->pExtras);
+                AUTOMAP_InsertAutomapCell(pCell, &pLayer->pExtras);
             }
 next:
             ++nCel;
@@ -1793,7 +1793,7 @@ next:
 }
 
 // 0x00459140
-void __cdecl sub_00459140_Refresh()
+void __cdecl AUTOMAP_SkipAutomapReveal()
 {
     gnRevealSkip_007A51A4 = 2;
 }
@@ -1804,25 +1804,25 @@ void __stdcall sub_00459150_RevealRoomCallback(D2ActiveRoomStrc* pRoom)
     const int nPrevLayerNo = gpAutomapContext_007A5164 ? gpAutomapContext_007A5164->nLayerNo : -1;
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
     D2AutomapLayerStrc* pLayer = sub_00458D40_InitAutomapLayer(DATATBLS_GetLevelDefRecord(nLevelId)->dwLayer);
-    sub_00458F40_RevealRoomTiles(pRoom, 1, pLayer);
+    AUTOMAP_RevealRoomTiles(pRoom, 1, pLayer);
     if (nPrevLayerNo != -1)
         sub_00458D40_InitAutomapLayer(nPrevLayerNo);
 }
 
 // 0x0045A050
-void __cdecl sub_0045A050_DrawLevelName()
+void __cdecl AUTOMAP_DrawLevelName()
 {
     D2ActiveRoomStrc* room = sub_004646A0_GetPlayerRoom();
     if (room)
     {
-        const Unicode* text = sub_00453E70_GetLevelName(DUNGEON_GetLevelIdFromRoom(room));
+        const Unicode* text = UI_GetLevelName(DUNGEON_GetLevelIdFromRoom(room));
         sub_00502320(text, gTextRight - sub_00501820(text) - 16, gTextY, 4, 0);
         gTextY += 16;
     }
 }
 
 // 0x0045A280
-void __cdecl sub_0045A280_FreeAutomapCels()
+void __cdecl AUTOMAP_FreeAutomapCels()
 {
     for (int i = 0; i < 4; ++i)
     {
@@ -1836,10 +1836,10 @@ void __cdecl sub_0045A280_FreeAutomapCels()
 
 // build: symbol ??1WardenModule@@QAE@XZ 0x004E06A0
 // 0x0045A4C0
-void __cdecl sub_0045A4C0_InitAutomap()
+void __cdecl AUTOMAP_InitAutomap()
 {
     unsigned long dwValue = 0;
-    sub_0045A2B0_ReloadAutomapCels();
+    AUTOMAP_ReloadAutomapCels();
     for (int i = 0; i < 0x800; i++)
     {
         gaAutomapCellTable_007A3150[i] = -1;
@@ -1868,7 +1868,7 @@ void __cdecl sub_0045A4C0_InitAutomap()
 }
 
 // 0x0045A5C0
-void __cdecl sub_0045A5C0_FreeAutomap()
+void __cdecl AUTOMAP_FreeAutomap()
 {
     sub_004584C0_ResetA();
     sub_00458680_ResetB();
@@ -1892,7 +1892,7 @@ void __cdecl sub_0045A5C0_FreeAutomap()
 }
 
 // 0x0045A620
-void __cdecl sub_0045A620_InitAutomapColors()
+void __cdecl AUTOMAP_InitAutomapColors()
 {
     gnAutomapColors_007A51B0[0] = D2Win_10034_MixRGB(0, 0, 0xFF);
     gnAutomapColors_007A51B0[1] = D2Win_10034_MixRGB(0xFF, 0, 0);
@@ -1908,7 +1908,7 @@ void __cdecl sub_0045A620_InitAutomapColors()
 }
 
 // 0x0045A720
-void __fastcall sub_0045A720_SetAutomapMode(int mode)
+void __fastcall AUTOMAP_SetAutomapMode(int mode)
 {
     if (mode != gnAutomapMode_007A5150)
     {
@@ -1920,7 +1920,7 @@ void __fastcall sub_0045A720_SetAutomapMode(int mode)
             gnAutomapStep_00711254 = 20;
             break;
         }
-        sub_0045A2B0_ReloadAutomapCels();
+        AUTOMAP_ReloadAutomapCels();
         sub_00457640(1);
     }
 }
@@ -1938,14 +1938,14 @@ void __fastcall sub_0045AE70_SetGlobal0071142C(int nValue)
 }
 
 // 0x0045AFE0
-void __fastcall sub_0045AFE0_SetMouseOffsets(int nX, int nY)
+void __fastcall AUTOMAP_SetAutomapOffsets(int nX, int nY)
 {
     gdwGlobal_007A520C = nX;
     gdwGlobal_007A5208 = nY;
 }
 
 // 0x0045AFF0
-void __fastcall sub_0045AFF0_ScreenToMap(int* pX, int* pY)
+void __fastcall AUTOMAP_ScreenToMap(int* pX, int* pY)
 {
     int nX = *pX;
     int nY = *pY;
@@ -1963,7 +1963,7 @@ void __fastcall sub_0045AFF0_ScreenToMap(int* pX, int* pY)
 }
 
 // 0x0045B1E0
-void __stdcall sub_0045B1E0_DrawUnitTileRect(D2UnitStrc* pUnit)
+void __stdcall AUTOMAP_DrawUnitTileRect(D2UnitStrc* pUnit)
 {
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
     D2TileRectStrc* pTileRect = sub_00619620(pRoom, pUnit);
@@ -2003,7 +2003,7 @@ void __stdcall sub_0045B1E0_DrawUnitTileRect(D2UnitStrc* pUnit)
 }
 
 // 0x0045B3E0
-void __cdecl sub_0045B3E0_DrawRoomTileRects()
+void __cdecl AUTOMAP_DrawRoomTileRects()
 {
     D2ActiveRoomStrc** ppRoomList;
     unsigned int nNumRooms;
@@ -2017,7 +2017,7 @@ void __cdecl sub_0045B3E0_DrawRoomTileRects()
             {
                 if (pUnit->dwUnitType == UNIT_TILE)
                 {
-                    sub_0045B1E0_DrawUnitTileRect(pUnit);
+                    AUTOMAP_DrawUnitTileRect(pUnit);
                 }
             }
         }
@@ -2025,7 +2025,7 @@ void __cdecl sub_0045B3E0_DrawRoomTileRects()
 }
 
 // 0x0045B440
-void __cdecl sub_0045B440_UpdateAutomapOrigin()
+void __cdecl AUTOMAP_UpdateAutomapOrigin()
 {
     int nShiftX;
     int nShiftY;
@@ -2051,7 +2051,7 @@ void __cdecl sub_0045B440_UpdateAutomapOrigin()
 }
 
 // 0x0045B4F0
-void __stdcall sub_0045B4F0_DrawRoomCollision(D2ActiveRoomStrc* pRoom)
+void __stdcall AUTOMAP_DrawRoomCollision(D2ActiveRoomStrc* pRoom)
 {
     D2DrlgCoordsStrc tCoords;
     DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
@@ -2077,7 +2077,7 @@ void __stdcall sub_0045B4F0_DrawRoomCollision(D2ActiveRoomStrc* pRoom)
 }
 
 // 0x0045D3E0
-void __fastcall sub_0045D3E0_RefreshItemStats(D2UnitStrc* pUnit)
+void __fastcall AUTOMAP_RefreshItemStats(D2UnitStrc* pUnit)
 {
     if (!pUnit || !pUnit->pInventory)
     {
@@ -2102,7 +2102,7 @@ void __fastcall sub_0045D3E0_RefreshItemStats(D2UnitStrc* pUnit)
 }
 
 // 0x0045FA40
-void __fastcall sub_0045FA40(void* pArg)
+void __fastcall AUTOMAP_ProcessUnitPacketBuffer(void* pArg)
 {
     D2PacketBufferStrc* pBuffer = sub_00464770_GetPacketBuffer(pArg);
     if (!pBuffer)
@@ -2135,7 +2135,7 @@ void __fastcall sub_0045FA40(void* pArg)
 }
 
 // 0x0045FE30
-void __stdcall sub_0045FE30_ButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall AUTOMAP_PopupButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     int nLeft = gnGlobal_007A2858 + 0x110;
     int nBottom = 0x136 - gnGlobal_007A285C;
@@ -2158,7 +2158,7 @@ void __stdcall sub_0045FE30_ButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004601F0
-void __stdcall sub_004601F0_TwoButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall AUTOMAP_PopupTwoButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     int nLeft = gnGlobal_007A2858 + 0xCE;
     int nBottom = 0x136 - gnGlobal_007A285C;
@@ -2195,7 +2195,7 @@ void __stdcall sub_004601F0_TwoButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004602E0
-void __stdcall sub_004602E0_TwoButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall AUTOMAP_PopupTwoButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     gnGlobal_007A524C = 0;
     gnGlobal_007A5250 = 0;
@@ -2231,7 +2231,7 @@ void __stdcall sub_004602E0_TwoButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00460930
-void __fastcall sub_00460930_SetUnitLightRadius(D2UnitStrc* pUnit, int nDelta)
+void __fastcall AUTOMAP_SetUnitLightRadius(D2UnitStrc* pUnit, int nDelta)
 {
     if (!pUnit || (pUnit->dwUnitType != UNIT_PLAYER && pUnit->dwUnitType != UNIT_MONSTER))
     {
@@ -2265,7 +2265,7 @@ void __fastcall sub_00460930_SetUnitLightRadius(D2UnitStrc* pUnit, int nDelta)
 }
 
 // 0x004609A0
-void __fastcall sub_004609A0_SetUnitLightColor(D2UnitStrc* pUnit, int nColor)
+void __fastcall AUTOMAP_SetUnitLightColor(D2UnitStrc* pUnit, int nColor)
 {
     if (!pUnit || (pUnit->dwUnitType != UNIT_PLAYER && pUnit->dwUnitType != UNIT_MONSTER))
     {
@@ -2289,7 +2289,7 @@ void __fastcall sub_004609A0_SetUnitLightColor(D2UnitStrc* pUnit, int nColor)
 }
 
 // 0x00461AC0
-int __fastcall sub_00461AC0_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance)
+int __fastcall AUTOMAP_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance)
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer || !pSkill || !pTarget)
@@ -2308,7 +2308,7 @@ int __fastcall sub_00461AC0_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarg
 }
 
 // 0x00462EE0
-unsigned char __stdcall sub_00462EE0_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* pItem)
+unsigned char __stdcall AUTOMAP_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
     int nBodyLoc = ITEMS_GetBodyLocation(pItem);
     if (nBodyLoc == BODYLOC_LARM || nBodyLoc == BODYLOC_RARM)
@@ -2326,7 +2326,7 @@ unsigned char __stdcall sub_00462EE0_GetItemComponent(D2UnitStrc* pUnit, D2UnitS
 }
 
 // 0x00463180
-void __fastcall sub_00463180_UpdatePathAndMove(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3)
+void __fastcall AUTOMAP_UpdatePathAndMove(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3)
 {
     int nMode = pUnit->dwAnimMode;
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
@@ -2379,7 +2379,7 @@ inline D2OverlayTxt* DATATBLS_GetOverlayTxtRecordInline(int nOverlay)
 }
 
 // 0x0046F0C0
-void __fastcall sub_0046F0C0(D2UnitStrc* pUnit, int nArg, int nValue)
+void __fastcall AUTOMAP_RemoveUnitOverlay(D2UnitStrc* pUnit, int nArg, int nValue)
 {
     if (!pUnit)
     {
@@ -2411,7 +2411,7 @@ void __fastcall sub_0046F0C0(D2UnitStrc* pUnit, int nArg, int nValue)
 }
 
 // 0x00480C10
-int __fastcall sub_00480C10_DispatchUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg)
+int __fastcall AUTOMAP_DispatchUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg)
 {
     switch (pUnit->dwUnitType)
     {
@@ -2431,7 +2431,7 @@ int __fastcall sub_00480C10_DispatchUnitCommand(int nCommand, D2UnitStrc* pUnit,
 }
 
 // 0x00498DC0
-int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
+int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
@@ -2454,7 +2454,7 @@ int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004C5420
-D2UnitStrc* __fastcall sub_004C5420_RequestAtTarget(D2UnitStrc* pUnit, int nRequest, int nArg3, int nArg4)
+D2UnitStrc* __fastcall AUTOMAP_RequestAtTarget(D2UnitStrc* pUnit, int nRequest, int nArg3, int nArg4)
 {
     int nX;
     int nY;

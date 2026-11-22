@@ -59,7 +59,7 @@ extern "C" int __cdecl strncpy_s(char* szDest, size_t nDestSize, const char* szS
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);
 
-BOOLEAN __stdcall sub_00404850_IsAtLeast1C(unsigned int nValue);
+BOOLEAN __stdcall AUTOMAP_IsDebugDirectorySizeValid(unsigned int nValue);
 static bool __stdcall sub_004049A0_ReadImageInfo(D2CrashModuleStrc* pModule, const D2ImageDosHeaderStrc* pImage); // 0x004049A0
 static bool sub_00404F80_ReadNb10(D2CrashModuleStrc* pModule, const D2CvNb10Strc* pCv);
 static bool sub_00404FF0_ReadRsds(const D2CvRsdsStrc* pCv, D2CrashModuleStrc* pModule);
@@ -120,7 +120,7 @@ static inline bool sub_00404780_IsNtHeaderValid(const D2ImageNtHeadersStrc* pNt)
 
 bool sub_004047D0_GetDebugDirectory(unsigned long* pSize, unsigned long* pRva, const D2ImageOptionalHeaderStrc* pHeader); // 0x004047D0
 
-BOOLEAN __stdcall sub_00404850_IsAtLeast1C(unsigned int nValue); // 0x00404850
+BOOLEAN __stdcall AUTOMAP_IsDebugDirectorySizeValid(unsigned int nValue); // 0x00404850
 
 // 0x00404860
 static void sub_00404860_SetNb10Info(D2CrashModuleStrc* pModule, const D2CvNb10Strc* pCv)
@@ -167,7 +167,7 @@ static bool __stdcall sub_004049A0_ReadImageInfo(D2CrashModuleStrc* pModule, con
     if (sub_004047D0_GetDebugDirectory(&nSize, &nRva, &pNt->OptionalHeader) && nRva && nSize)
     {
         const D2ImageDebugDirStrc* pDirs = (const D2ImageDebugDirStrc*)((const char*)pImage + nRva);
-        if (!IsBadReadPtr(pDirs, nSize) && sub_00404850_IsAtLeast1C(nSize))
+        if (!IsBadReadPtr(pDirs, nSize) && AUTOMAP_IsDebugDirectorySizeValid(nSize))
         {
             sub_00404900_FindCodeView(pImage, pDirs, pModule, nSize);
         }

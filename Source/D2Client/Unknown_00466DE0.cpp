@@ -21,10 +21,10 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x00
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern D2ViewStrc* gpView_007A0640; // 0x007A0640
 extern int gdwGlobal_007A6A98; // 0x007A6A98
-int __cdecl sub_004A0000(); // 0x004A0000
-D2UnitStrc* __cdecl sub_0049E8B0_GetTextUnit(); // 0x0049E8B0
-void __fastcall sub_0049DA30(D2UnitStrc* pUnit); // 0x0049DA30
-void __cdecl sub_0049DA50_ClearFlag(); // 0x0049DA50
+int __cdecl TEXT_IsTextBoxOpen(); // 0x004A0000
+D2UnitStrc* __cdecl TEXT_GetTextUnit(); // 0x0049E8B0
+void __fastcall TEXT_SetHoverUnit(D2UnitStrc* pUnit); // 0x0049DA30
+void __cdecl TEXT_ClearHoverUnit(); // 0x0049DA50
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 void __fastcall sub_00475FF0_SetViewDirty(D2ViewStrc* pView); // 0x00475FF0
@@ -65,13 +65,13 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
         return;
     }
 
-    if (sub_004A0000() && sub_0049E8B0_GetTextUnit() == pUnit)
+    if (TEXT_IsTextBoxOpen() && TEXT_GetTextUnit() == pUnit)
     {
-        sub_0049DA30(pUnit);
+        TEXT_SetHoverUnit(pUnit);
         return;
     }
 
-    sub_0049DA50_ClearFlag();
+    TEXT_ClearHoverUnit();
 
     int bSame = 0;
     int nHoverType;

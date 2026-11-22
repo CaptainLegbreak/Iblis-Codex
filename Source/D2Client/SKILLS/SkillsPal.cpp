@@ -64,7 +64,7 @@ void __stdcall SKILLS_SetParam3(D2SkillStrc*,int); // 0x006445E0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc*); // 0x004648F0
 int __fastcall sub_004C7630(D2UnitStrc*,D2UnitStrc*); // 0x004C7630
-int __fastcall sub_004F4F40_GetMonSkillSound(D2UnitStrc*,int); // 0x004F4F40
+int __fastcall SKILLDESC_GetMonSkillSound(D2UnitStrc*,int); // 0x004F4F40
 void __fastcall sub_004B9A00(int,D2UnitStrc*,int,int,int); // 0x004B9A00
 void __fastcall sub_00465BF0_SetPathTargetToTargetUnit(D2UnitStrc*,int); // 0x00465BF0
 void __fastcall sub_004C7950(D2UnitStrc*); // 0x004C7950
@@ -183,7 +183,7 @@ int __fastcall sub_004C9B40_StartCharge(D2UnitStrc* pUnit,int nSkillId,int nSkil
  if(UNITS_GetUnitTypeChecked(pUnit)==0){
   if(pRecord->wDoSoundA>0)sub_004B9A00(pRecord->wDoSoundA,pUnit,0,0,0);
  }else if(UNITS_GetUnitTypeChecked(pUnit)==1){
-  int sound=sub_004F4F40_GetMonSkillSound(pUnit,nSkillId);
+  int sound=SKILLDESC_GetMonSkillSound(pUnit,nSkillId);
   if(sound>0)sub_004B9A00(sound,pUnit,0,0,0);
  }
  if(pTarget){

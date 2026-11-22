@@ -13,7 +13,7 @@ struct D2ImmunityTextStrc;
 
 extern Unicode gwszText_007A2A78[]; // 0x007A2A78
 extern int gnHoverTextState_007A2C78; // 0x007A2C78
-int __fastcall sub_00454880_GetHoverRect(D2RectStrc* pRect); // 0x00454880
+int __fastcall UI_GetHoverRect(D2RectStrc* pRect); // 0x00454880
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
@@ -39,7 +39,7 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
-Unicode* __fastcall sub_004521C0_PrefixLevelText(Unicode* pText, int nDigit); // 0x004521C0
+Unicode* __fastcall INV_PrefixColorCode(Unicode* pText, int nDigit); // 0x004521C0
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 const Unicode* __fastcall sub_00464A60_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
@@ -47,10 +47,10 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 void __fastcall D2Win_10130_DrawFramedTextEx(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5, int nArg6); // 0x005022F0
-int __fastcall sub_00452580_GetHoverMonsterName(D2UnitStrc* pUnit, unsigned short nArg); // 0x00452580
+int __fastcall AUTOMAP_GetHoverMonsterName(D2UnitStrc* pUnit, unsigned short nArg); // 0x00452580
 void __fastcall sub_00452520_SetHoverLine(const Unicode* pText, int nColor); // 0x00452520
-int __fastcall sub_004B3230_GetTickPair(int* pLow); // 0x004B3230
-int __cdecl sub_004A0000(); // 0x004A0000
+int __fastcall NPCMENU_GetInteractNpcId(int* pLow); // 0x004B3230
+int __cdecl TEXT_IsTextBoxOpen(); // 0x004A0000
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const D2ImmunityTextStrc gaImmunityTexts_006D6418[6]; // 0x006D6418
@@ -70,7 +70,7 @@ static void __stdcall sub_004549F0_DrawCenteredText(const Unicode* wszText, int 
         wszBuffer[i].wChar = 0;
     }
     D2RectStrc tRect;
-    if (!sub_00454880_GetHoverRect(&tRect) || !wszText)
+    if (!UI_GetHoverRect(&tRect) || !wszText)
     {
         return;
     }
@@ -125,7 +125,7 @@ void __cdecl sub_004554B0_DrawHoverName()
 }
 
 // 0x004526C0
-static void sub_004526C0_BuildImmunityText(D2UnitStrc* pUnit)
+static void UI_BuildImmunityText(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwClassId >= 0x2C0 && pUnit->dwClassId <= 0x2C5)
     {
@@ -150,7 +150,7 @@ static void sub_004526C0_BuildImmunityText(D2UnitStrc* pUnit)
                 sub_00526700((Unicode*)wszText, pNewLine);
             }
             sub_005267E0((Unicode*)wszItem, D2LANG_GetStringFromTblIndex(gaImmunityTexts_006D6418[n].wString));
-            sub_004521C0_PrefixLevelText((Unicode*)wszItem, gaImmunityTexts_006D6418[n].nColor);
+            INV_PrefixColorCode((Unicode*)wszItem, gaImmunityTexts_006D6418[n].nColor);
             sub_00526700((Unicode*)wszText, (Unicode*)wszItem);
         }
     }
@@ -227,7 +227,7 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
             nColor = 4;
         }
         D2RectStrc tRect;
-        if (sub_00454880_GetHoverRect(&tRect))
+        if (UI_GetHoverRect(&tRect))
         {
             const int nX = ((tRect.nRight + tRect.nLeft) >> 1) - (sub_00501820((Unicode*)wszText) >> 1);
             D2Win_10130_DrawFramedTextEx((Unicode*)wszText, nX, 0x20, nColor, 0, nY);
@@ -243,7 +243,7 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
                 {
                     nTypeString = 0x275D;
                 }
-                if (!sub_00452580_GetHoverMonsterName(pUnit, nTypeString))
+                if (!AUTOMAP_GetHoverMonsterName(pUnit, nTypeString))
                 {
                     if (nTypeString)
                     {
@@ -261,7 +261,7 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
                         sub_00452520_SetHoverLine(D2LANG_GetStringFromTblIndex(pRecord->wDescStr), nColor);
                     }
                 }
-                sub_004526C0_BuildImmunityText(pUnit);
+                UI_BuildImmunityText(pUnit);
             }
             else
             {
@@ -273,7 +273,7 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
     {
         gwszHoverName_007A2F38[0].wChar = 0;
         int nTickLow;
-        if (!sub_004B3230_GetTickPair(&nTickLow) && !sub_004A0000())
+        if (!NPCMENU_GetInteractNpcId(&nTickLow) && !TEXT_IsTextBoxOpen())
         {
             pMonStats2Txt = UNITS_GetMonStats2TxtRecordFromMonsterId(!pUnit ? -1 : pUnit->dwClassId);
             if (pMonStats2Txt)

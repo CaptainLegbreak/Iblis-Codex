@@ -15,7 +15,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
-int __fastcall sub_004F21B0_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
+int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
 
@@ -38,7 +38,7 @@ int __fastcall sub_004F4D90_MissileAtTarget(D2UnitStrc* pUnit, int nSkillId, int
         return 0;
     }
 
-    const int nMissile = sub_004F21B0_GetCltMissileId(pUnit, nSkillId);
+    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
     if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
     {
         return 0;

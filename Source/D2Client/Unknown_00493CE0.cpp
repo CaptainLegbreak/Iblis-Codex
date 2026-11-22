@@ -27,9 +27,9 @@ int __fastcall sub_00479BA0(D2StoredUnitRecordStrc* pEntry);                    
 unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry);                      // 0x00479BC0
 int __fastcall sub_0047A0C0_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord);                              // 0x0047A0C0
 int __fastcall sub_0047A150_GetPartyLife(int nUnitId);                                                     // 0x0047A150
-D2CelFileStrc* __fastcall sub_00493240_PetIconForType(D2UnitStrc* pOwner, int nPetType, int* pUnitId, int* pSingle); // 0x00493240
-void __stdcall sub_00493100_DrawNumber(int nValue, int nX);                                                // 0x00493100
-const Unicode* __fastcall sub_0046A530_GetKeyName(int nA, int nB);                                         // 0x0046A530
+D2CelFileStrc* __fastcall HIREABLES_GetPetIcon(D2UnitStrc* pOwner, int nPetType, int* pUnitId, int* pSingle); // 0x00493240
+void __stdcall INV_DrawIconNumber(int nValue, int nX);                                                // 0x00493100
+const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB);                                         // 0x0046A530
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, int eDrawMode); // 0x004F6300
 int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
@@ -58,7 +58,7 @@ static int gnGlobal_007BEEE0;                                                   
 static unsigned char gbGlobal_007BEEE4;                                                                     // 0x007BEEE4
 static int gdwPopupTick_007BEEE8;                                                                           // 0x007BEEE8
 
-static void __stdcall sub_00492FA0_DrawFittedText(int nX, int nY, int nColor, Unicode* pText)
+static void __stdcall HIREABLES_DrawFittedText(int nX, int nY, int nColor, Unicode* pText)
 {
     const int nOldFont = sub_00502EF0(6);
     Unicode* pEnd = &pText[31];
@@ -81,7 +81,7 @@ static void __stdcall sub_00493020_DrawPetTypeName(int nX, int nY, int nPetType)
     {
         Unicode wszName[32];
         sub_005267E0(wszName, D2LANG_GetStringFromTblIndex(pPetTypeTxt->wStringId));
-        sub_00492FA0_DrawFittedText(nX, nY, 0, wszName);
+        HIREABLES_DrawFittedText(nX, nY, 0, wszName);
     }
 }
 
@@ -93,7 +93,7 @@ static void __stdcall sub_004930A0_DrawRosterName(const char* szName, int nX, in
         wszName[i] = 0;
     }
     sub_00526320_ToUnicode((Unicode*)wszName, szName, 32);
-    sub_00492FA0_DrawFittedText(nX, nY, 0, (Unicode*)wszName);
+    HIREABLES_DrawFittedText(nX, nY, 0, (Unicode*)wszName);
 }
 
 static void __stdcall sub_00493A00_DrawLifeBar(int nPetType, int nX, int nUnitId)
@@ -130,7 +130,7 @@ static void __stdcall sub_00493B00_DrawUnitName(D2UnitStrc* pUnit, int nX, int n
         memset(wszName, 0, sizeof(wszName));
         sub_00526790((Unicode*)wszName, sub_00464A60_GetUnitName(pUnit), 32);
         wszName[31] = 0;
-        sub_00492FA0_DrawFittedText(nX, nY, 0, (Unicode*)wszName);
+        HIREABLES_DrawFittedText(nX, nY, 0, (Unicode*)wszName);
     }
 }
 
@@ -220,7 +220,7 @@ static int __stdcall sub_00493CE0_DrawSummonIcon(D2UnitStrc* pPlayer, int* pbAlt
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     int nUnitId;
-    tContext.pCellFile = sub_00493240_PetIconForType(pPlayer, 7, &nUnitId, 0);
+    tContext.pCellFile = HIREABLES_GetPetIcon(pPlayer, 7, &nUnitId, 0);
     if (!tContext.pCellFile)
         return 0;
 
@@ -255,7 +255,7 @@ static int __stdcall sub_00493E10_DrawPetIcon(D2UnitStrc* pPlayer, int* pnX, int
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     int nUnitId;
-    tContext.pCellFile = sub_00493240_PetIconForType(pPlayer, nPetType, &nUnitId, 0);
+    tContext.pCellFile = HIREABLES_GetPetIcon(pPlayer, nPetType, &nUnitId, 0);
     if (!tContext.pCellFile)
         return 0;
 
@@ -286,14 +286,14 @@ static int __stdcall sub_00493EB0_DrawPetCountIcon(D2UnitStrc* pPlayer, int* pnY
     memset(&tContext, 0, sizeof(tContext));
     int nUnitId;
     int bSingle = 0;
-    tContext.pCellFile = sub_00493240_PetIconForType(pPlayer, nPetType, &nUnitId, &bSingle);
+    tContext.pCellFile = HIREABLES_GetPetIcon(pPlayer, nPetType, &nUnitId, &bSingle);
     if (!tContext.pCellFile)
         return 0;
 
     if (nCount == 1 && bSingle)
         sub_00493A00_DrawLifeBar(nPetType, *pnX, sub_00478F20_FindPetIdByOwner(pPlayer, nPetType, 0));
 
-    sub_00493100_DrawNumber(nCount, *pnX);
+    INV_DrawIconNumber(nCount, *pnX);
     sub_00493020_DrawPetTypeName(*pnX, *pnY, nPetType);
     if (*pbAlternate)
     {
@@ -315,7 +315,7 @@ static int __stdcall sub_00493F80_DrawPetIcon3(D2UnitStrc* pPlayer, int* pnX, in
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     int nUnitId;
-    tContext.pCellFile = sub_00493240_PetIconForType(pPlayer, nPetType, &nUnitId, 0);
+    tContext.pCellFile = HIREABLES_GetPetIcon(pPlayer, nPetType, &nUnitId, 0);
     if (!tContext.pCellFile)
         return 0;
 
@@ -386,7 +386,7 @@ void __cdecl sub_00494020_DrawPetIcons()
             const Unicode* wszSuffix = D2LANG_GetStringFromTblIndex(0x58A2);
             const Unicode* wszFormat = D2LANG_GetStringFromTblIndex(0x58A3);
             const Unicode* wszMiddle = D2LANG_GetStringFromTblIndex(0xF9E);
-            sub_005269D0(0x100, wszText, wszFormat, sub_0046A530_GetKeyName(0x36, 1));
+            sub_005269D0(0x100, wszText, wszFormat, CMDTBL_GetKeyName(0x36, 1));
             sub_00526700(wszText, wszMiddle);
             sub_00526700(wszText, wszSuffix);
             D2Win_10129_DrawFramedText(wszText, gnPopupX_007BEED4, gnPopupY_007BEED8 + 0x24, 0, 0);

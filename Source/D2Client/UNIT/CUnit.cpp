@@ -162,7 +162,7 @@ D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom
 
 int __stdcall D2Common_10231(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit_unused, D2ActiveRoomStrc* pRooms, unsigned short nX, unsigned short nY); // 0x00650C20
 
-void __cdecl sub_00459140_Refresh(); // 0x00459140
+void __cdecl AUTOMAP_SkipAutomapReveal(); // 0x00459140
 
 void __fastcall sub_00472C20_PlayerMoved(int nArg); // 0x00472C20
 
@@ -207,7 +207,7 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 
 void __fastcall sub_004743D0_ReleaseOverlayResource(D2GfxLightStrc* pLight); // 0x004743D0
 
-void __cdecl sub_0049F960_ResetTextBox(); // 0x0049F960
+void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 
 int __stdcall SFileUnloadFile(void* pBuffer); // 0x00416710
 
@@ -306,13 +306,13 @@ struct D2CoordPairStrc;
 
 struct D2MonStats2SelectStrc;
 
-void __cdecl sub_00453DE0(); // 0x00453DE0
+void __cdecl UI_FreePlayerUI(); // 0x00453DE0
 
 void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirection); // 0x006488A0
 
 void __fastcall sub_0044BEA0_SetValue(int nValue); // 0x0044BEA0
 
-void __cdecl sub_00453D90_RunSequenceA(); // 0x00453D90
+void __cdecl UI_LoadPlayerUI(); // 0x00453D90
 
 void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 
@@ -705,7 +705,7 @@ void __fastcall sub_00463D90_SetPlayerUnit(D2UnitStrc* pUnit)
 {
     if (gpPlayerUnit_007A6A70)
     {
-        sub_00453DE0();
+        UI_FreePlayerUI();
     }
 
     if (pUnit)
@@ -713,7 +713,7 @@ void __fastcall sub_00463D90_SetPlayerUnit(D2UnitStrc* pUnit)
         sub_006488A0_SetDirection(pUnit->pDynamicPath, 0);
         gnCharClass_007A0522 = (unsigned char)CUNIT_GetUnitClassId(pUnit);
         sub_0044BEA0_SetValue(0);
-        sub_00453D90_RunSequenceA();
+        UI_LoadPlayerUI();
     }
 
     gpPlayerUnit_007A6A70 = pUnit;
@@ -1695,7 +1695,7 @@ void __fastcall sub_004654C0_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, 
         COLLISION_GetFreeCoordinates(pRoom, &tCoord, nUnitSize, 0x1C09, 1);
         D2_ASSERT(D2Common_10231(pDynamicPath, pUnit, pRoom, tCoord.nX, tCoord.nY), 0x1A9);
     }
-    sub_00459140_Refresh();
+    AUTOMAP_SkipAutomapReveal();
     if (pUnit == pPlayer)
     {
         sub_00472C20_PlayerMoved(bFlag);
@@ -2424,7 +2424,7 @@ void __fastcall sub_004898D0(int nState)
 // 0x004A1730
 void __cdecl sub_004A1730_ClearPanel()
 {
-    sub_0049F960_ResetTextBox();
+    TEXT_ResetTextBox();
     gnGlobal_007BF1FA = 0;
     if (gpTextHeader_007BF250)
     {

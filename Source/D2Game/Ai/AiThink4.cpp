@@ -834,7 +834,7 @@ struct D2AiControlStrc;
 
 struct D2MissilesTxt;
 
-int __fastcall sub_004EFCB0_GetSummonLevel(int nSkillId, int nSkillLevel); // 0x004EFCB0
+int __fastcall SKILLDESC_GetSummonLevel(int nSkillId, int nSkillLevel); // 0x004EFCB0
 
 void __fastcall SUNITDMG_KillMonster(D2GameStrc* pGame, D2UnitStrc* pDefender, D2UnitStrc* pAttacker, int bSendMsg); // 0x0057CCB0
 
@@ -1241,7 +1241,7 @@ void __fastcall AITHINK_AncientBarb3SkillHandler(D2GameStrc* pGame, D2UnitStrc* 
 
 int __fastcall sub_0040C720_ReleaseReferences(int nArg); // 0x0040C720
 
-void __fastcall sub_00469A60_ResetKeyConfig(int nArg); // 0x00469A60
+void __fastcall CMDTBL_ResetKeyConfig(int nArg); // 0x00469A60
 
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 
@@ -2590,7 +2590,7 @@ void __fastcall AITHINK_Fn115_SiegeBeast(D2GameStrc* pGame, D2UnitStrc* pUnit, D
         return;
     }
 
-    if (pMonStatsTxt->nSkill[0] >= 0 && nDistance < sub_004E6C70(pMonStatsTxt->nSkill[0])
+    if (pMonStatsTxt->nSkill[0] >= 0 && nDistance < SKILLDESC_GetSkillParamFive(pMonStatsTxt->nSkill[0])
         && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, SIEGEBEAST_AI_PARAM_STOMP_RANGED_CHANCE_PCT))
     {
         AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], 0, 0, 0);
@@ -8334,7 +8334,7 @@ void __fastcall AITHINK_Fn107_Raven(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
         if (pMonStatsTxt->nSkill[0] >= 0)
         {
             const int nSkillLevel = SKILLS_GetSkillLevel(pOwner, SKILLS_GetHighestLevelSkillFromUnitAndId(pOwner, pMonStatsTxt->nSkill[0]), 1);
-            pAiControl->dwAiParam[0] = sub_004EFCB0_GetSummonLevel(pMonStatsTxt->nSkill[0], nSkillLevel);
+            pAiControl->dwAiParam[0] = SKILLDESC_GetSummonLevel(pMonStatsTxt->nSkill[0], nSkillLevel);
         }
     }
     else if (pAiControl->dwAiParam[0] == 0)
@@ -9252,13 +9252,13 @@ int __cdecl sub_0040D530_Call0040C720()
 }
 
 // 0x004A5010
-void __cdecl sub_004A5010_Call00469A60()
+void __cdecl TEXT_ResetKeyConfigDefaults()
 {
-    sub_00469A60_ResetKeyConfig(0);
+    CMDTBL_ResetKeyConfig(0);
 }
 
 // 0x004A51E0
-void __cdecl sub_004A51E0_FreeCelFile()
+void __cdecl TEXT_FreeTextSliderCel()
 {
     if (gpCelFile_007C02BC)
     {
@@ -14160,7 +14160,7 @@ int __fastcall AITHINK_VileMotherTrySpawnInDirection(D2GameStrc* pGame, D2UnitSt
 
         const int nFinalX = 3 * nX + CLIENTS_GetUnitXInline_005E17E0(pUnit);
         const int nFinalY = 3 * nY + CLIENTS_GetUnitYInline_005E17E0(pUnit);
-        const int nMonsterId = sub_004E6C50_ValidateMonsterId(MONSTER_VILEMOTHER1);
+        const int nMonsterId = SKILLDESC_ValidateMonsterId(MONSTER_VILEMOTHER1);
         if (pMonStatsTxt->nSkill[0] >= 0 && sub_6FC68350(nMonsterId, UNITS_GetRoom(pUnit), nFinalX, nFinalY, 0))
         {
             AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], 0, nFinalX, nFinalY);

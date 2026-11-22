@@ -16,7 +16,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                             
 int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                                   // 0x0045C390
 int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                                  // 0x0045C3E0
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams);                          // 0x004CD540
-int __fastcall sub_004F21B0_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId);                              // 0x004F21B0
+int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId);                              // 0x004F21B0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
@@ -46,7 +46,7 @@ int __fastcall sub_004C97C0_SpawnScatterMissiles(D2UnitStrc* pUnit, int nSkillId
         return 0;
     }
 
-    const int nMissileId = sub_004F21B0_GetCltMissileId(pUnit, nSkillId);
+    const int nMissileId = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
     if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
     {
         return 0;

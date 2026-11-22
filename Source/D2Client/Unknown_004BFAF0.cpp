@@ -10,7 +10,7 @@ void __fastcall sub_004B85F0_AddTextLine(D2ClientDialogStrc* pDialog, const Unic
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __fastcall sub_00478700_SendCommand(char, int, int, int, int); // 0x00478700
-void __fastcall sub_004B2370_SendPacket38(int); // 0x004B2370
+void __fastcall NPCMENU_SendNpcAction(int); // 0x004B2370
 int __cdecl sub_004BF9B0(); // 0x004BF9B0
 extern int gnLocalMode_007C5470; // 0x007C5470
 extern int gnDialogState_007C5474; // 0x007C5474
@@ -38,7 +38,7 @@ int __cdecl sub_004BFAF0_ShowConfirmation()
     }
     else
     {
-        sub_004B2370_SendPacket38(gnArg_007C5480);
+        NPCMENU_SendNpcAction(gnArg_007C5480);
     }
     return 1;
     }

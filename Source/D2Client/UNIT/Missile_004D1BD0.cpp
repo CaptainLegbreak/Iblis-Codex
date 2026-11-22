@@ -15,7 +15,7 @@ struct D2MissileStrc;
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
-void __fastcall sub_004E2ED0_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg); // 0x004E2ED0
+void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg); // 0x004E2ED0
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 int __stdcall sub_0064A780_targetValue(D2UnitStrc* pMissile); // 0x0064A780
 int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
@@ -127,7 +127,7 @@ int __fastcall sub_004D1BD0_CltHitScatter(D2UnitStrc* pMissile, D2UnitStrc* pUni
         D2UnitStrc* pNew = sub_004CD540_CreateMissile(&tParams);
         if (pNew)
         {
-            sub_004E2ED0_InitCappedChargedPath(pNew, nTargetX);
+            SKILLDESC_InitCappedChargedPath(pNew, nTargetX);
         }
     }
 

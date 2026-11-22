@@ -108,7 +108,7 @@ int __cdecl sub_0044DB00(); // 0x0044DB00
 
 int __fastcall sub_004E40A0(int nRange); // 0x004E40A0
 
-extern "C" int __fastcall sub_004E4100_RandomInRange(int nMin, int nMax); // 0x004E4100
+extern "C" int __fastcall SKILLDESC_RandomInRange(int nMin, int nMax); // 0x004E4100
 
 int __fastcall sub_004E4180(int nFrame, int nOffset, int nStepLength); // 0x004E4180
 
@@ -142,7 +142,7 @@ D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUn
 
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
 
-void __fastcall sub_004A0200_SetSpeechHoverText(D2UnitStrc* pUnit, int nStringId); // 0x004A0200
+void __fastcall TEXT_SetSpeechHoverText(D2UnitStrc* pUnit, int nStringId); // 0x004A0200
 
 void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 
@@ -916,7 +916,7 @@ void __fastcall sub_004CB460_UpdateModeSound(D2UnitStrc* pUnit)
     sub_004B9A00(nNeutral, pUnit, 0, 0, 0);
     gnNeutralTick_007C88B8 = nTick;
     sub_004CABC0_WriteAsyncSoundTick(pUnit, nTick);
-    gnNeutralDelay_007C88C0 = sub_004E4100_RandomInRange(0x1E, 0x5A);
+    gnNeutralDelay_007C88C0 = SKILLDESC_RandomInRange(0x1E, 0x5A);
 }
 
 // 0x004CB6A0
@@ -1191,7 +1191,7 @@ void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType
         return;
     }
 
-    sub_004A0200_SetSpeechHoverText(pUnit, nSpeech);
+    TEXT_SetSpeechHoverText(pUnit, nSpeech);
     if (pUnit->dwUnitType == UNIT_PLAYER)
         sub_004CB9C0_Request(pUnit, nEvent);
 }
@@ -1254,7 +1254,7 @@ void __fastcall sub_004CC380_PlayInitSound(D2UnitStrc* pUnit)
         sub_004B9A00(nInit, pUnit, 0, 0, 0);
         gnNeutralTick_007C88B8 = nTick;
         sub_004CABC0_WriteAsyncSoundTick(pUnit, nTick);
-        gnNeutralDelay_007C88C0 = sub_004E4100_RandomInRange(0x1E, 0x5A);
+        gnNeutralDelay_007C88C0 = SKILLDESC_RandomInRange(0x1E, 0x5A);
         return;
     }
 

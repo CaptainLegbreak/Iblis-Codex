@@ -13,12 +13,12 @@ D2SoundStrc* __fastcall sub_004B9610(int nSound); // 0x004B9610
 void __fastcall sub_004B9EF0_ArmHint(D2SoundStrc* pSound, int nZero, int nZero2, int nMode); // 0x004B9EF0
 D2UnitStrc* __fastcall sub_00463990(unsigned int nId, int nType); // 0x00463990
 void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int nType, unsigned int nId); // 0x004786A0
-extern "C" void __fastcall sub_004B3830_ClearNpcInventoryAndSound(int nUnitId); // 0x004B3830
+extern "C" void __fastcall NPCMENU_ClearNpcInventoryAndSound(int nUnitId); // 0x004B3830
 void __fastcall sub_00467430_SetSelectionRect(D2RectStrc* pRect); // 0x00467430
 void __cdecl sub_00466FE0(); // 0x00466FE0
 int __fastcall sub_00502EF0(int nFont); // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-D2TextBlockStrc* __fastcall sub_004A05E0_CreateTextBox(const Unicode* pText, int nMode); // 0x004A05E0
+D2TextBlockStrc* __fastcall TEXT_CreateTextBox(const Unicode* pText, int nMode); // 0x004A05E0
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -62,7 +62,7 @@ static void sub_0049D370_FreeTextLines(D2TextRowStrc* pLine)
 }
 
 // 0x0049D410
-__forceinline void __stdcall sub_0049D410_FreeTextBox(D2TextBlockStrc* pBox)
+__forceinline void __stdcall TEXT_FreeTextBox(D2TextBlockStrc* pBox)
 {
     if (pBox)
     {
@@ -93,7 +93,7 @@ void __fastcall sub_004A10E0_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nM
         {
             if (gpPreviousTextBox_007BF1A8)
             {
-                sub_0049D410_FreeTextBox(gpPreviousTextBox_007BF1A8);
+                TEXT_FreeTextBox(gpPreviousTextBox_007BF1A8);
                 gpPreviousTextBox_007BF1A8 = 0;
             }
             gnPreviousTextActive_007BF1C4 = 0;
@@ -109,7 +109,7 @@ void __fastcall sub_004A10E0_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nM
             if (pPreviousNpc && pPreviousNpc != pUnit)
             {
                 sub_004786A0_SendDwords2(0x30, 1, gnNpcId_007BF202);
-                sub_004B3830_ClearNpcInventoryAndSound(gnNpcId_007BF202);
+                NPCMENU_ClearNpcInventoryAndSound(gnNpcId_007BF202);
             }
         }
         gnHasNpc_007BF20A = 1;
@@ -128,7 +128,7 @@ void __fastcall sub_004A10E0_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nM
     {
         gnTextState_007BF1BC = 0;
         int nPreviousFont = sub_00502EF0(8);
-        gpTextBox_007BF0A4 = sub_004A05E0_CreateTextBox(D2LANG_GetStringFromTblIndex(nMessage), 2);
+        gpTextBox_007BF0A4 = TEXT_CreateTextBox(D2LANG_GetStringFromTblIndex(nMessage), 2);
         if (!gpTextBox_007BF0A4)
         {
             sub_00408A60(gszEmpty_006CC837, sub_00408090(), 0x1024);

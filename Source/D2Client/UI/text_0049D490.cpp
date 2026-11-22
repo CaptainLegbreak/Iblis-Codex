@@ -99,7 +99,7 @@ int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int n
 
 int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 
-D2TextNodeStrc* __fastcall sub_0049DB10_CloneStringList(D2TextNodeStrc* pSource); // 0x0049DB10
+D2TextNodeStrc* __fastcall TEXT_CloneStringList(D2TextNodeStrc* pSource); // 0x0049DB10
 
 extern int gnGlobal_0071146C; // 0x0071146C
 
@@ -174,7 +174,7 @@ extern int gnHoverRectCount_007BF224; // 0x007BF224
 
 bool __stdcall sub_0049E070_PlaceHoverRect(int nCount, D2RectStrc* pRect);
 
-void __fastcall sub_0049DBC0_AddToHistory(D2TextNodeStrc* pSource); // 0x0049DBC0
+void __fastcall TEXT_AddToHistory(D2TextNodeStrc* pSource); // 0x0049DBC0
 
 struct D2CelFileStrc;
 
@@ -193,7 +193,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
 
-void __cdecl sub_0049FA10_DrawPanelFrame(); // 0x0049FA10
+void __cdecl TEXT_DrawPanelFrame(); // 0x0049FA10
 
 
 int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
@@ -340,15 +340,15 @@ int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x004
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
-void __fastcall sub_004A3FE0(int nMode);
+void __fastcall TEXT_ToggleQuestLog(int nMode);
 
 void __cdecl sub_0044DA70(); // 0x0044DA70
 
 void __fastcall sub_004A1320_OpenTextPanel(unsigned short nStringId, int bSide, int bSound); // 0x004A1320
 
-void __fastcall sub_0049E7E0_SetTextCallback(D2TextCallback pfnCallback, void* pContext); // 0x0049E7E0
+void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext); // 0x0049E7E0
 
-int __fastcall sub_004A27B0_CloseQuestText(void* pContext, int nArg, int nValue); // 0x004A27B0
+int __fastcall TEXT_CloseQuestText(void* pContext, int nArg, int nValue); // 0x004A27B0
 
 extern D2QuestSlotRectStrc gaQuestSlots_00723EB0[]; // 0x00723EB0
 
@@ -372,7 +372,7 @@ extern int gnAutomapHeight_007A521C; // 0x007A521C
 
 static int gnEntryCount_007C0274; // 0x007C0274
 
-int __cdecl sub_004A44C0_GetMaxFirstEntry(); // 0x004A44C0
+int __cdecl TEXT_GetMaxFirstEntry(); // 0x004A44C0
 
 extern int gnThumbScale_007C0278; // 0x007C0278
 
@@ -400,9 +400,9 @@ void __cdecl sub_00466FE0(); // 0x00466FE0
 
 void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 
-void __cdecl sub_00469D20_SaveHotkeys(); // 0x00469D20
+void __cdecl CMDTBL_SaveHotkeys(); // 0x00469D20
 
-void __cdecl sub_004A43E0(); // 0x004A43E0
+void __cdecl TEXT_InitKeyConfigEntries(); // 0x004A43E0
 
 extern int gnGlobal_007C0280; // 0x007C0280
 
@@ -418,7 +418,7 @@ int __stdcall sub_B05_Sink(int nA, int nB);
 
 int __fastcall sub_0040C720_ReleaseReferences(int nArg); // 0x0040C720
 
-void __fastcall sub_00469A60_ResetKeyConfig(int nArg); // 0x00469A60
+void __fastcall CMDTBL_ResetKeyConfig(int nArg); // 0x00469A60
 
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 
@@ -461,7 +461,7 @@ int __cdecl sub_0044DCA0_GetGameType(); // 0x0044DCA0
 
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
 
-static int sub_004A47C0_GetButtonAt(int nX, int nY);
+static int TEXT_GetKeyConfigButtonAt(int nX, int nY);
 
 int gnGlobal_007BF298; // 0x007BF298
 
@@ -469,7 +469,7 @@ int gnGlobal_007BF298; // 0x007BF298
 
 #pragma pack(pop)
 
-int __stdcall sub_004A4780_IsAbovePanelLine(int nX); // 0x004A4780
+int __stdcall TEXT_IsAbovePanelLine(int nX); // 0x004A4780
 
 extern int gnThumbRange_007C027C; // 0x007C027C
 
@@ -479,21 +479,21 @@ int gnDragMouseY_007C02A8; // 0x007C02A8
 
 unsigned long gdwLastTick_007C02C0; // 0x007C02C0
 
-int __fastcall sub_004A6580_IsInPanelButton(int, int, int); // 0x004A6580
+int __fastcall TEXT_IsInPanelButton(int, int, int); // 0x004A6580
 
-int __cdecl sub_004A65E0_IsMouseOnLeftButton(); // 0x004A65E0
+int __cdecl TEXT_IsMouseOnStatButton(); // 0x004A65E0
 
 void __fastcall sub_004B9A00_ChangeUiState(int, int, int, int, int); // 0x004B9A00
 
 void __stdcall sub_00467F20_MsgHandler(SMSGHANDLER_PARAMS*); // 0x00467F20
 
-int __cdecl sub_004B3470_IsNpcQuestActive(); // 0x004B3470
+int __cdecl NPCMENU_IsNpcTalkActive(); // 0x004B3470
 
 extern int gnPressed_007C02E4; // 0x007C02E4
 
-int __fastcall sub_004A6630_IsInRightPanelButton(int, int, int); // 0x004A6630
+int __fastcall TEXT_IsInRightPanelButton(int, int, int); // 0x004A6630
 
-int __cdecl sub_004A6690_IsMouseOnRightButton(); // 0x004A6690
+int __cdecl TEXT_IsMouseOnSkillButton(); // 0x004A6690
 
 extern int gnPressed_007C02E8; // 0x007C02E8
 
@@ -501,7 +501,7 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00
 
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 
-int __cdecl sub_00466DD0(); // 0x00466DD0
+int __cdecl UI_GetHoverClassId(); // 0x00466DD0
 
 void __fastcall D2Win_10132(const Unicode* wszText, int nX, int nY, unsigned int dwColor, int eDrawMode, int nColor); // 0x005023B0
 
@@ -515,7 +515,7 @@ D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, 
 
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
 
-void __fastcall sub_004A4500_ScrollList(int nStep);
+void __fastcall TEXT_ScrollKeyConfigList(int nStep);
 
 #define STAT_STATPTS 4
 
@@ -525,7 +525,7 @@ void __fastcall sub_004A4500_ScrollList(int nStep);
 
 #pragma pack(pop)
 
-void __cdecl sub_00469D40_SaveAndBindHotkeys(); // 0x00469D40
+void __cdecl CMDTBL_SaveAndBindHotkeys(); // 0x00469D40
 
 void __fastcall sub_0047E200_CloseMenus(int bRestore); // 0x0047E200
 
@@ -547,9 +547,9 @@ extern "C" int gnFlag_007C02EC; // 0x007C02EC
 
 void __stdcall sub_00467FA0_MsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
 
-bool __stdcall sub_004A6A00_CheckUiVars(int nArg); // 0x004A6A00
+bool __stdcall TEXT_IsStatButtonHidden(int nArg); // 0x004A6A00
 
-bool __stdcall sub_004A6D50_CheckUiVars(int nArg); // 0x004A6D50
+bool __stdcall TEXT_IsSkillButtonHidden(int nArg); // 0x004A6D50
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
@@ -569,7 +569,7 @@ int gnGlobal_007C02E4; // 0x007C02E4
 
 int gnGlobal_007C02E8; // 0x007C02E8
 
-void __fastcall sub_004A45C0_MoveSelection(int nStep);
+void __fastcall TEXT_MoveKeyConfigSelection(int nStep);
 
 char gbGlobal_007BF2B2; // 0x007BF2B2
 
@@ -577,19 +577,19 @@ char gbGlobal_007BF2B4; // 0x007BF2B4
 
 void* gpCelFile_007C02BC; // 0x007C02BC
 
-static int sub_004A4720_GetLineAt(int nY);
+static int TEXT_GetKeyConfigLineAt(int nY);
 
-static int sub_004A47F0_IsInList(int nX, int nY);
+static int TEXT_IsInKeyConfigList(int nX, int nY);
 
-static int sub_004A4860_IsOnUpArrow(int nX, int nY);
+static int TEXT_IsOnUpArrow(int nX, int nY);
 
-static int sub_004A48B0_IsOnDownArrow(int nX, int nY);
+static int TEXT_IsOnDownArrow(int nX, int nY);
 
-static int sub_004A4900_IsAboveThumb(int nX, int nY);
+static int TEXT_IsAboveThumb(int nX, int nY);
 
-static int sub_004A4950_IsOnThumb(int nX, int nY);
+static int TEXT_IsOnThumb(int nX, int nY);
 
-static int sub_004A49A0_IsBelowThumb(int nX, int nY);
+static int TEXT_IsBelowThumb(int nX, int nY);
 
 unsigned char gnTextColor_007C02F8; // 0x007C02F8
 
@@ -647,7 +647,7 @@ public:
     virtual int sub_004BE0A0_GetLineCount();
     virtual void sub_004BE0B0_Clear();
 
-    void sub_004BE410_DrawClippedText(const Unicode* wszSource, int nX, int nY, int nColor);               // 0x004BE410
+    void DrawClippedText(const Unicode* wszSource, int nX, int nY, int nColor);               // 0x004BE410
 
     int unk0x04;
     D2ListBoxLineStrc aLines[0x80];
@@ -685,9 +685,9 @@ typedef char check_line_size[(sizeof(D2ListBoxLineStrc) == 0x300E) ? 1 : -1];
 
 typedef char check_ctx_size[(sizeof(D2CelContextStrc) == 0x48) ? 1 : -1];
 
-void __fastcall sub_00452E50_DrawRectangleBorder(D2RectStrc* pRect); // 0x00452E50
+void __fastcall UI_DrawRectangleBorder(D2RectStrc* pRect); // 0x00452E50
 
-int __fastcall sub_004BE340_CountLinesInView(ListBoxImplementation* pListBox); // 0x004BE340
+int __fastcall PANEL_CountLinesInView(ListBoxImplementation* pListBox); // 0x004BE340
 
 extern void* gpCelFile_007C546C; // 0x007C546C
 
@@ -723,16 +723,16 @@ struct ListBoxView
     int nY;
 
     void sub_004BE8D0_Refresh();                                                                            // 0x004BE8D0
-    int sub_004BF2F0_ClickScrollTrack(SMSGHANDLER_PARAMS* pMsg);
+    int ClickScrollTrack(SMSGHANDLER_PARAMS* pMsg);
 };
 
 #pragma pack(pop)
 
-static int sub_004A4A00_IsOnButton(int nX, int nY);
+static int TEXT_IsOnKeyConfigButton(int nX, int nY);
 
-static int sub_004A4A80_IsOnPressedButton(int nX, int nY);
+static int TEXT_IsOnPressedButton(int nX, int nY);
 
-void __fastcall sub_004A0B30_DrawUnitHoverText(D2UnitStrc* pUnit);
+void __fastcall TEXT_DrawUnitHoverText(D2UnitStrc* pUnit);
 
 bool __stdcall sub_0049E070_PlaceHoverRect(int nCount, D2RectStrc* pRect);
 
@@ -747,9 +747,9 @@ static void sub_0049D490_FreeTextNode(D2TextNodeStrc* pNode)
     FOG_Free(pNode, ".\\UI\\text.cpp", 0x6B6, 0);
 }
 
-void __fastcall sub_0049DBC0_AddToHistory(D2TextNodeStrc* pSource)
+void __fastcall TEXT_AddToHistory(D2TextNodeStrc* pSource)
 {
-    D2TextNodeStrc* pClone = sub_0049DB10_CloneStringList(pSource);
+    D2TextNodeStrc* pClone = TEXT_CloneStringList(pSource);
     D2TextNodeStrc* pNode;
     if (gtTextList_007BF1F0.wCount >= 0x80)
     {
@@ -836,7 +836,7 @@ void __fastcall sub_0049E5C0_PrintWrappedLine(const Unicode* wszText, char nColo
         gtTextList_007BF1EA.pFirst = pNode;
     }
     gtTextList_007BF1EA.wCount++;
-    sub_0049DBC0_AddToHistory(pNode);
+    TEXT_AddToHistory(pNode);
 
     if (gtTextList_007BF1EA.wCount > 2)
     {
@@ -879,7 +879,7 @@ static void sub_0049D3C0_MeasureTextBox(T00479230* pBox)
     pBox->nHeight = pBox->nLines * 0x0F + 6;
 }
 
-void __stdcall sub_0049D410_FreeTextBox(T00479230* pTextBox)
+void __stdcall TEXT_FreeTextBox(T00479230* pTextBox)
 {
     if (pTextBox)
     {
@@ -888,7 +888,7 @@ void __stdcall sub_0049D410_FreeTextBox(T00479230* pTextBox)
     }
 }
 
-static int sub_0049D9A0_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect)
+static int TEXT_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect)
 {
     if (!pTextBox->nScroll)
         pTextBox->nScroll = 1;
@@ -1032,18 +1032,18 @@ static void __stdcall sub_004A0A00_ShowHoverText(const Unicode* wszText, D2UnitS
     tRect.nRight = pTextBox->nWidth + pPos->nX;
     if (gnHoverRectCount_007BF224 < 0x10 && !sub_0049E070_PlaceHoverRect(gnHoverRectCount_007BF224, &tRect))
     {
-        sub_0049D410_FreeTextBox(pTextBox);
+        TEXT_FreeTextBox(pTextBox);
         return;
     }
 
     ++gnHoverRectCount_007BF224;
-    sub_0049D9A0_DrawTextBoxAt(pTextBox, &tRect);
-    sub_0049D410_FreeTextBox(pTextBox);
+    TEXT_DrawTextBoxAt(pTextBox, &tRect);
+    TEXT_FreeTextBox(pTextBox);
     sub_00502EF0(nOldFont);
 }
 
 // 0x0049E3A0
-void __fastcall sub_0049E3A0_PrintChatLine(const Unicode* wszText, char nColor)
+void __fastcall TEXT_PrintChatLine(const Unicode* wszText, char nColor)
 {
     D2TextNodeStrc* pNode = (D2TextNodeStrc*)FOG_Alloc(sizeof(D2TextNodeStrc), ".\\UI\\text.cpp", 0xD46, 0);
     memset(pNode, 0, sizeof(D2TextNodeStrc));
@@ -1096,7 +1096,7 @@ void __fastcall sub_0049E3A0_PrintChatLine(const Unicode* wszText, char nColor)
         sub_00611560_GetSquelchList()->AddName(szName, 0x100);
     }
 
-    sub_0049DBC0_AddToHistory(pNode);
+    TEXT_AddToHistory(pNode);
     gtTextList_007BF1E4.wCount++;
 
     int nTotal = 0;
@@ -1128,7 +1128,7 @@ void __fastcall sub_0049E3A0_PrintChatLine(const Unicode* wszText, char nColor)
 }
 
 // 0x0049FBA0
-void __stdcall sub_0049FBA0_OpenTextPanel(int bDraw)
+void __stdcall TEXT_OpenTextPanel(int bDraw)
 {
     if (!sub_00463DD0_GetPlayerUnit())
     {
@@ -1137,7 +1137,7 @@ void __stdcall sub_0049FBA0_OpenTextPanel(int bDraw)
 
     D2CelContextStrc tPiece;
     memset(&tPiece, 0, sizeof(tPiece));
-    sub_0049FA10_DrawPanelFrame();
+    TEXT_DrawPanelFrame();
 
     if (!gpScroin2_007BF270)
     {
@@ -1230,7 +1230,7 @@ static __forceinline const unsigned short* TEXT_ReadLine(Unicode* pLine, const u
 }
 
 // 0x004A0320
-T0044CB60* __stdcall sub_004A0320_BuildTextLines(const unsigned short* wszText, int* pLineCount, unsigned short* pMaxLines)
+T0044CB60* __stdcall TEXT_BuildTextLines(const unsigned short* wszText, int* pLineCount, unsigned short* pMaxLines)
 {
     Unicode szLine[100];
     const unsigned short* pText = wszText;
@@ -1301,7 +1301,7 @@ T0044CB60* __stdcall sub_004A0320_BuildTextLines(const unsigned short* wszText, 
 // build: symbol ??0Unicode@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x004A0B30
-void __fastcall sub_004A0B30_DrawUnitHoverText(D2UnitStrc* pUnit)
+void __fastcall TEXT_DrawUnitHoverText(D2UnitStrc* pUnit)
 {
     if (!pUnit)
         return;
@@ -1362,7 +1362,7 @@ void __fastcall sub_004A0B30_DrawUnitHoverText(D2UnitStrc* pUnit)
 }
 
 // 0x004A3FE0
-void __fastcall sub_004A3FE0(int nMode)
+void __fastcall TEXT_ToggleQuestLog(int nMode)
 {
     if (gnGlobal_007BF298 == 0)
     {
@@ -1403,7 +1403,7 @@ void __fastcall sub_004A3FE0(int nMode)
 }
 
 // 0x004A40D0
-void __fastcall sub_004A40D0_SetRecord(const D2Record42Strc* pRecord)
+void __fastcall TEXT_SetQuestRecord(const D2Record42Strc* pRecord)
 {
     gtRecord_007BF355 = *pRecord;
     gbFlag_007BF2B0 = 0;
@@ -1419,9 +1419,9 @@ void __fastcall sub_004A40D0_SetRecord(const D2Record42Strc* pRecord)
 
 int __stdcall sub_M119_Emit_004A4A00(int nX, int nY)
 {
-    if (sub_004A4A00_IsOnButton(nX, nY))
+    if (TEXT_IsOnKeyConfigButton(nX, nY))
     {
-        return sub_004A4A80_IsOnPressedButton(nX + 1, nY);
+        return TEXT_IsOnPressedButton(nX + 1, nY);
     }
     return 2;
 }
@@ -1486,18 +1486,18 @@ static void sub_004A27D0_OpenQuestDescription(int nSlot)
         return;
     }
     sub_004A1320_OpenTextPanel(wTextId, 1, 0);
-    sub_0049E7E0_SetTextCallback(sub_004A27B0_CloseQuestText, 0);
+    TEXT_SetTextCallback(TEXT_CloseQuestText, 0);
     gbGlobal_007BF2B3 = 1;
 }
 
 // 0x004A42A0
-void __stdcall sub_004A42A0_OnLeftButtonUp(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     int nX = D2_LOWORD(pMsg->lParam) - gnGlobal_007A2858;
     int nY = D2_HIWORD(pMsg->lParam) + gnGlobal_007A285C;
     if (gbGlobal_007BF2B2)
     {
-        if (sub_004A2690_HitTestButtonB(nX, nY)) sub_004A3FE0(0);
+        if (sub_004A2690_HitTestButtonB(nX, nY)) TEXT_ToggleQuestLog(0);
     }
     else if (!gbGlobal_007BF2B3)
     {
@@ -1555,7 +1555,7 @@ static inline int sub_F08_VisibleLines()
 }
 
 // 0x004A44C0
-int __cdecl sub_004A44C0_GetMaxFirstEntry()
+int __cdecl TEXT_GetMaxFirstEntry()
 {
     int nCount = gnEntryCount_007C0274;
     for (int i = 0; i < sub_F08_VisibleLines(); ++i)
@@ -1592,22 +1592,22 @@ static inline int sub_I18_TrackSpan()
 }
 
 // 0x004A4500
-void __fastcall sub_004A4500_ScrollList(int nStep)
+void __fastcall TEXT_ScrollKeyConfigList(int nStep)
 {
     if (nStep < -1)
     {
         for (int i = nStep; i < 0; ++i)
-            sub_004A4500_ScrollList(-1);
+            TEXT_ScrollKeyConfigList(-1);
         return;
     }
     if (nStep > 1)
     {
         for (int i = 0; i < nStep; ++i)
-            sub_004A4500_ScrollList(1);
+            TEXT_ScrollKeyConfigList(1);
         return;
     }
 
-    const int nMax = sub_004A44C0_GetMaxFirstEntry();
+    const int nMax = TEXT_GetMaxFirstEntry();
     int nFirst = gnFirstVisible_007C02AC;
     if (nStep < 0)
     {
@@ -1671,20 +1671,20 @@ static inline int sub_F08_NoOtherPressed(int nIndex)
 }
 
 // 0x004A45C0
-void __fastcall sub_004A45C0_MoveSelection(int nStep)
+void __fastcall TEXT_MoveKeyConfigSelection(int nStep)
 {
     if (!nStep)
         return;
     if (nStep < -1)
     {
         for (int i = nStep; i < 0; ++i)
-            sub_004A45C0_MoveSelection(-1);
+            TEXT_MoveKeyConfigSelection(-1);
         return;
     }
     if (nStep > 1)
     {
         for (int i = 0; i < nStep; ++i)
-            sub_004A45C0_MoveSelection(1);
+            TEXT_MoveKeyConfigSelection(1);
         return;
     }
 
@@ -1709,7 +1709,7 @@ void __fastcall sub_004A45C0_MoveSelection(int nStep)
     {
         const int nTrackTop = sub_F08_TrackTop();
         gnFirstVisible_007C02AC = nSelected;
-        gnThumbY_007C02CC = nSelected * sub_F08_TrackSpan() / sub_004A44C0_GetMaxFirstEntry() + nTrackTop;
+        gnThumbY_007C02CC = nSelected * sub_F08_TrackSpan() / TEXT_GetMaxFirstEntry() + nTrackTop;
         return;
     }
 
@@ -1721,7 +1721,7 @@ void __fastcall sub_004A45C0_MoveSelection(int nStep)
         if (gnGlobal_007C02B0 < nLast)
             break;
 
-        const int nMax = sub_004A44C0_GetMaxFirstEntry();
+        const int nMax = TEXT_GetMaxFirstEntry();
         const int nNew = nFirst >= nMax ? nFirst : nFirst + 1;
         if (nNew <= nMax)
             nFirst = nNew;
@@ -1731,7 +1731,7 @@ void __fastcall sub_004A45C0_MoveSelection(int nStep)
 }
 
 // 0x004A4720
-static int sub_004A4720_GetLineAt(int nY)
+static int TEXT_GetKeyConfigLineAt(int nY)
 {
     int nIndex = gnFirstVisible_007C02AC;
     const int nCount = gnEntryCount_007C0274;
@@ -1763,7 +1763,7 @@ static int __stdcall sub_E10_IsAbovePanelLineCopy(int nY)
 }
 
 // 0x004A47C0
-static int sub_004A47C0_GetButtonAt(int nX, int nY)
+static int TEXT_GetKeyConfigButtonAt(int nX, int nY)
 {
     unsigned int i;
     for (i = 0; i < 3; ++i)
@@ -1776,7 +1776,7 @@ static int sub_004A47C0_GetButtonAt(int nX, int nY)
 }
 
 // 0x004A47F0
-static int sub_004A47F0_IsInList(int nX, int nY)
+static int TEXT_IsInKeyConfigList(int nX, int nY)
 {
     const int nHalf = (gnGlobal_0071146C - 0x26C) / 2;
     const int nLeft = nHalf + 0x12;
@@ -1791,7 +1791,7 @@ static int sub_004A47F0_IsInList(int nX, int nY)
 }
 
 // 0x004A4860
-static int sub_004A4860_IsOnUpArrow(int nX, int nY)
+static int TEXT_IsOnUpArrow(int nX, int nY)
 {
     if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
     {
@@ -1803,7 +1803,7 @@ static int sub_004A4860_IsOnUpArrow(int nX, int nY)
 }
 
 // 0x004A48B0
-static int sub_004A48B0_IsOnDownArrow(int nX, int nY)
+static int TEXT_IsOnDownArrow(int nX, int nY)
 {
     if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
     {
@@ -1815,7 +1815,7 @@ static int sub_004A48B0_IsOnDownArrow(int nX, int nY)
 }
 
 // 0x004A4900
-static int sub_004A4900_IsAboveThumb(int nX, int nY)
+static int TEXT_IsAboveThumb(int nX, int nY)
 {
     if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
     {
@@ -1826,7 +1826,7 @@ static int sub_004A4900_IsAboveThumb(int nX, int nY)
 }
 
 // 0x004A4950
-static int sub_004A4950_IsOnThumb(int nX, int nY)
+static int TEXT_IsOnThumb(int nX, int nY)
 {
     if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
     {
@@ -1837,7 +1837,7 @@ static int sub_004A4950_IsOnThumb(int nX, int nY)
 }
 
 // 0x004A49A0
-static int sub_004A49A0_IsBelowThumb(int nX, int nY)
+static int TEXT_IsBelowThumb(int nX, int nY)
 {
     if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
     {
@@ -1848,25 +1848,25 @@ static int sub_004A49A0_IsBelowThumb(int nX, int nY)
 }
 
 // 0x004A4A00
-static inline int sub_004A4A00_IsOnButton(int nX, int nY)
+static inline int TEXT_IsOnKeyConfigButton(int nX, int nY)
 {
-    return sub_004A47C0_GetButtonAt(nX, nY) != 3;
+    return TEXT_GetKeyConfigButtonAt(nX, nY) != 3;
 }
 
 // 0x004A4A10
-static int sub_004A4A10_IsOnSelectedLine(int nX, int nY)
+static int TEXT_IsOnSelectedLine(int nX, int nY)
 {
-    if (sub_004A47F0_IsInList(nX, nY) && sub_004A4720_GetLineAt(nY) == gnGlobal_007C02B0
+    if (TEXT_IsInKeyConfigList(nX, nY) && TEXT_GetKeyConfigLineAt(nY) == gnGlobal_007C02B0
         && sub_E10_IsAbovePanelLineCopy(nX) == gnGlobal_007246D4)
         return 1;
     return 0;
 }
 
 // 0x004A4A80
-static inline int sub_004A4A80_IsOnPressedButton(int nX, int nY)
+static inline int TEXT_IsOnPressedButton(int nX, int nY)
 {
     const int nButton = gnPressedButton_007C02B4;
-    if (nButton != 3 && sub_004A47C0_GetButtonAt(nX, nY) == nButton)
+    if (nButton != 3 && TEXT_GetKeyConfigButtonAt(nX, nY) == nButton)
     {
         return 1;
     }
@@ -1874,7 +1874,7 @@ static inline int sub_004A4A80_IsOnPressedButton(int nX, int nY)
 }
 
 // 0x004A4AA0
-int __fastcall sub_004A4AA0_IsOnlyPressed(int nIndex)
+int __fastcall TEXT_IsOnlyPressed(int nIndex)
 {
     for (int i = 0; i < 7; i++)
     {
@@ -1915,21 +1915,21 @@ int __cdecl sub_0040D530_Call0040C720()
 }
 
 // 0x004A5010
-void __cdecl sub_004A5010_Call00469A60()
+void __cdecl TEXT_ResetKeyConfigDefaults()
 {
-    sub_00469A60_ResetKeyConfig(0);
+    CMDTBL_ResetKeyConfig(0);
 }
 
 // 0x004A5020
-void __cdecl sub_004A5020_AcceptKeyConfig()
+void __cdecl TEXT_AcceptKeyConfig()
 {
-    sub_00469D40_SaveAndBindHotkeys();
+    CMDTBL_SaveAndBindHotkeys();
     sub_00455F20(11, 1, 0);
     sub_0047E200_CloseMenus(1);
 }
 
 // 0x004A5040
-void __cdecl sub_004A5040_CancelKeyConfig()
+void __cdecl TEXT_CancelKeyConfig()
 {
     sub_00469D50();
     sub_00455F20(11, 1, 0);
@@ -1937,7 +1937,7 @@ void __cdecl sub_004A5040_CancelKeyConfig()
 }
 
 // 0x004A51E0
-void __cdecl sub_004A51E0_FreeCelFile()
+void __cdecl TEXT_FreeTextSliderCel()
 {
     if (gpCelFile_007C02BC)
     {
@@ -1947,14 +1947,14 @@ void __cdecl sub_004A51E0_FreeCelFile()
 }
 
 // 0x004A5200
-void __fastcall sub_004A5200(int nArg)
+void __fastcall TEXT_ToggleKeyConfigPanel(int nArg)
 {
-    sub_004A43E0();
+    TEXT_InitKeyConfigEntries();
     if (nArg)
     {
         if (gnGlobal_007C02B8 == 0)
         {
-            sub_00469D20_SaveHotkeys();
+            CMDTBL_SaveHotkeys();
             sub_0046AA20(0, 0);
             sub_0044DCE0_MouseExtTables_451E10();
             sub_00467A70_RefreshHoverUnit(0);
@@ -1979,7 +1979,7 @@ int __fastcall AITHINK_BaalThroneCheckAiParamFlag(D2AiTickParamStrc* pAiTickPara
 void __fastcall sub_00600C60_CallFree(void* pMemory); // 0x00600C60
 
 // 0x004A59D0
-int __stdcall sub_004A59D0_HandleHotkeyAction(D2HotkeyActionStrc* pAction)
+int __stdcall TEXT_KeyConfigWheelMsg(D2HotkeyActionStrc* pAction)
 {
     if (sub_0044DA30())
     {
@@ -1990,7 +1990,7 @@ int __stdcall sub_004A59D0_HandleHotkeyAction(D2HotkeyActionStrc* pAction)
     int nDuration = pAction->nValue0A / 120;
     if (nDuration)
     {
-        sub_004A4500_ScrollList(-nDuration * 2);
+        TEXT_ScrollKeyConfigList(-nDuration * 2);
         sub_004B9A00(1, 0, 0, 0, 0);
     }
     pAction->nState18 = 1;
@@ -1999,7 +1999,7 @@ int __stdcall sub_004A59D0_HandleHotkeyAction(D2HotkeyActionStrc* pAction)
 }
 
 // 0x004A5C70
-void __stdcall sub_004A5C70(SMSGHANDLER_PARAMS* message)
+void __stdcall TEXT_CancelKeyConfigMsg(SMSGHANDLER_PARAMS* message)
 {
     if (sub_0044DA30()) { message->bReturn = 0; return; }
     if (global_00724728) {
@@ -2016,7 +2016,7 @@ void __stdcall sub_004A5C70(SMSGHANDLER_PARAMS* message)
 }
 
 // 0x004A5D00
-void __cdecl sub_004A5D00_OpenSliderHandlers()
+void __cdecl TEXT_RegisterKeyCaptureHandlers()
 {
     gnGlobal_007C02B8 = 1;
     sub_00455AE0_CloseUIVar(0xB);
@@ -2027,7 +2027,7 @@ void __cdecl sub_004A5D00_OpenSliderHandlers()
 }
 
 // 0x004A5DE0
-void __cdecl sub_004A5DE0_CloseSliderHandlers()
+void __cdecl TEXT_CloseKeyCaptureHandlers()
 {
     if (gnGlobal_007C02B8)
     {
@@ -2044,11 +2044,11 @@ void __cdecl sub_004A5DE0_CloseSliderHandlers()
 }
 
 // 0x004A5E60
-static void sub_004A5E60_Release(int nX, int nY)
+static void TEXT_ReleaseKeyConfigPress(int nX, int nY)
 {
     if (gaPressed_007C0288[0])
     {
-        if (sub_004A4A10_IsOnSelectedLine(nX, nY) && gpListEntries_00724264[gnGlobal_007C02B0].nId != 0x39)
+        if (TEXT_IsOnSelectedLine(nX, nY) && gpListEntries_00724264[gnGlobal_007C02B0].nId != 0x39)
         {
             sub_004A5D00();
             sub_004B9A00(2, 0, 0, 0, 0);
@@ -2057,7 +2057,7 @@ static void sub_004A5E60_Release(int nX, int nY)
     if (gaPressed_007C0288[6])
     {
         const int nButton = gnPressedButton_007C02B4;
-        if (nButton != 3 && sub_004A47C0_GetButtonAt(nX, nY) == nButton)
+        if (nButton != 3 && TEXT_GetKeyConfigButtonAt(nX, nY) == nButton)
         {
             gaSliderButtons_007246D8[nButton].pfnClick();
             sub_004B9A00(2, 0, 0, 0, 0);
@@ -2074,7 +2074,7 @@ static void sub_004A5E60_Release(int nX, int nY)
 }
 
 // 0x004A5F10
-void __stdcall sub_004A5F10_ButtonUpMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_KeyConfigButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
@@ -2084,7 +2084,7 @@ void __stdcall sub_004A5F10_ButtonUpMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
-    sub_004A5E60_Release(nX, nY);
+    TEXT_ReleaseKeyConfigPress(nX, nY);
     gnGlobal_007C0280 = 0;
     sub_004A4AD0_Press(nX, nY);
     pMsg->bReturn = 1;
@@ -2093,14 +2093,14 @@ void __stdcall sub_004A5F10_ButtonUpMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004A6460
-void __cdecl sub_004A6460_LoadLevelCels()
+void __cdecl TEXT_LoadLevelCels()
 {
     gpGlobal_007C02DC = sub_004520C0_LoadUiCelFile("Panel\\Level");
     gpGlobal_007C02E0 = sub_004520C0_LoadUiCelFile("Panel\\Levelsocket");
 }
 
 // 0x004A6480
-void __cdecl sub_004A6480_FreeLevelCels()
+void __cdecl TEXT_FreeLevelCels()
 {
     if (gpGlobal_007C02DC)
     {
@@ -2115,7 +2115,7 @@ void __cdecl sub_004A6480_FreeLevelCels()
 }
 
 // 0x004A64C0
-void __cdecl sub_004A64C0_UpdateStatButtons()
+void __cdecl TEXT_UpdateLevelUpButtons()
 {
     if (sub_004538D0(0xB))
         return;
@@ -2143,7 +2143,7 @@ void __cdecl sub_004A64C0_UpdateStatButtons()
 }
 
 // 0x004A65E0
-int __cdecl sub_004A65E0_IsMouseOnLeftButton()
+int __cdecl TEXT_IsMouseOnStatButton()
 {
     int nX = sub_00468730();
     int nY = sub_00468740();
@@ -2153,7 +2153,7 @@ int __cdecl sub_004A65E0_IsMouseOnLeftButton()
 }
 
 // 0x004A6690
-int __cdecl sub_004A6690_IsMouseOnRightButton()
+int __cdecl TEXT_IsMouseOnSkillButton()
 {
     int nX = sub_00468730();
     int nY = sub_00468740();
@@ -2168,13 +2168,13 @@ void __stdcall sub_004A4AD0_Press(int nX, int nY)
     if (gnGlobal_007C0284)
         return;
 
-    const int bInList = sub_004A47F0_IsInList(nX, nY);
-    const int bUp = sub_004A4860_IsOnUpArrow(nX, nY);
-    const int bDown = sub_004A48B0_IsOnDownArrow(nX, nY);
-    const int bPageUp = sub_004A4900_IsAboveThumb(nX, nY);
-    const int bThumb = sub_004A4950_IsOnThumb(nX, nY);
-    const int bPageDown = sub_004A49A0_IsBelowThumb(nX, nY);
-    const int bButton = sub_004A47C0_GetButtonAt(nX, nY) != 3;
+    const int bInList = TEXT_IsInKeyConfigList(nX, nY);
+    const int bUp = TEXT_IsOnUpArrow(nX, nY);
+    const int bDown = TEXT_IsOnDownArrow(nX, nY);
+    const int bPageUp = TEXT_IsAboveThumb(nX, nY);
+    const int bThumb = TEXT_IsOnThumb(nX, nY);
+    const int bPageDown = TEXT_IsBelowThumb(nX, nY);
+    const int bButton = TEXT_GetKeyConfigButtonAt(nX, nY) != 3;
 
     if (sub_F08_NoOtherPressed(7) && !bInList && !bUp && !bDown && !bPageUp && !bThumb && !bPageDown && !bButton)
     {
@@ -2189,15 +2189,15 @@ void __stdcall sub_004A4AD0_Press(int nX, int nY)
         {
             const int nTop = sub_F08_ListTop();
             if (nY < nTop + 0x28)
-                sub_004A45C0_MoveSelection(-1);
+                TEXT_MoveKeyConfigSelection(-1);
             if (nY > nTop + 0x136)
-                sub_004A45C0_MoveSelection(1);
+                TEXT_MoveKeyConfigSelection(1);
 
             const int nOldD4 = gnGlobal_007246D4;
             const int nOldSelected = gnGlobal_007C02B0;
-            const int nLine = sub_004A4720_GetLineAt(nY);
+            const int nLine = TEXT_GetKeyConfigLineAt(nY);
             gnGlobal_007C02B0 = nLine;
-            gnGlobal_007246D4 = sub_004A4780_IsAbovePanelLine(nX);
+            gnGlobal_007246D4 = TEXT_IsAbovePanelLine(nX);
             if (gpListEntries_00724264[nLine].nId == 0x39)
             {
                 gnGlobal_007246D4 = nOldD4;
@@ -2212,7 +2212,7 @@ void __stdcall sub_004A4AD0_Press(int nX, int nY)
         if (gnGlobal_007C0280 && GetTickCount() > gdwLastTick_007C02C0 + 0x32)
         {
             gdwLastTick_007C02C0 = GetTickCount();
-            sub_004A4500_ScrollList(-1);
+            TEXT_ScrollKeyConfigList(-1);
         }
     }
 
@@ -2222,7 +2222,7 @@ void __stdcall sub_004A4AD0_Press(int nX, int nY)
         if (gnGlobal_007C0280 && GetTickCount() > gdwLastTick_007C02C0 + 0x32)
         {
             gdwLastTick_007C02C0 = GetTickCount();
-            sub_004A4500_ScrollList(1);
+            TEXT_ScrollKeyConfigList(1);
         }
     }
 
@@ -2232,7 +2232,7 @@ void __stdcall sub_004A4AD0_Press(int nX, int nY)
         if (gnGlobal_007C0280 && GetTickCount() > gdwLastTick_007C02C0 + 0x32)
         {
             gdwLastTick_007C02C0 = GetTickCount();
-            sub_004A4500_ScrollList(1 - sub_F08_VisibleLines());
+            TEXT_ScrollKeyConfigList(1 - sub_F08_VisibleLines());
         }
     }
 
@@ -2247,7 +2247,7 @@ void __stdcall sub_004A4AD0_Press(int nX, int nY)
         if (gnGlobal_007C0280)
         {
             const int nTop = sub_F08_ListTop();
-            sub_004A4500_ScrollList((gnDragThumbY_007C02A4 - nTop - gnDragMouseY_007C02A8 + nY - 0x2F)
+            TEXT_ScrollKeyConfigList((gnDragThumbY_007C02A4 - nTop - gnDragMouseY_007C02A8 + nY - 0x2F)
                 * (gnThumbRange_007C027C + 1) / sub_F08_TrackSpan() - gnFirstVisible_007C02AC);
         }
     }
@@ -2258,19 +2258,19 @@ void __stdcall sub_004A4AD0_Press(int nX, int nY)
         if (gnGlobal_007C0280 && GetTickCount() > gdwLastTick_007C02C0 + 0x32)
         {
             gdwLastTick_007C02C0 = GetTickCount();
-            sub_004A4500_ScrollList(sub_F08_VisibleLines() - 1);
+            TEXT_ScrollKeyConfigList(sub_F08_VisibleLines() - 1);
         }
     }
 
     if (sub_F08_NoOtherPressed(6) && bButton)
     {
         gaPressed_007C0288[6] = gnGlobal_007C0280;
-        gnPressedButton_007C02B4 = sub_004A47C0_GetButtonAt(nX, nY);
+        gnPressedButton_007C02B4 = TEXT_GetKeyConfigButtonAt(nX, nY);
     }
 }
 
 // 0x004A66E0
-void __stdcall sub_004A66E0_HandleLeftButton(SMSGHANDLER_PARAMS* message)
+void __stdcall TEXT_StatButtonDownMsg(SMSGHANDLER_PARAMS* message)
 {
     int x = message->nXpos;
     int y = message->nYpos;
@@ -2282,12 +2282,12 @@ void __stdcall sub_004A66E0_HandleLeftButton(SMSGHANDLER_PARAMS* message)
     int border = sub_0045AE90();
     if (D2GFX_GetResolutionMode() != 2)
     {
-        if (sub_004A6580_IsInPanelButton(border, x, y))
+        if (TEXT_IsInPanelButton(border, x, y))
         {
             gnPressed_007C02E4 = 1;
             sub_004B9A00_ChangeUiState(4, 0, 0, 0, 0);
             sub_00467F20_MsgHandler(message);
-            if (border == 2 && sub_004B3470_IsNpcQuestActive()) return;
+            if (border == 2 && NPCMENU_IsNpcTalkActive()) return;
             message->bReturn = 1;
             message->lResult = 0;
             sub_00420290_BreakHandlerChain(message);
@@ -2296,12 +2296,12 @@ void __stdcall sub_004A66E0_HandleLeftButton(SMSGHANDLER_PARAMS* message)
     }
     else
     {
-        if (sub_004A65E0_IsMouseOnLeftButton())
+        if (TEXT_IsMouseOnStatButton())
         {
             gnPressed_007C02E4 = 1;
             sub_004B9A00_ChangeUiState(4, 0, 0, 0, 0);
             sub_00467F20_MsgHandler(message);
-            if (border == 2 && sub_004B3470_IsNpcQuestActive()) return;
+            if (border == 2 && NPCMENU_IsNpcTalkActive()) return;
             message->bReturn = 1;
             message->lResult = 0;
             sub_00420290_BreakHandlerChain(message);
@@ -2319,7 +2319,7 @@ static inline void MarkRightButtonPressed()
 }
 
 // 0x004A6790
-void __stdcall sub_004A6790_HandleRightButton(SMSGHANDLER_PARAMS* message)
+void __stdcall TEXT_SkillButtonDownMsg(SMSGHANDLER_PARAMS* message)
 {
     int x = message->nXpos;
     int y = message->nYpos;
@@ -2329,11 +2329,11 @@ void __stdcall sub_004A6790_HandleRightButton(SMSGHANDLER_PARAMS* message)
     int border = sub_0045AE90();
     if (D2GFX_GetResolutionMode() != 2)
     {
-        if (sub_004A6630_IsInRightPanelButton(border, x, y))
+        if (TEXT_IsInRightPanelButton(border, x, y))
         {
             MarkRightButtonPressed();
             sub_00467F20_MsgHandler(message);
-            if (border == 1 && sub_004B3470_IsNpcQuestActive()) return;
+            if (border == 1 && NPCMENU_IsNpcTalkActive()) return;
             message->bReturn = 1;
             message->lResult = 0;
             sub_00420290_BreakHandlerChain(message);
@@ -2342,11 +2342,11 @@ void __stdcall sub_004A6790_HandleRightButton(SMSGHANDLER_PARAMS* message)
     }
     else
     {
-        if (sub_004A6690_IsMouseOnRightButton())
+        if (TEXT_IsMouseOnSkillButton())
         {
             MarkRightButtonPressed();
             sub_00467F20_MsgHandler(message);
-            if (border == 1 && sub_004B3470_IsNpcQuestActive()) return;
+            if (border == 1 && NPCMENU_IsNpcTalkActive()) return;
             message->bReturn = 1;
             message->lResult = 0;
             sub_00420290_BreakHandlerChain(message);
@@ -2358,11 +2358,11 @@ void __stdcall sub_004A6790_HandleRightButton(SMSGHANDLER_PARAMS* message)
 
 static int __fastcall CLIENT_HitPanelButton(int nMode, int nX, int nY)
 {
-    return sub_004A6580_IsInPanelButton(nMode, nX, nY);
+    return TEXT_IsInPanelButton(nMode, nX, nY);
 }
 
 // 0x004A6840
-void __stdcall sub_004A6840_LeftButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_StatButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     int nX = pMsg->nXpos;
     int nY = pMsg->nYpos;
@@ -2404,11 +2404,11 @@ void __stdcall sub_004A6840_LeftButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
 
 static int __fastcall CLIENT_HitRightPanelButton(int nMode, int nX, int nY)
 {
-    return sub_004A6630_IsInRightPanelButton(nMode, nX, nY);
+    return TEXT_IsInRightPanelButton(nMode, nX, nY);
 }
 
 // 0x004A6920
-void __stdcall sub_004A6920_RightButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_SkillButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     int nX = pMsg->nXpos;
     int nY = pMsg->nYpos;
@@ -2433,7 +2433,7 @@ void __stdcall sub_004A6920_RightButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     }
     else
     {
-        if (gnGlobal_007C02E8 && sub_004A6690_IsMouseOnRightButton())
+        if (gnGlobal_007C02E8 && TEXT_IsMouseOnSkillButton())
         {
             gnGlobal_007C02E8 = 0;
             sub_00455F20(4, 0, 0);
@@ -2449,7 +2449,7 @@ void __stdcall sub_004A6920_RightButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004A6A00
-bool __stdcall sub_004A6A00_CheckUiVars(int nArg)
+bool __stdcall TEXT_IsStatButtonHidden(int nArg)
 {
     if (nArg == 3)
         return true;
@@ -2463,10 +2463,10 @@ bool __stdcall sub_004A6A00_CheckUiVars(int nArg)
 }
 
 // 0x004A6B30
-void __cdecl sub_004A6B30_DrawLeftPanelButtons()
+void __cdecl TEXT_DrawStatButton()
 {
     const int nBorder = sub_0045AE90();
-    if (D2GFX_GetResolutionMode() != 2 && sub_004A6A00_CheckUiVars(nBorder))
+    if (D2GFX_GetResolutionMode() != 2 && TEXT_IsStatButtonHidden(nBorder))
     {
         gnGlobal_007C02E4 = 0;
         return;
@@ -2496,7 +2496,7 @@ void __cdecl sub_004A6B30_DrawLeftPanelButtons()
     tContext.pCellFile = gpGlobal_007C02DC;
     if (D2GFX_GetResolutionMode() != 2)
     {
-        if (gnGlobal_007C02E4 && sub_004A6580_IsInPanelButton(nBorder, sub_00468730(), sub_00468740()))
+        if (gnGlobal_007C02E4 && TEXT_IsInPanelButton(nBorder, sub_00468730(), sub_00468740()))
             tContext.nFrame = 1;
         else
             tContext.nFrame = 0;
@@ -2522,7 +2522,7 @@ void __cdecl sub_004A6B30_DrawLeftPanelButtons()
 }
 
 // 0x004A6D50
-bool __stdcall sub_004A6D50_CheckUiVars(int nArg)
+bool __stdcall TEXT_IsSkillButtonHidden(int nArg)
 {
     if (nArg == 3)
         return true;
@@ -2536,10 +2536,10 @@ bool __stdcall sub_004A6D50_CheckUiVars(int nArg)
 }
 
 // 0x004A6E60
-void __cdecl sub_004A6E60_DrawRightPanelButtons()
+void __cdecl TEXT_DrawSkillButton()
 {
     const int nBorder = sub_0045AE90();
-    if (D2GFX_GetResolutionMode() != 2 && sub_004A6D50_CheckUiVars(nBorder))
+    if (D2GFX_GetResolutionMode() != 2 && TEXT_IsSkillButtonHidden(nBorder))
     {
         gnGlobal_007C02E8 = 0;
         return;
@@ -2628,7 +2628,7 @@ static int sub_004A70C0_GetWieldedTypeStatMax(D2UnitStrc* pUnit)
 }
 
 // 0x004A7180
-static void sub_004A7180_DrawHoverLevelText(int nX, int nY, int nValue)
+static void TEXT_DrawBlockChanceHover(int nX, int nY, int nValue)
 {
     if (nValue < 5)
     {
@@ -2662,7 +2662,7 @@ static void sub_004A7180_DrawHoverLevelText(int nX, int nY, int nValue)
         }
     }
 
-    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(sub_00466DD0());
+    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(UI_GetHoverClassId());
     D2_ASSERT(pMonStatsTxtRecord, 0x15C);
 
     if (nLevel)
@@ -2679,7 +2679,7 @@ static void sub_004A7180_DrawHoverLevelText(int nX, int nY, int nValue)
 
 void __stdcall sub_I10_Emit_004A7180(int nX, int nY, int nValue)
 {
-    sub_004A7180_DrawHoverLevelText(nX, nY, nValue);
+    TEXT_DrawBlockChanceHover(nX, nY, nValue);
 }
 
 struct D2UnitStrc;
@@ -2719,7 +2719,7 @@ static int sub_004A7300_AddToHitFactor(D2UnitStrc* pUnit, int nAttackRate)
     return nAttackRate;
 }
 
-int __stdcall sub_004A7340_GetPercentA(int nAttackRate)
+int __stdcall TEXT_GetChanceToHit(int nAttackRate)
 {
     if (!nAttackRate)
     {
@@ -2777,7 +2777,7 @@ int __stdcall sub_004A7340_GetPercentA(int nAttackRate)
 }
 
 // 0x004A7660
-int __fastcall sub_004A7660_SplitAtNewline(Unicode* wszText, Unicode** ppNext)
+int __fastcall TEXT_SplitAtNewline(Unicode* wszText, Unicode** ppNext)
 {
     Unicode* pChar = wszText;
     *ppNext = 0;
@@ -2800,7 +2800,7 @@ int __fastcall sub_004A7660_SplitAtNewline(Unicode* wszText, Unicode** ppNext)
 }
 
 // 0x004A7A90
-void __cdecl sub_004A7A90_SetFlag()
+void __cdecl TEXT_SetGoldDialogFlag()
 {
     gnFlag_007C02EC = 1;
 }
@@ -2829,7 +2829,7 @@ void ListBoxImplementation::Slot01()
     tRect.nLeft = f_180708;
     tRect.nRight = f_180708 + nRectWidth - 1;
     tRect.nBottom = f_18070C + nRectHeight - 1;
-    sub_00452E50_DrawRectangleBorder(&tRect);
+    UI_DrawRectangleBorder(&tRect);
 
     const int nOldFont = sub_00502EF0(nArg18);
 
@@ -2846,7 +2846,7 @@ void ListBoxImplementation::Slot01()
     sub_004F6480(&tContext, tBar.nX, tBar.nY + 12 * i, -1, 5, 0);
 
     int nDrawn = 0;
-    const int nLines = sub_004BE340_CountLinesInView(this);
+    const int nLines = PANEL_CountLinesInView(this);
     int nRow = 0;
     for (int nLine = f_180730; nLine < f_180730 + nLines && nLine < 0x80; ++nLine)
     {
@@ -2864,32 +2864,32 @@ void ListBoxImplementation::Slot01()
 
         if (aLines[nLine].wszText0[0].wChar)
         {
-            sub_004BE410_DrawClippedText(aLines[nLine].wszText0, f_180708 + 0x20, f_18070C + 0x19 + nArg10 * nRow + nScrollStep * nDrawn, nColor);
+            DrawClippedText(aLines[nLine].wszText0, f_180708 + 0x20, f_18070C + 0x19 + nArg10 * nRow + nScrollStep * nDrawn, nColor);
             ++nDrawn;
         }
         if (aLines[nLine].f_800[0].wChar)
         {
-            sub_004BE410_DrawClippedText(aLines[nLine].f_800, f_180708 + 0x20, f_18070C + 0x19 + nArg10 * nRow + nScrollStep * nDrawn, nColor);
+            DrawClippedText(aLines[nLine].f_800, f_180708 + 0x20, f_18070C + 0x19 + nArg10 * nRow + nScrollStep * nDrawn, nColor);
             ++nDrawn;
         }
         if (aLines[nLine].f_1000[0].wChar)
         {
-            sub_004BE410_DrawClippedText(aLines[nLine].f_1000, f_180708 + 0x20, f_18070C + 0x19 + nArg10 * nRow + nScrollStep * nDrawn, nColor);
+            DrawClippedText(aLines[nLine].f_1000, f_180708 + 0x20, f_18070C + 0x19 + nArg10 * nRow + nScrollStep * nDrawn, nColor);
             ++nDrawn;
         }
         if (aLines[nLine].f_1800[0].wChar)
         {
-            sub_004BE410_DrawClippedText(aLines[nLine].f_1800, f_180708 + 0x20, f_18070C + 0x19 + nArg10 * nRow + nScrollStep * nDrawn, nColor);
+            DrawClippedText(aLines[nLine].f_1800, f_180708 + 0x20, f_18070C + 0x19 + nArg10 * nRow + nScrollStep * nDrawn, nColor);
             ++nDrawn;
         }
         if (aLines[nLine].f_2000[0].wChar)
         {
-            sub_004BE410_DrawClippedText(aLines[nLine].f_2000, f_180708 + 0x20, f_18070C + 0x19 + nArg10 * nRow + nScrollStep * nDrawn, nColor);
+            DrawClippedText(aLines[nLine].f_2000, f_180708 + 0x20, f_18070C + 0x19 + nArg10 * nRow + nScrollStep * nDrawn, nColor);
             ++nDrawn;
         }
         if (aLines[nLine].wszText5[0].wChar)
         {
-            sub_004BE410_DrawClippedText(aLines[nLine].wszText5, f_180708 + 0x20, f_18070C + 0x19 + nArg10 * nRow + nScrollStep * nDrawn, nColor);
+            DrawClippedText(aLines[nLine].wszText5, f_180708 + 0x20, f_18070C + 0x19 + nArg10 * nRow + nScrollStep * nDrawn, nColor);
             ++nDrawn;
         }
         ++nRow;
@@ -2923,7 +2923,7 @@ void ListBoxImplementation::Slot01()
 }
 
 // 0x004BF2F0
-int ListBoxView::sub_004BF2F0_ClickScrollTrack(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxView::ClickScrollTrack(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nMouseY = pMsg->nYpos;
     const unsigned short nCount = nEntryCount;

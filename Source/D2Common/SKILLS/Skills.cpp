@@ -564,7 +564,7 @@ int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem); // 0x0062A4E0
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
-int __fastcall sub_004E6CA0_GetSkillParamByLevel(int nSkillId, int nSkillLevel); // 0x004E6CA0
+int __fastcall SKILLDESC_GetSkillParamByLevel(int nSkillId, int nSkillLevel); // 0x004E6CA0
 
 int __stdcall D2Common_11034(int nSkillLevel, int nSkillId); // 0x00645B70
 
@@ -572,7 +572,7 @@ int __fastcall sub_004CC7C0_GetSkillMissileRange(int nSkillId, int nLevel); // 0
 
 int __stdcall D2Common_11035(int nSkillLevel, int nSkillId); // 0x00645BC0
 
-int __fastcall sub_004EFCB0_GetSummonLevel(int nSkillId, int nSkillLevel); // 0x004EFCB0
+int __fastcall SKILLDESC_GetSummonLevel(int nSkillId, int nSkillLevel); // 0x004EFCB0
 
 int __stdcall D2COMMON_11036_GetMonCurseResistanceSubtraction(int nLevel, int nSkillId); // 0x00645C10
 
@@ -582,15 +582,15 @@ int __stdcall D2Common_11033(int nLevel, int nParam1, int nParam2); // 0x00645B2
 
 int __fastcall sub_004C9460_GetSkillParam1(int nSkillId); // 0x004C9460
 
-int __fastcall sub_004EFC20_GetSkillParam2(int nSkillId); // 0x004EFC20
+int __fastcall SKILLDESC_GetSkillParamTwo(int nSkillId); // 0x004EFC20
 
-int __fastcall sub_004EFC50_GetSkillParam3(int nSkillId); // 0x004EFC50
+int __fastcall SKILLDESC_GetSkillParamThree(int nSkillId); // 0x004EFC50
 
-int __fastcall sub_004EFC80_FourthSkillParam(int nSkillId); // 0x004EFC80
+int __fastcall SKILLDESC_GetSkillParamFour(int nSkillId); // 0x004EFC80
 
-int __fastcall sub_004E6C70(int nSkillId); // 0x004E6C70
+int __fastcall SKILLDESC_GetSkillParamFive(int nSkillId); // 0x004E6C70
 
-int __fastcall sub_004F4110_GetSkillParam5(int nSkillId); // 0x004F4110
+int __fastcall SKILLDESC_GetSkillParamSix(int nSkillId); // 0x004F4110
 
 int __stdcall SKILLS_GetMinElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4); // 0x00644D50
 
@@ -3453,7 +3453,7 @@ int __stdcall SKILLS_GetSpecialParamValue(D2UnitStrc* pUnit, int nParamId, int n
     switch (nParam)
     {
     case 0:
-        nResult = sub_004E6CA0_GetSkillParamByLevel(nSkillId, nSkillLevel);
+        nResult = SKILLDESC_GetSkillParamByLevel(nSkillId, nSkillLevel);
         break;
     case 1:
         nResult = D2Common_11034(nSkillLevel, nSkillId);
@@ -3465,7 +3465,7 @@ int __stdcall SKILLS_GetSpecialParamValue(D2UnitStrc* pUnit, int nParamId, int n
         nResult = D2Common_11035(nSkillLevel, nSkillId);
         break;
     case 4:
-        nResult = sub_004EFCB0_GetSummonLevel(nSkillId, nSkillLevel);
+        nResult = SKILLDESC_GetSummonLevel(nSkillId, nSkillLevel);
         break;
     case 5:
         nResult = D2COMMON_11036_GetMonCurseResistanceSubtraction(nSkillLevel, nSkillId);
@@ -3480,19 +3480,19 @@ int __stdcall SKILLS_GetSpecialParamValue(D2UnitStrc* pUnit, int nParamId, int n
         nResult = sub_004C9460_GetSkillParam1(nSkillId);
         break;
     case 9:
-        nResult = sub_004EFC20_GetSkillParam2(nSkillId);
+        nResult = SKILLDESC_GetSkillParamTwo(nSkillId);
         break;
     case 10:
-        nResult = sub_004EFC50_GetSkillParam3(nSkillId);
+        nResult = SKILLDESC_GetSkillParamThree(nSkillId);
         break;
     case 11:
-        nResult = sub_004EFC80_FourthSkillParam(nSkillId);
+        nResult = SKILLDESC_GetSkillParamFour(nSkillId);
         break;
     case 12:
-        nResult = sub_004E6C70(nSkillId);
+        nResult = SKILLDESC_GetSkillParamFive(nSkillId);
         break;
     case 13:
-        nResult = sub_004F4110_GetSkillParam5(nSkillId);
+        nResult = SKILLDESC_GetSkillParamSix(nSkillId);
         break;
     case 14:
         nResult = pSkillsTxtRecord->dwParam[6];

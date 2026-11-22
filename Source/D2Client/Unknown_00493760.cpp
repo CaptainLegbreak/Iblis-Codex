@@ -9,7 +9,7 @@ int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
-int __stdcall sub_004934D0_CheckBoxAction(int nArg); // 0x004934D0
+int __stdcall HIREABLES_CanEquipHirelingItem(int nArg); // 0x004934D0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 int __cdecl sub_00468730(); // 0x00468730
@@ -66,7 +66,7 @@ void __stdcall sub_00493760_HirelingIconHoverMsg(SMSGHANDLER_PARAMS* pMsg)
             }
         }
     }
-    if (sub_004934D0_CheckBoxAction(0))
+    if (HIREABLES_CanEquipHirelingItem(0))
     {
         gbPopupShown_007BEEDC = 1;
     }

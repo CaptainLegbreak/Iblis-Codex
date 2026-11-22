@@ -397,11 +397,11 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 
 void __fastcall SKILLS_AddDamagePercentBonus(D2UnitStrc*, int); // 0x005DB6A0
 
-int __fastcall sub_004F4110_GetSkillParam5(int); // 0x004F4110
+int __fastcall SKILLDESC_GetSkillParamSix(int); // 0x004F4110
 
 void __fastcall SKILLS_RewindUnitAnimation(D2UnitStrc*, int); // 0x0056E210
 
-int __fastcall sub_004EFC20_GetSkillParam2(int nSkillId); // 0x004EFC20
+int __fastcall SKILLDESC_GetSkillParamTwo(int nSkillId); // 0x004EFC20
 
 int __fastcall SKILLS_GetMeleeSearchRange(D2UnitStrc* pUnit); // 0x0056E510
 
@@ -478,7 +478,7 @@ int __fastcall SKILLS_SrvDo013_Fend_Zeal_Fury(D2GameStrc* pGame, D2UnitStrc* pUn
 
     SKILLS_SetParam2(pSkill, !pNextTarget ? 6 : pNextTarget->dwUnitType);
     SKILLS_SetParam3(pSkill, !pNextTarget ? -1 : pNextTarget->dwUnitId);
-    SKILLS_RewindUnitAnimation(pUnit, sub_004EFC20_GetSkillParam2(nSkillId));
+    SKILLS_RewindUnitAnimation(pUnit, SKILLDESC_GetSkillParamTwo(nSkillId));
     return 0;
 }
 

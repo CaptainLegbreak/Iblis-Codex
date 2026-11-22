@@ -41,8 +41,8 @@ void __fastcall sub_004C70D0_StartUnitEffect(D2UnitStrc* pUnit, D2UnitStrc* pTar
 void __fastcall sub_004CD390_CltDoDefault(D2UnitStrc* pMissile); // 0x004CD390
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 void __fastcall sub_004D30C0_CltDoCommon(D2UnitStrc* pMissile); // 0x004D30C0
-void __fastcall sub_004E2ED0_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg); // 0x004E2ED0
-int __fastcall sub_004F21B0_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
+void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg); // 0x004E2ED0
+int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
@@ -122,7 +122,7 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 int __fastcall sub_004C96D0(D2UnitStrc* pUnit,int nSkillId,int nSkillLevel)
 {
  if(!SKILLS_GetSkillsTxtRecord(nSkillId)) return 0;
- const int nMissile=sub_004F21B0_GetCltMissileId(pUnit,nSkillId);
+ const int nMissile=SKILLDESC_GetCltMissileId(pUnit,nSkillId);
  if(nMissile<0 || nMissile>=sgptDataTables->nMissilesTxtRecordCount) return 0;
  if(pUnit) pUnit->dwFlags|=0x40;
  D2UnitStrc* pTarget=sub_004648F0_GetPathTargetUnit(pUnit);

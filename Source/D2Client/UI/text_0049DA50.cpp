@@ -77,7 +77,7 @@ void __cdecl sub_0044DA40(); // 0x0044DA40
 
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
-void __cdecl sub_00453AE0(); // 0x00453AE0
+void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
 
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
@@ -85,11 +85,11 @@ D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x0
 
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
 
-void __stdcall sub_0049D410_FreeTextBox(D2ClientTextBoxStrc* pTextBox); // 0x0049D410
+void __stdcall TEXT_FreeTextBox(D2ClientTextBoxStrc* pTextBox); // 0x0049D410
 
-void __stdcall sub_0049D4D0_FreeTextList(D2TextListStrc* pList); // 0x0049D4D0
+void __stdcall TEXT_FreeTextList(D2TextListStrc* pList); // 0x0049D4D0
 
-void __cdecl sub_0049F960_ResetTextBox(); // 0x0049F960
+void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 
 int __cdecl sub_004F59A0(); // 0x004F59A0
 
@@ -119,7 +119,7 @@ extern unsigned char gnGlobal_007BF23A; // 0x007BF23A
 
 extern int gbStarted_007BF27C; // 0x007BF27C
 
-D2TextNodeStrc* __fastcall sub_0049DB10_CloneStringList(D2TextNodeStrc* pSource); // 0x0049DB10
+D2TextNodeStrc* __fastcall TEXT_CloneStringList(D2TextNodeStrc* pSource); // 0x0049DB10
 
 int gnGlobal_007BF1C8; // 0x007BF1C8
 
@@ -145,7 +145,7 @@ extern T00479230* gpTextBox_007BF0A4;                                           
 extern D2ClientDialogStrc* gpListDialog_007BF1B0;                                                           // 0x007BF1B0
 
 // 0x0049DA50
-void __cdecl sub_0049DA50_ClearFlag()
+void __cdecl TEXT_ClearHoverUnit()
 {
     gnGlobal_007BF23A = 0;
 }
@@ -163,9 +163,9 @@ static void sub_0049D490_FreeTextNode(D2TextNodeStrc* pNode)
 }
 
 // 0x0049DBC0
-void __fastcall sub_0049DBC0_AddToHistory(D2TextNodeStrc* pSource)
+void __fastcall TEXT_AddToHistory(D2TextNodeStrc* pSource)
 {
-    D2TextNodeStrc* pClone = sub_0049DB10_CloneStringList(pSource);
+    D2TextNodeStrc* pClone = TEXT_CloneStringList(pSource);
     D2TextNodeStrc* pNode;
     if (gtTextList_007BF1F0.wCount >= 0x80)
     {
@@ -195,7 +195,7 @@ link:
 }
 
 // 0x0049E340
-void __cdecl sub_0049E340_FillListBox()
+void __cdecl TEXT_FillListBox()
 {
     for (D2TextNodeStrc* pNode = gtTextList_007BF1F0.pFirst; pNode; pNode = pNode->pNext)
         gpListBox_007BF1B4->AddTextLine(pNode->pLines[0], pNode->pLines[1], pNode->pLines[2], pNode->pLines[3],
@@ -203,14 +203,14 @@ void __cdecl sub_0049E340_FillListBox()
 }
 
 // 0x0049E7E0
-void __fastcall sub_0049E7E0_SetTextCallback(D2TextCallback pfnCallback, void* pContext)
+void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext)
 {
     gpfnTextCallback_007BF258 = pfnCallback;
     gpTextCallbackContext_007BF25C = pContext;
 }
 
 // 0x0049E8B0
-D2UnitStrc* __cdecl sub_0049E8B0_GetTextUnit()
+D2UnitStrc* __cdecl TEXT_GetTextUnit()
 {
     if (gdwGlobal_007BF20A)
         return sub_00463990(gdwGlobal_007BF202, 1);
@@ -220,7 +220,7 @@ D2UnitStrc* __cdecl sub_0049E8B0_GetTextUnit()
 }
 
 // 0x0049F8C0
-void __fastcall sub_0049F8C0_ClearHoverText(D2HoverClearPacketStrc* pPacket)
+void __fastcall TEXT_ClearHoverText(D2HoverClearPacketStrc* pPacket)
 {
     D2UnitStrc* pUnit = sub_00463990(pPacket->dwUnitId, pPacket->nUnitType);
     if (pUnit)
@@ -232,7 +232,7 @@ void __fastcall sub_0049F8C0_ClearHoverText(D2HoverClearPacketStrc* pPacket)
 }
 
 // 0x0049F910
-const Unicode* __fastcall sub_0049F910_GetTextString(unsigned short nId)
+const Unicode* __fastcall TEXT_GetTextString(unsigned short nId)
 {
     int nStart;
     int nEnd;
@@ -260,7 +260,7 @@ void __cdecl sub_0049FF00()
 }
 
 // 0x0049FF90
-void __fastcall sub_0049FF90_OpenTextData(D2UnitStrc* pUnit, D2ClientTextDataStrc* pTextData)
+void __fastcall TEXT_OpenTextData(D2UnitStrc* pUnit, D2ClientTextDataStrc* pTextData)
 {
     gpTextData_007BF228 = pTextData;
     sub_00455F20(0x10, 2, 0);
@@ -279,27 +279,27 @@ void __fastcall sub_0049FF90_OpenTextData(D2UnitStrc* pUnit, D2ClientTextDataStr
 }
 
 // 0x004A0000
-int __cdecl sub_004A0000()
+int __cdecl TEXT_IsTextBoxOpen()
 {
     return gpTextBox_007BF0A4 != 0;
 }
 
 // 0x004A0010
-void __cdecl sub_004A0010_FreeTextLists()
+void __cdecl TEXT_FreeTextLists()
 {
-    sub_0049D4D0_FreeTextList(&gtTextList_007BF1E4);
-    sub_0049D4D0_FreeTextList(&gtTextList_007BF1F0);
+    TEXT_FreeTextList(&gtTextList_007BF1E4);
+    TEXT_FreeTextList(&gtTextList_007BF1F0);
 }
 
 // 0x004A01E0
-void __cdecl sub_004A01E0_ClearListFlags()
+void __cdecl TEXT_ClearListFlags()
 {
     for (D2TextNodeStrc* pNode = gtTextList_007BF1E4.pFirst; pNode; pNode = pNode->pNext)
         pNode->dwEndTick = 0;
 }
 
 // 0x004A02F0
-void __cdecl sub_004A02F0_ToggleListDialogUI()
+void __cdecl TEXT_ToggleListDialogUI()
 {
     if (gpListDialog_007BF1B0)
     {
@@ -309,18 +309,18 @@ void __cdecl sub_004A02F0_ToggleListDialogUI()
 }
 
 // 0x004A0880
-void __cdecl sub_004A0880_CloseTextUnit()
+void __cdecl TEXT_CloseTextUnit()
 {
     if (gdwGlobal_007BF20A)
         sub_004B3D10_ReleaseTextUnit(gdwGlobal_007BF202);
     else
-        sub_0049F960_ResetTextBox();
-    sub_00453AE0();
+        TEXT_ResetTextBox();
+    UI_StartUIVarDelay();
     gdwGlobal_007BF20A = 0;
 }
 
 // 0x004A08C0
-int __cdecl sub_004A08C0_CloseText()
+int __cdecl TEXT_CloseText()
 {
     int bResult = 0;
     gnGlobal_007BF1BC = 1;
@@ -334,7 +334,7 @@ int __cdecl sub_004A08C0_CloseText()
                 return bResult;
             }
             D2_ASSERT(gpTextBox_007BF1A8, 0x947);
-            sub_0049D410_FreeTextBox(gpTextBox_007BF1A8);
+            TEXT_FreeTextBox(gpTextBox_007BF1A8);
             FOG_Free(gpTextBox_007BF1A8, ".\\UI\\text.cpp", 0x949, 0);
             gpTextBox_007BF1A8 = 0;
             gnGlobal_007BF1C4 = 0;
@@ -346,8 +346,8 @@ int __cdecl sub_004A08C0_CloseText()
     {
         if (gpfnTextCallback_007BF258)
         {
-            sub_0049F960_ResetTextBox();
-            sub_00453AE0();
+            TEXT_ResetTextBox();
+            UI_StartUIVarDelay();
             if (gpfnTextCallback_007BF258(gpTextCallbackContext_007BF25C, 1, gnGlobal_007BF23F))
             {
                 gnGlobal_007BF23F = 0;
@@ -361,8 +361,8 @@ int __cdecl sub_004A08C0_CloseText()
             if (gdwGlobal_007BF20A)
                 sub_004B3D10_ReleaseTextUnit(gdwGlobal_007BF202);
             else
-                sub_0049F960_ResetTextBox();
-            sub_00453AE0();
+                TEXT_ResetTextBox();
+            UI_StartUIVarDelay();
         }
         gdwGlobal_007BF20A = 0;
         if (gbStarted_007BF27C == 1)

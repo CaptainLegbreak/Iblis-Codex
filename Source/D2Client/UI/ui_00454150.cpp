@@ -90,11 +90,11 @@ D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory);     
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480
 
-void __cdecl sub_00453EE0_ClosePanel();                                                                     // 0x00453EE0
+void __cdecl UI_CloseGoldDialog();                                                                     // 0x00453EE0
 
-void __fastcall sub_0046AA20_SetHotkeyHandlers(int nArg1, int nArg2);                                                         // 0x0046AA20
+void __fastcall CMDTBL_SetHotkeyHandlers(int nArg1, int nArg2);                                                         // 0x0046AA20
 
-void __cdecl sub_004A7A90_SetFlag();                                                                                // 0x004A7A90
+void __cdecl TEXT_SetGoldDialogFlag();                                                                                // 0x004A7A90
 
 void __fastcall sub_004898A0(int nMode);                                                                    // 0x004898A0
 
@@ -120,15 +120,15 @@ void __fastcall sub_004B7C00_AddControl(void* pPanel, void* pControl, int nArg3,
 
 extern "C" void __cdecl sub_004B90B0_SendState(); // 0x004B90B0
 
-int __cdecl sub_00453FC0_GoldPanelClose();                                                                                 // 0x00453FC0
+int __cdecl UI_GoldPanelCloseCallback();                                                                                 // 0x00453FC0
 
-int __cdecl sub_00453FD0();                                                                                 // 0x00453FD0
+int __cdecl UI_GoldSpinnerDefaultCallback();                                                                                 // 0x00453FD0
 
-int __cdecl sub_00453FE0_GoldSpinnerChanged();                                                                                 // 0x00453FE0
+int __cdecl UI_GoldSpinnerChanged();                                                                                 // 0x00453FE0
 
-int __cdecl sub_00454080_ConfirmGoldDialog();                                                                                 // 0x00454080
+int __cdecl UI_ConfirmGoldDialog();                                                                                 // 0x00454080
 
-int __cdecl sub_00454140_ClosePanelCallback();                                                                                 // 0x00454140
+int __cdecl UI_CancelGoldDialog();                                                                                 // 0x00454140
 
 extern int gnGoldPanelMode_007A279C;                                                                        // 0x007A279C
 
@@ -179,16 +179,16 @@ extern int gnCursorX_007A6AB0; // 0x007A6AB0
 // build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x00454150
-void __fastcall sub_00454150_OpenGoldPanel(int nMode)
+void __fastcall UI_OpenGoldPanel(int nMode)
 {
     if (!sub_00463DD0_GetPlayerUnit())
     {
-        sub_00453EE0_ClosePanel();
+        UI_CloseGoldDialog();
         return;
     }
     if (INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory))
     {
-        sub_00453EE0_ClosePanel();
+        UI_CloseGoldDialog();
         return;
     }
     if (gpGlobal_007A27A0)
@@ -197,7 +197,7 @@ void __fastcall sub_00454150_OpenGoldPanel(int nMode)
     }
     if (!gbGoldPanelFlag_007A27B4)
     {
-        sub_0046AA20_SetHotkeyHandlers(0, 1);
+        CMDTBL_SetHotkeyHandlers(0, 1);
         gbGoldPanelFlag_007A27B4 = 1;
     }
     gnGoldPanelValue_007A2A68 = 0;
@@ -207,7 +207,7 @@ void __fastcall sub_00454150_OpenGoldPanel(int nMode)
     switch (nMode)
     {
     case 0:
-        sub_004A7A90_SetFlag();
+        TEXT_SetGoldDialogFlag();
         nStringId = 0xFC1;
         nGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
         break;
@@ -232,12 +232,12 @@ void __fastcall sub_00454150_OpenGoldPanel(int nMode)
         nGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLDBANK, 0);
         break;
     default:
-        sub_00453EE0_ClosePanel();
+        UI_CloseGoldDialog();
         return;
     }
 
     gnGoldPanelMode_007A279C = nMode;
-    gpGlobal_007A27A0 = sub_004B7CD0_CreatePanel(0xD7, 0x8C, sub_00453FC0_GoldPanelClose, 0, 0, 1);
+    gpGlobal_007A27A0 = sub_004B7CD0_CreatePanel(0xD7, 0x8C, UI_GoldPanelCloseCallback, 0, 0, 1);
     sub_004B8370(gpGlobal_007A27A0, 1);
     sub_00502EF0(1);
 
@@ -263,18 +263,18 @@ void __fastcall sub_00454150_OpenGoldPanel(int nMode)
         pLine = pNext;
     }
 
-    gpGoldControlA_007A27A4 = new D2UiControlAStrc(0xDF, 0xDB, 0, sub_00453FE0_GoldSpinnerChanged);
+    gpGoldControlA_007A27A4 = new D2UiControlAStrc(0xDF, 0xDB, 0, UI_GoldSpinnerChanged);
     sub_004B7C00_AddControl(gpGlobal_007A27A0, gpGoldControlA_007A27A4, 0, 0);
-    gpGoldControlB_007A27A8 = new D2UiControlBStrc(0x102, 0xE4, 0x64, 1, nGold, 0xA, sub_00453FD0, 1);
+    gpGoldControlB_007A27A8 = new D2UiControlBStrc(0x102, 0xE4, 0x64, 1, nGold, 0xA, UI_GoldSpinnerDefaultCallback, 1);
     sub_004B7C00_AddControl(gpGlobal_007A27A0, gpGoldControlB_007A27A8, 0, 0);
     if (gpGoldControlB_007A27A8)
     {
         gpGoldControlB_007A27A8->SetActive(1);
     }
-    gpGoldControlC_007A27AC = new D2UiControlCStrc(0xFA, 0x11F, 0, sub_00454080_ConfirmGoldDialog);
+    gpGoldControlC_007A27AC = new D2UiControlCStrc(0xFA, 0x11F, 0, UI_ConfirmGoldDialog);
     sub_004B7C00_AddControl(gpGlobal_007A27A0, gpGoldControlC_007A27AC, 0, 0);
     gpGoldControlC_007A27AC->SetActive(1);
-    gpGoldControlD_007A27B0 = new D2UiControlCStrc(0x163, 0x11F, 1, sub_00454140_ClosePanelCallback);
+    gpGoldControlD_007A27B0 = new D2UiControlCStrc(0x163, 0x11F, 1, UI_CancelGoldDialog);
     sub_004B7C00_AddControl(gpGlobal_007A27A0, gpGoldControlD_007A27B0, 0, 0);
 
     if (nMode == 2)
@@ -292,7 +292,7 @@ void __fastcall sub_00454150_OpenGoldPanel(int nMode)
 }
 
 // 0x00468770
-void __fastcall sub_00468770_SetCursorPosition(int nX, int nY)
+void __fastcall UI_SetCursorPosition(int nX, int nY)
 {
     D2RectStrc rect;
     D2_ASSERT(nX >= 0, 0x30F);

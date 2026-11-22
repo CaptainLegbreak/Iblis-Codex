@@ -225,9 +225,9 @@ int __cdecl sub_00463DF0(); // 0x00463DF0
 
 int __cdecl sub_0044BFE0(); // 0x0044BFE0
 
-void __cdecl sub_00453EC0(); // 0x00453EC0
+void __cdecl UI_CancelCursorItemUse(); // 0x00453EC0
 
-int __fastcall sub_00453A90_GetUIVarUnchecked(int nUIVar); // 0x00453A90
+int __fastcall UI_GetUIVarUnchecked(int nUIVar); // 0x00453A90
 
 void __stdcall sub_0065C1F0(int nId, int nGroup, D2Block1* pBlock); // 0x0065C1F0
 
@@ -239,7 +239,7 @@ void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId
 
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 
-int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
+int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
 
 extern int gnUiRecordRow_007A5218; // 0x007A5218
 
@@ -253,7 +253,7 @@ extern int gnBeltRecordMode2_007BEF9C; // 0x007BEF9C
 
 extern D2UnitStrc* gpBeltItemA_007BEFA8; // 0x007BEFA8
 
-int __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2); // 0x00456300
+int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
 extern "C" size_t __cdecl strlen(const char* szString);
 
@@ -265,17 +265,17 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
-void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
+void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 
 void __cdecl sub_00499E50_DrawPanelQuad(); // 0x00499E50
 
-void __cdecl sub_0049C270_DrawPartyRows(); // 0x0049C270
+void __cdecl PARTY_DrawPartyRows(); // 0x0049C270
 
-void __cdecl sub_0049A510_DrawPartyButtons(); // 0x0049A510
+void __cdecl PARTY_DrawPartyButtons(); // 0x0049A510
 
-void __cdecl sub_0049A950_DrawPanelCel(); // 0x0049A950
+void __cdecl TEXT_DrawPanelCloseButton(); // 0x0049A950
 
 void __cdecl sub_0049ABD0_DrawRosterHoverHints(); // 0x0049ABD0
 
@@ -341,7 +341,7 @@ void __fastcall sub_00496BE0_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkil
 
 unsigned short __fastcall sub_00469AA0(int nA, int nB);                                                     // 0x00469AA0
 
-const Unicode* __fastcall sub_0046A530_GetKeyName(int nA, int nB);                                          // 0x0046A530
+const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB);                                          // 0x0046A530
 
 int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
 
@@ -363,9 +363,9 @@ int gbGlobal_007BEFA0;                                                          
 
 void __cdecl sub_004972B0_InitBeltColors(); // 0x004972B0
 
-static void __stdcall sub_004978D0_DrawBeltBoxFrame(int nBox, int nColor); // 0x004978D0
+static void __stdcall PANEL_DrawBeltBoxFrame(int nBox, int nColor); // 0x004978D0
 
-static void __cdecl sub_00497920_DrawCursorBeltBox(D2InventoryStrc* pInventory); // 0x00497920
+static void __cdecl PANEL_DrawCursorBeltBox(D2InventoryStrc* pInventory); // 0x00497920
 
 void* gpBorderFrameCel_007BEF18; // 0x007BEF18
 
@@ -379,7 +379,7 @@ void* gpCelFile_007BF024; // 0x007BF024
 
 void* gpCelFile_007BF028; // 0x007BF028
 
-void __cdecl sub_0049A580_DrawPlayerName(); // 0x0049A580
+void __cdecl PARTY_DrawPlayerName(); // 0x0049A580
 
 void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
 
@@ -397,7 +397,7 @@ static int ORB_AbsValue(int nValue)
 }
 
 // 0x00496CF0
-void __cdecl sub_00496CF0_ValidateActiveSkills()
+void __cdecl PANEL_ValidateActiveSkills()
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
@@ -423,7 +423,7 @@ void __cdecl sub_00496CF0_ValidateActiveSkills()
 }
 
 // 0x00496DD0
-static int sub_00496DD0_GetSmoothedOrbValue(int nStatId)
+static int PANEL_GetSmoothedOrbValue(int nStatId)
 {
     int bCheckDrop = 1;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
@@ -513,10 +513,10 @@ static int sub_00496DD0_GetSmoothedOrbValue(int nStatId)
 }
 
 // 0x00496F80
-void __cdecl sub_00496F80_DrawLifeOrb()
+void __cdecl PANEL_DrawLifeOrb()
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    const int nLife = sub_00496DD0_GetSmoothedOrbValue(6);
+    const int nLife = PANEL_GetSmoothedOrbValue(6);
     const int nMaxLife = STATLIST_GetMaxLifeFromUnit(pPlayer);
     if (!nMaxLife)
         return;
@@ -569,10 +569,10 @@ void __cdecl sub_00496F80_DrawLifeOrb()
 }
 
 // 0x00497110
-void __cdecl sub_00497110_DrawManaOrb()
+void __cdecl PANEL_DrawManaOrb()
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    int nMana = sub_00496DD0_GetSmoothedOrbValue(8);
+    int nMana = PANEL_GetSmoothedOrbValue(8);
     const int nMaxMana = STATLIST_GetMaxManaFromUnit(pPlayer);
     if (!nMaxMana)
         return;
@@ -627,10 +627,10 @@ static int __cdecl sub_00497440_Bounds(int nX,int nY)
 }
 
 // 0x004975B0
-void __cdecl sub_004975B0_DrawStaminaBar()
+void __cdecl PANEL_DrawStaminaBar()
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    const int nStamina = sub_00496DD0_GetSmoothedOrbValue(10);
+    const int nStamina = PANEL_GetSmoothedOrbValue(10);
     int nMaxStamina = STATLIST_GetMaxStaminaFromUnit(pPlayer);
     if (!gnTextColorRed_007BEFBA)
     {
@@ -658,7 +658,7 @@ void __cdecl sub_004975B0_DrawStaminaBar()
 
     const int nMouseX = sub_00468730();
     const int nMouseY = sub_00468740();
-    int nCur = sub_00496DD0_GetSmoothedOrbValue(10) / 256;
+    int nCur = PANEL_GetSmoothedOrbValue(10) / 256;
     const int nMax = STATLIST_GetMaxStaminaFromUnit(pPlayer) / 256;
     int nTextColor = 0;
     if (nCur > nMax || STATES_CheckState(pPlayer, STATE_SHRINE_STAMINA))
@@ -753,7 +753,7 @@ static int sub_004977C0_IsInButtonRect(int nX, int nY)
 }
 
 // 0x004977C0
-void __cdecl sub_004977C0_DrawStateButton()
+void __cdecl PANEL_DrawMiniPanelButton()
 {
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
@@ -839,7 +839,7 @@ static void __stdcall sub_00497CF0_DrawDurabilityIcon(int nState, int nQuiverTyp
 }
 
 // 0x00498120
-void __cdecl sub_00498120()
+void __cdecl PANEL_DrawLifeManaText()
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nMouseX = sub_00468730();
@@ -852,7 +852,7 @@ void __cdecl sub_00498120()
     if (gdwShowHpText_007BEFDC || (nMouseX >= 0x1E && nMouseX <= 0x1E + 0x50
         && nMouseY >= gnGlobal_00711470 - 0x4B && nMouseY <= gnGlobal_00711470 - 0xF))
     {
-        int nLife = sub_00496DD0_GetSmoothedOrbValue(6) >> 8;
+        int nLife = PANEL_GetSmoothedOrbValue(6) >> 8;
         const int nMaxLife = STATLIST_GetMaxLifeFromUnit(pPlayer) >> 8;
         D2UnitStrc* pUnit = sub_00463DD0_GetPlayerUnit();
         if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode != 0x11 && nLife >= 0 && nLife <= 1)
@@ -867,7 +867,7 @@ void __cdecl sub_00498120()
     if (gdwShowMpText_007BEFE0 || (nMouseX >= gnGlobal_0071146C - 0x6F && nMouseX <= gnGlobal_0071146C - 0x1F
         && nMouseY >= gnGlobal_00711470 - 0x4B && nMouseY <= gnGlobal_00711470 - 0xF))
     {
-        const int nMana = sub_00496DD0_GetSmoothedOrbValue(8) >> 8;
+        const int nMana = PANEL_GetSmoothedOrbValue(8) >> 8;
         sub_005269D0(100, wszManaText, D2LANG_GetStringFromTblIndex(0x1046), nMana, STATLIST_GetMaxManaFromUnit(pPlayer) >> 8);
         sub_00526700(wszMana, wszManaText);
         const int nHalfWidth = sub_00501820(wszMana) / 2;
@@ -875,7 +875,7 @@ void __cdecl sub_00498120()
     }
 }
 
-void __cdecl sub_00497FE0_DrawDurabilityIcons()
+void __cdecl PANEL_DrawDurabilityIcons()
 {
     D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
     for (int j = 0; j < 7; ++j)
@@ -922,7 +922,7 @@ found:
 }
 
 // 0x00498310
-void __cdecl sub_00498310_UpdateLevelTimer()
+void __cdecl PANEL_UpdateLevelTimer()
 {
     D2ActiveRoomStrc* pRoom = sub_004646A0_GetPlayerRoom();
     if (pRoom)
@@ -937,7 +937,7 @@ void __cdecl sub_00498310_UpdateLevelTimer()
 }
 
 // 0x00498340
-extern "C" void __cdecl sub_00498340_UpdateTooltip()
+extern "C" void __cdecl PANEL_UpdateMiniPanelTooltip()
 {
     const int mouseX = sub_00468730_MouseX();
     const int mouseY = sub_00468740_MouseY();
@@ -952,7 +952,7 @@ extern "C" void __cdecl sub_00498340_UpdateTooltip()
 }
 
 // 0x00498630
-void __cdecl sub_00498630_DrawBorderFrameLeft()
+void __cdecl PANEL_DrawBorderFrameLeft()
 {
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
@@ -975,7 +975,7 @@ void __cdecl sub_00498630_DrawBorderFrameLeft()
 }
 
 // 0x00498700
-void __cdecl sub_00498700_DrawBorderFrameRight()
+void __cdecl PANEL_DrawBorderFrameRight()
 {
     if (!gpBorderFrameCel_007BEF18)
     {
@@ -1150,9 +1150,9 @@ static void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D
 }
 
 // 0x00498C00
-void __stdcall sub_00498C00_CloseOnSpace(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall PANEL_CloseUIVarsMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_00456300_CloseUIVars(1, 0);
+    UI_CloseUIVars(1, 0);
 }
 
 void __stdcall sub_A11_Emit_00498870(SMSGHANDLER_PARAMS* pMsg)
@@ -1227,7 +1227,7 @@ static int __stdcall sub_00498A20_CheckState(D2UnitStrc* pPlayer, D2UnitStrc* pI
 }
 
 // 0x00498C10
-static void sub_00498C10_BeltHotkey(int nSlot)
+static void PANEL_BeltHotkey(int nSlot)
 {
     if (sub_0044DA30() || sub_00463DF0())
     {
@@ -1244,31 +1244,31 @@ static void sub_00498C10_BeltHotkey(int nSlot)
 }
 
 // 0x00498C50
-void __cdecl sub_00498C50_BeltHotkey0()
+void __cdecl PANEL_BeltHotkeyFirst()
 {
-    sub_00498C10_BeltHotkey(0);
+    PANEL_BeltHotkey(0);
 }
 
 // 0x00498C90
-void __cdecl sub_00498C90_BeltHotkey1()
+void __cdecl PANEL_BeltHotkeySecond()
 {
-    sub_00498C10_BeltHotkey(1);
+    PANEL_BeltHotkey(1);
 }
 
 // 0x00498CD0
-void __cdecl sub_00498CD0_BeltHotkey2()
+void __cdecl PANEL_BeltHotkeyThird()
 {
-    sub_00498C10_BeltHotkey(2);
+    PANEL_BeltHotkey(2);
 }
 
 // 0x00498D10
-void __cdecl sub_00498D10_BeltHotkey3()
+void __cdecl PANEL_BeltHotkeyFourth()
 {
-    sub_00498C10_BeltHotkey(3);
+    PANEL_BeltHotkey(3);
 }
 
 // 0x00498D90
-void __fastcall sub_00498D90_SetUiRecordIndex(int nIndex)
+void __fastcall PANEL_SetBeltType(int nIndex)
 {
     if (nIndex >= 0)
     {
@@ -1287,13 +1287,13 @@ void __cdecl sub_00498E80_ClearPair()
 }
 
 // 0x00498E90
-void __cdecl sub_00498E90_SetRecordMode()
+void __cdecl PANEL_SetBeltExpandedMode()
 {
     gbUiRecordMode_007BEF98 = 1;
 }
 
 // 0x00498EA0
-void __cdecl sub_00498EA0_DrawExperienceBar()
+void __cdecl PANEL_DrawExperienceBar()
 {
     unsigned short awText[100];
     Unicode* wszText = (Unicode*)awText;
@@ -1364,7 +1364,7 @@ void __cdecl sub_004972B0_InitBeltColors()
     gabBeltColors_007BEF6C[3] = D2Win_10034_MixRGB(0x80, 0x80, 0);
 }
 
-static void __stdcall sub_004978D0_DrawBeltBoxFrame(int nBox, int nColor)
+static void __stdcall PANEL_DrawBeltBoxFrame(int nBox, int nColor)
 {
     sub_004972B0_InitBeltColors();
     if (nColor == 2)
@@ -1375,7 +1375,7 @@ static void __stdcall sub_004978D0_DrawBeltBoxFrame(int nBox, int nColor)
     sub_0046EFD0_DrawFramedBox(tRect.nLeft, tRect.nTop, 0x1D, 0x1D, gabBeltColors_007BEF6C[nColor], 0);
 }
 
-static void __cdecl sub_00497920_DrawCursorBeltBox(D2InventoryStrc* pInventory)
+static void __cdecl PANEL_DrawCursorBeltBox(D2InventoryStrc* pInventory)
 {
     D2UnitStrc* pItem = INVENTORY_GetCursorItem(pInventory);
     if (!pItem || !gnBeltHover_007BEF94)
@@ -1388,18 +1388,18 @@ static void __cdecl sub_00497920_DrawCursorBeltBox(D2InventoryStrc* pInventory)
 
     if (!INVENTORY_GetItemFromBeltSlot(pInventory, gnBeltBox_0072235C) && ITEMS_CheckIfBeltable(pItem))
     {
-        sub_004978D0_DrawBeltBoxFrame(gnBeltBox_0072235C, 1);
+        PANEL_DrawBeltBoxFrame(gnBeltBox_0072235C, 1);
         return;
     }
 
     int nResult;
     if (sub_0063C830_CanPlaceInBelt(pInventory, pItem, gnBeltBox_0072235C, &nResult))
     {
-        sub_004978D0_DrawBeltBoxFrame(gnBeltBox_0072235C, 3);
+        PANEL_DrawBeltBoxFrame(gnBeltBox_0072235C, 3);
         return;
     }
 
-    sub_004978D0_DrawBeltBoxFrame(gnBeltBox_0072235C, 0);
+    PANEL_DrawBeltBoxFrame(gnBeltBox_0072235C, 0);
 }
 
 // 0x00499040
@@ -1514,13 +1514,13 @@ void __cdecl sub_00499040_DrawBelt()
         if (!ITEMS_CheckItemFlag(pItem, 4, 0x5D5, ".\\UI\\panel.cpp") && ITEMS_CheckIfUseable(pItem) && !sub_004C2240(pItem))
         {
             if (pItem == gpBeltItemA_007BEFA8 && gnBeltHover_007BEF94)
-                sub_004978D0_DrawBeltBoxFrame(nBox, 1);
+                PANEL_DrawBeltBoxFrame(nBox, 1);
             else
-                sub_004978D0_DrawBeltBoxFrame(nBox, 2);
+                PANEL_DrawBeltBoxFrame(nBox, 2);
         }
         else
         {
-            sub_004978D0_DrawBeltBoxFrame(nBox, 0);
+            PANEL_DrawBeltBoxFrame(nBox, 0);
         }
 
         D2UiRectStrc tRect;
@@ -1536,7 +1536,7 @@ void __cdecl sub_00499040_DrawBelt()
 
             if (sub_00469AA0(gaBeltKeys_00722404[nSlot], 1) != 0xFFFF || sub_00469AA0(gaBeltKeys_00722404[nSlot], 0) != 0xFFFF)
             {
-                sub_005267E0(wszKey, sub_0046A530_GetKeyName(gaBeltKeys_00722404[nSlot], 1));
+                sub_005267E0(wszKey, CMDTBL_GetKeyName(gaBeltKeys_00722404[nSlot], 1));
                 const int nLength = sub_00526800(wszKey);
                 if (sub_00501820(wszKey) > 0x1C)
                 {
@@ -1554,7 +1554,7 @@ void __cdecl sub_00499040_DrawBelt()
     }
 
     if (gnUiRecordIndex_00722354 == 2 || sub_004538D0(0x1F) || gbUiRecordMode_007BEF98)
-        sub_00497920_DrawCursorBeltBox(pInventory);
+        PANEL_DrawCursorBeltBox(pInventory);
 }
 
 void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
@@ -1575,7 +1575,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
 
     if (gbUiRecordMode_007BEF98)
     {
-        if (sub_00498DC0_MouseMoveMsg(pMsg))
+        if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg))
         {
             if (sub_004538D0(0x1F))
             {
@@ -1608,7 +1608,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
         return;
     }
 
-    if (!sub_00453A90_GetUIVarUnchecked(9))
+    if (!UI_GetUIVarUnchecked(9))
     {
         gbUiRecordMode_007BEF98 = 1;
         gnBeltRecordMode2_007BEF9C = 1;
@@ -1619,7 +1619,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00499D10
-void __stdcall sub_00499D10_BeltClick(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall PANEL_BeltClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30() || sub_00463DF0())
     {
@@ -1630,13 +1630,13 @@ void __stdcall sub_00499D10_BeltClick(SMSGHANDLER_PARAMS* pMsg)
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (sub_00498DC0_MouseMoveMsg(pMsg))
+    if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg))
     {
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         if (sub_00468830() == 6)
         {
-            sub_00453EC0();
+            UI_CancelCursorItemUse();
         }
         else if (sub_00468830() == 8)
         {
@@ -1660,19 +1660,19 @@ void __stdcall sub_00499D10_BeltClick(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00499E10
-void __cdecl sub_00499E10_SetRedColour()
+void __cdecl PANEL_SetRedColour()
 {
     gbGlobal_007BF034 = D2Win_10034_MixRGB(0xFF, 0, 0);
 }
 
 // 0x00499E30
-void __cdecl sub_00499E30_SetBlackColour()
+void __cdecl PANEL_SetBlackColour()
 {
     gbGlobal_007BF034 = D2Win_10034_MixRGB(0, 0, 0);
 }
 
 // 0x0049C0A0
-void __cdecl sub_0049C0A0_LoadPartyCels()
+void __cdecl PANEL_LoadPartyCels()
 {
     gpPanelQuadCel_007BF018 = sub_004520C0_LoadUiCelFile("Menu\\party");
     gpCelFile_007BF01C = sub_004520C0_LoadUiCelFile("Menu\\partybuttons");
@@ -1682,7 +1682,7 @@ void __cdecl sub_0049C0A0_LoadPartyCels()
 }
 
 // 0x0049C0F0
-void __cdecl sub_0049C0F0_FreePartyCels()
+void __cdecl PANEL_FreePartyCels()
 {
     if (gpPanelQuadCel_007BF018)
     {
@@ -1712,13 +1712,13 @@ void __cdecl sub_0049C0F0_FreePartyCels()
 }
 
 // 0x0049C3D0
-void __cdecl sub_0049C3D0_DrawPartyPanel()
+void __cdecl PANEL_DrawPartyPanel()
 {
     sub_00499E50_DrawPanelQuad();
-    sub_0049A580_DrawPlayerName();
-    sub_0049C270_DrawPartyRows();
-    sub_0049A510_DrawPartyButtons();
-    sub_0049A950_DrawPanelCel();
+    PARTY_DrawPlayerName();
+    PARTY_DrawPartyRows();
+    PARTY_DrawPartyButtons();
+    TEXT_DrawPanelCloseButton();
     sub_0049ABD0_DrawRosterHoverHints();
     sub_0049B330_DrawRosterButtonHints();
     sub_0049A9B0_RefreshRosterIndices();
@@ -1729,7 +1729,7 @@ void __cdecl sub_0049C3D0_DrawPartyPanel()
 }
 
 // 0x004BE340
-int __fastcall sub_004BE340_CountLinesInView(D2TextPanelStrc* pPanel)
+int __fastcall PANEL_CountLinesInView(D2TextPanelStrc* pPanel)
 {
     const int nLineCount = pPanel->f_180748;
     int nTotal = 0;

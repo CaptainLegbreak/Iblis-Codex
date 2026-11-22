@@ -30,7 +30,7 @@ void __cdecl sub_0044D520();                                                    
 
 int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
 
-void __fastcall sub_00455720_SetPanelHandlers(int nUIVar);                                                         // 0x00455720
+void __fastcall UI_SetPanelHandlers(int nUIVar);                                                         // 0x00455720
 
 void __fastcall sub_0045AEA0_SetPanelSlide(int nMode);                                                      // 0x0045AEA0
 
@@ -42,21 +42,21 @@ int __cdecl sub_00468730();                                                     
 
 int __cdecl sub_00468740();                                                                                 // 0x00468740
 
-void __fastcall sub_00468770_SetCursorPosition(int nA, int nB);                                                               // 0x00468770
+void __fastcall UI_SetCursorPosition(int nA, int nB);                                                               // 0x00468770
 
 void __fastcall sub_00478590(char nValue);                                                                  // 0x00478590
 
-void __cdecl sub_0047BDC0_ClearChatLine();                                                                                // 0x0047BDC0
+void __cdecl CHAT_ClearChatLine();                                                                                // 0x0047BDC0
 
-void __cdecl sub_00487990_ResetHover();                                                                     // 0x00487990
+void __cdecl INV_ResetHover();                                                                     // 0x00487990
 
-int __cdecl sub_004A0000();                                                                                 // 0x004A0000
+int __cdecl TEXT_IsTextBoxOpen();                                                                                 // 0x004A0000
 
-void __cdecl sub_004A5DE0_CloseSliderHandlers();                                                                                // 0x004A5DE0
+void __cdecl TEXT_CloseKeyCaptureHandlers();                                                                                // 0x004A5DE0
 
-int __fastcall sub_004B3230_GetTickPair(int* pLow);                                                         // 0x004B3230
+int __fastcall NPCMENU_GetInteractNpcId(int* pLow);                                                         // 0x004B3230
 
-void __fastcall sub_004B3C20(int nValue);                                                                   // 0x004B3C20
+void __fastcall NPCMENU_EndNpcInteraction(int nValue);                                                                   // 0x004B3C20
 
 int __cdecl sub_004B85E0();                                                                                 // 0x004B85E0
 
@@ -88,21 +88,21 @@ typedef unsigned short Unicode;
 
 void __fastcall sub_0044DB40(int nDelay); // 0x0044DB40
 
-void __fastcall sub_00451E10_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451E10
+void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451E10
 
-void __cdecl sub_00453EE0_ClosePanel(); // 0x00453EE0
+void __cdecl UI_CloseGoldDialog(); // 0x00453EE0
 
 void __fastcall sub_00457640(int bForce); // 0x00457640
 
-void __cdecl sub_0045A5C0_FreeAutomap(); // 0x0045A5C0
+void __cdecl AUTOMAP_FreeAutomap(); // 0x0045A5C0
 
-void __cdecl sub_0045A620_InitAutomapColors(); // 0x0045A620
+void __cdecl AUTOMAP_InitAutomapColors(); // 0x0045A620
 
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 
 D2UnitStrc* __cdecl sub_004680A0(); // 0x004680A0
 
-void __cdecl sub_0046ACB0_DisableHotkeyHandlers(); // 0x0046ACB0
+void __cdecl CMDTBL_DisableHotkeyHandlers(); // 0x0046ACB0
 
 void __fastcall sub_00472890(D2DrlgActStrc* pAct); // 0x00472890
 
@@ -126,39 +126,39 @@ void __cdecl sub_004892F0(); // 0x004892F0
 
 void __cdecl sub_0048A600(); // 0x0048A600
 
-void __cdecl sub_00492EC0_FreeHirelingIcons(); // 0x00492EC0
+void __cdecl HIREABLES_FreeHirelingIcons(); // 0x00492EC0
 
 void __cdecl sub_00492F90(); // 0x00492F90
 
-void __cdecl sub_004939B0_LoadPopupHireling(); // 0x004939B0
+void __cdecl TEXT_LoadPopupHireling(); // 0x004939B0
 
-void __cdecl sub_00494EE0_FreeHelpCels(); // 0x00494EE0
+void __cdecl HIREABLES_FreeHelpCels(); // 0x00494EE0
 
-void __cdecl sub_00496990_FreePanelCels(); // 0x00496990
+void __cdecl HIREABLES_FreePanelCels(); // 0x00496990
 
 void __cdecl sub_00498E80_ClearPair(); // 0x00498E80
 
-void __cdecl sub_00499E30_SetBlackColour(); // 0x00499E30
+void __cdecl PANEL_SetBlackColour(); // 0x00499E30
 
-void __cdecl sub_0049C0A0_LoadPartyCels(); // 0x0049C0A0
+void __cdecl PANEL_LoadPartyCels(); // 0x0049C0A0
 
-void __cdecl sub_0049C0F0_FreePartyCels(); // 0x0049C0F0
+void __cdecl PANEL_FreePartyCels(); // 0x0049C0F0
 
 void __cdecl sub_0049C700_CloseWaypointPanel(); // 0x0049C700
 
-void __cdecl sub_004A0010_FreeTextLists(); // 0x004A0010
+void __cdecl TEXT_FreeTextLists(); // 0x004A0010
 
-void __cdecl sub_004A0680_FreeTextResources(); // 0x004A0680
+void __cdecl TEXT_FreeTextResources(); // 0x004A0680
 
-void __cdecl sub_004A2600_FreeQuestPanel(); // 0x004A2600
+void __cdecl TEXT_FreeQuestPanel(); // 0x004A2600
 
-void __cdecl sub_004A3020_ClearQuestFlags(); // 0x004A3020
+void __cdecl TEXT_ClearQuestFlags(); // 0x004A3020
 
 void __cdecl sub_004A3050(); // 0x004A3050
 
-void __cdecl sub_004A51E0_FreeCelFile(); // 0x004A51E0
+void __cdecl TEXT_FreeTextSliderCel(); // 0x004A51E0
 
-void __cdecl sub_004A6480_FreeLevelCels(); // 0x004A6480
+void __cdecl TEXT_FreeLevelCels(); // 0x004A6480
 
 void __cdecl sub_004A7AA0_InitTextEntryLengths(); // 0x004A7AA0
 
@@ -172,21 +172,21 @@ void __cdecl sub_004AA920_LoadPanelCel(); // 0x004AA920
 
 void __cdecl sub_004AA980(); // 0x004AA980
 
-void __cdecl sub_004B24A0(); // 0x004B24A0
+void __cdecl NPCMENU_FreeNpcMenu(); // 0x004B24A0
 
-void __cdecl sub_004B32F0(); // 0x004B32F0
+void __cdecl NPCMENU_ResetNpcMenu(); // 0x004B32F0
 
-void __cdecl sub_004B7B50(); // 0x004B7B50
+void __cdecl DIALOG_FreeDialogs(); // 0x004B7B50
 
 void __cdecl sub_004B8720(); // 0x004B8720
 
-int __stdcall sub_004B92E0_GetTableByte(int nUnused, int nIndex); // 0x004B92E0
+int __stdcall INV_GetTableByte(int nUnused, int nIndex); // 0x004B92E0
 
 void __cdecl sub_004B91F0(); // 0x004B91F0
 
 void __cdecl sub_004BE060(); // 0x004BE060
 
-void __cdecl sub_004C0100(); // 0x004C0100
+void __cdecl USEITEM_FreeUseItemPanel(); // 0x004C0100
 
 void* __cdecl sub_004F59A0(); // 0x004F59A0
 
@@ -271,7 +271,7 @@ int gdwGlobal_007A288C; // 0x007A288C
 unsigned long gdwLastTick_007A313C; // 0x007A313C
 
 // 0x00453910
-static int sub_00453910_CanSetUIVar(int nUIVar, int nState)
+static int UI_CanSetUIVar(int nUIVar, int nState)
 {
     D2_ASSERT(gnUIVarCount_0070F9CC == 0x26, 0x1397);
     if (nState == 0 || (nState == 2 && !gaUIVarStates_007A27C0[nUIVar]))
@@ -310,7 +310,7 @@ static int sub_00453910_CanSetUIVar(int nUIVar, int nState)
                 }
             }
         }
-        if (sub_004A0000() && nUIVar != 0x0A && nUIVar != 0x13 && nUIVar != 0x11 && nUIVar != 0x06 && nUIVar != 0x07)
+        if (TEXT_IsTextBoxOpen() && nUIVar != 0x0A && nUIVar != 0x13 && nUIVar != 0x11 && nUIVar != 0x06 && nUIVar != 0x07)
         {
             return 0;
         }
@@ -325,9 +325,9 @@ static int sub_00453910_CanSetUIVar(int nUIVar, int nState)
                 case 4:
                 {
                     int nLow;
-                    if (sub_004B3230_GetTickPair(&nLow))
+                    if (NPCMENU_GetInteractNpcId(&nLow))
                     {
-                        sub_004B3C20(nLow);
+                        NPCMENU_EndNpcInteraction(nLow);
                     }
                     break;
                 }
@@ -347,13 +347,13 @@ static int sub_00453910_CanSetUIVar(int nUIVar, int nState)
 }
 
 // 0x00453A90
-int __fastcall sub_00453A90_GetUIVarUnchecked(int nUIVar)
+int __fastcall UI_GetUIVarUnchecked(int nUIVar)
 {
     return gaUIVarStates_007A27C0[nUIVar];
 }
 
 // 0x00453AE0
-void __cdecl sub_00453AE0()
+void __cdecl UI_StartUIVarDelay()
 {
     if (gdwGlobal_0070FA9C)
     {
@@ -362,39 +362,39 @@ void __cdecl sub_00453AE0()
 }
 
 // 0x00453B00
-void __cdecl sub_00453B00_SendMouseMove()
+void __cdecl UI_SendMouseMove()
 {
     SendMessageA(sub_004F59A0(), 0x200, 0, ((unsigned short)sub_00468740() << 16) | (unsigned short)sub_00468730());
 }
 
 // 0x00453D90
-void __cdecl sub_00453D90_RunSequenceA()
+void __cdecl UI_LoadPlayerUI()
 {
-    sub_0049C0A0_LoadPartyCels();
+    PANEL_LoadPartyCels();
     sub_004A7AA0_InitTextEntryLengths();
     sub_004AA920_LoadPanelCel();
     sub_004A8A30_InitSkillIcons();
     sub_004B8720();
-    sub_00487990_ResetHover();
+    INV_ResetHover();
     sub_00498E80_ClearPair();
     sub_0048A600();
     sub_004A3050();
-    sub_004939B0_LoadPopupHireling();
+    TEXT_LoadPopupHireling();
     sub_00457640(1);
     sub_0047E720_LoadAlwaysRun();
 }
 
 // 0x00453DE0
-void __cdecl sub_00453DE0()
+void __cdecl UI_FreePlayerUI()
 {
-    sub_0049C0F0_FreePartyCels();
+    PANEL_FreePartyCels();
     sub_004A7AD0();
     sub_004AA980();
     sub_004A8C00_FreeSkillIcons();
-    sub_004A3020_ClearQuestFlags();
-    sub_004B32F0();
+    TEXT_ClearQuestFlags();
+    NPCMENU_ResetNpcMenu();
     sub_004B91F0();
-    sub_004A0010_FreeTextLists();
+    TEXT_FreeTextLists();
     sub_00492F90();
     if (gpLoadingCell_007A2794)
     {
@@ -416,14 +416,14 @@ void __cdecl sub_00453DE0()
 }
 
 // 0x00453E70
-const Unicode* __fastcall sub_00453E70_GetLevelName(int nLevelId)
+const Unicode* __fastcall UI_GetLevelName(int nLevelId)
 {
     D2LevelsTxt* pLevelsTxtRecord = DATATBLS_GetLevelsTxtRecord(nLevelId);
     if (pLevelsTxtRecord)
     {
         if (nLevelId == LEVEL_DENOFEVIL)
         {
-            if (sub_004B92E0_GetTableByte(0, 1))
+            if (INV_GetTableByte(0, 1))
             {
                 return D2LANG_GetStringFromTblIndex(0x13B8);
             }
@@ -435,7 +435,7 @@ const Unicode* __fastcall sub_00453E70_GetLevelName(int nLevelId)
 }
 
 // 0x00453EC0
-void __cdecl sub_00453EC0()
+void __cdecl UI_CancelCursorItemUse()
 {
     D2UnitStrc* pUnit = sub_004680A0();
     if (pUnit)
@@ -445,14 +445,14 @@ void __cdecl sub_00453EC0()
 }
 
 // 0x00453FC0
-int __cdecl sub_00453FC0_GoldPanelClose()
+int __cdecl UI_GoldPanelCloseCallback()
 {
-    sub_00453EE0_ClosePanel();
+    UI_CloseGoldDialog();
     return 0;
 }
 
 // 0x00453FE0
-int __cdecl sub_00453FE0_GoldSpinnerChanged()
+int __cdecl UI_GoldSpinnerChanged()
 {
     const int nDirection = gpGoldControlA_007A27A4->GetDirection();
     const unsigned int nStep = gpGoldControlA_007A27A4->GetStep(0);
@@ -498,13 +498,13 @@ int __cdecl sub_00453FE0_GoldSpinnerChanged()
 }
 
 // 0x00454790
-void __fastcall sub_00454790_SetValue(int nValue)
+void __fastcall UI_SetLoadingAct(int nValue)
 {
     gdwGlobal_007A288C = nValue;
 }
 
 // 0x004547B0
-void __fastcall sub_004547B0()
+void __fastcall UI_FreeLoadingScreen()
 {
     if (gpLoadingScreen_007A2888)
     {
@@ -512,10 +512,10 @@ void __fastcall sub_004547B0()
         gpLoadingScreen_007A2888 = 0;
         sub_004FB480_SetActA(gdwGlobal_007A288C);
         sub_00600C00_SetActB(gdwGlobal_007A288C);
-        sub_0045A620_InitAutomapColors();
+        AUTOMAP_InitAutomapColors();
         sub_00483960();
         sub_00499E10();
-        sub_00499E30_SetBlackColour();
+        PANEL_SetBlackColour();
         sub_004AB2F0();
         sub_00497250();
         sub_00497270();
@@ -530,7 +530,7 @@ void __fastcall sub_004547B0()
 }
 
 // 0x00454850
-int __cdecl sub_00454850_TickElapsed()
+int __cdecl UI_TickElapsed()
 {
     const unsigned long dwTick = GetTickCount();
     if (dwTick - gdwLastTick_007A313C > 0x32)
@@ -542,7 +542,7 @@ int __cdecl sub_00454850_TickElapsed()
 }
 
 // 0x00454880
-int __fastcall sub_00454880_GetHoverRect(D2RectStrc* pRect)
+int __fastcall UI_GetHoverRect(D2RectStrc* pRect)
 {
     pRect->nLeft = 0;
     pRect->nRight = gnGlobal_0071146C;
@@ -579,7 +579,7 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
             return 0;
         }
     }
-    if (!sub_00453910_CanSetUIVar(nUIVar, nState))
+    if (!UI_CanSetUIVar(nUIVar, nState))
     {
         return 0;
     }
@@ -619,10 +619,10 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
     {
         if (nNewState)
         {
-            sub_00455720_SetPanelHandlers(nUIVar);
+            UI_SetPanelHandlers(nUIVar);
             if (nUIVar == 0x05)
             {
-                sub_0047BDC0_ClearChatLine();
+                CHAT_ClearChatLine();
             }
         }
     }
@@ -664,11 +664,11 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
     case 11:
         if (!nNewState)
         {
-            sub_004A5DE0_CloseSliderHandlers();
+            TEXT_CloseKeyCaptureHandlers();
         }
         break;
     case 1:
-        sub_00487990_ResetHover();
+        INV_ResetHover();
 
     case 4:
         if (!gaUIVarStates_007A27C0[2] && !gaUIVarStates_007A27C0[0x14] && !gaUIVarStates_007A27C0[0xF] && !gaUIVarStates_007A27C0[0x10]
@@ -679,7 +679,7 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
                 sub_0045AEA0_SetPanelSlide(1);
                 if (nArg && nA > gnGlobal_0071146C / 4)
                 {
-                    sub_00468770_SetCursorPosition(nA - gnGlobal_0071146C / 4, nB);
+                    UI_SetCursorPosition(nA - gnGlobal_0071146C / 4, nB);
                 }
             }
             else
@@ -687,7 +687,7 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
                 sub_0045AEA0_SetPanelSlide(0);
                 if (nArg && nA < gnGlobal_0071146C / 2)
                 {
-                    sub_00468770_SetCursorPosition(gnGlobal_0071146C / 4 + nA, nB);
+                    UI_SetCursorPosition(gnGlobal_0071146C / 4 + nA, nB);
                 }
             }
         }
@@ -714,7 +714,7 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
                 sub_0045AEA0_SetPanelSlide(2);
                 if (nArg && nA < gnGlobal_0071146C - gnGlobal_0071146C / 4)
                 {
-                    sub_00468770_SetCursorPosition(gnGlobal_0071146C / 4 + nA, nB);
+                    UI_SetCursorPosition(gnGlobal_0071146C / 4 + nA, nB);
                 }
             }
             else
@@ -722,7 +722,7 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
                 sub_0045AEA0_SetPanelSlide(0);
                 if (nArg && nA > gnGlobal_0071146C / 2)
                 {
-                    sub_00468770_SetCursorPosition(nA - gnGlobal_0071146C / 4, nB);
+                    UI_SetCursorPosition(nA - gnGlobal_0071146C / 4, nB);
                 }
             }
         }
@@ -740,7 +740,7 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
 }
 
 // 0x00456300
-int __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2)
+int __fastcall UI_CloseUIVars(int bArg1, int nArg2)
 {
     int bResult = 0;
     for (int i = 0; i < 0x26; i++)
@@ -751,7 +751,7 @@ int __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2)
             bResult = 1;
             if (i == 0x19 || i == 1)
             {
-                sub_00487990_ResetHover();
+                INV_ResetHover();
             }
         }
     }
@@ -759,7 +759,7 @@ int __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2)
 }
 
 // 0x00456D80
-void __cdecl sub_00456D80_ShutdownUI()
+void __cdecl UI_ShutdownUI()
 {
     const int nPrevState = gaUIVarStates_007A27C0[0];
     if (sub_00408F20_HasExpansionMpq())
@@ -771,32 +771,32 @@ void __cdecl sub_00456D80_ShutdownUI()
     gaUIVarStates_007A27C0[0] = 0;
     if (nPrevState)
     {
-        sub_00451E10_UnregisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D5F28, 4);
+        AUTOMAP_UnregisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D5F28, 4);
     }
     sub_00468730();
     sub_00468740();
-    sub_00496990_FreePanelCels();
+    HIREABLES_FreePanelCels();
     if (sub_00463DD0_GetPlayerUnit())
     {
         sub_004A8C00_FreeSkillIcons();
         sub_004AA980();
     }
     D2Win_10116();
-    sub_004A0680_FreeTextResources();
+    TEXT_FreeTextResources();
     sub_0047F130_SaveMiniPanel();
-    sub_00494EE0_FreeHelpCels();
-    sub_004A6480_FreeLevelCels();
-    sub_00492EC0_FreeHirelingIcons();
-    sub_004B24A0();
-    sub_0045A5C0_FreeAutomap();
+    HIREABLES_FreeHelpCels();
+    TEXT_FreeLevelCels();
+    HIREABLES_FreeHirelingIcons();
+    NPCMENU_FreeNpcMenu();
+    AUTOMAP_FreeAutomap();
     sub_0049C700_CloseWaypointPanel();
     sub_004B91F0();
-    sub_00453EE0_ClosePanel();
+    UI_CloseGoldDialog();
     sub_00486980();
-    sub_004C0100();
-    sub_004A2600_FreeQuestPanel();
+    USEITEM_FreeUseItemPanel();
+    TEXT_FreeQuestPanel();
     sub_004892F0();
-    sub_004B7B50();
+    DIALOG_FreeDialogs();
     sub_004BE060();
     if (gpPentspinCel_007A2878)
     {
@@ -823,9 +823,9 @@ void __cdecl sub_00456D80_ShutdownUI()
         sub_00478A00(gpLoadingCell_007A2794);
         gpLoadingCell_007A2794 = 0;
     }
-    sub_0046ACB0_DisableHotkeyHandlers();
+    CMDTBL_DisableHotkeyHandlers();
     sub_0047DFD0_FreeOptionMenus();
-    sub_004A51E0_FreeCelFile();
+    TEXT_FreeTextSliderCel();
 }
 
 #include "gen/data/Source/D2Client/UI/ui_00453910.inc"

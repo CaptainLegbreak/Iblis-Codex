@@ -91,9 +91,9 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
 
 void __fastcall sub_004D30C0_CltDoCommon(D2UnitStrc* pMissile); // 0x004D30C0
 
-void __fastcall sub_004E2ED0_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg); // 0x004E2ED0
+void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg); // 0x004E2ED0
 
-int __fastcall sub_004F21B0_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
+int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
 
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
@@ -158,7 +158,7 @@ int __fastcall sub_00481890_GetCacheFirst(int nId); // 0x00481890
 
 unsigned char __fastcall sub_004818C0_GetCacheCount(int nId); // 0x004818C0
 
-int __fastcall sub_004A4180_TestCondition(int nCondition); // 0x004A4180
+int __fastcall TEXT_TestQuestCondition(int nCondition); // 0x004A4180
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
@@ -261,7 +261,7 @@ void __fastcall sub_004D3070_CltDoOwnerStep(D2UnitStrc* pMissile); // 0x004D3070
 
 int __stdcall MISSILE_GetTargetY(D2UnitStrc* pMissile); // 0x0064A780
 
-void __fastcall sub_0046F0C0(D2UnitStrc* pUnit, int nArg, int nValue); // 0x0046F0C0
+void __fastcall AUTOMAP_RemoveUnitOverlay(D2UnitStrc* pUnit, int nArg, int nValue); // 0x0046F0C0
 
 int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem); // 0x0062A4E0
 
@@ -622,7 +622,7 @@ int __fastcall sub_004C95E0_MissileAtTargetPos(D2UnitStrc* pUnit, int nSkillId, 
         return 0;
     }
 
-    const int nMissile = sub_004F21B0_GetCltMissileId(pUnit, nSkillId);
+    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
     if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
     {
         return 0;
@@ -886,7 +886,7 @@ found:
         gaLevelVisited_007C78B8[nLevel] = 1;
     }
 
-    if (pEntry->nCondition && !sub_004A4180_TestCondition(pEntry->nCondition))
+    if (pEntry->nCondition && !TEXT_TestQuestCondition(pEntry->nCondition))
     {
         return;
     }
@@ -4171,7 +4171,7 @@ void __fastcall sub_004D9630_StateOverlayRanges(D2UnitStrc* pUnit, int nState)
     {
         for (int i = nStart; i <= nEnd; ++i)
         {
-            sub_0046F0C0(pUnit, 0, i);
+            AUTOMAP_RemoveUnitOverlay(pUnit, 0, i);
         }
     }
 
@@ -4181,7 +4181,7 @@ void __fastcall sub_004D9630_StateOverlayRanges(D2UnitStrc* pUnit, int nState)
     {
         for (int i = nStart; i <= nEnd; ++i)
         {
-            sub_0046F0C0(pUnit, 0, i);
+            AUTOMAP_RemoveUnitOverlay(pUnit, 0, i);
         }
     }
 }
@@ -4459,7 +4459,7 @@ int __fastcall sub_004E2F40_VolleyAtTarget(D2UnitStrc* pUnit, int nSkillId, int 
         return 0;
     }
 
-    const int nMissile = sub_004F21B0_GetCltMissileId(pUnit, nSkillId);
+    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
     if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
     {
         return 0;
@@ -4480,7 +4480,7 @@ int __fastcall sub_004E2F40_VolleyAtTarget(D2UnitStrc* pUnit, int nSkillId, int 
     tMissileParams.nSkillLevel = nSkillLevel;
     tMissileParams.nSkill = nSkillId;
     tMissileParams.nMissile = nMissile;
-    tMissileParams.pInitFunc = sub_004E2ED0_InitCappedChargedPath;
+    tMissileParams.pInitFunc = SKILLDESC_InitCappedChargedPath;
     if (!sub_004C52E0_GetTargetPosition(pUnit, &tMissileParams.nTargetX, &tMissileParams.nTargetY))
     {
         return 0;
@@ -4553,7 +4553,7 @@ int __fastcall sub_004E34E0_StartMissileEffect(D2UnitStrc* pUnit, int nSkillId, 
         return 0;
     }
 
-    const int nMissile = sub_004F21B0_GetCltMissileId(pUnit, nSkillId);
+    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
     if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
     {
         return 0;
@@ -4640,7 +4640,7 @@ int __fastcall sub_004F16F0_CreateMissileVolley(D2UnitStrc* pUnit, int nCount, i
     tRequest.nArg3 = nArg3;
     tRequest.nArg4 = nArg4;
     tRequest.nArg0 = nArg0;
-    tRequest.pfCallback = sub_004E2ED0_InitCappedChargedPath;
+    tRequest.pfCallback = SKILLDESC_InitCappedChargedPath;
     if (bClearPathFlag)
     {
         tRequest.nType |= 0x2000;

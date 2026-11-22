@@ -17,7 +17,7 @@ D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc* pUnit, int nX, i
 void __fastcall sub_004C76D0_ScaleFramePrecise(D2UnitStrc* pUnit, int nPercent);                            // 0x004C76D0
 int __fastcall sub_004C7BD0_GetMeleeRangePlus4(D2UnitStrc* pUnit);                                          // 0x004C7BD0
 int __fastcall sub_004CA4C0(D2UnitStrc* pUnit, unsigned int nDirection); // 0x004CA4C0
-int __fastcall sub_004EFC20_GetSkillParam2(int nSkillId);                                                   // 0x004EFC20
+int __fastcall SKILLDESC_GetSkillParamTwo(int nSkillId);                                                   // 0x004EFC20
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit);                                               // 0x00620250
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus);               // 0x00622C40
 int __fastcall UNITS_GetHitClass(D2UnitStrc* pUnit);                                                        // 0x00623C20
@@ -76,7 +76,7 @@ int __fastcall sub_004F4C20_CltDoRepeatAttack(D2UnitStrc* pUnit, int nSkillId, i
         D2Common_10216(pUnit->pDynamicPath, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget), 0);
         SKILLS_SetParam2(pSkill, !pTarget ? 6 : pTarget->dwUnitType);
         SKILLS_SetParam3(pSkill, !pTarget ? -1 : pTarget->dwUnitId);
-        sub_004C76D0_ScaleFramePrecise(pUnit, sub_004EFC20_GetSkillParam2(SKILLS_GetSkillIdFromSkill(pSkill, ".\\SKILLS\\SkillsAma.cpp", 592)));
+        sub_004C76D0_ScaleFramePrecise(pUnit, SKILLDESC_GetSkillParamTwo(SKILLS_GetSkillIdFromSkill(pSkill, ".\\SKILLS\\SkillsAma.cpp", 592)));
         const int nHitClass = UNITS_GetHitClass(pUnit);
         sub_004B9A00(sub_004CA4C0(pUnit, nHitClass), pUnit, 0, 0, 0);
     }

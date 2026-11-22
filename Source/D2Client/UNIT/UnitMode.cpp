@@ -118,7 +118,7 @@ int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag); // 0x004
 
 void __fastcall sub_0045C470_ClearPendingAction(D2UnitStrc* pUnit); // 0x0045C470
 
-int __fastcall sub_00461AC0_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance); // 0x00461AC0
+int __fastcall AUTOMAP_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance); // 0x00461AC0
 
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 
@@ -164,7 +164,7 @@ D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 
 void __fastcall sub_004804E0_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nMode, int nTargetX, int nTargetY); // 0x004804E0
 
-int __fastcall sub_00480C10_DispatchUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg); // 0x00480C10
+int __fastcall AUTOMAP_DispatchUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg); // 0x00480C10
 
 extern "C" void __stdcall PATH_SetPathingFlag(D2DynamicPathStrc* pDynamicPath, int bSet); // 0x00648750
 
@@ -532,7 +532,7 @@ static int sub_00480C80_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, 
         {
             int nRange;
             int nDistance;
-            return sub_00461AC0_IsInAuraRange(pSkill, pUnit, &nRange, &nDistance) != 0;
+            return AUTOMAP_IsInAuraRange(pSkill, pUnit, &nRange, &nDistance) != 0;
         }
     }
 
@@ -889,7 +889,7 @@ void __fastcall sub_00480EF0_MoveToPosition(D2UnitStrc* pUnit, int nX, int nY, i
         }
         tTarget.unk0x0C[1] = 100;
         tTarget.unk0x0C[2] = 15;
-        sub_00480C10_DispatchUnitCommand(nCommand, pUnit, &tTarget, 0);
+        AUTOMAP_DispatchUnitCommand(nCommand, pUnit, &tTarget, 0);
     }
     else
     {
@@ -1048,7 +1048,7 @@ static void __stdcall sub_004812E0_DoPlayerAction(D2UnitStrc* pPlayer, int nActi
             memset(&tTarget, 0, sizeof(tTarget));
             tTarget.nParam1 = nArg1;
             tTarget.nParam2 = nArg2;
-            if (sub_00480C10_DispatchUnitCommand(0x18, pPlayer, &tTarget, 0))
+            if (AUTOMAP_DispatchUnitCommand(0x18, pPlayer, &tTarget, 0))
                 sub_004786A0_SendDwords2(4, nArg1, nArg2);
             sub_SetPlayerAction(pPlayer, 0, 0, 0, 0);
         }
@@ -1058,7 +1058,7 @@ static void __stdcall sub_004812E0_DoPlayerAction(D2UnitStrc* pPlayer, int nActi
         memset(&tTarget, 0, sizeof(tTarget));
         tTarget.nParam1 = nArg1;
         tTarget.nParam2 = nArg2;
-        if (sub_00480C10_DispatchUnitCommand(0, pPlayer, &tTarget, 0))
+        if (AUTOMAP_DispatchUnitCommand(0, pPlayer, &tTarget, 0))
             sub_004786A0_SendDwords2(2, nArg1, nArg2);
         sub_SetPlayerAction(pPlayer, 0, 0, 0, 0);
     }

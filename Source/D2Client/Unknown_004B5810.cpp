@@ -6,17 +6,17 @@ struct Handler;
 struct HandlerNode;
 struct SelectionEntry;
 
-void __fastcall sub_004B8020(void* pRes); // 0x004B8020
-void __cdecl sub_004B4830_Rebuild(); // 0x004B4830
+void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
+void __cdecl NPCMENU_BuildNpcMenu(); // 0x004B4830
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 extern char gbGlobal_007C0C69; // 0x007C0C69
 
 typedef char check_size_npcentry[(sizeof(D2NpcEntryStrc) == 0x16) ? 1 : -1];
 
 int __cdecl sub_004B1D70_FindNpcEntry(); // 0x004B1D70
-void __stdcall sub_004B5890_OpenNpcPanel(int nStringIndex, int nEntryIndex); // 0x004B5890
+void __stdcall NPCMENU_OpenNpcPanel(int nStringIndex, int nEntryIndex); // 0x004B5890
 extern D2NpcEntryStrc gaNpcEntries_00726850[]; // 0x00726850
-void __stdcall sub_004B5AD0_OpenConfirmDialog(int nStringIndex); // 0x004B5AD0
+void __stdcall NPCMENU_OpenConfirmDialog(int nStringIndex); // 0x004B5AD0
 void __cdecl sub_004B5140(); // 0x004B5140
 extern void (__cdecl* gpfnCallback_00726E59)(); // 0x00726E59
 extern unsigned short gwGlobal_00726E4D; // 0x00726E4D
@@ -89,10 +89,10 @@ int __cdecl sub_004B5850()
 
     if (gpDialog_007C0D73)
     {
-        sub_004B8020(gpDialog_007C0D73);
+        DIALOG_DestroyDialog(gpDialog_007C0D73);
         sub_004B9A00(1, 0, 0, 0, 0);
         gpDialog_007C0D73 = 0;
-        sub_004B4830_Rebuild();
+        NPCMENU_BuildNpcMenu();
     }
 
     return 1;
@@ -104,7 +104,7 @@ int __cdecl sub_004B5BC0_SelectNpcEntry()
     gnGlobal_007C0C6B = 1;
     int nIndex = sub_004B1D70_FindNpcEntry();
     gpNpcEntry_007C0C7D = &gaNpcEntries_00726850[nIndex];
-    sub_004B5890_OpenNpcPanel(0xD35, nIndex);
+    NPCMENU_OpenNpcPanel(0xD35, nIndex);
     return 1;
 }
 
@@ -113,7 +113,7 @@ int __cdecl sub_004B5C00_OpenConfirm()
 {
     gnGlobal_007C0C6B = 1;
     sub_004B1D70_FindNpcEntry();
-    sub_004B5AD0_OpenConfirmDialog(0x2BA0);
+    NPCMENU_OpenConfirmDialog(0x2BA0);
     return 1;
 }
 
@@ -124,12 +124,12 @@ void __cdecl sub_004B69E0_CloseTrade()
     {
         if (gpRes_007C0D77)
         {
-            sub_004B8020(gpRes_007C0D77);
+            DIALOG_DestroyDialog(gpRes_007C0D77);
             delete gpTradeObj_007C0D83;
             gpTradeObj_007C0D83 = 0;
             gpRes_007C0D77 = 0;
         }
-        sub_004B4830_Rebuild();
+        NPCMENU_BuildNpcMenu();
     }
 }
 
@@ -159,7 +159,7 @@ static void __cdecl sub_004B7100_Select(int step, SelectionState* state)
     }
 }
 
-extern "C" void __stdcall sub_004B7610_Wheel(Message* message)
+extern "C" void __stdcall DIALOG_WheelMsg(Message* message)
 {
     if (message->wheel)
     {
@@ -181,7 +181,7 @@ extern "C" void __stdcall sub_004B7610_Wheel(Message* message)
     sub_00420290_QueueMessage(message);
 }
 
-extern "C" void __stdcall sub_004B7770_Previous1(Message* message)
+extern "C" void __stdcall DIALOG_SelectPreviousMsg(Message* message)
 {
     message->handled = 1;
     message->result = 0;
@@ -193,7 +193,7 @@ extern "C" void __stdcall sub_004B7770_Previous1(Message* message)
     sub_004B7100_Select(-1, state);
 }
 
-extern "C" void __stdcall sub_004B77F0_Next1(Message* message)
+extern "C" void __stdcall DIALOG_SelectNextMsg(Message* message)
 {
     message->handled = 1;
     message->result = 0;
@@ -205,7 +205,7 @@ extern "C" void __stdcall sub_004B77F0_Next1(Message* message)
     sub_004B7100_Select(1, state);
 }
 
-extern "C" void __stdcall sub_004B7870_Previous2(Message* message)
+extern "C" void __stdcall DIALOG_SelectPreviousAltMsg(Message* message)
 {
     message->handled = 1;
     message->result = 0;
@@ -217,7 +217,7 @@ extern "C" void __stdcall sub_004B7870_Previous2(Message* message)
     sub_004B7100_Select(-1, state);
 }
 
-extern "C" void __stdcall sub_004B78F0_Next2(Message* message)
+extern "C" void __stdcall DIALOG_SelectNextAltMsg(Message* message)
 {
     message->handled = 1;
     message->result = 0;

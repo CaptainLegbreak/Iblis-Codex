@@ -441,7 +441,7 @@ void __cdecl sub_0044C060_Refresh(); // 0x0044C060
 
 void __cdecl sub_00466FF0(); // 0x00466FF0
 
-void __cdecl sub_004A01E0_ClearListFlags(); // 0x004A01E0
+void __cdecl TEXT_ClearListFlags(); // 0x004A01E0
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
@@ -477,7 +477,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 void __fastcall sub_004804E0_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nA, int nB, int nC); // 0x004804E0
 
-void __fastcall sub_004B1240_UsePacket7(D2ClientPacket7Strc* pPacket); // 0x004B1240
+void __fastcall NPCMENU_SetMinionSpawnClass(D2ClientPacket7Strc* pPacket); // 0x004B1240
 
 void __fastcall sub_0049F8C0_UsePacket6(D2ClientPacket6Strc* pPacket); // 0x0049F8C0
 
@@ -568,7 +568,7 @@ void __fastcall sub_0044DC80(unsigned char nValue); // 0x0044DC80
 
 void __fastcall sub_0044DC90(int nValue); // 0x0044DC90
 
-void __fastcall sub_0047A9A0_SetClientFlags(int nFlags); // 0x0047A9A0
+void __fastcall CHAT_SetClientFlags(int nFlags); // 0x0047A9A0
 
 void __cdecl sub_00456970_InitUI(); // 0x00456970
 
@@ -849,7 +849,7 @@ struct D2UnitDropItemsPacketStrc
     char nOtherUnitId[4];
 };
 
-unsigned char __stdcall sub_00462EE0_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00462EE0
+unsigned char __stdcall AUTOMAP_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00462EE0
 
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 
@@ -996,7 +996,7 @@ void __fastcall sub_00464E50_SetOverlayWithSound(D2UnitStrc* pUnit, int nOverlay
 
 void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUnitId, unsigned char* pBuffer, unsigned char nArg); // 0x004B6DD0
 
-void __fastcall sub_004B5320_OnUnitRemoved(unsigned char nUnitType, int nUnitId); // 0x004B5320
+void __fastcall NPCMENU_OnUnitRemoved(unsigned char nUnitType, int nUnitId); // 0x004B5320
 
 void __fastcall sub_004B2620(const unsigned char* pData); // 0x004B2620
 
@@ -1474,7 +1474,7 @@ void __fastcall sub_00478B10_SetRosterEntry(int nKey, int nArg, int nType, int n
 
 void __fastcall sub_00478C90_DropPetEntry(int nKey); // 0x00478C90
 
-void __fastcall sub_004AA0C0_SetSlot(int nSlot, int nValueA, int nValueB, int nValueC); // 0x004AA0C0
+void __fastcall INV_SetHotkeySkillSlot(int nSlot, int nValueA, int nValueB, int nValueC); // 0x004AA0C0
 
 void __fastcall sub_0046F310_LoadGlobalHashedFile(unsigned char nAct); // 0x0046F310
 
@@ -1494,7 +1494,7 @@ void __fastcall sub_0047A3D0_AddCorpse(int nUnitId, int nCorpseId); // 0x0047A3D
 
 void __fastcall sub_0047A490_DropCorpseEntry(int nUnitId, int nCorpseId); // 0x0047A490
 
-void __fastcall sub_004B6980_SetNpcMenuState(unsigned short wValue, int nValue); // 0x004B6980
+void __fastcall NPCMENU_SetNpcMenuState(unsigned short wValue, int nValue); // 0x004B6980
 
 extern "C" void __cdecl sub_0048A700(); // 0x0048A700
 
@@ -1506,7 +1506,7 @@ void __fastcall sub_004D9C30_EndState(D2UnitStrc* pUnit, int nState); // 0x004D9
 
 void __cdecl sub_00473CA0_Empty(); // 0x00473CA0
 
-void __cdecl sub_004B3290_ResetSlots(); // 0x004B3290
+void __cdecl NPCMENU_ResetSlots(); // 0x004B3290
 
 void __fastcall sub_004B92B0_StorePacketText(const D2GSPacketSrv5E* pPacket); // 0x004B92B0
 
@@ -1581,7 +1581,7 @@ void __fastcall sub_004802E0(unsigned char* pData, int nLength); // 0x004802E0
 
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 
-void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
+void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 
 extern int gnGlobal_007A2858; // 0x007A2858
 
@@ -1861,9 +1861,9 @@ void __fastcall sub_004B3240(D2PacketRecord7Strc* pPacket); // 0x004B3240
 
 void __fastcall sub_004C0550(D2PacketRecord7Strc* pPacket); // 0x004C0550
 
-void __fastcall sub_004A2CB0_HandleQuestEvent(int nArg, D2PacketRecord6Strc* pPacket); // 0x004A2CB0
+void __fastcall TEXT_HandleQuestEvent(int nArg, D2PacketRecord6Strc* pPacket); // 0x004A2CB0
 
-void __fastcall sub_004B3510(D2GSPacket91Strc* pPacket); // 0x004B3510
+void __fastcall NPCMENU_FlagNpcEntries(D2GSPacket91Strc* pPacket); // 0x004B3510
 
 void __fastcall sub_004BDF30(D2PacketRecord7Strc* pPacket); // 0x004BDF30
 
@@ -1875,7 +1875,7 @@ void __fastcall sub_00478BB0(int nKey, int nArg, int nType, int nValue, D2Packet
 
 void __fastcall sub_004C51B0(D2PacketRecord6Strc* pPacket); // 0x004C51B0
 
-void __fastcall sub_004B3380(D2PacketRecord6Strc* pPacket); // 0x004B3380
+void __fastcall NPCMENU_OnNpcWantsInteract(D2PacketRecord6Strc* pPacket); // 0x004B3380
 
 void __cdecl sub_0044DA70(); // 0x0044DA70
 
@@ -2126,7 +2126,7 @@ struct D2GSPacketSrv0DStrc
 };
 #pragma pack(pop)
 
-void __fastcall sub_0045D3E0_RefreshItemStats(D2UnitStrc* pUnit);                                                            // 0x0045D3E0
+void __fastcall AUTOMAP_RefreshItemStats(D2UnitStrc* pUnit);                                                            // 0x0045D3E0
 
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x006272B0
 
@@ -2293,7 +2293,7 @@ void __fastcall sub_00451D10_UnregisterMsgHandler(void* hWnd, int nType, int nId
 // 0x00452090
 void __stdcall sub_00452090_ResetMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_004A01E0_ClearListFlags();
+    TEXT_ClearListFlags();
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
@@ -2464,7 +2464,7 @@ void __fastcall sub_0045C8B0_GamePacket01_GameFlags(D2GSPacketSrv01* pPacket)
     sub_0044DC70_SetDifficulty(pPacket->nDifficulty);
     sub_0044DC80(pPacket->nExpansion);
     sub_0044DC90(pPacket->nLadder);
-    sub_0047A9A0_SetClientFlags(dwArenaFlags);
+    CHAT_SetClientFlags(dwArenaFlags);
     sub_00456970_InitUI();
 }
 
@@ -2921,7 +2921,7 @@ void __fastcall sub_0045D370_Packet28(const D2GSPacketSrv28* pPacket)
 // 0x0045D390
 void __fastcall sub_0045D390_Packet62(const D2GSPacketSrv62* pPacket)
 {
-    sub_004B5320_OnUnitRemoved(pPacket->nUnitType, pPacket->nUnitId);
+    NPCMENU_OnUnitRemoved(pPacket->nUnitType, pPacket->nUnitId);
 }
 
 // 0x0045D3A0
@@ -3386,7 +3386,7 @@ void __fastcall sub_0045DE10_Packet23_SetActiveSkill(const D2GSPacketSrv23* pPac
 void __fastcall sub_0045DE50_CopyPacket7(const D2ClientPacket7Strc* pPacket)
 {
     D2ClientPacket7Strc tPacket = *pPacket;
-    sub_004B1240_UsePacket7(&tPacket);
+    NPCMENU_SetMinionSpawnClass(&tPacket);
 }
 
 // 0x0045DE80
@@ -3606,7 +3606,7 @@ void __fastcall sub_0045E3B0_Packet54(const D2GSPacketSrv54* pPacket)
 // 0x0045E3C0
 void __fastcall sub_0045E3C0_Packet4F(const D2GSPacketSrv4F* pPacket)
 {
-    sub_004B3290_ResetSlots();
+    NPCMENU_ResetSlots();
 }
 
 // 0x0045E3D0
@@ -3675,7 +3675,7 @@ void __fastcall sub_0045E530_Packet5C(const D2GSPacketSrv5C* pPacket)
 void __fastcall sub_0045E540_Packet5D(const D2PacketRecord6Strc* pPacket)
 {
     D2PacketRecord6Strc tPacket = *pPacket;
-    sub_004A2CB0_HandleQuestEvent(1, &tPacket);
+    TEXT_HandleQuestEvent(1, &tPacket);
 }
 
 // 0x0045E570
@@ -3688,7 +3688,7 @@ void __fastcall sub_0045E570_Packet5E(const D2GSPacketSrv5E* pPacket)
 void __fastcall sub_0045E580_Packet91(const D2GSPacket91Strc* pPacket)
 {
     D2GSPacket91Strc tPacket = *pPacket;
-    sub_004B3510(&tPacket);
+    NPCMENU_FlagNpcEntries(&tPacket);
 }
 
 // 0x0045E5B0
@@ -3849,7 +3849,7 @@ void __fastcall sub_0045E8D0_Packet7B(const D2GSPacketSrv7B* pPacket)
     {
         nSkillId = -1;
     }
-    sub_004AA0C0_SetSlot(pPacket->nSlot, nSkillId, nHand != 0, pPacket->nItemGUID);
+    INV_SetHotkeySkillSlot(pPacket->nSlot, nSkillId, nHand != 0, pPacket->nItemGUID);
 }
 
 // 0x0045E910
@@ -3928,7 +3928,7 @@ void __fastcall sub_0045EA30_Packet89(const D2GSPacketSrv89* pPacket)
 void __fastcall sub_0045EA40_Packet8A(const D2PacketRecord6Strc* pPacket)
 {
     D2PacketRecord6Strc tPacket = *pPacket;
-    sub_004B3380(&tPacket);
+    NPCMENU_OnNpcWantsInteract(&tPacket);
 }
 
 // 0x0045EA60
@@ -3967,7 +3967,7 @@ void __fastcall sub_0045EAA0_Packet8E(const D2GSPacketSrv8E* pPacket)
 // 0x0045EAC0
 void __fastcall sub_0045EAC0_Packet9B(const D2GSPacketSrv9B* pPacket)
 {
-    sub_004B6980_SetNpcMenuState(pPacket->unk0x01, pPacket->unk0x03);
+    NPCMENU_SetNpcMenuState(pPacket->unk0x01, pPacket->unk0x03);
 }
 
 // 0x0045EAD0
@@ -4551,11 +4551,11 @@ void __fastcall sub_0045F9F0_FreePacketBuffer(D2UnitStrc* pUnit)
 void __cdecl sub_0045FC60_DrawLoadingTexts()
 {
     const int nOldFont = sub_00502EF0(1);
-    sub_004A7080(gnGlobal_0071146C / 2 - 0x84, 0xBE - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(0x1430), 0);
+    TEXT_DrawCenteredText(gnGlobal_0071146C / 2 - 0x84, 0xBE - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(0x1430), 0);
     if (sub_00408F20_HasExpansionMpq())
-        sub_004A7080(gnGlobal_0071146C / 2 - 0x84, 0xCD - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(0x5578), 0);
+        TEXT_DrawCenteredText(gnGlobal_0071146C / 2 - 0x84, 0xCD - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(0x5578), 0);
     else
-        sub_004A7080(gnGlobal_0071146C / 2 - 0x84, 0xCD - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(0x1431), 0);
+        TEXT_DrawCenteredText(gnGlobal_0071146C / 2 - 0x84, 0xCD - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(0x1431), 0);
     sub_00502EF0(nOldFont);
 }
 
@@ -4633,7 +4633,7 @@ void __fastcall sub_00462F60_UnitDropItems(D2UnitDropItemsPacketStrc* pPacket)
         {
             pItem = INVENTORY_UnitIsItem(pItem);
             INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pItem);
-            sub_0046F280_ClearGfxBytes(pUnit, sub_00462EE0_GetItemComponent(pUnit, pItem));
+            sub_0046F280_ClearGfxBytes(pUnit, AUTOMAP_GetItemComponent(pUnit, pItem));
             D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
             D2_ASSERT(pRemoved, 0xAC8);
             D2_ASSERT(pRemoved == pItem, 0xAC9);

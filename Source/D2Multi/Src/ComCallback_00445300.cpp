@@ -78,7 +78,7 @@ void __cdecl sub_00451400_AddRecordChunk(); // 0x00451400
 
 int __cdecl sub_0044DA90(); // 0x0044DA90
 
-int __cdecl sub_00451990(); // 0x00451990
+int __cdecl UI_IsReplayActive(); // 0x00451990
 
 void __fastcall sub_004514B0_FilterMessage(unsigned int uMessage, unsigned int wParam, int lParam); // 0x004514B0
 
@@ -648,7 +648,7 @@ int __stdcall sub_00451B30_WindowProc(void* hWnd, unsigned int uMessage, unsigne
     int bUseResult = 0;
     int lResult = 0;
     sub_004514B0_FilterMessage(uMessage, wParam, lParam);
-    if (!sub_00451990() || uMessage == 0x10)
+    if (!UI_IsReplayActive() || uMessage == 0x10)
     {
         if (SMsgDispatchMessage(hWnd, uMessage, wParam, lParam, &bUseResult, &lResult) && bUseResult)
             return lResult;

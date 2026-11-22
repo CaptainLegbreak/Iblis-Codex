@@ -224,7 +224,7 @@ void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, un
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
-int __cdecl sub_004942D0_GetHelpMenuSetting(); // 0x004942D0
+int __cdecl HIREABLES_GetHelpMenuSetting(); // 0x004942D0
 
 void __cdecl sub_00495030_DrawKeyHelp(); // 0x00495030
 
@@ -1967,7 +1967,7 @@ void __cdecl sub_00495180_DrawButtons()
         return;
     }
     gnGlobal_007BEF08 = 0;
-    if (!sub_004942D0_GetHelpMenuSetting())
+    if (!HIREABLES_GetHelpMenuSetting())
     {
         D2CelContextStrc tContext;
         memset(&tContext, 0, sizeof(tContext));

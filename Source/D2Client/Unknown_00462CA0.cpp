@@ -48,7 +48,7 @@ unsigned int __cdecl sub_0044DAA0();
 unsigned int __cdecl sub_0044DAC0();
 void __fastcall sub_0044DAD0(unsigned int nValue);
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);
-void __cdecl sub_00453EC0();
+void __cdecl UI_CancelCursorItemUse();
 int __fastcall sub_004538D0(int nUIVar);
 void __fastcall sub_0045AFF0(int* pX, int* pY);
 void __fastcall sub_0045C470_ClearPendingAction(D2UnitStrc* pUnit);
@@ -69,7 +69,7 @@ int __fastcall sub_00457490_CheckMonStatsFlag(int nMonsterId, int nFlag);
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);
 void __fastcall sub_00460780_SetPlayerMode(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2);
-int __fastcall sub_00461AC0_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance);
+int __fastcall AUTOMAP_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance);
 int __fastcall sub_00462930_FilterMessage(D2PlayerCmdStrc* pCmd);
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 void __fastcall sub_00463D90(int nArg);
@@ -478,7 +478,7 @@ static int sub_00461B40_ApproachForAura(D2PlayerCmdStrc* pCmd, int nArg1, int nA
         return 1;
     }
 
-    if (sub_00461AC0_IsInAuraRange(pCmd->pSkill, pCmd->pTarget, &nRange, &nDistance))
+    if (AUTOMAP_IsInAuraRange(pCmd->pSkill, pCmd->pTarget, &nRange, &nDistance))
     {
         sub_00461700_SendCommand(1, pCmd);
         return 1;
@@ -781,7 +781,7 @@ static int sub_004621D0_PrepareCommand(D2PlayerCmdStrc* pCmd)
     pCmd->pTarget = sub_00467880_FindSkillTarget(pCmd->pSkill, pCmd->pTarget, &pCmd->nX, &pCmd->nY, pCmd->dwFlags, bForce);
     if (sub_00468830() == 6)
     {
-        sub_00453EC0();
+        UI_CancelCursorItemUse();
         return 1;
     }
     if (sub_00468830() == 8)
@@ -1052,7 +1052,7 @@ static int sub_004629A0_CmdLeftSkill(D2PlayerCmdStrc* pCmd)
     }
 
     if (sub_00468830() == 6)
-        sub_00453EC0();
+        UI_CancelCursorItemUse();
     else if (sub_00468830() == 8)
         sub_00478680_SendPacket5(0x4C, -1);
 

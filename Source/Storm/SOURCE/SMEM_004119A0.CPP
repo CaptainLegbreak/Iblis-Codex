@@ -30,7 +30,7 @@ void __stdcall SMemZero(void* pDest, unsigned int nSize);
 void __cdecl SMemInitialize();
 void __cdecl sub_00411A20_InitPageSize();
 void __fastcall sub_00411A80_ReleaseBlock(D2SMemHeapStrc** ppLink);
-void __cdecl sub_00412000_ReleaseFreeBlocks();
+void __cdecl AUTOMAP_ReleaseFreeBlocks();
 
 extern "C" const char gszMemNeverReleased_006CECCC[];
 extern "C" const char szSMemFree_006CED2C[];
@@ -946,7 +946,7 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
     if (nLockIndex != -1)
         LeaveCriticalSection(&gaFreeBlockLocks_00776CC0[nLockIndex]);
     if (gpFreeBlockSweep_007788C8 && gpFreeBlockSweep_007788C8 != pHeap)
-        sub_00412000_ReleaseFreeBlocks();
+        AUTOMAP_ReleaseFreeBlocks();
     return pResult;
 }
 
@@ -976,7 +976,7 @@ void* __stdcall SMemHeapAlloc(unsigned int hHeap, unsigned int dwFlags, unsigned
     if (nLockIndex != -1)
         LeaveCriticalSection(&gaFreeBlockLocks_00776CC0[nLockIndex]);
     if (gpFreeBlockSweep_007788C8 && gpFreeBlockSweep_007788C8 != pHeap)
-        sub_00412000_ReleaseFreeBlocks();
+        AUTOMAP_ReleaseFreeBlocks();
     return pResult;
 }
 

@@ -241,7 +241,7 @@ unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEn
 
 int __fastcall sub_00479B80_GetRecordValue(D2StoredUnitRecordStrc* pEntry); // 0x00479B80
 
-int __cdecl sub_0047A980_IsNumberDisplayEnabled(); // 0x0047A980
+int __cdecl CHAT_IsNumberDisplayEnabled(); // 0x0047A980
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
@@ -265,7 +265,7 @@ D2CelFileStrc* __fastcall sub_004788B0_LoadCellFile(const char* szPath, int nTyp
 
 int __stdcall D2Win_10028(const char* pszPalDatFilename, const char* pszPalPL2Filename); // 0x004FB500
 
-void __fastcall sub_004547B0(); // 0x004547B0
+void __fastcall UI_FreeLoadingScreen(); // 0x004547B0
 
 void __fastcall sub_00478130_SetScale(int nValue, int nDivisor); // 0x00478130
 
@@ -275,7 +275,7 @@ int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
-int __stdcall sub_004B92E0_GetTableByte(int nUnused, int nIndex); // 0x004B92E0
+int __stdcall INV_GetTableByte(int nUnused, int nIndex); // 0x004B92E0
 
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 
@@ -423,13 +423,13 @@ int __stdcall sub_0044EFA0_GameFrame(int); // 0x0044EFA0
 
 void __cdecl sub_00451620_WriteRecordFile(); // 0x00451620
 
-int __cdecl sub_00451910(); // 0x00451910
+int __cdecl UI_IsRecordingEnabled(); // 0x00451910
 
 void __cdecl sub_00451940_InstallRecordHandler(); // 0x00451940
 
 void __cdecl sub_00451970(); // 0x00451970
 
-int __cdecl sub_00451980(); // 0x00451980
+int __cdecl UI_IsPlaybackEnabled(); // 0x00451980
 
 int __fastcall sub_00451BB0_MessageLoop(D2IdleHandler); // 0x00451BB0
 
@@ -461,9 +461,9 @@ void __fastcall sub_00482260_UpdateSoundSystem(int); // 0x00482260
 
 void __cdecl sub_00482940_UpdateSound(); // 0x00482940
 
-void __fastcall sub_00482EF0_PlayCinematic(int); // 0x00482EF0
+void __fastcall INV_PlayCinematic(int); // 0x00482EF0
 
-void __cdecl sub_00483310_ResetCinematicFlags(); // 0x00483310
+void __cdecl INV_ResetCinematicFlags(); // 0x00483310
 
 int __cdecl sub_004F59A0(); // 0x004F59A0
 
@@ -930,7 +930,7 @@ int __cdecl sub_0044F360_RunGameSession()
     gtVersionInfo_007A0528.dwSize=sizeof(gtVersionInfo_007A0528);
     if(GetVersionExA(&gtVersionInfo_007A0528))gnVersionValid_007A0644=1;
     sub_00475DF0_BuildLerpTables();
-    sub_00483310_ResetCinematicFlags();
+    INV_ResetCinematicFlags();
     sub_00451F10_PushRegisterState();
     sub_004680B0_InitCursor(0);
     sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F2D0,10);
@@ -955,12 +955,12 @@ int __cdecl sub_0044F360_RunGameSession()
     }
     sub_00482260_UpdateSoundSystem(gpClientInfo_007A0438->nSoundArg);
     sub_0044E200_InitGameState();
-    if(sub_00451910() || sub_00451980())
+    if(UI_IsRecordingEnabled() || UI_IsPlaybackEnabled())
     {
         D2MessageStrc tMessage;
         while(PeekMessageA(&tMessage,0,0,0,1)){}
-        if(sub_00451980())sub_00451970();
-        else if(sub_00451910())sub_00451940_InstallRecordHandler();
+        if(UI_IsPlaybackEnabled())sub_00451970();
+        else if(UI_IsRecordingEnabled())sub_00451940_InstallRecordHandler();
     }
     FOG_SetMemoryPoolSystemMode(0,0);
     if(gnMode_007A0610==6 || gnMode_007A0610==8)
@@ -974,7 +974,7 @@ int __cdecl sub_0044F360_RunGameSession()
     sub_00515F50_FadeOutMaster(180);
     sub_00481830();
     if(sub_0044E040_TimerRunning(&gtLoadingTimer_007A0684) && !gnDifficultyDirty_007A0604 && !gnCinematicPlayed_007A062C)sub_00451BB0_MessageLoop(sub_0044E400_LoadingTimerCallback);
-    if(sub_00451910())sub_00451620_WriteRecordFile();
+    if(UI_IsRecordingEnabled())sub_00451620_WriteRecordFile();
     if(gnBetaScreens_007A0600)
     {
         sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F2D0,10);
@@ -986,7 +986,7 @@ int __cdecl sub_0044F360_RunGameSession()
     }
     else if(gnDifficultyDirty_007A0604)
     {
-        sub_00482EF0_PlayCinematic(5);
+        INV_PlayCinematic(5);
         sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F2D0,10);
         sub_0044DCE0_MouseExtTables_451E10();
         sub_0044BA20(0);
@@ -995,7 +995,7 @@ int __cdecl sub_0044F360_RunGameSession()
     }
     else if(gnPlayCinematic_007A0628)
     {
-        sub_00482EF0_PlayCinematic(7);
+        INV_PlayCinematic(7);
         gnCinematicPlayed_007A062C=1;
     }
     unsigned char bEndGame=1;
@@ -1093,7 +1093,7 @@ void __cdecl sub_00453BB0_DrawEntryList()
         }
         sub_00502320(pText, 0x140, nRowY, 0, 0);
 
-        if (sub_0047A980_IsNumberDisplayEnabled())
+        if (CHAT_IsNumberDisplayEnabled())
         {
             Unicode wszValue[12] = {};
             char szValue[12];
@@ -1198,7 +1198,7 @@ void __cdecl sub_00455510_DrawLevelLoadingScreen()
     sprintf(szPath, "%s\\UI\\%s\\%s\\%s", gszDataLocal_006D41A8, szLanguage, szAct, pLevelsTxt->szEntryFile);
     for (int i = 0; i < gnQuestScreens_0070F92C; ++i)
     {
-        if (nLevelId == *(int*)gtQuestScreens_0070F85C[i].nLevelId && sub_004B92E0_GetTableByte(0, *(int*)gtQuestScreens_0070F85C[i].nQuest))
+        if (nLevelId == *(int*)gtQuestScreens_0070F85C[i].nLevelId && INV_GetTableByte(0, *(int*)gtQuestScreens_0070F85C[i].nQuest))
         {
             sprintf(szPath, "%s\\UI\\%s\\ACT1\\%s", gszDataLocal_006D41A8, szLanguage, gtQuestScreens_0070F85C[i].szName);
             break;
@@ -1216,7 +1216,7 @@ void __cdecl sub_00455510_DrawLevelLoadingScreen()
 void __cdecl sub_00456550_LoadLoadingScreen()
 {
     char szPath[0x104];
-    sub_004547B0();
+    UI_FreeLoadingScreen();
     sub_00454740_LoadLoadingPalette();
     if (STRTABLE_GetLanguage())
     {

@@ -21,7 +21,7 @@ extern D2BeltSlotStrc gtSlots_00724A48[4];                                      
 int __cdecl D2GFX_GetResolutionMode();
 int __fastcall sub_00498DC0(SMSGHANDLER_PARAMS* pMsg);
 int __cdecl sub_00468830();
-void __cdecl sub_00453EC0();
+void __cdecl UI_CancelCursorItemUse();
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer);              // 0x006253B0
@@ -37,7 +37,7 @@ static int sub_004A76C0_ClaimLeftPanelClick(SMSGHANDLER_PARAMS* pMsg)
     if (D2GFX_GetResolutionMode() == 2 && !sub_00498DC0(pMsg) && pMsg->nXpos <= gnGlobal_0071146C / 2 && pMsg->nYpos < gnGlobal_00711470 - 0x2F)
     {
         if (sub_00468830() == 6)
-            sub_00453EC0();
+            UI_CancelCursorItemUse();
         pMsg->bReturn = 1;
         sub_00420290_BreakHandlerChain(pMsg);
         return 1;

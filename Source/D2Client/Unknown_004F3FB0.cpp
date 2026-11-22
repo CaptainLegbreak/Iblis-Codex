@@ -29,7 +29,7 @@ int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* p
 D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
 void __fastcall sub_004C76D0_ScaleFramePrecise(D2UnitStrc* pUnit, int nPercent); // 0x004C76D0
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
-int __fastcall sub_004F4110_GetSkillParam5(int nSkillId); // 0x004F4110
+int __fastcall SKILLDESC_GetSkillParamSix(int nSkillId); // 0x004F4110
 int __fastcall UNITS_GetWeaponClass(D2UnitStrc* pUnit); // 0x00623C60
 void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue); // 0x006445A0
 void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
@@ -180,7 +180,7 @@ int __fastcall sub_004F4A30_CltDoChargedMissile(D2UnitStrc* pUnit, int nSkillId,
             nNextGUID = pNext->dwUnitId;
         }
         SKILLS_SetParam3(pSkill, nNextGUID);
-        sub_004C76D0_ScaleFramePrecise(pUnit, sub_004F4110_GetSkillParam5(nSkillId));
+        sub_004C76D0_ScaleFramePrecise(pUnit, SKILLDESC_GetSkillParamSix(nSkillId));
     }
 
     return 1;

@@ -35,7 +35,7 @@ int __cdecl sub_0044DCC0(); // 0x0044DCC0
 void __stdcall sub_0065C180_2(int nInventoryTxtId, int bHigherRes, D2InvRectStrc* pInvRect); // 0x0065C180
 void __stdcall sub_0065C1F0_2(int nInventoryTxtId, int bHigherRes, D2InventoryGridInfoStrc* pInventoryGridInfo); // 0x0065C1F0
 void __stdcall sub_0065C270_2(int nInventoryTxtId, int bHigherRes, D2InvCompGridStrc* pInvCompGrid, int nComponent); // 0x0065C270
-int __fastcall sub_004B3230_GetTickPair(int* pUnitId); // 0x004B3230
+int __fastcall NPCMENU_GetInteractNpcId(int* pUnitId); // 0x004B3230
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 extern int gdwGlobal_007BCBF0; // 0x007BCBF0
 extern D2InventoryGridInfoStrc gGrid_007BCA30; // 0x007BCA30

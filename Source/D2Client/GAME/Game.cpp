@@ -294,9 +294,9 @@ void __cdecl sub_00469230(); // 0x00469230
 void __cdecl sub_004692B0(); // 0x004692B0
 void __cdecl sub_00469330(); // 0x00469330
 void __cdecl sub_004692F0(); // 0x004692F0
-void __cdecl sub_00469370_CallBoundCommand(); // 0x00469370
+void __cdecl CMDTBL_CallBoundCommand(); // 0x00469370
 int __stdcall WINDOW_IsFullScreen(); // 0x004F5A30
-void __cdecl sub_00453DE0(); // 0x00453DE0
+void __cdecl UI_FreePlayerUI(); // 0x00453DE0
 void __cdecl sub_00467A00(); // 0x00467A00
 extern unsigned char gnBetaScreenIndex_007A060D; // 0x007A060D
 extern int gdwGlobal_007A0670; // 0x007A0670
@@ -313,7 +313,7 @@ extern int gdwGlobal_007A061C; // 0x007A061C
 extern int gdwGlobal_007A0658; // 0x007A0658
 extern int gnAutomapHeight_007A521C; // 0x007A521C
 int __cdecl sub_0045AE90(); // 0x0045AE90
-int __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2); // 0x00456300
+int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 void __fastcall sub_00457640(int bForce); // 0x00457640
 D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
@@ -1019,11 +1019,11 @@ typedef void (__stdcall* TOWNAUTOMAPFN)(int nLevelId, int nPickedFile, int nX, i
 
 void __stdcall sub_0044DB60_PreloadActTiles(unsigned char nAct); // 0x0044DB60
 void __cdecl sub_00452130_InitColors(); // 0x00452130
-void __fastcall sub_00454790_SetValue(int nValue); // 0x00454790
-void __fastcall sub_004565E0_DrawLoadingScreen(int bAdvanceFrame); // 0x004565E0
+void __fastcall UI_SetLoadingAct(int nValue); // 0x00454790
+void __fastcall UI_DrawLoadingScreen(int bAdvanceFrame); // 0x004565E0
 void __stdcall sub_00459150_RevealRoomCallback(D2ActiveRoomStrc* pRoom);
 void __stdcall sub_004591A0_AddTownCelsCallback(int nLevelId, int nPickedFile, int nX, int nY);
-void __cdecl sub_0045A620_InitAutomapColors(); // 0x0045A620
+void __cdecl AUTOMAP_InitAutomapColors(); // 0x0045A620
 void __fastcall sub_0046F310_LoadGlobalHashedFile(unsigned char nIndex); // 0x0046F310
 void __cdecl sub_0046F440_FreeHashedFileB(); // 0x0046F440
 void __cdecl sub_00475B40_InitLightTables(); // 0x00475B40
@@ -1908,7 +1908,7 @@ void __stdcall sub_0044C520_HiWordDispatchMsgB(SMSGHANDLER_PARAMS* pMsg)
         if (nCode == 1)
             sub_004692F0();
         else if (nCode == 2)
-            sub_00469370_CallBoundCommand();
+            CMDTBL_CallBoundCommand();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
@@ -1943,10 +1943,10 @@ void __cdecl sub_0044C6A0_Nothing()
 // 0x0044C6B0
 void __cdecl sub_0044C6B0()
 {
-    if (gdwGlobal_007A061C && !sub_00456300_CloseUIVars(0, 1))
+    if (gdwGlobal_007A061C && !UI_CloseUIVars(0, 1))
     {
         sub_00457640(0);
-        sub_00456300_CloseUIVars(1, 0);
+        UI_CloseUIVars(1, 0);
     }
 }
 
@@ -2707,7 +2707,7 @@ void __stdcall sub_0044E0B0_ToggleMsg(SMSGHANDLER_PARAMS* pMsg)
     gdwGlobal_007A065C = 0;
     if (gdwGlobal_007A0620)
     {
-        sub_00453DE0();
+        UI_FreePlayerUI();
         sub_00467A00();
         pMsg->bReturn = 0;
         return;
@@ -2773,14 +2773,14 @@ void __fastcall sub_0044E100_LoadAct(unsigned char nAct, unsigned int dwGameSeed
         ENVIRONMENT_InitializeEnvironment(gpAct_007A0634, sub_004646A0_GetPlayerRoom(), 5, 0, 1);
 
     gbEnvironmentPending_007A060E = 0;
-    sub_00454790_SetValue(nAct);
-    sub_004565E0_DrawLoadingScreen(1);
+    UI_SetLoadingAct(nAct);
+    UI_DrawLoadingScreen(1);
 
     *gpAutomapRecord_007A0638 = D2AutomapRecordStrc();
     gpAutomapRecord_007A0638->nUnk0x00 = dwGameSeed;
     gpAutomapRecord_007A0638->nValue = dwObjectSeed;
 
-    sub_0045A620_InitAutomapColors();
+    AUTOMAP_InitAutomapColors();
     sub_00475B40_InitLightTables();
     sub_00452130_InitColors();
     gnTownLevelId_007A063C = nTownLevelId;

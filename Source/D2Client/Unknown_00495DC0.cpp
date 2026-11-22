@@ -5,7 +5,7 @@ int __fastcall sub_00501820(const Unicode* wszText);                            
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);               // 0x005269D0
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
-const Unicode* __fastcall sub_00469DE0_GetKeyText(int nKey, int nArg2);                                     // 0x00469DE0
+const Unicode* __fastcall CMDTBL_GetKeyText(int nKey, int nArg2);                                     // 0x00469DE0
 
 static int __fastcall GetCenteredXInline(unsigned short nString, int nX)
 {
@@ -45,28 +45,28 @@ void __cdecl sub_00495DC0_DrawHelpText()
     {
         wszLine1[i].wChar = 0;
     }
-    sub_005269D0(sizeof(wszLine1Buf) / sizeof(wszLine1[0]), wszLine1, D2LANG_GetStringFromTblIndex(0x1067), sub_00469DE0_GetKeyText(0x22, 1));
+    sub_005269D0(sizeof(wszLine1Buf) / sizeof(wszLine1[0]), wszLine1, D2LANG_GetStringFromTblIndex(0x1067), CMDTBL_GetKeyText(0x22, 1));
     sub_00502320(wszLine1, 0x75, 0x4E, 0, 0);
 
     for (int i = 0; i < 100; ++i)
     {
         wszLine2[i].wChar = 0;
     }
-    sub_005269D0(sizeof(wszLine2Buf) / sizeof(wszLine2[0]), wszLine2, D2LANG_GetStringFromTblIndex(0x1068), sub_00469DE0_GetKeyText(0x25, 1));
+    sub_005269D0(sizeof(wszLine2Buf) / sizeof(wszLine2[0]), wszLine2, D2LANG_GetStringFromTblIndex(0x1068), CMDTBL_GetKeyText(0x25, 1));
     sub_00502320(wszLine2, 0x75, 0x62, 0, 0);
 
     for (int i = 0; i < 100; ++i)
     {
         wszLine3[i].wChar = 0;
     }
-    sub_005269D0(sizeof(wszLine3Buf) / sizeof(wszLine3[0]), wszLine3, D2LANG_GetStringFromTblIndex(0x1069), sub_00469DE0_GetKeyText(0x24, 1));
+    sub_005269D0(sizeof(wszLine3Buf) / sizeof(wszLine3[0]), wszLine3, D2LANG_GetStringFromTblIndex(0x1069), CMDTBL_GetKeyText(0x24, 1));
     sub_00502320(wszLine3, 0x75, 0x76, 0, 0);
 
     for (int i = 0; i < 100; ++i)
     {
         wszLine4[i].wChar = 0;
     }
-    sub_005269D0(sizeof(wszLine4Buf) / sizeof(wszLine4[0]), wszLine4, D2LANG_GetStringFromTblIndex(0x106A), sub_00469DE0_GetKeyText(0x7, 1));
+    sub_005269D0(sizeof(wszLine4Buf) / sizeof(wszLine4[0]), wszLine4, D2LANG_GetStringFromTblIndex(0x106A), CMDTBL_GetKeyText(0x7, 1));
     sub_00502320(wszLine4, 0x75, 0x8A, 0, 0);
 
     sub_00502320(D2LANG_GetStringFromTblIndex(0x106B), 0x75, 0x9E, 0, 0);
@@ -79,7 +79,7 @@ void __cdecl sub_00495DC0_DrawHelpText()
     {
         wszLine5[i].wChar = 0;
     }
-    sub_005269D0(sizeof(wszLine5Buf) / sizeof(wszLine5[0]), wszLine5, D2LANG_GetStringFromTblIndex(0x106E), sub_00469DE0_GetKeyText(0x6, 1));
+    sub_005269D0(sizeof(wszLine5Buf) / sizeof(wszLine5[0]), wszLine5, D2LANG_GetStringFromTblIndex(0x106E), CMDTBL_GetKeyText(0x6, 1));
     sub_00502320(wszLine5, 0x75, 0xDA, 0, 0);
 
     sub_00502320(D2LANG_GetStringFromTblIndex(0x106F), GetCenteredXInline(0x106F, 0x37), 0x168, 0, 0);

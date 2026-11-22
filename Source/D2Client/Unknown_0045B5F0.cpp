@@ -49,7 +49,7 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 int __cdecl sub_004F5140(); // 0x004F5140
-void __stdcall sub_0045B4F0_DrawRoomCollision(D2ActiveRoomStrc* pRoom); // 0x0045B4F0
+void __stdcall AUTOMAP_DrawRoomCollision(D2ActiveRoomStrc* pRoom); // 0x0045B4F0
 void __stdcall sub_0045B5F0(D2ActiveRoomStrc* pRoom); // 0x0045B5F0
 
 struct D2StormLinkStrc
@@ -246,7 +246,7 @@ void __cdecl sub_0045B8B0_DrawLogicalRoom()
     int nY = UNITS_GetYPositionInline(pPlayer);
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
     D2GFX_OutputString(10, 0x37, "Logical Room->%d", sub_0061B130_GetCollision(pRoom, nX, nY));
-    sub_0045B4F0_DrawRoomCollision(pRoom);
+    AUTOMAP_DrawRoomCollision(pRoom);
     sub_0045B5F0(pRoom);
 }
 

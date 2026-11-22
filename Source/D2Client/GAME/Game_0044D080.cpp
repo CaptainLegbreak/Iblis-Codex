@@ -203,9 +203,9 @@ void __cdecl sub_0044EEC0_CheckConnectionTimeouts(); // 0x0044EEC0
 
 void __cdecl sub_004519C0_ReplayRecords(); // 0x004519C0
 
-int __fastcall sub_00453A90_GetUIVarUnchecked(int nUIVar); // 0x00453A90
+int __fastcall UI_GetUIVarUnchecked(int nUIVar); // 0x00453A90
 
-int __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2); // 0x00456300
+int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
 void __cdecl sub_00462920_ClearValue(); // 0x00462920
 
@@ -223,7 +223,7 @@ void __fastcall sub_00480320_CallHolderSlot3(int nDelta); // 0x00480320
 
 void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer); // 0x00481600
 
-void __cdecl sub_00482C20_Tick(); // 0x00482C20
+void __cdecl INV_TickSound(); // 0x00482C20
 
 int __cdecl sub_00514840_IsChannelStreaming(); // 0x00514840
 
@@ -355,7 +355,7 @@ extern int gnViewDeltaY_007A067C; // 0x007A067C
 
 extern void* gpGlobal_007A0634; // 0x007A0634
 
-void __fastcall sub_004547B0(); // 0x004547B0
+void __fastcall UI_FreeLoadingScreen(); // 0x004547B0
 
 void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTop, int* pRight, int* pBottom); // 0x00476070
 
@@ -377,13 +377,13 @@ void __stdcall D2GFX_SetAmbientColor(int nRed, int nGreen, int nBlue); // 0x004F
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
-void __cdecl sub_0045B440_UpdateAutomapOrigin(); // 0x0045B440
+void __cdecl AUTOMAP_UpdateAutomapOrigin(); // 0x0045B440
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
 
 void __fastcall sub_00476BC0(D2ViewStrc* pView); // 0x00476BC0
 
-void __fastcall sub_00456EE0_DrawUIPanels(D2ViewStrc* pView); // 0x00456EE0
+void __fastcall UI_DrawUIPanels(D2ViewStrc* pView); // 0x00456EE0
 
 void __stdcall sub_004F98E0(); // 0x004F98E0
 
@@ -592,7 +592,7 @@ static int GetRoomBlankScreen(D2ActiveRoomStrc* pRoom)
 // 0x0044C990
 void __fastcall sub_0044C990_DrawGameView(int bNoCursor)
 {
-    sub_004547B0();
+    UI_FreeLoadingScreen();
     if (WINDOW_GetState())
         return;
 
@@ -623,10 +623,10 @@ void __fastcall sub_0044C990_DrawGameView(int bNoCursor)
         return;
 
     sub_004FB0D0();
-    sub_0045B440_UpdateAutomapOrigin();
+    AUTOMAP_UpdateAutomapOrigin();
     if (sub_0045AE90() != 3)
         sub_00476BC0(gpView_007A0640);
-    sub_00456EE0_DrawUIPanels(gpView_007A0640);
+    UI_DrawUIPanels(gpView_007A0640);
     sub_004F98E0();
     sub_00468820(10, 10);
     if (!bNoCursor)
@@ -1109,7 +1109,7 @@ void __fastcall sub_0044E380_ShowLoadingMessage(int nIndex)
         gnLoadingIndex_007A05D4 = 9;
     }
 
-    sub_00456300_CloseUIVars(1, 0);
+    UI_CloseUIVars(1, 0);
     gtLoadingTimer_007A0684.dwStart = GetTickCount();
     gtLoadingTimer_007A0684.dwLength = 2500;
     gdwGlobal_007A0620 = 1;
@@ -1124,7 +1124,7 @@ int __stdcall sub_0044E400_LoadingTimerCallback(void* pArg)
     int bResult = 0;
     if (sub_0044DFF0_TimerExpired(&gtLoadingTimer_007A0684))
     {
-        sub_004547B0();
+        UI_FreeLoadingScreen();
         bResult = 1;
     }
     else
@@ -1262,11 +1262,11 @@ int __stdcall sub_0044EFA0_GameFrame(int nUnused)
             return 0;
         }
 
-        if ((sub_00453A90_GetUIVarUnchecked(9) || sub_00453A90_GetUIVarUnchecked(11)) && pPlayer && sub_004646A0_GetPlayerRoom())
+        if ((UI_GetUIVarUnchecked(9) || UI_GetUIVarUnchecked(11)) && pPlayer && sub_004646A0_GetPlayerRoom())
         {
             gdwLastFrame_007A0490 = GetTickCount();
             gpfnClientCallback_007A0484(0);
-            sub_00482C20_Tick();
+            INV_TickSound();
             return 0;
         }
     }
@@ -1436,7 +1436,7 @@ int __stdcall sub_0044EFA0_GameFrame(int nUnused)
 
         if (bDrawn)
         {
-            sub_00482C20_Tick();
+            INV_TickSound();
         }
 
         ++gnSkipped_007A0704;
@@ -1453,7 +1453,7 @@ int __stdcall sub_0044EFA0_GameFrame(int nUnused)
 
     sub_00480340();
     sub_004FB480_SetActA(0);
-    sub_00456300_CloseUIVars(1, 0);
+    UI_CloseUIVars(1, 0);
     if (gnGameType_007A0610 == 0 || gnGameType_007A0610 == 1)
     {
         sub_0052E9C0();

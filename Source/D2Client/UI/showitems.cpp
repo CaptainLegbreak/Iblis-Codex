@@ -64,7 +64,7 @@ extern "C" int __cdecl sub_0045AFC0(); // 0x0045AFC0
 
 extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset(); // 0x0045AFD0
 
-void __fastcall sub_004527D0_BuildItemHoverName(D2UnitStrc*,Unicode*,int); // 0x004527D0
+void __fastcall UI_BuildItemHoverName(D2UnitStrc*,Unicode*,int); // 0x004527D0
 
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode*,int*,int*); // 0x00502520
 
@@ -271,7 +271,7 @@ void __cdecl sub_004C0810_DrawUnitNames()
             }
             if(nX<nMinX || nX>nMaxX || nY<-8 || nY>gnScreenHeight_00711470-16)continue;
             pLabel->wszText[0].wChar=0;
-            sub_004527D0_BuildItemHoverName(pItem,pLabel->wszText,256);
+            UI_BuildItemHoverName(pItem,pLabel->wszText,256);
             int nWidth,nTop;
             D2Win_10131_GetTextDimensions(pLabel->wszText,&nWidth,&nTop);
             nWidth+=8;
