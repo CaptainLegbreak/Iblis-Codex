@@ -1495,6 +1495,14 @@ enum D2C_M81AbyssKnightAi
     ABYSSKNIGHT_AI_PARAM_ACTIVE_DISTANCE = 7,
 };
 
+enum D2C_M84QuillMotherAi
+{
+    QUILLMOTHER_AI_PARAM_ATTACK_CHANCE_PCT = 0,
+    QUILLMOTHER_AI_PARAM_APPROACH_CHANCE_PCT = 1,
+    QUILLMOTHER_AI_PARAM_MELEE_STALL_DURATION = 2,
+    QUILLMOTHER_AI_PARAM_IDLE_STALL_DURATION = 3,
+};
+
 // 0x005B0D00
 D2UnitStrc* __fastcall AITHINK_TargetCallback_Panther(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
 {
@@ -12382,6 +12390,65 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_OblivionKnight(D2GameStrc* pGame, 
     }
 
     return 0;
+}
+
+inline int UNITS_GetUnitGUID_005FB2A0(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return -1;
+    }
+    return pUnit->dwUnitId;
+}
+
+// 0x005FB2A0
+void __fastcall AITHINK_Fn075_QuillMother(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    const int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    if (sub_6FCF2E70(pUnit))
+    {
+        D2AiCmdStrc aiCmd;
+        aiCmd.nCmdParam[0] = 1;
+        int nType = UNIT_TYPES_COUNT;
+        if (pTarget)
+        {
+            nType = pTarget->dwUnitType;
+        }
+        aiCmd.nCmdParam[1] = nType;
+        aiCmd.nCmdParam[2] = UNITS_GetUnitGUID_005FB2A0(pTarget);
+        AIGENERAL_AllocCommandsForMinions(pGame, pUnit, &aiCmd);
+
+        if (bCombat)
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+            return;
+        }
+
+        AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
+        return;
+    }
+
+    if (bCombat)
+    {
+        if ((int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, QUILLMOTHER_AI_PARAM_ATTACK_CHANCE_PCT))
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+            return;
+        }
+
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, QUILLMOTHER_AI_PARAM_MELEE_STALL_DURATION));
+        return;
+    }
+
+    if ((int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, QUILLMOTHER_AI_PARAM_APPROACH_CHANCE_PCT))
+    {
+        AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, QUILLMOTHER_AI_PARAM_IDLE_STALL_DURATION));
 }
 
 static int UNITS_GetAnimMode_FB410(D2UnitStrc* pUnit)
