@@ -5335,7 +5335,6 @@
    "bytes": 732,
    "definitions": 6,
    "externs": [
-    "extern \"C\" void __cdecl sub_005E6E80(); // 0x005E6E80",
     "extern \"C\" void __cdecl sub_005E6DE0(); // 0x005E6DE0",
     "extern \"C\" void __cdecl sub_005E6F00(); // 0x005E6F00",
     "extern \"C\" void __cdecl sub_005E6FC0(); // 0x005E6FC0"

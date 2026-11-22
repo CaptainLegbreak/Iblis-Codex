@@ -1,17 +1,67 @@
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
+#include "D2MonModes.h"
+#include "D2PlayerModes.h"
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2LevelTxt.h"
 #include "D2Path.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2GameAux.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
-#include "D2LevelTxt.h"
-#include "D2MonModes.h"
-#include "D2PlayerModes.h"
+
+struct D2MonStatsTxt;
+
+struct D2LevelsTxt;
+
+struct D2PantherAiCallbackArgStrc;
+
+struct D2AiCallback11ArgStrc;
+
+void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
+
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+
+struct D2PantherAiCallbackArgStrc
+{
+    D2UnitStrc* pTarget;
+    int nDistance;
+};
+
+struct D2AiCallback11ArgStrc
+{
+    D2UnitStrc* pTarget;
+    int nDistance;
+    D2UnitStrc* unk0x08;
+    int unk0x0C[7];
+};
+
+typedef D2UnitStrc* (__fastcall* AITARGETCALLBACK)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, void*);
+
+int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
+
+int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
+
+int __fastcall AITHINK_GetSquaredDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x005B0BD0
+
+int __fastcall sub_005B1140_BossTauntOnSight(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005B1140
+
+int __fastcall sub_005B11F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005B11F0
+
+int __fastcall sub_005DC640_HasFreeSpotNearTarget(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x005DC640
+
+D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg, AITARGETCALLBACK pfnCallback, int nCallbackId); // 0x005DD0B0
+
+int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMaxDistance); // 0x005DE200
+
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
+
+D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId); // 0x0061DB70
+
+int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster); // 0x0063EA40
 
 #define ASSERT(expr,line) if (!(expr)) { sub_00408A60(gszEmpty_006CC837,sub_00408090(),line); exit(-1); }
 
@@ -24,8 +74,6 @@ struct D2AiTickStrc;
 struct D2AiTableStrc;
 
 struct D2StaticPathStrc;
-
-struct D2MonStatsTxt;
 
 struct D2AiCmdStrc;
 
@@ -53,9 +101,21 @@ extern "C" void* __cdecl memset(void*,int,unsigned int);
 
 typedef void (__fastcall* AiFn)(D2GameStrc*,D2UnitStrc*,D2AiTickStrc*);
 
-struct D2AiTickStrc { D2AiControlStrc* control; int unk04[6]; void* monstats; void* monstats2; };
+struct D2AiTickStrc
+{
+    D2AiControlStrc* control;
+    int unk04[6];
+    void* monstats;
+    void* monstats2;
+};
 
-struct D2AiTableStrc { int unk00; AiFn init; AiFn function; AiFn alternate; };
+struct D2AiTableStrc
+{
+    int unk00;
+    AiFn init;
+    AiFn function;
+    AiFn alternate;
+};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -99,11 +159,7 @@ int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc* hUnit, int nX, int nY
 
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc*, D2UnitStrc*, int, D2UnitStrc*); // 0x005DDF90
 
-void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc*, D2UnitStrc*, int); // 0x005DE080
-
 void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
-
-int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMaxDistance); // 0x005DE200
 
 int __fastcall AITACTICS_UseSkill(D2GameStrc*, D2UnitStrc*, unsigned char, int, D2UnitStrc*, int, int); // 0x005DEAD0
 
@@ -131,11 +187,16 @@ int __fastcall sub_005EDF70_TryRoomSteps(D2GameStrc* pGame, D2UnitStrc* pUnit); 
 
 int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesEx(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, int nUnitSize, unsigned int nMask, int nFieldSize); // 0x0064E7E0
 
-struct D2BaalThroneAiCallbackArgStrc { D2UnitStrc* pTarget1; int nDistance1; D2UnitStrc* pTarget2; int nDistance2; int unk_10[6]; };
+struct D2BaalThroneAiCallbackArgStrc
+{
+    D2UnitStrc* pTarget1;
+    int nDistance1;
+    D2UnitStrc* pTarget2;
+    int nDistance2;
+    int unk_10[6];
+};
 
 extern const int gnBaalThroneSuperUniqueIds[]; // 0x006E3528
 
@@ -175,13 +236,10 @@ int __fastcall ACT5Q5_GetPortalCount(D2GameStrc* pGame); // 0x0058CFB0
 
 int __fastcall ACT5Q5_IsActivatable(D2GameStrc* pGame); // 0x0058CFE0
 
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
-
 void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bSet); // 0x0061AED0
 
 struct D2AiBaalTargetArgsStrc;
 
-#define UNIT_PLAYER 0
 
 #define PATHTYPE_TOWARD 2
 
@@ -196,6 +254,15 @@ extern "C" void __stdcall sub_00648B90_SetPathTarget(D2DynamicPathStrc* pPath, D
 void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nType);                                    // 0x00648CF0
 
 int __stdcall D2Common_10142(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, int a3);                   // 0x00649970
+
+// 0x005B0CD0
+void __fastcall AITHINK_Fn001_100_Idle_Buffy(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    if (UNITS_GetRoom(pUnit))
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 200);
+    }
+}
 
 // 0x005B0E00
 void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* hUnit, D2AiControlStrc* pAiControl, int nAiSpecialState)

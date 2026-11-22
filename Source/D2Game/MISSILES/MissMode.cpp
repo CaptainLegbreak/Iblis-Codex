@@ -5,6 +5,7 @@
 #include "D2MonModes.h"
 #include "D2ObjModes.h"
 #include "D2StatIds.h"
+#include "D2MissileIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -20,9 +21,9 @@
 #include "D2GameServer.h"
 #include "D2TxtItems.h"
 #include "D2GameObjs.h"
+#include "D2TxtTables.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
 
 #define UNITFLAGEX_0x40000 0x40000
 
@@ -32,11 +33,7 @@
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
-
 #define QUEST_A5Q6_BAAL 36
-
-
-
 
 #define UNITFLAG_ISMERC 0x00000200
 
@@ -361,9 +358,6 @@ void __stdcall D2COMMON_10476(D2StatListStrc* pStatList, int nExpireFrame);     
 void __stdcall STATES_ToggleGfxStateFlag(D2UnitStrc* pUnit, int nState, int bSet);                          // 0x00639E30
 
 int __stdcall sub_0064A380_GetRemainingFrames(D2UnitStrc* pMissile);                                        // 0x0064A380
-
-
-
 
 #define EVENTTYPE_REMOVESTATE 12
 
@@ -712,7 +706,6 @@ int __fastcall MISSMODE_SrvDo33_VineRecyclerDelay(D2GameStrc* pGame, D2UnitStrc*
 
 #define MONSTATSFLAGINDEX_OPENDOORS 3
 
-
 struct D2MonStats2Txt;
 
 typedef D2UnitStrc* (__fastcall* AITARGETCALLBACK)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, void*);
@@ -792,6 +785,21 @@ extern "C" int __stdcall sub_0064A780_targetValue(D2UnitStrc* pMissile); // 0x00
 int __stdcall MISSILE_GetRemainingFrames(D2UnitStrc* pMissile); // 0x0064A3B0
 
 int __fastcall sub_004CC9A0_CltHitProgOverlay(D2UnitStrc* pMissile, D2UnitStrc* pUnit); // 0x004CC9A0
+
+#define MONTYPEFLAG_LIGHTNINGUNIQUE 0x100
+
+struct D2MonLvlTxt;
+
+struct D2MonUModTxt;
+
+enum D2C_H16ElemConstants
+{
+    MONLVL_DM = 6,
+};
+
+D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndFlag(D2UnitStrc* pUnit, int nFlag); // 0x00625760
+
+void __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x00627150
 
 // 0x0059F840
 void __fastcall MISSILES_RemoveAll(D2GameStrc* pGame)
@@ -1742,6 +1750,60 @@ int __fastcall MISSMODE_SrvHit02_PlagueJavelin_PoisonPotion(D2GameStrc* pGame, D
     }
 
     MISSMODE_CreatePoisonCloudHitSubmissiles(pGame, SUNIT_GetOwner(pGame, pMissile), pOrigin, pMissilesTxtRecord->wHitSubMissile[0], MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile), pMissilesTxtRecord->dwHitPar[0], pMissilesTxtRecord->dwHitPar[1], pMissilesTxtRecord->dwHitPar[2]);
+    return 3;
+}
+
+static D2MonsterDataStrc* MONSTERUNIQUE_GetMonsterDataInline(D2UnitStrc* pUnit)
+{
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
+    {
+        return pUnit->pMonsterData;
+    }
+
+    return 0;
+}
+
+// 0x005A9E10
+int __fastcall MISSMODE_SrvHit44_ExplodingJavelin(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit)
+{
+    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecordFromUnit(pMissile);
+    if (!pMissilesTxtRecord)
+    {
+        return 1;
+    }
+
+    D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pMissile);
+    int nRange = pMissilesTxtRecord->dwHitPar[0];
+    if (!nRange)
+    {
+        const int nSkillId = MISSILE_GetSkill(pMissile);
+        const int nLevel = MISSILE_GetLevel(pMissile);
+        D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+        if (!pSkillsTxtRecord)
+        {
+            return 1;
+        }
+
+        nRange = SKILLS_EvaluateSkillFormula(pOwner, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nLevel);
+        if (nRange < 1)
+        {
+            nRange = 1;
+        }
+    }
+
+    const int nX = UNITS_GetXPositionInline(pMissile);
+    const int nY = UNITS_GetYPositionInline(pMissile);
+
+    D2DamageStrc damage = {};
+    MISSMODE_FillDamageParams(pGame, pOwner, pMissile, pUnit, &damage);
+    damage.wResultFlags |= pMissilesTxtRecord->wResultFlags;
+    damage.dwHitFlags |= pMissilesTxtRecord->dwHitFlags;
+
+    if (sub_6FD10200(pGame, pOwner, nX, nY, nRange, &damage, 0))
+    {
+        return 1;
+    }
+
     return 3;
 }
 

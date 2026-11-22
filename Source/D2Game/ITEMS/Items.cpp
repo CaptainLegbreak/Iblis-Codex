@@ -1,19 +1,41 @@
 #include "D2ItemTypes.h"
+#include "D2LevelIds.h"
 #include "D2StateIds.h"
 #include "D2StatIds.h"
+#include "D2ItemModes.h"
 #include "D2Game.h"
 #include "D2Structs.h"
-#include "D2Path.h"
-#include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2Path.h"
+#include "D2DataTbls.h"
 #include "D2Drlg.h"
 #include "D2TxtTables.h"
 #include "D2UnitData.h"
 #include "D2LevelTxt.h"
 #include "D2GameRecords.h"
 #include "D2ItemsWorld.h"
-#include "D2ItemModes.h"
+
+struct D2ItemDataTbl
+{
+    int nItemsTxtRecordCount;
+    D2ItemsTxt* pItemsTxt;
+    D2ItemsTxt* pWeapons;
+    int nWeaponsTxtRecordCount;
+    D2ItemsTxt* pArmor;
+    int nArmorTxtRecordCount;
+    D2ItemsTxt* pMisc;
+};
+
+struct D2ItemUnkStrc
+{
+    int nIndex;
+    D2ItemsTxt* pItemsTxtRecord;
+};
+
+unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                                              // 0x006427F0
+
+unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                         // 0x0045C3E0
 
 struct D2ClientStrc;
 
@@ -71,7 +93,10 @@ int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 
 int __fastcall sub_005564D0_IsDroppedUnique(D2GameStrc* pGame, D2UnitStrc* pItem); // 0x005564D0
 
-struct D2UniqueSelection { int nIndex,nRarity; };
+struct D2UniqueSelection
+{
+    int nIndex,nRarity;
+};
 
 extern D2UniqueSelection gUniqueSelections[]; // 0x008846F8
 
@@ -96,8 +121,6 @@ int __stdcall ITEMS_GetUniqueColumnFromItemsTxt(D2UnitStrc*); // 0x00628C70
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc*); // 0x00627D90
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
-
-unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
 int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2UnitStrc** ppItem, D2ItemDropStrc* pItemDrop); // 0x00557450
 
@@ -143,15 +166,10 @@ void __fastcall sub_6FC4B580(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x0055F850
 
 void __fastcall sub_6FC80A30(D2GameStrc*,D2UnitStrc*); // 0x00580310
 
-#define UNIT_PLAYER 0
 
-#define UNIT_MONSTER 1
 
-#define STAT_LEVEL 12
 
-#define STAT_ITEM_MAGICBONUS 80
 
-#define UNIT_ITEM 4
 
 #define ITEMDROPFLAG_SUPERIOR 0x40
 
@@ -261,12 +279,6 @@ D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D
 
 int __fastcall sub_00558610_GetDiminishedMagicFind(int nMagicFind, int nFactor, int nFactor2); // 0x00558610
 
-struct D2ItemDataTbl
-{
-    int nItemsTxtRecordCount;
-    D2ItemsTxt* pItemsTxt;
-};
-
 struct D2SaveHeaderStrc
 {
     unsigned int dwHeaderMagic;
@@ -349,15 +361,12 @@ static void ITEMS_MakeEthereal(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop);
 
 static void ITEMS_ClearAffixesAndFileIndex(D2UnitStrc** ppItem);
 
-#define STAT_GOLD 14
 
-#define STAT_QUESTITEMDIFFICULTY 356
 
 #define ITEMDROPFLAG_NEVERETH 0x2
 
 #define ITEMDROPFLAG_NOSOCKETS 0x8
 
-#define STAT_MAXDURABILITY 73
 
 #define EVENTTYPE_STATREGEN 3
 
@@ -380,8 +389,6 @@ unsigned char __stdcall ITEMS_GetEarLevel(D2UnitStrc* pItem); // 0x006283A0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
-
-unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
 int __fastcall EVENT_GetEventFrame(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent); // 0x005415A0
 
@@ -525,6 +532,181 @@ static void sub_00557A70_RollVarInvGfx(D2UnitStrc* pItem);
 static int s_nGoldItemId_0088C6F8; // 0x0088C6F8
 
 int __fastcall ITEMS_GetItemLevelForNewItem(D2UnitStrc* pUnit, int nLevelId);
+
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+static inline unsigned int SEED_RollLimitedRandomNumber_00555E00(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0)
+    {
+        return 0;
+    }
+
+    if ((nMax - 1) & nMax)
+    {
+        return SEED_RollRandomNumber(pSeed) % nMax;
+    }
+
+    return SEED_RollRandomNumber(pSeed) & (nMax - 1);
+}
+
+// 0x00555E00
+static int __stdcall sub_00555E00_CanSelectItem(D2SeedStrc* pSeed, int bIgnoreRarity, D2ItemsTxt* pItemsTxtRecord, int nItemType, int nLevelId)
+{
+    if (nLevelId <= 0)
+    {
+        nLevelId = LEVEL_ROGUEENCAMPMENT;
+    }
+
+    if (pItemsTxtRecord->nSpawnable > 0 && !pItemsTxtRecord->nQuest && pItemsTxtRecord->nLevel <= nLevelId)
+    {
+        if (!bIgnoreRarity)
+        {
+            const int nChance = pItemsTxtRecord->nRarity - DRLG_GetActNoFromLevelId(nLevelId);
+            if (nChance > 0 && ITEMS_RollLimitedRandomNumber(pSeed, nChance))
+            {
+                return 0;
+            }
+        }
+
+        if (nItemType == -1 || pItemsTxtRecord->wType[0] == nItemType)
+        {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+// 0x00555E70
+int __fastcall ITEMMODE_SelectRandomArmorItemId(D2GameStrc* pGame, D2SeedStrc* pSeed, int nLevelId, int nItemType, int bIgnoreRarity)
+{
+    D2ItemDataTbl* pItemDataTbl = DATATBLS_GetItemDataTables();
+    D2ItemsTxt* pItemsTxtRecord = pItemDataTbl->pArmor;
+    const int nBase = pItemsTxtRecord - pItemDataTbl->pItemsTxt;
+    const int nCount = pItemDataTbl->pMisc - pItemsTxtRecord;
+    int nMax = 0;
+    if (!pItemsTxtRecord)
+    {
+        return -1;
+    }
+
+    D2ItemUnkStrc data[1024];
+    for (int i = 0; i < nCount; ++i)
+    {
+        if (sub_00555E00_CanSelectItem(pSeed, bIgnoreRarity, &pItemsTxtRecord[i], nItemType, nLevelId)
+            && (pGame->bExpansion || pItemsTxtRecord[i].wVersion < 100) && nMax < 1023)
+        {
+            data[nMax].pItemsTxtRecord = &pItemsTxtRecord[i];
+            data[nMax].nIndex = nBase + i;
+            ++nMax;
+        }
+    }
+
+    const int nIndex = SEED_RollLimitedRandomNumber_00555E00(pSeed, nMax);
+    if (nIndex > nMax)
+    {
+        return -1;
+    }
+
+    D2ItemUnkStrc* pData = &data[nIndex];
+    if (!pData)
+    {
+        return -1;
+    }
+
+    return pData->nIndex;
+}
+
+// 0x00555FB0
+int __fastcall ITEMMODE_SelectRandomWeaponItemId(D2GameStrc* pGame, D2SeedStrc* pSeed, int nLevelId, int nItemType, int bIgnoreRarity)
+{
+    D2ItemDataTbl* pItemDataTbl = DATATBLS_GetItemDataTables();
+    D2ItemsTxt* pItemsTxtRecord = pItemDataTbl->pWeapons;
+    const int nBase = pItemsTxtRecord - pItemDataTbl->pItemsTxt;
+    const int nCount = pItemDataTbl->pArmor - pItemsTxtRecord;
+    int nMax = 0;
+    if (!pItemsTxtRecord)
+    {
+        return -1;
+    }
+
+    D2ItemUnkStrc data[1024];
+    for (int i = 0; i < nCount; ++i)
+    {
+        if (sub_00555E00_CanSelectItem(pSeed, bIgnoreRarity, &pItemsTxtRecord[i], nItemType, nLevelId)
+            && (pGame->bExpansion || pItemsTxtRecord[i].wVersion < 100) && nMax < 1023)
+        {
+            data[nMax].pItemsTxtRecord = &pItemsTxtRecord[i];
+            data[nMax].nIndex = nBase + i;
+            ++nMax;
+        }
+    }
+
+    const int nIndex = SEED_RollLimitedRandomNumber_00555E00(pSeed, nMax);
+    if (nIndex > nMax)
+    {
+        return -1;
+    }
+
+    D2ItemUnkStrc* pData = &data[nIndex];
+    if (!pData)
+    {
+        return -1;
+    }
+
+    return pData->nIndex;
+}
+
+// 0x005560F0
+int __fastcall ITEMMODE_SelectRandomMiscItemId(D2GameStrc* pGame, D2SeedStrc* pSeed, int nLevelId, int nItemType, int bIgnoreRarity, int bAllowBodyParts)
+{
+    D2ItemDataTbl* pItemDataTbl = DATATBLS_GetItemDataTables();
+    const int nBase = pItemDataTbl->pMisc - pItemDataTbl->pItemsTxt;
+    const int nCount = &pItemDataTbl->pItemsTxt[pItemDataTbl->nItemsTxtRecordCount] - pItemDataTbl->pMisc;
+
+    D2ItemsTxt* pItemsTxtRecord = pItemDataTbl->pMisc;
+    int nMax = 0;
+    if (!pItemsTxtRecord)
+    {
+        return -1;
+    }
+
+    D2ItemUnkStrc data[1024];
+    for (int i = 0; i < nCount; ++i)
+    {
+        if (bAllowBodyParts || pItemsTxtRecord[i].wType[0] != ITEMTYPE_BODY_PART)
+        {
+            if (sub_00555E00_CanSelectItem(pSeed, bIgnoreRarity, &pItemsTxtRecord[i], nItemType, nLevelId)
+                && (pGame->bExpansion || pItemsTxtRecord[i].wVersion < 100) && nMax < 1023)
+            {
+                data[nMax].pItemsTxtRecord = &pItemsTxtRecord[i];
+                data[nMax].nIndex = nBase + i;
+                ++nMax;
+            }
+        }
+    }
+
+    const int nIndex = SEED_RollLimitedRandomNumber_00555E00(pSeed, nMax);
+    if (nIndex > nMax)
+    {
+        return -1;
+    }
+
+    D2ItemUnkStrc* pData = &data[nIndex];
+    if (!pData)
+    {
+        return -1;
+    }
+
+    return pData->nIndex;
+}
 
 // build: symbol ?$S1@?1??ITEMS_SelectRandomDropItemId@@YGHPAUD2GameStrc@@PATD2SeedStrc@@HHHH@Z@4IA 0x008846F0
 // build: symbol ?s_nGoldItemId@?1??ITEMS_SelectRandomDropItemId@@YGHPAUD2GameStrc@@PATD2SeedStrc@@HHHH@Z@4HA 0x008846EC
