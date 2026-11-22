@@ -3,8 +3,7 @@
 #include "D2DataTbls.h"
 
 #include "D2Txt.h"
-struct D2MonRegDataStrc { unsigned short nMonHcIdx; unsigned char nRarity; unsigned char nComponentVariantsMax; unsigned char nComponentVariants[3][16]; };
-struct D2MonsterRegionStrc { unsigned char nAct; unsigned char unk01[3]; int unk04; int unk08; int unk0C; unsigned char nMonCount; unsigned char nTotalRarity; unsigned char nSpawnCount; unsigned char unk13; D2MonRegDataStrc pMonData[13]; };
+#include "D2ItemsWorld.h"
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 void __stdcall MONSTERCHOOSE_GenerateComponentVariants(D2SeedStrc* pSeed, D2MonRegDataStrc* pMonRegData, int nCount); // 0x005BDB20
@@ -74,7 +73,7 @@ D2MonRegDataStrc* __fastcall MONSTERREGION_GetMonsterComponentData(D2MonsterRegi
     int nCounter = 0;
     while (nCounter < pMonsterRegion->nSpawnCount)
     {
-        if (pMonsterRegionData->nMonHcIdx == (unsigned short)nClassId)
+        if ((unsigned short)pMonsterRegionData->nMonHcIdx == (unsigned short)nClassId)
         {
             return pMonsterRegionData;
         }
