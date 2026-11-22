@@ -8,12 +8,6 @@ void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); /
 #include "D2StormBigBuffer.h"
 
 
-struct BigStack
-{
-    BigBuffer pRecords[16];
-    unsigned int nUsed;
-};
-
 struct D2StormArrayBStrc
 {
     unsigned int f_0;

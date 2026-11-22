@@ -56,3 +56,13 @@ struct BigBuffer
     void sub_004220D0_SetCount(unsigned int nCount);                                                        // 0x004220D0
     void sub_00422140_Trim();                                                                               // 0x00422140
 };
+
+struct BigStack
+{
+    union
+    {
+        BigBuffer f_0[16];
+        BigBuffer pRecords[16];
+    };
+    unsigned int nUsed;
+};

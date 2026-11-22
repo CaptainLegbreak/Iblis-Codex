@@ -75,12 +75,6 @@ struct D2StormArrayCStrc
 };
 
 
-struct BigStack
-{
-    BigBuffer f_0[16];
-    unsigned int nUsed;
-};
-
 struct D2StormBigStrc
 {
     BigBuffer tPrimary;

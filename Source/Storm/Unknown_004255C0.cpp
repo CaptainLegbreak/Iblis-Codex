@@ -8,12 +8,6 @@ void __stdcall SMemZero(void* pDest, unsigned int nSize);
 #include "D2StormBigBuffer.h"
 
 
-struct BigStack
-{
-    BigBuffer f_0[16];
-    unsigned int nUsed;
-};
-
 struct D2StormBigStrc
 {
     BigBuffer tPrimary;

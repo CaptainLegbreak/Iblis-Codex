@@ -20,12 +20,6 @@ struct D2StormBigStrc
     char unk0x14[0x154];
 };
 
-struct BigStack
-{
-    BigBuffer f_0[16];
-    unsigned int nUsed;
-};
-
 static void __stdcall sub_00422300_Add(BigBuffer& a, const BigBuffer& b, const BigBuffer& c);
 int __stdcall sub_00425330(void* hHandle, int nArg1, int nArg2, int nArg3); // 0x00425330
 void __stdcall SBigToBinaryBuffer(void* hHandle, void* pBuffer, unsigned int nSize, unsigned int* pRead); // 0x00423B30
