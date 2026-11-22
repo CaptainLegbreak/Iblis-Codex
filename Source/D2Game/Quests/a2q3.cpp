@@ -1,4 +1,5 @@
 #include "D2MonsterIds.h"
+#include "D2ObjModes.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -7,7 +8,6 @@
 #include "D2QuestData.h"
 #include "D2Path.h"
 #include "D2GameObjs.h"
-#include "D2ObjModes.h"
 
 #define QUEST_A1Q4_CAIN 4
 
@@ -309,6 +309,14 @@ static void __stdcall sub_0059A570_StartDarknessForPlayer(D2UnitStrc* pPlayer, D
 
 bool __fastcall ACT5Q6_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x0058E2B0
 
+void __fastcall QUESTS_RemovePlayerGUID(D2QuestDataStrc* quest, D2QuestArgStrc* argument); // 0x00545530
+
+static inline int GetUnitId(D2UnitStrc* unit) { return !unit ? -1 : unit->dwUnitId; }
+
+int __fastcall ACT2Q2_UnitIterate_DetermineStaffDropCount(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00599750
+
+static inline void sub_0059A3C0_ACT2Q3_EndTaintedSun(D2QuestDataStrc* pQuestData, D2GameStrc* pGame);
+
 // 0x005940A0
 void __fastcall sub_005940A0_ACT1Q4_RemovePlayerGUID(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
@@ -505,8 +513,6 @@ int __fastcall OBJECTS_OperateFunction40_HoradricScrollChest(D2ObjOperateFnStrc*
     return nResult;
 }
 
-int __fastcall ACT2Q2_UnitIterate_DetermineStaffDropCount(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00599750
-
 // 0x00599CF0
 int __fastcall sub_00599CF0(D2ObjOperateFnStrc* pOp, int nOperate)
 {
@@ -600,8 +606,6 @@ void __fastcall sub_00599F00_OBJECTS_InitFunction32(D2ObjInitFnStrc* pOp)
 {
 }
 
-static inline void sub_0059A3C0_ACT2Q3_EndTaintedSun(D2QuestDataStrc* pQuestData, D2GameStrc* pGame);
-
 void __fastcall sub_M118_Emit_0059A3C0(D2QuestDataStrc* pQuestData)
 {
     if (pQuestData->bNotIntro)
@@ -637,6 +641,15 @@ int __fastcall ACT2Q3_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
     }
 
     return 0;
+}
+
+// 0x00599FB0
+void __fastcall ACT2Q3_Callback10_PlayerLeavesGame(D2QuestDataStrc* quest, D2QuestArgStrc* argument)
+{
+    QUESTS_RemovePlayerGUID(quest, argument);
+    D2UnitStrc* player = argument->pPlayer;
+    D2Act2Quest3Strc* data = (D2Act2Quest3Strc*)quest->pQuestDataEx;
+    QUESTS_FastRemovePlayerGUID(&data->tPlayerGUIDs, GetUnitId(player));
 }
 
 // 0x00599FE0

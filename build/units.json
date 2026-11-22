@@ -57034,6 +57034,10 @@
      "name": "?ACT1Q4_UnitIterate_FindPlayersInTristram@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x00593260",
+     "length": 34
+    },
+    {
      "va": "0x00593290",
      "length": 482,
      "name": "ACT1Q4_SpawnCainInTristram"
@@ -58542,7 +58546,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Quests/a1q1_0058FBE0.cpp",
+   "file": "Source/D2Game/Quests/a1q1.cpp",
    "rank": 0,
    "functions": [
     {
@@ -58558,13 +58562,7 @@
      "va": "0x0058FC90",
      "length": 134,
      "name": "?ACT1Q1_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q1.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0058FD50",
      "length": 126,
@@ -58857,16 +58855,6 @@
      "va": "0x00592090",
      "length": 64,
      "name": "?sub_00592090_ACT1Q3_InitMalusObject@@YIXPAUD2QuestDataStrc@@PAUD2ObjInitFnStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q4_00593260.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00593260",
-     "length": 34
     }
    ]
   },
@@ -59167,6 +59155,10 @@
      "va": "0x00599F50",
      "length": 96,
      "name": "?ACT2Q3_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00599FB0",
+     "length": 47
     },
     {
      "va": "0x00599FE0",
@@ -59555,6 +59547,10 @@
      "name": "?ACT2Q4_SetPortalMode@@YIXPAUD2GameStrc@@H@Z"
     },
     {
+     "va": "0x0059C3C0",
+     "length": 652
+    },
+    {
      "va": "0x0059C6C0",
      "length": 72,
      "name": "?sub_0059C6C0_ACT2Q6_UpdateRewardFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
@@ -59691,6 +59687,11 @@
      "va": "0x0059DFB0",
      "length": 32,
      "name": "?sub_0059DFB0_ACT2Q6_IsStateBelow4Inactive@@YI_NPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x0059DFD0",
+     "length": 138,
+     "name": "?ACT2Q6_ActivateTomb@@YIHPAUD2GameStrc@@PAUD2CoordStrc@@PAPAUD2ActiveRoomStrc@@@Z"
     },
     {
      "va": "0x0059E060",
@@ -60091,30 +60092,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Quests/a2q3_00599FB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00599FB0",
-     "length": 47
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_0059AD40.cpp",
    "rank": 0,
    "functions": [
@@ -60369,30 +60346,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Quests/a2q6_0059C3C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0059C3C0",
-     "length": 652
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_0059C6B0.cpp",
    "rank": 1,
    "functions": [
@@ -60415,17 +60368,6 @@
     "/Gd",
     "/Oy",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a2q6_0059DFD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0059DFD0",
-     "length": 138,
-     "name": "?ACT2Q6_ActivateTomb@@YIHPAUD2GameStrc@@PAUD2CoordStrc@@PAPAUD2ActiveRoomStrc@@@Z"
-    }
    ]
   },
   {
@@ -64911,6 +64853,10 @@
      "name": "?OBJECTS_OperateFunction44_SewerStairs@@YIHPAUD2ObjOperateFnStrc@@H@Z"
     },
     {
+     "va": "0x005B8530",
+     "length": 169
+    },
+    {
      "va": "0x005B8660",
      "length": 77,
      "name": "?OBJECTS_InitFunction41_SewerStairs@@YIXPAUD2ObjInitFnStrc@@@Z"
@@ -65004,7 +64950,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Quests/a3q3_005B85E0.cpp",
+   "file": "Source/D2Game/Quests/a3q3.cpp",
    "rank": 0,
    "functions": [
     {
@@ -65013,55 +64959,14 @@
      "name": "?sub_005B85E0_OpenSewerStairs@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
     },
     {
-     "va": "0x005B8BF0",
-     "length": 96,
-     "name": "?ACT3Q3_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a3q2_005B8530.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005B8530",
-     "length": 169
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005B8C50.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005B8C50",
-     "length": 104,
-     "name": "?sub_005B8C50_QuestCallback@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a3q3.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x005B8750",
      "length": 18,
      "name": "?sub_005B8750_LacksKhalimFlail@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005B8BF0",
+     "length": 96,
+     "name": "?ACT3Q3_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
      "va": "0x005B9090",
@@ -65155,6 +65060,17 @@
    ]
   },
   {
+   "file": "Source/D2Game/Unknown_005B8C50.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x005B8C50",
+     "length": 104,
+     "name": "?sub_005B8C50_QuestCallback@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    }
+   ]
+  },
+  {
    "file": "Source/D2Game/Unknown_005B9A30.cpp",
    "rank": 1,
    "functions": [
@@ -65188,6 +65104,11 @@
      "name": "?ACT3Q4_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x005B9ED0",
+     "length": 453,
+     "name": "?sub_005B9ED0@@YIXPAUQuest@@PAUArgs@@@Z"
+    },
+    {
      "va": "0x005BA0A0",
      "length": 12,
      "name": "?ACT3Q4_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
@@ -65196,6 +65117,15 @@
      "va": "0x005BA0B0",
      "length": 184,
      "name": "?ACT3Q4_Callback02_NpcDeactivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005BA170",
+     "length": 288
+    },
+    {
+     "va": "0x005BA290",
+     "length": 86,
+     "name": "?sub_005BA290_UpdateQuest20@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x005BA2F0",
@@ -65250,26 +65180,6 @@
      "va": "0x005BADC0",
      "length": 96,
      "name": "?ACT3Q5_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a3q4_005B9ED0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005B9ED0",
-     "length": 453,
-     "name": "?sub_005B9ED0@@YIXPAUQuest@@PAUArgs@@@Z"
-    },
-    {
-     "va": "0x005BA170",
-     "length": 288
-    },
-    {
-     "va": "0x005BA290",
-     "length": 86,
-     "name": "?sub_005BA290_UpdateQuest20@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
     }
    ]
   },
