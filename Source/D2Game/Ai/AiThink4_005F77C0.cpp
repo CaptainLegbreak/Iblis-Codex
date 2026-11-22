@@ -68,7 +68,7 @@ static short AI_GetParam(D2GameStrc* pGame, D2MonStatsTxt* pMonStatsTxt, int nPa
 }
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
-#define AI_ROLL_PERCENT(pUnit) ((int)((unsigned int)SEED_RollRandomNumber(&(pUnit)->pSeed) % 100))
+#define AI_ROLL_PERCENT(pSeed) ((int)((unsigned int)SEED_RollRandomNumber(pSeed) % 100))
 
 inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
 {
@@ -126,7 +126,7 @@ void __fastcall AITHINK_Fn072_DoomKnight(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
     if (pAiTickParam->bCombat)
     {
-        if (AI_ROLL_PERCENT(pUnit) < AI_PARAM(pGame, pMonStatsTxt, 0))
+        if (AI_ROLL_PERCENT(&pUnit->pSeed) < AI_PARAM(pGame, pMonStatsTxt, 0))
         {
             AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
             return;
@@ -135,7 +135,7 @@ void __fastcall AITHINK_Fn072_DoomKnight(D2GameStrc* pGame, D2UnitStrc* pUnit, D
         return;
     }
 
-    if (AI_ROLL_PERCENT(pUnit) < AI_PARAM(pGame, pMonStatsTxt, 2))
+    if (AI_ROLL_PERCENT(&pUnit->pSeed) < AI_PARAM(pGame, pMonStatsTxt, 2))
     {
         sub_6FCD0410(pGame, pUnit, pTarget, 7);
         return;
