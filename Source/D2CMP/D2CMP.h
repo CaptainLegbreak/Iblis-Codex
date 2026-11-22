@@ -265,7 +265,16 @@ typedef void (__stdcall* D2CmpColorCallback)(unsigned int nColor);
 
 struct D2CmpPoolStrc
 {
-    unsigned char unk0x00[0x34];
+    union
+    {
+        unsigned char unk0x00[0x34];
+        struct
+        {
+            void* pMemPool;                                         // 0x00
+            unsigned int nTotal;                                    // 0x04
+            unsigned int nHits;                                     // 0x08
+        };
+    };
 };
 
 struct D2CmpRGBStrc
