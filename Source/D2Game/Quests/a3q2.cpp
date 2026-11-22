@@ -1,5 +1,6 @@
 #include "D2MonsterIds.h"
 #include "D2StatIds.h"
+#include "D2ObjModes.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -7,15 +8,14 @@
 #include "D2QuestData.h"
 #include "D2GameObjs.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 
-#include "D2ObjModes.h"
 #define QFLAG_REWARDGRANTED 0
 
 #define QFLAG_STARTED 2
 
 #define QFLAG_CUSTOM3 7
 
-#define UNIT_OBJECT 2
 
 #define ITEMQUAL_NORMAL 2
 
@@ -181,6 +181,14 @@ void __fastcall ACT3Q2_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
 bool __fastcall ACT3Q2_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus); // 0x005BD850
 
 void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeaderStrc* pTextControl, int nNPCID, int nIndex); // 0x00543790
+
+D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitId); // 0x00552F60
+
+D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
+
+void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
+
+void __fastcall QUESTS_TriggerFX(D2GameStrc* pGame, unsigned char nEffect); // 0x00545760
 
 static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
@@ -502,6 +510,36 @@ int __fastcall OBJECTS_OperateFunction44_SewerStairs(D2ObjOperateFnStrc* pOp, in
     {
         D2GAME_WarpPlayerToTile_6FCA5B20(pOp);
     }
+    return 0;
+}
+
+// 0x005B8530
+int __fastcall sub_005B8530_OperateSewerLever(D2ObjOperateFnStrc* pOp, int nOperate)
+{
+    D2UnitStrc* pObject = pOp->hObject;
+    if (!pObject || !pObject->dwAnimMode)
+    {
+        D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, 16);
+        if (pQuestData)
+        {
+            D2Act3Quest2Strc* pQuestDataEx = static_cast<D2Act3Quest2Strc*>(pQuestData->pQuestDataEx);
+            if (pQuestDataEx->bSewerStairsInitialized != 1)
+            {
+                return 0;
+            }
+
+            if (SUNIT_GetServerUnit(pOp->pGame, 2, pQuestDataEx->nSewerStairsObjectGUID))
+            {
+                UNITS_ChangeAnimMode(pOp->hObject, 1);
+                D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(pOp->nObjectIdx);
+                EVENT_SetEvent(pOp->pGame, pOp->hObject, 1, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame, 0, 0);
+                pQuestDataEx->nSewerStairsObjectMode = 2;
+                EVENT_SetEvent(pOp->pGame, pOp->hObject, 7, pOp->pGame->dwGameFrame + 30, 0, 0);
+                QUESTS_TriggerFX(pQuestData->pGame, 9);
+            }
+        }
+    }
+
     return 0;
 }
 

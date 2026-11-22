@@ -64853,6 +64853,10 @@
      "name": "?OBJECTS_OperateFunction44_SewerStairs@@YIHPAUD2ObjOperateFnStrc@@H@Z"
     },
     {
+     "va": "0x005B8530",
+     "length": 169
+    },
+    {
      "va": "0x005B8660",
      "length": 77,
      "name": "?OBJECTS_InitFunction41_SewerStairs@@YIXPAUD2ObjInitFnStrc@@@Z"
@@ -64959,30 +64963,6 @@
      "length": 96,
      "name": "?ACT3Q3_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a3q2_005B8530.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005B8530",
-     "length": 169
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
