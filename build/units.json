@@ -40141,6 +40141,11 @@
      "name": "?sub_005115E0_DDrawRestoreSurface@@YIHPAXH@Z"
     },
     {
+     "va": "0x00511720",
+     "length": 205,
+     "name": "?sub_00511720_DDrawStartDraw@@YIHHEEE@Z"
+    },
+    {
      "va": "0x005117F0",
      "length": 117,
      "name": "?sub_005117F0_DDrawEndDraw@@YIHXZ"
@@ -41042,17 +41047,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_00511720.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00511720",
-     "length": 205,
-     "name": "?sub_00511720_DDrawStartDraw@@YIHHEEE@Z"
-    }
    ]
   },
   {
