@@ -222,19 +222,6 @@ void __fastcall sub_0041A8D0_GetThread(unsigned long* pdwThreadId, void** phThre
     *phThread = ghStormThread_00779034;
 }
 
-// 0x0041A8F0
-static void MarkRequestPriority(int nValue, void* hWnd)
-{
-    if (!hWnd)
-        return;
-    EnterCriticalSection(&gBasePathLock_00779068);
-    for (D2StormWindowNodeStrc* p = (D2StormWindowNodeStrc*)gRequestList_00708360.Head(); (int)p > 0; p = p->pNext)
-    {
-        if (p->hWnd == hWnd)
-            p->nValue = nValue;
-    }
-    LeaveCriticalSection(&gBasePathLock_00779068);
-}
 
 // 0x0041A930
 void __stdcall sub_0041A930_CancelRead(void* pBuffer)
@@ -300,16 +287,3 @@ int __stdcall sub_0041A990_DdaClose(void* hFile)
 
 #include "gen/data/Source/Storm/Unknown_0041A450.inc"
 
-// 0x0041AA80
-void __stdcall SFilePrioritizeRequest(void* hWnd, int nValue)
-{
-    VALIDATEBEGIN;
-    VALIDATE(hWnd);
-    VALIDATEENDVOID;
-    if (nValid)
-    {
-        MarkRequestPriority(nValue > 0, hWnd);
-        if (nValue >= 1)
-            SetEvent(ghStormEvent_00779054);
-    }
-}

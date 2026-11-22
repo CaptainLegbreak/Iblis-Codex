@@ -5543,34 +5543,6 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_004135D0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004135D0",
-     "length": 353
-    },
-    {
-     "va": "0x00413800",
-     "length": 502
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/Storm/SOURCE/SMEM_004129D0.CPP",
    "rank": 0,
    "functions": [
@@ -5590,34 +5562,9 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00413490",
-     "length": 56,
-     "name": "?SStrChr@@YGPBDPBDD@Z"
-    },
-    {
      "va": "0x004134D0",
      "length": 62,
      "name": "?SStrChrR@@YGPBDPBDD@Z"
-    },
-    {
-     "va": "0x00413510",
-     "length": 61,
-     "name": "?sub_00413510_SStrChrDir@@YGPBDPBDDH@Z"
-    },
-    {
-     "va": "0x00413550",
-     "length": 64,
-     "name": "?SStrCmp@@YGHPBD0H@Z"
-    },
-    {
-     "va": "0x00413590",
-     "length": 64,
-     "name": "?SStrCmpI@@YGHPBD0I@Z"
-    },
-    {
-     "va": "0x00413750",
-     "length": 162,
-     "name": "?SStrLen@@YGIPBD@Z"
     },
     {
      "va": "0x00413A00",
@@ -5625,28 +5572,13 @@
      "name": "?sub_00413A00_VPrintf@@YAHPADIPBD0@Z"
     },
     {
-     "va": "0x00413AC0",
-     "length": 106,
-     "name": "?SStrToInt@@YGHPBD@Z"
-    },
-    {
      "va": "0x00413B30",
      "length": 77
-    },
-    {
-     "va": "0x00413B80",
-     "length": 350,
-     "name": "?SStrTokenize@@YGXPAPBDPADIPBDPAH@Z"
     },
     {
      "va": "0x00413CE0",
      "length": 216,
      "name": "?SStrHash@@YGIPBDII@Z"
-    },
-    {
-     "va": "0x00413DC0",
-     "length": 367,
-     "name": "?SStrHash64@@YG_KPBDI_K@Z"
     }
    ]
   },
@@ -5672,22 +5604,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_00413A40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00413A40",
-     "length": 54,
-     "name": "_SStrPrintf"
-    },
-    {
-     "va": "0x00413A80",
-     "length": 54,
-     "name": "_SStrVPrintf"
-    }
    ]
   },
   {
@@ -5719,6 +5635,64 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00413490",
+     "length": 56,
+     "name": "?SStrChr@@YGPBDPBDD@Z"
+    },
+    {
+     "va": "0x00413510",
+     "length": 61,
+     "name": "?sub_00413510_SStrChrDir@@YGPBDPBDDH@Z"
+    },
+    {
+     "va": "0x00413550",
+     "length": 64,
+     "name": "?SStrCmp@@YGHPBD0H@Z"
+    },
+    {
+     "va": "0x00413590",
+     "length": 64,
+     "name": "?SStrCmpI@@YGHPBD0I@Z"
+    },
+    {
+     "va": "0x004135D0",
+     "length": 353
+    },
+    {
+     "va": "0x00413750",
+     "length": 162,
+     "name": "?SStrLen@@YGIPBD@Z"
+    },
+    {
+     "va": "0x00413800",
+     "length": 502
+    },
+    {
+     "va": "0x00413A40",
+     "length": 54,
+     "name": "_SStrPrintf"
+    },
+    {
+     "va": "0x00413A80",
+     "length": 54,
+     "name": "_SStrVPrintf"
+    },
+    {
+     "va": "0x00413AC0",
+     "length": 106,
+     "name": "?SStrToInt@@YGHPBD@Z"
+    },
+    {
+     "va": "0x00413B80",
+     "length": 350,
+     "name": "?SStrTokenize@@YGXPAPBDPADIPBDPAH@Z"
+    },
+    {
+     "va": "0x00413DC0",
+     "length": 367,
+     "name": "?SStrHash64@@YG_KPBDI_K@Z"
+    },
+    {
      "va": "0x00414310",
      "length": 79,
      "name": "?SStrDup@@YGPADPBD@Z"
@@ -5727,6 +5701,14 @@
      "va": "0x00414370",
      "length": 305,
      "name": "?SStrToInt64@@YG_JPBD@Z"
+    },
+    {
+     "va": "0x004144C0",
+     "length": 547
+    },
+    {
+     "va": "0x004146F0",
+     "length": 566
     }
    ]
   },
@@ -5807,26 +5789,6 @@
      "va": "0x004144B0",
      "length": 15,
      "name": "_sub_004144B0_EnsureInit"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_004144C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004144C0",
-     "length": 547
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_004146F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004146F0",
-     "length": 566
     }
    ]
   },
@@ -6222,7 +6184,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00419C00.cpp",
+   "file": "Source/Storm/SOURCE/SFILE_00419C00.CPP",
    "rank": 1,
    "functions": [
     {
@@ -6246,7 +6208,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00419F30.cpp",
+   "file": "Source/Storm/SOURCE/SFILE_00419F30.CPP",
    "rank": 1,
    "functions": [
     {
@@ -6293,11 +6255,6 @@
      "name": "?sub_0041A8D0_GetThread@@YIXPAKPAPAX@Z"
     },
     {
-     "va": "0x0041A8F0",
-     "length": 63,
-     "name": "?MarkRequestPriority@@YAXHPAX@Z"
-    },
-    {
      "va": "0x0041A930",
      "length": 37,
      "name": "?sub_0041A930_CancelRead@@YGXPAX@Z"
@@ -6311,6 +6268,17 @@
      "va": "0x0041A990",
      "length": 231,
      "name": "?sub_0041A990_DdaClose@@YGHPAX@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SFILE_0041A8F0.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0041A8F0",
+     "length": 63,
+     "name": "?MarkRequestPriority@@YAXHPAX@Z"
     },
     {
      "va": "0x0041AA80",
@@ -6320,7 +6288,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0041AAD0.cpp",
+   "file": "Source/Storm/SOURCE/SFILE_0041AAD0.CPP",
    "rank": 1,
    "functions": [
     {
@@ -86920,7 +86888,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006C4D70.cpp",
+   "file": "Source/Storm/SOURCE/SCMD_006C4D70.CPP",
    "rank": 0,
    "functions": [
     {
@@ -86940,10 +86908,6 @@
     {
      "va": "0x006C4FB0",
      "length": 256
-    },
-    {
-     "va": "0x006C5150",
-     "length": 184
     }
    ]
   },
@@ -86951,10 +86915,6 @@
    "file": "Source/Storm/Unknown_006C7000.cpp",
    "rank": 1,
    "functions": [
-    {
-     "va": "0x006C7000",
-     "length": 38
-    },
     {
      "va": "0x006C7030",
      "length": 251
@@ -87016,6 +86976,10 @@
     {
      "va": "0x006C50D0",
      "length": 117
+    },
+    {
+     "va": "0x006C5150",
+     "length": 184
     },
     {
      "va": "0x006C5210",
@@ -87116,6 +87080,10 @@
     {
      "va": "0x006C6E70",
      "length": 399
+    },
+    {
+     "va": "0x006C7000",
+     "length": 38
     }
    ]
   },

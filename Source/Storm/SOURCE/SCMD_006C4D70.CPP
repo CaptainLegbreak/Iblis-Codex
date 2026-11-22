@@ -203,29 +203,3 @@ void __fastcall EmitCommandError(D2ErrorCallback callback, unsigned int error, c
     GenerateError(callback, error + 1, context + 1);
 }
 
-static
-// 0x006C5150
-int __stdcall sub_006C5150_ReadTgaPalette(const D2TargaHeaderStrc* header, const unsigned char* source, int size, tagPALETTEENTRY* palette)
-{
-    int bytesPerColor = (header->bytes[7] + 7) / 8;
-    int index = *(const unsigned short*)&header->bytes[3];
-    int end = index + *(const unsigned short*)&header->bytes[5];
-    if ((end - index) * bytesPerColor != size)
-        return 0;
-    SMemZero(palette, index * sizeof(tagPALETTEENTRY));
-    for (; index < end; ++index)
-    {
-        palette[index].peRed = source[2];
-        palette[index].peGreen = source[1];
-        palette[index].peBlue = source[0];
-        palette[index].peFlags = bytesPerColor > 3 ? source[3] : 0;
-        source += bytesPerColor;
-    }
-    SMemZero(palette + index, (256 - index) * sizeof(tagPALETTEENTRY));
-    return 1;
-}
-
-int __fastcall EmitReadTgaPalette(const D2TargaHeaderStrc* header, const unsigned char* source, int size, tagPALETTEENTRY* palette)
-{
-    return sub_006C5150_ReadTgaPalette(header + 1, source, size, palette);
-}
