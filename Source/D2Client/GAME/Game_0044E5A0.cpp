@@ -139,7 +139,7 @@ char gszModulePath_007A0320[260]; // 0x007A0320
 
 int gnLaunchResult_007A0440; // 0x007A0440
 
-extern "C" void* __cdecl memset(void*,int,unsigned int); // 0x00681EF0
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 #pragma intrinsic(memset)
 
