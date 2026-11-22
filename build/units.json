@@ -16280,6 +16280,10 @@
      "name": "?sub_004526C0_BuildImmunityText@@YAXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004527D0",
+     "length": 792
+    },
+    {
      "va": "0x00452E50",
      "length": 518
     },
@@ -16324,6 +16328,11 @@
      "name": "?sub_00453AD0@@YAXXZ"
     },
     {
+     "va": "0x00453B30",
+     "length": 120,
+     "name": "?sub_00453B30_DrawStoredUnitNumber@@YAXXZ"
+    },
+    {
      "va": "0x00453EE0",
      "length": 210
     },
@@ -16358,6 +16367,11 @@
      "name": "?sub_004545B0_UpdateGoldPanel@@YAXXZ"
     },
     {
+     "va": "0x004545C0",
+     "length": 62,
+     "name": "?sub_004545C0_TogglePanelHandlers@@YIXH@Z"
+    },
+    {
      "va": "0x00454650",
      "length": 229,
      "name": "?sub_00454650_ReadWholeFile@@YIPAXPBDPAK@Z"
@@ -16373,14 +16387,53 @@
      "name": "sub_00454840"
     },
     {
+     "va": "0x00454980",
+     "length": 39,
+     "name": "?sub_00454980@@YAXXZ"
+    },
+    {
      "va": "0x004549B0",
      "length": 10,
      "name": "?sub_004549B0_ToggleListDialog@@YAXXZ"
     },
     {
+     "va": "0x004549C0",
+     "length": 12,
+     "name": "?sub_004549C0_IsPanelAllocated@@YAHXZ"
+    },
+    {
+     "va": "0x004549D0",
+     "length": 18
+    },
+    {
+     "va": "0x00454F30",
+     "length": 1400,
+     "name": "?sub_00454F30_DrawUnitHover@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x00455720",
      "length": 952,
      "name": "?sub_00455720_SetPanelHandlers@@YIXH@Z"
+    },
+    {
+     "va": "0x00455AE0",
+     "length": 1080,
+     "name": "?sub_00455AE0_ClearPanelHandlers@@YIXH@Z"
+    },
+    {
+     "va": "0x004565E0",
+     "length": 527,
+     "name": "?sub_004565E0_DrawLoadingScreen@@YIXH@Z"
+    },
+    {
+     "va": "0x004567F0",
+     "length": 380,
+     "name": "?sub_004567F0_ToggleMiniPanel@@YAXXZ"
+    },
+    {
+     "va": "0x00456EE0",
+     "length": 1044,
+     "name": "?sub_00456EE0_DrawUIPanels@@YIXPAUD2ViewStrc@@@Z"
     },
     {
      "va": "0x00457510",
@@ -17651,79 +17704,6 @@
      "va": "0x004525F0",
      "length": 195
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/ui_004527D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004527D0",
-     "length": 792
-    },
-    {
-     "va": "0x00453B30",
-     "length": 120,
-     "name": "?sub_00453B30_DrawStoredUnitNumber@@YAXXZ"
-    },
-    {
-     "va": "0x004545C0",
-     "length": 62,
-     "name": "?sub_004545C0_TogglePanelHandlers@@YIXH@Z"
-    },
-    {
-     "va": "0x00454980",
-     "length": 39,
-     "name": "?sub_00454980@@YAXXZ"
-    },
-    {
-     "va": "0x004549C0",
-     "length": 12,
-     "name": "?sub_004549C0_IsPanelAllocated@@YAHXZ"
-    },
-    {
-     "va": "0x004549D0",
-     "length": 18
-    },
-    {
-     "va": "0x00454F30",
-     "length": 1400,
-     "name": "?sub_00454F30_DrawUnitHover@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00455AE0",
-     "length": 1080,
-     "name": "?sub_00455AE0_ClearPanelHandlers@@YIXH@Z"
-    },
-    {
-     "va": "0x004565E0",
-     "length": 527,
-     "name": "?sub_004565E0_DrawLoadingScreen@@YIXH@Z"
-    },
-    {
-     "va": "0x004567F0",
-     "length": 380,
-     "name": "?sub_004567F0_ToggleMiniPanel@@YAXXZ"
-    },
-    {
-     "va": "0x00456EE0",
-     "length": 1044,
-     "name": "?sub_00456EE0_DrawUIPanels@@YIXPAUD2ViewStrc@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
