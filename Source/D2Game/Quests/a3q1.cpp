@@ -119,27 +119,6 @@ D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitS
 
 void __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
-// 0x005B7010
-void __fastcall ACT3Q0_InitQuestData(D2QuestDataStrc* pQuestData)
-{
-    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
-    pQuestData->pCallback[11] = ACT3Q0_Callback11_ScrollMessage;
-    pQuestData->pCallback[0] = ACT3Q0_Callback00_NpcActivate;
-    pQuestData->pCallback[13] = ACT3Q0_Callback13_PlayerStartedGame;
-    pQuestData->pNPCMessages = gpAct3Q0NpcMessages;
-    pQuestData->bActive = 1;
-    pQuestData->fState = 0;
-    pQuestData->fLastState = 0;
-
-    D2Act3Quest0Strc* pQuestDataEx = (D2Act3Quest0Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act3Quest0Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q0.cpp", 148, 0);
-    pQuestData->pQuestDataEx = pQuestDataEx;
-    memset(pQuestDataEx, 0x00, sizeof(D2Act3Quest0Strc));
-
-    pQuestData->eFilter = 16;
-    pQuestData->pfStatusFilter = ACT3Q7_StatusFilterCallback;
-    pQuestData->pfActiveFilter = ACT3Q0_ActiveFilterCallback;
-}
-
 // 0x005B70B0
 void __fastcall OBJECTS_InitFunction49_HratliStart(D2ObjInitFnStrc* pOp)
 {

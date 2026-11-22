@@ -60337,11 +60337,28 @@
      "va": "0x0059E3F0",
      "length": 166,
      "name": "?ACT2Q8_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Quests/a2q8.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x0059E530",
      "length": 132,
      "name": "?ACT2Q8_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Quests/a3q0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x005B7010",
+     "length": 157,
+     "name": "?ACT3Q0_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
     }
    ]
   },
@@ -64623,11 +64640,6 @@
    "file": "Source/D2Game/Quests/a3q1.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x005B7010",
-     "length": 157,
-     "name": "?ACT3Q0_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    },
     {
      "va": "0x005B70B0",
      "length": 112,
