@@ -1689,8 +1689,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/text.cpp": {
-   "bytes": 2852,
-   "definitions": 23,
+   "bytes": 2938,
+   "definitions": 26,
    "externs": [
     "extern \"C\" void __cdecl D2CLIENT_CloseNPCTalk(); // 0x004A17D0",
     "extern \"C\" void __cdecl TEXT_EatMsg(); // 0x0049DA10",
@@ -1702,7 +1702,8 @@
     "extern \"C\" void __cdecl sub_004A61A0_KeyUpMsgHandler(); // 0x004A61A0",
     "extern \"C\" void __cdecl TEXT_WheelCaptureMsg(); // 0x004A6310",
     "extern \"C\" void __cdecl TEXT_ButtonCaptureMsg(); // 0x004A6350",
-    "extern \"C\" void __cdecl sub_004A63B0_WheelMsgHandler(); // 0x004A63B0"
+    "extern \"C\" void __cdecl sub_004A63B0_WheelMsgHandler(); // 0x004A63B0",
+    "extern \"C\" char gaKeyConfigEntries[]; // 0x00724268"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/text.inc",
@@ -1797,20 +1798,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/QuestLog.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/UI/text_0049DC40.cpp": {
-   "bytes": 86,
-   "definitions": 3,
-   "externs": [
-    "extern \"C\" void __cdecl TEXT_ResetKeyConfigDefaults(); // 0x004A5010",
-    "extern \"C\" void __cdecl TEXT_AcceptKeyConfig(); // 0x004A5020",
-    "extern \"C\" void __cdecl TEXT_CancelKeyConfig(); // 0x004A5040",
-    "extern \"C\" char gaKeyConfigEntries[]; // 0x00724268"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UI/text_004A5060.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -54851,7 +54838,7 @@
    "cname": "gData_007246D8",
    "declared": true,
    "decorated": "?gaKeyConfigButtons@@3PAUD2SliderButtonStrc@@A",
-   "file": "Source/D2Client/UI/text_0049DC40.cpp",
+   "file": "Source/D2Client/UI/text.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007246D8_t gData_007246D8; // 0x007246D8",
    "head": "extern \"C\" struct d2data_007246D8_t gData_007246D8 = ",
@@ -54896,7 +54883,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/text_0049DC40.cpp",
+   "file": "Source/D2Client/UI/text.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern int gnScreenWidth_0071146C = ",
@@ -54921,7 +54908,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/text_0049DC40.cpp",
+   "file": "Source/D2Client/UI/text.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2ClientListEntryStrc* gpListEntries = ",

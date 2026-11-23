@@ -24408,6 +24408,11 @@
      "name": "TEXT_LoadPopupHireling"
     },
     {
+     "va": "0x0049AAA0",
+     "length": 78,
+     "name": "?TEXT_GetCenteredStringX@@YIHGH@Z"
+    },
+    {
      "va": "0x0049C580",
      "length": 206,
      "name": "?TEXT_LoadWaypointPanelCels@@YAXXZ"
@@ -24527,6 +24532,11 @@
      "name": "TEXT_CloneStringList"
     },
     {
+     "va": "0x0049DC40",
+     "length": 657,
+     "name": "?TEXT_DrawMessageList@@YAXXZ"
+    },
+    {
      "va": "0x0049DEE0",
      "length": 398
     },
@@ -24568,6 +24578,15 @@
      "name": "?TEXT_ClearHint@@YAXXZ"
     },
     {
+     "va": "0x0049E8F0",
+     "length": 540,
+     "name": "?TEXT_FormatPartyEvent@@YAHPAUUnicode@@PAUD2GSPacketSrv5A@@@Z"
+    },
+    {
+     "va": "0x0049EB10",
+     "length": 2232
+    },
+    {
      "va": "0x0049F3D0",
      "length": 61,
      "name": "?TEXT_FreeHoverText@@YIXPAUD2HoverTextStrc@@@Z"
@@ -24576,6 +24595,11 @@
      "va": "0x0049F410",
      "length": 121,
      "name": "?TEXT_SetHoverText@@YGXHPBDPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0049F490",
+     "length": 1058,
+     "name": "?TEXT_HandleChatPacket@@YIXPAUD2GSPacketSrv26@@@Z"
     },
     {
      "va": "0x0049F960",
@@ -24653,6 +24677,10 @@
      "va": "0x004A0D20",
      "length": 333,
      "name": "?TEXT_DrawObjectHoverText@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004A0E70",
+     "length": 609
     },
     {
      "va": "0x004A1510",
@@ -24793,6 +24821,10 @@
      "name": "?TEXT_CancelKeyConfig@@YAXXZ"
     },
     {
+     "va": "0x004A5060",
+     "length": 299
+    },
+    {
      "va": "0x004A5190",
      "length": 78,
      "name": "?TEXT_InitTextSlider@@YAXXZ"
@@ -24806,6 +24838,10 @@
      "va": "0x004A5200",
      "length": 107,
      "name": "?TEXT_ToggleKeyConfigPanel@@YIXH@Z"
+    },
+    {
+     "va": "0x004A5270",
+     "length": 1798
     },
     {
      "va": "0x004A59D0",
@@ -24931,8 +24967,32 @@
      "name": "?TEXT_InitNpcMenu@@YAXXZ"
     },
     {
+     "va": "0x004B9010",
+     "length": 66,
+     "name": "?TEXT_SetNameFromPacket@@YIXPAUD2NamePacketStrc@@@Z"
+    },
+    {
      "va": "0x004BF2F0",
      "length": 306
+    },
+    {
+     "va": "0x004E48B0",
+     "length": 268,
+     "name": "?TEXT_AppendUndeadDamageBonus@@YIXPAUD2UnitStrc@@PAUUnicode@@H@Z"
+    },
+    {
+     "va": "0x004E6720",
+     "length": 163,
+     "name": "?TEXT_BuildItemPropTextB@@YIXPAUD2UnitStrc@@HHPAUUnicode@@HH@Z"
+    },
+    {
+     "va": "0x004ED3F0",
+     "length": 142,
+     "name": "?TEXT_DrawHintText@@YGXHH@Z"
+    },
+    {
+     "va": "0x006CACD0",
+     "length": 10
     }
    ],
    "flags": [
@@ -26056,86 +26116,6 @@
      "length": 153,
      "name": "TEXT_UpdateSkillButtonHover"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/text_0049DC40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0049AAA0",
-     "length": 78,
-     "name": "?TEXT_GetCenteredStringX@@YIHGH@Z"
-    },
-    {
-     "va": "0x0049DC40",
-     "length": 657,
-     "name": "?TEXT_DrawMessageList@@YAXXZ"
-    },
-    {
-     "va": "0x0049E8F0",
-     "length": 540,
-     "name": "?TEXT_FormatPartyEvent@@YAHPAUUnicode@@PAUD2GSPacketSrv5A@@@Z"
-    },
-    {
-     "va": "0x0049EB10",
-     "length": 2232
-    },
-    {
-     "va": "0x0049F490",
-     "length": 1058,
-     "name": "?TEXT_HandleChatPacket@@YIXPAUD2GSPacketSrv26@@@Z"
-    },
-    {
-     "va": "0x004A0E70",
-     "length": 609
-    },
-    {
-     "va": "0x004A5060",
-     "length": 299
-    },
-    {
-     "va": "0x004A5270",
-     "length": 1798
-    },
-    {
-     "va": "0x004B9010",
-     "length": 66,
-     "name": "?TEXT_SetNameFromPacket@@YIXPAUD2NamePacketStrc@@@Z"
-    },
-    {
-     "va": "0x004E48B0",
-     "length": 268,
-     "name": "?TEXT_AppendUndeadDamageBonus@@YIXPAUD2UnitStrc@@PAUUnicode@@H@Z"
-    },
-    {
-     "va": "0x004E6720",
-     "length": 163,
-     "name": "?TEXT_BuildItemPropTextB@@YIXPAUD2UnitStrc@@HHPAUUnicode@@HH@Z"
-    },
-    {
-     "va": "0x004ED3F0",
-     "length": 142,
-     "name": "?TEXT_DrawHintText@@YGXHH@Z"
-    },
-    {
-     "va": "0x006CACD0",
-     "length": 10
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
