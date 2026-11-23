@@ -303,6 +303,7 @@ void __fastcall WALL2_FreeViewCells(D2ViewStrc* pView)
     pView->nField0x38 = 0;
 }
 
+// 0x004DCF70
 static s32 __cdecl sub_004DCF70_Inside(Context* context,s32 y,s32 x)
 {
     x-=FIELD(s32,context,0xEA68);
@@ -338,6 +339,7 @@ static inline u32 UNIT_GetFlagC8_7(Unit* unit)
     return (FIELD(u32,unit,200)>>7)&1;
 }
 
+// 0x004DCFA0
 static void __cdecl sub_004DCFA0_AddUnit(Cell* cell,Context* context,Unit* unit)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
@@ -362,6 +364,7 @@ static void __cdecl sub_004DCFA0_AddUnit(Cell* cell,Context* context,Unit* unit)
     last->next=node;
 }
 
+// 0x004DD060
 static s32 __stdcall sub_004DD060_Occludes(Room* room,Tile* tile)
 {
     if(gVar_0072A968_Mode)
@@ -545,6 +548,7 @@ static void __stdcall sub_004DD550_AddFloor(Cell* cell,Room* room,Context* conte
 }
 
 // @ref 0x004DD600
+// 0x004DD600
 static void __stdcall sub_004DD600_AddSpecial(Cell* cell,Context* context,Unit* unit)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
@@ -555,26 +559,26 @@ static void __stdcall sub_004DD600_AddSpecial(Cell* cell,Context* context,Unit* 
     node->next=0;
     s32 x;
     s32 type=FIELD(s32,unit,0);
-    if(type==2 || (type>3 && type<=5)) x=FIELD(s32,FIELD(Path*,unit,44),12);
-    else { Path* path=FIELD(Path*,unit,44); x=path ? sub_006488C0_PathX(path) : 0; }
+    if(type==2 || (type>3 && type<=5)) x=FIELD(s32,FIELD(D2DynamicPathStrc*,unit,44),12);
+    else { D2DynamicPathStrc* path=FIELD(D2DynamicPathStrc*,unit,44); x=path ? PATH_GetXPosition(path) : 0; }
     node->x=8*x;
     s32 y;
     type=FIELD(s32,unit,0);
-    if(type==2 || (type>3 && type<=5)) y=FIELD(s32,FIELD(Path*,unit,44),16);
-    else { Path* path=FIELD(Path*,unit,44); y=path ? sub_00648900_PathY(path) : 0; }
+    if(type==2 || (type>3 && type<=5)) y=FIELD(s32,FIELD(D2DynamicPathStrc*,unit,44),16);
+    else { D2DynamicPathStrc* path=FIELD(D2DynamicPathStrc*,unit,44); y=path ? PATH_GetYPosition(path) : 0; }
     node->y=8*y;
     FIELD(u32,context,0)|=gVar_006CE274_Flags;
     Node* last=FIELD(Node*,cell,16);
     if(!last) { FIELD(Node*,cell,16)=node; return; }
     while(last)
     {
-        Node* next=last->next;
-        if(!next) break;
-        last=next;
+        if(!last->next) break;
+        last=last->next;
     }
     last->next=node;
 }
 
+// 0x004DD6E0
 static void __stdcall sub_004DD6E0_AddOverlay(Cell* cell,Context* context,Unit* unit)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
