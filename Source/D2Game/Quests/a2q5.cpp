@@ -340,7 +340,7 @@ void __fastcall ACT2Q5_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
             QUESTS_CreateTimer(pQuestData, ACT2Q5_Timer_StatusCycler, 3);
         }
 
-        pQuestDataEx->unk0x09 = 0;
+        pQuestDataEx->bCompletionSoundAttached = 0;
         pQuestDataEx->bSummonerKilled = 1;
         pQuestDataEx->pRoom = UNITS_GetRoom(pQuestArg->pTarget);
 
@@ -402,7 +402,7 @@ void __fastcall ACT2Q5_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pCallback[8] = ACT2Q5_Callback08_MonsterKilled;
 
     pQuestDataEx->bSummonerKilled = 0;
-    pQuestDataEx->unk0x01 = 0;
+    pQuestDataEx->bSummonerActivated = 0;
     pQuestDataEx->bStatusTimerStarted = 0;
     pQuestDataEx->pRoom = 0;
 }
@@ -417,9 +417,9 @@ void __fastcall ACT2Q5_OnSummonerActivated(D2GameStrc* pGame)
     }
 
     D2Act2Quest5Strc* pQuestDataEx = (D2Act2Quest5Strc*)pQuestData->pQuestDataEx;
-    if (!pQuestDataEx->unk0x01)
+    if (!pQuestDataEx->bSummonerActivated)
     {
-        pQuestDataEx->unk0x01 = 1;
+        pQuestDataEx->bSummonerActivated = 1;
     }
 
     if (!pQuestData->fState)

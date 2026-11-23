@@ -638,10 +638,10 @@ int __fastcall D2Win_10055(D2WinTextBoxStrc* ptTextData)
     D2_ASSERT(ptTextData->controlHeader.eType == 4, 0x291);
 
     D2Win_10127_SetFont(ptTextData->eFont);
-    const int nHeight = ptTextData->controlHeader.nHeight - 2 * ptTextData->unk0x44;
+    const int nHeight = ptTextData->controlHeader.nHeight - 2 * ptTextData->nTextInsetY;
     TEXTBOX_SetLineGapForFont(ptTextData->eFont);
-    const int nLineHeight = D2Win_10125() + ptTextData->unk0xA8;
-    return (nHeight - nLineHeight) / (nLineHeight + ptTextData->unk0xA4) + 1;
+    const int nLineHeight = D2Win_10125() + ptTextData->nLineSpacing;
+    return (nHeight - nLineHeight) / (nLineHeight + ptTextData->nLineGap) + 1;
 }
 
 // 0x004FBB30
@@ -686,7 +686,7 @@ void __fastcall D2Win_10059(D2WinTextBoxStrc* pTextBox, int nColumn, int a3)
     D2_ASSERT(pTextBox, 0x2EF);
     D2_ASSERT(pTextBox->controlHeader.eType == 4, 0x2F0);
     D2_ASSERT((nColumn >= 0) && (nColumn < pTextBox->nNumColumns), 0x2F2);
-    pTextBox->unk0x68[nColumn] = a3;
+    pTextBox->nColumnOffsets[nColumn] = a3;
 }
 
 // 0x004FBCD0
@@ -695,7 +695,7 @@ void __fastcall D2Win_10060(D2WinTextBoxStrc* ptTextData, int nColumn, int a3)
     D2_ASSERT(ptTextData, 0x2FC);
     D2_ASSERT(ptTextData->controlHeader.eType == 4, 0x2FD);
     D2_ASSERT(nColumn >= 0, 0x2FF);
-    ptTextData->unk0x7C[nColumn] = a3;
+    ptTextData->nColumnAlignFlags[nColumn] = a3;
 }
 
 // 0x004FBD20
@@ -801,24 +801,24 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
     TEXTBOX_SetLineGapForFont(pTextBox->eFont);
     D2Win_10127_SetFont(pTextBox->eFont);
 
-    const int v51 = pTextBox->controlHeader.nImageX + pTextBox->unk0x40;
-    int nY = D2Win_10125() + (pTextBox->controlHeader.nImageY - pTextBox->controlHeader.nHeight) + pTextBox->unk0x44;
+    const int v51 = pTextBox->controlHeader.nImageX + pTextBox->nTextInsetX;
+    int nY = D2Win_10125() + (pTextBox->controlHeader.nImageY - pTextBox->controlHeader.nHeight) + pTextBox->nTextInsetY;
 
     TEXTBOX_SetLineGapForFont(pTextBox->eFont);
 
-    const int v8 = D2Win_10125() + pTextBox->unk0xA8;
-    int v49 = pTextBox->controlHeader.nHeight - 2 * pTextBox->unk0x44;
-    const int nBoxWidth = pTextBox->controlHeader.nWidth - 2 * pTextBox->unk0x40;
+    const int v8 = D2Win_10125() + pTextBox->nLineSpacing;
+    int v49 = pTextBox->controlHeader.nHeight - 2 * pTextBox->nTextInsetY;
+    const int nBoxWidth = pTextBox->controlHeader.nWidth - 2 * pTextBox->nTextInsetX;
 
     if (pTextBox->dwTextBoxFlags & 0x40)
     {
         D2WinTextBoxLineStrc* pCurrentLine = pTextBox->pCurrentLine;
         if (pCurrentLine)
         {
-            pTextBox->unk0x9C -= 2;
-            if (pTextBox->unk0x9C < -D2Win_10121_GetTextWidth(pCurrentLine->pColumns[0]))
+            pTextBox->nScrollOffset -= 2;
+            if (pTextBox->nScrollOffset < -D2Win_10121_GetTextWidth(pCurrentLine->pColumns[0]))
             {
-                pTextBox->unk0x9C = nBoxWidth;
+                pTextBox->nScrollOffset = nBoxWidth;
             }
         }
     }
@@ -828,10 +828,10 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
         D2WinTextBoxLineStrc* pCurrentLine = pTextBox->pCurrentLine;
         if (pCurrentLine)
         {
-            pTextBox->unk0x9C -= 2;
-            if (pTextBox->unk0x9C < -v8)
+            pTextBox->nScrollOffset -= 2;
+            if (pTextBox->nScrollOffset < -v8)
             {
-                pTextBox->unk0x9C = 0;
+                pTextBox->nScrollOffset = 0;
                 pTextBox->pCurrentLine = pCurrentLine->pNext;
             }
         }
@@ -854,10 +854,10 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
                 int v48 = pTextBox->controlHeader.nWidth;
                 if (i < pTextBox->nNumColumns - 1)
                 {
-                    v48 = pTextBox->unk0x68[i + 1];
+                    v48 = pTextBox->nColumnOffsets[i + 1];
                 }
 
-                const int v16 = pTextBox->unk0x68[i];
+                const int v16 = pTextBox->nColumnOffsets[i];
                 int nX;
                 if (v16)
                 {
@@ -866,7 +866,7 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
                     int v18;
                     if (i + 1 < pTextBox->nNumColumns)
                     {
-                        v18 = pTextBox->unk0x68[i + 1] - v16;
+                        v18 = pTextBox->nColumnOffsets[i + 1] - v16;
                         v48 = v18;
                     }
                     else
@@ -875,7 +875,7 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
                         v18 = v48;
                     }
 
-                    if (pTextBox->unk0x7C[i] & 2)
+                    if (pTextBox->nColumnAlignFlags[i] & 2)
                     {
                         // the original keeps the column pointer in a stack slot and reloads it here; a plain read is taken again from pLine->pColumns[i]
                         int nOffset = (v18 - D2Win_10121_GetTextWidth(*(const Unicode* volatile*)&wszColumn)) / 2;
@@ -885,7 +885,7 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
                         }
                         nX += nOffset;
                     }
-                    else if (pTextBox->unk0x7C[i] & 0x10)
+                    else if (pTextBox->nColumnAlignFlags[i] & 0x10)
                     {
                         int nTextWidth = D2Win_10121_GetTextWidth(wszColumn);
                         if (nTextWidth < 0)
@@ -928,7 +928,7 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
 
                 if (pTextBox->nCurrentLine == nCounter + pTextBox->nLine && (pTextBox->dwTextBoxFlags & 1))
                 {
-                    const int nLineColor = pLine->unk0x14 != 4 ? pLine->unk0x14 : 0;
+                    const int nLineColor = pLine->nColor != 4 ? pLine->nColor : 0;
                     if (!i)
                     {
                         FONT_DrawTextWithBackground(wszText, nX, nY, nBoxWidth, nColor, 5, nLineColor);
@@ -940,25 +940,25 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
                 }
                 else if (pTextBox->dwTextBoxFlags & 0x40)
                 {
-                    sub_00501FE0_DrawTickerText(pLine->pColumns[i], nX, nY, pLine->unk0x14, pTextBox->unk0x9C, nBoxWidth);
+                    sub_00501FE0_DrawTickerText(pLine->pColumns[i], nX, nY, pLine->nColor, pTextBox->nScrollOffset, nBoxWidth);
                 }
                 else if (pTextBox->dwTextBoxFlags & 0x80)
                 {
-                    D2Win_10117_DrawText(wszText, nX, nY + pTextBox->unk0x9C, pLine->unk0x14, 0);
+                    D2Win_10117_DrawText(wszText, nX, nY + pTextBox->nScrollOffset, pLine->nColor, 0);
                 }
                 else
                 {
-                    D2Win_10117_DrawText(wszText, nX, nY, pLine->unk0x14, 0);
+                    D2Win_10117_DrawText(wszText, nX, nY, pLine->nColor, 0);
                 }
             }
 
-            const int v34 = (!pLine->unk0x18 ? pTextBox->unk0xA4 : pTextBox->unk0xA0) + v8;
+            const int v34 = (!pLine->bWrappedSegment ? pTextBox->nLineGap : pTextBox->nWrappedLineGap) + v8;
             ++nCounter;
             nY += v34;
             v49 -= v34;
             pLine = pLine->pNext;
         }
-        while (pLine && v49 >= (!pLine->unk0x18 ? pTextBox->unk0xA4 : pTextBox->unk0xA0) + v8);
+        while (pLine && v49 >= (!pLine->bWrappedSegment ? pTextBox->nLineGap : pTextBox->nWrappedLineGap) + v8);
     }
 
     D2Win_10127_SetFont(1);
@@ -982,7 +982,7 @@ int __stdcall TEXTBOX_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
         const int nY = pTextBox->controlHeader.nHeight - pTextBox->controlHeader.nImageY + gnMouseY;
         D2Win_10127_SetFont(pTextBox->eFont);
         TEXTBOX_SetLineGapForFont(pTextBox->eFont);
-        pTextBox->nCurrentLine = pTextBox->nLine + (nY - pTextBox->unk0x44) / (D2Win_10125() + pTextBox->unk0xA8);
+        pTextBox->nCurrentLine = pTextBox->nLine + (nY - pTextBox->nTextInsetY) / (D2Win_10125() + pTextBox->nLineSpacing);
         if (pTextBox->dwTextBoxFlags & 8)
         {
             pTextBox->nCurrentLine = D2_MIN(D2_MAX(pTextBox->nCurrentLine, 0), pTextBox->nNumLines - 1);
@@ -1098,8 +1098,8 @@ static inline int sub_B03_AddLineRecord(D2WinTextBoxStrc* pTextBox, const Unicod
     pLine->pColumns[2] = 0;
     pLine->pColumns[3] = 0;
     pLine->pColumns[4] = 0;
-    pLine->unk0x14 = nColor;
-    pLine->unk0x18 = bIsWrapped;
+    pLine->nColor = nColor;
+    pLine->bWrappedSegment = bIsWrapped;
     pLine->pNext = 0;
 
     int bScrolled = 0;
@@ -1166,8 +1166,8 @@ D2WinTextBoxStrc* __fastcall D2Win_10042_TEXTBOX_Create(int nX, int nY, int nWid
     pTextBox->controlHeader.nWidth = nWidth;
     pTextBox->controlHeader.nHeight = nHeight;
     pTextBox->dwTextBoxFlags = dwTextBoxFlags;
-    pTextBox->unk0x40 = nInsetX;
-    pTextBox->unk0x44 = nInsetY;
+    pTextBox->nTextInsetX = nInsetX;
+    pTextBox->nTextInsetY = nInsetY;
     pTextBox->controlHeader.pfDraw = (D2WinControlFn)TEXTBOX_Draw;
     pTextBox->controlHeader.pfHandleMouseDown = TEXTBOX_HandleMouseDown;
     pTextBox->controlHeader.pfHandleMouseUp = 0;
@@ -1196,7 +1196,7 @@ D2WinTextBoxStrc* __fastcall D2Win_10042_TEXTBOX_Create(int nX, int nY, int nWid
     }
 
     TEXTBOX_SetLineGapForFont(pTextBox->eFont);
-    pTextBox->unk0xA8 = gnTextBoxLineGap;
+    pTextBox->nLineSpacing = gnTextBoxLineGap;
 
     if (dwTextBoxFlags & 4)
     {
@@ -1265,7 +1265,7 @@ int __fastcall D2Win_10051(D2WinTextBoxStrc* ptTextData, const Unicode* wszText,
 
     if (!(ptTextData->dwTextBoxFlags & 0x20))
     {
-        int nMaxWidth = ptTextData->controlHeader.nWidth - 2 * ptTextData->unk0x40;
+        int nMaxWidth = ptTextData->controlHeader.nWidth - 2 * ptTextData->nTextInsetX;
         if (nIndent == 2)
         {
             Unicode wszSpaces[6];
@@ -1299,8 +1299,8 @@ int __fastcall D2Win_10051(D2WinTextBoxStrc* ptTextData, const Unicode* wszText,
     pLine->pColumns[2] = 0;
     pLine->pColumns[3] = 0;
     pLine->pColumns[4] = 0;
-    pLine->unk0x14 = nColor;
-    pLine->unk0x18 = bIsWrapped;
+    pLine->nColor = nColor;
+    pLine->bWrappedSegment = bIsWrapped;
     pLine->pNext = 0;
     int bScrolled = 0;
 
@@ -1360,8 +1360,8 @@ int __fastcall D2Win_10198(D2WinTextBoxStrc* ptTextData, const Unicode* pText, i
             pLine->pColumns[j] = 0;
         }
 
-        pLine->unk0x14 = nValue;
-        pLine->unk0x18 = nFlag;
+        pLine->nColor = nValue;
+        pLine->bWrappedSegment = nFlag;
         pLine->pNext = 0;
 
         if (!ptTextData->pFirstLine)
@@ -1406,7 +1406,7 @@ int __fastcall TEXTBOX_AddWrappedText(D2WinTextBoxStrc* pTextBox, const Unicode*
     D2_ASSERT(pTextBox, 0x482);
     D2_ASSERT(pTextBox->controlHeader.eType == 4, 0x483);
 
-    int nMaxWidth = pTextBox->controlHeader.nWidth - 2 * pTextBox->unk0x40;
+    int nMaxWidth = pTextBox->controlHeader.nWidth - 2 * pTextBox->nTextInsetX;
     if (nIndent == 2)
     {
         Unicode wszSpaces[6];

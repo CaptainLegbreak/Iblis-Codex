@@ -724,7 +724,7 @@ int __fastcall SKILLS_AuraCallback_BasicAura(D2AuraCallbackStrc* pAuraCallback, 
         if (nStat == 110)
         {
             if (SKILLS_ShortenPoisonAndCurses(pAuraCallback->pGame, pUnit, pAuraStat[6]))
-                ++pArgs->unk0x40;
+                ++pArgs->nAffectedUnits;
             continue;
         }
         int nValue = SKILLS_ApplyResistanceImmunityPenalty(pUnit, nStat, pAuraStat[6]);
@@ -748,7 +748,7 @@ int __fastcall SKILLS_AuraCallback_BasicAura(D2AuraCallbackStrc* pAuraCallback, 
             }
             STATLIST_SetStat(pStatList, nStat, nValue, 0);
             if (nStat == 68) STATLIST_SetStat(pStatList, STAT_OTHER_ANIMRATE, nValue, 0);
-            ++pArgs->unk0x40;
+            ++pArgs->nAffectedUnits;
         }
         else
         {
@@ -763,7 +763,7 @@ int __fastcall SKILLS_AuraCallback_BasicAura(D2AuraCallbackStrc* pAuraCallback, 
             if (nValue != nOldValue)
             {
                 STATLIST_SetUnitStat(pUnit, nStat, nValue, 0);
-                ++pArgs->unk0x40;
+                ++pArgs->nAffectedUnits;
             }
         }
     }
@@ -853,7 +853,7 @@ int __fastcall SKILLS_SrvDo065_BasicAura(D2GameStrc* pGame, D2UnitStrc* pUnit, i
         {
             if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
             {
-                if (args.unk0x40 > 0)
+                if (args.nAffectedUnits > 0)
                 {
                     STATES_ToggleState(pUnit, STATE_NOMANAREGEN, 1);
                     D2GAME_SKILLMANA_AuraConsume_6FD10C90(pUnit, nManaCost);
@@ -964,7 +964,7 @@ int __fastcall SKILLS_SrvDo066_HolyFire_HolyShock_Sanctuary_Conviction(D2GameStr
     args2.nDuration = nFrame;
     args2.nAuraState = pSkillsTxtRecord->wAuraTargetState;
     args2.pDamage = 0;
-    args2.unk0x40 = 0;
+    args2.nAffectedUnits = 0;
     args2.nPassiveState = 0;
 
     if (pSkillsTxtRecord->wAuraTargetState >= 0 && pSkillsTxtRecord->wAuraTargetState < sgptDataTables->nStatesTxtRecordCount)
@@ -1009,7 +1009,7 @@ int __fastcall SKILLS_SrvDo066_HolyFire_HolyShock_Sanctuary_Conviction(D2GameStr
 
     if (nManaCost > 0 && pUnit && pUnit->dwUnitType == UNIT_PLAYER)
     {
-        if (args2.unk0x40 > 0)
+        if (args2.nAffectedUnits > 0)
         {
             STATES_ToggleState(pUnit, STATE_NOMANAREGEN, 1);
             D2GAME_SKILLMANA_AuraConsume_6FD10C90(pUnit, nManaCost);
@@ -1761,7 +1761,7 @@ int __fastcall SKILLS_SrvDo081_HolyFreeze(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
     if (nManaCost > 0 && pUnit && pUnit->dwUnitType == UNIT_PLAYER)
     {
-        if (args2.unk0x40 > 0)
+        if (args2.nAffectedUnits > 0)
         {
             STATES_ToggleState(pUnit, STATE_NOMANAREGEN, 1);
             D2GAME_SKILLMANA_AuraConsume_6FD10C90(pUnit, nManaCost);

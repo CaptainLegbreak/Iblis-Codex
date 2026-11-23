@@ -87,7 +87,7 @@ struct D2BasicAuraParamStrc
     int nDuration; // 0x0C
     int nAuraStat[6]; // 0x10
     int nAuraStatCalcValue[6]; // 0x28
-    int unk0x40; // 0x40
+    int nAffectedUnits; // 0x40
     D2StatListStrc* pStatList; // 0x44
     int nPassiveState; // 0x48
     void* pStateRemoveCallback; // 0x4C
@@ -101,7 +101,7 @@ struct D2DamageAuraParamStrc
     int nDuration; // 0x0C
     int nAuraStat[6]; // 0x10
     int nAuraStatCalcValue[6]; // 0x28
-    int unk0x40; // 0x40
+    int nAffectedUnits; // 0x40
     D2StatListStrc* pStatList; // 0x44
     int nPassiveState; // 0x48
     D2DamageStrc* pDamage; // 0x4C

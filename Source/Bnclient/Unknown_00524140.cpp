@@ -20,7 +20,7 @@ static void __stdcall sub_00524140_UpdateHash(D2BnHashCtxStrc* pCtx, const void*
         unsigned int nBlocks = (unsigned int)nLength >> 6;
         do
         {
-            memcpy(pCtx->unk0x1C, pData, sizeof(pCtx->unk0x1C));
+            memcpy(pCtx->aBlock, pData, sizeof(pCtx->aBlock));
             sub_00523AF0_HashTransform(pCtx);
             pData = (const char*)pData + 64;
         } while (--nBlocks);

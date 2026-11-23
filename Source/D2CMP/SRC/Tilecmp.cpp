@@ -662,7 +662,7 @@ void __stdcall TileProjectSerialize(D2CmpTileLibraryStrc* pLibrary, unsigned cha
         D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
         pDstBlocks[i].pSubs = 0;
         const int nBytes = sub_0060A050(pData, pBlock);
-        pDstBlocks[i].unk0x48 = pData - pBase;
+        pDstBlocks[i].nSubsOffset = pData - pBase;
         pDstBlocks[i].nSubBytes = nBytes;
         pData += nBytes;
     }

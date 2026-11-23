@@ -113,7 +113,7 @@ struct D2UniqueItemsTxt
     short wId; // 0x00
     char szName[32]; // 0x02
     unsigned short wTblIndex; // 0x22
-    int unk0x24; // 0x24
+    int nVersion; // 0x24
     unsigned int dwCode; // 0x28
     unsigned char nUniqueItemFlags[4]; // 0x2C
     int nRarity; // 0x30
@@ -184,7 +184,7 @@ struct D2HirelingTxt
     int dwResist; // 0x5C
     int dwResistPerLvl; // 0x60
     int dwDefaultChance; // 0x64
-    int unk0x68[4]; // 0x68
+    int dwEquipment[4]; // 0x68
     int dwSkill[6]; // 0x78
     int dwChance[6]; // 0x90
     int dwChancePerLvl[6]; // 0xA8

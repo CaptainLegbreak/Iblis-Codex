@@ -36,7 +36,7 @@ void __fastcall sub_0060D190_BuildDC6FromRaw(D2CmpRawStrc* pRaw, D2CmpDC6HeaderS
     {
         unsigned int nLength = pRawFrame->nWidth * pRawFrame->nHeight * 3;
         D2CmpDC6FrameStrc* pFrame = (D2CmpDC6FrameStrc*)FOG_Alloc(nLength + 0x23, ".\\SRC\\Raw.cpp", 0x22, 0);
-        pFrame->unk0x00 = pRawFrame->f_8;
+        pFrame->nFlip = pRawFrame->f_8;
         pFrame->nWidth = pRawFrame->nWidth;
         pFrame->nHeight = pRawFrame->nHeight;
         pFrame->nOffsetX = pRawFrame->nOffsetX;

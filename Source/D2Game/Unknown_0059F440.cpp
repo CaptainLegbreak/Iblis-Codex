@@ -89,17 +89,17 @@ struct D2Act2Quest4Strc
     unsigned char bJerhynStartInitialized;
     unsigned char bJerhynPalaceInitialized;
     unsigned char bPalaceOpen;
-    unsigned char unk0x0F;
-    unsigned char unk0x10;
+    unsigned char bJerhynTeleportedToPalace;
+    unsigned char bGuardMoveStarted;
     unsigned char bHaremBlockerInitialized;
     unsigned char unk0x12;
     unsigned char unk0x13;
-    unsigned char unk0x14;
+    unsigned char bJerhynInPalace;
     unsigned char bJerhynCoordinatesStored;
     unsigned char bPortalToCanyonOpen;
     unsigned char unused0x17;
-    unsigned char unk0x18;
-    unsigned char unk0x19;
+    unsigned char bGuardAtPost;
+    unsigned char bGuardSteppedAside;
     unsigned char bPlayerCloseToHaremBlocker;
     unsigned char pad0x1B;
     int nPlayerCloseToHaremBlockerGUID;
@@ -238,7 +238,7 @@ void __fastcall ACT2Q4_GetAndUpdatePalaceNpcState(D2GameStrc* pGame, D2UnitStrc*
         return;
     }
 
-    if (pQuestDataEx->unk0x14)
+    if (pQuestDataEx->bJerhynInPalace)
     {
         *a3 = 1;
         *pIdle = 0;
@@ -253,7 +253,7 @@ void __fastcall ACT2Q4_GetAndUpdatePalaceNpcState(D2GameStrc* pGame, D2UnitStrc*
 
         if (pQuestDataEx->unk0x12 == 1)
         {
-            if (!pQuestDataEx->unk0x13 || pQuestDataEx->unk0x0F)
+            if (!pQuestDataEx->unk0x13 || pQuestDataEx->bJerhynTeleportedToPalace)
             {
                 pQuestDataEx->bPlayerCloseToHaremBlocker = 0;
                 pQuestDataEx->nPlayerCloseToHaremBlockerGUID = 0;
@@ -310,13 +310,13 @@ void __fastcall ACT2Q4_GetAndUpdatePalaceNpcState(D2GameStrc* pGame, D2UnitStrc*
                     return;
                 }
 
-                pQuestDataEx->unk0x0F = 1;
-                pQuestDataEx->unk0x14 = 1;
+                pQuestDataEx->bJerhynTeleportedToPalace = 1;
+                pQuestDataEx->bJerhynInPalace = 1;
                 return;
             }
 
-            pQuestDataEx->unk0x19 = 1;
-            pQuestDataEx->unk0x18 = 0;
+            pQuestDataEx->bGuardSteppedAside = 1;
+            pQuestDataEx->bGuardAtPost = 0;
             AITACTICS_WalkToTargetCoordinates(pGame, pUnit, pQuestDataEx->pHaremBlockerCoords.nX, pQuestDataEx->pHaremBlockerCoords.nY);
             *pIdle = 0;
             return;

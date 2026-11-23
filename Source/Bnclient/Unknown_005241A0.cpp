@@ -32,7 +32,7 @@ void __fastcall sub_00524200_HashBlock(int nIndex, const void* pBlock, unsigned 
     if (nNew < nOld)
         ++pCtx->nBitCountHi;
     pCtx->nBitCountLo = nNew;
-    memcpy(pCtx->unk0x1C, pBlock, sizeof(pCtx->unk0x1C));
+    memcpy(pCtx->aBlock, pBlock, sizeof(pCtx->aBlock));
     sub_00523AF0_HashTransform(pCtx);
     if (pDigest)
     {
