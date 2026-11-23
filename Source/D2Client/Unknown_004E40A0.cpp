@@ -34,13 +34,3 @@ int __fastcall sub_004E40A0(int nRange)
     return SEED_RollLimitedRandomNumber(&sub_00463DD0_GetPlayerUnit()->pSeed, nRange);
 }
 
-// 0x004E4200
-float __cdecl sub_004E4200_GetFloatIfEnabled()
-{
-    if (!sub_00473C40())
-    {
-        return 0.0f;
-    }
-
-    return sub_00473C80();
-}
