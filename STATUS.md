@@ -42,15 +42,15 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 1197 |
+| Compilation units | 1168 |
 | … in a file with its original name, whole | 279 |
-| … pieces of an original file still split (in 39 files) | 136 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 782 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3153 |
+| … pieces of an original file still split (in 39 files) | 133 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 756 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3151 |
 | Unnamed fields (`unk0x..`) in the shared headers | 760 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 43 |
 | Calling-convention shims | 124 |
-| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 576 |
+| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 569 |
 | `__declspec(noinline)` / `__forceinline` | 107 / 204 |
 | Function names: blizzard / d2moo / inferred / placeholder | 460 / 5409 / 5288 / 3770 |
 
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 3232 functions are compiled with `/GS-` and 474 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 107 times and `__declspec(dllexport)` 172 times to keep a body out of line or emitted.
+Not listed one by one: 3259 functions are compiled with `/GS-` and 475 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 107 times and `__declspec(dllexport)` 171 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -217,23 +217,23 @@ Not listed one by one: 3232 functions are compiled with `/GS-` and 474 with `/EH
 | 0x00408660 | ERRORMANAGER_ShowErrorReport | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x004088C0 | ERRORMANAGER_ReportNestedError | `Fog/Src/ErrorManager_004016A0.cpp` | compiler option /EHa |
 | 0x00408900 | ERRORMANAGER_RaiseErrorReport | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
-| 0x00408A30 | FOG_DisplayAssert | `Fog/Src/ErrorManager_00408A60.cpp` | compiler option /EHa |
+| 0x00408A30 | FOG_DisplayAssert | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00408A60 | sub_00408A60 | `Fog/Src/ErrorManager_00408A60.cpp` | compiler option /EHa |
-| 0x00408A90 | FOG_DisplayWarning | `Fog/Src/ErrorManager_00408A60.cpp` | compiler option /EHa |
-| 0x00408AC0 | ERRORMANAGER_DisplayDeadlock | `Fog/Src/ErrorManager_00408A60.cpp` | compiler option /EHa |
-| 0x00408AF0 | FOG_DisplayError | `Fog/Src/ErrorManager_00408A60.cpp` | compiler option /EHa |
-| 0x00408B20 | ERRORMANAGER_ShowErrorBox | `Fog/Src/ErrorManager_00408A60.cpp` | compiler option /EHa |
+| 0x00408A90 | FOG_DisplayWarning | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x00408AC0 | ERRORMANAGER_DisplayDeadlock | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x00408AF0 | FOG_DisplayError | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x00408B20 | ERRORMANAGER_ShowErrorBox | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00408CE0 | FOG_InitErrorMgr | `Fog/Src/ErrorManager_00408A60.cpp` | compiler option /EHa |
-| 0x00408F20 | FOG_IsExpansion | `Fog/Src/ErrorManager_00408A60.cpp` | compiler option /EHa |
-| 0x00409000 | ERRORMANAGER_GetBitWidth | `Fog/Src/ErrorManager_00408A60.cpp` | compiler option /EHa, inline assembly |
-| 0x004091B0 | ERRORMANAGER_GetPoolIndex | `Fog/Src/ErrorManager_00408A60.cpp` | compiler option /EHa |
-| 0x00409200 | ERRORMANAGER_GetPoolBlockSize | `Fog/Src/ErrorManager_00408A60.cpp` | compiler option /EHa |
+| 0x00408F20 | FOG_IsExpansion | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x00409000 | ERRORMANAGER_GetBitWidth | `Fog/Src/ErrorManager.cpp` | compiler option /EHa, inline assembly |
+| 0x004091B0 | ERRORMANAGER_GetPoolIndex | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x00409200 | ERRORMANAGER_GetPoolBlockSize | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00409220 | sub_00409220_FindZeroBit | `Fog/Unknown_00409220.cpp` | inline assembly |
-| 0x004095D0 | sub_004095D0_Nop | `Fog/Src/ErrorManager_00408A60.cpp` | compiler option /EHa |
+| 0x004095D0 | sub_004095D0_Nop | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00409770 | ERRORMANAGER_PoolAllocLarge | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00409810 | ERRORMANAGER_PoolFreeLarge | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
-| 0x004099C0 | ERRORMANAGER_GetPoolSystem | `Fog/Src/ErrorManager_00408A60.cpp` | compiler option /EHa |
-| 0x00409C70 | sub_00409C70_Nop | `Fog/Src/ErrorManager_00408A60.cpp` | compiler option /EHa |
+| 0x004099C0 | ERRORMANAGER_GetPoolSystem | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x00409C70 | sub_00409C70_Nop | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x0040ABF0 | LOGMANAGER_HeapSiftDown | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x0040ACA0 | LOGMANAGER_CalcCodeLengths | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x0040B1B0 | FOG_CompressPacket | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
@@ -508,6 +508,9 @@ Not listed one by one: 3232 functions are compiled with `/GS-` and 474 with `/EH
 | 0x004FA840 | D2Win_COMMANDS_Snapshot_6F8ADE70 | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FA860 | D2Win_COMMANDS_MouseButton_6F8AE070 | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FAD10 | ARCHIVE_LoadVideoArchives | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
+| 0x004FAD70 | ARCHIVE_UnloadExpansionArchives | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
+| 0x004FAE00 | ARCHIVE_FreeArchives | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
+| 0x004FAEC0 | ARCHIVE_LoadExpansionArchives | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FB010 | PALETTE_ApplyPaletteTables | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FB740 | D2Win_10062 | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FBB90 | D2Win_10196 | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
@@ -536,7 +539,7 @@ Not listed one by one: 3232 functions are compiled with `/GS-` and 474 with `/EH
 | 0x00517015 | ARCHIVE_ReadFileToSizedBuffer | `D2Hell/SRC/Archive.cpp` | compiler option /O1 |
 | 0x00517079 | ARCHIVE_AllocateBufferAndReadFile | `D2Hell/SRC/Archive.cpp` | compiler option /O1 |
 | 0x005170E7 | sub_005170E7_GetModuleDirectory | `D2Win/Unknown_005170E7.cpp` | calling-convention shim, compiler option /O1 |
-| 0x00517128 | sub_00517128_FindArchive | `D2Hell/Unknown_00517128.cpp` | compiler option /O1 |
+| 0x00517128 | sub_00517128_FindArchive | `D2Hell/SRC/Archive.cpp` | compiler option /O1 |
 | 0x00517299 | ARCHIVE_FindAndOpenArchive | `D2Hell/SRC/Archive.cpp` | compiler option /O1 |
 | 0x00517332 | ARCHIVE_LoadMPQFile | `D2Hell/SRC/Archive.cpp` | compiler option /O1 |
 | 0x005173AC | ARCHIVE_UnloadMPQFile | `D2Hell/SRC/Archive.cpp` | compiler option /O1 |
@@ -828,7 +831,10 @@ Not listed one by one: 3232 functions are compiled with `/GS-` and 474 with `/EH
 | 0x006C7C10 | GDI_CreateSurface | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C7CF0 | GDI_CloseSurface | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C7D30 | GDI_PauseSurface | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
+| 0x006C7D80 | sub_006C7D80_LockAndSend | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C7DF0 | GDI_EndDraw | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
+| 0x006C7E30 | sub_006C7E30_BlitWindow | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
+| 0x006C7F90 | sub_006C7F90_GetScreenSize | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C7FA0 | GDI_SetPalette | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C80B0 | GDI_ChangeRes | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C8750 | sub_006C8750_DrawCel | `D2Gdi/Unknown_006C8750.cpp` | compiler option /Ob1 |
