@@ -303,6 +303,7 @@ void __fastcall WALL2_FreeViewCells(D2ViewStrc* pView)
     pView->nField0x38 = 0;
 }
 
+// 0x004DCF70
 static s32 __cdecl sub_004DCF70_Inside(Context* context,s32 y,s32 x)
 {
     x-=FIELD(s32,context,0xEA68);
@@ -338,6 +339,7 @@ static inline u32 UNIT_GetFlagC8_7(Unit* unit)
     return (FIELD(u32,unit,200)>>7)&1;
 }
 
+// 0x004DCFA0
 static void __cdecl sub_004DCFA0_AddUnit(Cell* cell,Context* context,Unit* unit)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
@@ -362,6 +364,7 @@ static void __cdecl sub_004DCFA0_AddUnit(Cell* cell,Context* context,Unit* unit)
     last->next=node;
 }
 
+// 0x004DD060
 static s32 __stdcall sub_004DD060_Occludes(Room* room,Tile* tile)
 {
     if(gVar_0072A968_Mode)
@@ -458,6 +461,30 @@ static void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,Room* roo
 }
 
 // @ref 0x004DD350
+static __forceinline void sub_004DD460_InsertSorted(Node** list,Node* node)
+{
+    Node* last=*list;
+    if(!last) { *list=node; return; }
+    Node* previous=0;
+    s32 order=(FIELD(u32,node->object,20)>>14)&7;
+    Node* next=last->next;
+    if(next) do
+    {
+        if(order<s32((FIELD(u32,last->object,20)>>14)&7))
+        {
+            node->next=last;
+            if(previous) previous->next=node;
+            else *list=node;
+            break;
+        }
+        previous=last;
+        last=previous->next;
+        next=last->next;
+    } while(next);
+    if(!last->next) last->next=node;
+}
+
+// 0x004DD350
 static void __stdcall sub_004DD350_AddUpper(Cell* cell,Room* room,Context* context,Tile* tile)
 {
     if(FIELD(s32,tile,28)!=0 && FIELD(s32,tile,28)!=13 && !(FIELD(u32,tile,20)&4)) FIELD(u32,cell,0)|=4;
@@ -467,31 +494,18 @@ static void __stdcall sub_004DD350_AddUpper(Cell* cell,Room* room,Context* conte
     node->type=1;
     node->object=tile;
     node->next=0;
-    RoomCoordinates coordinates;
-    sub_00619730_Coordinates(room,&coordinates);
-    node->x=8*(coordinates.x+5*FIELD(s32,tile,8));
-    node->y=8*(coordinates.y+5*FIELD(s32,tile,12));
-    FIELD(u32,context,0)|=gVar_006CE268_Flags;
-    Node* last=FIELD(Node*,cell,32);
-    if(!last) { FIELD(Node*,cell,32)=node; return; }
-    s32 order=(FIELD(u32,node->object,20)>>14)&7;
-    Node* previous=0;
-    while(last->next)
     {
-        if(order<s32((FIELD(u32,last->object,20)>>14)&7))
-        {
-            node->next=last;
-            if(previous) previous->next=node;
-            else FIELD(Node*,cell,32)=node;
-            break;
-        }
-        previous=last;
-        last=last->next;
+        RoomCoordinates coordinates;
+        sub_00619730_Coordinates(room,&coordinates);
+        node->x=8*(coordinates.x+5*FIELD(s32,tile,8));
+        node->y=8*(coordinates.y+5*FIELD(s32,tile,12));
     }
-    if(!last->next) last->next=node;
+    FIELD(u32,context,0)|=gVar_006CE268_Flags;
+    sub_004DD460_InsertSorted(&FIELD(Node*,cell,32),node);
 }
 
 // @ref 0x004DD460
+// 0x004DD460
 static void __stdcall sub_004DD460_AddRoof(Cell* cell,Room* room,Context* context,Tile* tile)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
@@ -500,28 +514,14 @@ static void __stdcall sub_004DD460_AddRoof(Cell* cell,Room* room,Context* contex
     node->type=1;
     node->object=tile;
     node->next=0;
-    RoomCoordinates coordinates;
-    sub_00619730_Coordinates(room,&coordinates);
-    node->x=8*(coordinates.x+5*FIELD(s32,tile,8));
-    node->y=8*(coordinates.y+5*FIELD(s32,tile,12));
-    FIELD(u32,context,0)|=gVar_006CE26C_Flags;
-    Node* last=FIELD(Node*,cell,28);
-    if(!last) { FIELD(Node*,cell,28)=node; return; }
-    s32 order=(FIELD(u32,node->object,20)>>14)&7;
-    Node* previous=0;
-    while(last->next)
     {
-        if(order<s32((FIELD(u32,last->object,20)>>14)&7))
-        {
-            node->next=last;
-            if(previous) previous->next=node;
-            else FIELD(Node*,cell,28)=node;
-            break;
-        }
-        previous=last;
-        last=last->next;
+        RoomCoordinates coordinates;
+        sub_00619730_Coordinates(room,&coordinates);
+        node->x=8*(coordinates.x+5*FIELD(s32,tile,8));
+        node->y=8*(coordinates.y+5*FIELD(s32,tile,12));
     }
-    if(!last->next) last->next=node;
+    FIELD(u32,context,0)|=gVar_006CE26C_Flags;
+    sub_004DD460_InsertSorted(&FIELD(Node*,cell,28),node);
 }
 
 // @ref 0x004DD550
@@ -545,6 +545,7 @@ static void __stdcall sub_004DD550_AddFloor(Cell* cell,Room* room,Context* conte
 }
 
 // @ref 0x004DD600
+// 0x004DD600
 static void __stdcall sub_004DD600_AddSpecial(Cell* cell,Context* context,Unit* unit)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
@@ -555,26 +556,26 @@ static void __stdcall sub_004DD600_AddSpecial(Cell* cell,Context* context,Unit* 
     node->next=0;
     s32 x;
     s32 type=FIELD(s32,unit,0);
-    if(type==2 || (type>3 && type<=5)) x=FIELD(s32,FIELD(Path*,unit,44),12);
-    else { Path* path=FIELD(Path*,unit,44); x=path ? sub_006488C0_PathX(path) : 0; }
+    if(type==2 || (type>3 && type<=5)) x=FIELD(s32,FIELD(D2DynamicPathStrc*,unit,44),12);
+    else { D2DynamicPathStrc* path=FIELD(D2DynamicPathStrc*,unit,44); x=path ? PATH_GetXPosition(path) : 0; }
     node->x=8*x;
     s32 y;
     type=FIELD(s32,unit,0);
-    if(type==2 || (type>3 && type<=5)) y=FIELD(s32,FIELD(Path*,unit,44),16);
-    else { Path* path=FIELD(Path*,unit,44); y=path ? sub_00648900_PathY(path) : 0; }
+    if(type==2 || (type>3 && type<=5)) y=FIELD(s32,FIELD(D2DynamicPathStrc*,unit,44),16);
+    else { D2DynamicPathStrc* path=FIELD(D2DynamicPathStrc*,unit,44); y=path ? PATH_GetYPosition(path) : 0; }
     node->y=8*y;
     FIELD(u32,context,0)|=gVar_006CE274_Flags;
     Node* last=FIELD(Node*,cell,16);
     if(!last) { FIELD(Node*,cell,16)=node; return; }
     while(last)
     {
-        Node* next=last->next;
-        if(!next) break;
-        last=next;
+        if(!last->next) break;
+        last=last->next;
     }
     last->next=node;
 }
 
+// 0x004DD6E0
 static void __stdcall sub_004DD6E0_AddOverlay(Cell* cell,Context* context,Unit* unit)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
@@ -1146,3 +1147,5 @@ void __thiscall D2FloorTileViewStrc::sub_004DE730_UpdateView(void* pArgument)
     if (nMaxY - nY < nRangeB)
         sub_004DE6C0_DrawTileTriple(nX, nMaxY + 5, 5, 0);
 }
+
+#include "gen/data/Source/D2Client/GAME/Wall2.inc"

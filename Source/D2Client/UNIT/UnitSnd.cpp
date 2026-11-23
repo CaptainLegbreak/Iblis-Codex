@@ -249,6 +249,8 @@ int gnLastRequestSound;        // 0x007C88C8
 
 static inline D2UnitSndPlayerStrc* UNITSND_GetPlayerSoundRecord(unsigned int nClass);
 
+struct D2TimedHintNodeStrc;
+
 // 0x004CA2C0
 static int UNITSND_GetUnitSndClassId(D2UnitStrc* pUnit)
 {
@@ -1854,5 +1856,42 @@ done:
     pUnit->dwSfxTicks = sub_0044DB00();
     gnSfxTick = sub_0044DB00();
 }
+
+// 0x004CA870
+static inline D2TimedHintNodeStrc** sub_004CA870_GetUnitHintList(D2UnitStrc* pUnit)
+{
+    D2_ASSERT(pUnit, 0xC2C);
+    return (D2TimedHintNodeStrc**)&pUnit->pUnitSfxData;
+}
+
+D2TimedHintNodeStrc** __stdcall sub_M121_Emit_004CA870(D2UnitStrc* pUnit) { return sub_004CA870_GetUnitHintList(pUnit); }
+
+// 0x004CAA70
+static inline int sub_004CAA70_GetUnitByte70(D2UnitStrc* pUnit)
+{
+    D2_ASSERT(pUnit, 0xC8F);
+    return pUnit->bUnitSfx;
+}
+
+int __stdcall sub_M121_Emit_004CAA70(D2UnitStrc* pUnit) { return sub_004CAA70_GetUnitByte70(pUnit); }
+
+// 0x004CAC00
+static inline int sub_004CAC00_GetUnitField84(D2UnitStrc* pUnit)
+{
+    D2_ASSERT(pUnit, 0xCE7);
+    return pUnit->dwSfxStepTicks;
+}
+
+int __stdcall sub_M121_Emit_004CAC00(D2UnitStrc* pUnit) { return sub_004CAC00_GetUnitField84(pUnit); }
+
+// 0x004CAC70
+static inline int sub_004CAC70_GetUnitField88(D2UnitStrc* pUnit)
+{
+    D2_ASSERT(pUnit, 0xCFD);
+    return pUnit->bHasActiveSound;
+}
+
+int __stdcall sub_M121_Emit_004CAC70(D2UnitStrc* pUnit) { return sub_004CAC70_GetUnitField88(pUnit); }
+
 
 #include "gen/data/Source/D2Client/UNIT/UnitSnd.inc"

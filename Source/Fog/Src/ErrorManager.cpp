@@ -2815,6 +2815,257 @@ void __fastcall ERRORMANAGER_PoolFreeLarge(D2PoolSystemStrc* pSystem, int* pBloc
 
 void __cdecl ERRORMANAGER_ForceCrash(); // 0x00407970
 
+// 0x0040ABF0
+void __fastcall ERRORMANAGER_HeapSiftDown(int* pHeap, int nCount, int nIndex)
+{
+    int nValue = pHeap[nIndex];
+    int nHalf = nCount / 2;
+    nCount -= 1;
+    while (nIndex < nHalf)
+    {
+        int nChild = 2 * nIndex + 1;
+        if (nChild < nCount && pHeap[nChild] < pHeap[nChild + 1])
+            nChild += 1;
+        if (nValue > pHeap[nChild])
+            break;
+        pHeap[nIndex] = pHeap[nChild];
+        nIndex = nChild;
+    }
+    pHeap[nIndex] = nValue;
+}
+
+// 0x0040AC60
+void __fastcall ERRORMANAGER_HeapSort(int* pHeap, int nCount)
+{
+    for (int i = nCount / 2; i;)
+    {
+        --i;
+        ERRORMANAGER_HeapSiftDown(pHeap, nCount, i);
+    }
+    while (--nCount)
+    {
+        const int nTop = pHeap[0];
+        pHeap[0] = pHeap[nCount];
+        pHeap[nCount] = nTop;
+        ERRORMANAGER_HeapSiftDown(pHeap, nCount, 0);
+    }
+}
+
+// 0x0040ACA0
+void __fastcall ERRORMANAGER_CalcCodeLengths(int* pA, int nCount)
+{
+    int nRoot, nLeaf, nNext, nAvail, nUsed, nDepth;
+    if (nCount == 0)
+        return;
+    if (nCount == 1)
+    {
+        pA[0] = 0;
+        return;
+    }
+    pA[0] += pA[1];
+    nRoot = 0;
+    nLeaf = 2;
+    for (nNext = 1; nNext < nCount - 1; nNext++)
+    {
+        if (nLeaf >= nCount || pA[nRoot] < pA[nLeaf])
+        {
+            pA[nNext] = pA[nRoot];
+            pA[nRoot++] = nNext;
+        }
+        else
+            pA[nNext] = pA[nLeaf++];
+        if (nLeaf >= nCount || (nRoot < nNext && pA[nRoot] < pA[nLeaf]))
+        {
+            pA[nNext] += pA[nRoot];
+            pA[nRoot++] = nNext;
+        }
+        else
+            pA[nNext] += pA[nLeaf++];
+    }
+    pA[nCount - 2] = 0;
+    for (nNext = nCount - 3; nNext >= 0; nNext--)
+        pA[nNext] = pA[pA[nNext]] + 1;
+    nAvail = 1;
+    nUsed = nDepth = 0;
+    nRoot = nCount - 2;
+    nNext = nCount - 1;
+    while (nAvail > 0)
+    {
+        while (nRoot >= 0 && pA[nRoot] == nDepth)
+        {
+            nUsed++;
+            nRoot--;
+        }
+        while (nAvail > nUsed)
+        {
+            pA[nNext--] = nDepth;
+            nAvail--;
+        }
+        nAvail = 2 * nUsed;
+        nDepth++;
+        nUsed = 0;
+    }
+}
+
+// 0x0040ADA0
+void __cdecl sub_0040ADA0_Nop()
+{
+}
+
+typedef unsigned char Byte;
+
+extern Byte gnSymbolCodes_0075B6A0[256]; // 0x0075B6A0
+extern Byte* gpDecodeTable_0075AFA0[256]; // 0x0075AFA0
+extern Byte gabDecodeStorage[768]; // 0x0075B3A0
+
+static inline int IsValidCodeLength(Byte length)
+{
+    if (length <= 0)
+        return 0;
+    if (length >= 16)
+        return 0;
+    return 1;
+}
+
+// 0x0040ADB0
+int __fastcall FOG_10219(Byte* lengths)
+{
+    int counts[16];
+    Byte sortedSymbols[256];
+    Byte sortedLengths[256];
+    int i;
+    for (i = 0; i < 16; ++i)
+        counts[i] = 0;
+    i = 0;
+    for (; i < 256; ++i)
+    {
+        if (!IsValidCodeLength(lengths[i]))
+            return 0;
+        ++counts[lengths[i]];
+    }
+    for (int length = 15; length > 0; --length)
+    {
+        int count = counts[length];
+        counts[length] = counts[0];
+        counts[0] += count;
+    }
+    i = 0;
+    for (; i < 256; ++i)
+        sortedSymbols[counts[lengths[i]]++] = (Byte)i;
+    i = 0;
+    for (; i < 256; ++i)
+    {
+        sortedLengths[i] = lengths[sortedSymbols[i]];
+        gabHuffmanCodeLength[i] = lengths[i];
+    }
+    gnSymbolCodes_0075B6A0[sortedSymbols[0]] = 0;
+    for (i = 1; i < 256; ++i)
+        gnSymbolCodes_0075B6A0[sortedSymbols[i]] =
+            (Byte)((gnSymbolCodes_0075B6A0[sortedSymbols[i - 1]] + 1) >> (sortedLengths[i - 1] - sortedLengths[i]));
+    Byte* storage = gabDecodeStorage;
+    for (i = 255; i >= 0; --i)
+    {
+        Byte length = sortedLengths[i];
+        if (length <= 8)
+        {
+            Byte symbol = sortedSymbols[i];
+            int prefix = gnSymbolCodes_0075B6A0[symbol] << (8 - length);
+            int count = 1u << (8 - length);
+            Byte** ppEntry = &gpDecodeTable_0075AFA0[prefix];
+            *ppEntry = storage;
+            storage[0] = 0;
+            (*ppEntry)[1] = symbol;
+            storage += 2;
+            for (int j = 0; j < count; ++j)
+                gpDecodeTable_0075AFA0[prefix + j] = *ppEntry;
+        }
+        else
+        {
+            Byte* pSymbol = &sortedSymbols[i];
+            unsigned int code = gnSymbolCodes_0075B6A0[*pSymbol];
+            unsigned int prefix = code >> ((Byte)(length - 8));
+            if ((code & ((1 << (length - 8)) - 1)) == 0)
+            {
+                int count = 1 << (length - 8);
+                gpDecodeTable_0075AFA0[prefix] = storage;
+                *storage++ = ((Byte)(length - 8));
+                int j = 0;
+                int n = 0;
+                while (j < count)
+                {
+                    int repeat = 1 << (length - sortedLengths[i + j]);
+                    if (repeat)
+                    {
+                        Byte value = pSymbol[n];
+                        storage += repeat;
+                        do
+                        {
+                            gpDecodeTable_0075AFA0[prefix][j + 1] = value;
+                            ++j;
+                        } while (--repeat);
+                    }
+                    ++n;
+                }
+            }
+        }
+    }
+    return 1;
+}
+
+unsigned __int64 gaqHuffmanByteCounts[256];                                                        // 0x0075B7A0
+unsigned __int64 gqHuffmanBytesIn;                                                                 // 0x0075BFA0
+unsigned __int64 gqHuffmanBytesOut;                                                                // 0x0075BFA8
+unsigned __int64 gqHuffmanHeaders;                                                                 // 0x0075BFB0
+
+static inline void AddTotal(unsigned __int64* pTotal, unsigned __int64 nValue)
+{
+    *pTotal += nValue;
+}
+
+// 0x0040B0C0
+void __cdecl FOG_10218()
+{
+    for (int i = 0; i < 256; i++)
+        gaqHuffmanByteCounts[i] = 0;
+    gqHuffmanBytesIn = 0;
+    gqHuffmanBytesOut = 0;
+    gqHuffmanHeaders = 0;
+    FOG_10219(gabHuffmanCodeLength);
+}
+
+// 0x0040B110
+void __cdecl sub_0040B110_Nop()
+{
+}
+
+// 0x0040B120
+void __cdecl sub_0040B120_Nop()
+{
+}
+
+// 0x0040B130
+void __fastcall FOG_10222(const unsigned char* pData, unsigned int nSize)
+{
+    unsigned int i = 0;
+    unsigned int nBits = 0;
+    for (; i < nSize; i++)
+    {
+        const unsigned char nByte = pData[i];
+        ++gaqHuffmanByteCounts[nByte];
+        nBits += gabHuffmanCodeLength[nByte];
+    }
+    unsigned int nHeader = 1;
+    unsigned int nBytes = ((nBits + 7) >> 3) + nHeader;
+    if (nBytes >= 0xF0)
+    {
+        nBytes += nHeader;
+        nHeader = 2;
+    }
+    AddTotal(&gqHuffmanBytesIn, nSize);
+    AddTotal(&gqHuffmanBytesOut, nBytes);
+    AddTotal(&gqHuffmanHeaders, nHeader);
+}
+
 // 0x0040B1B0
 int __fastcall FOG_CompressPacket(unsigned char* pOut, int nOutSize, const unsigned char* pIn, int nInSize)
 {
@@ -2887,6 +3138,88 @@ int __fastcall FOG_DecompressPacket(unsigned char* pOut, int nOutSize, const uns
         *pOut++ = c;
         nWindow <<= nLength;
     }
+}
+
+void* __fastcall sub_0040A1F0_PoolRealloc(D2PoolSystemStrc* pPool, void* pMemory, int nSize, const char* szFile, int nLine); // 0x0040A1F0
+
+extern float gafSinTable[]; // 0x00707800
+
+extern int gbUsePools; // 0x00708000
+
+// 0x0040B330
+float __stdcall sub_0040B330_Cos(int nAngle)
+{
+    return gafSinTable[(nAngle + 128) & 511];
+}
+
+// 0x0040B350
+float __stdcall sub_0040B350_Sin(int nAngle)
+{
+    return gafSinTable[nAngle & 511];
+}
+
+// 0x0040B370
+void __fastcall sub_0040B370_SetUsePools(int bUsePools)
+{
+    gbUsePools = bUsePools;
+}
+
+// 0x0040B380
+void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0)
+{
+    void* pMemory = sub_0040A080_PoolAlloc(0, nSize, szFile, nLine);
+    if (!pMemory)
+    {
+        ERRORMANAGER_RaiseErrorReport(2, szFile, nLine, &gszEmptyAssertText);
+    }
+    return pMemory;
+}
+
+// 0x0040B3C0
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0)
+{
+    sub_00409AB0_PoolFree(0, &pFree, szFile, nLine);
+    return 1;
+}
+
+// 0x0040B3F0
+void* __fastcall FOG_Realloc(void* pMemory, int nSize, const char* szFile, int nLine, int n0)
+{
+    void* pNew = sub_0040A1F0_PoolRealloc(0, pMemory, nSize, szFile, nLine);
+    if (!pNew)
+    {
+        ERRORMANAGER_RaiseErrorReport(2, szFile, nLine, &gszEmptyAssertText);
+    }
+    return pNew;
+}
+
+// 0x0040B430
+void* __fastcall FOG_AllocPool(D2PoolSystemStrc* pMemPool, int nSize, const char* szFile, int nLine, int n0)
+{
+    void* pMemory = sub_0040A080_PoolAlloc(gbUsePools ? pMemPool : 0, nSize, szFile, nLine);
+    if (!pMemory)
+    {
+        ERRORMANAGER_RaiseErrorReport(2, szFile, nLine, &gszEmptyAssertText);
+    }
+    return pMemory;
+}
+
+// 0x0040B480
+int __fastcall FOG_FreePool(D2PoolSystemStrc* pMemPool, void* pFree, const char* szFile, int nLine, int n0)
+{
+    sub_00409AB0_PoolFree(gbUsePools ? pMemPool : 0, &pFree, szFile, nLine);
+    return 1;
+}
+
+// 0x0040B4B0
+void* __fastcall FOG_ReallocPool(D2PoolSystemStrc* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0)
+{
+    void* pNew = sub_0040A1F0_PoolRealloc(gbUsePools ? pMemPool : 0, pMemory, nSize, szFile, nLine);
+    if (!pNew)
+    {
+        ERRORMANAGER_RaiseErrorReport(2, szFile, nLine, &gszEmptyAssertText);
+    }
+    return pNew;
 }
 
 // 0x004068F0
@@ -3135,6 +3468,24 @@ char* __cdecl ERRORMANAGER_SprintfN(char* szDest, int nSize, const char* szForma
     return szDest;
 }
 
+// 0x0040E250
+int __cdecl sub_0040E250_GetCpuVendor()
+{
+    char szVendor[16];
+    memset(szVendor, 0, sizeof(szVendor));
+    __asm
+    {
+        mov eax, 0
+        cpuid
+        mov dword ptr szVendor[0], ebx
+        mov dword ptr szVendor[4], edx
+        mov dword ptr szVendor[8], ecx
+    }
+    if (!strcmp(szVendor, "GenuineIntel")) return 1;
+    if (!strcmp(szVendor, "AuthenticAMD")) return 2;
+    return !strcmp(szVendor, "CyrixInstead") ? 3 : 0;
+}
+
 // 0x0040E870
 int __cdecl ERRORMANAGER_MeasureCpuMHz()
 {
@@ -3163,6 +3514,50 @@ int __cdecl ERRORMANAGER_MeasureCpuMHz()
     __int64 tFrequency;
     QueryPerformanceFrequency(&tFrequency);
     return (int)((nTsc2 - nTsc1) * tFrequency / (tCount2 - tCount1) / 1000000);
+}
+
+// 0x0040E960
+__declspec(noinline) unsigned int __cdecl sub_0040E960_GetCpuSignature()
+{
+    unsigned int nSignature;
+    __asm
+    {
+        mov eax, 1
+        cpuid
+        mov nSignature, eax
+    }
+    return nSignature;
+}
+
+// 0x0040E980
+unsigned int __cdecl sub_0040E980_GetCpuidEbxIfBrandIndexed()
+{
+    unsigned int nResult = 0;
+    const unsigned int nSignature = sub_0040E960_GetCpuSignature();
+    const unsigned int nFamily = (nSignature >> 8) & 0xF;
+    if (sub_0040E250_GetCpuVendor() == 1 && (nFamily >= 7 || (nFamily == 6 && (nSignature & 0xF0) >= 0x80)))
+    {
+        __asm
+        {
+            mov eax, 1
+            cpuid
+            mov nResult, ebx
+        }
+    }
+    return nResult;
+}
+
+// 0x0040E9E0
+unsigned int __fastcall sub_0040E9E0_GetCpuidEdx(unsigned int nFunction)
+{
+    unsigned int nEdx;
+    __asm
+    {
+        mov eax, nFunction
+        cpuid
+        mov nEdx, edx
+    }
+    return nEdx;
 }
 
 // 0x00408B20
