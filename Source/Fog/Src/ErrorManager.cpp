@@ -876,7 +876,23 @@ extern "C" int __stdcall getpeername(unsigned int nSocket, void* pAddress, int* 
 extern "C" int __stdcall ioctlsocket(unsigned int nSocket, long nCommand, unsigned long* pArgument);       // 0x006B015C
 
 
-void __cdecl MAINMENUS_LogPoolError(const char* szFormat, ...);                                          // 0x00409020
+void __cdecl ERRORMANAGER_LogPoolError(const char* szFormat, ...);                                          struct D2MemoryStatusStrc
+{
+    unsigned long dwLength;
+    unsigned long dwMemoryLoad;
+    unsigned long dwTotalPhys;
+    unsigned long dwAvailPhys;
+    unsigned long dwTotalPageFile;
+    unsigned long dwAvailPageFile;
+    unsigned long dwTotalVirtual;
+    unsigned long dwAvailVirtual;
+};
+
+extern "C" __declspec(dllimport) void __stdcall GlobalMemoryStatus(D2MemoryStatusStrc* pBuffer); // 0x006CC1F4
+
+char* __fastcall Int64ToString(char* szBuffer, unsigned int nBufferSize, __int64 nValue); // 0x00411540
+
+// 0x00409020
 
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);            // 0x0040B480
 
@@ -2773,7 +2789,7 @@ void* __fastcall ERRORMANAGER_PoolAllocLarge(D2PoolSystemStrc* pSystem, int nSiz
     int* pBlock = (int*)malloc(nSize + 4);
     if (!pBlock)
     {
-        MAINMENUS_LogPoolError("(3) Pool Blocks overflowed at %d", pSystem->nPoolBlocks);
+        ERRORMANAGER_LogPoolError("(3) Pool Blocks overflowed at %d", pSystem->nPoolBlocks);
         D2_ASSERT(pBlock, 904);
     }
     const int nBucket = (int)pBlock % 1023;
@@ -3653,6 +3669,67 @@ static inline int Log2Ceil(int nValue)
     return nValue < 3 ? 1 : ERRORMANAGER_GetBitWidth(nValue - 1);
 }
 
+// 0x00409020
+void __cdecl ERRORMANAGER_LogPoolError(const char* szFormat, ...)
+{
+    char szText[0x1000];
+    va_list args;
+    va_start(args, szFormat);
+    vsprintf(szText, szFormat, args);
+    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "--------------------------------------------------------");
+    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "ERROR: Out of memory!");
+    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, gszPercentS_006FFC58, szText);
+    D2MemoryStatusStrc tStatus;
+    GlobalMemoryStatus(&tStatus);
+    char szNumber[0x20];
+    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "total physical:     %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwTotalPhys));
+    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "available physical: %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwAvailPhys));
+    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "total page:         %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwTotalPageFile));
+    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "available page:     %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwAvailPageFile));
+    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "total virtual:      %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwTotalVirtual));
+    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "available virtual:  %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwAvailVirtual));
+    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, &gszEmptyAssertText);
+}
+
+// 0x004098B0
+void* __fastcall ERRORMANAGER_PoolReallocLarge(D2PoolSystemStrc* pSystem, int* pBlock, int nSize, const char* szFile, int nLine)
+{
+    pBlock -= 1;
+    const int nBucket = (int)pBlock % 1023;
+    int* pPrevious = 0;
+    EnterCriticalSection(&pSystem->tLock);
+    int* pCurrent = pSystem->apLargeBlocks[nBucket];
+    while (pCurrent)
+    {
+        if (pCurrent == pBlock)
+        {
+            if (!pPrevious)
+            {
+                pSystem->apLargeBlocks[nBucket] = (int*)*pCurrent;
+            }
+            else
+            {
+                *pPrevious = *pCurrent;
+            }
+            int* pNewBlock = (int*)realloc(pBlock, nSize + 4);
+            if (!pNewBlock)
+            {
+                ERRORMANAGER_LogPoolError("Unable to allocate free block of %s", nSize);
+                D2_ASSERT(pNewBlock, 1057);
+            }
+            const int nNewBucket = (int)pNewBlock % 1023;
+            *pNewBlock = (int)pSystem->apLargeBlocks[nNewBucket];
+            pSystem->apLargeBlocks[nNewBucket] = pNewBlock;
+            LeaveCriticalSection(&pSystem->tLock);
+            return pNewBlock + 1;
+        }
+        pPrevious = pCurrent;
+        pCurrent = (int*)*pCurrent;
+    }
+    LeaveCriticalSection(&pSystem->tLock);
+    return 0;
+}
+
 // 0x004091B0
 static int ERRORMANAGER_GetPoolIndex(int nSize)
 {
@@ -3794,8 +3871,8 @@ found:
         pSystem->pRecords = (D2PoolRecordStrc*)realloc(pSystem->pRecords, pSystem->nMaxPoolBlocks * sizeof(D2PoolRecordStrc));
         if (!pSystem->pRecords)
         {
-// build: symbol ?MAINMENUS_LogPoolError@* 0x00409020
-            MAINMENUS_LogPoolError("(1) Pool Blocks overflowed at %d", pSystem->nMaxPoolBlocks);
+// build: symbol ?ERRORMANAGER_LogPoolError@* 0x00409020
+            ERRORMANAGER_LogPoolError("(1) Pool Blocks overflowed at %d", pSystem->nMaxPoolBlocks);
             D2_ASSERT(0, 0x2B4);
         }
     }
@@ -4012,8 +4089,8 @@ static void __stdcall sub_00409370_InsertBlockRecord(D2MemPoolBlockStrc* pBlock,
         pSystem->pRecords = (D2PoolRecordStrc*)realloc(pSystem->pRecords, pSystem->nMaxPoolBlocks * sizeof(D2PoolRecordStrc));
         if (!pSystem->pRecords)
         {
-// build: symbol ?MAINMENUS_LogPoolError@* 0x00409020
-            MAINMENUS_LogPoolError("(1) Pool Blocks overflowed at %d", pSystem->nMaxPoolBlocks);
+// build: symbol ?ERRORMANAGER_LogPoolError@* 0x00409020
+            ERRORMANAGER_LogPoolError("(1) Pool Blocks overflowed at %d", pSystem->nMaxPoolBlocks);
             D2_ASSERT(0, 0x261);
         }
     }
@@ -4053,7 +4130,7 @@ static D2MemPoolBlockStrc* __stdcall sub_004095E0_NewBlock(D2MemPoolRecStrc* pPo
         pSystem->pRecords = (D2PoolRecordStrc*)realloc(pSystem->pRecords, pSystem->nMaxPoolBlocks * sizeof(D2PoolRecordStrc));
         if (!pSystem->pRecords)
         {
-            MAINMENUS_LogPoolError("(1) Pool Blocks overflowed at %d", pSystem->nMaxPoolBlocks);
+            ERRORMANAGER_LogPoolError("(1) Pool Blocks overflowed at %d", pSystem->nMaxPoolBlocks);
             D2_ASSERT(0, 0x2FF);
         }
     }
@@ -4071,7 +4148,7 @@ static D2MemPoolBlockStrc* __stdcall sub_004095E0_NewBlock(D2MemPoolRecStrc* pPo
         sub_00409370_InsertBlockRecord(pBlock, pSystem);
         return pBlock;
     }
-    MAINMENUS_LogPoolError("(2) nPoolBlocks = %d/%d  nBlockSize = %d  nUsageTableSize = %d", pSystem->nPoolBlocks, pSystem->nMaxPoolBlocks, pPool->nChunkSize, nBitsSize);
+    ERRORMANAGER_LogPoolError("(2) nPoolBlocks = %d/%d  nBlockSize = %d  nUsageTableSize = %d", pSystem->nPoolBlocks, pSystem->nMaxPoolBlocks, pPool->nChunkSize, nBitsSize);
     D2_ASSERT(0, 0x320);
     return 0;
 }
@@ -4278,7 +4355,7 @@ int __cdecl sub_00409DD0_InitPoolSystem(D2PoolSystemStrc** ppPoolSystem, const c
         if (gtPoolManager.nUsed >= 8)
         {
             LeaveCriticalSection(&gtPoolManager.tLock);
-            MAINMENUS_LogPoolError("Insufficient pre-allocated pool systems");
+            ERRORMANAGER_LogPoolError("Insufficient pre-allocated pool systems");
             RaiseException(0xE0000001, 0, 0, 0);
             return 0;
         }

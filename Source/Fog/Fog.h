@@ -82,7 +82,7 @@ unsigned int __cdecl sub_00410A80_GetTime(); // 0x00410A80
 unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
 unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 unsigned short __stdcall sub_006B019E(unsigned short nValue); // 0x006B019E
-void __cdecl MAINMENUS_LogPoolError(const char* szFormat, ...); // 0x00409020
+void __cdecl ERRORMANAGER_LogPoolError(const char* szFormat, ...); // 0x00409020
 void __cdecl sub_00409DD0_InitPoolSystem(void* pReserved, const char* szName, int nSize, int nBlockSize); // 0x00409DD0
 void __cdecl MAINMENUS_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410740
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
