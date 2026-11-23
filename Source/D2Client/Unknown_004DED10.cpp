@@ -5,7 +5,6 @@
 
 struct D2SlotObjectStrc;
 struct D2SlotStrc;
-struct D2Obj007C8A28Strc;
 struct D2TileLibraryEntryStrc;
 struct D2GfxLightStrc;
 struct D2LightOffsetStrc;
@@ -28,11 +27,6 @@ struct D2SlotObjectStrc
 };
 
 #pragma pack(pop)
-
-struct D2Obj007C8A28Strc
-{
-    void sub_004DE730(void* pArg);                                                                          // 0x004DE730
-};
 
 extern int gbSoundSystemInit; // 0x007C8C78
 D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
@@ -83,55 +77,9 @@ extern void* gpGlobal_007A0634; // 0x007A0634
 void __stdcall sub_0061C0B0(void* pAct, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0061C0B0
 int __stdcall sub_0061C0E0(void* pAct); // 0x0061C0E0
 
-D2Obj007C8A28Strc gObj_007C8A28; // 0x007C8A28
-
-unsigned char gnRoomColorBlue; // 0x007C8A6C
-
-unsigned char gnRoomColorGreen; // 0x007C8A6D
-
-unsigned char gnRoomColorIntensity; // 0x007C8A6E
-
-unsigned char gnRoomColorRed; // 0x007C8A6F
-
 D2SlotStrc gaSlots[16]; // 0x007C8A78
 
-// 0x004DED10
-void __fastcall sub_004DED10(void* pArg)
-{
-    gObj_007C8A28.sub_004DE730(pArg);
-}
 
-// 0x004DED20
-void __cdecl MISSILE_UpdateRoomColor()
-{
-    sub_0061C0B0(gpGlobal_007A0634, &gnRoomColorRed, &gnRoomColorGreen, &gnRoomColorBlue);
-    gnRoomColorIntensity = sub_0061C0E0(gpGlobal_007A0634);
-
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (!pPlayer)
-    {
-        return;
-    }
-
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
-    if (!pRoom)
-    {
-        return;
-    }
-
-    unsigned char nIntensity;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    sub_00619D70(pRoom, &nIntensity, &nRed, &nGreen, &nBlue);
-    if (nRed || nGreen || nBlue)
-    {
-        gnRoomColorIntensity = nIntensity;
-        gnRoomColorRed = nRed;
-        gnRoomColorGreen = nGreen;
-        gnRoomColorBlue = nBlue;
-    }
-}
 
 // 0x004DF7B0
 void __fastcall sub_004DF7B0_StopSlot(D2SlotStrc* pSlot)

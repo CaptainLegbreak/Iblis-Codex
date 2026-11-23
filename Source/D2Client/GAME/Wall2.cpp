@@ -1269,4 +1269,52 @@ void __thiscall D2FloorTileViewStrc::sub_004DE730_UpdateView(void* pArgument)
         sub_004DE6C0_DrawTileTriple(nX, nMaxY + 5, 5, 0);
 }
 
+static D2FloorTileViewStrc gObj_007C8A28; // 0x007C8A28
+
+unsigned char gnRoomColorBlue; // 0x007C8A6C
+
+unsigned char gnRoomColorGreen; // 0x007C8A6D
+
+unsigned char gnRoomColorIntensity; // 0x007C8A6E
+
+unsigned char gnRoomColorRed; // 0x007C8A6F
+
+// 0x004DED10
+void __fastcall sub_004DED10(void* pArg)
+{
+    gObj_007C8A28.sub_004DE730_UpdateView(pArg);
+}
+
+// 0x004DED20
+void __cdecl MISSILE_UpdateRoomColor()
+{
+    sub_0061C0B0(gpGlobal_007A0634, &gnRoomColorRed, &gnRoomColorGreen, &gnRoomColorBlue);
+    gnRoomColorIntensity = sub_0061C0E0(gpGlobal_007A0634);
+
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (!pPlayer)
+    {
+        return;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
+    if (!pRoom)
+    {
+        return;
+    }
+
+    unsigned char nIntensity;
+    unsigned char nRed;
+    unsigned char nGreen;
+    unsigned char nBlue;
+    sub_00619D70(pRoom, &nIntensity, &nRed, &nGreen, &nBlue);
+    if (nRed || nGreen || nBlue)
+    {
+        gnRoomColorIntensity = nIntensity;
+        gnRoomColorRed = nRed;
+        gnRoomColorGreen = nGreen;
+        gnRoomColorBlue = nBlue;
+    }
+}
+
 #include "gen/data/Source/D2Client/GAME/Wall2.inc"
