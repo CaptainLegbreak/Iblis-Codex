@@ -60080,6 +60080,11 @@
      "name": "?D2CMPTileCacheSetFreeCallback@@YIXPAX@Z"
     },
     {
+     "va": "0x005FE060",
+     "length": 13,
+     "name": "_sub_005FE060_ClearPair88CB10"
+    },
+    {
      "va": "0x005FE070",
      "length": 10,
      "name": "?D2CMPTileFreeAsyncLoads@@YAXXZ"
@@ -66691,17 +66696,6 @@
      "va": "0x005FE170",
      "length": 83,
      "name": "?sub_005FE170_SpriteCacheFreeCallback@@YIXPAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_005FE060.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005FE060",
-     "length": 13,
-     "name": "_sub_005FE060_ClearPair88CB10"
     }
    ]
   },
