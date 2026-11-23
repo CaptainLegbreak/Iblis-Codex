@@ -4698,9 +4698,13 @@
    "state": "included"
   },
   "Source/D2Common/Unknown_00675600.cpp": {
-   "bytes": 783,
-   "definitions": 4,
-   "externs": [],
+   "bytes": 1279,
+   "definitions": 6,
+   "externs": [
+    "extern \"C\" void __cdecl sub_006760F0(); // 0x006760F0",
+    "extern \"C\" void __cdecl sub_00676450_LinkStepDirectionSide(); // 0x00676450",
+    "extern \"C\" void __cdecl sub_00676650_LinkStepDirectionSideSized(); // 0x00676650"
+   ],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Unknown_00675600.inc",
    "lang": "cpp",
@@ -4712,20 +4716,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Unknown_00675850.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/Unknown_00676DD0.cpp": {
-   "bytes": 496,
-   "definitions": 2,
-   "externs": [
-    "extern \"C\" void __cdecl sub_006760F0(); // 0x006760F0",
-    "extern \"C\" void __cdecl sub_00676150_LinkStepDirection(); // 0x00676150",
-    "extern \"C\" void __cdecl sub_00676450_LinkStepDirectionSide(); // 0x00676450",
-    "extern \"C\" void __cdecl sub_00676650_LinkStepDirectionSideSized(); // 0x00676650"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_00676DD0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -150516,7 +150506,7 @@
    "cname": "gData_006F0750",
    "declared": true,
    "decorated": "?gAct1WildernessDrlgLink@@3PAUD2DrlgLinkStrc@@A",
-   "file": "Source/D2Common/Unknown_00676DD0.cpp",
+   "file": "Source/D2Common/Unknown_00675600.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const D2DrlgLinkStrc gData_006F0750[15]; // 0x006F0750",
    "head": "extern \"C\" const D2DrlgLinkStrc gData_006F0750[15] = ",
@@ -150627,7 +150617,7 @@
    "cname": "gData_006F1158",
    "declared": true,
    "decorated": "?gnAct1WildernessLinkTable@@3QBHB",
-   "file": "Source/D2Common/Unknown_00676DD0.cpp",
+   "file": "Source/D2Common/Unknown_00675600.cpp",
    "fill": 64,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006F1158[64]; // 0x006F1158",
