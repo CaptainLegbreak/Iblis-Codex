@@ -4412,12 +4412,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_005BAFD0.cpp": {
+  "Source/D2Game/Unknown_005BBB70.cpp": {
    "bytes": 32,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005BAFD0.inc",
+   "include": "gen/data/Source/D2Game/Unknown_005BBB70.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -113534,7 +113534,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005BAFD0.cpp",
+   "file": "Source/D2Game/Unknown_005BBB70.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": null,

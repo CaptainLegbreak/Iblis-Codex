@@ -142,6 +142,33 @@ void __fastcall OBJECTS_InitFunction49_HratliStart(D2ObjInitFnStrc* pOp)
     }
 }
 
+bool __fastcall ACT3Q7_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    return false;
+}
+
+void __cdecl sub_005BDB10_Return()
+{
+}
+
+// 0x005B7120
+int __fastcall sub_005B7120_GetHratliEndCoords(D2GameStrc* pGame, D2CoordStrc* pCoord)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 14);
+    if (!pQuestData)
+    {
+        return 0;
+    }
+    D2Act3Quest0Strc* pQuestDataEx = (D2Act3Quest0Strc*)pQuestData->pQuestDataEx;
+    if (pQuestDataEx->bHratliEndObjectInitialized != 1 || !pQuestDataEx->bHratliStartIsPresent)
+    {
+        return 0;
+    }
+    pCoord->nX = pQuestDataEx->nHratliX;
+    pCoord->nY = pQuestDataEx->nHratliY;
+    return 1;
+}
+
 // 0x005B7160
 void __fastcall OBJECTS_InitFunction50_HratliEnd(D2ObjInitFnStrc* pOp)
 {

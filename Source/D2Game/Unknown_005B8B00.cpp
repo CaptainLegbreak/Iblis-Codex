@@ -33,15 +33,6 @@ void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsign
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 
-// 0x005B8500
-int __fastcall sub_005B8500_IsSewerStairsClosed(D2GameStrc* pGame)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A3Q2_KHALIMFLAIL);
-    if (pQuestData && pQuestData->bNotIntro)
-        return ((D2Act3Quest2Strc*)pQuestData->pQuestDataEx)->nSewerStairsObjectMode != 2;
-    return 0;
-}
-
 // 0x005B8B00
 void __fastcall sub_005B8B00_AddFlailsDropped(D2GameStrc* pGame, int nCount)
 {

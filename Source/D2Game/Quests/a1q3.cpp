@@ -173,6 +173,25 @@ int __fastcall ACT1Q3_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
     return 0;
 }
 
+// 0x00591340
+int __fastcall sub_00591340_UpdateQuestFlags(D2GameStrc* game, D2UnitStrc* unit, void* context)
+{
+    D2BitBufferStrc* flags = UNITS_GetPlayerData(unit)->pQuestData[game->nDifficulty];
+    if (QUESTRECORD_GetQuestState(flags, 3, 0) == 1 || QUESTRECORD_GetQuestState(flags, 3, 1) == 1)
+        return 0;
+    D2QuestDataStrc* quest = QUESTS_GetQuestData(game, 3);
+    if (quest) {
+        signed char state = quest->fState;
+        if (state == 2) {
+            QUESTRECORD_SetQuestState(flags, 3, 2);
+            return 0;
+        }
+        if (state == 3 || state == 4)
+            QUESTRECORD_SetQuestState(flags, 3, 3);
+    }
+    return 0;
+}
+
 // 0x005913C0
 void __fastcall ACT1Q3_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {

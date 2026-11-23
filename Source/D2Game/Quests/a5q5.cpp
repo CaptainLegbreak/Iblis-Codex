@@ -893,6 +893,7 @@ void __fastcall ACT5Q5_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     }
 }
 
+// 0x0058C0E0
 void __fastcall ACT5Q5_SpawnAncientMonsters(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
 {
     D2Act5Quest5Strc* pQuestDataEx = (D2Act5Quest5Strc*)pQuestData->pQuestDataEx;
@@ -950,7 +951,7 @@ void __fastcall ACT5Q5_SpawnAncientMonsters(D2QuestDataStrc* pQuestData, D2UnitS
     }
 
     pQuestDataEx->bAncientMonsterSpawned[pQuestDataEx->nAncientsSpawned] = 1;
-    pQuestDataEx->nAncientMonsterGUID[pQuestDataEx->nAncientsSpawned] = pAncient ? pAncient->dwUnitId : -1;
+    pQuestDataEx->nAncientMonsterGUID[pQuestDataEx->nAncientsSpawned] = !pAncient ? -1 : pAncient->dwUnitId;
 
     ++pQuestDataEx->nAncientsSpawned;
     ++pQuestDataEx->nAncientsAlive;
