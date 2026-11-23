@@ -3844,10 +3844,6 @@
     "extern \"C\" void __cdecl MISSMODE_SrvDo37_Unused(); // 0x005B0AA0",
     "extern \"C\" void __cdecl sub_005AE520(); // 0x005AE520",
     "extern \"C\" void __cdecl sub_005AFB80(); // 0x005AFB80",
-    "extern \"C\" void __cdecl MISSMODE_UnitFindCallback_CanCollideWithGoodAlignmentUnit(); // 0x005A87F0",
-    "extern \"C\" void __cdecl MISSMODE_UnitFindCallback_CanCollideWithMonster(); // 0x005A87B0",
-    "extern \"C\" void __cdecl MISSMODE_UnitFindCallback_CanCollideWithPlayerOrMonster(); // 0x005A8850",
-    "extern \"C\" void __cdecl MISSMODE_UnitFindCallback_CanMissileDestroy(); // 0x005A8890",
     "extern \"C\" void __cdecl AITHINK_Fn002_Skeleton(); // 0x005EFCF0",
     "extern \"C\" void __cdecl AITHINK_Fn004_Bighead(); // 0x005EFF50",
     "extern \"C\" void __cdecl AITHINK_Fn005_BloodHawk(); // 0x005F00E0",
@@ -4407,15 +4403,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/SkillDruid_005C7F10.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Unknown_005CA470.cpp": {
-   "bytes": 64,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005CA470.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -5731,6 +5718,15 @@
    "lang": "cpp",
    "state": "static",
    "static_definitions": 2
+  },
+  "Source/D2Game/SKILLS/SkillSor.cpp": {
+   "bytes": 64,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/SKILLS/SkillSor.inc",
+   "lang": "cpp",
+   "state": "included"
   }
  },
  "definitions": [
@@ -115302,7 +115298,7 @@
    "cname": "gData_006E30E0",
    "declared": true,
    "decorated": "?gaEnergyShieldData@@3QBUD2EnergyShieldDataStrc@@B",
-   "file": "Source/D2Game/Unknown_005CA470.cpp",
+   "file": "Source/D2Game/SKILLS/SkillSor.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const D2EnergyShieldDataStrc gData_006E30E0[8]; // 0x006E30E0",
    "head": "extern \"C\" const D2EnergyShieldDataStrc gData_006E30E0[8] = ",

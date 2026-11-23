@@ -2551,6 +2551,129 @@ void __fastcall MONSTERMODE_EndTrappedSoulSkill(D2GameStrc* pGame, D2UnitStrc* p
     }
 }
 
+void __fastcall SKILLS_CreateBlazeMissile(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005C9D90
+
+D2UnitStrc* __fastcall SKILLS_CreateSpiderLayMissile(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005CE4F0
+
+void __fastcall sub_6FC64CD0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A8520
+
+static inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecordInline_Q05(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    }
+    return 0;
+}
+
+static inline int MONSTERMODE_GetBaseIdInline_Q05(int nClassId)
+{
+    D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecordInline_Q05(nClassId);
+    if (pMonStatsTxtRecord)
+    {
+        return pMonStatsTxtRecord->nBaseId;
+    }
+    return nClassId;
+}
+
+// 0x005A8490
+int __fastcall sub_6FC64480(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    if (STATES_CheckState(pUnit, STATE_BLAZE))
+    {
+        SKILLS_CreateBlazeMissile(pGame, pUnit);
+    }
+
+    if (STATES_CheckState(pUnit, STATE_SPIDERLAY))
+    {
+        SKILLS_CreateSpiderLayMissile(pGame, pUnit);
+    }
+
+    if (SUNIT_UpdateUnitPath(pGame, pUnit) == 2)
+    {
+        MONSTERMODE_HandleEndAnimation(pGame, pUnit);
+        return 2;
+    }
+
+    return 1;
+}
+
+// 0x005A84F0
+int __fastcall sub_6FC64510(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    if (SUNIT_UpdateUnitPath(pGame, pUnit) == 2)
+    {
+        MONSTERMODE_HandleEndAnimation(pGame, pUnit);
+        return 2;
+    }
+
+    return 1;
+}
+
+// 0x005A8520
+void __fastcall sub_6FC64CD0(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    PATH_ResetToPreviousType(pUnit->pDynamicPath);
+
+    const int nClassId = pUnit->dwClassId;
+    if (!sub_0046C140_TestMonModeFlag(nClassId, MONMODE_GETHIT))
+    {
+        EVENT_SetEvent(pGame, pUnit, EVENTTYPE_AITHINK, pGame->dwGameFrame + 1, 0, 0);
+        return;
+    }
+
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    int bSandLeaper = 0;
+    if (nUnitType == UNIT_MONSTER)
+    {
+        const int nBaseId = MONSTERMODE_GetBaseIdInline_Q05(nClassId);
+        if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == MONSTER_SANDLEAPER1)
+        {
+            bSandLeaper = 1;
+        }
+    }
+
+    if (!bSandLeaper)
+    {
+        UNITS_SetUsedSkill(pUnit, 0);
+
+        D2ModeChangeStrc modeChange = {};
+        modeChange.nMode = MONMODE_GETHIT;
+        modeChange.pUnit = pUnit;
+        modeChange.nEventFlag = 100;
+        pUnit->dwLastHitClass = 160;
+        D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+        return;
+    }
+
+    int nFrame;
+    if (STATES_CheckState(pUnit, STATE_STUNNED))
+    {
+        nFrame = pGame->dwGameFrame + 45;
+    }
+    else
+    {
+        nFrame = pGame->dwGameFrame + 15;
+    }
+    EVENT_SetEvent(pGame, pUnit, EVENTTYPE_AITHINK, nFrame, 0, 0);
+}
+
+
+
+// 0x005A8630
+int __fastcall sub_6FC64E20(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    SUNIT_UpdateUnitPath(pGame, pUnit);
+    UNITS_StopSequence(pUnit);
+    if (UNITS_IsAtEndOfFrameCycle(pUnit))
+    {
+        sub_6FC64CD0(pGame, pUnit);
+        return 2;
+    }
+
+    return 1;
+}
+
 // 0x005A8670
 int __fastcall MONSTERMODE_UpdateSequence(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {

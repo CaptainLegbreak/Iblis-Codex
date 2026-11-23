@@ -58393,6 +58393,26 @@
      "name": "MONSTERMODE_DropTreasureForFindItem"
     },
     {
+     "va": "0x005A87B0",
+     "length": 54,
+     "name": "?MISSMODE_UnitFindCallback_CanCollideWithMonster@@YIHPAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x005A87F0",
+     "length": 82,
+     "name": "?MISSMODE_UnitFindCallback_CanCollideWithGoodAlignmentUnit@@YIHPAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x005A8850",
+     "length": 60,
+     "name": "?MISSMODE_UnitFindCallback_CanCollideWithPlayerOrMonster@@YIHPAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x005A8890",
+     "length": 66,
+     "name": "?MISSMODE_UnitFindCallback_CanMissileDestroy@@YIHPAUD2UnitStrc@@PAX@Z"
+    },
+    {
      "va": "0x005A88E0",
      "length": 42,
      "name": "MISSMODE_RollMissileHit"
@@ -59991,6 +60011,26 @@
      "name": "MONSTERMODE_EndTrappedSoulSkill"
     },
     {
+     "va": "0x005A8490",
+     "length": 87,
+     "name": "sub_6FC64480"
+    },
+    {
+     "va": "0x005A84F0",
+     "length": 41,
+     "name": "sub_6FC64510"
+    },
+    {
+     "va": "0x005A8520",
+     "length": 259,
+     "name": "?sub_6FC64CD0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A8630",
+     "length": 52,
+     "name": "?sub_6FC64E20@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x005A8670",
      "length": 192,
      "name": "?MONSTERMODE_UpdateSequence@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -60282,58 +60322,6 @@
      "va": "0x005A6080",
      "length": 82,
      "name": "?FRIENDLY_RemoveHostility@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A8490.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A8490",
-     "length": 87,
-     "name": "sub_6FC64480"
-    },
-    {
-     "va": "0x005A84F0",
-     "length": 41,
-     "name": "sub_6FC64510"
-    },
-    {
-     "va": "0x005A8520",
-     "length": 259,
-     "name": "?sub_6FC64CD0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A8630",
-     "length": 52,
-     "name": "?sub_6FC64E20@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A87B0",
-     "length": 54,
-     "name": "?MISSMODE_UnitFindCallback_CanCollideWithMonster@@YIHPAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x005A87F0",
-     "length": 82,
-     "name": "?MISSMODE_UnitFindCallback_CanCollideWithGoodAlignmentUnit@@YIHPAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x005A8850",
-     "length": 60,
-     "name": "?MISSMODE_UnitFindCallback_CanCollideWithPlayerOrMonster@@YIHPAUD2UnitStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A8890.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A8890",
-     "length": 66,
-     "name": "?MISSMODE_UnitFindCallback_CanMissileDestroy@@YIHPAUD2UnitStrc@@PAX@Z"
     }
    ]
   },
@@ -63700,11 +63688,6 @@
      "name": "SKILLS_SrvDo019_Inferno_ArcticBlast"
     },
     {
-     "va": "0x005CA360",
-     "length": 128,
-     "name": "SKILLS_SrvDo027_Teleport"
-    },
-    {
      "va": "0x005CAF30",
      "length": 78,
      "name": "SKILLS_SrvDo083_FireHit"
@@ -64369,11 +64352,6 @@
      "name": "SKILLS_SrvDo071_Taunt"
     },
     {
-     "va": "0x005DB850",
-     "length": 494,
-     "name": "?SKILLS_SrvDo011_ChargedStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
      "va": "0x005E4830",
      "length": 642
     },
@@ -64469,32 +64447,15 @@
      "name": "SKILLS_SrvDo151_CreateMissileAtTargetOffset"
     },
     {
-     "va": "0x005CAC50",
-     "length": 230,
-     "name": "SKILLS_EventFunc02_FrozenArmor"
+     "va": "0x005CA360",
+     "length": 128,
+     "name": "SKILLS_SrvDo027_Teleport"
     },
-    {
-     "va": "0x005CAD40",
-     "length": 241,
-     "name": "SKILLS_EventFunc03_ShiverArmor"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005CA3E0.cpp",
-   "rank": 0,
-   "functions": [
     {
      "va": "0x005CA3E0",
      "length": 144,
      "name": "?sub_005CA3E0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005CA470.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x005CA470",
      "length": 91,
@@ -64510,6 +64471,22 @@
      "length": 590,
      "name": "?SKILLS_EventFunc24_EnergyShield@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
     },
+    {
+     "va": "0x005CAC50",
+     "length": 230,
+     "name": "SKILLS_EventFunc02_FrozenArmor"
+    },
+    {
+     "va": "0x005CAD40",
+     "length": 241,
+     "name": "SKILLS_EventFunc03_ShiverArmor"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Unknown_005CAE40.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x005CAE40",
      "length": 239,
@@ -65195,11 +65172,6 @@
      "va": "0x005DAF40",
      "length": 219,
      "name": "SKILLS_SrvSt37_Zeal_Fury_BloodLordFrenzy"
-    },
-    {
-     "va": "0x005DB6D0",
-     "length": 380,
-     "name": "SKILLS_SrvDo010_GuidedArrow_BoneSpirit"
     }
    ]
   },
@@ -65508,6 +65480,21 @@
      "name": "SKILLS_SrvDo007_Jab"
     },
     {
+     "va": "0x005DB6A0",
+     "length": 36,
+     "name": "?SKILLS_AddDamagePercentBonus@@YIXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005DB6D0",
+     "length": 380,
+     "name": "SKILLS_SrvDo010_GuidedArrow_BoneSpirit"
+    },
+    {
+     "va": "0x005DB850",
+     "length": 494,
+     "name": "?SKILLS_SrvDo011_ChargedStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005DBC60",
      "length": 488
     },
@@ -65524,17 +65511,6 @@
      "va": "0x005DC1E0",
      "length": 379,
      "name": "SKILLS_SrvDo016_Valkyrie"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005DB2D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005DB6A0",
-     "length": 36,
-     "name": "?SKILLS_AddDamagePercentBonus@@YIXPAUD2UnitStrc@@H@Z"
     }
    ]
   },
