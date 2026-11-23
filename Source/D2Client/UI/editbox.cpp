@@ -328,6 +328,70 @@ ButtonImplementation::~ButtonImplementation()
 {
 }
 
+int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+
+void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
+
+struct D2MouseMessageStrc
+{
+    char unk_00[0xC];
+    unsigned short nX;
+    unsigned short nY;
+};
+
+struct D2ButtonPairStrc
+{
+    char unk_00[0x10];
+    int nFirstX;
+    int nFirstY;
+    int nSecondX;
+    int nSecondY;
+    int unk_20;
+    int nHeight;
+    int nWidth;
+    int unk_2C;
+    int f_30;
+    int bFirst;
+    int bSecond;
+    void (__cdecl* pCallback)();
+    int unk_40;
+    unsigned long nTick;
+    int unk_48;
+    int bInvoking;
+};
+
+extern "C" void _ReadWriteBarrier(void);
+
+#pragma intrinsic(_ReadWriteBarrier)
+
+// build: symbol ?MsgSlot02@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAE60
+// 0x004BAE60
+int ButtonWrapper::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot02(pMsg);
+}
+
+// build: symbol ?MsgSlot03@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAE70
+// 0x004BAE70
+int ButtonWrapper::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot03(pMsg);
+}
+
+// build: symbol ?MsgSlot04@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAE80
+// 0x004BAE80
+int ButtonWrapper::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot04(pMsg);
+}
+
+// build: symbol ?MsgSlot05@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAE90
+// 0x004BAE90
+int ButtonWrapper::MsgSlot05(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot05(pMsg);
+}
+
 // build: symbol ?Slot01@ButtonWrapper@@UAEXXZ 0x004BAEA0
 // 0x004BAEA0
 void ButtonWrapper::Slot01()
@@ -335,10 +399,51 @@ void ButtonWrapper::Slot01()
     pImpl->Slot01();
 }
 
+// build: symbol ?MsgSlot06@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAEB0
+// 0x004BAEB0
+int ButtonWrapper::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot06(pMsg);
+}
+
+// build: symbol ?MsgSlot08@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAEC0
+// 0x004BAEC0
+int ButtonWrapper::MsgSlot08(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot08(pMsg);
+}
+
+// build: symbol ?MsgSlot07@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAED0
+// 0x004BAED0
+int ButtonWrapper::MsgSlot07(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot07(pMsg);
+}
+
+// build: symbol ?MsgSlot09@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAEE0
+// 0x004BAEE0
+int ButtonWrapper::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot09(pMsg);
+}
+
+// build: symbol ?MsgSlot10@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAEF0
+// 0x004BAEF0
+int ButtonWrapper::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot10(pMsg);
+}
+
 // 0x004BAF00
 int ButtonWrapper::Slot11()
 {
     return pImpl->Slot11();
+}
+
+// 0x004BAF10
+void ButtonWrapper::sub_004BAF10_SetUnk24(int nValue)
+{
+    pImpl->sub_004BAC60_SetUnk24(nValue);
 }
 
 // build: symbol ?Slot01@ButtonImplementation@@UAEXXZ 0x004BB000
@@ -372,6 +477,15 @@ void EditBoxImplementation::sub_004BB200_SetUnk20(int nValue)
     unk0x20 = nValue;
 }
 
+// 0x004BB530
+void EditBoxImplementation::sub_004BB530_Slot14(const char* szText)
+{
+    sub_00526F20_ToUnicode(pText, szText, nMaxLength);
+    const int nLength = sub_00526800(pText);
+    unk0x36 = nLength;
+    unk0x3A = nLength;
+}
+
 // 0x004BB5B0
 void EditBoxImplementation::sub_004BB5B0_Slot12(char* szBuffer)
 {
@@ -403,6 +517,13 @@ int EditBoxImplementation::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
 // build: symbol ?MsgSlot05@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB950
 // 0x004BB950
 int EditBoxImplementation::MsgSlot05(SMSGHANDLER_PARAMS* pMsg)
+{
+    return 0;
+}
+
+// build: symbol ?MsgSlot07@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB960
+// 0x004BB960
+int EditBoxImplementation::MsgSlot07(SMSGHANDLER_PARAMS* pMsg)
 {
     return 0;
 }
@@ -505,6 +626,7 @@ int EditBoxWrapper::MsgSlot08(SMSGHANDLER_PARAMS* pMsg)
     return pImpl->MsgSlot08(pMsg);
 }
 
+// build: symbol ?MsgSlot07@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBAF0
 // 0x004BBAF0
 int EditBoxWrapper::MsgSlot07(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -565,6 +687,26 @@ void EditBoxWrapper::sub_004BBB90_SetUnk24(int nValue)
 void EditBoxWrapper::sub_004BBBA0_SetUnk20(int nValue)
 {
     pImpl->sub_004BB200_SetUnk20(nValue);
+}
+
+// build: symbol ?Slot01@SpinnerImplementation@@UAEXXZ 0x004BBE70
+// 0x004BBE70
+void SpinnerImplementation::Slot01()
+{
+    if (unk0x38 || unk0x34)
+    {
+        ++nUnk0x3CCalls;
+        pfUnk0x3C();
+    }
+
+    D2CelContextStrc tContext;
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.pCellFile = pCellFile;
+    tContext.nFrame = 2 * unk0x34;
+    tContext.nDirection = 0;
+    sub_004F6480(&tContext, nUpX, nUpY, -1, 5, 0);
+    tContext.nFrame = 2 * unk0x38 + 1;
+    sub_004F6480(&tContext, nDownX, nDownY, -1, 5, 0);
 }
 
 // 0x004BBEF0
@@ -703,6 +845,48 @@ int SpinnerImplementation::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
     return 1;
 }
+static inline int sub_004BC0A0_IsInFirst(D2ButtonPairStrc* pButtons, D2MouseMessageStrc* pMessage)
+{
+    const int nX = pMessage->nX;
+    const int nY = pMessage->nY;
+    return nX > pButtons->nFirstX && nX < pButtons->nFirstX + pButtons->nWidth
+        && nY > pButtons->nFirstY - pButtons->nHeight && nY <= pButtons->nFirstY;
+}
+
+static inline int sub_004BC0A0_IsInSecond(D2ButtonPairStrc* pButtons, D2MouseMessageStrc* pMessage)
+{
+    const int nX = pMessage->nX;
+    const int nY = pMessage->nY;
+    return nX > pButtons->nSecondX && nX < pButtons->nSecondX + pButtons->nWidth
+        && nY > pButtons->nSecondY - pButtons->nHeight && nY < pButtons->nSecondY;
+}
+
+// 0x004BC0A0
+int __fastcall EDITBOX_HandleSpinnerPress(D2ButtonPairStrc* pButtons, int nUnused, D2MouseMessageStrc* pMessage)
+{
+    pButtons->f_30 = 1;
+    if (sub_004BC0A0_IsInFirst(pButtons, pMessage))
+    {
+        pButtons->nTick = GetTickCount();
+        pButtons->bFirst = 1;
+        pButtons->bInvoking = 1;
+        pButtons->pCallback();
+        pButtons->bInvoking = 0;
+        return 1;
+    }
+    _ReadWriteBarrier();
+    if (sub_004BC0A0_IsInSecond(pButtons, pMessage))
+    {
+        pButtons->nTick = GetTickCount();
+        pButtons->bSecond = 1;
+        pButtons->bInvoking = 1;
+        pButtons->pCallback();
+        pButtons->bInvoking = 0;
+        return 1;
+    }
+    return 0;
+}
+
 // build: symbol ?MsgSlot06@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC190
 // 0x004BC190
 int SpinnerImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
