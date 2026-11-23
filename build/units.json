@@ -34561,11 +34561,6 @@
      "name": "D2SOUND_GetOptionsMusicOption"
     },
     {
-     "va": "0x00515060",
-     "length": 6,
-     "name": "D2SOUND_AreWaveSlotsInitialized"
-    },
-    {
      "va": "0x00518C10",
      "length": 6,
      "name": "BNCLIENT_GetInterfaceTable"
@@ -38938,6 +38933,11 @@
      "va": "0x00515020",
      "length": 54,
      "name": "?D2SOUND_FadeOutWaves@@YAXXZ"
+    },
+    {
+     "va": "0x00515060",
+     "length": 6,
+     "name": "D2SOUND_AreWaveSlotsInitialized"
     },
     {
      "va": "0x00515070",

@@ -1526,12 +1526,6 @@ int __cdecl D2SOUND_GetOptionsMusicOption()
     return gdwGlobal_008817C0;
 }
 
-// 0x00515060
-int __cdecl D2SOUND_AreWaveSlotsInitialized()
-{
-    return gdwGlobal_008817FC;
-}
-
 // 0x00518C10
 void* __cdecl BNCLIENT_GetInterfaceTable()
 {
