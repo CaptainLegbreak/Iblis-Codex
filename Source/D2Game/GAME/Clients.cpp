@@ -1348,6 +1348,38 @@ void __fastcall CLIENTS_SendUnitIfOutsideAdjacentRooms(D2ClientStrc* pClient, D2
         SUNITMSG_SendUnitToClient(pGame, pUnit, pClient);
 }
 
+void __fastcall SUNITMSG_SendRemoveObject(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571600
+
+// 0x005384E0
+void __fastcall CLIENTS_RemoveUnitIfNotAdjacent(D2ClientStrc* pClient, D2UnitStrc* pUnit)
+{
+    D2_ASSERT(pClient, 2131);
+
+    D2ActiveRoomStrc* pUnitRoom = UNITS_GetRoom(pUnit);
+    D2ActiveRoomStrc* pClientRoom = pClient->hRoom;
+    D2_ASSERT(pClientRoom, 2137);
+
+    D2ActiveRoomStrc** ppRoomList;
+    unsigned int nNumRooms;
+    DUNGEON_GetAdjacentRoomsListFromRoom(pClientRoom, &ppRoomList, &nNumRooms);
+
+    unsigned int i = 0;
+    for (; i < nNumRooms; ++i)
+    {
+        D2ActiveRoomStrc* pRoom = ppRoomList[i];
+        D2_ASSERT(pRoom, 2142);
+        if (pUnitRoom == pRoom)
+        {
+            break;
+        }
+    }
+
+    if (i >= nNumRooms)
+    {
+        SUNITMSG_SendRemoveObject(pUnit, pClient);
+    }
+}
+
 // 0x00538590
 int __fastcall CLIENTS_GetClientId(D2ClientStrc* pClient)
 {
@@ -3541,25 +3573,6 @@ void __fastcall SKILLS_SetMonsterComponent(D2UnitStrc* pUnit, unsigned char nCom
     {
         pUnit->pMonsterData->nComponent[nComponent] = nValue;
     }
-}
-
-// 0x00547080
-void __fastcall OBJRGN_PrintObjectPlacementStats(D2GameStrc* pGame)
-{
-    char szText[0x80];
-    D2ObjectControlStrc* pObjectControl = pGame->pObjectControl;
-    for (int i = 1; i < 0x61; ++i)
-    {
-        if (pObjectControl->wGroupCount[i])
-        {
-            wsprintfA(szText, "Attempted to place group %d %d times\n", i, pObjectControl->wGroupCount[i]);
-            pGame->OBJRGN_BroadcastServerText(szText);
-        }
-    }
-    wsprintfA(szText, "%d Rooms where we wanted to place - no group beat the odds\n", pObjectControl->wRoomsNoGroup);
-    pGame->OBJRGN_BroadcastServerText(szText);
-    wsprintfA(szText, "%d rooms tried to place 1+ group(s); %d rooms w/no objs\n", pObjectControl->wRoomsTried, pObjectControl->wGroupCount[0]);
-    pGame->OBJRGN_BroadcastServerText(szText);
 }
 
 // 0x00547400

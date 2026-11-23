@@ -2907,36 +2907,6 @@ D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromUnit(D2GameStrc* pGame, D
     return SUNITPROXY_GetNpcRecordFromClassId(pGame, !pNpc ? -1 : pNpc->dwClassId, pIndex);
 }
 
-// 0x005384E0
-void __fastcall CLIENTS_RemoveUnitIfNotAdjacent(D2ClientStrc* pClient, D2UnitStrc* pUnit)
-{
-    D2_ASSERT(pClient, 2131);
-
-    D2ActiveRoomStrc* pUnitRoom = UNITS_GetRoom(pUnit);
-    D2ActiveRoomStrc* pClientRoom = pClient->hRoom;
-    D2_ASSERT(pClientRoom, 2137);
-
-    D2ActiveRoomStrc** ppRoomList;
-    unsigned int nNumRooms;
-    DUNGEON_GetAdjacentRoomsListFromRoom(pClientRoom, &ppRoomList, &nNumRooms);
-
-    unsigned int i = 0;
-    for (; i < nNumRooms; ++i)
-    {
-        D2ActiveRoomStrc* pRoom = ppRoomList[i];
-        D2_ASSERT(pRoom, 2142);
-        if (pUnitRoom == pRoom)
-        {
-            break;
-        }
-    }
-
-    if (i >= nNumRooms)
-    {
-        SUNITMSG_SendRemoveObject(pUnit, pClient);
-    }
-}
-
 void __fastcall LEVEL_SynchronizeDayNightCycleWithClient(D2GameStrc* pGame, D2ClientStrc* pClient); // 0x0053ABE0
 void __fastcall LEVEL_UpdateQueuedUnitsInAllActs(D2GameStrc* pGame); // 0x0053B000
 
@@ -5098,76 +5068,7 @@ static D2MonStatsTxt* SUNITPROXY_GetMonStatsTxtRecordInline(int nMonsterId)
     return 0;
 }
 
-// 0x00536F80
-void __fastcall SUNITPROXY_FillGlobalItemCache()
-{
-    const int nRecordCount = sgptDataTables->nMonStatsTxtRecordCount;
-    for (int i = 0; i < nRecordCount; ++i)
-    {
-        D2MonStatsTxt* pMonStatsTxtRecord = SUNITPROXY_GetMonStatsTxtRecordInline(i);
-        int bInteract = 0;
-        if (pMonStatsTxtRecord)
-            bInteract = pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_INTERACT >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_INTERACT & 7];
-        if (bInteract)
-        {
-            switch (i)
-            {
-            case MONSTER_HALBU:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(12);
-                break;
-            case MONSTER_ALKOR:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(7);
-                break;
-            case MONSTER_CHARSI:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(2);
-                break;
-            case MONSTER_FARA:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(3);
-                break;
-            case MONSTER_ASHEARA:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(10);
-                break;
-            case MONSTER_HRATLI:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(6);
-                break;
-            case MONSTER_AKARA:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(0);
-                break;
-            case MONSTER_DROGNAN:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(5);
-                break;
-            case MONSTER_LYSANDER:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(4);
-                break;
-            case MONSTER_ORMUS:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(8);
-                break;
-            case MONSTER_GHEED:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(1);
-                break;
-            case MONSTER_ELZIX:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(9);
-                break;
-            case MONSTER_JAMELLA:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(13);
-                break;
-            case MONSTER_DREHYA:
-            case MONSTER_NIHLATHAK:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(16);
-                break;
-            case MONSTER_MALAH:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(14);
-                break;
-            case MONSTER_LARZUK:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(15);
-                break;
-            default:
-                break;
-            }
-        }
-    }
-}
-
+void __fastcall SUNITPROXY_FillGlobalItemCache(); // 0x00536F80
 // 0x0052F2C0
 int __stdcall GAME_GetUnitsInfoById(unsigned short nGameId, int nMaxCount, D2UnitInfoStrc* pUnitInfo, int* pUnitType, int* pUnitGUID)
 {

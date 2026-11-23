@@ -1237,6 +1237,27 @@ void D2GameStrc::OBJRGN_BroadcastServerText(const char* szText)
     D2GSPacketSrv26* pPacket = &packet;
     GAME_ForEachIngameClient(this, sub_00546FE0_SendQuestTextToClient, &pPacket);
 }
+
+extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...); // 0x006CC468
+
+// 0x00547080
+void __fastcall OBJRGN_PrintObjectPlacementStats(D2GameStrc* pGame)
+{
+    char szText[0x80];
+    D2ObjectControlStrc* pObjectControl = pGame->pObjectControl;
+    for (int i = 1; i < 0x61; ++i)
+    {
+        if (pObjectControl->wGroupCount[i])
+        {
+            wsprintfA(szText, "Attempted to place group %d %d times\n", i, pObjectControl->wGroupCount[i]);
+            pGame->OBJRGN_BroadcastServerText(szText);
+        }
+    }
+    wsprintfA(szText, "%d Rooms where we wanted to place - no group beat the odds\n", pObjectControl->wRoomsNoGroup);
+    pGame->OBJRGN_BroadcastServerText(szText);
+    wsprintfA(szText, "%d rooms tried to place 1+ group(s); %d rooms w/no objs\n", pObjectControl->wRoomsTried, pObjectControl->wGroupCount[0]);
+    pGame->OBJRGN_BroadcastServerText(szText);
+}
 #define QUEST_A2Q3_TAINTEDSUN 10
 
 #define QUEST_A2Q4_HORAZONTOME 11

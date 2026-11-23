@@ -14,6 +14,7 @@
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
 #include "D2ItemsWorld.h"
+#include "D2ObjModes.h"
 
 #define D2_ASSERT(expr,line) if(!(expr)) { sub_00408A60(&gszEmptyAssertText,sub_00408090(),line);exit(-1); }
 
@@ -796,6 +797,40 @@ D2UnitStrc* __fastcall AIUTIL_TargetCallback_SelectHighThreatTargetWithClearAppr
         pArg->nDistance = nDistance;
     }
 
+    return 0;
+}
+
+struct D2DoorObjectAiCallbackArgStrc;
+
+struct D2DoorObjectAiCallbackArgStrc
+{
+    D2UnitStrc* pDoor;
+    int nDistance;
+    int unk0x08[8];
+};
+
+int __stdcall UnitIsDoor(D2UnitStrc* pUnit); // 0x00621A70
+
+int __fastcall AITHINK_GetSquaredDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x005B0BD0
+
+// 0x005DCD50
+D2UnitStrc* __fastcall AIUTIL_TargetCallback_FindClosestClosedDoor(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
+{
+    D2DoorObjectAiCallbackArgStrc* pArg = (D2DoorObjectAiCallbackArgStrc*)pCallbackArg;
+
+    if (!pTarget || pTarget->dwUnitType != UNIT_OBJECT || !UnitIsDoor(pTarget) || pTarget->dwAnimMode != OBJMODE_NEUTRAL)
+    {
+        return 0;
+    }
+
+    const int nDistance = AITHINK_GetSquaredDistance(pTarget, pUnit);
+    if (nDistance >= pArg->nDistance)
+    {
+        return 0;
+    }
+
+    pArg->pDoor = pTarget;
+    pArg->nDistance = nDistance;
     return 0;
 }
 
