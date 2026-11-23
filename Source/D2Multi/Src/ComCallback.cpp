@@ -3077,19 +3077,6 @@ void __stdcall COMCALLBACK_RecordMessage(unsigned int uMessage, unsigned int wPa
     pRecord->lParam = lParam;
 }
 
-// 0x00451B30
-int __stdcall COMCALLBACK_WindowProc(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam)
-{
-    int bUseResult = 0;
-    int lResult = 0;
-    RECORD_RecordInputMessage(uMessage, wParam, lParam);
-    if (!UI_IsReplayActive() || uMessage == 0x10)
-    {
-        if (SMsgDispatchMessage(hWnd, uMessage, wParam, lParam, &bUseResult, &lResult) && bUseResult)
-            return lResult;
-    }
-    return DefWindowProcA(hWnd, uMessage, wParam, lParam);
-}
 
 // 0x00451DB0
 void __fastcall COMCALLBACK_RegisterMsgHandlers(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount)
