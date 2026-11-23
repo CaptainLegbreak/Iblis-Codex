@@ -1488,3 +1488,90 @@ static int sub_004CD310_UseMissileCharge(D2UnitStrc* pMissile)
     return nResult;
 }
 
+// 0x004D6FA0
+void __fastcall sub_004D6FA0_CltDoLinked(D2UnitStrc* pMissile)
+{
+    D2SeedStrc* pSeed = &pMissile->pSeed;
+    int nPrevState = sub_0064A780_targetValue(pMissile);
+    D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
+    if (!pPath)
+    {
+        MISSILE_CltDoCommon(pMissile);
+        return;
+    }
+
+    D2UnitStrc* pLinked = CUNIT_FindServerSideUnit(sub_0064A730_GetMissileTargetStatus(pMissile), 3);
+    if (pLinked)
+    {
+        int nState = sub_0064A730_GetMissileTargetStatus(pLinked);
+        int nDistance = sub_006416D0_UnitEdgeDistance(pMissile, pLinked);
+        int nMin = MAX(1, (int)((unsigned int)SEED_RollRandomNumberInline(pSeed) % 5));
+
+        if (nPrevState != nState && nState > 1)
+        {
+            MISSILE_SetTargetY(pMissile, nState);
+            switch (nState)
+            {
+            case 4:
+                sub_004DA690_ReplaceMotionFlag1With8(pMissile);
+                GFXUTIL_SetMotionVectorB(pMissile, 0, 0, 20, 1);
+                GFXUTIL_SetMotionVectorC(pMissile, 0, 0, 400, 0);
+                MISSILE_SetMotionFlagMask(pMissile, 1);
+                D2Common_10142(pPath, pMissile, 0);
+                MISSILE_CltDoCommon(pMissile);
+                return;
+
+            case 3:
+                sub_004DA690_ReplaceMotionFlag1With8(pMissile);
+                GFXUTIL_SetMotionVectorB(pMissile, 0, 0, -6, 1);
+                GFXUTIL_SetMotionVectorC(pMissile, 0, 0, SEED_RollLimitedRandomNumber(pSeed, 40), 0);
+                MISSILE_SetMotionFlagMask(pMissile, 0);
+                D2Common_10142(pPath, pMissile, 0);
+                MISSILE_CltDoCommon(pMissile);
+                return;
+
+            case 2:
+// build: symbol ?gszMissileSourceFile@* 0x006DAEF4
+                PATH_SetVelocity(pPath, 0, gszMissileSourceFile, 6004);
+                sub_004DA690_ReplaceMotionFlag1With8(pMissile);
+                GFXUTIL_SetMotionVectorB(pMissile, 0, 0, 6, 1);
+                GFXUTIL_SetMotionVectorC(pMissile, 0, 0, SEED_RollLimitedRandomNumber(pSeed, 40) + 170, 0);
+                MISSILE_SetMotionFlagMask(pMissile, 1);
+                D2COMMON_10170_PathSetTargetPos(pPath, CLIENTS_GetUnitX(pLinked), CLIENTS_GetUnitY(pLinked));
+                PATH_SetVelocity(pPath, 0x300, gszMissileSourceFile, 6012);
+                D2Common_10142(pPath, pMissile, 0);
+                MISSILE_CltDoCommon(pMissile);
+                return;
+            }
+        }
+        else if (nDistance < nMin && !nPrevState)
+        {
+            MISSILE_SetTargetY(pMissile, 1);
+            sub_004DA690_ReplaceMotionFlag1With8(pMissile);
+            GFXUTIL_SetMotionVectorB(pMissile, 0, 0, 1, 1);
+            MISSILE_CltDoCommon(pMissile);
+            return;
+        }
+        else if (nPrevState == 1)
+        {
+            int nDiffX = -CLIENTS_GetUnitX(pLinked) + CLIENTS_GetUnitX(pMissile);
+            int nDiffY = -CLIENTS_GetUnitY(pLinked) + CLIENTS_GetUnitY(pMissile);
+            if (nDiffX || nDiffY)
+            {
+                D2COMMON_10170_PathSetTargetPos(pPath, CLIENTS_GetUnitX(pMissile) - nDiffY, CLIENTS_GetUnitY(pMissile) + nDiffX);
+                PATH_SetVelocity(pPath, 0xA00, gszMissileSourceFile, 6046);
+                D2Common_10142(pPath, pMissile, 0);
+            }
+        }
+        else if (nPrevState == 3)
+        {
+            D2COMMON_10170_PathSetTargetPos(pPath, CLIENTS_GetUnitX(pLinked), CLIENTS_GetUnitY(pLinked));
+            PATH_SetVelocity(pPath, 0x200, gszMissileSourceFile, 6055);
+            D2Common_10142(pPath, pMissile, 0);
+        }
+    }
+
+    MISSILE_CltDoCommon(pMissile);
+}
+
+
