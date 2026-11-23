@@ -24892,6 +24892,10 @@
      "length": 522
     },
     {
+     "va": "0x00493840",
+     "length": 158
+    },
+    {
      "va": "0x00493B00",
      "length": 79,
      "name": "?HIREABLES_DrawUnitName@@YGXPAUD2UnitStrc@@HH@Z"
@@ -24910,6 +24914,11 @@
      "va": "0x00494EE0",
      "length": 76,
      "name": "?HIREABLES_FreeHelpCels@@YAXXZ"
+    },
+    {
+     "va": "0x00495030",
+     "length": 323,
+     "name": "?sub_00495030_DrawKeyHelp@@YAXXZ"
     },
     {
      "va": "0x00496990",
@@ -24972,35 +24981,6 @@
      "length": 1,
      "name": "?sub_00496980_Empty@@YAXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00493840.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00493840",
-     "length": 158
-    },
-    {
-     "va": "0x00495030",
-     "length": 323,
-     "name": "?sub_00495030_DrawKeyHelp@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
