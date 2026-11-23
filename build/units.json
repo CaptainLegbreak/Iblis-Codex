@@ -16500,6 +16500,16 @@
      "name": "?SCMD_ReadVarUnsignedShort@@YIIPAUD2BitBufferStrc@@@Z"
     },
     {
+     "va": "0x0045C370",
+     "length": 28,
+     "name": "?SEED_RollRandomNumber@@YI_KPATD2SeedStrc@@@Z"
+    },
+    {
+     "va": "0x0045C390",
+     "length": 75,
+     "name": "?SEED_RollLimitedRandomNumber@@YIIPATD2SeedStrc@@H@Z"
+    },
+    {
      "va": "0x0045C430",
      "length": 35,
      "name": "SCMD_SetUnitFlagEx"
@@ -17969,16 +17979,6 @@
    "file": "Source/D2Client/Unknown_0045C370.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0045C370",
-     "length": 28,
-     "name": "?SEED_RollRandomNumber@@YI_KPATD2SeedStrc@@@Z"
-    },
-    {
-     "va": "0x0045C390",
-     "length": 75,
-     "name": "?SEED_RollLimitedRandomNumber@@YIIPATD2SeedStrc@@H@Z"
-    },
     {
      "va": "0x0045C4B0",
      "length": 36,
