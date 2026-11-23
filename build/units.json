@@ -34218,25 +34218,21 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/SkillDesc_004EA450.cpp",
+   "file": "Source/D2Client/UI/SkillDesc_004EAD60.cpp",
    "rank": 0,
    "functions": [
     {
-     "va": "0x004EA450",
-     "length": 80
+     "va": "0x004EAD60",
+     "length": 260,
+     "name": "?SKILLDESC_DrawWeaponPhysElemDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
     },
     {
-     "va": "0x004EB390",
-     "length": 197
+     "va": "0x004EBB50",
+     "length": 498
     },
     {
-     "va": "0x004EC740",
-     "length": 152,
-     "name": "?SKILLDESC_AddSkillElemRateByType@@YGHPAUUnicode@@PAUD2SkillsTxt@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004ECCF0",
-     "length": 596
+     "va": "0x004ECF50",
+     "length": 382
     }
    ],
    "flags": [
@@ -34255,21 +34251,24 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/SkillDesc_004EAD60.cpp",
-   "rank": 0,
+   "file": "Source/D2Client/UI/SkillDesc_004EAE70.cpp",
+   "rank": 1,
    "functions": [
     {
-     "va": "0x004EAD60",
-     "length": 260,
-     "name": "?SKILLDESC_DrawWeaponPhysElemDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+     "va": "0x004EAE70",
+     "length": 278
     },
     {
-     "va": "0x004EBB50",
-     "length": 498
+     "va": "0x004EB290",
+     "length": 256
     },
     {
-     "va": "0x004ECF50",
-     "length": 382
+     "va": "0x004EC6F0",
+     "length": 66
+    },
+    {
+     "va": "0x004ED150",
+     "length": 663
     }
    ],
    "flags": [
@@ -34508,6 +34507,10 @@
      "name": "?SKILLDESC_DrawWeaponDamageLine@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
     },
     {
+     "va": "0x004EA450",
+     "length": 80
+    },
+    {
      "va": "0x004EA790",
      "length": 512,
      "name": "?SKILLDESC_DrawWeaponStatDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
@@ -34529,6 +34532,10 @@
      "va": "0x004EB240",
      "length": 77,
      "name": "?SKILLDESC_DrawSkillWeaponDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+    },
+    {
+     "va": "0x004EB390",
+     "length": 197
     },
     {
      "va": "0x004EB460",
@@ -34566,6 +34573,15 @@
      "name": "?SKILLDESC_AddMissileElemRate@@YGHPAUD2UnitStrc@@PAUUnicode@@PAUD2SkillsTxt@@HH@Z"
     },
     {
+     "va": "0x004EC740",
+     "length": 152,
+     "name": "?SKILLDESC_AddSkillElemRateByType@@YGHPAUUnicode@@PAUD2SkillsTxt@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004ECCF0",
+     "length": 596
+    },
+    {
      "va": "0x004ED480",
      "length": 167
     },
@@ -34593,42 +34609,6 @@
     {
      "va": "0x004F2BE0",
      "length": 494
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/SkillDesc_004EAE70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004EAE70",
-     "length": 278
-    },
-    {
-     "va": "0x004EB290",
-     "length": 256
-    },
-    {
-     "va": "0x004EC6F0",
-     "length": 66
-    },
-    {
-     "va": "0x004ED150",
-     "length": 663
     }
    ],
    "flags": [
