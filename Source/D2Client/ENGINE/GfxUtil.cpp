@@ -54,10 +54,6 @@ struct D2DrawBoundsArgStrc;
 
 struct D2DrawBoundsStrc;
 
-struct T00481920;
-
-struct D2SoundEnvironStrc;
-
 struct D2SkillsTxt;
 
 struct D2MonStatsTxt;
@@ -206,41 +202,6 @@ struct D2DrawBoundsStrc
     void sub_004DDE80_ExtendBounds(D2DrawBoundsArgStrc* pArg, int nX, int nY);
 };
 
-struct T00481920
-{
-    char unk0x00[0x24];
-    int nEAXEnviron;
-    int nEAXEnvSize;
-    int nEAXEnvDiff;
-    int nEAXRoomVol;
-    int nEAXRoomHF;
-    int nEAXDecayTime;
-    int nEAXDecayHF;
-    int nEAXReflect;
-    int nEAXReflectDelay;
-    int nEAXReverb;
-    int nEAXRevDelay;
-    int nEAXRoomRoll;
-    int nEAXAirAbsorb;
-};
-
-struct D2SoundEnvironStrc
-{
-    int nEnviron;
-    float f_4;
-    float fEnvDiff;
-    int nRoomVol;
-    int f_10;
-    float f_14;
-    float fDecayHF;
-    int nReflect;
-    float fReflectDelay;
-    int f_24;
-    float fRevDelay;
-    float fRoomRoll;
-    float fAirAbsorb;
-};
-
 extern "C" double __cdecl sqrt(double x); // 0x006879C0
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -248,8 +209,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern int gnScreenWidth; // 0x0071146C
 
 extern int gnScreenHeight; // 0x00711470
-
-extern int gnSoundEnvironId; // 0x0072ADE4
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
@@ -259,15 +218,11 @@ int __fastcall sub_004648F0_GetPathValue(D2UnitStrc* pUnit); // 0x004648F0
 
 D2RosterInfoStrc** __fastcall ROSTER_GetRosterInfoList(int nUnitId); // 0x0047A310
 
-T00481920* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
-
 D2UnitStrc* __fastcall AUTOMAP_RequestAtTarget(D2UnitStrc* pUnit, int nRequest, int nArg3, int nArg4); // 0x004C5420
 
 D2UnitStrc* __fastcall SKILLDESC_CltDoRandomMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004E31C0
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
-
-void __fastcall sub_00513C50_SetSoundEnviron(D2SoundEnvironStrc* pEnviron); // 0x00513C50
 
 int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 
@@ -1147,37 +1102,6 @@ void D2DrawBoundsStrc::sub_004DDE80_ExtendBounds(D2DrawBoundsArgStrc* pArg, int 
             nMaxY = nY;
         }
     }
-}
-
-// 0x004DF6C0
-void __fastcall GFXUTIL_ApplySoundEnviron(int nEnvironId)
-{
-    if (nEnvironId == gnSoundEnvironId)
-    {
-        return;
-    }
-
-    T00481920* pTxt = sub_00481920_GetSoundEnvironTxtRecord(nEnvironId);
-    if ((sub_00514C90_GetSoundMode() == 2 || !nEnvironId) && sub_00513B70_IsSoundEnvironEnabled())
-    {
-        D2SoundEnvironStrc tEnviron;
-        tEnviron.nEnviron = pTxt->nEAXEnviron;
-        tEnviron.f_4 = pTxt->nEAXEnvSize / 1000.0;
-        tEnviron.fEnvDiff = pTxt->nEAXEnvDiff / 1000.0;
-        tEnviron.nRoomVol = pTxt->nEAXRoomVol;
-        tEnviron.f_10 = pTxt->nEAXRoomHF;
-        tEnviron.f_14 = pTxt->nEAXDecayTime / 1000.0;
-        tEnviron.fDecayHF = pTxt->nEAXDecayHF / 1000.0;
-        tEnviron.nReflect = pTxt->nEAXReflect;
-        tEnviron.fReflectDelay = pTxt->nEAXReflectDelay / 1000.0;
-        tEnviron.f_24 = pTxt->nEAXReverb;
-        tEnviron.fRevDelay = pTxt->nEAXRevDelay / 1000.0;
-        tEnviron.fRoomRoll = pTxt->nEAXRoomRoll / 1000.0;
-        tEnviron.fAirAbsorb = pTxt->nEAXAirAbsorb / 1000.0;
-        sub_00513C50_SetSoundEnviron(&tEnviron);
-    }
-
-    gnSoundEnvironId = nEnvironId;
 }
 
 // 0x004E0700
