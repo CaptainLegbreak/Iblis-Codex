@@ -522,6 +522,10 @@ extern const unsigned int gnRenderFlag_006CE284; // 0x006CE284
 
 extern const unsigned int gnRenderFlag_006CE288; // 0x006CE288
 
+extern "C" const char gszFailedToLockDest[];                                                       // 0x006FB130
+
+extern "C" const char gszFailedToLockSource[];                                                     // 0x006FB14C
+
 // 0x006B1C70
 void __fastcall D3D_SetPalette(tagPALETTEENTRY* pPalette)
 {
@@ -882,6 +886,48 @@ int __fastcall D3D_CreateMemoryTexture(D2ComObject006B58A0Strc** ppSurface, D2Co
         return 0;
     }
     return 1;
+}
+
+// 0x006B38A0
+void __fastcall sub_006B38A0_Copy(D2DDSurfaceStrc* pDst, D2DDSurfaceStrc* pSrc, unsigned int nRows)
+{
+    unsigned char* pSrcBits;
+    unsigned char* pDstBits;
+    unsigned int nDstPitch;
+    unsigned int nWidth;
+    D2DDSurfaceDesc2Strc tSrcDesc = { sizeof(D2DDSurfaceDesc2Strc) };
+    long hResult = pSrc->lpVtbl->Lock(pSrc, 0, &tSrcDesc, 0x21, 0);
+    if (hResult)
+    {
+        sub_006B20E0_DDrawLogError(gszFailedToLockSource, hResult);
+    }
+    else
+    {
+        pSrcBits = (unsigned char*)tSrcDesc.lpSurface;
+        D2DDSurfaceDesc2Strc tDstDesc = { sizeof(D2DDSurfaceDesc2Strc) };
+        hResult = pDst->lpVtbl->Lock(pDst, 0, &tDstDesc, 0x21, 0);
+        if (hResult)
+        {
+            sub_006B20E0_DDrawLogError(gszFailedToLockDest, hResult);
+        }
+        else
+        {
+            nDstPitch = tDstDesc.lPitch;
+            nWidth = tSrcDesc.lPitch;
+            pDstBits = (unsigned char*)tDstDesc.lpSurface;
+            nWidth = nWidth < nDstPitch ? nWidth : nDstPitch;
+            unsigned int nLeft = nRows;
+            while (nLeft--)
+            {
+                memcpy(pDstBits, pSrcBits, nWidth);
+
+                if (nLeft && (int)pDst < 0 && (int)pSrc < 0 && nWidth) pDstBits += nDstPitch; else pDstBits += nDstPitch;
+                pSrcBits += tSrcDesc.lPitch;
+            }
+        }
+    }
+    pSrc->lpVtbl->Unlock(pSrc, 0);
+    pDst->lpVtbl->Unlock(pDst, 0);
 }
 
 // 0x006B4FD0

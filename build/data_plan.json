@@ -5333,12 +5333,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Direct3D/Unknown_006B38A0.cpp": {
-   "bytes": 60,
-   "definitions": 2,
+  "Source/D2Direct3D/Src/d3dCore.cpp": {
+   "bytes": 1332,
+   "definitions": 17,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Direct3D/Unknown_006B38A0.inc",
+   "include": "gen/data/Source/D2Direct3D/Src/d3dCore.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -5366,15 +5366,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Direct3D/Unknown_006B4C90.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Direct3D/Src/d3dCore.cpp": {
-   "bytes": 1272,
-   "definitions": 15,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Direct3D/Src/d3dCore.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -153036,7 +153027,7 @@
    "cname": "gData_006FB130",
    "declared": true,
    "decorated": "_gszFailedToLockDest",
-   "file": "Source/D2Direct3D/Unknown_006B38A0.cpp",
+   "file": "Source/D2Direct3D/Src/d3dCore.cpp",
    "fill": 28,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006FB130[28]; // 0x006FB130",
@@ -153067,7 +153058,7 @@
    "cname": "gData_006FB14C",
    "declared": true,
    "decorated": "_gszFailedToLockSource",
-   "file": "Source/D2Direct3D/Unknown_006B38A0.cpp",
+   "file": "Source/D2Direct3D/Src/d3dCore.cpp",
    "fill": 32,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006FB14C[32]; // 0x006FB14C",
