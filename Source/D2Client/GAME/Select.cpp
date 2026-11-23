@@ -29,7 +29,7 @@ extern D2ViewStrc* gpClientView;                                                
 extern int gbHoverLocked;                                                                              // 0x007A6A98
 extern int gbHasSelectedUnit;                                                                              // 0x007A6A94
 extern int gnSelectedUnitType;                                                                     // 0x007A6A8C
-extern unsigned int gnSelectedUnitId;                                                              // 0x007A6A78
+static unsigned int gnSelectedUnitId;                                                              // 0x007A6A78
 extern int gnScreenWidth;                                                                               // 0x0071146C
 extern int gnScreenHeight;                                                                               // 0x00711470
 extern int gbSelectionRectValid;                                                                   // 0x007A6A9C
@@ -52,7 +52,7 @@ D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonster
 int __fastcall SCMD_IsPointInTileRect(D2UnitStrc* pUnit, int nX, int nY);                           // 0x00463EE0
 int __cdecl GAME_IsLeftButtonHeld();                                                                                 // 0x0044BF30
 int __cdecl GAME_GetCurrentTime(); // 0x0044DAA0
-int __cdecl GAME_GetInteractDeadline(); // 0x0044DAC0
+unsigned int __cdecl GAME_GetInteractDeadline(); // 0x0044DAC0
 void __fastcall GAME_SetInteractDeadline(int nValue); // 0x0044DAD0
 extern "C" int __cdecl PLAYER_GetScreenOffsetX();                                                          // 0x0045AFC0
 extern "C" int __cdecl PLAYER_GetScreenOffsetY();                                                      // 0x0045AFD0
@@ -115,6 +115,18 @@ static inline int CLIENT_GetUnitYInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
+struct D2HoverCoordStrc;
+
+static inline unsigned int UNITS_GetUnitIdInline(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return -1;
+    }
+    return pUnit->dwUnitId;
+}
+
+// 0x00466DE0
 static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
 {
     char szBuffer[0x200];
@@ -133,14 +145,18 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
     TEXT_ClearHoverUnit();
 
     int bSame = 0;
-    int nUnitType;
-    unsigned int nUnitId;
+    int nHoverType;
+    unsigned int nHoverId;
     if (pUnit)
     {
         D2_ASSERT(sub_00466870(pUnit, 0, 0, 0), 0x4F);
-        nUnitType = pUnit->dwUnitType;
-        nUnitId = pUnit->dwUnitId;
-        bSame = gbHasSelectedUnit && nUnitType == gnSelectedUnitType && nUnitId == gnSelectedUnitId;
+        nHoverType = pUnit->dwUnitType;
+        nHoverId = pUnit->dwUnitId;
+    }
+
+    if (pUnit && gbHasSelectedUnit && nHoverType == gnSelectedUnitType && nHoverId == gnSelectedUnitId)
+    {
+        bSame = 1;
     }
 
     if (!bSame && gbHasSelectedUnit && gnSelectedUnitType == 5)
@@ -159,35 +175,41 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
         return;
     }
 
-    nUnitType = pUnit->dwUnitType;
-    nUnitId = pUnit->dwUnitId;
-    gnSelectedUnitType = nUnitType;
-    gnSelectedUnitId = nUnitId;
+    nHoverType = pUnit->dwUnitType;
+    nHoverId = UNITS_GetUnitIdInline(pUnit);
+    gnSelectedUnitType = nHoverType;
+    gnSelectedUnitId = nHoverId;
     gbHasSelectedUnit = 1;
 
-    switch (nUnitType)
+    switch (gnSelectedUnitType)
     {
     case 5:
         if (!bSame)
         {
-            DUNGEON_UpdateWarpRoomSelect(UNITS_GetRoom(pUnit), pUnit->dwClassId);
+            DUNGEON_UpdateWarpRoomSelect(UNITS_GetRoom(pUnit), !pUnit ? -1 : pUnit->dwClassId);
             VIEW_SetViewDirty(gpClientView);
         }
         break;
 
     case 2:
-        if (UnitIsDoor(pUnit) && pUnit->dwAnimMode != 4)
+        if (!UnitIsDoor(pUnit) || pUnit->dwAnimMode == 4)
         {
-            const unsigned int dwNow = GetTickCount();
-            if (dwNow - pUnit->dwTickCount > 0x1F4)
-            {
-                sprintf(szBuffer, "msg at %d\n", dwNow);
-                OutputDebugStringA(szBuffer);
-                pUnit->dwTickCount = dwNow;
-                sub_00478680_SendPacket5(0x3D, gnSelectedUnitId);
-            }
+            break;
         }
+
+    {
+        const unsigned int dwTick = GetTickCount();
+        if (dwTick - pUnit->dwTickCount <= 0x1F4)
+        {
+            break;
+        }
+
+        sprintf(szBuffer, "msg at %d\n", dwTick);
+        OutputDebugStringA(szBuffer);
+        pUnit->dwTickCount = dwTick;
+        sub_00478680_SendPacket5(0x3D, gnSelectedUnitId);
         break;
+    }
 
     case 1:
         if (!bSame)
@@ -216,10 +238,11 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
     }
 }
 
-static int __stdcall sub_00467000_CheckWarpTileHover(D2UnitStrc* pPlayer, int nY1, int nX2, int nY2, D2UnitStrc* pUnit, int nX1, int* pnFlag)
+// 0x00467000
+static int __stdcall sub_00467000_CheckWarpTileHover(D2UnitStrc* pPlayer, D2HoverCoordStrc tY1, int nX2, int nY2, D2UnitStrc* pUnit, int nX1, int* pnFlag)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_TILE
-        && SCMD_IsPointInTileRect(pUnit, nX1, nY1)
+        && SCMD_IsPointInTileRect(pUnit, nX1, tY1.nValue)
         && SCMD_IsPointInTileRect(pUnit, nX2, nY2)
         && UNITS_IsInMovingMode(pPlayer)
         && GAME_IsLeftButtonHeld())
@@ -238,6 +261,13 @@ static int __stdcall sub_00467000_CheckWarpTileHover(D2UnitStrc* pPlayer, int nY
     }
 
     return 0;
+}
+
+int __stdcall sub_662F_Emit_00467AC0(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int nPX, int nPY, int nX, int nY)
+{
+    D2HoverCoordStrc tY1;
+    tY1.nValue = nPY;
+    return sub_00467000_CheckWarpTileHover(pPlayer, tY1, nX, nY, pUnit, nPX, &gbWarpTileHovered);
 }
 
 // 0x004670A0
@@ -655,7 +685,8 @@ void __cdecl sub_E01_Emit_00467AC0(D2UnitStrc* pFirst)
     D2UnitStrc* pBest = 0;
     for (D2UnitStrc* pUnit = pFirst; pUnit; pUnit = pUnit->ptRoomNext)
     {
-        if (sub_00467000_CheckWarpTileHover(pPlayer, nPY, nX, nY, pUnit, nPX, &gbWarpTileHovered))
+        D2HoverCoordStrc tPlayerY = { nPY };
+        if (sub_00467000_CheckWarpTileHover(pPlayer, tPlayerY, nX, nY, pUnit, nPX, &gbWarpTileHovered))
         {
             continue;
         }
