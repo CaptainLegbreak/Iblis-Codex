@@ -5,10 +5,7 @@ extern unsigned char gnUtf8Trailing_006FCCA0[]; // 0x006FCCA0
 extern unsigned int gnUtf8Offsets_006FCC88[]; // 0x006FCC88
 extern const unsigned char gaTrailingBytesForUtf8_006FCCA0[256]; // 0x006FCCA0
 extern const unsigned int gaOffsetsFromUtf8_006FCC88[6]; // 0x006FCC88
-static int __stdcall SUniConvertUTF16ToCP(const unsigned short* source, unsigned int count, const unsigned short* volatile table, char* destination);
 extern const unsigned short gWideTable_006FCDC0[]; // 0x006FCDC0
-static int __stdcall sub_006C78C0_ConvertToWide(unsigned short*,const unsigned char*,unsigned int,const unsigned short*); // 0x006C78C0
-static int __cdecl sub_006C78C0_Translate(const unsigned short* pTable, unsigned short* pDest, const unsigned char* pSource, int nCount);
 
 
 // 0x006C7030
@@ -424,7 +421,7 @@ done:
 }
 
 // 0x006C7790
-static inline int sub_006C7790_SkipUtf8Continuation(const unsigned char* text, int index, int step)
+static int sub_006C7790_SkipUtf8Continuation(const unsigned char* text, int index, int step)
 {
     while (index > 0)
     {
@@ -436,13 +433,21 @@ static inline int sub_006C7790_SkipUtf8Continuation(const unsigned char* text, i
     return index;
 }
 
-int __fastcall EmitSkipUtf8Continuation(int index, const unsigned char* text, int step)
+// 0x006C77B0
+int __stdcall SUniFindUTF8ChrStart(const unsigned char* text, int index)
 {
-    return sub_006C7790_SkipUtf8Continuation(text, index + 1, step);
+    return sub_006C7790_SkipUtf8Continuation(text, index, -1);
 }
 
+// 0x006C77D0
+int __stdcall SUniFindAfterUTF8Chr(const unsigned char* text, int index)
+{
+    return sub_006C7790_SkipUtf8Continuation(text, index + 1, 1);
+}
+
+// table stands for the original's register choice (count, source and the index in ebx/edi/esi); with a plain parameter they rotate
 // 0x006C77F0
-static int __stdcall SUniConvertUTF16ToCP(const unsigned short* source, unsigned int count, const unsigned short* table, char* destination)
+static int __stdcall SUniConvertUTF16ToCP(const unsigned short* source, unsigned int count, const unsigned short* volatile table, char* destination)
 {
     if (!count)
     {
@@ -506,31 +511,8 @@ static int __stdcall SUniConvertUTF16ToCP(const unsigned short* source, unsigned
     return out - destination;
 }
 
-// 0x006C7900
-int __stdcall SUniConvertUTF16ToWin(char* destination, const unsigned short* source, unsigned int count)
-{
-    return SUniConvertUTF16ToCP(source, count, gWideTable_006FCDC0, destination);
-}
-
-// 0x006C7920
-int __stdcall SUniConvertUTF16ToMac(char* pDest, const unsigned short* pSource, unsigned int nCount)
-{
-    return SUniConvertUTF16ToCP(pSource, nCount, gWideTable_006FCFC0, pDest);
-}
-
-// 0x006C7940
-int __stdcall SUniConvertUTF16ToDos(char* pDest, const unsigned short* pSource, unsigned int nCount)
-{
-    return SUniConvertUTF16ToCP(pSource, nCount, gWideTable_006FD1C0, pDest);
-}
-
-// 0x006C7960
-int __stdcall SUniConvertWinToUTF16(unsigned short* destination,const unsigned char* source,unsigned int count) {
-    return sub_006C78C0_ConvertToWide(destination,source,count,gWideTable_006FCDC0);
-}
-
 // 0x006C78C0
-static int __cdecl sub_006C78C0_Translate(const unsigned short* pTable, unsigned short* pDest, const unsigned char* pSource, int nCount)
+static int sub_006C78C0_Translate(unsigned short* pDest, const unsigned char* pSource, unsigned int nCount, const unsigned short* pTable)
 {
     if (!nCount)
     {
@@ -558,37 +540,38 @@ static int __cdecl sub_006C78C0_Translate(const unsigned short* pTable, unsigned
     return pWrite - pDest;
 }
 
-// 0x006C7980
-int __stdcall SUniConvertMacToUTF16(unsigned short* pDest, const unsigned char* pSource, int nCount)
+// 0x006C7900
+int __stdcall SUniConvertUTF16ToWin(char* pDest, const unsigned short* pSource, unsigned int nCount)
 {
-    return sub_006C78C0_Translate(gawTranslateTable_006FCFC0, pDest, pSource, nCount);
+    return SUniConvertUTF16ToCP(pSource, nCount, gWideTable_006FCDC0, pDest);
 }
 
-// 0x006C78C0
-static int __stdcall sub_006C78C0_ConvertToWide(unsigned short* pDest, const unsigned char* pSource, unsigned int nCount, const unsigned short* pTable)
+// 0x006C7920
+int __stdcall SUniConvertUTF16ToMac(char* pDest, const unsigned short* pSource, unsigned int nCount)
 {
-    if (!nCount)
-    {
-        return 0;
-    }
+    return SUniConvertUTF16ToCP(pSource, nCount, gWideTable_006FCFC0, pDest);
+}
 
-    unsigned short* pOut = pDest;
-    while (*pSource && nCount)
-    {
-        *pOut++ = pTable[*pSource++];
-        --nCount;
-    }
+// 0x006C7940
+int __stdcall SUniConvertUTF16ToDos(char* pDest, const unsigned short* pSource, unsigned int nCount)
+{
+    return SUniConvertUTF16ToCP(pSource, nCount, gWideTable_006FD1C0, pDest);
+}
 
-    if (nCount)
-    {
-        *pOut++ = 0;
-    }
+// 0x006C7960
+int __stdcall SUniConvertWinToUTF16(unsigned short* pDest, const unsigned char* pSource, unsigned int nCount)
+{
+    return sub_006C78C0_Translate(pDest, pSource, nCount, gWideTable_006FCDC0);
+}
 
-    return pOut - pDest;
+// 0x006C7980
+int __stdcall SUniConvertMacToUTF16(unsigned short* pDest, const unsigned char* pSource, unsigned int nCount)
+{
+    return sub_006C78C0_Translate(pDest, pSource, nCount, gWideTable_006FCFC0);
 }
 
 // 0x006C79A0
-int __stdcall SUniConvertDosToUTF16(unsigned short* pDest, const unsigned char* pSource, int nCount)
+int __stdcall SUniConvertDosToUTF16(unsigned short* pDest, const unsigned char* pSource, unsigned int nCount)
 {
-    return sub_006C78C0_ConvertToWide(pDest, pSource, nCount, gWideTable_006FD1C0);
+    return sub_006C78C0_Translate(pDest, pSource, nCount, gWideTable_006FD1C0);
 }
