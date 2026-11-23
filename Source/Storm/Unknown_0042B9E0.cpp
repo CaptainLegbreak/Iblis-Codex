@@ -733,4 +733,20 @@ void __fastcall _tr_flush_block(deflate_state* s, char* buf, unsigned long store
     }
 }
 
+// 0x0042C600
+int __fastcall _tr_tally(deflate_state* s, unsigned dist, unsigned lc)
+{
+    s->d_buf[s->last_lit] = (unsigned short)dist;
+    s->l_buf[s->last_lit++] = (unsigned char)lc;
+    if (dist == 0) {
+        s->dyn_ltree[lc].fc.freq++;
+    } else {
+        s->matches++;
+        dist--;
+        s->dyn_ltree[_length_code[lc] + LITERALS + 1].fc.freq++;
+        s->dyn_dtree[d_code(dist)].fc.freq++;
+    }
+    return (s->last_lit == s->lit_bufsize - 1);
+}
+
 #include "gen/data/Source/Storm/Unknown_0042B9E0.inc"

@@ -1,5 +1,11 @@
 #include "Storm.h"
+// Altered from the original zlib source.
+#define ZLIB_VERSION    "1.2.8"
+#define Z_VERSION_ERROR (-6)
 #define Z_TREES         6
+#define DEF_WBITS       MAX_WBITS
+#define ENOUGH          1444
+#define ZFREE(strm, addr) (*((strm)->zfree))((strm)->opaque, (void*)(addr))
 #define UPDATEWINDOW updatewindow
 #define UPDATE(check, buf, len) \
     (state->flags ? crc32(check, buf, len) : adler32(check, buf, len))
@@ -194,6 +200,142 @@ extern const code distfix_006D0B00[32]; // 0x006D0B00
 extern const unsigned short order_006D0B80[19]; // 0x006D0B80
 
 static int __stdcall updatewindow(z_stream* strm, const unsigned char* end, unsigned copy);
+static unsigned __stdcall syncsearch(unsigned* have, const unsigned char* buf, unsigned len);
+void* __fastcall zcalloc(void* opaque, unsigned int items, unsigned int size); // 0x0042DC70
+void __fastcall zcfree(void* opaque, void* ptr); // 0x0042DC90
+
+// 0x00429810
+int __fastcall inflateResetKeep(z_stream* strm)
+{
+    inflate_state* state;
+
+    if (strm == 0 || strm->state == 0) return -2;
+    state = strm->state;
+    strm->total_in = strm->total_out = state->total = 0;
+    strm->msg = 0;
+    if (state->wrap)
+        strm->adler = state->wrap & 1;
+    state->mode = 0;
+    state->last = 0;
+    state->havedict = 0;
+    state->dmax = 32768U;
+    state->head = 0;
+    state->hold = 0;
+    state->bits = 0;
+    state->lencode = state->distcode = state->next = state->codes;
+    state->sane = 1;
+    state->back = -1;
+    return 0;
+}
+
+// 0x00429880
+int __fastcall inflateReset(z_stream* strm)
+{
+    inflate_state* state;
+    if (strm == 0 || strm->state == 0) return Z_STREAM_ERROR;
+    state = (inflate_state*)strm->state;
+    state->wsize = 0;
+    state->whave = 0;
+    state->wnext = 0;
+    return inflateResetKeep(strm);
+}
+
+// 0x004298B0
+int __fastcall inflateReset2(z_stream* strm, int windowBits)
+{
+    int wrap;
+    inflate_state* state;
+
+    if (strm == 0 || strm->state == 0) return Z_STREAM_ERROR;
+    state = (inflate_state*)strm->state;
+
+    if (windowBits < 0)
+    {
+        wrap = 0;
+        windowBits = -windowBits;
+    }
+    else
+    {
+        wrap = (windowBits >> 4) + 1;
+        if (windowBits < 48)
+            windowBits &= 15;
+    }
+
+    if (windowBits && (windowBits < 8 || windowBits > 15))
+        return Z_STREAM_ERROR;
+    if (state->window != 0 && state->wbits != (unsigned)windowBits)
+    {
+        (*strm->zfree)(strm->opaque, state->window);
+        state->window = 0;
+    }
+
+    state->wrap = wrap;
+    state->wbits = (unsigned)windowBits;
+    return inflateReset(strm);
+}
+
+// 0x00429950
+int __fastcall inflateInit2_(z_stream* strm, int windowBits, const char* version, int stream_size)
+{
+    int ret;
+    inflate_state* state;
+
+    if (version == Z_NULL || version[0] != ZLIB_VERSION[0] || stream_size != (int)(sizeof(z_stream)))
+        return Z_VERSION_ERROR;
+    if (strm == Z_NULL) return Z_STREAM_ERROR;
+    strm->msg = Z_NULL;
+    if (strm->zalloc == (alloc_func)0)
+    {
+        strm->zalloc = zcalloc;
+        strm->opaque = (void*)0;
+    }
+    if (strm->zfree == (free_func)0) strm->zfree = zcfree;
+    state = (inflate_state*)(*strm->zalloc)(strm->opaque, 1, sizeof(inflate_state));
+    if (state == Z_NULL) return Z_MEM_ERROR;
+    strm->state = state;
+    state->window = Z_NULL;
+    ret = inflateReset2(strm, windowBits);
+    if (ret != Z_OK)
+    {
+        (*strm->zfree)(strm->opaque, state);
+        strm->state = Z_NULL;
+    }
+    return ret;
+}
+
+// 0x00429A10
+int __fastcall inflateInit_(z_stream* strm, const char* version, int stream_size)
+{
+    return inflateInit2_(strm, DEF_WBITS, version, stream_size);
+}
+
+// 0x00429A30
+int __fastcall inflatePrime(z_stream* strm, int bits, int value)
+{
+    inflate_state* state;
+
+    if (strm == Z_NULL || strm->state == Z_NULL) return Z_STREAM_ERROR;
+    state = (inflate_state*)strm->state;
+    if (bits < 0) {
+        state->hold = 0;
+        state->bits = 0;
+        return Z_OK;
+    }
+    if (bits > 16 || state->bits + bits > 32) return Z_STREAM_ERROR;
+    value &= (1L << bits) - 1;
+    state->hold += value << state->bits;
+    state->bits += bits;
+    return Z_OK;
+}
+
+// 0x00429AA0
+static void fixedtables(inflate_state* state)
+{
+    state->lencode = lenfix_006D0300;
+    state->lenbits = 9;
+    state->distcode = distfix_006D0B00;
+    state->distbits = 5;
+}
 
 // 0x00429AC0
 static int __stdcall updatewindow(z_stream* strm, const unsigned char* end, unsigned copy)
@@ -233,40 +375,6 @@ static int __stdcall updatewindow(z_stream* strm, const unsigned char* end, unsi
         }
     }
     return 0;
-}
-
-// 0x0042B220
-int __fastcall inflateSetDictionary(z_stream* strm, const unsigned char* dictionary, unsigned dictLength)
-{
-    inflate_state* state;
-    unsigned long dictid;
-    int ret;
-
-    if (strm == 0 || strm->state == 0) return -2;
-    state = strm->state;
-    if (state->wrap != 0 && state->mode != 10)
-        return -2;
-    if (state->mode == 10) {
-        dictid = adler32(0L, 0, 0);
-        dictid = adler32(dictid, dictionary, dictLength);
-        if (dictid != state->check)
-            return -3;
-    }
-    ret = updatewindow(strm, dictionary + dictLength, dictLength);
-    if (ret) {
-        state->mode = 30;
-        return -4;
-    }
-    state->havedict = 1;
-    return 0;
-}
-
-static void fixedtables(inflate_state* state)
-{
-    state->lencode = lenfix_006D0300;
-    state->lenbits = 9;
-    state->distcode = distfix_006D0B00;
-    state->distbits = 5;
 }
 
 // 0x00429BB0
@@ -849,4 +957,200 @@ int __fastcall inflate(z_stream* strm, int flush)
     return ret;
 }
 
-#include "gen/data/Source/Storm/Unknown_00429AC0.inc"
+// 0x0042B170
+int __fastcall inflateEnd(z_stream* strm)
+{
+    inflate_state* state;
+    if (strm == Z_NULL || strm->state == Z_NULL || strm->zfree == (free_func)0)
+        return Z_STREAM_ERROR;
+    state = (inflate_state*)strm->state;
+    if (state->window != Z_NULL)
+        ZFREE(strm, state->window);
+    ZFREE(strm, strm->state);
+    strm->state = Z_NULL;
+    return Z_OK;
+}
+
+// 0x0042B1B0
+int __fastcall inflateGetDictionary(z_stream* strm, unsigned char* dictionary, unsigned int* dictLength)
+{
+    inflate_state* state;
+    if (strm == 0 || strm->state == 0) return Z_STREAM_ERROR;
+    state = (inflate_state*)strm->state;
+    if (state->whave && dictionary != 0)
+    {
+        memcpy(dictionary, state->window + state->wnext, state->whave - state->wnext);
+        memcpy(dictionary + state->whave - state->wnext, state->window, state->wnext);
+    }
+    if (dictLength != 0) *dictLength = state->whave;
+    return Z_OK;
+}
+
+// 0x0042B220
+int __fastcall inflateSetDictionary(z_stream* strm, const unsigned char* dictionary, unsigned dictLength)
+{
+    inflate_state* state;
+    unsigned long dictid;
+    int ret;
+
+    if (strm == 0 || strm->state == 0) return -2;
+    state = strm->state;
+    if (state->wrap != 0 && state->mode != 10)
+        return -2;
+    if (state->mode == 10) {
+        dictid = adler32(0L, 0, 0);
+        dictid = adler32(dictid, dictionary, dictLength);
+        if (dictid != state->check)
+            return -3;
+    }
+    ret = updatewindow(strm, dictionary + dictLength, dictLength);
+    if (ret) {
+        state->mode = 30;
+        return -4;
+    }
+    state->havedict = 1;
+    return 0;
+}
+
+// 0x0042B2D0
+int __fastcall inflateGetHeader(z_stream* strm, gz_header* head)
+{
+    inflate_state* state;
+    if (strm == 0 || strm->state == 0) return Z_STREAM_ERROR;
+    state = (inflate_state*)strm->state;
+    if ((state->wrap & 2) == 0) return Z_STREAM_ERROR;
+    state->head = head;
+    head->done = 0;
+    return Z_OK;
+}
+
+// 0x0042B300
+static unsigned __stdcall syncsearch(unsigned* have, const unsigned char* buf, unsigned len)
+{
+    unsigned got;
+    unsigned next;
+
+    got = *have;
+    next = 0;
+    while (next < len && got < 4) {
+        if ((int)(buf[next]) == (got < 2 ? 0 : 0xff))
+            got++;
+        else if (buf[next])
+            got = 0;
+        else
+            got = 4 - got;
+        next++;
+    }
+    *have = got;
+    return next;
+}
+
+// 0x0042B360
+int __fastcall inflateSync(z_stream* strm)
+{
+    unsigned len;
+    unsigned long in, out;
+    unsigned char buf[4];
+    inflate_state* state;
+
+    if (strm == 0 || strm->state == 0) return -2;
+    state = strm->state;
+    if (strm->avail_in == 0 && state->bits < 8) return -5;
+
+    if (state->mode != 31) {
+        state->mode = 31;
+        state->hold <<= state->bits & 7;
+        state->bits -= state->bits & 7;
+        len = 0;
+        while (state->bits >= 8) {
+            buf[len++] = (unsigned char)(state->hold);
+            state->hold >>= 8;
+            state->bits -= 8;
+        }
+        state->have = 0;
+        syncsearch(&(state->have), buf, len);
+    }
+
+    len = syncsearch(&(state->have), strm->next_in, strm->avail_in);
+    strm->avail_in -= len;
+    strm->next_in += len;
+    strm->total_in += len;
+
+    if (state->have != 4) return -3;
+    in = strm->total_in;  out = strm->total_out;
+    inflateReset(strm);
+    strm->total_in = in;  strm->total_out = out;
+    state->mode = 11;
+    return 0;
+}
+
+// 0x0042B460
+int __fastcall inflateSyncPoint(z_stream* strm)
+{
+    inflate_state* state;
+    if (strm == 0 || strm->state == 0) return Z_STREAM_ERROR;
+    state = (inflate_state*)strm->state;
+    return state->mode == STORED && state->bits == 0;
+}
+
+// 0x0042B490
+int __fastcall inflateCopy(z_stream* dest, z_stream* source)
+{
+    inflate_state* state;
+    inflate_state* copy;
+    unsigned char* window;
+    unsigned int wsize;
+
+    if (dest == Z_NULL || source == Z_NULL || source->state == Z_NULL || source->zalloc == 0 || source->zfree == 0)
+        return Z_STREAM_ERROR;
+    state = (inflate_state*)source->state;
+
+    copy = (inflate_state*)source->zalloc(source->opaque, 1, sizeof(inflate_state));
+    if (copy == Z_NULL) return Z_MEM_ERROR;
+    window = Z_NULL;
+    if (state->window != Z_NULL) {
+        window = (unsigned char*)source->zalloc(source->opaque, 1U << state->wbits, sizeof(unsigned char));
+        if (window == Z_NULL) {
+            source->zfree(source->opaque, copy);
+            return Z_MEM_ERROR;
+        }
+    }
+
+    memcpy(dest, source, sizeof(z_stream));
+    memcpy(copy, state, sizeof(inflate_state));
+    if (state->lencode >= state->codes && state->lencode <= state->codes + ENOUGH - 1) {
+        copy->lencode = copy->codes + (state->lencode - state->codes);
+        copy->distcode = copy->codes + (state->distcode - state->codes);
+    }
+    copy->next = copy->codes + (state->next - state->codes);
+    if (window != Z_NULL) {
+        wsize = 1U << state->wbits;
+        memcpy(window, state->window, wsize);
+    }
+    copy->window = window;
+    dest->state = copy;
+    return Z_OK;
+}
+
+// 0x0042B5E0
+int __fastcall inflateUndermine(z_stream* strm, int subvert)
+{
+    inflate_state* state;
+    if (strm == 0 || strm->state == 0) return Z_STREAM_ERROR;
+    state = (inflate_state*)strm->state;
+    state->sane = 1;
+    return Z_DATA_ERROR;
+}
+
+// 0x0042B610
+long __fastcall inflateMark(z_stream* strm)
+{
+    inflate_state* state;
+    if (strm == 0 || strm->state == 0) return -1L << 16;
+    state = (inflate_state*)strm->state;
+    return ((long)(state->back) << 16) +
+        (state->mode == COPY ? state->length :
+            (state->mode == MATCH ? state->was - state->length : 0));
+}
+
+#include "gen/data/Source/Storm/Unknown_00429810.inc"
