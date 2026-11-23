@@ -13337,6 +13337,76 @@
      "length": 6
     },
     {
+     "va": "0x0044AB80",
+     "length": 28,
+     "name": "?sub_0044AB80_McpIncoming1B@@YIHPAUD2McpPacketValueStrc@@H@Z"
+    },
+    {
+     "va": "0x0044ABA0",
+     "length": 22,
+     "name": "?sub_0044ABA0_McpIncoming02@@YIHPAUD2McpPacketValueStrc@@H@Z"
+    },
+    {
+     "va": "0x0044ABC0",
+     "length": 22,
+     "name": "?sub_0044ABC0_McpIncoming07@@YIHPAUD2McpPacketValueStrc@@H@Z"
+    },
+    {
+     "va": "0x0044ABE0",
+     "length": 53,
+     "name": "?sub_0044ABE0_McpIncoming03@@YIHPAUD2McpIncoming03Strc@@H@Z"
+    },
+    {
+     "va": "0x0044AC20",
+     "length": 115,
+     "name": "?sub_0044AC20_McpIncoming04@@YIHPAUD2McpIncoming04Strc@@H@Z"
+    },
+    {
+     "va": "0x0044ADF0",
+     "length": 24,
+     "name": "?sub_0044ADF0_McpIncoming08@@YIHPAUD2McpIncoming08Strc@@H@Z"
+    },
+    {
+     "va": "0x0044AE10",
+     "length": 24,
+     "name": "?sub_0044AE10_McpIncoming09@@YIHPAUD2McpIncoming09Strc@@H@Z"
+    },
+    {
+     "va": "0x0044AE30",
+     "length": 35,
+     "name": "?sub_0044AE30_McpIncoming0A@@YIHPAUD2McpIncoming0AStrc@@H@Z"
+    },
+    {
+     "va": "0x0044AE60",
+     "length": 22,
+     "name": "?sub_0044AE60_McpIncoming18@@YIHPAUD2McpPacketValueStrc@@H@Z"
+    },
+    {
+     "va": "0x0044AE80",
+     "length": 22,
+     "name": "?sub_0044AE80_McpIncoming0B@@YIHPAUD2McpPacketValueStrc@@H@Z"
+    },
+    {
+     "va": "0x0044AEA0",
+     "length": 22,
+     "name": "?sub_0044AEA0_McpIncoming0C@@YIHPAUD2McpPacketValueStrc@@H@Z"
+    },
+    {
+     "va": "0x0044AEC0",
+     "length": 47,
+     "name": "?sub_0044AEC0_McpIncoming0E@@YIHPAUD2McpIncoming0EStrc@@H@Z"
+    },
+    {
+     "va": "0x0044AEF0",
+     "length": 22,
+     "name": "?sub_0044AEF0_McpIncoming0D@@YIHPAUD2McpPacketValueStrc@@H@Z"
+    },
+    {
+     "va": "0x0044AF10",
+     "length": 22,
+     "name": "?sub_0044AF10_McpIncoming0F@@YIHPAUD2McpPacketValueStrc@@H@Z"
+    },
+    {
      "va": "0x0044AF30",
      "length": 139,
      "name": "?WINMAIN_HandleMcpServerAddress@@YIHPAUD2McpPacket10Strc@@H@Z"
@@ -13880,82 +13950,6 @@
      "va": "0x004DC580",
      "length": 399,
      "name": "?VIEW_DrawUnitClickCross@@YIXPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0044AB80.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0044AB80",
-     "length": 28,
-     "name": "?sub_0044AB80_McpIncoming1B@@YIHPAUD2McpPacketValueStrc@@H@Z"
-    },
-    {
-     "va": "0x0044ABA0",
-     "length": 22,
-     "name": "?sub_0044ABA0_McpIncoming02@@YIHPAUD2McpPacketValueStrc@@H@Z"
-    },
-    {
-     "va": "0x0044ABC0",
-     "length": 22,
-     "name": "?sub_0044ABC0_McpIncoming07@@YIHPAUD2McpPacketValueStrc@@H@Z"
-    },
-    {
-     "va": "0x0044ABE0",
-     "length": 53,
-     "name": "?sub_0044ABE0_McpIncoming03@@YIHPAUD2McpIncoming03Strc@@H@Z"
-    },
-    {
-     "va": "0x0044AC20",
-     "length": 115,
-     "name": "?sub_0044AC20_McpIncoming04@@YIHPAUD2McpIncoming04Strc@@H@Z"
-    },
-    {
-     "va": "0x0044ADF0",
-     "length": 24,
-     "name": "?sub_0044ADF0_McpIncoming08@@YIHPAUD2McpIncoming08Strc@@H@Z"
-    },
-    {
-     "va": "0x0044AE10",
-     "length": 24,
-     "name": "?sub_0044AE10_McpIncoming09@@YIHPAUD2McpIncoming09Strc@@H@Z"
-    },
-    {
-     "va": "0x0044AE30",
-     "length": 35,
-     "name": "?sub_0044AE30_McpIncoming0A@@YIHPAUD2McpIncoming0AStrc@@H@Z"
-    },
-    {
-     "va": "0x0044AE60",
-     "length": 22,
-     "name": "?sub_0044AE60_McpIncoming18@@YIHPAUD2McpPacketValueStrc@@H@Z"
-    },
-    {
-     "va": "0x0044AE80",
-     "length": 22,
-     "name": "?sub_0044AE80_McpIncoming0B@@YIHPAUD2McpPacketValueStrc@@H@Z"
-    },
-    {
-     "va": "0x0044AEA0",
-     "length": 22,
-     "name": "?sub_0044AEA0_McpIncoming0C@@YIHPAUD2McpPacketValueStrc@@H@Z"
-    },
-    {
-     "va": "0x0044AEC0",
-     "length": 47,
-     "name": "?sub_0044AEC0_McpIncoming0E@@YIHPAUD2McpIncoming0EStrc@@H@Z"
-    },
-    {
-     "va": "0x0044AEF0",
-     "length": 22,
-     "name": "?sub_0044AEF0_McpIncoming0D@@YIHPAUD2McpPacketValueStrc@@H@Z"
-    },
-    {
-     "va": "0x0044AF10",
-     "length": 22,
-     "name": "?sub_0044AF10_McpIncoming0F@@YIHPAUD2McpPacketValueStrc@@H@Z"
     }
    ]
   },
