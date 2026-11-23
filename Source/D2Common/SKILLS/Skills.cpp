@@ -13,6 +13,7 @@
 #include "D2Txt.h"
 #include "D2PlayerModes.h"
 #include "D2MonModes.h"
+#include "D2PathFind.h"
 
 #define LVLSUB_UNUSED_INVALID -1
 
@@ -76,7 +77,6 @@ struct D2UnkOutdoorStrc;
 
 struct D2PathBoundsContextStrc;
 
-struct D2PathFoWallNodeStrc;
 
 struct D2PathFoWallContextStrc;
 
@@ -193,18 +193,6 @@ struct D2PathBoundsContextStrc
     D2PathPointStrc tMax;
 };
 
-struct D2PathFoWallNodeStrc
-{
-    D2PathPointStrc tPoint;
-    short nFScore;
-    short nHeuristicDistanceToTarget;
-    short nBestDistanceFromStart;
-    unsigned short wPad;
-    D2PathFoWallNodeStrc* pBestParent;
-    D2PathFoWallNodeStrc* pChildren[8];
-    D2PathFoWallNodeStrc* pNextCachePoint;
-    D2PathFoWallNodeStrc* pNextSortedByFScore;
-};
 
 struct D2PathFoWallContextStrc
 {

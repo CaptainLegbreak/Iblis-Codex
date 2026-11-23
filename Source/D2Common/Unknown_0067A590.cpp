@@ -1,21 +1,9 @@
 #include "D2Structs.h"
 #include "D2Path.h"
+#include "D2PathFind.h"
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                               // 0x00681EF0
 #pragma intrinsic(memset)
 
-
-struct D2PathIDAStarNodeStrc
-{
-    unsigned short nFScore;
-    unsigned short nHeuristicDistanceToTarget;
-    unsigned short nBestDistanceFromStart;
-    short nEvaluationsCount;
-    D2PathPointStrc tCoord;
-    const int* pNeighborsSequence;
-    int nNextNeighborIndex;
-    D2PathIDAStarNodeStrc* pParent;
-    D2PathIDAStarNodeStrc* pBestChild;
-};
 
 struct D2PathIDAStarContextStrc
 {
