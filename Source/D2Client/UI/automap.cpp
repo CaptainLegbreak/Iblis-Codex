@@ -3494,14 +3494,14 @@ D2UnitStrc* __fastcall AUTOMAP_RequestAtTarget(D2UnitStrc* pUnit, int nRequest, 
     return MISSILE_SubmitOwnerRequest(pUnit, nRequest, nX, nY, nArg3, nArg4);
 }
 
-// build: context sub_0045AC90_DrawAutomapUnits
+// 0x0045AC90
 void __cdecl sub_0045AC90_DrawAutomapUnits()
 {
-    D2StoredUnitRecordStrc* pFirst = ROSTER_GetNextStoredUnit(0);
+    D2StoredUnitRecordStrc* pEntry = ROSTER_GetNextStoredUnit(0);
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2ActiveRoomStrc** ppRooms = 0;
-    int nRooms = 0;
-    DUNGEON_GetAdjacentRoomsListFromRoom(UNITS_GetRoom(pPlayer), &ppRooms, (unsigned int*)&nRooms);
+    unsigned int nRooms = 0;
+    DUNGEON_GetAdjacentRoomsListFromRoom(UNITS_GetRoom(pPlayer), &ppRooms, &nRooms);
     const int nCount = nRooms;
     for (int i = 0; i < nCount; ++i)
     {
@@ -3511,15 +3511,15 @@ void __cdecl sub_0045AC90_DrawAutomapUnits()
         }
     }
 
-    const unsigned short nIndex = ROSTER_GetEntryIndex(pFirst);
+    const unsigned short nIndex = ROSTER_GetEntryIndex(pEntry);
     if (nIndex == 0xFFFF || !gbAutomapParty)
     {
         return;
     }
 
-    for (D2StoredUnitRecordStrc* pEntry = ROSTER_GetNextStoredUnit(pFirst); pEntry; pEntry = ROSTER_GetNextStoredUnit(pEntry))
+    for (pEntry = ROSTER_GetNextStoredUnit(pEntry); pEntry; pEntry = ROSTER_GetNextStoredUnit(pEntry))
     {
-        if (!CUNIT_FindClientUnit(ROSTER_GetRecordUnitId(pEntry), 0) && ROSTER_GetEntryIndex(pEntry) == nIndex)
+        if (!CUNIT_FindClientUnit(ROSTER_GetRecordUnitId(pEntry), 0) && nIndex == ROSTER_GetEntryIndex(pEntry))
         {
             AUTOMAP_DrawAutomapPartyMember(pEntry);
         }
