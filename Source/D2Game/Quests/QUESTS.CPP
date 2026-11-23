@@ -184,7 +184,7 @@ int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 
 
 short __fastcall MONSTERUNIQUE_GetBossHcIdx(D2UnitStrc* pUnit); // 0x005A01E0
 
-typedef void (__fastcall* QUESTUPDATE)(D2QuestDataStrc* pQuest);
+typedef bool (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
 
 struct D2QuestTimerStrc
 {
@@ -1183,6 +1183,53 @@ void __fastcall QUESTS_StatusCycleObjectReset(D2GameStrc* pGame, D2UnitStrc* pTa
     pArgs.pTarget = pTarget;
     pArgs.pPlayer = 0;
     QUESTS_StatusCycler(0, &pArgs);
+}
+
+// 0x00543E10
+void __fastcall QUESTS_QuestUpdater(D2GameStrc* pGame)
+{
+    D2QuestInfoStrc* pQuestControl = pGame->pQuestControl;
+    if (!pQuestControl)
+        return;
+    ++pQuestControl->dwTick;
+    if (pQuestControl->dwTick == -1)
+    {
+        for (D2QuestTimerStrc* i = pQuestControl->pTimer; i; i = i->pNext)
+            i->dwTicks = -1 - i->dwTicks;
+    }
+    pQuestControl->bExecuting = 1;
+    D2QuestTimerStrc* pTimer = pQuestControl->pTimer;
+    D2QuestTimerStrc* pPrev = 0;
+    while (pTimer)
+    {
+        D2QuestTimerStrc* pNext = pTimer->pNext;
+        if (pTimer->dwTicks < pQuestControl->dwTick)
+        {
+            D2_ASSERT(!IsBadCodePtr((FARPROC)pTimer->pfUpdate), 0x3F0);
+            if (pTimer->pfUpdate(pGame, pTimer->pQuest) == 1)
+            {
+                if (!pPrev)
+                {
+                    pQuestControl->pTimer = pTimer->pNext;
+                    FOG_FreeServerMemory(pGame->pMemoryPool, pTimer, gszQuestsSourceFile, 0x3F7, 0);
+                    pTimer = 0;
+                }
+                else
+                {
+                    pPrev->pNext = pTimer->pNext;
+                    FOG_FreeServerMemory(pGame->pMemoryPool, pTimer, gszQuestsSourceFile, 0x3FE, 0);
+                    pTimer = pPrev;
+                }
+            }
+            else
+            {
+                pTimer->dwTicks = pQuestControl->dwTick + pTimer->dwTimeout;
+            }
+        }
+        pPrev = pTimer;
+        pTimer = pNext;
+    }
+    pQuestControl->bExecuting = 0;
 }
 
 // 0x00543F10

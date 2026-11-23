@@ -1089,8 +1089,6 @@ struct D2UnkPlrMsgStrc
     int field_8;
 };
 
-extern "C" const char gszQuestsSourceFile[]; // 0x006E0BE4
-
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 extern D2UnkPlrMsgStrc gaUnitModeMessages[20]; // 0x007319E8
@@ -3548,53 +3546,7 @@ D2GameStrc* D2GameDataTableStrc::sub_00530820_New(unsigned int nHashVal, HASHKEY
     return pNode;
 }
 
-// 0x00543E10
-void __fastcall QUESTS_QuestUpdater(D2GameStrc* pGame)
-{
-    D2QuestInfoStrc* pQuestControl = pGame->pQuestControl;
-    if (!pQuestControl)
-        return;
-    ++pQuestControl->dwTick;
-    if (pQuestControl->dwTick == -1)
-    {
-        for (D2QuestTimerStrc* i = pQuestControl->pTimer; i; i = i->pNext)
-            i->dwTicks = -1 - i->dwTicks;
-    }
-    pQuestControl->bExecuting = 1;
-    D2QuestTimerStrc* pTimer = pQuestControl->pTimer;
-    D2QuestTimerStrc* pPrev = 0;
-    while (pTimer)
-    {
-        D2QuestTimerStrc* pNext = pTimer->pNext;
-        if (pTimer->dwTicks < pQuestControl->dwTick)
-        {
-            D2_ASSERT(!IsBadCodePtr((FARPROC)pTimer->pfUpdate), 0x3F0);
-            if (pTimer->pfUpdate(pGame, pTimer->pQuest) == 1)
-            {
-                if (!pPrev)
-                {
-                    pQuestControl->pTimer = pTimer->pNext;
-                    FOG_FreeServerMemory(pGame->pMemoryPool, pTimer, gszQuestsSourceFile, 0x3F7, 0);
-                    pTimer = 0;
-                }
-                else
-                {
-                    pPrev->pNext = pTimer->pNext;
-                    FOG_FreeServerMemory(pGame->pMemoryPool, pTimer, gszQuestsSourceFile, 0x3FE, 0);
-                    pTimer = pPrev;
-                }
-            }
-            else
-            {
-                pTimer->dwTicks = pQuestControl->dwTick + pTimer->dwTimeout;
-            }
-        }
-        pPrev = pTimer;
-        pTimer = pNext;
-    }
-    pQuestControl->bExecuting = 0;
-}
-
+void __fastcall QUESTS_QuestUpdater(D2GameStrc* pGame); // 0x00543E10
 // 0x0052FEE0
 D2GameStrc* __fastcall GAME_GetGameByClientId(int nClientId)
 {
