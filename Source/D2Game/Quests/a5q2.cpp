@@ -890,4 +890,22 @@ int __fastcall ACT5Q2_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2Uni
     return 0;
 }
 
+// 0x00588830
+int __fastcall ACT5Q2_CheckWussieCounters(D2GameStrc* pGame, D2UnitStrc* pWussie)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A5Q2_RESCUESOLDIERS);
+    if (!pQuestData || !pQuestData->bNotIntro)
+    {
+        return 0;
+    }
+
+    const int nIndex = ACT5Q2_GetWussieGroupIndex(pQuestData, pWussie);
+    if (nIndex >= 0 && ((D2Act5Quest2Strc*)pQuestData->pQuestDataEx)->nGroupKills[nIndex])
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
 #include "gen/data/Source/D2Game/Quests/a5q2.inc"

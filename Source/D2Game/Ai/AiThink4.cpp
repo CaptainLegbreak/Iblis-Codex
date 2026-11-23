@@ -1735,6 +1735,12 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_Panther(D2GameStrc* pGame, D2UnitS
     return 0;
 }
 
+// 0x005B0D60
+int __fastcall AITHINK_GetSpecialStateFromAiControl(D2AiControlStrc* pAiControl)
+{
+    return pAiControl->nAiSpecialState;
+}
+
 static D2SkillsTxt* AITHINK_GetSkillsTxtRecordInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
