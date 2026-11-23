@@ -261,47 +261,14 @@ void* gpDirectSound_00778F20;                                                   
 
 int gnStormDirectFlags_00779058;                                                                            // 0x00779058
 
-struct D2StormRequestListStrc
+inline REQUEST* D2StormRequestListStrc::NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
 {
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    D2StormLinkStrc* Link(char* pNode)
-    {
-        return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
-    }
-    // build: context D2StormRequestListStrc::LinkNode
-    void LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode)
-    {
-        D2StormLinkStrc* pLink = Link(pNode);
-        pLink->Unlink();
-        D2StormLinkStrc* pExistingLink = Link(pExistingNode);
-        switch (nLinkType)
-        {
-        case 1:
-            pLink->m_prevlink = pExistingLink;
-            pLink->m_next = pExistingLink->m_next;
-            pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
-            pExistingLink->m_next = pNode;
-            break;
-        default:
-            D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
-            pLink->m_prevlink = pPrevLink;
-            pLink->m_next = pPrevLink->m_next;
-            pPrevLink->m_next = pNode;
-            pExistingLink->m_prevlink = pLink;
-            break;
-        }
-    }
-    REQUEST* NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
-    {
-        void* pMemory = SMemAlloc(sizeof(REQUEST) + nExtraBytes, gszTypeNameRequest_007083F0, -2, nFlags | 8);
-        REQUEST* pRecord = pMemory ? new (pMemory) REQUEST : 0;
-        if (nLinkType)
-            LinkNode((char*)pRecord, nLinkType, 0);
-        return pRecord;
-    }
-};
+    void* pMemory = SMemAlloc(sizeof(REQUEST) + nExtraBytes, gszTypeNameRequest_007083F0, -2, nFlags | 8);
+    REQUEST* pRecord = pMemory ? new (pMemory) REQUEST : 0;
+    if (nLinkType)
+        LinkNode((char*)pRecord, nLinkType, 0);
+    return pRecord;
+}
 
 extern D2StormStreamListStrc gDdaList_00708384;                                                             // 0x00708384
 
@@ -1531,7 +1498,7 @@ int __stdcall SFileDdaGetPos(void* hFile, unsigned int* pnPlayed, unsigned int* 
     if (sub_00415950_GetFileRec(hFile, &pRec))
     {
         AUDIOSTREAM* pStream;
-        for (pStream = gDdaList_00708384.Head(); pStream; pStream = (AUDIOSTREAM*)pStream->tLink.Next())
+        for (pStream = (AUDIOSTREAM*)gDdaList_00708384.m_terminator.Next(); pStream; pStream = (AUDIOSTREAM*)pStream->tLink.Next())
         {
             if (pStream->pFile == pRec)
                 break;
