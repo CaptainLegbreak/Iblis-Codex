@@ -72412,11 +72412,6 @@
      "va": "0x00675770",
      "length": 103,
      "name": "?DRLGOUTPLACE_SetOutGridLinkFlags@@YIXPAUD2DrlgLevelStrc@@@Z"
-    },
-    {
-     "va": "0x0067B1C0",
-     "length": 59,
-     "name": "?PATH_AStar_AllocNewNode@@YIPAUD2DrlgTableEntryStrc@@PAUD2DrlgEntryTableStrc@@@Z"
     }
    ]
   },
@@ -73298,11 +73293,6 @@
      "name": "SKILLS_GetModeSideChar"
     },
     {
-     "va": "0x00678B40",
-     "length": 55,
-     "name": "sub_00678B40_PathHeuristic"
-    },
-    {
      "va": "0x00679380",
      "length": 90,
      "name": "PATH_GetTableHeuristic"
@@ -73316,36 +73306,6 @@
      "va": "0x0067A550",
      "length": 55,
      "name": "sub_0067A550_PathHeuristic"
-    },
-    {
-     "va": "0x0067A5F0",
-     "length": 60,
-     "name": "PATH_IsPointInBounds"
-    },
-    {
-     "va": "0x0067ADC0",
-     "length": 53,
-     "name": "PATH_AStar_Heuristic"
-    },
-    {
-     "va": "0x0067AE00",
-     "length": 74,
-     "name": "PATH_AStar_GetNodeFromPendingCache"
-    },
-    {
-     "va": "0x0067AE50",
-     "length": 78,
-     "name": "PATH_AStar_FindPointInVisitedCache"
-    },
-    {
-     "va": "0x0067B9C0",
-     "length": 41,
-     "name": "PATH_GetSquaredDistanceBetweenPoints"
-    },
-    {
-     "va": "0x0067BBC0",
-     "length": 47,
-     "name": "PATH_GetAdjacentPointDirection"
     }
    ]
   },
@@ -77976,6 +77936,11 @@
      "length": 43
     },
     {
+     "va": "0x00678B40",
+     "length": 55,
+     "name": "sub_00678B40_PathHeuristic"
+    },
+    {
      "va": "0x00678B80",
      "length": 133,
      "name": "?sub_6FDAB610@@YIHHHHH@Z"
@@ -78386,6 +78351,16 @@
      "length": 353
     },
     {
+     "va": "0x0067B9C0",
+     "length": 41,
+     "name": "PATH_GetSquaredDistanceBetweenPoints"
+    },
+    {
+     "va": "0x0067BBC0",
+     "length": 47,
+     "name": "PATH_GetAdjacentPointDirection"
+    },
+    {
      "va": "0x0067BDF0",
      "length": 1008
     }
@@ -78413,6 +78388,11 @@
      "va": "0x0067A590",
      "length": 62,
      "name": "?PATH_IDAStar_GetNewNode@@YAPAUD2PathIDAStarNodeStrc@@PAUD2PathIDAStarContextStrc@@@Z"
+    },
+    {
+     "va": "0x0067A5F0",
+     "length": 60,
+     "name": "PATH_IsPointInBounds"
     }
    ]
   },
@@ -78484,6 +78464,26 @@
    "file": "Source/D2Common/Unknown_0067B740.cpp",
    "rank": 1,
    "functions": [
+    {
+     "va": "0x0067ADC0",
+     "length": 53,
+     "name": "PATH_AStar_Heuristic"
+    },
+    {
+     "va": "0x0067AE00",
+     "length": 74,
+     "name": "PATH_AStar_GetNodeFromPendingCache"
+    },
+    {
+     "va": "0x0067AE50",
+     "length": 78,
+     "name": "PATH_AStar_FindPointInVisitedCache"
+    },
+    {
+     "va": "0x0067B1C0",
+     "length": 59,
+     "name": "?PATH_AStar_AllocNewNode@@YIPAUD2DrlgTableEntryStrc@@PAUD2DrlgEntryTableStrc@@@Z"
+    },
     {
      "va": "0x0067B740",
      "length": 263

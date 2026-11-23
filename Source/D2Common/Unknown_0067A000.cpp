@@ -804,6 +804,14 @@ int __fastcall PATH_AStar_ComputePath(D2PathInfoStrc* pPathInfo)
     return nResult;
 }
 
+// 0x0067B9C0
+int __stdcall PATH_GetSquaredDistanceBetweenPoints(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
+{
+    const int nDiffX = tPoint1.X - tPoint2.X;
+    const int nDiffY = tPoint1.Y - tPoint2.Y;
+    return nDiffY * nDiffY + nDiffX * nDiffX;
+}
+
 // 0x0067BBC0
 int __stdcall PATH_GetAdjacentPointDirection(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
 {
