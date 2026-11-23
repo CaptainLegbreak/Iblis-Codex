@@ -516,6 +516,34 @@ static int sub_004673C0_GetDistanceSquared(D2UnitStrc* pUnit, D2UnitStrc* pOther
     return nDY * nDY + nDX * nDX;
 }
 
+struct Unicode;
+
+struct D2TileRectStrc
+{
+    int unk0x00;
+    int nX;
+    int nY;
+    unsigned int nWidth;
+    unsigned int nHeight;
+};
+
+struct D2UIVarRecordStrc
+{
+    int anCloseKind[0x26];
+};
+
+struct T0044CB60
+{
+    Unicode* pText;
+    T0044CB60* pNext;
+};
+
+// 0x00467400
+int __cdecl UI_HasSelectedUnit()
+{
+    return gbHasSelectedUnit;
+}
+
 // 0x00467430
 void __fastcall sub_00467430_SetSelectionRect(const D2SelectionRectStrc* pRect)
 {
