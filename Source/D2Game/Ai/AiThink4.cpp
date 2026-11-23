@@ -4377,6 +4377,56 @@ void __fastcall AITHINK_MinionCallback_CheckDead(D2UnitStrc* pUnit, void* a2, vo
     }
 }
 
+
+
+
+
+
+
+static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    }
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    }
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x005E5730
+void __fastcall AITHINK_InitializeFormationOffsets(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
+    D2_ASSERT(pOwner, 3607);
+
+    const int nOwnerX = CLIENTS_GetUnitXInline(pOwner);
+    const int nOwnerY = CLIENTS_GetUnitYInline(pOwner);
+    const int nX = CLIENTS_GetUnitXInline(pUnit);
+    const int nY = CLIENTS_GetUnitYInline(pUnit);
+
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    pAiControl->dwAiParam[0] = nX - nOwnerX;
+    pAiControl->dwAiParam[1] = nY - nOwnerY;
+    if (pOwner == pUnit)
+    {
+        pAiControl->dwAiParam[2] = (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100;
+    }
+}
+
 static inline unsigned __int64 Roll(D2SeedStrc* pSeed)
 {
     const unsigned __int64 nSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
@@ -7176,18 +7226,6 @@ static inline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed
     return SEED_RollRandomNumber_Inline(pSeed) & (nMax - 1);
 }
 
-static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nXPos;
-    }
-    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-}
-
 inline int CLIENTS_GetUnitXInline_005EEB70(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -7211,18 +7249,6 @@ static inline int CLIENTS_GetUnitXInline_005F02C0(D2UnitStrc* pUnit)
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
     }
-}
-
-static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nYPos;
-    }
-    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
 inline int CLIENTS_GetUnitYInline_005EEB70(D2UnitStrc* pUnit)

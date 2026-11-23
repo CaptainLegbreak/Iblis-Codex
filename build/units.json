@@ -60465,6 +60465,11 @@
      "name": "?AITHINK_MinionCallback_CheckDead@@YIXPAUD2UnitStrc@@PAX1@Z"
     },
     {
+     "va": "0x005E5730",
+     "length": 317,
+     "name": "?AITHINK_InitializeFormationOffsets@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005E5870",
      "length": 589
     },
@@ -61360,11 +61365,6 @@
     {
      "va": "0x005B0E00",
      "length": 328
-    },
-    {
-     "va": "0x005E5730",
-     "length": 317,
-     "name": "?AITHINK_InitializeFormationOffsets@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005E8F20",
