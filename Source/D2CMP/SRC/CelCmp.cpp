@@ -1,11 +1,19 @@
 #include "D2CMP.h"
+
 #include "D2CmpTileRecord.h"
+
 #include "D2CmpCelFile.h"
+
 #include "D2GameTypes.h"
+
 #include "D2DrlgMaps.h"
+
 #include "D2CmpTypes.h"
+
 #include "D2CmpStormList.h"
+
 #include "D2CmpStormHash.h"
+
 #include "D2LRUNode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -17,7 +25,6 @@ struct D2DrlgLevelStrc;
 struct D2CmpTileCacheStrc;
 
 struct D2TileLibraryEntryStrc;
-
 
 struct D2TSLinkStrc;
 
@@ -32,8 +39,6 @@ struct D2CmpCacheListEntryStrc;
 struct D2CmpCacheNodeStrc;
 
 struct D2CmpCacheStrc;
-
-
 
 struct D2CelBlockStrc;
 
@@ -1202,8 +1207,6 @@ int gbCmpPoolInitialized; // 0x0088CB14
 
 int gnCmpPoolArg; // 0x0088CB18
 
-
-
 extern const char gszCelCmp[]; // 0x006E5DD0
 
 void* __stdcall SMemReAlloc(void* pLocation, unsigned int nAmount, const char* szLogFileName, int nLogLine, unsigned int nFlags); // 0x004133D0
@@ -1215,7 +1218,6 @@ extern "C" int __cdecl sub_00517ABB_BitScanForward1(unsigned int nValue);
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
-
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC218
 
@@ -1403,7 +1405,6 @@ int gpAnimData; // 0x0096C8A4
 int gdwGlobal_0096D46C; // 0x0096D46C
 
 char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset);
-
 
 int __cdecl sub_0068A420(); // 0x0068A420
 
@@ -1850,6 +1851,136 @@ void __fastcall LRUCacheTouch(D2CmpPoolStrc* pPool, D2LRUNodeStrc* pNode); // 0x
 D2LRUNodeStrc* __fastcall LRUCacheAlloc(D2CmpPoolStrc* pPool, unsigned int nSize, D2TileLibraryEntryStrc* pOwner); // 0x00609420
 
 void __stdcall sub_0060A4C0_TileEntryLoaded(D2TileLibraryEntryStrc* pEntry); // 0x0060A4C0
+
+struct Config;
+struct D2CmpSpriteContextStrc;
+struct D2CmpDC6HeaderStrc;
+struct D2CmpDC6CacheEntryStrc;
+struct D2CmpDC6FrameStrc;
+typedef char* va_list;
+extern "C" int __cdecl vsprintf(char*,const char*,va_list);
+extern "C" char* __cdecl strcat(char*,const char*);
+struct Config { int enabled; const char* compressed; const char* standard; };
+extern Config extensions; // 0x00741EFC
+enum { DISABLED = 0 };
+void* __fastcall sub_0040A9E0(AsyncData* pAsync); // 0x0040A9E0
+struct D2CmpDC6CacheEntryStrc
+{
+    char unk0x00[0x20];
+    D2CmpDC6HeaderStrc tHeader;
+};
+static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader); // 0x005FEB80
+static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpDC6CacheEntryStrc* pEntry); // 0x005FEC50
+void __stdcall sub_P04_Emit_005FEC50(D2CmpSpriteContextStrc* pContext, D2CmpDC6CacheEntryStrc* pEntry)
+{
+    pContext->pFrame = sub_005FEC50_GetCachedDC6Frame(pContext, pEntry);
+}
+
+// build: symbol ?sub_005FEC50_GetCachedDC6Frame@* 0x005FEC50
+static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpDC6CacheEntryStrc* pEntry)
+{
+    if (pEntry && pEntry->tHeader.pAsync)
+    {
+        D2CmpDC6HeaderStrc* pHeader = &pEntry->tHeader;
+        void* pData = sub_0040A9E0(pHeader->pAsync);
+        if (pData)
+        {
+            pContext->nFrames = pHeader->nFrames;
+            return sub_005FEB80_FindDC6Frame(pData, pContext, pHeader);
+        }
+
+        return 0;
+    }
+
+    return 0;
+}
+
+
+// build: symbol ?sub_005FEB80_FindDC6Frame@* 0x005FEB80
+static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader)
+{
+    if (!pData)
+    {
+        return 0;
+    }
+
+    if (!pHeader)
+    {
+        return 0;
+    }
+
+    if ((unsigned int)pContext->nFrame >= pHeader->nFrames)
+    {
+        return 0;
+    }
+
+    int nIndex;
+    D2CmpDC6FrameStrc* pFrame = (D2CmpDC6FrameStrc*)pData;
+    if (pContext->nType == 6 && (pContext->dwFlags & 2))
+    {
+        nIndex = CelGameDirToFileDir(pContext->nDirection, pHeader->nDirections - 1);
+    }
+    else if (pContext->nType == 2)
+    {
+        nIndex = 0;
+    }
+    else if (pContext->nType == 4)
+    {
+        nIndex = pContext->nDirection;
+    }
+    else
+    {
+        nIndex = CelGameDirToFileDir(pContext->nDirection, pHeader->nDirections - 1);
+    }
+
+    if (nIndex >= pHeader->nDirections - 1)
+    {
+        return 0;
+    }
+
+    int nOffset = pHeader->aOffsets[nIndex];
+    if (nOffset < 0)
+    {
+        return 0;
+    }
+
+    const int nFrame = pContext->nFrame;
+    for (int i = 0; i <= nFrame; ++i)
+    {
+        pFrame = (D2CmpDC6FrameStrc*)((char*)pData + nOffset);
+        if (pFrame->unk0x00 != 0)
+        {
+            return 0;
+        }
+
+        if (pFrame->nWidth > 0x100)
+        {
+            return 0;
+        }
+
+        if (pFrame->nHeight > 0x100)
+        {
+            return 0;
+        }
+
+        nOffset += pFrame->nLength + pFrame->nOffsetY_14 + 0x23;
+        if (nOffset < 0)
+        {
+            return 0;
+        }
+    }
+
+    return pFrame;
+}
+
+
+// 0x005FE210
+void __stdcall D2CMPBuildFileName(char* output,int allowCompressed,const char* format,va_list args)
+{
+    vsprintf(output,format,args);
+    const char* suffix=(allowCompressed!=DISABLED && extensions.enabled!=DISABLED)?extensions.compressed:extensions.standard;
+    strcat(output,suffix);
+}
 
 // 0x006011F0
 int __stdcall CelFileSerialize(D2CelFileStrc* pCelFile, D2CelFileStrc** ppNewCelFile, unsigned int* pnSize)
@@ -3826,7 +3957,6 @@ void sub_F43_EmitTableMembers(D2CELTABLEPTRFN* ppfnPtr, D2CELTABLELOCKFN* ppfnLo
     *ppfnPtr = &D2GameDataTableStrc::CelListTablePtr;
     *ppfnLock = &D2GameDataTableStrc::CelListTableLock;
 }
-
 
 // 0x0060D040
 int __fastcall FindTileGetTiles(D2FindTileEntryStrc** ppTable, void** ppResults, unsigned int nMax, int nKey1, int nKey2, int nKey3)
