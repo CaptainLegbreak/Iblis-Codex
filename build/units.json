@@ -77873,6 +77873,10 @@
      "va": "0x006757E0",
      "length": 110,
      "name": "?DRLGOUTDOORS_GetBorderLookupId@@YIHPAUD2DrlgLevelStrc@@_N@Z"
+    },
+    {
+     "va": "0x00675850",
+     "length": 1418
     }
    ]
   },
@@ -78052,10 +78056,6 @@
    "file": "Source/D2Common/Unknown_00675850.cpp",
    "rank": 1,
    "functions": [
-    {
-     "va": "0x00675850",
-     "length": 1418
-    },
     {
      "va": "0x00676450",
      "length": 512
