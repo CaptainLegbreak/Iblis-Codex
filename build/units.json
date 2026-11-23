@@ -36786,11 +36786,6 @@
      "name": "ANIMIMAGE_Create"
     },
     {
-     "va": "0x00500B20",
-     "length": 40,
-     "name": "@BUTTON_SetBaseFrame@8"
-    },
-    {
      "va": "0x00507EF0",
      "length": 37,
      "name": "@sub_00507EF0_GetScrollBarField48@4"
@@ -36845,6 +36840,11 @@
      "va": "0x00500AB0",
      "length": 105,
      "name": "?BUTTON_SimulateClick@@YIXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00500B20",
+     "length": 40,
+     "name": "@BUTTON_SetBaseFrame@8"
     },
     {
      "va": "0x00500B50",

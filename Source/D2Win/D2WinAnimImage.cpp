@@ -301,13 +301,6 @@ int __fastcall ANIMIMAGE_Draw(D2WinControlStrc* pControl)
     return 1;
 }
 
-// 0x00500B20
-extern "C" void __fastcall BUTTON_SetBaseFrame(D2WinButtonStrc* ptBtnData, int nValue)
-{
-    D2_ASSERT(ptBtnData->controlHeader.eType == D2WIN_TYPE_6, 0xD6);
-    ptBtnData->nBaseFrame = nValue;
-}
-
 // 0x00507EF0
 extern "C" int __fastcall sub_00507EF0_GetScrollBarField48(D2WinScrollBarStrc* ptScrollbarData)
 {
