@@ -36548,11 +36548,6 @@
      "va": "0x00507160",
      "length": 389,
      "name": "LIST_Draw"
-    },
-    {
-     "va": "0x005087A0",
-     "length": 274,
-     "name": "POPUP_Draw"
     }
    ]
   },
@@ -37717,6 +37712,11 @@
      "va": "0x00508710",
      "length": 138,
      "name": "?POPUP_UpdateHoveredLine@@YIHPAUD2WinControlStrc@@@Z"
+    },
+    {
+     "va": "0x005087A0",
+     "length": 274,
+     "name": "POPUP_Draw"
     },
     {
      "va": "0x005088C0",
