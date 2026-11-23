@@ -841,30 +841,7 @@ void __fastcall MISSILES_RemoveAll(D2GameStrc* pGame)
     }
 }
 
-// 0x005A01B0
-void __fastcall MONSTERUNIQUE_ToggleMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet)
-{
-    if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
-    {
-        return;
-    }
-
-    D2MonsterDataStrc* pMonsterData = pUnit->pMonsterData;
-    if (!pMonsterData)
-    {
-        return;
-    }
-
-    if (bSet)
-    {
-        pMonsterData->nTypeFlag |= nFlag;
-    }
-    else
-    {
-        pMonsterData->nTypeFlag &= ~nFlag;
-    }
-}
-
+void __fastcall MONSTERUNIQUE_ToggleMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet); // 0x005A01B0
 static D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -4173,42 +4150,11 @@ void __fastcall MISSMODE_SrvDmg06_MarkTargetNoTreasureClass(D2GameStrc* pGame, D
     }
 }
 
-// 0x005A2100
-void __fastcall MONSTERUNIQUE_InitializeUMod(D2UnitStrc* pUnit, int nUMod, int bUnique)
-{
-    UModInitFunc pCallback = gpfnUModInitFunctions[nUMod];
-    if (pCallback)
-    {
-        pCallback(pUnit, nUMod, bUnique);
-    }
-}
+void __fastcall MONSTERUNIQUE_InitializeUMod(D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A2100
+void __fastcall MONSTERUNIQUE_FireEnchantedModeChange(D2GameStrc* pGame, D2UnitStrc* pBoss, int nUMod, int bUnique); // 0x005A25F0
 
-// 0x005A25F0
-void __fastcall MONSTERUNIQUE_FireEnchantedModeChange(D2GameStrc* pGame, D2UnitStrc* pBoss, int nUMod, int bUnique)
-{
-    if (bUnique && (!pBoss || pBoss->dwAnimMode == MONMODE_DEATH))
-    {
-        EVENT_SetEvent(pGame, pBoss, EVENTTYPE_MONUMOD, pGame->dwGameFrame + 4, 0, 0);
-    }
-}
-
-// 0x005A37D0
-void __fastcall MONSTERUNIQUE_LightningEnchantedModeChange(D2GameStrc* pGame, D2UnitStrc* pBoss, int nUMod, int bUnique)
-{
-    if (bUnique && pBoss && pBoss->dwAnimMode == MONMODE_GETHIT)
-    {
-        EVENT_SetEvent(pGame, pBoss, EVENTTYPE_MONUMOD, pGame->dwGameFrame + 2, 0, 0);
-    }
-}
-
-// 0x005A3800
-void __fastcall MONSTERUNIQUE_ColdEnchantedModeChange(D2GameStrc* pGame, D2UnitStrc* pBoss, int nUMod, int bUnique)
-{
-    if ((bUnique || nUMod != 18) && (!pBoss || pBoss->dwAnimMode == MONMODE_DEATH))
-    {
-        EVENT_SetEvent(pGame, pBoss, EVENTTYPE_MONUMOD, pGame->dwGameFrame + 4, 0, 0);
-    }
-}
+void __fastcall MONSTERUNIQUE_LightningEnchantedModeChange(D2GameStrc* pGame, D2UnitStrc* pBoss, int nUMod, int bUnique); // 0x005A37D0
+void __fastcall MONSTERUNIQUE_ColdEnchantedModeChange(D2GameStrc* pGame, D2UnitStrc* pBoss, int nUMod, int bUnique); // 0x005A3800
 
 // 0x005A54F0
 void __fastcall MONSTERMODE_AddSandLeaperKnockback(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage)

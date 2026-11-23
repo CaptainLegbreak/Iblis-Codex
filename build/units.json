@@ -58699,31 +58699,6 @@
      "name": "MISSILES_RemoveAll"
     },
     {
-     "va": "0x005A01B0",
-     "length": 43,
-     "name": "MONSTERUNIQUE_ToggleMonTypeFlag"
-    },
-    {
-     "va": "0x005A2100",
-     "length": 26,
-     "name": "MONSTERUNIQUE_InitializeUMod"
-    },
-    {
-     "va": "0x005A25F0",
-     "length": 44,
-     "name": "MONSTERUNIQUE_FireEnchantedModeChange"
-    },
-    {
-     "va": "0x005A37D0",
-     "length": 44,
-     "name": "MONSTERUNIQUE_LightningEnchantedModeChange"
-    },
-    {
-     "va": "0x005A3800",
-     "length": 50,
-     "name": "MONSTERUNIQUE_ColdEnchantedModeChange"
-    },
-    {
      "va": "0x005A54F0",
      "length": 109,
      "name": "MONSTERMODE_AddSandLeaperKnockback"
@@ -59569,6 +59544,81 @@
      "name": "MISSILES_Initialize"
     },
     {
+     "va": "0x005A0030",
+     "length": 12,
+     "name": "?sub_005A0030_GetMonLvlTxtRecordCount@@YIHXZ"
+    },
+    {
+     "va": "0x005A0040",
+     "length": 29,
+     "name": "?MONSTERUNIQUE_GetMonUModTxtRecord@@YIPAUD2MonUModTxt@@H@Z"
+    },
+    {
+     "va": "0x005A0060",
+     "length": 12,
+     "name": "?sub_005A0060_GetMonUModTxtRecordCount@@YIHXZ"
+    },
+    {
+     "va": "0x005A0070",
+     "length": 128,
+     "name": "?sub_005A0070_MONSTERUNIQUE_CheckMonType@@YIHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005A00F0",
+     "length": 35,
+     "name": "?sub_005A00F0_GetMonUModConstant@@YIHH@Z"
+    },
+    {
+     "va": "0x005A0120",
+     "length": 23,
+     "name": "@sub_005A0120@4"
+    },
+    {
+     "va": "0x005A0140",
+     "length": 26,
+     "name": "?MONSTERUNIQUE_GetNameSeed@@YIGPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A0160",
+     "length": 21,
+     "name": "@sub_005A0160@8"
+    },
+    {
+     "va": "0x005A0180",
+     "length": 34,
+     "name": "@sub_005A0180@8"
+    },
+    {
+     "va": "0x005A01B0",
+     "length": 43,
+     "name": "MONSTERUNIQUE_ToggleMonTypeFlag"
+    },
+    {
+     "va": "0x005A01E0",
+     "length": 26,
+     "name": "@sub_005A01E0@4"
+    },
+    {
+     "va": "0x005A0200",
+     "length": 21,
+     "name": "@sub_005A0200@8"
+    },
+    {
+     "va": "0x005A0220",
+     "length": 23,
+     "name": "?sub_005A0220_GetMonsterField18@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A0240",
+     "length": 20,
+     "name": "?sub_005A0240_SetMonsterField18@@YAXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005A0260",
+     "length": 24,
+     "name": "@sub_005A0260@4"
+    },
+    {
      "va": "0x005A0280",
      "length": 91,
      "name": "?MONSTERUNIQUE_GetChampionUMod@@YIHPAUD2UnitStrc@@@Z"
@@ -59584,13 +59634,27 @@
      "name": "?MONSTERUNIQUE_MarkUnique@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005A03A0",
+     "length": 51,
+     "name": "?MONSTERUNIQUE_GetSuperUniqueBossHcIdx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x005A0500",
      "length": 249,
      "name": "?MONSTERUNIQUE_RollChampionUMod@@YAHPAUD2UnitStrc@@PAUD2GameStrc@@@Z"
     },
     {
+     "va": "0x005A0600",
+     "length": 342
+    },
+    {
      "va": "0x005A0760",
      "length": 451
+    },
+    {
+     "va": "0x005A0930",
+     "length": 167,
+     "name": "?sub_005A0930_TransferUMods@@YGXPAUD2UnitStrc@@0H@Z"
     },
     {
      "va": "0x005A09E0",
@@ -59608,9 +59672,34 @@
      "name": "?MONSTERUNIQUE_SpawnMinionGroup@@YGXPAUD2GameStrc@@PAUD2RoomCoordListStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005A0CE0",
+     "length": 62,
+     "name": "?MONSTERUNIQUE_UMod1_RandomName@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005A0D20",
+     "length": 159,
+     "name": "?sub_005A0D20_AddLifePercent@@YAXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005A0DC0",
+     "length": 128,
+     "name": "?MONSTERUNIQUE_UMod2_HealthBonus@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005A0E40",
+     "length": 64,
+     "name": "?sub_005A0E40_IncreaseMonsterLevelAndExperience@@YIXPAUD2UnitStrc@@PAX1@Z"
+    },
+    {
      "va": "0x005A11F0",
      "length": 55,
      "name": "MONSTERUNIQUE_UMod37_Fanatic"
+    },
+    {
+     "va": "0x005A1330",
+     "length": 50,
+     "name": "?MONSTERUNIQUE_UMod41_AlwaysRun@@YIXPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005A1370",
@@ -59634,6 +59723,11 @@
      "length": 121
     },
     {
+     "va": "0x005A2100",
+     "length": 26,
+     "name": "MONSTERUNIQUE_InitializeUMod"
+    },
+    {
      "va": "0x005A2120",
      "length": 173,
      "name": "?MONSTERUNIQUE_SpawnMinions@@YGXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@PAUD2UnitStrc@@HHH@Z"
@@ -59650,6 +59744,11 @@
     {
      "va": "0x005A2530",
      "length": 179
+    },
+    {
+     "va": "0x005A25F0",
+     "length": 44,
+     "name": "MONSTERUNIQUE_FireEnchantedModeChange"
     },
     {
      "va": "0x005A2620",
@@ -59716,6 +59815,11 @@
      "name": "MONSTERUNIQUE_CastBugLightningMissile"
     },
     {
+     "va": "0x005A3040",
+     "length": 100,
+     "name": "?MONSTERUNIQUE_ApplyElementalDamage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005A30B0",
      "length": 33,
      "name": "MONSTERUNIQUE_ApplyMissileElementalDamage"
@@ -59737,6 +59841,16 @@
     {
      "va": "0x005A3610",
      "length": 443
+    },
+    {
+     "va": "0x005A37D0",
+     "length": 44,
+     "name": "MONSTERUNIQUE_LightningEnchantedModeChange"
+    },
+    {
+     "va": "0x005A3800",
+     "length": 50,
+     "name": "MONSTERUNIQUE_ColdEnchantedModeChange"
     },
     {
      "va": "0x005A3840",
@@ -59781,6 +59895,11 @@
     {
      "va": "0x005A4440",
      "length": 663
+    },
+    {
+     "va": "0x005A46E0",
+     "length": 361,
+     "name": "?sub_6FC6FDC0@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@HHHHPAE@Z"
     },
     {
      "va": "0x005A4850",
@@ -59858,107 +59977,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_0059FEE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A0030",
-     "length": 12,
-     "name": "?sub_005A0030_GetMonLvlTxtRecordCount@@YIHXZ"
-    },
-    {
-     "va": "0x005A0040",
-     "length": 29,
-     "name": "?MONSTERUNIQUE_GetMonUModTxtRecord@@YIPAUD2MonUModTxt@@H@Z"
-    },
-    {
-     "va": "0x005A0060",
-     "length": 12,
-     "name": "?sub_005A0060_GetMonUModTxtRecordCount@@YIHXZ"
-    },
-    {
-     "va": "0x005A0070",
-     "length": 128,
-     "name": "?sub_005A0070_MONSTERUNIQUE_CheckMonType@@YIHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005A00F0",
-     "length": 35,
-     "name": "?sub_005A00F0_GetMonUModConstant@@YIHH@Z"
-    },
-    {
-     "va": "0x005A0120",
-     "length": 23,
-     "name": "@sub_005A0120@4"
-    },
-    {
-     "va": "0x005A0140",
-     "length": 26,
-     "name": "?MONSTERUNIQUE_GetNameSeed@@YIGPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A0160",
-     "length": 21,
-     "name": "@sub_005A0160@8"
-    },
-    {
-     "va": "0x005A0180",
-     "length": 34,
-     "name": "@sub_005A0180@8"
-    },
-    {
-     "va": "0x005A01E0",
-     "length": 26,
-     "name": "@sub_005A01E0@4"
-    },
-    {
-     "va": "0x005A0200",
-     "length": 21,
-     "name": "@sub_005A0200@8"
-    },
-    {
-     "va": "0x005A0220",
-     "length": 23,
-     "name": "?sub_005A0220_GetMonsterField18@@YAHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A0240",
-     "length": 20,
-     "name": "?sub_005A0240_SetMonsterField18@@YAXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005A0260",
-     "length": 24,
-     "name": "@sub_005A0260@4"
-    },
-    {
-     "va": "0x005A03A0",
-     "length": 51,
-     "name": "?MONSTERUNIQUE_GetSuperUniqueBossHcIdx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A0CE0",
-     "length": 62,
-     "name": "?MONSTERUNIQUE_UMod1_RandomName@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005A0D20",
-     "length": 159,
-     "name": "?sub_005A0D20_AddLifePercent@@YAXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005A0DC0",
-     "length": 128,
-     "name": "?MONSTERUNIQUE_UMod2_HealthBonus@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005A0E40",
-     "length": 64,
-     "name": "?sub_005A0E40_IncreaseMonsterLevelAndExperience@@YIXPAUD2UnitStrc@@PAX1@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_005A0000.cpp",
    "rank": 0,
    "functions": [
@@ -59981,10 +59999,6 @@
     {
      "va": "0x005A0380",
      "length": 28
-    },
-    {
-     "va": "0x005A0600",
-     "length": 342
     },
     {
      "va": "0x005A0E80",
@@ -60014,17 +60028,6 @@
      "va": "0x005A03E0",
      "length": 278,
      "name": "?MONSTERUNIQUE_CanAssignUMod@@YGHPAUD2UnitStrc@@PAUD2MonUModTxt@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A0930.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A0930",
-     "length": 167,
-     "name": "?sub_005A0930_TransferUMods@@YGXPAUD2UnitStrc@@0H@Z"
     }
    ]
   },
@@ -60383,28 +60386,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005A1330.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A1330",
-     "length": 50,
-     "name": "?MONSTERUNIQUE_UMod41_AlwaysRun@@YIXPAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A29A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A3040",
-     "length": 100,
-     "name": "?MONSTERUNIQUE_ApplyElementalDamage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_005A3D20.cpp",
    "rank": 1,
    "functions": [
@@ -60516,17 +60497,6 @@
      "va": "0x005A5490",
      "length": 86,
      "name": "MONSTERMODE_AllocateTargetCombat"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A46E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A46E0",
-     "length": 361,
-     "name": "?sub_6FC6FDC0@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@HHHHPAE@Z"
     }
    ]
   },

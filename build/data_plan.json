@@ -4222,8 +4222,8 @@
    "state": "included"
   },
   "Source/D2Game/MONSTER/MonsterUnique.cpp": {
-   "bytes": 424,
-   "definitions": 6,
+   "bytes": 484,
+   "definitions": 7,
    "externs": [
     "extern \"C\" void __cdecl PARTYSCREEN_InvitationCancelled(); // 0x005A5B30",
     "extern \"C\" void __cdecl PARTYSCREEN_PlayerLeftParty(); // 0x005A5D20",
@@ -4236,16 +4236,12 @@
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod16_Champion(); // 0x005A0E80",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod17_LightningEnchanted(); // 0x005A1B00",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod18_ColdEnchanted(); // 0x005A1C70",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_UMod1_RandomName(); // 0x005A0CE0",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod23_PoisonEnchanted(); // 0x005A1E00",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod25_ManaSteal(); // 0x005A1F90",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod26_Teleport(); // 0x005A1600",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_UMod2_HealthBonus(); // 0x005A0DC0",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod36_Ghostly(); // 0x005A1080",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod38_Possessed(); // 0x005A1230",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_UMod41_AlwaysRun(); // 0x005A1330",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod9_FireEnchanted(); // 0x005A1990",
-    "extern \"C\" void __cdecl sub_005A0E40_IncreaseMonsterLevelAndExperience(); // 0x005A0E40",
     "extern \"C\" void __cdecl sub_005A1280_UModChampion(); // 0x005A1280"
    ],
    "fn_types": {},
@@ -4295,15 +4291,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/MONSTER/MonsterMode_005A1080.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Unknown_005A29A0.cpp": {
-   "bytes": 60,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005A29A0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -107851,7 +107838,7 @@
     [
      4,
      "0x005A0CE0",
-     "names.json",
+     "owner",
      "MONSTERUNIQUE_UMod1_RandomName",
      0,
      "func"
@@ -107859,7 +107846,7 @@
     [
      8,
      "0x005A0DC0",
-     "names.json",
+     "owner",
      "MONSTERUNIQUE_UMod2_HealthBonus",
      0,
      "func"
@@ -107867,7 +107854,7 @@
     [
      16,
      "0x005A0E40",
-     "names.json",
+     "owner",
      "sub_005A0E40_IncreaseMonsterLevelAndExperience",
      0,
      "func"
@@ -108011,7 +107998,7 @@
     [
      164,
      "0x005A1330",
-     "names.json",
+     "owner",
      "MONSTERUNIQUE_UMod41_AlwaysRun",
      0,
      "func"
@@ -108235,7 +108222,7 @@
    "cname": "gData_006E21B8",
    "declared": true,
    "decorated": "?gnUniqueElementalStats@@3QAY02$$CBHA",
-   "file": "Source/D2Game/Unknown_005A29A0.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E21B8[5][3]; // 0x006E21B8",
    "head": "extern \"C\" const int gData_006E21B8[5][3] = ",
