@@ -1,6 +1,9 @@
 #include "D2Gdi.h"
+
 #include "D2SysTypes.h"
+
 #include "D2Win32Base.h"
+
 #include "D2GfxTypes.h"
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pCriticalSection);
@@ -29,7 +32,6 @@ struct D2Callbacks006C7CF0Strc
 extern void* ghObject_0098A164; // 0x0098A164
 
 extern D2Callbacks006C7CF0Strc* gpCallbacks_007C914C; // 0x007C914C
-
 
 void __fastcall sub_006C9280_Apply(int enabled, unsigned char unusedRegister, int unusedA, int unusedB); // 0x006C9280
 
@@ -146,6 +148,11 @@ int __cdecl GDI_Close()
 struct D2PaletteEntry006C7C10Strc;
 
 struct D2LogPalette006C7C10Strc;
+
+// 0x006C7AF0
+void __cdecl sub_006C7AF0_Nop()
+{
+}
 
 // 0x006C7B00
 static void GDI_CreateBackBuffer(int nResolution)
