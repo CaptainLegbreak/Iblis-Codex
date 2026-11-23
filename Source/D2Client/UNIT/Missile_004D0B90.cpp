@@ -9,10 +9,7 @@
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
-struct Obj00648690;
-struct Unit0064A210;
-struct Unit0064A280;
-struct Unit0064A300;
+struct D2GfxLightStrc;
 union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2MissileStrc;
@@ -44,18 +41,18 @@ void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); /
 void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame); // 0x0064A330
 D2UnitStrc* __fastcall MISSILE_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
 void __fastcall SKILLS_SetBallistic(D2UnitStrc* pUnit, int nSpeed, int nFrames); // 0x004DA5B0
-extern "C" int __stdcall sub_0064A210(Unit0064A210* pUnit); // 0x0064A210
-extern "C" int __stdcall sub_0064A280(Unit0064A280* pUnit); // 0x0064A280
-extern "C" int __stdcall sub_0064A300(Unit0064A300* pUnit); // 0x0064A300
-extern "C" void __stdcall PATH_SetVelocity(Obj00648690* pObj, int nValue, int nUnused3, int nUnused4); // 0x00648690
+extern "C" int __stdcall sub_0064A210(D2UnitStrc* pUnit); // 0x0064A210
+extern "C" int __stdcall sub_0064A280(D2UnitStrc* pUnit); // 0x0064A280
+extern "C" int __stdcall sub_0064A300(D2UnitStrc* pUnit); // 0x0064A300
+void __stdcall PATH_SetVelocity(D2DynamicPathStrc* pDynamicPath, int nVelocity, const char* szFile, int nLine); // 0x00648690
 void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4); // 0x00649EF0
 
-void __fastcall DLIGHTMAP_ResetLightSize(void* pLight, int nSize); // 0x004742D0
-int __fastcall DLIGHTMAP_GetLightSize(void* pLight); // 0x00474350
+void __fastcall DLIGHTMAP_ResetLightSize(D2GfxLightStrc* pLight, int nSize); // 0x004742D0
+int __fastcall DLIGHTMAP_GetLightSize(D2GfxLightStrc* pLight); // 0x00474350
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-void __fastcall sub_004BA790_UpdateUnitHint(void* pHint, D2UnitStrc* pUnit, int nArg); // 0x004BA790
+void __fastcall sub_004BA790_ReleaseUnitSfx(void* pUnitSfx, D2UnitStrc* pUnit, int bForce); // 0x004BA790
 void* __fastcall ROSTER_GetLinkFirst(D2UnitStrc* pUnit); // 0x004CA990
-int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
+int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 int __stdcall GFXUTIL_GetMotionAZ(D2UnitStrc* pUnit); // 0x004DA150
 int __stdcall MISSILE_GetTargetY(D2UnitStrc* pMissile); // 0x0064A780
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
@@ -395,27 +392,27 @@ int __fastcall MISSILE_CltDoEightWaySpawn(D2UnitStrc* pMissile)
 
     const int nX = UNITS_GetUnitXPosition(pMissile);
     const int nY = UNITS_GetUnitYPosition(pMissile);
-    MISSILE_SubmitOwnerRequest(pMissile, 0x58, 0, 0, sub_0064A280((Unit0064A280*)pMissile), sub_0064A210((Unit0064A210*)pMissile));
+    MISSILE_SubmitOwnerRequest(pMissile, 0x58, 0, 0, sub_0064A280(pMissile), sub_0064A210(pMissile));
 
     for (int i = 0; i < 8; ++i)
     {
         const int nPosX = nXOffsets[i] + nX;
         const int nPosY = nYOffsets[i] + nY;
-        D2UnitStrc* pChild = MISSILE_SubmitOwnerRequest(pMissile, 0x59, 0, 0, sub_0064A280((Unit0064A280*)pMissile), sub_0064A210((Unit0064A210*)pMissile));
+        D2UnitStrc* pChild = MISSILE_SubmitOwnerRequest(pMissile, 0x59, 0, 0, sub_0064A280(pMissile), sub_0064A210(pMissile));
         if (pChild)
         {
             D2Common_10216(pChild->pDynamicPath, nPosX, nPosY, 0);
         }
 
-        D2UnitStrc* pNew = MISSILE_SubmitOwnerRequest(pMissile, 0x1A1, nPosX, nPosY, sub_0064A280((Unit0064A280*)pMissile), sub_0064A210((Unit0064A210*)pMissile));
+        D2UnitStrc* pNew = MISSILE_SubmitOwnerRequest(pMissile, 0x1A1, nPosX, nPosY, sub_0064A280(pMissile), sub_0064A210(pMissile));
         if (pNew)
         {
-            int nFrames = sub_0064A300((Unit0064A300*)pNew);
+            int nFrames = sub_0064A300(pNew);
             nFrames -= SEED_RollLimitedRandomNumber(&pMissile->pSeed, nFrames / 2);
             MISSILE_SetTotalFrames(pNew, nFrames);
             D2DynamicPathStrc* pPath = pNew->pDynamicPath;
 // build: symbol ?gszMissileSourceFile@* 0x006DAEF4
-            PATH_SetVelocity((Obj00648690*)pPath, SEED_RollLimitedRandomNumber(&pMissile->pSeed, PATH_GetVelocity(pPath)), (int)gszMissileSourceFile, 0x1A6B);
+            PATH_SetVelocity(pPath, SEED_RollLimitedRandomNumber(&pMissile->pSeed, PATH_GetVelocity(pPath)), gszMissileSourceFile, 0x1A6B);
             SKILLS_SetBallistic(pNew, 0x1E, nFrames);
         }
     }
@@ -585,7 +582,7 @@ void __fastcall MISSILE_CltDoLightGrow(D2UnitStrc* pMissile)
     nSteps = D2_MIN(D2_MAX(nSteps, 1), 0x3C);
 
     const int nInterval = 0x3C / nSteps;
-    void* pLight = pMissile->pLight;
+    D2GfxLightStrc* pLight = pMissile->pLight;
     const int nLightSize = pLight ? DLIGHTMAP_GetLightSize(pLight) : 0;
     const int nFrames = sub_0064A3B0_GetElapsedFrames(pMissile);
     if (!((nFrames + 1) % nInterval) && nLightSize < nSteps && pLight)
@@ -625,7 +622,7 @@ void __fastcall MISSILE_CltDoLightGrow(D2UnitStrc* pMissile)
     {
         void* pHint = ROSTER_GetLinkFirst(pMissile);
         if (pHint)
-            sub_004BA790_UpdateUnitHint(pHint, pMissile, 1);
+            sub_004BA790_ReleaseUnitSfx(pHint, pMissile, 1);
 
         if (pMissilesTxtRecord->wProgSound > 0)
             sub_004B9A00(pMissilesTxtRecord->wProgSound, pMissile, 0, 0, 0);
