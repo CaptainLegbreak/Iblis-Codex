@@ -20,7 +20,6 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                             
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 int __fastcall AIUTIL_GetDistanceToCoordinates_NoUnitSize(D2UnitStrc* pUnit, int nX, int nY);               // 0x005DC530
 extern const D2AiTableStrc gaAiTable[148];                                                         // 0x0073CA18
-extern const D2AiTableStrc gaSpecialAiStateTable[18];                                              // 0x0073D358
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
@@ -43,4 +42,3 @@ int __fastcall AITHINK_CullPotentialTargetsForDiablo(D2UnitStrc* pUnit, D2UnitSt
     return (unsigned int)AIUTIL_GetDistanceToCoordinates_NoUnitSize(pTarget, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit)) < 1020;
 }
 
-#include "gen/data/Source/D2Game/Unknown_005E8EB0.inc"

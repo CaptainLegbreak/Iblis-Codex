@@ -679,6 +679,7 @@ void __fastcall D2GAME_AI_SpecialState02_6FCD1660(D2GameStrc* pGame, D2UnitStrc*
 }
 
 extern const D2AiTableStrc gaAiTable[148]; // 0x0073CA18
+extern const D2AiTableStrc gaSpecialAiStateTable[18]; // 0x0073D358
 
 static inline D2MonStatsTxt* GetRec(D2UnitStrc* pUnit)
 {
@@ -707,7 +708,7 @@ const D2AiTableStrc* __fastcall AITHINK_GetAiTableRecord(D2UnitStrc* pUnit, int 
                 return GetByIndex(pRecord);
             }
         }
-        return &gaAiTable[148 + nMode];
+        return &gaSpecialAiStateTable[nMode];
     }
     return GetByIndex(pRecord);
 }
