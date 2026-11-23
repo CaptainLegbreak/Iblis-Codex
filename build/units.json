@@ -53277,11 +53277,6 @@
      "name": "?ACT5Intro_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
-     "va": "0x00588D60",
-     "length": 100,
-     "name": "?ACT5Q2_FindPortal@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAPAU2@@Z"
-    },
-    {
      "va": "0x005920D0",
      "length": 96,
      "name": "?ACT1Q4_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -53690,16 +53685,6 @@
      "va": "0x00587F60",
      "length": 96,
      "name": "?ACT5Q2_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00588C50",
-     "length": 67,
-     "name": "?ACT5Q2_GetBarbsToBeRescued@@YIHPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x00588DD0",
-     "length": 64,
-     "name": "?ACT5Q2_OnWussieActivated@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     }
    ]
   },
@@ -53803,67 +53788,35 @@
      "va": "0x00588880",
      "length": 75,
      "name": "?ACT5Q2_UpdateWussieCounters@@YIXPAUD2GameStrc@@HPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00588830.cpp",
-   "rank": 0,
-   "functions": [
+    },
+    {
+     "va": "0x005888D0",
+     "length": 883
+    },
+    {
+     "va": "0x00588C50",
+     "length": 67,
+     "name": "?ACT5Q2_GetBarbsToBeRescued@@YIHPAUD2QuestDataStrc@@@Z"
+    },
     {
      "va": "0x00588CA0",
      "length": 178,
      "name": "?ACT5Q2_UpdatePortalMode@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005888D0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
-     "va": "0x005888D0",
-     "length": 883
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00588E10.cpp",
-   "rank": 1,
-   "functions": [
+     "va": "0x00588D60",
+     "length": 100,
+     "name": "?ACT5Q2_FindPortal@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAPAU2@@Z"
+    },
+    {
+     "va": "0x00588DD0",
+     "length": 64,
+     "name": "?ACT5Q2_OnWussieActivated@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
     {
      "va": "0x00588E10",
      "length": 148
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {

@@ -1010,48 +1010,6 @@ int __fastcall ACT5Q2_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStr
     return 0;
 }
 
-// 0x00588C50
-int __fastcall ACT5Q2_GetBarbsToBeRescued(D2QuestDataStrc* pQuestData)
-{
-    D2Act5Quest2Strc* pQuestDataEx = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
-
-    int nBarbs = 0;
-    for (int i = 0; i < 3; ++i)
-    {
-        if (!pQuestDataEx->bWussiesSpawned[i])
-        {
-            nBarbs += 5;
-        }
-    }
-
-    nBarbs += pQuestDataEx->nSpawnedWussies - pQuestDataEx->nFreedWussies - pQuestDataEx->nKilledWussies;
-    if (nBarbs < 0)
-    {
-        nBarbs = 0;
-    }
-
-    return nBarbs;
-}
-
-// 0x00588DD0
-void __fastcall ACT5Q2_OnWussieActivated(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPlayer)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A5Q2_RESCUESOLDIERS);
-
-    if (!pQuestData || !pQuestData->bNotIntro || pQuestData->fLastState == 5)
-    {
-        return;
-    }
-
-    if (((D2Act5Quest2Strc*)pQuestData->pQuestDataEx)->nKilledWussies >= 5)
-    {
-        return;
-    }
-
-    pQuestData->nStatusFlags = 0;
-    QUESTS_UnitIterate(pQuestData, 5, 0, ACT5Q2_UnitIterate_StatusCyclerEx, 1);
-}
-
 void __fastcall ACT4Q3_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
     if (pQuestArg->nOldLevel != 103)

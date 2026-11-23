@@ -457,28 +457,6 @@ void __fastcall ACT5Intro_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2
     }
 }
 
-// 0x00588D60
-int __fastcall ACT5Q2_FindPortal(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc** ppPortal)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 32);
-    if (pQuestData)
-    {
-        D2Act5Quest2Strc* pQuestDataEx = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
-        int nIndex = ACT5Q2_GetWussieGroupIndex(pQuestData, pUnit);
-        if (nIndex >= 0 && pQuestDataEx->bPortalSpawned[nIndex])
-        {
-            D2UnitStrc* pPortal = SUNIT_GetServerUnit(pGame, 2, pQuestDataEx->nPortalGUIDs[nIndex]);
-            if (pPortal)
-            {
-                *ppPortal = pPortal;
-                return 1;
-            }
-        }
-    }
-
-    return 0;
-}
-
 static inline int UNITS_GetGUIDOrNone(D2UnitStrc* pUnit)
 {
     if (!pUnit)
