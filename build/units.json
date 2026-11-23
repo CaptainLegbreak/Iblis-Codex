@@ -21894,6 +21894,11 @@
      "name": "?ROSTER_GetPetLife@@YIHH@Z"
     },
     {
+     "va": "0x004790F0",
+     "length": 35,
+     "name": "?sub_004790F0@@YIHH@Z"
+    },
+    {
      "va": "0x00479180",
      "length": 35,
      "name": "?ROSTER_GetPetType@@YIHH@Z"
@@ -22321,17 +22326,6 @@
      "va": "0x004B8370",
      "length": 39,
      "name": "@ROSTER_SetCtrlState@8"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004790F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004790F0",
-     "length": 35,
-     "name": "?sub_004790F0@@YIHH@Z"
     }
    ]
   },
