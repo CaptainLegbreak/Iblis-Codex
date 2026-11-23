@@ -14,12 +14,18 @@ struct D2RoomCoordListStrc;
 struct D2UnitStrc;
 
 struct D2DrlgCoordsStrc;
-struct D2SpawnAreaStrc;
 union D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2MonsterRegionStrc;
 
-struct D2SpawnAreaStrc { char unk0x00[0x10]; tagRECT tRect; };
+struct D2RoomCoordListStrc
+{
+    tagRECT pBox[2];
+    int bNode;
+    int bRoomActive;
+    int nIndex;
+    D2RoomCoordListStrc* pNext;
+};
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 void __stdcall sub_M96_UseBounds_0054DAC0(int nX, int nY, int nWidth, int nHeight);
 
@@ -44,7 +50,7 @@ D2MonsterRegionStrc* __fastcall MONSTERREGION_GetMonsterRegionFromLevelId(D2Mons
 static int MONSTERREGION_CanRetryPresetSpawn(int nMonsterId); // 0x0054E3A0
 
 // 0x0054DAC0
-static void __stdcall sub_0054DAC0_GetSpawnBounds(D2ActiveRoomStrc* pRoom, int* pWidth, D2SpawnAreaStrc* pArea, int* pX, int* pY, int* pHeight)
+static void __stdcall sub_0054DAC0_GetSpawnBounds(D2ActiveRoomStrc* pRoom, int* pWidth, D2RoomCoordListStrc* pArea, int* pX, int* pY, int* pHeight)
 {
     if (!pArea)
     {
@@ -58,7 +64,7 @@ static void __stdcall sub_0054DAC0_GetSpawnBounds(D2ActiveRoomStrc* pRoom, int* 
     else
     {
         tagRECT rect;
-        CopyRect(&rect, &pArea->tRect);
+        CopyRect(&rect, &pArea->pBox[1]);
         DUNGEON_GameTileToSubtileCoords(&rect.left, &rect.top);
         DUNGEON_GameTileToSubtileCoords(&rect.right, &rect.bottom);
         *pX = rect.left + 1;
@@ -68,19 +74,113 @@ static void __stdcall sub_0054DAC0_GetSpawnBounds(D2ActiveRoomStrc* pRoom, int* 
     }
 }
 
-void __fastcall sub_M96_Emit_0054DAC0(void* pGame, D2ActiveRoomStrc* pRoom, D2SpawnAreaStrc* pArea)
+struct D2ActiveRoomViewStrc
 {
-    int nX, nY, nWidth, nHeight;
-    sub_0054DAC0_GetSpawnBounds(pRoom, &nWidth, pArea, &nX, &nY, &nHeight);
-    sub_M96_UseBounds_0054DAC0(nX, nY, nWidth, nHeight);
-}
+    char unk0x00[0x6C];
+    D2SeedStrc pSeed;
+};
 
+struct D2FormationOffsetStrc
+{
+    int nX;
+    int nY;
+    int unk0x08;
+};
+
+int __stdcall D2Common_10095(D2ActiveRoomStrc* pRoom, int nX, int nY);                                       // 0x0061B130
 static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
     pSeed->nLowSeed = (unsigned int)lSeed;
     return (unsigned int)lSeed;
+}
+
+
+static inline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0)
+    {
+        return 0;
+    }
+
+    if ((nMax - 1) & nMax)
+    {
+        return SEED_RollRandomNumber(pSeed) % nMax;
+    }
+
+    return SEED_RollRandomNumber(pSeed) & (nMax - 1);
+}
+
+
+
+// 0x0054DDC0
+int __stdcall sub_0054DDC0_FindPosition(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pArea, int nClassId, int* pFormation, int* pX, int* pY)
+{
+    int nX, nY, nWidth, nHeight;
+    sub_0054DAC0_GetSpawnBounds(pRoom, &nWidth, pArea, &nX, &nY, &nHeight);
+
+    int bHasArea = 0;
+    int nAreaIndex = 0;
+    if (pArea)
+    {
+        nAreaIndex = pArea->nIndex;
+        bHasArea = 1;
+    }
+
+    D2SeedStrc* pSeed = pRoom ? &((D2ActiveRoomViewStrc*)pRoom)->pSeed : 0;
+    const int nCount = pFormation[0];
+    pFormation += 3;
+    for (int nTry = 0; nTry < 20; ++nTry)
+    {
+        const int nPosX = SEED_RollLimitedRandomNumber_Inline(pSeed, nWidth) + nX;
+        const int nPosY = SEED_RollLimitedRandomNumber_Inline(pSeed, nHeight) + nY;
+
+        D2FormationOffsetStrc* pOffset = (D2FormationOffsetStrc*)pFormation;
+        int bPlaced = 1;
+        for (int i = 0; i < nCount; ++i)
+        {
+            D2UnitStrc* pMonster;
+            if (bHasArea)
+            {
+                if (D2Common_10095(pRoom, pOffset->nX + nPosX, pOffset->nY) != nAreaIndex)
+                {
+                    bPlaced = 0;
+                    break;
+                }
+
+                pMonster = MONSTERSPAWN_SpawnInCoordList(pGame, pRoom, pArea, pOffset->nX + nPosX, pOffset->nY + nPosY, nClassId, 1, -1, 1);
+            }
+            else
+            {
+                pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, pOffset->nX + nPosX, pOffset->nY + nPosY, nClassId, 1, -1, 1);
+            }
+
+            if (!pMonster)
+            {
+                bPlaced = 0;
+                break;
+            }
+
+            ++pOffset;
+        }
+
+        if (bPlaced)
+        {
+            *pX = nPosX;
+            *pY = nPosY;
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+void __fastcall sub_M96_Emit_0054DAC0(void* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pArea)
+{
+    int nX, nY, nWidth, nHeight;
+    sub_0054DAC0_GetSpawnBounds(pRoom, &nWidth, pArea, &nX, &nY, &nHeight);
+    sub_M96_UseBounds_0054DAC0(nX, nY, nWidth, nHeight);
 }
 
 static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord_Inline(int nMonsterId)
