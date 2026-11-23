@@ -1921,8 +1921,8 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/Missile.cpp": {
-   "bytes": 4188,
-   "definitions": 53,
+   "bytes": 4260,
+   "definitions": 54,
    "externs": [
     "extern \"C\" void __cdecl sub_004D2610(); // 0x004D2610",
     "extern \"C\" void __cdecl sub_004D47F0(); // 0x004D47F0",
@@ -1939,7 +1939,11 @@
     "extern \"C\" void __cdecl sub_004D7880(); // 0x004D7880",
     "extern \"C\" void __cdecl sub_004D7E00(); // 0x004D7E00",
     "extern \"C\" void __cdecl sub_004CF800(); // 0x004CF800",
-    "extern \"C\" void __cdecl sub_004D1BD0(); // 0x004D1BD0"
+    "extern \"C\" void __cdecl sub_004D1BD0(); // 0x004D1BD0",
+    "extern \"C\" void __cdecl sub_004CCFB0_CltCanCollideWithMonster(); // 0x004CCFB0",
+    "extern \"C\" void __cdecl sub_004CCFE0_CltCanCollideWithGoodAlignmentUnit(); // 0x004CCFE0",
+    "extern \"C\" void __cdecl sub_004CD020_CltCanCollideWithPlayerOrMonster(); // 0x004CD020",
+    "extern \"C\" void __cdecl sub_004CD050_CltCanMissileDestroy(); // 0x004CD050"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/Missile.inc",

@@ -507,7 +507,7 @@ void __fastcall ACT3Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
     if (QUESTRECORD_GetQuestState(pQuestFlags, 20, 0) || QUESTRECORD_GetQuestState(pQuestFlags, 20, 1))
     {
         pQuestData->bNotIntro = 0;
-        pQuestDataEx->unk0x01 = 0;
+        pQuestDataEx->bWaitingForBoss = 0;
         pQuestDataEx->bJadeFigurineDropPending = 0;
         return;
     }
@@ -517,14 +517,14 @@ void __fastcall ACT3Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
     if (QUESTRECORD_GetQuestState(pQuestFlags, 20, 1))
     {
         pQuestData->bNotIntro = 0;
-        pQuestDataEx->unk0x01 = 0;
+        pQuestDataEx->bWaitingForBoss = 0;
         pQuestDataEx->bJadeFigurineDropPending = 0;
         return;
     }
 
     if (pGoldenBird)
     {
-        pQuestDataEx->unk0x01 = 0;
+        pQuestDataEx->bWaitingForBoss = 0;
         pQuestDataEx->bJadeFigurineDropPending = 0;
         if (QUESTRECORD_GetQuestState(pQuestFlags, 20, 4))
         {
@@ -539,7 +539,7 @@ void __fastcall ACT3Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
     }
     else if (pJadeFigurine)
     {
-        pQuestDataEx->unk0x01 = 0;
+        pQuestDataEx->bWaitingForBoss = 0;
         pQuestDataEx->bJadeFigurineDropPending = 0;
         if (QUESTRECORD_GetQuestState(pQuestFlags, 20, 2))
         {

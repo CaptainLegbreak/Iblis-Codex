@@ -782,12 +782,12 @@ int __fastcall ACT2Q4_IsGuardMoving(D2GameStrc* pGame, D2UnitStrc* pUnit)
     }
 
     D2Act2Quest4Strc* pQuestDataEx = (D2Act2Quest4Strc*)pQuestData->pQuestDataEx;
-    if (pQuestDataEx->unk0x0F != 1 || pQuestDataEx->unk0x10)
+    if (pQuestDataEx->bJerhynTeleportedToPalace != 1 || pQuestDataEx->bGuardMoveStarted)
     {
         return 0;
     }
 
-    pQuestDataEx->unk0x10 = 1;
+    pQuestDataEx->bGuardMoveStarted = 1;
     return 1;
 }
 
