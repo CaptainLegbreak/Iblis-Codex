@@ -3199,6 +3199,11 @@
      "name": "?MAINMENUS_ShowMessageNoArg@@YIXPBUUnicode@@P6AXXZ@Z"
     },
     {
+     "va": "0x00433450",
+     "length": 8,
+     "name": "?CHARSEL_ShowText@@YIXPBUUnicode@@P6AXXZ@Z"
+    },
+    {
      "va": "0x004334D0",
      "length": 13,
      "name": "?MAINMENUS_OnCloseBox@@YGHH@Z"
@@ -9352,11 +9357,6 @@
      "va": "0x004325B0",
      "length": 316,
      "name": "?sub_004325B0_CreateScreen@@YAXXZ"
-    },
-    {
-     "va": "0x00433450",
-     "length": 8,
-     "name": "?CHARSEL_ShowText@@YIXPBUUnicode@@P6AXXZ@Z"
     },
     {
      "va": "0x00434700",
