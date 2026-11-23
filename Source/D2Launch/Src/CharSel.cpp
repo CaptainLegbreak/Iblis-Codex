@@ -1427,13 +1427,6 @@ int __fastcall CHARSEL_UpgradeCharacter(D2LaunchCharEntryStrc* pEntry, const cha
     return GAME_GetConnectError() == 0;
 }
 
-// 0x00435E00
-int __stdcall CHARSEL_Back(int nArg)
-{
-    sub_00435580();
-    return 1;
-}
-
 // build: symbol ??0Unicode@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x004379C0

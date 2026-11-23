@@ -488,7 +488,6 @@
     "extern \"C\" void __cdecl CHARSEL_OnHoverBarbarian(); // 0x00430950",
     "extern \"C\" void __cdecl CHARSEL_OnHoverPaladin(); // 0x00430980",
     "extern \"C\" void __cdecl MAINMENUS_SelectCharacterClass(); // 0x00433BF0",
-    "extern \"C\" void __cdecl CHARSEL_Back(); // 0x00435E00",
     "extern \"C\" void __cdecl COMCALLBACK_OnCharSelectOk(); // 0x00439840",
     "extern \"C\" void __cdecl CHARSEL_OnNormalDifficulty(); // 0x00439B80",
     "extern \"C\" void __cdecl CHARSEL_OnNightmareDifficulty(); // 0x00439BA0",
