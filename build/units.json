@@ -607,6 +607,26 @@
      "name": "?sub_0040A1F0_PoolRealloc@@YIPAXPAUD2PoolSystemStrc@@PAXHPBDH@Z"
     },
     {
+     "va": "0x0040ABF0",
+     "length": 105,
+     "name": "ERRORMANAGER_HeapSiftDown"
+    },
+    {
+     "va": "0x0040AC60",
+     "length": 63,
+     "name": "?ERRORMANAGER_HeapSort@@YIXPAHH@Z"
+    },
+    {
+     "va": "0x0040ACA0",
+     "length": 245,
+     "name": "ERRORMANAGER_CalcCodeLengths"
+    },
+    {
+     "va": "0x0040ADA0",
+     "length": 1,
+     "name": "?sub_0040ADA0_Nop@@YAXXZ"
+    },
+    {
      "va": "0x0040ADB0",
      "length": 774
     },
@@ -1469,16 +1489,6 @@
      "va": "0x004027C0",
      "length": 96,
      "name": "LOGMANAGER_DbgHelpThreadProc"
-    },
-    {
-     "va": "0x0040ABF0",
-     "length": 105,
-     "name": "LOGMANAGER_HeapSiftDown"
-    },
-    {
-     "va": "0x0040ACA0",
-     "length": 245,
-     "name": "LOGMANAGER_CalcCodeLengths"
     },
     {
      "va": "0x0040B540",
@@ -3735,16 +3745,6 @@
      "va": "0x0040AB00",
      "length": 209,
      "name": "?FOG_AsyncDataFree@@YIXPAUAsyncData@@@Z"
-    },
-    {
-     "va": "0x0040AC60",
-     "length": 63,
-     "name": "?ASYNCDATA_HeapSort@@YIXPAHH@Z"
-    },
-    {
-     "va": "0x0040ADA0",
-     "length": 1,
-     "name": "?sub_0040ADA0_Nop@@YAXXZ"
     }
    ]
   },
