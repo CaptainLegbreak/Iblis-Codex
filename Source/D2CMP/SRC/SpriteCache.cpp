@@ -2106,23 +2106,6 @@ int __stdcall CelGetOffsetY(D2CelStrc* pCel)
     return pCel->nYOffset;
 }
 
-// 0x00604A40
-void __stdcall TileLibraryAddProject(D2TileLibraryHeaderStrc** ptTileLibrary, const char* szFilePath)
-{
-    D2_ASSERT(ptTileLibrary, 0x1C);
-    D2_ASSERT(szFilePath, 0x1D);
-    int i;
-    for (i = 0; i < 32; ++i)
-    {
-        if (!ptTileLibrary[i])
-        {
-            D2CMPLoadProjectRecord(&ptTileLibrary[i], szFilePath);
-            break;
-        }
-    }
-    D2_ASSERT(i < 32, 0x2A);
-}
-
 const char* __fastcall CelSkipRleLines(const char* pData, int nLines)
 {
     if (!nLines)

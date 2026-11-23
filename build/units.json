@@ -61538,11 +61538,6 @@
      "va": "0x00601810",
      "length": 44,
      "name": "CelValidateContext"
-    },
-    {
-     "va": "0x00604A40",
-     "length": 94,
-     "name": "TileLibraryAddProject"
     }
    ]
   },
@@ -68545,11 +68540,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00604AA0",
-     "length": 60,
-     "name": "TileLibraryReleaseProject"
-    },
-    {
      "va": "0x00604DD0",
      "length": 30,
      "name": "PaletteMinComponent"
@@ -68724,6 +68714,16 @@
    "file": "Source/D2CMP/SRC/TileLib.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00604A40",
+     "length": 94,
+     "name": "TileLibraryAddProject"
+    },
+    {
+     "va": "0x00604AA0",
+     "length": 60,
+     "name": "TileLibraryReleaseProject"
+    },
     {
      "va": "0x00604AE0",
      "length": 120,

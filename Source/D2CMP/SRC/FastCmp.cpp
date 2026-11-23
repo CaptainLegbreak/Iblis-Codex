@@ -189,26 +189,6 @@ int gnGenericRle; // 0x008F03C8
 
 static void __stdcall CelEncodeRle(const unsigned char* pSrc, unsigned int nWidth, unsigned int nHeight, unsigned int dwFlags, unsigned char** ppOut, unsigned int* pnSize);
 
-// 0x00604AA0
-void __stdcall TileLibraryReleaseProject(int* pSlots, char* pEntry)
-{
-    if (pEntry)
-    {
-        int nValue = sub_00600760_GetValue(pEntry + 8);
-        if (nValue)
-        {
-            for (int i = 0; i < 0x20; i++)
-            {
-                if (pSlots[i] == nValue)
-                {
-                    pSlots[i] = 0;
-                    return;
-                }
-            }
-        }
-    }
-}
-
 // 0x00604DD0
 double __stdcall PaletteMinComponent(double a, double b)
 {
