@@ -20506,11 +20506,6 @@
      "name": "sub_004DDE80_ExtendBounds"
     },
     {
-     "va": "0x004DF6C0",
-     "length": 172,
-     "name": "GFXUTIL_ApplySoundEnviron"
-    },
-    {
      "va": "0x004E0700",
      "length": 41,
      "name": "sub_004E0700_GetEntry"
@@ -31939,9 +31934,14 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004DF770.cpp",
+   "file": "Source/D2Client/Unknown_004DF6C0.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x004DF6C0",
+     "length": 172,
+     "name": "GFXUTIL_ApplySoundEnviron"
+    },
     {
      "va": "0x004DF770",
      "length": 18

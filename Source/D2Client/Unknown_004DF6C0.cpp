@@ -135,6 +135,78 @@ extern int gnSfxVolume_00727564; // 0x00727564
 
 extern int gnEnvVolume_00727568; // 0x00727568
 
+struct T00481920
+{
+    char unk0x00[0x24];
+    int nEAXEnviron;
+    int nEAXEnvSize;
+    int nEAXEnvDiff;
+    int nEAXRoomVol;
+    int nEAXRoomHF;
+    int nEAXDecayTime;
+    int nEAXDecayHF;
+    int nEAXReflect;
+    int nEAXReflectDelay;
+    int nEAXReverb;
+    int nEAXRevDelay;
+    int nEAXRoomRoll;
+    int nEAXAirAbsorb;
+};
+
+struct D2SoundEnvironStrc
+{
+    int nEnviron;
+    float f_4;
+    float fEnvDiff;
+    int nRoomVol;
+    int f_10;
+    float f_14;
+    float fDecayHF;
+    int nReflect;
+    float fReflectDelay;
+    int f_24;
+    float fRevDelay;
+    float fRoomRoll;
+    float fAirAbsorb;
+};
+
+extern int gnSoundEnvironId; // 0x0072ADE4
+
+T00481920* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
+
+void __fastcall sub_00513C50_SetSoundEnviron(D2SoundEnvironStrc* pEnviron); // 0x00513C50
+
+// 0x004DF6C0
+void __fastcall GFXUTIL_ApplySoundEnviron(int nEnvironId)
+{
+    if (nEnvironId == gnSoundEnvironId)
+    {
+        return;
+    }
+
+    T00481920* pTxt = sub_00481920_GetSoundEnvironTxtRecord(nEnvironId);
+    if ((sub_00514C90_GetSoundMode() == 2 || !nEnvironId) && sub_00513B70_IsSoundEnvironEnabled())
+    {
+        D2SoundEnvironStrc tEnviron;
+        tEnviron.nEnviron = pTxt->nEAXEnviron;
+        tEnviron.f_4 = pTxt->nEAXEnvSize / 1000.0;
+        tEnviron.fEnvDiff = pTxt->nEAXEnvDiff / 1000.0;
+        tEnviron.nRoomVol = pTxt->nEAXRoomVol;
+        tEnviron.f_10 = pTxt->nEAXRoomHF;
+        tEnviron.f_14 = pTxt->nEAXDecayTime / 1000.0;
+        tEnviron.fDecayHF = pTxt->nEAXDecayHF / 1000.0;
+        tEnviron.nReflect = pTxt->nEAXReflect;
+        tEnviron.fReflectDelay = pTxt->nEAXReflectDelay / 1000.0;
+        tEnviron.f_24 = pTxt->nEAXReverb;
+        tEnviron.fRevDelay = pTxt->nEAXRevDelay / 1000.0;
+        tEnviron.fRoomRoll = pTxt->nEAXRoomRoll / 1000.0;
+        tEnviron.fAirAbsorb = pTxt->nEAXAirAbsorb / 1000.0;
+        sub_00513C50_SetSoundEnviron(&tEnviron);
+    }
+
+    gnSoundEnvironId = nEnvironId;
+}
+
 // 0x004DF770
 static bool __fastcall sub_004DF770(S* p, char unused, int x) { return p->type == x; }
 
@@ -376,7 +448,7 @@ static int sub_004DFAA0_InitSoundChannels(int nMode)
         }
     }
 
-    sub_004DF6C0(0);
+    GFXUTIL_ApplySoundEnviron(0);
     gbSoundSystemInit = 1;
     return 1;
 }
@@ -829,4 +901,4 @@ void __fastcall sub_004E0690_SetSoundTableFlag(int nValue)
 // calling-convention shim (not game code)
 void sub_004DF770_Shim(S* p, int x) { (void)sub_004DF770(p, 0, x); }
 
-#include "gen/data/Source/D2Client/Unknown_004DF770.inc"
+#include "gen/data/Source/D2Client/Unknown_004DF6C0.inc"
