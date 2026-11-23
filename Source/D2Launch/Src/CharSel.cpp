@@ -47,7 +47,7 @@ struct D2CelFileStrc;
 
 struct Unicode;
 
-struct D2FuncTable_0077ABF0Strc;
+struct D2ComInterfaceStrc;
 
 struct D2ConfigStrc;
 
@@ -475,7 +475,7 @@ int __fastcall D2Win_10127_SetFont(int nArg);                                   
 
 int __stdcall sub_00518150(D2FuncRecordStrc* pRecord, int nIndex);                                          // 0x00518150
 
-D2FuncTable_0077ABF0Strc* __cdecl sub_00518C00();                                                           // 0x00518C00
+D2ComInterfaceStrc* __cdecl sub_00518C00();                                                           // 0x00518C00
 
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 
@@ -682,7 +682,7 @@ void __cdecl CHARSEL_ShowMessage(); // 0x0043A5D0
 
 void __cdecl sub_00438F70();
 
-extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
+extern D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
 
 int gdwGlobal_00779DB8; // 0x00779DB8
 

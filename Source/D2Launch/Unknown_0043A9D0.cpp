@@ -7,7 +7,7 @@
 struct D2ListMsgStrc;
 struct Unicode;
 struct D2StatusStrc;
-struct D2FuncTable_0077ABF0Strc;
+struct D2ComInterfaceStrc;
 
 struct D2ListMsgStrc
 {
@@ -56,12 +56,12 @@ int __stdcall D2Win_CloseSpriteCache(); // 0x004F9030
 void __stdcall sub_00517ED0(int nValue); // 0x00517ED0
 extern int gnLaunchMode; // 0x007795EC
 extern int gbConnectCancelled; // 0x007795F4
-extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
+extern D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
 extern int gdwGlobal_0077AC04; // 0x0077AC04
 extern int gbBattleNetConnected; // 0x0077AC08
 
 
-D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
+D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
 
 int gdwGlobal_0077AC04; // 0x0077AC04
 

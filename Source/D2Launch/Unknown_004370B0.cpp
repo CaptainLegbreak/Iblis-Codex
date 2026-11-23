@@ -8,11 +8,11 @@
 
 #include "D2MultiTypes.h"
 
-struct D2FuncTable_0077ABF0Strc;
+struct D2ComInterfaceStrc;
 
 void __cdecl MAINMENUS_ShowLoginScreen(); // 0x00435330
 
-extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
+extern D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
 
 extern int gnStatusDots; // 0x007799B4
 

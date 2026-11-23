@@ -71,7 +71,7 @@ void __fastcall D2Win_10046(D2WinControlStrc* pTextBox, const char* szText, int 
 void __cdecl sub_00438560_Refresh();
 void __cdecl CHARSEL_ShowMessage(); // 0x0043A5D0
 void __cdecl sub_00438F70();
-extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
+extern D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
 extern int gdwGlobal_00779DB8; // 0x00779DB8
 extern int gnBusy; // 0x00779DAC
 extern char* gpszName; // 0x00779DB0

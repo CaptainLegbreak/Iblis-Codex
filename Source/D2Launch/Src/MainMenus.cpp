@@ -44,7 +44,7 @@ struct D2CriticalSectionStrc;
 
 struct Unicode;
 
-struct D2FuncTable_0077ABF0Strc;
+struct D2ComInterfaceStrc;
 
 struct D2LaunchThreadRecordStrc;
 
@@ -560,7 +560,7 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
 #pragma intrinsic(strcpy)
 
-extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0;                                                      // 0x0077ABF0
+extern D2ComInterfaceStrc* gpFuncTable_0077ABF0;                                                      // 0x0077ABF0
 
 int gnLaunchMode;                                                                                  // 0x007795EC
 

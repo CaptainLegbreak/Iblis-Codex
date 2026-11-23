@@ -1,7 +1,6 @@
 #include "D2Launch.h"
 #include "D2MultiTypes.h"
 struct D2FileTimeStrc;
-struct D2FuncTable;
 struct D2MenuCallbackArgStrc;
 struct D2ConfigStrc;
 
@@ -34,9 +33,8 @@ int __fastcall D2Win_10051(D2WinControlStrc* pTextBox, const Unicode* wszText, i
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 extern int gbFeCharPalette; // 0x007795F0
 
-struct D2FuncTable { char unk00[0x50]; void (__fastcall* pfnRequest)(const char*, int); char unk54[0x14]; int (__cdecl* pfnAvailable)(); };
 
-extern D2FuncTable* gpFuncTable; // 0x0077ABF0
+extern D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
 extern int gnCancelled; // 0x0077932C
 extern const char gszMainMenus[]; // 0x006D41C0
 extern const char gszTextExt[]; // 0x006D48E0
@@ -445,10 +443,10 @@ int __cdecl MAINMENUS_ShowTerms()
     SStrCopy(szFileName, gszTosPrefix, 128);
     SStrPack(szFileName, szLanguage, 128);
     SStrPack(szFileName, gszTextExt, 128);
-    gpFuncTable->pfnRequest(szFileName, strlen(szFileName));
+    gpFuncTable_0077ABF0->pfnRequest(szFileName, strlen(szFileName));
     D2Win_RunMessageLoop(MAINMENUS_PollDownloadDone);
     if (gnCancelled) { MAINMENUS_DestroyControls(); return 0; }
-    if (!gpFuncTable->pfnAvailable())
+    if (!gpFuncTable_0077ABF0->pfnSlot68())
     {
         const Unicode* pMessage = D2LANG_GetStringFromTblIndex(0x14E3);
         MAINMENUS_ShowMessage(pMessage, MAINMENUS_ShowMainMenu, 1);

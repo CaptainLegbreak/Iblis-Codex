@@ -281,7 +281,6 @@ struct D2MessageStrc { void* hWnd; unsigned int uMessage,wParam,lParam,time; int
 
 struct D2VersionInfoStrc { unsigned long dwSize; char unknown04[144]; };
 
-struct D2ComInterfaceStrc { char unknown00[0xC4]; void (__stdcall* Close)(); };
 
 
 typedef int (__stdcall* D2IdleHandler)(int);
@@ -1050,7 +1049,7 @@ int __cdecl GAME_RunGameSession()
         GAME_UnregisterMouseHandlers();
     }
     if(gnMode_007A0610==2 || gnMode_007A0610==6 || gnMode_007A0610==3 || gnMode_007A0610==7)
-        if(gpComInterface)gpComInterface->Close();
+        if(gpComInterface)gpComInterface->pfnClose();
     return 6;
 }
 
