@@ -1,18 +1,21 @@
 #include "D2Drlg.h"
+#include "D2DrlgTiles.h"
+
 #include "D2DrlgPresets.h"
+
 #include "D2Path.h"
+
 #include "D2Structs.h"
+
 struct D2DrlgCoordStrc;
+
 union D2SeedStrc;
+
 struct D2CoordStrc;
+
 struct D2DrlgLinkStrc;
+
 struct D2DrlgLevelLinkDataStrc;
-
-
-
-
-
-
 
 extern const D2CoordStrc gOutdoorOrthOffsets[4]; // 0x006F1F7C
 
@@ -73,6 +76,38 @@ static __forceinline void __fastcall DRLGOUTROOM_GetOrthCoords(D2DrlgCoordStrc* 
     const int nIndex = nRand + 2 * nLinkRand;
     pCoords->nPosX = gOutdoorOrthOffsets[nIndex].nX + pLinkCoords->nPosX;
     pCoords->nPosY = gOutdoorOrthOffsets[nIndex].nY + pLinkCoords->nPosY;
+}
+
+D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId);                                         // 0x0061E470
+
+// 0x0067D8E0
+int __fastcall DRLGOUTROOM_LinkLevelsByLevelDef(D2DrlgLevelLinkDataStrc* pLevelLinkData)
+{
+    int nRand = SEED_RollRandomNumber(&pLevelLinkData->pSeed) & 1;
+
+    pLevelLinkData->nRand[0][pLevelLinkData->nIteration] = nRand;
+    pLevelLinkData->nRand[1][pLevelLinkData->nIteration] = nRand;
+
+    D2DrlgCoordStrc* pCoord = &pLevelLinkData->pLevelCoord[pLevelLinkData->nIteration];
+    switch (nRand)
+    {
+    case 0:
+        pCoord->nWidth = 64;
+        pCoord->nHeight = 160;
+        break;
+
+    case 1:
+        pCoord->nWidth = 160;
+        pCoord->nHeight = 64;
+        break;
+    }
+
+    D2LevelDefBin* pLevelDefBin = DATATBLS_GetLevelDefRecord(pLevelLinkData->nCurrentLevel);
+
+    pLevelLinkData->pLevelCoord[pLevelLinkData->nIteration].nPosX = pLevelDefBin->dwOffsetX;
+    pLevelLinkData->pLevelCoord[pLevelLinkData->nIteration].nPosY = pLevelDefBin->dwOffsetY;
+
+    return 1;
 }
 
 // 0x0067D980

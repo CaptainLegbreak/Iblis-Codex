@@ -80222,20 +80222,14 @@
      "name": "?DRLGOUTROOM_LinkLevelsByLevelCoords@@YIHPAUD2DrlgLevelLinkDataStrc@@@Z"
     },
     {
-     "va": "0x0067D980",
-     "length": 232,
-     "name": "?DRLGOUTROOM_LinkLevelsByOffsetCoords@@YIHPAUD2DrlgLevelLinkDataStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0067D8E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x0067D8E0",
      "length": 159,
      "name": "?DRLGOUTROOM_LinkLevelsByLevelDef@@YIHPAUD2DrlgLevelLinkDataStrc@@@Z"
+    },
+    {
+     "va": "0x0067D980",
+     "length": 232,
+     "name": "?DRLGOUTROOM_LinkLevelsByOffsetCoords@@YIHPAUD2DrlgLevelLinkDataStrc@@@Z"
     }
    ]
   },
