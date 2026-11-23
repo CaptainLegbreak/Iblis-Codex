@@ -994,22 +994,6 @@ void __fastcall ACT5Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
     }
 }
 
-// 0x00587F60
-int __fastcall ACT5Q2_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 0x24, 0) != 1
-        && QUESTRECORD_GetQuestState(pQuestFlags, 0x24, 1) != 1
-        && QUESTRECORD_GetQuestState(pQuestFlags, 0x24, 0xD) != 1)
-    {
-        QUESTRECORD_SetQuestState(pQuestFlags, 0x24, 0xE);
-        QUESTS_SendLogUpdateEx(pUnit, 0x20, 0);
-    }
-
-    return 0;
-}
-
 // 0x00588C50
 int __fastcall ACT5Q2_GetBarbsToBeRescued(D2QuestDataStrc* pQuestData)
 {
