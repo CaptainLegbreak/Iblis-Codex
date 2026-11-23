@@ -13781,6 +13781,11 @@
      "name": "?VIEW_IsAcceleratedRenderMode@@YAHXZ"
     },
     {
+     "va": "0x00477980",
+     "length": 600,
+     "name": "?sub_00477980@@YIXXZ"
+    },
+    {
      "va": "0x00477C00",
      "length": 96,
      "name": "?VIEW_ToggleCacheStats@@YAXXZ"
@@ -21989,31 +21994,6 @@
     {
      "va": "0x00477DD0",
      "length": 262
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00477980.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00477980",
-     "length": 600,
-     "name": "?sub_00477980@@YIXXZ"
     }
    ],
    "flags": [
