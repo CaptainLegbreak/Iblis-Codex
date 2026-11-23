@@ -5154,12 +5154,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Fog/Unknown_006C1800.cpp": {
+  "Source/Fog/Unknown_006C0B80.cpp": {
    "bytes": 24,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Fog/Unknown_006C1800.inc",
+   "include": "gen/data/Source/Fog/Unknown_006C0B80.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -155473,7 +155473,7 @@
    "cname": "gData_006FC874",
    "declared": true,
    "decorated": "_gaASTOperatorPrecedence",
-   "file": "Source/Fog/Unknown_006C1800.cpp",
+   "file": "Source/Fog/Unknown_006C0B80.cpp",
    "fill": 24,
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006FC874[24]; // 0x006FC874",

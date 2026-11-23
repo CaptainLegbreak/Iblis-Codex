@@ -83175,18 +83175,16 @@
      "name": "@sub_006C0BA0@4"
     },
     {
-     "va": "0x006C11C0",
-     "length": 1591
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_006C0BC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
      "va": "0x006C0BC0",
      "length": 1532
+    },
+    {
+     "va": "0x006C11C0",
+     "length": 1591
+    },
+    {
+     "va": "0x006C1800",
+     "length": 31
     },
     {
      "va": "0x006C1820",
@@ -83203,30 +83201,6 @@
     {
      "va": "0x006C1A50",
      "length": 143
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_006C1800.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C1800",
-     "length": 31
     },
     {
      "va": "0x006C1AE0",
