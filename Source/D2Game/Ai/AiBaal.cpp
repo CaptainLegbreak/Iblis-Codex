@@ -17,8 +17,6 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct D2AiBaalTargetArgsStrc;
-
 struct D2SkillsTxt;
 
 struct D2MonStatsTxt;
@@ -78,7 +76,7 @@ struct D2PlayerCountBonusStrc;
 
 struct D2AiCmdStrc;
 
-static int __stdcall AIBAAL_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiBaalTargetArgsStrc* pArgs);
+static int __stdcall AIBAAL_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiCmdStrc* pArgs);
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 
@@ -90,7 +88,7 @@ void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nType); // 0x00
 
 int __stdcall D2Common_10142(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, int a3); // 0x00649970
 
-static D2UnitStrc* __stdcall AIBAAL_GetUberTarget(D2GameStrc* pGame, int* pMax, int* pCount, D2AiBaalTargetArgsStrc* pArgs, int (__fastcall* pfCull)(D2UnitStrc*, D2UnitStrc*), D2UnitStrc* pUnit); // 0x005FBDD0
+static D2UnitStrc* __stdcall AIBAAL_GetUberTarget(D2GameStrc* pGame, int* pMax, int* pCount, D2AiCmdStrc* pArgs, int (__fastcall* pfCull)(D2UnitStrc*, D2UnitStrc*), D2UnitStrc* pUnit); // 0x005FBDD0
 
 struct D2PlayerCountBonusStrc
 {
@@ -129,7 +127,7 @@ int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); /
 
 static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, D2UnitStrc*, int, int, D2AiCmdStrc*);
 
-static int __stdcall AIBAAL_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiBaalTargetArgsStrc* pArgs);
+static int __stdcall AIBAAL_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiCmdStrc* pArgs);
 
 struct D2ActiveRoomStrc;
 
@@ -234,12 +232,12 @@ inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
 }
 
 // 0x005FBB00
-static int __stdcall AIBAAL_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiBaalTargetArgsStrc* pArgs)
+static int __stdcall AIBAAL_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiCmdStrc* pArgs)
 {
     const int bInMeleeRange = UNITS_IsInMeleeRange(pUnit, pTarget, 0);
 
     int nDistanceWeight = 0;
-    if (pArgs && AIUTIL_GetDistanceToCoordinates_HalfUnitSize(pUnit, pArgs->nX, pArgs->nY) > 75 && AIUTIL_GetDistanceToCoordinates_HalfUnitSize(pTarget, pArgs->nX, pArgs->nY) < 75)
+    if (pArgs && AIUTIL_GetDistanceToCoordinates_HalfUnitSize(pUnit, pArgs->nCmdParam[1], pArgs->nCmdParam[2]) > 75 && AIUTIL_GetDistanceToCoordinates_HalfUnitSize(pTarget, pArgs->nCmdParam[1], pArgs->nCmdParam[2]) < 75)
     {
         nDistanceWeight = 100;
     }
@@ -345,7 +343,7 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 }
 
 // 0x005FBDD0
-static D2UnitStrc* __stdcall AIBAAL_GetUberTarget(D2GameStrc* pGame, int* pMax, int* pCount, D2AiBaalTargetArgsStrc* pArgs, int (__fastcall* pfCull)(D2UnitStrc*, D2UnitStrc*), D2UnitStrc* pUnit)
+static D2UnitStrc* __stdcall AIBAAL_GetUberTarget(D2GameStrc* pGame, int* pMax, int* pCount, D2AiCmdStrc* pArgs, int (__fastcall* pfCull)(D2UnitStrc*, D2UnitStrc*), D2UnitStrc* pUnit)
 {
     D2_ASSERT(pfCull, 0x9E);
 
@@ -463,7 +461,7 @@ static D2UnitStrc* __stdcall AIBAAL_GetUberTarget(D2GameStrc* pGame, int* pMax, 
     return pTarget;
 }
 
-int __stdcall sub_M244_Emit_005FBB00(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiBaalTargetArgsStrc* pArgs)
+int __stdcall sub_M244_Emit_005FBB00(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiCmdStrc* pArgs)
 {
     return AIBAAL_GetUberTargetScore(pUnit, pTarget, pArgs) * 7 + 0x3D1;
 }
@@ -724,7 +722,7 @@ int __stdcall sub_M282_Emit_005FC1C0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Uni
     return AIBAAL_RollMeleeAiParam(pGame, pTarget, bFlag, pUnit) + nExtra * 3;
 }
 
-D2UnitStrc* __stdcall sub_Emit_005FBDD0(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pMax, int* pCount, D2AiBaalTargetArgsStrc* pArgs, int (__fastcall* pfCull)(D2UnitStrc*, D2UnitStrc*))
+D2UnitStrc* __stdcall sub_Emit_005FBDD0(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pMax, int* pCount, D2AiCmdStrc* pArgs, int (__fastcall* pfCull)(D2UnitStrc*, D2UnitStrc*))
 {
     return AIBAAL_GetUberTarget(pGame, pMax, pCount, pArgs, pfCull, pUnit);
 }
