@@ -9354,6 +9354,11 @@
      "name": "?sub_0042E5C0_SwapBytes@@YIGG@Z"
     },
     {
+     "va": "0x0042E5D0",
+     "length": 37,
+     "name": "@sub_0042E5D0@8"
+    },
+    {
      "va": "0x0042FDE0",
      "length": 123,
      "name": "CHARSEL_IsRestrictedChar"
@@ -10072,11 +10077,6 @@
    "file": "Source/D2Launch/Unknown_0042E5D0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0042E5D0",
-     "length": 37,
-     "name": "@sub_0042E5D0@8"
-    },
     {
      "va": "0x0042E610",
      "length": 4,
