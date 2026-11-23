@@ -190,6 +190,26 @@ static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
+void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsigned char id); // 0x00544190
+
+// 0x005B7F90
+int __fastcall ACT3Q2_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, 18, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, 18, 15))
+    {
+        QUESTS_StatusCyclerEx(pGame, pUnit, 16);
+    }
+
+    return 0;
+}
+
+// 0x005B7FE0
+void __cdecl sub_005B7FE0_Nop()
+{
+}
+
 // 0x005B7FF0
 void __fastcall ACT3Q2_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -330,6 +350,11 @@ void __fastcall ACT3Q2_InitQuestData(D2QuestDataStrc* pQuestData)
     memset(pQuestDataEx, 0x00, sizeof(D2Act3Quest2Strc));
     pQuestDataEx->nSewerStairsObjectMode = 0;
     QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->tPlayerGUIDs);
+}
+
+// 0x005BDB10
+void __cdecl sub_005BDB10_Return()
+{
 }
 
 // 0x005B8210
@@ -844,6 +869,18 @@ int __fastcall OBJECTS_OperateFunction59_KhalimChest(D2ObjOperateFnStrc* pOp, in
 
     OBJMODE_DropFromChestTCWithQuality(pOp, ITEMQUAL_MAGIC);
     return 0;
+}
+
+// 0x005B8B00
+void __fastcall sub_005B8B00_AddFlailsDropped(D2GameStrc* pGame, int nCount)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A3Q2_KHALIMFLAIL);
+    if (pQuestData)
+    {
+        D2Act3Quest2Strc* pQuestDataEx = (D2Act3Quest2Strc*)pQuestData->pQuestDataEx;
+        pQuestDataEx->nFlailsDropped += nCount;
+        pQuestDataEx->bFlailDropped = 1;
+    }
 }
 
 bool __fastcall ACT3Q5_IsOrbNotSmashed(D2GameStrc* pGame); // 0x005BBF80

@@ -834,16 +834,3 @@ bool __fastcall ACT3Q1_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc*
     return true;
 }
 
-// 0x005B7F90
-int __fastcall ACT3Q2_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-
-    if (!QUESTRECORD_GetQuestState(pQuestFlags, 18, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, 18, 15))
-    {
-        QUESTS_StatusCyclerEx(pGame, pUnit, 16);
-    }
-
-    return 0;
-}
-

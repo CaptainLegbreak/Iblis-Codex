@@ -60259,17 +60259,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005B6F90.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005B7FE0",
-     "length": 1,
-     "name": "?sub_005B7FE0_Nop@@YAXXZ"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Quests/a3q1.cpp",
    "rank": 0,
    "functions": [
@@ -60405,11 +60394,6 @@
      "va": "0x005B7E90",
      "length": 250,
      "name": "?ACT3Q1_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x005B7F90",
-     "length": 68,
-     "name": "?ACT3Q2_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     }
    ]
   },
@@ -60417,6 +60401,16 @@
    "file": "Source/D2Game/Quests/a3q2.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x005B7F90",
+     "length": 68,
+     "name": "?ACT3Q2_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x005B7FE0",
+     "length": 1,
+     "name": "?sub_005B7FE0_Nop@@YAXXZ"
+    },
     {
      "va": "0x005B7FF0",
      "length": 39,
@@ -60526,6 +60520,11 @@
      "name": "?OBJECTS_OperateFunction59_KhalimChest@@YIHPAUD2ObjOperateFnStrc@@H@Z"
     },
     {
+     "va": "0x005B8B00",
+     "length": 29,
+     "name": "?sub_005B8B00_AddFlailsDropped@@YIXPAUD2GameStrc@@H@Z"
+    },
+    {
      "va": "0x005BD500",
      "length": 290,
      "name": "ACT3Q2_ActiveFilterCallback"
@@ -60544,17 +60543,11 @@
      "va": "0x005BDA30",
      "length": 218,
      "name": "?ACT3Q2_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005B8B00.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
-     "va": "0x005B8B00",
-     "length": 29,
-     "name": "?sub_005B8B00_AddFlailsDropped@@YIXPAUD2GameStrc@@H@Z"
+     "va": "0x005BDB10",
+     "length": 1,
+     "name": "?sub_005BDB10_Return@@YAXXZ"
     }
    ]
   },
@@ -61090,17 +61083,6 @@
      "va": "0x005BD040",
      "length": 100,
      "name": "?ACT3Q6_ChangeNatalyaMapAI@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2MapAIStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005BCF60.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005BDB10",
-     "length": 1,
-     "name": "?sub_005BDB10_Return@@YAXXZ"
     }
    ]
   },
