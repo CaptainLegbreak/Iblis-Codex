@@ -514,8 +514,8 @@
    "state": "included"
   },
   "Source/D2Launch/Src/CharSel.cpp": {
-   "bytes": 208,
-   "definitions": 7,
+   "bytes": 216,
+   "definitions": 9,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Launch/Src/CharSel.inc",
@@ -703,15 +703,6 @@
    "lang": "cpp",
    "state": "included",
    "static_definitions": 3
-  },
-  "Source/D2Launch/Src/CharSel_00430520.cpp": {
-   "bytes": 8,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Launch/Src/CharSel_00430520.inc",
-   "lang": "cpp",
-   "state": "included"
   },
   "Source/D2Launch/Src/MainMenus_00431AF0.cpp": {
    "bytes": 144,
@@ -14003,7 +13994,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Src/CharSel_00430520.cpp",
+   "file": "Source/D2Launch/Src/CharSel.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnHistoryIndex = ",
@@ -14028,7 +14019,7 @@
    "cname": "gData_0070CD78",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/CharSel_00430520.cpp",
+   "file": "Source/D2Launch/Src/CharSel.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070CD78_t gData_0070CD78; // 0x0070CD78",
    "head": "extern \"C\" struct d2data_0070CD78_t gData_0070CD78 = ",
