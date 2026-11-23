@@ -55210,6 +55210,10 @@
      "name": "?ACT1Q6_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
     },
     {
+     "va": "0x00596A90",
+     "length": 266
+    },
+    {
      "va": "0x00596BA0",
      "length": 1,
      "name": "?sub_00596BA0_EmptyCallback@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
@@ -55890,30 +55894,6 @@
      "length": 158,
      "name": "?ACT2Q0_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00596A90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00596A90",
-     "length": 266
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

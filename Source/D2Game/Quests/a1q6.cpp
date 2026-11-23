@@ -9,6 +9,7 @@
 #include "D2QuestData.h"
 #include "D2GameTypes.h"
 #include "D2ObjModes.h"
+#include "D2MonsterIds.h"
 
 struct D2ActiveRoomStrc;
 
@@ -55,11 +56,6 @@ struct D2Act2Quest1Strc;
 enum D2C_P08QuestConstants
 {
     ACT_II = 1,
-    MONSTER_AKARA = 148,
-    MONSTER_KASHYA = 150,
-    MONSTER_WARRIV1 = 155,
-    MONSTER_CAIN6 = 244,
-    MONSTER_CAIN5 = 265,
     QUEST_A1Q4_CAIN = 4,
     QUEST_A1Q5_COUNTESS = 5,
     QUESTSTATEFLAG_A1Q4 = 4,
@@ -1015,6 +1011,44 @@ void __fastcall ACT1Q6_InitQuestData(D2QuestDataStrc* pQuestData)
     QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->pGUID1);
     QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->pGUID2);
     QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->pGUID3);
+}
+
+unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
+
+static inline unsigned int ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+// 0x00596A90
+void __fastcall ACT1Q7_Callback00_NpcActivate(D2QuestDataStrc* pQuest, D2QuestArgStrc* pQuestArg)
+{
+    if ((!pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId) != MONSTER_NAVI)
+    {
+        return;
+    }
+
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pQuest->pGame, 1);
+    if (QUESTS_GetGlobalState(pQuestArg->pGame, 1, 13) || !pQuestData->bNotIntro)
+    {
+        QUESTS_InitScrollTextChain(pQuest, pQuestArg->pTextControl, MONSTER_NAVI, ITEMS_RollRandomNumber(&pQuestArg->pPlayer->pSeed) % 3 + 2);
+        return;
+    }
+
+    D2GameStrc* pGame = pQuestArg->pGame;
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 1, 0)
+        || QUESTRECORD_GetQuestState(pQuestFlags, 1, 13)
+        || QUESTRECORD_GetQuestState(pQuestFlags, 1, 1))
+    {
+        QUESTS_InitScrollTextChain(pQuest, pQuestArg->pTextControl, MONSTER_NAVI, ITEMS_RollRandomNumber(&pQuestArg->pPlayer->pSeed) % 3 + 2);
+        return;
+    }
+
+    QUESTS_InitScrollTextChain(pQuest, pQuestArg->pTextControl, MONSTER_NAVI, SEED_RollLimitedRandomNumber(&pQuestArg->pPlayer->pSeed, 2));
 }
 
 // 0x00596BA0
