@@ -16422,6 +16422,11 @@
      "name": "UI_GetAutomapLeft"
     },
     {
+     "va": "0x00457780",
+     "length": 43,
+     "name": "?OBJECT_SaveAutomapLeft@@YIHH@Z"
+    },
+    {
      "va": "0x004577B0",
      "length": 6,
      "name": "UI_GetAutomapParty"
@@ -29634,11 +29639,6 @@
      "va": "0x00457460",
      "length": 35,
      "name": "@OBJECT_SetUnitFlag@12"
-    },
-    {
-     "va": "0x00457780",
-     "length": 43,
-     "name": "?OBJECT_SaveAutomapLeft@@YIHH@Z"
     },
     {
      "va": "0x004577C0",

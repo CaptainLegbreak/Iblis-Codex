@@ -3352,6 +3352,20 @@ int __cdecl UI_GetAutomapLeft()
     return gbAutomapLeft;
 }
 
+extern int gbAutomapLeftPrev; // 0x007A51E4
+
+int gbAutomapLeftSaved; // 0x007A51E8
+
+// 0x00457780
+int __fastcall OBJECT_SaveAutomapLeft(int nValue)
+{
+    SRegSaveValue("Diablo II", "AutoMap Left", 0, nValue);
+    gbAutomapLeftPrev = nValue;
+    gbAutomapLeftSaved = nValue;
+    gbAutomapLeft = nValue;
+    return nValue;
+}
+
 // 0x004577B0
 int __cdecl UI_GetAutomapParty()
 {
