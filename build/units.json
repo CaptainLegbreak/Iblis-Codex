@@ -40103,6 +40103,10 @@
      "length": 110
     },
     {
+     "va": "0x005170E7",
+     "length": 65
+    },
+    {
      "va": "0x00517128",
      "length": 369
     },
@@ -40118,30 +40122,6 @@
      "va": "0x005173AC",
      "length": 39,
      "name": "?ARCHIVE_UnloadMPQFile@@YIXPAUD2ArchiveHandleStrc@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/O1"
-   ]
-  },
-  {
-   "file": "Source/D2Win/Unknown_005170E7.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005170E7",
-     "length": 65
     }
    ],
    "flags": [
