@@ -42,15 +42,15 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 1088 |
+| Compilation units | 1072 |
 | … in a file with its original name, whole | 279 |
 | … pieces of an original file still split (in 38 files) | 121 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 688 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3143 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 672 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3124 |
 | Unnamed fields (`unk0x..`) in the shared headers | 714 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 43 |
 | Calling-convention shims | 113 |
-| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 556 |
+| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 555 |
 | `__declspec(noinline)` / `__forceinline` | 101 / 211 |
 | Function names: blizzard / d2moo / inferred / placeholder | 460 / 5409 / 5288 / 3770 |
 
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 3382 functions are compiled with `/GS-` and 578 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 101 times and `__declspec(dllexport)` 170 times to keep a body out of line or emitted.
+Not listed one by one: 3371 functions are compiled with `/GS-` and 578 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 101 times and `__declspec(dllexport)` 170 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -638,12 +638,10 @@ Not listed one by one: 3382 functions are compiled with `/GS-` and 578 with `/EH
 | 0x0057F700 | PLRMODE_CreateDeadBody | `D2Game/PLAYER/PlrModes.cpp` | calling-convention shim |
 | 0x00580C20 | PLRMODE_UpdateMovement | `D2Game/PLAYER/PlrModes.cpp` | volatile read or qualifier |
 | 0x00588E10 | sub_00588E10_IsMonsterNearby | `D2Game/Unknown_00588E10.cpp` | compiler option /Ob1 |
-| 0x0059C6B0 | sub_0059C6B0_RemovePlayerGUID | `D2Game/Unknown_0059C6B0.cpp` | compiler option /Oy |
 | 0x005A48C0 | MONSTERUNIQUE_PromoteToChampion | `D2Game/MONSTER/MonsterUnique_005A49B0.cpp` | compiler option /Ob1 |
 | 0x005A49B0 | D2GAME_SpawnSuperUnique_6FC6F690 | `D2Game/MONSTER/MonsterUnique_005A49B0.cpp` | compiler option /Ob1 |
 | 0x005A5650 | MONSTERMODE_GetHpPercent128 | `D2Game/MONSTER/MonsterMode.cpp` | compiler option /Ob1 |
 | 0x005A5690 | PARTYSCREEN_SendEventUpdateToClient | `D2Game/PLAYER/PartyScreen.cpp` | volatile read or qualifier |
-| 0x005A5FF0 | PARTYSCREEN_RefreshPartyRelationsAfterLeave | `D2Game/MONSTER/MonsterMode.cpp` | compiler option /Ob1 |
 | 0x005A6190 | MONSTERMODE_GetAiParamFromUnit | `D2Game/MONSTER/MonsterMode.cpp` | compiler option /Ob1 |
 | 0x005A61B0 | MONSTERMODE_TakeVelocityParams | `D2Game/MONSTER/MonsterMode.cpp` | compiler option /Ob1 |
 | 0x005A61F0 | D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90 | `D2Game/MONSTER/MonsterMode.cpp` | compiler option /Ob1 |
