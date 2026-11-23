@@ -2853,44 +2853,6 @@ int __fastcall OBJECTS_MatchFieldPair(D2UnkFieldPairStrc* pRecord1, D2UnkFieldPa
     return 0;
 }
 
-// 0x0055ED30
-void __fastcall ITEMMODE_RemoveInventoryItemFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* hItem)
-{
-    if (hItem)
-    {
-        hItem->dwFlags &= ~UNITFLAG_TARGETABLE;
-    }
-
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    D2UnitStrc* hRemove = INVENTORY_RemoveItemFromInventory(pInventory, hItem);
-    D2_ASSERT(hRemove, 4841);
-    D2_ASSERT(hItem == hRemove, 4842);
-
-    int nX;
-    switch (hItem->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        nX = hItem->pStaticPath->tGameCoords.nX;
-        break;
-
-    default:
-        if (hItem->pDynamicPath)
-        {
-            nX = PATH_GetXPosition(hItem->pDynamicPath);
-        }
-        else
-        {
-            nX = 0;
-        }
-        break;
-    }
-
-    D2COMMON_10267_Return(pInventory, nX);
-    ITEMS_RemoveFromAllPlayers(pGame, hItem);
-}
-
 // 0x00564F00
 int __cdecl OBJECTS_CompareDescending(const unsigned int* pValue1, const unsigned int* pValue2)
 {

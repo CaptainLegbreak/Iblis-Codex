@@ -44727,6 +44727,11 @@
      "name": "ITEMMODE_SwapCursorAndBeltItem"
     },
     {
+     "va": "0x0055ED30",
+     "length": 143,
+     "name": "ITEMMODE_RemoveInventoryItemFromAllPlayers"
+    },
+    {
      "va": "0x0055EDC0",
      "length": 220
     },
@@ -45636,11 +45641,6 @@
      "name": "OBJECTS_MatchFieldPair"
     },
     {
-     "va": "0x0055ED30",
-     "length": 143,
-     "name": "ITEMMODE_RemoveInventoryItemFromAllPlayers"
-    },
-    {
      "va": "0x00564F00",
      "length": 33,
      "name": "OBJECTS_CompareDescending"
@@ -46513,11 +46513,6 @@
      "va": "0x005A4F20",
      "length": 35,
      "name": "?MONSTEREVAL_GetDifficultyScaledBonus@@YIHPAUD2GameStrc@@H@Z"
-    },
-    {
-     "va": "0x005FA690",
-     "length": 123,
-     "name": "?AITHINK_TargetCallback_Regurgitator@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
     }
    ]
   },
@@ -54573,6 +54568,11 @@
      "length": 585
     },
     {
+     "va": "0x00597030",
+     "length": 382,
+     "name": "ACT1Q4_Callback13_PlayerStartedGame"
+    },
+    {
      "va": "0x005971B0",
      "length": 344,
      "name": "?ACT1Q4_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
@@ -55364,11 +55364,6 @@
      "va": "0x00590C40",
      "length": 278,
      "name": "ACT1Q2_UnitIterate_SetRewardPending"
-    },
-    {
-     "va": "0x00591C30",
-     "length": 112,
-     "name": "ACT1Q3_ActiveFilterCallback"
     },
     {
      "va": "0x00592D50",
@@ -56265,6 +56260,11 @@
      "name": "OBJECTS_OperateFunction21_HoradrimMalus"
     },
     {
+     "va": "0x00591C30",
+     "length": 112,
+     "name": "ACT1Q3_ActiveFilterCallback"
+    },
+    {
      "va": "0x00591CA0",
      "length": 47
     },
@@ -56340,11 +56340,6 @@
      "va": "0x005944F0",
      "length": 242,
      "name": "ACT1Q4_SpawnCainPortalOutsideTown"
-    },
-    {
-     "va": "0x00594C50",
-     "length": 352,
-     "name": "ACT1Q5_Callback00_NpcActivate"
     },
     {
      "va": "0x00595A50",
@@ -56467,29 +56462,9 @@
      "name": "?sub_00596BA0_EmptyCallback@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
-     "va": "0x00597030",
-     "length": 382,
-     "name": "ACT1Q4_Callback13_PlayerStartedGame"
-    },
-    {
-     "va": "0x00598C40",
-     "length": 246,
-     "name": "ACT2Q1_Callback00_NpcActivate"
-    },
-    {
      "va": "0x005997F0",
      "length": 280,
      "name": "ACT2Q2_Callback11_ScrollMessage"
-    },
-    {
-     "va": "0x0059A270",
-     "length": 217,
-     "name": "ACT2Q3_Callback00_NpcActivate"
-    },
-    {
-     "va": "0x0059B530",
-     "length": 297,
-     "name": "ACT2Q4_Callback13_PlayerStartedGame"
     },
     {
      "va": "0x0059F380",
@@ -56627,6 +56602,11 @@
      "va": "0x0059A1C0",
      "length": 165,
      "name": "ACT2Q3_ActiveFilterCallback"
+    },
+    {
+     "va": "0x0059A270",
+     "length": 217,
+     "name": "ACT2Q3_Callback00_NpcActivate"
     },
     {
      "va": "0x0059A350",
@@ -56829,6 +56809,11 @@
      "name": "?ACT1Q5_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
+     "va": "0x00594C50",
+     "length": 352,
+     "name": "ACT1Q5_Callback00_NpcActivate"
+    },
+    {
      "va": "0x00594DB0",
      "length": 18,
      "name": "?ACT1Q5_InitTowerTome@@YIXPAUD2QuestDataStrc@@PAUD2ObjInitFnStrc@@@Z"
@@ -56927,11 +56912,6 @@
      "va": "0x00595A00",
      "length": 70,
      "name": "?OBJECTS_InitFunction04_TowerTome@@YIXPAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x0059D870",
-     "length": 349,
-     "name": "?ACT2Q6_Timer_UpdateObjects@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
     }
    ]
   },
@@ -57090,6 +57070,11 @@
      "va": "0x0059D850",
      "length": 32,
      "name": "?ACT2Q6_IsTombOpen@@YIEPAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x0059D870",
+     "length": 349,
+     "name": "?ACT2Q6_Timer_UpdateObjects@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
     },
     {
      "va": "0x0059D9D0",
@@ -57385,6 +57370,11 @@
      "name": "?ACT2Q1_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
+     "va": "0x00598C40",
+     "length": 246,
+     "name": "ACT2Q1_Callback00_NpcActivate"
+    },
+    {
      "va": "0x00598D40",
      "length": 126,
      "name": "?ACT2Q1_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -57640,6 +57630,11 @@
      "name": "?ACT2Q4_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
     },
     {
+     "va": "0x0059B530",
+     "length": 297,
+     "name": "ACT2Q4_Callback13_PlayerStartedGame"
+    },
+    {
      "va": "0x0059B660",
      "length": 94,
      "name": "?ACT2Q4_OpenPalaceOrCycle@@YIXPAUD2GameStrc@@@Z"
@@ -57673,11 +57668,6 @@
      "va": "0x0059BA40",
      "length": 174,
      "name": "?OBJECTS_InitFunction29_ArcaneSanctuaryPortal@@YIXPAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x0059BCB0",
-     "length": 96,
-     "name": "?ACT2Q5_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
      "va": "0x0059BF80",
@@ -57716,6 +57706,11 @@
     {
      "va": "0x0059BBC0",
      "length": 225
+    },
+    {
+     "va": "0x0059BCB0",
+     "length": 96,
+     "name": "?ACT2Q5_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
      "va": "0x0059BD10",
@@ -60774,6 +60769,11 @@
      "name": "AITHINK_InitializeShadowMasterAttackSkills"
     },
     {
+     "va": "0x005EB650",
+     "length": 117,
+     "name": "?AITHINK_IsTargetKillableByShadowMaster@@YIHPAUD2UnitStrc@@0@Z"
+    },
+    {
      "va": "0x005EB6D0",
      "length": 279,
      "name": "?AITHINK_TargetCallback_ShadowMaster@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
@@ -61284,6 +61284,11 @@
      "va": "0x005FA380",
      "length": 781,
      "name": "?AITHINK_Fn070_FingerMage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005FA690",
+     "length": 123,
+     "name": "?AITHINK_TargetCallback_Regurgitator@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
     },
     {
      "va": "0x005FA710",
@@ -65300,11 +65305,6 @@
      "va": "0x005E6DE0",
      "length": 160,
      "name": "?AITHINK_MapAiAction_WalkToPosition@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@PAUD2MapAIPathPositionStrc@@@Z"
-    },
-    {
-     "va": "0x005EB650",
-     "length": 117,
-     "name": "?AITHINK_IsTargetKillableByShadowMaster@@YIHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x005F2EB0",

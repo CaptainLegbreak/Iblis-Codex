@@ -319,6 +319,58 @@ void __fastcall ACT2Q1_Callback11_ScrollMessage(D2QuestDataStrc* q,D2QuestArgStr
  QUESTS_NPCActivateSpeeches(arg->pGame,arg->pPlayer,arg->pTarget);
 }
 
+enum D2C_P08QuestConstants
+{
+    QFLAG_REWARDGRANTED = 0,
+    QFLAG_REWARDPENDING = 1,
+};
+
+void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeaderStrc* pTextControl, int nNPCID, int nIndex); // 0x00543790
+
+int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc* pQuest, int dwGUID); // 0x005452C0
+
+#define QFLAG_REWARDGRANTED 0
+
+#define QFLAG_REWARDPENDING 1
+
+static int gnAct2Q1NpcMessageIndices[] =                                                                            // 0x007398FC
+{
+    -1, 0, 1, 2, 3, 4, 0
+};
+
+// 0x00598C40
+void __fastcall ACT2Q1_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    const int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
+    D2UnitStrc* pPlayer = pQuestArg->pPlayer;
+    D2GameStrc* pGame = pQuestArg->pGame;
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+    const int bPrimaryGoalDone = QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_PRIMARYGOALDONE);
+    const int bRewardGranted = QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDGRANTED);
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDPENDING))
+    {
+        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 3);
+    }
+    else if (QUESTS_CheckPlayerGUID(pQuestData, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId))
+    {
+        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 4);
+    }
+    else if (bRewardGranted != 1)
+    {
+        if (!pQuestData->fState || (pQuestData->fState >= 4 && !bPrimaryGoalDone))
+        {
+            return;
+        }
+
+        const unsigned int nIndex = gnAct2Q1NpcMessageIndices[pQuestData->fState];
+        if (nIndex != -1 && nIndex < 9)
+        {
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);
+        }
+    }
+}
+
 // 0x00598D40
 void __fastcall ACT2Q1_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {

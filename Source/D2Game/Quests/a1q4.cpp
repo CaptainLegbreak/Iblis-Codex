@@ -2152,4 +2152,105 @@ void __fastcall ACT1Q4_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
     }
 }
 
+enum D2C_P08QuestConstants
+{
+    QFLAG_STARTED = 2,
+    QFLAG_LEAVETOWN = 3,
+    QFLAG_ENTERAREA = 4,
+};
+
+#define QFLAG_STARTED 2
+
+#define QFLAG_LEAVETOWN 3
+
+#define QFLAG_ENTERAREA 4
+
+// 0x00597030
+void __fastcall ACT1Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2GameStrc* pGame = pQuestArg->pGame;
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
+    D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuestData->pQuestDataEx;
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q4, QFLAG_REWARDGRANTED) == 1)
+    {
+        D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pQuestData->pGame, QUEST_A1Q4_CAIN);
+        if (pQuest)
+        {
+            ((D2Act1Quest4Strc*)pQuest->pQuestDataEx)->bCainInTownSpawnPending = 1;
+        }
+
+        QUESTS_SetGlobalState(pQuestData->pGame, QUESTSTATEFLAG_A1Q4, QFLAG_PRIMARYGOALDONE);
+        pQuestDataEx->nCainGibbetObjectMode = OBJMODE_SPECIAL1;
+        pQuestDataEx->bStonesActive = 1;
+        pQuestDataEx->bActivateCairnStones = 1;
+    }
+    else if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q4, QFLAG_COMPLETEDBEFORE) == 1)
+    {
+        D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pQuestData->pGame, QUEST_A1Q4_CAIN);
+        if (pQuest)
+        {
+            ((D2Act1Quest4Strc*)pQuest->pQuestDataEx)->bCainInTownSpawnPending = 1;
+        }
+
+        pQuest = QUESTS_GetQuestData(pQuestData->pGame, QUEST_A1Q4_CAIN);
+        if (pQuest)
+        {
+            ((D2Act1Quest4Strc*)pQuest->pQuestDataEx)->bQuestCompleteBefore = 1;
+        }
+
+        pQuestDataEx->nCainGibbetObjectMode = OBJMODE_SPECIAL1;
+        pQuestDataEx->bStonesActive = 1;
+        pQuestDataEx->bActivateCairnStones = 1;
+    }
+    else if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q4, QFLAG_ENTERAREA) == 1)
+    {
+        pQuestData->fLastState = 4;
+        pQuestData->fState = 5;
+        pQuestDataEx->bStonesActive = 1;
+        pQuestDataEx->bDecipheredScrollAcquired = 1;
+        pQuestDataEx->bActivateCairnStones = 1;
+        pQuestDataEx->bScrollAcquired = 1;
+        pQuestDataEx->unk0x58 = 1;
+    }
+    else if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q4, QFLAG_LEAVETOWN) == 1)
+    {
+        pQuestData->fState = 3;
+        pQuestData->fLastState = 1;
+    }
+    else if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q4, QFLAG_STARTED) == 1)
+    {
+        pQuestData->fState = 2;
+        pQuestData->fLastState = 1;
+    }
+
+    D2UnitStrc* pDecipheredScroll = ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, ' dkb');
+    D2UnitStrc* pBarkScroll = ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, ' skb');
+    if (pDecipheredScroll)
+    {
+        ++pQuestDataEx->nScrollsInGame;
+    }
+
+    if (pBarkScroll)
+    {
+        ++pQuestDataEx->nScrollsInGame;
+    }
+
+    if (pDecipheredScroll)
+    {
+        pQuestData->fState = 5;
+        pQuestData->fLastState = 3;
+        pQuestDataEx->bDecipheredScrollAcquired = 1;
+        pQuestDataEx->bScrollAcquired = 1;
+        pQuestDataEx->unk0x58 = 1;
+    }
+    else if (pBarkScroll)
+    {
+        pQuestDataEx->bScrollAcquired = 1;
+        pQuestData->fState = 4;
+        pQuestData->fLastState = 2;
+        pQuestDataEx->unk0x58 = 1;
+    }
+}
+
 #include "gen/data/Source/D2Game/Quests/a1q4.inc"
