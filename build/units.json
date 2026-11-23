@@ -33131,6 +33131,10 @@
      "length": 494
     },
     {
+     "va": "0x004F4A30",
+     "length": 494
+    },
+    {
      "va": "0x004F4D90",
      "length": 300
     }
@@ -33422,10 +33426,6 @@
      "va": "0x004F4150",
      "length": 29,
      "name": "?sub_004F4150_ClearSkillParam@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004F4A30",
-     "length": 494
     }
    ]
   },
