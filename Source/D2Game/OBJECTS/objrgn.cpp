@@ -664,19 +664,6 @@ int __stdcall GAME_GetPlayerUnitsCount(unsigned short nGameId);
 
 #define UNLOCK_LINE 4196
 
-struct D2UnitInfoStrc
-{
-    int nUnitType;
-    int nClassId;
-    int nUnitGUID;
-    int nAnimMode;
-    int nX;
-    int nY;
-    int nOwnerType;
-    int nOwnerGUID;
-    int unk0x20;
-    char szDescription[INFO_DESCRIPTION_SIZE];
-};
 
 void __fastcall SUNIT_FillUnitInfo(D2UnitStrc* pUnit, D2UnitInfoStrc* pUnitInfo);                           // 0x00553F30
 
@@ -686,13 +673,6 @@ static inline D2GameStrc* GAMELINK_Next(D2GameLinkStrc* pLink)
     return (int)pLink->pNext <= 0 ? 0 : pLink->pNext;
 }
 
-
-struct D2MessageThreadArgsStrc
-{
-    int nParam1;
-    int nParam2;
-    char szMessage[0x100];
-};
 
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* lpThreadAttributes, unsigned long dwStackSize, unsigned long (__stdcall* lpStartAddress)(D2MessageThreadArgsStrc*), D2MessageThreadArgsStrc* lpParameter, unsigned long dwCreationFlags, unsigned long* lpThreadId); // 0x006CC250
 
@@ -841,8 +821,6 @@ void __fastcall sub_0054A9B0(D2GameStrc*,const char*,unsigned char);  // 0x0054A
 enum { MODE_MASK = 15 };
 
 
-struct D2UnitInfoStrc;
-
 struct HASHKEY_NONE;
 
 struct D2GameHashLinkStrc;
@@ -950,7 +928,6 @@ struct D2QuestInfoStrc;
 
 struct D2DrlgCoordsStrc;
 
-struct D2ObjectRoomCoordStrc;
 
 struct D2ObjectControlStrc;
 
@@ -1000,14 +977,6 @@ struct D2QuestInfoStrc
     D2SeedStrc pSeed;
     unsigned char unk0x20;
     unsigned char unk_21[0x3];
-};
-
-struct D2ObjectRoomCoordStrc
-{
-    D2ActiveRoomStrc* pRoom;
-    int nX;
-    int nY;
-    D2ObjectRoomCoordStrc* pNext;
 };
 
 
@@ -1334,8 +1303,6 @@ void D2GameStrc::OBJRGN_BroadcastServerText(const char* szText)
 
 struct D2SuperUniquesTxt;
 
-struct D2NPCMessageStrc;
-
 
 struct D2LevelsTxt;
 
@@ -1365,14 +1332,6 @@ void __fastcall ACT2Q4_InitializeJerhynPalaceObject(D2QuestDataStrc* pQuestData,
 void __fastcall ACT2Q3_InitAltarObject(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp); // 0x0059A3F0
 
 void __fastcall sub_005B7310(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp); // 0x005B7310
-
-struct D2NPCMessageStrc
-{
-    int nNPCNo;
-    unsigned short nStringIndex;
-    unsigned short nPad;
-    int nMenu;
-};
 
 
 void __stdcall TEXT_AddNodeToTextList(D2TextHeaderStrc* pTextHeader, short nStringId, int nMenu); // 0x006612F0

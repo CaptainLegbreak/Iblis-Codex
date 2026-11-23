@@ -71,7 +71,6 @@ struct D2SuperUniquesTxt;
 
 struct D2ObjInitFnStrc;
 
-struct D2NPCMessageStrc;
 
 struct D2NPCMessageTableStrc;
 
@@ -158,13 +157,6 @@ void __fastcall sub_005B7310(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp);
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
-struct D2NPCMessageStrc
-{
-    int nNPCNo;
-    unsigned short nStringIndex;
-    unsigned short nPad;
-    int nMenu;
-};
 
 struct D2NPCMessageTableStrc
 {
