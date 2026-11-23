@@ -68739,16 +68739,6 @@
      "name": "TileListAddTile"
     },
     {
-     "va": "0x0060AEB0",
-     "length": 47,
-     "name": "CelDataHashFreeEntry"
-    },
-    {
-     "va": "0x0060AF00",
-     "length": 131,
-     "name": "CelDataHashFreeAll"
-    },
-    {
      "va": "0x0060B1A0",
      "length": 37,
      "name": "CodecSkipBits"
@@ -68880,6 +68870,26 @@
    "file": "Source/D2CMP/SRC/CelDataHash.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x0060AEB0",
+     "length": 47,
+     "name": "CelDataHashFreeEntry"
+    },
+    {
+     "va": "0x0060AEE0",
+     "length": 17,
+     "name": "?CelDataHashInit@@YIXPAUD2CmpBlockTableAStrc@@@Z"
+    },
+    {
+     "va": "0x0060AF00",
+     "length": 131,
+     "name": "CelDataHashFreeAll"
+    },
+    {
+     "va": "0x0060AF90",
+     "length": 123,
+     "name": "?CelDataHashFind@@YIPAUD2CelDataHashEntryStrc@@PAUD2CelDataHashStrc@@PBD@Z"
+    },
     {
      "va": "0x0060B010",
      "length": 145,
@@ -69145,16 +69155,6 @@
      "va": "0x0060ADC0",
      "length": 181,
      "name": "?GfxHashAdd@@YIPAUD2CmpGfxHashEntryStrc@@PAXPAUD2CmpGfxHashStrc@@HPAUD2CmpGfxKeyStrc@@0@Z"
-    },
-    {
-     "va": "0x0060AEE0",
-     "length": 17,
-     "name": "?CelDataHashInit@@YIXPAUD2CmpBlockTableAStrc@@@Z"
-    },
-    {
-     "va": "0x0060AF90",
-     "length": 123,
-     "name": "?CelDataHashFind@@YIPAUD2CelDataHashEntryStrc@@PAUD2CelDataHashStrc@@PBD@Z"
     },
     {
      "va": "0x0060CD30",

@@ -274,28 +274,6 @@ D2CmpGfxHashEntryStrc* __fastcall GfxHashAdd(void* pMemPool, D2CmpGfxHashStrc* p
     return pEntry;
 }
 
-// 0x0060AEE0
-void __fastcall CelDataHashInit(D2CmpBlockTableAStrc* pTable)
-{
-    memset(pTable, 0, sizeof(D2CmpBlockTableAStrc));
-}
-
-// 0x0060AF90
-T00604AE0* __fastcall CelDataHashFind(D2CelDataHashStrc* pHash, const char* szName)
-{
-    if (!*szName)
-        return 0;
-
-    unsigned int nHash = SStrHash(szName, 1, 0);
-    unsigned int nKey = ((((((nHash >> 8) ^ nHash) >> 8) ^ nHash) >> 8) ^ nHash) & 0x1FF;
-    for (T00604AE0* pEntry = pHash->pBuckets[nKey]; pEntry; pEntry = pEntry->pNext)
-    {
-        if (!strcmp(szName, pEntry->szName))
-            return pEntry;
-    }
-    return 0;
-}
-
 // 0x0060CD30
 void __cdecl CodecInitLock()
 {

@@ -22,6 +22,55 @@ struct D2CelDataHashStrc
     T00604AE0* pBuckets[0x200];
 };
 
+// 0x0060AEB0
+void __fastcall CelDataHashFreeEntry(D2CelDataHashStrc* pHash, T00604AE0* pEntry, void* pMemPool)
+{
+    if (pHash->pBuckets[pEntry->nKey] == pEntry)
+        pHash->pBuckets[pEntry->nKey] = pEntry->pNext;
+    FOG_FreePool(pMemPool, pEntry, ".\\SRC\\CelDataHash.cpp", 0x3A, 0);
+}
+
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+extern "C" int __cdecl strcmp(const char* szString1, const char* szString2);
+
+// 0x0060AEE0
+void __fastcall CelDataHashInit(D2CelDataHashStrc* pHash)
+{
+    memset(pHash, 0, sizeof(D2CelDataHashStrc));
+}
+
+// 0x0060AF90
+T00604AE0* __fastcall CelDataHashFind(D2CelDataHashStrc* pHash, const char* szName)
+{
+    if (!*szName)
+        return 0;
+
+    unsigned int nHash = SStrHash(szName, 1, 0);
+    unsigned int nKey = ((((((nHash >> 8) ^ nHash) >> 8) ^ nHash) >> 8) ^ nHash) & 0x1FF;
+    for (T00604AE0* pEntry = pHash->pBuckets[nKey]; pEntry; pEntry = pEntry->pNext)
+    {
+        if (!strcmp(szName, pEntry->szName))
+            return pEntry;
+    }
+    return 0;
+}
+
+// 0x0060AF00
+void __fastcall CelDataHashFreeAll(void* pMemPool, D2CelDataHashStrc* pHash)
+{
+    for (unsigned int i = 0; i < 0x200; i++)
+    {
+        T00604AE0* pEntry = pHash->pBuckets[i];
+        while (pEntry)
+        {
+            T00604AE0* pNext = pEntry->pNext;
+            CelDataHashFreeEntry(pHash, pEntry, pMemPool);
+            pEntry = pNext;
+        }
+        D2_ASSERT(!pHash->nCheck[i], 0x5B);
+    }
+}
+
 // 0x0060B010
 T00604AE0* __fastcall CelDataHashAdd(void* pMemPool, D2CelDataHashStrc* pHash, int nValue, const char* szName)
 {
