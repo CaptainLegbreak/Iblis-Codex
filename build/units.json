@@ -44274,35 +44274,24 @@
      "name": "?sub_005281D0_ComputeServerKey@D2BigPowModStrc@@QAEHABQAX0000@Z"
     },
     {
-     "va": "0x00528500",
-     "length": 47,
-     "name": "??0D2BigPairStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x005285A0",
-     "length": 124,
-     "name": "?sub_005285A0_Init@D2BigPairStrc@@QAEHHPBEH0@Z"
-    },
-    {
-     "va": "0x00528660",
-     "length": 98,
-     "name": "?sub_00528660_MakeVerifier@D2BigPairStrc@@QAEXPBD0PAE1@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/SRP/Unknown_005284F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x005284F0",
      "length": 8,
      "name": "@sub_005284F0@4"
     },
     {
+     "va": "0x00528500",
+     "length": 47,
+     "name": "??0D2BigPairStrc@@QAE@XZ"
+    },
+    {
      "va": "0x00528530",
      "length": 22,
      "name": "??1D2BigPairStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x005285A0",
+     "length": 124,
+     "name": "?sub_005285A0_Init@D2BigPairStrc@@QAEHHPBEH0@Z"
     },
     {
      "va": "0x00528620",
@@ -44313,6 +44302,11 @@
      "va": "0x00528630",
      "length": 48,
      "name": "?sub_00528630_Release@D2BigPairStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x00528660",
+     "length": 98,
+     "name": "?sub_00528660_MakeVerifier@D2BigPairStrc@@QAEXPBD0PAE1@Z"
     },
     {
      "va": "0x005289F0",

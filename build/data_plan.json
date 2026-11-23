@@ -3038,12 +3038,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/SRP/Unknown_005284F0.cpp": {
+  "Source/SRP/SRP.cpp": {
    "bytes": 4,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/SRP/Unknown_005284F0.inc",
+   "include": "gen/data/Source/SRP/SRP.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -90319,7 +90319,7 @@
    "cname": "gData_006E03F0",
    "declared": true,
    "decorated": "_gabSha1Pad80",
-   "file": "Source/SRP/Unknown_005284F0.cpp",
+   "file": "Source/SRP/SRP.cpp",
    "fill": 4,
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006E03F0[4]; // 0x006E03F0",
