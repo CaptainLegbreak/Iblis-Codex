@@ -161,6 +161,9 @@ unsigned int gnSfxTick; // 0x007C88BC
 
 unsigned int gnNeutralDelay; // 0x007C88C0
 
+int gaLevelVisited[1024]; // 0x007C78B8
+int gnLastLevelId; // 0x007C88CC
+
 void __fastcall UNITSND_PlayAttackSound(D2UnitStrc* pUnit, int nMode, int bDelay);                     // 0x004CB6A0
 
 static int UNITSND_GetUnitSndClassId(D2UnitStrc* pUnit);                                               // 0x004CA2C0
@@ -250,6 +253,25 @@ int gnLastRequestSound;        // 0x007C88C8
 static inline D2UnitSndPlayerStrc* UNITSND_GetPlayerSoundRecord(unsigned int nClass);
 
 struct D2TimedHintNodeStrc;
+
+struct D2LevelSpeechStrc
+{
+    int nLevels[10];
+    int nCondition;
+    unsigned short f_2C;
+};
+
+extern D2LevelSpeechStrc* gapLevelSpeeches[20]; // 0x0072A2C4
+
+int __fastcall TEXT_TestQuestCondition(int nCondition); // 0x004A4180
+
+int __cdecl sub_004B9C20_IsSpeechPlaying(); // 0x004B9C20
+
+int __cdecl sub_004DF880(); // 0x004DF880
+
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
+
+unsigned char __fastcall SOUNDHDR_GetGroupSize(int nId); // 0x004818C0
 
 // 0x004CA2C0
 static int UNITSND_GetUnitSndClassId(D2UnitStrc* pUnit)
@@ -1892,6 +1914,111 @@ static inline int sub_004CAC70_GetUnitField88(D2UnitStrc* pUnit)
 }
 
 int __stdcall sub_M121_Emit_004CAC70(D2UnitStrc* pUnit) { return sub_004CAC70_GetUnitField88(pUnit); }
+
+// 0x004CA900
+void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId)
+{
+    D2_ASSERT(pUnit, 0xC47);
+    if (!sub_004DF880())
+    {
+        return 0;
+    }
+
+    int nGroup = SOUNDHDR_GetGroupStart(nId);
+    int nCount = SOUNDHDR_GetGroupSize(nGroup);
+    for (D2UnitSfxNodeStrc* pNode = (D2UnitSfxNodeStrc*)pUnit->pUnitSfxData; pNode; pNode = pNode->pNext)
+    {
+        void* pUnitSfx = pNode->pUnitSfx;
+        int nHintId = sub_004B9CA0_GetHintIdByKey((int)pUnitSfx);
+        if (nHintId >= nGroup && nHintId < nGroup + nCount)
+        {
+            return pUnitSfx;
+        }
+    }
+
+    return 0;
+}
+
+// 0x004CC270
+void __cdecl MISSILE_CheckLevelSpeech()
+{
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
+    if (!pRoom)
+    {
+        return;
+    }
+
+    int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
+    if (nLevelId >= sgptDataTables->nLevelsTxtRecordCount || nLevelId == gnLastLevelId)
+    {
+        return;
+    }
+
+    gnLastLevelId = nLevelId;
+    if (gaLevelVisited[nLevelId])
+    {
+        return;
+    }
+
+    D2LevelSpeechStrc* pEntry;
+    for (int i = 0; i < 20; ++i)
+    {
+        pEntry = gapLevelSpeeches[i];
+        if (!pEntry)
+        {
+            return;
+        }
+
+        for (int j = 0; j < 10; ++j)
+        {
+            int nLevel = pEntry->nLevels[j];
+            if (!nLevel)
+            {
+                break;
+            }
+
+            if (nLevel == nLevelId)
+            {
+                goto found;
+            }
+        }
+    }
+
+    return;
+
+found:
+    for (int j = 0; j < 10; ++j)
+    {
+        int nLevel = pEntry->nLevels[j];
+        if (!nLevel)
+        {
+            break;
+        }
+
+        gaLevelVisited[nLevel] = 1;
+    }
+
+    if (pEntry->nCondition && !TEXT_TestQuestCondition(pEntry->nCondition))
+    {
+        return;
+    }
+
+    D2_ASSERT(pPlayer, 0xCBB);
+    unsigned int dwSfxTicks = pPlayer->dwSfxTicks;
+    if (sub_0044DB00() - dwSfxTicks <= 0x3E)
+    {
+        return;
+    }
+
+    if (sub_004B9C20_IsSpeechPlaying())
+    {
+        return;
+    }
+
+    UNITSND_PlayPlayerSpeech(pPlayer, pEntry->f_2C);
+}
+
 
 
 #include "gen/data/Source/D2Client/UNIT/UnitSnd.inc"
