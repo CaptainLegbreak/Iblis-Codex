@@ -32682,6 +32682,45 @@
     {
      "va": "0x004DD7C0",
      "length": 944
+    },
+    {
+     "va": "0x004DDB70",
+     "length": 607,
+     "name": "?sub_004DDB70_PrepareWallCells@@YIXPAUD2WallCtxStrc@@H@Z"
+    },
+    {
+     "va": "0x004DDDD0",
+     "length": 11,
+     "name": "??0D2ClearPairStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x004DDDE0",
+     "length": 1,
+     "name": "?sub_004DDDE0_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x004DDE40",
+     "length": 60,
+     "name": "?sub_004DDE40_IsPointInRect@@YAHPAUD2GridRectStrc@@HH@Z"
+    },
+    {
+     "va": "0x004DDEC0",
+     "length": 47,
+     "name": "?sub_004DDEC0_FillCells@@YAXPAUD2GridCellStrc@@@Z"
+    },
+    {
+     "va": "0x004DDEF0",
+     "length": 212,
+     "name": "?sub_004DDEF0_BuildLargeGrid@@YGXHHHPAUD2GridCellStrc@@@Z"
+    },
+    {
+     "va": "0x004DE410",
+     "length": 541
+    },
+    {
+     "va": "0x004DE730",
+     "length": 819,
+     "name": "?sub_004DE730_UpdateView@D2FloorTileViewStrc@@QAEXPAX@Z"
     }
    ]
   },
@@ -32802,57 +32841,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004DDB70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004DDB70",
-     "length": 607,
-     "name": "?sub_004DDB70_PrepareWallCells@@YIXPAUD2WallCtxStrc@@H@Z"
-    },
-    {
-     "va": "0x004DDDD0",
-     "length": 11,
-     "name": "??0D2ClearPairStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x004DDDE0",
-     "length": 1,
-     "name": "?sub_004DDDE0_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x004DDE40",
-     "length": 60,
-     "name": "?sub_004DDE40_IsPointInRect@@YAHPAUD2GridRectStrc@@HH@Z"
-    },
-    {
-     "va": "0x004DDEC0",
-     "length": 47,
-     "name": "?sub_004DDEC0_FillCells@@YAXPAUD2GridCellStrc@@@Z"
-    },
-    {
-     "va": "0x004DDEF0",
-     "length": 212,
-     "name": "?sub_004DDEF0_BuildLargeGrid@@YGXHHHPAUD2GridCellStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004DE410.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004DE410",
-     "length": 541
-    },
-    {
-     "va": "0x004DE730",
-     "length": 819,
-     "name": "?sub_004DE730_UpdateView@D2FloorTileViewStrc@@QAEXPAX@Z"
-    }
    ]
   },
   {
