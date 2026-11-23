@@ -3682,15 +3682,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_0059F8E0.cpp": {
-   "bytes": 24,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_0059F8E0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/MONSTER/MonsterMode.cpp": {
    "bytes": 668,
    "definitions": 10,
@@ -5309,6 +5300,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Unknown_0054DAC0.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/MISSILES/Missiles.cpp": {
+   "bytes": 24,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/MISSILES/Missiles.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -107102,7 +107102,7 @@
    "cname": "gData_006E2150",
    "declared": true,
    "decorated": "_gszMissilesSourceFile",
-   "file": "Source/D2Game/Unknown_0059F8E0.cpp",
+   "file": "Source/D2Game/MISSILES/Missiles.cpp",
    "fill": 24,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006E2150[24]; // 0x006E2150",
