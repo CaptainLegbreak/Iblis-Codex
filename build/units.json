@@ -49413,6 +49413,14 @@
      "name": "?sub_0054DAC0_GetSpawnBounds@@YGXPAUD2ActiveRoomStrc@@PAHPAUD2SpawnAreaStrc@@111@Z"
     },
     {
+     "va": "0x0054DB50",
+     "length": 233
+    },
+    {
+     "va": "0x0054DC40",
+     "length": 379
+    },
+    {
      "va": "0x0054DDC0",
      "length": 435
     },
@@ -49469,34 +49477,6 @@
      "va": "0x0054EC40",
      "length": 69
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0054DB50.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0054DB50",
-     "length": 233
-    },
-    {
-     "va": "0x0054DC40",
-     "length": 379
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
