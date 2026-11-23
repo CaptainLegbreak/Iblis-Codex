@@ -647,6 +647,7 @@ static void MONSTERSPAWN_SetupNormalMods(D2UnkMonCreateStrc* pMonCreate, D2UnitS
     }
 }
 
+// 0x005B1C50
 static void MONSTERSPAWN_EquipAncientBarbarians(D2UnitStrc* pUnit)
 {
 	const int nClassId = !pUnit ? -1 : pUnit->dwClassId;
