@@ -24520,6 +24520,10 @@
      "name": "TEXT_LoadPopupHireling"
     },
     {
+     "va": "0x0049D010",
+     "length": 329
+    },
+    {
      "va": "0x0049D2E0",
      "length": 10,
      "name": "?TEXT_IsAsciiChar@@YIHPBG@Z"
@@ -26133,30 +26137,6 @@
     {
      "va": "0x0049C9C0",
      "length": 1276
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0049D010.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0049D010",
-     "length": 329
     }
    ],
    "flags": [
