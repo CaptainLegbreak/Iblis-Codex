@@ -1,21 +1,36 @@
 #include "D2StatIds.h"
+#include "D2Path.h"
+#include "D2Records.h"
+#include "D2ItemsWorld.h"
+
 #include "D2Common.h"
+
 #include "D2Structs.h"
+
 #include "D2LevelTxt.h"
 
 struct D2InventoryStrc;
+
 union D2SeedStrc;
+
 struct D2Rolled6634F0Strc;
+
 struct D2Roll8Strc;
+
 struct D2Roll16Strc;
+
 struct D2Roll24Strc;
+
 struct D2Roll20Strc;
+
 struct D2Roll28Strc;
+
 struct D2HirelingTxt;
 
-
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
+
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
+
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
 struct D2Rolled6634F0Strc
@@ -48,36 +63,57 @@ struct D2Roll20Strc { int a; int b; int c; int d; int e; };
 struct D2Roll28Strc { int a; int b; int c; int d; int e; int f; int g; };
 
 extern const int gnHirelingRollBase1[]; // 0x007484CC
+
 extern const int gnHirelingRollCount1[]; // 0x007484DC
+
 extern const int gnHirelingRollBase2[]; // 0x007484F0
+
 extern const int gnHirelingRollCount2[]; // 0x00748500
+
 extern const int gnHirelingRollBase3[]; // 0x00748514
+
 extern const int gnHirelingRollCount3[]; // 0x00748524
+
 extern const int gnHirelingRollBase4[]; // 0x00748538
+
 extern const int gnHirelingRollCount4[]; // 0x00748548
+
 extern const D2Roll8Strc gaHirelingRollStart[]; // 0x00748558
+
 extern const D2Roll16Strc gaHirelingRoll1[]; // 0x00748578
+
 extern const D2Roll16Strc gaHirelingRoll2[]; // 0x007485D8
+
 extern const D2Roll24Strc gaHirelingRoll3[]; // 0x00748638
+
 extern const D2Roll20Strc gaHirelingRoll4[]; // 0x007486C8
+
 extern const D2Roll28Strc gaHirelingRollLevel[]; // 0x007487B8
 
 typedef unsigned short Unicode;
 
-
 extern "C" const unsigned short gnHirelingDescStringIds[9]; // 0x006EE410
+
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
+
 D2HirelingTxt* __stdcall DATATBLS_GetNextHirelingTxtRecordFromClassId(int bExpansion, int nClassId, D2HirelingTxt* pOldRecord); // 0x00656440
+
 D2HirelingTxt* __stdcall DATATBLS_GetNextHirelingTxtRecordFromNameId(int bExpansion, unsigned short nNameId, D2HirelingTxt* pOldRecord); // 0x00656390
 
-
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
+
 extern const int gnSetMaskToBonusMappingTable[0x40]; // 0x006EE440
+
 void __fastcall sub_M102_UseBonusCount_00663A10(int nCount);
+
 D2UnitStrc* __stdcall INVENTORY_IsItemInInventory(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063E070
+
 int __stdcall INVENTORY_GetItemNodePage(D2UnitStrc* pItem); // 0x0063E020
+
 unsigned int __stdcall ITEMS_GetSetItemsMask(D2UnitStrc* pPlayer, D2UnitStrc* pSetItem, int bDontIgnoreInputItem); // 0x0062A370
+
 int __fastcall sub_00663A20_SetItemBonusStates(D2UnitStrc* pItem, unsigned int nSetItemMask); // 0x00663A20
+
 int __fastcall sub_00663B40_SetBonusStatList(D2UnitStrc* pUnit, D2UnitStrc* pItem, int a3); // 0x00663B40
 
 // 0x006634F0
@@ -201,6 +237,112 @@ unsigned int __stdcall MONSTERS_GetHirelingResurrectionCost(D2UnitStrc* pHirelin
     }
 
     return nCost;
+}
+
+#define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
+struct D2HirelingInitStrc
+{
+    int nId;
+    int nLevel;
+    int nHitpoints;
+    int nStrength;
+    int nDexterity;
+    int nGold;
+    int nExperience;
+    int nDefense;
+    int nMinDamage;
+    int nMaxDamage;
+    int nShare;
+    int nResist;
+    int nHireDesc;
+    int field_34;
+    short nFlags;
+    short unk0x3A;
+};
+D2HirelingTxt* __stdcall DATATBLS_GetNextHirelingTxtRecordFromActAndDifficulty(int bExpansion, int nAct, int nDifficulty, D2HirelingTxt* pOldRecord); // 0x00656580
+static inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
+{
+    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->lSeed = lSeed;
+    return lSeed;
+}
+
+// 0x006637F0
+int __fastcall MONSTERS_HirelingInit(int bExpansion, D2UnitStrc* pMonster, int nLowSeed, int nAct, int nDifficulty, D2HirelingInitStrc* pHirelingInit)
+{
+    D2HirelingTxt* pRecords[16];
+    D2SeedStrc tSeed;
+
+    SEED_InitSeed(&tSeed);
+    SEED_InitLowSeed(&tSeed, nLowSeed);
+
+    int nEntries = 0;
+    D2HirelingTxt* pRecord = 0;
+    pRecords[0] = 0;
+    while (1)
+    {
+        pRecord = DATATBLS_GetNextHirelingTxtRecordFromActAndDifficulty(bExpansion, nAct, nDifficulty, pRecord);
+        if (!pRecord)
+        {
+            break;
+        }
+        pRecords[nEntries] = pRecord;
+        ++nEntries;
+    }
+
+    if (!nEntries)
+    {
+        return 0;
+    }
+
+    D2HirelingTxt* pHirelingTxtRecord = pRecords[ITEMS_RollLimitedRandomNumber(&tSeed, nEntries)];
+    pHirelingInit->nId = pHirelingTxtRecord->nId;
+
+    const int nBaseLevel = STATLIST_UnitGetStatValue(pMonster, STAT_LEVEL, 0) - 5;
+    int nLevel = nBaseLevel + (unsigned int)SEED_RollRandomNumber(&tSeed) % 5;
+    if (nLevel < 2)
+    {
+        nLevel = 2;
+    }
+
+    const int nLevelUps = nLevel - pHirelingTxtRecord->nHirelingLevel;
+    nLevel = pHirelingTxtRecord->nHirelingLevel + nLevelUps;
+    pHirelingInit->nLevel = nLevel;
+
+    pHirelingInit->nHitpoints = pHirelingTxtRecord->dwHitpoints + nLevelUps * pHirelingTxtRecord->dwHitpointsPerLvl;
+    pHirelingInit->nHitpoints = D2_MAX(pHirelingInit->nHitpoints, 40);
+
+    pHirelingInit->nStrength = pHirelingTxtRecord->nStr + (nLevelUps * pHirelingTxtRecord->nStrPerLvl >> 3);
+    pHirelingInit->nStrength = D2_MAX(pHirelingInit->nStrength, 10);
+
+    pHirelingInit->nDexterity = pHirelingTxtRecord->nDex + (nLevelUps * pHirelingTxtRecord->nDexPerLvl >> 3);
+    pHirelingInit->nDexterity = D2_MAX(pHirelingInit->nDexterity, 10);
+
+    pHirelingInit->nGold = pHirelingTxtRecord->nGold * (15 * nLevelUps + 100) / 100;
+    pHirelingInit->nGold = D2_MAX(pHirelingTxtRecord->nGold, pHirelingInit->nGold);
+
+    pHirelingInit->nExperience = (nLevel + 1) * pHirelingTxtRecord->dwExpPerLvl * nLevel * nLevel;
+    pHirelingInit->nExperience = D2_MAX(pHirelingInit->nExperience, 0);
+
+    pHirelingInit->nDefense = pHirelingTxtRecord->dwDefense + nLevelUps * pHirelingTxtRecord->dwDefensePerLvl;
+    pHirelingInit->nDefense = D2_MAX(pHirelingInit->nDefense, 0);
+
+    pHirelingInit->nMinDamage = pHirelingTxtRecord->nDmgMin + (nLevelUps * pHirelingTxtRecord->nDmgPerLvl >> 3);
+    pHirelingInit->nMinDamage = D2_MAX(pHirelingInit->nMinDamage, 0);
+
+    pHirelingInit->nMaxDamage = pHirelingTxtRecord->nDmgMax + (nLevelUps * pHirelingTxtRecord->nDmgPerLvl >> 3);
+    pHirelingInit->nMaxDamage = D2_MAX(pHirelingInit->nMaxDamage, 1);
+
+    pHirelingInit->nShare = pHirelingTxtRecord->dwShare;
+    pHirelingInit->nShare = D2_MAX(pHirelingInit->nShare, 0);
+
+    pHirelingInit->nResist = pHirelingTxtRecord->dwResist;
+    pHirelingInit->nResist = D2_MAX(pHirelingInit->nResist, 0);
+
+    pHirelingInit->nHireDesc = pHirelingTxtRecord->nHireDesc;
+    pHirelingInit->field_34 = 1;
+    pHirelingInit->nFlags = 0;
+    return 1;
 }
 
 // 0x00663A10
