@@ -75,13 +75,3 @@ void __stdcall sub_00495320_ButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
 
 int gbHelpUiOpened; // 0x007BEF00
 
-// 0x004967A0
-void __stdcall sub_004967A0_KeyCloseHelp(SMSGHANDLER_PARAMS* pMsg)
-{
-    UI_SetUIVar(0x21, 1, 0);
-    if (gbHelpUiOpened)
-    {
-        UI_SetUIVar(0x15, 1, 0);
-        gbHelpUiOpened = 0;
-    }
-}

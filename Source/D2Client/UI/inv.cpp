@@ -9402,6 +9402,18 @@ void __stdcall INV_HelpCloseButtonMsg(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_HandleMsg(pMsg);
 }
 
+// 0x004967A0
+void __stdcall sub_004967A0_KeyCloseHelp(SMSGHANDLER_PARAMS* pMsg)
+{
+    UI_SetUIVar(0x21, 1, 0);
+    if (gbHelpUiOpened)
+    {
+        UI_SetUIVar(0x15, 1, 0);
+        gbHelpUiOpened = 0;
+    }
+}
+
+
 // 0x004967F0
 void __cdecl INV_LoadPanelCels()
 {
