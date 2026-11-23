@@ -3161,6 +3161,64 @@ void __stdcall sub_0064A710(D2UnitStrc*,int); // 0x0064A710
 
 void __stdcall sub_0064A760(D2UnitStrc*,int); // 0x0064A760
 
+void __stdcall PATH_SetType(D2DynamicPathStrc* pPath, int nType); // 0x00648CF0
+
+int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
+
+// 0x004C95E0
+int __fastcall MISSILE_SkillStartAtTargetPos(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    if (!SKILLS_GetSkillsTxtRecord(nSkillId))
+    {
+        return 0;
+    }
+
+    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
+    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x40;
+    }
+
+    int nX;
+    int nY;
+    if (!ITEM_GetTargetPosition(pUnit, &nX, &nY))
+    {
+        return 0;
+    }
+
+    D2MissileStrc tMissileParams;
+    memset(&tMissileParams, 0, sizeof(tMissileParams));
+    tMissileParams.dwFlags = 0x20;
+    tMissileParams.pOwner = pUnit;
+    tMissileParams.pOrigin = pUnit;
+    tMissileParams.nTargetX = nX;
+    tMissileParams.nTargetY = nY;
+    tMissileParams.nSkill = nSkillId;
+    tMissileParams.nSkillLevel = nSkillLevel;
+    tMissileParams.nMissile = nMissile;
+
+    D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
+    if (!pMissile)
+    {
+        return 0;
+    }
+
+    D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
+    if (!pPath)
+    {
+        return 0;
+    }
+
+    PATH_SetType(pPath, 0xE);
+    D2Common_10142(pPath, pMissile, 0);
+    return 1;
+}
+
 // 0x004C96D0
 int __fastcall sub_004C96D0(D2UnitStrc* pUnit,int nSkillId,int nSkillLevel)
 {

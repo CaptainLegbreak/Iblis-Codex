@@ -937,59 +937,6 @@ static inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecordInline(int nSkillId)
     return 0;
 }
 
-// 0x004C95E0
-int __fastcall MISSILE_SkillStartAtTargetPos(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    if (!SKILLS_GetSkillsTxtRecord(nSkillId))
-    {
-        return 0;
-    }
-
-    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
-    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 0x40;
-    }
-
-    int nX;
-    int nY;
-    if (!ITEM_GetTargetPosition(pUnit, &nX, &nY))
-    {
-        return 0;
-    }
-
-    D2MissileStrc tMissileParams;
-    memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.dwFlags = 0x20;
-    tMissileParams.pOwner = pUnit;
-    tMissileParams.pOrigin = pUnit;
-    tMissileParams.nTargetX = nX;
-    tMissileParams.nTargetY = nY;
-    tMissileParams.nSkill = nSkillId;
-    tMissileParams.nSkillLevel = nSkillLevel;
-    tMissileParams.nMissile = nMissile;
-
-    D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
-    if (!pMissile)
-    {
-        return 0;
-    }
-
-    D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
-    if (!pPath)
-    {
-        return 0;
-    }
-
-    PATH_SetType(pPath, 0xE);
-    D2Common_10142(pPath, pMissile, 0);
-    return 1;
-}
 
 inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecordStd(int nSkillId)
 {
