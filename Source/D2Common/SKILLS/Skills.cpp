@@ -2800,7 +2800,7 @@ D2TCExShortStrc* __stdcall DATATBLS_GetTreasureClassExRecordFromActAndDifficulty
 }
 
 // 0x00667030
-void __fastcall sub_00667030_GetInnerPair(D2Unk00667030Strc* pRecord, int* pValue0, int* pValue1)
+void __fastcall SKILLS_GetInnerPair(D2Unk00667030Strc* pRecord, int* pValue0, int* pValue1)
 {
     D2Unk00667030MidStrc* pMid = pRecord->pMid;
     if (pValue0)
@@ -2851,7 +2851,7 @@ int __fastcall DRLG_CheckOverlappingWithOrthogonalMargin(D2DrlgCoordStrc* pDrlgC
 }
 
 // 0x0066E140
-char __stdcall sub_0066E140_GetModeChar(int nMode)
+char __stdcall SKILLS_GetModeSideChar(int nMode)
 {
     return nMode == 11 ? 'r' : 'l';
 }

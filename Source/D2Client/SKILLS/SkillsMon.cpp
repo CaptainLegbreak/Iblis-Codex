@@ -45,7 +45,7 @@ void __fastcall CUNIT_FreeLight(D2UnitStrc* pUnit);                             
 
 void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 
-D2GfxLightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
+D2GfxLightStrc* __fastcall DLIGHTMAP_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
 
 void __fastcall sub_00474290(D2GfxLightStrc* pLight, int nRadius);                           // 0x00474290
 
@@ -57,7 +57,7 @@ D2SkillDescTxt* __fastcall sub_004A89D0_SkillDescRec(int nSkillId);             
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
 
-int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY);                         // 0x004C52E0
+int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY);                         // 0x004C52E0
 
 void __fastcall sub_004C53D0_ScaleDownDirection(int* pX, int* pY);                                          // 0x004C53D0
 
@@ -65,7 +65,7 @@ void __fastcall SKILLS_SpawnMissileRing(D2UnitStrc* pUnit, D2MissileStrc* pMissi
 
 int __fastcall SKILLS_IsTargetPosClear(D2UnitStrc* pUnit, int nMissile);                        // 0x004C7B20
 
-D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams);                          // 0x004CD540
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams);                          // 0x004CD540
 
 D2UnitStrc* __fastcall GFXUTIL_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 
@@ -245,7 +245,7 @@ int __fastcall SKILLSMON_FireVolley(D2UnitStrc* pUnit, int nSkillId, int nSkillL
     tMissileParams.nMissile = nMissile;
     tMissileParams.nSkillLevel = nSkillLevel;
     tMissileParams.pInitFunc = sub_004E1C80_CltMissileInitDiabWall;
-    if (!sub_004C52E0_GetTargetPosition(pUnit, &tMissileParams.nTargetX, &tMissileParams.nTargetY))
+    if (!ITEM_GetTargetPosition(pUnit, &tMissileParams.nTargetX, &tMissileParams.nTargetY))
     {
         return 0;
     }
@@ -253,7 +253,7 @@ int __fastcall SKILLSMON_FireVolley(D2UnitStrc* pUnit, int nSkillId, int nSkillL
     for (int i = 0; i < nCount; ++i)
     {
         tMissileParams.nInitArg = i;
-        sub_004CD540_CreateMissile(&tMissileParams);
+        MISSILE_CreateClientMissile(&tMissileParams);
     }
     return 1;
 }
@@ -369,7 +369,7 @@ int __fastcall SKILLSMON_MissileRing(D2UnitStrc* pUnit, int nSkillId, int nSkill
     {
         tMissileParams.nTargetX = gaMonRingOffsetX[i];
         tMissileParams.nTargetY = gaMonRingOffsetY[i];
-        D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
+        D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
         if (pMissile)
         {
             sub_004DA690_ReplaceMotionFlag1With8(pMissile);
@@ -479,7 +479,7 @@ int __fastcall SKILLSMON_StreamAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSk
 
     int nTargetX;
     int nTargetY;
-    if (!sub_004C52E0_GetTargetPosition(pUnit, &nTargetX, &nTargetY))
+    if (!ITEM_GetTargetPosition(pUnit, &nTargetX, &nTargetY))
     {
         return 0;
     }
@@ -499,7 +499,7 @@ int __fastcall SKILLSMON_StreamAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSk
     tMissileParams.nSkill = nSkillId;
     tMissileParams.nSkillLevel = nSkillLevel;
     tMissileParams.nMissile = MISSILE_CURSECENTER;
-    D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
+    D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
     if (!pMissile)
     {
         return 0;
@@ -579,7 +579,7 @@ D2UnitStrc* __fastcall sub_004E2D40_UpdateState22(D2UnitStrc* pUnit)
             tParams.nVelocity = 3;
             tParams.nSkillLevel = nSkillLevel;
             tParams.nMissile = MISSILE_SPIDERGOOLAY;
-            pMissile = sub_004CD540_CreateMissile(&tParams);
+            pMissile = MISSILE_CreateClientMissile(&tParams);
             sub_004B9A00(0x726, pUnit, 0, 0, 0);
         }
     }
@@ -611,7 +611,7 @@ int __fastcall SKILLSMON_FlankTarget(D2UnitStrc* pUnit, int nSkillId, int nSkill
 
     int nX;
     int nY;
-    if (!sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
+    if (!ITEM_GetTargetPosition(pUnit, &nX, &nY))
     {
         return 0;
     }
@@ -647,15 +647,15 @@ int __fastcall SKILLSMON_FlankTarget(D2UnitStrc* pUnit, int nSkillId, int nSkill
     const int nDy = CLIENTS_GetUnitY(pUnit) - nY;
     tMissileParams.nTargetX = nX - nDy;
     tMissileParams.nTargetY = nY + nDx;
-    sub_004CD540_CreateMissile(&tMissileParams);
+    MISSILE_CreateClientMissile(&tMissileParams);
     tMissileParams.nTargetX = nX + nDy;
     tMissileParams.nTargetY = nY - nDx;
-    sub_004CD540_CreateMissile(&tMissileParams);
+    MISSILE_CreateClientMissile(&tMissileParams);
     tMissileParams.nTargetX = 0;
     tMissileParams.nTargetY = 0;
     tMissileParams.dwFlags = 1;
     tMissileParams.nMissile = nSubMissile;
-    sub_004CD540_CreateMissile(&tMissileParams);
+    MISSILE_CreateClientMissile(&tMissileParams);
     return 1;
 }
 
@@ -670,7 +670,7 @@ int __fastcall sub_004E39A0_CheckTargetRoom(D2UnitStrc* pUnit, int nSkillId, int
 
     int nX;
     int nY;
-    if (!sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
+    if (!ITEM_GetTargetPosition(pUnit, &nX, &nY))
     {
         return 0;
     }
@@ -902,7 +902,7 @@ int __fastcall SKILLSMON_MissileFromTarget(D2UnitStrc* pUnit, int nSkillId, int 
     tMissileParams.nSkillLevel = nSkillLevel;
     tMissileParams.pOwner = pTarget;
     tMissileParams.pOrigin = pTarget;
-    sub_004CD540_CreateMissile(&tMissileParams);
+    MISSILE_CreateClientMissile(&tMissileParams);
     return 1;
 }
 
@@ -970,7 +970,7 @@ int __fastcall SKILLSMON_StreamFromTarget(D2UnitStrc* pUnit, int nSkillId, int n
 
     int nX;
     int nY;
-    if (!sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
+    if (!ITEM_GetTargetPosition(pUnit, &nX, &nY))
     {
         return 0;
     }
@@ -996,7 +996,7 @@ int __fastcall SKILLSMON_StreamFromTarget(D2UnitStrc* pUnit, int nSkillId, int n
     tMissileParams.nSkill = nSkillId;
     tMissileParams.nSkillLevel = nSkillLevel;
     tMissileParams.nMissile = nMissile;
-    D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
+    D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
     if (pMissile)
     {
         MISSILE_SetStreamMissile(pMissile, pSkillsTxtRecord->wCltMissileB);
@@ -1027,7 +1027,7 @@ int __fastcall SKILLSMON_LightAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSki
 
     int nX;
     int nY;
-    if (!sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
+    if (!ITEM_GetTargetPosition(pUnit, &nX, &nY))
     {
         return 0;
     }
@@ -1047,14 +1047,14 @@ int __fastcall SKILLSMON_LightAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSki
     tMissileParams.nSkill = nSkillId;
     tMissileParams.nSkillLevel = nSkillLevel;
     tMissileParams.nMissile = MISSILE_CURSECENTER;
-    D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
+    D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
     if (!pMissile)
     {
         return 0;
     }
 
     CUNIT_FreeLight(pMissile);
-    D2GfxLightStrc* pLight = sub_00474160_MakeLightEntry(pMissile, 1, 1, 0xFF, 0xFF, 0, 0);
+    D2GfxLightStrc* pLight = DLIGHTMAP_MakeLightEntry(pMissile, 1, 1, 0xFF, 0xFF, 0, 0);
     if (pLight)
     {
         sub_00474290(pLight, nRadius);
@@ -1113,7 +1113,7 @@ int __fastcall sub_004F3EB0_CheckTargetRoom(D2UnitStrc* pUnit, int nSkillId, int
 
     int nX;
     int nY;
-    if (!sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
+    if (!ITEM_GetTargetPosition(pUnit, &nX, &nY))
     {
         return 0;
     }
@@ -1163,7 +1163,7 @@ int __fastcall SKILLSMON_MissileLine(D2UnitStrc* pUnit, int nSkillId, int nSkill
     int nCount = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
     int nX;
     int nY;
-    if (!sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
+    if (!ITEM_GetTargetPosition(pUnit, &nX, &nY))
     {
         return 0;
     }
@@ -1188,7 +1188,7 @@ int __fastcall SKILLSMON_MissileLine(D2UnitStrc* pUnit, int nSkillId, int nSkill
     {
         tMissileParams.nTargetX = nX;
         tMissileParams.nTargetY = nY;
-        sub_004CD540_CreateMissile(&tMissileParams);
+        MISSILE_CreateClientMissile(&tMissileParams);
         nX += nDx;
         nY += nDy;
     }

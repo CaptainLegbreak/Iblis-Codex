@@ -20,8 +20,8 @@ extern int gnCltHitFuncCount;                                                   
 extern CLTHITFUNC gpfnCltHitFuncs[];                                                                // 0x0072A508
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit);                                        // 0x004639D0
-int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther);                           // 0x00465C60
+D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit);                                        // 0x004639D0
+int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther);                           // 0x00465C60
 void __fastcall CUNIT_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465EE0
 void __fastcall CUNIT_RemoveServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465F00
 void __fastcall sub_00474470_ReleaseLight(D2GfxLightStrc* pLight);                                          // 0x00474470
@@ -104,7 +104,7 @@ D2UnitStrc* __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitSt
     const int nSubMissile = (short)pMissilesTxtRecord->wExplosionMissile;
     D2UnitStrc* pSubMissile;
     int nResult = 3;
-    D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+    D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pMissile);
     pSubMissile = 0;
     if (pMissile)
     {
@@ -120,7 +120,7 @@ D2UnitStrc* __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitSt
             if (!UNITS_TestFlagBit(pTarget, 2))
                 return 0;
 
-            if (pOwner && !sub_00465C60_CheckUnitPair(pOwner, pTarget) && !pMissilesTxtRecord->nCollideFriend)
+            if (pOwner && !CUNIT_IsHostileTo(pOwner, pTarget) && !pMissilesTxtRecord->nCollideFriend)
                 return 0;
         }
 

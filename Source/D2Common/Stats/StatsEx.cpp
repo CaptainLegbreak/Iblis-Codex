@@ -119,7 +119,7 @@ void __fastcall STATLIST_UpdateStatValue(D2StatListStrc* pStatListEx, int nLayer
 
 int __stdcall STATLIST_GetBaseStat(D2StatListStrc* pStatList, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord);
 
-int __stdcall sub_00624F60_GetTotalStat(D2StatListStrc* pStatList, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord);
+int __stdcall STATLIST_GetTotalStat(D2StatListStrc* pStatList, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord); // 0x00624F60
 
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);            // 0x0040B480
 
@@ -495,7 +495,7 @@ static __declspec(noinline) D2StatsArrayStrc* STATLIST_GetStatsArray(D2StatListE
 }
 
 // 0x00624F60
-static int __stdcall sub_00624F60_GetTotalStat(D2StatListStrc* pStatList, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord)
+static int __stdcall STATLIST_GetTotalStat(D2StatListStrc* pStatList, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord)
 {
     D2StatListExStrc* pStatListEx = (D2StatListExStrc*)pStatList;
     D2StatStrc* pStat = sub_00624C60_FindStat((pStatList->dwFlags & STATLIST_EXTENDED) ? &pStatListEx->FullStats : &pStatList->Stats, nLayer_StatId);
@@ -528,7 +528,7 @@ static int __stdcall STATLIST_GetStatWithChildLists(D2StatListExStrc* pStatListE
         {
             if (!bDamageRelated || !(i->dwFlags & STATLIST_DYNAMIC))
             {
-                nValue += sub_00624F60_GetTotalStat(i, nLayer_StatId, 0);
+                nValue += STATLIST_GetTotalStat(i, nLayer_StatId, 0);
             }
         }
     }
@@ -753,7 +753,7 @@ int __stdcall STATLIST_GetTotalStatValue(D2StatListStrc* pStatList, int nStatId,
         return 0;
     }
 
-    return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(nStatId, nLayer), pItemStatCostTxtRecord);
+    return STATLIST_GetTotalStat(pStatList, STAT_MAKE(nStatId, nLayer), pItemStatCostTxtRecord);
 }
 
 // 0x00625480
@@ -776,11 +776,11 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned
         return 0;
     }
 
-    return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(nStatId, nLayer), pItemStatCostTxtRecord);
+    return STATLIST_GetTotalStat(pStatList, STAT_MAKE(nStatId, nLayer), pItemStatCostTxtRecord);
 }
 
 // 0x006254E0
-int __stdcall sub_006254E0_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
+int __stdcall STATLIST_GetBaseStatValueByLayer(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
 {
     return STATLIST_GetBaseStatValue(pStatList, nStatId, nLayer);
 }
@@ -1139,7 +1139,7 @@ static inline int STATLIST_GetTotalStatValue_Inl(D2StatListStrc* pStatList, int 
         return 0;
     }
 
-    return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(nStatId, nLayer), pItemStatCostTxtRecord);
+    return STATLIST_GetTotalStat(pStatList, STAT_MAKE(nStatId, nLayer), pItemStatCostTxtRecord);
 }
 
 // 0x00625A20
@@ -1337,7 +1337,7 @@ int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit)
         return 0;
     }
 
-    return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(7, 0), pItemStatCostTxtRecord);
+    return STATLIST_GetTotalStat(pStatList, STAT_MAKE(7, 0), pItemStatCostTxtRecord);
 }
 
 // 0x00625D60
@@ -1360,7 +1360,7 @@ int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit)
         return 0;
     }
 
-    return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(9, 0), pItemStatCostTxtRecord);
+    return STATLIST_GetTotalStat(pStatList, STAT_MAKE(9, 0), pItemStatCostTxtRecord);
 }
 
 // 0x00625DB0
@@ -1383,7 +1383,7 @@ int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc* pUnit)
         return 0;
     }
 
-    return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(11, 0), pItemStatCostTxtRecord);
+    return STATLIST_GetTotalStat(pStatList, STAT_MAKE(11, 0), pItemStatCostTxtRecord);
 }
 
 // 0x00625E00
@@ -1418,7 +1418,7 @@ int __stdcall STATLIST_GetMaxDamageFromUnit(D2UnitStrc* pUnit, int b2Handed)
             return 0;
         }
 
-        return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(24, 0), pItemStatCostTxtRecord);
+        return STATLIST_GetTotalStat(pStatList, STAT_MAKE(24, 0), pItemStatCostTxtRecord);
     }
 
     if (!pUnit)
@@ -1438,7 +1438,7 @@ int __stdcall STATLIST_GetMaxDamageFromUnit(D2UnitStrc* pUnit, int b2Handed)
         return 0;
     }
 
-    return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(22, 0), pItemStatCostTxtRecord);
+    return STATLIST_GetTotalStat(pStatList, STAT_MAKE(22, 0), pItemStatCostTxtRecord);
 }
 
 // 0x00625EF0
@@ -1463,7 +1463,7 @@ int __stdcall STATLIST_GetMinDamageFromUnit(D2UnitStrc* pUnit, int b2Handed)
             return 0;
         }
 
-        return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(MOVE_ID(23), 0), pItemStatCostTxtRecord);
+        return STATLIST_GetTotalStat(pStatList, STAT_MAKE(MOVE_ID(23), 0), pItemStatCostTxtRecord);
     }
 
     if (!pUnit)
@@ -1483,7 +1483,7 @@ int __stdcall STATLIST_GetMinDamageFromUnit(D2UnitStrc* pUnit, int b2Handed)
         return 0;
     }
 
-    return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(MOVE_ID(21), 0), pItemStatCostTxtRecord);
+    return STATLIST_GetTotalStat(pStatList, STAT_MAKE(MOVE_ID(21), 0), pItemStatCostTxtRecord);
 }
 
 // 0x00625F80
@@ -1506,7 +1506,7 @@ int __stdcall STATLIST_GetMaxThrowDamageFromUnit(D2UnitStrc* pUnit)
         return 0;
     }
 
-    return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(160, 0), pItemStatCostTxtRecord);
+    return STATLIST_GetTotalStat(pStatList, STAT_MAKE(160, 0), pItemStatCostTxtRecord);
 }
 
 // 0x00625FD0
@@ -1529,7 +1529,7 @@ int __stdcall STATLIST_GetMinThrowDamageFromUnit(D2UnitStrc* pUnit)
         return 0;
     }
 
-    return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(MOVE_ID(159), 0), pItemStatCostTxtRecord);
+    return STATLIST_GetTotalStat(pStatList, STAT_MAKE(MOVE_ID(159), 0), pItemStatCostTxtRecord);
 }
 
 // 0x00626020
@@ -1552,7 +1552,7 @@ int __stdcall STATLIST_GetDefenseFromUnit(D2UnitStrc* pUnit)
         return 0;
     }
 
-    return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(31, 0), pItemStatCostTxtRecord);
+    return STATLIST_GetTotalStat(pStatList, STAT_MAKE(31, 0), pItemStatCostTxtRecord);
 }
 
 // 0x00626070
@@ -1712,7 +1712,7 @@ int __fastcall STATLIST_GetStatFromLayer(D2StatListStrc* pStatList, int nLayer_S
                     D2ItemStatCostTxt* pOpBaseItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(nOpBase);
                     if (pOpBaseItemStatCostTxtRecord)
                     {
-                        const int nShiftedVal = sub_00624F60_GetTotalStat(pStatListEx, nOpBase << STAT_SHIFT, 0) >> pOpBaseItemStatCostTxtRecord->nValShift;
+                        const int nShiftedVal = STATLIST_GetTotalStat(pStatListEx, nOpBase << STAT_SHIFT, 0) >> pOpBaseItemStatCostTxtRecord->nValShift;
                         if (nShiftedVal > 0)
                         {
                             const int nOpLayer_StatId = pOpStatData->nStat << STAT_SHIFT;
@@ -1736,7 +1736,7 @@ int __fastcall STATLIST_GetStatFromLayer(D2StatListStrc* pStatList, int nLayer_S
                     D2ItemStatCostTxt* pOpBaseItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(nOpBase);
                     if (pOpBaseItemStatCostTxtRecord)
                     {
-                        const int nShiftedVal = sub_00624F60_GetTotalStat(pStatListEx, nOpBase << STAT_SHIFT, 0) >> pOpBaseItemStatCostTxtRecord->nValShift;
+                        const int nShiftedVal = STATLIST_GetTotalStat(pStatListEx, nOpBase << STAT_SHIFT, 0) >> pOpBaseItemStatCostTxtRecord->nValShift;
                         if (nShiftedVal > 0)
                         {
                             const int nOpLayer_StatId = pOpStatData->nStat << STAT_SHIFT;
@@ -1953,7 +1953,7 @@ int __fastcall STATLIST_UpdateStatOps(D2StatListStrc* pStatList, int nLayer_Stat
             if (pStatListEx->dwOwnerType == UNIT_PLAYER || pStatListEx->dwOwnerType == UNIT_MONSTER)
             {
                 const unsigned short nOpBase = pOpStatData->nOpBase;
-                if (nOpBase != STAT_NONE && sub_00624F60_GetTotalStat(pStatListEx, nOpBase << STAT_SHIFT, 0) > 0)
+                if (nOpBase != STAT_NONE && STATLIST_GetTotalStat(pStatListEx, nOpBase << STAT_SHIFT, 0) > 0)
                 {
                     bUpdate = 0;
                 }

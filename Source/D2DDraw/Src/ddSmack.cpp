@@ -17,7 +17,7 @@ int gbDDrawSmackRemapReady;                                                     
 
 extern unsigned char gabGamePalette_007C8CC8[];                                                             // 0x007C8CC8
 
-static void __stdcall sub_00513380_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows);
+static void __stdcall DDRAW_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows); // 0x00513380
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
@@ -49,7 +49,7 @@ static inline void sub_00513380_RemapSpan(unsigned char* pDst, const unsigned ch
 }
 
 // 0x00513380
-static void __stdcall sub_00513380_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows)
+static void __stdcall DDRAW_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows)
 {
     if (!gpRemapSource_008816B0)
         return;
@@ -98,12 +98,12 @@ void __fastcall sub_005135F0_DDrawPlaySmacker(D2SmackRecordStrc* pRecord)
             return;
         if (!gbDDrawSmackRemapReady)
             return;
-        sub_00513380_RemapRows(hSmack->nWidth, pRecord, hSmack->nHeight);
+        DDRAW_RemapRows(hSmack->nWidth, pRecord, hSmack->nHeight);
         return;
     }
     case 'p':
         if (!gbRenderPaused)
-            sub_00513380_RemapRows(468, pRecord, 60);
+            DDRAW_RemapRows(468, pRecord, 60);
         break;
     }
 }

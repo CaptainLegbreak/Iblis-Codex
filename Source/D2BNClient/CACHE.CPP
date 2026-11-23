@@ -233,7 +233,7 @@ static unsigned int __stdcall sub_00518FA0_HashString(unsigned int nHashType, co
 }
 
 // 0x00519110
-static int __stdcall sub_00519110_FindHashEntry(const char* szName, unsigned int dwLocale)
+static int __stdcall CACHE_FindHashEntry(const char* szName, unsigned int dwLocale)
 {
     unsigned int dwHash = sub_00518FA0_HashString(0, szName);
     unsigned int dwNameA = sub_00518FA0_HashString(1, szName);
@@ -274,7 +274,7 @@ static void sub_H08_ClearBlockEntry(D2CacheBlockEntryStrc* pBlockTable, unsigned
 static void sub_005191D0_DeleteHashEntries(const char* szName)
 {
     int nIndex;
-    while ((nIndex = sub_00519110_FindHashEntry(szName, 0)) != -1)
+    while ((nIndex = CACHE_FindHashEntry(szName, 0)) != -1)
     {
         unsigned int* pBlock = &gpCacheHashTable[nIndex].dwBlockIndex;
         if (*pBlock < gpCacheHeader->nBlockTableSize)
@@ -611,7 +611,7 @@ int __fastcall CACHE_LoadCachedFile(const char* szName,D2FileTimeStrc* time,void
  if(!szName||!*szName||!data||!size||!gbCacheLoaded)return 0;
  int archiveError=0,fileError=0;
  EnterCriticalSection(&gtCacheLock);
- int index=sub_00519110_FindHashEntry(szName,0);
+ int index=CACHE_FindHashEntry(szName,0);
  if(index==-1){LeaveCriticalSection(&gtCacheLock);return 0;}
  unsigned int block=gpCacheHashTable[index].dwBlockIndex;
  if(block>=gpCacheHeader->nBlockTableSize) archiveError=1;

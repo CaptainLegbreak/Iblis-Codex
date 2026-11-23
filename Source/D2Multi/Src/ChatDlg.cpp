@@ -362,7 +362,7 @@ int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 
 void __cdecl CHATDLG_RefreshChatScreen(); // 0x0043FBD0
 
-int __fastcall sub_0044AAE0_SendSelect(const char* szName, int nB, int nC); // 0x0044AAE0
+int __fastcall WINMAIN_SendMcpCharRank(const char* szName, int nB, int nC); // 0x0044AAE0
 
 int __fastcall WINMAIN_SendMcpCharCreate(int nA, int nB, int nC); // 0x0044A2E0
 
@@ -370,7 +370,7 @@ int __fastcall WINMAIN_SendMcpCharLogon(int nA); // 0x0044A380
 
 int __fastcall CHATDLG_ShowWait(const Unicode* pText, D2LaunchCallback pfnDone); // 0x0043FB50
 
-void* __stdcall sub_00449050_AddEntry(const char* szText, int nLength, int nA); // 0x00449050
+void* __stdcall COMCALLBACK_AddChannelUser(const char* szText, int nLength, int nA); // 0x00449050
 
 unsigned long __stdcall sub_0044A070_ThreadProc(void* pParameter); // 0x0044A070
 
@@ -491,7 +491,7 @@ int __cdecl CHATDLG_SendChatBuffer();                                           
 
 extern D2MultiChannelUserStrc* gpSelectedChannelUser;                                                   // 0x00798F48
 
-static int __stdcall sub_0043E860_FindHashedWord(char* szText, unsigned int nHash, int nLength);
+static int __stdcall CHATDLG_FindHashedWord(char* szText, unsigned int nHash, int nLength); // 0x0043E860
 
 struct D2WinTextBoxStrc;
 
@@ -624,15 +624,15 @@ void __cdecl CHATDLG_DestroyJoinControls();                                     
 
 int __cdecl COMCALLBACK_PumpMessages();                                                                            // 0x00447A10
 
-void* __cdecl sub_00449BC0();                                                                               // 0x00449BC0
+void* __cdecl GAME_GetMcpGameServerIP();                                                                               // 0x00449BC0
 
 unsigned short __cdecl CHATDLG_GetRequestId();                                                         // 0x00449BD0
 
-void* __cdecl sub_00449D50();                                                                               // 0x00449D50
+void* __cdecl GAME_GetMcpReply();                                                                               // 0x00449D50
 
 void __cdecl CHATDLG_ClearReply();                                                                     // 0x00449D60
 
-int __cdecl sub_00449DE0();                                                                                 // 0x00449DE0
+int __cdecl GAME_GetMcpGameHash();                                                                                 // 0x00449DE0
 
 unsigned short gwOtherRequestId;                                                                   // 0x0077BBE0
 
@@ -661,7 +661,7 @@ static __forceinline int CONSOLE_FindSecondTokenInline(const char* szText, char*
 }
 
 // 0x0043C6B0
-int __fastcall sub_0043C6B0_WriteSaveHeader(const char* szName)
+int __fastcall CHATDLG_WriteSaveHeader(const char* szName)
 {
     char szDir[0x400];
     char szPath[0x1F4];
@@ -1086,7 +1086,7 @@ int __fastcall CHATDLG_PrintMessage(const Unicode* pText, int nColor)
 }
 
 // 0x0043E610
-int __fastcall sub_0043E610_PrintText(Unicode* pText, int nColor)
+int __fastcall CHATDLG_PrintText(Unicode* pText, int nColor)
 {
     if (gpChatTextBox)
     {
@@ -1097,7 +1097,7 @@ int __fastcall sub_0043E610_PrintText(Unicode* pText, int nColor)
 }
 
 // 0x0043E630
-int __fastcall sub_0043E630_ShowChannelText(Unicode* pText)
+int __fastcall CHATDLG_ShowChannelText(Unicode* pText)
 {
     if (gpControl_0077BD98)
     {
@@ -1153,7 +1153,7 @@ static int CHATDLG_NotifyCommand(const char* szCommand, const char* szText)
 }
 
 // 0x0043E860
-static int __stdcall sub_0043E860_FindHashedWord(char* szText, unsigned int nHash, int nLength)
+static int __stdcall CHATDLG_FindHashedWord(char* szText, unsigned int nHash, int nLength)
 {
     if (!nLength)
         return 0;
@@ -1179,7 +1179,7 @@ static int __stdcall sub_0043E860_FindHashedWord(char* szText, unsigned int nHas
 }
 
 // 0x004428D0
-int __fastcall sub_004428D0_SendChatText(char* szText, int bWhisper)
+int __fastcall CHATDLG_SendChatText(char* szText, int bWhisper)
 {
     const int bCommand = szText[0] == '/';
     SMemZero(gszChatBuffer, sizeof(gszChatBuffer));
@@ -1188,7 +1188,7 @@ int __fastcall sub_004428D0_SendChatText(char* szText, int bWhisper)
     else
         strcpy(gszChatBuffer, szText);
 
-    if (sub_0043E860_FindHashedWord(szText, gpCharInfo->nWordHash, gpCharInfo->nWordLength))
+    if (CHATDLG_FindHashedWord(szText, gpCharInfo->nWordHash, gpCharInfo->nWordLength))
     {
         CHATDLG_ShowMessage(D2LANG_GetStringFromTblIndex(0x2B37), D2LANG_GetStringFromTblIndex(0x2B38));
         gszChatBuffer[0] = 0;
@@ -1292,7 +1292,7 @@ void __fastcall CHATDLG_SelectEntry(const char* szName, int nB, int nC)
     gnSelectIdA_0070CD7C = -1;
 // build: symbol ?gnSelectIdB@* 0x0070CD80
     gnSelectIdB = -1;
-    sub_0044AAE0_SendSelect(szName, nB, nC);
+    WINMAIN_SendMcpCharRank(szName, nB, nC);
     gdwSelectTime = GetTickCount() + 1000;
 }
 
@@ -2469,7 +2469,7 @@ int __stdcall CHATDLG_OnTick(int nUnused)
         case 3:
             if (sub_00449B30_QueryAddress())
             {
-                D2LaunchReplyStrc* pReply = (D2LaunchReplyStrc*)sub_00449D50();
+                D2LaunchReplyStrc* pReply = (D2LaunchReplyStrc*)GAME_GetMcpReply();
                 const unsigned short wId = pReply->f_4;
                 if (wId != 0)
                 {
@@ -2521,9 +2521,10 @@ int __stdcall CHATDLG_OnTick(int nUnused)
                     case 0:
                     {
                         *(int*)gpCharInfo->nState = 3;
-                        *(unsigned short*)gpCharInfo->wValue = (unsigned short)sub_00449BE0();
-                        *(int*)gpCharInfo->nValue0x229 = sub_00449DE0();
-                        const char* szSource = (const char*)sub_00449BC0();
+// build: symbol ?GAME_GetMcpGameToken@* 0x00449BE0
+                        *(unsigned short*)gpCharInfo->wValue = (unsigned short)GAME_GetMcpGameToken();
+                        *(int*)gpCharInfo->nValue0x229 = GAME_GetMcpGameHash();
+                        const char* szSource = (const char*)GAME_GetMcpGameServerIP();
                         char* szDest = (char*)&gpCharInfo->unk0x37;
                         char c;
                         do
@@ -2797,7 +2798,7 @@ int __fastcall CHATDLG_OnChannelDoesNotExist(int nA, int nB, const char* szText,
 // 0x00449330
 int __fastcall CHATDLG_OnShowUser(int nA, int nB, const char* szText, int nLength)
 {
-    sub_00449050_AddEntry(szText, nLength, nA);
+    COMCALLBACK_AddChannelUser(szText, nLength, nA);
     return 1;
 }
 

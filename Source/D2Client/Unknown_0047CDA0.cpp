@@ -82,7 +82,7 @@ extern int gnOptionLastY; // 0x007BC984
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
-int __cdecl sub_004979E0(); // 0x004979E0
+int __cdecl HIREABLES_AreBeltRowsShown(); // 0x004979E0
 int __cdecl HIREABLES_GetBeltRowCount(); // 0x004979F0
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 int __cdecl GAME_GetConnectionType(); // 0x0044DB30
@@ -566,7 +566,7 @@ void __stdcall sub_0047EF30_SlotsClick(SMSGHANDLER_PARAMS* pMsg)
     int nY = pMsg->nYpos;
     int nX = pMsg->nXpos;
     int nOffset = 0;
-    if (sub_004979E0() && HIREABLES_GetBeltRowCount() > 1)
+    if (HIREABLES_AreBeltRowsShown() && HIREABLES_GetBeltRowCount() > 1)
     {
         nOffset = -0x76;
     }

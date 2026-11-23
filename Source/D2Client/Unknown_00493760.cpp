@@ -6,7 +6,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 int __stdcall HIREABLES_CanEquipHirelingItem(int nArg); // 0x004934D0
@@ -101,7 +101,7 @@ void __stdcall sub_004938E0_HirelingIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
         {
             return;
         }
-        sub_00455F20(0x24, 0, 0);
+        UI_SetUIVar(0x24, 0, 0);
     }
     gdwPopupTick = 0;
 }

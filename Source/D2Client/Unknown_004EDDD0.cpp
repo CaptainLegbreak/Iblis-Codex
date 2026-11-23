@@ -54,7 +54,7 @@ static unsigned short sub_004E6F60_GetElemDamageText(int nElemType)
 }
 
 // 0x004EC140
-static int __stdcall sub_004EC140_AddElemRange(int nMin, unsigned short nString, int nMax, Unicode* wszText, int nElemType)
+static int __stdcall SKILLDESC_AddElemRange(int nMin, unsigned short nString, int nMax, Unicode* wszText, int nElemType)
 {
     Unicode wszNumber[32];
     char szNumber[32];
@@ -112,7 +112,8 @@ static int __stdcall sub_004E7430_FormatDecimal(Unicode* pDest, int bPlus, int n
     return 1;
 }
 
-static int __stdcall sub_004EDB30_AddSeconds(unsigned short nString, int bPlus, int nFrames, Unicode* wszText)
+// build: symbol ?SKILLDESC_AddSeconds@* 0x004EDB30
+static int __stdcall SKILLDESC_AddSeconds(unsigned short nString, int bPlus, int nFrames, Unicode* wszText)
 {
     Unicode wszNumber[32];
     const int nSeconds = nFrames / 25;
@@ -138,7 +139,7 @@ static int __stdcall sub_004EDB30_AddSeconds(unsigned short nString, int bPlus, 
 }
 
 // 0x004EDC40
-static int __stdcall sub_004EDC40_AddElemDuration(Unicode* wszText, D2SkillsTxt* pSkillsTxt, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+static int __stdcall SKILLDESC_AddElemDuration(Unicode* wszText, D2SkillsTxt* pSkillsTxt, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     const int nLength = SKILLS_GetElementalLength(pUnit, nSkillId, nSkillLevel, 0);
     if (nLength)
@@ -156,13 +157,14 @@ static int __stdcall sub_004EDC40_AddElemDuration(Unicode* wszText, D2SkillsTxt*
             return 0;
         }
 
-        return sub_004EDB30_AddSeconds(nString, 0, nLength, wszText);
+        return SKILLDESC_AddSeconds(nString, 0, nLength, wszText);
     }
 
     return 0;
 }
 
-static int __stdcall sub_004EC220_AddSkillElemDamage(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, unsigned short nString, int nSkillId, int nSkillLevel)
+// build: symbol ?SKILLDESC_AddSkillElemDamage@* 0x004EC220
+static int __stdcall SKILLDESC_AddSkillElemDamage(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, unsigned short nString, int nSkillId, int nSkillLevel)
 {
     const int nMin = SKILLS_GetMinElemDamage(pUnit, nSkillId, nSkillLevel, 1);
     const int nMax = SKILLS_GetMaxElemDamage(pUnit, nSkillId, nSkillLevel, 1);
@@ -171,7 +173,7 @@ static int __stdcall sub_004EC220_AddSkillElemDamage(D2UnitStrc* pUnit, Unicode*
         return 0;
     }
 
-    return sub_004EC140_AddElemRange(nMin >> 8, nString, nMax >> 8, wszText, pSkillsTxt->nEType);
+    return SKILLDESC_AddElemRange(nMin >> 8, nString, nMax >> 8, wszText, pSkillsTxt->nEType);
 }
 
 static void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, D2SkillsTxt* pSkillsTxt, int nSkillLevel)
@@ -319,7 +321,7 @@ static __forceinline int ApplyPercent_2E0(int nValue, int nPercent)
 }
 
 // 0x004EC2E0
-static int __stdcall sub_004EC2E0_AddPhysDamage(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nBonus, int nSkillLevel, int nPercent)
+static int __stdcall SKILLDESC_AddPhysDamage(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nBonus, int nSkillLevel, int nPercent)
 {
     Unicode wszNumber[32];
     char szNumber[32];
@@ -351,7 +353,8 @@ static int __stdcall sub_004EC2E0_AddPhysDamage(D2UnitStrc* pUnit, Unicode* wszT
     return 1;
 }
 
-static int sub_004EC510_AddToHit(int nSkillLevel, int nSkillId, D2UnitStrc* pUnit, Unicode* wszText)
+// build: symbol ?SKILLDESC_AddToHit@* 0x004EC510
+static int SKILLDESC_AddToHit(int nSkillLevel, int nSkillId, D2UnitStrc* pUnit, Unicode* wszText)
 {
     const int nToHit = SKILLS_GetToHitFactor(pUnit, nSkillId, nSkillLevel);
     if (!nToHit)
@@ -367,10 +370,10 @@ static int __stdcall sub_004EDDD0_AddAttackInfo(Unicode* wszText, int nSkillId, 
 {
     if (GAME_IsExpansion())
     {
-        sub_004EDC40_AddElemDuration(wszText, pSkillsTxt, pUnit, nSkillId, nSkillLevel);
-        sub_004EC220_AddSkillElemDamage(pUnit, wszText, pSkillsTxt, 0, nSkillId, nSkillLevel);
-        sub_004EC2E0_AddPhysDamage(pUnit, wszText, nSkillId, 0, nSkillLevel, 0);
-        sub_004EC510_AddToHit(nSkillLevel, nSkillId, pUnit, wszText);
+        SKILLDESC_AddElemDuration(wszText, pSkillsTxt, pUnit, nSkillId, nSkillLevel);
+        SKILLDESC_AddSkillElemDamage(pUnit, wszText, pSkillsTxt, 0, nSkillId, nSkillLevel);
+        SKILLDESC_AddPhysDamage(pUnit, wszText, nSkillId, 0, nSkillLevel, 0);
+        SKILLDESC_AddToHit(nSkillLevel, nSkillId, pUnit, wszText);
         return 1;
     }
 
@@ -390,22 +393,22 @@ int __fastcall sub_H14_Emit_004EDEA0(D2UnitStrc* pUnit, Unicode* wszText, D2Skil
         sub_004EDDD0_AddAttackInfo(wszText, nSkillId, pSkillsTxt, pUnit, nSkillLevel);
         return 1;
     case 2:
-        sub_004EDC40_AddElemDuration(wszText, pSkillsTxt, pUnit, nSkillId, nSkillLevel);
+        SKILLDESC_AddElemDuration(wszText, pSkillsTxt, pUnit, nSkillId, nSkillLevel);
         return 1;
     case 3:
-        sub_004EDB30_AddSeconds(nStringA, 0, nCalcA, wszText);
+        SKILLDESC_AddSeconds(nStringA, 0, nCalcA, wszText);
         return 1;
     case 4:
-        sub_004EC140_AddElemRange(nCalcA, nStringA, nCalcB, wszText, pSkillsTxt->nEType);
+        SKILLDESC_AddElemRange(nCalcA, nStringA, nCalcB, wszText, pSkillsTxt->nEType);
         return 1;
     case 5:
-        sub_004EC220_AddSkillElemDamage(pUnit, wszText, pSkillsTxt, nStringA, nSkillId, nSkillLevel);
+        SKILLDESC_AddSkillElemDamage(pUnit, wszText, pSkillsTxt, nStringA, nSkillId, nSkillLevel);
         return 1;
     case 6:
-        sub_004EC2E0_AddPhysDamage(pUnit, wszText, nSkillId, nCalcA, nSkillLevel, nCalcB);
+        SKILLDESC_AddPhysDamage(pUnit, wszText, nSkillId, nCalcA, nSkillLevel, nCalcB);
         return 1;
     case 7:
-        sub_004EC510_AddToHit(nSkillLevel, nSkillId, pUnit, wszText);
+        SKILLDESC_AddToHit(nSkillLevel, nSkillId, pUnit, wszText);
         return 1;
     case 8:
         sub_004E80F0_AddRangeText(wszText, nCalcA, nCalcB, nSkillLevel, nStringA, 0);

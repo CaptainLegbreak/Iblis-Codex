@@ -76,7 +76,8 @@ static inline unsigned int sub_RareSeedRollLimited(D2SeedStrc* pSeed, int nMax)
     return 0;
 }
 
-static unsigned short __stdcall sub_005C19A0_RollRareAffixOld(D2UnitStrc* pItem, int bPrefix)
+// build: symbol ?SKILLITEM_RollRareAffixLegacy@* 0x005C19A0
+static unsigned short __stdcall SKILLITEM_RollRareAffixLegacy(D2UnitStrc* pItem, int bPrefix)
 {
     D2RareAffixIndexAndPtrStrc tAffixes[512];
 
@@ -138,7 +139,8 @@ static unsigned short __stdcall sub_005C19A0_RollRareAffixOld(D2UnitStrc* pItem,
     return pAffix->nIndex + 1;
 }
 
-static unsigned short __stdcall sub_005C1AB0_RollRareAffixNew(D2UnitStrc* pItem, int bPrefix)
+// build: symbol ?SKILLITEM_RollRareAffix@* 0x005C1AB0
+static unsigned short __stdcall SKILLITEM_RollRareAffix(D2UnitStrc* pItem, int bPrefix)
 {
     D2RareAffixIndexAndPtrStrc tAffixes[512];
 
@@ -204,10 +206,10 @@ static inline unsigned short D2GAME_RollRareAffixInline(D2UnitStrc* pItem, int b
 {
     if (ITEMS_GetItemFormat(pItem) >= 1u)
     {
-        return sub_005C1AB0_RollRareAffixNew(pItem, bPrefix);
+        return SKILLITEM_RollRareAffix(pItem, bPrefix);
     }
 
-    return sub_005C19A0_RollRareAffixOld(pItem, bPrefix);
+    return SKILLITEM_RollRareAffixLegacy(pItem, bPrefix);
 }
 
 static __forceinline bool ITEMS_HasAffixOrGroupInline(D2UnitStrc* pItem, unsigned short nAffix, int bPrefix)
@@ -482,7 +484,8 @@ int __fastcall D2GAME_RollRareItem_6FC53360(D2UnitStrc* pItem, D2ItemDropStrc* p
     return ITEMS_RollLegacyRareItem(pItemDrop, pItem);
 }
 
-static __declspec(noinline) int __stdcall sub_005C0D40_PercentWithMinimum(int nValue, int nPercent, int nMin)
+// build: symbol ?SKILLITEM_PercentWithMinimum@* 0x005C0D40
+static __declspec(noinline) int __stdcall SKILLITEM_PercentWithMinimum(int nValue, int nPercent, int nMin)
 {
     const int nResult = nValue * nPercent / 100;
     if (nResult < nMin)
@@ -564,10 +567,10 @@ int __fastcall ITEMS_ApplyLegacyLowQuality(D2UnitStrc* pItem, D2ItemDropStrc* pI
 
         if (ITEMS_CheckIfThrowable(pItem))
         {
-            const int nMinThrowDamage = sub_005C0D40_PercentWithMinimum(STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_THROW_MINDAMAGE, 0), 75, 2);
+            const int nMinThrowDamage = SKILLITEM_PercentWithMinimum(STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_THROW_MINDAMAGE, 0), 75, 2);
             STATLIST_SetUnitStat(pItem, STAT_ITEM_THROW_MINDAMAGE, nMinThrowDamage, 0);
 
-            const int nMaxThrowDamage = sub_005C0D40_PercentWithMinimum(STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_THROW_MAXDAMAGE, 0), 75, 1);
+            const int nMaxThrowDamage = SKILLITEM_PercentWithMinimum(STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_THROW_MAXDAMAGE, 0), 75, 1);
             STATLIST_SetUnitStat(pItem, STAT_ITEM_THROW_MAXDAMAGE, nMaxThrowDamage, 0);
         }
         nResult = 1;
@@ -658,10 +661,10 @@ int __fastcall ITEMS_ApplyLowQuality(D2UnitStrc* pItem, D2ItemDropStrc* pItemDro
 
         if (ITEMS_CheckIfThrowable(pItem))
         {
-            const int nMinThrowDamage = sub_005C0D40_PercentWithMinimum(STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_THROW_MINDAMAGE, 0), 75, 2);
+            const int nMinThrowDamage = SKILLITEM_PercentWithMinimum(STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_THROW_MINDAMAGE, 0), 75, 2);
             STATLIST_SetUnitStat(pItem, STAT_ITEM_THROW_MINDAMAGE, nMinThrowDamage, 0);
 
-            const int nMaxThrowDamage = sub_005C0D40_PercentWithMinimum(STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_THROW_MAXDAMAGE, 0), 75, 1);
+            const int nMaxThrowDamage = SKILLITEM_PercentWithMinimum(STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_THROW_MAXDAMAGE, 0), 75, 1);
             STATLIST_SetUnitStat(pItem, STAT_ITEM_THROW_MAXDAMAGE, nMaxThrowDamage, 0);
         }
         nResult = 1;

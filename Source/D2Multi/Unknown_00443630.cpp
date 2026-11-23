@@ -63,7 +63,7 @@ int __fastcall CHATDLG_SetupCharacter(unsigned short wValue, const char* szText0
 void __fastcall CHATDLG_ShowError(const Unicode* pText, D2LaunchCallback pfnDone);                     // 0x00440140
 void __fastcall CHATDLG_ShowTimedMessage(const Unicode* pText, D2LaunchCallback pfnDone);                      // 0x004401C0
 void __fastcall CHATDLG_JoinChannel(const char* szText);                                                       // 0x004411E0
-int __fastcall sub_004428D0_SendChatText(char* szText, int bWhisper); // 0x004428D0
+int __fastcall CHATDLG_SendChatText(char* szText, int bWhisper); // 0x004428D0
 void __cdecl CHATDLG_DestroyJoinControls();                                                                          // 0x00443130
 int __fastcall sub_004438E0_Lookup(const char* szName, const char* szPassword, D2LaunchGameRecStrc* pRecord); // 0x004438E0
 void __cdecl CHATDLG_DestroyProfileControls();                                                                                // 0x00443E10

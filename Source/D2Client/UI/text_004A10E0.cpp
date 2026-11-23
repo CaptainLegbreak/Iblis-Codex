@@ -12,11 +12,11 @@ void __fastcall GAME_ResetMouseState(); // 0x0044DA40
 D2SoundStrc* __fastcall sub_004B9610(int nSound); // 0x004B9610
 void __fastcall sub_004B9EF0_ArmHint(D2SoundStrc* pSound, int nZero, int nZero2, int nMode); // 0x004B9EF0
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nId, int nType); // 0x00463990
-void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int nType, unsigned int nId); // 0x004786A0
+void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int nType, unsigned int nId); // 0x004786A0
 extern "C" void __fastcall NPCMENU_ClearNpcInventoryAndSound(int nUnitId); // 0x004B3830
 void __fastcall sub_00467430_SetSelectionRect(D2RectStrc* pRect); // 0x00467430
 void __cdecl sub_00466FE0(); // 0x00466FE0
-int __fastcall sub_00502EF0(int nFont); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nFont); // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 D2TextBlockStrc* __fastcall TEXT_CreateTextBox(const Unicode* pText, int nMode); // 0x004A05E0
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -50,7 +50,7 @@ extern int gnTextLeft_007BF278; // 0x007BF278
 static int gnHandlersSet_007BF27C; // 0x007BF27C
 
 // 0x0049D370
-static void sub_0049D370_FreeTextLines(D2TextRowStrc* pLine)
+static void TEXT_FreeTextLines(D2TextRowStrc* pLine)
 {
     while (pLine)
     {
@@ -66,7 +66,7 @@ __forceinline void __stdcall TEXT_FreeTextBox(D2TextBlockStrc* pBox)
 {
     if (pBox)
     {
-        sub_0049D370_FreeTextLines(pBox->pLines);
+        TEXT_FreeTextLines(pBox->pLines);
         FOG_Free(pBox, gszTextSourceFile, 0x68E, 0);
     }
 }
@@ -108,7 +108,7 @@ void __fastcall sub_004A10E0_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nM
             D2UnitStrc* pPreviousNpc = CUNIT_FindClientUnit(gnNpcId_007BF202, 1);
             if (pPreviousNpc && pPreviousNpc != pUnit)
             {
-                sub_004786A0_SendDwords2(0x30, 1, gnNpcId_007BF202);
+                MSG_SendTwoDwords(0x30, 1, gnNpcId_007BF202);
                 NPCMENU_ClearNpcInventoryAndSound(gnNpcId_007BF202);
             }
         }
@@ -127,7 +127,7 @@ void __fastcall sub_004A10E0_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nM
     if (!gpTextBox)
     {
         gnTextState_007BF1BC = 0;
-        int nPreviousFont = sub_00502EF0(8);
+        int nPreviousFont = D2Win_10127_SetFont(8);
         gpTextBox = TEXT_CreateTextBox(D2LANG_GetStringFromTblIndex(nMessage), 2);
         if (!gpTextBox)
         {
@@ -135,7 +135,7 @@ void __fastcall sub_004A10E0_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nM
             sub_00408A60(gszEmptyString, sub_00408090(), 0x1024);
             exit(-1);
         }
-        sub_00502EF0(nPreviousFont);
+        D2Win_10127_SetFont(nPreviousFont);
         sub_004BAA50_RefreshHintRange();
         gnSoundPlaying_007BF24B = 0;
         int nSound = sub_004E0650_GetStringSound(nMessage);

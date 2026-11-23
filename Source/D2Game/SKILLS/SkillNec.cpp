@@ -147,7 +147,7 @@ void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pAttacker, D
 
 int __fastcall SKILLS_IsValidTerrorTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005C3D50
 
-D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse); // 0x0056E970
+D2StatListStrc* __fastcall SKILLS_ApplyStateEffect(D2CurseStrc* pCurse); // 0x0056E970
 
 void __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x00627150
 
@@ -414,7 +414,7 @@ D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoo
 
 int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 
-int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
+int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
 void __fastcall AIGENERAL_AllocMinionList(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pMinion); // 0x0058F100
 
@@ -782,7 +782,7 @@ int __fastcall SKILLS_SrvSt21_Revive(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
 }
 
 // 0x005C33D0
-int __fastcall sub_005C33D0_GetSkillValue(int nSkillId)
+int __fastcall SKILLS_GetSkillValue(int nSkillId)
 {
     switch (nSkillId)
     {
@@ -914,7 +914,7 @@ int __fastcall SKILLS_AuraCallback_ApplyCurse(D2UnitStrc* pUnit, D2UnkNecSkillSt
     curse.nState = pArgs->nAuraTargetState;
     curse.pStateRemoveCallback = pArgs->unk0x08 ? SKILLS_CurseStateCallback_ResetAi : 0;
 
-    D2StatListStrc* pStatList = sub_0056E970(&curse);
+    D2StatListStrc* pStatList = SKILLS_ApplyStateEffect(&curse);
     if (!pStatList)
     {
         return 0;
@@ -1220,7 +1220,7 @@ int __fastcall SKILLS_SrvDo059_Attract(D2GameStrc* pGame, D2UnitStrc* pUnit, int
     curse.nStat = -1;
     curse.nState = pSkillsTxtRecord->wAuraTargetState;
     curse.pStateRemoveCallback = SKILLS_CurseStateCallback_EndAttract;
-    sub_0056E970(&curse);
+    SKILLS_ApplyStateEffect(&curse);
     return 1;
 }
 
@@ -1272,7 +1272,7 @@ int __fastcall SKILLS_AuraCallback_ApplyConfuse(D2UnitStrc* pUnit, D2UnkNecSkill
     curse.nState = pArgs->nAuraTargetState;
     curse.pStateRemoveCallback = SKILLS_CurseStateCallback_ResetAlignment;
 
-    D2StatListStrc* pStatList = sub_0056E970(&curse);
+    D2StatListStrc* pStatList = SKILLS_ApplyStateEffect(&curse);
     if (!pStatList)
     {
         return 0;
@@ -1547,10 +1547,10 @@ int __fastcall D2GAME_SetSummonPassiveStats_6FD0C530(D2GameStrc* pGame, D2UnitSt
             if (pCost) {
                 int nValue = SKILLS_EvaluateSkillFormula(pUnit, pSkill->dwPassiveCalc[i], nSkillId, nSkillLevel);
                 STATLIST_AddUnitStat(pPet, nStat, nValue, 0);
-                if (pCost->wItemEvent[0] > 0 && !SUNITEVENT_GetEvent(pGame, pPet, 2, sub_00451F50_GetUnitGUID(pPet), nStat)) {
-                    SKILLS_RegisterUnitEvent(pGame, pPet, pCost->wItemEvent[0], nStat << 16, 0, pCost->wItemEventFunc[0], 2, sub_00451F50_GetUnitGUID(pPet));
+                if (pCost->wItemEvent[0] > 0 && !SUNITEVENT_GetEvent(pGame, pPet, 2, GAME_GetUnitGUID(pPet), nStat)) {
+                    SKILLS_RegisterUnitEvent(pGame, pPet, pCost->wItemEvent[0], nStat << 16, 0, pCost->wItemEventFunc[0], 2, GAME_GetUnitGUID(pPet));
                     const short nSecondEvent = pCost->wItemEvent[1];
-                    if (nSecondEvent > 0) SKILLS_RegisterUnitEvent(pGame, pPet, nSecondEvent, nStat << 16, 0, pCost->wItemEventFunc[1], 2, sub_00451F50_GetUnitGUID(pPet));
+                    if (nSecondEvent > 0) SKILLS_RegisterUnitEvent(pGame, pPet, nSecondEvent, nStat << 16, 0, pCost->wItemEventFunc[1], 2, GAME_GetUnitGUID(pPet));
                 }
             }
         }
@@ -1564,15 +1564,15 @@ int __fastcall D2GAME_SetSummonPassiveStats_6FD0C530(D2GameStrc* pGame, D2UnitSt
                 int nValue = SKILLS_EvaluateSkillFormula(pUnit, pSkill->dwAuraStatCalc[i], nSkillId, nSkillLevel);
                 if (nValue) {
                     if (!pList) {
-                        pList = STATLIST_AllocStatList(pGame->pMemoryPool, 0, 0, GAME_GetUnitTypeOrInvalid(pPet), sub_00451F50_GetUnitGUID(pPet));
+                        pList = STATLIST_AllocStatList(pGame->pMemoryPool, 0, 0, GAME_GetUnitTypeOrInvalid(pPet), GAME_GetUnitGUID(pPet));
                         if (!pList) return 0;
                         D2COMMON_10475_PostStatToStatList(pPet, pList, 1);
                     }
                     STATLIST_SetStat(pList, nStat, nValue, 0);
-                    if (pCost->wItemEvent[0] > 0 && !SUNITEVENT_GetEvent(pGame, pPet, 2, sub_00451F50_GetUnitGUID(pPet), nStat)) {
-                        SKILLS_RegisterUnitEvent(pGame, pPet, pCost->wItemEvent[0], nStat << 16, 0, pCost->wItemEventFunc[0], 2, sub_00451F50_GetUnitGUID(pPet));
+                    if (pCost->wItemEvent[0] > 0 && !SUNITEVENT_GetEvent(pGame, pPet, 2, GAME_GetUnitGUID(pPet), nStat)) {
+                        SKILLS_RegisterUnitEvent(pGame, pPet, pCost->wItemEvent[0], nStat << 16, 0, pCost->wItemEventFunc[0], 2, GAME_GetUnitGUID(pPet));
                         const short nSecondEvent = pCost->wItemEvent[1];
-                    if (nSecondEvent > 0) SKILLS_RegisterUnitEvent(pGame, pPet, nSecondEvent, nStat << 16, 0, pCost->wItemEventFunc[1], 2, sub_00451F50_GetUnitGUID(pPet));
+                    if (nSecondEvent > 0) SKILLS_RegisterUnitEvent(pGame, pPet, nSecondEvent, nStat << 16, 0, pCost->wItemEventFunc[1], 2, GAME_GetUnitGUID(pPet));
                     }
                 }
             }
@@ -2247,7 +2247,7 @@ int __fastcall SKILLS_SrvDo062_BonePrison(D2GameStrc* pGame, D2UnitStrc* pUnit, 
             if (!pOwner)
             {
                 pOwner = pPet;
-                AIGENERAL_SetOwnerData(pGame, pPet, sub_00451F50_GetUnitGUID(pUnit), GAME_GetUnitTypeOrInvalid(pUnit), 0, 1);
+                AIGENERAL_SetOwnerData(pGame, pPet, GAME_GetUnitGUID(pUnit), GAME_GetUnitTypeOrInvalid(pUnit), 0, 1);
             }
             else
             {
@@ -2810,7 +2810,7 @@ int __fastcall SKILLS_EventFunc27_Slow(D2GameStrc* pGame, int nEvent, D2UnitStrc
     curse.nStat = STAT_A;
     curse.nStatValue = nSlow;
     curse.nState = CURSE_STATE;
-    D2StatListStrc* pStatList = sub_0056E970(&curse);
+    D2StatListStrc* pStatList = SKILLS_ApplyStateEffect(&curse);
     if (!pStatList)
         return 0;
     STATLIST_SetStatValue(pStatList, STAT_B, nSlow, 0);

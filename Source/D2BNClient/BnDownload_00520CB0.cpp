@@ -61,7 +61,8 @@ void __fastcall BNDOWNLOAD_DecodeKeyDigits(const char* szKey, unsigned char* pOu
 
 void __stdcall BNDOWNLOAD_SubstituteKeyNibbles(unsigned int* pKey); // 0x00522980
 
-__declspec(noinline) static unsigned int __fastcall sub_005226D0_PermuteKeyBits(int nUnused, unsigned int* pKey);
+// build: symbol ?BNDOWNLOAD_PermuteKeyBits@* 0x005226D0
+__declspec(noinline) static unsigned int __fastcall BNDOWNLOAD_PermuteKeyBits(int nUnused, unsigned int* pKey);
 
 // 0x00520CB0
 int __fastcall BNDOWNLOAD_HandleClientId(const D2BnClientIdReplyStrc* pData, unsigned int nSize)
@@ -143,7 +144,7 @@ int __fastcall BNDOWNLOAD_HandleAuthInfo(const unsigned char* pData, unsigned in
     return 1;
 }
 
-static unsigned int __fastcall sub_005226D0_PermuteKeyBits(int nUnused, unsigned int* pKey)
+static unsigned int __fastcall BNDOWNLOAD_PermuteKeyBits(int nUnused, unsigned int* pKey)
 {
     const unsigned int nResult = pKey[0] >> (pKey[1] & 0x1F);
     pKey[2] ^= nResult;
@@ -168,7 +169,7 @@ void __fastcall BNDOWNLOAD_DecodeCDKey(const char* szKey, unsigned int* pProduct
     }
 
     BNDOWNLOAD_SubstituteKeyNibbles(aKey);
-    sub_005226D0_PermuteKeyBits(0, aKey);
+    BNDOWNLOAD_PermuteKeyBits(0, aKey);
 
     *pProduct = aKey[0] >> 10;
     *pPublic = ((aKey[0] & 0x3FF) << 16) | (aKey[1] >> 16);

@@ -7,7 +7,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" __declspec(dllimport) void __stdcall SmackClose(void* hSmack); // 0x006CC608
 
-D2GlideFloorCacheEntryStrc* __fastcall sub_0050F570_FloorCacheUnlink(D2GlideFloorCacheStrc* pCache, int nIndex); // 0x0050F570
+D2GlideFloorCacheEntryStrc* __fastcall GLIDE_FloorCacheUnlink(D2GlideFloorCacheStrc* pCache, int nIndex); // 0x0050F570
 
 extern D2GrTexInfoStrc gtGlideTileTexInfo; // 0x0072F6A8
 
@@ -449,7 +449,7 @@ void __fastcall GLIDE_TexCacheEvict(D2GlideTexCacheStrc* pCache)
 
 
 // 0x0050F570
-D2GlideFloorCacheEntryStrc* __fastcall sub_0050F570_FloorCacheUnlink(D2GlideFloorCacheStrc* pCache, int nIndex)
+D2GlideFloorCacheEntryStrc* __fastcall GLIDE_FloorCacheUnlink(D2GlideFloorCacheStrc* pCache, int nIndex)
 {
     D2GlideFloorCacheEntryStrc* pNode = pCache->pHead;
     if (!pNode)
@@ -513,11 +513,11 @@ void __fastcall GLIDE_FloorCacheEvict(D2GlideFloorCacheStrc* pCache)
 }
 
 // 0x0050F750
-void __fastcall sub_0050F750_FloorCacheRemove(D2GlideFloorCacheStrc* pCache, int nIndex)
+void __fastcall GLIDE_FloorCacheRemove(D2GlideFloorCacheStrc* pCache, int nIndex)
 {
     if (!pCache->nUsed)
         return;
-    D2GlideFloorCacheEntryStrc* pEntry = sub_0050F570_FloorCacheUnlink(pCache, nIndex);
+    D2GlideFloorCacheEntryStrc* pEntry = GLIDE_FloorCacheUnlink(pCache, nIndex);
     if (pEntry)
     {
         D2TileLibraryEntryStrc* pTile = pEntry->pTile;

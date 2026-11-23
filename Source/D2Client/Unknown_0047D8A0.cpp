@@ -16,7 +16,7 @@ int __cdecl GAME_GetAlwaysRun(); // 0x0044BE90
 int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
-int __cdecl sub_004979E0(); // 0x004979E0
+int __cdecl HIREABLES_AreBeltRowsShown(); // 0x004979E0
 int __cdecl HIREABLES_GetBeltRowCount(); // 0x004979F0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
@@ -167,7 +167,7 @@ int __cdecl sub_0047EB50_IsAnyLeftPanelOpen()
         bResult = 1;
         gbAnyLeftPanelOpen = bResult;
     }
-    if ((GAME_GetUIVarState(0x1F) || sub_004979E0()) && HIREABLES_GetBeltRowCount() > 1)
+    if ((GAME_GetUIVarState(0x1F) || HIREABLES_AreBeltRowsShown()) && HIREABLES_GetBeltRowCount() > 1)
     {
         bResult = 1;
         gbAnyLeftPanelOpen = bResult;

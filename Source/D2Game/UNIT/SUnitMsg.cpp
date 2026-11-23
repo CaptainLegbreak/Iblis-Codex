@@ -391,7 +391,7 @@ struct D2UnitPacketListStrc
 
 int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit);                                        // 0x0044BE50
 
-int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit);                                                 // 0x00451F50
+int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit);                                                 // 0x00451F50
 
 void __fastcall D2GAME_PACKETS_SendPacket0x9E_9F_A0_6FC3D520(D2ClientStrc* pClient, D2UnitStrc* pUnit, unsigned short nStatId, unsigned int nValue); // 0x0053BEE0
 
@@ -405,7 +405,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x23_6FC3DC60(D2ClientStrc* pClient, un
 
 void __fastcall SCMD_SendUnitActionAtPosition(D2ClientStrc* pClient, unsigned char a2, int a3, unsigned short a4, unsigned short a5, int a6, unsigned short a7, unsigned char a8, int a9); // 0x0053D4D0
 
-void __fastcall sub_0053D530(D2ClientStrc* pClient, unsigned char a2, int a3, unsigned char nUnitType, int nUnitGUID, unsigned short a6, unsigned short a7, unsigned char a8, int a9); // 0x0053D530
+void __fastcall SCMD_SendSkillUseOnUnit(D2ClientStrc* pClient, unsigned char a2, int a3, unsigned char nUnitType, int nUnitGUID, unsigned short a6, unsigned short a7, unsigned char a8, int a9); // 0x0053D530
 
 void __fastcall D2GAME_PACKETS_SendPacket0xA4_6FC3FC00(D2ClientStrc* pClient, short a2);                    // 0x0053E1A0
 
@@ -1171,11 +1171,11 @@ void __fastcall SUNITMSG_SendQueuedMessages(D2UnitStrc* pUnit, D2ClientStrc* pCl
         switch (pMsg->nHeader)
         {
         case 0x99:
-            sub_0053D530(pClient, GAME_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit), pMsg->p99.nUnitType, pMsg->p99.dwUnitGUID, pMsg->p99.wSkill, pMsg->p99.nParam, pMsg->p99.nSkillLevel, 1);
+            SCMD_SendSkillUseOnUnit(pClient, GAME_GetUnitTypeOrInvalid(pUnit), GAME_GetUnitGUID(pUnit), pMsg->p99.nUnitType, pMsg->p99.dwUnitGUID, pMsg->p99.wSkill, pMsg->p99.nParam, pMsg->p99.nSkillLevel, 1);
             break;
 
         case 0x9A:
-            SCMD_SendUnitActionAtPosition(pClient, GAME_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit), pMsg->p9A.wX, pMsg->p9A.wY, pMsg->p9A.wSkill, pMsg->p9A.nParam, pMsg->p9A.nSkillLevel, 1);
+            SCMD_SendUnitActionAtPosition(pClient, GAME_GetUnitTypeOrInvalid(pUnit), GAME_GetUnitGUID(pUnit), pMsg->p9A.wX, pMsg->p9A.wY, pMsg->p9A.wSkill, pMsg->p9A.nParam, pMsg->p9A.nSkillLevel, 1);
             break;
 
         case 0x9E:
@@ -1210,7 +1210,7 @@ void __fastcall SUNITMSG_SendQueuedMessages(D2UnitStrc* pUnit, D2ClientStrc* pCl
             break;
 
         case 0x23:
-            D2GAME_PACKETS_SendPacket0x23_6FC3DC60(pClient, GAME_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit), pMsg->p23.nParam, pMsg->p23.wParam, pMsg->p23.dwParam);
+            D2GAME_PACKETS_SendPacket0x23_6FC3DC60(pClient, GAME_GetUnitTypeOrInvalid(pUnit), GAME_GetUnitGUID(pUnit), pMsg->p23.nParam, pMsg->p23.wParam, pMsg->p23.dwParam);
             break;
 
         default:

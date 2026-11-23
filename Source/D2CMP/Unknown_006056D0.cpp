@@ -24,7 +24,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 extern const D2ColorBlockStrc gtColorBlock; // 0x007434D8
-double __stdcall sub_00604FE0_HueToRgb(double n1, double n2, double hue); // 0x00604FE0
+double __stdcall PaletteHueToRgb(double n1, double n2, double hue); // 0x00604FE0
 void __stdcall PaletteBuildTintTables(unsigned char* pData); // 0x00605D20
 void __stdcall sub_00605DE0_BuildDarkenTables(unsigned char* pData); // 0x00605DE0
 void __stdcall sub_00605E60_BuildLightenTables(unsigned char* pData); // 0x00605E60
@@ -258,9 +258,9 @@ static void sub_00605080_HslToRgb(const D2HslStrc* pHsl, D2PalRgbaStrc* pRgb)
             }
 
             const double dM1 = pHsl->f_10 + pHsl->f_10 - dM2;
-            nRed = (unsigned char)(sub_00604FE0_HueToRgb(dM1, dM2, pHsl->f_0 + 120.0) * 255.0);
-            nGreen = (unsigned char)(sub_00604FE0_HueToRgb(dM1, dM2, pHsl->f_0) * 255.0);
-            nBlue = (unsigned char)(sub_00604FE0_HueToRgb(dM1, dM2, pHsl->f_0 - 120.0) * 255.0);
+            nRed = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->f_0 + 120.0) * 255.0);
+            nGreen = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->f_0) * 255.0);
+            nBlue = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->f_0 - 120.0) * 255.0);
         }
 
         pRgb->nRed = nRed;

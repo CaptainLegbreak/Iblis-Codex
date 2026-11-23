@@ -72,7 +72,7 @@ void __fastcall SKILLS_RemoveStateAndRestoreSkillMode(D2UnitStrc* pUnit, int nSt
 
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
-void __fastcall sub_005417D0_DirectDated(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
+void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 
 void __fastcall SKILLS_ApplyAuraStatsToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2SkillsTxt* pSkillsTxtRecord, int nSkillId, int nSkillLevel); // 0x005C6CC0
 
@@ -207,7 +207,7 @@ int __fastcall SKILLS_CreateMissilesAroundTarget(D2GameStrc* pGame, D2UnitStrc* 
 
 void __fastcall SUNITDMG_FreeAttackerDefenderCombatList(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender); // 0x0057C9F0
 
-int __fastcall sub_00463860(D2UnitStrc* pUnit);                                                             // 0x00463860
+int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit);                                                             // 0x00463860
 
 int __fastcall CUNIT_ValidateMonsterId(int nMonsterId);                                             // 0x00463900
 
@@ -241,7 +241,7 @@ int __stdcall SKILLS_GetConcentrationDamageBonus(D2UnitStrc* pUnit, int nSkillId
 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);                         // 0x006253B0
 
-D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse);                                               // 0x0056E970
+D2StatListStrc* __fastcall SKILLS_ApplyStateEffect(D2CurseStrc* pCurse);                                               // 0x0056E970
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID);                // 0x00552F60
 
@@ -646,7 +646,7 @@ int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc*, D2UnitStrc*, unsigned char
 
 int __fastcall AITACTICS_WalkToTargetCoordinates(D2GameStrc*, D2UnitStrc*, int, int); // 0x005DED90
 
-int __fastcall sub_005DEFE0_Escape(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char, int); // 0x005DEFE0
+int __fastcall AITACTICS_WalkAwayFromTarget(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char, int); // 0x005DEFE0
 
 int __fastcall D2GAME_AICORE_WalkToOwner_6FCD0B60(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char); // 0x005DF530
 
@@ -978,7 +978,7 @@ int __fastcall SKILLS_SrvDo116_Wearwolf_Wearbear(D2GameStrc* pGame, D2UnitStrc* 
     STATLIST_SetStatRemoveCallback(pStatList, SKILLS_RemoveStateAndRestoreSkillMode);
     D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
     STATES_ToggleState(pUnit, pSkillsTxtRecord->nAuraState, 1);
-    sub_005417D0_DirectDated(pGame, pUnit, EVENTTYPE_REMOVESTATE, pGame->dwGameFrame + nLength, 0, 0);
+    EVENT_SetEvent(pGame, pUnit, EVENTTYPE_REMOVESTATE, pGame->dwGameFrame + nLength, 0, 0);
     SKILLS_ApplyAuraStatsToStatList(pUnit, pStatList, pSkillsTxtRecord, nSkillId, nSkillLevel);
     STATLIST_SetStatIfListIsValid(pStatList, STAT_MODIFIERLIST_SKILL, nSkillId, 0);
     STATLIST_SetStatIfListIsValid(pStatList, STAT_MODIFIERLIST_LEVEL, nSkillLevel, 0);
@@ -1302,7 +1302,7 @@ int __fastcall SKILLS_SrvDo120_FeralRage_Maul(D2GameStrc* pGame, D2UnitStrc* pUn
     }
 
     STATLIST_SetListExpireFrame(pStatList, nExpireFrame);
-    sub_005417D0_DirectDated(pGame, pUnit, 0xC, nExpireFrame, 0, 0);
+    EVENT_SetEvent(pGame, pUnit, 0xC, nExpireFrame, 0, 0);
     STATES_ToggleGfxStateFlag(pUnit, pSkillsTxtRecord->nAuraState, 1);
 
     const int nParam = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel);
@@ -1388,7 +1388,7 @@ int __stdcall SKILLS_ApplyAuraTargetState(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     D2COMMON_10475_PostStatToStatList(pTarget, pStatList, 1);
     STATES_ToggleState(pTarget, pSkillsTxtRecord->wAuraTargetState, 1);
     STATLIST_SetListExpireFrame(pStatList, nExpireFrame);
-    sub_005417D0_DirectDated(pGame, pTarget, 0xC, nExpireFrame, 0, 0);
+    EVENT_SetEvent(pGame, pTarget, 0xC, nExpireFrame, 0, 0);
     SKILLS_ApplyAuraStatsToStatList(pUnit, pStatList, pSkillsTxtRecord, nSkillId, nSkillLevel);
     return 1;
 }
@@ -1690,7 +1690,7 @@ int __fastcall SKILLS_SrvDo018_DefensiveBuff(D2GameStrc* pGame, D2UnitStrc* pUni
     curse.nState = pSkillsTxtRecord->nAuraState;
     curse.pStateRemoveCallback = SKILLS_CurseStateCallback_DefensiveBuff;
 
-    D2StatListStrc* pStatList = sub_0056E970(&curse);
+    D2StatListStrc* pStatList = SKILLS_ApplyStateEffect(&curse);
     if (!pStatList)
     {
         return 0;
@@ -1848,7 +1848,7 @@ int __fastcall SKILLS_SrvDo023_Blaze_EnergyShield_SpiderLay(D2GameStrc* pGame, D
     curse.nStatValue = 0;
     curse.nState = pSkillsTxtRecord->nAuraState;
 
-    D2StatListStrc* pStatList = sub_0056E970(&curse);
+    D2StatListStrc* pStatList = SKILLS_ApplyStateEffect(&curse);
     if (!pStatList)
     {
         return 0;
@@ -2158,14 +2158,14 @@ int __fastcall SKILLS_SrvDo124_Armageddon_Hurricane(D2GameStrc* pGame, D2UnitStr
     }
 
     D2COMMON_10476(pStatList, nExpireFrame);
-    sub_005417D0_DirectDated(pGame, pUnit, EVENTTYPE_REMOVESTATE, nExpireFrame, 0, 0);
+    EVENT_SetEvent(pGame, pUnit, EVENTTYPE_REMOVESTATE, nExpireFrame, 0, 0);
     SKILLS_ApplyAuraStatsToStatList(pUnit, pStatList, pSkillsTxtRecord, nSkillId, nSkillLevel);
     STATLIST_SetStatIfListIsValid(pStatList, STAT_MODIFIERLIST_SKILL, nSkillId, 0);
     STATLIST_SetStatIfListIsValid(pStatList, STAT_MODIFIERLIST_LEVEL, nSkillLevel, 0);
 
     const int nFrame = SKILLDESC_GetSkillParamFour(nSkillId) + pGame->dwGameFrame;
     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_ACTIVESTATE, nSkillId);
-    sub_005417D0_DirectDated(pGame, pUnit, EVENTTYPE_ACTIVESTATE, nFrame, nSkillId, nSkillLevel);
+    EVENT_SetEvent(pGame, pUnit, EVENTTYPE_ACTIVESTATE, nFrame, nSkillId, nSkillLevel);
     SKILLS_SetParam1(pSkill, nParam);
     return 1;
 }
@@ -2213,7 +2213,7 @@ int __fastcall SKILLS_SrvDo145_PeriodicAreaDamage(D2GameStrc* pGame, D2UnitStrc*
 
     const int nFrame = SKILLDESC_GetSkillParamFour(nSkillId) + pGame->dwGameFrame;
     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_ACTIVESTATE, nSkillId);
-    sub_005417D0_DirectDated(pGame, pUnit, EVENTTYPE_ACTIVESTATE, nFrame, nSkillId, nSkillLevel);
+    EVENT_SetEvent(pGame, pUnit, EVENTTYPE_ACTIVESTATE, nFrame, nSkillId, nSkillLevel);
 
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
     if (!pRoom || DUNGEON_IsRoomInTown(pRoom))
@@ -2336,7 +2336,7 @@ int __fastcall SKILLS_SrvDo146_PeriodicRandomMissile(D2GameStrc* pGame, D2UnitSt
     if (nRange <= 0) return DeleteEvent(pGame, pUnit, nSkillId);
     int nFrame = SKILLDESC_GetSkillParamFour(nSkillId) + pGame->dwGameFrame;
     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 5, nSkillId);
-    sub_005417D0_DirectDated(pGame, pUnit, 5, nFrame, nSkillId, nSkillLevel);
+    EVENT_SetEvent(pGame, pUnit, 5, nFrame, nSkillId, nSkillLevel);
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
     if (!pRoom || DUNGEON_IsRoomInTown(pRoom)) return 0;
     SEED_InitLowSeed(pSeed, SKILLS_GetParam1(pSkill));
@@ -3352,7 +3352,7 @@ static inline int SKILLDRUID_GetUnitType(D2UnitStrc* pUnit)
 }
 
 // 0x005D16A0
-int __fastcall sub_005D16A0_TransferLifeFromDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLS_SrvDo127_SuckBlood(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
     if (!pSkillsTxtRecord)
@@ -3452,7 +3452,7 @@ void __fastcall SKILLS_AttachImpToMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, 
         return;
     }
 
-    const int nBaseId = sub_00463860(pUnit);
+    const int nBaseId = CUNIT_GetMonsterBaseId(pUnit);
     if (nBaseId < 0)
     {
         return;
@@ -3464,7 +3464,7 @@ void __fastcall SKILLS_AttachImpToMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, 
         return;
     }
 
-    int nTargetBaseId = sub_00463860(pTarget);
+    int nTargetBaseId = CUNIT_GetMonsterBaseId(pTarget);
     if (nTargetBaseId < 0 || nTargetBaseId >= nMonStatsCount)
     {
         nTargetBaseId = -1;
@@ -3493,7 +3493,7 @@ void __fastcall SKILLS_DetachImpFromMonster(D2GameStrc* pGame, D2UnitStrc* pUnit
         return;
     }
 
-    const int nBaseId = sub_00463860(pUnit);
+    const int nBaseId = CUNIT_GetMonsterBaseId(pUnit);
     if (nBaseId < 0)
     {
         return;
@@ -3505,7 +3505,7 @@ void __fastcall SKILLS_DetachImpFromMonster(D2GameStrc* pGame, D2UnitStrc* pUnit
         return;
     }
 
-    int nOwnerBaseId = sub_00463860(pOwner);
+    int nOwnerBaseId = CUNIT_GetMonsterBaseId(pOwner);
     if (nOwnerBaseId < 0 || nOwnerBaseId >= nMonStatsCount)
     {
         nOwnerBaseId = -1;
@@ -3614,7 +3614,7 @@ static int __stdcall SKILLS_CreateMissileVolley(D2GameStrc* pGame, D2UnitStrc* p
 }
 
 // 0x005D1CD0
-int __fastcall sub_005D1CD0_SrvDoMissileVolley(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLS_SrvDo130_VineAttack(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -3990,7 +3990,7 @@ int __fastcall SKILLS_SrvSt28_BladeShield(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     curse.nStat = -1;
     curse.nState = pSkillsTxtRecord->nAuraState;
 
-    D2StatListStrc* pStatList = sub_0056E970(&curse);
+    D2StatListStrc* pStatList = SKILLS_ApplyStateEffect(&curse);
     if (!pStatList)
     {
         return 0;
@@ -4314,7 +4314,7 @@ static void __stdcall sub_005D1E10_Transform(Unit* owner, int level, int skill, 
 }
 
 // 0x005D1F70
-extern "C" int __fastcall sub_005D1F70_Dispatch(Game* game, Unit* owner, int skill, int level)
+extern "C" int __fastcall SKILLS_SrvDo131_OverseerWhip(Game* game, Unit* owner, int skill, int level)
 {
     SkillRecord* record = GetSkillRecord(skill);
     if (!record)
@@ -4472,7 +4472,7 @@ static __forceinline void HIRELING_StepAside(D2GameStrc* pGame, D2UnitStrc* pOwn
     sub_005DE190_SetAiParam(pUnit, 7, 0, 0);
     if (D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame, pUnit, pOwner, nSteps)) return;
     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
-    if (sub_005DEFE0_Escape(pGame, pUnit, pOwner, nSteps, 1)) return;
+    if (AITACTICS_WalkAwayFromTarget(pGame, pUnit, pOwner, nSteps, 1)) return;
     sub_005DE190_SetAiParam(pUnit, 0, 0, 40);
     AITACTICS_WalkToTargetCoordinates(pGame, pUnit, nX, nY);
 }

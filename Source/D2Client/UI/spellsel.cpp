@@ -78,7 +78,7 @@ void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
@@ -86,7 +86,7 @@ int __cdecl sub_00468730(); // 0x00468730
 
 int __cdecl sub_00468740(); // 0x00468740
 
-void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 
@@ -157,7 +157,7 @@ void __stdcall SPELLSEL_SkillSelectClickMsg(SMSGHANDLER_PARAMS* pMsg)
                 {
                     if (GAME_GetUIVarState(3))
                     {
-                        sub_00455F20(3, 1, 0);
+                        UI_SetUIVar(3, 1, 0);
                     }
 
                     pMsg->bReturn = 1;
@@ -166,8 +166,8 @@ void __stdcall SPELLSEL_SkillSelectClickMsg(SMSGHANDLER_PARAMS* pMsg)
                     return;
                 }
 
-                sub_004786A0_SendDwords2(0x3C, (gbSkillSelectRight ? 0x80000000 : 0) + gtHotkeySlots_007C0300.nSkill[i], gtHotkeySlots_007C0300.f_2D0[i]);
-                sub_00455F20(3, 1, 0);
+                MSG_SendTwoDwords(0x3C, (gbSkillSelectRight ? 0x80000000 : 0) + gtHotkeySlots_007C0300.nSkill[i], gtHotkeySlots_007C0300.f_2D0[i]);
+                UI_SetUIVar(3, 1, 0);
                 gbSkillSelectRight = 0;
                 bHandled = 1;
                 GAME_ResetMouseState();
@@ -177,7 +177,7 @@ void __stdcall SPELLSEL_SkillSelectClickMsg(SMSGHANDLER_PARAMS* pMsg)
 
     if (nStartY <= gnScreenHeight - 49 && !bHandled && GAME_GetUIVarState(3))
     {
-        sub_00455F20(3, 1, 0);
+        UI_SetUIVar(3, 1, 0);
     }
 
     pMsg->bReturn = 1;

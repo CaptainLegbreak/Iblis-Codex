@@ -65,7 +65,7 @@ void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* s
 
 D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
+D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
 int __fastcall GFX_GetNodeValue(D2UnitStrc* pUnit, int nMode); // 0x0046E570
 
@@ -163,7 +163,7 @@ extern "C" D2GfxLayerHeaderStrc* __fastcall sub_004DB040_identity(void* pGfx); /
 
 static void __stdcall GFX_BuildMonsterCofPath(int nMode, char* szPath, unsigned int* pCode, int nMonsterId); // 0x0046F490
 
-static unsigned int sub_0046DB90_HashName(const char* szName);
+static unsigned int GFX_HashName(const char* szName); // 0x0046DB90
 
 static void __fastcall GFX_GetBaseName(char* szDest, const char* szPath); // 0x0046DBF0
 
@@ -193,7 +193,7 @@ static void GFX_LoadMonsterModeGfx(D2UnitStrc* pUnit, int nIndex); // 0x0046F9E0
 
 static void __stdcall GFX_PreloadMonsterModes(int bAsync, D2UnitStrc* pUnit); // 0x0046FEB0
 
-static void __stdcall sub_0046FF50_PreloadPlayerMode(int bAsync, D2UnitStrc* pUnit, int nMode);
+static void __stdcall GFX_PreloadPlayerMode(int bAsync, D2UnitStrc* pUnit, int nMode); // 0x0046FF50
 
 inline int STATES_IsUnitShapeShiftedInl(D2UnitStrc* pUnit)
 {
@@ -220,7 +220,7 @@ inline D2MonStats2Txt* DATATBLS_GetMonStats2TxtRecordInl(int nRecordId)
 }
 
 // 0x0046DB90
-static unsigned int sub_0046DB90_HashName(const char* szName)
+static unsigned int GFX_HashName(const char* szName)
 {
     D2_ASSERT(strlen(szName) < 8, 0x79);
     const unsigned int nHash = SStrHash(szName, 1, 0);
@@ -317,7 +317,8 @@ static int GFX_LoadMonsterGfx(D2UnitStrc* pUnit, int nIndex)
     return 0;
 }
 
-static D2HashedFileEntryStrc* __stdcall sub_0046DCC0_LoadHashedEntry(D2HashedFileStrc* pTable, const char* szPath)
+// build: symbol ?GFX_LoadHashedEntry@* 0x0046DCC0
+static D2HashedFileEntryStrc* __stdcall GFX_LoadHashedEntry(D2HashedFileStrc* pTable, const char* szPath)
 {
     char szName[0x104] = { 0 };
     char* pName = szName;
@@ -336,7 +337,7 @@ static D2HashedFileEntryStrc* __stdcall sub_0046DCC0_LoadHashedEntry(D2HashedFil
         }
 
         D2_ASSERT(pEntry->pData[2] <= 0x40, 0xEC);
-        const unsigned int nBucket = sub_0046DB90_HashName(szName);
+        const unsigned int nBucket = GFX_HashName(szName);
         pEntry->pNext = pTable->pEntries[nBucket];
         pTable->pEntries[nBucket] = pEntry;
         gnCofMemoryUsed += pEntry->nSize + sizeof(D2HashedFileEntryStrc);
@@ -355,7 +356,7 @@ static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int 
     D2HashedFileEntryStrc* pEntry = GFX_FindHashedEntry(&gtGlobalHashedFile, szPath);
     if (!pEntry)
     {
-        pEntry = sub_0046DCC0_LoadHashedEntry(&gtGlobalHashedFile, szPath);
+        pEntry = GFX_LoadHashedEntry(&gtGlobalHashedFile, szPath);
         D2_ASSERT(pEntry, 0xEC3);
     }
 
@@ -422,7 +423,7 @@ D2HashedFileEntryStrc* __stdcall GFX_FindHashedEntry(D2HashedFileStrc* pTable, c
     char szName[0x104] = { 0 };
     GFX_GetBaseName(szName, szPath);
     _strlwr(szName);
-    for (D2HashedFileEntryStrc* pEntry = pTable->pEntries[sub_0046DB90_HashName(szName)]; pEntry; pEntry = pEntry->pNext)
+    for (D2HashedFileEntryStrc* pEntry = pTable->pEntries[GFX_HashName(szName)]; pEntry; pEntry = pEntry->pNext)
     {
         if (*(unsigned int*)&szName[0] == pEntry->dwName[0] && *(unsigned int*)&szName[4] == pEntry->dwName[1])
         {
@@ -502,7 +503,7 @@ static int __stdcall GFX_LoadGfxNode(int* pValue, int nIndex, D2UnitStrc* pUnit)
 
     D2UnitStrc* pOwner;
     D2InventoryStrc* pInventory;
-    if (STATES_IsUnitShapeShiftedInl(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = sub_004639D0_GetOwnerUnit(pUnit)) != 0)
+    if (STATES_IsUnitShapeShiftedInl(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = CUNIT_GetOwnerUnit(pUnit)) != 0)
     {
         pInventory = pOwner->pInventory;
     }
@@ -533,7 +534,7 @@ static int __stdcall GFX_LoadGfxNode(int* pValue, int nIndex, D2UnitStrc* pUnit)
         D2HashedFileEntryStrc* pEntry = GFX_FindHashedEntry(pTable, szPath);
         if (!pEntry)
         {
-            pEntry = sub_0046DCC0_LoadHashedEntry(pTable, szPath);
+            pEntry = GFX_LoadHashedEntry(pTable, szPath);
             if (!pEntry)
             {
                 return 0;
@@ -850,7 +851,7 @@ static int __stdcall GFX_LoadUnitLayers(int bAsync, int nMode, D2UnitStrc* pUnit
     int nResult = 1;
     D2InventoryStrc* pInventory;
     D2UnitStrc* pOwner;
-    if (IsShapeShifted(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = sub_004639D0_GetOwnerUnit(pUnit)) != 0)
+    if (IsShapeShifted(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = CUNIT_GetOwnerUnit(pUnit)) != 0)
     {
         pInventory = pOwner->pInventory;
     }
@@ -991,7 +992,7 @@ static void __stdcall GFX_PreloadMonsterModes(int bAsync, D2UnitStrc* pUnit)
 }
 
 // 0x0046FF50
-static void __stdcall sub_0046FF50_PreloadPlayerMode(int bAsync, D2UnitStrc* pUnit, int nMode)
+static void __stdcall GFX_PreloadPlayerMode(int bAsync, D2UnitStrc* pUnit, int nMode)
 {
     int nAnimMode;
     int nType;
@@ -1100,7 +1101,7 @@ static void GFX_PreloadRoomUnits(int bAsync)
                 for (unsigned int j = 0; j < gnPlayerModeCount; ++j)
                 {
 // build: symbol ?gaPlayerModes@* 0x00712AA0
-                    sub_0046FF50_PreloadPlayerMode(bAsync, pUnit, gaPlayerModes[j]);
+                    GFX_PreloadPlayerMode(bAsync, pUnit, gaPlayerModes[j]);
                 }
             }
 
@@ -1118,7 +1119,7 @@ static void GFX_PreloadPlayerModes(int bAsync, D2UnitStrc* pUnit)
 {
     for (unsigned int i = 0; i < gnPlayerModeCount; ++i)
     {
-        sub_0046FF50_PreloadPlayerMode(bAsync, pUnit, gaPlayerModes[i]);
+        GFX_PreloadPlayerMode(bAsync, pUnit, gaPlayerModes[i]);
     }
 }
 
@@ -1222,7 +1223,7 @@ void sub_M389_Emit_0046FF50(int bAsync, D2UnitStrc* pUnit)
 {
     for (unsigned int i = 0; i < gnPlayerModeCount; ++i)
     {
-        sub_0046FF50_PreloadPlayerMode(bAsync, pUnit, gaPlayerModes[i] + 0x13);
+        GFX_PreloadPlayerMode(bAsync, pUnit, gaPlayerModes[i] + 0x13);
     }
 }
 

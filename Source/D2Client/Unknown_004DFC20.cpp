@@ -52,7 +52,7 @@ extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize); //
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
-D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
 // 0x004DFC20
 void __fastcall sub_004DFC20_UpdateSoundSlot(D2SlotStrc* pSlot)
@@ -182,7 +182,7 @@ int __fastcall sub_004E1770_SpawnSkillMissileRing(D2UnitStrc* pUnit, int nSkillI
     {
         missileParams.nTargetX = gaSkillRingOffsetX[i];
         missileParams.nTargetY = gaSkillRingOffsetY[i];
-        sub_004CD540_CreateMissile(&missileParams);
+        MISSILE_CreateClientMissile(&missileParams);
     }
     missileParams.nVelocity = pMissilesTxt->dwParam[1] << 6;
     if (nStep > 1)
@@ -191,7 +191,7 @@ int __fastcall sub_004E1770_SpawnSkillMissileRing(D2UnitStrc* pUnit, int nSkillI
         {
             missileParams.nTargetX = gaSkillRingOffsetX[i + 1];
             missileParams.nTargetY = gaSkillRingOffsetY[i + 1];
-            sub_004CD540_CreateMissile(&missileParams);
+            MISSILE_CreateClientMissile(&missileParams);
         }
     }
     return 1;

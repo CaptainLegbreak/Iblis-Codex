@@ -19,7 +19,7 @@ struct D2InvCompGridStrc;
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2StoredUnitRecordStrc* __fastcall ROSTER_FindRosterUnitById(int nUnitId); // 0x00479BB0
-unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
+unsigned short __fastcall ROSTER_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
 extern D2RosterPetStrc* gpRosterPets; // 0x007BB5BC
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -66,8 +66,8 @@ int __fastcall sub_00478D10_GetPetOwnerRelation(int nUnitId)
                 return 1;
             }
 
-            const unsigned short nPartyId = sub_00479BC0_GetEntryIndex(ROSTER_FindRosterUnitById(nPlayerId));
-            if (nPartyId == 0xFFFF || nPartyId != sub_00479BC0_GetEntryIndex(ROSTER_FindRosterUnitById(pPet->dwOwnerId)))
+            const unsigned short nPartyId = ROSTER_GetEntryIndex(ROSTER_FindRosterUnitById(nPlayerId));
+            if (nPartyId == 0xFFFF || nPartyId != ROSTER_GetEntryIndex(ROSTER_FindRosterUnitById(pPet->dwOwnerId)))
             {
                 break;
             }
@@ -111,8 +111,8 @@ int __fastcall sub_00478D90_GetPetRelation(int nUnitId)
                 return 1;
             }
 
-            const unsigned short nPartyId = sub_00479BC0_GetEntryIndex(ROSTER_FindRosterUnitById(nPlayerId));
-            if (nPartyId == 0xFFFF || nPartyId != sub_00479BC0_GetEntryIndex(ROSTER_FindRosterUnitById(pPet->dwOwnerId)))
+            const unsigned short nPartyId = ROSTER_GetEntryIndex(ROSTER_FindRosterUnitById(nPlayerId));
+            if (nPartyId == 0xFFFF || nPartyId != ROSTER_GetEntryIndex(ROSTER_FindRosterUnitById(pPet->dwOwnerId)))
             {
                 break;
             }

@@ -59,7 +59,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 
-int __fastcall sub_004C1D60(D2UnitStrc* pItem); // 0x004C1D60
+int __fastcall ITEM_GetDropSound(D2UnitStrc* pItem); // 0x004C1D60
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
@@ -83,11 +83,11 @@ void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc
 
 void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 void __fastcall sub_00467430_SetSelectionRect(const D2SelectionRectStrc* pRect); // 0x00467430
 
-void __fastcall sub_0044B880_SetValue(int nValue); // 0x0044B880
+void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
 
 void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
 
@@ -127,7 +127,7 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 
 D2CelFileStrc* __cdecl GAME_GetBuySellButtonCells(); // 0x00454600
 
-void __fastcall sub_0046EFD0_DrawFramedBox(int,int,int,int,int,int); // 0x0046EFD0
+void __fastcall AUTOMAP_DrawFramedBox(int,int,int,int,int,int); // 0x0046EFD0
 
 void __fastcall sub_004B8100_DrawControl(void*); // 0x004B8100
 
@@ -139,7 +139,7 @@ void __fastcall D2Win_10117_DrawText(const Unicode*,int,int,int,int); // 0x00502
 
 T0044CB60* __fastcall sub_00502970_SplitText(const Unicode*,int*,int); // 0x00502970
 
-int __fastcall sub_00502EF0(int); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int); // 0x00502EF0
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short); // 0x00524A30
 
@@ -233,7 +233,7 @@ static void USEITEM_ToggleUseMode(D2UnitStrc* pItem)
         if (!pItem)
             return;
         gnAnvilItemId = pItem->dwUnitId;
-        sub_004B9A00(sub_004C1D60(pItem), 0, 0, 0, 0);
+        sub_004B9A00(ITEM_GetDropSound(pItem), 0, 0, 0, 0);
         return;
     }
     if (gnUseItemDialogState == 2)
@@ -340,7 +340,7 @@ void __stdcall USEITEM_EatMsg(SMSGHANDLER_PARAMS* pMsg)
 // 0x004BFDD0
 void __cdecl USEITEM_DrawUseItemPanel()
 {
- int oldFont=sub_00502EF0(1);
+ int oldFont=D2Win_10127_SetFont(1);
  int mode=gnUseItemPanelMode;
  if(mode==1 || mode==0){
   D2CelContextStrc context;
@@ -371,7 +371,7 @@ void __cdecl USEITEM_DrawUseItemPanel()
      }
      const Unicode* text=D2LANG_GetStringFromTblIndex(textIndex);
      int width=D2Win_10121_GetTextWidth(text);
-     sub_0046EFD0_DrawFramedBox(spot->tooltipX-(width/2)+10,spot->tooltipY-D2Win_10125()-42,width+12,D2Win_10125()+6,0,2);
+     AUTOMAP_DrawFramedBox(spot->tooltipX-(width/2)+10,spot->tooltipY-D2Win_10125()-42,width+12,D2Win_10125()+6,0,2);
      D2Win_10117_DrawText(text,spot->tooltipX-(width/2)+16,spot->tooltipY-38,0,0);
     }
    }
@@ -397,7 +397,7 @@ void __cdecl USEITEM_DrawUseItemPanel()
   }
  }
  if(gpUseItemConfirmDialog)sub_004B8100_DrawControl(gpUseItemConfirmDialog);
- sub_00502EF0(oldFont);
+ D2Win_10127_SetFont(oldFont);
 }
 
 // 0x004C0080
@@ -417,7 +417,7 @@ void __cdecl USEITEM_CloseUseItemPanel()
         DIALOG_DestroyDialog(gpUseItemConfirmDialog);
         gpUseItemConfirmDialog = 0;
     }
-    sub_00455F20(0xE, 1, 0);
+    UI_SetUIVar(0xE, 1, 0);
     sub_00467430(0);
 }
 
@@ -463,7 +463,7 @@ void __cdecl USEITEM_OpenPanel()
     gdwUseItemClickTick = GetTickCount();
     COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaUseItemHandlers, 8);
     sub_00487B80();
-    if (!sub_00455F20(14, 0, 0))
+    if (!UI_SetUIVar(14, 0, 0))
     {
         if (!gnUseItemPanelMode)
         {
@@ -500,7 +500,7 @@ void __fastcall USEITEM_OpenNpcItemPanel(int nValue)
 void __cdecl USEITEM_LeaveGame()
 {
     sub_00477EE0();
-    sub_0044B880_SetValue(0);
+    GAME_SetExitApplication(0);
     GAME_SetCinematicExit(1);
     GAME_RequestExit();
 }

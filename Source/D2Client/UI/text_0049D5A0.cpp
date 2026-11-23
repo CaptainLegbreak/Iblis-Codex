@@ -33,11 +33,11 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);                                // 0x006CC544
 
 void __fastcall UI_DrawRectangleBorder(D2RectStrc* pRect);                                               // 0x00452E50
-void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
+void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 int __stdcall D2Win_10125();                                                                                // 0x00501A40
 void __fastcall sub_00501DF0_DrawClippedFontText(const Unicode* pText, int nX, int nY, int nTextColor, int nSkipLines, int nDrawLines); // 0x00501DF0
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
-int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 
 extern int gnTextTop;                                                                               // 0x007225FC
 extern unsigned long gnTextDisplaySetting;                                                                     // 0x007BF1F6
@@ -69,7 +69,7 @@ static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec)
 {
     D2_ASSERT(pRec, 1805);
 
-    int nOldFont = sub_00502EF0(8);
+    int nOldFont = D2Win_10127_SetFont(8);
 
     unsigned int dwNow = timeGetTime();
     if (!pRec->dwStartTime)
@@ -107,7 +107,7 @@ static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec)
 
     if (!gbTextSide && (gnTextDisplaySetting || gbTextPanelOpen))
     {
-        sub_0046EFD0_DrawFramedBox(gnTextLeft, gnTextTop - 5, 0x145, 0x7A, 0, 1);
+        AUTOMAP_DrawFramedBox(gnTextLeft, gnTextTop - 5, 0x145, 0x7A, 0, 1);
         D2RectStrc tRect;
         tRect.nLeft = gnTextLeft - 1;
         tRect.nTop = gnTextTop - 6;
@@ -209,7 +209,7 @@ static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec)
         }
     }
 
-    sub_00502EF0(nOldFont);
+    D2Win_10127_SetFont(nOldFont);
 
     int nRows = pRec->nLines - 1;
     if (nRows <= 0)

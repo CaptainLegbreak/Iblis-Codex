@@ -78,7 +78,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
+D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
 int __fastcall sub_0046D9F0_GetConvertedUnitType(D2UnitStrc* pUnit); // 0x0046D9F0
 int __fastcall GFX_GetNodeValue(D2UnitStrc* pUnit, int nMode); // 0x0046E570
@@ -145,7 +145,7 @@ inline D2MonStats2Txt* DATATBLS_GetMonStats2TxtRecordInl(int nRecordId)
 }
 
 // 0x0046DB90
-static unsigned int sub_0046DB90_HashName(const char* szName)
+static unsigned int GFX_HashName(const char* szName)
 {
     D2_ASSERT(strlen(szName) < 8, 0x79);
     const unsigned int nHash = SStrHash(szName, 1, 0);
@@ -159,7 +159,7 @@ void __fastcall GFX_GetBaseName(const char* szPath, char* szDest); // 0x0046DBF0
 
 D2HashedFileEntryStrc* __stdcall GFX_FindHashedEntry(D2HashedFileStrc* pTable, const char* szPath); // 0x0046DC40
 
-D2HashedFileEntryStrc* __stdcall sub_0046DCC0_LoadHashedEntry(D2HashedFileStrc* pTable, const char* szPath); // 0x0046DCC0
+D2HashedFileEntryStrc* __stdcall GFX_LoadHashedEntry(D2HashedFileStrc* pTable, const char* szPath); // 0x0046DCC0
 
 int GFX_RemoveGfxNode(D2UnitStrc* pUnit, D2HashedFileEntryStrc* pEntry); // 0x0046E610
 
@@ -177,7 +177,7 @@ static int __stdcall GFX_LoadGfxNode(int* pValue, int nIndex, D2UnitStrc* pUnit)
 
     D2UnitStrc* pOwner;
     D2InventoryStrc* pInventory;
-    if (STATES_IsUnitShapeShiftedInl(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = sub_004639D0_GetOwnerUnit(pUnit)) != 0)
+    if (STATES_IsUnitShapeShiftedInl(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = CUNIT_GetOwnerUnit(pUnit)) != 0)
     {
         pInventory = pOwner->pInventory;
     }
@@ -210,7 +210,7 @@ static int __stdcall GFX_LoadGfxNode(int* pValue, int nIndex, D2UnitStrc* pUnit)
         D2HashedFileEntryStrc* pEntry = GFX_FindHashedEntry(pTable, szPath);
         if (!pEntry)
         {
-            pEntry = sub_0046DCC0_LoadHashedEntry(pTable, szPath);
+            pEntry = GFX_LoadHashedEntry(pTable, szPath);
             if (!pEntry)
             {
                 return 0;
@@ -255,7 +255,7 @@ static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int 
     D2HashedFileEntryStrc* pEntry = GFX_FindHashedEntry(&gtGlobalHashedFile, szPath);
     if (!pEntry)
     {
-        pEntry = sub_0046DCC0_LoadHashedEntry(&gtGlobalHashedFile, szPath);
+        pEntry = GFX_LoadHashedEntry(&gtGlobalHashedFile, szPath);
         D2_ASSERT(pEntry, 0xEC3);
     }
 
@@ -356,7 +356,7 @@ static inline int IsShapeShifted(D2UnitStrc* unit) { if(!unit) return 0; return 
 
 static inline D2InventoryStrc* GetInventory(D2UnitStrc* unit) {
  if(IsShapeShifted(unit) && STATES_CheckStateMaskOnUnit(unit,37)) {
-  D2UnitStrc* owner=sub_004639D0_GetOwnerUnit(unit);
+  D2UnitStrc* owner=CUNIT_GetOwnerUnit(unit);
   if(owner) return owner->pInventory;
  }
  return unit->pInventory;

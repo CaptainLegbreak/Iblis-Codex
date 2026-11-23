@@ -14,7 +14,7 @@ void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int n
 void __stdcall GFXUTIL_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA2A0
 void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet);                                  // 0x004DA6E0
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY);                                      // 0x0064A760
-D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 void __fastcall sub_0046BF30_CheckThroneLevel(D2ActiveRoomStrc* pRoom);                                     // 0x0046BF30
 
 extern LEVELEVENT_Fn gpfnLevelEvents[];                                                            // 0x007129D8
@@ -57,7 +57,7 @@ void __fastcall sub_0046BFF0_UnitEventMissile271(D2UnitStrc* pUnit)
     GFXUTIL_SetMotionVectorC(pUnit, 0, 0, 5, 0);
     MISSILE_SetMotionFlagMask(pUnit, 0);
     MISSILE_SetTargetY(pMissile, 1);
-    sub_0046BF30_CheckThroneLevel(sub_004646A0_GetPlayerRoom());
+    sub_0046BF30_CheckThroneLevel(CUNIT_GetPlayerRoom());
 }
 
 #include "gen/data/Source/D2Client/Unknown_0046B630.inc"

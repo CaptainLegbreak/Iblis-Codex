@@ -66,7 +66,7 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
 int __stdcall D2Win_10125(); // 0x00501A40
 
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
@@ -244,7 +244,7 @@ static int __stdcall EDITBOX_GetTextHeight(const Unicode* wszText, D2WinEditBoxS
     D2_ASSERT(ptEditData, 0x5EA);
     D2_ASSERT(ptEditData->controlHeader.eType == 1, 0x5EC);
     Unicode wszDash[2];
-    sub_00502EF0(ptEditData->eFont);
+    D2Win_10127_SetFont(ptEditData->eFont);
     const int nStartY = D2Win_10125() + (ptEditData->nTextInsetY - ptEditData->controlHeader.nHeight) + ptEditData->controlHeader.nImageY;
     char szDash[] = "_";
     wszDash[0].wChar = 0;
@@ -327,7 +327,7 @@ static void __stdcall EDITBOX_GetCaretPosition(int* pX, int* pY, D2WinEditBoxStr
         wszCopy[i].wChar = 0;
     }
     Unicode wszDash[2];
-    sub_00502EF0(ptEditData->eFont);
+    D2Win_10127_SetFont(ptEditData->eFont);
     const int nStartX = ptEditData->controlHeader.nImageX + ptEditData->nTextInsetX;
     const int nStartY = D2Win_10125() + (ptEditData->nTextInsetY - ptEditData->controlHeader.nHeight) + ptEditData->controlHeader.nImageY;
     sub_005267E0(wszCopy, (Unicode*)ptEditData->wszText);
@@ -730,7 +730,7 @@ int __stdcall EDITBOX_PlaceMultiLineCaret(SMSGHANDLER_PARAMS* pMsg, int nX, int 
     if (nX >= -ptEditData->nTextInsetX && nX < ptEditData->controlHeader.nWidth - ptEditData->nTextInsetX
         && nY >= -ptEditData->nTextInsetY && nY < ptEditData->controlHeader.nHeight - ptEditData->nTextInsetY)
     {
-        sub_00502EF0(ptEditData->eFont);
+        D2Win_10127_SetFont(ptEditData->eFont);
         char szDash[] = "_";
         UnicodeChar wszDash[2];
         sub_00526F20_ToUnicode(wszDash, szDash, 2);
@@ -847,7 +847,7 @@ int __stdcall D2Win_10078_IsNumber(void* unused1,void* unused2,const Character* 
 // 0x004FE7C0
 static void EDITBOX_UpdateVisibleChars(D2WinEditBoxStrc* pEditBox)
 {
-    sub_00502EF0(pEditBox->eFont);
+    D2Win_10127_SetFont(pEditBox->eFont);
     int nAvail = pEditBox->controlHeader.nWidth - 2 * pEditBox->nTextInsetX;
     const int nLength = sub_00526800((Unicode*)pEditBox->wszText);
     Unicode wszText[300];
@@ -1143,7 +1143,7 @@ int __stdcall EDITBOX_HandleSingleLineMouseDown(SMSGHANDLER_PARAMS* pMsg)
         if (ptEditData->bMouseSelecting || bInside)
         {
             int nChars = 1;
-            sub_00502EF0(ptEditData->eFont);
+            D2Win_10127_SetFont(ptEditData->eFont);
             if (ptEditData->bMouseSelecting)
             {
                 if (nX < -ptEditData->nTextInsetX)
@@ -1448,7 +1448,7 @@ int __fastcall EDITBOX_DrawMultiLine(D2WinEditBoxStrc* pEditBox)
         }
 
         UnicodeChar wszText[300];
-        sub_00502EF0(pEditBox->eFont);
+        D2Win_10127_SetFont(pEditBox->eFont);
         const int nX = pEditBox->controlHeader.nImageX + pEditBox->nTextInsetX;
         const int nYStart = D2Win_10125() + pEditBox->controlHeader.nImageY - pEditBox->controlHeader.nHeight + pEditBox->nTextInsetY;
         sub_005267E0(wszText, (Unicode*)pEditBox->wszText);
@@ -1628,7 +1628,7 @@ int __fastcall EDITBOX_DrawSingleLine(D2WinEditBoxStrc* pEditBox)
             sub_004F6480(&tContext, pEditBox->controlHeader.nImageX, pEditBox->controlHeader.nImageY - 1, -1, 5, 0);
         }
 
-        sub_00502EF0(pEditBox->eFont);
+        D2Win_10127_SetFont(pEditBox->eFont);
         int nX = pEditBox->nTextInsetX + pEditBox->controlHeader.nImageX;
         const int nY = pEditBox->nTextInsetY - pEditBox->controlHeader.nHeight + pEditBox->controlHeader.nImageY + 16;
         sub_00526790(wszText, (Unicode*)&pEditBox->wszText[pEditBox->nFirstVisibleChar], pEditBox->nLastVisibleChar - pEditBox->nFirstVisibleChar + 1);

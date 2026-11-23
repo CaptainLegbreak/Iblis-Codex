@@ -5,18 +5,18 @@ struct D2DynamicPathStrc;
 struct D2StaticPathStrc;
 
 int __cdecl sub_00468830();
-D2UnitStrc* __cdecl sub_004680A0();
+D2UnitStrc* __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem);
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg);
-void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5);
+void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg);
 int __cdecl sub_00486B80_IsNpcStateB();
-int __cdecl sub_00486D10_CheckTick();
+int __cdecl INV_CheckTradeClickDelay(); // 0x00486D10
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);
 void __fastcall sub_004C21F0(D2UnitStrc* pItem);
-int __fastcall sub_004C2240(D2UnitStrc* pItem);
-int __fastcall sub_004C1D60(D2UnitStrc* pItem);
-void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, int nId);
+int __fastcall ITEM_IsItemActionBlocked(D2UnitStrc* pItem); // 0x004C2240
+int __fastcall ITEM_GetDropSound(D2UnitStrc* pItem); // 0x004C1D60
+void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, int nId); // 0x004CB9C0
 int __fastcall sub_004B3870(int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8);
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory);  // 0x0063C1E0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc);  // 0x0063BDE0
@@ -44,11 +44,11 @@ int __fastcall sub_00490FC0(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, in
     D2UnitStrc* pItem = INVENTORY_GetCursorItem(pInventory);
     if (sub_00468830() == MV(6))
     {
-        pPlayer = sub_004680A0();
+        pPlayer = CURSOR_GetCursorItem();
         pItem = INVENTORY_GetItemFromBodyLoc(pInventory, nBodyLoc);
-        if (pPlayer && pItem && !sub_004C2240(pItem) && sub_00486D10_CheckTick())
+        if (pPlayer && pItem && !ITEM_IsItemActionBlocked(pItem) && INV_CheckTradeClickDelay())
         {
-            sub_004786A0_SendDwords2(MV(0x27), pItem->dwUnitId, !pPlayer ? -1 : pPlayer->dwUnitId);
+            MSG_SendTwoDwords(MV(0x27), pItem->dwUnitId, !pPlayer ? -1 : pPlayer->dwUnitId);
             sub_004C21F0(pItem);
             nResult = 1;
         }
@@ -56,7 +56,7 @@ int __fastcall sub_00490FC0(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, in
     else if (sub_00468830() == MV(8))
     {
         pItem = INVENTORY_GetItemFromBodyLoc(pInventory, nBodyLoc);
-        if (pItem && !sub_004C2240(pItem) && sub_00486D10_CheckTick())
+        if (pItem && !ITEM_IsItemActionBlocked(pItem) && INV_CheckTradeClickDelay())
         {
             sub_00478680_SendPacket5(MV(0x4C), pItem->dwUnitId);
             sub_004C21F0(pItem);
@@ -75,19 +75,19 @@ int __fastcall sub_00490FC0(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, in
                     const int nClass = sub_0062C0B0_GetItemTypeClass(pItem);
                     if (nClass == MV(7) || nClass == (!pPlayer ? -1 : pPlayer->dwClassId))
                     {
-                        sub_004CB9C0_Request(pPlayer, MV(0x14));
+                        UNITSND_PlayPlayerSpeech(pPlayer, MV(0x14));
                         return 1;
                     }
                 }
-                sub_004CB9C0_Request(pPlayer, MV(0x13));
+                UNITSND_PlayPlayerSpeech(pPlayer, MV(0x13));
             }
             return 1;
         case 1:
-            if (!sub_004C2240(pItem) && sub_00486D10_CheckTick())
+            if (!ITEM_IsItemActionBlocked(pItem) && INV_CheckTradeClickDelay())
             {
-                sub_004786A0_SendDwords2(MV(0x1A), !pItem ? -1 : pItem->dwUnitId, (unsigned short)nBodyLoc);
+                MSG_SendTwoDwords(MV(0x1A), !pItem ? -1 : pItem->dwUnitId, (unsigned short)nBodyLoc);
                 sub_004C21F0(pItem);
-                sub_004B9A00(sub_004C1D60(pItem), 0, 0, 0, 0);
+                sub_004B9A00(ITEM_GetDropSound(pItem), 0, 0, 0, 0);
                 gbNpcTradeClicked = 1;
                 nResult = 1;
             }
@@ -95,7 +95,7 @@ int __fastcall sub_00490FC0(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, in
         case 3:
             if (sub_00486B80_IsNpcStateB())
             {
-                if (sub_00486D10_CheckTick())
+                if (INV_CheckTradeClickDelay())
                 {
                     sub_004785B0_SendPacket3(MV(0x1C), nBodyLoc);
                     gbNpcTradeClicked = 1;
@@ -109,11 +109,11 @@ int __fastcall sub_00490FC0(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, in
             }
             break;
         case 5:
-            if (!sub_004C2240(pItem) && sub_00486D10_CheckTick())
+            if (!ITEM_IsItemActionBlocked(pItem) && INV_CheckTradeClickDelay())
             {
-                sub_004786A0_SendDwords2(MV(0x1D), !pItem ? -1 : pItem->dwUnitId, (unsigned short)nBodyLoc);
+                MSG_SendTwoDwords(MV(0x1D), !pItem ? -1 : pItem->dwUnitId, (unsigned short)nBodyLoc);
                 sub_004C21F0(pItem);
-                sub_004B9A00(sub_004C1D60(pItem), 0, 0, 0, 0);
+                sub_004B9A00(ITEM_GetDropSound(pItem), 0, 0, 0, 0);
                 nResult = 1;
             }
             break;

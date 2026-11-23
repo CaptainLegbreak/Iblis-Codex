@@ -483,7 +483,7 @@ D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x
 
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 
-void __stdcall sub_0063C550_Return(D2InventoryStrc* pInventory, int nX); // 0x0063C550
+void __stdcall D2COMMON_10267_Return(D2InventoryStrc* pInventory, int nX); // 0x0063C550
 
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 
@@ -2831,7 +2831,7 @@ D2ActiveRoomStrc* __fastcall SUNIT_GetValidNextRoom(D2GameStrc* pGame, D2UnitStr
 }
 
 // 0x00555CD0
-void __fastcall sub_00555CD0_AppendPair(int* pCount, D2UnkPairStrc* pPairs, int nSecond, int nFirst)
+void __fastcall OBJECTS_AppendPair(int* pCount, D2UnkPairStrc* pPairs, int nSecond, int nFirst)
 {
     const int nCount = *pCount;
     if (nCount < D2_PAIR_CAPACITY)
@@ -2964,7 +2964,7 @@ void __fastcall PLAYERLIST_SetHostileDelay(D2UnitStrc* pPlayer1, D2UnitStrc* pPl
 }
 
 // 0x0055CA00
-int __fastcall sub_0055CA00_MatchFieldPair(D2UnkFieldPairStrc* pRecord1, D2UnkFieldPairStrc* pRecord2, int nValue1, int nValue2)
+int __fastcall OBJECTS_MatchFieldPair(D2UnkFieldPairStrc* pRecord1, D2UnkFieldPairStrc* pRecord2, int nValue1, int nValue2)
 {
     if (pRecord1->nValue == nValue1 && pRecord2->nValue == nValue2)
     {
@@ -3013,12 +3013,12 @@ void __fastcall ITEMMODE_RemoveInventoryItemFromAllPlayers(D2GameStrc* pGame, D2
         break;
     }
 
-    sub_0063C550_Return(pInventory, nX);
+    D2COMMON_10267_Return(pInventory, nX);
     ITEMS_RemoveFromAllPlayers(pGame, hItem);
 }
 
 // 0x00564F00
-int __cdecl sub_00564F00_CompareDescending(const unsigned int* pValue1, const unsigned int* pValue2)
+int __cdecl OBJECTS_CompareDescending(const unsigned int* pValue1, const unsigned int* pValue2)
 {
     const unsigned int nValue1 = *pValue1;
     const unsigned int nValue2 = *pValue2;
@@ -3081,7 +3081,7 @@ int __fastcall PLRTRADE_IsTradeInventoryEmpty(D2GameStrc* pGame, D2UnitStrc* pUn
 }
 
 // 0x005697B0
-int __fastcall sub_005697B0(void* pArg1, void* pArg2, unsigned char** ppCursor, unsigned char* pEnd, int nArg5, int nArg6, int nArg7)
+int __fastcall PLRSAVE2_WriteItemSection(void* pArg1, void* pArg2, unsigned char** ppCursor, unsigned char* pEnd, int nArg5, int nArg6, int nArg7)
 {
     unsigned char* pCursor = *ppCursor;
     const int nWritten = PLRSAVE_WriteUnitItems(pArg1, pArg2, pCursor, pEnd - pCursor, nArg5, nArg6, nArg7);
@@ -3095,7 +3095,7 @@ int __fastcall sub_005697B0(void* pArg1, void* pArg2, unsigned char** ppCursor, 
 }
 
 // 0x00569EC0
-void __fastcall sub_00569EC0_UnpackWord(D2PackedWordStrc* pPacked, int* pId, int* pFlag, int* pCount)
+void __fastcall PLRSAVE2_UnpackWord(D2PackedWordStrc* pPacked, int* pId, int* pFlag, int* pCount)
 {
     if (pPacked->wRaw == 0xFFFF)
     {

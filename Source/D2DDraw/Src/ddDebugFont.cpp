@@ -23,7 +23,7 @@ void __fastcall DLIGHTMAP_ReleaseLight(void* pResource);                        
 void __cdecl TEXT_ResetTextBox();                                                                   // 0x0049F960
 void __stdcall TEXT_FreeTextHeader(D2TextHeaderStrc* pTextHeader);                                          // 0x006612A0
 int __stdcall SFileUnloadFile(void* pBuffer); // 0x00416710
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 unsigned char __stdcall sub_004FB180_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);  // 0x004FB180
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
@@ -243,7 +243,7 @@ void __cdecl CUNIT_InitColorTable()
 }
 
 // 0x00489840
-int __cdecl sub_00489840_IsNpcState123()
+int __cdecl CUNIT_IsInvPanelTradeMode()
 {
     if (gnInvPanelMode == 1 || gnInvPanelMode == 2 || gnInvPanelMode == 3)
     {
@@ -262,7 +262,7 @@ void __fastcall sub_004898A0(int nMode)
         gnInvPanelMode = 12;
     }
 
-    sub_00455F20(5, 1, 0);
+    UI_SetUIVar(5, 1, 0);
 }
 
 // 0x004898D0
@@ -297,7 +297,7 @@ void __cdecl CUNIT_ClearTextPanel()
 }
 
 // 0x004B8A10
-int __cdecl sub_004B8A10()
+int __cdecl CUNIT_IsTrading()
 {
     if (gnTradeState == 1 || gnTradeState == 2)
     {

@@ -4,7 +4,7 @@
 #include "D2Unicode.h"
 #include "D2LevelTxt.h"
 
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 void __cdecl sub_00466FE0(); // 0x00466FE0
 
@@ -129,7 +129,7 @@ extern unsigned char gnCharClass; // 0x007A0522
 
 void __fastcall GAME_PushStateValue(int nValue); // 0x0044B440
 
-void __fastcall sub_0044B880_SetValue(int nValue); // 0x0044B880
+void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
 
 void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
@@ -207,11 +207,11 @@ int __fastcall UI_GetUIVarUnchecked(int nUIVar); // 0x00453A90
 
 int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
-void __cdecl sub_00462920_ClearValue(); // 0x00462920
+void __cdecl PLAYER_ClearCommandPending(); // 0x00462920
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
-D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
 void __cdecl sub_00467AC0_UpdateHoverUnit(); // 0x00467AC0
 
@@ -363,7 +363,7 @@ int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 
-void __fastcall sub_00476D40_AdjustViewPos(int* pX, int* pY); // 0x00476D40
+void __fastcall VIEW_AdjustViewPos(int* pX, int* pY); // 0x00476D40
 
 void __fastcall VIEW_SetViewPos(D2ViewStrc* pView, int nX, int nY); // 0x004760A0
 
@@ -381,7 +381,7 @@ void __cdecl AUTOMAP_UpdateAutomapOrigin(); // 0x0045B440
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
 
-void __fastcall sub_00476BC0(D2ViewStrc* pView); // 0x00476BC0
+void __fastcall VIEW_PrepareSceneLighting(D2ViewStrc* pView); // 0x00476BC0
 
 void __fastcall UI_DrawUIPanels(D2ViewStrc* pView); // 0x00456EE0
 
@@ -442,7 +442,7 @@ struct D2ClientCharRecordStrc
 
 #pragma pack(pop)
 
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 T0044CB60* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 
@@ -549,7 +549,7 @@ void __stdcall GAME_HandleActivateApp(SMSGHANDLER_PARAMS* pMessage)
     gbClientAppActive = pMessage->wParam;
     if (pMessage->wParam)
     {
-        sub_00455F20(0xD, 1, 0);
+        UI_SetUIVar(0xD, 1, 0);
         gbStandStillHeld = 0;
         sub_00466FE0();
         sub_004FB130_SetActiveState(0);
@@ -606,7 +606,7 @@ void __fastcall GAME_DrawGameView(int bNoCursor)
     int nX;
     nX = UNITS_GetClientCoordX(pPlayer) - (tRect.nRight - tRect.nLeft) / 2;
     nY = UNITS_GetClientCoordY(pPlayer) - (tRect.nBottom - tRect.nTop) / 2;
-    sub_00476D40_AdjustViewPos(&nX, &nY);
+    VIEW_AdjustViewPos(&nX, &nY);
     if (gnLastViewX != -1 || gnLastViewY != -1)
     {
         gnViewDeltaX = nX - gnLastViewX;
@@ -622,13 +622,13 @@ void __fastcall GAME_DrawGameView(int bNoCursor)
     sub_0061C0B0(gpGlobal_007A0634, &nRed, &nGreen, &nBlue);
     D2GFX_SetAmbientColor(nRed, nGreen, nBlue);
 
-    if (!D2GFX_StartDraw(GetRoomBlankScreen(sub_004646A0_GetPlayerRoom()), 0, 0, 0))
+    if (!D2GFX_StartDraw(GetRoomBlankScreen(CUNIT_GetPlayerRoom()), 0, 0, 0))
         return;
 
     sub_004FB0D0();
     AUTOMAP_UpdateAutomapOrigin();
     if (sub_0045AE90() != 3)
-        sub_00476BC0(gpClientView);
+        VIEW_PrepareSceneLighting(gpClientView);
     UI_DrawUIPanels(gpClientView);
     D2Win_UpdateAndDraw();
     sub_00468820(10, 10);
@@ -657,7 +657,7 @@ void __cdecl GAME_DrawLoadingText()
         return;
     }
     D2GFX_ClearScreen(0);
-    sub_00502EF0(3);
+    D2Win_10127_SetFont(3);
     const Unicode* pText = D2LANG_GetStringFromTblIndex(gawLoadingStrings[gnLoadingIndex]);
     if (gpCharRecord->aFlags[0] & 0x20)
     {
@@ -677,7 +677,7 @@ void __cdecl GAME_DrawLoadingText()
     }
     else
     {
-        sub_00502EF0(2);
+        D2Win_10127_SetFont(2);
         int nLines;
         T0044CB60* pLines = sub_00502970_SplitText(pText, &nLines, 0x258);
         T0044CB60* pLine = pLines;
@@ -775,7 +775,7 @@ int __stdcall GAME_ShowBetaScreens(int nArg)
                     gaBetaScreens[i].dwTick = 0;
                 }
             }
-            sub_0044B880_SetValue(0);
+            GAME_SetExitApplication(0);
             return 1;
         }
     }
@@ -824,7 +824,7 @@ int __cdecl GAME_ShutdownClient()
 }
 
 // 0x0044D580
-void __fastcall sub_0044D580_ApplyConfig219(D2ConfigStrc* pConfig)
+void __fastcall GAME_ApplyConfigNoSave(D2ConfigStrc* pConfig)
 {
     if (pConfig->bFlag219)
         PLRSAVE_EnableSaveFileWriting(0);
@@ -1123,7 +1123,7 @@ void __fastcall GAME_ShowLoadingMessage(int nIndex)
     gbLeavingGame = 1;
     gbPositionalSound = 0;
     gbGameServerReady = 0;
-    sub_0044B880_SetValue(0);
+    GAME_SetExitApplication(0);
 }
 
 // 0x0044E400
@@ -1270,7 +1270,7 @@ int __stdcall GAME_RunGameFrame(int nUnused)
             return 0;
         }
 
-        if ((UI_GetUIVarUnchecked(9) || UI_GetUIVarUnchecked(11)) && pPlayer && sub_004646A0_GetPlayerRoom())
+        if ((UI_GetUIVarUnchecked(9) || UI_GetUIVarUnchecked(11)) && pPlayer && CUNIT_GetPlayerRoom())
         {
             gdwLastFrame = GetTickCount();
             gpfnClientCallback(0);
@@ -1419,7 +1419,7 @@ int __stdcall GAME_RunGameFrame(int nUnused)
 
     if (gbPositionalSound)
     {
-        sub_00462920_ClearValue();
+        PLAYER_ClearCommandPending();
         sub_00467AC0_UpdateHoverUnit();
         if (D2SOUND_IsStreamChannelPlaying())
         {
@@ -1431,7 +1431,7 @@ int __stdcall GAME_RunGameFrame(int nUnused)
 
         if (!gnSkipped)
         {
-            if (sub_004646A0_GetPlayerRoom())
+            if (CUNIT_GetPlayerRoom())
             {
                 gpfnClientCallback(0);
                 ++gnFrameCount;

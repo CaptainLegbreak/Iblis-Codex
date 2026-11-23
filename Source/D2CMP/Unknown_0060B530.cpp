@@ -170,8 +170,9 @@ struct D2DccEqualRunStrc
     D2CmpByteRunStrc tRun;
 };
 
-// build: context sub_0060BFF0_LoadSpriteData
-int __fastcall sub_0060BFF0_LoadSpriteData(unsigned int dwData, void* pMemPool, int nSize, const D2DccFileStrc* pFile, D2DccOutTableStrc* pTable, int nFirstDir, int nDirs, int* pnOutSize, const char* szFile)
+// build: symbol ?CodecDecodeDccData@* 0x0060BFF0
+// build: context CodecDecodeDccData
+int __fastcall CodecDecodeDccData(unsigned int dwData, void* pMemPool, int nSize, const D2DccFileStrc* pFile, D2DccOutTableStrc* pTable, int nFirstDir, int nDirs, int* pnOutSize, const char* szFile)
 {
     D2CmpBitCursorStrc tCursor;
     D2DccEqualRunStrc e;

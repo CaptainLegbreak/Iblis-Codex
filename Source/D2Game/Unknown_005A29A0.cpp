@@ -139,7 +139,8 @@ static inline unsigned int MONUNIQUE_RollSeed_Inline(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static void __stdcall sub_005A21D0_ApplyElementalDamageStats(D2UnitStrc* pUnit, int nMinDamageStatId, int nMaxDamageStatId, int nLengthStatId, D2GameStrc* pGame)
+// build: symbol ?MONSTERUNIQUE_ApplyElementalDamageStats@* 0x005A21D0
+static void __stdcall MONSTERUNIQUE_ApplyElementalDamageStats(D2UnitStrc* pUnit, int nMinDamageStatId, int nMaxDamageStatId, int nLengthStatId, D2GameStrc* pGame)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MISSILE)
     {
@@ -191,7 +192,7 @@ void __fastcall MONSTERUNIQUE_ApplyElementalDamage(D2GameStrc* pGame, D2UnitStrc
 
     const unsigned int nRand = MONUNIQUE_RollSeed_Inline(&pUnit->pSeed) % 5;
 // build: symbol ?gnUniqueElementalStats@* 0x006E21B8
-    sub_005A21D0_ApplyElementalDamageStats(pUnit, gnUniqueElementalStats[nRand][0], gnUniqueElementalStats[nRand][1], gnUniqueElementalStats[nRand][2], pGame);
+    MONSTERUNIQUE_ApplyElementalDamageStats(pUnit, gnUniqueElementalStats[nRand][0], gnUniqueElementalStats[nRand][1], gnUniqueElementalStats[nRand][2], pGame);
 }
 
 #include "gen/data/Source/D2Game/Unknown_005A29A0.inc"

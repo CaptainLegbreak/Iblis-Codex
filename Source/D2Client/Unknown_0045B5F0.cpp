@@ -39,8 +39,8 @@ void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x0064326
 void __stdcall DUNGEON_GameTileToClientCoords(int* pX, int* pY); // 0x00643310
 int __stdcall TileGetFlags(D2TileLibraryEntryStrc* pTile); // 0x00604BC0
 void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
-void __fastcall sub_0045B1A0_DrawDiamond(int nX, int nY, unsigned char nColor);
-D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom();
+void __fastcall CUNIT_DrawAutomapDiamond(int nX, int nY, unsigned char nColor); // 0x0045B1A0
+D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 extern int gnAutomapOriginY; // 0x007A5208
 extern int gnAutomapOriginX; // 0x007A520C
 
@@ -163,11 +163,11 @@ void __stdcall sub_0045B5F0(D2ActiveRoomStrc* pRoom)
         }
         else if (pTile->dwFlags & 0x800)
         {
-            sub_0045B1A0_DrawDiamond(nX + 0x10, nY + 8, 0x78);
+            CUNIT_DrawAutomapDiamond(nX + 0x10, nY + 8, 0x78);
         }
         else
         {
-            sub_0045B1A0_DrawDiamond(nX, nY, 0xFF);
+            CUNIT_DrawAutomapDiamond(nX, nY, 0xFF);
         }
 
         nX -= gnAutomapOriginX + 7;
@@ -175,7 +175,7 @@ void __stdcall sub_0045B5F0(D2ActiveRoomStrc* pRoom)
         D2GFX_OutputString(nX, nY, gszFormatInt_006D57BC, pTile->pCoordList->nIndex);
     }
 
-    if (pRoom == sub_004646A0_GetPlayerRoom())
+    if (pRoom == CUNIT_GetPlayerRoom())
     {
         int aX[4];
         int aY[4];
@@ -193,7 +193,7 @@ void __stdcall sub_0045B5F0(D2ActiveRoomStrc* pRoom)
                 aY[j] -= gnAutomapOriginY;
             }
 
-            if (pRoom == sub_004646A0_GetPlayerRoom())
+            if (pRoom == CUNIT_GetPlayerRoom())
             {
                 D2GFX_DrawLine(aX[0], aY[0], aX[0], aY[0] + 0x10, 0x78, 0xFF);
                 D2GFX_DrawLine(aX[1], aY[1], aX[1] + 0x10, aY[1], 0x78, 0xFF);

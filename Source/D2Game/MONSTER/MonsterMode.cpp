@@ -282,7 +282,7 @@ struct D2MonVelocityParamStrc
 
 typedef int (__fastcall* MonModeStartFunc)(D2GameStrc*, D2ModeChangeStrc*);
 
-int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
+int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 
@@ -1861,7 +1861,7 @@ int __fastcall MONSTERMODE_StartAttackOrSkill(D2GameStrc* pGame, D2ModeChangeStr
         D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
         if (!PATH_GetNumberOfPathPoints(pPath))
         {
-            const int nBaseId = sub_00463860(pUnit);
+            const int nBaseId = CUNIT_GetMonsterBaseId(pUnit);
             if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == MONSTER_VULTURE1)
             {
                 D2Common_10142(pPath, pUnit, 0);
@@ -2242,7 +2242,7 @@ int __fastcall MONSTERMODE_StartKnockback(D2GameStrc* pGame, D2ModeChangeStrc* p
     {
         D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
         PATH_SetType(pPath, 8);
-        int nBaseId = sub_00463860(pUnit);
+        int nBaseId = CUNIT_GetMonsterBaseId(pUnit);
         if (nBaseId < 0 || nBaseId >= sgptDataTables->nMonStatsTxtRecordCount)
         {
             nBaseId = -1;
@@ -2618,7 +2618,7 @@ inline int UNITS_CanBeAttackedInline(D2UnitStrc* pUnit)
 }
 
 // 0x005A8730
-static int __stdcall sub_005A8730_MISSMODE_CanCollideWithUnit(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2UnitStrc* pOwner, D2MissilesTxt* pMissilesTxtRecord)
+static int __stdcall MISSMODE_CanCollideWithUnit(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2UnitStrc* pOwner, D2MissilesTxt* pMissilesTxtRecord)
 {
     if (!UNITS_IsValidTargetInline(pUnit))
     {
@@ -2656,7 +2656,7 @@ int __fastcall MISSMODE_UnitFindCallback_CanCollideWithMonster(D2UnitStrc* pUnit
         return 0;
     }
 
-    return sub_005A8730_MISSMODE_CanCollideWithUnit(pArg->pGame, pArg->pMissile, pUnit, pArg->pOwner, pArg->pMissilesTxtRecord) != 0;
+    return MISSMODE_CanCollideWithUnit(pArg->pGame, pArg->pMissile, pUnit, pArg->pOwner, pArg->pMissilesTxtRecord) != 0;
 }
 
 int __fastcall MISSMODE_UnitFindCallback_CanCollideWithGoodAlignmentUnit(D2UnitStrc* pUnit, void* pArgument)
@@ -2686,7 +2686,7 @@ int __fastcall MISSMODE_UnitFindCallback_CanCollideWithGoodAlignmentUnit(D2UnitS
         return 0;
     }
 
-    return sub_005A8730_MISSMODE_CanCollideWithUnit(pArg->pGame, pArg->pMissile, pUnit, pArg->pOwner, pArg->pMissilesTxtRecord) != 0;
+    return MISSMODE_CanCollideWithUnit(pArg->pGame, pArg->pMissile, pUnit, pArg->pOwner, pArg->pMissilesTxtRecord) != 0;
 }
 
 int __fastcall MISSMODE_UnitFindCallback_CanCollideWithPlayerOrMonster(D2UnitStrc* pUnit, void* pArgument)
@@ -2702,7 +2702,7 @@ int __fastcall MISSMODE_UnitFindCallback_CanCollideWithPlayerOrMonster(D2UnitStr
         return 0;
     }
 
-    return sub_005A8730_MISSMODE_CanCollideWithUnit(pArg->pGame, pArg->pMissile, pUnit, pArg->pOwner, pArg->pMissilesTxtRecord) != 0;
+    return MISSMODE_CanCollideWithUnit(pArg->pGame, pArg->pMissile, pUnit, pArg->pOwner, pArg->pMissilesTxtRecord) != 0;
 }
 
 #include "gen/data/Source/D2Game/MONSTER/MonsterMode.inc"

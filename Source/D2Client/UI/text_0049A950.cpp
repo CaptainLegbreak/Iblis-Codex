@@ -60,7 +60,7 @@ void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStr
 
 void __cdecl UI_RegisterKeyConfigHandlers(); // 0x00454980
 
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
@@ -78,7 +78,7 @@ void __fastcall CUNIT_ClearHotkeyBinding(int nId, int nB); // 0x00469D70
 
 int __fastcall CUNIT_HasHotkeyBinding(int nA, int nB); // 0x00469D90
 
-void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 void __cdecl TEXT_FreeTextPanelCels(); // 0x0049FE10
 
@@ -337,11 +337,11 @@ int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 void __stdcall TEXT_LoadQuestPage(int nPage, int nArg); // 0x004A3220
 
-void __cdecl sub_0044DA70(); // 0x0044DA70
+void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
-void __fastcall sub_004A1320_OpenTextPanel(unsigned short nStringId, int bSide, int bSound); // 0x004A1320
+void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, int bSound); // 0x004A1320
 
 void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext); // 0x0049E7E0
 
@@ -404,7 +404,7 @@ int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
 
-int __cdecl sub_00463DF0(); // 0x00463DF0
+int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 
 D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
 
@@ -548,17 +548,17 @@ extern "C" B27RecordHandler __fastcall sub_005173D3_ExchangeRecordHandler(B27Rec
 
 static inline int TEXT_FindEntryIndex(int nId);
 
-static int __stdcall sub_004A26F0_GetTabAtPoint(int nY, int nX);
+static int __stdcall TEXT_GetQuestTabAtPoint(int nY, int nX); // 0x004A26F0
 
 static void sub_004A2390_ResetQuestSelection();
 
-static int sub_004A2630_GetSlotAtPoint(int nX, int nY);
+static int TEXT_GetQuestSlotAtPoint(int nX, int nY); // 0x004A2630
 
 static unsigned char sub_004A2690_HitTestButtonB(int nX, int nY);
 
 static unsigned char sub_004A2610_HitTestButtonA(int nX, int nY);
 
-static void sub_004A27D0_OpenQuestDescription(int nSlot);
+static void TEXT_OpenQuestDescription(int nSlot); // 0x004A27D0
 
 // 0x0049A950
 void __cdecl TEXT_DrawPanelCloseButton()
@@ -605,11 +605,11 @@ void __stdcall TEXT_WaypointKeyMsg(SMSGHANDLER_PARAMS* pMsg)
     if (!gbSent && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
     {
 // build: symbol ?gnWaypointId@* 0x007BF07D
-        sub_004786A0_SendDwords2(0x49, gnWaypointId, 0);
+        MSG_SendTwoDwords(0x49, gnWaypointId, 0);
         gbSent = 1;
     }
 
-    sub_00455F20(20, 1, 1);
+    UI_SetUIVar(20, 1, 1);
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
@@ -689,7 +689,7 @@ void __stdcall TEXT_CloseTextPanelMsg(SMSGHANDLER_PARAMS* pMsg)
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
-    sub_00455F20(16, 2, 0);
+    UI_SetUIVar(16, 2, 0);
     TEXT_FreeTextPanelCels();
 }
 
@@ -813,7 +813,8 @@ int __fastcall sub_M224_Emit_004A1910(int nIndex, int nKey)
     return TEXT_FindQuestIndex(nKey);
 }
 
-static void sub_004A2220_SetQuestPage(int nPage)
+// build: symbol ?TEXT_SetQuestPage@* 0x004A2220
+static void TEXT_SetQuestPage(int nPage)
 {
     if (nPage >= 5)
     {
@@ -843,7 +844,7 @@ static void sub_004A2220_SetQuestPage(int nPage)
 }
 
 // 0x004A2300
-void __cdecl sub_004A2300_UpdateQuestPage()
+void __cdecl TEXT_UpdateQuestPage()
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pPlayer)
@@ -854,12 +855,12 @@ void __cdecl sub_004A2300_UpdateQuestPage()
             int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
             if (nLevelId)
             {
-                sub_004A2220_SetQuestPage(DRLG_GetActNoFromLevelId(nLevelId));
+                TEXT_SetQuestPage(DRLG_GetActNoFromLevelId(nLevelId));
                 return;
             }
         }
     }
-    sub_004A2220_SetQuestPage(0);
+    TEXT_SetQuestPage(0);
 }
 
 extern "C" void __cdecl sub_004A01E0_ClearList(void)
@@ -907,21 +908,21 @@ void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
     nY += gnPanelOffsetY;
     if (!gbQuestDescriptionOpen)
     {
-        nIndex = sub_004A26F0_GetTabAtPoint(nY, nX);
+        nIndex = TEXT_GetQuestTabAtPoint(nY, nX);
         if (nIndex != -1)
         {
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
             if (nIndex < 5 && nIndex != gnPage && ((FOG_IsExpansion() && GAME_IsExpansion()) || nIndex != 4))
             {
                 sub_004A2760(gnPage);
-                sub_004A2220_SetQuestPage(nIndex);
+                TEXT_SetQuestPage(nIndex);
                 TEXT_LoadQuestPage(gnPage, 1);
                 sub_004A2390_ResetQuestSelection();
             }
         }
         else
         {
-            nIndex = sub_004A2630_GetSlotAtPoint(nX, nY);
+            nIndex = TEXT_GetQuestSlotAtPoint(nX, nY);
             if (nIndex != -1 && nIndex < gnQuestCount)
             {
                 for (int i = 0; i < gnQuestCount; ++i)
@@ -967,7 +968,7 @@ void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     {
         if (gnQuestPressedSlot != -1)
         {
-            int nSlot = sub_004A2630_GetSlotAtPoint(nX, nY);
+            int nSlot = TEXT_GetQuestSlotAtPoint(nX, nY);
             if (nSlot == gnQuestPressedSlot)
             {
 // build: symbol ?gaQuestPageSelection@* 0x007BF2BD
@@ -979,7 +980,7 @@ void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
         {
             if (sub_004A2610_HitTestButtonA(nX, nY) && gnQuestSelectedSlot != -1)
             {
-                sub_004A27D0_OpenQuestDescription(gnQuestSelectedSlot);
+                TEXT_OpenQuestDescription(gnQuestSelectedSlot);
             }
         }
     }
@@ -993,7 +994,7 @@ void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     {
         if (D2_HIWORD(pMsg->lParam) > gnScreenHeight - 0x31) return;
     }
-    sub_0044DA70();
+    GAME_ResetMouseButtons();
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
@@ -1116,7 +1117,7 @@ static unsigned char sub_004A2610_HitTestButtonA(int nX, int nY)
 }
 
 // 0x004A2630
-static int sub_004A2630_GetSlotAtPoint(int nX, int nY)
+static int TEXT_GetQuestSlotAtPoint(int nX, int nY)
 {
     int nCount = gnQuestCount;
     D2_ASSERT((unsigned int)nCount <= 6, 0x738);
@@ -1141,7 +1142,7 @@ static unsigned char sub_004A2690_HitTestButtonB(int nX, int nY)
 }
 
 // 0x004A26B0
-int __stdcall sub_004A26B0_OpenPanel(int nArg)
+int __stdcall TEXT_OpenQuestPanel(int nArg)
 {
     if (gtQuestLog == 2)
     {
@@ -1151,12 +1152,12 @@ int __stdcall sub_004A26B0_OpenPanel(int nArg)
     }
 
     sub_004A2550();
-    sub_00455F20(15, 1, nArg);
+    UI_SetUIVar(15, 1, nArg);
     return 1;
 }
 
 // 0x004A26F0
-static int __stdcall sub_004A26F0_GetTabAtPoint(int nY, int nX)
+static int __stdcall TEXT_GetQuestTabAtPoint(int nY, int nX)
 {
     if (nY < 0 || nY > 0x1B || nX < 0 || nX > 0x13F)
     {
@@ -1202,7 +1203,7 @@ int __fastcall TEXT_CloseQuestText(void* pContext, int nArg, int nValue)
 }
 
 // 0x004A27D0
-static void sub_004A27D0_OpenQuestDescription(int nSlot)
+static void TEXT_OpenQuestDescription(int nSlot)
 {
     int nIndex = -1;
     for (int i = 0; i < gnQuestCount; ++i)
@@ -1222,7 +1223,7 @@ static void sub_004A27D0_OpenQuestDescription(int nSlot)
     {
         return;
     }
-    sub_004A1320_OpenTextPanel(wTextId, 1, 0);
+    WARDENCLIENT_OpenTextPanel(wTextId, 1, 0);
     TEXT_SetTextCallback(TEXT_CloseQuestText, 0);
     gbQuestDescriptionOpen = 1;
 }
@@ -1241,7 +1242,7 @@ void __stdcall TEXT_CloseQuestPanelMsg(SMSGHANDLER_PARAMS* pMsg)
     }
 
     sub_004A2550();
-    sub_00455F20(15, 1, 1);
+    UI_SetUIVar(15, 1, 1);
     gdwQuestLogToggleTick = GetTickCount();
 }
 
@@ -1338,7 +1339,7 @@ void __stdcall TEXT_QuestButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     int nY = pMsg->nYpos;
     if (sub_004A2970(nX, nY) && gbGlobal_007BF2B0)
     {
-        sub_00455F20(17, 1, 0);
+        UI_SetUIVar(17, 1, 0);
         TEXT_ToggleQuestLog(0);
         gbGlobal_007BF2B0 = 0;
         pMsg->bReturn = 1;
@@ -1716,9 +1717,9 @@ void __fastcall TEXT_UpdateSkillButtonHover(short* pId, int nState, int nA, int 
 // 0x004A2A80
 void __cdecl TEXT_DrawQuestButton()
 {
-    if (sub_00463DF0())
+    if (CUNIT_IsPlayerDeadOrMissing())
     {
-        sub_00455F20(0x11, 1, 0);
+        UI_SetUIVar(0x11, 1, 0);
         if (gtQuestLog == 1)
         {
             gbGlobal_007BF2B0 = 0;

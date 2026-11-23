@@ -20,7 +20,7 @@ struct D2CltMissileFindArgStrc
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 int __stdcall MISSILE_CheckUnitIfOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit); // 0x0064A470
-int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
+int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 
 
@@ -59,7 +59,7 @@ static int __stdcall sub_004CCF40_CanMissileHitUnit(D2UnitStrc* pUnit, D2UnitStr
     if (MISSILE_CheckUnitIfOwner(pMissile, pUnit))
         return 0;
 
-    if (pOwner && !sub_00465C60_CheckUnitPair(pOwner, pUnit) && !pMissilesTxtRecord->nCollideFriend)
+    if (pOwner && !CUNIT_IsHostileTo(pOwner, pUnit) && !pMissilesTxtRecord->nCollideFriend)
         return 0;
 
     return 1;

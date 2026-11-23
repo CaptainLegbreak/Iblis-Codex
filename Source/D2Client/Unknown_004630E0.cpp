@@ -20,7 +20,7 @@ enum D2PlayerModes
 };
 
 int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg); // 0x00461250
-int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
+int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
 void __stdcall sub_00650C60_UpdatePath(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00650C60
 
 
@@ -198,7 +198,7 @@ void __fastcall AUTOMAP_UpdatePathAndMove(D2UnitStrc* pUnit, int nArg1, int nArg
         pTargetUnit = CUNIT_GetPathTargetUnit(pUnit);
         if (!pTargetUnit)
         {
-            sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY);
+            ITEM_GetTargetPosition(pUnit, &nX, &nY);
         }
     }
     sub_00650C60_UpdatePath(pPath, pUnit, nArg1, nArg2, nArg3);

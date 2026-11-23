@@ -300,7 +300,7 @@ void __stdcall D2Win_10004(int nResolution); // 0x004F9060
 
 int __stdcall MAINMENUS_ShowLevelScreen(int nUnused); // 0x00431600
 
-void __cdecl sub_0042FB20(); // 0x0042FB20
+void __cdecl MAINMENUS_CreateVideoScreen(); // 0x0042FB20
 
 void __cdecl ARCHIVE_UnloadExpansionArchives(); // 0x004FAD70
 
@@ -662,7 +662,7 @@ int __fastcall D2Win_10076(D2WinControlStrc* pControl, const char* szText); // 0
 
 extern int gnValue_00779980; // 0x00779980
 
-int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
+int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 
 int __stdcall COMCALLBACK_FilterNameChar(D2WinControlStrc* pControl, int bAllowSep, const char* pChar); // 0x00430590
 
@@ -820,7 +820,7 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x00
 
 int __stdcall MAINMENUS_PollCharCreate(int nArg); // 0x00432FA0
 
-char* __cdecl sub_00437D00(); // 0x00437D00
+char* __cdecl GAME_GetPreferredRealm(); // 0x00437D00
 
 int __stdcall CHATDLG_RequestCharCreate(const char* szName, int nClass, int nFlags); // 0x00449DF0
 
@@ -830,9 +830,9 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x0
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 
-void __cdecl sub_0042E6D0_LoadFrontEndCells();
+void __cdecl MAINMENUS_LoadFrontEndCells(); // 0x0042E6D0
 
-int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2);
+int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 
 int __cdecl MAINMENUS_InitAuxBattleNet(); // 0x0042FA40
 
@@ -859,7 +859,7 @@ int __stdcall MAINMENUS_OnCharCreateOk(int nUnused); // 0x004369F0
 void __cdecl MAINMENUS_UpdateStatus(); // 0x00436AD0
 
 // 0x0042E6D0
-void __cdecl sub_0042E6D0_LoadFrontEndCells()
+void __cdecl MAINMENUS_LoadFrontEndCells()
 {
     char szPath[0x104];
 // build: symbol ?gszDataGlobal@* 0x006D4118
@@ -988,7 +988,7 @@ void __cdecl sub_0042E6D0_LoadFrontEndCells()
 }
 
 // 0x0042F2E0
-int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2)
+int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFile2)
 {
     char szPathA[0x104];
     char szPathB[0x104];
@@ -1394,7 +1394,7 @@ void __cdecl MAINMENUS_CreateCharCreateScreen()
     gnGlobal_00708D0C = -1;
     gnGlobal_0070CB80 = -1;
     gpLaunchRecord->wFlags1EF = 0;
-    sub_0042F2E0_ReadPaletteFiles(gszFecharPalDat_006D39E8, "palette\\fechar\\pal.pl2");
+    MAINMENUS_ReadPaletteFiles(gszFecharPalDat_006D39E8, "palette\\fechar\\pal.pl2");
 
     MAINMENUS_CreateControl(0xB1);
     gpControl_007795D8 = MAINMENUS_CreateControl(0xC5);
@@ -1679,7 +1679,7 @@ void __cdecl MAINMENUS_PlayIntroVideo()
     }
     MAINMENUS_BuildLocalizedVideoPath(szPath, "%s\\video\\%s\\d2intro%s.bik", szSize);
     sub_004F5D90_PlayVideo(szPath, nMode, 0);
-    sub_0042FB20();
+    MAINMENUS_CreateVideoScreen();
 }
 
 // build: symbol ?CHARSEL_AddToSlots@* 0x004309C0
@@ -2183,7 +2183,7 @@ static inline void __fastcall ShowText(const Unicode* pText, void (__cdecl* pfnD
 void __cdecl MAINMENUS_CreateRealmCharacter()
 {
 // build: symbol ?MAINMENUS_ConnectToRealm@* 0x00432480
-    switch (MAINMENUS_ConnectToRealm(sub_00437D00(), 0))
+    switch (MAINMENUS_ConnectToRealm(GAME_GetPreferredRealm(), 0))
     {
     case 1:
     case 2:
@@ -2240,7 +2240,7 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
             }
 
             sub_0043C6A0(1);
-            SStrCopy(gpLaunchRecord->szDataD5, sub_00437D00(), 0x7FFFFFFF);
+            SStrCopy(gpLaunchRecord->szDataD5, GAME_GetPreferredRealm(), 0x7FFFFFFF);
             gpLaunchRecord->wFlags1EF |= 2;
             gpLaunchRecord->nByte35E = 2;
             gnLaunchState = 3;

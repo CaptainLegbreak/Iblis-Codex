@@ -511,7 +511,7 @@ struct D2SrvDo06Strc
     int nAuraStatCalcValue;
 };
 
-D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse); // 0x0056E970
+D2StatListStrc* __fastcall SKILLS_ApplyStateEffect(D2CurseStrc* pCurse); // 0x0056E970
 void __fastcall SKILLS_IterateAuraTargets(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter, int (__fastcall* pCallback)(D2AuraCallbackStrc*, D2UnitStrc*), void* pArgs, int a9, const char* szFile, int nLine); // 0x0056B7E0
 
 // 0x005DB150
@@ -528,7 +528,7 @@ int __fastcall SKILLS_AuraCallback_InnerSight_SlowMissiles(D2AuraCallbackStrc* p
     curse.nStat = pArgs->nAuraStatId;
     curse.nStatValue = pArgs->nAuraStatCalcValue;
     curse.nState = pArgs->nAuraTargetState;
-    sub_0056E970(&curse);
+    SKILLS_ApplyStateEffect(&curse);
     return 1;
 }
 

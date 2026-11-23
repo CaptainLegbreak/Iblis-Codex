@@ -688,7 +688,7 @@ struct D2SetsTxt
     D2SetItemsTxt* pSetItem[6];
 };
 
-int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit);                                                 // 0x00451F50
+int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit);                                                 // 0x00451F50
 
 void* __fastcall PLAYERLIST_GetNextRosterInfo(D2UnitStrc* pUnit);                                         // 0x004DC0B0
 
@@ -5359,7 +5359,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
         pStatList = STATLIST_GetStatListFromUnitStateOrFlag(pItem, nState, nFlag);
         if (!pStatList)
         {
-            pStatList = STATLIST_AllocStatList(PLAYERLIST_GetNextRosterInfo(pItem), nFlag, 0, UNIT_ITEM, sub_00451F50_GetUnitGUID(pItem));
+            pStatList = STATLIST_AllocStatList(PLAYERLIST_GetNextRosterInfo(pItem), nFlag, 0, UNIT_ITEM, GAME_GetUnitGUID(pItem));
             D2COMMON_10475_PostStatToStatList(pItem, pStatList, 1);
             STATLIST_SetState(pStatList, nState);
         }
@@ -7923,7 +7923,7 @@ unsigned int* __stdcall D2COMMON_10494_STATES_GetStatFlags(D2UnitStrc* pUnit)
 }
 
 // 0x0063A130
-static int sub_0063A130_CheckStateMaskOnUnit(D2UnitStrc* pUnit, const unsigned int* pStateMask)
+static int STATES_CheckStateMaskFlagsOnUnit(D2UnitStrc* pUnit, const unsigned int* pStateMask)
 {
     unsigned int* pStatFlags = D2COMMON_STATES_GetStatFlags_6FDB8A90(pUnit);
     if (!pStatFlags)
@@ -7974,7 +7974,7 @@ int __stdcall STATES_CheckStateMaskAuraByStateId(int nState)
 // 0x0063A250
 int __stdcall STATES_CheckStateMaskAuraOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_AURA]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_AURA]);
 }
 
 // 0x0063A270
@@ -7991,7 +7991,7 @@ int __stdcall STATES_CheckStateMaskPgsvByStateId(int nState)
 // 0x0063A2B0
 int __stdcall STATES_CheckStateMaskPgsvOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_PGSV]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_PGSV]);
 }
 
 // 0x0063A2D0
@@ -8009,43 +8009,43 @@ int __stdcall STATES_CheckStateMaskHideByStateId(int nState)
 // 0x0063A320
 int __stdcall STATES_CheckStateMaskHideOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_HIDE]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_HIDE]);
 }
 
 // 0x0063A340
 int __stdcall STATES_CheckStateMaskActiveOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_ACTIVE]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_ACTIVE]);
 }
 
 // 0x0063A360
 int __stdcall STATES_CheckStateMaskRemHitOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_REMHIT]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_REMHIT]);
 }
 
 // 0x0063A380
 int __stdcall STATES_CheckStateMaskDamBlueOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_DAMBLUE]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_DAMBLUE]);
 }
 
 // 0x0063A3A0
 int __stdcall STATES_CheckStateMaskDamRedOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_DAMRED]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_DAMRED]);
 }
 
 // 0x0063A3C0
 int __stdcall STATES_CheckStateMaskAttBlueOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_ATTBLUE]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_ATTBLUE]);
 }
 
 // 0x0063A3E0
 int __stdcall STATES_CheckStateMaskAttRedOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_ATTRED]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_ATTRED]);
 }
 
 // 0x0063A400
@@ -8120,73 +8120,73 @@ int __stdcall STATES_CheckStateMaskStayDeathOnUnitByStateId(D2UnitStrc* pUnit, i
 // 0x0063A510
 int __fastcall STATES_CheckStateMaskRestrictOnUnit(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RESTRICT]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RESTRICT]);
 }
 
 // 0x0063A550
 int __stdcall STATES_CheckStateMaskArmBlueOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_ARMBLUE]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_ARMBLUE]);
 }
 
 // 0x0063A570
 int __stdcall STATES_CheckStateMaskRFBlueOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RFBLUE]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RFBLUE]);
 }
 
 // 0x0063A590
 int __stdcall STATES_CheckStateMaskRCBlueOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RCBLUE]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RCBLUE]);
 }
 
 // 0x0063A5B0
 int __stdcall STATES_CheckStateMaskRLBlueOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RLBLUE]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RLBLUE]);
 }
 
 // 0x0063A5D0
 int __stdcall STATES_CheckStateMaskRPBlueOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RPBLUE]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RPBLUE]);
 }
 
 // 0x0063A5F0
 int __stdcall STATES_CheckStateMaskArmRedOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_ARMRED]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_ARMRED]);
 }
 
 // 0x0063A610
 int __stdcall STATES_CheckStateMaskRFRedOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RFRED]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RFRED]);
 }
 
 // 0x0063A630
 int __stdcall STATES_CheckStateMaskRCRedOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RCRED]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RCRED]);
 }
 
 // 0x0063A650
 int __stdcall STATES_CheckStateMaskRLRedOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RLRED]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RLRED]);
 }
 
 // 0x0063A670
 int __stdcall STATES_CheckStateMaskRPRedOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RPRED]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RPRED]);
 }
 
 // 0x0063A690
 int __stdcall STATES_CheckStateMaskExpOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_EXP]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_EXP]);
 }
 
 // 0x0063A6B0
@@ -8198,7 +8198,7 @@ int __stdcall STATES_CheckStateMaskExpByStateId(int nState)
 // 0x0063A6F0
 int __stdcall STATES_CheckStateMaskShatterOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_SHATTER]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_SHATTER]);
 }
 
 // 0x0063A710
@@ -8210,19 +8210,19 @@ int __stdcall STATES_CheckStateMaskShatterByStateId(int nState)
 // 0x0063A750
 int __stdcall STATES_CheckStateMaskLifeOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_LIFE]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_LIFE]);
 }
 
 // 0x0063A770
 int __stdcall STATES_CheckStateMaskUdeadOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_UDEAD]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_UDEAD]);
 }
 
 // 0x0063A790
 int __stdcall STATES_CheckStateMaskGreenOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_GREEN]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_GREEN]);
 }
 
 // 0x0063A7B0
@@ -8230,7 +8230,7 @@ int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask)
 {
     if (pUnit && nStateMask >= 0 && nStateMask < 40)
     {
-        return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[nStateMask]);
+        return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[nStateMask]);
     }
 
     return 0;

@@ -19,13 +19,13 @@ struct D2RosterUnitStrc
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
-void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
+void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 int __fastcall TEXT_GetCenteredStringX(unsigned short nStringIndex, int nCenterX);                  // 0x0049AAA0
 int __cdecl sub_00468730();                                                                                 // 0x00468730
 int __cdecl sub_00468740();                                                                                 // 0x00468740
-D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry);               // 0x004795A0
-unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry);                       // 0x00479BC0
+D2StoredUnitRecordStrc* __fastcall ROSTER_GetNextStoredUnit(D2StoredUnitRecordStrc* pEntry);               // 0x004795A0
+unsigned short __fastcall ROSTER_GetEntryIndex(D2StoredUnitRecordStrc* pEntry);                       // 0x00479BC0
 extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);              // 0x005269D0
@@ -95,9 +95,9 @@ static void __stdcall sub_0049AAF0_DrawTextFrame(unsigned short nAltString, unsi
         nHeight = 0xF;
     }
     if (nWidth > nAltWidth)
-        sub_0046EFD0_DrawFramedBox(gnPanelOffsetX - nWidth / 2 + nX - 5, nY - gnPanelOffsetY, nWidth + 0xA, nHeight, gnBoxColor, 2);
+        AUTOMAP_DrawFramedBox(gnPanelOffsetX - nWidth / 2 + nX - 5, nY - gnPanelOffsetY, nWidth + 0xA, nHeight, gnBoxColor, 2);
     else
-        sub_0046EFD0_DrawFramedBox(gnPanelOffsetX - nAltWidth / 2 + nX - 5, nY - gnPanelOffsetY, nAltWidth + 0xA, nHeight, gnBoxColor, 2);
+        AUTOMAP_DrawFramedBox(gnPanelOffsetX - nAltWidth / 2 + nX - 5, nY - gnPanelOffsetY, nAltWidth + 0xA, nHeight, gnBoxColor, 2);
 }
 
 static void __stdcall sub_0049AF60_DrawButtonHint(unsigned short nString1, unsigned short nString2, int nCenterX, int nUnused, int nY2, int nY1, int nColor)
@@ -187,7 +187,7 @@ static void sub_0049B030_DrawRosterTooltip(D2StoredUnitRecordStrc* pEntry)
         nColor2 = 4;
     const int nWidth1 = D2Win_10121_GetTextWidth(wszLine1) + 0xA;
     const int nWidth2 = D2Win_10121_GetTextWidth(wszLine2) + 0xA;
-    sub_0046EFD0_DrawFramedBox(gnPanelOffsetX + 0x24, 0x23 - gnPanelOffsetY, nWidth1 > nWidth2 ? nWidth1 : nWidth2, nHeight, gnBoxColor, 2);
+    AUTOMAP_DrawFramedBox(gnPanelOffsetX + 0x24, 0x23 - gnPanelOffsetY, nWidth1 > nWidth2 ? nWidth1 : nWidth2, nHeight, gnBoxColor, 2);
     D2Win_10117_DrawText(wszLine1, gnPanelOffsetX + 0x29, 0x32 - gnPanelOffsetY, nColor1, 0);
     D2Win_10117_DrawText(wszLine2, gnPanelOffsetX + 0x29, 0x41 - gnPanelOffsetY, nColor2, 0);
 }
@@ -196,10 +196,10 @@ static void sub_0049B030_DrawRosterTooltip(D2StoredUnitRecordStrc* pEntry)
 void __cdecl sub_0049B330_DrawRosterButtonHints()
 {
     D2RosterUnitStrc* pRow = gpRosterUnits;
-    D2StoredUnitRecordStrc* pFirst = sub_004795A0_GetNextEntry(0);
+    D2StoredUnitRecordStrc* pFirst = ROSTER_GetNextStoredUnit(0);
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(sub_00463DD0_GetPlayerUnit());
     int bInTown = 0;
-    D2StoredUnitRecordStrc* pEntry = sub_004795A0_GetNextEntry(pFirst);
+    D2StoredUnitRecordStrc* pEntry = ROSTER_GetNextStoredUnit(pFirst);
     gnBoxColor = D2Win_10034_MixRGB(0, 0, 0);
     if (pRoom && DUNGEON_IsRoomInTown(pRoom))
         bInTown = 1;
@@ -222,7 +222,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                 {
                     if (pRow->aButtons[k].nType == 1)
                     {
-                        if (ROSTER_GetLevel(sub_004795A0_GetNextEntry(0)) >= 9)
+                        if (ROSTER_GetLevel(ROSTER_GetNextStoredUnit(0)) >= 9)
                         {
                             if (pRow->nLevel >= 9)
                             {
@@ -347,6 +347,6 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
         }
         pRow = pRow->pNext;
         if (pEntry)
-            pEntry = sub_004795A0_GetNextEntry(pEntry);
+            pEntry = ROSTER_GetNextStoredUnit(pEntry);
     }
 }

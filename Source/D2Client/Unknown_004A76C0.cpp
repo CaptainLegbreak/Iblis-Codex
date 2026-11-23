@@ -57,12 +57,12 @@ int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int n
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-void __stdcall sub_00467FA0_MsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
-void __stdcall sub_00467F20_MsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x00467F20
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+void __stdcall ROSTERPETS_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
+void __stdcall ROSTERPETS_HandleButtonDown(SMSGHANDLER_PARAMS* pMsg); // 0x00467F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey); // 0x006CC45C
 void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg); // 0x004785B0
-void __cdecl sub_0044DA70(); // 0x0044DA70
+void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
 #pragma pack(push, 2)
 struct D2TextEntryStrc
@@ -141,7 +141,7 @@ int __cdecl sub_00466DC0(); // 0x00466DC0
 int __cdecl UI_GetHoverClassId(); // 0x00466DD0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
-void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
+void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 char* __fastcall ROSTER_GetUnitName(D2UnitStrc* pUnit); // 0x0047A210
 void __cdecl PANEL_SetBlackColour(); // 0x00499E30
 int __stdcall TEXT_GetChanceToHit(int nAttackRating); // 0x004A7340
@@ -154,7 +154,7 @@ void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int n
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 void __fastcall D2Win_10132(const Unicode* wszText, int nX, int nY, unsigned int dwColor, int eDrawMode, int nColor); // 0x005023B0
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 void __stdcall STR_GroupUintDigits(Unicode* pOut, unsigned int nValue, int nSize); // 0x00525350
 int __fastcall sub_005262A0_Utf8CountChars(const char* pSrc, int nCount); // 0x005262A0
 Unicode* __fastcall strncpy(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
@@ -242,7 +242,7 @@ void __stdcall sub_004A7720_OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
                 if (nY > nSlotY - 0x1F6 && nY < nSlotY - 0x1E0 && nX > gaStatButtons[i].nX + gnPanelOffsetX && nX < gaStatButtons[i].nX + gnPanelOffsetX + 0x28)
                 {
                     gaStatButtons[i].bActive = 1;
-                    sub_00467F20_MsgHandler(pMsg);
+                    ROSTERPETS_HandleButtonDown(pMsg);
                     sub_004B9A00(5, 0, 0, 0, 0);
                     pMsg->bReturn = 1;
                     pMsg->lResult = 0;
@@ -264,11 +264,11 @@ void __stdcall sub_004A78C0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
-    sub_00467FA0_MsgHandler(pMsg);
+    ROSTERPETS_HandleButtonUp(pMsg);
     gbStatScreenButtonDown = 0;
     if (nX >= gnPanelOffsetX + 0x80 && nX <= gnPanelOffsetX + 0xA0 && nY >= gnScreenHeight + gnPanelOffsetY - 0x5C && nY <= gnScreenHeight + gnPanelOffsetY - 0x3C)
     {
-        sub_00455F20(2, 1, 0);
+        UI_SetUIVar(2, 1, 0);
         return;
     }
     if (nX >= gnPanelOffsetX && nX <= gnScreenWidth / 2 - 1 && nY >= gnPanelOffsetY && nY <= gnScreenHeight + gnPanelOffsetY - 0x31)
@@ -298,7 +298,7 @@ void __stdcall sub_004A78C0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
                 }
             }
         }
-        sub_0044DA70();
+        GAME_ResetMouseButtons();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
@@ -356,7 +356,8 @@ void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unico
     D2Win_10117_DrawText(wszText, nLeft, nY, nColor, 0);
 }
 
-static int sub_004A70C0_GetWieldedTypeStatMax(D2UnitStrc* pUnit)
+// build: symbol ?TEXT_GetWeaponBlock@* 0x004A70C0
+static int TEXT_GetWeaponBlock(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -416,7 +417,7 @@ static void TEXT_DrawBlockChanceHover(int nX, int nY, int nValue)
     int nLevel = UNITS_GetBlockRate(pPlayer, GAME_IsExpansion());
     if (nLevel <= 0)
     {
-        nLevel = sub_004A70C0_GetWieldedTypeStatMax(pPlayer);
+        nLevel = TEXT_GetWeaponBlock(pPlayer);
         if (nLevel > 0)
         {
             int nWeaponClass;
@@ -503,7 +504,7 @@ static void __stdcall sub_004A7AE0_DrawHoverToHit(int nX, int nY, int nLeftChanc
         nChance = 0x5F;
     }
 
-    sub_0046EFD0_DrawFramedBox(gaHoverBoxes[nIndex].nBoxX + gnPanelOffsetX, gaHoverBoxes[nIndex].nBoxY + gnPanelOffsetY + gnScreenHeight - 0x1E0, 0x9B, 0x1E, gnTextColor, 2);
+    AUTOMAP_DrawFramedBox(gaHoverBoxes[nIndex].nBoxX + gnPanelOffsetX, gaHoverBoxes[nIndex].nBoxY + gnPanelOffsetY + gnScreenHeight - 0x1E0, 0x9B, 0x1E, gnTextColor, 2);
     D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x103F), gaHoverBoxes[nIndex].nTitleX + gnPanelOffsetX, gaHoverBoxes[nIndex].nTitleY + gnPanelOffsetY + gnScreenHeight - 0x1E0, 0, 0);
 
     D2MonStatsTxt* pMonStatsTxtRecord = sub_MonStatsTxtRecord(sub_00466DC0());
@@ -549,13 +550,13 @@ void __cdecl sub_004A7D00_DrawCharStats()
         TEXTURE_CelDraw(&tCel, gnPanelOffsetX + 3, gnScreenHeight + gnPanelOffsetY - 0x74, -1, 5, 0);
 
         D2PointsTextStrc wszPoints;
-        sub_00502EF0(6);
+        D2Win_10127_SetFont(6);
         TEXT_DrawCenteredText(gnPanelOffsetX + 0xB, gnScreenHeight + gnPanelOffsetY - 0x7D, gnPanelOffsetX + 0x58, D2LANG_GetStringFromTblIndex(0xFEB), 1);
         TEXT_DrawCenteredText(gnPanelOffsetX + 0xB, gnPanelOffsetY + gnScreenHeight - 0x75, gnPanelOffsetX + 0x58, D2LANG_GetStringFromTblIndex(0xFEC), 1);
 
         int anPoints[3];
         wsprintfA((char*)anPoints, "%i", STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0));
-        sub_00502EF0(1);
+        D2Win_10127_SetFont(1);
         win2Unicode(&wszPoints.w0, (const char*)anPoints, 9);
         TEXT_DrawCenteredText(gnPanelOffsetX + 0x5C, gnScreenHeight + gnPanelOffsetY - 0x78, gnPanelOffsetX + 0x7F, &wszPoints.w0, 0);
     }
@@ -575,7 +576,7 @@ void __cdecl sub_004A7D00_DrawCharStats()
         }
     }
 
-    sub_00502EF0(6);
+    D2Win_10127_SetFont(6);
     for (unsigned int i = 0; i < sizeof(gaCharTexts) / sizeof(gaCharTexts[0]); ++i)
     {
         D2ZeroDwordStrc aLine[50];
@@ -613,13 +614,13 @@ NEXT_TEXT:;
     }
 
     SKILLDESC_RefreshSkills(pPlayer);
-    sub_00502EF0(0);
+    D2Win_10127_SetFont(0);
     const int nLeftChance = TEXT_GetChanceToHit(sub_004EDA80_CallSkillDescFunc(pPlayer, 1));
     const int nRightChance = TEXT_GetChanceToHit(sub_004EDA80_CallSkillDescFunc(pPlayer, 0));
     const int nPercent = MONSTER_GetPlayerDefensePercent();
     sub_004A7AE0_DrawHoverToHit(nMouseX, nMouseY, nLeftChance, nRightChance);
     TEXT_DrawBlockChanceHover(nMouseX, nMouseY, nPercent);
-    sub_00502EF0(1);
+    D2Win_10127_SetFont(1);
 
     tCel.pCellFile = GAME_GetBuySellButtonCells();
     tCel.nFrame = (gbStatScreenButtonDown != 0) + 10;
@@ -639,17 +640,17 @@ NEXT_TEXT:;
         {
             if (nChars >= 14)
             {
-                sub_00502EF0(6);
+                D2Win_10127_SetFont(6);
             }
             else
             {
-                sub_00502EF0(0);
+                D2Win_10127_SetFont(0);
             }
         }
 
         win2Unicode(wszText, szName, 0x80);
         TEXT_DrawCenteredText(gnPanelOffsetX + 0xD, gnScreenHeight + gnPanelOffsetY - 0x1C7, gnPanelOffsetX + 0xA0, wszText, 0);
-        sub_00502EF0(1);
+        D2Win_10127_SetFont(1);
     }
 
     int nFont;
@@ -900,7 +901,7 @@ NEXT_TEXT:;
             int nNewFont;
             if (nValue >= 1000)
             {
-                nNewFont = sub_00502EF0(0);
+                nNewFont = D2Win_10127_SetFont(0);
             }
             else
             {
@@ -910,7 +911,7 @@ NEXT_TEXT:;
                     goto DRAW_FIELD;
                 }
 
-                nNewFont = sub_00502EF0(0);
+                nNewFont = D2Win_10127_SetFont(0);
             }
 
             nFont = nNewFont;
@@ -925,7 +926,7 @@ DRAW_FIELD:
         nColor = 0;
         if (nFont != 0xE)
         {
-            sub_00502EF0(nFont);
+            D2Win_10127_SetFont(nFont);
         }
     }
 }
@@ -1003,7 +1004,7 @@ void __cdecl sub_004AB2F0_SetBlackColor()
 void __cdecl sub_004AC690_DrawSkillPanel()
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    sub_00502EF0(1);
+    D2Win_10127_SetFont(1);
     gbSkillPanelDrawn = 1;
     sub_004AAAE0_DrawPagedPanel(gaPanelCels[gnCharClass].pCelFile, gnSkillPage);
     sub_004AACE0_DrawSkillTreeTexts();

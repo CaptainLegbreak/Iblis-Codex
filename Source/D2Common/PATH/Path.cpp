@@ -2487,7 +2487,8 @@ void __stdcall PATH_AllocDynamicPath(void* pMemPool, D2ActiveRoomStrc* pRoom, in
         D2_ASSERT(pDynamicPath->ePrevType != PATHTYPE_KNOCKBACK_CLIENT, 2161);
         D2_ASSERT(pDynamicPath->ePrevType != PATHTYPE_KNOCKBACK_SERVER, 2162);
 
-        const int nBaseId = sub_00463860(pUnit);
+// build: symbol ?CUNIT_GetMonsterBaseId@* 0x00463860
+        const int nBaseId = CUNIT_GetMonsterBaseId(pUnit);
         if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount)
         {
             switch (nBaseId)
@@ -2608,7 +2609,7 @@ int __stdcall PATH_GetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath)
 static __forceinline int sub_00649FF0_GetCollisionPattern(D2UnitStrc* pUnit)
 {
     int nPattern = D2Common_11281_CollisionPatternFromSize(pUnit, UNITS_GetUnitSizeX(pUnit));
-    const int nBaseId = sub_00463860(pUnit);
+    const int nBaseId = CUNIT_GetMonsterBaseId(pUnit);
     if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount)
     {
         switch (nBaseId)

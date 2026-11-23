@@ -47,7 +47,7 @@ unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMa
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
+D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nPathType); // 0x00648CF0
@@ -56,7 +56,7 @@ int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bA
 void __cdecl UI_ClearGlobals(); // 0x00476AF0
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 void __fastcall MISSILE_CltDoDefault(D2UnitStrc* pMissile); // 0x004CD390
 void __fastcall MISSILE_CltDoCommon(D2UnitStrc* pMissile); // 0x004D30C0
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
@@ -153,7 +153,7 @@ int __fastcall sub_004CC9A0_CltHitProgOverlay(D2UnitStrc* pMissile, D2UnitStrc* 
 // 0x004CCCA0
 int __fastcall sub_004CCCA0_CltHitFlagOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
 {
-    D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+    D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pMissile);
     if (pOwner)
         pOwner->dwFlagEx |= UNITFLAGEX_0x40000;
     return 1;
@@ -215,7 +215,7 @@ void __fastcall MISSILE_CltDoDelayedSpawn(D2UnitStrc* pMissile)
         return;
     }
 
-    D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+    D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pMissile);
     if (pOwner)
     {
         int nTimer = MISSILE_GetTargetX(pMissile);
@@ -239,7 +239,7 @@ void __fastcall MISSILE_CltDoDelayedSpawn(D2UnitStrc* pMissile)
                 nX = SEED_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxtRecord->dwCltParam[0]) + 1;
                 missileParams.nTargetX = nX;
             }
-            D2UnitStrc* pNewMissile = sub_004CD540_CreateMissile(&missileParams);
+            D2UnitStrc* pNewMissile = MISSILE_CreateClientMissile(&missileParams);
             if (pNewMissile)
             {
                 MISSILE_SetTargetX(pNewMissile, nX);

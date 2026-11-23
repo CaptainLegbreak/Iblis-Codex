@@ -1,5 +1,5 @@
 #include "D2Unicode.h"
-int __fastcall sub_0043E630_ShowChannelText(Unicode* pText);                                                // 0x0043E630
+int __fastcall CHATDLG_ShowChannelText(Unicode* pText);                                                // 0x0043E630
 
 // 0x00446B30
 int __fastcall sub_00446B30_ShowText(int nArg, const char* szText)
@@ -8,6 +8,6 @@ int __fastcall sub_00446B30_ShowText(int nArg, const char* szText)
     for (int i = 0; i < 0x240; i++)
         wszText[i].wChar = 0;
     Unicode::win2Unicode(wszText, szText, 0x240);
-    sub_0043E630_ShowChannelText(wszText);
+    CHATDLG_ShowChannelText(wszText);
     return 1;
 }

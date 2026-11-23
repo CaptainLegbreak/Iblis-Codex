@@ -27,7 +27,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 void __fastcall sub_00473D00_SetPhase(int nPhase); // 0x00473D00
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
@@ -286,7 +286,7 @@ int __stdcall sub_004726F0(int bForce)
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
         return 0;
-    D2ActiveRoomStrc* pRoom = sub_004646A0_GetPlayerRoom();
+    D2ActiveRoomStrc* pRoom = CUNIT_GetPlayerRoom();
     if (!pRoom)
         return 0;
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
@@ -392,7 +392,7 @@ static void __stdcall sub_00472FB0_GetPeriodLight(unsigned char* pOut2, int nVal
         bFlag = 1;
     }
 
-    DUNGEON_GetLevelIdFromRoom(sub_004646A0_GetPlayerRoom());
+    DUNGEON_GetLevelIdFromRoom(CUNIT_GetPlayerRoom());
     int nPeriod = ENVIRONMENT_GetPeriodOfDayFromAct(gpDrlgAct_007A0634, 0);
     D2_ASSERT(nPeriod >= 0 && nPeriod <= 3, 0x356);
 

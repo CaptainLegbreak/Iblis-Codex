@@ -4,10 +4,10 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);           
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);               // 0x005269D0
-int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 const Unicode* __fastcall CMDTBL_GetKeyText(int nKey, int nArg2);                                     // 0x00469DE0
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 void __cdecl VIEW_DrawHelpFrameLowRes();                                                                  // 0x004943B0
 void __cdecl VIEW_DrawHelpFrameHighRes();                                                                  // 0x004944F0
@@ -50,7 +50,7 @@ void __cdecl sub_00495410_DrawHelpText()
 
     D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1030), GetCenteredX_Inl(0x1030, 0x2BD), 0x49, 0, 0);
 
-    const int nOldFont = sub_00502EF0(5);
+    const int nOldFont = D2Win_10127_SetFont(5);
 
     for (int i = 0; i < 100; ++i)
     {
@@ -133,7 +133,7 @@ void __cdecl sub_00495410_DrawHelpText()
 
     D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x107E), GetCenteredX_Inl(0x107E, 0x2E8), 0x1E1, 0, 0);
 
-    sub_00502EF0(nOldFont);
+    D2Win_10127_SetFont(nOldFont);
 }
 
 // 0x004966C0
@@ -141,7 +141,7 @@ void __cdecl sub_004966C0_DrawHelpScreen()
 {
     if (!GAME_GetUIVarState(0x15))
     {
-        sub_00455F20(0x15, 0, 0);
+        UI_SetUIVar(0x15, 0, 0);
         gbHelpUiOpened = 1;
     }
     if (D2GFX_GetResolutionMode() == 2)

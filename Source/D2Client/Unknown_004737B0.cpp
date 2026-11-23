@@ -15,7 +15,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 extern "C" double __cdecl fabs(double x);
 
 int __cdecl sub_004F5140();                                                                                 // 0x004F5140
-D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime);                       // 0x0061C100
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange);                                 // 0x00472280
@@ -74,7 +74,7 @@ static void __stdcall sub_00472FB0_GetPeriodLight(unsigned char* pOut2, int nVal
         bFlag = 1;
     }
 
-    DUNGEON_GetLevelIdFromRoom(sub_004646A0_GetPlayerRoom());
+    DUNGEON_GetLevelIdFromRoom(CUNIT_GetPlayerRoom());
     int nPeriod = ENVIRONMENT_GetPeriodOfDayFromAct(gpDrlgAct_007A0634, 0);
     D2_ASSERT(nPeriod >= 0 && nPeriod <= 3, 0x356);
 

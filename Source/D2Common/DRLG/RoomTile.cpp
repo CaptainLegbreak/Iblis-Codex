@@ -126,7 +126,7 @@ D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitShadowTileData(D2DrlgRoomStrc* p
 
 void __fastcall DRLGOUTROOM_FreeDrlgOutdoorRoomData(D2DrlgRoomStrc* pDrlgRoom); // 0x0067D680
 
-void __fastcall sub_0067D710(D2DrlgRoomStrc* pDrlgRoom); // 0x0067D710
+void __fastcall DRLGOUTROOM_InitializeDrlgOutdoorRoom(D2DrlgRoomStrc* pDrlgRoom); // 0x0067D710
 
 static void DRLGROOMTILE_ResetRoomTileSelections(D2DrlgRoomStrc* pDrlgRoom);
 
@@ -1242,7 +1242,7 @@ void __fastcall DRLGROOMTILE_AddRoomMapTiles(D2DrlgRoomStrc* pDrlgRoom)
     switch (pDrlgRoom->nType)
     {
     case 1:
-        sub_0067D710(pDrlgRoom);
+        DRLGOUTROOM_InitializeDrlgOutdoorRoom(pDrlgRoom);
         break;
 
     case 2:

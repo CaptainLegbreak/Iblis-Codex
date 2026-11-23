@@ -249,7 +249,7 @@ extern int gnSoundEnvironId; // 0x0072ADE4
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
-D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
 int __fastcall sub_004648F0_GetPathValue(D2UnitStrc* pUnit); // 0x004648F0
 
@@ -371,7 +371,7 @@ typedef char check_PartialLookupRecord_second[offsetof(PartialLookupRecord, seco
 
 typedef char check_PartialLookupHeader_records[offsetof(PartialLookupHeader, records) == 0x1C ? 1 : -1];
 
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit);
+D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
 int __fastcall sub_0046D9F0_GetConvertedUnitType(D2UnitStrc* pUnit);
 
@@ -389,7 +389,7 @@ D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 
-D2UnitStrc* __stdcall sub_0063C050_GetBodyLocItem(D2InventoryStrc* pInventory, int nBodyLoc);
+D2UnitStrc* __stdcall INVENTORY_GetCompositItem(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063C050
 
 static void GFXUTIL_ConvertDirection(int nSrcDirCount, int nDirCount, unsigned int* pDirection); // 0x004DB290
 
@@ -871,7 +871,7 @@ void __fastcall GFXUTIL_SetRelationFlags(int nUnitId1, int nUnitId2, unsigned in
 // 0x004DDE00
 int __stdcall GFXUTIL_TestLevelDrawEdges(int bArg)
 {
-    D2ActiveRoomStrc* pRoom = sub_004646A0_GetPlayerRoom();
+    D2ActiveRoomStrc* pRoom = CUNIT_GetPlayerRoom();
     if (pRoom)
     {
         D2LevelsTxt* pLevelsTxtRecord = DATATBLS_GetLevelsTxtRecord(DUNGEON_GetLevelIdFromRoom(pRoom));
@@ -1536,7 +1536,7 @@ int __fastcall GFXUTIL_GetCompTransparency(D2UnitStrc* pUnit, int nComponent, in
 
     D2InventoryStrc* pInventory;
     D2UnitStrc* pOwner;
-    if (STATES_IsUnitShapeShiftedInline(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = sub_004639D0_GetOwnerUnit(pUnit)) != 0)
+    if (STATES_IsUnitShapeShiftedInline(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = CUNIT_GetOwnerUnit(pUnit)) != 0)
     {
         pInventory = pOwner->pInventory;
     }
@@ -1552,7 +1552,7 @@ int __fastcall GFXUTIL_GetCompTransparency(D2UnitStrc* pUnit, int nComponent, in
     {
     case 7:
     {
-        D2UnitStrc* pItem = sub_0063C050_GetBodyLocItem(pInventory, 7);
+        D2UnitStrc* pItem = INVENTORY_GetCompositItem(pInventory, 7);
         if (pItem && sub_006280A0(pItem, 0x400000, 0x627, (unsigned int)".\\ENGINE\\GfxUtil.cpp"))
         {
             *pOut = 2;
@@ -1562,7 +1562,7 @@ int __fastcall GFXUTIL_GetCompTransparency(D2UnitStrc* pUnit, int nComponent, in
     }
     case 6:
     {
-        D2UnitStrc* pItem = sub_0063C050_GetBodyLocItem(pInventory, 6);
+        D2UnitStrc* pItem = INVENTORY_GetCompositItem(pInventory, 6);
         if (pItem && sub_006280A0(pItem, 0x400000, 0x61C, (unsigned int)".\\ENGINE\\GfxUtil.cpp"))
         {
             *pOut = 1;
@@ -1572,7 +1572,7 @@ int __fastcall GFXUTIL_GetCompTransparency(D2UnitStrc* pUnit, int nComponent, in
     }
     case 5:
     {
-        D2UnitStrc* pItem = sub_0063C050_GetBodyLocItem(pInventory, 5);
+        D2UnitStrc* pItem = INVENTORY_GetCompositItem(pInventory, 5);
         if (pItem && sub_006280A0(pItem, 0x400000, 0x611, (unsigned int)".\\ENGINE\\GfxUtil.cpp"))
         {
             *pOut = 1;
@@ -1730,7 +1730,7 @@ inline D2InventoryStrc* __fastcall sub_0046DB30_GetCompInventory(D2UnitStrc* pUn
     {
         if (STATES_CheckStateMaskOnUnit(pUnit, 0x25))
         {
-            D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pUnit);
+            D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pUnit);
             if (pOwner)
             {
                 if (pOut)
@@ -1772,7 +1772,7 @@ int __fastcall GFXUTIL_GetBodyLocItemShift(D2UnitStrc* pUnit, int nBodyLoc, int 
     {
         D2InventoryStrc* pInventory;
         D2UnitStrc* pOwner;
-        if (STATES_IsUnitShapeShiftedInline(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = sub_004639D0_GetOwnerUnit(pUnit)) != 0)
+        if (STATES_IsUnitShapeShiftedInline(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = CUNIT_GetOwnerUnit(pUnit)) != 0)
         {
             pInventory = pOwner->pInventory;
         }
@@ -1783,10 +1783,10 @@ int __fastcall GFXUTIL_GetBodyLocItemShift(D2UnitStrc* pUnit, int nBodyLoc, int 
 
         if (pInventory)
         {
-            D2UnitStrc* pItem = sub_0063C050_GetBodyLocItem(pInventory, nBodyLoc);
+            D2UnitStrc* pItem = INVENTORY_GetCompositItem(pInventory, nBodyLoc);
             if (!pItem && nBodyLoc != 1 && sub_0064F420_HasBodyLocFallback(nBodyLoc))
             {
-                pItem = sub_0063C050_GetBodyLocItem(pInventory, 1);
+                pItem = INVENTORY_GetCompositItem(pInventory, 1);
             }
 
             if (pItem && !ITEMS_CheckItemFlag(pItem, 0x100, 0x656, ".\\ENGINE\\GfxUtil.cpp") && !ITEMS_CheckItemFlag(pItem, 0x4000, 0x657, ".\\ENGINE\\GfxUtil.cpp"))
@@ -1883,7 +1883,7 @@ found:
             pToken->dwModeToken = gaPlrModeTokens[pToken->nMode];
             D2ArmorCompsStrc tComps;
             MISSILE_GetArmorComponents(pUnit, pInventory, nType, &tComps.n0);
-            D2UnitStrc* pItem = sub_0063C050_GetBodyLocItem(pInventory, pToken->nComponent);
+            D2UnitStrc* pItem = INVENTORY_GetCompositItem(pInventory, pToken->nComponent);
             if (sub_0064F420_HasBodyLocFallback(pToken->nComponent))
             {
                 if (pToken->nMode != 0x11 && pToken->nMode != 0)
@@ -2446,7 +2446,7 @@ static unsigned int GFXUTIL_GetWeaponClassToken(D2UnitStrc* pUnit, int nComponen
 
     D2InventoryStrc* pInventory;
     D2UnitStrc* pOwner;
-    if (STATES_IsUnitShapeShiftedInline(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = sub_004639D0_GetOwnerUnit(pUnit)) != 0)
+    if (STATES_IsUnitShapeShiftedInline(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = CUNIT_GetOwnerUnit(pUnit)) != 0)
         pInventory = pOwner->pInventory;
     else
         pInventory = pUnit->pInventory;
@@ -2457,7 +2457,7 @@ static unsigned int GFXUTIL_GetWeaponClassToken(D2UnitStrc* pUnit, int nComponen
     {
         if (nComponent == 5 || nComponent == 6)
         {
-            D2UnitStrc* pItem = sub_0063C050_GetBodyLocItem(pInventory, 5);
+            D2UnitStrc* pItem = INVENTORY_GetCompositItem(pInventory, 5);
             if (!pItem)
                 return 0x2074696C;
             D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(UNITS_GetClassIdInline(pItem));

@@ -4,10 +4,10 @@ extern "C" long __cdecl _time32(long* pTime);                                   
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                      // 0x005267E0
 
-static Unicode* sub_00437F60_GetClassName(Unicode* pBuffer, int nClass);
-static Unicode* sub_00437F60_GetClassName(Unicode* pBuffer, int nClass); // 0x00437F60
+static Unicode* CHARSEL_GetClassName(Unicode* pBuffer, int nClass); // 0x00437F60
+static Unicode* CHARSEL_GetClassName(Unicode* pBuffer, int nClass); // 0x00437F60
 // 0x00437F60
-static Unicode* sub_00437F60_GetClassName(Unicode* pBuffer, int nClass)
+static Unicode* CHARSEL_GetClassName(Unicode* pBuffer, int nClass)
 {
     switch (nClass)
     {
@@ -127,7 +127,7 @@ void __fastcall sub_004FB6A0_ClearText(D2WinControlStrc*); // 0x004FB6A0
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc*,const Unicode*,int,int,int); // 0x004FC9B0
 void __fastcall D2Win_10046(D2WinControlStrc*,const char*,int); // 0x004FCFF0
 void __stdcall D2Win_10142_CompUnitDestroy(D2CompositeUnitStrc* pCompositeUnit, int bUnlink); // 0x005041B0
-D2CompositeUnitStrc* __stdcall sub_005066C0_CreateCompositeUnit(unsigned int nUnitIndex, unsigned int nMode, unsigned char* pComponents, const unsigned char* pComponentColors); // 0x005066C0
+D2CompositeUnitStrc* __stdcall D2COMP_CreateCompositeUnit(unsigned int nUnitIndex, unsigned int nMode, unsigned char* pComponents, const unsigned char* pComponentColors); // 0x005066C0
 void __stdcall D2Win_10149(D2CompositeUnitStrc* ptUnit, unsigned char nValue); // 0x005051A0
 void __stdcall D2Win_10151(D2CompositeUnitStrc* ptUnit, int nFrame); // 0x00505260
 int __fastcall D2Win_10143(D2CompositeUnitStrc* pCompositeUnit, int nMode); // 0x005042F0
@@ -230,7 +230,7 @@ void __cdecl sub_00438560_Refresh()
                 sprintf(end,gszTagFormat,entry->szCode32A);
             }
             D2Win_10046(gaRowControls_00779A20[row],text,hardcore?1:4);
-            sub_00437F60_GetClassName(className,entry->nType);
+            CHARSEL_GetClassName(className,entry->nType);
             Unicode description[100];
             Unicode level[10];
             sprintf(text,gszLevelFormat,entry->nLevel);

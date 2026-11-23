@@ -22,12 +22,12 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
-void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* pSkill); // 0x00643AD0
 extern int gnScreenHeight; // 0x00711470
@@ -36,7 +36,7 @@ extern int gbSkillSelectRight; // 0x007C07FC
 extern int gaHotkeySkills[16]; // 0x007C06C8
 extern int gaHotkeyOwners[16]; // 0x007C0768
 extern int gaHotkeyLeft[16]; // 0x007C07B8
-int __cdecl sub_00463DF0(); // 0x00463DF0
+int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 void __stdcall SKILLS_SetLeftActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643BC0
 void __stdcall SKILLS_SetRightActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643C50
 
@@ -107,7 +107,7 @@ void __fastcall sub_004AA030_SelectHotkey(int nSlot)
         return;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     gnSelectedHotkey = nSlot;
-    sub_004786A0_SendDwords2(0x3C, (gaHotkeyLeft[nSlot] ? 0x80000000 : 0) + gaHotkeySkills[nSlot], gaHotkeyOwners[nSlot]);
+    MSG_SendTwoDwords(0x3C, (gaHotkeyLeft[nSlot] ? 0x80000000 : 0) + gaHotkeySkills[nSlot], gaHotkeyOwners[nSlot]);
     if (gaHotkeyLeft[nSlot])
         SKILLS_SetLeftActiveSkill(pPlayer, gaHotkeySkills[nSlot], gaHotkeyOwners[nSlot]);
     else
@@ -117,7 +117,7 @@ void __fastcall sub_004AA030_SelectHotkey(int nSlot)
 // 0x004AA740
 void __fastcall sub_004AA740_CycleHotkey(int nDelta)
 {
-    if (sub_00463DF0())
+    if (CUNIT_IsPlayerDeadOrMissing())
         return;
     const int nStep = (nDelta > 0) * 2 - 1;
     if (nDelta < 0)
@@ -157,7 +157,7 @@ static void sub_004AA0F0_AssignFreeHotkey(int nSlot, int nIndex)
     else
         gaHotkeyLeft[nSlot] = 1;
     gaHotkeyOwners[nSlot] = gtHotkeySlots_007C0300.f_2D0[nIndex];
-    sub_004786A0_SendDwords2(0x51, (nSlot << 16) + (gaHotkeyLeft[nSlot] ? 0x8000 : 0) + gaHotkeySkills[nSlot], gaHotkeyOwners[nSlot]);
+    MSG_SendTwoDwords(0x51, (nSlot << 16) + (gaHotkeyLeft[nSlot] ? 0x8000 : 0) + gaHotkeySkills[nSlot], gaHotkeyOwners[nSlot]);
 }
 
 // 0x004AA160

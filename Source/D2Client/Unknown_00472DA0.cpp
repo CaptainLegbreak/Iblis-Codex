@@ -62,7 +62,7 @@ extern unsigned int gdwGlobal_007BB390; // 0x007BB390
 
 extern "C" double __cdecl fabs(double x);
 int __cdecl sub_004F5140(); // 0x004F5140
-D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime); // 0x0061C100
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl sub_0044DB00(); // 0x0044DB00
@@ -392,7 +392,7 @@ static void __stdcall sub_00472FB0_GetPeriodLight(unsigned char* pOut2, int nVal
         bFlag = 1;
     }
 
-    DUNGEON_GetLevelIdFromRoom(sub_004646A0_GetPlayerRoom());
+    DUNGEON_GetLevelIdFromRoom(CUNIT_GetPlayerRoom());
     int nPeriod = ENVIRONMENT_GetPeriodOfDayFromAct(gpDrlgAct_007A0634, 0);
     D2_ASSERT(nPeriod >= 0 && nPeriod <= 3, 0x356);
 

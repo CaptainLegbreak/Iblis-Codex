@@ -18,7 +18,7 @@ struct D2MonStats2Txt;
 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 void __fastcall ITEM_ShowTimedHint(void* pOwner, int nDelayA, int nDelayC, unsigned int nIndex, int nArgE, int nDelayF, int nArgG); // 0x004DCD40
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
@@ -90,7 +90,7 @@ void __fastcall sub_0046B850_SpawnMissileAtObject182(D2UnitStrc* unit)
  params.nTargetX=x;
  params.nTargetY=y;
  params.nSkillLevel=1;
- D2UnitStrc* missile=sub_004CD540_CreateMissile(&params);
+ D2UnitStrc* missile=MISSILE_CreateClientMissile(&params);
  if(missile&&object)MISSILE_SetTargetX(missile,object->dwUnitId);
 }
 

@@ -79,8 +79,9 @@ static void __stdcall COLLISION_AddTileCollisionFlags(D2RoomCollisionGridStrc* p
     }
 }
 
-// build: context sub_0064C640_SetTileCollisionFlags
-static void __stdcall sub_0064C640_SetTileCollisionFlags(D2RoomCollisionGridStrc* pCollisionGrid, int nX, int nY, D2TileLibraryEntryStrc* pTileLibraryEntry)
+// build: symbol ?COLLISION_SetTileCollisionFlags@* 0x0064C640
+// build: context COLLISION_SetTileCollisionFlags
+static void __stdcall COLLISION_SetTileCollisionFlags(D2RoomCollisionGridStrc* pCollisionGrid, int nX, int nY, D2TileLibraryEntryStrc* pTileLibraryEntry)
 {
     if (pCollisionGrid && pCollisionGrid->pCollisionMask)
     {
@@ -103,7 +104,8 @@ static void __stdcall sub_0064C640_SetTileCollisionFlags(D2RoomCollisionGridStrc
     }
 }
 
-static void __stdcall sub_0064C700_SetCollisionMaskRect(D2RoomCollisionGridStrc* pCollisionGrid, int nX, int nY, unsigned short nFlags)
+// build: symbol ?COLLISION_SetCollisionMaskRect@* 0x0064C700
+static void __stdcall COLLISION_SetCollisionMaskRect(D2RoomCollisionGridStrc* pCollisionGrid, int nX, int nY, unsigned short nFlags)
 {
     if (pCollisionGrid && pCollisionGrid->pCollisionMask)
     {
@@ -136,7 +138,7 @@ static void __stdcall COLLISION_ApplyAdjacentRoomTileCollision(D2RoomCollisionGr
             const int nRelX = nX - pCollisionGrid->pRoomCoords.nSubtileX;
             const int nRelY = nY - pCollisionGrid->pRoomCoords.nSubtileY;
             if (bRemoveOldFlags)
-                sub_0064C640_SetTileCollisionFlags(pCollisionGrid, nRelX, nRelY, pTiles[i].pTile);
+                COLLISION_SetTileCollisionFlags(pCollisionGrid, nRelX, nRelY, pTiles[i].pTile);
             else
                 COLLISION_AddTileCollisionFlags(pCollisionGrid, nRelX, nRelY, pTiles[i].pTile);
 
@@ -148,7 +150,7 @@ static void __stdcall COLLISION_ApplyAdjacentRoomTileCollision(D2RoomCollisionGr
             if (pTiles[i].dwFlags & 0x80)
                 nFlags |= COLLIDE_MISSILE_BARRIER;
             if (nFlags)
-                sub_0064C700_SetCollisionMaskRect(pCollisionGrid, nRelX, nRelY, nFlags);
+                COLLISION_SetCollisionMaskRect(pCollisionGrid, nRelX, nRelY, nFlags);
         }
     }
 }
@@ -219,7 +221,8 @@ inline void COLLISION_CreateBoundingBoxInline(D2BoundingBoxStrc* pBoundingBox, i
     pBoundingBox->nTop = pBoundingBox->nBottom + nSizeY - 1;
 }
 
-static void __stdcall sub_0064DC80(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask)
+// build: symbol ?COLLISION_SetCollisionMaskCross@* 0x0064DC80
+static void __stdcall COLLISION_SetCollisionMaskCross(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask)
 {
     sub_0064DDB0(pRoom, nX - 1, nY, nMask);
     sub_0064DDB0(pRoom, nX, nY, nMask);
@@ -245,7 +248,8 @@ static void __stdcall sub_0064DDB0(D2ActiveRoomStrc* pRoom, int nX, int nY, unsi
     }
 }
 
-static void __stdcall sub_0064DDF0(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask)
+// build: symbol ?COLLISION_SetCollisionMaskForSquare@* 0x0064DDF0
+static void __stdcall COLLISION_SetCollisionMaskForSquare(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask)
 {
     D2BoundingBoxStrc tBoundingBox;
     COLLISION_CreateBoundingBoxInline(&tBoundingBox, nX, nY, 3, 3);
@@ -262,11 +266,11 @@ void __stdcall COLLISION_SetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY
         break;
 
     case 2:
-        sub_0064DC80(pRoom, nX, nY, nMask);
+        COLLISION_SetCollisionMaskCross(pRoom, nX, nY, nMask);
         break;
 
     case 3:
-        sub_0064DDF0(pRoom, nX, nY, nMask);
+        COLLISION_SetCollisionMaskForSquare(pRoom, nX, nY, nMask);
         break;
     }
 }
@@ -280,7 +284,7 @@ void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int
         return;
 
     case 1:
-        sub_0064DC80(pRoom, nX, nY, nMask);
+        COLLISION_SetCollisionMaskCross(pRoom, nX, nY, nMask);
         if (nMask)
         {
             sub_0064DDB0(pRoom, nX, nY, MASK_NO_PATH);
@@ -288,15 +292,15 @@ void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int
         break;
 
     case 2:
-        sub_0064DDF0(pRoom, nX, nY, nMask);
+        COLLISION_SetCollisionMaskForSquare(pRoom, nX, nY, nMask);
         if (nMask)
         {
-            sub_0064DC80(pRoom, nX, nY, MASK_NO_PATH);
+            COLLISION_SetCollisionMaskCross(pRoom, nX, nY, MASK_NO_PATH);
         }
         break;
 
     case 3:
-        sub_0064DC80(pRoom, nX, nY, nMask);
+        COLLISION_SetCollisionMaskCross(pRoom, nX, nY, nMask);
         if (nMask)
         {
             sub_0064DDB0(pRoom, nX, nY, MASK_PET);
@@ -304,15 +308,15 @@ void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int
         break;
 
     case 4:
-        sub_0064DDF0(pRoom, nX, nY, nMask);
+        COLLISION_SetCollisionMaskForSquare(pRoom, nX, nY, nMask);
         if (nMask)
         {
-            sub_0064DC80(pRoom, nX, nY, MASK_PET);
+            COLLISION_SetCollisionMaskCross(pRoom, nX, nY, MASK_PET);
         }
         break;
 
     case 5:
-        sub_0064DC80(pRoom, nX, nY, nMask);
+        COLLISION_SetCollisionMaskCross(pRoom, nX, nY, nMask);
         break;
     }
 }

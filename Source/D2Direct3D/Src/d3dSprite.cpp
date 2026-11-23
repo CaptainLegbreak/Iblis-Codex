@@ -153,7 +153,7 @@ done:
 
 static
 // 0x006B6680
-unsigned char sub_006B6680_SetBlendAndAlpha(int mode)
+unsigned char D3D_SetBlendAndAlpha(int mode)
 {
     unsigned char alpha = 255;
     switch (mode)
@@ -183,7 +183,7 @@ unsigned char sub_006B6680_SetBlendAndAlpha(int mode)
 
 unsigned char __fastcall EmitSetBlendAndAlpha(int mode)
 {
-    return sub_006B6680_SetBlendAndAlpha(mode + 1);
+    return D3D_SetBlendAndAlpha(mode + 1);
 }
 
 // 0x006B6700

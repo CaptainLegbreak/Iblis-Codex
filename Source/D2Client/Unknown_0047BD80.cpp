@@ -75,12 +75,12 @@ void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFor
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 void __fastcall TEXT_PrintChatLine(const Unicode* pText, char nColor); // 0x0049E3A0
 void __fastcall sub_004787B0_SendStrings(const unsigned char* pData); // 0x004787B0
-D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
+D2StoredUnitRecordStrc* __fastcall ROSTER_GetNextStoredUnit(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
 extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 unsigned int __fastcall D2Win_10128(unsigned char nChar); // 0x00502550
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 T0044CB60* __fastcall sub_00502970_SplitText(Unicode* pText, unsigned int* pLineCount, int nWidth); // 0x00502970
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 extern int gnLanguageId; // 0x007BB5DC
@@ -292,7 +292,7 @@ static int __stdcall sub_0047C1F0_HandleWhisperCommand(int bCheckStored, char* s
             }
             if (bCheckStored)
             {
-                for (D2StoredUnitRecordStrc* pEntry = sub_004795A0_GetNextEntry(0); pEntry; pEntry = sub_004795A0_GetNextEntry(pEntry))
+                for (D2StoredUnitRecordStrc* pEntry = ROSTER_GetNextStoredUnit(0); pEntry; pEntry = ROSTER_GetNextStoredUnit(pEntry))
                 {
                     if (!_stricmp(ROSTER_GetEntryName(pEntry), szName))
                     {
@@ -337,13 +337,13 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
     if (!_stricmp(pText, "/fps"))
     {
         sub_00477C60_CheckCacheStats();
-        sub_00455F20(5, 1, 0);
+        UI_SetUIVar(5, 1, 0);
         return;
     }
     if (!_stricmp(pText, "/framerate"))
     {
         VIEW_ToggleCacheStats();
-        sub_00455F20(5, 1, 0);
+        UI_SetUIVar(5, 1, 0);
         return;
     }
     if (!_strnicmp(pText, "/players", 8))
@@ -474,7 +474,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
             sub_004787B0_SendStrings((const unsigned char*)&tSend);
         }
     }
-    sub_00455F20(5, 1, 0);
+    UI_SetUIVar(5, 1, 0);
 }
 
 // 0x0047CA70
@@ -493,7 +493,7 @@ void __stdcall sub_0047CA70_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
         }
         break;
     case 0x1B:
-        sub_00455F20(5, 1, 0);
+        UI_SetUIVar(5, 1, 0);
         break;
     case 0xD:
     {
@@ -503,7 +503,7 @@ void __stdcall sub_0047CA70_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
         const Unicode* pText = &gwszChatLine_007BB638[nSkip];
         if (!sub_00526800(pText))
         {
-            sub_00455F20(5, 1, 0);
+            UI_SetUIVar(5, 1, 0);
             break;
         }
         sub_0047BA00_PushChatHistory(pText);
@@ -518,7 +518,7 @@ void __stdcall sub_0047CA70_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
             break;
         if (gnChatCaret >= 0xFF || nLength >= 0xFF)
             break;
-        const int nOldFont = sub_00502EF0(0xD);
+        const int nOldFont = D2Win_10127_SetFont(0xD);
         unsigned int nLines;
         T0044CB60* pLines = sub_00502970_SplitText(gwszChatLine_007BB638, &nLines, gnScreenWidth - 0x109);
         int nWidth = 0;
@@ -545,7 +545,7 @@ void __stdcall sub_0047CA70_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
             if (nLines != 3 || nWidth < gnScreenWidth - 0x113)
                 ++gnChatCaret;
         }
-        sub_00502EF0(nOldFont);
+        D2Win_10127_SetFont(nOldFont);
         break;
     }
     }

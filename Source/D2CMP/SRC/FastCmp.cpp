@@ -196,7 +196,7 @@ double __stdcall PaletteMinComponent(double a, double b)
 }
 
 // 0x00604FE0
-double __stdcall sub_00604FE0_HueToRgb(double n1, double n2, double hue)
+double __stdcall PaletteHueToRgb(double n1, double n2, double hue)
 {
     if (hue > 360.0)
         hue -= 360.0;

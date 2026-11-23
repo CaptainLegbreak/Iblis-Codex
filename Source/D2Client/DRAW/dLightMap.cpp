@@ -275,7 +275,7 @@ unsigned int gadwLightMapRows[64][64]; // 0x007A8A50
 
 static void __stdcall DLIGHTMAP_UpdateLight(int nLevel, D2R01LightStrc* pLight); // 0x004755A0
 
-void __cdecl sub_00475800_RunLightPass();
+void __cdecl DLIGHTMAP_RunLightPass(); // 0x00475800
 
 // 0x004740D0
 static __declspec(noinline) unsigned int __stdcall DLIGHTMAP_ApproxDistance(int nB, int nA)
@@ -305,7 +305,7 @@ static inline D2UnitStrc* DLIGHTMAP_FindUnitFromRef(D2UnitRefStrc* pRef)
 }
 
 // 0x00474140
-void __cdecl sub_00474140_ToggleFlag()
+void __cdecl DLIGHTMAP_ToggleBlendLightColor()
 {
     gbBlendLightColor = !gbBlendLightColor;
 }
@@ -329,7 +329,7 @@ static inline int sub_0044BE50(D2UnitStrc* pUnit)
 }
 
 // 0x00474160
-D2R01LightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nMode, int nRadius, unsigned char nIntensity, unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
+D2R01LightStrc* __fastcall DLIGHTMAP_MakeLightEntry(D2UnitStrc* pUnit, int nMode, int nRadius, unsigned char nIntensity, unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
 {
     if (nRadius > 0)
     {
@@ -1414,7 +1414,7 @@ int __cdecl sub_00481810()
 }
 
 // 0x00481820
-int __cdecl sub_00481820()
+int __cdecl DLIGHTMAP_GetSoundTick()
 {
     return gdwSoundTick;
 }
@@ -1518,7 +1518,7 @@ low:
 }
 
 // 0x00475800
-void __cdecl sub_00475800_RunLightPass()
+void __cdecl DLIGHTMAP_RunLightPass()
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nX = CLIENTS_GetUnitXInline(pPlayer);

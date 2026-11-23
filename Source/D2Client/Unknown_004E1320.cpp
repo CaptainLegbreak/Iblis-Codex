@@ -11,7 +11,7 @@ struct D2InventoryStrc;
 struct D2GfxLightStrc;
 struct D2MissilesTxt;
 extern D2DataTablesStrc* sgptDataTables;  // 0x00744304
-int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY);                         // 0x004C52E0
+int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY);                         // 0x004C52E0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 void __fastcall MISSILE_CreateBurstAt(D2UnitStrc* pMissile, int nX, int nY, int nCount, int nMissile, int nSkill, int nLevel, int nPerStep, int nMult); // 0x004CED60
 static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecordForceInline(int nSkillId)
@@ -35,7 +35,7 @@ int __fastcall sub_004E1320(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
         pUnit->dwFlags |= UNIT_FLAG;
     int nTargetX;
     int nTargetY;
-    if (!sub_004C52E0_GetTargetPosition(pUnit, &nTargetX, &nTargetY))
+    if (!ITEM_GetTargetPosition(pUnit, &nTargetX, &nTargetY))
         return 0;
     int nCount = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwAuraRangeCalc, nSkillId, nSkillLevel) - COUNT_BIAS;
     if (nCount < MIN_COUNT)

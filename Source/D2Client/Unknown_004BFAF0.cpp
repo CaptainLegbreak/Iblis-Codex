@@ -4,7 +4,7 @@ struct D2ClientDialogStrc;
 
 typedef unsigned short Unicode;
 int __fastcall sub_004B9A00(int, D2UnitStrc*, int, int, int); // 0x004B9A00
-D2ClientDialogStrc* __fastcall sub_004B7EB0_CreateDialog(int, int, int (__cdecl*)(), int (__cdecl*)(), int, int, int, int, int, int, int); // 0x004B7EB0
+D2ClientDialogStrc* __fastcall DIALOG_CreateDialog(int, int, int (__cdecl*)(), int (__cdecl*)(), int, int, int, int, int, int, int); // 0x004B7EB0
 void __fastcall sub_004B8370_SetField5C(D2ClientDialogStrc*, int); // 0x004B8370
 void __fastcall sub_004B85F0_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nHeight, int nArg4, int nType, int nFont, int (__cdecl* pfnCallback)(), int bEnabled); // 0x004B85F0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -26,7 +26,7 @@ int __cdecl sub_004BFAF0_ShowConfirmation()
     if (gnDialogState_007C5474 == 2)
     {
     sub_004B9A00(2, 0, 0, 0, 0);
-    gpDialog_007C5484 = sub_004B7EB0_CreateDialog(0x96, 0x82, sub_004BF9B0, 0, 1, 0, 1, 0, 0, 0, 1);
+    gpDialog_007C5484 = DIALOG_CreateDialog(0x96, 0x82, sub_004BF9B0, 0, 1, 0, 1, 0, 0, 0, 1);
     sub_004B8370_SetField5C(gpDialog_007C5484, 0);
     sub_004B85F0_AddTextLine(gpDialog_007C5484, D2LANG_GetStringFromTblIndex(0xD19), 15, 0, 0, 1, 0, 0);
     gnDialogState_007C5474 = 3;

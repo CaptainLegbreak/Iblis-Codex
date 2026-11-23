@@ -154,7 +154,7 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 void __fastcall WREGISTER_RegisterCommand(void* hWnd, int nType, int nId, D2WinMsgHandler pCallback); // 0x00506C40
 
@@ -270,7 +270,7 @@ int __fastcall D2Win_10058(D2WinControlStrc* pControl, const Unicode* pText, int
 }
 
 // 0x004FD340
-static void __stdcall sub_004FD340_ImageDrawTiled(const D2CropRectStrc* pDst, const D2CropRectStrc* pSrc, D2GfxDataStrc* pGfxData)
+static void __stdcall IMAGE_DrawTiled(const D2CropRectStrc* pDst, const D2CropRectStrc* pSrc, D2GfxDataStrc* pGfxData)
 {
     const int nSrcWidth = pSrc->nX1 - pSrc->nX0;
     const int nDstWidth = pDst->nX1 - pDst->nX0;
@@ -302,7 +302,8 @@ static void __stdcall sub_004FD340_ImageDrawTiled(const D2CropRectStrc* pDst, co
     }
 }
 
-int __fastcall sub_005C33D0_GetSkillValue(int nSkillId)
+// build: symbol ?SKILLS_GetSkillValue@* 0x005C33D0
+int __fastcall SKILLS_GetSkillValue(int nSkillId)
 {
     switch (nSkillId)
     {
@@ -467,7 +468,7 @@ int __fastcall LIST_Draw(D2WinControlStrc* pControl)
 
     D2_ASSERT(pList->controlHeader.eType == D2WIN_LIST, 0x119);
 
-    sub_00502EF0(pList->eFont);
+    D2Win_10127_SetFont(pList->eFont);
 
     int nTextY = pList->controlHeader.nImageY - pList->controlHeader.nHeight + pList->field_48 + pList->field_44;
 
@@ -528,7 +529,7 @@ int __fastcall LIST_Draw(D2WinControlStrc* pControl)
         pList->field_5C = 0;
     }
 
-    sub_00502EF0(1);
+    D2Win_10127_SetFont(1);
 
     return 1;
 }
@@ -551,7 +552,7 @@ int __fastcall POPUP_Draw(D2WinControlStrc* pControl)
 
     D2GFX_UtilRect(&tRect, 0xFF);
     D2GFX_DrawBox(tRect.left, tRect.bottom, tRect.right, tRect.top, nColor, 2);
-    sub_00502EF0(1);
+    D2Win_10127_SetFont(1);
 
     for (int i = 0; i < pPopUp->nLines; ++i)
     {
@@ -609,7 +610,7 @@ int __fastcall IMAGE_Draw(D2WinControlStrc* pControl)
             tDst.nY1 = nY[j + 1];
             tSrc.nX0 = nSrcX[i];
             tSrc.nX1 = nSrcX[i + 1];
-            sub_004FD340_ImageDrawTiled(&tDst, &tSrc, &tGfxData);
+            IMAGE_DrawTiled(&tDst, &tSrc, &tGfxData);
         }
     }
 

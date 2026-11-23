@@ -397,7 +397,7 @@ void __fastcall D2GAME_INVMODE_Last_6FC416D0(D2GameStrc* pGame, D2UnitStrc* pUni
 void __fastcall ACT5Q3_ApplyResistanceReward(D2GameStrc* pGame, D2UnitStrc* pUnit);                         // 0x0058A0A0
 
 // 0x00537930
-static void __stdcall sub_00537930_SendPlayerAssign(D2ClientStrc* pClient, D2UnitStrc* pUnit)
+static void __stdcall CLIENTS_SendPlayerAssign(D2ClientStrc* pClient, D2UnitStrc* pUnit)
 {
     const int nUnitType = !pUnit ? UNIT_INVALID : pUnit->dwUnitType;
     const int nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
@@ -996,7 +996,7 @@ static inline D2UnitStrc* sub_M08_GetClientPlayerUnit(D2ClientStrc* pClient)
 }
 
 // 0x00537B50
-static void __stdcall sub_00537B50_ChangeClientRoom(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient)
+static void __stdcall CLIENTS_ChangeRoom(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient)
 {
     if (!pClient || !pClient->pGame)
     {
@@ -1279,7 +1279,7 @@ void __fastcall CLIENTS_SynchronizePlayer(D2GameStrc* pGame, D2ClientStrc* pClie
             QUESTS_ChangeLevel(pGame, nSourceLevelId, nDestinationLevelId, pPlayer);
             SUNITPROXY_UpdateNpcsOnActChange(pGame, pPlayer, nSourceLevelId, nDestinationLevelId);
         }
-        sub_00537B50_ChangeClientRoom(pRoom, pClient);
+        CLIENTS_ChangeRoom(pRoom, pClient);
     }
     ARENA_SynchronizeWithClients(pGame, pClient);
     if (UNITS_GetRoom(pPlayer))
@@ -1327,7 +1327,7 @@ void __fastcall CLIENTS_SetRoomInClient(D2ClientStrc* ptClient, D2ActiveRoomStrc
     D2_ASSERT(ptClient, 1951);
     if (pRoom != ptClient->hRoom)
     {
-        sub_00537B50_ChangeClientRoom(pRoom, ptClient);
+        CLIENTS_ChangeRoom(pRoom, ptClient);
     }
     ptClient->hRoom = pRoom;
 }
@@ -2256,7 +2256,7 @@ typedef void (__fastcall* GAME_ForEachIngameClientCallbackPtr)(D2ClientStrc*, vo
 
 void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem); // 0x00409C80
 
-int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
+int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
 void __fastcall GAME_ForEachIngameClient(D2GameStrc* pGame, GAME_ForEachIngameClientCallbackPtr pFn, void* pContext); // 0x0052DED0
 
@@ -2501,9 +2501,9 @@ struct D2StormHashTableStrc
     D2StormListArrayStrc m_slotlistarray;
     unsigned int m_slotmask;
 
-    unsigned int sub_0052E0E0_Mask(unsigned int value);
+    unsigned int MaskHash(unsigned int value); // 0x0052E0E0
     void sub_0044FA00_InternalClear(int bWarn);                                                             // 0x0044FA00
-    void sub_0052FF20_GrowListArray();
+    void GrowListArray(); // 0x0052FF20
 };
 
 extern unsigned short gwValue_0077905C;
@@ -2596,16 +2596,16 @@ struct D2GameDataTableStrc
     void SyncLeaveLock(int nLockHandle);
     void Unlock(int nLockHandle);
     void Unlink(D2GameStrc* pGame);                                                                         // 0x0052E490
-    void sub_0052E590(D2GameStrc* pGame);
+    void Delete(D2GameStrc* pGame); // 0x0052E590
     void sub_0052E5B0(D2GameStrc* pGame);
     void DeleteUnlock(D2GameStrc* pGame, int nLockHandle);                                                  // 0x0052E5D0
     D2GameStrc* Ptr(unsigned int nHashValue, const D2HashKeyNoneStrc* pKey);                                // 0x0052E650
     D2GameStrc* sub_0052E6B0(unsigned int nHashValue);
-    unsigned int sub_0052E6D0_GenerateHandle();
-    int sub_00530600(unsigned int nSlot);                                                                   // 0x00530600
+    unsigned int GenerateHandle(); // 0x0052E6D0
+    int MonitorFullness(unsigned int nSlot);                                                                   // 0x00530600
     D2GameStrc* sub_00530820_New(unsigned int nHashVal, HASHKEY_NONE* pKey, int nExtraBytes, int nFlags);
-    D2GameStrc* sub_005308C0_NewHandle(unsigned int* pHandle);
-    D2GameStrc* sub_005308F0_NewLock(unsigned int* pHandle, int* pLockedHandle);
+    D2GameStrc* NewHandle(unsigned int* pHandle); // 0x005308C0
+    D2GameStrc* NewLock(unsigned int* pHandle, int* pLockedHandle); // 0x005308F0
     D2GameStrc* Lock(unsigned int nHashValue, int* pLockHandle, int bForWriting);
 
     D2GameStrc* LockInline(unsigned int nHashValue, int* pLockHandle, int bForWriting)
@@ -2697,8 +2697,8 @@ struct D2StormHashTable00530600Strc
     D2StormSlotArray00530600Strc m_slotlistarray;
     unsigned int m_slotmask;
 
-    void sub_0052FF20_GrowListArray();  // 0x0052FF20
-    int sub_00530600(unsigned int nSlot);
+    void GrowListArray();  // 0x0052FF20
+    int MonitorFullness(unsigned int nSlot); // 0x00530600
 };
 
 int gdwGlobal_00882D14; // 0x00882D14
@@ -3268,7 +3268,7 @@ unsigned short __cdecl sub_0052C170_AllocGameId();
 
 void __fastcall GAME_ResolveGameNameConflict(D2GameStrc* pGame, const char* szGameName, unsigned int a3);                    // 0x0052F940
 
-void __fastcall sub_00536070_InitNpcControl(D2GameStrc* pGame);
+void __fastcall SUNITPROXY_InitializeNpcControl(D2GameStrc* pGame); // 0x00536070
 
 void __fastcall ARENA_AllocArena(D2GameStrc* pGame, int a2, unsigned int nFlags, unsigned char a4);         // 0x0053F4B0
 
@@ -3278,11 +3278,11 @@ void __fastcall EVENT_AllocEventQueue(D2GameStrc* pGame);                       
 
 void __fastcall sub_00545D80_QuestInit(D2GameStrc* pGame);
 
-int __fastcall sub_00546C60_AllocObjectControl(D2GameStrc* pGame);
+int __fastcall OBJRGN_AllocObjectControl(D2GameStrc* pGame); // 0x00546C60
 
 void __fastcall MONSTERREGION_InitializeForGame(D2GameStrc* pGame);                                         // 0x00547D20
 
-void __fastcall sub_00564A00_QueueGame(void* pTask, int a2, unsigned int hGame);
+void __fastcall TASK_QueueGame(void* pTask, int a2, unsigned int hGame); // 0x00564A00
 
 void __fastcall LEVEL_LoadAct(D2GameStrc* pGame, unsigned char nAct);                              // 0x0053AFB0
 
@@ -3504,7 +3504,7 @@ int __fastcall CLIENTS_GetLocale(D2ClientStrc* pClient)
 }
 
 // 0x005394A0
-void __fastcall sub_005394A0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, int nXArg, int nYArg)
+void __fastcall CLIENTS_SpawnPlayer(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, int nXArg, int nYArg)
 {
     if (!pGame || !pPlayer || !pClient)
     {
@@ -3652,7 +3652,7 @@ int __fastcall ClientAddPlayerToGame(D2ClientStrc* ptClient, D2GameStrc* ptGame,
         ptClient->pPlayer = 0;
         return 0x13;
     }
-    sub_00537930_SendPlayerAssign(ptClient, pPlayer);
+    CLIENTS_SendPlayerAssign(ptClient, pPlayer);
     D2GAME_SendPacketSize05_6FC3C880(ptClient, 0x5F, UNITS_GetPlayerPortalFlags(pPlayer));
     D2Common_10513(pPlayer, pPlayer, D2GAME_UpdateAttribute_6FC822D0);
     if (sub_00463720_TestUnitFlagEx(pPlayer, 1))
@@ -3964,11 +3964,11 @@ void __fastcall CLIENTS_ResetClientInAct(D2ClientStrc* pClient, int nAct)
     D2GameStrc* pGame = pClient->pGame;
     sub_M08_RemoveUnitFromRoom(pGame, pPlayer);
     ClientAddPlayerToGame(pClient, pGame, 0, pRoom, nX, nY);
-    sub_005394A0(pClient, pClient->pPlayer, pGame, pRoom, nX, nY);
+    CLIENTS_SpawnPlayer(pClient, pClient->pPlayer, pGame, pRoom, nX, nY);
     pClient->dwFlags &= ~CLIENTFLAGEX_PLAYER_UNIT_ALIVE;
     if (pRoom != pClient->hRoom)
     {
-        sub_00537B50_ChangeClientRoom(pRoom, pClient);
+        CLIENTS_ChangeRoom(pRoom, pClient);
     }
     pClient->hRoom = pRoom;
 }

@@ -642,12 +642,12 @@ void __fastcall DRLGACTIVATE_RoomExSetStatus_ClientOutOfSight(D2DrlgRoomStrc* pD
 int __stdcall sub_M121_Emit_0061BA10(int nLevelId) { return DRLGACTIVATE_CanUntileLevel(nLevelId); }
 
 // 0x0061BB50
-static inline void sub_0061BB50_SetFieldFromTable(D2DrlgTableRefStrc* pRecord)
+static inline void DRLGACTIVATE_ApplyTimeRate(D2DrlgTableRefStrc* pRecord)
 {
     pRecord->nValue = gnTimeRates[pRecord->nIndex];
 }
 
-void __stdcall sub_M121_Emit_0061BB50(D2DrlgTableRefStrc* pRecord) { sub_0061BB50_SetFieldFromTable(pRecord); }
+void __stdcall sub_M121_Emit_0061BB50(D2DrlgTableRefStrc* pRecord) { DRLGACTIVATE_ApplyTimeRate(pRecord); }
 
 // 0x0061BB60
 static void __stdcall DRLGACTIVATE_ApplyArreatSummitLightColor(D2ColorRecordStrc* pRecord, int nId)

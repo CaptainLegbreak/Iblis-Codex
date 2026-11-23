@@ -242,7 +242,7 @@ void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
@@ -280,7 +280,7 @@ void __fastcall sub_004B9110_SendGoldRequest(unsigned long nGold); // 0x004B9110
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
-void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 void __fastcall sub_00478600_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
 
@@ -454,7 +454,7 @@ void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTo
 
 void __fastcall VIEW_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY);                           // 0x004760C0
 
-D2ClientEntryStrc* __fastcall sub_00478E40_FindEntry(int nKey);                                             // 0x00478E40
+D2ClientEntryStrc* __fastcall ROSTERPETS_FindEntry(int nKey);                                             // 0x00478E40
 
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny);                       // 0x00478F20
 
@@ -561,13 +561,13 @@ void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, uns
 
 int __cdecl sub_00478150(); // 0x00478150
 
-void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
+void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
 int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile); // 0x006019F0
 
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
-void __cdecl sub_0044DA70(); // 0x0044DA70
+void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
 struct D2UIVarRecordStrc
 {
@@ -580,7 +580,7 @@ int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 void __fastcall NPCMENU_EndNpcInteraction(int nValue); // 0x004B3C20
 
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 
@@ -738,9 +738,9 @@ static int __stdcall UI_GetRosterHoverName(D2UnitStrc* pUnit, Unicode* pDst, int
 
 static __forceinline int SetHoverPositionFromUnit(D2UnitStrc* pUnit);
 
-int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
+int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
 
-int __fastcall sub_00479080_GetPetLife(int nUnitId); // 0x00479080
+int __fastcall ROSTER_GetPetLife(int nUnitId); // 0x00479080
 
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 
@@ -752,7 +752,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();        
 
 void __cdecl GAME_SetCharDiedFlag();                                                                                // 0x0044B860
 
-void __fastcall sub_0044B880_SetValue(int nValue);                                                          // 0x0044B880
+void __fastcall GAME_SetExitApplication(int nValue);                                                          // 0x0044B880
 
 void __cdecl GAME_RequestExit();                                                                                // 0x0044D520
 
@@ -760,7 +760,7 @@ void __fastcall UI_SetPanelHandlers(int nUIVar);                                
 
 void __fastcall UI_SetCursorPosition(int nA, int nB);                                                               // 0x00468770
 
-void __fastcall sub_00478590(char nValue);                                                                  // 0x00478590
+void __fastcall MSG_SendHeaderOnly(char nValue);                                                                  // 0x00478590
 
 void __cdecl CHAT_ClearChatLine();                                                                                // 0x0047BDC0
 
@@ -784,7 +784,7 @@ void __cdecl AUTOMAP_InitAutomapColors(); // 0x0045A620
 
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 
-int __cdecl sub_004680A0(); // 0x004680A0
+int __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 
 void __cdecl CMDTBL_DisableHotkeyHandlers(); // 0x0046ACB0
 
@@ -1052,7 +1052,7 @@ int __fastcall UI_GetMonsterLifeFraction(D2UnitStrc* pUnit)
     if (pUnit && (!pUnit ? 6 : pUnit->dwUnitType) == 1 && !CUNIT_IsDeadOrDying(pUnit))
     {
         int bPaired;
-        if ((!pUnit ? 0 : (pUnit->dwFlags >> 2) & 1) && sub_00465C60_CheckUnitPair(sub_00463DD0_GetPlayerUnit(), pUnit))
+        if ((!pUnit ? 0 : (pUnit->dwFlags >> 2) & 1) && CUNIT_IsHostileTo(sub_00463DD0_GetPlayerUnit(), pUnit))
         {
             bPaired = 1;
         }
@@ -1061,7 +1061,7 @@ int __fastcall UI_GetMonsterLifeFraction(D2UnitStrc* pUnit)
             bPaired = 0;
         }
 
-        const int nLife = sub_00479080_GetPetLife(pUnit->dwUnitId);
+        const int nLife = ROSTER_GetPetLife(pUnit->dwUnitId);
         int nResult;
         if (!bPaired && nLife > 0)
         {
@@ -1303,7 +1303,7 @@ void __cdecl UI_DrawPetHover()
     {
         return;
     }
-    if (sub_00478E40_FindEntry(nPetId)->nValue != 1)
+    if (ROSTERPETS_FindEntry(nPetId)->nValue != 1)
     {
         return;
     }
@@ -1411,7 +1411,7 @@ void __cdecl UI_DrawDeathScreen()
             sub_005269D0(0x100, wszText, D2LANG_GetStringFromTblIndex(0x13E6), STATLIST_UnitGetStatValue(pPlayer, STAT_GOLDLOST, 0));
         }
         nY += 0x30;
-        sub_00502EF0(2);
+        D2Win_10127_SetFont(2);
         {
             const int nWidth = D2Win_10121_GetTextWidth(wszText);
             const int nX = gnAutomapWidth / 2 - nWidth / 2;
@@ -1421,7 +1421,7 @@ void __cdecl UI_DrawDeathScreen()
 second_text:
         if (GAME_GetDifficulty() > 0 && !GAME_IsHardcore())
         {
-            sub_00502EF0(2);
+            D2Win_10127_SetFont(2);
             const int nWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0x13E7));
             const int nX = gnAutomapWidth / 2 - nWidth / 2;
             nY += 0x30;
@@ -1587,14 +1587,14 @@ static int UI_CanSetUIVar(int nUIVar, int nState)
                 if (pPlayer->dwUnitType == UNIT_PLAYER && pPlayer->dwAnimMode == 0x11)
                 {
                     sub_004647D0(pPlayer);
-                    sub_00478590(0x41);
+                    MSG_SendHeaderOnly(0x41);
                     if (GAME_IsHardcore())
                     {
                         sub_00477EE0();
                         gbPositionalSound = 0;
                         gbGameServerReady = 0;
                         GAME_SetCharDiedFlag();
-                        sub_0044B880_SetValue(0);
+                        GAME_SetExitApplication(0);
                         GAME_RequestExit();
                     }
                     return 0;
@@ -1624,7 +1624,7 @@ static int UI_CanSetUIVar(int nUIVar, int nState)
                     break;
                 }
                 case 1:
-                    sub_00455F20(i, 1, 0);
+                    UI_SetUIVar(i, 1, 0);
                     break;
                 case 2:
                     return 0;
@@ -1800,10 +1800,10 @@ const Unicode* __fastcall UI_GetLevelName(int nLevelId)
 // 0x00453EC0
 void __cdecl UI_CancelCursorItemUse()
 {
-    D2UnitStrc* pUnit = (D2UnitStrc*)sub_004680A0();
+    D2UnitStrc* pUnit = (D2UnitStrc*)CURSOR_GetCursorItem();
     if (pUnit)
     {
-        sub_004786A0_SendDwords2(0x27, pUnit->dwUnitId, pUnit->dwUnitId);
+        MSG_SendTwoDwords(0x27, pUnit->dwUnitId, pUnit->dwUnitId);
     }
 }
 
@@ -1947,7 +1947,7 @@ int __cdecl UI_ConfirmGoldDialog()
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         int nId = GetUnitId(pPlayer);
-        sub_004786A0_SendDwords2(0x50, nId, gnGoldPanelValue);
+        MSG_SendTwoDwords(0x50, nId, gnGoldPanelValue);
         return 1;
     }
     case 2:
@@ -2036,7 +2036,7 @@ void __fastcall UI_OpenGoldPanel(int nMode)
     gnGoldPanelMode_007A279C = nMode;
     gpGoldPanel = sub_004B7CD0_CreatePanel(0xD7, 0x8C, UI_GoldPanelCloseCallback, 0, 0, 1);
     sub_004B8370(gpGoldPanel, 1);
-    sub_00502EF0(1);
+    D2Win_10127_SetFont(1);
 
     Unicode wszText[0x100];
     memset(wszText, 0, sizeof(wszText));
@@ -2744,7 +2744,7 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
 }
 
 // 0x00455F20
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg)
 {
     D2_ASSERT(nUIVar < 0x26, 0x13FB);
     D2_ASSERT(nState <= 2, 0x13FC);
@@ -2925,7 +2925,7 @@ int __fastcall UI_CloseUIVars(int bArg1, int nArg2)
     {
         if (gaUIVarStates[i] == 1 && (gaUIVarDefaults[i] == 1 || (bArg1 && i == 0x0A)))
         {
-            sub_00455F20(i, 1, nArg2);
+            UI_SetUIVar(i, 1, nArg2);
             bResult = 1;
             if (i == 0x19 || i == 1)
             {
@@ -2988,7 +2988,7 @@ void __fastcall UI_DrawLoadingScreen(int bAdvanceFrame)
             const int nWidth = sub_00478150();
             if (nWidth)
             {
-                sub_0046EFD0_DrawFramedBox(gnScreenWidth / 2 - 0x80, gnScreenHeight / 2 + 0xA0, nWidth, 0x10, gnLoadingBarColor, 5);
+                AUTOMAP_DrawFramedBox(gnScreenWidth / 2 - 0x80, gnScreenHeight / 2 + 0xA0, nWidth, 0x10, gnLoadingBarColor, 5);
             }
         }
     }
@@ -3006,7 +3006,7 @@ void __fastcall UI_DrawLoadingScreen(int bAdvanceFrame)
     sub_004F6480(&tContext, gnScreenWidth / 2 - 0x80, gnScreenHeight / 2 + 0x80, -1, 5, 0);
     D2GFX_EndScene();
     GAME_ResetMouseState();
-    sub_0044DA70();
+    GAME_ResetMouseButtons();
 
     if (bAdvanceFrame)
     {
@@ -3045,7 +3045,7 @@ void __cdecl UI_ToggleMiniPanel()
                     break;
                 }
                 case 1:
-                    sub_00455F20(i, 1, 0);
+                    UI_SetUIVar(i, 1, 0);
                     break;
                 case 2:
                 case 3:
@@ -3265,7 +3265,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
                         break;
                     }
                     case 1:
-                        sub_00455F20(i, 1, 0);
+                        UI_SetUIVar(i, 1, 0);
                         break;
                     case 2:
                     case 3:
@@ -3415,30 +3415,30 @@ void __stdcall UI_DrawCelPair(int bFirst)
 // 0x0045FD80
 void __cdecl UI_DrawCenteredString()
 {
-    const int nOldFont = sub_00502EF0(1);
+    const int nOldFont = D2Win_10127_SetFont(1);
     TEXT_DrawCenteredText(gnPanelOffsetX + 0x110, 0x136 - gnPanelOffsetY, gnPanelOffsetX + 0x170, D2LANG_GetStringFromTblIndex(0x13EE), 0);
-    sub_00502EF0(nOldFont);
+    D2Win_10127_SetFont(nOldFont);
 }
 
 // 0x0045FFC0
 void __cdecl UI_DrawCenteredStrings()
 {
-    const int nOldFont = sub_00502EF0(1);
+    const int nOldFont = D2Win_10127_SetFont(1);
     TEXT_DrawCenteredText(gnScreenWidth / 2 - 0x84, 0xBE - gnPanelOffsetY, gnPanelOffsetX + 0x1C4, D2LANG_GetStringFromTblIndex(0x1430), 0);
     unsigned short nString = 0x1432;
     if (gbCinematicExpansion)
         nString = 0x5578;
     TEXT_DrawCenteredText(gnScreenWidth / 2 - 0x84, 0xCD - gnPanelOffsetY, gnPanelOffsetX + 0x1C4, D2LANG_GetStringFromTblIndex(nString), 0);
-    sub_00502EF0(nOldFont);
+    D2Win_10127_SetFont(nOldFont);
 }
 
 // 0x004600F0
 void __cdecl UI_DrawCenteredStringPair()
 {
-    const int nOldFont = sub_00502EF0(1);
+    const int nOldFont = D2Win_10127_SetFont(1);
     TEXT_DrawCenteredText(gnPanelOffsetX + 0xCE, 0x136 - gnPanelOffsetY, gnPanelOffsetX + 0x12E, D2LANG_GetStringFromTblIndex(0x13EE), 0);
     TEXT_DrawCenteredText(gnPanelOffsetX + 0x152, 0x136 - gnPanelOffsetY, gnPanelOffsetX + 0x1B2, D2LANG_GetStringFromTblIndex(0x13EF), 0);
-    sub_00502EF0(nOldFont);
+    D2Win_10127_SetFont(nOldFont);
 }
 
 // 0x00460430
@@ -3487,7 +3487,7 @@ int __cdecl UI_GetCursorFrame()
     return gdwGlobal_007A6AE0;
 }
 
-int __cdecl sub_004680A0(); // 0x004680A0
+int __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 // 0x00468770
 void __fastcall UI_SetCursorPosition(int nX, int nY)
 {
@@ -3548,7 +3548,7 @@ int __cdecl UI_GetCofMemoryLimit()
 
 void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
 {
-    const int nOld = sub_00502EF0(1);
+    const int nOld = D2Win_10127_SetFont(1);
     const int nClassId = !pUnit ? -1 : pUnit->dwClassId;
     D2MonStatsTxt* pMonStatsTxt = (nClassId >= 0 && nClassId < sgptDataTables->nMonStatsTxtRecordCount) ? &sgptDataTables->pMonStatsTxt[nClassId] : 0;
     int bDead = 0;
@@ -3668,7 +3668,7 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
             D2Win_10129_DrawFramedText(CUNIT_GetUnitName(pUnit), gnHoverX, gnHoverY, 0, 1);
         }
     }
-    sub_00502EF0(nOld);
+    D2Win_10127_SetFont(nOld);
 }
 
 #include "gen/data/Source/D2Client/UI/ui.inc"

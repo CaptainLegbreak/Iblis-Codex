@@ -251,7 +251,7 @@ D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0
 
 int __stdcall INVENTORY_PlaceItemInBeltSlot(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nSlot); // 0x0063C4F0
 
-void __stdcall sub_0063C550_Return(D2InventoryStrc* pInventory, int nX); // 0x0063C550
+void __stdcall D2COMMON_10267_Return(D2InventoryStrc* pInventory, int nX); // 0x0063C550
 
 void __stdcall INVENTORY_AddItemToTradeInventory(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063CC70
 
@@ -694,7 +694,7 @@ void __fastcall ITEMMODE_RemoveInventoryItemFromAllPlayers(D2GameStrc* pGame, D2
 
 void __fastcall ITEMMODE_IdentifyItemAndApplyCharmProperties(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pPlayer); // 0x0055FE00
 
-int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
+int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
 D2UnitStrc* __fastcall ITEMS_Duplicate(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit, int bAddToGame); // 0x0055A2A0
 
@@ -1886,7 +1886,8 @@ static int ITEMMODE_AreEquipmentTraitsCompatible(D2ItemModeArgStrc* pArg1, D2Ite
     return 0;
 }
 
-int __fastcall sub_0055CA00_MatchFieldPair(D2ItemsTxt* pRecord1, D2ItemsTxt* pRecord2, int nValue1, int nValue2)
+// build: symbol ?OBJECTS_MatchFieldPair@* 0x0055CA00
+int __fastcall OBJECTS_MatchFieldPair(D2ItemsTxt* pRecord1, D2ItemsTxt* pRecord2, int nValue1, int nValue2)
 {
     if (pRecord1->dwCode == nValue1 && pRecord2->dwCode == nValue2)
     {
@@ -1962,15 +1963,15 @@ static int __stdcall ITEMMODE_HasConflictingQuestOrUniqueItem(D2UnitStrc* pItem,
         if (pItemsTxtRecord->nQuest && ITEMS_GetInvPage(pCheckedItem) != 1 && GetQuestIndex(pItemsTxtRecord) == pItemsTxtRecordArg->nQuest)
         {
             if (pItemsTxtRecordArg->dwCode == pItemsTxtRecord->dwCode
-                || sub_0055CA00_MatchFieldPair(pItemsTxtRecordArg, pItemsTxtRecord, ' 43j', ' 43g')
-                || sub_0055CA00_MatchFieldPair(pItemsTxtRecordArg, pItemsTxtRecord, ' skb', ' dkb')
-                || sub_0055CA00_MatchFieldPair(pItemsTxtRecordArg, pItemsTxtRecord, ' 33d', ' 33g')
-                || sub_0055CA00_MatchFieldPair(pItemsTxtRecordArg, pItemsTxtRecord, ' tsh', ' fsm')
-                || sub_0055CA00_MatchFieldPair(pItemsTxtRecordArg, pItemsTxtRecord, ' tsh', ' piv')
-                || sub_0055CA00_MatchFieldPair(pItemsTxtRecordArg, pItemsTxtRecord, ' 2fq', ' 1fq')
-                || sub_0055CA00_MatchFieldPair(pItemsTxtRecordArg, pItemsTxtRecord, ' 2fq', ' rhq')
-                || sub_0055CA00_MatchFieldPair(pItemsTxtRecordArg, pItemsTxtRecord, ' 2fq', ' yeq')
-                || sub_0055CA00_MatchFieldPair(pItemsTxtRecordArg, pItemsTxtRecord, ' 2fq', ' rbq'))
+                || OBJECTS_MatchFieldPair(pItemsTxtRecordArg, pItemsTxtRecord, ' 43j', ' 43g')
+                || OBJECTS_MatchFieldPair(pItemsTxtRecordArg, pItemsTxtRecord, ' skb', ' dkb')
+                || OBJECTS_MatchFieldPair(pItemsTxtRecordArg, pItemsTxtRecord, ' 33d', ' 33g')
+                || OBJECTS_MatchFieldPair(pItemsTxtRecordArg, pItemsTxtRecord, ' tsh', ' fsm')
+                || OBJECTS_MatchFieldPair(pItemsTxtRecordArg, pItemsTxtRecord, ' tsh', ' piv')
+                || OBJECTS_MatchFieldPair(pItemsTxtRecordArg, pItemsTxtRecord, ' 2fq', ' 1fq')
+                || OBJECTS_MatchFieldPair(pItemsTxtRecordArg, pItemsTxtRecord, ' 2fq', ' rhq')
+                || OBJECTS_MatchFieldPair(pItemsTxtRecordArg, pItemsTxtRecord, ' 2fq', ' yeq')
+                || OBJECTS_MatchFieldPair(pItemsTxtRecordArg, pItemsTxtRecord, ' 2fq', ' rbq'))
             {
                 return 1;
             }
@@ -3745,7 +3746,7 @@ int __fastcall ITEMMODE_SwapCursorAndBeltItem(D2GameStrc* ptGame, D2UnitStrc* pU
     D2_ASSERT(hRemove, 0x12B8);
     D2_ASSERT(pBeltItem == hRemove, 0x12B9);
 
-    sub_0063C550_Return(pInventory, CLIENTS_GetUnitX(pBeltItem));
+    D2COMMON_10267_Return(pInventory, CLIENTS_GetUnitX(pBeltItem));
     INVENTORY_SetCursorItem(pInventory, pBeltItem);
     ITEMMODE_RemoveItemScrollSkillQuantity(pUnit, pBeltItem);
 
@@ -5060,7 +5061,7 @@ void __fastcall ITEMMODE_MoveExcessBeltItems(Game* game, Unit* player, Unit* bel
         case 2: case 4: case 5: x = hItem->path->x; break;
         default: x = hItem->path ? sub_006488C0_X(hItem->path) : 0; break;
         }
-        sub_0063C550_Return((D2InventoryStrc*)hInventory, x);
+        D2COMMON_10267_Return((D2InventoryStrc*)hInventory, x);
         sub_00624690_Mode(removed, 4);
         ITEMMODE_RemoveItemScrollSkillQuantity((D2UnitStrc*)player, (D2UnitStrc*)hItem);
         sub_00628280_SetPage(hItem, 0);
@@ -5672,7 +5673,7 @@ int __fastcall ITEMMODE_RemoveBeltItemToCursor(D2GameStrc* ptGame, D2UnitStrc* h
 
     const int nX = CLIENTS_GetUnitX(pItem);
     INVENTORY_RemoveItemFromInventory(hInventory, pItem);
-    sub_0063C550_Return(hInventory, nX);
+    D2COMMON_10267_Return(hInventory, nX);
     INVENTORY_SetCursorItem(hInventory, pItem);
     ITEMMODE_RemoveItemScrollSkillQuantity(hUnit, pItem);
 
@@ -5709,7 +5710,7 @@ void __fastcall ITEMMODE_CompactBeltColumn(D2GameStrc* pGame, D2UnitStrc* pUnit,
                     ITEMS_SetItemFlag(pItem, 0x4000, 0);
                 UNITS_RefreshInventory(pUnit, 1);
                 INVENTORY_AddItemToTradeInventory(pInventory, pItem);
-                sub_0063C550_Return(pInventory, nX + 4 * nRow);
+                D2COMMON_10267_Return(pInventory, nX + 4 * nRow);
             }
             ++nDestinationRow;
         }
@@ -6349,7 +6350,7 @@ int __fastcall ITEMMODE_DuplicateSocketFillers(D2GameStrc* pGame, D2UnitStrc* pU
             UNITS_SetYForStaticUnit(pDupedItem, sub_M70_ItemGetUnitY(pCheckedItem));
 
             int bPlaced;
-            if (!D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(pGame, pUnit, !pDupedItem ? -1 : pDupedItem->dwUnitId, sub_00451F50_GetUnitGUID(pSocketable), &bPlaced, a5, 0, 1, 0))
+            if (!D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(pGame, pUnit, !pDupedItem ? -1 : pDupedItem->dwUnitId, GAME_GetUnitGUID(pSocketable), &bPlaced, a5, 0, 1, 0))
             {
                 return 0;
             }

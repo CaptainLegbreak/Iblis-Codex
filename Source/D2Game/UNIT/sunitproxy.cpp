@@ -341,7 +341,7 @@ static inline unsigned int RollSeed(D2SeedStrc* pSeed)
 }
 
 // 0x00536070
-void __fastcall sub_00536070_InitNpcControl(D2GameStrc* pGame)
+void __fastcall SUNITPROXY_InitializeNpcControl(D2GameStrc* pGame)
 {
     D2NpcRecordStrc* pRecords = (D2NpcRecordStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2NpcRecordStrc)*64, szSUnitProxyCppFile, 0xB7, 0);
     memset(pRecords, 0, sizeof(D2NpcRecordStrc)*64);

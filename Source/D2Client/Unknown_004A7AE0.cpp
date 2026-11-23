@@ -46,7 +46,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const D2HoverBoxStrc gaHoverBoxes[2]; // 0x006DA430
 void __cdecl PANEL_SetBlackColour(); // 0x00499E30
 int __cdecl sub_00466DC0(); // 0x00466DC0
-void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
+void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
@@ -152,7 +152,7 @@ static void __stdcall sub_004A7AE0_DrawHoverValueBox(int nValueA, int nValueB, i
         nValue = 0x5F;
     }
 
-    sub_0046EFD0_DrawFramedBox(gaHoverBoxes[nIndex].nBoxX + gnPanelOffsetX, gaHoverBoxes[nIndex].nBoxY + gnPanelOffsetY + gnScreenHeight - 480, 0x9B, 0x1E, gnTextColor, 2);
+    AUTOMAP_DrawFramedBox(gaHoverBoxes[nIndex].nBoxX + gnPanelOffsetX, gaHoverBoxes[nIndex].nBoxY + gnPanelOffsetY + gnScreenHeight - 480, 0x9B, 0x1E, gnTextColor, 2);
     const int nTitleY = gaHoverBoxes[nIndex].nTitleY + gnPanelOffsetY + gnScreenHeight - 480;
     const int nTitleX = gaHoverBoxes[nIndex].nTitleX + gnPanelOffsetX;
     D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x103F), nTitleX, nTitleY, 0, 0);

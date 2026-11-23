@@ -113,7 +113,8 @@ int __cdecl BNDOWNLOAD_IsReady()
 {
     D2BnStateStrc tState;
     sub_005205F0_GetState(&tState);
-    if (!sub_00520AE0() && tState.nState == 0 && InterlockedCompareExchange(&gnConnected, 0, 0))
+// build: symbol ?BNCLIENT_GetAbortFlag@* 0x00520AE0
+    if (!BNCLIENT_GetAbortFlag() && tState.nState == 0 && InterlockedCompareExchange(&gnConnected, 0, 0))
         return 1;
     return 0;
 }
@@ -278,7 +279,7 @@ int __stdcall sFastestConnect(char* szServerList)
         return 0;
     }
 
-    if (sub_00520AE0())
+    if (BNCLIENT_GetAbortFlag())
     {
         BNMESSQUEUE_SetState(0xB);
         return 1;

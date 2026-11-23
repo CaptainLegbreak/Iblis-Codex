@@ -288,7 +288,7 @@ D2UnitStrc* __stdcall UNITFINDS_GetNearestTestedUnit(D2UnitStrc* pUnit, int nX, 
 
 int __fastcall OBJMODE_IsMonsterShrineCandidate(D2UnitStrc* pMonster, D2UnitStrc* pUnit1); // 0x00582750
 
-void __fastcall sub_005A4940_PromoteToUnique(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A4940
+void __fastcall MONSTERUNIQUE_PromoteToUnique(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A4940
 
 typedef void(__fastcall* ObjShrineFunction)(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord);
 
@@ -347,7 +347,7 @@ struct D2EventState00583BF0Strc
 
 extern D2EventState00583BF0Strc gaShrineSkillBoostStates[]; // 0x006E1858
 
-D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse); // 0x0056E970
+D2StatListStrc* __fastcall SKILLS_ApplyStateEffect(D2CurseStrc* pCurse); // 0x0056E970
 
 void __fastcall SKILLS_RefreshPassivesAndPetLimits(D2UnitStrc* pUnit); // 0x0056DE40
 
@@ -592,7 +592,7 @@ void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListSt
 
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 
-int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
+int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
 struct D2RoomCoordListStrc;
 
@@ -707,7 +707,7 @@ static int OBJMODE_ExplodeBarrel(D2ObjOperateFnStrc* pOp);
 
 void __fastcall OBJMODE_UpdateTrappedSoul(D2GameStrc* pGame, D2UnitStrc* pObject);
 
-static void __stdcall sub_00581680_DamagePlayersInRange(D2GameStrc* pGame, D2UnitStrc* pObject);
+static void __stdcall OBJMODE_DamagePlayersInRange(D2GameStrc* pGame, D2UnitStrc* pObject); // 0x00581680
 
 void __fastcall OBJMODE_UpdateTrapProximity(D2GameStrc* pGame, D2UnitStrc* pObject);
 
@@ -905,7 +905,7 @@ void __fastcall OBJMODE_ExpireHoverText(D2GameStrc* pGame, D2UnitStrc* pObject)
 }
 
 // 0x00581680
-static void __stdcall sub_00581680_DamagePlayersInRange(D2GameStrc* pGame, D2UnitStrc* pObject)
+static void __stdcall OBJMODE_DamagePlayersInRange(D2GameStrc* pGame, D2UnitStrc* pObject)
 {
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pObject);
     D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(!pObject ? -1 : pObject->dwClassId);
@@ -939,7 +939,7 @@ void __fastcall OBJMODE_UpdateTrapProximity(D2GameStrc* pGame, D2UnitStrc* pObje
     }
 
     D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, UNITS_GetRoom(pObject));
-    sub_00581680_DamagePlayersInRange(pGame, pObject);
+    OBJMODE_DamagePlayersInRange(pGame, pObject);
     EVENT_SetEvent(pGame, pObject, EVENTTYPE_MODECHANGE, pGame->dwGameFrame + SEED_RollRandomNumber_Inline(&pObjectControl->pSeed) % 35 + 15, 0, 0);
 }
 
@@ -1935,7 +1935,7 @@ void __fastcall D2GAME_SHRINES_Monster_6FC76ED0(D2ObjOperateFnStrc* pOp, D2Shrin
     D2UnitStrc* pMonster = UNITFINDS_GetNearestTestedUnit(pOp->hPlayer, CLIENTS_GetUnitX_Shrine(pOp->hPlayer), CLIENTS_GetUnitY_Shrine(pOp->hPlayer), 0, OBJMODE_IsMonsterShrineCandidate);
     if (pMonster)
     {
-        sub_005A4940_PromoteToUnique(pOp->pGame, pMonster);
+        MONSTERUNIQUE_PromoteToUnique(pOp->pGame, pMonster);
     }
 }
 
@@ -2271,7 +2271,7 @@ void __fastcall OBJMODE_UpdateTrappedSoul(D2GameStrc* pGame, D2UnitStrc* pObject
         else
         {
             OBJRGN_GetObjectControlFromGame(pGame, UNITS_GetRoom(pObject));
-            sub_00581680_DamagePlayersInRange(pGame, pObject);
+            OBJMODE_DamagePlayersInRange(pGame, pObject);
             EVENT_SetEvent(pGame, pObject, EVENTTYPE_PERIODICSTATS, pGame->dwGameFrame + 25, 0, 0);
         }
         break;
@@ -2959,7 +2959,7 @@ int __fastcall OBJECTS_OperateFunction15_Portal(D2ObjOperateFnStrc* pOp)
         }
         if (pOp->nObjectIdx == 59) {
             const int nPortalId = PLAYER_GetUniqueIdFromPlayerData(pOp->hPlayer);
-            if (nPortalId != UNIT_GetId(pOp->hObject) && pOtherPortal && nPortalId != sub_00451F50_GetUnitGUID(pOtherPortal)) {
+            if (nPortalId != UNIT_GetId(pOp->hObject) && pOtherPortal && nPortalId != GAME_GetUnitGUID(pOtherPortal)) {
                 if (pOp->pGame->bExpansion) {
                     if (pPortalQuest->nExpansionQuest > 0 && !QUESTRECORD_GetQuestState(pQuestFlags, pPortalQuest->nExpansionQuest, 0)) {
                         SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
@@ -3455,7 +3455,7 @@ void __fastcall D2GAME_SHRINES_SkillBoost(D2SkillContext00583BF0Strc* pContext, 
     tCurse.nStatValue = 0;
     tCurse.nState = gaShrineSkillBoostStates[pEvent->nType].nState;
     tCurse.pStateRemoveCallback = OBJMODE_RemoveSkillShrine;
-    sub_0056E970(&tCurse);
+    SKILLS_ApplyStateEffect(&tCurse);
     SKILLS_RefreshPassivesAndPetLimits(pContext->pTarget);
 }
 

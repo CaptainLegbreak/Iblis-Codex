@@ -975,7 +975,7 @@ unsigned long __stdcall LOGMANAGER_DbgHelpThreadProc(void* pParam)
 }
 
 // 0x0040ABF0
-void __fastcall sub_0040ABF0_HeapSiftDown(int* pHeap, int nCount, int nIndex)
+void __fastcall LOGMANAGER_HeapSiftDown(int* pHeap, int nCount, int nIndex)
 {
     int nValue = pHeap[nIndex];
     int nHalf = nCount / 2;

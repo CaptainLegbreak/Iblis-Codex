@@ -154,7 +154,7 @@ void (__stdcall* gpfnGrGlideInit)(); // 0x0087EB04
 
 void (__stdcall* gpfnGrSstSelect)(int a1); // 0x0087EB3C
 
-void __cdecl sub_0050B9E0_GlideCreateDebugFont();
+void __cdecl GLIDE_CreateDebugFont(); // 0x0050B9E0
 
 int __cdecl sub_00509670_GlideInitTextures();
 
@@ -334,7 +334,7 @@ D2GlideTexCacheStrc gaGlideTexCaches[4]; // 0x0087F048
 
 int __fastcall GLIDE_TexCacheInit(D2GlideTexCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nAlign); // 0x0050E890
 
-int __fastcall sub_0050ED90_TileCacheInit(D2GlideTileCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nAlign); // 0x0050ED90
+int __fastcall GLIDE_TileCacheInit(D2GlideTileCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nAlign); // 0x0050ED90
 
 int __fastcall GLIDE_FloorCacheInit(D2GlideFloorCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nAlign); // 0x0050F320
 
@@ -511,7 +511,7 @@ void __fastcall SCROLLBAR_Destroy(void* pArg)
 }
 
 void __fastcall GLIDE_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bFlush);                     // 0x0050ECB0
-void __fastcall sub_0050F210_TileCacheDestroy(D2GlideTileCacheStrc* pCache, int bFlush);                    // 0x0050F210
+void __fastcall GLIDE_TileCacheDestroy(D2GlideTileCacheStrc* pCache, int bFlush);                    // 0x0050F210
 void __fastcall GLIDE_FloorCacheDestroy(D2GlideFloorCacheStrc* pCache, int bFlush);                  // 0x0050F7C0
 extern D2GlideTileCacheStrc gtGlideTileCache;                                                       // 0x0087EB48
 extern D2GlideFloorCacheStrc gtGlideFloorCache;                                                     // 0x0087EB68
@@ -520,7 +520,7 @@ extern D2GlideFloorCacheStrc gtGlideFloorCache;                                 
 void __cdecl GLIDE_ClearCaches()
 {
     GLIDE_FloorCacheDestroy(&gtGlideFloorCache, 0);
-    sub_0050F210_TileCacheDestroy(&gtGlideTileCache, 0);
+    GLIDE_TileCacheDestroy(&gtGlideTileCache, 0);
     GLIDE_TexCacheDestroy(&gaGlideTexCaches[1], 0);
     GLIDE_TexCacheDestroy(&gaGlideTexCaches[2], 0);
     GLIDE_TexCacheDestroy(&gaGlideTexCaches[3], 0);
@@ -872,7 +872,7 @@ int __cdecl GLIDE_InitTextureMemory()
 			gnFloorCacheSize_007C90C8 = nFloorSize;
 			nEnd = GLIDE_FloorCacheInit(&gFloorCache_0087EB68, nAddress, nFloorSize + nAddress, nAlign32K);
 			gnTileCacheSize = gadwTmuMaxAddress[0] - nEnd;
-			nEnd = sub_0050ED90_TileCacheInit(&gTileCache_0087EB48, nEnd, gadwTmuMaxAddress[0], nAlign1K);
+			nEnd = GLIDE_TileCacheInit(&gTileCache_0087EB48, nEnd, gadwTmuMaxAddress[0], nAlign1K);
 		}
 		else
 		{
@@ -889,7 +889,7 @@ int __cdecl GLIDE_InitTextureMemory()
 			gnFloorCacheSize_007C90C8 = nFloorSize;
 			nEnd = GLIDE_FloorCacheInit(&gFloorCache_0087EB68, nAddress, nFloorSize + nAddress, nAlign32K);
 			gnTileCacheSize = nTileSize;
-			nEnd = sub_0050ED90_TileCacheInit(&gTileCache_0087EB48, nEnd, nTileSize + nEnd, nAlign1K);
+			nEnd = GLIDE_TileCacheInit(&gTileCache_0087EB48, nEnd, nTileSize + nEnd, nAlign1K);
 		}
 
 		if (gnTmuCount_0087EFB4 > 1)
@@ -1018,7 +1018,7 @@ static int GLIDE_OpenDevice(int nResolution, void* hWnd)
 {
     D2GlideHwQueryStrc tQuery;
     D2_ASSERT(!gbGlidePaletteTable_0087EFC8, 0x143);
-    sub_0050B9E0_GlideCreateDebugFont();
+    GLIDE_CreateDebugFont();
     tQuery.bResult = 0;
     int nRefresh;
     int nGrRes;

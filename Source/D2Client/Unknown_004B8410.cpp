@@ -24,7 +24,7 @@ extern int gnScreenHeight; // 0x00711470
 void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
 void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex); // 0x004B82F0
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
@@ -59,7 +59,7 @@ struct T00481920
 extern D2SoundNodeStrc* gpSoundList_007C5458; // 0x007C5458
 extern int gbClientSoundReady; // 0x007C545C
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-int __cdecl sub_00481820(); // 0x00481820
+int __cdecl DLIGHTMAP_GetSoundTick(); // 0x00481820
 D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 int __fastcall SOUNDHDR_GetGroupStart(int nId); // 0x00481890
 T00481920* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
@@ -73,8 +73,8 @@ static void sub_004B98F0_SetSoundPosition(D2ClientSoundStrc* pSound, D2SoundVecS
 
 static void sub_004B83A0_PlaceLine(D2ClientDialogStrc* pDialog, int nIndex)
 {
-    int nOldFont = sub_00502EF0(1);
-    sub_00502EF0(pDialog->pLines[nIndex].nFont);
+    int nOldFont = D2Win_10127_SetFont(1);
+    D2Win_10127_SetFont(pDialog->pLines[nIndex].nFont);
     int nWidth = D2Win_10121_GetTextWidth(pDialog->pLines[nIndex].wszText);
     if (nWidth >= pDialog->nWidth)
     {
@@ -86,7 +86,7 @@ static void sub_004B83A0_PlaceLine(D2ClientDialogStrc* pDialog, int nIndex)
         pDialog->pLines[nIndex].nWidth = nWidth;
         pDialog->pLines[nIndex].nX = (pDialog->nWidth - nWidth + 1) / 2 + 1;
     }
-    sub_00502EF0(nOldFont);
+    D2Win_10127_SetFont(nOldFont);
 }
 
 // 0x004B8410
@@ -95,7 +95,7 @@ void __fastcall sub_004B8410_LayoutDialog(D2ClientDialogStrc* pDialog)
     int nMaxWidth = 0;
     int nHeight = 0;
     D2_ASSERT(pDialog->bAutoSize, 0x59F);
-    int nOldFont = sub_00502EF0(1);
+    int nOldFont = D2Win_10127_SetFont(1);
     int nDisabled = 0;
     for (int i = 0; i < pDialog->nLines; ++i)
     {
@@ -108,7 +108,7 @@ void __fastcall sub_004B8410_LayoutDialog(D2ClientDialogStrc* pDialog)
     }
     nMaxWidth += 0x14;
     nHeight += 0xF;
-    sub_00502EF0(nOldFont);
+    D2Win_10127_SetFont(nOldFont);
     pDialog->nX = pDialog->nCenterX - nMaxWidth / 2;
     if (pDialog->bCountEnabled)
         pDialog->nY = pDialog->nCenterY - nDisabled * 0x15;
@@ -177,7 +177,7 @@ static D2ClientSoundStrc* __stdcall sub_004B9760_FindGroupSound(D2ClientSoundStr
         D2ClientSoundStrc* pSound = pNode->pSound;
         if (SOUNDHDR_GetGroupStart(pSound->nSoundId) == pTxt->nGroupStart && pSound != pExclude && !pSound->bLocked)
         {
-            if (pTxt->nCompound < 0 || sub_00481820() - pSound->f_34 <= pTxt->nCompound)
+            if (pTxt->nCompound < 0 || DLIGHTMAP_GetSoundTick() - pSound->f_34 <= pTxt->nCompound)
                 return pSound;
         }
     }
@@ -219,7 +219,7 @@ int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nDelay, int nAr
         return 0;
 
     D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(nSoundId);
-    const int nTick = sub_00481820();
+    const int nTick = DLIGHTMAP_GetSoundTick();
     if (!pTxt->nVolume)
         return 0;
 

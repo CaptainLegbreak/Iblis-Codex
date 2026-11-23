@@ -174,7 +174,7 @@ static void __stdcall FONT_BuildFontTablePath(int nFont, char* pBuffer, int nLen
 
 static void FONT_LoadFontTable(int nFont); // 0x00501580
 
-int __fastcall sub_00502EF0(int nFontSize);
+int __fastcall D2Win_10127_SetFont(int nFontSize); // 0x00502EF0
 
 void* __fastcall FOG_AllocPool(void* pPool, int nSize, const char* szFile, int nLine, int n0);              // 0x0040B430
 
@@ -1006,7 +1006,7 @@ D2SplittedTextStrc* __stdcall D2Win_AllocateSplitText(const Unicode* wszText, in
 }
 
 // 0x00502C40
-int* __fastcall sub_00502C40_ClearTable(int* pTable)
+int* __fastcall D2WINFONT_ClearTable(int* pTable)
 {
     for (int i = 0; i < 0x200; ++i)
     {
@@ -1108,7 +1108,7 @@ void __fastcall D2Win_10115_FONT()
 }
 
 // 0x00502EF0
-int __fastcall sub_00502EF0(int nFontSize)
+int __fastcall D2Win_10127_SetFont(int nFontSize)
 {
     const int nOldFont = gnCurrentFont;
     const unsigned int dwShiftedTickCount = GetTickCount() >> 10;
@@ -1197,7 +1197,7 @@ void __stdcall D2Win_10124()
 
         if (nFont == 1)
         {
-            sub_00502EF0(0);
+            D2Win_10127_SetFont(0);
             nFont = 0;
         }
         else
@@ -1207,7 +1207,7 @@ void __stdcall D2Win_10124()
                 break;
             }
 
-            sub_00502EF0(6);
+            D2Win_10127_SetFont(6);
             nFont = 6;
         }
     }
@@ -1242,7 +1242,7 @@ void __stdcall D2Win_10124()
 
     if (nFont != nSavedFont)
     {
-        sub_00502EF0(nSavedFont);
+        D2Win_10127_SetFont(nSavedFont);
     }
 }
 

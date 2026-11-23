@@ -9,7 +9,7 @@ struct D2WeatherSplashStrc;
 struct D2WeatherLayerStateStrc;
 
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
-D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 extern int gnBaseWindAngleMax; // 0x007A899C
@@ -46,7 +46,7 @@ static inline unsigned int sub_00472400_SeedStep(D2SeedStrc* pSeed)
 // 0x00472400
 void __cdecl sub_00472400_ResetPhaseState()
 {
-    int nLevelId = DUNGEON_GetLevelIdFromRoom(sub_004646A0_GetPlayerRoom());
+    int nLevelId = DUNGEON_GetLevelIdFromRoom(CUNIT_GetPlayerRoom());
     D2SeedStrc* pSeed = &sub_00463DE0_GetPlayerUnit()->pSeed;
 
     switch (nLevelId)

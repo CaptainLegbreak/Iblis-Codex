@@ -26,11 +26,11 @@ int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer);              // 0x006253B0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer);             // 0x00625480
-void __stdcall sub_00467FA0_MsgHandler(SMSGHANDLER_PARAMS* pMsg);
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg);                       // 0x00455F20
+void __stdcall ROSTERPETS_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg);                       // 0x00455F20
 extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey);
 void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg);
-void __cdecl sub_0044DA70();
+void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
 static int sub_004A76C0_ClaimLeftPanelClick(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -50,11 +50,11 @@ void __stdcall sub_004A78C0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
-    sub_00467FA0_MsgHandler(pMsg);
+    ROSTERPETS_HandleButtonUp(pMsg);
     gbStatScreenButtonDown = 0;
     if (nX >= gnPanelOffsetX + 0x80 && nX <= gnPanelOffsetX + 0xA0 && nY >= gnScreenHeight + gnPanelOffsetY - 0x5C && nY <= gnScreenHeight + gnPanelOffsetY - 0x3C)
     {
-        sub_00455F20(2, 1, 0);
+        UI_SetUIVar(2, 1, 0);
         return;
     }
     if (nX >= gnPanelOffsetX && nX <= gnScreenWidth / 2 - 1 && nY >= gnPanelOffsetY && nY <= gnScreenHeight + gnPanelOffsetY - 0x31)
@@ -84,7 +84,7 @@ void __stdcall sub_004A78C0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
                 }
             }
         }
-        sub_0044DA70();
+        GAME_ResetMouseButtons();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);

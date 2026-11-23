@@ -91,7 +91,7 @@ enum { MAX_DURABILITY = 73, DURABILITY = 72 };
 
 void __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x00627150
 
-int __stdcall sub_006254E0_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer);
+int __stdcall STATLIST_GetBaseStatValueByLayer(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x006254E0
 
 void __stdcall ITEMS_GetDimensions(D2UnitStrc* pItem, unsigned char* pWidth, unsigned char* pHeight, const char* szFile, int nLine); // 0x006286C0
 
@@ -1198,7 +1198,7 @@ int __fastcall ITEMMODS_AssignSingleSkill(int nType, D2UnitStrc* pUnit, D2UnitSt
 
     if (nApplyType)
     {
-        nValue = -sub_006254E0_GetStatValue(pStatList, 107, nSkillId);
+        nValue = -STATLIST_GetBaseStatValueByLayer(pStatList, 107, nSkillId);
     }
 
     STATLIST_AddStat(pStatList, STAT_ITEM_SINGLESKILL, nValue, nSkillId);
@@ -1251,7 +1251,7 @@ int __fastcall ITEMMODS_AssignElemSkill(int nType, D2UnitStrc* pUnit, D2UnitStrc
 
     if (nApplyType)
     {
-        nValue = -sub_006254E0_GetStatValue(pStatList, 126, 1);
+        nValue = -STATLIST_GetBaseStatValueByLayer(pStatList, 126, 1);
     }
 
     STATLIST_AddStat(pStatList, STAT_ITEM_ELEMSKILL, nValue, 1);
@@ -1330,7 +1330,7 @@ int __fastcall ITEMMODS_AssignClassSkills(int nType, D2UnitStrc* pUnit, D2UnitSt
 
     if (nApplyType)
     {
-        nValue = -sub_006254E0_GetStatValue(pStatList, 83, nClass);
+        nValue = -STATLIST_GetBaseStatValueByLayer(pStatList, 83, nClass);
     }
 
     STATLIST_AddStat(pStatList, STAT_ITEM_ADDCLASSSKILLS, nValue, nClass);

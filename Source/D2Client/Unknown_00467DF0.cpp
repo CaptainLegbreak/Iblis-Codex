@@ -15,7 +15,7 @@ extern int gnCursorAnimFrame; // 0x007A6AE0
 
 extern int gbCursorVisible; // 0x007A6B08
 int __cdecl GAME_IsExitPending(); // 0x0044DA30
-int __cdecl sub_00463DF0(); // 0x00463DF0
+int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 void __fastcall sub_004A9E60_AssignHotkey(int nHotkey); // 0x004A9E60
@@ -83,7 +83,7 @@ static inline void sub_00468B20_HandleHotkey(int nHotkey)
 {
     if (GAME_IsExitPending())
         return;
-    if (sub_00463DF0())
+    if (CUNIT_IsPlayerDeadOrMissing())
         return;
     if (nHotkey > 8 && !GAME_IsExpansion())
         return;

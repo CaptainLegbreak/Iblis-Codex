@@ -10,7 +10,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds);                       // 0x006CC258
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
-void __cdecl sub_0042E6D0_LoadFrontEndCells();                                                              // 0x0042E6D0
+void __cdecl MAINMENUS_LoadFrontEndCells();                                                              // 0x0042E6D0
 void __cdecl MAINMENUS_FreeFrontEndCells();                                                              // 0x0042EF50
 int __cdecl sub_004309B0_ClearState();                                                                      // 0x004309B0
 void __stdcall sub_00430BB0_LoopCallback(unsigned long nArg);                                               // 0x00430BB0
@@ -41,7 +41,7 @@ int __fastcall sub_004359D0_RunFrontEnd(D2LaunchRecordStrc* pRecord)
     D2Win_10015();
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     D2_ASSERT(sub_005259C0(sub_004FAC80(FOG_IsExpansion()), 0), 0x125A);
-    sub_0042E6D0_LoadFrontEndCells();
+    MAINMENUS_LoadFrontEndCells();
     CURSOR_SetCellFile(gpCursorOHandCelFile);
     gpLaunchRecord->nByte361 = 0;
     gpLaunchRecord->nByte381 = 0;

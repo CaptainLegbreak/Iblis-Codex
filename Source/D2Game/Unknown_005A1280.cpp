@@ -14,7 +14,7 @@ int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit);                   
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x00627260
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x006272B0
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty);                   // 0x00611D30
-int __fastcall sub_00463860(D2UnitStrc* pUnit);                                                             // 0x00463860
+int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit);                                                             // 0x00463860
 int __fastcall CUNIT_ValidateMonsterId(int nMonsterId);                                              // 0x00463900
 
 // 0x005A0D20
@@ -77,7 +77,7 @@ void __fastcall sub_005A1280_UModChampion(D2UnitStrc* pUnit, int nUMod, int bUni
     {
         nDamage = pRecord->dwChampionDmgBonus * 300 / 100;
         nToHit = nDamage;
-        if (CUNIT_ValidateMonsterId(sub_00463860(pUnit)) == 0x76)
+        if (CUNIT_ValidateMonsterId(CUNIT_GetMonsterBaseId(pUnit)) == 0x76)
         {
             nDamage /= 2;
         }

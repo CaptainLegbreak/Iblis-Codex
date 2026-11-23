@@ -38,7 +38,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
-int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
+int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 int __fastcall QUESTS_CreateChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuestId); // 0x005436B0
 void __fastcall QUESTS_SetJadeFigurineBoss(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00544E80
 void __fastcall QUESTS_MonsterSpawn(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00545B50
@@ -273,7 +273,8 @@ static inline int RollLimitedInline(D2SeedStrc* pSeed, int nMax)
     return RollRandomInline(pSeed) & (nMax - 1);
 }
 
-static void __stdcall sub_005A02E0_AddUMod(int nUMod, D2UnitStrc* pUnit)
+// build: symbol ?MONSTERUNIQUE_AddUMod@* 0x005A02E0
+static void __stdcall MONSTERUNIQUE_AddUMod(int nUMod, D2UnitStrc* pUnit)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType != 1)
@@ -293,7 +294,7 @@ static void __stdcall sub_005A02E0_AddUMod(int nUMod, D2UnitStrc* pUnit)
 }
 
 // 0x005A0320
-static void __stdcall sub_005A0320_MarkUnique(D2GameStrc* pGame, D2UnitStrc* pUnit)
+static void __stdcall MONSTERUNIQUE_MarkUnique(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType == 1)
@@ -371,7 +372,7 @@ static int __stdcall MONSTERUNIQUE_CanAssignUMod(D2UnitStrc* pUnit, D2MonUModTxt
 }
 
 // 0x005A0500
-static int sub_005A0500_RollChampionUMod(D2UnitStrc* pUnit, D2GameStrc* pGame)
+static int MONSTERUNIQUE_RollChampionUMod(D2UnitStrc* pUnit, D2GameStrc* pGame)
 {
     int aPicks[512];
     int nPickCount = 0;
@@ -573,7 +574,7 @@ static D2UnitStrc* __stdcall MONSTERUNIQUE_SpawnUniqueMonster(D2GameStrc* pGame,
         return 0;
     }
 
-    sub_005A0320_MarkUnique(pGame, pMonster);
+    MONSTERUNIQUE_MarkUnique(pGame, pMonster);
     SetMonTypeFlag(pMonster, 1, 1);
     QUESTS_SetJadeFigurineBoss(pGame, pMonster);
     AIGENERAL_SetOwnerData(pGame, pMonster, !pMonster ? -1 : pMonster->dwUnitId, 1, 1, 0);
@@ -581,7 +582,7 @@ static D2UnitStrc* __stdcall MONSTERUNIQUE_SpawnUniqueMonster(D2GameStrc* pGame,
 }
 
 // 0x005A0BB0
-static int sub_005A0BB0_GetMinionId(D2UnitStrc* pUnit)
+static int MONSTERUNIQUE_GetMinionId(D2UnitStrc* pUnit)
 {
     const int nClassId = !pUnit ? -1 : pUnit->dwClassId;
     D2MonStatsTxt* pMonStatsTxtRecord = MonStatsTxtRecord(nClassId);
@@ -594,14 +595,14 @@ static int sub_005A0BB0_GetMinionId(D2UnitStrc* pUnit)
 }
 
 // 0x005A0C00
-static void __stdcall sub_005A0C00_SpawnMinionGroup(D2GameStrc* pGame, D2RoomCoordListStrc* pRoomCoordList, D2UnitStrc* pUnit, int nMinGroup, int nMaxGroup)
+static void __stdcall MONSTERUNIQUE_SpawnMinionGroup(D2GameStrc* pGame, D2RoomCoordListStrc* pRoomCoordList, D2UnitStrc* pUnit, int nMinGroup, int nMaxGroup)
 {
     if (TestMonTypeFlag(pUnit, 4))
     {
         return;
     }
 
-    const int nMinionId = sub_005A0BB0_GetMinionId(pUnit);
+    const int nMinionId = MONSTERUNIQUE_GetMinionId(pUnit);
     if (nMinionId < 0 || nMinionId >= sgptDataTables->nMonStatsTxtRecordCount)
     {
         return;
@@ -623,7 +624,7 @@ static void __stdcall sub_005A0C00_SpawnMinionGroup(D2GameStrc* pGame, D2RoomCoo
         if (pMinion)
         {
             sub_005A0930_TransferUMods(pUnit, pMinion, 0);
-            AIGENERAL_SetOwnerData(pGame, pMinion, sub_00451F50_GetUnitGUID(pUnit), 1, 0, 0);
+            AIGENERAL_SetOwnerData(pGame, pMinion, GAME_GetUnitGUID(pUnit), 1, 0, 0);
             AIGENERAL_AllocMinionList(pGame, pUnit, pMinion);
             AIUTIL_SetOwnerGUIDAndType(pMinion, pUnit);
             SetMonTypeFlag(pMinion, 0x10, 1);
@@ -636,7 +637,7 @@ static void __stdcall MONSTERUNIQUE_SpawnMinions(D2GameStrc* pGame, D2ActiveRoom
 {
     if (bSpawnMinions)
     {
-        sub_005A0C00_SpawnMinionGroup(pGame, pRoomCoordList, pUnit, nMinGroup, nMaxGroup);
+        MONSTERUNIQUE_SpawnMinionGroup(pGame, pRoomCoordList, pUnit, nMinGroup, nMaxGroup);
     }
 
     for (int i = 0; i < 4; ++i)
@@ -787,7 +788,7 @@ void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc* pGame, D2UnitStrc*
 
     if (bUnique)
     {
-        sub_005A0320_MarkUnique(pGame, pUnit);
+        MONSTERUNIQUE_MarkUnique(pGame, pUnit);
     }
 
     const int nIndex = CountUMods(pUMods);
@@ -814,7 +815,7 @@ void __fastcall MONSTERUNIQUE_PromoteToChampion(D2GameStrc* pGame, D2UnitStrc* p
         return;
     }
 
-    sub_005A0320_MarkUnique(pGame, pUnit);
+    MONSTERUNIQUE_MarkUnique(pGame, pUnit);
     SetMonTypeFlag(pUnit, 4 | 1, 1);
 
     const int nIndex = MONSTERUNIQUE_GetUModCount(pUMods);
@@ -825,7 +826,8 @@ void __fastcall MONSTERUNIQUE_PromoteToChampion(D2GameStrc* pGame, D2UnitStrc* p
     }
 }
 
-void __fastcall sub_005A4940_PromoteToUnique(D2GameStrc* pGame, D2UnitStrc* pUnit)
+// build: symbol ?MONSTERUNIQUE_PromoteToUnique@* 0x005A4940
+void __fastcall MONSTERUNIQUE_PromoteToUnique(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType != 1)
@@ -841,7 +843,7 @@ void __fastcall sub_005A4940_PromoteToUnique(D2GameStrc* pGame, D2UnitStrc* pUni
     }
 
     SetMonTypeFlag(pUnit, 1, 1);
-    sub_005A0320_MarkUnique(pGame, pUnit);
+    MONSTERUNIQUE_MarkUnique(pGame, pUnit);
     MONSTERUNIQUE_AssignRandomUMods(pGame, pUnit, 1);
     MONSTERUNIQUE_SpawnMinions(pGame, UNITS_GetRoom(pUnit), 0, pUnit, 0, 0, 0);
     pUnit->dwFlags |= 0x800;

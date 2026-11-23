@@ -41,7 +41,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* hPath); // 0x006488C0
 unsigned int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -99,7 +99,8 @@ static int s_nCollision; // 0x007C8A0C
 
 static unsigned int s_nPlayerY; // 0x007C8A10
 
-static void sub_004DCE60_ResizeWallCells(D2WallCtxStrc* pCtx)
+// build: symbol ?WALL2_ResizeWallCells@* 0x004DCE60
+static void WALL2_ResizeWallCells(D2WallCtxStrc* pCtx)
 {
     const int nWidth = (pCtx->nRight - pCtx->nLeft) / 160 + 11;
     const int nHeight = (pCtx->nBottom - pCtx->nTop) / 80 + 12;
@@ -134,7 +135,7 @@ static unsigned int GetUnitYPosition_Inline(D2UnitStrc* pUnit)
 // 0x004DDB70
 void __fastcall sub_004DDB70_PrepareWallCells(D2WallCtxStrc* pCtx, int nValue)
 {
-    sub_004DCE60_ResizeWallCells(pCtx);
+    WALL2_ResizeWallCells(pCtx);
     D2WallRoomArgStrc tArg;
     tArg.pCtx = pCtx;
     tArg.nValue = nValue;
@@ -165,7 +166,7 @@ void __fastcall sub_004DDB70_PrepareWallCells(D2WallCtxStrc* pCtx, int nValue)
     }
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2_ASSERT(pPlayer, 0x351);
-    tArg.pRoom = sub_004646A0_GetPlayerRoom();
+    tArg.pRoom = CUNIT_GetPlayerRoom();
     s_nPlayerX = GetUnitXPosition_Inline(pPlayer) / 5;
     s_nPlayerY = GetUnitYPosition_Inline(pPlayer) / 5;
     s_nCollision = sub_0061B130_GetCollision(UNITS_GetRoom(pPlayer), GetUnitXPosition_Inline(pPlayer), GetUnitYPosition_Inline(pPlayer));

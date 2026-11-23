@@ -545,20 +545,20 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
-int __cdecl sub_00463DF0();                                                                                 // 0x00463DF0
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __cdecl CUNIT_IsPlayerDeadOrMissing();                                                                                 // 0x00463DF0
 int __cdecl sub_00468730();                                                                                 // 0x00468730
 int __cdecl sub_00468740();                                                                                 // 0x00468740
 void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg);                          // 0x004785B0
-void __cdecl sub_004A23D0_LoadPanelCels();                                                                  // 0x004A23D0
-int __stdcall sub_004A26B0_OpenPanel(int nArg);                                                             // 0x004A26B0
+void __cdecl TEXT_LoadQuestPanelCels();                                                                  // 0x004A23D0
+int __stdcall TEXT_OpenQuestPanel(int nArg);                                                             // 0x004A26B0
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);                   // 0x004B9A00
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 int __fastcall D2Win_10121_GetTextWidth(const unsigned short* wszText);                                      // 0x00501820
 void __fastcall sub_00502280_SetPopUpText(const unsigned short* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 void __fastcall D2Win_10117_DrawText(const unsigned short* wszText, int nX, int nY, int nColor, int bCentered);   // 0x00502320
 T0044CB60* __fastcall sub_00502970_SplitText(unsigned short* pText, unsigned int* pLineCount, int nWidth); // 0x00502970
-int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState);           // 0x0065C360
 extern D2QuestPosStrc gaQuestPos[];                                                                // 0x00723EA8
 extern int gnPanelOffsetX;                                                                               // 0x007A2858
@@ -609,7 +609,7 @@ void __cdecl sub_004A34F0_DrawQuestPage()
     memset(&tDraw, 0, sizeof(tDraw));
     tDraw.nDirection = 0;
 
-    if (sub_00463DF0())
+    if (CUNIT_IsPlayerDeadOrMissing())
     {
         if (gtQuestLog_007BF298.nState == 2)
         {
@@ -618,25 +618,25 @@ void __cdecl sub_004A34F0_DrawQuestPage()
             gtQuestLog_007BF298.bB3 = 0;
         }
         sub_004A2550();
-        sub_00455F20(0xF, 1, 0);
+        UI_SetUIVar(0xF, 1, 0);
         return;
     }
 
     if (GAME_GetUIVarState(0x12))
     {
-        sub_004A26B0_OpenPanel(0);
+        TEXT_OpenQuestPanel(0);
         return;
     }
 
     if (sub_00483350())
     {
-        sub_004A26B0_OpenPanel(0);
+        TEXT_OpenQuestPanel(0);
         return;
     }
 
     if (!gtQuestLog_007BF298.pCelD5)
     {
-        sub_004A23D0_LoadPanelCels();
+        TEXT_LoadQuestPanelCels();
         TEXT_LoadQuestPage(0, 1);
     }
 
@@ -831,7 +831,7 @@ void __cdecl sub_004A34F0_DrawQuestPage()
         }
     }
 
-    sub_00502EF0(8);
+    D2Win_10127_SetFont(8);
     const int nSelected = gtQuestLog_007BF298.nIndexB9;
     if (nSelected != -1 && nSelected < 6 && nSelected < gtQuestLog_007BF298.f_8)
     {
@@ -888,7 +888,7 @@ void __cdecl sub_004A34F0_DrawQuestPage()
     nMouseY += gnPanelOffsetY;
     if (nMouseX >= 0x116 && nMouseX <= 0x139 && nMouseY >= 0x188 && nMouseY <= 0x1A9)
     {
-        sub_00502EF0(9);
+        D2Win_10127_SetFont(9);
         const unsigned short* pHelp = D2LANG_GetStringFromTblIndex(0x1030);
         sub_00502280_SetPopUpText(pHelp, gnPanelOffsetX + 0x128, gnScreenHeight_00711470 + gnPanelOffsetY - 0x5F, 0, 1);
     }
@@ -899,7 +899,7 @@ void __cdecl sub_004A34F0_DrawQuestPage()
     if (nMouseX >= 0xE6 && nMouseX <= 0x103 && nMouseY >= 0x187 && nMouseY <= 0x1A7)
     {
         const unsigned short* pText = D2LANG_GetStringFromTblIndex(0xE88);
-        sub_00502EF0(9);
+        D2Win_10127_SetFont(9);
         sub_00502280_SetPopUpText(pText, gnPanelOffsetX + 0xF1, gnScreenHeight_00711470 + gnPanelOffsetY - 0x5F, 0, 1);
     }
 }

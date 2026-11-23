@@ -668,7 +668,7 @@ float __stdcall D2SOUND_DecibelsToScale(float fVolume)
 }
 
 // 0x005166D0
-static const unsigned char* __stdcall sub_005166D0_FindRiffChunk(const unsigned char* pData, unsigned int* pnSize, unsigned int nChunkId, unsigned int* pnChunkSize)
+static const unsigned char* __stdcall D2SOUND_FindRiffChunk(const unsigned char* pData, unsigned int* pnSize, unsigned int nChunkId, unsigned int* pnChunkSize)
 {
     while (*pnSize >= 8)
     {
@@ -1187,7 +1187,7 @@ const unsigned char* __fastcall sub_00516760_ReadWaveHeader(const unsigned int* 
         return 0;
 
     unsigned int nChunkSize = 0;
-    const unsigned char* pChunk = sub_005166D0_FindRiffChunk((const unsigned char*)pRiff + 12, pnSize, 0x20746D66, &nChunkSize);
+    const unsigned char* pChunk = D2SOUND_FindRiffChunk((const unsigned char*)pRiff + 12, pnSize, 0x20746D66, &nChunkSize);
     if (!pChunk)
         return 0;
 
@@ -1207,7 +1207,7 @@ const unsigned char* __fastcall sub_00516760_ReadWaveHeader(const unsigned int* 
     pFormat->wBitsPerSample = ((const D2WaveFormatStrc*)pChunk)->wBitsPerSample;
     pFormat->cbSize = 0;
 
-    pChunk = sub_005166D0_FindRiffChunk(pNext, pnSize, 0x61746164, &nChunkSize);
+    pChunk = D2SOUND_FindRiffChunk(pNext, pnSize, 0x61746164, &nChunkSize);
     if (!pChunk)
         return 0;
 

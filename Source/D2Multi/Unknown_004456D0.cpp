@@ -174,7 +174,8 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
 // build: symbol ?CHARSEL_CancelGameCreate@* 0x0043F850
             CHARSEL_CancelGameCreate();
         CHATDLG_DestroyCreateControls();
-        if (sub_00449E40())
+// build: symbol ?GAME_IsMcpCreateQueued@* 0x00449E40
+        if (GAME_IsMcpCreateQueued())
             COMCALLBACK_BuildCreateGamePanel();
     }
 

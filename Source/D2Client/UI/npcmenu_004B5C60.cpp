@@ -77,7 +77,8 @@ int __cdecl NPCMENU_HireMercHandler();                                          
 void __cdecl NPCMENU_BuildNpcMenu();                                                                        // 0x004B4830
 int __cdecl NPCMENU_CloseHireDialog();                                                                    // 0x004B5C20
 void __fastcall DIALOG_AddWidget(D2ClientDialogStrc* pDialog, void* pWidget, int nArg8, int nArgC);   // 0x004B7C00
-D2ClientDialogStrc* __fastcall sub_004B7EB0_CreateDialog(int nArg1, int nArg2, int nArg8, int nArgC, int nArg10, int nArg14,
+// build: symbol ?DIALOG_CreateDialog@* 0x004B7EB0
+D2ClientDialogStrc* __fastcall DIALOG_CreateDialog(int nArg1, int nArg2, int nArg8, int nArgC, int nArg10, int nArg14,
     int nArg18, int nArg1C, int nArg20, int nArg24, int nArg28);                                            // 0x004B7EB0
 void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex);                               // 0x004B82F0
@@ -119,7 +120,7 @@ int __cdecl sub_004B5C60_Handler()
         return 0;
     }
 
-    gpNpcHireDialog = sub_004B7EB0_CreateDialog((gnScreenWidth - 0x1EA) / 2, gnAutomapHeight_007A521C / 2 - 0xC3,
+    gpNpcHireDialog = DIALOG_CreateDialog((gnScreenWidth - 0x1EA) / 2, gnAutomapHeight_007A521C / 2 - 0xC3,
         (int)NPCMENU_CloseHireDialog, 0, 0, 0, 0, 0x1EA, 0x15E, 0, 1);
     sub_004B8370_SetField5C(gpNpcHireDialog, 1);
 

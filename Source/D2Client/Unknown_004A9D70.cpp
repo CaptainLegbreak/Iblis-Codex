@@ -19,7 +19,7 @@ extern int gaChargedSkillIds[60]; // 0x007C04E0
 extern int gaHotkeySkills[16]; // 0x007C06C8
 extern int gaHotkeyLeft[16]; // 0x007C07B8
 extern int gaHotkeyOwners[16]; // 0x007C0768
-void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 int __cdecl sub_00468730(); // 0x00468730
@@ -37,8 +37,8 @@ extern int gnPanelOffsetY; // 0x007A285C
 extern unsigned char gnCharClass; // 0x007A0522
 extern int gnScreenWidth; // 0x0071146C
 extern unsigned char gbColor; // 0x007C0C50
-void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -53,13 +53,13 @@ extern int gbSkillPanelDrawn; // 0x007C0C4C
 extern int gaSkillButtonFrame[]; // 0x007C0838
 extern int gaSkillButtonState[]; // 0x007C0A38
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
-void __cdecl sub_0044DA70(); // 0x0044DA70
+void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-void __stdcall sub_00467F20_MsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x00467F20
-void __stdcall sub_00467FA0_MsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
+void __stdcall ROSTERPETS_HandleButtonDown(SMSGHANDLER_PARAMS* pMsg); // 0x00467F20
+void __stdcall ROSTERPETS_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
 void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg); // 0x004785B0
 int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
 D2SkillDescTxt* __fastcall sub_004A89D0_SkillDescRec(int nSkillId); // 0x004A89D0
@@ -103,7 +103,7 @@ void __stdcall sub_004A9D70_ClearSkillHotkeys(D2SkillsTxt* pSkillsTxt, int nQuan
                 gaHotkeySkills[nSlot] = -1;
                 gaHotkeyLeft[nSlot] = -1;
                 gaHotkeyOwners[nSlot] = -1;
-                sub_004786A0_SendDwords2(0x51, (nSlot << 16) + 0xFFFF, -1);
+                MSG_SendTwoDwords(0x51, (nSlot << 16) + 0xFFFF, -1);
             }
         }
 
@@ -305,13 +305,13 @@ LOOP:
         }
     }
 Done:
-    sub_00502EF0(1);
+    D2Win_10127_SetFont(1);
     if (!bHover)
     {
         return;
     }
 
-    sub_0046EFD0_DrawFramedBox(gnScreenWidth - gnPanelOffsetX - 0x59, nBoxY + 5, 0x5A, 0x14, gbColor, 6);
+    AUTOMAP_DrawFramedBox(gnScreenWidth - gnPanelOffsetX - 0x59, nBoxY + 5, 0x5A, 0x14, gbColor, 6);
     if (bShow1082)
     {
         TEXT_DrawCenteredText(gnScreenWidth - gnPanelOffsetX - 0x59, nBoxY + 0x14, 0x5A, D2LANG_GetStringFromTblIndex(0x1082), 0);
@@ -457,12 +457,12 @@ static void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSki
         sub_00526320_ToUnicode((Unicode*)adwText, (const char*)adwLevel, 9);
         if (nSkillLevel > 9)
         {
-            sub_00502EF0(4);
+            D2Win_10127_SetFont(4);
             nX -= 4;
         }
         else
         {
-            sub_00502EF0(1);
+            D2Win_10127_SetFont(1);
         }
 
         int nColor = 0;

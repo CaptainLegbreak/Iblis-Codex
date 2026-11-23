@@ -8,7 +8,7 @@ class BNGatewayAccess;
 
 int __fastcall sub_004FB950_GetFirstVisible(D2WinControlStrc* pControl); // 0x004FB950
 void __cdecl MAINMENUS_PlayIntroVideo(); // 0x00433640
-void __cdecl sub_0042FB20(); // 0x0042FB20
+void __cdecl MAINMENUS_CreateVideoScreen(); // 0x0042FB20
 void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
 int __stdcall D2Win_10033(D2WinControlStrc* pControl, int nArg); // 0x004FA470
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -57,7 +57,7 @@ void __cdecl MAINMENUS_ShowLoginScreen(); // 0x00435330
 void __cdecl MAINMENUS_UpdateTwoEditOk(); // 0x00436CF0
 void __cdecl MAINMENUS_UpdateEmailOk(); // 0x00436EB0
 void __fastcall AUTOMAP_InitCharSaveHeader(char* szName, char nClass, char* pData, int nFlags); // 0x0043C540
-int __fastcall sub_0043C6B0_WriteSaveHeader(const char* szName); // 0x0043C6B0
+int __fastcall CHATDLG_WriteSaveHeader(const char* szName); // 0x0043C6B0
 void __cdecl MAINMENUS_CreateRealmCharacter(); // 0x00435E10
 extern int gnLaunchMode; // 0x007795EC
 void __cdecl MAINMENUS_SetDone(); // 0x0042F6C0
@@ -146,7 +146,7 @@ int __stdcall MAINMENUS_PlayIntroAndLeave(int nArg)
     if (D2Win_10003())
         MAINMENUS_PlayIntroVideo();
     D2Win_10004(1);
-    sub_0042FB20();
+    MAINMENUS_CreateVideoScreen();
     return 1;
 }
 
@@ -251,7 +251,7 @@ void __cdecl MAINMENUS_PlayIntroVideos()
         }
     }
     D2Win_10004(1);
-    sub_0042FB20();
+    MAINMENUS_CreateVideoScreen();
 }
 
 int gnLaunchState; // 0x007795E8
@@ -298,7 +298,7 @@ int __stdcall MAINMENUS_SubmitCharacter(int nArg)
         D2MCPClientCloseMCP();
         sub_0043C6A0(0);
         AUTOMAP_InitCharSaveHeader(gpLaunchRecord->szCharName, gpLaunchRecord->nClass, gpLaunchRecord->aDataED, *(unsigned short*)gpLaunchRecord->aFlags1EF);
-        sub_0043C6B0_WriteSaveHeader(gpLaunchRecord->szCharName);
+        CHATDLG_WriteSaveHeader(gpLaunchRecord->szCharName);
         gpLaunchRecord->nByte35E = 4;
         gnLaunchState = 3;
         *(int*)gpLaunchRecord->aState209 = 0x804;
@@ -310,7 +310,7 @@ int __stdcall MAINMENUS_SubmitCharacter(int nArg)
     if (gnLaunchMode == 0)
     {
         AUTOMAP_InitCharSaveHeader(gpLaunchRecord->szCharName, gpLaunchRecord->nClass, gpLaunchRecord->aDataED, *(unsigned short*)gpLaunchRecord->aFlags1EF);
-        sub_0043C6B0_WriteSaveHeader(gpLaunchRecord->szCharName);
+        CHATDLG_WriteSaveHeader(gpLaunchRecord->szCharName);
         gpLaunchRecord->nByte35E = 1;
         *(int*)gpLaunchRecord->aState19 = 0;
         *(int*)gpLaunchRecord->aState209 = 4;
@@ -326,7 +326,7 @@ int __stdcall MAINMENUS_SubmitCharacter(int nArg)
     {
         sub_0043C6A0(0);
         AUTOMAP_InitCharSaveHeader(gpLaunchRecord->szCharName, gpLaunchRecord->nClass, gpLaunchRecord->aDataED, *(unsigned short*)gpLaunchRecord->aFlags1EF);
-        sub_0043C6B0_WriteSaveHeader(gpLaunchRecord->szCharName);
+        CHATDLG_WriteSaveHeader(gpLaunchRecord->szCharName);
         gpLaunchRecord->nByte35E = 3;
         gnLaunchState = 1;
         *(int*)gpLaunchRecord->aState209 = 4;

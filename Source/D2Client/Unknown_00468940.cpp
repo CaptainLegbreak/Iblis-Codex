@@ -7,11 +7,11 @@
 #define BODYLOC_BELT 8
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 int __cdecl GAME_IsExitPending(); // 0x0044DA30
-int __cdecl sub_00463DF0(); // 0x00463DF0
+int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 void __fastcall TEXT_ToggleQuestLog(int nMode); // 0x004A3FE0
 void __fastcall sub_00457640(int bForce); // 0x00457640
 int __cdecl AUTOMAP_GetAutomapFade(); // 0x004576C0
@@ -40,7 +40,7 @@ int __cdecl GAME_GetAlwaysRun(); // 0x0044BE90
 void __fastcall GAME_SetAlwaysRun(int bAlwaysRun); // 0x0044BE80
 void __fastcall GAME_SetStandStillHeld(int nValue); // 0x0044BEA0
 void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nMode); // 0x00480E70
-void __fastcall sub_00478590(char nValue); // 0x00478590
+void __fastcall MSG_SendHeaderOnly(char nValue); // 0x00478590
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 int __cdecl NPCMENU_IsAnyDialogOpen(); // 0x004B34A0
 int __cdecl TEXT_IsTextBoxOpen(); // 0x004A0000
@@ -55,32 +55,32 @@ void __cdecl sub_00466FE0(); // 0x00466FE0
 // 0x00468940
 void __cdecl sub_00468940_SetUIVar2()
 {
-    sub_00455F20(2, 2, 1);
+    UI_SetUIVar(2, 2, 1);
 }
 
 // 0x00468950
 void __cdecl sub_00468950_SetUIVar1()
 {
-    sub_00455F20(1, 2, 1);
+    UI_SetUIVar(1, 2, 1);
 }
 
 // 0x00468960
 void __cdecl sub_00468960_SetUIVar22()
 {
     if (GAME_GetConnectionType())
-        sub_00455F20(0x16, 2, 1);
+        UI_SetUIVar(0x16, 2, 1);
 }
 
 // 0x00468980
 void __cdecl sub_00468980_SetUIVar24()
 {
-    sub_00455F20(0x18, 2, 0);
+    UI_SetUIVar(0x18, 2, 0);
 }
 
 // 0x00468990
 void __cdecl sub_00468990_OpenMode1()
 {
-    if (!GAME_IsExitPending() && !sub_00463DF0())
+    if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
         TEXT_ToggleQuestLog(1);
 }
 
@@ -93,7 +93,7 @@ void __cdecl sub_00468F00()
         D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pPlayer->pInventory, BODYLOC_BELT);
         if (pItem && ITEMSIsA(pItem, ITEMTYPE_BELT))
         {
-            sub_00455F20(0x1F, 2, 0);
+            UI_SetUIVar(0x1F, 2, 0);
         }
     }
 }
@@ -102,13 +102,13 @@ void __cdecl sub_00468F00()
 void __cdecl sub_004689B0_SetUIVar5()
 {
     if (!GAME_IsExitPending())
-        sub_00455F20(5, 2, 0);
+        UI_SetUIVar(5, 2, 0);
 }
 
 // 0x00468A30
 void __cdecl sub_00468A30_SetUIVar10()
 {
-    sub_00455F20(0xA, 2, 0);
+    UI_SetUIVar(0xA, 2, 0);
     if (!GAME_GetUIVarState(0xA))
         sub_00457640(0);
 }
@@ -146,20 +146,20 @@ void __cdecl sub_00468AD0_ToggleSetting()
 // 0x00468AF0
 void __cdecl sub_00468AF0_SetUIVar4()
 {
-    sub_00455F20(4, 2, 1);
+    UI_SetUIVar(4, 2, 1);
 }
 
 // 0x00468B00
 void __cdecl sub_00468B00_SetUIVar3()
 {
-    sub_00455F20(3, 2, 0);
+    UI_SetUIVar(3, 2, 0);
     sub_004A8CE0_SetValue(0);
 }
 
 // 0x00468B90
 void __cdecl sub_00468B90_Hotkey0()
 {
-    if (!GAME_IsExitPending() && !sub_00463DF0())
+    if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
         if (GAME_GetUIVarState(3))
             sub_004A9E60_AssignHotkey(0);
@@ -171,7 +171,7 @@ void __cdecl sub_00468B90_Hotkey0()
 // 0x00468BC0
 void __cdecl sub_00468BC0_Hotkey1()
 {
-    if (!GAME_IsExitPending() && !sub_00463DF0())
+    if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
         if (GAME_GetUIVarState(3))
             sub_004A9E60_AssignHotkey(1);
@@ -183,7 +183,7 @@ void __cdecl sub_00468BC0_Hotkey1()
 // 0x00468BF0
 void __cdecl sub_00468BF0_Hotkey2()
 {
-    if (!GAME_IsExitPending() && !sub_00463DF0())
+    if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
         if (GAME_GetUIVarState(3))
             sub_004A9E60_AssignHotkey(2);
@@ -195,7 +195,7 @@ void __cdecl sub_00468BF0_Hotkey2()
 // 0x00468C20
 void __cdecl sub_00468C20_Hotkey3()
 {
-    if (!GAME_IsExitPending() && !sub_00463DF0())
+    if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
         if (GAME_GetUIVarState(3))
             sub_004A9E60_AssignHotkey(3);
@@ -207,7 +207,7 @@ void __cdecl sub_00468C20_Hotkey3()
 // 0x00468C50
 void __cdecl sub_00468C50_Hotkey4()
 {
-    if (!GAME_IsExitPending() && !sub_00463DF0())
+    if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
         if (GAME_GetUIVarState(3))
             sub_004A9E60_AssignHotkey(4);
@@ -219,7 +219,7 @@ void __cdecl sub_00468C50_Hotkey4()
 // 0x00468C80
 void __cdecl sub_00468C80_Hotkey5()
 {
-    if (!GAME_IsExitPending() && !sub_00463DF0())
+    if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
         if (GAME_GetUIVarState(3))
             sub_004A9E60_AssignHotkey(5);
@@ -231,7 +231,7 @@ void __cdecl sub_00468C80_Hotkey5()
 // 0x00468CB0
 void __cdecl sub_00468CB0_Hotkey6()
 {
-    if (!GAME_IsExitPending() && !sub_00463DF0())
+    if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
         if (GAME_GetUIVarState(3))
             sub_004A9E60_AssignHotkey(6);
@@ -243,7 +243,7 @@ void __cdecl sub_00468CB0_Hotkey6()
 // 0x00468CE0
 void __cdecl sub_00468CE0_Hotkey7()
 {
-    if (!GAME_IsExitPending() && !sub_00463DF0())
+    if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
         if (GAME_GetUIVarState(3))
             sub_004A9E60_AssignHotkey(7);
@@ -255,7 +255,7 @@ void __cdecl sub_00468CE0_Hotkey7()
 // 0x00468D10
 void __cdecl sub_00468D10_Hotkey8()
 {
-    if (!GAME_IsExitPending() && !sub_00463DF0())
+    if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
         if (GAME_GetUIVarState(3))
             sub_004A9E60_AssignHotkey(8);
@@ -267,7 +267,7 @@ void __cdecl sub_00468D10_Hotkey8()
 // 0x00468D40
 void __cdecl sub_00468D40_Hotkey9()
 {
-    if (!GAME_IsExitPending() && !sub_00463DF0() && GAME_IsExpansion())
+    if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing() && GAME_IsExpansion())
     {
         if (GAME_GetUIVarState(3))
             sub_004A9E60_AssignHotkey(9);
@@ -279,7 +279,7 @@ void __cdecl sub_00468D40_Hotkey9()
 // 0x00468D80
 void __cdecl sub_00468D80_Hotkey10()
 {
-    if (!GAME_IsExitPending() && !sub_00463DF0() && GAME_IsExpansion())
+    if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing() && GAME_IsExpansion())
     {
         if (GAME_GetUIVarState(3))
             sub_004A9E60_AssignHotkey(10);
@@ -291,7 +291,7 @@ void __cdecl sub_00468D80_Hotkey10()
 // 0x00468DC0
 void __cdecl sub_00468DC0_Hotkey11()
 {
-    if (!GAME_IsExitPending() && !sub_00463DF0() && GAME_IsExpansion())
+    if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing() && GAME_IsExpansion())
     {
         if (GAME_GetUIVarState(3))
             sub_004A9E60_AssignHotkey(11);
@@ -303,7 +303,7 @@ void __cdecl sub_00468DC0_Hotkey11()
 // 0x00468E00
 void __cdecl sub_00468E00_Hotkey12()
 {
-    if (!GAME_IsExitPending() && !sub_00463DF0() && GAME_IsExpansion())
+    if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing() && GAME_IsExpansion())
     {
         if (GAME_GetUIVarState(3))
             sub_004A9E60_AssignHotkey(12);
@@ -315,7 +315,7 @@ void __cdecl sub_00468E00_Hotkey12()
 // 0x00468E40
 void __cdecl sub_00468E40_Hotkey13()
 {
-    if (!GAME_IsExitPending() && !sub_00463DF0() && GAME_IsExpansion())
+    if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing() && GAME_IsExpansion())
     {
         if (GAME_GetUIVarState(3))
             sub_004A9E60_AssignHotkey(13);
@@ -327,7 +327,7 @@ void __cdecl sub_00468E40_Hotkey13()
 // 0x00468E80
 void __cdecl sub_00468E80_Hotkey14()
 {
-    if (!GAME_IsExitPending() && !sub_00463DF0() && GAME_IsExpansion())
+    if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing() && GAME_IsExpansion())
     {
         if (GAME_GetUIVarState(3))
             sub_004A9E60_AssignHotkey(14);
@@ -339,7 +339,7 @@ void __cdecl sub_00468E80_Hotkey14()
 // 0x00468EC0
 void __cdecl sub_00468EC0_Hotkey15()
 {
-    if (!GAME_IsExitPending() && !sub_00463DF0() && GAME_IsExpansion())
+    if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing() && GAME_IsExpansion())
     {
         if (GAME_GetUIVarState(3))
             sub_004A9E60_AssignHotkey(15);
@@ -465,7 +465,7 @@ void __cdecl sub_00469000_HotkeyRunOn()
         return;
     if (GAME_IsExitPending())
         return;
-    if (sub_00463DF0())
+    if (CUNIT_IsPlayerDeadOrMissing())
         return;
     if (pPlayer->dwUnitType != UNIT_PLAYER)
         return;
@@ -474,7 +474,7 @@ void __cdecl sub_00469000_HotkeyRunOn()
     if (!STATLIST_UnitGetStatValue(pPlayer, STAT_STAMINA, 0))
         return;
     UNITMODE_SetUnitMode(pPlayer, 3);
-    sub_00478590(0x53);
+    MSG_SendHeaderOnly(0x53);
 }
 
 // 0x00469060
@@ -492,13 +492,13 @@ void __cdecl sub_00469080_HotkeySetValue()
 // 0x00469090
 void __cdecl sub_00469090_HotkeyUiVarOff()
 {
-    sub_00455F20(0xD, 0, 0);
+    UI_SetUIVar(0xD, 0, 0);
 }
 
 // 0x00469210
 void __cdecl sub_00469210_HotkeyUiVarOn()
 {
-    sub_00455F20(0xD, 1, 0);
+    UI_SetUIVar(0xD, 1, 0);
     sub_00466FE0();
 }
 
@@ -524,7 +524,7 @@ void __cdecl sub_00469100_HotkeyPrevSkill()
 {
     if (GAME_IsExitPending())
         return;
-    if (sub_00463DF0())
+    if (CUNIT_IsPlayerDeadOrMissing())
         return;
     sub_004AA740_CycleHotkey(-1);
 }
@@ -534,7 +534,7 @@ void __cdecl sub_00469120_HotkeyNextSkill()
 {
     if (GAME_IsExitPending())
         return;
-    if (sub_00463DF0())
+    if (CUNIT_IsPlayerDeadOrMissing())
         return;
     sub_004AA740_CycleHotkey(1);
 }
@@ -549,7 +549,7 @@ void __cdecl sub_00469170_HotkeyPetUi()
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     if (!FOG_IsExpansion())
         return;
-    sub_00455F20(0x24, 2, 1);
+    UI_SetUIVar(0x24, 2, 1);
 }
 
 // 0x004691C0
@@ -566,7 +566,7 @@ void __cdecl sub_004691C0_HotkeyRunOff()
     if (pPlayer->dwAnimMode != PLRMODE_RUN)
         return;
     UNITMODE_SetUnitMode(pPlayer, 2);
-    sub_00478590(0x54);
+    MSG_SendHeaderOnly(0x54);
 }
 
 // 0x00469140

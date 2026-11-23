@@ -16,11 +16,11 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                   
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                                             // 0x006427F0
 void __cdecl WARDENCLIENT_BuildWaypointList();                                                              // 0x0049C7F0
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 void __cdecl GAME_ResetMouseState();                                                                                // 0x0044DA40
 int __cdecl sub_0047F210_IsMouseInSlots();                                                                  // 0x0047F210
 void __cdecl sub_0049C6C0_SendWaypointClose();                                                              // 0x0049C6C0
-void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 extern D2WaypointRowRectStrc gaWaypointRowRects[9];                                                // 0x007224F8
@@ -128,7 +128,7 @@ void __cdecl sub_0049C980_UpdateWaypointAct()
 // 0x0049CF90
 void __fastcall sub_0049CF90(D2PacketRecord21Strc* pPacket)
 {
-    if (sub_00455F20(0x14, 0, 1) == 1)
+    if (UI_SetUIVar(0x14, 0, 1) == 1)
     {
         GAME_ResetMouseState();
         sub_0049C980_UpdateWaypointAct();
@@ -157,7 +157,7 @@ void __stdcall sub_0049D010_WaypointMouseUp(SMSGHANDLER_PARAMS* pMsg)
         {
             if (nX >= 0x111 && nX <= 0x111 + 0x23 && nY >= 0x183 && nY <= 0x183 + 0x21)
             {
-                sub_00455F20(0x14, 1, 0);
+                UI_SetUIVar(0x14, 1, 0);
                 sub_0049C6C0_SendWaypointClose();
             }
         }
@@ -166,12 +166,12 @@ void __stdcall sub_0049D010_WaypointMouseUp(SMSGHANDLER_PARAMS* pMsg)
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
-            sub_004786A0_SendDwords2(0x49, gnWaypointId, *(int*)gaWaypointEntries[gnWaypointSelected].nLevelId);
+            MSG_SendTwoDwords(0x49, gnWaypointId, *(int*)gaWaypointEntries[gnWaypointSelected].nLevelId);
             gbSent = 1;
             sub_0049C6C0_SendWaypointClose();
             gbWaypointClosePressed = false;
             gnWaypointSelected = -1;
-            sub_00455F20(0x14, 1, 0);
+            UI_SetUIVar(0x14, 1, 0);
             sub_004B9A00(0x8B7, 0, 0, 0, 0);
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
@@ -204,10 +204,10 @@ void __stdcall sub_0049D160_WaypointMouseDown(SMSGHANDLER_PARAMS* pMsg)
     {
         if (!gbSent && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
         {
-            sub_004786A0_SendDwords2(0x49, gnWaypointId, 0);
+            MSG_SendTwoDwords(0x49, gnWaypointId, 0);
             gbSent = 1;
         }
-        sub_00455F20(0x14, 1, 1);
+        UI_SetUIVar(0x14, 1, 1);
         return;
     }
 

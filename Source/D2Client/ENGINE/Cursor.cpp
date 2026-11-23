@@ -276,7 +276,7 @@ void __cdecl CURSOR_PaintCursorItem()
 }
 
 // 0x004680A0
-int __cdecl sub_004680A0()
+int __cdecl CURSOR_GetCursorItem()
 {
     return gpCursorItem;
 }

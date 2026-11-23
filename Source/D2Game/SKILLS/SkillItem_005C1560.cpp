@@ -283,18 +283,18 @@ static inline unsigned int sub_RareSeedRollLimited(D2SeedStrc* pSeed, int nMax)
     return 0;
 }
 
-unsigned short __stdcall sub_005C19A0_RollRareAffixOld(D2UnitStrc* pItem, int bPrefix); // 0x005C19A0
+unsigned short __stdcall SKILLITEM_RollRareAffixLegacy(D2UnitStrc* pItem, int bPrefix); // 0x005C19A0
 
-unsigned short __stdcall sub_005C1AB0_RollRareAffixNew(D2UnitStrc* pItem, int bPrefix); // 0x005C1AB0
+unsigned short __stdcall SKILLITEM_RollRareAffix(D2UnitStrc* pItem, int bPrefix); // 0x005C1AB0
 
 static inline unsigned short D2GAME_RollRareAffixInline(D2UnitStrc* pItem, int bPrefix)
 {
     if (ITEMS_GetItemFormat(pItem) >= 1u)
     {
-        return sub_005C1AB0_RollRareAffixNew(pItem, bPrefix);
+        return SKILLITEM_RollRareAffix(pItem, bPrefix);
     }
 
-    return sub_005C19A0_RollRareAffixOld(pItem, bPrefix);
+    return SKILLITEM_RollRareAffixLegacy(pItem, bPrefix);
 }
 
 static inline bool ITEMS_HasAffixOrGroupInline(D2UnitStrc* pItem, unsigned short nAffix, int bPrefix)

@@ -429,15 +429,15 @@ void __fastcall ACT1Q3_Callback04_ItemPickedUp(D2QuestDataStrc* pQuestData, D2Qu
 }
 
 // 0x005919C0
-static inline void sub_005919C0_SetLastStateTwo(D2QuestDataStrc* pQuestData)
+static inline void ACT1Q3_SetLastStateTwo(D2QuestDataStrc* pQuestData)
 {
     pQuestData->fLastState = 2;
 }
 
 void __stdcall sub_M113_Emit_005919C0(D2QuestDataStrc* pFirst, D2QuestDataStrc* pSecond)
 {
-    sub_005919C0_SetLastStateTwo(pFirst);
-    sub_005919C0_SetLastStateTwo(pSecond);
+    ACT1Q3_SetLastStateTwo(pFirst);
+    ACT1Q3_SetLastStateTwo(pSecond);
 }
 
 // 0x005919D0

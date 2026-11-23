@@ -276,7 +276,7 @@ int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int n
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 extern D2ButtonStringStrc gaButtonStrings[]; // 0x007275A8
@@ -589,11 +589,11 @@ void ButtonImplementation::Slot01()
     const int nPosY = dwMousePos >> 16;
     if (nPosX >= nX && nPosX <= nX + nWidth && nPosY >= nY - nHeight && nPosY <= nY)
     {
-        const int nOldFont = sub_00502EF0(1);
+        const int nOldFont = D2Win_10127_SetFont(1);
         const Unicode* wszText = D2LANG_GetStringFromTblIndex(gaButtonStrings[nStringSlot].nStringIndex);
         const int nTextWidth = D2Win_10121_GetTextWidth(wszText);
         D2Win_10117_DrawText(wszText, nX + (nWidth - nTextWidth) / 2, nY - nHeight - 5, 0, 0);
-        sub_00502EF0(nOldFont);
+        D2Win_10127_SetFont(nOldFont);
     }
 }
 
@@ -637,7 +637,7 @@ struct T0044CB60
     T0044CB60* pNext;
 };
 
-void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6);
+void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
 T0044CB60* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth);
 
@@ -650,9 +650,9 @@ void EditBoxImplementation::Slot01()
     ++unk0x46;
     if (unk0x56)
     {
-        sub_0046EFD0_DrawFramedBox(nTextX - 10, nTextY - 0x10, nTextWidth, 0x12, 0, 2);
+        AUTOMAP_DrawFramedBox(nTextX - 10, nTextY - 0x10, nTextWidth, 0x12, 0, 2);
     }
-    sub_00502EF0(nFont);
+    D2Win_10127_SetFont(nFont);
 
     Unicode wszBuffer[200];
     Unicode wszCursor[2];
@@ -1024,7 +1024,7 @@ EditBoxImplementation::EditBoxImplementation(int nX, int nY, int nTextWidth, int
     char szDigits[11] = "0000000000";
     Unicode wszDigits[11];
     memset(wszDigits, 0, sizeof(wszDigits));
-    sub_00502EF0(nFont);
+    D2Win_10127_SetFont(nFont);
     sub_00526F20_ToUnicode(wszDigits, szDigits, 11);
     if (nTextWidth <= 0)
     {

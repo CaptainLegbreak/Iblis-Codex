@@ -45,7 +45,7 @@ int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);         
 
 int __cdecl GAME_IsExitPending();                                                                                 // 0x0044DA30
 
-void __cdecl sub_0044DA70();                                                                                // 0x0044DA70
+void __cdecl GAME_ResetMouseButtons();                                                                                // 0x0044DA70
 
 void __cdecl UI_StartUIVarDelay();                                                                                // 0x00453AE0
 
@@ -63,7 +63,7 @@ int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
-int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 
@@ -184,14 +184,14 @@ void __stdcall ROSTERPETS_HandlePopupButtonUp(SMSGHANDLER_PARAMS* pMsg)
             return;
         }
     }
-    sub_0044DA70();
+    GAME_ResetMouseButtons();
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
 // 0x00467F20
-void __stdcall sub_00467F20_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall ROSTERPETS_HandleButtonDown(SMSGHANDLER_PARAMS* pMsg)
 {
     gnCursorX = pMsg->nXpos;
     gnCursorY = pMsg->nYpos;
@@ -206,7 +206,7 @@ void __stdcall sub_00467F20_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00467FA0
-void __stdcall sub_00467FA0_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall ROSTERPETS_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
     gnCursorX = pMsg->nXpos;
     gnCursorY = pMsg->nYpos;
@@ -378,7 +378,7 @@ void __fastcall ROSTERPETS_DropPetEntry(int nKey)
 }
 
 // 0x00478E40
-D2ClientEntryStrc* __fastcall sub_00478E40_FindEntry(int nKey)
+D2ClientEntryStrc* __fastcall ROSTERPETS_FindEntry(int nKey)
 {
     for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
     {
@@ -474,14 +474,14 @@ void __stdcall ROSTERPETS_HandleHelpButtonDown(SMSGHANDLER_PARAMS* pMsg)
             return;
         }
     }
-    sub_0044DA70();
+    GAME_ResetMouseButtons();
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
 // 0x0049A460
-void __fastcall sub_0049A460_DrawPanelLabel(int nType, int nUnused, int nY, int bAlt, unsigned short nFlag)
+void __fastcall ROSTERPETS_DrawPanelLabel(int nType, int nUnused, int nY, int bAlt, unsigned short nFlag)
 {
     int nStringId;
     int nColor = 0;
@@ -520,7 +520,7 @@ void __fastcall sub_0049A460_DrawPanelLabel(int nType, int nUnused, int nY, int 
         nStringId = 0x13EF;
         break;
     default:
-        sub_00502EF0(0);
+        D2Win_10127_SetFont(0);
         return;
     }
 

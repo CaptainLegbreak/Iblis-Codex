@@ -21,7 +21,7 @@ extern unsigned int gdwBitMasks[];                                              
 
 extern tagPOINT gtMousePosition;                                                                    // 0x007D55A4
 
-int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 
 int __stdcall D2Win_10125();                                                                                // 0x00501A40
 
@@ -64,7 +64,7 @@ static __declspec(noinline) int BUTTON_IsPointInside(D2WinButtonStrc* pButton, i
 // 0x00500C50
 static void __stdcall BUTTON_DrawText(int nOffsetY, D2WinButtonStrc* pButton)
 {
-    sub_00502EF0(pButton->eFont);
+    D2Win_10127_SetFont(pButton->eFont);
     const int nTextHeight = D2Win_10125();
     int nOffsetX = (pButton->controlHeader.nWidth - D2Win_10121_GetTextWidth((const Unicode*)pButton->wszText)) / 2;
     if (nOffsetX < 0)

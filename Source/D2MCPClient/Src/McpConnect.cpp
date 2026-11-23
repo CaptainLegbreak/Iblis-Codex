@@ -120,7 +120,7 @@ int __cdecl sub_00449B30_QueryAddress()
 }
 
 // 0x00449FB0
-void __stdcall sub_00449FB0_WaitConnect(D2LaunchThreadRecordStrc* pRecord)
+void __stdcall MCPCONNECT_WaitConnect(D2LaunchThreadRecordStrc* pRecord)
 {
     if (!ghConnectEvent)
         ghConnectEvent = CreateEventA(0, 0, 0, 0);
@@ -146,7 +146,7 @@ void __stdcall sub_00449FB0_WaitConnect(D2LaunchThreadRecordStrc* pRecord)
     gnValue_0079929C = 2;
 }
 // 0x0044A070
-int __cdecl sub_0044A070_ConnectThread()
+int __cdecl MCPCONNECT_ConnectThread()
 {
 // build: symbol ?FOG_inet_ntoa@* 0x0040E080
     const char* szAddress = FOG_inet_ntoa(gnServerAddress_00798FC8);
@@ -170,7 +170,7 @@ int __cdecl sub_0044A070_ConnectThread()
             }
             char nValue = 1;
             FOG_ConnectionSend(pConnection, &nValue, 1);
-            sub_00449FB0_WaitConnect(&gtThreadRecord);
+            MCPCONNECT_WaitConnect(&gtThreadRecord);
             return gnValue_0079929C == 0;
         }
     }

@@ -121,7 +121,7 @@ static void sub_006B5CF0_SetTextureSize(D2SpriteInfoStrc* pInfo);
 static int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg3, unsigned char nColor); // 0x006B5D40
 
 static void __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, unsigned int nColor, int nPaletteIndex, unsigned char nAlpha, int bPalette);
-static unsigned char sub_006B6680_SetBlendAndAlpha(int mode);
+static unsigned char D3D_SetBlendAndAlpha(int mode); // 0x006B6680
 
 
 struct D2TexLocationStrc
@@ -386,7 +386,7 @@ int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, in
     return 1;
 }
 
-unsigned char sub_006B6680_SetBlendAndAlpha(int mode)
+unsigned char D3D_SetBlendAndAlpha(int mode)
 {
     unsigned char alpha = 255;
     switch (mode)
@@ -807,7 +807,7 @@ int __fastcall sub_006B6B40_DrawSprite(D2CelContextStrc* pContext, int nX, int n
         return 0;
 
     sub_006B5CF0_SetTextureSize(&tInfo);
-    unsigned char nAlpha = sub_006B6680_SetBlendAndAlpha(nBlendMode);
+    unsigned char nAlpha = D3D_SetBlendAndAlpha(nBlendMode);
     if (nBlendMode == 7)
     {
         if (sub_006B5D40_UploadTexture(&tInfo, 2, nArg, 0))
@@ -862,7 +862,7 @@ int __fastcall sub_006B6BF0_DrawSprite(D2CelContextStrc* pContext, int nX, int n
     sub_006B5CF0_SetTextureSize(&tInfo);
     if (sub_006B5D40_UploadTexture(&tInfo, 1, 0, 0))
     {
-        const unsigned char nAlpha = sub_006B6680_SetBlendAndAlpha(nBlendMode);
+        const unsigned char nAlpha = D3D_SetBlendAndAlpha(nBlendMode);
         sub_006B63F0_DrawQuad(&tInfo, nX, nY, nColor, nPaletteIndex, nAlpha, 0);
     }
 
@@ -874,7 +874,7 @@ void __fastcall sub_006B6C90_DrawSpriteRows(D2CelContextStrc* pContext, int nX, 
 {
     D2SpriteInfoStrc tInfo;
 
-    unsigned char nAlpha = sub_006B6680_SetBlendAndAlpha(nBlendMode);
+    unsigned char nAlpha = D3D_SetBlendAndAlpha(nBlendMode);
     if (!sub_006B5C80_LoadSpriteInfo(pContext, &tInfo))
     {
         return;
@@ -965,7 +965,7 @@ void __fastcall sub_006B6EE0_DrawSpriteClipped(D2CelContextStrc* pContext, int n
     D2SpriteInfoStrc tInfo;
     D2ClipStrc tClip;
 
-    unsigned char nAlpha = sub_006B6680_SetBlendAndAlpha(nBlendMode);
+    unsigned char nAlpha = D3D_SetBlendAndAlpha(nBlendMode);
     if (!sub_006B5C80_LoadSpriteInfo(pContext, &tInfo))
     {
         return;

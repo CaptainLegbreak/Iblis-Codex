@@ -165,7 +165,8 @@ public:
     }
     D2StormEntry38Strc* CelListTablePtr(unsigned int hHandle);                                             // 0x00603250
     D2StormEntry38Strc* CelListTableLock(unsigned int hHandle, int* pLockHandle, int bForWriting);         // 0x00603400
-    void sub_0052E590(D2StormEntry38Strc* pNode)
+// build: symbol ?Delete@* 0x0052E590
+    void Delete(D2StormEntry38Strc* pNode)
     {
         CelListTableUnlinkNode(pNode);
         InternalDelete(pNode);

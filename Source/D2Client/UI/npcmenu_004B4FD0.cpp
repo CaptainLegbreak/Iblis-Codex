@@ -15,7 +15,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 void __cdecl INV_ResetHover(); // 0x00487990
 void __fastcall NPCMENU_EndNpcInteraction(int); // 0x004B3C20
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*,int,int); // 0x00625480
@@ -27,9 +27,9 @@ D2UnitStrc* __cdecl NPCMENU_GetInteractNpc(); // 0x004B1620
 int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc*,int); // 0x004E0590
 void __fastcall UNITSND_ReleaseSkillSfx(D2UnitStrc*); // 0x004CB190
 int __fastcall sub_004B9A00(int,D2UnitStrc*,int,int,int); // 0x004B9A00
-static void sub_004B1640_SetNpcInteract(D2UnitStrc*); // 0x004B1640
+static void NPCMENU_SetNpcInteract(D2UnitStrc*); // 0x004B1640
 
-static __declspec(noinline) void sub_004B1640_SetNpcInteract(D2UnitStrc* unit)
+static __declspec(noinline) void NPCMENU_SetNpcInteract(D2UnitStrc* unit)
 {
  if(unit) { gnNpcActive=1;gnNpcId=unit->id;gnNpcClass=unit->classId; }
  else gnNpcActive=0;
@@ -43,14 +43,14 @@ void __stdcall sub_004B4FD0_OpenNpcWindow(D2UnitStrc* unit)
   gnNpcOpen=0;
   INV_ResetHover();
   NPCMENU_EndNpcInteraction(gnNpcId);
-  sub_00455F20(8,1,0);
+  UI_SetUIVar(8,1,0);
   return;
  }
  if(FindCurrentNpc()) {
   gnNpcOpen=0;
   INV_ResetHover();
   NPCMENU_EndNpcInteraction(gnNpcId);
-  sub_00455F20(8,1,0);
+  UI_SetUIVar(8,1,0);
   return;
  }
  gnNpcOpen=1;
@@ -59,10 +59,10 @@ void __stdcall sub_004B4FD0_OpenNpcWindow(D2UnitStrc* unit)
  UI_CloseUIVars(0,0);
  GAME_ResetMouseState();
  if(FindCurrentNpc()) { sub_00408A60(gszEmptyAssert,sub_00408090(),3529);exit(-1); }
- sub_004B1640_SetNpcInteract(unit);
+ NPCMENU_SetNpcInteract(unit);
  D2UnitStrc* npc=FindCurrentNpc();
  if(npc) npc->flags&=~2;
- if(!sub_00455F20(8,2,0)) {
+ if(!UI_SetUIVar(8,2,0)) {
   sub_004B3DE0_CloseNpc();
   return;
  }

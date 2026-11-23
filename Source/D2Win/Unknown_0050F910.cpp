@@ -11,8 +11,8 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void __fastcall GLIDE_SetTextureCombineMode(int nTmu); // 0x00509460
-void __fastcall sub_0050F0F0_TileCacheTouch(D2GlideTileCacheStrc* pCache, int nIndex); // 0x0050F0F0
-short __fastcall sub_0050F2B0_TileCacheAdd(D2GlideTileCacheStrc* pCache); // 0x0050F2B0
+void __fastcall GLIDE_TileCacheTouch(D2GlideTileCacheStrc* pCache, int nIndex); // 0x0050F0F0
+short __fastcall GLIDE_TileCacheAdd(D2GlideTileCacheStrc* pCache); // 0x0050F2B0
 extern D2GrTexInfoStrc gtGlideTileTexInfo; // 0x0072F6A8
 extern D2GlideTileCacheStrc gtGlideTileCache; // 0x0087EB48
 extern int gnGlideTileTmu; // 0x00880BF8
@@ -84,7 +84,7 @@ void __fastcall sub_0050FBD0_GlideBindTileTexture(D2GlideTileStrc* pTile)
     if (pTile->nCacheIndex == 0)
     {
         sub_0050F910_DecodeTileRuns(pTile->pData, gpGlideTileDecodeBuffer);
-        pTile->nCacheIndex = sub_0050F2B0_TileCacheAdd(&gtGlideTileCache);
+        pTile->nCacheIndex = GLIDE_TileCacheAdd(&gtGlideTileCache);
         const int nEntry = pTile->nCacheIndex - 1;
         D2_ASSERT(nEntry >= 0, 0x112);
         D2_ASSERT(nEntry < gtGlideTileCache.nCount, 0x113);
@@ -95,7 +95,7 @@ void __fastcall sub_0050FBD0_GlideBindTileTexture(D2GlideTileStrc* pTile)
     }
     else
     {
-        sub_0050F0F0_TileCacheTouch(&gtGlideTileCache, pTile->nCacheIndex);
+        GLIDE_TileCacheTouch(&gtGlideTileCache, pTile->nCacheIndex);
         nTexAddress = gtGlideTileCache.pEntries[pTile->nCacheIndex - 1].nAddress;
     }
 

@@ -123,7 +123,7 @@ extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft,
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 int __stdcall CONTROL_MouseInsideRect(const tagRECT* pRect); // 0x004F97B0
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -285,7 +285,8 @@ static D2CofInfoStrc* D2COMP_FindCofInfo(D2GfxInfoStrc* pGfxInfo, unsigned int n
     return 0;
 }
 
-static D2CofDataStrc* __stdcall sub_00503640_GetCofData(D2GfxInfoStrc* pGfxInfo, unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
+// build: symbol ?D2COMP_GetCofData@* 0x00503640
+static D2CofDataStrc* __stdcall D2COMP_GetCofData(D2GfxInfoStrc* pGfxInfo, unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
 {
     char szPath[260];
 
@@ -338,7 +339,7 @@ void __fastcall D2COMP_InitGfxData(D2CompositeUnitStrc* pCompositeUnit, D2GfxDat
     D2GfxInfoStrc* pGfxInfo = pCompositeUnit->pGfxInfo;
     D2_ASSERT(pGfxInfo, 0x502);
 
-    D2CofDataStrc* pCofData = sub_00503640_GetCofData(pGfxInfo, pCompositeUnit->nUnitIndex, pCompositeUnit->nMode, gadwWClassTokens[pCompositeUnit->nWClassTokenIndex]);
+    D2CofDataStrc* pCofData = D2COMP_GetCofData(pGfxInfo, pCompositeUnit->nUnitIndex, pCompositeUnit->nMode, gadwWClassTokens[pCompositeUnit->nWClassTokenIndex]);
     D2_ASSERT(pCofData, 0x506);
 
     const unsigned char* pLayer = (const unsigned char*)pCofData + 0x1C;

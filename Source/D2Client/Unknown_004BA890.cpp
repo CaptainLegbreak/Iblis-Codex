@@ -43,7 +43,7 @@ struct D2HintKeyListStrc
     int nCount;
 };
 
-int __cdecl sub_00481820(); // 0x00481820
+int __cdecl DLIGHTMAP_GetSoundTick(); // 0x00481820
 void __fastcall sub_004B9B50_SetValue(int nKey, int nValue); // 0x004B9B50
 
 // build: context CLIENT_ArmHintInline
@@ -106,7 +106,7 @@ static void __fastcall CLIENT_ArmHintInline(int nKey, int nGroup, int nOffset, u
 
     if (*(int*)pEntry->bArmed)
     {
-        if (nGroup == *(int*)pEntry->nGroup && sub_00481820() + nOffset + nCount >= *(unsigned int*)pEntry->nEnd)
+        if (nGroup == *(int*)pEntry->nGroup && DLIGHTMAP_GetSoundTick() + nOffset + nCount >= *(unsigned int*)pEntry->nEnd)
         {
             return;
         }
@@ -129,7 +129,7 @@ static void __fastcall CLIENT_ArmHintInline(int nKey, int nGroup, int nOffset, u
         return;
     }
 
-    unsigned int nStart = sub_00481820() + nOffset;
+    unsigned int nStart = DLIGHTMAP_GetSoundTick() + nOffset;
     *(unsigned int*)pEntry->nStart = nStart;
     *(int*)pEntry->nSavedValue = pEntry->nValue;
     *(int*)pEntry->nGroup = nGroup;

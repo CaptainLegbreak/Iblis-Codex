@@ -742,7 +742,7 @@ void __cdecl sub_00458680_ResetB(); // 0x00458680
 void __cdecl sub_00458750_Rebuild(); // 0x00458750
 void __cdecl sub_00469D50(); // 0x00469D50
 void __cdecl sub_00472610(); // 0x00472610
-void __cdecl sub_00475800_RunLightPass(); // 0x00475800
+void __cdecl DLIGHTMAP_RunLightPass(); // 0x00475800
 void __cdecl sub_00477EE0(); // 0x00477EE0
 void __cdecl sub_00480340(); // 0x00480340
 void __cdecl sub_00487B30(); // 0x00487B30
@@ -966,7 +966,7 @@ void __stdcall sub_00621780_SetMissileArg(D2UnitStrc* pMissile, int nArg); // 0x
 void __stdcall sub_00621C00_SetTargetPos(D2UnitStrc* pUnit, int nX, int nY); // 0x00621C00
 void __stdcall sub_00624390(D2UnitStrc* pUnit); // 0x00624390
 void __stdcall sub_0063BE30(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BE30
-void __stdcall sub_0063C550_Return(D2InventoryStrc* pInventory, int nX); // 0x0063C550
+void __stdcall D2COMMON_10267_Return(D2InventoryStrc* pInventory, int nX); // 0x0063C550
 void __stdcall INVENTORY_GetDirectionDelta(unsigned char nDirection, int* pX, int* pY); // 0x0063E7E0
 void __stdcall sub_0063EE10_GetMonsterDirectionDelta(D2UnitStrc* pUnit, int* pX, int* pY); // 0x0063EE10
 void __stdcall sub_00643310_MapToAutomapPos(int* pX, int* pY); // 0x00643310
