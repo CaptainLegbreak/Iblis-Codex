@@ -19499,6 +19499,10 @@
      "name": "?SELECT_FindSkillTarget@@YGPAUD2UnitStrc@@PAUD2SkillStrc@@PAU1@PAH2PAUD2SkillsTxt@@@Z"
     },
     {
+     "va": "0x00467660",
+     "length": 321
+    },
+    {
      "va": "0x004677B0",
      "length": 207,
      "name": "?sub_004677B0_FindFreeTargetCoords@@YGPAUD2UnitStrc@@PAH0PAU1@@Z"
@@ -19535,30 +19539,6 @@
     {
      "va": "0x00467A10",
      "length": 81
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00467660.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00467660",
-     "length": 321
     }
    ],
    "flags": [

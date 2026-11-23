@@ -1200,15 +1200,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_00467660.cpp": {
-   "bytes": 92,
-   "definitions": 3,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_00467660.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Client/Unknown_00467AC0.cpp": {
    "bytes": 84,
    "definitions": 1,
@@ -5385,6 +5376,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/PLAYER/PlrIntro.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/GAME/Select.cpp": {
+   "bytes": 92,
+   "definitions": 3,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/GAME/Select.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -41086,7 +41086,7 @@
    "cname": "gData_006D6AF4",
    "declared": true,
    "decorated": "?gaDirectionDY@@3QBHB",
-   "file": "Source/D2Client/Unknown_00467660.cpp",
+   "file": "Source/D2Client/GAME/Select.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006D6AF4[8]; // 0x006D6AF4",
@@ -41117,7 +41117,7 @@
    "cname": "gData_006D6B14",
    "declared": true,
    "decorated": "?gaDirectionDX@@3QBHB",
-   "file": "Source/D2Client/Unknown_00467660.cpp",
+   "file": "Source/D2Client/GAME/Select.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006D6B14[8]; // 0x006D6B14",
@@ -41148,7 +41148,7 @@
    "cname": "gData_006D6B34",
    "declared": true,
    "decorated": "?gaAdjacentDirOffsets@@3QBHB",
-   "file": "Source/D2Client/Unknown_00467660.cpp",
+   "file": "Source/D2Client/GAME/Select.cpp",
    "fill": 7,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006D6B34[7]; // 0x006D6B34",
