@@ -118,6 +118,26 @@ int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
 
 static void sub_006BC310_CloseSocket(sub_006BC310_Strc* pThis);
 
+struct Lock;
+
+struct NetData;
+
+struct QSocket;
+
+struct sub_006BC560_Strc;
+
+struct D2ThreadRecord006BC5A0Strc;
+
+struct Lock { int data[6]; };
+
+struct NetData { char pad00[0xC]; Lock lock; void* thread; int unk28; int blocked; };
+
+struct QSocket { char pad00[0x110]; NetData* net; };
+
+void __fastcall sub_0040DBD0_FreeNet(NetData*); // 0x0040DBD0
+
+static void __stdcall sub_006BC370_FreeNet(QSocket* socket);
+
 // 0x006BC290
 void __stdcall sub_006BC290_SetValues(sub_006BC290_Strc* pThis, int nA, int nB, int nC)
 {
@@ -273,4 +293,21 @@ int __stdcall sub_006BC310_Shim(sub_006BC310_Strc* pThis)
 {
     sub_006BC310_CloseSocket(pThis);
     return (int)pThis->pConn;
+}
+
+// 0x006BC370
+static void __stdcall sub_006BC370_FreeNet(QSocket* socket)
+{
+    if (!socket)
+        return;
+    NetData* net = socket->net;
+    if (!(net && net->thread))
+        return;
+    sub_0040DBD0_FreeNet(net);
+    socket->net = 0;
+}
+
+void __stdcall FreeNetContext(QSocket* socket)
+{
+    sub_006BC370_FreeNet(socket);
 }

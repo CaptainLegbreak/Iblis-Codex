@@ -83083,6 +83083,10 @@
      "length": 91
     },
     {
+     "va": "0x006BC370",
+     "length": 36
+    },
+    {
      "va": "0x006BC560",
      "length": 50
     },
@@ -83106,16 +83110,6 @@
     {
      "va": "0x006BC780",
      "length": 82
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_006BC370.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006BC370",
-     "length": 36
     }
    ]
   },
