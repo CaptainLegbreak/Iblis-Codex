@@ -1,4 +1,4 @@
-#include "Storm.h"
+#include "Fog.h"
 #include "D2CrashTypes.h"
 
 extern "C" int __cdecl strncpy_s(char* szDest, size_t nDestSize, const char* szSource, size_t nCount);      // 0x006859D2
