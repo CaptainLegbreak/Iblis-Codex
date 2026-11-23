@@ -406,16 +406,6 @@ int gnSavedVolume; // 0x007D55F8
 
 int gbDeactivated; // 0x007D55FC
 
-unsigned char gabStandardColorsPalette[44]; // 0x007D563C
-
-D2Palette256Strc gatStandardShiftsPalette[13]; // 0x007D5668
-
-unsigned char gabPaletteRemap[256]; // 0x007D6368
-
-unsigned char gabScreenPalette[65536]; // 0x007DE468
-
-D2TransPaletteStrc gatTransPalette[3]; // 0x007EE468
-
 unsigned char gabDarkenPalette[256]; // 0x0081E468
 
 unsigned char gabRedPaletteMap[256]; // 0x0081E568
@@ -714,8 +704,6 @@ int __cdecl ARCHIVE_LoadArchives(); // 0x004FAB90
 void __fastcall sub_004FB1C0_CopyRowTable(unsigned char (*pRows)[0x100]); // 0x004FB1C0
 
 extern int gnPaletteFlashCount; // 0x007D5638
-
-extern unsigned char gabStatesPalette[128][0x100]; // 0x007D6468
 
 extern int gbPaletteFlashWaiting; // 0x00841B68
 
@@ -2398,182 +2386,6 @@ void __stdcall D2Win_COMMANDS_MouseButton_6F8AE070(SMSGHANDLER_PARAMS* pMsg)
     }
 
     sub_00420290_BreakHandlerChain(pMsg);
-}
-
-// 0x004FAD10
-int __fastcall ARCHIVE_LoadVideoArchives(void* pfShowMessage, void* hFile, int bExpansion)
-{
-    if (sub_00406D20())
-    {
-        pfShowMessage = 0;
-    }
-
-    if (bExpansion)
-    {
-        gpD2XVideoMPQ = sub_00517332_LoadMpqFile(gszD2XVideoMpq, hFile, pfShowMessage, 1000);
-        if (!gpD2XVideoMPQ)
-        {
-            return 0;
-        }
-    }
-    else
-    {
-        gpD2VideoMPQ = sub_00517332_LoadMpqFile("d2video.mpq", hFile, pfShowMessage, 1000);
-        if (!gpD2VideoMPQ)
-        {
-            return 0;
-        }
-    }
-
-    return 1;
-}
-
-// 0x004FAD70
-void __cdecl ARCHIVE_UnloadExpansionArchives()
-{
-    if (gpD2MusicMPQ)
-    {
-        ARCHIVE_UnloadMPQFile(gpD2MusicMPQ);
-        gpD2MusicMPQ = 0;
-    }
-
-    if (gpD2CharMPQ)
-    {
-        ARCHIVE_UnloadMPQFile(gpD2CharMPQ);
-        gpD2CharMPQ = 0;
-    }
-
-    if (gpD2VideoMPQ)
-    {
-        ARCHIVE_UnloadMPQFile(gpD2VideoMPQ);
-        gpD2VideoMPQ = 0;
-    }
-
-    if (gpD2XMusicMPQ)
-    {
-        ARCHIVE_UnloadMPQFile(gpD2XMusicMPQ);
-        gpD2XMusicMPQ = 0;
-    }
-
-    if (gpD2XTalkMPQ)
-    {
-        ARCHIVE_UnloadMPQFile(gpD2XTalkMPQ);
-        gpD2XTalkMPQ = 0;
-    }
-
-    if (gpD2XVideoMPQ)
-    {
-        ARCHIVE_UnloadMPQFile(gpD2XVideoMPQ);
-        gpD2XVideoMPQ = 0;
-    }
-}
-
-// 0x004FAE00
-void __cdecl ARCHIVE_FreeArchives()
-{
-    if (gpD2DataMPQ)
-    {
-        ARCHIVE_UnloadMPQFile(gpD2DataMPQ);
-        gpD2DataMPQ = 0;
-    }
-
-    if (gpD2SpeechMPQ)
-    {
-        ARCHIVE_UnloadMPQFile(gpD2SpeechMPQ);
-        gpD2SpeechMPQ = 0;
-    }
-
-    if (gpD2SfxMPQ)
-    {
-        ARCHIVE_UnloadMPQFile(gpD2SfxMPQ);
-        gpD2SfxMPQ = 0;
-    }
-
-    if (gpD2DeltaMPQ)
-    {
-        ARCHIVE_UnloadMPQFile(gpD2DeltaMPQ);
-        gpD2DeltaMPQ = 0;
-    }
-
-    if (gpD2kfixupMPQ)
-    {
-        ARCHIVE_UnloadMPQFile(gpD2kfixupMPQ);
-        gpD2kfixupMPQ = 0;
-    }
-
-    if (gpD2ExpMPQ)
-    {
-        ARCHIVE_UnloadMPQFile(gpD2ExpMPQ);
-        gpD2ExpMPQ = 0;
-    }
-
-    if (gpD2XMusicMPQ)
-    {
-        ARCHIVE_UnloadMPQFile(gpD2XMusicMPQ);
-        gpD2XMusicMPQ = 0;
-    }
-
-    if (gpD2PatchMPQ)
-    {
-        ARCHIVE_UnloadMPQFile(gpD2PatchMPQ);
-        gpD2PatchMPQ = 0;
-    }
-
-    ARCHIVE_UnloadExpansionArchives();
-}
-
-// 0x004FAEC0
-int __fastcall ARCHIVE_LoadExpansionArchives(DiscCallback play,DiscCallback expansion,void* file,D2ConfigStrc* config) {
-    if (sub_00406D20()) { play=0; expansion=0; }
-    ghXVideoMpq=0;
-    int bOk;
-// build: symbol ?FOG_IsExpansion@* 0x00408F20
-    if (!(FOG_IsExpansion() && (!config || config->expansion()))) {
-        ghCharMpq=sub_00517332_LoadMpqFile("d2char.mpq",file,play,1000);
-        ghMusicMpq=sub_00517332_LoadMpqFile("d2music.mpq",file,play,1000);
-        ghXMusicMpq=0;
-        ghXTalkMpq=0;
-        bOk = ghCharMpq && ghMusicMpq;
-    } else {
-        ghCharMpq=sub_00517332_LoadMpqFile("d2char.mpq",0,play,1000);
-        ghMusicMpq=sub_00517332_LoadMpqFile("d2music.mpq",0,play,1000);
-        ghXMusicMpq=sub_00517332_LoadMpqFile("d2Xmusic.mpq",file,expansion,3000);
-        ghXTalkMpq=sub_00517332_LoadMpqFile("d2Xtalk.mpq",file,expansion,3000);
-        ghXVideoMpq=sub_00517332_LoadMpqFile("d2Xvideo.mpq",file,expansion,3000);
-        bOk = ghCharMpq && ghMusicMpq && ghXMusicMpq && ghXTalkMpq && ghXVideoMpq;
-    }
-    if (!bOk) { ARCHIVE_UnloadExpansionArchives(); return 0; }
-    return 1;
-}
-
-// 0x004FB010
-void __cdecl PALETTE_ApplyPaletteTables()
-{
-    D2PaletteTableStrc tPaletteTable;
-
-    for (int i = 0; i < 3; ++i)
-    {
-        tPaletteTable.pTransPalettes[i] = gatTransPalette[i].data;
-    }
-
-    for (int i = 0; i < 49; ++i)
-    {
-        tPaletteTable.pShadowLightGammaPalettes[i] = gatShadowsLightGammaPalette[i].data;
-    }
-
-    for (int i = 0; i < 13; ++i)
-    {
-        tPaletteTable.pStandardShiftPalettes[i] = gatStandardShiftsPalette[i].data;
-    }
-
-    tPaletteTable.pScreenPalette = gabScreenPalette;
-    tPaletteTable.pLuminancePalette = gabLuminancePalette;
-    tPaletteTable.pDarkBlendPalette = gabDarkBlendPalette;
-    tPaletteTable.pDarkenPalette = gabDarkenPalette;
-    tPaletteTable.pStandardColorsPalette = gabStandardColorsPalette;
-    tPaletteTable.pRemap = gabPaletteRemap;
-    tPaletteTable.unk0x11C = gabRedPaletteMap;
-    D2GFX_SetPaletteTables(&tPaletteTable);
 }
 
 // 0x004FB740

@@ -287,6 +287,18 @@ void __cdecl CHARSEL_CreateConnectScreen()
     MAINMENUS_UpdateTwoEditOk();
 }
 
+// 0x00436E90
+int __stdcall sub_00436E90_AlwaysOne(int nArg)
+{
+    return 1;
+}
+
+// 0x00436EA0
+int __cdecl sub_00436EA0()
+{
+    return gdwGlobal_007799D8;
+}
+
 // 0x00436EB0
 void __cdecl MAINMENUS_UpdateEmailOk()
 {

@@ -1321,12 +1321,6 @@ D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoo
 
 void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bSet); // 0x0061AED0
 
-// 0x005B69E0
-bool __fastcall ACT3Q7_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus)
-{
-    return false;
-}
-
 static int GetAnimMode(D2UnitStrc* pUnit)
 {
     return pUnit ? pUnit->dwAnimMode : 0;
@@ -1417,39 +1411,6 @@ int __fastcall OBJECTS_OperateFunction56_DiabloSeal(D2ObjOperateFnStrc* pOp, int
     pQuestDataEx->pSealCoords[2].nY += 16;
     ACT4Q2_SpawnSealObject(pOp, pCoord, 5);
     return 0;
-}
-
-// 0x005BCFD0
-void __fastcall ACT3Q6_SetObjectModes(D2GameStrc* pGame)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 20);
-    if (!pQuestData)
-    {
-        return;
-    }
-
-    D2Act3Quest6Strc* pQuestDataEx = (D2Act3Quest6Strc*)pQuestData->pQuestDataEx;
-
-    pQuestDataEx->nHellGatePortalObjectMode = 2;
-    pQuestDataEx->nMephistoBridgeObjectMode = 2;
-
-    if (pQuestDataEx->bHellGatePortalInitialized)
-    {
-        D2UnitStrc* pObject = SUNIT_GetServerUnit(pGame, 2, pQuestDataEx->nHellGatePortalGUID);
-        if (pObject)
-        {
-            UNITS_ChangeAnimMode(pObject, 1);
-        }
-    }
-
-    if (pQuestDataEx->bMephistoBridgeInitialized)
-    {
-        D2UnitStrc* pObject = SUNIT_GetServerUnit(pGame, 2, pQuestDataEx->nMephistoBridgeGUID);
-        if (pObject)
-        {
-            UNITS_ChangeAnimMode(pObject, 2);
-        }
-    }
 }
 
 #include "gen/data/Source/D2Game/Quests/a4q2.inc"
