@@ -33122,6 +33122,11 @@
      "length": 1189
     },
     {
+     "va": "0x004EDA80",
+     "length": 171,
+     "name": "sub_004EDA80_CallSkillDescFunc"
+    },
+    {
      "va": "0x004F16F0",
      "length": 337,
      "name": "MISSILE_CreateMissileVolley"
@@ -33131,12 +33136,42 @@
      "length": 586
     },
     {
+     "va": "0x004F2010",
+     "length": 79,
+     "name": "?sub_004F2010_CheckTarget@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004F2160",
+     "length": 76,
+     "name": "?sub_004F2160_DecrementParam@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x004F21B0",
      "length": 171
     },
     {
+     "va": "0x004F23E0",
+     "length": 82,
+     "name": "?sub_004F23E0_AuraStateOff@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004F2440",
+     "length": 12,
+     "name": "?sub_004F2440_ClearState@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004F2870",
+     "length": 33,
+     "name": "?sub_004F2870_TargetIsPlayerOrMonster@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x004F28A0",
      "length": 321
+    },
+    {
+     "va": "0x004F2AC0",
+     "length": 93,
+     "name": "?sub_004F2AC0_MissileInit@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x004F2BE0",
@@ -33166,11 +33201,6 @@
    "file": "Source/D2Client/Unknown_004EDA80.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004EDA80",
-     "length": 171,
-     "name": "sub_004EDA80_CallSkillDescFunc"
-    },
     {
      "va": "0x004F03C0",
      "length": 112,
@@ -33207,39 +33237,9 @@
      "name": "?sub_004F0EF0_UpdateRiderPath@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
-     "va": "0x004F2010",
-     "length": 79,
-     "name": "?sub_004F2010_CheckTarget@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004F2160",
-     "length": 76,
-     "name": "?sub_004F2160_DecrementParam@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004F23E0",
-     "length": 82,
-     "name": "?sub_004F23E0_AuraStateOff@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004F2440",
-     "length": 12,
-     "name": "?sub_004F2440_ClearState@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
      "va": "0x004F26D0",
      "length": 67,
      "name": "?sub_004F26D0_ApplyCltCalc@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004F2870",
-     "length": 33,
-     "name": "?sub_004F2870_TargetIsPlayerOrMonster@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004F2AC0",
-     "length": 93,
-     "name": "?sub_004F2AC0_MissileInit@@YIXPAUD2UnitStrc@@H@Z"
     }
    ]
   },
