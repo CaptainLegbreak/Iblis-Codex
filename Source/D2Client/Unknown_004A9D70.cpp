@@ -84,32 +84,6 @@ void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSkillsTxt,
 
 static void __stdcall sub_004AAAA0_DrawSkillTreeText(const Unicode* wszText, int nY);
 
-// 0x004A9D70
-void __stdcall sub_004A9D70_ClearSkillHotkeys(D2SkillsTxt* pSkillsTxt, int nQuantity)
-{
-    int i = 0;
-    while (i < 60)
-    {
-        if (gaChargedSkillIds[i] != pSkillsTxt->nSkillId)
-        {
-            ++i;
-            continue;
-        }
-
-        for (int nSlot = 0; nSlot < 16; ++nSlot)
-        {
-            if (gaHotkeySkills[nSlot] == gaChargedSkillIds[i] && nQuantity <= 0)
-            {
-                gaHotkeySkills[nSlot] = -1;
-                gaHotkeyLeft[nSlot] = -1;
-                gaHotkeyOwners[nSlot] = -1;
-                MSG_SendTwoDwords(0x51, (nSlot << 16) + 0xFFFF, -1);
-            }
-        }
-
-        ++i;
-    }
-}
 
 static inline int IsMouseInSquare(int nX, int nY)
 {

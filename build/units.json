@@ -26229,6 +26229,10 @@
      "name": "SPELLSEL_SkillSelectClickMsg"
     },
     {
+     "va": "0x004A9D70",
+     "length": 115
+    },
+    {
      "va": "0x004A9E60",
      "length": 339,
      "name": "sub_004A9E60_AssignHotkey"
@@ -26258,10 +26262,6 @@
    "file": "Source/D2Client/Unknown_004A9D70.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004A9D70",
-     "length": 115
-    },
     {
      "va": "0x004AA1F0",
      "length": 428,
