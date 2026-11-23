@@ -12,6 +12,7 @@
 #include "D2Txt.h"
 #include "D2Packets.h"
 #include "D2ObjectIds.h"
+#include "D2MonsterIds.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -429,11 +430,6 @@ void __fastcall ACT2Q4_SetPortalMode(D2GameStrc* pGame, int nLevelId)
 enum D2C_P08QuestConstants
 {
     ACT_II = 1,
-    MONSTER_AKARA = 148,
-    MONSTER_KASHYA = 150,
-    MONSTER_WARRIV1 = 155,
-    MONSTER_CAIN6 = 244,
-    MONSTER_CAIN5 = 265,
     QUEST_A1Q4_CAIN = 4,
     QUEST_A1Q5_COUNTESS = 5,
     QUESTSTATEFLAG_A1Q4 = 4,
@@ -542,6 +538,108 @@ void __fastcall ACT2Q6_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
     pQuestData->dwFlags &= 0xFFFFFF00;
     QUESTS_UnitIterate(pQuestData, 2, 0, ACT2Q6_UnitIterate_StatusCyclerEx, 0);
     ACT2Q6_UnitIterate_UpdateQuestStateFlags(pQuestArg->pGame, pQuestArg->pPlayer, 0);
+}
+
+#define QUESTSTATEFLAG_A2Q6 14
+
+#define QFLAG_CUSTOM3 7
+
+#define QFLAG_CUSTOM4 8
+
+#define QFLAG_CUSTOM7 11
+
+// 0x0059D300
+bool __fastcall ACT2Q6_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    if (nNpcId == MONSTER_JERHYN)
+    {
+        if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_REWARDGRANTED) == 1)
+        {
+            return false;
+        }
+
+        if (pQuest->fState == 1 && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_LEAVETOWN) && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_ENTERAREA))
+        {
+            return true;
+        }
+
+        if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_LEAVETOWN) == 1)
+        {
+            return true;
+        }
+    }
+    else if (nNpcId == MONSTER_MESHIF1)
+    {
+        if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_ENTERAREA) == 1)
+        {
+            return true;
+        }
+    }
+    else if (nNpcId == MONSTER_TYRAEL1)
+    {
+        D2Act2Quest6Strc* pQuestDataEx = (D2Act2Quest6Strc*)pQuest->pQuestDataEx;
+        if (pQuest->bNotIntro != 1 || pQuestDataEx->bDurielKilled != 1)
+        {
+            return false;
+        }
+
+        if (pQuestDataEx->bPortalToLutGholeinOpened == 0)
+        {
+            return true;
+        }
+    }
+    else
+    {
+        if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_PRIMARYGOALDONE))
+        {
+            return false;
+        }
+
+        if (nNpcId == MONSTER_ATMA)
+        {
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_CUSTOM2))
+            {
+                return true;
+            }
+        }
+        else if (nNpcId == MONSTER_WARRIV2)
+        {
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_CUSTOM3))
+            {
+                return true;
+            }
+        }
+        else if (nNpcId == MONSTER_DROGNAN)
+        {
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_CUSTOM4))
+            {
+                return true;
+            }
+        }
+        else if (nNpcId == MONSTER_LYSANDER)
+        {
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_CUSTOM5))
+            {
+                return true;
+            }
+        }
+        else if (nNpcId == MONSTER_CAIN2)
+        {
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_CUSTOM6))
+            {
+                return true;
+            }
+        }
+        else if (nNpcId == MONSTER_FARA)
+        {
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_CUSTOM7))
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
 }
 
 // 0x0059D5B0
