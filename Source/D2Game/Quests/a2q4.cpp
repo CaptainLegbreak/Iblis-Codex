@@ -772,6 +772,25 @@ void __fastcall ACT2Q4_OpenPalaceOrCycle(D2GameStrc* pGame)
     }
 }
 
+// 0x0059B6E0
+int __fastcall ACT2Q4_IsGuardMoving(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 11);
+    if (!pQuestData)
+    {
+        return 0;
+    }
+
+    D2Act2Quest4Strc* pQuestDataEx = (D2Act2Quest4Strc*)pQuestData->pQuestDataEx;
+    if (pQuestDataEx->bJerhynTeleportedToPalace != 1 || pQuestDataEx->bGuardMoveStarted)
+    {
+        return 0;
+    }
+
+    pQuestDataEx->bGuardMoveStarted = 1;
+    return 1;
+}
+
 // 0x0059B710
 void __fastcall ACT2Q4_InitializeHaremBlockerObject(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
 {
@@ -975,6 +994,34 @@ void __fastcall OBJECTS_InitFunction29_ArcaneSanctuaryPortal(D2ObjInitFnStrc* pO
     }
 }
 
+// 0x0059BAF0
+void __fastcall ACT2Q4_SetPortalMode(D2GameStrc* pGame, int nLevelId)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A2Q4_HORAZONTOME);
+    if (!pQuestData)
+    {
+        return;
+    }
+
+    D2Act2Quest4Strc* pQuestDataEx = (D2Act2Quest4Strc*)pQuestData->pQuestDataEx;
+    if (nLevelId == LEVEL_ARCANESANCTUARY)
+    {
+        if (!pQuestDataEx->nPortalModeInCellar)
+        {
+            pQuestDataEx->nPortalModeInCellar = OBJMODE_OPERATING;
+            pQuestDataEx->nPortalModeInSanctuary = OBJMODE_OPENED;
+        }
+    }
+    else if (nLevelId == LEVEL_PALACECELLARLEV3)
+    {
+        if (!pQuestDataEx->nPortalModeInSanctuary)
+        {
+            pQuestDataEx->nPortalModeInSanctuary = OBJMODE_OPERATING;
+            pQuestDataEx->nPortalModeInCellar = OBJMODE_OPENED;
+        }
+    }
+}
+
 int __fastcall ACT2Q5_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059BCB0
 // 0x0059BF80
 int __fastcall ACT2Q5_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
@@ -1025,31 +1072,6 @@ static inline void* QUESTS_GetMonsterInteract(D2UnitStrc* pUnit)
 static inline D2BitBufferStrc* QUESTS_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-}
-
-// 0x0059E5C0
-void __fastcall ACT2Q2_UpdateHoradricItemCounts(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A2Q2_HORADRICSTAFF);
-    if (pQuestData)
-    {
-        D2Act2Quest2Strc* pQuestDataEx = (D2Act2Quest2Strc*)pQuestData->pQuestDataEx;
-
-        pQuestDataEx->bStaffCubed = 1;
-        pQuestDataEx->nPlayerGUID = !pUnit ? -1 : pUnit->dwUnitId;
-
-        --pQuestDataEx->nBaseStaffs;
-        --pQuestDataEx->nAmulets;
-        ++pQuestDataEx->nCubedStaffs;
-    }
-
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-
-    QUESTS_UpdatePlayerFlags(pGame, pUnit);
-
-    QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_CUSTOM7);
-
-    ACT2Q4_OpenPalaceOrCycle(pGame);
 }
 
 // 0x0059F0C0

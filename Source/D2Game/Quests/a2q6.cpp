@@ -312,18 +312,7 @@ int __fastcall ACT1Q4_IsCainInTristramDeactivated(D2GameStrc* pGame)
     return ((D2Act1Quest4Strc*)pQuestData->pQuestDataEx)->bCainInTristramDeactivated != 0;
 }
 
-// 0x0059AC80
-bool __fastcall ACT2Q3_IsAltarDestroyed(D2QuestDataStrc* pQuest)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pQuest->pGame, 10);
-    if (pQuestData)
-    {
-        return *(bool*)&((D2Act2Quest3Strc*)pQuestData->pQuestDataEx)->bAltarDestroyed;
-    }
-
-    return false;
-}
-
+bool __fastcall ACT2Q3_IsAltarDestroyed(D2QuestDataStrc* pQuest); // 0x0059AC80
 // 0x0059AEC0
 int __fastcall ACT2Q4_IsHaremBlockerObjectOpened(D2GameStrc* pGame)
 {
@@ -334,25 +323,6 @@ int __fastcall ACT2Q4_IsHaremBlockerObjectOpened(D2GameStrc* pGame)
     }
 
     return 0;
-}
-
-// 0x0059B6E0
-int __fastcall ACT2Q4_IsGuardMoving(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 11);
-    if (!pQuestData)
-    {
-        return 0;
-    }
-
-    D2Act2Quest4Strc* pQuestDataEx = (D2Act2Quest4Strc*)pQuestData->pQuestDataEx;
-    if (pQuestDataEx->bJerhynTeleportedToPalace != 1 || pQuestDataEx->bGuardMoveStarted)
-    {
-        return 0;
-    }
-
-    pQuestDataEx->bGuardMoveStarted = 1;
-    return 1;
 }
 
 // 0x0059B8B0
@@ -397,34 +367,6 @@ int __fastcall ACT2Q4_GetGuardCoordinates(D2GameStrc* pGame, D2CoordStrc* pCoord
     }
 
     return 0;
-}
-
-// 0x0059BAF0
-void __fastcall ACT2Q4_SetPortalMode(D2GameStrc* pGame, int nLevelId)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A2Q4_HORAZONTOME);
-    if (!pQuestData)
-    {
-        return;
-    }
-
-    D2Act2Quest4Strc* pQuestDataEx = (D2Act2Quest4Strc*)pQuestData->pQuestDataEx;
-    if (nLevelId == LEVEL_ARCANESANCTUARY)
-    {
-        if (!pQuestDataEx->nPortalModeInCellar)
-        {
-            pQuestDataEx->nPortalModeInCellar = OBJMODE_OPERATING;
-            pQuestDataEx->nPortalModeInSanctuary = OBJMODE_OPENED;
-        }
-    }
-    else if (nLevelId == LEVEL_PALACECELLARLEV3)
-    {
-        if (!pQuestDataEx->nPortalModeInSanctuary)
-        {
-            pQuestDataEx->nPortalModeInSanctuary = OBJMODE_OPERATING;
-            pQuestDataEx->nPortalModeInCellar = OBJMODE_OPENED;
-        }
-    }
 }
 
 enum D2C_P08QuestConstants
@@ -1441,6 +1383,18 @@ int __fastcall OBJECTS_OperateFunction25_StaffOrifice(D2ObjOperateFnStrc* pOp, i
     }
 
     return 0;
+}
+
+int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+
+// 0x0059DF30
+void __fastcall ACT2Q6_UnitIterate_CheckDistanceToTyrael(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2Act2Quest6Strc* pQuestDataEx = (D2Act2Quest6Strc*)pData;
+    if (sub_006416D0_UnitEdgeDistance(pUnit, pQuestDataEx->pTyrael) < 12)
+    {
+        pQuestDataEx->bCloseToTyrael = 1;
+    }
 }
 
 // 0x0059DF50

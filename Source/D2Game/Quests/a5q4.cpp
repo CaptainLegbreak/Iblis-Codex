@@ -940,23 +940,6 @@ struct D2GameStrc;
 
 struct D2UnitStrc;
 
-// 0x0058D030
-D2UnitStrc* __fastcall ACT5Q5_FindAncientMonsterByClassId(D2GameStrc* pGame, int nClassId)
-{
-    D2Act5Quest5Strc* pQuestDataEx = (D2Act5Quest5Strc*)QUESTS_GetQuestData(pGame, QUEST_A5Q5_ANCIENTS)->pQuestDataEx;
-    for (int i = 0; i < pQuestDataEx->nAncientsSpawned; ++i)
-    {
-        D2UnitStrc* pAncient = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, pQuestDataEx->nAncientMonsterGUID[i]);
-        const int nAncientClassId = !pAncient ? -1 : pAncient->dwClassId;
-        if (nAncientClassId == nClassId)
-        {
-            return pAncient;
-        }
-    }
-
-    return 0;
-}
-
 // 0x0058E830
 void __fastcall OBJECTS_InitFunction79_Zoo(D2ObjInitFnStrc* pOp)
 {
@@ -1142,54 +1125,6 @@ bool __fastcall ACT1Q4_OpenPortalToTristram(D2GameStrc* pGame, D2QuestDataStrc* 
 
     pQuestDataEx->bOpenPortalTimerActive = 0;
     return true;
-}
-
-// 0x00592FB0
-bool __fastcall ACT1Q4_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    const int bPrimaryGoalDone = QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q4, QFLAG_PRIMARYGOALDONE);
-    const int bRewardGranted = QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q4, QFLAG_REWARDGRANTED);
-    const int bRewardPending = QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q4, QFLAG_REWARDPENDING);
-    if (nNpcId == MONSTER_AKARA)
-    {
-        if (pQuest->fState == 4 && !bRewardGranted && !bRewardPending)
-        {
-            if (ITEMS_FindQuestItem(SUNIT_GetGameFromUnit(pPlayer), pPlayer, ' skb'))
-            {
-                return true;
-            }
-        }
-
-        if (pQuest->fState == 1 && !bRewardGranted && !bRewardPending)
-        {
-            return true;
-        }
-
-        if (pQuest->fState == 6 && bPrimaryGoalDone == 1 && !bRewardGranted)
-        {
-            return true;
-        }
-
-        if (bRewardPending)
-        {
-            return true;
-        }
-    }
-    else if (nNpcId == MONSTER_CAIN5)
-    {
-        D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuest->pQuestDataEx;
-        if (QUESTS_QuickCheckPlayerGUID(&pQuestDataEx->pQuestGUID, !pPlayer ? -1 : pPlayer->dwUnitId) == 1)
-        {
-            return true;
-        }
-
-        if (!QUESTS_QuickCheckPlayerGUID(&pQuestDataEx->tPlayerGUIDs, !pPlayer ? -1 : pPlayer->dwUnitId) && bPrimaryGoalDone)
-        {
-            return true;
-        }
-    }
-
-    return false;
 }
 
 // 0x00594450

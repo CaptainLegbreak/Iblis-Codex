@@ -12,6 +12,7 @@
 #include "D2GameTypes.h"
 #include "D2GameObjs.h"
 #include "D2QuestData.h"
+#include "D2ObjModes.h"
 
 struct D2PlayerDataStrc;
 
@@ -954,6 +955,70 @@ void __fastcall OBJECTS_InitFunction69_NihlathakStartOutsideTown(D2ObjInitFnStrc
     }
 }
 
+// 0x0058A730
+void __fastcall ACT5Q3_UpdateDrehyaPortalMode(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
+{
+    const int nAnimMode = !pUnit ? 0 : pUnit->dwAnimMode;
+
+    switch (nAnimMode)
+    {
+    case OBJMODE_OPERATING:
+        UNITS_ChangeAnimMode(pUnit, OBJMODE_OPENED);
+        break;
+
+    case OBJMODE_OPENED:
+    {
+        D2Act5Quest3Strc* pQuestDataEx = (D2Act5Quest3Strc*)pQuestData->pQuestDataEx;
+        if (DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit)) == LEVEL_HARROGATH)
+        {
+            if (++pQuestDataEx->nObjectUpdateInvocations > 5)
+            {
+                pQuestDataEx->bChangeToSpecialObjectModeInTown = 1;
+            }
+
+            if (pQuestDataEx->bChangeToSpecialObjectModeInTown)
+            {
+                UNITS_ChangeAnimMode(pUnit, OBJMODE_SPECIAL1);
+            }
+        }
+        else
+        {
+            if (pQuestDataEx->bChangeToSpecialObjectModeOutsideTown)
+            {
+                UNITS_ChangeAnimMode(pUnit, OBJMODE_SPECIAL1);
+            }
+        }
+        break;
+    }
+
+    case OBJMODE_SPECIAL1:
+        UNITS_ChangeAnimMode(pUnit, OBJMODE_SPECIAL2);
+        break;
+    }
+
+    EVENT_SetEvent(pQuestData->pGame, pUnit, 7, pQuestData->pGame->dwGameFrame + 25, 0, 0);
+}
+
+// 0x0058A7D0
+int __fastcall ACT5Q3_GetDrehyaPortalInTownCoords(D2GameStrc* pGame, D2UnitStrc* pUnit, D2CoordStrc* pCoord)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A5Q3_PRISONOFICE);
+    if (!pQuestData || !pQuestData->bNotIntro)
+    {
+        return 0;
+    }
+
+    D2Act5Quest3Strc* pQuestDataEx = (D2Act5Quest3Strc*)pQuestData->pQuestDataEx;
+    if (!pQuestDataEx->bDrehyaPortalInTownSpawned || pQuestDataEx->bChangeToSpecialObjectModeInTown)
+    {
+        return 0;
+    }
+
+    pCoord->nX = pQuestDataEx->tDrehyaPortalInTownCoords.nX;
+    pCoord->nY = pQuestDataEx->tDrehyaPortalInTownCoords.nY;
+    return 1;
+}
+
 // 0x0058AA10
 void __fastcall ACT5Q3_UpdateStatusOnActivate(D2GameStrc* pGame)
 {
@@ -1077,18 +1142,6 @@ void __fastcall ACT5Q5_OnPortalClosed(D2GameStrc* pGame, D2UnitStrc* pUnit)
 int __fastcall ACT5Q5_IsNotActivatable(D2GameStrc* pGame)
 {
     return ((D2Act5Quest5Strc*)QUESTS_GetQuestData(pGame, 0x23)->pQuestDataEx)->bActivatable == 0;
-}
-
-// 0x0058D090
-int __fastcall ACT5Q5_IsArreatSummitClosed(D2GameStrc* pGame, D2UnitStrc* pUnit, int nTargetLevel)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x23);
-    if (!pQuestData->bNotIntro)
-    {
-        return 0;
-    }
-
-    return ((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->bAncientsDefeated == 0;
 }
 
 // 0x0058E600

@@ -173,13 +173,6 @@ enum D2C_Y10UseSkillConstants
     UNITFLAG_SKSRVDOFUNC = 0x40,
 };
 
-// 0x00530F30
-void __fastcall PLRSAVE_EnableSaveFileWriting(int nValue)
-{
-// build: symbol ?gbWriteSaveFile@* 0x007310CC
-    gbWriteSaveFile = nValue;
-}
-
 // 0x00568D70
 int __cdecl PLRSAVE2_GetHighestClassSkillCount()
 {

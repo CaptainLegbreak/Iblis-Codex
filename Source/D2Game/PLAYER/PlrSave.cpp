@@ -1067,6 +1067,13 @@ static inline int sub_00451F50(D2UnitStrc* pUnit)
     return pUnit->dwUnitId;
 }
 
+// 0x00530F30
+void __fastcall PLRSAVE_EnableSaveFileWriting(int nValue)
+{
+// build: symbol ?gbWriteSaveFile@* 0x007310CC
+    gbWriteSaveFile = nValue;
+}
+
 // 0x00530F40
 static D2UnitStrc* PLRSAVE_CreateItemFromSavedData(D2GameStrc* pGame, D2SavedItemStrc* pSavedItem)
 {
@@ -3489,23 +3496,6 @@ void __fastcall SUNITPROXY_UpdateGambleInventory(D2GameStrc* pGame, D2UnitStrc* 
     }
 }
 
-// 0x0053A420
-void __fastcall CLIENTS_RebuildPlayerWithClass(D2GameStrc* pGame, D2ClientStrc* pClient, unsigned char nClassId)
-{
-    D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
-    pClient->nClassId = nClassId;
-    const int nX = CLIENTS_GetUnitXInline(pPlayer);
-    const int nY = CLIENTS_GetUnitYInline(pPlayer);
-    const int nUnitId = pPlayer->dwUnitId;
-    const int nUnitType = pPlayer->dwUnitType;
-    DUNGEON_AllocDrlgDelete(UNITS_GetRoom(pPlayer), nUnitType, nUnitId);
-    SUNIT_RemoveUnit(pGame, pPlayer);
-    ClientAddPlayerToGame(pClient, pGame, 0, pRoom, nX, nY);
-    D2UnitStrc* pClientPlayer = pClient->pPlayer;
-    CLIENTS_SpawnPlayer(pClient, pClientPlayer, pGame, pRoom, nX, nY);
-}
-
 void __fastcall LEVEL_RemoveUnitsExceptClientPlayer(D2ActiveRoomStrc* hRoom, D2ClientStrc* pClient); // 0x0053A770
 void __fastcall LEVEL_FreeDrlgDeletes(D2GameStrc* pGame); // 0x0053A820
 
@@ -3547,31 +3537,6 @@ void __fastcall PLRTRADE_AddGold(D2UnitStrc* pUnit, int nStat, int nValue)
     }
 
     STATLIST_AddUnitStat(pUnit, nStat, nValue, 0);
-}
-
-// 0x00540510
-void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPartyId, PartyCallbackFunction pCallback, void* pArgs)
-{
-    D2_ASSERT(pGame->hParty, 210);
-
-    for (D2PartyStrc* pParty = pGame->hParty->pParties; pParty; pParty = pParty->pNext)
-    {
-        if ((unsigned short)pParty->nPartyId == nPartyId)
-        {
-            if (nPartyId != 0xFFFF)
-            {
-                for (D2PartyNodeStrc* pPartyNode = pParty->pPartyNodes; pPartyNode; pPartyNode = pPartyNode->pNext)
-                {
-                    D2UnitStrc* pPartyMember = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, pPartyNode->nUnitGUID);
-                    if (pPartyMember)
-                    {
-                        pCallback(pGame, pPartyMember, pArgs);
-                    }
-                }
-            }
-            return;
-        }
-    }
 }
 
 // 0x0054C990

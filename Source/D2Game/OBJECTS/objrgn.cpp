@@ -1747,6 +1747,22 @@ void __fastcall OBJRGN_AllocObjectRoomCoords(D2GameStrc* pGame, D2UnitStrc* pUni
     pObjectRoomCoord->pNext = pObjectControl->pObjectRoomCoord;
     pObjectControl->pObjectRoomCoord = pObjectRoomCoord;
 }
+
+#define OBJRGN_MAX_SHRINES 10
+
+// 0x00547490
+void __fastcall OBJRGN_SetShrineCoordinates(D2GameStrc* pGame, int nLevelId, int nX, int nY)
+{
+    D2ObjectRegionStrc* pObjectRegion = pGame->pObjectControl->pObjectRegion[nLevelId];
+    if (pObjectRegion->nShrines >= OBJRGN_MAX_SHRINES)
+    {
+        return;
+    }
+
+    pObjectRegion->shrineCoordinates[pObjectRegion->nShrines].nX = nX;
+    pObjectRegion->shrineCoordinates[pObjectRegion->nShrines].nY = nY;
+    ++pObjectRegion->nShrines;
+}
 struct Entry00547390;
 
 struct Sub00547390;
