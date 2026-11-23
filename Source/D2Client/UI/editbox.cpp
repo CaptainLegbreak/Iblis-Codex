@@ -328,6 +328,19 @@ ButtonImplementation::~ButtonImplementation()
 {
 }
 
+// build: symbol ?Slot01@ButtonWrapper@@UAEXXZ 0x004BAEA0
+// 0x004BAEA0
+void ButtonWrapper::Slot01()
+{
+    pImpl->Slot01();
+}
+
+// 0x004BAF00
+int ButtonWrapper::Slot11()
+{
+    return pImpl->Slot11();
+}
+
 // build: symbol ?Slot01@ButtonImplementation@@UAEXXZ 0x004BB000
 // 0x004BB000
 void ButtonImplementation::Slot01()
@@ -351,6 +364,12 @@ void ButtonImplementation::Slot01()
         D2Win_10117_DrawText(wszText, nX + (nWidth - nTextWidth) / 2, nY - nHeight - 5, 0, 0);
         sub_00502EF0(nOldFont);
     }
+}
+
+// 0x004BB200
+void EditBoxImplementation::sub_004BB200_SetUnk20(int nValue)
+{
+    unk0x20 = nValue;
 }
 
 // 0x004BB5B0
@@ -381,12 +400,39 @@ int EditBoxImplementation::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
     return 0;
 }
 
+// build: symbol ?MsgSlot05@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB950
+// 0x004BB950
+int EditBoxImplementation::MsgSlot05(SMSGHANDLER_PARAMS* pMsg)
+{
+    return 0;
+}
+
+// build: symbol ?MsgSlot08@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB970
 // 0x004BB970
 int EditBoxImplementation::MsgSlot08(SMSGHANDLER_PARAMS* pMsg)
 {
     return 0;
 }
 
+// 0x004BB980
+void EditBoxImplementation::sub_004BB980_SetUnk04(int nValue)
+{
+    unk0x04 = nValue;
+}
+
+// 0x004BB990
+void EditBoxImplementation::sub_004BB990_SetUnk18(int nValue)
+{
+    nTextWidth = nValue;
+}
+
+// 0x004BB9A0
+void EditBoxImplementation::sub_004BB9A0_SetUnk24(int nValue)
+{
+    unk0x24 = nValue;
+}
+
+// build: symbol ?MsgSlot09@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB9B0
 // 0x004BB9B0
 int EditBoxImplementation::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -395,12 +441,41 @@ int EditBoxImplementation::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
     return 1;
 }
 
+// build: symbol ?MsgSlot10@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB9D0
 // 0x004BB9D0
 int EditBoxImplementation::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
 {
     if (unk0x36 > 0)
         unk0x36 -= 1;
     return 1;
+}
+
+// build: symbol ?MsgSlot02@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBA80
+// 0x004BBA80
+int EditBoxWrapper::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot02(pMsg);
+}
+
+// build: symbol ?MsgSlot03@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBA90
+// 0x004BBA90
+int EditBoxWrapper::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot03(pMsg);
+}
+
+// build: symbol ?MsgSlot04@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBAA0
+// 0x004BBAA0
+int EditBoxWrapper::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot04(pMsg);
+}
+
+// build: symbol ?MsgSlot05@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBAB0
+// 0x004BBAB0
+int EditBoxWrapper::MsgSlot05(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot05(pMsg);
 }
 
 // build: symbol ?Slot01@EditBoxWrapper@@UAEXXZ 0x004BBAC0
@@ -416,10 +491,80 @@ int EditBoxWrapper::Slot11()
     return pImpl->Slot11();
 }
 
+// build: symbol ?MsgSlot06@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBAD0
+// 0x004BBAD0
+int EditBoxWrapper::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot06(pMsg);
+}
+
+// build: symbol ?MsgSlot08@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBAE0
+// 0x004BBAE0
+int EditBoxWrapper::MsgSlot08(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot08(pMsg);
+}
+
+// 0x004BBAF0
+int EditBoxWrapper::MsgSlot07(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot07(pMsg);
+}
+
+// build: symbol ?MsgSlot09@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBB00
+// 0x004BBB00
+int EditBoxWrapper::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot09(pMsg);
+}
+
+// build: symbol ?MsgSlot10@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBB10
+// 0x004BBB10
+int EditBoxWrapper::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot10(pMsg);
+}
+
 // 0x004BBB30
 void EditBoxWrapper::sub_004BBB30_Slot12(int nValue)
 {
     pImpl->Slot13();
+}
+
+// 0x004BBB40
+void EditBoxWrapper::sub_004BBB40_Slot14(int nValue)
+{
+    pImpl->sub_004BB4D0_Slot15(nValue);
+}
+
+// 0x004BBB50
+void EditBoxWrapper::sub_004BBB50_Slot13(const char* szText)
+{
+    pImpl->sub_004BB530_Slot14(szText);
+}
+
+// 0x004BBB60
+void EditBoxWrapper::sub_004BBB60_Slot15(char* szBuffer)
+{
+    pImpl->sub_004BB5B0_Slot12(szBuffer);
+}
+
+// 0x004BBB70
+void EditBoxWrapper::sub_004BBB70_SetUnk04(int nValue)
+{
+    pImpl->sub_004BB980_SetUnk04(nValue);
+}
+
+// 0x004BBB90
+void EditBoxWrapper::sub_004BBB90_SetUnk24(int nValue)
+{
+    pImpl->sub_004BB9A0_SetUnk24(nValue);
+}
+
+// 0x004BBBA0
+void EditBoxWrapper::sub_004BBBA0_SetUnk20(int nValue)
+{
+    pImpl->sub_004BB200_SetUnk20(nValue);
 }
 
 // 0x004BBEF0
@@ -558,6 +703,7 @@ int SpinnerImplementation::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
     return 1;
 }
+// build: symbol ?MsgSlot06@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC190
 // 0x004BC190
 int SpinnerImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
 {

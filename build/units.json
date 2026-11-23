@@ -29667,6 +29667,16 @@
      "name": "?_GButtonWrapper"
     },
     {
+     "va": "0x004BAEA0",
+     "length": 10,
+     "name": "?Slot01@ButtonWrapper@@UAEXXZ"
+    },
+    {
+     "va": "0x004BAF00",
+     "length": 10,
+     "name": "?Slot11@ButtonWrapper@@UAEHXZ"
+    },
+    {
      "va": "0x004BAFD0",
      "length": 45,
      "name": "?_GButtonImplementation"
@@ -29675,6 +29685,11 @@
      "va": "0x004BB000",
      "length": 225,
      "name": "Slot01"
+    },
+    {
+     "va": "0x004BB200",
+     "length": 13,
+     "name": "sub_004BB200_SetUnk20"
     },
     {
      "va": "0x004BB5B0",
@@ -29697,9 +29712,29 @@
      "name": "?MsgSlot04@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x004BB950",
+     "length": 5,
+     "name": "?SKILLS_Return0@@YGHH@Z"
+    },
+    {
      "va": "0x004BB970",
      "length": 5,
      "name": "?SKILLS_Return0@@YGHH@Z"
+    },
+    {
+     "va": "0x004BB980",
+     "length": 13,
+     "name": "sub_004BB980_SetUnk04"
+    },
+    {
+     "va": "0x004BB990",
+     "length": 13,
+     "name": "sub_004BB990_SetUnk18"
+    },
+    {
+     "va": "0x004BB9A0",
+     "length": 13,
+     "name": "sub_004BB9A0_SetUnk24"
     },
     {
      "va": "0x004BB9B0",
@@ -29717,9 +29752,54 @@
      "name": "?_GEditBoxWrapper"
     },
     {
+     "va": "0x004BBA80",
+     "length": 14,
+     "name": "MsgSlot02"
+    },
+    {
+     "va": "0x004BBA90",
+     "length": 14,
+     "name": "MsgSlot03"
+    },
+    {
+     "va": "0x004BBAA0",
+     "length": 14,
+     "name": "MsgSlot04"
+    },
+    {
+     "va": "0x004BBAB0",
+     "length": 14,
+     "name": "MsgSlot05"
+    },
+    {
      "va": "0x004BBAC0",
      "length": 10,
      "name": "?Slot01@EditBoxWrapper@@UAEXXZ"
+    },
+    {
+     "va": "0x004BBAD0",
+     "length": 14,
+     "name": "MsgSlot06"
+    },
+    {
+     "va": "0x004BBAE0",
+     "length": 14,
+     "name": "MsgSlot08"
+    },
+    {
+     "va": "0x004BBAF0",
+     "length": 14,
+     "name": "MsgSlot07"
+    },
+    {
+     "va": "0x004BBB00",
+     "length": 14,
+     "name": "MsgSlot09"
+    },
+    {
+     "va": "0x004BBB10",
+     "length": 14,
+     "name": "MsgSlot10"
     },
     {
      "va": "0x004BBB20",
@@ -29732,9 +29812,39 @@
      "name": "?sub_004BBB30_sub_004BBFB0@EditBoxWrapper@@UAEXH@Z"
     },
     {
+     "va": "0x004BBB40",
+     "length": 14,
+     "name": "sub_004BBB40_Slot14"
+    },
+    {
+     "va": "0x004BBB50",
+     "length": 14,
+     "name": "sub_004BBB50_Slot13"
+    },
+    {
+     "va": "0x004BBB60",
+     "length": 14,
+     "name": "sub_004BBB60_Slot15"
+    },
+    {
+     "va": "0x004BBB70",
+     "length": 16,
+     "name": "sub_004BBB70_SetUnk04"
+    },
+    {
      "va": "0x004BBB80",
      "length": 14,
      "name": "?sub_004BBB80_Forward@D2WrapperStrc@@UAEXH@Z"
+    },
+    {
+     "va": "0x004BBB90",
+     "length": 14,
+     "name": "sub_004BBB90_SetUnk24"
+    },
+    {
+     "va": "0x004BBBA0",
+     "length": 14,
+     "name": "sub_004BBBA0_SetUnk20"
     },
     {
      "va": "0x004BBD50",
@@ -29964,122 +30074,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/editbox_004BB200.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BAEA0",
-     "length": 10,
-     "name": "?Slot01@ButtonWrapper@@UAEXXZ"
-    },
-    {
-     "va": "0x004BAF00",
-     "length": 10,
-     "name": "?Slot11@ButtonWrapper@@UAEHXZ"
-    },
-    {
-     "va": "0x004BB200",
-     "length": 13,
-     "name": "sub_004BB200_SetUnk20"
-    },
-    {
-     "va": "0x004BB950",
-     "length": 5,
-     "name": "?SKILLS_Return0@@YGHH@Z"
-    },
-    {
-     "va": "0x004BB980",
-     "length": 13,
-     "name": "sub_004BB980_SetUnk04"
-    },
-    {
-     "va": "0x004BB990",
-     "length": 13,
-     "name": "sub_004BB990_SetUnk18"
-    },
-    {
-     "va": "0x004BB9A0",
-     "length": 13,
-     "name": "sub_004BB9A0_SetUnk24"
-    },
-    {
-     "va": "0x004BBA80",
-     "length": 14,
-     "name": "MsgSlot02"
-    },
-    {
-     "va": "0x004BBA90",
-     "length": 14,
-     "name": "MsgSlot03"
-    },
-    {
-     "va": "0x004BBAA0",
-     "length": 14,
-     "name": "MsgSlot04"
-    },
-    {
-     "va": "0x004BBAB0",
-     "length": 14,
-     "name": "MsgSlot05"
-    },
-    {
-     "va": "0x004BBAD0",
-     "length": 14,
-     "name": "MsgSlot06"
-    },
-    {
-     "va": "0x004BBAE0",
-     "length": 14,
-     "name": "MsgSlot08"
-    },
-    {
-     "va": "0x004BBAF0",
-     "length": 14,
-     "name": "MsgSlot07"
-    },
-    {
-     "va": "0x004BBB00",
-     "length": 14,
-     "name": "MsgSlot09"
-    },
-    {
-     "va": "0x004BBB10",
-     "length": 14,
-     "name": "MsgSlot10"
-    },
-    {
-     "va": "0x004BBB40",
-     "length": 14,
-     "name": "sub_004BBB40_Slot14"
-    },
-    {
-     "va": "0x004BBB50",
-     "length": 14,
-     "name": "sub_004BBB50_Slot13"
-    },
-    {
-     "va": "0x004BBB60",
-     "length": 14,
-     "name": "sub_004BBB60_Slot15"
-    },
-    {
-     "va": "0x004BBB70",
-     "length": 16,
-     "name": "sub_004BBB70_SetUnk04"
-    },
-    {
-     "va": "0x004BBB90",
-     "length": 14,
-     "name": "sub_004BBB90_SetUnk24"
-    },
-    {
-     "va": "0x004BBBA0",
-     "length": 14,
-     "name": "sub_004BBBA0_SetUnk20"
-    }
    ]
   },
   {
