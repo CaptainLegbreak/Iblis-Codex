@@ -1,17 +1,36 @@
 #include "D2ObjectIds.h"
+#include "D2Records.h"
+#include "D2TxtItems.h"
+#include "D2Skills.h"
+#include "D2TxtTables.h"
+#include "D2Unicode.h"
+
 #include "D2ItemTypes.h"
+
 #include "D2StateIds.h"
+
 #include "D2MonsterIds.h"
+
 #include "D2StatIds.h"
+
 #include "D2Common.h"
+
 #include "D2Structs.h"
+
 #include "D2DataTbls.h"
+
 #include "D2Path.h"
+
 #include "D2Txt.h"
+
 #include "D2GameObjs.h"
+
 #include "D2UnitData.h"
+
 #include "D2AnimData.h"
+
 #include "D2PlayerModes.h"
+
 #include "D2MonModes.h"
 
 #define FP16_SHIFT 16
@@ -278,9 +297,6 @@ enum
     INVENTORYRECORD_BIG_BANK_PAGE_1 = 12,
 };
 
-
-
-
 enum
 {
     COLLIDE_MASK_PLAYER_FLYING = 0x804,
@@ -290,7 +306,6 @@ enum
 {
     COMPOSIT_RIGHTHAND = 7,
 };
-
 
 struct D2InventoryRecordMapStrc
 {
@@ -1158,6 +1173,37 @@ void __stdcall UNITS_ResetRoom(D2UnitStrc* hUnit)
     }
 }
 
+D2ActiveRoomStrc* __stdcall PATH_GetRoom(D2DynamicPathStrc* pDynamicPath); // 0x00648A80
+inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+
+    return 0;
+}
+
+// 0x00620BB0
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* ptUnit)
+{
+    D2_ASSERT(ptUnit, 2198);
+
+    switch (ptUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return ptUnit->pStaticPath->pRoom;
+    default:
+        if (ptUnit->pDynamicPath)
+        {
+            return PATH_GetRoom(ptUnit->pDynamicPath);
+        }
+        return 0;
+    }
+}
+
 // 0x00620C10
 void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* ptUnit, D2UnitStrc* pTargetUnit)
 {
@@ -1907,6 +1953,13 @@ static int UNITS_GetAnimStatBasePercentage(D2UnitStrc* pUnit, int nStat)
     return nValue;
 }
 
+// 0x00621780
+void __stdcall UNITS_SetAnimationSpeed(D2UnitStrc* pUnit, int nSpeed)
+{
+    nSpeed = nSpeed > 0 ? nSpeed : 0;
+    pUnit->wAnimSpeed = nSpeed < 0x7FFF ? nSpeed : 0x7FFF;
+}
+
 // 0x006217C0
 int __stdcall UNITS_IsAtEndOfFrameCycle(D2UnitStrc* ptUnit)
 {
@@ -2032,6 +2085,24 @@ int __stdcall UNITS_HasCollision(D2UnitStrc* pUnit)
     }
 
     return TRUE;
+}
+
+// 0x006219F0
+D2SkillStrc* __stdcall UNITS_GetSkillFromSkillId(D2UnitStrc* hUnit, int nSkillId)
+{
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+
+    D2_ASSERT(pSkillsTxtRecord, 3579);
+    D2_ASSERT(hUnit, 1592);
+
+    for (D2SkillStrc* pSkill = SKILLS_GetFirstSkillFromSkillList(hUnit->pSkills); pSkill; pSkill = pSkill->pNextSkill)
+    {
+        if (pSkill->pSkillsTxt == pSkillsTxtRecord)
+        {
+            return pSkill;
+        }
+    }
+    return 0;
 }
 
 // 0x00621A70

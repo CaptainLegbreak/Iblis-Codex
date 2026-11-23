@@ -68557,21 +68557,6 @@
      "name": "?DATATBLS_LoadAllTxts@@YGXPAXHH@Z"
     },
     {
-     "va": "0x00620BB0",
-     "length": 90,
-     "name": "UNITS_GetRoom"
-    },
-    {
-     "va": "0x00621780",
-     "length": 52,
-     "name": "UNITS_SetAnimationSpeed"
-    },
-    {
-     "va": "0x006219F0",
-     "length": 120,
-     "name": "UNITS_GetSkillFromSkillId"
-    },
-    {
      "va": "0x006254F0",
      "length": 9,
      "name": "STATLIST_GetTotalStatValueStub"
@@ -69861,6 +69846,11 @@
      "name": "UNITS_ResetRoom"
     },
     {
+     "va": "0x00620BB0",
+     "length": 90,
+     "name": "UNITS_GetRoom"
+    },
+    {
      "va": "0x00620C10",
      "length": 81,
      "name": "UNITS_SetTargetUnitForDynamicUnit"
@@ -70020,6 +70010,11 @@
      "name": "?UNITS_GetAnimStatBasePercentage@@YAHPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x00621780",
+     "length": 52,
+     "name": "UNITS_SetAnimationSpeed"
+    },
+    {
      "va": "0x006217C0",
      "length": 79,
      "name": "UNITS_IsAtEndOfFrameCycle"
@@ -70047,6 +70042,11 @@
      "va": "0x006219C0",
      "length": 40,
      "name": "UNITS_HasCollision"
+    },
+    {
+     "va": "0x006219F0",
+     "length": 120,
+     "name": "UNITS_GetSkillFromSkillId"
     },
     {
      "va": "0x00621A70",
