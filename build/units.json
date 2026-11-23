@@ -16064,9 +16064,27 @@
      "length": 18
     },
     {
+     "va": "0x004549F0",
+     "length": 126
+    },
+    {
+     "va": "0x00454A70",
+     "length": 95,
+     "name": "?sub_00454A70_DrawHoverText@@YAXXZ"
+    },
+    {
+     "va": "0x00454AD0",
+     "length": 1110
+    },
+    {
      "va": "0x00454F30",
      "length": 1400,
      "name": "?UI_DrawUnitHover@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004554B0",
+     "length": 93,
+     "name": "?sub_004554B0_DrawHoverName@@YAXXZ"
     },
     {
      "va": "0x00455720",
@@ -16097,6 +16115,11 @@
      "va": "0x004567F0",
      "length": 380,
      "name": "?UI_ToggleMiniPanel@@YAXXZ"
+    },
+    {
+     "va": "0x00456970",
+     "length": 1040,
+     "name": "?sub_00456970_InitUI@@YAXXZ"
     },
     {
      "va": "0x00456D80",
@@ -17336,69 +17359,6 @@
      "va": "0x00452270",
      "length": 144,
      "name": "?sub_00452270_AppendDigitText@@YIPAUUnicode@@PAU1@H@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004549F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004549F0",
-     "length": 126
-    },
-    {
-     "va": "0x00456970",
-     "length": 1040,
-     "name": "?sub_00456970_InitUI@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00454A70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00454A70",
-     "length": 95,
-     "name": "?sub_00454A70_DrawHoverText@@YAXXZ"
-    },
-    {
-     "va": "0x00454AD0",
-     "length": 1110
-    },
-    {
-     "va": "0x004554B0",
-     "length": 93,
-     "name": "?sub_004554B0_DrawHoverName@@YAXXZ"
     }
    ],
    "flags": [

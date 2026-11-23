@@ -342,7 +342,7 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
 void __fastcall D2Win_10130_DrawFramedTextEx(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5, int nArg6); // 0x005022F0
 
-int __fastcall AUTOMAP_GetHoverMonsterName(D2UnitStrc* pUnit, int nArg); // 0x00452580
+int __fastcall AUTOMAP_GetHoverMonsterName(D2UnitStrc* pUnit, unsigned short nArg); // 0x00452580
 
 void __fastcall GAME_SetHoverLine(const Unicode* pText, int nColor); // 0x00452520
 
@@ -503,7 +503,7 @@ extern int gnPopUpTextY;                                                        
 
 extern int gnPopUpTextMode;                                                                              // 0x007A2D28
 
-extern unsigned short gwszHoverLine[];                                                                  // 0x007A2D30
+Unicode gwszHoverLine[256]; // 0x007A2D30
 
 extern D2MsgHandlerEntryStrc gaKeyConfigWheelHandlers[];                                                    // 0x006D6024
 
@@ -2389,6 +2389,80 @@ static __forceinline int SetHoverPositionFromUnit(D2UnitStrc* pUnit)
     return 1;
 }
 
+int gnHoverTextColor; // 0x007A2F30
+
+void __cdecl AUTOMAP_InitAutomap(); // 0x0045A4C0
+
+void __cdecl CMDTBL_EnableHotkeyHandlers(); // 0x0046AC70
+
+void __cdecl sub_0047DD70_LoadOptionMenus(); // 0x0047DD70
+
+void __cdecl sub_0047F0C0_LoadMiniPanel(); // 0x0047F0C0
+
+void __cdecl sub_004868B0(); // 0x004868B0
+
+void __cdecl INV_LoadShopPanelCels(); // 0x00489220
+
+void __cdecl HIREABLES_LoadHirelingIcons(); // 0x00492C20
+
+void __cdecl INV_LoadPanelCels(); // 0x004967F0
+
+void __cdecl sub_0049C6A0(); // 0x0049C6A0
+
+void __cdecl TEXT_LoadTextSettings(); // 0x0049D440
+
+void __cdecl TEXT_ResetQuestPanel(); // 0x004A3410
+
+void __cdecl TEXT_InitTextSlider(); // 0x004A5190
+
+void __cdecl TEXT_LoadLevelCels(); // 0x004A6460
+
+void __cdecl TEXT_InitNpcMenu(); // 0x004B23E0
+
+void __cdecl DIALOG_InitDialogs(); // 0x004B7B40
+
+void __cdecl TEXT_LoadTextSliderCel(); // 0x004BE020
+
+void __cdecl USEITEM_InitUseItemPanel(); // 0x004BF9D0
+
+// 0x004549F0
+static void __stdcall sub_004549F0_DrawCenteredText(const Unicode* wszText, int nFont, int nY, int nColor)
+{
+    Unicode wszBuffer[0x100];
+    for (int i = 0; i < 0x100; ++i)
+    {
+        wszBuffer[i].wChar = 0;
+    }
+    D2RectStrc tRect;
+    if (!UI_GetHoverRect(&tRect) || !wszText)
+    {
+        return;
+    }
+    const int nOldFont = D2Win_10127_SetFont(nFont);
+    sub_005267E0(wszBuffer, wszText);
+    const int nWidth = D2Win_10121_GetTextWidth(wszBuffer);
+    const int nX = ((tRect.nLeft + tRect.nRight) >> 1) - (nWidth >> 1);
+    D2Win_10117_DrawText(wszBuffer, nX, nY, nColor, 1);
+    D2Win_10127_SetFont(nOldFont);
+}
+
+// 0x00454A70
+void __cdecl sub_00454A70_DrawHoverText()
+{
+    D2UnitStrc* pUnit = sub_00467A10();
+    if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
+    {
+        return;
+    }
+    int nY = D2Win_10125() + 0x27;
+    sub_004549F0_DrawCenteredText(gwszHoverLine, 6, nY, gnHoverTextColor);
+    if (gwszHoverLine[0].wChar || gwszHoverName[0].wChar)
+    {
+        nY += D2Win_10125();
+    }
+    sub_004549F0_DrawCenteredText(gwszHoverText, 6, nY, gnHoverTextState);
+}
+
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x00454F30
 void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit)
@@ -2465,7 +2539,7 @@ void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit)
                 UI_ShowUnitHoverName(pUnit, 0);
             }
         }
-        gwszHoverLine[0] = 0;
+        gwszHoverLine[0].wChar = 0;
         gwszHoverText[0] = 0;
         gwszHoverName[0].wChar = 0;
         return;
@@ -2570,6 +2644,31 @@ void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit)
         return;
     }
     }
+}
+
+// 0x004554B0
+void __cdecl sub_004554B0_DrawHoverName()
+{
+    if (!sub_00526800(gwszHoverName))
+    {
+        return;
+    }
+    D2UnitStrc* pUnit = sub_00467A10();
+    if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
+    {
+        return;
+    }
+    int nColor = 0;
+    if (MONSTER_IsUniqueMonster(pUnit))
+    {
+        nColor = 4;
+    }
+    if (sub_004AE320_IsMonsterFlag4(pUnit))
+    {
+        nColor = 3;
+    }
+    const int nY = D2Win_10125() + 0x27;
+    sub_004549F0_DrawCenteredText(gwszHoverName, 6, nY, nColor);
 }
 
 // 0x00455720
@@ -3171,6 +3270,156 @@ void __cdecl UI_ToggleMiniPanel()
     sub_00468740();
 }
 
+// 0x00456970
+void __cdecl sub_00456970_InitUI()
+{
+    char szPath[0x104];
+    INV_LoadPanelCels();
+    sub_0047F0C0_LoadMiniPanel();
+    TEXT_LoadTextSettings();
+    TEXT_LoadLevelCels();
+    HIREABLES_LoadHirelingIcons();
+    TEXT_InitNpcMenu();
+    AUTOMAP_InitAutomap();
+    sub_0049C6A0();
+    sub_004B8720();
+// build: symbol ?gpGoldPanel@* 0x007A27A0
+    gpGoldPanel = 0;
+    gpGoldControlA = 0;
+    gpGoldControlB = 0;
+    gpGoldControlD = 0;
+    gpGoldControlC = 0;
+    gbGoldPanelFlag = 0;
+    sub_004868B0();
+    for (int i = 0; i < 0x26; i++)
+        gaUIVarStates[i] = 0;
+
+    {
+        const int bWasOn = gaUIVarStates[0];
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+        if (FOG_IsExpansion())
+            GAME_IsExpansion();
+// build: symbol ?gnUIVarCount@* 0x0070F9CC
+        D2_ASSERT(gnUIVarCount == 0x26, 0x1397);
+        if (TEXT_IsTextBoxOpen())
+            goto mini_panel;
+        for (int i = 0; i < gnUIVarCount; ++i)
+        {
+            if (gaUIVarStates[i] == 1)
+            {
+// build: symbol ?gapUIVarRecords@* 0x00711130
+                switch (gapUIVarRecords[i]->anCloseKind[0])
+                {
+                case 0:
+                    break;
+                case 4:
+                {
+                    int nLow;
+                    if (NPCMENU_GetInteractNpcId(&nLow))
+                        NPCMENU_EndNpcInteraction(nLow);
+                    break;
+                }
+                case 1:
+                    UI_SetUIVar(i, 1, 0);
+                    break;
+                case 2:
+                    goto mini_panel;
+                default:
+                    D2_ASSERT(false, 0x13E6);
+                }
+            }
+        }
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        if (!pPlayer || (pPlayer->dwUnitType == UNIT_PLAYER && !CUNIT_IsDeadOrDying(pPlayer)))
+            gaUIVarStates[0] = 1;
+        if (!bWasOn)
+        {
+            if (gaUIVarStates[0])
+                COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaGameUIHandlers, 4);
+        }
+        else
+        {
+            if (!gaUIVarStates[0])
+                sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaGameUIHandlers, 4);
+        }
+        sub_00468730();
+        sub_00468740();
+    }
+
+mini_panel:
+    UI_ToggleMiniPanel();
+    {
+        const int bWasOn = gaUIVarStates[0x22];
+        if (FOG_IsExpansion())
+            GAME_IsExpansion();
+        D2_ASSERT(gnUIVarCount == 0x26, 0x1397);
+        if (TEXT_IsTextBoxOpen())
+            goto load_cels;
+        for (int i = 0; i < gnUIVarCount; ++i)
+        {
+            if (gaUIVarStates[i] == 1)
+            {
+                bool bClose = true;
+                switch (gapUIVarRecords[i]->anCloseKind[0x22])
+                {
+                case 0:
+                    break;
+                case 4:
+                {
+                    int nLow;
+                    if (NPCMENU_GetInteractNpcId(&nLow))
+                        NPCMENU_EndNpcInteraction(nLow);
+                    break;
+                }
+                case 1:
+                    UI_SetUIVar(i, 1, 0);
+                    break;
+                case 2:
+                case 3:
+                    bClose = false;
+                    break;
+                default:
+                    goto load_cels;
+                }
+                if (!bClose)
+                    goto load_cels;
+            }
+        }
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        if (!pPlayer || (pPlayer->dwUnitType == UNIT_PLAYER && !CUNIT_IsDeadOrDying(pPlayer)))
+            gaUIVarStates[0x22] = 1;
+        if (!bWasOn)
+        {
+            if (gaUIVarStates[0x22])
+                COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaHelpButtonHandlers, 2);
+        }
+        else
+        {
+            if (!gaUIVarStates[0x22])
+                sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaHelpButtonHandlers, 2);
+        }
+        sub_00468730();
+        sub_00468740();
+    }
+
+load_cels:
+// build: symbol ?gszDataGlobal@* 0x006D4118
+    wsprintfA(szPath, "%s\\UI\\CURSOR\\Pentspin", gszDataGlobal);
+    gpPentspinCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\UI\\CURSOR\\focus16", gszDataGlobal);
+    gpFocus16Cel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\UI\\menu\\boxpieces", gszDataGlobal);
+    gpBoxPiecesCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    USEITEM_InitUseItemPanel();
+    DIALOG_InitDialogs();
+    INV_LoadShopPanelCels();
+    TEXT_LoadTextSliderCel();
+    TEXT_ResetQuestPanel();
+    CMDTBL_EnableHotkeyHandlers();
+    sub_0047DD70_LoadOptionMenus();
+    TEXT_InitTextSlider();
+}
+
 // 0x00456D80
 void __cdecl UI_ShutdownUI()
 {
@@ -3257,7 +3506,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
         gnPanelOffsetY = 0;
     }
     sub_00502280_SetPopUpText(0, 0, 0, 0, 0);
-    gwszHoverLine[0] = 0;
+    gwszHoverLine[0].wChar = 0;
     gwszHoverText[0] = 0;
     if (gaUIVarStates[9])
         sub_0047E3D0_DrawOptions();
@@ -3664,21 +3913,25 @@ int __cdecl UI_GetCofMemoryLimit()
     return gnCofMemoryLimit;
 }
 
+// build: symbol ??_H* 0x00403040
+// 0x00454AD0
 void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
 {
     const int nOld = D2Win_10127_SetFont(1);
     const int nClassId = !pUnit ? -1 : pUnit->dwClassId;
     D2MonStatsTxt* pMonStatsTxt = (nClassId >= 0 && nClassId < sgptDataTables->nMonStatsTxtRecordCount) ? &sgptDataTables->pMonStatsTxt[nClassId] : 0;
     int bDead = 0;
+    D2MonStats2Txt* pMonStats2Txt;
     unsigned short wszText[0x800];
     for (int i = 0; i < 0x800; i++)
         wszText[i] = 0;
 // build: symbol ?gdwBitMask7@* 0x006CE284
     if (!(gdwMask_006CE26C & pMonStatsTxt->nMonStatsFlags[1]) && (gdwBitMask7 & pMonStatsTxt->nMonStatsFlags[1]) && pMonStatsTxt->wNameStr)
     {
-        D2MonStats2Txt* pMonStats2Txt = UNITS_GetMonStats2TxtRecordFromMonsterId(!pUnit ? -1 : pUnit->dwClassId);
+        pMonStats2Txt = UNITS_GetMonStats2TxtRecordFromMonsterId(!pUnit ? -1 : pUnit->dwClassId);
         if (pMonStats2Txt)
         {
+// build: symbol ?gnHoverY@* 0x0070F858
             gnHoverY -= pMonStats2Txt->nPixHeight;
         }
         sub_005267E0((Unicode*)wszText, D2LANG_GetStringFromTblIndex(0xF9B));
@@ -3733,13 +3986,9 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
         D2RectStrc tRect;
         if (UI_GetHoverRect(&tRect))
         {
-            const int nWidth = D2Win_10121_GetTextWidth((Unicode*)wszText);
-            D2Win_10130_DrawFramedTextEx((Unicode*)wszText, ((tRect.nLeft + tRect.nRight) >> 1) - (nWidth >> 1), 0x20, nColor, 0, nY);
-            if (bDead)
-            {
-                gwszHoverName[0].wChar = 0;
-            }
-            else
+            const int nX = ((tRect.nRight + tRect.nLeft) >> 1) - (D2Win_10121_GetTextWidth((Unicode*)wszText) >> 1);
+            D2Win_10130_DrawFramedTextEx((Unicode*)wszText, nX, 0x20, nColor, 0, nY);
+            if (!bDead)
             {
                 D2MonStatsTxt* pRecord = DATATBLS_GetMonStatsTxtRecord(!pUnit ? -1 : pUnit->dwClassId);
                 unsigned short nTypeString = 0;
@@ -3771,18 +4020,24 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
                 }
                 UI_BuildImmunityText(pUnit);
             }
+            else
+            {
+                gwszHoverName[0].wChar = 0;
+            }
         }
     }
     else
     {
         gwszHoverName[0].wChar = 0;
-        if (!NPCMENU_GetInteractNpcId(&bDead) && !TEXT_IsTextBoxOpen())
+        int nTickLow;
+        if (!NPCMENU_GetInteractNpcId(&nTickLow) && !TEXT_IsTextBoxOpen())
         {
-            D2MonStats2Txt* pMonStats2Txt = UNITS_GetMonStats2TxtRecordFromMonsterId(!pUnit ? -1 : pUnit->dwClassId);
+            pMonStats2Txt = UNITS_GetMonStats2TxtRecordFromMonsterId(!pUnit ? -1 : pUnit->dwClassId);
             if (pMonStats2Txt)
             {
                 gnHoverY -= pMonStats2Txt->nPixHeight;
             }
+// build: symbol ?gnHoverX@* 0x0070F854
             D2Win_10129_DrawFramedText(CUNIT_GetUnitName(pUnit), gnHoverX, gnHoverY, 0, 1);
         }
     }
