@@ -6,7 +6,7 @@ D2WinControlStrc* gpNormalRadio;                                                
 D2WinControlStrc* gpNightmareRadio;                                                                       // 0x00798C50
 D2WinControlStrc* gpHellRadio;                                                                       // 0x00798C54
 int gnDiffSelect;                                                                                  // 0x00798CD0
-extern D2LaunchRecordStrc* gpCharInfo;                                                           // 0x0077BBD8
+extern D2ConfigStrc* gpCharInfo;                                                           // 0x0077BBD8
 char gszPendingEntryName[16];                                                                                  // 0x00798CD4
 int gnPendingValueA;                                                                               // 0x00798CE4
 int gnPendingValueB;                                                                               // 0x00798CE8

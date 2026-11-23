@@ -8,12 +8,12 @@ struct D2CriticalSectionStrc;
 struct D2FindDataStrc;
 struct D2FuncRecordStrc;
 struct D2FuncTable_0077ABF0Strc;
-struct D2LaunchRecordStrc;
+struct D2ConfigStrc;
 struct D2LaunchFuncsStrc;
 struct D2WinControlStrc;
 struct Unicode;
 struct D2ConfigStrc;
-struct D2LaunchRecordStrc;
+struct D2ConfigStrc;
 struct SMSGHANDLER_PARAMS;
 D2WinControlStrc* __fastcall MAINMENUS_CreateFromTemplate(int nTemplateId); // 0x0042F3A0
 D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId); // 0x0042F430
@@ -22,7 +22,7 @@ const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 extern "C" __declspec(dllimport) void* __stdcall GetCurrentProcess(); // 0x006CC13C
 extern "C" const char gszSpace[]; // 0x006FFC44
 extern "C" const char* const gapszSkyPalette[2]; // 0x006D3A08
-extern D2LaunchRecordStrc* gpLaunchRecord; // 0x007795D4
+extern D2ConfigStrc* gpLaunchRecord; // 0x007795D4
 extern D2WinControlStrc* gpControl_007799F4; // 0x007799F4
 extern D2WinControlStrc* gpCharNameText; // 0x00779B60
 extern D2WinControlStrc* gpControl_00779C68; // 0x00779C68
@@ -107,7 +107,7 @@ extern "C" int __cdecl sscanf(const char* szSource, const char* szFormat, ...); 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
-extern D2LaunchRecordStrc* gpCharInfo; // 0x0077BBD8
+extern D2ConfigStrc* gpCharInfo; // 0x0077BBD8
 extern D2LaunchFuncsStrc* gpLaunchFuncs; // 0x0077B09C
 extern D2WinControlStrc* gpCharSelectText; // 0x00779DD4
 extern D2WinControlStrc* gpChatEdit; // 0x0077BD94

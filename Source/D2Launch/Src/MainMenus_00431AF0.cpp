@@ -3,7 +3,7 @@
 struct D2FileTimeStrc;
 struct D2FuncTable;
 struct D2MenuCallbackArgStrc;
-struct D2LaunchRecordStrc;
+struct D2ConfigStrc;
 
 struct Unicode
 {
@@ -67,7 +67,7 @@ void __fastcall D2Win_10053(D2WinControlStrc*, int); // 0x004FBA30
 struct D2MenuCallbackArgStrc { D2WinControlStrc* pControl; unsigned int nMessage, nParam, nArg; };
 
 extern D2WinControlStrc* gpClassImages_0077956C[7]; // 0x0077956C
-extern D2LaunchRecordStrc* gpLaunchRecord; // 0x007795D4
+extern D2ConfigStrc* gpLaunchRecord; // 0x007795D4
 extern D2WinControlStrc* gpOkButton; // 0x00779330
 extern D2WinControlStrc* gpControl_0077933C; // 0x0077933C
 extern D2WinControlStrc* gpNameEdit; // 0x0077934C
@@ -557,20 +557,20 @@ D2WinControlStrc* gpControl_007795C8; // 0x007795C8
 static void MAINMENUS_SetModeFlags(char nMode)
 {
     gpLaunchRecord->nMode = nMode;
-    gpLaunchRecord->nFlag085 = 0;
-    gpLaunchRecord->nFlag089 = 0;
-    gpLaunchRecord->nFlag088 = 0;
-    gpLaunchRecord->nFlag086 = 0;
-    gpLaunchRecord->nFlag087 = 0;
-    gpLaunchRecord->nFlag08A = 0;
-    gpLaunchRecord->nFlag08B = 0;
-    if (nMode == 0) gpLaunchRecord->nFlag085 = 1;
-    else if (nMode == 4) gpLaunchRecord->nFlag089 = 1;
-    else if (nMode == 2) gpLaunchRecord->nFlag088 = 1;
-    else if (nMode == 3) gpLaunchRecord->nFlag086 = 1;
-    else if (nMode == 1) gpLaunchRecord->nFlag087 = 1;
-    else if (nMode == 5) gpLaunchRecord->nFlag08A = 1;
-    else if (nMode == 6) gpLaunchRecord->nFlag08B = 1;
+    gpLaunchRecord->bAmazon = 0;
+    gpLaunchRecord->bBarbarian = 0;
+    gpLaunchRecord->bNecromancer = 0;
+    gpLaunchRecord->bPaladin = 0;
+    gpLaunchRecord->bSorceress = 0;
+    gpLaunchRecord->bDruid = 0;
+    gpLaunchRecord->bAssassin = 0;
+    if (nMode == 0) gpLaunchRecord->bAmazon = 1;
+    else if (nMode == 4) gpLaunchRecord->bBarbarian = 1;
+    else if (nMode == 2) gpLaunchRecord->bNecromancer = 1;
+    else if (nMode == 3) gpLaunchRecord->bPaladin = 1;
+    else if (nMode == 1) gpLaunchRecord->bSorceress = 1;
+    else if (nMode == 5) gpLaunchRecord->bDruid = 1;
+    else if (nMode == 6) gpLaunchRecord->bAssassin = 1;
 }
 
 // 0x00433BF0

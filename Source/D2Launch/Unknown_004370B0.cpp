@@ -44,7 +44,7 @@ int __stdcall CONTROL_SetFocusedEditBox(D2WinControlStrc* pEditBox); // 0x004F91
 
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
-D2LaunchRecordStrc* gpLaunchRecord; // 0x007795D4
+D2ConfigStrc* gpLaunchRecord; // 0x007795D4
 
 void __cdecl CHARSEL_CreateBaseScreen(); // 0x0043C4F0
 
