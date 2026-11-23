@@ -12766,6 +12766,10 @@
      "name": "?OOGUTIL_OpenBrowserWithURL@@YGHH@Z"
     },
     {
+     "va": "0x00440FC0",
+     "length": 540
+    },
+    {
      "va": "0x004411E0",
      "length": 82,
      "name": "?CHATDLG_JoinChannel@@YIXPBD@Z"
@@ -13218,10 +13222,6 @@
    "file": "Source/D2Multi/Unknown_00440FC0.cpp",
    "rank": 1,
    "functions": [
-    {
-     "va": "0x00440FC0",
-     "length": 540
-    },
     {
      "va": "0x004438E0",
      "length": 262
