@@ -1958,12 +1958,7 @@
   "Source/D2Client/UNIT/PlrSkills.cpp": {
    "bytes": 808,
    "definitions": 4,
-   "externs": [
-    "extern \"C\" void __cdecl sub_004D9160(); // 0x004D9160",
-    "extern \"C\" void __cdecl ITEM_SendPositionEvent(); // 0x004D93B0",
-    "extern \"C\" void __cdecl sub_004D9170(); // 0x004D9170",
-    "extern \"C\" void __cdecl MISSILE_StateOverlayRanges(); // 0x004D9630"
-   ],
+   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/PlrSkills.inc",
    "lang": "cpp",
