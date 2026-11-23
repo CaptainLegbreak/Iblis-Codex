@@ -34450,11 +34450,6 @@
      "name": "D2GFX_CheckLowQuality"
     },
     {
-     "va": "0x004F65E0",
-     "length": 6,
-     "name": "SCALE_GetFactor"
-    },
-    {
      "va": "0x004F9200",
      "length": 6,
      "name": "CONTROL_GetFocusedEditBox"
@@ -35267,6 +35262,11 @@
      "va": "0x004F65C0",
      "length": 22,
      "name": "?SCALE_UpdateFactor@@YGXXZ"
+    },
+    {
+     "va": "0x004F65E0",
+     "length": 6,
+     "name": "SCALE_GetFactor"
     },
     {
      "va": "0x004F65F0",

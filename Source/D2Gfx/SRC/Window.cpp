@@ -1,4 +1,5 @@
 #include "D2Gfx.h"
+
 #include "D2GameTypes.h"
 
 #include "D2GfxTypes.h"
@@ -1247,6 +1248,14 @@ void __stdcall SCALE_UpdateFactor()
 {
     gnScaleFactor = gnChangedScaleFactor;
     return gpGraphicsInterface->pfSetGlobalScale(gnScaleFactor);
+}
+
+extern int gnScaleFactor; // 0x0072DB44
+
+// 0x004F65E0
+int __cdecl SCALE_GetFactor()
+{
+    return gnScaleFactor;
 }
 
 // 0x004F65F0
