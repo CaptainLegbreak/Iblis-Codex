@@ -79,25 +79,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 
-// 0x004B5850
-int __cdecl sub_004B5850()
-{
-    if (gbNpcMessageShown)
-    {
-        return 0;
-    }
-
-// build: symbol ?gpNpcConfirmDialog@* 0x007C0D73
-    if (gpNpcConfirmDialog)
-    {
-        DIALOG_DestroyDialog(gpNpcConfirmDialog);
-        sub_004B9A00(1, 0, 0, 0, 0);
-        gpNpcConfirmDialog = 0;
-        NPCMENU_BuildNpcMenu();
-    }
-
-    return 1;
-}
 
 // 0x004B5BC0
 int __cdecl sub_004B5BC0_SelectNpcEntry()
@@ -111,31 +92,7 @@ int __cdecl sub_004B5BC0_SelectNpcEntry()
     return 1;
 }
 
-// 0x004B5C00
-int __cdecl sub_004B5C00_OpenConfirm()
-{
-    gnNpcMenuState = 1;
-    sub_004B1D70_FindNpcEntry();
-    NPCMENU_OpenConfirmDialog(0x2BA0);
-    return 1;
-}
 
-// 0x004B69E0
-void __cdecl sub_004B69E0_CloseTrade()
-{
-// build: symbol ?gpNpcTradeObj@* 0x007C0D83
-    if (gpNpcTradeObj)
-    {
-        if (gpRes_007C0D77)
-        {
-            DIALOG_DestroyDialog(gpRes_007C0D77);
-            delete gpNpcTradeObj;
-            gpNpcTradeObj = 0;
-            gpRes_007C0D77 = 0;
-        }
-        NPCMENU_BuildNpcMenu();
-    }
-}
 
 static inline SelectionState* GetSelectionState(int line)
 {

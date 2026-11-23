@@ -4151,6 +4151,75 @@ int __cdecl NPCMENU_CloseSubMenuToMain()
     return 1;
 }
 
+struct Handler;
+
+struct HandlerNode;
+
+struct SelectionEntry;
+
+struct Message
+{
+    char pad00[10];
+    short wheel;
+    char padWheel[24-10-2];
+    int handled;
+    int result;
+};
+
+struct Handler
+{
+    virtual int unused0(Message*);
+    virtual int unused1(Message*);
+    virtual int wheel(Message*);
+    virtual int unused3(Message*);
+    virtual int unused4(Message*);
+    virtual int unused5(Message*);
+    virtual int unused6(Message*);
+    virtual int previous2(Message*);
+    virtual int next2(Message*);
+    virtual int previous1(Message*);
+    virtual int next1(Message*);
+};
+
+struct HandlerNode
+{
+    Handler* object;
+    HandlerNode* next;
+};
+
+struct SelectionState
+{
+    char pad00[68];
+    int selected;
+    char padSelected[76-68-4];
+    int activeCount;
+    int totalCount;
+    char padTotal[372-80-4];
+    SelectionEntry entries[9];
+    char padEntries[4];
+    HandlerNode* handlers;
+};
+
+// 0x004B5850
+int __cdecl sub_004B5850()
+{
+    if (gbNpcMessageShown)
+    {
+        return 0;
+    }
+
+// build: symbol ?gpNpcConfirmDialog@* 0x007C0D73
+    if (gpNpcConfirmDialog)
+    {
+        DIALOG_DestroyDialog(gpNpcConfirmDialog);
+        sub_004B9A00(1, 0, 0, 0, 0);
+        gpNpcConfirmDialog = 0;
+        NPCMENU_BuildNpcMenu();
+    }
+
+    return 1;
+}
+
 // 0x004B5890
 void __stdcall NPCMENU_OpenNpcPanel(int nStringIndex, int nEntryIndex)
 {
@@ -4228,6 +4297,15 @@ void __stdcall NPCMENU_OpenConfirmDialog(int nStringIndex)
     sub_004B85F0_AddTextLine(gpNpcConfirmDialog, D2LANG_GetStringFromTblIndex(nStringIndex), 0x15, 0, 4, 1, 0, 0);
     sub_004B85F0_AddTextLine(gpNpcConfirmDialog, D2LANG_GetStringFromTblIndex(0xD49), 0xF, 0, 0, 1, sub_004B4290, 1);
     sub_004B85F0_AddTextLine(gpNpcConfirmDialog, D2LANG_GetStringFromTblIndex(0xD48), 0xF, 0, 0, 1, sub_004B5850, 1);
+}
+
+// 0x004B5C00
+int __cdecl sub_004B5C00_OpenConfirm()
+{
+    gnNpcMenuState = 1;
+    sub_004B1D70_FindNpcEntry();
+    NPCMENU_OpenConfirmDialog(0x2BA0);
+    return 1;
 }
 
 // 0x004B5C20
@@ -4334,6 +4412,17 @@ int __cdecl NPCMENU_InitTravelKurastDocksHandler()
     gnGlobal_00726E95 = 3;
     gpfnGlobal_00726EA7 = NPCMENU_TravelToKurastDocks;
     gwGlobal_00726E9B = 0xD38;
+    return 1;
+}
+
+extern short gwGlobal_007272DF;                                                                             // 0x007272DF
+
+// 0x004B6650
+int __cdecl sub_004B6650_InitHandler()
+{
+    gnGlobal_007272D9 = 3;
+    gpfnGlobal_007272EB = sub_004B5C60_Handler;
+    gwGlobal_007272DF = 0xD45;
     return 1;
 }
 
@@ -4495,6 +4584,23 @@ void __fastcall NPCMENU_SetNpcMenuState(unsigned short wValue, int nValue)
         sub_004B6440_ToggleNpcHandler(0, 0x18);
         sub_004B6440_ToggleNpcHandler(0, 0x15);
         sub_004B6440_ToggleNpcHandler(0, 0x2B);
+    }
+}
+
+// 0x004B69E0
+void __cdecl sub_004B69E0_CloseTrade()
+{
+// build: symbol ?gpNpcTradeObj@* 0x007C0D83
+    if (gpNpcTradeObj)
+    {
+        if (gpRes_007C0D77)
+        {
+            DIALOG_DestroyDialog(gpRes_007C0D77);
+            delete gpNpcTradeObj;
+            gpNpcTradeObj = 0;
+            gpRes_007C0D77 = 0;
+        }
+        NPCMENU_BuildNpcMenu();
     }
 }
 
