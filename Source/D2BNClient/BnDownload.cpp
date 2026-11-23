@@ -145,7 +145,7 @@ extern "C" char* __cdecl strrchr(const char* szString, int nChar); // 0x00682990
 
 extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2); // 0x006841E9
 
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 void __cdecl sub_0051A480_DebugLog(const char* szFormat, ...); // 0x0051A480
 
@@ -752,7 +752,7 @@ static int __stdcall BNDOWNLOAD_ExtractArchiveDll(void* hArchive, char* szPath, 
     unsigned int nLength = GetTempPathA(0x104 - strlen(szFile), szPath);
     if (!nLength)
     {
-        sub_00410610_WriteLogLine("Failed to create temp file!");
+        LOGMANAGER_WriteLogLine("Failed to create temp file!");
     }
     else
     {

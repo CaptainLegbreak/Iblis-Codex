@@ -565,7 +565,7 @@ void __fastcall sub_005103B0_DDrawLogError(const char* szWhere, int hResult)
     default: szError = "< unknown >"; break;
     }
 
-    sub_00410610_WriteLogLine("***** DirectDraw error: %s - %s (0x%x)", szWhere, szError, hResult);
+    LOGMANAGER_WriteLogLine("***** DirectDraw error: %s - %s (0x%x)", szWhere, szError, hResult);
 }
 
 // 0x00510310

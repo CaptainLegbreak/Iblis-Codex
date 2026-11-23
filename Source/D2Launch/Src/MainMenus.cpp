@@ -111,7 +111,7 @@ int __cdecl ERRORMANAGER_DenyProcessAccess(); // 0x004061C0
 
 void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, const char* szFormat, va_list args); // 0x00410340
 
-void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410660
+void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szPrefix, const char* szFormat, ...); // 0x00410660
 
 char* __fastcall Int64ToString(char* szBuffer, unsigned int nBufferSize, __int64 nValue); // 0x00411540
 
@@ -4627,7 +4627,7 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
                 if (nError != 20)
                 {
                     Unicode wszName[100];
-                    sub_00410610_WriteLogLine("Error from MCP trying to create '%s' (err=%d)", gpLaunchRecord->szCharName, GAME_GetConnectError());
+                    LOGMANAGER_WriteLogLine("Error from MCP trying to create '%s' (err=%d)", gpLaunchRecord->szCharName, GAME_GetConnectError());
                     D2MCPClientCloseMCP();
                     Unicode wszText[255];
                     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x145E));

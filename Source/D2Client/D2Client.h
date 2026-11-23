@@ -724,7 +724,7 @@ unsigned short __stdcall TEXT_GetStringIdOfMenuType0Node(D2TextHeaderStrc* pText
 void __cdecl D2GFX_OutputString(int nXPos, int nYPos, const char* szFormat, ...); // 0x004F6890
 void __cdecl D2MCPClientCloseMCP(); // 0x00449AD0
 void __cdecl sub_00409B80(int nArg); // 0x00409B80
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 void __cdecl MAINMENUS_Reset(); // 0x0042F480
 void __cdecl MAINMENUS_ShowConnectingPopup(); // 0x0042F6E0
 void __cdecl MAINMENUS_ReturnToCharSelect(); // 0x0042FDD0

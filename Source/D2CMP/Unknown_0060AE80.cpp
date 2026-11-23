@@ -28,7 +28,7 @@ struct D2SpritePixelsStrc { int unknown00,width,height; char unknown0C[0x14]; un
 
 struct D2SpriteCelStrc { int unknown00[7]; unsigned int dataSize; };
 
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 void* __cdecl sub_006829C0_Copy(void* dest,const void* source,unsigned int size); // 0x006829C0
 
 #pragma pack(push, 1)
@@ -317,7 +317,7 @@ int __fastcall sub_0060BDB0_EncodeSprite(D2SpritePixelsStrc* sprite,D2SpriteCelS
   row+=step;
  }
  if(dest!=(unsigned char*)cel+32+cel->dataSize) {
-  sub_00410610_WriteLogLine("Sprite Decompression Error");
+  LOGMANAGER_WriteLogLine("Sprite Decompression Error");
   return 0;
  }
  return 1;

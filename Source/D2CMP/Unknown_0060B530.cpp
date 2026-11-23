@@ -14,7 +14,7 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);        
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC214
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...);                                                           // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...);                                                           // 0x00410610
 int __fastcall sub_0060BDB0_EncodeFrame(D2DccFrameStrc* pFrame, D2Dc6FrameStrc* pHeader, unsigned char* pDst); // 0x0060BDB0
 
 extern D2CriticalSectionStrc gtCodecLock_008F03CC;                                                          // 0x008F03CC
@@ -344,7 +344,7 @@ int __fastcall CodecDecodeDccData(unsigned int dwData, void* pMemPool, int nSize
                         if (!sub_0060BDB0_EncodeFrame(pDone, pHeader, pHeader->abData))
                         {
                             char szError[0x200];
-                            sub_00410610_WriteLogLine("Sprite Decompression Error -- File:%s", szFile);
+                            LOGMANAGER_WriteLogLine("Sprite Decompression Error -- File:%s", szFile);
                             sprintf(szError, "Error decompressing sprite - Possible corruption in data file: %s", szFile);
                             sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x660);
                             exit(-1);

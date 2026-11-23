@@ -372,7 +372,7 @@ const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
 
 void __stdcall sub_0040EA00_WriteProcessorReport(); // 0x0040EA00
 
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 extern int gnOsKind; // 0x0074D890
 
@@ -386,7 +386,7 @@ extern "C" const char gszPercentS_006FFC58[]; // 0x006FFC58
 
 const char* __fastcall ERRORMANAGER_StripSourcePath(const char* szFile); // 0x00408000
 
-void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410660
+void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szPrefix, const char* szFormat, ...); // 0x00410660
 
 int gbWritingCrashReport; // 0x0074F0C8
 
@@ -1303,7 +1303,7 @@ int __fastcall ERRORMANAGER_ReportNestedError(const char* szFile, int nLine, con
 {
     if (gbWritingCrashReport)
     {
-        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "\n***** ENCOUNTERED ERROR DURING ERROR HANDLING!!!\n%s,%d\n%s\n*****", ERRORMANAGER_StripSourcePath(szFile), nLine, szMessage);
+        LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "\n***** ENCOUNTERED ERROR DURING ERROR HANDLING!!!\n%s,%d\n%s\n*****", ERRORMANAGER_StripSourcePath(szFile), nLine, szMessage);
         return 1;
     }
     return 0;

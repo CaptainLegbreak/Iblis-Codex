@@ -116,7 +116,7 @@ extern "C" __declspec(dllimport) int __stdcall SystemParametersInfoA(unsigned in
 
 extern "C" __declspec(dllimport) int __stdcall GetWindowPlacement(void* hWnd, tagWINDOWPLACEMENT* lpwndpl); // 0x006CC508
 
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 int __stdcall WINDOW_Resize(int nResolution, int bForceResize); // 0x004F5AA0
 
@@ -976,7 +976,7 @@ void __stdcall WINDOW_EndCutScene(int nResolution)
     }
     else if (!WINDOW_Resize(nResolution, 1))
     {
-        sub_00410610_WriteLogLine("Failed to resize window after cutscenes... this is fatal!");
+        LOGMANAGER_WriteLogLine("Failed to resize window after cutscenes... this is fatal!");
         exit(-1);
     }
 
@@ -1685,7 +1685,7 @@ int __fastcall sub_004F4FF0_SetVideoMode(int nMode)
 {
     if (!gapGraphicsInterfaces[nMode])
     {
-        sub_00410610_WriteLogLine(gszUnsupportedMode, nMode);
+        LOGMANAGER_WriteLogLine(gszUnsupportedMode, nMode);
         return 0;
     }
     gpGraphicsInterface = gapGraphicsInterfaces[nMode];

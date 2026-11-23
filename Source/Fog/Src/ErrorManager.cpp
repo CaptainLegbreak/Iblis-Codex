@@ -372,7 +372,7 @@ const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
 
 void __stdcall sub_0040EA00_WriteProcessorReport(); // 0x0040EA00
 
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 extern int gnOsKind; // 0x0074D890
 
@@ -386,7 +386,7 @@ extern "C" const char gszPercentS_006FFC58[]; // 0x006FFC58
 
 const char* __fastcall ERRORMANAGER_StripSourcePath(const char* szFile); // 0x00408000
 
-void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410660
+void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szPrefix, const char* szFormat, ...); // 0x00410660
 
 int gbWritingCrashReport; // 0x0074F0C8
 
@@ -1753,9 +1753,9 @@ void __cdecl ERRORMANAGER_LogSystemInfo()
     char szOs[0x1000];
     char szComputer[0x40];
 
-    sub_00410610_WriteLogLine("------------------------------------------------------");
+    LOGMANAGER_WriteLogLine("------------------------------------------------------");
     GetLocalTime(&tTime);
-    sub_00410610_WriteLogLine("%04d-%02d-%02d %02d:%02d:%02d", tTime.wYear, tTime.wMonth, tTime.wDay, tTime.wHour, tTime.wMinute, tTime.wSecond);
+    LOGMANAGER_WriteLogLine("%04d-%02d-%02d %02d:%02d:%02d", tTime.wYear, tTime.wMonth, tTime.wDay, tTime.wHour, tTime.wMinute, tTime.wSecond);
 
     switch (gnOsKind)
     {
@@ -1782,16 +1782,16 @@ void __cdecl ERRORMANAGER_LogSystemInfo()
         break;
     }
 
-    sub_00410610_WriteLogLine("%s running under %s (Version %.3f)", "Diablo II", szOs, gfOsVersion);
+    LOGMANAGER_WriteLogLine("%s running under %s (Version %.3f)", "Diablo II", szOs, gfOsVersion);
     sub_0040EA00_WriteProcessorReport();
-    sub_00410610_WriteLogLine("Total Physical Memory: %.2fMB", (float)gdwTotalPhys / 1048576.0);
+    LOGMANAGER_WriteLogLine("Total Physical Memory: %.2fMB", (float)gdwTotalPhys / 1048576.0);
 
     if (EXCEPTIONS_GetAppPath(szPath, sizeof(szPath)))
     {
-        sub_00410610_WriteLogLine("Application Path: %s", szPath);
+        LOGMANAGER_WriteLogLine("Application Path: %s", szPath);
     }
 
-    sub_00410610_WriteLogLine("Local IP: %s", FOG_GetHostIPAddress());
+    LOGMANAGER_WriteLogLine("Local IP: %s", FOG_GetHostIPAddress());
 
     nSize = sizeof(szComputer);
     if (!GetComputerNameA(szComputer, &nSize))
@@ -1799,9 +1799,9 @@ void __cdecl ERRORMANAGER_LogSystemInfo()
         szComputer[0] = 0;
     }
 
-    sub_00410610_WriteLogLine("Computer name: %s", szComputer);
-    sub_00410610_WriteLogLine("------------------------------------------------------");
-    sub_00410610_WriteLogLine(&gszEmptyAssertText);
+    LOGMANAGER_WriteLogLine("Computer name: %s", szComputer);
+    LOGMANAGER_WriteLogLine("------------------------------------------------------");
+    LOGMANAGER_WriteLogLine(&gszEmptyAssertText);
 }
 
 // 0x00407970
@@ -3676,19 +3676,19 @@ void __cdecl ERRORMANAGER_LogPoolError(const char* szFormat, ...)
     va_list args;
     va_start(args, szFormat);
     vsprintf(szText, szFormat, args);
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "--------------------------------------------------------");
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "ERROR: Out of memory!");
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, gszPercentS_006FFC58, szText);
+    LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "--------------------------------------------------------");
+    LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "ERROR: Out of memory!");
+    LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, gszPercentS_006FFC58, szText);
     D2MemoryStatusStrc tStatus;
     GlobalMemoryStatus(&tStatus);
     char szNumber[0x20];
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "total physical:     %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwTotalPhys));
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "available physical: %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwAvailPhys));
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "total page:         %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwTotalPageFile));
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "available page:     %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwAvailPageFile));
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "total virtual:      %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwTotalVirtual));
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "available virtual:  %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwAvailVirtual));
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, &gszEmptyAssertText);
+    LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "total physical:     %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwTotalPhys));
+    LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "available physical: %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwAvailPhys));
+    LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "total page:         %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwTotalPageFile));
+    LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "available page:     %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwAvailPageFile));
+    LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "total virtual:      %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwTotalVirtual));
+    LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "available virtual:  %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwAvailVirtual));
+    LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, &gszEmptyAssertText);
 }
 
 // 0x004098B0

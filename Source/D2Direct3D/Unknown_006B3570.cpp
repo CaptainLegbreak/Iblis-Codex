@@ -87,7 +87,7 @@ struct D2SurfaceStrc
 
 extern D2SurfaceStrc* gpPrimarySurface_00970E68; // 0x00970E68
 extern D2SurfaceStrc* gpRenderSurface_00970E6C; // 0x00970E6C
-void __cdecl sub_00410610_WriteLogLine(const char*,...); // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char*,...); // 0x00410610
 
 struct T004013C0 { int unk00; int mode; };
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -197,7 +197,7 @@ void __fastcall sub_006B39B0_ShowD3DError(const char* text,long result)
     case 0: name="D3D_OK"; break;
     default: sub_006B20E0(text,result); return;
     }
-    sub_00410610_WriteLogLine("***** Direct3D error: %s - %s (0x%x)",text,name,result);
+    LOGMANAGER_WriteLogLine("***** Direct3D error: %s - %s (0x%x)",text,name,result);
 }
 
 int gbConfigured; // 0x00970EB8

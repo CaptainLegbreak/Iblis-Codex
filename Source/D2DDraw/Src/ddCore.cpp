@@ -519,7 +519,7 @@ static int DDRAW_OpenSurfaces(int nResolutionMode)
 
 fail:
     sub_005103B0(szError, hResult);
-    sub_00410610_WriteLogLine("Opening DirectDraw window failed!");
+    LOGMANAGER_WriteLogLine("Opening DirectDraw window failed!");
     return 0;
 }
 
@@ -563,7 +563,7 @@ int __cdecl DDRAW_SetDisplayMode()
         szError = "Failed to create primary surface for cutscenes";
 fail:
         sub_005103B0(szError, hResult);
-        sub_00410610_WriteLogLine("Opening DirectDraw window for cutscenes failed!");
+        LOGMANAGER_WriteLogLine("Opening DirectDraw window for cutscenes failed!");
         return 0;
     }
 

@@ -11,7 +11,7 @@ extern int gnVertexBufferPos; // 0x00970F40
 extern int gnPerspectiveScale; // 0x00989748
 
 int __stdcall sub_006001F0(D2CelContextStrc* context, int a2, int a3); // 0x006001F0
-void __cdecl sub_00410610_WriteLogLine(const char* format, ...); // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* format, ...); // 0x00410610
 int __stdcall CelGetWidth(D2CelStrc* cel); // 0x006018C0
 int __stdcall CelGetHeight(D2CelStrc* cel); // 0x006018F0
 int __stdcall CelGetOffsetX(D2CelStrc* cel); // 0x00601920

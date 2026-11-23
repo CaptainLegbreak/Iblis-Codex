@@ -4,7 +4,7 @@ extern "C" const char gszEmptyAssertText;                                       
 int __fastcall EXCEPTIONS_GetAppPath(char* szPath, unsigned int nSize);                                   // 0x0040C220
 unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x00413800
 int __fastcall FOG_CreatePathHierarchy(const char* szPath);                                        // 0x00406A10
-void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...);                // 0x00410660
+void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szPrefix, const char* szFormat, ...);                // 0x00410660
 
 namespace crashy
 {
@@ -141,7 +141,7 @@ bool __cdecl sub_00407DD0_AlwaysFalse()
 // 0x00407F70
 void __fastcall sub_00407F70_LogText(void* pUnused, const char* szText)
 {
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, szText);
+    LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, szText);
 }
 
 // 0x00407FA0

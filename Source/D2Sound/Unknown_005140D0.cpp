@@ -116,7 +116,7 @@ void __cdecl sub_005140D0_InitDirectSound()
     long hResult = DirectSoundCreate(0, &gpDirectSound, 0);
     if (hResult < 0)
     {
-        sub_00410610_WriteLogLine("DirectSound error: %s returned on DirectSoundCreate", D2SOUND_GetDirectSoundErrorString(hResult));
+        LOGMANAGER_WriteLogLine("DirectSound error: %s returned on DirectSoundCreate", D2SOUND_GetDirectSoundErrorString(hResult));
         D2SOUND_CloseSoundSystem();
         return;
     }
@@ -124,7 +124,7 @@ void __cdecl sub_005140D0_InitDirectSound()
     hResult = gpDirectSound->SetCooperativeLevel(WINDOW_GetWindow(), 2);
     if (hResult < 0)
     {
-        sub_00410610_WriteLogLine("DirectSound error: %s returned on SetCooperativeLevel", D2SOUND_GetDirectSoundErrorString(hResult));
+        LOGMANAGER_WriteLogLine("DirectSound error: %s returned on SetCooperativeLevel", D2SOUND_GetDirectSoundErrorString(hResult));
         D2SOUND_CloseSoundSystem();
         return;
     }
@@ -142,7 +142,7 @@ void __cdecl sub_005140D0_InitDirectSound()
     hResult = gpDirectSound->CreateSoundBuffer(&tDesc, &gpSoundObject, 0);
     if (hResult < 0)
     {
-        sub_00410610_WriteLogLine("........DirectSound progress: %s returned on failed CreateSoundBuffer", D2SOUND_GetDirectSoundErrorString(hResult));
+        LOGMANAGER_WriteLogLine("........DirectSound progress: %s returned on failed CreateSoundBuffer", D2SOUND_GetDirectSoundErrorString(hResult));
         D2SOUND_CloseSoundSystem();
         return;
     }
@@ -151,14 +151,14 @@ void __cdecl sub_005140D0_InitDirectSound()
     hResult = gpDirectSound->GetCaps(&gtDSCaps);
     if (hResult < 0)
     {
-        sub_00410610_WriteLogLine("........DirectSound progress: %s returned on failed GetCaps", D2SOUND_GetDirectSoundErrorString(hResult));
+        LOGMANAGER_WriteLogLine("........DirectSound progress: %s returned on failed GetCaps", D2SOUND_GetDirectSoundErrorString(hResult));
         D2SOUND_CloseSoundSystem();
         return;
     }
 
     if (gb3DSound && gtDSCaps.dwMaxHw3DAllBuffers < 0x10)
     {
-        sub_00410610_WriteLogLine("........DirectSound progress: %d buffers available is less than min needed %d buffers for 3d sound", gtDSCaps.dwMaxHw3DAllBuffers, 0x10);
+        LOGMANAGER_WriteLogLine("........DirectSound progress: %d buffers available is less than min needed %d buffers for 3d sound", gtDSCaps.dwMaxHw3DAllBuffers, 0x10);
         D2SOUND_CloseSoundSystem();
         return;
     }
@@ -174,7 +174,7 @@ void __cdecl sub_005140D0_InitDirectSound()
     hResult = gpSoundObject->SetFormat(&tFormat);
     if (hResult < 0)
     {
-        sub_00410610_WriteLogLine("........DirectSound progress: %s returned on failed SetFormat", D2SOUND_GetDirectSoundErrorString(hResult));
+        LOGMANAGER_WriteLogLine("........DirectSound progress: %s returned on failed SetFormat", D2SOUND_GetDirectSoundErrorString(hResult));
         gpSoundObject->Release();
         D2SOUND_CloseSoundSystem();
         return;
@@ -226,7 +226,7 @@ void __cdecl sub_005140D0_InitDirectSound()
         }
         if (!gnEaxVersion)
         {
-            sub_00410610_WriteLogLine("........DirectSound progress: Unsupported EAX or EAX emulation");
+            LOGMANAGER_WriteLogLine("........DirectSound progress: Unsupported EAX or EAX emulation");
             D2SOUND_CloseSoundSystem();
             return;
         }

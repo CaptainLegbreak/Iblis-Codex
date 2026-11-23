@@ -1027,7 +1027,7 @@ int __stdcall D2Win_10005(int nResolution)
     D2CMPSpriteCacheDestroy(1);
     if (!WINDOW_Resize(nResolution, 0))
     {
-        sub_00410610_WriteLogLine("Failed to resize window... this is fatal!");
+        LOGMANAGER_WriteLogLine("Failed to resize window... this is fatal!");
         exit(-1);
     }
 

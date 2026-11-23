@@ -955,7 +955,7 @@ struct D2LegacyMercSaveStrc
 
 #pragma pack(pop)
 
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 D2HirelingTxt* __stdcall DATATBLS_GetHirelingTxtRecordFromIdAndLevel(int, int, int); // 0x006562F0
 
@@ -1774,7 +1774,7 @@ static void __stdcall PLRSAVE_SaveToLocalFile(int bInteractsWithPlayer, unsigned
     }
     else
     {
-        sub_00410610_WriteLogLine(gszSaveOpenError, szFile);
+        LOGMANAGER_WriteLogLine(gszSaveOpenError, szFile);
     }
 }
 
@@ -2651,7 +2651,7 @@ static int __stdcall PLRSAVE_ReadLegacyMerc(D2GameStrc* pGame, D2UnitStrc* pPlay
     }
     if (nSize < 1)
     {
-        sub_00410610_WriteLogLine("Premature end of save data.");
+        LOGMANAGER_WriteLogLine("Premature end of save data.");
         return 14;
     }
     if (!*pSection)
@@ -2664,7 +2664,7 @@ static int __stdcall PLRSAVE_ReadLegacyMerc(D2GameStrc* pGame, D2UnitStrc* pPlay
         *pSize = 0;
         if (nSize < sizeof(D2LegacyMercSaveStrc))
         {
-            sub_00410610_WriteLogLine("Premature end of save data.");
+            LOGMANAGER_WriteLogLine("Premature end of save data.");
             return 14;
         }
         D2LegacyMercSaveStrc* pMercSave = (D2LegacyMercSaveStrc*)pSection;
@@ -2673,7 +2673,7 @@ static int __stdcall PLRSAVE_ReadLegacyMerc(D2GameStrc* pGame, D2UnitStrc* pPlay
         D2HirelingTxt* pHirelingTxt = DATATBLS_GetHirelingTxtRecordFromIdAndLevel(pGame->bExpansion, pMercSave->wHirelingId, 1);
         if (!pHirelingTxt)
         {
-            sub_00410610_WriteLogLine("Unable to load merc.");
+            LOGMANAGER_WriteLogLine("Unable to load merc.");
             return 14;
         }
         if (nVersion <= 89)

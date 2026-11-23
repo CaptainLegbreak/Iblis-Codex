@@ -70,7 +70,7 @@ extern "C" char* __stdcall inet_ntoa(unsigned int nAddress); // 0x006B013E
 
 int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
 
-void __cdecl sub_00410660_LogWritePrefixed(const char* szChannel, const char* szFormat, ...); // 0x00410660
+void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szChannel, const char* szFormat, ...); // 0x00410660
 
 int __fastcall QSERVER_CheckRecordThreshold(D2QueueServerStrc* pServer, const unsigned long* pAddress); // 0x006BE9F0
 
@@ -221,7 +221,7 @@ extern "C" int __stdcall bind(unsigned int s, const D2SockAddrInStrc* name, int 
 
 extern "C" int __stdcall listen(unsigned int s, int backlog);                                               // 0x006C9B70
 
-void __cdecl sub_00410610_WriteLogLine(const char* format, ...);                                                             // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* format, ...);                                                             // 0x00410610
 
 void __fastcall ERRORMANAGER_RegisterThread(unsigned int nId, void* hThread); // 0x00407F80
 
@@ -350,7 +350,7 @@ static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, D2QueueServe
         ++pServer->aStats[nSlot].nRejected;
         LeaveCriticalSection(pLock);
         const char* szReason = nReason == 1 ? "user on hack list" : (nReason == 2 ? "user logged on twice" : "user spamming with reconnects");
-        sub_00410660_LogWritePrefixed(gszHack, "[sQSNTAccept]               *** Deleted socket %d (%s) - %s ***", (unsigned int)pAddrLen, inet_ntoa(pAddr->sin_addr.s_addr), szReason);
+        LOGMANAGER_LogWritePrefixedLine(gszHack, "[sQSNTAccept]               *** Deleted socket %d (%s) - %s ***", (unsigned int)pAddrLen, inet_ntoa(pAddr->sin_addr.s_addr), szReason);
         sub_0040D880((unsigned int)pAddrLen);
         return (unsigned int)-1;
     }
@@ -544,7 +544,7 @@ unsigned int __fastcall sub_006C3120_Start(D2QueueServerStrc* pServer, int nPort
     unsigned int s = socket(2, 1, 0);
     if (s == (unsigned int)-1)
     {
-        sub_00410610_WriteLogLine("[SERVER]  QSNTInit failed on socket() - err=%d", WSAGetLastError());
+        LOGMANAGER_WriteLogLine("[SERVER]  QSNTInit failed on socket() - err=%d", WSAGetLastError());
         return 0;
     }
 
@@ -563,14 +563,14 @@ unsigned int __fastcall sub_006C3120_Start(D2QueueServerStrc* pServer, int nPort
     tAddr.sin_port = htons(nPort);
     if (bind(s, &tAddr, sizeof(tAddr)) == -1)
     {
-        sub_00410610_WriteLogLine("[SERVER]  QSNTInit failed on bind() - err=%d", WSAGetLastError());
+        LOGMANAGER_WriteLogLine("[SERVER]  QSNTInit failed on bind() - err=%d", WSAGetLastError());
         sub_0040D880(s);
         return 0;
     }
 
     if (listen(s, 0xFA) == -1)
     {
-        sub_00410610_WriteLogLine("[SERVER]  QSNTInit failed on listen() - err=%d", WSAGetLastError());
+        LOGMANAGER_WriteLogLine("[SERVER]  QSNTInit failed on listen() - err=%d", WSAGetLastError());
         sub_0040D880(s);
         return 0;
     }

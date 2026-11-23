@@ -563,7 +563,7 @@ void __fastcall SKILLS_InitGfxCaches(void* pMemPool, int bCelPool)
     D2_ASSERT(pInfo, 0x30);
     if (pInfo->nTotalMemory < 0x167D000)
     {
-        sub_00410610_WriteLogLine("This machine doesn't have enough physical memory (> %.2f MB) for minimal performance!", (float)pInfo->nTotalMemory / 1048576.0);
+        LOGMANAGER_WriteLogLine("This machine doesn't have enough physical memory (> %.2f MB) for minimal performance!", (float)pInfo->nTotalMemory / 1048576.0);
         exit(-1);
     }
     unsigned int nSize = pInfo->nTotalMemory - 0xB00000;
