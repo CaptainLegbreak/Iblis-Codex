@@ -798,7 +798,7 @@
   },
   "Source/D2Multi/Src/ChatDlg.cpp": {
    "bytes": 1544,
-   "definitions": 52,
+   "definitions": 53,
    "externs": [
     "extern \"C\" void __cdecl CHARSEL_SendChatLine(); // 0x00446890",
     "extern \"C\" void __cdecl COMCALLBACK_SendChatLine(); // 0x004468F0",
@@ -849,7 +849,7 @@
   },
   "Source/D2Multi/Unknown_00440FC0.cpp": {
    "bytes": 1828,
-   "definitions": 9,
+   "definitions": 8,
    "externs": [
     "extern \"C\" char gData_0070CD94[]; // 0x0070CD94",
     "extern \"C\" char gData_0070CD9C[]; // 0x0070CD9C",
@@ -24546,7 +24546,7 @@
    "cname": "gData_0070D930",
    "declared": true,
    "decorated": "?gtControlInit_0070D930@@3UD2WinControlInitStrc@@A",
-   "file": "Source/D2Multi/Unknown_00440FC0.cpp",
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070D930_t gData_0070D930; // 0x0070D930",
    "head": "extern \"C\" struct d2data_0070D930_t gData_0070D930 = ",
