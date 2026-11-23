@@ -52,7 +52,6 @@ extern D2SMemHeapStrc* gapFreeBlocks_007768B8[0x100]; // 0x007768B8
 extern int gnFlag3_007788CC; // 0x007788CC
 extern int gbHeapInitialized_007788D0; // 0x007788D0
 extern int gnFlag_00779098; // 0x00779098
-static void __stdcall sub_004117A0_SetAndShowError(const char* szFile, int nLine, unsigned int nError);
 static void sub_00411AA0_FreeBlock(D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBlock);
 static int sub_00411910_CheckPtr(void* pMemory, int bReport, const char* szFile, int nLine);
 
@@ -75,103 +74,6 @@ static __declspec(noreturn) void sub_00411620_FatalError(unsigned int nError, co
 {
     SErrDisplayError(nError, szFile, nLine, 0, 0, 1);
     ExitProcess(1);
-}
-
-static unsigned int sub_00411670_GetCallerId(int nLine, const char* szFile)
-{
-    unsigned int dwWord = szFile ? *(const unsigned int*)szFile : 0;
-    int bHit = 0;
-    if (gbCallerFirst_00708340)
-    {
-        if (szFile == gszCallerFile_007768B4 && nLine == gnCallerLine_007768B0 && dwWord == gdwCallerWord_007768AC)
-            bHit = 1;
-        else
-            gbCallerFirst_00708340 = 0;
-    }
-    if (!bHit)
-    {
-        unsigned int dwId = szFile ? SStrHash(szFile, 1, nLine) : 0;
-        dwId &= 0x7FFFFFFF;
-        if (!dwId)
-            dwId = 1;
-        gdwCallerWord_007768AC = dwWord;
-        gszCallerFile_007768B4 = szFile;
-        gnCallerLine_007768B0 = nLine;
-        gdwCallerId_007768A8 = dwId;
-    }
-    return gdwCallerId_007768A8;
-}
-
-static D2SMemHeapStrc* __stdcall sub_00411710_LockHeap(int* pLockIndex, D2SMemBlockStrc* pBlock)
-{
-    D2SMemHeapStrc* pHeap = (D2SMemHeapStrc*)(pBlock->tSig.wHeapHigh << 16);
-    EnterCriticalSection(&gaFreeBlockLocks_00776CC0[pHeap->nLockIndex]);
-    *pLockIndex = pHeap->nLockIndex;
-    return pHeap;
-}
-
-static void __stdcall sub_004117A0_SetAndShowError(const char* szFile, int nLine, unsigned int nError)
-{
-    sub_0041C340_SetLastError(nError);
-    if (gnFlag1_007784C0)
-    {
-        SErrDisplayError(nError, szFile, nLine, 0, 1, 1);
-    }
-}
-
-static void sub_004117D0_ReleaseHeapLock(int* pLockIndex)
-{
-    if (*pLockIndex != -1)
-    {
-        LeaveCriticalSection(&gaFreeBlockLocks_00776CC0[*pLockIndex]);
-        *pLockIndex = -1;
-    }
-}
-
-static D2SMemHeapStrc* __stdcall sub_004117F0_CreateHeap(int nLine, unsigned int dwId, int nLockIndex, unsigned int nPageSize, unsigned int nCommit, unsigned int nReserve, const char* szFile)
-{
-    unsigned int nNameSize;
-    unsigned int nHeaderSize;
-    D2SMemBlockStrc tHeader;
-    D2SMemHeapStrc* pHeap = (D2SMemHeapStrc*)VirtualAlloc(0, nReserve, 0x2000, 1);
-    if (!pHeap)
-        sub_00411620_FatalError(8, szFile, nLine);
-    if (!VirtualAlloc(pHeap, nCommit, 0x1000, 4))
-        sub_00411620_FatalError(8, szFile, nLine);
-    nNameSize = (szFile ? SStrLen(szFile) : 0) + 1;
-    nHeaderSize = nNameSize + 0x63;
-    if (nHeaderSize & 3)
-        nHeaderSize += 4 - (nHeaderSize & 3);
-    pHeap->dwId = dwId;
-    pHeap->pNext = gapFreeBlocks_007768B8[nLockIndex];
-
-    pHeap->pFirst = (D2SMemBlockStrc*)((char*)pHeap + nHeaderSize);
-    pHeap->pEnd = pHeap->pFirst;
-    pHeap->nPageSize = nPageSize;
-    pHeap->nCommitted = nCommit;
-    pHeap->nLockIndex = nLockIndex;
-    pHeap->bReportLeak = 1;
-    pHeap->nFragments = 0;
-    pHeap->nReserved = nReserve;
-    pHeap->nLine = nLine;
-    pHeap->apFree[0] = 0;
-    pHeap->apFree[1] = 0;
-    pHeap->apFree[2] = 0;
-    pHeap->apFree[3] = 0;
-    pHeap->apFree[4] = 0;
-    pHeap->apFree[5] = 0;
-    pHeap->apFree[6] = 0;
-    pHeap->apFree[7] = 0;
-    pHeap->apFree[8] = 0;
-    if (szFile)
-        SMemCopy(pHeap->szFile, szFile, nNameSize);
-    else
-        pHeap->szFile[0] = 0;
-    tHeader.tSig.wHeapHigh = (unsigned short)((unsigned int)pHeap >> 16);
-    tHeader.tSig.wMagic = 0x6F6D;
-    pHeap->tSig = tHeader.tSig;
-    gapFreeBlocks_007768B8[nLockIndex] = pHeap;
-    return pHeap;
 }
 
 

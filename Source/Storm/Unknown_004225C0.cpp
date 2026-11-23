@@ -81,15 +81,6 @@ struct D2StormBigStrc
     D2StormArrayBStrc tOutput;
 };
 
-unsigned int __stdcall sub_004213B0_FindLastSetBit(BigBuffer* pQueue);                              // 0x004213B0
-int __stdcall sub_004212F0_Compare(BigBuffer* pLeft, BigBuffer* pRight);                      // 0x004212F0
-int __stdcall sub_004242C0_BigOp(BigBuffer* pResult, BigBuffer* pA, BigBuffer* pB, BigStack* pStack); // 0x004242C0
-
-inline unsigned __int64 MakeLarge(const unsigned int& nLow, const unsigned int& nHigh)
-{
-    return (unsigned __int64)nHigh * 0x100000000ui64 + nLow;
-}
-
 inline unsigned int ExtractLowPart(unsigned __int64& nValue)
 {
     unsigned int nLow = (unsigned int)nValue;

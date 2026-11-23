@@ -167,17 +167,7 @@ static void __stdcall Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift)
 }
 
 void __stdcall Shr(BigBuffer& a, const BigBuffer& b, unsigned int nShift); // 0x00422E70
-static void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
-{
-    unsigned __int64 nBorrow = 0;
-    unsigned int i = 0;
-    for (; b.IsUsed(i) || c.IsUsed(i); i++)
-    {
-        nBorrow += (unsigned __int64)b[i] - c[i];
-        a[i] = ExtractLowPartSx(nBorrow);
-    }
-    a.SetCount(i);
-}
+void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffer& c); // 0x00423100
 
 static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack) // 0x00423DC0
 {

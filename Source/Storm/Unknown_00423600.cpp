@@ -227,30 +227,9 @@ void SetZero(BigBuffer& a); // 0x00422CC0
 void __stdcall Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift); // 0x00422D00
 
 void __stdcall Shr(BigBuffer& a, const BigBuffer& b, unsigned int nShift); // 0x00422E70
-static void __stdcall sub_00422FC0_SubUInt(BigBuffer& a, const BigBuffer& b, unsigned int c)
-{
-    unsigned __int64 nBorrow = ~(unsigned __int64)c + 1;
-    unsigned int i = 0;
-    for (; b.IsUsed(i); i++)
-    {
-        nBorrow += b[i];
-        a[i] = ExtractLowPartSx(nBorrow);
-    }
-    a.SetCount(i);
-}
+void __stdcall sub_00422FC0_SubUInt(BigBuffer& a, const BigBuffer& b, unsigned int c); // 0x00422FC0
 
-static void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
-{
-    unsigned __int64 nBorrow = 0;
-    unsigned int i = 0;
-    for (; b.IsUsed(i) || c.IsUsed(i); i++)
-    {
-        nBorrow += (unsigned __int64)b[i] - c[i];
-        a[i] = ExtractLowPartSx(nBorrow);
-    }
-    a.SetCount(i);
-}
-
+void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffer& c); // 0x00423100
 void FromStr(BigBuffer& a, const char* szString); // 0x004234B0
 void __stdcall FromUnsigned(BigBuffer& a, unsigned int nValue); // 0x00423540
 

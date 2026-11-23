@@ -342,16 +342,6 @@ void D2ChatStormListBStrc::IGNORELIST_ResetMappingList()
     InitializeTerminator();
 }
 
-char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset)
-{
-    return pNode + nLinkOffset;
-}
-
-char* __fastcall sub_0060E360_AddLinkOffset(char* pNode, int nLinkOffset)
-{
-    return pNode + nLinkOffset;
-}
-
 char* D2ChatStormHashTableStrc::IGNORELIST_GetStringTableHead()
 {
     return m_fulllist.m_terminator.MaskNext();

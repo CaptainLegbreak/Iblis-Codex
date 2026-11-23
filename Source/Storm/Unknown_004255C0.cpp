@@ -43,33 +43,8 @@ inline unsigned int ExtractLowPartSx(unsigned __int64& nValue)
     return nLow;
 }
 
-static void __stdcall sub_00422300_Add(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
-{
-    unsigned __int64 nCarry = 0;
-    unsigned int i = 0;
-    for (; nCarry || b.IsUsed(i) || c.IsUsed(i); i++)
-    {
-        nCarry += (unsigned __int64)b[i] + c[i];
-        a[i] = ExtractLowPart(nCarry);
-    }
-    a.SetCount(i);
-}
-
-static void __stdcall sub_004225C0_DivUInt(BigBuffer& a, unsigned int* pRemainder, const BigBuffer& b, unsigned __int64 c)
-{
-    a.SetCount(b.Count());
-    unsigned __int64 nData = 0;
-    unsigned int i = b.Count();
-    while (i)
-    {
-        --i;
-        nData = nData * 0x100000000ui64 + b[i];
-        a[i] = (unsigned int)(nData / c);
-        nData %= c;
-    }
-    a.sub_00422140_Trim();
-    *pRemainder = (unsigned int)nData;
-}
+void __stdcall sub_00422300_Add(BigBuffer& a, const BigBuffer& b, const BigBuffer& c); // 0x00422300
+void __stdcall sub_004225C0_DivUInt(BigBuffer& a, unsigned int* pRemainder, const BigBuffer& b, unsigned __int64 c); // 0x004225C0
 
 static int IsZero(BigBuffer& a)
 {
@@ -138,18 +113,7 @@ static void __stdcall Shr(BigBuffer& a, const BigBuffer& b, unsigned int nShift)
     a.SetCount(i);
 }
 
-static void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
-{
-    unsigned __int64 nBorrow = 0;
-    unsigned int i = 0;
-    for (; b.IsUsed(i) || c.IsUsed(i); i++)
-    {
-        nBorrow += (unsigned __int64)b[i] - c[i];
-        a[i] = ExtractLowPartSx(nBorrow);
-    }
-    a.SetCount(i);
-}
-
+void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffer& c); // 0x00423100
 static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack) // 0x00423DC0
 {
     c.sub_00422140_Trim();
@@ -203,18 +167,7 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
     tStack.nUsed -= 3;
 }
 
-static void __stdcall sub_004221F0_AddUInt(BigBuffer& a, const BigBuffer& b, unsigned int c)
-{
-    unsigned __int64 nCarry = c;
-    unsigned int i = 0;
-    for (; nCarry || b.IsUsed(i); i++)
-    {
-        nCarry += b[i];
-        a[i] = ExtractLowPart(nCarry);
-    }
-    a.SetCount(i);
-}
-
+void __stdcall sub_004221F0_AddUInt(BigBuffer& a, const BigBuffer& b, unsigned int c); // 0x004221F0
 static int IsOne(BigBuffer& a)
 {
     a.sub_00422140_Trim();
@@ -231,18 +184,7 @@ static void __stdcall Set2Exp(BigBuffer& a, unsigned int nExponent)
     a.SetCount(i + 1);
 }
 
-static void __stdcall sub_00422FC0_SubUInt(BigBuffer& a, const BigBuffer& b, unsigned int c)
-{
-    unsigned __int64 nBorrow = ~(unsigned __int64)c + 1;
-    unsigned int i = 0;
-    for (; b.IsUsed(i); i++)
-    {
-        nBorrow += b[i];
-        a[i] = ExtractLowPartSx(nBorrow);
-    }
-    a.SetCount(i);
-}
-
+void __stdcall sub_00422FC0_SubUInt(BigBuffer& a, const BigBuffer& b, unsigned int c); // 0x00422FC0
 static void __stdcall FromUnsigned(BigBuffer& a, unsigned int nValue)
 {
     a[0u] = nValue;
@@ -272,14 +214,7 @@ static void __stdcall Gcd(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tS
     tStack.nUsed -= 2;
 }
 
-static void __stdcall sub_004245F0_MulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack)
-{
-    BigBuffer& tProduct = tStack.f_0[tStack.nUsed++];
-    sub_004242C0_BigOp(&tProduct, &b, &c, &tStack);
-    Div(tProduct, a, tProduct, d, tStack);
-    tStack.nUsed--;
-}
-
+void __stdcall sub_004245F0_MulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack); // 0x004245F0
 static void __stdcall PowMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack) // 0x00425150
 {
     c.sub_00422140_Trim();
@@ -401,11 +336,7 @@ static int __stdcall IsPrime(BigStack* pStack, BigBuffer& a) // 0x00425350
     return bPrime;
 }
 
-static int sub_00421440_IsEven(const BigBuffer& a)
-{
-    return !a.Count() || !(a[0] & 1);
-}
-
+int sub_00421440_IsEven(const BigBuffer& a); // 0x00421440
 static void __stdcall FindPrime(unsigned int nBits, BigBuffer& b, BigBuffer& c, BigStack* pStack, BigBuffer& a) // 0x004255E0
 {
     BigBuffer& tLow = pStack->f_0[pStack->nUsed++];
