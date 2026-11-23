@@ -5846,6 +5846,94 @@ void __stdcall TEXT_KeyConfigButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
+int __fastcall CMDTBL_QueryKey(int nId, int nMode, int nCommand, unsigned short* pKey);               // 0x00469C20
+
+void __stdcall TEXT_UnregisterKeyConfigHandlers(int bReset);                                                // 0x004A5D70
+
+unsigned long gdwMessageTick;                                                                            // 0x007C02C8
+
+// 0x004A60B0
+void __stdcall sub_004A60B0_KeyDownMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (GAME_IsExitPending())
+    {
+        pMsg->bReturn = 0;
+        return;
+    }
+
+    unsigned short wKey = 0;
+    if (!(pMsg->lParam & 0x40000000))
+    {
+        if (pMsg->wParam == 0x1B)
+        {
+            TEXT_UnregisterKeyConfigHandlers(1);
+            sub_004B9A00(1, 0, 0, 0, 0);
+// build: symbol ?gbKeyConfigReady@* 0x00724728
+            gbKeyConfigReady = 0;
+        }
+        else
+        {
+// build: symbol ?gpListEntries@* 0x00724264
+// build: symbol ?gnKeyConfigColumn@* 0x007246D4
+            if (CMDTBL_QueryKey(gpListEntries[gnKeyConfigSelected].nId, gnKeyConfigColumn, (unsigned short)pMsg->wParam, &wKey))
+            {
+                TEXT_UnregisterKeyConfigHandlers(1);
+                sub_004B9A00(2, 0, 0, 0, 0);
+                if (pMsg->wParam == 0x0D || pMsg->wParam == 0x2E || pMsg->wParam == 0x08 || pMsg->wParam == 0x20)
+                {
+                    gbKeyConfigReady = 0;
+                    goto store_key;
+                }
+            }
+            gbKeyConfigReady = 1;
+        }
+store_key:
+        if (wKey)
+        {
+            gwGlobal_007C02C4 = wKey;
+            gdwMessageTick = GetTickCount();
+        }
+    }
+
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
+// 0x004A61A0
+void __stdcall sub_004A61A0_KeyUpMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (GAME_IsExitPending())
+    {
+        pMsg->bReturn = 0;
+        return;
+    }
+
+    unsigned short wKey = 0;
+    if (gbKeyConfigReady)
+    {
+        if (CMDTBL_QueryKey(gpListEntries[gnKeyConfigSelected].nId, gnKeyConfigColumn, (unsigned short)pMsg->wParam, &wKey))
+        {
+            TEXT_UnregisterKeyConfigHandlers(1);
+            sub_004B9A00(2, 0, 0, 0, 0);
+        }
+    }
+    else
+    {
+        gbKeyConfigReady = 1;
+    }
+
+    if (wKey)
+    {
+        gwGlobal_007C02C4 = wKey;
+        gdwMessageTick = GetTickCount();
+    }
+
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
 // 0x004A6460
 void __cdecl TEXT_LoadLevelCels()
 {

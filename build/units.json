@@ -24931,6 +24931,16 @@
      "name": "?TEXT_KeyConfigButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x004A60B0",
+     "length": 237,
+     "name": "sub_004A60B0_KeyDownMsgHandler"
+    },
+    {
+     "va": "0x004A61A0",
+     "length": 177,
+     "name": "sub_004A61A0_KeyUpMsgHandler"
+    },
+    {
      "va": "0x004A6460",
      "length": 31,
      "name": "?TEXT_LoadLevelCels@@YAXXZ"
@@ -26535,22 +26545,6 @@
      "va": "0x004A8DF0",
      "length": 210,
      "name": "sub_004A8DF0_DrawKeyLabel"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004A60B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004A60B0",
-     "length": 237,
-     "name": "sub_004A60B0_KeyDownMsgHandler"
-    },
-    {
-     "va": "0x004A61A0",
-     "length": 177,
-     "name": "sub_004A61A0_KeyUpMsgHandler"
     }
    ]
   },
