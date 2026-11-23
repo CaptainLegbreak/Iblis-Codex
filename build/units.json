@@ -41151,6 +41151,11 @@
      "name": "?BNDOWNLOAD_HandleChatEvent@@YIHPBXI@Z"
     },
     {
+     "va": "0x00520680",
+     "length": 35,
+     "name": "?sub_00520680_SHA1Init@@YIXPAUD2Sha1ContextStrc@@@Z"
+    },
+    {
      "va": "0x005206B0",
      "length": 792
     },
@@ -41158,6 +41163,11 @@
      "va": "0x005209D0",
      "length": 170,
      "name": "?BNDOWNLOAD_HashBuffer@@YIXPAIPBXI@Z"
+    },
+    {
+     "va": "0x00520A80",
+     "length": 67,
+     "name": "?sub_00520A80_CheckStringBlock@@YAHPBDIII@Z"
     },
     {
      "va": "0x00520AD0",
@@ -42318,16 +42328,6 @@
      "va": "0x005205F0",
      "length": 64,
      "name": "?sub_005205F0_GetState@@YIHPAUD2BnStateStrc@@@Z"
-    },
-    {
-     "va": "0x00520680",
-     "length": 35,
-     "name": "?sub_00520680_SHA1Init@@YIXPAUD2Sha1ContextStrc@@@Z"
-    },
-    {
-     "va": "0x00520A80",
-     "length": 67,
-     "name": "?sub_00520A80_CheckStringBlock@@YAHPBDIII@Z"
     },
     {
      "va": "0x00520C30",
