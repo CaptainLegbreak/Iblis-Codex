@@ -1,14 +1,27 @@
 #include "D2ItemTypes.h"
+
 #include "D2Common.h"
+
 #include "D2Structs.h"
+
 #include "D2Txt.h"
+
 #include "D2Records.h"
+
 #include "D2Unicode.h"
+
 #include "D2LevelTxt.h"
+
 #include "D2DataTbls.h"
+
 #include "D2TxtItems.h"
+
 #include "D2TxtTables.h"
+
 #include "D2AnimData.h"
+
+static void __declspec(noinline) sub_00650EB0_MakeCode(const char* szText, char* szCode);
+
 
 #pragma function(memset)
 
@@ -36,11 +49,9 @@ union D2SeedStrc;
 
 struct Unicode;
 
-
 struct D2TCExInfoStrc;
 
 struct D2TCExShortStrc;
-
 
 struct D2ItemsTxt;
 
@@ -63,7 +74,6 @@ struct D2DataTablesStrc;
 struct D2UnitStrc;
 
 struct D2AnimSeqTxt;
-
 
 struct D2NpcTxt;
 
@@ -166,7 +176,6 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
 
-
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -208,7 +217,6 @@ struct D2TCExShortStrc
     char unk0x26[2];
     D2TCExInfoStrc* pInfo;
 };
-
 
 struct D2ItemDataTbl
 {
@@ -577,7 +585,6 @@ extern D2TxtLinkStrc* gpSoundsLinker; // 0x0096BDC8
 
 extern int gnSoundsGuard; // 0x0096C8B4
 
-
 D2TxtLinkStrc* gpMonSeqLinker; // 0x0096C7AC
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
@@ -760,7 +767,6 @@ struct D2NpcTxt
     char unk[0x4C - 4];
 };
 
-
 struct D2MonItemPercentTxt
 {
     int nValue;
@@ -822,7 +828,6 @@ extern const char gszField_oninit[]; // 0x006ED56C
 extern const char gszField_monster[]; // 0x006ED574
 
 extern const char gszField_monequip[]; // 0x006ED57C
-
 
 extern "C" int __cdecl atoi(const char* szString);                                                          // 0x00681EBB
 
@@ -898,6 +903,42 @@ int __stdcall DATATBLS_GetMonsterChainInfo(int nMonsterId, int* pMaxChainId, int
     }
 
     return 0;
+}
+
+extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
+
+// 0x00651150
+void __fastcall sub_00651150(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn)
+{
+    D2MonStatsTxt* pMonStatsTxtRecord = (D2MonStatsTxt*)pRecord;
+    if (!pMonStatsTxtRecord || (unsigned int)nOffset > 7)
+    {
+        return;
+    }
+
+    pMonStatsTxtRecord->nSkillMode[nOffset] = 0;
+    pMonStatsTxtRecord->nSkillLevel[nOffset] = -1;
+    if (pMonStatsTxtRecord->nSkill[nOffset] < 0 || !pSrc)
+    {
+        return;
+    }
+
+    if (strlen(pSrc) <= 3)
+    {
+        int nText;
+        unsigned int dwCode;
+        strcpy((char*)&nText, pSrc);
+        sub_00650EB0_MakeCode((const char*)&nText, (char*)&dwCode);
+        const char nMode = (char)FOG_GetLinkIndex(gpMonModeLinker, dwCode, 1);
+        pMonStatsTxtRecord->nSkillMode[nOffset] = nMode;
+        if (nMode >= 0 && nMode != 14)
+        {
+            return;
+        }
+    }
+
+    pMonStatsTxtRecord->nSkillMode[nOffset] = 14;
+    pMonStatsTxtRecord->nSkillLevel[nOffset] = FOG_GetRowFromTxt(gpMonTableLinker_96C7AC, pSrc, 1);
 }
 
 // 0x00651210

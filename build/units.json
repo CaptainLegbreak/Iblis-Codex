@@ -71934,6 +71934,10 @@
      "name": "DATATBLS_GetMonsterChainInfo"
     },
     {
+     "va": "0x00651150",
+     "length": 192
+    },
+    {
      "va": "0x00651210",
      "length": 9865,
      "name": "DATATBLS_LoadMonStatsTxt"
@@ -75057,16 +75061,6 @@
      "va": "0x00650840",
      "length": 205,
      "name": "?D2Common_10226@@YGHPAUD2UnitStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00651150.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00651150",
-     "length": 192
     }
    ]
   },
