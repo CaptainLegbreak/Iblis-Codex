@@ -73,7 +73,6 @@ typedef char D2SkillsTxtSizeCheck[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 
 typedef char D2UnkNecSkillStrcSizeCheck[sizeof(D2UnkNecSkillStrc) == 0x68 ? 1 : -1];
 
-extern const int gaMonCurseIds[5]; // 0x006E3228
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 int __fastcall SKILLS_IterateTargetsAroundTarget(D2GameStrc* pGame, unsigned int nFlags, D2UnitStrc* pUnit, int nDistance, int (__fastcall* pCallback)(D2UnitStrc*, void*), void* pArgs); // 0x0056E780
 int __fastcall sub_6FD0B450(D2UnitStrc* pUnit, void* pArgs); // 0x005C35C0
@@ -153,107 +152,6 @@ static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-// 0x005CE2B0
-int __fastcall SKILLS_SrvDo112_MonCurseCast(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    const unsigned int nIndex = SEED_RollRandomNumber(&pUnit->pSeed) % 5;
-    const int nCurseSkillId = gaMonCurseIds[nIndex];
-
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nCurseSkillId);
-    if (!pSkillsTxtRecord || pSkillsTxtRecord->wAuraTargetState < 0 || pSkillsTxtRecord->wAuraTargetState >= sgptDataTables->nStatesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 0x40;
-    }
-
-    const int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nCurseSkillId, nSkillLevel);
-    const int nDuration = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraLenCalc, nCurseSkillId, nSkillLevel);
-
-    D2UnkNecSkillStrc args;
-    memset(&args, 0, sizeof(args));
-    args.pGame = pGame;
-    args.pUnit = pUnit;
-    args.unk0x08 = 0;
-    args.nSkillId = nCurseSkillId;
-    args.nSkillLevel = nSkillLevel;
-    args.nDuration = nDuration;
-    args.bUpdateAnimRate = 0;
-    args.nAuraTargetState = pSkillsTxtRecord->wAuraTargetState;
-
-    int i = 0;
-    do
-    {
-        args.nAuraStat[i] = -1;
-        args.nAuraStatCalc[i] = 0;
-        ++i;
-    } while (i < 6);
-
-    switch (nIndex)
-    {
-    case 0u:
-    {
-        args.nAuraStat[0] = 36;
-        args.nAuraStatCalc[0] = -100;
-        break;
-    }
-    case 1u:
-    {
-        args.nAuraStat[0] = 25;
-        args.nAuraStatCalc[0] = -50;
-        break;
-    }
-    case 2u:
-    {
-        args.nAuraEvent[0] = 5;
-        args.nAuraEventFunc[0] = 4;
-        break;
-    }
-    case 3u:
-    {
-        args.nAuraEvent[0] = 1;
-        args.nAuraEventFunc[0] = 5;
-        args.nAuraEvent[1] = 2;
-        args.nAuraEventFunc[1] = 5;
-        break;
-    }
-    case 4u:
-    {
-        args.bUpdateAnimRate = 1;
-        args.nAuraStat[0] = 67;
-        args.nAuraStatCalc[0] = pSkillsTxtRecord->dwParam[6];
-        args.nAuraStat[1] = 25;
-        args.nAuraStatCalc[1] = -50;
-        args.nAuraStat[2] = 36;
-        args.nAuraStatCalc[2] = -50;
-        args.nAuraStat[3] = 68;
-        args.nAuraStatCalc[3] = pSkillsTxtRecord->dwParam[6];
-        break;
-    }
-    default:
-    {
-        const int nResSubstraction = D2COMMON_11036_GetMonCurseResistanceSubtraction(nSkillLevel, nCurseSkillId);
-        args.nAuraStat[0] = 37;
-        args.nAuraStatCalc[0] = -nResSubstraction;
-        args.nAuraStat[1] = 39;
-        args.nAuraStatCalc[1] = -nResSubstraction;
-        args.nAuraStat[2] = 41;
-        args.nAuraStatCalc[2] = -nResSubstraction;
-        args.nAuraStat[3] = 43;
-        args.nAuraStatCalc[3] = -nResSubstraction;
-        args.nAuraStat[4] = 45;
-        args.nAuraStatCalc[4] = -nResSubstraction;
-        break;
-    }
-    }
-
-    return SKILLS_IterateTargetsAroundTarget(pGame, 3, pUnit, nRange, sub_6FD0B450, &args);
-}
-
-#include "gen/data/Source/D2Game/Unknown_005CD910.inc"
 struct D2MissilesTxt;
 
 static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)

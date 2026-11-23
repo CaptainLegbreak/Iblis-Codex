@@ -56077,6 +56077,11 @@
      "name": "?ACT5Q5_DeactivateAncientMonsters@@YGXPAUD2GameStrc@@PAUD2QuestDataStrc@@PAUD2Act5Quest5Strc@@@Z"
     },
     {
+     "va": "0x0058C0E0",
+     "length": 297,
+     "name": "?ACT5Q5_SpawnAncientMonsters@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x0058C210",
      "length": 127,
      "name": "?ACT5Q5_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -56288,17 +56293,6 @@
      "va": "0x0058DDE0",
      "length": 66,
      "name": "?ACT5Q6_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0058C0E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0058C0E0",
-     "length": 297,
-     "name": "?ACT5Q5_SpawnAncientMonsters@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -56736,7 +56730,23 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00590810.cpp",
+   "file": "Source/D2Game/Unknown_00590BF0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00590BF0",
+     "length": 28,
+     "name": "?ACT1Q2_Timer_StatusCycler@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x00590C10",
+     "length": 33,
+     "name": "?ACT1Q2_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Quests/a1q2.cpp",
    "rank": 0,
    "functions": [
     {
@@ -56760,14 +56770,9 @@
      "name": "?ACT1Q2_Callback02_NpcDeactivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
-     "va": "0x00590BF0",
-     "length": 28,
-     "name": "?ACT1Q2_Timer_StatusCycler@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x00590C10",
-     "length": 33,
-     "name": "?ACT1Q2_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+     "va": "0x00590980",
+     "length": 400,
+     "name": "ACT1Q2_Callback11_ScrollMessage"
     },
     {
      "va": "0x00590D60",
@@ -56788,17 +56793,6 @@
      "va": "0x00590E70",
      "length": 72,
      "name": "?ACT1Q2_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q2.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00590980",
-     "length": 400,
-     "name": "ACT1Q2_Callback11_ScrollMessage"
     },
     {
      "va": "0x00590EC0",
@@ -56835,6 +56829,11 @@
      "va": "0x005912E0",
      "length": 96,
      "name": "?ACT1Q3_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00591340",
+     "length": 113,
+     "name": "?sub_00591340_UpdateQuestFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
      "va": "0x005913C0",
@@ -56933,17 +56932,6 @@
      "va": "0x00591F70",
      "length": 277,
      "name": "?ACT1Q3_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00591340.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00591340",
-     "length": 113,
-     "name": "?sub_00591340_UpdateQuestFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     }
    ]
   },
@@ -61262,6 +61250,11 @@
      "length": 562
     },
     {
+     "va": "0x005E7AC0",
+     "length": 336,
+     "name": "?AITHINK_Fn060_GoodNpcRanged@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005E7C10",
      "length": 280
     },
@@ -61660,6 +61653,16 @@
      "name": "?AITHINK_Fn015_SandMaggot@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
+     "va": "0x005F1B60",
+     "length": 626,
+     "name": "?AITHINK_Fn016_ClawViper@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005F1DE0",
+     "length": 698,
+     "name": "?AITHINK_Fn142_ClawViperEx@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005F20A0",
      "length": 524,
      "name": "?AITHINK_Fn017_SandLeaper@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -61667,6 +61670,10 @@
     {
      "va": "0x005F22B0",
      "length": 427
+    },
+    {
+     "va": "0x005F2460",
+     "length": 209
     },
     {
      "va": "0x005F2540",
@@ -61839,6 +61846,11 @@
      "length": 1620
     },
     {
+     "va": "0x005F7F10",
+     "length": 253,
+     "name": "?sub_005F7F10_SpawnRandomMinion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
      "va": "0x005F8010",
      "length": 417,
      "name": "?AITHINK_GetTargetForUberMinion@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@@Z"
@@ -61919,6 +61931,11 @@
      "va": "0x005FA010",
      "length": 611,
      "name": "?AITHINK_Fn068_VileMother@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005FA280",
+     "length": 253,
+     "name": "?AITHINK_Fn069_VileDog@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005FA380",
@@ -62770,11 +62787,6 @@
      "name": "?ACT3Q7_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
     },
     {
-     "va": "0x005B7120",
-     "length": 54,
-     "name": "?sub_005B7120_GetHratliEndCoords@@YIHPAUD2GameStrc@@PAUD2CoordStrc@@@Z"
-    },
-    {
      "va": "0x005B7310",
      "length": 39,
      "name": "?sub_005B7310@@YIXPAUD2QuestDataStrc@@PAUD2ObjInitFnStrc@@@Z"
@@ -62794,6 +62806,11 @@
      "va": "0x005B70B0",
      "length": 112,
      "name": "?OBJECTS_InitFunction49_HratliStart@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x005B7120",
+     "length": 54,
+     "name": "?sub_005B7120_GetHratliEndCoords@@YIHPAUD2GameStrc@@PAUD2CoordStrc@@@Z"
     },
     {
      "va": "0x005B7160",
@@ -62945,6 +62962,11 @@
      "name": "?OBJECTS_OperateFunction44_SewerStairs@@YIHPAUD2ObjOperateFnStrc@@H@Z"
     },
     {
+     "va": "0x005B8500",
+     "length": 38,
+     "name": "?sub_005B8500_IsSewerStairsClosed@@YIHPAUD2GameStrc@@@Z"
+    },
+    {
      "va": "0x005B8530",
      "length": 169
     },
@@ -63026,14 +63048,9 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005B8500.cpp",
+   "file": "Source/D2Game/Unknown_005B8B00.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x005B8500",
-     "length": 38,
-     "name": "?sub_005B8500_IsSewerStairsClosed@@YIHPAUD2GameStrc@@@Z"
-    },
     {
      "va": "0x005B8B00",
      "length": 29,
@@ -63290,6 +63307,16 @@
      "name": "?ACT3Q5_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x005BAFD0",
+     "length": 233,
+     "name": "?sub_005BAFD0@@YIXPAUQuest@@PAUArgs@@@Z"
+    },
+    {
+     "va": "0x005BB0C0",
+     "length": 85,
+     "name": "?ACT3Q5_Callback02_NpcDeactivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
      "va": "0x005BB120",
      "length": 237,
      "name": "?ACT3Q5_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
@@ -63318,6 +63345,26 @@
      "name": "?ACT3Q5_SpawnCouncil@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005BB640",
+     "length": 123,
+     "name": "?ACT3Q5_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x005BB6C0",
+     "length": 72,
+     "name": "?ACT3Q5_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x005BB710",
+     "length": 81,
+     "name": "?ACT3Q5_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x005BB770",
+     "length": 54,
+     "name": "?ACT3Q5_UnitIterate_AttachCompletionSound@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
      "va": "0x005BB7B0",
      "length": 158,
      "name": "?ACT3Q5_UnitIterate_DetermineFlailAndCubeDropCounts@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -63340,39 +63387,9 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005BAFD0.cpp",
+   "file": "Source/D2Game/Unknown_005BBB70.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x005BAFD0",
-     "length": 233,
-     "name": "?sub_005BAFD0@@YIXPAUQuest@@PAUArgs@@@Z"
-    },
-    {
-     "va": "0x005BB0C0",
-     "length": 85,
-     "name": "?ACT3Q5_Callback02_NpcDeactivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005BB640",
-     "length": 123,
-     "name": "?ACT3Q5_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x005BB6C0",
-     "length": 72,
-     "name": "?ACT3Q5_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x005BB710",
-     "length": 81,
-     "name": "?ACT3Q5_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x005BB770",
-     "length": 54,
-     "name": "?ACT3Q5_UnitIterate_AttachCompletionSound@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
     {
      "va": "0x005BBB70",
      "length": 37,
@@ -64772,11 +64789,6 @@
      "va": "0x005CDFB0",
      "length": 249,
      "name": "?sub_005CDFB0@@YIHPAUGame@@PAUUnit@@HH@Z"
-    },
-    {
-     "va": "0x005CE2B0",
-     "length": 576,
-     "name": "?SKILLS_SrvDo112_MonCurseCast@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -64923,6 +64935,11 @@
      "va": "0x005CE1B0",
      "length": 254,
      "name": "?SKILLS_SrvDo110_Hireable_RogueMissile@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005CE2B0",
+     "length": 576,
+     "name": "?SKILLS_SrvDo112_MonCurseCast@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005CE4F0",
@@ -65754,6 +65771,10 @@
      "name": "?SKILLS_SrvDo014_LightningStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005DC000",
+     "length": 471
+    },
+    {
      "va": "0x005DC1E0",
      "length": 379,
      "name": "SKILLS_SrvDo016_Valkyrie"
@@ -65797,16 +65818,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005DC000.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005DC000",
-     "length": 471
-    }
    ]
   },
   {
@@ -66106,17 +66117,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005E7AC0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005E7AC0",
-     "length": 336,
-     "name": "?AITHINK_Fn060_GoodNpcRanged@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_005E8EB0.cpp",
    "rank": 0,
    "functions": [
@@ -66173,61 +66173,13 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005F1B60.cpp",
+   "file": "Source/D2Game/Unknown_005FB650.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x005F1B60",
-     "length": 626,
-     "name": "?AITHINK_Fn016_ClawViper@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F1DE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F1DE0",
-     "length": 698,
-     "name": "?AITHINK_Fn142_ClawViperEx@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F2460.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005F2460",
-     "length": 209
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F6220.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F7F10",
-     "length": 253,
-     "name": "?sub_005F7F10_SpawnRandomMinion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
     {
      "va": "0x005FB650",
      "length": 98,
      "name": "?sub_005FB650_GetTrapArrowVariant@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005FA280.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005FA280",
-     "length": 253,
-     "name": "?AITHINK_Fn069_VileDog@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },

@@ -533,6 +533,29 @@ int __fastcall OBJECTS_OperateFunction44_SewerStairs(D2ObjOperateFnStrc* pOp, in
     return 0;
 }
 
+#define UNIT_OBJECT 2
+
+#define EVENTTYPE_ENDANIM 1
+
+#define QUEST_A3Q3_GIDBINN 17
+
+#define QFLAG_PRIMARYGOALDONE 13
+
+#define QFLAG_COMPLETEDNOW 14
+
+#define QFLAG_COMPLETEDBEFORE 15
+
+void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsigned char id); // 0x00544190
+
+// 0x005B8500
+int __fastcall sub_005B8500_IsSewerStairsClosed(D2GameStrc* pGame)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A3Q2_KHALIMFLAIL);
+    if (pQuestData && pQuestData->bNotIntro)
+        return ((D2Act3Quest2Strc*)pQuestData->pQuestDataEx)->nSewerStairsObjectMode != 2;
+    return 0;
+}
+
 // 0x005C01D0
 int __fastcall SKILLITEM_EventFunc28_HealAfterKill(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
 {
