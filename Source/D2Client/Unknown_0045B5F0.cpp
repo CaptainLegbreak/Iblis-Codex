@@ -41,8 +41,8 @@ int __stdcall TileGetFlags(D2TileLibraryEntryStrc* pTile); // 0x00604BC0
 void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
 void __fastcall sub_0045B1A0_DrawDiamond(int nX, int nY, unsigned char nColor);
 D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom();
-extern int gdwGlobal_007A5208; // 0x007A5208
-extern int gdwGlobal_007A520C; // 0x007A520C
+extern int gnAutomapOriginY; // 0x007A5208
+extern int gnAutomapOriginX; // 0x007A520C
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
@@ -155,10 +155,10 @@ void __stdcall sub_0045B5F0(D2ActiveRoomStrc* pRoom)
         {
             const int nDiamondX = nX + 0x20;
             tagRECT tRect;
-            tRect.left = nDiamondX - gdwGlobal_007A520C - 0x10;
-            tRect.right = nDiamondX - gdwGlobal_007A520C + 0x10;
-            tRect.top = nY - gdwGlobal_007A5208;
-            tRect.bottom = nY - gdwGlobal_007A5208 + 0x10;
+            tRect.left = nDiamondX - gnAutomapOriginX - 0x10;
+            tRect.right = nDiamondX - gnAutomapOriginX + 0x10;
+            tRect.top = nY - gnAutomapOriginY;
+            tRect.bottom = nY - gnAutomapOriginY + 0x10;
             D2GFX_UtilDiamond(&tRect, 0x78);
         }
         else if (pTile->dwFlags & 0x800)
@@ -170,8 +170,8 @@ void __stdcall sub_0045B5F0(D2ActiveRoomStrc* pRoom)
             sub_0045B1A0_DrawDiamond(nX, nY, 0xFF);
         }
 
-        nX -= gdwGlobal_007A520C + 7;
-        nY -= gdwGlobal_007A5208;
+        nX -= gnAutomapOriginX + 7;
+        nY -= gnAutomapOriginY;
         D2GFX_OutputString(nX, nY, gszFormatInt_006D57BC, pTile->pCoordList->nIndex);
     }
 
@@ -189,8 +189,8 @@ void __stdcall sub_0045B5F0(D2ActiveRoomStrc* pRoom)
             for (int j = 0; j < 4; ++j)
             {
                 DUNGEON_GameTileToClientCoords(&aX[j], &aY[j]);
-                aX[j] -= gdwGlobal_007A520C;
-                aY[j] -= gdwGlobal_007A5208;
+                aX[j] -= gnAutomapOriginX;
+                aY[j] -= gnAutomapOriginY;
             }
 
             if (pRoom == sub_004646A0_GetPlayerRoom())
@@ -268,7 +268,8 @@ inline void* operator new(unsigned int nSize, void* pWhere) throw()
 // 0x0045BDD0
 D2ClientAllocRecStrc* D2ClientAllocRecListStrc::sub_0045BDD0_NewNode(unsigned int nLocation, unsigned int nExtraBytes, unsigned int nFlags)
 {
-    void* pMemory = SMemAlloc(sizeof(D2ClientAllocRecStrc) + nExtraBytes, gszTypeNameAllocRec_00711480, -2, nFlags | 8);
+// build: symbol ?gszTypeNameAllocRec@* 0x00711480
+    void* pMemory = SMemAlloc(sizeof(D2ClientAllocRecStrc) + nExtraBytes, gszTypeNameAllocRec, -2, nFlags | 8);
     D2ClientAllocRecStrc* pNode = pMemory ? new (pMemory) D2ClientAllocRecStrc : 0;
     if (nLocation)
         sub_0045BBE0_LinkNode(pNode, nLocation, 0);
@@ -287,7 +288,7 @@ D2ClientAllocRecStrc* D2ClientAllocRecListStrc::sub_0045BE90_DeleteNode(D2Client
 {
     D2ClientAllocRecStrc* pNext = Next(pNode);
     pNode->~D2ClientAllocRecStrc();
-    SMemFree(pNode, gszTypeNameAllocRec_00711480, -2, 0);
+    SMemFree(pNode, gszTypeNameAllocRec, -2, 0);
     return pNext;
 }
 

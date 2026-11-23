@@ -78,8 +78,8 @@ struct D2TileLightCtxStrc
     int unk0xEAAC;
     unsigned int nSize;
 };
-extern D2LightOffsetsStrc gaLightOffsetsA_0072ABC8[]; // 0x0072ABC8
-extern D2LightOffsetsStrc gaLightOffsetsB_0072A9E8[]; // 0x0072A9E8
+extern D2LightOffsetsStrc gaLightOffsetsA[]; // 0x0072ABC8
+extern D2LightOffsetsStrc gaLightOffsetsB[]; // 0x0072A9E8
 int __cdecl sub_0045AE90(); // 0x0045AE90
 int __cdecl DLIGHTMAP_GetRenderMode(); // 0x00477730
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
@@ -132,7 +132,7 @@ struct D2SoundRecordStrc
 
 #pragma pack(pop)
 
-extern D2SlotStrc gaSlots_007C8A78[16]; // 0x007C8A78
+extern D2SlotStrc gaSlots[16]; // 0x007C8A78
 int __fastcall sub_004B9DA0_CompareItems(D2SlotObjectStrc* pA, D2SlotObjectStrc* pB, int bCompareFloat, int bCompareValue); // 0x004B9DA0
 D2SoundRecordStrc* __fastcall sub_00481860(int nId); // 0x00481860
 int __fastcall SOUNDHDR_PickVariant(int nId); // 0x00482680
@@ -149,8 +149,8 @@ int __fastcall D2SOUND_StartSoundStream(D2SoundStrc* pSound, const char* szFileN
 void __fastcall D2SOUND_ResetSound(D2SoundStrc* pSound); // 0x00516140
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
-extern D2NpcSoundStrc gaNpcSounds_0072AE28[]; // 0x0072AE28
-extern D2DrlgActStrc* gpAct_007A0634; // 0x007A0634
+extern D2NpcSoundStrc gaNpcSounds[]; // 0x0072AE28
+extern D2DrlgActStrc* gpAct; // 0x007A0634
 int __fastcall sub_004E40A0(int nRange); // 0x004E40A0
 int __cdecl sub_0044DB00(); // 0x0044DB00
 
@@ -219,8 +219,8 @@ struct D2RC4Strc
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-extern const unsigned char gaDirection64To4_006DBA60[64]; // 0x006DBA60
-extern const unsigned char gaDirection4_006DBA58[4]; // 0x006DBA58
+extern const unsigned char gaDirection64To4[64]; // 0x006DBA60
+extern const unsigned char gaDirection4[4]; // 0x006DBA58
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
@@ -235,10 +235,11 @@ static int __stdcall sub_004E1400_UpdateInfernoAnimation(D2UnitStrc* pUnit, D2Un
 
 static D2LightOffsetsStrc* __stdcall sub_004DEDB0_GetLightOffsets(D2TileLibraryEntryStrc* pTile, unsigned int* pCount, int bAlternate)
 {
-    *pCount = gaLightSampleCounts_006DB9D8[pTile->nLightDirection];
+// build: symbol ?gaLightSampleCounts@* 0x006DB9D8
+    *pCount = gaLightSampleCounts[pTile->nLightDirection];
     if (bAlternate)
-        return &gaLightOffsetsA_0072ABC8[pTile->nLightDirection];
-    return &gaLightOffsetsB_0072A9E8[pTile->nLightDirection];
+        return &gaLightOffsetsA[pTile->nLightDirection];
+    return &gaLightOffsetsB[pTile->nLightDirection];
 }
 
 // 0x004DF1C0
@@ -359,17 +360,17 @@ static D2SlotStrc* __stdcall sub_004DFB50_GetFreeSlot(D2SlotObjectStrc* pObject,
 {
     for (int i = 0; i < 16; ++i)
     {
-        D2SlotStrc* pSlot = &gaSlots_007C8A78[i];
+        D2SlotStrc* pSlot = &gaSlots[i];
         if (!pSlot->pObject && pSlot->nType == nType && !sub_00515710(pSlot->pSound))
             return pSlot;
     }
     D2SlotStrc* pBest = 0;
     for (int i = 0; i < 16; ++i)
     {
-        if (gaSlots_007C8A78[i].nType == nType && gaSlots_007C8A78[i].pObject)
+        if (gaSlots[i].nType == nType && gaSlots[i].pObject)
         {
-            if (!pBest || sub_004B9DA0_CompareItems(pBest->pObject, gaSlots_007C8A78[i].pObject, 1, 1))
-                pBest = &gaSlots_007C8A78[i];
+            if (!pBest || sub_004B9DA0_CompareItems(pBest->pObject, gaSlots[i].pObject, 1, 1))
+                pBest = &gaSlots[i];
         }
     }
     if (!pBest || !sub_004B9DA0_CompareItems(pObject, pBest->pObject, 0, 0))
@@ -473,68 +474,68 @@ static D2NpcSoundStrc* sub_004E0370_GetNpcSoundRecord(D2UnitStrc* pUnit)
     switch (pUnit->dwClassId)
     {
     case 0x94:
-        return &gaNpcSounds_0072AE28[0];
+        return &gaNpcSounds[0];
     case 0xFE:
-        return &gaNpcSounds_0072AE28[1];
+        return &gaNpcSounds[1];
     case 0xFC:
-        return &gaNpcSounds_0072AE28[2];
+        return &gaNpcSounds[2];
     case 0xB0:
-        return &gaNpcSounds_0072AE28[3];
+        return &gaNpcSounds[3];
     case 0x9A:
-        return &gaNpcSounds_0072AE28[5];
+        return &gaNpcSounds[5];
     case 0xB1:
-        return &gaNpcSounds_0072AE28[6];
+        return &gaNpcSounds[6];
     case 0xC7:
-        return &gaNpcSounds_0072AE28[7];
+        return &gaNpcSounds[7];
     case 0xB2:
-        return &gaNpcSounds_0072AE28[8];
+        return &gaNpcSounds[8];
     case 0xC8:
-        return &gaNpcSounds_0072AE28[9];
+        return &gaNpcSounds[9];
     case 0x93:
-        return &gaNpcSounds_0072AE28[10];
+        return &gaNpcSounds[10];
     case 0xC6:
-        return &gaNpcSounds_0072AE28[11];
+        return &gaNpcSounds[11];
     case 0x101:
-        return &gaNpcSounds_0072AE28[12];
+        return &gaNpcSounds[12];
     case 0xFD:
-        return &gaNpcSounds_0072AE28[13];
+        return &gaNpcSounds[13];
     case 0xC9:
-        return &gaNpcSounds_0072AE28[16];
+        return &gaNpcSounds[16];
     case 0x96:
-        return &gaNpcSounds_0072AE28[17];
+        return &gaNpcSounds[17];
     case 0xCA:
-        return &gaNpcSounds_0072AE28[18];
+        return &gaNpcSounds[18];
     case 0xD2:
-        return &gaNpcSounds_0072AE28[19];
+        return &gaNpcSounds[19];
     case 0x129:
-        return &gaNpcSounds_0072AE28[20];
+        return &gaNpcSounds[20];
     case 0xFF:
-        return &gaNpcSounds_0072AE28[21];
+        return &gaNpcSounds[21];
     case 0x9B:
     case 0xAF:
-        return &gaNpcSounds_0072AE28[23];
+        return &gaNpcSounds[23];
     case 0x195:
-        return &gaNpcSounds_0072AE28[14];
+        return &gaNpcSounds[14];
     case 0x92:
     case 0xF4:
     case 0xF5:
     case 0xF6:
     case 0x109:
     case 0x208:
-        return &gaNpcSounds_0072AE28[4];
+        return &gaNpcSounds[4];
     case 0xFB:
     case 0x209:
-        return &gaNpcSounds_0072AE28[22];
+        return &gaNpcSounds[22];
     case 0x200:
-        return &gaNpcSounds_0072AE28[24];
+        return &gaNpcSounds[24];
     case 0x203:
-        return &gaNpcSounds_0072AE28[25];
+        return &gaNpcSounds[25];
     case 0x202:
-        return &gaNpcSounds_0072AE28[28];
+        return &gaNpcSounds[28];
     case 0x1FF:
-        return &gaNpcSounds_0072AE28[27];
+        return &gaNpcSounds[27];
     case 0x201:
-        return &gaNpcSounds_0072AE28[26];
+        return &gaNpcSounds[26];
     }
 
     return 0;
@@ -568,7 +569,7 @@ int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType)
         {
             if (!nSound || !sub_004E40A0(3))
             {
-                const int nCycle = ENVIRONMENT_GetCycleIndexFromAct(gpAct_007A0634);
+                const int nCycle = ENVIRONMENT_GetCycleIndexFromAct(gpAct);
                 nSound = pSound->nNightSound;
                 if (nCycle != 1)
                 {
@@ -821,7 +822,7 @@ int __fastcall sub_004E1120_SkillCreateTargetMissile(D2UnitStrc* pUnit, int nSki
     tMissile.nSkill = nSkillId;
     tMissile.nSkillLevel = nSkillLevel;
     tMissile.nMissile = nMissile;
-    sub_006488A0_SetDirection(pUnit->pDynamicPath, gaDirection4_006DBA58[gaDirection64To4_006DBA60[UNITS_GetDirectionToCoords(pUnit, nEndX, nEndY) & 0x3F] & 3]);
+    sub_006488A0_SetDirection(pUnit->pDynamicPath, gaDirection4[gaDirection64To4[UNITS_GetDirectionToCoords(pUnit, nEndX, nEndY) & 0x3F] & 3]);
     sub_004CD540_CreateMissile(&tMissile);
     return 1;
 }

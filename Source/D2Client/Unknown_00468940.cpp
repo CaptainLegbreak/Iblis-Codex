@@ -390,63 +390,63 @@ void __cdecl sub_00468FE0_Phrase1F()
     sub_004785B0_SendPacket3(0x3F, 0x1F);
 }
 
-void (__cdecl* gpfnCallback_007A6B10)(); // 0x007A6B10
+void (__cdecl* gpfnMButtonDownCommand)(); // 0x007A6B10
 
-void (__cdecl* gpfnCallback_007A740C)(); // 0x007A740C
+void (__cdecl* gpfnMButtonUpCommand)(); // 0x007A740C
 
-void (__cdecl* gpfnCallback_007A7414)(); // 0x007A7414
+void (__cdecl* gpfnXButton1DownCommand)(); // 0x007A7414
 
-void (__cdecl* gpfnCallback_007A6B14)(); // 0x007A6B14
+void (__cdecl* gpfnXButton1UpCommand)(); // 0x007A6B14
 
-void (__cdecl* gpfnCallback_007A7410)(); // 0x007A7410
+void (__cdecl* gpfnXButton2DownCommand)(); // 0x007A7410
 
 // 0x00469230
 void __cdecl sub_00469230()
 {
-    if (gpfnCallback_007A6B10)
+    if (gpfnMButtonDownCommand)
     {
-        D2_ASSERT(!IsBadCodePtr(gpfnCallback_007A6B10), 0x339);
-        gpfnCallback_007A6B10();
+        D2_ASSERT(!IsBadCodePtr(gpfnMButtonDownCommand), 0x339);
+        gpfnMButtonDownCommand();
     }
 }
 
 // 0x00469270
 void __cdecl sub_00469270()
 {
-    if (gpfnCallback_007A740C)
+    if (gpfnMButtonUpCommand)
     {
-        D2_ASSERT(!IsBadCodePtr(gpfnCallback_007A740C), 0x345);
-        gpfnCallback_007A740C();
+        D2_ASSERT(!IsBadCodePtr(gpfnMButtonUpCommand), 0x345);
+        gpfnMButtonUpCommand();
     }
 }
 
 // 0x004692B0
 void __cdecl sub_004692B0()
 {
-    if (gpfnCallback_007A7414)
+    if (gpfnXButton1DownCommand)
     {
-        D2_ASSERT(!IsBadCodePtr(gpfnCallback_007A7414), 0x350);
-        gpfnCallback_007A7414();
+        D2_ASSERT(!IsBadCodePtr(gpfnXButton1DownCommand), 0x350);
+        gpfnXButton1DownCommand();
     }
 }
 
 // 0x004692F0
 void __cdecl sub_004692F0()
 {
-    if (gpfnCallback_007A6B14)
+    if (gpfnXButton1UpCommand)
     {
-        D2_ASSERT(!IsBadCodePtr(gpfnCallback_007A6B14), 0x35D);
-        gpfnCallback_007A6B14();
+        D2_ASSERT(!IsBadCodePtr(gpfnXButton1UpCommand), 0x35D);
+        gpfnXButton1UpCommand();
     }
 }
 
 // 0x00469330
 void __cdecl sub_00469330()
 {
-    if (gpfnCallback_007A7410)
+    if (gpfnXButton2DownCommand)
     {
-        D2_ASSERT(!IsBadCodePtr(gpfnCallback_007A7410), 0x369);
-        gpfnCallback_007A7410();
+        D2_ASSERT(!IsBadCodePtr(gpfnXButton2DownCommand), 0x369);
+        gpfnXButton2DownCommand();
     }
 }
 

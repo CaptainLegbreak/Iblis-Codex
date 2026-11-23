@@ -27,27 +27,27 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg);
 unsigned char __stdcall sub_004FB180_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);  // 0x004FB180
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
-extern D2WheelCallbackFn gpfnWheelUp_007A7404;                                                              // 0x007A7404
-extern D2WheelCallbackFn gpfnWheelDown_007A7408;                                                            // 0x007A7408
+extern D2WheelCallbackFn gpfnWheelUp;                                                              // 0x007A7404
+extern D2WheelCallbackFn gpfnWheelDown;                                                            // 0x007A7408
 extern D2HotkeyStrc gtHotkeys_007A6F90[NUM_HOTKEYS];                                                        // 0x007A6F90
-extern D2UnitStrc* gpAiTargets_007A7470[];                                                                  // 0x007A7470
+extern D2UnitStrc* gapAiTargets[];                                                                  // 0x007A7470
 extern unsigned char gabColors_007BCAD8[5];                                                                 // 0x007BCAD8
-extern int gdwGlobal_007BCBF0;                                                                              // 0x007BCBF0
-extern int gnGlobal_007BCE2C;                                                                               // 0x007BCE2C
-extern int gnGlobal_00721E34;                                                                               // 0x00721E34
-extern int gnGlobal_00721E3C;                                                                               // 0x00721E3C
-extern int gnGlobal_00721E40;                                                                               // 0x00721E40
-extern int gnGlobal_00721E44;                                                                               // 0x00721E44
-extern int gnGlobal_00721E48;                                                                               // 0x00721E48
-extern int gnGlobal_00721E4C;                                                                               // 0x00721E4C
-extern int gnGlobal_00721E50;                                                                               // 0x00721E50
-extern int gdwGlobal_007BCBE4;                                                                              // 0x007BCBE4
-extern int gdwGlobal_007BCBE8;                                                                              // 0x007BCBE8
-extern int gdwGlobal_007BCBF4;                                                                              // 0x007BCBF4
-extern int gdwGlobal_007BCBF8;                                                                              // 0x007BCBF8
-extern int gnGlobal_007BF1FA;                                                                               // 0x007BF1FA
-extern D2TextHeaderStrc* gpTextHeader_007BF250;                                                             // 0x007BF250
-extern int gnGlobal_007C0E7C;                                                                               // 0x007C0E7C
+extern int gnInvPanelMode;                                                                              // 0x007BCBF0
+extern int gbGoldButtonDisabled;                                                                               // 0x007BCE2C
+extern int gnDialogState;                                                                               // 0x00721E34
+extern int gnHoverTopX;                                                                               // 0x00721E3C
+extern int gnHoverTopY;                                                                               // 0x00721E40
+extern int gnHoverBottomX;                                                                               // 0x00721E44
+extern int gnHoverBottomY;                                                                               // 0x00721E48
+extern int gnHoverCellX;                                                                               // 0x00721E4C
+extern int gnHoverCellY;                                                                               // 0x00721E50
+extern int gbHoverInGrid;                                                                              // 0x007BCBE4
+extern int gbHoverInBodyLoc;                                                                              // 0x007BCBE8
+extern int gpHoverItem;                                                                              // 0x007BCBF4
+extern int gpLastHoverItem;                                                                              // 0x007BCBF8
+extern int gbTextPanelOpen;                                                                               // 0x007BF1FA
+extern D2TextHeaderStrc* gpTextHeader;                                                             // 0x007BF250
+extern int gnTradeState;                                                                               // 0x007C0E7C
 unsigned char* gpDDrawDebugFontGlyphs_008815AC;                                                             // 0x008815AC
 extern void* gpReply_008818D0;                                                                              // 0x008818D0
 extern "C" void* gpCDKeyHandle_00882744;                                                                    // 0x00882744
@@ -142,18 +142,18 @@ void __fastcall CUNIT_DispatchMouseWheel(int nSteps)
 {
     if (nSteps > 0)
     {
-        if (gpfnWheelUp_007A7404)
+        if (gpfnWheelUp)
         {
-            D2_ASSERT(!IsBadCodePtr((D2FarProcFn)gpfnWheelUp_007A7404), 0x383);
-            gpfnWheelUp_007A7404();
+            D2_ASSERT(!IsBadCodePtr((D2FarProcFn)gpfnWheelUp), 0x383);
+            gpfnWheelUp();
         }
     }
     else if (nSteps < 0)
     {
-        if (gpfnWheelDown_007A7408)
+        if (gpfnWheelDown)
         {
-            D2_ASSERT(!IsBadCodePtr((D2FarProcFn)gpfnWheelDown_007A7408), 0x38B);
-            gpfnWheelDown_007A7408();
+            D2_ASSERT(!IsBadCodePtr((D2FarProcFn)gpfnWheelDown), 0x38B);
+            gpfnWheelDown();
         }
     }
 }
@@ -195,7 +195,7 @@ void __cdecl CUNIT_ClearAiTargets()
 {
     for (int i = 0; i < 8; ++i)
     {
-        gpAiTargets_007A7470[i] = 0;
+        gapAiTargets[i] = 0;
     }
 }
 
@@ -245,7 +245,7 @@ void __cdecl CUNIT_InitColorTable()
 // 0x00489840
 int __cdecl sub_00489840_IsNpcState123()
 {
-    if (gdwGlobal_007BCBF0 == 1 || gdwGlobal_007BCBF0 == 2 || gdwGlobal_007BCBF0 == 3)
+    if (gnInvPanelMode == 1 || gnInvPanelMode == 2 || gnInvPanelMode == 3)
     {
         return 1;
     }
@@ -256,10 +256,10 @@ int __cdecl sub_00489840_IsNpcState123()
 // 0x004898A0
 void __fastcall sub_004898A0(int nMode)
 {
-    gnGlobal_007BCE2C = 1;
-    if (gdwGlobal_007BCBF0 == 13)
+    gbGoldButtonDisabled = 1;
+    if (gnInvPanelMode == 13)
     {
-        gdwGlobal_007BCBF0 = 12;
+        gnInvPanelMode = 12;
     }
 
     sub_00455F20(5, 1, 0);
@@ -268,19 +268,19 @@ void __fastcall sub_004898A0(int nMode)
 // 0x004898D0
 void __fastcall CUNIT_SetDialogState(int nState)
 {
-    gnGlobal_00721E34 = nState;
+    gnDialogState = nState;
     if (nState == 0)
     {
-        gnGlobal_00721E3C = -1;
-        gnGlobal_00721E40 = -1;
-        gnGlobal_00721E44 = -1;
-        gnGlobal_00721E48 = -1;
-        gnGlobal_00721E4C = -1;
-        gnGlobal_00721E50 = -1;
-        gdwGlobal_007BCBE4 = 0;
-        gdwGlobal_007BCBE8 = 0;
-        gdwGlobal_007BCBF4 = 0;
-        gdwGlobal_007BCBF8 = 0;
+        gnHoverTopX = -1;
+        gnHoverTopY = -1;
+        gnHoverBottomX = -1;
+        gnHoverBottomY = -1;
+        gnHoverCellX = -1;
+        gnHoverCellY = -1;
+        gbHoverInGrid = 0;
+        gbHoverInBodyLoc = 0;
+        gpHoverItem = 0;
+        gpLastHoverItem = 0;
     }
 }
 
@@ -288,18 +288,18 @@ void __fastcall CUNIT_SetDialogState(int nState)
 void __cdecl CUNIT_ClearTextPanel()
 {
     TEXT_ResetTextBox();
-    gnGlobal_007BF1FA = 0;
-    if (gpTextHeader_007BF250)
+    gbTextPanelOpen = 0;
+    if (gpTextHeader)
     {
-        TEXT_FreeTextHeader(gpTextHeader_007BF250);
-        gpTextHeader_007BF250 = 0;
+        TEXT_FreeTextHeader(gpTextHeader);
+        gpTextHeader = 0;
     }
 }
 
 // 0x004B8A10
 int __cdecl sub_004B8A10()
 {
-    if (gnGlobal_007C0E7C == 1 || gnGlobal_007C0E7C == 2)
+    if (gnTradeState == 1 || gnTradeState == 2)
     {
         return 1;
     }

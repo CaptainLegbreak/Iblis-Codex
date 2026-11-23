@@ -43,7 +43,7 @@ struct T00481920
     int nEntryB;
 };
 
-extern D2DrlgActStrc* gpAct_007A0634; // 0x007A0634
+extern D2DrlgActStrc* gpAct; // 0x007A0634
 
 int __cdecl sub_004DF870(); // 0x004DF870
 
@@ -135,9 +135,9 @@ D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 
-extern D2CombinedStatIdStrc gaCombinedStatIds_0072CDD0[]; // 0x0072CDD0
+extern D2CombinedStatIdStrc gaCombinedStatIds[]; // 0x0072CDD0
 
-extern D2FileIndexTextStrc gaFileIndexText_0072D6C0[]; // 0x0072D6C0
+extern D2FileIndexTextStrc gaFileIndexText[]; // 0x0072D6C0
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -165,33 +165,36 @@ void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, i
 
 int __fastcall SKILLDESC_AttackRatingCallback(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int nArg3, int nArg4, int nLevel, D2SkillStrc* pSkill, int nArg7, D2UnitStrc* pItem); // 0x004E8FE0
 
-int gnGlobal_007C8C7C; // 0x007C8C7C
+int gnEnvironLevelId; // 0x007C8C7C
 
-int gnGlobal_007C8C80; // 0x007C8C80
+int gnEnvironSoundHandle; // 0x007C8C80
 
-int gnGlobal_007C8C84; // 0x007C8C84
+int gnWeatherSoundHandle; // 0x007C8C84
 
-int gnGlobal_007C8C88; // 0x007C8C88
+int gnEnvironSoundId; // 0x007C8C88
 
-int gnGlobal_007C8C8C; // 0x007C8C8C
+int gnWeatherSoundId; // 0x007C8C8C
 
-int gnGlobal_007C8C90; // 0x007C8C90
+int gnEnvironAmbientId; // 0x007C8C90
 
-unsigned int gnGlobal_007C8C94; // 0x007C8C94
+unsigned int gnAmbientDelay; // 0x007C8C94
 
-unsigned int gnGlobal_007C8C98; // 0x007C8C98
+unsigned int gnAmbientTick; // 0x007C8C98
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);
 
 extern "C" const char szFmtD_006D57BC[];                                                                    // 0x006D57BC
 
-extern "C" const char szFmtRange_006D9D70[];                                                                // 0x006D9D70
+extern "C" const char gszFmtRange[];                                                                // 0x006D9D70
 
-extern int gnGlobal_00711470;
+// build: symbol ?gnScreenHeight@* 0x00711470
+extern int gnScreenHeight;
 
-extern int gnGlobal_007A2858;
+// build: symbol ?gnPanelOffsetX@* 0x007A2858
+extern int gnPanelOffsetX;
 
-extern int gnGlobal_007A285C;
+// build: symbol ?gnPanelOffsetY@* 0x007A285C
+extern int gnPanelOffsetY;
 
 extern unsigned int gdwBitMasks_006CE268[];
 
@@ -258,7 +261,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
     int nAmbient = 0;
     int nVolume = 0;
     int bNight;
-    switch (ENVIRONMENT_GetCycleIndexFromAct(gpAct_007A0634))
+    switch (ENVIRONMENT_GetCycleIndexFromAct(gpAct))
     {
     case 1:
     case 2:
@@ -290,52 +293,52 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
         const float fVolume = !sub_00473C40() ? 0.0f : sub_00473C80();
         nVolume = (int)(fVolume * 255.0);
     }
-    if (nSound != gnGlobal_007C8C88)
+    if (nSound != gnEnvironSoundId)
     {
         int bCross = 0;
-        if (nSound == pEnv->nDaySound && gnGlobal_007C8C88 == pEnv->nNightSound)
+        if (nSound == pEnv->nDaySound && gnEnvironSoundId == pEnv->nNightSound)
             bCross = 1;
-        if (nSound == pEnv->nNightSound && gnGlobal_007C8C88 == pEnv->nDaySound)
+        if (nSound == pEnv->nNightSound && gnEnvironSoundId == pEnv->nDaySound)
             bCross = 1;
         if (bCross)
         {
-            sub_004B9EF0_ArmHint(gnGlobal_007C8C80, 0, 0, 0xFA);
+            sub_004B9EF0_ArmHint(gnEnvironSoundHandle, 0, 0, 0xFA);
         }
         else
         {
             sub_004BA950_RefreshHintsInRangeA(nSound, nSecond);
             sub_004BA9D0_RefreshHintsInRangeB(nAmbient, 0);
         }
-        if (nSound != gnGlobal_007C8C88)
+        if (nSound != gnEnvironSoundId)
         {
             if (nSound)
             {
-                gnGlobal_007C8C80 = sub_004B9A00(nSound, 0, 0, 0, 0);
+                gnEnvironSoundHandle = sub_004B9A00(nSound, 0, 0, 0, 0);
                 if (bCross)
                 {
-                    sub_004B9B50_SetValue(gnGlobal_007C8C80, 0);
-                    sub_004B9EF0_ArmHint(gnGlobal_007C8C80, 0xFF, 0, 0xFA);
+                    sub_004B9B50_SetValue(gnEnvironSoundHandle, 0);
+                    sub_004B9EF0_ArmHint(gnEnvironSoundHandle, 0xFF, 0, 0xFA);
                 }
-                gnGlobal_007C8C88 = nSound;
+                gnEnvironSoundId = nSound;
             }
             else
             {
-                gnGlobal_007C8C80 = 0;
-                gnGlobal_007C8C88 = 0;
+                gnEnvironSoundHandle = 0;
+                gnEnvironSoundId = 0;
             }
         }
     }
     if (nSecond)
     {
-        if (nVolume && !gnGlobal_007C8C84)
+        if (nVolume && !gnWeatherSoundHandle)
         {
-            gnGlobal_007C8C84 = sub_004B9A00(gnGlobal_007C8C8C, 0, 0, 0, 0);
-            if (gnGlobal_007C8C84)
-                sub_004B9B50_SetValue(gnGlobal_007C8C84, nVolume);
+            gnWeatherSoundHandle = sub_004B9A00(gnWeatherSoundId, 0, 0, 0, 0);
+            if (gnWeatherSoundHandle)
+                sub_004B9B50_SetValue(gnWeatherSoundHandle, nVolume);
         }
-        if (gnGlobal_007C8C84)
+        if (gnWeatherSoundHandle)
         {
-            const int nCurrent = sub_004B9B20(gnGlobal_007C8C84);
+            const int nCurrent = sub_004B9B20(gnWeatherSoundHandle);
             int nNext;
             if (nVolume > nCurrent)
                 nNext = nVolume < nCurrent + 6 ? nVolume : nCurrent + 6;
@@ -343,46 +346,46 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
                 nNext = nVolume > nCurrent - 6 ? nVolume : nCurrent - 6;
             if (nNext)
             {
-                sub_004B9B50_SetValue(gnGlobal_007C8C84, nNext);
+                sub_004B9B50_SetValue(gnWeatherSoundHandle, nNext);
             }
             else
             {
-                sub_004BA840(gnGlobal_007C8C84);
-                gnGlobal_007C8C84 = 0;
+                sub_004BA840(gnWeatherSoundHandle);
+                gnWeatherSoundHandle = 0;
             }
         }
-        gnGlobal_007C8C8C = nSecond;
+        gnWeatherSoundId = nSecond;
     }
     else
     {
-        sub_004BA840(gnGlobal_007C8C84);
-        gnGlobal_007C8C84 = 0;
-        gnGlobal_007C8C8C = 0;
+        sub_004BA840(gnWeatherSoundHandle);
+        gnWeatherSoundHandle = 0;
+        gnWeatherSoundId = 0;
     }
     sub_004DF6C0(nEnviron);
     if (nAmbient)
     {
-        if (nAmbient != gnGlobal_007C8C90)
+        if (nAmbient != gnEnvironAmbientId)
         {
-            gnGlobal_007C8C94 = sub_004E4120(pEnv->nAmbientDelay / 3) + pEnv->nAmbientDelay;
-            gnGlobal_007C8C98 = dwTick - sub_004E40A0(gnGlobal_007C8C94);
-            gnGlobal_007C8C90 = nAmbient;
+            gnAmbientDelay = sub_004E4120(pEnv->nAmbientDelay / 3) + pEnv->nAmbientDelay;
+            gnAmbientTick = dwTick - sub_004E40A0(gnAmbientDelay);
+            gnEnvironAmbientId = nAmbient;
         }
-        if (dwTick - gnGlobal_007C8C98 >= gnGlobal_007C8C94)
+        if (dwTick - gnAmbientTick >= gnAmbientDelay)
         {
-            const int nHandle = sub_004B9A00(gnGlobal_007C8C90, 0, 0, 0, 0);
+            const int nHandle = sub_004B9A00(gnEnvironAmbientId, 0, 0, 0, 0);
             if (nHandle)
             {
                 const int nSign = sub_004E40A0(2) ? 1 : -1;
                 const int nPan = SKILLDESC_RandomInRange(0x1C2, 0x2EE) * nSign;
                 const int nPanVolume = sub_004E4120(0x64);
                 sub_004B99A0(nHandle, nPan, nPanVolume, 0);
-                gnGlobal_007C8C98 = dwTick;
-                gnGlobal_007C8C94 = sub_004E4120(pEnv->nAmbientDelay / 3) + pEnv->nAmbientDelay;
+                gnAmbientTick = dwTick;
+                gnAmbientDelay = sub_004E4120(pEnv->nAmbientDelay / 3) + pEnv->nAmbientDelay;
             }
         }
     }
-    if (nLevelId != gnGlobal_007C8C7C)
+    if (nLevelId != gnEnvironLevelId)
     {
         const int nEntryA = pEnv->nEntryA;
         const int nEntryB = pEnv->nEntryB;
@@ -392,7 +395,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
             SKILLDESC_AddEnvironSoundRefs(nEntryA);
         if (nEntryB)
             SKILLDESC_AddEnvironSoundRefs(nEntryB);
-        gnGlobal_007C8C7C = nLevelId;
+        gnEnvironLevelId = nLevelId;
     }
 }
 
@@ -400,9 +403,10 @@ static void __stdcall sub_004E49C0_CollectCombinedStats(D2UnitStrc* pUnit, D2Sta
 {
     memset(pCombined, 0, sizeof(D2CombinedStatsStrc));
 
-    for (int i = 0; i < gnCombinedStatCount_0072CDCC; ++i)
+// build: symbol ?gnCombinedStatCount@* 0x0072CDCC
+    for (int i = 0; i < gnCombinedStatCount; ++i)
     {
-        const int nStatId = gaCombinedStatIds_0072CDD0[i].nStatId;
+        const int nStatId = gaCombinedStatIds[i].nStatId;
         if (nStatId == -1)
             continue;
 
@@ -559,7 +563,8 @@ static int __stdcall sub_004E4D80_BuildStatText(D2UnitStrc* pUnit, D2StatListStr
     }
 
     char szNumber[10];
-    SStrPrintf(szNumber, 10, szIntFormat_006D6454, nDisplay);
+// build: symbol ?gszFormatI@* 0x006D6454
+    SStrPrintf(szNumber, 10, gszFormatI, nDisplay);
     Unicode wszNumber[10];
     sub_00526320_ToUnicode(wszNumber, szNumber, 9);
 
@@ -632,7 +637,7 @@ static int __stdcall sub_004E4D80_BuildStatText(D2UnitStrc* pUnit, D2StatListStr
     case 20:
     case 21:
         nDisplay = -nDisplay;
-        SStrPrintf(szNumber, 10, szIntFormat_006D6454, nDisplay);
+        SStrPrintf(szNumber, 10, gszFormatI, nDisplay);
         sub_00526320_ToUnicode(wszNumber, szNumber, 9);
         if (nDescVal == 1)
         {
@@ -701,7 +706,7 @@ static int __stdcall sub_004E4D80_BuildStatText(D2UnitStrc* pUnit, D2StatListStr
         break;
     case 5:
     case 10:
-        SStrPrintf(szNumber, 10, szIntFormat_006D6454, nDisplay * 100 / 128);
+        SStrPrintf(szNumber, 10, gszFormatI, nDisplay * 100 / 128);
         sub_00526320_ToUnicode(wszNumber, szNumber, 9);
         if (nDescVal == 1)
         {
@@ -820,21 +825,22 @@ static int __stdcall sub_004E4D80_BuildStatText(D2UnitStrc* pUnit, D2StatListStr
         wszValue[0] = 0;
         int nPeriodOfDay = 0;
         int nBaseTime = 0;
-        if (gpAct_007A0634)
-            nPeriodOfDay = ENVIRONMENT_GetPeriodOfDayFromAct(gpAct_007A0634, &nBaseTime);
+        if (gpAct)
+            nPeriodOfDay = ENVIRONMENT_GetPeriodOfDayFromAct(gpAct, &nBaseTime);
 
         int nMin;
         int nMax;
         int nAmount = ITEMMODS_GetByTimeAdjustment(nDisplay, nPeriodOfDay, nBaseTime, &nPeriodOfDay, &nMin, &nMax);
-        if (!gpAct_007A0634)
+        if (!gpAct)
             nAmount = nMin;
 
         const int nPeriod = nPeriodOfDay > 0 ? nPeriodOfDay : 0;
         nPeriodOfDay = nPeriod < 3 ? nPeriod : 3;
-        sub_00526700(pOut, D2LANG_GetStringFromTblIndex(gawPeriodOfDayStr_006DBD88[nPeriodOfDay]));
+// build: symbol ?gawPeriodOfDayStr@* 0x006DBD88
+        sub_00526700(pOut, D2LANG_GetStringFromTblIndex(gawPeriodOfDayStr[nPeriodOfDay]));
         sub_00526700(pOut, D2LANG_GetStringFromTblIndex(0xF9E));
 
-        SStrPrintf(szNumber, 10, szIntFormat_006D6454, nAmount);
+        SStrPrintf(szNumber, 10, gszFormatI, nAmount);
         sub_00526320_ToUnicode(wszNumber, szNumber, 9);
         if (nAmount >= 0)
         {
@@ -943,7 +949,7 @@ static int __stdcall sub_004E4D80_BuildStatText(D2UnitStrc* pUnit, D2StatListStr
         wszValue[0] = 0;
         sub_00526700(pOut, D2LANG_GetStringFromTblIndex(0x5301));
         sub_00526700(pOut, pSpace);
-        SStrPrintf(szNumber, 10, szIntFormat_006D6454, nLevel);
+        SStrPrintf(szNumber, 10, gszFormatI, nLevel);
         sub_00526320_ToUnicode(wszNumber, szNumber, 9);
         sub_00526700(pOut, wszNumber);
         sub_00526700(pOut, pSpace);
@@ -1052,7 +1058,7 @@ static int __stdcall sub_004E4D80_BuildStatText(D2UnitStrc* pUnit, D2StatListStr
         if (!pSkillName)
             break;
 
-        SStrPrintf(szNumber, 10, szIntFormat_006D6454, nDisplay);
+        SStrPrintf(szNumber, 10, gszFormatI, nDisplay);
         sub_00526320_ToUnicode(wszNumber, szNumber, 9);
         if (nDisplay > 0)
         {
@@ -1192,7 +1198,7 @@ static int __stdcall sub_004E5A20_BuildCombinedStatText(int nStatId, Unicode* pO
         const Unicode* pPlus = D2LANG_GetStringFromTblIndex(0xFA2);
         Unicode wszNumber[10];
         char szNumber[10];
-        SStrPrintf(szNumber, 10, szIntFormat_006D6454, pCombined->tDamagePercent.nMin);
+        SStrPrintf(szNumber, 10, gszFormatI, pCombined->tDamagePercent.nMin);
         sub_00526320_ToUnicode(wszNumber, szNumber, 9);
         if (!pCombined->tDamagePercent.bCombined)
             return 0;
@@ -1222,7 +1228,7 @@ void __fastcall sub_004E60A0_AddSetPropText(D2UnitStrc* pUnit, Unicode* pOut, in
 
     if (ITEMS_GetItemType(pUnit) == ITEMTYPE_ELIXIR)
     {
-        sub_004E5E90_BuildFileIndexStatText(pUnit, pOut, gaFileIndexText_0072D6C0);
+        sub_004E5E90_BuildFileIndexStatText(pUnit, pOut, gaFileIndexText);
         return;
     }
 
@@ -1358,9 +1364,10 @@ static void __stdcall sub_004E5E90_BuildFileIndexStatText(D2UnitStrc* pUnit, Uni
     tLocals.nFileIndex = ITEMS_GetFileIndex(pUnit);
 
     unsigned int i = 0;
-    if (i < gnFileIndexTextCount_0072D720)
+// build: symbol ?gnFileIndexTextCount@* 0x0072D720
+    if (i < gnFileIndexTextCount)
     {
-        tLocals.nDelta = (char*)&gaFileIndexText_0072D6C0[0].nPos - (char*)pTable;
+        tLocals.nDelta = (char*)&gaFileIndexText[0].nPos - (char*)pTable;
         do
         {
             if (pTable->nFileIndex == tLocals.nFileIndex)
@@ -1386,7 +1393,7 @@ static void __stdcall sub_004E5E90_BuildFileIndexStatText(D2UnitStrc* pUnit, Uni
                 {
                     Unicode wszNumber[10];
                     char szNumber[10];
-                    SStrPrintf(szNumber, 10, szIntFormat_006D6454, nValue);
+                    SStrPrintf(szNumber, 10, gszFormatI, nValue);
                     sub_00526320_ToUnicode(wszNumber, szNumber, 9);
 
                     switch (pTable->nMode)
@@ -1422,7 +1429,7 @@ static void __stdcall sub_004E5E90_BuildFileIndexStatText(D2UnitStrc* pUnit, Uni
                 }
             }
         }
-        while (++pTable, ++i < gnFileIndexTextCount_0072D720);
+        while (++pTable, ++i < gnFileIndexTextCount);
     }
 }
 
@@ -1748,7 +1755,7 @@ static void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin,
     }
     else if (nMin < 10000 && nMax < 10000)
     {
-        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szText, gszFmtRange, nMin, nMax);
     }
     else if (nMin >= 10000)
     {
@@ -1772,7 +1779,7 @@ static void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin,
     {
         sub_00502EF0(1);
     }
-    TEXT_DrawCenteredText(gnGlobal_007A2858 + nLeft, gnGlobal_00711470 + gnGlobal_007A285C + nY - 480, gnGlobal_007A2858 + nRight, wszText, nColor);
+    TEXT_DrawCenteredText(gnPanelOffsetX + nLeft, gnScreenHeight + gnPanelOffsetY + nY - 480, gnPanelOffsetX + nRight, wszText, nColor);
 }
 
 // build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
@@ -1821,7 +1828,7 @@ void __fastcall SKILLDESC_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStr
     }
     else if (nWeaponMin < 10000 && nWeaponMax < 10000)
     {
-        wsprintfA(szText, szFmtRange_006D9D70, nWeaponMin, nWeaponMax);
+        wsprintfA(szText, gszFmtRange, nWeaponMin, nWeaponMax);
     }
     else if (nWeaponMin >= 10000)
     {
@@ -1840,7 +1847,7 @@ void __fastcall SKILLDESC_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStr
     }
     else if (nMin < 10000 && nMax < 10000)
     {
-        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szText, gszFmtRange, nMin, nMax);
     }
     else if (nMin >= 10000)
     {

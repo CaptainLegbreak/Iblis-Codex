@@ -23,19 +23,19 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);        
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
-extern D2ViewStrc* gpView_007A0640;                                                                         // 0x007A0640
-extern int gdwGlobal_007A6A98;                                                                              // 0x007A6A98
-extern int gdwGlobal_007A6A94;                                                                              // 0x007A6A94
-extern int gnSelectedUnitType_007A6A8C;                                                                     // 0x007A6A8C
-extern unsigned int gnSelectedUnitId_007A6A78;                                                              // 0x007A6A78
-extern int gnGlobal_0071146C;                                                                               // 0x0071146C
-extern int gnGlobal_00711470;                                                                               // 0x00711470
-extern int gbSelectionRectValid_007A6A9C;                                                                   // 0x007A6A9C
-extern int gnSelectionLeft_007A6A7C;                                                                        // 0x007A6A7C
-extern int gnSelectionRight_007A6A84;                                                                       // 0x007A6A84
-extern int gnSelectionTop_007A6A80;                                                                         // 0x007A6A80
-extern int gnSelectionBottom_007A6A88;                                                                      // 0x007A6A88
-extern int gdwGlobal_007A6AA0;                                                                              // 0x007A6AA0
+extern D2ViewStrc* gpClientView;                                                                         // 0x007A0640
+extern int gbHoverLocked;                                                                              // 0x007A6A98
+extern int gbHasSelectedUnit;                                                                              // 0x007A6A94
+extern int gnSelectedUnitType;                                                                     // 0x007A6A8C
+extern unsigned int gnSelectedUnitId;                                                              // 0x007A6A78
+extern int gnScreenWidth;                                                                               // 0x0071146C
+extern int gnScreenHeight;                                                                               // 0x00711470
+extern int gbSelectionRectValid;                                                                   // 0x007A6A9C
+extern int gnSelectionLeft;                                                                        // 0x007A6A7C
+extern int gnSelectionRight;                                                                       // 0x007A6A84
+extern int gnSelectionTop;                                                                         // 0x007A6A80
+extern int gnSelectionBottom;                                                                      // 0x007A6A88
+extern int gbWarpTileHovered;                                                                              // 0x007A6AA0
 
 int __cdecl TEXT_IsTextBoxOpen();                                                                                 // 0x004A0000
 D2UnitStrc* __cdecl TEXT_GetTextUnit();                                                             // 0x0049E8B0
@@ -117,7 +117,7 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
 {
     char szBuffer[0x200];
 
-    if (gdwGlobal_007A6A98)
+    if (gbHoverLocked)
     {
         return;
     }
@@ -138,30 +138,30 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
         D2_ASSERT(sub_00466870(pUnit, 0, 0, 0), 0x4F);
         nUnitType = pUnit->dwUnitType;
         nUnitId = pUnit->dwUnitId;
-        bSame = gdwGlobal_007A6A94 && nUnitType == gnSelectedUnitType_007A6A8C && nUnitId == gnSelectedUnitId_007A6A78;
+        bSame = gbHasSelectedUnit && nUnitType == gnSelectedUnitType && nUnitId == gnSelectedUnitId;
     }
 
-    if (!bSame && gdwGlobal_007A6A94 && gnSelectedUnitType_007A6A8C == 5)
+    if (!bSame && gbHasSelectedUnit && gnSelectedUnitType == 5)
     {
-        D2UnitStrc* pOld = CUNIT_FindClientUnit(gnSelectedUnitId_007A6A78, 5);
+        D2UnitStrc* pOld = CUNIT_FindClientUnit(gnSelectedUnitId, 5);
         if (pOld)
         {
             DUNGEON_UpdateWarpRoomDeselect(UNITS_GetRoom(pOld), pOld->dwClassId);
-            VIEW_SetViewDirty(gpView_007A0640);
+            VIEW_SetViewDirty(gpClientView);
         }
     }
 
     if (!pUnit)
     {
-        gdwGlobal_007A6A94 = 0;
+        gbHasSelectedUnit = 0;
         return;
     }
 
     nUnitType = pUnit->dwUnitType;
     nUnitId = pUnit->dwUnitId;
-    gnSelectedUnitType_007A6A8C = nUnitType;
-    gnSelectedUnitId_007A6A78 = nUnitId;
-    gdwGlobal_007A6A94 = 1;
+    gnSelectedUnitType = nUnitType;
+    gnSelectedUnitId = nUnitId;
+    gbHasSelectedUnit = 1;
 
     switch (nUnitType)
     {
@@ -169,7 +169,7 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
         if (!bSame)
         {
             DUNGEON_UpdateWarpRoomSelect(UNITS_GetRoom(pUnit), pUnit->dwClassId);
-            VIEW_SetViewDirty(gpView_007A0640);
+            VIEW_SetViewDirty(gpClientView);
         }
         break;
 
@@ -179,10 +179,11 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
             const unsigned int dwNow = GetTickCount();
             if (dwNow - pUnit->dwTickCount > 0x1F4)
             {
-                sprintf(szBuffer, gszHoverTimeFormat_006D6AD4, dwNow);
+// build: symbol ?gszHoverTimeFormat@* 0x006D6AD4
+                sprintf(szBuffer, gszHoverTimeFormat, dwNow);
                 OutputDebugStringA(szBuffer);
                 pUnit->dwTickCount = dwNow;
-                sub_00478680_SendPacket5(0x3D, gnSelectedUnitId_007A6A78);
+                sub_00478680_SendPacket5(0x3D, gnSelectedUnitId);
             }
         }
         break;
@@ -202,9 +203,11 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
                 {
                     if (!(pMonStats2TxtRecord->nFlags[2] & gdwBitMasks[1]))
                     {
-                        gdwGlobal_00711F94 = nClassId;
+// build: symbol ?gnHoverClassId@* 0x00711F94
+                        gnHoverClassId = nClassId;
                     }
-                    gdwGlobal_00711F90 = nClassId;
+// build: symbol ?gnHoverMonClassId@* 0x00711F90
+                    gnHoverMonClassId = nClassId;
                 }
             }
         }
@@ -244,7 +247,7 @@ static void __stdcall sub_004670A0_AdjustCursorPerspective(int* pnX, int* pnY)
     if (sub_004F51D0_IsPerspective())
     {
         *pnY -= *pnY / 40;
-        const int nHalfWidth = gnGlobal_0071146C / 2;
+        const int nHalfWidth = gnScreenWidth / 2;
         *pnX += (40 - *pnY / 4) * (*pnX - nHalfWidth) / nHalfWidth;
     }
 
@@ -254,7 +257,7 @@ static void __stdcall sub_004670A0_AdjustCursorPerspective(int* pnX, int* pnY)
 
 static inline void HOVER_ClearHoverUnit()
 {
-    if (gdwGlobal_007A6A98)
+    if (gbHoverLocked)
     {
         return;
     }
@@ -266,16 +269,16 @@ static inline void HOVER_ClearHoverUnit()
     }
 
     TEXT_ClearHoverUnit();
-    if (gdwGlobal_007A6A94 && gnSelectedUnitType_007A6A8C == 5)
+    if (gbHasSelectedUnit && gnSelectedUnitType == 5)
     {
-        D2UnitStrc* pOld = CUNIT_FindClientUnit(gnSelectedUnitId_007A6A78, 5);
+        D2UnitStrc* pOld = CUNIT_FindClientUnit(gnSelectedUnitId, 5);
         if (pOld)
         {
             DUNGEON_UpdateWarpRoomDeselect(UNITS_GetRoom(pOld), pOld->dwClassId);
-            VIEW_SetViewDirty(gpView_007A0640);
+            VIEW_SetViewDirty(gpClientView);
         }
     }
-    gdwGlobal_007A6A94 = 0;
+    gbHasSelectedUnit = 0;
 }
 
 static int sub_00467130_GetHoverCursorPos(int* pnX, int* pnY)
@@ -289,21 +292,21 @@ static int sub_00467130_GetHoverCursorPos(int* pnX, int* pnY)
 
     *pnX = sub_00468730();
     *pnY = sub_00468740();
-    if (*pnY <= gnGlobal_00711470 - 0x31
-        && (!gbSelectionRectValid_007A6A9C || *pnX <= gnSelectionLeft_007A6A7C || *pnX >= gnSelectionRight_007A6A84
-            || *pnY <= gnSelectionTop_007A6A80 || *pnY >= gnSelectionBottom_007A6A88))
+    if (*pnY <= gnScreenHeight - 0x31
+        && (!gbSelectionRectValid || *pnX <= gnSelectionLeft || *pnX >= gnSelectionRight
+            || *pnY <= gnSelectionTop || *pnY >= gnSelectionBottom))
     {
         switch (nMode)
         {
         case 2:
-            if (*pnX < gnGlobal_0071146C / 2)
+            if (*pnX < gnScreenWidth / 2)
             {
                 break;
             }
             goto adjust;
 
         case 1:
-            if (*pnX >= gnGlobal_0071146C / 2)
+            if (*pnX >= gnScreenWidth / 2)
             {
                 break;
             }
@@ -426,7 +429,8 @@ static D2UnitStrc* __stdcall sub_00467490_FindSkillTarget(D2SkillStrc* pSkill, D
 
     int nFlags = (pSkillsTxtRecord->nFlags[3] & gdwBitMasks[0]) ? 0x3002 : 0x2003;
     D2UnitFindCallback pfnTest = 0;
-    if (SKILLS_GetSkillIdFromSkill(pSkill, gszSkillSelFile_006D6AE0, 0x301) == SKILL_IRONGOLEM)
+// build: symbol ?gszSkillSelFile@* 0x006D6AE0
+    if (SKILLS_GetSkillIdFromSkill(pSkill, gszSkillSelFile, 0x301) == SKILL_IRONGOLEM)
     {
         if (pUnit && pUnit->dwUnitType == UNIT_ITEM)
         {
@@ -475,9 +479,12 @@ static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkill
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
     for (int i = 0; i < 5; ++i)
     {
-        const int nIndex = (gnAdjacentDirOffsets_006D6B34[i] + nDirection) & 7;
-        const int nX = gnDirectionDX_006D6B14[nIndex] + CLIENT_GetUnitXInline(pUnit);
-        const int nY = gnDirectionDY_006D6AF4[nIndex] + CLIENT_GetUnitYInline(pUnit);
+// build: symbol ?gaAdjacentDirOffsets@* 0x006D6B34
+        const int nIndex = (gaAdjacentDirOffsets[i] + nDirection) & 7;
+// build: symbol ?gaDirectionDX@* 0x006D6B14
+        const int nX = gaDirectionDX[nIndex] + CLIENT_GetUnitXInline(pUnit);
+// build: symbol ?gaDirectionDY@* 0x006D6AF4
+        const int nY = gaDirectionDY[nIndex] + CLIENT_GetUnitYInline(pUnit);
         if (COLLISION_CheckMaskWithSize(pRoom, nX, nY, 1, 0x180))
         {
             D2UnitStrc* pTarget = D2Common_10407(pRoom, nX, nY, sub_00467640_UnitFindTest, 0, 1);
@@ -580,8 +587,8 @@ skip:
     return pUnit;
 }
 
-extern int gnUnitHoverPriority_00711F98[];                                                                  // 0x00711F98
-extern D2ActiveRoomStrc* gpHoverRoom_007A6AA4;                                                             // 0x007A6AA4
+extern int gaUnitHoverPriority[];                                                                  // 0x00711F98
+extern D2ActiveRoomStrc* gpHoverRoom;                                                             // 0x007A6AA4
 D2UnitStrc* __cdecl sub_00467A10();                                                            // 0x00467A10
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster);                                                       // 0x0063EA40
@@ -590,7 +597,7 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                 
 // 0x00467AC0
 void __cdecl sub_00467AC0_UpdateHoverUnit()
 {
-    if (gdwGlobal_007A6A98)
+    if (gbHoverLocked)
     {
         return;
     }
@@ -621,11 +628,11 @@ void __cdecl sub_00467AC0_UpdateHoverUnit()
         return;
     }
 
-    if (gpHoverRoom_007A6AA4 != pRoom)
+    if (gpHoverRoom != pRoom)
     {
-        gdwGlobal_007A6AA0 = 1;
+        gbWarpTileHovered = 1;
     }
-    gpHoverRoom_007A6AA4 = pRoom;
+    gpHoverRoom = pRoom;
 
     int nPlayerX = CLIENTS_GetUnitX(pPlayer);
     int nPlayerY = CLIENTS_GetUnitY(pPlayer);
@@ -662,7 +669,7 @@ void __cdecl sub_00467AC0_UpdateHoverUnit()
             }
 
             D2HoverCoordStrc tPlayerY = { nPlayerY };
-            if (sub_00467000_CheckWarpTileHover(pPlayer, tPlayerY, nX, nY, pUnit, nPlayerX, &gdwGlobal_007A6AA0))
+            if (sub_00467000_CheckWarpTileHover(pPlayer, tPlayerY, nX, nY, pUnit, nPlayerX, &gbWarpTileHovered))
             {
                 continue;
             }
@@ -690,8 +697,8 @@ void __cdecl sub_00467AC0_UpdateHoverUnit()
             }
 
             const int nBestType = pBest->dwUnitType;
-            int nPriority = gnUnitHoverPriority_00711F98[nUnitType];
-            int nBestPriority = gnUnitHoverPriority_00711F98[nBestType];
+            int nPriority = gaUnitHoverPriority[nUnitType];
+            int nBestPriority = gaUnitHoverPriority[nBestType];
             if (nUnitType == 0)
             {
                 if (CUNIT_IsDeadOrDying(pUnit))

@@ -1660,7 +1660,8 @@ int __stdcall CHARSEL_IncrementMaxPlayers(int nArg)
     int nValue = atoi(szText);
     if (nValue < 8)
         ++nValue;
-    sprintf(gszValue_0070EBD4, gszFormatD_006D57BC, nValue);
+// build: symbol ?gszFormatD@* 0x006D57BC
+    sprintf(gszValue_0070EBD4, gszFormatD, nValue);
     sub_004FFE10_SetTextA(gpMaxPlayerControl_00798C38, gszValue_0070EBD4);
     return 1;
 }
@@ -1674,7 +1675,7 @@ int __stdcall CHARSEL_DecrementMaxPlayers(int nArg)
     int nValue = atoi(szText);
     if (nValue > 1)
         --nValue;
-    sprintf(gszValue_0070EBD4, gszFormatD_006D57BC, nValue);
+    sprintf(gszValue_0070EBD4, gszFormatD, nValue);
     sub_004FFE10_SetTextA(gpMaxPlayerControl_00798C38, gszValue_0070EBD4);
     return 1;
 }
@@ -1688,7 +1689,7 @@ int __stdcall CHARSEL_IncrementLevelRange(int nArg)
     int nValue = atoi(szText);
     if (nValue < 0x63)
         ++nValue;
-    sprintf(gszValue_0070EBD0, gszFormatD_006D57BC, nValue);
+    sprintf(gszValue_0070EBD0, gszFormatD, nValue);
     sub_004FFE10_SetTextA(gpEditBox_00798C3C, gszValue_0070EBD0);
     return 1;
 }
@@ -1702,7 +1703,7 @@ int __stdcall CHARSEL_DecrementLevelRange(int nArg)
     int nValue = atoi(szText);
     if (nValue > 0)
         --nValue;
-    sprintf(gszValue_0070EBD0, gszFormatD_006D57BC, nValue);
+    sprintf(gszValue_0070EBD0, gszFormatD, nValue);
     sub_004FFE10_SetTextA(gpEditBox_00798C3C, gszValue_0070EBD0);
     return 1;
 }

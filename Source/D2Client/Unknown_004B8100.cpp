@@ -84,7 +84,7 @@ struct T00481920
 };
 
 extern D2SoundNodeStrc* gpSoundList_007C5458; // 0x007C5458
-extern int gbSoundReady_007C545C; // 0x007C545C
+extern int gbClientSoundReady; // 0x007C545C
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl sub_00481820(); // 0x00481820
 D2SoundsTxtStrc* __fastcall sub_00481860(int nId); // 0x00481860
@@ -95,7 +95,7 @@ float __stdcall GFXUTIL_VectorLengthSquared(float fX, float fY); // 0x004E4160
 void __fastcall D2SOUND_ListAddHead(D2SoundUnitNodeStrc** ppList, D2UnitStrc* pUnit); // 0x00516950
 void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
 
-int gnSelectionFrame_007C0E50; // 0x007C0E50
+int gnSelectionFrame; // 0x007C0E50
 
 // 0x004B8100
 void __fastcall sub_004B8100_DrawDialog(D2ClientDialogStrc* pDialog)
@@ -159,10 +159,10 @@ void __fastcall sub_004B8100_DrawDialog(D2ClientDialogStrc* pDialog)
             if (pDialog->nMode == 2)
             {
                 tContext.pCellFile = UI_GetFocusCel();
-                tContext.nFrame = gnSelectionFrame_007C0E50 % 7;
+                tContext.nFrame = gnSelectionFrame % 7;
                 sub_004F6480(&tContext, nLineX - 24, nLineY + 4, -1, 5, 0);
                 sub_004F6480(&tContext, pLine->nWidth + nLineX + 2, nLineY + 4, -1, 5, 0);
-                ++gnSelectionFrame_007C0E50;
+                ++gnSelectionFrame;
             }
         }
 
@@ -258,7 +258,7 @@ static void sub_004B98F0_SetSoundPosition(D2ClientSoundStrc* pSound, D2SoundVecS
 // 0x004B9A00
 int __fastcall sub_004B9A00_PlaySound(int nSoundId, D2UnitStrc* pUnit, int nDelay, int nArg3, int nArg4)
 {
-    if (!gbSoundReady_007C545C)
+    if (!gbClientSoundReady)
         return 0;
 
     if (nSoundId <= 0)

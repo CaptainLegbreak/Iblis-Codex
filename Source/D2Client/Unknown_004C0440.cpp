@@ -18,8 +18,8 @@ struct D2HotspotStrc
     char bFlag0x25;
     char unk0x26[0x02];
 };
-extern D2HotspotStrc gaHotspots_00727902[]; // 0x00727902
-extern int gnGlobal_007C5474; // 0x007C5474
+extern D2HotspotStrc gaUseItemHotspotRects[]; // 0x00727902
+extern int gnUseItemDialogState; // 0x007C5474
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 int __cdecl sub_004BFAF0_ShowConfirmation(); // 0x004BFAF0
 int __cdecl USEITEM_ClosePanel(); // 0x004C02F0
@@ -45,7 +45,7 @@ void __cdecl USEITEM_OpenPanel(); // 0x004C0380
 void __cdecl sub_004B3FB0_CloseNpc2(); // 0x004B3FB0
 void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-extern void* gpGlobal_007C5484; // 0x007C5484
+extern void* gpUseItemConfirmDialog; // 0x007C5484
 
 static int sub_004C0450_ClickHotspots(int nX, int nY);
 
@@ -63,7 +63,7 @@ void __stdcall sub_004C04E0_OnHotspotClick(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
-    if (gnGlobal_007C5474 == 2)
+    if (gnUseItemDialogState == 2)
     {
         if (sub_004C0450_ClickHotspots(nX, nY))
             return;
@@ -82,9 +82,10 @@ static int sub_004C0450_ClickHotspots(int nX, int nY)
     int bHit = 0;
     int n;
     // volatile: the volatile read keeps the original's register for the count; no plain form found
-    for (int i = 0; i < (n = *(volatile int*)&gnGlobal_007278FC); i++)
+// build: symbol ?gnHotspotCount@* 0x007278FC
+    for (int i = 0; i < (n = *(volatile int*)&gnHotspotCount); i++)
     {
-        if (gaHotspots_00727902[i].bFlag0x25 && nX >= gaHotspots_00727902[i].nLeft && nX <= gaHotspots_00727902[i].nRight && nY >= gaHotspots_00727902[i].nTop && nY <= gaHotspots_00727902[i].nBottom)
+        if (gaUseItemHotspotRects[i].bFlag0x25 && nX >= gaUseItemHotspotRects[i].nLeft && nX <= gaUseItemHotspotRects[i].nRight && nY >= gaUseItemHotspotRects[i].nTop && nY <= gaUseItemHotspotRects[i].nBottom)
         {
             sub_004B9A00(1, 0, 0, 0, 0);
             if (!i)
@@ -96,8 +97,8 @@ static int sub_004C0450_ClickHotspots(int nX, int nY)
     }
     for (int i = 0; i < n; i++)
     {
-        gaHotspots_00727902[i].bFlag0x25 = 0;
-        gaHotspots_00727902[i].bFlag0x24 = 0;
+        gaUseItemHotspotRects[i].bFlag0x25 = 0;
+        gaUseItemHotspotRects[i].bFlag0x24 = 0;
     }
     return bHit;
 }
@@ -124,11 +125,11 @@ void __fastcall sub_004C0550(D2PacketRecord7Strc* pPacket)
         return;
 
     case 4:
-        gnGlobal_007C5474 = 2;
-        if (gpGlobal_007C5484)
+        gnUseItemDialogState = 2;
+        if (gpUseItemConfirmDialog)
         {
-            DIALOG_DestroyDialog(gpGlobal_007C5484);
-            gpGlobal_007C5484 = 0;
+            DIALOG_DestroyDialog(gpUseItemConfirmDialog);
+            gpUseItemConfirmDialog = 0;
         }
         return;
 

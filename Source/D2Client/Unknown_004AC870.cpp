@@ -21,7 +21,7 @@ struct D2HoverModeStrc
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern wchar_t gwszSpace_007C0C58[];                                                                        // 0x007C0C58
-extern const D2HoverModeStrc gaHoverModes_006DA488[];                                                       // 0x006DA488
+extern const D2HoverModeStrc gaHoverModes[];                                                       // 0x006DA488
 
 int __fastcall sub_0045C390_RollRandom(D2SeedStrc* pSeed, int nMax);                                        // 0x0045C390
 int __cdecl sub_0048BE80_Sprintf(wchar_t* wszDest, const wchar_t* wszFormat, ...);                          // 0x0048BE80
@@ -128,14 +128,14 @@ void __fastcall sub_004AC870_SetMonsterHoverName(D2UnitStrc* pUnit, int nMode, i
         int i = 0;
         for (; i < 4; ++i)
         {
-            if (gaHoverModes_006DA488[i].nMode == nMode)
+            if (gaHoverModes[i].nMode == nMode)
             {
                 break;
             }
         }
 
         D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(nClassId);
-        sub_0048BE80_Sprintf(wszName, D2LANG_GetStringFromTblIndex(0x2B40), D2LANG_GetStringFromTblIndex(gaHoverModes_006DA488[i].wStringId), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), 0);
+        sub_0048BE80_Sprintf(wszName, D2LANG_GetStringFromTblIndex(0x2B40), D2LANG_GetStringFromTblIndex(gaHoverModes[i].wStringId), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), 0);
         sub_0063E810_SetUnitName(pUnit, wszName);
         return;
     }

@@ -1326,7 +1326,8 @@ int __fastcall OBJECTS_OperateFunction02_Shrine(D2ObjOperateFnStrc* pOp, int nOp
     }
 
     char szText[20];
-    wsprintfA(szText, gszFormatD_006D57BC, (unsigned short)(pOp->hObject->pObjectData->InteractType + 3683));
+// build: symbol ?gszFormatD@* 0x006D57BC
+    wsprintfA(szText, gszFormatD, (unsigned short)(pOp->hObject->pObjectData->InteractType + 3683));
 
     D2HoverTextStrc* pHoverText = CHAT_AllocHoverMsg(pOp->pGame->pMemoryPool, szText, pOp->pGame->dwGameFrame);
     if (pHoverText)

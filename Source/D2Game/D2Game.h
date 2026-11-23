@@ -152,7 +152,7 @@ extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2Crit
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount); // 0x00687330
 extern "C" const char gszA1Q2SourceFile[]; // 0x006E1B98
 extern "C" const char gszA1Q4SourceFile[]; // 0x006E1C48
-extern "C" const char gszFormatD_006D57BC[]; // 0x006D57BC
+extern "C" const char gszFormatD[]; // 0x006D57BC
 extern "C" const char gszMissilesSourceFile[]; // 0x006E2150
 extern "C" const char gszFileModeRb[]; // 0x006CDC90
 extern "C" const char gszPlayerPetsSourceFile[]; // 0x006E15D8

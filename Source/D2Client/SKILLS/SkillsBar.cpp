@@ -317,7 +317,8 @@ int __fastcall SKILLSBAR_SetRunPath(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
         nVelocity = sub_004833E0_GetCharStatsTxtRecord(nClassId)->nRunSpeed << 8;
     }
 
-    PATH_SetVelocity(pDynamicPath, nVelocity, gszSkillsBarSourceFile_006DAE58, 567);
+// build: symbol ?gszSkillsBarSourceFile@* 0x006DAE58
+    PATH_SetVelocity(pDynamicPath, nVelocity, gszSkillsBarSourceFile, 567);
     D2Common_10142(pDynamicPath, pUnit, 0);
     return 1;
 }
@@ -567,7 +568,7 @@ int __fastcall SKILLSBAR_SkillCltStartLeap(D2UnitStrc* pUnit, int nSkillId, int 
         if (STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE))
             return 0;
 
-        if (SKILLS_GetSkillIdFromSkill(pSkill, gszSkillsBarSourceFile_006DAE58, 930) == nSkillId && (SKILLS_GetFlags(pSkill) & 1))
+        if (SKILLS_GetSkillIdFromSkill(pSkill, gszSkillsBarSourceFile, 930) == nSkillId && (SKILLS_GetFlags(pSkill) & 1))
             return 0;
     }
 
@@ -697,7 +698,7 @@ int __fastcall SKILLSBAR_SkillCltStartRun(D2UnitStrc* pUnit, int nSkillId, int n
 
     if (pUnit == sub_00463DD0_GetPlayerUnit())
     {
-        if (SKILLS_GetSkillIdFromSkill(pSkill, gszSkillsBarSourceFile_006DAE58, 1129) == nSkillId && (SKILLS_GetFlags(pSkill) & 1))
+        if (SKILLS_GetSkillIdFromSkill(pSkill, gszSkillsBarSourceFile, 1129) == nSkillId && (SKILLS_GetFlags(pSkill) & 1))
         {
             return 0;
         }
@@ -738,12 +739,12 @@ int __fastcall SKILLSBAR_SkillCltStartRun(D2UnitStrc* pUnit, int nSkillId, int n
         D2CharStatsTxt* pCharStatsTxtRecord = sub_004833E0_GetCharStatsTxtRecord(pUnit->dwClassId);
         if (pCharStatsTxtRecord)
         {
-            PATH_SetVelocity(pPath, pCharStatsTxtRecord->nWalkSpeed << 8, gszSkillsBarSourceFile_006DAE58, 1177);
+            PATH_SetVelocity(pPath, pCharStatsTxtRecord->nWalkSpeed << 8, gszSkillsBarSourceFile, 1177);
         }
     }
     else
     {
-        PATH_SetVelocity(pPath, DATATBLS_GetMonStatsTxtRecord(pUnit->dwClassId)->nVelocity << 8, gszSkillsBarSourceFile_006DAE58, 1183);
+        PATH_SetVelocity(pPath, DATATBLS_GetMonStatsTxtRecord(pUnit->dwClassId)->nVelocity << 8, gszSkillsBarSourceFile, 1183);
     }
 
     PATH_SetMoveTestCollisionMask(pPath, 0x401);

@@ -46,15 +46,15 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-extern D2UnitSndPlayerStrc* gpUnitSndPlayer_0072A008[]; // 0x0072A008
+extern D2UnitSndPlayerStrc* gapUnitSndPlayers[]; // 0x0072A008
 
-extern D2UnitSndObjectStrc* gpUnitSndObject_007295F8[]; // 0x007295F8
+extern D2UnitSndObjectStrc* gapUnitSndObjects[]; // 0x007295F8
 
-extern D2UnitSndObjectStrc gUnitSndObject_00729328; // 0x00729328
+extern D2UnitSndObjectStrc gtUnitSndObject; // 0x00729328
 
-extern int gnUnitSndObject3D_00728338[]; // 0x00728338
+extern int gaUnitSndObject3D[]; // 0x00728338
 
-extern D2DirRateStrc gaDirRate_00727ED8[]; // 0x00727ED8
+extern D2DirRateStrc gaDirRate[]; // 0x00727ED8
 
 int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
 
@@ -154,11 +154,11 @@ void __stdcall UNITSND_ReleaseMonsterSfx(D2UnitStrc* pUnit); // 0x004CB2C0
 
 __declspec(noinline) void __fastcall UNITSND_AddUnitSoundRefs(D2UnitStrc* pUnit, int nDelta);
 
-unsigned int gnNeutralTick_007C88B8; // 0x007C88B8
+unsigned int gnNeutralTick; // 0x007C88B8
 
-unsigned int gnSfxTick_007C88BC; // 0x007C88BC
+unsigned int gnSfxTick; // 0x007C88BC
 
-unsigned int gnNeutralDelay_007C88C0; // 0x007C88C0
+unsigned int gnNeutralDelay; // 0x007C88C0
 
 void __fastcall UNITSND_PlayAttackSound(D2UnitStrc* pUnit, int nMode, int bDelay);                     // 0x004CB6A0
 
@@ -242,9 +242,9 @@ int __cdecl sub_00463DF0(); // 0x00463DF0
 
 void __fastcall ITEM_ShowTimedHint(int nStringId, int nDelayA, int nDelayC, unsigned int nIndex, int nArgE, int nDelayF, int nArgG); // 0x004DCD40
 
-unsigned int gnLastRequestTick_007C88C4;        // 0x007C88C4
+unsigned int gnLastRequestTick;        // 0x007C88C4
 
-int gnLastRequestSound_007C88C8;        // 0x007C88C8
+int gnLastRequestSound;        // 0x007C88C8
 
 static inline D2UnitSndPlayerStrc* UNITSND_GetPlayerSoundRecord(unsigned int nClass);
 
@@ -312,7 +312,7 @@ static int UNITSND_GetUnitSndMode(D2UnitStrc* pUnit)
 static D2UnitSndPlayerStrc* UNITSND_GetPlayerSoundRecord(unsigned int nClass)
 {
     D2_ASSERT(nClass < 7, 0xB22);
-    return gpUnitSndPlayer_0072A008[nClass];
+    return gapUnitSndPlayers[nClass];
 }
 
 // build: context sub_004CA410_GetMonSoundsRecord
@@ -432,7 +432,7 @@ int __fastcall UNITSND_GetDirectionRate(D2UnitStrc* pUnit, unsigned int nDirecti
     D2_ASSERT(pUnit, 0xB5C);
     nDirection &= 0xF;
     if (nDirection <= 0xD)
-        return gaDirRate_00727ED8[nDirection].nValue;
+        return gaDirRate[nDirection].nValue;
     D2_ASSERT(0, 0xB60);
 }
 
@@ -886,10 +886,10 @@ static int __stdcall UNITSND_GetObjectStopSound(D2UnitStrc* pUnit, int nMode, in
     const unsigned int nClass = sub_004CA2C0_GetUnitSndClassId(pUnit);
     if (nClass < 0x23D && nMode < 8)
     {
-        D2UnitSndObjectStrc* pRecord = gpUnitSndObject_007295F8[nClass];
+        D2UnitSndObjectStrc* pRecord = gapUnitSndObjects[nClass];
         if (!pRecord)
             return 0;
-        if (pRecord == &gUnitSndObject_00729328 && nOldMode > nMode)
+        if (pRecord == &gtUnitSndObject && nOldMode > nMode)
             return 0;
         return pRecord->nModeSound[nMode];
     }
@@ -902,11 +902,11 @@ static int UNITSND_GetObjectModeSound(D2UnitStrc* pUnit, int nMode)
     const unsigned int nClass = sub_004CA2C0_GetUnitSndClassId(pUnit);
     if (nClass < 0x23D && nMode < 8)
     {
-        D2UnitSndObjectStrc* pRecord = gpUnitSndObject_007295F8[nClass];
+        D2UnitSndObjectStrc* pRecord = gapUnitSndObjects[nClass];
         if (!pRecord)
             return 0;
         if (nClass == 0x3D)
-            return gnUnitSndObject3D_00728338[nMode];
+            return gaUnitSndObject3D[nMode];
         if (!pRecord->nSoundA && !pRecord->nSoundB)
             return 0;
         if (pRecord->nSoundAMode == nMode || pRecord->nSoundAMode == 8)
@@ -993,7 +993,7 @@ void __fastcall UNITSND_UpdateModeSound(D2UnitStrc* pUnit)
         return;
     if (MISSILE_FindUnitSfxInRange(pUnit, nNeutral))
         return;
-    if (nTick - gnNeutralTick_007C88B8 < gnNeutralDelay_007C88C0)
+    if (nTick - gnNeutralTick < gnNeutralDelay)
         return;
     if (nTick - UNITSND_ReadSoundTick(pUnit) < nNeuTime)
         return;
@@ -1009,9 +1009,9 @@ void __fastcall UNITSND_UpdateModeSound(D2UnitStrc* pUnit)
         return;
 
     sub_004B9A00(nNeutral, pUnit, 0, 0, 0);
-    gnNeutralTick_007C88B8 = nTick;
+    gnNeutralTick = nTick;
     UNITSND_WriteAsyncSoundTick(pUnit, nTick);
-    gnNeutralDelay_007C88C0 = SKILLDESC_RandomInRange(0x1E, 0x5A);
+    gnNeutralDelay = SKILLDESC_RandomInRange(0x1E, 0x5A);
 }
 
 // 0x004CB6A0
@@ -1063,7 +1063,7 @@ void __fastcall UNITSND_PlayAttackSound(D2UnitStrc* pUnit, int nMode, int bDelay
         bPlay = 0;
     if ((unsigned int)nChance < 100)
     {
-        if (sub_0044DB00() - gnSfxTick_007C88BC < 0xF)
+        if (sub_0044DB00() - gnSfxTick < 0xF)
             bPlay = 0;
         if (sub_004B9E90_HasUnitSound(pUnit))
             goto second;
@@ -1074,7 +1074,7 @@ void __fastcall UNITSND_PlayAttackSound(D2UnitStrc* pUnit, int nMode, int bDelay
         UNITSND_ReleaseNeutralSfx(pUnit, 1);
         sub_004B9A00(nSound, pUnit, nDelay, 0, 0);
         UNITSND_WriteSoundTick(pUnit, sub_0044DB00());
-        gnSfxTick_007C88BC = sub_0044DB00();
+        gnSfxTick = sub_0044DB00();
     }
 
 second:
@@ -1111,7 +1111,7 @@ static void UNITSND_PlayHitClassSound(D2UnitStrc* pUnit)
     const int nSound = sub_004CA810_GetModeSound(pUnit, pUnit->dwLastHitClass);
     sub_004B9A00(nSound, pUnit, 0, 0, 0);
     pUnit->dwSfxTicks = sub_0044DB00();
-    gnSfxTick_007C88BC = sub_0044DB00();
+    gnSfxTick = sub_0044DB00();
 }
 
 // 0x004CB890
@@ -1152,7 +1152,7 @@ static void UNITSND_PlaySkillSound(D2UnitStrc* pUnit, int nMode)
     const unsigned int nNow = sub_0044DB00();
     D2_ASSERT(pUnit, 0xCC6);
     pUnit->dwSfxTicks = nNow;
-    gnSfxTick_007C88BC = sub_0044DB00();
+    gnSfxTick = sub_0044DB00();
 }
 
 // 0x004CB950
@@ -1165,12 +1165,12 @@ static void sub_004CB950_PlayFleeSound(D2UnitStrc* pUnit)
     if (!pMonSoundsTxtRecord)
         return;
 
-    if (sub_0044DB00() - gnSfxTick_007C88BC < 4)
+    if (sub_0044DB00() - gnSfxTick < 4)
         return;
 
     sub_004B9A00(pMonSoundsTxtRecord->dwFlee, pUnit, sub_004E40A0(3) + 6, 0, 0);
     UNITSND_WriteSoundTick(pUnit, sub_0044DB00());
-    gnSfxTick_007C88BC = sub_0044DB00();
+    gnSfxTick = sub_0044DB00();
 }
 
 void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType, unsigned short nEvent)
@@ -1499,13 +1499,13 @@ void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId
     if (bCheckRepeat)
     {
         unsigned int nTick = sub_0044DB00();
-        if (nSoundId == gnLastRequestSound_007C88C8 && nTick - gnLastRequestTick_007C88C4 < 0x4B)
+        if (nSoundId == gnLastRequestSound && nTick - gnLastRequestTick < 0x4B)
         {
             return;
         }
 
-        gnLastRequestTick_007C88C4 = nTick;
-        gnLastRequestSound_007C88C8 = nSoundId;
+        gnLastRequestTick = nTick;
+        gnLastRequestSound = nSoundId;
     }
 
     TEXT_SetSpeechHoverText(pUnit, sub_004B9CA0_GetHintIdByKey(sub_004B9A00(nSoundId, pSoundUnit, 0, 0, 0)));
@@ -1543,7 +1543,7 @@ __declspec(noinline) void __fastcall UNITSND_AddUnitSoundRefs(D2UnitStrc* pUnit,
     {
         const unsigned int nClass = sub_004CA2C0_GetUnitSndClassId(pUnit);
         D2_ASSERT(nClass < 0x23D, 0x1213);
-        D2UnitSndObjectStrc* pRecord = gpUnitSndObject_007295F8[nClass];
+        D2UnitSndObjectStrc* pRecord = gapUnitSndObjects[nClass];
         if (pRecord)
         {
             for (int i = 0; i < 8; ++i)
@@ -1567,9 +1567,9 @@ void __fastcall UNITSND_PlayInitSound(D2UnitStrc* pUnit)
     if (nInit && !CUNIT_IsDeadOrDying(pUnit) && !UNITSND_ReadAsyncSoundTick(pUnit))
     {
         sub_004B9A00(nInit, pUnit, 0, 0, 0);
-        gnNeutralTick_007C88B8 = nTick;
+        gnNeutralTick = nTick;
         UNITSND_WriteAsyncSoundTick(pUnit, nTick);
-        gnNeutralDelay_007C88C0 = SKILLDESC_RandomInRange(0x1E, 0x5A);
+        gnNeutralDelay = SKILLDESC_RandomInRange(0x1E, 0x5A);
         return;
     }
 
@@ -1661,7 +1661,7 @@ static void __stdcall UNITSND_PlayHitSound(D2UnitStrc* pUnit, int nMode)
 
 done:
     pUnit->dwSfxTicks = sub_0044DB00();
-    gnSfxTick_007C88BC = sub_0044DB00();
+    gnSfxTick = sub_0044DB00();
 }
 
 #include "gen/data/Source/D2Client/UNIT/UnitSnd.inc"

@@ -175,7 +175,7 @@ extern WNDPROC gpWndProc_007C8CAC; // 0x007C8CAC
 
 extern const char* gszWindowClassName_007C9158; // 0x007C9158
 
-extern D2GraphicsInterfaceStrc* gapGraphicsInterfaces_0072DA80[]; // 0x0072DA80
+extern D2GraphicsInterfaceStrc* gapGraphicsInterfaces[]; // 0x0072DA80
 
 extern const unsigned char gGraphicsHelpers_0072DA60[]; // 0x0072DA60
 
@@ -327,12 +327,12 @@ void __cdecl D2GFX_DisableFixedAspectRatio()
 
 int __fastcall sub_004F4FF0_SetVideoMode(int nMode)
 {
-    if (!gapGraphicsInterfaces_0072DA80[nMode])
+    if (!gapGraphicsInterfaces[nMode])
     {
         sub_00410610_WriteLogLine(gszUnsupportedMode_006DC458, nMode);
         return 0;
     }
-    gpGraphicsInterface = gapGraphicsInterfaces_0072DA80[nMode];
+    gpGraphicsInterface = gapGraphicsInterfaces[nMode];
     return 1;
 }
 

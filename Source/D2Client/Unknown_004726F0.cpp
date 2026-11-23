@@ -15,11 +15,11 @@ void __fastcall sub_00473D00_SetPhase(int nPhase);                              
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                                             // 0x006427F0
 
-static D2WeatherStrc* gpWeather_007A8A04;                                                                   // 0x007A8A04
-extern int gnGlobal_007A8A08;                                                                               // 0x007A8A08
-extern int gbWeatherSplash_007A8A14;                                                                        // 0x007A8A14
-extern int gnGlobal_007A8A18;                                                                               // 0x007A8A18
-extern int gbPhaseActive_007A8A1C;                                                                          // 0x007A8A1C
+static D2WeatherStrc* gpWeatherParticles;                                                                   // 0x007A8A04
+extern int gbLightningEnabled;                                                                               // 0x007A8A08
+extern int gbWeatherSplash;                                                                        // 0x007A8A14
+extern int gbSnowWeather;                                                                               // 0x007A8A18
+extern int gbPhaseActive;                                                                          // 0x007A8A1C
 
 static inline unsigned __int64 CLIENT_RollRandomNumberForceInline(D2SeedStrc* pSeed)
 {
@@ -33,17 +33,17 @@ static void __stdcall sub_00472590_SetSplash(int bForce, int bValue); // 0x00472
 
 static void __stdcall sub_00472590_SetSplash(int bForce, int bValue)
 {
-    if (gnGlobal_007A8A08 && bValue)
-        gnGlobal_007A8A08 = 0;
-    if (gbPhaseActive_007A8A1C && !bValue)
-        gbPhaseActive_007A8A1C = bValue;
-    if (bValue != gbWeatherSplash_007A8A14 || bForce)
+    if (gbLightningEnabled && bValue)
+        gbLightningEnabled = 0;
+    if (gbPhaseActive && !bValue)
+        gbPhaseActive = bValue;
+    if (bValue != gbWeatherSplash || bForce)
     {
 // build: symbol ?DATAARRAYS_Reset@* 0x006BCAC0
-        DATAARRAYS_Reset(gpWeather_007A8A04);
-        D2_ASSERT(!gpWeather_007A8A04->nCount, 0x15B);
+        DATAARRAYS_Reset(gpWeatherParticles);
+        D2_ASSERT(!gpWeatherParticles->nCount, 0x15B);
     }
-    gbWeatherSplash_007A8A14 = bValue;
+    gbWeatherSplash = bValue;
 }
 
 // 0x004726F0
@@ -72,17 +72,17 @@ static int __stdcall sub_004726F0(int bForce)
     case LEVEL_BLOODYFOOTHILLS:
     case LEVEL_ID_ACT5_BARRICADE_1:
     case LEVEL_ARREATPLATEAU:
-        gnGlobal_007A8A18 = 0;
+        gbSnowWeather = 0;
         nChance = 0x19;
         break;
     case LEVEL_ROCKYSUMMIT:
     case LEVEL_NIHLATHAKSTEMPLE:
         bFlag = 1;
-        gnGlobal_007A8A18 = 1;
+        gbSnowWeather = 1;
         nChance = 0;
         break;
     case LEVEL_TUNDRAWASTELANDS:
-        gnGlobal_007A8A18 = 1;
+        gbSnowWeather = 1;
         nChance = 0;
         break;
     }
@@ -94,24 +94,24 @@ static int __stdcall sub_004726F0(int bForce)
         return 0;
     }
 
-    gbPhaseActive_007A8A1C = bFlag;
+    gbPhaseActive = bFlag;
     if (bFlag)
         sub_00473D00_SetPhase(2);
     sub_00472590_SetSplash(bForce, 1);
     return 0;
 }
 
-extern D2WeatherStrc* gpWeather_007A89FC;                                                                   // 0x007A89FC
-extern D2WeatherStrc* gpWeather_007A8A00;                                                                   // 0x007A8A00
-extern int gbPhaseBusy_007A8A20;                                                                            // 0x007A8A20
-extern int gnPhase_007A8A24;                                                                                // 0x007A8A24
+extern D2WeatherStrc* gpWeatherSplashes;                                                                   // 0x007A89FC
+extern D2WeatherStrc* gpWeatherBubbles;                                                                   // 0x007A8A00
+extern int gbPhaseBusy;                                                                            // 0x007A8A20
+extern int gnPhase;                                                                                // 0x007A8A24
 
 // build: context sub_00472C20_PlayerMoved
 
 void __fastcall sub_00472C20_PlayerMoved(int nArg)
 {
-    DATAARRAYS_Reset(gpWeather_007A89FC);
-    DATAARRAYS_Reset(gpWeather_007A8A00);
+    DATAARRAYS_Reset(gpWeatherSplashes);
+    DATAARRAYS_Reset(gpWeatherBubbles);
     if (nArg)
         sub_004726F0(nArg);
 }
@@ -129,17 +129,17 @@ int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile);              
 void __cdecl sub_00472610_InitWindAngle();                                                                  // 0x00472610
 
 extern "C" const char gszDataGlobalPath[];                                                                  // 0x006D4118
-extern int gbWeatherResetDone_007A8A30;                                                                            // 0x007A8A30
-extern int gnPhaseOffset_007A8970[1];                                                                              // 0x007A8970
-extern int gnPhaseRange_007A8958[1];                                                                               // 0x007A8958
-extern unsigned char gnParticleColor_007A8980[];                                                            // 0x007A8980
-extern unsigned char gnParticleColor_007A894C[];                                                            // 0x007A894C
-extern unsigned char gnParticleColor_007A89A4[];                                                            // 0x007A89A4
-extern unsigned char gnPeriodLight_007A898C[];                                                              // 0x007A898C
-extern unsigned char gnOutdoorLight_007A89EC[12];                                                                  // 0x007A89EC
-extern D2WeatherLayerStateStrc gtWeatherLayer_007A89B0;                                                            // 0x007A89B0
-extern D2WeatherLayerStateStrc gtWeatherLayer_007A893C;                                                            // 0x007A893C
-extern int gnSplashFrames_007A89C8[4];                                                                             // 0x007A89C8
-extern int gnBubbleFrames_007A892C[4];                                                                             // 0x007A892C
+extern int gbWeatherResetDone;                                                                            // 0x007A8A30
+extern int gaWeatherPhaseOffset[1];                                                                              // 0x007A8970
+extern int gaWeatherPhaseRange[1];                                                                               // 0x007A8958
+extern unsigned char gabParticleColorsDay[];                                                            // 0x007A8980
+extern unsigned char gabParticleColorsTwilight[];                                                            // 0x007A894C
+extern unsigned char gabParticleColorsNight[];                                                            // 0x007A89A4
+extern unsigned char gabPeriodLightColors[];                                                              // 0x007A898C
+extern unsigned char gabOutdoorLightColors[12];                                                                  // 0x007A89EC
+extern D2WeatherLayerStateStrc gtSplashCels;                                                            // 0x007A89B0
+extern D2WeatherLayerStateStrc gtBubbleCels;                                                            // 0x007A893C
+extern int gaSplashFrames[4];                                                                             // 0x007A89C8
+extern int gaBubbleFrames[4];                                                                             // 0x007A892C
 
 void __fastcall sub_00472890_InitWeather(int nLevelId); // 0x00472890

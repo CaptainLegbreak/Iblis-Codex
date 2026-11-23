@@ -23,7 +23,7 @@ extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
-extern "C" const char gszNew_006CC82C[]; // 0x006CC82C
+extern "C" const char gszNew[]; // 0x006CC82C
 int __fastcall ERRORMANAGER_GetModuleDirectory(char* szPath, unsigned int nSize); // 0x00406B60
 unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 
@@ -363,7 +363,7 @@ void __cdecl operator delete(void* pMemory)
 // build: symbol ??2@YAPAXI@Z 0x00405410
 void* __cdecl operator new(size_t nSize)
 {
-    return SMemAlloc(nSize, gszNew_006CC82C, -1, 0);
+    return SMemAlloc(nSize, gszNew, -1, 0);
 }
 
 // 0x00405430

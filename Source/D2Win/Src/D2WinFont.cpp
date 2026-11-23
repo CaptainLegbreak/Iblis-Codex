@@ -46,7 +46,7 @@ void __fastcall sub_00526320_ToUnicode(wchar_t* pDest, const char* szSource, int
 
 extern "C" const char gszDataGlobal_006D4118[];                                                             // 0x006D4118
 
-extern "C" const char gszDataLocal_006D41A8[];                                                              // 0x006D41A8
+extern "C" const char gszDataLocal[];                                                              // 0x006D41A8
 
 extern const char* gaFontNames_006DC980[14];                                                                // 0x006DC980
 
@@ -184,7 +184,7 @@ void __fastcall D2Win_10118_DrawBlendedText(const Unicode* wszText, int nX, int 
 static void __stdcall FONT_BuildFontPath(int nFont, char* pBuffer, int nLength)
 {
     char szPath[0x104];
-    wsprintfA(szPath, "%s\\%s\\", gszDataLocal_006D41A8, "Font");
+    wsprintfA(szPath, "%s\\%s\\", gszDataLocal, "Font");
     D2_ASSERT(nLength > (int)strlen(szPath) + 20, 0x7B);
 
     if (!gbKoreanFonts_00841EC6)
@@ -199,7 +199,7 @@ static void __stdcall FONT_BuildFontPath(int nFont, char* pBuffer, int nLength)
 static void __stdcall FONT_BuildFontTablePath(int nFont, char* pBuffer, int nLength)
 {
     char szPath[0x104];
-    wsprintfA(szPath, "%s\\%s\\", gszDataLocal_006D41A8, "Font");
+    wsprintfA(szPath, "%s\\%s\\", gszDataLocal, "Font");
     D2_ASSERT(nLength > (int)strlen(szPath) + 20, 0x95);
 
     if (!gbKoreanFonts_00841EC6)

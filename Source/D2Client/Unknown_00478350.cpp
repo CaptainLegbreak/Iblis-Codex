@@ -11,10 +11,10 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax);                     // 0x004135D0
 
-unsigned char gaLastSentPacket_007BB3B8[0x200];                                                             // 0x007BB3B8
-unsigned int gdwLastSendTick_007BB5B8;                                                                      // 0x007BB5B8
-extern int gnSentBytes_007A6AF8;                                                                            // 0x007A6AF8
-extern int gnSentPackets_007A6B00;                                                                          // 0x007A6B00
+unsigned char gaLastSentPacket[0x200];                                                             // 0x007BB3B8
+unsigned int gdwLastSendTick;                                                                      // 0x007BB5B8
+extern int gnSentBytes;                                                                            // 0x007A6AF8
+extern int gnSentPackets;                                                                          // 0x007A6B00
 
 #pragma pack(push, 1)
 struct D2PacketSize1Strc
@@ -110,7 +110,7 @@ static void __stdcall sub_00478350_SendToServer(const unsigned char* pPacket, in
     case 0x0F:
     case 0x10:
     case 0x11:
-        if (dwTick - gdwLastSendTick_007BB5B8 < 50 && !memcmp(gaLastSentPacket_007BB3B8, pPacket, nSize))
+        if (dwTick - gdwLastSendTick < 50 && !memcmp(gaLastSentPacket, pPacket, nSize))
             return;
         break;
 
@@ -118,20 +118,20 @@ static void __stdcall sub_00478350_SendToServer(const unsigned char* pPacket, in
         break;
 
     default:
-        if (dwTick - gdwLastSendTick_007BB5B8 < 200 && !memcmp(gaLastSentPacket_007BB3B8, pPacket, nSize))
+        if (dwTick - gdwLastSendTick < 200 && !memcmp(gaLastSentPacket, pPacket, nSize))
             return;
         break;
     }
 
-    memcpy(gaLastSentPacket_007BB3B8, pPacket, nSize);
-    gdwLastSendTick_007BB5B8 = dwTick;
+    memcpy(gaLastSentPacket, pPacket, nSize);
+    gdwLastSendTick = dwTick;
     unsigned char aBuffer[0x200];
     memcpy(aBuffer, pPacket, nSize);
 // build: symbol ?CLIENT_Send@* 0x0052AE50
     if (CLIENT_Send(nSize, 1, aBuffer))
     {
-        gnSentBytes_007A6AF8 += nSize;
-        ++gnSentPackets_007A6B00;
+        gnSentBytes += nSize;
+        ++gnSentPackets;
     }
 }
 

@@ -27,7 +27,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 extern D2SoundNodeStrc* gpSoundList_007C5458;                                                               // 0x007C5458
-extern int gbSoundReady_007C545C;                                                                           // 0x007C545C
+extern int gbClientSoundReady;                                                                           // 0x007C545C
 float __fastcall sub_004B93A0_ClampFloat(float fValue, float fMin, float fMax);                             // 0x004B93A0
 float __stdcall GFXUTIL_VectorLengthSquared(float fX, float fY);                                           // 0x004E4160
 void __fastcall sub_004CA8D0_NotifyUnitHint(D2UnitStrc* pUnit, int nHandle);                                // 0x004CA8D0
@@ -111,7 +111,7 @@ void __cdecl sub_004B9D20_FreeAllSounds()
     while (gpSoundList_007C5458)
         sub_004B94E0_FreeSound(gpSoundList_007C5458->pSound);
 
-    gbSoundReady_007C545C = 1;
+    gbClientSoundReady = 1;
 }
 
 // 0x004B9E90

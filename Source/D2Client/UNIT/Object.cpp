@@ -22,11 +22,11 @@ struct Obj00457460;
 
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
-extern int gdwGlobal_007A51E4; // 0x007A51E4
+extern int gbAutomapLeftPrev; // 0x007A51E4
 
-extern int gdwGlobal_007A51E0; // 0x007A51E0
+extern int gbAutomapLeft; // 0x007A51E0
 
-extern int gdwGlobal_007113E8; // 0x007113E8
+extern int gbAutomapPartyNames; // 0x007113E8
 
 struct Pad40_00457460 {
     unsigned int dw00;
@@ -55,15 +55,15 @@ struct Obj00457460 {
     unsigned int dwFlagsC4;
 };
 
-int gdwGlobal_007A51E8; // 0x007A51E8
+int gbAutomapLeftSaved; // 0x007A51E8
 
-int gaAutomapCellTable_007A3150[0x800]; // 0x007A3150
+int gaAutomapCellTable[0x800]; // 0x007A3150
 
-static int gnAutomapOffsetX_007A5198; // 0x007A5198
+static int gnAutomapOffsetX; // 0x007A5198
 
-static int gnAutomapOffsetY_007A519C; // 0x007A519C
+static int gnAutomapOffsetY; // 0x007A519C
 
-static int gnAutomapScale_00711254; // 0x00711254
+static int gnAutomapScale; // 0x00711254
 
 struct D2GfxLightStrc;
 
@@ -88,11 +88,11 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                               // 0x00681EF0
 
-extern D2DrlgActStrc* gpAct_007A0634;                                                                       // 0x007A0634
+extern D2DrlgActStrc* gpAct;                                                                       // 0x007A0634
 
-extern D2ShrineHandlerStrc gShrineHandlers_006DA8C0[];                                                      // 0x006DA8C0
+extern D2ShrineHandlerStrc gaShrineHandlers[];                                                      // 0x006DA8C0
 
-extern int gnShrineHandlerCount_0072779C;                                                                   // 0x0072779C
+extern int gnShrineHandlerCount;                                                                   // 0x0072779C
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
 
@@ -174,7 +174,7 @@ int __stdcall UNITROOM_IsUnitInRoom(D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit);
 
 extern void* gpGlobal_007A0634;                                                                             // 0x007A0634
 
-extern D2ObjectClientFn gapfnObjectClientFn_007277F0[];                                                     // 0x007277F0
+extern D2ObjectClientFn gapfnObjectClientFn[];                                                     // 0x007277F0
 
 #define SEED_STEP_HIFIRST(pSeed, nOut) { const unsigned __int64 lSeed_ = (unsigned __int64)(pSeed)->nHighSeed + (unsigned __int64)(pSeed)->nLowSeed * 0x6AC690C5; (pSeed)->nHighSeed = (unsigned int)(lSeed_ >> 32); (pSeed)->nLowSeed = (unsigned int)lSeed_; nOut = (unsigned int)lSeed_; }
 
@@ -194,7 +194,8 @@ struct D2StaticPathStrc;
 
 struct D2MissileStrc;
 
-extern "C" const char gszUnitSourceFile_006DAA8C[];
+// build: symbol _gszUnitSourceFile 0x006DAA8C
+extern "C" const char gszUnitSourceFile[];
 
 void __fastcall sub_004CB460(D2UnitStrc* pUnit);
 
@@ -294,7 +295,8 @@ extern "C" __declspec(dllexport) void __fastcall sub_00457460(Obj00457460* pObj,
 int __fastcall OBJECT_SaveAutomapCenters(int nValue)
 {
     SRegSaveValue("Diablo II", "AutoMap Centers", 0, nValue);
-    gdwGlobal_007113E0 = nValue;
+// build: symbol ?gbAutomapCenter@* 0x007113E0
+    gbAutomapCenter = nValue;
     return nValue;
 }
 
@@ -302,9 +304,9 @@ int __fastcall OBJECT_SaveAutomapCenters(int nValue)
 int __fastcall OBJECT_SaveAutomapLeft(int nValue)
 {
     SRegSaveValue("Diablo II", "AutoMap Left", 0, nValue);
-    gdwGlobal_007A51E4 = nValue;
-    gdwGlobal_007A51E8 = nValue;
-    gdwGlobal_007A51E0 = nValue;
+    gbAutomapLeftPrev = nValue;
+    gbAutomapLeftSaved = nValue;
+    gbAutomapLeft = nValue;
     return nValue;
 }
 
@@ -312,7 +314,8 @@ int __fastcall OBJECT_SaveAutomapLeft(int nValue)
 int __fastcall OBJECT_SaveAutomapParty(int nValue)
 {
     SRegSaveValue("Diablo II", "AutoMap Party", 0, nValue);
-    gdwGlobal_007113E4 = nValue;
+// build: symbol ?gbAutomapParty@* 0x007113E4
+    gbAutomapParty = nValue;
     return nValue;
 }
 
@@ -320,35 +323,35 @@ int __fastcall OBJECT_SaveAutomapParty(int nValue)
 int __fastcall OBJECT_SaveAutomapPartyNames(int nValue)
 {
     SRegSaveValue("Diablo II", "AutoMap Party Names", 0, nValue);
-    gdwGlobal_007113E8 = nValue;
+    gbAutomapPartyNames = nValue;
     return nValue;
 }
 
 // 0x00457810
 static inline void OBJECT_SubtractAutomapOffset(int* pX, int* pY)
 {
-    *pX -= gnAutomapOffsetX_007A5198;
-    *pY -= gnAutomapOffsetY_007A519C;
+    *pX -= gnAutomapOffsetX;
+    *pY -= gnAutomapOffsetY;
 }
 
 // 0x00457830
 static inline void OBJECT_ScaleAutomapPoint(int* pX, int* pY)
 {
-    *pX /= gnAutomapScale_00711254;
-    *pY /= gnAutomapScale_00711254;
+    *pX /= gnAutomapScale;
+    *pY /= gnAutomapScale;
     *pX += 8;
     *pY -= 8;
-    *pX -= gnAutomapOffsetX_007A5198;
-    *pY -= gnAutomapOffsetY_007A519C;
+    *pX -= gnAutomapOffsetX;
+    *pY -= gnAutomapOffsetY;
 }
 
 void __fastcall sub_M117_Emit_00457810(int* pX, int* pY, int nScale)
 {
-    gnAutomapScale_00711254 = nScale;
+    gnAutomapScale = nScale;
     OBJECT_SubtractAutomapOffset(pX, pY);
     OBJECT_ScaleAutomapPoint(pX, pY);
-    gnAutomapOffsetX_007A5198 = *pX;
-    gnAutomapOffsetY_007A519C = *pY;
+    gnAutomapOffsetX = *pX;
+    gnAutomapOffsetY = *pY;
 }
 
 // 0x00457AC0
@@ -361,10 +364,10 @@ int __fastcall OBJECT_CompareAutomapCells(const D2AutomapCellStrc* pA, const D2A
         if (!nResult)
         {
             const int nCellA = pA->nCellNo;
-            if (gaAutomapCellTable_007A3150[nCellA] != -1)
+            if (gaAutomapCellTable[nCellA] != -1)
             {
                 const int nCellB = pB->nCellNo;
-                if (gaAutomapCellTable_007A3150[nCellA] != gaAutomapCellTable_007A3150[nCellB])
+                if (gaAutomapCellTable[nCellA] != gaAutomapCellTable[nCellB])
                 {
                     nResult = nCellA - nCellB;
                 }
@@ -404,7 +407,7 @@ int __fastcall OBJECT_UpdateEnvObject(D2UnitStrc* pUnit, int bNoRefresh)
     if (!pTxt->nEnvEffect)
         return 0;
 
-    switch (ENVIRONMENT_GetPeriodOfDayFromAct(gpAct_007A0634, 0))
+    switch (ENVIRONMENT_GetPeriodOfDayFromAct(gpAct, 0))
     {
     case 0:
         if (pUnit->dwAnimMode == 2 || pUnit->dwAnimMode == 1)
@@ -974,9 +977,9 @@ void __fastcall OBJECT_SpawnPoisonPotions(D2UnitStrc* pUnit, D2UnitStrc* pOwner,
 // 0x004BD4A0
 void __fastcall OBJECT_InitShrineOverlays(D2UnitStrc* pUnit, D2ShrinesTxt* pShrinesTxt)
 {
-    D2_ASSERT(pShrinesTxt->bCode < gnShrineHandlerCount_0072779C, 0x337);
+    D2_ASSERT(pShrinesTxt->bCode < gnShrineHandlerCount, 0x337);
 
-    D2ShrineHandlerStrc* pHandler = &gShrineHandlers_006DA8C0[pShrinesTxt->bCode];
+    D2ShrineHandlerStrc* pHandler = &gaShrineHandlers[pShrinesTxt->bCode];
     if (pHandler->f_8 != -1)
     {
         AUTOMAP_RemoveUnitOverlay(pUnit, 0, pHandler->f_8);
@@ -1001,9 +1004,9 @@ static void __stdcall OBJECT_PlayShrineSound(D2UnitStrc* pPlayer, D2UnitStrc* pU
 {
     D2ShrinesTxt* pShrinesTxt = UNITS_GetShrineTxtRecordFromObject(pUnit);
     D2_ASSERT(pShrinesTxt, 0x34D);
-    D2_ASSERT(pShrinesTxt->bCode < gnShrineHandlerCount_0072779C, 0x34E);
+    D2_ASSERT(pShrinesTxt->bCode < gnShrineHandlerCount, 0x34E);
 
-    D2ShrineHandlerStrc* pHandler = &gShrineHandlers_006DA8C0[pShrinesTxt->bCode];
+    D2ShrineHandlerStrc* pHandler = &gaShrineHandlers[pShrinesTxt->bCode];
     if (pHandler->nSoundId)
         sub_004B9A00(pHandler->nSoundId, pPlayer, 0, 0, 0);
 }
@@ -1027,8 +1030,8 @@ static void __stdcall OBJECT_OperateShrine(D2UnitTargetStrc* pTarget, D2UnitStrc
     if (!pPlayer)
         return;
 
-    if (nIndex > 0 && nIndex < gnShrineHandlerCount_0072779C && gShrineHandlers_006DA8C0[nIndex].pfnOperate)
-        gShrineHandlers_006DA8C0[nIndex].pfnOperate(pUnit, pPlayer, pShrinesTxt);
+    if (nIndex > 0 && nIndex < gnShrineHandlerCount && gaShrineHandlers[nIndex].pfnOperate)
+        gaShrineHandlers[nIndex].pfnOperate(pUnit, pPlayer, pShrinesTxt);
 
     OBJECT_PlayShrineSound(pPlayer, pUnit);
 }
@@ -1038,9 +1041,9 @@ static void OBJECT_InitShrine(D2UnitStrc* pUnit)
 {
     D2ShrinesTxt* pShrinesTxt = UNITS_GetShrineTxtRecordFromObject(pUnit);
     D2_ASSERT(pShrinesTxt, 0x37A);
-    D2_ASSERT(pShrinesTxt->bCode < gnShrineHandlerCount_0072779C, 0x37B);
+    D2_ASSERT(pShrinesTxt->bCode < gnShrineHandlerCount, 0x37B);
 
-    D2ShrineHandlerStrc* pHandler = &gShrineHandlers_006DA8C0[pShrinesTxt->bCode];
+    D2ShrineHandlerStrc* pHandler = &gaShrineHandlers[pShrinesTxt->bCode];
     if (pHandler->pfnInit)
         pHandler->pfnInit(pUnit, pShrinesTxt);
 }
@@ -1440,7 +1443,7 @@ char __fastcall OBJECT_RunClientFunction(D2UnitStrc* pUnit)
     D2_ASSERT(nClientFn < 0x13, 0x546);
     if (nClientFn)
     {
-        return gapfnObjectClientFn_007277F0[nClientFn](pUnit);
+        return gapfnObjectClientFn[nClientFn](pUnit);
     }
 
     return 1;

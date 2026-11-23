@@ -37,14 +37,14 @@ int __cdecl sub_00468740(); // 0x00468740
 void __stdcall sub_0047E9A0_DrawSlots(int bDraw); // 0x0047E9A0
 int __cdecl sub_0047EA60_IsAnyPanelOpen(); // 0x0047EA60
 int __cdecl sub_0047EB50_IsAnyLeftPanelOpen(); // 0x0047EB50
-extern int gnGlobal_0071146C; // 0x0071146C
-extern int gnGlobal_00711470; // 0x00711470
-extern void* gpCellFile_007BC960; // 0x007BC960
-extern int gdwGlobal_007BC970; // 0x007BC970
-extern int gnSlotX_007BC898[]; // 0x007BC898
-extern int gnSlotY_007BC8B8[]; // 0x007BC8B8
-extern int gaSlotKind_007BC8D8[]; // 0x007BC8D8
-extern int gnSlotFrame_007BC918[]; // 0x007BC918
+extern int gnScreenWidth; // 0x0071146C
+extern int gnScreenHeight; // 0x00711470
+extern void* gpMiniPanelCel; // 0x007BC960
+extern int gbSlotBarBlocked; // 0x007BC970
+extern int gaSlotX[]; // 0x007BC898
+extern int gaSlotY[]; // 0x007BC8B8
+extern int gaSlotKind[]; // 0x007BC8D8
+extern int gaSlotFrame[]; // 0x007BC918
 
 int __stdcall sub_0047B3B0_CompareCommand(const char* szCommand, const char* szInput); // 0x0047B3B0
 
@@ -107,13 +107,13 @@ void __fastcall sub_Z12_EmitChatCommands(char* szInput, char* szOut)
     sub_Z12_EmitUse(szOut[0]);
 }
 
-int gnSlotX_007BC898[8]; // 0x007BC898
+int gaSlotX[8]; // 0x007BC898
 
-int gnSlotY_007BC8B8[8]; // 0x007BC8B8
+int gaSlotY[8]; // 0x007BC8B8
 
-int gaSlotKind_007BC8D8[8]; // 0x007BC8D8
+int gaSlotKind[8]; // 0x007BC8D8
 
-int gnSlotFrame_007BC918[8]; // 0x007BC918
+int gaSlotFrame[8]; // 0x007BC918
 
 // build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
@@ -131,33 +131,33 @@ static void sub_0047E8B0_LayoutSlots(int nMode)
     {
         return;
     }
-    int nX = gnGlobal_0071146C / 2 - 0x54;
+    int nX = gnScreenWidth / 2 - 0x54;
     if (gbSmallPanel_007BC978)
     {
-        nX = gnGlobal_0071146C / 2 - 0x4A;
+        nX = gnScreenWidth / 2 - 0x4A;
     }
-    const int nY = gnGlobal_00711470 - 0x32;
+    const int nY = gnScreenHeight - 0x32;
     if (nMode == 1)
     {
-        nX = gnGlobal_0071146C / 2 - 0xCA;
+        nX = gnScreenWidth / 2 - 0xCA;
     }
     else if (nMode == 3)
     {
-        nX = gnGlobal_0071146C / 2 + 0x39;
+        nX = gnScreenWidth / 2 + 0x39;
         if (!gbSmallPanel_007BC978)
         {
-            nX = gnGlobal_0071146C / 2 + 0x23;
+            nX = gnScreenWidth / 2 + 0x23;
         }
     }
-    gaSlotKind_007BC8D8[0] = 0;
-    gnSlotFrame_007BC918[0] = 0;
-    gnSlotX_007BC898[0] = nX;
-    gnSlotY_007BC8B8[0] = nY;
+    gaSlotKind[0] = 0;
+    gaSlotFrame[0] = 0;
+    gaSlotX[0] = nX;
+    gaSlotY[0] = nY;
     nX += 0x15;
     for (int i = 1; i < nSlots; ++i)
     {
-        gnSlotX_007BC898[i] = nX;
-        gnSlotY_007BC8B8[i] = nY;
+        gaSlotX[i] = nX;
+        gaSlotY[i] = nY;
         if (gbSmallPanel_007BC978)
         {
             if (i == 3)
@@ -165,13 +165,13 @@ static void sub_0047E8B0_LayoutSlots(int nMode)
                 nFrameAdd += 2;
                 nKindAdd += 1;
             }
-            gaSlotKind_007BC8D8[i] = nKindAdd + i;
-            gnSlotFrame_007BC918[i] = nFrameAdd + i * 2;
+            gaSlotKind[i] = nKindAdd + i;
+            gaSlotFrame[i] = nFrameAdd + i * 2;
         }
         else
         {
-            gaSlotKind_007BC8D8[i] = i;
-            gnSlotFrame_007BC918[i] = i * 2;
+            gaSlotKind[i] = i;
+            gaSlotFrame[i] = i * 2;
         }
         nX += 0x15;
     }
@@ -270,25 +270,25 @@ static void sub_0047F650_UpdateSlotHover(int nMode)
     {
         nOffset = 0x77;
     }
-    const int nCenter = gnGlobal_0071146C / 2 + nOffset;
+    const int nCenter = gnScreenWidth / 2 + nOffset;
     if (nMouseX <= nCenter - 0x54 || nMouseX >= nCenter + 0x59)
     {
         return;
     }
-    if (nMouseY <= gnGlobal_00711470 - 0x45 || nMouseY >= gnGlobal_00711470 - 0x2F)
+    if (nMouseY <= gnScreenHeight - 0x45 || nMouseY >= gnScreenHeight - 0x2F)
     {
         return;
     }
     for (int i = 0; i < nSlots; ++i)
     {
-        if (nMouseX > gnSlotX_007BC898[i] && nMouseX < gnSlotX_007BC898[i] + 0x14)
+        if (nMouseX > gaSlotX[i] && nMouseX < gaSlotX[i] + 0x14)
         {
-            sub_0047F490_ShowSlotTooltip(gnSlotX_007BC898[i], gnSlotY_007BC8B8[i], gaSlotKind_007BC8D8[i]);
+            sub_0047F490_ShowSlotTooltip(gaSlotX[i], gaSlotY[i], gaSlotKind[i]);
         }
     }
 }
 
-int gdwGlobal_007BC970; // 0x007BC970
+int gbSlotBarBlocked; // 0x007BC970
 
 // 0x0047F710
 void __cdecl sub_0047F710_UpdateSlotBar()
@@ -299,8 +299,8 @@ void __cdecl sub_0047F710_UpdateSlotBar()
     if (bAnyPanel && !bLeftPanel)
     {
         memset(&tContext, 0, sizeof(tContext));
-        tContext.pCellFile = gpCellFile_007BC960;
-        int nX = gnGlobal_0071146C / 2;
+        tContext.pCellFile = gpMiniPanelCel;
+        int nX = gnScreenWidth / 2;
         if (gbSmallPanel_007BC978)
         {
             nX += 0x38;
@@ -309,19 +309,19 @@ void __cdecl sub_0047F710_UpdateSlotBar()
         {
             nX += 0x23;
         }
-        sub_004F6480(&tContext, nX - 2, gnGlobal_00711470 - 0x2F, -1, 5, 0);
+        sub_004F6480(&tContext, nX - 2, gnScreenHeight - 0x2F, -1, 5, 0);
         sub_0047E8B0_LayoutSlots(3);
         sub_0047E9A0_DrawSlots(1);
         sub_0047F650_UpdateSlotHover(3);
-        gdwGlobal_007BC970 = 0;
+        gbSlotBarBlocked = 0;
         return;
     }
 
     if (!bAnyPanel && !bLeftPanel)
     {
         memset(&tContext, 0, sizeof(tContext));
-        tContext.pCellFile = gpCellFile_007BC960;
-        int nX = gnGlobal_0071146C / 2;
+        tContext.pCellFile = gpMiniPanelCel;
+        int nX = gnScreenWidth / 2;
         if (gbSmallPanel_007BC978)
         {
             nX -= 0x4A;
@@ -330,27 +330,27 @@ void __cdecl sub_0047F710_UpdateSlotBar()
         {
             nX -= 0x54;
         }
-        sub_004F6480(&tContext, nX - 3, gnGlobal_00711470 - 0x2F, -1, 5, 0);
+        sub_004F6480(&tContext, nX - 3, gnScreenHeight - 0x2F, -1, 5, 0);
         sub_0047E8B0_LayoutSlots(2);
         sub_0047E9A0_DrawSlots(1);
         sub_0047F650_UpdateSlotHover(2);
-        gdwGlobal_007BC970 = 0;
+        gbSlotBarBlocked = 0;
         return;
     }
 
     if (!bAnyPanel && bLeftPanel)
     {
         memset(&tContext, 0, sizeof(tContext));
-        tContext.pCellFile = gpCellFile_007BC960;
-        sub_004F6480(&tContext, gnGlobal_0071146C / 2 - 0xCD, gnGlobal_00711470 - 0x2F, -1, 5, 0);
+        tContext.pCellFile = gpMiniPanelCel;
+        sub_004F6480(&tContext, gnScreenWidth / 2 - 0xCD, gnScreenHeight - 0x2F, -1, 5, 0);
         sub_0047E8B0_LayoutSlots(1);
         sub_0047E9A0_DrawSlots(1);
         sub_0047F650_UpdateSlotHover(1);
-        gdwGlobal_007BC970 = 0;
+        gbSlotBarBlocked = 0;
         return;
     }
 
     sub_00468730();
     sub_00468740();
-    gdwGlobal_007BC970 = 1;
+    gbSlotBarBlocked = 1;
 }

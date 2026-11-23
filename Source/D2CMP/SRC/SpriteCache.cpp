@@ -248,7 +248,7 @@ extern "C" const char gszObjectsDir_006E3628[];
 
 extern "C" const char gszNoCompressName_006E363C[];
 
-extern "C" const char szDataGlobal_006D4118[]; // 0x006D4118
+extern "C" const char gszDataGlobal[]; // 0x006D4118
 
 struct D2CmpDC6CelStrc { char unk0x00[0x2C]; };
 

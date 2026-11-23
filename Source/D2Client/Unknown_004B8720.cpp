@@ -25,9 +25,9 @@ void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex); //
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 int __cdecl sub_004B8A30_OnCancel(); // 0x004B8A30
 int __cdecl sub_004B8A80_OnClose(); // 0x004B8A80
-extern D2ClientDialogStrc* gpDialog_007C0E6C; // 0x007C0E6C
-extern unsigned long gdwTick_007C0E70; // 0x007C0E70
-extern unsigned long gdwGlobal_007C0E78; // 0x007C0E78
+extern D2ClientDialogStrc* gpTradeWaitDialog; // 0x007C0E6C
+extern unsigned long gdwTradeTimeoutTick; // 0x007C0E70
+extern unsigned long gdwSecondaryTradeGold; // 0x007C0E78
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -64,50 +64,50 @@ struct D2TimedHintEntryStrc
 int __cdecl sub_00481820(); // 0x00481820
 D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
 void __fastcall sub_004B9B50_SetValue(int nKey, int nValue); // 0x004B9B50
-extern D2TimedHintNodeStrc* gpTimedHintList_007C5458; // 0x007C5458
+extern D2TimedHintNodeStrc* gpClientSoundList; // 0x007C5458
 
-D2ClientDialogStrc* gpDialog_007C0E64; // 0x007C0E64
+D2ClientDialogStrc* gpTradeRequestDialog; // 0x007C0E64
 
-unsigned long gdwGlobal_007C0E68; // 0x007C0E68
+unsigned long gdwPrimaryTradeGold; // 0x007C0E68
 
 char gbGlobal_007C0E74; // 0x007C0E74
 
-int gnGlobal_007C0E7C; // 0x007C0E7C
+int gnTradeState; // 0x007C0E7C
 
-char gbGlobal_007C0E80; // 0x007C0E80
+char gbTradeActive; // 0x007C0E80
 
 // 0x004B8720
 void __cdecl sub_004B8720()
 {
-    gnGlobal_007C0E7C = 0;
+    gnTradeState = 0;
     gbGlobal_007C0E74 = 0;
 }
 
 // 0x004B8920
 void __cdecl sub_004B8920()
 {
-    gdwGlobal_007C0E78 = 0;
-    gdwGlobal_007C0E68 = 0;
-    gbGlobal_007C0E80 = 1;
+    gdwSecondaryTradeGold = 0;
+    gdwPrimaryTradeGold = 0;
+    gbTradeActive = 1;
 }
 
 // 0x004B8940
 void __fastcall sub_004B8940_CloseWait(int bReopen)
 {
-    gbGlobal_007C0E80 = 0;
-    if (gpDialog_007C0E6C)
+    gbTradeActive = 0;
+    if (gpTradeWaitDialog)
     {
-        DIALOG_DestroyDialog(gpDialog_007C0E6C);
-        gpDialog_007C0E6C = 0;
+        DIALOG_DestroyDialog(gpTradeWaitDialog);
+        gpTradeWaitDialog = 0;
     }
 
-    if (gpDialog_007C0E64)
+    if (gpTradeRequestDialog)
     {
-        DIALOG_DestroyDialog(gpDialog_007C0E64);
-        gpDialog_007C0E64 = 0;
+        DIALOG_DestroyDialog(gpTradeRequestDialog);
+        gpTradeRequestDialog = 0;
     }
 
-    if (gnGlobal_007C0E7C == 7)
+    if (gnTradeState == 7)
     {
         return;
     }
@@ -128,27 +128,27 @@ void __fastcall sub_004B8940_CloseWait(int bReopen)
         }
     }
 
-    if (gnGlobal_007C0E7C)
+    if (gnTradeState)
     {
         sub_00478600_SendShorts(0x4F, 2, 0, 0);
-        gnGlobal_007C0E7C = 0;
+        gnTradeState = 0;
     }
 }
 
 // 0x004B8AD0
 int __cdecl sub_004B8AD0_OpenWait()
 {
-    if (gpDialog_007C0E64)
+    if (gpTradeRequestDialog)
     {
         return 0;
     }
 
-    gpDialog_007C0E64 = sub_004B7EB0_CreateDialog(0x140, 0x64, sub_004B8A80_OnClose, sub_004B8A80_OnClose, 0, 1, 1, 0, 0, 0, 1);
-    sub_004B8370(gpDialog_007C0E64, 1);
-    sub_004B85F0_AddTextLine(gpDialog_007C0E64, D2LANG_GetStringFromTblIndex(0xFCA), 0xF, 0, 0, 1, 0, 0);
-    sub_004B85F0_AddTextLine(gpDialog_007C0E64, D2LANG_GetStringFromTblIndex(0xD49), 0xF, 0, 0, 1, sub_004B8A30_OnCancel, 1);
-    sub_004B85F0_AddTextLine(gpDialog_007C0E64, D2LANG_GetStringFromTblIndex(0xD48), 0xF, 0, 0, 1, sub_004B8A80_OnClose, 1);
-    sub_004B82F0_Select(gpDialog_007C0E64, -1);
+    gpTradeRequestDialog = sub_004B7EB0_CreateDialog(0x140, 0x64, sub_004B8A80_OnClose, sub_004B8A80_OnClose, 0, 1, 1, 0, 0, 0, 1);
+    sub_004B8370(gpTradeRequestDialog, 1);
+    sub_004B85F0_AddTextLine(gpTradeRequestDialog, D2LANG_GetStringFromTblIndex(0xFCA), 0xF, 0, 0, 1, 0, 0);
+    sub_004B85F0_AddTextLine(gpTradeRequestDialog, D2LANG_GetStringFromTblIndex(0xD49), 0xF, 0, 0, 1, sub_004B8A30_OnCancel, 1);
+    sub_004B85F0_AddTextLine(gpTradeRequestDialog, D2LANG_GetStringFromTblIndex(0xD48), 0xF, 0, 0, 1, sub_004B8A80_OnClose, 1);
+    sub_004B82F0_Select(gpTradeRequestDialog, -1);
     return 1;
 }
 
@@ -156,31 +156,31 @@ int __cdecl sub_004B8AD0_OpenWait()
 void __cdecl sub_004B8CB0()
 {
     sub_00478600_SendShorts(0x4F, 2, 0, 0);
-    if (gnGlobal_007C0E7C != 7)
+    if (gnTradeState != 7)
     {
         gbGlobal_007C0E74 = 1;
-        gdwTick_007C0E70 = GetTickCount();
-        gnGlobal_007C0E7C = 7;
+        gdwTradeTimeoutTick = GetTickCount();
+        gnTradeState = 7;
     }
 }
 
 // 0x004B9070
 void __cdecl sub_004B9070_SendPosition()
 {
-    gnGlobal_007C0E7C = 7;
-    sub_00478600_SendShorts(0x4F, 4, (unsigned short)(gdwGlobal_007C0E68 >> 16), (unsigned short)gdwGlobal_007C0E68);
-    gdwTick_007C0E70 = 0xFFFFFFFF;
+    gnTradeState = 7;
+    sub_00478600_SendShorts(0x4F, 4, (unsigned short)(gdwPrimaryTradeGold >> 16), (unsigned short)gdwPrimaryTradeGold);
+    gdwTradeTimeoutTick = 0xFFFFFFFF;
 }
 
-D2ClientDialogStrc* gpDialog_007C0E6C; // 0x007C0E6C
+D2ClientDialogStrc* gpTradeWaitDialog; // 0x007C0E6C
 
 // 0x004B8BF0
 void __cdecl sub_004B8BF0_OpenWait2()
 {
-    D2_ASSERT(!gpDialog_007C0E6C, 0x13D);
-    gpDialog_007C0E6C = sub_004B7EB0_CreateDialog(0x140, 0x64, sub_004B8BA0_OnClose2, sub_004B8BA0_OnClose2, 0, 1, 1, 0, 0, 0, 1);
-    sub_004B8370(gpDialog_007C0E6C, 1);
-    sub_004B85F0_AddTextLine(gpDialog_007C0E6C, D2LANG_GetStringFromTblIndex(0xFCB), 0xF, 0, 0, 1, 0, 0);
-    sub_004B85F0_AddTextLine(gpDialog_007C0E6C, D2LANG_GetStringFromTblIndex(0xD48), 0xF, 0, 0, 1, sub_004B8BA0_OnClose2, 1);
-    sub_004B82F0_Select(gpDialog_007C0E6C, -1);
+    D2_ASSERT(!gpTradeWaitDialog, 0x13D);
+    gpTradeWaitDialog = sub_004B7EB0_CreateDialog(0x140, 0x64, sub_004B8BA0_OnClose2, sub_004B8BA0_OnClose2, 0, 1, 1, 0, 0, 0, 1);
+    sub_004B8370(gpTradeWaitDialog, 1);
+    sub_004B85F0_AddTextLine(gpTradeWaitDialog, D2LANG_GetStringFromTblIndex(0xFCB), 0xF, 0, 0, 1, 0, 0);
+    sub_004B85F0_AddTextLine(gpTradeWaitDialog, D2LANG_GetStringFromTblIndex(0xD48), 0xF, 0, 0, 1, sub_004B8BA0_OnClose2, 1);
+    sub_004B82F0_Select(gpTradeWaitDialog, -1);
 }

@@ -40,26 +40,26 @@ D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
 int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
 D2BitBufferStrc* __stdcall QUESTRECORD_AllocRecord(void* pMemPool); // 0x0065C430
-extern int gnGlobal_0071146C; // 0x0071146C
-extern int gnGlobal_00711470; // 0x00711470
-extern D2MsgHandlerEntryStrc gaMsgHandlers_007273E4[]; // 0x007273E4
-extern D2MsgHandlerEntryStrc gaMsgHandlers_007273F0[]; // 0x007273F0
-extern const char* gaszDialogCels_007274AC[]; // 0x007274AC
-extern int gnGlobal_007A2858; // 0x007A2858
-extern int gnGlobal_007A285C; // 0x007A285C
-extern void* gpCelFile_007BF071; // 0x007BF071
-extern void* gpCelFile_007BF075; // 0x007BF075
-extern void* gpCelFile_007BF079; // 0x007BF079
-extern void* gpCelFile_007BF274; // 0x007BF274
+extern int gnScreenWidth; // 0x0071146C
+extern int gnScreenHeight; // 0x00711470
+extern D2MsgHandlerEntryStrc gaDialogWheelHandlers[]; // 0x007273E4
+extern D2MsgHandlerEntryStrc gaDialogHandlers[]; // 0x007273F0
+extern const char* gaszDialogCels[]; // 0x007274AC
+extern int gnPanelOffsetX; // 0x007A2858
+extern int gnPanelOffsetY; // 0x007A285C
+extern void* gpWaypointBackgroundCel; // 0x007BF071
+extern void* gpWaypointActTabsCel; // 0x007BF075
+extern void* gpWaypointIconCel; // 0x007BF079
+extern void* gpTextPanelFrameCel; // 0x007BF274
 extern int gnGlobal_007C02AC; // 0x007C02AC
-extern int gnGlobal_007C02B0; // 0x007C02B0
-extern void* gpCelFile_007C02BC; // 0x007C02BC
+extern int gnKeyConfigSelected; // 0x007C02B0
+extern void* gpKeyConfigSliderCel; // 0x007C02BC
 extern void* gpGlobal_007C0D43; // 0x007C0D43
-extern int gnGlobal_007C0DBC; // 0x007C0DBC
-extern int gnGlobal_007C0DC0; // 0x007C0DC0
-extern void* gpCelFile_007C0DC8; // 0x007C0DC8
-extern void* gpCelFile_007C0DCC; // 0x007C0DCC
-extern void* gpCelFile_007C546C; // 0x007C546C
+extern int gbWaitSoundPlayed; // 0x007C0DBC
+extern int gbWaitSoundScheduled; // 0x007C0DC0
+extern void* gpBuySellCel; // 0x007C0DC8
+extern void* gpGoldBtnCel; // 0x007C0DCC
+extern void* gpListBoxSliderCel; // 0x007C546C
 
 struct T0044CB60
 {
@@ -105,12 +105,15 @@ void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoor
 void __stdcall CHAT_FreeHoverMsg(void* pMemoryPool, D2HoverTextStrc* pHoverText); // 0x006611A0
 unsigned int __stdcall CHAT_GetTimeoutFromHoverMsg(D2HoverTextStrc* pHoverMsg); // 0x006611D0
 unsigned char __stdcall CHAT_GetLangIdFromHoverMsg(D2HoverTextStrc* pHoverMsg);
-extern int gaHoverDirs_00722654[];
-extern int gnHoverDirCount_00722674;
-extern D2RectStrc gaHoverRects_007BF0A8[16];
-extern int gnGameFrame_007BF20E; // 0x007BF20E
-extern D2CoordStrc gtHoverOffset_007BF214; // 0x007BF214
-extern int gnHoverRectCount_007BF224; // 0x007BF224
+// build: symbol ?gaHoverDirs@* 0x00722654
+extern int gaHoverDirs[];
+// build: symbol ?gnHoverDirCount@* 0x00722674
+extern int gnHoverDirCount;
+// build: symbol ?gaHoverRects@* 0x007BF0A8
+extern D2RectStrc gaHoverRects[16];
+extern int gnGameFrame; // 0x007BF20E
+extern D2CoordStrc gtHoverOffset; // 0x007BF214
+extern int gnHoverRectCount; // 0x007BF224
 
 #pragma pack(push, 2)
 struct D2TextNodeStrc
@@ -128,7 +131,7 @@ int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
-extern D2TextListStrc gtTextList_007BF1EA; // 0x007BF1EA
+extern D2TextListStrc gtOverheadTextList; // 0x007BF1EA
 
 struct D2StringSoundStrc
 {
@@ -137,49 +140,50 @@ struct D2StringSoundStrc
 };
 
 extern "C" unsigned int __cdecl strlen(const char* szString);
-extern "C" const char gszFormatD_006D57BC[]; // 0x006D57BC
-extern "C" const char gszFormatSound_006DA194[]; // 0x006DA194
-extern D2StringSoundStrc* gapClassStringSounds_00722F1C[]; // 0x00722F1C
-extern D2StringSoundStrc gaMonStringSounds_00723750[]; // 0x00723750
+extern "C" const char gszFormatD[]; // 0x006D57BC
+extern "C" const char gszFormatSound[]; // 0x006DA194
+extern D2StringSoundStrc* gapClassStringSounds[]; // 0x00722F1C
+extern D2StringSoundStrc gaMonStringSounds[]; // 0x00723750
 
 static void __stdcall sub_004A0A00_ShowHoverText(const Unicode* wszText, D2UnitStrc* pUnit, D2HoverTextStrc* pHoverText, D2CoordStrc* pPos);
 
-char gaGlobal_007C0C68[1]; // 0x007C0C68
+char gabNpcMenuState[1]; // 0x007C0C68
 
-static int gnGlobal_007C0E4C; // 0x007C0E4C
+static int gnDialogHandlerRegCount; // 0x007C0E4C
 
-static D2ClientDialogStrc* gpGlobal_007C0E54; // 0x007C0E54
+static D2ClientDialogStrc* gpDialogList; // 0x007C0E54
 
-static int gnGlobal_007C0E58; // 0x007C0E58
+static int gbDialogHandlersRegistered; // 0x007C0E58
 
-static int gnGlobal_007C0E5C; // 0x007C0E5C
+static int gnDialogCount; // 0x007C0E5C
 
 // 0x0049C580
 void __cdecl TEXT_LoadWaypointPanelCels()
 {
     char szPath[0x104];
-    if (!gpCelFile_007BF071)
+    if (!gpWaypointBackgroundCel)
     {
-        sprintf(szPath, "%s\\ui\\menu\\waygatebackground", szDataGlobal_006D4118);
-        gpCelFile_007BF071 = ARCHIVE_LoadClientCellFile(szPath, 0);
+// build: symbol ?gszDataGlobal@* 0x006D4118
+        sprintf(szPath, "%s\\ui\\menu\\waygatebackground", gszDataGlobal);
+        gpWaypointBackgroundCel = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
-    if (!gpCelFile_007BF075)
+    if (!gpWaypointActTabsCel)
     {
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
         if (FOG_IsExpansion() && GAME_IsExpansion())
         {
-            sprintf(szPath, "%s\\ui\\menu\\expwaygatetabs", szDataGlobal_006D4118);
+            sprintf(szPath, "%s\\ui\\menu\\expwaygatetabs", gszDataGlobal);
         }
         else
         {
-            sprintf(szPath, "%s\\ui\\menu\\waygatetabs", szDataGlobal_006D4118);
+            sprintf(szPath, "%s\\ui\\menu\\waygatetabs", gszDataGlobal);
         }
-        gpCelFile_007BF075 = ARCHIVE_LoadClientCellFile(szPath, 0);
+        gpWaypointActTabsCel = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
-    if (!gpCelFile_007BF079)
+    if (!gpWaypointIconCel)
     {
-        sprintf(szPath, "%s\\ui\\menu\\waygateicons", szDataGlobal_006D4118);
-        gpCelFile_007BF079 = ARCHIVE_LoadClientCellFile(szPath, 0);
+        sprintf(szPath, "%s\\ui\\menu\\waygateicons", gszDataGlobal);
+        gpWaypointIconCel = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
 }
 
@@ -189,30 +193,30 @@ void __cdecl TEXT_DrawPanelFrame()
     char szPath[0x104];
     D2CelContextStrc tContext;
 
-    D2GFX_DrawBox(gnGlobal_007A2858, gnGlobal_00711470 + gnGlobal_007A285C - 0xE0, gnGlobal_0071146C / 2, gnGlobal_00711470 - 0x30, 0, 5);
+    D2GFX_DrawBox(gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0xE0, gnScreenWidth / 2, gnScreenHeight - 0x30, 0, 5);
 
-    void* pCelFile = gpCelFile_007BF274;
+    void* pCelFile = gpTextPanelFrameCel;
     if (!pCelFile)
     {
-        wsprintfA(szPath, "%s\\UI\\MENU\\scroin", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\UI\\MENU\\scroin", gszDataGlobal);
         pCelFile = ARCHIVE_LoadClientCellFile(szPath, 0);
-        gpCelFile_007BF274 = pCelFile;
+        gpTextPanelFrameCel = pCelFile;
     }
 
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = pCelFile;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
-    sub_004F6480(&tContext, gnGlobal_007A2858, gnGlobal_00711470 + gnGlobal_007A285C - 0x6D, -1, 5, 0);
+    sub_004F6480(&tContext, gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0x6D, -1, 5, 0);
     tContext.nFrame = 1;
-    sub_004F6480(&tContext, gnGlobal_007A2858 + 0x100, gnGlobal_00711470 + gnGlobal_007A285C - 0x6D, -1, 5, 0);
+    sub_004F6480(&tContext, gnPanelOffsetX + 0x100, gnScreenHeight + gnPanelOffsetY - 0x6D, -1, 5, 0);
     tContext.nFrame = 2;
-    sub_004F6480(&tContext, gnGlobal_007A2858, gnGlobal_00711470 + gnGlobal_007A285C - 0x31, -1, 5, 0);
+    sub_004F6480(&tContext, gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0x31, -1, 5, 0);
     tContext.nFrame = 3;
-    sub_004F6480(&tContext, gnGlobal_007A2858 + 0x100, gnGlobal_00711470 + gnGlobal_007A285C - 0x31, -1, 5, 0);
+    sub_004F6480(&tContext, gnPanelOffsetX + 0x100, gnScreenHeight + gnPanelOffsetY - 0x31, -1, 5, 0);
     tContext.pCellFile = sub_00454600();
     tContext.nFrame = 10;
-    sub_004F6480(&tContext, gnGlobal_007A2858 + 0x115, gnGlobal_00711470 + gnGlobal_007A285C - 0x3D, -1, 5, 0);
+    sub_004F6480(&tContext, gnPanelOffsetX + 0x115, gnScreenHeight + gnPanelOffsetY - 0x3D, -1, 5, 0);
 }
 
 // 0x004A23D0
@@ -223,42 +227,48 @@ void __cdecl sub_004A23D0_LoadPanelCels()
     {
         return;
     }
-    if (!gpCelFile_007BF2D5)
+// build: symbol ?gpQuestBackgroundCel@* 0x007BF2D5
+    if (!gpQuestBackgroundCel)
     {
-        sprintf(szPath, "%s\\ui\\menu\\questbackground", szDataGlobal_006D4118);
-        gpCelFile_007BF2D5 = ARCHIVE_LoadClientCellFile(szPath, 0);
+        sprintf(szPath, "%s\\ui\\menu\\questbackground", gszDataGlobal);
+        gpQuestBackgroundCel = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
-    if (!gpCelFile_007BF2D9)
+// build: symbol ?gpQuestTabsCel@* 0x007BF2D9
+    if (!gpQuestTabsCel)
     {
         if (FOG_IsExpansion() && GAME_IsExpansion())
         {
-            sprintf(szPath, "%s\\ui\\menu\\expquesttabs", szDataGlobal_006D4118);
+            sprintf(szPath, "%s\\ui\\menu\\expquesttabs", gszDataGlobal);
         }
         else
         {
-            sprintf(szPath, "%s\\ui\\menu\\questtabs", szDataGlobal_006D4118);
+            sprintf(szPath, "%s\\ui\\menu\\questtabs", gszDataGlobal);
         }
-        gpCelFile_007BF2D9 = ARCHIVE_LoadClientCellFile(szPath, 0);
+        gpQuestTabsCel = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
-    if (!gpCelFile_007BF2D1)
+// build: symbol ?gpQuestSocketsCel@* 0x007BF2D1
+    if (!gpQuestSocketsCel)
     {
-        sprintf(szPath, "%s\\ui\\menu\\questsockets", szDataGlobal_006D4118);
-        gpCelFile_007BF2D1 = ARCHIVE_LoadClientCellFile(szPath, 0);
+        sprintf(szPath, "%s\\ui\\menu\\questsockets", gszDataGlobal);
+        gpQuestSocketsCel = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
-    if (!gpCelFile_007BF2DD)
+// build: symbol ?gpQuestDoneCel@* 0x007BF2DD
+    if (!gpQuestDoneCel)
     {
-        sprintf(szPath, "%s\\ui\\menu\\questdone", szDataGlobal_006D4118);
-        gpCelFile_007BF2DD = ARCHIVE_LoadClientCellFile(szPath, 0);
+        sprintf(szPath, "%s\\ui\\menu\\questdone", gszDataGlobal);
+        gpQuestDoneCel = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
-    if (!gpCelFile_007BF351)
+// build: symbol ?gpInvPsCel@* 0x007BF351
+    if (!gpInvPsCel)
     {
-        sprintf(szPath, "%s\\ui\\menu\\invps", szDataGlobal_006D4118);
-        gpCelFile_007BF351 = ARCHIVE_LoadClientCellFile(szPath, 0);
+        sprintf(szPath, "%s\\ui\\menu\\invps", gszDataGlobal);
+        gpInvPsCel = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
-    if (!gpCelFile_007BF34D)
+// build: symbol ?gpQuestLastCel@* 0x007BF34D
+    if (!gpQuestLastCel)
     {
-        sprintf(szPath, "%s\\ui\\menu\\questlast", szDataGlobal_006D4118);
-        gpCelFile_007BF34D = ARCHIVE_LoadClientCellFile(szPath, 0);
+        sprintf(szPath, "%s\\ui\\menu\\questlast", gszDataGlobal);
+        gpQuestLastCel = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
 }
 
@@ -267,40 +277,45 @@ void __cdecl TEXT_InitTextSlider()
 {
     char szPath[0x104];
     TEXT_InitKeyConfigEntries();
-    sprintf(szPath, "%s\\UI\\Menu\\TextSlid", szDataGlobal_006D4118);
-    gpCelFile_007C02BC = ARCHIVE_LoadClientCellFile(szPath, 0);
+    sprintf(szPath, "%s\\UI\\Menu\\TextSlid", gszDataGlobal);
+    gpKeyConfigSliderCel = ARCHIVE_LoadClientCellFile(szPath, 0);
     sub_004A5060();
     gnGlobal_007C02AC = 0;
-    gnGlobal_007C02B0 = 0;
+    gnKeyConfigSelected = 0;
 }
 
 // 0x004B23E0
 void __cdecl TEXT_InitNpcMenu()
 {
     char szPath[0x104];
-    gnGlobal_007C0DC0 = 0;
-    gnGlobal_007C0DBC = 0;
+    gbWaitSoundScheduled = 0;
+    gbWaitSoundPlayed = 0;
     GetTickCount();
-    memset(gaGlobal_007C0C68, 0, 0x160);
+    memset(gabNpcMenuState, 0, 0x160);
     gpGlobal_007C0D43 = QUESTRECORD_AllocRecord(0);
     gpGlobal_007C0D47 = QUESTRECORD_AllocRecord(0);
-    gnGlobal_007C0C6B = 0;
-    sprintf(szPath, "%s\\ui\\panel\\buysell", szDataGlobal_006D4118);
-    gpCelFile_007C0DC8 = ARCHIVE_LoadClientCellFile(szPath, 0);
-    sprintf(szPath, "%s\\ui\\menu\\goldbtn", szDataGlobal_006D4118);
-    gpCelFile_007C0DCC = ARCHIVE_LoadClientCellFile(szPath, 0);
-    gnGlobal_007C0DED = 0;
-    gbGlobal_007C0DE0 = 0;
-    gnGlobal_007C0DF1 = 0;
-    gnGlobal_007C0DE9 = 0;
+// build: symbol ?gnNpcMenuState@* 0x007C0C6B
+    gnNpcMenuState = 0;
+    sprintf(szPath, "%s\\ui\\panel\\buysell", gszDataGlobal);
+    gpBuySellCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    sprintf(szPath, "%s\\ui\\menu\\goldbtn", gszDataGlobal);
+    gpGoldBtnCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+// build: symbol ?gnTradeRequestFailCount@* 0x007C0DED
+    gnTradeRequestFailCount = 0;
+// build: symbol ?gbTradeClickPending@* 0x007C0DE0
+    gbTradeClickPending = 0;
+// build: symbol ?gdwLastTradeSendTick@* 0x007C0DF1
+    gdwLastTradeSendTick = 0;
+// build: symbol ?gdwTradeRequestTick@* 0x007C0DE9
+    gdwTradeRequestTick = 0;
 }
 
 // 0x004BE020
 void __cdecl TEXT_LoadTextSliderCel()
 {
     char szPath[0x104];
-    sprintf(szPath, "%s\\ui\\menu\\textslid", szDataGlobal_006D4118);
-    gpCelFile_007C546C = ARCHIVE_LoadClientCellFile(szPath, 0);
+    sprintf(szPath, "%s\\ui\\menu\\textslid", gszDataGlobal);
+    gpListBoxSliderCel = ARCHIVE_LoadClientCellFile(szPath, 0);
 }
 
 #include "gen/data/Source/D2Client/UI/text_0049C580.inc"
@@ -356,11 +371,11 @@ static int TEXT_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect)
     switch (sub_0045AE90())
     {
     case 1:
-        if (pRect->nLeft > gnGlobal_0071146C / 2 - 10)
+        if (pRect->nLeft > gnScreenWidth / 2 - 10)
             return 1;
         break;
     case 2:
-        if (pRect->nLeft < gnGlobal_0071146C / 2 + 10)
+        if (pRect->nLeft < gnScreenWidth / 2 + 10)
             return 1;
         break;
     case 3:
@@ -377,38 +392,38 @@ static bool __stdcall sub_0049E070_PlaceHoverRect(int nCount, D2RectStrc* pRect)
 
     if (!nCount)
     {
-        gaHoverRects_007BF0A8[0] = *pRect;
+        gaHoverRects[0] = *pRect;
         return true;
     }
 
     for (int i = 0; i < nCount; ++i)
     {
         D2RectStrc tOverlap;
-        if (IntersectRect(&tOverlap, &gaHoverRects_007BF0A8[i], pRect))
+        if (IntersectRect(&tOverlap, &gaHoverRects[i], pRect))
         {
             for (int nDX = 0x32; nDX < 0x190; nDX += 0x32)
             {
                 for (int nDY = 0x23; nDY < 0x118; nDY += 0x23)
                 {
-                    for (int nDir = 0; nDir < gnHoverDirCount_00722674; ++nDir)
+                    for (int nDir = 0; nDir < gnHoverDirCount; ++nDir)
                     {
                         D2RectStrc tRect = *pRect;
-                        tRect.nLeft += gaHoverDirs_00722654[nDir] * nDX;
-                        tRect.nTop += gaHoverDirs_00722654[nDir] * nDY;
+                        tRect.nLeft += gaHoverDirs[nDir] * nDX;
+                        tRect.nTop += gaHoverDirs[nDir] * nDY;
                         tRect.nRight = tRect.nLeft + 0x190;
                         tRect.nBottom = tRect.nTop + 0x118;
-                        if (tRect.nLeft < 0 || tRect.nRight > gnGlobal_0071146C || tRect.nTop < 0 || tRect.nBottom > gnGlobal_00711470)
+                        if (tRect.nLeft < 0 || tRect.nRight > gnScreenWidth || tRect.nTop < 0 || tRect.nBottom > gnScreenHeight)
                             continue;
 
                         bool bOverlap = false;
                         for (int j = 0; j < nCount; ++j)
                         {
-                            if (IntersectRect(&tOverlap, &gaHoverRects_007BF0A8[j], &tRect))
+                            if (IntersectRect(&tOverlap, &gaHoverRects[j], &tRect))
                                 bOverlap = true;
                         }
                         if (!bOverlap)
                         {
-                            gaHoverRects_007BF0A8[nCount] = tRect;
+                            gaHoverRects[nCount] = tRect;
                             *pRect = tRect;
                             return true;
                         }
@@ -419,7 +434,7 @@ static bool __stdcall sub_0049E070_PlaceHoverRect(int nCount, D2RectStrc* pRect)
         }
     }
 
-    gaHoverRects_007BF0A8[nCount] = *pRect;
+    gaHoverRects[nCount] = *pRect;
     return true;
 }
 
@@ -464,23 +479,23 @@ void __fastcall TEXT_DrawUnitHoverText(D2UnitStrc* pUnit)
 
     D2CoordStrc tPos;
     UNITS_GetClientCoords(pUnit, &tPos);
-    tPos.nX -= gtHoverOffset_007BF214.nX;
-    tPos.nY += -0x1E - gtHoverOffset_007BF214.nY;
+    tPos.nX -= gtHoverOffset.nX;
+    tPos.nY += -0x1E - gtHoverOffset.nY;
     switch (sub_0045AE90())
     {
     case 1:
-        tPos.nX -= gnGlobal_0071146C / 4;
+        tPos.nX -= gnScreenWidth / 4;
         break;
     case 2:
-        tPos.nX += gnGlobal_0071146C / 4;
+        tPos.nX += gnScreenWidth / 4;
         break;
     case 3:
         return;
     }
 
-    if (tPos.nY <= 0 || tPos.nY >= gnGlobal_00711470)
+    if (tPos.nY <= 0 || tPos.nY >= gnScreenHeight)
         return;
-    if (tPos.nX <= -0x64 || tPos.nX >= gnGlobal_0071146C + 0x64)
+    if (tPos.nX <= -0x64 || tPos.nX >= gnScreenWidth + 0x64)
         return;
 
     char szText[0x100];
@@ -525,23 +540,23 @@ void __fastcall TEXT_DrawObjectHoverText(D2UnitStrc* pUnit)
 
     D2CoordStrc tPos;
     UNITS_GetClientCoords(pUnit, &tPos);
-    tPos.nY += -0x0A - gtHoverOffset_007BF214.nY;
-    tPos.nX -= gtHoverOffset_007BF214.nX;
+    tPos.nY += -0x0A - gtHoverOffset.nY;
+    tPos.nX -= gtHoverOffset.nX;
     switch (sub_0045AE90())
     {
     case 1:
-        tPos.nX -= gnGlobal_0071146C / 4;
+        tPos.nX -= gnScreenWidth / 4;
         break;
     case 2:
-        tPos.nX += gnGlobal_0071146C / 4;
+        tPos.nX += gnScreenWidth / 4;
         break;
     case 3:
         return;
     }
 
-    if (tPos.nY <= 0 || tPos.nY >= gnGlobal_00711470)
+    if (tPos.nY <= 0 || tPos.nY >= gnScreenHeight)
         return;
-    if (tPos.nX <= -0x64 || tPos.nX >= gnGlobal_0071146C + 0x64)
+    if (tPos.nX <= -0x64 || tPos.nX >= gnScreenWidth + 0x64)
         return;
 
     char szText[0x100];
@@ -566,13 +581,13 @@ void __fastcall TEXT_DrawObjectHoverText(D2UnitStrc* pUnit)
 // 0x0049DEE0
 void __cdecl TEXT_DrawOverheadTextList()
 {
-    if (!gtTextList_007BF1EA.wCount)
+    if (!gtOverheadTextList.wCount)
     {
         return;
     }
 
     int nOldFont = sub_00502EF0(13);
-    D2TextNodeStrc* pNode = gtTextList_007BF1EA.pFirst;
+    D2TextNodeStrc* pNode = gtOverheadTextList.pFirst;
     int nX = 15;
     if (GAME_GetUIVarState(6) || GAME_GetUIVarState(0x11))
     {
@@ -589,9 +604,9 @@ void __cdecl TEXT_DrawOverheadTextList()
             {
                 if (pNode->pLines[i])
                 {
-                    sub_0046EFD0_DrawFramedBox(nX - 5, gnGlobal_00711470 - 25 * nBoxRow - i * 25 / 2 - 0x81,
+                    sub_0046EFD0_DrawFramedBox(nX - 5, gnScreenHeight - 25 * nBoxRow - i * 25 / 2 - 0x81,
                                                D2Win_10123(pNode->pLines[i], sub_00526800(pNode->pLines[i])) + 10, 0x10, 0, 1);
-                    D2Win_10117_DrawText(pNode->pLines[i], nX, gnGlobal_00711470 + 25 * nTextRow - i * 25 / 2 - 0x73, pNode->nColor, 0);
+                    D2Win_10117_DrawText(pNode->pLines[i], nX, gnScreenHeight + 25 * nTextRow - i * 25 / 2 - 0x73, pNode->nColor, 0);
                 }
             }
             pNode = pNode->pNext;
@@ -601,18 +616,18 @@ void __cdecl TEXT_DrawOverheadTextList()
         while (pNode);
     }
 
-    pNode = gtTextList_007BF1EA.pFirst;
+    pNode = gtOverheadTextList.pFirst;
     D2TextNodeStrc* pPrev = 0;
     unsigned int dwNow = GetTickCount();
     while (pNode)
     {
         if (pNode->dwEndTick < dwNow)
         {
-            --gtTextList_007BF1EA.wCount;
+            --gtOverheadTextList.wCount;
             D2TextNodeStrc* pNext = pNode->pNext;
-            if (gtTextList_007BF1EA.pFirst == pNode)
+            if (gtOverheadTextList.pFirst == pNode)
             {
-                gtTextList_007BF1EA.pFirst = pNext;
+                gtOverheadTextList.pFirst = pNext;
             }
 
             for (int j = 0; j < 6; ++j)
@@ -654,7 +669,7 @@ static void __stdcall sub_0049F410_SetHoverText(int nLangId, const char* szText,
         return;
     }
 
-    D2HoverTextStrc* pHoverText = CHAT_AllocHoverMsg(0, szText, gnGameFrame_007BF20E);
+    D2HoverTextStrc* pHoverText = CHAT_AllocHoverMsg(0, szText, gnGameFrame);
     CHAT_SetLangIdInHoverMsg(pHoverText, nLangId);
     if (pUnit->pHoverText)
         CHAT_FreeHoverMsg(0, pUnit->pHoverText);
@@ -681,12 +696,12 @@ void __fastcall TEXT_SetSpeechHoverText(D2UnitStrc* pUnit, int nStringId)
     if (nUnitType == 0)
     {
         const int nClassId = !pUnit ? -1 : pUnit->dwClassId;
-        D2StringSoundStrc* pTable = gapClassStringSounds_00722F1C[nClassId];
+        D2StringSoundStrc* pTable = gapClassStringSounds[nClassId];
         for (unsigned int i = 0; i < 0x4A; ++i)
         {
             if (pTable[i].wStringId == nStringId)
             {
-                sprintf(szText, gszFormatSound_006DA194, -1, -1, pTable[i].wSoundId);
+                sprintf(szText, gszFormatSound, -1, -1, pTable[i].wSoundId);
                 sub_0049F410_SetHoverText(sub_00525150(), szText, pUnit);
                 return;
             }
@@ -696,9 +711,9 @@ void __fastcall TEXT_SetSpeechHoverText(D2UnitStrc* pUnit, int nStringId)
     {
         for (unsigned int i = 0; i < 6; ++i)
         {
-            if (gaMonStringSounds_00723750[i].wStringId == nStringId)
+            if (gaMonStringSounds[i].wStringId == nStringId)
             {
-                sprintf(szText, gszFormatD_006D57BC, gaMonStringSounds_00723750[i].wSoundId);
+                sprintf(szText, gszFormatD, gaMonStringSounds[i].wSoundId);
                 sub_0049F410_SetHoverText(sub_00525150(), szText, pUnit);
                 return;
             }
@@ -709,7 +724,7 @@ void __fastcall TEXT_SetSpeechHoverText(D2UnitStrc* pUnit, int nStringId)
 // 0x004A0A00
 static void __stdcall sub_004A0A00_ShowHoverText(const Unicode* wszText, D2UnitStrc* pUnit, D2HoverTextStrc* pHoverText, D2CoordStrc* pPos)
 {
-    if (gnGameFrame_007BF20E > CHAT_GetTimeoutFromHoverMsg(pHoverText))
+    if (gnGameFrame > CHAT_GetTimeoutFromHoverMsg(pHoverText))
     {
         CHAT_FreeHoverMsg(0, pHoverText);
         if (pUnit)
@@ -730,13 +745,13 @@ static void __stdcall sub_004A0A00_ShowHoverText(const Unicode* wszText, D2UnitS
     tRect.nLeft = pPos->nX;
     tRect.nBottom = pTextBox->nHeight + pPos->nY;
     tRect.nRight = pTextBox->nWidth + pPos->nX;
-    if (gnHoverRectCount_007BF224 < 0x10 && !sub_0049E070_PlaceHoverRect(gnHoverRectCount_007BF224, &tRect))
+    if (gnHoverRectCount < 0x10 && !sub_0049E070_PlaceHoverRect(gnHoverRectCount, &tRect))
     {
         TEXT_FreeTextBox(pTextBox);
         return;
     }
 
-    ++gnHoverRectCount_007BF224;
+    ++gnHoverRectCount;
     TEXT_DrawTextBoxAt(pTextBox, &tRect);
     TEXT_FreeTextBox(pTextBox);
     sub_00502EF0(nOldFont);

@@ -44,7 +44,7 @@ extern unsigned long gnFlag2_00776CBC;                                          
 D2CriticalSectionStrc gaFreeBlockLocks_00776CC0[0x100];                                                     // 0x00776CC0
 extern int gnFlag1_007784C0;                                                                                // 0x007784C0
 extern unsigned long gnFlag0_007784C4;                                                                                // 0x007784C4
-extern int gabFreeBlockDirty_007784C8[0x100];                                                               // 0x007784C8
+extern int gabFreeBlockDirty[0x100];                                                               // 0x007784C8
 extern D2SMemHeapStrc* gpFreeBlockSweep_007788C8;                                                           // 0x007788C8
 int gnFlag3_007788CC;                                                                                       // 0x007788CC
 int gbHeapInitialized_007788D0;                                                                             // 0x007788D0
@@ -315,7 +315,7 @@ static void sub_00411AA0_FreeBlock(D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBloc
         pHeap->nFragments = 0;
         if (pHeap->dwId < 0x80000000)
         {
-            gabFreeBlockDirty_007784C8[pHeap->nLockIndex] = 1;
+            gabFreeBlockDirty[pHeap->nLockIndex] = 1;
             gpFreeBlockSweep_007788C8 = pHeap;
         }
     }
@@ -1431,7 +1431,7 @@ int __cdecl sub_00412240_DestroyHeaps()
         {
             EnterCriticalSection(pLock);
             D2SMemHeapStrc** ppLink = &gapFreeBlocks_007768B8[i];
-            gabFreeBlockDirty_007784C8[i] = 0;
+            gabFreeBlockDirty[i] = 0;
             while (*ppLink)
             {
                 D2SMemHeapStrc* pBlock = *ppLink;

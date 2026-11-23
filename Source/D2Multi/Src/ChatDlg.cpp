@@ -74,7 +74,7 @@ void __cdecl COMCALLBACK_RefreshChatButtons(); // 0x004477A0
 
 int __stdcall COMCALLBACK_ButtonCallback(D2ChatMessageStrc* pMsg); // 0x00448C70
 
-extern "C" const char szDataGlobal_006D4118[]; // 0x006D4118
+extern "C" const char gszDataGlobal[]; // 0x006D4118
 
 extern "C" const char gszSaveFormat_006D4230[]; // 0x006D4230
 
@@ -733,111 +733,111 @@ void __cdecl CHATDLG_LoadFrontEndCels()
 {
     char szPath[0x104];
 
-    sprintf(szPath, "%s\\UI\\FrontEnd\\PopUpLargest2", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\FrontEnd\\PopUpLargest2", gszDataGlobal);
     gpCellFile_0077BC0C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\FrontEnd\\MediumButtonBlank2", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\FrontEnd\\MediumButtonBlank2", gszDataGlobal);
     gpCellFile_0077BC10 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\bnet", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\bnet", gszDataGlobal);
     gpCellFile_0077BC04 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\waitingroombkgd", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\waitingroombkgd", gszDataGlobal);
     gpCellFile_0077BC08 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\CURSOR\\ohand", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\CURSOR\\ohand", gszDataGlobal);
     gpCellFile_0077BC14 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\CURSOR\\lrotate", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\CURSOR\\lrotate", gszDataGlobal);
     gpCellFile_0077BC18 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\scrollbar", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\scrollbar", gszDataGlobal);
     gpCellFile_0077BC1C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\FRONTEND\\joingamescrollbars", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\FRONTEND\\joingamescrollbars", gszDataGlobal);
     gpCellFile_0077BC20 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\chatleftbuttons", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\chatleftbuttons", gszDataGlobal);
     gpCellFile_0077BC28 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\chatleftbuttons1", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\chatleftbuttons1", gszDataGlobal);
     gpCellFile_0077BC2C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\chatleftbuttons2", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\chatleftbuttons2", gszDataGlobal);
     gpCellFile_0077BC30 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\chatrightbuttons", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\chatrightbuttons", gszDataGlobal);
     gpCellFile_0077BC34 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\chatrighttopbuttons", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\chatrighttopbuttons", gszDataGlobal);
     gpCellFile_0077BC38 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\chatarrows", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\chatarrows", gszDataGlobal);
     gpCellFile_0077BC3C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\joingamebckg", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\joingamebckg", gszDataGlobal);
     gpCellFile_0077BC50 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\GameButtonBlank", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\GameButtonBlank", gszDataGlobal);
     gpCellFile_0077BC5C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\joingameclickbox", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\joingameclickbox", gszDataGlobal);
     gpCellFile_0077BC60 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\numberarrows", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\numberarrows", gszDataGlobal);
     gpCellFile_0077BCC0 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\numberarrows", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\numberarrows", gszDataGlobal);
     gpCellFile_0077BCC4 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\numberarrows", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\numberarrows", gszDataGlobal);
     gpCellFile_0077BCC8 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\numberarrows", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\numberarrows", gszDataGlobal);
     gpCellFile_0077BCCC = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\numbergreyarrows", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\numbergreyarrows", gszDataGlobal);
     gpCellFile_0077BCD0 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\GreyLevelBox", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\GreyLevelBox", gszDataGlobal);
     gpCellFile_0077BC64 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\createjoinbckg", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\createjoinbckg", gszDataGlobal);
     gpCellFile_0077BCD4 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\okaybutton", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\okaybutton", gszDataGlobal);
     gpCellFile_0077BCD8 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\creategamebckg", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\creategamebckg", gszDataGlobal);
     gpCellFile_0077BD0C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\creategamebutton", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\creategamebutton", gszDataGlobal);
     gpCellFile_0077BD10 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\widebuttonblank", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\widebuttonblank", gszDataGlobal);
     gpCellFile_0077BD18 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\CancelButtonBlank", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\CancelButtonBlank", gszDataGlobal);
     gpCellFile_0077BD2C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\yesnobuttonblank", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\yesnobuttonblank", gszDataGlobal);
     gpCellFile_0077BD30 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\BIGMENU\\D2logoBlackBnet", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\BIGMENU\\D2logoBlackBnet", gszDataGlobal);
     gpCellFile_0077BD48 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\BIGMENU\\D2logoBnet", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\BIGMENU\\D2logoBnet", gszDataGlobal);
     gpCellFile_0077BD4C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\blankbckg2", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\blankbckg2", gszDataGlobal);
     gpCellFile_0077BC54 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\gembutton", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\gembutton", gszDataGlobal);
     gpCellFile_0077BC58 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\LadderChoiceEXP", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\LadderChoiceEXP", gszDataGlobal);
     gpCellFile_0077BD34 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\HardcoreLadderBckg", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\HardcoreLadderBckg", gszDataGlobal);
     gpCellFile_0077BD38 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\PlayerProfileBckg", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\PlayerProfileBckg", gszDataGlobal);
     gpCellFile_0077BD40 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\PlayerProfileBckg", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\PlayerProfileBckg", gszDataGlobal);
     gpCellFile_0077BD3C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\HelpBckg", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\HelpBckg", gszDataGlobal);
     gpCellFile_0077BD44 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\radiobutton", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\radiobutton", gszDataGlobal);
     gpCellFile_0077BC68 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\BIGMENU\\radiobuttonGrey", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\BIGMENU\\radiobuttonGrey", gszDataGlobal);
     gpCellFile_0077BC6C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\BIGMENU\\PopUpOK", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\BIGMENU\\PopUpOK", gszDataGlobal);
     gpCellFile_0077BC70 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\BIGMENU\\CancelButtonBlank", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\BIGMENU\\CancelButtonBlank", gszDataGlobal);
     gpCellFile_0077BC74 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\BIGMENU\\overalltab", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\BIGMENU\\overalltab", gszDataGlobal);
     gpCellFile_0077BC78 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\BIGMENU\\amazontab", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\BIGMENU\\amazontab", gszDataGlobal);
     gpCellFile_0077BC7C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\BIGMENU\\sorceresstab", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\BIGMENU\\sorceresstab", gszDataGlobal);
     gpCellFile_0077BC80 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\BIGMENU\\necromancertab", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\BIGMENU\\necromancertab", gszDataGlobal);
     gpCellFile_0077BC84 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\BIGMENU\\paladintab", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\BIGMENU\\paladintab", gszDataGlobal);
     gpCellFile_0077BC88 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\BIGMENU\\barbariantab", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\BIGMENU\\barbariantab", gszDataGlobal);
     gpCellFile_0077BC8C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\BIGMENU\\druidtab", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\BIGMENU\\druidtab", gszDataGlobal);
     gpCellFile_0077BC90 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\BIGMENU\\assassintab", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\BIGMENU\\assassintab", gszDataGlobal);
     gpCellFile_0077BC94 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\UncompOverlays\\SquelchAura", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\UncompOverlays\\SquelchAura", gszDataGlobal);
     gpCellFile_0077BCB8 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\UncompOverlays\\SelectAura", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\UncompOverlays\\SelectAura", gszDataGlobal);
     gpCellFile_0077BCBC = sub_004FA9B0_LoadCellFile(szPath, 0);
     sub_00504D30(gpCellFile_0077BCB8, gpCellFile_0077BCBC);
 }
@@ -1380,7 +1380,8 @@ void __fastcall sub_004423B0_RunCommand(char* szText)
         return;
     }
 
-    if (!CHATDLG_CompareCommand(szText, "/ignore ") || !CHATDLG_CompareCommand(szText, gszCmdSquelch_006D5698))
+// build: symbol ?gszCmdSquelch@* 0x006D5698
+    if (!CHATDLG_CompareCommand(szText, "/ignore ") || !CHATDLG_CompareCommand(szText, gszCmdSquelch))
     {
         Unicode wszFormat[0x208];
         Unicode wszMessage[0x208];
@@ -1400,7 +1401,8 @@ void __fastcall sub_004423B0_RunCommand(char* szText)
         return;
     }
 
-    if (!CHATDLG_CompareCommand(szText, "/unignore ") || !CHATDLG_CompareCommand(szText, gszCmdUnsquelch_006D5680))
+// build: symbol ?gszCmdUnsquelch@* 0x006D5680
+    if (!CHATDLG_CompareCommand(szText, "/unignore ") || !CHATDLG_CompareCommand(szText, gszCmdUnsquelch))
     {
         Unicode wszFormat[0x208];
         Unicode wszMessage[0x208];

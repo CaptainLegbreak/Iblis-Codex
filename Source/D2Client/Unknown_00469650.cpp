@@ -36,8 +36,8 @@ int __fastcall FOG_CloseFile(void* hFile);                                      
 void __stdcall CMDTBL_LoadKeyConfig(int bInstallDir);                                                 // 0x004698D0
 void __cdecl CMDTBL_BindMouseHotkeys();                                                               // 0x004694A0
 
-extern char gszAccountFolder_007A0500[];                                                                    // 0x007A0500
-extern char gszCharName_007A05C4[];                                                                         // 0x007A05C4
+extern char gszRealm[];                                                                    // 0x007A0500
+extern char gszClientCharName[];                                                                         // 0x007A05C4
 extern D2HotkeyStrc gtHotkeys_007A6F90[NUM_HOTKEYS];                                                        // 0x007A6F90
 
 // 0x00469650
@@ -47,11 +47,11 @@ static void* sub_00469650_OpenKeyFile(unsigned long dwDesiredAccess, unsigned lo
     char szFileName[0x104] = { 0 };
     char szDir[0x104] = { 0 };
     FOG_GetSavePath(szSavePath, sizeof(szSavePath));
-    if (gszAccountFolder_007A0500[0])
+    if (gszRealm[0])
     {
-        SStrPrintf(szDir, sizeof(szDir), "%s%s\\", szSavePath, gszAccountFolder_007A0500);
+        SStrPrintf(szDir, sizeof(szDir), "%s%s\\", szSavePath, gszRealm);
         FOG_CreatePathHierarchy(szDir);
-        SStrPrintf(szFileName, sizeof(szFileName), "%s%s.key", szDir, gszCharName_007A05C4);
+        SStrPrintf(szFileName, sizeof(szFileName), "%s%s.key", szDir, gszClientCharName);
         void* hFile = FOG_CreateFileA(szFileName, dwDesiredAccess, 0, 0, dwCreationDisposition, FILE_ATTRIBUTE_NORMAL, 0);
         if (hFile != INVALID_HANDLE_VALUE)
         {
@@ -59,7 +59,7 @@ static void* sub_00469650_OpenKeyFile(unsigned long dwDesiredAccess, unsigned lo
         }
     }
 
-    SStrPrintf(szFileName, sizeof(szFileName), "%s%s.key", szSavePath, gszCharName_007A05C4);
+    SStrPrintf(szFileName, sizeof(szFileName), "%s%s.key", szSavePath, gszClientCharName);
     return FOG_CreateFileA(szFileName, dwDesiredAccess, 0, 0, dwCreationDisposition, FILE_ATTRIBUTE_NORMAL, 0);
 }
 
@@ -159,7 +159,8 @@ LOAD_DEFAULT:
     {
         gtHotkeys_007A6F90[i].nKey = HOTKEY_UNBOUND;
     }
-    memcpy(gtHotkeys_007A6F90, gaKeyTable_00712220, sizeof(gtHotkeys_007A6F90));
+// build: symbol ?gaKeyTable@* 0x00712220
+    memcpy(gtHotkeys_007A6F90, gaKeyTable, sizeof(gtHotkeys_007A6F90));
     CMDTBL_BindMouseHotkeys();
     sub_00469780_SaveKeyConfig();
 }

@@ -14,26 +14,26 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
-extern int gnGlobal_0071146C; // 0x0071146C
-extern int gnGlobal_00711470; // 0x00711470
+extern int gnScreenWidth; // 0x0071146C
+extern int gnScreenHeight; // 0x00711470
 
-int gnGlobal_007BEECC; // 0x007BEECC
+int gnPetIconPopupState; // 0x007BEECC
 
 // 0x00493840
 void __cdecl sub_00493840_TogglePopup()
 {
-    switch (gnGlobal_007BEECC)
+    switch (gnPetIconPopupState)
     {
     case 0:
         if (!GAME_GetConnectionType())
         {
-            gnGlobal_007BEECC = 2;
+            gnPetIconPopupState = 2;
             gnGlobal_007BEEE8 = 0;
             sub_00455F20(0x23, 1, 0);
         }
         else
         {
-            gnGlobal_007BEECC = 1;
+            gnPetIconPopupState = 1;
             sub_00455F20(0x23, 0, 0);
         }
         break;
@@ -41,19 +41,19 @@ void __cdecl sub_00493840_TogglePopup()
     case 1:
         if (!GAME_GetConnectionType())
         {
-            gnGlobal_007BEECC = 0;
+            gnPetIconPopupState = 0;
             sub_00455F20(0x23, 0, 0);
         }
         else
         {
-            gnGlobal_007BEECC = 2;
+            gnPetIconPopupState = 2;
             gnGlobal_007BEEE8 = 0;
             sub_00455F20(0x23, 1, 0);
         }
         break;
 
     default:
-        gnGlobal_007BEECC = 0;
+        gnPetIconPopupState = 0;
         sub_00455F20(0x23, 0, 0);
         break;
     }
@@ -78,5 +78,5 @@ void __cdecl sub_00495030_DrawKeyHelp()
         sub_00526700(wszText, wszKey);
     }
     const int nWidth = D2Win_10121_GetTextWidth(wszText);
-    D2Win_10117_DrawText(wszText, gnGlobal_0071146C - nWidth / 2 - 0x3A, gnGlobal_00711470 - 0xC5, 0, 0);
+    D2Win_10117_DrawText(wszText, gnScreenWidth - nWidth / 2 - 0x3A, gnScreenHeight - 0xC5, 0, 0);
 }

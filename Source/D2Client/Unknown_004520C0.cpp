@@ -10,7 +10,8 @@ D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nTy
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szFile)
 {
     char szPath[0x104];
-    wsprintfA(szPath, "%s\\UI\\", szDataGlobal_006D4118);
+// build: symbol ?gszDataGlobal@* 0x006D4118
+    wsprintfA(szPath, "%s\\UI\\", gszDataGlobal);
     char* pDest = &szPath[SStrLen(szPath)];
     const char* pSrc = szFile;
     while (*pSrc)

@@ -27,7 +27,7 @@ void __cdecl sub_005269D0(int nBufferSize, wchar_t* pBuffer, const wchar_t* pFor
 
 extern "C" const char szFmtD_006D57BC[]; // 0x006D57BC
 
-extern "C" const char szFmtRange_006D9D70[]; // 0x006D9D70
+extern "C" const char gszFmtRange[]; // 0x006D9D70
 
 D2SkillDescTxt* __fastcall sub_004A89D0_SkillDescRec(int nSkillId); // 0x004A89D0
 
@@ -195,11 +195,11 @@ struct Unicode;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern int gnGlobal_00711470; // 0x00711470
+extern int gnScreenHeight; // 0x00711470
 
-extern int gnGlobal_007A2858; // 0x007A2858
+extern int gnPanelOffsetX; // 0x007A2858
 
-extern int gnGlobal_007A285C; // 0x007A285C
+extern int gnPanelOffsetY; // 0x007A285C
 
 int __stdcall INVENTORY_GetEquippedShield(D2InventoryStrc* pInventory, D2UnitStrc** ppItem); // 0x0063C8F0
 
@@ -436,7 +436,7 @@ static int __stdcall sub_004E7650_AppendFrameRange(wchar_t* wszOut, unsigned sho
     if (nMinFraction || nMaxFraction)
         wsprintfA(szText, "%d.%d-%d.%d", nMin, nMinFraction, nMax, nMaxFraction);
     else
-        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szText, gszFmtRange, nMin, nMax);
     sub_00526320_ToUnicode(wszText, szText, 32);
     sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr));
     sub_00526700(wszOut, wszText);
@@ -463,7 +463,7 @@ static int __stdcall sub_004E77A0_AppendScaledRange(wchar_t* wszOut, unsigned sh
     if (nMinFraction || nMaxFraction)
         wsprintfA(szText, "%d.%d-%d.%d", nMin, nMinFraction, nMax, nMaxFraction);
     else
-        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szText, gszFmtRange, nMin, nMax);
     sub_00526320_ToUnicode(wszText, szText, 32);
     if (wStr1 != 0x1506)
         sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr1));
@@ -657,7 +657,7 @@ static int __stdcall sub_004E7F40_AppendLabelRangeLabel(wchar_t* wszOut, int bPr
     if (bPrefixSign)
         wsprintfA(szText, "+%d-%d", nMin, nMax);
     else
-        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szText, gszFmtRange, nMin, nMax);
     sub_00526320_ToUnicode(wszText, szText, 32);
     if (wStr1 != 0x1506)
         sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr1));
@@ -682,7 +682,7 @@ static int __stdcall sub_004E8020_AppendLabelsRange(wchar_t* wszOut, int bPrefix
     if (bPrefixSign)
         wsprintfA(szText, "+%d-%d", nMin, nMax);
     else
-        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szText, gszFmtRange, nMin, nMax);
     sub_00526320_ToUnicode(wszText, szText, 32);
     sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr1));
     sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr2));
@@ -705,7 +705,7 @@ static int __stdcall sub_004E80F0_AppendLabelRange(wchar_t* wszOut, int bSeparat
     if (bPrefixSign)
         wsprintfA(szText, "+%d-%d", nMin, nMax);
     else
-        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szText, gszFmtRange, nMin, nMax);
     sub_00526320_ToUnicode(wszText, szText, 32);
     sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr));
     if (bSeparator)

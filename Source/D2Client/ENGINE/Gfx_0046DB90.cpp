@@ -99,13 +99,13 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-extern D2CofModeEntryStrc gaCofModeCodes_00712B04[]; // 0x00712B04
+extern D2CofModeEntryStrc gaCofModeCodes[]; // 0x00712B04
 
-extern int gdwGlobal_007A8918; // 0x007A8918
+extern int gnCofMemoryUsed; // 0x007A8918
 
-extern D2HashedFileStrc gtHashedFile_007A78F0; // 0x007A78F0
+extern D2HashedFileStrc gtGlobalHashedFile; // 0x007A78F0
 
-extern D2HashedFileStrc gtHashedFile_007A8100; // 0x007A8100
+extern D2HashedFileStrc gtUnitGfxHashedFile; // 0x007A8100
 
 static int __stdcall GFX_LoadGfxNode(int* pValue, int nIndex, D2UnitStrc* pUnit); // 0x0046E740
 
@@ -113,7 +113,7 @@ static int GFX_LoadGfxNodeSetByte(D2UnitStrc* pUnit, int nIndex); // 0x0046EA50
 
 extern "C" const char gszPathFormat_006D4124[]; // 0x006D4124
 
-extern const char* gaszHashedFileNames_006D6C30[]; // 0x006D6C30
+extern const char* gaszHashedFileNames[]; // 0x006D6C30
 
 typedef unsigned long DWORD;
 
@@ -135,13 +135,13 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pnNumRooms); // 0x00619790
 
-D2MonGfxCacheStrc gaPlayerGfxCache_007A7490[7]; // 0x007A7490
+D2MonGfxCacheStrc gaPlayerGfxCache[7]; // 0x007A7490
 
-int gbPreloadForce_007A8920; // 0x007A8920
+int gbPreloadForce; // 0x007A8920
 
-extern int gdwGlobal_007A8928; // 0x007A8928
+extern int gbCharArchiveLoaded; // 0x007A8928
 
-int gdwGlobal_007A8910; // 0x007A8910
+int gdwLastPreloadTick; // 0x007A8910
 
 static void GFX_PreloadRoomUnits(int bAsync); // 0x00470070
 
@@ -149,7 +149,7 @@ static int __stdcall GFX_LoadUnitLayers(int bAsync, int nMode, D2UnitStrc* pUnit
 
 static void __stdcall GFX_PreloadMonsterMode(int bAsync, D2UnitStrc* pUnit, int nMode); // 0x0046FDA0
 
-static D2MonGfxCacheStrc* gpPoolBlock_007A80FC; // 0x007A80FC
+static D2MonGfxCacheStrc* gpPoolBlock; // 0x007A80FC
 
 void __fastcall GFX_ResetMonsterModeGfx(D2UnitStrc* pUnit); // 0x00470B70
 
@@ -260,7 +260,7 @@ static void __stdcall GFX_LoadHashedFile(D2HashedFileStrc* pTable, const char* s
     D2_ASSERT(pTable->pData, 268);
     unsigned char* pCursor = pTable->pData;
     int nRemaining = pTable->nSize;
-    gdwGlobal_007A8918 += nRemaining;
+    gnCofMemoryUsed += nRemaining;
     while (nRemaining)
     {
         D2HashedFileEntryStrc* pEntry = (D2HashedFileEntryStrc*)pCursor;
@@ -339,7 +339,7 @@ static D2HashedFileEntryStrc* __stdcall sub_0046DCC0_LoadHashedEntry(D2HashedFil
         const unsigned int nBucket = sub_0046DB90_HashName(szName);
         pEntry->pNext = pTable->pEntries[nBucket];
         pTable->pEntries[nBucket] = pEntry;
-        gdwGlobal_007A8918 += pEntry->nSize + sizeof(D2HashedFileEntryStrc);
+        gnCofMemoryUsed += pEntry->nSize + sizeof(D2HashedFileEntryStrc);
         return pEntry;
     }
     return 0;
@@ -352,10 +352,10 @@ static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int 
     unsigned int dwCode;
     GFX_BuildMonsterCofPath(nMode, szPath, &dwCode, pInfo->nMonsterId);
 
-    D2HashedFileEntryStrc* pEntry = GFX_FindHashedEntry(&gtHashedFile_007A78F0, szPath);
+    D2HashedFileEntryStrc* pEntry = GFX_FindHashedEntry(&gtGlobalHashedFile, szPath);
     if (!pEntry)
     {
-        pEntry = sub_0046DCC0_LoadHashedEntry(&gtHashedFile_007A78F0, szPath);
+        pEntry = sub_0046DCC0_LoadHashedEntry(&gtGlobalHashedFile, szPath);
         D2_ASSERT(pEntry, 0xEC3);
     }
 
@@ -529,7 +529,7 @@ static int __stdcall GFX_LoadGfxNode(int* pValue, int nIndex, D2UnitStrc* pUnit)
         D2_ASSERT(pNewNode, 0x435);
         memset(pNewNode, 0, sizeof(D2GfxListNodeStrc));
 
-        D2HashedFileStrc* pTable = !sub_0046D9F0_GetConvertedUnitType(pUnit) ? &gtHashedFile_007A8100 : &gtHashedFile_007A78F0;
+        D2HashedFileStrc* pTable = !sub_0046D9F0_GetConvertedUnitType(pUnit) ? &gtUnitGfxHashedFile : &gtGlobalHashedFile;
         D2HashedFileEntryStrc* pEntry = GFX_FindHashedEntry(pTable, szPath);
         if (!pEntry)
         {
@@ -602,8 +602,9 @@ static int GFX_LoadGfxNodeSetByte(D2UnitStrc* pUnit, int nIndex)
 void __fastcall GFX_LoadGlobalHashedFile(unsigned char nIndex)
 {
     char szPath[0x104];
-    wsprintfA(szPath, gszPathFormat_006D4124, szDataGlobal_006D4118, gaszHashedFileNames_006D6C30[nIndex]);
-    GFX_LoadHashedFile(&gtHashedFile_007A78F0, szPath);
+// build: symbol ?gszDataGlobal@* 0x006D4118
+    wsprintfA(szPath, gszPathFormat_006D4124, gszDataGlobal, gaszHashedFileNames[nIndex]);
+    GFX_LoadHashedFile(&gtGlobalHashedFile, szPath);
 }
 
 // 0x0046F490
@@ -638,11 +639,12 @@ static void __stdcall GFX_BuildMonsterCofPath(int nMode, char* szPath, unsigned 
         *pCode = 0x20687468;
     }
 
-    for (unsigned int i = 0; i < gnCofModeCodeCount_00712B0C; ++i)
+// build: symbol ?gnCofModeCodeCount@* 0x00712B0C
+    for (unsigned int i = 0; i < gnCofModeCodeCount; ++i)
     {
-        if (nMode == gaCofModeCodes_00712B04[i].nMode)
+        if (nMode == gaCofModeCodes[i].nMode)
         {
-            dwToken = gaCofModeCodes_00712B04[i].dwCode;
+            dwToken = gaCofModeCodes[i].dwCode;
         }
     }
 
@@ -752,9 +754,11 @@ void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow)
         return;
     }
 
-    for (i = 0; i < gnCofModeCount_00712B00; ++i)
+// build: symbol ?gnCofModeCount@* 0x00712B00
+    for (i = 0; i < gnCofModeCount; ++i)
     {
-        const int nMode = gaCofModes_00712AC4[i];
+// build: symbol ?gaCofModes@* 0x00712AC4
+        const int nMode = gaCofModes[i];
         if (pMonStats2TxtRecord->nModeFlags[nMode >> 3] & gdwBitMasks[nMode & 7])
         {
             memset(&tInfo, 0, sizeof(tInfo));
@@ -864,7 +868,8 @@ static int __stdcall GFX_LoadUnitLayers(int bAsync, int nMode, D2UnitStrc* pUnit
         char szBuffer[256];
         const int nClassArg = pUnit->dwClassId;
         const int nTypeArg = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-        sprintf(szBuffer, gszAsyncLoadFailed_006D6CC8, bAsync, nTypeArg, nClassArg, nMode, nWeaponClass, nToken);
+// build: symbol ?gszAsyncLoadFailed@* 0x006D6CC8
+        sprintf(szBuffer, gszAsyncLoadFailed, bAsync, nTypeArg, nClassArg, nMode, nWeaponClass, nToken);
         return 0;
     }
 
@@ -883,7 +888,8 @@ static int __stdcall GFX_LoadUnitLayers(int bAsync, int nMode, D2UnitStrc* pUnit
     int nType = pUnit->dwUnitType;
     int nClass = pUnit->dwClassId;
     int nAnimMode = UNITS_GetAnimOrSeqMode(pUnit);
-    D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, gszGfxFile_006D6C1C, 0x6CD);
+// build: symbol ?gszGfxFile@* 0x006D6C1C
+    D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, gszGfxFile, 0x6CD);
     int nB;
     GFXUTIL_GetLayerInfo(pUnit, nType, nClass, nMode, &nDirection, &nA, &nB, nArg, 0);
     unsigned char* pOrder = sub_004DB110_GetLayerOrder(pLayer, nA, 0);
@@ -931,26 +937,26 @@ static void __stdcall GFX_PreloadMonsterMode(int bAsync, D2UnitStrc* pUnit, int 
     const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
     nClass = nClassValue;
     nAnimMode = UNITS_GetAnimOrSeqMode(pUnit);
-    D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, gszGfxFile_006D6C1C, 0x70A);
-    if (nClass >= sgptDataTables->nMonStatsTxtRecordCount || gpPoolBlock_007A80FC[nClass].nModeFlags[nMode])
+    D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, gszGfxFile, 0x70A);
+    if (nClass >= sgptDataTables->nMonStatsTxtRecordCount || gpPoolBlock[nClass].nModeFlags[nMode])
     {
         return;
     }
-    if (!gpPoolBlock_007A80FC[nClass].aPending[nMode])
+    if (!gpPoolBlock[nClass].aPending[nMode])
     {
         if (GFX_LoadUnitLayers(bAsync, nMode, pUnit) != 1)
         {
-            gpPoolBlock_007A80FC[nClass].aPending[nMode] = 0;
-            gpPoolBlock_007A80FC[nClass].nModeFlags[nMode] = 0;
+            gpPoolBlock[nClass].aPending[nMode] = 0;
+            gpPoolBlock[nClass].nModeFlags[nMode] = 0;
         }
         else
         {
-            gpPoolBlock_007A80FC[nClass].aPending[nMode] = 1;
+            gpPoolBlock[nClass].aPending[nMode] = 1;
         }
     }
     else if (!D2CMPSpriteFindAsynchSiblings(nType, nMode, nClass))
     {
-        gpPoolBlock_007A80FC[nClass].nModeFlags[nMode] = 1;
+        gpPoolBlock[nClass].nModeFlags[nMode] = 1;
     }
 }
 
@@ -972,9 +978,9 @@ static void __stdcall GFX_PreloadMonsterModes(int bAsync, D2UnitStrc* pUnit)
     {
         return;
     }
-    for (unsigned int i = 0; i < gnCofModeCount_00712B00; ++i)
+    for (unsigned int i = 0; i < gnCofModeCount; ++i)
     {
-        const unsigned int nMode = gaCofModes_00712AC4[i];
+        const unsigned int nMode = gaCofModes[i];
         if (pMonStats2->nModeFlags[nMode >> 3] & gdwBitMasks[nMode & 7])
         {
             GFX_PreloadMonsterMode(bAsync, pUnit, nMode);
@@ -1000,25 +1006,25 @@ static void __stdcall sub_0046FF50_PreloadPlayerMode(int bAsync, D2UnitStrc* pUn
     nClass = nClassValue;
     nAnimMode = UNITS_GetAnimOrSeqMode(pUnit);
     D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, ".\\ENGINE\\Gfx.cpp", 0x751);
-    if (gaPlayerGfxCache_007A7490[nClass].nModeFlags[nMode])
+    if (gaPlayerGfxCache[nClass].nModeFlags[nMode])
     {
         return;
     }
-    if (!gaPlayerGfxCache_007A7490[nClass].aPending[nMode])
+    if (!gaPlayerGfxCache[nClass].aPending[nMode])
     {
         if (GFX_LoadUnitLayers(bAsync, nMode, pUnit) != 1)
         {
-            gaPlayerGfxCache_007A7490[nClass].aPending[nMode] = 0;
-            gaPlayerGfxCache_007A7490[nClass].nModeFlags[nMode] = 0;
+            gaPlayerGfxCache[nClass].aPending[nMode] = 0;
+            gaPlayerGfxCache[nClass].nModeFlags[nMode] = 0;
         }
         else
         {
-            gaPlayerGfxCache_007A7490[nClass].aPending[nMode] = 1;
+            gaPlayerGfxCache[nClass].aPending[nMode] = 1;
         }
     }
     else if (!D2CMPSpriteFindAsynchSiblings(nType, nMode, nClass))
     {
-        gaPlayerGfxCache_007A7490[nClass].nModeFlags[nMode] = 1;
+        gaPlayerGfxCache[nClass].nModeFlags[nMode] = 1;
     }
 }
 
@@ -1040,9 +1046,9 @@ static void GFX_PreloadRoomUnits(int bAsync)
     int nCounter = 0;
     for (unsigned int i = 0; i < nRooms; ++i)
     {
-        if (gbPreloadForce_007A8920)
+        if (gbPreloadForce)
         {
-            if (!bAsync || gdwGlobal_007A8928)
+            if (!bAsync || gbCharArchiveLoaded)
             {
                 if ((nCounter++ & 0x1F) != 0)
                 {
@@ -1051,7 +1057,7 @@ static void GFX_PreloadRoomUnits(int bAsync)
             }
         }
 
-        if (!gbPreloadForce_007A8920 && sub_005FF2A0_CountPending() >= 0x1E)
+        if (!gbPreloadForce && sub_005FF2A0_CountPending() >= 0x1E)
         {
             return;
         }
@@ -1073,28 +1079,30 @@ static void GFX_PreloadRoomUnits(int bAsync)
             const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
             nClass = nClassValue;
             nAnimMode = UNITS_GetAnimOrSeqMode(pUnit);
-            D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, gszGfxFile_006D6C1C, 0x7AA);
+            D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, gszGfxFile, 0x7AA);
             if (nType == 1)
             {
-                if (nClass < sgptDataTables->nMonStatsTxtRecordCount && (nAnimMode != 0xC || !gpPoolBlock_007A80FC[nClass].nModeFlags[0xC]))
+                if (nClass < sgptDataTables->nMonStatsTxtRecordCount && (nAnimMode != 0xC || !gpPoolBlock[nClass].nModeFlags[0xC]))
                 {
                     GFX_PreloadMonsterModes(bAsync, pUnit);
                 }
             }
             else if (nType == 0)
             {
-                if (gdwGlobal_007A8928)
+                if (gbCharArchiveLoaded)
                 {
                     bAsync = 0;
                 }
 
-                for (unsigned int j = 0; j < gnPlayerModeCount_00712AC0; ++j)
+// build: symbol ?gnPlayerModeCount@* 0x00712AC0
+                for (unsigned int j = 0; j < gnPlayerModeCount; ++j)
                 {
-                    sub_0046FF50_PreloadPlayerMode(bAsync, pUnit, gaPlayerModes_00712AA0[j]);
+// build: symbol ?gaPlayerModes@* 0x00712AA0
+                    sub_0046FF50_PreloadPlayerMode(bAsync, pUnit, gaPlayerModes[j]);
                 }
             }
 
-            if (!gbPreloadForce_007A8920 && sub_005FF2A0_CountPending() >= 0x1E)
+            if (!gbPreloadForce && sub_005FF2A0_CountPending() >= 0x1E)
             {
                 return;
             }
@@ -1106,19 +1114,19 @@ static void GFX_PreloadRoomUnits(int bAsync)
 // build: symbol ?GFX_PreloadPlayerModes@* 0x00470040
 static void GFX_PreloadPlayerModes(int bAsync, D2UnitStrc* pUnit)
 {
-    for (unsigned int i = 0; i < gnPlayerModeCount_00712AC0; ++i)
+    for (unsigned int i = 0; i < gnPlayerModeCount; ++i)
     {
-        sub_0046FF50_PreloadPlayerMode(bAsync, pUnit, gaPlayerModes_00712AA0[i]);
+        sub_0046FF50_PreloadPlayerMode(bAsync, pUnit, gaPlayerModes[i]);
     }
 }
 
 // 0x00470350
 void __fastcall GFX_PreloadTick(int bAsync)
 {
-    if (gbPreloadForce_007A8920 || GetTickCount() >= gdwGlobal_007A8910 + 0x258)
+    if (gbPreloadForce || GetTickCount() >= gdwLastPreloadTick + 0x258)
     {
         GFX_PreloadRoomUnits(bAsync);
-        gdwGlobal_007A8910 = GetTickCount();
+        gdwLastPreloadTick = GetTickCount();
     }
 }
 
@@ -1163,11 +1171,11 @@ void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg)
 // 0x00470B10
 void __cdecl GFX_PreloadForce()
 {
-    gbPreloadForce_007A8920 = 1;
+    gbPreloadForce = 1;
     GFX_PreloadRoomUnits(0);
-    gdwGlobal_007A8910 = GetTickCount();
+    gdwLastPreloadTick = GetTickCount();
     GFX_PreloadTick(1);
-    gbPreloadForce_007A8920 = 0;
+    gbPreloadForce = 0;
 }
 
 // 0x00470B70
@@ -1193,8 +1201,8 @@ void __fastcall GFX_ResetMonsterModeGfx(D2UnitStrc* pUnit)
     case 1:
         if (nClass < sgptDataTables->nMonStatsTxtRecordCount)
         {
-            gpPoolBlock_007A80FC[nClass].nModeFlags[nAnimMode] = 0;
-            gpPoolBlock_007A80FC[nClass].aPending[nAnimMode] = 0;
+            gpPoolBlock[nClass].nModeFlags[nAnimMode] = 0;
+            gpPoolBlock[nClass].aPending[nAnimMode] = 0;
 
             int bAsync = 1;
             if (!UNITS_GetRoom(pUnit) || WINDOW_GetState() || sub_00454840_Test())
@@ -1210,9 +1218,9 @@ void __fastcall GFX_ResetMonsterModeGfx(D2UnitStrc* pUnit)
 
 void sub_M389_Emit_0046FF50(int bAsync, D2UnitStrc* pUnit)
 {
-    for (unsigned int i = 0; i < gnPlayerModeCount_00712AC0; ++i)
+    for (unsigned int i = 0; i < gnPlayerModeCount; ++i)
     {
-        sub_0046FF50_PreloadPlayerMode(bAsync, pUnit, gaPlayerModes_00712AA0[i] + 0x13);
+        sub_0046FF50_PreloadPlayerMode(bAsync, pUnit, gaPlayerModes[i] + 0x13);
     }
 }
 
@@ -1238,8 +1246,8 @@ void __fastcall sub_00470B70_ResetMonsterMode(D2UnitStrc* pUnit)
     case 1:
         if (nClass < sgptDataTables->nMonStatsTxtRecordCount)
         {
-            gpPoolBlock_007A80FC[nClass].nModeFlags[nAnimMode] = 0;
-            gpPoolBlock_007A80FC[nClass].aPending[nAnimMode] = 0;
+            gpPoolBlock[nClass].nModeFlags[nAnimMode] = 0;
+            gpPoolBlock[nClass].aPending[nAnimMode] = 0;
             int bAsync = 1;
             if (!UNITS_GetRoom(pUnit) || WINDOW_GetState() || sub_00454840_Test())
             {

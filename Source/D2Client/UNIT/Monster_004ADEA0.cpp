@@ -67,13 +67,13 @@ extern D2DataTablesStrc* sgptDataTables;                                        
 
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 
-extern D2MonAnimRecStrc gaMonAnimRecords_00725220[];                                                        // 0x00725220
+extern D2MonAnimRecStrc gaMonAnimRecords[];                                                        // 0x00725220
 
-extern D2MonAnimRecStrc gaMonAnimRecordsMoving_007252E0[];                                                  // 0x007252E0
+extern D2MonAnimRecStrc gaMonAnimRecordsMoving[];                                                  // 0x007252E0
 
-extern D2MonAnimRecStrc gMonAnimRecord_00725328;                                                            // 0x00725328
+extern D2MonAnimRecStrc gtDiabloAnimRecord;                                                            // 0x00725328
 
-extern D2MonAnimRecStrc gMonAnimRecord_00725334;                                                            // 0x00725334
+extern D2MonAnimRecStrc gtBaalAnimRecord;                                                            // 0x00725334
 
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId);                        // 0x00451FE0
 
@@ -185,7 +185,7 @@ int __fastcall UNITS_CanSwitchAI(int nMonsterId); // 0x00623470
 
 int __fastcall sub_004AC7E0(D2UnitStrc* pUnit, unsigned short wFlag); // 0x004AC7E0
 
-extern D2MonCmdRecordStrc gMonCmdRecords_006DA4D8[];                                                        // 0x006DA4D8
+extern D2MonCmdRecordStrc gaMonCmdRecords[];                                                        // 0x006DA4D8
 
 int __cdecl GAME_GetLeftClickState();                                                                                 // 0x0044BF00
 
@@ -494,7 +494,8 @@ static void sub_004AE400_CastRandomCurse(D2UnitStrc* pUnit)
     const int nIndex = sub_J20_SeedStep(&pUnit->pSeed) % 5;
     D2_ASSERT(nIndex < 5, 0x174);
 
-    const int nSkill = gaRandomCurseSkills_006DA5DC[nIndex];
+// build: symbol ?gaRandomCurseSkills@* 0x006DA5DC
+    const int nSkill = gaRandomCurseSkills[nIndex];
     D2UnitStrc* pMissile = GFXUTIL_SubmitMissileRequest(pUnit, nSkill, sub_J20_UnitX(pUnit), sub_J20_UnitY(pUnit), 0, 1);
     if (pMissile)
     {
@@ -596,12 +597,12 @@ static D2MonAnimRecStrc* sub_004AF400_GetMonsterAnimRecord(D2UnitStrc* pUnit)
     const int nClassId = pUnit->dwClassId;
     if (nClassId == 0xF3 && nMode == 0xB || nClassId == 0x14D && nMode == 0xB)
     {
-        return &gMonAnimRecord_00725328;
+        return &gtDiabloAnimRecord;
     }
 
     if (nClassId == 0x21F && nMode == 0xA || nClassId == 0x220 && nMode == 0xA || nClassId == 0x23A && nMode == 0xA)
     {
-        return &gMonAnimRecord_00725334;
+        return &gtBaalAnimRecord;
     }
 
     D2MonStats2Txt* pMonStats2Txt = UNITS_GetMonStats2TxtRecordFromMonsterId(nClassId);
@@ -612,15 +613,15 @@ static D2MonAnimRecStrc* sub_004AF400_GetMonsterAnimRecord(D2UnitStrc* pUnit)
 
     if (pMonStats2Txt->nModeEnabledWhenMovingFlags[nMode >> 3] & gdwBitMasks[nMode & 7])
     {
-        return &gaMonAnimRecordsMoving_007252E0[nMode];
+        return &gaMonAnimRecordsMoving[nMode];
     }
 
     if (!nMode && sub_0063E8D0(pUnit, nMode))
     {
-        return &gaMonAnimRecordsMoving_007252E0[0];
+        return &gaMonAnimRecordsMoving[0];
     }
 
-    return &gaMonAnimRecords_00725220[pUnit->dwAnimMode];
+    return &gaMonAnimRecords[pUnit->dwAnimMode];
 }
 
 // build: context sub_004AF4C0_UpdateMonsterFrame
@@ -639,7 +640,8 @@ static void sub_004AF4C0_UpdateMonsterFrame(D2UnitStrc* pUnit)
         return;
     }
 
-    D2SkillsTxt* pSkillsTxt = sub_J20_GetSkillsTxt(SKILLS_GetSkillIdFromSkill(pSkill, gszMonsterSourceFile_006DA5C8, 0x3B5));
+// build: symbol ?gszMonsterSourceFile@* 0x006DA5C8
+    D2SkillsTxt* pSkillsTxt = sub_J20_GetSkillsTxt(SKILLS_GetSkillIdFromSkill(pSkill, gszMonsterSourceFile, 0x3B5));
     if (!pSkillsTxt)
     {
         return;
@@ -1365,7 +1367,7 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
         nMonId = -1;
 
     int nValue;
-    D2MonCmdRecordStrc* pRecord = &gMonCmdRecords_006DA4D8[nCommand];
+    D2MonCmdRecordStrc* pRecord = &gaMonCmdRecords[nCommand];
     switch (nCommand)
     {
     case 1:
@@ -1877,7 +1879,7 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
         D2_ASSERT(pCommand, 0x911);
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
         nValue = pCommand->nX;
-        SKILLS_AssignSkill(pUnit, nValue, pCommand->nArg, 0, gszMonsterSourceFile_006DA5C8, 0x914);
+        SKILLS_AssignSkill(pUnit, nValue, pCommand->nArg, 0, gszMonsterSourceFile, 0x914);
         D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nValue);
         UNITS_SetUsedSkill(pUnit, pSkill);
         nValue = SKILLS_GetSkillModeFromUnit(pUnit, pSkill);
@@ -1896,7 +1898,7 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
         UNITS_SetTargetUnitForDynamicUnit(pUnit, 0);
         nValue = pCommand->nX;
-        SKILLS_AssignSkill(pUnit, nValue, pCommand->nArg, 0, gszMonsterSourceFile_006DA5C8, 0x929);
+        SKILLS_AssignSkill(pUnit, nValue, pCommand->nArg, 0, gszMonsterSourceFile, 0x929);
         D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nValue);
         UNITS_SetUsedSkill(pUnit, pSkill);
         nValue = SKILLS_GetSkillModeFromUnit(pUnit, pSkill);
@@ -1922,7 +1924,7 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
         {
             STATLIST_DeactivateTemporaryStates(pUnit);
             STATLIST_AddUnitStat(pUnit, STAT_VELOCITYPERCENT, pCommand->nArg - nVelocity, 0);
-            UnitUpdateAnimRateAndVel(pUnit, gszMonsterSourceFile_006DA5C8, 0x946);
+            UnitUpdateAnimRateAndVel(pUnit, gszMonsterSourceFile, 0x946);
         }
     }
 

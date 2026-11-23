@@ -61,10 +61,10 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
-extern int gnGlobal_007129CC; // 0x007129CC
-extern int gnGlobal_007A7460; // 0x007A7460
-extern int gnTimerEnd_007A7464; // 0x007A7464
-extern int gnGlobal_007A7468; // 0x007A7468
+extern int gnPulseTick; // 0x007129CC
+extern int gbChaosLightEvent; // 0x007A7460
+extern int gnTimerEnd; // 0x007A7464
+extern int gbThroneEventPending; // 0x007A7468
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -73,7 +73,7 @@ void __stdcall sub_0046AF70(D2ActiveRoomStrc* pRoom); // 0x0046AF70
 void __cdecl sub_0046AD10_UpdateTimedBox(); // 0x0046AD10
 void __cdecl CUNIT_DrawCountdown(); // 0x0046C060
 extern D2DrlgActStrc* gpGlobal_007A0634; // 0x007A0634
-extern D2ClientTimedBoxStrc gtTimedBox_007A742C; // 0x007A742C
+extern D2ClientTimedBoxStrc gtTimedBox; // 0x007A742C
 
 
 
@@ -115,44 +115,44 @@ int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode)
     return pMonStats2TxtRecord->nModeFlags[nMode >> 3] & gdwBitMasks[nMode & 7];
 }
 
-D2ClientTimedBoxStrc gtTimedBox_007A742C; // 0x007A742C
+D2ClientTimedBoxStrc gtTimedBox; // 0x007A742C
 
 // 0x0046AD10
 void __cdecl sub_0046AD10_UpdateTimedBox()
 {
     unsigned int nLight = 0;
-    SCMD_GetRoomLight(sub_004646A0_GetPlayerRoom(), (int*)&nLight, &gtTimedBox_007A742C.nColor[0], &gtTimedBox_007A742C.nColor[1], &gtTimedBox_007A742C.nColor[2], 0);
+    SCMD_GetRoomLight(sub_004646A0_GetPlayerRoom(), (int*)&nLight, &gtTimedBox.nColor[0], &gtTimedBox.nColor[1], &gtTimedBox.nColor[2], 0);
 
-    if (gtTimedBox_007A742C.nTick < gtTimedBox_007A742C.nFadeIn)
+    if (gtTimedBox.nTick < gtTimedBox.nFadeIn)
     {
-        gtTimedBox_007A742C.nValue = (int)(sub_0040B330_Cos(gtTimedBox_007A742C.nAngle) * nLight);
-        gtTimedBox_007A742C.nAngle = (gtTimedBox_007A742C.nTick << 7) / gtTimedBox_007A742C.nFadeIn;
+        gtTimedBox.nValue = (int)(sub_0040B330_Cos(gtTimedBox.nAngle) * nLight);
+        gtTimedBox.nAngle = (gtTimedBox.nTick << 7) / gtTimedBox.nFadeIn;
     }
-    else if (gtTimedBox_007A742C.nTick >= gtTimedBox_007A742C.nTotal - gtTimedBox_007A742C.nFadeOut)
+    else if (gtTimedBox.nTick >= gtTimedBox.nTotal - gtTimedBox.nFadeOut)
     {
-        gtTimedBox_007A742C.nValue = (int)(sub_0040B330_Cos(gtTimedBox_007A742C.nAngle) * nLight);
-        const int nElapsed = gtTimedBox_007A742C.nFadeOut - gtTimedBox_007A742C.nTotal + gtTimedBox_007A742C.nTick;
-        if (!gtTimedBox_007A742C.nFadeOut)
+        gtTimedBox.nValue = (int)(sub_0040B330_Cos(gtTimedBox.nAngle) * nLight);
+        const int nElapsed = gtTimedBox.nFadeOut - gtTimedBox.nTotal + gtTimedBox.nTick;
+        if (!gtTimedBox.nFadeOut)
         {
-            gtTimedBox_007A742C.nFadeOut = 0x19;
+            gtTimedBox.nFadeOut = 0x19;
         }
-        gtTimedBox_007A742C.nAngle = 0x80 - (nElapsed << 7) / gtTimedBox_007A742C.nFadeOut;
+        gtTimedBox.nAngle = 0x80 - (nElapsed << 7) / gtTimedBox.nFadeOut;
     }
     else
     {
-        gtTimedBox_007A742C.nValue = 0;
+        gtTimedBox.nValue = 0;
     }
 
-    ++gtTimedBox_007A742C.nTick;
+    ++gtTimedBox.nTick;
     D2ActiveRoomStrc* pRoom = sub_004646A0_GetPlayerRoom();
     int nLevelId = 0;
     if (pRoom)
     {
         nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
     }
-    if (gtTimedBox_007A742C.nTick > gtTimedBox_007A742C.nTotal || nLevelId != gtTimedBox_007A742C.nLevelId)
+    if (gtTimedBox.nTick > gtTimedBox.nTotal || nLevelId != gtTimedBox.nLevelId)
     {
-        memset(&gtTimedBox_007A742C, 0, sizeof(gtTimedBox_007A742C));
+        memset(&gtTimedBox, 0, sizeof(gtTimedBox));
     }
 }
 
@@ -319,7 +319,7 @@ void __cdecl sub_0046AEE0_ObjectMissileTimedBox()
 // 0x0046B0C0
 void __cdecl sub_0046B0C0_ResetPulseTick()
 {
-    gnGlobal_007129CC = 0;
+    gnPulseTick = 0;
 }
 
 // 0x0046B100
@@ -355,7 +355,7 @@ void __cdecl sub_0046B100_EventObject98Request()
 // 0x0046B290
 void __cdecl sub_0046B290_EventLevel108Request()
 {
-    gnGlobal_007A7460 = 1;
+    gbChaosLightEvent = 1;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
         return;
@@ -403,8 +403,9 @@ void __cdecl sub_0046B300_EventObject178Request()
 // 0x0046B3A0
 void __cdecl sub_0046B3A0_StartTimer()
 {
-    gnTimerEnd_007A7464 = sub_00410A80_GetTime() + 0x5A;
-    gnGlobal_007129D0 = 0;
+    gnTimerEnd = sub_00410A80_GetTime() + 0x5A;
+// build: symbol ?gnLevelEffectTick@* 0x007129D0
+    gnLevelEffectTick = 0;
 }
 
 // 0x0046B3C0
@@ -420,19 +421,19 @@ void __fastcall sub_0046B3C0_UnitRequest25A(D2UnitStrc* pUnit)
     }
 }
 
-int gnGlobal_007A745C; // 0x007A745C
+int gbPulseDone; // 0x007A745C
 
-int gnGlobal_007A7460; // 0x007A7460
+int gbChaosLightEvent; // 0x007A7460
 
-int gnGlobal_007A7468; // 0x007A7468
+int gbThroneEventPending; // 0x007A7468
 
-int gnGlobal_007A746C; // 0x007A746C
+int gbThroneEventActive; // 0x007A746C
 
 // 0x0046BE60
 void __fastcall sub_0046BE60_ApplyDenOfEvilRoom(D2ActiveRoomStrc* pRoom)
 {
     D2_ASSERT(pRoom, 0x344);
-    if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_DENOFEVIL && gnGlobal_007A745C != 0)
+    if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_DENOFEVIL && gbPulseDone != 0)
     {
         sub_0046AF70(pRoom);
     }
@@ -441,26 +442,26 @@ void __fastcall sub_0046BE60_ApplyDenOfEvilRoom(D2ActiveRoomStrc* pRoom)
 // 0x0046BEB0
 void __cdecl sub_0046BEB0_UpdateTimers()
 {
-    if (gtTimedBox_007A742C.bActive)
+    if (gtTimedBox.bActive)
     {
         sub_0046AD10_UpdateTimedBox();
     }
-    if (!gnGlobal_007A745C && gnGlobal_007129CC != -1)
+    if (!gbPulseDone && gnPulseTick != -1)
     {
-        gnGlobal_007129CC += 1;
-        if (gnGlobal_007129CC >= LEVEL_EFFECT_TICKS)
+        gnPulseTick += 1;
+        if (gnPulseTick >= LEVEL_EFFECT_TICKS)
         {
-            gnGlobal_007A745C = 1;
+            gbPulseDone = 1;
             sub_0046B0D0_ApplyDenOfEvilRooms();
         }
     }
-    if (gnGlobal_007A7460 && gnGlobal_007129D0 != -1)
+    if (gbChaosLightEvent && gnLevelEffectTick != -1)
     {
-        gnGlobal_007129D0 += 1;
-        if (gnGlobal_007129D0 >= LEVEL_EFFECT_TICKS)
+        gnLevelEffectTick += 1;
+        if (gnLevelEffectTick >= LEVEL_EFFECT_TICKS)
         {
-            gnGlobal_007A7460 = 0;
-            gnGlobal_007129D0 = -1;
+            gbChaosLightEvent = 0;
+            gnLevelEffectTick = -1;
         }
     }
 }
@@ -476,18 +477,18 @@ void __fastcall sub_0046BF30_CheckThroneLevel(D2ActiveRoomStrc* pRoom)
     {
     case LEVEL_THRONEOFDESTRUCTION:
     case LEVEL_THEWORLDSTONECHAMBER:
-        if (!gnGlobal_007A746C && gnGlobal_007A7468)
+        if (!gbThroneEventActive && gbThroneEventPending)
         {
             D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
             if (pUnit)
             {
                 sub_004C5420_CreateFirstMissile(pUnit, THRONE_MISSILE, 0, 1);
-                gnGlobal_007A746C = 1;
+                gbThroneEventActive = 1;
             }
         }
         break;
     default:
-        gnGlobal_007A746C = 0;
+        gbThroneEventActive = 0;
         break;
     }
 }
@@ -495,13 +496,14 @@ void __fastcall sub_0046BF30_CheckThroneLevel(D2ActiveRoomStrc* pRoom)
 // 0x0046BF90
 void __cdecl sub_0046BF90_ResetLevelEffects()
 {
-    gnGlobal_007A745C = 0;
-    gnGlobal_007129CC = -1;
-    gnGlobal_007A7460 = 0;
-    gnTimerEnd_007A7464 = 0;
-    gnTimerUnitId_007129D4 = -1;
-    gnGlobal_007A7468 = 0;
-    memset(&gtTimedBox_007A742C, 0, sizeof(gtTimedBox_007A742C));
+    gbPulseDone = 0;
+    gnPulseTick = -1;
+    gbChaosLightEvent = 0;
+    gnTimerEnd = 0;
+// build: symbol ?gnTimerUnitId@* 0x007129D4
+    gnTimerUnitId = -1;
+    gbThroneEventPending = 0;
+    memset(&gtTimedBox, 0, sizeof(gtTimedBox));
 }
 
 // 0x0046B440
@@ -529,7 +531,7 @@ void __cdecl sub_0046B440_EventObject1CCRequest()
 // 0x0046B520
 void __cdecl sub_0046B520_SetFlag7A7468()
 {
-    gnGlobal_007A7468 = 1;
+    gbThroneEventPending = 1;
 }
 
 #include "gen/data/Source/D2Client/Unknown_0046ACE0.inc"
@@ -557,7 +559,7 @@ void __cdecl sub_0046B1E0_EventObject95Request()
 // 0x0046BD20
 static inline int sub_0046BD20_GetChaosLevelLight(unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue)
 {
-    if (gnGlobal_007A7460 && gnGlobal_007129D0 == -1)
+    if (gbChaosLightEvent && gnLevelEffectTick == -1)
     {
         *pRed = 0xFF;
         *pGreen = 0x40;

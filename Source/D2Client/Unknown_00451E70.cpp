@@ -28,7 +28,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-extern D2MsgHandlerEntryStrc gMsgHandlers_0070F7E4[4]; // 0x0070F7E4
+extern D2MsgHandlerEntryStrc gaWindowMsgHandlers[4]; // 0x0070F7E4
 void __fastcall SCMD_UnregisterMsgHandler(void* hWnd, int nType, int nId, SMSGHANDLER pfnHandler); // 0x00451D10
 void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
@@ -105,7 +105,7 @@ typedef char check_itemtypes_size[(sizeof(D2ItemTypesTxt) == 0xE4) ? 1 : -1];
 int __fastcall sub_00451E70_RegisterWindowHandlers(void* hWnd)
 {
     D2_ASSERT(hWnd, 0x178);
-    COMCALLBACK_RegisterMsgHandlers((int)hWnd, gMsgHandlers_0070F7E4, 4);
+    COMCALLBACK_RegisterMsgHandlers((int)hWnd, gaWindowMsgHandlers, 4);
     SMsgPushRegisterState((int)hWnd);
     return 1;
 }
@@ -116,7 +116,7 @@ void __fastcall sub_00451EB0_UnregisterWindowHandlers(void* hWnd)
     D2_ASSERT(hWnd, 0x166);
     for (unsigned int i = 0; i < 4; ++i)
     {
-        SCMD_UnregisterMsgHandler(hWnd, gMsgHandlers_0070F7E4[i].nType, gMsgHandlers_0070F7E4[i].nId, (SMSGHANDLER)gMsgHandlers_0070F7E4[i].pfnHandler);
+        SCMD_UnregisterMsgHandler(hWnd, gaWindowMsgHandlers[i].nType, gaWindowMsgHandlers[i].nId, (SMSGHANDLER)gaWindowMsgHandlers[i].pfnHandler);
     }
     sub_00420320_RegisterHandlers(hWnd);
 }
@@ -163,9 +163,9 @@ D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonster
     return 0;
 }
 
-Unicode gwszText_007A2A78[256]; // 0x007A2A78
+Unicode gwszHoverText[256]; // 0x007A2A78
 
-int gnHoverTextState_007A2C78; // 0x007A2C78
+int gnHoverTextState; // 0x007A2C78
 
 // 0x00452020
 int __fastcall sub_00452020_GetOverlayTxtRecordCount()
@@ -200,12 +200,12 @@ void __fastcall sub_00452550_SetHoverText(const Unicode* pText, int nState)
 {
     if (!pText)
     {
-        gwszText_007A2A78[0].wChar = 0;
+        gwszHoverText[0].wChar = 0;
         return;
     }
 
-    sub_005267E0(gwszText_007A2A78, pText);
-    gnHoverTextState_007A2C78 = nState;
+    sub_005267E0(gwszHoverText, pText);
+    gnHoverTextState = nState;
 }
 
 inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)

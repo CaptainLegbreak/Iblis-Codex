@@ -30,17 +30,17 @@ void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 
-extern int gnGlobal_0071146C;                                                                               // 0x0071146C
-extern int gnGlobal_00711470;                                                                               // 0x00711470
-extern D2MsgHandlerEntryStrc gaMsgHandlers_0072472C[];                                                      // 0x0072472C
-extern D2MsgHandlerEntryStrc gaMsgHandlers_00724738[];                                                      // 0x00724738
-extern D2MsgHandlerEntryStrc gaMsgHandlers_00724780[];                                                      // 0x00724780
-extern D2MsgHandlerEntryStrc gaMsgHandlers_0072478C[];                                                      // 0x0072478C
-extern int gnGlobal_007C0280;                                                                               // 0x007C0280
-extern int gnGlobal_007C02B0;                                                                               // 0x007C02B0
-extern int gnGlobal_007C02B8;                                                                               // 0x007C02B8
-extern unsigned long gnGlobal_007C02C8;                                                                     // 0x007C02C8
-extern void* gpGlobal_007C02DC;                                                                             // 0x007C02DC
+extern int gnScreenWidth;                                                                               // 0x0071146C
+extern int gnScreenHeight;                                                                               // 0x00711470
+extern D2MsgHandlerEntryStrc gaKeyCaptureMButtonHandlers[];                                                      // 0x0072472C
+extern D2MsgHandlerEntryStrc gaKeyCaptureHandlers[];                                                      // 0x00724738
+extern D2MsgHandlerEntryStrc gaKeyCaptureXButtonHandlers[];                                                      // 0x00724780
+extern D2MsgHandlerEntryStrc gaKeyCaptureWheelHandlers[];                                                      // 0x0072478C
+extern int gbRedraw;                                                                               // 0x007C0280
+extern int gnKeyConfigSelected;                                                                               // 0x007C02B0
+extern int gbKeyCaptureActive;                                                                               // 0x007C02B8
+extern unsigned long gdwMessageTick;                                                                     // 0x007C02C8
+extern void* gpLevelCel;                                                                             // 0x007C02DC
 
 // build: symbol ?$S1@?4??sub_004A8DF0_DrawKeyLabel@@YIXHHHH@Z@4IA 0x007C0830
 // 0x004A6000
@@ -54,13 +54,13 @@ void __stdcall sub_004A6000_RegisterPressMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 
     int nX = pMsg->nXpos;
     int nY = pMsg->nYpos;
-    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_00724738, 6);
-    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_0072478C, 1);
-    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_00724780, 1);
-    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_0072472C, 1);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureHandlers, 6);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureWheelHandlers, 1);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureXButtonHandlers, 1);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureMButtonHandlers, 1);
     UI_RegisterKeyConfigHandlers();
-    gnGlobal_007C02B8 = 0;
-    gnGlobal_007C0280 = 1;
+    gbKeyCaptureActive = 0;
+    gbRedraw = 1;
     sub_004A4AD0_Press(nX, nY);
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
@@ -80,14 +80,16 @@ void __stdcall sub_004A63B0_WheelMsgHandler(SMSGHANDLER_PARAMS* pMsg)
     if (nSteps)
     {
         int nKey = 0;
-        if (CMDTBL_QueryKey(*(int*)gpListEntries_00724264[gnGlobal_007C02B0].nId, gnGlobal_007246D4, (nSteps < 0) + 0x103, &nKey))
+// build: symbol ?gpListEntries@* 0x00724264
+// build: symbol ?gnKeyConfigColumn@* 0x007246D4
+        if (CMDTBL_QueryKey(*(int*)gpListEntries[gnKeyConfigSelected].nId, gnKeyConfigColumn, (nSteps < 0) + 0x103, &nKey))
         {
             TEXT_UnregisterKeyConfigHandlers(1);
         }
         else if ((unsigned short)nKey)
         {
             gwGlobal_007C02C4 = nKey;
-            gnGlobal_007C02C8 = GetTickCount();
+            gdwMessageTick = GetTickCount();
         }
     }
 
@@ -107,14 +109,14 @@ void __cdecl sub_004A6A70_DrawLeftPanelButton()
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.nDirection = 0;
-    tContext.pCellFile = gpGlobal_007C02DC;
+    tContext.pCellFile = gpLevelCel;
     tContext.nFrame = 2;
     if (sub_004A65E0_IsInLeftButton() && !GAME_GetUIVarState(9))
     {
-        D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF92), gnGlobal_0071146C / 2 - 0xB3, gnGlobal_00711470 - 0x32, 0, 1);
+        D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF92), gnScreenWidth / 2 - 0xB3, gnScreenHeight - 0x32, 0, 1);
     }
 
-    sub_004F6480(&tContext, gnGlobal_0071146C / 2 - 0xC2, gnGlobal_00711470 - 8, -1, 5, 0);
+    sub_004F6480(&tContext, gnScreenWidth / 2 - 0xC2, gnScreenHeight - 8, -1, 5, 0);
 }
 
 // 0x004A6DA0
@@ -128,14 +130,14 @@ void __cdecl sub_004A6DA0_DrawRightPanelButton()
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.nDirection = 0;
-    tContext.pCellFile = gpGlobal_007C02DC;
+    tContext.pCellFile = gpLevelCel;
     tContext.nFrame = 2;
     if (sub_004A6690_IsInRightButton() && !GAME_GetUIVarState(9))
     {
-        D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF93), gnGlobal_0071146C / 2 + 0xB2, gnGlobal_00711470 - 0x32, 0, 1);
+        D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF93), gnScreenWidth / 2 + 0xB2, gnScreenHeight - 0x32, 0, 1);
     }
 
-    sub_004F6480(&tContext, gnGlobal_0071146C / 2 + 0xA3, gnGlobal_00711470 - 8, -1, 5, 0);
+    sub_004F6480(&tContext, gnScreenWidth / 2 + 0xA3, gnScreenHeight - 8, -1, 5, 0);
 }
 
 // 0x004A8DF0

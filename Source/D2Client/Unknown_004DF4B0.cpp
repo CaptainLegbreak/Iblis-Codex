@@ -42,7 +42,7 @@ struct D2SlotObjectStrc
 
 struct S { int pad; int type; };
 
-extern int gdwGlobal_007C8C78; // 0x007C8C78
+extern int gbSoundSystemInit; // 0x007C8C78
 void __cdecl sub_004DFA60(); // 0x004DFA60
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile* pAddend); // 0x006CC208
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* pAddend); // 0x006CC204
@@ -57,15 +57,15 @@ struct D2StringSoundStrc
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-extern D2StringSoundStrc gaStringSounds_0072B0E0[]; // 0x0072B0E0
-extern int gnGlobal_007C8C7C; // 0x007C8C7C
-extern int gnGlobal_007C8C80; // 0x007C8C80
-extern int gnGlobal_007C8C84; // 0x007C8C84
-extern int gnGlobal_007C8C88; // 0x007C8C88
-extern int gnGlobal_007C8C8C; // 0x007C8C8C
-extern int gnGlobal_007C8C90; // 0x007C8C90
-extern int gnGlobal_007C8C94; // 0x007C8C94
-extern int gnGlobal_007C8C98; // 0x007C8C98
+extern D2StringSoundStrc gaStringSounds[]; // 0x0072B0E0
+extern int gnEnvironLevelId; // 0x007C8C7C
+extern int gnEnvironSoundHandle; // 0x007C8C80
+extern int gnWeatherSoundHandle; // 0x007C8C84
+extern int gnEnvironSoundId; // 0x007C8C88
+extern int gnWeatherSoundId; // 0x007C8C8C
+extern int gnEnvironAmbientId; // 0x007C8C90
+extern int gnAmbientDelay; // 0x007C8C94
+extern int gnAmbientTick; // 0x007C8C98
 void __fastcall sub_004BA840(int nHandle); // 0x004BA840
 
 struct D2ClientModuleListStrc
@@ -101,10 +101,10 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
 void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4); // 0x00649EF0
 void __fastcall sub_004E1970_SetInfernoFrames(D2SkillsTxt* pSkillsTxtRecord, D2UnitStrc* pUnit); // 0x004E1970
-extern const int gaMissileVelocityPair_006DBAA0[]; // 0x006DBAA0
-extern const int gaMissileVelocityCharged_006DBB38[]; // 0x006DBB38
+extern const int gaMissileVelocityPair[]; // 0x006DBAA0
+extern const int gaMissileVelocityCharged[]; // 0x006DBB38
 
-int gdwGlobal_007C8C78; // 0x007C8C78
+int gbSoundSystemInit; // 0x007C8C78
 
 // 0x004DF4B0
 static inline void sub_004DF4B0_DrawCellNode(D2CellGridViewStrc* pView, D2CellNodeStrc* pNode, int nArg)
@@ -159,7 +159,7 @@ int __cdecl sub_004DF910_GetSoundMode()
 // 0x004DF940
 int __cdecl sub_004DF940()
 {
-    if (!gdwGlobal_007C8C78)
+    if (!gbSoundSystemInit)
     {
         return 0;
     }
@@ -170,7 +170,7 @@ int __cdecl sub_004DF940()
 // 0x004DF960
 int __cdecl sub_004DF960()
 {
-    if (!gdwGlobal_007C8C78)
+    if (!gbSoundSystemInit)
     {
         return 0;
     }
@@ -217,7 +217,7 @@ void __cdecl OBJECTS_InitFunction70_Unused()
 // 0x004DF980
 int __cdecl sub_004DF980_IsSoundMode1Or2()
 {
-    if (!gdwGlobal_007C8C78)
+    if (!gbSoundSystemInit)
     {
         return 0;
     }
@@ -234,7 +234,7 @@ int __cdecl sub_004DF980_IsSoundMode1Or2()
 // 0x004DF9B0
 int __cdecl sub_004DF9B0_IsSoundMode2()
 {
-    if (!gdwGlobal_007C8C78)
+    if (!gbSoundSystemInit)
     {
         return 0;
     }
@@ -245,7 +245,8 @@ int __cdecl sub_004DF9B0_IsSoundMode2()
 // 0x004E0690
 void __fastcall sub_004E0690_SetSoundTableFlag(int nValue)
 {
-    gdwGlobal_0072AE24 = nValue;
+// build: symbol ?gbNpcSpeechAudio@* 0x0072AE24
+    gbNpcSpeechAudio = nValue;
 }
 
 // 0x004E00C0
@@ -254,15 +255,15 @@ void __cdecl sub_004E00C0_CloseSoundChannels()
     sub_004DFA60();
 }
 
-long gnGlobal_007C8A74; // 0x007C8A74
+long gnSoundModeSwitchLock; // 0x007C8A74
 
 // 0x004E00D0
 int __cdecl sub_004E00D0_ToggleSoundMode01()
 {
-    if (!gdwGlobal_007C8C78 || gnGlobal_007C8A74)
+    if (!gbSoundSystemInit || gnSoundModeSwitchLock)
         return 0;
 
-    InterlockedIncrement(&gnGlobal_007C8A74);
+    InterlockedIncrement(&gnSoundModeSwitchLock);
 // build: symbol ?D2SOUND_GetSoundMixerOption@* 0x00514C90
     const int nOld = D2SOUND_GetSoundMixerOption();
     int nNew;
@@ -276,17 +277,17 @@ int __cdecl sub_004E00D0_ToggleSoundMode01()
         sub_004E0000_SetSoundMode(nOld);
 // build: symbol ?D2SOUND_SetMasterVolume@* 0x00515CE0
     D2SOUND_SetMasterVolume(0xFF);
-    InterlockedDecrement(&gnGlobal_007C8A74);
+    InterlockedDecrement(&gnSoundModeSwitchLock);
     return nResult;
 }
 
 // 0x004E0140
 int __cdecl sub_004E0140_ToggleSoundMode12()
 {
-    if (!gdwGlobal_007C8C78 || gnGlobal_007C8A74)
+    if (!gbSoundSystemInit || gnSoundModeSwitchLock)
         return 0;
 
-    InterlockedIncrement(&gnGlobal_007C8A74);
+    InterlockedIncrement(&gnSoundModeSwitchLock);
     const int nOld = D2SOUND_GetSoundMixerOption();
     int nNew;
     if (nOld == 2)
@@ -298,7 +299,7 @@ int __cdecl sub_004E0140_ToggleSoundMode12()
     if (!nResult)
         sub_004E0000_SetSoundMode(nOld);
     D2SOUND_SetMasterVolume(0xFF);
-    InterlockedDecrement(&gnGlobal_007C8A74);
+    InterlockedDecrement(&gnSoundModeSwitchLock);
     return nResult;
 }
 
@@ -315,9 +316,9 @@ static inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord_Inline(int nMissileId
 // 0x004E0650
 int __fastcall sub_004E0650_GetStringSound(unsigned short nStringId)
 {
-    if (gdwGlobal_0072AE24)
+    if (gbNpcSpeechAudio)
     {
-        for (D2StringSoundStrc* pEntry = gaStringSounds_0072B0E0; pEntry; ++pEntry)
+        for (D2StringSoundStrc* pEntry = gaStringSounds; pEntry; ++pEntry)
         {
             if (!pEntry->f_0)
             {
@@ -360,24 +361,24 @@ void __fastcall sub_004E4050_Nothing(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 // 0x004E4280
 extern "C" void __cdecl sub_004E4280()
 {
-    gnGlobal_007C8C7C = 0;
-    gnGlobal_007C8C90 = 0;
-    gnGlobal_007C8C94 = 0;
-    gnGlobal_007C8C98 = 0;
-    if (gnGlobal_007C8C80)
+    gnEnvironLevelId = 0;
+    gnEnvironAmbientId = 0;
+    gnAmbientDelay = 0;
+    gnAmbientTick = 0;
+    if (gnEnvironSoundHandle)
     {
-        sub_004BA840(gnGlobal_007C8C80);
-        gnGlobal_007C8C80 = 0;
+        sub_004BA840(gnEnvironSoundHandle);
+        gnEnvironSoundHandle = 0;
     }
 
-    gnGlobal_007C8C88 = 0;
-    if (gnGlobal_007C8C84)
+    gnEnvironSoundId = 0;
+    if (gnWeatherSoundHandle)
     {
-        sub_004BA840(gnGlobal_007C8C84);
-        gnGlobal_007C8C84 = 0;
+        sub_004BA840(gnWeatherSoundHandle);
+        gnWeatherSoundHandle = 0;
     }
 
-    gnGlobal_007C8C8C = 0;
+    gnWeatherSoundId = 0;
 }
 
 #include "gen/data/Source/D2Client/Unknown_004DF4B0.inc"
@@ -648,7 +649,7 @@ int __fastcall sub_004E1620_SkillCltDoMissilePair(D2UnitStrc* pUnit, int nSkillI
             nMissile = nMissileB;
         }
 
-        sub_004E14D0_CreateSkillMissile(gaMissileVelocityPair_006DBAA0, nX, nY, nSkillId, nSkillLevel, pUnit, nMissile);
+        sub_004E14D0_CreateSkillMissile(gaMissileVelocityPair, nX, nY, nSkillId, nSkillLevel, pUnit, nMissile);
     }
 
     return 1;
@@ -692,7 +693,7 @@ int __fastcall sub_004E1A20_SkillCltDoChargedMissile(D2UnitStrc* pUnit, int nSki
     }
 
     D2Common_10216(pUnit->pDynamicPath, nX, nY, 0);
-    sub_004E14D0_CreateSkillMissile(gaMissileVelocityCharged_006DBB38, nX, nY, nSkillId, nSkillLevel, pUnit, nMissile);
+    sub_004E14D0_CreateSkillMissile(gaMissileVelocityCharged, nX, nY, nSkillId, nSkillLevel, pUnit, nMissile);
     sub_004E1970_SetInfernoFrames(pSkillsTxt, pUnit);
     return 1;
 }

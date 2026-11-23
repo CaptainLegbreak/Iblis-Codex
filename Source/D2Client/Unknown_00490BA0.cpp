@@ -23,10 +23,10 @@ D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory);  // 
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc);  // 0x0063BDE0
 int __stdcall D2Common_10299(D2UnitStrc* pUnit, int nBodyLoc, D2UnitStrc* pItem, int bSkipRequirementCheck);  // 0x0063DE60
 int __stdcall sub_0062C0B0_GetItemTypeClass(D2UnitStrc* pItem);
-extern int gdwGlobal_007BCBF0;  // 0x007BCBF0
-extern int gnGlobal_007BCBEC;  // 0x007BCBEC
-extern int gnGlobal_007BCA4C;  // 0x007BCA4C
-extern int gnGlobal_007BCBD8;  // 0x007BCBD8
+extern int gnInvPanelMode;  // 0x007BCBF0
+extern int gbNpcTradeClicked;  // 0x007BCBEC
+extern int gnInvMouseX;  // 0x007BCA4C
+extern int gnInvMouseY;  // 0x007BCBD8
 static void __stdcall INV_ForwardTradeClick(int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7)
 {
     if (!nArg2)
@@ -34,7 +34,7 @@ static void __stdcall INV_ForwardTradeClick(int nArg1, int nArg2, int nArg3, int
     if (!sub_004B3870(nArg1, nArg2, nArg3, nArg4, nArg5, nArg6, nArg7, 0))
         return;
     if (!nArg7)
-        gdwGlobal_007BCBF0 = 5;
+        gnInvPanelMode = 5;
     sub_00468070_SetCursorItemState(0);
 }
 
@@ -97,7 +97,7 @@ int __fastcall sub_00490BA0(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, in
             sub_004C21F0(pRight);
             sub_004C21F0(pItem);
             sub_004B9A00(sub_004C1D60(pItem), 0, 0, 0, 0);
-            gnGlobal_007BCBEC = 1;
+            gbNpcTradeClicked = 1;
             nResult = 1;
         }
         break;
@@ -108,25 +108,25 @@ int __fastcall sub_00490BA0(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, in
             {
                 sub_004785B0_SendPacket3(PACKET(0x1C), MV(5));
                 sub_004C21F0(pLeft);
-                gnGlobal_007BCBEC = 1;
+                gbNpcTradeClicked = 1;
                 nResult = 1;
             }
         }
-        else if (gdwGlobal_007BCBF0 < MV(0x13))
+        else if (gnInvPanelMode < MV(0x13))
         {
-            INV_ForwardTradeClick((int)pPlayer, (int)pLeft, 1, gnGlobal_007BCA4C, gnGlobal_007BCBD8, 0, 0);
+            INV_ForwardTradeClick((int)pPlayer, (int)pLeft, 1, gnInvMouseX, gnInvMouseY, 0, 0);
         }
         break;
     case 4:
-        if (gdwGlobal_007BCBF0 == MV(4))
+        if (gnInvPanelMode == MV(4))
         {
-            INV_ForwardTradeClick((int)pPlayer, (int)pRight, 1, gnGlobal_007BCA4C, gnGlobal_007BCBD8, 0, 0);
+            INV_ForwardTradeClick((int)pPlayer, (int)pRight, 1, gnInvMouseX, gnInvMouseY, 0, 0);
         }
         else if (!sub_004C2240(pRight) && sub_00486D10_CheckTick())
         {
             sub_004785B0_SendPacket3(PACKET(0x1C), MV(4));
             sub_004C21F0(pRight);
-            gnGlobal_007BCBEC = 1;
+            gbNpcTradeClicked = 1;
             nResult = 1;
         }
         break;
@@ -150,7 +150,7 @@ int __fastcall sub_00490BA0(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, in
         }
         break;
     case 6:
-        if (!sub_004C2240(pItem) && sub_00486D10_CheckTick() && gdwGlobal_007BCBF0 != MV(0xB))
+        if (!sub_004C2240(pItem) && sub_00486D10_CheckTick() && gnInvPanelMode != MV(0xB))
         {
             sub_004786A0_SendDwords2(PACKET(0x21), !pItem ? -1 : pItem->dwUnitId, !pLeft ? -1 : pLeft->dwUnitId);
             sub_004C21F0(pItem);

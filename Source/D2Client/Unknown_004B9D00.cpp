@@ -1,8 +1,8 @@
 extern "C" int gnFlag_007788DC;
 extern "C" int gnBufferBase_007D5448;
 extern "C" int gnSoundFlag_007C545C; // 0x007C545C
-extern "C" int gnSoundSerial_007C5460; // 0x007C5460
-extern "C" { int gnSubsystemActive_007A0458; } // 0x007A0458
+extern "C" int gnSoundSerial; // 0x007C5460
+extern "C" { int gnSubsystemActive; } // 0x007A0458
 void __cdecl sub_004142A0_InitPowTable(); // 0x004142A0
 extern "C" void __cdecl CMNSUBTILE_BuildGouraudCache(); // 0x004F7CC0
 extern "C" void __cdecl sub_004E4280(); // 0x004E4280
@@ -16,6 +16,6 @@ extern "C" void __cdecl sub_004F8DC0_InitLookupTable(); // 0x004F8DC0
 extern "C" void __cdecl sub_004B9D00_ResetSoundState()
 {
     gnSoundFlag_007C545C = 1;
-    gnSoundSerial_007C5460 = 0;
+    gnSoundSerial = 0;
     sub_004E4280();
 }

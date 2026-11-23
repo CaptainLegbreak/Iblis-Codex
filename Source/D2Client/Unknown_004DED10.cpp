@@ -34,7 +34,7 @@ struct D2Obj007C8A28Strc
     void sub_004DE730(void* pArg);                                                                          // 0x004DE730
 };
 
-extern int gdwGlobal_007C8C78; // 0x007C8C78
+extern int gbSoundSystemInit; // 0x007C8C78
 D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
 int __fastcall sub_00515710(D2SoundStrc* pSound); // 0x00515710
 int __fastcall D2SOUND_IsSoundBufferPlaying(D2SoundStrc* pSound); // 0x00515740
@@ -69,8 +69,8 @@ struct D2TileLightCtxStrc
     int unk0xEAAC;
     unsigned int nSize;
 };
-extern D2LightOffsetsStrc gaLightOffsetsA_0072ABC8[]; // 0x0072ABC8
-extern D2LightOffsetsStrc gaLightOffsetsB_0072A9E8[]; // 0x0072A9E8
+extern D2LightOffsetsStrc gaLightOffsetsA[]; // 0x0072ABC8
+extern D2LightOffsetsStrc gaLightOffsetsB[]; // 0x0072A9E8
 int __cdecl sub_0045AE90(); // 0x0045AE90
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 void __fastcall SCMD_ReadGridCell(int nX, int nY, unsigned char* pValue0, unsigned char* pValue1, unsigned char* pValue2, unsigned char* pValue3); // 0x00475AA0
@@ -79,7 +79,7 @@ int __stdcall TILE_TileDrawLit(D2TileLibraryEntryStrc* pTile, int nXPos, int nYP
 
 D2Obj007C8A28Strc gObj_007C8A28; // 0x007C8A28
 
-D2SlotStrc gaSlots_007C8A78[16]; // 0x007C8A78
+D2SlotStrc gaSlots[16]; // 0x007C8A78
 
 // 0x004DED10
 void __fastcall sub_004DED10(void* pArg)
@@ -123,7 +123,7 @@ void __cdecl sub_004DF800()
     D2SOUND_SetMasterVolume(0);
     for (int i = 0; i < 16; ++i)
     {
-        sub_004DF7B0_StopSlot(&gaSlots_007C8A78[i]);
+        sub_004DF7B0_StopSlot(&gaSlots[i]);
     }
 
     D2SOUND_SetMasterVolume(0xFF);
@@ -134,7 +134,7 @@ void __cdecl sub_004DF890()
 {
     for (int i = 0; i < 16; ++i)
     {
-        D2SlotStrc* pSlot = &gaSlots_007C8A78[i];
+        D2SlotStrc* pSlot = &gaSlots[i];
         if (pSlot->pObject && !sub_00481860(pSlot->pObject->f_4)->bFlag3E && !sub_00515710(pSlot->pSound))
         {
             if (sub_00515C30(pSlot->pSound))
@@ -166,26 +166,27 @@ int __fastcall sub_004DFA40_IsSlotPlaying(D2SlotStrc* pSlot)
 // 0x004DFA60
 void __cdecl sub_004DFA60()
 {
-    if (gdwGlobal_007C8C78)
+    if (gbSoundSystemInit)
     {
         sub_004DF800();
         for (int i = 0; i < 16; ++i)
         {
-            D2SOUND_DestroySound(gaSlots_007C8A78[i].pSound);
-            gaSlots_007C8A78[i].pSound = 0;
+            D2SOUND_DestroySound(gaSlots[i].pSound);
+            gaSlots[i].pSound = 0;
         }
 
-        gdwGlobal_007C8C78 = 0;
+        gbSoundSystemInit = 0;
     }
 }
 
 // 0x004DEDB0
 static D2LightOffsetsStrc* __stdcall sub_004DEDB0_GetLightOffsets(D2TileLibraryEntryStrc* pTile, unsigned int* pCount, int bAlternate)
 {
-    *pCount = gaLightSampleCounts_006DB9D8[pTile->nLightDirection];
+// build: symbol ?gaLightSampleCounts@* 0x006DB9D8
+    *pCount = gaLightSampleCounts[pTile->nLightDirection];
     if (bAlternate)
-        return &gaLightOffsetsA_0072ABC8[pTile->nLightDirection];
-    return &gaLightOffsetsB_0072A9E8[pTile->nLightDirection];
+        return &gaLightOffsetsA[pTile->nLightDirection];
+    return &gaLightOffsetsB[pTile->nLightDirection];
 }
 
 // 0x004DEDF0

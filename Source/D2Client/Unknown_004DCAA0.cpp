@@ -20,13 +20,13 @@ struct D2TimedHintStrc
     unsigned int nEndTickC;
 };
 
-unsigned int gnGlobal_007C89D0;                                                                             // 0x007C89D0
-unsigned int gnGlobal_007C89D4;                                                                             // 0x007C89D4
-int gnGlobal_007C89D8;                                                                                      // 0x007C89D8
-int gnGlobal_007C89DC;                                                                                      // 0x007C89DC
-unsigned int gnGlobal_007C89E0;                                                                             // 0x007C89E0
-D2TimedHintStrc gTimedHint_007C89E4;                                                                        // 0x007C89E4
-int gnGlobal_007C8A04;                                                                                      // 0x007C8A04
+unsigned int gdwLevelEnterTick;                                                                             // 0x007C89D0
+unsigned int gdwSongStartTick;                                                                             // 0x007C89D4
+int gnCurrentSongId;                                                                                      // 0x007C89D8
+int gnSongLevelId;                                                                                      // 0x007C89DC
+unsigned int gdwSongPositionTick;                                                                             // 0x007C89E0
+D2TimedHintStrc gtTimedHint;                                                                        // 0x007C89E4
+int gnSpeechLevelId;                                                                                      // 0x007C8A04
 
 int __cdecl sub_0044DB00();                                                                                 // 0x0044DB00
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
@@ -56,10 +56,10 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
         return;
     }
 
-    if (nLevelId != gnGlobal_007C89DC)
+    if (nLevelId != gnSongLevelId)
     {
-        gnGlobal_007C89DC = nLevelId;
-        gnGlobal_007C89D0 = dwTick;
+        gnSongLevelId = nLevelId;
+        gdwLevelEnterTick = dwTick;
     }
 
     int nSong = 0;
@@ -75,7 +75,7 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
 
     int bEnabled = D2SOUND_GetMasterVolumeOption() && D2SOUND_GetMusicVolumeOption() ? 1 : 0;
     int bChange = 0;
-    if (!gnGlobal_007C89D8)
+    if (!gnCurrentSongId)
     {
         bChange = 1;
     }
@@ -85,15 +85,15 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
         bChange = 1;
     }
 
-    if (dwTick - gnGlobal_007C89D0 >= 0x4B)
+    if (dwTick - gdwLevelEnterTick >= 0x4B)
     {
         bChange = 1;
     }
 
-    if (gnGlobal_007C89D8 != nSong && bChange)
+    if (gnCurrentSongId != nSong && bChange)
     {
-        gnGlobal_007C89D8 = nSong;
-        gnGlobal_007C89E0 = dwTick;
+        gnCurrentSongId = nSong;
+        gdwSongPositionTick = dwTick;
     }
 
     if (!bEnabled)
@@ -101,65 +101,65 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
         sub_004BA8F0();
     }
 
-    if (!gnGlobal_007C89D8)
+    if (!gnCurrentSongId)
     {
         sub_004BA8F0();
     }
 
-    if (gTimedHint_007C89E4.bActive)
+    if (gtTimedHint.bActive)
     {
-        if (gTimedHint_007C89E4.bActive2 && sub_0044DB00() >= gTimedHint_007C89E4.nEndTickA)
+        if (gtTimedHint.bActive2 && sub_0044DB00() >= gtTimedHint.nEndTickA)
         {
-            sub_004B9A00((int)gTimedHint_007C89E4.pOwner, 0, 0, 0, 0);
-            gTimedHint_007C89E4.bActive2 = 0;
+            sub_004B9A00((int)gtTimedHint.pOwner, 0, 0, 0, 0);
+            gtTimedHint.bActive2 = 0;
         }
 
-        if (gTimedHint_007C89E4.nArgG && sub_0044DB00() >= gTimedHint_007C89E4.nEndTickF)
+        if (gtTimedHint.nArgG && sub_0044DB00() >= gtTimedHint.nEndTickF)
         {
             D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
             if (!CUNIT_IsDeadOrDying(pPlayer))
             {
-                sub_004B9A00(gTimedHint_007C89E4.nArgE, pPlayer, 0, 0, 0);
+                sub_004B9A00(gtTimedHint.nArgE, pPlayer, 0, 0, 0);
             }
 
-            gTimedHint_007C89E4.nArgG = 0;
+            gtTimedHint.nArgG = 0;
         }
 
-        if (sub_0044DB00() < gTimedHint_007C89E4.nEndTickC)
+        if (sub_0044DB00() < gtTimedHint.nEndTickC)
         {
             return;
         }
 
-        gTimedHint_007C89E4.bActive = 0;
+        gtTimedHint.bActive = 0;
         if (bEnabled)
         {
-            sub_004BA890_RefreshHintsById((int)gTimedHint_007C89E4.pOwner);
+            sub_004BA890_RefreshHintsById((int)gtTimedHint.pOwner);
         }
     }
 
-    if (gnGlobal_007C89D8 && bEnabled && !sub_004B9610(gnGlobal_007C89D8))
+    if (gnCurrentSongId && bEnabled && !sub_004B9610(gnCurrentSongId))
     {
-        const int nOffset = 4 * (gnGlobal_007C89D8 - sub_004817F0());
+        const int nOffset = 4 * (gnCurrentSongId - sub_004817F0());
         int nValue = *(int*)(sub_00481810() + nOffset);
         int nMode = !sub_004B9C60_IsSongPlaying() && !nValue ? 2 : 0;
         sub_004BA8F0();
-        sub_004B9A00(gnGlobal_007C89D8, 0, 0, nMode, nValue);
-        gnGlobal_007C89D4 = dwTick;
+        sub_004B9A00(gnCurrentSongId, 0, 0, nMode, nValue);
+        gdwSongStartTick = dwTick;
     }
 
-    if (gnGlobal_007C89DC != gnGlobal_007C8A04 && dwTick - gnGlobal_007C89D0 >= 0x3E)
+    if (gnSongLevelId != gnSpeechLevelId && dwTick - gdwLevelEnterTick >= 0x3E)
     {
         MISSILE_CheckLevelSpeech();
-        gnGlobal_007C8A04 = gnGlobal_007C89DC;
+        gnSpeechLevelId = gnSongLevelId;
     }
 
-    if (!gnGlobal_007C89D8 || dwTick <= gnGlobal_007C89E0 + 0x7D)
+    if (!gnCurrentSongId || dwTick <= gdwSongPositionTick + 0x7D)
     {
         return;
     }
 
-    D2HintCursorStrc* pCursor = sub_00481860(gnGlobal_007C89D8);
-    void* pEntry = sub_004B9610(gnGlobal_007C89D8);
+    D2HintCursorStrc* pCursor = sub_00481860(gnCurrentSongId);
+    void* pEntry = sub_004B9610(gnCurrentSongId);
     if (!pEntry || !sub_004B9590(pEntry))
     {
         return;
@@ -182,7 +182,7 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
         nValue = pCursor->aValues[3];
     }
 
-    const int nOffset = 4 * (gnGlobal_007C89D8 - sub_004817F0());
+    const int nOffset = 4 * (gnCurrentSongId - sub_004817F0());
     *(int*)(sub_00481810() + nOffset) = nValue;
-    gnGlobal_007C89E0 = dwTick;
+    gdwSongPositionTick = dwTick;
 }

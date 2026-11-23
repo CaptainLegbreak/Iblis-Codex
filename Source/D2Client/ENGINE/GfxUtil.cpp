@@ -241,11 +241,11 @@ extern "C" double __cdecl sqrt(double x); // 0x006879C0
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-extern int gnGlobal_0071146C; // 0x0071146C
+extern int gnScreenWidth; // 0x0071146C
 
-extern int gnGlobal_00711470; // 0x00711470
+extern int gnScreenHeight; // 0x00711470
 
-extern int gnSoundEnvironId_0072ADE4; // 0x0072ADE4
+extern int gnSoundEnvironId; // 0x0072ADE4
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
@@ -281,7 +281,7 @@ int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 
-extern int gdwGlobal_007A8928; // 0x007A8928
+extern int gbCharArchiveLoaded; // 0x007A8928
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
@@ -415,15 +415,15 @@ struct D2ArmorCompsStrc
     unsigned char n7;
 };
 
-extern unsigned int gaPlrModeTokens_007C88D0[];                                                             // 0x007C88D0
+extern unsigned int gaPlrModeTokens[];                                                             // 0x007C88D0
 
-extern unsigned int gaCompTokens_007C8920[];                                                                // 0x007C8920
+extern unsigned int gaCompTokens[];                                                                // 0x007C8920
 
-extern unsigned int gaObjModeTokens_007C8960[8];                                                            // 0x007C8960
+extern unsigned int gaObjModeTokens[8];                                                            // 0x007C8960
 
-extern unsigned int gaMonModeTokens_007C8980[];                                                             // 0x007C8980
+extern unsigned int gaMonModeTokens[];                                                             // 0x007C8980
 
-extern unsigned int gaClassTokens_007C89C0[3];                                                              // 0x007C89C0
+extern unsigned int gaClassTokens[3];                                                              // 0x007C89C0
 
 D2InventoryStrc* __fastcall sub_0046DB30_GetCompInventory(D2UnitStrc* pUnit, int* pOut);                    // 0x0046DB30
 
@@ -546,7 +546,7 @@ int __fastcall GFXUTIL_GetOverlayFrameCount(D2UnitStrc* pUnit, D2OverlaySourceSt
 
 int __fastcall GFXUTIL_HitTestUnitCel(D2UnitStrc* pUnit, int nX, int nY); // 0x004DBF20
 
-unsigned int gdwFadeTick_007C89CC; // 0x007C89CC
+unsigned int gdwFadeTick; // 0x007C89CC
 
 struct D2GfxNodeStrc
 {
@@ -772,30 +772,30 @@ int __fastcall GFXUTIL_HitTestUnitCel(D2UnitStrc* pUnit, int nX, int nY)
 // 0x004DC000
 void __cdecl GFXUTIL_DrawFadeBox()
 {
-    if (!gdwFadeTick_007C89CC)
+    if (!gdwFadeTick)
     {
         return;
     }
 
     unsigned int dwNow = GetTickCount();
-    if (dwNow > gdwFadeTick_007C89CC)
+    if (dwNow > gdwFadeTick)
     {
-        gdwFadeTick_007C89CC = 0;
+        gdwFadeTick = 0;
         return;
     }
 
-    int nRemaining = gdwFadeTick_007C89CC - dwNow;
-    int nYEnd = gnGlobal_00711470 - 47;
-    int nXEnd = gnGlobal_0071146C;
+    int nRemaining = gdwFadeTick - dwNow;
+    int nYEnd = gnScreenHeight - 47;
+    int nXEnd = gnScreenWidth;
     int nXStart = 0;
     switch (sub_0045AE90())
     {
     case 1:
-        nXEnd -= gnGlobal_0071146C / 2;
+        nXEnd -= gnScreenWidth / 2;
         break;
 
     case 2:
-        nXStart = gnGlobal_0071146C / 2;
+        nXStart = gnScreenWidth / 2;
         break;
     }
 
@@ -912,7 +912,7 @@ void D2DrawBoundsStrc::sub_004DDE80_ExtendBounds(D2DrawBoundsArgStrc* pArg, int 
 // 0x004DF6C0
 void __fastcall GFXUTIL_ApplySoundEnviron(int nEnvironId)
 {
-    if (nEnvironId == gnSoundEnvironId_0072ADE4)
+    if (nEnvironId == gnSoundEnvironId)
     {
         return;
     }
@@ -937,7 +937,7 @@ void __fastcall GFXUTIL_ApplySoundEnviron(int nEnvironId)
         sub_00513C50_SetSoundEnviron(&tEnviron);
     }
 
-    gnSoundEnvironId_0072ADE4 = nEnvironId;
+    gnSoundEnvironId = nEnvironId;
 }
 
 // 0x004E0700
@@ -1144,7 +1144,7 @@ static int __stdcall GFXUTIL_GetUnitModeDirections(D2UnitStrc* pUnit, int nMode,
     switch (nUnitType)
     {
     case 0:
-        if (!gdwGlobal_007A8928 && pUnit == sub_00463DD0_GetPlayerUnit())
+        if (!gbCharArchiveLoaded && pUnit == sub_00463DD0_GetPlayerUnit())
         {
             nDirections = 16;
         }
@@ -1646,7 +1646,7 @@ static int __stdcall GFXUTIL_FillMonsterCelContext(D2CompEntryListStrc* pList, u
     pToken->nMode = nMode;
     const unsigned char nComponent = pToken->nComponent;
     pToken->nType = 1;
-    pToken->nArg1C = gaCompTokens_007C8920[nComponent];
+    pToken->nArg1C = gaCompTokens[nComponent];
     pToken->dwCode = dwCode0;
     pToken->dwToken = 0x2074696C;
     pToken->nArg18 = pArgRec->nArg18;
@@ -1665,7 +1665,7 @@ static int __stdcall GFXUTIL_FillMonsterCelContext(D2CompEntryListStrc* pList, u
 
 found:
 
-    pToken->dwModeToken = gaMonModeTokens_007C8980[nMode];
+    pToken->dwModeToken = gaMonModeTokens[nMode];
     const int nClass = pToken->nClass;
     const unsigned int nComponentId = pToken->nComponent;
     const unsigned char nIndex = pClassInfo->aComp[nRow][nComponentId];
@@ -1818,7 +1818,8 @@ static int __stdcall GFXUTIL_ResolveUnitCelContext(D2UnitStrc* pUnit, D2CelConte
         nType = pUnit->dwUnitType;
         int nClass = pUnit->dwClassId;
         int nAnimMode = UNITS_GetAnimOrSeqMode(pUnit);
-        D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, szGfxUtilCpp_006DB974, 0x2F0);
+// build: symbol ?gszGfxUtilCpp@* 0x006DB974
+        D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, gszGfxUtilCpp, 0x2F0);
         pToken->nType = nType;
         pToken->nClass = nClass;
         if (nMode == -1)
@@ -1838,7 +1839,7 @@ static int __stdcall GFXUTIL_ResolveUnitCelContext(D2UnitStrc* pUnit, D2CelConte
     {
         *pItemId = -1;
         D2InventoryStrc* pInventory = GetCompInventoryInline(pUnit);
-        pToken->nArg1C = gaCompTokens_007C8920[pToken->nComponent];
+        pToken->nArg1C = gaCompTokens[pToken->nComponent];
         int nWeaponClassId;
         pToken->dwCode = COMPOSIT_GetWeaponClassId(pUnit, pInventory, &nWeaponClassId, pToken->nMode, 0);
         if (!GFXUTIL_FindGfxListNode(pUnit, pToken->dwCode, pToken->nMode) && !GFX_LoadUnitGfxNode(pUnit, pToken->dwCode, pToken->nMode))
@@ -1879,14 +1880,14 @@ found:
                 return 0;
             }
 
-            pToken->dwModeToken = gaPlrModeTokens_007C88D0[pToken->nMode];
+            pToken->dwModeToken = gaPlrModeTokens[pToken->nMode];
             D2ArmorCompsStrc tComps;
             MISSILE_GetArmorComponents(pUnit, pInventory, nType, &tComps.n0);
             D2UnitStrc* pItem = sub_0063C050_GetBodyLocItem(pInventory, pToken->nComponent);
             if (sub_0064F420_HasBodyLocFallback(pToken->nComponent))
             {
                 if (pToken->nMode != 0x11 && pToken->nMode != 0)
-                    pToken->dwToken = gaClassTokens_007C89C0[sub_0064F500_GetFallbackIndex(pToken->nComponent, &tComps.n0)];
+                    pToken->dwToken = gaClassTokens[sub_0064F500_GetFallbackIndex(pToken->nComponent, &tComps.n0)];
                 else
                     pToken->dwToken = 0x2074696C;
             }
@@ -1906,7 +1907,7 @@ found:
         case 1:
         {
             const int nMonMode = pToken->nMode;
-            pToken->dwModeToken = gaMonModeTokens_007C8980[nMonMode];
+            pToken->dwModeToken = gaMonModeTokens[nMonMode];
             const unsigned char nComp = pComp->nComponent;
             const unsigned char nIndex = sub_004DA770_GetMonComponentIndex(pUnit, nComp);
             if (nMonMode != 0 && nMonMode != 0xC)
@@ -1916,7 +1917,7 @@ found:
             break;
         }
         case 2:
-            pToken->dwModeToken = gaObjModeTokens_007C8960[pToken->nMode];
+            pToken->dwModeToken = gaObjModeTokens[pToken->nMode];
             break;
         }
 
@@ -2326,7 +2327,7 @@ int __fastcall GFXUTIL_IsCelOnScreen(D2CelStrc* pCel, int nX, int nY, int bFlag)
         nWidth += nHeight;
     }
 
-    if (nLeft > gnGlobal_0071146C)
+    if (nLeft > gnScreenWidth)
     {
         return 0;
     }
@@ -2336,7 +2337,7 @@ int __fastcall GFXUTIL_IsCelOnScreen(D2CelStrc* pCel, int nX, int nY, int bFlag)
         return 0;
     }
 
-    if (nBottom - nHeight > gnGlobal_00711470)
+    if (nBottom - nHeight > gnScreenHeight)
     {
         return 0;
     }

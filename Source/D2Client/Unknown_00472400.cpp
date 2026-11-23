@@ -12,10 +12,10 @@ D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
-extern int gnGlobal_007A899C; // 0x007A899C
-extern int gnPhaseMax_007A89C0; // 0x007A89C0
-extern int gnGlobal_007A89DC; // 0x007A89DC
-extern int gbWeatherSplash_007A8A14; // 0x007A8A14
+extern int gnBaseWindAngleMax; // 0x007A899C
+extern int gnPhaseMax; // 0x007A89C0
+extern int gnBaseWindAngleMin; // 0x007A89DC
+extern int gbWeatherSplash; // 0x007A8A14
 
 struct D2WeatherLayerStateStrc
 {
@@ -30,10 +30,10 @@ void __stdcall SCALE_AdjustPerspectivePosition(int nXPos, int nYPos, int nBias, 
 
 typedef int (__stdcall* D2CelDrawRetFn)(D2GfxDataStrc*, int, int, unsigned int, int, unsigned char*);
 
-extern int gnGlobal_0071146C; // 0x0071146C
-extern int gnGlobal_00711470; // 0x00711470
+extern int gnScreenWidth; // 0x0071146C
+extern int gnScreenHeight; // 0x00711470
 
-static int gnGlobal_007A8A08; // 0x007A8A08
+static int gbLightningEnabled; // 0x007A8A08
 
 static inline unsigned int sub_00472400_SeedStep(D2SeedStrc* pSeed)
 {
@@ -55,43 +55,48 @@ void __cdecl sub_00472400_ResetPhaseState()
     case LEVEL_BLOODYFOOTHILLS:
     case LEVEL_ID_ACT5_BARRICADE_1:
     case LEVEL_ARREATPLATEAU:
-        gnGlobal_007A89DC = 42;
-        gnGlobal_007A89D8 = 42;
-        gnGlobal_007A899C = 170;
-        gnGlobal_007A8998 = 170;
-        gnPhaseLevel_007A89E0 = gnPhaseMax_007A89C0 = sub_00472280(pSeed, 0x20, 0x38);
+        gnBaseWindAngleMin = 42;
+// build: symbol ?gnWindAngleMin@* 0x007A89D8
+        gnWindAngleMin = 42;
+        gnBaseWindAngleMax = 170;
+// build: symbol ?gnWindAngleMax@* 0x007A8998
+        gnWindAngleMax = 170;
+// build: symbol ?gnPhaseLevel@* 0x007A89E0
+        gnPhaseLevel = gnPhaseMax = sub_00472280(pSeed, 0x20, 0x38);
         return;
 
     case LEVEL_TUNDRAWASTELANDS:
-        gnGlobal_007A89D8 = 170;
-        gnGlobal_007A8998 = 56;
-        gnGlobal_007A89DC = 28;
-        gnGlobal_007A899C = 56;
-        gnPhaseLevel_007A89E0 = gnPhaseMax_007A89C0 = sub_00472280(pSeed, 0x20, 0x70);
+        gnWindAngleMin = 170;
+        gnWindAngleMax = 56;
+        gnBaseWindAngleMin = 28;
+        gnBaseWindAngleMax = 56;
+        gnPhaseLevel = gnPhaseMax = sub_00472280(pSeed, 0x20, 0x70);
         return;
 
     case LEVEL_ROCKYSUMMIT:
     case LEVEL_NIHLATHAKSTEMPLE:
-        gnGlobal_007A89D8 = 28;
-        gnGlobal_007A8998 = 28;
-        gnGlobal_007A89DC = 28;
-        gnGlobal_007A899C = 28;
-        gnTargetAngle_007A89F8 = 28;
-        gnWeatherAngle_007A89C4 = 28;
-        gnPhaseMax_007A89C0 = 0x100;
-        gnPhaseLevel_007A89E0 = 0x100;
+        gnWindAngleMin = 28;
+        gnWindAngleMax = 28;
+        gnBaseWindAngleMin = 28;
+        gnBaseWindAngleMax = 28;
+// build: symbol ?gnTargetAngle@* 0x007A89F8
+        gnTargetAngle = 28;
+// build: symbol ?gnWeatherAngle@* 0x007A89C4
+        gnWeatherAngle = 28;
+        gnPhaseMax = 0x100;
+        gnPhaseLevel = 0x100;
         return;
     }
 
-    gnPhaseLevel_007A89E0 = gnPhaseMax_007A89C0;
-    if (!gbWeatherSplash_007A8A14)
+    gnPhaseLevel = gnPhaseMax;
+    if (!gbWeatherSplash)
     {
         sub_00472400_SeedStep(pSeed);
-        gnGlobal_007A8A08 = 0;
+        gbLightningEnabled = 0;
     }
     else
     {
-        gnGlobal_007A8A08 = 0;
+        gbLightningEnabled = 0;
     }
 }
 
@@ -101,20 +106,20 @@ void __fastcall sub_00473A70(D2WeatherStrc* pWeather, D2WeatherLayerStateStrc* p
     const int bPerspective = D2GFX_CheckPerspective();
     int nOffset = 0;
     int nLeft = 0;
-    int nRight = gnGlobal_0071146C;
-    int nBottom = gnGlobal_00711470 - 47;
+    int nRight = gnScreenWidth;
+    int nBottom = gnScreenHeight - 47;
     switch (sub_0045AE90())
     {
     case 1:
     {
-        const int nQuarter = gnGlobal_0071146C / 4;
+        const int nQuarter = gnScreenWidth / 4;
         nOffset = -nQuarter;
         nRight -= nQuarter * 2;
         break;
     }
     case 2:
-        nOffset = gnGlobal_0071146C / 4;
-        nLeft = gnGlobal_0071146C / 4 * 2;
+        nOffset = gnScreenWidth / 4;
+        nLeft = gnScreenWidth / 4 * 2;
         break;
     }
 

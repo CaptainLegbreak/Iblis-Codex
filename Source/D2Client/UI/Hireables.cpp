@@ -50,26 +50,26 @@ int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile
 
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 
-extern int gnGlobal_0071146C; // 0x0071146C
+extern int gnScreenWidth; // 0x0071146C
 
-extern int gnGlobal_00711470; // 0x00711470
+extern int gnScreenHeight; // 0x00711470
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 
-static int gnGlobal_007BEECC;                                                                               // 0x007BEECC
+static int gnPetIconPopupState;                                                                               // 0x007BEECC
 
 extern void* gpCel_007BEF18; // 0x007BEF18
 
-extern void* gpCel_007BEF1C; // 0x007BEF1C
+extern void* gpCtrlPnl7Cel; // 0x007BEF1C
 
-extern void* gpCel_007BEF74; // 0x007BEF74
+extern void* gp800CtrlPnl7Cel; // 0x007BEF74
 
-extern int gbGlobal_007BEFA0; // 0x007BEFA0
+extern int gbBeltRowsShown; // 0x007BEFA0
 
-extern unsigned char gnTextColorA_007BEFBB; // 0x007BEFBB
+extern unsigned char gnTextColorA; // 0x007BEFBB
 
-extern unsigned char gnTextColorB_007BEFE4; // 0x007BEFE4
+extern unsigned char gnTextColorB; // 0x007BEFE4
 
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 
@@ -80,7 +80,7 @@ int __fastcall sub_00479120_GetHirelingClassId(int nUnitId); // 0x00479120
 
 extern const unsigned int gdwBitMasks[]; // 0x006CE268
 
-void** gppHirelingCels_007BEEAC; // 0x007BEEAC
+void** gpHirelingRecords; // 0x007BEEAC
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
@@ -100,43 +100,43 @@ void __fastcall sub_004CBDE0_PlayEventSound(int,unsigned char,unsigned short); /
 
 int gnGlobal_007BEEDC; // 0x007BEEDC
 
-static int gnGlobal_007BEEE0; // 0x007BEEE0
+static int gbPopupPending; // 0x007BEEE0
 
 int gnGlobal_007BEEE8; // 0x007BEEE8
 
-void* gpGlobal_007BEEEC; // 0x007BEEEC
+void* gpHelpBorderCel; // 0x007BEEEC
 
-void* gpGlobal_007BEEF0; // 0x007BEEF0
+void* gpHelpWhiteBulletCel; // 0x007BEEF0
 
-void* gpGlobal_007BEEF4; // 0x007BEEF4
+void* gpHelpYellowBulletCel; // 0x007BEEF4
 
-void* gpCel_007BEF0C; // 0x007BEF0C
+void* gpRunButtonCel; // 0x007BEF0C
 
-void* gpCel_007BEF10; // 0x007BEF10
+void* gpPopBeltCel; // 0x007BEF10
 
-void* gpCel_007BEF14; // 0x007BEF14
+void* gpGemSocketCel; // 0x007BEF14
 
-void* gpCel_007BEF20; // 0x007BEF20
+void* gpSkillPointsCel; // 0x007BEF20
 
-void* gpCel_007BEF24; // 0x007BEF24
+void* gpInvWarnCel; // 0x007BEF24
 
-void* gpCel_007BEF28; // 0x007BEF28
+void* gpHostilePicCel; // 0x007BEF28
 
-void* gpCel_007BEF2C; // 0x007BEF2C
+void* gpMenuPanelCel; // 0x007BEF2C
 
-void* gpCel_007BEF60; // 0x007BEF60
+void* gpDuroIconCel; // 0x007BEF60
 
-void* gpCel_007BEF64; // 0x007BEF64
+void* gpInvCharCel; // 0x007BEF64
 
-void* gpCel_007BEF68; // 0x007BEF68
+void* gpHlthManaCel; // 0x007BEF68
 
-void* gpCel_007BEF70; // 0x007BEF70
+void* gpStateButtonCel; // 0x007BEF70
 
-void* gpCel_007BEF78; // 0x007BEF78
+void* gpArrowCel; // 0x007BEF78
 
-void* gpCellFile_007BEF7C; // 0x007BEF7C
+void* gpBtnCel; // 0x007BEF7C
 
-void* gpCel_007BEF80; // 0x007BEF80
+void* gpOverlapCel; // 0x007BEF80
 
 struct D2StoredUnitRecordStrc;
 
@@ -196,25 +196,25 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);           
 
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);               // 0x005269D0
 
-extern D2CelFileStrc* gapHirelingIcons_007BEEB0[7];                                                         // 0x007BEEB0
+extern D2CelFileStrc* gapHirelingIcons[7];                                                         // 0x007BEEB0
 
-static unsigned char gnLifeColorHigh_007BEED0;                                                              // 0x007BEED0
+static unsigned char gnLifeColorHigh;                                                              // 0x007BEED0
 
-static unsigned char gnLifeColorMid_007BEED1;                                                               // 0x007BEED1
+static unsigned char gnLifeColorMid;                                                               // 0x007BEED1
 
-static unsigned char gnLifeColorLow_007BEED2;                                                               // 0x007BEED2
+static unsigned char gnLifeColorLow;                                                               // 0x007BEED2
 
-static unsigned char gbLifeColorsInit_007BEED3;                                                             // 0x007BEED3
+static unsigned char gbLifeColorsInit;                                                             // 0x007BEED3
 
-static int gnPopupX_007BEED4;                                                                               // 0x007BEED4
+static int gnPopupX;                                                                               // 0x007BEED4
 
-static int gnPopupY_007BEED8;                                                                               // 0x007BEED8
+static int gnPopupY;                                                                               // 0x007BEED8
 
-static int gbPopupShown_007BEEDC;                                                                           // 0x007BEEDC
+static int gbPopupShown;                                                                           // 0x007BEEDC
 
-static unsigned char gbGlobal_007BEEE4;                                                                     // 0x007BEEE4
+static unsigned char gbOpenMercInvPending;                                                                     // 0x007BEEE4
 
-static int gdwPopupTick_007BEEE8;                                                                           // 0x007BEEE8
+static int gdwPopupTick;                                                                           // 0x007BEEE8
 
 
 struct D2HirelingIconRecordStrc
@@ -238,11 +238,11 @@ void __cdecl HIREABLES_LoadHirelingIcons()
         "Hireables\\AssassinIcon",
         "Hireables\\DruidIcon",
     };
-    memset(gapHirelingIcons_007BEEB0, 0, sizeof(gapHirelingIcons_007BEEB0));
+    memset(gapHirelingIcons, 0, sizeof(gapHirelingIcons));
     int nIcon = 0;
     for (int i = 0; i < 5; ++i, ++nIcon)
     {
-        gapHirelingIcons_007BEEB0[nIcon] = (D2CelFileStrc*)sub_004520C0_LoadUiCelFile(aszClassIcons[i]);
+        gapHirelingIcons[nIcon] = (D2CelFileStrc*)sub_004520C0_LoadUiCelFile(aszClassIcons[i]);
     }
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     if (FOG_IsExpansion())
@@ -253,7 +253,7 @@ void __cdecl HIREABLES_LoadHirelingIcons()
             {
                 break;
             }
-            gapHirelingIcons_007BEEB0[nIcon] = (D2CelFileStrc*)sub_004520C0_LoadUiCelFile(aszExpansionIcons[i]);
+            gapHirelingIcons[nIcon] = (D2CelFileStrc*)sub_004520C0_LoadUiCelFile(aszExpansionIcons[i]);
         }
     }
     const int nSize = sgptDataTables->nPetTypeTxtRecordCount * sizeof(D2HirelingIconRecordStrc);
@@ -266,25 +266,25 @@ void __cdecl HIREABLES_FreeHirelingIcons()
 {
     for (int i = 0; i < 7; ++i)
     {
-        if (gapHirelingIcons_007BEEB0[i])
+        if (gapHirelingIcons[i])
         {
-            ARCHIVE_FreeClientCellFile(gapHirelingIcons_007BEEB0[i]);
-            gapHirelingIcons_007BEEB0[i] = 0;
+            ARCHIVE_FreeClientCellFile(gapHirelingIcons[i]);
+            gapHirelingIcons[i] = 0;
         }
     }
-    if (gppHirelingCels_007BEEAC)
+    if (gpHirelingRecords)
     {
         const int nCount = sgptDataTables->nPetTypeTxtRecordCount * 5;
         for (int i = 0; i < nCount; ++i)
         {
-            void* pCel = gppHirelingCels_007BEEAC[i];
+            void* pCel = gpHirelingRecords[i];
             if (pCel)
             {
                 ARCHIVE_FreeClientCellFile(pCel);
             }
         }
-        sub_0040B480(0, gppHirelingCels_007BEEAC, ".\\UI\\Hireables.cpp", 0xB7, 0);
-        gppHirelingCels_007BEEAC = 0;
+        sub_0040B480(0, gpHirelingRecords, ".\\UI\\Hireables.cpp", 0xB7, 0);
+        gpHirelingRecords = 0;
     }
 }
 
@@ -366,93 +366,94 @@ void __cdecl HIREABLES_LoadHelpCels()
 {
     if (D2GFX_GetResolutionMode() == 2)
     {
-        if (!gpGlobal_007BEEEC)
+        if (!gpHelpBorderCel)
         {
-            gpGlobal_007BEEEC = sub_004520C0_LoadUiCelFile("Menu\\800helpborder");
+            gpHelpBorderCel = sub_004520C0_LoadUiCelFile("Menu\\800helpborder");
         }
         else
         {
-            ARCHIVE_FreeClientCellFile(gpGlobal_007BEEEC);
-            gpGlobal_007BEEEC = 0;
-            gpGlobal_007BEEEC = sub_004520C0_LoadUiCelFile("Menu\\800helpborder");
+            ARCHIVE_FreeClientCellFile(gpHelpBorderCel);
+            gpHelpBorderCel = 0;
+            gpHelpBorderCel = sub_004520C0_LoadUiCelFile("Menu\\800helpborder");
         }
     }
     else
     {
-        if (!gpGlobal_007BEEEC)
+        if (!gpHelpBorderCel)
         {
-            gpGlobal_007BEEEC = sub_004520C0_LoadUiCelFile("Menu\\helpborder");
+            gpHelpBorderCel = sub_004520C0_LoadUiCelFile("Menu\\helpborder");
         }
         else
         {
-            ARCHIVE_FreeClientCellFile(gpGlobal_007BEEEC);
-            gpGlobal_007BEEEC = 0;
-            gpGlobal_007BEEEC = sub_004520C0_LoadUiCelFile("Menu\\helpborder");
+            ARCHIVE_FreeClientCellFile(gpHelpBorderCel);
+            gpHelpBorderCel = 0;
+            gpHelpBorderCel = sub_004520C0_LoadUiCelFile("Menu\\helpborder");
         }
     }
-    if (!gpGlobal_007BEEF0)
+    if (!gpHelpWhiteBulletCel)
     {
-        gpGlobal_007BEEF0 = sub_004520C0_LoadUiCelFile("Menu\\helpwhitebullet");
+        gpHelpWhiteBulletCel = sub_004520C0_LoadUiCelFile("Menu\\helpwhitebullet");
     }
-    if (!gpGlobal_007BEEF4)
+    if (!gpHelpYellowBulletCel)
     {
-        gpGlobal_007BEEF4 = sub_004520C0_LoadUiCelFile("Menu\\helpyellowbullet");
+        gpHelpYellowBulletCel = sub_004520C0_LoadUiCelFile("Menu\\helpyellowbullet");
     }
 }
 
 // 0x00494EE0
 void __cdecl HIREABLES_FreeHelpCels()
 {
-    if (gpGlobal_007BEEEC)
+    if (gpHelpBorderCel)
     {
-        ARCHIVE_FreeClientCellFile(gpGlobal_007BEEEC);
-        gpGlobal_007BEEEC = 0;
+        ARCHIVE_FreeClientCellFile(gpHelpBorderCel);
+        gpHelpBorderCel = 0;
     }
-    if (gpGlobal_007BEEF0)
+    if (gpHelpWhiteBulletCel)
     {
-        ARCHIVE_FreeClientCellFile(gpGlobal_007BEEF0);
-        gpGlobal_007BEEF0 = 0;
+        ARCHIVE_FreeClientCellFile(gpHelpWhiteBulletCel);
+        gpHelpWhiteBulletCel = 0;
     }
-    if (gpGlobal_007BEEF4)
+    if (gpHelpYellowBulletCel)
     {
-        ARCHIVE_FreeClientCellFile(gpGlobal_007BEEF4);
-        gpGlobal_007BEEF4 = 0;
+        ARCHIVE_FreeClientCellFile(gpHelpYellowBulletCel);
+        gpHelpYellowBulletCel = 0;
     }
 }
 
 // 0x00496990
 void __cdecl HIREABLES_FreePanelCels()
 {
-    D2_FREE_PANEL_CEL(gpCellFile_007BEF7C);
-    D2_FREE_PANEL_CEL(gpCel_007BEF64);
-    D2_FREE_PANEL_CEL(gpCel_007BEF78);
-    D2_FREE_PANEL_CEL(gpCel_007BEF24);
-    D2_FREE_PANEL_CEL(gpCel_007BEF60);
-    D2_FREE_PANEL_CEL(gpCel_007BEF14);
-    D2_FREE_PANEL_CEL(gpCel_007BEF10);
-    D2_FREE_PANEL_CEL(gpCel_007BEF74);
+    D2_FREE_PANEL_CEL(gpBtnCel);
+    D2_FREE_PANEL_CEL(gpInvCharCel);
+    D2_FREE_PANEL_CEL(gpArrowCel);
+    D2_FREE_PANEL_CEL(gpInvWarnCel);
+    D2_FREE_PANEL_CEL(gpDuroIconCel);
+    D2_FREE_PANEL_CEL(gpGemSocketCel);
+    D2_FREE_PANEL_CEL(gpPopBeltCel);
+    D2_FREE_PANEL_CEL(gp800CtrlPnl7Cel);
     D2_FREE_PANEL_CEL(gpCel_007BEF18);
-    D2_FREE_PANEL_CEL(gpCel_007BEF1C);
-    D2_FREE_PANEL_CEL(gpCel_007BEF68);
-    D2_FREE_PANEL_CEL(gpCel_007BEF80);
-    D2_FREE_PANEL_CEL(gpCel_007BEF70);
-    D2_FREE_PANEL_CEL(gpCel_007BEF2C);
-    D2_FREE_PANEL_CEL(gpCel_007BEF20);
-    D2_FREE_PANEL_CEL(gpCel_007BEF0C);
-    D2_FREE_PANEL_CEL(gpCel_007BEF28);
+    D2_FREE_PANEL_CEL(gpCtrlPnl7Cel);
+    D2_FREE_PANEL_CEL(gpHlthManaCel);
+    D2_FREE_PANEL_CEL(gpOverlapCel);
+    D2_FREE_PANEL_CEL(gpStateButtonCel);
+    D2_FREE_PANEL_CEL(gpMenuPanelCel);
+    D2_FREE_PANEL_CEL(gpSkillPointsCel);
+    D2_FREE_PANEL_CEL(gpRunButtonCel);
+    D2_FREE_PANEL_CEL(gpHostilePicCel);
     memset(gabGlobal_007BEF30, 0, sizeof(gabGlobal_007BEF30));
 }
 
 // 0x004979E0
 int __cdecl sub_004979E0()
 {
-    return gbGlobal_007BEFA0 != 0;
+    return gbBeltRowsShown != 0;
 }
 
 // 0x004979F0
 int __cdecl HIREABLES_GetBeltRowCount()
 {
-    switch (gnUiRecordIndex_00722354)
+// build: symbol ?gnUiRecordIndex@* 0x00722354
+    switch (gnUiRecordIndex)
     {
     case 2:
         return 1;
@@ -478,18 +479,18 @@ static void __stdcall sub_00493A00_DrawLifeBar(int nPetType, int nX, int nUnitId
     if (nLife >= 100)
         nLife = 100;
     const int nXFill = nX + nLife * 0x2E / 100;
-    if (!gbLifeColorsInit_007BEED3)
+    if (!gbLifeColorsInit)
     {
-        gbLifeColorsInit_007BEED3 = 1;
-        gnLifeColorHigh_007BEED0 = D2Win_10034_MixRGB(0, 0x80, 0);
-        gnLifeColorMid_007BEED1 = D2Win_10034_MixRGB(0xC0, 0xC0, 0);
-        gnLifeColorLow_007BEED2 = D2Win_10034_MixRGB(0xFF, 0, 0);
+        gbLifeColorsInit = 1;
+        gnLifeColorHigh = D2Win_10034_MixRGB(0, 0x80, 0);
+        gnLifeColorMid = D2Win_10034_MixRGB(0xC0, 0xC0, 0);
+        gnLifeColorLow = D2Win_10034_MixRGB(0xFF, 0, 0);
     }
-    unsigned char nColor = gnLifeColorHigh_007BEED0;
+    unsigned char nColor = gnLifeColorHigh;
     if (nLife < 50)
-        nColor = gnLifeColorMid_007BEED1;
+        nColor = gnLifeColorMid;
     if (nLife < 25)
-        nColor = gnLifeColorLow_007BEED2;
+        nColor = gnLifeColorLow;
     D2GFX_DrawBox(nX, 0xE, nXFill, 0x13, nColor, 5);
     D2GFX_DrawBox(nXFill, 0xE, nXEnd, 0x13, 0, 5);
 }
@@ -497,13 +498,13 @@ static void __stdcall sub_00493A00_DrawLifeBar(int nPetType, int nX, int nUnitId
 // 0x00497270
 void __cdecl HIREABLES_InitTextColorA()
 {
-    gnTextColorA_007BEFBB = D2Win_10034_MixRGB(0xF4, 0xC0, 0x4C);
+    gnTextColorA = D2Win_10034_MixRGB(0xF4, 0xC0, 0x4C);
 }
 
 // 0x00497290
 void __cdecl HIREABLES_InitTextColorB()
 {
-    gnTextColorB_007BEFE4 = D2Win_10034_MixRGB(0, 0, 0xFF);
+    gnTextColorB = D2Win_10034_MixRGB(0, 0, 0xFF);
 }
 
 // 0x00493240
@@ -541,11 +542,11 @@ D2CelFileStrc* __fastcall HIREABLES_GetPetIcon(D2UnitStrc* pOwner, int nPetType,
     }
 
     int nSlot = nPetType * 5 + nIcon;
-    void** ppCel = &gppHirelingCels_007BEEAC[nSlot];
+    void** ppCel = &gpHirelingRecords[nSlot];
     if (!*ppCel)
     {
         sprintf((char*)aPath, "hireables\\%s", pPetTypeTxtRecord->szIcon[nIcon]);
-        ppCel = &gppHirelingCels_007BEEAC[nSlot];
+        ppCel = &gpHirelingRecords[nSlot];
         *ppCel = sub_004520C0_LoadUiCelFile((char*)aPath);
     }
     return (D2CelFileStrc*)*ppCel;
@@ -554,10 +555,10 @@ D2CelFileStrc* __fastcall HIREABLES_GetPetIcon(D2UnitStrc* pOwner, int nPetType,
 // 0x00493340
 void __cdecl HIREABLES_UpdateHirelingPanel()
 {
-    if (gnGlobal_007BEECC == 2)
+    if (gnPetIconPopupState == 2)
     {
         gnGlobal_007BEEE8 = 0;
-        gnGlobal_007BEEE0 = 0;
+        gbPopupPending = 0;
         gnGlobal_007BEEDC = 0;
         return;
     }
@@ -567,14 +568,14 @@ void __cdecl HIREABLES_UpdateHirelingPanel()
     {
         bHasPet = 1;
     }
-    if ((ROSTER_HasPartyMate(pPlayer) && gnGlobal_007BEECC != 1) || bHasPet)
+    if ((ROSTER_HasPartyMate(pPlayer) && gnPetIconPopupState != 1) || bHasPet)
     {
         const int nPetId = sub_00478F20_FindPetIdByOwner(pPlayer, 7, 0);
         D2UnitStrc* pPet;
         if (nPetId == -1 || ((pPet = CUNIT_FindClientUnit(nPetId, 1)) != 0 && CUNIT_IsDeadOrDying(pPet)))
         {
             gnGlobal_007BEEDC = 0;
-            gnGlobal_007BEEE0 = 0;
+            gbPopupPending = 0;
             gnGlobal_007BEEE8 = 0;
         }
         if (!GAME_GetUIVarState(0x13))
@@ -585,7 +586,7 @@ void __cdecl HIREABLES_UpdateHirelingPanel()
     else
     {
         gnGlobal_007BEEE8 = 0;
-        gnGlobal_007BEEE0 = 0;
+        gbPopupPending = 0;
         gnGlobal_007BEEDC = 0;
         if (GAME_GetUIVarState(0x13))
         {
@@ -597,7 +598,7 @@ void __cdecl HIREABLES_UpdateHirelingPanel()
 // 0x00493430
 void __stdcall HIREABLES_PetIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (gnGlobal_007BEECC == 2)
+    if (gnPetIconPopupState == 2)
     {
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
@@ -689,12 +690,13 @@ static void __stdcall sub_00493B00_DrawUnitName(D2UnitStrc* pUnit, int nX, int n
 // 0x004942D0
 int __cdecl HIREABLES_GetHelpMenuSetting()
 {
-    if (gdwHelpMenu_00722310 == 0xFFFFFFFF)
+// build: symbol ?gdwHelpMenu@* 0x00722310
+    if (gdwHelpMenu == 0xFFFFFFFF)
     {
-        gdwHelpMenu_00722310 = 0;
-        SRegLoadValue("Diablo II", "Help Menu", 1, &gdwHelpMenu_00722310);
+        gdwHelpMenu = 0;
+        SRegLoadValue("Diablo II", "Help Menu", 1, &gdwHelpMenu);
     }
-    return gdwHelpMenu_00722310;
+    return gdwHelpMenu;
 }
 
 static int __stdcall sub_00493B50_DrawRosterIcons(int* pnY, int* pbAlternate, D2UnitStrc* pPlayer, int* pnX)
@@ -702,7 +704,7 @@ static int __stdcall sub_00493B50_DrawRosterIcons(int* pnY, int* pbAlternate, D2
     int bDrawn = 0;
     const unsigned short nIndex = CUNIT_GetPlayerPartyId(pPlayer);
     const int nPlayerId = pPlayer ? pPlayer->dwUnitId : -1;
-    if (nIndex == 0xFFFF || gnGlobal_007BEECC)
+    if (nIndex == 0xFFFF || gnPetIconPopupState)
         return 0;
 
     D2StoredUnitRecordStrc* pEntry = sub_004795A0_GetNextEntry(0);
@@ -722,25 +724,25 @@ static int __stdcall sub_00493B50_DrawRosterIcons(int* pnY, int* pbAlternate, D2
         switch (ROSTER_GetClassId(pEntry))
         {
         case 0:
-            pCelFile = gapHirelingIcons_007BEEB0[0];
+            pCelFile = gapHirelingIcons[0];
             break;
         case 1:
-            pCelFile = gapHirelingIcons_007BEEB0[1];
+            pCelFile = gapHirelingIcons[1];
             break;
         case 2:
-            pCelFile = gapHirelingIcons_007BEEB0[2];
+            pCelFile = gapHirelingIcons[2];
             break;
         case 3:
-            pCelFile = gapHirelingIcons_007BEEB0[3];
+            pCelFile = gapHirelingIcons[3];
             break;
         case 4:
-            pCelFile = gapHirelingIcons_007BEEB0[4];
+            pCelFile = gapHirelingIcons[4];
             break;
         case 5:
-            pCelFile = gapHirelingIcons_007BEEB0[5];
+            pCelFile = gapHirelingIcons[5];
             break;
         case 6:
-            pCelFile = gapHirelingIcons_007BEEB0[6];
+            pCelFile = gapHirelingIcons[6];
             break;
         default:
             continue;
@@ -797,17 +799,17 @@ static int __stdcall sub_00493CE0_DrawSummonIcon(D2UnitStrc* pPlayer, int* pbAlt
         *pbAlternate = 10;
         *pnY += 10;
     }
-    gnPopupX_007BEED4 = *pnX;
-    gnPopupY_007BEED8 = *pnY;
-    if (gnGlobal_007BEEE0 && gdwPopupTick_007BEEE8 && GetTickCount() - gdwPopupTick_007BEEE8 >= 700)
+    gnPopupX = *pnX;
+    gnPopupY = *pnY;
+    if (gbPopupPending && gdwPopupTick && GetTickCount() - gdwPopupTick >= 700)
     {
-        gbPopupShown_007BEEDC = 1;
+        gbPopupShown = 1;
         sub_004F6480(&tContext, *pnX, 0x3C, -1, 7, 0);
         *pnX += 0x38;
         return 1;
     }
 
-    if (gbPopupShown_007BEEDC)
+    if (gbPopupShown)
     {
         sub_004F6480(&tContext, *pnX, 0x3C, -1, 7, 0);
         *pnX += 0x38;
@@ -912,9 +914,9 @@ void __cdecl sub_00494020_DrawPetIcons()
     int bAlternate = 0;
     int nX = 0xF;
     const int nMode = sub_0045AE90();
-    if (nMode != 3 && nMode != 2 && !GAME_GetUIVarState(9) && !GAME_GetUIVarState(0xB) && gnGlobal_007BEECC != 2)
+    if (nMode != 3 && nMode != 2 && !GAME_GetUIVarState(9) && !GAME_GetUIVarState(0xB) && gnPetIconPopupState != 2)
     {
-        if (GAME_IsExpansion() && !GAME_GetUIVarState(0x23) && gnGlobal_007BEECC != 2 && sub_00478F20_FindPetIdByOwner(pPlayer, 7, 0) != -1)
+        if (GAME_IsExpansion() && !GAME_GetUIVarState(0x23) && gnPetIconPopupState != 2 && sub_00478F20_FindPetIdByOwner(pPlayer, 7, 0) != -1)
             sub_00455F20(0x23, 0, 0);
 
         int bAny = sub_00493B50_DrawRosterIcons(&nY, &bAlternate, pPlayer, &nX);
@@ -942,13 +944,13 @@ void __cdecl sub_00494020_DrawPetIcons()
         if (!bAny)
             sub_00455F20(0x13, 1, 0);
 
-        if (gbGlobal_007BEEE4 && !GAME_GetUIVarState(0x24) && sub_00455F20(0x24, 0, 0))
+        if (gbOpenMercInvPending && !GAME_GetUIVarState(0x24) && sub_00455F20(0x24, 0, 0))
         {
             SRegSaveValue("Diablo II", "PopupHireling", 0, 1);
-            gbGlobal_007BEEE4 = 0;
+            gbOpenMercInvPending = 0;
         }
 
-        if (gnGlobal_007BEEE0 && gbPopupShown_007BEEDC)
+        if (gbPopupPending && gbPopupShown)
         {
             Unicode wszText[0x100];
             wszText[0].wChar = 0;
@@ -958,13 +960,13 @@ void __cdecl sub_00494020_DrawPetIcons()
             sub_005269D0(0x100, wszText, wszFormat, CMDTBL_GetKeyName(0x36, 1));
             sub_00526700(wszText, wszMiddle);
             sub_00526700(wszText, wszSuffix);
-            D2Win_10129_DrawFramedText(wszText, gnPopupX_007BEED4, gnPopupY_007BEED8 + 0x24, 0, 0);
+            D2Win_10129_DrawFramedText(wszText, gnPopupX, gnPopupY + 0x24, 0, 0);
         }
     }
     else
     {
-        gbPopupShown_007BEEDC = 0;
-        gnGlobal_007BEEE0 = 0;
+        gbPopupShown = 0;
+        gbPopupPending = 0;
     }
 }
 

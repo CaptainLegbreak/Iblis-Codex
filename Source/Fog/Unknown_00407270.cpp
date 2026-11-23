@@ -68,9 +68,9 @@ extern "C" __declspec(dllimport) void __stdcall GlobalMemoryStatus(D2MemoryStatu
 extern "C" __declspec(dllimport) void __stdcall GetSystemInfo(T004013C0* pInfo); // 0x006CC1F0
 extern unsigned long gdwTotalPhys_0074D898; // 0x0074D898
 extern T004013C0 gtSystemInfo_0074D8A0; // 0x0074D8A0
-int gnOsKind_0074D890; // 0x0074D890
-float gfOsVersion_0074D894; // 0x0074D894
-int gbSystemInfoDone_0074D88C; // 0x0074D88C
+int gnOsKind; // 0x0074D890
+float gfOsVersion; // 0x0074D894
+int gbSystemInfoCaptured; // 0x0074D88C
 
 // 0x00407270
 char* crashy::Report::sub_00407270_GetText08()
@@ -167,33 +167,33 @@ void __cdecl AUTOMAP_CaptureSystemInfo()
         {
             fMinor = fMinor / 10.0;
         }
-        gfOsVersion_0074D894 = (float)((float)tVersion.dwMajorVersion + fMinor / 100.0);
+        gfOsVersion = (float)((float)tVersion.dwMajorVersion + fMinor / 100.0);
         switch (tVersion.dwPlatformId)
         {
         case 2:
-            gnOsKind_0074D890 = 1;
+            gnOsKind = 1;
             if (tVersion.dwMajorVersion >= 5)
             {
                 if (tVersion.dwMinorVersion >= 2)
                 {
-                    gnOsKind_0074D890 = 4;
+                    gnOsKind = 4;
                 }
                 else
                 {
-                    gnOsKind_0074D890 = tVersion.dwMinorVersion < 1 ? 2 : 3;
+                    gnOsKind = tVersion.dwMinorVersion < 1 ? 2 : 3;
                 }
             }
             break;
         case 3:
-            gnOsKind_0074D890 = 0;
+            gnOsKind = 0;
             break;
         default:
-            gnOsKind_0074D890 = 0;
+            gnOsKind = 0;
             break;
         }
     }
     GlobalMemoryStatus(&tMemory);
     gdwTotalPhys_0074D898 = tMemory.dwTotalPhys;
     GetSystemInfo(&gtSystemInfo_0074D8A0);
-    gbSystemInfoDone_0074D88C = 1;
+    gbSystemInfoCaptured = 1;
 }

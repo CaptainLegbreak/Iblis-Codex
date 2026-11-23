@@ -958,7 +958,8 @@ void __fastcall AITACTICS_AddMessage(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Uni
     else
     {
         char szText[12];
-        sprintf(szText, gszFormatD_006D57BC, wMessage);
+// build: symbol ?gszFormatD@* 0x006D57BC
+        sprintf(szText, gszFormatD, wMessage);
         if (pUnit && pUnit->pHoverText)
         {
             CHAT_FreeHoverMsg(pGame->pMemoryPool, pUnit->pHoverText);

@@ -1,6 +1,6 @@
 #include "D2Client.h"
 
-#define gpMsgRecordChunkHead_007A2760 (gtMsgRecordChunkFirst_007A0818.pNext)
+#define gpMsgRecordChunkHead_007A2760 (gtMsgRecordChunkFirst.pNext)
 #define FILE_ATTRIBUTE_NORMAL 0x00000080
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define gnRecordCount_007A2758 (gFirstRecordBlock_007A0818.nCount)
@@ -21,8 +21,8 @@ struct D2MsgRecordChunkStrc
 
 int __stdcall SCmdRegisterArgument(unsigned int dwFlags, unsigned int dwId, const char* szName, void* pVariable, unsigned int nBytes, int bSet, void* pfnCallback, void* pParam); // 0x006C4580
 int __fastcall FOG_Free(void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B3C0
-extern char gszLngPath_007A0710[0x104]; // 0x007A0710
-extern D2MsgRecordChunkStrc gtMsgRecordChunkFirst_007A0818; // 0x007A0818
+extern char gszLngPath[0x104]; // 0x007A0710
+extern D2MsgRecordChunkStrc gtMsgRecordChunkFirst; // 0x007A0818
 
 struct D2WinMsgStrc
 {
@@ -45,9 +45,9 @@ extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x006CC19C
 int __cdecl sub_0044DA90(); // 0x0044DA90
 int __stdcall DUNGEON_GetInitSeedFromAct(D2DrlgActStrc* pAct); // 0x0061AAC0
-extern D2DrlgActStrc* gpAct_007A0634; // 0x007A0634
+extern D2DrlgActStrc* gpAct; // 0x007A0634
 void __stdcall COMCALLBACK_RecordMessage(unsigned int uMessage, unsigned int wParam, int lParam); // 0x00451450
-extern int gdwGlobal_007A2780; // 0x007A2780
+extern int gbRecordHandlerInstalled; // 0x007A2780
 
 struct D2RecordBlockStrc
 {
@@ -79,14 +79,14 @@ int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMsg, unsigned int wP
 
 void* __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
-int gdwGlobal_007A277C;                                                                                     // 0x007A277C
-extern int gdwGlobal_007A2784;                                                                              // 0x007A2784
-int gnRecordInitSeed_007A2778;                                                                              // 0x007A2778
+int gbPlaybackRequested;                                                                                     // 0x007A277C
+extern int gnRecordPos;                                                                              // 0x007A2784
+int gnRecordInitSeed;                                                                              // 0x007A2778
 
 // 0x00451260
 int __cdecl RECORD_RegisterLngArgument()
 {
-    SCmdRegisterArgument(0x20000, -1, "lng", gszLngPath_007A0710, sizeof(gszLngPath_007A0710), 0, 0, 0);
+    SCmdRegisterArgument(0x20000, -1, "lng", gszLngPath, sizeof(gszLngPath), 0, 0, 0);
     return 1;
 }
 
@@ -106,7 +106,7 @@ void __cdecl RECORD_AddRecordChunk()
 // 0x004514B0
 void __fastcall RECORD_RecordInputMessage(unsigned int uMessage, unsigned int wParam, int lParam)
 {
-    if (gdwGlobal_007A2780)
+    if (gbRecordHandlerInstalled)
     {
         switch (uMessage)
         {
@@ -128,14 +128,14 @@ void __fastcall RECORD_RecordInputMessage(unsigned int uMessage, unsigned int wP
     }
 }
 
-D2MsgRecordChunkStrc gtMsgRecordChunkFirst_007A0818; // 0x007A0818
+D2MsgRecordChunkStrc gtMsgRecordChunkFirst; // 0x007A0818
 
 // 0x00451620
 void __cdecl RECORD_WriteRecordFile()
 {
     void* hFile = CreateFileA("Record.dr1", GENERIC_WRITE, 0, 0, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
 
-    D2MsgRecordChunkStrc* pChunk = &gtMsgRecordChunkFirst_007A0818;
+    D2MsgRecordChunkStrc* pChunk = &gtMsgRecordChunkFirst;
     D2RecordFileHeaderStrc tHeader;
     tHeader.nVersion = 1;
     tHeader.nBlocks = 1;
@@ -146,20 +146,20 @@ void __cdecl RECORD_WriteRecordFile()
     }
     tHeader.nEntries = pChunk->nCount + 500 * (tHeader.nBlocks - 1);
     tHeader.nTick = sub_0044DA90();
-    tHeader.nSeed = DUNGEON_GetInitSeedFromAct(gpAct_007A0634);
+    tHeader.nSeed = DUNGEON_GetInitSeedFromAct(gpAct);
 
     unsigned long nSize = sizeof(tHeader);
     unsigned long nWritten;
     WriteFile(hFile, &nSize, sizeof(nSize), &nWritten, 0);
     WriteFile(hFile, &tHeader, sizeof(tHeader), &nWritten, 0);
-    for (pChunk = &gtMsgRecordChunkFirst_007A0818; pChunk; pChunk = pChunk->pNext)
+    for (pChunk = &gtMsgRecordChunkFirst; pChunk; pChunk = pChunk->pNext)
     {
         WriteFile(hFile, pChunk, pChunk->nCount * sizeof(D2WinMsgStrc), &nWritten, 0);
     }
     CloseHandle(hFile);
 }
 
-static D2RecordBlockStrc* gpRecordBlock_0070F7A0; // 0x0070F7A0
+static D2RecordBlockStrc* gpMsgRecordChunk; // 0x0070F7A0
 
 // 0x00451710
 void __cdecl RECORD_LoadRecordFile()
@@ -184,9 +184,9 @@ void __cdecl RECORD_LoadRecordFile()
             D2RecordBlockStrc* pBlock = (D2RecordBlockStrc*)FOG_Alloc(sizeof(D2RecordBlockStrc), ".\\GAME\\Record.cpp", 0x35, 0);
             pBlock->nCount = 0;
             pBlock->nPos = 0;
-            gpRecordBlock_0070F7A0->pNext = pBlock;
+            gpMsgRecordChunk->pNext = pBlock;
             pBlock->pNext = 0;
-            gpRecordBlock_0070F7A0 = pBlock;
+            gpMsgRecordChunk = pBlock;
         }
 
         if (sgtReadFileHeader.nLastCount <= 500)
@@ -199,10 +199,10 @@ void __cdecl RECORD_LoadRecordFile()
             gnRecordCount_007A2758 = 500;
         }
 
-        ReadFile(hFile, gpRecordBlock_0070F7A0, gnRecordCount_007A2758 * 16, &nRead, 0);
+        ReadFile(hFile, gpMsgRecordChunk, gnRecordCount_007A2758 * 16, &nRead, 0);
     }
 
-    gpRecordBlock_0070F7A0 = &gFirstRecordBlock_007A0818;
+    gpMsgRecordChunk = &gFirstRecordBlock_007A0818;
     CloseHandle(hFile);
 }
 
@@ -231,13 +231,13 @@ int __fastcall RECORD_DispatchRecordedMessage(D2WinMsgStrc* pMsg)
 // 0x004518E0
 void __cdecl WINMAIN_StartPlayback()
 {
-    if (gdwGlobal_007A277C)
-        gdwGlobal_007A277C = 0;
+    if (gbPlaybackRequested)
+        gbPlaybackRequested = 0;
     else
     {
-        gdwGlobal_007A2784 = 1;
+        gnRecordPos = 1;
         RECORD_LoadRecordFile();
-        GAME_SetInitSeed(gnRecordInitSeed_007A2778);
+        GAME_SetInitSeed(gnRecordInitSeed);
     }
 }
 

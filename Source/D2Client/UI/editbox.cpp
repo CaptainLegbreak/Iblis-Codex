@@ -145,7 +145,7 @@ void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
-extern D2ButtonStringStrc gaButtonStrings_007275A8[]; // 0x007275A8
+extern D2ButtonStringStrc gaButtonStrings[]; // 0x007275A8
 
 class D2InterfaceStrc
 {
@@ -255,7 +255,7 @@ void ButtonImplementation::Slot01()
     if (nPosX >= nX && nPosX <= nX + nWidth && nPosY >= nY - nHeight && nPosY <= nY)
     {
         const int nOldFont = sub_00502EF0(1);
-        const Unicode* wszText = D2LANG_GetStringFromTblIndex(gaButtonStrings_007275A8[*(int*)nStringSlot].nStringIndex);
+        const Unicode* wszText = D2LANG_GetStringFromTblIndex(gaButtonStrings[*(int*)nStringSlot].nStringIndex);
         const int nTextWidth = D2Win_10121_GetTextWidth(wszText);
         D2Win_10117_DrawText(wszText, nX + (nWidth - nTextWidth) / 2, nY - nHeight - 5, 0, 0);
         sub_00502EF0(nOldFont);

@@ -18,13 +18,13 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* 
 
 extern "C" const char szFmtD_006D57BC[];                                                                    // 0x006D57BC
 
-extern "C" const char szFmtRange_006D9D70[];                                                                // 0x006D9D70
+extern "C" const char gszFmtRange[];                                                                // 0x006D9D70
 
-extern int gnGlobal_00711470;                                                                               // 0x00711470
+extern int gnScreenHeight;                                                                               // 0x00711470
 
-extern int gnGlobal_007A2858;                                                                               // 0x007A2858
+extern int gnPanelOffsetX;                                                                               // 0x007A2858
 
-extern int gnGlobal_007A285C;                                                                               // 0x007A285C
+extern int gnPanelOffsetY;                                                                               // 0x007A285C
 
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
@@ -94,9 +94,9 @@ struct D2UnitStrc;
 
 struct D2DataTablesStrc;
 
-extern "C" const char szFmtRangeKK_006DBEAC[]; // 0x006DBEAC
+extern "C" const char gszFmtRangeKK[]; // 0x006DBEAC
 
-extern "C" const char szFmtRangeK_006DBEB8[]; // 0x006DBEB8
+extern "C" const char gszFmtRangeK[]; // 0x006DBEB8
 
 int __fastcall SKILLDESC_GetSkillParamByLevel(int nSkillId, int nSkillLevel); // 0x004E6CA0
 
@@ -144,7 +144,7 @@ void __fastcall SKILLDESC_DrawOtherHandDamage(D2UnitStrc* pUnit, D2SkillStrc* pS
 
 void __fastcall SKILLDESC_DrawSkillWeaponDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight);
 
-int gbHasClassSkill_007C8CA0; // 0x007C8CA0
+int gbHasClassSkill; // 0x007C8CA0
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 #include "D2Client.h"
@@ -180,7 +180,7 @@ D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit
 
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer);         // 0x00625D00
 
-extern const D2ElemDamageStatsStrc gaElemDamageStats_006DBEF4[4];                                          // 0x006DBEF4
+extern const D2ElemDamageStatsStrc gaElemDamageStats[4];                                          // 0x006DBEF4
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
@@ -192,14 +192,14 @@ typedef void (__fastcall* SKILLDAMAGEFN)(D2UnitStrc*, D2SkillStrc*, D2SkillsTxt*
 
 typedef void (__fastcall* SKILLDESCFN)(D2UnitStrc*, D2SkillStrc*, D2SkillsTxt*, int, int*, int*, int*, int*);
 
-extern SKILLDAMAGEFN gpfSkillDamageFuncs_0072D768[]; // 0x0072D768
+extern SKILLDAMAGEFN gpfnSkillDamageFuncs[]; // 0x0072D768
 
-extern SKILLDESCFN gpfSkillDescFuncs_0072D7F8[]; // 0x0072D7F8
+extern SKILLDESCFN gpfnSkillDescFuncs[]; // 0x0072D7F8
 
-extern D2SkillTextPositionStrc gtSkillTextPositions_0072D840[]; // 0x0072D840
+extern D2SkillTextPositionStrc gaSkillTextPositions[]; // 0x0072D840
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
-extern "C" const char gszFormatD_006D57BC[]; // 0x006D57BC
+extern "C" const char gszFormatD[]; // 0x006D57BC
 
 extern const char gszSkillDescFile_006DBF24[]; // 0x006DBF24
 
@@ -215,9 +215,9 @@ void __cdecl sub_005269D0(int, Unicode*, const Unicode*, ...); // 0x005269D0
 
 static void __stdcall sub_004E9940_DrawNumberCentered(int nColor, int nLeft, int nY, int nRight, int nValue); // 0x004E9940
 
-#define TP gtSkillTextPositions_0072D840
+#define TP gaSkillTextPositions
 
-#define DRAW_SKILL_TEXT(i, text) TEXT_DrawCenteredText(TP[i].nLeft + gnGlobal_007A2858, gnGlobal_00711470 + gnGlobal_007A285C + TP[i].nY - 480, TP[i].nRight + gnGlobal_007A2858, text, 0)
+#define DRAW_SKILL_TEXT(i, text) TEXT_DrawCenteredText(TP[i].nLeft + gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY + TP[i].nY - 480, TP[i].nRight + gnPanelOffsetX, text, 0)
 
 union D2SeedStrc;
 
@@ -257,13 +257,13 @@ extern const unsigned char gbSkillFlagMask_006CE270; // 0x006CE270
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 
-extern int gnChargedBoltTurnEvery_0072D98C; // 0x0072D98C
+extern int gnChargedBoltTurnEvery; // 0x0072D98C
 
-extern int gnChargedBoltTurnBase_0072D990; // 0x0072D990
+extern int gnChargedBoltTurnBase; // 0x0072D990
 
-extern const int gnDirectionOffsetY_006DC1E8[]; // 0x006DC1E8
+extern const int gaCurvingPathOffsetY[]; // 0x006DC1E8
 
-extern const int gnDirectionOffsetX_006DC208[]; // 0x006DC208
+extern const int gaCurvingPathOffsetX[]; // 0x006DC208
 
 unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char nIndex); // 0x0063E7A0
 
@@ -500,7 +500,7 @@ static void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin,
     }
     else if (nMin < 10000 && nMax < 10000)
     {
-        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szText, gszFmtRange, nMin, nMax);
     }
     else if (nMin >= 10000)
     {
@@ -524,7 +524,7 @@ static void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin,
     {
         sub_00502EF0(1);
     }
-    TEXT_DrawCenteredText(gnGlobal_007A2858 + nLeft, gnGlobal_00711470 + gnGlobal_007A285C + nY - 480, gnGlobal_007A2858 + nRight, wszText, nColor);
+    TEXT_DrawCenteredText(gnPanelOffsetX + nLeft, gnScreenHeight + gnPanelOffsetY + nY - 480, gnPanelOffsetX + nRight, wszText, nColor);
 }
 
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor)
@@ -663,7 +663,7 @@ static void __stdcall SKILLDESC_DrawWeaponDamage(D2UnitStrc* pUnit, D2SkillStrc*
     }
     else if (nMin1 < 10000 && nMax1 < 10000)
     {
-        wsprintfA(szText, szFmtRange_006D9D70, nMin1, nMax1);
+        wsprintfA(szText, gszFmtRange, nMin1, nMax1);
     }
     else if (nMin1 >= 10000)
     {
@@ -682,7 +682,7 @@ static void __stdcall SKILLDESC_DrawWeaponDamage(D2UnitStrc* pUnit, D2SkillStrc*
     }
     else if (nMin2 < 10000 && nMax2 < 10000)
     {
-        wsprintfA(szText, szFmtRange_006D9D70, nMin2, nMax2);
+        wsprintfA(szText, gszFmtRange, nMin2, nMax2);
     }
     else if (nMin2 >= 10000)
     {
@@ -717,8 +717,9 @@ void __fastcall SKILLDESC_DrawDualWieldLine(D2UnitStrc* pUnit, D2SkillStrc* pSki
 
     if (UNITS_CanDualWield(pUnit))
     {
-        const int nBonus = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[0], SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 0x9B8), nSkillLevel);
-        const int nAdd = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[1], SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 0x9B9), nSkillLevel);
+// build: symbol ?gszSkillDescFile@* 0x006DBF24
+        const int nBonus = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[0], SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 0x9B8), nSkillLevel);
+        const int nAdd = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[1], SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 0x9B9), nSkillLevel);
         SKILLDESC_DrawWeaponDamage(pUnit, pSkill, pSkillsTxt, nSkillLevel, SKILLDESC_WeaponDamageCallback, nBonus, nAdd, nLeft, nY, nRight, 1);
         return;
     }
@@ -747,8 +748,8 @@ void __fastcall SKILLDESC_DrawDualWieldLineNoElem(D2UnitStrc* pUnit, D2SkillStrc
 
     if (UNITS_CanDualWield(pUnit))
     {
-        const int nBonus = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[0], SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 0x9DD), nSkillLevel);
-        const int nAdd = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[1], SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 0x9DE), nSkillLevel);
+        const int nBonus = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[0], SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 0x9DD), nSkillLevel);
+        const int nAdd = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[1], SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 0x9DE), nSkillLevel);
         SKILLDESC_DrawWeaponDamage(pUnit, pSkill, pSkillsTxt, nSkillLevel, SKILLDESC_WeaponDamageCallback, nBonus, nAdd, nLeft, nY, nRight, 0);
         return;
     }
@@ -818,8 +819,8 @@ void __fastcall SKILLDESC_DrawSkillWeaponLine(D2UnitStrc* pUnit, D2SkillStrc* pS
     int nMin = 0;
     int nMax = 0;
     int nColor = 0;
-    const int nBonus = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[0], SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 0x98C), nSkillLevel);
-    const int nAdd = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[1], SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 0x98D), nSkillLevel);
+    const int nBonus = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[0], SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 0x98C), nSkillLevel);
+    const int nAdd = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[1], SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 0x98D), nSkillLevel);
     sub_004E86F0_GetWeaponDamage(&nMin, &nMax, &nColor, nAdd, pSkill, 0x80, 0, 0, pUnit, nBonus);
     sub_004E89A0_GetElementalDamage(pUnit, &nMin, &nMax, &nColor, pSkill);
     if (pSkillsTxt->nSrcDam != 0x80)
@@ -893,8 +894,8 @@ void __fastcall SKILLDESC_DrawWeaponDamageLine(D2UnitStrc* pUnit, D2SkillStrc* p
 
     if (UNITS_CanDualWield(pUnit))
     {
-        const int nBonus = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[0], SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 0xA02), nSkillLevel);
-        const int nAdd = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[1], SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 0xA03), nSkillLevel);
+        const int nBonus = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[0], SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 0xA02), nSkillLevel);
+        const int nAdd = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[1], SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 0xA03), nSkillLevel);
         SKILLDESC_DrawWeaponDamage(pUnit, pSkill, pSkillsTxt, nSkillLevel, SKILLDESC_WeaponDamageCallback, nBonus, nAdd, nLeft, nY, nRight, 1);
     }
     else
@@ -902,8 +903,8 @@ void __fastcall SKILLDESC_DrawWeaponDamageLine(D2UnitStrc* pUnit, D2SkillStrc* p
         int nMin = 0;
         int nMax = 0;
         int nColor = 0;
-        const int nBonus = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[0], SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 0xA0C), nSkillLevel);
-        const int nAdd = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[1], SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 0xA0D), nSkillLevel);
+        const int nBonus = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[0], SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 0xA0C), nSkillLevel);
+        const int nAdd = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[1], SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 0xA0D), nSkillLevel);
         SKILLDESC_WeaponDamageCallback(pUnit, &nMin, &nMax, &nColor, nBonus, nAdd, pSkill, 0, 0);
         sub_004E96E0_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
     }
@@ -982,15 +983,15 @@ void __fastcall SKILLDESC_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStr
     }
     else if (nWeaponMin < 10000 && nWeaponMax < 10000)
     {
-        wsprintfA(szText, szFmtRange_006D9D70, nWeaponMin, nWeaponMax);
+        wsprintfA(szText, gszFmtRange, nWeaponMin, nWeaponMax);
     }
     else if (nWeaponMin >= 10000)
     {
-        wsprintfA(szText, szFmtRangeKK_006DBEAC, &gszEmptyAssertText, (nWeaponMin + 500) / 1000, (nWeaponMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeKK, &gszEmptyAssertText, (nWeaponMin + 500) / 1000, (nWeaponMax + 500) / 1000);
     }
     else
     {
-        wsprintfA(szText, szFmtRangeK_006DBEB8, &gszEmptyAssertText, nWeaponMin, (nWeaponMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeK, &gszEmptyAssertText, nWeaponMin, (nWeaponMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText1, szText, 32);
 
@@ -1001,15 +1002,15 @@ void __fastcall SKILLDESC_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStr
     }
     else if (nMin < 10000 && nMax < 10000)
     {
-        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szText, gszFmtRange, nMin, nMax);
     }
     else if (nMin >= 10000)
     {
-        wsprintfA(szText, szFmtRangeKK_006DBEAC, &gszEmptyAssertText, (nMin + 500) / 1000, (nMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeKK, &gszEmptyAssertText, (nMin + 500) / 1000, (nMax + 500) / 1000);
     }
     else
     {
-        wsprintfA(szText, szFmtRangeK_006DBEB8, &gszEmptyAssertText, nMin, (nMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeK, &gszEmptyAssertText, nMin, (nMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText2, szText, 32);
     sub_004E9870_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nWeaponColor, nColor);
@@ -1221,15 +1222,15 @@ void __fastcall SKILLDESC_DrawDescWeaponAndElemDamage(D2UnitStrc* pUnit, D2Skill
     }
     else if (nWeaponMin < 10000 && nWeaponMax < 10000)
     {
-        wsprintfA(szText, szFmtRange_006D9D70, nWeaponMin, nWeaponMax);
+        wsprintfA(szText, gszFmtRange, nWeaponMin, nWeaponMax);
     }
     else if (nWeaponMin >= 10000)
     {
-        wsprintfA(szText, szFmtRangeKK_006DBEAC, &gszEmptyAssertText, (nWeaponMin + 500) / 1000, (nWeaponMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeKK, &gszEmptyAssertText, (nWeaponMin + 500) / 1000, (nWeaponMax + 500) / 1000);
     }
     else
     {
-        wsprintfA(szText, szFmtRangeK_006DBEB8, &gszEmptyAssertText, nWeaponMin, (nWeaponMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeK, &gszEmptyAssertText, nWeaponMin, (nWeaponMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText1, szText, 32);
 
@@ -1240,15 +1241,15 @@ void __fastcall SKILLDESC_DrawDescWeaponAndElemDamage(D2UnitStrc* pUnit, D2Skill
     }
     else if (nElemMin < 10000 && nElemMax < 10000)
     {
-        wsprintfA(szText, szFmtRange_006D9D70, nElemMin, nElemMax);
+        wsprintfA(szText, gszFmtRange, nElemMin, nElemMax);
     }
     else if (nElemMin >= 10000)
     {
-        wsprintfA(szText, szFmtRangeKK_006DBEAC, &gszEmptyAssertText, (nElemMin + 500) / 1000, (nElemMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeKK, &gszEmptyAssertText, (nElemMin + 500) / 1000, (nElemMax + 500) / 1000);
     }
     else
     {
-        wsprintfA(szText, szFmtRangeK_006DBEB8, &gszEmptyAssertText, nElemMin, (nElemMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeK, &gszEmptyAssertText, nElemMin, (nElemMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText2, szText, 32);
     sub_004E9870_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nColor, nElemColor);
@@ -1449,11 +1450,11 @@ int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage
 {
     for (int i = 0; i < 4; ++i)
     {
-        int nMin = STATLIST_UnitGetStatValue(pUnit, gaElemDamageStats_006DBEF4[i].nMinStat, 0);
-        int nMax = STATLIST_UnitGetStatValue(pUnit, gaElemDamageStats_006DBEF4[i].nMaxStat, 0);
-        if (gaElemDamageStats_006DBEF4[i].nMasteryStat != -1)
+        int nMin = STATLIST_UnitGetStatValue(pUnit, gaElemDamageStats[i].nMinStat, 0);
+        int nMax = STATLIST_UnitGetStatValue(pUnit, gaElemDamageStats[i].nMaxStat, 0);
+        if (gaElemDamageStats[i].nMasteryStat != -1)
         {
-            int nMastery = STATLIST_UnitGetStatValue(pUnit, gaElemDamageStats_006DBEF4[i].nMasteryStat, 0);
+            int nMastery = STATLIST_UnitGetStatValue(pUnit, gaElemDamageStats[i].nMasteryStat, 0);
             if (nMastery)
             {
                 nMin += ApplyRatio_Inline(nMin, nMastery, 100);
@@ -1470,7 +1471,8 @@ int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage
         *pMaxDamage += nMax;
         if (nMin || nMax)
         {
-            *pColor = gaElemDamageColors_006DBEE4[i];
+// build: symbol ?gaElemDamageColors@* 0x006DBEE4
+            *pColor = gaElemDamageColors[i];
         }
     }
 
@@ -1603,7 +1605,7 @@ static int __stdcall sub_004EC140_AddElemRange(int nMin, unsigned short nString,
 
     if ((nMin || nMax) && nMin != nMax)
     {
-        wsprintfA(szNumber, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szNumber, gszFmtRange, nMin, nMax);
     }
     else
     {
@@ -1658,15 +1660,15 @@ void __fastcall SKILLDESC_DrawWeaponAndElemDamage(D2UnitStrc* pUnit, D2SkillStrc
     }
     else if (nWeaponMin < 10000 && nWeaponMax < 10000)
     {
-        wsprintfA(szText, szFmtRange_006D9D70, nWeaponMin, nWeaponMax);
+        wsprintfA(szText, gszFmtRange, nWeaponMin, nWeaponMax);
     }
     else if (nWeaponMin >= 10000)
     {
-        wsprintfA(szText, szFmtRangeKK_006DBEAC, &gszEmptyAssertText, (nWeaponMin + 500) / 1000, (nWeaponMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeKK, &gszEmptyAssertText, (nWeaponMin + 500) / 1000, (nWeaponMax + 500) / 1000);
     }
     else
     {
-        wsprintfA(szText, szFmtRangeK_006DBEB8, &gszEmptyAssertText, nWeaponMin, (nWeaponMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeK, &gszEmptyAssertText, nWeaponMin, (nWeaponMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText1, szText, 32);
 
@@ -1677,15 +1679,15 @@ void __fastcall SKILLDESC_DrawWeaponAndElemDamage(D2UnitStrc* pUnit, D2SkillStrc
     }
     else if (nMin < 10000 && nMax < 10000)
     {
-        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szText, gszFmtRange, nMin, nMax);
     }
     else if (nMin >= 10000)
     {
-        wsprintfA(szText, szFmtRangeKK_006DBEAC, &gszEmptyAssertText, (nMin + 500) / 1000, (nMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeKK, &gszEmptyAssertText, (nMin + 500) / 1000, (nMax + 500) / 1000);
     }
     else
     {
-        wsprintfA(szText, szFmtRangeK_006DBEB8, &gszEmptyAssertText, nMin, (nMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeK, &gszEmptyAssertText, nMin, (nMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText2, szText, 32);
     sub_004E9870_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nWeaponColor, nColor);
@@ -1706,7 +1708,7 @@ static int __stdcall sub_004EC540_AddElemRatePerSecond(unsigned short nString, i
     }
     else
     {
-        wsprintfA(szNumber, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szNumber, gszFmtRange, nMin, nMax);
     }
     sub_00526320_ToUnicode(wszNumber, szNumber, 32);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x10E2));
@@ -1777,7 +1779,7 @@ static inline D2SkillsTxt* GetSkillsRecord(D2DataTablesStrc* pTables, int nSkill
 int __stdcall SKILLDESC_HasClassSkill(D2UnitStrc* pUnit)
 {
     int nSkillId = 0;
-    if (gbHasClassSkill_007C8CA0)
+    if (gbHasClassSkill)
         return 1;
     D2DataTablesStrc* pTables = gpDataTables_00744304;
     for (; nSkillId < pTables->nSkillsTxtRecordCount; ++nSkillId)
@@ -1788,7 +1790,7 @@ int __stdcall SKILLDESC_HasClassSkill(D2UnitStrc* pUnit)
             D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, nSkillId, -1);
             if (pSkill && SKILLS_GetSkillLevel(pUnit, pSkill, 0))
             {
-                gbHasClassSkill_007C8CA0 = 1;
+                gbHasClassSkill = 1;
                 return 1;
             }
             pTables = gpDataTables_00744304;
@@ -1824,7 +1826,7 @@ void __fastcall SKILLDESC_DrawWeaponDamageWithParam(D2UnitStrc* pUnit, D2SkillSt
     int nMax = 0;
     int nColor = 0;
     sub_004E86F0_GetWeaponDamage(&nMin, &nMax, &nColor, 0, pSkill, 0, 0, 0, pUnit, 0);
-    const int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 0xD40);
+    const int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 0xD40);
     D2SkillsTxt* pRecord = sub_I05_GetSkillsTxtRecord(nSkillId);
     const int nParam = !pRecord ? 0 : pRecord->dwParam[4];
     nMin += nParam * nMin / 100;
@@ -1851,11 +1853,11 @@ static void __stdcall sub_004E9940_DrawNumberCentered(int nColor, int nLeft, int
 {
     Unicode wszText[32];
     char szText[32];
-    wsprintfA(szText, gszFormatD_006D57BC, nValue);
+    wsprintfA(szText, gszFormatD, nValue);
     sub_00526320_ToUnicode(wszText, szText, 32);
     if (nValue < 1000) sub_00502EF0(1);
     else sub_00502EF0(0);
-    TEXT_DrawCenteredText(gnGlobal_007A2858 + nLeft, gnGlobal_00711470 + gnGlobal_007A285C + nY - 480, gnGlobal_007A2858 + nRight, wszText, nColor);
+    TEXT_DrawCenteredText(gnPanelOffsetX + nLeft, gnScreenHeight + gnPanelOffsetY + nY - 480, gnPanelOffsetX + nRight, wszText, nColor);
 }
 
 // 0x004ED570
@@ -1883,14 +1885,14 @@ void __fastcall SKILLDESC_DrawSkillPanel(D2UnitStrc* pUnit, D2SkillStrc* pSkill,
         bDescription = 1;
         break;
     }
-    if (pDesc->wDescDam >= 144 || !gpfSkillDamageFuncs_0072D768[pDesc->wDescDam]) bDamage = 0;
-    if (pDesc->wDescFunc >= 72 || !gpfSkillDescFuncs_0072D7F8[pDesc->wDescFunc]) bDescription = 0;
+    if (pDesc->wDescDam >= 144 || !gpfnSkillDamageFuncs[pDesc->wDescDam]) bDamage = 0;
+    if (pDesc->wDescFunc >= 72 || !gpfnSkillDescFuncs[pDesc->wDescFunc]) bDescription = 0;
     ++nIndex;
     if (bDamage)
         DRAW_SKILL_TEXT(nIndex, D2LANG_GetStringFromTblIndex(0xFDD));
     ++nIndex;
     if (bDamage)
-        gpfSkillDamageFuncs_0072D768[pDesc->wDescDam](pUnit, pSkill, pSkillsTxt, nLevel, TP[nIndex].nLeft, TP[nIndex].nY, TP[nIndex].nRight);
+        gpfnSkillDamageFuncs[pDesc->wDescDam](pUnit, pSkill, pSkillsTxt, nLevel, TP[nIndex].nLeft, TP[nIndex].nY, TP[nIndex].nRight);
     if (!bDescription)
         return;
     Unicode wszDescription[200];
@@ -1898,7 +1900,7 @@ void __fastcall SKILLDESC_DrawSkillPanel(D2UnitStrc* pUnit, D2SkillStrc* pSkill,
     nValue2 = 0;
     nColor1 = 0;
     nColor2 = 0;
-    gpfSkillDescFuncs_0072D7F8[pDesc->wDescFunc](pUnit, pSkill, pSkillsTxt, nLevel, &nValue1, &nColor1, &nValue2, &nColor2);
+    gpfnSkillDescFuncs[pDesc->wDescFunc](pUnit, pSkill, pSkillsTxt, nLevel, &nValue1, &nColor1, &nValue2, &nColor2);
     ++nIndex;
     if (nValue1 || nValue2)
     {
@@ -1911,8 +1913,8 @@ void __fastcall SKILLDESC_DrawSkillPanel(D2UnitStrc* pUnit, D2SkillStrc* pSkill,
         Unicode* pNext;
         if (TEXT_SplitAtNewline(wszDescription, &pNext))
         {
-            TEXT_DrawCenteredText(TP[nIndex].nLeft + gnGlobal_007A2858, gnGlobal_007A285C + gnGlobal_00711470 + TP[nIndex].nY - 484, TP[nIndex].nRight + gnGlobal_007A2858, wszDescription, 0);
-            TEXT_DrawCenteredText(TP[nIndex].nLeft + gnGlobal_007A2858, gnGlobal_007A285C + gnGlobal_00711470 + TP[nIndex].nY - 476, TP[nIndex].nRight + gnGlobal_007A2858, pNext, 0);
+            TEXT_DrawCenteredText(TP[nIndex].nLeft + gnPanelOffsetX, gnPanelOffsetY + gnScreenHeight + TP[nIndex].nY - 484, TP[nIndex].nRight + gnPanelOffsetX, wszDescription, 0);
+            TEXT_DrawCenteredText(TP[nIndex].nLeft + gnPanelOffsetX, gnPanelOffsetY + gnScreenHeight + TP[nIndex].nY - 476, TP[nIndex].nRight + gnPanelOffsetX, pNext, 0);
         }
         else
             DRAW_SKILL_TEXT(nIndex, wszName);
@@ -1923,9 +1925,9 @@ void __fastcall SKILLDESC_DrawSkillPanel(D2UnitStrc* pUnit, D2SkillStrc* pSkill,
         Unicode wszValue1[32];
         Unicode wszValue2[32];
         char szValue[32];
-        wsprintfA(szValue, gszFormatD_006D57BC, nValue1);
+        wsprintfA(szValue, gszFormatD, nValue1);
         sub_00526320_ToUnicode(wszValue1, szValue, 32);
-        wsprintfA(szValue, gszFormatD_006D57BC, nValue2);
+        wsprintfA(szValue, gszFormatD, nValue2);
         sub_00526320_ToUnicode(wszValue2, szValue, 32);
         sub_004E9870_DrawTwoTexts(wszValue1, wszValue2, TP[nIndex].nLeft, TP[nIndex].nY, TP[nIndex].nRight, nColor1, nColor2);
     }
@@ -1984,8 +1986,10 @@ static void __stdcall sub_004F1A30_CreateSprayMissile(D2SkillsTxt* pSkillsTxt, i
     const int nIndex = SEED_RollRandomNumber_Spray(&pUnit->pSeed) & 7;
     const int nUnitX = CLIENTS_GetUnitX_Spray(pUnit);
     const int nUnitY = CLIENTS_GetUnitY_Spray(pUnit);
-    const int nOffsetX = gaSprayOffsetX_006DBFA8[nIndex];
-    const int nOffsetY = gaSprayOffsetY_006DBFC8[nIndex];
+// build: symbol ?gaSprayOffsetX@* 0x006DBFA8
+    const int nOffsetX = gaSprayOffsetX[nIndex];
+// build: symbol ?gaSprayOffsetY@* 0x006DBFC8
+    const int nOffsetY = gaSprayOffsetY[nIndex];
     const int nX = nUnitX + nOffsetX;
     const int nY = nUnitY + nOffsetY;
 
@@ -2261,20 +2265,20 @@ void __fastcall SKILLDESC_InitCurvingMissilePath(D2UnitStrc* pMissile, int nInit
     pSeed->nHighSeed = tSeed.nHighSeed;
     pSeed->nLowSeed = tSeed.nLowSeed;
     // volatile: the original reads the turn base from memory inside each sum
-    int nStep = nRoll % 3 + *(volatile int*)&gnChargedBoltTurnBase_0072D990;
+    int nStep = nRoll % 3 + *(volatile int*)&gnChargedBoltTurnBase;
     for (int i = 0; i < nFrames; ++i)
     {
         nDirection += nSign * nStep;
         const unsigned char nIndex = INVENTORY_GetEightWayDirection(nDirection & 63);
-        nX += gnDirectionOffsetX_006DC208[nIndex];
-        nY += gnDirectionOffsetY_006DC1E8[nIndex];
+        nX += gaCurvingPathOffsetX[nIndex];
+        nY += gaCurvingPathOffsetY[nIndex];
         pPathPoints[i].X = nX;
         pPathPoints[i].Y = nY;
 
-        if (!(i % gnChargedBoltTurnEvery_0072D98C))
+        if (!(i % gnChargedBoltTurnEvery))
         {
             nSign = -nSign;
-            nStep = SEED_RollRandomNumber(pSeed) % 3 + *(volatile int*)&gnChargedBoltTurnBase_0072D990;
+            nStep = SEED_RollRandomNumber(pSeed) % 3 + *(volatile int*)&gnChargedBoltTurnBase;
         }
     }
 

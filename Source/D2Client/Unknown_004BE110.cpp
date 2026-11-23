@@ -2,7 +2,7 @@
 #include "D2Unicode.h"
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
-extern void* gpCelFile_007C546C;                                                                            // 0x007C546C
+extern void* gpListBoxSliderCel;                                                                            // 0x007C546C
 
 #pragma pack(push, 2)
 
@@ -141,7 +141,7 @@ void ListBoxImplementation::sub_004BE110_UpdateScrollBar()
     const int nLeft = nX - 1;
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpCelFile_007C546C;
+    tContext.pCellFile = gpListBoxSliderCel;
     tContext.nDirection = 0;
     tContext.nFrame = 16;
     sub_004F6480(&tContext, nLeft, nTop + 12 * nStart, -1, 5, 0);

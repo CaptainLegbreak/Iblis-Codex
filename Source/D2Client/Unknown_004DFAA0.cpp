@@ -10,8 +10,8 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-extern D2SlotStrc gaSlots_007C8A78[16]; // 0x007C8A78
-extern int gdwGlobal_007C8C78; // 0x007C8C78
+extern D2SlotStrc gaSlots[16]; // 0x007C8A78
+extern int gbSoundSystemInit; // 0x007C8C78
 void __fastcall sub_00514CA0(int nMode); // 0x00514CA0
 D2SoundStrc* __fastcall sub_00515530(int nType, int nArg); // 0x00515530
 void __cdecl sub_004DFA60(); // 0x004DFA60
@@ -27,7 +27,7 @@ void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); /
 void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame); // 0x0064A330
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 
-int gdwGlobal_007C8A70; // 0x007C8A70
+int gnSoundRestartArg; // 0x007C8A70
 
 // 0x004DFAA0
 static int sub_004DFAA0_InitSoundChannels(int nMode)
@@ -36,20 +36,20 @@ static int sub_004DFAA0_InitSoundChannels(int nMode)
     if (!D2SOUND_GetDirectSound())
         return 0;
 
-    D2_ASSERT(!gdwGlobal_007C8C78, 204);
+    D2_ASSERT(!gbSoundSystemInit, 204);
 
     for (int i = 0; i < 16; ++i)
     {
-        gaSlots_007C8A78[i].nType = 0;
+        gaSlots[i].nType = 0;
         if (i < 4)
-            gaSlots_007C8A78[i].nType = 1;
+            gaSlots[i].nType = 1;
         else if (nMode == 1)
-            gaSlots_007C8A78[i].nType = 2;
+            gaSlots[i].nType = 2;
         else
-            gaSlots_007C8A78[i].nType = nMode == 2 ? 6 : 0;
+            gaSlots[i].nType = nMode == 2 ? 6 : 0;
 
-        gaSlots_007C8A78[i].pSound = sub_00515530(gaSlots_007C8A78[i].nType, gdwGlobal_007C8A70);
-        if (!gaSlots_007C8A78[i].pSound)
+        gaSlots[i].pSound = sub_00515530(gaSlots[i].nType, gnSoundRestartArg);
+        if (!gaSlots[i].pSound)
         {
             sub_004DFA60();
             return 0;
@@ -57,7 +57,7 @@ static int sub_004DFAA0_InitSoundChannels(int nMode)
     }
 
     sub_004DF6C0(0);
-    gdwGlobal_007C8C78 = 1;
+    gbSoundSystemInit = 1;
     return 1;
 }
 
@@ -84,7 +84,7 @@ int __fastcall sub_004E0000_SetSoundMode(int nMode)
 // 0x004E0050
 void __fastcall sub_004E0050_RestartSound(int nArg)
 {
-    gdwGlobal_007C8A70 = nArg;
+    gnSoundRestartArg = nArg;
     if (!sub_004E0000_SetSoundMode(sub_00514C90_GetSoundMode()))
         sub_004E0000_SetSoundMode(0);
 }

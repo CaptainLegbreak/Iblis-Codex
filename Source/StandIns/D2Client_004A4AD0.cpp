@@ -24,24 +24,24 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 
 int __cdecl TEXT_GetMaxFirstEntry(); // 0x004A44C0
 int __stdcall TEXT_IsAbovePanelLine(int nX); // 0x004A4780
 
-extern int gnGlobal_0071146C; // 0x0071146C
-extern D2ClientListEntryStrc* gpListEntries_00724264; // 0x00724264
-extern int gnGlobal_007246D4; // 0x007246D4
-extern D2SliderButtonStrc gaSliderButtons_007246D8[3]; // 0x007246D8
+extern int gnScreenWidth; // 0x0071146C
+extern D2ClientListEntryStrc* gpListEntries; // 0x00724264
+extern int gnKeyConfigColumn; // 0x007246D4
+extern D2SliderButtonStrc gaKeyConfigButtons[3]; // 0x007246D8
 extern int gnAutomapHeight_007A521C; // 0x007A521C
-static int gnEntryCount_007C0274; // 0x007C0274
-extern int gnThumbScale_007C0278; // 0x007C0278
-extern int gnThumbRange_007C027C; // 0x007C027C
-extern int gnGlobal_007C0280; // 0x007C0280
-extern int gnGlobal_007C0284; // 0x007C0284
-extern int gaPressed_007C0288[7]; // 0x007C0288
-extern int gnDragThumbY_007C02A4; // 0x007C02A4
-extern int gnDragMouseY_007C02A8; // 0x007C02A8
-static int gnFirstVisible_007C02AC; // 0x007C02AC
-static int gnGlobal_007C02B0; // 0x007C02B0
+static int gnKeyConfigEntryCount; // 0x007C0274
+extern int gnKeyConfigThumbScale; // 0x007C0278
+extern int gnThumbRange; // 0x007C027C
+extern int gbRedraw; // 0x007C0280
+extern int gbKeyConfigPressRepeat; // 0x007C0284
+extern int gaPressed[7]; // 0x007C0288
+extern int gnDragThumbY; // 0x007C02A4
+extern int gnDragMouseY; // 0x007C02A8
+static int gnKeyConfigFirstVisible; // 0x007C02AC
+static int gnKeyConfigSelected; // 0x007C02B0
 extern int gnPressedButton_007C02B4; // 0x007C02B4
-extern unsigned long gdwLastTick_007C02C0; // 0x007C02C0
-static int gnThumbY_007C02CC; // 0x007C02CC
+extern unsigned long gdwKeyConfigRepeatTick; // 0x007C02C0
+static int gnKeyConfigThumbY; // 0x007C02CC
 
 static __forceinline int sub_F08_ListTop()
 {
@@ -50,12 +50,12 @@ static __forceinline int sub_F08_ListTop()
 
 static __forceinline int sub_F08_PanelLeft()
 {
-    return (gnGlobal_0071146C - 0x26C) / 2;
+    return (gnScreenWidth - 0x26C) / 2;
 }
 
 static __forceinline int sub_F08_PanelRight()
 {
-    return sub_F08_PanelLeft() + (gnGlobal_0071146C - sub_F08_PanelLeft() * 2);
+    return sub_F08_PanelLeft() + (gnScreenWidth - sub_F08_PanelLeft() * 2);
 }
 
 static __forceinline int sub_F08_TrackTop()
@@ -70,7 +70,7 @@ static __forceinline int sub_F08_TrackBottom()
 
 static __forceinline int sub_F08_ThumbHeight()
 {
-    return gnThumbScale_007C0278 * 12;
+    return gnKeyConfigThumbScale * 12;
 }
 
 static __forceinline int sub_F08_TrackSpan()
@@ -96,7 +96,7 @@ static __forceinline int sub_F08_VisibleLines()
 // 0x004A44C0
 int __cdecl TEXT_GetMaxFirstEntry()
 {
-    int nCount = gnEntryCount_007C0274;
+    int nCount = gnKeyConfigEntryCount;
     for (int i = 0; i < sub_F08_VisibleLines(); ++i)
     {
         if (--nCount <= 0)
@@ -109,7 +109,7 @@ static __forceinline int sub_F08_NoOtherPressed(int nIndex)
 {
     for (int i = 0; i < 7; ++i)
     {
-        if (gaPressed_007C0288[i] && i != nIndex)
+        if (gaPressed[i] && i != nIndex)
             return 0;
     }
     return 1;
@@ -134,17 +134,17 @@ void __fastcall TEXT_ScrollKeyConfigList(int nStep)
     const int nMax = TEXT_GetMaxFirstEntry();
     if (nStep < 0)
     {
-        const int nPrev = gnFirstVisible_007C02AC <= 0 ? gnFirstVisible_007C02AC : gnFirstVisible_007C02AC - 1;
+        const int nPrev = gnKeyConfigFirstVisible <= 0 ? gnKeyConfigFirstVisible : gnKeyConfigFirstVisible - 1;
         if (nPrev >= 0)
-            gnFirstVisible_007C02AC = nPrev;
+            gnKeyConfigFirstVisible = nPrev;
     }
     else if (nStep > 0)
     {
-        const int nNext = gnFirstVisible_007C02AC >= nMax ? gnFirstVisible_007C02AC : gnFirstVisible_007C02AC + 1;
+        const int nNext = gnKeyConfigFirstVisible >= nMax ? gnKeyConfigFirstVisible : gnKeyConfigFirstVisible + 1;
         if (nNext <= nMax)
-            gnFirstVisible_007C02AC = nNext;
+            gnKeyConfigFirstVisible = nNext;
     }
-    gnThumbY_007C02CC = sub_F08_TrackSpan() * gnFirstVisible_007C02AC / nMax + sub_F08_TrackTop();
+    gnKeyConfigThumbY = sub_F08_TrackSpan() * gnKeyConfigFirstVisible / nMax + sub_F08_TrackTop();
 }
 
 // 0x004A45C0
@@ -165,28 +165,28 @@ void __fastcall TEXT_MoveKeyConfigSelection(int nStep)
         return;
     }
 
-    const int nCount = gnEntryCount_007C0274;
+    const int nCount = gnKeyConfigEntryCount;
     if (nStep < 0)
     {
-        const int nOld = gnGlobal_007C02B0;
+        const int nOld = gnKeyConfigSelected;
         const int nNew = nOld <= 0 ? nOld : nOld - 1;
         if (nNew >= 0)
-            gnGlobal_007C02B0 = nNew;
+            gnKeyConfigSelected = nNew;
     }
-    else if (nStep > 0 && gnGlobal_007C02B0 < nCount)
+    else if (nStep > 0 && gnKeyConfigSelected < nCount)
     {
-        const int nNew = gnGlobal_007C02B0 + 1;
+        const int nNew = gnKeyConfigSelected + 1;
         if (nNew < nCount)
-            gnGlobal_007C02B0 = nNew;
+            gnKeyConfigSelected = nNew;
     }
 
-    const int nSelected = gnGlobal_007C02B0;
-    int nFirst = gnFirstVisible_007C02AC;
+    const int nSelected = gnKeyConfigSelected;
+    int nFirst = gnKeyConfigFirstVisible;
     if (nSelected < nFirst)
     {
         const int nTrackTop = sub_F08_TrackTop();
-        gnFirstVisible_007C02AC = nSelected;
-        gnThumbY_007C02CC = nSelected * sub_F08_TrackSpan() / TEXT_GetMaxFirstEntry() + nTrackTop;
+        gnKeyConfigFirstVisible = nSelected;
+        gnKeyConfigThumbY = nSelected * sub_F08_TrackSpan() / TEXT_GetMaxFirstEntry() + nTrackTop;
         return;
     }
 
@@ -195,23 +195,23 @@ void __fastcall TEXT_MoveKeyConfigSelection(int nStep)
         int nLast = nFirst;
         for (int nLine = 0; nLast < nCount && nLine < 0x0F; ++nLine)
             ++nLast;
-        if (gnGlobal_007C02B0 < nLast)
+        if (gnKeyConfigSelected < nLast)
             break;
 
         const int nMax = TEXT_GetMaxFirstEntry();
         const int nNew = nFirst >= nMax ? nFirst : nFirst + 1;
         if (nNew <= nMax)
             nFirst = nNew;
-        gnThumbY_007C02CC = sub_F08_TrackSpan() * nFirst / nMax + sub_F08_TrackTop();
+        gnKeyConfigThumbY = sub_F08_TrackSpan() * nFirst / nMax + sub_F08_TrackTop();
     }
-    gnFirstVisible_007C02AC = nFirst;
+    gnKeyConfigFirstVisible = nFirst;
 }
 
 // 0x004A4720
 static int TEXT_GetKeyConfigLineAt(int nY)
 {
-    int nIndex = gnFirstVisible_007C02AC;
-    const int nCount = gnEntryCount_007C0274;
+    int nIndex = gnKeyConfigFirstVisible;
+    const int nCount = gnKeyConfigEntryCount;
     int nLine = 0;
     if (nIndex < nCount)
     {
@@ -240,8 +240,8 @@ static int TEXT_GetKeyConfigButtonAt(int nX, int nY)
     unsigned int i;
     for (i = 0; i < 3; ++i)
     {
-        if (nX >= gaSliderButtons_007246D8[i].nLeft && nX <= gaSliderButtons_007246D8[i].nRight
-            && nY >= gaSliderButtons_007246D8[i].nTop && nY <= gaSliderButtons_007246D8[i].nBottom)
+        if (nX >= gaKeyConfigButtons[i].nLeft && nX <= gaKeyConfigButtons[i].nRight
+            && nY >= gaKeyConfigButtons[i].nTop && nY <= gaKeyConfigButtons[i].nBottom)
             break;
     }
     return i;
@@ -250,9 +250,9 @@ static int TEXT_GetKeyConfigButtonAt(int nX, int nY)
 // 0x004A47F0
 static int TEXT_IsInKeyConfigList(int nX, int nY)
 {
-    const int nHalf = (gnGlobal_0071146C - 0x26C) / 2;
+    const int nHalf = (gnScreenWidth - 0x26C) / 2;
     const int nLeft = nHalf + 0x12;
-    const int nRight = nHalf + (gnGlobal_0071146C - nHalf * 2 - 0x31) / 3 * 3 + 0x12;
+    const int nRight = nHalf + (gnScreenWidth - nHalf * 2 - 0x31) / 3 * 3 + 0x12;
     if (nX >= nLeft && nX <= nRight)
     {
         const int nTop = (gnAutomapHeight_007A521C - 0x1A4) / 2;
@@ -294,7 +294,7 @@ static int TEXT_IsAboveThumb(int nX, int nY)
 {
     if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
     {
-        if (nY > sub_F08_ListTop() + 0x2F && nY < gnThumbY_007C02CC)
+        if (nY > sub_F08_ListTop() + 0x2F && nY < gnKeyConfigThumbY)
             return 1;
     }
     return 0;
@@ -306,7 +306,7 @@ static int TEXT_IsOnThumb(int nX, int nY)
 {
     if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
     {
-        if (nY >= gnThumbY_007C02CC && nY <= gnThumbY_007C02CC + sub_F08_ThumbHeight())
+        if (nY >= gnKeyConfigThumbY && nY <= gnKeyConfigThumbY + sub_F08_ThumbHeight())
             return 1;
     }
     return 0;
@@ -318,7 +318,7 @@ static int TEXT_IsBelowThumb(int nX, int nY)
 {
     if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
     {
-        if (nY < sub_F08_ListTop() + 0x125 && nY > gnThumbY_007C02CC + sub_F08_ThumbHeight())
+        if (nY < sub_F08_ListTop() + 0x125 && nY > gnKeyConfigThumbY + sub_F08_ThumbHeight())
             return 1;
     }
     return 0;
@@ -328,7 +328,7 @@ static int TEXT_IsBelowThumb(int nX, int nY)
 void __stdcall sub_004A4AD0_Press(int nX, int nY)
 {
     gnPressedButton_007C02B4 = 3;
-    if (gnGlobal_007C0284)
+    if (gbKeyConfigPressRepeat)
         return;
 
     const int bInList = TEXT_IsInKeyConfigList(nX, nY);
@@ -341,14 +341,14 @@ void __stdcall sub_004A4AD0_Press(int nX, int nY)
 
     if (sub_F08_NoOtherPressed(7) && !bInList && !bUp && !bDown && !bPageUp && !bThumb && !bPageDown && !bButton)
     {
-        gnGlobal_007C0284 = gnGlobal_007C0280;
+        gbKeyConfigPressRepeat = gbRedraw;
         return;
     }
 
-    if (sub_F08_NoOtherPressed(0) && (bInList || gaPressed_007C0288[0]))
+    if (sub_F08_NoOtherPressed(0) && (bInList || gaPressed[0]))
     {
-        gaPressed_007C0288[0] = gnGlobal_007C0280;
-        if (gnGlobal_007C0280)
+        gaPressed[0] = gbRedraw;
+        if (gbRedraw)
         {
             const int nTop = sub_F08_ListTop();
             if (nY < nTop + 0x28)
@@ -356,78 +356,78 @@ void __stdcall sub_004A4AD0_Press(int nX, int nY)
             if (nY > nTop + 0x136)
                 TEXT_MoveKeyConfigSelection(1);
 
-            const int nOldD4 = gnGlobal_007246D4;
-            const int nOldSelected = gnGlobal_007C02B0;
+            const int nOldD4 = gnKeyConfigColumn;
+            const int nOldSelected = gnKeyConfigSelected;
             const int nLine = TEXT_GetKeyConfigLineAt(nY);
-            gnGlobal_007C02B0 = nLine;
-            gnGlobal_007246D4 = TEXT_IsAbovePanelLine(nX);
-            if (gpListEntries_00724264[nLine].nId == 0x39)
+            gnKeyConfigSelected = nLine;
+            gnKeyConfigColumn = TEXT_IsAbovePanelLine(nX);
+            if (gpListEntries[nLine].nId == 0x39)
             {
-                gnGlobal_007246D4 = nOldD4;
-                gnGlobal_007C02B0 = nOldSelected;
+                gnKeyConfigColumn = nOldD4;
+                gnKeyConfigSelected = nOldSelected;
             }
         }
     }
 
     if (sub_F08_NoOtherPressed(1) && bUp)
     {
-        gaPressed_007C0288[1] = gnGlobal_007C0280;
-        if (gnGlobal_007C0280 && GetTickCount() > gdwLastTick_007C02C0 + 0x32)
+        gaPressed[1] = gbRedraw;
+        if (gbRedraw && GetTickCount() > gdwKeyConfigRepeatTick + 0x32)
         {
-            gdwLastTick_007C02C0 = GetTickCount();
+            gdwKeyConfigRepeatTick = GetTickCount();
             TEXT_ScrollKeyConfigList(-1);
         }
     }
 
     if (sub_F08_NoOtherPressed(2) && bDown)
     {
-        gaPressed_007C0288[2] = gnGlobal_007C0280;
-        if (gnGlobal_007C0280 && GetTickCount() > gdwLastTick_007C02C0 + 0x32)
+        gaPressed[2] = gbRedraw;
+        if (gbRedraw && GetTickCount() > gdwKeyConfigRepeatTick + 0x32)
         {
-            gdwLastTick_007C02C0 = GetTickCount();
+            gdwKeyConfigRepeatTick = GetTickCount();
             TEXT_ScrollKeyConfigList(1);
         }
     }
 
     if (sub_F08_NoOtherPressed(3) && bPageUp)
     {
-        gaPressed_007C0288[3] = gnGlobal_007C0280;
-        if (gnGlobal_007C0280 && GetTickCount() > gdwLastTick_007C02C0 + 0x32)
+        gaPressed[3] = gbRedraw;
+        if (gbRedraw && GetTickCount() > gdwKeyConfigRepeatTick + 0x32)
         {
-            gdwLastTick_007C02C0 = GetTickCount();
+            gdwKeyConfigRepeatTick = GetTickCount();
             TEXT_ScrollKeyConfigList(1 - sub_F08_VisibleLines());
         }
     }
 
-    if (sub_F08_NoOtherPressed(4) && (bThumb || gaPressed_007C0288[4]))
+    if (sub_F08_NoOtherPressed(4) && (bThumb || gaPressed[4]))
     {
-        if (bThumb && !gaPressed_007C0288[4] && gnGlobal_007C0280)
+        if (bThumb && !gaPressed[4] && gbRedraw)
         {
-            gnDragThumbY_007C02A4 = gnThumbY_007C02CC;
-            gnDragMouseY_007C02A8 = nY;
+            gnDragThumbY = gnKeyConfigThumbY;
+            gnDragMouseY = nY;
         }
-        gaPressed_007C0288[4] = gnGlobal_007C0280;
-        if (gnGlobal_007C0280)
+        gaPressed[4] = gbRedraw;
+        if (gbRedraw)
         {
             const int nTop = sub_F08_ListTop();
-            TEXT_ScrollKeyConfigList((gnDragThumbY_007C02A4 - nTop - gnDragMouseY_007C02A8 + nY - 0x2F)
-                * (gnThumbRange_007C027C + 1) / sub_F08_TrackSpan() - gnFirstVisible_007C02AC);
+            TEXT_ScrollKeyConfigList((gnDragThumbY - nTop - gnDragMouseY + nY - 0x2F)
+                * (gnThumbRange + 1) / sub_F08_TrackSpan() - gnKeyConfigFirstVisible);
         }
     }
 
     if (sub_F08_NoOtherPressed(5) && bPageDown)
     {
-        gaPressed_007C0288[5] = gnGlobal_007C0280;
-        if (gnGlobal_007C0280 && GetTickCount() > gdwLastTick_007C02C0 + 0x32)
+        gaPressed[5] = gbRedraw;
+        if (gbRedraw && GetTickCount() > gdwKeyConfigRepeatTick + 0x32)
         {
-            gdwLastTick_007C02C0 = GetTickCount();
+            gdwKeyConfigRepeatTick = GetTickCount();
             TEXT_ScrollKeyConfigList(sub_F08_VisibleLines() - 1);
         }
     }
 
     if (sub_F08_NoOtherPressed(6) && bButton)
     {
-        gaPressed_007C0288[6] = gnGlobal_007C0280;
+        gaPressed[6] = gbRedraw;
         gnPressedButton_007C02B4 = TEXT_GetKeyConfigButtonAt(nX, nY);
     }
 }

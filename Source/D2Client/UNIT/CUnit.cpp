@@ -81,31 +81,31 @@ D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);            
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
-int gnReplayEndTick_007A2774;                                                                               // 0x007A2774
+int gnReplayEndTick;                                                                               // 0x007A2774
 
-int gdwGlobal_007A2788;                                                                                     // 0x007A2788
+int gbRecordPlaying;                                                                                     // 0x007A2788
 
-extern int gdwGlobal_007A5208;                                                                              // 0x007A5208
+extern int gnAutomapOriginY;                                                                              // 0x007A5208
 
-extern int gdwGlobal_007A520C;                                                                              // 0x007A520C
+extern int gnAutomapOriginX;                                                                              // 0x007A520C
 
 extern D2HotkeyStrc gtHotkeys_007A6F90[NUM_HOTKEYS];                                                        // 0x007A6F90
 
-D2WheelCallbackFn gpfnWheelUp_007A7404; // 0x007A7404
+D2WheelCallbackFn gpfnWheelUp; // 0x007A7404
 
-D2WheelCallbackFn gpfnWheelDown_007A7408; // 0x007A7408
+D2WheelCallbackFn gpfnWheelDown; // 0x007A7408
 
-extern T0044A980* gpPalShiftEntries_007B9578;                                                     // 0x007B9578
+extern T0044A980* gpPalShiftEntries;                                                     // 0x007B9578
 
 extern unsigned char gaGlobalPalShifts_007B9580[0x1E][0x100];                                               // 0x007B9580
 
 extern int gbGlobalPalShifts_007BB380;                                                                      // 0x007BB380
 
-D2UnitStrc* gpUnitHashTable_007A5E70[6 * 0x80]; // 0x007A5E70
+D2UnitStrc* gapClientUnitTable[6 * 0x80]; // 0x007A5E70
 
-D2UnitStrc* gpUnitHashTable_007A5270[6 * 0x80]; // 0x007A5270
+D2UnitStrc* gapServerUnitTable[6 * 0x80]; // 0x007A5270
 
-D2UnitStrc* gpPlayerUnit_007A6A70; // 0x007A6A70
+D2UnitStrc* gpPlayerUnit; // 0x007A6A70
 
 extern D2DrlgActStrc* gpGlobal_007A0634;                                                                             // 0x007A0634
 
@@ -147,7 +147,7 @@ int __stdcall ITEM_GetGfxClientZ(D2UnitStrc* pUnit);                            
 
 typedef int (__fastcall* SKILLSELECTPROC)(D2UnitStrc* pPlayer, D2UnitStrc* pTarget);
 
-extern SKILLSELECTPROC gpfSkillSelectProcs_00711F34[];                                                      // 0x00711F34
+extern SKILLSELECTPROC gpfnSkillSelectProcs[];                                                      // 0x00711F34
 
 int __stdcall sub_O05_EmitArg_SkillId(D2UnitStrc* pUnit);
 
@@ -169,7 +169,7 @@ struct D2UnitSpawnStrc
     int nMode;
 };
 
-extern D2DrlgActStrc* gpAct_007A0634;                                                                       // 0x007A0634
+extern D2DrlgActStrc* gpAct;                                                                       // 0x007A0634
 
 void __fastcall DLIGHTMAP_ReleaseLight(D2GfxLightStrc* pLight);                                   // 0x004743D0
 
@@ -335,9 +335,9 @@ struct D2UnitTargetStrc;
 
 #define UNIT_HASH_BUCKETS 0x80
 
-#define gpUnitTable_007A5670 (gpUnitHashTable_007A5270 + 2 * UNIT_HASH_BUCKETS)
+#define gpUnitTable_007A5670 (gapServerUnitTable + 2 * UNIT_HASH_BUCKETS)
 
-#define gpUnitTable_007A6270 (gpUnitHashTable_007A5E70 + 2 * UNIT_HASH_BUCKETS)
+#define gpUnitTable_007A6270 (gapClientUnitTable + 2 * UNIT_HASH_BUCKETS)
 
 #define SKILLSFLAGINDEX_PERIODIC 38
 
@@ -475,33 +475,33 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg);
 
 extern unsigned char gabColors_007BCAD8[5]; // 0x007BCAD8
 
-extern int gdwGlobal_007BCBF0; // 0x007BCBF0
+extern int gnInvPanelMode; // 0x007BCBF0
 
-extern int gnGlobal_00721E34; // 0x00721E34
+extern int gnDialogState; // 0x00721E34
 
-extern int gnGlobal_00721E3C; // 0x00721E3C
+extern int gnHoverTopX; // 0x00721E3C
 
-extern int gnGlobal_00721E40; // 0x00721E40
+extern int gnHoverTopY; // 0x00721E40
 
-extern int gnGlobal_00721E44; // 0x00721E44
+extern int gnHoverBottomX; // 0x00721E44
 
-extern int gnGlobal_00721E48; // 0x00721E48
+extern int gnHoverBottomY; // 0x00721E48
 
-extern int gnGlobal_00721E4C; // 0x00721E4C
+extern int gnHoverCellX; // 0x00721E4C
 
-extern int gnGlobal_00721E50; // 0x00721E50
+extern int gnHoverCellY; // 0x00721E50
 
-extern int gdwGlobal_007BCBE4; // 0x007BCBE4
+extern int gbHoverInGrid; // 0x007BCBE4
 
-extern int gdwGlobal_007BCBE8; // 0x007BCBE8
+extern int gbHoverInBodyLoc; // 0x007BCBE8
 
-extern int gdwGlobal_007BCBF4; // 0x007BCBF4
+extern int gpHoverItem; // 0x007BCBF4
 
-extern int gdwGlobal_007BCBF8; // 0x007BCBF8
+extern int gpLastHoverItem; // 0x007BCBF8
 
-extern D2TextHeaderStrc* gpTextHeader_007BF250; // 0x007BF250
+extern D2TextHeaderStrc* gpTextHeader; // 0x007BF250
 
-extern int gnGlobal_007C0E7C; // 0x007C0E7C
+extern int gnTradeState; // 0x007C0E7C
 
 extern unsigned char* gpDDrawDebugFontGlyphs_008815AC; // 0x008815AC
 
@@ -538,7 +538,7 @@ static inline void CUNIT_PlayOverlaySound(D2UnitStrc* pUnit, int nOverlay); // 0
 
 static void CUNIT_SpawnPresetUnitInRoom(D2ActiveRoomStrc* pRoom, D2PresetUnitStrc* pPresetUnit); // 0x004667F0
 
-int gnPeriodOfDay_007A6A74; // 0x007A6A74
+int gnPeriodOfDay; // 0x007A6A74
 
 struct D2RectStrc;
 
@@ -568,25 +568,25 @@ int __fastcall SCMD_IsPointInTileRect(D2UnitStrc*,int,int); // 0x00463EE0
 
 int __fastcall WARDENCLIENT_UpdateUnitGfx(D2UnitStrc*,int); // 0x004DB670
 
-D2UnitStrc* gpAiTargets_007A7470[1]; // 0x007A7470
+D2UnitStrc* gapAiTargets[1]; // 0x007A7470
 
-int gnGlobal_007BCE2C; // 0x007BCE2C
+int gbGoldButtonDisabled; // 0x007BCE2C
 
 static int __stdcall CUNIT_CheckMonsterSkillSelect(D2UnitStrc* pUnit, D2UnitStrc* pPlayer); // 0x00464310
 
 int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 
-#define gpUnitTable_007A5470 (gpUnitHashTable_007A5270 + 1 * 0x80)
+#define gpUnitTable_007A5470 (gapServerUnitTable + 1 * 0x80)
 
-#define gpUnitTable_007A5870 (gpUnitHashTable_007A5270 + 3 * 0x80)
+#define gpUnitTable_007A5870 (gapServerUnitTable + 3 * 0x80)
 
-#define gpUnitTable_007A5E70 (gpUnitHashTable_007A5E70 + 0 * 0x80)
+#define gpUnitTable_007A5E70 (gapClientUnitTable + 0 * 0x80)
 
-#define gpUnitTable_007A6070 (gpUnitHashTable_007A5E70 + 1 * 0x80)
+#define gpUnitTable_007A6070 (gapClientUnitTable + 1 * 0x80)
 
-#define gpUnitTable_007A6470 (gpUnitHashTable_007A5E70 + 3 * 0x80)
+#define gpUnitTable_007A6470 (gapClientUnitTable + 3 * 0x80)
 
-#define gpUnitTable_007A6670 (gpUnitHashTable_007A5E70 + 4 * 0x80)
+#define gpUnitTable_007A6670 (gapClientUnitTable + 4 * 0x80)
 
 union D2SeedStrc;
 
@@ -695,9 +695,9 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
-extern int gnTimerEnd_007A7464; // 0x007A7464
+extern int gnTimerEnd; // 0x007A7464
 
-extern int gnGlobal_0071146C; // 0x0071146C
+extern int gnScreenWidth; // 0x0071146C
 
 int __fastcall CUNIT_IsPetSkillTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00464EC0
 
@@ -749,14 +749,14 @@ int __fastcall CUNIT_IsUnitSelectable(D2UnitStrc* pUnit, int nX, int nY, int bHi
 // 0x004519C0
 void __cdecl CUNIT_ReplayRecords()
 {
-    if (!gdwGlobal_007A2788)
+    if (!gbRecordPlaying)
         return;
     if (!gpMsgRecordChunk_0070F7A0)
         return;
     const int nNow = sub_0044DA90();
-    if (nNow >= gnReplayEndTick_007A2774)
+    if (nNow >= gnReplayEndTick)
     {
-        gdwGlobal_007A2788 = 0;
+        gbRecordPlaying = 0;
         return;
     }
     D2MsgRecordChunkStrc* pChunk = gpMsgRecordChunk_0070F7A0;
@@ -786,10 +786,10 @@ void __cdecl CUNIT_ReplayRecords()
 void __fastcall sub_0045B1A0_DrawDiamond(int nX, int nY, unsigned char nColor)
 {
     tagRECT tRect;
-    tRect.left = nX - gdwGlobal_007A520C - 0x10;
-    tRect.right = nX - gdwGlobal_007A520C + 0x10;
-    tRect.top = nY - gdwGlobal_007A5208;
-    tRect.bottom = nY - gdwGlobal_007A5208 + 0x10;
+    tRect.left = nX - gnAutomapOriginX - 0x10;
+    tRect.right = nX - gnAutomapOriginX + 0x10;
+    tRect.top = nY - gnAutomapOriginY;
+    tRect.bottom = nY - gnAutomapOriginY + 0x10;
     D2GFX_UtilDiamond(&tRect, nColor);
 }
 
@@ -864,13 +864,13 @@ int __fastcall CUNIT_ValidateMonsterId(int nMonsterId)
 // 0x00463920
 static inline D2UnitStrc** CUNIT_GetClientHashTable(int nUnitType)
 {
-    return &gpUnitHashTable_007A5E70[nUnitType * 0x80];
+    return &gapClientUnitTable[nUnitType * 0x80];
 }
 
 // 0x00463930
 static inline D2UnitStrc** CUNIT_GetServerHashTable(int nUnitType)
 {
-    return &gpUnitHashTable_007A5270[nUnitType * 0x80];
+    return &gapServerUnitTable[nUnitType * 0x80];
 }
 
 // 0x00463940
@@ -890,13 +890,13 @@ static D2UnitStrc* __stdcall CUNIT_FindUnitInTable(D2UnitStrc** ppTable, unsigne
 // 0x00463990
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType)
 {
-    return CUNIT_FindUnitInTable(&gpUnitHashTable_007A5E70[nUnitType * 0x80], nUnitId, nUnitId & 0x7F, nUnitType);
+    return CUNIT_FindUnitInTable(&gapClientUnitTable[nUnitType * 0x80], nUnitId, nUnitId & 0x7F, nUnitType);
 }
 
 // 0x004639B0
 D2UnitStrc* __fastcall CUNIT_FindServerSideUnit(unsigned int nUnitId, int nUnitType)
 {
-    return CUNIT_FindUnitInTable(&gpUnitHashTable_007A5270[nUnitType * 0x80], nUnitId, nUnitId & 0x7F, nUnitType);
+    return CUNIT_FindUnitInTable(&gapServerUnitTable[nUnitType * 0x80], nUnitId, nUnitId & 0x7F, nUnitType);
 }
 
 // 0x004639D0
@@ -910,9 +910,9 @@ D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit)
         const int nHash = nOwnerGUID & 0x7F;
         if (nOwnerType == 3)
         {
-            return CUNIT_FindUnitInTable(&gpUnitHashTable_007A5270[nOwnerType * 0x80], nOwnerGUID, nHash, nOwnerType);
+            return CUNIT_FindUnitInTable(&gapServerUnitTable[nOwnerType * 0x80], nOwnerGUID, nHash, nOwnerType);
         }
-        return CUNIT_FindUnitInTable(&gpUnitHashTable_007A5E70[nOwnerType * 0x80], nOwnerGUID, nHash, nOwnerType);
+        return CUNIT_FindUnitInTable(&gapClientUnitTable[nOwnerType * 0x80], nOwnerGUID, nHash, nOwnerType);
     }
     return 0;
 }
@@ -976,12 +976,12 @@ static int CUNIT_AddUnitToTable(D2UnitStrc* pUnit)
     if (UNIT_HasFlag(pUnit, 0x200000))
     {
         nHash = nUnitId & 0x7F;
-        ppTable = &gpUnitHashTable_007A5270[nType * 0x80];
+        ppTable = &gapServerUnitTable[nType * 0x80];
     }
     else
     {
         nHash = nUnitId & 0x7F;
-        ppTable = &gpUnitHashTable_007A5E70[nType * 0x80];
+        ppTable = &gapClientUnitTable[nType * 0x80];
     }
 
     D2UnitStrc* pNext = ppTable[nHash];
@@ -1044,8 +1044,8 @@ static inline void CUNIT_RemoveUnitFromRoom(D2UnitStrc* pUnit)
 // 0x00463C70
 void __cdecl CUNIT_ClearUnitTables()
 {
-    for (int i = 0; i < 6 * 0x80; ++i) gpUnitHashTable_007A5E70[i] = 0;
-    for (int i = 0; i < 6 * 0x80; ++i) gpUnitHashTable_007A5270[i] = 0;
+    for (int i = 0; i < 6 * 0x80; ++i) gapClientUnitTable[i] = 0;
+    for (int i = 0; i < 6 * 0x80; ++i) gapServerUnitTable[i] = 0;
 }
 
 // 0x00463C90
@@ -1066,7 +1066,7 @@ static void __stdcall CUNIT_ForEachUnitInTable(D2UnitStrc** ppTable, UNITFN pfnC
 // build: context CLIENT_FindUnitInHashTable_Inl
 static inline D2UnitStrc* CLIENT_FindUnitInHashTable_Inl(int nUnitId, int nUnitType)
 {
-    D2UnitStrc* pUnit = gpUnitHashTable_007A5270[(nUnitType << 7) + (nUnitId & 0x7F)];
+    D2UnitStrc* pUnit = gapServerUnitTable[(nUnitType << 7) + (nUnitId & 0x7F)];
     while (pUnit)
     {
         if (pUnit->dwUnitId == nUnitId)
@@ -1140,7 +1140,7 @@ static inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 // 0x00463D90
 void __fastcall CUNIT_SetPlayerUnit(D2UnitStrc* pUnit)
 {
-    if (gpPlayerUnit_007A6A70)
+    if (gpPlayerUnit)
     {
         UI_FreePlayerUI();
     }
@@ -1153,19 +1153,19 @@ void __fastcall CUNIT_SetPlayerUnit(D2UnitStrc* pUnit)
         UI_LoadPlayerUI();
     }
 
-    gpPlayerUnit_007A6A70 = pUnit;
+    gpPlayerUnit = pUnit;
 }
 
 // 0x00463DD0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit()
 {
-    return gpPlayerUnit_007A6A70;
+    return gpPlayerUnit;
 }
 
 // 0x00463DE0
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit()
 {
-    return gpPlayerUnit_007A6A70;
+    return gpPlayerUnit;
 }
 
 void __fastcall sub_M109_Emit_00464E20(D2UnitStrc* pUnit, int nOverlay)
@@ -1177,7 +1177,7 @@ void __fastcall sub_M109_Emit_00464E20(D2UnitStrc* pUnit, int nOverlay)
 // 0x00463DF0
 int __cdecl sub_00463DF0()
 {
-    D2UnitStrc* pPlayer = gpPlayerUnit_007A6A70;
+    D2UnitStrc* pPlayer = gpPlayerUnit;
     if (!pPlayer)
     {
         return 1;
@@ -1383,9 +1383,10 @@ inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord_Inl(int nSkillId)
 static int __stdcall sub_004642B0_CheckSkillSelectProc(D2UnitStrc* pPlayer, D2UnitStrc* pTarget, int nSkillId)
 {
     D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord_Inl(nSkillId);
-    if (pSkillsTxtRecord && pSkillsTxtRecord->nSelectProc > 0 && pSkillsTxtRecord->nSelectProc < gnSkillSelectProcs_00711F50)
+// build: symbol ?gnSkillSelectProcs@* 0x00711F50
+    if (pSkillsTxtRecord && pSkillsTxtRecord->nSelectProc > 0 && pSkillsTxtRecord->nSelectProc < gnSkillSelectProcs)
     {
-        if (gpfSkillSelectProcs_00711F34[pSkillsTxtRecord->nSelectProc](pPlayer, pTarget))
+        if (gpfnSkillSelectProcs[pSkillsTxtRecord->nSelectProc](pPlayer, pTarget))
         {
             return 1;
         }
@@ -1436,7 +1437,7 @@ void __fastcall CUNIT_SetTargetByGUID(D2UnitStrc* pUnit, int nUnitType, unsigned
 void __fastcall CUNIT_TurnTowardPlayer(D2UnitStrc* pUnit)
 {
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-    D2UnitStrc* pPlayer = gpPlayerUnit_007A6A70;
+    D2UnitStrc* pPlayer = gpPlayerUnit;
     D2_ASSERT(pPath, 0x7F3);
     UNITS_ChangeAnimMode(pUnit, 1);
     D2Common_10216(pPath, UNITS_GetXPositionInline(pPlayer), UNITS_GetYPositionInline(pPlayer), 0);
@@ -1445,7 +1446,7 @@ void __fastcall CUNIT_TurnTowardPlayer(D2UnitStrc* pUnit)
 // 0x004644E0
 void __fastcall CUNIT_PlayerFaceUnit(D2UnitStrc* pUnit)
 {
-    D2UnitStrc* pPlayer = gpPlayerUnit_007A6A70;
+    D2UnitStrc* pPlayer = gpPlayerUnit;
     if (pPlayer && (pPlayer->dwAnimMode == PLRMODE_NEUTRAL || pPlayer->dwAnimMode == PLRMODE_TOWNNEUTRAL))
     {
         D2DynamicPathStrc* pPath = pPlayer->pDynamicPath;
@@ -1521,7 +1522,7 @@ int __fastcall CUNIT_CanUseSkill(D2UnitStrc* pUnit, int nArg)
 // 0x004646A0
 D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom()
 {
-    D2UnitStrc* pPlayer = gpPlayerUnit_007A6A70;
+    D2UnitStrc* pPlayer = gpPlayerUnit;
     if (pPlayer)
     {
         return UNITS_GetRoom(pPlayer);
@@ -1533,9 +1534,9 @@ D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom()
 void __cdecl CUNIT_UpdateObjectsForPeriod()
 {
     const int nPeriod = ENVIRONMENT_GetPeriodOfDayFromAct(gpDrlgAct_007A0634, 0);
-    if (nPeriod != gnPeriodOfDay_007A6A74)
+    if (nPeriod != gnPeriodOfDay)
     {
-        gnPeriodOfDay_007A6A74 = nPeriod;
+        gnPeriodOfDay = nPeriod;
         for (int i = 0; i < UNIT_HASH_BUCKETS; ++i)
         {
             D2UnitStrc* pUnit = gpUnitTable_007A6270[i];
@@ -1895,7 +1896,7 @@ static int __stdcall CUNIT_IsItemInInventory(D2UnitStrc* pOwner, D2UnitStrc* pIt
 // 0x00464D90
 static int __stdcall CUNIT_IsItemOwnedByOther(D2UnitStrc* pOwner, D2UnitStrc* pItem)
 {
-    D2UnitStrc** ppTable = gpUnitHashTable_007A5E70;
+    D2UnitStrc** ppTable = gapClientUnitTable;
     for (int nTable = 0; nTable < 2; ++nTable)
     {
         for (int i = 0; i < 0x80; ++i)
@@ -1908,7 +1909,7 @@ static int __stdcall CUNIT_IsItemOwnedByOther(D2UnitStrc* pOwner, D2UnitStrc* pI
                 }
             }
         }
-        ppTable = &gpUnitHashTable_007A5E70[0x80];
+        ppTable = &gapClientUnitTable[0x80];
     }
     return 0;
 }
@@ -2278,7 +2279,7 @@ short __fastcall CUNIT_GetPlayerPartyId(D2UnitStrc* pUnit)
 D2ActiveRoomStrc* __fastcall CUNIT_FindRoomBySubtile(int nX, int nY)
 {
     char szMessage[0x200];
-    D2UnitStrc* pPlayer = gpPlayerUnit_007A6A70;
+    D2UnitStrc* pPlayer = gpPlayerUnit;
     D2ActiveRoomStrc* pRoom = 0;
     if (!nX && !nY)
         return 0;
@@ -2299,7 +2300,7 @@ D2ActiveRoomStrc* __fastcall CUNIT_FindRoomBySubtile(int nX, int nY)
 // 0x004654C0
 void __fastcall CUNIT_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, int bFlag)
 {
-    D2UnitStrc* pPlayer = gpPlayerUnit_007A6A70;
+    D2UnitStrc* pPlayer = gpPlayerUnit;
     if (pUnit == pPlayer)
     {
         sub_00466FE0();
@@ -2503,7 +2504,7 @@ static void CUNIT_FreeUnit(D2UnitStrc* pUnit)
         break;
 
     case UNIT_TILE:
-        if (gpAct_007A0634)
+        if (gpAct)
         {
             UNITROOM_RemoveUnitFromRoom(pUnit);
         }
@@ -2514,7 +2515,7 @@ static void CUNIT_FreeUnit(D2UnitStrc* pUnit)
     CUNITEVENT_FreeCltUnitEvents(pUnit);
     SCMD_FreePacketBuffer(pUnit);
 
-    if (pUnit == gpPlayerUnit_007A6A70)
+    if (pUnit == gpPlayerUnit)
     {
         CUNIT_SetPlayerUnit(0);
     }
@@ -2529,13 +2530,14 @@ void __cdecl CUNIT_FreeAllUnits()
     {
         for (int i = 0; i < 0x80; ++i)
         {
-            D2UnitStrc* pUnit = gpUnitHashTable_007A5E70[gnUnitTypes_006D6ABC[nType] * 0x80 + i];
+// build: symbol ?gaUnitTypes@* 0x006D6ABC
+            D2UnitStrc* pUnit = gapClientUnitTable[gaUnitTypes[nType] * 0x80 + i];
             while (pUnit)
             {
                 D2UnitStrc* pNext = pUnit->pListNext;
                 CUNIT_FreeUnit(pUnit);
                 pUnit = pNext;
-                gpUnitHashTable_007A5E70[gnUnitTypes_006D6ABC[nType] * 0x80 + i] = pUnit;
+                gapClientUnitTable[gaUnitTypes[nType] * 0x80 + i] = pUnit;
             }
         }
     }
@@ -2544,13 +2546,13 @@ void __cdecl CUNIT_FreeAllUnits()
     {
         for (int i = 0; i < 0x80; ++i)
         {
-            D2UnitStrc* pUnit = gpUnitHashTable_007A5270[gnUnitTypes_006D6ABC[nType] * 0x80 + i];
+            D2UnitStrc* pUnit = gapServerUnitTable[gaUnitTypes[nType] * 0x80 + i];
             while (pUnit)
             {
                 D2UnitStrc* pNext = pUnit->pListNext;
                 CUNIT_FreeUnit(pUnit);
                 pUnit = pNext;
-                gpUnitHashTable_007A5270[gnUnitTypes_006D6ABC[nType] * 0x80 + i] = pUnit;
+                gapServerUnitTable[gaUnitTypes[nType] * 0x80 + i] = pUnit;
             }
         }
     }
@@ -2778,13 +2780,13 @@ static void CUNIT_RemoveUnitFromTable(unsigned int nUnitId, int nUnitType, D2Uni
 // 0x00465EE0
 void __fastcall CUNIT_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType)
 {
-    CUNIT_RemoveUnitFromTable(nUnitId, nUnitType, &gpUnitHashTable_007A5E70[nUnitType * 0x80], nUnitId & 0x7F);
+    CUNIT_RemoveUnitFromTable(nUnitId, nUnitType, &gapClientUnitTable[nUnitType * 0x80], nUnitId & 0x7F);
 }
 
 // 0x00465F00
 void __fastcall CUNIT_RemoveServerSideUnit(unsigned int nUnitId, int nUnitType)
 {
-    CUNIT_RemoveUnitFromTable(nUnitId, nUnitType, &gpUnitHashTable_007A5270[nUnitType * 0x80], nUnitId & 0x7F);
+    CUNIT_RemoveUnitFromTable(nUnitId, nUnitType, &gapServerUnitTable[nUnitType * 0x80], nUnitId & 0x7F);
 }
 
 // 0x00465F20
@@ -2857,7 +2859,7 @@ static D2UnitStrc* __stdcall CUNIT_InitUnit(unsigned int nUnitId, int nClassId, 
     {
         pRoom = CUNIT_FindRoomBySubtile(nX, nY);
         pUnit->nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
-        pUnit->pDrlgAct = gpAct_007A0634;
+        pUnit->pDrlgAct = gpAct;
     }
 
     SEED_InitSeed(&pUnit->pSeed);
@@ -2973,7 +2975,7 @@ D2UnitStrc* __fastcall CUNIT_CreatePlayerUnit(unsigned int nUnitId, int nClassId
     {
         pRoom = CUNIT_FindRoomBySubtile(nX, nY);
         pUnit->nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
-        pUnit->pDrlgAct = gpAct_007A0634;
+        pUnit->pDrlgAct = gpAct;
     }
     else
     {
@@ -3088,9 +3090,9 @@ static inline unsigned int sub_F4B0_SeedStep(D2SeedStrc* pSeed)
 D2UnitStrc* __fastcall CUNIT_AddClientMonster(D2UnitSpawnStrc* pSpawn, void* pArg2, unsigned char* pArg3, int nArg4, int nArg5, int nArg6)
 {
     const unsigned int nUnitId = pSpawn->nUnitId;
-    if (nUnitId == sub_00478F20_FindPetIdByOwner(gpPlayerUnit_007A6A70, 7, 1))
+    if (nUnitId == sub_00478F20_FindPetIdByOwner(gpPlayerUnit, 7, 1))
     {
-        D2UnitStrc* pPet = CUNIT_FindUnitInTable(&gpUnitHashTable_007A5E70[UNIT_MONSTER * 0x80], nUnitId, nUnitId & 0x7F, UNIT_MONSTER);
+        D2UnitStrc* pPet = CUNIT_FindUnitInTable(&gapClientUnitTable[UNIT_MONSTER * 0x80], nUnitId, nUnitId & 0x7F, UNIT_MONSTER);
         if (pPet)
         {
             GFX_FreeGfxData(pPet);
@@ -3240,15 +3242,16 @@ D2UnitStrc* __fastcall CUNIT_AddClientMonster(D2UnitSpawnStrc* pSpawn, void* pAr
 // 0x00466730
 D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg)
 {
-    if (++gnPresetUnitId_00711F30 == -1)
+// build: symbol ?gnPresetUnitId@* 0x00711F30
+    if (++gnPresetUnitId == -1)
     {
-        gnPresetUnitId_00711F30 = 0;
+        gnPresetUnitId = 0;
     }
 
     if (nUnitType == 1)
     {
         D2UnitSpawnStrc tSpawn = {};
-        tSpawn.nUnitId = gnPresetUnitId_00711F30;
+        tSpawn.nUnitId = gnPresetUnitId;
         tSpawn.nClassId = nClassId;
         tSpawn.nX = nX;
         tSpawn.nY = nY;
@@ -3263,7 +3266,7 @@ D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nClassId, int nX, int nY, int n
     }
 
     pUnit->dwFlags |= 0x600000;
-    return CUNIT_InitUnit(gnPresetUnitId_00711F30, nClassId, nY, nUnitType, nArg, 0, pUnit, nX);
+    return CUNIT_InitUnit(gnPresetUnitId, nClassId, nY, nUnitType, nArg, 0, pUnit, nX);
 }
 
 void sub_I08_Emit_004656C0(D2UnitStrc* pUnit, int nClassId)
@@ -3289,7 +3292,7 @@ int __fastcall CUNIT_IsUnitSelectable(D2UnitStrc* pUnit, int nX, int nY, int bHi
     case 1: if(nMouseX>=gnScreenWidth_0071146C/2) return 0; break;
     case 2: if(nMouseX<gnScreenWidth_0071146C/2) return 0; break;
     }
-    D2UnitStrc* pPlayer=gpPlayerUnit_007A6A70;
+    D2UnitStrc* pPlayer=gpPlayerUnit;
     if(UNIT_HasFlag(pUnit,0x200000)) return 0;
     if(!sub_00465C60(pPlayer,pUnit) && !sub_00464EC0(pPlayer,pUnit) && !sub_00464F70(pPlayer,pUnit)) return 0;
     int bSelectable=0;
@@ -3308,7 +3311,8 @@ int __fastcall CUNIT_IsUnitSelectable(D2UnitStrc* pUnit, int nX, int nY, int bHi
     int nMode=UNITS_GetAnimOrSeqMode(pUnit);
     int nClassId=pUnit->dwClassId;
     int nType=pUnit->dwUnitType;
-    D2COMMON_11013_ConvertMode(pUnit,&nType,&nClassId,&nMode,gszCUnitFile_006D6A48,0x6ED);
+// build: symbol ?gszCUnitFile@* 0x006D6A48
+    D2COMMON_11013_ConvertMode(pUnit,&nType,&nClassId,&nMode,gszCUnitFile,0x6ED);
     D2ObjectsTxt* ptObjectData=0;
     int nUnitX=UNITS_GetClientCoordX(pUnit);
     int nUnitY=UNITS_GetClientCoordY(pUnit);
@@ -3426,18 +3430,18 @@ void __fastcall CUNIT_DispatchMouseWheel(int nSteps)
 {
     if (nSteps > 0)
     {
-        if (gpfnWheelUp_007A7404)
+        if (gpfnWheelUp)
         {
-            D2_ASSERT(!IsBadCodePtr((D2FarProcFn)gpfnWheelUp_007A7404), 0x383);
-            gpfnWheelUp_007A7404();
+            D2_ASSERT(!IsBadCodePtr((D2FarProcFn)gpfnWheelUp), 0x383);
+            gpfnWheelUp();
         }
     }
     else if (nSteps < 0)
     {
-        if (gpfnWheelDown_007A7408)
+        if (gpfnWheelDown)
         {
-            D2_ASSERT(!IsBadCodePtr((D2FarProcFn)gpfnWheelDown_007A7408), 0x38B);
-            gpfnWheelDown_007A7408();
+            D2_ASSERT(!IsBadCodePtr((D2FarProcFn)gpfnWheelDown), 0x38B);
+            gpfnWheelDown();
         }
     }
 }
@@ -3481,7 +3485,7 @@ void __cdecl CUNIT_ClearAiTargets()
 {
     for (int i = 0; i < 8; ++i)
     {
-        gpAiTargets_007A7470[i] = 0;
+        gapAiTargets[i] = 0;
     }
 }
 
@@ -3582,7 +3586,7 @@ void __cdecl CUNIT_InitColorTable()
 // 0x00489840
 int __cdecl sub_00489840_IsNpcState123()
 {
-    if (gdwGlobal_007BCBF0 == 1 || gdwGlobal_007BCBF0 == 2 || gdwGlobal_007BCBF0 == 3)
+    if (gnInvPanelMode == 1 || gnInvPanelMode == 2 || gnInvPanelMode == 3)
     {
         return 1;
     }
@@ -3593,10 +3597,10 @@ int __cdecl sub_00489840_IsNpcState123()
 // 0x004898A0
 void __fastcall sub_004898A0(int nMode)
 {
-    gnGlobal_007BCE2C = 1;
-    if (gdwGlobal_007BCBF0 == 13)
+    gbGoldButtonDisabled = 1;
+    if (gnInvPanelMode == 13)
     {
-        gdwGlobal_007BCBF0 = 12;
+        gnInvPanelMode = 12;
     }
 
     sub_00455F20(5, 1, 0);
@@ -3605,19 +3609,19 @@ void __fastcall sub_004898A0(int nMode)
 // 0x004898D0
 void __fastcall CUNIT_SetDialogState(int nState)
 {
-    gnGlobal_00721E34 = nState;
+    gnDialogState = nState;
     if (nState == 0)
     {
-        gnGlobal_00721E3C = -1;
-        gnGlobal_00721E40 = -1;
-        gnGlobal_00721E44 = -1;
-        gnGlobal_00721E48 = -1;
-        gnGlobal_00721E4C = -1;
-        gnGlobal_00721E50 = -1;
-        gdwGlobal_007BCBE4 = 0;
-        gdwGlobal_007BCBE8 = 0;
-        gdwGlobal_007BCBF4 = 0;
-        gdwGlobal_007BCBF8 = 0;
+        gnHoverTopX = -1;
+        gnHoverTopY = -1;
+        gnHoverBottomX = -1;
+        gnHoverBottomY = -1;
+        gnHoverCellX = -1;
+        gnHoverCellY = -1;
+        gbHoverInGrid = 0;
+        gbHoverInBodyLoc = 0;
+        gpHoverItem = 0;
+        gpLastHoverItem = 0;
     }
 }
 
@@ -3625,18 +3629,19 @@ void __fastcall CUNIT_SetDialogState(int nState)
 void __cdecl CUNIT_ClearTextPanel()
 {
     TEXT_ResetTextBox();
-    gnGlobal_007BF1FA = 0;
-    if (gpTextHeader_007BF250)
+// build: symbol ?gbTextPanelOpen@* 0x007BF1FA
+    gbTextPanelOpen = 0;
+    if (gpTextHeader)
     {
-        TEXT_FreeTextHeader(gpTextHeader_007BF250);
-        gpTextHeader_007BF250 = 0;
+        TEXT_FreeTextHeader(gpTextHeader);
+        gpTextHeader = 0;
     }
 }
 
 // 0x004B8A10
 int __cdecl sub_004B8A10()
 {
-    if (gnGlobal_007C0E7C == 1 || gnGlobal_007C0E7C == 2)
+    if (gnTradeState == 1 || gnTradeState == 2)
     {
         return 1;
     }

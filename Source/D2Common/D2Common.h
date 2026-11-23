@@ -61,7 +61,7 @@ extern "C" const char gszTxtField_end[]; // 0x006D9060
 extern "C" const char gszTxtField_version[]; // 0x006DCCF0
 extern "C" const char gszTypeNameMappingEntryList_007436AC[]; // 0x007436AC
 extern "C" const char gszTypeNameStringEntryList_0074366C[]; // 0x0074366C
-extern "C" const char szDataGlobal_006D4118[]; // 0x006D4118
+extern "C" const char gszDataGlobal[]; // 0x006D4118
 extern "C" double __cdecl cos(double x); // 0x006886C0
 extern "C" double __cdecl sin(double x); // 0x00688590
 extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2); // 0x006841E9

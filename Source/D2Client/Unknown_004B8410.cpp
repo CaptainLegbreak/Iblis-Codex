@@ -19,8 +19,8 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-extern int gnGlobal_0071146C; // 0x0071146C
-extern int gnGlobal_00711470; // 0x00711470
+extern int gnScreenWidth; // 0x0071146C
+extern int gnScreenHeight; // 0x00711470
 void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
 void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex); // 0x004B82F0
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
@@ -70,7 +70,7 @@ struct T00481920
 };
 
 extern D2SoundNodeStrc* gpSoundList_007C5458; // 0x007C5458
-extern int gbSoundReady_007C545C; // 0x007C545C
+extern int gbClientSoundReady; // 0x007C545C
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl sub_00481820(); // 0x00481820
 D2SoundsTxtStrc* __fastcall sub_00481860(int nId); // 0x00481860
@@ -127,12 +127,12 @@ void __fastcall sub_004B8410_LayoutDialog(D2ClientDialogStrc* pDialog)
         pDialog->nY = pDialog->nCenterY - nDisabled * 0x15;
     else
         pDialog->nY = pDialog->nCenterY - nHeight / 3;
-    D2_ASSERT(nMaxWidth <= gnGlobal_0071146C - 0x50, 0x5D2);
-    D2_ASSERT(nHeight <= gnGlobal_00711470 - 0x62, 0x5D7);
-    if (pDialog->nX + nMaxWidth > gnGlobal_0071146C - 0xA)
-        pDialog->nX = gnGlobal_0071146C - nMaxWidth;
-    if (pDialog->nY + nHeight > gnGlobal_00711470 - 0x3A)
-        pDialog->nY = gnGlobal_00711470 - nHeight - 0x30;
+    D2_ASSERT(nMaxWidth <= gnScreenWidth - 0x50, 0x5D2);
+    D2_ASSERT(nHeight <= gnScreenHeight - 0x62, 0x5D7);
+    if (pDialog->nX + nMaxWidth > gnScreenWidth - 0xA)
+        pDialog->nX = gnScreenWidth - nMaxWidth;
+    if (pDialog->nY + nHeight > gnScreenHeight - 0x3A)
+        pDialog->nY = gnScreenHeight - nHeight - 0x30;
     if (pDialog->nX <= 0xA)
         pDialog->nX = 0xA;
     if (pDialog->nY <= 0xA)
@@ -225,7 +225,7 @@ static float __stdcall sub_004B9890_GetSoundPan(D2UnitStrc* pUnit, int nSoundId)
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nDelay, int nArg3, int nArg4)
 {
-    if (!gbSoundReady_007C545C)
+    if (!gbClientSoundReady)
         return 0;
 
     if (nSoundId <= 0)

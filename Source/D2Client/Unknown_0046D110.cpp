@@ -26,7 +26,7 @@ void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame);
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX);                                      // 0x0064A710
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY);                                      // 0x0064A760
 
-extern D2UnitStrc* gpAiTargets_007A7470[];                                                                  // 0x007A7470
+extern D2UnitStrc* gapAiTargets[];                                                                  // 0x007A7470
 
 // build: context CLIENTS_GetUnitXInline
 static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
@@ -132,7 +132,7 @@ static inline void AI_SetTimer_Inline(D2UnitStrc* pUnit, int nTicks)
 static D2UnitStrc* __stdcall sub_0046C720_FindNearestTarget(D2UnitStrc* pUnit, int* pDistance)
 {
     D2UnitStrc* pNearest = 0;
-    D2UnitStrc** ppSlot = gpAiTargets_007A7470;
+    D2UnitStrc** ppSlot = gapAiTargets;
     for (int i = 0; i < 8; ++i, ++ppSlot)
     {
         D2UnitStrc* pTarget = *ppSlot;

@@ -15,43 +15,43 @@ int __stdcall sub_004726F0(int nArg);                                           
 void __cdecl sub_00472610_InitWindAngle();                                                                  // 0x00472610
 
 extern "C" const char gszDataGlobalPath[];                                                                  // 0x006D4118
-int gbWeatherResetDone_007A8A30;                                                                            // 0x007A8A30
-int gnPhaseOffset_007A8970[1];                                                                              // 0x007A8970
-int gnPhaseRange_007A8958[1];                                                                               // 0x007A8958
-extern unsigned char gnParticleColor_007A8980[];                                                            // 0x007A8980
-extern unsigned char gnParticleColor_007A894C[];                                                            // 0x007A894C
-extern unsigned char gnParticleColor_007A89A4[];                                                            // 0x007A89A4
-extern unsigned char gnPeriodLight_007A898C[];                                                              // 0x007A898C
-unsigned char gnOutdoorLight_007A89EC[12];                                                                  // 0x007A89EC
-D2WeatherLayerStateStrc gtWeatherLayer_007A89B0;                                                            // 0x007A89B0
-D2WeatherLayerStateStrc gtWeatherLayer_007A893C;                                                            // 0x007A893C
-int gnSplashFrames_007A89C8[4];                                                                             // 0x007A89C8
-int gnBubbleFrames_007A892C[4];                                                                             // 0x007A892C
-float gfPhaseLevel_007A89A0;                                                                                // 0x007A89A0
+int gbWeatherResetDone;                                                                            // 0x007A8A30
+int gaWeatherPhaseOffset[1];                                                                              // 0x007A8970
+int gaWeatherPhaseRange[1];                                                                               // 0x007A8958
+extern unsigned char gabParticleColorsDay[];                                                            // 0x007A8980
+extern unsigned char gabParticleColorsTwilight[];                                                            // 0x007A894C
+extern unsigned char gabParticleColorsNight[];                                                            // 0x007A89A4
+extern unsigned char gabPeriodLightColors[];                                                              // 0x007A898C
+unsigned char gabOutdoorLightColors[12];                                                                  // 0x007A89EC
+D2WeatherLayerStateStrc gtSplashCels;                                                            // 0x007A89B0
+D2WeatherLayerStateStrc gtBubbleCels;                                                            // 0x007A893C
+int gaSplashFrames[4];                                                                             // 0x007A89C8
+int gaBubbleFrames[4];                                                                             // 0x007A892C
+float gfPhaseLevel;                                                                                // 0x007A89A0
 
 // 0x00472890
 void __fastcall sub_00472890_InitWeather(int nLevelId)
 {
     sub_004726F0(1);
-    if (!gbWeatherResetDone_007A8A30)
+    if (!gbWeatherResetDone)
     {
         sub_00472610_InitWindAngle();
-        gbWeatherResetDone_007A8A30 = 1;
+        gbWeatherResetDone = 1;
     }
 
-    gnPhaseOffset_007A8970[0] = 7500;
-    gnPhaseOffset_007A8970[1] = 250;
-    gnPhaseOffset_007A8970[2] = 3000;
-    gnPhaseOffset_007A8970[3] = 125;
+    gaWeatherPhaseOffset[0] = 7500;
+    gaWeatherPhaseOffset[1] = 250;
+    gaWeatherPhaseOffset[2] = 3000;
+    gaWeatherPhaseOffset[3] = 125;
     if (DRLG_GetActNoFromLevelId(nLevelId) == 2)
-        gnPhaseOffset_007A8970[2] *= 3;
+        gaWeatherPhaseOffset[2] *= 3;
     if (DRLG_GetActNoFromLevelId(nLevelId) == 4)
-        gnPhaseOffset_007A8970[2] *= 3;
+        gaWeatherPhaseOffset[2] *= 3;
 
-    gnPhaseRange_007A8958[0] = 7500;
-    gnPhaseRange_007A8958[1] = 250;
-    gnPhaseRange_007A8958[2] = 3000;
-    gnPhaseRange_007A8958[3] = 50;
+    gaWeatherPhaseRange[0] = 7500;
+    gaWeatherPhaseRange[1] = 250;
+    gaWeatherPhaseRange[2] = 3000;
+    gaWeatherPhaseRange[3] = 50;
 
     unsigned char nColor;
     int i = 0;
@@ -61,15 +61,15 @@ void __fastcall sub_00472890_InitWeather(int nLevelId)
     {
         const int nStep = n80 / 12;
         nColor = 0x62 - nStep;
-        gnParticleColor_007A8980[i] = sub_004FB180_FindPaletteIndex(nColor, nColor + 0x19, nColor);
+        gabParticleColorsDay[i] = sub_004FB180_FindPaletteIndex(nColor, nColor + 0x19, nColor);
         nColor = 0x2D - i * 40 / 12;
-        gnParticleColor_007A894C[i] = sub_004FB180_FindPaletteIndex(nColor, nColor + 10, nColor);
+        gabParticleColorsTwilight[i] = sub_004FB180_FindPaletteIndex(nColor, nColor + 10, nColor);
         nColor = 0x19 - n24 / 12;
-        gnParticleColor_007A89A4[i] = sub_004FB180_FindPaletteIndex(nColor, nColor + 5, nColor);
+        gabParticleColorsNight[i] = sub_004FB180_FindPaletteIndex(nColor, nColor + 5, nColor);
         nColor = nStep + 0x78;
-        gnPeriodLight_007A898C[i] = sub_004FB180_FindPaletteIndex(nColor, nColor, nColor);
+        gabPeriodLightColors[i] = sub_004FB180_FindPaletteIndex(nColor, nColor, nColor);
         nColor = nStep + 0xAA;
-        gnOutdoorLight_007A89EC[i] = sub_004FB180_FindPaletteIndex(nColor, nColor, nColor);
+        gabOutdoorLightColors[i] = sub_004FB180_FindPaletteIndex(nColor, nColor, nColor);
         n24 += 24;
         n80 += 80;
     }
@@ -77,26 +77,26 @@ void __fastcall sub_00472890_InitWeather(int nLevelId)
     char szPath[0x104];
     unsigned int nFileSize;
     wsprintfA(szPath, "%s\\UncompOverlays\\Rain1", gszDataGlobalPath);
-    gtWeatherLayer_007A89B0.apCelFiles[0] = ARCHIVE_LoadCellFileWithFileSize(szPath, &nFileSize, 0);
+    gtSplashCels.apCelFiles[0] = ARCHIVE_LoadCellFileWithFileSize(szPath, &nFileSize, 0);
     wsprintfA(szPath, "%s\\UncompOverlays\\Rain2", gszDataGlobalPath);
-    gtWeatherLayer_007A89B0.apCelFiles[1] = ARCHIVE_LoadCellFileWithFileSize(szPath, &nFileSize, 0);
+    gtSplashCels.apCelFiles[1] = ARCHIVE_LoadCellFileWithFileSize(szPath, &nFileSize, 0);
     wsprintfA(szPath, "%s\\UncompOverlays\\Rain3", gszDataGlobalPath);
-    gtWeatherLayer_007A89B0.apCelFiles[2] = ARCHIVE_LoadCellFileWithFileSize(szPath, &nFileSize, 0);
+    gtSplashCels.apCelFiles[2] = ARCHIVE_LoadCellFileWithFileSize(szPath, &nFileSize, 0);
     wsprintfA(szPath, "%s\\UncompOverlays\\Rain4", gszDataGlobalPath);
-    gtWeatherLayer_007A89B0.apCelFiles[3] = ARCHIVE_LoadCellFileWithFileSize(szPath, &nFileSize, 0);
+    gtSplashCels.apCelFiles[3] = ARCHIVE_LoadCellFileWithFileSize(szPath, &nFileSize, 0);
     for (int i = 0; i < 4; ++i)
-        gnSplashFrames_007A89C8[i] = CelFileGetCelsPerDirection(gtWeatherLayer_007A89B0.apCelFiles[i]);
+        gaSplashFrames[i] = CelFileGetCelsPerDirection(gtSplashCels.apCelFiles[i]);
 
     wsprintfA(szPath, "%s\\UncompOverlays\\bubble1", gszDataGlobalPath);
-    gtWeatherLayer_007A893C.apCelFiles[0] = ARCHIVE_LoadCellFileWithFileSize(szPath, &nFileSize, 0);
+    gtBubbleCels.apCelFiles[0] = ARCHIVE_LoadCellFileWithFileSize(szPath, &nFileSize, 0);
     wsprintfA(szPath, "%s\\UncompOverlays\\bubble2", gszDataGlobalPath);
-    gtWeatherLayer_007A893C.apCelFiles[1] = ARCHIVE_LoadCellFileWithFileSize(szPath, &nFileSize, 0);
+    gtBubbleCels.apCelFiles[1] = ARCHIVE_LoadCellFileWithFileSize(szPath, &nFileSize, 0);
     wsprintfA(szPath, "%s\\UncompOverlays\\bubble3", gszDataGlobalPath);
-    gtWeatherLayer_007A893C.apCelFiles[2] = ARCHIVE_LoadCellFileWithFileSize(szPath, &nFileSize, 0);
+    gtBubbleCels.apCelFiles[2] = ARCHIVE_LoadCellFileWithFileSize(szPath, &nFileSize, 0);
     wsprintfA(szPath, "%s\\UncompOverlays\\bubble4", gszDataGlobalPath);
-    gtWeatherLayer_007A893C.apCelFiles[3] = ARCHIVE_LoadCellFileWithFileSize(szPath, &nFileSize, 0);
+    gtBubbleCels.apCelFiles[3] = ARCHIVE_LoadCellFileWithFileSize(szPath, &nFileSize, 0);
     for (int i = 0; i < 4; ++i)
-        gnBubbleFrames_007A892C[i] = CelFileGetCelsPerDirection(gtWeatherLayer_007A893C.apCelFiles[i]);
+        gaBubbleFrames[i] = CelFileGetCelsPerDirection(gtBubbleCels.apCelFiles[i]);
 
-    gfPhaseLevel_007A89A0 = 0.0f;
+    gfPhaseLevel = 0.0f;
 }

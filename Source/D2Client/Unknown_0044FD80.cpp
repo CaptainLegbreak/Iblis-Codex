@@ -1,6 +1,6 @@
 int __stdcall SMemFree(void* pLocation, const char* szLogFileName, int nLogLine, unsigned int nFlags);       // 0x00412650
 
-extern const char gszTypeSGameData_0070F56C[];                                                              // 0x0070F56C
+extern const char gszTypeSGameData[];                                                              // 0x0070F56C
 
 struct D2StormLinkStrc
 {
@@ -126,7 +126,7 @@ D2StormGameArrayStrc::~D2StormGameArrayStrc()
     for (unsigned int i = 0; i < f_4; i++)
         f_8[i].~D2SGameDataStrc();
     if (f_8)
-        SMemFree(f_8, gszTypeSGameData_0070F56C, -2, 0);
+        SMemFree(f_8, gszTypeSGameData, -2, 0);
 }
 
 // 0x00451100

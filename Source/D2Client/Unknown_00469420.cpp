@@ -11,7 +11,7 @@ struct D2HotkeyCommandStrc
 #define KEY_WHEEL_UP 0x103
 #define KEY_WHEEL_DOWN 0x104
 
-extern D2HotkeyCommandStrc gtHotkeyCommands_00712698[];                                                     // 0x00712698
+extern D2HotkeyCommandStrc gaHotkeyCommands[];                                                     // 0x00712698
 extern D2HotkeyStrc gtHotkeys_007A6F90[NUM_HOTKEYS];                                                        // 0x007A6F90
 int __fastcall CMDTBL_IsValidKey(unsigned short nKey);                                                // 0x00469AE0
 
@@ -22,7 +22,7 @@ static int sub_00469420_CheckWheelKey(int nId, unsigned short nKey, unsigned sho
     {
     case KEY_WHEEL_UP:
     case KEY_WHEEL_DOWN:
-        if (gtHotkeyCommands_00712698[nId].unk0x04)
+        if (gaHotkeyCommands[nId].unk0x04)
         {
             if (pKey)
             {
@@ -52,7 +52,7 @@ int __fastcall CMDTBL_QueryKey(int nId, int nMode, int nCommand, unsigned short*
         {
             return 0;
         }
-        if (nKey != 0x2C || !gtHotkeyCommands_00712698[nId].pfnCommand)
+        if (nKey != 0x2C || !gaHotkeyCommands[nId].pfnCommand)
         {
             goto update;
         }

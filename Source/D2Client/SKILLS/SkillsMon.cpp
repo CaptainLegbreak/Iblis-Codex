@@ -166,7 +166,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
-static const int gnRingOffsetX_006DBB68[64] =                                                               // 0x006DBB68
+static const int gaMonRingOffsetX[64] =                                                               // 0x006DBB68
 {
     30, 29, 29, 28, 27, 26, 24, 23, 21, 19, 16, 14, 11, 8, 5, 2,
     0, -2, -5, -8, -11, -14, -16, -19, -21, -23, -24, -26, -27, -28, -29, -29,
@@ -174,7 +174,7 @@ static const int gnRingOffsetX_006DBB68[64] =                                   
     0, 2, 5, 8, 11, 14, 16, 19, 21, 23, 24, 26, 27, 28, 29, 29,
 };
 
-static const int gnRingOffsetY_006DBC68[64] =                                                               // 0x006DBC68
+static const int gaMonRingOffsetY[64] =                                                               // 0x006DBC68
 {
     0, 2, 5, 8, 11, 14, 16, 19, 21, 23, 24, 26, 27, 28, 29, 29,
     30, 29, 29, 28, 27, 26, 24, 23, 21, 19, 16, 14, 11, 8, 5, 2,
@@ -367,8 +367,8 @@ int __fastcall SKILLSMON_MissileRing(D2UnitStrc* pUnit, int nSkillId, int nSkill
     tMissileParams.nVelocity = nVelocity;
     for (int i = 0; i < 64; ++i)
     {
-        tMissileParams.nTargetX = gnRingOffsetX_006DBB68[i];
-        tMissileParams.nTargetY = gnRingOffsetY_006DBC68[i];
+        tMissileParams.nTargetX = gaMonRingOffsetX[i];
+        tMissileParams.nTargetY = gaMonRingOffsetY[i];
         D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
         if (pMissile)
         {

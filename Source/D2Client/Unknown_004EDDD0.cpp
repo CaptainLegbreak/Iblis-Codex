@@ -10,8 +10,8 @@ struct D2SkillsTxt;
 struct D2SkillDescTxt;
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
-extern "C" const char gszFormatD_006D57BC[]; // 0x006D57BC
-extern "C" const char szFmtRange_006D9D70[]; // 0x006D9D70
+extern "C" const char gszFormatD[]; // 0x006D57BC
+extern "C" const char gszFmtRange[]; // 0x006D9D70
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
@@ -69,11 +69,11 @@ static int __stdcall sub_004EC140_AddElemRange(int nMin, unsigned short nString,
 
     if ((nMin || nMax) && nMin != nMax)
     {
-        wsprintfA(szNumber, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szNumber, gszFmtRange, nMin, nMax);
     }
     else
     {
-        wsprintfA(szNumber, gszFormatD_006D57BC, nMin);
+        wsprintfA(szNumber, gszFormatD, nMin);
     }
     sub_00526320_ToUnicode(wszNumber, szNumber, 32);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nString));
@@ -91,7 +91,7 @@ static int __stdcall sub_004E73E0_FormatValue(Unicode* pDest, int bPlus, int nVa
     }
     else
     {
-        wsprintfA(szText, gszFormatD_006D57BC, nValue);
+        wsprintfA(szText, gszFormatD, nValue);
     }
     sub_00526320_ToUnicode(pDest, szText, 32);
     return 1;
@@ -231,7 +231,7 @@ static int __stdcall sub_004E7E70_AddValueTwoTexts(unsigned short nString1, unsi
     }
     else
     {
-        wsprintfA(szNumber, gszFormatD_006D57BC, nValue);
+        wsprintfA(szNumber, gszFormatD, nValue);
     }
     sub_00526320_ToUnicode(wszNumber, szNumber, 32);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nString1));
@@ -257,7 +257,7 @@ static int __stdcall sub_004E79E0_AddValueText(unsigned short nString, int bPlus
     }
     else
     {
-        wsprintfA(szNumber, gszFormatD_006D57BC, nValue);
+        wsprintfA(szNumber, gszFormatD, nValue);
     }
     sub_00526320_ToUnicode(wszNumber, szNumber, 32);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nString));
@@ -282,7 +282,7 @@ static int __stdcall sub_004E80F0_AddRangeText(Unicode* wszText, int bSeparator,
     }
     else
     {
-        wsprintfA(szNumber, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szNumber, gszFmtRange, nMin, nMax);
     }
     sub_00526320_ToUnicode(wszNumber, szNumber, 32);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nString));
@@ -334,7 +334,7 @@ static int __stdcall sub_004EC2E0_AddPhysDamage(D2UnitStrc* pUnit, Unicode* wszT
 
     if (nMin != nMax)
     {
-        wsprintfA(szNumber, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szNumber, gszFmtRange, nMin, nMax);
     }
     else if (nMin >= 0)
     {
@@ -342,7 +342,7 @@ static int __stdcall sub_004EC2E0_AddPhysDamage(D2UnitStrc* pUnit, Unicode* wszT
     }
     else
     {
-        wsprintfA(szNumber, gszFormatD_006D57BC, nMin);
+        wsprintfA(szNumber, gszFormatD, nMin);
     }
     sub_00526320_ToUnicode(wszNumber, szNumber, 32);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x10A0));
@@ -472,7 +472,7 @@ void __fastcall sub_004EF990_SetSkillPopUpText(D2UnitStrc* pUnit, int nSkillId, 
 
     if (bFound)
     {
-        wsprintfA(szNumber, gszFormatD_006D57BC, nArg3);
+        wsprintfA(szNumber, gszFormatD, nArg3);
         sub_00526320_ToUnicode(wszNumber, szNumber, 32);
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x109E));
         sub_00526700(wszText, wszNumber);

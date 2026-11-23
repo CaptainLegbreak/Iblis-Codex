@@ -1814,7 +1814,8 @@ void __stdcall D2Win_10158(D2CompositeUnitStrc* hCompositeUnit, unsigned char a2
     }
 
     char szFile[512];
-    wsprintfA(szFile, "%s\\ui\\emblems\\icon%02dc", szDataGlobal_006D4118, a2 - 1);
+// build: symbol ?gszDataGlobal@* 0x006D4118
+    wsprintfA(szFile, "%s\\ui\\emblems\\icon%02dc", gszDataGlobal, a2 - 1);
     hCompositeUnit->pEmblemCellFile = ARCHIVE_LoadCellFile(szFile, 0);
 
     if (a3 >= 1u && a3 <= 10u)
@@ -2528,7 +2529,7 @@ void __stdcall LIST_LoadPentspinCellfile()
     D2_ASSERT(sghPentagram == 0, 0x103);
 
     char szFile[260];
-    wsprintfA(szFile, "%s\\UI\\CURSOR\\Pentspin", szDataGlobal_006D4118);
+    wsprintfA(szFile, "%s\\UI\\CURSOR\\Pentspin", gszDataGlobal);
     sghPentagram = ARCHIVE_LoadCellFile(szFile, 0);
 }
 

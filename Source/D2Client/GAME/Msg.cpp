@@ -42,21 +42,21 @@ int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 
 void __fastcall CHARSEL_ShowProgressSteps(int nDone, int nTotal); // 0x00478160
 
-extern char gszCharName_007A05C4[]; // 0x007A05C4
+extern char gszClientCharName[]; // 0x007A05C4
 
 extern "C" const char gszSavePathFormat_006D4230[]; // 0x006D4230
 
 extern "C" const char gszFileModeRb[]; // 0x006CDC90
 
-extern int gnSentBytes_007A6AF8; // 0x007A6AF8
+extern int gnSentBytes; // 0x007A6AF8
 
-extern int gnSentPackets_007A6B00; // 0x007A6B00
+extern int gnSentPackets; // 0x007A6B00
 
-int gnProgress_007BB3B4; // 0x007BB3B4
+int gnProgress; // 0x007BB3B4
 
 int __stdcall CelFileFreeHardware(D2CelFileStrc* pCelFile); // 0x00601A50
 
-extern D2RosterPetNodeStrc* gpRosterPets_007BB5BC; // 0x007BB5BC
+extern D2RosterPetNodeStrc* gpRosterPets; // 0x007BB5BC
 
 struct D2PacketDwords9Strc;
 
@@ -66,9 +66,9 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 
 extern "C" int __cdecl memcmp(const void* p1, const void* p2, unsigned int nSize);
 
-extern unsigned char gaLastSentPacket_007BB3B8[0x200]; // 0x007BB3B8
+extern unsigned char gaLastSentPacket[0x200]; // 0x007BB3B8
 
-extern unsigned int gdwLastSendTick_007BB5B8; // 0x007BB5B8
+extern unsigned int gdwLastSendTick; // 0x007BB5B8
 
 #pragma pack(push, 1)
 
@@ -91,9 +91,9 @@ static unsigned char* MSG_ReadSaveFile(int* pnFileSize)
 {
     char szSavePath[0x400];
     char szFileName[0x1F4];
-    D2_ASSERT(gszCharName_007A05C4[0], 0x1EB);
+    D2_ASSERT(gszClientCharName[0], 0x1EB);
     FOG_GetSavePath(szSavePath, 0x400);
-    sprintf(szFileName, gszSavePathFormat_006D4230, szSavePath, gszCharName_007A05C4);
+    sprintf(szFileName, gszSavePathFormat_006D4230, szSavePath, gszClientCharName);
     _iobuf* pFile = fopen(szFileName, gszFileModeRb);
     if (!pFile)
         return 0;
@@ -115,10 +115,10 @@ void __fastcall MSG_SetProgress(int nValue, int nDivisor)
 {
     if (!nDivisor)
     {
-        gnProgress_007BB3B4 = 0;
+        gnProgress = 0;
         return;
     }
-    gnProgress_007BB3B4 = (nValue << 8) / nDivisor;
+    gnProgress = (nValue << 8) / nDivisor;
 }
 
 // 0x004781D0
@@ -141,8 +141,8 @@ void __fastcall MSG_UploadSaveFile(int bAnimate)
             tPacket.pData[k] = *pRead++;
 // build: symbol ?CLIENT_Send@* 0x0052AE50
         CLIENT_Send(0xFF + 7, 0, &tPacket);
-        gnSentBytes_007A6AF8 += 0xFF + 7;
-        gnSentPackets_007A6B00 += 1;
+        gnSentBytes += 0xFF + 7;
+        gnSentPackets += 1;
         if (bAnimate)
             CHARSEL_ShowProgressSteps(i, nChunks);
     }
@@ -154,13 +154,13 @@ void __fastcall MSG_UploadSaveFile(int bAnimate)
         tPacket.pData[k] = *pRead++;
     const int nSize = nRemain + 7;
     CLIENT_Send(nSize, 0, &tPacket);
-    gnSentBytes_007A6AF8 += nSize;
-    gnSentPackets_007A6B00 += 1;
+    gnSentBytes += nSize;
+    gnSentPackets += 1;
     FOG_Free(pBuffer, ".\\GAME\\Msg.cpp", 0x262, 0);
     if (nChunks == 0)
-        gnProgress_007BB3B4 = nChunks;
+        gnProgress = nChunks;
     else
-        gnProgress_007BB3B4 = (nChunks << 8) / nChunks;
+        gnProgress = (nChunks << 8) / nChunks;
 }
 
 static void __stdcall sub_00478350_SendToServer(const unsigned char* pPacket, int nSize)
@@ -181,7 +181,7 @@ static void __stdcall sub_00478350_SendToServer(const unsigned char* pPacket, in
     case 0x0F:
     case 0x10:
     case 0x11:
-        if (dwTick - gdwLastSendTick_007BB5B8 < 50 && !memcmp(gaLastSentPacket_007BB3B8, pPacket, nSize))
+        if (dwTick - gdwLastSendTick < 50 && !memcmp(gaLastSentPacket, pPacket, nSize))
             return;
         break;
 
@@ -189,20 +189,20 @@ static void __stdcall sub_00478350_SendToServer(const unsigned char* pPacket, in
         break;
 
     default:
-        if (dwTick - gdwLastSendTick_007BB5B8 < 200 && !memcmp(gaLastSentPacket_007BB3B8, pPacket, nSize))
+        if (dwTick - gdwLastSendTick < 200 && !memcmp(gaLastSentPacket, pPacket, nSize))
             return;
         break;
     }
 
-    memcpy(gaLastSentPacket_007BB3B8, pPacket, nSize);
-    gdwLastSendTick_007BB5B8 = dwTick;
+    memcpy(gaLastSentPacket, pPacket, nSize);
+    gdwLastSendTick = dwTick;
     unsigned char aBuffer[0x200];
     memcpy(aBuffer, pPacket, nSize);
 // build: symbol ?CLIENT_Send@* 0x0052AE50
     if (CLIENT_Send(nSize, 1, aBuffer))
     {
-        gnSentBytes_007A6AF8 += nSize;
-        ++gnSentPackets_007A6B00;
+        gnSentBytes += nSize;
+        ++gnSentPackets;
     }
 }
 

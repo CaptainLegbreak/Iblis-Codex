@@ -59,11 +59,11 @@ struct D2ClientCharRecordStrc
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 int __cdecl CHAT_HasClassOverride(); // 0x0047AA30
-extern unsigned char gbGlobal_007A0522; // 0x007A0522
-extern D2ClientCharRecordStrc* gpCharRecord_007A0438; // 0x007A0438
-extern char gszCharName_007A05C4[]; // 0x007A05C4
-extern int gnSentBytes_007A6AF8; // 0x007A6AF8
-extern int gnSentPackets_007A6B00; // 0x007A6B00
+extern unsigned char gnCharClass; // 0x007A0522
+extern D2ClientCharRecordStrc* gpCharRecord; // 0x007A0438
+extern char gszClientCharName[]; // 0x007A05C4
+extern int gnSentBytes; // 0x007A6AF8
+extern int gnSentPackets; // 0x007A6B00
 extern "C" __declspec(dllimport) int __stdcall ReadProcessMemory(void* hProcess, const void* pBaseAddress, void* pBuffer, unsigned long nSize, unsigned long* pBytesRead); // 0x006CC350
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 unsigned int __cdecl sub_0044CE70(); // 0x0044CE70
@@ -138,33 +138,33 @@ void __fastcall sub_00477CA0_SendPacket67(const char* szName)
     if (CHAT_HasClassOverride())
         tPacket.nClass = sub_0047AA20_GetClassOverride();
     else
-        tPacket.nClass = gbGlobal_007A0522;
+        tPacket.nClass = gnCharClass;
     tPacket.f_2D = STRTABLE_GetLanguage();
-    if (!*(int*)gpCharRecord_007A0438->aFlags209)
+    if (!*(int*)gpCharRecord->aFlags209)
     {
-        *(int*)gpCharRecord_007A0438->aFlags209 = 4;
-        *(int*)gpCharRecord_007A0438->aFlags209 |= 0x100000;
+        *(int*)gpCharRecord->aFlags209 = 4;
+        *(int*)gpCharRecord->aFlags209 |= 0x100000;
     }
-    memcpy(tPacket.aWord, gpCharRecord_007A0438->aWord207, sizeof(tPacket.aWord));
-    memcpy(tPacket.aFlags, gpCharRecord_007A0438->aFlags209, sizeof(tPacket.aFlags));
-    tPacket.nByte13 = gpCharRecord_007A0438->nByte20D;
-    tPacket.nByte2B = gpCharRecord_007A0438->nByte20E;
-    tPacket.nByte2C = gpCharRecord_007A0438->nByte20F;
-    tPacket.nByte14 = gpCharRecord_007A0438->nKind;
-    SStrCopy(tPacket.szCharName, gszCharName_007A05C4, 0x7FFFFFFF);
+    memcpy(tPacket.aWord, gpCharRecord->aWord207, sizeof(tPacket.aWord));
+    memcpy(tPacket.aFlags, gpCharRecord->aFlags209, sizeof(tPacket.aFlags));
+    tPacket.nByte13 = gpCharRecord->nByte20D;
+    tPacket.nByte2B = gpCharRecord->nByte20E;
+    tPacket.nByte2C = gpCharRecord->nByte20F;
+    tPacket.nByte14 = gpCharRecord->nKind;
+    SStrCopy(tPacket.szCharName, gszClientCharName, 0x7FFFFFFF);
 // build: symbol ?CLIENT_Send@* 0x0052AE50
     CLIENT_Send(sizeof(tPacket), 0, &tPacket);
-    gnSentBytes_007A6AF8 += sizeof(tPacket);
-    gnSentPackets_007A6B00 += 1;
+    gnSentBytes += sizeof(tPacket);
+    gnSentPackets += 1;
 }
 
-unsigned int gdwEncodedName0_007A04E8; // 0x007A04E8
+unsigned int gdwEncodedName0; // 0x007A04E8
 
-unsigned int gdwEncodedName1_007A04EC; // 0x007A04EC
+unsigned int gdwEncodedName1; // 0x007A04EC
 
-unsigned int gdwEncodedOffset_007A04F0; // 0x007A04F0
+unsigned int gdwEncodedOffset; // 0x007A04F0
 
-unsigned long gdwLastCheckTick_007BB3B0; // 0x007BB3B0
+unsigned long gdwLastCheckTick; // 0x007BB3B0
 
 struct D2SendPacket6BStrc
 {
@@ -177,8 +177,8 @@ void __cdecl sub_00477DA0()
     D2SendPacket6BStrc tPacket;
     tPacket.nHeader = 0x6B;
     CLIENT_Send(sizeof(D2SendPacket6BStrc), 0, &tPacket);
-    gnSentBytes_007A6AF8 += sizeof(D2SendPacket6BStrc);
-    gnSentPackets_007A6B00 += 1;
+    gnSentBytes += sizeof(D2SendPacket6BStrc);
+    gnSentPackets += 1;
 }
 
 // 0x00477DD0
@@ -189,9 +189,9 @@ void __cdecl sub_00477DD0()
     unsigned short wLow;
     unsigned short wHigh;
 
-    aName[0] = gdwEncodedName0_007A04E8 * 0x470E31C1;
-    aName[1] = gdwEncodedName1_007A04EC * 0x470E31C1;
-    const unsigned int nOffset = gdwEncodedOffset_007A04F0 * 0x470E31C1;
+    aName[0] = gdwEncodedName0 * 0x470E31C1;
+    aName[1] = gdwEncodedName1 * 0x470E31C1;
+    const unsigned int nOffset = gdwEncodedOffset * 0x470E31C1;
     ((char*)aName)[8] = 0;
 
     unsigned int nValue;
@@ -230,16 +230,16 @@ void __cdecl sub_00477DD0()
     }
 
     const unsigned long dwTick = GetTickCount();
-    if (dwTick - gdwLastCheckTick_007BB3B0 >= 5000)
+    if (dwTick - gdwLastCheckTick >= 5000)
     {
-        gdwLastCheckTick_007BB3B0 = dwTick;
+        gdwLastCheckTick = dwTick;
         char* pPacket = (char*)aPacket;
         pPacket[0] = 0x6D;
         *(unsigned long*)(pPacket + 1) = GetTickCount();
         *(unsigned int*)(pPacket + 5) = sub_0044CE70() >> 1;
         *(unsigned int*)(pPacket + 9) = nValue * 0xB640DE41;
         CLIENT_Send(13, 0, aPacket);
-        gnSentBytes_007A6AF8 += 13;
-        gnSentPackets_007A6B00 += 1;
+        gnSentBytes += 13;
+        gnSentPackets += 1;
     }
 }

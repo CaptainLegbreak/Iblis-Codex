@@ -14,10 +14,10 @@ int __fastcall ITEM_CallClientStateEvent(void* pArg1, int nArg2, int nArg3, int 
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
 extern unsigned int gdwBitMasks[]; // 0x006CE268
-extern CLIENTSTATEFN gpfClientStateSetFuncs_0072A690[]; // 0x0072A690
+extern CLIENTSTATEFN gpfnClientStateSetFuncs[]; // 0x0072A690
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void __fastcall CUNITEVENT_RemoveCltUnitEvents(D2UnitStrc* pUnit, int nParam4, int nParam5); // 0x004DC190
-extern CLIENTSTATEFN gpfClientStateRemFuncs_0072A710[]; // 0x0072A710
+extern CLIENTSTATEFN gpfnClientStateRemFuncs[]; // 0x0072A710
 
 typedef char check_pointer_width[sizeof(void*)==4?1:-1];
 
@@ -55,9 +55,9 @@ void __fastcall sub_004D9E60_StartClientState(D2UnitStrc* pUnit, int nState)
         }
     }
 
-    if (pStatesTxt->wSetFunc >= 0 && pStatesTxt->wSetFunc < 31 && gpfClientStateSetFuncs_0072A690[pStatesTxt->wSetFunc])
+    if (pStatesTxt->wSetFunc >= 0 && pStatesTxt->wSetFunc < 31 && gpfnClientStateSetFuncs[pStatesTxt->wSetFunc])
     {
-        gpfClientStateSetFuncs_0072A690[pStatesTxt->wSetFunc](pUnit, nState);
+        gpfnClientStateSetFuncs[pStatesTxt->wSetFunc](pUnit, nState);
     }
 
     if (pStatesTxt->wCltEvent < 0)
@@ -92,9 +92,9 @@ void __fastcall sub_004D9F40_EndClientState(D2UnitStrc* pUnit, int nState)
         return;
     }
 
-    if (pStatesTxt->wRemFunc >= 0 && pStatesTxt->wRemFunc < 30 && gpfClientStateRemFuncs_0072A710[pStatesTxt->wRemFunc])
+    if (pStatesTxt->wRemFunc >= 0 && pStatesTxt->wRemFunc < 30 && gpfnClientStateRemFuncs[pStatesTxt->wRemFunc])
     {
-        gpfClientStateRemFuncs_0072A710[pStatesTxt->wRemFunc](pUnit, nState);
+        gpfnClientStateRemFuncs[pStatesTxt->wRemFunc](pUnit, nState);
     }
 
     if (pStatesTxt->wCltEvent < 0)

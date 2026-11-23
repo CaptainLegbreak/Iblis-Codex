@@ -24,35 +24,37 @@ void __cdecl sub_0047B5C0_DrawImeCandidates();                                  
 void __stdcall sub_0047B4F0_DrawImeText(int nX, int nY);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 
-extern int gnGlobal_0071146C;                                                                               // 0x0071146C
-extern int gnGlobal_00711470;                                                                               // 0x00711470
+extern int gnScreenWidth;                                                                               // 0x0071146C
+extern int gnScreenHeight;                                                                               // 0x00711470
 extern unsigned char gbGlobal_007BB5E0;                                                                     // 0x007BB5E0
-extern unsigned char gbChatInputOpen_007BB5E1;                                                              // 0x007BB5E1
-extern int gdwGlobal_007BB5EC;                                                                              // 0x007BB5EC
+extern unsigned char gbChatInputOpen;                                                              // 0x007BB5E1
+extern int gnChatDrawCount;                                                                              // 0x007BB5EC
 extern int gnImeLanguage_007BB5F0;                                                                          // 0x007BB5F0
 extern Unicode gwszChatLine_007BB638[];                                                                     // 0x007BB638
-extern unsigned long gdwBlinkTick_007BC890;                                                                 // 0x007BC890
+extern unsigned long gdwBlinkTick;                                                                 // 0x007BC890
 
 static void sub_0047B450_DrawBlinkingCaret(int nColor, int nY, int nX)
 {
-    if (gnBlinkOn_00713004 == 1)
+// build: symbol ?gnBlinkOn@* 0x00713004
+    if (gnBlinkOn == 1)
     {
         D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xD4C), nX + 0x83, nY, nColor, 0);
     }
 
     const unsigned long dwTick = GetTickCount();
-    if (dwTick - gdwBlinkTick_007BC890 > gwBlinkDelay_00713000)
+// build: symbol ?gwBlinkDelay@* 0x00713000
+    if (dwTick - gdwBlinkTick > gwBlinkDelay)
     {
-        gdwBlinkTick_007BC890 = dwTick;
-        if (gnBlinkOn_00713004)
+        gdwBlinkTick = dwTick;
+        if (gnBlinkOn)
         {
-            gwBlinkDelay_00713000 = 100;
-            gnBlinkOn_00713004 = 0;
+            gwBlinkDelay = 100;
+            gnBlinkOn = 0;
         }
         else
         {
-            gwBlinkDelay_00713000 = 500;
-            gnBlinkOn_00713004 = 1;
+            gwBlinkDelay = 500;
+            gnBlinkOn = 1;
         }
     }
 }
@@ -61,7 +63,7 @@ static void sub_0047B450_DrawBlinkingCaret(int nColor, int nY, int nX)
 void __cdecl sub_0047B720_DrawChatPanel()
 {
     const int nOldFont = sub_00502EF0(13);
-    if (gbChatInputOpen_007BB5E1)
+    if (gbChatInputOpen)
     {
         Unicode wszLanguage[20];
         memset(wszLanguage, 0, sizeof(wszLanguage));
@@ -69,14 +71,14 @@ void __cdecl sub_0047B720_DrawChatPanel()
         {
         case 0:
             sub_00526F20_ToUnicode(wszLanguage, "Alphanumeric", 20);
-            D2Win_10117_DrawText(wszLanguage, 0x14, gnGlobal_00711470 - 0x80, 0, 0);
+            D2Win_10117_DrawText(wszLanguage, 0x14, gnScreenHeight - 0x80, 0, 0);
             break;
 
         case 4:
         case 5:
             wszLanguage[1].wChar = 0x6F22;
             wszLanguage[2].wChar = 0;
-            D2Win_10117_DrawText(wszLanguage, 0x14, gnGlobal_00711470 - 0x80, 0, 0);
+            D2Win_10117_DrawText(wszLanguage, 0x14, gnScreenHeight - 0x80, 0, 0);
             sub_0047B5C0_DrawImeCandidates();
             break;
 
@@ -84,7 +86,7 @@ void __cdecl sub_0047B720_DrawChatPanel()
             wszLanguage[0].wChar = 0xD55C;
             wszLanguage[1].wChar = 0xAE00;
             wszLanguage[2].wChar = 0;
-            D2Win_10117_DrawText(wszLanguage, 0x14, gnGlobal_00711470 - 0x80, 0, 0);
+            D2Win_10117_DrawText(wszLanguage, 0x14, gnScreenHeight - 0x80, 0, 0);
             break;
 
         case 2:
@@ -93,13 +95,13 @@ void __cdecl sub_0047B720_DrawChatPanel()
             wszLanguage[1].wChar = 0x672C;
             wszLanguage[2].wChar = 0x8A9E;
             wszLanguage[3].wChar = 0;
-            D2Win_10117_DrawText(wszLanguage, 0x14, gnGlobal_00711470 - 0x80, 0, 0);
+            D2Win_10117_DrawText(wszLanguage, 0x14, gnScreenHeight - 0x80, 0, 0);
             break;
         }
     }
 
-    gdwGlobal_007BB5EC += 1;
-    sub_0046EFD0_DrawFramedBox(0x7F, gnGlobal_00711470 - 0x67, gnGlobal_0071146C - 0xFF, 0x2F, 0, 1);
+    gnChatDrawCount += 1;
+    sub_0046EFD0_DrawFramedBox(0x7F, gnScreenHeight - 0x67, gnScreenWidth - 0xFF, 0x2F, 0, 1);
 
     int nWidth = 0;
     if (GAME_IsExitPending())
@@ -118,7 +120,7 @@ void __cdecl sub_0047B720_DrawChatPanel()
         sub_00526790(wszText, gwszChatLine_007BB638, 0x100);
 
         int nLineCount;
-        T0044CB60* pLines = sub_00502970_SplitText(wszText, &nLineCount, gnGlobal_0071146C - 0x109);
+        T0044CB60* pLines = sub_00502970_SplitText(wszText, &nLineCount, gnScreenWidth - 0x109);
         T0044CB60* pLine = pLines;
         int nLine = 0;
         while (pLine)
@@ -126,14 +128,14 @@ void __cdecl sub_0047B720_DrawChatPanel()
             nRow = nLine;
             if (nLine < 3)
             {
-                D2Win_10117_DrawText(pLine->pText, 0x83, 15 * nLine + gnGlobal_00711470 - 0x58, 0, 0);
+                D2Win_10117_DrawText(pLine->pText, 0x83, 15 * nLine + gnScreenHeight - 0x58, 0, 0);
                 nWidth = D2Win_10121_GetTextWidth(pLine->pText);
             }
 
             T0044CB60* pNext = pLine->pNext;
-            if (!pNext && gbChatInputOpen_007BB5E1 && gbGlobal_007BB5E0)
+            if (!pNext && gbChatInputOpen && gbGlobal_007BB5E0)
             {
-                sub_0047B4F0_DrawImeText(D2Win_10121_GetTextWidth(pLine->pText) + 0x83, 15 * nLine + gnGlobal_00711470 - 0x58);
+                sub_0047B4F0_DrawImeText(D2Win_10121_GetTextWidth(pLine->pText) + 0x83, 15 * nLine + gnScreenHeight - 0x58);
             }
 
             nLine += 1;
@@ -147,14 +149,14 @@ void __cdecl sub_0047B720_DrawChatPanel()
             nRow = (nLine - 1 > 2) ? 2 : nLine - 1;
         }
     }
-    else if (gbChatInputOpen_007BB5E1 && gbGlobal_007BB5E0)
+    else if (gbChatInputOpen && gbGlobal_007BB5E0)
     {
-        sub_0047B4F0_DrawImeText(0x83, gnGlobal_00711470 - 0x58);
+        sub_0047B4F0_DrawImeText(0x83, gnScreenHeight - 0x58);
     }
 
-    if (!gbChatInputOpen_007BB5E1 || !gbGlobal_007BB5E0)
+    if (!gbChatInputOpen || !gbGlobal_007BB5E0)
     {
-        sub_0047B450_DrawBlinkingCaret(0, 15 * nRow + gnGlobal_00711470 - 0x58, nWidth);
+        sub_0047B450_DrawBlinkingCaret(0, 15 * nRow + gnScreenHeight - 0x58, nWidth);
     }
 
     sub_00502EF0(nOldFont);

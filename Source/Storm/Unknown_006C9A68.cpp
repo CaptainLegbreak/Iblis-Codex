@@ -45,11 +45,11 @@ void __cdecl sub_006CB370_DeleteCriticalSection(); // 0x006CB370
 extern unsigned short gwszRealmNames_00779DF0[7 * 0x100]; // 0x00779DF0
 unsigned int __stdcall SStrHash(const char* text, unsigned int flags, unsigned int hashSeed); // 0x00413CE0
 extern const char* gpszDefaultCaption_0070EE50; // 0x0070EE50
-extern const char* gpszHelpCaption_007A0454; // 0x007A0454
+extern const char* gpszHelpCaption; // 0x007A0454
 extern unsigned short gwszText_007A2C80[80]; // 0x007A2C80
-extern int gnGlobal_0071146C; // 0x0071146C
-extern int gnAutomapWidth_007A5220; // 0x007A5220
-extern int gnGlobal_00711470; // 0x00711470
+extern int gnScreenWidth; // 0x0071146C
+extern int gnAutomapWidth; // 0x007A5220
+extern int gnScreenHeight; // 0x00711470
 extern int gnDivisor_007121DC; // 0x007121DC
 
 struct D2Block006CAB30Strc
@@ -95,7 +95,7 @@ struct D2Block006CAB90Strc
 };
 
 extern D2Block006CAB90Strc gBlock_007BB5F8; // 0x007BB5F8
-extern int gnGlobal_007BF278; // 0x007BF278
+extern int gnTextLeft; // 0x007BF278
 
 // 0x006C9A68
 int __fastcall sub_006C9A68_GetDigitClass(signed char character)
@@ -257,7 +257,7 @@ void __cdecl sub_006CA980_InitializeGameTimeHash()
 // 0x006CA9A0
 void __cdecl sub_006CA9A0_Initialize()
 {
-    gpszHelpCaption_007A0454 = gpszDefaultCaption_0070EE50;
+    gpszHelpCaption = gpszDefaultCaption_0070EE50;
 }
 
 const char* gpszCaption_007A0450; // 0x007A0450
@@ -280,13 +280,13 @@ void __cdecl sub_006CAA10_ClearText()
 // 0x006CAA90
 void __cdecl sub_006CAA90_Initialize()
 {
-    gnAutomapWidth_007A5220 = gnGlobal_0071146C;
+    gnAutomapWidth = gnScreenWidth;
 }
 
 // 0x006CAAA0
 void __cdecl sub_006CAAA0_InitializeHeight()
 {
-    gnAutomapHeight_007A521C = gnGlobal_00711470 - 40;
+    gnAutomapHeight_007A521C = gnScreenHeight - 40;
 }
 
 int gnQuotient_007A6B0C; // 0x007A6B0C
@@ -370,5 +370,5 @@ void __cdecl sub_006CAB90_InitBlock()
 // 0x006CAC10
 void __cdecl sub_006CAC10_InitializeHorizontalPosition()
 {
-    gnGlobal_007BF278 = (gnScreenWidth_0071146C - 325) / 2;
+    gnTextLeft = (gnScreenWidth_0071146C - 325) / 2;
 }

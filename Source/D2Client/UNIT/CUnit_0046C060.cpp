@@ -24,9 +24,9 @@ struct T0044A980
     D2PalShiftDataStrc* pData;
 };
 
-extern int gnTimerEnd_007A7464; // 0x007A7464
-extern int gnGlobal_0071146C; // 0x0071146C
-extern T0044A980* gpPalShiftEntries_007B9578; // 0x007B9578
+extern int gnTimerEnd; // 0x007A7464
+extern int gnScreenWidth; // 0x0071146C
+extern T0044A980* gpPalShiftEntries; // 0x007B9578
 extern unsigned char gaGlobalPalShifts_007B9580[0x1E][0x100]; // 0x007B9580
 extern int gbGlobalPalShifts_007BB380; // 0x007BB380
 
@@ -46,17 +46,18 @@ void __cdecl CUNIT_DrawCountdown()
     unsigned short wszTextBuf[256];
     Unicode* wszText = (Unicode*)wszTextBuf;
     const int nNow = sub_00410A80_GetTime();
-    if (!gnTimerEnd_007A7464 || gnTimerEnd_007A7464 <= nNow)
+    if (!gnTimerEnd || gnTimerEnd <= nNow)
         return;
-    D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnTimerUnitId_007129D4, 1);
-    if (pUnit && pUnit->dwAnimMode != 12 && gnTimerEnd_007A7464 - 0x46 > nNow)
+// build: symbol ?gnTimerUnitId@* 0x007129D4
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnTimerUnitId, 1);
+    if (pUnit && pUnit->dwAnimMode != 12 && gnTimerEnd - 0x46 > nNow)
         return;
     for (int i = 0; i < 256; ++i)
         wszText[i].wChar = 0;
-    sub_005269D0(0x100, wszText, D2LANG_GetStringFromTblIndex(0x13E9), gnTimerEnd_007A7464 - nNow);
+    sub_005269D0(0x100, wszText, D2LANG_GetStringFromTblIndex(0x13E9), gnTimerEnd - nNow);
     const int nOldFont = sub_00502EF0(13);
     const int nWidth = D2Win_10121_GetTextWidth(wszText);
-    D2Win_10117_DrawText(wszText, gnGlobal_0071146C / 2 - nWidth / 2, 0x177, 9, 1);
+    D2Win_10117_DrawText(wszText, gnScreenWidth / 2 - nWidth / 2, 0x177, 9, 1);
     sub_00502EF0(nOldFont);
 }
 
@@ -66,7 +67,7 @@ unsigned char* __fastcall CUNIT_GetPalShift(D2UnitStrc* pUnit)
     const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType == UNIT_MONSTER)
     {
-        D2PalShiftDataStrc* pData = gpPalShiftEntries_007B9578[pUnit->dwClassId].pData;
+        D2PalShiftDataStrc* pData = gpPalShiftEntries[pUnit->dwClassId].pData;
         if (!pData)
             return 0;
         int nMode = CUNIT_GetPalShiftIndex(pUnit);

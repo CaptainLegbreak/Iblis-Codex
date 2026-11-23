@@ -105,21 +105,21 @@ void __fastcall SCMD_HandleSystemPacket(unsigned char* pPacket, int nLength); //
 
 void __fastcall SCMD_ProcessPackets(unsigned char* pPacket, int nLength); // 0x0045F7B0
 
-void* gpConnection_00798FB4; // 0x00798FB4
+void* gpMcpConnection; // 0x00798FB4
 
-extern const char* gpszLaunchModeNames_0070EE70[7]; // 0x0070EE70
+extern const char* gaszLaunchModeNames[7]; // 0x0070EE70
 
-extern const D2CmdArgStrc gtCommandLineArgs_006D5BE8[8]; // 0x006D5BE8
+extern const D2CmdArgStrc gaCommandLineArgs[8]; // 0x006D5BE8
 
-extern int (__cdecl* const gpfnLaunchInit_006D5BE0[1])(); // 0x006D5BE0
+extern int (__cdecl* const gpfnLaunchInit[1])(); // 0x006D5BE0
 
-extern char gszCharName_007A05C4[]; // 0x007A05C4
+extern char gszClientCharName[]; // 0x007A05C4
 
-int gdwGlobal_007A0460;                                                                                     // 0x007A0460
+int gbConnectFailed;                                                                                     // 0x007A0460
 
-unsigned long gdwTick_007A0464;                                                                             // 0x007A0464
+unsigned long gdwStartSessionTick;                                                                             // 0x007A0464
 
-unsigned long gdwTick_007A045C;                                                                             // 0x007A045C
+unsigned long gdwStopSessionTick;                                                                             // 0x007A045C
 
 #pragma pack(push, 1)
 
@@ -190,7 +190,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" unsigned int __cdecl strlen(const char* pString);
 
-extern unsigned short gwMcpRequestId_00798F8C; // 0x00798F8C
+extern unsigned short gwMcpRequestId; // 0x00798F8C
 
 #pragma pack(push, 1)
 
@@ -285,13 +285,13 @@ void __stdcall GAME_StripColorCodes(Unicode* pText); // 0x0044B230
 
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 
-extern int gdwGlobal_00798FB0; // 0x00798FB0
+extern int gnMcpGameToken; // 0x00798FB0
 
-extern int gdwGlobal_00798F88; // 0x00798F88
+extern int gdwMcpGameHash; // 0x00798F88
 
-extern char gData_007992CC[]; // 0x007992CC
+extern char gszMcpGameServerIP[]; // 0x007992CC
 
-extern D2McpInfoStrc gMcpInfo_0079910C; // 0x0079910C
+extern D2McpInfoStrc gtMcpInfo; // 0x0079910C
 
 extern int gdwGlobal_00799108; // 0x00799108
 
@@ -299,11 +299,11 @@ int __stdcall WINMAIN_ShowCommandLineHelp(const D2CmdParamsStrc* pParams, int nU
 
 int __stdcall WINMAIN_SetLaunchMode(const D2CmdParamsStrc* pParams, int nUnused); // 0x0044B600
 
-const char* gpszHelpCaption_007A0454; // 0x007A0454
+const char* gpszHelpCaption; // 0x007A0454
 
-int gdwGlobal_007A0618; // 0x007A0618
+int gbGameServerReady; // 0x007A0618
 
-static int s_bHelpChecked_007A0448; // 0x007A0448
+static int s_bHelpChecked; // 0x007A0448
 
 struct D2ClientCharRecordStrc;
 
@@ -361,19 +361,19 @@ void __cdecl SERVER_Release();                                                  
 
 int __cdecl GAME_PopStateValue();                                                                        // 0x0044B480
 
-void (__fastcall* gpfnCallback_00799308)(void* pArg);                                                       // 0x00799308
+void (__fastcall* gpfnMcpMotdCallback)(void* pArg);                                                       // 0x00799308
 
-extern D2McpPacketHandler gpfnMcpHandlers_0070ED68[];                                                       // 0x0070ED68
+extern D2McpPacketHandler gpfnConnectPacketHandlers[];                                                       // 0x0070ED68
 
-void* gpInstance_007A0318;                                                                                  // 0x007A0318
+void* ghClientInstance;                                                                                  // 0x007A0318
 
-extern D2ClientInterfaceStrc gtInterface_0070EE0C;                                                          // 0x0070EE0C
+extern D2ClientInterfaceStrc gtClientInterface;                                                          // 0x0070EE0C
 
-extern D2GameDataTableStrc gtGameDataTable_007A0690;                                                        // 0x007A0690
+extern D2GameDataTableStrc gtGameDataTable;                                                        // 0x007A0690
 
-char gtGameList_007A0630[4];                                                                                // 0x007A0630
+char gtGameList[4];                                                                                // 0x007A0630
 
-extern char gszAddress_0070EF20[];                                                                          // 0x0070EF20
+extern char gszServerIP[];                                                                          // 0x0070EF20
 
 struct D2McpPacket01Strc;
 
@@ -438,7 +438,7 @@ struct D2McpCreateGameStrc
 extern int gnGlobal_00798FB0; // 0x00798FB0
 
 
-extern int gdwGlobal_007A2784;                                                                              // 0x007A2784
+extern int gnRecordPos;                                                                              // 0x007A2784
 
 
 void __cdecl RECORD_LoadRecordFile();                                                                 // 0x00451710
@@ -562,12 +562,12 @@ void __cdecl WINMAIN_DrainPacketQueues()
 int __cdecl WINMAIN_PollMcpConnection()
 {
     char szBuffer[0x400];
-    if (!gpConnection_00798FB4)
+    if (!gpMcpConnection)
     {
         return 0;
     }
 
-    const unsigned short nLength = sub_006BC120_Receive(gpConnection_00798FB4, szBuffer, sizeof(szBuffer));
+    const unsigned short nLength = sub_006BC120_Receive(gpMcpConnection, szBuffer, sizeof(szBuffer));
     if (nLength)
     {
         GAME_DispatchMcpPacket(szBuffer, nLength);
@@ -612,7 +612,7 @@ int __fastcall WINMAIN_SendMcpStartup(D2LaunchThreadRecordStrc* pRecord)
     sub_0044A170_AppendText(tPacket.szText, (const char*)&pRecord->nData[0x12], sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 0x41;
     D2_ASSERT(nTotal < 0xFFFF, 0x5C);
-    return sub_006BC8A0_SendBuffer(gpConnection_00798FB4, &tPacket.f_0, nTotal);
+    return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
 }
 
 // 0x0044A2E0
@@ -629,7 +629,7 @@ int __fastcall WINMAIN_SendMcpCharCreate(const char* szText, int nValue, unsigne
     sub_0044A170_AppendText(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 7;
     D2_ASSERT(nTotal < 0xFFFF, 0x7E);
-    return sub_006BC8A0_SendBuffer(gpConnection_00798FB4, &tPacket.f_0, nTotal);
+    return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
 }
 
 // 0x0044A380
@@ -642,7 +642,7 @@ int __fastcall WINMAIN_SendMcpCharLogon(const char* szText)
     sub_0044A170_AppendText(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 1;
     D2_ASSERT(nTotal < 0xFFFF, 0x9A);
-    return sub_006BC8A0_SendBuffer(gpConnection_00798FB4, &tPacket.f_0, nTotal);
+    return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
 }
 
 // 0x0044A400
@@ -657,14 +657,14 @@ int __fastcall WINMAIN_SendMcpCreateGame(D2McpCreateGameStrc* pRecord, unsigned 
     unsigned int nSize = 0;
     tPacket.f_0 = 3;
     tPacket.nByte09 = pRecord->nByte46;
-    gwMcpRequestId_00798F8C = wRequestId;
+    gwMcpRequestId = wRequestId;
     char* pText = sub_0044A170_AppendText(tPacket.szText, pRecord->szName, sizeof(tPacket.szText), &nSize);
     pText = sub_0044A170_AppendText(pText, pRecord->szPassword, sizeof(tPacket.szText), &nSize);
     sub_0044A170_AppendText(pText, pRecord->szDescription, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 10;
     D2_ASSERT(nTotal < 0xFFFF, 0xC1);
     gnGlobal_00798FB0 = 0;
-    return sub_006BC8A0_SendBuffer(gpConnection_00798FB4, &tPacket.f_0, nTotal);
+    return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
 }
 
 // 0x0044A4E0
@@ -675,12 +675,12 @@ int __fastcall WINMAIN_SendMcpJoinGame(const char* szName, const char* szRealm, 
     unsigned int nSize = 0;
     tPacket.f_0 = 4;
     tPacket.f_1 = wRequestId;
-    gwMcpRequestId_00798F8C = wRequestId;
+    gwMcpRequestId = wRequestId;
     char* pText = sub_0044A170_AppendText(tPacket.szText, szName, sizeof(tPacket.szText), &nSize);
     sub_0044A170_AppendText(pText, szRealm, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 3;
     D2_ASSERT(nTotal < 0xFFFF, 0xE9);
-    return sub_006BC8A0_SendBuffer(gpConnection_00798FB4, &tPacket.f_0, nTotal);
+    return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
 }
 
 // 0x0044A590
@@ -692,10 +692,10 @@ void __fastcall WINMAIN_SendMcpGameListRequest(D2LaunchRequestStrc* pRequest, un
     tPacket.f_0 = 5;
     tPacket.f_1 = wRequestId;
     tPacket.dwFlags = pRequest->dwFlags;
-    gwMcpRequestId_00798F8C = wRequestId;
+    gwMcpRequestId = wRequestId;
     sub_0044A170_AppendText(tPacket.szText, (const char*)pRequest->nData, sizeof(tPacket.szText), &nSize);
     nSize += 7;
-    sub_006BC8A0_SendBuffer(gpConnection_00798FB4, &tPacket.f_0, nSize);
+    sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nSize);
 }
 
 // 0x0044A610
@@ -706,10 +706,10 @@ int __fastcall WINMAIN_SendMcpGameInfoRequest(char* szText, unsigned short wRequ
     unsigned int nSize = 0;
     tPacket.f_0 = 6;
     tPacket.f_1 = wRequestId;
-    gwMcpRequestId_00798F8C = wRequestId;
+    gwMcpRequestId = wRequestId;
     sub_0044A170_AppendText(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
     nSize += 3;
-    return sub_006BC8A0_SendBuffer(gpConnection_00798FB4, &tPacket.f_0, nSize);
+    return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nSize);
 }
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
@@ -724,8 +724,8 @@ int __fastcall sub_0044A680_SendPacket08(const char* szText, unsigned short wReq
     sub_0044A170_AppendText(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 3;
     D2_ASSERT(nTotal < 0xFFFF, 0x148);
-    gwMcpRequestId_00798F8C = wRequestId;
-    return sub_006BC8A0_SendBuffer(gpConnection_00798FB4, &tPacket.f_0, nTotal);
+    gwMcpRequestId = wRequestId;
+    return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
 }
 
 // 0x0044A710
@@ -739,8 +739,8 @@ int __fastcall sub_0044A710_SendPacket09(const char* szText, unsigned short wReq
     sub_0044A170_AppendText(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 3;
     D2_ASSERT(nTotal < 0xFFFF, 0x169);
-    gwMcpRequestId_00798F8C = wRequestId;
-    return sub_006BC8A0_SendBuffer(gpConnection_00798FB4, &tPacket.f_0, nTotal);
+    gwMcpRequestId = wRequestId;
+    return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
 }
 
 // 0x0044A7A0
@@ -748,11 +748,11 @@ void __fastcall WINMAIN_SendMcpCharDelete(const char* szText, unsigned short wRe
 {
     D2McpPacket0AStrc tPacket;
     CHATDLG_SetMcpResult(0);
-    gwMcpRequestId_00798F8C = wRequestId;
+    gwMcpRequestId = wRequestId;
     tPacket.f_0 = 0x0A;
     tPacket.f_1 = wRequestId;
     SStrCopy(tPacket.szText, szText, sizeof(tPacket.szText));
-    sub_006BC8A0_SendBuffer(gpConnection_00798FB4, &tPacket.f_0, SStrLen(tPacket.szText) + 4);
+    sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, SStrLen(tPacket.szText) + 4);
 }
 
 // 0x0044A810
@@ -762,7 +762,7 @@ void __fastcall WINMAIN_SendMcpCharUpgrade(const char* szText)
     CHATDLG_SetMcpResult(0);
     tPacket.f_0 = 0x18;
     SStrCopy(tPacket.szText, szText, sizeof(tPacket.szText));
-    sub_006BC8A0_SendBuffer(gpConnection_00798FB4, &tPacket.f_0, SStrLen(tPacket.szText) + 2);
+    sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, SStrLen(tPacket.szText) + 2);
 }
 
 // 0x0044A870
@@ -776,7 +776,7 @@ int __fastcall sub_0044A870_SendPacket0B(const char* szText1, const char* szText
     sub_0044A170_AppendText(pText, szText2, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 1;
     D2_ASSERT(nTotal < 0xFFFF, 0x1C2);
-    return sub_006BC8A0_SendBuffer(gpConnection_00798FB4, &tPacket.f_0, nTotal);
+    return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
 }
 
 // 0x0044AF30
@@ -787,8 +787,8 @@ int __fastcall WINMAIN_HandleMcpServerAddress(D2McpPacket10Strc* pPacket, int nS
     const int nAddress = pPacket->f_9;
     const int nCode = pPacket->nCode;
     CHATDLG_SetMcpResult(nCode);
-    gdwGlobal_00798FB0 = nValueB0;
-    gdwGlobal_00798F88 = nValue88;
+    gnMcpGameToken = nValueB0;
+    gdwMcpGameHash = nValue88;
     if (!nAddress)
     {
         if (nCode)
@@ -802,7 +802,7 @@ int __fastcall WINMAIN_HandleMcpServerAddress(D2McpPacket10Strc* pPacket, int nS
         return 1;
     }
 // build: symbol ?FOG_inet_ntoa@* 0x0040E080
-    SStrCopy(gData_007992CC, FOG_inet_ntoa(nAddress), 0x12);
+    SStrCopy(gszMcpGameServerIP, FOG_inet_ntoa(nAddress), 0x12);
     sub_00449DD0_SetValue(1);
     return 1;
 }
@@ -812,12 +812,12 @@ int __fastcall WINMAIN_HandleMcpGameList(D2McpPacket05Strc* pPacket, int nSize)
 {
     const int nValue = pPacket->nValue;
     const int nToken = pPacket->nToken;
-    if (pPacket->f_1 != gwMcpRequestId_00798F8C)
+    if (pPacket->f_1 != gwMcpRequestId)
         return 1;
-    gMcpInfo_0079910C.f_0 = gwMcpRequestId_00798F8C;
-    gMcpInfo_0079910C.unk0x04 = nValue;
-    gMcpInfo_0079910C.nCount = pPacket->nCount;
-    gMcpInfo_0079910C.nToken = nToken;
+    gtMcpInfo.f_0 = gwMcpRequestId;
+    gtMcpInfo.unk0x04 = nValue;
+    gtMcpInfo.nCount = pPacket->nCount;
+    gtMcpInfo.nToken = nToken;
     if (nToken == -2)
     {
         CHATDLG_SetMcpResult(0x33);
@@ -838,8 +838,8 @@ int __fastcall WINMAIN_HandleMcpGameList(D2McpPacket05Strc* pPacket, int nSize)
     GAME_StripColorCodes(wszText);
     char szText[0x400];
     sub_00526F70(szText, wszText, 0x400);
-    SStrCopy(gMcpInfo_0079910C.unk0x18, szText, 0x10);
-    SStrCopy(gMcpInfo_0079910C.szName, szSecond, 0x10);
+    SStrCopy(gtMcpInfo.unk0x18, szText, 0x10);
+    SStrCopy(gtMcpInfo.szName, szSecond, 0x10);
     gdwGlobal_00799108 = (unsigned int)(szSecond + nSecondLength + 1 - (const char*)pPacket) < (unsigned int)nSize;
     return 1;
 }
@@ -849,28 +849,28 @@ D2ClientInterfaceStrc* __fastcall WINMAIN_InitInterface(void* hInstance)
 {
     sub_006115F0_Empty();
     sub_0052BDA0_Empty();
-    gpInstance_007A0318 = hInstance;
-    return &gtInterface_0070EE0C;
+    ghClientInstance = hInstance;
+    return &gtClientInterface;
 }
 
 // 0x0044B430
 int __fastcall WINMAIN_RunLauncher(D2ClientCharRecordStrc* pRecord)
 {
-    return GAME_LauncherRun(gpInstance_007A0318, pRecord);
+    return GAME_LauncherRun(ghClientInstance, pRecord);
 }
 
 // 0x0044B4E0
 int __stdcall WINMAIN_ShowCommandLineHelp(const D2CmdParamsStrc* pParams, int nUnused)
 {
-    if (!s_bHelpChecked_007A0448)
+    if (!s_bHelpChecked)
     {
-        s_bHelpChecked_007A0448 = 1;
+        s_bHelpChecked = 1;
         unsigned long nSize = 0xF;
         char szUser[0x10];
         GetUserNameA(szUser, &nSize);
         if (SStrCmp(szUser, "rseis", 0x7FFFFFFF))
         {
-            MessageBoxA(0, "Available command line options:\n  -set[default command line]\t\tSet new default command line string\n  -lng[lngfile]\t\t\tUse \"lngfile\" for language resources\n", gpszHelpCaption_007A0454, 0);
+            MessageBoxA(0, "Available command line options:\n  -set[default command line]\t\tSet new default command line string\n  -lng[lngfile]\t\t\tUse \"lngfile\" for language resources\n", gpszHelpCaption, 0);
         }
     }
     return 0;
@@ -918,9 +918,10 @@ int __stdcall WINMAIN_SetLaunchMode(const D2CmdParamsStrc* pParams, int nUnused)
 {
     for (unsigned int i = 0; i < 7; ++i)
     {
-        if (gpszLaunchModeNames_0070EE70[i] && !_stricmp(gpszLaunchModeNames_0070EE70[i], pParams->szValue))
+        if (gaszLaunchModeNames[i] && !_stricmp(gaszLaunchModeNames[i], pParams->szValue))
         {
-            gnLaunchState_0070EE4C = i;
+// build: symbol ?gnClientLaunchState@* 0x0070EE4C
+            gnClientLaunchState = i;
             return 1;
         }
     }
@@ -931,10 +932,10 @@ int __stdcall WINMAIN_SetLaunchMode(const D2CmdParamsStrc* pParams, int nUnused)
 int __stdcall WINMAIN_ProcessCommandLine(void* pArg)
 {
     char szCmdLine[0x104];
-    SCmdRegisterArgList(gtCommandLineArgs_006D5BE8, 8);
-    for (unsigned int i = 0; i < sizeof(gpfnLaunchInit_006D5BE0) / sizeof(gpfnLaunchInit_006D5BE0[0]); ++i)
+    SCmdRegisterArgList(gaCommandLineArgs, 8);
+    for (unsigned int i = 0; i < sizeof(gpfnLaunchInit) / sizeof(gpfnLaunchInit[0]); ++i)
     {
-        if (!gpfnLaunchInit_006D5BE0[i]())
+        if (!gpfnLaunchInit[i]())
         {
             return 0;
         }
@@ -952,9 +953,9 @@ int __stdcall WINMAIN_ProcessCommandLine(void* pArg)
 
     {
         unsigned long nSize = 0xF;
-        if (!gszCharName_007A05C4[0] && !GetUserNameA(gszCharName_007A05C4, &nSize))
+        if (!gszClientCharName[0] && !GetUserNameA(gszClientCharName, &nSize))
         {
-            wsprintfA(gszCharName_007A05C4, gszStringFormat_006FFC58, "noname");
+            wsprintfA(gszClientCharName, gszStringFormat_006FFC58, "noname");
         }
     }
     return 1;
@@ -966,11 +967,11 @@ int __stdcall WINMAIN_PollSystemPackets(int nUnused)
     unsigned char pBuffer[0x200];
     if ((gdwGlobal_007A0610 != 0 && gdwGlobal_007A0610 != 1) || !WINDOW_GetState())
     {
-        if (GetTickCount() - gdwTick_007A0464 > 10000)
+        if (GetTickCount() - gdwStartSessionTick > 10000)
         {
             GAME_ShowLoadingMessage(6);
-            gdwGlobal_007A0460 = 1;
-            gdwGlobal_007A0618 = 0;
+            gbConnectFailed = 1;
+            gbGameServerReady = 0;
             return 1;
         }
 
@@ -982,7 +983,7 @@ int __stdcall WINMAIN_PollSystemPackets(int nUnused)
 
     const int nLength = CLIENT_DequeueSystemPacket(pBuffer, sizeof(pBuffer));
     SCMD_HandleSystemPacket(pBuffer, nLength);
-    return gdwGlobal_007A0618 != 0;
+    return gbGameServerReady != 0;
 }
 
 // 0x0044BBB0
@@ -994,8 +995,8 @@ int __stdcall WINMAIN_WaitConnect(int nUnused)
         if (nStatus == 0)
         {
             GAME_ShowLoadingMessage(6);
-            gdwGlobal_007A0460 = 1;
-            gdwGlobal_007A0618 = 0;
+            gbConnectFailed = 1;
+            gbGameServerReady = 0;
             return 1;
         }
         return nStatus == 2;
@@ -1006,15 +1007,16 @@ int __stdcall WINMAIN_WaitConnect(int nUnused)
 // 0x0044BC30
 int __cdecl WINMAIN_StartSession()
 {
-    gdwGlobal_007A0618 = 0;
+    gbGameServerReady = 0;
     if (gdwGlobal_007A0610 == 0)
     {
         SERVER_Initialize(1, 1);
         CLIENT_Initialize(1, 0);
         SCMD_RunMessageLoop(WINMAIN_WaitConnect);
         SERVER_SetHackListEnabled(0);
-        GAME_InitGameDataTable(&gtGameDataTable_007A0690, gtGameList_007A0630);
-        gnSubsystemActive_007A0458 = 1;
+        GAME_InitGameDataTable(&gtGameDataTable, gtGameList);
+// build: symbol ?gnSubsystemActive@* 0x007A0458
+        gnSubsystemActive = 1;
         GAME_Initialize();
     }
     else if (gdwGlobal_007A0610 == 1)
@@ -1023,13 +1025,14 @@ int __cdecl WINMAIN_StartSession()
         CLIENT_Initialize(2, 0);
         SCMD_RunMessageLoop(WINMAIN_WaitConnect);
         SERVER_SetHackListEnabled(0);
-        GAME_InitGameDataTable(&gtGameDataTable_007A0690, gtGameList_007A0630);
-        gnSubsystemActive_007A0458 = 1;
+        GAME_InitGameDataTable(&gtGameDataTable, gtGameList);
+        gnSubsystemActive = 1;
         GAME_Initialize();
     }
     else if (gdwGlobal_007A0610 == 4)
     {
-        CLIENT_Initialize(0, gszAddress_0070F028);
+// build: symbol ?gszBattleNetIP@* 0x0070F028
+        CLIENT_Initialize(0, gszBattleNetIP);
         SCMD_RunMessageLoop(WINMAIN_WaitConnect);
     }
     else if (gdwGlobal_007A0610 == 6 || gdwGlobal_007A0610 == 8)
@@ -1037,20 +1040,20 @@ int __cdecl WINMAIN_StartSession()
         SERVER_Initialize(0, 1);
         SERVER_SetMaxClientsPerGame(8);
         SERVER_SetHackListEnabled(0);
-        CLIENT_Initialize(0, gszAddress_0070EF20);
+        CLIENT_Initialize(0, gszServerIP);
         SCMD_RunMessageLoop(WINMAIN_WaitConnect);
-        GAME_InitGameDataTable(&gtGameDataTable_007A0690, gtGameList_007A0630);
-        gnSubsystemActive_007A0458 = 1;
+        GAME_InitGameDataTable(&gtGameDataTable, gtGameList);
+        gnSubsystemActive = 1;
         GAME_Initialize();
     }
     else
     {
-        CLIENT_Initialize(0, gszAddress_0070EF20);
+        CLIENT_Initialize(0, gszServerIP);
         SCMD_RunMessageLoop(WINMAIN_WaitConnect);
     }
 
-    gdwTick_007A0464 = GetTickCount();
-    gdwGlobal_007A0460 = 0;
+    gdwStartSessionTick = GetTickCount();
+    gbConnectFailed = 0;
     SCMD_RunMessageLoop(WINMAIN_PollSystemPackets);
     return GAME_PopStateValue();
 }
@@ -1067,17 +1070,17 @@ int __stdcall WINMAIN_PumpSystemPackets(int nUnused)
 
     const int nLength = CLIENT_DequeueSystemPacket(pBuffer, sizeof(pBuffer));
     SCMD_HandleSystemPacket(pBuffer, nLength);
-    if (GetTickCount() - gdwTick_007A045C > 10000)
+    if (GetTickCount() - gdwStopSessionTick > 10000)
     {
         return 1;
     }
-    return gdwGlobal_007A0618 == 0;
+    return gbGameServerReady == 0;
 }
 
 // 0x0044BD90
 int __cdecl WINMAIN_StopSession()
 {
-    gdwTick_007A045C = GetTickCount();
+    gdwStopSessionTick = GetTickCount();
     SCMD_RunMessageLoop(WINMAIN_PumpSystemPackets);
     CLIENT_Release();
     if (gdwGlobal_007A0610 == 0 || gdwGlobal_007A0610 == 1 || gdwGlobal_007A0610 == 6 || gdwGlobal_007A0610 == 8)
@@ -1116,7 +1119,7 @@ int __fastcall WINMAIN_DispatchConnectPacket(const unsigned char* pPacket, unsig
     const unsigned char nCmd = pPacket[0];
     if (nCmd >= 0x1A)
         return 0;
-    D2McpPacketHandler pfnHandler = gpfnMcpHandlers_0070ED68[nCmd];
+    D2McpPacketHandler pfnHandler = gpfnConnectPacketHandlers[nCmd];
     if (pfnHandler)
         nResult = pfnHandler(pPacket, nSize);
     return nResult;
@@ -1132,7 +1135,7 @@ int __fastcall sub_0044A900_SendPacket0C(const char* szText)
     sub_0044A170_AppendText(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 1;
     D2_ASSERT(nTotal < 0xFFFF, 0x1DE);
-    return sub_006BC8A0_SendBuffer(gpConnection_00798FB4, &tPacket.f_0, nTotal);
+    return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
 }
 
 // 0x0044AAE0
@@ -1147,7 +1150,7 @@ int __fastcall sub_0044AAE0_SendSelect(const char* szName, int nB, int nC)
     sub_0044A170_AppendText(tPacket.szText, szName, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 9;
     D2_ASSERT(nTotal < 0xFFFF, 0x27B);
-    return sub_006BC8A0_SendBuffer(gpConnection_00798FB4, &tPacket.f_0, nTotal);
+    return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
 }
 
 // 0x0044B120
@@ -1155,8 +1158,8 @@ int __fastcall WINMAIN_HandleMcpMotd(const unsigned char* pPacket, unsigned int 
 {
     if (nSize < 2)
         return 0;
-    if (gpfnCallback_00799308)
-        ((D2McpCallback)gpfnCallback_00799308)(pPacket[1], nSize - 2, pPacket + 2);
+    if (gpfnMcpMotdCallback)
+        ((D2McpCallback)gpfnMcpMotdCallback)(pPacket[1], nSize - 2, pPacket + 2);
     return 1;
 }
 void __cdecl WINMAIN_StartPlayback(); // 0x004518E0

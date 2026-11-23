@@ -170,7 +170,7 @@ extern "C" void __stdcall PATH_SetPathingFlag(D2DynamicPathStrc* pDynamicPath, i
 
 struct D2SkillStrc;
 
-extern "C" const char szUnitModeFile_006D8E84[];                                                            // 0x006D8E84
+extern "C" const char gszUnitModeFile[];                                                            // 0x006D8E84
 
 int __fastcall sub_00480C10_UnitEvent(int nEvent, D2UnitStrc* pUnit, int* pArgs, int nFlag);                // 0x00480C10
 
@@ -238,7 +238,7 @@ int __fastcall GFXUTIL_HitTestUnitCel(D2UnitStrc* pUnit, int nX, int nY); // 0x0
 
 D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int nX, int nY); // 0x00619DA0
 
-extern D2DrlgActStrc* gpAct_007A0634; // 0x007A0634
+extern D2DrlgActStrc* gpAct; // 0x007A0634
 
 void __fastcall sub_004785D0_SendShortShort(char nHeader, short nArg1, short nArg2); // 0x004785D0
 
@@ -374,7 +374,7 @@ void __fastcall UNITMODE_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsig
     D2ActiveRoomStrc* pNewRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, nX, nY);
     if (!pNewRoom)
     {
-        pNewRoom = DUNGEON_FindRoomBySubtileCoordinates(gpAct_007A0634, nX, nY);
+        pNewRoom = DUNGEON_FindRoomBySubtileCoordinates(gpAct, nX, nY);
         if (!pNewRoom)
         {
             return;
@@ -654,7 +654,7 @@ static int UNITMODE_CanUseSkillNow(D2UnitStrc* pPlayer)
         return 1;
     }
 
-    D2SkillsTxt* pSkillsTxt = UMODE_GetSkillsTxtRecord(SKILLS_GetSkillIdFromSkill(pSkill, szUnitModeFile_006D8E84, 0x2CC));
+    D2SkillsTxt* pSkillsTxt = UMODE_GetSkillsTxtRecord(SKILLS_GetSkillIdFromSkill(pSkill, gszUnitModeFile, 0x2CC));
     if (!pSkillsTxt || BITARRAY_CHECK((unsigned char*)pSkillsTxt, 63))
     {
         return 1;
@@ -828,7 +828,7 @@ static int __stdcall sub_004814A0_ActOnMonster(int nAction, int nType, int nId, 
 
         if (pSkill)
         {
-            D2SkillsTxt* pSkillsTxt = UMODE_GetSkillsTxtRecord(SKILLS_GetSkillIdFromSkill(pSkill, szUnitModeFile_006D8E84, 0x44F));
+            D2SkillsTxt* pSkillsTxt = UMODE_GetSkillsTxtRecord(SKILLS_GetSkillIdFromSkill(pSkill, gszUnitModeFile, 0x44F));
             if (pSkillsTxt && BITARRAY_CHECK((unsigned char*)pSkillsTxt, 56))
             {
                 goto LABEL_OK;
@@ -1107,7 +1107,7 @@ void __fastcall UNITMODE_DoUnitAction(int nAction, D2UnitStrc* pPlayer, int nArg
 
     case 5:
     case 8:
-        args[0] = SKILLS_GetSkillIdFromSkill(UNITS_GetLeftSkill(pPlayer), szUnitModeFile_006D8E84, 0x32C);
+        args[0] = SKILLS_GetSkillIdFromSkill(UNITS_GetLeftSkill(pPlayer), gszUnitModeFile, 0x32C);
         args[1] = SKILLS_GetOwnerGUIDFromSkill(UNITS_GetLeftSkill(pPlayer));
         args[2] = nArg1;
         args[3] = nArg2;
@@ -1118,7 +1118,7 @@ void __fastcall UNITMODE_DoUnitAction(int nAction, D2UnitStrc* pPlayer, int nArg
     case 7:
     case 9:
     case 10:
-        args[0] = SKILLS_GetSkillIdFromSkill(UNITS_GetLeftSkill(pPlayer), szUnitModeFile_006D8E84, 0x336);
+        args[0] = SKILLS_GetSkillIdFromSkill(UNITS_GetLeftSkill(pPlayer), gszUnitModeFile, 0x336);
         args[1] = SKILLS_GetOwnerGUIDFromSkill(UNITS_GetLeftSkill(pPlayer));
         args[2] = nArg1;
         args[3] = nArg2;
@@ -1127,7 +1127,7 @@ void __fastcall UNITMODE_DoUnitAction(int nAction, D2UnitStrc* pPlayer, int nArg
 
     case 12:
     case 15:
-        args[0] = SKILLS_GetSkillIdFromSkill(UNITS_GetRightSkill(pPlayer), szUnitModeFile_006D8E84, 0x33E);
+        args[0] = SKILLS_GetSkillIdFromSkill(UNITS_GetRightSkill(pPlayer), gszUnitModeFile, 0x33E);
         args[1] = SKILLS_GetOwnerGUIDFromSkill(UNITS_GetRightSkill(pPlayer));
         args[2] = nArg1;
         args[3] = nArg2;
@@ -1138,7 +1138,7 @@ void __fastcall UNITMODE_DoUnitAction(int nAction, D2UnitStrc* pPlayer, int nArg
     case 14:
     case 16:
     case 17:
-        args[0] = SKILLS_GetSkillIdFromSkill(UNITS_GetRightSkill(pPlayer), szUnitModeFile_006D8E84, 0x348);
+        args[0] = SKILLS_GetSkillIdFromSkill(UNITS_GetRightSkill(pPlayer), gszUnitModeFile, 0x348);
         args[1] = SKILLS_GetOwnerGUIDFromSkill(UNITS_GetRightSkill(pPlayer));
         args[2] = nArg1;
         args[3] = nArg2;
@@ -1334,7 +1334,7 @@ static int __stdcall UNITMODE_TryMonsterAction(D2UnitStrc* pUnit, D2UnitStrc* pP
 
         if (pSkill)
         {
-            int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, szUnitModeFile_006D8E84, 0x44F);
+            int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, gszUnitModeFile, 0x44F);
             D2SkillsTxt* pTxt = sub_004814A0_GetSkillsTxtRecord(nSkillId);
             if (pTxt && BITARRAY_CHECK((unsigned char*)pTxt, 56))
             {

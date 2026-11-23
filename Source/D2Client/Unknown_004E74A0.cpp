@@ -5,7 +5,7 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* 
 void __fastcall sub_00526320_ToUnicode(wchar_t* pDest, const char* szSource, int nLength);                  // 0x00526320
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char szFmtD_006D57BC[];                                                                    // 0x006D57BC
-extern "C" const char szFmtRange_006D9D70[];                                                                // 0x006D9D70
+extern "C" const char gszFmtRange[];                                                                // 0x006D9D70
 
 static void __stdcall sub_004E74A0_FormatDamageRange(int bPrefixSign, wchar_t* wszText, int bUseFormat, int nMinDamage, int nMaxDamage);
 // 0x004E74A0
@@ -15,14 +15,15 @@ static void __stdcall sub_004E74A0_FormatDamageRange(int bPrefixSign, wchar_t* w
     if (bUseFormat && (nMinDamage >= 10000 || nMaxDamage >= 10000))
     {
         if (!(nMinDamage < 10000))
-            wsprintfA(szText, "%s%dK-%dK", bPrefixSign ? szPlus_006DBEC4 : &gszEmptyAssertText, (nMinDamage + 500) / 1000, (nMaxDamage + 500) / 1000);
+// build: symbol ?gszPlus@* 0x006DBEC4
+            wsprintfA(szText, "%s%dK-%dK", bPrefixSign ? gszPlus : &gszEmptyAssertText, (nMinDamage + 500) / 1000, (nMaxDamage + 500) / 1000);
         else
-            wsprintfA(szText, "%s%d-%dK", bPrefixSign ? szPlus_006DBEC4 : &gszEmptyAssertText, nMinDamage, (nMaxDamage + 500) / 1000);
+            wsprintfA(szText, "%s%d-%dK", bPrefixSign ? gszPlus : &gszEmptyAssertText, nMinDamage, (nMaxDamage + 500) / 1000);
     }
     else if (bPrefixSign)
         wsprintfA(szText, "+%d-%d", nMinDamage, nMaxDamage);
     else
-        wsprintfA(szText, szFmtRange_006D9D70, nMinDamage, nMaxDamage);
+        wsprintfA(szText, gszFmtRange, nMinDamage, nMaxDamage);
     sub_00526320_ToUnicode(wszText, szText, 32);
 }
 

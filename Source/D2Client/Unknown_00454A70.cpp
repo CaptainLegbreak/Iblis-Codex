@@ -11,8 +11,8 @@ struct D2MonStatsTxt;
 struct D2MonStats2Txt;
 struct D2ImmunityTextStrc;
 
-extern Unicode gwszText_007A2A78[]; // 0x007A2A78
-extern int gnHoverTextState_007A2C78; // 0x007A2C78
+extern Unicode gwszHoverText[]; // 0x007A2A78
+extern int gnHoverTextState; // 0x007A2C78
 int __fastcall UI_GetHoverRect(D2RectStrc* pRect); // 0x00454880
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
@@ -53,14 +53,14 @@ int __fastcall NPCMENU_GetInteractNpcId(int* pLow); // 0x004B3230
 int __cdecl TEXT_IsTextBoxOpen(); // 0x004A0000
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-extern const D2ImmunityTextStrc gaImmunityTexts_006D6418[6]; // 0x006D6418
-extern Unicode gwszHoverName_007A2F38[]; // 0x007A2F38
+extern const D2ImmunityTextStrc gaImmunityTexts[6]; // 0x006D6418
+extern Unicode gwszHoverName[]; // 0x007A2F38
 
-Unicode gwszText_007A2D30[256]; // 0x007A2D30
+Unicode gwszHoverLine[256]; // 0x007A2D30
 
-int gnHoverTextColor_007A2F30; // 0x007A2F30
+int gnHoverTextColor; // 0x007A2F30
 
-Unicode gwszHoverName_007A2F38[256]; // 0x007A2F38
+Unicode gwszHoverName[256]; // 0x007A2F38
 
 static void __stdcall sub_004549F0_DrawCenteredText(const Unicode* wszText, int nFont, int nY, int nColor)
 {
@@ -91,18 +91,18 @@ void __cdecl sub_00454A70_DrawHoverText()
         return;
     }
     int nY = D2Win_10125() + 0x27;
-    sub_004549F0_DrawCenteredText(gwszText_007A2D30, 6, nY, gnHoverTextColor_007A2F30);
-    if (gwszText_007A2D30[0].wChar || gwszHoverName_007A2F38[0].wChar)
+    sub_004549F0_DrawCenteredText(gwszHoverLine, 6, nY, gnHoverTextColor);
+    if (gwszHoverLine[0].wChar || gwszHoverName[0].wChar)
     {
         nY += D2Win_10125();
     }
-    sub_004549F0_DrawCenteredText(gwszText_007A2A78, 6, nY, gnHoverTextState_007A2C78);
+    sub_004549F0_DrawCenteredText(gwszHoverText, 6, nY, gnHoverTextState);
 }
 
 // 0x004554B0
 void __cdecl sub_004554B0_DrawHoverName()
 {
-    if (!sub_00526800(gwszHoverName_007A2F38))
+    if (!sub_00526800(gwszHoverName))
     {
         return;
     }
@@ -121,7 +121,7 @@ void __cdecl sub_004554B0_DrawHoverName()
         nColor = 3;
     }
     const int nY = D2Win_10125() + 0x27;
-    sub_004549F0_DrawCenteredText(gwszHoverName_007A2F38, 6, nY, nColor);
+    sub_004549F0_DrawCenteredText(gwszHoverName, 6, nY, nColor);
 }
 
 // 0x004526C0
@@ -139,7 +139,7 @@ static void UI_BuildImmunityText(D2UnitStrc* pUnit)
     wszText[0] = 0;
     for (int n = 0; n < 6; n++)
     {
-        if (STATLIST_UnitGetStatValue(pUnit, gaImmunityTexts_006D6418[n].nStat, 0) >= 100)
+        if (STATLIST_UnitGetStatValue(pUnit, gaImmunityTexts[n].nStat, 0) >= 100)
         {
             unsigned short wszItem[0x100];
             for (int i = 0; i < 0x100; i++)
@@ -149,13 +149,13 @@ static void UI_BuildImmunityText(D2UnitStrc* pUnit)
                 sub_00526700((Unicode*)wszText, pComma);
                 sub_00526700((Unicode*)wszText, pNewLine);
             }
-            sub_005267E0((Unicode*)wszItem, D2LANG_GetStringFromTblIndex(gaImmunityTexts_006D6418[n].wString));
-            INV_PrefixColorCode((Unicode*)wszItem, gaImmunityTexts_006D6418[n].nColor);
+            sub_005267E0((Unicode*)wszItem, D2LANG_GetStringFromTblIndex(gaImmunityTexts[n].wString));
+            INV_PrefixColorCode((Unicode*)wszItem, gaImmunityTexts[n].nColor);
             sub_00526700((Unicode*)wszText, (Unicode*)wszItem);
         }
     }
-    sub_005267E0(gwszText_007A2A78, (Unicode*)wszText);
-    gnHoverTextState_007A2C78 = 4;
+    sub_005267E0(gwszHoverText, (Unicode*)wszText);
+    gnHoverTextState = 4;
 }
 
 // build: symbol ??_H* 0x00403040
@@ -175,7 +175,8 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
         pMonStats2Txt = UNITS_GetMonStats2TxtRecordFromMonsterId(!pUnit ? -1 : pUnit->dwClassId);
         if (pMonStats2Txt)
         {
-            gnHoverY_0070F858 -= pMonStats2Txt->nPixHeight;
+// build: symbol ?gnHoverY@* 0x0070F858
+            gnHoverY -= pMonStats2Txt->nPixHeight;
         }
         sub_005267E0((Unicode*)wszText, D2LANG_GetStringFromTblIndex(0xF9B));
         sub_00526700((Unicode*)wszText, D2LANG_GetStringFromTblIndex(0xF9B));
@@ -265,22 +266,23 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
             }
             else
             {
-                gwszHoverName_007A2F38[0].wChar = 0;
+                gwszHoverName[0].wChar = 0;
             }
         }
     }
     else
     {
-        gwszHoverName_007A2F38[0].wChar = 0;
+        gwszHoverName[0].wChar = 0;
         int nTickLow;
         if (!NPCMENU_GetInteractNpcId(&nTickLow) && !TEXT_IsTextBoxOpen())
         {
             pMonStats2Txt = UNITS_GetMonStats2TxtRecordFromMonsterId(!pUnit ? -1 : pUnit->dwClassId);
             if (pMonStats2Txt)
             {
-                gnHoverY_0070F858 -= pMonStats2Txt->nPixHeight;
+                gnHoverY -= pMonStats2Txt->nPixHeight;
             }
-            D2Win_10129_DrawFramedText(CUNIT_GetUnitName(pUnit), gnHoverX_0070F854, gnHoverY_0070F858, 0, 1);
+// build: symbol ?gnHoverX@* 0x0070F854
+            D2Win_10129_DrawFramedText(CUNIT_GetUnitName(pUnit), gnHoverX, gnHoverY, 0, 1);
         }
     }
     sub_00502EF0(nOld);

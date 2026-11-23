@@ -68,13 +68,13 @@ int __stdcall MISSILE_GetTargetY(D2UnitStrc* pMissile); // 0x0064A780
 
 struct D2GfxLightStrc;
 
-extern const int gaRing5OffsetX_006DB0EC[]; // 0x006DB0EC
+extern const int gaRing5OffsetX[]; // 0x006DB0EC
 
-extern const int gaRing5OffsetY_006DB0D8[]; // 0x006DB0D8
+extern const int gaRing5OffsetY[]; // 0x006DB0D8
 
-extern const int gaRing18OffsetX_006DB090[]; // 0x006DB090
+extern const int gaRing18OffsetX[]; // 0x006DB090
 
-extern const int gaRing18OffsetY_006DB048[]; // 0x006DB048
+extern const int gaRing18OffsetY[]; // 0x006DB048
 
 void __fastcall DLIGHTMAP_ResetLightSize(D2GfxLightStrc* pLight, int nRadius); // 0x004742D0
 
@@ -384,8 +384,8 @@ int __fastcall sub_004CF9B0_CltHitRingSubMissiles(D2UnitStrc* pMissile, D2UnitSt
         const int nCount = pMissilesTxtRecord->dwCltHitPar[0];
         for (int i = 0; i < nCount; ++i)
         {
-            tMissile.nX = nX + gaRing5OffsetX_006DB0EC[i % 5];
-            tMissile.nY = nY + gaRing5OffsetY_006DB0D8[i % 5];
+            tMissile.nX = nX + gaRing5OffsetX[i % 5];
+            tMissile.nY = nY + gaRing5OffsetY[i % 5];
             sub_004CD540_CreateMissile(&tMissile);
         }
     }
@@ -412,8 +412,8 @@ int __fastcall sub_004CF9B0_CltHitRingSubMissiles(D2UnitStrc* pMissile, D2UnitSt
         nIndex = pMissilesTxtRecord->dwCltHitPar[1];
         for (int i = 0; i < nIndex; ++i)
         {
-            tMissile.nX = nX + gaRing18OffsetX_006DB090[i % 18];
-            tMissile.nY = nY + gaRing18OffsetY_006DB048[i % 18];
+            tMissile.nX = nX + gaRing18OffsetX[i % 18];
+            tMissile.nY = nY + gaRing18OffsetY[i % 18];
             sub_004CD540_CreateMissile(&tMissile);
         }
     }
@@ -424,8 +424,8 @@ int __fastcall sub_004CF9B0_CltHitRingSubMissiles(D2UnitStrc* pMissile, D2UnitSt
         const int nEnd = nIndex + pMissilesTxtRecord->dwCltHitPar[2];
         for (int i = nIndex; i < nEnd; ++i)
         {
-            tMissile.nX = nX + gaRing18OffsetX_006DB090[i % 18];
-            tMissile.nY = nY + gaRing18OffsetY_006DB048[i % 18];
+            tMissile.nX = nX + gaRing18OffsetX[i % 18];
+            tMissile.nY = nY + gaRing18OffsetY[i % 18];
             sub_004CD540_CreateMissile(&tMissile);
         }
     }

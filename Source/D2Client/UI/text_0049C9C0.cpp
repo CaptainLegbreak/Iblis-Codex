@@ -32,14 +32,14 @@ extern int gnOffsetY_007A285C; // 0x007A285C
 extern D2WaypointEntryStrc gaWaypoints_007BF03C[]; // 0x007BF03C
 extern unsigned char gbClosePressed_007BF06C; // 0x007BF06C
 extern int gnSelected_007BF06D; // 0x007BF06D
-extern D2WaypointLayoutStrc gaLayouts_007224E8[]; // 0x007224E8
+extern D2WaypointLayoutStrc gaLayouts[]; // 0x007224E8
 extern void* gpBackground_007BF071; // 0x007BF071
 extern void* gpActTabs_007BF075; // 0x007BF075
 extern void* gpWaypointCell_007BF079; // 0x007BF079
 extern int gnWaypointId_007BF07D; // 0x007BF07D
 extern unsigned char gbSent_007BF085; // 0x007BF085
 extern int gnCurrentAct_007BF086; // 0x007BF086
-extern int gnWaypointCount_007BF08A; // 0x007BF08A
+extern int gnWaypointCount; // 0x007BF08A
 extern int gnPanelMode_007BF08E; // 0x007BF08E
 void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
@@ -129,7 +129,7 @@ void __cdecl sub_0049C9C0_DrawWaypointPanel()
     TEXTURE_CelDraw(&tGfx,gnOffsetX_007A2858+273,417-gnOffsetY_007A285C,-1,5,0);
     int nLevelId=DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()));
     tGfx.pCellFile=gpWaypointCell_007BF079;
-    for(int nRow=0;nRow<gnWaypointCount_007BF08A;++nRow)
+    for(int nRow=0;nRow<gnWaypointCount;++nRow)
     {
         int nColor;
         if(gaWaypoints_007BF03C[nRow].bEnabled)
@@ -138,7 +138,7 @@ void __cdecl sub_0049C9C0_DrawWaypointPanel()
                 tGfx.nFrame=gnSelected_007BF06D==nRow;
             else
                 tGfx.nFrame=3+(gnSelected_007BF06D==nRow);
-            TEXTURE_CelDraw(&tGfx,gaLayouts_007224E8[nRow].nCellX+gnOffsetX_007A2858,gaLayouts_007224E8[nRow].nCellY-gnOffsetY_007A285C,-1,5,0);
+            TEXTURE_CelDraw(&tGfx,gaLayouts[nRow].nCellX+gnOffsetX_007A2858,gaLayouts[nRow].nCellY-gnOffsetY_007A285C,-1,5,0);
             nColor=0;
         }
         else nColor=5;
@@ -147,9 +147,9 @@ void __cdecl sub_0049C9C0_DrawWaypointPanel()
         {
             nColor=3;
             tGfx.nFrame=0;
-            TEXTURE_CelDraw(&tGfx,gaLayouts_007224E8[nRow].nCellX+gnOffsetX_007A2858,gaLayouts_007224E8[nRow].nCellY-gnOffsetY_007A285C,-1,5,0);
+            TEXTURE_CelDraw(&tGfx,gaLayouts[nRow].nCellX+gnOffsetX_007A2858,gaLayouts[nRow].nCellY-gnOffsetY_007A285C,-1,5,0);
         }
-        D2Win_10117_DrawText(UI_GetLevelName(gaWaypoints_007BF03C[nRow].nLevelId),gaLayouts_007224E8[nRow].nTextX+gnOffsetX_007A2858,gaLayouts_007224E8[nRow].nTextY-gnOffsetY_007A285C,nColor,0);
+        D2Win_10117_DrawText(UI_GetLevelName(gaWaypoints_007BF03C[nRow].nLevelId),gaLayouts[nRow].nTextX+gnOffsetX_007A2858,gaLayouts[nRow].nTextY-gnOffsetY_007A285C,nColor,0);
     }
     if((unsigned int)(nMouseX-273)<=35 && (unsigned int)(nMouseY-387)<=33)
     {

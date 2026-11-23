@@ -36,13 +36,13 @@ extern D2ClientFlagsLowStrc gtClientFlagsLow_00712EFC; // 0x00712EFC
 
 extern D2ClientFlagsStrc gtClientFlags_00712EFC; // 0x00712EFC
 
-int gnLanguageId_007BB5DC;        // 0x007BB5DC
+int gnLanguageId;        // 0x007BB5DC
 
-extern int gnChatIndex_007BB5D8; // 0x007BB5D8
+extern int gnChatHistoryCursor; // 0x007BB5D8
 
-extern int gnChatCaret_007BB5E8; // 0x007BB5E8
+extern int gnChatCaret; // 0x007BB5E8
 
-extern int gdwGlobal_007BB5EC; // 0x007BB5EC
+extern int gnChatDrawCount; // 0x007BB5EC
 
 extern Unicode gwszChatLine_007BB638[]; // 0x007BB638
 
@@ -54,15 +54,15 @@ int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 extern "C" int __stdcall ImmSimulateHotKey(int hWnd, unsigned long nHotKey); // 0x006B00E4
 
-extern D2MsgHandlerEntryStrc gtChatHandlers_00712F4C[]; // 0x00712F4C
+extern D2MsgHandlerEntryStrc gaChatHandlers[]; // 0x00712F4C
 
-extern D2MsgHandlerEntryStrc gtChatInputHandlers_00712FA8[]; // 0x00712FA8
+extern D2MsgHandlerEntryStrc gaChatInputHandlers[]; // 0x00712FA8
 
-extern unsigned short gwChatText_007BB5F8; // 0x007BB5F8
+extern unsigned short gwszImeResult; // 0x007BB5F8
 
-extern unsigned short gwChatText_007BC850; // 0x007BC850
+extern unsigned short gwszImeComposition; // 0x007BC850
 
-Unicode gwChatHistory_007BB840[8][0x101]; // 0x007BB840
+Unicode gawszChatHistory[8][0x101]; // 0x007BB840
 
 struct HKL__;
 
@@ -97,13 +97,13 @@ extern "C" int __stdcall ImmGetConversionStatus(HIMC hImc, unsigned long* pConve
 
 extern "C" __declspec(dllimport) HKL__* __stdcall GetKeyboardLayout(unsigned long idThread); // 0x006CC4C0
 
-unsigned char gbImeOpen_007BB5E0;        // 0x007BB5E0
+unsigned char gbImeOpen;        // 0x007BB5E0
 
-int gnImeState_007BB5F0;        // 0x007BB5F0
+int gnImeState;        // 0x007BB5F0
 
-static CANDIDATELIST* gpCandidateList_007BB5F4; // 0x007BB5F4
+static CANDIDATELIST* gpImeCandidateList; // 0x007BB5F4
 
-unsigned char gbChatInputOpen_007BB5E1; // 0x007BB5E1
+unsigned char gbChatInputOpen; // 0x007BB5E1
 
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
@@ -116,7 +116,8 @@ int __cdecl CHAT_IsNumberDisplayEnabled()
 // 0x0047A9A0
 void __fastcall CHAT_SetClientFlags(int nFlags)
 {
-    gdwGlobal_00712EFC = nFlags;
+// build: symbol ?gdwClientFlags@* 0x00712EFC
+    gdwClientFlags = nFlags;
 }
 
 // 0x0047AA30
@@ -132,18 +133,18 @@ static void CHAT_RefreshCandidates(HIMC hImc)
     unsigned long nSize = ImmGetCandidateListCountA(hImc, &nListCount);
     if (ImmGetCandidateListA(hImc, 0, 0, 0) && nSize)
     {
-        if (gpCandidateList_007BB5F4)
+        if (gpImeCandidateList)
         {
-            FOG_Free(gpCandidateList_007BB5F4, ".\\UI\\chat.cpp", 235, 0);
+            FOG_Free(gpImeCandidateList, ".\\UI\\chat.cpp", 235, 0);
         }
 
-        gpCandidateList_007BB5F4 = (CANDIDATELIST*)FOG_Alloc(nSize, ".\\UI\\chat.cpp", 237, 0);
-        ImmGetCandidateListA(hImc, 0, gpCandidateList_007BB5F4, nSize);
+        gpImeCandidateList = (CANDIDATELIST*)FOG_Alloc(nSize, ".\\UI\\chat.cpp", 237, 0);
+        ImmGetCandidateListA(hImc, 0, gpImeCandidateList, nSize);
 
-        if (gpCandidateList_007BB5F4->dwStyle == 2 && gpCandidateList_007BB5F4->dwCount == 1)
+        if (gpImeCandidateList->dwStyle == 2 && gpImeCandidateList->dwCount == 1)
         {
-            FOG_Free(gpCandidateList_007BB5F4, ".\\UI\\chat.cpp", 242, 0);
-            gpCandidateList_007BB5F4 = 0;
+            FOG_Free(gpImeCandidateList, ".\\UI\\chat.cpp", 242, 0);
+            gpImeCandidateList = 0;
         }
     }
 }
@@ -166,44 +167,44 @@ void __stdcall CHAT_ImeNotifyMsg(SMSGHANDLER_PARAMS* pMsg)
     switch (pMsg->wParam)
     {
     case 8:
-        switch (gnLanguageId_007BB5DC)
+        switch (gnLanguageId)
         {
         case 6:
             if (ImmGetOpenStatus(hImc))
             {
-                gbImeOpen_007BB5E0 = 1;
-                gnImeState_007BB5F0 = 3;
+                gbImeOpen = 1;
+                gnImeState = 3;
             }
             else
             {
-                gbImeOpen_007BB5E0 = 0;
-                gnImeState_007BB5F0 = 0;
+                gbImeOpen = 0;
+                gnImeState = 0;
             }
             break;
 
         case 8:
             if (ImmGetOpenStatus(hImc))
             {
-                gbImeOpen_007BB5E0 = 1;
-                gnImeState_007BB5F0 = 5;
+                gbImeOpen = 1;
+                gnImeState = 5;
             }
             else
             {
-                gbImeOpen_007BB5E0 = 0;
-                gnImeState_007BB5F0 = 0;
+                gbImeOpen = 0;
+                gnImeState = 0;
             }
             break;
 
         case 9:
             if (ImmGetOpenStatus(hImc))
             {
-                gbImeOpen_007BB5E0 = 1;
-                gnImeState_007BB5F0 = 4;
+                gbImeOpen = 1;
+                gnImeState = 4;
             }
             else
             {
-                gbImeOpen_007BB5E0 = 0;
-                gnImeState_007BB5F0 = 0;
+                gbImeOpen = 0;
+                gnImeState = 0;
             }
             break;
         }
@@ -213,30 +214,30 @@ void __stdcall CHAT_ImeNotifyMsg(SMSGHANDLER_PARAMS* pMsg)
     {
         unsigned long nConversion;
         ImmGetConversionStatus(hImc, &nConversion, &nSentence);
-        if (gnLanguageId_007BB5DC == 7 || gnLanguageId_007BB5DC == 12)
+        if (gnLanguageId == 7 || gnLanguageId == 12)
         {
             if (nConversion & 1)
             {
-                gnImeState_007BB5F0 = 1;
-                gbImeOpen_007BB5E0 = 1;
+                gnImeState = 1;
+                gbImeOpen = 1;
             }
             else
             {
-                gbImeOpen_007BB5E0 = 0;
-                gnImeState_007BB5F0 = 0;
+                gbImeOpen = 0;
+                gnImeState = 0;
             }
         }
         break;
     }
 
     case 5:
-        if (gnLanguageId_007BB5DC == 9)
+        if (gnLanguageId == 9)
         {
             CHAT_RefreshCandidates(hImc);
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
         }
-        if (gnLanguageId_007BB5DC == 8)
+        if (gnLanguageId == 8)
         {
             CHAT_RefreshCandidates(hImc);
             pMsg->lResult = 0;
@@ -245,22 +246,22 @@ void __stdcall CHAT_ImeNotifyMsg(SMSGHANDLER_PARAMS* pMsg)
         break;
 
     case 4:
-        if (gnLanguageId_007BB5DC == 9)
+        if (gnLanguageId == 9)
         {
-            if (gpCandidateList_007BB5F4)
+            if (gpImeCandidateList)
             {
-                FOG_Free(gpCandidateList_007BB5F4, ".\\UI\\chat.cpp", 352, 0);
-                gpCandidateList_007BB5F4 = 0;
+                FOG_Free(gpImeCandidateList, ".\\UI\\chat.cpp", 352, 0);
+                gpImeCandidateList = 0;
             }
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
         }
-        if (gnLanguageId_007BB5DC == 8)
+        if (gnLanguageId == 8)
         {
-            if (gpCandidateList_007BB5F4)
+            if (gpImeCandidateList)
             {
-                FOG_Free(gpCandidateList_007BB5F4, ".\\UI\\chat.cpp", 363, 0);
-                gpCandidateList_007BB5F4 = 0;
+                FOG_Free(gpImeCandidateList, ".\\UI\\chat.cpp", 363, 0);
+                gpImeCandidateList = 0;
             }
             pMsg->lResult = 0;
             pMsg->bReturn = 1;
@@ -268,7 +269,7 @@ void __stdcall CHAT_ImeNotifyMsg(SMSGHANDLER_PARAMS* pMsg)
         break;
 
     case 3:
-        if (gnLanguageId_007BB5DC == 9)
+        if (gnLanguageId == 9)
         {
             CHAT_RefreshCandidates(hImc);
             pMsg->lResult = 0;
@@ -277,9 +278,9 @@ void __stdcall CHAT_ImeNotifyMsg(SMSGHANDLER_PARAMS* pMsg)
         break;
 
     case 2:
-        if (gnLanguageId_007BB5DC == 9)
+        if (gnLanguageId == 9)
         {
-            gnImeState_007BB5F0 = ImmIsIME(GetKeyboardLayout(0)) ? 0 : 4;
+            gnImeState = ImmIsIME(GetKeyboardLayout(0)) ? 0 : 4;
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
         }
@@ -292,14 +293,14 @@ void __stdcall CHAT_ImeNotifyMsg(SMSGHANDLER_PARAMS* pMsg)
 // 0x0047B010
 bool __cdecl CHAT_IsImeLanguage()
 {
-    if (gnLanguageId_007BB5DC == 9)
+    if (gnLanguageId == 9)
     {
         const unsigned short nLangId = GetSystemDefaultLangID();
         if (nLangId == 0x404 || nLangId == 0xC04)
             return true;
         return false;
     }
-    if (gnLanguageId_007BB5DC == 8)
+    if (gnLanguageId == 8)
     {
         const unsigned short nLangId = GetSystemDefaultLangID();
         if (nLangId == 0x804 || nLangId == 0x1004)
@@ -312,12 +313,12 @@ bool __cdecl CHAT_IsImeLanguage()
 // 0x0047B090
 void __cdecl CHAT_InitChatIme()
 {
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtChatHandlers_00712F4C, 4);
-    gnLanguageId_007BB5DC = STRTABLE_GetLanguage();
-    if (gnLanguageId_007BB5DC != 6 && gnLanguageId_007BB5DC != 9 && gnLanguageId_007BB5DC != 8 && gnLanguageId_007BB5DC != 7 && gnLanguageId_007BB5DC != 12)
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaChatHandlers, 4);
+    gnLanguageId = STRTABLE_GetLanguage();
+    if (gnLanguageId != 6 && gnLanguageId != 9 && gnLanguageId != 8 && gnLanguageId != 7 && gnLanguageId != 12)
         return;
 
-    gbChatInputOpen_007BB5E1 = 0;
+    gbChatInputOpen = 0;
     if (!CHAT_IsImeLanguage())
         return;
 
@@ -326,24 +327,24 @@ void __cdecl CHAT_InitChatIme()
     if (!hImc)
         return;
 
-    gwChatText_007BC850 = 0;
-    gwChatText_007BB5F8 = 0;
-    switch (gnLanguageId_007BB5DC)
+    gwszImeComposition = 0;
+    gwszImeResult = 0;
+    switch (gnLanguageId)
     {
     case 6:
         if (nLangId != 0x411)
             break;
-        gbChatInputOpen_007BB5E1 = 1;
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtChatInputHandlers_00712FA8, 7);
+        gbChatInputOpen = 1;
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaChatInputHandlers, 7);
         if (ImmSetOpenStatus(hImc, 1))
         {
-            gbImeOpen_007BB5E0 = 1;
-            gnImeState_007BB5F0 = 3;
+            gbImeOpen = 1;
+            gnImeState = 3;
         }
         else
         {
-            gbImeOpen_007BB5E0 = 0;
-            gnImeState_007BB5F0 = 0;
+            gbImeOpen = 0;
+            gnImeState = 0;
         }
         ImmReleaseContext(WINDOW_GetWindow(), hImc);
         return;
@@ -360,36 +361,36 @@ void __cdecl CHAT_InitChatIme()
         ImmGetConversionStatus(hImc, &nConversion, &nSentence);
         if (nConversion & 1)
         {
-            gnImeState_007BB5F0 = 1;
-            gbImeOpen_007BB5E0 = 1;
+            gnImeState = 1;
+            gbImeOpen = 1;
         }
         else
         {
-            gnImeState_007BB5F0 = 0;
+            gnImeState = 0;
         }
-        gbChatInputOpen_007BB5E1 = 1;
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtChatInputHandlers_00712FA8, 7);
+        gbChatInputOpen = 1;
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaChatInputHandlers, 7);
         break;
     }
 
     case 9:
-        gbImeOpen_007BB5E0 = 0;
-        gbChatInputOpen_007BB5E1 = 1;
+        gbImeOpen = 0;
+        gbChatInputOpen = 1;
         if (!ImmIsIME(GetKeyboardLayout(0)))
             ImmSimulateHotKey(WINDOW_GetWindow(), 0x70);
         ImmSetOpenStatus(hImc, 1);
-        gnImeState_007BB5F0 = 4;
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtChatInputHandlers_00712FA8, 7);
+        gnImeState = 4;
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaChatInputHandlers, 7);
         break;
 
     case 8:
-        gbImeOpen_007BB5E0 = 0;
-        gbChatInputOpen_007BB5E1 = 1;
+        gbImeOpen = 0;
+        gbChatInputOpen = 1;
         if (!ImmIsIME(GetKeyboardLayout(0)))
             ImmSimulateHotKey(WINDOW_GetWindow(), 0x10);
         ImmSetOpenStatus(hImc, 1);
-        gnImeState_007BB5F0 = 5;
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtChatInputHandlers_00712FA8, 7);
+        gnImeState = 5;
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaChatInputHandlers, 7);
         break;
     }
     ImmReleaseContext(WINDOW_GetWindow(), hImc);
@@ -399,15 +400,15 @@ void __cdecl CHAT_InitChatIme()
 // 0x0047B2E0
 void __cdecl CHAT_CloseChatInput()
 {
-    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtChatHandlers_00712F4C, 4);
-    if (gbChatInputOpen_007BB5E1)
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaChatHandlers, 4);
+    if (gbChatInputOpen)
     {
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtChatInputHandlers_00712FA8, 7);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaChatInputHandlers, 7);
         T0046E1B0* hImc = ImmGetContext(WINDOW_GetWindow());
         if (hImc)
         {
             ImmSetOpenStatus(hImc, 0);
-            if (gnLanguageId_007BB5DC == 7 || gnLanguageId_007BB5DC == 12)
+            if (gnLanguageId == 7 || gnLanguageId == 12)
             {
                 unsigned long nConversion;
                 unsigned long nSentence;
@@ -416,8 +417,8 @@ void __cdecl CHAT_CloseChatInput()
             }
             ImmReleaseContext(WINDOW_GetWindow(), hImc);
         }
-        gwChatText_007BB5F8 = 0;
-        gwChatText_007BC850 = 0;
+        gwszImeResult = 0;
+        gwszImeComposition = 0;
         if (gpChatBuffer_007BB5F4)
         {
             FOG_Free(gpChatBuffer_007BB5F4, ".\\UI\\chat.cpp", 0x29D, 0);
@@ -434,8 +435,8 @@ void __cdecl sub_0047B4E0()
 // 0x0047B9C0
 void __cdecl CHAT_RecallChatLine()
 {
-    memcpy(gwszChatLine_007BB638, gwChatHistory_007BB840[gnChatIndex_007BB5D8], sizeof(gwChatHistory_007BB840[0]));
-    gnChatCaret_007BB5E8 = sub_00526800(gwChatHistory_007BB840[gnChatIndex_007BB5D8]);
+    memcpy(gwszChatLine_007BB638, gawszChatHistory[gnChatHistoryCursor], sizeof(gawszChatHistory[0]));
+    gnChatCaret = sub_00526800(gawszChatHistory[gnChatHistoryCursor]);
 }
 
 // 0x0047BD00
@@ -454,8 +455,8 @@ bool __fastcall CHAT_IsNarrowText(const Unicode* pText)
 void __cdecl CHAT_ClearChatLine()
 {
     memset(gwszChatLine_007BB638, 0, 0x202);
-    gnChatCaret_007BB5E8 = 0;
-    gdwGlobal_007BB5EC = 0;
+    gnChatCaret = 0;
+    gnChatDrawCount = 0;
 }
 
 #include "gen/data/Source/D2Client/UI/chat.inc"

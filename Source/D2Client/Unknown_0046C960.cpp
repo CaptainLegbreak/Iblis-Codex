@@ -26,7 +26,7 @@ void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame);
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX);                                      // 0x0064A710
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY);                                      // 0x0064A760
 
-extern D2UnitStrc* gpAiTargets_007A7470[];                                                                  // 0x007A7470
+extern D2UnitStrc* gapAiTargets[];                                                                  // 0x007A7470
 
 static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
@@ -121,13 +121,13 @@ static D2UnitStrc* __stdcall sub_0046C720_FindNearestTarget(D2UnitStrc* pUnit, i
     D2UnitStrc* pNearest = 0;
     for (int i = 0; i < 8; ++i)
     {
-        D2UnitStrc* pTarget = gpAiTargets_007A7470[i];
+        D2UnitStrc* pTarget = gapAiTargets[i];
         if (pTarget && pTarget->dwAnimMode && pTarget->dwAnimMode != 12)
         {
             const int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
             if (nDistance < *pDistance)
             {
-                pNearest = gpAiTargets_007A7470[i];
+                pNearest = gapAiTargets[i];
                 *pDistance = nDistance;
             }
         }

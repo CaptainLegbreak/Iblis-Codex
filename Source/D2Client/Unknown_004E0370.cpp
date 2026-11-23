@@ -1,8 +1,8 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 
-extern D2NpcSoundStrc gaNpcSounds_0072AE28[];                                                               // 0x0072AE28
-extern D2DrlgActStrc* gpAct_007A0634;                                                                       // 0x007A0634
+extern D2NpcSoundStrc gaNpcSounds[];                                                               // 0x0072AE28
+extern D2DrlgActStrc* gpAct;                                                                       // 0x007A0634
 
 int __fastcall sub_004E40A0(int nRange);                                                                    // 0x004E40A0
 int __fastcall SOUNDHDR_PickVariant(int nIndex);                                                        // 0x00482680
@@ -19,68 +19,68 @@ static D2NpcSoundStrc* sub_004E0370_GetNpcSoundRecord(D2UnitStrc* pUnit)
     switch ((unsigned int)pUnit->dwClassId)
     {
     case 0x94:
-        return &gaNpcSounds_0072AE28[0];
+        return &gaNpcSounds[0];
     case 0xFE:
-        return &gaNpcSounds_0072AE28[1];
+        return &gaNpcSounds[1];
     case 0xFC:
-        return &gaNpcSounds_0072AE28[2];
+        return &gaNpcSounds[2];
     case 0xB0:
-        return &gaNpcSounds_0072AE28[3];
+        return &gaNpcSounds[3];
     case 0x9A:
-        return &gaNpcSounds_0072AE28[5];
+        return &gaNpcSounds[5];
     case 0xB1:
-        return &gaNpcSounds_0072AE28[6];
+        return &gaNpcSounds[6];
     case 0xC7:
-        return &gaNpcSounds_0072AE28[7];
+        return &gaNpcSounds[7];
     case 0xB2:
-        return &gaNpcSounds_0072AE28[8];
+        return &gaNpcSounds[8];
     case 0xC8:
-        return &gaNpcSounds_0072AE28[9];
+        return &gaNpcSounds[9];
     case 0x93:
-        return &gaNpcSounds_0072AE28[10];
+        return &gaNpcSounds[10];
     case 0xC6:
-        return &gaNpcSounds_0072AE28[11];
+        return &gaNpcSounds[11];
     case 0x101:
-        return &gaNpcSounds_0072AE28[12];
+        return &gaNpcSounds[12];
     case 0xFD:
-        return &gaNpcSounds_0072AE28[13];
+        return &gaNpcSounds[13];
     case 0xC9:
-        return &gaNpcSounds_0072AE28[16];
+        return &gaNpcSounds[16];
     case 0x96:
-        return &gaNpcSounds_0072AE28[17];
+        return &gaNpcSounds[17];
     case 0xCA:
-        return &gaNpcSounds_0072AE28[18];
+        return &gaNpcSounds[18];
     case 0xD2:
-        return &gaNpcSounds_0072AE28[19];
+        return &gaNpcSounds[19];
     case 0x129:
-        return &gaNpcSounds_0072AE28[20];
+        return &gaNpcSounds[20];
     case 0xFF:
-        return &gaNpcSounds_0072AE28[21];
+        return &gaNpcSounds[21];
     case 0x9B:
     case 0xAF:
-        return &gaNpcSounds_0072AE28[23];
+        return &gaNpcSounds[23];
     case 0x195:
-        return &gaNpcSounds_0072AE28[14];
+        return &gaNpcSounds[14];
     case 0x92:
     case 0xF4:
     case 0xF5:
     case 0xF6:
     case 0x109:
     case 0x208:
-        return &gaNpcSounds_0072AE28[4];
+        return &gaNpcSounds[4];
     case 0xFB:
     case 0x209:
-        return &gaNpcSounds_0072AE28[22];
+        return &gaNpcSounds[22];
     case 0x200:
-        return &gaNpcSounds_0072AE28[24];
+        return &gaNpcSounds[24];
     case 0x203:
-        return &gaNpcSounds_0072AE28[25];
+        return &gaNpcSounds[25];
     case 0x202:
-        return &gaNpcSounds_0072AE28[28];
+        return &gaNpcSounds[28];
     case 0x1FF:
-        return &gaNpcSounds_0072AE28[27];
+        return &gaNpcSounds[27];
     case 0x201:
-        return &gaNpcSounds_0072AE28[26];
+        return &gaNpcSounds[26];
     }
 
     return 0;
@@ -110,7 +110,7 @@ int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType)
 
         if (pSound->nNightSound && (!nSound || !sub_004E40A0(3)))
         {
-            const int nCycle = ENVIRONMENT_GetCycleIndexFromAct(gpAct_007A0634);
+            const int nCycle = ENVIRONMENT_GetCycleIndexFromAct(gpAct);
             nSound = pSound->nNightSound;
             if (nCycle != 1)
             {

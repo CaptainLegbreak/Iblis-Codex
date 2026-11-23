@@ -174,7 +174,7 @@ public:
     virtual unsigned int GetAt(int nIndex);
 };
 
-extern unsigned char gbFound_007C0DDA; // 0x007C0DDA
+extern unsigned char gbObjectFound; // 0x007C0DDA
 
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
@@ -206,7 +206,7 @@ extern int (__cdecl* gpfnGlobal_007272A5)(); // 0x007272A5
 
 extern short gwGlobal_00727295; // 0x00727295
 
-extern unsigned char gbGlobal_007C0D89; // 0x007C0D89
+extern unsigned char gnPendingNpcActionType; // 0x007C0D89
 
 void __cdecl NPCMENU_FinishTransaction(); // 0x004B2940
 
@@ -234,15 +234,15 @@ void __cdecl NPCMENU_BuildNpcMenu(); // 0x004B4830
 
 void __cdecl INV_ResetButtonsFromMenuReturn(); // 0x00487D40
 
-extern D2ClientDialogStrc* gpDialog_007C0D63; // 0x007C0D63
+extern D2ClientDialogStrc* gpNpcSubMenuDialog; // 0x007C0D63
 
-extern char gbGlobal_007C0C69; // 0x007C0C69
+extern char gbNpcMessageShown; // 0x007C0C69
 
-extern int gnNpcSoundActive_007C0DB4; // 0x007C0DB4
+extern int gnNpcSoundActive; // 0x007C0DB4
 
-extern int gnNpcSoundHandle_007C0DB8; // 0x007C0DB8
+extern int gnNpcSoundHandle; // 0x007C0DB8
 
-extern D2ClientStringListStrc gtStringList_007C0D9A; // 0x007C0D9A
+extern D2ClientStringListStrc gtStringList; // 0x007C0D9A
 
 #pragma pack(push, 1)
 
@@ -268,15 +268,15 @@ void __cdecl sub_004B17A0();
 
 int __fastcall sub_004B18C0(void* pContext, int nArg, int nValue);
 
-extern unsigned char gbGlobal_007C0C6A; // 0x007C0C6A
+extern unsigned char gbNpcEntriesProcessed; // 0x007C0C6A
 
-int gnGlobal_007C0C60; // 0x007C0C60
+int gnHireMercIndex; // 0x007C0C60
 
-int gnGlobal_007C0C64; // 0x007C0C64
+int gnHireMercNpcId; // 0x007C0C64
 
-int gdwGlobal_007C0DB0; // 0x007C0DB0
+int gbGambleShop; // 0x007C0DB0
 
-D2UnitStrc* gpUnit_007C0DD4; // 0x007C0DD4
+D2UnitStrc* gpNpcPlayerUnit; // 0x007C0DD4
 
 unsigned short gwGlobal_007C0DD8; // 0x007C0DD8
 
@@ -301,15 +301,15 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char*,const char*,...); /
 
 extern const char gszFormatD[]; // 0x006D57BC
 
-extern D2ViewStrc* gpView_007A0640; // 0x007A0640
+extern D2ViewStrc* gpClientView; // 0x007A0640
 
 extern int gnGlobal_007C0D2D; // 0x007C0D2D
 
-int gnGlobal_007C0DD0;        // 0x007C0DD0
+int gnNpcMenuValue;        // 0x007C0DD0
 
 extern unsigned int gnHirelingName_00725494; // 0x00725494
 
-extern D2NpcIndexStrc gaNpcIndex_00726C48[]; // 0x00726C48
+extern D2NpcIndexStrc gaNpcIndex[]; // 0x00726C48
 
 unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
 
@@ -649,13 +649,16 @@ extern "C" int __fastcall sub_004AE130_GetPayloadValue(UnitView* unit)
 int __cdecl NPCMENU_HireMercHandler()
 {
     sub_004B9A00(2, 0, 0, 0, 0);
-    const int nCount = gpTradeObj_007C0D83->GetCount();
-    gnGlobal_007C0C60 = nCount;
-    gnGlobal_007C0C64 = gnGlobal_007C0D25;
-    if (nCount < 10 && gpTradeObj_007C0D83->GetAt(nCount) < 10)
+// build: symbol ?gpNpcTradeObj@* 0x007C0D83
+    const int nCount = gpNpcTradeObj->GetCount();
+    gnHireMercIndex = nCount;
+// build: symbol ?gnInteractNpcId@* 0x007C0D25
+    gnHireMercNpcId = gnInteractNpcId;
+    if (nCount < 10 && gpNpcTradeObj->GetAt(nCount) < 10)
     {
         if (sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0) == -1
-            && (!GAME_IsExpansion() || (!sub_00478EE0_CountPets(sub_00463DD0_GetPlayerUnit(), 7) && gwGlobal_00725494 == 0xFFFF)))
+// build: symbol ?gnHirelingName@* 0x00725494
+            && (!GAME_IsExpansion() || (!sub_00478EE0_CountPets(sub_00463DD0_GetPlayerUnit(), 7) && gnHirelingName == 0xFFFF)))
         {
             NPCMENU_HireMercWait();
             return 0;
@@ -668,17 +671,20 @@ int __cdecl NPCMENU_HireMercHandler()
 // 0x004B35B0
 int __cdecl NPCMENU_OpenItemServicePanel()
 {
-    if (gpDialog_007C0D6B)
+// build: symbol ?gpNpcMainMenuDialog@* 0x007C0D6B
+    if (gpNpcMainMenuDialog)
     {
-        DIALOG_DestroyDialog(gpDialog_007C0D6B);
-        gpDialog_007C0D6B = 0;
+        DIALOG_DestroyDialog(gpNpcMainMenuDialog);
+        gpNpcMainMenuDialog = 0;
     }
     sub_00455F20(8, 1, 0);
     UI_StartUIVarDelay();
     INV_ResetHover();
-    gnGlobal_007C0C6B = 7;
-    gnGlobal_007C0D31 = 0;
-    USEITEM_OpenNpcItemPanel(gnGlobal_007C0D25);
+// build: symbol ?gnNpcMenuState@* 0x007C0C6B
+    gnNpcMenuState = 7;
+// build: symbol ?gnNpcTradeMode@* 0x007C0D31
+    gnNpcTradeMode = 0;
+    USEITEM_OpenNpcItemPanel(gnInteractNpcId);
     return 1;
 }
 
@@ -712,7 +718,9 @@ int __cdecl NPCMENU_InitPersonalizeHandler()
 // 0x004B3C00
 void __fastcall sub_004B3C00(int nUnitId)
 {
-    if (gnGlobal_007C0D96 && gbGlobal_007C0D89 == 0 && nUnitId == gnGlobal_007C0D8E)
+// build: symbol ?gnPendingNpcActionUnitId@* 0x007C0D8E
+// build: symbol ?gbNpcActionPending@* 0x007C0D96
+    if (gbNpcActionPending && gnPendingNpcActionType == 0 && nUnitId == gnPendingNpcActionUnitId)
     {
         NPCMENU_FinishTransaction();
     }
@@ -721,16 +729,17 @@ void __fastcall sub_004B3C00(int nUnitId)
 // 0x004B4010
 int __cdecl NPCMENU_CloseSubMenuDialog()
 {
-    if (gbGlobal_007C0C69)
+    if (gbNpcMessageShown)
         return 0;
 
-    if (gpDialog_007C0D6F)
+// build: symbol ?gpNpcMessageDialog@* 0x007C0D6F
+    if (gpNpcMessageDialog)
     {
-        DIALOG_DestroyDialog(gpDialog_007C0D6F);
-        gpDialog_007C0D6F = 0;
-        gnGlobal_007C0C6B = 0;
+        DIALOG_DestroyDialog(gpNpcMessageDialog);
+        gpNpcMessageDialog = 0;
+        gnNpcMenuState = 0;
         INV_ResetHover();
-        NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
+        NPCMENU_EndNpcInteraction(gnInteractNpcId);
         sub_00455F20(8, 1, 0);
     }
     return 1;
@@ -739,44 +748,46 @@ int __cdecl NPCMENU_CloseSubMenuDialog()
 // 0x004B40D0
 static void __stdcall NPCMENU_ShowNpcMessage(char bFlag, int nIndex)
 {
-    D2UnitStrc* pNpc = gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25, 1) : 0;
+// build: symbol ?gbNpcInteracting@* 0x007C0D29
+    D2UnitStrc* pNpc = gbNpcInteracting ? CUNIT_FindClientUnit(gnInteractNpcId, 1) : 0;
     if (!pNpc)
     {
-        gnGlobal_007C0C6B = 0;
+        gnNpcMenuState = 0;
         INV_ResetHover();
-        NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
+        NPCMENU_EndNpcInteraction(gnInteractNpcId);
         sub_00455F20(8, 1, 0);
         return;
     }
 
-    gbGlobal_007C0C69 = 1;
+    gbNpcMessageShown = 1;
     TEXT_SetTextCallback(sub_004B18C0, 0);
     DIALOG_DestroyDialog(gpRes_007C0D6F);
     gpRes_007C0D6F = 0;
-    gpNpcEntry_007C0C7D->bSelected = 1;
-    if (!gbGlobal_007C0C6A)
+// build: symbol ?gpNpcEntry@* 0x007C0C7D
+    gpNpcEntry->bSelected = 1;
+    if (!gbNpcEntriesProcessed)
     {
         sub_004B17A0();
         if (bFlag)
-            nIndex = gpNpcEntry_007C0C7D->nIndex;
+            nIndex = gpNpcEntry->nIndex;
     }
-    D2UnitStrc* pUnit = gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25, 1) : 0;
-    sub_004A10E0(pUnit, gpNpcEntry_007C0C7D->pMessages[nIndex % gpNpcEntry_007C0C7D->nCount].nMessage, 0);
+    D2UnitStrc* pUnit = gbNpcInteracting ? CUNIT_FindClientUnit(gnInteractNpcId, 1) : 0;
+    sub_004A10E0(pUnit, gpNpcEntry->pMessages[nIndex % gpNpcEntry->nCount].nMessage, 0);
 }
 
 // 0x004B41C0
 int __cdecl NPCMENU_NextNpcMessage()
 {
-    NPCMENU_ShowNpcMessage(1, gpNpcEntry_007C0C7D->nIndex);
+    NPCMENU_ShowNpcMessage(1, gpNpcEntry->nIndex);
     return 1;
 }
 
 void __fastcall sub_004B1980_AddUsedString(unsigned short wStringId)
 {
-    if (gtStringList_007C0D9A.wCount < 9)
+    if (gtStringList.wCount < 9)
     {
-        gtStringList_007C0D9A.awStrings[gtStringList_007C0D9A.wCount] = wStringId;
-        gtStringList_007C0D9A.wCount++;
+        gtStringList.awStrings[gtStringList.wCount] = wStringId;
+        gtStringList.wCount++;
     }
 }
 
@@ -785,9 +796,9 @@ int __cdecl NPCMENU_GreetNpcMessage()
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nClass = !pPlayer ? -1 : pPlayer->dwClassId;
-    if (gnGlobal_007C0D29)
+    if (gbNpcInteracting)
     {
-        D2UnitStrc* pNpc = CUNIT_FindClientUnit(gnGlobal_007C0D25, 1);
+        D2UnitStrc* pNpc = CUNIT_FindClientUnit(gnInteractNpcId, 1);
         if (pNpc)
         {
             switch (pNpc->dwClassId)
@@ -816,7 +827,7 @@ int __cdecl NPCMENU_GreetNpcMessage()
             }
         }
     }
-    if (nClass == gpNpcEntry_007C0C7D->pMessages[1].nClass)
+    if (nClass == gpNpcEntry->pMessages[1].nClass)
         NPCMENU_ShowNpcMessage(0, 1);
     else
         NPCMENU_ShowNpcMessage(0, 0);
@@ -827,44 +838,44 @@ int __cdecl NPCMENU_GreetNpcMessage()
 int __cdecl NPCMENU_ConfirmNpcAction()
 {
     sub_004B4070();
-    sub_004786D0_SendDwords3(0x38, 0, gnGlobal_007C0D25, 0);
+    sub_004786D0_SendDwords3(0x38, 0, gnInteractNpcId, 0);
     return 1;
 }
 
 // 0x004B42B0
 int __cdecl NPCMENU_OpenTradeShop()
 {
-    if (gnNpcSoundActive_007C0DB4)
+    if (gnNpcSoundActive)
     {
-        if (gnNpcSoundHandle_007C0DB8)
+        if (gnNpcSoundHandle)
         {
-            sub_004BA840(gnNpcSoundHandle_007C0DB8);
-            gnNpcSoundHandle_007C0DB8 = 0;
+            sub_004BA840(gnNpcSoundHandle);
+            gnNpcSoundHandle = 0;
         }
-        gnNpcSoundActive_007C0DB4 = 0;
+        gnNpcSoundActive = 0;
     }
 
-    if (gpDialog_007C0D6B)
+    if (gpNpcMainMenuDialog)
     {
-        DIALOG_DestroyDialog(gpDialog_007C0D6B);
-        gpDialog_007C0D6B = 0;
+        DIALOG_DestroyDialog(gpNpcMainMenuDialog);
+        gpNpcMainMenuDialog = 0;
     }
 
-    D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnGlobal_007C0D25, 1);
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnInteractNpcId, 1);
     if (!(pUnit ? pUnit->pInventory : 0))
     {
-        gnGlobal_007C0C6B = 0;
+        gnNpcMenuState = 0;
         INV_ResetHover();
-        NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
+        NPCMENU_EndNpcInteraction(gnInteractNpcId);
         sub_00455F20(8, 1, 0);
         return 1;
     }
 
-    gnGlobal_007C0C6B = 3;
-    gdwGlobal_007C0DB0 = 0;
+    gnNpcMenuState = 3;
+    gbGambleShop = 0;
     sub_00455F20(0xC, 0, 0);
-    sub_004786D0_SendDwords3(0x38, 1, gnGlobal_007C0D25, 0);
-    gpUnit_007C0DD4 = sub_00463DD0_GetPlayerUnit();
+    sub_004786D0_SendDwords3(0x38, 1, gnInteractNpcId, 0);
+    gpNpcPlayerUnit = sub_00463DD0_GetPlayerUnit();
     gwGlobal_007C0DD8 = 0;
     return 1;
 }
@@ -872,14 +883,14 @@ int __cdecl NPCMENU_OpenTradeShop()
 // 0x004B45D0
 int __cdecl sub_004B45D0_NpcMenuCancel()
 {
-    if (gpDialog_007C0D6B)
+    if (gpNpcMainMenuDialog)
     {
-        DIALOG_DestroyDialog(gpDialog_007C0D6B);
-        gpDialog_007C0D6B = 0;
+        DIALOG_DestroyDialog(gpNpcMainMenuDialog);
+        gpNpcMainMenuDialog = 0;
     }
-    gnGlobal_007C0C6B = 0;
+    gnNpcMenuState = 0;
     INV_ResetHover();
-    NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
+    NPCMENU_EndNpcInteraction(gnInteractNpcId);
     sub_00455F20(8, 1, 0);
     return 1;
 }
@@ -887,14 +898,14 @@ int __cdecl sub_004B45D0_NpcMenuCancel()
 // 0x004B4620
 int __cdecl sub_004B4620_NpcMenuCancelB()
 {
-    if (gpDialog_007C0D6B)
+    if (gpNpcMainMenuDialog)
     {
-        DIALOG_DestroyDialog(gpDialog_007C0D6B);
-        gpDialog_007C0D6B = 0;
+        DIALOG_DestroyDialog(gpNpcMainMenuDialog);
+        gpNpcMainMenuDialog = 0;
     }
-    gnGlobal_007C0C6B = 0;
+    gnNpcMenuState = 0;
     INV_ResetHover();
-    NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
+    NPCMENU_EndNpcInteraction(gnInteractNpcId);
     sub_00455F20(8, 1, 0);
     return 1;
 }
@@ -902,15 +913,17 @@ int __cdecl sub_004B4620_NpcMenuCancelB()
 // 0x004B4670
 int __cdecl sub_004B4670_NpcMenuCancelText()
 {
-    if (gpDialog_007C0D7B)
+// build: symbol ?gpNpcGreetingDialog@* 0x007C0D7B
+    if (gpNpcGreetingDialog)
     {
-        DIALOG_DestroyDialog(gpDialog_007C0D7B);
-        gpDialog_007C0D7B = 0;
-        sub_004786A0_SendDwords2(0x31, gnGlobal_007C0D25, gwGlobal_007C0C77);
+        DIALOG_DestroyDialog(gpNpcGreetingDialog);
+        gpNpcGreetingDialog = 0;
+// build: symbol ?gwNpcGreetingString@* 0x007C0C77
+        sub_004786A0_SendDwords2(0x31, gnInteractNpcId, gwNpcGreetingString);
     }
-    gnGlobal_007C0C6B = 0;
+    gnNpcMenuState = 0;
     INV_ResetHover();
-    NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
+    NPCMENU_EndNpcInteraction(gnInteractNpcId);
     sub_00455F20(8, 1, 0);
     return 1;
 }
@@ -918,15 +931,15 @@ int __cdecl sub_004B4670_NpcMenuCancelText()
 // 0x004B46D0
 int __cdecl sub_004B46D0_NpcMenuCancelTextB()
 {
-    if (gpDialog_007C0D7B)
+    if (gpNpcGreetingDialog)
     {
-        DIALOG_DestroyDialog(gpDialog_007C0D7B);
-        gpDialog_007C0D7B = 0;
-        sub_004786A0_SendDwords2(0x31, gnGlobal_007C0D25, gwGlobal_007C0C77);
+        DIALOG_DestroyDialog(gpNpcGreetingDialog);
+        gpNpcGreetingDialog = 0;
+        sub_004786A0_SendDwords2(0x31, gnInteractNpcId, gwNpcGreetingString);
     }
-    gnGlobal_007C0C6B = 0;
+    gnNpcMenuState = 0;
     INV_ResetHover();
-    NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
+    NPCMENU_EndNpcInteraction(gnInteractNpcId);
     sub_00455F20(8, 1, 0);
     return 1;
 }
@@ -936,13 +949,13 @@ int __cdecl NPCMENU_MenuClose()
 {
     DIALOG_DestroyDialog(gpRes_007C0D5F);
     gpRes_007C0D5F = 0;
-    if (gnGlobal_007C0D31 == 5)
+    if (gnNpcTradeMode == 5)
     {
         sub_004B5C60_Handler();
         return 1;
     }
     INV_ResetNpcButtonsFromPending();
-    gnGlobal_007C0C6B = 3;
+    gnNpcMenuState = 3;
     sub_00466FE0();
     return 1;
 }
@@ -951,13 +964,13 @@ int __cdecl NPCMENU_MenuClose()
 void __fastcall sub_004B3360(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwClassId == 0x13E && pUnit->dwAnimMode == 2)
-        gbFound_007C0DDA = 1;
+        gbObjectFound = 1;
 }
 
 // 0x004B2E70
 int __cdecl NPCMENU_MenuBack()
 {
-    if (gnGlobal_007C0D31 == 5)
+    if (gnNpcTradeMode == 5)
     {
         if (gpRes_007C0D5F)
         {
@@ -967,7 +980,7 @@ int __cdecl NPCMENU_MenuBack()
         NPCMENU_HireMercWait();
         return 1;
     }
-    if (gnGlobal_007C0C6B == 4)
+    if (gnNpcMenuState == 4)
     {
         if (gpRes_007C0D5F)
         {
@@ -978,46 +991,47 @@ int __cdecl NPCMENU_MenuBack()
         return 1;
     }
     sub_00466FE0();
-    D2_ASSERT(gnGlobal_007C0C6B != 4, 0x14F9);
+    D2_ASSERT(gnNpcMenuState != 4, 0x14F9);
     return 1;
 }
 
 // 0x004B4730
 int __cdecl NPCMENU_NpcMenuTalk()
 {
-    if (gpDialog_007C0D7B)
+    if (gpNpcGreetingDialog)
     {
-        DIALOG_DestroyDialog(gpDialog_007C0D7B);
-        gpDialog_007C0D7B = 0;
+        DIALOG_DestroyDialog(gpNpcGreetingDialog);
+        gpNpcGreetingDialog = 0;
     }
 
-    if (!(gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25, 1) : 0))
+    if (!(gbNpcInteracting ? CUNIT_FindClientUnit(gnInteractNpcId, 1) : 0))
     {
-        gnGlobal_007C0C6B = 0;
+        gnNpcMenuState = 0;
         INV_ResetHover();
-        NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
+        NPCMENU_EndNpcInteraction(gnInteractNpcId);
         sub_00455F20(8, 1, 0);
         return 1;
     }
 
-    sub_004A10E0(gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25, 1) : 0, gwGlobal_007C0C77, 0);
-    sub_004B1980_AddUsedString(gwGlobal_007C0C77);
-    if (gwGlobal_007C0C79 == 0xFFFF)
+    sub_004A10E0(gbNpcInteracting ? CUNIT_FindClientUnit(gnInteractNpcId, 1) : 0, gwNpcGreetingString, 0);
+    sub_004B1980_AddUsedString(gwNpcGreetingString);
+// build: symbol ?gwNpcMessageString@* 0x007C0C79
+    if (gwNpcMessageString == 0xFFFF)
     {
-        gnGlobal_007C0C6B = 0;
+        gnNpcMenuState = 0;
     }
     else
     {
-        gbGlobal_007C0C69 = 1;
+        gbNpcMessageShown = 1;
         TEXT_SetTextCallback(sub_004B6A30_NpcTextCallback, 0);
     }
-    sub_004786A0_SendDwords2(0x31, gnGlobal_007C0D25, gwGlobal_007C0C77);
+    sub_004786A0_SendDwords2(0x31, gnInteractNpcId, gwNpcGreetingString);
     return 1;
 }
 
 static inline D2UnitStrc* NPC_GetInteractUnit_Inline()
 {
-    return gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25,1):0;
+    return gbNpcInteracting ? CUNIT_FindClientUnit(gnInteractNpcId,1):0;
 }
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
@@ -1027,9 +1041,9 @@ static int sub_004B1C80_GetNpcDialogPos(D2CoordStrc* pCoords)
     {
         UNITS_GetClientCoords(NPC_GetInteractUnit_Inline(),pCoords);
         tagRECT tView;
-        sub_00476070_GetViewRect(gpView_007A0640,&tView.left,&tView.top,&tView.right,&tView.bottom);
+        sub_00476070_GetViewRect(gpClientView,&tView.left,&tView.top,&tView.right,&tView.bottom);
         D2CoordStrc tOffset;
-        VIEW_GetViewOffset(gpView_007A0640,&tOffset.nX,&tOffset.nY);
+        VIEW_GetViewOffset(gpClientView,&tOffset.nX,&tOffset.nY);
         tagRECT tRect;
         SetRect(&tRect,tOffset.nX,tOffset.nY,tOffset.nX+(tView.right-tView.left),tOffset.nY+(tView.bottom-tView.top));
         pCoords->nY += -150-tRect.top;
@@ -1044,8 +1058,9 @@ static __forceinline int NPC_FindIndex_Inline(D2UnitStrc* pNpc)
 {
     if(!pNpc)return -1;
     const int nId=pNpc->dwClassId;
-    for(int i=0;i<gnNpcIndexCount_00725A74;++i)
-        if(gaNpcIndex_00726C48[i].nId==nId)return i;
+// build: symbol ?gnNpcIndexCount@* 0x00725A74
+    for(int i=0;i<gnNpcIndexCount;++i)
+        if(gaNpcIndex[i].nId==nId)return i;
     return 0;
 }
 
@@ -1054,13 +1069,13 @@ int __cdecl NPCMENU_NpcMenuReturn()
 {
     sub_00466FE0();
     sub_004B9A00(1, 0, 0, 0, 0);
-    DIALOG_DestroyDialog(gpDialog_007C0D63);
-    gpDialog_007C0D63 = 0;
-    if (gnGlobal_007C0C6B == 0xC)
+    DIALOG_DestroyDialog(gpNpcSubMenuDialog);
+    gpNpcSubMenuDialog = 0;
+    if (gnNpcMenuState == 0xC)
     {
-        if (gnGlobal_007C0D31 == 5)
+        if (gnNpcTradeMode == 5)
         {
-            NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
+            NPCMENU_EndNpcInteraction(gnInteractNpcId);
             sub_00455F20(8, 1, 0);
             return 1;
         }
@@ -1068,9 +1083,9 @@ int __cdecl NPCMENU_NpcMenuReturn()
         return 1;
     }
 
-    D2_ASSERT(gnGlobal_007C0D31 != 6, 0xD55);
-    D2_ASSERT(gnGlobal_007C0C6B != 8, 0xD56);
-    gnGlobal_007C0C6B = 3;
+    D2_ASSERT(gnNpcTradeMode != 6, 0xD55);
+    D2_ASSERT(gnNpcMenuState != 8, 0xD56);
+    gnNpcMenuState = 3;
     INV_ResetButtonsFromMenuReturn();
     return 1;
 }
@@ -1078,123 +1093,123 @@ int __cdecl NPCMENU_NpcMenuReturn()
 // 0x004B5140
 int __cdecl sub_004B5140_NpcMenuAction28()
 {
-    if (gpDialog_007C0D6B)
+    if (gpNpcMainMenuDialog)
     {
-        DIALOG_DestroyDialog(gpDialog_007C0D6B);
-        gpDialog_007C0D6B = 0;
+        DIALOG_DestroyDialog(gpNpcMainMenuDialog);
+        gpNpcMainMenuDialog = 0;
     }
-    gnGlobal_007C0C6B = 0;
+    gnNpcMenuState = 0;
     INV_ResetHover();
-    NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
+    NPCMENU_EndNpcInteraction(gnInteractNpcId);
     sub_00455F20(8, 1, 0);
-    sub_004786D0_SendDwords3(0x38, 0, gnGlobal_007C0D25, 0x28);
+    sub_004786D0_SendDwords3(0x38, 0, gnInteractNpcId, 0x28);
     return 1;
 }
 
 // 0x004B51A0
 int __cdecl NPCMENU_TravelToKurastDocks()
 {
-    if (gpDialog_007C0D6B)
+    if (gpNpcMainMenuDialog)
     {
-        DIALOG_DestroyDialog(gpDialog_007C0D6B);
-        gpDialog_007C0D6B = 0;
+        DIALOG_DestroyDialog(gpNpcMainMenuDialog);
+        gpNpcMainMenuDialog = 0;
     }
-    gnGlobal_007C0C6B = 0;
+    gnNpcMenuState = 0;
     INV_ResetHover();
-    NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
+    NPCMENU_EndNpcInteraction(gnInteractNpcId);
     sub_00455F20(8, 1, 0);
-    sub_004786D0_SendDwords3(0x38, 0, gnGlobal_007C0D25, 0x4B);
+    sub_004786D0_SendDwords3(0x38, 0, gnInteractNpcId, 0x4B);
     return 1;
 }
 
 // 0x004B5200
 int __cdecl NPCMENU_TravelToHarrogath()
 {
-    if (gpDialog_007C0D6B)
+    if (gpNpcMainMenuDialog)
     {
-        DIALOG_DestroyDialog(gpDialog_007C0D6B);
-        gpDialog_007C0D6B = 0;
+        DIALOG_DestroyDialog(gpNpcMainMenuDialog);
+        gpNpcMainMenuDialog = 0;
     }
-    gnGlobal_007C0C6B = 0;
+    gnNpcMenuState = 0;
     INV_ResetHover();
-    NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
+    NPCMENU_EndNpcInteraction(gnInteractNpcId);
     sub_00455F20(8, 1, 0);
-    sub_004786D0_SendDwords3(0x38, 0, gnGlobal_007C0D25, 0x6D);
+    sub_004786D0_SendDwords3(0x38, 0, gnInteractNpcId, 0x6D);
     return 1;
 }
 
 // 0x004B5260
 int __cdecl sub_004B5260_NpcMenuAction28b()
 {
-    if (gpDialog_007C0D6B)
+    if (gpNpcMainMenuDialog)
     {
-        DIALOG_DestroyDialog(gpDialog_007C0D6B);
-        gpDialog_007C0D6B = 0;
+        DIALOG_DestroyDialog(gpNpcMainMenuDialog);
+        gpNpcMainMenuDialog = 0;
     }
-    gnGlobal_007C0C6B = 0;
+    gnNpcMenuState = 0;
     INV_ResetHover();
-    NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
+    NPCMENU_EndNpcInteraction(gnInteractNpcId);
     sub_00455F20(8, 1, 0);
-    sub_004786D0_SendDwords3(0x38, 0, gnGlobal_007C0D25, 0x28);
+    sub_004786D0_SendDwords3(0x38, 0, gnInteractNpcId, 0x28);
     return 1;
 }
 
 // 0x004B52C0
 int __cdecl NPCMENU_TravelToRogueEncampment()
 {
-    if (gpDialog_007C0D6B)
+    if (gpNpcMainMenuDialog)
     {
-        DIALOG_DestroyDialog(gpDialog_007C0D6B);
-        gpDialog_007C0D6B = 0;
+        DIALOG_DestroyDialog(gpNpcMainMenuDialog);
+        gpNpcMainMenuDialog = 0;
     }
-    gnGlobal_007C0C6B = 0;
+    gnNpcMenuState = 0;
     INV_ResetHover();
-    NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
+    NPCMENU_EndNpcInteraction(gnInteractNpcId);
     sub_00455F20(8, 1, 0);
-    sub_004786D0_SendDwords3(0x38, 0, gnGlobal_007C0D25, 1);
+    sub_004786D0_SendDwords3(0x38, 0, gnInteractNpcId, 1);
     return 1;
 }
 
 // 0x004B4830
 void __cdecl NPCMENU_BuildNpcMenu()
 {
-    if(gpDialog_007C0D6B){sub_00408A60(&gszEmptyAssertText,sub_00408090(),0xC74);exit(-1);}
+    if(gpNpcMainMenuDialog){sub_00408A60(&gszEmptyAssertText,sub_00408090(),0xC74);exit(-1);}
     if(!NPC_GetInteractUnit_Inline())
     {
-        gnGlobal_007C0C6B=0;
+        gnNpcMenuState=0;
         INV_ResetHover();
-        NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
+        NPCMENU_EndNpcInteraction(gnInteractNpcId);
         sub_00455F20(8,1,0);
         return;
     }
     if(gnGlobal_007C0D2D==252 || gnGlobal_007C0D2D==198 || gnGlobal_007C0D2D==515 || gnGlobal_007C0D2D==150)
     {
         D2UnitStrc* pPlayer=sub_00463DD0_GetPlayerUnit();
-        sub_004786D0_SendDwords3(0x38,3,gnGlobal_007C0D25,!pPlayer?-1:pPlayer->dwUnitId);
+        sub_004786D0_SendDwords3(0x38,3,gnInteractNpcId,!pPlayer?-1:pPlayer->dwUnitId);
     }
     D2CoordStrc tCoords;
     tCoords.nX=0;
     tCoords.nY=0;
     sub_004B1C80_GetNpcDialogPos(&tCoords);
-    gpDialog_007C0D6B=sub_004B7EB0_CreateDialog(tCoords.nX,tCoords.nY,sub_004B45D0_NpcMenuCancel,sub_004B4620_NpcMenuCancelB,0,0,1,0,0,0,1);
-    sub_004B8370(gpDialog_007C0D6B,1);
+    gpNpcMainMenuDialog=sub_004B7EB0_CreateDialog(tCoords.nX,tCoords.nY,sub_004B45D0_NpcMenuCancel,sub_004B4620_NpcMenuCancelB,0,0,1,0,0,0,1);
+    sub_004B8370(gpNpcMainMenuDialog,1);
     Unicode wszName[80];
     sub_005267E0(wszName,CUNIT_GetUnitName(NPC_GetInteractUnit_Inline()));
     sub_00526800(wszName);
-    sub_004B85F0_AddTextLine(gpDialog_007C0D6B,wszName,21,0,4,1,0,0);
+    sub_004B85F0_AddTextLine(gpNpcMainMenuDialog,wszName,21,0,4,1,0,0);
     int nIndex=NPC_FindIndex_Inline(NPC_GetInteractUnit_Inline());
-    if(nIndex<0 || nIndex>=gnNpcIndexCount_00725A74)return;
-    gnGlobal_007C0C6B=1;
-    for(int i=0;i<gaNpcIndex_00726C48[nIndex].nCount-1;++i)
+    if(nIndex<0 || nIndex>=gnNpcIndexCount)return;
+    gnNpcMenuState=1;
+    for(int i=0;i<gaNpcIndex[nIndex].nCount-1;++i)
     {
         Unicode wszLine[512];
-        unsigned short nStringId=gaNpcIndex_00726C48[nIndex].awIds[i];
+        unsigned short nStringId=gaNpcIndex[nIndex].awIds[i];
         int bEnabled=1;
         if(nStringId==0x1507)
         {
             const Unicode* wszHireling=D2LANG_GetStringFromTblIndex(0x2B0D);
             if((unsigned short)gnHirelingName_00725494!=0x421)wszHireling=D2LANG_GetStringFromTblIndex((unsigned short)gnHirelingName_00725494);
-            sub_005269D0(512,wszLine,D2LANG_GetStringFromTblIndex(0x58A8),wszHireling,gnGlobal_007C0DD0);
+            sub_005269D0(512,wszLine,D2LANG_GetStringFromTblIndex(0x58A8),wszHireling,gnNpcMenuValue);
         }
         else if(nStringId==0xD09)
         {
@@ -1202,7 +1217,7 @@ void __cdecl NPCMENU_BuildNpcMenu()
             if(nLife>=STATLIST_GetMaxLifeFromUnit(sub_00463DD0_GetPlayerUnit()))continue;
             int nCost=UNITS_GetHealingCost(sub_00463DD0_GetPlayerUnit());
             if(!nCost)nCost=1;
-            sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(gaNpcIndex_00726C48[nIndex].awIds[i]));
+            sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(gaNpcIndex[nIndex].awIds[i]));
             Unicode wszNumber[10] = {0,0,0,0,0,0,0,0,0,0};
             char szNumber[12];
             wsprintfA(szNumber,gszFormatD,nCost);
@@ -1213,11 +1228,12 @@ void __cdecl NPCMENU_BuildNpcMenu()
         else if(nStringId==0xFB4)
         {
             int bCharge=0;
-            if(!QUESTRECORD_GetQuestState(gpQuestFlags_007C0D43,4,0) && !QUESTRECORD_GetQuestState(gpQuestFlags_007C0D43,4,1))bCharge=1;
+// build: symbol ?gpPlayerQuestFlags@* 0x007C0D43
+            if(!QUESTRECORD_GetQuestState(gpPlayerQuestFlags,4,0) && !QUESTRECORD_GetQuestState(gpPlayerQuestFlags,4,1))bCharge=1;
             int nCount=ITEMS_GetNoOfUnidItems(sub_00463DD0_GetPlayerUnit());
             if(nCount)
             {
-            gaNpcIndex_00726C48[nIndex].nCount=3;
+            gaNpcIndex[nIndex].nCount=3;
             if(bCharge)
             {
                 sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(0xFB5));
@@ -1230,19 +1246,19 @@ void __cdecl NPCMENU_BuildNpcMenu()
             }
             else sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(0xFB4));
             }
-            else {gaNpcIndex_00726C48[nIndex].nCount=2;continue;}
+            else {gaNpcIndex[nIndex].nCount=2;continue;}
         }
         else if(nStringId==0x2BA0)
         {
-            if(QUESTRECORD_GetQuestState(gpQuestFlags_007C0D43,41,0))continue;
-            if(QUESTRECORD_GetQuestState(gpQuestFlags_007C0D43,41,1)!=1)
+            if(QUESTRECORD_GetQuestState(gpPlayerQuestFlags,41,0))continue;
+            if(QUESTRECORD_GetQuestState(gpPlayerQuestFlags,41,1)!=1)
             {
-                if(GAME_GetDifficulty()!=2 || QUESTRECORD_GetQuestState(gpQuestFlags_007C0D43,41,1))continue;
+                if(GAME_GetDifficulty()!=2 || QUESTRECORD_GetQuestState(gpPlayerQuestFlags,41,1))continue;
             }
-            sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(gaNpcIndex_00726C48[nIndex].awIds[i]));
+            sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(gaNpcIndex[nIndex].awIds[i]));
         }
         else sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(nStringId));
-        sub_004B85F0_AddTextLine(gpDialog_007C0D6B,wszLine,15,0,0,1,gaNpcIndex_00726C48[nIndex].apfHandlers[i],bEnabled);
+        sub_004B85F0_AddTextLine(gpNpcMainMenuDialog,wszLine,15,0,0,1,gaNpcIndex[nIndex].apfHandlers[i],bEnabled);
     }
-    sub_004B85F0_AddTextLine(gpDialog_007C0D6B,D2LANG_GetStringFromTblIndex(0x102E),15,0,0,1,sub_004B45D0_NpcMenuCancel,1);
+    sub_004B85F0_AddTextLine(gpNpcMainMenuDialog,D2LANG_GetStringFromTblIndex(0x102E),15,0,0,1,sub_004B45D0_NpcMenuCancel,1);
 }

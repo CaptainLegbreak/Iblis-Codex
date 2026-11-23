@@ -28,7 +28,7 @@ void __fastcall GFX_ClearPendingAction(D2UnitStrc* pUnit); // 0x0045C470
 int __cdecl GAME_GetCurrentTime(); // 0x0044DAA0
 void __fastcall GAME_SetInteractDeadline(int nValue); // 0x0044DAD0
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag); // 0x00451F30
-extern "C" const char szUnitModeFile_006D8E84[]; // 0x006D8E84
+extern "C" const char gszUnitModeFile[]; // 0x006D8E84
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
@@ -56,7 +56,7 @@ static int UNITMODE_CanUseSkillNow(D2UnitStrc* pPlayer)
         return 1;
     }
 
-    D2SkillsTxt* pSkillsTxt = UMODE_GetSkillsTxtRecord(SKILLS_GetSkillIdFromSkill(pSkill, szUnitModeFile_006D8E84, 0x2CC));
+    D2SkillsTxt* pSkillsTxt = UMODE_GetSkillsTxtRecord(SKILLS_GetSkillIdFromSkill(pSkill, gszUnitModeFile, 0x2CC));
     if (!pSkillsTxt || BITARRAY_CHECK((unsigned char*)pSkillsTxt, 63))
     {
         return 1;
@@ -222,7 +222,7 @@ static int __stdcall UNITMODE_TryMonsterAction(int nAction, int nArg1, int nArg2
 
         if (pSkill)
         {
-            int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, szUnitModeFile_006D8E84, 0x44F);
+            int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, gszUnitModeFile, 0x44F);
             D2SkillsTxt* pTxt = UMODE_GetSkillsTxtRecord(nSkillId);
             if (pTxt && BITARRAY_CHECK((unsigned char*)pTxt, 56))
             {

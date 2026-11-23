@@ -220,19 +220,19 @@ extern int gnGlobal_007111D0; // 0x007111D0
 
 extern int gnGlobal_007111D4; // 0x007111D4
 
-extern int gnGlobal_0071146C; // 0x0071146C
+extern int gnScreenWidth; // 0x0071146C
 
-extern int gnGlobal_00711470; // 0x00711470
+extern int gnScreenHeight; // 0x00711470
 
 extern unsigned short gwSavedRequestId_0077BBDC; // 0x0077BBDC
 
 extern void* gpGlobal_007A0634; // 0x007A0634
 
-extern void* gpAutomapContext_007A5164; // 0x007A5164
+extern void* gpAutomapContext; // 0x007A5164
 
 extern D2GridCellStrc gtGridCells_007B0E68[]; // 0x007B0E68
 
-extern int gnProgress_007BB3B4; // 0x007BB3B4
+extern int gnProgress; // 0x007BB3B4
 
 void __stdcall CHARSEL_AddToScrollValue(int nDelta); // 0x00439E60
 
@@ -807,7 +807,7 @@ void __stdcall CHARSEL_SetAutomapContext(void* pContext)
 {
     AUTOMAP_SaveAutomapLayer();
     AUTOMAP_ResetAutomapCells();
-    gpAutomapContext_007A5164 = pContext;
+    gpAutomapContext = pContext;
     AUTOMAP_LoadAutomapLayer();
 }
 
@@ -938,10 +938,10 @@ void __cdecl CHARSEL_DrawProgressiveStates()
         return;
     if (!gbOverlaysEnabled_007A289C)
         return;
-    int nY = gnGlobal_00711470 - gnGlobal_007111D4;
-    int nX = gnGlobal_0071146C - gnGlobal_007111D0;
+    int nY = gnScreenHeight - gnGlobal_007111D4;
+    int nX = gnScreenWidth - gnGlobal_007111D0;
     if (D2GFX_GetResolutionMode() == 2)
-        nY = gnGlobal_00711470 - gnGlobal_007111CC;
+        nY = gnScreenHeight - gnGlobal_007111CC;
     D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
     for (int i = 0; i < sgptDataTables->nProgressiveStates; ++i)
     {
@@ -997,9 +997,9 @@ void __fastcall CHARSEL_ShowProgressSteps(int nDone, int nTotal)
     for (int i = 0; i < 8; ++i)
     {
         if (nDivisor == 0)
-            gnProgress_007BB3B4 = 0;
+            gnProgress = 0;
         else
-            gnProgress_007BB3B4 = (nPosition * 0x100) / nDivisor;
+            gnProgress = (nPosition * 0x100) / nDivisor;
         UI_DrawLoadingScreen(0);
         Sleep(250);
         ++nPosition;

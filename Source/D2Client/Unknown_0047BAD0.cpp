@@ -32,7 +32,7 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 void __stdcall SStrTokenize(const char** pszString, char* szBuffer, unsigned int nBufferChars, const char* szWhitespace, int* pQuoted); // 0x00413B80
 int __cdecl GAME_GetConnectionType(); // 0x0044DB30
-extern T0047BAD0 gtChatCommands_00712F7C[3]; // 0x00712F7C
+extern T0047BAD0 gaChatCommands[3]; // 0x00712F7C
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 extern "C" int __cdecl strcmp(const char* a, const char* b);
@@ -92,17 +92,17 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
-extern D2OptionHeaderStrc* gpOptionHeader_007BC93C; // 0x007BC93C
+extern D2OptionHeaderStrc* gpOptionHeader; // 0x007BC93C
 extern D2CelFileStrc* gpSliderDisabledCell_007BC950; // 0x007BC950
 extern D2CelFileStrc* gpSliderEnabledCell_007BC954; // 0x007BC954
 extern D2CelFileStrc* gpSliderKnob_007BC958; // 0x007BC958
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nStyle); // 0x0046EFD0
 void __fastcall D2Win_10134_DrawCellFile(D2CelFileStrc* pCellFile, int nX, int nY, int nFrame, int nColor, int nArg6); // 0x00502680
 int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nColor, int nArg6); // 0x004F6480
-extern int gnSlotFrame_007BC918[]; // 0x007BC918
-extern int gnSlotX_007BC898[]; // 0x007BC898
-extern int gnSlotY_007BC8B8[]; // 0x007BC8B8
-extern void* gpSlotCells_007BC964; // 0x007BC964
+extern int gaSlotFrame[]; // 0x007BC918
+extern int gaSlotX[]; // 0x007BC898
+extern int gaSlotY[]; // 0x007BC8B8
+extern void* gpSlotCells; // 0x007BC964
 
 // 0x0047BAD0
 int __stdcall sub_0047BAD0_ParseChatCommand(const char** ppText, char* pCode, char* szArgument)
@@ -115,29 +115,29 @@ int __stdcall sub_0047BAD0_ParseChatCommand(const char** ppText, char* pCode, ch
     const int nTextLen = SStrLen(pText);
     for (int i = 0; i < 3; i++)
     {
-        const int nNameLen = SStrLen(gtChatCommands_00712F7C[i].szName);
-        if (!gtChatCommands_00712F7C[i].bAlways && !GAME_GetConnectionType())
+        const int nNameLen = SStrLen(gaChatCommands[i].szName);
+        if (!gaChatCommands[i].bAlways && !GAME_GetConnectionType())
             continue;
 
-        if (gtChatCommands_00712F7C[i].nCode == 3)
+        if (gaChatCommands[i].nCode == 3)
         {
             if (nTextLen < nNameLen)
                 continue;
-            if (SStrCmpI(pText, gtChatCommands_00712F7C[i].szName, nNameLen))
+            if (SStrCmpI(pText, gaChatCommands[i].szName, nNameLen))
                 continue;
-            *pCode = gtChatCommands_00712F7C[i].nCode;
+            *pCode = gaChatCommands[i].nCode;
             return 1;
         }
 
         if (nTextLen <= nNameLen)
             continue;
-        if (SStrCmpI(pText, gtChatCommands_00712F7C[i].szName, nNameLen))
+        if (SStrCmpI(pText, gaChatCommands[i].szName, nNameLen))
             continue;
         if (!pText[nNameLen])
             continue;
 
         pText += nNameLen;
-        if (gtChatCommands_00712F7C[i].bArgument)
+        if (gaChatCommands[i].bArgument)
         {
             SStrTokenize(&pText, szToken, 0x100, gszSpace_006FFC44, 0);
             if (!strlen(pText))
@@ -151,7 +151,7 @@ int __stdcall sub_0047BAD0_ParseChatCommand(const char** ppText, char* pCode, ch
         {
             *ppText += nNameLen;
         }
-        *pCode = gtChatCommands_00712F7C[i].nCode;
+        *pCode = gaChatCommands[i].nCode;
         return 1;
     }
     return 0;
@@ -216,7 +216,8 @@ int __cdecl sub_0047BDF0_HandleBnetChatMessage()
             char szFormatted[0x154];
             sub_0047BD80_CopyCharPart(szName, tPacket.szName);
             if (szName[0] && (szName[0] != 0x2A || strcmp(sub_0047BD60_GetAccountPart(szName), sub_0047BD60_GetAccountPart(tPacket.szName))))
-                sprintf(szFormatted, gszNameAccountFormat_006D72C0, szName, sub_0047BD60_GetAccountPart(tPacket.szName));
+// build: symbol ?gszNameAccountFormat@* 0x006D72C0
+                sprintf(szFormatted, gszNameAccountFormat, szName, sub_0047BD60_GetAccountPart(tPacket.szName));
             else
                 sprintf(szFormatted, gszStringFormat_006FFC58, szName);
             sub_00526E40_Utf8ToUnicode(wszLine, szFormatted, 0x154);
@@ -331,7 +332,7 @@ void __fastcall sub_0047DBB0_LoadOptionCels(D2OptionHeaderStrc* pHeader, D2Optio
 void __stdcall sub_0047E260_DrawOptionSlider(D2OptionEntryStrc* pEntry, int nY, int nColor, int bSmall)
 {
     const int* pbEnabled = &pEntry->bEnabled;
-    int nScreenY = gpOptionHeader_007BC93C->nY + nY;
+    int nScreenY = gpOptionHeader->nY + nY;
     nY = bSmall ? (gnScreenWidth_0071146C / 2) - 145 : (gnScreenWidth_0071146C / 2) - 60;
     int nKnobX = nY - (int)(-265.0 / (float)(pEntry->nValues - 1) * (float)pEntry->nValue);
     int nKnobY = nScreenY - !*pbEnabled - 1;
@@ -379,18 +380,18 @@ void __stdcall sub_0047E9A0_DrawSlots(int bDraw)
             if (gnSlotState_007BC8F8[i] == 1)
             {
                 D2CelContextStrc tContext = {};
-                tContext.pCellFile = gpSlotCells_007BC964;
-                tContext.nFrame = gnSlotFrame_007BC918[i] + 1;
-                TEXTURE_CelDraw(&tContext, gnSlotX_007BC898[i], gnSlotY_007BC8B8[i], -1, 5, 0);
+                tContext.pCellFile = gpSlotCells;
+                tContext.nFrame = gaSlotFrame[i] + 1;
+                TEXTURE_CelDraw(&tContext, gaSlotX[i], gaSlotY[i], -1, 5, 0);
                 if (++i >= nSlots)
                     break;
             }
             else
             {
                 D2CelContextStrc tContext = {};
-                tContext.pCellFile = gpSlotCells_007BC964;
-                tContext.nFrame = gnSlotFrame_007BC918[i];
-                TEXTURE_CelDraw(&tContext, gnSlotX_007BC898[i], gnSlotY_007BC8B8[i], -1, 5, 0);
+                tContext.pCellFile = gpSlotCells;
+                tContext.nFrame = gaSlotFrame[i];
+                TEXTURE_CelDraw(&tContext, gaSlotX[i], gaSlotY[i], -1, 5, 0);
                 if (++i >= nSlots)
                     break;
             }

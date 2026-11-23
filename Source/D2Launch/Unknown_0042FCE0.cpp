@@ -18,17 +18,18 @@ static void MAINMENUS_BuildLocalizedVideoPath(char* szOut, const char* szFormat,
     char szLang[4];
 // build: symbol ?STRTABLE_GetLanguageInfoField@* 0x00525260
     STRTABLE_GetLanguageInfoField(szLang, 0);
-    sprintf(szOut, szFormat, gszDataLocal_006D41A8, szLang, szFile);
+// build: symbol ?gszDataLocal@* 0x006D41A8
+    sprintf(szOut, szFormat, gszDataLocal, szLang, szFile);
     if (sub_0042FCE0_ArchiveFilePresent(szOut))
         return;
     if (STRTABLE_GetLanguage())
     {
-        sprintf(szOut, szFormat, gszDataLocal_006D41A8, "ENG", szFile);
+        sprintf(szOut, szFormat, gszDataLocal, "ENG", szFile);
         sub_0042FCE0_ArchiveFilePresent(szOut);
     }
     else
     {
-        sprintf(szOut, szFormat, gszDataLocal_006D41A8, "CHI", szFile);
+        sprintf(szOut, szFormat, gszDataLocal, "CHI", szFile);
         sub_0042FCE0_ArchiveFilePresent(szOut);
     }
 }

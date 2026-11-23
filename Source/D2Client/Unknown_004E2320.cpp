@@ -91,8 +91,8 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
-extern D2CombinedStatIdStrc gaCombinedStatIds_0072CDD0[]; // 0x0072CDD0
-extern D2FileIndexTextStrc gaFileIndexText_0072D6C0[]; // 0x0072D6C0
+extern D2CombinedStatIdStrc gaCombinedStatIds[]; // 0x0072CDD0
+extern D2FileIndexTextStrc gaFileIndexText[]; // 0x0072D6C0
 extern D2DrlgActStrc* gpGlobal_007A0634; // 0x007A0634
 void __fastcall sub_004E60A0_AddSetPropText(D2UnitStrc* pUnit, Unicode* pOut, int nUnused, int bQuantity, int nState, int nState2, int nFlag, int bNewline); // 0x004E60A0
 int __fastcall sub_00526800(const Unicode* wszText); // 0x00526800
@@ -109,12 +109,12 @@ extern tagPALETTEENTRY gRGBAPalette_0081E668[]; // 0x0081E668
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 extern "C" const char szFmtD_006D57BC[]; // 0x006D57BC
-extern "C" const char szFmtRange_006D9D70[]; // 0x006D9D70
-extern "C" const char szFmtRangeKK_006DBEAC[]; // 0x006DBEAC
-extern "C" const char szFmtRangeK_006DBEB8[]; // 0x006DBEB8
-extern int gnGlobal_00711470; // 0x00711470
-extern int gnGlobal_007A2858; // 0x007A2858
-extern int gnGlobal_007A285C; // 0x007A285C
+extern "C" const char gszFmtRange[]; // 0x006D9D70
+extern "C" const char gszFmtRangeKK[]; // 0x006DBEAC
+extern "C" const char gszFmtRangeK[]; // 0x006DBEB8
+extern int gnScreenHeight; // 0x00711470
+extern int gnPanelOffsetX; // 0x007A2858
+extern int gnPanelOffsetY; // 0x007A285C
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
@@ -228,9 +228,10 @@ static void __stdcall sub_004E49C0_CollectCombinedStats(D2UnitStrc* pUnit, D2Sta
 {
     memset(pCombined, 0, sizeof(D2CombinedStatsStrc));
 
-    for (int i = 0; i < gnCombinedStatCount_0072CDCC; ++i)
+// build: symbol ?gnCombinedStatCount@* 0x0072CDCC
+    for (int i = 0; i < gnCombinedStatCount; ++i)
     {
-        const int nStatId = gaCombinedStatIds_0072CDD0[i].nStatId;
+        const int nStatId = gaCombinedStatIds[i].nStatId;
         if (nStatId == -1)
             continue;
 
@@ -384,7 +385,8 @@ static int __stdcall sub_004E4D80_BuildStatText(D2UnitStrc* pUnit, D2StatListStr
     }
 
     char szNumber[10];
-    SStrPrintf(szNumber, 10, szIntFormat_006D6454, nDisplay);
+// build: symbol ?gszFormatI@* 0x006D6454
+    SStrPrintf(szNumber, 10, gszFormatI, nDisplay);
     Unicode wszNumber[10];
     sub_00526320_ToUnicode(wszNumber, szNumber, 9);
 
@@ -457,7 +459,7 @@ static int __stdcall sub_004E4D80_BuildStatText(D2UnitStrc* pUnit, D2StatListStr
     case 20:
     case 21:
         nDisplay = -nDisplay;
-        SStrPrintf(szNumber, 10, szIntFormat_006D6454, nDisplay);
+        SStrPrintf(szNumber, 10, gszFormatI, nDisplay);
         sub_00526320_ToUnicode(wszNumber, szNumber, 9);
         if (nDescVal == 1)
         {
@@ -526,7 +528,7 @@ static int __stdcall sub_004E4D80_BuildStatText(D2UnitStrc* pUnit, D2StatListStr
         break;
     case 5:
     case 10:
-        SStrPrintf(szNumber, 10, szIntFormat_006D6454, nDisplay * 100 / 128);
+        SStrPrintf(szNumber, 10, gszFormatI, nDisplay * 100 / 128);
         sub_00526320_ToUnicode(wszNumber, szNumber, 9);
         if (nDescVal == 1)
         {
@@ -656,10 +658,11 @@ static int __stdcall sub_004E4D80_BuildStatText(D2UnitStrc* pUnit, D2StatListStr
 
         const int nPeriod = nPeriodOfDay > 0 ? nPeriodOfDay : 0;
         nPeriodOfDay = nPeriod < 3 ? nPeriod : 3;
-        sub_00526700(pOut, D2LANG_GetStringFromTblIndex(gawPeriodOfDayStr_006DBD88[nPeriodOfDay]));
+// build: symbol ?gawPeriodOfDayStr@* 0x006DBD88
+        sub_00526700(pOut, D2LANG_GetStringFromTblIndex(gawPeriodOfDayStr[nPeriodOfDay]));
         sub_00526700(pOut, D2LANG_GetStringFromTblIndex(0xF9E));
 
-        SStrPrintf(szNumber, 10, szIntFormat_006D6454, nAmount);
+        SStrPrintf(szNumber, 10, gszFormatI, nAmount);
         sub_00526320_ToUnicode(wszNumber, szNumber, 9);
         if (nAmount >= 0)
         {
@@ -768,7 +771,7 @@ static int __stdcall sub_004E4D80_BuildStatText(D2UnitStrc* pUnit, D2StatListStr
         wszValue[0] = 0;
         sub_00526700(pOut, D2LANG_GetStringFromTblIndex(0x5301));
         sub_00526700(pOut, pSpace);
-        SStrPrintf(szNumber, 10, szIntFormat_006D6454, nLevel);
+        SStrPrintf(szNumber, 10, gszFormatI, nLevel);
         sub_00526320_ToUnicode(wszNumber, szNumber, 9);
         sub_00526700(pOut, wszNumber);
         sub_00526700(pOut, pSpace);
@@ -873,7 +876,7 @@ static int __stdcall sub_004E4D80_BuildStatText(D2UnitStrc* pUnit, D2StatListStr
         if (!pSkillName)
             break;
 
-        SStrPrintf(szNumber, 10, szIntFormat_006D6454, nDisplay);
+        SStrPrintf(szNumber, 10, gszFormatI, nDisplay);
         sub_00526320_ToUnicode(wszNumber, szNumber, 9);
         if (nDisplay > 0)
         {
@@ -1013,7 +1016,7 @@ static int __stdcall sub_004E5A20_BuildCombinedStatText(int nStatId, Unicode* pO
         const Unicode* pPlus = D2LANG_GetStringFromTblIndex(0xFA2);
         Unicode wszNumber[10];
         char szNumber[10];
-        SStrPrintf(szNumber, 10, szIntFormat_006D6454, pCombined->tDamagePercent.nMin);
+        SStrPrintf(szNumber, 10, gszFormatI, pCombined->tDamagePercent.nMin);
         sub_00526320_ToUnicode(wszNumber, szNumber, 9);
         if (!pCombined->tDamagePercent.bCombined)
             return 0;
@@ -1043,7 +1046,8 @@ static void __stdcall sub_004E5E90_BuildFileIndexStatText(D2UnitStrc* pUnit, Uni
     const Unicode* pPlus = D2LANG_GetStringFromTblIndex(0xFA2);
     const int nFileIndex = ITEMS_GetFileIndex(pUnit);
 
-    for (unsigned int i = 0; i < gnFileIndexTextCount_0072D720; ++i, ++pTable)
+// build: symbol ?gnFileIndexTextCount@* 0x0072D720
+    for (unsigned int i = 0; i < gnFileIndexTextCount; ++i, ++pTable)
     {
         if (pTable->nFileIndex != nFileIndex)
             continue;
@@ -1070,7 +1074,7 @@ static void __stdcall sub_004E5E90_BuildFileIndexStatText(D2UnitStrc* pUnit, Uni
 
         Unicode wszNumber[10];
         char szNumber[10];
-        SStrPrintf(szNumber, 10, szIntFormat_006D6454, nValue);
+        SStrPrintf(szNumber, 10, gszFormatI, nValue);
         sub_00526320_ToUnicode(wszNumber, szNumber, 9);
 
         switch (pTable->nMode)
@@ -1086,7 +1090,7 @@ static void __stdcall sub_004E5E90_BuildFileIndexStatText(D2UnitStrc* pUnit, Uni
                 sub_005267E0(wszValue, wszNumber);
             }
 
-            switch (gaFileIndexText_0072D6C0[i].nPos)
+            switch (gaFileIndexText[i].nPos)
             {
             case 2:
                 sub_005267E0(wszLine, pText);
@@ -1121,7 +1125,7 @@ void __fastcall sub_004E60A0_AddSetPropText(D2UnitStrc* pUnit, Unicode* pOut, in
 
     if (ITEMS_GetItemType(pUnit) == ITEMTYPE_ELIXIR)
     {
-        sub_004E5E90_BuildFileIndexStatText(pUnit, pOut, gaFileIndexText_0072D6C0);
+        sub_004E5E90_BuildFileIndexStatText(pUnit, pOut, gaFileIndexText);
         return;
     }
 
@@ -1364,8 +1368,9 @@ int __fastcall D2Win_10177(unsigned char nAct)
 
     char szPL2Filename[260];
     char szDatFilename[260];
-    sprintf(szDatFilename, "%s\\palette\\act%d\\%s", szDataGlobal_006D4118, nActNo, "pal.dat");
-    sprintf(szPL2Filename, "%s\\palette\\act%d\\%s", szDataGlobal_006D4118, nActNo, "pal.pl2");
+// build: symbol ?gszDataGlobal@* 0x006D4118
+    sprintf(szDatFilename, "%s\\palette\\act%d\\%s", gszDataGlobal, nActNo, "pal.dat");
+    sprintf(szPL2Filename, "%s\\palette\\act%d\\%s", gszDataGlobal, nActNo, "pal.pl2");
     const int nResult = sub_004FB1E0_LoadPaletteFiles(szDatFilename, szPL2Filename);
     D2GFX_SetPalette(gRGBAPalette_0081E668);
     return nResult;
@@ -1583,15 +1588,15 @@ static void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin,
     }
     else if (nMin < 10000 && nMax < 10000)
     {
-        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szText, gszFmtRange, nMin, nMax);
     }
     else if (nMin >= 10000)
     {
-        wsprintfA(szText, szFmtRangeKK_006DBEAC, &gszEmptyAssertText, (nMin + 500) / 1000, (nMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeKK, &gszEmptyAssertText, (nMin + 500) / 1000, (nMax + 500) / 1000);
     }
     else
     {
-        wsprintfA(szText, szFmtRangeK_006DBEB8, &gszEmptyAssertText, nMin, (nMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeK, &gszEmptyAssertText, nMin, (nMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText, szText, 32);
     int nWidth = 0;
@@ -1607,7 +1612,7 @@ static void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin,
     {
         sub_00502EF0(1);
     }
-    TEXT_DrawCenteredText(gnGlobal_007A2858 + nLeft, gnGlobal_00711470 + gnGlobal_007A285C + nY - 480, gnGlobal_007A2858 + nRight, wszText, nColor);
+    TEXT_DrawCenteredText(gnPanelOffsetX + nLeft, gnScreenHeight + gnPanelOffsetY + nY - 480, gnPanelOffsetX + nRight, wszText, nColor);
 }
 
 // build: context SKILLDESC_DrawWeaponAndSkillDamage
@@ -1654,15 +1659,15 @@ void __fastcall SKILLDESC_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStr
     }
     else if (nWeaponMin < 10000 && nWeaponMax < 10000)
     {
-        wsprintfA(szText, szFmtRange_006D9D70, nWeaponMin, nWeaponMax);
+        wsprintfA(szText, gszFmtRange, nWeaponMin, nWeaponMax);
     }
     else if (nWeaponMin >= 10000)
     {
-        wsprintfA(szText, szFmtRangeKK_006DBEAC, &gszEmptyAssertText, (nWeaponMin + 500) / 1000, (nWeaponMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeKK, &gszEmptyAssertText, (nWeaponMin + 500) / 1000, (nWeaponMax + 500) / 1000);
     }
     else
     {
-        wsprintfA(szText, szFmtRangeK_006DBEB8, &gszEmptyAssertText, nWeaponMin, (nWeaponMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeK, &gszEmptyAssertText, nWeaponMin, (nWeaponMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText1, szText, 32);
 
@@ -1673,15 +1678,15 @@ void __fastcall SKILLDESC_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStr
     }
     else if (nMin < 10000 && nMax < 10000)
     {
-        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szText, gszFmtRange, nMin, nMax);
     }
     else if (nMin >= 10000)
     {
-        wsprintfA(szText, szFmtRangeKK_006DBEAC, &gszEmptyAssertText, (nMin + 500) / 1000, (nMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeKK, &gszEmptyAssertText, (nMin + 500) / 1000, (nMax + 500) / 1000);
     }
     else
     {
-        wsprintfA(szText, szFmtRangeK_006DBEB8, &gszEmptyAssertText, nMin, (nMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeK, &gszEmptyAssertText, nMin, (nMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText2, szText, 32);
     sub_004E9870_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nWeaponColor, nColor);
@@ -1894,8 +1899,8 @@ static void __stdcall sub_004E9940_DrawNumberCentered(int nColor, int nLeft, int
     {
         sub_00502EF0(0);
     }
-    TEXT_DrawCenteredText(gnGlobal_007A2858 + nLeft, gnGlobal_00711470 + gnGlobal_007A285C + nY - 480,
-                            gnGlobal_007A2858 + nRight, wszText, nColor);
+    TEXT_DrawCenteredText(gnPanelOffsetX + nLeft, gnScreenHeight + gnPanelOffsetY + nY - 480,
+                            gnPanelOffsetX + nRight, wszText, nColor);
 }
 
 void sub_I08_Emit_004E9940(int nColor, int nLeft, int nY, int nRight, int nValue)

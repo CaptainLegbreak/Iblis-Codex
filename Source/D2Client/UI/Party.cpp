@@ -29,11 +29,11 @@ int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
-extern int gnGlobal_007A2858; // 0x007A2858
+extern int gnPanelOffsetX; // 0x007A2858
 
-extern int gnGlobal_007A285C; // 0x007A285C
+extern int gnPanelOffsetY; // 0x007A285C
 
-extern void* gpCelFile_007BF01C; // 0x007BF01C
+extern void* gpPartyButtonsCel; // 0x007BF01C
 
 struct D2RosterSlotStrc
 {
@@ -115,7 +115,7 @@ int __fastcall ROSTER_GetLevelId(D2StoredUnitRecordStrc* pEntry); // 0x0047A1E0
 
 void __cdecl PARTY_FreeRosterUnits(); // 0x0049A020
 
-D2RosterUnitStrc* gpRosterUnits_007BF014; // 0x007BF014
+D2RosterUnitStrc* gpRosterUnits; // 0x007BF014
 
 const Unicode* __fastcall UI_GetLevelName(int nLevelId); // 0x00453E70
 
@@ -186,7 +186,7 @@ int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                    
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 
-void* gpCelFile_007BF020; // 0x007BF020
+void* gpPartyBoxesCel; // 0x007BF020
 
 // 0x00499FC0
 static void __stdcall PARTY_DrawPanelCel(void* pCellFile, int nX, int nFrame, int nY)
@@ -196,20 +196,20 @@ static void __stdcall PARTY_DrawPanelCel(void* pCellFile, int nX, int nFrame, in
     tContext.pCellFile = pCellFile;
     tContext.nFrame = nFrame;
     tContext.nDirection = 0;
-    sub_004F6480(&tContext, gnGlobal_007A2858 + nX, nY - gnGlobal_007A285C, -1, 5, 0);
+    sub_004F6480(&tContext, gnPanelOffsetX + nX, nY - gnPanelOffsetY, -1, 5, 0);
 }
 
 // 0x0049A020
 void __cdecl PARTY_FreeRosterUnits()
 {
-    D2RosterUnitStrc* pUnit = gpRosterUnits_007BF014;
+    D2RosterUnitStrc* pUnit = gpRosterUnits;
     while (pUnit)
     {
         D2RosterUnitStrc* pNext = pUnit->pNext;
         FOG_Free(pUnit, ".\\UI\\Party.cpp", 0x108, 0);
         pUnit = pNext;
     }
-    gpRosterUnits_007BF014 = 0;
+    gpRosterUnits = 0;
 }
 
 // 0x0049A060
@@ -246,18 +246,18 @@ static void sub_L04_InitSlot(D2RosterSlotStrc* pSlot, int bFlag, int nX, int nY,
 static void PARTY_InitRosterUnit(D2StoredUnitRecordStrc* pEntry, D2RosterUnitStrc* pUnit, int nY)
 {
     pUnit->nY = nY + 0xD;
-    sub_L04_InitSlot(&pUnit->f_0[0], 1, 0xBE, nY, gpCelFile_007BF01C, 0, 0, ROSTER_GetPartyFlags(pEntry));
-    sub_L04_InitSlot(&pUnit->f_0[1], 0, 0xE, nY + 7, gpCelFile_007BF020, ROSTER_TestHostileFlag(pEntry) ? 6 : 4, 1, 0);
-    sub_L04_InitSlot(&pUnit->f_0[2], 0, 0xF5, nY, gpCelFile_007BF020, ROSTER_TestLootFlag(pEntry) ? 0xE : 0xC, 2, 0);
-    sub_L04_InitSlot(&pUnit->f_0[3], 0, 0x10A, nY, gpCelFile_007BF020, ROSTER_TestMuteFlag(pEntry) ? 2 : 0, 3, 0);
-    sub_L04_InitSlot(&pUnit->f_0[4], 0, 0x11F, nY, gpCelFile_007BF020, ROSTER_TestSquelchFlag(pEntry) ? 0xA : 8, 4, 0);
+    sub_L04_InitSlot(&pUnit->f_0[0], 1, 0xBE, nY, gpPartyButtonsCel, 0, 0, ROSTER_GetPartyFlags(pEntry));
+    sub_L04_InitSlot(&pUnit->f_0[1], 0, 0xE, nY + 7, gpPartyBoxesCel, ROSTER_TestHostileFlag(pEntry) ? 6 : 4, 1, 0);
+    sub_L04_InitSlot(&pUnit->f_0[2], 0, 0xF5, nY, gpPartyBoxesCel, ROSTER_TestLootFlag(pEntry) ? 0xE : 0xC, 2, 0);
+    sub_L04_InitSlot(&pUnit->f_0[3], 0, 0x10A, nY, gpPartyBoxesCel, ROSTER_TestMuteFlag(pEntry) ? 2 : 0, 3, 0);
+    sub_L04_InitSlot(&pUnit->f_0[4], 0, 0x11F, nY, gpPartyBoxesCel, ROSTER_TestSquelchFlag(pEntry) ? 0xA : 8, 4, 0);
     pUnit->nId = sub_0047A0C0_GetRecordUnitId(pEntry);
 }
 
 // 0x0049A1D0
 static void PARTY_AddRosterUnit(int nY, D2StoredUnitRecordStrc* pEntry)
 {
-    D2RosterUnitStrc* pLast = gpRosterUnits_007BF014;
+    D2RosterUnitStrc* pLast = gpRosterUnits;
     D2RosterUnitStrc* pUnit = (D2RosterUnitStrc*)FOG_Alloc(sizeof(D2RosterUnitStrc), ".\\UI\\Party.cpp", 0x14D, 0);
     memset(pUnit, 0, sizeof(D2RosterUnitStrc));
     PARTY_InitRosterUnit(pEntry, pUnit, nY);
@@ -273,7 +273,7 @@ static void PARTY_AddRosterUnit(int nY, D2StoredUnitRecordStrc* pEntry)
     }
     else
     {
-        gpRosterUnits_007BF014 = pUnit;
+        gpRosterUnits = pUnit;
     }
 }
 
@@ -315,7 +315,7 @@ static void __stdcall PARTY_DrawRosterName(int nY, int nColor, int bShort, const
         sub_00526320_ToUnicode(wszDots, szDots, 5);
         sub_00526700(wszName, wszDots);
     }
-    D2Win_10117_DrawText(wszName, gnGlobal_007A2858 + 0x24, nY - gnGlobal_007A285C - 2, nColor, 0);
+    D2Win_10117_DrawText(wszName, gnPanelOffsetX + 0x24, nY - gnPanelOffsetY - 2, nColor, 0);
 }
 
 // 0x0049A3D0
@@ -348,7 +348,7 @@ static void __stdcall PARTY_DrawRosterClass(int nColor, int nY, int nClass)
     default:
         return;
     }
-    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(nStringId), gnGlobal_007A2858 + 0x24, nY - gnGlobal_007A285C, nColor, 0);
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(nStringId), gnPanelOffsetX + 0x24, nY - gnPanelOffsetY, nColor, 0);
 }
 
 // 0x0049A510
@@ -358,8 +358,8 @@ void __cdecl PARTY_DrawPartyButtons()
     sub_00502EF0(0);
     if (sub_00479BC0_GetEntryIndex(pEntry) != 0xFFFF)
     {
-        PARTY_DrawPanelCel(gpCelFile_007BF01C, 0xE3, 0, 0x23);
-        TEXT_DrawCenteredText(gnGlobal_007A2858 + 0xE3, 0x21 - gnGlobal_007A285C, gnGlobal_007A2858 + 0x118, D2LANG_GetStringFromTblIndex(0x1038), 2);
+        PARTY_DrawPanelCel(gpPartyButtonsCel, 0xE3, 0, 0x23);
+        TEXT_DrawCenteredText(gnPanelOffsetX + 0xE3, 0x21 - gnPanelOffsetY, gnPanelOffsetX + 0x118, D2LANG_GetStringFromTblIndex(0x1038), 2);
     }
     sub_00502EF0(1);
 }
@@ -383,7 +383,7 @@ void __cdecl PARTY_DrawPlayerName()
     }
     Unicode* wszName = (Unicode*)FOG_Alloc(sizeof(Unicode) * nLen, ".\\UI\\Party.cpp", 0x211, 0);
     sub_00526320_ToUnicode(wszName, szName, nLen);
-    TEXT_DrawCenteredText(gnGlobal_007A2858 + 0x14, 0x1F - gnGlobal_007A285C, gnGlobal_007A2858 + 0xBE, wszName, 0);
+    TEXT_DrawCenteredText(gnPanelOffsetX + 0x14, 0x1F - gnPanelOffsetY, gnPanelOffsetX + 0xBE, wszName, 0);
     sub_00502EF0(0);
     FOG_Free(wszName, ".\\UI\\Party.cpp", 0x21A, 0);
 }
@@ -426,7 +426,7 @@ void __stdcall PARTY_DrawPanelIcons(D2PanelIconRecordStrc* pRecord)
                 {
                     tGfx.nFrame = 4;
                 }
-                TEXTURE_CelDraw(&tGfx, pRecord->pIcons[i].nX + gnGlobal_007A2858, pRecord->pIcons[i].nY - gnGlobal_007A285C, -1, 5, 0);
+                TEXTURE_CelDraw(&tGfx, pRecord->pIcons[i].nX + gnPanelOffsetX, pRecord->pIcons[i].nY - gnPanelOffsetY, -1, 5, 0);
                 break;
 
             case 2:
@@ -437,7 +437,7 @@ void __stdcall PARTY_DrawPanelIcons(D2PanelIconRecordStrc* pRecord)
 
                 if (GAME_IsHardcore())
                 {
-                    TEXTURE_CelDraw(&tGfx, pRecord->pIcons[i].nX + gnGlobal_007A2858, pRecord->pIcons[i].nY - gnGlobal_007A285C, -1, 5, 0);
+                    TEXTURE_CelDraw(&tGfx, pRecord->pIcons[i].nX + gnPanelOffsetX, pRecord->pIcons[i].nY - gnPanelOffsetY, -1, 5, 0);
                 }
                 break;
 
@@ -446,7 +446,7 @@ void __stdcall PARTY_DrawPanelIcons(D2PanelIconRecordStrc* pRecord)
                 {
                     tGfx.nFrame = 0;
                 }
-                TEXTURE_CelDraw(&tGfx, pRecord->pIcons[i].nX + gnGlobal_007A2858, pRecord->pIcons[i].nY - gnGlobal_007A285C, -1, 5, 0);
+                TEXTURE_CelDraw(&tGfx, pRecord->pIcons[i].nX + gnPanelOffsetX, pRecord->pIcons[i].nY - gnPanelOffsetY, -1, 5, 0);
                 break;
 
             case 4:
@@ -454,11 +454,11 @@ void __stdcall PARTY_DrawPanelIcons(D2PanelIconRecordStrc* pRecord)
                 {
                     tGfx.nFrame = 8;
                 }
-                TEXTURE_CelDraw(&tGfx, pRecord->pIcons[i].nX + gnGlobal_007A2858, pRecord->pIcons[i].nY - gnGlobal_007A285C, -1, 5, 0);
+                TEXTURE_CelDraw(&tGfx, pRecord->pIcons[i].nX + gnPanelOffsetX, pRecord->pIcons[i].nY - gnPanelOffsetY, -1, 5, 0);
                 break;
 
             default:
-                TEXTURE_CelDraw(&tGfx, pRecord->pIcons[i].nX + gnGlobal_007A2858, pRecord->pIcons[i].nY - gnGlobal_007A285C, -1, 5, 0);
+                TEXTURE_CelDraw(&tGfx, pRecord->pIcons[i].nX + gnPanelOffsetX, pRecord->pIcons[i].nY - gnPanelOffsetY, -1, 5, 0);
                 break;
             }
         }
@@ -479,7 +479,7 @@ void __stdcall PARTY_DrawPanelIcons(D2PanelIconRecordStrc* pRecord)
 
             if (ROSTER_GetLevel(sub_004795A0_GetNextEntry(0)) < 9 || bShowBox)
             {
-                sub_0046EFD0_DrawFramedBox(pRecord->pIcons[i].nX + gnGlobal_007A2858, pRecord->pIcons[i].nY - gnGlobal_007A285C - 19, 20, 20, gnBoxColor_007BF034 = D2Win_10034_MixRGB(255, 0, 0), 1);
+                sub_0046EFD0_DrawFramedBox(pRecord->pIcons[i].nX + gnPanelOffsetX, pRecord->pIcons[i].nY - gnPanelOffsetY - 19, 20, 20, gnBoxColor_007BF034 = D2Win_10034_MixRGB(255, 0, 0), 1);
             }
         }
     }
@@ -528,8 +528,8 @@ static void __stdcall sub_0049A460_DrawPanelLabel(int nY, int bAlt, unsigned sho
         return;
     }
 
-    int nLeft = gnGlobal_007A2858 + nX;
-    TEXT_DrawCenteredText(nLeft, nY - gnGlobal_007A285C - 2, nLeft + 0x35, D2LANG_GetStringFromTblIndex(nStringId), nColor);
+    int nLeft = gnPanelOffsetX + nX;
+    TEXT_DrawCenteredText(nLeft, nY - gnPanelOffsetY - 2, nLeft + 0x35, D2LANG_GetStringFromTblIndex(nStringId), nColor);
 }
 
 static void __stdcall sub_0049A830_DrawRosterArea(int nY, D2RosterUnitStrc* pEntry, int nColor)
@@ -553,7 +553,7 @@ static void __stdcall sub_0049A830_DrawRosterArea(int nY, D2RosterUnitStrc* pEnt
         }
         sub_00526700(wszName, wszDots);
     }
-    D2Win_10117_DrawText(wszName, gnGlobal_007A2858 + 0x7E, nY - gnGlobal_007A285C + 0xC, nColor, 0);
+    D2Win_10117_DrawText(wszName, gnPanelOffsetX + 0x7E, nY - gnPanelOffsetY + 0xC, nColor, 0);
 }
 
 static void __stdcall sub_0049C170_DrawRosterLevel(int nY, int nLevel, int nColor)
@@ -564,16 +564,17 @@ static void __stdcall sub_0049C170_DrawRosterLevel(int nY, int nLevel, int nColo
     Unicode::strncpy(wszText, D2LANG_GetStringFromTblIndex(0xD28), 0x14);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9D));
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
-    wsprintfA(szNumber, gszFormat2u_006DA0CC, nLevel);
+// build: symbol ?gszFormat2u@* 0x006DA0CC
+    wsprintfA(szNumber, gszFormat2u, nLevel);
     sub_00526F20_ToUnicode(wszNumber, szNumber, 9);
     sub_00526700(wszText, wszNumber);
-    D2Win_10117_DrawText(wszText, gnGlobal_007A2858 + 0x10A, nY - gnGlobal_007A285C, nColor, 0);
+    D2Win_10117_DrawText(wszText, gnPanelOffsetX + 0x10A, nY - gnPanelOffsetY, nColor, 0);
 }
 
 // 0x0049C270
 void __cdecl PARTY_DrawPartyRows()
 {
-    D2RosterUnitStrc* pRow = gpRosterUnits_007BF014;
+    D2RosterUnitStrc* pRow = gpRosterUnits;
     int nY = 0x5A;
     D2StoredUnitRecordStrc* pEntry = sub_004795A0_GetNextEntry(0);
     const unsigned short nSelfIndex = sub_00479BC0_GetEntryIndex(pEntry);

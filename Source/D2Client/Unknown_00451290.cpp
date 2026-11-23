@@ -1,13 +1,13 @@
 #include "D2Client.h"
 
-void* gxGlobal_007A0708;                                                                                    // 0x007A0708
-extern void* ghLngModule_007A070C;                                                                          // 0x007A070C
+void* ghAccelerators;                                                                                    // 0x007A0708
+extern void* ghLngModule;                                                                          // 0x007A070C
 
 // 0x00451290
 void __cdecl sub_00451290_FreeLngModule()
 {
-    if (ghLngModule_007A070C)
-        FreeLibrary(ghLngModule_007A070C);
-    ghLngModule_007A070C = 0;
-    gxGlobal_007A0708 = 0;
+    if (ghLngModule)
+        FreeLibrary(ghLngModule);
+    ghLngModule = 0;
+    ghAccelerators = 0;
 }

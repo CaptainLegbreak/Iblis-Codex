@@ -58,14 +58,14 @@ extern int gnLaunchMode_007795EC; // 0x007795EC
 extern int gdwGlobal_007795F4; // 0x007795F4
 extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
 extern int gdwGlobal_0077AC04; // 0x0077AC04
-extern int s_bConnected_0077AC08; // 0x0077AC08
+extern int gbBattleNetConnected; // 0x0077AC08
 
 
 D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
 
 int gdwGlobal_0077AC04; // 0x0077AC04
 
-static int s_bConnected_0077AC08; // 0x0077AC08
+static int gbBattleNetConnected; // 0x0077AC08
 
 // 0x0043BF40
 static __declspec(noinline) void sub_0043BF40_ReportStatus(int nCode, int nArg)
@@ -87,7 +87,7 @@ int __fastcall sub_0043C180_Connect(D2LaunchRecordStrc* pRecord, int bFlag, int 
         return 0;
     }
 
-    if (s_bConnected_0077AC08)
+    if (gbBattleNetConnected)
     {
         return 1;
     }
@@ -178,7 +178,7 @@ int __fastcall sub_0043C180_Connect(D2LaunchRecordStrc* pRecord, int bFlag, int 
         return CHARSEL_HandleStatus(&tStatus);
     }
 
-    s_bConnected_0077AC08 = 1;
+    gbBattleNetConnected = 1;
     int bConnected = gpFuncTable_0077ABF0->pfnSlot68();
     if (bConnected && gpFuncTable_0077ABF0->pfnSlotB4())
     {
@@ -235,7 +235,7 @@ int __cdecl sub_0043BF60()
         return CHARSEL_HandleStatus(&tStatus);
     }
 
-    s_bConnected_0077AC08 = 0;
+    gbBattleNetConnected = 0;
     MAINMENUS_CreateStatusScreen();
     sub_004FA590_RunLoop(sub_004374F0_UpdateStatusWait);
 

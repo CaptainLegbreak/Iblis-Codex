@@ -25,7 +25,7 @@ int __cdecl sub_004817F0();                                                     
 
 int __cdecl sub_00481800();                                                                                 // 0x00481800
 
-extern "C" { int gnSoundSerial_007C5460; }                                                                  // 0x007C5460
+extern "C" { int gnSoundSerial; }                                                                  // 0x007C5460
 
 void __fastcall sub_004B9B50_SetValue(int nKey, int nValue); // 0x004B9B50
 
@@ -141,17 +141,17 @@ void __fastcall D2SOUND_ListFree(void* ppList); // 0x00516A10
 
 void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
 
-extern int gnMusicVolume_00727564; // 0x00727564
+extern int gnSfxVolume; // 0x00727564
 
-extern int gnSoundVolume_00727568; // 0x00727568
+extern int gnEnvVolume; // 0x00727568
 
 extern int gbPositionalSound_007A061C; // 0x007A061C
 
 static D2SoundNodeStrc* gpSoundList_007C5458; // 0x007C5458
 
-int gbSoundReady_007C545C;        // 0x007C545C
+int gbClientSoundReady;        // 0x007C545C
 
-unsigned int gdwLastVolumeTick_007C5464;        // 0x007C5464
+unsigned int gdwLastVolumeTick;        // 0x007C5464
 
 extern int gbAmbientSound_007C5468; // 0x007C5468
 
@@ -485,7 +485,7 @@ static float sub_004BA020_MaxF(float a, float b)
 // 0x004BA020
 void __fastcall sub_004BA020(unsigned int nTick)
 {
-    if (!gbSoundReady_007C545C)
+    if (!gbClientSoundReady)
         return;
 
     D2SoundNodeStrc* pFreeList = NULL;
@@ -731,32 +731,32 @@ void __fastcall sub_004BA020(unsigned int nTick)
         }
     }
 
-    if (nTick > gdwLastVolumeTick_007C5464)
+    if (nTick > gdwLastVolumeTick)
     {
         if (bPanel)
         {
-            const int n = gnMusicVolume_00727564 - 5;
-            gnMusicVolume_00727564 = n < 0 ? 0 : n;
+            const int n = gnSfxVolume - 5;
+            gnSfxVolume = n < 0 ? 0 : n;
         }
         else
         {
-            const int n = gnMusicVolume_00727564 + 5;
-            gnMusicVolume_00727564 = n > 100 ? 100 : n;
+            const int n = gnSfxVolume + 5;
+            gnSfxVolume = n > 100 ? 100 : n;
         }
 
         if (bDuck)
         {
-            const int n = gnSoundVolume_00727568 - 2;
-            gnSoundVolume_00727568 = n < 70 ? 70 : n;
+            const int n = gnEnvVolume - 2;
+            gnEnvVolume = n < 70 ? 70 : n;
         }
         else
         {
-            const int n = gnSoundVolume_00727568 + 2;
-            gnSoundVolume_00727568 = n > 100 ? 100 : n;
+            const int n = gnEnvVolume + 2;
+            gnEnvVolume = n > 100 ? 100 : n;
         }
     }
 
-    gdwLastVolumeTick_007C5464 = nTick;
+    gdwLastVolumeTick = nTick;
 }
 
 // 0x004BA840

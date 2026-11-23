@@ -116,11 +116,11 @@ void __stdcall D2Common_10474(D2UnitStrc* pUnused, D2StatListStrc* pStatList); /
 
 void __stdcall sub_0065FEC0_ItemApplyProps(int nPass, int nArg1, D2UnitStrc* pItem, int nArg, int nArg2, int nArg5); // 0x0065FEC0
 
-extern int gnGlobal_0071146C; // 0x0071146C
+extern int gnScreenWidth; // 0x0071146C
 
-extern int gnGlobal_00711470; // 0x00711470
+extern int gnScreenHeight; // 0x00711470
 
-extern D2TextListStrc gtTextList_007BF1E4; // 0x007BF1E4
+extern D2TextListStrc gtMessageTextList; // 0x007BF1E4
 
 extern Unicode gwszName_007C0E84[]; // 0x007C0E84
 
@@ -213,7 +213,7 @@ char* __stdcall UNITS_GetPlayerName(D2UnitStrc* pUnit); // 0x00622150
 
 void __stdcall CHAT_FreeHoverMsg(void* pMemoryPool, D2HoverTextStrc* pHoverText); // 0x006611A0
 
-extern int gnGameFrame_007BF20E; // 0x007BF20E
+extern int gnGameFrame; // 0x007BF20E
 
 #pragma pack(push, 2)
 
@@ -290,29 +290,29 @@ int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
 
-extern D2MsgHandlerEntryStrc gaTextMsgHandlers_00722600[]; // 0x00722600
+extern D2MsgHandlerEntryStrc gaTextMsgHandlers[]; // 0x00722600
 
-extern T00479230* gpTextBox_007BF0A4; // 0x007BF0A4
+extern T00479230* gpTextBox; // 0x007BF0A4
 
-extern T00479230* gpTextBox_007BF1A8; // 0x007BF1A8
+extern T00479230* gpMainTextBox; // 0x007BF1A8
 
-extern D2ClientDialogStrc* gpListDialog_007BF1B0; // 0x007BF1B0
+extern D2ClientDialogStrc* gpListDialog; // 0x007BF1B0
 
-extern int gnGlobal_007BF1C8; // 0x007BF1C8
+extern int gbTextBoxShown; // 0x007BF1C8
 
 extern D2RectStrc gtTextRect_007BF1D0; // 0x007BF1D0
 
-extern D2TextCallback gpfnTextCallback_007BF258; // 0x007BF258
+extern D2TextCallback gpfnTextCallback; // 0x007BF258
 
-extern void* gpTextCallbackContext_007BF25C; // 0x007BF25C
+extern void* gpTextCallbackContext; // 0x007BF25C
 
-extern int gnGlobal_007BF278; // 0x007BF278
+extern int gnTextLeft; // 0x007BF278
 
 static int __stdcall TEXT_AdvanceTextBox(T00479230* pTextBox, int bIgnore); // 0x004A0770
 
 static int TEXT_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect); // 0x0049D9A0
 
-int gnGlobal_007C0E60; // 0x007C0E60
+int gnTradePartnerUnitId; // 0x007C0E60
 
 inline void* operator new(unsigned int, void* pWhere) { return pWhere; }
 
@@ -325,27 +325,27 @@ struct D2QuestTextBufferStrc
 
 extern D2QuestTextBufferStrc data_007BF298; // 0x007BF298
 
-D2RectStrc gaHoverRects_007BF0A8[16]; // 0x007BF0A8
+D2RectStrc gaHoverRects[16]; // 0x007BF0A8
 
-unsigned long gdwTextEndTick_007BF1AC; // 0x007BF1AC
+unsigned long gdwTextEndTick; // 0x007BF1AC
 
-int gnGlobal_007BF1BC; // 0x007BF1BC
+int gbTextBoxDone; // 0x007BF1BC
 
-int gnGlobal_007BF1C0; // 0x007BF1C0
+int gnTextActive; // 0x007BF1C0
 
-D2RectStrc gtHoverOffset_007BF214; // 0x007BF214
+D2RectStrc gtHoverOffset; // 0x007BF214
 
-int gnHoverRectCount_007BF224; // 0x007BF224
+int gnHoverRectCount; // 0x007BF224
 
-int gbStarted_007BF27C; // 0x007BF27C
+int gbTextHandlersRegistered; // 0x007BF27C
 
-#define gbUpPressed_007C028C (gaPressed_007C0288[1])
+#define gbUpPressed_007C028C (gaPressed[1])
 
-#define gbDownPressed_007C0290 (gaPressed_007C0288[2])
+#define gbDownPressed_007C0290 (gaPressed[2])
 
 #define KEYCFG_X ((gnScreenWidth_0071146C - 620) / 2)
 
-#define KEYCFG_Y ((gnScreenHeight_007A521C - 420) / 2)
+#define KEYCFG_Y ((gnAutomapHeight - 420) / 2)
 
 struct D2SliderButtonStrc;
 
@@ -369,9 +369,9 @@ int __fastcall sub_00501820_GetTextWidth(const wchar_t* wszText); // 0x00501820
 
 const wchar_t* __fastcall sub_00524A30_GetString(unsigned short wStringId); // 0x00524A30
 
-extern D2SliderButtonStrc gaSliderButtons_007246D8[3]; // 0x007246D8
+extern D2SliderButtonStrc gaKeyConfigButtons[3]; // 0x007246D8
 
-int gnScreenHeight_007A521C; // 0x007A521C
+int gnAutomapHeight; // 0x007A521C
 
 extern int gnSliderRows_007C0274; // 0x007C0274
 
@@ -419,27 +419,27 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 
 extern D2KeyConfigButtonStrc gaButtons_007246D8[3]; // 0x007246D8
 
-extern int gaPressed_007C0288[7]; // 0x007C0288
+extern int gaPressed[7]; // 0x007C0288
 
-extern int gnGlobal_007C02B0; // 0x007C02B0
+extern int gnKeyConfigSelected; // 0x007C02B0
 
-extern int gnGlobal_007C02B8; // 0x007C02B8
+extern int gbKeyCaptureActive; // 0x007C02B8
 
-extern void* gpCelFile_007C02BC; // 0x007C02BC
+extern void* gpKeyConfigSliderCel; // 0x007C02BC
 
 extern unsigned int gdwMessageTick_007C02C8; // 0x007C02C8
 
 int gbRedraw_007C0280; // 0x007C0280
 
-int gnHoverButton_007C02B4; // 0x007C02B4
+int gnKeyConfigPressedButton; // 0x007C02B4
 
-int gnMessage_007C02C4; // 0x007C02C4
+int gnMessage; // 0x007C02C4
 
-unsigned int gnBlink_007C02D0; // 0x007C02D0
+unsigned int gnBlink; // 0x007C02D0
 
-int gnLastMouseY_007C02D4; // 0x007C02D4
+int gnLastMouseY; // 0x007C02D4
 
-int gnLastMouseX_007C02D8; // 0x007C02D8
+int gnLastMouseX; // 0x007C02D8
 
 // 0x0049AAA0
 int __fastcall TEXT_GetCenteredStringX(unsigned short nStringIndex, int nCenterX)
@@ -465,13 +465,13 @@ void __cdecl TEXT_DrawMessageList()
     int nY;
     T0044CB60* pTextLine;
 
-    if (!gtTextList_007BF1E4.wCount)
+    if (!gtMessageTextList.wCount)
     {
         return;
     }
 
     nOldFont = sub_00502EF0(0xD);
-    pNode = gtTextList_007BF1E4.pFirst;
+    pNode = gtMessageTextList.pFirst;
     nBaseY = 0x14;
     if (GAME_GetUIVarState(0x13))
     {
@@ -488,7 +488,7 @@ void __cdecl TEXT_DrawMessageList()
         break;
 
     case 2:
-        nX = gnGlobal_0071146C / 2 + 0xF;
+        nX = gnScreenWidth / 2 + 0xF;
         bSplit = 1;
         break;
     }
@@ -541,18 +541,18 @@ void __cdecl TEXT_DrawMessageList()
         }
     }
 
-    pNode = gtTextList_007BF1E4.pFirst;
+    pNode = gtMessageTextList.pFirst;
     D2TextNodeStrc* pPrevious = 0;
     const unsigned long dwTick = GetTickCount();
     while (pNode)
     {
         if (*(unsigned long*)pNode->dwEndTick < dwTick)
         {
-            --gtTextList_007BF1E4.wCount;
+            --gtMessageTextList.wCount;
             D2TextNodeStrc* pNext = *(D2TextNodeStrc**)pNode->pNext;
-            if (gtTextList_007BF1E4.pFirst == pNode)
+            if (gtMessageTextList.pFirst == pNode)
             {
-                gtTextList_007BF1E4.pFirst = pNext;
+                gtMessageTextList.pFirst = pNext;
             }
             for (int j = 0; j < 6; ++j)
             {
@@ -872,7 +872,7 @@ static void __stdcall sub_0049F410_SetHoverText(int nLangId, const char* szText,
         return;
     }
 
-    D2HoverTextStrc* pHoverText = CHAT_AllocHoverMsg(0, szText, gnGameFrame_007BF20E);
+    D2HoverTextStrc* pHoverText = CHAT_AllocHoverMsg(0, szText, gnGameFrame);
     CHAT_SetLangIdInHoverMsg(pHoverText, nLangId);
     if (pUnit->pHoverText)
         CHAT_FreeHoverMsg(0, pUnit->pHoverText);
@@ -1010,41 +1010,45 @@ static int __stdcall TEXT_AdvanceTextBox(T00479230* pTextBox, int bIgnore)
     }
 
     const int bBusy = D2SOUND_GetMasterVolumeOption();
-    if (!gnHintSound_007BF24B || sub_004B95C0_IsHintPlaying((void*)gnHintSound_007BF24B) || !bBusy)
+// build: symbol ?ghHintSound@* 0x007BF24B
+    if (!ghHintSound || sub_004B95C0_IsHintPlaying((void*)ghHintSound) || !bBusy)
     {
-        gnHintSound_007BF24B = 0;
+        ghHintSound = 0;
         if (sub_0049D5A0_UpdateTextBox(pTextBox))
         {
-            gnGlobal_007BF1BC = 1;
-            if (!gdwGlobal_007BF20A && gpTextBox_007BF0A4)
+            gbTextBoxDone = 1;
+// build: symbol ?gbTextFromObject@* 0x007BF20A
+            if (!gbTextFromObject && gpTextBox)
             {
-                TEXT_FreeTextBox(gpTextBox_007BF0A4);
-                gpTextBox_007BF0A4 = 0;
+                TEXT_FreeTextBox(gpTextBox);
+                gpTextBox = 0;
                 sub_00467430(0);
             }
 
             TEXT_ResetTextBox();
-            if (gpfnTextCallback_007BF258)
+            if (gpfnTextCallback)
             {
-                return gpfnTextCallback_007BF258(gpTextCallbackContext_007BF25C, 0, 0);
+                return gpfnTextCallback(gpTextCallbackContext, 0, 0);
             }
 
-            if (gnGlobal_007BF1C4 == 1)
+// build: symbol ?gbTextBoxPending@* 0x007BF1C4
+            if (gbTextBoxPending == 1)
             {
-                gnGlobal_007BF1C4 = 0;
+                gbTextBoxPending = 0;
             }
-            else if (gdwGlobal_007BF20A)
+            else if (gbTextFromObject)
             {
-                sub_004B3D10_ReleaseTextUnit(gdwGlobal_007BF202);
+// build: symbol ?gnTextNpcId@* 0x007BF202
+                sub_004B3D10_ReleaseTextUnit(gnTextNpcId);
             }
 
             UI_StartUIVarDelay();
-            gdwGlobal_007BF20A = 0;
+            gbTextFromObject = 0;
             sub_00467430(0);
-            if (gbStarted_007BF27C == 1)
+            if (gbTextHandlersRegistered == 1)
             {
-                gbStarted_007BF27C = 0;
-                AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaTextMsgHandlers_00722600, 7);
+                gbTextHandlersRegistered = 0;
+                AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaTextMsgHandlers, 7);
             }
 
             return 0;
@@ -1064,11 +1068,11 @@ static int TEXT_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect)
     switch (sub_0045AE90())
     {
     case 1:
-        if (pRect->nLeft > gnGlobal_0071146C / 2 - 10)
+        if (pRect->nLeft > gnScreenWidth / 2 - 10)
             return 1;
         break;
     case 2:
-        if (pRect->nLeft < gnGlobal_0071146C / 2 + 10)
+        if (pRect->nLeft < gnScreenWidth / 2 + 10)
             return 1;
         break;
     case 3:
@@ -1084,99 +1088,101 @@ void __fastcall TEXT_UpdateTexts(D2ViewStrc* pView)
     D2RectStrc tViewRect;
     D2CoordStrc tViewPos;
 
-    ++gnGameFrame_007BF20E;
+    ++gnGameFrame;
     int nResult = 0;
     sub_00476070_GetViewRect(pView, &tViewRect.nLeft, &tViewRect.nTop, &tViewRect.nRight, &tViewRect.nBottom);
     VIEW_GetViewOffset(pView, &tViewPos.nX, &tViewPos.nY);
-    SetRect(&gtHoverOffset_007BF214, tViewPos.nX, tViewPos.nY, tViewPos.nX + tViewRect.nRight - tViewRect.nLeft, tViewPos.nY + tViewRect.nBottom - tViewRect.nTop);
+    SetRect(&gtHoverOffset, tViewPos.nX, tViewPos.nY, tViewPos.nX + tViewRect.nRight - tViewRect.nLeft, tViewPos.nY + tViewRect.nBottom - tViewRect.nTop);
 
-    if (gnGlobal_007BF1C0 == 1)
+    if (gnTextActive == 1)
     {
-        gaHoverRects_007BF0A8[0].nLeft = gnGlobal_007BF278;
-        gaHoverRects_007BF0A8[0].nRight = gnGlobal_007BF278 + 0x145;
-        gaHoverRects_007BF0A8[0].nTop = gnGlobal_007225FC;
-        gnHoverRectCount_007BF224 = 1;
-        gaHoverRects_007BF0A8[0].nBottom = gnGlobal_007225FC + 0x70;
+        gaHoverRects[0].nLeft = gnTextLeft;
+        gaHoverRects[0].nRight = gnTextLeft + 0x145;
+// build: symbol ?gnTextTop@* 0x007225FC
+        gaHoverRects[0].nTop = gnTextTop;
+        gnHoverRectCount = 1;
+        gaHoverRects[0].nBottom = gnTextTop + 0x70;
     }
     else
     {
-        gnHoverRectCount_007BF224 = 0;
+        gnHoverRectCount = 0;
     }
 
     CUNIT_ForEachPlayer(TEXT_DrawUnitHoverText);
     CUNIT_ForEachMonster(TEXT_DrawObjectHoverText);
     CUNIT_ForEachObject(TEXT_DrawObjectHoverText);
 
-    if (gnGlobal_007BF1C0 == 1 && gpTextBox_007BF0A4 && (gpTextBox_007BF0A4->nScroll == 1 || !gpTextBox_007BF0A4->nScroll))
+    if (gnTextActive == 1 && gpTextBox && (gpTextBox->nScroll == 1 || !gpTextBox->nScroll))
     {
-        nResult = TEXT_AdvanceTextBox(gpTextBox_007BF0A4, gnGlobal_007BF1BC);
+        nResult = TEXT_AdvanceTextBox(gpTextBox, gbTextBoxDone);
 
         D2UnitStrc* pUnit = 0;
-        if (gdwGlobal_007BF20A)
+        if (gbTextFromObject)
         {
-            pUnit = CUNIT_FindClientUnit(gdwGlobal_007BF202, 1);
+            pUnit = CUNIT_FindClientUnit(gnTextNpcId, 1);
         }
 
-        if (sub_00463DF0() || (gdwGlobal_007BF20A && pUnit && pUnit->dwAnimMode == 0x0C))
+        if (sub_00463DF0() || (gbTextFromObject && pUnit && pUnit->dwAnimMode == 0x0C))
         {
-            if (gdwGlobal_007BF20A)
+            if (gbTextFromObject)
             {
-                sub_004786A0_SendDwords2(0x30, 1, gdwGlobal_007BF202);
-                NPCMENU_ClearNpcInventoryAndSound(gdwGlobal_007BF202);
+                sub_004786A0_SendDwords2(0x30, 1, gnTextNpcId);
+                NPCMENU_ClearNpcInventoryAndSound(gnTextNpcId);
             }
 
             TEXT_CloseTextUnit();
-            if (gbStarted_007BF27C == 1)
+            if (gbTextHandlersRegistered == 1)
             {
-                gbStarted_007BF27C = 0;
-                AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaTextMsgHandlers_00722600, 7);
+                gbTextHandlersRegistered = 0;
+                AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaTextMsgHandlers, 7);
             }
         }
     }
 
-    if (gnGlobal_007BF1C4)
+    if (gbTextBoxPending)
     {
-        gnGlobal_007BF1C8 ? (void)0 : (sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xD02), exit(-1));
+        gbTextBoxShown ? (void)0 : (sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xD02), exit(-1));
         int nDrawn = 1;
-        (gdwTextEndTick_007BF1AC < GetTickCount()) ? (void)(nDrawn = 0) : (void)TEXT_DrawTextBoxAt(gpTextBox_007BF1A8, &gtTextRect_007BF1D0);
+        (gdwTextEndTick < GetTickCount()) ? (void)(nDrawn = 0) : (void)TEXT_DrawTextBoxAt(gpMainTextBox, &gtTextRect_007BF1D0);
         if (!nDrawn)
         {
             TEXT_FreeMainTextBox();
-            gnGlobal_007BF1C4 = 0;
-            gdwGlobal_007BF20A = 0;
+            gbTextBoxPending = 0;
+            gbTextFromObject = 0;
         }
         nResult += nDrawn;
     }
 
-    if (!nResult && gnGlobal_007BF1C0 == 1)
+    if (!nResult && gnTextActive == 1)
     {
-        gnGlobal_007BF1FA = 0;
-        gdwGlobal_007BF20A = 0;
-        gnGlobal_007BF1BC = 1;
-        gnGlobal_007BF1C0 = 0;
-        if (gbStarted_007BF27C == 1)
+// build: symbol ?gbTextPanelOpen@* 0x007BF1FA
+        gbTextPanelOpen = 0;
+        gbTextFromObject = 0;
+        gbTextBoxDone = 1;
+        gnTextActive = 0;
+        if (gbTextHandlersRegistered == 1)
         {
-            gbStarted_007BF27C = 0;
-            AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaTextMsgHandlers_00722600, 7);
+            gbTextHandlersRegistered = 0;
+            AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaTextMsgHandlers, 7);
         }
     }
 
-    gnGlobal_007BF1BC = 0;
+    gbTextBoxDone = 0;
     if (!GAME_GetUIVarState(0x18))
     {
         TEXT_DrawMessageList();
         TEXT_DrawOverheadTextList();
     }
 
-    if (gpListDialog_007BF1B0)
+    if (gpListDialog)
     {
-        sub_004B8100_DrawDialog(gpListDialog_007BF1B0);
+        sub_004B8100_DrawDialog(gpListDialog);
     }
 }
 
 static inline int sub_F08_ListTop()
 {
-    return (gnScreenHeight_007A521C - 0x1A4) / 2;
+    return (gnAutomapHeight - 0x1A4) / 2;
 }
 
 static inline int sub_F08_PanelLeft()
@@ -1231,12 +1237,12 @@ void __cdecl TEXT_LayoutSlider()
     const int nOldFont = sub_00502EF0_SetFont(13);
     for (unsigned int i = 0; i < 3; ++i)
     {
-        const int nWidth = sub_00501820_GetTextWidth(sub_00524A30_GetString(gaSliderButtons_007246D8[i].wStringId));
-        const int nThird = (sub_F08_PanelRight() - sub_F08_PanelLeft()) / (sizeof(gaSliderButtons_007246D8) / sizeof(gaSliderButtons_007246D8[0]));
-        gaSliderButtons_007246D8[i].nLeft = nThird * i + sub_F08_PanelLeft() + nThird / 2 - nWidth / 2 - 10;
-        gaSliderButtons_007246D8[i].nRight = nThird * i + sub_F08_PanelLeft() + nThird / 2 + nWidth / 2 + 10;
-        gaSliderButtons_007246D8[i].nTop = sub_F08_ListTop() + 0x149;
-        gaSliderButtons_007246D8[i].nBottom = sub_F08_ListTop() + 0x16F;
+        const int nWidth = sub_00501820_GetTextWidth(sub_00524A30_GetString(gaKeyConfigButtons[i].wStringId));
+        const int nThird = (sub_F08_PanelRight() - sub_F08_PanelLeft()) / (sizeof(gaKeyConfigButtons) / sizeof(gaKeyConfigButtons[0]));
+        gaKeyConfigButtons[i].nLeft = nThird * i + sub_F08_PanelLeft() + nThird / 2 - nWidth / 2 - 10;
+        gaKeyConfigButtons[i].nRight = nThird * i + sub_F08_PanelLeft() + nThird / 2 + nWidth / 2 + 10;
+        gaKeyConfigButtons[i].nTop = sub_F08_ListTop() + 0x149;
+        gaKeyConfigButtons[i].nBottom = sub_F08_ListTop() + 0x16F;
     }
     sub_00502EF0_SetFont(nOldFont);
 
@@ -1245,17 +1251,19 @@ void __cdecl TEXT_LayoutSlider()
 
 static int sub_004A4FA0_GetEntryState(int nIndex, int nFlag)
 {
-    if (nIndex == gnGlobal_007C02B0 && (gnGlobal_007C02B8 || nFlag == gnGlobal_007246D4))
+// build: symbol ?gnKeyConfigColumn@* 0x007246D4
+    if (nIndex == gnKeyConfigSelected && (gbKeyCaptureActive || nFlag == gnKeyConfigColumn))
     {
         return 3;
     }
 
-    if (!CUNIT_HasHotkeyBinding(gpListEntries_00724264[nIndex].nKey, 1) && !CUNIT_HasHotkeyBinding(gpListEntries_00724264[nIndex].nKey, 0))
+// build: symbol ?gpListEntries@* 0x00724264
+    if (!CUNIT_HasHotkeyBinding(gpListEntries[nIndex].nKey, 1) && !CUNIT_HasHotkeyBinding(gpListEntries[nIndex].nKey, 0))
     {
         return 1;
     }
 
-    return CUNIT_HasHotkeyBinding(gpListEntries_00724264[nIndex].nKey, nFlag) ? 4 : 5;
+    return CUNIT_HasHotkeyBinding(gpListEntries[nIndex].nKey, nFlag) ? 4 : 5;
 }
 
 static inline int sub_KEYCFG_VisibleLines()
@@ -1265,7 +1273,7 @@ static inline int sub_KEYCFG_VisibleLines()
 
 static inline int sub_KEYCFG_ListTop()
 {
-    return (gnScreenHeight_007A521C - 0x1A4) / 2;
+    return (gnAutomapHeight - 0x1A4) / 2;
 }
 
 static inline int sub_KEYCFG_PanelRight()
@@ -1306,10 +1314,10 @@ void __cdecl TEXT_DrawKeyConfigPanel()
     const int nMouseX = sub_00468730();
     const int nMouseY = sub_00468740();
     TEXT_InitKeyConfigEntries();
-    if (gnLastMouseX_007C02D8 != nMouseX || gnLastMouseY_007C02D4 != nMouseY || gbRedraw_007C0280)
+    if (gnLastMouseX != nMouseX || gnLastMouseY != nMouseY || gbRedraw_007C0280)
     {
-        gnLastMouseX_007C02D8 = nMouseX;
-        gnLastMouseY_007C02D4 = nMouseY;
+        gnLastMouseX = nMouseX;
+        gnLastMouseY = nMouseY;
         sub_004A4AD0_Press(nMouseX, nMouseY);
     }
 
@@ -1335,40 +1343,40 @@ void __cdecl TEXT_DrawKeyConfigPanel()
         int nY = i * 0x12 + KEYCFG_Y + 0x22;
         int nIndex = gnSliderScale_007C02AC + i;
         int bVisible;
-        if (gnGlobal_007C02B8 && nIndex == gnGlobal_007C02B0 && (gnBlink_007C02D0 & 0xF) <= 4)
+        if (gbKeyCaptureActive && nIndex == gnKeyConfigSelected && (gnBlink & 0xF) <= 4)
             bVisible = 0;
         else
             bVisible = 1;
 
         ++i;
 
-        if (gpListEntries_00724264[nIndex].nKey == 0x39)
+        if (gpListEntries[nIndex].nKey == 0x39)
             continue;
 
-        if (nIndex == gnGlobal_007C02B0)
+        if (nIndex == gnKeyConfigSelected)
         {
             sub_0046EFD0_DrawFramedBox(KEYCFG_X + 0x12, nY + 1, 3 * ((gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3), 0x12, 0, 1);
-            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(gpListEntries_00724264[nIndex].nString), KEYCFG_X + 0x1E, nY + 0x12, gnGlobal_007C02B8 ? 3 : 0, 0);
+            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(gpListEntries[nIndex].nString), KEYCFG_X + 0x1E, nY + 0x12, gbKeyCaptureActive ? 3 : 0, 0);
         }
         else
         {
-            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(gpListEntries_00724264[nIndex].nString), KEYCFG_X + 0x1E, nY + 0x12, 0, 0);
+            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(gpListEntries[nIndex].nString), KEYCFG_X + 0x1E, nY + 0x12, 0, 0);
         }
 
-        if (bVisible || !gnGlobal_007246D4)
+        if (bVisible || !gnKeyConfigColumn)
         {
-            D2Win_10117_DrawText(CMDTBL_GetKeyText(gpListEntries_00724264[nIndex].nKey, 1), KEYCFG_X + 0x1E + (gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3, nY + 0x12, sub_004A4FA0_GetEntryState(nIndex, 1), 0);
+            D2Win_10117_DrawText(CMDTBL_GetKeyText(gpListEntries[nIndex].nKey, 1), KEYCFG_X + 0x1E + (gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3, nY + 0x12, sub_004A4FA0_GetEntryState(nIndex, 1), 0);
         }
 
-        if (bVisible || gnGlobal_007246D4)
+        if (bVisible || gnKeyConfigColumn)
         {
-            D2Win_10117_DrawText(CMDTBL_GetKeyText(gpListEntries_00724264[nIndex].nKey, 0), KEYCFG_X + 0x1E + 2 * ((gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3), nY + 0x12, sub_004A4FA0_GetEntryState(nIndex, 0), 0);
+            D2Win_10117_DrawText(CMDTBL_GetKeyText(gpListEntries[nIndex].nKey, 0), KEYCFG_X + 0x1E + 2 * ((gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3), nY + 0x12, sub_004A4FA0_GetEntryState(nIndex, 0), 0);
         }
     }
 
     D2CelContextStrc tCel;
     memset(&tCel, 0, sizeof(tCel));
-    tCel.pCellFile = gpCelFile_007C02BC;
+    tCel.pCellFile = gpKeyConfigSliderCel;
     tCel.nFrame = 13;
     for (int j = 0; j < sub_KEYCFG_TrackCels(); ++j)
         sub_004F6480(&tCel, sub_KEYCFG_PanelRight() - 0x1F, KEYCFG_Y + 0x3B + j * 0x0C, -1, 5, 0);
@@ -1392,7 +1400,7 @@ void __cdecl TEXT_DrawKeyConfigPanel()
     for (unsigned int m = 0; m < 3; ++m)
     {
         int nColor;
-        if (m == gnHoverButton_007C02B4)
+        if (m == gnKeyConfigPressedButton)
             nColor = gaButtons_007246D8[m].nColor;
         else
             nColor = 4;
@@ -1403,12 +1411,12 @@ void __cdecl TEXT_DrawKeyConfigPanel()
     {
         const int nCenterX = gnScreenWidth_0071146C / 2;
         const int nTextY = KEYCFG_Y + ((KEYCFG_Y + 0x171) - KEYCFG_Y) + 0x1E;
-        const int nTextX = nCenterX - D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(gnMessage_007C02C4)) / 2;
-        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(gnMessage_007C02C4), nTextX, nTextY, 1, 1);
+        const int nTextX = nCenterX - D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(gnMessage)) / 2;
+        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(gnMessage), nTextX, nTextY, 1, 1);
     }
 
     sub_00502EF0_SetFont(nOldFont);
-    ++gnBlink_007C02D0;
+    ++gnBlink;
 }
 
 // 0x004B9010
@@ -1418,7 +1426,7 @@ void __fastcall TEXT_SetNameFromPacket(D2NamePacketStrc* pPacket)
     memcpy(szName, pPacket->szName, 16);
     szName[15] = 0;
     sub_00526F20_ToUnicode(gwszName_007C0E84, szName, 16);
-    gnGlobal_007C0E60 = *(int*)pPacket->nValue;
+    gnTradePartnerUnitId = *(int*)pPacket->nValue;
 }
 
 // 0x004BE410
@@ -1449,7 +1457,8 @@ void __fastcall TEXT_AppendUndeadDamageBonus(D2UnitStrc* pUnused, Unicode* wszOu
     const Unicode* wszD = D2LANG_GetStringFromTblIndex(0xFA1);
     Unicode wszNumber[10];
     char szNumber[10];
-    SStrPrintf(szNumber, 10, szIntFormat_006D6454, 0x32);
+// build: symbol ?gszFormatI@* 0x006D6454
+    SStrPrintf(szNumber, 10, gszFormatI, 0x32);
     sub_00526320_ToUnicode(wszNumber, szNumber, 9);
     sub_00526700(wszText, wszA);
     sub_00526700(wszText, wszNumber);
@@ -1489,7 +1498,7 @@ void __stdcall TEXT_DrawHintText(int nArg1, int nStringIndex)
     sub_005269D0(100, wszText, D2LANG_GetStringFromTblIndex(0x1058), nArg1);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringIndex));
-    D2Win_10129_DrawFramedText(wszText, gnGlobal_0071146C - 0x80, gnGlobal_00711470 - 0x34, 0, 1);
+    D2Win_10129_DrawFramedText(wszText, gnScreenWidth - 0x80, gnScreenHeight - 0x34, 0, 1);
 }
 
 // 0x006CACD0

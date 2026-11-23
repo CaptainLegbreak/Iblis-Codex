@@ -25,8 +25,9 @@ extern "C" char* __cdecl _strlwr(char* szString);
 unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed);
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 void* __fastcall sub_00517079_LoadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine);
-extern int gdwGlobal_007A8918; // 0x007A8918
-extern D2HashedFileStrc gtHashedFile_007A78F0;
+extern int gnCofMemoryUsed; // 0x007A8918
+// build: symbol ?gtGlobalHashedFile@* 0x007A78F0
+extern D2HashedFileStrc gtGlobalHashedFile;
 void __stdcall sub_M274_EmitBuildPath(char* szPath, int nMode);
 
 struct D2StateNodeStrc
@@ -141,7 +142,7 @@ static D2HashedFileEntryStrc* __stdcall sub_0046DCC0_LoadHashedEntry(D2HashedFil
         const unsigned int nBucket = sub_0046DB90_HashName(szName);
         pEntry->pNext = pTable->pEntries[nBucket];
         pTable->pEntries[nBucket] = pEntry;
-        gdwGlobal_007A8918 += pEntry->nSize + sizeof(D2HashedFileEntryStrc);
+        gnCofMemoryUsed += pEntry->nSize + sizeof(D2HashedFileEntryStrc);
         return pEntry;
     }
     return 0;
@@ -151,7 +152,7 @@ int __stdcall sub_M274_Emit_0046DCC0(int nMode, int nUnused)
 {
     char szPath[0x110];
     sub_M274_EmitBuildPath(szPath, nMode);
-    D2HashedFileStrc* const pTable = &gtHashedFile_007A78F0;
+    D2HashedFileStrc* const pTable = &gtGlobalHashedFile;
     if (!GFX_FindHashedEntry(pTable, szPath))
     {
         if (!sub_0046DCC0_LoadHashedEntry(pTable, szPath))
@@ -263,7 +264,8 @@ AdvanceToNextNode:
         sub_0046DF40_RecalcStateOverlays(ptGfxInfo, pUnit, pNode);
     }
 
-    FOG_Free(pNode, gszGfxFile_006D6C1C, 0x1E1, 0);
+// build: symbol ?gszGfxFile@* 0x006D6C1C
+    FOG_Free(pNode, gszGfxFile, 0x1E1, 0);
 }
 
 // build: context sub_0046E040_Shim

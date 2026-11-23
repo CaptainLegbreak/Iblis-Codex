@@ -289,25 +289,25 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 extern "C" const char gszGfxUtilSourceFile[]; // 0x006DB974
 
-extern D2HotspotStrc gaHotspots_00727902[]; // 0x00727902
+extern D2HotspotStrc gaUseItemHotspotRects[]; // 0x00727902
 
-extern int gnGlobal_007C5474; // 0x007C5474
+extern int gnUseItemDialogState; // 0x007C5474
 
-extern int gnGlobal_007C5480; // 0x007C5480
+extern int gnAnvilItemId; // 0x007C5480
 
-extern void* gpfnEventTable_00727DB4[2]; // 0x00727DB4
+extern void* gpfnClientStateEvents[2]; // 0x00727DB4
 
-extern int gnGlobal_007C89D8; // 0x007C89D8
+extern int gnCurrentSongId; // 0x007C89D8
 
-extern int gnGlobal_007C89E0; // 0x007C89E0
+extern int gdwSongPositionTick; // 0x007C89E0
 
-extern D2TimedHintStrc gTimedHint_007C89E4; // 0x007C89E4
+extern D2TimedHintStrc gtTimedHint; // 0x007C89E4
 
 extern void* gpGlobal_007A0634; // 0x007A0634
 
-extern int gdwGlobal_007C8C78; // 0x007C8C78
+extern int gbSoundSystemInit; // 0x007C8C78
 
-extern D2SlotStrc gaSlots_007C8A78[16]; // 0x007C8A78
+extern D2SlotStrc gaSlots[16]; // 0x007C8A78
 
 int __cdecl sub_0044DB00(); // 0x0044DB00
 
@@ -482,13 +482,13 @@ struct D2GSPacketSrv42Strc
 
 #pragma pack(pop)
 
-short gwGlobal_007C78A8;                                                                                    // 0x007C78A8
+short gwRightHandWeaponClass;                                                                                    // 0x007C78A8
 
-short gwGlobal_007C78AC;                                                                                    // 0x007C78AC
+short gwLeftHandWeaponClass;                                                                                    // 0x007C78AC
 
-extern int gaCursorKind_00727A40[]; // 0x00727A40
+extern int gaCursorKind[]; // 0x00727A40
 
-extern unsigned int gnCursorKindCount_00727A48; // 0x00727A48
+extern unsigned int gnCursorKindCount; // 0x00727A48
 
 void __fastcall sub_004B29E0(int nUnitId); // 0x004B29E0
 
@@ -508,7 +508,7 @@ void __fastcall sub_00468010(D2UnitStrc* pItem, int nCursor); // 0x00468010
 
 extern "C" int gnTable_00727A28[5]; // 0x00727A28
 
-extern "C" unsigned int gnTableCount_00727A3C; // 0x00727A3C
+extern "C" unsigned int gnTableCount; // 0x00727A3C
 
 extern "C" unsigned int __stdcall sub_006280A0(D2UnitStrc* pUnit, unsigned int dwMask, unsigned int dwUnused3, unsigned int dwUnused4); // 0x006280A0
 
@@ -820,19 +820,20 @@ void __fastcall ITEM_ApplyTownPortalState(D2GSPacketSrv60* pPacket)
 // 0x004BFBC0
 void __fastcall ITEM_HitTestHotspots(int nX, int nY)
 {
-    for (int i = 0; i < gnGlobal_007278FC; i++)
+// build: symbol ?gnHotspotCount@* 0x007278FC
+    for (int i = 0; i < gnHotspotCount; i++)
     {
-        gaHotspots_00727902[i].bFlag0x25 = 0;
-        gaHotspots_00727902[i].bFlag0x24 = 0;
+        gaUseItemHotspotRects[i].bFlag0x25 = 0;
+        gaUseItemHotspotRects[i].bFlag0x24 = 0;
     }
 
-    for (int i = 0; i < gnGlobal_007278FC; i++)
+    for (int i = 0; i < gnHotspotCount; i++)
     {
-        if (nX >= gaHotspots_00727902[i].nLeft && nX <= gaHotspots_00727902[i].nRight && nY >= gaHotspots_00727902[i].nTop && nY <= gaHotspots_00727902[i].nBottom)
+        if (nX >= gaUseItemHotspotRects[i].nLeft && nX <= gaUseItemHotspotRects[i].nRight && nY >= gaUseItemHotspotRects[i].nTop && nY <= gaUseItemHotspotRects[i].nBottom)
         {
             sub_004B9A00(1, 0, 0, 0, 0);
-            gaHotspots_00727902[i].bFlag0x25 = 1;
-            gaHotspots_00727902[i].bFlag0x24 = 1;
+            gaUseItemHotspotRects[i].bFlag0x25 = 1;
+            gaUseItemHotspotRects[i].bFlag0x24 = 1;
         }
     }
 }
@@ -840,7 +841,7 @@ void __fastcall ITEM_HitTestHotspots(int nX, int nY)
 // 0x004C01E0
 void __cdecl ITEM_DrawPanelUnit()
 {
-    if (gnGlobal_007C5474)
+    if (gnUseItemDialogState)
     {
         if (sub_00463DF0())
         {
@@ -849,9 +850,9 @@ void __cdecl ITEM_DrawPanelUnit()
         }
 
         USEITEM_DrawUseItemPanel();
-        if (gnGlobal_007C5474 == 2)
+        if (gnUseItemDialogState == 2)
         {
-            D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnGlobal_007C5480, 4);
+            D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnAnvilItemId, 4);
             if (pUnit)
             {
                 D2PanelGfxStrc tGfx;
@@ -1534,9 +1535,9 @@ static void ITEM_StoreHandWeaponClass(D2UnitStrc* pItem, unsigned char nType)
 {
     const int nWeaponClass = ITEMS_GetWeaponClassId(pItem);
     if (nType == 4)
-        gwGlobal_007C78A8 = nWeaponClass;
+        gwRightHandWeaponClass = nWeaponClass;
     else if (nType == 5)
-        gwGlobal_007C78AC = nWeaponClass;
+        gwLeftHandWeaponClass = nWeaponClass;
 }
 
 // 0x004C1C50
@@ -1635,8 +1636,8 @@ int __fastcall ITEM_GetItemUseSound(D2UnitStrc* pItem)
 // 0x004C1E30
 void __cdecl sub_004C1E30()
 {
-    gwGlobal_007C78A8 = 0;
-    gwGlobal_007C78AC = 0;
+    gwRightHandWeaponClass = 0;
+    gwLeftHandWeaponClass = 0;
 }
 
 void __stdcall sub_004C0D20_CallerA(int nArg, D2UnitStrc* pItem, D2UnitStrc* pUnit)
@@ -1772,7 +1773,7 @@ void __fastcall ITEM_HandleItemToCursor(D2GSPacketSrv9C* pPacket)
 // 0x004C2150
 int __fastcall sub_004C2150_FindInTable(int nValue)
 {
-    for (unsigned int i = 0; i < gnTableCount_00727A3C; ++i)
+    for (unsigned int i = 0; i < gnTableCount; ++i)
     {
         if (nValue == gnTable_00727A28[i])
             return 4;
@@ -2491,11 +2492,11 @@ void __fastcall ITEM_HandleIndirectSwapBodyItem(D2GSPacketSrv9D* pPacket)
             INV_ResetHover();
             if (tItemSave.nBodyloc == 4)
             {
-                gwGlobal_007C78A8 = 0;
+                gwRightHandWeaponClass = 0;
             }
             else if (tItemSave.nBodyloc == 5)
             {
-                gwGlobal_007C78AC = 0;
+                gwLeftHandWeaponClass = 0;
             }
 
             sub_004C2540_PlaceItem(pItem, 0, 0, 4, 0, tItemSave.nStorePage);
@@ -2626,11 +2627,11 @@ void __fastcall ITEM_HandleUnequipItem(D2GSPacketSrv9D* pPacket)
         INV_ResetHover();
         if (tItemSave.nBodyloc == 4)
         {
-            gwGlobal_007C78A8 = 0;
+            gwRightHandWeaponClass = 0;
         }
         else if (tItemSave.nBodyloc == 5)
         {
-            gwGlobal_007C78AC = 0;
+            gwLeftHandWeaponClass = 0;
         }
 
         if (!sub_006287A0_TestFlags(tItemSave.dwFlags, 0x20))
@@ -3423,9 +3424,9 @@ void __fastcall ITEM_HandleUseStackableItem(D2PacketRecord8Strc* pPacket)
 {
     if (pPacket->nSkill != 0xFFFF)
     {
-        for (unsigned int i = 0; i < gnCursorKindCount_00727A48; ++i)
+        for (unsigned int i = 0; i < gnCursorKindCount; ++i)
         {
-            if (pPacket->nCursor == gaCursorKind_00727A40[i] && !UI_GetUIVarUnchecked(1))
+            if (pPacket->nCursor == gaCursorKind[i] && !UI_GetUIVarUnchecked(1))
             {
                 sub_00455F20(1, 0, 0);
                 break;
@@ -3449,9 +3450,9 @@ void __fastcall ITEM_HandleUseStackableItem(D2PacketRecord8Strc* pPacket)
         return;
     }
 
-    for (unsigned int i = 0; i < gnCursorKindCount_00727A48; ++i)
+    for (unsigned int i = 0; i < gnCursorKindCount; ++i)
     {
-        if (pPacket->nCursor == gaCursorKind_00727A40[i] && !UI_GetUIVarUnchecked(1))
+        if (pPacket->nCursor == gaCursorKind[i] && !UI_GetUIVarUnchecked(1))
             sub_00455F20(1, 0, 0);
     }
     D2UnitStrc* pItem = CUNIT_FindClientUnit(pPacket->dwItemId, 4);
@@ -3527,11 +3528,11 @@ void __fastcall ITEM_HandleAutoUnequip(D2GSPacketSrv9D* pPacket)
     INV_ResetHover();
     if (tItemSave.nBodyloc == 4)
     {
-        gwGlobal_007C78A8 = 0;
+        gwRightHandWeaponClass = 0;
     }
     else if (tItemSave.nBodyloc == 5)
     {
-        gwGlobal_007C78AC = 0;
+        gwLeftHandWeaponClass = 0;
     }
 
     if (sub_0063BCC0_PlaceItem(pInventory, pItem, tItemSave.nX, tItemSave.nY, nRecordId, 1, 0))
@@ -3779,11 +3780,11 @@ D2UnitStrc* __fastcall ITEM_HandleBodyGridSwap(D2GSPacketSrv9D* pPacket)
             INV_ResetHover();
             if (tItemSave.nBodyloc == 4)
             {
-                gwGlobal_007C78A8 = 0;
+                gwRightHandWeaponClass = 0;
             }
             else if (tItemSave.nBodyloc == 5)
             {
-                gwGlobal_007C78AC = 0;
+                gwLeftHandWeaponClass = 0;
             }
         }
 
@@ -4058,7 +4059,7 @@ int __fastcall ITEM_CallClientStateEvent(void* pArg1, int nArg2, int nArg3, int 
 {
     if (nIndex <= 1)
     {
-        void* pfnCallback = gpfnEventTable_00727DB4[nIndex];
+        void* pfnCallback = gpfnClientStateEvents[nIndex];
         if (pfnCallback)
         {
             return sub_004DC110(pArg1, nArg2, nArg3, nArg4, pfnCallback, nArg6, nArg7);
@@ -4159,28 +4160,28 @@ int __stdcall ITEM_GetGfxClientZ(D2UnitStrc* pUnit)
 // 0x004DCD40
 void __fastcall ITEM_ShowTimedHint(void* pOwner, int nDelayA, int nDelayC, unsigned int nIndex, int nArgE, int nDelayF, int nArgG)
 {
-    if (gnGlobal_007C89D8)
+    if (gnCurrentSongId)
     {
-        D2HintCursorStrc* pCursor = sub_00481860(gnGlobal_007C89D8);
-        void* pEntry = sub_004B9610(gnGlobal_007C89D8);
+        D2HintCursorStrc* pCursor = sub_00481860(gnCurrentSongId);
+        void* pEntry = sub_004B9610(gnCurrentSongId);
         if (pEntry && sub_004B9590(pEntry))
         {
             const int nValue = nIndex > 0 ? pCursor->aValues[nIndex] : 0;
-            const int nOffset = 4 * (gnGlobal_007C89D8 - sub_004817F0());
+            const int nOffset = 4 * (gnCurrentSongId - sub_004817F0());
             *(int*)(sub_00481810() + nOffset) = nValue;
-            gnGlobal_007C89E0 = sub_00481820();
+            gdwSongPositionTick = sub_00481820();
         }
     }
 
     sub_004BA8F0();
-    gTimedHint_007C89E4.bActive = 1;
-    gTimedHint_007C89E4.pOwner = pOwner;
-    gTimedHint_007C89E4.nEndTickA = sub_0044DB00() + nDelayA;
-    gTimedHint_007C89E4.bActive2 = 1;
-    gTimedHint_007C89E4.nArgE = nArgE;
-    gTimedHint_007C89E4.nEndTickF = sub_0044DB00() + nDelayF;
-    gTimedHint_007C89E4.nArgG = nArgG;
-    gTimedHint_007C89E4.nEndTickC = sub_0044DB00() + nDelayC;
+    gtTimedHint.bActive = 1;
+    gtTimedHint.pOwner = pOwner;
+    gtTimedHint.nEndTickA = sub_0044DB00() + nDelayA;
+    gtTimedHint.bActive2 = 1;
+    gtTimedHint.nArgE = nArgE;
+    gtTimedHint.nEndTickF = sub_0044DB00() + nDelayF;
+    gtTimedHint.nArgG = nArgG;
+    gtTimedHint.nEndTickC = sub_0044DB00() + nDelayC;
 }
 
 // 0x004DE630
@@ -4282,7 +4283,7 @@ int __fastcall ITEM_QueryCacheAddress(D2AddressQueryStrc* pQuery)
 // 0x004DF9D0
 D2SlotStrc* __fastcall SoundChannelFind(int nOwner)
 {
-    if (!gdwGlobal_007C8C78)
+    if (!gbSoundSystemInit)
     {
         return 0;
     }
@@ -4290,7 +4291,7 @@ D2SlotStrc* __fastcall SoundChannelFind(int nOwner)
     D2SlotStrc* pBest = 0;
     for (int i = 0; i < 16; i++)
     {
-        D2SlotStrc* pSlot = &gaSlots_007C8A78[i];
+        D2SlotStrc* pSlot = &gaSlots[i];
         if (sub_00515710(pSlot->pSound) && pSlot->pObject && pSlot->pObject->f_4 == nOwner)
         {
             if (!pBest || pSlot->pObject->nKey < pBest->pObject->nKey)

@@ -302,8 +302,9 @@ int __fastcall D2Win_10177(unsigned char nAct)
 
     char szPL2Filename[260];
     char szDatFilename[260];
-    sprintf(szDatFilename, "%s\\palette\\act%d\\%s", szDataGlobal_006D4118, nActNo, "pal.dat");
-    sprintf(szPL2Filename, "%s\\palette\\act%d\\%s", szDataGlobal_006D4118, nActNo, "pal.pl2");
+// build: symbol ?gszDataGlobal@* 0x006D4118
+    sprintf(szDatFilename, "%s\\palette\\act%d\\%s", gszDataGlobal, nActNo, "pal.dat");
+    sprintf(szPL2Filename, "%s\\palette\\act%d\\%s", gszDataGlobal, nActNo, "pal.pl2");
     const int nResult = sub_004FB1E0_LoadPaletteFiles(szDatFilename, szPL2Filename);
     D2GFX_SetPalette(gRGBAPalette_0081E668);
     return nResult;

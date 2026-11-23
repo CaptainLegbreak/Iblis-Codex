@@ -9,13 +9,13 @@ struct SelectionEntry;
 void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 void __cdecl NPCMENU_BuildNpcMenu(); // 0x004B4830
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-extern char gbGlobal_007C0C69; // 0x007C0C69
+extern char gbNpcMessageShown; // 0x007C0C69
 
 typedef char check_size_npcentry[(sizeof(D2NpcEntryStrc) == 0x16) ? 1 : -1];
 
 int __cdecl sub_004B1D70_FindNpcEntry(); // 0x004B1D70
 void __stdcall NPCMENU_OpenNpcPanel(int nStringIndex, int nEntryIndex); // 0x004B5890
-extern D2NpcEntryStrc gaNpcEntries_00726850[]; // 0x00726850
+extern D2NpcEntryStrc gaNpcEntries[]; // 0x00726850
 void __stdcall NPCMENU_OpenConfirmDialog(int nStringIndex); // 0x004B5AD0
 void __cdecl sub_004B5140(); // 0x004B5140
 extern void (__cdecl* gpfnCallback_00726E59)(); // 0x00726E59
@@ -82,16 +82,17 @@ extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 // 0x004B5850
 int __cdecl sub_004B5850()
 {
-    if (gbGlobal_007C0C69)
+    if (gbNpcMessageShown)
     {
         return 0;
     }
 
-    if (gpDialog_007C0D73)
+// build: symbol ?gpNpcConfirmDialog@* 0x007C0D73
+    if (gpNpcConfirmDialog)
     {
-        DIALOG_DestroyDialog(gpDialog_007C0D73);
+        DIALOG_DestroyDialog(gpNpcConfirmDialog);
         sub_004B9A00(1, 0, 0, 0, 0);
-        gpDialog_007C0D73 = 0;
+        gpNpcConfirmDialog = 0;
         NPCMENU_BuildNpcMenu();
     }
 
@@ -101,9 +102,11 @@ int __cdecl sub_004B5850()
 // 0x004B5BC0
 int __cdecl sub_004B5BC0_SelectNpcEntry()
 {
-    gnGlobal_007C0C6B = 1;
+// build: symbol ?gnNpcMenuState@* 0x007C0C6B
+    gnNpcMenuState = 1;
     int nIndex = sub_004B1D70_FindNpcEntry();
-    gpNpcEntry_007C0C7D = &gaNpcEntries_00726850[nIndex];
+// build: symbol ?gpNpcEntry@* 0x007C0C7D
+    gpNpcEntry = &gaNpcEntries[nIndex];
     NPCMENU_OpenNpcPanel(0xD35, nIndex);
     return 1;
 }
@@ -111,7 +114,7 @@ int __cdecl sub_004B5BC0_SelectNpcEntry()
 // 0x004B5C00
 int __cdecl sub_004B5C00_OpenConfirm()
 {
-    gnGlobal_007C0C6B = 1;
+    gnNpcMenuState = 1;
     sub_004B1D70_FindNpcEntry();
     NPCMENU_OpenConfirmDialog(0x2BA0);
     return 1;
@@ -120,13 +123,14 @@ int __cdecl sub_004B5C00_OpenConfirm()
 // 0x004B69E0
 void __cdecl sub_004B69E0_CloseTrade()
 {
-    if (gpTradeObj_007C0D83)
+// build: symbol ?gpNpcTradeObj@* 0x007C0D83
+    if (gpNpcTradeObj)
     {
         if (gpRes_007C0D77)
         {
             DIALOG_DestroyDialog(gpRes_007C0D77);
-            delete gpTradeObj_007C0D83;
-            gpTradeObj_007C0D83 = 0;
+            delete gpNpcTradeObj;
+            gpNpcTradeObj = 0;
             gpRes_007C0D77 = 0;
         }
         NPCMENU_BuildNpcMenu();

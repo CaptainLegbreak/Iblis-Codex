@@ -82,7 +82,7 @@ struct D2GridLightStrc
 };
 
 extern void* gpGlobal_007A0634; // 0x007A0634
-extern int gnGlobal_0071146C; // 0x0071146C
+extern int gnScreenWidth; // 0x0071146C
 unsigned char __stdcall sub_0061C0E0(void* pAct); // 0x0061C0E0
 void __stdcall sub_0061C0B0(void* pAct, unsigned char* pR, unsigned char* pG, unsigned char* pB); // 0x0061C0B0
 void __fastcall SCMD_ReadGridCell(int nX, int nY, unsigned char* pB0, unsigned char* pB1, unsigned char* pB2, unsigned char* pB3); // 0x00475AA0
@@ -91,13 +91,13 @@ void __stdcall sub_004DE070(D2GridCellStrc* pCells, int nX, int nY, int nSubX, i
 void __stdcall sub_004DE260(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE260
 int __fastcall sub_00472280(int nSeed, int nZero, int nMax); // 0x00472280
 
-static tagRECT s_tWallRect_007C8A14; // 0x007C8A14
+static tagRECT s_tWallRect; // 0x007C8A14
 
-static unsigned int s_nPlayerX_007C8A08; // 0x007C8A08
+static unsigned int s_nPlayerX; // 0x007C8A08
 
-static int s_nCollision_007C8A0C; // 0x007C8A0C
+static int s_nCollision; // 0x007C8A0C
 
-static unsigned int s_nPlayerY_007C8A10; // 0x007C8A10
+static unsigned int s_nPlayerY; // 0x007C8A10
 
 static void sub_004DCE60_ResizeWallCells(D2WallCtxStrc* pCtx)
 {
@@ -142,7 +142,7 @@ void __fastcall sub_004DDB70_PrepareWallCells(D2WallCtxStrc* pCtx, int nValue)
         SetRect(&tArg.tRect, pCtx->nX - 0x30, pCtx->nY - 0x30, pCtx->nRight - pCtx->nLeft + pCtx->nX + 0x30, pCtx->nBottom - pCtx->nTop + pCtx->nY);
     else
         SetRect(&tArg.tRect, pCtx->nX, pCtx->nY, pCtx->nRight - pCtx->nLeft + pCtx->nX, pCtx->nBottom - pCtx->nTop + pCtx->nY);
-    s_tWallRect_007C8A14 = tArg.tRect;
+    s_tWallRect = tArg.tRect;
     pCtx->nUnk0xEA9C = 0;
     pCtx->nUnk0x38 = 0;
     D2_ASSERT(pCtx->pCells, 0x33C);
@@ -166,9 +166,9 @@ void __fastcall sub_004DDB70_PrepareWallCells(D2WallCtxStrc* pCtx, int nValue)
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2_ASSERT(pPlayer, 0x351);
     tArg.pRoom = sub_004646A0_GetPlayerRoom();
-    s_nPlayerX_007C8A08 = GetUnitXPosition_Inline(pPlayer) / 5;
-    s_nPlayerY_007C8A10 = GetUnitYPosition_Inline(pPlayer) / 5;
-    s_nCollision_007C8A0C = sub_0061B130_GetCollision(UNITS_GetRoom(pPlayer), GetUnitXPosition_Inline(pPlayer), GetUnitYPosition_Inline(pPlayer));
+    s_nPlayerX = GetUnitXPosition_Inline(pPlayer) / 5;
+    s_nPlayerY = GetUnitYPosition_Inline(pPlayer) / 5;
+    s_nCollision = sub_0061B130_GetCollision(UNITS_GetRoom(pPlayer), GetUnitXPosition_Inline(pPlayer), GetUnitYPosition_Inline(pPlayer));
     sub_00619BD0(tArg.pRoom, sub_004DD7C0, &tArg);
 }
 
@@ -273,10 +273,10 @@ static void __stdcall sub_B08_BuildSmallFlatGrid(int nX, int nY, int bCorners, D
     switch (nMode)
     {
     case 1:
-        nX -= gnGlobal_0071146C / 4;
+        nX -= gnScreenWidth / 4;
         break;
     case 2:
-        nX += gnGlobal_0071146C / 4;
+        nX += gnScreenWidth / 4;
         break;
     }
 
@@ -305,10 +305,10 @@ static void __stdcall sub_B08_BuildSmallGrid(int nSubX, int nSubY, int nZ, int b
     switch (nMode)
     {
     case 1:
-        nShift = -(gnGlobal_0071146C / 4);
+        nShift = -(gnScreenWidth / 4);
         break;
     case 2:
-        nShift = gnGlobal_0071146C / 4;
+        nShift = gnScreenWidth / 4;
         break;
     }
 

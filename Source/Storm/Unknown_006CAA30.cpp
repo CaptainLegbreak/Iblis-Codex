@@ -2,11 +2,11 @@
 
 struct D2LayoutRectStrc;
 
-extern unsigned short gwszText_007A2D30[256]; // 0x007A2D30
-extern unsigned short gwszText_007A2A78[256]; // 0x007A2A78
-extern unsigned short gwszHoverName_007A2F38[256]; // 0x007A2F38
-extern unsigned short gwChatHistory_007BB840[2056]; // 0x007BB840
-extern unsigned short gwszName_007BCEA8[4096]; // 0x007BCEA8
+extern unsigned short gwszHoverLine[256]; // 0x007A2D30
+extern unsigned short gwszHoverText[256]; // 0x007A2A78
+extern unsigned short gwszHoverName[256]; // 0x007A2F38
+extern unsigned short gawszChatHistory[2056]; // 0x007BB840
+extern unsigned short gwszRecipeScrollText[4096]; // 0x007BCEA8
 
 struct D2LayoutRectStrc
 {
@@ -24,7 +24,7 @@ void __cdecl sub_006CAA30_ClearText()
 {
     for (int i = 0; i < 256; ++i)
     {
-        gwszText_007A2D30[i] = 0;
+        gwszHoverLine[i] = 0;
     }
 }
 
@@ -33,7 +33,7 @@ void __cdecl sub_006CAA50_ClearText()
 {
     for (int i = 0; i < 256; ++i)
     {
-        gwszText_007A2A78[i] = 0;
+        gwszHoverText[i] = 0;
     }
 }
 
@@ -42,7 +42,7 @@ void __cdecl sub_006CAA70_ClearText()
 {
     for (int i = 0; i < 256; ++i)
     {
-        gwszHoverName_007A2F38[i] = 0;
+        gwszHoverName[i] = 0;
     }
 }
 
@@ -51,7 +51,7 @@ void __cdecl sub_006CAB10_ClearText()
 {
     for (int i = 0; i < 2056; ++i)
     {
-        gwChatHistory_007BB840[i] = 0;
+        gawszChatHistory[i] = 0;
     }
 }
 
@@ -60,7 +60,7 @@ void __cdecl sub_006CABF0_ClearText()
 {
     for (int i = 0; i < 4096; ++i)
     {
-        gwszName_007BCEA8[i] = 0;
+        gwszRecipeScrollText[i] = 0;
     }
 }
 

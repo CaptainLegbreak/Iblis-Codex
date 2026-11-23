@@ -34,7 +34,7 @@ void __stdcall sub_006BC680_Close(void* pConnection);                           
 T006BC290* __stdcall sub_006BC6A0_AllocSocketRecord(const char* szName, int nValue, const char* szLabel); // 0x006BC6A0
 FSafeSock* __stdcall sub_006BC810_LookupHandle(void* pConnection);                                          // 0x006BC810
 
-extern void* gpConnection_00798FB4;                                                                         // 0x00798FB4
+extern void* gpMcpConnection;                                                                         // 0x00798FB4
 D2LaunchThreadRecordStrc gtThreadRecord_00798FB8;                                                           // 0x00798FB8
 #define gnServerAddress_00798FC8 (gtThreadRecord_00798FB8.nData[4])
 #define gnServerPort_00798FCC (gtThreadRecord_00798FB8.nData[5])
@@ -43,7 +43,7 @@ void* ghConnectEvent_007992EC;                                                  
 
 int __cdecl sub_00449B30_QueryAddress()
 {
-    FSafeSock* pHandle = sub_006BC810_LookupHandle(gpConnection_00798FB4);
+    FSafeSock* pHandle = sub_006BC810_LookupHandle(gpMcpConnection);
     if (!pHandle)
         return 0;
     D2LaunchAddressStrc tAddress;
@@ -85,7 +85,7 @@ int __cdecl sub_0044A070_ConnectThread()
     const char* szAddress = FOG_inet_ntoa(gnServerAddress_00798FC8);
     gnValue_0079929C = 0;
     void* pConnection = sub_006BC6A0_AllocSocketRecord(szAddress, gnServerPort_00798FCC, "clt->mcp");
-    gpConnection_00798FB4 = pConnection;
+    gpMcpConnection = pConnection;
     sub_006BC010_SetHandler(pConnection, sub_0044B1C0_HandlePacket, 0);
     sub_006BC5A0_Start(pConnection);
     unsigned long nFogError = 0;
@@ -96,7 +96,7 @@ int __cdecl sub_0044A070_ConnectThread()
         FOG_SOCKET_GetError(pSafeSock, &nFogError, &nWSALastError);
         if (nFogError == 0)
         {
-            if (pConnection != gpConnection_00798FB4)
+            if (pConnection != gpMcpConnection)
             {
                 sub_006BC680_Close(pConnection);
                 return 0;

@@ -344,15 +344,16 @@ void __fastcall DRLG_LoadTownTiles(D2DrlgStrc* pDrlg)
     switch (pDrlg->nAct)
     {
     case ACT_I:
-        wsprintfA(szPath, "%s\\Tiles\\Act1\\Town\\Floor.dt1", szDataGlobal_006D4118);
+// build: symbol ?gszDataGlobal@* 0x006D4118
+        wsprintfA(szPath, "%s\\Tiles\\Act1\\Town\\Floor.dt1", gszDataGlobal);
         break;
 
     case ACT_II:
-        wsprintfA(szPath, "%s\\Tiles\\Act2\\Town\\Ground.dt1", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\Tiles\\Act2\\Town\\Ground.dt1", gszDataGlobal);
         break;
 
     case ACT_III:
-        wsprintfA(szPath, "%s\\Tiles\\ACT3\\Kurast\\sets.dt1", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\Tiles\\ACT3\\Kurast\\sets.dt1", gszDataGlobal);
         break;
 
     default:

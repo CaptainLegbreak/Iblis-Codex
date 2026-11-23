@@ -30,10 +30,10 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 void* __stdcall WINDOW_GetWindow(); // 0x004F59A0
 void __fastcall COMCALLBACK_RegisterMsgHandlers(void* hWnd, void* pHandlers, int nCount); // 0x00451DB0
 
-extern const char gszTextSourceFile_006DA13C[]; // 0x006DA13C
+extern const char gszTextSourceFile[]; // 0x006DA13C
 extern int gnTextTop_007225FC; // 0x007225FC
 extern unsigned char gaHandlers_00722600[]; // 0x00722600
-extern D2TextBlockStrc* gpTextBox_007BF0A4; // 0x007BF0A4
+extern D2TextBlockStrc* gpTextBox; // 0x007BF0A4
 extern D2TextBlockStrc* gpPreviousTextBox_007BF1A8; // 0x007BF1A8
 extern int gnTextState_007BF1BC; // 0x007BF1BC
 extern int gnTextActive_007BF1C0; // 0x007BF1C0
@@ -55,8 +55,8 @@ static void sub_0049D370_FreeTextLines(D2TextRowStrc* pLine)
     while (pLine)
     {
         D2TextRowStrc* pNext = pLine->pNext;
-        FOG_Free(pLine->pText, gszTextSourceFile_006DA13C, 0x60F, 0);
-        FOG_Free(pLine, gszTextSourceFile_006DA13C, 0x610, 0);
+        FOG_Free(pLine->pText, gszTextSourceFile, 0x60F, 0);
+        FOG_Free(pLine, gszTextSourceFile, 0x610, 0);
         pLine = pNext;
     }
 }
@@ -67,7 +67,7 @@ __forceinline void __stdcall TEXT_FreeTextBox(D2TextBlockStrc* pBox)
     if (pBox)
     {
         sub_0049D370_FreeTextLines(pBox->pLines);
-        FOG_Free(pBox, gszTextSourceFile_006DA13C, 0x68E, 0);
+        FOG_Free(pBox, gszTextSourceFile, 0x68E, 0);
     }
 }
 
@@ -124,12 +124,12 @@ void __fastcall sub_004A10E0_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nM
     sub_00467430_SetSelectionRect(&tRect);
     sub_00466FE0();
     gwMessage_007BF212 = nMessage;
-    if (!gpTextBox_007BF0A4)
+    if (!gpTextBox)
     {
         gnTextState_007BF1BC = 0;
         int nPreviousFont = sub_00502EF0(8);
-        gpTextBox_007BF0A4 = TEXT_CreateTextBox(D2LANG_GetStringFromTblIndex(nMessage), 2);
-        if (!gpTextBox_007BF0A4)
+        gpTextBox = TEXT_CreateTextBox(D2LANG_GetStringFromTblIndex(nMessage), 2);
+        if (!gpTextBox)
         {
             sub_00408A60(gszEmpty_006CC837, sub_00408090(), 0x1024);
             exit(-1);
@@ -144,7 +144,7 @@ void __fastcall sub_004A10E0_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nM
             gnSoundPlaying_007BF24B = sub_004B9A00(nSound, sub_00463DD0_GetPlayerUnit(), 5, 0, 0);
             gnSound_007BF260 = nSound;
         }
-        gpTextBox_007BF0A4->unknown16 = 0;
+        gpTextBox->unknown16 = 0;
         gnTextActive_007BF1C0 = 1;
         if (!gnHandlersSet_007BF27C)
         {

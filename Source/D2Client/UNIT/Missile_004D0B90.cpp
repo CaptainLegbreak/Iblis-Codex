@@ -159,8 +159,10 @@ static void __stdcall sub_004D0B90_SpawnHitBurst(int nCount, int nVelocity, int 
             memset(&tParams, 0, sizeof(tParams));
             tParams.dwFlags = 1;
             tParams.pOwner = pOwner;
-            tParams.nX = gaHitRingX_006DB540[i] + nX;
-            tParams.nY = gaHitRingY_006DB588[i] + nY;
+// build: symbol ?gaHitRingX@* 0x006DB540
+            tParams.nX = gaHitRingX[i] + nX;
+// build: symbol ?gaHitRingY@* 0x006DB588
+            tParams.nY = gaHitRingY[i] + nY;
             tParams.nSkill = nSkill;
             tParams.nSkillLevel = nLevel;
             tParams.nMissile = nRingMissile;
@@ -412,7 +414,8 @@ int __fastcall MISSILE_CltDoEightWaySpawn(D2UnitStrc* pMissile)
             nFrames -= SEED_RollLimitedRandomNumber(&pMissile->pSeed, nFrames / 2);
             MISSILE_SetTotalFrames(pNew, nFrames);
             D2DynamicPathStrc* pPath = pNew->pDynamicPath;
-            PATH_SetVelocity((Obj00648690*)pPath, SEED_RollLimitedRandomNumber(&pMissile->pSeed, PATH_GetVelocity(pPath)), (int)gszMissileSourceFile_006DAEF4, 0x1A6B);
+// build: symbol ?gszMissileSourceFile@* 0x006DAEF4
+            PATH_SetVelocity((Obj00648690*)pPath, SEED_RollLimitedRandomNumber(&pMissile->pSeed, PATH_GetVelocity(pPath)), (int)gszMissileSourceFile, 0x1A6B);
             SKILLS_SetBallistic(pNew, 0x1E, nFrames);
         }
     }

@@ -27,12 +27,12 @@ int __stdcall sub_0040ABE0(); // 0x0040ABE0
 void __cdecl sub_00481850(); // 0x00481850
 unsigned int __cdecl D2CMPSpriteCacheGetUsedMemory(); // 0x005FEE10
 int __cdecl sub_004F5140(); // 0x004F5140
-extern "C" const char text_006CC780[]; // 0x006CC780
-unsigned int g_007BB390;        // 0x007BB390
-unsigned int g_007BB394;        // 0x007BB394
-unsigned int g_007BB398;        // 0x007BB398
-unsigned int g_007BB39C;        // 0x007BB39C
-unsigned int g_007BB3A0;        // 0x007BB3A0
+extern "C" const char gszUnknownText[]; // 0x006CC780
+unsigned int gnDisplayFps;        // 0x007BB390
+unsigned int gdwFpsCounterTick;        // 0x007BB394
+unsigned int gnFpsCounterFrames;        // 0x007BB398
+unsigned int gnCacheStatsFrames;        // 0x007BB39C
+unsigned int gdwCacheStatsStart;        // 0x007BB3A0
 extern int g_007BB3A4; // 0x007BB3A4
 extern int g_007BB3AC; // 0x007BB3AC
 
@@ -45,12 +45,12 @@ extern int g_007BB3AC; // 0x007BB3AC
 void __fastcall sub_00477980()
 {
     unsigned int nNow=GetTickCount();
-    unsigned int nElapsed=nNow-g_007BB394;
-    if(g_007BB3A4 && !g_007BB3A0){g_007BB3A0=nNow;g_007BB39C=0;}
-    if(nElapsed<=FRAME_INTERVAL){++g_007BB398;++g_007BB39C;}
-    else {g_007BB394=nNow;g_007BB390=g_007BB398;g_007BB398=0;}
-    if(!g_007BB3A4){g_007BB3A0=0;return;}
-    D2GFX_OutputString(SCREEN_X,2,"%d FPS  %d Skip",g_007BB390,GAME_GetSkippedFrames());
+    unsigned int nElapsed=nNow-gdwFpsCounterTick;
+    if(g_007BB3A4 && !gdwCacheStatsStart){gdwCacheStatsStart=nNow;gnCacheStatsFrames=0;}
+    if(nElapsed<=FRAME_INTERVAL){++gnFpsCounterFrames;++gnCacheStatsFrames;}
+    else {gdwFpsCounterTick=nNow;gnDisplayFps=gnFpsCounterFrames;gnFpsCounterFrames=0;}
+    if(!g_007BB3A4){gdwCacheStatsStart=0;return;}
+    D2GFX_OutputString(SCREEN_X,2,"%d FPS  %d Skip",gnDisplayFps,GAME_GetSkippedFrames());
     D2GFX_OutputString(SCREEN_RIGHT,2,"Ping: %d",GAME_GetPing());
     D2MemoryStatusStrc memory;
     memory.dwLength=sizeof(memory);
@@ -66,7 +66,7 @@ void __fastcall sub_00477980()
     case 6:sprintf(text,"Direct3D");break;
     case 2:sprintf(text,"Software");break;
     case 7:sprintf(text,"RAVE");break;
-    default:sprintf(text,text_006CC780);break;
+    default:sprintf(text,gszUnknownText);break;
     }
     D2GFX_OutputString(500,2,"Video: %s",text);
     if(!g_007BB3AC){

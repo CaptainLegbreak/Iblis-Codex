@@ -20,13 +20,13 @@ struct D2UnitStrc;
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
-extern "C" const char gszFormatD_006D57BC[];                                                                // 0x006D57BC
-extern "C" const char szFmtRange_006D9D70[];                                                                // 0x006D9D70
-extern "C" const char szFmtPlusD_006DBE90[];                                                                // 0x006DBE90
-extern "C" const char szFmtDecimal_006DBE94[];                                                              // 0x006DBE94
-extern "C" const char szFmtPlusDecimal_006DBE9C[];                                                          // 0x006DBE9C
-extern "C" const char szFmtPlusRange_006DBEA4[];                                                            // 0x006DBEA4
-extern "C" const char szFmtDecRange_006DBEC8[];                                                             // 0x006DBEC8
+extern "C" const char gszFormatD[];                                                                // 0x006D57BC
+extern "C" const char gszFmtRange[];                                                                // 0x006D9D70
+extern "C" const char gszFmtPlusD[];                                                                // 0x006DBE90
+extern "C" const char gszFmtDecimal[];                                                              // 0x006DBE94
+extern "C" const char gszFmtPlusDecimal[];                                                          // 0x006DBE9C
+extern "C" const char gszFmtPlusRange[];                                                            // 0x006DBEA4
+extern "C" const char gszFmtDecRange[];                                                             // 0x006DBEC8
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
@@ -211,11 +211,11 @@ static int __stdcall sub_004EC140_AddElemRange(Unicode* wszText, int nMin, unsig
 
     if ((nMin || nMax) && nMin != nMax)
     {
-        wsprintfA(szNumber, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szNumber, gszFmtRange, nMin, nMax);
     }
     else
     {
-        wsprintfA(szNumber, gszFormatD_006D57BC, nMin);
+        wsprintfA(szNumber, gszFormatD, nMin);
     }
     sub_00526320_ToUnicode(wszNumber, szNumber, 32);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nString));
@@ -556,7 +556,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9D));
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
         sub_00403040_VectorConstructor(wszNumber, 2, 0x20, sub_0042F530_ClearUnicode);
-        wsprintfA(szNumber, szFmtRange_006D9D70, nCalcA, nCalcB);
+        wsprintfA(szNumber, gszFmtRange, nCalcA, nCalcB);
         sub_00526320_ToUnicode(wszNumber, szNumber, 0x20);
         sub_00526700(wszText, wszNumber);
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
@@ -777,7 +777,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         sub_004E73E0_FormatSignedInt(wszNumber, 1, nCalcA);
         sub_00526700(wszText, wszNumber);
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xFA0));
-        wsprintfA(szNumber, gszFormatD_006D57BC, nCalcB);
+        wsprintfA(szNumber, gszFormatD, nCalcB);
         sub_00526320_ToUnicode(wszNumber, szNumber, 0x20);
         sub_00526700(wszText, wszNumber);
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
@@ -795,11 +795,11 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
             return 0;
         }
         sub_00403040_VectorConstructor(wszNumber, 2, 0x20, sub_0042F530_ClearUnicode);
-        wsprintfA(szNumber, gszFormatD_006D57BC, nCalcA);
+        wsprintfA(szNumber, gszFormatD, nCalcA);
         sub_00526320_ToUnicode(wszNumber, szNumber, 0x20);
         sub_00526700(wszText, wszNumber);
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xFA0));
-        wsprintfA(szNumber, gszFormatD_006D57BC, nCalcB);
+        wsprintfA(szNumber, gszFormatD, nCalcB);
         sub_00526320_ToUnicode(wszNumber, szNumber, 0x20);
         sub_00526700(wszText, wszNumber);
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));

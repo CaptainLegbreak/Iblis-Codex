@@ -186,9 +186,9 @@ int __stdcall sub_0064A730_GetTargetX(D2UnitStrc* pUnit); // 0x0064A730
 
 int __stdcall sub_0064A780_GetTargetY(D2UnitStrc* pUnit); // 0x0064A780
 
-extern int gnMissileTargetX_006DB100[]; // 0x006DB100
+extern int gaMissileFanTargetX[]; // 0x006DB100
 
-extern int gnMissileTargetY_006DB120[]; // 0x006DB120
+extern int gaMissileFanTargetY[]; // 0x006DB120
 
 int __stdcall MISSILE_GetSkill(D2UnitStrc*); // 0x0064A280
 
@@ -259,7 +259,7 @@ struct D2CltSpreadStrc
     char pad0x09[3];
 };
 
-extern const D2CltSpreadStrc gaCltSpread_006DB7F0[7];                                                       // 0x006DB7F0
+extern const D2CltSpreadStrc gaCltSpread[7];                                                       // 0x006DB7F0
 
 int __stdcall sub_0064A210_GetSkillLevel(D2UnitStrc* pUnit);                                                // 0x0064A210
 
@@ -632,7 +632,8 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
 
     pMissile->dwFlags &= ~8;
 
-    if (gnValue_0072A348 && !(pMissileParams->dwFlags & 0x4000))
+// build: symbol ?gbMissileLights@* 0x0072A348
+    if (gbMissileLights && !(pMissileParams->dwFlags & 0x4000))
     {
         if (pMissilesTxtRecord->nLight || (unsigned char)pMissileParams->nLightRadius)
         {
@@ -1308,8 +1309,8 @@ int __fastcall MISSILE_CreateMissileFan(D2UnitStrc* pOwner, D2UnitStrc* pOrigin,
 
     for (int i = 0; i < 8; i += nStep)
     {
-        tMissile.nTargetX = gnMissileTargetX_006DB100[i];
-        tMissile.nTargetY = gnMissileTargetY_006DB120[i];
+        tMissile.nTargetX = gaMissileFanTargetX[i];
+        tMissile.nTargetY = gaMissileFanTargetY[i];
         sub_004CD540_CreateMissile(&tMissile);
     }
 
@@ -1637,7 +1638,7 @@ void __fastcall MISSILE_CltDoSpreadSpawn(D2UnitStrc* pMissile)
 
     for (int i = 0; i < 7; ++i)
     {
-        const D2CltSpreadStrc* pSpread = &gaCltSpread_006DB7F0[i];
+        const D2CltSpreadStrc* pSpread = &gaCltSpread[i];
         const int nFrame = 0x145 - 0x19 * i;
         if (nRemaining > nFrame)
         {

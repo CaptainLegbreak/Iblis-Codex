@@ -30,12 +30,12 @@ int __cdecl sub_00468740(); // 0x00468740
 void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* pSkill); // 0x00643AD0
-extern int gnGlobal_00711470; // 0x00711470
+extern int gnScreenHeight; // 0x00711470
 extern D2HotkeySlotTableStrc gtHotkeySlots_007C0300; // 0x007C0300
-extern int gbGlobal_007C07FC; // 0x007C07FC
-extern int gnHotkeySkill_007C06C8[16]; // 0x007C06C8
-extern int gnHotkeyOwner_007C0768[16]; // 0x007C0768
-extern int gbHotkeyLeft_007C07B8[16]; // 0x007C07B8
+extern int gbSkillSelectRight; // 0x007C07FC
+extern int gaHotkeySkills[16]; // 0x007C06C8
+extern int gaHotkeyOwners[16]; // 0x007C0768
+extern int gaHotkeyLeft[16]; // 0x007C07B8
 int __cdecl sub_00463DF0(); // 0x00463DF0
 void __stdcall SKILLS_SetLeftActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643BC0
 void __stdcall SKILLS_SetRightActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643C50
@@ -44,7 +44,7 @@ D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUn
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-extern D2SkillIconStateStrc gtSkillIconState_007C0300; // 0x007C0300
+extern D2SkillIconStateStrc gtHotkeySlots; // 0x007C0300
 void __fastcall SPELLSEL_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int bLeft, int bNoSlots, int bNoDraw); // 0x004AA3A0
 
 #pragma pack(push, 1)
@@ -62,31 +62,31 @@ struct D2WeatherLayerStateStrc
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 void __stdcall sub_004B1680(D2NpcEntryStrc* pEntry); // 0x004B1680
-extern unsigned char gbGlobal_007A0522; // 0x007A0522
-extern D2UiCelFileStrc gaPanelCels_00724BF0[7]; // 0x00724BF0
-extern D2WeatherLayerStateStrc gtWeatherLayer_007A89B0; // 0x007A89B0
-extern D2WeatherLayerStateStrc gtWeatherLayer_007A893C; // 0x007A893C
-extern D2NpcEntryStrc gaNpcEntries_00726850[]; // 0x00726850
+extern unsigned char gnCharClass; // 0x007A0522
+extern D2UiCelFileStrc gaPanelCels[7]; // 0x00724BF0
+extern D2WeatherLayerStateStrc gtSplashCels; // 0x007A89B0
+extern D2WeatherLayerStateStrc gtBubbleCels; // 0x007A893C
+extern D2NpcEntryStrc gaNpcEntries[]; // 0x00726850
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-extern int gnAutomapWidth_007A5220; // 0x007A5220
-extern int gnGlobal_007A2858; // 0x007A2858
-extern int gnGlobal_007A285C; // 0x007A285C
+extern int gnAutomapWidth; // 0x007A5220
+extern int gnPanelOffsetX; // 0x007A2858
+extern int gnPanelOffsetY; // 0x007A285C
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 int __stdcall SKILLS_GetPlayerSkillCount(int nClassId); // 0x00646140
 
-int gnSelectedHotkey_007C0708; // 0x007C0708
+int gnSelectedHotkey; // 0x007C0708
 
 // 0x004A9FC0
 static int sub_004A9FC0_IsHotkeyUsable(int nSlot)
 {
-    if (gnHotkeySkill_007C06C8[nSlot] == -1)
+    if (gaHotkeySkills[nSlot] == -1)
         return 0;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
         return 0;
-    D2SkillStrc* pSkill = SKILLS_GetSkillById(pPlayer, gnHotkeySkill_007C06C8[nSlot], gnHotkeyOwner_007C0768[nSlot]);
+    D2SkillStrc* pSkill = SKILLS_GetSkillById(pPlayer, gaHotkeySkills[nSlot], gaHotkeyOwners[nSlot]);
     if (!pSkill)
         return 0;
     if (SKILLS_GetOwnerGUIDFromSkill(pSkill) != -1)
@@ -101,17 +101,17 @@ static int sub_004A9FC0_IsHotkeyUsable(int nSlot)
 // 0x004AA030
 void __fastcall sub_004AA030_SelectHotkey(int nSlot)
 {
-    if (gnHotkeySkill_007C06C8[nSlot] == -1)
+    if (gaHotkeySkills[nSlot] == -1)
         return;
     if (!sub_004A9FC0_IsHotkeyUsable(nSlot))
         return;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    gnSelectedHotkey_007C0708 = nSlot;
-    sub_004786A0_SendDwords2(0x3C, (gbHotkeyLeft_007C07B8[nSlot] ? 0x80000000 : 0) + gnHotkeySkill_007C06C8[nSlot], gnHotkeyOwner_007C0768[nSlot]);
-    if (gbHotkeyLeft_007C07B8[nSlot])
-        SKILLS_SetLeftActiveSkill(pPlayer, gnHotkeySkill_007C06C8[nSlot], gnHotkeyOwner_007C0768[nSlot]);
+    gnSelectedHotkey = nSlot;
+    sub_004786A0_SendDwords2(0x3C, (gaHotkeyLeft[nSlot] ? 0x80000000 : 0) + gaHotkeySkills[nSlot], gaHotkeyOwners[nSlot]);
+    if (gaHotkeyLeft[nSlot])
+        SKILLS_SetLeftActiveSkill(pPlayer, gaHotkeySkills[nSlot], gaHotkeyOwners[nSlot]);
     else
-        SKILLS_SetRightActiveSkill(pPlayer, gnHotkeySkill_007C06C8[nSlot], gnHotkeyOwner_007C0768[nSlot]);
+        SKILLS_SetRightActiveSkill(pPlayer, gaHotkeySkills[nSlot], gaHotkeyOwners[nSlot]);
 }
 
 // 0x004AA740
@@ -125,14 +125,14 @@ void __fastcall sub_004AA740_CycleHotkey(int nDelta)
     if (!nDelta)
         return;
     int nFound = -1;
-    int nSlot = gnSelectedHotkey_007C0708 + nStep;
+    int nSlot = gnSelectedHotkey + nStep;
     for (int i = 0; i < 16; ++i, nSlot += nStep)
     {
         if (nSlot < 0)
             nSlot = 15;
         else if (nSlot >= 16)
             nSlot = 0;
-        if (gnHotkeySkill_007C06C8[nSlot] != -1 && !gbHotkeyLeft_007C07B8[nSlot] && sub_004A9FC0_IsHotkeyUsable(nSlot))
+        if (gaHotkeySkills[nSlot] != -1 && !gaHotkeyLeft[nSlot] && sub_004A9FC0_IsHotkeyUsable(nSlot))
         {
             nFound = nSlot;
             if (!--nDelta)
@@ -148,16 +148,16 @@ static void sub_004AA0F0_AssignFreeHotkey(int nSlot, int nIndex)
 {
     if (nSlot >= 16)
         return;
-    if (gnHotkeySkill_007C06C8[nSlot] != -1)
+    if (gaHotkeySkills[nSlot] != -1)
         return;
 
-    gnHotkeySkill_007C06C8[nSlot] = gtHotkeySlots_007C0300.nSkill[nIndex];
-    if (!gbGlobal_007C07FC)
-        gbHotkeyLeft_007C07B8[nSlot] = 0;
+    gaHotkeySkills[nSlot] = gtHotkeySlots_007C0300.nSkill[nIndex];
+    if (!gbSkillSelectRight)
+        gaHotkeyLeft[nSlot] = 0;
     else
-        gbHotkeyLeft_007C07B8[nSlot] = 1;
-    gnHotkeyOwner_007C0768[nSlot] = gtHotkeySlots_007C0300.f_2D0[nIndex];
-    sub_004786A0_SendDwords2(0x51, (nSlot << 16) + (gbHotkeyLeft_007C07B8[nSlot] ? 0x8000 : 0) + gnHotkeySkill_007C06C8[nSlot], gnHotkeyOwner_007C0768[nSlot]);
+        gaHotkeyLeft[nSlot] = 1;
+    gaHotkeyOwners[nSlot] = gtHotkeySlots_007C0300.f_2D0[nIndex];
+    sub_004786A0_SendDwords2(0x51, (nSlot << 16) + (gaHotkeyLeft[nSlot] ? 0x8000 : 0) + gaHotkeySkills[nSlot], gaHotkeyOwners[nSlot]);
 }
 
 // 0x004AA160
@@ -186,22 +186,22 @@ void __cdecl sub_004AA160_FillHotkeys()
 // 0x004AA680
 void __cdecl sub_004AA680_BuildRightRows()
 {
-    if (gbGlobal_007C07FC)
+    if (gbSkillSelectRight)
     {
-        gtSkillIconState_007C0300.bFlag = 0;
+        gtHotkeySlots.bFlag = 0;
         SPELLSEL_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), 0x50, 1, 0, 0);
     }
 }
 
-unsigned char gbGlobal_007C0C6A; // 0x007C0C6A
+unsigned char gbNpcEntriesProcessed; // 0x007C0C6A
 
 // 0x004AA980
 void __cdecl sub_004AA980()
 {
-    if (gaPanelCels_00724BF0[gbGlobal_007A0522].pCelFile)
+    if (gaPanelCels[gnCharClass].pCelFile)
     {
-        ARCHIVE_FreeClientCellFile(gaPanelCels_00724BF0[gbGlobal_007A0522].pCelFile);
-        gaPanelCels_00724BF0[gbGlobal_007A0522].pCelFile = 0;
+        ARCHIVE_FreeClientCellFile(gaPanelCels[gnCharClass].pCelFile);
+        gaPanelCels[gnCharClass].pCelFile = 0;
     }
 }
 
@@ -210,19 +210,19 @@ void __cdecl sub_00472BD0()
 {
     for (int i = 0; i < 4; ++i)
     {
-        if (gtWeatherLayer_007A89B0.apCelFiles[i])
+        if (gtSplashCels.apCelFiles[i])
         {
-            ARCHIVE_FreeClientCellFile(gtWeatherLayer_007A89B0.apCelFiles[i]);
-            gtWeatherLayer_007A89B0.apCelFiles[i] = 0;
+            ARCHIVE_FreeClientCellFile(gtSplashCels.apCelFiles[i]);
+            gtSplashCels.apCelFiles[i] = 0;
         }
     }
 
     for (int i = 0; i < 4; ++i)
     {
-        if (gtWeatherLayer_007A893C.apCelFiles[i])
+        if (gtBubbleCels.apCelFiles[i])
         {
-            ARCHIVE_FreeClientCellFile(gtWeatherLayer_007A893C.apCelFiles[i]);
-            gtWeatherLayer_007A893C.apCelFiles[i] = 0;
+            ARCHIVE_FreeClientCellFile(gtBubbleCels.apCelFiles[i]);
+            gtBubbleCels.apCelFiles[i] = 0;
         }
     }
 }
@@ -230,9 +230,10 @@ void __cdecl sub_00472BD0()
 // 0x004B17A0
 void __cdecl sub_004B17A0()
 {
-    for (int i = 0; i < gnNpcEntryCount_0072554C; ++i)
-        sub_004B1680(&gaNpcEntries_00726850[i]);
-    gbGlobal_007C0C6A = 1;
+// build: symbol ?gnNpcEntryCount@* 0x0072554C
+    for (int i = 0; i < gnNpcEntryCount; ++i)
+        sub_004B1680(&gaNpcEntries[i]);
+    gbNpcEntriesProcessed = 1;
 }
 
 // 0x004B1D70
@@ -240,9 +241,10 @@ int __cdecl sub_004B1D70_FindNpcEntry()
 {
     int i = 0;
     int bFound = 0;
-    while (i < gnNpcEntryCount_0072554C && !bFound)
+    while (i < gnNpcEntryCount && !bFound)
     {
-        if (gaNpcEntries_00726850[i].nId == gdwGlobal_007C0D2D)
+// build: symbol ?gnInteractNpcClassId@* 0x007C0D2D
+        if (gaNpcEntries[i].nId == gnInteractNpcClassId)
             bFound = 1;
         else
             ++i;
@@ -258,8 +260,8 @@ int __cdecl sub_004B1D70_FindNpcEntry()
 // 0x004AAAA0
 static void __stdcall sub_004AAAA0_DrawSkillTreeText(int nY, const Unicode* wszText)
 {
-    const int nRight = gnAutomapWidth_007A5220 - gnGlobal_007A2858;
-    TEXT_DrawCenteredText(nRight - 0x5A, gnGlobal_00711470 + gnGlobal_007A285C + nY - 0x1E0, nRight, wszText, 0);
+    const int nRight = gnAutomapWidth - gnPanelOffsetX;
+    TEXT_DrawCenteredText(nRight - 0x5A, gnScreenHeight + gnPanelOffsetY + nY - 0x1E0, nRight, wszText, 0);
 }
 
 void __fastcall sub_M26_Emit_004AB090(char nMode)
@@ -271,17 +273,17 @@ void __fastcall sub_M26_Emit_004AB090(char nMode)
     }
 }
 
-int ganSkillState_007C0A38[128]; // 0x007C0A38
+int gaSkillButtonState[128]; // 0x007C0A38
 
-unsigned long gdwLastTick_007C0C54; // 0x007C0C54
+unsigned long gdwSkillTreeClickTick; // 0x007C0C54
 
 // 0x004AB7B0
 int __cdecl sub_004AB7B0_CheckTickElapsed()
 {
     unsigned long dwTick = GetTickCount();
-    if (dwTick - gdwLastTick_007C0C54 > 1000)
+    if (dwTick - gdwSkillTreeClickTick > 1000)
     {
-        gdwLastTick_007C0C54 = dwTick;
+        gdwSkillTreeClickTick = dwTick;
         return 1;
     }
     return 0;
@@ -295,9 +297,9 @@ void __cdecl sub_004ABF10_ClearSkillStates()
     {
         for (int i = 0; i < SKILLS_GetPlayerSkillCount(GAME_GetUnitClassId(pPlayer)); ++i)
         {
-            if (ganSkillState_007C0A38[i] == 1)
+            if (gaSkillButtonState[i] == 1)
             {
-                ganSkillState_007C0A38[i] = 0;
+                gaSkillButtonState[i] = 0;
             }
         }
     }

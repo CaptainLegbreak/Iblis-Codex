@@ -137,49 +137,49 @@ extern "C" __declspec(dllimport) void* __stdcall GetCurrentProcess(); // 0x006CC
 extern "C" __declspec(dllimport) void* __stdcall GetModuleHandleA(const char* szModuleName); // 0x006CC198
 extern "C" _iobuf* __cdecl fopen(const char* szFileName, const char* szMode); // 0x0068239A
 extern "C" char* __cdecl strtok(char* szText, const char* szDelim); // 0x0068264F
-extern "C" const char gszAsyncLoadFailed_006D6CC8[]; // 0x006D6CC8
-extern "C" const char gszBattleNetPrefix_006D72B0[]; // 0x006D72B0
-extern "C" const char gszCmdSquelch_006D5698[]; // 0x006D5698
-extern "C" const char gszCmdUnsquelch_006D5680[]; // 0x006D5680
+extern "C" const char gszAsyncLoadFailed[]; // 0x006D6CC8
+extern "C" const char gszBattleNetPrefix[]; // 0x006D72B0
+extern "C" const char gszCmdSquelch[]; // 0x006D5698
+extern "C" const char gszCmdUnsquelch[]; // 0x006D5680
 extern "C" const char gszCofPathFormat_006D6C94[]; // 0x006D6C94
-extern "C" const char gszDataLocal_006D41A8[]; // 0x006D41A8
+extern "C" const char gszDataLocal[]; // 0x006D41A8
 extern "C" const char gszEmptyAssertText_006CC837; // 0x006CC837
-extern "C" const char gszFormat2u_006DA0CC[]; // 0x006DA0CC
-extern "C" const char gszGfxFile_006D6C1C[]; // 0x006D6C1C
-extern "C" const char gszMissileSourceFile_006DAEF4[]; // 0x006DAEF4
-extern "C" const char gszMonsterSourceFile_006DA5C8[]; // 0x006DA5C8
+extern "C" const char gszFormat2u[]; // 0x006DA0CC
+extern "C" const char gszGfxFile[]; // 0x006D6C1C
+extern "C" const char gszMissileSourceFile[]; // 0x006DAEF4
+extern "C" const char gszMonsterSourceFile[]; // 0x006DA5C8
 extern "C" const char gszMonstersDir_006D6CAC[]; // 0x006D6CAC
-extern "C" const char gszNameAccountFormat_006D72C0[]; // 0x006D72C0
-extern "C" const char gszNew_006CC82C[]; // 0x006CC82C
-extern "C" const char gszSkillsBarSourceFile_006DAE58[]; // 0x006DAE58
+extern "C" const char gszNameAccountFormat[]; // 0x006D72C0
+extern "C" const char gszNew[]; // 0x006CC82C
+extern "C" const char gszSkillsBarSourceFile[]; // 0x006DAE58
 extern "C" const char gszSpace_006FFC44[]; // 0x006FFC44
-extern "C" const char gszSpace_00712FFC[]; // 0x00712FFC
+extern "C" const char gszTokenSeparator[]; // 0x00712FFC
 extern "C" const char gszStringFormat_006FFC58[]; // 0x006FFC58
-extern "C" const char gszTypeNameAllocRec_00711480[]; // 0x00711480
+extern "C" const char gszTypeNameAllocRec[]; // 0x00711480
 extern "C" const char gszUnitSndSourceFile[]; // 0x006DAEE0
-extern "C" const char szDataGlobal_006D4118[]; // 0x006D4118
+extern "C" const char gszDataGlobal[]; // 0x006D4118
 extern "C" const char szDataLocal_006D41A8[]; // 0x006D41A8
-extern "C" const char szFmtDecRange_006DBEC8[]; // 0x006DBEC8
-extern "C" const char szFmtDecimal_006DBE94[]; // 0x006DBE94
+extern "C" const char gszFmtDecRange[]; // 0x006DBEC8
+extern "C" const char gszFmtDecimal[]; // 0x006DBE94
 extern "C" const char szFmtInt_006D6454[]; // 0x006D6454
-extern "C" const char szFmtLong_006D9BE8[]; // 0x006D9BE8
-extern "C" const char szFmtPlusD_006DBE90[]; // 0x006DBE90
-extern "C" const char szFmtPlusDecimal_006DBE9C[]; // 0x006DBE9C
-extern "C" const char szFmtPlusRange_006DBEA4[]; // 0x006DBEA4
-extern "C" const char szGfxUtilCpp_006DB974[]; // 0x006DB974
+extern "C" const char gszFormatLd[]; // 0x006D9BE8
+extern "C" const char gszFmtPlusD[]; // 0x006DBE90
+extern "C" const char gszFmtPlusDecimal[]; // 0x006DBE9C
+extern "C" const char gszFmtPlusRange[]; // 0x006DBEA4
+extern "C" const char gszGfxUtilCpp[]; // 0x006DB974
 extern "C" const char szIntFormat_006D57BC[]; // 0x006D57BC
-extern "C" const char szIntFormat_006D6454[]; // 0x006D6454
-extern "C" const char szPlus_006DBEC4[]; // 0x006DBEC4
-extern "C" const char szQuote_006D9BF4[]; // 0x006D9BF4
-extern "C" const char szSkillDescFile_006DBF24[]; // 0x006DBF24
-extern "C" const char szSkillsEMonCpp_006DBF90[]; // 0x006DBF90
-extern "C" const char szUnitModeFile_006D8E84[]; // 0x006D8E84
+extern "C" const char gszFormatI[]; // 0x006D6454
+extern "C" const char gszPlus[]; // 0x006DBEC4
+extern "C" const char gszQuote[]; // 0x006D9BF4
+extern "C" const char gszSkillDescFile[]; // 0x006DBF24
+extern "C" const char gszSkillsEMonCpp[]; // 0x006DBF90
+extern "C" const char gszUnitModeFile[]; // 0x006D8E84
 extern "C" const char* const gapszSkyPalette_006D3A08[2]; // 0x006D3A08
-extern "C" const unsigned char gabBuiltinModuleKey_006D8768[]; // 0x006D8768
-extern "C" const unsigned char gabBuiltinModuleRc4Key_006D8778[]; // 0x006D8778
-extern "C" const unsigned char gabBuiltinModule_006D74B0[]; // 0x006D74B0
-extern "C" const unsigned char gabExponent_006D8D14[]; // 0x006D8D14
-extern "C" const unsigned char gabModulus_006D8D18[]; // 0x006D8D18
+extern "C" const unsigned char gabBuiltinModuleKey[]; // 0x006D8768
+extern "C" const unsigned char gabBuiltinModuleRc4Key[]; // 0x006D8778
+extern "C" const unsigned char gabBuiltinModule[]; // 0x006D74B0
+extern "C" const unsigned char gabExponent[]; // 0x006D8D14
+extern "C" const unsigned char gabModulus[]; // 0x006D8D18
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
 extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2); // 0x006841E9
 extern "C" int __cdecl _strnicmp(const char* szString1, const char* szString2, unsigned int nCount); // 0x00686040
@@ -191,28 +191,28 @@ extern "C" int __fastcall sub_004B9A00_Notify(int, void*, int, int, int); // 0x0
 extern "C" int __stdcall ImmSetConversionStatus(T0046E1B0* hImc, unsigned long nConversion, unsigned long nSentence); // 0x006B00EA
 extern "C" int __stdcall ImmSetOpenStatus(T0046E1B0* hImc, int bOpen); // 0x006B00F0
 extern "C" int __stdcall sub_00420290_QueueMessage(Message*); // 0x00420290
-extern "C" int gnSubsystemActive_007A0458; // 0x007A0458
-extern D2BitBufferStrc* gpQuestFlags_007C0D43; // 0x007C0D43
-extern D2BitBufferStrc* gpQuestFlags_007C0D47; // 0x007C0D47
+extern "C" int gnSubsystemActive; // 0x007A0458
+extern D2BitBufferStrc* gpPlayerQuestFlags; // 0x007C0D43
+extern D2BitBufferStrc* gpGameQuestFlags; // 0x007C0D47
 extern D2CelFileStrc* gpAutomapCels_007A5168[4]; // 0x007A5168
-extern D2ClientDialogStrc* gpDialog_007C0D5F; // 0x007C0D5F
-extern D2ClientDialogStrc* gpDialog_007C0D6B; // 0x007C0D6B
-extern D2ClientDialogStrc* gpDialog_007C0D6F; // 0x007C0D6F
-extern D2ClientDialogStrc* gpDialog_007C0D73; // 0x007C0D73
-extern D2ClientDialogStrc* gpDialog_007C0D77; // 0x007C0D77
-extern D2ClientDialogStrc* gpDialog_007C0D7B; // 0x007C0D7B
+extern D2ClientDialogStrc* gpTradeDialog; // 0x007C0D5F
+extern D2ClientDialogStrc* gpNpcMainMenuDialog; // 0x007C0D6B
+extern D2ClientDialogStrc* gpNpcMessageDialog; // 0x007C0D6F
+extern D2ClientDialogStrc* gpNpcConfirmDialog; // 0x007C0D73
+extern D2ClientDialogStrc* gpNpcHireDialog; // 0x007C0D77
+extern D2ClientDialogStrc* gpNpcGreetingDialog; // 0x007C0D7B
 extern D2ClientInfoStrc* gpClientInfo_007A0438; // 0x007A0438
-extern D2ClientListEntryStrc* gpListEntries_00724264; // 0x00724264
+extern D2ClientListEntryStrc* gpListEntries; // 0x00724264
 extern D2DataTablesStrc* sgptDataTable; // 0x00744304
 extern D2LaunchRecordStrc* gpLaunchRecord_007795D4; // 0x007795D4
 extern D2MsgRecordChunkStrc* gpMsgRecordChunk_0070F7A0; // 0x0070F7A0
-extern D2NpcEntryStrc* gpNpcEntry_007C0C7D; // 0x007C0C7D
-extern D2NpcTradeObjStrc* gpTradeObj_007C0D83; // 0x007C0D83
-extern D2UIVarRecordStrc* gpUIVarRecords_00711130[]; // 0x00711130
+extern D2NpcEntryStrc* gpNpcEntry; // 0x007C0C7D
+extern D2NpcTradeObjStrc* gpNpcTradeObj; // 0x007C0D83
+extern D2UIVarRecordStrc* gapUIVarRecords[]; // 0x00711130
 extern D2UnitStrc* gpBeltItemB_007BEFAC; // 0x007BEFAC
 extern D2UnitStrc* gpEventUnit_007C0C5C; // 0x007C0C5C
 extern D2UnitStrc* gpOwnerSource_007BCBF4; // 0x007BCBF4
-extern D2WaypointDataStrc* gpWaypointData_007BF081; // 0x007BF081
+extern D2WaypointDataStrc* gpWaypointData; // 0x007BF081
 extern D2WinControlStrc* gpControl_007799F4; // 0x007799F4
 extern D2WinControlStrc* gpControl_00779B60; // 0x00779B60
 extern D2WinControlStrc* gpControl_00779C68; // 0x00779C68
@@ -227,65 +227,65 @@ extern D2WinControlStrc* gpPasswordEdit_007799C0; // 0x007799C0
 extern D2WinControlStrc* gpPasswordEdit_007799C4; // 0x007799C4
 extern D2WinControlStrc* gpPasswordEdit_007799C8; // 0x007799C8
 extern Unit* __stdcall sub_00619EA0_Units(Room*); // 0x00619EA0
-extern char gbGlobal_007BF2B1; // 0x007BF2B1
-extern char gbGlobal_007C0DE0; // 0x007C0DE0
-extern char gszAddress_0070F028[]; // 0x0070F028
+extern char gbQuestSlotDown; // 0x007BF2B1
+extern char gbTradeClickPending; // 0x007C0DE0
+extern char gszBattleNetIP[]; // 0x0070F028
 extern char gszOldPassword_00779550[]; // 0x00779550
-extern const char gszCUnitFile_006D6A48[]; // 0x006D6A48
+extern const char gszCUnitFile[]; // 0x006D6A48
 extern const char gszDataGlobal_006D4118[]; // 0x006D4118
 extern const char gszEmpty_006CC837[]; // 0x006CC837
 extern const char gszFormatInt_006D57BC[]; // 0x006D57BC
-extern const char gszHoverTimeFormat_006D6AD4[]; // 0x006D6AD4
-extern const char gszSkillSelFile_006D6AE0[]; // 0x006D6AE0
-extern const char gszTypeExplicitList_0070F584[]; // 0x0070F584
-extern const char gszTypeSGameData_0070F56C[]; // 0x0070F56C
-extern const char* gaszQuestCelNames_006DA2C8[]; // 0x006DA2C8
-extern const int gaElemDamageColors_006DBEE4[4]; // 0x006DBEE4
-extern const int gaHitRingX_006DB540[18]; // 0x006DB540
-extern const int gaHitRingY_006DB588[18]; // 0x006DB588
-extern const int gaRandomCurseSkills_006DA5DC[]; // 0x006DA5DC
-extern const int gaSprayOffsetX_006DBFA8[8]; // 0x006DBFA8
-extern const int gaSprayOffsetY_006DBFC8[8]; // 0x006DBFC8
-extern const int gaTownSkipCels_006D6608[]; // 0x006D6608
-extern const int gnAdjacentDirOffsets_006D6B34[]; // 0x006D6B34
-extern const int gnDirectionDX_006D6B14[]; // 0x006D6B14
-extern const int gnDirectionDY_006D6AF4[]; // 0x006D6AF4
-extern const int gnUnitTypes_006D6ABC[6]; // 0x006D6ABC
+extern const char gszHoverTimeFormat[]; // 0x006D6AD4
+extern const char gszSkillSelFile[]; // 0x006D6AE0
+extern const char gszTypeExplicitList[]; // 0x0070F584
+extern const char gszTypeSGameData[]; // 0x0070F56C
+extern const char* gaszQuestCelNames[]; // 0x006DA2C8
+extern const int gaElemDamageColors[4]; // 0x006DBEE4
+extern const int gaHitRingX[18]; // 0x006DB540
+extern const int gaHitRingY[18]; // 0x006DB588
+extern const int gaRandomCurseSkills[]; // 0x006DA5DC
+extern const int gaSprayOffsetX[8]; // 0x006DBFA8
+extern const int gaSprayOffsetY[8]; // 0x006DBFC8
+extern const int gaTownSkipCels[]; // 0x006D6608
+extern const int gaAdjacentDirOffsets[]; // 0x006D6B34
+extern const int gaDirectionDX[]; // 0x006D6B14
+extern const int gaDirectionDY[]; // 0x006D6AF4
+extern const int gaUnitTypes[6]; // 0x006D6ABC
 extern const unsigned char gnCdKeyMap_006D59F0[256]; // 0x006D59F0
 extern const unsigned int gdwMask_006CE26C; // 0x006CE26C
 extern const unsigned int gdwTitleMaskB_006CE284; // 0x006CE284
-extern const unsigned short gawPeriodOfDayStr_006DBD88[]; // 0x006DBD88
-extern float gfPhaseLevel_007A89A0; // 0x007A89A0
+extern const unsigned short gawPeriodOfDayStr[]; // 0x006DBD88
+extern float gfPhaseLevel; // 0x007A89A0
 extern int (__cdecl* gpfnGlobal_00726F91)(); // 0x00726F91
 extern int (__cdecl* gpfnGlobal_007272EB)(); // 0x007272EB
 extern int __cdecl sub_00463DF0_StateBlocked(); // 0x00463DF0
 extern int __fastcall sub_00498DC0_OverlayHit(SMSGHANDLER_PARAMS*); // 0x00498DC0
 extern int __fastcall sub_004B9A00_Sound(int,void*,int,int,int); // 0x004B9A00
 extern int __stdcall sub_004150E0_SaveValue(const char*,const char*,int,int); // 0x004150E0
-extern int gaBeltKeys_00722404[4]; // 0x00722404
-extern int gaCofModes_00712AC4[]; // 0x00712AC4
-extern int gaPlayerModes_00712AA0[]; // 0x00712AA0
-extern int gaSetPropIds_006DBD70[]; // 0x006DBD70
+extern int gaBeltKeys[4]; // 0x00722404
+extern int gaCofModes[]; // 0x00712AC4
+extern int gaPlayerModes[]; // 0x00712AA0
+extern int gaSetPropIds[]; // 0x006DBD70
 extern int ganGlobal_007C0225[6]; // 0x007C0225
 extern int ganGlobal_007C023D[6]; // 0x007C023D
-extern int ganPageSelection_007BF2BD[]; // 0x007BF2BD
+extern int gaQuestPageSelection[]; // 0x007BF2BD
 extern int ganRowValues_007799FC[]; // 0x007799FC
 extern int gbGlobal_007BEFD0; // 0x007BEFD0
 extern int gbSmallPanel_007BC978; // 0x007BC978
-extern int gdwGlobal_0070EE8C; // 0x0070EE8C
-extern int gdwGlobal_0070F234; // 0x0070F234
-extern int gdwGlobal_0070F2BC; // 0x0070F2BC
-extern int gdwGlobal_0070F7E0; // 0x0070F7E0
-extern int gdwGlobal_0070FA9C; // 0x0070FA9C
-extern int gdwGlobal_007113E0; // 0x007113E0
-extern int gdwGlobal_007113E4; // 0x007113E4
+extern int gbExitApplication; // 0x0070EE8C
+extern int gnLeftClickState; // 0x0070F234
+extern int gnRightClickState; // 0x0070F2BC
+extern int gbClientAppActive; // 0x0070F7E0
+extern int gbUIVarDelayEnabled; // 0x0070FA9C
+extern int gbAutomapCenter; // 0x007113E0
+extern int gbAutomapParty; // 0x007113E4
 extern int gdwGlobal_00711428; // 0x00711428
 extern int gdwGlobal_0071142C; // 0x0071142C
-extern int gdwGlobal_00711F90; // 0x00711F90
-extern int gdwGlobal_00711F94; // 0x00711F94
-extern int gdwGlobal_00712EFC; // 0x00712EFC
-extern int gdwGlobal_00712F00; // 0x00712F00
-extern int gdwGlobal_0072AE24; // 0x0072AE24
+extern int gnHoverMonClassId; // 0x00711F90
+extern int gnHoverClassId; // 0x00711F94
+extern int gdwClientFlags; // 0x00712EFC
+extern int gnCTemp; // 0x00712F00
+extern int gbNpcSpeechAudio; // 0x0072AE24
 extern int gdwGlobal_00779974; // 0x00779974
 extern int gdwGlobal_0077998C; // 0x0077998C
 extern int gdwGlobal_00779DA4; // 0x00779DA4
@@ -299,44 +299,44 @@ extern int gdwGlobal_007A6AE0; // 0x007A6AE0
 extern int gdwGlobal_007B57E4; // 0x007B57E4
 extern int gdwGlobal_007BC9A4; // 0x007BC9A4
 extern int gdwGlobal_007BC9AC; // 0x007BC9AC
-extern int gdwGlobal_007BF202; // 0x007BF202
-extern int gdwGlobal_007BF206; // 0x007BF206
-extern int gdwGlobal_007BF20A; // 0x007BF20A
-extern int gdwGlobal_007BF23B; // 0x007BF23B
+extern int gnTextNpcId; // 0x007BF202
+extern int gnTextObjectId; // 0x007BF206
+extern int gbTextFromObject; // 0x007BF20A
+extern int gnTextHoverUnitId; // 0x007BF23B
 extern int gdwGlobal_007BF250; // 0x007BF250
-extern int gdwGlobal_007C0D2D; // 0x007C0D2D
-extern int gnBeltBox_0072235C; // 0x0072235C
-extern int gnBeltRectX_00722360; // 0x00722360
-extern int gnBeltRectY_00722364; // 0x00722364
+extern int gnInteractNpcClassId; // 0x007C0D2D
+extern int gnBeltBox; // 0x0072235C
+extern int gnBeltRectX; // 0x00722360
+extern int gnBeltRectY; // 0x00722364
 extern int gnBitMasks_006CE268[8]; // 0x006CE268
-extern int gnBlinkOn_00713004; // 0x00713004
-extern int gnBodyLocs_007223E8[7]; // 0x007223E8
-extern int gnButtonRow_0072215C; // 0x0072215C
+extern int gnBlinkOn; // 0x00713004
+extern int gaDurabilityBodyLocs[7]; // 0x007223E8
+extern int gnButtonRow; // 0x0072215C
 extern int gnChatHistoryCursor_007BB5D8; // 0x007BB5D8
-extern int gnChatHistoryHead_00712F44; // 0x00712F44
-extern int gnChatHistoryTail_00712F48; // 0x00712F48
-extern int gnClearScreenCount_0070F2C0; // 0x0070F2C0
-extern int gnClientSkillDoFuncs_00727DB0; // 0x00727DB0
-extern int gnClientSkillStartFuncs_00727A8C; // 0x00727A8C
-extern int gnCltDoFuncs_0072A34C; // 0x0072A34C
-extern int gnCofModeCount_00712B00; // 0x00712B00
-extern int gnCombinedStatCount_0072CDCC; // 0x0072CDCC
-extern int gnCursorAnimCount_007120D4; // 0x007120D4
-extern int gnFanOffsetX_006DBF50[]; // 0x006DBF50
-extern int gnFanOffsetY_006DBF70[]; // 0x006DBF70
-extern int gnGlobal_007129D0; // 0x007129D0
-extern int gnGlobal_00712B4C; // 0x00712B4C
+extern int gnChatHistoryHead; // 0x00712F44
+extern int gnChatHistoryTail; // 0x00712F48
+extern int gnClearScreenCount; // 0x0070F2C0
+extern int gnClientSkillDoFuncs; // 0x00727DB0
+extern int gnClientSkillStartFuncs; // 0x00727A8C
+extern int gnCltDoFuncs; // 0x0072A34C
+extern int gnCofModeCount; // 0x00712B00
+extern int gnCombinedStatCount; // 0x0072CDCC
+extern int gnCursorAnimCount; // 0x007120D4
+extern int gaFanOffsetX[]; // 0x006DBF50
+extern int gaFanOffsetY[]; // 0x006DBF70
+extern int gnLevelEffectTick; // 0x007129D0
+extern int gbPlayThunderSound; // 0x00712B4C
 extern int gnGlobal_00712B8C; // 0x00712B8C
-extern int gnGlobal_00722158; // 0x00722158
-extern int gnGlobal_00722358; // 0x00722358
-extern int gnGlobal_007225FC; // 0x007225FC
-extern int gnGlobal_00724210; // 0x00724210
-extern int gnGlobal_00724214; // 0x00724214
-extern int gnGlobal_00724218; // 0x00724218
-extern int gnGlobal_0072421C; // 0x0072421C
-extern int gnGlobal_00724220; // 0x00724220
-extern int gnGlobal_007246D4; // 0x007246D4
-extern int gnGlobal_00724728; // 0x00724728
+extern int gnNpcTabCount; // 0x00722158
+extern int gbControlPanelMouseDown; // 0x00722358
+extern int gnTextTop; // 0x007225FC
+extern int gnQuestTextTop; // 0x00724210
+extern int gnQuestTextLeft; // 0x00724214
+extern int gnQuestTitleY; // 0x00724218
+extern int gnQuestIconOffsetY; // 0x0072421C
+extern int gnQuestAnimOffsetY; // 0x00724220
+extern int gnKeyConfigColumn; // 0x007246D4
+extern int gbKeyConfigReady; // 0x00724728
 extern int gnGlobal_00726CC1; // 0x00726CC1
 extern int gnGlobal_00726DF9; // 0x00726DF9
 extern int gnGlobal_00726E47; // 0x00726E47
@@ -350,101 +350,101 @@ extern int gnGlobal_00727216; // 0x00727216
 extern int gnGlobal_0072723D; // 0x0072723D
 extern int gnGlobal_0072728B; // 0x0072728B
 extern int gnGlobal_007272D9; // 0x007272D9
-extern int gnGlobal_007278FC; // 0x007278FC
-extern int gnGlobal_007A8998; // 0x007A8998
-extern int gnGlobal_007A89D8; // 0x007A89D8
+extern int gnHotspotCount; // 0x007278FC
+extern int gnWindAngleMax; // 0x007A8998
+extern int gnWindAngleMin; // 0x007A89D8
 extern int gnGlobal_007A89E0; // 0x007A89E0
 extern int gnGlobal_007B0A54; // 0x007B0A54
 extern int gnGlobal_007B0A58; // 0x007B0A58
-extern int gnGlobal_007BF07D; // 0x007BF07D
-extern int gnGlobal_007BF1C4; // 0x007BF1C4
-extern int gnGlobal_007BF1FA; // 0x007BF1FA
-extern int gnGlobal_007BF23F; // 0x007BF23F
-extern int gnGlobal_007C0255; // 0x007C0255
-extern int gnGlobal_007C0C6B; // 0x007C0C6B
-extern int gnGlobal_007C0C73; // 0x007C0C73
-extern int gnGlobal_007C0C81; // 0x007C0C81
-extern int gnGlobal_007C0D25; // 0x007C0D25
-extern int gnGlobal_007C0D29; // 0x007C0D29
-extern int gnGlobal_007C0D31; // 0x007C0D31
+extern int gnWaypointId; // 0x007BF07D
+extern int gbTextBoxPending; // 0x007BF1C4
+extern int gbTextPanelOpen; // 0x007BF1FA
+extern int gbTextCallbackAccepted; // 0x007BF23F
+extern int gnPage; // 0x007C0255
+extern int gnNpcMenuState; // 0x007C0C6B
+extern int gnNpcGoldSnapshot; // 0x007C0C73
+extern int gnNpcEntryIndex; // 0x007C0C81
+extern int gnInteractNpcId; // 0x007C0D25
+extern int gbNpcInteracting; // 0x007C0D29
+extern int gnNpcTradeMode; // 0x007C0D31
 extern int gnGlobal_007C0D4B; // 0x007C0D4B
 extern int gnGlobal_007C0D4F; // 0x007C0D4F
-extern int gnGlobal_007C0D57; // 0x007C0D57
-extern int gnGlobal_007C0D7F; // 0x007C0D7F
-extern int gnGlobal_007C0D8E; // 0x007C0D8E
-extern int gnGlobal_007C0D96; // 0x007C0D96
-extern int gnGlobal_007C0DE1; // 0x007C0DE1
-extern int gnGlobal_007C0DE5; // 0x007C0DE5
-extern int gnGlobal_007C0DE9; // 0x007C0DE9
-extern int gnGlobal_007C0DED; // 0x007C0DED
-extern int gnGlobal_007C0DF1; // 0x007C0DF1
+extern int gdwNpcTransactionTick; // 0x007C0D57
+extern int gnNpcTransactionCost; // 0x007C0D7F
+extern int gnPendingNpcActionUnitId; // 0x007C0D8E
+extern int gbNpcActionPending; // 0x007C0D96
+extern int gnTradeItemClassId; // 0x007C0DE1
+extern int gnTradeItemUnitId; // 0x007C0DE5
+extern int gdwTradeRequestTick; // 0x007C0DE9
+extern int gnTradeRequestFailCount; // 0x007C0DED
+extern int gdwLastTradeSendTick; // 0x007C0DF1
 extern int gnGoldPanelMode_007A279C; // 0x007A279C
-extern int gnHandlerCount_007253DC; // 0x007253DC
-extern int gnHintSound_007BF24B; // 0x007BF24B
-extern int gnHoverX_0070F854; // 0x0070F854
-extern int gnHoverY_0070F858; // 0x0070F858
-extern int gnIndex_007BF2B5; // 0x007BF2B5
-extern int gnIndex_007BF2B9; // 0x007BF2B9
-extern int gnLaunchState_0070EE4C; // 0x0070EE4C
-extern int gnNpcEntryCount_0072554C; // 0x0072554C
-extern int gnNpcIndexCount_00725A74; // 0x00725A74
-extern int gnPhaseLevel_007A89E0; // 0x007A89E0
+extern int gnHandlerCount; // 0x007253DC
+extern int ghHintSound; // 0x007BF24B
+extern int gnHoverX; // 0x0070F854
+extern int gnHoverY; // 0x0070F858
+extern int gnQuestPressedSlot; // 0x007BF2B5
+extern int gnQuestSelectedSlot; // 0x007BF2B9
+extern int gnClientLaunchState; // 0x0070EE4C
+extern int gnNpcEntryCount; // 0x0072554C
+extern int gnNpcIndexCount; // 0x00725A74
+extern int gnPhaseLevel; // 0x007A89E0
 extern int gnPressedButton_007C02B4; // 0x007C02B4
 extern int gnScreenHeight_00711470; // 0x00711470
 extern int gnScreenWidth_0071146C; // 0x0071146C
-extern int gnSkillSelectProcs_00711F50; // 0x00711F50
+extern int gnSkillSelectProcs; // 0x00711F50
 extern int gnSlotState_007BC8F8[]; // 0x007BC8F8
 extern int gnState_007BF298; // 0x007BF298
-extern int gnTabTable_00724CE4[][3]; // 0x00724CE4
-extern int gnTargetAngle_007A89F8; // 0x007A89F8
-extern int gnTimerUnitId_007129D4; // 0x007129D4
-extern int gnUIVarCount_0070F9CC; // 0x0070F9CC
-extern int gnUiRecordIndex_00722354; // 0x00722354
-extern int gnValue_0072A348; // 0x0072A348
+extern int gaSkillTabX[][3]; // 0x00724CE4
+extern int gnTargetAngle; // 0x007A89F8
+extern int gnTimerUnitId; // 0x007129D4
+extern int gnUIVarCount; // 0x0070F9CC
+extern int gnUiRecordIndex; // 0x00722354
+extern int gbMissileLights; // 0x0072A348
 extern int gnVisibleRows_0070CC0C; // 0x0070CC0C
-extern int gnWardenIfaceValue_00721C94; // 0x00721C94
-extern int gnWaypointActCount_007224E4; // 0x007224E4
-extern int gnWaypointAct_007BF086; // 0x007BF086
-extern int gnWeatherAngle_007A89C4; // 0x007A89C4
-extern int gnWindCountdown_007A89E4; // 0x007A89E4
+extern int gnWardenIfaceValue; // 0x00721C94
+extern int gnWaypointActCount; // 0x007224E4
+extern int gnWaypointAct; // 0x007BF086
+extern int gnWeatherAngle; // 0x007A89C4
+extern int gnWindCountdown; // 0x007A89E4
 extern short gwGlobal_00726F85; // 0x00726F85
 extern short gwGlobal_007BB5F8; // 0x007BB5F8
 extern short gwGlobal_007BC850; // 0x007BC850
-extern unsigned char gaKeyTable_00712220[0x474]; // 0x00712220
+extern unsigned char gaKeyTable[0x474]; // 0x00712220
 extern unsigned char gabGlobal_007BEF30[0x30]; // 0x007BEF30
 extern unsigned char gnCharClass_007A0522; // 0x007A0522
-extern unsigned int gaLightSampleCounts_006DB9D8[]; // 0x006DB9D8
+extern unsigned int gaLightSampleCounts[]; // 0x006DB9D8
 extern unsigned int gdwLightTick_007B9530; // 0x007B9530
-extern unsigned int gnCofModeCodeCount_00712B0C; // 0x00712B0C
-extern unsigned int gnFileIndexTextCount_0072D720; // 0x0072D720
+extern unsigned int gnCofModeCodeCount; // 0x00712B0C
+extern unsigned int gnFileIndexTextCount; // 0x0072D720
 extern unsigned int gnGoldPanelValue_007A2A68; // 0x007A2A68
-extern unsigned int gnPlayerModeCount_00712AC0; // 0x00712AC0
-extern unsigned int gnPresetUnitId_00711F30; // 0x00711F30
-extern unsigned long gdwGlobal_007C0D53; // 0x007C0D53
-extern unsigned long gdwHelpMenu_00722310; // 0x00722310
+extern unsigned int gnPlayerModeCount; // 0x00712AC0
+extern unsigned int gnPresetUnitId; // 0x00711F30
+extern unsigned long gdwNpcRequestTimeout; // 0x007C0D53
+extern unsigned long gdwHelpMenu; // 0x00722310
 extern unsigned long gdwShowHpText_007BEFDC; // 0x007BEFDC
 extern unsigned long gdwShowMpText_007BEFE0; // 0x007BEFE0
-extern unsigned long gnGlobal_007BF1F6; // 0x007BF1F6
-extern unsigned long gnGlobal_007C0259; // 0x007C0259
-extern unsigned short gaCaseTable_00730778[]; // 0x00730778
-extern unsigned short gawRosterStrings_00722450[2][2]; // 0x00722450
-extern unsigned short gawRosterStrings_00722458[2][2]; // 0x00722458
-extern unsigned short gawRosterStrings_00722460[2][2]; // 0x00722460
-extern unsigned short gawRosterStrings_00722468[2][2]; // 0x00722468
-extern unsigned short gwBlinkDelay_00713000; // 0x00713000
-extern unsigned short gwGlobal_00725494; // 0x00725494
+extern unsigned long gnTextDisplaySetting; // 0x007BF1F6
+extern unsigned long gdwQuestLogToggleTick; // 0x007C0259
+extern unsigned short gaCaseTable[]; // 0x00730778
+extern unsigned short gawRosterHostileMale[2][2]; // 0x00722450
+extern unsigned short gawRosterHostileFemale[2][2]; // 0x00722458
+extern unsigned short gawRosterLootMale[2][2]; // 0x00722460
+extern unsigned short gawRosterLootFemale[2][2]; // 0x00722468
+extern unsigned short gwBlinkDelay; // 0x00713000
+extern unsigned short gnHirelingName; // 0x00725494
 extern unsigned short gwGlobal_007C02C4; // 0x007C02C4
-extern unsigned short gwGlobal_007C0C77; // 0x007C0C77
-extern unsigned short gwGlobal_007C0C79; // 0x007C0C79
-extern unsigned short gwGlobal_007C0C7B; // 0x007C0C7B
+extern unsigned short gwNpcGreetingString; // 0x007C0C77
+extern unsigned short gwNpcMessageString; // 0x007C0C79
+extern unsigned short gwNpcLastString; // 0x007C0C7B
 extern void __stdcall sub_00619730_Coordinates(Room*,RoomCoordinates*); // 0x00619730
 extern void __stdcall sub_00619C40_Rectangle(Room*,Rectangle*); // 0x00619C40
-extern void* gpCelFile_007BF2D1; // 0x007BF2D1
-extern void* gpCelFile_007BF2D5; // 0x007BF2D5
-extern void* gpCelFile_007BF2D9; // 0x007BF2D9
-extern void* gpCelFile_007BF2DD; // 0x007BF2DD
-extern void* gpCelFile_007BF34D; // 0x007BF34D
-extern void* gpCelFile_007BF351; // 0x007BF351
+extern void* gpQuestSocketsCel; // 0x007BF2D1
+extern void* gpQuestBackgroundCel; // 0x007BF2D5
+extern void* gpQuestTabsCel; // 0x007BF2D9
+extern void* gpQuestDoneCel; // 0x007BF2DD
+extern void* gpQuestLastCel; // 0x007BF34D
+extern void* gpInvPsCel; // 0x007BF351
 extern void* gpCellFile_007BEF14; // 0x007BEF14
 extern void* gpCellFile_007BEF24; // 0x007BEF24
 extern void* gpCellFile_007BEF28; // 0x007BEF28
@@ -453,7 +453,7 @@ extern void* gpCellFile_007BEF64; // 0x007BEF64
 extern void* gpCellFile_007BEF68; // 0x007BEF68
 extern void* gpCellFile_007BEF80; // 0x007BEF80
 extern void* gpChatBuffer_007BB5F4; // 0x007BB5F4
-extern void* gpGlobal_007A27A0; // 0x007A27A0
+extern void* gpGoldPanel; // 0x007A27A0
 extern void* gpGlobal_007BEF0C; // 0x007BEF0C
 extern void* gpGlobal_007C0D47; // 0x007C0D47
 extern void* gpRes_007C0D5F; // 0x007C0D5F
@@ -992,10 +992,10 @@ void* __stdcall SMemReAlloc(void* pLocation, unsigned int nAmount, const char* s
 #define D2_HIWORD(l) ((unsigned short)(((unsigned int)(l) >> 16) & 0xFFFF))
 #define D2_LOWORD(l) ((unsigned short)((unsigned int)(l) & 0xFFFF))
 #define D2_RESET_QUEST_SELECTION() \
-    gbGlobal_007BF2B1 = 0; \
+    gbQuestSlotDown = 0; \
     gbGlobal_007BF2B2 = 0; \
     gbGlobal_007BF2B0 = 0; \
-    gnIndex_007BF2B5 = -1; \
+    gnQuestPressedSlot = -1; \
     gbGlobal_007BF2B4 = 0; \
     gbGlobal_007C025D = 0; \
     gbGlobal_007C025E = 0; \
@@ -1011,7 +1011,7 @@ void* __stdcall SMemReAlloc(void* pLocation, unsigned int nAmount, const char* s
 #define KEY_WHEEL_DOWN 0x104
 #define KEY_WHEEL_UP 0x103
 // build: symbol ?CUNIT_FindClientUnit@* 0x00463990
-#define NPC_GET_INTERACT_UNIT() (gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25, 1) : 0)
+#define NPC_GET_INTERACT_UNIT() (gbNpcInteracting ? CUNIT_FindClientUnit(gnInteractNpcId, 1) : 0)
 #define NULL 0
 #define SUMMIT_ROLL(pSeed, lSeed) ((lSeed) = (pSeed)->nHighSeed + 0x6AC690C5i64 * (pSeed)->nLowSeed, \
     (pSeed)->nHighSeed = (unsigned int)((lSeed) >> 32), (pSeed)->nLowSeed = (unsigned int)(lSeed), (unsigned int)(lSeed))
@@ -1075,13 +1075,15 @@ void* __stdcall SMemReAlloc(void* pLocation, unsigned int nAmount, const char* s
             outY = 0; \
         break; \
     }
-#define gnGlobal_007BCB1C (gGrid_007BCB18.nGridLeft)
-#define gnGlobal_007BCB20 (gGrid_007BCB18.nGridRight)
-#define gnGlobal_007BCB24 (gGrid_007BCB18.nGridTop)
-#define gnGlobal_007BCB28 (gGrid_007BCB18.nGridBottom)
-#define gnGlobal_007BCB30 (gInvRect_007BCB30.nLeft)
-#define gnGlobal_007BCB34 (gInvRect_007BCB30.nRight)
-#define gnGlobal_007BCB3C (gInvRect_007BCB30.nBottom)
+// build: symbol ?gtTradePage1Grid@* 0x007BCB18
+#define gnGlobal_007BCB1C (gtTradePage1Grid.nGridLeft)
+#define gnGlobal_007BCB20 (gtTradePage1Grid.nGridRight)
+#define gnGlobal_007BCB24 (gtTradePage1Grid.nGridTop)
+#define gnGlobal_007BCB28 (gtTradePage1Grid.nGridBottom)
+// build: symbol ?gtCubeRect@* 0x007BCB30
+#define gnGlobal_007BCB30 (gtCubeRect.nLeft)
+#define gnGlobal_007BCB34 (gtCubeRect.nRight)
+#define gnGlobal_007BCB3C (gtCubeRect.nBottom)
 #define va_start(ap, v) (ap = (va_list)&v + sizeof(v))
 
 typedef char* va_list;

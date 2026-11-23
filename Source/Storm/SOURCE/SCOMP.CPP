@@ -165,7 +165,7 @@ extern D2FogBlockStrc* gapFreeBlocks_007768B8[0x100]; // 0x007768B8
 
 extern D2CriticalSectionStrc gaFreeBlockLocks_00776CC0[0x100]; // 0x00776CC0
 
-extern int gabFreeBlockDirty_007784C8[0x100]; // 0x007784C8
+extern int gabFreeBlockDirty[0x100]; // 0x007784C8
 
 extern int gbHeapInitialized_007788D0; // 0x007788D0
 

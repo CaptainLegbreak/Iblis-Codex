@@ -52,11 +52,11 @@ void __fastcall D2SOUND_SetSoundAttenuation(D2SoundStrc* pSound, float fAttenuat
 void __fastcall sub_00516830_GetPositionalVolumePan(int* pVolume, int* pPan, float x, float y, float z); // 0x00516830
 extern int gnSfxVolume_00727564; // 0x00727564
 extern int gnEnvVolume_00727568; // 0x00727568
-extern int gdwGlobal_007C8C78; // 0x007C8C78
+extern int gbSoundSystemInit; // 0x007C8C78
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-extern const int gnOffsetsX_006DBAF8[16]; // 0x006DBAF8
-extern const int gnOffsetsY_006DBAB8[16]; // 0x006DBAB8
+extern const int gaSkillRingOffsetX[16]; // 0x006DBAF8
+extern const int gaSkillRingOffsetY[16]; // 0x006DBAB8
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize); // 0x00681EF0
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
@@ -94,7 +94,7 @@ void __fastcall sub_004DFC20_UpdateSoundSlot(D2SlotStrc* pSlot)
     if (gnEnvVolume_00727568 != 100 && !pRecord->bNoEnvVolume)
         nVolume = gnEnvVolume_00727568 * nVolume / 100;
 
-    if (gdwGlobal_007C8C78)
+    if (gbSoundSystemInit)
     {
 // build: symbol ?D2SOUND_GetSoundMixerOption@* 0x00514C90
         const int nMode = D2SOUND_GetSoundMixerOption();
@@ -189,8 +189,8 @@ int __fastcall sub_004E1770_SpawnSkillMissileRing(D2UnitStrc* pUnit, int nSkillI
         nStep = 1;
     for (int i = 0; i < 16; i += 2)
     {
-        missileParams.nTargetX = gnOffsetsX_006DBAF8[i];
-        missileParams.nTargetY = gnOffsetsY_006DBAB8[i];
+        missileParams.nTargetX = gaSkillRingOffsetX[i];
+        missileParams.nTargetY = gaSkillRingOffsetY[i];
         sub_004CD540_CreateMissile(&missileParams);
     }
     missileParams.nVelocity = pMissilesTxt->dwParam[1] << 6;
@@ -198,8 +198,8 @@ int __fastcall sub_004E1770_SpawnSkillMissileRing(D2UnitStrc* pUnit, int nSkillI
     {
         for (int i = 0; i < 15; i += nStep)
         {
-            missileParams.nTargetX = gnOffsetsX_006DBAF8[i + 1];
-            missileParams.nTargetY = gnOffsetsY_006DBAB8[i + 1];
+            missileParams.nTargetX = gaSkillRingOffsetX[i + 1];
+            missileParams.nTargetY = gaSkillRingOffsetY[i + 1];
             sub_004CD540_CreateMissile(&missileParams);
         }
     }

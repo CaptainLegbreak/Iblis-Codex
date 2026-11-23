@@ -9,11 +9,11 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-extern D2CursorAnimStrc gaCursorAnim_00712010[CURSOR_ANIM_COUNT]; // 0x00712010
+extern D2CursorAnimStrc gaCursorAnim[CURSOR_ANIM_COUNT]; // 0x00712010
 extern int gdwGlobal_007A6ADC; // 0x007A6ADC
-extern int gnGlobal_007A6AE0; // 0x007A6AE0
+extern int gnCursorAnimFrame; // 0x007A6AE0
 
-extern int gnGlobal_007A6B08; // 0x007A6B08
+extern int gbCursorVisible; // 0x007A6B08
 int __cdecl GAME_IsExitPending(); // 0x0044DA30
 int __cdecl sub_00463DF0(); // 0x00463DF0
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
@@ -24,15 +24,16 @@ void __cdecl PANEL_BeltHotkeyFirst(); // 0x00498C50
 void __cdecl PANEL_BeltHotkeySecond(); // 0x00498C90
 void __cdecl PANEL_BeltHotkeyThird(); // 0x00498CD0
 void __cdecl PANEL_BeltHotkeyFourth(); // 0x00498D10
-extern int gdwGlobal_007A6ABC; // 0x007A6ABC
+extern int gpCursorItem; // 0x007A6ABC
 extern int gdwGlobal_007A6AF0; // 0x007A6AF0
 
 // 0x00467DF0
 static inline int sub_00467DF0_GetCursorAnimField00(int nIndex)
 {
-    D2_ASSERT(gnCursorAnimCount_007120D4 == CURSOR_ANIM_COUNT, 0x84);
+// build: symbol ?gnCursorAnimCount@* 0x007120D4
+    D2_ASSERT(gnCursorAnimCount == CURSOR_ANIM_COUNT, 0x84);
     D2_ASSERT(nIndex < CURSOR_ANIM_COUNT, 0x85);
-    return gaCursorAnim_00712010[nIndex].unk0x00;
+    return gaCursorAnim[nIndex].unk0x00;
 }
 
 int __stdcall sub_M121_Emit_00467DF0(int nIndex) { return sub_00467DF0_GetCursorAnimField00(nIndex); }
@@ -41,7 +42,7 @@ int __stdcall sub_M121_Emit_00467DF0(int nIndex) { return sub_00467DF0_GetCursor
 static inline void sub_00467EE0_SetCursorAnim(int nIndex)
 {
     gdwGlobal_007A6ADC = nIndex;
-    gnGlobal_007A6AE0 = 0;
+    gnCursorAnimFrame = 0;
 }
 
 void __stdcall sub_M121_Emit_00467EE0(int nIndex) { sub_00467EE0_SetCursorAnim(nIndex); }
@@ -51,12 +52,12 @@ void __stdcall sub_00467EF0_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
     if (pMsg->wParam == 2)
     {
-        gnGlobal_007A6B08 = 0;
+        gbCursorVisible = 0;
         sub_004F59F0(0);
     }
     else
     {
-        gnGlobal_007A6B08 = 0;
+        gbCursorVisible = 0;
     }
     pMsg->bReturn = 0;
     pMsg->lResult = 0;
@@ -65,13 +66,13 @@ void __stdcall sub_00467EF0_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
 // 0x00468000
 void __fastcall sub_00468000_SetGlobal7A6B08(int nValue)
 {
-    gnGlobal_007A6B08 = nValue;
+    gbCursorVisible = nValue;
 }
 
 // 0x00468010
 void __fastcall sub_00468010_SetState(int nValue, int nArg)
 {
-    gdwGlobal_007A6ABC = nValue;
+    gpCursorItem = nValue;
     gdwGlobal_007A6ADC = 6;
     gdwGlobal_007A6AE0 = nArg;
     gdwGlobal_007A6AF0 = 6;
@@ -123,14 +124,14 @@ void __cdecl sub_00468F70_BeltHotkey3()
     PANEL_BeltHotkeyFourth();
 }
 
-int gdwGlobal_007A6ABC; // 0x007A6ABC
+int gpCursorItem; // 0x007A6ABC
 
 int gdwGlobal_007A6ADC; // 0x007A6ADC
 
 // 0x00468040
 void __fastcall sub_00468040(int nArg, int nArg2)
 {
-    gdwGlobal_007A6ABC = 0;
+    gpCursorItem = 0;
     gdwGlobal_007A6ADC = 6;
     gdwGlobal_007A6AE0 = nArg;
     gdwGlobal_007A6AF0 = nArg2 ? 8 : 7;
@@ -141,7 +142,7 @@ int gdwGlobal_007A6AF0; // 0x007A6AF0
 // 0x00468070
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem)
 {
-    gdwGlobal_007A6ABC = (int)pItem;
+    gpCursorItem = (int)pItem;
     gdwGlobal_007A6ADC = 5;
     if (!pItem)
     {

@@ -83,9 +83,9 @@ extern const GUID gIIDDirectDraw4; // 0x006FF8D8
 extern const GUID gIIDDirect3D3; // 0x006FF558
 extern const GUID gIIDHardwareDevice; // 0x006FF518
 extern const DWORD gFlag_006CE268; // 0x006CE268
-extern const DWORD gFlag_006CE26C; // 0x006CE26C
+extern const DWORD gdwBitMask1; // 0x006CE26C
 extern const DWORD gFlag_006CE270; // 0x006CE270
-extern const DWORD gFlag_006CE274; // 0x006CE274
+extern const DWORD gdwBitMask3; // 0x006CE274
 extern const DWORD gFlag_006CE278; // 0x006CE278
 extern const DWORD gFlag_006CE27C; // 0x006CE27C
 extern const DWORD gFlag_006CE284; // 0x006CE284
@@ -183,9 +183,9 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
   int invalid=0;
   for(int i=0;i<display->modeCount;++i) {
    if(display->modes[i].flags&gFlag_006CE270) has32=1;
-   if(display->modes[i].flags&gFlag_006CE274) has24=1;
+   if(display->modes[i].flags&gdwBitMask3) has24=1;
    if(display->modes[i].flags&gFlag_006CE268) hasUI=1;
-   if(display->modes[i].flags&gFlag_006CE26C) hasGame=1;
+   if(display->modes[i].flags&gdwBitMask1) hasGame=1;
   }
   if(has32) { sub_00410610_WriteLogLine(gsz_006FBDBC); display->flags|=gFlag_006CE284; }
   if(has24) { sub_00410610_WriteLogLine(gsz_006FBD9C); display->flags|=gFlag_006CE288; }
@@ -219,7 +219,7 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
   if(hardware.flags&0x40) {
   if(!(hardware.textureCaps&1)) sub_00410610_WriteLogLine(gsz_006FBB6C);
   if(hardware.textureCaps&0x20) { sub_00410610_WriteLogLine(gsz_006FBB50); display->flags|=gFlag_006CE270; goto Cleanup; }
-  if(hardware.textureFilterCaps&0x20) display->flags|=gFlag_006CE274;
+  if(hardware.textureFilterCaps&0x20) display->flags|=gdwBitMask3;
   else sub_00410610_WriteLogLine(gsz_006FBB30);
   display->videoTotal=caps.videoTotal;display->videoFree=caps.videoFree;
   sub_00410610_WriteLogLine(gsz_006FBB00,display->videoTotal/1048576.0f,display->videoFree/1048576.0f);
@@ -232,7 +232,7 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
   if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBA74,hr); goto Cleanup; }
   sub_00410610_WriteLogLine(gsz_006FBA48,display->localTotal/1048576.0f,display->localFree/1048576.0f);
   if((caps.caps2&0x200)&&(hardware.devCaps&0x1000)) {
-   display->flags|=gFlag_006CE26C;
+   display->flags|=gdwBitMask1;
    memset(&memoryCaps,0,sizeof(memoryCaps));memoryCaps.caps=0x20005000;
    hr=gpDirectDraw4->vtbl->GetAvailableVidMem(gpDirectDraw4,&memoryCaps,&display->agpTotal,&display->agpFree);
    if(hr) sub_006B20E0_DDrawLogError(gsz_006FBA1C,hr);

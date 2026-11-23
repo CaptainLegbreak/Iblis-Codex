@@ -844,7 +844,8 @@ void __cdecl COMCALLBACK_BuildCreateGamePanel()
     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x2B12));
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9A));
     Unicode wszNumber[3];
-    wsprintfA(szNumber, gszFormatD_006D57BC, 0);
+// build: symbol ?gszFormatD@* 0x006D57BC
+    wsprintfA(szNumber, gszFormatD, 0);
     sub_00526F20_ToUnicode(wszNumber, szNumber, 2);
     sub_00526700(wszText, wszNumber);
     sub_00526700(wszText, wszLevel);
@@ -1624,7 +1625,7 @@ void __fastcall COMCALLBACK_AppendNumberText(Unicode* pText, int nValue)
     Unicode wszBuffer[0x200];
     Unicode wszNumber[3];
     sub_005267E0(wszBuffer, D2LANG_GetStringFromTblIndex(0xF9A));
-    wsprintfA(szNumber, gszFormatD_006D57BC, nValue);
+    wsprintfA(szNumber, gszFormatD, nValue);
     sub_00526320_ToUnicode(wszNumber, szNumber, 2);
     sub_00526700(wszBuffer, wszNumber);
 
@@ -1647,7 +1648,7 @@ void __fastcall COMCALLBACK_PrependNumberText(Unicode* pText, int nValue)
     Unicode wszBuffer[0x200];
     Unicode wszNumber[3];
     sub_005267E0(wszBuffer, D2LANG_GetStringFromTblIndex(0xF9A));
-    wsprintfA(szNumber, gszFormatD_006D57BC, nValue);
+    wsprintfA(szNumber, gszFormatD, nValue);
     sub_00526320_ToUnicode(wszNumber, szNumber, 2);
     sub_00526700(wszBuffer, wszNumber);
 

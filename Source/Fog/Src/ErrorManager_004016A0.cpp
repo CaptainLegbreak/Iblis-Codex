@@ -374,9 +374,9 @@ void __stdcall sub_0040EA00_WriteProcessorReport(); // 0x0040EA00
 
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
-extern int gnOsKind_0074D890; // 0x0074D890
+extern int gnOsKind; // 0x0074D890
 
-extern float gfOsVersion_0074D894; // 0x0074D894
+extern float gfOsVersion; // 0x0074D894
 
 void __cdecl LOGMANAGER_LogWritePrefixedNoNewline(const char* szPrefix, const char* szFormat, ...); // 0x004106B0
 
@@ -1327,7 +1327,7 @@ void __cdecl ERRORMANAGER_LogSystemInfo()
     GetLocalTime(&tTime);
     sub_00410610_WriteLogLine("%04d-%02d-%02d %02d:%02d:%02d", tTime.wYear, tTime.wMonth, tTime.wDay, tTime.wHour, tTime.wMinute, tTime.wSecond);
 
-    switch (gnOsKind_0074D890)
+    switch (gnOsKind)
     {
     case 1:
         memcpy(szOs, "Windows NT", sizeof("Windows NT"));
@@ -1352,7 +1352,7 @@ void __cdecl ERRORMANAGER_LogSystemInfo()
         break;
     }
 
-    sub_00410610_WriteLogLine("%s running under %s (Version %.3f)", "Diablo II", szOs, gfOsVersion_0074D894);
+    sub_00410610_WriteLogLine("%s running under %s (Version %.3f)", "Diablo II", szOs, gfOsVersion);
     sub_0040EA00_WriteProcessorReport();
     sub_00410610_WriteLogLine("Total Physical Memory: %.2fMB", (float)gdwTotalPhys_0074D898 / 1048576.0);
 
