@@ -13,12 +13,3 @@ void __cdecl sub_00494EB0()
     AUTOMAP_DrawFramedBox(0, 0, gnScreenWidth, gnScreenHeight - 0x31, gnHelpShadeColor, 1);
 }
 
-// 0x00494FC0
-void __cdecl sub_00494FC0()
-{
-    if (gbHelpUiOpened)
-    {
-        UI_SetUIVar(0x15, 1, 0);
-        gbHelpUiOpened = 0;
-    }
-}
