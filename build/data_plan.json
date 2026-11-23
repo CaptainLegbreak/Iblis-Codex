@@ -4437,7 +4437,6 @@
    "bytes": 840,
    "definitions": 10,
    "externs": [
-    "extern \"C\" void __cdecl sub_005E6DE0(); // 0x005E6DE0",
     "extern \"C\" void __cdecl sub_005E6F00(); // 0x005E6F00",
     "extern \"C\" void __cdecl sub_005E6FC0(); // 0x005E6FC0"
    ],
@@ -118023,8 +118022,8 @@
     [
      4,
      "0x005E6DE0",
-     "queue_function",
-     "sub_005E6DE0",
+     "names.json",
+     "AITHINK_MapAiAction_WalkToPosition",
      0,
      "func"
     ],

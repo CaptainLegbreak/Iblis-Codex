@@ -60525,6 +60525,11 @@
      "name": "?AITHINK_ExecuteNpcAiCommands@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
+     "va": "0x005E6DE0",
+     "length": 160,
+     "name": "?AITHINK_MapAiAction_WalkToPosition@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@PAUD2MapAIPathPositionStrc@@@Z"
+    },
+    {
      "va": "0x005E6E80",
      "length": 101,
      "name": "?AITHINK_MapAiAction_WalkToPositionOrWait@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@PAUD2MapAIPathPositionStrc@@@Z"
@@ -65300,11 +65305,6 @@
      "va": "0x005DDD00",
      "length": 324,
      "name": "AIUTIL_ApplyTerrorCurseState"
-    },
-    {
-     "va": "0x005E6DE0",
-     "length": 160,
-     "name": "?AITHINK_MapAiAction_WalkToPosition@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@PAUD2MapAIPathPositionStrc@@@Z"
     },
     {
      "va": "0x005F2EB0",
