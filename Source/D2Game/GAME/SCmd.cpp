@@ -2241,16 +2241,6 @@ void __stdcall sub_00570690(int nUnused1)
 {
 }
 
-// 0x0059B6C0
-void __stdcall ACT2Q4_OnJerhynSpawned(int nUnused1, int nUnused2)
-{
-}
-
-// 0x0059B6D0
-void __stdcall ACT2Q4_OnPalaceGuardSpawned(int nUnused1, int nUnused2)
-{
-}
-
 // 0x005A6220
 int __fastcall sub_005A6220(FieldStrc_005A6220* pObject)
 {

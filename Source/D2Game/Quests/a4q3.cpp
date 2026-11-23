@@ -467,6 +467,11 @@ void __fastcall ACT4Q3_InitQuestData(D2QuestDataStrc* pQuestData)
     memset(pQuestDataEx, 0x00, sizeof(D2Act4Quest3Strc));
 }
 
+// 0x005B6930
+void __fastcall ACT4Q3_OnSoulstonesDropped(D2GameStrc* pGame, int nSoulStonesDropped)
+{
+}
+
 // 0x005B5F40
 bool __fastcall ACT4Q3_SeqCallback(D2QuestDataStrc* pQuestData)
 {
@@ -764,81 +769,5 @@ void __fastcall ACT3Intro_InitQuestData(D2QuestDataStrc* pQuestData)
 }
 
 struct D2UnitStrc;
-
-// 0x005B72B0
-bool __fastcall ACT3Q1_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    if (nNpcId == 254)
-    {
-        if (pQuest->fState == 1 && !QUESTRECORD_GetQuestState(pQuestFlags, 17, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, 17, 15))
-        {
-            return true;
-        }
-
-        if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' bbb'))
-        {
-            return true;
-        }
-    }
-
-    return false;
-}
-
-// 0x005B8CC0
-bool __fastcall ACT3Q3_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus)
-{
-    if (!QUESTRECORD_GetQuestState(pFlags, 15, 0))
-    {
-        *pStatus = 0;
-        return true;
-    }
-
-    if (QUESTRECORD_GetQuestState(pFlags, 19, 0))
-    {
-        *pStatus = QUESTRECORD_GetQuestState(pFlags, 19, 13) ? 13 : 11;
-        return true;
-    }
-
-    D2Act3Quest3Strc* pQuestDataEx = (D2Act3Quest3Strc*)pQuest->pQuestDataEx;
-
-    *pStatus = 0;
-    if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' 33g'))
-    {
-        *pStatus = 4;
-        return true;
-    }
-
-    if (pQuestDataEx->bPlayerWithGidbinnDropped)
-    {
-        *pStatus = (pQuest->pGame->nGameType == 3) + 7;
-        return true;
-    }
-
-    if (QUESTRECORD_GetQuestState(pFlags, 19, 6))
-    {
-        if (!QUESTRECORD_GetQuestState(pFlags, 19, 8))
-        {
-            *pStatus = 6;
-        }
-        if (!QUESTRECORD_GetQuestState(pFlags, 19, 7))
-        {
-            *pStatus = 5;
-        }
-    }
-    else if (QUESTRECORD_GetQuestState(pFlags, 19, 4))
-    {
-        *pStatus = (pQuestDataEx->bGidbinnDropped == 1) + 2;
-    }
-    else if (QUESTRECORD_GetQuestState(pFlags, 19, 3))
-    {
-        *pStatus = 2;
-    }
-    else if (QUESTRECORD_GetQuestState(pFlags, 19, 2))
-    {
-        *pStatus = 1;
-    }
-
-    return true;
-}
 
 #include "gen/data/Source/D2Game/Quests/a4q3.inc"

@@ -181,6 +181,197 @@ int __fastcall ACT3Q3_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
     return 0;
 }
 
+// 0x005B8CC0
+bool __fastcall ACT3Q3_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus)
+{
+    if (!QUESTRECORD_GetQuestState(pFlags, 15, 0))
+    {
+        *pStatus = 0;
+        return true;
+    }
+
+    if (QUESTRECORD_GetQuestState(pFlags, 19, 0))
+    {
+        *pStatus = QUESTRECORD_GetQuestState(pFlags, 19, 13) ? 13 : 11;
+        return true;
+    }
+
+    D2Act3Quest3Strc* pQuestDataEx = (D2Act3Quest3Strc*)pQuest->pQuestDataEx;
+
+    *pStatus = 0;
+    if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' 33g'))
+    {
+        *pStatus = 4;
+        return true;
+    }
+
+    if (pQuestDataEx->bPlayerWithGidbinnDropped)
+    {
+        *pStatus = (pQuest->pGame->nGameType == 3) + 7;
+        return true;
+    }
+
+    if (QUESTRECORD_GetQuestState(pFlags, 19, 6))
+    {
+        if (!QUESTRECORD_GetQuestState(pFlags, 19, 8))
+        {
+            *pStatus = 6;
+        }
+        if (!QUESTRECORD_GetQuestState(pFlags, 19, 7))
+        {
+            *pStatus = 5;
+        }
+    }
+    else if (QUESTRECORD_GetQuestState(pFlags, 19, 4))
+    {
+        *pStatus = (pQuestDataEx->bGidbinnDropped == 1) + 2;
+    }
+    else if (QUESTRECORD_GetQuestState(pFlags, 19, 3))
+    {
+        *pStatus = 2;
+    }
+    else if (QUESTRECORD_GetQuestState(pFlags, 19, 2))
+    {
+        *pStatus = 1;
+    }
+
+    return true;
+}
+
+// 0x005B8E10
+bool __fastcall ACT3Q3_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 19, 0))
+    {
+        return false;
+    }
+
+    if (nNpcId == 253)
+    {
+        if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' 33g') || pQuest->fState != 1)
+        {
+            return false;
+        }
+
+        return true;
+    }
+    else if (nNpcId == 255)
+    {
+        if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' 33g'))
+        {
+            return true;
+        }
+
+        if (!QUESTRECORD_GetQuestState(pQuestFlags, 19, 6))
+        {
+            return false;
+        }
+
+        if (!QUESTRECORD_GetQuestState(pQuestFlags, 19, 8))
+        {
+            return true;
+        }
+    }
+    else if (nNpcId == 252)
+    {
+        if (!QUESTRECORD_GetQuestState(pQuestFlags, 19, 6))
+        {
+            return false;
+        }
+
+        if (!QUESTRECORD_GetQuestState(pQuestFlags, 19, 7))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeaderStrc* pTextControl, int nNPCID, int nIndex); // 0x00543790
+
+int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc* pQuest, int dwGUID); // 0x005452C0
+
+static int gnAct3Q3NpcMessageIndices[] =                                                                            // 0x007401B8
+{
+    -1, 0, 1, 2, 3, 4
+};
+
+// 0x005B8EC0
+void __fastcall ACT3Q3_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2GameStrc* pGame = pQuestArg->pGame;
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
+    const int bRewardGranted = QUESTRECORD_GetQuestState(pQuestFlags, 19, 0);
+    const int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
+
+    if (bRewardGranted == 1)
+    {
+        if (QUESTS_CheckPlayerGUID(pQuestData, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId))
+        {
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 4);
+        }
+        return;
+    }
+
+    D2UnitStrc* pGidbinn = ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, ' 33g');
+    if (pGidbinn && QUESTRECORD_GetQuestState(pQuestFlags, 19, 5) && !QUESTRECORD_GetQuestState(pQuestFlags, 19, 8))
+    {
+        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 3);
+        return;
+    }
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 19, 6))
+    {
+        const int bNoCustom4 = !QUESTRECORD_GetQuestState(pQuestFlags, 19, 8);
+        const int bNoCustom3 = !QUESTRECORD_GetQuestState(pQuestFlags, 19, 7);
+        if (nNpcId == 252)
+        {
+            if (bNoCustom3)
+            {
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 5);
+                return;
+            }
+        }
+        else
+        {
+            if (nNpcId == 255 && bNoCustom4)
+            {
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 6);
+                return;
+            }
+
+            if (bNoCustom3)
+            {
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 5);
+                return;
+            }
+        }
+
+        if (bNoCustom4)
+        {
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 6);
+        }
+    }
+    else
+    {
+        if (QUESTRECORD_GetQuestState(pQuestFlags, 19, 5))
+        {
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 4);
+            return;
+        }
+
+        if (pQuestData->fState < 4 && !pGidbinn)
+        {
+            const int nIndex = gnAct3Q3NpcMessageIndices[pQuestData->fState];
+            if (nIndex != -1 && (unsigned int)nIndex < 8)
+            {
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);
+            }
+        }
+    }
+}
+
 // 0x005B9090
 void __fastcall ACT3Q3_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {

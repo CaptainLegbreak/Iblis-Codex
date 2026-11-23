@@ -291,6 +291,45 @@ static void __stdcall ACT5Q6_CompleteQuestForPlayer(D2UnitStrc* pPlayer, D2GameS
     }
 }
 
+typedef void (__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
+
+short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
+
+void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPartyId, PartyCallbackFunction pCallback, void* pArgs); // 0x00540510
+
+// 0x0058DD90
+int __fastcall ACT5Q6_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, 40, 13))
+    {
+        return 0;
+    }
+
+    const unsigned short nPartyId = SUNIT_GetPartyId(pUnit);
+    if (nPartyId != 0xFFFF)
+    {
+        PARTY_IteratePartyMembers(pGame, nPartyId, ACT5Q6_UnitIterate_SetPrimaryGoalDone, 0);
+    }
+    return 0;
+}
+
+void __fastcall QUESTS_SendLogUpdateEx(D2UnitStrc* pPlayer, int nQuestId, unsigned char nAct); // 0x00545920
+
+// 0x0058DDE0
+int __fastcall ACT5Q6_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 40, 0) == 1)
+    {
+        return 0;
+    }
+
+    QUESTRECORD_SetQuestState(pQuestFlags, 40, 14);
+    QUESTS_SendLogUpdateEx(pUnit, 36, 0);
+    return 0;
+}
+
 // 0x0058E500
 void __fastcall ACT5Q6_InitQuestData(D2QuestDataStrc* pQuestData)
 {
@@ -318,6 +357,36 @@ void __fastcall ACT5Q6_InitQuestData(D2QuestDataStrc* pQuestData)
     QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->tPlayerGUIDs);
     pQuestDataEx->nBaalPortalObjectMode = 1;
     pQuestDataEx->nLastPortalObjectMode = 1;
+}
+
+// 0x0058E600
+void __fastcall ACT5Q6_OpenWorldStoneChamber(D2GameStrc* pGame)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x24);
+    if (!pQuestData)
+    {
+        return;
+    }
+
+    ((D2Act5Quest6Strc*)pQuestData->pQuestDataEx)->bWorldStoneChamberOpen = 1;
+
+    if (pQuestData->bNotIntro && pQuestData->fLastState < 3)
+    {
+        pQuestData->nStatusFlags = 0;
+        QUESTS_UnitIterate(pQuestData, 3, 0, ACT5Q6_UnitIterate_StatusCyclerEx, 1);
+    }
+}
+
+// 0x0058E640
+int __fastcall ACT5Q6_IsWorldStoneChamberClosed(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x24);
+    if (pQuestData && ((D2Act5Quest6Strc*)pQuestData->pQuestDataEx)->bWorldStoneChamberOpen == 1)
+    {
+        return 0;
+    }
+
+    return 1;
 }
 
 // 0x0058DEA0

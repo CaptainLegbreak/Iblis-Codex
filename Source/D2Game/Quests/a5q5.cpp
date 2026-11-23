@@ -1024,6 +1024,29 @@ void __fastcall ACT5Q5_OnPortalOpened(D2GameStrc* pGame, D2UnitStrc* pUnit)
     ACT5Q5_DeactivateAncientMonsters(pGame, pQuestData, (D2Act5Quest5Strc*)pQuestData->pQuestDataEx);
 }
 
+// 0x0058CF50
+void __fastcall ACT5Q5_OnPortalClosed(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (DUNGEON_GetLevelIdFromRoom(pRoom) != LEVEL_ROCKYSUMMIT)
+    {
+        return;
+    }
+
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x23);
+    --((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->nActivePortalCount;
+    if (!((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->nActivePortalCount && ((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->active)
+    {
+        ((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->bActivatable = 1;
+    }
+}
+
+// 0x0058CF90
+int __fastcall ACT5Q5_IsNotActivatable(D2GameStrc* pGame)
+{
+    return ((D2Act5Quest5Strc*)QUESTS_GetQuestData(pGame, 0x23)->pQuestDataEx)->bActivatable == 0;
+}
+
 // 0x0058CFB0
 int __fastcall ACT5Q5_GetPortalCount(D2GameStrc* pGame)
 {
@@ -1466,37 +1489,6 @@ int __fastcall ACT5Q6_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
     {
         QUESTS_StatusCyclerEx(pGame, pUnit, 36);
     }
-    return 0;
-}
-
-// 0x0058DD90
-int __fastcall ACT5Q6_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (!QUESTRECORD_GetQuestState(pQuestFlags, 40, 13))
-    {
-        return 0;
-    }
-
-    const unsigned short nPartyId = SUNIT_GetPartyId(pUnit);
-    if (nPartyId != 0xFFFF)
-    {
-        PARTY_IteratePartyMembers(pGame, nPartyId, ACT5Q6_UnitIterate_SetPrimaryGoalDone, 0);
-    }
-    return 0;
-}
-
-// 0x0058DDE0
-int __fastcall ACT5Q6_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 40, 0) == 1)
-    {
-        return 0;
-    }
-
-    QUESTRECORD_SetQuestState(pQuestFlags, 40, 14);
-    QUESTS_SendLogUpdateEx(pUnit, 36, 0);
     return 0;
 }
 

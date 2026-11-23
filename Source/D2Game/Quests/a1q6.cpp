@@ -297,45 +297,6 @@ __forceinline int ACT1Q5_ContainsGUID_Inline(const int* pGUIDs, int nCount, int 
     return 0;
 }
 
-// 0x00593E70
-void __fastcall ACT1Q4_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    int nItemLevel;
-    if (pQuestArg->pPlayer)
-    {
-        if (QUESTRECORD_GetQuestState(QUESTS_GetPlayerQuestFlags_Inline(pQuestArg->pGame, pQuestArg->pPlayer), QUESTSTATEFLAG_A1Q4, QFLAG_CUSTOM6))
-        {
-            return;
-        }
-
-        D2GameStrc* pGame = pQuestArg->pGame;
-        if (pGame->bExpansion)
-        {
-            if (!QUESTRECORD_GetQuestState(QUESTS_GetPlayerQuestFlags_Inline(pGame, pQuestArg->pPlayer), QUESTSTATEFLAG_A5Q6, QFLAG_REWARDGRANTED))
-            {
-                return;
-            }
-        }
-        else
-        {
-            if (!QUESTRECORD_GetQuestState(QUESTS_GetPlayerQuestFlags_Inline(pGame, pQuestArg->pPlayer), QUESTSTATEFLAG_A4Q2, QFLAG_REWARDGRANTED))
-            {
-                return;
-            }
-        }
-
-        QUESTRECORD_SetQuestState(QUESTS_GetPlayerQuestFlags_Inline(pQuestArg->pGame, pQuestArg->pPlayer), QUESTSTATEFLAG_A1Q4, QFLAG_CUSTOM6);
-    }
-
-    SUNIT_IterateUnitsOfType(pQuestArg->pGame, UNIT_PLAYER, pQuestArg->pTarget, ACT1Q4_UnitIterate_SetCustom6Flag);
-    D2Game_10034_Return(pQuestData, pQuestArg, 64);
-    pQuestArg->pTarget->dwDropItemCode = 0x20737076;
-    for (int i = 0; i < 8; ++i)
-    {
-        D2GAME_DropItemAtUnit_6FC4FEC0(pQuestArg->pGame, pQuestArg->pTarget, 0, &nItemLevel, 0, -1, 0);
-    }
-}
-
 // 0x005944F0
 void __fastcall ACT1Q4_SpawnCainPortalOutsideTown(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
@@ -1059,61 +1020,6 @@ void __fastcall ACT1Q6_InitQuestData(D2QuestDataStrc* pQuestData)
 // 0x00596BA0
 void __fastcall sub_00596BA0_EmptyCallback(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
-}
-
-// 0x005997F0
-void __fastcall ACT2Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    const unsigned short nNPCNo = pQuestArg->nNPCNo;
-    const unsigned short nMessageIndex = pQuestArg->nMessageIndex;
-    D2GameStrc* pGame = pQuestArg->pGame;
-    D2UnitStrc* pPlayer = pQuestArg->pPlayer;
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-
-    if (nNPCNo == MONSTER_CAIN6)
-    {
-        switch (nMessageIndex)
-        {
-        case 335:
-            QUESTS_DeleteItem(pQuestArg->pGame, pQuestArg->pPlayer, 0x20317274);
-            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_LEAVETOWN);
-            break;
-
-        case 336:
-            pQuestData->dwFlags &= 0xFFFFFF00;
-            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_ENTERAREA);
-            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_LEAVETOWN);
-            break;
-
-        case 337:
-            pQuestData->dwFlags &= 0xFFFFFF00;
-            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_CUSTOM1);
-            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_LEAVETOWN);
-            break;
-
-        case 338:
-            pQuestData->dwFlags &= 0xFFFFFF00;
-            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_CUSTOM2);
-            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_LEAVETOWN);
-            break;
-
-        case 339:
-            QUESTRECORD_ClearQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_REWARDPENDING);
-            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_LEAVETOWN);
-
-            QUESTS_AddPlayerGUID(&pQuestData->tPlayerGUIDs, (!pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId));
-
-            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_CUSTOM6);
-            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_ENTERAREA);
-            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_CUSTOM2);
-            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_CUSTOM1);
-            QUESTS_NPCActivateSpeeches(pQuestArg->pGame, pQuestArg->pPlayer, pQuestArg->pTarget);
-            break;
-
-        default:
-            return;
-        }
-    }
 }
 
 // 0x0059F380
