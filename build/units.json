@@ -43276,11 +43276,6 @@
      "name": "PARTY_CountLivingUnits"
     },
     {
-     "va": "0x00543E10",
-     "length": 251,
-     "name": "QUESTS_QuestUpdater"
-    },
-    {
      "va": "0x00547210",
      "length": 235,
      "name": "OBJECTS_InitFunction17_Waypoint"
@@ -45611,11 +45606,6 @@
      "name": "OBJECTS_CompareDescending"
     },
     {
-     "va": "0x005697B0",
-     "length": 61,
-     "name": "PLRSAVE2_WriteItemSection"
-    },
-    {
      "va": "0x00569EC0",
      "length": 81,
      "name": "PLRSAVE2_UnpackWord"
@@ -46150,11 +46140,6 @@
      "va": "0x0054C990",
      "length": 47,
      "name": "D2GAME_PACKETCALLBACK_Rcv0x54_TurnStaminaOff_6FC88380"
-    },
-    {
-     "va": "0x00564340",
-     "length": 80,
-     "name": "TASK_GetClockTime"
     },
     {
      "va": "0x00569D80",
@@ -48780,6 +48765,11 @@
      "name": "?QUESTS_StatusCycleObjectReset@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00543E10",
+     "length": 251,
+     "name": "QUESTS_QuestUpdater"
+    },
+    {
      "va": "0x00543F10",
      "length": 127,
      "name": "QUESTS_CreateTimer"
@@ -51020,6 +51010,11 @@
      "name": "?TASK_InitializeClock@@YGXXZ"
     },
     {
+     "va": "0x00564340",
+     "length": 80,
+     "name": "TASK_GetClockTime"
+    },
+    {
      "va": "0x00564390",
      "length": 47,
      "name": "?TASK_LockTaskSlot@@YAPAUD2TaskStrc@@H@Z"
@@ -51368,6 +51363,11 @@
      "va": "0x005696F0",
      "length": 177,
      "name": "?SaveSkills@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAPAEPAE@Z"
+    },
+    {
+     "va": "0x005697B0",
+     "length": 61,
+     "name": "PLRSAVE2_WriteItemSection"
     },
     {
      "va": "0x005697F0",
@@ -56683,11 +56683,6 @@
      "name": "ACT2Q5_ActiveFilterCallback"
     },
     {
-     "va": "0x0059BE70",
-     "length": 248,
-     "name": "ACT2Q5_UnitIterate_SetPrimaryGoalDone"
-    },
-    {
      "va": "0x0059DF30",
      "length": 31,
      "name": "ACT2Q6_UnitIterate_CheckDistanceToTyrael"
@@ -57720,6 +57715,11 @@
      "va": "0x0059BD70",
      "length": 251,
      "name": "?ACT2Q5_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x0059BE70",
+     "length": 248,
+     "name": "ACT2Q5_UnitIterate_SetPrimaryGoalDone"
     },
     {
      "va": "0x0059BF70",

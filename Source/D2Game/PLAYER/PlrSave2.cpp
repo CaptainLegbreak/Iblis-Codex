@@ -860,7 +860,7 @@ int __fastcall PLRSAVE2_WriteSkillSection(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     return 0;
 }
 
-// build: symbol ?PLRSAVE2_WriteItemSection@* 0x005697B0
+// 0x005697B0
 __declspec(noinline) int __fastcall PLRSAVE2_WriteItemSection(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char** ppCursor, const unsigned char* pEnd, int nArg5, int nArg6, int nArg7)
 {
     unsigned char* pCursor = *ppCursor;
