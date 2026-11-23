@@ -801,24 +801,6 @@ static inline D2MonStatsTxt* MONSTERS_GetMonStatsTxtRecordFromUnitInline(D2UnitS
     return 0;
 }
 
-// 0x0057C3E0
-int __fastcall SUNITDMG_GetMonsterDrain(D2UnitStrc* pUnit, int nUnused, D2GameStrc* pGame)
-{
-    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nUnitType != UNIT_MONSTER)
-    {
-        return 100;
-    }
-
-    D2MonStatsTxt* pMonStatsTxtRecord = MONSTERS_GetMonStatsTxtRecordFromUnitInline(pUnit);
-    if (!pMonStatsTxtRecord)
-    {
-        return 0;
-    }
-
-    return pMonStatsTxtRecord->nDrain[pGame->nDifficulty];
-}
-
 // 0x00573140
 int __fastcall MONSTERAI_IsInteractionReady(D2UnitStrc* pNpc, D2UnitStrc* pPlayer)
 {

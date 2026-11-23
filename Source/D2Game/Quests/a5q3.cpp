@@ -713,15 +713,6 @@ void __fastcall OBJECTS_InitFunction66_DrehyaStartInTown(D2ObjInitFnStrc* pOp)
         EVENT_SetEvent(pGame, pObject, 7, pGame->dwGameFrame + 12, 0, 0);
 }
 
-// 0x0058FD20
-void __fastcall ACT1Q1_SetRespecRewardPending(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-
-    QUESTRECORD_SetQuestState(pQuestFlags, 0x29, 0x0D);
-    QUESTRECORD_SetQuestState(pQuestFlags, 0x29, 1);
-}
-
 // 0x0058A500
 void __fastcall ACT5Q3_SpawnFrozenDrehya(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
@@ -836,6 +827,32 @@ int __fastcall ACT5Q3_SpawnDrehyaPortalOutsideTown(D2GameStrc* pGame, D2UnitStrc
     }
     pQuestDataEx->bDrehyaPortalOutsideTownSpawned = 1;
     pQuestDataEx->nDrehyaPortalOutsideTownGUID = pDrehyaPortal->dwUnitId;
+    return 1;
+}
+
+// 0x0058A8D0
+int __fastcall ACT5Q3_GetDrehyaPortalCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2CoordStrc* pCoord)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A5Q3_PRISONOFICE);
+    if (!pQuestData)
+    {
+        return 0;
+    }
+
+    D2Act5Quest3Strc* pQuestDataEx = (D2Act5Quest3Strc*)pQuestData->pQuestDataEx;
+    if (!pQuestDataEx->unk0x84[0])
+    {
+        return 0;
+    }
+
+    if (!pQuestDataEx->bDrehyaPortalOutsideTownSpawned)
+    {
+        UNITS_GetCoords(pUnit, pCoord);
+        return 1;
+    }
+
+    pCoord->nX = pQuestDataEx->pDrehyaPortalCoords.nX;
+    pCoord->nY = pQuestDataEx->pDrehyaPortalCoords.nY;
     return 1;
 }
 

@@ -1055,6 +1055,21 @@ void __fastcall OBJECTS_SetObjectPopulateDensity(unsigned char nDensity)
     gnObjectPopulateDensity = nDensity;
 }
 
+// 0x00552840
+void __fastcall OBJECTS_PopulateObject(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nObjectId)
+{
+    if (!DUNGEON_GetLevelIdFromPopulatedRoom(pRoom))
+        return;
+    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
+    D2_ASSERT(pObjectsTxtRecord->nPopulateFn < 10, 0xC7D);
+    if (sgPopulateTable[pObjectsTxtRecord->nPopulateFn])
+    {
+        D2_ASSERT(!IsBadCodePtr((FARPROC)sgPopulateTable[pObjectsTxtRecord->nPopulateFn]), 0xC80);
+// build: symbol ?gnObjectPopulateDensity@* 0x00731BBD
+        sgPopulateTable[pObjectsTxtRecord->nPopulateFn](pGame, pRoom, gnObjectPopulateDensity, nObjectId, 100);
+    }
+}
+
 // 0x00552DE0
 static inline void SUNIT_AssignUnitId(D2UnitStrc* pUnit, int nValue)
 {
@@ -1591,6 +1606,11 @@ void __fastcall OBJECTS_InitFunction34_HellBrazierFire(D2ObjInitFnStrc* pOp)
     {
         UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPERATING);
     }
+}
+
+// 0x00550130
+void __cdecl OBJECTS_InitFunction05_Door()
+{
 }
 
 static inline int sub_00550A30_IsInsideRoom(D2DrlgCoordsStrc* pCoords, unsigned short nX, unsigned short nY)
@@ -2816,34 +2836,6 @@ void __fastcall ITEMMODE_InitializeItemUnit(D2UnitStrc* pUnit, D2GameStrc* pGame
     D2GAME_DeleteTimersOnUnit_6FC34A30(pGame, pUnit);
 }
 
-// 0x00557FF0
-int __fastcall ITEMS_IsInPlayersInventory(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2InventoryStrc* pOtherInventory)
-{
-    D2InventoryStrc* hInventory = pUnit->pInventory;
-    D2_ASSERT(hInventory, 2740);
-
-    if (pOtherInventory)
-    {
-        hInventory = pOtherInventory;
-    }
-
-    if (pItem == INVENTORY_GetCursorItem(hInventory))
-    {
-        return 1;
-    }
-
-    for (D2UnitStrc* pNode = INVENTORY_GetFirstItem(hInventory); pNode; pNode = INVENTORY_GetNextItem(pNode))
-    {
-        if (pItem == INVENTORY_UnitIsItem(pNode))
-        {
-            return 1;
-        }
-    }
-
-    return 0;
-}
-
-
 
 // 0x0055CA00
 int __fastcall OBJECTS_MatchFieldPair(D2UnkFieldPairStrc* pRecord1, D2UnkFieldPairStrc* pRecord2, int nValue1, int nValue2)
@@ -2912,56 +2904,6 @@ int __cdecl OBJECTS_CompareDescending(const unsigned int* pValue1, const unsigne
     return nValue1 != nValue2;
 }
 
-// 0x005665B0
-void __stdcall PLRTRADE_GetLocalDate(D2LocalDateStrc* pDate)
-{
-    D2SystemTimeStrc systemTime;
-    GetLocalTime(&systemTime);
-    pDate->nDayOfWeek = systemTime.wDayOfWeek + 1;
-    pDate->f_4 = systemTime.wMonth;
-    pDate->nDay = systemTime.wDay;
-    pDate->f_C = systemTime.wYear;
-}
-
-// 0x005675E0
-int __fastcall PLRTRADE_CopyTradeSaveDataToBuffer(D2UnitStrc* pUnit, unsigned char* pBuffer, int nBufferSize)
-{
-    D2PlayerTradeStrc* pTrade = UNITS_GetPlayerData(pUnit)->hTrade;
-    if (!pTrade)
-    {
-        return 0;
-    }
-
-    if (nBufferSize < pTrade->nSaveLength)
-    {
-        return 0;
-    }
-
-    memcpy(pBuffer, pTrade->pSaveData, pTrade->nSaveLength);
-    return pTrade->nSaveLength;
-}
-
-// 0x00567840
-int __fastcall PLRTRADE_IsTradeInventoryEmpty(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    int nUnitType;
-    int nUnitGUID;
-    if (!SUNIT_GetInteractInfo(pUnit, &nUnitType, &nUnitGUID) || nUnitType != UNIT_PLAYER)
-    {
-        return 1;
-    }
-
-    for (D2UnitStrc* pItem = INVENTORY_GetFirstItem(pUnit->pInventory); pItem; pItem = INVENTORY_GetNextItem(pItem))
-    {
-        if (INVENTORY_GetItemNodePage(pItem) == INVPAGE_TRADE)
-        {
-            return 0;
-        }
-    }
-
-    return 1;
-}
-
 // 0x005697B0
 int __fastcall PLRSAVE2_WriteItemSection(void* pArg1, void* pArg2, unsigned char** ppCursor, unsigned char* pEnd, int nArg5, int nArg6, int nArg7)
 {
@@ -2996,46 +2938,6 @@ void __fastcall PLRSAVE2_UnpackWord(D2PackedWordStrc* pPacked, int* pId, int* pF
     }
 }
 
-// 0x0056B740
-int __fastcall SKILLS_ApplyAuraToSelf(void* pArg1, void* pArg2, int (__fastcall* pfnCallback)(D2UnkCallRecordStrc*), int nArg4)
-{
-    D2UnkCallRecordStrc record;
-    record.pArg1 = pArg1;
-    record.pArg2 = pArg2;
-    record.nArg4 = nArg4;
-    record.nZero = 0;
-    return pfnCallback(&record);
-}
-
-// 0x0056C840
-void __fastcall SKILLS_SetElementalDurationFromSkill(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nLength, int nSkillId)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return;
-    }
-
-    switch (pSkillsTxtRecord->nEType)
-    {
-    case ELEMTYPE_COLD:
-        pDamage->dwColdLen = nLength;
-        break;
-    case ELEMTYPE_POIS:
-        pDamage->dwPoisLen = nLength;
-        break;
-    case ELEMTYPE_STUN:
-        pDamage->dwStunLen = nLength;
-        break;
-    case ELEMTYPE_BURN:
-        pDamage->dwBurnLen = nLength;
-        break;
-    case ELEMTYPE_FREEZE:
-        pDamage->dwFrzLen = nLength;
-        break;
-    }
-}
-
 // 0x0056CD50
 int __fastcall SKILL_ComputePeriodicRate(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillsTxt* pSkillsTxtRecord, int nSkillId, int nSkillLevel)
 {
@@ -3065,20 +2967,6 @@ int __fastcall D2GAME_GetXAndYFromTargetUnit_6FD14020(D2GameStrc* pGame, D2UnitS
     }
 
     return *pX && *pY;
-}
-
-// 0x0056DDE0
-void __fastcall SKILLS_ApplyAreaEffectAtCoordinates(D2GameStrc* pGame, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, void* pArg8)
-{
-    D2Unk0056DCC0Strc record = {};
-    record.nUnk0x00 = nArg2;
-    record.f_C = nArg3;
-    record.f_10 = nArg4;
-    record.nUnk0x04 = nArg5;
-    record.nUnk0x08 = nArg6;
-    record.nUnk0x18 = nArg7;
-    record.pUnk0x20 = pArg8;
-    sub_0056DCC0(pGame, &record);
 }
 
 // 0x0056E620

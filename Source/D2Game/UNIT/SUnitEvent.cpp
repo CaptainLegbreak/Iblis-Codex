@@ -640,6 +640,29 @@ void __fastcall SUNITEVENT_Unregister(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
         pUnitEvent = pNext;
     }
 }
+
+// 0x005C0BE0
+D2UnitEventStrc* __fastcall SUNITEVENT_GetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nTimerQueueNo, int a4, int nGUID1)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    D2UnitEventStrc* pUnitEvent = pUnit->pSrvUnitEventsList;
+    while (pUnitEvent)
+    {
+        D2UnitEventStrc* pNext = pUnitEvent->pNext;
+        if (pUnitEvent->nEventGroup == nTimerQueueNo && pUnitEvent->unk0x08 == a4 && pUnitEvent->nGUID1 == nGUID1)
+        {
+            return pUnitEvent;
+        }
+
+        pUnitEvent = pNext;
+    }
+
+    return 0;
+}
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 #define UNIT_OBJECT 2

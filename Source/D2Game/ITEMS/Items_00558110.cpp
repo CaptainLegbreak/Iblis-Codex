@@ -107,41 +107,6 @@ static inline void D2GAME_SetStatOrResetGold_Inline(D2UnitStrc* pUnit, int nStat
     STATLIST_SetUnitStat(pUnit, nStat, nValue, 0);
 }
 
-// 0x00558110
-D2UnitStrc* __fastcall ITEMS_FindQuestItem(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int dwItemCode)
-{
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    if (!pInventory)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pInventory);
-    if (pCursorItem && dwItemCode == ITEMS_GetBaseCode(pCursorItem))
-    {
-        D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(pCursorItem->dwClassId);
-        if (!pItemsTxtRecord || !pItemsTxtRecord->nQuest || pGame->nDifficulty <= STATLIST_UnitGetStatValue(pCursorItem, STAT_QUESTITEMDIFFICULTY, 0))
-        {
-            return pCursorItem;
-        }
-    }
-
-    for (D2UnitStrc* pItem = INVENTORY_GetFirstItem(pInventory); pItem; pItem = INVENTORY_GetNextItem(pItem))
-    {
-        D2UnitStrc* pCheckItem = INVENTORY_UnitIsItem(pItem);
-        if (dwItemCode == ITEMS_GetBaseCode(pCheckItem) && ITEMS_GetInvPage(pCheckItem) != INVPAGE_EQUIP)
-        {
-            D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pCheckItem ? -1 : pCheckItem->dwClassId);
-            if (!pItemsTxtRecord || !pItemsTxtRecord->nQuest || !pItemsTxtRecord->nQuestDiffCheck || pGame->nDifficulty <= STATLIST_UnitGetStatValue(pCheckItem, STAT_QUESTITEMDIFFICULTY, 0))
-            {
-                return pCheckItem;
-            }
-        }
-    }
-
-    return 0;
-}
-
 __forceinline int __fastcall ITEMS_GetItemLevelForNewItem(D2UnitStrc* pUnit, int nLevelId)
 {
     if (pUnit)
@@ -215,60 +180,4 @@ D2UnitStrc* __fastcall D2GAME_CreateItemUnit_6FC501A0(D2UnitStrc* pPlayer, int n
     return pItem;
 }
 
-// 0x0055A090
-void __fastcall ITEMS_DropGoldPiles(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int nAmount, D2UnitStrc** ppGold, int* pCount, int nMaxCount)
-{
-    *pCount = 0;
-
-    int nItemId;
-    if (!DATATBLS_GetItemRecordFromItemCode(' dlg', &nItemId))
-    {
-        return;
-    }
-
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    unsigned int nDropped = 0;
-    const unsigned int nTotal = nAmount;
-    while (nDropped < nTotal)
-    {
-        if (*pCount >= nMaxCount)
-        {
-            return;
-        }
-
-        const unsigned int nPile = nAmount > GOLD_PILE_MAX ? GOLD_PILE_MAX : nAmount;
-        nDropped += nPile;
-        nAmount -= nPile;
-
-        D2CoordStrc tCoord;
-        UNITS_GetCoords(pUnit, &tCoord);
-
-        const int nX = tCoord.nX + 2;
-        const int nY = tCoord.nY + 3;
-        D2CoordStrc tSpawn;
-        if (sub_00463740_FindRoomAtPoint(pRoom, nX, nY))
-        {
-            tSpawn.nX = nX;
-            tSpawn.nY = nY;
-        }
-        else
-        {
-            tSpawn = tCoord;
-        }
-
-        pRoom = COLLISION_GetFreeCoordinatesWithField(pRoom, &tSpawn, &tCoord, 1, 0x3E01, 0x801, 0);
-        if (!pRoom)
-        {
-            return;
-        }
-
-        D2UnitStrc* pGold = D2GAME_CreateItemUnit_6FC501A0(pUnit, nItemId, pGame, 4, 2, 1, 1, 1, 0, 0, 0);
-        if (pGold)
-        {
-            D2GAME_SetStatOrResetGold_Inline(pGold, STAT_GOLD, nPile);
-            D2GAME_DropItem_6FC52260(pGame, pUnit, pGold, pRoom, tSpawn.nX, tSpawn.nY);
-            ppGold[*pCount] = pGold;
-            *pCount += 1;
-        }
-    }
-}
+void __fastcall ITEMS_DropGoldPiles(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int nAmount, D2UnitStrc** ppGold, int* pCount, int nMaxCount); // 0x0055A090

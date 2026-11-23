@@ -736,6 +736,37 @@ void __fastcall ACT5Q2_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
     }
 }
 
+// 0x00588340
+bool __fastcall ACT5Q2_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    if (nNpcId == MONSTER_QUAL_KEHK)
+    {
+        if (pQuest->fState == 1)
+        {
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, pQuest->eFilter, QFLAG_REWARDGRANTED) && !QUESTRECORD_GetQuestState(pQuestFlags, pQuest->eFilter, QFLAG_REWARDPENDING))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuest->eFilter, QFLAG_REWARDPENDING))
+        {
+            return true;
+        }
+    }
+    else if (nNpcId == MONSTER_ACT5POW)
+    {
+        if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q2, QFLAG_REWARDGRANTED) && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q2, QFLAG_REWARDPENDING))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 // 0x005883E0
 bool __fastcall ACT5Q2_SeqCallback(D2QuestDataStrc* pQuestData)
 {

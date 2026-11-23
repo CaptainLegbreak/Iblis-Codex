@@ -3007,41 +3007,6 @@ D2DrlgActStrc* __stdcall DEBUG_GetAct(int nAct)
     return pAct;
 }
 
-// 0x00534730
-void* __stdcall DEBUG_GetRoomBySubtileCoordinates(unsigned char bAct, int a2, int a3)
-{
-    D2GameStrc* pGame = sub_0052F6E0_LockFirstGame();
-    D2_ASSERT(bAct < 5, 141);
-
-    void* pResult = DUNGEON_FindRoomBySubtileCoordinates(pGame->pAct[bAct], a2, a3);
-    sub_0052DF40_UnlockFirstGame();
-    return pResult;
-}
-
-// 0x005348C0
-void __fastcall PLAYER_Create(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPlayerGUID)
-{
-    D2_ASSERT(pPlayer, 71);
-
-    pPlayer->dwFlags |= UNITFLAG_ISVALIDTARGET | UNITFLAG_CANBEATTACKED | UNITFLAG_TARGETABLE;
-    pPlayer->dwUnitId = nPlayerGUID;
-
-    INVENTORY_AllocInventory(0, pPlayer);
-
-    pPlayer->pSkills = SKILLS_AllocSkillList(pGame->pMemoryPool);
-    SKILLS_InitSkillList(pPlayer);
-
-    STATLIST_AllocStatListEx(pPlayer, 0, D2GAME_ITEMMODE_ServerStatlistCallback_6FC41910, pGame);
-    UNITS_AllocPlayerData(pPlayer);
-    sub_00534800_CreatePlayerIntros(pGame, pPlayer);
-
-    SUNIT_InitClientInPlayerData(pPlayer, 0);
-    D2GAME_DeleteTimersOnUnit_6FC34A30(pGame, pPlayer);
-    ARENA_AllocArenaUnit(pGame, pPlayer);
-    PLAYERPETS_AllocPetList(pGame, pPlayer);
-    SUNIT_SetAlignment(pPlayer, 2, 1);
-}
-
 // 0x00534F80
 void __fastcall PLAYER_SynchronizeItemsToClient(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
@@ -3196,51 +3161,6 @@ void __fastcall PLAYER_PlaceCorpse(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, i
     {
         D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(pGame, nOwnerGUID, nPlayerGUID, 1);
     }
-}
-
-// 0x005353F0
-int __fastcall PLAYER_GetUniqueIdFromPlayerData(D2UnitStrc* pPlayer)
-{
-    D2_ASSERT(pPlayer, 0x24D);
-
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    D2_ASSERT(pPlayerData, 0x250);
-
-    return pPlayerData->dwUniqueId;
-}
-
-// 0x00535610
-int __fastcall PLAYER_CanModifyInventory(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* a3)
-{
-    int nUnitType;
-    int nUnitGUID;
-    if (SUNIT_GetInteractInfo(pPlayer, &nUnitType, &nUnitGUID))
-    {
-        D2UnitStrc* pInteractUnit = SUNIT_GetServerUnit(pGame, nUnitType, nUnitGUID);
-        if (!pInteractUnit)
-        {
-            SUNIT_ResetInteractInfo(pPlayer);
-            return 0;
-        }
-
-        switch (nUnitType)
-        {
-        case UNIT_PLAYER:
-            return PLRTRADE_PrepareItemChange(pGame, pPlayer, a3);
-
-        case UNIT_MONSTER:
-            return MONSTERAI_IsInteractionReady(pInteractUnit, pPlayer);
-        }
-    }
-    else
-    {
-        if (UNITS_GetPlayerData(pPlayer)->bBusy)
-        {
-            return 0;
-        }
-    }
-
-    return PLRTRADE_PrepareItemChange(pGame, pPlayer, a3);
 }
 
 // 0x00535B10
@@ -3702,31 +3622,6 @@ void __fastcall SUNITPROXY_UpdateGambleInventory(D2GameStrc* pGame, D2UnitStrc* 
     }
 }
 
-// 0x00538C60
-int __fastcall CLIENTS_GetCanonicalName(const char* szName, char* szGameName)
-{
-    int result = 1;
-    const int nIndex = FOG_ComputeStringCRC16(szName) & 0xFF;
-    EnterCriticalSection(&gSrvClientListByNameLock_6FD443B8);
-
-    for (D2ClientStrc* pClient = gpClientListByName_6FD443D0[nIndex]; pClient; pClient = pClient->pServerNextByName)
-    {
-        if (!SStrCmpI(pClient->szName, szName, sizeof(pClient->szName)))
-        {
-            if (szGameName)
-            {
-                SStrCopy(szGameName, pClient->szName, sizeof(pClient->szName));
-            }
-
-            result = 0;
-            break;
-        }
-    }
-
-    LeaveCriticalSection(&gSrvClientListByNameLock_6FD443B8);
-    return result;
-}
-
 // 0x0053A420
 void __fastcall CLIENTS_RebuildPlayerWithClass(D2GameStrc* pGame, D2ClientStrc* pClient, unsigned char nClassId)
 {
@@ -3808,21 +3703,6 @@ void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPar
                 }
             }
             return;
-        }
-    }
-}
-
-// 0x005489F0
-void __fastcall PLRMSG_SendUnitBaseStats(D2UnitStrc* pUnit, D2ClientStrc* pClient)
-{
-    D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
-    if (pPlayer != pUnit)
-    {
-        for (int i = 0; gnBaseStatIdsToSend[i] != -1; ++i)
-        {
-            const int nStatId = gnBaseStatIdsToSend[i];
-            const int nValue = STATLIST_GetUnitBaseStat(pUnit, nStatId, 0);
-            D2GAME_UpdateAttribute_6FC822D0(pUnit, nStatId, nValue, pPlayer);
         }
     }
 }
@@ -3936,59 +3816,6 @@ int __fastcall PLRSAVE2_CheckPlayerFlags(D2GameStrc* pGame, unsigned short nFlag
 }
 
 void __fastcall MONSTER_RemoveAll(D2GameStrc* pGame); // 0x00573640
-// 0x0058B4A0
-int __fastcall ACT5Q4_UnitIterate_SetRewardPending(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (!pRoom || QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q4, QFLAG_COMPLETEDNOW) || QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q4, QFLAG_REWARDGRANTED))
-    {
-        return 0;
-    }
-
-    D2Act5Quest4Strc* pQuestDataEx = (D2Act5Quest4Strc*)QUESTS_GetQuestData(pGame, QUEST_A5Q4_NIHLATHAK)->pQuestDataEx;
-
-    bool bFound = false;
-    if (pRoom == pQuestDataEx->pRoom)
-    {
-        bFound = true;
-    }
-    else
-    {
-        D2ActiveRoomStrc** ppRoomList;
-        unsigned int nNumRooms;
-        DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
-
-        for (unsigned int i = 0; i < nNumRooms; ++i)
-        {
-            if (ppRoomList[i] == pQuestDataEx->pRoom)
-            {
-                bFound = true;
-                break;
-            }
-        }
-    }
-
-    pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (!bFound)
-    {
-        return 0;
-    }
-
-    if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q3, QFLAG_REWARDGRANTED) && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q3, QFLAG_REWARDPENDING))
-    {
-        return 0;
-    }
-
-    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q4, QFLAG_REWARDGRANTED) || QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q4, QFLAG_REWARDPENDING))
-    {
-        return 0;
-    }
-
-    QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q4, QFLAG_REWARDPENDING);
-    QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q4, QFLAG_PRIMARYGOALDONE);
-    return 0;
-}
 
 // 0x0059D300
 bool __fastcall ACT2Q6_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
@@ -4179,32 +4006,6 @@ static inline D2StatesTxt* STATES_GetStatesTxtRecordInline(int nStateId)
     }
 
     return 0;
-}
-
-// 0x005EB7F0
-int __fastcall AITHINK_IsStateGroupActive(D2UnitStrc* pUnit, int nStateId)
-{
-    D2StatesTxt* pStatesTxtRecord = STATES_GetStatesTxtRecordInline(nStateId);
-    if (!pStatesTxtRecord || !pStatesTxtRecord->wGroup)
-    {
-        return 0;
-    }
-
-    int nResult = 0;
-    const int nGroup = (short)pStatesTxtRecord->wGroup;
-    const int nCount = sgptDataTables->nStatesTxtRecordCount;
-    for (int i = 0; i < nCount; ++i)
-    {
-        if (i != nStateId)
-        {
-            if ((short)STATES_GetStatesTxtRecordInline(i)->wGroup == nGroup && STATES_CheckState(pUnit, i))
-            {
-                nResult = 1;
-            }
-        }
-    }
-
-    return nResult;
 }
 
 #include "gen/data/Source/D2Game/PLAYER/PlrSave.inc"

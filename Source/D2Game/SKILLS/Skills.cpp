@@ -846,6 +846,27 @@ void __fastcall SKILLS_ClampVitalsAndUpdateAnimRate(D2UnitStrc* pUnit)
     UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\Skills.cpp", 267);
 }
 
+struct D2UnkCallRecordStrc;
+
+struct D2UnkCallRecordStrc
+{
+    void* pArg1;
+    void* pArg2;
+    int nZero;
+    int nArg4;
+};
+
+// 0x0056B740
+int __fastcall SKILLS_ApplyAuraToSelf(void* pArg1, void* pArg2, int (__fastcall* pfnCallback)(D2UnkCallRecordStrc*), int nArg4)
+{
+    D2UnkCallRecordStrc record;
+    record.pArg1 = pArg1;
+    record.pArg2 = pArg2;
+    record.nArg4 = nArg4;
+    record.nZero = 0;
+    return pfnCallback(&record);
+}
+
 // 0x0056B770
 static int SKILLS_IsRoomInRange(D2ActiveRoomStrc* pRoom, int nX, int nY, int nDistance)
 {
@@ -1409,6 +1430,24 @@ void __fastcall SKILLS_FreeUnitSearch(D2GameStrc* pGame, D2UnitFindDataStrc* pUn
     FOG_FreeServerMemory(pGame->pMemoryPool, pUnitFindData, ".\\SKILLS\\Skills.cpp", 0x465, 0);
 }
 
+// 0x0056C2D0
+int __fastcall SKILLS_DrainTargetDurability(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused)
+{
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x40;
+    }
+
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
+    return 1;
+}
+
 // 0x0056C310
 int __fastcall SKILLS_ConsumeItemQuantity(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
@@ -1933,6 +1972,35 @@ int __fastcall SKILLS_RemoveStatesInGroup(D2UnitStrc* pUnit, int nStateId, int a
     }
 
     return nResult;
+}
+
+// 0x0056C840
+void __fastcall SKILLS_SetElementalDurationFromSkill(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nLength, int nSkillId)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return;
+    }
+
+    switch (pSkillsTxtRecord->nEType)
+    {
+    case ELEMTYPE_COLD:
+        pDamage->dwColdLen = nLength;
+        break;
+    case ELEMTYPE_POIS:
+        pDamage->dwPoisLen = nLength;
+        break;
+    case ELEMTYPE_STUN:
+        pDamage->dwStunLen = nLength;
+        break;
+    case ELEMTYPE_BURN:
+        pDamage->dwBurnLen = nLength;
+        break;
+    case ELEMTYPE_FREEZE:
+        pDamage->dwFrzLen = nLength;
+        break;
+    }
 }
 
 // 0x0056C8E0
@@ -3515,6 +3583,37 @@ void __fastcall SKILLS_ApplyAreaEffect(D2GameStrc* pGame, D2EffectStrc* pEffect)
     }
 }
 
+struct D2Unk0056DCC0Strc;
+
+struct D2Unk0056DCC0Strc
+{
+    int nUnk0x00;
+    int nUnk0x04;
+    int nUnk0x08;
+    int f_C;
+    int f_10;
+    int nUnk0x14;
+    int nUnk0x18;
+    int nUnk0x1C;
+    void* pUnk0x20;
+};
+
+void __fastcall sub_0056DCC0(D2GameStrc* pGame, D2Unk0056DCC0Strc* pRecord); // 0x0056DCC0
+
+// 0x0056DDE0
+void __fastcall SKILLS_ApplyAreaEffectAtCoordinates(D2GameStrc* pGame, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, void* pArg8)
+{
+    D2Unk0056DCC0Strc record = {};
+    record.nUnk0x00 = nArg2;
+    record.f_C = nArg3;
+    record.f_10 = nArg4;
+    record.nUnk0x04 = nArg5;
+    record.nUnk0x08 = nArg6;
+    record.nUnk0x18 = nArg7;
+    record.pUnk0x20 = pArg8;
+    sub_0056DCC0(pGame, &record);
+}
+
 // 0x0056DFA0
 void __fastcall D2GAME_RefreshPassiveSkills_6FD14CC0(D2UnitStrc* pUnit)
 {
@@ -4038,19 +4137,6 @@ void __fastcall D2GAME_STATES_SendStates_6FCC5F00(D2UnitStrc* pUnit, D2ClientStr
     else
     {
         D2GAME_STATES_SendUnitStateUpdates_6FCC5BE0(pUnit, pClient);
-    }
-}
-
-// 0x0057E270
-void __fastcall SUNITDMG_RollSuckBloodDamage(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nSkillId, int nSkillLevel, D2DamageStrc* pDamage)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (pSkillsTxtRecord)
-    {
-        const int nMinDamage = SKILLS_GetMinPhysDamage(pAttacker, nSkillId, nSkillLevel, 0);
-        const int nMaxDamage = SKILLS_GetMaxPhysDamage(pAttacker, nSkillId, nSkillLevel, 0);
-        pDamage->dwPhysDamage = SUNITDMG_ApplyDamageBonuses(pAttacker, 0, 0, nMinDamage, nMaxDamage, 0, 0, 128);
-        D2GAME_RollElementalDamage_6FD14DD0(pAttacker, pDamage, nSkillId, nSkillLevel);
     }
 }
 

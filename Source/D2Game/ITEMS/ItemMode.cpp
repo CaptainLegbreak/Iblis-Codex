@@ -910,11 +910,6 @@ void __fastcall sub_0052B6F0()
     FOG_10182_Return(gpServer);
 }
 
-// 0x00550130
-void __cdecl OBJECTS_InitFunction05_Door()
-{
-}
-
 // 0x00555DA0
 D2ActiveRoomStrc* __fastcall D2GAME_GetFreeSpaceEx_6FC4BF00(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2CoordStrc* pReturnCoords, int nUnitSize, unsigned char bAllowNeighborRooms)
 {
@@ -4112,46 +4107,6 @@ void __fastcall PLRSAVE2_WriteMercData(D2GameStrc* pGame, D2UnitStrc* pPlayer, D
     }
 }
 
-// 0x00569A00
-int __fastcall PLRSAVE2_WriteIronGolemSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, const unsigned char* pEnd, int a5, int a6)
-{
-    unsigned char* pData = *ppSection;
-    int bHasIronGolem = 0;
-    if (!pGame->bExpansion)
-    {
-        return 0;
-    }
-
-    *(unsigned short*)pData = 'fk';
-    pData += 2;
-
-    D2UnitStrc* pIronGolem = PLAYERPETS_GetFirstPetByType(pGame, pPlayer, 3, 1);
-    D2UnitStrc* pGolemItem = 0;
-    D2UnitStrc* pFirst;
-    if (pIronGolem && pIronGolem->dwClassId == 0x123 && SKILLS_GetSkillById(pPlayer, SKILL_IRONGOLEM, -1) && pIronGolem->pInventory
-        && (pFirst = INVENTORY_GetFirstItem(pIronGolem->pInventory)) != 0 && (pGolemItem = INVENTORY_UnitIsItem(pFirst)) != 0)
-    {
-        bHasIronGolem = 1;
-    }
-
-    unsigned char* pFlag = pData;
-    *pData = bHasIronGolem;
-    ++pData;
-    if (bHasIronGolem)
-    {
-        const int nLength = D2GAME_SAVE_SerializeItem_6FC89AD0(pGame, pPlayer, pGolemItem, pData, pEnd - pData, 0, a5, a6);
-        if (nLength <= 0)
-        {
-            *pFlag = 0;
-        }
-
-        pData += nLength;
-    }
-
-    *ppSection = pData;
-    return 0;
-}
-
 // 0x00569F20
 void __fastcall PLRSAVE2_InitPlayerFromClient(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2ClientStrc* pClient)
 {
@@ -6074,34 +6029,6 @@ int __fastcall D2GAME_Transmogrify_6FC4A660(D2GameStrc* ptGame, D2UnitStrc* pUni
     }
 
     return 0;
-}
-
-// 0x00566CC0
-void __fastcall PLRTRADE_RestoreTradeSnapshot(D2GameStrc* pGame, D2UnitStrc* pPlayer)
-{
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    D2_ASSERT(pPlayerData, 0x880);
-
-    for (int i = 1; i < 13; ++i)
-    {
-        sub_0063BE30_Return(pPlayer->pInventory, i);
-    }
-
-    D2PlayerTradeStrc* ptTradeRecord = pPlayerData->hTrade;
-    D2_ASSERT(ptTradeRecord, 0x888);
-
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pPlayer, 9, 0);
-
-    int nUnused;
-    PLRSAVE_ReadItemSection(pGame, pPlayer, ptTradeRecord->pSaveData, 0x60, 0x2000, 0, &nUnused);
-
-    const int nGold = STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0);
-    const int nMode = pPlayer->dwAnimMode;
-    if (nGold > 0 && nMode != 0 && nMode != 17)
-    {
-        PLRTRADE_AddGold(pPlayer, 14, -nGold);
-        PLRTRADE_AddGold(pPlayer, 14, ptTradeRecord->nGoldInTradeOtherPlayer);
-    }
 }
 
 // 0x00562F30

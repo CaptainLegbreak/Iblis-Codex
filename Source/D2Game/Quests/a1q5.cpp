@@ -894,6 +894,28 @@ bool __fastcall ACT1Q5_SeqCallback(D2QuestDataStrc* pQuestData)
     return false;
 }
 
+// 0x005952C0
+bool __fastcall ACT1Q5_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    D2Act1Quest5Strc* pQuestDataEx = (D2Act1Quest5Strc*)pQuest->pQuestDataEx;
+    int nUnitId = !pPlayer ? -1 : pPlayer->dwUnitId;
+
+    for (int i = 0; i < pQuestDataEx->nUnitCount2; ++i)
+    {
+        if (pQuestDataEx->nUnitGUIDs2[i] == nUnitId)
+        {
+            if (nNpcId == 155 || nNpcId == 147)
+            {
+                return false;
+            }
+
+            return true;
+        }
+    }
+
+    return false;
+}
+
 // 0x00595320
 int __fastcall ACT1Q5_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -1057,6 +1079,17 @@ void __stdcall ACT1Q5_SpawnTowerChestMissiles(D2QuestDataStrc* pQuestData, D2Act
                 }
             }
         }
+    }
+}
+
+// 0x005956C0
+void __fastcall ACT1Q5_SpawnChestMissilesAndEvent(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
+{
+    ACT1Q5_SpawnTowerChestMissiles(pQuestData, (D2Act1Quest5Strc*)pQuestData->pQuestDataEx);
+
+    if (((D2Act1Quest5Strc*)pQuestData->pQuestDataEx)->bCountessKilled && !((D2Act1Quest5Strc*)pQuestData->pQuestDataEx)->bDeathMissilesCreated)
+    {
+        EVENT_SetEvent(pQuestData->pGame, pUnit, 7, pQuestData->pGame->dwGameFrame + 10, 0, 0);
     }
 }
 

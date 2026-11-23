@@ -668,6 +668,25 @@ void __fastcall SUNITPROXY_QueueTradeEvent(D2UnitStrc* pNpc, D2GameStrc* pGame, 
     }
 }
 
+struct D2ActiveRoomStrc;
+
+struct D2UnitProxyArgStrc;
+
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
+
+// 0x00536820
+void __fastcall SUNITPROXY_CountPlayersInLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg)
+{
+    D2UnitProxyArgStrc* pUnitProxyArg = (D2UnitProxyArgStrc*)pArg;
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (pRoom && pUnitProxyArg->nLevelId == DUNGEON_GetLevelIdFromRoom(pRoom))
+    {
+        ++pUnitProxyArg->nCounter;
+    }
+}
+
 D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromClassId(D2GameStrc* pGame, int nNpcClassId, int* pIndex)
 {
     D2NpcRecordStrc* pRecords = pGame->pNpcControl->pFirstRecord;
@@ -750,6 +769,13 @@ void __fastcall SUNITPROXY_ProcessNpcEvents(D2GameStrc* game,D2UnitStrc* npc)
  }
 }
 
+// 0x00536B20
+D2InventoryStrc* __fastcall SUNITPROXY_GetNpcInventory(D2GameStrc* pGame, int nNpc)
+{
+    int nUnused;
+    return SUNITPROXY_GetNpcRecordFromClassId(pGame, nNpc, &nUnused)->pInventory;
+}
+
 // 0x00536B40
 extern "C" __declspec(dllexport) unsigned int __fastcall SUNITPROXY_GetSeedFromNpcControl(Obj00536B40* pObj) {
     return pObj->dwValue1D24 + 8;
@@ -824,6 +850,28 @@ void __fastcall SUNITPROXY_FreeVendorChain(D2GameStrc* pGame, D2UnitStrc* pPlaye
 
         pPreviousVendorChain = pVendorChain;
     }
+}
+
+// 0x00536C50
+D2InventoryStrc* __fastcall SUNITPROXY_GetGambleInventory(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc)
+{
+    int nUnused;
+    D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromClassId(pGame, !pNpc ? -1 : pNpc->dwClassId, &nUnused);
+    if (!pNpcRecord || !pNpcRecord->bGambleInit)
+    {
+        return 0;
+    }
+
+    const int nPlayerGUID = !pPlayer ? -1 : pPlayer->dwUnitId;
+    for (D2NpcGambleStrc* pGamble = pNpcRecord->pGamble; pGamble; pGamble = pGamble->pNext)
+    {
+        if (pGamble->dwGUID == nPlayerGUID)
+        {
+            return pGamble->pInventory;
+        }
+    }
+
+    return 0;
 }
 
 // 0x00536CB0
@@ -992,12 +1040,6 @@ void __fastcall SUNITPROXY_FreeNpcGamble(D2GameStrc* pGame, D2UnitStrc* pNpc, D2
             pPreviousGamble = pGamble;
         }
     }
-}
-
-// 0x00545300
-void __fastcall QUESTS_ResetPlayerGUIDCount(D2QuestGUIDStrc* pGUIDs)
-{
-    pGUIDs->nPlayerCount = 0;
 }
 
 // 0x005A4F20
