@@ -1,4 +1,5 @@
 #include "D2Launch.h"
+#include "D2ClientTypes.h"
 
 #include "D2StormTypes.h"
 
@@ -292,7 +293,7 @@ void* gapRowControlsX[8];                                                       
 
 D2WinControlStrc* gpControl_00779C84;                                                                       // 0x00779C84
 
-static int gnSelected;         // 0x0070CC00
+#include "gen/data/Source/D2Launch/Src/CharSel/gnSelected.inc"
 
 static D2WinControlStrc* gpCharSelectText; // 0x00779DD4
 
@@ -338,6 +339,7 @@ struct D2LaunchCharEntryStrc
     {
         unsigned short nLevel;                              // 0x322
         short nWord322;
+        char cLevel;
     };
     union
     {
@@ -479,7 +481,7 @@ int __fastcall sub_00526800(const Unicode* pString);                            
 
 extern "C" const char* const gapszSkyPalette[2];                                                   // 0x006D3A08
 
-extern int gnSelectionA;                                                                           // 0x0070CC04
+#include "gen/data/Source/D2Launch/Src/CharSel/gnSelectionA.inc"
 
 extern D2WinControlStrc* gpGatewayList;                                                                // 0x00779590
 
@@ -751,11 +753,24 @@ struct D2LaunchCharSelectStrc;
 
 struct D2LaunchGameRecStrc;
 
+#pragma pack(push, 1)
+
 struct D2LaunchCharSelectStrc
 {
-    char unk0x000[0x210];
-    char nMode;
+    char unk0x000[0x19];
+    int nState;                                             // 0x019
+    char unk0x01D[0x1F3];
+    char nMode;                                             // 0x210
+    char unk0x211[0x190];
+    unsigned char aFlags[16];                               // 0x3A1
+    unsigned char aColors[16];                              // 0x3B1
+    char nLevel;                                            // 0x3C1
+    char nByte0x3C2;                                        // 0x3C2
+    char unk0x3C3[0x08];
+    unsigned short wFlags;                                  // 0x3CB
 };
+
+#pragma pack(pop)
 
 extern "C" int __cdecl atoi(const char* szString); // 0x00681EBB
 
@@ -947,7 +962,7 @@ int gnCharCount;                                                                
 
 static int sub_00438030_IsNotListedCode(int nValue);
 
-extern int gnSelectionB; // 0x0070CC08
+#include "gen/data/Source/D2Launch/Src/CharSel/gnSelectionB.inc"
 
 extern int gnCount_00779DC4; // 0x00779DC4
 
@@ -2252,6 +2267,96 @@ void __fastcall CHARSEL_PickClass(int nClass, int bExpansion)
     if ((!bExpansion && nClass >= 8) || nClass >= 10)
         CONTROL_SetEnabled(pControl, 1);
     MAINMENUS_CreateFromTemplate(0xAD);
+}
+
+extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize); // 0x006829C0
+int __stdcall CHARSEL_Back(int nArg); // 0x00435E00
+char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
+int gbFlag_00779DD8; // 0x00779DD8
+int gnCounter_00779DDC; // 0x00779DDC
+
+// 0x00439840
+int __stdcall COMCALLBACK_OnCharSelectOk(int nArg)
+{
+    char szName[0x100];
+
+// build: symbol ?gbCharSelBusy@* 0x00779DA0
+    if (gbCharSelBusy)
+        return 1;
+
+    gpCharSelect_007795D4->nMode = 0;
+    if (gnSelected == gnSelectionA)
+    {
+        if (gnLaunchMode != 1 || !gbFlag_00779DD8)
+        {
+            CHARSEL_Back(nArg);
+            gnCounter_00779DDC -= 1;
+            if (gnCounter_00779DDC <= 0)
+            {
+                gbFlag_00779DD8 = 1;
+                return 1;
+            }
+        }
+    }
+    else if (gnSelected == gnSelectionB)
+    {
+        sub_004FB6A0_ClearText(gpCharSelectText);
+        sub_004FC9B0_SetText(gpCharSelectText, D2LANG_GetStringFromTblIndex(0x2B3C), 0, 0, 0);
+        sub_004FC9B0_SetText(gpCharSelectText, D2LANG_GetStringFromTblIndex(0x2B3D), 0, 0, 0);
+        return 1;
+    }
+    else if (gnSelected != -1)
+    {
+// build: symbol ?gpCharList@* 0x00779DBC
+        D2LaunchCharEntryStrc* pEntry = gpCharList;
+        for (int i = 0; pEntry; pEntry = pEntry->pNext, ++i)
+        {
+            if (gnSelected == i)
+                break;
+        }
+
+        if (!pEntry)
+            return 1;
+
+        if (gnLaunchMode == 1 || gnLaunchMode == 3)
+        {
+            memcpy(gpCharSelect_007795D4->aFlags, pEntry->aFlags, 0x10);
+            memcpy(gpCharSelect_007795D4->aColors, pEntry->aColors, 0x10);
+            gpCharSelect_007795D4->nLevel = pEntry->cLevel;
+            gpCharSelect_007795D4->nByte0x3C2 = pEntry->cByte32E;
+            gpCharSelect_007795D4->wFlags = pEntry->wFlags;
+        }
+
+        if (pEntry->wFlags & 0x20)
+        {
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+            if (!FOG_IsExpansion())
+                return 0;
+        }
+
+        if ((pEntry->wFlags & 4) && (pEntry->wFlags & 8) && (gnLaunchMode == 0 || gnLaunchMode == 2))
+        {
+// build: symbol ?MAINMENUS_DestroyControls@* 0x0042F3F0
+            CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14B8), MAINMENUS_DestroyControls);
+            return 1;
+        }
+
+        if (gnLaunchMode == 0 || (gnLaunchMode == 2 && gpCharSelect_007795D4->nState == 8))
+        {
+            int nClass = (pEntry->wFlags >> 8) & 0x1F;
+            if ((!(pEntry->wFlags & 0x20) && nClass >= 4) || nClass >= 5)
+            {
+                CHARSEL_PickClass(nClass, pEntry->wFlags & 0x20);
+                return 1;
+            }
+        }
+
+        sub_00526F70(szName, pEntry->wszName, 0xFF);
+// build: symbol ?MAINMENUS_JoinGame@* 0x00434A00
+        MAINMENUS_JoinGame(pEntry, pEntry->wFlags, pEntry->nType, szName);
+    }
+
+    return 1;
 }
 
 // 0x00439AF0

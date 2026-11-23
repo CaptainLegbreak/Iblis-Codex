@@ -466,13 +466,14 @@
    "state": "included"
   },
   "Source/D2Launch/Src/CharSel.cpp": {
-   "bytes": 376,
-   "definitions": 17,
+   "bytes": 388,
+   "definitions": 20,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Launch/Src/CharSel.inc",
    "lang": "cpp",
-   "state": "included"
+   "state": "included",
+   "static_definitions": 3
   },
   "Source/D2Launch/Unknown_0042F370.cpp": {
    "bytes": 1428,
@@ -594,8 +595,8 @@
    "state": "included"
   },
   "Source/D2Multi/Src/ComCallback.cpp": {
-   "bytes": 3956,
-   "definitions": 74,
+   "bytes": 3944,
+   "definitions": 71,
    "externs": [
     "extern \"C\" char gData_0070CD94[]; // 0x0070CD94",
     "extern \"C\" char gpBnetCancelButtonBlankCelFileB[]; // 0x0077BD2C",
@@ -646,8 +647,7 @@
    "fn_types": {},
    "include": "gen/data/Source/D2Multi/Src/ComCallback.inc",
    "lang": "cpp",
-   "state": "included",
-   "static_definitions": 3
+   "state": "included"
   },
   "Source/D2Launch/Src/MainMenus_00431AF0.cpp": {
    "bytes": 144,
@@ -12782,12 +12782,12 @@
    "declared": true,
    "decorated": null,
    "externs": [],
-   "file": "Source/D2Multi/Src/ComCallback.cpp",
+   "file": "Source/D2Launch/Src/CharSel.cpp",
    "fn_types": {},
    "form": "declared",
    "fwd": null,
-   "head": "static int s_nSelected_0070CC00 = ",
-   "include": "gen/data/Source/D2Multi/Src/ComCallback/s_nSelected_0070CC00.inc",
+   "head": "static int gnSelected = ",
+   "include": "gen/data/Source/D2Launch/Src/CharSel/gnSelected.inc",
    "linkage": "static",
    "model": {
     "k": "prim",
@@ -12795,13 +12795,13 @@
     "name": "int",
     "size": 4
    },
-   "name": "s_nSelected_0070CC00",
+   "name": "gnSelected",
    "pointers": [],
    "region": "data",
    "size": 4,
    "stars": 0,
    "struct": null,
-   "tail": ";                                                                       // 0x0070CC00",
+   "tail": ";                                                                                 // 0x0070CC00",
    "type": "int",
    "va": "0x0070CC00"
   },
@@ -12811,12 +12811,12 @@
    "declared": true,
    "decorated": null,
    "externs": [],
-   "file": "Source/D2Multi/Src/ComCallback.cpp",
+   "file": "Source/D2Launch/Src/CharSel.cpp",
    "fn_types": {},
    "form": "declared",
    "fwd": null,
-   "head": "static int s_nSelectionA_0070CC04 = ",
-   "include": "gen/data/Source/D2Multi/Src/ComCallback/s_nSelectionA_0070CC04.inc",
+   "head": "static int gnSelectionA = ",
+   "include": "gen/data/Source/D2Launch/Src/CharSel/gnSelectionA.inc",
    "linkage": "static",
    "model": {
     "k": "prim",
@@ -12824,13 +12824,13 @@
     "name": "int",
     "size": 4
    },
-   "name": "s_nSelectionA_0070CC04",
+   "name": "gnSelectionA",
    "pointers": [],
    "region": "data",
    "size": 4,
    "stars": 0,
    "struct": null,
-   "tail": ";                                                                   // 0x0070CC04",
+   "tail": ";                                                                             // 0x0070CC04",
    "type": "int",
    "va": "0x0070CC04"
   },
@@ -12840,12 +12840,12 @@
    "declared": true,
    "decorated": null,
    "externs": [],
-   "file": "Source/D2Multi/Src/ComCallback.cpp",
+   "file": "Source/D2Launch/Src/CharSel.cpp",
    "fn_types": {},
    "form": "declared",
    "fwd": null,
-   "head": "static int s_nSelectionB_0070CC08 = ",
-   "include": "gen/data/Source/D2Multi/Src/ComCallback/s_nSelectionB_0070CC08.inc",
+   "head": "static int gnSelectionB = ",
+   "include": "gen/data/Source/D2Launch/Src/CharSel/gnSelectionB.inc",
    "linkage": "static",
    "model": {
     "k": "prim",
@@ -12853,13 +12853,13 @@
     "name": "int",
     "size": 4
    },
-   "name": "s_nSelectionB_0070CC08",
+   "name": "gnSelectionB",
    "pointers": [],
    "region": "data",
    "size": 4,
    "stars": 0,
    "struct": null,
-   "tail": ";                                                                   // 0x0070CC08",
+   "tail": ";                                                                             // 0x0070CC08",
    "type": "int",
    "va": "0x0070CC08"
   },

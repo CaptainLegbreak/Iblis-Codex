@@ -9490,6 +9490,11 @@
      "name": "?CHARSEL_PickClass@@YIXHH@Z"
     },
     {
+     "va": "0x00439840",
+     "length": 687,
+     "name": "?COMCALLBACK_OnCharSelectOk@@YGHH@Z"
+    },
+    {
      "va": "0x00439AF0",
      "length": 131,
      "name": "?CHARSEL_JoinSelectedWithDifficulty@@YIXPAUSMSGHANDLER_PARAMS@@H@Z"
@@ -11228,11 +11233,6 @@
      "va": "0x00430590",
      "length": 108,
      "name": "?COMCALLBACK_FilterNameChar@@YGHPAUD2WinControlStrc@@HPBD@Z"
-    },
-    {
-     "va": "0x00439840",
-     "length": 687,
-     "name": "?COMCALLBACK_OnCharSelectOk@@YGHH@Z"
     },
     {
      "va": "0x0043F730",

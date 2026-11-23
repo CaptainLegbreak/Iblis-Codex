@@ -297,12 +297,6 @@ D2WinControlStrc* gpPanelText; // 0x00798BF4
 
 D2WinControlStrc* gpPanelCancelButton; // 0x00798C48
 
-#include "gen/data/Source/D2Multi/Src/ComCallback/s_nSelected_0070CC00.inc"
-
-#include "gen/data/Source/D2Multi/Src/ComCallback/s_nSelectionA_0070CC04.inc"
-
-#include "gen/data/Source/D2Multi/Src/ComCallback/s_nSelectionB_0070CC08.inc"
-
 #define AWAY_TEXT_SIZE 0x100
 
 #define AWAY_COMMAND_DELAY 1000
@@ -729,89 +723,11 @@ int __stdcall COMCALLBACK_FilterNameChar(D2WinControlStrc* pControl, int bAllowS
     return 0;
 }
 
-// 0x00439840
-int __stdcall COMCALLBACK_OnCharSelectOk(int nArg)
-{
-    char szName[0x100];
-
 // build: symbol ?gbCharSelBusy@* 0x00779DA0
-    if (gbCharSelBusy)
-        return 1;
-
-    gpCharSelect_007795D4->nMode = 0;
-    if (s_nSelected_0070CC00 == s_nSelectionA_0070CC04)
-    {
-        if (gnLaunchMode != 1 || !gbFlag_00779DD8)
-        {
-            CHARSEL_Back(nArg);
-            gnCounter_00779DDC -= 1;
-            if (gnCounter_00779DDC <= 0)
-            {
-                gbFlag_00779DD8 = 1;
-                return 1;
-            }
-        }
-    }
-    else if (s_nSelected_0070CC00 == s_nSelectionB_0070CC08)
-    {
-        sub_004FB6A0_ClearText(gpCharSelectText);
-        sub_004FC9B0_SetText(gpCharSelectText, D2LANG_GetStringFromTblIndex(0x2B3C), 0, 0, 0);
-        sub_004FC9B0_SetText(gpCharSelectText, D2LANG_GetStringFromTblIndex(0x2B3D), 0, 0, 0);
-        return 1;
-    }
-    else if (s_nSelected_0070CC00 != -1)
-    {
 // build: symbol ?gpCharList@* 0x00779DBC
-        D2LaunchCharEntryStrc* pEntry = gpCharList;
-        for (int i = 0; pEntry; pEntry = pEntry->pNext, ++i)
-        {
-            if (s_nSelected_0070CC00 == i)
-                break;
-        }
-
-        if (!pEntry)
-            return 1;
-
-        if (gnLaunchMode == 1 || gnLaunchMode == 3)
-        {
-            memcpy(gpCharSelect_007795D4->aBlock0x3A1, pEntry->aBlock0x300, 0x10);
-            memcpy(gpCharSelect_007795D4->aBlock0x3B1, pEntry->aBlock0x310, 0x10);
-            gpCharSelect_007795D4->nByte0x3C1 = pEntry->nByte0x322;
-            gpCharSelect_007795D4->nByte0x3C2 = pEntry->nByte0x32E;
-            gpCharSelect_007795D4->wFlags = pEntry->wFlags;
-        }
-
-        if (pEntry->wFlags & 0x20)
-        {
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
-            if (!FOG_IsExpansion())
-                return 0;
-        }
-
-        if ((pEntry->wFlags & 4) && (pEntry->wFlags & 8) && (gnLaunchMode == 0 || gnLaunchMode == 2))
-        {
 // build: symbol ?MAINMENUS_DestroyControls@* 0x0042F3F0
-            CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14B8), MAINMENUS_DestroyControls);
-            return 1;
-        }
-
-        if (gnLaunchMode == 0 || (gnLaunchMode == 2 && gpCharSelect_007795D4->nState == 8))
-        {
-            int nClass = (pEntry->wFlags >> 8) & 0x1F;
-            if ((!(pEntry->wFlags & 0x20) && nClass >= 4) || nClass >= 5)
-            {
-                CHARSEL_PickClass(nClass, pEntry->wFlags & 0x20);
-                return 1;
-            }
-        }
-
-        sub_00526F70(szName, pEntry->wszName, 0xFF);
 // build: symbol ?MAINMENUS_JoinGame@* 0x00434A00
-        MAINMENUS_JoinGame(pEntry, pEntry->wFlags, pEntry->nType, szName);
-    }
-
-    return 1;
-}
 
 // 0x0043F730
 void __cdecl COMCALLBACK_UpdateNameListText()
