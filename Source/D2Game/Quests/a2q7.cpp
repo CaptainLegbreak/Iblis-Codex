@@ -158,6 +158,12 @@ void __fastcall ACT2Q7_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
 {
 }
 
+// 0x0059E2B0
+bool __fastcall ACT3Q7_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus)
+{
+    return false;
+}
+
 #define QUESTSTATEFLAG_A1Q1 1
 
 #define QUESTSTATEFLAG_A2Q4 12

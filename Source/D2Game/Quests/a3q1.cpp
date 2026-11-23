@@ -230,6 +230,23 @@ bool __fastcall ACT3Q1_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId,
     return false;
 }
 
+// 0x005B7310
+void __fastcall sub_005B7310(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp)
+{
+    if (!pQuestData)
+    {
+        return;
+    }
+    if (!pQuestData->bNotIntro)
+    {
+        UNITS_ChangeAnimMode(pOp->pObject, 2);
+    }
+    else
+    {
+        UNITS_ChangeAnimMode(pOp->pObject, ((D2Act3Quest1Strc*)pQuestData->pQuestDataEx)->nTomeObjectMode);
+    }
+}
+
 inline D2BitBufferStrc* sub_00543520(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
@@ -383,6 +400,12 @@ int __fastcall ACT3Q1_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStr
     }
 
     return 0;
+}
+
+// 0x005B7610
+void __fastcall ACT3Q5_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    QUESTS_RemovePlayerGUID(pQuestData, pQuestArg);
 }
 
 // 0x005B7620

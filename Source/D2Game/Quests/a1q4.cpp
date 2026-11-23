@@ -1723,6 +1723,16 @@ bool __fastcall ACT1Q4_SeqCallback(D2QuestDataStrc* pQuestData)
     return false;
 }
 
+// 0x00593E10
+void __fastcall sub_00593E10_SetQuestCompleteBefore(D2GameStrc* pGame)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 4);
+    if (pQuestData)
+    {
+        ((D2Act1Quest4Strc*)pQuestData->pQuestDataEx)->bQuestCompleteBefore = 1;
+    }
+}
+
 // 0x00593E30
 int __fastcall ACT1Q4_UnitIterate_SetCustom6Flag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -1786,6 +1796,28 @@ void __fastcall ACT1Q4_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     {
         D2GAME_DropItemAtUnit_6FC4FEC0(pQuestArg->pGame, pQuestArg->pTarget, 0, &nItemLevel, 0, -1, 0);
     }
+}
+
+// 0x00593F60
+void __fastcall sub_00593F60_SetUnk52(D2GameStrc* pGame)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 4);
+    if (pQuestData)
+    {
+        ((D2Act1Quest4Strc*)pQuestData->pQuestDataEx)->bCainInTownSpawnPending = 1;
+    }
+}
+
+// 0x00593F80
+int __fastcall sub_00593F80_GetCainNotCreated(D2GameStrc* pGame)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 4);
+    if (pQuestData)
+    {
+        return ((D2Act1Quest4Strc*)pQuestData->pQuestDataEx)->bCainNotCreated;
+    }
+    sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x99D);
+    exit(-1);
 }
 
 // 0x00593FC0

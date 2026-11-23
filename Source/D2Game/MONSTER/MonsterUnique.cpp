@@ -869,6 +869,26 @@ static void __stdcall MONSTERUNIQUE_MarkUnique(D2GameStrc* pGame, D2UnitStrc* pU
     }
 }
 
+static inline int GetUnitType(D2UnitStrc* pUnit)
+{
+    return !pUnit ? 6 : pUnit->dwUnitType;
+}
+
+// 0x005A0380
+int __fastcall sub_005A0380_HasMonsterFlag(D2UnitStrc* pUnit)
+{
+    D2MonsterDataStrc* pMonsterData = 0;
+    if (GetUnitType(pUnit) == 1)
+    {
+        pMonsterData = pUnit->pMonsterData;
+    }
+    if (!pMonsterData)
+    {
+        return 0;
+    }
+    return pMonsterData->nMonUmod[0] != 0;
+}
+
 short __fastcall MONSTERUNIQUE_GetBossHcIdx(D2UnitStrc* pUnit); // 0x005A01E0
 
 // 0x005A03A0
@@ -3213,6 +3233,101 @@ void __fastcall sub_005A0E40_IncreaseMonsterLevelAndExperience(D2UnitStrc* pUnit
         STATLIST_SetUnitStat(pUnit, STAT_LEVEL, nLevel + 3, 0);
         const int nExperience = STATLIST_GetUnitBaseStat(pUnit, STAT_EXPERIENCE, 0);
         STATLIST_SetUnitStat(pUnit, STAT_EXPERIENCE, 5 * nExperience, 0);
+    }
+}
+
+int __fastcall CUNIT_ValidateMonsterId(int nMonsterId); // 0x00463900
+
+static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    }
+
+    return 0;
+}
+
+static __forceinline int MONSTERUNIQUE_GetUModConstantInline(int nUMod)
+{
+    if (nUMod >= sgptDataTables->nMonUModTxtRecordCount)
+    {
+        return 0;
+    }
+    D2MonUModTxt* pMonUModTxtRecord = &sgptDataTables->pMonUModTxt[nUMod];
+    if (!pMonUModTxtRecord)
+    {
+        return 0;
+    }
+    return pMonUModTxtRecord->dwConstants;
+}
+
+// 0x005A0E80
+void __fastcall sub_005A0E80_ApplyMonsterPenalty(D2UnitStrc* pUnit, int nMode, int bApply)
+{
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nUnitType != 1)
+    {
+        return;
+    }
+
+    D2GameStrc* pGame = SUNIT_GetGameFromUnit(pUnit);
+    if (!pGame)
+    {
+        return;
+    }
+
+    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecordInline(pUnit->dwClassId);
+    if (!pMonStatsTxtRecord || !bApply)
+    {
+        return;
+    }
+
+    const int nLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_LEVEL, nLevel + -1, 0);
+    const unsigned int nExperience = STATLIST_GetUnitBaseStat(pUnit, STAT_EXPERIENCE, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_EXPERIENCE, nExperience - 2 * (nExperience / 5), 0);
+
+    int nDamage = MONSTERUNIQUE_GetUModConstantInline(11);
+    int nToHit = MONSTERUNIQUE_GetUModConstantInline(10);
+
+    D2DifficultyLevelsTxt* pDifficultyLevelsTxtRecord = DATATBLS_GetDifficultyLevelsTxtRecord(pGame->nDifficulty);
+    if (pDifficultyLevelsTxtRecord)
+    {
+        nDamage = nDamage * pDifficultyLevelsTxtRecord->dwChampionDmgBonus / 100;
+        nToHit = nToHit * pDifficultyLevelsTxtRecord->dwChampionDmgBonus / 100;
+        if (CUNIT_ValidateMonsterId(sub_00463860_GetMonsterId(pUnit)) == 118)
+        {
+            nDamage /= 2;
+        }
+    }
+
+    STATLIST_AddUnitStat(pUnit, STAT_DAMAGEPERCENT, nDamage, 0);
+    STATLIST_AddUnitStat(pUnit, STAT_ITEM_TOHIT_PERCENT, nToHit, 0);
+
+    if (pMonStatsTxtRecord->nVelocity <= 0 || nMode == 36)
+    {
+        return;
+    }
+
+    switch (nMode)
+    {
+    case 36:
+        STATLIST_AddUnitStat(pUnit, STAT_VELOCITYPERCENT, -33, 0);
+        break;
+
+    case 37:
+    {
+        int nVelocity = 0x800 / pMonStatsTxtRecord->nVelocity;
+        nVelocity -= 0x80;
+        nVelocity = D2_MIN(D2_MAX(nVelocity, 10), 100);
+        STATLIST_AddUnitStat(pUnit, STAT_VELOCITYPERCENT, nVelocity, 0);
+        break;
+    }
+
+    default:
+        STATLIST_AddUnitStat(pUnit, STAT_VELOCITYPERCENT, 20, 0);
+        break;
     }
 }
 

@@ -181,6 +181,28 @@ int __fastcall ACT3Q3_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
     return 0;
 }
 
+// 0x005B8C50
+void __fastcall sub_005B8C50_QuestCallback(D2QuestDataStrc* pQuest, D2QuestArgStrc* pArg)
+{
+    const int nClassId = !pArg->pTarget ? -1 : pArg->pTarget->dwClassId;
+    D2Act3Quest3Strc* pQuestDataEx = (D2Act3Quest3Strc*)pQuest->pQuestDataEx;
+    if ((unsigned short)nClassId == 0xFD)
+    {
+        if (pQuestDataEx->bHratliActivated == 1)
+        {
+            pQuest->nStatusFlags = 0;
+            QUESTS_UnitIterate(pQuest, 2, 0, ACT3Q3_UnitIterate_StatusCyclerEx, 1);
+            pQuestDataEx->bHratliActivated = 0;
+            SUNIT_IterateUnitsOfType(pQuest->pGame, 0, 0, ACT3Q3_UnitIterate_UpdateQuestStateFlags);
+        }
+    }
+    else if ((unsigned short)nClassId == 0xFF && pQuestDataEx->bGidbinnBroughtToOrmus)
+    {
+        pQuestDataEx->bGidbinnBroughtToOrmus = 0;
+        pQuestDataEx->bAltarCanBeActivated = 1;
+    }
+}
+
 // 0x005B8CC0
 bool __fastcall ACT3Q3_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus)
 {
