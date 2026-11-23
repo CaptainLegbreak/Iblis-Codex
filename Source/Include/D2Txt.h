@@ -428,7 +428,7 @@ struct D2MonStatsTxt
     unsigned char nSplEndDeath; // 0x1A4
     unsigned char nSplGetModeChart; // 0x1A5
     unsigned char nSpecialEnd; // 0x1A6
-    unsigned char nByte1A7; // 0x1A7
+    unsigned char nSplClientEnd; // 0x1A7
 };
 
 struct D2MonStats2Txt
@@ -706,7 +706,7 @@ D2_CHECK_OFFSET(D2ItemsTxt, nField1A5, 0x1A5);
 D2_CHECK_SIZE(D2MissilesTxt, 0x1A4);
 D2_CHECK_OFFSET(D2MissilesTxt, bAltPalette, 0x1A2);
 D2_CHECK_SIZE(D2MonStatsTxt, 0x1A8);
-D2_CHECK_OFFSET(D2MonStatsTxt, nByte1A7, 0x1A7);
+D2_CHECK_OFFSET(D2MonStatsTxt, nSplClientEnd, 0x1A7);
 D2_CHECK_SIZE(D2MonStats2Txt, 0x134);
 D2_CHECK_OFFSET(D2MonStats2Txt, nRestore, 0x130);
 D2_CHECK_SIZE(D2ObjectsTxt, 0x1C0);
