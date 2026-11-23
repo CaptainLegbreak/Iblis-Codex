@@ -8408,7 +8408,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00427160.cpp",
+   "file": "Source/Storm/zlib/deflate.c",
    "rank": 0,
    "functions": [
     {
@@ -8553,7 +8553,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00429810.cpp",
+   "file": "Source/Storm/zlib/inflate.c",
    "rank": 0,
    "functions": [
     {
@@ -8667,7 +8667,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0042B660.cpp",
+   "file": "Source/Storm/zlib/adler32.c",
    "rank": 0,
    "functions": [
     {
@@ -8707,7 +8707,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0042B9E0.cpp",
+   "file": "Source/Storm/zlib/trees.c",
    "rank": 0,
    "functions": [
     {
@@ -8832,7 +8832,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0042D450.cpp",
+   "file": "Source/Storm/zlib/crc32.c",
    "rank": 0,
    "functions": [
     {
@@ -8892,11 +8892,12 @@
     "/O2",
     "/Oy-",
     "/Ob2",
-    "/Gd"
+    "/Gd",
+    "/TC"
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0042DC30.cpp",
+   "file": "Source/Storm/zlib/zutil.c",
    "rank": 0,
    "functions": [
     {
@@ -22621,6 +22622,11 @@
      "name": "?CHAT_HasClassOverride@@YAHXZ"
     },
     {
+     "va": "0x0047AA60",
+     "length": 570,
+     "name": "?sub_0047AA60_OnImeComposition@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x0047AD60",
      "length": 148,
      "name": "?CHAT_RefreshCandidates@@YAXPAX@Z"
@@ -22668,6 +22674,16 @@
      "va": "0x0047B4F0",
      "length": 202,
      "name": "?sub_0047B4F0_DrawImeText@@YGXHH@Z"
+    },
+    {
+     "va": "0x0047B5C0",
+     "length": 342,
+     "name": "?sub_0047B5C0_DrawImeCandidates@@YAXXZ"
+    },
+    {
+     "va": "0x0047B720",
+     "length": 672,
+     "name": "?sub_0047B720_DrawChatPanel@@YAXXZ"
     },
     {
      "va": "0x0047B9C0",
@@ -23207,81 +23223,6 @@
      "va": "0x004BF9C0",
      "length": 1,
      "name": "?sub_004BF9C0_Nop@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0047AA60.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0047AA60",
-     "length": 570,
-     "name": "?sub_0047AA60_OnImeComposition@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0047B5C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0047B5C0",
-     "length": 342,
-     "name": "?sub_0047B5C0_DrawImeCandidates@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0047B720.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0047B720",
-     "length": 672,
-     "name": "?sub_0047B720_DrawChatPanel@@YAXXZ"
     }
    ],
    "flags": [
@@ -54966,11 +54907,6 @@
      "va": "0x00596BA0",
      "length": 1,
      "name": "?sub_00596BA0_EmptyCallback@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x0059F380",
-     "length": 185,
-     "name": "ACT2Q4_InitializeJerhynStartObject"
     }
    ]
   },
@@ -56096,6 +56032,25 @@
      "va": "0x0059F2A0",
      "length": 214,
      "name": "?ACT2Q4_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x0059F380",
+     "length": 185,
+     "name": "ACT2Q4_InitializeJerhynStartObject"
+    },
+    {
+     "va": "0x0059F440",
+     "length": 204
+    },
+    {
+     "va": "0x0059F510",
+     "length": 85,
+     "name": "?sub_0059F510_ACT2Q4_IsJerhynPalaceBlocked@@YIEPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x0059F570",
+     "length": 15,
+     "name": "?ACT2Q4_IsJerhynPalaceActivated@@YIHPAUD2GameStrc@@@Z"
     }
    ]
   },
@@ -56304,20 +56259,6 @@
    "file": "Source/D2Game/Unknown_0059F440.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0059F440",
-     "length": 204
-    },
-    {
-     "va": "0x0059F510",
-     "length": 85,
-     "name": "?sub_0059F510_ACT2Q4_IsJerhynPalaceBlocked@@YIEPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x0059F570",
-     "length": 15,
-     "name": "?ACT2Q4_IsJerhynPalaceActivated@@YIHPAUD2GameStrc@@@Z"
-    },
     {
      "va": "0x0059F580",
      "length": 668,
