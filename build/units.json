@@ -34743,11 +34743,6 @@
      "name": "sub_00513BB0"
     },
     {
-     "va": "0x00514920",
-     "length": 6,
-     "name": "D2SOUND_GetStreamChannelValue"
-    },
-    {
      "va": "0x00514C90",
      "length": 6,
      "name": "D2SOUND_GetSoundMixerOption"
@@ -39171,6 +39166,11 @@
      "va": "0x005140D0",
      "length": 1107,
      "name": "?sub_005140D0_InitDirectSound@@YAXXZ"
+    },
+    {
+     "va": "0x00514920",
+     "length": 6,
+     "name": "D2SOUND_GetStreamChannelValue"
     },
     {
      "va": "0x00514930",

@@ -1490,12 +1490,6 @@ int __cdecl sub_00513BB0()
     return gdwGlobal_0072F830;
 }
 
-// 0x00514920
-int __cdecl D2SOUND_GetStreamChannelValue()
-{
-    return gdwGlobal_00881798;
-}
-
 // 0x00514C90
 int __cdecl D2SOUND_GetSoundMixerOption()
 {
