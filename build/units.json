@@ -27692,11 +27692,6 @@
      "name": "sub_004B1DC0"
     },
     {
-     "va": "0x004B1F60",
-     "length": 19,
-     "name": "?MONSTER_IsItemIdentified@@YAHPAUD2UnitStrc@@@Z"
-    },
-    {
      "va": "0x004B2010",
      "length": 3,
      "name": "sub_004B2010"
@@ -28699,6 +28694,11 @@
      "va": "0x004B1C80",
      "length": 205,
      "name": "?sub_004B1C80_GetNpcDialogPos@@YAHPAUD2CoordStrc@@@Z"
+    },
+    {
+     "va": "0x004B1F60",
+     "length": 19,
+     "name": "?MONSTER_IsItemIdentified@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004B2650",

@@ -657,6 +657,12 @@ void __stdcall NPCMENU_SendTradeRequest(int bAlternate, int nFlags)
 
 int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nMode, int nX, int nY, int nArg, int bCheckTick, int bRepairAll); // 0x004B3870
 
+// 0x004B1F60
+static inline int MONSTER_IsItemIdentified(D2UnitStrc* pItem)
+{
+    return ITEMS_CheckItemFlag(pItem, 0x10, 0x999, ".\\UI\\npcmenu.cpp");
+}
+
 // 0x004B2AD0
 int __fastcall NPCMENU_GetTradeCostText(D2UnitStrc* pItem, int bService, int* pCost, Unicode* pText, int nMaxLength)
 {
@@ -681,7 +687,7 @@ int __fastcall NPCMENU_GetTradeCostText(D2UnitStrc* pItem, int bService, int* pC
         case 0xF4:
         case 0xF5:
         case 0x109:
-            if (ITEMS_CheckItemFlag(pItem, 0x10, 0x999, ".\\UI\\npcmenu.cpp") == 1)
+            if (MONSTER_IsItemIdentified(pItem) == 1)
             {
                 *(int*)pText = 0;
                 return 1;
