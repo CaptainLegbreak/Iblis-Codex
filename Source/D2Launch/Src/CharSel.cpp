@@ -3149,6 +3149,11 @@ void __cdecl CHARSEL_ClearFuncTable()
     sub_00518C20_DeleteQueueLock();
 }
 
+D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
+int gdwGlobal_0077AC04; // 0x0077AC04
+static int gbBattleNetConnected; // 0x0077AC08
+static int gbConnecting; // 0x0077AC0C
+
 // 0x0043B810
 void __cdecl CHARSEL_SetCancelled()
 {
@@ -3159,6 +3164,18 @@ void __cdecl CHARSEL_SetCancelled()
 void __cdecl CHARSEL_ClearCancelled()
 {
     gdwGlobal_0077AC04 = 0;
+}
+
+// 0x0043B830
+int __cdecl sub_0043B830()
+{
+    return gdwGlobal_0077AC04;
+}
+
+// 0x0043B840
+int __cdecl sub_0043B840()
+{
+    return gbBattleNetConnected;
 }
 
 // 0x0043B850
@@ -3226,28 +3243,40 @@ void __cdecl CHARSEL_DisconnectBattleNet()
 }
 
 void __cdecl sub_0042F880_DestroyControls(); // 0x0042F880
+
 void __cdecl CHARSEL_CreateConnectScreen(); // 0x00436D50
+
 int __stdcall sub_00436E90_AlwaysOne(int nArg); // 0x00436E90
+
 int __cdecl sub_00436EA0(); // 0x00436EA0
+
 int __stdcall sub_0043B890(int nArg); // 0x0043B890
+
 int __stdcall sub_0043B8E0(int nArg); // 0x0043B8E0
+
 int __stdcall sub_0043B940(int nArg); // 0x0043B940
+
 int __fastcall CHARSEL_HandleStatus(D2StatusStrc* pStatus); // 0x0043B9F0
+
 extern "C" __declspec(dllimport) int __stdcall TerminateProcess(void* hProcess, unsigned int nExitCode); // 0x006CC274
+
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
+
 void __cdecl COMCALLBACK_ShowProgressScreen(); // 0x0042F890
+
 void __cdecl sub_0042FA20(); // 0x0042FA20
+
 int __stdcall sub_004374F0_UpdateStatusWait(int nArg); // 0x004374F0
+
 void __cdecl MAINMENUS_CreateStatusScreen(); // 0x00437550
+
 int __stdcall sub_0043B850_LogonCallback(int nArg); // 0x0043B850
+
 int __stdcall D2Win_CloseSpriteCache(); // 0x004F9030
+
 void __stdcall sub_00517ED0(int nValue); // 0x00517ED0
+
 extern int gbConnectCancelled; // 0x007795F4
-extern int gbBattleNetConnected; // 0x0077AC08
-D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
-int gdwGlobal_0077AC04; // 0x0077AC04
-static int gbBattleNetConnected; // 0x0077AC08
-static int gbConnecting; // 0x0077AC0C
 
 // 0x0043BF40
 static __declspec(noinline) void sub_0043BF40_ReportStatus(int nCode, int nArg)
