@@ -117,3 +117,62 @@ D2_CHECK_SIZE(D2NpcGambleStrc, 0x0C);
 D2_CHECK_SIZE(D2ObjectRegionStrc, 0x90);
 D2_CHECK_SIZE(D2UnkMonCreateStrc, 0x28);
 D2_CHECK_SIZE(D2ServerCallbackFunctions, 0x58);
+
+struct D2UnitInfoStrc
+{
+    int nUnitType; // 0x00
+    int nClassId; // 0x04
+    int nUnitGUID; // 0x08
+    int nAnimMode; // 0x0C
+    int nX; // 0x10
+    int nY; // 0x14
+    int nOwnerType; // 0x18
+    int nOwnerGUID; // 0x1C
+    int unk0x20; // 0x20
+    char szDescription[16]; // 0x24
+};
+
+struct D2MessageThreadArgsStrc
+{
+    int nParam1; // 0x00
+    int nParam2; // 0x04
+    char szMessage[0x100]; // 0x08
+};
+
+struct D2NPCMessageStrc
+{
+    int nNPCNo; // 0x00
+    unsigned short nStringIndex; // 0x04
+    unsigned short nPad; // 0x06
+    int nMenu; // 0x08
+};
+
+struct D2ObjectRoomCoordStrc
+{
+    D2ActiveRoomStrc* pRoom; // 0x00
+    int nX; // 0x04
+    int nY; // 0x08
+    D2ObjectRoomCoordStrc* pNext; // 0x0C
+};
+
+struct D2NpcConfigStrc
+{
+    int nClassId; // 0x00
+    unsigned char bTrader; // 0x04
+    unsigned char nAct; // 0x05
+    unsigned char unknown06; // 0x06
+    unsigned char unknown07; // 0x07
+};
+
+struct D2NpcConfigTableStrc
+{
+    int nCount; // 0x00
+    D2NpcConfigStrc entries[64]; // 0x04
+};
+
+D2_CHECK_SIZE(D2UnitInfoStrc, 0x34);
+D2_CHECK_SIZE(D2MessageThreadArgsStrc, 0x108);
+D2_CHECK_SIZE(D2NPCMessageStrc, 0xC);
+D2_CHECK_SIZE(D2ObjectRoomCoordStrc, 0x10);
+D2_CHECK_SIZE(D2NpcConfigStrc, 0x8);
+D2_CHECK_SIZE(D2NpcConfigTableStrc, 0x204);

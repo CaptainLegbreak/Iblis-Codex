@@ -126,8 +126,6 @@ struct D2SuperUniquesTxt;
 
 struct D2ObjInitFnStrc;
 
-struct D2NPCMessageStrc;
-
 
 struct D2StaticPathStrc;
 
@@ -185,14 +183,6 @@ void __fastcall ACT2Q3_InitAltarObject(D2QuestDataStrc* pQuestData, D2ObjInitFnS
 void __fastcall sub_005B7310(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp); // 0x005B7310
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
-
-struct D2NPCMessageStrc
-{
-    int nNPCNo;
-    unsigned short nStringIndex;
-    unsigned short nPad;
-    int nMenu;
-};
 
 
 void __stdcall TEXT_AddNodeToTextList(D2TextHeaderStrc* pTextHeader, short nStringId, int nMenu); // 0x006612F0

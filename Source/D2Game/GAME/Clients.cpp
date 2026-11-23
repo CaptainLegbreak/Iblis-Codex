@@ -695,20 +695,6 @@ void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int
 
 static void SUNITPROXY_InitializeItemCache(D2GameStrc* pGame, D2UnitProxyStrc* pUnitProxy, int nNpcInventoryId);
 
-struct D2NpcConfigStrc
-{
-    int nClassId;
-    unsigned char bTrader;
-    unsigned char nAct;
-    unsigned char unknown06;
-    unsigned char unknown07;
-};
-
-struct D2NpcConfigTableStrc
-{
-    int nCount;
-    D2NpcConfigStrc entries[64];
-};
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
@@ -2480,19 +2466,6 @@ int __stdcall GAME_GetPlayerUnitsCount(unsigned short nGameId);
 
 #define UNLOCK_LINE 4196
 
-struct D2UnitInfoStrc
-{
-    int nUnitType;
-    int nClassId;
-    int nUnitGUID;
-    int nAnimMode;
-    int nX;
-    int nY;
-    int nOwnerType;
-    int nOwnerGUID;
-    int unk0x20;
-    char szDescription[INFO_DESCRIPTION_SIZE];
-};
 
 void __fastcall SUNIT_FillUnitInfo(D2UnitStrc* pUnit, D2UnitInfoStrc* pUnitInfo);                           // 0x00553F30
 
@@ -2502,13 +2475,6 @@ static inline D2GameStrc* GAMELINK_Next(D2GameLinkStrc* pLink)
     return (int)pLink->pNext <= 0 ? 0 : pLink->pNext;
 }
 
-
-struct D2MessageThreadArgsStrc
-{
-    int nParam1;
-    int nParam2;
-    char szMessage[0x100];
-};
 
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* lpThreadAttributes, unsigned long dwStackSize, unsigned long (__stdcall* lpStartAddress)(D2MessageThreadArgsStrc*), D2MessageThreadArgsStrc* lpParameter, unsigned long dwCreationFlags, unsigned long* lpThreadId); // 0x006CC250
 
@@ -2634,8 +2600,6 @@ void __fastcall sub_0054A9B0(D2GameStrc*,const char*,unsigned char);  // 0x0054A
 
 enum { MODE_MASK = 15 };
 
-
-struct D2UnitInfoStrc;
 
 struct HASHKEY_NONE;
 
