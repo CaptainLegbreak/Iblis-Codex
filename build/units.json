@@ -74166,6 +74166,10 @@
      "name": "?sub_0064B2A0_GetMissileElementLength@@YGHPAUD2UnitStrc@@0HH@Z"
     },
     {
+     "va": "0x0064B340",
+     "length": 920
+    },
+    {
      "va": "0x0064B6E0",
      "length": 29,
      "name": "?MISSILE_GetCalcParamValue@@YIHHPAX@Z"
@@ -74179,6 +74183,10 @@
      "va": "0x0064B760",
      "length": 87,
      "name": "MISSILE_GetSpecialParamValueForSkillMissile"
+    },
+    {
+     "va": "0x0064B7C0",
+     "length": 157
     },
     {
      "va": "0x0064B860",
@@ -74342,14 +74350,6 @@
     {
      "va": "0x0064ABA0",
      "length": 180
-    },
-    {
-     "va": "0x0064B340",
-     "length": 920
-    },
-    {
-     "va": "0x0064B7C0",
-     "length": 157
     }
    ],
    "flags": [
