@@ -1,21 +1,35 @@
-
 struct CERT_CONTEXT;
+
 struct GUID;
+
 struct TRUSTFILEINFO;
+
 struct TRUSTDATA;
+
 struct CRYPT_INTEGER_BLOB;
+
 struct CRYPT_ALGORITHM_IDENTIFIER;
+
 struct CRYPT_BIT_BLOB;
+
 struct FILETIME;
+
 struct CERT_PUBLIC_KEY_INFO;
+
 struct CERT_INFO;
+
 struct CMSG_SIGNER_INFO;
 
 void __fastcall sub_00517804_GetText(unsigned int, char*, unsigned int); // 0x00517804
+
 void __cdecl sub_005173DF_TerminateCurrentProcess(); // 0x005173DF
+
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char*, const char*, char*); // 0x006CC4AC
+
 extern "C" __declspec(dllimport) int __stdcall MessageBoxA(void*, const char*, const char*, unsigned int); // 0x006CC464
+
 extern const char* gszCaption_006CC848; // 0x006CC848
+
 void __fastcall __security_check_cookie(unsigned int); // 0x00681A48
 
 typedef unsigned long DWORD;
@@ -29,9 +43,13 @@ typedef void* HWND;
 struct GUID { unsigned long Data1; unsigned short Data2; unsigned short Data3; unsigned char Data4[8]; };
 
 extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(unsigned int CodePage, DWORD dwFlags, const char* lpMultiByteStr, int cbMultiByte, wchar_t* lpWideCharStr, int cchWideChar); // 0x006CC29C
+
 extern "C" __declspec(dllimport) DWORD __stdcall GetLastError(void); // 0x006CC1B4
+
 void* __cdecl operator new(unsigned int nSize); // 0x00405410
+
 void __cdecl operator delete(void* pMemory); // 0x004053F0
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 struct TRUSTFILEINFO
@@ -98,14 +116,23 @@ struct CMSG_SIGNER_INFO
 };
 
 extern "C" __declspec(dllimport) int __stdcall WideCharToMultiByte(unsigned int CodePage, DWORD dwFlags, const wchar_t* lpWideCharStr, int cchWideChar, char* lpMultiByteStr, int cbMultiByte, const char* lpDefaultChar, int* lpUsedDefaultChar); // 0x006CC194
+
 extern "C" __declspec(dllimport) void* __stdcall LocalAlloc(unsigned int uFlags, unsigned int uBytes); // 0x006CC380
+
 extern "C" __declspec(dllimport) void* __stdcall LocalFree(void* hMem); // 0x006CC37C
+
 extern "C" __declspec(dllimport) int __stdcall CryptQueryObject(DWORD dwObjectType, const void* pvObject, DWORD dwExpectedContentTypeFlags, DWORD dwExpectedFormatTypeFlags, DWORD dwFlags, DWORD* pdwMsgAndCertEncodingType, DWORD* pdwContentType, DWORD* pdwFormatType, HCERTSTORE* phCertStore, HCRYPTMSG* phMsg, const void** ppvContext); // 0x006CC064
+
 extern "C" __declspec(dllimport) int __stdcall CryptMsgGetParam(HCRYPTMSG hCryptMsg, DWORD dwParamType, DWORD dwIndex, void* pvData, DWORD* pcbData); // 0x006CC060
+
 extern "C" __declspec(dllimport) const CERT_CONTEXT* __stdcall CertFindCertificateInStore(HCERTSTORE hCertStore, DWORD dwCertEncodingType, DWORD dwFindFlags, DWORD dwFindType, const void* pvFindPara, const CERT_CONTEXT* pPrevCertContext); // 0x006CC05C
+
 extern "C" __declspec(dllimport) DWORD __stdcall CertGetNameStringW(const CERT_CONTEXT* pCertContext, DWORD dwType, DWORD dwFlags, void* pvTypePara, wchar_t* pszNameString, DWORD cchNameString); // 0x006CC070
+
 extern "C" __declspec(dllimport) int __stdcall CertFreeCertificateContext(const CERT_CONTEXT* pCertContext); // 0x006CC058
+
 extern "C" __declspec(dllimport) int __stdcall CertCloseStore(HCERTSTORE hCertStore, DWORD dwFlags); // 0x006CC068
+
 extern "C" __declspec(dllimport) int __stdcall CryptMsgClose(HCRYPTMSG hCryptMsg); // 0x006CC06C
 
 // 0x00517874
@@ -178,6 +205,21 @@ int __fastcall sub_00517A36_CompareMemory(const void* pFirst, const void* pSecon
     return 1;
 different:
     return 0;
+}
+
+// 0x00517ABB
+int __cdecl sub_00517ABB_FindLowestSetBit(unsigned int dwMask)
+{
+    int nIndex;
+    if (!dwMask)
+        return 0;
+    __asm
+    {
+        bsf eax, dwMask
+        inc eax
+        mov nIndex, eax
+    }
+    return nIndex;
 }
 
 // 0x00517AD6
