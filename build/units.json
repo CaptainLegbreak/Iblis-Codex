@@ -32293,6 +32293,10 @@
      "length": 231
     },
     {
+     "va": "0x004DD550",
+     "length": 163
+    },
+    {
      "va": "0x004DD600",
      "length": 214,
      "name": "?sub_004DD600_AddSpecial@@YGXPAUCell@@PAUContext@@PAUUnit@@@Z"
@@ -32341,6 +32345,10 @@
      "length": 160
     },
     {
+     "va": "0x004DE190",
+     "length": 202
+    },
+    {
      "va": "0x004DE260",
      "length": 430
     },
@@ -32353,34 +32361,6 @@
      "length": 819,
      "name": "?sub_004DE730_UpdateView@D2FloorTileViewStrc@@QAEXPAX@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004DD550.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004DD550",
-     "length": 163
-    },
-    {
-     "va": "0x004DE190",
-     "length": 202
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
