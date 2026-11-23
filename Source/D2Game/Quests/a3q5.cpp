@@ -799,6 +799,35 @@ void __fastcall ACT3Q5_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     QUESTS_SetGlobalState(pQuestData->pGame, 21, 13);
 }
 
+// 0x005BBE20
+bool __fastcall ACT3Q5_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus)
+{
+    if (!QUESTRECORD_GetQuestState(pFlags, 15, 0))
+    {
+        *pStatus = 0;
+        return true;
+    }
+
+    *pStatus = pQuest->fLastState;
+    if (QUESTRECORD_GetQuestState(pFlags, 21, 0))
+    {
+        *pStatus = QUESTRECORD_GetQuestState(pFlags, 21, 13) ? 13 : 11;
+        return true;
+    }
+
+    if (QUESTRECORD_GetQuestState(pFlags, 21, 4))
+    {
+        *pStatus = ((D2Act3Quest5Strc*)pQuest->pQuestDataEx)->bOrbSmashed ? 13 : 4;
+    }
+
+    if (!pQuest->bNotIntro)
+    {
+        *pStatus = 0;
+    }
+
+    return true;
+}
+
 // 0x005BBEB0
 void __fastcall ACT3Q5_InitQuestData(D2QuestDataStrc* pQuestData)
 {

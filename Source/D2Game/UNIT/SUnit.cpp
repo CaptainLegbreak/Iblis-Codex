@@ -1705,17 +1705,6 @@ int __cdecl SUNIT_GetItemsTxtCount()
     return pItemDataTbl->nItemsTxtRecordCount;
 }
 
-// 0x005564D0
-int __fastcall ITEMS_IsUniqueAlreadyDropped(D2GameStrc* pGame, D2UnitStrc* pItem)
-{
-    if (ITEMS_GetItemQuality(pItem) != ITEMQUAL_UNIQUE)
-    {
-        return 0;
-    }
-
-    return ITEMS_HasUniqueBeenDroppedAlready_Inlined(pGame, ITEMS_GetFileIndex(pItem));
-}
-
 // 0x00554010
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* hUnit)
 {

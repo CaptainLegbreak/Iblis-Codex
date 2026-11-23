@@ -242,6 +242,64 @@ void __fastcall PLAYER_FreePlayerDataExtras(D2GameStrc* pGame, D2UnitStrc* pPlay
     }
 }
 
+void __fastcall SUNIT_InitClientInPlayerData(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00553180
+
+#define UNITFLAG_TARGETABLE 0x02
+
+#define UNITFLAG_CANBEATTACKED 0x04
+
+#define UNITFLAG_ISVALIDTARGET 0x08
+
+struct D2SkillListStrc;
+
+typedef void (__fastcall* STATLIST_CallbackFn)(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pOther, int nLayer_StatId, int nPreviousValue, int nNewValue);
+
+void __fastcall sub_00534800_CreatePlayerIntros(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00534800
+
+void __fastcall ARENA_AllocArenaUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0053F530
+
+void __fastcall D2GAME_DeleteTimersOnUnit_6FC34A30(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540F30
+
+void __fastcall SUNIT_SetAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
+
+void __fastcall D2GAME_ITEMMODE_ServerStatlistCallback_6FC41910(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pOther, int nLayer_StatId, int nPreviousValue, int nNewValue); // 0x0055B800
+
+void __fastcall PLAYERPETS_AllocPetList(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00575AF0
+
+void __stdcall UNITS_AllocPlayerData(D2UnitStrc* pUnit); // 0x00621F90
+
+void __stdcall STATLIST_AllocStatListEx(D2UnitStrc* pUnit, int nFlags, STATLIST_CallbackFn pfCallback, D2GameStrc* pGame); // 0x00626D40
+
+D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* pOwner); // 0x0063ABD0
+
+D2SkillListStrc* __stdcall SKILLS_AllocSkillList(void* pMemPool); // 0x006438B0
+
+void __stdcall SKILLS_InitSkillList(D2UnitStrc* pUnit); // 0x00647EE0
+
+// 0x005348C0
+void __fastcall PLAYER_Create(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPlayerGUID)
+{
+    D2_ASSERT(pPlayer, 71);
+
+    pPlayer->dwFlags |= UNITFLAG_ISVALIDTARGET | UNITFLAG_CANBEATTACKED | UNITFLAG_TARGETABLE;
+    pPlayer->dwUnitId = nPlayerGUID;
+
+    INVENTORY_AllocInventory(0, pPlayer);
+
+    pPlayer->pSkills = SKILLS_AllocSkillList(pGame->pMemoryPool);
+    SKILLS_InitSkillList(pPlayer);
+
+    STATLIST_AllocStatListEx(pPlayer, 0, D2GAME_ITEMMODE_ServerStatlistCallback_6FC41910, pGame);
+    UNITS_AllocPlayerData(pPlayer);
+    sub_00534800_CreatePlayerIntros(pGame, pPlayer);
+
+    SUNIT_InitClientInPlayerData(pPlayer, 0);
+    D2GAME_DeleteTimersOnUnit_6FC34A30(pGame, pPlayer);
+    ARENA_AllocArenaUnit(pGame, pPlayer);
+    PLAYERPETS_AllocPetList(pGame, pPlayer);
+    SUNIT_SetAlignment(pPlayer, 2, 1);
+}
+
 // 0x00534970
 static void sub_00534970_RemoveCorpseUnits(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
@@ -483,6 +541,17 @@ void __fastcall PLAYER_SetUniqueIdInPlayerData(D2UnitStrc* pPlayer, int nUnitGUI
     pPlayerData->dwUniqueId = nUnitGUID;
 }
 
+// 0x005353F0
+int __fastcall PLAYER_GetUniqueIdFromPlayerData(D2UnitStrc* pPlayer)
+{
+    D2_ASSERT(pPlayer, 0x24D);
+
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    D2_ASSERT(pPlayerData, 0x250);
+
+    return pPlayerData->dwUniqueId;
+}
+
 // 0x00535430
 void __fastcall PLAYER_RemoveTownPortal(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
@@ -581,6 +650,46 @@ int __fastcall PLAYER_DropGold(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitGU
     }
 
     return 1;
+}
+
+void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190
+
+int __fastcall PLRTRADE_PrepareItemChange(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* a3); // 0x00567620
+
+int __fastcall MONSTERAI_IsInteractionReady(D2UnitStrc* pNpc, D2UnitStrc* pPlayer); // 0x00573140
+
+// 0x00535610
+int __fastcall PLAYER_CanModifyInventory(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* a3)
+{
+    int nUnitType;
+    int nUnitGUID;
+    if (SUNIT_GetInteractInfo(pPlayer, &nUnitType, &nUnitGUID))
+    {
+        D2UnitStrc* pInteractUnit = SUNIT_GetServerUnit(pGame, nUnitType, nUnitGUID);
+        if (!pInteractUnit)
+        {
+            SUNIT_ResetInteractInfo(pPlayer);
+            return 0;
+        }
+
+        switch (nUnitType)
+        {
+        case UNIT_PLAYER:
+            return PLRTRADE_PrepareItemChange(pGame, pPlayer, a3);
+
+        case UNIT_MONSTER:
+            return MONSTERAI_IsInteractionReady(pInteractUnit, pPlayer);
+        }
+    }
+    else
+    {
+        if (UNITS_GetPlayerData(pPlayer)->bBusy)
+        {
+            return 0;
+        }
+    }
+
+    return PLRTRADE_PrepareItemChange(pGame, pPlayer, a3);
 }
 
 // 0x005356B0

@@ -1762,6 +1762,34 @@ int __fastcall SKILLITEM_EventFunc17_ManaAfterKill(D2GameStrc* pGame, int nEvent
     return 1;
 }
 
+// 0x005C01D0
+int __fastcall SKILLITEM_EventFunc28_HealAfterKill(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
+{
+    if (!pAttacker || !pUnit)
+    {
+        return 0;
+    }
+
+    const int nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, (unsigned int)nSkillId >> 16, nSkillId);
+    if (!nValue)
+    {
+        return 0;
+    }
+
+    const int nMaxHp = STATLIST_GetMaxLifeFromUnit(pAttacker);
+    int nHitpoints = STATLIST_UnitGetStatValue(pAttacker, STAT_HITPOINTS, 0);
+    if (nHitpoints >= nMaxHp)
+    {
+        return 0;
+    }
+
+    nHitpoints += nValue << 8;
+    nHitpoints = nHitpoints > 0 ? nHitpoints : 0;
+    STATLIST_SetUnitStat(pAttacker, STAT_HITPOINTS, nHitpoints < nMaxHp ? nHitpoints : nMaxHp, 0);
+    UNITS_SetOverlay(pAttacker, 151, 0);
+    return 1;
+}
+
 // 0x005C0260
 int __fastcall SKILLITEM_EventFunc18_HealAfterDemonKill(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
 {
@@ -1873,37 +1901,6 @@ int __fastcall SKILLS_CanImpregnateTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget
     }
 
     return STATLIST_GetUnitAlignment(pTarget) != 2;
-}
-
-// 0x005DC920
-int __fastcall AIUTIL_GetThreat(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_PLAYER:
-        return 14;
-
-    case UNIT_MONSTER:
-    {
-        const int nClassId = pUnit->dwClassId;
-        D2MonStatsTxt* pMonStatsTxtRecord = (nClassId >= 0 && nClassId < sgptDataTables->nMonStatsTxtRecordCount) ? &sgptDataTables->pMonStatsTxt[nClassId] : 0;
-        if (pMonStatsTxtRecord)
-        {
-            return pMonStatsTxtRecord->nThreat;
-        }
-        break;
-    }
-
-    default:
-        break;
-    }
-
-    return 0;
 }
 
 // 0x005BF5D0
@@ -2280,29 +2277,6 @@ int __fastcall SKILLITEM_EventFunc31_Reanimate(D2GameStrc* pGame, int nEvent, D2
         }
 
         pAttacker = AIGENERAL_GetMinionOwner(pAttacker);
-    }
-
-    return 0;
-}
-
-// 0x005C0BE0
-D2UnitEventStrc* __fastcall SUNITEVENT_GetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nTimerQueueNo, int a4, int nGUID1)
-{
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    D2UnitEventStrc* pUnitEvent = pUnit->pSrvUnitEventsList;
-    while (pUnitEvent)
-    {
-        D2UnitEventStrc* pNext = pUnitEvent->pNext;
-        if (pUnitEvent->nEventGroup == nTimerQueueNo && pUnitEvent->unk0x08 == a4 && pUnitEvent->nGUID1 == nGUID1)
-        {
-            return pUnitEvent;
-        }
-
-        pUnitEvent = pNext;
     }
 
     return 0;

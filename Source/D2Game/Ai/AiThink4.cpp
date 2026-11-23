@@ -4870,6 +4870,21 @@ void __fastcall AITHINK_Fn059_BloodRaven(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
 }
 
+// 0x005E6800
+bool __fastcall AITHINK_InitHomeCommand(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pAiTickParam)
+{
+    D2AiCmdStrc* pAiCmd = AIGENERAL_SetCurrentAiCommand(pGame, pUnit, 10, 0);
+    if (pAiCmd && !pAiCmd->nCmdParam[1] && !pAiCmd->nCmdParam[2])
+    {
+        pAiCmd->nCmdParam[1] = CLIENTS_GetUnitX(pUnit);
+        pAiCmd->nCmdParam[2] = CLIENTS_GetUnitY(pUnit);
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
+        return true;
+    }
+
+    return false;
+}
+
 // 0x005E6860
 bool __fastcall AITHINK_ReturnToHomeIfTooFar(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam, unsigned int nMaxDistance)
 {
@@ -12661,6 +12676,44 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_ShadowMaster(D2GameStrc* pGame, D2
     }
 
     return 0;
+}
+
+struct D2StatesTxt;
+
+static inline D2StatesTxt* STATES_GetStatesTxtRecordInline(int nStateId)
+{
+    if (nStateId >= 0 && nStateId < sgptDataTables->nStatesTxtRecordCount)
+    {
+        return &sgptDataTables->pStatesTxt[nStateId];
+    }
+
+    return 0;
+}
+
+// 0x005EB7F0
+int __fastcall AITHINK_IsStateGroupActive(D2UnitStrc* pUnit, int nStateId)
+{
+    D2StatesTxt* pStatesTxtRecord = STATES_GetStatesTxtRecordInline(nStateId);
+    if (!pStatesTxtRecord || !pStatesTxtRecord->wGroup)
+    {
+        return 0;
+    }
+
+    int nResult = 0;
+    const int nGroup = (short)pStatesTxtRecord->wGroup;
+    const int nCount = sgptDataTables->nStatesTxtRecordCount;
+    for (int i = 0; i < nCount; ++i)
+    {
+        if (i != nStateId)
+        {
+            if ((short)STATES_GetStatesTxtRecordInline(i)->wGroup == nGroup && STATES_CheckState(pUnit, i))
+            {
+                nResult = 1;
+            }
+        }
+    }
+
+    return nResult;
 }
 
 // 0x005EB8B0

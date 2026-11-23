@@ -449,58 +449,6 @@ int __fastcall ACT2Q6_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
     return 0;
 }
 
-// 0x0059C710
-int __fastcall ACT2Q6_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 14, 13))
-    {
-        SUNIT_AttachSound(pUnit, 54, pUnit);
-    }
-
-    return 0;
-}
-
-// 0x0059C760
-void __fastcall ACT2Q6_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    const int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
-    D2Act2Quest6Strc* pQuestDataEx = (D2Act2Quest6Strc*)pQuestData->pQuestDataEx;
-    if ((short)nNpcId == 251)
-    {
-        if (pQuestDataEx->bTyraelActivated == 1)
-        {
-            pQuestData->nStatusFlags = 0;
-            QUESTS_UnitIterate(pQuestData, 4, 0, ACT2Q6_UnitIterate_StatusCyclerEx, 1);
-            pQuestDataEx->bTyraelActivated = 0;
-            pQuestData->pCallback[2] = 0;
-        }
-    }
-    else if ((short)nNpcId == 201)
-    {
-        if (pQuestDataEx->bInitJerhynActivated == 1)
-        {
-            pQuestData->nStatusFlags = 0;
-            QUESTS_UnitIterate(pQuestData, 1, 0, ACT2Q6_UnitIterate_StatusCyclerEx, 1);
-            pQuestDataEx->bInitJerhynActivated = 0;
-        }
-        else
-        {
-            if (pQuestDataEx->bEndJerhynActivated != 1)
-            {
-                return;
-            }
-
-            pQuestData->nStatusFlags = 0;
-            QUESTS_UnitIterate(pQuestData, 6, 0, ACT2Q6_UnitIterate_StatusCyclerEx, 1);
-            pQuestDataEx->bEndJerhynActivated = 0;
-        }
-
-        pQuestData->pCallback[2] = 0;
-        SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, (QUESTUNITITERATE)ACT2Q6_UnitIterate_UpdateQuestStateFlags);
-    }
-}
-
 // 0x0059C9A0
 int __fastcall ACT2Q6_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {

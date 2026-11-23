@@ -310,17 +310,6 @@ int __fastcall ACT1Q4_IsCainInTristramDeactivated(D2GameStrc* pGame)
     return ((D2Act1Quest4Strc*)pQuestData->pQuestDataEx)->bCainInTristramDeactivated != 0;
 }
 
-// 0x005956C0
-void __fastcall ACT1Q5_SpawnChestMissilesAndEvent(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
-{
-    ACT1Q5_SpawnTowerChestMissiles(pQuestData, (D2Act1Quest5Strc*)pQuestData->pQuestDataEx);
-
-    if (((D2Act1Quest5Strc*)pQuestData->pQuestDataEx)->bCountessKilled && !((D2Act1Quest5Strc*)pQuestData->pQuestDataEx)->bDeathMissilesCreated)
-    {
-        EVENT_SetEvent(pQuestData->pGame, pUnit, 7, pQuestData->pGame->dwGameFrame + 10, 0, 0);
-    }
-}
-
 // 0x0059AC80
 bool __fastcall ACT2Q3_IsAltarDestroyed(D2QuestDataStrc* pQuest)
 {
@@ -977,6 +966,51 @@ void __fastcall ACT2Q6_SendTombIdToClient(D2GameStrc* pGame, D2UnitStrc* pUnit)
     D2GAME_SendPacket0x50_6FC3F440(pClient, &packet50);
 }
 
+static int gnArcaneThingObjectIds[] =                                                               // 0x00738FAC
+{
+    313, 312, 308, 310, 311, 309, 307
+};
+
+// 0x0059D720
+int __fastcall ACT2Q6_GetTombArcaneThingObjectId(D2QuestDataStrc* pQuestData)
+{
+    const int nTombStaffLevel = DUNGEON_GetHoradricStaffTombLevelId(pQuestData->pGame->pAct[1]);
+    if (nTombStaffLevel)
+    {
+        D2Act2Quest6Strc* pQuestDataEx = (D2Act2Quest6Strc*)pQuestData->pQuestDataEx;
+        const int nTombOffset = nTombStaffLevel - LEVEL_TALRASHASTOMB1;
+        if (!pQuestDataEx->bObjectIdsInitialized)
+        {
+            pQuestDataEx->bObjectIdsInitialized = 1;
+
+            int i = 0;
+            int j = 0;
+            for (int k = 0; k < 7; ++k)
+            {
+                if (j == nTombOffset)
+                {
+                    ++j;
+                }
+                else if (j < 7 && i < 6)
+                {
+                    pQuestDataEx->nArcaneThingObjectIds[i] = gnArcaneThingObjectIds[j];
+                    ++i;
+                    ++j;
+                }
+            }
+        }
+
+        if (pQuestDataEx->nArcaneThings == 6)
+        {
+            pQuestDataEx->nArcaneThings = 0;
+        }
+
+        return pQuestDataEx->nArcaneThingObjectIds[pQuestDataEx->nArcaneThings++];
+    }
+
+    return 307;
+}
+
 // 0x0059D7C0
 bool __fastcall ACT2Q6_IsJerhynTalkDone(D2GameStrc* pGame)
 {
@@ -1341,10 +1375,62 @@ int __fastcall ACT2Q6_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2Uni
     return 0;
 }
 
+// 0x0059C710
+int __fastcall ACT2Q6_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 14, 13))
+    {
+        SUNIT_AttachSound(pUnit, 54, pUnit);
+    }
+
+    return 0;
+}
+
 // 0x0059C750
 void __fastcall ACT2Q6_AttachCompletionSoundToPlayers(D2GameStrc* pGame)
 {
     SUNIT_IterateUnitsOfType(pGame, 0, 0, ACT2Q6_UnitIterate_AttachCompletionSound);
+}
+
+// 0x0059C760
+void __fastcall ACT2Q6_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    const int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
+    D2Act2Quest6Strc* pQuestDataEx = (D2Act2Quest6Strc*)pQuestData->pQuestDataEx;
+    if ((short)nNpcId == 251)
+    {
+        if (pQuestDataEx->bTyraelActivated == 1)
+        {
+            pQuestData->nStatusFlags = 0;
+            QUESTS_UnitIterate(pQuestData, 4, 0, ACT2Q6_UnitIterate_StatusCyclerEx, 1);
+            pQuestDataEx->bTyraelActivated = 0;
+            pQuestData->pCallback[2] = 0;
+        }
+    }
+    else if ((short)nNpcId == 201)
+    {
+        if (pQuestDataEx->bInitJerhynActivated == 1)
+        {
+            pQuestData->nStatusFlags = 0;
+            QUESTS_UnitIterate(pQuestData, 1, 0, ACT2Q6_UnitIterate_StatusCyclerEx, 1);
+            pQuestDataEx->bInitJerhynActivated = 0;
+        }
+        else
+        {
+            if (pQuestDataEx->bEndJerhynActivated != 1)
+            {
+                return;
+            }
+
+            pQuestData->nStatusFlags = 0;
+            QUESTS_UnitIterate(pQuestData, 6, 0, ACT2Q6_UnitIterate_StatusCyclerEx, 1);
+            pQuestDataEx->bEndJerhynActivated = 0;
+        }
+
+        pQuestData->pCallback[2] = 0;
+        SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, (QUESTUNITITERATE)ACT2Q6_UnitIterate_UpdateQuestStateFlags);
+    }
 }
 
 // 0x0059C810

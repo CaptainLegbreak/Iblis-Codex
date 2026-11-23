@@ -2068,6 +2068,12 @@ int __fastcall QUESTS_GetPlayerGUIDCount(D2QuestGUIDStrc* pGUIDs)
     return pGUIDs->nPlayerCount;
 }
 
+// 0x00545300
+void __fastcall QUESTS_ResetPlayerGUIDCount(D2QuestGUIDStrc* pGUIDs)
+{
+    pGUIDs->nPlayerCount = 0;
+}
+
 // 0x00545310
 void __fastcall QUESTS_QuickRemovePlayerGUID(D2QuestDataStrc* pQuest, D2QuestArgStrc* pQuestArg)
 {
@@ -3202,19 +3208,6 @@ inline unsigned __int64 ITEMS_RollRandomNumberInline(D2SeedStrc* pSeed)
     return lSeed;
 }
 
-// 0x005484B0
-void __fastcall PLRMSG_SendUnitMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient)
-{
-    const int nAnimMode = !pUnit ? 0 : pUnit->dwAnimMode;
-
-    PlrMsgFunc pfSendMode = gaUnitModeMessages[nAnimMode].field_0;
-    if (pfSendMode)
-    {
-        D2_ASSERT(!IsBadCodePtr((FARPROC)pfSendMode), 328);
-        pfSendMode(pGame, pUnit, pClient, nAnimMode);
-    }
-}
-
 // 0x005490E0
 int __fastcall PLRMSG_CheckCursorItem(D2GameStrc* pGame, int nUnused, D2UnitStrc* pUnit, int nItemGUID)
 {
@@ -3255,25 +3248,6 @@ int __fastcall PLRMSG_CheckStoredOrEquippedItem(D2GameStrc* pGame, int nUnused, 
     }
 
     if (pItem->dwAnimMode != IMODE_STORED && pItem->dwAnimMode != IMODE_EQUIP)
-    {
-        return 1;
-    }
-
-    return !INVENTORY_CompareWithItemsParentInventory(pUnit->pInventory, pItem);
-}
-
-// 0x005492F0
-int __fastcall PLRMSG_CheckBeltItem(D2GameStrc* pGame, int nUnused, D2UnitStrc* pUnit, int nItemGUID)
-{
-    D2_ASSERT(pGame, 1256);
-
-    D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, nItemGUID);
-    if (!pItem)
-    {
-        return 1;
-    }
-
-    if (pItem->dwAnimMode != IMODE_INBELT)
     {
         return 1;
     }

@@ -983,6 +983,48 @@ int __fastcall PLRSAVE2_WriteMercSection(D2GameStrc* pGame, D2UnitStrc* pPlayer,
     return 0;
 }
 
+int __fastcall D2GAME_SAVE_SerializeItem_6FC89AD0(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned char* pBitstream, unsigned int nSize, int a4, int a5, int a6); // 0x005316D0
+
+// 0x00569A00
+int __fastcall PLRSAVE2_WriteIronGolemSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, const unsigned char* pEnd, int a5, int a6)
+{
+    unsigned char* pData = *ppSection;
+    int bHasIronGolem = 0;
+    if (!pGame->bExpansion)
+    {
+        return 0;
+    }
+
+    *(unsigned short*)pData = 'fk';
+    pData += 2;
+
+    D2UnitStrc* pIronGolem = PLAYERPETS_GetFirstPetByType(pGame, pPlayer, 3, 1);
+    D2UnitStrc* pGolemItem = 0;
+    D2UnitStrc* pFirst;
+    if (pIronGolem && pIronGolem->dwClassId == 0x123 && SKILLS_GetSkillById(pPlayer, SKILL_IRONGOLEM, -1) && pIronGolem->pInventory
+        && (pFirst = INVENTORY_GetFirstItem(pIronGolem->pInventory)) != 0 && (pGolemItem = INVENTORY_UnitIsItem(pFirst)) != 0)
+    {
+        bHasIronGolem = 1;
+    }
+
+    unsigned char* pFlag = pData;
+    *pData = bHasIronGolem;
+    ++pData;
+    if (bHasIronGolem)
+    {
+        const int nLength = D2GAME_SAVE_SerializeItem_6FC89AD0(pGame, pPlayer, pGolemItem, pData, pEnd - pData, 0, a5, a6);
+        if (nLength <= 0)
+        {
+            *pFlag = 0;
+        }
+
+        pData += nLength;
+    }
+
+    *ppSection = pData;
+    return 0;
+}
+
 // 0x00569AD0
 int __fastcall PLRSAVE2_CreateSaveFile(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pData, unsigned int* pSize, unsigned int nMaxSize, int a6, int a7)
 {
@@ -1203,6 +1245,37 @@ int __fastcall PLRSAVE2_ReadSaveHeader(D2GameStrc* pGame, D2ClientStrc* pClient,
     StoreSkillPair(&pPlayerData->nSwitchRightSkillId, &pPlayerData->nSwitchRightSkillFlags, nSkillId, nOwner);
     sub_005391C0_SetClientBytes(pClient, pHeader->nGuildEmblemBgColor, 0, 0);
     *ppSection = pNext;
+    return 0;
+}
+
+// 0x0056A370
+int __fastcall PLRSAVE2_ReadQuestSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, unsigned char* pEnd, unsigned int nVersion)
+{
+    unsigned char* pSection = *ppSection;
+    unsigned char* pSectionEnd = pSection + 298;
+    if (pSectionEnd > pEnd)
+    {
+        return 15;
+    }
+
+    const D2SaveHeaderStrc* pQuestHeader = (const D2SaveHeaderStrc*)pSection;
+    if (pQuestHeader->dwHeaderMagic != 0x216F6F57)
+    {
+        return 15;
+    }
+
+    if (pQuestHeader->dwVersion != 6)
+    {
+        return 15;
+    }
+
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    for (int i = 0; i < 3; ++i)
+    {
+        QUESTRECORD_CopyBufferToRecord(pPlayerData->pQuestData[i], &pSection[10 + 96 * i], 96, 1);
+    }
+
+    *ppSection = pSectionEnd;
     return 0;
 }
 
@@ -2065,20 +2138,6 @@ D2UnitStrc* __fastcall SUNITNPC_FindInventoryItemByClassId(D2UnitStrc* pUnit, in
     }
 
     return 0;
-}
-
-// 0x0057F020
-void __fastcall PLRMODE_StartXY_Neutral(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nMode, int nX, int nY)
-{
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
-    if (pRoom)
-    {
-        nMode = DUNGEON_IsRoomInTown(pRoom) != 0 ? PLRMODE_TOWNNEUTRAL : PLRMODE_NEUTRAL;
-    }
-
-    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pPlayer);
-    SUNIT_SetCombatMode(pGame, pPlayer, nMode);
-    UNITS_SetUsedSkill(pPlayer, 0);
 }
 
 // 0x00580460

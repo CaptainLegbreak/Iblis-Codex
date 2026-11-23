@@ -1812,72 +1812,6 @@ void __fastcall ACT2Intro_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2
     }
 }
 
-// 0x00598E20
-int __fastcall ACT2Q1_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (!pRoom)
-    {
-        return 0;
-    }
-
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 8);
-    D2_ASSERT(pQuestData, 390);
-
-    D2Act2Quest1Strc* pQuestDataEx = (D2Act2Quest1Strc*)pQuestData->pQuestDataEx;
-    int bInRange = 0;
-    if (pRoom == pQuestDataEx->pRoom)
-    {
-        bInRange = 1;
-    }
-    else
-    {
-        D2ActiveRoomStrc* pUnitRoom = UNITS_GetRoom(pUnit);
-        D2_ASSERT(pUnitRoom, 405);
-
-        D2ActiveRoomStrc** ppRoomList;
-        unsigned int nNumRooms;
-        DUNGEON_GetAdjacentRoomsListFromRoom(pUnitRoom, &ppRoomList, &nNumRooms);
-        for (unsigned int i = 0; i < nNumRooms; ++i)
-        {
-            if (ppRoomList[i] == pQuestDataEx->pRoom)
-            {
-                bInRange = 1;
-                break;
-            }
-        }
-    }
-
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0))
-    {
-        return 0;
-    }
-
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 1))
-    {
-        return 0;
-    }
-
-    if (!bInRange)
-    {
-        return 0;
-    }
-
-    QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 13);
-    QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 1);
-    QUESTRECORD_SetQuestState(pQuestFlags, 9, 5);
-    QUESTS_UpdatePlayerFlags(pQuestData->pGame, pUnit);
-
-    const unsigned short nPartyId = SUNIT_GetPartyId(pUnit);
-    if (nPartyId != 0xFFFF)
-    {
-        PARTY_IteratePartyMembers(pGame, nPartyId, ACT2Q1_UnitIterate_SetPrimaryGoalDone, 0);
-    }
-
-    return 0;
-}
-
 // 0x0059DD80
 void __fastcall ACT2Q6_DeleteAllHoradricItemsAndOpenTomb(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pObject)
 {
@@ -2052,28 +1986,6 @@ void __fastcall OBJECTS_InitFunction54_CainStartPosition(D2ObjInitFnStrc* pOp)
     {
         ACT1Q4_SpawnCainInTown(pOp->pGame, pOp->pRoom, pOp->nX, pOp->nY);
     }
-}
-
-// 0x005952C0
-bool __fastcall ACT1Q5_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    D2Act1Quest5Strc* pQuestDataEx = (D2Act1Quest5Strc*)pQuest->pQuestDataEx;
-    int nUnitId = !pPlayer ? -1 : pPlayer->dwUnitId;
-
-    for (int i = 0; i < pQuestDataEx->nUnitCount2; ++i)
-    {
-        if (pQuestDataEx->nUnitGUIDs2[i] == nUnitId)
-        {
-            if (nNpcId == 155 || nNpcId == 147)
-            {
-                return false;
-            }
-
-            return true;
-        }
-    }
-
-    return false;
 }
 
 // 0x00596CA0

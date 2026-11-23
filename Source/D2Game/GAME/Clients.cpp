@@ -3590,21 +3590,6 @@ void __fastcall OBJRGN_SetShrineCoordinates(D2GameStrc* pGame, int nLevelId, int
     ++pObjectRegion->nShrines;
 }
 
-// 0x00552840
-void __fastcall OBJECTS_PopulateObject(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nObjectId)
-{
-    if (!DUNGEON_GetLevelIdFromPopulatedRoom(pRoom))
-        return;
-    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
-    D2_ASSERT(pObjectsTxtRecord->nPopulateFn < 10, 0xC7D);
-    if (sgPopulateTable[pObjectsTxtRecord->nPopulateFn])
-    {
-        D2_ASSERT(!IsBadCodePtr((FARPROC)sgPopulateTable[pObjectsTxtRecord->nPopulateFn]), 0xC80);
-// build: symbol ?gnObjectPopulateDensity@* 0x00731BBD
-        sgPopulateTable[pObjectsTxtRecord->nPopulateFn](pGame, pRoom, gnObjectPopulateDensity, nObjectId, 100);
-    }
-}
-
 // 0x00562DA0
 void __fastcall D2GAME_Items_EventsHandler_6FC4A460(D2GameStrc* pGame, D2UnitStrc* pUnit, int eEventType)
 {
@@ -3826,6 +3811,31 @@ int __fastcall CLIENTS_GetClientIdByName(const char* szName)
 
     LeaveCriticalSection(&gSrvClientListByNameLock);
     return nClientId;
+}
+
+// 0x00538C60
+int __fastcall CLIENTS_GetCanonicalName(const char* szName, char* szGameName)
+{
+    int result = 1;
+    const int nIndex = FOG_ComputeStringCRC16(szName) & 0xFF;
+    EnterCriticalSection(&gSrvClientListByNameLock_6FD443B8);
+
+    for (D2ClientStrc* pClient = gpClientListByName_6FD443D0[nIndex]; pClient; pClient = pClient->pServerNextByName)
+    {
+        if (!SStrCmpI(pClient->szName, szName, sizeof(pClient->szName)))
+        {
+            if (szGameName)
+            {
+                SStrCopy(szGameName, pClient->szName, sizeof(pClient->szName));
+            }
+
+            result = 0;
+            break;
+        }
+    }
+
+    LeaveCriticalSection(&gSrvClientListByNameLock_6FD443B8);
+    return result;
 }
 
 // 0x00539070

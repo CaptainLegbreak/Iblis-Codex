@@ -198,15 +198,6 @@ int __stdcall sub_M114_Emit_00576320(D2UnitStrc* pItem)
     return SUNITNPC_GetItemStorePage(pItem) + 1;
 }
 
-// 0x005875D0
-void __fastcall ACT5Q1_SetQuestStateIfIntroDone(D2QuestDataStrc* pQuest)
-{
-    if (!pQuest->fState && pQuest->bNotIntro)
-    {
-        pQuest->fState = 1;
-    }
-}
-
 // 0x005B0BC0
 int __fastcall MISSMODE_SrvDo01_BasicMissile(D2GameStrc* pGame, D2UnitStrc* pMissile)
 {
@@ -790,6 +781,12 @@ int __fastcall AITACTICS_MoveToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Un
     }
 
     return nResult;
+}
+
+// 0x005DEC80
+int __fastcall AITACTICS_WalkToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, unsigned char nFlag)
+{
+    return AITACTICS_MoveToTarget(pGame, pUnit, pTargetUnit, 2, 0, 0, 1, nFlag);
 }
 
 // 0x005DF400
