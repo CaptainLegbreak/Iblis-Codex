@@ -1,6 +1,11 @@
 #include "D2BNClient.h"
+
 #include "D2Primitives.h"
+
 #include "D2BnCryptTypes.h"
+
+static int sub_00520A80_CheckStringBlock(const char* pBuffer, unsigned int nPos, unsigned int nCount, unsigned int nSize);
+
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -1694,6 +1699,35 @@ int __fastcall BNDOWNLOAD_HandleChatEvent(const void* pData, unsigned int nSize)
     return 1;
 }
 
+struct T0041D340;
+extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
+struct T0041D340
+{
+    unsigned int dwState[5];
+};
+extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
+void* gpBnStateArg; // 0x00882000
+D2CriticalSectionStrc gtMessageLock; // 0x00882004
+int gnBnState; // 0x0088201C
+void __cdecl sub_005201E0_InitMessageQueue(); // 0x005201E0
+int __fastcall sub_005205F0_GetState(D2BnStateStrc* pState); // 0x005205F0
+void __cdecl sub_00520200_DeleteQueueLock(); // 0x00520200
+void __fastcall sub_00520C30_SetSlot(unsigned char nIndex, int nValue); // 0x00520C30
+int __fastcall sub_M119_Emit_00520A80(int nPos, int nCount, int nSize)
+{
+    return sub_00520A80_CheckStringBlock((const char*)nSize, nPos, nCount, nSize + 3);
+}
+
+// 0x00520680
+void __fastcall sub_00520680_SHA1Init(T0041D340* pContext)
+{
+    pContext->dwState[0] = 0x67452301;
+    pContext->dwState[1] = 0xEFCDAB89;
+    pContext->dwState[2] = 0x98BADCFE;
+    pContext->dwState[3] = 0x10325476;
+    pContext->dwState[4] = 0xC3D2E1F0;
+}
+
 // 0x005206B0
 void __fastcall BNDOWNLOAD_HashTransform(D2BnetHashContextStrc* context)
 {
@@ -1766,6 +1800,33 @@ void __fastcall BNDOWNLOAD_HashBuffer(unsigned int* pOut, const void* pData, uns
     pOut[2] = tContext.state[2];
     pOut[3] = tContext.state[3];
     pOut[4] = tContext.state[4];
+}
+
+// 0x00520A80
+static inline int sub_00520A80_CheckStringBlock(const char* pBuffer, unsigned int nPos, unsigned int nCount, unsigned int nSize)
+{
+    if (nSize < nPos + nCount)
+    {
+        return 0;
+    }
+    if (!nCount)
+    {
+        return 1;
+    }
+    if (pBuffer[nSize - 1])
+    {
+        return 0;
+    }
+    const unsigned int nEnd = nSize - 1;
+    unsigned int nFound = 0;
+    for (unsigned int i = nPos; i < nEnd; ++i)
+    {
+        if (!pBuffer[i])
+        {
+            ++nFound;
+        }
+    }
+    return nFound == nCount - 1;
 }
 
 // 0x00520AD0
