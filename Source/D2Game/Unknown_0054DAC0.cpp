@@ -806,6 +806,68 @@ fail:
     return 0;
 }
 
+struct D2WanderingRange
+{
+    unsigned char nBase;
+    unsigned char nCount;
+};
+
+extern D2WanderingRange gaWanderingRanges[]; // 0x00731B30
+
+extern int gnWanderingIds[]; // 0x00731B2C
+
+
+void __fastcall TARGETS_InsertUnitNode(D2GameStrc*, D2UnitStrc*, int, int); // 0x005B1990
+
+// 0x0054EF50
+static void __stdcall sub_0054EF50_SpawnWandering(
+    D2MonsterRegionStrc* pRegion, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2LevelsTxt* pLevels)
+{
+    unsigned char nAct = pLevels->nAct;
+    if (nAct >= 5)
+        return;
+    int nCount = gaWanderingRanges[nAct].nCount;
+    int nBase = gaWanderingRanges[nAct].nBase;
+    if (!nCount)
+        return;
+    int nMonster = gnWanderingIds[SEED_RollLimitedRandomNumber(pRoom ? &pRoom->pSeed : 0, nCount) + nBase];
+    int nX;
+    int nY;
+    if (!MONSTERREGION_FindSpawnLocation(pGame, pRoom, 0, nMonster, &nX, &nY, 0))
+        return;
+    D2UnitStrc* pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, nMonster, 1, -1, 0);
+    if (pMonster)
+    {
+        TARGETS_InsertUnitNode(pGame, pMonster, 0, 8);
+        ++pRegion->nWanderingCount;
+    }
+}
+
+// 0x0054EFF0
+static void __stdcall sub_0054EFF0_CheckWandering(
+    D2GameStrc* pGame, int nLevel, D2LevelsTxt* pLevels, D2ActiveRoomStrc* pRoom)
+{
+    D2SeedStrc* pSeed = pRoom ? &pRoom->pSeed : 0;
+    if ((int)(SEED_RollRandomNumber(pSeed) % 100) < 3)
+    {
+        D2MonsterRegionStrc* pRegion = MONSTERREGION_GetMonsterRegionFromLevelId(pGame->pMonReg, nLevel);
+        if (pRegion->nWanderingCount < 3)
+            sub_0054EF50_SpawnWandering(pRegion, pGame, pRoom, pLevels);
+    }
+}
+
+// 0x0054F060
+void __fastcall MONSTERREGION_TrySpawnWanderingMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom)
+{
+    if ((SEED_RollRandomNumber(pRoom ? &pRoom->pSeed : 0) & 0x7FFF) == 0 && !pRoom->nNumClients)
+    {
+        int nLevel = DUNGEON_GetLevelIdFromRoom(pRoom);
+        D2LevelsTxt* pLevels = DATATBLS_GetLevelsTxtRecord(nLevel);
+        if (pLevels->nWandering && pLevels->dwMonDen)
+            sub_0054EFF0_CheckWandering(pGame, nLevel, pLevels, pRoom);
+    }
+}
+
 D2UnitStrc* __fastcall sub_A12_Emit_0054DF80(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pCoordList, int nMonsterId, unsigned char nMin, unsigned char nMax)
 {
     return sub_0054DF80_SpawnGroupInCoordList(pGame, pRoom, pCoordList, nMin, nMax, nMonsterId);
@@ -903,3 +965,5 @@ int __fastcall sub_H05_Emit_0054EBC0(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom)
 {
     return sub_0054EBC0_CanPopulateRoom(pRoom, pGame);
 }
+
+#include "gen/data/Source/D2Game/Unknown_0054DAC0.inc"

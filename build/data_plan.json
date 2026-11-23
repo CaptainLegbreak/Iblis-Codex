@@ -3032,15 +3032,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_0054EF50.cpp": {
-   "bytes": 80,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_0054EF50.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/UNIT/SUnit.cpp": {
    "bytes": 24,
    "definitions": 1,
@@ -5327,6 +5318,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/GAME/Wall2.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/Unknown_0054DAC0.cpp": {
+   "bytes": 80,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/Unknown_0054DAC0.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -95639,7 +95639,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_0054EF50.cpp",
+   "file": "Source/D2Game/Unknown_0054DAC0.cpp",
    "fill": 1,
    "form": "declared",
    "fwd": null,
@@ -95670,7 +95670,7 @@
    "cname": "gData_00731B30",
    "declared": true,
    "decorated": "?gaWanderingRanges@@3PAUD2WanderingRange@@A",
-   "file": "Source/D2Game/Unknown_0054EF50.cpp",
+   "file": "Source/D2Game/Unknown_0054DAC0.cpp",
    "fill": 38,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00731B30_t gData_00731B30; // 0x00731B30",
