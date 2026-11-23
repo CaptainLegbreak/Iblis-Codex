@@ -979,6 +979,57 @@ void __fastcall sub_005BCF60_ACT3Q6_UpdatePlayerStatus(D2GameStrc* pGame, bool b
     QUESTS_UnitIterate(pQuestData, nStatus, 0, ACT3Q6_UnitIterate_StatusCyclerEx, bIterate);
 }
 
+// 0x005BCFD0
+void __fastcall ACT3Q6_SetObjectModes(D2GameStrc* pGame)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 20);
+    if (!pQuestData)
+    {
+        return;
+    }
+
+    D2Act3Quest6Strc* pQuestDataEx = (D2Act3Quest6Strc*)pQuestData->pQuestDataEx;
+
+    pQuestDataEx->nHellGatePortalObjectMode = 2;
+    pQuestDataEx->nMephistoBridgeObjectMode = 2;
+
+    if (pQuestDataEx->bHellGatePortalInitialized)
+    {
+        D2UnitStrc* pObject = SUNIT_GetServerUnit(pGame, 2, pQuestDataEx->nHellGatePortalGUID);
+        if (pObject)
+        {
+            UNITS_ChangeAnimMode(pObject, 1);
+        }
+    }
+
+    if (pQuestDataEx->bMephistoBridgeInitialized)
+    {
+        D2UnitStrc* pObject = SUNIT_GetServerUnit(pGame, 2, pQuestDataEx->nMephistoBridgeGUID);
+        if (pObject)
+        {
+            UNITS_ChangeAnimMode(pObject, 2);
+        }
+    }
+}
+
+// 0x005BD040
+void __fastcall ACT3Q6_ChangeNatalyaMapAI(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MapAIStrc* pMapAI)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 20);
+    if (!pQuestData)
+        return;
+    D2Act3Quest6Strc* pQuestDataEx = (D2Act3Quest6Strc*)pQuestData->pQuestDataEx;
+    pQuestDataEx->pNatalyaMapAI = pMapAI;
+    if (!pQuestDataEx->bNatalyaSpawned)
+        return;
+    D2UnitStrc* pNatalya = SUNIT_GetServerUnit(pQuestData->pGame, 1, pQuestDataEx->nNatalyaGUID);
+    if (pNatalya && pQuestDataEx->pNatalyaMapAI && pQuestDataEx->pNatalyaMapAI->pPosition && !pQuestDataEx->bNatalyaMapAIChanged)
+    {
+        DRLGPRESET_ChangeMapAI(&pQuestDataEx->pNatalyaMapAI, AIGENERAL_GetMapAiFromUnit(pNatalya));
+        pQuestDataEx->bNatalyaMapAIChanged = 1;
+    }
+}
+
 struct D2ActiveRoomStrc;
 
 struct D2GameStrc;
