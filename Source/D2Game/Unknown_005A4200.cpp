@@ -8,19 +8,12 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2MonModes.h"
+#include "D2UnitData.h"
 
 #define EVENTTYPE_MONUMOD 7
 struct D2MonsterDataStrc;
 union D2SeedStrc;
 struct D2MonStatsTxt;
-
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x16];
-    unsigned char nTypeFlag;
-    char unk0x17[5];
-    unsigned char nUMods[9];
-};
 
 typedef void(__fastcall* MONUMODFUNC)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique);
 
@@ -56,7 +49,7 @@ unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit)
     {
         return 0;
     }
-    return pMonsterData->nUMods;
+    return pMonsterData->nMonUmod;
 }
 
 // build: context MONSTERUNIQUE_CheckMonTypeFlag

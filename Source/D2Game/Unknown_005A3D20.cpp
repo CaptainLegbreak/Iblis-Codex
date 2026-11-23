@@ -9,6 +9,8 @@
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
 #include "D2MonModes.h"
+#include "D2UnitData.h"
+#include "D2Txt.h"
 
 #define EVENTTYPE_MONUMOD 7
 union D2SeedStrc;
@@ -16,31 +18,12 @@ struct D2StaticPathStrc;
 struct D2MonStatsTxt;
 struct D2MonsterDataStrc;
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x62];
-    short wAiParam3[3];
-    char unk0x068[0xA6];
-    short nElMinD;
-    char unk0x110[0x10];
-    short nElMaxD;
-    char unk0x122[0x1A8 - 0x122];
-};
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 int __fastcall SUNITDMG_SetMissileDamageFlagsForNearbyUnits(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nSize, D2DamageStrc* pDamage, int a7, int a8, int(__fastcall* pfCallback)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*), int a10); // 0x0057E090
-
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x16];
-    unsigned char nTypeFlag;
-    char unk0x17[5];
-    unsigned char nUMods[9];
-};
 
 typedef void(__fastcall* MONUMODFUNC)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique);
 
@@ -102,8 +85,8 @@ static inline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
 void __fastcall MONSTERUNIQUE_ApplyCorpseFireDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecord(pUnit);
-    const int nFireDamage = (ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, pMonStatsTxtRecord->nElMaxD - pMonStatsTxtRecord->nElMinD) + pMonStatsTxtRecord->nElMinD) << 8;
-    const int nSize = pMonStatsTxtRecord->wAiParam3[pGame->nDifficulty] * STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
+    const int nFireDamage = (ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, pMonStatsTxtRecord->nElMaxD[0][0] - pMonStatsTxtRecord->nElMinD[0][0]) + pMonStatsTxtRecord->nElMinD[0][0]) << 8;
+    const int nSize = pMonStatsTxtRecord->wAiParam[2][pGame->nDifficulty] * STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
 
     D2DamageStrc damage;
     memset(&damage, 0, sizeof(damage));
@@ -144,7 +127,7 @@ unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit)
     {
         return 0;
     }
-    return pMonsterData->nUMods;
+    return pMonsterData->nMonUmod;
 }
 
 // build: context MONSTERUNIQUE_CheckMonTypeFlag

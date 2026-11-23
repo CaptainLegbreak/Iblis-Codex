@@ -593,7 +593,7 @@ struct D2SkillsTxt
     unsigned int dwPassiveCalc[5]; // 0xA4
     unsigned char unk0xB8[0x4]; // 0xB8
     short wSummon; // 0xBC
-    unsigned char nPetType; // 0xBE
+    char nPetType; // 0xBE
     unsigned char nSumMode; // 0xBF
     unsigned int dwPetMax; // 0xC0
     short wSumSkill[5]; // 0xC4
