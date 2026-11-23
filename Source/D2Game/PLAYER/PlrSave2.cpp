@@ -15,6 +15,8 @@
 #include "D2PlayerModes.h"
 #include "D2ObjModes.h"
 #include "D2ItemModes.h"
+#include "D2GameServer.h"
+#include "D2GameClient.h"
 
 struct D2ClientStrc;
 
@@ -1095,6 +1097,105 @@ int __fastcall PLRSAVE2_CreateSaveFile(D2GameStrc* pGame, D2UnitStrc* pPlayer, u
 LABEL_FAIL:
     *pSize = 0;
     return nResult;
+}
+
+#define CLIENTSAVEFLAG_HARDCORE 0x4
+
+#define CLIENTSAVEFLAG_DEAD 0x8
+
+#define CLIENTSAVEFLAG_EXPANSION 0x20
+
+#define CLIENTSAVEFLAG_LADDER 0x40
+
+#define GAMEFLAG_ARENA_HARDCORE 0x800
+
+struct D2ServerCallbackFunctions;
+
+struct D2FileTimeStrc;
+
+extern D2ServerCallbackFunctions* gpD2EventCallbackTable; // 0x00883D50
+
+extern int gbD2ServerCallbackFunctionsInitialized; // 0x00883D54
+
+unsigned int __fastcall ARENA_GetFlags(D2GameStrc* pGame); // 0x0053FD40
+
+extern "C" __declspec(dllimport) long __stdcall CompareFileTime(const D2FileTimeStrc* pFileTime1, const D2FileTimeStrc* pFileTime2); // 0x006CC390
+
+// 0x00569D80
+int __fastcall PLRSAVE2_CheckPlayerFlags(D2GameStrc* pGame, unsigned short nFlags, D2ClientStrc* pClient)
+{
+    if (nFlags & CLIENTSAVEFLAG_EXPANSION)
+    {
+        if (!pGame->bExpansion)
+        {
+            return 8;
+        }
+    }
+    else
+    {
+        if (pGame->bExpansion)
+        {
+            return 9;
+        }
+    }
+
+    if (gbD2ServerCallbackFunctionsInitialized)
+    {
+        D2FileTimeStrc tNow;
+        gpD2EventCallbackTable->pfGetTime(&tNow);
+        if ((nFlags & CLIENTSAVEFLAG_LADDER) && CompareFileTime(&pClient->nSaveCreationTimestamp, &tNow) > 0)
+        {
+            if (!pGame->dwGameType)
+            {
+                return 25;
+            }
+        }
+        else
+        {
+            if (pGame->dwGameType)
+            {
+                return 26;
+            }
+        }
+    }
+
+    if (nFlags & CLIENTSAVEFLAG_HARDCORE)
+    {
+        if (nFlags & CLIENTSAVEFLAG_DEAD)
+        {
+            return 10;
+        }
+
+        if (!(ARENA_GetFlags(pGame) & GAMEFLAG_ARENA_HARDCORE))
+        {
+            return 11;
+        }
+    }
+    else
+    {
+        if (ARENA_GetFlags(pGame) & GAMEFLAG_ARENA_HARDCORE)
+        {
+            return 12;
+        }
+    }
+
+    const int nProgression = (nFlags >> 8) & 0x1F;
+    if (pGame->nDifficulty > 1)
+    {
+        if (((nFlags & CLIENTSAVEFLAG_EXPANSION) && nProgression < 10) || nProgression < 8)
+        {
+            return 14;
+        }
+    }
+    else if (pGame->nDifficulty > 0)
+    {
+        if (((nFlags & CLIENTSAVEFLAG_EXPANSION) && nProgression < 5) || nProgression < 4)
+        {
+            return 13;
+        }
+    }
+
+    return 0;
 }
 
 // 0x00569F20

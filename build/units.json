@@ -45959,11 +45959,6 @@
      "name": "D2GAME_PACKETCALLBACK_Rcv0x54_TurnStaminaOff_6FC88380"
     },
     {
-     "va": "0x00569D80",
-     "length": 317,
-     "name": "PLRSAVE2_CheckPlayerFlags"
-    },
-    {
      "va": "0x005CEC90",
      "length": 297,
      "name": "SKILLS_ShortenPoisonAndCurses"
@@ -51201,6 +51196,11 @@
      "name": "?PLRSAVE2_CreateSaveFile@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAEPAIIHH@Z"
     },
     {
+     "va": "0x00569D80",
+     "length": 317,
+     "name": "PLRSAVE2_CheckPlayerFlags"
+    },
+    {
      "va": "0x00569F20",
      "length": 91,
      "name": "PLRSAVE2_InitPlayerFromClient"
@@ -54420,11 +54420,6 @@
      "name": "?ACT2Intro_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
-     "va": "0x0059DD80",
-     "length": 429,
-     "name": "?ACT2Q6_DeleteAllHoradricItemsAndOpenTomb@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
-    {
      "va": "0x005B6D30",
      "length": 237,
      "name": "?ACT3Intro_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
@@ -56917,6 +56912,11 @@
      "va": "0x0059DC70",
      "length": 268,
      "name": "?OBJECTS_OperateFunction25_StaffOrifice@@YIHPAUD2ObjOperateFnStrc@@H@Z"
+    },
+    {
+     "va": "0x0059DD80",
+     "length": 429,
+     "name": "?ACT2Q6_DeleteAllHoradricItemsAndOpenTomb@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
      "va": "0x0059DF30",

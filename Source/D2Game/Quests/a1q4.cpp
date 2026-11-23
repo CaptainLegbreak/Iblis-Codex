@@ -1877,52 +1877,6 @@ void __fastcall ACT2Intro_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2
     }
 }
 
-// 0x0059DD80
-void __fastcall ACT2Q6_DeleteAllHoradricItemsAndOpenTomb(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pObject)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    QUESTRECORD_SetQuestState(pQuestFlags, 10, 0);
-    pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    QUESTRECORD_SetQuestState(pQuestFlags, 10, 13);
-
-    QUESTS_DeleteItem(pGame, pUnit, ' tsh');
-    QUESTS_DeleteItem(pGame, pUnit, ' piv');
-    QUESTS_DeleteItem(pGame, pUnit, ' fsm');
-
-    const unsigned short nPartyId = SUNIT_GetPartyId(pUnit);
-    if (nPartyId != 0xFFFF)
-    {
-        PARTY_IteratePartyMembers(pGame, nPartyId, ACT2Q6_UnitIterate_DeleteHoradricItems, 0);
-    }
-
-    QUESTS_TriggerFX(pGame, 3);
-
-    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(MISSILE_HORADRICSTAFF);
-    const int nTicks = (pMissilesTxtRecord->wRange - 75) / 20;
-
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 13);
-    D2Act2Quest6Strc* pQuestDataEx = (D2Act2Quest6Strc*)pQuestData->pQuestDataEx;
-    pQuestDataEx->bObjectsNeedUpdate = 1;
-    pQuestDataEx->bStaffItemsRemoved = 1;
-    if (!pQuestDataEx->bTimerActive)
-    {
-        QUESTS_CreateTimer(pQuestData, ACT2Q6_Timer_UpdateObjects, nTicks);
-        pQuestDataEx->bTimerActive = 1;
-    }
-
-    UNITS_ChangeAnimMode(pObject, 1);
-
-    D2ActiveRoomStrc* hRoomObject = UNITS_GetRoom(pObject);
-    D2_ASSERT(hRoomObject, 1670);
-
-    D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(hRoomObject, UNITS_GetUnitXPosition(pObject) - 13, UNITS_GetUnitYPosition(pObject) + 3);
-    DUNGEON_ToggleHasPortalFlag(hRoomObject, 0);
-    if (pRoom)
-    {
-        DUNGEON_ToggleHasPortalFlag(pRoom, 0);
-    }
-}
-
 // 0x005B6D30
 void __fastcall ACT3Intro_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
