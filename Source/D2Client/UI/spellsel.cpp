@@ -9,6 +9,7 @@
 #include "D2CelContext.h"
 #include "D2Unicode.h"
 #include "D2ClientGfx.h"
+#include "D2StatIds.h"
 
 struct D2SkillStrc;
 
@@ -193,6 +194,36 @@ extern int gaHotkeySkills[16]; // 0x007C06C8
 extern int gaHotkeyOwners[16]; // 0x007C0768
 
 extern int gaHotkeyLeft[16]; // 0x007C07B8
+
+extern int gaChargedSkillIds[60]; // 0x007C04E0
+
+// 0x004A9D70
+void __stdcall sub_004A9D70_ClearSkillHotkeys(D2SkillsTxt* pSkillsTxt, int nQuantity)
+{
+    int i = 0;
+    while (i < 60)
+    {
+        if (gaChargedSkillIds[i] != pSkillsTxt->nSkillId)
+        {
+            ++i;
+            continue;
+        }
+
+        for (int nSlot = 0; nSlot < 16; ++nSlot)
+        {
+            if (gaHotkeySkills[nSlot] == gaChargedSkillIds[i] && nQuantity <= 0)
+            {
+                gaHotkeySkills[nSlot] = -1;
+                gaHotkeyLeft[nSlot] = -1;
+                gaHotkeyOwners[nSlot] = -1;
+                MSG_SendTwoDwords(0x51, (nSlot << 16) + 0xFFFF, -1);
+            }
+        }
+
+        ++i;
+    }
+}
+
 
 // 0x004A9E60
 void __fastcall sub_004A9E60_AssignHotkey(int nHotkey)
