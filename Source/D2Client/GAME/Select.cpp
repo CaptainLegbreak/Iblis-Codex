@@ -6,6 +6,7 @@
 #include "D2ItemsWorld.h"
 #include "D2GameRecords.h"
 #include "D2Txt.h"
+#include "D2ObjModes.h"
 struct D2ActiveRoomStrc;
 struct D2SkillStrc;
 struct D2UnitStrc;
@@ -278,49 +279,77 @@ static inline void HOVER_ClearHoverUnit()
     gbHasSelectedUnit = 0;
 }
 
+// 0x00467130
 static int sub_00467130_GetHoverCursorPos(int* pnX, int* pnY)
 {
     const int nMode = sub_0045AE90();
     if (nMode == 3)
     {
-        HOVER_ClearHoverUnit();
+        if (gbHoverLocked)
+        {
+            goto Done;
+        }
+
+        if (TEXT_IsTextBoxOpen() && !TEXT_GetTextUnit())
+        {
+            TEXT_SetHoverUnit(0);
+            return 1;
+        }
+
+        TEXT_ClearHoverUnit();
+        if (gbHasSelectedUnit && gnSelectedUnitType == 5)
+        {
+            D2UnitStrc* pOld = CUNIT_FindClientUnit(gnSelectedUnitId, 5);
+            if (pOld)
+            {
+                DUNGEON_UpdateWarpRoomDeselect(UNITS_GetRoom(pOld), !pOld ? -1 : pOld->dwClassId);
+                VIEW_SetViewDirty(gpClientView);
+            }
+        }
+        gbHasSelectedUnit = 0;
+    Done:
         return 1;
     }
 
     *pnX = sub_00468730();
     *pnY = sub_00468740();
-    if (*pnY <= gnScreenHeight - 0x31
-        && (!gbSelectionRectValid || *pnX <= gnSelectionLeft || *pnX >= gnSelectionRight
-            || *pnY <= gnSelectionTop || *pnY >= gnSelectionBottom))
+    const int nMaxY = gnScreenHeight - 0x31;
+    if (*pnY > nMaxY)
     {
-        switch (nMode)
-        {
-        case 2:
-            if (*pnX < gnScreenWidth / 2)
-            {
-                break;
-            }
-            goto adjust;
-
-        case 1:
-            if (*pnX >= gnScreenWidth / 2)
-            {
-                break;
-            }
-            goto adjust;
-
-        default:
-            goto adjust;
-        }
+        sub_00466DE0_SetHoverUnit(0);
+        return 1;
     }
 
-    sub_00466DE0_SetHoverUnit(0);
-    return 1;
+    if (gbSelectionRectValid && *pnX > gnSelectionLeft && *pnX < gnSelectionRight
+        && *pnY > gnSelectionTop && *pnY < gnSelectionBottom)
+    {
+        sub_00466DE0_SetHoverUnit(0);
+        return 1;
+    }
 
-adjust:
+    switch (nMode)
+    {
+    case 2:
+        if (*pnX < gnScreenWidth / 2)
+        {
+            sub_00466DE0_SetHoverUnit(0);
+            return 1;
+        }
+        break;
+
+    case 1:
+        if (*pnX >= gnScreenWidth / 2)
+        {
+            sub_00466DE0_SetHoverUnit(0);
+            return 1;
+        }
+        break;
+    }
+
     sub_004670A0_AdjustCursorPerspective(pnX, pnY);
     return 0;
 }
+
 
 static int __stdcall sub_00467250_CheckDoorSideA(D2UnitStrc* pOther, D2UnitStrc* pUnit)
 {
