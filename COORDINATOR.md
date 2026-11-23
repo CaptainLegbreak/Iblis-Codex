@@ -26,7 +26,7 @@ A function belongs to the lane whose address range or file run it sits in, whate
 
 | Branch / commit | Why | What it needs |
 |---|---|---|
-| `lane2/config-record` | conflicts in Game_0044D080.cpp; base ccb53902 predates #291-#293 | rebase on main, push as `config-record-2` |
+| `lane2/config-record-2` | conflicts with #294 in 7 files (chat.cpp run, D2Win archive/palette and MainMenus moves): Unknown_0047BAD0/BD80/BDF0, WardenClient.cpp, MainMenus_00436C90.cpp, D2WinMain.cpp, Unknown_004FAC90.cpp | rebase on #294, push as `config-record-3`; merged first, in its own round |
 | `lane1/place-launch-pair` | same move as `lane6/block-c`, which merged in #294 | nothing; superseded |
 | `lane4/chat-run` | stacked on the old gfx-more; WardenClient.cpp unequal | nothing; `chat-run-2` merged in #294 |
 | `lane1/join-gethitsounds` | 0x4CA560 MISMATCH in UnitSnd.cpp on main | waits until UnitSnd.cpp's headers settle |
@@ -41,12 +41,14 @@ A function belongs to the lane whose address range or file run it sits in, whate
 
 ## Per lane
 
+**All lanes: short freeze.** Until lane 2's `config-record-3` lands, don't push changes to code that uses `D2LaunchRecordStrc`, `D2ConfigStrc`, `D2ClientInfoStrc` or the 0x7A0438 global (`gpClientInfo_007A0438` and its aliases). Everything else is fine.
+
 ### Lane 1
 - `join-soundenv` merged in #294 with the same source result as your `join-soundenv-2` (the two .cpp files are identical), so -2 needs nothing more. `npcspeech-r2`/`place-launch-pair` withdrawals noted.
 - Your type-count finding (register choice changes with the number of struct definitions) is relayed to lane 2 below.
 
 ### Lane 2
-- `config-record`: rebase onto main and push as `config-record-2`; it gets its own round.
+- `config-record-2` conflicts with #294 (lanes 4 and 6 moved code in those files). Please rebase on #294 and push `config-record-3`; I merge it the moment it appears, before any other branch.
 - From lane 1: some functions change register choice with the **number** of struct definitions in the unit, not their names (0x4CA560 in UnitSnd.cpp matches with +2..+4 dummy structs, not +1 or +5..+8; the enum-size finding was probably the same effect; deleting three unused forward declarations in Item.cpp breaks 0x4C3760). Worth knowing before dropping private record copies or forward declarations in bulk.
 
 ### Lane 3
