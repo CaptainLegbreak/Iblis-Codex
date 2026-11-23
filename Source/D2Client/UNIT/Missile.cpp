@@ -4846,15 +4846,6 @@ void __fastcall MISSILE_GetArmorComponents(D2UnitStrc* pUnit, D2InventoryStrc* p
     memset(pComponents, 0, 6);
 }
 
-// 0x004DB1A0
-unsigned char __fastcall MISSILE_GetGfxEntryByte(D2UnitStrc* pUnit, int nIndex)
-{
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
-    if (!pGfxData)
-        return 0;
-    const D2GfxEntryStrc* pEntries = (const D2GfxEntryStrc*)pGfxData;
-    return pEntries[nIndex].nValue;
-}
 
 // 0x004DBFE0
 void __cdecl MISSILE_StartFadeTimer()

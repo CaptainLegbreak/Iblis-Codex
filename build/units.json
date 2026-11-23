@@ -20775,6 +20775,11 @@
      "name": "?GFXUTIL_IsPlayerMonsterOrObject@@YIHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004DB1A0",
+     "length": 21,
+     "name": "?MISSILE_GetGfxEntryByte@@YIEPAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x004DB1C0",
      "length": 26,
      "name": "GFXUTIL_SetGfxEntryByte"
@@ -31265,11 +31270,6 @@
      "va": "0x004DAAB0",
      "length": 138,
      "name": "MISSILE_GetArmorComponents"
-    },
-    {
-     "va": "0x004DB1A0",
-     "length": 21,
-     "name": "?MISSILE_GetGfxEntryByte@@YIEPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x004DBFE0",
