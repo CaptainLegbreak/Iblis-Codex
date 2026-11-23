@@ -58955,17 +58955,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005B0BD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005B0BD0",
-     "length": 231,
-     "name": "?AITHINK_GetSquaredDistance@@YIHPAUD2UnitStrc@@0@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2CMP/SRC/SpriteCache.cpp",
    "rank": 0,
    "functions": [
@@ -60387,6 +60376,11 @@
    "file": "Source/D2Game/Ai/AiThink.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x005B0BD0",
+     "length": 231,
+     "name": "?AITHINK_GetSquaredDistance@@YIHPAUD2UnitStrc@@0@Z"
+    },
     {
      "va": "0x005B0CC0",
      "length": 3,
