@@ -30538,16 +30538,6 @@
      "name": "?MISSILE_DoSkillWithTempTarget@@YIHPAUD2UnitStrc@@HH0HHG@Z"
     },
     {
-     "va": "0x004CA900",
-     "length": 143,
-     "name": "?MISSILE_FindUnitSfxInRange@@YIPAXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004CC270",
-     "length": 267,
-     "name": "?MISSILE_CheckLevelSpeech@@YAXXZ"
-    },
-    {
      "va": "0x004CC790",
      "length": 37,
      "name": "?sub_004CC790_RollRange@@YIHPAUD2SeedStrc@@HH@Z"
@@ -31579,6 +31569,11 @@
      "name": "?UNITSND_RemoveUnitHint@@YIXPAUD2UnitStrc@@PAUD2TimedHintEntryStrc@@@Z"
     },
     {
+     "va": "0x004CA900",
+     "length": 143,
+     "name": "?MISSILE_FindUnitSfxInRange@@YIPAXPAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x004CA9C0",
      "length": 72,
      "name": "?UNITSND_ReleaseUnitHints@@YIXPAUD2UnitStrc@@H@Z"
@@ -31748,6 +31743,11 @@
      "va": "0x004CC250",
      "length": 30,
      "name": "?UNITSND_HasSlotValue@@YAHPAHH@Z"
+    },
+    {
+     "va": "0x004CC270",
+     "length": 267,
+     "name": "?MISSILE_CheckLevelSpeech@@YAXXZ"
     },
     {
      "va": "0x004CC380",
