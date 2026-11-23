@@ -4037,29 +4037,6 @@ int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY)
     return 1;
 }
 
-// 0x004C6030
-int __fastcall ITEM_UseBowOrCallTarget(D2UnitStrc* pUnit, int nArg2, int nArg3)
-{
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 0x40;
-    }
-
-    if (COMPOSIT_IsWeaponBowOrXBow(pUnit))
-    {
-        const int nValue = D2COMMON_11039_CheckWeaponIsMissileBased(pUnit, &nArg3);
-        if (nValue != -1)
-        {
-            AUTOMAP_RequestAtTarget(pUnit, nValue, nArg2, nArg3);
-        }
-    }
-    else
-    {
-        sub_004E4050_Nothing(pUnit, CUNIT_GetPathTargetUnit(pUnit));
-    }
-
-    return 1;
-}
 
 // 0x004C7C40
 int __fastcall ITEM_CallClientStateEvent(void* pArg1, int nArg2, int nArg3, int nArg4, unsigned int nIndex, int nArg6, int nArg7)

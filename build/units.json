@@ -11887,6 +11887,11 @@
      "name": "?sub_004C6020_AlwaysOne@@YGHH@Z"
     },
     {
+     "va": "0x004C6030",
+     "length": 97,
+     "name": "ITEM_UseBowOrCallTarget"
+    },
+    {
      "va": "0x004C60A0",
      "length": 152,
      "name": "?SKILLS_ThrowWeapon@@YIHPAUD2UnitStrc@@HH@Z"
@@ -30259,11 +30264,6 @@
      "va": "0x004C52E0",
      "length": 162,
      "name": "ITEM_GetTargetPosition"
-    },
-    {
-     "va": "0x004C6030",
-     "length": 97,
-     "name": "ITEM_UseBowOrCallTarget"
     },
     {
      "va": "0x004C7C40",

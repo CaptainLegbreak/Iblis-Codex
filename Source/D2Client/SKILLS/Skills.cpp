@@ -1401,6 +1401,56 @@ int __stdcall sub_004C6020_AlwaysOne(int nArg)
     return 1;
 }
 
+struct D2CellNodeStrc;
+
+struct D2SlotObjectStrc;
+
+struct D2GridCellStrc;
+
+void __fastcall sub_004E4050_Nothing(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x004E4050
+
+int __stdcall D2COMMON_11039_CheckWeaponIsMissileBased(D2UnitStrc* pUnit, int* pValue); // 0x00645F00
+
+struct D2GridCellStrc
+{
+    int unk0x00[4];
+    D2CellNodeStrc* pNodes;
+    int f_14;
+    int unk0x18[3];
+};
+
+struct D2SlotObjectStrc
+{
+    char unk0x00[0x04];
+    int f_4;
+    char unk0x08[0x2C];
+    unsigned int nKey;
+};
+
+// 0x004C6030
+int __fastcall ITEM_UseBowOrCallTarget(D2UnitStrc* pUnit, int nArg2, int nArg3)
+{
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x40;
+    }
+
+    if (COMPOSIT_IsWeaponBowOrXBow(pUnit))
+    {
+        const int nValue = D2COMMON_11039_CheckWeaponIsMissileBased(pUnit, &nArg3);
+        if (nValue != -1)
+        {
+            AUTOMAP_RequestAtTarget(pUnit, nValue, nArg2, nArg3);
+        }
+    }
+    else
+    {
+        sub_004E4050_Nothing(pUnit, CUNIT_GetPathTargetUnit(pUnit));
+    }
+
+    return 1;
+}
+
 // 0x004C60A0
 int __fastcall SKILLS_ThrowWeapon(D2UnitStrc* pUnit, int nSkillId, int nArg)
 {
