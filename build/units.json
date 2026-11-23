@@ -77823,36 +77823,16 @@
      "length": 56
     },
     {
+     "va": "0x00668600",
+     "length": 1157
+    },
+    {
      "va": "0x00668A90",
      "length": 1510
     },
     {
      "va": "0x006690B0",
      "length": 38
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00668600.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00668600",
-     "length": 1157
     }
    ],
    "flags": [
