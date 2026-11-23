@@ -5,6 +5,7 @@
 #include "D2GameTypes.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 
 union D2SeedStrc;
 struct D2SkillsTxt;
@@ -29,12 +30,6 @@ int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
-
-struct D2SkillDescTxt
-{
-    unsigned char beforeStrings[8];
-    unsigned short strings[(0x120 - 8) / sizeof(unsigned short)];
-};
 
 typedef char B07RealSkillsSize[(sizeof(D2SkillsTxt) == 0x23C) ? 1 : -1];
 
@@ -153,5 +148,5 @@ unsigned short __fastcall sub_004E6CE0_GetStringId(int skillId, int stringIndex)
     {
         return static_cast<unsigned short>(0x1506);
     }
-    return description->strings[stringIndex];
+    return (&description->wStrName)[stringIndex];
 }
