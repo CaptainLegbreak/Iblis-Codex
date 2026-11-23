@@ -7,6 +7,8 @@
 #include "D2GameRecords.h"
 #include "D2Txt.h"
 #include "D2ObjModes.h"
+#include "D2StateIds.h"
+#include "D2Drlg.h"
 struct D2ActiveRoomStrc;
 struct D2SkillStrc;
 struct D2UnitStrc;
@@ -809,5 +811,203 @@ void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit)
         gbHasSelectedUnit = 0;
         gbHoverLocked = 1;
     }
+}
+
+
+extern int gaUnitHoverPriority[];                                                                  // 0x00711F98
+
+extern D2ActiveRoomStrc* gpHoverRoom;                                                             // 0x007A6AA4
+
+D2UnitStrc* __cdecl sub_00467A10();                                                            // 0x00467A10
+
+void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
+
+int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster);                                                       // 0x0063EA40
+
+int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                            // 0x00639DF0
+
+// 0x00467AC0
+void __cdecl sub_00467AC0_UpdateHoverUnit()
+{
+    if (gbHoverLocked)
+    {
+        return;
+    }
+
+    int nX = 0;
+    int nY = 0;
+    if (sub_00467130_GetHoverCursorPos(&nX, &nY))
+    {
+        return;
+    }
+
+    D2UnitStrc* pSelected = sub_00467A10();
+    if (pSelected && sub_00466870(pSelected, nX, nY, 1) && (pSelected->dwUnitType != UNIT_ITEM || !gdwGlobal_007A6A90))
+    {
+        sub_00466DE0_SetHoverUnit(pSelected);
+        return;
+    }
+
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (!pPlayer)
+    {
+        return;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
+    if (!pRoom)
+    {
+        return;
+    }
+
+    if (gpHoverRoom != pRoom)
+    {
+        gbWarpTileHovered = 1;
+    }
+    gpHoverRoom = pRoom;
+
+    int nPlayerX = CLIENTS_GetUnitX(pPlayer);
+    int nPlayerY = CLIENTS_GetUnitY(pPlayer);
+    DUNGEON_GameSubtileToClientCoords(&nPlayerX, &nPlayerY);
+
+    D2UnitStrc* pBest = 0;
+    D2ActiveRoomStrc** ppRoomList;
+    unsigned int nNumRooms;
+    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
+    for (unsigned int i = 0; i < nNumRooms; ++i)
+    {
+        D2UnitStrc* pUnit = ppRoomList[i]->pUnitFirst;
+        D2UnitStrc* pPrevious = 0;
+        int nCount = 0;
+        for (; pUnit; pUnit = pUnit->ptRoomNext)
+        {
+            const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
+            if (nUnitType == 3)
+            {
+                continue;
+            }
+
+            if (pPrevious == pUnit)
+            {
+                break;
+            }
+            pPrevious = pUnit;
+
+            D2_ASSERT(nCount++ <= 30000, 0x218);
+
+            if (pUnit == pPlayer)
+            {
+                continue;
+            }
+
+            D2HoverCoordStrc tPlayerY = { nPlayerY };
+            if (sub_00467000_CheckWarpTileHover(pPlayer, tPlayerY, nX, nY, pUnit, nPlayerX, &gbWarpTileHovered))
+            {
+                continue;
+            }
+
+            if (pUnit && pUnit->dwUnitType == UNIT_ITEM && gdwGlobal_007A6A90)
+            {
+                continue;
+            }
+
+            if (!sub_00466870(pUnit, nX, nY, 1))
+            {
+                continue;
+            }
+
+            if (pSelected == pUnit && !CUNIT_IsDeadOrDying(pUnit))
+            {
+                pBest = pUnit;
+                break;
+            }
+
+            if (!pBest)
+            {
+                pBest = pUnit;
+                continue;
+            }
+
+            const int nBestType = pBest->dwUnitType;
+            int nPriority = gaUnitHoverPriority[nUnitType];
+            int nBestPriority = gaUnitHoverPriority[nBestType];
+            if (nUnitType == 0)
+            {
+                if (CUNIT_IsDeadOrDying(pUnit))
+                {
+                    nPriority = 1;
+                }
+            }
+            else if (nUnitType == 1)
+            {
+                if (MONSTERS_IsDead(pUnit))
+                {
+                    nPriority = -8;
+                }
+
+                if (STATES_CheckState(pUnit, STATE_ATTACHED))
+                {
+                    continue;
+                }
+            }
+
+            if (nBestType == 1 && MONSTERS_IsDead(pBest))
+            {
+                nBestPriority = -8;
+            }
+
+            if (nUnitType != 2)
+            {
+                if (nBestType == 2)
+                {
+                    if (UnitIsDoor(pBest))
+                    {
+                        if (sub_00467250_CheckDoorSideA(pUnit, pBest))
+                        {
+                            pBest = pUnit;
+                        }
+                        continue;
+                    }
+                    goto NonDoorA;
+                }
+            }
+            else if (nBestType != 2)
+            {
+                if (UnitIsDoor(pUnit))
+                {
+                    if (sub_00467310_CheckDoorSideB(pBest, pUnit) && nBestPriority < nPriority)
+                    {
+                        pBest = pUnit;
+                    }
+                }
+                else if (nBestPriority < nPriority)
+                {
+                    pBest = pUnit;
+                }
+                continue;
+            }
+
+            if (nBestPriority != nPriority)
+            {
+                if (nBestPriority < nPriority)
+                {
+                    pBest = pUnit;
+                }
+            }
+            else if (sub_004673C0_GetDistanceSquared(pPlayer, pUnit) < sub_004673C0_GetDistanceSquared(pPlayer, pBest))
+            {
+                pBest = pUnit;
+            }
+            continue;
+
+NonDoorA:
+            if (nBestPriority < nPriority)
+            {
+                pBest = pUnit;
+            }
+        }
+    }
+
+    sub_00466DE0_SetHoverUnit(pBest);
 }
 

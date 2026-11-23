@@ -1191,15 +1191,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_00467AC0.cpp": {
-   "bytes": 84,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_00467AC0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Client/Unknown_00467E40.cpp": {
    "bytes": 40,
    "definitions": 3,
@@ -5371,8 +5362,8 @@
    "state": "included"
   },
   "Source/D2Client/GAME/Select.cpp": {
-   "bytes": 96,
-   "definitions": 4,
+   "bytes": 180,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/GAME/Select.inc",
@@ -41170,7 +41161,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_00467AC0.cpp",
+   "file": "Source/D2Client/GAME/Select.cpp",
    "fill": 21,
    "form": "declared",
    "fwd": null,
