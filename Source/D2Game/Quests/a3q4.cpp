@@ -222,6 +222,49 @@ static inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStr
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }
 
+// 0x005B9D90
+bool __fastcall ACT3Q4_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 20, 0) || QUESTRECORD_GetQuestState(pQuestFlags, 20, 1))
+    {
+        return false;
+    }
+
+    if (nNpcId == 254)
+    {
+        if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' 43g'))
+        {
+            return true;
+        }
+
+        if (QUESTRECORD_GetQuestState(pQuestFlags, 20, 1))
+        {
+            return true;
+        }
+    }
+    else if (nNpcId == 264)
+    {
+        if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' 43j'))
+        {
+            return true;
+        }
+    }
+    else if (nNpcId == 245)
+    {
+        if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' 43j') && !QUESTRECORD_GetQuestState(pQuestFlags, 20, 2))
+        {
+            return true;
+        }
+
+        if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' 43g') && !QUESTRECORD_GetQuestState(pQuestFlags, 20, 4))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 // 0x005B9E70
 int __fastcall ACT3Q4_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {

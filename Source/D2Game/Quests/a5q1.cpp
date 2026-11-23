@@ -1150,26 +1150,6 @@ void __fastcall ACT5Q3_UpdateResistances(D2GameStrc* pGame, D2UnitStrc* pUnit, i
     D2GAME_UpdateAttribute_6FC822D0(pUnit, STAT_POISONRESIST, nValue, pUnit);
 }
 
-// 0x0058A7D0
-int __fastcall ACT5Q3_GetDrehyaPortalInTownCoords(D2GameStrc* pGame, D2UnitStrc* pUnit, D2CoordStrc* pCoord)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A5Q3_PRISONOFICE);
-    if (!pQuestData || !pQuestData->bNotIntro)
-    {
-        return 0;
-    }
-
-    D2Act5Quest3Strc* pQuestDataEx = (D2Act5Quest3Strc*)pQuestData->pQuestDataEx;
-    if (!pQuestDataEx->bDrehyaPortalInTownSpawned || pQuestDataEx->bChangeToSpecialObjectModeInTown)
-    {
-        return 0;
-    }
-
-    pCoord->nX = pQuestDataEx->tDrehyaPortalInTownCoords.nX;
-    pCoord->nY = pQuestDataEx->tDrehyaPortalInTownCoords.nY;
-    return 1;
-}
-
 // 0x00589160
 bool __fastcall ACT5Q3_SeqCallback(D2QuestDataStrc* pQuestData)
 {
@@ -1309,14 +1289,6 @@ bool __fastcall ACT1Q0_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId,
     }
 
     return false;
-}
-
-// 0x00592F80
-void __fastcall ACT1Q4_SetInvisibleObjectGUID(D2GameStrc* pGame, D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
-{
-    D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuestData->pQuestDataEx;
-    pQuestDataEx->bInvisbleObjectInitialized = 1;
-    pQuestDataEx->nInvisibleObjectGUID = !pUnit ? -1 : pUnit->dwUnitId;
 }
 
 void __fastcall ACT4Q3_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)

@@ -221,18 +221,6 @@ void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc* pGame, D2UnitStrc* pUnit); 
 
 void __stdcall ACT4Q2_ActivateHarrogathWaypoint(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x005B4FF0
 
-// 0x005B4390
-void __fastcall ACT4Q1_OnIzualActivated(D2GameStrc* pGame)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 22);
-
-    if (pQuestData && pQuestData->bNotIntro && pQuestData->fLastState < 2)
-    {
-        pQuestData->nStatusFlags = 0;
-        QUESTS_UnitIterate(pQuestData, 2, 0, ACT4Q1_UnitIterate_StatusCyclerEx, 1);
-    }
-}
-
 // 0x005B43F0
 int __fastcall ACT4Q1_IsAnyPlayerInRangeOfIzualGhost(D2GameStrc* pGame, D2UnitStrc* pTargetUnit)
 {
@@ -1315,30 +1303,6 @@ int __fastcall OBJECTS_OperateFunction56_DiabloSeal(D2ObjOperateFnStrc* pOp, int
     pQuestDataEx->pSealCoords[2].nY += 16;
     ACT4Q2_SpawnSealObject(pOp, pCoord, 5);
     return 0;
-}
-
-// 0x005B86E0
-void __fastcall ACT3Q2_UpdateKhalimItemCounts(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (!QUESTRECORD_GetQuestState(pQuestFlags, 18, 0))
-    {
-        QUESTRECORD_GetQuestState(pQuestFlags, 18, 1);
-    }
-
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 16);
-    if (!pQuestData)
-    {
-        return;
-    }
-
-    D2Act3Quest2Strc* pQuestDataEx = (D2Act3Quest2Strc*)pQuestData->pQuestDataEx;
-
-    --pQuestDataEx->nEyesDropped;
-    --pQuestDataEx->nHeartsDropped;
-    --pQuestDataEx->nBrainsDropped;
-    --pQuestDataEx->nFlailsDropped;
-    ++pQuestDataEx->nCubedFlails;
 }
 
 // 0x005BAD20

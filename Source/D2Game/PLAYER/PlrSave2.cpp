@@ -1097,6 +1097,22 @@ LABEL_FAIL:
     return nResult;
 }
 
+// 0x00569F20
+void __fastcall PLRSAVE2_InitPlayerFromClient(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2ClientStrc* pClient)
+{
+    CLIENTS_SetPlayerInClient(pClient, pPlayer);
+    SUNIT_InitClientInPlayerData(pPlayer, pClient);
+    UNITS_SetNameInPlayerData(pPlayer, CLIENTS_GetName(pClient));
+    SUNIT_InitSeed(pPlayer, &pGame->pGameSeed);
+    UNITS_ChangeAnimMode(pPlayer, 1);
+
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    pPlayerData->hTrade = 0;
+    pPlayerData->dwTradeState = 0;
+    pPlayerData->dwAcceptTradeTick = 0;
+    *(int*)pPlayerData->unk0x54 = 0;
+}
+
 static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
 {
     if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
@@ -2120,66 +2136,4 @@ void __fastcall PLRSAVE2_InitializeStats(D2GameStrc* pGame, D2UnitStrc* pUnit, i
     }
 }
 
-// 0x00577670
-D2UnitStrc* __fastcall SUNITNPC_FindInventoryItemByClassId(D2UnitStrc* pUnit, int nClassId)
-{
-    if (pUnit->pInventory)
-    {
-        D2UnitStrc* pNext;
-        for (D2UnitStrc* pItem = INVENTORY_GetFirstItem(pUnit->pInventory); pItem; pItem = pNext)
-        {
-            D2UnitStrc* pCheck = INVENTORY_UnitIsItem(pItem);
-            pNext = INVENTORY_GetNextItem(pItem);
-            if ((!pCheck ? -1 : pCheck->dwClassId) == nClassId && !UNIT_HasFlagEx(pCheck, UNITFLAGEX_ITEMINIT))
-            {
-                return pCheck;
-            }
-        }
-    }
-
-    return 0;
-}
-
-// 0x0058A730
-void __fastcall ACT5Q3_UpdateDrehyaPortalMode(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
-{
-    const int nAnimMode = !pUnit ? 0 : pUnit->dwAnimMode;
-
-    switch (nAnimMode)
-    {
-    case OBJMODE_OPERATING:
-        UNITS_ChangeAnimMode(pUnit, OBJMODE_OPENED);
-        break;
-
-    case OBJMODE_OPENED:
-    {
-        D2Act5Quest3Strc* pQuestDataEx = (D2Act5Quest3Strc*)pQuestData->pQuestDataEx;
-        if (DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit)) == LEVEL_HARROGATH)
-        {
-            if (++pQuestDataEx->nObjectUpdateInvocations > 5)
-            {
-                pQuestDataEx->bChangeToSpecialObjectModeInTown = 1;
-            }
-
-            if (pQuestDataEx->bChangeToSpecialObjectModeInTown)
-            {
-                UNITS_ChangeAnimMode(pUnit, OBJMODE_SPECIAL1);
-            }
-        }
-        else
-        {
-            if (pQuestDataEx->bChangeToSpecialObjectModeOutsideTown)
-            {
-                UNITS_ChangeAnimMode(pUnit, OBJMODE_SPECIAL1);
-            }
-        }
-        break;
-    }
-
-    case OBJMODE_SPECIAL1:
-        UNITS_ChangeAnimMode(pUnit, OBJMODE_SPECIAL2);
-        break;
-    }
-
-    EVENT_SetEvent(pQuestData->pGame, pUnit, 7, pQuestData->pGame->dwGameFrame + 25, 0, 0);
-}
+void __fastcall ACT5Q3_UpdateDrehyaPortalMode(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x0058A730

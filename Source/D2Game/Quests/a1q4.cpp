@@ -1166,6 +1166,64 @@ void __fastcall ACT1Q4_SetMonolithOrder(D2QuestDataStrc* pQuestData)
     }
 }
 
+// 0x00592F80
+void __fastcall ACT1Q4_SetInvisibleObjectGUID(D2GameStrc* pGame, D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
+{
+    D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuestData->pQuestDataEx;
+    pQuestDataEx->bInvisbleObjectInitialized = 1;
+    pQuestDataEx->nInvisibleObjectGUID = !pUnit ? -1 : pUnit->dwUnitId;
+}
+
+D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
+
+// 0x00592FB0
+bool __fastcall ACT1Q4_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    const int bPrimaryGoalDone = QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q4, QFLAG_PRIMARYGOALDONE);
+    const int bRewardGranted = QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q4, QFLAG_REWARDGRANTED);
+    const int bRewardPending = QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q4, QFLAG_REWARDPENDING);
+    if (nNpcId == MONSTER_AKARA)
+    {
+        if (pQuest->fState == 4 && !bRewardGranted && !bRewardPending)
+        {
+            if (ITEMS_FindQuestItem(SUNIT_GetGameFromUnit(pPlayer), pPlayer, ' skb'))
+            {
+                return true;
+            }
+        }
+
+        if (pQuest->fState == 1 && !bRewardGranted && !bRewardPending)
+        {
+            return true;
+        }
+
+        if (pQuest->fState == 6 && bPrimaryGoalDone == 1 && !bRewardGranted)
+        {
+            return true;
+        }
+
+        if (bRewardPending)
+        {
+            return true;
+        }
+    }
+    else if (nNpcId == MONSTER_CAIN5)
+    {
+        D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuest->pQuestDataEx;
+        if (QUESTS_QuickCheckPlayerGUID(&pQuestDataEx->pQuestGUID, !pPlayer ? -1 : pPlayer->dwUnitId) == 1)
+        {
+            return true;
+        }
+
+        if (!QUESTS_QuickCheckPlayerGUID(&pQuestDataEx->tPlayerGUIDs, !pPlayer ? -1 : pPlayer->dwUnitId) && bPrimaryGoalDone)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 // 0x005930B0
 void __fastcall ACT1Q4_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -1738,6 +1796,13 @@ void __fastcall OBJECTS_InitFunction09_InifussTree(D2ObjInitFnStrc* pOp)
             UNITS_ChangeAnimMode(pOp->pObject, 2);
         }
     }
+}
+
+// 0x005940A0
+void __fastcall ACT1Q4_RemovePlayerGUID(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+    D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)QUESTS_GetQuestData(pGame, QUEST_A1Q4_CAIN)->pQuestDataEx;
+    QUESTS_FastRemovePlayerGUID(&pQuestDataEx->pQuestGUID, !pPlayer ? -1 : pPlayer->dwUnitId);
 }
 
 // 0x00597310

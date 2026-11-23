@@ -4082,15 +4082,6 @@ void __fastcall MISSMODE_SrvDmg03_Blaze_FireWall_ImmolationFire_MeteorFire(D2Gam
     }
 }
 
-// 0x005A8000
-void __fastcall MONSTERMODE_DropTreasureForFindItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nUnused)
-{
-    D2ModeChangeStrc modeChange;
-    modeChange.pUnit = pUnit;
-    modeChange.pTargetUnit = pTarget;
-    MONSTERMODE_DropTreasure(pGame, pUnit, 1, &modeChange);
-}
-
 inline int UNITS_IsValidTargetInline(D2UnitStrc* pUnit)
 {
     if (!pUnit)
@@ -4435,14 +4426,6 @@ void __fastcall FRIENDLY_OpenHostility(D2GameStrc* pGame, D2UnitStrc* hPlayer, D
 
     PLAYERLIST_AllocPlayerList(pGame, hPlayer, pPlayer2);
     PLAYERLIST_ToggleFlag(pGame, hPlayer, pPlayer2, PLAYERLIST_FLAG_HOSTILE, 1);
-}
-
-// 0x005A6230
-void __fastcall MONSTERMODE_GetVelocityParams(D2UnkFieldsStrc* pFields, int* pUnk0x18, int* pUnk0x1C, unsigned char* pUnk0x20)
-{
-    *pUnk0x18 = pFields->nUnk0x18;
-    *pUnk0x1C = pFields->nUnk0x1C;
-    *pUnk0x20 = pFields->nUnk0x20;
 }
 
 void __fastcall sub_M250_Emit_005AD930(D2GameStrc* pGame, D2UnitStrc* pMissile)
@@ -6870,17 +6853,6 @@ bool __fastcall ACT3Q5_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId,
     }
 
     return false;
-}
-
-// 0x005BBFE0
-bool __fastcall ACT3Q6_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 22, 0) || nNpcId != 255 || pQuest->fState != 1)
-    {
-        return QUESTRECORD_GetQuestState(pQuestFlags, 22, 11);
-    }
-
-    return true;
 }
 
 // 0x005D2420

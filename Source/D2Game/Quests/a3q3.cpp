@@ -166,12 +166,6 @@ static inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStr
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }
 
-// 0x005B8750
-int __fastcall ACT3Q2_LacksKhalimsWill(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    return ITEMS_FindQuestItem(pGame, pUnit, ' 2fq') == 0;
-}
-
 // 0x005B8BF0
 int __fastcall ACT3Q3_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {

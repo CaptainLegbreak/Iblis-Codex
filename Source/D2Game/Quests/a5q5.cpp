@@ -1058,6 +1058,35 @@ int __fastcall ACT5Q5_AreAncientsDefeated(D2GameStrc* pGame)
     return 0;
 }
 
+// 0x0058D030
+D2UnitStrc* __fastcall ACT5Q5_FindAncientMonsterByClassId(D2GameStrc* pGame, int nClassId)
+{
+    D2Act5Quest5Strc* pQuestDataEx = (D2Act5Quest5Strc*)QUESTS_GetQuestData(pGame, QUEST_A5Q5_ANCIENTS)->pQuestDataEx;
+    for (int i = 0; i < pQuestDataEx->nAncientsSpawned; ++i)
+    {
+        D2UnitStrc* pAncient = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, pQuestDataEx->nAncientMonsterGUID[i]);
+        const int nAncientClassId = !pAncient ? -1 : pAncient->dwClassId;
+        if (nAncientClassId == nClassId)
+        {
+            return pAncient;
+        }
+    }
+
+    return 0;
+}
+
+// 0x0058D090
+int __fastcall ACT5Q5_IsArreatSummitClosed(D2GameStrc* pGame, D2UnitStrc* pUnit, int nTargetLevel)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x23);
+    if (!pQuestData->bNotIntro)
+    {
+        return 0;
+    }
+
+    return ((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->bAncientsDefeated == 0;
+}
+
 static inline int sub_00623C60(D2UnitStrc* pUnit)
 {
     if (!pUnit) return -1;

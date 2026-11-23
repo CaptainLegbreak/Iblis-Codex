@@ -2251,11 +2251,6 @@ void __stdcall ACT2Q4_OnPalaceGuardSpawned(int nUnused1, int nUnused2)
 {
 }
 
-// 0x0059C3B0
-void __stdcall ACT2Q5_OnSummonerCreated(int nUnused1)
-{
-}
-
 // 0x005A6220
 int __fastcall sub_005A6220(FieldStrc_005A6220* pObject)
 {

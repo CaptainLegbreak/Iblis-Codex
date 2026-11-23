@@ -297,6 +297,42 @@ void __fastcall ACT2Q2_Callback05_ItemDropped(D2QuestDataStrc* pQuestData, D2Que
     }
 }
 
+void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
+
+void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005455B0
+
+void __fastcall ACT2Q4_OpenPalaceOrCycle(D2GameStrc* pGame); // 0x0059B660
+
+enum D2C_a2q2_0059E5C0Constants
+{
+    QFLAG_CUSTOM7 = 11,
+};
+
+// 0x0059E5C0
+void __fastcall ACT2Q2_UpdateHoradricItemCounts(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A2Q2_HORADRICSTAFF);
+    if (pQuestData)
+    {
+        D2Act2Quest2Strc* pQuestDataEx = (D2Act2Quest2Strc*)pQuestData->pQuestDataEx;
+
+        pQuestDataEx->bStaffCubed = 1;
+        pQuestDataEx->nPlayerGUID = !pUnit ? -1 : pUnit->dwUnitId;
+
+        --pQuestDataEx->nBaseStaffs;
+        --pQuestDataEx->nAmulets;
+        ++pQuestDataEx->nCubedStaffs;
+    }
+
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+
+    QUESTS_UpdatePlayerFlags(pGame, pUnit);
+
+    QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_CUSTOM7);
+
+    ACT2Q4_OpenPalaceOrCycle(pGame);
+}
+
 extern "C" const char gszA2Q2SourceFile[];                                                                  // 0x006E211C
 
 // 0x0059E630

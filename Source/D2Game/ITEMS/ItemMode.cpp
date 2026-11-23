@@ -4145,22 +4145,6 @@ void __fastcall PLRSAVE2_WriteMercData(D2GameStrc* pGame, D2UnitStrc* pPlayer, D
     }
 }
 
-// 0x00569F20
-void __fastcall PLRSAVE2_InitPlayerFromClient(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2ClientStrc* pClient)
-{
-    CLIENTS_SetPlayerInClient(pClient, pPlayer);
-    SUNIT_InitClientInPlayerData(pPlayer, pClient);
-    UNITS_SetNameInPlayerData(pPlayer, CLIENTS_GetName(pClient));
-    SUNIT_InitSeed(pPlayer, &pGame->pGameSeed);
-    UNITS_ChangeAnimMode(pPlayer, 1);
-
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    pPlayerData->hTrade = 0;
-    pPlayerData->dwTradeState = 0;
-    pPlayerData->dwAcceptTradeTick = 0;
-    *(int*)pPlayerData->unk0x54 = 0;
-}
-
 void __fastcall MONSTER_DeleteEvents(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005738D0
 int __fastcall sub_J07_Emit_00560020(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
