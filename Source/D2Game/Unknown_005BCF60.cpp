@@ -48,12 +48,6 @@ bool __fastcall ACT3Q7_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc*
     return false;
 }
 
-// 0x005BD0C0
-bool __fastcall ACT3Q7_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    return false;
-}
-
 // 0x005BDB10
 void __cdecl sub_005BDB10_Return()
 {

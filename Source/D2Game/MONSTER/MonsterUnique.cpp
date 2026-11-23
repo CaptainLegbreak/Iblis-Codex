@@ -869,6 +869,26 @@ static void __stdcall MONSTERUNIQUE_MarkUnique(D2GameStrc* pGame, D2UnitStrc* pU
     }
 }
 
+static inline int GetUnitType(D2UnitStrc* pUnit)
+{
+    return !pUnit ? 6 : pUnit->dwUnitType;
+}
+
+// 0x005A0380
+int __fastcall sub_005A0380_HasMonsterFlag(D2UnitStrc* pUnit)
+{
+    D2MonsterDataStrc* pMonsterData = 0;
+    if (GetUnitType(pUnit) == 1)
+    {
+        pMonsterData = pUnit->pMonsterData;
+    }
+    if (!pMonsterData)
+    {
+        return 0;
+    }
+    return pMonsterData->nMonUmod[0] != 0;
+}
+
 short __fastcall MONSTERUNIQUE_GetBossHcIdx(D2UnitStrc* pUnit); // 0x005A01E0
 
 // 0x005A03A0
@@ -2180,33 +2200,6 @@ void __fastcall MONSTERUNIQUE_KillMinions(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 }
 
 
-// 0x005A6000
-int __fastcall PARTYSCREEN_CommandHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nCallbackId, int nOtherPlayerGUID, int nParam)
-{
-    int bFailure = 0;
-    D2UnitStrc* pOtherPlayer = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, nOtherPlayerGUID);
-    if (!pOtherPlayer)
-    {
-        return 0;
-    }
-
-    if (gpfnPartyCommands[nCallbackId])
-    {
-        if (IsBadCodePtr((FARPROC)gpfnPartyCommands[nCallbackId]))
-        {
-            return 3;
-        }
-
-        gpfnPartyCommands[nCallbackId](pGame, pUnit, pOtherPlayer, nParam, &bFailure);
-        if (bFailure)
-        {
-            return 3;
-        }
-    }
-
-    return 0;
-}
-
 // 0x005A6130
 int __fastcall FRIENDLY_AreUnitsFriendly(D2GameStrc* pGame, D2UnitStrc* pUnit1, D2UnitStrc* pUnit2)
 {
@@ -2515,6 +2508,163 @@ void __fastcall MONSTERUNIQUE_CastSuicideExplodeMissile(D2GameStrc* pGame, D2Uni
     if (pMissile)
     {
         SUNITDMG_SetMissileDamageFlagsForNearbyUnits(pGame, pMissile, nX, nY, pMonStatsTxtRecord->wAiParam[3][pGame->nDifficulty], &damage, 0, 0, 0, 0x581);
+    }
+}
+
+D2UnitStrc* __fastcall sub_6FC6A150(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B2490
+
+void __fastcall MONSTERUNIQUE_CreatePainWorm(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique);
+
+// 0x005A4200
+void __fastcall MONSTERUNIQUE_CreatePainWorm(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
+{
+    if (!pUnit || pUnit->dwAnimMode == MONMODE_DEATH)
+    {
+        sub_6FC6A150(pGame, pUnit, MONSTER_PAINWORM1, MONMODE_NEUTRAL, 1, 0);
+        STATES_ToggleState(pUnit, STATE_CORPSE_NODRAW, 1);
+    }
+}
+
+void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00573780
+
+void __fastcall sub_6FC6E730(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique);
+
+// 0x005A4230
+void __fastcall sub_6FC6E730(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
+{
+    if (SUNIT_IsDead(pUnit))
+    {
+        return;
+    }
+
+    MONSTER_UpdateAiCallbackEvent(pGame, pUnit);
+    EVENT_SetEvent(pGame, pUnit, EVENTTYPE_MONUMOD, pGame->dwGameFrame + 75, 0, 0);
+}
+
+typedef void(__fastcall* MONUMODFUNC)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique);
+
+extern MONUMODFUNC gpfnSrvUModCallbacks[][6]; // 0x0073C0B8
+
+int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag); // 0x005A0180
+
+// build: context MONSTERUNIQUE_CheckMonTypeFlag
+int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
+{
+    D2MonsterDataStrc* pMonsterData = (pUnit && pUnit->dwUnitType == UNIT_MONSTER) ? pUnit->pMonsterData : 0;
+    if (!pMonsterData)
+    {
+        return 0;
+    }
+    return (unsigned short)(pMonsterData->nTypeFlag & nFlag) != 0;
+}
+
+// 0x005A4270
+static void __stdcall MONSTERUNIQUE_ExecuteUModCallbacks(D2GameStrc* pGame, D2UnitStrc* pMissile, int nCallbackIndex, D2UnitStrc* pUnit)
+{
+    const int bUnique = MONSTERUNIQUE_CheckMonTypeFlag(pUnit, 0x08);
+
+    unsigned char* pUMods = MONSTERUNIQUE_GetUMods(pUnit);
+    if (!pUMods || *pUMods == 0)
+    {
+        return;
+    }
+
+    if (nCallbackIndex != 5)
+    {
+        for (int i = 0; i < 9; ++i)
+        {
+            MONUMODFUNC pUModFunc = gpfnSrvUModCallbacks[pUMods[i]][nCallbackIndex];
+            if (pUModFunc)
+            {
+                pUModFunc(pGame, pUnit, pUMods[i], bUnique);
+            }
+        }
+    }
+    else
+    {
+        for (int i = 0; i < 9; ++i)
+        {
+            MONUMODFUNC pUModFunc = gpfnSrvUModCallbacks[pUMods[i]][nCallbackIndex];
+            if (pUModFunc)
+            {
+                pUModFunc(pGame, pMissile, pUMods[i], bUnique);
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+// 0x005A4350
+void __fastcall MONSTERUNIQUE_ExecuteUModModeStartCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    MONSTERUNIQUE_ExecuteUModCallbacks(pGame, 0, 0, pUnit);
+}
+
+
+
+
+
+
+
+// 0x005A4360
+void __fastcall MONSTERUNIQUE_ExecuteUModModeChangeCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    MONSTERUNIQUE_ExecuteUModCallbacks(pGame, 0, 1, pUnit);
+}
+
+
+
+
+
+
+
+// 0x005A4370
+void __fastcall sub_005A4370(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
+{
+    MONSTERUNIQUE_ExecuteUModCallbacks(pGame, 0, 2, pUnit);
+}
+
+
+
+
+
+
+
+// 0x005A4390
+void __fastcall MONSTERUNIQUE_ExecuteUModSuccessfulHitCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    MONSTERUNIQUE_ExecuteUModCallbacks(pGame, 0, 3, pUnit);
+}
+
+
+
+
+
+
+
+// 0x005A43A0
+void __fastcall sub_6FC6E8A0(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    MONSTERUNIQUE_ExecuteUModCallbacks(pGame, 0, 4, pUnit);
+}
+
+
+
+
+
+
+
+// 0x005A43B0
+void __fastcall sub_005A43B0_OwnerMissileHook(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pMissile)
+{
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pMissile)
+    {
+        MONSTERUNIQUE_ExecuteUModCallbacks(pGame, pMissile, 5, pUnit);
     }
 }
 
@@ -3213,6 +3363,101 @@ void __fastcall sub_005A0E40_IncreaseMonsterLevelAndExperience(D2UnitStrc* pUnit
         STATLIST_SetUnitStat(pUnit, STAT_LEVEL, nLevel + 3, 0);
         const int nExperience = STATLIST_GetUnitBaseStat(pUnit, STAT_EXPERIENCE, 0);
         STATLIST_SetUnitStat(pUnit, STAT_EXPERIENCE, 5 * nExperience, 0);
+    }
+}
+
+int __fastcall CUNIT_ValidateMonsterId(int nMonsterId); // 0x00463900
+
+static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    }
+
+    return 0;
+}
+
+static __forceinline int MONSTERUNIQUE_GetUModConstantInline(int nUMod)
+{
+    if (nUMod >= sgptDataTables->nMonUModTxtRecordCount)
+    {
+        return 0;
+    }
+    D2MonUModTxt* pMonUModTxtRecord = &sgptDataTables->pMonUModTxt[nUMod];
+    if (!pMonUModTxtRecord)
+    {
+        return 0;
+    }
+    return pMonUModTxtRecord->dwConstants;
+}
+
+// 0x005A0E80
+void __fastcall sub_005A0E80_ApplyMonsterPenalty(D2UnitStrc* pUnit, int nMode, int bApply)
+{
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nUnitType != 1)
+    {
+        return;
+    }
+
+    D2GameStrc* pGame = SUNIT_GetGameFromUnit(pUnit);
+    if (!pGame)
+    {
+        return;
+    }
+
+    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecordInline(pUnit->dwClassId);
+    if (!pMonStatsTxtRecord || !bApply)
+    {
+        return;
+    }
+
+    const int nLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_LEVEL, nLevel + -1, 0);
+    const unsigned int nExperience = STATLIST_GetUnitBaseStat(pUnit, STAT_EXPERIENCE, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_EXPERIENCE, nExperience - 2 * (nExperience / 5), 0);
+
+    int nDamage = MONSTERUNIQUE_GetUModConstantInline(11);
+    int nToHit = MONSTERUNIQUE_GetUModConstantInline(10);
+
+    D2DifficultyLevelsTxt* pDifficultyLevelsTxtRecord = DATATBLS_GetDifficultyLevelsTxtRecord(pGame->nDifficulty);
+    if (pDifficultyLevelsTxtRecord)
+    {
+        nDamage = nDamage * pDifficultyLevelsTxtRecord->dwChampionDmgBonus / 100;
+        nToHit = nToHit * pDifficultyLevelsTxtRecord->dwChampionDmgBonus / 100;
+        if (CUNIT_ValidateMonsterId(sub_00463860_GetMonsterId(pUnit)) == 118)
+        {
+            nDamage /= 2;
+        }
+    }
+
+    STATLIST_AddUnitStat(pUnit, STAT_DAMAGEPERCENT, nDamage, 0);
+    STATLIST_AddUnitStat(pUnit, STAT_ITEM_TOHIT_PERCENT, nToHit, 0);
+
+    if (pMonStatsTxtRecord->nVelocity <= 0 || nMode == 36)
+    {
+        return;
+    }
+
+    switch (nMode)
+    {
+    case 36:
+        STATLIST_AddUnitStat(pUnit, STAT_VELOCITYPERCENT, -33, 0);
+        break;
+
+    case 37:
+    {
+        int nVelocity = 0x800 / pMonStatsTxtRecord->nVelocity;
+        nVelocity -= 0x80;
+        nVelocity = D2_MIN(D2_MAX(nVelocity, 10), 100);
+        STATLIST_AddUnitStat(pUnit, STAT_VELOCITYPERCENT, nVelocity, 0);
+        break;
+    }
+
+    default:
+        STATLIST_AddUnitStat(pUnit, STAT_VELOCITYPERCENT, 20, 0);
+        break;
     }
 }
 

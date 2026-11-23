@@ -467,6 +467,75 @@ void __fastcall ACT4Q3_InitQuestData(D2QuestDataStrc* pQuestData)
     memset(pQuestDataEx, 0x00, sizeof(D2Act4Quest3Strc));
 }
 
+union D2SeedStrc;
+
+D2SeedStrc* __fastcall QUESTS_GetGlobalSeed(D2GameStrc*); // 0x005438B0
+
+unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc*, int); // 0x0045C390
+
+extern unsigned int gnHellforgeRunesNormal[]; // 0x0073E114
+
+extern unsigned int gnHellforgeRunesNightmare[]; // 0x0073E514
+
+extern unsigned int gnHellforgeRunesHell[]; // 0x0073E540
+
+extern unsigned int gnHellforgeGemsFirst[]; // 0x0073E56C
+
+extern unsigned int gnHellforgeGemsMiddle[]; // 0x0073E588
+
+extern unsigned int gnHellforgeGemsLast[]; // 0x0073E5A4
+
+static inline unsigned int RollSeed(D2SeedStrc* pSeed)
+{
+    unsigned __int64 seed = (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5 + pSeed->nHighSeed;
+    pSeed->nHighSeed = (unsigned int)(seed >> 32);
+    pSeed->nLowSeed = (unsigned int)seed;
+    return (unsigned int)seed;
+}
+
+// 0x005B6710
+void __fastcall sub_005B6710_DropHellforgeReward(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
+{
+    D2Act4Quest3Strc* pQuestDataEx = (D2Act4Quest3Strc*)pQuestData->pQuestDataEx;
+    if (pQuestDataEx->bRewardPending) UNITS_ChangeAnimMode(pUnit, 4);
+    if (pQuestDataEx->bRewardDropsPending)
+    {
+        int nItemLevel = 50;
+        int nDropped = 0;
+        for (int i = 0; i < pQuestDataEx->nPlayersInAct; ++i)
+        {
+            switch (pQuestDataEx->nRewardState)
+            {
+            case 4: pUnit->dwDropItemCode = gnHellforgeGemsFirst[RollSeed(QUESTS_GetGlobalSeed(pQuestData->pGame)) % 7]; break;
+            case 2:
+            case 3: pUnit->dwDropItemCode = gnHellforgeGemsMiddle[RollSeed(QUESTS_GetGlobalSeed(pQuestData->pGame)) % 7]; break;
+            case 1: pUnit->dwDropItemCode = gnHellforgeGemsLast[RollSeed(QUESTS_GetGlobalSeed(pQuestData->pGame)) % 7]; break;
+            default: return;
+            }
+            if (D2GAME_DropItemAtUnit_6FC4FEC0(pQuestData->pGame, pUnit, 2, &nItemLevel, 0, -1, 0)) ++nDropped;
+        }
+        if (!nDropped) return;
+        --pQuestDataEx->nRewardState;
+        if (pQuestDataEx->nRewardState <= 0)
+        {
+            pQuestDataEx->bRewardDropsPending = 0;
+            if (pQuestData->pGame->bExpansion)
+            {
+                unsigned int* pCodes = gnHellforgeRunesNormal;
+                switch (pQuestData->pGame->nDifficulty)
+                {
+                case 1: pCodes = gnHellforgeRunesNightmare; break;
+                case 2: pCodes = gnHellforgeRunesHell; break;
+                }
+                pUnit->dwDropItemCode = pCodes[SEED_RollLimitedRandomNumber(QUESTS_GetGlobalSeed(pQuestData->pGame), 11)];
+                D2GAME_DropItemAtUnit_6FC4FEC0(pQuestData->pGame, pUnit, 2, &nItemLevel, 0, -1, 0);
+            }
+        }
+        else
+            EVENT_SetEvent(pQuestData->pGame, pUnit, 7, pQuestData->pGame->dwGameFrame + 20, 0, 0);
+    }
+}
+
 // 0x005B6930
 void __fastcall ACT4Q3_OnSoulstonesDropped(D2GameStrc* pGame, int nSoulStonesDropped)
 {

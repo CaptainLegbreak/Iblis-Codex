@@ -1922,6 +1922,13 @@ void __fastcall ITEM_RemoveEquippedItems(D2UnitStrc* pUnit)
     INVENTORY_RemoveAllItems(pInventory);
 }
 
+// 0x004C2530
+int __cdecl sub_004C2530()
+{
+    return 0;
+}
+
+
 // 0x004C2540
 static void __stdcall ITEM_PlaceItem(D2UnitStrc* pItem, unsigned short nX, unsigned short nY, int nMode, int bFindRoom, unsigned char nPage)
 {

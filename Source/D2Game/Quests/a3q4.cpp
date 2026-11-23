@@ -882,5 +882,28 @@ void __fastcall ACT3Q4_CheckGoldenBirdBoss(D2QuestDataStrc* pQuestData, D2UnitSt
     }
 }
 
+// 0x005BAD20
+int __fastcall ACT3Q4_GoldenBirdBroughtToAlkor(D2GameStrc* pGame)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 18);
+    if (pQuestData && ((D2Act3Quest4Strc*)pQuestData->pQuestDataEx)->bGoldenBirdBroughtToAlkor)
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
+// 0x005BAD40
+void __fastcall ACT3Q4_ResetAlkor(D2GameStrc* pGame)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 18);
+
+    if (pQuestData)
+    {
+        ((D2Act3Quest4Strc*)pQuestData->pQuestDataEx)->bGoldenBirdBroughtToAlkor = 0;
+    }
+}
+
 int __fastcall ACT3Q5_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005BADC0
 #include "gen/data/Source/D2Game/Quests/a3q4.inc"

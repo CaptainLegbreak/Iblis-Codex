@@ -1735,6 +1735,59 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_Panther(D2GameStrc* pGame, D2UnitS
     return 0;
 }
 
+// 0x005B0D60
+int __fastcall AITHINK_GetSpecialStateFromAiControl(D2AiControlStrc* pAiControl)
+{
+    return pAiControl->nAiSpecialState;
+}
+
+// 0x005B0D70
+void __fastcall AITHINK_SetAiControlParams(D2AiControlStrc* pAiControl, int nParam0, int nParam1, int nParam2)
+{
+    if (!pAiControl)
+    {
+        return;
+    }
+    if (nParam0 != -666)
+    {
+        pAiControl->dwAiParam[0] = nParam0;
+    }
+    if (nParam1 != -666)
+    {
+        pAiControl->dwAiParam[1] = nParam1;
+    }
+    if (nParam2 != -666)
+    {
+        pAiControl->dwAiParam[2] = nParam2;
+    }
+}
+
+// 0x005B0DA0
+int __fastcall AITHINK_CanUnitSwitchAi(D2UnitStrc* pUnit, D2MonStatsTxt* pMonStatsTxtRecord, int nAiSpecialState, int bCheckIfSuperUnique)
+{
+    if (nAiSpecialState == 0)
+    {
+        return 1;
+    }
+
+    if (nAiSpecialState != 10 && nAiSpecialState != 11 && nAiSpecialState != 12)
+    {
+        return 1;
+    }
+
+    if (bCheckIfSuperUnique && MONSTERUNIQUE_CheckMonTypeFlag(pUnit, 2))
+    {
+        return 0;
+    }
+
+    if (!pUnit)
+    {
+        return UNITS_CanSwitchAI(-1);
+    }
+
+    return UNITS_CanSwitchAI(pUnit->dwClassId);
+}
+
 static D2SkillsTxt* AITHINK_GetSkillsTxtRecordInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -1778,51 +1831,6 @@ inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
         return (pUnit->dwFlags & nFlag) != 0;
     }
     return 0;
-}
-
-// 0x005E0070
-void __fastcall QUESTSFX_UberPrimeEvil(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    int nMonsterId;
-
-    if (!pUnit)
-    {
-        nMonsterId = -1;
-    }
-    else
-    {
-        nMonsterId = pUnit->dwClassId;
-    }
-
-    switch (nMonsterId)
-    {
-    case MONSTER_UBERMEPHISTO:
-        pGame->bUberMephistoKilled = 1;
-        break;
-    case MONSTER_UBERDIABLO:
-        pGame->bUberDiabloKilled = 1;
-        break;
-    case MONSTER_UBERBAAL:
-        pGame->bUberBaalKilled = 1;
-        break;
-    default:
-        D2_ASSERT(0, 230);
-        return;
-    }
-
-    if (pGame->bUberMephistoKilled && pGame->bUberDiabloKilled && pGame->bUberBaalKilled)
-    {
-        int nItemLevel;
-        pUnit->dwDropItemCode = ' 2mc';
-        D2UnitStrc* pItem = D2GAME_DropItemAtUnit_6FC4FEC0(pGame, pUnit, ITEMQUAL_UNIQUE, &nItemLevel, 0, -1, 0);
-        D2GAME_RechargeItem_6FC4BD50(pGame, 0, pItem);
-        pUnit->dwDropItemCode = ' dts';
-        const int nClients = pGame->nClients;
-        for (int i = 0; i < nClients; i++)
-        {
-            D2GAME_DropItemAtUnit_6FC4FEC0(pGame, pUnit, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 0);
-        }
-    }
 }
 
 inline int ValidateMonsterId(int nId)
@@ -15709,6 +15717,25 @@ void __fastcall AITHINK_Fn077_TrapMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
     pAiControl->dwAiParam[1] = 0;
     AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStatsTxt->wAiParam[TRAPMISSILE_AI_PARAM_DELAY][pGame->nDifficulty]);
+}
+
+// 0x005FB650
+int __fastcall sub_005FB650_GetTrapArrowVariant(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit));
+    D2MonsterRegionStrc* pMonsterRegion = MONSTERREGION_GetMonsterRegionFromLevelId(pGame->pMonReg, nLevelId);
+    if (pMonsterRegion->nTrapVariant < 0)
+    {
+        if (nLevelId < LEVEL_AI_TRAPARROW_RANDOM)
+        {
+            pMonsterRegion->nTrapVariant = 0;
+        }
+        else
+        {
+            pMonsterRegion->nTrapVariant = OBJECTS_RollRandomNumber(&pUnit->pSeed, 0, 3);
+        }
+    }
+    return pMonsterRegion->nTrapVariant;
 }
 
 // 0x005EF620

@@ -6,6 +6,7 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
+#include "D2LevelIds.h"
 
 struct D2UnitStrc;
 
@@ -166,6 +167,32 @@ void __fastcall QUESTS_AddPlayerGUID(D2QuestGUIDStrc* pQuestGUID, int dwGUID); /
 static inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+}
+
+// 0x005BAD60
+bool __fastcall ACT3Q5_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 21, 0))
+    {
+        return false;
+    }
+
+    if (nNpcId == 255)
+    {
+        if (pQuest->fState == 1)
+        {
+            return true;
+        }
+    }
+    else if (nNpcId == 245)
+    {
+        if (QUESTRECORD_GetQuestState(pQuestFlags, 21, 4) && !((D2Act3Quest5Strc*)pQuest->pQuestDataEx)->bOrbSmashed)
+        {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 // 0x005BADC0
@@ -881,6 +908,37 @@ void __fastcall ACT3Q5_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pQuestDataEx = pQuestDataEx;
     memset(pQuestDataEx, 0x00, sizeof(D2Act3Quest5Strc));
     memset(pQuestData->pQuestDataEx, 0x00, sizeof(D2Act3Quest5Strc));
+}
+
+// 0x005BBF80
+bool __fastcall ACT3Q5_IsOrbNotSmashed(D2GameStrc* pGame)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 19);
+    if (pQuestData)
+    {
+        return ((D2Act3Quest5Strc*)pQuestData->pQuestDataEx)->bOrbSmashed == 0;
+    }
+
+    return true;
+}
+
+// 0x005BBFA0
+int __fastcall ACT3Q5_IsDuranceOfHateClosed(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 19);
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+
+    if (pRoom && DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_DURANCEOFHATELEV2)
+    {
+        return 0;
+    }
+
+    if (pQuestData)
+    {
+        return ((D2Act3Quest5Strc*)pQuestData->pQuestDataEx)->bOrbSmashed == 0;
+    }
+
+    return 0;
 }
 
 #include "gen/data/Source/D2Game/Quests/a3q5.inc"

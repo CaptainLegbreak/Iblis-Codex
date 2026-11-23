@@ -3097,66 +3097,6 @@ void __fastcall QUESTS_HellPortalActChange(D2GameStrc* pGame, D2UnitStrc* pPlaye
     }
 }
 
-// 0x005473A0
-bool __fastcall OBJRGN_CanSpawnWell(D2GameStrc* pGame, int nLevelId, int nX, int nY)
-{
-    D2ObjectRegionStrc* pObjectRegion = pGame->pObjectControl->pObjectRegion[nLevelId];
-    for (int i = 0; i < pObjectRegion->nWells; ++i)
-    {
-        int nDistance = pObjectRegion->wellCoordinates[i].nX - nX;
-        if (nDistance < 0)
-        {
-            nDistance = -nDistance;
-        }
-        if (nDistance < OBJRGN_WELL_DISTANCE)
-        {
-            return false;
-        }
-
-        nDistance = pObjectRegion->wellCoordinates[i].nY - nY;
-        if (nDistance < 0)
-        {
-            nDistance = -nDistance;
-        }
-        if (nDistance < OBJRGN_WELL_DISTANCE)
-        {
-            return false;
-        }
-    }
-
-    return true;
-}
-
-// 0x00547430
-bool __fastcall OBJRGN_CanSpawnShrine(D2GameStrc* pGame, int nLevelId, int nX, int nY)
-{
-    D2ObjectRegionStrc* pObjectRegion = pGame->pObjectControl->pObjectRegion[nLevelId];
-    for (int i = 0; i < pObjectRegion->nShrines; ++i)
-    {
-        int nDistance = pObjectRegion->shrineCoordinates[i].nX - nX;
-        if (nDistance < 0)
-        {
-            nDistance = -nDistance;
-        }
-        if (nDistance < OBJRGN_SHRINE_DISTANCE)
-        {
-            return false;
-        }
-
-        nDistance = pObjectRegion->shrineCoordinates[i].nY - nY;
-        if (nDistance < 0)
-        {
-            nDistance = -nDistance;
-        }
-        if (nDistance < OBJRGN_SHRINE_DISTANCE)
-        {
-            return false;
-        }
-    }
-
-    return true;
-}
-
 static inline int MONSTERREGION_SanitizeMonsterId(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)

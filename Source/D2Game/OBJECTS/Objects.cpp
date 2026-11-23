@@ -2794,27 +2794,6 @@ void __fastcall OBJECTS_AppendPair(int* pCount, D2UnkPairStrc* pPairs, int nSeco
     }
 }
 
-// 0x00555D20
-void __fastcall ITEMMODE_InitializeItemUnit(D2UnitStrc* pUnit, D2GameStrc* pGame, int nUnitGUID, D2ActiveRoomStrc* pRoom)
-{
-    if (pUnit)
-    {
-        pUnit->dwUnitId = nUnitGUID;
-        pUnit->dwFlags = pUnit->dwFlags & ~UNITFLAG_ISVALIDTARGET | UNITFLAG_TARGETABLE;
-    }
-
-    ITEMS_SetItemFlag(pUnit, IFLAG_IDENTIFIED, 1);
-    STATLIST_AllocStatListEx(pUnit, 0, 0, 0);
-
-    const unsigned char nQuest = DATATBLS_GetItemsTxtRecord(!pUnit ? -1 : pUnit->dwClassId)->nQuest;
-    if (nQuest)
-    {
-        QUESTS_CreateChainRecord(pGame, pUnit, nQuest - 1);
-    }
-
-    D2GAME_DeleteTimersOnUnit_6FC34A30(pGame, pUnit);
-}
-
 
 // 0x0055CA00
 int __fastcall OBJECTS_MatchFieldPair(D2UnkFieldPairStrc* pRecord1, D2UnkFieldPairStrc* pRecord2, int nValue1, int nValue2)
@@ -2875,43 +2854,6 @@ int __fastcall SKILL_ComputePeriodicRate(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     }
 
     return (pGame->dwGameFrame + nDelay - 1) / nDelay * nDelay + 1;
-}
-
-// 0x0056D2C0
-int __fastcall D2GAME_GetXAndYFromTargetUnit_6FD14020(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pX, int* pY)
-{
-    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-    if (pTarget)
-    {
-        *pX = UNITS_GetUnitXPosition(pTarget);
-        *pY = UNITS_GetUnitYPosition(pTarget);
-    }
-    else
-    {
-        D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
-        *pX = D2COMMON_10175_PathGetFirstPointX(pDynamicPath);
-        *pY = D2COMMON_10176_PathGetFirstPointY(pDynamicPath);
-    }
-
-    return *pX && *pY;
-}
-
-// 0x0056E620
-int __fastcall D2GAME_GetSummonIdFromSkill(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7)
-{
-    int nMonsterId = sub_0063EA70_GetMonsterId(pUnit, nArg2, nArg3, nArg4, nArg5, nArg6, nArg7);
-    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        return nMonsterId;
-    }
-
-    nMonsterId = AIGENERAL_GetMinionSpawnClassId(pUnit);
-    if (nMonsterId > 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        return nMonsterId;
-    }
-
-    return -1;
 }
 
 // 0x00570850

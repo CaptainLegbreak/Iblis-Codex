@@ -1136,3 +1136,43 @@ void __fastcall AIBAAL_MainSkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
     }
     }
 }
+
+void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
+
+void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int nAiSpecialState); // 0x005B0E00
+
+D2AiCmdStrc* __fastcall AIGENERAL_GetAiCommandFromParam(D2UnitStrc* pUnit, int nCmdParam, int bSet); // 0x0058EEF0
+
+void __fastcall AIGENERAL_CopyAiCommand(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCmdStrc* pAiCmd); // 0x0058EF40
+
+// 0x005FCF30
+void __fastcall AIBAAL_RunSpecialAiState(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    int nParam1 = 0;
+    int nParam2 = 0;
+    D2AiCmdStrc* pCurrentAiCmd = AIGENERAL_GetAiCommandFromParam(pUnit, 10, 0);
+    if (pCurrentAiCmd)
+    {
+        nParam1 = pCurrentAiCmd->nCmdParam[1];
+        nParam2 = pCurrentAiCmd->nCmdParam[2];
+    }
+
+    if (STATES_CheckState(pUnit, STATE_INFERNO))
+    {
+        STATES_ToggleState(pUnit, STATE_INFERNO, 0);
+    }
+
+    AITHINK_ExecuteAiFn(pGame, pUnit, pAiTickParam->pAiControl, pAiControl->nAiSpecialState);
+
+    if (!AIGENERAL_GetAiCommandFromParam(pUnit, 10, 0) && nParam1 && nParam2)
+    {
+        D2AiCmdStrc aiCmd;
+        aiCmd.nCmdParam[0] = 10;
+        aiCmd.nCmdParam[1] = nParam1;
+        aiCmd.nCmdParam[2] = nParam2;
+        AIGENERAL_CopyAiCommand(pGame, pUnit, &aiCmd);
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 1);
+}

@@ -688,6 +688,7 @@ void __fastcall SUNITPROXY_CountPlayersInLevel(D2GameStrc* pGame, D2UnitStrc* pU
     }
 }
 
+// 0x00535EA0
 D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromClassId(D2GameStrc* pGame, int nNpcClassId, int* pIndex)
 {
     D2NpcRecordStrc* pRecords = pGame->pNpcControl->pFirstRecord;
@@ -701,6 +702,12 @@ D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromClassId(D2GameStrc* pGame
 
     D2_ASSERT(nNpcClassId, 114);
     return 0;
+}
+
+// 0x00535F10
+D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromUnit(D2GameStrc* pGame, D2UnitStrc* pNpc, int* pIndex)
+{
+    return SUNITPROXY_GetNpcRecordFromClassId(pGame, !pNpc ? -1 : pNpc->dwClassId, pIndex);
 }
 
 // 0x00536850

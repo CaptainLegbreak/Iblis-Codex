@@ -184,7 +184,7 @@ typedef char H12_check_unit_b[(H12_OFFSET(D2UnitStrc, pDynamicPath) == 0x2C && H
 
 typedef char H12_check_unit_c[(H12_OFFSET(D2UnitStrc, dwFlags) == 0xC4 && H12_OFFSET(D2UnitStrc, nSeqCurrentFramePrecise) == 0x44) ? 1 : -1];
 
-typedef char H12_check_txt_a[(H12_OFFSET(D2MonStatsTxt, nByte1A7) == 0x1A7 && H12_OFFSET(D2MonStats2Txt, nInfernoRollback) == 0x10A) ? 1 : -1];
+typedef char H12_check_txt_a[(H12_OFFSET(D2MonStatsTxt, nSplClientEnd) == 0x1A7 && H12_OFFSET(D2MonStats2Txt, nInfernoRollback) == 0x10A) ? 1 : -1];
 
 typedef char H12_check_txt_b[(sizeof(D2SkillsTxt) == 0x23C && H12_OFFSET(D2DataTablesStrc, nSkillsTxtRecordCount) == 0xBA0) ? 1 : -1];
 
@@ -330,7 +330,7 @@ typedef char I20_check_unit_b[(I20_OFFSET(D2UnitStrc, pDynamicPath) == 0x2C && I
 
 typedef char I20_check_unit_c[(I20_OFFSET(D2UnitStrc, dwFlags) == 0xC4 && I20_OFFSET(D2UnitStrc, nSeqCurrentFramePrecise) == 0x44) ? 1 : -1];
 
-typedef char I20_check_txt_a[(I20_OFFSET(D2MonStatsTxt, nByte1A7) == 0x1A7 && I20_OFFSET(D2MonStats2Txt, nInfernoRollback) == 0x10A) ? 1 : -1];
+typedef char I20_check_txt_a[(I20_OFFSET(D2MonStatsTxt, nSplClientEnd) == 0x1A7 && I20_OFFSET(D2MonStats2Txt, nInfernoRollback) == 0x10A) ? 1 : -1];
 
 typedef char I20_check_txt_b[(sizeof(D2SkillsTxt) == 0x23C && I20_OFFSET(D2DataTablesStrc, nSkillsTxtRecordCount) == 0xBA0) ? 1 : -1];
 
@@ -1947,7 +1947,7 @@ static void MONSTER_HandleAttackEvent(D2UnitStrc* pUnit)
         return;
     }
 
-    if (pMonStatsTxt->nByte1A7)
+    if (pMonStatsTxt->nSplClientEnd)
     {
         switch (sub_J20_GetAnimMode(pUnit))
         {
@@ -2956,12 +2956,6 @@ int __cdecl sub_004BB5D0()
 
 // 0x004BF9B0
 int __cdecl sub_004BF9B0()
-{
-    return 0;
-}
-
-// 0x004C2530
-int __cdecl sub_004C2530()
 {
     return 0;
 }

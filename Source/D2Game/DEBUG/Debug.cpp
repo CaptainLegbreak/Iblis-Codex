@@ -16,6 +16,33 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 D2UnitStrc* __fastcall SUNIT_GetNextUnitFromList(D2UnitStrc* pUnit);                                        // 0x00552DB0
 void __cdecl QUESTS_DisableSequences();                                                                      // 0x005449D0
 
+D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
+
+// 0x00534650
+D2UnitStrc* __stdcall DEBUG_GetUnitFromTypeAndGUID(int nUnitType, int nUnitGUID)
+{
+    D2GameStrc* pGame = sub_0052F6E0_LockFirstGame();
+    if (!pGame)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pUnit = SUNIT_GetServerUnit(pGame, nUnitType, nUnitGUID);
+    sub_0052DF40_UnlockFirstGame();
+    return pUnit;
+}
+
+// 0x00534680
+D2DrlgActStrc* __stdcall DEBUG_GetAct(int nAct)
+{
+    D2GameStrc* ptGame = sub_0052F6E0_LockFirstGame();
+    D2_ASSERT(ptGame, 105);
+
+    D2DrlgActStrc* pAct = ptGame->pAct[nAct];
+    sub_0052DF40_UnlockFirstGame();
+    return pAct;
+}
+
 // 0x005346C0
 int __stdcall DEBUG_GetMonsterCount()
 {

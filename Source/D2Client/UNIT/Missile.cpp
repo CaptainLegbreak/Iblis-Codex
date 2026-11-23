@@ -40,8 +40,6 @@ struct D2UnitSfxNodeStrc;
 
 struct D2SetItemsTxt;
 
-struct D2LevelSpeechStrc;
-
 union D2SeedStrc;
 
 struct D2CltUnitEventStrc;
@@ -128,20 +126,11 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct D2LevelSpeechStrc
-{
-    int nLevels[10];
-    int nCondition;
-    unsigned short f_2C;
-};
-
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
 extern const int gaEffectRingOffsetY[16]; // 0x006DAF08
 
 extern const int gaEffectRingOffsetX[16]; // 0x006DAF48
-
-extern D2LevelSpeechStrc* gapLevelSpeeches[20]; // 0x0072A2C4
 
 extern int gnScreenWidth; // 0x0071146C
 
@@ -438,10 +427,6 @@ enum
     CLTDO_SLOW_FLAG = 0x100,
 };
 
-int gaLevelVisited[1024]; // 0x007C78B8
-
-int gnLastLevelId; // 0x007C88CC
-
 unsigned char gnRoomColorBlue; // 0x007C8A6C
 
 unsigned char gnRoomColorGreen; // 0x007C8A6D
@@ -555,13 +540,11 @@ void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4);
 
 extern const int gaCollisionBurstMissiles[]; // 0x0072A33C
 
-
 void __fastcall MISSILE_InitMotion(D2UnitStrc* pMissile);                                              // 0x004CE4B0
 
 D2UnitStrc* __fastcall MISSILE_SubmitOffsetRequest(D2UnitStrc* pUnit, int nArg0, int nOffsetX, int nOffsetY, int nTargetX, int nTargetY, int nArg3, int nArg4, int nRange); // 0x004CDC30
 
 int __stdcall MISSILE_GetRemainingFrames(D2UnitStrc* pMissile);                                             // 0x0064A3B0
-
 
 unsigned int __fastcall SEED_GetLowSeed(D2SeedStrc* pSeed);                                                 // 0x00650E50
 
@@ -658,7 +641,6 @@ static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed,
 
     return SEED_RollRandomNumber(pSeed) & (nMax - 1);
 }
-
 
 void __stdcall GFXUTIL_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA2A0
 
@@ -780,7 +762,6 @@ int __stdcall sub_0064A3E0(D2UnitStrc* pMissile);                               
 
 int __stdcall MISSILE_CheckUnitIfOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit);                           // 0x0064A470
 
-
 static inline int UNITS_TestFlagBit(D2UnitStrc* pUnit, int nBit)
 {
     if (pUnit)
@@ -789,7 +770,6 @@ static inline int UNITS_TestFlagBit(D2UnitStrc* pUnit, int nBit)
     }
     return 0;
 }
-
 
 extern D2DataTablesStrc* sgptDataTables_00744304; // 0x00744304
 
@@ -1143,110 +1123,6 @@ restore:
     }
 
     return nResult;
-}
-
-// 0x004CA900
-void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId)
-{
-    D2_ASSERT(pUnit, 0xC47);
-    if (!sub_004DF880())
-    {
-        return 0;
-    }
-
-    int nGroup = SOUNDHDR_GetGroupStart(nId);
-    int nCount = SOUNDHDR_GetGroupSize(nGroup);
-    for (D2UnitSfxNodeStrc* pNode = (D2UnitSfxNodeStrc*)pUnit->pUnitSfxData; pNode; pNode = pNode->pNext)
-    {
-        void* pUnitSfx = pNode->pUnitSfx;
-        int nHintId = sub_004B9CA0_GetHintIdByKey(pUnitSfx);
-        if (nHintId >= nGroup && nHintId < nGroup + nCount)
-        {
-            return pUnitSfx;
-        }
-    }
-
-    return 0;
-}
-
-// 0x004CC270
-void __cdecl MISSILE_CheckLevelSpeech()
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
-    if (!pRoom)
-    {
-        return;
-    }
-
-    int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
-    if (nLevelId >= sgptDataTables->nLevelsTxtRecordCount || nLevelId == gnLastLevelId)
-    {
-        return;
-    }
-
-    gnLastLevelId = nLevelId;
-    if (gaLevelVisited[nLevelId])
-    {
-        return;
-    }
-
-    D2LevelSpeechStrc* pEntry;
-    for (int i = 0; i < 20; ++i)
-    {
-        pEntry = gapLevelSpeeches[i];
-        if (!pEntry)
-        {
-            return;
-        }
-
-        for (int j = 0; j < 10; ++j)
-        {
-            int nLevel = pEntry->nLevels[j];
-            if (!nLevel)
-            {
-                break;
-            }
-
-            if (nLevel == nLevelId)
-            {
-                goto found;
-            }
-        }
-    }
-
-    return;
-
-found:
-    for (int j = 0; j < 10; ++j)
-    {
-        int nLevel = pEntry->nLevels[j];
-        if (!nLevel)
-        {
-            break;
-        }
-
-        gaLevelVisited[nLevel] = 1;
-    }
-
-    if (pEntry->nCondition && !TEXT_TestQuestCondition(pEntry->nCondition))
-    {
-        return;
-    }
-
-    D2_ASSERT(pPlayer, 0xCBB);
-    unsigned int dwSfxTicks = pPlayer->dwSfxTicks;
-    if (sub_0044DB00() - dwSfxTicks <= 0x3E)
-    {
-        return;
-    }
-
-    if (sub_004B9C20_IsSpeechPlaying())
-    {
-        return;
-    }
-
-    UNITSND_PlayPlayerSpeech(pPlayer, pEntry->f_2C);
 }
 
 static inline unsigned int SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
@@ -5511,7 +5387,6 @@ int __fastcall MISSILE_CheckTargetInRange(D2UnitStrc* pUnit, int nSkillId, int n
     return 1;
 }
 
-
 // build: context MISSILE_GetApproxOffsetLengthInline
 inline int MISSILE_GetApproxOffsetLengthInline(int nX, int nY)
 {
@@ -5572,7 +5447,6 @@ void __fastcall MISSILE_CltDoObjectRing(D2UnitStrc* pMissile)
     }
     MISSILE_CltDoCommon(pMissile);
 }
-
 
 // 0x004D6C00
 void __fastcall MISSILE_CltDoRateTable(D2UnitStrc* pMissile)
@@ -6506,7 +6380,6 @@ int __fastcall sub_004CF800_HitChain(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
     return 1;
 }
 
-
 static inline void RotateOffsets(int* pX,int* pY)
 {
     const int nOldX=*pX;
@@ -6619,7 +6492,6 @@ void __fastcall sub_004CEA00_SpawnMissileInRadius(D2UnitStrc* pOwner, D2UnitStrc
         }
     }
 }
-
 
 static inline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
 {
@@ -6864,7 +6736,6 @@ static int MISSILE_UseCharge(D2UnitStrc* pUnit)
 
 	return nResult;
 }
-
 
 static inline int MISSILE_ApplyRatio(int nValue, int nMultiplier, int nDivisor)
 {
@@ -8269,7 +8140,6 @@ int __fastcall sub_004CC7C0_GetSkillMissileRange(int nSkillId, int nLevel)
     return pSkillsTxt->dwParam[2] + (nLevel - 1) * pSkillsTxt->dwParam[3];
 }
 
-
 // 0x004CCF20
 void __fastcall sub_004CCF20_SetValue(int nValue)
 {
@@ -8340,6 +8210,5 @@ int __fastcall sub_004CCF00_CltHitClearGlobals(D2UnitStrc* pMissile, D2UnitStrc*
     }
     return 0;
 }
-
 
 #include "gen/data/Source/D2Client/UNIT/Missile.inc"

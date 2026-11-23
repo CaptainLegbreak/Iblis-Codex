@@ -1775,21 +1775,42 @@ void __fastcall OBJECTS_InitFunction17_Waypoint(D2ObjInitFnStrc* pOp)
         UNITS_ChangeAnimMode(pOp->pObject, 2);
 }
 
-#define OBJRGN_MAX_SHRINES 10
-
-// 0x00547490
-void __fastcall OBJRGN_SetShrineCoordinates(D2GameStrc* pGame, int nLevelId, int nX, int nY)
+// 0x00547300
+bool __fastcall OBJRGN_CanNotSpawnMoreWells(D2GameStrc* pGame, int nLevelId)
 {
     D2ObjectRegionStrc* pObjectRegion = pGame->pObjectControl->pObjectRegion[nLevelId];
-    if (pObjectRegion->nShrines >= OBJRGN_MAX_SHRINES)
+    if (pObjectRegion->nWells == 4 || pObjectRegion->nWells > pObjectRegion->nPopulatedRooms / 8)
     {
-        return;
+        return true;
     }
-
-    pObjectRegion->shrineCoordinates[pObjectRegion->nShrines].nX = nX;
-    pObjectRegion->shrineCoordinates[pObjectRegion->nShrines].nY = nY;
-    ++pObjectRegion->nShrines;
+    return false;
 }
+
+// 0x00547330
+bool __fastcall OBJRGN_ShouldSpawnHealingShrineOrWell(D2GameStrc* pGame, int nLevelId)
+{
+    D2ObjectRegionStrc* pObjectRegion = pGame->pObjectControl->pObjectRegion[nLevelId];
+    if (pObjectRegion->nPopulatedRooms > 0 && (pObjectRegion->nProcessedRooms << 7) / pObjectRegion->nPopulatedRooms > 96 && !pObjectRegion->nHealingShrines)
+    {
+        return true;
+    }
+    return false;
+}
+
+// 0x00547360
+bool __fastcall OBJRGN_CanNotSpawnMoreShrines(D2GameStrc* pGame, int nLevelId)
+{
+    D2ObjectRegionStrc* pObjectRegion = pGame->pObjectControl->pObjectRegion[nLevelId];
+    if (pObjectRegion->nShrines == 10 || pObjectRegion->nShrines > pObjectRegion->nPopulatedRooms / 8)
+    {
+        return true;
+    }
+    return false;
+}
+
+
+
+
 struct Entry00547390;
 
 struct Sub00547390;
@@ -1805,6 +1826,103 @@ struct Sub00547390 { unsigned char bUnknown00[0x48]; Entry00547390* pEntries48[1
 struct Obj00547390 { unsigned char bUnknown00[0x10F0]; Sub00547390* pSub10F0; };
 
 D2MonsterRegionStrc* __fastcall MONSTERREGION_GetMonsterRegionFromLevelId(D2MonsterRegionStrc** ppMonsterRegion, int nLevelId); // 0x00547BB0
+
+// 0x00547390
+extern "C" __declspec(dllexport) void __fastcall sub_00547390(Obj00547390* pObj, int nIndex) {
+    pObj->pSub10F0->pEntries48[nIndex]->nCount10++;
+}
+
+// 0x005473A0
+bool __fastcall OBJRGN_CanSpawnWell(D2GameStrc* pGame, int nLevelId, int nX, int nY)
+{
+    D2ObjectRegionStrc* pObjectRegion = pGame->pObjectControl->pObjectRegion[nLevelId];
+    for (int i = 0; i < pObjectRegion->nWells; ++i)
+    {
+        int nDistance = pObjectRegion->wellCoordinates[i].nX - nX;
+        if (nDistance < 0)
+        {
+            nDistance = -nDistance;
+        }
+        if (nDistance < OBJRGN_WELL_DISTANCE)
+        {
+            return false;
+        }
+
+        nDistance = pObjectRegion->wellCoordinates[i].nY - nY;
+        if (nDistance < 0)
+        {
+            nDistance = -nDistance;
+        }
+        if (nDistance < OBJRGN_WELL_DISTANCE)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+#define OBJRGN_MAX_WELLS 4
+
+// 0x00547400
+void __fastcall OBJRGN_SetWellCoordinates(D2GameStrc* pGame, int nLevelId, int nX, int nY)
+{
+    D2ObjectRegionStrc* pObjectRegion = pGame->pObjectControl->pObjectRegion[nLevelId];
+    if (pObjectRegion->nWells >= OBJRGN_MAX_WELLS)
+    {
+        return;
+    }
+
+    pObjectRegion->wellCoordinates[pObjectRegion->nWells].nX = nX;
+    pObjectRegion->wellCoordinates[pObjectRegion->nWells].nY = nY;
+    ++pObjectRegion->nWells;
+}
+
+// 0x00547430
+bool __fastcall OBJRGN_CanSpawnShrine(D2GameStrc* pGame, int nLevelId, int nX, int nY)
+{
+    D2ObjectRegionStrc* pObjectRegion = pGame->pObjectControl->pObjectRegion[nLevelId];
+    for (int i = 0; i < pObjectRegion->nShrines; ++i)
+    {
+        int nDistance = pObjectRegion->shrineCoordinates[i].nX - nX;
+        if (nDistance < 0)
+        {
+            nDistance = -nDistance;
+        }
+        if (nDistance < OBJRGN_SHRINE_DISTANCE)
+        {
+            return false;
+        }
+
+        nDistance = pObjectRegion->shrineCoordinates[i].nY - nY;
+        if (nDistance < 0)
+        {
+            nDistance = -nDistance;
+        }
+        if (nDistance < OBJRGN_SHRINE_DISTANCE)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+#define OBJRGN_MAX_SHRINES 10
+
+// 0x00547490
+void __fastcall OBJRGN_SetShrineCoordinates(D2GameStrc* pGame, int nLevelId, int nX, int nY)
+{
+    D2ObjectRegionStrc* pObjectRegion = pGame->pObjectControl->pObjectRegion[nLevelId];
+    if (pObjectRegion->nShrines >= OBJRGN_MAX_SHRINES)
+    {
+        return;
+    }
+
+    pObjectRegion->shrineCoordinates[pObjectRegion->nShrines].nX = nX;
+    pObjectRegion->shrineCoordinates[pObjectRegion->nShrines].nY = nY;
+    ++pObjectRegion->nShrines;
+}
 
 // 0x005474C0
 int __fastcall OBJRGN_GetTrapMonsterId(D2ObjOperateFnStrc* pOp)

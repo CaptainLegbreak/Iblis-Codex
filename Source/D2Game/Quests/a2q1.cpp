@@ -224,6 +224,12 @@ bool __fastcall ACT2Q1_ActiveFilterCallback(Quest* quest,int npc,Unit* player,Fl
     return false;
 }
 
+// 0x00598980
+void __fastcall ACT3Q5_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    QUESTS_RemovePlayerGUID(pQuestData, pQuestArg);
+}
+
 // 0x00598990
 void __fastcall ACT2Q1_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -611,6 +617,17 @@ void __fastcall ACT2Q1_OnRadamentActivated(D2GameStrc* pGame, D2UnitStrc* pUnit)
         return;
     }
     SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT2Q1_UnitIterate_UpdateQuestStateFlags);
+}
+
+// 0x005994F0
+bool __fastcall ACT2Q1_IsDoneOrInactive(D2GameStrc* pGame)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 8);
+    if (!pQuestData || !pQuestData->bNotIntro)
+    {
+        return true;
+    }
+    return pQuestData->fState == 5 ? true : false;
 }
 
 // 0x00599130

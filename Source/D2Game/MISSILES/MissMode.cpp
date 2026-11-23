@@ -6293,25 +6293,10 @@ int __fastcall MISSMODE_SrvDo37_CreateTimedSubmissiles(D2GameStrc* pGame, D2Unit
     return MISSMODE_HandleMissileCollision(pGame, pMissile);
 }
 
-// 0x005B0D70
-void __fastcall AITHINK_SetAiControlParams(D2AiControlStrc* pAiControl, int nParam0, int nParam1, int nParam2)
+// 0x005B0BC0
+int __fastcall MISSMODE_SrvDo01_BasicMissile(D2GameStrc* pGame, D2UnitStrc* pMissile)
 {
-    if (!pAiControl)
-    {
-        return;
-    }
-    if (nParam0 != -666)
-    {
-        pAiControl->dwAiParam[0] = nParam0;
-    }
-    if (nParam1 != -666)
-    {
-        pAiControl->dwAiParam[1] = nParam1;
-    }
-    if (nParam2 != -666)
-    {
-        pAiControl->dwAiParam[2] = nParam2;
-    }
+    return MISSMODE_HandleMissileCollision(pGame, pMissile);
 }
 
 // 0x005B0F50
@@ -6751,16 +6736,6 @@ void __fastcall AITHINK_ExecuteMonsterAiTick(D2GameStrc* pGame, D2UnitStrc* pUni
     ((AIPARAMFN)aiTickParam.pAiControl->pAiParamFn)(pGame, pUnit, &aiTickParam);
 }
 
-// 0x005B43D0
-void __fastcall ACT4Q1_UnitIterate_CheckDistanceToIzualGhost(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2Act4Quest1Strc* pQuestDataEx = (D2Act4Quest1Strc*)pData;
-    if (sub_006416D0_UnitEdgeDistance(pUnit, pQuestDataEx->pTargetUnit) < 5)
-    {
-        pQuestDataEx->bCloseToIzualGhost = 1;
-    }
-}
-
 // 0x005B69F0
 bool __fastcall ACT4Q4_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
 {
@@ -6797,83 +6772,6 @@ bool __fastcall ACT3Intro_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpc
         return true;
     }
     return false;
-}
-
-// 0x005BAD60
-bool __fastcall ACT3Q5_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 21, 0))
-    {
-        return false;
-    }
-
-    if (nNpcId == 255)
-    {
-        if (pQuest->fState == 1)
-        {
-            return true;
-        }
-    }
-    else if (nNpcId == 245)
-    {
-        if (QUESTRECORD_GetQuestState(pQuestFlags, 21, 4) && !((D2Act3Quest5Strc*)pQuest->pQuestDataEx)->bOrbSmashed)
-        {
-            return true;
-        }
-    }
-
-    return false;
-}
-
-// 0x005D2420
-int __fastcall SKILLS_SrvSt62_MinionSpawner(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
-    if (!pSkill)
-    {
-        return 0;
-    }
-
-    int nSpawnMode;
-    int nX;
-    int nY;
-    const int nSummonId = D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 1, nSkillId, nSkillLevel, &nSpawnMode, &nX, &nY);
-    SKILLS_SetParam1(pSkill, nSummonId);
-    SKILLS_SetParam2(pSkill, nX);
-    SKILLS_SetParam3(pSkill, nY);
-    SKILLS_SetParam4(pSkill, nSpawnMode);
-    return 1;
-}
-
-// 0x005D2E50
-int __fastcall SKILLS_AreaEffect_BaalCorpseExplode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillLevel, int nUnused)
-{
-    UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);
-    return SKILLS_SrvDo055_CorpseExplosion(pGame, pUnit, 285, nSkillLevel);
-}
-
-// 0x005D6170
-int __fastcall SKILLS_SrvDo045_Sentry(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 0x40;
-    }
-
-    int nX;
-    int nY;
-    if (!D2GAME_GetXAndYFromTargetUnit_6FD14020(pGame, pUnit, &nX, &nY))
-    {
-        return 0;
-    }
-
-    return SKILLS_SummonSkillMonster(pGame, pUnit, nX, nY, pSkillsTxtRecord, nSkillId, nSkillLevel) != 0;
 }
 
 // 0x005D7E10

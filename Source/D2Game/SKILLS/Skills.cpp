@@ -2436,6 +2436,7 @@ void __fastcall SKILLS_ExecuteUsedSkill(D2GameStrc* pGame, D2UnitStrc* pUnit)
     }
 }
 
+// 0x0056D2C0
 int __fastcall D2GAME_GetXAndYFromTargetUnit_6FD14020(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pX, int* pY)
 {
     D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
@@ -4127,19 +4128,6 @@ void __fastcall SKILLS_StatRemoveCallback_ResetAiAndRefresh(D2UnitStrc* pUnit, i
     SKILLS_RemoveStateAndRefreshPassives(pUnit, nState, pStatList);
 }
 
-// 0x00571580
-void __fastcall D2GAME_STATES_SendStates_6FCC5F00(D2UnitStrc* pUnit, D2ClientStrc* pClient, int bPlayer)
-{
-    if (bPlayer)
-    {
-        D2GAME_STATES_SendUnitStates_6FCC58E0(pUnit, pClient);
-    }
-    else
-    {
-        D2GAME_STATES_SendUnitStateUpdates_6FCC5BE0(pUnit, pClient);
-    }
-}
-
 // 0x0056E210
 void __fastcall SKILLS_RewindUnitAnimation(D2UnitStrc* pUnit, int nArg)
 {
@@ -4314,6 +4302,28 @@ int __fastcall SKILLS_GetBaseWalkVelocity(D2UnitStrc* pUnit)
     }
 
     return 0x600;
+}
+
+int __fastcall AIGENERAL_GetMinionSpawnClassId(D2UnitStrc* pUnit); // 0x0058F710
+
+int __stdcall sub_0063EA70_GetMonsterId(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7); // 0x0063EA70
+
+// 0x0056E620
+int __fastcall D2GAME_GetSummonIdFromSkill(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7)
+{
+    int nMonsterId = sub_0063EA70_GetMonsterId(pUnit, nArg2, nArg3, nArg4, nArg5, nArg6, nArg7);
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return nMonsterId;
+    }
+
+    nMonsterId = AIGENERAL_GetMinionSpawnClassId(pUnit);
+    if (nMonsterId > 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return nMonsterId;
+    }
+
+    return -1;
 }
 
 // 0x0056E680

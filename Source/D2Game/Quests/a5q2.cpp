@@ -510,6 +510,33 @@ void __fastcall ACT5Q2_InitQuestData(D2QuestDataStrc* pQuestData)
     QUESTS_ResetPlayerGUIDCount((D2QuestGUIDStrc*)pQuestDataEx->tPlayerGUIDs);
 }
 
+// 0x00587A90
+int __fastcall ACT5Q2_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 0x24, 0) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, 0x24, 1) == 1)
+    {
+        return 0;
+    }
+
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x20);
+    if (!pQuestData)
+    {
+        return 0;
+    }
+
+    if (pQuestData->fState == 2)
+    {
+        QUESTRECORD_SetQuestState(pQuestFlags, 0x24, 2);
+    }
+    else if (pQuestData->fState == 3)
+    {
+        QUESTRECORD_SetQuestState(pQuestFlags, 0x24, 3);
+    }
+
+    return 0;
+}
+
 // 0x00587B00
 void __fastcall ACT5Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -888,6 +915,45 @@ int __fastcall ACT5Q2_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2Uni
     }
 
     return 0;
+}
+
+// 0x00588830
+int __fastcall ACT5Q2_CheckWussieCounters(D2GameStrc* pGame, D2UnitStrc* pWussie)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A5Q2_RESCUESOLDIERS);
+    if (!pQuestData || !pQuestData->bNotIntro)
+    {
+        return 0;
+    }
+
+    const int nIndex = ACT5Q2_GetWussieGroupIndex(pQuestData, pWussie);
+    if (nIndex >= 0 && ((D2Act5Quest2Strc*)pQuestData->pQuestDataEx)->nGroupKills[nIndex])
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
+// 0x00588880
+void __fastcall ACT5Q2_UpdateWussieCounters(D2GameStrc* pGame, int nUnused, D2UnitStrc* pWussie)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 32);
+    if (!pQuestData || !pQuestData->bNotIntro)
+    {
+        return;
+    }
+
+    D2Act5Quest2Strc* pQuestDataEx = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
+    int nIndex = ACT5Q2_GetWussieGroupIndex(pQuestData, pWussie);
+    if (nIndex >= 0)
+    {
+        pQuestDataEx->nGroupKills[nIndex] += 1;
+        if (pQuestDataEx->nGroupKills[nIndex] >= 5)
+        {
+            pQuestDataEx->bGroupDone[nIndex] = 1;
+        }
+    }
 }
 
 #include "gen/data/Source/D2Game/Quests/a5q2.inc"

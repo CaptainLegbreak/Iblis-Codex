@@ -568,6 +568,37 @@ int __fastcall PLRTRADE_FindTerminator(const char* szText, int nSize)
     return szText - pStart;
 }
 
+// 0x00568DC0
+unsigned short __fastcall PLRSAVE2_GetItemIndex(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nGUID)
+{
+    if (nGUID == -1)
+    {
+        return 0;
+    }
+
+    if (!pPlayer->pInventory)
+    {
+        return 0;
+    }
+
+    int nIdx = 1;
+    D2UnitStrc* pNode = INVENTORY_GetFirstItem(pPlayer->pInventory);
+    while (pNode)
+    {
+        D2UnitStrc* pCheckedItem = INVENTORY_UnitIsItem(pNode);
+        pNode = INVENTORY_GetNextItem(pNode);
+        if ((!pCheckedItem ? -1 : pCheckedItem->dwUnitId) == nGUID)
+        {
+            D2_ASSERT(nIdx < 0x7FFF, 0x185);
+            return nIdx;
+        }
+
+        ++nIdx;
+    }
+
+    return 0;
+}
+
 // 0x00568F20
 int __fastcall PLRSAVE2_WriteSaveHeader(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, const unsigned char* pEnd)
 {

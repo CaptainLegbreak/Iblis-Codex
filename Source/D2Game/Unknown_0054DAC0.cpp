@@ -264,6 +264,248 @@ static D2UnitStrc* __stdcall sub_0054E490_SpawnRegularPresetMonster(D2GameStrc* 
     return pMonster;
 }
 
+int __fastcall DATATBLS_GetSuperUniquesTxtRecordCount();                                                    // 0x00655710
+
+D2UnitStrc* __fastcall D2GAME_SpawnSuperUnique_6FC6F690(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nSuperUniqueId); // 0x005A49B0
+
+int __fastcall MONSTERCHOOSE_GetPresetMonsterId(D2GameStrc* pGame, D2MonsterRegionStrc* pMonsterRegion, D2ActiveRoomStrc* pRoom, D2MonStatsTxt** ppMonStatsTxtRecord, unsigned char nChance, int bSpawnUMon); // 0x005BDE80
+
+int __fastcall SKILLS_GetMonsterClassFromChain(int nMonsterId, int nChainIncrements);                      // 0x0054DA60
+
+int __stdcall D2Common_11063(D2ActiveRoomStrc* pRoom, int nMonsterId);                                     // 0x0063EC70
+
+D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                   // 0x00451F80
+
+void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
+
+unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                         // 0x0045C390
+
+// 0x0054E600
+D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster_6FC66560(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nMode)
+{
+    if (nClassId < 0)
+        return 0;
+
+    D2UnitStrc* pMonster = 0;
+    int bRegularId = 1;
+    if (nClassId >= sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        nClassId -= sgptDataTables->nMonStatsTxtRecordCount;
+        const int nSuperUniques = DATATBLS_GetSuperUniquesTxtRecordCount();
+        if (nClassId >= nSuperUniques)
+        {
+            nClassId -= nSuperUniques;
+            bRegularId = 0;
+        }
+        else
+        {
+            return D2GAME_SpawnSuperUnique_6FC6F690(pGame, pRoom, nX, nY, nClassId);
+        }
+    }
+
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
+
+    if (bRegularId == 1)
+    {
+        switch (MONSTERREGION_SanitizeMonsterId_Inline(nClassId))
+        {
+        case 0x1F2:
+            if (QUESTS_CheckNotIntroQuest(pGame, 0x1F) && DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_BLOODYFOOTHILLS)
+                nClassId = MONSTERREGION_SanitizeMonsterId_Inline(MONSTER_CATAPULT3);
+            break;
+        case 0x205:
+            if (QUESTS_CheckNotIntroQuest(pGame, 0x1F) && DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_BLOODYFOOTHILLS)
+                nClassId = MONSTERREGION_SanitizeMonsterId_Inline(MONSTER_CATAPULTSPOTTER3);
+            break;
+        }
+
+        if (pGame->nDifficulty > 0)
+        {
+            switch (MONSTERREGION_SanitizeMonsterId_Inline(nClassId))
+            {
+            case 0x1C5:
+            case 0x211:
+                if (nLevelId == LEVEL_BLOODYFOOTHILLS)
+                    return 0;
+                break;
+            }
+        }
+
+        return sub_0054E490_SpawnRegularPresetMonster(pGame, pRoom, nX, nY, nMode, nClassId);
+    }
+
+    switch (nClassId)
+    {
+    case 10:
+    case 11:
+    {
+        int nFlags = 0;
+        if (nClassId == 10)
+            nFlags = 4;
+
+        int nChainIncrements = 0;
+        switch (nLevelId)
+        {
+        case LEVEL_SPIDERFOREST:
+        case LEVEL_GREATMARSH:
+        case LEVEL_FLAYERJUNGLE:
+            nChainIncrements = 1;
+            break;
+        case LEVEL_SEWERSA3LEV1:
+        case LEVEL_SEWERSA3LEV2:
+            nChainIncrements = 2;
+            break;
+        case LEVEL_SWAMPYPITLEV1:
+        case LEVEL_SWAMPYPITLEV2:
+        case LEVEL_FLAYERDUNGEONLEV1:
+        case LEVEL_FLAYERDUNGEONLEV2:
+        case LEVEL_SWAMPYPITLEV3:
+        case LEVEL_FLAYERDUNGEONLEV3:
+            nChainIncrements = 0;
+            break;
+        }
+
+        const int nMonsterId = SKILLS_GetMonsterClassFromChain(MONSTERREGION_SanitizeMonsterId_Inline(MONSTER_TENTACLEHEAD1), nChainIncrements);
+        pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, nMonsterId, nMode, -1, nFlags);
+        break;
+    }
+    case 5:
+        pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, MONSTERREGION_SanitizeMonsterId_Inline(MONSTER_BLOODRAVEN), nMode, -1, 0);
+        break;
+    case 2:
+    {
+        D2MonStatsTxt* pMonStatsTxtRecord;
+        D2MonsterRegionStrc* pMonsterRegion = MONSTERREGION_GetMonsterRegionFromLevelId(pGame->pMonReg, DUNGEON_GetLevelIdFromPopulatedRoom(pRoom));
+        const int nMonsterId = MONSTERCHOOSE_GetPresetMonsterId(pGame, pMonsterRegion, pRoom, &pMonStatsTxtRecord, 0, 1);
+        if (!pMonStatsTxtRecord)
+            return 0;
+
+        MONSTERUNIQUE_SpawnUniqueGroup(pGame, pRoom, 0, nMonsterId, 0, 0, 0, 1);
+        break;
+    }
+    case 3:
+    {
+        D2MonStatsTxt* pMonStatsTxtRecord;
+        D2MonsterRegionStrc* pMonsterRegion = MONSTERREGION_GetMonsterRegionFromLevelId(pGame->pMonReg, DUNGEON_GetLevelIdFromPopulatedRoom(pRoom));
+        nClassId = MONSTERCHOOSE_GetPresetMonsterId(pGame, pMonsterRegion, pRoom, &pMonStatsTxtRecord, 0, 1);
+        if (!pMonStatsTxtRecord)
+            return 0;
+
+        pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, nClassId, nMode, -1, 0);
+        if (!pMonster)
+            break;
+
+        MONSTERUNIQUE_PromoteToChampion(pGame, pMonster, 0x10);
+        sub_0054E1E0_SpawnChampionMinions(0, nClassId, pGame, pMonster);
+        break;
+    }
+    case 4:
+        pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, MONSTER_NAVI, nMode, -1, 0);
+        break;
+    case 8:
+        pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, MONSTER_MAGGOTQUEEN1, nMode, -1, 8);
+        break;
+    case 17:
+    case 18:
+    case 22:
+    case 23:
+    case 25:
+    case 27:
+    case 28:
+    case 29:
+    case 30:
+    case 31:
+    case 32:
+    {
+        int nAnimMode = nMode;
+        int nMonsterId = 0;
+        switch (nClassId)
+        {
+        case 17:
+            nMonsterId = MONSTER_FALLEN1;
+            break;
+        case 18:
+            nMonsterId = MONSTER_FALLENSHAMAN1;
+            break;
+        case 22:
+            nMonsterId = MONSTER_FETISH1;
+            break;
+        case 23:
+            nMonsterId = MONSTER_FETISHSHAMAN1;
+            break;
+        case 29:
+            nMonsterId = MONSTER_MINION1;
+            nAnimMode = 12;
+            break;
+        case 30:
+            nMonsterId = nLevelId == LEVEL_BLOODYFOOTHILLS ? 0x211 : 0x1EC;
+            nAnimMode = 12;
+            break;
+        case 31:
+            nMonsterId = MONSTER_ACT5BARB1;
+            nAnimMode = 12;
+            break;
+        case 32:
+            nMonsterId = MONSTER_REANIMATEDHORDE3;
+            nAnimMode = 12;
+            break;
+        case 25:
+        case 27:
+        case 28:
+            return 0;
+        }
+
+        nMonsterId = sub_0054E2A0_GetFallenVariantForLevel(nLevelId, D2Common_11063(pRoom, SKILLDESC_ValidateMonsterId(nMonsterId)));
+
+        int nFlags = 0;
+        D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(nMonsterId);
+        if (pMonStatsTxtRecord->nMonStatsFlags[0x12 >> 3] & gdwBitMasks[0x12 & 7])
+            nFlags = 8;
+
+        pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, nMonsterId, nAnimMode, -1, nFlags);
+        if (!pMonster)
+        {
+            pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, nMonsterId, nAnimMode, 4, nFlags);
+            if (!pMonster)
+                break;
+        }
+
+        if (CUNIT_ValidateMonsterId(nMonsterId) == 0x1B6)
+        {
+            const int nExpireFrame = SEED_RollLimitedRandomNumber(&pMonster->pSeed, 50) + pGame->dwGameFrame + 250;
+            EVENT_SetEvent(pGame, pMonster, 7, nExpireFrame, 0, 0);
+        }
+
+        if (pMonster && nAnimMode == 12)
+            pMonster->dwFlags |= 0x2000000;
+        break;
+    }
+    case 24:
+    case 26:
+    {
+        if (pGame->nDifficulty > 0)
+            return 0;
+
+        int nMonsterId = 0;
+        switch (nClassId)
+        {
+        case 24:
+            nMonsterId = nLevelId == LEVEL_BLOODYFOOTHILLS ? 0x211 : 0x1EC;
+            break;
+        case 26:
+            nMonsterId = MONSTER_MINION1;
+            break;
+        }
+
+        nMonsterId = D2Common_11063(pRoom, SKILLDESC_ValidateMonsterId(nMonsterId));
+        sub_0054E090_SpawnGroupAtPoint(pGame, pRoom, nMonsterId, nX, nY);
+        break;
+    }
+    }
+
+    return pMonster;
+}
+
 // 0x0054EBC0
 static int sub_0054EBC0_CanPopulateRoom(D2ActiveRoomStrc* pRoom, D2GameStrc* pGame)
 {
@@ -292,6 +534,47 @@ static int sub_0054EBC0_CanPopulateRoom(D2ActiveRoomStrc* pRoom, D2GameStrc* pGa
     }
 
     return 1;
+}
+
+static inline D2MonStatsTxt* GetMonStatsRecord(D2DataTablesStrc* pDataTables, int nClassId)
+{
+    D2MonStatsTxt* pRecord = 0;
+    if (nClassId >= 0 && nClassId < pDataTables->nMonStatsTxtRecordCount)
+    {
+        pRecord = &pDataTables->pMonStatsTxt[nClassId];
+    }
+    return pRecord;
+}
+
+// 0x0054EC40
+int __fastcall sub_0054EC40_IsSpecialBaseMonster(int nClassId)
+{
+    D2DataTablesStrc* pDataTables = sgptDataTables;
+    if (nClassId < 0)
+    {
+        goto fail;
+    }
+
+    D2MonStatsTxt* pRecord = GetMonStatsRecord(pDataTables, nClassId);
+    if (pRecord)
+    {
+        nClassId = pRecord->nBaseId;
+    }
+
+    if (nClassId < 0)
+    {
+        goto fail;
+    }
+    if (nClassId >= sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        goto fail;
+    }
+    if (nClassId == 19 || nClassId == 91)
+    {
+        return 1;
+    }
+fail:
+    return 0;
 }
 
 D2UnitStrc* __fastcall sub_A12_Emit_0054DF80(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pCoordList, int nMonsterId, unsigned char nMin, unsigned char nMax)

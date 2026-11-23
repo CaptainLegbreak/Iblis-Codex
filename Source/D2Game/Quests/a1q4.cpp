@@ -14,6 +14,7 @@
 #include "D2QuestData.h"
 #include "D2GameObjs.h"
 #include "D2Packets.h"
+#include "D2ObjectIds.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -453,27 +454,6 @@ void __fastcall ACT5Intro_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2
     else
     {
         QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 0);
-    }
-}
-
-// 0x00588880
-void __fastcall ACT5Q2_UpdateWussieCounters(D2GameStrc* pGame, int nUnused, D2UnitStrc* pWussie)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 32);
-    if (!pQuestData || !pQuestData->bNotIntro)
-    {
-        return;
-    }
-
-    D2Act5Quest2Strc* pQuestDataEx = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
-    int nIndex = ACT5Q2_GetWussieGroupIndex(pQuestData, pWussie);
-    if (nIndex >= 0)
-    {
-        pQuestDataEx->nGroupKills[nIndex] += 1;
-        if (pQuestDataEx->nGroupKills[nIndex] >= 5)
-        {
-            pQuestDataEx->bGroupDone[nIndex] = 1;
-        }
     }
 }
 
@@ -1723,6 +1703,16 @@ bool __fastcall ACT1Q4_SeqCallback(D2QuestDataStrc* pQuestData)
     return false;
 }
 
+// 0x00593E10
+void __fastcall sub_00593E10_SetQuestCompleteBefore(D2GameStrc* pGame)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 4);
+    if (pQuestData)
+    {
+        ((D2Act1Quest4Strc*)pQuestData->pQuestDataEx)->bQuestCompleteBefore = 1;
+    }
+}
+
 // 0x00593E30
 int __fastcall ACT1Q4_UnitIterate_SetCustom6Flag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -1786,6 +1776,28 @@ void __fastcall ACT1Q4_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     {
         D2GAME_DropItemAtUnit_6FC4FEC0(pQuestArg->pGame, pQuestArg->pTarget, 0, &nItemLevel, 0, -1, 0);
     }
+}
+
+// 0x00593F60
+void __fastcall sub_00593F60_SetUnk52(D2GameStrc* pGame)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 4);
+    if (pQuestData)
+    {
+        ((D2Act1Quest4Strc*)pQuestData->pQuestDataEx)->bCainInTownSpawnPending = 1;
+    }
+}
+
+// 0x00593F80
+int __fastcall sub_00593F80_GetCainNotCreated(D2GameStrc* pGame)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 4);
+    if (pQuestData)
+    {
+        return ((D2Act1Quest4Strc*)pQuestData->pQuestDataEx)->bCainNotCreated;
+    }
+    sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x99D);
+    exit(-1);
 }
 
 // 0x00593FC0
@@ -2030,6 +2042,61 @@ void __fastcall OBJECTS_InitFunction54_CainStartPosition(D2ObjInitFnStrc* pOp)
     {
         ACT1Q4_SpawnCainInTown(pOp->pGame, pOp->pRoom, pOp->nX, pOp->nY);
     }
+}
+
+enum D2C_Q05QuestConstants
+{
+    QFLAG_CUSTOM7 = 11,
+};
+
+// 0x00594140
+int __fastcall ACT1Q4_CreateCowPortal(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2ActiveRoomStrc* pRoom;
+    if (QUESTS_GetGlobalState(pGame, QUESTSTATEFLAG_A1Q4, QFLAG_CUSTOM7)
+        || QUESTRECORD_GetQuestState(QUESTS_GetPlayerQuestFlags_Inline(pGame, pUnit), QUESTSTATEFLAG_A1Q4, QFLAG_CUSTOM6))
+    {
+        goto fail;
+    }
+
+    if (!((!pGame->bExpansion && QUESTRECORD_GetQuestState(QUESTS_GetPlayerQuestFlags_Inline(pGame, pUnit), QUESTSTATEFLAG_A4Q2, QFLAG_REWARDGRANTED))
+        || (pGame->bExpansion && QUESTRECORD_GetQuestState(QUESTS_GetPlayerQuestFlags_Inline(pGame, pUnit), QUESTSTATEFLAG_A5Q6, QFLAG_REWARDGRANTED))))
+    {
+        goto fail;
+    }
+
+    pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom || DUNGEON_GetLevelIdFromRoom(pRoom) != LEVEL_ROGUEENCAMPMENT)
+    {
+fail:
+        SUNIT_AttachSound(pUnit, 20, pUnit);
+        return 0;
+    }
+
+    D2CoordStrc pCoord;
+    D2ActiveRoomStrc* pFreeRoom = 0;
+    UNITS_GetCoords(pUnit, &pCoord);
+    QUESTS_GetFreePosition(pRoom, &pCoord, 3, 0x400, &pFreeRoom, 4, 100);
+    if (pFreeRoom && D2GAME_CreatePortalObject_6FD13DF0(pGame, pUnit, pFreeRoom, pCoord.nX, pCoord.nY, LEVEL_MOOMOOFARM, 0, OBJECT_PERMANENT_TOWN_PORTAL, 0))
+    {
+        QUESTS_SetGlobalState(pGame, QUESTSTATEFLAG_A1Q4, QFLAG_CUSTOM7);
+        return 1;
+    }
+
+    SUNIT_AttachSound(pUnit, 20, pUnit);
+    return 0;
+}
+
+// 0x00594270
+int __fastcall ACT1Q4_CreateUberRunPortal(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    return 0;
+}
+
+// 0x00594280
+int __fastcall ACT1Q4_CreateUberFinalePortal(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    return 0;
 }
 
 // 0x00596CA0

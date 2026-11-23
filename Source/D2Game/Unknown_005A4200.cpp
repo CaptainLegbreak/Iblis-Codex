@@ -45,27 +45,8 @@ void __stdcall UNITS_SetOverlay(D2UnitStrc* pUnit, int nOverlay, int a3); // 0x0
 void __fastcall MONSTERUNIQUE_CreatePainWorm(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique);
 void __fastcall sub_6FC6E730(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique);
 
-// 0x005A4200
-void __fastcall MONSTERUNIQUE_CreatePainWorm(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
-{
-    if (!pUnit || pUnit->dwAnimMode == MONMODE_DEATH)
-    {
-        sub_6FC6A150(pGame, pUnit, MONSTER_PAINWORM1, MONMODE_NEUTRAL, 1, 0);
-        STATES_ToggleState(pUnit, STATE_CORPSE_NODRAW, 1);
-    }
-}
-
-// 0x005A4230
-void __fastcall sub_6FC6E730(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
-{
-    if (SUNIT_IsDead(pUnit))
-    {
-        return;
-    }
-
-    MONSTER_UpdateAiCallbackEvent(pGame, pUnit);
-    EVENT_SetEvent(pGame, pUnit, EVENTTYPE_MONUMOD, pGame->dwGameFrame + 75, 0, 0);
-}
+void __fastcall MONSTERUNIQUE_CreatePainWorm(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A4200
+void __fastcall sub_6FC6E730(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A4230
 
 // 0x005A0120
 unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit)
@@ -132,12 +113,6 @@ void __fastcall MONSTERUNIQUE_ExecuteUModModeStartCallbacks(D2GameStrc* pGame, D
 void __fastcall MONSTERUNIQUE_ExecuteUModModeChangeCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     sub_005A4270_ExecuteUModCallbacks(pGame, 0, 1, pUnit);
-}
-
-// 0x005A4370
-void __fastcall sub_005A4370(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
-{
-    sub_005A4270_ExecuteUModCallbacks(pGame, 0, 2, pUnit);
 }
 
 void __fastcall MONSTERUNIQUE_ExecuteUModSuccessfulHitCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit)
