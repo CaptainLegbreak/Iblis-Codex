@@ -41767,6 +41767,11 @@
      "name": "GAME_DefaultUpdateGameInformation"
     },
     {
+     "va": "0x0052BEF0",
+     "length": 1,
+     "name": "?GAME_DefaultGetGameServerInfo@@YAXXZ"
+    },
+    {
      "va": "0x0052BF00",
      "length": 3,
      "name": "GAME_DefaultGetValue"
@@ -44354,11 +44359,6 @@
      "name": "?GAME_DefaultUpdateCharacterLadder@@YGXHHHHH@Z"
     },
     {
-     "va": "0x0052BEF0",
-     "length": 1,
-     "name": "?GAME_DefaultGetGameServerInfo@@YAXXZ"
-    },
-    {
      "va": "0x0052BFB0",
      "length": 3,
      "name": "?sub_0052BFB0_Stub@@YGXHHHH@Z"
@@ -46214,11 +46214,6 @@
      "va": "0x00541830",
      "length": 38,
      "name": "SKILLS_SetMonsterComponent"
-    },
-    {
-     "va": "0x005B7230",
-     "length": 100,
-     "name": "?ACT3Q0_ChangeHratliMapAI@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2MapAIStrc@@@Z"
     },
     {
      "va": "0x005BD040",
@@ -61051,6 +61046,11 @@
      "va": "0x005B7160",
      "length": 194,
      "name": "?OBJECTS_InitFunction50_HratliEnd@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x005B7230",
+     "length": 100,
+     "name": "?ACT3Q0_ChangeHratliMapAI@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2MapAIStrc@@@Z"
     },
     {
      "va": "0x005B72A0",

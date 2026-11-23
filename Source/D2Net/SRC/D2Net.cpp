@@ -153,11 +153,6 @@ void __stdcall GAME_DefaultUpdateCharacterLadder(int a1, int a2, int a3, int a4,
 {
 }
 
-// 0x0052BEF0
-void __cdecl GAME_DefaultGetGameServerInfo()
-{
-}
-
 // 0x0052BFB0
 void __stdcall sub_0052BFB0_Stub(int a1, int a2, int a3, int a4)
 {

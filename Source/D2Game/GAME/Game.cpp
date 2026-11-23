@@ -2635,7 +2635,7 @@ void __stdcall GAME_DefaultUpdateCharacterLadder(int a1, int a2, int a3, int a4,
 {
 }
 
-// build: symbol ?GAME_DefaultGetGameServerInfo@* 0x0052BEF0
+// 0x0052BEF0
 void __cdecl GAME_DefaultGetGameServerInfo()
 {
 }
