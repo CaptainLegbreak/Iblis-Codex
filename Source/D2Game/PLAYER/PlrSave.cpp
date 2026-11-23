@@ -3540,22 +3540,6 @@ void __fastcall PLRTRADE_AddGold(D2UnitStrc* pUnit, int nStat, int nValue)
     STATLIST_AddUnitStat(pUnit, nStat, nValue, 0);
 }
 
-// 0x0054C990
-int __fastcall D2GAME_PACKETCALLBACK_Rcv0x54_TurnStaminaOff_6FC88380(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
-{
-    if (nSize != 1)
-    {
-        return 3;
-    }
-
-    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode == PLRMODE_RUN)
-    {
-        UNITS_ChangeAnimMode(pUnit, PLRMODE_WALK);
-    }
-
-    return 0;
-}
-
 void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* ptGame, SUNIT_IterateFn pfIterate, void* pArg); // 0x005538D0
 
 void __fastcall MONSTER_RemoveAll(D2GameStrc* pGame); // 0x00573640

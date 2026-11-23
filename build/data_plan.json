@@ -2994,7 +2994,6 @@
     "extern \"C\" void __cdecl sub_00549E80(); // 0x00549E80",
     "extern \"C\" void __cdecl sub_00549EE0(); // 0x00549EE0",
     "extern \"C\" void __cdecl sub_00549F40(); // 0x00549F40",
-    "extern \"C\" void __cdecl sub_00549FA0(); // 0x00549FA0",
     "extern \"C\" void __cdecl sub_00549FC0(); // 0x00549FC0",
     "extern \"C\" void __cdecl sub_0054A040(); // 0x0054A040",
     "extern \"C\" void __cdecl sub_0054A0C0(); // 0x0054A0C0",
@@ -3003,7 +3002,6 @@
     "extern \"C\" void __cdecl sub_0054A200(); // 0x0054A200",
     "extern \"C\" void __cdecl sub_0054A260(); // 0x0054A260",
     "extern \"C\" void __cdecl sub_0054A290(); // 0x0054A290",
-    "extern \"C\" void __cdecl sub_0054AA90(); // 0x0054AA90",
     "extern \"C\" void __cdecl sub_0054AAD0(); // 0x0054AAD0",
     "extern \"C\" void __cdecl sub_0054AB40(); // 0x0054AB40",
     "extern \"C\" void __cdecl sub_0054ABB0(); // 0x0054ABB0",
@@ -3025,15 +3023,12 @@
     "extern \"C\" void __cdecl sub_0054B710(); // 0x0054B710",
     "extern \"C\" void __cdecl sub_0054B790(); // 0x0054B790",
     "extern \"C\" void __cdecl sub_0054B810(); // 0x0054B810",
-    "extern \"C\" void __cdecl D2GAME_PACKETCALLBACK_Rcv0x2E_Ignored(); // 0x0054B920",
     "extern \"C\" void __cdecl sub_0054B930(); // 0x0054B930",
     "extern \"C\" void __cdecl sub_0054B9F0(); // 0x0054B9F0",
     "extern \"C\" void __cdecl sub_0054BA90(); // 0x0054BA90",
     "extern \"C\" void __cdecl sub_0054BB20(); // 0x0054BB20",
     "extern \"C\" void __cdecl sub_0054BB60(); // 0x0054BB60",
-    "extern \"C\" void __cdecl sub_0054BBA0(); // 0x0054BBA0",
     "extern \"C\" void __cdecl sub_0054BBD0(); // 0x0054BBD0",
-    "extern \"C\" void __cdecl sub_0054BC00(); // 0x0054BC00",
     "extern \"C\" void __cdecl sub_0054BC30(); // 0x0054BC30",
     "extern \"C\" void __cdecl sub_0054BCA0(); // 0x0054BCA0",
     "extern \"C\" void __cdecl sub_0054BD00(); // 0x0054BD00",
@@ -3051,22 +3046,18 @@
     "extern \"C\" void __cdecl sub_0054C380(); // 0x0054C380",
     "extern \"C\" void __cdecl sub_0054C4B0(); // 0x0054C4B0",
     "extern \"C\" void __cdecl sub_0054C520(); // 0x0054C520",
-    "extern \"C\" void __cdecl sub_0054C590(); // 0x0054C590",
     "extern \"C\" void __cdecl sub_0054C5D0(); // 0x0054C5D0",
-    "extern \"C\" void __cdecl sub_0054C690(); // 0x0054C690",
     "extern \"C\" void __cdecl sub_0054C6D0(); // 0x0054C6D0",
     "extern \"C\" void __cdecl sub_0054C760(); // 0x0054C760",
     "extern \"C\" void __cdecl sub_0054C7C0(); // 0x0054C7C0",
     "extern \"C\" void __cdecl sub_0054C800(); // 0x0054C800",
     "extern \"C\" void __cdecl sub_0054C870(); // 0x0054C870",
     "extern \"C\" void __cdecl sub_0054C940(); // 0x0054C940",
-    "extern \"C\" void __cdecl sub_0054C990(); // 0x0054C990",
     "extern \"C\" void __cdecl sub_0054C9C0(); // 0x0054C9C0",
     "extern \"C\" void __cdecl sub_0054CA10(); // 0x0054CA10",
     "extern \"C\" void __cdecl sub_0054CD50(); // 0x0054CD50",
     "extern \"C\" void __cdecl sub_0054CE70(); // 0x0054CE70",
-    "extern \"C\" void __cdecl sub_0054D520(); // 0x0054D520",
-    "extern \"C\" void __cdecl D2GAME_PACKETCALLBACK_Rcv0x66_Ignored(); // 0x0054D740"
+    "extern \"C\" void __cdecl sub_0054D520(); // 0x0054D520"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/PLAYER/PlrMsg_00549A60.inc",
@@ -95053,8 +95044,8 @@
     [
      88,
      "0x00549FA0",
-     "queue_function",
-     "sub_00549FA0",
+     "names.json",
+     "D2GAME_PACKETCALLBACK_Rcv0x0B_6FC83EE0",
      0,
      "func"
     ],
@@ -95117,8 +95108,8 @@
     [
      152,
      "0x0054AA90",
-     "queue_function",
-     "sub_0054AA90",
+     "names.json",
+     "D2GAME_PACKETCALLBACK_Rcv0x13_InteractWithEntity_6FC84D70",
      0,
      "func"
     ],
@@ -95373,8 +95364,8 @@
     [
      416,
      "0x0054BBA0",
-     "queue_function",
-     "sub_0054BBA0",
+     "names.json",
+     "D2GAME_PACKETCALLBACK_Rcv0x34_IdentifyItemsWithNpc_6FC86BA0",
      0,
      "func"
     ],
@@ -95533,8 +95524,8 @@
     [
      576,
      "0x0054C590",
-     "queue_function",
-     "sub_0054C590",
+     "names.json",
+     "D2GAME_PACKETCALLBACK_Rcv0x48_TurnOffBusyState_6FC87E20",
      0,
      "func"
     ],
@@ -95565,8 +95556,8 @@
     [
      616,
      "0x0054C690",
-     "queue_function",
-     "sub_0054C690",
+     "names.json",
+     "D2GAME_PACKETCALLBACK_Rcv0x4D_PlayNpcMessage_6FC880A0",
      0,
      "func"
     ],
@@ -95613,8 +95604,8 @@
     [
      672,
      "0x0054C990",
-     "queue_function",
-     "sub_0054C990",
+     "names.json",
+     "D2GAME_PACKETCALLBACK_Rcv0x54_TurnStaminaOff_6FC88380",
      0,
      "func"
     ],
@@ -95677,8 +95668,8 @@
     [
      784,
      "0x0054BC00",
-     "queue_function",
-     "sub_0054BC00",
+     "names.json",
+     "D2GAME_PACKETCALLBACK_Rcv0x62_ResurrectMerc_6FC86C00",
      0,
      "func"
     ],

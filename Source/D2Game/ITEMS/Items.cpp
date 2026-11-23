@@ -3881,6 +3881,43 @@ int __fastcall ITEMS_GetGroundRemovalTime(D2GameStrc* pGame, D2UnitStrc* pUnit)
     return pGame->dwGameFrame + 30000;
 }
 
+void __fastcall QUESTS_ItemDropped(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem); // 0x00543DB0
+
+void __stdcall UNITS_BlockCollisionPath(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00620A70
+
+// 0x00558AA0
+void __fastcall D2GAME_DropItem_6FC52260(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2ActiveRoomStrc* pRoom, int nX, int nY)
+{
+    if (!pRoom)
+    {
+        return;
+    }
+
+    UNITS_InitializeStaticPath(pItem, pRoom, nX, nY);
+    UNITS_BlockCollisionPath(pItem, pRoom, nX, nY);
+    UNITROOM_AddUnitToRoom(pItem, pRoom);
+
+    if (pItem)
+    {
+        pItem->dwFlags |= 0x1002;
+    }
+
+    UNITS_ChangeAnimMode(pItem, 3);
+    ITEMS_SetInvPage(pItem, 0xFF);
+
+    if (pItem)
+    {
+        pItem->dwFlags |= 0x2000000;
+    }
+
+    pItem->pItemData->dwActionStamp = ITEMS_GetGroundRemovalTime(pGame, pItem);
+
+    if (pUnit)
+    {
+        QUESTS_ItemDropped(pGame, pUnit, pItem);
+    }
+}
+
 // 0x00558B40
 void __fastcall ITEMS_RemoveItemFromGame(D2GameStrc* pGame, D2UnitStrc* pItem)
 {
