@@ -53897,11 +53897,6 @@
      "name": "?ACT5Q2_FindPortal@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAPAU2@@Z"
     },
     {
-     "va": "0x0058F8F0",
-     "length": 180,
-     "name": "?ACT1Intro_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
      "va": "0x005920D0",
      "length": 96,
      "name": "?ACT1Q4_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -54305,16 +54300,6 @@
      "va": "0x0058AE10",
      "length": 134,
      "name": "ACT5Q3_ChangeNihlathakMapAI"
-    },
-    {
-     "va": "0x0058F9B0",
-     "length": 15,
-     "name": "ACT1Intro_StatusFilterCallback"
-    },
-    {
-     "va": "0x0058FB50",
-     "length": 40,
-     "name": "ACT1Q0_ActiveFilterCallback"
     }
    ]
   },
@@ -55453,6 +55438,16 @@
      "name": "?sub_0058F870_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
+     "va": "0x0058F8F0",
+     "length": 180,
+     "name": "?ACT1Intro_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x0058F9B0",
+     "length": 15,
+     "name": "ACT1Intro_StatusFilterCallback"
+    },
+    {
      "va": "0x0058F9C0",
      "length": 87,
      "name": "ACT1Intro_ActiveFilterCallback"
@@ -55476,6 +55471,11 @@
      "va": "0x0058FB40",
      "length": 5,
      "name": "?ACT1Q0_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
+    },
+    {
+     "va": "0x0058FB50",
+     "length": 40,
+     "name": "ACT1Q0_ActiveFilterCallback"
     },
     {
      "va": "0x0058FB80",
