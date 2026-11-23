@@ -5,7 +5,6 @@
 
 struct D2SlotObjectStrc;
 struct D2SlotStrc;
-struct D2Obj007C8A28Strc;
 struct D2TileLibraryEntryStrc;
 struct D2GfxLightStrc;
 struct D2LightOffsetStrc;
@@ -28,11 +27,6 @@ struct D2SlotObjectStrc
 };
 
 #pragma pack(pop)
-
-struct D2Obj007C8A28Strc
-{
-    void sub_004DE730(void* pArg);                                                                          // 0x004DE730
-};
 
 extern int gbSoundSystemInit; // 0x007C8C78
 D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
@@ -77,15 +71,7 @@ void __fastcall SCMD_ReadGridCell(int nX, int nY, unsigned char* pValue0, unsign
 int __stdcall TILE_TileDrawTrans(D2TileLibraryEntryStrc* pTile, int nXPos, int nYPos, D2GfxLightStrc* pLight, int nScreenPanels, unsigned char nAlpha); // 0x004F6950
 int __stdcall TILE_TileDrawLit(D2TileLibraryEntryStrc* pTile, int nXPos, int nYPos, D2GfxLightStrc* pLight, int nScreenPanels); // 0x004F6920
 
-D2Obj007C8A28Strc gObj_007C8A28; // 0x007C8A28
-
 D2SlotStrc gaSlots[16]; // 0x007C8A78
-
-// 0x004DED10
-void __fastcall sub_004DED10(void* pArg)
-{
-    gObj_007C8A28.sub_004DE730(pArg);
-}
 
 // 0x004DF7B0
 void __fastcall sub_004DF7B0_StopSlot(D2SlotStrc* pSlot)

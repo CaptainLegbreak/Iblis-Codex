@@ -427,14 +427,6 @@ enum
     CLTDO_SLOW_FLAG = 0x100,
 };
 
-unsigned char gnRoomColorBlue; // 0x007C8A6C
-
-unsigned char gnRoomColorGreen; // 0x007C8A6D
-
-unsigned char gnRoomColorIntensity; // 0x007C8A6E
-
-unsigned char gnRoomColorRed; // 0x007C8A6F
-
 typedef char cc_M439_D2MissilesTxt_size[sizeof(D2MissilesTxt) == 0x1A4 ? 1 : -1];
 
 typedef char cc_M338_D2MissilesTxt_size[sizeof(D2MissilesTxt) == 0x1A4 ? 1 : -1];
@@ -4820,37 +4812,6 @@ void __fastcall MISSILE_CltDoEruption(D2UnitStrc* pMissile)
 
 
 
-// 0x004DED20
-void __cdecl MISSILE_UpdateRoomColor()
-{
-    sub_0061C0B0(gpGlobal_007A0634, &gnRoomColorRed, &gnRoomColorGreen, &gnRoomColorBlue);
-    gnRoomColorIntensity = sub_0061C0E0(gpGlobal_007A0634);
-
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (!pPlayer)
-    {
-        return;
-    }
-
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
-    if (!pRoom)
-    {
-        return;
-    }
-
-    unsigned char nIntensity;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    sub_00619D70(pRoom, &nIntensity, &nRed, &nGreen, &nBlue);
-    if (nRed || nGreen || nBlue)
-    {
-        gnRoomColorIntensity = nIntensity;
-        gnRoomColorRed = nRed;
-        gnRoomColorGreen = nGreen;
-        gnRoomColorBlue = nBlue;
-    }
-}
 
 // 0x004CE530
 static D2UnitStrc* __stdcall MISSILE_SpawnSubMissile(D2UnitStrc* pOwner, int nMissile, int nSpread, D2UnitStrc* pMissile)
