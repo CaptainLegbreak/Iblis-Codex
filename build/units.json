@@ -846,6 +846,11 @@
      "name": "??0Report@crashy@@QAE@XZ"
     },
     {
+     "va": "0x00401090",
+     "length": 57,
+     "name": "?_GReport"
+    },
+    {
      "va": "0x004010D0",
      "length": 34,
      "name": "??1Report@crashy@@UAE@XZ"
@@ -859,17 +864,6 @@
      "va": "0x00401210",
      "length": 9,
      "name": "?sub_00401210_IsOpen@Report@crashy@@QAE_NXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00401090.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00401090",
-     "length": 57,
-     "name": "?_GReport"
     },
     {
      "va": "0x00401380",
@@ -877,9 +871,79 @@
      "name": "sub_00401380"
     },
     {
+     "va": "0x00407270",
+     "length": 4,
+     "name": "?sub_00407270_GetText08@Report@crashy@@QAEPADXZ"
+    },
+    {
+     "va": "0x00407280",
+     "length": 7,
+     "name": "?sub_00407280_GetText408@Report@crashy@@QAEPADXZ"
+    },
+    {
+     "va": "0x00407290",
+     "length": 7,
+     "name": "?sub_00407290_GetLineCount@Report@crashy@@QAEHXZ"
+    },
+    {
      "va": "0x004072A0",
      "length": 20,
      "name": "sub_004072A0_GetLine"
+    },
+    {
+     "va": "0x004072C0",
+     "length": 1,
+     "name": "?sub_004072C0_Empty@@YAXXZ"
+    },
+    {
+     "va": "0x004072D0",
+     "length": 1,
+     "name": "?sub_004072D0_Empty@@YAXXZ"
+    },
+    {
+     "va": "0x004072E0",
+     "length": 1,
+     "name": "?sub_004072E0_Empty@@YAXXZ"
+    },
+    {
+     "va": "0x004072F0",
+     "length": 1,
+     "name": "?sub_004072F0_Empty@@YAXXZ"
+    },
+    {
+     "va": "0x00407300",
+     "length": 1,
+     "name": "?sub_00407300_Empty@@YAXXZ"
+    },
+    {
+     "va": "0x00407540",
+     "length": 36,
+     "name": "?sub_00407540_MakeAppSubdir@@YAXPADI@Z"
+    },
+    {
+     "va": "0x00407DD0",
+     "length": 3,
+     "name": "?sub_00407DD0_AlwaysFalse@@YA_NXZ"
+    },
+    {
+     "va": "0x00407DE0",
+     "length": 318,
+     "name": "AUTOMAP_CaptureSystemInfo"
+    },
+    {
+     "va": "0x00407F70",
+     "length": 15,
+     "name": "?sub_00407F70_LogText@@YIXPAXPBD@Z"
+    },
+    {
+     "va": "0x00407FA0",
+     "length": 1,
+     "name": "?sub_00407FA0_Empty@@YAXXZ"
+    },
+    {
+     "va": "0x00407FB0",
+     "length": 1,
+     "name": "?sub_00407FB0_Empty@@YAXXZ"
     }
    ]
   },
@@ -3365,82 +3429,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00407270.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00407270",
-     "length": 4,
-     "name": "?sub_00407270_GetText08@Report@crashy@@QAEPADXZ"
-    },
-    {
-     "va": "0x00407280",
-     "length": 7,
-     "name": "?sub_00407280_GetText408@Report@crashy@@QAEPADXZ"
-    },
-    {
-     "va": "0x00407290",
-     "length": 7,
-     "name": "?sub_00407290_GetLineCount@Report@crashy@@QAEHXZ"
-    },
-    {
-     "va": "0x004072C0",
-     "length": 1,
-     "name": "?sub_004072C0_Empty@@YAXXZ"
-    },
-    {
-     "va": "0x004072D0",
-     "length": 1,
-     "name": "?sub_004072D0_Empty@@YAXXZ"
-    },
-    {
-     "va": "0x004072E0",
-     "length": 1,
-     "name": "?sub_004072E0_Empty@@YAXXZ"
-    },
-    {
-     "va": "0x004072F0",
-     "length": 1,
-     "name": "?sub_004072F0_Empty@@YAXXZ"
-    },
-    {
-     "va": "0x00407300",
-     "length": 1,
-     "name": "?sub_00407300_Empty@@YAXXZ"
-    },
-    {
-     "va": "0x00407540",
-     "length": 36,
-     "name": "?sub_00407540_MakeAppSubdir@@YAXPADI@Z"
-    },
-    {
-     "va": "0x00407DD0",
-     "length": 3,
-     "name": "?sub_00407DD0_AlwaysFalse@@YA_NXZ"
-    },
-    {
-     "va": "0x00407DE0",
-     "length": 318,
-     "name": "AUTOMAP_CaptureSystemInfo"
-    },
-    {
-     "va": "0x00407F70",
-     "length": 15,
-     "name": "?sub_00407F70_LogText@@YIXPAXPBD@Z"
-    },
-    {
-     "va": "0x00407FA0",
-     "length": 1,
-     "name": "?sub_00407FA0_Empty@@YAXXZ"
-    },
-    {
-     "va": "0x00407FB0",
-     "length": 1,
-     "name": "?sub_00407FB0_Empty@@YAXXZ"
-    }
    ]
   },
   {
