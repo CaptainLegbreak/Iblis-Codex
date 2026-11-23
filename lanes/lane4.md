@@ -4,11 +4,14 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane4/chat-more 357c70e6 570->567 chat.cpp places Unknown_0047AA60, Unknown_0047B5C0 and Unknown_0047B720 (0x47B720 calls the caret helper 0x47B450 with chat.cpp's argument order); VERIFIED 9a6fee97e073
-  - Based on #294. Nothing outside lane 4. Borrowed data 15,691 B on this build, as on main.
-- lane4/soundenv-name 1d95fa82 570->570 SkillDesc.cpp and SkillDesc_004E1FF0.cpp call 0x4DF6C0 as GFXUTIL_ApplySoundEnviron (local prototype) instead of sub_004DF6C0; VERIFIED 585736b45a04
-  - Based on #294. Nothing outside lane 4.
-  - `lane4/chat-run-3` is not needed: chat-run-2 is in #294; ignore -3.
+- lane4/place-c 7df3a184 570->560 ten placements; VERIFIED b9cc909be167
+  - WINMAIN.CPP: Unknown_0044AB70, Unknown_0044AB80 (14 MCP packet handlers; their packet records keep the placeholder's pack(1)).
+  - panel.cpp: Unknown_00499DE0. text.cpp: Unknown_004A7720, Unknown_004A78C0, Unknown_0049D310.
+  - ui.cpp: Unknown_004549F0 and Unknown_00454A70 together (hover text). 0x4549F0 takes Unicode text; `gwszHoverLine` is `Unicode[256]` defined in ui.cpp; `AUTOMAP_GetHoverMonsterName` takes `unsigned short` (the caller passes a string id without widening it).
+  - Roster.cpp: Unknown_004790F0, rewritten on Roster.cpp's `D2RosterPetStrc` (unit id 0x08, value 0x10) instead of a second view of the record.
+  - SoundHdr.cpp: Unknown_00481920 returns SoundHdr.cpp's own `D2SoundEnvironTxtStrc`; units.json name updated to the new mangling.
+  - Based on #296; merges into #297 with a docs-only conflict. Nothing outside lane 4. Borrowed data 15,691 B (same as my other builds).
+- `soundenv-name` and `chat-more` are in #295/#297; nothing left for them.
 
 ## Questions
 
@@ -20,6 +23,10 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 ## Left in place (and why)
 
+- Unknown_00469420 (CmdTbl.cpp's run): CmdTbl.cpp's 0x469C20 calls it in the original, and in CmdTbl.cpp it would be inlined.
+- Unknown_0045AE90 (ui.cpp's run): ui.cpp would inline it into a caller the original calls it from.
+- Unknown_004A6260 (text run): its callers 0x4A6310/0x4A6350 are in text_0049A950.cpp, which defines `gnKeyConfigSelected`; in that piece or text.cpp the code changes. Two definitions of that global (text.cpp static, the piece global) need sorting out first.
+- Unknown_00450520 (View.cpp's run): Storm hash table template destructors; not placing compiler-generated template code by run evidence.
 - Unknown_0047C420 (0x47C420): in chat.cpp it compiles with different registers; cause not found yet. chat.cpp keeps an unmarked copy for its caller 0x47CA70, as WardenClient.cpp did.
 - WardenClient.cpp 0x47F8B0-0x47F990 and Unknown_0047F950: no assert; they sit on the chat/Warden boundary just before 0x47FA20.
 - Weather block 0x472210-0x473F50 (Unknown_00472210, Unknown_004726F0, Unknown_00472890, Unknown_00473090, Unknown_004737B0): no assert path or data reference names its file yet.
