@@ -43781,64 +43781,9 @@
      "name": "SERVER_SetMaxClientsPerGame"
     },
     {
-     "va": "0x0052B280",
-     "length": 23,
-     "name": "SERVER_SetHackListEnabled"
-    },
-    {
-     "va": "0x0052B2A0",
-     "length": 40,
-     "name": "SERVER_Release"
-    },
-    {
-     "va": "0x0052B2D0",
-     "length": 29,
-     "name": "SERVER_ReadGamePacket"
-    },
-    {
-     "va": "0x0052B2F0",
-     "length": 29,
-     "name": "SERVER_ReadSystemPacket"
-    },
-    {
-     "va": "0x0052B310",
-     "length": 29,
-     "name": "SERVER_ReadAdminPacket"
-    },
-    {
      "va": "0x0052B490",
      "length": 30,
      "name": "sub_0052B490_ObjectCall_6BED90"
-    },
-    {
-     "va": "0x0052B4B0",
-     "length": 23,
-     "name": "SERVER_GetIpAddressFromClientId"
-    },
-    {
-     "va": "0x0052B4D0",
-     "length": 23,
-     "name": "SERVER_GetSocketFromClientId"
-    },
-    {
-     "va": "0x0052B4F0",
-     "length": 30,
-     "name": "SERVER_HackListClient"
-    },
-    {
-     "va": "0x0052B510",
-     "length": 30,
-     "name": "SERVER_HackListIP"
-    },
-    {
-     "va": "0x0052B530",
-     "length": 30,
-     "name": "SERVER_HackUnlistIP"
-    },
-    {
-     "va": "0x0052B550",
-     "length": 30,
-     "name": "SERVER_DisconnectIP"
     }
    ]
   },
@@ -44463,8 +44408,63 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x0052B280",
+     "length": 23,
+     "name": "SERVER_SetHackListEnabled"
+    },
+    {
+     "va": "0x0052B2A0",
+     "length": 40,
+     "name": "SERVER_Release"
+    },
+    {
+     "va": "0x0052B2D0",
+     "length": 29,
+     "name": "SERVER_ReadGamePacket"
+    },
+    {
+     "va": "0x0052B2F0",
+     "length": 29,
+     "name": "SERVER_ReadSystemPacket"
+    },
+    {
+     "va": "0x0052B310",
+     "length": 29,
+     "name": "SERVER_ReadAdminPacket"
+    },
+    {
      "va": "0x0052B330",
      "length": 343
+    },
+    {
+     "va": "0x0052B4B0",
+     "length": 23,
+     "name": "SERVER_GetIpAddressFromClientId"
+    },
+    {
+     "va": "0x0052B4D0",
+     "length": 23,
+     "name": "SERVER_GetSocketFromClientId"
+    },
+    {
+     "va": "0x0052B4F0",
+     "length": 30,
+     "name": "SERVER_HackListClient"
+    },
+    {
+     "va": "0x0052B510",
+     "length": 30,
+     "name": "SERVER_HackListIP"
+    },
+    {
+     "va": "0x0052B530",
+     "length": 30,
+     "name": "SERVER_HackUnlistIP"
+    },
+    {
+     "va": "0x0052B550",
+     "length": 30,
+     "name": "SERVER_DisconnectIP"
     },
     {
      "va": "0x0052B570",
