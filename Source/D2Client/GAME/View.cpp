@@ -15,6 +15,8 @@
 #include "D2ClientUi.h"
 #include "D2StormTypes.h"
 #include "D2ClientSound.h"
+#include "D2Path.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -977,6 +979,73 @@ void __fastcall sub_0046B630_FireLevelEvent(int nIndex)
     {
         gpfnLevelEvents[nIndex]();
     }
+}
+
+
+int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
+
+int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
+
+D2UnitStrc* __stdcall UNITFINDS_FindUnitInNeighboredRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
+
+static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+{
+    int nResult;
+    switch (pUnit->dwUnitType)
+    {
+    default:
+        if (pUnit->pDynamicPath) nResult = PATH_GetXPosition(pUnit->pDynamicPath); else nResult = 0;
+        break;
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        nResult = pUnit->pStaticPath->nXPos;
+        break;
+    }
+    return nResult;
+}
+
+static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+{
+    int nResult;
+    switch (pUnit->dwUnitType)
+    {
+    default:
+        if (pUnit->pDynamicPath) nResult = PATH_GetYPosition(pUnit->pDynamicPath); else nResult = 0;
+        break;
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        nResult = pUnit->pStaticPath->nYPos;
+        break;
+    }
+    return nResult;
+}
+
+// 0x0046B850
+void __fastcall sub_0046B850_SpawnMissileAtObject182(D2UnitStrc* unit)
+{
+ D2UnitStrc* object=UNITFINDS_FindUnitInNeighboredRooms(UNITS_GetRoom(unit),2,0x182);
+ int x,y;
+ if(object) {
+  ITEM_ShowTimedHint((void*)0x124F,0,0x15E,0,0,0,0);
+  x=CLIENTS_GetUnitXInline(object);
+  y=CLIENTS_GetUnitYInline(object);
+ } else {
+  x=CLIENTS_GetUnitXInline(unit)-15;
+  y=CLIENTS_GetUnitYInline(unit)-15;
+ }
+ D2MissileStrc params;
+ memset(&params,0,sizeof(params));
+ params.dwFlags=0x420;
+ params.nMissile=MISSILE_ORBMIST;
+ params.pOwner=unit;
+ params.pOrigin=unit;
+ params.nTargetX=x;
+ params.nTargetY=y;
+ params.nSkillLevel=1;
+ D2UnitStrc* missile=MISSILE_CreateClientMissile(&params);
+ if(missile&&object)MISSILE_SetTargetX(missile,object->dwUnitId);
 }
 
 

@@ -13740,6 +13740,10 @@
      "name": "?VIEW_SpawnBrDeathControl@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0046B850",
+     "length": 334
+    },
+    {
      "va": "0x0046B9A0",
      "length": 170,
      "name": "?VIEW_SpawnMephistoDeath@@YIXPAUD2UnitStrc@@@Z"
@@ -20118,10 +20122,6 @@
    "file": "Source/D2Client/Unknown_0046B850.cpp",
    "rank": 1,
    "functions": [
-    {
-     "va": "0x0046B850",
-     "length": 334
-    },
     {
      "va": "0x0046C320",
      "length": 312
