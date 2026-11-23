@@ -78467,11 +78467,6 @@
      "name": "DRLGROOM_InitNearRooms"
     },
     {
-     "va": "0x0066F240",
-     "length": 262,
-     "name": "DRLGROOMTILE_LoadDT1FilesForRoom"
-    },
-    {
      "va": "0x00670630",
      "length": 110,
      "name": "DRLGTILESUB_FreeDrlgFile"
@@ -78872,6 +78867,11 @@
      "va": "0x0066F1A0",
      "length": 160,
      "name": "DRLGROOMTILE_FreeRoom"
+    },
+    {
+     "va": "0x0066F240",
+     "length": 262,
+     "name": "DRLGROOMTILE_LoadDT1FilesForRoom"
     }
    ]
   },
