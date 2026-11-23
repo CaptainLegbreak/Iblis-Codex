@@ -31507,6 +31507,10 @@
      "name": "?MISSILE_CltDoRateJitterSpawn@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004D6FA0",
+     "length": 789
+    },
+    {
      "va": "0x004D72C0",
      "length": 308,
      "name": "?MISSILE_CltDoPeriodicSpawn@@YIXPAUD2UnitStrc@@@Z"
@@ -31555,11 +31559,6 @@
      "va": "0x004D8400",
      "length": 191,
      "name": "?sub_004D8400_CltDoRotateTarget@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004DA6E0",
-     "length": 26,
-     "name": "?MISSILE_SetMotionFlagMask@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x004DAAB0",
@@ -31643,7 +31642,7 @@
    ]
   },
   {
-   "file": "Source/D2Client/UNIT/Missile_004D3630.cpp",
+   "file": "Source/D2Client/Unknown_004D1300.cpp",
    "rank": 0,
    "functions": [
     {
@@ -31663,10 +31662,6 @@
     {
      "va": "0x004D66E0",
      "length": 305
-    },
-    {
-     "va": "0x004D6FA0",
-     "length": 789
     }
    ],
    "flags": [
@@ -31685,13 +31680,24 @@
    ]
   },
   {
-   "file": "Source/D2Client/UNIT/Missile_004DA340.cpp",
+   "file": "Source/D2Client/Unknown_004DA340.cpp",
    "rank": 0,
    "functions": [
     {
      "va": "0x004DA340",
      "length": 13,
      "name": "?MISSILE_ClearMotionFlagTwo@@YIXPAUD2UnitStrc@@@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/Unknown_004DA6E0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004DA6E0",
+     "length": 26,
+     "name": "?MISSILE_SetMotionFlagMask@@YIXPAUD2UnitStrc@@H@Z"
     }
    ]
   },
