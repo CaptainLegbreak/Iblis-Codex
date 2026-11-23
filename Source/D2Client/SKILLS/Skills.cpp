@@ -2678,6 +2678,25 @@ void __fastcall SKILLS_ApplyClientSkillCalc(D2UnitStrc* pUnit, int nValue)
     }
 }
 
+extern void* gpfnClientStateEvents[2]; // 0x00727DB4
+
+int __fastcall sub_004DC110(void* pArg1, int nArg2, int nArg3, int nArg4, void* pfnCallback, int nArg6, int nArg7); // 0x004DC110
+
+// 0x004C7C40
+int __fastcall ITEM_CallClientStateEvent(void* pArg1, int nArg2, int nArg3, int nArg4, unsigned int nIndex, int nArg6, int nArg7)
+{
+    if (nIndex <= 1)
+    {
+        void* pfnCallback = gpfnClientStateEvents[nIndex];
+        if (pfnCallback)
+        {
+            return sub_004DC110(pArg1, nArg2, nArg3, nArg4, pfnCallback, nArg6, nArg7);
+        }
+    }
+
+    return 0;
+}
+
 // 0x004C7C90
 int __fastcall sub_004C7C90_TestTarget11018(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {

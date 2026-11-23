@@ -12023,6 +12023,11 @@
      "name": "?SKILLS_ApplyClientSkillCalc@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x004C7C40",
+     "length": 56,
+     "name": "ITEM_CallClientStateEvent"
+    },
+    {
      "va": "0x004C7C90",
      "length": 27,
      "name": "?sub_004C7C90_TestTarget11018@@YIHPAUD2UnitStrc@@HH@Z"
@@ -30270,11 +30275,6 @@
      "va": "0x004C52E0",
      "length": 162,
      "name": "ITEM_GetTargetPosition"
-    },
-    {
-     "va": "0x004C7C40",
-     "length": 56,
-     "name": "ITEM_CallClientStateEvent"
     },
     {
      "va": "0x004C7CF0",
