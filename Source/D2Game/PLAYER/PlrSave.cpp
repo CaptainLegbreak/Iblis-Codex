@@ -3744,65 +3744,10 @@ void __fastcall CLIENTS_RebuildPlayerWithClass(D2GameStrc* pGame, D2ClientStrc* 
     CLIENTS_SpawnPlayer(pClient, pClientPlayer, pGame, pRoom, nX, nY);
 }
 
-// 0x0053A770
-void __fastcall LEVEL_RemoveUnitsExceptClientPlayer(D2ActiveRoomStrc* hRoom, D2ClientStrc* pClient)
-{
-    D2_ASSERT(hRoom, 132);
+void __fastcall LEVEL_RemoveUnitsExceptClientPlayer(D2ActiveRoomStrc* hRoom, D2ClientStrc* pClient); // 0x0053A770
+void __fastcall LEVEL_FreeDrlgDeletes(D2GameStrc* pGame); // 0x0053A820
 
-    D2ActiveRoomStrc** ppRoomList;
-    unsigned int nNumRooms;
-    DUNGEON_GetAdjacentRoomsListFromRoom(hRoom, &ppRoomList, &nNumRooms);
-
-    D2UnitStrc* hUnit = CLIENTS_GetPlayerFromClient(pClient, 0);
-    D2_ASSERT(hUnit, 136);
-
-    const int nUnitType = hUnit->dwUnitType;
-    const int nUnitGUID = hUnit->dwUnitId;
-    for (unsigned int i = 0; i < nNumRooms; ++i)
-    {
-        for (D2DrlgDeleteStrc* pDrlgDelete = DUNGEON_GetDrlgDeleteFromRoom(ppRoomList[i]); pDrlgDelete; pDrlgDelete = pDrlgDelete->pNext)
-        {
-            if (pDrlgDelete->nUnitType != nUnitType || pDrlgDelete->nUnitGUID != nUnitGUID)
-            {
-                D2GAME_PACKETS_SendPacket0x0A_RemoveObject(pClient, 0x0A, pDrlgDelete->nUnitType, pDrlgDelete->nUnitGUID);
-            }
-        }
-    }
-}
-
-// 0x0053A820
-void __fastcall LEVEL_FreeDrlgDeletes(D2GameStrc* pGame)
-{
-    for (int i = 0; i < NUM_ACTS; ++i)
-    {
-        D2DrlgActStrc* pAct = pGame->pAct[i];
-        if (pAct && pAct->bHasPendingRoomDeletions)
-        {
-            for (D2ActiveRoomStrc* pRoom = DUNGEON_GetRoomFromAct(pAct); pRoom; pRoom = pRoom->pRoomNext)
-            {
-                DUNGEON_FreeDrlgDelete(pRoom);
-            }
-
-            pAct->bHasPendingRoomDeletions = 0;
-        }
-    }
-}
-
-// 0x0053AB80
-void __fastcall LEVEL_RemoveClientFromAdjacentRooms(D2ActiveRoomStrc* hRoom, D2ClientStrc* pClient)
-{
-    D2_ASSERT(hRoom, 334);
-
-    D2ActiveRoomStrc** ppRoomList;
-    unsigned int nNumRooms;
-    DUNGEON_GetAdjacentRoomsListFromRoom(hRoom, &ppRoomList, &nNumRooms);
-
-    for (unsigned int i = 0; i < nNumRooms; ++i)
-    {
-        DUNGEON_RemoveClientFromRoom(ppRoomList[i], pClient);
-    }
-}
-
+void __fastcall LEVEL_RemoveClientFromAdjacentRooms(D2ActiveRoomStrc* hRoom, D2ClientStrc* pClient); // 0x0053AB80
 // 0x0053FF00
 void __fastcall PLRTRADE_AddGold(D2UnitStrc* pUnit, int nStat, int nValue)
 {

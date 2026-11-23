@@ -3537,17 +3537,7 @@ void __fastcall CLIENTS_ResetClientInAct(D2ClientStrc* pClient, int nAct)
     pClient->hRoom = pRoom;
 }
 
-// 0x0053AB10
-void __fastcall LEVEL_ClearAdjacentRoomUnitTargets(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pTarget)
-{
-    D2_ASSERT(pRoom, 0x141);
-    D2ActiveRoomStrc** ppRoomList;
-    unsigned int nNumRooms;
-    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
-    for (unsigned int i = 0; i < nNumRooms; ++i)
-        LEVEL_ClearRoomUnitTargets(pGame, ppRoomList[i], pTarget);
-}
-
+void __fastcall LEVEL_ClearAdjacentRoomUnitTargets(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pTarget); // 0x0053AB10
 // 0x00540890
 int __fastcall PARTY_SumLivingPartyLevelsInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
@@ -3999,17 +3989,7 @@ inline void W11_InlineFixRoomUnits(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClien
         SUNIT_UpdateClientIfRoomInvalid(pUnit, pClient);
 }
 
-// 0x0053A6F0
-void __fastcall LEVEL_FixAdjacentRoomUnits(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient)
-{
-    D2_ASSERT(pRoom, 0x75);
-    D2ActiveRoomStrc** ppRoomList;
-    unsigned int nNumRooms;
-    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
-    for (unsigned int i = 0; i < nNumRooms; ++i)
-        W11_InlineFixRoomUnits(ppRoomList[i], pClient);
-}
-
+void __fastcall LEVEL_FixAdjacentRoomUnits(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient); // 0x0053A6F0
 // 0x00539230
 extern "C" __declspec(dllexport) void __fastcall CLIENTS_SetWeaponSwitch(D2ClientStrc* pClient, unsigned char bSwitchWeapon)
 {

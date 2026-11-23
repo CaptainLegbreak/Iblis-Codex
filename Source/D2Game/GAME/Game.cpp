@@ -2977,49 +2977,8 @@ void __fastcall CLIENTS_RemoveUnitIfNotAdjacent(D2ClientStrc* pClient, D2UnitStr
     }
 }
 
-// 0x0053ABE0
-void __fastcall LEVEL_SynchronizeDayNightCycleWithClient(D2GameStrc* pGame, D2ClientStrc* pClient)
-{
-    const unsigned char nAct = CLIENTS_GetActNo(pClient);
-    D2GAME_PACKETS_SendPacket0x03_6FC3C810(pClient, 3, nAct, pGame->dwInitSeed, pGame->dwObjSeed, DUNGEON_GetTownLevelIdFromAct(pGame->pAct[nAct]));
-
-    int nCycleIndex;
-    int nTicks;
-    int nEclipse;
-    ENVIRONMENT_GetCycleIndex_Ticks_EclipseFromAct(pGame->pAct[nAct], &nCycleIndex, &nTicks, &nEclipse);
-
-    D2GSPacketSrv53 packet53;
-    packet53.nHeader = 0x53;
-    packet53.nCycleIndex = nCycleIndex;
-    packet53.nTicks = nTicks;
-    packet53.nEclipse = nEclipse;
-    D2GAME_SendPacket0x53_6FC3DF50(pClient, &packet53);
-}
-
-// 0x0053B000
-void __fastcall LEVEL_UpdateQueuedUnitsInAllActs(D2GameStrc* pGame)
-{
-    for (int i = 0; i < 5; ++i)
-    {
-        D2DrlgActStrc* pAct = pGame->pAct[i];
-        if (pAct && pAct->bHasPendingUnitListUpdates)
-        {
-            for (D2ActiveRoomStrc* pRoom = DUNGEON_GetRoomFromAct(pAct); pRoom; pRoom = pRoom->pRoomNext)
-            {
-                for (D2UnitStrc* pUnit = pRoom->pUnitUpdate; pUnit; pUnit = pUnit->pChangeNextUnit)
-                {
-                    sub_00553220(pGame, pUnit);
-                }
-
-                UNITROOM_ClearUpdateQueue(pRoom);
-            }
-
-            pGame->pAct[i]->bHasPendingUnitListUpdates = 0;
-        }
-    }
-
-    ARENA_ClearUpdateFlag(pGame);
-}
+void __fastcall LEVEL_SynchronizeDayNightCycleWithClient(D2GameStrc* pGame, D2ClientStrc* pClient); // 0x0053ABE0
+void __fastcall LEVEL_UpdateQueuedUnitsInAllActs(D2GameStrc* pGame); // 0x0053B000
 
 // 0x0053DE20
 void __fastcall SCMD_BroadcastPlayerRelationship(D2GameStrc* pGame, int dwPlayerId1, int dwPlayerId2, short wRelationState)

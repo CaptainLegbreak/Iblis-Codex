@@ -91,6 +91,40 @@ void __fastcall OBJMODE_SendObjectUpdates(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 void __fastcall ITEMMODE_SendUpdatedGroundItemToClient(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x0055BF30
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
+struct D2DrlgDeleteStrc
+{
+    int nUnitType;
+    int nUnitGUID;
+    D2DrlgDeleteStrc* pNext;
+};
+
+struct D2GSPacketSrv53
+{
+    unsigned char nHeader;
+    unsigned char nCycleIndex;
+    unsigned char nCycleIndex1;
+    unsigned char nCycleIndex2;
+    unsigned char nCycleIndex3;
+    unsigned char nTicks;
+    unsigned char nTicks1;
+    unsigned char nTicks2;
+    unsigned char nTicks3;
+    unsigned char nEclipse;
+};
+
+D2DrlgDeleteStrc* __stdcall DUNGEON_GetDrlgDeleteFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A330
+void __fastcall D2GAME_PACKETS_SendPacket0x0A_RemoveObject(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID); // 0x0053BDA0
+void __stdcall DUNGEON_FreeDrlgDelete(D2ActiveRoomStrc* pRoom); // 0x0061A2C0
+void __stdcall DUNGEON_RemoveClientFromRoom(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient); // 0x0061A700
+void __fastcall D2GAME_PACKETS_SendPacket0x03_6FC3C810(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nAct, unsigned int dwInitSeed, unsigned int dwObjSeed, int nTownLevelId); // 0x0053B390
+int __stdcall DUNGEON_GetTownLevelIdFromAct(D2DrlgActStrc* pAct); // 0x0061AE80
+void __stdcall ENVIRONMENT_GetCycleIndex_Ticks_EclipseFromAct(D2DrlgActStrc* pAct, int* pCycleIndex, int* pTicks, int* pEclipse); // 0x0061C330
+void __fastcall D2GAME_SendPacket0x53_6FC3DF50(D2ClientStrc* pClient, D2GSPacketSrv53* pPacket); // 0x0053C900
+D2ActiveRoomStrc* __stdcall DUNGEON_GetRoomFromAct(D2DrlgActStrc* pAct); // 0x0061A180
+void __fastcall sub_00553220(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553220
+void __stdcall UNITROOM_ClearUpdateQueue(D2ActiveRoomStrc* pRoom); // 0x0064C160
+void __fastcall ARENA_ClearUpdateFlag(D2GameStrc* pGame); // 0x0053FAE0
+
 // 0x0053A500
 static void __stdcall sub_0053A500_UpdateUnitForClient(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
@@ -165,6 +199,61 @@ static void LEVEL_FixRoomUnits(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient)
     D2_ASSERT(pRoom, 0x62);
     for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
         SUNIT_UpdateClientIfRoomInvalid(pUnit, pClient);
+}
+
+// 0x0053A6F0
+void __fastcall LEVEL_FixAdjacentRoomUnits(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient)
+{
+    D2_ASSERT(pRoom, 0x75);
+    D2ActiveRoomStrc** ppRoomList;
+    unsigned int nNumRooms;
+    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
+    for (unsigned int i = 0; i < nNumRooms; ++i)
+        LEVEL_FixRoomUnits(ppRoomList[i], pClient);
+}
+
+// 0x0053A770
+void __fastcall LEVEL_RemoveUnitsExceptClientPlayer(D2ActiveRoomStrc* hRoom, D2ClientStrc* pClient)
+{
+    D2_ASSERT(hRoom, 132);
+
+    D2ActiveRoomStrc** ppRoomList;
+    unsigned int nNumRooms;
+    DUNGEON_GetAdjacentRoomsListFromRoom(hRoom, &ppRoomList, &nNumRooms);
+
+    D2UnitStrc* hUnit = CLIENTS_GetPlayerFromClient(pClient, 0);
+    D2_ASSERT(hUnit, 136);
+
+    const int nUnitType = hUnit->dwUnitType;
+    const int nUnitGUID = hUnit->dwUnitId;
+    for (unsigned int i = 0; i < nNumRooms; ++i)
+    {
+        for (D2DrlgDeleteStrc* pDrlgDelete = DUNGEON_GetDrlgDeleteFromRoom(ppRoomList[i]); pDrlgDelete; pDrlgDelete = pDrlgDelete->pNext)
+        {
+            if (pDrlgDelete->nUnitType != nUnitType || pDrlgDelete->nUnitGUID != nUnitGUID)
+            {
+                D2GAME_PACKETS_SendPacket0x0A_RemoveObject(pClient, 0x0A, pDrlgDelete->nUnitType, pDrlgDelete->nUnitGUID);
+            }
+        }
+    }
+}
+
+// 0x0053A820
+void __fastcall LEVEL_FreeDrlgDeletes(D2GameStrc* pGame)
+{
+    for (int i = 0; i < NUM_ACTS; ++i)
+    {
+        D2DrlgActStrc* pAct = pGame->pAct[i];
+        if (pAct && pAct->bHasPendingRoomDeletions)
+        {
+            for (D2ActiveRoomStrc* pRoom = DUNGEON_GetRoomFromAct(pAct); pRoom; pRoom = pRoom->pRoomNext)
+            {
+                DUNGEON_FreeDrlgDelete(pRoom);
+            }
+
+            pAct->bHasPendingRoomDeletions = 0;
+        }
+    }
 }
 
 // 0x0053A880
@@ -314,6 +403,51 @@ void __fastcall LEVEL_ClearRoomUnitTargets(D2GameStrc* pGame, D2ActiveRoomStrc* 
             break;
         }
     }
+}
+
+// 0x0053AB10
+void __fastcall LEVEL_ClearAdjacentRoomUnitTargets(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pTarget)
+{
+    D2_ASSERT(pRoom, 0x141);
+    D2ActiveRoomStrc** ppRoomList;
+    unsigned int nNumRooms;
+    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
+    for (unsigned int i = 0; i < nNumRooms; ++i)
+        LEVEL_ClearRoomUnitTargets(pGame, ppRoomList[i], pTarget);
+}
+
+// 0x0053AB80
+void __fastcall LEVEL_RemoveClientFromAdjacentRooms(D2ActiveRoomStrc* hRoom, D2ClientStrc* pClient)
+{
+    D2_ASSERT(hRoom, 334);
+
+    D2ActiveRoomStrc** ppRoomList;
+    unsigned int nNumRooms;
+    DUNGEON_GetAdjacentRoomsListFromRoom(hRoom, &ppRoomList, &nNumRooms);
+
+    for (unsigned int i = 0; i < nNumRooms; ++i)
+    {
+        DUNGEON_RemoveClientFromRoom(ppRoomList[i], pClient);
+    }
+}
+
+// 0x0053ABE0
+void __fastcall LEVEL_SynchronizeDayNightCycleWithClient(D2GameStrc* pGame, D2ClientStrc* pClient)
+{
+    const unsigned char nAct = CLIENTS_GetActNo(pClient);
+    D2GAME_PACKETS_SendPacket0x03_6FC3C810(pClient, 3, nAct, pGame->dwInitSeed, pGame->dwObjSeed, DUNGEON_GetTownLevelIdFromAct(pGame->pAct[nAct]));
+
+    int nCycleIndex;
+    int nTicks;
+    int nEclipse;
+    ENVIRONMENT_GetCycleIndex_Ticks_EclipseFromAct(pGame->pAct[nAct], &nCycleIndex, &nTicks, &nEclipse);
+
+    D2GSPacketSrv53 packet53;
+    packet53.nHeader = 0x53;
+    *(int*)&packet53.nCycleIndex = nCycleIndex;
+    *(int*)&packet53.nTicks = nTicks;
+    packet53.nEclipse = nEclipse;
+    D2GAME_SendPacket0x53_6FC3DF50(pClient, &packet53);
 }
 
 // 0x0053AC70
@@ -475,5 +609,44 @@ void __fastcall LEVEL_RemoveAllUnits(D2GameStrc* pGame)
     ITEMS_RemoveAll(pGame);
     MISSILES_RemoveAll(pGame);
     SUNIT_RemoveAllTiles(pGame);
+}
+
+// 0x0053B000
+void __fastcall LEVEL_UpdateQueuedUnitsInAllActs(D2GameStrc* pGame)
+{
+    for (int i = 0; i < 5; ++i)
+    {
+        D2DrlgActStrc* pAct = pGame->pAct[i];
+        if (pAct && pAct->bHasPendingUnitListUpdates)
+        {
+            for (D2ActiveRoomStrc* pRoom = DUNGEON_GetRoomFromAct(pAct); pRoom; pRoom = pRoom->pRoomNext)
+            {
+                for (D2UnitStrc* pUnit = pRoom->pUnitUpdate; pUnit; pUnit = pUnit->pChangeNextUnit)
+                {
+                    sub_00553220(pGame, pUnit);
+                }
+
+                UNITROOM_ClearUpdateQueue(pRoom);
+            }
+
+            pGame->pAct[i]->bHasPendingUnitListUpdates = 0;
+        }
+    }
+
+    ARENA_ClearUpdateFlag(pGame);
+}
+
+// 0x0053B090
+int __fastcall sub_0053B090_CountActRooms(D2GameStrc* pGame, unsigned char nAct)
+{
+    D2_ASSERT(nAct < 5, 0x294);
+    D2ActiveRoomStrc* pRoom = DUNGEON_GetRoomFromAct(pGame->pAct[nAct]);
+    int nCount = 0;
+    while (pRoom)
+    {
+        pRoom = pRoom->pRoomNext;
+        ++nCount;
+    }
+    return nCount;
 }
 

@@ -23,20 +23,6 @@ int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, i
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
-// 0x0053B090
-int __fastcall sub_0053B090_CountActRooms(D2GameStrc* pGame, unsigned char nAct)
-{
-    D2_ASSERT(nAct < 5, 0x294);
-    D2ActiveRoomStrc* pRoom = DUNGEON_GetRoomFromAct(pGame->pAct[nAct]);
-    int nCount = 0;
-    while (pRoom)
-    {
-        pRoom = pRoom->pRoomNext;
-        ++nCount;
-    }
-    return nCount;
-}
-
 // 0x0053B140
 void __fastcall sub_0053B140_WriteVarLength16(D2BitBufferStrc* pBuffer, unsigned short nValue)
 {
