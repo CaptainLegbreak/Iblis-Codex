@@ -209,6 +209,8 @@ def split_plan(ds, refs_to_section_symbol, trim=(), keep=None):
         floor = max(1, (keep or {}).get(a, 0))
         while a in trim and k < al - 1 and n - k > floor and (raw is None or (raw[a + n - k - 1] == 0 and ds["mask"][a + n - k - 1])):
             k += 1
+        if keep and a in keep and n - k > keep[a] and (raw is None or not any(raw[a + keep[a]:a + n - k])):
+            k = n - keep[a]                                     # zero padding past a planned size is never the global's
         pieces.append((a, n - k))
     return pieces
 
