@@ -1,4 +1,9 @@
 #include "D2StateIds.h"
+#include "D2Path.h"
+#include "D2Records.h"
+#include "D2TxtItems.h"
+#include "D2TxtTables.h"
+#include "D2Unicode.h"
 
 #include "D2Common.h"
 
@@ -782,6 +787,12 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned
 int __stdcall STATLIST_GetBaseStatValueByLayer(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
 {
     return STATLIST_GetBaseStatValue(pStatList, nStatId, nLayer);
+}
+
+// 0x006254F0
+int __stdcall STATLIST_GetTotalStatValueStub(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
+{
+    return STATLIST_GetTotalStatValue(pStatList, nStatId, nLayer);
 }
 
 // 0x006255A0
