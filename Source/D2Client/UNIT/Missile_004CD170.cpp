@@ -6,6 +6,7 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2ClientGfx.h"
+#include "D2ClientTypes.h"
 
 #define UNIT_INVALID 6
 
@@ -26,11 +27,6 @@ struct D2MissilesTxt;
 struct D2SkillsTxt;
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
-
-struct D2GfxDataStrc
-{
-    D2GfxEntryStrc tEntries[20];
-};
 
 extern D2DrlgActStrc* gpAct; // 0x007A0634
 
@@ -1055,7 +1051,8 @@ unsigned char __fastcall MISSILE_GetGfxEntryByte(D2UnitStrc* pUnit, int nIndex)
     D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
     if (!pGfxData)
         return 0;
-    return pGfxData->tEntries[nIndex].nValue;
+    const D2GfxEntryStrc* pEntries = (const D2GfxEntryStrc*)pGfxData;
+    return pEntries[nIndex].nValue;
 }
 
 // 0x004DBFE0
