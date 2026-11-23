@@ -81928,6 +81928,11 @@
      "name": "?DRLGOUTWILD_SpawnCliffCaves@@YGHPAUD2DrlgLevelStrc@@HH@Z"
     },
     {
+     "va": "0x006801F0",
+     "length": 16,
+     "name": "?sub_006801F0_GetCliffPresetId@@YIHPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
      "va": "0x006803D0",
      "length": 269,
      "name": "?DRLGOUTWILD_SpawnTownTransitionsAndCaves@@YAXPAUD2DrlgLevelStrc@@@Z"
@@ -82052,17 +82057,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_006801F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006801F0",
-     "length": 16,
-     "name": "?sub_006801F0_GetCliffPresetId@@YIHPAUD2DrlgLevelStrc@@@Z"
-    }
    ]
   },
   {

@@ -71,7 +71,31 @@ static void __stdcall DRLGOUTDESR_PlacePresetVariants(const int* pLevelPrestIds,
 
 static void DRLGOUTWILD_SpawnTownTransitionsAndCaves(D2DrlgLevelStrc* pLevel); // 0x006803D0
 
-static void __stdcall DRLGOUTDESR_PlacePresetVariants(const int* pLevelPrestIds, int nVariants, int bIterateFiles, D2DrlgLevelStrc* pLevel);
+static void DRLGOUTDESR_PlaceCliffs(D2DrlgLevelStrc* pLevel); // 0x0067F5C0
+
+static void DRLGOUTDESR_PlaceBorders(D2DrlgLevelStrc* pLevel);
+
+static void DRLGOUTDESR_PlaceRockyWasteVariants(D2DrlgLevelStrc* pLevel);
+
+static void DRLGOUTDESR_PlaceDryHillsVariants(D2DrlgLevelStrc* pLevel);
+
+static void DRLGOUTDESR_PlaceFarOasisVariants(D2DrlgLevelStrc* pLevel);
+
+static void DRLGOUTDESR_PlaceFillsInFarOasis(D2DrlgLevelStrc* pLevel);
+
+static void DRLGOUTDESR_PlaceRuinsInLostCity(D2DrlgLevelStrc* pLevel);
+
+static void DRLGOUTDESR_PlaceFillsInLostCity(D2DrlgLevelStrc* pLevel);
+
+static void DRLGOUTDESR_PlaceTombEntriesInCanyon(D2DrlgLevelStrc* pLevel); // 0x0067F8D0
+
+static void DRLGOUTDESR_PlaceFillsInCanyon(D2DrlgLevelStrc* pLevel);
+
+void __fastcall DRLGOUTDESR_InitAct2OutdoorLevel(D2DrlgLevelStrc* pLevel);
+
+static int DRLGOUTWILD_TestSpawnRiver(int nX, D2DrlgLevelStrc* pLevel);
+
+static int __stdcall DRLGOUTWILD_SpawnCliffCaves(D2DrlgLevelStrc* pLevel, int nX, int nY);
 
 static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
 {
@@ -118,6 +142,19 @@ static void __stdcall DRLGOUTDESR_PlacePresetVariants(const int* pLevelPrestIds,
         }
 
         nRand = (nRand + 1) % nVariants;
+    }
+}
+
+// 0x0067F5C0
+static void DRLGOUTDESR_PlaceCliffs(D2DrlgLevelStrc* pLevel)
+{
+    const unsigned int nRand = SEED_RollRandomNumber_Inline(&pLevel->pSeed) & 7;
+
+    const int* pY = &gaDesertCliffs[nRand][0].nY;
+    for (int i = 0; i < 5; ++i, pY += 4)
+    {
+        const D2DrlgOutDesertInitStrc* pEntry = (const D2DrlgOutDesertInitStrc*)(pY - 3);
+        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, pEntry->nX, pEntry->nY, pEntry->nLvlPrestId, pEntry->nRand, 0);
     }
 }
 
@@ -179,8 +216,6 @@ static void DRLGOUTDESR_PlaceFillsInLostCity(D2DrlgLevelStrc* pLevel)
     DRLGOUTDESR_PlacePresetVariants(nLevelPrestIds2, 1, 1, pLevel);
 }
 
-static void DRLGOUTWILD_SpawnTownTransitionsAndCaves(D2DrlgLevelStrc* pLevel);
-
 // 0x0067F8D0
 static void DRLGOUTDESR_PlaceTombEntriesInCanyon(D2DrlgLevelStrc* pLevel)
 {
@@ -201,41 +236,6 @@ static void DRLGOUTDESR_PlaceFillsInCanyon(D2DrlgLevelStrc* pLevel)
     DRLGOUTDESR_PlacePresetVariants(nLevelPrestIds1, 5, 0, pLevel);
     DRLGOUTDESR_PlacePresetVariants(nLevelPrestIds2, 2, 1, pLevel);
 }
-
-static void DRLGOUTDESR_PlaceCliffs(D2DrlgLevelStrc* pLevel); // 0x0067F5C0
-
-// 0x0067F5C0
-static void DRLGOUTDESR_PlaceCliffs(D2DrlgLevelStrc* pLevel)
-{
-    const unsigned int nRand = SEED_RollRandomNumber_Inline(&pLevel->pSeed) & 7;
-
-    const int* pY = &gaDesertCliffs[nRand][0].nY;
-    for (int i = 0; i < 5; ++i, pY += 4)
-    {
-        const D2DrlgOutDesertInitStrc* pEntry = (const D2DrlgOutDesertInitStrc*)(pY - 3);
-        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, pEntry->nX, pEntry->nY, pEntry->nLvlPrestId, pEntry->nRand, 0);
-    }
-}
-
-static void DRLGOUTDESR_PlaceBorders(D2DrlgLevelStrc* pLevel);
-
-static void DRLGOUTDESR_PlaceRockyWasteVariants(D2DrlgLevelStrc* pLevel);
-
-static void DRLGOUTDESR_PlaceDryHillsVariants(D2DrlgLevelStrc* pLevel);
-
-static void DRLGOUTDESR_PlaceFarOasisVariants(D2DrlgLevelStrc* pLevel);
-
-static void DRLGOUTDESR_PlaceFillsInFarOasis(D2DrlgLevelStrc* pLevel);
-
-static void DRLGOUTDESR_PlaceRuinsInLostCity(D2DrlgLevelStrc* pLevel);
-
-static void DRLGOUTDESR_PlaceFillsInLostCity(D2DrlgLevelStrc* pLevel);
-
-static void DRLGOUTDESR_PlaceTombEntriesInCanyon(D2DrlgLevelStrc* pLevel); // 0x0067F8D0
-
-static void DRLGOUTDESR_PlaceTombEntriesInCanyon(D2DrlgLevelStrc* pLevel);
-
-static void DRLGOUTDESR_PlaceFillsInCanyon(D2DrlgLevelStrc* pLevel);
 
 // 0x0067F980
 void __fastcall DRLGOUTDESR_InitAct2OutdoorLevel(D2DrlgLevelStrc* pLevel)
@@ -305,8 +305,6 @@ void __fastcall DRLGOUTDESR_InitAct2OutdoorLevel(D2DrlgLevelStrc* pLevel)
     }
 }
 
-void __fastcall DRLGOUTDESR_InitAct2OutdoorLevel(D2DrlgLevelStrc* pLevel);
-
 // 0x0067FC70
 static int DRLGOUTWILD_TestSpawnRiver(int nX, D2DrlgLevelStrc* pLevel)
 {
@@ -348,9 +346,11 @@ static int __stdcall DRLGOUTWILD_SpawnCliffCaves(D2DrlgLevelStrc* pLevel, int nX
     }
 }
 
-static int DRLGOUTWILD_TestSpawnRiver(int nX, D2DrlgLevelStrc* pLevel);
-
-static int __stdcall DRLGOUTWILD_SpawnCliffCaves(D2DrlgLevelStrc* pLevel, int nX, int nY);
+// 0x006801F0
+int __fastcall sub_006801F0_GetCliffPresetId(D2DrlgLevelStrc* pLevel)
+{
+    return (pLevel->eLevelId == LEVEL_BLOODMOOR) + 0x33;
+}
 
 void __stdcall sub_00680200_SpawnRiverAndCliffCaves(D2DrlgLevelStrc* pLevel)
 {
