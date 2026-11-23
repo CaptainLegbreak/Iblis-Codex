@@ -15001,6 +15001,11 @@
      "name": "?sub_004AA710_BuildLeftRows2@@YAXXZ"
     },
     {
+     "va": "0x004AA8B0",
+     "length": 47,
+     "name": "?sub_004AA8B0_GetSkillMaxLevel@@YIHH@Z"
+    },
+    {
      "va": "0x004AA8E0",
      "length": 11,
      "name": "?sub_004AA8E0_ClearValue7C0C3C@@YAXXZ"
@@ -17927,11 +17932,6 @@
      "va": "0x0045C4B0",
      "length": 36,
      "name": "?sub_0045C4B0_GetSkillsTxtRecord@@YIPAUD2SkillsTxt@@H@Z"
-    },
-    {
-     "va": "0x004AA8B0",
-     "length": 47,
-     "name": "?sub_004AA8B0_GetSkillMaxLevel@@YIHH@Z"
     }
    ]
   },

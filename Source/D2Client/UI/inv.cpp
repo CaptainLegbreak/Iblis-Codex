@@ -9594,6 +9594,19 @@ void __cdecl sub_004AA710_BuildLeftRows2()
         SPELLSEL_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), gnScreenWidth - 0x80, 0, 1, 0);
 }
 
+// 0x004AA8B0
+int __fastcall sub_004AA8B0_GetSkillMaxLevel(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        const int nValue = sgptDataTables->pSkillsTxt[nSkillId].nMaxLevel;
+        if (nValue > 0)
+            return nValue;
+    }
+    return 20;
+}
+
+
 // 0x004AA8E0
 void __cdecl sub_004AA8E0_ClearValue7C0C3C()
 {
