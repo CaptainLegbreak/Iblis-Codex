@@ -3,27 +3,48 @@
 struct D2ArchiveHandleStrc;
 
 int __fastcall ARCHIVE_OpenFile(void* pUnused, const char* szFileName, void** phFile, int bAllowMissing); // 0x00516E46
+
 void __fastcall ARCHIVE_CloseFile(void* pUnused, void* pFile); // 0x00516E84
+
 unsigned int __fastcall ARCHIVE_GetFileSize(void* unused, void* file, unsigned int* high); // 0x00516EAB
+
 void __fastcall ARCHIVE_ReadFileToBuffer(void* hArchive, void* hFile, void* pBuffer, unsigned int dwBytesToRead); // 0x00516F85
+
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
 extern "C" __declspec(dllimport) char* __stdcall lstrcpyA(char* szDst, const char* szSrc);
+
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds);
 
 static void* __stdcall ARCHIVE_FindAndOpenArchive(char* szOutPath, const char* szFileName, int nPriority, int bSomething); // 0x00517299
+
 int __stdcall SFileCloseArchive(void* hArchive); // 0x00419A80
 
 int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
+
 #define D2_ASSERT(expr,line) if(!(expr)) {sub_00408A60(&gszEmptyAssertText,sub_00408090(),line);exit(-1);}
+
 int __fastcall FOG_FGetFileSize(void*,unsigned int*);  // 0x00406930
+
 int __stdcall sub_00416230_GetFileName(void*,char*,unsigned int);
+
 #define FAIL_LINE 0x5F
+
 #define NAME_SIZE 0x104
+
 #define NULL_LINE 0x59
+
 int __fastcall FOG_FReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
+
 int __fastcall FOG_FSetFilePointer(void* hFile, long nOffset, long* pnOffsetHigh, int nMethod); // 0x00406940
+
 typedef unsigned long DWORD;
+
 extern "C" __declspec(dllimport) DWORD __stdcall GetLastError(void);
+
+static int __stdcall sub_00517128_FindArchive(const char* filename,int priority,void** outHandle,char* path);
+
+D2ArchiveHandleStrc* __fastcall ARCHIVE_LoadMPQFile(const char* szName, const char* szModule, ARCHIVE_ShowMessageFunctionPtr pfShowMessage, int nPriority);
 
 // 0x00516E46
 int __fastcall ARCHIVE_OpenFile(void* pUnused, const char* szFileName, void** phFile, int bAllowMissing)
@@ -226,4 +247,9 @@ void __fastcall ARCHIVE_UnloadMPQFile(D2ArchiveHandleStrc* pArchive)
     }
     pArchive->hArchive = 0;
     FOG_Free(pArchive, ".\\SRC\\Archive.cpp", 0x25C, 0);
+}
+
+int __cdecl EmitFindArchive(const char* filename,int priority,void** outHandle,char* path)
+{
+ return sub_00517128_FindArchive(filename,priority,outHandle,path);
 }

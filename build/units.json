@@ -40301,6 +40301,10 @@
      "length": 110
     },
     {
+     "va": "0x00517128",
+     "length": 369
+    },
+    {
      "va": "0x00517299",
      "length": 153
     },
@@ -40336,30 +40340,6 @@
     {
      "va": "0x005170E7",
      "length": 65
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/O1"
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_00517128.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00517128",
-     "length": 369
     }
    ],
    "flags": [
