@@ -33902,207 +33902,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/SkillDesc_004E6DE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004E6DE0",
-     "length": 77,
-     "name": "?SKILLDESC_GetSkillDescStrLong@@YAGH@Z"
-    },
-    {
-     "va": "0x004E6EA0",
-     "length": 90,
-     "name": "?SKILLDESC_ApplyFireMasteryBonus@@YGXPAH0PAUD2SkillsTxt@@@Z"
-    },
-    {
-     "va": "0x004E6F00",
-     "length": 90,
-     "name": "?SKILLDESC_ApplyLightningMasteryBonus@@YGXPAH0PAUD2SkillsTxt@@@Z"
-    },
-    {
-     "va": "0x004E6F60",
-     "length": 76,
-     "name": "?SKILLDESC_GetETypeDamageStr@@YAGH@Z"
-    },
-    {
-     "va": "0x004E6FB0",
-     "length": 64,
-     "name": "?SKILLDESC_GetETypeColor@@YAHH@Z"
-    },
-    {
-     "va": "0x004E7120",
-     "length": 429
-    },
-    {
-     "va": "0x004E73E0",
-     "length": 71,
-     "name": "?SKILLDESC_FormatSignedInt@@YGHPA_WHH@Z"
-    },
-    {
-     "va": "0x004E7430",
-     "length": 73,
-     "name": "?SKILLDESC_FormatSignedDecimal@@YGHPA_WHHH@Z"
-    },
-    {
-     "va": "0x004E7480",
-     "length": 29,
-     "name": "?SKILLDESC_FormatIntOrDecimal@@YAHPA_WHHH@Z"
-    },
-    {
-     "va": "0x004E7650",
-     "length": 325,
-     "name": "?SKILLDESC_AppendFrameRange@@YGHPA_WGHH@Z"
-    },
-    {
-     "va": "0x004E77A0",
-     "length": 345,
-     "name": "?SKILLDESC_AppendScaledRange@@YGHPA_WGGHHH@Z"
-    },
-    {
-     "va": "0x004E7930",
-     "length": 161,
-     "name": "?SKILLDESC_AppendFormattedValue@@YGHHGPA_W@Z"
-    },
-    {
-     "va": "0x004E79E0",
-     "length": 176,
-     "name": "?SKILLDESC_AppendLabelValue@@YGHGHPA_WH@Z"
-    },
-    {
-     "va": "0x004E7A90",
-     "length": 246,
-     "name": "?SKILLDESC_AppendScaledValue@@YGHGGHPA_WHH@Z"
-    },
-    {
-     "va": "0x004E7B90",
-     "length": 153,
-     "name": "?SKILLDESC_AppendLabelDecimal@@YGHGPA_WHHH@Z"
-    },
-    {
-     "va": "0x004E7C30",
-     "length": 176,
-     "name": "?SKILLDESC_AppendValueLabel@@YGHGHPA_WH@Z"
-    },
-    {
-     "va": "0x004E7CE0",
-     "length": 193,
-     "name": "?SKILLDESC_AppendValueTwoLabels@@YGHGGHPA_WH@Z"
-    },
-    {
-     "va": "0x004E7DB0",
-     "length": 184,
-     "name": "?SKILLDESC_AppendValueCountLabel@@YGHHHHPA_WH@Z"
-    },
-    {
-     "va": "0x004E7E70",
-     "length": 193,
-     "name": "?SKILLDESC_AppendLabelValueLabel@@YGHGGHPA_WH@Z"
-    },
-    {
-     "va": "0x004E7F40",
-     "length": 216,
-     "name": "?SKILLDESC_AppendLabelRangeLabel@@YGHPA_WHGGHH@Z"
-    },
-    {
-     "va": "0x004E8020",
-     "length": 202,
-     "name": "?SKILLDESC_AppendLabelsRange@@YGHPA_WHGGHH@Z"
-    },
-    {
-     "va": "0x004E80F0",
-     "length": 208,
-     "name": "?SKILLDESC_AppendLabelRange@@YGHPA_WHHGHH@Z"
-    },
-    {
-     "va": "0x004E81C0",
-     "length": 210,
-     "name": "?SKILLDESC_AppendLabelValueLabels@@YGHGGGHPA_WH@Z"
-    },
-    {
-     "va": "0x004E83B0",
-     "length": 46,
-     "name": "?SKILLDESC_AppendSkillDescStrLong@@YAHPA_WH@Z"
-    },
-    {
-     "va": "0x004E84F0",
-     "length": 199,
-     "name": "?SKILLDESC_AppendManaValue@@YGHHPA_W@Z"
-    },
-    {
-     "va": "0x004E8D90",
-     "length": 296,
-     "name": "?SKILLDESC_AddElementalStatDamage@@YAXPAUD2UnitStrc@@PAH1E@Z"
-    },
-    {
-     "va": "0x004E8EC0",
-     "length": 287,
-     "name": "?SKILLDESC_GetAttackRatingValues@@YGHPAUD2UnitStrc@@0PAH1HPAUD2SkillStrc@@@Z"
-    },
-    {
-     "va": "0x004E8FE0",
-     "length": 32,
-     "name": "?SKILLDESC_AttackRatingCallback@@YIHPAUD2UnitStrc@@PAH1HHHPAUD2SkillStrc@@H0@Z"
-    },
-    {
-     "va": "0x004E9260",
-     "length": 157,
-     "name": "?SKILLDESC_MergeOtherHandWeapon@@YAPAUD2UnitStrc@@PAU1@@Z"
-    },
-    {
-     "va": "0x004E94E0",
-     "length": 41,
-     "name": "?SKILLDESC_AttackRatingForEachWeapon@@YGHPAUD2UnitStrc@@PAH111PAUD2SkillStrc@@H@Z"
-    },
-    {
-     "va": "0x004E9510",
-     "length": 115,
-     "name": "?SKILLDESC_DescAttackRating@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HPAH333@Z"
-    },
-    {
-     "va": "0x004E95C0",
-     "length": 75,
-     "name": "?SKILLDESC_DescAttackRatingOffhand@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HPAH333@Z"
-    },
-    {
-     "va": "0x004E9610",
-     "length": 70,
-     "name": "?SKILLDESC_WeaponDamageCallback@@YIHPAUD2UnitStrc@@PAH11HHPAUD2SkillStrc@@H0@Z"
-    },
-    {
-     "va": "0x004E9660",
-     "length": 113,
-     "name": "?SKILLDESC_AddScaledWeaponDamage@@YGXPAUD2UnitStrc@@PAH101PAUD2SkillStrc@@H@Z"
-    },
-    {
-     "va": "0x004EA990",
-     "length": 158
-    },
-    {
-     "va": "0x004EB460",
-     "length": 466
-    },
-    {
-     "va": "0x004EB830",
-     "length": 259
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/SkillDesc_004E72D0.cpp",
    "rank": 1,
    "functions": [
@@ -34456,6 +34255,39 @@
    ]
   },
   {
+   "file": "Source/D2Client/UI/SkillDesc_004EAD60.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004EAD60",
+     "length": 260,
+     "name": "?SKILLDESC_DrawWeaponPhysElemDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+    },
+    {
+     "va": "0x004EBB50",
+     "length": 498
+    },
+    {
+     "va": "0x004ECF50",
+     "length": 382
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
    "file": "Source/D2Client/UI/SkillDesc.cpp",
    "rank": 0,
    "functions": [
@@ -34472,9 +34304,178 @@
      "length": 527
     },
     {
+     "va": "0x004E6DE0",
+     "length": 77,
+     "name": "?SKILLDESC_GetSkillDescStrLong@@YAGH@Z"
+    },
+    {
+     "va": "0x004E6EA0",
+     "length": 90,
+     "name": "?SKILLDESC_ApplyFireMasteryBonus@@YGXPAH0PAUD2SkillsTxt@@@Z"
+    },
+    {
+     "va": "0x004E6F00",
+     "length": 90,
+     "name": "?SKILLDESC_ApplyLightningMasteryBonus@@YGXPAH0PAUD2SkillsTxt@@@Z"
+    },
+    {
+     "va": "0x004E6F60",
+     "length": 76,
+     "name": "?SKILLDESC_GetETypeDamageStr@@YAGH@Z"
+    },
+    {
+     "va": "0x004E6FB0",
+     "length": 64,
+     "name": "?SKILLDESC_GetETypeColor@@YAHH@Z"
+    },
+    {
+     "va": "0x004E7120",
+     "length": 429
+    },
+    {
+     "va": "0x004E73E0",
+     "length": 71,
+     "name": "?SKILLDESC_FormatSignedInt@@YGHPA_WHH@Z"
+    },
+    {
+     "va": "0x004E7430",
+     "length": 73,
+     "name": "?SKILLDESC_FormatSignedDecimal@@YGHPA_WHHH@Z"
+    },
+    {
+     "va": "0x004E7480",
+     "length": 29,
+     "name": "?SKILLDESC_FormatIntOrDecimal@@YAHPA_WHHH@Z"
+    },
+    {
+     "va": "0x004E7650",
+     "length": 325,
+     "name": "?SKILLDESC_AppendFrameRange@@YGHPA_WGHH@Z"
+    },
+    {
+     "va": "0x004E77A0",
+     "length": 345,
+     "name": "?SKILLDESC_AppendScaledRange@@YGHPA_WGGHHH@Z"
+    },
+    {
+     "va": "0x004E7930",
+     "length": 161,
+     "name": "?SKILLDESC_AppendFormattedValue@@YGHHGPA_W@Z"
+    },
+    {
+     "va": "0x004E79E0",
+     "length": 176,
+     "name": "?SKILLDESC_AppendLabelValue@@YGHGHPA_WH@Z"
+    },
+    {
+     "va": "0x004E7A90",
+     "length": 246,
+     "name": "?SKILLDESC_AppendScaledValue@@YGHGGHPA_WHH@Z"
+    },
+    {
+     "va": "0x004E7B90",
+     "length": 153,
+     "name": "?SKILLDESC_AppendLabelDecimal@@YGHGPA_WHHH@Z"
+    },
+    {
+     "va": "0x004E7C30",
+     "length": 176,
+     "name": "?SKILLDESC_AppendValueLabel@@YGHGHPA_WH@Z"
+    },
+    {
+     "va": "0x004E7CE0",
+     "length": 193,
+     "name": "?SKILLDESC_AppendValueTwoLabels@@YGHGGHPA_WH@Z"
+    },
+    {
+     "va": "0x004E7DB0",
+     "length": 184,
+     "name": "?SKILLDESC_AppendValueCountLabel@@YGHHHHPA_WH@Z"
+    },
+    {
+     "va": "0x004E7E70",
+     "length": 193,
+     "name": "?SKILLDESC_AppendLabelValueLabel@@YGHGGHPA_WH@Z"
+    },
+    {
+     "va": "0x004E7F40",
+     "length": 216,
+     "name": "?SKILLDESC_AppendLabelRangeLabel@@YGHPA_WHGGHH@Z"
+    },
+    {
+     "va": "0x004E8020",
+     "length": 202,
+     "name": "?SKILLDESC_AppendLabelsRange@@YGHPA_WHGGHH@Z"
+    },
+    {
+     "va": "0x004E80F0",
+     "length": 208,
+     "name": "?SKILLDESC_AppendLabelRange@@YGHPA_WHHGHH@Z"
+    },
+    {
+     "va": "0x004E81C0",
+     "length": 210,
+     "name": "?SKILLDESC_AppendLabelValueLabels@@YGHGGGHPA_WH@Z"
+    },
+    {
+     "va": "0x004E83B0",
+     "length": 46,
+     "name": "?SKILLDESC_AppendSkillDescStrLong@@YAHPA_WH@Z"
+    },
+    {
+     "va": "0x004E84F0",
+     "length": 199,
+     "name": "?SKILLDESC_AppendManaValue@@YGHHPA_W@Z"
+    },
+    {
+     "va": "0x004E8D90",
+     "length": 296,
+     "name": "?SKILLDESC_AddElementalStatDamage@@YAXPAUD2UnitStrc@@PAH1E@Z"
+    },
+    {
+     "va": "0x004E8EC0",
+     "length": 287,
+     "name": "?SKILLDESC_GetAttackRatingValues@@YGHPAUD2UnitStrc@@0PAH1HPAUD2SkillStrc@@@Z"
+    },
+    {
+     "va": "0x004E8FE0",
+     "length": 32,
+     "name": "?SKILLDESC_AttackRatingCallback@@YIHPAUD2UnitStrc@@PAH1HHHPAUD2SkillStrc@@H0@Z"
+    },
+    {
+     "va": "0x004E9260",
+     "length": 157,
+     "name": "?SKILLDESC_MergeOtherHandWeapon@@YAPAUD2UnitStrc@@PAU1@@Z"
+    },
+    {
      "va": "0x004E93A0",
      "length": 311,
      "name": "?SKILLDESC_EvaluateForEachWeapon@@YGHPAH0H00HPAUD2SkillStrc@@P6IHPAUD2UnitStrc@@00HHH1H2@ZH2H@Z"
+    },
+    {
+     "va": "0x004E94E0",
+     "length": 41,
+     "name": "?SKILLDESC_AttackRatingForEachWeapon@@YGHPAUD2UnitStrc@@PAH111PAUD2SkillStrc@@H@Z"
+    },
+    {
+     "va": "0x004E9510",
+     "length": 115,
+     "name": "?SKILLDESC_DescAttackRating@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HPAH333@Z"
+    },
+    {
+     "va": "0x004E95C0",
+     "length": 75,
+     "name": "?SKILLDESC_DescAttackRatingOffhand@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HPAH333@Z"
+    },
+    {
+     "va": "0x004E9610",
+     "length": 70,
+     "name": "?SKILLDESC_WeaponDamageCallback@@YIHPAUD2UnitStrc@@PAH11HHPAUD2SkillStrc@@H0@Z"
+    },
+    {
+     "va": "0x004E9660",
+     "length": 113,
+     "name": "?SKILLDESC_AddScaledWeaponDamage@@YGXPAUD2UnitStrc@@PAH101PAUD2SkillStrc@@H@Z"
     },
     {
      "va": "0x004E96E0",
@@ -34512,6 +34513,10 @@
      "name": "?SKILLDESC_DrawWeaponStatDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
     },
     {
+     "va": "0x004EA990",
+     "length": 158
+    },
+    {
      "va": "0x004EAA30",
      "length": 104,
      "name": "?SKILLDESC_DrawOtherHandDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
@@ -34526,8 +34531,16 @@
      "name": "?SKILLDESC_DrawSkillWeaponDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
     },
     {
+     "va": "0x004EB460",
+     "length": 466
+    },
+    {
      "va": "0x004EB640",
      "length": 496
+    },
+    {
+     "va": "0x004EB830",
+     "length": 259
     },
     {
      "va": "0x004EBA30",
@@ -34580,39 +34593,6 @@
     {
      "va": "0x004F2BE0",
      "length": 494
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/SkillDesc_004EAD60.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004EAD60",
-     "length": 260,
-     "name": "?SKILLDESC_DrawWeaponPhysElemDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
-    },
-    {
-     "va": "0x004EBB50",
-     "length": 498
-    },
-    {
-     "va": "0x004ECF50",
-     "length": 382
     }
    ],
    "flags": [

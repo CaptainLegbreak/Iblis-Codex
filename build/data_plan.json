@@ -2238,14 +2238,11 @@
    "definitions": 14,
    "externs": [
     "extern \"C\" void __cdecl SKILLDESC_DrawKickBaseDamage(); // 0x004EA450",
-    "extern \"C\" void __cdecl SKILLDESC_DrawSkillDamage(); // 0x004EA990",
     "extern \"C\" void __cdecl SKILLDESC_DrawThrowAndElemDamage(); // 0x004EAAA0",
     "extern \"C\" void __cdecl SKILLDESC_DrawWeaponPhysElemDamage(); // 0x004EAD60",
     "extern \"C\" void __cdecl sub_004EAE70_DrawPhysWeaponElemDamage(); // 0x004EAE70",
     "extern \"C\" void __cdecl sub_004EB290_DrawElemDamage(); // 0x004EB290",
     "extern \"C\" void __cdecl SKILLDESC_DrawElementalDamageLine(); // 0x004EB390",
-    "extern \"C\" void __cdecl SKILLDESC_DrawThrowDamage(); // 0x004EB460",
-    "extern \"C\" void __cdecl SKILLDESC_DrawBoostedElemDamage(); // 0x004EB830",
     "extern \"C\" void __cdecl SKILLDESC_DrawKickDamagePercent(); // 0x004EBB50",
     "extern \"C\" void __cdecl SKILLSMON_DescIfRecord(); // 0x004EC040"
    ],
