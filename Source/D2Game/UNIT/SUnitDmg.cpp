@@ -3221,38 +3221,6 @@ int __fastcall sub_0057DCA0_Emit(int nArg, D2UnitStrc* pUnit)
     return nValue > 0 ? nValue : nArg;
 }
 
-// 0x0057FE30
-void __fastcall PLRMODE_StartXY_GetHit(D2GameStrc* pGame, D2UnitStrc* hPlayer, int nMode, int nX, int nY)
-{
-    D2_ASSERT(hPlayer, 1136);
-
-    SUNIT_SetCombatMode(pGame, hPlayer, nMode);
-    sub_6FCBC4D0(hPlayer);
-    UNITS_SetUsedSkill(hPlayer, 0);
-    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, hPlayer);
-    sub_6FCBCE70(pGame, hPlayer);
-}
-
-// 0x0057FEF0
-void __fastcall PLRMODE_StartID_AttackCastThrowKickSpecialSequence(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nMode, D2UnitStrc* hTarget)
-{
-    SUNIT_SetCombatMode(pGame, pPlayer, nMode);
-
-    D2_ASSERT(hTarget, 1215);
-
-    UNITS_SetTargetUnitForDynamicUnit(pPlayer, hTarget);
-    sub_6FCBC4D0(pPlayer);
-    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pPlayer);
-    sub_6FCBCE70(pGame, pPlayer);
-
-    if (pPlayer)
-    {
-        pPlayer->dwFlags &= ~UNITFLAG_SKSRVDOFUNC;
-    }
-
-    SKILLS_StartUsedSkill(pGame, pPlayer);
-}
-
 void __fastcall D2GAME_OBJECTS_TrapHandler5_7_6FC75BC0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00582380
 void __fastcall OBJMODE_ApplyShrineCurse(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nDuration, int nStatValue, int nStat, int nState, StatListRemoveCallback pStateRemoveCallback); // 0x00582800
 
@@ -3285,19 +3253,6 @@ static inline int GetReferenceY(D2UnitStrc* unit)
         return unit->pStaticPath->nYPos;
     }
     return unit->pDynamicPath ? PATH_GetY(unit->pDynamicPath) : 0;
-}
-
-// 0x0057FE90
-void __fastcall PLRMODE_StartXY_AttackCastThrowKickSpecialSequence(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nMode, int nX, int nY)
-{
-    D2COMMON_10170_PathSetTargetPos(pPlayer->pDynamicPath, nX, nY);
-    SUNIT_SetCombatMode(pGame, pPlayer, nMode);
-    UNITS_SetTargetUnitForDynamicUnit(pPlayer, 0);
-    sub_6FCBC4D0(pPlayer);
-    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pPlayer);
-    sub_6FCBCE70(pGame, pPlayer);
-    pPlayer->dwFlags &= ~UNITFLAG_SKSRVDOFUNC;
-    SKILLS_StartUsedSkill(pGame, pPlayer);
 }
 
 int __fastcall OBJECTS_OperateFunction20_WeaponRack(D2ObjOperateFnStrc* pOp, int nOperate); // 0x005841D0

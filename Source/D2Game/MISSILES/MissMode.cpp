@@ -4389,36 +4389,6 @@ void __fastcall MISSMODE_SetDamageFlags(D2GameStrc* pGame, D2UnitStrc* pMissile,
     SUNITDMG_ExecuteMissileDamage(pGame, pOwner, pDefender, pDamage);
 }
 
-// 0x005A5840
-void __fastcall PARTYSCREEN_ToggleIgnore(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int nParam, int* pFailure)
-{
-    PLAYERLIST_AllocPlayerList(pGame, pPlayer1, pPlayer2);
-    PLAYERLIST_AllocPlayerList(pGame, pPlayer2, pPlayer1);
-
-    if (PLAYERLIST_CheckFlag(pPlayer1, pPlayer2, 2) != nParam)
-    {
-        PLAYERLIST_ToggleFlag(pGame, pPlayer1, pPlayer2, 2, nParam);
-    }
-
-    SCMD_Send0x75_PartyRosterUpdate(pPlayer1, pPlayer2);
-    SCMD_Send0x75_PartyRosterUpdate(pPlayer2, pPlayer1);
-}
-
-// 0x005A58A0
-void __fastcall PARTYSCREEN_ToggleSquelch(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int nParam, int* pFailure)
-{
-    PLAYERLIST_AllocPlayerList(pGame, pPlayer1, pPlayer2);
-    PLAYERLIST_AllocPlayerList(pGame, pPlayer2, pPlayer1);
-
-    if (PLAYERLIST_CheckFlag(pPlayer1, pPlayer2, 4) != nParam)
-    {
-        PLAYERLIST_ToggleFlag(pGame, pPlayer1, pPlayer2, 4, nParam);
-    }
-
-    SCMD_Send0x75_PartyRosterUpdate(pPlayer1, pPlayer2);
-    SCMD_Send0x75_PartyRosterUpdate(pPlayer2, pPlayer1);
-}
-
 // 0x005A60E0
 void __fastcall FRIENDLY_OpenHostility(D2GameStrc* pGame, D2UnitStrc* hPlayer, D2UnitStrc* pPlayer2)
 {
@@ -6934,40 +6904,7 @@ int __fastcall SKILLS_SrvSt05_Jab(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSki
     return SUNIT_GetTargetUnit(pGame, pUnit) != 0;
 }
 
-// 0x005DC380
-int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc* pTarget, D2UnitStrc* pSource)
-{
-    int nXDiff = MISSMODE_GetUnitX(pTarget) - MISSMODE_GetUnitX(pSource);
-    int nYDiff = MISSMODE_GetUnitY(pTarget) - MISSMODE_GetUnitY(pSource);
-    if (nXDiff < 0)
-    {
-        nXDiff = -nXDiff;
-    }
-    if (nYDiff < 0)
-    {
-        nYDiff = -nYDiff;
-    }
-
-    const int nSize = UNITS_GetUnitSizeX(pTarget);
-    nXDiff -= nSize;
-    nYDiff -= nSize;
-    if (nXDiff < 0)
-    {
-        nXDiff = 0;
-    }
-    if (nYDiff < 0)
-    {
-        nYDiff = 0;
-    }
-
-    if (nXDiff > nYDiff)
-    {
-        return (nYDiff + 2 * nXDiff) / 2;
-    }
-
-    return (nXDiff + 2 * nYDiff) / 2;
-}
-
+int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc* pTarget, D2UnitStrc* pSource); // 0x005DC380
 static inline int synh_GetUnitX(SynUnit* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -7026,36 +6963,6 @@ static __forceinline int DistanceWithSize(int nX, int nY, SynUnit* pUnit)
     }
 
     return (nXDiff + 2 * nYDiff) / 2;
-}
-
-// 0x005DC480
-int __fastcall AIUTIL_GetDistanceToCoordinates_HalfUnitSize(SynUnit* pUnit, int nX, int nY)
-{
-    return DistanceWithSize(nX, nY, pUnit);
-}
-
-// 0x005DC530
-int __fastcall AIUTIL_GetDistanceToCoordinates_NoUnitSize(D2UnitStrc* pUnit, int nX, int nY)
-{
-    int nXDiff = CLIENTS_GetUnitX_Local(pUnit) - nX;
-    int nYDiff = CLIENTS_GetUnitY_Local(pUnit) - nY;
-    if (nXDiff < 0)
-    {
-        nXDiff = -nXDiff;
-    }
-    if (nYDiff < 0)
-    {
-        nYDiff = -nYDiff;
-    }
-
-    if (nXDiff > nYDiff)
-    {
-        return (nYDiff + 2 * nXDiff) / 2;
-    }
-    else
-    {
-        return (nXDiff + 2 * nYDiff) / 2;
-    }
 }
 
 // build: context sub_005ADA80_Shim

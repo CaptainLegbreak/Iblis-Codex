@@ -1325,6 +1325,57 @@ int __fastcall PLRMODE_ModeCheck_GetHit(D2GameStrc* pGame, D2UnitStrc* pPlayer, 
     return 1;
 }
 
+// 0x0057FE30
+void __fastcall PLRMODE_StartXY_GetHit(D2GameStrc* pGame, D2UnitStrc* hPlayer, int nMode, int nX, int nY)
+{
+    D2_ASSERT(hPlayer, 1136);
+
+    SUNIT_SetCombatMode(pGame, hPlayer, nMode);
+    sub_6FCBC4D0(hPlayer);
+    UNITS_SetUsedSkill(hPlayer, 0);
+    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, hPlayer);
+    sub_6FCBCE70(pGame, hPlayer);
+}
+
+void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit); // 0x00620C10
+
+int __fastcall SKILLS_StartUsedSkill(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0056FAF0
+
+#define UNITFLAG_SKSRVDOFUNC 0x00000040
+
+// 0x0057FE90
+void __fastcall PLRMODE_StartXY_AttackCastThrowKickSpecialSequence(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nMode, int nX, int nY)
+{
+    D2COMMON_10170_PathSetTargetPos(pPlayer->pDynamicPath, nX, nY);
+    SUNIT_SetCombatMode(pGame, pPlayer, nMode);
+    UNITS_SetTargetUnitForDynamicUnit(pPlayer, 0);
+    sub_6FCBC4D0(pPlayer);
+    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pPlayer);
+    sub_6FCBCE70(pGame, pPlayer);
+    pPlayer->dwFlags &= ~UNITFLAG_SKSRVDOFUNC;
+    SKILLS_StartUsedSkill(pGame, pPlayer);
+}
+
+// 0x0057FEF0
+void __fastcall PLRMODE_StartID_AttackCastThrowKickSpecialSequence(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nMode, D2UnitStrc* hTarget)
+{
+    SUNIT_SetCombatMode(pGame, pPlayer, nMode);
+
+    D2_ASSERT(hTarget, 1215);
+
+    UNITS_SetTargetUnitForDynamicUnit(pPlayer, hTarget);
+    sub_6FCBC4D0(pPlayer);
+    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pPlayer);
+    sub_6FCBCE70(pGame, pPlayer);
+
+    if (pPlayer)
+    {
+        pPlayer->dwFlags &= ~UNITFLAG_SKSRVDOFUNC;
+    }
+
+    SKILLS_StartUsedSkill(pGame, pPlayer);
+}
+
 int __fastcall sub_M120_Emit_0057FC60(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
     return PLRMODE_IsOtherPlayerOrMinion(pUnit, pTarget);

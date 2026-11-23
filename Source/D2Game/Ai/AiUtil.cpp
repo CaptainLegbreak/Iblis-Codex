@@ -390,6 +390,206 @@ int __fastcall AIUTIL_GetMonsterVision(D2UnitStrc* pUnit)
     return 0;
 }
 
+int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
+
+static __forceinline int MISSMODE_GetUnitX(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nX;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+static inline int MISSMODE_GetUnitY(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nY;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+// 0x005DC380
+int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc* pTarget, D2UnitStrc* pSource)
+{
+    int nXDiff = MISSMODE_GetUnitX(pTarget) - MISSMODE_GetUnitX(pSource);
+    int nYDiff = MISSMODE_GetUnitY(pTarget) - MISSMODE_GetUnitY(pSource);
+    if (nXDiff < 0)
+    {
+        nXDiff = -nXDiff;
+    }
+    if (nYDiff < 0)
+    {
+        nYDiff = -nYDiff;
+    }
+
+    const int nSize = UNITS_GetUnitSizeX(pTarget);
+    nXDiff -= nSize;
+    nYDiff -= nSize;
+    if (nXDiff < 0)
+    {
+        nXDiff = 0;
+    }
+    if (nYDiff < 0)
+    {
+        nYDiff = 0;
+    }
+
+    if (nXDiff > nYDiff)
+    {
+        return (nYDiff + 2 * nXDiff) / 2;
+    }
+
+    return (nXDiff + 2 * nYDiff) / 2;
+}
+
+struct SynCoord;
+
+struct SynStatic;
+
+struct SynUnit;
+
+struct SynCoord
+{
+    int nX;
+    int nY;
+};
+
+struct SynStatic
+{
+    char unk0[0x0C];
+    SynCoord tGameCoords;
+};
+
+struct SynUnit { int dwUnitType; char unk4[0x28]; union { SynStatic* pStaticPath; D2DynamicPathStrc* pDynamicPath; }; };
+
+int __stdcall sub_00620510_UNITS_GetUnitSizeX(SynUnit* pUnit); // 0x00620510
+
+static inline int synh_GetUnitX(SynUnit* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nX;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+static inline int synh_GetUnitY(SynUnit* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nY;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+// build: context DistanceWithSize
+static __forceinline int DistanceWithSize(int nX, int nY, SynUnit* pUnit)
+{
+    int nXDiff = synh_GetUnitX(pUnit) - nX;
+    int nYDiff = synh_GetUnitY(pUnit) - nY;
+    if (nXDiff < 0)
+    {
+        nXDiff = -nXDiff;
+    }
+    if (nYDiff < 0)
+    {
+        nYDiff = -nYDiff;
+    }
+
+    const int nSize = ((unsigned int)sub_00620510_UNITS_GetUnitSizeX(pUnit) >> 1) + 1;
+    nXDiff -= nSize;
+    nYDiff -= nSize;
+    if (nXDiff < 0)
+    {
+        nXDiff = 0;
+    }
+    if (nYDiff < 0)
+    {
+        nYDiff = 0;
+    }
+
+    if (nXDiff > nYDiff)
+    {
+        return (nYDiff + 2 * nXDiff) / 2;
+    }
+
+    return (nXDiff + 2 * nYDiff) / 2;
+}
+
+// 0x005DC480
+int __fastcall AIUTIL_GetDistanceToCoordinates_HalfUnitSize(SynUnit* pUnit, int nX, int nY)
+{
+    return DistanceWithSize(nX, nY, pUnit);
+}
+
+inline int CLIENTS_GetUnitX_Local(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+inline int CLIENTS_GetUnitY_Local(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+// 0x005DC530
+int __fastcall AIUTIL_GetDistanceToCoordinates_NoUnitSize(D2UnitStrc* pUnit, int nX, int nY)
+{
+    int nXDiff = CLIENTS_GetUnitX_Local(pUnit) - nX;
+    int nYDiff = CLIENTS_GetUnitY_Local(pUnit) - nY;
+    if (nXDiff < 0)
+    {
+        nXDiff = -nXDiff;
+    }
+    if (nYDiff < 0)
+    {
+        nYDiff = -nYDiff;
+    }
+
+    if (nXDiff > nYDiff)
+    {
+        return (nYDiff + 2 * nXDiff) / 2;
+    }
+    else
+    {
+        return (nXDiff + 2 * nYDiff) / 2;
+    }
+}
+
 // 0x005DC5C0
 unsigned int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc* hUnit, int nX, int nY)
 {
@@ -1777,84 +1977,6 @@ void __fastcall AIUTIL_ApplyTerrorCurseState(D2GameStrc* pGame, D2UnitStrc* pUni
     AITHINK_ExecuteAiFn(pGame, pTarget, pAiControl, AISPECIALSTATE_TERROR);
     D2GAME_EVENTS_Delete_6FC34840(pGame, pTarget, EVENTTYPE_AITHINK, 0);
     EVENT_SetEvent(pGame, pTarget, EVENTTYPE_AITHINK, pGame->dwGameFrame + 1, 0, 0);
-}
-
-// 0x005F2EB0
-void __fastcall AITHINK_RemoveGroundCollision(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    if (pUnit)
-    {
-        pUnit->dwFlags &= 0xFFFFFFF1;
-    }
-
-    COLLISION_ResetMask(UNITS_GetRoom(pUnit), CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit), 0x1000);
-    COLLISION_ResetMask(UNITS_GetRoom(pUnit), CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit), 0x100);
-    sub_00649190_SetPathMode(pUnit, 5);
-    PATH_SetMoveTestCollisionMask(pUnit->pDynamicPath, 0);
-    AITACTICS_Idle(pGame, pUnit, 12);
-}
-
-// 0x005F2FC0
-int __fastcall AITHINK_TryRestoreGroundCollision(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 0xE;
-    }
-
-    if (PATH_GetUnitCollisionPattern(pUnit) != 1)
-    {
-        if (!SUNIT_TeleportUnit(pGame, pUnit, UNITS_GetRoom(pUnit), CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit), 0, 0))
-        {
-            return 0;
-        }
-
-        COLLISION_SetMaskWithPattern(UNITS_GetRoom(pUnit), CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit), 1, 0x100);
-        sub_00649190_SetPathMode(pUnit, 1);
-        PATH_SetMoveTestCollisionMask(pUnit->pDynamicPath, 0x3C01);
-        AITACTICS_Idle(pGame, pUnit, 12);
-        return 1;
-    }
-
-    return 0;
-}
-
-// 0x005FB5B0
-void __fastcall AITHINK_Fn077_TrapMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
-{
-    D2UnitStrc* pTarget = pAiTickParam->pTarget;
-    const int nTargetDistance = pAiTickParam->nTargetDistance;
-    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
-    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
-
-    if (!pTarget)
-    {
-        AITHINK_DieInline(pGame, pUnit);
-        return;
-    }
-
-    if (nTargetDistance > pMonStatsTxt->wAiParam[TRAPMISSILE_AI_PARAM_DISTANCE][pGame->nDifficulty])
-    {
-        AITHINK_DieInline(pGame, pUnit);
-        return;
-    }
-
-    if (pAiControl->dwAiParam[0] >= pMonStatsTxt->wAiParam[TRAPMISSILE_AI_PARAM_NUM_TO_SHOOT][pGame->nDifficulty])
-    {
-        AITHINK_DieInline(pGame, pUnit);
-        return;
-    }
-
-    if (!pAiControl->dwAiParam[1])
-    {
-        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
-        pAiControl->dwAiParam[0] += 1;
-        pAiControl->dwAiParam[1] = 1;
-        return;
-    }
-
-    pAiControl->dwAiParam[1] = 0;
-    AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStatsTxt->wAiParam[TRAPMISSILE_AI_PARAM_DELAY][pGame->nDifficulty]);
 }
 
 // 0x005FD7B0
