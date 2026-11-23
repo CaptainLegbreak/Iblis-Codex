@@ -205,7 +205,7 @@ struct D2DataTablesStrc
     D2UniqueItemsTxt* pUniqueItemsTxt; // 0xC24
     int nUniqueItemsTxtRecordCount; // 0xC28
     D2TxtLinkStrc* pMonPropLinker; // 0xC2C
-    D2MonStats2Txt* unk0xC30; // 0xC30
+    void* pMonPropTxt; // 0xC30
     int nMonPropTxtRecordCount; // 0xC34
     D2TxtLinkStrc* pMonTypeLinker; // 0xC38
     D2MonTypeTxt* pMonTypeTxt; // 0xC3C
