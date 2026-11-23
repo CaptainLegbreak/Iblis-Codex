@@ -1996,10 +1996,10 @@ void __fastcall GAME_ProcessAdminMessage(void* pData,int nSize) {
   break;
  case 1:
  case 0xFD:
-  if(gpD2EventCallbackTable->unk0x30 && gpD2EventCallbackTable->pfServerLogMessage) {
+  if(gpD2EventCallbackTable->pfGetGameServerInfo && gpD2EventCallbackTable->pfServerLogMessage) {
    ServerInfo info;
    Reply reply;
-   ((void (__fastcall*)(ServerInfo*))gpD2EventCallbackTable->unk0x30)(&info);
+   ((void (__fastcall*)(ServerInfo*))gpD2EventCallbackTable->pfGetGameServerInfo)(&info);
    reply.command=request->command;
    reply.a=info.a;reply.b=info.b;reply.c=info.c;reply.d=info.d;reply.e=info.e;
    reply.f=info.f;reply.g=info.g;reply.h=info.h;reply.i=info.i;reply.j=info.j;

@@ -235,7 +235,7 @@ void __stdcall TileProjectNormalize(D2CmpTileLibraryStrc* pLibrary, D2CmpTileLib
         {
             D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
             pBlock->pName = pLibrary->szName;
-            pBlock->pSubs = (D2CmpSubTileRecordStrc*)((char*)pLibrary + pBlock->unk0x48);
+            pBlock->pSubs = (D2CmpSubTileRecordStrc*)((char*)pLibrary + pBlock->nSubsOffset);
             int nSize = pBlock->nSubs * sizeof(D2CmpSubTileRecordStrc);
             for (int j = 0; j < pBlock->nSubs; j++)
             {

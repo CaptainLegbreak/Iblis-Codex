@@ -3007,10 +3007,10 @@ void __fastcall CLIENTS_NotifyWarpAttempt(D2GameStrc* pGame, D2UnitStrc* hUnit)
 
     for (int i = 0; i < NUM_WARP_ATTEMPT_SLOTS; ++i)
     {
-        const int nLastWarpFrame = ptClient->unk0x3C0[i];
+        const int nLastWarpFrame = ptClient->aLastWarpAttemptsFrame[i];
         if (!nLastWarpFrame || (unsigned int)pGame->dwGameFrame - nLastWarpFrame > WARP_ATTEMPT_EXPIRATION_FRAMES)
         {
-            ptClient->unk0x3C0[i] = pGame->dwGameFrame;
+            ptClient->aLastWarpAttemptsFrame[i] = pGame->dwGameFrame;
             return;
         }
     }
@@ -3026,7 +3026,7 @@ int __fastcall CLIENTS_ShouldDelayWarpAttempt(D2GameStrc* pGame, D2UnitStrc* hUn
 
     for (int i = 0; i < NUM_WARP_ATTEMPT_SLOTS; ++i)
     {
-        const int nLastWarpFrame = pClient->unk0x3C0[i];
+        const int nLastWarpFrame = pClient->aLastWarpAttemptsFrame[i];
         if (!nLastWarpFrame || (unsigned int)pGame->dwGameFrame - nLastWarpFrame > WARP_ATTEMPT_EXPIRATION_FRAMES)
         {
             return 0;

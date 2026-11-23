@@ -850,7 +850,7 @@ static void __cdecl CHATDLG_CreateChatCellFile(D2LaunchCharInfoStrc* pInfo)
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     if ((wFlags & 4) && !(wFlags & 8) && (FOG_IsExpansion() || pInfo->nValue0x1EE < 5))
         nMode = 1;
-    gpChatCellFile = (D2CelFileStrc*)sub_005066C0(pInfo->nValue0x1EE, nMode, pInfo->szText0x3A1, (char*)&pInfo->unk0x3B1);
+    gpChatCellFile = (D2CelFileStrc*)sub_005066C0(pInfo->nValue0x1EE, nMode, pInfo->szText0x3A1, (char*)&pInfo->nComponentColors);
     if (gpChatCellFile)
     {
         sub_005052B0(gpChatCellFile, 0x42);

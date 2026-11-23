@@ -41,7 +41,7 @@ struct D2BnHashCtxStrc
     unsigned int aState[5]; // 0x00
     int nBitCountLo; // 0x14
     int nBitCountHi; // 0x18
-    int unk0x1C[16]; // 0x1C
+    int aBlock[16]; // 0x1C
 };
 
 struct D2IdeaKeyScheduleStrc

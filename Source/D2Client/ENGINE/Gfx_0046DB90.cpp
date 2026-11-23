@@ -252,7 +252,7 @@ static void __fastcall GFX_GetBaseName(char* szDest, const char* szPath)
 // 0x0046DDF0
 static void __stdcall GFX_LoadHashedFile(D2HashedFileStrc* pTable, const char* szFile)
 {
-    if (pTable->unk0x00)
+    if (pTable->bLoaded)
     {
         return;
     }
@@ -284,7 +284,7 @@ static void __stdcall GFX_LoadHashedFile(D2HashedFileStrc* pTable, const char* s
         pCursor += pEntry->nSize;
         nRemaining -= 0x18 + pEntry->nSize;
     }
-    pTable->unk0x00 = 1;
+    pTable->bLoaded = 1;
 }
 
 // 0x0046E8D0

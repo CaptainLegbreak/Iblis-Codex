@@ -1227,40 +1227,40 @@ D2WinControlStrc* __stdcall CONTROL_Create(D2WinControlInitStrc* pControlInit)
     switch (pControlInit->nType)
     {
     case D2WIN_TEXTBOX:
-        return D2Win_10042_TEXTBOX_Create(pControlInit->nX, pControlInit->nY, pControlInit->nWidth, pControlInit->nHeight, pControlInit->unk0x14, pControlInit->nStringId, pCellFile, pControlInit->unk0x20[0], pControlInit->unk0x20[3], pControlInit->unk0x20[2], pControlInit->unk0x20[1]);
+        return D2Win_10042_TEXTBOX_Create(pControlInit->nX, pControlInit->nY, pControlInit->nWidth, pControlInit->nHeight, pControlInit->nArg, pControlInit->nStringId, pCellFile, pControlInit->anArgs[0], pControlInit->anArgs[3], pControlInit->anArgs[2], pControlInit->anArgs[1]);
 
     case D2WIN_EDITBOX:
-        return D2Win_10070_EDITBOX_Create(pControlInit->nX, pControlInit->nY, pControlInit->nWidth, pControlInit->nHeight, pControlInit->unk0x14, pControlInit->nStringId, pCellFile, pControlInit->unk0x20[1], pControlInit->unk0x20[0], pControlInit->unk0x20[3], pControlInit->unk0x20[2]);
+        return D2Win_10070_EDITBOX_Create(pControlInit->nX, pControlInit->nY, pControlInit->nWidth, pControlInit->nHeight, pControlInit->nArg, pControlInit->nStringId, pCellFile, pControlInit->anArgs[1], pControlInit->anArgs[0], pControlInit->anArgs[3], pControlInit->anArgs[2]);
 
     case D2WIN_IMAGE:
-        return IMAGE2_Create(pControlInit->nX, pControlInit->nY, pControlInit->nWidth, pControlInit->nHeight, pCellFile, pControlInit->unk0x20[0], pControlInit->unk0x20[1], pControlInit->unk0x20[2]);
+        return IMAGE2_Create(pControlInit->nX, pControlInit->nY, pControlInit->nWidth, pControlInit->nHeight, pCellFile, pControlInit->anArgs[0], pControlInit->anArgs[1], pControlInit->anArgs[2]);
 
     case D2WIN_ANIMIMAGE:
-        return ANIMIMAGE_Create(pControlInit->nX, pControlInit->nY, pControlInit->nWidth, pControlInit->nHeight, pCellFile, pControlInit->unk0x14, pControlInit->unk0x20[0], pControlInit->unk0x20[1], pControlInit->nStringId, pControlInit->unk0x20[2]);
+        return ANIMIMAGE_Create(pControlInit->nX, pControlInit->nY, pControlInit->nWidth, pControlInit->nHeight, pCellFile, pControlInit->nArg, pControlInit->anArgs[0], pControlInit->anArgs[1], pControlInit->nStringId, pControlInit->anArgs[2]);
 
     case D2WIN_IMAGE2:
-        return IMAGE_Create(pControlInit->nX, pControlInit->nY, pControlInit->nWidth, pControlInit->nHeight, pCellFile, pControlInit->unk0x14, pControlInit->nStringId);
+        return IMAGE_Create(pControlInit->nX, pControlInit->nY, pControlInit->nWidth, pControlInit->nHeight, pCellFile, pControlInit->nArg, pControlInit->nStringId);
 
     case D2WIN_SCROLLBAR:
-        return SCROLLBAR_Create(pControlInit->nX, pControlInit->nY, pControlInit->nWidth, pControlInit->nHeight, pCellFile, pControlInit->unk0x20[0]);
+        return SCROLLBAR_Create(pControlInit->nX, pControlInit->nY, pControlInit->nWidth, pControlInit->nHeight, pCellFile, pControlInit->anArgs[0]);
 
     case D2WIN_BUTTON:
-        return BUTTON_Create(pControlInit->nX, pControlInit->nY, pControlInit->nWidth, pControlInit->nHeight, pCellFile, pControlInit->unk0x20[0], pControlInit->unk0x14, pControlInit->unk0x20[1], pControlInit->unk0x20[3], pControlInit->nStringId, pControlInit->unk0x20[2]);
+        return BUTTON_Create(pControlInit->nX, pControlInit->nY, pControlInit->nWidth, pControlInit->nHeight, pCellFile, pControlInit->anArgs[0], pControlInit->nArg, pControlInit->anArgs[1], pControlInit->anArgs[3], pControlInit->nStringId, pControlInit->anArgs[2]);
 
     case D2WIN_LIST:
-        return LIST_Create(pControlInit->nX, pControlInit->nY, pControlInit->nWidth, pControlInit->nHeight, pControlInit->unk0x20[1], pControlInit->unk0x20[2]);
+        return LIST_Create(pControlInit->nX, pControlInit->nY, pControlInit->nWidth, pControlInit->nHeight, pControlInit->anArgs[1], pControlInit->anArgs[2]);
 
     case D2WIN_TIMER:
-        return TIMER_Create(pControlInit->nX, pControlInit->unk0x20[0]);
+        return TIMER_Create(pControlInit->nX, pControlInit->anArgs[0]);
 
     case D2WIN_SMACK:
-        return SMACK_Create(pControlInit->nX, pControlInit->nY, pControlInit->nWidth, pControlInit->nHeight, pControlInit->unk0x20[0]);
+        return SMACK_Create(pControlInit->nX, pControlInit->nY, pControlInit->nWidth, pControlInit->nHeight, pControlInit->anArgs[0]);
 
     case D2WIN_PROGRESSBAR:
         return PROGRESSBAR_Create(pControlInit->nX, pControlInit->nY, pControlInit->nWidth, pControlInit->nHeight);
 
     case D2WIN_ACCOUNTLIST:
-        return ACCOUNTLIST_Create(pControlInit->nX, pControlInit->nY, pControlInit->nWidth, pControlInit->nHeight, pControlInit->unk0x20[3], pControlInit->unk0x20[2]);
+        return ACCOUNTLIST_Create(pControlInit->nX, pControlInit->nY, pControlInit->nWidth, pControlInit->nHeight, pControlInit->anArgs[3], pControlInit->anArgs[2]);
 
     default:
         break;
@@ -2557,8 +2557,8 @@ int __fastcall D2Win_10062(D2WinTextBoxStrc* ptTextData, int a2, int a3)
     D2_ASSERT(ptTextData, 0xFA);
     D2_ASSERT(ptTextData->controlHeader.eType == D2WIN_TEXTBOX, 0xFB);
 
-    ptTextData->unk0xA0 = a2;
-    ptTextData->unk0xA4 = a3;
+    ptTextData->nWrappedLineGap = a2;
+    ptTextData->nLineGap = a3;
     return 1;
 }
 
@@ -2599,7 +2599,7 @@ int __fastcall D2Win_10188(D2WinTextBoxStrc* pTextBox, int nLineNum, int a3)
     {
         for (D2WinTextBoxLineStrc* pLine = pTextBox->pFirstLine; pLine; pLine = pLine->pNext)
         {
-            pLine->unk0x14 = a3;
+            pLine->nColor = a3;
         }
 
         return 1;
@@ -2623,7 +2623,7 @@ int __fastcall D2Win_10188(D2WinTextBoxStrc* pTextBox, int nLineNum, int a3)
     D2_ASSERT(pLine, 0x382);
     D2_ASSERT(i == nLineNum, 0x383);
 
-    pLine->unk0x14 = a3;
+    pLine->nColor = a3;
     return 1;
 }
 

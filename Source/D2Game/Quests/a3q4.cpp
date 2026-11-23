@@ -494,8 +494,8 @@ void __fastcall ACT3Q4_InitQuestData(D2QuestDataStrc* pQuestData)
     D2Act3Quest4Strc* pQuestDataEx = (D2Act3Quest4Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act3Quest4Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q4.cpp", 832, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;
     memset(pQuestDataEx, 0x00, sizeof(D2Act3Quest4Strc));
-    pQuestDataEx->unk0x0C = 1;
-    pQuestDataEx->unk0x01 = 1;
+    pQuestDataEx->bJadeFigurineDropPending = 1;
+    pQuestDataEx->bWaitingForBoss = 1;
 }
 
 // 0x005BA320
@@ -665,7 +665,7 @@ void __fastcall ACT3Q5_SpawnCouncil(D2GameStrc* pGame, D2UnitStrc* pUnit)
 int __fastcall ACT3Q4_UnitIterate_SetGoldenBirdBoss(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
 {
     D2Act3Quest4Strc* pQuestDataEx = (D2Act3Quest4Strc*)pQuestData->pQuestDataEx;
-    if (!pQuestData->bNotIntro || !pQuestDataEx->unk0x0C || pQuestDataEx->unk0x01 != 1)
+    if (!pQuestData->bNotIntro || !pQuestDataEx->bJadeFigurineDropPending || pQuestDataEx->bWaitingForBoss != 1)
     {
         return 0;
     }
@@ -678,8 +678,8 @@ int __fastcall ACT3Q4_UnitIterate_SetGoldenBirdBoss(D2QuestDataStrc* pQuestData,
 
     QUESTS_CreateChainRecord(pQuestData->pGame, pUnit, QUEST_A3Q4_GOLDENBIRD);
     pQuestData->pCallback[QUESTEVENT_MONSTERKILLED] = ACT3Q4_Callback08_MonsterKilled;
-    pQuestDataEx->unk0x01 = 0;
-    pQuestDataEx->unk0x02 = 1;
+    pQuestDataEx->bWaitingForBoss = 0;
+    pQuestDataEx->bBossAssigned = 1;
     pQuestDataEx->nBossGUID = !pUnit ? -1 : pUnit->dwUnitId;
     return 1;
 }
@@ -690,7 +690,7 @@ void __fastcall ACT3Q4_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     QUESTS_DebugOutput(pQuestData->pGame, "killed boss for quest", "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q4.cpp", 852);
 
     D2Act3Quest4Strc* pQuestDataEx = (D2Act3Quest4Strc*)pQuestData->pQuestDataEx;
-    if (!pQuestData->bNotIntro || !pQuestDataEx->unk0x02 || !pQuestDataEx->unk0x0C)
+    if (!pQuestData->bNotIntro || !pQuestDataEx->bBossAssigned || !pQuestDataEx->bJadeFigurineDropPending)
     {
         return;
     }
@@ -711,7 +711,7 @@ void __fastcall ACT3Q4_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     if (D2GAME_DropItemAtUnit_6FC4FEC0(pQuestData->pGame, pQuestArg->pTarget, 2, &nItemLevel, 0, -1, 0))
     {
         pQuestData->pCallback[8] = 0;
-        pQuestDataEx->unk0x0C = 0;
+        pQuestDataEx->bJadeFigurineDropPending = 0;
         pQuestDataEx->bJadeFigurineDropped = 1;
         ++pQuestDataEx->nGoldenBirdsInGame;
         if (pQuestData->fState < 1)
@@ -722,30 +722,30 @@ void __fastcall ACT3Q4_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
         if (!pQuestData->fLastState)
         {
             QUESTS_UnitIterate(pQuestData, 1, 0, ACT3Q4_UnitIterate_StatusCyclerEx, true);
-            pQuestDataEx->unk0x02 = 0;
+            pQuestDataEx->bBossAssigned = 0;
             return;
         }
     }
     else
     {
-        pQuestDataEx->unk0x01 = 1;
+        pQuestDataEx->bWaitingForBoss = 1;
     }
-    pQuestDataEx->unk0x02 = 0;
+    pQuestDataEx->bBossAssigned = 0;
 }
 
 // 0x005BACF0
 void __fastcall ACT3Q4_CheckGoldenBirdBoss(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
 {
     D2Act3Quest4Strc* pQuestDataEx = (D2Act3Quest4Strc*)pQuestData->pQuestDataEx;
-    if (pQuestDataEx->unk0x02 != 1)
+    if (pQuestDataEx->bBossAssigned != 1)
     {
         return;
     }
 
     if (pQuestDataEx->nBossGUID == (!pUnit ? -1 : pUnit->dwUnitId))
     {
-        pQuestDataEx->unk0x02 = 0;
-        pQuestDataEx->unk0x01 = 1;
+        pQuestDataEx->bBossAssigned = 0;
+        pQuestDataEx->bWaitingForBoss = 1;
     }
 }
 

@@ -103,7 +103,7 @@ struct D2ClientStrc
     D2ClientUnitUpdateStrc unitUpdate[55]; // 0x1CC
     char unk0x3BB; // 0x3BB
     unsigned int nUnitUpdateIndex; // 0x3BC
-    int unk0x3C0[5]; // 0x3C0
+    int aLastWarpAttemptsFrame[5]; // 0x3C0
     union
     {
         unsigned int dwFlags; // 0x3D4

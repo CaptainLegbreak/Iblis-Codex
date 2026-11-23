@@ -943,9 +943,9 @@ bool __fastcall ACT2Q5_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQ
 {
     D2Act2Quest5Strc* pQuestDataEx = (D2Act2Quest5Strc*)pQuestData->pQuestDataEx;
 
-    if (!pQuestDataEx->unk0x09)
+    if (!pQuestDataEx->bCompletionSoundAttached)
     {
-        pQuestDataEx->unk0x09 = 1;
+        pQuestDataEx->bCompletionSoundAttached = 1;
         SUNIT_IterateUnitsOfType(pGame, 0, 0, ACT2Q5_UnitIterate_AttachCompletionSound);
         return false;
     }

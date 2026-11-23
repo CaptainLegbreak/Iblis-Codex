@@ -1144,7 +1144,7 @@ static int __stdcall OBJECTS_CanPopulateRoom(D2GameStrc* pGame, D2LevelsTxt* pLe
         pObjectRegion->nPopulatedRooms = DUNGEON_GetNumberOfPopulatedRoomsInLevel(pGame->pAct[pObjectRegion->nAct], nLevelId);
     }
 
-    pObjectRegion->unk0x04 += 1;
+    pObjectRegion->nProcessedRooms += 1;
 
     if (pLevelsTxtRecord->dwThemes)
     {
@@ -2503,7 +2503,7 @@ void __fastcall OBJECTS_PopulationHandler(D2GameStrc* pGame, D2ActiveRoomStrc* p
         int nProbability = OBJPOP_RollSeed_Inline(pSeed) % 100;
 
         D2ObjectRegionStrc* pObjectRegion = OBJRGN_GetObjectRegionForLevel(pGame, DUNGEON_GetLevelIdFromPopulatedRoom(pRoom));
-        if (pObjectRegion->nPopulatedRooms > 0 && (pObjectRegion->unk0x04 << 7) / pObjectRegion->nPopulatedRooms > 96 && !pObjectRegion->nHealingShrines
+        if (pObjectRegion->nPopulatedRooms > 0 && (pObjectRegion->nProcessedRooms << 7) / pObjectRegion->nPopulatedRooms > 96 && !pObjectRegion->nHealingShrines
             && DATATBLS_GetObjectsTxtRecord(nObjGroup)->nSubClass)
         {
             nProbability = 100;
@@ -2555,12 +2555,12 @@ static int __stdcall OBJECTS_PopulateRoomTheme(D2GameStrc* pGame, D2ActiveRoomSt
         const int nRoll = OBJPOP_RollSeed_Inline(&pObjectControl->pSeed) % 100;
 
         int nProbability = 0;
-        if (pObjectRegion->unk0x04 > pObjectRegion->nPopulatedRooms / 2)
+        if (pObjectRegion->nProcessedRooms > pObjectRegion->nPopulatedRooms / 2)
         {
             nProbability = 5;
         }
 
-        if (pObjectRegion->unk0x04 > pObjectRegion->nPopulatedRooms - pObjectRegion->nPopulatedRooms / 4)
+        if (pObjectRegion->nProcessedRooms > pObjectRegion->nPopulatedRooms - pObjectRegion->nPopulatedRooms / 4)
         {
             nProbability += 5;
         }

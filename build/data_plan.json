@@ -666,13 +666,9 @@
    "state": "included"
   },
   "Source/D2Client/SKILLS/Skills.cpp": {
-   "bytes": 1564,
-   "definitions": 17,
+   "bytes": 1496,
+   "definitions": 15,
    "externs": [
-    "extern \"C\" void __cdecl sub_004CCFB0_CltCanCollideWithMonster(); // 0x004CCFB0",
-    "extern \"C\" void __cdecl sub_004CCFE0_CltCanCollideWithGoodAlignmentUnit(); // 0x004CCFE0",
-    "extern \"C\" void __cdecl sub_004CD020_CltCanCollideWithPlayerOrMonster(); // 0x004CD020",
-    "extern \"C\" void __cdecl sub_004CD050_CltCanMissileDestroy(); // 0x004CD050",
     "extern \"C\" void __cdecl sub_004E1320(); // 0x004E1320",
     "extern \"C\" void __cdecl sub_004E3720(); // 0x004E3720",
     "extern \"C\" void __cdecl ITEM_UseBowOrCallTarget(); // 0x004C6030",
@@ -1977,8 +1973,8 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/Missile.cpp": {
-   "bytes": 4040,
-   "definitions": 49,
+   "bytes": 4112,
+   "definitions": 50,
    "externs": [
     "extern \"C\" void __cdecl sub_004D2610(); // 0x004D2610",
     "extern \"C\" void __cdecl sub_004D47F0(); // 0x004D47F0",
@@ -2004,7 +2000,11 @@
     "extern \"C\" void __cdecl MISSILE_ScanAreaCreateMissiles(); // 0x004CFE30",
     "extern \"C\" void __cdecl MISSILE_CreateChildMissile(); // 0x004D0380",
     "extern \"C\" void __cdecl MISSILE_SpawnOwnerSubMissile(); // 0x004D1820",
-    "extern \"C\" void __cdecl sub_004D1BD0(); // 0x004D1BD0"
+    "extern \"C\" void __cdecl sub_004D1BD0(); // 0x004D1BD0",
+    "extern \"C\" void __cdecl sub_004CCFB0_CltCanCollideWithMonster(); // 0x004CCFB0",
+    "extern \"C\" void __cdecl sub_004CCFE0_CltCanCollideWithGoodAlignmentUnit(); // 0x004CCFE0",
+    "extern \"C\" void __cdecl sub_004CD020_CltCanCollideWithPlayerOrMonster(); // 0x004CD020",
+    "extern \"C\" void __cdecl sub_004CD050_CltCanMissileDestroy(); // 0x004CD050"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/Missile.inc",
@@ -19086,27 +19086,27 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/SKILLS/Skills.cpp",
-   "fill": 8,
+   "file": "Source/D2Client/UNIT/Missile.cpp",
+   "fill": 9,
    "form": "declared",
    "fwd": null,
-   "head": "extern D2CollideTypeMaskStrc gaCollideTypeMasks[8] = ",
+   "head": "extern D2CltMissileModeStrc gaCltMissileModes[9] = ",
    "model": {
     "elem": {
      "k": "struct",
      "members": [
       [
-       "nCollisionMask",
+       "pfUnitFindCallback",
        0,
        {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
+        "fn": true,
+        "k": "ptr",
+        "size": 4,
+        "spell": "D2UnitFindCallback"
        }
       ],
       [
-       "unk0x04",
+       "nCollisionMask",
        4,
        {
         "k": "prim",
@@ -19116,17 +19116,17 @@
        }
       ]
      ],
-     "name": "D2CollideTypeMaskStrc",
+     "name": "D2CltMissileModeStrc",
      "size": 8
     },
     "k": "arr",
-    "n": 8,
-    "size": 64
+    "n": 9,
+    "size": 72
    },
-   "name": "gaCollideTypeMasks",
+   "name": "gaCltMissileModes",
    "pointers": [
     [
-     4,
+     8,
      "0x004CCFE0",
      "names.json",
      "sub_004CCFE0_CltCanCollideWithGoodAlignmentUnit",
@@ -19134,7 +19134,7 @@
      "func"
     ],
     [
-     12,
+     16,
      "0x004CCFB0",
      "names.json",
      "sub_004CCFB0_CltCanCollideWithMonster",
@@ -19142,7 +19142,7 @@
      "func"
     ],
     [
-     20,
+     24,
      "0x004CD020",
      "names.json",
      "sub_004CD020_CltCanCollideWithPlayerOrMonster",
@@ -19150,7 +19150,7 @@
      "func"
     ],
     [
-     36,
+     40,
      "0x004CCFB0",
      "names.json",
      "sub_004CCFB0_CltCanCollideWithMonster",
@@ -19158,7 +19158,7 @@
      "func"
     ],
     [
-     52,
+     56,
      "0x004CD050",
      "names.json",
      "sub_004CD050_CltCanMissileDestroy",
@@ -19166,7 +19166,7 @@
      "func"
     ],
     [
-     60,
+     64,
      "0x004CD020",
      "names.json",
      "sub_004CD020_CltCanCollideWithPlayerOrMonster",
@@ -19175,29 +19175,12 @@
     ]
    ],
    "region": "data",
-   "size": 64,
+   "size": 72,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x0072A354",
-   "type": "D2CollideTypeMaskStrc",
-   "va": "0x0072A354"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0072A394",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/SKILLS/Skills.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072A394_t gData_0072A394; // 0x0072A394",
-   "head": "extern \"C\" struct d2data_0072A394_t gData_0072A394 = ",
-   "name": "gData_0072A394",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072A394_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072A394",
-   "va": "0x0072A394"
+   "tail": "; // 0x0072A350",
+   "type": "D2CltMissileModeStrc",
+   "va": "0x0072A350"
   },
   {
    "alias": false,

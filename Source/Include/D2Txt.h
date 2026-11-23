@@ -449,7 +449,7 @@ struct D2MonStats2Txt
     unsigned char nTotalPieces; // 0x25
     D2MonStats2CompStrc pComponents[16]; // 0x26
     unsigned char unk0xE6[0x2]; // 0xE6
-    unsigned char unk0xE8[4]; // 0xE8
+    unsigned char nComponentFlags[4]; // 0xE8
     unsigned char unk0xEC; // 0xEC
     unsigned char unk0xED[0x3]; // 0xED
     unsigned char nModeFlags[4]; // 0xF0
@@ -480,7 +480,7 @@ struct D2ObjectsTxt
     unsigned short wszName[64]; // 0x40
     unsigned char unk0xC0[0x4]; // 0xC0
     unsigned char nSelectable[8]; // 0xC4
-    unsigned char unk0xCC[0x4]; // 0xCC
+    unsigned char nTrapProb[0x4]; // 0xCC
     unsigned int dwSizeX; // 0xD0
     unsigned int dwSizeY; // 0xD4
     unsigned int dwFrameCnt[8]; // 0xD8

@@ -66,7 +66,7 @@ struct D2LevelDefBin
     int dwDepend; // 0x2C
     int dwDrlgType; // 0x30
     int dwLevelType; // 0x34
-    int unk0x38; // 0x38
+    int dwSubType; // 0x38
     int dwSubTheme; // 0x3C
     int dwSubWaypoint; // 0x40
     int dwSubShrine; // 0x44
