@@ -4380,11 +4380,6 @@ int __cdecl sub_0065CCB0()
     return 0;
 }
 
-// 0x00663740
-void __stdcall sub_00663740(int nUnused1)
-{
-}
-
 // 0x0066A210
 void __stdcall sub_0066A210(int nUnused1, int nUnused2)
 {
