@@ -59,6 +59,18 @@ const char* __fastcall sub_006C9ADF_CopyWord(char* szDest, const char* szSource)
     return szSource;
 }
 
+// 0x006C9AFF
+const char* __fastcall sub_006C9AFF_FindLastCharacter(const char* text, char character)
+{
+    const char* result = 0;
+    for (const char* p = text; *p; ++p)
+    {
+        if (*p == character)
+            result = p;
+    }
+    return result;
+}
+
 // 0x006C9B17
 char* __fastcall sub_006C9B17_StripFileName(char* szPath)
 {

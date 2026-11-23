@@ -160,3 +160,85 @@ void __fastcall TARGETS_RemoveUnitNode(D2GameStrc* pGame, D2UnitStrc* pUnit)
     }
     pUnit->dwNodeIndex = 11;
 }
+
+// 0x005B1B70
+void __fastcall sub_005B1B70_FreeAllTargetNodes(D2GameStrc* pGame)
+{
+    if (!pGame)
+    {
+        return;
+    }
+
+    D2TargetNodeStrc** ppTargetNode = pGame->pTargetNodes;
+    D2TargetNodeStrc* pTargetNode = *ppTargetNode;
+    for (int nCount = 10; nCount; --nCount)
+    {
+        if (pTargetNode && pTargetNode->hUnit)
+        {
+            D2GAME_FreeUnitNode_6FC40310(pGame, pTargetNode->hUnit);
+        }
+        pTargetNode = *++ppTargetNode;
+    }
+}
+
+// 0x005B1BC0
+D2TargetNodeStrc* __fastcall sub_005B1BC0_FindTargetNode(D2UnitStrc* pUnit, D2GameStrc* pGame)
+{
+    if (!pGame || !pUnit || (pUnit->dwUnitType != UNIT_PLAYER && pUnit->dwUnitType != UNIT_MONSTER))
+    {
+        return 0;
+    }
+
+    const int nNodeIndex = pUnit->dwNodeIndex;
+    if (nNodeIndex == 11)
+    {
+        return 0;
+    }
+
+    for (D2TargetNodeStrc* pNode = pGame->pTargetNodes[nNodeIndex]; pNode; pNode = pNode->pNext)
+    {
+        if (pNode->hUnit == pUnit)
+        {
+            return pNode;
+        }
+    }
+
+    return 0;
+}
+
+// 0x005B1C00
+void __fastcall sub_005B1C00_ToggleTargetFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFlags, int bSet)
+{
+    if (!pGame || !pUnit)
+    {
+        return;
+    }
+
+    D2TargetNodeStrc* pTargetNode;
+    if (pUnit->dwUnitType == UNIT_PLAYER)
+    {
+        pTargetNode = sub_005B1BC0_FindTargetNode(pUnit, pGame);
+    }
+    else if (pUnit->dwUnitType == UNIT_MONSTER)
+    {
+        pTargetNode = sub_005B1BC0_FindTargetNode(pUnit, pGame);
+    }
+    else
+    {
+        return;
+    }
+
+    if (!pTargetNode)
+    {
+        return;
+    }
+
+    if (bSet)
+    {
+        pTargetNode->nNodeData |= nFlags;
+    }
+    else
+    {
+        pTargetNode->nNodeData &= ~nFlags;
+    }
+}

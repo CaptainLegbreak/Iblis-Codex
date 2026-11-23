@@ -293,9 +293,11 @@ int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 
 struct D2RoomCoordListStrc
 {
-    tagRECT box[2];
-    char unknown20[8];
+    tagRECT pBox[2];
+    int bNode;
+    int bRoomActive;
     int nIndex;
+    D2RoomCoordListStrc* pNext;
 };
 
 extern unsigned char gbNeverCount_006CE270; // 0x006CE270
@@ -536,8 +538,8 @@ D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtCoordinates(D2GameStrc* pGame, D2Acti
     monCreate.nUnitGUID = 0;
     monCreate.nMonsterId = nMonsterId;
     monCreate.nAnimMode = nAnimMode;
-    monCreate.pGame = pGame;
     monCreate.pRoom = pRoom;
+    monCreate.pGame = pGame;
     monCreate.pRoomCoordList = 0;
     monCreate.nMaxSearchRings = -1;
     monCreate.nFlags = nFlags;
@@ -647,6 +649,7 @@ static void MONSTERSPAWN_SetupNormalMods(D2UnkMonCreateStrc* pMonCreate, D2UnitS
     }
 }
 
+// 0x005B1C50
 static void MONSTERSPAWN_EquipAncientBarbarians(D2UnitStrc* pUnit)
 {
 	const int nClassId = !pUnit ? -1 : pUnit->dwClassId;
@@ -927,6 +930,72 @@ int __fastcall MONSTERSPAWN_SpawnLinkedMinionsAtCoordinates(D2GameStrc* pGame, D
     return nResult;
 }
 
+extern const D2CoordStrc gaMinionSpawnOffsets[3][6];                                               // 0x006E2CF0
+
+inline int UNITS_GetUnitXPositionInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    }
+
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+inline int UNITS_GetUnitYPositionInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    }
+
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x005B2570
+int __fastcall sub_005B2570_SpawnMinionsAround(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int nCount, int nOffset, short nFlags)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    if (nOffset < 0 || nOffset > 2)
+    {
+        nOffset = 0;
+    }
+
+    int bSpawned = 0;
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    const int nUnitGUID = pUnit->dwUnitId;
+    const int nX = UNITS_GetUnitXPositionInline(pUnit);
+    const int nY = UNITS_GetUnitYPositionInline(pUnit);
+    int nDirection = ITEMS_RollRandomNumber(&pUnit->pSeed) % 6;
+
+    for (int i = 0; i < nCount; ++i)
+    {
+        const int nSpawnX = nX + gaMinionSpawnOffsets[nOffset][nDirection].nX;
+        const int nSpawnY = nY + gaMinionSpawnOffsets[nOffset][nDirection].nY;
+        nDirection = (nDirection + 5) % 6;
+
+        D2UnitStrc* pMinion = MONSTERSPAWN_SpawnAtCoordinates(pGame, pRoom, nSpawnX, nSpawnY, nMonsterId, nAnimMode, nFlags);
+        if (pMinion)
+        {
+            bSpawned = 1;
+            AIGENERAL_SetOwnerData(pGame, pMinion, nUnitGUID, 1, 0, 0);
+            AIGENERAL_AllocMinionList(pGame, pUnit, pMinion);
+        }
+    }
+
+    return bSpawned;
+}
+
 // 0x005B2700
 int __stdcall MONSTERSPAWN_FindFloorPosition(D2ActiveRoomStrc* room,int* outX,int* outY)
 {
@@ -1058,7 +1127,7 @@ D2UnitStrc* __fastcall D2GAME_SpawnNormalMonster(D2UnkMonCreateStrc* pCreate)
     }
     else
     {
-        CopyRect(&area,&pCreate->pRoomCoordList->box[1]);
+        CopyRect(&area,&pCreate->pRoomCoordList->pBox[1]);
         sub_00643560_GameTileToSubtileCoords((int*)&area.left,(int*)&area.top);
         sub_00643560_GameTileToSubtileCoords((int*)&area.right,(int*)&area.bottom);
         nAreaTile=pCreate->pRoomCoordList->nIndex;bCheckTile=1;

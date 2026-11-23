@@ -1,49 +1,71 @@
 #include "D2Common.h"
+
+#include "D2LevelIds.h"
+
 #include "D2Structs.h"
+
 #include "D2Path.h"
+
 #include "D2Structs.h"
+
 #include "D2DrlgTiles.h"
+
 #include "D2Drlg.h"
+
 #include "D2DrlgPresets.h"
 
 #define DRLGTYPE_OUTDOOR 3
+
 #define DRLGTYPE_PRESET 2
+
 #define D2_ABS(x) ((x) >= 0 ? (x) : -(x))
 
 struct D2DrlgStrc;
+
 struct D2DrlgOrthStrc;
+
 struct D2DrlgOutdoorInfoStrc;
+
 struct D2CoordStrc;
+
 struct D2DrlgCoordStrc;
+
 union D2SeedStrc;
+
 struct D2DrlgLinkStrc;
+
 struct D2DrlgLevelLinkDataStrc;
+
 struct D2LevelDefBin;
+
 struct D2UnkOutdoorStrc3;
+
 struct D2PosStrc;
+
 struct D2OffsetPosStrc;
+
 struct D2UnkPathStrc;
+
 struct D2UnkPathStrc2;
+
 struct D2PathTestStrc;
+
 struct D2PathRayStrc;
 
-
-
-
-
-
 void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int eOperation); // 0x0067C4F0
+
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pDrlgGrid, int nX, int nY); // 0x0067C570
+
 static void __stdcall sub_00675EB0_PlaceCoord(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4);
+
 static void __stdcall sub_00675F80_PlaceCoordCentered(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4);
 
-
-
-
-
 D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId); // 0x0061E470
+
 extern D2DrlgLinkStrc gAct1MonasteryDrlgLink[]; // 0x006F0840
+
 extern D2DrlgLinkStrc gAct2OutdoorDrlgLink[]; // 0x006F0930
+
 int __fastcall DRLG_CheckNotOverlappingUsingManhattanDistance(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int nMaxDistance); // 0x0066B860
 
 struct D2UnkOutdoorStrc3
@@ -57,14 +79,19 @@ struct D2UnkOutdoorStrc3
 };
 
 extern D2DrlgLinkStrc gAct2CanyonDrlgLink[15]; // 0x006F0A20
+
 extern D2DrlgLinkStrc gAct5UbersDrlgLink[15]; // 0x006F0B10
+
 extern D2DrlgLinkStrc gAct4OutdoorDrlgLink[15]; // 0x006F0C00
+
 extern D2DrlgLinkStrc gAct4ChaosSanctumDrlgLink[15]; // 0x006F0CF0
+
 extern const D2UnkOutdoorStrc3 gaAct1OutdoorRandFlags[15]; // 0x006F1258
 
-
 D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLevelId); // 0x00642BB0
+
 int __fastcall DRLG_GetDirectionFromCoordinates(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2); // 0x00642240
+
 void __fastcall DRLGROOM_AddOrth(D2DrlgOrthStrc** ppDrlgOrth, D2DrlgLevelStrc* pLevel, int nDirection, int bIsPreset); // 0x0066B790
 
 struct D2PosStrc
@@ -99,8 +126,8 @@ struct D2UnkPathStrc2
 };
 
 extern const D2UnkPathStrc gaPathDirectionTriplets[25]; // 0x006F1518
-extern const D2UnkPathStrc2 gaPathDirectionTripletsAlt[25]; // 0x006F1648
 
+extern const D2UnkPathStrc2 gaPathDirectionTripletsAlt[25]; // 0x006F1648
 
 int __stdcall sub_00678C10(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2); // 0x00678C10
 
@@ -127,10 +154,15 @@ struct D2PathRayStrc
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 unsigned short __stdcall COLLISION_CheckMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, unsigned short nMask); // 0x0064D9B0
+
 void __fastcall sub_00678E30(D2PathRayStrc* pRay); // 0x00678E30
 
 // 0x00675600
@@ -663,6 +695,45 @@ int __fastcall sub_Emit_0096D66C()
     return gnDrlgLinkFlags_0096D66C;
 }
 
+extern D2DrlgLinkStrc gAct1WildernessDrlgLink[15];                                                          // 0x006F0750
+
+extern const int gnAct1WildernessLinkTable[];                                                               // 0x006F1158
+
+// 0x00676DD0
+int __fastcall sub_00676DD0_LinkAct1Wilderness(D2DrlgLevelLinkDataStrc* pLevelLinkData, int nIteration)
+{
+    int nCounter = 0;
+    int nLevelLink = gAct1WildernessDrlgLink[nIteration].nLevelLink;
+
+    while (nCounter < nIteration)
+    {
+        if (nCounter != nLevelLink && !DRLG_CheckNotOverlappingUsingManhattanDistance(&pLevelLinkData->pLevelCoord[nIteration], &pLevelLinkData->pLevelCoord[nCounter], 0))
+        {
+            return 0;
+        }
+
+        ++nCounter;
+    }
+
+    switch (gAct1WildernessDrlgLink[nIteration].nLevel)
+    {
+    case LEVEL_ROGUEENCAMPMENT:
+        return gnAct1WildernessLinkTable[pLevelLinkData->nRand[0][nIteration] + 4 * (pLevelLinkData->nRand[2][nIteration] + 2 * (pLevelLinkData->nRand[0][nLevelLink] + 4 * pLevelLinkData->nRand[2][nLevelLink]))];
+
+    case LEVEL_BURIALGROUNDS:
+        for (int i = 0; i < 15; ++i)
+        {
+            if (i != nIteration && gAct1WildernessDrlgLink[i].nLevelLink == nLevelLink && pLevelLinkData->nRand[0][nIteration] == pLevelLinkData->nRand[0][i])
+            {
+                return 0;
+            }
+        }
+        break;
+    }
+
+    return 1;
+}
+
 // 0x00676EB0
 int __fastcall sub_6FD82130(D2DrlgLevelLinkDataStrc* pLevelLinkData, int nIteration)
 {
@@ -800,6 +871,7 @@ void __fastcall sub_00677180_SetAct1OutdoorFlags(D2DrlgLevelStrc* pLevel, int nI
 }
 
 #include "gen/data/Source/D2Common/Unknown_00675600.inc"
+
 struct D2ActiveRoomStrc;
 
 // 0x00677640
@@ -1085,6 +1157,49 @@ void __fastcall sub_00678DF0(int* pTestDir, D2PathPointStrc pPoint1, D2PathPoint
 int __stdcall sub_6FDAB770(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
 {
     return gaPathDirectionTriplets[sub_00678C10(tPoint1, tPoint2)].unk0x00;
+}
+
+struct D2MotionPathStrc
+{
+    D2PathPointStrc tStart;
+    D2PathPointStrc tTarget;
+    D2CoordStrc tDirectionVector;
+    D2CoordStrc tVelocity;
+    int nSpeed;
+    unsigned char nDirection;
+    char unk_1D[3];
+    unsigned int nFlags;
+};
+void __fastcall PATH_GetDirectionVectorFromPoints(D2CoordStrc* pDirectionVector, int* pOutDirection, D2PathPointStrc tPoint1, D2PathPointStrc tPoint2); // 0x0064FD70
+
+// 0x00678E30
+int __fastcall sub_00678E30_UpdateMotion(D2MotionPathStrc* pPath)
+{
+    if (pPath->tStart.X == pPath->tTarget.X && pPath->tStart.Y == pPath->tTarget.Y)
+    {
+        pPath->tDirectionVector.nX = 0;
+        pPath->tDirectionVector.nY = 0;
+        pPath->tVelocity.nX = 0;
+        pPath->tVelocity.nY = 0;
+        pPath->nSpeed = 0;
+        return 1;
+    }
+    int nDirection;
+    PATH_GetDirectionVectorFromPoints(&pPath->tDirectionVector, &nDirection, pPath->tStart, pPath->tTarget);
+    pPath->nDirection = nDirection;
+    if (pPath->nFlags & 0x200)
+        pPath->nDirection = (pPath->nDirection - 32) & 63;
+    pPath->tVelocity.nX = (pPath->tDirectionVector.nX * pPath->nSpeed) >> 8;
+    pPath->tVelocity.nY = (pPath->tDirectionVector.nY * pPath->nSpeed) >> 8;
+    const int nVelocityX = pPath->tVelocity.nX < 0 ? -pPath->tVelocity.nX : pPath->tVelocity.nX;
+    unsigned short nTargetCoordinate = pPath->tTarget.X;
+    const int nDiffX = (int)pPath->tStart.X - nTargetCoordinate;
+    const int nDeltaX = (nDiffX < 0 ? -nDiffX : nDiffX) << 16;
+    const int nVelocityY = pPath->tVelocity.nY < 0 ? -pPath->tVelocity.nY : pPath->tVelocity.nY;
+    nTargetCoordinate = pPath->tTarget.Y;
+    const int nDiffY = (int)pPath->tStart.Y - nTargetCoordinate;
+    const int nDeltaY = nDiffY < 0 ? -nDiffY : nDiffY;
+    return (nVelocityX <= nDeltaX || nVelocityY <= (nDeltaY << 16)) ? 1 : 0;
 }
 
 // 0x00678F00

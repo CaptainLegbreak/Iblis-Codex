@@ -1,12 +1,19 @@
 #include "D2Direct3D.h"
 
 struct D2Object006BB3E0Strc;
+
 struct D2Object006BADC0Strc;
+
 struct D2DDrawDeviceStrc;
+
 class CRegKeyInline;
+
 struct D2Cache006BA830Strc;
+
 struct D2DDCaps006B3420Strc;
+
 struct D2DDSurfaceDesc006B3420Strc;
+
 struct D2ComObject006B3420Strc;
 
 struct D2DDrawDeviceStrc
@@ -18,7 +25,9 @@ struct D2DDrawDeviceStrc
 };
 
 extern "C" __declspec(dllimport) long __stdcall RegCreateKeyExA(void* hKey, const char* szSubKey, unsigned long nReserved, char* szClass, unsigned long nOptions, unsigned long samDesired, void* pSecurity, void** phkResult, unsigned long* pDisposition); // 0x006CC004
+
 extern "C" __declspec(dllimport) long __stdcall RegCloseKey(void* hKey); // 0x006CC030
+
 extern D2DDrawDeviceStrc gaDDrawDevices[]; // 0x0096F4E0
 
 class CRegKeyInline
@@ -80,18 +89,31 @@ struct D2Cache006BA830Strc
 };
 
 void __cdecl D3D_ReleaseSprites(); // 0x006B5B10
+
 void __cdecl sub_006B7250_ReleaseAll(); // 0x006B7250
+
 void __cdecl D3D_ReleaseSmackSurfaces(); // 0x006B9B30
+
 void __fastcall sub_006BA830_FreeCache(D2Cache006BA830Strc* pCache, int bFree); // 0x006BA830
+
 void __fastcall sub_006BADC0_Free(D2Object006BADC0Strc* pObject, int bFree); // 0x006BADC0
+
 void __fastcall sub_006BB3E0_Free(D2Object006BB3E0Strc* pObject, int bFree); // 0x006BB3E0
+
 extern int gdwGlobal_00970E8C; // 0x00970E8C
+
 extern D2Object006BADC0Strc gObject_0096FC80; // 0x0096FC80
+
 extern D2Object006BB3E0Strc gObject_0096FC9C; // 0x0096FC9C
+
 extern D2Cache006BA830Strc gtTextureCache1; // 0x00970EC8
+
 extern D2Cache006BA830Strc gtTextureCache2; // 0x00970EE4
+
 extern D2Cache006BA830Strc gtTextureCache3; // 0x00970F00
+
 void __cdecl D3D_ReleaseResources(); // 0x006B3320
+
 extern void* ghDDrawWindow_007C9140; // 0x007C9140
 
 struct D2DDCaps006B3420Strc
@@ -138,18 +160,31 @@ struct D2ComObject006B3420Strc
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
+
 void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
+
 extern int gbVideoUp; // 0x00970E40
+
 extern int gnVideoState; // 0x00970E44
+
 extern D2ComObject006B3420Strc* gpDirectDraw4; // 0x00970E60
+
 extern D2ComObject006B3420Strc* gpPrimary_00970E68; // 0x00970E68
+
 extern const unsigned int gdwBitMask7_006CE284; // 0x006CE284
+
 extern const unsigned int gdwBitMask8; // 0x006CE288
+
 extern int gnRenderHeight; // 0x007C913C
 
 // 0x006B2F60
@@ -170,6 +205,112 @@ void __fastcall sub_006B2F60_SaveVideoConfig(int nRender, int nDevice)
         tKey.SetDWORDValue((const char*)aFlags, gaDDrawDevices[nDevice].dwFlags);
         tKey.SetBinaryValue((const char*)aGuid, gaDDrawDevices[nDevice].guid, 0x10);
     }
+}
+
+struct D2TileLibraryEntryStrc;
+struct D2ComObjectStrc;
+struct BufferPool;
+struct D2ComVtblStrc;
+struct BufferPool { unsigned int count; char unknown[24]; };
+extern unsigned int gRenderFlags; // 0x0096F3A8
+extern const unsigned int gPrimaryRenderMask; // 0x006CE26C
+extern const unsigned int gCompactRenderMask; // 0x006CE280
+extern unsigned int gAvailableMemory; // 0x0096F4D0
+extern unsigned int gPreferredMemory; // 0x0096F4D8
+extern unsigned int gTileWidth; // 0x0096F4DC
+extern unsigned int gTileHeight; // 0x009702B8
+extern int gUseTileBuffers; // 0x00970E8C
+extern int gUsePreferredMemory; // 0x00970E4C
+extern unsigned int gBufferCopies; // 0x00970E80
+extern unsigned int gPrimaryBudget; // 0x007C90C8
+extern unsigned int gSecondaryBudget; // 0x007C90D4
+extern unsigned int gLargeBudget; // 0x007C90E0
+extern unsigned int gMediumBudget; // 0x007C90E4
+extern unsigned int gSmallBudget; // 0x007C90E8
+extern BufferPool gTilePool; // 0x0096FC9C
+extern BufferPool gAuxiliaryPool; // 0x0096FC80
+extern BufferPool gLargePool; // 0x00970EC8
+extern BufferPool gMediumPool; // 0x00970EE4
+extern BufferPool gSmallPool; // 0x00970F00
+char* __fastcall sub_006B76D0_InitVertices(char*); // 0x006B76D0
+char* __fastcall D3D_CreateSmackSurfaces(char*); // 0x006B9A50
+char* __fastcall sub_006BAFC0(BufferPool*,char*,char*,unsigned int); // 0x006BAFC0
+char* __fastcall sub_006BA9A0(BufferPool*,char*,char*,unsigned int); // 0x006BA9A0
+char* __fastcall sub_006BA420(BufferPool*,char*,char*,unsigned int,unsigned int); // 0x006BA420
+void __cdecl D3D_InitSprites(); // 0x006B7110
+void __fastcall D3D_InvalidateTileCaches(D2TileLibraryEntryStrc* pTile); // 0x006BBB90
+void __stdcall TileSetHardwareFreeCallback(void*); // 0x00604A30
+struct D2ComVtblStrc
+{
+    void* pfQueryInterface;
+    void* pfAddRef;
+    unsigned long (__stdcall* pfRelease)(D2ComObjectStrc* pThis);
+    void* pfGetGammaRamp;
+    long (__stdcall* pfSetGammaRamp)(D2ComObjectStrc* pThis, unsigned long dwFlags, void* pRamp);
+};
+struct D2ComObjectStrc
+{
+    D2ComVtblStrc* f_0;
+};
+extern D2ComObjectStrc* gpInterface_00970E78; // 0x00970E78
+void __cdecl sub_006B9150_ReleaseResource(); // 0x006B9150
+void __cdecl D3D_ReleaseTileSurfaces(); // 0x006BB640
+int gbVideoUp; // 0x00970E40
+int gnVideoState; // 0x00970E44
+D2ComObjectStrc* gpPrimarySurface; // 0x00970E68
+D2ComObjectStrc* gpRenderSurface; // 0x00970E6C
+D2ComObjectStrc* gpInterface; // 0x00970E70
+D2ComObjectStrc* gpGammaControl; // 0x00970E74
+D2ComObjectStrc* gpViewport; // 0x00970E7C
+char gabGammaRamp[1536]; // 0x0096FCB8
+
+// 0x006B3080
+void __cdecl sub_006B3080()
+{
+ unsigned int memory;
+ gBufferCopies=2;
+ gUsePreferredMemory=0;
+ if((gRenderFlags&gPrimaryRenderMask) && gAvailableMemory<0xD00000) {
+  gUsePreferredMemory=1;
+  if(gPreferredMemory>=0x2000000)gPreferredMemory=0x2000000;
+  memory=gAvailableMemory;
+  if(memory<=gPreferredMemory)memory=gPreferredMemory;
+ } else {
+  memory=gAvailableMemory;
+  if(memory>=0x2000000)memory=0x2000000;
+ }
+ char* current = 0;char* start;unsigned int remaining;
+ if(gUseTileBuffers) {
+  unsigned int width,height;
+  if(gRenderFlags&gCompactRenderMask){width=160;height=80;}else{width=256;height=128;}
+  gTileHeight=height;gTileWidth=width;
+  unsigned int tileSize=2*width*height;
+  unsigned int primary=memory/2<0x600000?memory/2:0x600000;
+  unsigned int secondary=memory/8<0x300000?memory/8:0x300000;
+  current=sub_006B76D0_InitVertices(current);
+  gPrimaryBudget=primary;
+  primary+=(unsigned int)current;
+  current=sub_006BAFC0(&gTilePool,current,(char*)primary,tileSize);
+  gSecondaryBudget=secondary;
+  secondary+=(unsigned int)current;
+  current=sub_006BA9A0(&gAuxiliaryPool,current,(char*)secondary,2048);
+  start=current;remaining=memory-(unsigned int)current;
+  current=sub_006BA420(&gLargePool,current,current+remaining*20/100,256,256);
+  gLargeBudget=gLargePool.count*gBufferCopies*65536;
+  current=sub_006BA420(&gMediumPool,current,start+remaining*75/100,128,128);
+ } else {
+  gPrimaryBudget=0;gSecondaryBudget=0;
+  current=D3D_CreateSmackSurfaces(current);
+  start=current;remaining=memory-(unsigned int)current;
+  current=sub_006BA420(&gLargePool,current,current+remaining*70/100,256,256);
+  gLargeBudget=gLargePool.count*gBufferCopies*65536;
+  current=sub_006BA420(&gMediumPool,current,start+remaining*80/100,128,128);
+ }
+ gMediumBudget=gMediumPool.count*gBufferCopies*16384;
+ sub_006BA420(&gSmallPool,current,(char*)memory,32,32);
+ gSmallBudget=gSmallPool.count*gBufferCopies*1024;
+ D3D_InitSprites();
+ TileSetHardwareFreeCallback((void*)D3D_InvalidateTileCaches);
 }
 
 // 0x006B32B0
