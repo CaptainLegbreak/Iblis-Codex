@@ -30586,6 +30586,31 @@
      "name": "?sub_004CCF20_SetValue@@YIXH@Z"
     },
     {
+     "va": "0x004CCF40",
+     "length": 111,
+     "name": "?sub_004CCF40_CanMissileHitUnit@@YGHPAUD2UnitStrc@@00PAUD2MissilesTxt@@@Z"
+    },
+    {
+     "va": "0x004CCFB0",
+     "length": 41,
+     "name": "?sub_004CCFB0_CltCanCollideWithMonster@@YIHPAUD2UnitStrc@@PAUD2CltMissileFindArgStrc@@@Z"
+    },
+    {
+     "va": "0x004CCFE0",
+     "length": 64,
+     "name": "?sub_004CCFE0_CltCanCollideWithGoodAlignmentUnit@@YIHPAUD2UnitStrc@@PAUD2CltMissileFindArgStrc@@@Z"
+    },
+    {
+     "va": "0x004CD020",
+     "length": 47,
+     "name": "?sub_004CD020_CltCanCollideWithPlayerOrMonster@@YIHPAUD2UnitStrc@@PAUD2CltMissileFindArgStrc@@@Z"
+    },
+    {
+     "va": "0x004CD050",
+     "length": 66,
+     "name": "?sub_004CD050_CltCanMissileDestroy@@YIHPAUD2UnitStrc@@PAX@Z"
+    },
+    {
      "va": "0x004CD170",
      "length": 69,
      "name": "?MISSILE_FreeMissileUnit@@YIXPAUD2UnitStrc@@@Z"
@@ -30613,6 +30638,11 @@
     {
      "va": "0x004CD310",
      "length": 100
+    },
+    {
+     "va": "0x004CD380",
+     "length": 12,
+     "name": "?sub_004CD380_StatRemoveCallback_ToggleStateOff@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     },
     {
      "va": "0x004CD390",
@@ -31257,16 +31287,6 @@
      "name": "?sub_004D8400_CltDoRotateTarget@@YIXPAUD2UnitStrc@@@Z"
     },
     {
-     "va": "0x004DAAB0",
-     "length": 138,
-     "name": "MISSILE_GetArmorComponents"
-    },
-    {
-     "va": "0x004E0A40",
-     "length": 396,
-     "name": "MISSILE_SkillStartPlace"
-    },
-    {
      "va": "0x004E1090",
      "length": 132,
      "name": "MISSILE_SkillDoClearTarget"
@@ -31280,11 +31300,6 @@
      "va": "0x004E27C0",
      "length": 636,
      "name": "?MISSILE_SkillStartSpawnRing@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004E2F40",
-     "length": 267,
-     "name": "?MISSILE_VolleyAtTarget@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004E3350",
