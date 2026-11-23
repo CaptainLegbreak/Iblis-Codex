@@ -17,12 +17,12 @@ Bytes of the built Game.exe by origin:
 
 | Origin | Bytes |
 |---|---:|
-| game code and data compiled from Source/ | 2,687,361 |
+| game code and data compiled from Source/ | 2,687,364 |
 | initialised data generated from your Game.exe (build/data_plan.json) | 362,499 |
 | C runtime (libcmt.lib, placed by identity) | 239,696 |
 | import thunks and the import address table | 3,782 |
 | headers, import and export tables, relocations, checksum | 163,407 |
-| alignment padding | 121,989 |
+| alignment padding | 121,986 |
 | code taken from your Game.exe (unmatched functions) | 12,041 |
 | data no source defines yet, taken from your Game.exe | 15,729 |
 | resources (from your Game.exe) | 5,888 |
@@ -42,16 +42,16 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 1021 |
+| Compilation units | 1006 |
 | … in a file with its original name, whole | 281 |
 | … pieces of an original file still split (in 36 files) | 115 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 625 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3107 |
-| Unnamed fields (`unk0x..`) in the shared headers | 713 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 610 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3088 |
+| Unnamed fields (`unk0x..`) in the shared headers | 711 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 43 |
-| Calling-convention shims | 109 |
-| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 548 |
-| `__declspec(noinline)` / `__forceinline` | 100 / 211 |
+| Calling-convention shims | 108 |
+| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 547 |
+| `__declspec(noinline)` / `__forceinline` | 99 / 211 |
 | Function names: blizzard / d2moo / inferred / placeholder | 460 / 5409 / 5292 / 3766 |
 
 `docs/shape.svg` draws the same per function: whole original file, file still in pieces, placeholder file, forcing construct, not reconstructed.
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 3370 functions are compiled with `/GS-` and 578 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 100 times and `__declspec(dllexport)` 170 times to keep a body out of line or emitted.
+Not listed one by one: 3374 functions are compiled with `/GS-` and 579 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 99 times and `__declspec(dllexport)` 170 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -278,7 +278,7 @@ Not listed one by one: 3370 functions are compiled with `/GS-` and 578 with `/EH
 | 0x0040E960 | sub_0040E960_GetCpuSignature | `Fog/Src/ErrorManager.cpp` | compiler option /EHa, inline assembly |
 | 0x0040E980 | sub_0040E980_GetCpuidEbxIfBrandIndexed | `Fog/Src/ErrorManager.cpp` | compiler option /EHa, inline assembly |
 | 0x0040E9E0 | sub_0040E9E0_GetCpuidEdx | `Fog/Src/ErrorManager.cpp` | compiler option /EHa, inline assembly |
-| 0x0040EB30 | ??3D2LogMessageStrc@@SAXPAX0@Z | `Fog/Unknown_0040EB30.cpp` | compiler option /EHa |
+| 0x0040EB30 | ??3D2LogMessageStrc@@SAXPAX0@Z | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x0040EBD0 | sub_0040EBD0_OpenDatedLogFile | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x0040EDE0 | sub_0040EDE0_GetLogFile | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x0040F000 | LOGMANAGER_GetLogDirectory | `Fog/Src/LogManager.cpp` | compiler option /EHa |
@@ -302,14 +302,14 @@ Not listed one by one: 3370 functions are compiled with `/GS-` and 578 with `/EH
 | 0x0040F960 | LOGMANAGER_CloseLogFiles | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x0040F970 | LOGMANAGER_SweepOldLogFiles | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x0040FAA0 | ~D2LogMsgNodeStrc | `Fog/Src/LogManager.cpp` | compiler option /EHa |
-| 0x0040FB50 | D2LogMsgListStrc | `Fog/Unknown_0040EB30.cpp` | compiler option /EHa |
+| 0x0040FB50 | D2LogMsgListStrc | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x0040FCB0 | D2LogMsgNodeStrc | `Fog/Src/LogManager.cpp` | compiler option /EHa |
-| 0x0040FD40 | ~D2LogMessageStrc | `Fog/Unknown_0040FD40.cpp` | compiler option /EHa |
-| 0x0040FD90 | ~D2LogMsgListStrc | `Fog/Unknown_0040EB30.cpp` | compiler option /EHa |
-| 0x0040FE10 | D2LogMessageStrc | `Fog/Unknown_0040FD40.cpp` | compiler option /EHa |
-| 0x0040FE60 | ??_GD2LogMessageStrc@@QAEPAXI@Z | `Fog/Unknown_0040EB30.cpp` | compiler option /EHa |
-| 0x0040FED0 | sub_0040FED0_DeleteAll | `Fog/Unknown_0040EB30.cpp` | compiler option /EHa |
-| 0x0040FF40 | sub_0040FF40_NewNode | `Fog/Unknown_0040EB30.cpp` | compiler option /EHa |
+| 0x0040FD40 | ~D2LogMessageStrc | `Fog/Src/LogManager.cpp` | compiler option /EHa |
+| 0x0040FD90 | ~D2LogMsgListStrc | `Fog/Src/LogManager.cpp` | compiler option /EHa |
+| 0x0040FE10 | D2LogMessageStrc | `Fog/Src/LogManager.cpp` | compiler option /EHa |
+| 0x0040FE60 | ??_GD2LogMessageStrc@@QAEPAXI@Z | `Fog/Src/LogManager.cpp` | compiler option /EHa |
+| 0x0040FED0 | sub_0040FED0_DeleteAll | `Fog/Src/LogManager.cpp` | compiler option /EHa |
+| 0x0040FF40 | sub_0040FF40_NewNode | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x0040FFD0 | sub_0040FFD0_ShutdownLogSystem | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x00410040 | LOGMANAGER_LogMemoryDump | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x004101C0 | sub_004101C0_LogThreadProc | `Fog/Unknown_004101C0.cpp` | compiler option /EHa |
@@ -319,9 +319,8 @@ Not listed one by one: 3370 functions are compiled with `/GS-` and 578 with `/EH
 | 0x004106B0 | LOGMANAGER_LogWritePrefixedNoNewline | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x00410700 | LOGMANAGER_LogWrite | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x00410740 | LOGMANAGER_LogWritePrefixed | `Fog/Src/LogManager.cpp` | compiler option /EHa |
-| 0x004107B0 | sub_004107B0_AtomicStore64 | `Fog/Unknown_00410040.cpp` | inline assembly |
+| 0x004107B0 | sub_004107B0_AtomicStore64 | `Fog/Unknown_00410790.cpp` | inline assembly |
 | 0x004107D0 | sub_004107D0_Read64Locked | `Fog/Src/System/system.cpp` | inline assembly |
-| 0x00410C40 | LOGMANAGER_OrBits | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x00413740 | sub_00413740_Nop | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x004157C0 | sub_004157C0_FillStreamBuffer | `Storm/SOURCE/SFILE.CPP` | __assume |
 | 0x00417780 | sub_00417780 | `Fog/Src/LogManager.cpp` | compiler option /EHa |
@@ -494,6 +493,7 @@ Not listed one by one: 3370 functions are compiled with `/GS-` and 578 with `/EH
 | 0x004F9190 | D2Win_StopMessageLoop | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004F91A0 | CONTROL_SetCellFile | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004F91C0 | CONTROL_SetFocusedEditBox | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
+| 0x004F9200 | CONTROL_GetFocusedEditBox | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004F9210 | CONTROL_AppendToList | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004F9250 | CONTROL_AppendToDeadList | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004F9290 | CONTROL_FreeDeadList | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
@@ -505,6 +505,7 @@ Not listed one by one: 3370 functions are compiled with `/GS-` and 578 with `/EH
 | 0x004F9740 | CONTROL_SetVisible | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004F9780 | CONTROL_IsVisible | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004F97B0 | CONTROL_MouseInsideRect | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
+| 0x004F97D0 | D2Win_IsCtrlKeyDown | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004F97E0 | CURSOR_Draw | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004F9870 | D2COMP_DrawAllCompositeUnits | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004F98E0 | D2Win_UpdateAndDraw | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
@@ -636,7 +637,6 @@ Not listed one by one: 3370 functions are compiled with `/GS-` and 578 with `/EH
 | 0x00524C60 | STRTABLE_FindKey | `D2Lang/StrTable/strtable.cpp` | calling-convention shim |
 | 0x0052C900 | GAME_TriggerClientSave | `D2Game/GAME/Game.cpp` | volatile read or qualifier |
 | 0x00540DF0 | EVENT_AllocateUnitTimer | `D2Game/GAME/Event.cpp` | calling-convention shim |
-| 0x005475E0 | sub_005475E0_SelectMonsters | `D2Game/Unknown_005475E0.cpp` | calling-convention shim |
 | 0x005485B0 | PLRMSG_GetPotionLifePercent | `D2Game/PLAYER/PlrMsg.cpp` | calling-convention shim |
 | 0x00574250 | MONSTER_Initialize | `D2Game/MONSTER/Monster_00574250.cpp` | compiler option /Ob1 |
 | 0x00579090 | SUNITNPC_RefillNpcStore | `D2Game/UNIT/SUNITNPC.CPP` | volatile read or qualifier |
@@ -871,8 +871,9 @@ Not listed one by one: 3370 functions are compiled with `/GS-` and 578 with `/EH
 | 0x006C9AFF | sub_006C9AFF_FindLastCharacter | `D2Hell/Unknown_006C9A46.cpp` | compiler option /O1 |
 | 0x006C9B17 | sub_006C9B17_StripFileName | `D2Hell/Unknown_006C9A46.cpp` | compiler option /O1 |
 | 0x006C9B30 | sub_006C9B30_GetFileName | `D2Hell/Unknown_006C9A46.cpp` | compiler option /O1 |
-| 0x006CA740 | EgtLogMsgQueue_0075E868 | `Storm/Unknown_006CA740.cpp` | compiler option /EHa |
+| 0x006CA740 | EgtLogMsgQueue_0075E868 | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x006CAE5F | sub_006CAE5F_StaticInit_gFaultHandlerList | `D2Hell/Unknown_006CAE5F.cpp` | compiler option /O1, compiler option /Ob1 |
+| 0x006CB090 | sub_006CB090_DestroyLogMsgList | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x006CB3E0 | sub_006CB3E0_DestroyHashTable | `D2Client/Unknown_006CB3E0.cpp` | compiler option /Ob1 |
 | 0x006CB400 | sub_006CB400_Nop | `D2Client/Unknown_006CB3E0.cpp` | compiler option /Ob1 |
 | 0x006CB401 | sub_006CB401_StaticFini_gFaultHandlerList | `D2Hell/Unknown_006CB401.cpp` | compiler option /O1, compiler option /Ob1 |
