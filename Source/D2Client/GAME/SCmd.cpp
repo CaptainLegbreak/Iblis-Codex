@@ -14,6 +14,7 @@
 #include "D2StormTypes.h"
 #include "D2Path.h"
 #include "D2ClientMenus.h"
+#include "D2ClientTypes.h"
 
 struct D2ActiveRoomStrc;
 
@@ -1606,7 +1607,7 @@ struct D2StaticPathStrc;
 
 struct D2MonsterDataStrc;
 
-struct D2GfxNodeStrc;
+struct D2UnitOverlayStrc;
 
 struct D2SortEntryStrc;
 
@@ -1651,20 +1652,15 @@ enum D2C_CA2Constants
     GRID_SIZE = 48,
 };
 
-struct D2GfxNodeStrc
+struct D2UnitOverlayStrc
 {
     int nType;
     int nId;
     int nValue;
     char unk0x0C[0x98];
-    D2GfxNodeStrc* pNext;
+    D2UnitOverlayStrc* pNext;
 };
 
-struct D2GfxDataStrc
-{
-    char unk0x00[0x2C];
-    D2GfxNodeStrc* pNodeList2C;
-};
 
 struct D2TileRectStrc
 {
@@ -4977,7 +4973,7 @@ void __fastcall SCMD_SetGfxNodeValue(D2UnitStrc* pUnit, int nId, int nValue)
     D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
     D2_ASSERT(pGfxData, 510);
 
-    for (D2GfxNodeStrc* pNode = pGfxData->pNodeList2C; pNode; pNode = pNode->pNext)
+    for (D2UnitOverlayStrc* pNode = pGfxData->pOverlays; pNode; pNode = pNode->pNext)
     {
         if (pNode->nId == nId)
         {

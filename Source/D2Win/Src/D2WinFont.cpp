@@ -99,7 +99,7 @@ struct D2FontCacheStrc;
 
 struct T0044CB60;
 
-struct D2GfxDataStrc;
+struct D2CelContextStrc;
 
 struct Unicode;
 
@@ -109,9 +109,9 @@ int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile); // 0x006019F0
 
 D2CelStrc* __stdcall CelGetHandle(D2CmpCelContextStrc* pContext); // 0x00601840
 
-void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
+void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
-void __stdcall TEXTURE_CelDrawColor(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift); // 0x004F64B0
+void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift); // 0x004F64B0
 
 struct T0044CB60
 {
@@ -538,7 +538,7 @@ static void __stdcall FONT_DrawString(const Unicode* wszText, int nX, int nY, in
 
                 D2CharStrc* pCharInfo = gpfnGetCharInfo(*(const int*)&tChar);
                 tContext.nFrame = pCharInfo->nImageIndex;
-                TEXTURE_CelDrawColor((D2GfxDataStrc*)&tContext, nX, nY, (unsigned int)-1, 5, nGlobalPaletteShift);
+                TEXTURE_CelDrawColor(&tContext, nX, nY, (unsigned int)-1, 5, nGlobalPaletteShift);
 
                 nX += pCharInfo->nWidth;
             }
@@ -547,7 +547,7 @@ static void __stdcall FONT_DrawString(const Unicode* wszText, int nX, int nY, in
         {
             D2CharStrc* pCharInfo = gpfnGetCharInfo(*(const int*)&tChar);
             tContext.nFrame = pCharInfo->nImageIndex;
-            TEXTURE_CelDrawColor((D2GfxDataStrc*)&tContext, nX, nY, (unsigned int)-1, 5, nGlobalPaletteShift);
+            TEXTURE_CelDrawColor(&tContext, nX, nY, (unsigned int)-1, 5, nGlobalPaletteShift);
 
             nX += pCharInfo->nWidth;
         }
@@ -635,7 +635,7 @@ static void __stdcall FONT_DrawTextLineWithDrawMode(const Unicode* wszText, int 
 
                 D2CharStrc* pCharInfo = gpfnGetCharInfo(*(const int*)&tChar);
                 tContext.nFrame = pCharInfo->nImageIndex;
-                TEXTURE_CelDrawColor((D2GfxDataStrc*)&tContext, nX, nY, (unsigned int)-1, eDrawMode, nColor);
+                TEXTURE_CelDrawColor(&tContext, nX, nY, (unsigned int)-1, eDrawMode, nColor);
 
                 nX += pCharInfo->nWidth;
             }
@@ -644,7 +644,7 @@ static void __stdcall FONT_DrawTextLineWithDrawMode(const Unicode* wszText, int 
         {
             D2CharStrc* pCharInfo = gpfnGetCharInfo(*(const int*)&tChar);
             tContext.nFrame = pCharInfo->nImageIndex;
-            TEXTURE_CelDrawColor((D2GfxDataStrc*)&tContext, nX, nY, (unsigned int)-1, eDrawMode, nColor);
+            TEXTURE_CelDrawColor(&tContext, nX, nY, (unsigned int)-1, eDrawMode, nColor);
 
             nX += pCharInfo->nWidth;
         }
@@ -866,7 +866,7 @@ static void __stdcall sub_00501A80_DrawTextLine(int nY, int nWidth, int nShift, 
                 --pText;
                 D2CharStrc* pChar = gpfnGetCharInfo(c.wChar);
                 tContext.nFrame = pChar->nImageIndex;
-                TEXTURE_CelDrawColor((D2GfxDataStrc*)&tContext, nX, nY, -1, 5, nShift);
+                TEXTURE_CelDrawColor(&tContext, nX, nY, -1, 5, nShift);
                 nX += pChar->nWidth;
             }
         }
@@ -874,7 +874,7 @@ static void __stdcall sub_00501A80_DrawTextLine(int nY, int nWidth, int nShift, 
         {
             D2CharStrc* pChar = gpfnGetCharInfo(c.wChar);
             tContext.nFrame = pChar->nImageIndex;
-            TEXTURE_CelDrawColor((D2GfxDataStrc*)&tContext, nX, nY, -1, 5, nShift);
+            TEXTURE_CelDrawColor(&tContext, nX, nY, -1, 5, nShift);
             nX += pChar->nWidth;
         }
         else
@@ -956,7 +956,7 @@ void __fastcall D2Win_10134_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, i
 {
     const unsigned int nFrames = CelFileGetCelsPerDirection((D2CelFileStrc*)pCell);
     unsigned int nWidth;
-    D2GfxDataStrc tGfxData;
+    D2CelContextStrc tGfxData;
     memset(&tGfxData, 0, sizeof(tGfxData));
     tGfxData.pCellFile = (D2CelFileStrc*)pCell;
     tGfxData.nDirection = 0;

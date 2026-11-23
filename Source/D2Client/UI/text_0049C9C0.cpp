@@ -1,6 +1,6 @@
 struct D2UnitStrc; struct D2ActiveRoomStrc; struct D2BitBufferStrc;
+struct D2CelContextStrc { int nFrame; int unknown04[12]; void* pCellFile; int unknown38[2]; int nDirection; int unknown44; };
 struct Unicode { unsigned short wChar; };
-struct D2GfxDataStrc { int nFrame; int unknown04[12]; void* pCellFile; int unknown38[2]; int nDirection; int unknown44; };
 struct D2WaypointLayoutStrc { int nCellX,nCellY,nTextX,nTextY,unknown10,unknown14; };
 #pragma pack(push,1)
 struct D2WaypointEntryStrc { int nLevelId; unsigned char bEnabled; };
@@ -41,7 +41,7 @@ extern unsigned char gbSent_007BF085; // 0x007BF085
 extern int gnCurrentAct_007BF086; // 0x007BF086
 extern int gnWaypointCount; // 0x007BF08A
 extern int gnPanelMode_007BF08E; // 0x007BF08E
-void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
+void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
 static inline int GetWaypointPanelBottom() { return gnScreenHeight_00711470+gnOffsetY_007A285C; }
 
@@ -59,7 +59,7 @@ void __cdecl sub_0049C9C0_DrawWaypointPanel()
         }
     }
     D2Win_10127_SetFont(1);
-    D2GfxDataStrc tGfx;
+    D2CelContextStrc tGfx;
     memset(&tGfx,0,sizeof(tGfx));
     tGfx.pCellFile=gpBackground_007BF071;
     tGfx.nDirection=0;

@@ -157,7 +157,7 @@ void __fastcall sub_006B9860_Project(int nX, int nY, int nZ, int* pScreenX, int*
 
 extern int gnVertexBufferPos_00970F40;                                                                      // 0x00970F40
 
-static int sub_006B5C80_GetSpriteInfo(D2GfxDataStrc* pData, D2SpriteInfoStrc* pInfo);
+static int sub_006B5C80_GetSpriteInfo(D2CelContextStrc* pData, D2SpriteInfoStrc* pInfo);
 
 
 static int __declspec(noinline) __stdcall sub_006B5D40_UploadSprite(D2SpriteInfoStrc* pInfo, int nType, unsigned char* pPalette, int nUnused); // 0x006B5D40
@@ -589,7 +589,7 @@ void __fastcall sub_006B63F0_Emit(int nX, int nY, unsigned int nColor, unsigned 
     sub_006B63F0_DrawQuad(&tSprite, nX, nY, nColor, 0, nAlpha, 0);
 }
 
-static int sub_006B5C80_GetSpriteInfo(D2GfxDataStrc* pData, D2SpriteInfoStrc* pInfo)
+static int sub_006B5C80_GetSpriteInfo(D2CelContextStrc* pData, D2SpriteInfoStrc* pInfo)
 {
 	if (!sub_006001F0((D2CelContextStrc*)pData, 0, 1))
 	{
@@ -598,7 +598,7 @@ static int sub_006B5C80_GetSpriteInfo(D2GfxDataStrc* pData, D2SpriteInfoStrc* pI
 
 	if (!pData->pCel)
 	{
-		LOGMANAGER_WriteLogLine("error loading sprite unit:%d  class:%d  mode:%d  %s", pData->nUnitType, pData->nUnitIndex, pData->nMode, pData->pOverlays);
+		LOGMANAGER_WriteLogLine("error loading sprite unit:%d  class:%d  mode:%d  %s", pData->nType, pData->nClass, pData->nMode, pData->szName);
 		return 0;
 	}
 
@@ -667,7 +667,7 @@ static unsigned char sub_006B6680_GetAlpha(int nDrawMode)
 }
 
 // 0x006B6730
-int __fastcall sub_006B6730_DrawFlatSprite(D2GfxDataStrc* pData, int nX, int nY, unsigned int dwGamma, int eDrawMode, int nScreenMode, unsigned char* pPalette)
+int __fastcall sub_006B6730_DrawFlatSprite(D2CelContextStrc* pData, int nX, int nY, unsigned int dwGamma, int eDrawMode, int nScreenMode, unsigned char* pPalette)
 {
 	D2SpriteInfoStrc tInfo;
 	D2TLVertexStrc pVertices[4];
