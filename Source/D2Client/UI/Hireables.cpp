@@ -361,6 +361,50 @@ static inline D2PetTypeTxt* sub_00493240_GetPetTypeTxtRecord(int nPetType)
     return 0;
 }
 
+int __cdecl GAME_GetConnectionType(); // 0x0044DB30
+
+unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
+
+// 0x00493840
+void __cdecl sub_00493840_TogglePopup()
+{
+    switch (gnPetIconPopupState)
+    {
+    case 0:
+        if (!GAME_GetConnectionType())
+        {
+            gnPetIconPopupState = 2;
+            gnGlobal_007BEEE8 = 0;
+            UI_SetUIVar(0x23, 1, 0);
+        }
+        else
+        {
+            gnPetIconPopupState = 1;
+            UI_SetUIVar(0x23, 0, 0);
+        }
+        break;
+
+    case 1:
+        if (!GAME_GetConnectionType())
+        {
+            gnPetIconPopupState = 0;
+            UI_SetUIVar(0x23, 0, 0);
+        }
+        else
+        {
+            gnPetIconPopupState = 2;
+            gnGlobal_007BEEE8 = 0;
+            UI_SetUIVar(0x23, 1, 0);
+        }
+        break;
+
+    default:
+        gnPetIconPopupState = 0;
+        UI_SetUIVar(0x23, 0, 0);
+        break;
+    }
+}
+
 // 0x00494320
 void __cdecl HIREABLES_LoadHelpCels()
 {
@@ -418,6 +462,28 @@ void __cdecl HIREABLES_FreeHelpCels()
         ARCHIVE_FreeClientCellFile(gpHelpYellowBulletCel);
         gpHelpYellowBulletCel = 0;
     }
+}
+
+// 0x00495030
+void __cdecl sub_00495030_DrawKeyHelp()
+{
+    Unicode wszText[200];
+    Unicode wszKey[30];
+    sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x1051));
+    if (CUNIT_GetHotkeyBinding(6, 1) != 0xFFFF)
+    {
+        memset(wszKey, 0, sizeof(wszKey));
+        sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(6, 1));
+        sub_00526700(wszText, wszKey);
+    }
+    if (CUNIT_GetHotkeyBinding(6, 0) != 0xFFFF)
+    {
+        memset(wszKey, 0, sizeof(wszKey));
+        sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(6, 0));
+        sub_00526700(wszText, wszKey);
+    }
+    const int nWidth = D2Win_10121_GetTextWidth(wszText);
+    D2Win_10117_DrawText(wszText, gnScreenWidth - nWidth / 2 - 0x3A, gnScreenHeight - 0xC5, 0, 0);
 }
 
 // 0x00496990

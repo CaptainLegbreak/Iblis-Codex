@@ -2189,6 +2189,16 @@ void __stdcall SCMD_HandleQuitMessage(SMSGHANDLER_PARAMS* pMsg)
     pMsg->lResult = 0;
 }
 
+enum { USE_RESULT = 0 };
+
+// 0x00451AB0
+void __stdcall sub_00451AB0(SMSGHANDLER_PARAMS* msg)
+{
+// build: symbol ?gbClientAppActive@* 0x0070F7E0
+    gbClientAppActive = msg->wParam != 0;
+    msg->bReturn = USE_RESULT;
+}
+
 // 0x00451AD0
 void __stdcall SCMD_HandleDefaultMessage(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -2316,6 +2326,45 @@ Unicode* __fastcall SCMD_StripColorCodes(Unicode* pString)
     }
 
     return pString;
+}
+
+Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
+
+void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                  // 0x00526F20
+
+extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
+
+// 0x004523A0
+Unicode* __fastcall sub_004523A0_FormatRangeText(Unicode* pText, int nFirst, int nSecond)
+{
+    if (pText->wChar)
+    {
+        D2_ASSERT(sub_00526800(pText) < 500, 0x39A);
+        unsigned short wszBufferBuf[0x200];
+        Unicode* wszBuffer = (Unicode*)wszBufferBuf;
+        wszBuffer[0].wChar = 0;
+        for (int i = 1; i < 0x200; i++)
+        {
+            wszBuffer[i].wChar = 0;
+        }
+        unsigned short wszDigitBuf[4];
+        Unicode* wszDigit = (Unicode*)wszDigitBuf;
+        wszDigit[0].wChar = 0;
+        wszDigit[1].wChar = 0;
+        wszDigit[2].wChar = 0;
+        sub_005267E0(wszBuffer, D2LANG_GetStringFromTblIndex(0xF9A));
+        char szDigit[4];
+        wsprintfA(szDigit, "%c", (char)(nFirst + '0'));
+        sub_00526F20_ToUnicode(wszDigit, szDigit, 2);
+        sub_00526700(wszBuffer, wszDigit);
+        sub_00526700(wszBuffer, pText);
+        sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0xF9A));
+        wsprintfA(szDigit, "%c", (char)(nSecond + '0'));
+        sub_00526F20_ToUnicode(wszDigit, szDigit, 2);
+        sub_00526700(wszBuffer, wszDigit);
+        sub_005267E0(pText, wszBuffer);
+    }
+    return pText;
 }
 
 // 0x004524D0

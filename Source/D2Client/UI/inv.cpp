@@ -634,6 +634,53 @@ void __cdecl INV_SendLeaveGame()
     }
 }
 
+struct D2ClientInterfaceStrc
+{
+    char unk0x00[0x5C];
+    int (__cdecl* pfnGetVersion)();
+};
+
+struct D2GameLogonPacketStrc
+{
+    unsigned char nHeader;
+    unsigned char nServerHash[4];
+    unsigned char f_5[2];
+    unsigned char nClass;
+    unsigned char nVersion[4];
+    unsigned char nKey1[4];
+    unsigned char nKey2[4];
+    unsigned char f_14;
+    char szName[16];
+};
+
+D2ClientInterfaceStrc* __cdecl sub_0044D540_GetClientInterface();                                           // 0x0044D540
+
+int __cdecl CHAT_HasClassOverride();                                                                // 0x0047AA30
+
+extern char gszClientCharName[];                                                                         // 0x007A05C4
+
+unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
+
+// 0x00477F70
+void __fastcall sub_00477F70_SendGameLogon(int nServerToken, int nServerHash)
+{
+    D2GameLogonPacketStrc tPacket;
+    tPacket.nHeader = 0x68;
+    *(int*)tPacket.nServerHash = nServerHash;
+    *(short*)tPacket.f_5 = (short)nServerToken;
+    *(int*)tPacket.nVersion = sub_0044D540_GetClientInterface()->pfnGetVersion();
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    *(unsigned int*)tPacket.nKey1 = FOG_IsExpansion() ? 0xED5DCC50 : 0x2185EDD6;
+    *(unsigned int*)tPacket.nKey2 = 0x91A519B6;
+    tPacket.f_14 = STRTABLE_GetLanguage();
+    tPacket.nClass = CHAT_HasClassOverride() ? sub_0047AA20_GetClassOverride() : gnCharClass_007A0522;
+    SStrCopy(tPacket.szName, gszClientCharName, 0x7FFFFFFF);
+// build: symbol ?CLIENT_Send@* 0x0052AE50
+    CLIENT_Send(sizeof(D2GameLogonPacketStrc), 0, &tPacket);
+    gnSentBytes += sizeof(D2GameLogonPacketStrc);
+    gnSentPackets += 1;
+}
+
 // 0x00478010
 void __cdecl sub_00478010()
 {
@@ -3922,6 +3969,347 @@ static void __stdcall INV_ClickOutsidePanel(int nY, SMSGHANDLER_PARAMS* pMsg, in
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
+#define MV(x) (x)
+
+#define PACKET(x) (x)
+
+int __stdcall D2Common_10299(D2UnitStrc* pUnit, int nBodyLoc, D2UnitStrc* pItem, int bSkipRequirementCheck);  // 0x0063DE60
+
+int __stdcall sub_0062C0B0_GetItemTypeClass(D2UnitStrc* pItem);
+
+// 0x00490780
+int __fastcall sub_00490780(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int nBodyLoc)
+{
+    int nResult = 0;
+    D2UnitStrc* pItem = INVENTORY_GetCursorItem(pInventory);
+    D2UnitStrc* pOther = INVENTORY_GetItemFromBodyLoc(pInventory, MV(5));
+    D2UnitStrc* pSelected = INVENTORY_GetItemFromBodyLoc(pInventory, MV(4));
+    if (sub_00468830() == MV(6))
+    {
+        D2UnitStrc* pCursor = CURSOR_GetCursorItem();
+        if (pCursor && pSelected && !ITEM_IsItemActionBlocked(pSelected) && INV_CheckTradeClickDelay())
+        {
+            MSG_SendTwoDwords(PACKET(0x27), !pSelected ? -1 : pSelected->dwUnitId, !pCursor ? -1 : pCursor->dwUnitId);
+            sub_004C21F0(pSelected);
+            nResult = 1;
+        }
+    }
+    else if (sub_00468830() == MV(8))
+    {
+        if (pSelected && !ITEM_IsItemActionBlocked(pSelected) && INV_CheckTradeClickDelay())
+        {
+            sub_00478680_SendPacket5(PACKET(0x4C), !pSelected ? -1 : pSelected->dwUnitId);
+            sub_004C21F0(pSelected);
+            nResult = 1;
+        }
+    }
+    switch (D2Common_10299(pPlayer, nBodyLoc, pItem, 0))
+    {
+    case 0:
+        if (pItem)
+        {
+            if (D2Common_10299(pPlayer, nBodyLoc, pItem, 1))
+            {
+                const int nClass = sub_0062C0B0_GetItemTypeClass(pItem);
+                if (nClass == MV(7) || nClass == (!pPlayer ? -1 : pPlayer->dwClassId))
+                {
+                    UNITSND_PlayPlayerSpeech(pPlayer, MV(0x14));
+                    return 1;
+                }
+            }
+            UNITSND_PlayPlayerSpeech(pPlayer, MV(0x13));
+        }
+        return 1;
+    case 1:
+        if (!ITEM_IsItemActionBlocked(pItem) && INV_CheckTradeClickDelay())
+        {
+            MSG_SendTwoDwords(PACKET(0x1A), !pItem ? -1 : pItem->dwUnitId, MV(4));
+            sub_004C21F0(pItem);
+            sub_004B9A00(ITEM_GetDropSound(pItem), 0, 0, 0, 0);
+            nResult = 1;
+        }
+        break;
+    case 2:
+        if (!ITEM_IsItemActionBlocked(pItem) && !ITEM_IsItemActionBlocked(pOther) && INV_CheckTradeClickDelay())
+        {
+            MSG_SendTwoDwords(PACKET(0x1B), !pItem ? -1 : pItem->dwUnitId, MV(4));
+            sub_004C21F0(pOther);
+            sub_004C21F0(pItem);
+            sub_004B9A00(ITEM_GetDropSound(pItem), 0, 0, 0, 0);
+            gbNpcTradeClicked = 1;
+            nResult = 1;
+        }
+        break;
+    case 3:
+        if (sub_00486B80_IsNpcStateB())
+        {
+            if (!ITEM_IsItemActionBlocked(pSelected) && INV_CheckTradeClickDelay())
+            {
+                sub_004785B0_SendPacket3(PACKET(0x1C), MV(4));
+                sub_004C21F0(pSelected);
+                gbNpcTradeClicked = 1;
+                nResult = 1;
+            }
+        }
+        else if (gnInvPanelMode < MV(0x13))
+        {
+            INV_ForwardTradeClick((int)pPlayer, (int)pSelected, 1, gnInvMouseX, gnInvMouseY, 0, 0);
+        }
+        break;
+    case 4:
+        if (gnInvPanelMode == MV(4))
+        {
+            INV_ForwardTradeClick((int)pPlayer, (int)pOther, 1, gnInvMouseX, gnInvMouseY, 0, 0);
+        }
+        else if (!ITEM_IsItemActionBlocked(pOther) && INV_CheckTradeClickDelay())
+        {
+            sub_004785B0_SendPacket3(PACKET(0x1C), MV(5));
+            sub_004C21F0(pOther);
+            gbNpcTradeClicked = 1;
+            nResult = 1;
+        }
+        break;
+    case 5:
+        if (!ITEM_IsItemActionBlocked(pSelected) && INV_CheckTradeClickDelay())
+        {
+            MSG_SendTwoDwords(PACKET(0x1D), !pItem ? -1 : pItem->dwUnitId, MV(4));
+            sub_004C21F0(pItem);
+            sub_004B9A00(ITEM_GetDropSound(pItem), 0, 0, 0, 0);
+            nResult = 1;
+        }
+        break;
+    case 7:
+        if (!ITEM_IsItemActionBlocked(pItem) && !ITEM_IsItemActionBlocked(pSelected) && !ITEM_IsItemActionBlocked(pOther) && INV_CheckTradeClickDelay())
+        {
+            MSG_SendTwoDwords(PACKET(0x1E), !pItem ? -1 : pItem->dwUnitId, MV(4));
+            sub_004C21F0(pItem);
+            sub_004C21F0(pSelected);
+            sub_004C21F0(pOther);
+            nResult = 1;
+        }
+        break;
+    case 6:
+        if (!ITEM_IsItemActionBlocked(pItem) && INV_CheckTradeClickDelay() && gnInvPanelMode != MV(0xB))
+        {
+            MSG_SendTwoDwords(PACKET(0x21), !pItem ? -1 : pItem->dwUnitId, !pSelected ? -1 : pSelected->dwUnitId);
+            sub_004C21F0(pItem);
+            sub_004B9A00(ITEM_GetDropSound(pItem), 0, 0, 0, 0);
+            nResult = 1;
+        }
+        break;
+    }
+    return nResult;
+}
+
+// 0x00490BA0
+int __fastcall sub_00490BA0(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int nBodyLoc)
+{
+    int nResult = 0;
+    D2UnitStrc* pItem = INVENTORY_GetCursorItem(pInventory);
+    D2UnitStrc* pLeft = INVENTORY_GetItemFromBodyLoc(pInventory, MV(5));
+    D2UnitStrc* pRight = INVENTORY_GetItemFromBodyLoc(pInventory, MV(4));
+    if (sub_00468830() == MV(6))
+    {
+        D2UnitStrc* pCursor = CURSOR_GetCursorItem();
+        if (pCursor && pLeft && !ITEM_IsItemActionBlocked(pLeft) && INV_CheckTradeClickDelay())
+        {
+            MSG_SendTwoDwords(PACKET(0x27), !pLeft ? -1 : pLeft->dwUnitId, !pCursor ? -1 : pCursor->dwUnitId);
+            sub_004C21F0(pLeft);
+            nResult = 1;
+        }
+    }
+    else if (sub_00468830() == MV(8))
+    {
+        if (pLeft && !ITEM_IsItemActionBlocked(pLeft) && INV_CheckTradeClickDelay())
+        {
+            sub_00478680_SendPacket5(PACKET(0x4C), !pLeft ? -1 : pLeft->dwUnitId);
+            sub_004C21F0(pLeft);
+            nResult = 1;
+        }
+    }
+    switch (D2Common_10299(pPlayer, nBodyLoc, pItem, 0))
+    {
+    case 0:
+        if (pItem)
+        {
+            if (D2Common_10299(pPlayer, nBodyLoc, pItem, 1))
+            {
+                const int nClass = sub_0062C0B0_GetItemTypeClass(pItem);
+                if (nClass == MV(7) || nClass == (!pPlayer ? -1 : pPlayer->dwClassId))
+                {
+                    UNITSND_PlayPlayerSpeech(pPlayer, MV(0x14));
+                    return 1;
+                }
+            }
+            UNITSND_PlayPlayerSpeech(pPlayer, MV(0x13));
+        }
+        return 1;
+    case 1:
+        if (!ITEM_IsItemActionBlocked(pItem) && INV_CheckTradeClickDelay())
+        {
+            MSG_SendTwoDwords(PACKET(0x1A), !pItem ? -1 : pItem->dwUnitId, MV(5));
+            sub_004C21F0(pItem);
+            sub_004B9A00(ITEM_GetDropSound(pItem), 0, 0, 0, 0);
+            nResult = 1;
+        }
+        break;
+    case 2:
+        if (!ITEM_IsItemActionBlocked(pItem) && !ITEM_IsItemActionBlocked(pRight) && INV_CheckTradeClickDelay())
+        {
+            MSG_SendTwoDwords(PACKET(0x1B), !pItem ? -1 : pItem->dwUnitId, MV(5));
+            sub_004C21F0(pRight);
+            sub_004C21F0(pItem);
+            sub_004B9A00(ITEM_GetDropSound(pItem), 0, 0, 0, 0);
+            gbNpcTradeClicked = 1;
+            nResult = 1;
+        }
+        break;
+    case 3:
+        if (sub_00486B80_IsNpcStateB())
+        {
+            if (!ITEM_IsItemActionBlocked(pLeft) && INV_CheckTradeClickDelay())
+            {
+                sub_004785B0_SendPacket3(PACKET(0x1C), MV(5));
+                sub_004C21F0(pLeft);
+                gbNpcTradeClicked = 1;
+                nResult = 1;
+            }
+        }
+        else if (gnInvPanelMode < MV(0x13))
+        {
+            INV_ForwardTradeClick((int)pPlayer, (int)pLeft, 1, gnInvMouseX, gnInvMouseY, 0, 0);
+        }
+        break;
+    case 4:
+        if (gnInvPanelMode == MV(4))
+        {
+            INV_ForwardTradeClick((int)pPlayer, (int)pRight, 1, gnInvMouseX, gnInvMouseY, 0, 0);
+        }
+        else if (!ITEM_IsItemActionBlocked(pRight) && INV_CheckTradeClickDelay())
+        {
+            sub_004785B0_SendPacket3(PACKET(0x1C), MV(4));
+            sub_004C21F0(pRight);
+            gbNpcTradeClicked = 1;
+            nResult = 1;
+        }
+        break;
+    case 5:
+        if (!ITEM_IsItemActionBlocked(pLeft) && INV_CheckTradeClickDelay())
+        {
+            MSG_SendTwoDwords(PACKET(0x1D), !pItem ? -1 : pItem->dwUnitId, MV(5));
+            sub_004C21F0(pItem);
+            sub_004B9A00(ITEM_GetDropSound(pItem), 0, 0, 0, 0);
+            nResult = 1;
+        }
+        break;
+    case 7:
+        if (!ITEM_IsItemActionBlocked(pItem) && !ITEM_IsItemActionBlocked(pRight) && !ITEM_IsItemActionBlocked(pLeft) && INV_CheckTradeClickDelay())
+        {
+            MSG_SendTwoDwords(PACKET(0x1E), !pItem ? -1 : pItem->dwUnitId, MV(5));
+            sub_004C21F0(pItem);
+            sub_004C21F0(pRight);
+            sub_004C21F0(pLeft);
+            nResult = 1;
+        }
+        break;
+    case 6:
+        if (!ITEM_IsItemActionBlocked(pItem) && INV_CheckTradeClickDelay() && gnInvPanelMode != MV(0xB))
+        {
+            MSG_SendTwoDwords(PACKET(0x21), !pItem ? -1 : pItem->dwUnitId, !pLeft ? -1 : pLeft->dwUnitId);
+            sub_004C21F0(pItem);
+            sub_004B9A00(ITEM_GetDropSound(pItem), 0, 0, 0, 0);
+            nResult = 1;
+        }
+        break;
+    }
+    return nResult;
+}
+
+// 0x00490FC0
+int __fastcall sub_00490FC0(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int nBodyLoc)
+{
+    int nResult = 0;
+    D2UnitStrc* pItem = INVENTORY_GetCursorItem(pInventory);
+    if (sub_00468830() == MV(6))
+    {
+        pPlayer = CURSOR_GetCursorItem();
+        pItem = INVENTORY_GetItemFromBodyLoc(pInventory, nBodyLoc);
+        if (pPlayer && pItem && !ITEM_IsItemActionBlocked(pItem) && INV_CheckTradeClickDelay())
+        {
+            MSG_SendTwoDwords(MV(0x27), pItem->dwUnitId, !pPlayer ? -1 : pPlayer->dwUnitId);
+            sub_004C21F0(pItem);
+            nResult = 1;
+        }
+    }
+    else if (sub_00468830() == MV(8))
+    {
+        pItem = INVENTORY_GetItemFromBodyLoc(pInventory, nBodyLoc);
+        if (pItem && !ITEM_IsItemActionBlocked(pItem) && INV_CheckTradeClickDelay())
+        {
+            sub_00478680_SendPacket5(MV(0x4C), pItem->dwUnitId);
+            sub_004C21F0(pItem);
+            nResult = 1;
+        }
+    }
+    else
+    {
+        switch (D2Common_10299(pPlayer, nBodyLoc, pItem, 0))
+        {
+        case 0:
+            if (pItem)
+            {
+                if (D2Common_10299(pPlayer, nBodyLoc, pItem, 1))
+                {
+                    const int nClass = sub_0062C0B0_GetItemTypeClass(pItem);
+                    if (nClass == MV(7) || nClass == (!pPlayer ? -1 : pPlayer->dwClassId))
+                    {
+                        UNITSND_PlayPlayerSpeech(pPlayer, MV(0x14));
+                        return 1;
+                    }
+                }
+                UNITSND_PlayPlayerSpeech(pPlayer, MV(0x13));
+            }
+            return 1;
+        case 1:
+            if (!ITEM_IsItemActionBlocked(pItem) && INV_CheckTradeClickDelay())
+            {
+                MSG_SendTwoDwords(MV(0x1A), !pItem ? -1 : pItem->dwUnitId, (unsigned short)nBodyLoc);
+                sub_004C21F0(pItem);
+                sub_004B9A00(ITEM_GetDropSound(pItem), 0, 0, 0, 0);
+                gbNpcTradeClicked = 1;
+                nResult = 1;
+            }
+            break;
+        case 3:
+            if (sub_00486B80_IsNpcStateB())
+            {
+                if (INV_CheckTradeClickDelay())
+                {
+                    sub_004785B0_SendPacket3(MV(0x1C), nBodyLoc);
+                    gbNpcTradeClicked = 1;
+                    nResult = 1;
+                }
+            }
+            else if (gnInvPanelMode < MV(0x13))
+            {
+                pItem = INVENTORY_GetItemFromBodyLoc(pInventory, nBodyLoc);
+                INV_ForwardTradeClick((int)pPlayer, (int)pItem, 1, gnInvMouseX, gnInvMouseY, 0, 0);
+            }
+            break;
+        case 5:
+            if (!ITEM_IsItemActionBlocked(pItem) && INV_CheckTradeClickDelay())
+            {
+                MSG_SendTwoDwords(MV(0x1D), !pItem ? -1 : pItem->dwUnitId, (unsigned short)nBodyLoc);
+                sub_004C21F0(pItem);
+                sub_004B9A00(ITEM_GetDropSound(pItem), 0, 0, 0, 0);
+                nResult = 1;
+            }
+            break;
+        }
+    }
+    return nResult;
+}
+
 // 0x004912A0
 void __stdcall INV_HandlePanelClick(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -4064,6 +4452,122 @@ AFTER_BODY:
     }
     pMsg->bReturn=0;
     INV_ClickOutsidePanel(y,pMsg,x);
+}
+
+const Unicode* __fastcall CMDTBL_GetKeyText(int nKey, int nArg2);                                     // 0x00469DE0
+
+static int __fastcall GetCenteredXInline(unsigned short nString, int nX)
+{
+    unsigned short wszTextBuf[100];
+    Unicode* wszText = (Unicode*)wszTextBuf;
+    for (int i = 0; i < 100; ++i)
+    {
+        wszText[i].wChar = 0;
+    }
+    sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nString));
+    int nWidth = D2Win_10121_GetTextWidth(wszText);
+    nWidth /= 2;
+    return nX - nWidth;
+}
+
+// 0x00495DC0
+void __cdecl sub_00495DC0_DrawHelpText()
+{
+    unsigned short wszLine1Buf[100];
+    Unicode* wszLine1 = (Unicode*)wszLine1Buf;
+    unsigned short wszLine2Buf[100];
+    Unicode* wszLine2 = (Unicode*)wszLine2Buf;
+    unsigned short wszLine3Buf[100];
+    Unicode* wszLine3 = (Unicode*)wszLine3Buf;
+    unsigned short wszLine4Buf[100];
+    Unicode* wszLine4 = (Unicode*)wszLine4Buf;
+    unsigned short wszLine5Buf[100];
+    Unicode* wszLine5 = (Unicode*)wszLine5Buf;
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1066), GetCenteredXInline(0x1066, 0x131), 0x11, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1030), GetCenteredXInline(0x1030, 0x21D), 0x49, 0, 0);
+
+    const int nOldFont = D2Win_10127_SetFont(5);
+
+    for (int i = 0; i < 100; ++i)
+    {
+        wszLine1[i].wChar = 0;
+    }
+    sub_005269D0(sizeof(wszLine1Buf) / sizeof(wszLine1[0]), wszLine1, D2LANG_GetStringFromTblIndex(0x1067), CMDTBL_GetKeyText(0x22, 1));
+    D2Win_10117_DrawText(wszLine1, 0x75, 0x4E, 0, 0);
+
+    for (int i = 0; i < 100; ++i)
+    {
+        wszLine2[i].wChar = 0;
+    }
+    sub_005269D0(sizeof(wszLine2Buf) / sizeof(wszLine2[0]), wszLine2, D2LANG_GetStringFromTblIndex(0x1068), CMDTBL_GetKeyText(0x25, 1));
+    D2Win_10117_DrawText(wszLine2, 0x75, 0x62, 0, 0);
+
+    for (int i = 0; i < 100; ++i)
+    {
+        wszLine3[i].wChar = 0;
+    }
+    sub_005269D0(sizeof(wszLine3Buf) / sizeof(wszLine3[0]), wszLine3, D2LANG_GetStringFromTblIndex(0x1069), CMDTBL_GetKeyText(0x24, 1));
+    D2Win_10117_DrawText(wszLine3, 0x75, 0x76, 0, 0);
+
+    for (int i = 0; i < 100; ++i)
+    {
+        wszLine4[i].wChar = 0;
+    }
+    sub_005269D0(sizeof(wszLine4Buf) / sizeof(wszLine4[0]), wszLine4, D2LANG_GetStringFromTblIndex(0x106A), CMDTBL_GetKeyText(0x7, 1));
+    D2Win_10117_DrawText(wszLine4, 0x75, 0x8A, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x106B), 0x75, 0x9E, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x106C), 0x75, 0xB2, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x106D), 0x75, 0xC6, 0, 0);
+
+    for (int i = 0; i < 100; ++i)
+    {
+        wszLine5[i].wChar = 0;
+    }
+    sub_005269D0(sizeof(wszLine5Buf) / sizeof(wszLine5[0]), wszLine5, D2LANG_GetStringFromTblIndex(0x106E), CMDTBL_GetKeyText(0x6, 1));
+    D2Win_10117_DrawText(wszLine5, 0x75, 0xDA, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x106F), GetCenteredXInline(0x106F, 0x37), 0x168, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1070), GetCenteredXInline(0x1070, 0x83), 0x122, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1071), GetCenteredXInline(0x1071, 0x83), 0x131, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1072), GetCenteredXInline(0x1072, 0x83), 0x140, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1074), GetCenteredXInline(0x1074, 0xB6), 0x181, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1075), GetCenteredXInline(0x1075, 0xB6), 0x190, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1076), GetCenteredXInline(0x1076, 0xE7), 0x168, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1077), GetCenteredXInline(0x1077, 0x120), 0x181, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1078), GetCenteredXInline(0x1078, 0x120), 0x190, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1079), GetCenteredXInline(0x1079, 0x162), 0x113, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x107A), GetCenteredXInline(0x107A, 0x162), 0x122, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x107B), GetCenteredXInline(0x107B, 0x162), 0x131, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x107C), GetCenteredXInline(0x107C, 0x162), 0x140, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x107D), GetCenteredXInline(0x107D, 0x1C1), 0x190, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1073), GetCenteredXInline(0x1073, 0x1FB), 0x122, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1071), GetCenteredXInline(0x1071, 0x1FB), 0x131, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1072), GetCenteredXInline(0x1072, 0x1FB), 0x140, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x107E), GetCenteredXInline(0x107E, 0x24A), 0x168, 0, 0);
+
+    D2Win_10127_SetFont(nOldFont);
 }
 
 // 0x00496720
