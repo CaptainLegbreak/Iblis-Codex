@@ -447,3 +447,5 @@ int __fastcall PARTYSCREEN_CommandHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     return 0;
 }
 
+
+#include "gen/data/Source/D2Game/PLAYER/PartyScreen.inc"
