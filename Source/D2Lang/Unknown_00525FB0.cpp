@@ -632,23 +632,4 @@ D2LangByteRangeStrc* gpLeadByteRanges; // 0x00882B28
 
 unsigned short* gpCharMapIndex; // 0x00882B2C
 
-// 0x00527720
-void __cdecl sub_00527720_FreeCodePageTables()
-{
-    if (gpLeadByteRanges)
-    {
-        SMemFree(gpLeadByteRanges, "delete[]", -1, 0);
-        gpLeadByteRanges = 0;
-    }
 // build: symbol ?gpCharMap@* 0x00882B24
-    if (gpCharMap)
-    {
-        SMemFree(gpCharMap, "delete[]", -1, 0);
-        gpCharMap = 0;
-    }
-    if (gpCharMapIndex)
-    {
-        SMemFree(gpCharMapIndex, "delete[]", -1, 0);
-        gpCharMapIndex = 0;
-    }
-}
