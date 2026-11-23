@@ -2362,11 +2362,6 @@
      "name": "MAINMENUS_InitStorm"
     },
     {
-     "va": "0x00409020",
-     "length": 386,
-     "name": "MAINMENUS_LogPoolError"
-    },
-    {
      "va": "0x004098B0",
      "length": 270,
      "name": "MAINMENUS_PoolReallocLarge"
@@ -2382,11 +2377,6 @@
      "name": "MAINMENUS_LogWritePrefixed"
     },
     {
-     "va": "0x004107F0",
-     "length": 308,
-     "name": "MAINMENUS_GetSaveDiskFreeSpace"
-    },
-    {
      "va": "0x0042E6A0",
      "length": 7,
      "name": "MAINMENUS_SetGatewayValue"
@@ -2397,9 +2387,19 @@
      "name": "MAINMENUS_SetGatewayFlag"
     },
     {
+     "va": "0x0042E6D0",
+     "length": 2175,
+     "name": "?MAINMENUS_LoadFrontEndCells@@YAXXZ"
+    },
+    {
      "va": "0x0042EF50",
      "length": 907,
      "name": "?MAINMENUS_FreeFrontEndCells@@YAXXZ"
+    },
+    {
+     "va": "0x0042F2E0",
+     "length": 130,
+     "name": "?MAINMENUS_ReadPaletteFiles@@YIHPBD0@Z"
     },
     {
      "va": "0x0042F3A0",
@@ -2440,6 +2440,21 @@
      "va": "0x0042F790",
      "length": 103,
      "name": "?MAINMENUS_ShowCantConnect@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0042FA40",
+     "length": 103,
+     "name": "?MAINMENUS_InitAuxBattleNet@@YAHXZ"
+    },
+    {
+     "va": "0x0042FAB0",
+     "length": 98,
+     "name": "?MAINMENUS_GetAuxBattleNetFlag@@YAHXZ"
+    },
+    {
+     "va": "0x0042FD10",
+     "length": 180,
+     "name": "?MAINMENUS_BuildLocalizedVideoPath@@YAXPADPBD1@Z"
     },
     {
      "va": "0x0042FDD0",
@@ -2502,6 +2517,11 @@
      "name": "?MAINMENUS_CountNameSeparators@@YAHPBDH@Z"
     },
     {
+     "va": "0x00430620",
+     "length": 150,
+     "name": "?MAINMENUS_UpdateNameOk@@YAXXZ"
+    },
+    {
      "va": "0x00430730",
      "length": 21,
      "name": "?MAINMENUS_ToggleHardcore@@YGHH@Z"
@@ -2552,6 +2572,11 @@
      "name": "?MAINMENUS_IdleLoopCallback@@YGHH@Z"
     },
     {
+     "va": "0x00430BC0",
+     "length": 99,
+     "name": "?MAINMENUS_HasSaveFiles@@YAHXZ"
+    },
+    {
      "va": "0x00430C30",
      "length": 23,
      "name": "?sub_00430C30_OnCancel@@YGHH@Z"
@@ -2562,6 +2587,10 @@
      "name": "?MAINMENUS_OnCreate@@YGHH@Z"
     },
     {
+     "va": "0x00430CD0",
+     "length": 536
+    },
+    {
      "va": "0x00431020",
      "length": 32,
      "name": "?MAINMENUS_ClearCreditsLists@@YAXXZ"
@@ -2570,6 +2599,11 @@
      "va": "0x00431040",
      "length": 16,
      "name": "?MAINMENUS_ClearCreditsList@@YAXXZ"
+    },
+    {
+     "va": "0x00431050",
+     "length": 613,
+     "name": "?MAINMENUS_ShowCredits@@YIHH@Z"
     },
     {
      "va": "0x004312C0",
@@ -2586,9 +2620,19 @@
      "name": "MAINMENUS_CreateLevelScreen"
     },
     {
+     "va": "0x00431600",
+     "length": 452,
+     "name": "?MAINMENUS_ShowLevelScreen@@YGHH@Z"
+    },
+    {
      "va": "0x004317D0",
      "length": 152,
      "name": "MAINMENUS_FlushInput"
+    },
+    {
+     "va": "0x00431870",
+     "length": 151,
+     "name": "?MAINMENUS_PlayVideo@@YGXHPBD@Z"
     },
     {
      "va": "0x00431910",
@@ -2671,6 +2715,11 @@
      "name": "?sub_00431F50_OnCancel@@YGHH@Z"
     },
     {
+     "va": "0x00431F70",
+     "length": 168,
+     "name": "?MAINMENUS_SaveExists@@YAHXZ"
+    },
+    {
      "va": "0x00432020",
      "length": 23,
      "name": "?sub_00432020_OnCancel@@YGHH@Z"
@@ -2729,6 +2778,11 @@
      "length": 295
     },
     {
+     "va": "0x004326F0",
+     "length": 2030,
+     "name": "?MAINMENUS_LoadCharCreateCells@@YAXXZ"
+    },
+    {
      "va": "0x00432EE0",
      "length": 13,
      "name": "?MAINMENUS_CloseBox@@YGHH@Z"
@@ -2769,6 +2823,21 @@
      "name": "?MAINMENUS_OnCloseBox@@YGHH@Z"
     },
     {
+     "va": "0x004334E0",
+     "length": 337,
+     "name": "?MAINMENUS_PlayIntro@@YAXXZ"
+    },
+    {
+     "va": "0x00433640",
+     "length": 121,
+     "name": "?MAINMENUS_PlayIntroVideo@@YAXXZ"
+    },
+    {
+     "va": "0x004336C0",
+     "length": 333,
+     "name": "?MAINMENUS_ShowMainMenu@@YAXXZ"
+    },
+    {
      "va": "0x00433BD0",
      "length": 13,
      "name": "?MAINMENUS_OnNameChanged@@YGHH@Z"
@@ -2779,6 +2848,114 @@
      "name": "?MAINMENUS_OnLoginChanged@@YGHH@Z"
     },
     {
+     "va": "0x00434060",
+     "length": 388
+    },
+    {
+     "va": "0x004341F0",
+     "length": 35,
+     "name": "?MAINMENUS_CheckCreditsEnd@@YGHH@Z"
+    },
+    {
+     "va": "0x00434220",
+     "length": 184,
+     "name": "?MAINMENUS_PromptPlayDisc@@YAHXZ"
+    },
+    {
+     "va": "0x004342E0",
+     "length": 58,
+     "name": "?MAINMENUS_PromptExpansionDisc@@YAHXZ"
+    },
+    {
+     "va": "0x00434320",
+     "length": 85,
+     "name": "?MAINMENUS_PlayClassicIntro@@YGHH@Z"
+    },
+    {
+     "va": "0x00434380",
+     "length": 85,
+     "name": "?MAINMENUS_PlayActTwoStart@@YGHH@Z"
+    },
+    {
+     "va": "0x004343E0",
+     "length": 85,
+     "name": "?MAINMENUS_PlayActThreeStart@@YGHH@Z"
+    },
+    {
+     "va": "0x00434440",
+     "length": 85,
+     "name": "?MAINMENUS_PlayActFourStart@@YGHH@Z"
+    },
+    {
+     "va": "0x004344A0",
+     "length": 85,
+     "name": "?MAINMENUS_PlayActFourEnd@@YGHH@Z"
+    },
+    {
+     "va": "0x00434500",
+     "length": 83,
+     "name": "?MAINMENUS_PlayExpansionIntro@@YGHH@Z"
+    },
+    {
+     "va": "0x00434560",
+     "length": 83,
+     "name": "?MAINMENUS_PlayExpansionOutro@@YGHH@Z"
+    },
+    {
+     "va": "0x004345C0",
+     "length": 60,
+     "name": "?MAINMENUS_ReloadAndLeave@@YGHH@Z"
+    },
+    {
+     "va": "0x00434600",
+     "length": 251,
+     "name": "?MAINMENUS_CreateGatewayScreen@@YGHH@Z"
+    },
+    {
+     "va": "0x00434760",
+     "length": 37,
+     "name": "?MAINMENUS_ResetAndLeave@@YGHH@Z"
+    },
+    {
+     "va": "0x00434790",
+     "length": 452,
+     "name": "?MAINMENUS_JoinTcpIp@@YGHH@Z"
+    },
+    {
+     "va": "0x00434A00",
+     "length": 900
+    },
+    {
+     "va": "0x00434D90",
+     "length": 34,
+     "name": "?MAINMENUS_PlayIntroAndLeave@@YGHH@Z"
+    },
+    {
+     "va": "0x00434DC0",
+     "length": 13,
+     "name": "?sub_00434DC0_Leave@@YGHH@Z"
+    },
+    {
+     "va": "0x00434DD0",
+     "length": 18,
+     "name": "?MAINMENUS_DisconnectAndLeave@@YGHH@Z"
+    },
+    {
+     "va": "0x00434DF0",
+     "length": 13,
+     "name": "?sub_00434DF0_Leave@@YGHH@Z"
+    },
+    {
+     "va": "0x00434E00",
+     "length": 544,
+     "name": "?MAINMENUS_CheckFreeSpace@@YGHH@Z"
+    },
+    {
+     "va": "0x00435020",
+     "length": 13,
+     "name": "?sub_00435020_Callback@@YGHH@Z"
+    },
+    {
      "va": "0x00435030",
      "length": 329,
      "name": "?MAINMENUS_ChangePasswordOk@@YGHH@Z"
@@ -2787,6 +2964,20 @@
      "va": "0x00435200",
      "length": 33,
      "name": "?MAINMENUS_CancelDownload@@YGHH@Z"
+    },
+    {
+     "va": "0x00435230",
+     "length": 242,
+     "name": "?MAINMENUS_PlayIntroVideos@@YAXXZ"
+    },
+    {
+     "va": "0x00435330",
+     "length": 584,
+     "name": "?MAINMENUS_ShowLoginScreen@@YAXXZ"
+    },
+    {
+     "va": "0x00435580",
+     "length": 1102
     },
     {
      "va": "0x00435CD0",
@@ -2814,14 +3005,107 @@
      "name": "?MAINMENUS_OnTcpIpHost@@YGHH@Z"
     },
     {
+     "va": "0x00435E10",
+     "length": 926
+    },
+    {
      "va": "0x004361B0",
      "length": 178,
      "name": "?MAINMENUS_LoginOk@@YGHH@Z"
     },
     {
+     "va": "0x00436270",
+     "length": 13,
+     "name": "?MAINMENUS_OnShowLogin@@YGHH@Z"
+    },
+    {
+     "va": "0x00436280",
+     "length": 126,
+     "name": "?MAINMENUS_ConnectOk@@YGHH@Z"
+    },
+    {
+     "va": "0x00436300",
+     "length": 18,
+     "name": "?MAINMENUS_BackToLogin@@YGHH@Z"
+    },
+    {
+     "va": "0x00436320",
+     "length": 23,
+     "name": "?MAINMENUS_GatewayOk@@YGHH@Z"
+    },
+    {
+     "va": "0x00436340",
+     "length": 28,
+     "name": "?MAINMENUS_GatewayBack@@YGHH@Z"
+    },
+    {
+     "va": "0x00436360",
+     "length": 551,
+     "name": "?MAINMENUS_SubmitCharacter@@YGHH@Z"
+    },
+    {
+     "va": "0x00436590",
+     "length": 18,
+     "name": "?MAINMENUS_BackToCharCreate@@YGHH@Z"
+    },
+    {
+     "va": "0x004365B0",
+     "length": 854,
+     "name": "?MAINMENUS_CreateCharacter@@YAXXZ"
+    },
+    {
      "va": "0x00436910",
      "length": 210,
      "name": "?MAINMENUS_CreateAccountOk@@YGHH@Z"
+    },
+    {
+     "va": "0x004369F0",
+     "length": 200,
+     "name": "?MAINMENUS_OnCharCreateOk@@YGHH@Z"
+    },
+    {
+     "va": "0x00436AC0",
+     "length": 13,
+     "name": "?MAINMENUS_ClearStatusTexts@@YAXXZ"
+    },
+    {
+     "va": "0x00436AD0",
+     "length": 316,
+     "name": "?MAINMENUS_UpdateStatus@@YAXXZ"
+    },
+    {
+     "va": "0x00436C10",
+     "length": 93,
+     "name": "?MAINMENUS_CheckAtAndDot@@YAHPBD@Z"
+    },
+    {
+     "va": "0x00436C70",
+     "length": 31,
+     "name": "?MAINMENUS_DeclineEmail@@YGHH@Z"
+    },
+    {
+     "va": "0x00436CD0",
+     "length": 23,
+     "name": "?MAINMENUS_OnConnectCancel@@YGHH@Z"
+    },
+    {
+     "va": "0x00436CF0",
+     "length": 75
+    },
+    {
+     "va": "0x00436D40",
+     "length": 13,
+     "name": "?MAINMENUS_OnTwoEditChange@@YGHH@Z"
+    },
+    {
+     "va": "0x00436EB0",
+     "length": 99,
+     "name": "?MAINMENUS_UpdateEmailOk@@YAXXZ"
+    },
+    {
+     "va": "0x00436F20",
+     "length": 13,
+     "name": "?MAINMENUS_OnEditChange@@YGHH@Z"
     },
     {
      "va": "0x00436F30",
@@ -2832,6 +3116,11 @@
      "va": "0x004370C0",
      "length": 231,
      "name": "?MAINMENUS_CreateInfoScreen@@YAXXZ"
+    },
+    {
+     "va": "0x004371E0",
+     "length": 192,
+     "name": "?MAINMENUS_UpdatePasswordOk@@YAXXZ"
     },
     {
      "va": "0x004372B0",
@@ -2862,6 +3151,66 @@
      "va": "0x00443C10",
      "length": 8,
      "name": "?sub_00443C10_AlwaysOne@@YGHH@Z"
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Launch/Src/MainMenus_00436C90.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00436C90",
+     "length": 51,
+     "name": "?MAINMENUS_AskEmailRegistration@@YGHH@Z"
+    },
+    {
+     "va": "0x00437620",
+     "length": 229,
+     "name": "?MAINMENUS_ConfirmText@@YGHH@Z"
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Launch/Src/MainMenus_00409020.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00409020",
+     "length": 386,
+     "name": "MAINMENUS_LogPoolError"
+    },
+    {
+     "va": "0x004107F0",
+     "length": 308,
+     "name": "MAINMENUS_GetSaveDiskFreeSpace"
     }
    ]
   },
@@ -9174,11 +9523,6 @@
      "name": "CHARSEL_StrStr"
     },
     {
-     "va": "0x0042E600",
-     "length": 16,
-     "name": "?0Unicode"
-    },
-    {
      "va": "0x0042FDE0",
      "length": 123,
      "name": "CHARSEL_IsRestrictedChar"
@@ -9202,6 +9546,16 @@
      "va": "0x004303E0",
      "length": 31,
      "name": "CHARSEL_IsLineBreak"
+    },
+    {
+     "va": "0x00430520",
+     "length": 112,
+     "name": "?sub_00430520@@YAXXZ"
+    },
+    {
+     "va": "0x004306C0",
+     "length": 98,
+     "name": "?CHARSEL_UpdateLoginOk@@YAXXZ"
     },
     {
      "va": "0x00430840",
@@ -9239,6 +9593,56 @@
      "name": "CHARSEL_CompareNames"
     },
     {
+     "va": "0x00430B50",
+     "length": 46,
+     "name": "?CHARSEL_GetSlotName@@YIPADH@Z"
+    },
+    {
+     "va": "0x00430C80",
+     "length": 71,
+     "name": "?CHARSEL_FillCreditsList@@YAXXZ"
+    },
+    {
+     "va": "0x00430EF0",
+     "length": 290,
+     "name": "?CHARSEL_SyncCreditsLists@@YAXXZ"
+    },
+    {
+     "va": "0x00431570",
+     "length": 137,
+     "name": "?CHARSEL_CreateExpansionDiscPopup@@YIXH@Z"
+    },
+    {
+     "va": "0x004325B0",
+     "length": 316,
+     "name": "?sub_004325B0_CreateScreen@@YAXXZ"
+    },
+    {
+     "va": "0x00433450",
+     "length": 8,
+     "name": "?CHARSEL_ShowText@@YIXPBUUnicode@@P6AXXZ@Z"
+    },
+    {
+     "va": "0x00434700",
+     "length": 90,
+     "name": "?CHARSEL_OnRealmSelected@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00434960",
+     "length": 74,
+     "name": "?CHARSEL_DeleteCharacter@@YIHPAUD2LaunchCharEntryStrc@@PBD@Z"
+    },
+    {
+     "va": "0x004349B0",
+     "length": 79,
+     "name": "?CHARSEL_UpgradeCharacter@@YIHPAUD2LaunchCharEntryStrc@@PBD@Z"
+    },
+    {
+     "va": "0x00435E00",
+     "length": 13,
+     "name": "?CHARSEL_Back@@YGHH@Z"
+    },
+    {
      "va": "0x004379D0",
      "length": 6,
      "name": "?CHARSEL_IsExpansionFlag@@YIHH@Z"
@@ -9252,11 +9656,6 @@
      "va": "0x004379F0",
      "length": 5,
      "name": "?CHARSEL_RefreshRealmList@@YAXXZ"
-    },
-    {
-     "va": "0x00437A00",
-     "length": 19,
-     "name": "?CHARSEL_GetSlotNameChecked@@YAPADH@Z"
     },
     {
      "va": "0x00437A60",
@@ -9274,6 +9673,11 @@
      "name": "CHARSEL_CacheStore"
     },
     {
+     "va": "0x00437BF0",
+     "length": 152,
+     "name": "?CHARSEL_CreateCharInfoControls@@YAXXZ"
+    },
+    {
      "va": "0x00437C90",
      "length": 26,
      "name": "?CHARSEL_ScrollNameControl@@YAXXZ"
@@ -9284,14 +9688,44 @@
      "name": "?CHARSEL_CopyBaseName@@YIXPBD@Z"
     },
     {
+     "va": "0x00437F60",
+     "length": 196,
+     "name": "?CHARSEL_GetClassName@@YAPAUUnicode@@PAU1@H@Z"
+    },
+    {
+     "va": "0x00438030",
+     "length": 46,
+     "name": "?sub_00438030_IsNotListedCode@@YAHH@Z"
+    },
+    {
      "va": "0x00438060",
      "length": 67,
      "name": "?CHARSEL_FreeCharEntry@@YAXXZ"
     },
     {
+     "va": "0x004380B0",
+     "length": 49,
+     "name": "?CHARSEL_GetDaysLeft@@YAII@Z"
+    },
+    {
+     "va": "0x00438EA0",
+     "length": 148,
+     "name": "?CHARSEL_FreeCharList@@YAXXZ"
+    },
+    {
      "va": "0x00438F40",
      "length": 47,
      "name": "?CHARSEL_IsValidCharName@@YIHPBD@Z"
+    },
+    {
+     "va": "0x004390A0",
+     "length": 358,
+     "name": "?CHARSEL_UpdateSelection@@YAHXZ"
+    },
+    {
+     "va": "0x00439780",
+     "length": 189,
+     "name": "?CHARSEL_PickClass@@YIXHH@Z"
     },
     {
      "va": "0x00439B80",
@@ -9309,6 +9743,46 @@
      "name": "CHARSEL_OnHellDifficulty"
     },
     {
+     "va": "0x00439BE0",
+     "length": 187,
+     "name": "?CHARSEL_CreateExpansionControls@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00439CA0",
+     "length": 22,
+     "name": "?CHARSEL_DestroyIfExpansion@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00439CC0",
+     "length": 117,
+     "name": "?sub_00439CC0_CreateControls@@YAXXZ"
+    },
+    {
+     "va": "0x00439D40",
+     "length": 13,
+     "name": "?CHARSEL_OnClosePopup@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00439D50",
+     "length": 13,
+     "name": "?sub_00439D50_CreateControls@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00439D60",
+     "length": 50,
+     "name": "?CHARSEL_ScrollUp@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00439DA0",
+     "length": 66,
+     "name": "?CHARSEL_ScrollDown@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00439DF0",
+     "length": 99,
+     "name": "?CHARSEL_OnScroll@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x00439E60",
      "length": 34,
      "name": "CHARSEL_AddToScrollValue"
@@ -9324,9 +9798,24 @@
      "name": "?CHARSEL_OnListKeyDown@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
-     "va": "0x0043A2B0",
-     "length": 417,
-     "name": "?CHARSEL_InitRealmScreen@@YAHXZ"
+     "va": "0x0043A1F0",
+     "length": 127,
+     "name": "?CHARSEL_ShowConnectError@@YAXH@Z"
+    },
+    {
+     "va": "0x0043A270",
+     "length": 60,
+     "name": "?CHARSEL_UpdateStatus@@YAXXZ"
+    },
+    {
+     "va": "0x0043A460",
+     "length": 366,
+     "name": "_CHARSEL_CreateNotice@16"
+    },
+    {
+     "va": "0x0043A5D0",
+     "length": 62,
+     "name": "?CHARSEL_ShowMessage@@YAXXZ"
     },
     {
      "va": "0x0043A610",
@@ -9334,14 +9823,94 @@
      "name": "sub_0043A610_ShowString"
     },
     {
+     "va": "0x0043A650",
+     "length": 223,
+     "name": "?CHARSEL_RefreshCharEntry@@YAXXZ"
+    },
+    {
+     "va": "0x0043A950",
+     "length": 79,
+     "name": "?CHARSEL_OnRealmChosen@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x0043A9D0",
      "length": 209,
      "name": "?CHARSEL_OnListClick@@YGHPAUD2ListMsgStrc@@@Z"
     },
     {
+     "va": "0x0043AC00",
+     "length": 257,
+     "name": "?CHARSEL_PollConnect@@YGHH@Z"
+    },
+    {
      "va": "0x0043AE30",
      "length": 586,
      "name": "?CHARSEL_InitCharList@@YAXXZ"
+    },
+    {
+     "va": "0x0043B7A0",
+     "length": 81,
+     "name": "?CHARSEL_InitFuncTable@@YIHPAUD2LaunchRecordStrc@@@Z"
+    },
+    {
+     "va": "0x0043B820",
+     "length": 11,
+     "name": "?CHARSEL_ClearCancelled@@YAXXZ"
+    },
+    {
+     "va": "0x0043B9A0",
+     "length": 71,
+     "name": "?CHARSEL_DisconnectBattleNet@@YAXXZ"
+    },
+    {
+     "va": "0x0043C4F0",
+     "length": 57,
+     "name": "?CHARSEL_CreateBaseScreen@@YAXXZ"
+    },
+    {
+     "va": "0x0043C6A0",
+     "length": 12,
+     "name": "?sub_0043C6A0@@YIXH@Z"
+    },
+    {
+     "va": "0x0043D990",
+     "length": 16,
+     "name": "?CHARSEL_ActivateChatEdit@@YAXXZ"
+    },
+    {
+     "va": "0x0043DB20",
+     "length": 107,
+     "name": "?CHARSEL_DestroyDialogControls@@YAXXZ"
+    },
+    {
+     "va": "0x0043DC30",
+     "length": 30,
+     "name": "?CHARSEL_GetConnectStatus@@YAHXZ"
+    },
+    {
+     "va": "0x0043E130",
+     "length": 65,
+     "name": "?CHARSEL_ResetChatControls@@YAXXZ"
+    },
+    {
+     "va": "0x0043EA20",
+     "length": 71,
+     "name": "?CHARSEL_DestroyPopupControls@@YAXXZ"
+    },
+    {
+     "va": "0x0043F4D0",
+     "length": 52,
+     "name": "?CHARSEL_ClearHistory@@YAXXZ"
+    },
+    {
+     "va": "0x0043F560",
+     "length": 25,
+     "name": "?CHARSEL_DisableControl@@YIXPAUD2WinControlStrc@@@Z"
+    },
+    {
+     "va": "0x0043F850",
+     "length": 18,
+     "name": "?CHARSEL_CancelGameCreate@@YAHXZ"
     },
     {
      "va": "0x00445020",
@@ -9372,6 +9941,27 @@
      "va": "0x00478160",
      "length": 101,
      "name": "CHARSEL_ShowProgressSteps"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Launch/Src/CharSel_0042E600.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0042E600",
+     "length": 16,
+     "name": "?0Unicode"
+    },
+    {
+     "va": "0x00437A00",
+     "length": 19,
+     "name": "?CHARSEL_GetSlotNameChecked@@YAPADH@Z"
+    },
+    {
+     "va": "0x0043A2B0",
+     "length": 417,
+     "name": "?CHARSEL_InitRealmScreen@@YAHXZ"
     }
    ]
   },
@@ -9409,210 +9999,6 @@
      "length": 6,
      "name": "sub_0042E6C0_GetGatewayFlag"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Src/MainMenus_0042F2E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0042E6D0",
-     "length": 2175,
-     "name": "?MAINMENUS_LoadFrontEndCells@@YAXXZ"
-    },
-    {
-     "va": "0x0042F2E0",
-     "length": 130,
-     "name": "?MAINMENUS_ReadPaletteFiles@@YIHPBD0@Z"
-    },
-    {
-     "va": "0x0042FA40",
-     "length": 103,
-     "name": "?MAINMENUS_InitAuxBattleNet@@YAHXZ"
-    },
-    {
-     "va": "0x0042FAB0",
-     "length": 98,
-     "name": "?MAINMENUS_GetAuxBattleNetFlag@@YAHXZ"
-    },
-    {
-     "va": "0x0042FD10",
-     "length": 180,
-     "name": "?MAINMENUS_BuildLocalizedVideoPath@@YAXPADPBD1@Z"
-    },
-    {
-     "va": "0x00430620",
-     "length": 150,
-     "name": "?MAINMENUS_UpdateNameOk@@YAXXZ"
-    },
-    {
-     "va": "0x00430BC0",
-     "length": 99,
-     "name": "?MAINMENUS_HasSaveFiles@@YAHXZ"
-    },
-    {
-     "va": "0x00430CD0",
-     "length": 536
-    },
-    {
-     "va": "0x00431050",
-     "length": 613,
-     "name": "?MAINMENUS_ShowCredits@@YIHH@Z"
-    },
-    {
-     "va": "0x00431600",
-     "length": 452,
-     "name": "?MAINMENUS_ShowLevelScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x00431870",
-     "length": 151,
-     "name": "?MAINMENUS_PlayVideo@@YGXHPBD@Z"
-    },
-    {
-     "va": "0x00431F70",
-     "length": 168,
-     "name": "?MAINMENUS_SaveExists@@YAHXZ"
-    },
-    {
-     "va": "0x004326F0",
-     "length": 2030,
-     "name": "?MAINMENUS_LoadCharCreateCells@@YAXXZ"
-    },
-    {
-     "va": "0x004334E0",
-     "length": 337,
-     "name": "?MAINMENUS_PlayIntro@@YAXXZ"
-    },
-    {
-     "va": "0x00433640",
-     "length": 121,
-     "name": "?MAINMENUS_PlayIntroVideo@@YAXXZ"
-    },
-    {
-     "va": "0x004336C0",
-     "length": 333,
-     "name": "?MAINMENUS_ShowMainMenu@@YAXXZ"
-    },
-    {
-     "va": "0x00434060",
-     "length": 388
-    },
-    {
-     "va": "0x00434320",
-     "length": 85,
-     "name": "?MAINMENUS_PlayClassicIntro@@YGHH@Z"
-    },
-    {
-     "va": "0x00434380",
-     "length": 85,
-     "name": "?MAINMENUS_PlayActTwoStart@@YGHH@Z"
-    },
-    {
-     "va": "0x004343E0",
-     "length": 85,
-     "name": "?MAINMENUS_PlayActThreeStart@@YGHH@Z"
-    },
-    {
-     "va": "0x00434440",
-     "length": 85,
-     "name": "?MAINMENUS_PlayActFourStart@@YGHH@Z"
-    },
-    {
-     "va": "0x004344A0",
-     "length": 85,
-     "name": "?MAINMENUS_PlayActFourEnd@@YGHH@Z"
-    },
-    {
-     "va": "0x00434500",
-     "length": 83,
-     "name": "?MAINMENUS_PlayExpansionIntro@@YGHH@Z"
-    },
-    {
-     "va": "0x00434560",
-     "length": 83,
-     "name": "?MAINMENUS_PlayExpansionOutro@@YGHH@Z"
-    },
-    {
-     "va": "0x00434790",
-     "length": 452,
-     "name": "?MAINMENUS_JoinTcpIp@@YGHH@Z"
-    },
-    {
-     "va": "0x00434A00",
-     "length": 900
-    },
-    {
-     "va": "0x00434E00",
-     "length": 544,
-     "name": "?MAINMENUS_CheckFreeSpace@@YGHH@Z"
-    },
-    {
-     "va": "0x00435330",
-     "length": 584,
-     "name": "?MAINMENUS_ShowLoginScreen@@YAXXZ"
-    },
-    {
-     "va": "0x00435580",
-     "length": 1102
-    },
-    {
-     "va": "0x00435E10",
-     "length": 926
-    },
-    {
-     "va": "0x004365B0",
-     "length": 854,
-     "name": "?MAINMENUS_CreateCharacter@@YAXXZ"
-    },
-    {
-     "va": "0x004369F0",
-     "length": 200,
-     "name": "?MAINMENUS_OnCharCreateOk@@YGHH@Z"
-    },
-    {
-     "va": "0x00436AD0",
-     "length": 316,
-     "name": "?MAINMENUS_UpdateStatus@@YAXXZ"
-    },
-    {
-     "va": "0x00436C10",
-     "length": 93,
-     "name": "?MAINMENUS_CheckAtAndDot@@YAHPBD@Z"
-    },
-    {
-     "va": "0x00436CF0",
-     "length": 75
-    },
-    {
-     "va": "0x00436EB0",
-     "length": 99,
-     "name": "?MAINMENUS_UpdateEmailOk@@YAXXZ"
-    },
-    {
-     "va": "0x004371E0",
-     "length": 192,
-     "name": "?MAINMENUS_UpdatePasswordOk@@YAXXZ"
-    },
-    {
-     "va": "0x00437620",
-     "length": 229,
-     "name": "?MAINMENUS_ConfirmText@@YGHH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -10972,247 +11358,6 @@
    ]
   },
   {
-   "file": "Source/D2Launch/Src/CharSel_00430520.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00430520",
-     "length": 112,
-     "name": "?sub_00430520@@YAXXZ"
-    },
-    {
-     "va": "0x004306C0",
-     "length": 98,
-     "name": "?CHARSEL_UpdateLoginOk@@YAXXZ"
-    },
-    {
-     "va": "0x00430B50",
-     "length": 46,
-     "name": "?CHARSEL_GetSlotName@@YIPADH@Z"
-    },
-    {
-     "va": "0x00430C80",
-     "length": 71,
-     "name": "?CHARSEL_FillCreditsList@@YAXXZ"
-    },
-    {
-     "va": "0x00430EF0",
-     "length": 290,
-     "name": "?CHARSEL_SyncCreditsLists@@YAXXZ"
-    },
-    {
-     "va": "0x00431570",
-     "length": 137,
-     "name": "?CHARSEL_CreateExpansionDiscPopup@@YIXH@Z"
-    },
-    {
-     "va": "0x004325B0",
-     "length": 316,
-     "name": "?sub_004325B0_CreateScreen@@YAXXZ"
-    },
-    {
-     "va": "0x00433450",
-     "length": 8,
-     "name": "?CHARSEL_ShowText@@YIXPBUUnicode@@P6AXXZ@Z"
-    },
-    {
-     "va": "0x00434700",
-     "length": 90,
-     "name": "?CHARSEL_OnRealmSelected@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00434960",
-     "length": 74,
-     "name": "?CHARSEL_DeleteCharacter@@YIHPAUD2LaunchCharEntryStrc@@PBD@Z"
-    },
-    {
-     "va": "0x004349B0",
-     "length": 79,
-     "name": "?CHARSEL_UpgradeCharacter@@YIHPAUD2LaunchCharEntryStrc@@PBD@Z"
-    },
-    {
-     "va": "0x00435E00",
-     "length": 13,
-     "name": "?CHARSEL_Back@@YGHH@Z"
-    },
-    {
-     "va": "0x00437BF0",
-     "length": 152,
-     "name": "?CHARSEL_CreateCharInfoControls@@YAXXZ"
-    },
-    {
-     "va": "0x00437F60",
-     "length": 196,
-     "name": "?CHARSEL_GetClassName@@YAPAUUnicode@@PAU1@H@Z"
-    },
-    {
-     "va": "0x00438030",
-     "length": 46,
-     "name": "?sub_00438030_IsNotListedCode@@YAHH@Z"
-    },
-    {
-     "va": "0x004380B0",
-     "length": 49,
-     "name": "?CHARSEL_GetDaysLeft@@YAII@Z"
-    },
-    {
-     "va": "0x00438EA0",
-     "length": 148,
-     "name": "?CHARSEL_FreeCharList@@YAXXZ"
-    },
-    {
-     "va": "0x004390A0",
-     "length": 358,
-     "name": "?CHARSEL_UpdateSelection@@YAHXZ"
-    },
-    {
-     "va": "0x00439780",
-     "length": 189,
-     "name": "?CHARSEL_PickClass@@YIXHH@Z"
-    },
-    {
-     "va": "0x00439BE0",
-     "length": 187,
-     "name": "?CHARSEL_CreateExpansionControls@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00439CA0",
-     "length": 22,
-     "name": "?CHARSEL_DestroyIfExpansion@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00439CC0",
-     "length": 117,
-     "name": "?sub_00439CC0_CreateControls@@YAXXZ"
-    },
-    {
-     "va": "0x00439D40",
-     "length": 13,
-     "name": "?CHARSEL_OnClosePopup@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00439D50",
-     "length": 13,
-     "name": "?sub_00439D50_CreateControls@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00439D60",
-     "length": 50,
-     "name": "?CHARSEL_ScrollUp@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00439DA0",
-     "length": 66,
-     "name": "?CHARSEL_ScrollDown@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00439DF0",
-     "length": 99,
-     "name": "?CHARSEL_OnScroll@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0043A1F0",
-     "length": 127,
-     "name": "?CHARSEL_ShowConnectError@@YAXH@Z"
-    },
-    {
-     "va": "0x0043A270",
-     "length": 60,
-     "name": "?CHARSEL_UpdateStatus@@YAXXZ"
-    },
-    {
-     "va": "0x0043A460",
-     "length": 366,
-     "name": "_CHARSEL_CreateNotice@16"
-    },
-    {
-     "va": "0x0043A5D0",
-     "length": 62,
-     "name": "?CHARSEL_ShowMessage@@YAXXZ"
-    },
-    {
-     "va": "0x0043A650",
-     "length": 223,
-     "name": "?CHARSEL_RefreshCharEntry@@YAXXZ"
-    },
-    {
-     "va": "0x0043A950",
-     "length": 79,
-     "name": "?CHARSEL_OnRealmChosen@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0043AC00",
-     "length": 257,
-     "name": "?CHARSEL_PollConnect@@YGHH@Z"
-    },
-    {
-     "va": "0x0043B7A0",
-     "length": 81,
-     "name": "?CHARSEL_InitFuncTable@@YIHPAUD2LaunchRecordStrc@@@Z"
-    },
-    {
-     "va": "0x0043B820",
-     "length": 11,
-     "name": "?CHARSEL_ClearCancelled@@YAXXZ"
-    },
-    {
-     "va": "0x0043B9A0",
-     "length": 71,
-     "name": "?CHARSEL_DisconnectBattleNet@@YAXXZ"
-    },
-    {
-     "va": "0x0043C4F0",
-     "length": 57,
-     "name": "?CHARSEL_CreateBaseScreen@@YAXXZ"
-    },
-    {
-     "va": "0x0043C6A0",
-     "length": 12,
-     "name": "?sub_0043C6A0@@YIXH@Z"
-    },
-    {
-     "va": "0x0043D990",
-     "length": 16,
-     "name": "?CHARSEL_ActivateChatEdit@@YAXXZ"
-    },
-    {
-     "va": "0x0043DB20",
-     "length": 107,
-     "name": "?CHARSEL_DestroyDialogControls@@YAXXZ"
-    },
-    {
-     "va": "0x0043DC30",
-     "length": 30,
-     "name": "?CHARSEL_GetConnectStatus@@YAHXZ"
-    },
-    {
-     "va": "0x0043E130",
-     "length": 65,
-     "name": "?CHARSEL_ResetChatControls@@YAXXZ"
-    },
-    {
-     "va": "0x0043EA20",
-     "length": 71,
-     "name": "?CHARSEL_DestroyPopupControls@@YAXXZ"
-    },
-    {
-     "va": "0x0043F4D0",
-     "length": 52,
-     "name": "?CHARSEL_ClearHistory@@YAXXZ"
-    },
-    {
-     "va": "0x0043F560",
-     "length": 25,
-     "name": "?CHARSEL_DisableControl@@YIXPAUD2WinControlStrc@@@Z"
-    },
-    {
-     "va": "0x0043F850",
-     "length": 18,
-     "name": "?CHARSEL_CancelGameCreate@@YAHXZ"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Launch/Src/MainMenus_00431AF0.cpp",
    "rank": 0,
    "functions": [
@@ -11298,137 +11443,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Src/MainMenus_004341F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004341F0",
-     "length": 35,
-     "name": "?MAINMENUS_CheckCreditsEnd@@YGHH@Z"
-    },
-    {
-     "va": "0x00434220",
-     "length": 184,
-     "name": "?MAINMENUS_PromptPlayDisc@@YAHXZ"
-    },
-    {
-     "va": "0x004342E0",
-     "length": 58,
-     "name": "?MAINMENUS_PromptExpansionDisc@@YAHXZ"
-    },
-    {
-     "va": "0x004345C0",
-     "length": 60,
-     "name": "?MAINMENUS_ReloadAndLeave@@YGHH@Z"
-    },
-    {
-     "va": "0x00434600",
-     "length": 251,
-     "name": "?MAINMENUS_CreateGatewayScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x00434760",
-     "length": 37,
-     "name": "?MAINMENUS_ResetAndLeave@@YGHH@Z"
-    },
-    {
-     "va": "0x00434D90",
-     "length": 34,
-     "name": "?MAINMENUS_PlayIntroAndLeave@@YGHH@Z"
-    },
-    {
-     "va": "0x00434DC0",
-     "length": 13,
-     "name": "?sub_00434DC0_Leave@@YGHH@Z"
-    },
-    {
-     "va": "0x00434DD0",
-     "length": 18,
-     "name": "?MAINMENUS_DisconnectAndLeave@@YGHH@Z"
-    },
-    {
-     "va": "0x00434DF0",
-     "length": 13,
-     "name": "?sub_00434DF0_Leave@@YGHH@Z"
-    },
-    {
-     "va": "0x00435020",
-     "length": 13,
-     "name": "?sub_00435020_Callback@@YGHH@Z"
-    },
-    {
-     "va": "0x00435230",
-     "length": 242,
-     "name": "?MAINMENUS_PlayIntroVideos@@YAXXZ"
-    },
-    {
-     "va": "0x00436270",
-     "length": 13,
-     "name": "?MAINMENUS_OnShowLogin@@YGHH@Z"
-    },
-    {
-     "va": "0x00436280",
-     "length": 126,
-     "name": "?MAINMENUS_ConnectOk@@YGHH@Z"
-    },
-    {
-     "va": "0x00436300",
-     "length": 18,
-     "name": "?MAINMENUS_BackToLogin@@YGHH@Z"
-    },
-    {
-     "va": "0x00436320",
-     "length": 23,
-     "name": "?MAINMENUS_GatewayOk@@YGHH@Z"
-    },
-    {
-     "va": "0x00436340",
-     "length": 28,
-     "name": "?MAINMENUS_GatewayBack@@YGHH@Z"
-    },
-    {
-     "va": "0x00436360",
-     "length": 551,
-     "name": "?MAINMENUS_SubmitCharacter@@YGHH@Z"
-    },
-    {
-     "va": "0x00436590",
-     "length": 18,
-     "name": "?MAINMENUS_BackToCharCreate@@YGHH@Z"
-    },
-    {
-     "va": "0x00436AC0",
-     "length": 13,
-     "name": "?MAINMENUS_ClearStatusTexts@@YAXXZ"
-    },
-    {
-     "va": "0x00436C70",
-     "length": 31,
-     "name": "?MAINMENUS_DeclineEmail@@YGHH@Z"
-    },
-    {
-     "va": "0x00436C90",
-     "length": 51,
-     "name": "?MAINMENUS_AskEmailRegistration@@YGHH@Z"
-    },
-    {
-     "va": "0x00436CD0",
-     "length": 23,
-     "name": "?MAINMENUS_OnConnectCancel@@YGHH@Z"
-    },
-    {
-     "va": "0x00436D40",
-     "length": 13,
-     "name": "?MAINMENUS_OnTwoEditChange@@YGHH@Z"
-    },
-    {
-     "va": "0x00436F20",
-     "length": 13,
-     "name": "?MAINMENUS_OnEditChange@@YGHH@Z"
-    }
    ]
   },
   {
@@ -12115,6 +12129,11 @@
      "name": "?CHATDLG_ScrollPageUp@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x0043DA50",
+     "length": 114,
+     "name": "?CHATDLG_ReadRegValueHKLM@@YGHPBD0PAEKPAK@Z"
+    },
+    {
      "va": "0x0043DAF0",
      "length": 24,
      "name": "?CHATDLG_EnableMainControl@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
@@ -12125,9 +12144,24 @@
      "name": "?CHATDLG_OnChatEditEnter@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x0043E180",
+     "length": 30,
+     "name": "?CHATDLG_UnixTimeToFileTime@@YAXIPAU_FILETIME@@@Z"
+    },
+    {
      "va": "0x0043E1A0",
      "length": 140,
      "name": "?CHATDLG_AddTextLines@@YGXPAUD2WinControlStrc@@HPADH@Z"
+    },
+    {
+     "va": "0x0043E230",
+     "length": 12,
+     "name": "?CHATDLG_InitChatLock@@YAXXZ"
+    },
+    {
+     "va": "0x0043E240",
+     "length": 12,
+     "name": "?CHATDLG_DeleteChatLock@@YAXXZ"
     },
     {
      "va": "0x0043E250",
@@ -12135,9 +12169,19 @@
      "name": "?CHATDLG_CreateChatMessage@@YGPAUD2ChatMessageStrc@@PBDHH@Z"
     },
     {
+     "va": "0x0043E2E0",
+     "length": 47,
+     "name": "?CHATDLG_FreeChatMessage@@YAXPAUD2ChatMessageStrc@@@Z"
+    },
+    {
      "va": "0x0043E310",
      "length": 87,
      "name": "?CHATDLG_PostChatMessage@@YAXPBDHH@Z"
+    },
+    {
+     "va": "0x0043E370",
+     "length": 48,
+     "name": "?CHATDLG_PopChatMessage@@YAPAUD2ChatMessageStrc@@XZ"
     },
     {
      "va": "0x0043E3A0",
@@ -12175,6 +12219,16 @@
      "name": "?CHATDLG_ShowChannelText@@YIHPAUUnicode@@@Z"
     },
     {
+     "va": "0x0043E6C0",
+     "length": 23,
+     "name": "?CHATDLG_OnCancel@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043E6E0",
+     "length": 151,
+     "name": "?CHATDLG_CompareCommand@@YGHPBD0@Z"
+    },
+    {
      "va": "0x0043E780",
      "length": 217,
      "name": "?CHATDLG_NotifyCommand@@YAHPBD0@Z"
@@ -12194,6 +12248,11 @@
      "name": "?CHATDLG_ShowMessage@@YIXPBUUnicode@@0@Z"
     },
     {
+     "va": "0x0043EB00",
+     "length": 13,
+     "name": "?CHATDLG_OnWait@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x0043EB10",
      "length": 27,
      "name": "CHATDLG_RunCallback"
@@ -12209,6 +12268,11 @@
      "name": "?CHATDLG_ResetControls@@YAHXZ"
     },
     {
+     "va": "0x0043EC50",
+     "length": 13,
+     "name": "?CHATDLG_SetLadderSelection@@YIXEH@Z"
+    },
+    {
      "va": "0x0043EC60",
      "length": 120,
      "name": "CHATDLG_SelectEntry"
@@ -12221,6 +12285,11 @@
      "va": "0x0043ED10",
      "length": 52,
      "name": "?CHATDLG_ScrollLadderDown@@YGHH@Z"
+    },
+    {
+     "va": "0x0043ED50",
+     "length": 1,
+     "name": "?CHATDLG_ClearLadderState@@YAXXZ"
     },
     {
      "va": "0x0043ED60",
@@ -12283,6 +12352,16 @@
      "name": "?CHATDLG_OnAssassinLadderButton@@YGHPAUD2WinMsgStrc@@@Z"
     },
     {
+     "va": "0x0043F510",
+     "length": 73,
+     "name": "?CHATDLG_PushHistory@@YAXPBD@Z"
+    },
+    {
+     "va": "0x0043F580",
+     "length": 13,
+     "name": "?CHATDLG_SetUserDataFlag@@YGHH@Z"
+    },
+    {
      "va": "0x0043F590",
      "length": 82,
      "name": "CHATDLG_GetUserDataReply"
@@ -12298,9 +12377,19 @@
      "name": "?CHATDLG_OnToggleButton@@YGHH@Z"
     },
     {
+     "va": "0x0043F720",
+     "length": 13,
+     "name": "?CHATDLG_OnProfileClose@@YGHH@Z"
+    },
+    {
      "va": "0x0043F800",
      "length": 57,
      "name": "?CHATDLG_FreeNameList@@YAXXZ"
+    },
+    {
+     "va": "0x0043F870",
+     "length": 40,
+     "name": "?CHATDLG_GetArgument@@YGXHPADPBD@Z"
     },
     {
      "va": "0x0043F8A0",
@@ -12313,8 +12402,23 @@
      "name": "CHATDLG_SetCallback"
     },
     {
+     "va": "0x0043F970",
+     "length": 57,
+     "name": "?CHATDLG_ReleaseAndRecreate@@YGHH@Z"
+    },
+    {
      "va": "0x0043F9B0",
      "length": 405
+    },
+    {
+     "va": "0x0043FB50",
+     "length": 118,
+     "name": "?CHATDLG_ShowWait@@YIHPBUUnicode@@P6GHH@Z@Z"
+    },
+    {
+     "va": "0x0043FBD0",
+     "length": 68,
+     "name": "?CHATDLG_RefreshChatScreen@@YAXXZ"
     },
     {
      "va": "0x0043FC20",
@@ -12426,6 +12530,11 @@
      "name": "?CHATDLG_OnQuitMessage@@YGHH@Z"
     },
     {
+     "va": "0x00440DE0",
+     "length": 469,
+     "name": "?OOGUTIL_OpenBrowserWithURL@@YGHH@Z"
+    },
+    {
      "va": "0x004413E0",
      "length": 222,
      "name": "CHATDLG_EnableConnection"
@@ -12436,13 +12545,33 @@
      "name": "?JoinOrCreateGame@@YGHH@Z"
     },
     {
+     "va": "0x00442150",
+     "length": 40,
+     "name": "?CHATDLG_StartChat@@YIHPAUD2LaunchCharInfoStrc@@@Z"
+    },
+    {
      "va": "0x00442180",
      "length": 454
+    },
+    {
+     "va": "0x00442350",
+     "length": 30,
+     "name": "?CHATDLG_OpenLadderScreen@@YGHH@Z"
+    },
+    {
+     "va": "0x00442370",
+     "length": 57,
+     "name": "?CHATDLG_ReleaseAndCreate@@YGHH@Z"
     },
     {
      "va": "0x00442810",
      "length": 153,
      "name": "?CHATDLG_SendChatBuffer@@YAHXZ"
+    },
+    {
+     "va": "0x004428B0",
+     "length": 18,
+     "name": "?CHATDLG_SendChat@@YGHH@Z"
     },
     {
      "va": "0x004428D0",
@@ -12473,11 +12602,6 @@
      "va": "0x00446A90",
      "length": 152,
      "name": "CHATDLG_RemoveTableString"
-    },
-    {
-     "va": "0x00447700",
-     "length": 37,
-     "name": "CHATDLG_OnChannelDoesNotExist"
     },
     {
      "va": "0x00449330",
@@ -12574,6 +12698,41 @@
      "length": 63,
      "name": "CHATDLG_StartThread"
     }
+   ]
+  },
+  {
+   "file": "Source/D2Multi/Src/ChatDlg_00441B70.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0043DC50",
+     "length": 135,
+     "name": "?CHATDLG_CreateChatCellFile@@YAXPAUD2LaunchCharInfoStrc@@@Z"
+    },
+    {
+     "va": "0x00441B70",
+     "length": 1489,
+     "name": "?CHATDLG_RunChat@@YIHPAUD2LaunchCharInfoStrc@@@Z"
+    },
+    {
+     "va": "0x00447700",
+     "length": 37,
+     "name": "CHATDLG_OnChannelDoesNotExist"
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
@@ -12678,46 +12837,6 @@
    ]
   },
   {
-   "file": "Source/D2Multi/Src/ChatDlg_0043DA50.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043DA50",
-     "length": 114,
-     "name": "?CHATDLG_ReadRegValueHKLM@@YGHPBD0PAEKPAK@Z"
-    },
-    {
-     "va": "0x0043DC50",
-     "length": 135,
-     "name": "?CHATDLG_CreateChatCellFile@@YAXPAUD2LaunchCharInfoStrc@@@Z"
-    },
-    {
-     "va": "0x00440DE0",
-     "length": 469,
-     "name": "?OOGUTIL_OpenBrowserWithURL@@YGHH@Z"
-    },
-    {
-     "va": "0x00441B70",
-     "length": 1489,
-     "name": "?CHATDLG_RunChat@@YIHPAUD2LaunchCharInfoStrc@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Multi/Unknown_0043DD00.cpp",
    "rank": 0,
    "functions": [
@@ -12764,117 +12883,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ChatDlg_0043E180.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043E180",
-     "length": 30,
-     "name": "?CHATDLG_UnixTimeToFileTime@@YAXIPAU_FILETIME@@@Z"
-    },
-    {
-     "va": "0x0043E230",
-     "length": 12,
-     "name": "?CHATDLG_InitChatLock@@YAXXZ"
-    },
-    {
-     "va": "0x0043E240",
-     "length": 12,
-     "name": "?CHATDLG_DeleteChatLock@@YAXXZ"
-    },
-    {
-     "va": "0x0043E2E0",
-     "length": 47,
-     "name": "?CHATDLG_FreeChatMessage@@YAXPAUD2ChatMessageStrc@@@Z"
-    },
-    {
-     "va": "0x0043E370",
-     "length": 48,
-     "name": "?CHATDLG_PopChatMessage@@YAPAUD2ChatMessageStrc@@XZ"
-    },
-    {
-     "va": "0x0043E6C0",
-     "length": 23,
-     "name": "?CHATDLG_OnCancel@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0043E6E0",
-     "length": 151,
-     "name": "?CHATDLG_CompareCommand@@YGHPBD0@Z"
-    },
-    {
-     "va": "0x0043EB00",
-     "length": 13,
-     "name": "?CHATDLG_OnWait@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0043EC50",
-     "length": 13,
-     "name": "?CHATDLG_SetLadderSelection@@YIXEH@Z"
-    },
-    {
-     "va": "0x0043ED50",
-     "length": 1,
-     "name": "?CHATDLG_ClearLadderState@@YAXXZ"
-    },
-    {
-     "va": "0x0043F510",
-     "length": 73,
-     "name": "?CHATDLG_PushHistory@@YAXPBD@Z"
-    },
-    {
-     "va": "0x0043F580",
-     "length": 13,
-     "name": "?CHATDLG_SetUserDataFlag@@YGHH@Z"
-    },
-    {
-     "va": "0x0043F720",
-     "length": 13,
-     "name": "?CHATDLG_OnProfileClose@@YGHH@Z"
-    },
-    {
-     "va": "0x0043F870",
-     "length": 40,
-     "name": "?CHATDLG_GetArgument@@YGXHPADPBD@Z"
-    },
-    {
-     "va": "0x0043F970",
-     "length": 57,
-     "name": "?CHATDLG_ReleaseAndRecreate@@YGHH@Z"
-    },
-    {
-     "va": "0x0043FB50",
-     "length": 118,
-     "name": "?CHATDLG_ShowWait@@YIHPBUUnicode@@P6GHH@Z@Z"
-    },
-    {
-     "va": "0x0043FBD0",
-     "length": 68,
-     "name": "?CHATDLG_RefreshChatScreen@@YAXXZ"
-    },
-    {
-     "va": "0x00442150",
-     "length": 40,
-     "name": "?CHATDLG_StartChat@@YIHPAUD2LaunchCharInfoStrc@@@Z"
-    },
-    {
-     "va": "0x00442350",
-     "length": 30,
-     "name": "?CHATDLG_OpenLadderScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x00442370",
-     "length": 57,
-     "name": "?CHATDLG_ReleaseAndCreate@@YGHH@Z"
-    },
-    {
-     "va": "0x004428B0",
-     "length": 18,
-     "name": "?CHATDLG_SendChat@@YGHH@Z"
-    }
    ]
   },
   {
