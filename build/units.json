@@ -12659,6 +12659,11 @@
      "name": "?CHATDLG_SendChatBuffer@@YAHXZ"
     },
     {
+     "va": "0x004428D0",
+     "length": 207,
+     "name": "?sub_004428D0_SendChatText@@YIHPADH@Z"
+    },
+    {
      "va": "0x00442B20",
      "length": 108,
      "name": "CHATDLG_IsCharOverLimit"
@@ -13252,11 +13257,6 @@
      "va": "0x004414C0",
      "length": 55,
      "name": "?sub_004414C0_UpdateEnable@@YAXXZ"
-    },
-    {
-     "va": "0x004428D0",
-     "length": 207,
-     "name": "?sub_004428D0_SendChatText@@YIHPADH@Z"
     },
     {
      "va": "0x00442A70",
