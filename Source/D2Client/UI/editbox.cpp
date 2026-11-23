@@ -26,6 +26,8 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags)
 // build: symbol ??_GEditBoxImplementation@@UAEPAXI@Z 0x004BBD50
 // build: symbol ??_GEditBoxWrapper@@UAEPAXI@Z 0x004BBA50
 
+// build: symbol ??3UIWidget@@SAXPAX@Z 0x004053F0
+
 #pragma pack(push, 2)
 
 class UIWidget
@@ -100,7 +102,6 @@ class ButtonWrapper : public UIWidget
 {
 public:
     ButtonWrapper(int nX, int nY, int nStringSlot, int (__cdecl* pfnCallback)());
-    ButtonWrapper();
     virtual ~ButtonWrapper();
     virtual void Slot01();
     virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
@@ -124,7 +125,6 @@ class EditBoxImplementation : public UIWidget
 public:
     EditBoxImplementation(int nX, int nY, int nTextWidth, int nHeight, int nArg10, unsigned short nMaxLength, int nArg18,
         int nFont);
-    EditBoxImplementation();
     virtual ~EditBoxImplementation();
     virtual void Slot01();
     virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
@@ -176,7 +176,6 @@ class EditBoxWrapper : public UIWidget
 public:
     EditBoxWrapper(int nX, int nY, int nTextWidth, int nHeight, int nArg10, unsigned short nMaxLength, int nArg18,
         int nFont);
-    EditBoxWrapper();
     virtual ~EditBoxWrapper();
     virtual void Slot01();
     virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
@@ -465,6 +464,43 @@ void ButtonWrapper::sub_004BAF10_SetUnk24(int nValue)
     pImpl->sub_004BAC60_SetUnk24(nValue);
 }
 
+void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
+
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
+
+D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext);                                        // 0x00601840
+
+int __stdcall CelGetWidth(D2CelStrc* pCel);                                                                 // 0x006018C0
+
+int __stdcall CelGetHeight(D2CelStrc* pCel);                                                                // 0x006018F0
+
+// build: symbol ??1UIWidget@@UAE@XZ 0x004BE080
+// build: symbol ??_7ButtonImplementation@@6B@ 0x006DA6F4
+// build: symbol ??_7ButtonWrapper@@6B@ 0x006DA72C
+// build: symbol ??_7EditBoxImplementation@@6B@ 0x006DA77C
+// build: symbol ??_7EditBoxWrapper@@6B@ 0x006DA7CC
+// build: symbol ??_7SpinnerWrapper@@6B@ 0x006DA874
+// 0x004BAF20
+ButtonImplementation::ButtonImplementation(int nX, int nY, int nStringSlot, int (__cdecl* pfnCallback)())
+{
+    nBaseFrame = gaButtonStrings[nStringSlot].nCelFrame;
+    this->nStringSlot = nStringSlot;
+    this->pfnCallback = pfnCallback;
+    f_20 = 0;
+    unk0x2C = 0;
+    D2CelContextStrc tContext;
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.pCellFile = sub_00454600();
+    tContext.nDirection = 0;
+    tContext.nFrame = nBaseFrame;
+    D2CelStrc* pCel = CelGetHandle(&tContext);
+    this->nX = nX;
+    this->nY = nY;
+    unk0x24 = 0;
+    nHeight = CelGetHeight(pCel);
+    nWidth = CelGetWidth(pCel);
+}
+
 // build: symbol ?Slot01@ButtonImplementation@@UAEXXZ 0x004BB000
 // 0x004BB000
 void ButtonImplementation::Slot01()
@@ -488,6 +524,12 @@ void ButtonImplementation::Slot01()
         D2Win_10117_DrawText(wszText, nX + (nWidth - nTextWidth) / 2, nY - nHeight - 5, 0, 0);
         sub_00502EF0(nOldFont);
     }
+}
+
+// 0x004BB0F0
+ButtonWrapper::ButtonWrapper(int nX, int nY, int nStringSlot, int (__cdecl* pfnCallback)())
+{
+    pImpl = new ButtonImplementation(nX, nY, nStringSlot, pfnCallback);
 }
 
 // 0x004BB170
@@ -769,6 +811,67 @@ void EditBoxWrapper::sub_004BBBA0_SetUnk20(int nValue)
     pImpl->sub_004BB200_SetUnk20(nValue);
 }
 
+// 0x004BBBB0
+EditBoxImplementation::EditBoxImplementation(int nX, int nY, int nTextWidth, int nHeight, int nArg10,
+    unsigned short nMaxLength, int nArg18, int nFont)
+{
+    char szPath[260];
+// build: symbol ?gszDataGlobal@* 0x006D4118
+    sprintf(szPath, "%s\\ui\\menu\\textslid", gszDataGlobal);
+    pCellFile = ARCHIVE_LoadClientCellFile(szPath, 0);
+    this->nX = nX;
+    this->nY = nY;
+    unk0x42 = nArg18;
+    unk0x3E = 0;
+    unk0x46 = 0;
+    const int nSize = (nMaxLength + 1) * sizeof(Unicode);
+    pText = (Unicode*)FOG_Alloc(nSize, ".\\UI\\editbox.cpp", 93, 0);
+    pTextCopy = (Unicode*)FOG_Alloc(nSize, ".\\UI\\editbox.cpp", 94, 0);
+    memset(pText, 0, nSize);
+    memset(pTextCopy, 0, nSize);
+    nMaxValue = nArg10;
+    this->nMaxLength = nMaxLength;
+    unk0x36 = 0;
+    unk0x3A = 0;
+    this->nFont = nFont;
+    nTextX = nX + 1;
+    nTextY = nY;
+    unk0x20 = 1;
+    unk0x4A = 1;
+    char szDigits[11] = "0000000000";
+    Unicode wszDigits[11];
+    memset(wszDigits, 0, sizeof(wszDigits));
+    sub_00502EF0(nFont);
+    sub_00526F20_ToUnicode(wszDigits, szDigits, 11);
+    if (nTextWidth <= 0)
+    {
+        this->nTextWidth = D2Win_10121_GetTextWidth(wszDigits) / 10 * (nMaxLength + 2);
+    }
+    else
+    {
+        this->nTextWidth = nTextWidth;
+    }
+    if (nHeight <= 0)
+    {
+        this->nHeight = 1;
+        unk0x56 = 1;
+    }
+    else
+    {
+        this->nHeight = nHeight;
+        unk0x56 = 0;
+    }
+    unk0x24 = 0;
+    unk0x04 = 0;
+}
+
+// 0x004BBD80
+EditBoxWrapper::EditBoxWrapper(int nX, int nY, int nTextWidth, int nHeight, int nArg10, unsigned short nMaxLength,
+    int nArg18, int nFont)
+{
+    pImpl = new EditBoxImplementation(nX, nY, nTextWidth, nHeight, nArg10, nMaxLength, nArg18, nFont);
+}
+
 // 0x004BBE10
 SpinnerImplementation::~SpinnerImplementation()
 {
@@ -819,20 +922,8 @@ int SpinnerImplementation::HitTestDownArrow(SMSGHANDLER_PARAMS* pMsg)
     return 1;
 }
 
-ButtonWrapper::ButtonWrapper()
-{
-    pImpl = 0;
-}
 
-EditBoxWrapper::EditBoxWrapper()
-{
-    pImpl = 0;
-}
 
-EditBoxImplementation::EditBoxImplementation()
-{
-    pText = 0;
-}
 
 // build: symbol ?MsgSlot02@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB5F0
 // 0x004BB5F0
@@ -985,11 +1076,28 @@ int SpinnerImplementation::MsgSlot08(SMSGHANDLER_PARAMS* pMsg)
 {
     return 0;
 }
+// build: symbol ?MsgSlot09@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC1D0
+// 0x004BC1D0
+int SpinnerImplementation::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
+{
+    return 0;
+}
+
 // 0x004BC1F0
 SpinnerWrapper::~SpinnerWrapper()
 {
     delete pImpl;
 }
+// 0x004BC480
+SpinnerWrapper::SpinnerWrapper(int nX, int nY, int bHorizontal, int nArg0C)
+{
+    pImpl = new SpinnerImplementation(nX, nY, bHorizontal, nArg0C);
+}
+
+struct D2CelFileStrc;
+
+#include "gen/data/Source/D2Client/UI/editbox.inc"
+
 
 
 

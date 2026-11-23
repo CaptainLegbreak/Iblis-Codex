@@ -29732,6 +29732,11 @@
      "name": "sub_004BAF10_SetUnk24"
     },
     {
+     "va": "0x004BAF20",
+     "length": 174,
+     "name": "??0ButtonImplementation@@QAE@HHHP6AHXZ@Z"
+    },
+    {
      "va": "0x004BAFD0",
      "length": 45,
      "name": "?_GButtonImplementation"
@@ -29740,6 +29745,11 @@
      "va": "0x004BB000",
      "length": 225,
      "name": "Slot01"
+    },
+    {
+     "va": "0x004BB0F0",
+     "length": 122,
+     "name": "??0ButtonWrapper@@QAE@HHHP6AHXZ@Z"
     },
     {
      "va": "0x004BB170",
@@ -29932,9 +29942,19 @@
      "name": "sub_004BBBA0_SetUnk20"
     },
     {
+     "va": "0x004BBBB0",
+     "length": 412,
+     "name": "??0EditBoxImplementation@@QAE@HHHHHGHH@Z"
+    },
+    {
      "va": "0x004BBD50",
      "length": 43,
      "name": "?_GEditBoxImplementation"
+    },
+    {
+     "va": "0x004BBD80",
+     "length": 138,
+     "name": "??0EditBoxWrapper@@QAE@HHHHHGHH@Z"
     },
     {
      "va": "0x004BBE10",
@@ -29986,9 +30006,19 @@
      "name": "?SKILLS_Return0@@YGHH@Z"
     },
     {
+     "va": "0x004BC1D0",
+     "length": 5,
+     "name": "?SKILLS_Return0@@YGHH@Z"
+    },
+    {
      "va": "0x004BC1F0",
      "length": 88,
      "name": "??1SpinnerWrapper@@UAE@XZ"
+    },
+    {
+     "va": "0x004BC480",
+     "length": 122,
+     "name": "??0SpinnerWrapper@@QAE@HHHH@Z"
     }
    ],
    "flags": [
@@ -30071,57 +30101,6 @@
      "length": 5,
      "name": "?SKILLS_Return0@@YGHH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/editbox_004BBBB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BAF20",
-     "length": 174,
-     "name": "??0ButtonImplementation@@QAE@HHHP6AHXZ@Z"
-    },
-    {
-     "va": "0x004BB0F0",
-     "length": 122,
-     "name": "??0ButtonWrapper@@QAE@HHHP6AHXZ@Z"
-    },
-    {
-     "va": "0x004BBBB0",
-     "length": 412,
-     "name": "??0EditBoxImplementation@@QAE@HHHHHGHH@Z"
-    },
-    {
-     "va": "0x004BBD80",
-     "length": 138,
-     "name": "??0EditBoxWrapper@@QAE@HHHHHGHH@Z"
-    },
-    {
-     "va": "0x004BC1D0",
-     "length": 5,
-     "name": "?SKILLS_Return0@@YGHH@Z"
-    },
-    {
-     "va": "0x004BC480",
-     "length": 122,
-     "name": "??0SpinnerWrapper@@QAE@HHHH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc",
-    "/GS-"
    ]
   },
   {
