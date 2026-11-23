@@ -371,6 +371,67 @@ extern "C" char* __cdecl strcpy(char* pDst, const char* pSrc);
 
 #define ITEMACTION_ONGROUND 3
 
+// 0x0053B0E0
+void __fastcall sub_0053B0E0_WriteVarLength(D2BitBufferStrc* pBuffer, unsigned int nValue)
+{
+    if (nValue < 0x100)
+    {
+        BITMANIP_Write(pBuffer, 0, 1);
+        BITMANIP_Write(pBuffer, nValue, 8);
+    }
+    else
+    {
+        BITMANIP_Write(pBuffer, 1, 1);
+        if (nValue < 0x10000)
+        {
+            BITMANIP_Write(pBuffer, 0, 1);
+            BITMANIP_Write(pBuffer, nValue, 16);
+        }
+        else
+        {
+            BITMANIP_Write(pBuffer, 1, 1);
+            BITMANIP_Write(pBuffer, nValue, 32);
+        }
+    }
+}
+
+// 0x0053B140
+void __fastcall sub_0053B140_WriteVarLength16(D2BitBufferStrc* pBuffer, unsigned short nValue)
+{
+    if (nValue < 0x100)
+    {
+        BITMANIP_Write(pBuffer, 0, 1);
+        BITMANIP_Write(pBuffer, nValue, 8);
+    }
+    else
+    {
+        BITMANIP_Write(pBuffer, 1, 1);
+        BITMANIP_Write(pBuffer, nValue, 16);
+    }
+}
+
+// 0x0053B180
+int* __fastcall sub_0053B180_GetMonsterDataField3C(D2UnitStrc* pUnit)
+{
+    if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
+    {
+        return 0;
+    }
+    D2MonsterDataStrc* pMonsterData = pUnit->pMonsterData;
+    if (!pMonsterData)
+    {
+        return 0;
+    }
+    return &pMonsterData->nOwnerGUID;
+}
+
+// 0x0053B1A0
+static inline void sub_0053B1A0_SendToClient(int nClientId, void* pPacket, int nSize)
+{
+    sub_0052B330(0, nClientId, pPacket, nSize);
+}
+void __stdcall sub_M121_Emit_0053B1A0(int nClientId, void* pPacket, int nSize) { sub_0053B1A0_SendToClient(nClientId, pPacket, nSize); }
+
 // 0x0053B1B0
 int __fastcall D2GAME_PACKETS_SendGameListEntry(int nClientId, short nGameId, short nClientCount, const char* szGameName)
 {
