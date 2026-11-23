@@ -31282,11 +31282,6 @@
      "name": "MISSILE_GetArmorComponents"
     },
     {
-     "va": "0x004DED20",
-     "length": 141,
-     "name": "?MISSILE_UpdateRoomColor@@YAXXZ"
-    },
-    {
      "va": "0x004E0A40",
      "length": 396,
      "name": "MISSILE_SkillStartPlace"
@@ -32389,6 +32384,11 @@
      "va": "0x004DED10",
      "length": 12,
      "name": "?sub_004DED10@@YIXPAX@Z"
+    },
+    {
+     "va": "0x004DED20",
+     "length": 141,
+     "name": "?MISSILE_UpdateRoomColor@@YAXXZ"
     },
     {
      "va": "0x004DEDB0",
