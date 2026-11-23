@@ -63688,11 +63688,6 @@
      "name": "SKILLS_SrvDo019_Inferno_ArcticBlast"
     },
     {
-     "va": "0x005CA360",
-     "length": 128,
-     "name": "SKILLS_SrvDo027_Teleport"
-    },
-    {
      "va": "0x005CAF30",
      "length": 78,
      "name": "SKILLS_SrvDo083_FireHit"
@@ -64457,32 +64452,15 @@
      "name": "SKILLS_SrvDo151_CreateMissileAtTargetOffset"
     },
     {
-     "va": "0x005CAC50",
-     "length": 230,
-     "name": "SKILLS_EventFunc02_FrozenArmor"
+     "va": "0x005CA360",
+     "length": 128,
+     "name": "SKILLS_SrvDo027_Teleport"
     },
-    {
-     "va": "0x005CAD40",
-     "length": 241,
-     "name": "SKILLS_EventFunc03_ShiverArmor"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005CA3E0.cpp",
-   "rank": 0,
-   "functions": [
     {
      "va": "0x005CA3E0",
      "length": 144,
      "name": "?sub_005CA3E0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005CA470.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x005CA470",
      "length": 91,
@@ -64498,6 +64476,22 @@
      "length": 590,
      "name": "?SKILLS_EventFunc24_EnergyShield@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
     },
+    {
+     "va": "0x005CAC50",
+     "length": 230,
+     "name": "SKILLS_EventFunc02_FrozenArmor"
+    },
+    {
+     "va": "0x005CAD40",
+     "length": 241,
+     "name": "SKILLS_EventFunc03_ShiverArmor"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Unknown_005CAE40.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x005CAE40",
      "length": 239,

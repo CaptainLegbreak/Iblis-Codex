@@ -4406,15 +4406,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_005CA470.cpp": {
-   "bytes": 64,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005CA470.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/SKILLS/SkillMonst.cpp": {
    "bytes": 80,
    "definitions": 2,
@@ -5727,6 +5718,15 @@
    "lang": "cpp",
    "state": "static",
    "static_definitions": 2
+  },
+  "Source/D2Game/SKILLS/SkillSor.cpp": {
+   "bytes": 64,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/SKILLS/SkillSor.inc",
+   "lang": "cpp",
+   "state": "included"
   }
  },
  "definitions": [
@@ -115298,7 +115298,7 @@
    "cname": "gData_006E30E0",
    "declared": true,
    "decorated": "?gaEnergyShieldData@@3QBUD2EnergyShieldDataStrc@@B",
-   "file": "Source/D2Game/Unknown_005CA470.cpp",
+   "file": "Source/D2Game/SKILLS/SkillSor.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const D2EnergyShieldDataStrc gData_006E30E0[8]; // 0x006E30E0",
    "head": "extern \"C\" const D2EnergyShieldDataStrc gData_006E30E0[8] = ",
