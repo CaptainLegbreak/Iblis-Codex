@@ -33499,80 +33499,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004E74A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004E74A0",
-     "length": 270
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004E75B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004E75B0",
-     "length": 92,
-     "name": "?sub_004E75B0_FormatValueOrRange@@YAHPA_WHHH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004E7610.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004E7610",
-     "length": 64,
-     "name": "?sub_004E7610_FormatDecimalRange@@YGXPA_WHHHHH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004E82A0.cpp",
    "rank": 1,
    "functions": [
@@ -33914,6 +33840,20 @@
      "va": "0x004E7480",
      "length": 29,
      "name": "?SKILLDESC_FormatIntOrDecimal@@YAHPA_WHHH@Z"
+    },
+    {
+     "va": "0x004E74A0",
+     "length": 270
+    },
+    {
+     "va": "0x004E75B0",
+     "length": 92,
+     "name": "?sub_004E75B0_FormatValueOrRange@@YAHPA_WHHH@Z"
+    },
+    {
+     "va": "0x004E7610",
+     "length": 64,
+     "name": "?sub_004E7610_FormatDecimalRange@@YGXPA_WHHHHH@Z"
     },
     {
      "va": "0x004E7650",
