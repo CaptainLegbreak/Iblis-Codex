@@ -3391,6 +3391,11 @@
      "name": "?MAINMENUS_OnTcpIpHost@@YGHH@Z"
     },
     {
+     "va": "0x00435E00",
+     "length": 13,
+     "name": "?CHARSEL_Back@@YGHH@Z"
+    },
+    {
      "va": "0x00435E10",
      "length": 926
     },
@@ -9430,11 +9435,6 @@
      "va": "0x004349B0",
      "length": 79,
      "name": "?CHARSEL_UpgradeCharacter@@YIHPAUD2LaunchCharEntryStrc@@PBD@Z"
-    },
-    {
-     "va": "0x00435E00",
-     "length": 13,
-     "name": "?CHARSEL_Back@@YGHH@Z"
     },
     {
      "va": "0x004379C0",

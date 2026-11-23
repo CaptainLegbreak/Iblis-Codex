@@ -4599,6 +4599,13 @@ static inline void __fastcall ShowText(const Unicode* pText, void (__cdecl* pfnD
     MAINMENUS_ShowMessage(pText, pfnDone, 1);
 }
 
+// 0x00435E00
+int __stdcall CHARSEL_Back(int nArg)
+{
+    sub_00435580();
+    return 1;
+}
+
 // build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x00435E10
