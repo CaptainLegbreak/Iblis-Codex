@@ -211,6 +211,24 @@ void __fastcall OBJECTS_InitFunction50_HratliEnd(D2ObjInitFnStrc* pOp)
     }
 }
 
+// 0x005B7230
+void __fastcall ACT3Q0_ChangeHratliMapAI(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MapAIStrc* pMapAI)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 14);
+    if (!pQuestData)
+        return;
+    D2Act3Quest0Strc* pQuestDataEx = (D2Act3Quest0Strc*)pQuestData->pQuestDataEx;
+    pQuestDataEx->pHratliMapAI = pMapAI;
+    if (!pQuestDataEx->bHratliEndCreated)
+        return;
+    D2UnitStrc* pHratli = SUNIT_GetServerUnit(pQuestData->pGame, 1, pQuestDataEx->nHratliGUID);
+    if (pHratli && pQuestDataEx->pHratliMapAI && pQuestDataEx->pHratliMapAI->pPosition && !pQuestDataEx->bHratliMapAIChanged)
+    {
+        DRLGPRESET_ChangeMapAI(&pQuestDataEx->pHratliMapAI, AIGENERAL_GetMapAiFromUnit(pHratli));
+        pQuestDataEx->bHratliMapAIChanged = 1;
+    }
+}
+
 // 0x005B72A0
 void __stdcall sub_005B72A0(int nUnused1)
 {
