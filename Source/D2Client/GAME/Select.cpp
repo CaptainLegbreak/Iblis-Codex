@@ -503,24 +503,34 @@ static D2UnitStrc* __stdcall SELECT_FindSkillTarget(D2SkillStrc* pSkill, D2UnitS
     return pUnit;
 }
 
+extern const unsigned int gdwMask_006CE278;                                                                 // 0x006CE278
+
+static inline int UNITS_IsSelectable(D2UnitStrc* pUnit)
+{
+    int bResult = 0;
+    if (pUnit)
+    {
+        bResult = (pUnit->dwFlags >> 2) & 1;
+    }
+    return bResult;
+}
+
+// 0x00467660
 static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkillsTxtRecord, D2UnitStrc* pUnit)
 {
     const int nDirection = (unsigned char)UNITS_GetNewDirection(pUnit) >> 3;
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
     for (int i = 0; i < 5; ++i)
     {
-// build: symbol ?gaAdjacentDirOffsets@* 0x006D6B34
         const int nIndex = (gaAdjacentDirOffsets[i] + nDirection) & 7;
-// build: symbol ?gaDirectionDX@* 0x006D6B14
         const int nX = gaDirectionDX[nIndex] + CLIENT_GetUnitXInline(pUnit);
-// build: symbol ?gaDirectionDY@* 0x006D6AF4
         const int nY = gaDirectionDY[nIndex] + CLIENT_GetUnitYInline(pUnit);
         if (COLLISION_CheckMaskWithSize(pRoom, nX, nY, 1, 0x180))
         {
             D2UnitStrc* pTarget = D2Common_10407(pRoom, nX, nY, sub_00467640_UnitFindTest, 0, 1);
-            if (UNIT_HasFlag(pTarget, 4))
+            if (UNITS_IsSelectable(pTarget))
             {
-                if (!(pSkillsTxtRecord->nFlags[2] & gdwBitMasks[4])
+                if (!(pSkillsTxtRecord->nFlags[2] & gdwMask_006CE278)
                     || (pTarget->dwUnitType == UNIT_MONSTER && MONSTERREGION_CheckMonStats2Flag(pTarget->dwClassId, 6))
                     || CUNIT_IsHostileTo(pUnit, pTarget))
                 {
@@ -532,6 +542,16 @@ static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkill
     }
 
     return 0;
+}
+
+D2UnitStrc* __fastcall sub_807B_Emit_00467660(D2SkillsTxt* pSkillsTxtRecord, D2UnitStrc* pPlayer, int bArg)
+{
+    if (bArg && pPlayer->dwUnitType == UNIT_PLAYER)
+    {
+        return sub_00467660_FindAdjacentTarget(pSkillsTxtRecord, pPlayer);
+    }
+    UNITS_SetTargetUnitForDynamicUnit(pPlayer, 0);
+    return pPlayer;
 }
 
 // 0x004677B0
