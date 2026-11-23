@@ -1384,6 +1384,31 @@ int __cdecl DLIGHTMAP_GetLocalBloodPalette()
     return gdwGlobal_007BB384;
 }
 
+int __stdcall D2GFX_TogglePerspective();                                                                    // 0x004F54B0
+
+int __stdcall D2GFX_ToggleBlendedShadows();                                                                 // 0x004F54D0
+
+int __stdcall D2GFX_ToggleLowQuality();                                                                     // 0x004F54F0
+
+// 0x00477690
+int __cdecl sub_00477690_TogglePerspective()
+{
+    return D2GFX_TogglePerspective();
+}
+
+// 0x004776A0
+int __cdecl sub_004776A0_ToggleBlendedShadows()
+{
+    return D2GFX_ToggleBlendedShadows();
+}
+
+// 0x004776B0
+int __cdecl sub_004776B0_ToggleLowQuality()
+{
+    return D2GFX_ToggleLowQuality();
+}
+
+
 // 0x004776C0
 void __fastcall sub_004776C0(void* pArg)
 {
