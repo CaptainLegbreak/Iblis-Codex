@@ -37560,11 +37560,6 @@
      "va": "0x005077F0",
      "length": 85,
      "name": "?D2Win_10138@@YIXPAUD2WinListStrc@@PBDP6GHPAUSMSGHANDLER_PARAMS@@@ZDHHH@Z"
-    },
-    {
-     "va": "0x005079C0",
-     "length": 71,
-     "name": "?ACCOUNTLIST_GetTextFromSelectedEntry@@YIHPAUD2WinAccountListStrc@@PAD@Z"
     }
    ],
    "flags": [
@@ -37600,6 +37595,11 @@
      "va": "0x00507900",
      "length": 184,
      "name": "ACCOUNTLIST_RemoveEntry"
+    },
+    {
+     "va": "0x005079C0",
+     "length": 71,
+     "name": "?ACCOUNTLIST_GetTextFromSelectedEntry@@YIHPAUD2WinAccountListStrc@@PAD@Z"
     },
     {
      "va": "0x00507AF0",
