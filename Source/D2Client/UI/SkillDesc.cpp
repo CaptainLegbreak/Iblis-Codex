@@ -562,6 +562,37 @@ static inline float GetEnvironVolume_Inline()
     return sub_00473C40() ? sub_00473C80() : 0.0f;
 }
 
+#define MINIMUM(a,b) (((a) < (b)) ? (a) : (b))
+
+#define MASK_DECREMENT 1
+
+static inline int Absolute(int nValue)
+{
+    return nValue < 0 ? -nValue : nValue;
+}
+
+// 0x004E4180
+int __fastcall sub_004E4180(int nFrame, int nOffset, int nStepLength)
+{
+    int nFrameMod;
+    int nOffsetMod;
+    const int nMask = nStepLength - MASK_DECREMENT;
+    if (!(nStepLength & nMask))
+    {
+        nFrameMod = nFrame & nMask;
+        nOffsetMod = nOffset & nMask;
+    }
+    else
+    {
+        nFrameMod = nFrame % nStepLength;
+        nOffsetMod = nOffset % nStepLength;
+    }
+    const int nDirect = Absolute(nOffsetMod - nFrameMod);
+    const int nForward = Absolute(nOffsetMod - nFrameMod - nStepLength);
+    const int nBackward = Absolute(nFrameMod - nOffsetMod - nStepLength);
+    return MINIMUM(MINIMUM(nDirect, nForward), nBackward);
+}
+
 // 0x004E42E0
 void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
 {
