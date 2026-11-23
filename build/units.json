@@ -83594,18 +83594,18 @@
     {
      "va": "0x006C3120",
      "length": 569
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_006C3360.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x006C3360",
      "length": 99,
      "name": "?sub_006C3360_Startup@@YIHPAUQServer@@H@Z"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/Fog/Src/QServer/QServer98.cpp",
+   "rank": 1,
+   "functions": [
     {
      "va": "0x006C33D0",
      "length": 55,
@@ -83615,13 +83615,7 @@
      "va": "0x006C3410",
      "length": 47,
      "name": "?sub_006C3410_Send@@YIHPAUD2QueueServerStrc@@PAUD2QClientStrc@@PADH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer98.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006C3440",
      "length": 46
@@ -83629,13 +83623,7 @@
     {
      "va": "0x006C3470",
      "length": 1748
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_006C3B50.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006C3B50",
      "length": 352
