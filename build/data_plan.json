@@ -3890,15 +3890,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_005B2570.cpp": {
-   "bytes": 96,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005B2570.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/Quests/a4q2.cpp": {
    "bytes": 1372,
    "definitions": 1,
@@ -5267,8 +5258,8 @@
    "state": "included"
   },
   "Source/D2Game/Unknown_005B24E0.cpp": {
-   "bytes": 92,
-   "definitions": 2,
+   "bytes": 188,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Unknown_005B24E0.inc",
@@ -112330,7 +112321,7 @@
    "cname": "gData_006E2CF0",
    "declared": true,
    "decorated": "?gaMinionSpawnOffsets@@3QAY05$$CBUD2CoordStrc@@A",
-   "file": "Source/D2Game/Unknown_005B2570.cpp",
+   "file": "Source/D2Game/Unknown_005B24E0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006E2CF0_t gData_006E2CF0; // 0x006E2CF0",
    "head": "extern \"C\" const struct d2data_006E2CF0_t gData_006E2CF0 = ",
