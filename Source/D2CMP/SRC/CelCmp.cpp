@@ -1948,7 +1948,7 @@ static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContext
     for (int i = 0; i <= nFrame; ++i)
     {
         pFrame = (D2CmpDC6FrameStrc*)((char*)pData + nOffset);
-        if (pFrame->unk0x00 != 0)
+        if (pFrame->nFlip != 0)
         {
             return 0;
         }
