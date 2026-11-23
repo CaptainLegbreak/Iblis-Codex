@@ -23,6 +23,14 @@ struct D2MissileStrc;
 struct D2MonStatsTxt;
 struct D2MonStats2Txt;
 
+struct D2GridCellStrc
+{
+    int unk0x00[4];
+    D2CellNodeStrc* pNodes;
+    int f_14;
+    int unk0x18[3];
+};
+
 struct D2CellGridViewStrc
 {
     int unk0x00;
@@ -31,7 +39,16 @@ struct D2CellGridViewStrc
     int unk0x0C[6];
     int nScrollX;
     int nScrollY;
+    char unk0x2C[0xEA7C];
+    D2GridCellStrc* pCells;
+    char unk0xEAAC[0x04];
+    int nSize;
+    void __thiscall sub_004DF510_DrawCellNodes();
 };
+
+int __cdecl sub_0045AE90(); // 0x0045AE90
+void __fastcall SCMD_ReadGridCell(int nA, int nB, unsigned char* pByte0, unsigned char* pByte1, unsigned char* pByte2, unsigned char* pByte3); // 0x00475AA0
+void __stdcall sub_004DEF80_DrawCellTiles(D2GridCellStrc* pCell, int nArg, D2CellGridViewStrc* pView); // 0x004DEF80
 
 struct D2SlotObjectStrc
 {
@@ -130,6 +147,40 @@ static inline void sub_004DF4B0_DrawCellNode(D2CellGridViewStrc* pView, D2CellNo
 void __stdcall sub_M114_Emit_004DF4B0(D2CellGridViewStrc* pView, D2CellNodeStrc* pNode, int nArg)
 {
     sub_004DF4B0_DrawCellNode(pView, pNode, nArg);
+}
+
+// 0x004DF510
+void __thiscall D2CellGridViewStrc::sub_004DF510_DrawCellNodes()
+{
+    const int nCells = nSize;
+    int nCount = nCells * nCells;
+    D2GridCellStrc* pCell = pCells;
+    const int nArg = sub_0045AE90();
+    while (nCount--)
+    {
+        for (D2CellNodeStrc* pNode = pCell->pNodes; pNode; pNode = pNode->pNext)
+        {
+            if (!(pNode->dwFlags & 3))
+            {
+                unsigned char nByte0;
+                unsigned char nByte1;
+                unsigned char nByte2;
+                unsigned char nByte3;
+                SCMD_ReadGridCell(pNode->nA, pNode->nB, &nByte0, &nByte1, &nByte2, &nByte3);
+                sub_004DC7B0(pNode->pPos, (((nByte3 << 8 | nByte2) << 8 | nByte1) << 8) | nByte0, 0);
+            }
+            else
+            {
+                sub_004DF4B0_DrawCellNode(this, pNode, nArg);
+            }
+        }
+
+        if (pCell->f_14)
+        {
+            sub_004DEF80_DrawCellTiles(pCell, 1, this);
+        }
+        ++pCell;
+    }
 }
 
 // 0x004DF790

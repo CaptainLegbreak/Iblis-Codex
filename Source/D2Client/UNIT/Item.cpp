@@ -227,29 +227,6 @@ struct D2FloorTileViewStrc
     void __thiscall sub_004DE6C0_DrawTileTriple(int nX, int nY, int nStepX, int nStepY);
 };
 
-struct D2GridCellStrc
-{
-    int unk0x00[4];
-    D2CellNodeStrc* pNodes;
-    int f_14;
-    int unk0x18[3];
-};
-
-struct D2CellGridViewStrc
-{
-    int unk0x00;
-    int nOffsetX;
-    int nOffsetY;
-    int unk0x0C[6];
-    int nScrollX;
-    int nScrollY;
-    char unk0x2C[0xEA7C];
-    D2GridCellStrc* pCells;
-    char unk0xEAAC[0x04];
-    int nSize;
-    void __thiscall sub_004DF510_DrawCellNodes();
-};
-
 struct D2AddressInfoStrc
 {
     short nUnk0x00;
@@ -310,13 +287,9 @@ extern D2SlotStrc gaSlots[16]; // 0x007C8A78
 
 int __cdecl sub_0044DB00(); // 0x0044DB00
 
-int __cdecl sub_0045AE90(); // 0x0045AE90
-
 int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 
 int __fastcall GFX_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
-
-void __fastcall SCMD_ReadGridCell(int nA, int nB, unsigned char* pByte0, unsigned char* pByte1, unsigned char* pByte2, unsigned char* pByte3); // 0x00475AA0
 
 int __cdecl sub_004817F0(); // 0x004817F0
 
@@ -339,10 +312,6 @@ int __fastcall sub_004DBB50(D2PanelGfxStrc* pGfx, D2UnitStrc* pUnit, int nArg3, 
 void __fastcall sub_004DBEA0(D2UnitStrc* pUnit, int nArg2, int nArg3, unsigned int* pWidth, unsigned int* pHeight); // 0x004DBEA0
 
 int __fastcall sub_004DC110(void* pArg1, int nArg2, int nArg3, int nArg4, void* pfnCallback, int nArg6, int nArg7); // 0x004DC110
-
-void __stdcall sub_004DEF80_DrawCellTiles(D2GridCellStrc* pCell, int nArg, D2CellGridViewStrc* pView); // 0x004DEF80
-
-int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 
 int __fastcall sub_00515710(D2SoundStrc* pSound); // 0x00515710
 
@@ -4114,55 +4083,6 @@ void __thiscall D2FloorTileViewStrc::sub_004DE6C0_DrawTileTriple(int nX, int nY,
     sub_004DE630_DrawTileAt(nBaseX, nBaseY);
     sub_004DE630_DrawTileAt(nBaseX + nStepX, nBaseY + nStepY);
     sub_004DE630_DrawTileAt(nBaseX + 2 * nStepX, nBaseY + 2 * nStepY);
-}
-
-// 0x004DF510
-void __thiscall D2CellGridViewStrc::sub_004DF510_DrawCellNodes()
-{
-    const int nCells = nSize;
-    int nCount = nCells * nCells;
-    D2GridCellStrc* pCell = pCells;
-    const int nArg = sub_0045AE90();
-    while (nCount--)
-    {
-        for (D2CellNodeStrc* pNode = pCell->pNodes; pNode; pNode = pNode->pNext)
-        {
-            if (!(pNode->dwFlags & 3))
-            {
-                unsigned char nByte0;
-                unsigned char nByte1;
-                unsigned char nByte2;
-                unsigned char nByte3;
-                SCMD_ReadGridCell(pNode->nA, pNode->nB, &nByte0, &nByte1, &nByte2, &nByte3);
-                sub_004DC7B0(pNode->pPos, (((nByte3 << 8 | nByte2) << 8 | nByte1) << 8) | nByte0, 0);
-            }
-            else
-            {
-                const int bMode = D2GFX_CheckPerspective();
-                if (pNode->dwFlags & 1)
-                {
-                    if (bMode)
-                    {
-                        sub_004F6980(pNode->pPos->f_18, pNode->nA, pNode->nB, 4, nArg);
-                    }
-                    else
-                    {
-                        sub_004F6980(pNode->pPos->f_18, nOffsetX - nScrollX + pNode->pPos->nX, pNode->pPos->nY - nScrollY + nOffsetY, 4, nArg);
-                    }
-                }
-                else if (pNode->dwFlags & 2)
-                {
-                    sub_00471620(pNode->pPos);
-                }
-            }
-        }
-
-        if (pCell->f_14)
-        {
-            sub_004DEF80_DrawCellTiles(pCell, 1, this);
-        }
-        ++pCell;
-    }
 }
 
 // 0x004DF630

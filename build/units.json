@@ -30321,11 +30321,6 @@
      "name": "sub_004DE6C0_DrawTileTriple"
     },
     {
-     "va": "0x004DF510",
-     "length": 280,
-     "name": "sub_004DF510_DrawCellNodes"
-    },
-    {
      "va": "0x004DF630",
      "length": 131,
      "name": "ITEM_QueryCacheAddress"
@@ -32518,6 +32513,11 @@
      "va": "0x004DF4B0",
      "length": 85,
      "name": "?sub_004DF4B0_DrawCellNode@@YAXPAUD2CellGridViewStrc@@PAUD2CellNodeStrc@@H@Z"
+    },
+    {
+     "va": "0x004DF510",
+     "length": 280,
+     "name": "sub_004DF510_DrawCellNodes"
     },
     {
      "va": "0x004DF770",
