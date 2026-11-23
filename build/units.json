@@ -2362,11 +2362,6 @@
      "name": "MAINMENUS_InitStorm"
     },
     {
-     "va": "0x00409020",
-     "length": 386,
-     "name": "MAINMENUS_LogPoolError"
-    },
-    {
      "va": "0x004098B0",
      "length": 270,
      "name": "MAINMENUS_PoolReallocLarge"
@@ -2382,11 +2377,6 @@
      "name": "MAINMENUS_LogWritePrefixed"
     },
     {
-     "va": "0x004107F0",
-     "length": 308,
-     "name": "MAINMENUS_GetSaveDiskFreeSpace"
-    },
-    {
      "va": "0x0042E6A0",
      "length": 7,
      "name": "MAINMENUS_SetGatewayValue"
@@ -2397,9 +2387,19 @@
      "name": "MAINMENUS_SetGatewayFlag"
     },
     {
+     "va": "0x0042E6D0",
+     "length": 2175,
+     "name": "?MAINMENUS_LoadFrontEndCells@@YAXXZ"
+    },
+    {
      "va": "0x0042EF50",
      "length": 907,
      "name": "?MAINMENUS_FreeFrontEndCells@@YAXXZ"
+    },
+    {
+     "va": "0x0042F2E0",
+     "length": 130,
+     "name": "?MAINMENUS_ReadPaletteFiles@@YIHPBD0@Z"
     },
     {
      "va": "0x0042F3A0",
@@ -2440,6 +2440,21 @@
      "va": "0x0042F790",
      "length": 103,
      "name": "?MAINMENUS_ShowCantConnect@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0042FA40",
+     "length": 103,
+     "name": "?MAINMENUS_InitAuxBattleNet@@YAHXZ"
+    },
+    {
+     "va": "0x0042FAB0",
+     "length": 98,
+     "name": "?MAINMENUS_GetAuxBattleNetFlag@@YAHXZ"
+    },
+    {
+     "va": "0x0042FD10",
+     "length": 180,
+     "name": "?MAINMENUS_BuildLocalizedVideoPath@@YAXPADPBD1@Z"
     },
     {
      "va": "0x0042FDD0",
@@ -2502,6 +2517,11 @@
      "name": "?MAINMENUS_CountNameSeparators@@YAHPBDH@Z"
     },
     {
+     "va": "0x00430620",
+     "length": 150,
+     "name": "?MAINMENUS_UpdateNameOk@@YAXXZ"
+    },
+    {
      "va": "0x00430730",
      "length": 21,
      "name": "?MAINMENUS_ToggleHardcore@@YGHH@Z"
@@ -2552,6 +2572,11 @@
      "name": "?MAINMENUS_IdleLoopCallback@@YGHH@Z"
     },
     {
+     "va": "0x00430BC0",
+     "length": 99,
+     "name": "?MAINMENUS_HasSaveFiles@@YAHXZ"
+    },
+    {
      "va": "0x00430C30",
      "length": 23,
      "name": "?sub_00430C30_OnCancel@@YGHH@Z"
@@ -2562,6 +2587,10 @@
      "name": "?MAINMENUS_OnCreate@@YGHH@Z"
     },
     {
+     "va": "0x00430CD0",
+     "length": 536
+    },
+    {
      "va": "0x00431020",
      "length": 32,
      "name": "?MAINMENUS_ClearCreditsLists@@YAXXZ"
@@ -2570,6 +2599,11 @@
      "va": "0x00431040",
      "length": 16,
      "name": "?MAINMENUS_ClearCreditsList@@YAXXZ"
+    },
+    {
+     "va": "0x00431050",
+     "length": 613,
+     "name": "?MAINMENUS_ShowCredits@@YIHH@Z"
     },
     {
      "va": "0x004312C0",
@@ -2586,9 +2620,19 @@
      "name": "MAINMENUS_CreateLevelScreen"
     },
     {
+     "va": "0x00431600",
+     "length": 452,
+     "name": "?MAINMENUS_ShowLevelScreen@@YGHH@Z"
+    },
+    {
      "va": "0x004317D0",
      "length": 152,
      "name": "MAINMENUS_FlushInput"
+    },
+    {
+     "va": "0x00431870",
+     "length": 151,
+     "name": "?MAINMENUS_PlayVideo@@YGXHPBD@Z"
     },
     {
      "va": "0x00431910",
@@ -2671,6 +2715,11 @@
      "name": "?sub_00431F50_OnCancel@@YGHH@Z"
     },
     {
+     "va": "0x00431F70",
+     "length": 168,
+     "name": "?MAINMENUS_SaveExists@@YAHXZ"
+    },
+    {
      "va": "0x00432020",
      "length": 23,
      "name": "?sub_00432020_OnCancel@@YGHH@Z"
@@ -2729,6 +2778,11 @@
      "length": 295
     },
     {
+     "va": "0x004326F0",
+     "length": 2030,
+     "name": "?MAINMENUS_LoadCharCreateCells@@YAXXZ"
+    },
+    {
      "va": "0x00432EE0",
      "length": 13,
      "name": "?MAINMENUS_CloseBox@@YGHH@Z"
@@ -2769,6 +2823,21 @@
      "name": "?MAINMENUS_OnCloseBox@@YGHH@Z"
     },
     {
+     "va": "0x004334E0",
+     "length": 337,
+     "name": "?MAINMENUS_PlayIntro@@YAXXZ"
+    },
+    {
+     "va": "0x00433640",
+     "length": 121,
+     "name": "?MAINMENUS_PlayIntroVideo@@YAXXZ"
+    },
+    {
+     "va": "0x004336C0",
+     "length": 333,
+     "name": "?MAINMENUS_ShowMainMenu@@YAXXZ"
+    },
+    {
      "va": "0x00433BD0",
      "length": 13,
      "name": "?MAINMENUS_OnNameChanged@@YGHH@Z"
@@ -2779,6 +2848,114 @@
      "name": "?MAINMENUS_OnLoginChanged@@YGHH@Z"
     },
     {
+     "va": "0x00434060",
+     "length": 388
+    },
+    {
+     "va": "0x004341F0",
+     "length": 35,
+     "name": "?MAINMENUS_CheckCreditsEnd@@YGHH@Z"
+    },
+    {
+     "va": "0x00434220",
+     "length": 184,
+     "name": "?MAINMENUS_PromptPlayDisc@@YAHXZ"
+    },
+    {
+     "va": "0x004342E0",
+     "length": 58,
+     "name": "?MAINMENUS_PromptExpansionDisc@@YAHXZ"
+    },
+    {
+     "va": "0x00434320",
+     "length": 85,
+     "name": "?MAINMENUS_PlayClassicIntro@@YGHH@Z"
+    },
+    {
+     "va": "0x00434380",
+     "length": 85,
+     "name": "?MAINMENUS_PlayActTwoStart@@YGHH@Z"
+    },
+    {
+     "va": "0x004343E0",
+     "length": 85,
+     "name": "?MAINMENUS_PlayActThreeStart@@YGHH@Z"
+    },
+    {
+     "va": "0x00434440",
+     "length": 85,
+     "name": "?MAINMENUS_PlayActFourStart@@YGHH@Z"
+    },
+    {
+     "va": "0x004344A0",
+     "length": 85,
+     "name": "?MAINMENUS_PlayActFourEnd@@YGHH@Z"
+    },
+    {
+     "va": "0x00434500",
+     "length": 83,
+     "name": "?MAINMENUS_PlayExpansionIntro@@YGHH@Z"
+    },
+    {
+     "va": "0x00434560",
+     "length": 83,
+     "name": "?MAINMENUS_PlayExpansionOutro@@YGHH@Z"
+    },
+    {
+     "va": "0x004345C0",
+     "length": 60,
+     "name": "?MAINMENUS_ReloadAndLeave@@YGHH@Z"
+    },
+    {
+     "va": "0x00434600",
+     "length": 251,
+     "name": "?MAINMENUS_CreateGatewayScreen@@YGHH@Z"
+    },
+    {
+     "va": "0x00434760",
+     "length": 37,
+     "name": "?MAINMENUS_ResetAndLeave@@YGHH@Z"
+    },
+    {
+     "va": "0x00434790",
+     "length": 452,
+     "name": "?MAINMENUS_JoinTcpIp@@YGHH@Z"
+    },
+    {
+     "va": "0x00434A00",
+     "length": 900
+    },
+    {
+     "va": "0x00434D90",
+     "length": 34,
+     "name": "?MAINMENUS_PlayIntroAndLeave@@YGHH@Z"
+    },
+    {
+     "va": "0x00434DC0",
+     "length": 13,
+     "name": "?sub_00434DC0_Leave@@YGHH@Z"
+    },
+    {
+     "va": "0x00434DD0",
+     "length": 18,
+     "name": "?MAINMENUS_DisconnectAndLeave@@YGHH@Z"
+    },
+    {
+     "va": "0x00434DF0",
+     "length": 13,
+     "name": "?sub_00434DF0_Leave@@YGHH@Z"
+    },
+    {
+     "va": "0x00434E00",
+     "length": 544,
+     "name": "?MAINMENUS_CheckFreeSpace@@YGHH@Z"
+    },
+    {
+     "va": "0x00435020",
+     "length": 13,
+     "name": "?sub_00435020_Callback@@YGHH@Z"
+    },
+    {
      "va": "0x00435030",
      "length": 329,
      "name": "?MAINMENUS_ChangePasswordOk@@YGHH@Z"
@@ -2787,6 +2964,20 @@
      "va": "0x00435200",
      "length": 33,
      "name": "?MAINMENUS_CancelDownload@@YGHH@Z"
+    },
+    {
+     "va": "0x00435230",
+     "length": 242,
+     "name": "?MAINMENUS_PlayIntroVideos@@YAXXZ"
+    },
+    {
+     "va": "0x00435330",
+     "length": 584,
+     "name": "?MAINMENUS_ShowLoginScreen@@YAXXZ"
+    },
+    {
+     "va": "0x00435580",
+     "length": 1102
     },
     {
      "va": "0x00435CD0",
@@ -2814,14 +3005,107 @@
      "name": "?MAINMENUS_OnTcpIpHost@@YGHH@Z"
     },
     {
+     "va": "0x00435E10",
+     "length": 926
+    },
+    {
      "va": "0x004361B0",
      "length": 178,
      "name": "?MAINMENUS_LoginOk@@YGHH@Z"
     },
     {
+     "va": "0x00436270",
+     "length": 13,
+     "name": "?MAINMENUS_OnShowLogin@@YGHH@Z"
+    },
+    {
+     "va": "0x00436280",
+     "length": 126,
+     "name": "?MAINMENUS_ConnectOk@@YGHH@Z"
+    },
+    {
+     "va": "0x00436300",
+     "length": 18,
+     "name": "?MAINMENUS_BackToLogin@@YGHH@Z"
+    },
+    {
+     "va": "0x00436320",
+     "length": 23,
+     "name": "?MAINMENUS_GatewayOk@@YGHH@Z"
+    },
+    {
+     "va": "0x00436340",
+     "length": 28,
+     "name": "?MAINMENUS_GatewayBack@@YGHH@Z"
+    },
+    {
+     "va": "0x00436360",
+     "length": 551,
+     "name": "?MAINMENUS_SubmitCharacter@@YGHH@Z"
+    },
+    {
+     "va": "0x00436590",
+     "length": 18,
+     "name": "?MAINMENUS_BackToCharCreate@@YGHH@Z"
+    },
+    {
+     "va": "0x004365B0",
+     "length": 854,
+     "name": "?MAINMENUS_CreateCharacter@@YAXXZ"
+    },
+    {
      "va": "0x00436910",
      "length": 210,
      "name": "?MAINMENUS_CreateAccountOk@@YGHH@Z"
+    },
+    {
+     "va": "0x004369F0",
+     "length": 200,
+     "name": "?MAINMENUS_OnCharCreateOk@@YGHH@Z"
+    },
+    {
+     "va": "0x00436AC0",
+     "length": 13,
+     "name": "?MAINMENUS_ClearStatusTexts@@YAXXZ"
+    },
+    {
+     "va": "0x00436AD0",
+     "length": 316,
+     "name": "?MAINMENUS_UpdateStatus@@YAXXZ"
+    },
+    {
+     "va": "0x00436C10",
+     "length": 93,
+     "name": "?MAINMENUS_CheckAtAndDot@@YAHPBD@Z"
+    },
+    {
+     "va": "0x00436C70",
+     "length": 31,
+     "name": "?MAINMENUS_DeclineEmail@@YGHH@Z"
+    },
+    {
+     "va": "0x00436CD0",
+     "length": 23,
+     "name": "?MAINMENUS_OnConnectCancel@@YGHH@Z"
+    },
+    {
+     "va": "0x00436CF0",
+     "length": 75
+    },
+    {
+     "va": "0x00436D40",
+     "length": 13,
+     "name": "?MAINMENUS_OnTwoEditChange@@YGHH@Z"
+    },
+    {
+     "va": "0x00436EB0",
+     "length": 99,
+     "name": "?MAINMENUS_UpdateEmailOk@@YAXXZ"
+    },
+    {
+     "va": "0x00436F20",
+     "length": 13,
+     "name": "?MAINMENUS_OnEditChange@@YGHH@Z"
     },
     {
      "va": "0x00436F30",
@@ -2832,6 +3116,11 @@
      "va": "0x004370C0",
      "length": 231,
      "name": "?MAINMENUS_CreateInfoScreen@@YAXXZ"
+    },
+    {
+     "va": "0x004371E0",
+     "length": 192,
+     "name": "?MAINMENUS_UpdatePasswordOk@@YAXXZ"
     },
     {
      "va": "0x004372B0",
@@ -2862,6 +3151,66 @@
      "va": "0x00443C10",
      "length": 8,
      "name": "?sub_00443C10_AlwaysOne@@YGHH@Z"
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Launch/Src/MainMenus_00436C90.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00436C90",
+     "length": 51,
+     "name": "?MAINMENUS_AskEmailRegistration@@YGHH@Z"
+    },
+    {
+     "va": "0x00437620",
+     "length": 229,
+     "name": "?MAINMENUS_ConfirmText@@YGHH@Z"
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Launch/Src/MainMenus_00409020.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00409020",
+     "length": 386,
+     "name": "MAINMENUS_LogPoolError"
+    },
+    {
+     "va": "0x004107F0",
+     "length": 308,
+     "name": "MAINMENUS_GetSaveDiskFreeSpace"
     }
    ]
   },
@@ -9653,210 +10002,6 @@
    ]
   },
   {
-   "file": "Source/D2Launch/Src/MainMenus_0042F2E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0042E6D0",
-     "length": 2175,
-     "name": "?MAINMENUS_LoadFrontEndCells@@YAXXZ"
-    },
-    {
-     "va": "0x0042F2E0",
-     "length": 130,
-     "name": "?MAINMENUS_ReadPaletteFiles@@YIHPBD0@Z"
-    },
-    {
-     "va": "0x0042FA40",
-     "length": 103,
-     "name": "?MAINMENUS_InitAuxBattleNet@@YAHXZ"
-    },
-    {
-     "va": "0x0042FAB0",
-     "length": 98,
-     "name": "?MAINMENUS_GetAuxBattleNetFlag@@YAHXZ"
-    },
-    {
-     "va": "0x0042FD10",
-     "length": 180,
-     "name": "?MAINMENUS_BuildLocalizedVideoPath@@YAXPADPBD1@Z"
-    },
-    {
-     "va": "0x00430620",
-     "length": 150,
-     "name": "?MAINMENUS_UpdateNameOk@@YAXXZ"
-    },
-    {
-     "va": "0x00430BC0",
-     "length": 99,
-     "name": "?MAINMENUS_HasSaveFiles@@YAHXZ"
-    },
-    {
-     "va": "0x00430CD0",
-     "length": 536
-    },
-    {
-     "va": "0x00431050",
-     "length": 613,
-     "name": "?MAINMENUS_ShowCredits@@YIHH@Z"
-    },
-    {
-     "va": "0x00431600",
-     "length": 452,
-     "name": "?MAINMENUS_ShowLevelScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x00431870",
-     "length": 151,
-     "name": "?MAINMENUS_PlayVideo@@YGXHPBD@Z"
-    },
-    {
-     "va": "0x00431F70",
-     "length": 168,
-     "name": "?MAINMENUS_SaveExists@@YAHXZ"
-    },
-    {
-     "va": "0x004326F0",
-     "length": 2030,
-     "name": "?MAINMENUS_LoadCharCreateCells@@YAXXZ"
-    },
-    {
-     "va": "0x004334E0",
-     "length": 337,
-     "name": "?MAINMENUS_PlayIntro@@YAXXZ"
-    },
-    {
-     "va": "0x00433640",
-     "length": 121,
-     "name": "?MAINMENUS_PlayIntroVideo@@YAXXZ"
-    },
-    {
-     "va": "0x004336C0",
-     "length": 333,
-     "name": "?MAINMENUS_ShowMainMenu@@YAXXZ"
-    },
-    {
-     "va": "0x00434060",
-     "length": 388
-    },
-    {
-     "va": "0x00434320",
-     "length": 85,
-     "name": "?MAINMENUS_PlayClassicIntro@@YGHH@Z"
-    },
-    {
-     "va": "0x00434380",
-     "length": 85,
-     "name": "?MAINMENUS_PlayActTwoStart@@YGHH@Z"
-    },
-    {
-     "va": "0x004343E0",
-     "length": 85,
-     "name": "?MAINMENUS_PlayActThreeStart@@YGHH@Z"
-    },
-    {
-     "va": "0x00434440",
-     "length": 85,
-     "name": "?MAINMENUS_PlayActFourStart@@YGHH@Z"
-    },
-    {
-     "va": "0x004344A0",
-     "length": 85,
-     "name": "?MAINMENUS_PlayActFourEnd@@YGHH@Z"
-    },
-    {
-     "va": "0x00434500",
-     "length": 83,
-     "name": "?MAINMENUS_PlayExpansionIntro@@YGHH@Z"
-    },
-    {
-     "va": "0x00434560",
-     "length": 83,
-     "name": "?MAINMENUS_PlayExpansionOutro@@YGHH@Z"
-    },
-    {
-     "va": "0x00434790",
-     "length": 452,
-     "name": "?MAINMENUS_JoinTcpIp@@YGHH@Z"
-    },
-    {
-     "va": "0x00434A00",
-     "length": 900
-    },
-    {
-     "va": "0x00434E00",
-     "length": 544,
-     "name": "?MAINMENUS_CheckFreeSpace@@YGHH@Z"
-    },
-    {
-     "va": "0x00435330",
-     "length": 584,
-     "name": "?MAINMENUS_ShowLoginScreen@@YAXXZ"
-    },
-    {
-     "va": "0x00435580",
-     "length": 1102
-    },
-    {
-     "va": "0x00435E10",
-     "length": 926
-    },
-    {
-     "va": "0x004365B0",
-     "length": 854,
-     "name": "?MAINMENUS_CreateCharacter@@YAXXZ"
-    },
-    {
-     "va": "0x004369F0",
-     "length": 200,
-     "name": "?MAINMENUS_OnCharCreateOk@@YGHH@Z"
-    },
-    {
-     "va": "0x00436AD0",
-     "length": 316,
-     "name": "?MAINMENUS_UpdateStatus@@YAXXZ"
-    },
-    {
-     "va": "0x00436C10",
-     "length": 93,
-     "name": "?MAINMENUS_CheckAtAndDot@@YAHPBD@Z"
-    },
-    {
-     "va": "0x00436CF0",
-     "length": 75
-    },
-    {
-     "va": "0x00436EB0",
-     "length": 99,
-     "name": "?MAINMENUS_UpdateEmailOk@@YAXXZ"
-    },
-    {
-     "va": "0x004371E0",
-     "length": 192,
-     "name": "?MAINMENUS_UpdatePasswordOk@@YAXXZ"
-    },
-    {
-     "va": "0x00437620",
-     "length": 229,
-     "name": "?MAINMENUS_ConfirmText@@YGHH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Launch/Unknown_0042F370.cpp",
    "rank": 0,
    "functions": [
@@ -11298,137 +11443,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Src/MainMenus_004341F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004341F0",
-     "length": 35,
-     "name": "?MAINMENUS_CheckCreditsEnd@@YGHH@Z"
-    },
-    {
-     "va": "0x00434220",
-     "length": 184,
-     "name": "?MAINMENUS_PromptPlayDisc@@YAHXZ"
-    },
-    {
-     "va": "0x004342E0",
-     "length": 58,
-     "name": "?MAINMENUS_PromptExpansionDisc@@YAHXZ"
-    },
-    {
-     "va": "0x004345C0",
-     "length": 60,
-     "name": "?MAINMENUS_ReloadAndLeave@@YGHH@Z"
-    },
-    {
-     "va": "0x00434600",
-     "length": 251,
-     "name": "?MAINMENUS_CreateGatewayScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x00434760",
-     "length": 37,
-     "name": "?MAINMENUS_ResetAndLeave@@YGHH@Z"
-    },
-    {
-     "va": "0x00434D90",
-     "length": 34,
-     "name": "?MAINMENUS_PlayIntroAndLeave@@YGHH@Z"
-    },
-    {
-     "va": "0x00434DC0",
-     "length": 13,
-     "name": "?sub_00434DC0_Leave@@YGHH@Z"
-    },
-    {
-     "va": "0x00434DD0",
-     "length": 18,
-     "name": "?MAINMENUS_DisconnectAndLeave@@YGHH@Z"
-    },
-    {
-     "va": "0x00434DF0",
-     "length": 13,
-     "name": "?sub_00434DF0_Leave@@YGHH@Z"
-    },
-    {
-     "va": "0x00435020",
-     "length": 13,
-     "name": "?sub_00435020_Callback@@YGHH@Z"
-    },
-    {
-     "va": "0x00435230",
-     "length": 242,
-     "name": "?MAINMENUS_PlayIntroVideos@@YAXXZ"
-    },
-    {
-     "va": "0x00436270",
-     "length": 13,
-     "name": "?MAINMENUS_OnShowLogin@@YGHH@Z"
-    },
-    {
-     "va": "0x00436280",
-     "length": 126,
-     "name": "?MAINMENUS_ConnectOk@@YGHH@Z"
-    },
-    {
-     "va": "0x00436300",
-     "length": 18,
-     "name": "?MAINMENUS_BackToLogin@@YGHH@Z"
-    },
-    {
-     "va": "0x00436320",
-     "length": 23,
-     "name": "?MAINMENUS_GatewayOk@@YGHH@Z"
-    },
-    {
-     "va": "0x00436340",
-     "length": 28,
-     "name": "?MAINMENUS_GatewayBack@@YGHH@Z"
-    },
-    {
-     "va": "0x00436360",
-     "length": 551,
-     "name": "?MAINMENUS_SubmitCharacter@@YGHH@Z"
-    },
-    {
-     "va": "0x00436590",
-     "length": 18,
-     "name": "?MAINMENUS_BackToCharCreate@@YGHH@Z"
-    },
-    {
-     "va": "0x00436AC0",
-     "length": 13,
-     "name": "?MAINMENUS_ClearStatusTexts@@YAXXZ"
-    },
-    {
-     "va": "0x00436C70",
-     "length": 31,
-     "name": "?MAINMENUS_DeclineEmail@@YGHH@Z"
-    },
-    {
-     "va": "0x00436C90",
-     "length": 51,
-     "name": "?MAINMENUS_AskEmailRegistration@@YGHH@Z"
-    },
-    {
-     "va": "0x00436CD0",
-     "length": 23,
-     "name": "?MAINMENUS_OnConnectCancel@@YGHH@Z"
-    },
-    {
-     "va": "0x00436D40",
-     "length": 13,
-     "name": "?MAINMENUS_OnTwoEditChange@@YGHH@Z"
-    },
-    {
-     "va": "0x00436F20",
-     "length": 13,
-     "name": "?MAINMENUS_OnEditChange@@YGHH@Z"
-    }
    ]
   },
   {
