@@ -297,64 +297,6 @@ __forceinline int ACT1Q5_ContainsGUID_Inline(const int* pGUIDs, int nCount, int 
     return 0;
 }
 
-// 0x005944F0
-void __fastcall ACT1Q4_SpawnCainPortalOutsideTown(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A1Q4_CAIN);
-    if (!pQuestData)
-    {
-        return;
-    }
-
-    D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuestData->pQuestDataEx;
-    pQuestDataEx->bChangePortalOutsideTownToSpecialMode = 1;
-    pQuestDataEx->bCainInTownSpawnPending = 1;
-    if (pQuestDataEx->bCainObjectInitialized != 1)
-    {
-        return;
-    }
-
-    D2UnitStrc* pCainObject = SUNIT_GetServerUnit(pGame, UNIT_OBJECT, pQuestDataEx->nCainObjectGUID);
-    if (!pCainObject)
-    {
-        return;
-    }
-
-    D2ObjInitFnStrc tObjInit;
-    tObjInit.pObject = pCainObject;
-    tObjInit.pGame = pGame;
-    tObjInit.pRoom = UNITS_GetRoom(pCainObject);
-    tObjInit.nX = CLIENTS_GetUnitX(pCainObject);
-    tObjInit.nY = CLIENTS_GetUnitY(pCainObject);
-    OBJECTS_InitFunction54_CainStartPosition(&tObjInit);
-
-    if (pQuestDataEx->bCainInTownSpawned != 1)
-    {
-        return;
-    }
-
-    D2UnitStrc* pCain = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, pQuestDataEx->nCainMonsterInTownGUID);
-    if (!pCain)
-    {
-        return;
-    }
-
-    D2CoordStrc tCoord;
-    UNITS_GetCoords(pCain, &tCoord);
-    D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pCain), tCoord.nX, tCoord.nY);
-    if (!pRoom)
-    {
-        return;
-    }
-
-    D2UnitStrc* pPortal = SUNIT_AllocUnitData(UNIT_OBJECT, OBJECT_CAINPORTAL, tCoord.nX, tCoord.nY, pGame, pRoom, 1, 1, 0);
-    if (pPortal)
-    {
-        pQuestDataEx->bCainPortalInTownSpawned = 1;
-        pQuestDataEx->nCainPortalInTownGUID = pPortal->dwUnitId;
-    }
-}
-
 // 0x00595A50
 void __fastcall OBJECTS_InitFunction47_CountessChest(D2ObjInitFnStrc* pOp)
 {

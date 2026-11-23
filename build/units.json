@@ -53464,6 +53464,11 @@
      "name": "?OBJECTS_InitFunction09_InifussTree@@YIXPAUD2ObjInitFnStrc@@@Z"
     },
     {
+     "va": "0x00594020",
+     "length": 57,
+     "name": "?OBJECTS_InitFunction13_InvisibleObject@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
      "va": "0x00594060",
      "length": 53,
      "name": "?ACT1Q4_InitCainGibbet@@YIXPAUD2QuestDataStrc@@PAUD2ObjInitFnStrc@@@Z"
@@ -53492,6 +53497,61 @@
      "va": "0x00594280",
      "length": 3,
      "name": "ACT1Q4_CreateUberFinalePortal"
+    },
+    {
+     "va": "0x00594290",
+     "length": 42,
+     "name": "?OBJECTS_InitFunction61_CainPortal@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x005942C0",
+     "length": 151,
+     "name": "?ACT1Q4_UpdatePortalInTown@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00594360",
+     "length": 79,
+     "name": "ACT1Q4_GetCainPortalInTownCoordinates"
+    },
+    {
+     "va": "0x005943B0",
+     "length": 155,
+     "name": "?ACT1Q4_SpawnCainPortalOutsideTown@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00594450",
+     "length": 87,
+     "name": "ACT1Q4_GetCainPortalOutsideTownCoordinates"
+    },
+    {
+     "va": "0x005944B0",
+     "length": 58,
+     "name": "?ACT1Q4_UpdateCainPortalCoordinates@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005944F0",
+     "length": 242,
+     "name": "ACT1Q4_SpawnCainPortalOutsideTown"
+    },
+    {
+     "va": "0x005945F0",
+     "length": 25,
+     "name": "?ACT1Q4_OnCainInTownActivated@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00594610",
+     "length": 32,
+     "name": "?ACT1Q4_IsCainInTristramDeactivated@@YIHPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x00594630",
+     "length": 159,
+     "name": "?ACT1Q4_DropWirtsBodyGold@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005946D0",
+     "length": 33,
+     "name": "sub_005946D0_SetA1Q4Unk0xB0"
     },
     {
      "va": "0x00596CA0",
@@ -54247,11 +54307,6 @@
      "va": "0x00592D50",
      "length": 203,
      "name": "ACT1Q4_OpenPortalToTristram"
-    },
-    {
-     "va": "0x00594450",
-     "length": 87,
-     "name": "ACT1Q4_GetCainPortalOutsideTownCoordinates"
     }
    ]
   },
@@ -55201,11 +55256,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x005944F0",
-     "length": 242,
-     "name": "ACT1Q4_SpawnCainPortalOutsideTown"
-    },
-    {
      "va": "0x00595A50",
      "length": 193,
      "name": "OBJECTS_InitFunction47_CountessChest"
@@ -55336,21 +55386,6 @@
    "file": "Source/D2Game/Quests/a2q3.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00594360",
-     "length": 79,
-     "name": "ACT1Q4_GetCainPortalInTownCoordinates"
-    },
-    {
-     "va": "0x00594630",
-     "length": 159,
-     "name": "?ACT1Q4_DropWirtsBodyGold@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005946D0",
-     "length": 33,
-     "name": "sub_005946D0_SetA1Q4Unk0xB0"
-    },
     {
      "va": "0x00596BC0",
      "length": 128,
@@ -55548,31 +55583,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00594020",
-     "length": 57,
-     "name": "?OBJECTS_InitFunction13_InvisibleObject@@YIXPAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x00594290",
-     "length": 42,
-     "name": "?OBJECTS_InitFunction61_CainPortal@@YIXPAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x005942C0",
-     "length": 151,
-     "name": "?ACT1Q4_UpdatePortalInTown@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005943B0",
-     "length": 155,
-     "name": "?ACT1Q4_SpawnCainPortalOutsideTown@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005944B0",
-     "length": 58,
-     "name": "?ACT1Q4_UpdateCainPortalCoordinates@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
      "va": "0x00594700",
      "length": 60,
      "name": "?ACT1Q5_AddUnitGUID@@YGXPAUD2Act1Quest5Strc@@HH@Z"
@@ -55713,16 +55723,6 @@
    "file": "Source/D2Game/Quests/a2q6.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x005945F0",
-     "length": 25,
-     "name": "?ACT1Q4_OnCainInTownActivated@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00594610",
-     "length": 32,
-     "name": "?ACT1Q4_IsCainInTristramDeactivated@@YIHPAUD2GameStrc@@@Z"
-    },
     {
      "va": "0x0059C3C0",
      "length": 652
