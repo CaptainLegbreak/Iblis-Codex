@@ -2534,6 +2534,16 @@
      "name": "AUTOMAP_ScreenToMap"
     },
     {
+     "va": "0x0045B090",
+     "length": 1,
+     "name": "?sub_0045B090_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x0045B0A0",
+     "length": 1,
+     "name": "?sub_0045B0A0_Nop@@YAXXZ"
+    },
+    {
      "va": "0x0045B1E0",
      "length": 510,
      "name": "AUTOMAP_DrawUnitTileRect"
@@ -17783,16 +17793,6 @@
    "file": "Source/D2Client/Unknown_0045B090.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0045B090",
-     "length": 1,
-     "name": "?sub_0045B090_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x0045B0A0",
-     "length": 1,
-     "name": "?sub_0045B0A0_Nop@@YAXXZ"
-    },
     {
      "va": "0x0045B9D0",
      "length": 16,

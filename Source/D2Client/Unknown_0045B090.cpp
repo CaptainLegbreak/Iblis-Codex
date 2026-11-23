@@ -92,15 +92,7 @@ static void STORM_LinkUnlink(D2StormLinkStrc* pLink)
     }
 }
 
-// 0x0045B090
-void __cdecl sub_0045B090_Nop()
-{
-}
 
-// 0x0045B0A0
-void __cdecl sub_0045B0A0_Nop()
-{
-}
 
 // 0x0045B9D0
 char* D2StormLinkStrc::sub_0045B9D0_Next()
