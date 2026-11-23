@@ -1939,6 +1939,19 @@ void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId)
     return 0;
 }
 
+// 0x004CA990
+void* __fastcall ROSTER_GetLinkFirst(D2UnitStrc* pUnit)
+{
+    D2_ASSERT(pUnit, 0xC63);
+    D2UnitSfxNodeStrc* pNode = (D2UnitSfxNodeStrc*)pUnit->pUnitSfxData;
+    if (pNode)
+    {
+        return pNode->pUnitSfx;
+    }
+
+    return 0;
+}
+
 // 0x004CC270
 void __cdecl MISSILE_CheckLevelSpeech()
 {
