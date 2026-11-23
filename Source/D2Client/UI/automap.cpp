@@ -1693,6 +1693,31 @@ void __cdecl AUTOMAP_LoadAutomapLayer()
     FOG_CloseFile(hFile);
 }
 
+struct D2GridCellStrc;
+
+struct D2GridCellStrc
+{
+    int nFlag;
+    unsigned char nValue[4];
+};
+
+struct D2ChatMessageStrc
+{
+    char* szText;
+    int nColor;
+    int bClear;
+    D2ChatMessageStrc* pNext;
+};
+
+// 0x00458CD0
+void __stdcall CHARSEL_SetAutomapContext(D2AutomapLayerStrc* pContext)
+{
+    AUTOMAP_SaveAutomapLayer();
+    AUTOMAP_ResetAutomapCells();
+    gpAutomapContext = pContext;
+    AUTOMAP_LoadAutomapLayer();
+}
+
 // 0x00458CF0
 void __stdcall AUTOMAP_PushAutomapLayer(int nValue)
 {

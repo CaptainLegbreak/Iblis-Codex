@@ -2,6 +2,7 @@
 #include "D2ClientUi.h"
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
+#include "D2MultiTypes.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
@@ -19,12 +20,6 @@ struct D2ChatMessageStrc
     unsigned char nColor;
     unsigned char unk0x09[0x11];
     D2ChatTextStrc tText;
-};
-
-struct D2ClientInfoStrc
-{
-    char unk0x00[0x8D];
-    char szName[0x10];
 };
 
 class D2SquelchListStrc
@@ -316,7 +311,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(const Unicode* pLine, char*
             Unicode wszName[0x22];
             char szName[0x11];
             sub_0047C3F0_CopyCommandArgs(pText, szName, sizeof(szName));
-            if (SStrCmpI(&szName[1], gpClientInfo_007A0438->szName, 0x7FFFFFFF))
+            if (SStrCmpI(&szName[1], gpClientInfo_007A0438->szAccount, 0x7FFFFFFF))
             {
                 sub_00526320_ToUnicode(wszLine, gszBattleNetPrefix, 0x208);
                 sub_00526320_ToUnicode(wszName, szName, 0x22);

@@ -2446,6 +2446,11 @@
      "name": "?AUTOMAP_LoadLayerFromFile@@YAXXZ"
     },
     {
+     "va": "0x00458CD0",
+     "length": 30,
+     "name": "CHARSEL_SetAutomapContext"
+    },
+    {
      "va": "0x00458CF0",
      "length": 65,
      "name": "AUTOMAP_PushAutomapLayer"
@@ -3585,6 +3590,11 @@
      "va": "0x00435D80",
      "length": 117,
      "name": "?MAINMENUS_OnTcpIpHost@@YGHH@Z"
+    },
+    {
+     "va": "0x00435E00",
+     "length": 13,
+     "name": "?CHARSEL_Back@@YGHH@Z"
     },
     {
      "va": "0x00435E10",
@@ -9362,11 +9372,6 @@
      "name": "?CHARSEL_UpgradeCharacter@@YIHPAUD2LaunchCharEntryStrc@@PBD@Z"
     },
     {
-     "va": "0x00435E00",
-     "length": 13,
-     "name": "?CHARSEL_Back@@YGHH@Z"
-    },
-    {
      "va": "0x004379C0",
      "length": 10,
      "name": "?BNDOWNLOAD_GetTime@@YAJPAJ@Z"
@@ -9795,31 +9800,6 @@
      "va": "0x00446890",
      "length": 88,
      "name": "?CHARSEL_SendChatLine@@YGHH@Z"
-    },
-    {
-     "va": "0x00451920",
-     "length": 24,
-     "name": "CHARSEL_RecordHandler"
-    },
-    {
-     "va": "0x00453470",
-     "length": 343,
-     "name": "CHARSEL_DrawProgressiveStates"
-    },
-    {
-     "va": "0x00458CD0",
-     "length": 30,
-     "name": "CHARSEL_SetAutomapContext"
-    },
-    {
-     "va": "0x004756D0",
-     "length": 171,
-     "name": "CHARSEL_ScanGridCollision"
-    },
-    {
-     "va": "0x00478160",
-     "length": 101,
-     "name": "CHARSEL_ShowProgressSteps"
     }
    ],
    "flags": [
@@ -11555,11 +11535,6 @@
      "name": "?COMCALLBACK_IsValidKeyText@@YIHPBD@Z"
     },
     {
-     "va": "0x0044CCA0",
-     "length": 52,
-     "name": "COMCALLBACK_CountLevelThresholds"
-    },
-    {
      "va": "0x004512C0",
      "length": 97,
      "name": "COMCALLBACK_LoadLngString"
@@ -11568,11 +11543,6 @@
      "va": "0x00451450",
      "length": 83,
      "name": "COMCALLBACK_RecordMessage"
-    },
-    {
-     "va": "0x00451B30",
-     "length": 114,
-     "name": "COMCALLBACK_WindowProc"
     },
     {
      "va": "0x00451DB0",
@@ -15343,6 +15313,11 @@
      "name": "?GAME_DrawLoadingText@@YAXXZ"
     },
     {
+     "va": "0x0044CCA0",
+     "length": 52,
+     "name": "COMCALLBACK_CountLevelThresholds"
+    },
+    {
      "va": "0x0044CDB0",
      "length": 137
     },
@@ -16018,6 +15993,11 @@
      "name": "UI_IsRecordingEnabled"
     },
     {
+     "va": "0x00451920",
+     "length": 24,
+     "name": "CHARSEL_RecordHandler"
+    },
+    {
      "va": "0x00451960",
      "length": 6,
      "name": "UI_IsRecordHandlerInstalled"
@@ -16078,6 +16058,11 @@
      "va": "0x00453330",
      "length": 315,
      "name": "?UI_DrawPartyMemberText@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00453470",
+     "length": 343,
+     "name": "CHARSEL_DrawProgressiveStates"
     },
     {
      "va": "0x004535D0",
@@ -16565,6 +16550,11 @@
      "va": "0x00451B00",
      "length": 41,
      "name": "SCMD_HandleCloseMessage"
+    },
+    {
+     "va": "0x00451B30",
+     "length": 114,
+     "name": "COMCALLBACK_WindowProc"
     },
     {
      "va": "0x00451BB0",
@@ -21715,6 +21705,11 @@
      "name": "?DLIGHTMAP_UpdateLight@@YGXHPAUD2R01LightStrc@@@Z"
     },
     {
+     "va": "0x004756D0",
+     "length": 171,
+     "name": "CHARSEL_ScanGridCollision"
+    },
+    {
      "va": "0x00475780",
      "length": 120,
      "name": "?DLIGHTMAP_GetIndicatorLevel@@YAHXZ"
@@ -22052,6 +22047,11 @@
      "va": "0x00478130",
      "length": 30,
      "name": "?MSG_SetProgress@@YIXHH@Z"
+    },
+    {
+     "va": "0x00478160",
+     "length": 101,
+     "name": "CHARSEL_ShowProgressSteps"
     },
     {
      "va": "0x004781D0",
@@ -26520,11 +26520,6 @@
      "name": "sub_004BF9B0"
     },
     {
-     "va": "0x004CCF30",
-     "length": 6,
-     "name": "sub_004CCF30"
-    },
-    {
      "va": "0x004E0680",
      "length": 6,
      "name": "MONSTER_GetNpcSpeechAudio"
@@ -30277,6 +30272,11 @@
      "va": "0x004CCF20",
      "length": 7,
      "name": "?sub_004CCF20_SetValue@@YIXH@Z"
+    },
+    {
+     "va": "0x004CCF30",
+     "length": 6,
+     "name": "sub_004CCF30"
     },
     {
      "va": "0x004CCF40",

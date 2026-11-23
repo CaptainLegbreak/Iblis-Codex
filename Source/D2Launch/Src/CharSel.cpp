@@ -1427,13 +1427,6 @@ int __fastcall CHARSEL_UpgradeCharacter(D2LaunchCharEntryStrc* pEntry, const cha
     return GAME_GetConnectError() == 0;
 }
 
-// 0x00435E00
-int __stdcall CHARSEL_Back(int nArg)
-{
-    sub_00435580();
-    return 1;
-}
-
 // build: symbol ??0Unicode@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x004379C0
@@ -3506,101 +3499,10 @@ int __stdcall CHARSEL_SendChatLine(int nArg)
     return 1;
 }
 
-// 0x00451920
-void __stdcall CHARSEL_RecordHandler(int nArg1, int nArg2, int nArg3)
-{
-    RECORD_WriteRecordFile();
-    if (gpfnPrevHandler)
-        gpfnPrevHandler(nArg1, nArg2, nArg3);
-}
 
-// 0x00453470
-void __cdecl CHARSEL_DrawProgressiveStates()
-{
-    if (!gpGlobal_007A0634)
-        return;
-    if (!sub_00463DE0_GetPlayerUnit())
-        return;
-    if (!UNITS_GetRoom(sub_00463DE0_GetPlayerUnit()))
-        return;
-    if (!gbOverlaysEnabled)
-        return;
-    int nY = gnScreenHeight - gnGlobal_007111D4;
-    int nX = gnScreenWidth - gnGlobal_007111D0;
-    if (D2GFX_GetResolutionMode() == 2)
-        nY = gnScreenHeight - gnGlobal_007111CC;
-    D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
-    for (int i = 0; i < sgptDataTables->nProgressiveStates; ++i)
-    {
-        const int nState = sgptDataTables->pProgressiveStates[i];
-        if (!STATES_CheckState(pUnit, nState))
-            continue;
-        if (!STATLIST_GetStatListFromUnitAndState(pUnit, nState))
-            continue;
-        D2StatesTxt* pStatesTxtRecord = sub_00452040_GetStatesTxtRecord(nState);
-        if (!pStatesTxtRecord)
-            continue;
-        if (!(pStatesTxtRecord->nStateFlags[0] & gdwBitMasks[4]))
-            continue;
-        if (pStatesTxtRecord->wPrgOverlay <= 0 || pStatesTxtRecord->wPrgOverlay >= sgptDataTables->nOverlayTxtRecordCount)
-            continue;
-        if (pStatesTxtRecord->wStat < 0 || pStatesTxtRecord->wStat > sgptDataTables->nItemStatCostTxtRecordCount)
-            continue;
-        const int nCharges = STATLIST_UnitGetStatValue(pUnit, pStatesTxtRecord->wStat, 0);
-        if (nCharges < 1 || nCharges > 3)
-            continue;
-        GFX_DrawProgressiveStateOverlays(pUnit, pStatesTxtRecord->wPrgOverlay + nCharges - 1, nX, nY);
-        nX -= gnOverlayStep;
-    }
-}
 
-// 0x00458CD0
-void __stdcall CHARSEL_SetAutomapContext(void* pContext)
-{
-    AUTOMAP_SaveAutomapLayer();
-    AUTOMAP_ResetAutomapCells();
-    gpAutomapContext = pContext;
-    AUTOMAP_LoadAutomapLayer();
-}
 
-// 0x004756D0
-void __cdecl CHARSEL_ScanGridCollision()
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (!pPlayer)
-        return;
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
-    if (!pRoom)
-        return;
-    for (int nY = 0; nY < 0x30; ++nY)
-    {
-        for (int nX = 0; nX < 0x30; ++nX)
-        {
-            pRoom = sub_00463740_FindRoomAtPoint(pRoom, gnCellOriginX + nX, gnCellOriginY + nY);
-            if (!pRoom)
-                pRoom = UNITS_GetRoom(pPlayer);
-            if (COLLISION_CheckMask(pRoom, gnCellOriginX + nX, gnCellOriginY + nY, 0x22))
-                gtGridCells_007B0E68[nY * 0x30 + nX].nFlag = 1;
-        }
-    }
-}
 
-// 0x00478160
-void __fastcall CHARSEL_ShowProgressSteps(int nDone, int nTotal)
-{
-    const int nDivisor = nTotal * 8;
-    int nPosition = nDone * 8;
-    for (int i = 0; i < 8; ++i)
-    {
-        if (nDivisor == 0)
-            gnProgress = 0;
-        else
-            gnProgress = (nPosition * 0x100) / nDivisor;
-        UI_DrawLoadingScreen(0);
-        Sleep(250);
-        ++nPosition;
-    }
-}
 
 static unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
 {

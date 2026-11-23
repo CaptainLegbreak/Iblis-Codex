@@ -1,9 +1,10 @@
 #include "D2Client.h"
+#include "D2MultiTypes.h"
 
 #define LOBYTE(w) ((unsigned char)(((unsigned long)(w)) & 0xFF))
 #define HIBYTE(w) ((unsigned char)((((unsigned long)(w)) >> 8) & 0xFF))
 struct D2ClientPacket67Strc;
-struct D2ClientCharRecordStrc;
+struct D2LaunchRecordStrc;
 
 struct D2CacheStatsStrc
 {
@@ -45,22 +46,11 @@ struct D2ClientPacket67Strc
     unsigned char f_2D;
 };
 
-struct D2ClientCharRecordStrc
-{
-    char unk0x000[0x207];
-    unsigned char aWord207[2];
-    unsigned char aFlags209[4];
-    unsigned char nByte20D;
-    unsigned char nByte20E;
-    unsigned char nByte20F;
-    unsigned char nKind;
-};
-
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 int __cdecl CHAT_HasClassOverride(); // 0x0047AA30
 extern unsigned char gnCharClass; // 0x007A0522
-extern D2ClientCharRecordStrc* gpCharRecord; // 0x007A0438
+extern D2LaunchRecordStrc* gpCharRecord; // 0x007A0438
 extern char gszClientCharName[]; // 0x007A05C4
 extern int gnSentBytes; // 0x007A6AF8
 extern int gnSentPackets; // 0x007A6B00
@@ -140,17 +130,17 @@ void __fastcall sub_00477CA0_SendPacket67(const char* szName)
     else
         tPacket.nClass = gnCharClass;
     tPacket.f_2D = STRTABLE_GetLanguage();
-    if (!*(int*)gpCharRecord->aFlags209)
+    if (!gpCharRecord->dwFlags209)
     {
-        *(int*)gpCharRecord->aFlags209 = 4;
-        *(int*)gpCharRecord->aFlags209 |= 0x100000;
+        gpCharRecord->dwFlags209 = 4;
+        gpCharRecord->dwFlags209 |= 0x100000;
     }
     memcpy(tPacket.aWord, gpCharRecord->aWord207, sizeof(tPacket.aWord));
-    memcpy(tPacket.aFlags, gpCharRecord->aFlags209, sizeof(tPacket.aFlags));
-    tPacket.nByte13 = gpCharRecord->nByte20D;
-    tPacket.nByte2B = gpCharRecord->nByte20E;
-    tPacket.nByte2C = gpCharRecord->nByte20F;
-    tPacket.nByte14 = gpCharRecord->nKind;
+    memcpy(tPacket.aFlags, gpCharRecord->aState209, sizeof(tPacket.aFlags));
+    tPacket.nByte13 = gpCharRecord->unk0x20D;
+    tPacket.nByte2B = gpCharRecord->unk0x20E;
+    tPacket.nByte2C = gpCharRecord->unk0x20F;
+    tPacket.nByte14 = gpCharRecord->nByte210;
     SStrCopy(tPacket.szCharName, gszClientCharName, 0x7FFFFFFF);
 // build: symbol ?CLIENT_Send@* 0x0052AE50
     CLIENT_Send(sizeof(tPacket), 0, &tPacket);

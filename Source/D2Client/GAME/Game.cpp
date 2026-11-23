@@ -8,6 +8,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2MultiTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -1184,25 +1185,6 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
-#pragma pack(push, 1)
-
-struct D2ClientInfoStrc
-{
-    char unk0x00[0x1EF];
-    union
-    {
-        unsigned short wFlags;
-        struct
-        {
-            unsigned char lowFlags;
-            unsigned char progress;
-        };
-    };
-    char unk0x1F1[0x33];
-    unsigned char nSoundArg;
-};
-
-#pragma pack(pop)
 
 unsigned char gnClientDifficulty;                                                                        // 0x007A060C
 
@@ -1306,9 +1288,6 @@ int gnPathFrame; // 0x007A04C4
 
 struct D2RangeStrc;
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
@@ -1361,9 +1340,6 @@ int gbLeftClickRepeating; // 0x007A066C
 
 struct D2PoolSystemStrc;
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
 
 struct D2LoadingTimerStrc
 {
@@ -3082,7 +3058,7 @@ void __cdecl GAME_TickKeepAlive()
     {
         sub_00477DD0();
         gdwLastPingTick = dwNow;
-        if (gpClientInfo_007A0438->wFlags & 4)
+        if (gpClientInfo_007A0438->wFlags1EF & 4)
             gdwNextTick_007A049C = dwNow + 5000;
         else
             gdwNextTick_007A049C = dwNow + 5000;
@@ -4004,7 +3980,7 @@ void __cdecl GAME_ResetBetaScreen()
 void __cdecl GAME_SetDifficultyFlags()
 {
     gnDifficultyDirty = 1;
-    gpClientInfo_007A0438->wFlags = ((gnClientDifficulty + 1) << 10) | (gpClientInfo_007A0438->wFlags & 0xE0FF);
+    gpClientInfo_007A0438->wFlags1EF = ((gnClientDifficulty + 1) << 10) | (gpClientInfo_007A0438->wFlags1EF & 0xE0FF);
 }
 
 sub_00601BF0::~sub_00601BF0()

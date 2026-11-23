@@ -694,6 +694,69 @@ void __cdecl GAME_DrawLoadingText()
     D2GFX_EndScene();
 }
 
+class D2SquelchListStrc
+{
+public:
+    virtual void Squelch(const char* szName);
+    virtual void Unsquelch(const char* szName);
+    virtual int IsSquelched(const char* szName);
+    virtual void VirtSlot3();
+    virtual void VirtSlot4();
+    virtual int IsFiltered(const char* szText);
+};
+
+struct D2LaunchMsgStrc;
+
+struct D2LaunchMsgStrc
+{
+    int nType;
+    int nArg;
+    char* szName;
+    void* pExtra;
+    void* pData;
+    unsigned long nSize;
+    char szText[0x108];
+};
+
+struct D2MsgRecordStrc;
+
+struct D2MsgRecordChunkStrc;
+
+struct D2MsgRecordStrc
+{
+    unsigned int dwTick;
+    unsigned int uMessage;
+    unsigned int wParam;
+    int lParam;
+};
+
+struct D2MsgRecordChunkStrc
+{
+    D2MsgRecordStrc tRecords[500];
+    int nCount;
+    int nUnk0x1F44;
+    D2MsgRecordChunkStrc* pNext;
+};
+
+struct D2ChatMessageStrc { D2WinControlStrc* pControl; unsigned int nMessage; };
+
+// 0x0044CCA0
+int __fastcall COMCALLBACK_CountLevelThresholds(int nValue, int nUnused, int nLimit)
+{
+    int nCount = 0;
+    if (nLimit < 7)
+        nCount = 1;
+    if (nValue > 1)
+        nCount++;
+    if (nValue > 9)
+        nCount++;
+    if (nValue > 0x13)
+        nCount++;
+    if (nValue > 0x1D)
+        nCount++;
+    return nCount;
+}
+
 // 0x0044CDB0
 void __fastcall GAME_StorePong(const D2GSPacketSrv8F* pPacket)
 {

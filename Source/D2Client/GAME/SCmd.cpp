@@ -2214,6 +2214,70 @@ void __stdcall SCMD_HandleCloseMessage(SMSGHANDLER_PARAMS* pMsg)
     pMsg->lResult = 0;
 }
 
+class D2SquelchListStrc
+{
+public:
+    virtual void Squelch(const char* szName);
+    virtual void Unsquelch(const char* szName);
+    virtual int IsSquelched(const char* szName);
+    virtual void VirtSlot3();
+    virtual void VirtSlot4();
+    virtual int IsFiltered(const char* szText);
+};
+
+struct D2LaunchMsgStrc;
+
+struct D2LaunchMsgStrc
+{
+    int nType;
+    int nArg;
+    char* szName;
+    void* pExtra;
+    void* pData;
+    unsigned long nSize;
+    char szText[0x108];
+};
+
+struct D2MsgRecordStrc;
+
+struct D2MsgRecordChunkStrc;
+
+struct D2MsgRecordStrc
+{
+    unsigned int dwTick;
+    unsigned int uMessage;
+    unsigned int wParam;
+    int lParam;
+};
+
+struct D2MsgRecordChunkStrc
+{
+    D2MsgRecordStrc tRecords[500];
+    int nCount;
+    int nUnk0x1F44;
+    D2MsgRecordChunkStrc* pNext;
+};
+
+int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam, int* pUseResult, int* pResult); // 0x00420B00
+
+int __cdecl UI_IsReplayActive(); // 0x00451990
+
+void __fastcall RECORD_RecordInputMessage(unsigned int uMessage, unsigned int wParam, int lParam); // 0x004514B0
+
+// 0x00451B30
+int __stdcall COMCALLBACK_WindowProc(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam)
+{
+    int bUseResult = 0;
+    int lResult = 0;
+    RECORD_RecordInputMessage(uMessage, wParam, lParam);
+    if (!UI_IsReplayActive() || uMessage == 0x10)
+    {
+        if (SMsgDispatchMessage(hWnd, uMessage, wParam, lParam, &bUseResult, &lResult) && bUseResult)
+            return lResult;
+    }
+    return DefWindowProcA(hWnd, uMessage, wParam, lParam);
+}
+
 // 0x00451BB0
 int __fastcall SCMD_RunMessageLoop(int (__stdcall* pfnIdle)(int))
 {

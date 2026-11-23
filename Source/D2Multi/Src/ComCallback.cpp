@@ -3036,22 +3036,6 @@ void* __fastcall sub_M109_Emit_00449320(const char* szName, const unsigned char*
     return COMCALLBACK_AddEntry(szName, pStat, 7);
 }
 
-// 0x0044CCA0
-int __fastcall COMCALLBACK_CountLevelThresholds(int nValue, int nUnused, int nLimit)
-{
-    int nCount = 0;
-    if (nLimit < 7)
-        nCount = 1;
-    if (nValue > 1)
-        nCount++;
-    if (nValue > 9)
-        nCount++;
-    if (nValue > 0x13)
-        nCount++;
-    if (nValue > 0x1D)
-        nCount++;
-    return nCount;
-}
 
 // 0x004512C0
 int __stdcall COMCALLBACK_LoadLngString(int nId, char* szBuffer, unsigned int nSize)
@@ -3077,19 +3061,6 @@ void __stdcall COMCALLBACK_RecordMessage(unsigned int uMessage, unsigned int wPa
     pRecord->lParam = lParam;
 }
 
-// 0x00451B30
-int __stdcall COMCALLBACK_WindowProc(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam)
-{
-    int bUseResult = 0;
-    int lResult = 0;
-    RECORD_RecordInputMessage(uMessage, wParam, lParam);
-    if (!UI_IsReplayActive() || uMessage == 0x10)
-    {
-        if (SMsgDispatchMessage(hWnd, uMessage, wParam, lParam, &bUseResult, &lResult) && bUseResult)
-            return lResult;
-    }
-    return DefWindowProcA(hWnd, uMessage, wParam, lParam);
-}
 
 // 0x00451DB0
 void __fastcall COMCALLBACK_RegisterMsgHandlers(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount)
