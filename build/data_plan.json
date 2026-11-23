@@ -1176,14 +1176,7 @@
   "Source/D2Client/UNIT/CUnit.cpp": {
    "bytes": 1260,
    "definitions": 6,
-   "externs": [
-    "extern \"C\" void __cdecl CUNIT_SelectProcCorpse(); // 0x00464210",
-    "extern \"C\" void __cdecl CUNIT_SelectProcConsumable(); // 0x00464220",
-    "extern \"C\" void __cdecl CUNIT_SelectProcConvertTarget(); // 0x00464230",
-    "extern \"C\" void __cdecl sub_00464280_SkillSelectProc4(); // 0x00464280",
-    "extern \"C\" void __cdecl CUNIT_SelectProcSoftCorpse(); // 0x00464290",
-    "extern \"C\" void __cdecl sub_004642A0_SkillSelectProc5(); // 0x004642A0"
-   ],
+   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004642B0.inc",
    "lang": "cpp",

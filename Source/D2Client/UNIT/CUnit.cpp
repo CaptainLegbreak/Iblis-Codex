@@ -3573,15 +3573,6 @@ D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nIndex)
     return 0;
 }
 
-// 0x00483960
-void __cdecl CUNIT_InitColorTable()
-{
-    gabColors_007BCAD8[0] = D2Win_10034_MixRGB(0x80, 0, 0);
-    gabColors_007BCAD8[1] = D2Win_10034_MixRGB(0, 0x80, 0);
-    gabColors_007BCAD8[2] = D2Win_10034_MixRGB(0, 0, 0x80);
-    gabColors_007BCAD8[3] = D2Win_10034_MixRGB(0x80, 0x80, 0);
-    gabColors_007BCAD8[4] = D2Win_10034_MixRGB(0x80, 0x40, 0x40);
-}
 
 // 0x00489840
 int __cdecl CUNIT_IsInvPanelTradeMode()

@@ -14445,6 +14445,11 @@
      "name": "?INV_LoadUiRecords@@YAXXZ"
     },
     {
+     "va": "0x00483960",
+     "length": 99,
+     "name": "?CUNIT_InitColorTable@@YAXXZ"
+    },
+    {
      "va": "0x004839D0",
      "length": 159
     },
@@ -19492,11 +19497,6 @@
      "va": "0x00483470",
      "length": 36,
      "name": "?DATATBLS_GetUniqueItemsTxtRecord@@YIPAUD2UniqueItemsTxt@@H@Z"
-    },
-    {
-     "va": "0x00483960",
-     "length": 99,
-     "name": "?CUNIT_InitColorTable@@YAXXZ"
     },
     {
      "va": "0x00489840",
