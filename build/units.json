@@ -36601,6 +36601,16 @@
      "name": "ARCHIVE_LoadVideoArchives"
     },
     {
+     "va": "0x004FAD70",
+     "length": 131,
+     "name": "?ARCHIVE_UnloadExpansionArchives@@YAXXZ"
+    },
+    {
+     "va": "0x004FAE00",
+     "length": 177,
+     "name": "?ARCHIVE_FreeArchives@@YAXXZ"
+    },
+    {
      "va": "0x004FB010",
      "length": 162,
      "name": "PALETTE_ApplyPaletteTables"
@@ -36734,16 +36744,6 @@
      "va": "0x004FAC80",
      "length": 3,
      "name": "?D2Win_GetArchive@@YGPAXXZ"
-    },
-    {
-     "va": "0x004FAD70",
-     "length": 131,
-     "name": "?ARCHIVE_UnloadExpansionArchives@@YAXXZ"
-    },
-    {
-     "va": "0x004FAE00",
-     "length": 177,
-     "name": "?ARCHIVE_FreeArchives@@YAXXZ"
     },
     {
      "va": "0x004FB0C0",
