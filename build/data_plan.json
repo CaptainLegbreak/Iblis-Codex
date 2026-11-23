@@ -3852,15 +3852,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_005BD390.cpp": {
-   "bytes": 124,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005BD390.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/Unknown_005BDE80.cpp": {
    "bytes": 64,
    "definitions": 2,
@@ -5225,6 +5216,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_0047C420.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/Quests/a3q7.cpp": {
+   "bytes": 124,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/Quests/a3q7.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -112991,7 +112991,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005BD390.cpp",
+   "file": "Source/D2Game/Quests/a3q7.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2CoordStrc gaSpawnOffsets[8] = ",
@@ -113039,14 +113039,14 @@
   },
   {
    "alias": false,
-   "cname": "gData_00741578",
-   "declared": false,
+   "cname": null,
+   "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005BD390.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00741578_t gData_00741578; // 0x00741578",
-   "head": "extern \"C\" struct d2data_00741578_t gData_00741578 = ",
-   "name": "gData_00741578",
+   "file": "Source/D2Game/Quests/a3q7.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern const char* gaszLanguageNames_00741578[15] = ",
+   "name": "gaszLanguageNames_00741578",
    "pointers": [
     [
      0,
@@ -113171,9 +113171,22 @@
    ],
    "region": "data",
    "size": 60,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00741578_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "struct": null,
    "tail": "; // 0x00741578",
-   "va": "0x00741578"
+   "va": "0x00741578",
+   "type": "char",
+   "stars": 1,
+   "model": {
+    "elem": {
+     "fn": false,
+     "k": "ptr",
+     "size": 4,
+     "spell": "const char*"
+    },
+    "k": "arr",
+    "n": 15,
+    "size": 60
+   }
   },
   {
    "alias": false,

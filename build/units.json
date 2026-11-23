@@ -55098,11 +55098,6 @@
      "va": "0x0059EEA0",
      "length": 201,
      "name": "?ACT2Q3_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x005BD4A0",
-     "length": 84,
-     "name": "?ACT3Q7_CreateVileDogSpawnTimer@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -61142,31 +61137,16 @@
      "va": "0x005BD300",
      "length": 140,
      "name": "?ACT3Q7_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005BD390.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x005BD390",
      "length": 263
+    },
+    {
+     "va": "0x005BD4A0",
+     "length": 84,
+     "name": "?ACT3Q7_CreateVileDogSpawnTimer@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

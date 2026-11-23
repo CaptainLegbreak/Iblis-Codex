@@ -951,26 +951,6 @@ void __fastcall ACT2Q3_InitQuestData(D2QuestDataStrc* pQuestData)
     QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->tPlayerGUIDs);
 }
 
-// 0x005BD4A0
-void __fastcall ACT3Q7_CreateVileDogSpawnTimer(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A3Q7_DARKWANDERER);
-    if (!pQuestData)
-    {
-        return;
-    }
-
-    D2Act3Quest7Strc* pQuestDataEx = (D2Act3Quest7Strc*)pQuestData->pQuestDataEx;
-    if (pQuestDataEx->bVileDogsSpawned || pQuestDataEx->bVileDogSpawnTimerCreated)
-    {
-        return;
-    }
-
-    pQuestDataEx->bVileDogSpawnTimerCreated = 1;
-    pQuestDataEx->nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
-    QUESTS_CreateTimer(pQuestData, sub_005BD390, 2);
-}
-
 // 0x0059A7E0
 int __fastcall OBJECTS_OperateFunction24_TaintedSunAltar(D2ObjOperateFnStrc* pOp, int nOperate)
 {
