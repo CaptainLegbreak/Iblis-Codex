@@ -65691,6 +65691,11 @@
      "name": "D2CMPGetGfxFileExtension"
     },
     {
+     "va": "0x005FE210",
+     "length": 98,
+     "name": "?D2CMPBuildFileName@@YGXPADHPBD0@Z"
+    },
+    {
      "va": "0x005FE280",
      "length": 45,
      "name": "D2CMPSetNoCompress"
@@ -66703,11 +66708,6 @@
    "file": "Source/D2CMP/Unknown_005FE210.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x005FE210",
-     "length": 98,
-     "name": "?D2CMPBuildFileName@@YGXPADHPBD0@Z"
-    },
     {
      "va": "0x005FEB80",
      "length": 195,
