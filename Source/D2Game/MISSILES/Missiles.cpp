@@ -181,6 +181,17 @@ void __fastcall MISSILES_Free(D2GameStrc* pGame, D2UnitStrc* pMissile)
     EVENT_FreeUnitTimers(pGame, pMissile);
 }
 
+// 0x0059F900
+static void __stdcall sub_0059F900_ApplyMissileDamage(D2UnitStrc* pOrigin, D2UnitStrc* pMissile, int nLevel, D2UnitStrc* pOwner)
+{
+    D2MissileDamageDataStrc tDamage;
+
+    PLAYER_ApplyWeaponStatsForSkill(pOwner, 0);
+    MISSILE_CalculateDamageData(&tDamage, pOwner, pOrigin, pMissile, nLevel);
+    MISSILE_SetDamageStats(pOwner, pMissile, &tDamage, nLevel);
+    PLAYER_RestoreWeaponStats(pOwner, 0);
+}
+
 static void __stdcall sub_0059F900_ApplyMissileDamage(D2UnitStrc* pOrigin, D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nLevel) // 0x0059F900
 {
     D2MissileDamageDataStrc tDamage;
@@ -554,3 +565,5 @@ void __fastcall MISSILES_SyncToClient(D2ClientStrc* pClient, D2GameStrc* pGame, 
     packet.nPierce = STATLIST_UnitGetStatValue(pMissile, STAT_PIERCE_IDX, 0);
     D2GAME_PACKETS_SendPacket0x73(pClient, &packet);
 }
+
+#include "gen/data/Source/D2Game/MISSILES/Missiles.inc"
