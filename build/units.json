@@ -34703,11 +34703,6 @@
      "name": "DDRAW_CelDrawHilight"
     },
     {
-     "va": "0x005126F0",
-     "length": 3,
-     "name": "DDRAW_DebugDraw"
-    },
-    {
      "va": "0x00512E80",
      "length": 66,
      "name": "DDRAW_UtilPoint"
@@ -37623,6 +37618,11 @@
      "va": "0x00511D70",
      "length": 120,
      "name": "?DDRAW_GetDrawModePalette@@YIHHPAH@Z"
+    },
+    {
+     "va": "0x005126F0",
+     "length": 3,
+     "name": "DDRAW_DebugDraw"
     },
     {
      "va": "0x00512700",

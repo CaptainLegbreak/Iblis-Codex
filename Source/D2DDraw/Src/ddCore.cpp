@@ -1,4 +1,5 @@
 #include "D2DDraw.h"
+#include "D2GameTypes.h"
 
 #include "D2GfxTypes.h"
 
@@ -846,6 +847,11 @@ int __fastcall DDRAW_GetDrawModePalette(int nIndex, int* pType)
         return (int)gpGfxPaletteView->pDarkBlendPalette;
     }
     return 0;
+}
+
+// 0x005126F0
+void __stdcall DDRAW_DebugDraw(int nUnused1, int nUnused2)
+{
 }
 
 // 0x00512700

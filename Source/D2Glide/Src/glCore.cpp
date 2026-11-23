@@ -1,7 +1,11 @@
 #include "D2Glide.h"
+
 #include "D2GfxTypes.h"
+
 #include "D2Win32Base.h"
+
 #include "D2DDrawTypes.h"
+
 #include "D2GlideTypes.h"
 
 #include "D2GameTypes.h"
@@ -13,7 +17,6 @@ extern int gnGlideAlphaCombineMode; // 0x0087EFDC
 extern int gnGlideColorCombineState; // 0x0087EFD8
 
 extern int gnGlideTexFilterMode; // 0x0087EFE0
-
 
 struct D2GlideHwQueryStrc;
 
@@ -511,6 +514,7 @@ int __cdecl GLIDE_CheckCutScene()
 int gdwGlobal_007B57E4; // 0x007B57E4
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC218
+
 D2CriticalSectionStrc* gpRenderCriticalSection; // 0x007C9134
 
 // 0x00508FE0
@@ -1435,11 +1439,6 @@ int __fastcall DDRAW_GetBackBuffer(unsigned char* pBuffer)
 
 // 0x005123A0
 void __stdcall DDRAW_CelDrawHilight(int nUnused1, int nUnused2)
-{
-}
-
-// 0x005126F0
-void __stdcall DDRAW_DebugDraw(int nUnused1, int nUnused2)
 {
 }
 
