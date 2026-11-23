@@ -195,7 +195,6 @@ extern int gdwGlobal_007BB5DC; // 0x007BB5DC
 extern unsigned char gnGlobal_007BB5E0; // 0x007BB5E0
 extern D2ClientSlotHolderStrc* gpSlotHolder; // 0x007BC990
 static int gbHoverInGrid; // 0x007BCBE4
-extern int gnInvPanelMode; // 0x007BCBF0
 extern int gnRecipeScrollColor; // 0x007BCEA4
 extern Unicode gwszRecipeScrollText[]; // 0x007BCEA8
 extern unsigned char gbTextHoverSet; // 0x007BF23A
@@ -246,19 +245,11 @@ D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, 
 extern int gnStashObjectId; // 0x00721E54
 extern int gnButtonCount; // 0x00722160
 extern int gnInvMouseX; // 0x007BCA4C
-extern int gnGlobal_007BCAF0; // 0x007BCAF0
 extern int gnInvMouseY; // 0x007BCBD8
 static int gbHoverInBodyLoc; // 0x007BCBE8
 static D2UnitStrc* gpLastHoverItem; // 0x007BCBF8
 extern unsigned char gnSelectedTab; // 0x007BCC04
-extern unsigned int gnQuestTimerValue; // 0x007BCC14
-extern unsigned long gdwQuestTimerTicks; // 0x007BCC18
-extern D2CelFileStrc* gpBuySellTabsCel; // 0x007BCC24
-extern D2CelFileStrc* gpMiniConvertCel; // 0x007BCC28
-extern D2CelFileStrc* gpShopInvChar6TabCel; // 0x007BCC38
 extern int gbWeaponSwitch_007BCC4C; // 0x007BCC4C
-extern int gbTradeAcceptedSelf; // 0x007BCD34
-extern int gbTradeAcceptedOther; // 0x007BCE14
 extern "C" int gbTradeFlag; // 0x007BCE28
 extern int gbInvGoldButtonDown; // 0x007BCE30
 extern void* gpCel_007BCE8C; // 0x007BCE8C
@@ -267,7 +258,6 @@ extern int gbPanelButtonClicked; // 0x007BCE9C
 extern D2InventoryGridInfoStrc gtBigBankGrid; // 0x007BCA78
 extern D2InventoryGridInfoStrc gtBankGrid; // 0x007BCB40
 extern D2InventoryGridInfoStrc gtPlayerInvGrid; // 0x007BCB88
-extern int gbCubeItemClicked; // 0x007BCC50
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
 void __fastcall sub_004786D0_SendPacket(char nHeader, int nArg1, int nArg2, int nArg3); // 0x004786D0
 int __cdecl sub_00486D10_CheckTick(); // 0x00486D10
@@ -412,8 +402,6 @@ extern D2BodyLocRectStrc gaBodyLocRects[11]; // 0x007BCD38
 extern int gnAutomapWidth; // 0x007A5220
 extern int gnAutomapHeight_007A521C; // 0x007A521C
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
-extern unsigned char gabInvHighlightColors; // 0x007BCAD8
-extern unsigned char gbGlobal_007BCAD9; // 0x007BCAD9
 void __stdcall sub_00467FA0(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
 int __fastcall sub_004C1D60(D2UnitStrc* pItem); // 0x004C1D60
 void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg); // 0x004785B0
@@ -424,7 +412,6 @@ extern "C" unsigned char gbFlag_007BC9D4; // 0x007BC9D4
 extern "C" unsigned char gbFlag_007BC9D8; // 0x007BC9D8
 extern "C" int gnScreenHeight_00711470; // 0x00711470
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
-extern int gbCubeClosed; // 0x007BCC54
 void __fastcall sub_0046EE80_DrawCursorItem(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
 void __stdcall sub_00483E40(D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGrid, int nX, int nY); // 0x00483E40
 void __fastcall INV_DrawMercEquipHighlights(D2UnitStrc* pUnit); // 0x0048B3F0
@@ -463,8 +450,6 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x00
 extern "C" int __cdecl sscanf(const char* szSource, const char* szFormat, ...); // 0x00684BD5
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 extern D2AuxLevelEntryStrc gaAuxLevelEntries[]; // 0x00721D98
-extern int gbQuestTimerActive; // 0x007BCC10
-extern D2CelFileStrc* gpHoradricCel; // 0x007BCC1C
 static void __stdcall INV_GetItemDamageRange(D2UnitStrc* pItem, D2UnitStrc* pUnit, int nStatMin, int nStatMax, int* pnMin, int* pnMax, int* pbModified);
 Unicode* __fastcall sub_00526F20(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 void __fastcall sub_004521C0_SetTextColor(Unicode* pText, int nColor); // 0x004521C0
@@ -520,11 +505,9 @@ const Unicode* __fastcall CUNIT_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
 int __fastcall sub_004A7660_SplitAtNewLine(Unicode* wszText, Unicode** ppSecond); // 0x004A7660
 unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
 const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB); // 0x0046A530
-extern int gdwTradeCheckTick; // 0x007BCA48
 extern D2CelFileStrc* gpBankCel; // 0x007BCC2C
 extern D2CelFileStrc* gpTradeStashCel; // 0x007BCC3C
 extern D2CelFileStrc* gpSuperTransmogrifierCel; // 0x007BCC30
-extern D2CelFileStrc* gpTradePanelCel; // 0x007BCB04
 extern D2PanelLabelStrc gaPanelLabels[12]; // 0x006D9AE8
 extern void* gpBtnCel; // 0x007BEF7C
 extern void* gpCellFile_007BEF78; // 0x007BEF78
