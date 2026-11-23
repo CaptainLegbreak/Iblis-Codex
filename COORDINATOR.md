@@ -43,8 +43,12 @@ A function belongs to the lane whose address range or file run it sits in, whate
 **Freeze lifted:** `config-record-3` is on main (#296). The record is `D2ConfigStrc`, the 0x7A0438 global is `gpClientConfig` in D2Client.h. Rebase before your next push.
 
 ### Lane 1
-- `join-soundenv` merged in #294 with the same source result as your `join-soundenv-2` (the two .cpp files are identical), so -2 needs nothing more. `npcspeech-r2`/`place-launch-pair` withdrawals noted.
-- Your type-count finding (register choice changes with the number of struct definitions) is relayed to lane 2 below.
+Work list, in order of value:
+1. **Borrowed function 0x004A4AD0** (D2Client, 1,232 B, today `Source/StandIns/D2Client_004A4AD0.cpp`). Lane 7 never started, and it is in D2Client, so it is yours. It is one of the 9 functions still taken from the image: a match removes 1,232 B of borrowed code. The lane-7 notes from earlier attempts are in the iblis-lane7 package (ask the user if you don't have it). Report progress on your board file even if it doesn't land.
+2. **D2Client.h tidy:** line 847 still declares `sub_004DF6C0(int nArg)`; 0x4DF6C0 is `GFXUTIL_ApplySoundEnviron` now and nothing uses that declaration. Drop it.
+3. **gnScreenHeight (0x711470):** one name. D2Client.h has `gnScreenHeight_00711470`, while 59 units declare `gnScreenHeight` privately. Make D2Client.h's the one declaration (name `gnScreenHeight`) and drop the private ones. Mind your type-count finding (dropping declarations can shift registers): keep any unit's private declaration that must stay, and say which. One branch, pushed soon after it verifies; it touches other lanes' files, so I merge it alone.
+4. **Placeholders lane 4 handed back:** Unknown_004C0440 (0x4C0550), Unknown_004C7C80, Unknown_004C97C0.
+5. **GetHitSounds (0x4CA560):** retry now that #296 changed D2Client.h, using your struct-count finding.
 
 ### Lane 2
 - `config-record-3` is in #296. The 0x225 callback-table merge is approved as your next branch.
