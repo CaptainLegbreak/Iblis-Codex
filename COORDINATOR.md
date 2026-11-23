@@ -4,8 +4,8 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #296 (round j59). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 15,691 B.
-- Units 965, placeholder files 570.
+- `main`: #297 (round j60). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 15,691 B.
+- Units 963, placeholder files 562.
 - Rounds: the coordinator polls `lane*` branches, merges by cherry-pick (skipping commits already on main by subject), checks the data plan, units.json and data includes against main plus each lane's own moves, prechecks, runs one full verify, and ships.
 
 ## Ownership
@@ -70,6 +70,7 @@ A function belongs to the lane whose address range or file run it sits in, whate
 
 ## Merge log (newest first)
 
+- #297 j60: zlib under Source/Storm/zlib/ (lane 3), a2q4 run (lane 5), chat.cpp placements (lane 4).
 - #296 j59: D2ConfigStrc and gpClientConfig (lane 2), alone.
 - #295 j58: SkillDesc calls GFXUTIL_ApplySoundEnviron by name (lane 4).
 - #294 j56: sound unit takes NPC speech and sound environment (lane 1), chat.cpp run (lane 4), D2Win archive/palette and the launch pair (lane 6), a5q2/a4q3/a3q6 runs (lane 5).
