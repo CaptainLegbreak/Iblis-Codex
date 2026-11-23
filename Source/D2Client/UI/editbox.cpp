@@ -293,6 +293,7 @@ int ButtonImplementation::HitTestButton(SMSGHANDLER_PARAMS* pMsg)
     return 1;
 }
 
+// build: symbol ?MsgSlot03@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAC70
 // 0x004BAC70
 int ButtonImplementation::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -305,6 +306,7 @@ int ButtonImplementation::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
     return 0;
 }
 
+// build: symbol ?MsgSlot04@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BACD0
 // 0x004BACD0
 int ButtonImplementation::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -326,6 +328,7 @@ ButtonImplementation::~ButtonImplementation()
 {
 }
 
+// build: symbol ?Slot01@ButtonImplementation@@UAEXXZ 0x004BB000
 // 0x004BB000
 void ButtonImplementation::Slot01()
 {
@@ -354,6 +357,69 @@ void ButtonImplementation::Slot01()
 void EditBoxImplementation::sub_004BB5B0_Slot12(char* szBuffer)
 {
     sub_005263E0(szBuffer, pText, nMaxLength);
+}
+
+extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
+
+// build: symbol ?MsgSlot03@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB5E0
+// 0x004BB5E0
+int EditBoxImplementation::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
+{
+    unk0x3E = 1;
+    return 0;
+}
+
+// build: symbol ?MsgSlot04@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB600
+// 0x004BB600
+int EditBoxImplementation::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (unk0x3E)
+    {
+        unk0x46 = 0;
+        unk0x3E = 0;
+    }
+    return 0;
+}
+
+// 0x004BB970
+int EditBoxImplementation::MsgSlot08(SMSGHANDLER_PARAMS* pMsg)
+{
+    return 0;
+}
+
+// 0x004BB9B0
+int EditBoxImplementation::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (unk0x36 < unk0x3A)
+        unk0x36 += 1;
+    return 1;
+}
+
+// 0x004BB9D0
+int EditBoxImplementation::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (unk0x36 > 0)
+        unk0x36 -= 1;
+    return 1;
+}
+
+// build: symbol ?Slot01@EditBoxWrapper@@UAEXXZ 0x004BBAC0
+// 0x004BBAC0
+void EditBoxWrapper::Slot01()
+{
+    pImpl->Slot01();
+}
+
+// build: symbol ?Slot11@EditBoxWrapper@@UAEHXZ 0x004BBB20
+int EditBoxWrapper::Slot11()
+{
+    return pImpl->Slot11();
+}
+
+// 0x004BBB30
+void EditBoxWrapper::sub_004BBB30_Slot12(int nValue)
+{
+    pImpl->Slot13();
 }
 
 // 0x004BBEF0
@@ -424,6 +490,51 @@ void EditBoxWrapper::sub_004BBB80_Forward(int nArg)
     pImpl->sub_004BB990_SetUnk18(nArg);
 }
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+
+// build: symbol ?Slot11@SpinnerImplementation@@UAEHXZ 0x004BBF90
+int SpinnerImplementation::Slot11()
+{
+    if (unk0x34)
+        return 1;
+    return unk0x38 ? 2 : 0;
+}
+
+// 0x004BBFB0
+int SpinnerImplementation::sub_004BBFB0()
+{
+    if (!unk0x34 && !unk0x38)
+        return 0;
+
+    if (unk0x20)
+    {
+        unk0x34 = 0;
+        unk0x38 = 0;
+        unk0x20 = 0;
+        return 1;
+    }
+
+    unsigned long dwNow = GetTickCount();
+    if (unk0x4C)
+    {
+        unk0x48 = dwNow;
+        return 1;
+    }
+
+    unsigned long dwElapsed = dwNow - unk0x44;
+    if (dwNow - unk0x48 < 0x46)
+        return 0;
+
+    unk0x48 = dwNow;
+    if (dwElapsed > 0x1000)
+        return (dwElapsed >> 11) * nUnk0x3CCalls;
+    if (dwElapsed > 0xBB8)
+        return nUnk0x3CCalls >> 2;
+    if (dwElapsed > 0x7D0)
+        return nUnk0x3CCalls >> 4;
+    if (dwElapsed > 0x3E8)
+        return nUnk0x3CCalls >> 5;
+    return 1;
+}
 
 // build: symbol ?MsgSlot02@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC050
 // 0x004BC050
