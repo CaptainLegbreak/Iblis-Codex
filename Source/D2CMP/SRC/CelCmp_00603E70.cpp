@@ -1,15 +1,4 @@
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2StormLinkStrc()
-    {
-        m_prevlink = 0;
-        m_next = 0;
-    }
-};
-
+#include "D2StormAutoLink.h"
 struct D2StormSlotListStrc
 {
     int m_linkoffset;

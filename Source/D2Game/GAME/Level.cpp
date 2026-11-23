@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Packets.h"
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
@@ -96,20 +97,6 @@ struct D2DrlgDeleteStrc
     int nUnitType;
     int nUnitGUID;
     D2DrlgDeleteStrc* pNext;
-};
-
-struct D2GSPacketSrv53
-{
-    unsigned char nHeader;
-    unsigned char nCycleIndex;
-    unsigned char nCycleIndex1;
-    unsigned char nCycleIndex2;
-    unsigned char nCycleIndex3;
-    unsigned char nTicks;
-    unsigned char nTicks1;
-    unsigned char nTicks2;
-    unsigned char nTicks3;
-    unsigned char nEclipse;
 };
 
 D2DrlgDeleteStrc* __stdcall DUNGEON_GetDrlgDeleteFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A330

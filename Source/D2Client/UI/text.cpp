@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Packets.h"
 #include "D2Structs.h"
 #include "D2ClientTypes.h"
 #include "D2Unicode.h"
@@ -163,19 +164,6 @@ void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc*
 int gbTextHandlersRegistered; // 0x007BF27C
 
 extern D2MsgHandlerEntryStrc gaTextMsgHandlers[]; // 0x00722600
-
-struct D2GSPacketSrv26
-{
-    unsigned char nHeader;
-    unsigned char nMessageType;
-    unsigned char nLang;
-    unsigned char nUnitType;
-    unsigned int dwUnitGUID;
-    unsigned char nMessageColor;
-    unsigned char nNameColor;
-    char szName[16];
-    char szMessage[256];
-};
 
 extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(unsigned int nCodePage, unsigned long dwFlags, const char* szSource, int nSource, Unicode* wszDest, int nDest); // 0x006CC29C
 
