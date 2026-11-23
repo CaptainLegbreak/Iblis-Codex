@@ -141,3 +141,5 @@ void __fastcall ACT2Q8_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pfActiveFilter = ACT2Q8_ActiveFilterCallback;
 }
 
+
+#include "gen/data/Source/D2Game/Quests/a2q8.inc"
