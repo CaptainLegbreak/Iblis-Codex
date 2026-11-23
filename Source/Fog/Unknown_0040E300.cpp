@@ -126,12 +126,6 @@ void __cdecl sub_0040FFD0_ShutdownLogSystem()
     LeaveCriticalSection(&gtLogQueueLock);
 }
 
-// 0x004107A0
-void __cdecl sub_004107A0_DeleteTimeLock()
-{
-    DeleteCriticalSection(&gtTimeLock);
-}
-
 // 0x0040E300
 static void __stdcall sub_0040E300(char* szBuf, int nVendor, int nFamily, unsigned int nModel, int nBrand, int nType)
 {
