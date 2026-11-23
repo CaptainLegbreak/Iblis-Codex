@@ -2,14 +2,11 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2GameClient.h"
+#include "D2Packets.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2ServerCallbackFunctions;
-struct D2GSPacketClt66;
-struct D2GSPacketClt67;
-struct D2GSPacketClt6B;
-struct D2GSPacketClt6D;
 struct D2GameStrc;
 struct D2ClientStrc;
 struct D2UnitStrc;
@@ -18,51 +15,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-#pragma pack(push, 1)
-struct D2GSPacketClt66
-{
-    unsigned char nHeader;
-    char szGameName[16];
-    unsigned char nGameType;
-    unsigned char nPlayerClass;
-    unsigned char nTemplate;
-    unsigned char nDifficulty;
-    char szClientName[16];
-    unsigned short wArena;
-    unsigned int nGameFlags;
-    unsigned char unk0x2B;
-    unsigned char unk0x2C;
-    unsigned char nLocale;
-};
-
-struct D2GSPacketClt67
-{
-    unsigned char nHeader;
-    int nTokenId;
-    unsigned short nGameId;
-    unsigned char nPlayerClass;
-    int unk0x08;
-    char unk0x0C[8];
-    unsigned char nLocale;
-    char szClientName[16];
-};
-
-struct D2GSPacketClt6B
-{
-    unsigned char nHeader;
-    unsigned char nSize;
-    unsigned int dwTotalSize;
-};
-
-struct D2GSPacketClt6D
-{
-    unsigned char nHeader;
-    int unk0x01;
-    int unk0x05;
-};
-
-#pragma pack(pop)
 
 extern D2ServerCallbackFunctions* gpD2EventCallbackTable; // 0x00883D50
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590

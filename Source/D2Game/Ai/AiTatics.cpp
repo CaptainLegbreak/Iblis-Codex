@@ -1337,9 +1337,4 @@ void __fastcall AITACTICS_UseSkillInRange(D2UnitStrc* pUnit, int nRange, int nSk
 }
 
 
-
-
-
-
-
 #include "gen/data/Source/D2Game/Ai/AiTatics.inc"

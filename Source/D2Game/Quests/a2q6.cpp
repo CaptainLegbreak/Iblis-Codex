@@ -10,6 +10,7 @@
 #include "D2GameObjs.h"
 #include "D2GameTypes.h"
 #include "D2Txt.h"
+#include "D2Packets.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -214,32 +215,10 @@ struct D2QuestDataStrc;
 
 struct D2ObjInitFnStrc;
 
-struct D2GSPacketSrv50;
-
-struct D2GSPacketSrv58;
 
 typedef void (__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
 
 typedef bool (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
-
-#pragma pack(push, 1)
-
-struct D2GSPacketSrv50
-{
-    unsigned char nHeader;
-    unsigned short nQuestId;
-    unsigned short nStaffTombLevelOffset;
-    unsigned char unk0x05[0x0B];
-};
-
-struct D2GSPacketSrv58
-{
-    unsigned char nHeader;
-    int nUnitId;
-    unsigned char unk0x05;
-};
-
-#pragma pack(pop)
 
 extern "C" const char gszA2Q6DebugKilledDuriel[]; // 0x006E209C
 
@@ -988,11 +967,11 @@ void __fastcall ACT2Q6_SendTombIdToClient(D2GameStrc* pGame, D2UnitStrc* pUnit)
     const int nTombStaffLevel = DUNGEON_GetHoradricStaffTombLevelId(pGame->pAct[1]);
     if (!nTombStaffLevel)
     {
-        packet50.nStaffTombLevelOffset = 0;
+        packet50.nParams[0] = 0;
     }
     else
     {
-        packet50.nStaffTombLevelOffset = nTombStaffLevel - 0x42;
+        packet50.nParams[0] = nTombStaffLevel - 0x42;
         ((D2Act2Quest6Strc*)pQuestData->pQuestDataEx)->nStaffTombLevelId = nTombStaffLevel;
     }
     D2GAME_SendPacket0x50_6FC3F440(pClient, &packet50);
@@ -1231,7 +1210,7 @@ int __fastcall OBJECTS_OperateFunction25_StaffOrifice(D2ObjOperateFnStrc* pOp, i
         packet58.nHeader = 0x58;
         const int nUnitId = !pOp->hObject ? -1 : pOp->hObject->dwUnitId;
         packet58.nUnitId = nUnitId;
-        packet58.unk0x05 = 0;
+        packet58.nAction = 0;
         D2GAME_SendPacket0x58(pClient, &packet58);
         break;
     }

@@ -13,20 +13,7 @@
 #include "D2GameAux.h"
 #include "D2GameRecords.h"
 #include "D2GameObjs.h"
-
-#pragma pack(push, 1)
-
-struct D2GSPacketSrvA8
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    int nUnitId;
-    unsigned char nSize;
-    unsigned char nState;
-    unsigned char pData[244];
-};
-
-#pragma pack(pop)
+#include "D2Packets.h"
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -414,27 +401,6 @@ D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit);                
 int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);                     // 0x00554200
 
 
-struct D2GSPacketSrv26;
-
-struct D2GSPacketSrv2C;
-
-#pragma pack(push, 1)
-
-struct D2GSPacketSrv26
-{
-    unsigned char nHeader;
-    unsigned char nChatType;
-    unsigned char nLanguage;
-    unsigned char nUnitType;
-    int nUnitGUID;
-    unsigned char nColor;
-    unsigned char nSubType;
-    char szName[16];
-    char szMessage[256];
-};
-
-#pragma pack(pop)
-
 D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc*); // 0x005387C0
 
 int __fastcall PLAYERLIST_CheckFlag(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, unsigned int nFlags); // 0x0055B300
@@ -446,18 +412,6 @@ void __stdcall CHAT_CopyHoverMsgToBuffer(D2HoverTextStrc*, char*); // 0x006611E0
 void __fastcall D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(D2ClientStrc*, D2GSPacketSrv26*); // 0x0053C750
 
 void __fastcall D2GAME_PACKETS_SendPacketSize06_6FC3C850(D2ClientStrc*, unsigned char, int, int); // 0x0053B3D0
-
-#pragma pack(push, 1)
-
-struct D2GSPacketSrv2C
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    unsigned int dwUnitGUID;
-    unsigned short nSoundEvent;
-};
-
-#pragma pack(pop)
 
 void __fastcall SCMD_SendPacket0x2C(D2ClientStrc* pClient, D2GSPacketSrv2C* pPacket); // 0x0053D780
 
@@ -1146,13 +1100,13 @@ void __fastcall SUNITMSG_SendHoverText(D2UnitStrc* pUnit, D2ClientStrc* pClient)
                 return;
         }
         D2GSPacketSrv26 packet;
-        packet.nUnitGUID = pUnit ? pUnit->dwUnitId : -1;
+        packet.dwUnitGUID = pUnit ? pUnit->dwUnitId : -1;
         const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
         packet.nHeader = 0x26;
         packet.nUnitType = nType;
         packet.szName[0] = 0;
-        packet.nChatType = 5;
-        packet.nLanguage = CHAT_GetLangIdFromHoverMsg(pHoverText);
+        packet.nMessageType = 5;
+        packet.nLang = CHAT_GetLangIdFromHoverMsg(pHoverText);
         memset(packet.szMessage, 0, 256);
         CHAT_CopyHoverMsgToBuffer(pHoverText, packet.szMessage);
         D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(pClient, &packet);

@@ -9,6 +9,7 @@
 #include "D2GameObjs.h"
 #include "D2GameTypes.h"
 #include "D2Txt.h"
+#include "D2Packets.h"
 
 #define QFLAG_REWARDGRANTED 0
 
@@ -45,7 +46,6 @@ struct D2ObjInitFnStrc;
 
 struct D2MonsterDataStrc;
 
-struct D2GSPacketSrv5D;
 
 struct D2QuestGUIDStrc;
 
@@ -139,14 +139,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 
-struct D2GSPacketSrv5D
-{
-    unsigned char nHeader;
-    unsigned char nQuestId;
-    unsigned char nFlags;
-    unsigned char nState;
-    unsigned short field_4;
-};
 
 void __fastcall SCMD_SendPacket0x5D(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
 

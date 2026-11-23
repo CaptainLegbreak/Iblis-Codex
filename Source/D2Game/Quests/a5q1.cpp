@@ -8,6 +8,7 @@
 #include "D2GameTypes.h"
 #include "D2QuestData.h"
 #include "D2MonModes.h"
+#include "D2Packets.h"
 
 #define QUEST_A1Q4_CAIN 4
 
@@ -47,7 +48,6 @@ struct D2Act5Quest3Strc;
 
 struct D2Act1Quest4Strc;
 
-struct D2GSPacketSrv5D;
 
 struct D2MonsterDataStrc;
 
@@ -77,14 +77,6 @@ struct D2Act4Quest2Strc;
 
 struct D2Act4Quest3Strc;
 
-struct D2GSPacketSrv5D
-{
-    unsigned char nHeader;
-    unsigned char nQuestId;
-    unsigned char nFlags;
-    unsigned char nState;
-    unsigned short field_4;
-};
 
 void __fastcall SCMD_SendPacket0x5D(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
 

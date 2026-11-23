@@ -28,7 +28,6 @@
 #define MONSTATSFLAGINDEX_NOAURA 27
 
 
-
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
 
 
@@ -480,7 +479,6 @@ struct D2SkillStrc;
 struct D2StatListStrc;
 
 
-
 int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* pSkill);                                            // 0x00643AD0
 
 void __stdcall sub_006272B0_UnitStatListCall(D2UnitStrc* pUnit, int nType, int nValue, int n0);             // 0x006272B0
@@ -491,7 +489,6 @@ int __fastcall SKILLS_ConsumeSkillMana(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
 
 
 #define SKILLSRVDO_SHAPESHIFT 116
-
 
 
 #define SKILLSFLAGINDEX_IMMEDIATE 15
@@ -537,10 +534,6 @@ extern "C" const char gszSkillsSourceFile; // 0x006DAB88
 static void __stdcall SKILLS_StartAssignedAura(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId);
 
 void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc* pUnit, int a2, int nSkillId, int nFlags);
-
-
-
-
 
 
 enum D2C_ElemTypes
@@ -753,7 +746,6 @@ int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc* pUnit); // 0x00625DB0
 
 struct D2ServerCallbacks;
 
-struct D2GSPacketSrvAA;
 
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
 
@@ -790,19 +782,6 @@ int __stdcall sub_00622150_GetLevelInfo(D2UnitStrc*,int,int); // 0x00622150
 static void sub_00570A50_SpendStatPointsOnStrength(D2UnitStrc* pUnit, int nValue);
 
 static void sub_00570B30_SpendStatPointsOnDexterity(D2UnitStrc* pUnit, int nValue);
-
-#pragma pack(push, 1)
-
-struct D2GSPacketSrvAA
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    int nUnitId;
-    unsigned char nSize;
-    unsigned char pStream[244];
-};
-
-#pragma pack(pop)
 
 extern const unsigned int gdwInvBitMasks[]; // 0x006CE2E8
 

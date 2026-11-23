@@ -15,6 +15,7 @@
 #include "D2GameStrc.h"
 #include "D2PlayerModes.h"
 #include "D2ItemModes.h"
+#include "D2Packets.h"
 
 struct D2ClientStrc;
 
@@ -44,7 +45,6 @@ struct D2InventoryStrc;
 
 struct D2SkillsTxt;
 
-struct D2GSPacketSrv26;
 
 struct D2GSPacketClt15;
 
@@ -62,7 +62,6 @@ struct D2MonsterDataStrc;
 
 struct D2MonStatsTxt;
 
-struct D2GSPacketClt3B;
 
 struct D2GSPacketSrv26Args;
 
@@ -87,9 +86,6 @@ struct D2GameItemChecks
     int PLRMSG_CheckBeltItem(D2UnitStrc* pUnit, int nItemGUID); // 0x005492F0
 };
 
-struct D2GSPacketSrv5A;
-
-struct D2GSPacketClt20;
 
 typedef void (__fastcall* PlrMsgFunc)(D2GameStrc*, D2UnitStrc*, D2ClientStrc*, int);
 
@@ -360,20 +356,6 @@ int __stdcall WAYPOINTS_GetWaypointNoFromLevelId(int nLevelId, unsigned short* p
 
 int __stdcall WAYPOINTS_IsActivated(D2WaypointDataStrc* pData, unsigned short wField); // 0x00660E50
 
-#pragma pack(push, 1)
-
-struct D2GSPacketSrv5A
-{
-    unsigned char nHeader;
-    unsigned char nType;
-    unsigned char nColor;
-    unsigned int dwParam;
-    unsigned char nParam;
-    char szText[32];
-};
-
-#pragma pack(pop)
-
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
@@ -414,16 +396,6 @@ void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 
 void __stdcall CHAT_SetLangIdInHoverMsg(D2HoverTextStrc* pHoverMsg, unsigned char nLangId); // 0x00661230
 
-#pragma pack(push, 1)
-
-struct D2GSPacketClt3B
-{
-    unsigned char nHeader;
-    unsigned short nSkill;
-};
-
-#pragma pack(pop)
-
 int __fastcall D2GAME_CheckSkillIfUnitsClassSkill_6FD11B50(D2UnitStrc* pUnit, int nSkillId); // 0x0056C700
 
 int __stdcall SKILLS_CheckRequiredSkills(D2UnitStrc* pUnit, int nSkillId); // 0x006447D0
@@ -447,18 +419,6 @@ struct D2GSPacketSrv26Args
 
 D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc* pClient); // 0x005387C0
 
-struct D2GSPacketSrv26
-{
-    unsigned char nHeader;
-    unsigned char nMessageType;
-    unsigned char nLang;
-    unsigned char nUnitType;
-    unsigned int dwUnitGUID;
-    unsigned char nMessageColor;
-    unsigned char nNameColor;
-    char szName[16];
-    char szMessage[256];
-};
 
 void __fastcall D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(D2ClientStrc* pClient, D2GSPacketSrv26* pPacket); // 0x0053C750
 
@@ -531,18 +491,6 @@ static int __stdcall PLRMSG_CheckSameAct(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 static int __stdcall PLRMSG_CheckDistanceToPoint(unsigned short nX, unsigned short nY, D2UnitStrc* pUnit, int nMaxDistance); // 0x00548EF0
 
 static int __stdcall PLRMSG_CheckTargetUnit(int nMaxDistance, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID);
-
-#pragma pack(push, 1)
-
-struct D2GSPacketClt20
-{
-    unsigned char nHeader;
-    int nItemGUID;
-    int nPosX;
-    int nPosY;
-};
-
-#pragma pack(pop)
 
 static inline int PLRMSG_CheckSkillLevel(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);
 
@@ -697,7 +645,6 @@ void __fastcall D2GAME_PACKETS_HandleWhisper_6FC848A0(D2ClientStrc*, void*); // 
 
 union D2SeedStrc;
 
-struct D2GSPacketClt5F;
 
 struct D2WarpDelayStrc;
 
@@ -714,17 +661,6 @@ void __fastcall D2GAME_NPC_HireMerc_6FCC9540(D2GameStrc* pGame, D2UnitStrc* pPla
 int __fastcall D2GAME_NPC_Repair_6FCC95B0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nNpcGUID, int nItemGUID, unsigned short nUnused, int a6); // 0x00578050
 
 int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nNpcGUID, int nItemGUID, unsigned short nItemMode, int a6); // 0x00579510
-
-#pragma pack(push, 1)
-
-struct D2GSPacketClt5F
-{
-    unsigned char nHeader;
-    unsigned short nX;
-    unsigned short nY;
-};
-
-#pragma pack(pop)
 
 struct D2WarpDelayStrc
 {
@@ -795,19 +731,6 @@ int __fastcall PLRMODE_CanInterruptCurrentMode(D2GameStrc*,D2UnitStrc*,int,int,D
 #define D2_MAYBE_UNUSED(x) (void)(x)
 
 int __fastcall ITEMMODE_SwapCursorAndStoredItem(D2GameStrc*, D2UnitStrc*, int, int, int, int, int*); // 0x00561B00
-
-#pragma pack(push, 1)
-
-struct D2GSPacketClt1F
-{
-    unsigned char nHeader;
-    int nCursorItemGUID;
-    int nInventoryItemGUID;
-    int nPosX;
-    int nPosY;
-};
-
-#pragma pack(pop)
 
 static int __stdcall PLRMSG_CheckOwnedItem(int nItemGUID, D2GameStrc* pGame, D2UnitStrc* pUnit);
 
@@ -890,7 +813,6 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x61_DropPickupMercItem(D2GameStrc* pGam
 void __fastcall D2GAME_PACKETS_SendPacket0x1D_E_F_6FC3D480(D2ClientStrc* pClient, unsigned short nStatId, unsigned int nValue); // 0x0053BE40
 
 void __fastcall SCMD_SendUnitStat(D2ClientStrc* pClient, unsigned char nHeader, int nUnitGUID, unsigned short nStatId, int nValue); // 0x0053C1D0
-
 
 
 // 0x00547F70

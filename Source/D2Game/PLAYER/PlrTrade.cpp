@@ -16,6 +16,7 @@
 #include "D2Path.h"
 #include "D2ItemsWorld.h"
 #include "D2ItemModes.h"
+#include "D2Packets.h"
 
 struct D2ClientStrc;
 
@@ -43,7 +44,6 @@ struct D2PlayerDataStrc;
 
 struct D2CubeItemStrc;
 
-struct D2GSPacketSrv78;
 
 struct Item;
 
@@ -67,17 +67,6 @@ void __stdcall SUNIT_SetInteractInfo(D2UnitStrc* pUnit, int nInteractUnitType, i
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-
-#pragma pack(push, 1)
-
-struct D2GSPacketSrv78
-{
-    unsigned char nHeader;
-    char szName[16];
-    int dwPlayerGUID;
-};
-
-#pragma pack(pop)
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -208,20 +197,6 @@ int __fastcall ACT1Q4_CreateCowPortal(D2GameStrc* pGame, D2UnitStrc* pUnit); // 
 int __fastcall ACT1Q4_CreateUberRunPortal(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00594270
 
 int __fastcall ACT1Q4_CreateUberFinalePortal(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00594280
-
-#pragma pack(push, 1)
-
-struct D2GSPacketSrv5A
-{
-    unsigned char nHeader;
-    unsigned char nType;
-    unsigned char nColor;
-    unsigned int dwParam;
-    unsigned char nParam;
-    char szText[32];
-};
-
-#pragma pack(pop)
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 

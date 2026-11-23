@@ -373,7 +373,6 @@ void __fastcall LEVEL_LoadAct(D2GameStrc* pGame, unsigned char nAct)
 }
 struct D2MonsterDataStrc;
 
-struct D2GSPacketSrvB1;
 
 void __fastcall MONSTER_RemoveAll(D2GameStrc* pGame); // 0x00573640
 
@@ -392,13 +391,6 @@ void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits); 
 int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
 
 #pragma pack(push, 1)
-struct D2GSPacketSrvB1
-{
-    unsigned char nHeader;
-    char szGameName[48];
-    unsigned short nClientCount;
-    unsigned short nGameId;
-};
 
 // 0x0053AFD0
 void __fastcall LEVEL_RemoveAllUnits(D2GameStrc* pGame)

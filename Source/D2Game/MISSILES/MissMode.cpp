@@ -23,6 +23,7 @@
 #include "D2GameObjs.h"
 #include "D2TxtTables.h"
 #include "D2LevelTxt.h"
+#include "D2Packets.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -402,7 +403,6 @@ struct D2Act4Quest1Strc;
 
 struct D2Act4Quest3Strc;
 
-struct D2GSPacketSrv5D;
 
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
 
@@ -413,14 +413,6 @@ struct D2DoorObjectAiCallbackArgStrc
     int unk0x08[8];
 };
 
-struct D2GSPacketSrv5D
-{
-    unsigned char nHeader;
-    unsigned char nQuestId;
-    unsigned char nFlags;
-    unsigned char nState;
-    unsigned short field_4;
-};
 
 extern "C" const char gszAct3Q2SourceFile[]; // 0x006E2E84
 
