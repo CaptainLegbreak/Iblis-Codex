@@ -5201,7 +5201,7 @@ address,name,source,alias
 0x004CE650,MISSILE_SpawnScatterMissiles,inferred,
 0x004CE850,MISSILE_SpawnPeriodicMissile,inferred,
 0x004CEA00,sub_004CEA00_SpawnMissileInRadius,placeholder,
-0x004CECC0,SKILLS_DispatchSubMissileSpawn,inferred,
+0x004CECC0,MISSILE_DispatchSubMissileSpawn,inferred,
 0x004CED20,MISSILE_SubmitWithDirection,inferred,
 0x004CED60,MISSILE_CreateBurstAt,inferred,
 0x004CEF50,MISSILE_SpawnBurst,inferred,

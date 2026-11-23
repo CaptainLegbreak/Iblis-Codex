@@ -342,8 +342,6 @@ extern D2LobBracketStrc gaLobBrackets[2]; // 0x006DAE70
 
 extern D2CltMissileModeStrc gaCltMissileModes[]; // 0x0072A350
 
-void __fastcall sub_004CEA00(int nArg1, int nArg2, int nArg3, int nArg4); // 0x004CEA00
-
 void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004DA1D0
 
 void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4, int nArg5); // 0x004DA200
@@ -3478,22 +3476,6 @@ void __fastcall SKILLS_InitMissileUnit(D2UnitStrc* pMissile, int nArg, int nTarg
     }
 
     pMissile->dwFlags = (pMissile->dwFlags & ~0xA) | 0x20;
-}
-
-// 0x004CECC0
-void __fastcall SKILLS_DispatchSubMissileSpawn(int nArg1, int nArg2, int nArg3, int nType)
-{
-    if ((unsigned int)(nType - 0xC9) <= 0x17)
-    {
-        sub_004CEA00(nArg1, nArg2, nArg3, 6);
-        sub_004CEA00(nArg1, nArg2, nArg3, 6);
-        return;
-    }
-
-    if (!(nType % 4))
-    {
-        sub_004CEA00(nArg1, nArg2, nArg3, 0x14);
-    }
 }
 
 // 0x004D16C0

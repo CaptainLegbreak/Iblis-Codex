@@ -42,11 +42,11 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 1006 |
+| Compilation units | 1001 |
 | … in a file with its original name, whole | 281 |
 | … pieces of an original file still split (in 36 files) | 115 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 610 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3087 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 605 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3083 |
 | Unnamed fields (`unk0x..`) in the shared headers | 711 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 43 |
 | Calling-convention shims | 108 |
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 3372 functions are compiled with `/GS-` and 581 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 99 times and `__declspec(dllexport)` 170 times to keep a body out of line or emitted.
+Not listed one by one: 3373 functions are compiled with `/GS-` and 581 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 99 times and `__declspec(dllexport)` 170 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -129,15 +129,14 @@ Not listed one by one: 3372 functions are compiled with `/GS-` and 581 with `/EH
 | 0x004044F0 | ERRORMANAGER_GetTempPathUtf8 | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00404560 | ERRORMANAGER_CreateDirectoryWide | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x004045F0 | ERRORMANAGER_CreateDirectoryUtf8 | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
-| 0x004049A0 | sub_004049A0_ReadImageInfo | `Storm/Unknown_004049A0.cpp` | compiler option /Ob2 |
-| 0x00404AB0 | sub_00404AB0_VisitModule | `Storm/Unknown_00404AB0.cpp` | compiler option /Oy |
+| 0x00404AB0 | sub_00404AB0_VisitModule | `Fog/Unknown_00404AB0.cpp` | compiler option /Ob1, compiler option /Oy |
 | 0x00404C60 | sub_00404C60_EnumModulesPsapi | `Fog/Unknown_00404330.cpp` | compiler option /Oy, compiler option /Oy, without /Oy- |
 | 0x00404DC0 | sub_00404DC0_EnumModulesToolhelp | `Fog/Unknown_00404330.cpp` | compiler option /Oy, compiler option /Oy, without /Oy- |
 | 0x00404E60 | ERRORMANAGER_EnumLoadedModules | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00404F40 | sub_00404F40_GetDebugDirectory64 | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
 | 0x00404F60 | sub_00404F60_GetDebugDirectory32 | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
 | 0x00405060 | sub_00405060_CaptureFrames | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
-| 0x00405250 | sub_00405250_DescribeAddress | `Storm/Unknown_00405250.cpp` | link-time code generation (/GL /LTCG) |
+| 0x00405250 | sub_00405250_DescribeAddress | `Fog/Unknown_00405250.cpp` | link-time code generation (/GL /LTCG) |
 | 0x004053F0 | ??3@YAXPAX@Z | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
 | 0x00405410 | ??2@YAPAXI@Z | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
 | 0x00405430 | sub_00405430_GetIniPath | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |

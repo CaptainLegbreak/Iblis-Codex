@@ -31,12 +31,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Fog/Unknown_00401B00.cpp": {
+  "Source/Fog/Unknown_00401010.cpp": {
    "bytes": 28,
    "definitions": 2,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Fog/Unknown_00401B00.inc",
+   "include": "gen/data/Source/Fog/Unknown_00401010_00401B00.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -3692,7 +3692,7 @@
   },
   "Source/D2Game/Ai/AiThink.cpp": {
    "bytes": 40,
-   "definitions": 6,
+   "definitions": 4,
    "externs": [
     "extern \"C\" void __cdecl AITHINK_Fn002_Skeleton(); // 0x005EFCF0",
     "extern \"C\" void __cdecl AITHINK_Fn003_Zombie(); // 0x005EFE20",
@@ -4187,7 +4187,7 @@
   },
   "Source/D2Game/Ai/AiThink4.cpp": {
    "bytes": 840,
-   "definitions": 10,
+   "definitions": 12,
    "externs": [
     "extern \"C\" void __cdecl sub_005E6F00(); // 0x005E6F00",
     "extern \"C\" void __cdecl sub_005E6FC0(); // 0x005E6FC0"
@@ -6103,7 +6103,7 @@
    "cname": "gData_006FFB94",
    "declared": true,
    "decorated": "_gszMiniDumpWriteDump",
-   "file": "Source/Fog/Unknown_00401B00.cpp",
+   "file": "Source/Fog/Unknown_00401010.cpp",
    "fill": 24,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006FFB94[24]; // 0x006FFB94",
@@ -6134,7 +6134,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Fog/Unknown_00401B00.cpp",
+   "file": "Source/Fog/Unknown_00401010.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern void* ghProcess = ",
@@ -110593,7 +110593,7 @@
    "cname": "gData_006E3514",
    "declared": true,
    "decorated": "?gnCatapultSkills@@3QBHB",
-   "file": "Source/D2Game/Ai/AiThink.cpp",
+   "file": "Source/D2Game/Ai/AiThink4.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E3514[5]; // 0x006E3514",
    "head": "extern \"C\" const int gData_006E3514[5] = ",
@@ -119067,7 +119067,7 @@
    "cname": "gData_006E3528",
    "declared": true,
    "decorated": "?gnBaalThroneSuperUniqueIds@@3QBHB",
-   "file": "Source/D2Game/Ai/AiThink.cpp",
+   "file": "Source/D2Game/Ai/AiThink4.cpp",
    "fill": 5,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E3528[5]; // 0x006E3528",
