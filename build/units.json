@@ -9862,11 +9862,6 @@
      "name": "?CHARSEL_SubmitProfile@@YGHH@Z"
     },
     {
-     "va": "0x00445020",
-     "length": 126,
-     "name": "CHARSEL_RequestGameList"
-    },
-    {
      "va": "0x00446890",
      "length": 88,
      "name": "?CHARSEL_SendChatLine@@YGHH@Z"
@@ -13354,6 +13349,11 @@
     {
      "va": "0x00444E70",
      "length": 421
+    },
+    {
+     "va": "0x00445020",
+     "length": 126,
+     "name": "CHARSEL_RequestGameList"
     },
     {
      "va": "0x004450A0",
