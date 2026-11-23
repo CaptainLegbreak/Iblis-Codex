@@ -19530,6 +19530,10 @@
      "va": "0x00467A70",
      "length": 77,
      "name": "?sub_00467A70_RefreshHoverUnit@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00467AC0",
+     "length": 804
     }
    ],
    "flags": [
@@ -19558,30 +19562,6 @@
     {
      "va": "0x00467A10",
      "length": 81
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00467AC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00467AC0",
-     "length": 804
     }
    ],
    "flags": [
