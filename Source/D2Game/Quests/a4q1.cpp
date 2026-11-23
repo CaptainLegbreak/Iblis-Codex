@@ -291,13 +291,6 @@ int __fastcall sub_005B31B0_SpawnMinionsAt(D2GameStrc* pGame, D2UnitStrc* pOwner
 
 int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 
-struct D2RoomCoordListStrc
-{
-    tagRECT box[2];
-    char unknown20[8];
-    int nIndex;
-};
-
 extern unsigned char gbNeverCount_006CE270; // 0x006CE270
 
 extern unsigned int gdwSetBoss_006CE278; // 0x006CE278
