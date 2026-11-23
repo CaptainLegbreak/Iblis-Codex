@@ -9890,11 +9890,6 @@
      "va": "0x00458CD0",
      "length": 30,
      "name": "CHARSEL_SetAutomapContext"
-    },
-    {
-     "va": "0x00478160",
-     "length": 101,
-     "name": "CHARSEL_ShowProgressSteps"
     }
    ],
    "flags": [
@@ -22122,6 +22117,11 @@
      "va": "0x00478130",
      "length": 30,
      "name": "?MSG_SetProgress@@YIXHH@Z"
+    },
+    {
+     "va": "0x00478160",
+     "length": 101,
+     "name": "CHARSEL_ShowProgressSteps"
     },
     {
      "va": "0x004781D0",

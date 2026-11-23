@@ -3616,22 +3616,6 @@ void __stdcall CHARSEL_SetAutomapContext(void* pContext)
 }
 
 
-// 0x00478160
-void __fastcall CHARSEL_ShowProgressSteps(int nDone, int nTotal)
-{
-    const int nDivisor = nTotal * 8;
-    int nPosition = nDone * 8;
-    for (int i = 0; i < 8; ++i)
-    {
-        if (nDivisor == 0)
-            gnProgress = 0;
-        else
-            gnProgress = (nPosition * 0x100) / nDivisor;
-        UI_DrawLoadingScreen(0);
-        Sleep(250);
-        ++nPosition;
-    }
-}
 
 static unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
 {
