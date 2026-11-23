@@ -1048,4 +1048,3 @@ void __fastcall sub_M120_Emit_00571790(D2UnitStrc* pUnit, D2UnitPacketListStrc* 
     SUNITMSG_AppendUnitMessage(pUnit, pMsg);
 }
 
-#include "gen/data/Source/D2Game/UNIT/SUnitMsg.inc"
