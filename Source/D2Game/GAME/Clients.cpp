@@ -781,10 +781,6 @@ static inline void CLIENTS_UpdatePlayerPortalFlags(D2ClientStrc* pClient)
 
 #define OBJRGN_MAX_SHRINES 10
 
-#define AIPARAM_MAX_STEPS 77
-
-struct D2AiParamStrc;
-
 struct D2HotkeySkillStrc;
 
 struct D2MonsterDataStrc;
@@ -823,14 +819,6 @@ int __fastcall DATATBLS_GetClassFromCharTemplateTxtRecord(int nTemplate, int nLe
 
 typedef int (__fastcall* D2UnitEventCallbackFunction)(D2GameStrc* pGame, int nUnitEvent, D2UnitStrc* pUnit, D2UnitStrc* pEventSourceUnit, D2DamageStrc* pDamage, int nGUID1, int nGUID2);
 
-
-struct D2AiParamStrc
-{
-    char unk0x00[0x18];
-    int unk0x18;
-    int nVelocity;
-    unsigned char unk0x20;
-};
 
 typedef void (__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
 
@@ -3615,30 +3603,6 @@ void __fastcall D2GAME_OBJMODE_InvokeEventFunction_6FC75250(D2GameStrc* pGame, D
 {
     D2_ASSERT(!IsBadCodePtr((FARPROC)gpfnObjectEventFunctions[eEventType]), 576);
     gpfnObjectEventFunctions[eEventType](pGame, pObject);
-}
-
-// 0x005A6260
-void __fastcall MONSTERMODE_SetVelocityParams(D2AiParamStrc* pAiParam, int nParam18, int nParam1C, unsigned char nParam20)
-{
-    if (nParam18)
-    {
-        pAiParam->unk0x18 = nParam18;
-    }
-
-    if (nParam1C)
-    {
-        pAiParam->nVelocity = nParam1C;
-    }
-
-    if (nParam20)
-    {
-        if (nParam20 >= AIPARAM_MAX_STEPS + 1)
-        {
-            nParam20 = AIPARAM_MAX_STEPS;
-        }
-
-        pAiParam->unk0x20 = nParam20;
-    }
 }
 
 // 0x005A7F80
