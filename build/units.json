@@ -83357,6 +83357,22 @@
      "length": 26
     },
     {
+     "va": "0x006C77B0",
+     "length": 23
+    },
+    {
+     "va": "0x006C77D0",
+     "length": 28
+    },
+    {
+     "va": "0x006C77F0",
+     "length": 196
+    },
+    {
+     "va": "0x006C78C0",
+     "length": 64
+    },
+    {
      "va": "0x006C7900",
      "length": 27
     },
@@ -83501,55 +83517,13 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006C77B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C77B0",
-     "length": 23
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006C77D0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C77D0",
-     "length": 28
-    }
-   ]
-  },
-  {
    "file": "Source/Storm/Unknown_006C77F0.cpp",
    "rank": 1,
    "functions": [
     {
-     "va": "0x006C77F0",
-     "length": 196
-    },
-    {
-     "va": "0x006C78C0",
-     "length": 64
-    },
-    {
      "va": "0x006C79C0",
      "length": 149
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
