@@ -3298,7 +3298,7 @@
   },
   "Source/D2Game/Quests/a5q1.cpp": {
    "bytes": 1616,
-   "definitions": 3,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a5q1.inc",
@@ -5189,7 +5189,7 @@
   },
   "Source/D2Game/Quests/a5q4.cpp": {
    "bytes": 1616,
-   "definitions": 1,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a5q4_0058B0B0.inc",
@@ -103546,7 +103546,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a5q1.cpp",
+   "file": "Source/D2Game/Quests/a5q4.cpp",
    "fill": 6,
    "form": "declared",
    "fwd": null,
