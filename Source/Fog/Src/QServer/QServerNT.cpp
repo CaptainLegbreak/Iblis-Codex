@@ -3,6 +3,8 @@
 #include "D2SysTypes.h"
 #include "D2NetTypes.h"
 
+extern "C" int __stdcall WSAStartup(unsigned short wVersionRequested, D2WSADataStrc* pData); // 0x006B0132
+
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CriticalSectionStrc;
@@ -817,4 +819,16 @@ void __fastcall sub_006C2110_StopServerThreads(D2QueueServerStrc* server)
    server->aThreadIds2[i]=0;
   }
  }
+}
+
+// 0x006C3360
+int __fastcall sub_006C3360_Startup(D2QueueServerStrc* pServer, int nPort)
+{
+    D2WSADataStrc tWsaData;
+    pServer->bRunning = 1;
+    if (WSAStartup(0x101, &tWsaData))
+    {
+        return 0;
+    }
+    return sub_006C3120_Start(pServer, nPort);
 }
