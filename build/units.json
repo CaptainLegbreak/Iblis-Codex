@@ -28396,6 +28396,10 @@
      "name": "?NPCMENU_OpenGreetingDialog@@YAXXZ"
     },
     {
+     "va": "0x004B4FD0",
+     "length": 366
+    },
+    {
      "va": "0x004B5320",
      "length": 196
     },
@@ -28499,16 +28503,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/npcmenu_004B4FD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B4FD0",
-     "length": 366
-    }
    ]
   },
   {

@@ -570,6 +570,7 @@ void __fastcall NPCMENU_ClearInteractOverlay(D2UnitStrc* pUnit);                
 extern "C" void __fastcall NPCMENU_ClearNpcInventoryAndSound(int nUnitId); // 0x004B3830
 
 void __cdecl NPCMENU_OpenGreetingDialog();                                                             // 0x004B4DB0
+int __cdecl sub_004B1D70_FindNpcEntry(); // 0x004B1D70
 
 void __stdcall sub_004B4FD0(D2UnitStrc* pUnit);
 
@@ -2543,6 +2544,55 @@ void __cdecl NPCMENU_OpenGreetingDialog()
     sub_004B85F0_AddTextLine(gpNpcGreetingDialog, D2LANG_GetStringFromTblIndex(aStrings[nRoll]), 0xF, 0, 0, 1, NPCMENU_NpcMenuTalk, 1);
     sub_004B85F0_AddTextLine(gpNpcGreetingDialog, D2LANG_GetStringFromTblIndex(0x102E), 0xF, 0, 0, 1, sub_004B4670_NpcMenuCancelText, 1);
     sub_004B82F0_Select(gpNpcGreetingDialog, 1);
+}
+
+// 0x004B4FD0
+void __stdcall sub_004B4FD0_OpenNpcWindow(D2UnitStrc* pUnit)
+{
+    GAME_ResetMouseState();
+    if (!pUnit)
+    {
+        gnNpcMenuState = 0;
+        INV_ResetHover();
+        NPCMENU_EndNpcInteraction(gnInteractNpcId);
+        UI_SetUIVar(8, 1, 0);
+        return;
+    }
+    if (NPC_GetInteractUnit_Inline())
+    {
+        gnNpcMenuState = 0;
+        INV_ResetHover();
+        NPCMENU_EndNpcInteraction(gnInteractNpcId);
+        UI_SetUIVar(8, 1, 0);
+        return;
+    }
+    gnNpcMenuState = 1;
+    gnNpcTradeMode = 0;
+    gnNpcGoldSnapshot = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
+    UI_CloseUIVars(0, 0);
+    GAME_ResetMouseState();
+    D2_ASSERT(!NPC_GetInteractUnit_Inline(), 3529);
+    NPCMENU_SetNpcInteract(pUnit);
+    D2UnitStrc* pNpc = NPC_GetInteractUnit_Inline();
+    if (pNpc)
+        pNpc->dwFlags &= ~2;
+    if (!UI_SetUIVar(8, 2, 0))
+    {
+        sub_004B3DE0_CloseNpc();
+        return;
+    }
+    NPCMENU_OpenGreetingDialog();
+    const int nIndex = sub_004B1D70_FindNpcEntry();
+    if (gaNpcEntries[nIndex].bRefreshed)
+    {
+        const int nSound = sub_004E0590_PickNpcSound(NPCMENU_GetInteractNpc(), 1);
+        if (nSound)
+        {
+            UNITSND_ReleaseSkillSfx(pUnit);
+            sub_004B9A00(nSound, sub_00463DD0_GetPlayerUnit(), 0, 1, 0);
+        }
+        gaNpcEntries[nIndex].bRefreshed = 0;
+    }
 }
 
 // 0x004B5320
