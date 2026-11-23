@@ -34258,11 +34258,6 @@
      "name": "IMAGE2_Destroy"
     },
     {
-     "va": "0x004FD820",
-     "length": 7,
-     "name": "TIMER_Destroy"
-    },
-    {
      "va": "0x00500300",
      "length": 7,
      "name": "ANIMIMAGE_Destroy"
@@ -36112,6 +36107,11 @@
    "file": "Source/D2Win/Src/D2WinTimer.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x004FD820",
+     "length": 7,
+     "name": "TIMER_Destroy"
+    },
     {
      "va": "0x004FD830",
      "length": 41,

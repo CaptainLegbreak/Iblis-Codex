@@ -1,9 +1,16 @@
 #include "D2Win.h"
+#include "D2GameTypes.h"
+
 #include "D2SkillIds.h"
+
 #include "D2StatIds.h"
+
 #include "D2Win32Types.h"
+
 #include "D2CelContext.h"
+
 #include "D2CmpTypes.h"
+
 #include "D2ClientTypes.h"
 
 #include "D2WinTypes.h"
@@ -57,6 +64,14 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();        
 int __fastcall TIMER_UpdateDefault(D2WinControlStrc* pControl);                                                    // 0x004FD860
 
 int __fastcall TIMER_UpdateRepeating(D2WinControlStrc* pControl);                                                    // 0x004FD8F0
+
+void __stdcall sub_004F9310(void* pArg); // 0x004F9310
+
+// 0x004FD820
+void __fastcall TIMER_Destroy(void* pArg)
+{
+    sub_004F9310(pArg);
+}
 
 // 0x004FD830
 void __fastcall TIMER_DisableSpaceKey(D2WinTimerStrc* ptTimerData)
