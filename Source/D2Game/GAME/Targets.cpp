@@ -205,3 +205,40 @@ D2TargetNodeStrc* __fastcall sub_005B1BC0_FindTargetNode(D2UnitStrc* pUnit, D2Ga
 
     return 0;
 }
+
+// 0x005B1C00
+void __fastcall sub_005B1C00_ToggleTargetFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFlags, int bSet)
+{
+    if (!pGame || !pUnit)
+    {
+        return;
+    }
+
+    D2TargetNodeStrc* pTargetNode;
+    if (pUnit->dwUnitType == UNIT_PLAYER)
+    {
+        pTargetNode = sub_005B1BC0_FindTargetNode(pUnit, pGame);
+    }
+    else if (pUnit->dwUnitType == UNIT_MONSTER)
+    {
+        pTargetNode = sub_005B1BC0_FindTargetNode(pUnit, pGame);
+    }
+    else
+    {
+        return;
+    }
+
+    if (!pTargetNode)
+    {
+        return;
+    }
+
+    if (bSet)
+    {
+        pTargetNode->nNodeData |= nFlags;
+    }
+    else
+    {
+        pTargetNode->nNodeData &= ~nFlags;
+    }
+}

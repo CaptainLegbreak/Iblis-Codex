@@ -3872,15 +3872,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_005B1B70.cpp": {
-   "bytes": 28,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005B1B70.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/Quests/a4q1.cpp": {
    "bytes": 1568,
    "definitions": 2,
@@ -5287,8 +5278,8 @@
    "state": "included"
   },
   "Source/D2Game/Unknown_005B24E0.cpp": {
-   "bytes": 188,
-   "definitions": 3,
+   "bytes": 216,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Unknown_005B24E0.inc",
@@ -112185,7 +112176,7 @@
    "cname": "gData_006E1BB0",
    "declared": true,
    "decorated": "?gaAncientBarbItems@@3PAY02UD2MonsterItemCodeStrc@@A",
-   "file": "Source/D2Game/Unknown_005B1B70.cpp",
+   "file": "Source/D2Game/Unknown_005B24E0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006E1BB0_t gData_006E1BB0; // 0x006E1BB0",
    "head": "extern \"C\" const struct d2data_006E1BB0_t gData_006E1BB0 = ",
