@@ -7,64 +7,6 @@ struct D2PalRgbaStrc;
 
 unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
 
-// 0x00605880
-void __stdcall sub_00605880_BuildTablesA(unsigned char* pTables)
-{
-    unsigned int n = 0;
-    if (3 > n)
-    {
-        do
-        {
-            int i = 0;
-            int nAlpha;
-            switch (n)
-            {
-            case 0:
-                nAlpha = 0xBF;
-                break;
-
-            case 1:
-                nAlpha = 0x7F;
-                break;
-
-            default:
-                nAlpha = 0x3F;
-                break;
-            }
-
-            const int nInverse = 0xFF - nAlpha;
-            while (i < 256)
-            {
-                for (int j = 0; 256 > j; ++j)
-                {
-                    pTables[0x3500 + (n << 16) + j * 256 + i] = GetClosestColor(pTables, 256,
-                        (unsigned char)((unsigned int)(pTables[j * 4 + 0] * nInverse + pTables[i * 4 + 0] * nAlpha) / 255),
-                        (unsigned char)((unsigned int)(pTables[j * 4 + 1] * nInverse + pTables[i * 4 + 1] * nAlpha) / 255),
-                        (unsigned char)((unsigned int)(pTables[j * 4 + 2] * nInverse + pTables[i * 4 + 2] * nAlpha) / 255));
-                }
-                ++i;
-            }
-            ++n;
-        } while (n < 3);
-    }
-}
-
-// 0x006059B0
-void __stdcall sub_006059B0_BuildAdditiveTable(unsigned char* pTables)
-{
-    const D2PalRgbaStrc* pPalette = (const D2PalRgbaStrc*)pTables;
-    for (int i = 0; i < 256; ++i)
-    {
-        for (int j = 0; j < 256; ++j)
-        {
-            const unsigned char nR = (unsigned char)PAL_SATURATE(pPalette[j].nRed + pPalette[i].nRed);
-            const unsigned char nG = (unsigned char)PAL_SATURATE(pPalette[j].nGreen + pPalette[i].nGreen);
-            const unsigned char nB = (unsigned char)PAL_SATURATE(pPalette[j].nBlue + pPalette[i].nBlue);
-            pTables[0x33500 + j * 256 + i] = GetClosestColor(pTables, 256, nR, nG, nB);
-        }
-    }
-}
-
 // build: symbol ?PaletteHueToRgb@* 0x00604FE0
 double __stdcall PaletteHueToRgb(double n1, double n2, double hue)
 {

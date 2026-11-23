@@ -67451,6 +67451,14 @@
      "name": "PaletteSetMask"
     },
     {
+     "va": "0x00605880",
+     "length": 303
+    },
+    {
+     "va": "0x006059B0",
+     "length": 209
+    },
+    {
      "va": "0x00605A90",
      "length": 16,
      "name": "UpdateD2TransparencyTable"
@@ -67842,14 +67850,6 @@
    "file": "Source/D2CMP/Unknown_00605880.cpp",
    "rank": 1,
    "functions": [
-    {
-     "va": "0x00605880",
-     "length": 303
-    },
-    {
-     "va": "0x006059B0",
-     "length": 209
-    },
     {
      "va": "0x00605F00",
      "length": 2439
