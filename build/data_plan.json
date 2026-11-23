@@ -4236,15 +4236,12 @@
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod16_Champion(); // 0x005A0E80",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod17_LightningEnchanted(); // 0x005A1B00",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod18_ColdEnchanted(); // 0x005A1C70",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_UMod1_RandomName(); // 0x005A0CE0",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod23_PoisonEnchanted(); // 0x005A1E00",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod25_ManaSteal(); // 0x005A1F90",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod26_Teleport(); // 0x005A1600",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_UMod2_HealthBonus(); // 0x005A0DC0",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod36_Ghostly(); // 0x005A1080",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod38_Possessed(); // 0x005A1230",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod9_FireEnchanted(); // 0x005A1990",
-    "extern \"C\" void __cdecl sub_005A0E40_IncreaseMonsterLevelAndExperience(); // 0x005A0E40",
     "extern \"C\" void __cdecl sub_005A1280_UModChampion(); // 0x005A1280"
    ],
    "fn_types": {},
@@ -107841,7 +107838,7 @@
     [
      4,
      "0x005A0CE0",
-     "names.json",
+     "owner",
      "MONSTERUNIQUE_UMod1_RandomName",
      0,
      "func"
@@ -107849,7 +107846,7 @@
     [
      8,
      "0x005A0DC0",
-     "names.json",
+     "owner",
      "MONSTERUNIQUE_UMod2_HealthBonus",
      0,
      "func"
@@ -107857,7 +107854,7 @@
     [
      16,
      "0x005A0E40",
-     "names.json",
+     "owner",
      "sub_005A0E40_IncreaseMonsterLevelAndExperience",
      0,
      "func"
