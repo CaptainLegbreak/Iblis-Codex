@@ -2362,6 +2362,18 @@ void __fastcall SCMD_UnregisterMsgHandler(void* hWnd, int nType, int nId, SMSGHA
     }
 }
 
+struct D2MsgHandlerEntryStrc;
+
+// 0x00451DB0
+void __fastcall COMCALLBACK_RegisterMsgHandlers(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount)
+{
+    D2_ASSERT(hWnd, 0x153);
+    for (unsigned int i = 0; i < nCount; i++)
+    {
+        SCMD_RegisterMsgHandler(hWnd, pTable[i].nType, pTable[i].nId, (SMSGHANDLER)pTable[i].pfnHandler);
+    }
+}
+
 // 0x00452090
 void __stdcall SCMD_HandleResetMessage(SMSGHANDLER_PARAMS* pMsg)
 {
