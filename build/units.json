@@ -65599,11 +65599,6 @@
      "name": "DATATBLS_GetShrinesTxtRecordCount"
     },
     {
-     "va": "0x00642740",
-     "length": 3,
-     "name": "sub_00642740"
-    },
-    {
      "va": "0x00663740",
      "length": 3,
      "name": "sub_00663740"
@@ -73304,6 +73299,11 @@
      "va": "0x006426A0",
      "length": 149,
      "name": "?DRLG_IsTownLevel@@YIHH@Z"
+    },
+    {
+     "va": "0x00642740",
+     "length": 3,
+     "name": "sub_00642740"
     },
     {
      "va": "0x00642750",
