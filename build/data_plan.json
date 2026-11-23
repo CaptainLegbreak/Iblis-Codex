@@ -1938,8 +1938,6 @@
     "extern \"C\" void __cdecl sub_004D6FA0_CltDoLinked(); // 0x004D6FA0",
     "extern \"C\" void __cdecl sub_004D7880(); // 0x004D7880",
     "extern \"C\" void __cdecl sub_004D7E00(); // 0x004D7E00",
-    "extern \"C\" void __cdecl sub_004D8260_CltDoMissileSpray(); // 0x004D8260",
-    "extern \"C\" void __cdecl sub_004D8400_CltDoRotateTarget(); // 0x004D8400",
     "extern \"C\" void __cdecl sub_004CC9A0_CltHitProgOverlay(); // 0x004CC9A0",
     "extern \"C\" void __cdecl sub_004CCCA0_CltHitFlagOwner(); // 0x004CCCA0",
     "extern \"C\" void __cdecl sub_004CCF00_CltHitClearGlobals(); // 0x004CCF00",
