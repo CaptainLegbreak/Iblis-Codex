@@ -464,6 +464,19 @@ void __cdecl HIREABLES_FreeHelpCels()
     }
 }
 
+extern int gbHelpUiOpened;                                                                         // 0x007BEF00
+
+// 0x00494FC0
+void __cdecl sub_00494FC0()
+{
+    if (gbHelpUiOpened)
+    {
+        UI_SetUIVar(0x15, 1, 0);
+        gbHelpUiOpened = 0;
+    }
+}
+
+
 // 0x00495030
 void __cdecl sub_00495030_DrawKeyHelp()
 {
