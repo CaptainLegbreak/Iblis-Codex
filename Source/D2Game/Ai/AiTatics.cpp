@@ -844,6 +844,80 @@ int __fastcall D2GAME_AICORE_WalkToOwner_6FCD0B60(D2GameStrc* pGame, D2UnitStrc*
     return AITACTICS_MoveToTarget(pGame, pUnit, 0, MONMODE_WALK, nTargetX, nTargetY, 1, 0);
 }
 
+static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    }
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    }
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x005DF680
+int __fastcall AITACTICS_RunCloseToTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance)
+{
+    int nOffsetX = 0;
+    int nOffsetY = 0;
+
+    int nTargetX = CLIENTS_GetUnitXInline(pTarget);
+    int nTargetY = CLIENTS_GetUnitYInline(pTarget);
+
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    if (AI_RollSeed(pSeed) & 1)
+    {
+        nOffsetX = nMaxDistance;
+        nOffsetY = ITEMS_RollLimitedRandomNumber(pSeed, nMaxDistance);
+    }
+    else
+    {
+        nOffsetX = ITEMS_RollLimitedRandomNumber(pSeed, nMaxDistance);
+        nOffsetY = nMaxDistance;
+    }
+
+    if (AI_RollSeed(pSeed) & 1)
+    {
+        nOffsetX = -nOffsetX;
+    }
+
+    if (AI_RollSeed(pSeed) & 1)
+    {
+        nOffsetY = -nOffsetY;
+    }
+
+    nTargetX += nOffsetX;
+    nTargetY += nOffsetY;
+
+    int nMode = MONMODE_RUN;
+    if (STATES_CheckState(pUnit, STATE_DECREPIFY))
+    {
+        D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90(pUnit);
+        nMode = MONMODE_WALK;
+    }
+
+    PATH_SetStepNum(pUnit->pDynamicPath, 1);
+
+    D2ModeChangeStrc modeChange;
+    MONSTERMODE_GetModeChangeInfo(pUnit, nMode, &modeChange);
+    modeChange.nX = nTargetX;
+    modeChange.nY = nTargetY;
+    return D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+}
+
 // 0x005DED40
 int __fastcall AITACTICS_WalkToTargetWithPathType13(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nFlags)
 {
@@ -1234,31 +1308,42 @@ int __fastcall AITACTICS_RunAwayFromTarget(D2GameStrc* pGame, D2UnitStrc* pUnit,
     }
     return AITACTICS_MoveToTarget(pGame, pUnit, 0, MONMODE_RUN, nX, nY, 1, nFlags);
 }
+
+unsigned char __stdcall PATH_GetNewDirection(D2DynamicPathStrc* pPath);                                    // 0x00648810
+
+// 0x005DF2A0
+int __fastcall sub_005DF2A0_WalkAway(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance)
+{
+    int nX = CLIENTS_GetUnitXInline(pUnit);
+    int nY = CLIENTS_GetUnitYInline(pUnit);
+    unsigned int nTargetX = CLIENTS_GetUnitXInline(pTarget);
+    unsigned int nTargetY = CLIENTS_GetUnitYInline(pTarget);
+    PATH_GetNewDirection(pTarget->pDynamicPath);
+
+    int nYSign = 0;
+    int nXSign = 0;
+    if (nTargetX > nX)
+    {
+        nXSign = -1;
+    }
+    if (nTargetX < nX)
+    {
+        nXSign = 1;
+    }
+    if (nTargetY > nY)
+    {
+        nYSign = -1;
+    }
+    if (nTargetY < nY)
+    {
+        nYSign = 1;
+    }
+
+    nX += nXSign * nMaxDistance;
+    nY += nYSign * nMaxDistance;
+    return AITACTICS_MoveToTarget(pGame, pUnit, 0, MONMODE_WALK, nX, nY, 1, 0);
+}
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
-
-static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nXPos;
-    }
-    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-}
-
-static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nYPos;
-    }
-    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-}
 
 static inline unsigned int AI_RollUnitSeed(D2UnitStrc* pUnit)
 {
