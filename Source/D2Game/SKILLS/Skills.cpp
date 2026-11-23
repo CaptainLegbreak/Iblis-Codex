@@ -64,7 +64,6 @@ struct D2CharStatsTxt;
 
 struct D2StatesTxt;
 
-struct D2EffectStrc;
 
 struct D2PetTypeTxt;
 
@@ -280,18 +279,6 @@ void __fastcall AIGENERAL_FreeMinionList(D2UnitStrc* pUnit); // 0x0058F160
 
 typedef int (__stdcall* FARPROC)();
 
-struct D2EffectStrc
-{
-    unsigned int nFlags;
-    D2UnitStrc* pUnit;
-    int nSkillId;
-    int nX;
-    int nY;
-    int nParam;
-    int nSkillLevel;
-    int unk0x1C;
-    void* pfAreaEffect;
-};
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 

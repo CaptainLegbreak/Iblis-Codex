@@ -41,7 +41,6 @@ struct D2MonStatsTxt;
 
 struct D2BooksTxt;
 
-struct D2pSpellTblStrc;
 
 struct D2CurseStrc;
 
@@ -83,13 +82,7 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nL
 
 void __fastcall D2GAME_ITEMS_Identify_6FC49670(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem); // 0x00562590
 
-typedef int (__fastcall* PSPELLFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pTarget, int nX, int nY, int nSkillId);
 
-struct D2pSpellTblStrc
-{
-    PSPELLFN pfSpellPrepare;
-    PSPELLFN pfSpellDo;
-};
 
 extern D2pSpellTblStrc gaPSpellTable[]; // 0x00741790
 
@@ -363,7 +356,6 @@ struct D2SkillStrc;
 
 struct D2StatListStrc;
 
-struct D2UnitEventStrc;
 
 enum D2C_G4Constants
 {
@@ -379,21 +371,7 @@ enum D2C_G4Constants
     COLLIDE_MASK_PLAYER_FLYING = 0x804,
 };
 
-typedef int (__fastcall* D2UnitEventCallbackFunction)(D2GameStrc* pGame, int nUnitEvent, D2UnitStrc* pUnit, D2UnitStrc* pEventSourceUnit, D2DamageStrc* pDamage, int nGUID1, int nGUID2);
 
-struct D2UnitEventStrc
-{
-    unsigned char nUnitEvent;
-    unsigned char unk0x01;
-    unsigned short nFlags;
-    unsigned int nEventGroup;
-    int unk0x08;
-    int nGUID1;
-    int nGUID2;
-    D2UnitEventCallbackFunction pCallback;
-    D2UnitEventStrc* pPrevious;
-    D2UnitEventStrc* pNext;
-};
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
 
