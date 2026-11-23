@@ -859,6 +859,16 @@ void __fastcall sub_004DA620_SetMotionFlag10(D2UnitStrc* pUnit, int bSet)
     }
 }
 
+// 0x004DB1A0
+unsigned char __fastcall MISSILE_GetGfxEntryByte(D2UnitStrc* pUnit, int nIndex)
+{
+    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
+    if (!pGfxData)
+        return 0;
+    const D2GfxEntryStrc* pEntries = (const D2GfxEntryStrc*)pGfxData;
+    return pEntries[nIndex].nValue;
+}
+
 // 0x004DBEA0
 void __fastcall GFXUTIL_GetUnitCelSize(D2UnitStrc* pUnit, int nArg40, int nArg0, int* pWidth, int* pHeight)
 {
