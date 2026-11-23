@@ -31696,11 +31696,6 @@
      "va": "0x004E1C80",
      "length": 170,
      "name": "?sub_004E1C80_CltMissileInitDiabWall@@YIXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004E1E30",
-     "length": 29,
-     "name": "?sub_004E1E30_SkillClearSkillFlags@@YIHPAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -31942,6 +31937,11 @@
      "va": "0x004E1D30",
      "length": 249,
      "name": "SKILLSMON_FireVolley"
+    },
+    {
+     "va": "0x004E1E30",
+     "length": 29,
+     "name": "?sub_004E1E30_SkillClearSkillFlags@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004E1E50",

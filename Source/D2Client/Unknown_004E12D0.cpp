@@ -91,15 +91,3 @@ void __fastcall sub_004E1C80_CltMissileInitDiabWall(D2UnitStrc* pMissile, int nI
     }
 }
 
-// 0x004E1E30
-int __fastcall sub_004E1E30_SkillClearSkillFlags(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
-    if (!pSkill)
-    {
-        return 0;
-    }
-
-    SKILLS_SetFlags(pSkill, 0);
-    return 1;
-}
