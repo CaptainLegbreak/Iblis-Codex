@@ -83554,6 +83554,10 @@
      "length": 32
     },
     {
+     "va": "0x006C9AFF",
+     "length": 24
+    },
+    {
      "va": "0x006C9B17",
      "length": 25
     },
@@ -83728,31 +83732,6 @@
      "length": 21,
      "name": "?sub_006CAC10_InitializeHorizontalPosition@@YAXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_006C9AFF.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C9AFF",
-     "length": 24
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Os",
-    "/GS-"
    ]
   },
   {
