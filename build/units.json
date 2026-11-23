@@ -79200,6 +79200,21 @@
      "name": "?DRLGOUTDESR_InitAct2OutdoorLevel@@YIXPAUD2DrlgLevelStrc@@@Z"
     },
     {
+     "va": "0x0067FB90",
+     "length": 133,
+     "name": "DRLGOUTWILD_FindBridgeInColumn"
+    },
+    {
+     "va": "0x0067FC20",
+     "length": 37,
+     "name": "DRLGOUTWILD_GetBridgeCoords"
+    },
+    {
+     "va": "0x0067FC50",
+     "length": 30,
+     "name": "sub_0067FC50"
+    },
+    {
      "va": "0x0067FC70",
      "length": 81,
      "name": "?DRLGOUTWILD_TestSpawnRiver@@YAHHPAUD2DrlgLevelStrc@@@Z"
@@ -79229,21 +79244,6 @@
    "file": "Source/D2Common/Unknown_0067FB90.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0067FB90",
-     "length": 133,
-     "name": "DRLGOUTWILD_FindBridgeInColumn"
-    },
-    {
-     "va": "0x0067FC20",
-     "length": 37,
-     "name": "DRLGOUTWILD_GetBridgeCoords"
-    },
-    {
-     "va": "0x0067FC50",
-     "length": 30,
-     "name": "sub_0067FC50"
-    },
     {
      "va": "0x0067FCD0",
      "length": 78,
