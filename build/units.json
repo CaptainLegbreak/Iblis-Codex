@@ -64670,6 +64670,10 @@
      "length": 75
     },
     {
+     "va": "0x005D3140",
+     "length": 427
+    },
+    {
      "va": "0x005D32F0",
      "length": 31,
      "name": "?SKILLS_SrvSt23_AssasinChargeStrikes@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -64950,30 +64954,6 @@
      "length": 219,
      "name": "SKILLS_SrvSt37_Zeal_Fury_BloodLordFrenzy"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005D3140.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005D3140",
-     "length": 427
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -65262,6 +65242,10 @@
      "name": "SKILLS_SrvDo007_Jab"
     },
     {
+     "va": "0x005DB410",
+     "length": 641
+    },
+    {
      "va": "0x005DB6A0",
      "length": 36,
      "name": "?SKILLS_AddDamagePercentBonus@@YIXPAUD2UnitStrc@@H@Z"
@@ -65275,6 +65259,10 @@
      "va": "0x005DB850",
      "length": 494,
      "name": "?SKILLS_SrvDo011_ChargedStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005DBA40",
+     "length": 529
     },
     {
      "va": "0x005DBC60",
@@ -65294,34 +65282,6 @@
      "length": 379,
      "name": "SKILLS_SrvDo016_Valkyrie"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005DB410.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005DB410",
-     "length": 641
-    },
-    {
-     "va": "0x005DBA40",
-     "length": 529
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
