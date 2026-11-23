@@ -1,13 +1,23 @@
 #include "D2Common.h"
+
 #include "D2Win32Base.h"
+
 #include "D2StormLink.h"
+
 #include "D2CmpCache.h"
+
 #include "D2Unicode.h"
+
 #include "D2Drlg.h"
+
 #include "D2DrlgRooms.h"
+
 #include "D2DrlgTiles.h"
+
 #include "D2Path.h"
+
 #include "D2Win32Types.h"
+
 #include "D2TxtTables.h"
 
 #include "D2Structs.h"
@@ -556,6 +566,20 @@ int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner,
 }
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
+
+int __stdcall MISSILE_GetSpecialParamValue(D2UnitStrc* pMissile, D2UnitStrc* pOwner, unsigned char nParamId, int nMissileId, int nLevel); // 0x0064B340
+
+// 0x0064B6E0
+int __fastcall MISSILE_GetCalcParamValue(int nParamId, void* pUserData)
+{
+    D2MissileCalcStrc* pMissileCalc = (D2MissileCalcStrc*)pUserData;
+    if (!pMissileCalc)
+    {
+        return 0;
+    }
+
+    return MISSILE_GetSpecialParamValue(pMissileCalc->pMissile, pMissileCalc->pOwner, nParamId, pMissileCalc->nMissileId, pMissileCalc->nMissileLevel);
+}
 
 // 0x0064B720
 int __fastcall MISSILE_GetRandomNumberInRange(int nMin, int nMax, int nUnused, void* pUserData)

@@ -75425,6 +75425,11 @@
      "name": "MISSILE_GetMaxElemDamage"
     },
     {
+     "va": "0x0064B6E0",
+     "length": 29,
+     "name": "?MISSILE_GetCalcParamValue@@YIHHPAX@Z"
+    },
+    {
      "va": "0x0064B720",
      "length": 49,
      "name": "?MISSILE_GetRandomNumberInRange@@YIHHHHPAX@Z"
@@ -75578,11 +75583,6 @@
      "va": "0x0064AC60",
      "length": 700,
      "name": "?MISSILE_SetDamageStats@@YGXPAUD2UnitStrc@@0PAUD2MissileDamageDataStrc@@H@Z"
-    },
-    {
-     "va": "0x0064B6E0",
-     "length": 29,
-     "name": "?MISSILE_GetCalcParamValue@@YIHHPAX@Z"
     }
    ]
   },
