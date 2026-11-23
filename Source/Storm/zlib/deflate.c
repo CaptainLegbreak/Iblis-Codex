@@ -195,8 +195,8 @@ void __fastcall _tr_align(deflate_state* s);                                    
 void __fastcall _tr_flush_block(deflate_state* s, char* buf, unsigned long stored_len, int last);          // 0x0042D250
 extern const char* const z_errmsg[10];                                                                      // 0x006D3848
 extern config configuration_table[10];                                                                      // 0x006D0280
-const unsigned char _dist_code[];                                                                // 0x006D13D8
-const unsigned char _length_code[];                                                              // 0x006D15D8
+extern const unsigned char _dist_code[];                                                              // 0x006D13D8
+extern const unsigned char _length_code[];                                                            // 0x006D15D8
 void __fastcall _tr_init(deflate_state* s);                                                                 // 0x0042CCD0
 void* __fastcall zcalloc(void* opaque, unsigned int items, unsigned int size);                              // 0x0042DC70
 void __fastcall zcfree(void* opaque, void* ptr);                                                            // 0x0042DC90
