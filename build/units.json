@@ -36056,11 +36056,6 @@
      "name": "D2COMP_AddHoverTextLine"
     },
     {
-     "va": "0x00507A10",
-     "length": 210,
-     "name": "ACCOUNTLIST_HandleMouseDown"
-    },
-    {
      "va": "0x00508030",
      "length": 143,
      "name": "SCROLLBAR_HandleMouseWheel"
@@ -37600,6 +37595,11 @@
      "va": "0x005079C0",
      "length": 71,
      "name": "?ACCOUNTLIST_GetTextFromSelectedEntry@@YIHPAUD2WinAccountListStrc@@PAD@Z"
+    },
+    {
+     "va": "0x00507A10",
+     "length": 210,
+     "name": "ACCOUNTLIST_HandleMouseDown"
     },
     {
      "va": "0x00507AF0",

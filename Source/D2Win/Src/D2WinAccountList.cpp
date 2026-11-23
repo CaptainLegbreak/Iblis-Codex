@@ -1,4 +1,9 @@
 #include "D2Win.h"
+#include "D2Win32Types.h"
+#include "D2CelContext.h"
+#include "D2StormTypes.h"
+#include "D2GfxTypes.h"
+#include "D2MultiTypes.h"
 
 #include "D2WinTypes.h"
 
@@ -80,6 +85,43 @@ int __fastcall ACCOUNTLIST_GetTextFromSelectedEntry(D2WinAccountListStrc* ptList
         return 1;
     }
     return 0;
+}
+
+tagPOINT gtMousePosition; // 0x007D55A4
+struct Point { int x, y; };
+
+// 0x00507A10
+int __stdcall ACCOUNTLIST_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
+{
+    D2WinAccountListStrc* pAccountList = (D2WinAccountListStrc*)pMsg->hWnd;
+
+    D2_ASSERT(pAccountList->controlHeader.eType == D2WIN_ACCOUNTLIST, 0x10D);
+
+    if (!(pAccountList->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pAccountList->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
+    {
+        return 0;
+    }
+
+    if (!pAccountList->pDataList)
+    {
+        return 0;
+    }
+
+    const int nIndex = (gtMousePosition.x - pAccountList->controlHeader.nImageX) / 120
+        + 6 * ((pAccountList->controlHeader.nHeight - pAccountList->controlHeader.nImageY + gtMousePosition.y + 4) / 20);
+    D2WinAccountListDataStrc* pData = pAccountList->pDataList;
+    for (int nCounter = 0; pData; ++nCounter)
+    {
+        if (nCounter == nIndex)
+        {
+            pAccountList->pSelectedDataEntry = pData;
+            return 1;
+        }
+        pData = pData->pNext;
+    }
+
+    pAccountList->pSelectedDataEntry = 0;
+    return 1;
 }
 
 // 0x00507B30
