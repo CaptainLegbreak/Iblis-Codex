@@ -781,6 +781,11 @@
      "name": "?ERRORMANAGER_GetPoolBlockSize@@YAHH@Z"
     },
     {
+     "va": "0x00409490",
+     "length": 313,
+     "name": "?sub_00409490_RemoveBlockRecord@@YGXPAUD2PoolSystemStrc@@PAUD2PoolBlockStrc@@@Z"
+    },
+    {
      "va": "0x004095D0",
      "length": 1,
      "name": "?sub_004095D0_Nop@@YAXXZ"
@@ -799,6 +804,26 @@
      "va": "0x004099C0",
      "length": 10,
      "name": "?ERRORMANAGER_GetPoolSystem@@YAPAUD2PoolSystemStrc@@PAU1@@Z"
+    },
+    {
+     "va": "0x004099D0",
+     "length": 131,
+     "name": "?sub_004099D0_FindBlock@@YGPAUD2PoolBlockStrc@@PAXPAUD2PoolSystemStrc@@@Z"
+    },
+    {
+     "va": "0x00409A60",
+     "length": 67,
+     "name": "?sub_00409A60_MoveBlockToFront@@YAXPAUD2PoolStrc@@PAUD2PoolBlockStrc@@@Z"
+    },
+    {
+     "va": "0x00409AB0",
+     "length": 205,
+     "name": "?sub_00409AB0_PoolFree@@YIXPAUD2PoolSystemStrc@@PAPAXPBDH@Z"
+    },
+    {
+     "va": "0x00409B80",
+     "length": 226,
+     "name": "?sub_00409B80_FreeUnusedPoolBlocks@@YAXPAUD2PoolSystemStrc@@@Z"
     },
     {
      "va": "0x00409C70",
@@ -3517,43 +3542,6 @@
      "va": "0x0040A080",
      "length": 358,
      "name": "?sub_0040A080_PoolAlloc@@YIPAXPAUD2PoolSystemStrc@@HPBDH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00409490.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00409490",
-     "length": 313,
-     "name": "?sub_00409490_RemoveBlockRecord@@YGXPAUD2PoolSystemStrc@@PAUD2PoolBlockStrc@@@Z"
-    },
-    {
-     "va": "0x00409B80",
-     "length": 226,
-     "name": "?sub_00409B80_FreeUnusedPoolBlocks@@YAXPAUD2PoolSystemStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_004099D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004099D0",
-     "length": 131,
-     "name": "?sub_004099D0_FindBlock@@YGPAUD2PoolBlockStrc@@PAXPAUD2PoolSystemStrc@@@Z"
-    },
-    {
-     "va": "0x00409A60",
-     "length": 67,
-     "name": "?sub_00409A60_MoveBlockToFront@@YAXPAUD2PoolStrc@@PAUD2PoolBlockStrc@@@Z"
-    },
-    {
-     "va": "0x00409AB0",
-     "length": 205,
-     "name": "?sub_00409AB0_PoolFree@@YIXPAUD2PoolSystemStrc@@PAPAXPBDH@Z"
     }
    ]
   },
