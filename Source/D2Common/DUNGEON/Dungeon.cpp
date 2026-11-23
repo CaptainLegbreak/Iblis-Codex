@@ -1,12 +1,24 @@
 #include "D2Common.h"
+#include "D2Win32Base.h"
+#include "D2StormLink.h"
+#include "D2CmpCache.h"
+
 #include "D2Structs.h"
+
 #include "D2Unicode.h"
+
 #include "D2Drlg.h"
+
 #include "D2DrlgRooms.h"
+
 #include "D2DrlgTiles.h"
+
 #include "D2Path.h"
+
 #include "D2Win32Types.h"
+
 #include "D2Skills.h"
+
 #include "D2TxtTables.h"
 
 struct D2DrlgRoomStrc;
@@ -32,7 +44,6 @@ struct D2DrlgRoomStrc;
 struct D2GameStrc;
 
 struct D2DrlgStrc;
-
 
 struct D2DrlgActStrc;
 
@@ -66,11 +77,9 @@ struct D2Act00619DA0Strc;
 
 struct Obj00619EE0;
 
-
 struct D2SkillCalcStrc;
 
 struct Unicode;
-
 
 struct Room;
 
@@ -240,12 +249,10 @@ unsigned char __fastcall DRLGACTIVATE_GetRoomStatusFlags(D2DrlgRoomStrc*); // 0x
 
 void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 
-
 struct D2SkillCalcStrc
 {
     D2UnitStrc* pUnit;
 };
-
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
@@ -314,7 +321,6 @@ D2UniqueNameTxt* gpUniqueNameTxtTables[4]; // 0x0096D488
 int gnUniqueNameTxtRecordCounts[4]; // 0x0096D498
 
 Unicode gwszDataTablesDefault; // 0x0096D4B4
-
 
 D2DrlgEnvironmentStrc* __fastcall DUNGEON_GetEnvironmentFromAct(D2DrlgActStrc* pAct);                       // 0x0061AA60
 
@@ -522,6 +528,50 @@ D2ActiveRoomStrc* __fastcall sub_Z16_EmitUpdateRoomsNear(sub_Z16_EmitRoomHolder*
 {
     DUNGEON_InitAdjacentRoomList(pOther->pMemory, pRoom);
     return pRoom;
+}
+
+int __fastcall DRLGROOM_GetWarpDestinationLevel(D2DrlgRoomStrc* pDrlgRoom, int nSourceLevel); // 0x0066BAC0
+
+// 0x00619B10
+D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomByTileCoordinates(D2DrlgActStrc* pAct, int nX, int nY)
+{
+    for (D2ActiveRoomStrc* pRoom = pAct->pRoom; pRoom; pRoom = pRoom->pRoomNext)
+    {
+        if (nX >= pRoom->tCoords.nTileXPos && nX < pRoom->tCoords.nTileXPos + pRoom->tCoords.nTileWidth && nY >= pRoom->tCoords.nTileYPos
+            && nY < pRoom->tCoords.nTileYPos + pRoom->tCoords.nTileHeight)
+            return pRoom;
+    }
+    return 0;
+}
+
+// 0x00619D00
+void __stdcall DUNGEON_GetSubtileRect(D2ActiveRoomStrc* pRoom, tagRECT* pRect)
+{
+    D2_ASSERT(pRoom, 0x1E3);
+    pRect->top = pRoom->tCoords.nSubtileY;
+    pRect->bottom = pRoom->tCoords.nSubtileY + pRoom->tCoords.nSubtileHeight;
+    pRect->left = pRoom->tCoords.nSubtileX;
+    pRect->right = pRoom->tCoords.nSubtileWidth + pRoom->tCoords.nSubtileX;
+    D2_ASSERT(pRect->top <= pRect->bottom, 0x1EB);
+    D2_ASSERT(pRect->left <= pRect->right, 0x1EC);
+}
+
+// 0x00619F20
+void __stdcall DUNGEON_DecreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom)
+{
+    if (pRoom)
+    {
+        D2_ASSERT(pRoom->nAllies > 0, 0x27C);
+        --pRoom->nAllies;
+    }
+}
+
+// 0x0061A1D0
+int __stdcall DUNGEON_GetWarpDestinationLevel(D2ActiveRoomStrc* pRoom, int nSourceLevel)
+{
+    if (!pRoom)
+        return 0;
+    return DRLGROOM_GetWarpDestinationLevel(pRoom->pDrlgRoom, nSourceLevel);
 }
 
 // 0x0061AFD0
