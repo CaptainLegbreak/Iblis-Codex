@@ -83043,33 +83043,13 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_006BC150.cpp",
-   "rank": 1,
+   "file": "Source/Fog/Src/D2QSSocket.cpp",
+   "rank": 0,
    "functions": [
     {
      "va": "0x006BC150",
      "length": 305
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/D2QSSocket.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x006BC290",
      "length": 41
@@ -83085,6 +83065,10 @@
     {
      "va": "0x006BC370",
      "length": 36
+    },
+    {
+     "va": "0x006BC3A0",
+     "length": 442
     },
     {
      "va": "0x006BC560",
@@ -83110,16 +83094,6 @@
     {
      "va": "0x006BC780",
      "length": 82
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_006BC3A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BC3A0",
-     "length": 442
     }
    ]
   },
