@@ -65382,11 +65382,6 @@
      "name": "DATATBLS_GetAnimData"
     },
     {
-     "va": "0x00631490",
-     "length": 6,
-     "name": "sub_00631490"
-    },
-    {
      "va": "0x0063DB80",
      "length": 3,
      "name": "sub_0063DB80"
@@ -71611,6 +71606,11 @@
      "va": "0x00631430",
      "length": 95,
      "name": "?DATATBLS_MapItemsTxtKeywordToNumber@@YIHPAD@Z"
+    },
+    {
+     "va": "0x00631490",
+     "length": 6,
+     "name": "sub_00631490"
     },
     {
      "va": "0x00631530",
