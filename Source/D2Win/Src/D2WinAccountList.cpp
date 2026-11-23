@@ -1,22 +1,38 @@
 #include "D2Win.h"
+#include "D2Win32Types.h"
+#include "D2CelContext.h"
+#include "D2StormTypes.h"
+#include "D2GfxTypes.h"
+#include "D2MultiTypes.h"
+
 #include "D2WinTypes.h"
+
 #include "D2WinControls.h"
+
 #include "D2Unicode.h"
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
+
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
+
 int __stdcall D2Win_10125();                                                                                // 0x00501A40
+
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
+
 int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
+
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                  // 0x00526F20
 
 extern const unsigned int gdwBitMasks[32];                                                                  // 0x006CE268
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl); // 0x004F9210
+
 int __stdcall ACCOUNTLIST_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg); // 0x00507A10
 
 struct D2WinAccountListFontStrc
@@ -49,6 +65,64 @@ enum D2ControlTypes
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 
 extern "C" int __cdecl strcmp(const char* szString1, const char* szString2);
+
+// 0x005079C0
+int __fastcall ACCOUNTLIST_GetTextFromSelectedEntry(D2WinAccountListStrc* ptListData, char* szBuffer)
+{
+    D2_ASSERT(ptListData->controlHeader.eType == D2WIN_ACCOUNTLIST, 0xB9);
+    const char* szText = ptListData->pSelectedDataEntry->szText;
+    if (szText)
+    {
+        char c;
+        do
+        {
+            c = *szText;
+            *szBuffer = c;
+            ++szText;
+            ++szBuffer;
+        }
+        while (c);
+        return 1;
+    }
+    return 0;
+}
+
+tagPOINT gtMousePosition; // 0x007D55A4
+struct Point { int x, y; };
+
+// 0x00507A10
+int __stdcall ACCOUNTLIST_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
+{
+    D2WinAccountListStrc* pAccountList = (D2WinAccountListStrc*)pMsg->hWnd;
+
+    D2_ASSERT(pAccountList->controlHeader.eType == D2WIN_ACCOUNTLIST, 0x10D);
+
+    if (!(pAccountList->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pAccountList->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
+    {
+        return 0;
+    }
+
+    if (!pAccountList->pDataList)
+    {
+        return 0;
+    }
+
+    const int nIndex = (gtMousePosition.x - pAccountList->controlHeader.nImageX) / 120
+        + 6 * ((pAccountList->controlHeader.nHeight - pAccountList->controlHeader.nImageY + gtMousePosition.y + 4) / 20);
+    D2WinAccountListDataStrc* pData = pAccountList->pDataList;
+    for (int nCounter = 0; pData; ++nCounter)
+    {
+        if (nCounter == nIndex)
+        {
+            pAccountList->pSelectedDataEntry = pData;
+            return 1;
+        }
+        pData = pData->pNext;
+    }
+
+    pAccountList->pSelectedDataEntry = 0;
+    return 1;
+}
 
 // 0x00507B30
 int __fastcall ACCOUNTLIST_Draw(D2WinControlStrc* pControl)

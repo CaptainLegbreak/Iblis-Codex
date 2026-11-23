@@ -385,7 +385,7 @@ extern "C" int __stdcall ioctlsocket(unsigned int nSocket, long nCommand, unsign
 
 void __fastcall ERRORMANAGER_DumpThread(unsigned long dwThreadId, int nArg2, D2CrashPrintFn pfnPrint, void* pContext, int nArg5, int nArg6, int nArg7); // 0x00403070
 
-void __cdecl MAINMENUS_LogPoolError(const char* szFormat, ...);                                          // 0x00409020
+void __cdecl ERRORMANAGER_LogPoolError(const char* szFormat, ...);                                          // 0x00409020
 
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);            // 0x0040B480
 

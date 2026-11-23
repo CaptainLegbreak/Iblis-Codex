@@ -67,8 +67,6 @@ struct D2MonStatsTxt;
 
 struct D2PetInfoStrc;
 
-struct D2SaveHeaderStrc;
-
 struct D2ItemModeArgStrc;
 
 struct D2DifficultyLevelsTxt;
@@ -120,16 +118,6 @@ extern void* gpServer; // 0x00882D08
 int __stdcall FOG_10180(void* pObject); // 0x006BE450
 
 void __stdcall FOG_10182_Return(void* pObject); // 0x006BF5F0
-
-struct D2SaveHeaderStrc
-{
-    unsigned char unk0x00[0xAF];
-    unsigned char MercSaveData[4];
-    unsigned char f_B3[4];
-    unsigned char wMercName[2];
-    unsigned char wMercHirelingId[2];
-    unsigned char nMercExperience[4];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -202,8 +190,6 @@ void __fastcall D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(D2GameStrc* pG
 void __fastcall ITEMMODE_CompactBeltColumn(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX); // 0x0055EDC0
 
 void __fastcall PLRTRADE_Free(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00566BF0
-
-D2PetInfoStrc* __fastcall PLAYERPETS_GetPetInfoFromPetGUID(D2UnitStrc* pUnit, int nUnitGUID); // 0x00574BD0
 
 D2UnitStrc* __fastcall PLAYERPETS_GetFirstPetByType(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType, int a4); // 0x00574EC0
 
@@ -4106,37 +4092,6 @@ D2UnitStrc* __fastcall ITEMMODE_GetItemFromOppositeBodyLoc(D2InventoryStrc* pInv
 // 0x00564CA0
 extern "C" __declspec(dllexport) int __cdecl sub_00564CA0() {
     return 1;
-}
-
-// 0x00568E60
-void __fastcall PLRSAVE2_WriteMercData(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SaveHeaderStrc* pSaveHeader)
-{
-    D2UnitStrc* pHireling = PLAYERPETS_GetFirstPetByType(pGame, pPlayer, 7, 1);
-    if (!pHireling)
-    {
-        return;
-    }
-
-    D2PetInfoStrc* pPetInfo = PLAYERPETS_GetPetInfoFromPetGUID(pPlayer, pHireling->dwUnitId);
-    const int nLevel = STATLIST_UnitGetStatValue(pHireling, STAT_LEVEL, 0);
-
-    D2HirelingTxt* pHirelingTxtRecord = DATATBLS_GetHirelingTxtRecordFromIdAndLevel(pGame->bExpansion, pPetInfo->nHirelingId, nLevel);
-    if (!pHirelingTxtRecord)
-    {
-        return;
-    }
-
-    *(unsigned int*)pSaveHeader->f_B3 = pPetInfo->nSeed;
-    *(unsigned short*)pSaveHeader->wMercName = *(unsigned short*)&pPetInfo->nName;
-    *(unsigned short*)pSaveHeader->wMercHirelingId = pPetInfo->nHirelingId;
-    *(unsigned int*)pSaveHeader->nMercExperience = STATLIST_UnitGetStatValue(pHireling, STAT_EXPERIENCE, 0);
-    *(unsigned int*)pSaveHeader->MercSaveData = 0;
-    *(unsigned short*)pSaveHeader->wMercName -= pHirelingTxtRecord->wNameFirst;
-
-    if (SUNIT_IsDead(pHireling))
-    {
-        *(unsigned int*)pSaveHeader->MercSaveData |= 0x10000;
-    }
 }
 
 void __fastcall MONSTER_DeleteEvents(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005738D0

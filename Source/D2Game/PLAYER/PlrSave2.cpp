@@ -599,6 +599,40 @@ unsigned short __fastcall PLRSAVE2_GetItemIndex(D2GameStrc* pGame, D2UnitStrc* p
     return 0;
 }
 
+D2PetInfoStrc* __fastcall PLAYERPETS_GetPetInfoFromPetGUID(D2UnitStrc* pUnit, int nUnitGUID); // 0x00574BD0
+
+// 0x00568E60
+void __fastcall PLRSAVE2_WriteMercData(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SaveHeaderStrc* pSaveHeader)
+{
+    D2UnitStrc* pHireling = PLAYERPETS_GetFirstPetByType(pGame, pPlayer, 7, 1);
+    if (!pHireling)
+    {
+        return;
+    }
+
+    D2PetInfoStrc* pPetInfo = PLAYERPETS_GetPetInfoFromPetGUID(pPlayer, pHireling->dwUnitId);
+    const int nLevel = STATLIST_UnitGetStatValue(pHireling, STAT_LEVEL, 0);
+
+    D2HirelingTxt* pHirelingTxtRecord = DATATBLS_GetHirelingTxtRecordFromIdAndLevel(pGame->bExpansion, pPetInfo->nHirelingId, nLevel);
+    if (!pHirelingTxtRecord)
+    {
+        return;
+    }
+
+    D2MercSaveDataStrc* pMercData = (D2MercSaveDataStrc*)pSaveHeader->MercSaveData;
+    pMercData->nSeed = pPetInfo->nSeed;
+    pMercData->wName = *(unsigned short*)&pPetInfo->nName;
+    pMercData->nHirelingId = pPetInfo->nHirelingId;
+    pMercData->nExperience = STATLIST_UnitGetStatValue(pHireling, STAT_EXPERIENCE, 0);
+    pMercData->nFlags = 0;
+    pMercData->wName -= pHirelingTxtRecord->wNameFirst;
+
+    if (SUNIT_IsDead(pHireling))
+    {
+        pMercData->nFlags |= 0x10000;
+    }
+}
+
 // 0x00568F20
 int __fastcall PLRSAVE2_WriteSaveHeader(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, const unsigned char* pEnd)
 {

@@ -1,17 +1,27 @@
 #include "D2Net.h"
+
 #include "D2NetTypes.h"
+
 #include "D2NetTypes.h"
 
 struct D2NetPacketRecStrc;
+
 struct D2PacketBufferStrc;
+
 struct D2CriticalSectionStrc;
 
 unsigned long __stdcall CLIENT_ConnectToHost(void* szIpAddress); // 0x0052A680
+
 int __fastcall NET_IsLocalConnection(); // 0x0052B7E0
+
 extern D2CriticalSectionStrc gCriticalSection; // 0x00882CE8
+
 extern int gbConnected; // 0x00882D04
+
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
+
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
+
 int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
 
 int __fastcall NET_FreePacketList(D2CriticalSectionStrc* pCriticalSection, D2NetPacketRecStrc** ppPacketList); // 0x0052B8B0
@@ -23,54 +33,95 @@ struct D2PacketBufferStrc
 };
 
 extern D2PacketBufferStrc* gpPacketBuffer; // 0x00882B34
+
 extern D2NetPacketRecStrc* gpSystemPacketList; // 0x00882CDC
+
 extern D2NetPacketRecStrc* gpGamePacketList; // 0x00882CE4
+
 extern int gbConnectFinished; // 0x00882D00
+
 int __fastcall NET_DequeueFirstPacketFromList(D2CriticalSectionStrc* pCriticalSection, D2NetPacketRecStrc** ppPacketList, unsigned char* pBuffer, unsigned int nBufferSize); // 0x0052B820
+
 int __fastcall SERVER_EnqueueLocalClientPacket(const unsigned char* pBuffer, unsigned short nSize); // 0x0052B690
+
 extern "C" int __stdcall send(unsigned int nSocket, const char* pBuffer, int nLength, int nFlags); // 0x006B017A
 
 extern "C" int __stdcall WSAStartup(unsigned short wVersionRequested, D2WSADataStrc* pData); // 0x006B0132
+
 extern "C" int __stdcall socket(int nFamily, int nType, int nProtocol); // 0x006B016E
+
 extern "C" unsigned short __stdcall htons(unsigned short nValue); // 0x006B0156
+
 extern "C" unsigned long __stdcall inet_addr(const char* szAddress); // 0x006B0150
+
 extern "C" int __stdcall connect(int nSocket, const D2SockAddrInStrc* pName, int nNameLen); // 0x006B014A
+
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 const char* __fastcall FOG_ResolveHostIPAddress(const char* szHostName); // 0x0040E0D0
+
 void __fastcall sub_0052B780(); // 0x0052B780
+
 extern void* ghClientConnectToHostThreadHandle; // 0x00882CE0
+
 extern unsigned long gdwThreadId; // 0x00882B30
+
 int __stdcall sub_006BE4E0(void* pObject, int nArg1); // 0x006BE4E0
+
 int __stdcall sub_006BE390(void* pObject, int nArg1, int nArg2); // 0x006BE390
+
 int __fastcall sub_006BF610(void* pObject, int nArg1, int nArg2); // 0x006BF610
+
 void __stdcall sub_006BE4A0(void* pObject, int nArg1); // 0x006BE4A0
+
 int __stdcall FOG_SetHackListEnabled(void* pObject, int nArg1); // 0x006BF4E0
+
 int __stdcall sub_006C0170(void* pObject, const unsigned char* pData, int nSize); // 0x006C0170
+
 int __stdcall sub_006BEAD0(void* pObject, int nMode, int nArg1, int nArg2); // 0x006BEAD0
+
 int __stdcall sub_006BED90(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006BED90
+
 int __stdcall sub_006BEE20(void* pObject, int nArg1); // 0x006BEE20
+
 int __stdcall sub_006BEF40(void* pObject, int nArg1); // 0x006BEF40
+
 int __stdcall sub_006C0530(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C0530
+
 int __stdcall sub_006C0600(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C0600
+
 int __stdcall sub_006BEFB0(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006BEFB0
+
 int __stdcall sub_006C06D0(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C06D0
+
 static inline void CLIENT_StartConnectThread(const char* szIpAddress); // 0x0052A730
+
 void __cdecl CLIENT_ClearConnected(); // 0x0052AAD0
 
 typedef unsigned int size_t;
 
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, size_t nSize); // 0x006829C0
+
 extern "C" void* __cdecl memmove(void* pDest, const void* pSource, size_t nSize); // 0x00683840
+
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
+
 void __fastcall FOG_10219(unsigned char* pData); // 0x0040ADB0
+
 int __fastcall SERVER_GetServerPacketSize(D2PacketBufferStrc* pBuffer, int nBufferSize, int* pSize); // 0x0052B920
 
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
+
 extern "C" int __stdcall recv(unsigned int nSocket, char* pBuffer, int nLength, int nFlags); // 0x006B0174
+
 extern "C" int __stdcall __WSAFDIsSet(unsigned int nSocket, D2FdSetStrc* pSet); // 0x006B0180
+
 extern "C" int __stdcall select(int nCount, D2FdSetStrc* pRead, D2FdSetStrc* pWrite, D2FdSetStrc* pExcept, const D2TimevalStrc* pTimeout); // 0x006B0186
+
 int __fastcall FOG_DecompressPacket(unsigned char* pOut, int nOutSize, const unsigned char* pIn, unsigned int nInSize); // 0x0040B260
+
 int __stdcall CLIENT_ParseReceiveBuffer(); // 0x0052A8D0
 
 unsigned long gdwThreadId; // 0x00882B30
@@ -566,6 +617,21 @@ void __fastcall CLIENT_ReadPacketFromBuffer(D2PacketBufferStrc* pBuffer, int nBu
         pBuffer = (D2PacketBufferStrc*)((char*)pBuffer + nSize);
         nBufferSize -= nSize;
     }
+}
+
+extern "C" char* __stdcall inet_ntoa(D2InAddrStrc tAddress);                                                // 0x006B013E
+extern "C" int __stdcall getsockname(unsigned int nSocket, void* pAddress, int* pnLength);                 // 0x006B0144
+unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax);                     // 0x004135D0
+extern int gClientSocket;                                                                                   // 0x00730AE0
+
+// 0x0052AFE0
+void __stdcall CLIENT_GetLocalIpAddressString(char* szBuffer)
+{
+    D2SockAddrInStrc tAddress = {};
+    int nLength = sizeof(tAddress);
+    getsockname(gClientSocket, &tAddress, &nLength);
+    const char* szLocalIpAddress = inet_ntoa(*(D2InAddrStrc*)&tAddress.sin_addr.s_addr);
+    SStrCopy(szBuffer, szLocalIpAddress, 0x7FFFFFFF);
 }
 
 // 0x0052B1F0

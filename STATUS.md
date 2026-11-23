@@ -42,14 +42,14 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 1072 |
+| Compilation units | 1069 |
 | … in a file with its original name, whole | 279 |
-| … pieces of an original file still split (in 38 files) | 121 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 672 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3116 |
+| … pieces of an original file still split (in 38 files) | 119 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 671 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3107 |
 | Unnamed fields (`unk0x..`) in the shared headers | 714 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 43 |
-| Calling-convention shims | 113 |
+| Calling-convention shims | 112 |
 | Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 555 |
 | `__declspec(noinline)` / `__forceinline` | 101 / 211 |
 | Function names: blizzard / d2moo / inferred / placeholder | 460 / 5409 / 5288 / 3770 |
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 3371 functions are compiled with `/GS-` and 578 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 101 times and `__declspec(dllexport)` 170 times to keep a body out of line or emitted.
+Not listed one by one: 3368 functions are compiled with `/GS-` and 574 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 101 times and `__declspec(dllexport)` 170 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -226,6 +226,7 @@ Not listed one by one: 3371 functions are compiled with `/GS-` and 578 with `/EH
 | 0x00408CE0 | FOG_InitErrorMgr | `Fog/Src/ErrorManager_004082E0.cpp` | compiler option /EHa |
 | 0x00408F20 | FOG_IsExpansion | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00409000 | ERRORMANAGER_GetBitWidth | `Fog/Src/ErrorManager.cpp` | compiler option /EHa, inline assembly |
+| 0x00409020 | ERRORMANAGER_LogPoolError | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x004091B0 | ERRORMANAGER_GetPoolIndex | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00409200 | ERRORMANAGER_GetPoolBlockSize | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00409220 | sub_00409220_FindZeroBit | `Fog/Src/ErrorManager.cpp` | compiler option /EHa, inline assembly |
@@ -237,6 +238,7 @@ Not listed one by one: 3371 functions are compiled with `/GS-` and 578 with `/EH
 | 0x00409700 | sub_00409700_GetFreeSlot | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00409770 | ERRORMANAGER_PoolAllocLarge | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00409810 | ERRORMANAGER_PoolFreeLarge | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x004098B0 | ERRORMANAGER_PoolReallocLarge | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x004099C0 | ERRORMANAGER_GetPoolSystem | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x004099D0 | sub_004099D0_FindBlock | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00409A60 | sub_00409A60_MoveBlockToFront | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
@@ -537,14 +539,11 @@ Not listed one by one: 3371 functions are compiled with `/GS-` and 578 with `/EH
 | 0x004FBB90 | D2Win_10196 | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FBDE0 | D2Win_10188 | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FBF30 | TEXTBOX_Draw | `D2Win/Src/D2WinTextBox.cpp` | volatile read or qualifier |
-| 0x004FC3F0 | TEXTBOX_HandleVirtualKeyInput | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FD5D0 | IMAGE2_HandleMouseDown | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FE710 | EDITBOX_HandleMultiLineMouseDown | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x00501A80 | FONT_DrawString | `D2Win/Src/D2WinFont.cpp` | calling-convention shim |
 | 0x00502550 | D2Win_10128 | `D2Win/Src/D2WinFont.cpp` | __assume |
 | 0x00503FA0 | D2COMP_AddHoverTextLine | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
-| 0x00507A10 | ACCOUNTLIST_HandleMouseDown | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
-| 0x00508030 | SCROLLBAR_HandleMouseWheel | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x00508610 | POPUP_AddLine | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x0050A450 | GLIDE_UploadTexInfo | `D2Glide/Src/glSprite.cpp` | calling-convention shim |
 | 0x0050CA00 | sub_0050CA00_GlideShadowTileDrawPerspective | `D2Glide/Unknown_0050CA00.cpp` | volatile read or qualifier |
@@ -645,6 +644,7 @@ Not listed one by one: 3371 functions are compiled with `/GS-` and 578 with `/EH
 | 0x005A6190 | MONSTERMODE_GetAiParamFromUnit | `D2Game/MONSTER/MonsterMode.cpp` | compiler option /Ob1 |
 | 0x005A61B0 | MONSTERMODE_TakeVelocityParams | `D2Game/MONSTER/MonsterMode.cpp` | compiler option /Ob1 |
 | 0x005A61F0 | D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90 | `D2Game/MONSTER/MonsterMode.cpp` | compiler option /Ob1 |
+| 0x005A6220 | sub_005A6220 | `D2Game/MONSTER/MonsterMode.cpp` | compiler option /Ob1 |
 | 0x005A6230 | MONSTERMODE_GetVelocityParams | `D2Game/MONSTER/MonsterMode.cpp` | compiler option /Ob1 |
 | 0x005A6250 | MONSTERMODE_GetTargetTimerPtr | `D2Game/MONSTER/MonsterMode.cpp` | compiler option /Ob1 |
 | 0x005A6260 | MONSTERMODE_SetVelocityParams | `D2Game/MONSTER/MonsterMode.cpp` | compiler option /Ob1 |

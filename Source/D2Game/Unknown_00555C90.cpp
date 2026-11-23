@@ -99,13 +99,6 @@ struct D2UnkEntry8Strc
 
 int __stdcall sub_K11_EmitUse(D2UnkEntry8Strc* pEntry);
 
-// 0x00555C90
-extern "C" TableRow* __fastcall sub_00555C90_GetTableRow(int index)
-{
-    if (index < 0 || index >= sgptDataTables->count) return 0;
-    return &sgptDataTables->rows[index];
-}
-
 // 0x00555D00
 static D2UnkEntry8Strc* __stdcall sub_00555D00_GetBoundedEntry(D2UnkEntry8Strc* pBase, int nIndex, int nMax)
 {

@@ -1,11 +1,22 @@
 #include "D2Win.h"
+#include "D2CelContext.h"
+#include "D2GfxTypes.h"
+#include "D2MultiTypes.h"
+
 #include "D2Win32Types.h"
+
 #include "D2StormTypes.h"
+
 #include "D2WinControls.h"
+
 #include "D2Structs.h"
+
 #include "D2Txt.h"
+
 #include "D2ClientTypes.h"
+
 #include "D2WinTypes.h"
+
 #include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -997,6 +1008,112 @@ int __stdcall TEXTBOX_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
     {
         return pTextBox->controlHeader.field_34(pMsg);
     }
+    return 0;
+}
+
+// 0x004FC3F0
+int __stdcall TEXTBOX_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg)
+{
+    D2WinTextBoxStrc* pTextBox = (D2WinTextBoxStrc*)pMsg->hWnd;
+
+    D2_ASSERT(pTextBox, 0x501);
+    D2_ASSERT(pTextBox->controlHeader.eType == D2WIN_TEXTBOX, 0x502);
+
+    if (!(pTextBox->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pTextBox->controlHeader.dwFlags & gdwBitMasks_006CE268[0])
+// build: symbol ?CONTROL_GetFocusedEditBox@* 0x004F9200
+        || pTextBox->nNumLines < 1 || pTextBox->nCurrentLine == -1 || CONTROL_GetFocusedEditBox())
+    {
+        return 0;
+    }
+
+    const int nNumLines = pTextBox->nNumLines;
+    int nLine = pTextBox->nLine;
+    int nCurrentLine = pTextBox->nCurrentLine;
+    const int nVisibleLines = D2Win_10055((D2WinTextBoxStrc*)pMsg->hWnd);
+
+    switch (pMsg->wParam)
+    {
+    case 0x21:
+        if (nCurrentLine > nLine)
+        {
+            nCurrentLine = nLine;
+        }
+        else if (nLine > 0)
+        {
+            nLine = D2WIN_MAX(nLine - nVisibleLines + 1, 0);
+            nCurrentLine = nLine;
+        }
+        break;
+
+    case 0x22:
+    {
+        const int nLastVisible = nVisibleLines + nLine - 1;
+        if (nCurrentLine < nLastVisible)
+        {
+            nCurrentLine = D2WIN_MIN(nLastVisible, nNumLines - 1);
+        }
+        else if (nLine < nNumLines - nVisibleLines)
+        {
+            nLine = D2WIN_MIN(nLastVisible, nNumLines - nVisibleLines);
+            nCurrentLine = D2WIN_MIN(nVisibleLines + nLine - 1, nNumLines - 1);
+        }
+        break;
+    }
+
+    case 0x26:
+        if (nCurrentLine > 0)
+        {
+            --nCurrentLine;
+            if (nCurrentLine < nLine)
+            {
+                nLine = nCurrentLine;
+            }
+            else if (nCurrentLine > nVisibleLines + nLine - 1)
+            {
+                nLine = nCurrentLine - nVisibleLines + 1;
+            }
+        }
+        break;
+
+    case 0x28:
+        if (nCurrentLine < nNumLines - 1)
+        {
+            ++nCurrentLine;
+            if (nCurrentLine < nLine)
+            {
+                nLine = nCurrentLine;
+            }
+            else if (nCurrentLine > nVisibleLines + nLine - 1)
+            {
+                nLine = nCurrentLine - nVisibleLines + 1;
+            }
+        }
+        break;
+
+    case 0x24:
+        nCurrentLine = 0;
+        nLine = 0;
+        break;
+
+    case 0x23:
+        nCurrentLine = nNumLines - 1;
+        nLine = nNumLines - nVisibleLines;
+        break;
+    }
+
+    const int bHasChanged = nCurrentLine != pTextBox->nCurrentLine;
+    pTextBox->nCurrentLine = nCurrentLine;
+
+    if (nNumLines > nVisibleLines && nLine != pTextBox->nLine)
+    {
+        D2Win_10053((D2WinTextBoxStrc*)pMsg->hWnd, nLine);
+    }
+
+    if (bHasChanged && pTextBox->controlHeader.field_34)
+    {
+        pTextBox->controlHeader.field_34(pMsg);
+    }
+
     return 0;
 }
 

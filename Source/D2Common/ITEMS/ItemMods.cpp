@@ -1,14 +1,47 @@
 #include "D2ItemTypes.h"
+
+#include "D2Win32Base.h"
+
+#include "D2StormLink.h"
+
+#include "D2CmpCache.h"
+
+#include "D2Drlg.h"
+
+#include "D2DrlgRooms.h"
+
+#include "D2DrlgTiles.h"
+
+#include "D2Win32Types.h"
+
+#include "D2Path.h"
+
+#include "D2Skills.h"
+
+#include "D2TxtTables.h"
+
+#include "D2Unicode.h"
+
 #include "D2StateIds.h"
+
 #include "D2StatIds.h"
+
 #include "D2Common.h"
+
 #include "D2Structs.h"
+
 #include "D2DataTbls.h"
+
 #include "D2Txt.h"
+
 #include "D2Records.h"
+
 #include "D2TxtItems.h"
+
 #include "D2LevelTxt.h"
+
 #include "D2GameRecords.h"
+
 #include "D2ItemsWorld.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
@@ -144,7 +177,6 @@ extern "C" void _ReadWriteBarrier(void);
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateOrFlag(D2UnitStrc* pUnit, int nState, int nFlag);          // 0x00625790
 
 static D2StatListStrc* __stdcall ITEMMODS_GetOrCreateStatList(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nState, int fFilter);
-
 
 struct D2PropertiesTxt;
 
@@ -369,6 +401,119 @@ void __stdcall D2Common_10846(int nDataBits, int* a2, int* a3, int* a4, int* a5)
     *a3 = (nDataBits >> 9) & 31;
     *a4 = (nDataBits >> 14) & 255;
     *a5 = (nDataBits >> 22) & 255;
+}
+
+D2StatListStrc* __stdcall STATLIST_GetStatListFromFlag(D2StatListStrc* pStatList, int nFlag); // 0x00625730
+D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndFlag(D2UnitStrc* pUnit, int nFlag); // 0x00625760
+D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
+D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
+D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
+void __stdcall STATLIST_SetBaseStat2(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer, D2UnitStrc* pUnit); // 0x00627220
+
+// 0x0065C820
+int __stdcall ITEMMODS_GetItemCharges(D2UnitStrc* pItem, int nSkillId, int nSkillLevel, int* pValue, D2StatListStrc** ppStatList)
+{
+    if (pValue)
+    {
+        *pValue = 0;
+    }
+
+    if (ppStatList)
+    {
+        *ppStatList = 0;
+    }
+
+    const int nType = pItem ? pItem->dwUnitType : UNIT_INVALID;
+    if (nType != 4)
+    {
+        return 0;
+    }
+
+    if (nSkillId < 0 || nSkillId >= sgptDataTables->nSkillsTxtRecordCount || nSkillLevel <= 0 || nSkillLevel > 63)
+    {
+        return 0;
+    }
+
+    const int nLayer = (nSkillId << sgptDataTables->nStuff) + (nSkillLevel & sgptDataTables->nShiftedStuff);
+
+    for (D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndFlag(pItem, 0x40); pStatList; pStatList = STATLIST_GetStatListFromFlag(pStatList, 0x40))
+    {
+        const int nValue = STATLIST_GetStatValue(pStatList, STAT_ITEM_CHARGED_SKILL, nLayer);
+        if (nValue)
+        {
+            if (pValue)
+            {
+                *pValue = nValue & 0xFF;
+            }
+
+            if (ppStatList)
+            {
+                *ppStatList = pStatList;
+            }
+
+            return 1;
+        }
+    }
+
+    if (pItem->pInventory)
+    {
+        for (D2UnitStrc* i = INVENTORY_GetFirstItem(pItem->pInventory); i; i = INVENTORY_GetNextItem(i))
+        {
+            D2UnitStrc* pSocketed = INVENTORY_UnitIsItem(i);
+            if (ITEMMODS_GetItemCharges(pSocketed, nSkillId, nSkillLevel, pValue, ppStatList))
+            {
+                return 1;
+            }
+        }
+    }
+
+    return 0;
+}
+
+// 0x0065C940
+int __stdcall ITEMMODS_UpdateItemWithSkillCharges(D2UnitStrc* pItem, int nSkillId, int nSkillLevel, int nCharges)
+{
+    const int nType = pItem ? pItem->dwUnitType : UNIT_INVALID;
+    if (nType != 4)
+    {
+        return 0;
+    }
+
+    const int nLayer = (nSkillId << sgptDataTables->nStuff) + (nSkillLevel & sgptDataTables->nShiftedStuff);
+
+    for (D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndFlag(pItem, 0x40); pStatList; pStatList = STATLIST_GetStatListFromFlag(pStatList, 0x40))
+    {
+        int nValue = STATLIST_GetStatValue(pStatList, STAT_ITEM_CHARGED_SKILL, nLayer);
+        if (nValue)
+        {
+            nValue >>= 8;
+            if (nValue > 0 && nValue <= 255)
+            {
+                nCharges = nCharges > 0 ? nCharges : 0;
+                if (nCharges >= nValue)
+                {
+                    nCharges = nValue;
+                }
+                STATLIST_SetBaseStat2(pStatList, STAT_ITEM_CHARGED_SKILL, (nValue << 8) + (nCharges & 0xFF), nLayer, pItem);
+                return 1;
+            }
+            return 0;
+        }
+    }
+
+    if (pItem->pInventory)
+    {
+        for (D2UnitStrc* i = INVENTORY_GetFirstItem(pItem->pInventory); i; i = INVENTORY_GetNextItem(i))
+        {
+            D2UnitStrc* pSocketed = INVENTORY_UnitIsItem(i);
+            if (ITEMMODS_UpdateItemWithSkillCharges(pSocketed, nSkillId, nSkillLevel, nCharges))
+            {
+                return 1;
+            }
+        }
+    }
+
+    return 0;
 }
 
 // 0x0065CA30
@@ -1565,6 +1710,35 @@ D2ItemsTxt* __fastcall ITEMMODS_GetItemsTxtRecordFromUnitOrItem(D2UnitStrc* pUni
     return DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
 }
 
+// 0x0065E9E0
+int __fastcall ITEMMODS_RollRandomValueInRange(D2UnitStrc* pItem, int nMin, int nMax)
+{
+    if (nMax == nMin)
+    {
+        return nMin;
+    }
+    if (nMax < nMin)
+    {
+        const int nTemp = nMax;
+        nMax = nMin;
+        nMin = nTemp;
+    }
+    if (pItem && pItem->dwUnitType == UNIT_ITEM)
+    {
+        D2SeedStrc* pSeed = ITEMS_GetItemSeed(pItem);
+        if (nMin >= nMax)
+        {
+            return nMin;
+        }
+        return nMin + ITEMS_RollLimitedRandomNumber(pSeed, nMax - nMin + 1);
+    }
+    if (nMin >= nMax)
+    {
+        return nMin;
+    }
+    return nMin + ITEMS_RollLimitedRandomNumber(&pItem->pSeed, nMax - nMin + 1);
+}
+
 // 0x0065EA50
 int __fastcall ITEMMODS_AddPropertyToItemStatList(D2UnitStrc* pItem, int fStatList, D2UnitStrc* pUnit, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState)
 {
@@ -1613,7 +1787,6 @@ int __fastcall ITEMMODS_AddPropertyToItemStatList(D2UnitStrc* pItem, int fStatLi
 
     return nValue;
 }
-
 
 // 0x0065EB30
 int __fastcall ITEMMODS_PropertyFunc01(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
@@ -2414,6 +2587,22 @@ int __fastcall ITEMMODS_PropertyFunc13(int nType, D2UnitStrc* pUnit, D2UnitStrc*
         }
 
         return nResult;
+    }
+
+    return 0;
+}
+
+int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem); // 0x00629930
+
+int __stdcall ITEMS_IsEthereal(D2UnitStrc* pItem); // 0x0062A8D0
+
+// 0x0065FD20
+int __fastcall ITEMMODS_PropertyFunc23(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+{
+    if (pProperty && pItem && pItem->dwUnitType == UNIT_ITEM && !ITEMS_IsEthereal(pItem) && ITEMS_HasDurability(pItem))
+    {
+        ITEMMODS_ApplyEthereality(pItem);
+        return 1;
     }
 
     return 0;

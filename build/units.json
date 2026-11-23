@@ -494,6 +494,11 @@
      "name": "?ERRORMANAGER_GetBitWidth@@YIHI@Z"
     },
     {
+     "va": "0x00409020",
+     "length": 386,
+     "name": "ERRORMANAGER_LogPoolError"
+    },
+    {
      "va": "0x004091B0",
      "length": 69,
      "name": "?ERRORMANAGER_GetPoolIndex@@YAHH@Z"
@@ -546,6 +551,11 @@
      "va": "0x00409810",
      "length": 153,
      "name": "ERRORMANAGER_PoolFreeLarge"
+    },
+    {
+     "va": "0x004098B0",
+     "length": 270,
+     "name": "ERRORMANAGER_PoolReallocLarge"
     },
     {
      "va": "0x004099C0",
@@ -2684,11 +2694,6 @@
      "name": "MAINMENUS_InitStorm"
     },
     {
-     "va": "0x004098B0",
-     "length": 270,
-     "name": "MAINMENUS_PoolReallocLarge"
-    },
-    {
      "va": "0x00410700",
      "length": 62,
      "name": "MAINMENUS_LogWrite"
@@ -3543,22 +3548,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Src/MainMenus_00409020.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00409020",
-     "length": 386,
-     "name": "MAINMENUS_LogPoolError"
-    },
-    {
-     "va": "0x004107F0",
-     "length": 308,
-     "name": "MAINMENUS_GetSaveDiskFreeSpace"
-    }
    ]
   },
   {
@@ -5286,6 +5275,11 @@
    "file": "Source/Fog/Src/System/system.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x004107F0",
+     "length": 308,
+     "name": "SYSTEM_GetSaveDiskFreeSpace"
+    },
     {
      "va": "0x004109D0",
      "length": 163,
@@ -36041,11 +36035,6 @@
      "name": "D2Win_10188"
     },
     {
-     "va": "0x004FC3F0",
-     "length": 432,
-     "name": "TEXTBOX_HandleVirtualKeyInput"
-    },
-    {
      "va": "0x004FD5D0",
      "length": 236,
      "name": "IMAGE2_HandleMouseDown"
@@ -36059,16 +36048,6 @@
      "va": "0x00503FA0",
      "length": 128,
      "name": "D2COMP_AddHoverTextLine"
-    },
-    {
-     "va": "0x00507A10",
-     "length": 210,
-     "name": "ACCOUNTLIST_HandleMouseDown"
-    },
-    {
-     "va": "0x00508030",
-     "length": 143,
-     "name": "SCROLLBAR_HandleMouseWheel"
     },
     {
      "va": "0x00508610",
@@ -36379,6 +36358,11 @@
      "name": "?TEXTBOX_HandleMouseDown@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x004FC3F0",
+     "length": 432,
+     "name": "TEXTBOX_HandleVirtualKeyInput"
+    },
+    {
      "va": "0x004FC5A0",
      "length": 58,
      "name": "@D2Win_10190@4"
@@ -36475,11 +36459,6 @@
      "va": "0x004FFE10",
      "length": 63,
      "name": "?D2Win_10076@@YIHPAUD2WinControlStrc@@PBD@Z"
-    },
-    {
-     "va": "0x00501690",
-     "length": 151,
-     "name": "FONT_FindCharInfo"
     }
    ]
   },
@@ -36536,16 +36515,6 @@
      "name": "IMAGE_Create"
     },
     {
-     "va": "0x004FD860",
-     "length": 134,
-     "name": "TIMER_UpdateDefault"
-    },
-    {
-     "va": "0x004FD8F0",
-     "length": 123,
-     "name": "TIMER_UpdateRepeating"
-    },
-    {
      "va": "0x00503310",
      "length": 45,
      "name": "?D2COMP_FindCofNode@@YAPAUD2CofNodeStrc@@III@Z"
@@ -36564,11 +36533,6 @@
      "va": "0x00507160",
      "length": 389,
      "name": "LIST_Draw"
-    },
-    {
-     "va": "0x005087A0",
-     "length": 274,
-     "name": "POPUP_Draw"
     }
    ]
   },
@@ -36580,6 +36544,16 @@
      "va": "0x004FD830",
      "length": 41,
      "name": "?TIMER_DisableSpaceKey@@YIXPAUD2WinTimerStrc@@@Z"
+    },
+    {
+     "va": "0x004FD860",
+     "length": 134,
+     "name": "TIMER_UpdateDefault"
+    },
+    {
+     "va": "0x004FD8F0",
+     "length": 123,
+     "name": "TIMER_UpdateRepeating"
     },
     {
      "va": "0x004FD970",
@@ -36953,6 +36927,11 @@
      "va": "0x00501650",
      "length": 49,
      "name": "?FONT_GetCharInfoByIndex@@YIPAUD2CharStrc@@G@Z"
+    },
+    {
+     "va": "0x00501690",
+     "length": 151,
+     "name": "FONT_FindCharInfo"
     },
     {
      "va": "0x00501730",
@@ -37565,11 +37544,6 @@
      "va": "0x005077F0",
      "length": 85,
      "name": "?D2Win_10138@@YIXPAUD2WinListStrc@@PBDP6GHPAUSMSGHANDLER_PARAMS@@@ZDHHH@Z"
-    },
-    {
-     "va": "0x005079C0",
-     "length": 71,
-     "name": "?ACCOUNTLIST_GetTextFromSelectedEntry@@YIHPAUD2WinAccountListStrc@@PAD@Z"
     }
    ],
    "flags": [
@@ -37605,6 +37579,16 @@
      "va": "0x00507900",
      "length": 184,
      "name": "ACCOUNTLIST_RemoveEntry"
+    },
+    {
+     "va": "0x005079C0",
+     "length": 71,
+     "name": "?ACCOUNTLIST_GetTextFromSelectedEntry@@YIHPAUD2WinAccountListStrc@@PAD@Z"
+    },
+    {
+     "va": "0x00507A10",
+     "length": 210,
+     "name": "ACCOUNTLIST_HandleMouseDown"
     },
     {
      "va": "0x00507AF0",
@@ -37660,6 +37644,11 @@
      "va": "0x00508000",
      "length": 45,
      "name": "@SCROLLBAR_SetScrollCallback@8"
+    },
+    {
+     "va": "0x00508030",
+     "length": 143,
+     "name": "SCROLLBAR_HandleMouseWheel"
     },
     {
      "va": "0x005080F0",
@@ -37723,6 +37712,11 @@
      "va": "0x00508710",
      "length": 138,
      "name": "?POPUP_UpdateHoveredLine@@YIHPAUD2WinControlStrc@@@Z"
+    },
+    {
+     "va": "0x005087A0",
+     "length": 274,
+     "name": "POPUP_Draw"
     },
     {
      "va": "0x005088C0",
@@ -37865,6 +37859,11 @@
      "va": "0x005132C0",
      "length": 101,
      "name": "DDRAW_FloorTileDraw"
+    },
+    {
+     "va": "0x00513330",
+     "length": 67,
+     "name": "?DDRAW_CloseSmacker@@YIXPAUD2SmackRecordStrc@@@Z"
     },
     {
      "va": "0x005136F0",
@@ -38948,11 +38947,6 @@
    "file": "Source/D2DDraw/Src/ddSmack.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00513330",
-     "length": 67,
-     "name": "?DDRAW_CloseSmacker@@YIXPAUD2SmackRecordStrc@@@Z"
-    },
     {
      "va": "0x00513380",
      "length": 113
@@ -43761,6 +43755,11 @@
      "name": "CLIENT_ReadPacketFromBuffer"
     },
     {
+     "va": "0x0052AFE0",
+     "length": 99,
+     "name": "?CLIENT_GetLocalIpAddressString@@YGXPAD@Z"
+    },
+    {
      "va": "0x0052B1F0",
      "length": 23,
      "name": "SERVER_WaitForSingleObject"
@@ -43781,75 +43780,9 @@
      "name": "SERVER_SetMaxClientsPerGame"
     },
     {
-     "va": "0x0052B280",
-     "length": 23,
-     "name": "SERVER_SetHackListEnabled"
-    },
-    {
-     "va": "0x0052B2A0",
-     "length": 40,
-     "name": "SERVER_Release"
-    },
-    {
-     "va": "0x0052B2D0",
-     "length": 29,
-     "name": "SERVER_ReadGamePacket"
-    },
-    {
-     "va": "0x0052B2F0",
-     "length": 29,
-     "name": "SERVER_ReadSystemPacket"
-    },
-    {
-     "va": "0x0052B310",
-     "length": 29,
-     "name": "SERVER_ReadAdminPacket"
-    },
-    {
      "va": "0x0052B490",
      "length": 30,
      "name": "sub_0052B490_ObjectCall_6BED90"
-    },
-    {
-     "va": "0x0052B4B0",
-     "length": 23,
-     "name": "SERVER_GetIpAddressFromClientId"
-    },
-    {
-     "va": "0x0052B4D0",
-     "length": 23,
-     "name": "SERVER_GetSocketFromClientId"
-    },
-    {
-     "va": "0x0052B4F0",
-     "length": 30,
-     "name": "SERVER_HackListClient"
-    },
-    {
-     "va": "0x0052B510",
-     "length": 30,
-     "name": "SERVER_HackListIP"
-    },
-    {
-     "va": "0x0052B530",
-     "length": 30,
-     "name": "SERVER_HackUnlistIP"
-    },
-    {
-     "va": "0x0052B550",
-     "length": 30,
-     "name": "SERVER_DisconnectIP"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Net/Unknown_0052AFE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052AFE0",
-     "length": 99,
-     "name": "?CLIENT_GetLocalIpAddressString@@YGXPAD@Z"
     }
    ]
   },
@@ -44437,11 +44370,6 @@
      "name": "_sub_00564CA0"
     },
     {
-     "va": "0x00568E60",
-     "length": 179,
-     "name": "PLRSAVE2_WriteMercData"
-    },
-    {
      "va": "0x00604A30",
      "length": 15,
      "name": "TileSetHardwareFreeCallback"
@@ -44463,8 +44391,63 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x0052B280",
+     "length": 23,
+     "name": "SERVER_SetHackListEnabled"
+    },
+    {
+     "va": "0x0052B2A0",
+     "length": 40,
+     "name": "SERVER_Release"
+    },
+    {
+     "va": "0x0052B2D0",
+     "length": 29,
+     "name": "SERVER_ReadGamePacket"
+    },
+    {
+     "va": "0x0052B2F0",
+     "length": 29,
+     "name": "SERVER_ReadSystemPacket"
+    },
+    {
+     "va": "0x0052B310",
+     "length": 29,
+     "name": "SERVER_ReadAdminPacket"
+    },
+    {
      "va": "0x0052B330",
      "length": 343
+    },
+    {
+     "va": "0x0052B4B0",
+     "length": 23,
+     "name": "SERVER_GetIpAddressFromClientId"
+    },
+    {
+     "va": "0x0052B4D0",
+     "length": 23,
+     "name": "SERVER_GetSocketFromClientId"
+    },
+    {
+     "va": "0x0052B4F0",
+     "length": 30,
+     "name": "SERVER_HackListClient"
+    },
+    {
+     "va": "0x0052B510",
+     "length": 30,
+     "name": "SERVER_HackListIP"
+    },
+    {
+     "va": "0x0052B530",
+     "length": 30,
+     "name": "SERVER_HackUnlistIP"
+    },
+    {
+     "va": "0x0052B550",
+     "length": 30,
+     "name": "SERVER_DisconnectIP"
     },
     {
      "va": "0x0052B570",
@@ -44497,6 +44480,11 @@
      "name": "SERVER_EnqueueClientPacket"
     },
     {
+     "va": "0x0052B690",
+     "length": 64,
+     "name": "?SERVER_EnqueueLocalClientPacket@@YIHPBEG@Z"
+    },
+    {
      "va": "0x0052B6D0",
      "length": 23,
      "name": "D2NET_10022"
@@ -44527,11 +44515,6 @@
    "file": "Source/D2Net/SRC/D2Net.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0052B690",
-     "length": 64,
-     "name": "?SERVER_EnqueueLocalClientPacket@@YIHPBEG@Z"
-    },
     {
      "va": "0x0052B7E0",
      "length": 22,
@@ -47469,11 +47452,6 @@
      "va": "0x00570690",
      "length": 3,
      "name": "sub_00570690"
-    },
-    {
-     "va": "0x005A6220",
-     "length": 4,
-     "name": "sub_005A6220"
     }
    ]
   },
@@ -49938,6 +49916,11 @@
      "name": "?SUNIT_RemoveAllItemsFromInventory@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00555C90",
+     "length": 36,
+     "name": "@sub_00555C90_GetTableRow@4"
+    },
+    {
      "va": "0x00555CC0",
      "length": 13,
      "name": "?SUNIT_GetItemsTxtCount@@YAHXZ"
@@ -49948,11 +49931,6 @@
    "file": "Source/D2Game/Unknown_00555C90.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00555C90",
-     "length": 36,
-     "name": "@sub_00555C90_GetTableRow@4"
-    },
     {
      "va": "0x00555D00",
      "length": 21,
@@ -50279,6 +50257,14 @@
      "va": "0x0055A550",
      "length": 374,
      "name": "?ITEMS_CreateDropAtUnit@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HHHHPAU1@@Z"
+    },
+    {
+     "va": "0x005C0F90",
+     "length": 706
+    },
+    {
+     "va": "0x005C2540",
+     "length": 127
     }
    ]
   },
@@ -50778,6 +50764,11 @@
      "va": "0x00568DC0",
      "length": 147,
      "name": "PLRSAVE2_GetItemIndex"
+    },
+    {
+     "va": "0x00568E60",
+     "length": 179,
+     "name": "PLRSAVE2_WriteMercData"
     },
     {
      "va": "0x00568F20",
@@ -58753,6 +58744,11 @@
      "length": 43
     },
     {
+     "va": "0x005A6220",
+     "length": 4,
+     "name": "sub_005A6220"
+    },
+    {
      "va": "0x005A6230",
      "length": 28,
      "name": "MONSTERMODE_GetVelocityParams"
@@ -62252,6 +62248,11 @@
      "va": "0x005BCE80",
      "length": 216,
      "name": "?OBJECTS_InitFunction52_NatalyaStart@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x005BCF60",
+     "length": 108,
+     "name": "?sub_005BCF60_ACT3Q6_UpdatePlayerStatus@@YIXPAUD2GameStrc@@_N@Z"
     }
    ]
   },
@@ -62259,16 +62260,6 @@
    "file": "Source/D2Game/Unknown_005BCF60.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x005BCF60",
-     "length": 108,
-     "name": "?sub_005BCF60_ACT3Q6_UpdatePlayerStatus@@YIXPAUD2GameStrc@@_N@Z"
-    },
-    {
-     "va": "0x005BD0B0",
-     "length": 5,
-     "name": "?ACT3Q7_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
-    },
     {
      "va": "0x005BDB10",
      "length": 1,
@@ -62280,6 +62271,11 @@
    "file": "Source/D2Game/Quests/a3q7.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x005BD0B0",
+     "length": 5,
+     "name": "?ACT3Q7_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
+    },
     {
      "va": "0x005BD0C0",
      "length": 5,
@@ -62852,34 +62848,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/ITEMS/Items_005C0F90.cpp",
-   "rank": 1,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x005C0F90",
-     "length": 706
-    },
-    {
-     "va": "0x005C2540",
-     "length": 127
-    }
    ]
   },
   {
@@ -68307,26 +68275,6 @@
      "va": "0x00613E60",
      "length": 48,
      "name": "DATATBLS_GetExpRatio"
-    },
-    {
-     "va": "0x00619B10",
-     "length": 68,
-     "name": "DUNGEON_FindRoomByTileCoordinates"
-    },
-    {
-     "va": "0x00619D00",
-     "length": 105,
-     "name": "DUNGEON_GetSubtileRect"
-    },
-    {
-     "va": "0x00619F20",
-     "length": 58,
-     "name": "DUNGEON_DecreaseAlliedCountOfRoom"
-    },
-    {
-     "va": "0x0061A1D0",
-     "length": 29,
-     "name": "DUNGEON_GetWarpDestinationLevel"
     }
    ]
   },
@@ -68577,21 +68525,6 @@
      "name": "?DATATBLS_LoadAllTxts@@YGXPAXHH@Z"
     },
     {
-     "va": "0x00620BB0",
-     "length": 90,
-     "name": "UNITS_GetRoom"
-    },
-    {
-     "va": "0x00621780",
-     "length": 52,
-     "name": "UNITS_SetAnimationSpeed"
-    },
-    {
-     "va": "0x006219F0",
-     "length": 120,
-     "name": "UNITS_GetSkillFromSkillId"
-    },
-    {
      "va": "0x006254F0",
      "length": 9,
      "name": "STATLIST_GetTotalStatValueStub"
@@ -68630,11 +68563,6 @@
      "va": "0x00640E90",
      "length": 72,
      "name": "DATATBLS_GetObjectsTxtRecord"
-    },
-    {
-     "va": "0x0065FD20",
-     "length": 65,
-     "name": "ITEMMODS_PropertyFunc23"
     }
    ]
   },
@@ -68737,6 +68665,11 @@
      "length": 177
     },
     {
+     "va": "0x00619B10",
+     "length": 68,
+     "name": "DUNGEON_FindRoomByTileCoordinates"
+    },
+    {
      "va": "0x00619B60",
      "length": 111,
      "name": "DUNGEON_GetAdjacentRoomByTileCoordinates"
@@ -68750,6 +68683,11 @@
      "va": "0x00619C40",
      "length": 186,
      "name": "D2Common_10052"
+    },
+    {
+     "va": "0x00619D00",
+     "length": 105,
+     "name": "DUNGEON_GetSubtileRect"
     },
     {
      "va": "0x00619D70",
@@ -68785,6 +68723,11 @@
      "va": "0x00619F00",
      "length": 21,
      "name": "DUNGEON_GetAlliedCountFromRoom"
+    },
+    {
+     "va": "0x00619F20",
+     "length": 58,
+     "name": "DUNGEON_DecreaseAlliedCountOfRoom"
     },
     {
      "va": "0x00619F60",
@@ -68840,6 +68783,11 @@
      "va": "0x0061A1B0",
      "length": 26,
      "name": "DUNGEON_GetLevelIdFromRoom"
+    },
+    {
+     "va": "0x0061A1D0",
+     "length": 29,
+     "name": "DUNGEON_GetWarpDestinationLevel"
     },
     {
      "va": "0x0061A1F0",
@@ -69116,11 +69064,6 @@
      "name": "D2Common_10095"
     },
     {
-     "va": "0x0061B390",
-     "length": 245,
-     "name": "DRLGACTIVATE_RoomExPropagateSetStatus"
-    },
-    {
      "va": "0x00627B70",
      "length": 51,
      "name": "?DUNGEON_ItemCalcGetRandomNumberInRange@@YIHHHHPAX@Z"
@@ -69129,11 +69072,6 @@
      "va": "0x00643700",
      "length": 51,
      "name": "?DUNGEON_SkillCalcGetRandomNumberInRange@@YIHHHHPAX@Z"
-    },
-    {
-     "va": "0x0064B720",
-     "length": 49,
-     "name": "?MISSILE_GetRandomNumberInRange@@YIHHHHPAX@Z"
     },
     {
      "va": "0x00650E50",
@@ -69154,11 +69092,6 @@
      "va": "0x00653F50",
      "length": 52,
      "name": "?DATATBLS_RollRandomUniqueAppellationString@@YIPBUUnicode@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0065E9E0",
-     "length": 98,
-     "name": "?ITEMMODS_RollRandomValueInRange@@YIHPAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -69220,6 +69153,11 @@
      "va": "0x0061B360",
      "length": 43,
      "name": "?DRLGACTIVATE_SetStatusIfUnreferenced@@YAXPAUD2DrlgRoomStrc@@H@Z"
+    },
+    {
+     "va": "0x0061B390",
+     "length": 245,
+     "name": "DRLGACTIVATE_RoomExPropagateSetStatus"
     },
     {
      "va": "0x0061B490",
@@ -69701,16 +69639,6 @@
      "name": "?DATATBLS_FreeAutomap@@YIXXZ"
     },
     {
-     "va": "0x00644140",
-     "length": 10,
-     "name": "?SKILLS_GetSkillsTxtRecordFromSkill@@YIPAUD2SkillsTxt@@PAUD2SkillStrc@@@Z"
-    },
-    {
-     "va": "0x006446A0",
-     "length": 23,
-     "name": "?SKILLS_GetFlags@@YGHPAUD2SkillStrc@@@Z"
-    },
-    {
      "va": "0x00673FF0",
      "length": 65,
      "name": "?DATATBLS_GetVisFlagToLevel@@YIHPAUD2DrlgLevelStrc@@0@Z"
@@ -69859,6 +69787,11 @@
      "va": "0x00620B50",
      "length": 90,
      "name": "UNITS_ResetRoom"
+    },
+    {
+     "va": "0x00620BB0",
+     "length": 90,
+     "name": "UNITS_GetRoom"
     },
     {
      "va": "0x00620C10",
@@ -70020,6 +69953,11 @@
      "name": "?UNITS_GetAnimStatBasePercentage@@YAHPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x00621780",
+     "length": 52,
+     "name": "UNITS_SetAnimationSpeed"
+    },
+    {
      "va": "0x006217C0",
      "length": 79,
      "name": "UNITS_IsAtEndOfFrameCycle"
@@ -70047,6 +69985,11 @@
      "va": "0x006219C0",
      "length": 40,
      "name": "UNITS_HasCollision"
+    },
+    {
+     "va": "0x006219F0",
+     "length": 120,
+     "name": "UNITS_GetSkillFromSkillId"
     },
     {
      "va": "0x00621A70",
@@ -73887,16 +73830,6 @@
      "va": "0x0067B1C0",
      "length": 59,
      "name": "?PATH_AStar_AllocNewNode@@YIPAUD2DrlgTableEntryStrc@@PAUD2DrlgEntryTableStrc@@@Z"
-    },
-    {
-     "va": "0x0067F560",
-     "length": 87,
-     "name": "?DRLGOUTDESR_PlaceDesertTransitionToTown@@YIXPAUD2DrlgLevelStrc@@@Z"
-    },
-    {
-     "va": "0x0067F670",
-     "length": 116,
-     "name": "?DRLGOUTDESR_AddExits@@YIXPAUD2DrlgLevelStrc@@@Z"
     }
    ]
   },
@@ -74186,6 +74119,11 @@
      "name": "?D2Common_SKILLMANA_CheckStartStat_6FDB1400@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
     },
     {
+     "va": "0x00644140",
+     "length": 10,
+     "name": "?SKILLS_GetSkillsTxtRecordFromSkill@@YIPAUD2SkillsTxt@@PAUD2SkillStrc@@@Z"
+    },
+    {
      "va": "0x00644150",
      "length": 34,
      "name": "SKILLS_GetShrineSkillLevelBonus"
@@ -74283,6 +74221,11 @@
      "va": "0x00644660",
      "length": 51,
      "name": "SKILLS_SetFlags"
+    },
+    {
+     "va": "0x006446A0",
+     "length": 23,
+     "name": "?SKILLS_GetFlags@@YGHPAUD2SkillStrc@@@Z"
     },
     {
      "va": "0x006446C0",
@@ -74711,34 +74654,14 @@
      "name": "SKILLS_InitSkillList"
     },
     {
-     "va": "0x00648300",
-     "length": 107,
-     "name": "PATH_GetClientCoordsVelocity"
-    },
-    {
      "va": "0x00648390",
      "length": 5,
      "name": "?sub_00648390_AlwaysZero@@YGHHH@Z"
     },
     {
-     "va": "0x006484E0",
-     "length": 160,
-     "name": "PATH_GetCollisionPatternFromMonStats2Txt"
-    },
-    {
      "va": "0x00648640",
      "length": 66,
      "name": "D2COMMON_10193_PATH_AdjustDirection"
-    },
-    {
-     "va": "0x006486F0",
-     "length": 16,
-     "name": "PATH_GetMaxVelocity"
-    },
-    {
-     "va": "0x00648720",
-     "length": 16,
-     "name": "PATH_GetAcceleration"
     },
     {
      "va": "0x00648770",
@@ -74809,16 +74732,6 @@
      "va": "0x0066E140",
      "length": 20,
      "name": "SKILLS_GetModeSideChar"
-    },
-    {
-     "va": "0x006752A0",
-     "length": 121,
-     "name": "DRLGOUTDOORS_AddAct124SecondaryBorder"
-    },
-    {
-     "va": "0x006755C0",
-     "length": 52,
-     "name": "DRLGOUTDOORS_GetBorderLevelPrestId"
     },
     {
      "va": "0x00678B40",
@@ -74915,11 +74828,6 @@
      "va": "0x00648020",
      "length": 38,
      "name": "?sub_00648020_GetTablePair@@YGXHHPAH0@Z"
-    },
-    {
-     "va": "0x00648050",
-     "length": 205,
-     "name": "?PATH_FindValidTargetCoordsByMovingOrthogonally@@YAXPAUD2PathInfoStrc@@@Z"
     }
    ]
   },
@@ -74928,8 +74836,18 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00648050",
+     "length": 205,
+     "name": "?PATH_FindValidTargetCoordsByMovingOrthogonally@@YAXPAUD2PathInfoStrc@@@Z"
+    },
+    {
      "va": "0x00648120",
      "length": 475
+    },
+    {
+     "va": "0x00648300",
+     "length": 107,
+     "name": "PATH_GetClientCoordsVelocity"
     },
     {
      "va": "0x00648370",
@@ -74972,6 +74890,11 @@
      "name": "?PATH_GetMonsterMoveTestMask@@YAHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x006484E0",
+     "length": 160,
+     "name": "PATH_GetCollisionPatternFromMonStats2Txt"
+    },
+    {
      "va": "0x00648580",
      "length": 109,
      "name": "?D2Common_11281_CollisionPatternFromSize@@YGHPAUD2UnitStrc@@H@Z"
@@ -74997,9 +74920,19 @@
      "name": "_PATH_SetMaxVelocity@8"
     },
     {
+     "va": "0x006486F0",
+     "length": 16,
+     "name": "PATH_GetMaxVelocity"
+    },
+    {
      "va": "0x00648700",
      "length": 19,
      "name": "_PATH_SetAcceleration@8"
+    },
+    {
+     "va": "0x00648720",
+     "length": 16,
+     "name": "PATH_GetAcceleration"
     },
     {
      "va": "0x00648730",
@@ -75490,6 +75423,11 @@
      "va": "0x0064B1D0",
      "length": 198,
      "name": "MISSILE_GetMaxElemDamage"
+    },
+    {
+     "va": "0x0064B720",
+     "length": 49,
+     "name": "?MISSILE_GetRandomNumberInRange@@YIHHHHPAX@Z"
     },
     {
      "va": "0x0064B760",
@@ -76657,6 +76595,16 @@
      "name": "?D2Common_10846@@YGXHPAH000@Z"
     },
     {
+     "va": "0x0065C820",
+     "length": 273,
+     "name": "ITEMMODS_GetItemCharges"
+    },
+    {
+     "va": "0x0065C940",
+     "length": 236,
+     "name": "?ITEMMODS_UpdateItemWithSkillCharges@@YGHPAUD2UnitStrc@@HHH@Z"
+    },
+    {
      "va": "0x0065CA30",
      "length": 193,
      "name": "?ITEMMODS_GetByTimeAdjustment@@YGHHHHPAH00@Z"
@@ -76858,6 +76806,11 @@
      "name": "?ITEMMODS_GetItemsTxtRecordFromUnitOrItem@@YIPAUD2ItemsTxt@@PAUD2UnitStrc@@0@Z"
     },
     {
+     "va": "0x0065E9E0",
+     "length": 98,
+     "name": "?ITEMMODS_RollRandomValueInRange@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x0065EA50",
      "length": 223
     },
@@ -76979,6 +76932,11 @@
      "name": "?ITEMMODS_PropertyFunc13@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HFHHHH0@Z"
     },
     {
+     "va": "0x0065FD20",
+     "length": 65,
+     "name": "ITEMMODS_PropertyFunc23"
+    },
+    {
      "va": "0x0065FD70",
      "length": 156,
      "name": "D2COMMON_11292_ItemAssignProperty"
@@ -77042,16 +77000,6 @@
      "va": "0x0065C730",
      "length": 112,
      "name": "?sub_0065C730_GetModsProperty@@YAPBUD2PropertyStrc@@HPBXHH@Z"
-    },
-    {
-     "va": "0x0065C820",
-     "length": 273,
-     "name": "ITEMMODS_GetItemCharges"
-    },
-    {
-     "va": "0x0065C940",
-     "length": 236,
-     "name": "?ITEMMODS_UpdateItemWithSkillCharges@@YGHPAUD2UnitStrc@@HHH@Z"
     }
    ]
   },
@@ -78477,11 +78425,6 @@
      "name": "DRLGROOM_InitNearRooms"
     },
     {
-     "va": "0x0066F240",
-     "length": 262,
-     "name": "DRLGROOMTILE_LoadDT1FilesForRoom"
-    },
-    {
      "va": "0x00670630",
      "length": 110,
      "name": "DRLGTILESUB_FreeDrlgFile"
@@ -78882,6 +78825,11 @@
      "va": "0x0066F1A0",
      "length": 160,
      "name": "DRLGROOMTILE_FreeRoom"
+    },
+    {
+     "va": "0x0066F240",
+     "length": 262,
+     "name": "DRLGROOMTILE_LoadDT1FilesForRoom"
     }
    ]
   },
@@ -79373,6 +79321,11 @@
      "name": "?DRLGOUTDOORS_GetRoadEntry@@YIHPAUD2DrlgLevelStrc@@H@Z"
     },
     {
+     "va": "0x006752A0",
+     "length": 121,
+     "name": "DRLGOUTDOORS_AddAct124SecondaryBorder"
+    },
+    {
      "va": "0x00675320",
      "length": 58,
      "name": "?DRLGOUTDOORS_AllocOutdoorInfo@@YIXPAUD2DrlgLevelStrc@@@Z"
@@ -79385,6 +79338,11 @@
      "va": "0x006754C0",
      "length": 253,
      "name": "DRLGOUTDOORS_FreeOutdoorInfo"
+    },
+    {
+     "va": "0x006755C0",
+     "length": 52,
+     "name": "DRLGOUTDOORS_GetBorderLevelPrestId"
     },
     {
      "va": "0x006757E0",
@@ -80306,11 +80264,6 @@
     {
      "va": "0x0067D7E0",
      "length": 79
-    },
-    {
-     "va": "0x0067DA70",
-     "length": 137,
-     "name": "?DRLGOUTSIEGE_PlaceCaves@@YAXPAUD2DrlgLevelStrc@@@Z"
     }
    ]
   },
@@ -80350,6 +80303,11 @@
    "file": "Source/D2Common/DRLG/OutSiege.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x0067DA70",
+     "length": 137,
+     "name": "?DRLGOUTSIEGE_PlaceCaves@@YAXPAUD2DrlgLevelStrc@@@Z"
+    },
     {
      "va": "0x0067DB00",
      "length": 69,
@@ -80504,6 +80462,11 @@
      "name": "?DRLGOUTDESR_PlacePresetVariants@@YGXPBHHHPAUD2DrlgLevelStrc@@@Z"
     },
     {
+     "va": "0x0067F560",
+     "length": 87,
+     "name": "?DRLGOUTDESR_PlaceDesertTransitionToTown@@YIXPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
      "va": "0x0067F5C0",
      "length": 98,
      "name": "?DRLGOUTDESR_PlaceCliffs@@YAXPAUD2DrlgLevelStrc@@@Z"
@@ -80512,6 +80475,11 @@
      "va": "0x0067F630",
      "length": 52,
      "name": "?DRLGOUTDESR_PlaceBorders@@YAXPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
+     "va": "0x0067F670",
+     "length": 116,
+     "name": "?DRLGOUTDESR_AddExits@@YIXPAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x0067F6F0",

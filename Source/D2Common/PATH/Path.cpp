@@ -1,10 +1,47 @@
 #include "D2MonsterIds.h"
+
+#include "D2ItemTypes.h"
+
+#include "D2DrlgMaps.h"
+
+#include "D2DrlgTiles.h"
+
+#include "D2TxtTables.h"
+
+#include "D2LevelIds.h"
+
+#include "D2Unicode.h"
+
+#include "D2StateIds.h"
+
+#include "D2SkillIds.h"
+
+#include "D2StatIds.h"
+
+#include "D2Records.h"
+
+#include "D2Skills.h"
+
+#include "D2LevelTxt.h"
+
+#include "D2PlayerModes.h"
+
+#include "D2MonModes.h"
+
+#include "D2PathFind.h"
+
 #include "D2Common.h"
+
 #include "D2Structs.h"
+
 #include "D2Path.h"
+
 #include "D2Drlg.h"
+
 #include "D2DrlgPresets.h"
+
 #include "D2DataTbls.h"
+
 #include "D2Txt.h"
 
 #define PATH_UNKNOWN_FLAG_0x00010 0x00010
@@ -1054,39 +1091,6 @@ void __cdecl sub_00403F50_Nop()
 {
 }
 
-static void PATH_FindValidTargetCoordsByMovingOrthogonally(D2PathInfoStrc* pPathInfo)
-{
-    int nY;
-    const int nDeltaX = pPathInfo->tTargetCoord.X - pPathInfo->tStartCoord.X;
-    const int nDeltaY = pPathInfo->tTargetCoord.Y - pPathInfo->tStartCoord.Y;
-    const int nAbsDeltaX = D2_ABS(nDeltaX);
-    const int nAbsDeltaY = D2_ABS(nDeltaY);
-    if (nAbsDeltaX < PATH_SNAP_RANGE && nAbsDeltaY < PATH_SNAP_RANGE && (nAbsDeltaX != 0 || nAbsDeltaY != 0))
-    {
-        int nX = pPathInfo->tTargetCoord.X;
-        const int nCollisionPattern = pPathInfo->nCollisionPattern;
-        const int nCollisionMask = pPathInfo->nCollisionMask;
-// build: symbol ?gnOrthogonalStepTable@* 0x006EB490
-        const int nOffsetX = gnOrthogonalStepTable[nDeltaY][nDeltaX];
-        const int nOffsetY = gnOrthogonalStepTable[nDeltaX][nDeltaY];
-        nY = pPathInfo->tTargetCoord.Y;
-        int nChebyshevDistance = D2_MAX(nAbsDeltaX, nAbsDeltaY);
-        while (nChebyshevDistance < PATH_SNAP_RANGE)
-        {
-            nX += nOffsetX;
-            nY += nOffsetY;
-            if (COLLISION_CheckAnyCollisionWithPattern(pPathInfo->pStartRoom, nX, nY, nCollisionPattern, nCollisionMask))
-            {
-                break;
-            }
-
-            pPathInfo->tTargetCoord.X = nX;
-            pPathInfo->tTargetCoord.Y = nY;
-            ++nChebyshevDistance;
-        }
-    }
-}
-
 inline unsigned int PATH_InlineGetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -1112,6 +1116,40 @@ inline unsigned int PATH_InlineGetUnitY(D2UnitStrc* pUnit)
 }
 
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
+
+// 0x00648050
+static void PATH_FindValidTargetCoordsByMovingOrthogonally(D2PathInfoStrc* pPathInfo)
+{
+    int nY;
+    const int nDeltaX = pPathInfo->tTargetCoord.X - pPathInfo->tStartCoord.X;
+    const int nDeltaY = pPathInfo->tTargetCoord.Y - pPathInfo->tStartCoord.Y;
+    const int nAbsDeltaX = D2_ABS(nDeltaX);
+    const int nAbsDeltaY = D2_ABS(nDeltaY);
+    if (nAbsDeltaX < PATH_SNAP_RANGE && nAbsDeltaY < PATH_SNAP_RANGE && (nAbsDeltaX != 0 || nAbsDeltaY != 0))
+    {
+        int nX = pPathInfo->tTargetCoord.X;
+        const int nCollisionPattern = pPathInfo->nCollisionPattern;
+        const int nCollisionMask = pPathInfo->nCollisionMask;
+        const int nOffsetX = gnOrthogonalStepTable[nDeltaY][nDeltaX];
+        const int nOffsetY = gnOrthogonalStepTable[nDeltaX][nDeltaY];
+        nY = pPathInfo->tTargetCoord.Y;
+        int nChebyshevDistance = D2_MAX(nAbsDeltaX, nAbsDeltaY);
+        while (nChebyshevDistance < PATH_SNAP_RANGE)
+        {
+            nX += nOffsetX;
+            nY += nOffsetY;
+            if (COLLISION_CheckAnyCollisionWithPattern(pPathInfo->pStartRoom, nX, nY, nCollisionPattern, nCollisionMask))
+            {
+                break;
+            }
+
+            pPathInfo->tTargetCoord.X = nX;
+            pPathInfo->tTargetCoord.Y = nY;
+            ++nChebyshevDistance;
+        }
+    }
+}
+
 // 0x00648120
 static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo)
 {
@@ -1209,6 +1247,57 @@ static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo)
     return FALSE;
 }
 
+#define MONSTATS2FLAGINDEX_REVIVE 8
+
+#define MONSTATS2FLAGINDEX_ISATT 9
+
+#define MONSTATS2FLAGINDEX_SMALL 10
+
+int __stdcall UNITS_IsInMovingMode(D2UnitStrc* pUnit); // 0x00622D00
+
+struct D2SkillFormulaCtxStrc { D2UnitStrc* pUnit; int nSkillId; int nSkillLevel; };
+
+inline D2MonStats2Txt* UNITS_GetMonStats2TxtRecordFromMonsterId_Inl(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        int nMonStatsEx = sgptDataTables->pMonStatsTxt[nMonsterId].wMonStatsEx;
+        if (nMonStatsEx >= 0 && nMonStatsEx < sgptDataTables->nMonStats2TxtRecordCount)
+        {
+            return &sgptDataTables->pMonStats2Txt[nMonStatsEx];
+        }
+    }
+
+    return 0;
+}
+
+// 0x00648300
+void __stdcall PATH_GetClientCoordsVelocity(D2UnitStrc* pUnit, int* pX, int* pY)
+{
+    if (pUnit && UNITS_IsInMovingMode(pUnit))
+    {
+        D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
+        if (pDynamicPath->dwPathPoints)
+        {
+            *pX = pDynamicPath->tVelocityVector.nX;
+            *pY = pDynamicPath->tVelocityVector.nY;
+            *pX >>= 11;
+            *pY >>= 11;
+            DUNGEON_GameToClientCoords(pX, pY);
+        }
+        else
+        {
+            *pX = 0;
+            *pY = 0;
+        }
+    }
+    else
+    {
+        *pX = 0;
+        *pY = 0;
+    }
+}
+
 // 0x00648370
 void __cdecl sub_00648370_Nop()
 {
@@ -1272,6 +1361,53 @@ inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInl(int nMonsterId)
         return &sgptDataTables->pMonStatsTxt[nMonsterId];
     }
     return 0;
+}
+
+// 0x006484E0
+int __stdcall PATH_GetCollisionPatternFromMonStats2Txt(int nMonsterId)
+{
+    D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId_Inl(nMonsterId);
+    if (pMonStats2TxtRecord)
+    {
+        int nSizeX = pMonStats2TxtRecord->nSizeX;
+        if (nSizeX >= 0 && nSizeX < COLLISION_UNIT_SIZE_COUNT)
+        {
+            int nCollisionPattern = gaCollisionPatternsFromSize[nSizeX];
+
+            if (pMonStats2TxtRecord->nFlags[MONSTATS2FLAGINDEX_REVIVE >> 3] & gdwBitMasks[MONSTATS2FLAGINDEX_REVIVE & 7]
+                || pMonStats2TxtRecord->nFlags[MONSTATS2FLAGINDEX_SMALL >> 3] & gdwBitMasks[MONSTATS2FLAGINDEX_SMALL & 7])
+            {
+                if (!(pMonStats2TxtRecord->nFlags[MONSTATS2FLAGINDEX_ISATT >> 3] & gdwBitMasks[MONSTATS2FLAGINDEX_ISATT & 7]))
+                {
+                    switch (nCollisionPattern)
+                    {
+                    case COLLISION_PATTERN_SMALL_UNIT_PRESENCE:
+                        nCollisionPattern = COLLISION_PATTERN_SMALL_PET_PRESENCE;
+                        break;
+                    case COLLISION_PATTERN_BIG_UNIT_PRESENCE:
+                        nCollisionPattern = COLLISION_PATTERN_BIG_PET_PRESENCE;
+                        break;
+                    }
+                }
+            }
+
+            return nCollisionPattern;
+        }
+    }
+
+    return COLLISION_PATTERN_SMALL_UNIT_PRESENCE;
+}
+
+// 0x006486F0
+int __stdcall PATH_GetMaxVelocity(D2DynamicPathStrc* pDynamicPath)
+{
+    return pDynamicPath->dwMaxVelocity;
+}
+
+// 0x00648720
+int __stdcall PATH_GetAcceleration(D2DynamicPathStrc* pDynamicPath)
+{
+    return pDynamicPath->dwAcceleration;
 }
 
 // 0x00649180

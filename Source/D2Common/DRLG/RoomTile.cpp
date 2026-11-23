@@ -1,13 +1,24 @@
 #include "D2LevelIds.h"
+#include "D2ItemsWorld.h"
+
 #include "D2Common.h"
+
 #include "D2Structs.h"
+
 #include "D2DataTbls.h"
+
 #include "D2Drlg.h"
+
 #include "D2DrlgMaps.h"
+
 #include "D2DrlgPresets.h"
+
 #include "D2DrlgTiles.h"
+
 #include "D2DrlgRooms.h"
+
 #include "D2Path.h"
+
 #include "D2TxtTables.h"
 
 #pragma function(memset)
@@ -39,7 +50,6 @@ struct D2DrlgTileGridStrc;
 struct D2DrlgStrc;
 
 struct D2DrlgLevelStrc;
-
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -102,7 +112,6 @@ void __fastcall DRLGPRESET_InitPresetRoomGrids(D2DrlgRoomStrc* pDrlgRoom); // 0x
 
 D2DrlgRoomStrc* __fastcall DUNGEON_GetRoomExFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061AAE0
 
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 void __stdcall DUNGEON_RemoveRoomFromAct(D2DrlgActStrc* pAct, D2ActiveRoomStrc* pRoom); // 0x0061A910
@@ -126,7 +135,6 @@ static void DRLGROOMTILE_ResetRoomTileSelections(D2DrlgRoomStrc* pDrlgRoom);
 #define STYLE_SHIFT 20
 
 #define SEQ_SHIFT 8
-
 
 extern const D2UnkDrlgRoomTileStrc gaDrlgRoomTileLevelRanges[RANGE_COUNT];                                  // 0x006EEFC8
 
@@ -1409,6 +1417,41 @@ void __fastcall DRLGROOMTILE_FreeRoom(D2DrlgRoomStrc* pDrlgRoom, int bKeepRoom)
             pDrlgRoom->dwFlags |= 0x200000;
         }
     }
+}
+
+struct D2LvlTypesTxt
+{
+    char szFile[32][60];
+};
+extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
+
+// 0x0066F240
+void __fastcall DRLGROOMTILE_LoadDT1FilesForRoom(D2DrlgRoomStrc* pDrlgRoom)
+{
+    D2LvlTypesTxt* pLvlTypesTxtRecord = DATATBLS_GetLevelTypesTxtRecord(pDrlgRoom->ptDrlgLevel->nLevelType);
+
+    unsigned int dwDT1Mask = pDrlgRoom->dwDT1Mask;
+    for (unsigned int nFileIndex = 0; dwDT1Mask && nFileIndex < 32; dwDT1Mask >>= 1, ++nFileIndex)
+    {
+        if (dwDT1Mask & 1)
+        {
+            TileLibraryAddProject(&pDrlgRoom->pTiles, pLvlTypesTxtRecord->szFile[nFileIndex]);
+        }
+    }
+
+    char szPath[260] = { 0 };
+
+// build: symbol ?gszDataGlobal@* 0x006D4118
+    wsprintfA(szPath, "%s\\Tiles\\Act1\\Outdoors\\Blank.dt1", gszDataGlobal);
+    TileLibraryAddProject(&pDrlgRoom->pTiles, szPath);
+
+    wsprintfA(szPath, "%s\\Tiles\\Act1\\Barracks\\InvisWal.dt1", gszDataGlobal);
+    TileLibraryAddProject(&pDrlgRoom->pTiles, szPath);
+
+    wsprintfA(szPath, "%s\\Tiles\\Act1\\Barracks\\Warp.dt1", gszDataGlobal);
+    TileLibraryAddProject(&pDrlgRoom->pTiles, szPath);
+
+    pDrlgRoom->dwFlags |= 0x1000000;
 }
 
 #include "gen/data/Source/D2Common/DRLG/RoomTile.inc"
