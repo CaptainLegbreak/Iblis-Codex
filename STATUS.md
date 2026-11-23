@@ -42,16 +42,16 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 1168 |
+| Compilation units | 1159 |
 | … in a file with its original name, whole | 279 |
 | … pieces of an original file still split (in 39 files) | 133 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 756 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 747 |
 | Record definitions private to a source file (`struct`/`union` in a .cpp) | 3151 |
 | Unnamed fields (`unk0x..`) in the shared headers | 760 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 43 |
-| Calling-convention shims | 124 |
+| Calling-convention shims | 123 |
 | Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 569 |
-| `__declspec(noinline)` / `__forceinline` | 107 / 204 |
+| `__declspec(noinline)` / `__forceinline` | 105 / 205 |
 | Function names: blizzard / d2moo / inferred / placeholder | 460 / 5409 / 5288 / 3770 |
 
 `docs/shape.svg` draws the same per function: whole original file, file still in pieces, placeholder file, forcing construct, not reconstructed.
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 3259 functions are compiled with `/GS-` and 475 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 107 times and `__declspec(dllexport)` 171 times to keep a body out of line or emitted.
+Not listed one by one: 3257 functions are compiled with `/GS-` and 475 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 105 times and `__declspec(dllexport)` 171 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -228,12 +228,25 @@ Not listed one by one: 3259 functions are compiled with `/GS-` and 475 with `/EH
 | 0x00409000 | ERRORMANAGER_GetBitWidth | `Fog/Src/ErrorManager.cpp` | compiler option /EHa, inline assembly |
 | 0x004091B0 | ERRORMANAGER_GetPoolIndex | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00409200 | ERRORMANAGER_GetPoolBlockSize | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
-| 0x00409220 | sub_00409220_FindZeroBit | `Fog/Unknown_00409220.cpp` | inline assembly |
+| 0x00409220 | sub_00409220_FindZeroBit | `Fog/Src/ErrorManager.cpp` | compiler option /EHa, inline assembly |
+| 0x00409240 | sub_00409240_FindFreeSlot | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x00409370 | sub_00409370_InsertBlockRecord | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x00409490 | sub_00409490_RemoveBlockRecord | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x004095D0 | sub_004095D0_Nop | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x004095E0 | sub_004095E0_NewBlock | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x00409700 | sub_00409700_GetFreeSlot | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00409770 | ERRORMANAGER_PoolAllocLarge | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00409810 | ERRORMANAGER_PoolFreeLarge | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x004099C0 | ERRORMANAGER_GetPoolSystem | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x004099D0 | sub_004099D0_FindBlock | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x00409A60 | sub_00409A60_MoveBlockToFront | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x00409AB0 | sub_00409AB0_PoolFree | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x00409B80 | sub_00409B80_FreeUnusedPoolBlocks | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00409C70 | sub_00409C70_Nop | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x00409FF0 | FOG_SetMemoryPoolSystemMode | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x0040A040 | sub_0040A040_GetPoolSystemCount | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x0040A080 | sub_0040A080_PoolAlloc | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x0040A1F0 | sub_0040A1F0_PoolRealloc | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x0040ABF0 | LOGMANAGER_HeapSiftDown | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x0040ACA0 | LOGMANAGER_CalcCodeLengths | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x0040B1B0 | FOG_CompressPacket | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
@@ -258,8 +271,13 @@ Not listed one by one: 3259 functions are compiled with `/GS-` and 475 with `/EH
 | 0x0040E9E0 | sub_0040E9E0_GetCpuidEdx | `Fog/Unknown_0040DDD0.cpp` | inline assembly |
 | 0x0040EB30 | ??3D2LogMessageStrc@@SAXPAX0@Z | `Fog/Unknown_0040EB30.cpp` | compiler option /EHa |
 | 0x0040F000 | LOGMANAGER_GetLogDirectory | `Fog/Src/LogManager.cpp` | compiler option /EHa |
+| 0x0040F070 | sub_0040F070_WriteDumpMessage | `Fog/Src/LogManager.cpp` | compiler option /EHa |
+| 0x0040F350 | AUTOMAP_CloseStaleLogs | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x0040F3D0 | LOGMANAGER_SweepLogFile | `Fog/Src/LogManager.cpp` | compiler option /EHa |
+| 0x0040F520 | sub_0040F520_LinkNext | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x0040F530 | ~sub_0040F530 | `Fog/Src/LogManager.cpp` | compiler option /EHa |
+| 0x0040F580 | sub_0040F580_InitTerminator | `Fog/Src/LogManager.cpp` | compiler option /EHa |
+| 0x0040F590 | sub_0040F590 | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x0040F5A0 | LOGMANAGER_SetLogPrefix | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x0040F600 | LOGMANAGER_MeasureLogFile | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x0040F670 | LOGMANAGER_ReadLogRange | `Fog/Src/LogManager.cpp` | compiler option /EHa |
