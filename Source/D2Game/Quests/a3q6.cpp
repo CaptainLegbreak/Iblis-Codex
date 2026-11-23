@@ -950,6 +950,35 @@ void __fastcall OBJECTS_InitFunction52_NatalyaStart(D2ObjInitFnStrc* pOp)
     }
 }
 
+// 0x005BCF60
+void __fastcall sub_005BCF60_ACT3Q6_UpdatePlayerStatus(D2GameStrc* pGame, bool bRestore)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A3Q6_MEPHISTO);
+    if (!pQuestData || !pQuestData->bNotIntro || pQuestData->fState >= 6)
+    {
+        return;
+    }
+
+    D2Act3Quest6Strc* pQuestDataEx = (D2Act3Quest6Strc*)pQuestData->pQuestDataEx;
+    int nStatus;
+    if (bRestore)
+    {
+        nStatus = pQuestDataEx->nSavedStatus;
+    }
+    else
+    {
+        pQuestDataEx->nSavedStatus = pQuestData->fLastState;
+        nStatus = (pQuestData->pGame->nGameType != 3) ? 7 : 6;
+    }
+
+    bool bIterate = false;
+    if (pQuestData->fState > 0)
+    {
+        bIterate = true;
+    }
+    QUESTS_UnitIterate(pQuestData, nStatus, 0, ACT3Q6_UnitIterate_StatusCyclerEx, bIterate);
+}
+
 struct D2ActiveRoomStrc;
 
 struct D2GameStrc;

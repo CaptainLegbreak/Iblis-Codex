@@ -47464,11 +47464,6 @@
      "va": "0x00570690",
      "length": 3,
      "name": "sub_00570690"
-    },
-    {
-     "va": "0x005A6220",
-     "length": 4,
-     "name": "sub_005A6220"
     }
    ]
   },
@@ -58761,6 +58756,11 @@
      "length": 43
     },
     {
+     "va": "0x005A6220",
+     "length": 4,
+     "name": "sub_005A6220"
+    },
+    {
      "va": "0x005A6230",
      "length": 28,
      "name": "MONSTERMODE_GetVelocityParams"
@@ -62260,6 +62260,11 @@
      "va": "0x005BCE80",
      "length": 216,
      "name": "?OBJECTS_InitFunction52_NatalyaStart@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x005BCF60",
+     "length": 108,
+     "name": "?sub_005BCF60_ACT3Q6_UpdatePlayerStatus@@YIXPAUD2GameStrc@@_N@Z"
     }
    ]
   },
@@ -62267,16 +62272,6 @@
    "file": "Source/D2Game/Unknown_005BCF60.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x005BCF60",
-     "length": 108,
-     "name": "?sub_005BCF60_ACT3Q6_UpdatePlayerStatus@@YIXPAUD2GameStrc@@_N@Z"
-    },
-    {
-     "va": "0x005BD0B0",
-     "length": 5,
-     "name": "?ACT3Q7_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
-    },
     {
      "va": "0x005BDB10",
      "length": 1,
@@ -62288,6 +62283,11 @@
    "file": "Source/D2Game/Quests/a3q7.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x005BD0B0",
+     "length": 5,
+     "name": "?ACT3Q7_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
+    },
     {
      "va": "0x005BD0C0",
      "length": 5,

@@ -2213,12 +2213,6 @@ void __stdcall sub_00570690(int nUnused1)
 {
 }
 
-// 0x005A6220
-int __fastcall sub_005A6220(FieldStrc_005A6220* pObject)
-{
-    return pObject->unk0x10;
-}
-
 // 0x0053D670
 void __fastcall D2GAME_SendPacket0x28_6FC3F2F0(D2ClientStrc* pClient, unsigned char nHeader, unsigned char a3, int a4, D2BitBufferStrc* a5, unsigned char a6)
 {
