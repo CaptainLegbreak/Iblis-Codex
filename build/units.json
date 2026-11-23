@@ -45563,21 +45563,6 @@
      "name": "DEBUG_GetAct"
     },
     {
-     "va": "0x00534F10",
-     "length": 100,
-     "name": "PLAYER_CreateStartItemsFromCharStatsTxt"
-    },
-    {
-     "va": "0x00534F80",
-     "length": 210,
-     "name": "PLAYER_SynchronizeItemsToClient"
-    },
-    {
-     "va": "0x005350B0",
-     "length": 51,
-     "name": "?PLAYER_ResetBusyState@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
      "va": "0x005350F0",
      "length": 208,
      "name": "PLAYER_CloseInteraction"
@@ -45759,9 +45744,24 @@
      "name": "?PLAYER_CreateStartItem@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2CharStatsTxt@@HPAUD2CharItemStrc@@@Z"
     },
     {
+     "va": "0x00534F10",
+     "length": 100,
+     "name": "PLAYER_CreateStartItemsFromCharStatsTxt"
+    },
+    {
+     "va": "0x00534F80",
+     "length": 210,
+     "name": "PLAYER_SynchronizeItemsToClient"
+    },
+    {
      "va": "0x00535060",
      "length": 80,
      "name": "PLAYER_IsBusy"
+    },
+    {
+     "va": "0x005350B0",
+     "length": 51,
+     "name": "?PLAYER_ResetBusyState@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005351C0",
@@ -58479,6 +58479,16 @@
      "name": "MONSTERUNIQUE_UMod18_ColdEnchanted"
     },
     {
+     "va": "0x005A1E00",
+     "length": 390,
+     "name": "MONSTERUNIQUE_UMod23_PoisonEnchanted"
+    },
+    {
+     "va": "0x005A1F90",
+     "length": 362,
+     "name": "MONSTERUNIQUE_UMod25_ManaSteal"
+    },
+    {
      "va": "0x005A2100",
      "length": 26,
      "name": "MONSTERUNIQUE_InitializeUMod"
@@ -58814,16 +58824,6 @@
      "va": "0x005A1B00",
      "length": 356,
      "name": "MONSTERUNIQUE_UMod17_LightningEnchanted"
-    },
-    {
-     "va": "0x005A1E00",
-     "length": 390,
-     "name": "MONSTERUNIQUE_UMod23_PoisonEnchanted"
-    },
-    {
-     "va": "0x005A1F90",
-     "length": 362,
-     "name": "MONSTERUNIQUE_UMod25_ManaSteal"
     },
     {
      "va": "0x005A5650",
