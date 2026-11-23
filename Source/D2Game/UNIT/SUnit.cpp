@@ -3109,6 +3109,13 @@ void __fastcall SUNIT_RemoveAllItemsFromInventory(D2GameStrc* pGame, D2UnitStrc*
     }
 }
 
+// 0x00555C90
+extern "C" D2ItemTypesTxt* __fastcall sub_00555C90_GetTableRow(int index)
+{
+    if (index < 0 || index >= sgptDataTables->nItemTypesTxtRecordCount) return 0;
+    return &sgptDataTables->pItemTypesTxt[index];
+}
+
 // 0x00554570
 int __fastcall SUNIT_EventClearTeleportCoordinates(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nEventType, int a4, int a5)
 {

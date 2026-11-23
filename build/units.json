@@ -49922,6 +49922,11 @@
      "name": "?SUNIT_RemoveAllItemsFromInventory@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00555C90",
+     "length": 36,
+     "name": "@sub_00555C90_GetTableRow@4"
+    },
+    {
      "va": "0x00555CC0",
      "length": 13,
      "name": "?SUNIT_GetItemsTxtCount@@YAHXZ"
@@ -49932,11 +49937,6 @@
    "file": "Source/D2Game/Unknown_00555C90.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00555C90",
-     "length": 36,
-     "name": "@sub_00555C90_GetTableRow@4"
-    },
     {
      "va": "0x00555D00",
      "length": 21,
