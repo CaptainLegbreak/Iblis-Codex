@@ -204,69 +204,6 @@ void __fastcall sub_M134_Emit_0047C100(const char* szText)
         sub_M134_Use(szText);
 }
 
-unsigned long gdwBlinkTick; // 0x007BC890
-
-// 0x0047B450
-static void sub_0047B450_DrawBlinkingCaret(int nColor, int nY, int nX)
-{
-// build: symbol ?gnBlinkOn@* 0x00713004
-    if (gnBlinkOn == 1)
-    {
-        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xD4C), nX + 0x83, nY, nColor, 0);
-    }
-
-    const unsigned long dwTick = GetTickCount();
-// build: symbol ?gwBlinkDelay@* 0x00713000
-    if (dwTick - gdwBlinkTick > gwBlinkDelay)
-    {
-        gdwBlinkTick = dwTick;
-        if (gnBlinkOn)
-        {
-            gwBlinkDelay = 100;
-            gnBlinkOn = 0;
-        }
-        else
-        {
-            gwBlinkDelay = 500;
-            gnBlinkOn = 1;
-        }
-    }
-}
-
-void __stdcall sub_0047B4F0_DrawImeText(int nX, int nY)
-{
-    int nWidth = 0;
-    int nTextX = nX;
-    int nTextY = nY;
-    if (sub_00526800(gwszImeResult))
-    {
-        nWidth = D2Win_10121_GetTextWidth(gwszImeResult);
-        if (nWidth + nTextX - 0x83 > gnScreenWidth - 0x109)
-        {
-            nTextX = 0x83;
-            nTextY += 0xF;
-        }
-        D2Win_10117_DrawText(gwszImeResult, nTextX, nTextY, 4, 0);
-    }
-
-    const int nWidth2 = D2Win_10121_GetTextWidth(gwszImeComposition);
-    if (sub_00526800(gwszImeComposition))
-    {
-        if (nWidth2 + nTextX + nWidth - 0x83 > gnScreenWidth - 0x109)
-        {
-            nTextX = 0x83;
-            nTextY += 0xF;
-        }
-        D2Win_10117_DrawText(gwszImeComposition, nTextX + nWidth, nTextY, 4, 0);
-    }
-
-    sub_0047B450_DrawBlinkingCaret(4, nTextY, nWidth2 + nTextX + nWidth - 0x83);
-}
-
-void __cdecl sub_E04_Emit_0047B450(int nX, int nY)
-{
-    sub_0047B450_DrawBlinkingCaret(0, nY, nX);
-}
 
 #include "gen/data/Source/D2Client/Unknown_0047B3B0.inc"
 

@@ -23028,9 +23028,19 @@
      "name": "CHAT_CloseChatInput"
     },
     {
+     "va": "0x0047B450",
+     "length": 119,
+     "name": "?sub_0047B450_DrawBlinkingCaret@@YAXHHH@Z"
+    },
+    {
      "va": "0x0047B4E0",
      "length": 1,
      "name": "?sub_0047B4E0@@YAXXZ"
+    },
+    {
+     "va": "0x0047B4F0",
+     "length": 202,
+     "name": "?sub_0047B4F0_DrawImeText@@YGXHH@Z"
     },
     {
      "va": "0x0047B9C0",
@@ -23082,11 +23092,6 @@
      "va": "0x0047B3B0",
      "length": 151,
      "name": "?sub_0047B3B0_CompareCommand@@YGHPBD0@Z"
-    },
-    {
-     "va": "0x0047B450",
-     "length": 119,
-     "name": "?sub_0047B450_DrawBlinkingCaret@@YAXHHH@Z"
     },
     {
      "va": "0x0047B4D0",
@@ -23362,17 +23367,6 @@
      "va": "0x004BF9C0",
      "length": 1,
      "name": "?sub_004BF9C0_Nop@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0047B4F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0047B4F0",
-     "length": 202,
-     "name": "?sub_0047B4F0_DrawImeText@@YGXHH@Z"
     }
    ]
   },
