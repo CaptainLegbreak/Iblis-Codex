@@ -47,18 +47,6 @@ static void __stdcall DRLGOUTWILD_FindBridgeInColumn(D2DrlgLevelStrc* pLevel, in
     *pY = -1;
 }
 
-// 0x0067FC20
-void __fastcall DRLGOUTWILD_GetBridgeCoords(D2DrlgLevelStrc* pLevel, int* pX, int* pY)
-{
-    DRLGOUTWILD_FindBridgeInColumn(pLevel, pLevel->pOutdoors->nGridWidth / 2 - 1, pX, pY);
-}
-
-// 0x0067FC50
-void __fastcall sub_0067FC50(D2DrlgLevelStrc* pLevel, int* pX, int* pY)
-{
-    DRLGOUTWILD_FindBridgeInColumn(pLevel, pLevel->pOutdoors->nGridWidth - 2, pX, pY);
-}
-
 // 0x0067FCD0
 static inline int __stdcall sub_0067FCD0_GetPresetPairValue(int bFirst, int nIndex, unsigned int nFlags)
 {

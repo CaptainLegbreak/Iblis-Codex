@@ -1,8 +1,14 @@
 #include "D2Sound.h"
+#include "D2SysTypes.h"
+
 #include "D2GfxTypes.h"
+
 #include "D2Win32Base.h"
+
 #include "D2DDrawTypes.h"
+
 #include "D2GlideTypes.h"
+
 #include "D2GameTypes.h"
 
 #include "D2SoundTypes.h"
@@ -181,6 +187,25 @@ void __fastcall D2SOUND_10034(int nValue)
         gbChannelFlag = 1;
     }
     gnChannelValue = nValue;
+}
+
+extern int gdwGlobal_00881798; // 0x00881798
+
+// 0x00514920
+int __cdecl D2SOUND_GetStreamChannelValue()
+{
+    return gdwGlobal_00881798;
+}
+
+// 0x00514930
+void __cdecl sub_00514930_StopChannel()
+{
+    if (gpSoundChannel)
+    {
+        gnChannelValue = 0;
+        if (D2SOUND_IsSoundStreaming(gpSoundChannel))
+            D2SOUND_StopSound(gpSoundChannel);
+    }
 }
 
 // 0x00514960

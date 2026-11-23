@@ -291,19 +291,3 @@ void __cdecl sub_005140D0_InitDirectSound()
 
 extern int gdwGlobal_00881798; // 0x00881798
 
-// 0x00514920
-int __cdecl D2SOUND_GetStreamChannelValue()
-{
-    return gdwGlobal_00881798;
-}
-
-// 0x00514930
-void __cdecl sub_00514930_StopChannel()
-{
-    if (gpSoundChannel)
-    {
-        gnChannelValue = 0;
-        if (D2SOUND_IsSoundStreaming(gpSoundChannel))
-            D2SOUND_StopSound(gpSoundChannel);
-    }
-}

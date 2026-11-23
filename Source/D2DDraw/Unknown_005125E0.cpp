@@ -37,55 +37,6 @@ int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int a2, int a3); 
 
 int gaDDrawDebugFontCharWidths[96]; // 0x00881428
 
-// 0x005125E0
-static int __stdcall sub_005125E0_SoftDebugDrawChar(int nY, int nX, char ch)
-{
-    if (nX > 640)
-        return 0;
-
-    if (nX < 0)
-        return gaDDrawDebugFontCharWidths[ch];
-
-    const unsigned char n = ch - 0x20;
-    if (n <= 0x5F)
-    {
-        const unsigned char* pBits = gpDDrawDebugFontGlyphs + gaDDrawDebugFontGlyphOffsets[(char)n];
-// build: symbol ?gnRenderWidth@* 0x007C9138
-        unsigned char* pDst = gpScreenBuffer_007C9154 + gnRenderWidth * nY + nX;
-        for (int nRow = 16; nRow; --nRow)
-        {
-            for (int nCol = 8; nCol; --nCol)
-            {
-                if (*pBits++)
-                    *pDst = 0xFF;
-                ++pDst;
-            }
-            pDst += gnRenderWidth - 8;
-        }
-        return gaDDrawDebugFontCharWidths[(char)n];
-    }
-
-    return gaDDrawDebugFontCharWidths[0];
-}
-
-// 0x00512680
-void __fastcall sub_00512680_SoftDebugPrintf(int nX, int nY, const char* szFormat, char* args)
-{
-    char szText[0x200];
-    const int nLength = wvsprintfA(szText, szFormat, args);
-    const int nStartX = nX;
-
-    for (int i = 0; i < nLength; ++i)
-    {
-        nX += sub_005125E0_SoftDebugDrawChar(nY, nX, szText[i]);
-        if (szText[i] == '\n')
-        {
-            nX = nStartX;
-            nY += 0x0C;
-        }
-    }
-}
-
 // 0x00512A50
 void __fastcall sub_00512A50_DrawLine(D2CoordPairStrc* pFrom, D2CoordPairStrc* pTo, unsigned char nColor)
 {

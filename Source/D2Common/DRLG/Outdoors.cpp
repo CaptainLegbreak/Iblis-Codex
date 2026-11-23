@@ -1,18 +1,34 @@
 #include "D2LevelIds.h"
+#include "D2DrlgPresets.h"
+
 #include "D2ItemTypes.h"
+
 #include "D2DrlgTiles.h"
+
 #include "D2TxtTables.h"
+
 #include "D2Unicode.h"
+
 #include "D2StateIds.h"
+
 #include "D2SkillIds.h"
+
 #include "D2StatIds.h"
+
 #include "D2DataTbls.h"
+
 #include "D2Records.h"
+
 #include "D2Skills.h"
+
 #include "D2LevelTxt.h"
+
 #include "D2Txt.h"
+
 #include "D2PlayerModes.h"
+
 #include "D2MonModes.h"
+
 #include "D2PathFind.h"
 
 #include "D2Common.h"
@@ -662,9 +678,13 @@ struct D2UnkOutdoorStrc
     void(__fastcall* field_30)(D2DrlgLevelStrc* pLevel, int nX, int nY);
     void(__fastcall* field_34)(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nRand, int a6);
 };
+
 void __fastcall sub_00670750_ApplySubstitutionBorder(D2UnkOutdoorStrc* pOutdoor); // 0x00670750
+
 void __fastcall DRLGOUTDOORS_AlterAdjacentPresetGridCells(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674160
+
 void __fastcall DRLGOUTDOORS_SetBlankGridCell(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x006741A0
+
 unsigned int __fastcall DRLGOUTDOORS_TestGridCellNonLvlLink(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x006741E0
 
 // 0x006752A0
@@ -818,6 +838,246 @@ int __fastcall DRLGOUTDOORS_GetBorderLookupId(D2DrlgLevelStrc* pLevel, bool bFla
         return DRLGOUTSIEGE_GetBorderLookupId(pLevel);
     }
     return -1;
+}
+
+extern int gaDesertBorderIds[][2]; // 0x006F112C
+void __fastcall DRLGOUTPLACE_SetBlankBorderGridCells(D2DrlgLevelStrc* pLevel); // 0x00675670
+void __fastcall DRLGVER_GetCoordDiff(D2DrlgVertexStrc* pVertex, int* pDirectionX, int* pDirectionY); // 0x0067D280
+int __fastcall sub_00675600_LookupTable(int nA, int nB, int nC, int nD, int nE)
+{
+    if (nA < 0)
+    {
+        nA -= 2;
+    }
+    else if (nA > 0)
+    {
+        nA += 2;
+    }
+
+    if (nC < 0)
+    {
+        nC -= 2;
+    }
+    else if (nC > 0)
+    {
+        nC += 2;
+    }
+
+// build: symbol ?gaBorderIndicesByDelta@* 0x006F1088
+    const int nRow = gaBorderIndicesByDelta[nA + 9 * (nC + nD) + nB];
+    if (nRow == -1)
+    {
+        return 0;
+    }
+
+    if (nE >= 4)
+    {
+        return gaBarricadeCliffBorderIds[nRow - 1][nE - 4];
+    }
+
+    return gaBorderLevelPrestIds[nRow - 1][nE];
+}
+
+// 0x00675850
+void __fastcall DRLGOUTPLACE_PlaceAct1245OutdoorBorders(D2DrlgLevelStrc* pLevel)
+{
+    int nCurrentDiffX;
+    int nCurrentDiffY;
+    int nNextDiffX;
+    int nNextDiffY;
+    int nCurrentDiffXAbs;
+    int nCurrentDiffYAbs;
+    int nCurrentX;
+    int nCurrentY;
+    int nNextX;
+    int nNextY;
+    int nDelta;
+    int nDiff;
+    int nX;
+    int nY;
+    int nIndex;
+    int nLevelPrestId;
+    int nStyle;
+    int nPacked;
+    unsigned char nDirection;
+
+    unsigned char nAct = DRLG_GetActNoFromLevelId(pLevel->eLevelId);
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
+    D2DrlgVertexStrc* pVertex = pOutdoors->pVertex;
+    D2DrlgVertexStrc* pNext = pVertex->pNext;
+
+    do
+    {
+        DRLGVER_GetCoordDiff(pVertex, &nCurrentDiffX, &nCurrentDiffY);
+        DRLGVER_GetCoordDiff(pNext, &nNextDiffX, &nNextDiffY);
+
+        if (nCurrentDiffX >= 0)
+        {
+            nCurrentDiffXAbs = nCurrentDiffX;
+        }
+        else
+        {
+            nCurrentDiffXAbs = -nCurrentDiffX;
+        }
+
+        if (nCurrentDiffY < 0)
+        {
+            nCurrentDiffYAbs = -nCurrentDiffY;
+        }
+        else
+        {
+            nCurrentDiffYAbs = nCurrentDiffY;
+        }
+
+        nCurrentX = pVertex->nPosX;
+        nCurrentY = pVertex->nPosY;
+        nNextX = pNext->nPosX;
+        nNextY = pNext->nPosY;
+        if (nCurrentDiffXAbs)
+        {
+            nDelta = nCurrentX - nNextX;
+            if (nDelta < 0)
+            {
+                nDiff = -nDelta;
+            }
+            else
+            {
+                nDiff = nDelta;
+            }
+        }
+        else
+        {
+            nDelta = nCurrentY - nNextY;
+            if (nDelta < 0)
+            {
+                nDiff = -nDelta;
+            }
+            else
+            {
+                nDiff = nDelta;
+            }
+        }
+
+        nDirection = pVertex->nDirection;
+        nPacked = nDirection != 0 ? 3 : 1;
+
+        nLevelPrestId = DRLGOUTDOORS_GetBorderLevelPrestId(nCurrentDiffX, nCurrentDiffY, DRLGOUTDOORS_GetBorderLookupId(pLevel, nDirection != 0));
+
+        if (!(pVertex->dwFlags & 2))
+        {
+            while (nCurrentX != nNextX || nCurrentY != nNextY)
+            {
+                nCurrentX += nCurrentDiffX;
+                nCurrentY += nCurrentDiffY;
+                DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nCurrentX, nCurrentY, nLevelPrestId, -1, 0);
+                DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[2], nCurrentX, nCurrentY, nPacked, 0);
+            }
+        }
+
+        if (pVertex->dwFlags & 1 && !(pVertex->dwFlags & 2))
+        {
+            switch (nAct)
+            {
+            case 0:
+            case 4:
+                nX = (pVertex->nPosX < pNext->nPosX ? pVertex->nPosX : pNext->nPosX) + nCurrentDiffXAbs * nDiff / 2;
+
+                nY = (pVertex->nPosY < pNext->nPosY ? pVertex->nPosY : pNext->nPosY) + nCurrentDiffYAbs * nDiff / 2;
+
+                if (pLevel->eLevelId == LEVEL_BURIALGROUNDS)
+                {
+                    DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[2], nX, nY, 0xF0000, 5);
+                    DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[2], nX, nY, 0x40400, 0);
+                }
+                else
+                {
+                    DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[2], nX, nY, 0xF0000, 5);
+                    DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[2], nX, nY, 0x30400, 0);
+                }
+                break;
+
+            case 3:
+                nX = (pVertex->nPosX < pNext->nPosX ? pVertex->nPosX : pNext->nPosX) + nCurrentDiffXAbs * nDiff / 2;
+
+                nY = (pVertex->nPosY < pNext->nPosY ? pVertex->nPosY : pNext->nPosY) + nCurrentDiffYAbs * nDiff / 2;
+
+                DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[2], nX, nY, 0xF0000, 5);
+                DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[2], nX, nY, 0x30400, 0);
+                break;
+
+            case 1:
+                nX = (pVertex->nPosX < pNext->nPosX ? pVertex->nPosX : pNext->nPosX) + nCurrentDiffXAbs * nDiff / 2;
+
+                nY = (pVertex->nPosY < pNext->nPosY ? pVertex->nPosY : pNext->nPosY) + nCurrentDiffYAbs * nDiff / 2;
+
+                nIndex = nCurrentDiffX + 2 * nCurrentDiffY + 2;
+                DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY, gaDesertBorderIds[nIndex][0], -1, 0);
+                DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX + nCurrentDiffXAbs, nY + nCurrentDiffYAbs, gaDesertBorderIds[nIndex][1], -1, 0);
+                break;
+            }
+        }
+
+        if (nDirection || (nDirection = pNext->nDirection) != 0)
+        {
+            nPacked |= 2;
+        }
+
+        nStyle = DRLGOUTDOORS_GetBorderLookupId(pLevel, nDirection != 0);
+
+        if (pVertex->dwFlags & 2)
+        {
+            if (pNext->dwFlags & 2)
+            {
+                nLevelPrestId = sub_00675600_LookupTable(nCurrentDiffX, nCurrentDiffY, nNextDiffX, nNextDiffY, nStyle);
+            }
+            else
+            {
+                nLevelPrestId = sub_00675600_LookupTable(nCurrentDiffX, nCurrentDiffY, 2 * nNextDiffX, 2 * nNextDiffY, nStyle);
+            }
+        }
+        else
+        {
+            if (pNext->dwFlags & 2)
+            {
+                nLevelPrestId = sub_00675600_LookupTable(2 * nCurrentDiffX, 2 * nCurrentDiffY, nNextDiffX, nNextDiffY, nStyle);
+            }
+            else
+            {
+                nLevelPrestId = sub_00675600_LookupTable(2 * nCurrentDiffX, 2 * nCurrentDiffY, 2 * nNextDiffX, 2 * nNextDiffY, nStyle);
+            }
+        }
+
+        if (nLevelPrestId == 19)
+        {
+            if (pVertex->nDirection == 1)
+            {
+                if (pNext->nDirection != 1)
+                {
+                    nLevelPrestId = 20;
+                }
+                else
+                {
+                    nLevelPrestId = 19;
+                }
+            }
+            else
+            {
+                nLevelPrestId = 21;
+            }
+        }
+
+        if (nLevelPrestId != 0)
+        {
+            DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nNextX, nNextY, nLevelPrestId, -1, 0);
+            DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[2], nNextX, nNextY, nPacked, 0);
+        }
+
+        pVertex = pNext;
+        pNext = pNext->pNext;
+    }
+    while (pVertex != pOutdoors->pVertex);
+
+    DRLGOUTPLACE_SetBlankBorderGridCells(pLevel);
 }
 
 #include "gen/data/Source/D2Common/DRLG/Outdoors.inc"

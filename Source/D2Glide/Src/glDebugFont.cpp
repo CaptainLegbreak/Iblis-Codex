@@ -1,4 +1,5 @@
 #include "D2Glide.h"
+#include "D2DrlgMaps.h"
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -161,6 +162,70 @@ int __fastcall GLIDE_DownloadDebugFont(int nStartAddress, int nAlignment)
     gaGlideDebugFontVertices[3].oow = 1.0f;
 
     return nTotal;
+}
+
+extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const char* szFormat, char* args); // 0x006CC4AC
+extern void (__stdcall* gpfnGrTexSource)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EB98
+extern void (__stdcall* gpfnGrDrawVertexArrayContiguous)(int nMode, int nCount, void* pVertices, int nStride); // 0x0087EAC4
+void __fastcall GLIDE_SetColorCombineMode(int nState); // 0x005094B0
+void __fastcall GLIDE_SetAlphaBlendMode(int nMode); // 0x00509500
+void __fastcall GLIDE_SetTextureFilterMode(int nMode); // 0x005095D0
+void __fastcall GLIDE_SetTextureCombineMode(int nTmu); // 0x00509460
+struct D2GlideVtxStrc { float x; float y; float z; float oow; float sow; float tow; unsigned int color; };
+int gaGlideDebugFontCharWidths[96]; // 0x008802C8
+
+// 0x0050BBA0
+static int __stdcall sub_0050BBA0_GlideDebugDrawChar(char ch, int nX, int nY)
+{
+    if (nX > 640)
+        return 0;
+
+    if (nX < 0)
+        return gaGlideDebugFontCharWidths[ch];
+
+    if ((unsigned char)(ch - 0x20) <= 0x5F)
+    {
+        const int nRight = nX + 8;
+        const int nBottom = nY + 16;
+        gaGlideDebugFontVertices[0].x = (float)nX;
+        gaGlideDebugFontVertices[0].y = (float)nY;
+        gaGlideDebugFontVertices[1].x = (float)nX;
+        gaGlideDebugFontVertices[1].y = (float)nBottom;
+        gaGlideDebugFontVertices[2].x = (float)nRight;
+        gaGlideDebugFontVertices[2].y = (float)nBottom;
+        gaGlideDebugFontVertices[3].x = (float)nRight;
+        gaGlideDebugFontVertices[3].y = (float)nY;
+
+        ch -= 0x20;
+        gpfnGrTexSource(gnGlideDebugFontTmu, gaGlideDebugFontTexAddr[ch], 3, &gtGlideDebugFontTexInfo);
+        gpfnGrDrawVertexArrayContiguous(5, 4, gaGlideDebugFontVertices, sizeof(D2GlideSpriteVertexStrc));
+        return gaGlideDebugFontCharWidths[ch];
+    }
+
+    return gaGlideDebugFontCharWidths[0];
+}
+
+// 0x0050BC90
+void __fastcall sub_0050BC90_GlideDebugPrintf(int nX, int nY, const char* szFormat, char* args)
+{
+    char szText[0x200];
+    const int nLength = wvsprintfA(szText, szFormat, args);
+    const int nStartX = nX;
+
+    GLIDE_SetColorCombineMode(1);
+    GLIDE_SetAlphaBlendMode(1);
+    GLIDE_SetTextureFilterMode(1);
+    GLIDE_SetTextureCombineMode(gnGlideDebugFontTmu);
+
+    for (int i = 0; i < nLength; ++i)
+    {
+        nX += sub_0050BBA0_GlideDebugDrawChar(szText[i], nX, nY);
+        if (szText[i] == '\n')
+        {
+            nX = nStartX;
+            nY += 12;
+        }
+    }
 }
 
 #include "gen/data/Source/D2Glide/Src/glDebugFont.inc"

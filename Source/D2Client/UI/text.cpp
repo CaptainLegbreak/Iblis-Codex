@@ -2038,6 +2038,40 @@ int __fastcall sub_0049D300_GetFieldA4(D2TextFieldA4Strc* pRecord)
 
 struct D2BitBufferStrc;
 
+void __stdcall sub_L04_EmitUse(const Unicode* pText);
+
+// 0x0049D310
+static void __stdcall sub_0049D310_CopyTextLine(Unicode* pDest, int nMax, const Unicode** ppSrc)
+{
+    int i = 0;
+    memset(pDest, 0, nMax * sizeof(Unicode));
+    for (; i < nMax; ++i)
+    {
+        if ((*ppSrc)->wChar == 0x0A)
+            break;
+        pDest[i].wChar = (*ppSrc)->wChar;
+        ++*ppSrc;
+    }
+    if (i < nMax)
+    {
+        const Unicode* pNext = *ppSrc;
+        if (pNext->wChar == 0x0A)
+            *ppSrc = pNext + 1;
+    }
+}
+
+// build: context sub_L04_EmitCopyTextLine
+void __stdcall sub_L04_EmitCopyTextLine(const Unicode* pText)
+{
+    const Unicode* p = pText;
+    while (p->wChar)
+    {
+        Unicode wszLine[0x20];
+        sub_0049D310_CopyTextLine(wszLine, 0x20, &p);
+        sub_L04_EmitUse(wszLine);
+    }
+}
+
 // build: symbol ??0Unicode@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x0049D370
@@ -6782,6 +6816,134 @@ int __fastcall TEXT_SplitAtNewline(Unicode* wszText, Unicode** ppNext)
     }
     return 0;
 }
+
+#pragma pack(push, 2)
+struct D2BeltSlotStrc
+{
+    int nX;
+    int nY;
+    int bActive;
+    unsigned short wCode;
+};
+#pragma pack(pop)
+
+static int gbStatScreenButtonDown;                                                                               // 0x007C02F4
+
+extern D2BeltSlotStrc gaStatButtons[4];                                                                  // 0x00724A48
+
+int __fastcall sub_00498DC0(SMSGHANDLER_PARAMS* pMsg);
+
+int __cdecl sub_00468830();
+
+void __cdecl UI_CancelCursorItemUse();
+
+static int sub_004A76C0_ClaimLeftPanelClick(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (D2GFX_GetResolutionMode() == 2 && !sub_00498DC0(pMsg) && pMsg->nXpos <= gnScreenWidth / 2 && pMsg->nYpos < gnScreenHeight - 0x2F)
+    {
+        if (sub_00468830() == 6)
+            UI_CancelCursorItemUse();
+        pMsg->bReturn = 1;
+        sub_00420290_BreakHandlerChain(pMsg);
+        return 1;
+    }
+    return 0;
+}
+
+// 0x004A7720
+void __stdcall sub_004A7720_OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
+{
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
+    if (nX >= gnPanelOffsetX + 0x80 && nX <= gnPanelOffsetX + 0xA0 && nY >= gnScreenHeight + gnPanelOffsetY - 0x5C && nY <= gnScreenHeight + gnPanelOffsetY - 0x3C)
+    {
+        gbStatScreenButtonDown = 1;
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_004B9A00(4, 0, 0, 0, 0);
+        sub_00420290_BreakHandlerChain(pMsg);
+        return;
+    }
+    if (nX >= gnPanelOffsetX && nX <= gnScreenWidth / 2 - 1 && nY >= gnPanelOffsetY && nY <= gnScreenHeight + gnPanelOffsetY - 0x31)
+    {
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        if (STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0))
+        {
+            for (int i = 0; i < 4; ++i)
+            {
+                if (nY > gaStatButtons[i].nY + gnPanelOffsetY + gnScreenHeight - 0x1F6 && nY < gaStatButtons[i].nY + gnPanelOffsetY + gnScreenHeight - 0x1E0 && nX > gaStatButtons[i].nX + gnPanelOffsetX && nX < gaStatButtons[i].nX + gnPanelOffsetX + 0x28)
+                {
+                    gaStatButtons[i].bActive = 1;
+                    ROSTERPETS_HandleButtonDown(pMsg);
+                    pMsg->bReturn = 1;
+                    pMsg->lResult = 0;
+                    sub_004B9A00(5, 0, 0, 0, 0);
+                    sub_00420290_BreakHandlerChain(pMsg);
+                    return;
+                }
+            }
+        }
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_00420290_BreakHandlerChain(pMsg);
+        return;
+    }
+    if (!sub_004A76C0_ClaimLeftPanelClick(pMsg))
+        pMsg->bReturn = 0;
+}
+
+
+extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey);
+
+// 0x004A78C0
+void __stdcall sub_004A78C0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
+{
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
+    ROSTERPETS_HandleButtonUp(pMsg);
+    gbStatScreenButtonDown = 0;
+    if (nX >= gnPanelOffsetX + 0x80 && nX <= gnPanelOffsetX + 0xA0 && nY >= gnScreenHeight + gnPanelOffsetY - 0x5C && nY <= gnScreenHeight + gnPanelOffsetY - 0x3C)
+    {
+        UI_SetUIVar(2, 1, 0);
+        return;
+    }
+    if (nX >= gnPanelOffsetX && nX <= gnScreenWidth / 2 - 1 && nY >= gnPanelOffsetY && nY <= gnScreenHeight + gnPanelOffsetY - 0x31)
+    {
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        if (STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0))
+        {
+            const int nScreenH = gnScreenHeight;
+            for (int i = 0; i < 4; ++i)
+            {
+                gaStatButtons[i].bActive = 0;
+                if (nY > gaStatButtons[i].nY + gnPanelOffsetY + nScreenH - 0x1F6 && nY < gaStatButtons[i].nY + gnPanelOffsetY + nScreenH - 0x1E0 && nX > gaStatButtons[i].nX + gnPanelOffsetX && nX < gaStatButtons[i].nX + gnPanelOffsetX + 0x28)
+                {
+                    int nCount = STATLIST_UnitGetStatValue(pPlayer, STAT_STATPTS, 0);
+                    if (GetKeyState(0x10) >= 0)
+                        nCount = 1;
+                    else if (!nCount)
+                        break;
+                    do
+                    {
+                        const int nStack = nCount < 0x20 ? nCount : 0x20;
+                        nCount -= nStack;
+                        sub_004785B0_SendPacket3(0x3A, ((unsigned char)(nStack - 1) << 8) | gaStatButtons[i].wCode);
+                    }
+                    while (nCount);
+                    break;
+                }
+            }
+        }
+        GAME_ResetMouseButtons();
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_00420290_BreakHandlerChain(pMsg);
+        return;
+    }
+    if (!sub_004A76C0_ClaimLeftPanelClick(pMsg))
+        pMsg->bReturn = 0;
+}
+
 
 // 0x004A7A90
 void __cdecl TEXT_SetGoldDialogFlag()

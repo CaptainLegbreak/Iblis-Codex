@@ -1,11 +1,20 @@
 #include "D2DDraw.h"
+#include "D2DDrawTypes.h"
+#include "D2GlideTypes.h"
+#include "D2DrlgMaps.h"
+
 #include "D2Structs.h"
+
 #include "D2DataTbls.h"
+
 #include "D2LevelTxt.h"
+
 #include "D2ClientMenus.h"
 
 struct D2PlayerDataStrc;
+
 struct D2TextHeaderStrc;
+
 struct D2SetsTxt { char unk0x000[0x128]; };
 
 enum
@@ -14,43 +23,77 @@ enum
 };
 
 typedef void (__cdecl* D2WheelCallbackFn)();
+
 typedef int (__stdcall* D2FarProcFn)();
+
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(D2FarProcFn lpfn);                              // 0x006CC34C
+
 void __fastcall DLIGHTMAP_ReleaseLight(void* pResource);                                       // 0x004743D0
+
 void __cdecl TEXT_ResetTextBox();                                                                   // 0x0049F960
+
 void __stdcall TEXT_FreeTextHeader(D2TextHeaderStrc* pTextHeader);                                          // 0x006612A0
+
 int __stdcall SFileUnloadFile(void* pBuffer); // 0x00416710
+
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+
 unsigned char __stdcall sub_004FB180_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);  // 0x004FB180
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
+
 extern D2WheelCallbackFn gpfnWheelUp;                                                              // 0x007A7404
+
 extern D2WheelCallbackFn gpfnWheelDown;                                                            // 0x007A7408
+
 extern D2HotkeyStrc gtHotkeys_007A6F90[NUM_HOTKEYS];                                                        // 0x007A6F90
+
 extern D2UnitStrc* gapAiTargets[];                                                                  // 0x007A7470
+
 extern unsigned char gabColors_007BCAD8[5];                                                                 // 0x007BCAD8
+
 extern int gnInvPanelMode;                                                                              // 0x007BCBF0
+
 extern int gbGoldButtonDisabled;                                                                               // 0x007BCE2C
+
 extern int gnDialogState;                                                                               // 0x00721E34
+
 extern int gnHoverTopX;                                                                               // 0x00721E3C
+
 extern int gnHoverTopY;                                                                               // 0x00721E40
+
 extern int gnHoverBottomX;                                                                               // 0x00721E44
+
 extern int gnHoverBottomY;                                                                               // 0x00721E48
+
 extern int gnHoverCellX;                                                                               // 0x00721E4C
+
 extern int gnHoverCellY;                                                                               // 0x00721E50
+
 extern int gbHoverInGrid;                                                                              // 0x007BCBE4
+
 extern int gbHoverInBodyLoc;                                                                              // 0x007BCBE8
+
 extern int gpHoverItem;                                                                              // 0x007BCBF4
+
 extern int gpLastHoverItem;                                                                              // 0x007BCBF8
+
 extern int gbTextPanelOpen;                                                                               // 0x007BF1FA
+
 extern D2TextHeaderStrc* gpTextHeader;                                                             // 0x007BF250
+
 extern int gnTradeState;                                                                               // 0x007C0E7C
+
 unsigned char* gpDDrawDebugFontGlyphs;                                                             // 0x008815AC
+
 extern void* gpReply_008818D0;                                                                              // 0x008818D0
+
 extern "C" void* gpGidFileData;                                                                    // 0x00882744
+
 extern "C" void* gpClhFileData;                                                                    // 0x00882750
 
 extern "C" __declspec(dllimport) void* __stdcall CreateBitmap(int nWidth, int nHeight, unsigned int nPlanes, unsigned int nBitCount, const void* lpBits); // 0x006CC090
@@ -136,4 +179,56 @@ void __cdecl DDRAW_CreateDebugFont()
     DeleteObject(hBitmap);
     DeleteObject(hFont);
     DeleteDC(hDC);
+}
+
+extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const char* szFormat, char* args); // 0x006CC4AC
+int gaDDrawDebugFontCharWidths[96]; // 0x00881428
+
+// 0x005125E0
+static int __stdcall sub_005125E0_SoftDebugDrawChar(int nY, int nX, char ch)
+{
+    if (nX > 640)
+        return 0;
+
+    if (nX < 0)
+        return gaDDrawDebugFontCharWidths[ch];
+
+    const unsigned char n = ch - 0x20;
+    if (n <= 0x5F)
+    {
+        const unsigned char* pBits = gpDDrawDebugFontGlyphs + gaDDrawDebugFontGlyphOffsets[(char)n];
+// build: symbol ?gnRenderWidth@* 0x007C9138
+        unsigned char* pDst = gpScreenBuffer_007C9154 + gnRenderWidth * nY + nX;
+        for (int nRow = 16; nRow; --nRow)
+        {
+            for (int nCol = 8; nCol; --nCol)
+            {
+                if (*pBits++)
+                    *pDst = 0xFF;
+                ++pDst;
+            }
+            pDst += gnRenderWidth - 8;
+        }
+        return gaDDrawDebugFontCharWidths[(char)n];
+    }
+
+    return gaDDrawDebugFontCharWidths[0];
+}
+
+// 0x00512680
+void __fastcall sub_00512680_SoftDebugPrintf(int nX, int nY, const char* szFormat, char* args)
+{
+    char szText[0x200];
+    const int nLength = wvsprintfA(szText, szFormat, args);
+    const int nStartX = nX;
+
+    for (int i = 0; i < nLength; ++i)
+    {
+        nX += sub_005125E0_SoftDebugDrawChar(nY, nX, szText[i]);
+        if (szText[i] == '\n')
+        {
+            nX = nStartX;
+            nY += 0x0C;
+        }
+    }
 }

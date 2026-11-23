@@ -98,19 +98,6 @@ void __fastcall sub_004F7DA0_SetPanelCoords(int nPitch, int nHeight); // 0x004F7
 
 void __cdecl CMNSUBTILE_BuildLineOffsets(); // 0x004F7E70
 
-// 0x004F8850
-void __fastcall sub_004F8850_DrawLitBlock(D2TileLibraryBlockStrc* pBlock, unsigned char* pDst, int* pLight)
-{
-    const int nLightX = pLight[0] << 4;
-    const int nLightXStep = pLight[3] - pLight[0];
-    const int nLightY = pLight[1] << 4;
-    const int nLightYStep = pLight[2] - pLight[1];
-    if (pBlock->nFormat & 4)
-        sub_004F71A0_DrawLitRleRows(pBlock->pData, pDst, nLightX, nLightXStep, nLightY, nLightYStep, 0xF, 7);
-    else
-        D2GFX_DrawLitSubtileRows(pBlock->pData, pDst, nLightX, nLightXStep, nLightY, nLightYStep);
-}
-
 unsigned char* gpScreenBuffer; // 0x007D5448
 
 int gnLightingOff; // 0x007D2340

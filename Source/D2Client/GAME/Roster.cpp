@@ -306,6 +306,20 @@ int __fastcall ROSTER_GetPetLife(int nUnitId)
     return 0;
 }
 
+// 0x004790F0
+int __fastcall sub_004790F0(int nUnitId)
+{
+    for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
+    {
+        if (pPet->dwUnitId == nUnitId)
+        {
+            return pPet->nArg10;
+        }
+    }
+    return 0;
+}
+
+
 // 0x00479180
 int __fastcall ROSTER_GetPetType(int nUnitId)
 {

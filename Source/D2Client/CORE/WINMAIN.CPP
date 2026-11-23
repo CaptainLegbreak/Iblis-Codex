@@ -546,6 +546,248 @@ static int gnChunkExpected; // 0x00799310
 
 extern unsigned char gabChunkBuffer[]; // 0x00799318
 
+// 0x0044AB70
+int __fastcall sub_0044AB70_McpIncomingIgnore(void* pPacket, int nSize)
+{
+    return 1;
+}
+
+
+#pragma pack(push, 1)
+struct D2McpPacketValueStrc
+{
+    unsigned char f_0;
+    int nValue;
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+struct D2McpIncoming03Strc
+{
+    unsigned char f_0;
+    unsigned short f_1;
+    int nValueB0;
+    int nCode;
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+struct D2McpIncoming04Strc
+{
+    unsigned char f_0;
+    unsigned short f_1;
+    int nValueB0;
+    int f_7;
+    int nValue88;
+    int nCode;
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+struct D2McpIncoming0AStrc
+{
+    unsigned char f_0;
+    unsigned short f_1;
+    int nCode;
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+struct D2McpIncoming08Strc
+{
+    unsigned char f_0;
+    unsigned short f_1;
+    unsigned char aData[1];
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+struct D2McpIncoming09Strc
+{
+    unsigned char f_0;
+    unsigned short f_1;
+    unsigned char nByte03;
+    unsigned char aData[1];
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+struct D2McpIncoming0EStrc
+{
+    unsigned char f_0;
+    char szText[1];
+};
+#pragma pack(pop)
+
+extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent);                                      // 0x006CC130
+
+void __stdcall CHATDLG_SetCharLogonReceived(int nValue);                                                           // 0x00449C40
+
+void __stdcall CHATDLG_SetCharDeleteReceived(int nValue);                                                           // 0x00449C60
+
+void __stdcall CHATDLG_SetCharUpgradeReceived(int nValue);                                                           // 0x00449C80
+
+void __stdcall sub_00449C90_SetValue(int nValue);                                                           // 0x00449C90
+
+void __stdcall sub_00449CC0_SetValue(int nValue);                                                           // 0x00449CC0
+
+void __stdcall CHATDLG_SetMcpTexts(int nResult, const char* szText1, const char* szText2);                // 0x00449D10
+
+void __stdcall sub_00449D90_SetValue(int nValue);                                                           // 0x00449D90
+
+void __stdcall sub_00449DB0_SetValue(int nValue);                                                           // 0x00449DB0
+
+extern void* ghConnectEvent;                                                                       // 0x007992EC
+
+unsigned short gwMcpReplyRequestId;                                                                        // 0x00798F80
+
+D2McpCallbackFn gpfnMcpPacket08Callback;                                                                   // 0x007992F8
+
+D2McpCallbackFn gpfnMcpPacket09Callback;                                                                   // 0x007992FC
+
+// 0x0044AB80
+int __fastcall sub_0044AB80_McpIncoming1B(D2McpPacketValueStrc* pPacket, int nSize)
+{
+// build: symbol ?CHATDLG_SetMcpResult@* 0x00449BF0
+    CHATDLG_SetMcpResult(pPacket->nValue);
+    SetEvent(ghConnectEvent);
+    return 1;
+}
+
+// 0x0044ABA0
+int __fastcall sub_0044ABA0_McpIncoming02(D2McpPacketValueStrc* pPacket, int nSize)
+{
+    CHATDLG_SetMcpResult(pPacket->nValue);
+// build: symbol ?CHATDLG_SetCharCreateReceived@* 0x00449C20
+    CHATDLG_SetCharCreateReceived(1);
+    return 1;
+}
+
+// 0x0044ABC0
+int __fastcall sub_0044ABC0_McpIncoming07(D2McpPacketValueStrc* pPacket, int nSize)
+{
+    CHATDLG_SetMcpResult(pPacket->nValue);
+    CHATDLG_SetCharLogonReceived(1);
+    return 1;
+}
+
+// 0x0044ABE0
+int __fastcall sub_0044ABE0_McpIncoming03(D2McpIncoming03Strc* pPacket, int nSize)
+{
+    const int nValueB0 = pPacket->nValueB0;
+    if (pPacket->f_1 == gwMcpRequestId)
+    {
+        CHATDLG_SetMcpResult(pPacket->nCode);
+        gwMcpReplyRequestId = gwMcpRequestId;
+        gnMcpGameToken = nValueB0;
+    }
+    return 1;
+}
+
+// 0x0044AC20
+int __fastcall sub_0044AC20_McpIncoming04(D2McpIncoming04Strc* pPacket, int nSize)
+{
+    const int nValueB0 = pPacket->nValueB0;
+    const int nAddress = pPacket->f_7;
+    const int nValue88 = pPacket->nValue88;
+    const int nCode = pPacket->nCode;
+    if (pPacket->f_1 == gwMcpRequestId)
+    {
+        gwMcpReplyRequestId = gwMcpRequestId;
+        gnMcpGameToken = nValueB0;
+        gdwMcpGameHash = nValue88;
+        if (!nAddress)
+        {
+            if (nCode)
+            {
+                CHATDLG_SetMcpResult(nCode);
+                return 1;
+            }
+            CHATDLG_SetMcpResult(0x28);
+            return 1;
+        }
+// build: symbol ?FOG_inet_ntoa@* 0x0040E080
+        SStrCopy(gszMcpGameServerIP, FOG_inet_ntoa(nAddress), 0x12);
+    }
+    return 1;
+}
+
+// 0x0044ADF0
+int __fastcall sub_0044ADF0_McpIncoming08(D2McpIncoming08Strc* pPacket, int nSize)
+{
+    if (gpfnMcpPacket08Callback)
+        gpfnMcpPacket08Callback(pPacket->f_1, pPacket->aData);
+    return 1;
+}
+
+// 0x0044AE10
+int __fastcall sub_0044AE10_McpIncoming09(D2McpIncoming09Strc* pPacket, int nSize)
+{
+    if (gpfnMcpPacket09Callback)
+        gpfnMcpPacket09Callback(pPacket->f_1, pPacket->aData);
+    return 1;
+}
+
+// 0x0044AE30
+int __fastcall sub_0044AE30_McpIncoming0A(D2McpIncoming0AStrc* pPacket, int nSize)
+{
+    if (pPacket->f_1 == gwMcpRequestId)
+    {
+        CHATDLG_SetMcpResult(pPacket->nCode);
+        CHATDLG_SetCharDeleteReceived(1);
+    }
+    return 1;
+}
+
+// 0x0044AE60
+int __fastcall sub_0044AE60_McpIncoming18(D2McpPacketValueStrc* pPacket, int nSize)
+{
+    CHATDLG_SetMcpResult(pPacket->nValue);
+    CHATDLG_SetCharUpgradeReceived(1);
+    return 1;
+}
+
+// 0x0044AE80
+int __fastcall sub_0044AE80_McpIncoming0B(D2McpPacketValueStrc* pPacket, int nSize)
+{
+    CHATDLG_SetMcpResult(pPacket->nValue);
+    sub_00449C90_SetValue(1);
+    return 1;
+}
+
+// 0x0044AEA0
+int __fastcall sub_0044AEA0_McpIncoming0C(D2McpPacketValueStrc* pPacket, int nSize)
+{
+    CHATDLG_SetMcpResult(pPacket->nValue);
+    sub_00449CC0_SetValue(1);
+    return 1;
+}
+
+// 0x0044AEC0
+int __fastcall sub_0044AEC0_McpIncoming0E(D2McpIncoming0EStrc* pPacket, int nSize)
+{
+    const char* szText = pPacket->szText;
+    CHATDLG_SetMcpTexts(1, szText, szText + strlen(szText) + 1);
+    return 1;
+}
+
+// 0x0044AEF0
+int __fastcall sub_0044AEF0_McpIncoming0D(D2McpPacketValueStrc* pPacket, int nSize)
+{
+    CHATDLG_SetMcpResult(pPacket->nValue);
+    sub_00449D90_SetValue(1);
+    return 1;
+}
+
+// 0x0044AF10
+int __fastcall sub_0044AF10_McpIncoming0F(D2McpPacketValueStrc* pPacket, int nSize)
+{
+    CHATDLG_SetMcpResult(pPacket->nValue);
+    sub_00449DB0_SetValue(1);
+    return 1;
+}
+
+
 // 0x0044AFC0
 int __fastcall sub_0044AFC0_ReceiveChunk(const unsigned char* packet,unsigned int size)
 {
