@@ -28328,42 +28328,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004B94E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004B94E0",
-     "length": 116,
-     "name": "?sub_004B94E0_FreeSound@@YAXPAUD2ClientSoundStrc@@@Z"
-    },
-    {
-     "va": "0x004B9700",
-     "length": 87,
-     "name": "?sub_004B9700_FindUnitSound@@YGPAUD2ClientSoundStrc@@PAU1@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004B98F0",
-     "length": 164,
-     "name": "?sub_004B98F0_SetSoundPosition@@YAXPAUD2ClientSoundStrc@@PAUD2SoundVecStrc@@@Z"
-    },
-    {
-     "va": "0x004B99A0",
-     "length": 85,
-     "name": "?sub_004B99A0_MoveSound@@YIXHHHH@Z"
-    },
-    {
-     "va": "0x004B9D20",
-     "length": 44,
-     "name": "?sub_004B9D20_FreeAllSounds@@YAXXZ"
-    },
-    {
-     "va": "0x004B9E90",
-     "length": 18,
-     "name": "?sub_004B9E90_HasUnitSound@@YIHPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004BA760.cpp",
    "rank": 0,
    "functions": [
@@ -28400,9 +28364,29 @@
    "rank": 1,
    "functions": [
     {
+     "va": "0x004B94E0",
+     "length": 116,
+     "name": "?sub_004B94E0_FreeSound@@YAXPAUD2ClientSoundStrc@@@Z"
+    },
+    {
      "va": "0x004B9610",
      "length": 37,
      "name": "?sub_004B9610@@YIPAXH@Z"
+    },
+    {
+     "va": "0x004B9700",
+     "length": 87,
+     "name": "?sub_004B9700_FindUnitSound@@YGPAUD2ClientSoundStrc@@PAU1@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004B98F0",
+     "length": 164,
+     "name": "?sub_004B98F0_SetSoundPosition@@YAXPAUD2ClientSoundStrc@@PAUD2SoundVecStrc@@@Z"
+    },
+    {
+     "va": "0x004B99A0",
+     "length": 85,
+     "name": "?sub_004B99A0_MoveSound@@YIXHHHH@Z"
     },
     {
      "va": "0x004B9B20",
@@ -28430,6 +28414,11 @@
      "name": "_sub_004B9D00_ResetSoundState"
     },
     {
+     "va": "0x004B9D20",
+     "length": 44,
+     "name": "?sub_004B9D20_FreeAllSounds@@YAXXZ"
+    },
+    {
      "va": "0x004B9D50",
      "length": 76,
      "name": "?sub_004B9D50_GetPosition@@YIHH@Z"
@@ -28438,6 +28427,11 @@
      "va": "0x004B9E10",
      "length": 116,
      "name": "MONSTER_IsNearPlayer"
+    },
+    {
+     "va": "0x004B9E90",
+     "length": 18,
+     "name": "?sub_004B9E90_HasUnitSound@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004B9EF0",
