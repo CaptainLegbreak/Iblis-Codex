@@ -22527,11 +22527,6 @@
      "va": "0x004B8370",
      "length": 39,
      "name": "@ROSTER_SetCtrlState@8"
-    },
-    {
-     "va": "0x004CA990",
-     "length": 48,
-     "name": "@ROSTER_GetLinkFirst@4"
     }
    ]
   },
@@ -31019,6 +31014,11 @@
      "va": "0x004CA900",
      "length": 143,
      "name": "?MISSILE_FindUnitSfxInRange@@YIPAXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004CA990",
+     "length": 48,
+     "name": "?ROSTER_GetLinkFirst@@YIPAXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004CA9C0",

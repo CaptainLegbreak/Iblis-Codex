@@ -5240,7 +5240,7 @@
   ["0x004CA8A0", 43, "verified", "?UNITSND_AddUnitSfx@@YIXPAUD2UnitStrc@@PAUD2TimedHintEntryStrc@@@Z"],
   ["0x004CA8D0", 43, "verified", "?UNITSND_RemoveUnitHint@@YIXPAUD2UnitStrc@@PAUD2TimedHintEntryStrc@@@Z"],
   ["0x004CA900", 143, "verified", "?MISSILE_FindUnitSfxInRange@@YIPAXPAUD2UnitStrc@@H@Z"],
-  ["0x004CA990", 48, "verified", "@ROSTER_GetLinkFirst@4"],
+  ["0x004CA990", 48, "verified", "?ROSTER_GetLinkFirst@@YIPAXPAUD2UnitStrc@@@Z"],
   ["0x004CA9C0", 72, "verified", "?UNITSND_ReleaseUnitHints@@YIXPAUD2UnitStrc@@H@Z"],
   ["0x004CAA10", 92, "verified", "?UNITSND_PurgeUnitHints@@YIXPAUD2UnitStrc@@@Z"],
   ["0x004CAA70", 40, "verified", "?sub_004CAA70_GetUnitByte70@@YAHPAUD2UnitStrc@@@Z"],
