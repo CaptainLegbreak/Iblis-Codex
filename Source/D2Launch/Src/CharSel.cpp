@@ -3492,31 +3492,6 @@ int __stdcall CHARSEL_SubmitProfile(int nArg)
     return 1;
 }
 
-// 0x00445020
-void __cdecl CHARSEL_RequestGameList()
-{
-// build: symbol ?gnChatLaunchMode@* 0x0077BBE4
-    gnChatLaunchMode = 3;
-    gnValue_00798CCC = 0;
-// build: symbol ?gpCharInfo@* 0x0077BBD8
-    if (gpCharInfo->nType0x35E == 2)
-    {
-        D2LaunchRequestStrc tRequest;
-        memset(&tRequest, 0, sizeof(tRequest));
-        if (gpCharInfo->wFlags[0] & 4)
-            tRequest.dwFlags |= 0x800;
-        while (++gwRequestId == 0)
-        {
-        }
-        WINMAIN_SendMcpGameListRequest(&tRequest, gwRequestId);
-        gwSavedRequestId = gwRequestId;
-    }
-    else
-    {
-        sub_00444E70_FillGameList();
-    }
-}
-
 // 0x00446890
 int __stdcall CHARSEL_SendChatLine(int nArg)
 {
