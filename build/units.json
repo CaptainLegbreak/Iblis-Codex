@@ -3514,6 +3514,10 @@
      "name": "?sub_004374E0_OnInfoScreen@@YGHH@Z"
     },
     {
+     "va": "0x004374F0",
+     "length": 89
+    },
+    {
      "va": "0x00437550",
      "length": 200,
      "name": "?MAINMENUS_CreateStatusScreen@@YAXXZ"
@@ -12210,10 +12214,6 @@
    "file": "Source/D2Launch/Unknown_004374F0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004374F0",
-     "length": 89
-    },
     {
      "va": "0x00437730",
      "length": 413,
