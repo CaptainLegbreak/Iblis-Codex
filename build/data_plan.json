@@ -2671,7 +2671,7 @@
   },
   "Source/D2Game/GAME/Game.cpp": {
    "bytes": 444,
-   "definitions": 10,
+   "definitions": 9,
    "externs": [
     "extern \"C\" void __cdecl sub_00548090(); // 0x00548090",
     "extern \"C\" void __cdecl sub_005482A0(); // 0x005482A0",
@@ -2937,7 +2937,7 @@
   },
   "Source/D2Game/PLAYER/PlrMsg.cpp": {
    "bytes": 848,
-   "definitions": 3,
+   "definitions": 4,
    "externs": [
     "extern \"C\" void __cdecl D2GAME_PACKETCALLBACK_Rcv0x61_DropPickupMercItem_0054D430(); // 0x0054D430",
     "extern \"C\" void __cdecl sub_005497E0(); // 0x005497E0",
@@ -91411,7 +91411,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/GAME/Game.cpp",
+   "file": "Source/D2Game/PLAYER/PlrMsg.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern D2UnkPlrMsgStrc gaUnitModeMessages[20] = ",
@@ -91462,16 +91462,16 @@
     [
      0,
      "0x0054DA10",
-     "queue_function",
-     "sub_0054DA10",
+     "names.json",
+     "PLRMSG_SendDeathMode",
      0,
      "func"
     ],
     [
      12,
      "0x00548400",
-     "queue_function",
-     "sub_00548400",
+     "names.json",
+     "PLRMSG_SendNeutralMode",
      0,
      "func"
     ],
@@ -91494,16 +91494,16 @@
     [
      48,
      "0x00548350",
-     "queue_function",
-     "sub_00548350",
+     "names.json",
+     "PLRMSG_SendGetHitMode",
      0,
      "func"
     ],
     [
      60,
      "0x00548400",
-     "queue_function",
-     "sub_00548400",
+     "names.json",
+     "PLRMSG_SendNeutralMode",
      0,
      "func"
     ],
@@ -91518,104 +91518,104 @@
     [
      84,
      "0x00548090",
-     "queue_function",
-     "sub_00548090",
+     "names.json",
+     "PLRMSG_SendSkillMode",
      0,
      "func"
     ],
     [
      96,
      "0x00548090",
-     "queue_function",
-     "sub_00548090",
+     "names.json",
+     "PLRMSG_SendSkillMode",
      0,
      "func"
     ],
     [
      108,
      "0x00548350",
-     "queue_function",
-     "sub_00548350",
+     "names.json",
+     "PLRMSG_SendGetHitMode",
      0,
      "func"
     ],
     [
      120,
      "0x00548090",
-     "queue_function",
-     "sub_00548090",
+     "names.json",
+     "PLRMSG_SendSkillMode",
      0,
      "func"
     ],
     [
      132,
      "0x00548090",
-     "queue_function",
-     "sub_00548090",
+     "names.json",
+     "PLRMSG_SendSkillMode",
      0,
      "func"
     ],
     [
      144,
      "0x00548090",
-     "queue_function",
-     "sub_00548090",
+     "names.json",
+     "PLRMSG_SendSkillMode",
      0,
      "func"
     ],
     [
      156,
      "0x00548090",
-     "queue_function",
-     "sub_00548090",
+     "names.json",
+     "PLRMSG_SendSkillMode",
      0,
      "func"
     ],
     [
      168,
      "0x00548090",
-     "queue_function",
-     "sub_00548090",
+     "names.json",
+     "PLRMSG_SendSkillMode",
      0,
      "func"
     ],
     [
      180,
      "0x00548090",
-     "queue_function",
-     "sub_00548090",
+     "names.json",
+     "PLRMSG_SendSkillMode",
      0,
      "func"
     ],
     [
      192,
      "0x00548090",
-     "queue_function",
-     "sub_00548090",
+     "names.json",
+     "PLRMSG_SendSkillMode",
      0,
      "func"
     ],
     [
      204,
      "0x00548350",
-     "queue_function",
-     "sub_00548350",
+     "names.json",
+     "PLRMSG_SendGetHitMode",
      0,
      "func"
     ],
     [
      216,
      "0x00548090",
-     "queue_function",
-     "sub_00548090",
+     "names.json",
+     "PLRMSG_SendSkillMode",
      0,
      "func"
     ],
     [
      228,
      "0x005482A0",
-     "queue_function",
-     "sub_005482A0",
+     "names.json",
+     "PLRMSG_SendKnockbackMode",
      0,
      "func"
     ]
