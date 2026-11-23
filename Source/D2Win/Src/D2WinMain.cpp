@@ -206,7 +206,6 @@ enum D2ControlTypes
     D2WIN_IMAGE2 = 13,
 };
 
-
 struct D2TransPaletteStrc
 {
     unsigned char data[0x10000];
@@ -649,6 +648,113 @@ int gbCloseRequested; // 0x007D55F4
 tagRECT gtWindowRect; // 0x007C9160
 
 void __stdcall D2Win_COMMANDS_MouseWheel_6F8AE220(SMSGHANDLER_PARAMS* pMsg);
+
+extern "C" __declspec(dllimport) int __stdcall MessageBoxA(void* hWnd, const char* szText, const char* szCaption, unsigned int nType); // 0x006CC464
+
+void __fastcall ARCHIVE_UnloadMPQFile(D2ArchiveHandleStrc* pMPQHandle); // 0x005173AC
+
+extern "C" const char gszExpansionMpq[]; // 0x006CD3A0
+
+extern "C" const char gszPatchD2Mpq[]; // 0x006DC728
+
+extern "C" const char gszD2SfxMpq[]; // 0x006DC764
+
+extern "C" const char gszD2DataMpq[]; // 0x006DC770
+
+extern D2ArchiveHandleStrc* gpD2CharMPQ; // 0x007D5610
+
+extern D2ArchiveHandleStrc* gpD2XTalkMPQ; // 0x007D5618
+
+extern D2ArchiveHandleStrc* gpD2MusicMPQ; // 0x007D5628
+
+extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
+
+void __stdcall D2GFX_SetPalette(tagPALETTEENTRY* pPalette); // 0x004F63D0
+
+extern int gbPaletteFlash; // 0x0072DE50
+
+extern tagPALETTEENTRY gatRGBAPalette[]; // 0x0081E668
+
+extern int gbTextBoxSmallGap; // 0x00841B70
+
+int __cdecl sub_004FAB00_ShowInsertExpansionDisc(); // 0x004FAB00
+
+int __cdecl sub_004FAB30_ShowInsertPlayDisc(); // 0x004FAB30
+
+int __cdecl sub_004FAB60_ShowInsertDisc(); // 0x004FAB60
+
+extern D2ArchiveHandleStrc* gpD2XMusicMPQ; // 0x007D5604
+
+extern D2ArchiveHandleStrc* gpD2SfxMPQ; // 0x007D5608
+
+extern D2ArchiveHandleStrc* gpD2DeltaMPQ; // 0x007D560C
+
+extern D2ArchiveHandleStrc* gpD2DataMPQ; // 0x007D561C
+
+extern D2ArchiveHandleStrc* gpD2kfixupMPQ; // 0x007D5620
+
+extern D2ArchiveHandleStrc* gpD2SpeechMPQ; // 0x007D5624
+
+extern D2ArchiveHandleStrc* gpD2PatchMPQ; // 0x007D5630
+
+extern D2ArchiveHandleStrc* gpD2ExpMPQ; // 0x007D5634
+
+int __cdecl ARCHIVE_LoadArchives(); // 0x004FAB90
+
+void __fastcall sub_004FB1C0_CopyRowTable(unsigned char (*pRows)[0x100]); // 0x004FB1C0
+
+extern int gnPaletteFlashCount; // 0x007D5638
+
+extern unsigned char gabStatesPalette[128][0x100]; // 0x007D6468
+
+extern int gbPaletteFlashWaiting; // 0x00841B68
+
+extern unsigned long gdwPaletteFlashTick; // 0x00841B6C
+
+unsigned char* __fastcall D2Win_10175_GetPL2Shift(int nIndex); // 0x004FB0C0
+
+void __stdcall D2Win_10179(); // 0x004FB0D0
+
+void __fastcall D2Win_10176(int bTimed); // 0x004FB130
+
+void __fastcall sub_004FB590(int nValue); // 0x004FB590
+
+void* __stdcall D2Win_GetArchive(); // 0x004FAC80
+
+struct D2ConfigStrc;
+
+extern "C" __declspec(dllimport) unsigned long __stdcall GetFileAttributesA(const char* szFileName); // 0x006CC1B0
+
+int __fastcall FOG_GetInstallPath(char* szPath, unsigned int nSize); // 0x00406BA0
+
+unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
+
+unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
+
+extern "C" const char gszD2CharMpq[]; // 0x006DC77C
+
+typedef int (__cdecl* DiscCallback)();
+
+#pragma pack(push, 1)
+
+struct D2ConfigStrc { char unk00[0x211]; int (__cdecl* expansion)(); };
+
+#pragma pack(pop)
+
+void __cdecl ARCHIVE_UnloadExpansionArchives(); // 0x004FAD70
+
+
+extern void* ghXMusicMpq; // 0x007D5604
+
+int __cdecl sub_004FAC90_CheckCharArchive(); // 0x004FAC90
+
+extern void* ghCharMpq; // 0x007D5610
+
+extern void* ghMusicMpq; // 0x007D5628
+
+extern void* ghXTalkMpq; // 0x007D5618
+
+extern void* ghXVideoMpq; // 0x007D562C
 
 // 0x004F8F10
 int __stdcall D2Win_InitializeSpriteCache(int bWindowed, int nResolution)
@@ -1304,6 +1410,46 @@ int __stdcall CONTROL_MouseInsideRect(const tagRECT* pRect)
     return PtInRect(pRect, gtMousePosition);
 }
 
+// 0x004F97E0
+void __cdecl CURSOR_Draw()
+{
+// build: symbol ?gbDrawCursor@* 0x0072DC3C
+    if (gpCursorCellFile && gbDrawCursor)
+    {
+        int nX = gtMousePosition.x;
+        int nY = gtMousePosition.y;
+        gnCursorDrawX = nX;
+        gnCursorDrawY = nY;
+
+        D2CelContextStrc tContext;
+        memset(&tContext, 0, sizeof(tContext));
+        tContext.nFrame = gnCursorFrame;
+        tContext.pCellFile = gpCursorCellFile;
+        tContext.nDirection = 0;
+        sub_004F6480(&tContext, nX <= 0 ? 0 : nX, (nY <= 0 ? 0 : nY) - 1, -1, 5, 0);
+    }
+}
+
+// 0x004F9870
+void __cdecl D2COMP_DrawAllCompositeUnits()
+{
+    for (D2CompositeUnitStrc* p = D2COMP_GetFirstCompositeUnit(); p; p = D2Win_10148(p))
+    {
+        D2COMP_DrawCompositeShadow(p);
+    }
+
+    for (D2CompositeUnitStrc* p = D2COMP_GetFirstCompositeUnit(); p; p = D2Win_10148(p))
+    {
+        D2COMP_DrawCompositeUnit(p, -1);
+    }
+
+    for (D2CompositeUnitStrc* p = D2COMP_GetFirstCompositeUnit(); p; p = D2Win_10148(p))
+    {
+        D2COMP_DrawCompositeLabel(p);
+        D2COMP_DrawCompositeHover(p);
+    }
+}
+
 // 0x004F98E0
 void __stdcall D2Win_UpdateAndDraw()
 {
@@ -1385,46 +1531,6 @@ void __stdcall D2Win_UpdateAndDraw()
     }
 
     CONTROL_FreeDeadList();
-}
-
-// 0x004F97E0
-void __cdecl CURSOR_Draw()
-{
-// build: symbol ?gbDrawCursor@* 0x0072DC3C
-    if (gpCursorCellFile && gbDrawCursor)
-    {
-        int nX = gtMousePosition.x;
-        int nY = gtMousePosition.y;
-        gnCursorDrawX = nX;
-        gnCursorDrawY = nY;
-
-        D2CelContextStrc tContext;
-        memset(&tContext, 0, sizeof(tContext));
-        tContext.nFrame = gnCursorFrame;
-        tContext.pCellFile = gpCursorCellFile;
-        tContext.nDirection = 0;
-        sub_004F6480(&tContext, nX <= 0 ? 0 : nX, (nY <= 0 ? 0 : nY) - 1, -1, 5, 0);
-    }
-}
-
-// 0x004F9870
-void __cdecl D2COMP_DrawAllCompositeUnits()
-{
-    for (D2CompositeUnitStrc* p = D2COMP_GetFirstCompositeUnit(); p; p = D2Win_10148(p))
-    {
-        D2COMP_DrawCompositeShadow(p);
-    }
-
-    for (D2CompositeUnitStrc* p = D2COMP_GetFirstCompositeUnit(); p; p = D2Win_10148(p))
-    {
-        D2COMP_DrawCompositeUnit(p, -1);
-    }
-
-    for (D2CompositeUnitStrc* p = D2COMP_GetFirstCompositeUnit(); p; p = D2Win_10148(p))
-    {
-        D2COMP_DrawCompositeLabel(p);
-        D2COMP_DrawCompositeHover(p);
-    }
 }
 
 static inline int CONTROL_IsMouseInside_004FA860(D2WinControlStrc* pControl)
@@ -1948,6 +2054,76 @@ done:
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
+// 0x004FA410
+void __stdcall D2Win_10029(int a1)
+{
+    gbDrawCursor = a1;
+}
+
+// 0x004FA420
+void __stdcall D2Win_10030_CONTROL_ToggleFourthFlag(D2WinControlStrc* pControl, int bSet)
+{
+    if (bSet)
+    {
+        pControl->dwFlags |= gdwBitMasks_006CE268[3];
+    }
+    else
+    {
+        pControl->dwFlags &= gdwInvBitMasks[3];
+    }
+}
+
+// 0x004FA450
+void __stdcall CONTROL_SetEscapeButton(void* a1)
+{
+    gpEscapeButton = a1;
+}
+
+// 0x004FA470
+int __stdcall D2Win_10033(D2WinControlStrc* a1, int a2)
+{
+    gpActiveControlList = a1;
+    dword_6F8FE278 = a2;
+    return 1;
+}
+
+// 0x004FA490
+extern "C" __declspec(dllexport) unsigned int __stdcall CONTROL_GetType(Obj004FA490* pObj) {
+    if (!pObj) {
+        return 0;
+    }
+    return pObj->dwValue00;
+}
+
+// 0x004FA4C0
+void __stdcall D2Win_COMMANDS_NcMouseMove(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (pMsg->wParam == 2)
+    {
+        gbDrawCursor = 0;
+        WINDOW_ShowCursor(0);
+    }
+    else
+    {
+        gbDrawCursor = 0;
+    }
+    pMsg->bReturn = 0;
+    pMsg->lResult = 0;
+}
+
+// 0x004FA4F0
+void __stdcall D2Win_COMMANDS_MouseLeave(SMSGHANDLER_PARAMS* pMsg)
+{
+    gbMouseTracking = 0;
+    if (gnRenderMode != 4)
+    {
+        gbDrawCursor = 0;
+    }
+    WINDOW_ShowCursor(0);
+    pMsg->bReturn = 0;
+    pMsg->lResult = 0;
+}
+
 // 0x004FA520
 int __stdcall D2Win_CreateWindow(void* hInstance, int nRenderMode, int bWindowed, int bCompress)
 {
@@ -2227,6 +2403,124 @@ int __fastcall ARCHIVE_LoadVideoArchives(void* pfShowMessage, void* hFile, int b
     return 1;
 }
 
+// 0x004FAD70
+void __cdecl ARCHIVE_UnloadExpansionArchives()
+{
+    if (gpD2MusicMPQ)
+    {
+        ARCHIVE_UnloadMPQFile(gpD2MusicMPQ);
+        gpD2MusicMPQ = 0;
+    }
+
+    if (gpD2CharMPQ)
+    {
+        ARCHIVE_UnloadMPQFile(gpD2CharMPQ);
+        gpD2CharMPQ = 0;
+    }
+
+    if (gpD2VideoMPQ)
+    {
+        ARCHIVE_UnloadMPQFile(gpD2VideoMPQ);
+        gpD2VideoMPQ = 0;
+    }
+
+    if (gpD2XMusicMPQ)
+    {
+        ARCHIVE_UnloadMPQFile(gpD2XMusicMPQ);
+        gpD2XMusicMPQ = 0;
+    }
+
+    if (gpD2XTalkMPQ)
+    {
+        ARCHIVE_UnloadMPQFile(gpD2XTalkMPQ);
+        gpD2XTalkMPQ = 0;
+    }
+
+    if (gpD2XVideoMPQ)
+    {
+        ARCHIVE_UnloadMPQFile(gpD2XVideoMPQ);
+        gpD2XVideoMPQ = 0;
+    }
+}
+
+// 0x004FAE00
+void __cdecl ARCHIVE_FreeArchives()
+{
+    if (gpD2DataMPQ)
+    {
+        ARCHIVE_UnloadMPQFile(gpD2DataMPQ);
+        gpD2DataMPQ = 0;
+    }
+
+    if (gpD2SpeechMPQ)
+    {
+        ARCHIVE_UnloadMPQFile(gpD2SpeechMPQ);
+        gpD2SpeechMPQ = 0;
+    }
+
+    if (gpD2SfxMPQ)
+    {
+        ARCHIVE_UnloadMPQFile(gpD2SfxMPQ);
+        gpD2SfxMPQ = 0;
+    }
+
+    if (gpD2DeltaMPQ)
+    {
+        ARCHIVE_UnloadMPQFile(gpD2DeltaMPQ);
+        gpD2DeltaMPQ = 0;
+    }
+
+    if (gpD2kfixupMPQ)
+    {
+        ARCHIVE_UnloadMPQFile(gpD2kfixupMPQ);
+        gpD2kfixupMPQ = 0;
+    }
+
+    if (gpD2ExpMPQ)
+    {
+        ARCHIVE_UnloadMPQFile(gpD2ExpMPQ);
+        gpD2ExpMPQ = 0;
+    }
+
+    if (gpD2XMusicMPQ)
+    {
+        ARCHIVE_UnloadMPQFile(gpD2XMusicMPQ);
+        gpD2XMusicMPQ = 0;
+    }
+
+    if (gpD2PatchMPQ)
+    {
+        ARCHIVE_UnloadMPQFile(gpD2PatchMPQ);
+        gpD2PatchMPQ = 0;
+    }
+
+    ARCHIVE_UnloadExpansionArchives();
+}
+
+// 0x004FAEC0
+int __fastcall ARCHIVE_LoadExpansionArchives(DiscCallback play,DiscCallback expansion,void* file,D2ConfigStrc* config) {
+    if (sub_00406D20()) { play=0; expansion=0; }
+    ghXVideoMpq=0;
+    int bOk;
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (!(FOG_IsExpansion() && (!config || config->expansion()))) {
+        ghCharMpq=sub_00517332_LoadMpqFile("d2char.mpq",file,play,1000);
+        ghMusicMpq=sub_00517332_LoadMpqFile("d2music.mpq",file,play,1000);
+        ghXMusicMpq=0;
+        ghXTalkMpq=0;
+        bOk = ghCharMpq && ghMusicMpq;
+    } else {
+        ghCharMpq=sub_00517332_LoadMpqFile("d2char.mpq",0,play,1000);
+        ghMusicMpq=sub_00517332_LoadMpqFile("d2music.mpq",0,play,1000);
+        ghXMusicMpq=sub_00517332_LoadMpqFile("d2Xmusic.mpq",file,expansion,3000);
+        ghXTalkMpq=sub_00517332_LoadMpqFile("d2Xtalk.mpq",file,expansion,3000);
+        ghXVideoMpq=sub_00517332_LoadMpqFile("d2Xvideo.mpq",file,expansion,3000);
+        bOk = ghCharMpq && ghMusicMpq && ghXMusicMpq && ghXTalkMpq && ghXVideoMpq;
+    }
+    if (!bOk) { ARCHIVE_UnloadExpansionArchives(); return 0; }
+    return 1;
+}
+
 // 0x004FB010
 void __cdecl PALETTE_ApplyPaletteTables()
 {
@@ -2266,77 +2560,6 @@ int __fastcall D2Win_10062(D2WinTextBoxStrc* ptTextData, int a2, int a3)
     ptTextData->unk0xA0 = a2;
     ptTextData->unk0xA4 = a3;
     return 1;
-}
-
-// 0x004FA410
-void __stdcall D2Win_10029(int a1)
-{
-    gbDrawCursor = a1;
-}
-
-// 0x004FA420
-void __stdcall D2Win_10030_CONTROL_ToggleFourthFlag(D2WinControlStrc* pControl, int bSet)
-{
-    if (bSet)
-    {
-        pControl->dwFlags |= gdwBitMasks_006CE268[3];
-    }
-    else
-    {
-        pControl->dwFlags &= gdwInvBitMasks[3];
-    }
-}
-
-// 0x004FA450
-void __stdcall CONTROL_SetEscapeButton(void* a1)
-{
-    gpEscapeButton = a1;
-}
-
-// 0x004FA470
-int __stdcall D2Win_10033(D2WinControlStrc* a1, int a2)
-{
-    gpActiveControlList = a1;
-    dword_6F8FE278 = a2;
-    return 1;
-}
-
-
-// 0x004FA490
-extern "C" __declspec(dllexport) unsigned int __stdcall CONTROL_GetType(Obj004FA490* pObj) {
-    if (!pObj) {
-        return 0;
-    }
-    return pObj->dwValue00;
-}
-
-// 0x004FA4C0
-void __stdcall D2Win_COMMANDS_NcMouseMove(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (pMsg->wParam == 2)
-    {
-        gbDrawCursor = 0;
-        WINDOW_ShowCursor(0);
-    }
-    else
-    {
-        gbDrawCursor = 0;
-    }
-    pMsg->bReturn = 0;
-    pMsg->lResult = 0;
-}
-
-// 0x004FA4F0
-void __stdcall D2Win_COMMANDS_MouseLeave(SMSGHANDLER_PARAMS* pMsg)
-{
-    gbMouseTracking = 0;
-    if (gnRenderMode != 4)
-    {
-        gbDrawCursor = 0;
-    }
-    WINDOW_ShowCursor(0);
-    pMsg->bReturn = 0;
-    pMsg->lResult = 0;
 }
 
 // 0x004FBB90
@@ -2572,7 +2795,6 @@ void __stdcall D2COMP_AddHoverTextLine(const Unicode* wszText, D2HoverLineStrc* 
     *pTotalHeight += pLine->nHeight;
     ++*pCount;
 }
-
 
 // 0x00507A10
 int __stdcall ACCOUNTLIST_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)

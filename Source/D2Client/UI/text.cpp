@@ -662,6 +662,88 @@ void __cdecl TEXT_LoadPopupHireling()
     }
 }
 
+int __cdecl sub_0047F210_IsMouseInSlots();                                                                  // 0x0047F210
+
+void __cdecl sub_0049C6C0_SendWaypointClose();                                                              // 0x0049C6C0
+
+extern D2WaypointRowRectStrc gaWaypointRowRects[9];                                                // 0x007224F8
+
+extern D2WaypointMenuEntryStrc gaWaypointEntries[9];                                               // 0x007BF03C
+
+static bool gbWaypointClosePressed;                                                                        // 0x007BF06C
+
+static int gnWaypointSelected;                                                                       // 0x007BF06D
+
+extern char gbSent;                                                                              // 0x007BF085
+
+extern int gnPanelOffsetX;                                                                               // 0x007A2858
+
+extern int gnPanelOffsetY;                                                                               // 0x007A285C
+
+static int sub_0049C510_GetWaypointRowAtPoint(int nX, int nY)
+{
+    for (int i = 0; i < 9; ++i)
+    {
+        if (gaWaypointEntries[i].bEnabled && nX > gaWaypointRowRects[i].nX && nX < gaWaypointRowRects[i].nX + 0x118
+            && nY > gaWaypointRowRects[i].nY && nY < gaWaypointRowRects[i].nY + 0x1E)
+            return i;
+    }
+    return -1;
+}
+
+int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
+
+// 0x0049D010
+void __stdcall sub_0049D010_WaypointMouseUp(SMSGHANDLER_PARAMS* pMsg)
+{
+    int nX = (unsigned short)pMsg->lParam;
+    int nY = (unsigned short)((unsigned int)pMsg->lParam >> 16);
+    if (sub_0047F210_IsMouseInSlots())
+        return;
+
+    if (nX <= gnScreenWidth && nY <= gnScreenHeight - 0x31)
+    {
+        nX -= gnPanelOffsetX;
+        nY += gnPanelOffsetY;
+        if (gbWaypointClosePressed)
+        {
+            if (nX >= 0x111 && nX <= 0x111 + 0x23 && nY >= 0x183 && nY <= 0x183 + 0x21)
+            {
+                UI_SetUIVar(0x14, 1, 0);
+                sub_0049C6C0_SendWaypointClose();
+            }
+        }
+        else if (gnWaypointSelected != -1 && gnWaypointSelected == sub_0049C510_GetWaypointRowAtPoint(nX, nY))
+        {
+            pMsg->bReturn = 1;
+            pMsg->lResult = 0;
+            sub_00420290_BreakHandlerChain(pMsg);
+            MSG_SendTwoDwords(0x49, gnWaypointId, *(int*)gaWaypointEntries[gnWaypointSelected].nLevelId);
+            gbSent = 1;
+            sub_0049C6C0_SendWaypointClose();
+            gbWaypointClosePressed = false;
+            gnWaypointSelected = -1;
+            UI_SetUIVar(0x14, 1, 0);
+            sub_004B9A00(0x8B7, 0, 0, 0, 0);
+            pMsg->bReturn = 1;
+            pMsg->lResult = 0;
+            sub_00420290_BreakHandlerChain(pMsg);
+            return;
+        }
+
+        gbWaypointClosePressed = false;
+        gnWaypointSelected = -1;
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_00420290_BreakHandlerChain(pMsg);
+    }
+    else
+    {
+        gbWaypointClosePressed = false;
+        gnWaypointSelected = -1;
+    }
+}
+
 // 0x0049D2E0
 int __fastcall TEXT_IsAsciiChar(const unsigned short* pChar)
 {
@@ -1394,7 +1476,6 @@ void __fastcall TEXT_ClearNihlathakFlag(D2UnitStrc* pUnit); // 0x004A2C90
 
 D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 
-int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 

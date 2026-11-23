@@ -49,66 +49,7 @@ unsigned int gdwSwappedColor; // 0x008E9D38
 
 int ganSquareTable[511]; // 0x008E9034
 
-// 0x006056D0
-unsigned char __stdcall Palette24BitTo8BitPixel(unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
-{
-    unsigned int nBestDistance = 0x7FFFFFFF;
-    unsigned int nBestIndex = 0;
-    for (unsigned int i = gnPaletteStart; i <= gnPaletteEnd; ++i)
-    {
-        if (gbTableSet && !gabPaletteMask[i])
-        {
-            continue;
-        }
-
-        if (gbPaletteTestBackground && gdwSwappedColor == ((((nRed << 8) | nGreen) << 8) | nBlue))
-        {
-            nBestIndex = 0;
-            break;
-        }
-
-        unsigned int nDistance = ganSquareTable[nRed - gaPcxPalette[i * 4 + 2] + 255]
-            + ganSquareTable[nGreen - gaPcxPalette[i * 4 + 1] + 255]
-            + ganSquareTable[nBlue - gaPcxPalette[i * 4] + 255];
-        if (nDistance < nBestDistance)
-        {
-            nBestDistance = nDistance;
-            nBestIndex = i;
-        }
-    }
-
-    return (unsigned char)nBestIndex;
-}
-
 int gbDarkTest; // 0x008E9D3C
-
-// 0x006057A0
-int __stdcall Palette24BitTo8BitImage(const unsigned char* pSource, unsigned char* pDest, unsigned int nCount, MapFn pfnMap)
-{
-    const unsigned char* pSrc = pSource;
-    unsigned char* pDst = pDest;
-    if (gbPaletteLoaded)
-    {
-        MapFn pfn = !pfnMap ? Palette24BitTo8BitPixel : pfnMap;
-
-        for (unsigned int i = 0; i < nCount; ++i)
-        {
-            unsigned char nRed = *pSrc++;
-            unsigned char nGreen = *pSrc++;
-            unsigned char nBlue = *pSrc++;
-            if (gbDarkTest && nRed <= 10 && nGreen <= 10 && nBlue <= 10)
-            {
-                nRed = 4;
-                nBlue = 0;
-                nGreen = 0;
-            }
-
-            *pDst++ = pfn(nRed, nGreen, nBlue);
-        }
-    }
-
-    return 0;
-}
 
 // 0x00605AA0
 void __stdcall sub_00605AA0_BuildMultiplyTable(unsigned char* pTables)

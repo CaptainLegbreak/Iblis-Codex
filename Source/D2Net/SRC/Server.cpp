@@ -54,6 +54,14 @@ int __fastcall SERVER_ValidateClientPacket(int a1, int a2, int a3, int a4);     
 
 int __fastcall SERVER_OnClientConnectedCallback(int a1, int a2, int a3, int a4);                                                // 0x0052B720
 
+unsigned int __stdcall SERVER_SendPacketToClient(char nSendMode, void* pClientId, void* pPacketArg, unsigned int nPacketSize); // 0x0052B330
+
+struct D2GSPacketSrvAFStrc
+{
+    unsigned char nHeader;
+    unsigned char nCompression;
+};
+
 // 0x0052B330
 unsigned int __stdcall SERVER_SendPacketToClient(char nSendMode, void* pClientId, void* pPacketArg, unsigned int nPacketSize)
 {
@@ -90,21 +98,6 @@ unsigned int __stdcall SERVER_SendPacketToClient(char nSendMode, void* pClientId
     }
 
     return FOG_10157(gpServer_00882D08, (unsigned int)pClientId, pPacket, nPacketSize) != 0 ? nPacketSize : 0;
-}
-
-// 0x0052B750
-int __fastcall SERVER_OnClientDisconnectedCallback(int a1, int a2, int a3, int a4)
-{
-    const unsigned char data[1] = { 0x70 };
-
-    FOG_10175(gpServer, data, sizeof(data), a2);
-    return 1;
-}
-
-// 0x0052B7A0
-void __stdcall SERVER_Initialize(int a1, int a2)
-{
-    gpServer = QSInit(a1, 3, GAME_PORT, a2, SERVER_ValidateClientPacket, SERVER_OnClientConnectedCallback, SERVER_OnClientDisconnectedCallback, SERVER_SendToLocalClientCallback);
 }
 
 // 0x0052B570
@@ -172,4 +165,28 @@ int __stdcall D2NET_10022(int dwMilliseconds)
 void __stdcall D2NET_10029_Return(int nUnused)
 {
     FOG_10183_Return(gpServer, nUnused);
+}
+
+// 0x0052B750
+int __fastcall SERVER_OnClientDisconnectedCallback(int a1, int a2, int a3, int a4)
+{
+    const unsigned char data[1] = { 0x70 };
+
+    FOG_10175(gpServer, data, sizeof(data), a2);
+    return 1;
+}
+
+// 0x0052B780
+void __fastcall sub_0052B780()
+{
+    D2GSPacketSrvAFStrc packetAF;
+    packetAF.nHeader = 0xAF;
+    packetAF.nCompression = 0;
+    SERVER_SendPacketToClient(0, 0, &packetAF, sizeof(packetAF));
+}
+
+// 0x0052B7A0
+void __stdcall SERVER_Initialize(int a1, int a2)
+{
+    gpServer = QSInit(a1, 3, GAME_PORT, a2, SERVER_ValidateClientPacket, SERVER_OnClientConnectedCallback, SERVER_OnClientDisconnectedCallback, SERVER_SendToLocalClientCallback);
 }

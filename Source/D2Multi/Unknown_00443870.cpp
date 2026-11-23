@@ -84,28 +84,6 @@ int __stdcall sub_00443CC0_SelectHell(int nArg)
     return 1;
 }
 
-// 0x00443EF0
-int __stdcall sub_00443EF0_OnSelect(int nArg)
-{
-    CHATDLG_DestroyProfileControls();
-    if (gnPendingValueB)
-    {
-        if (gnPendingValueA)
-            CHATDLG_OpenExpansionHardcoreLadder();
-        else
-            CHATDLG_OpenExpansionLadder();
-    }
-    else
-    {
-        if (gnPendingValueA)
-            CHATDLG_OpenHardcoreLadder();
-        else
-            CHATDLG_OpenStandardLadder();
-    }
-    CHATDLG_SelectEntry(gszPendingEntryName, gnPendingValueA, gnPendingValueB);
-    return 1;
-}
-
 // 0x00443F70
 int __stdcall sub_00443F70_OnRefresh(int nArg)
 {

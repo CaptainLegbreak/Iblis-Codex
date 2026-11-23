@@ -189,6 +189,67 @@ int gnGenericRle; // 0x008F03C8
 
 static void __stdcall CelEncodeRle(const unsigned char* pSrc, unsigned int nWidth, unsigned int nHeight, unsigned int dwFlags, unsigned char** ppOut, unsigned int* pnSize);
 
+#define PAL_MAX(a, b) ((a) > (b) ? (a) : (b))
+
+struct D2HslStrc;
+
+struct D2PalRgbaStrc;
+
+struct D2ColorBlockStrc;
+
+extern unsigned char gaPcxPalette[256 * 4]; // 0x008E9938
+
+typedef unsigned char (__stdcall* MapFn)(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);
+
+unsigned char __stdcall Palette24BitTo8BitPixel(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x006056D0
+
+extern int gbPaletteLoaded; // 0x008E9934
+
+unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
+
+struct D2ColorBlockStrc
+{
+    unsigned char data[39];
+};
+
+extern const D2ColorBlockStrc gtColorBlock; // 0x007434D8
+
+double __stdcall PaletteHueToRgb(double n1, double n2, double hue); // 0x00604FE0
+
+void __stdcall PaletteBuildTintTables(unsigned char* pData); // 0x00605D20
+
+void __stdcall sub_00605DE0_BuildDarkenTables(unsigned char* pData); // 0x00605DE0
+
+void __stdcall sub_00605E60_BuildLightenTables(unsigned char* pData); // 0x00605E60
+
+void* __fastcall sub_00517993_VirtualAlloc(unsigned int nSize);
+
+void __stdcall sub_00605880_BuildTablesA(unsigned char* pTables);
+
+void __stdcall sub_006059B0_BuildTable(unsigned char* pData);
+
+void __stdcall sub_00605AA0_BuildTablesC(unsigned char* pTables);
+
+void __stdcall sub_00605B70_BuildTablesD(unsigned char* pTables);
+
+void __stdcall sub_00605F00_BuildTablesE(unsigned char* pTables, D2HslStrc* pHsl);
+
+extern unsigned int gnPaletteStart; // 0x008E9930
+
+extern unsigned int gnPaletteEnd; // 0x008E902C
+
+extern int ganSquareTable[511]; // 0x008E9034
+
+extern int gbDarkTest; // 0x008E9D3C
+
+void __stdcall sub_00605AA0_BuildMultiplyTable(unsigned char* pTables); // 0x00605AA0
+
+void __stdcall sub_00605B70_BuildBlendTables(unsigned char* pData); // 0x00605B70
+
+void* __stdcall CreateD2Palette(void* pSource); // 0x00606930
+
+#define PAL_SATURATE(x) ((unsigned int)(x) < 255 ? (x) : 255)
+
 // 0x00604DD0
 double __stdcall PaletteMinComponent(double a, double b)
 {
@@ -233,6 +294,65 @@ void __stdcall PaletteTestBackground(int nValue)
     gbPaletteTestBackground = nValue;
 }
 
+// 0x006056D0
+unsigned char __stdcall Palette24BitTo8BitPixel(unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
+{
+    unsigned int nBestDistance = 0x7FFFFFFF;
+    unsigned int nBestIndex = 0;
+    for (unsigned int i = gnPaletteStart; i <= gnPaletteEnd; ++i)
+    {
+        if (gbTableSet && !gabPaletteMask[i])
+        {
+            continue;
+        }
+
+        if (gbPaletteTestBackground && gdwSwappedColor == ((((nRed << 8) | nGreen) << 8) | nBlue))
+        {
+            nBestIndex = 0;
+            break;
+        }
+
+        unsigned int nDistance = ganSquareTable[nRed - gaPcxPalette[i * 4 + 2] + 255]
+            + ganSquareTable[nGreen - gaPcxPalette[i * 4 + 1] + 255]
+            + ganSquareTable[nBlue - gaPcxPalette[i * 4] + 255];
+        if (nDistance < nBestDistance)
+        {
+            nBestDistance = nDistance;
+            nBestIndex = i;
+        }
+    }
+
+    return (unsigned char)nBestIndex;
+}
+
+// 0x006057A0
+int __stdcall Palette24BitTo8BitImage(const unsigned char* pSource, unsigned char* pDest, unsigned int nCount, MapFn pfnMap)
+{
+    const unsigned char* pSrc = pSource;
+    unsigned char* pDst = pDest;
+    if (gbPaletteLoaded)
+    {
+        MapFn pfn = !pfnMap ? Palette24BitTo8BitPixel : pfnMap;
+
+        for (unsigned int i = 0; i < nCount; ++i)
+        {
+            unsigned char nRed = *pSrc++;
+            unsigned char nGreen = *pSrc++;
+            unsigned char nBlue = *pSrc++;
+            if (gbDarkTest && nRed <= 10 && nGreen <= 10 && nBlue <= 10)
+            {
+                nRed = 4;
+                nBlue = 0;
+                nGreen = 0;
+            }
+
+            *pDst++ = pfn(nRed, nGreen, nBlue);
+        }
+    }
+
+    return 0;
+}
+
 // 0x00605840
 void __stdcall PaletteFixBlack(int nValue)
 {
@@ -244,6 +364,64 @@ void __stdcall PaletteSetMask(const unsigned char* pTable)
 {
     memcpy(gabPaletteMask, pTable, 0x100);
     gbTableSet = 1;
+}
+
+// 0x00605880
+void __stdcall sub_00605880_BuildTablesA(unsigned char* pTables)
+{
+    unsigned int n = 0;
+    if (3 > n)
+    {
+        do
+        {
+            int i = 0;
+            int nAlpha;
+            switch (n)
+            {
+            case 0:
+                nAlpha = 0xBF;
+                break;
+
+            case 1:
+                nAlpha = 0x7F;
+                break;
+
+            default:
+                nAlpha = 0x3F;
+                break;
+            }
+
+            const int nInverse = 0xFF - nAlpha;
+            while (i < 256)
+            {
+                for (int j = 0; 256 > j; ++j)
+                {
+                    pTables[0x3500 + (n << 16) + j * 256 + i] = GetClosestColor(pTables, 256,
+                        (unsigned char)((unsigned int)(pTables[j * 4 + 0] * nInverse + pTables[i * 4 + 0] * nAlpha) / 255),
+                        (unsigned char)((unsigned int)(pTables[j * 4 + 1] * nInverse + pTables[i * 4 + 1] * nAlpha) / 255),
+                        (unsigned char)((unsigned int)(pTables[j * 4 + 2] * nInverse + pTables[i * 4 + 2] * nAlpha) / 255));
+                }
+                ++i;
+            }
+            ++n;
+        } while (n < 3);
+    }
+}
+
+// 0x006059B0
+void __stdcall sub_006059B0_BuildAdditiveTable(unsigned char* pTables)
+{
+    const D2PalRgbaStrc* pPalette = (const D2PalRgbaStrc*)pTables;
+    for (int i = 0; i < 256; ++i)
+    {
+        for (int j = 0; j < 256; ++j)
+        {
+            const unsigned char nR = (unsigned char)PAL_SATURATE(pPalette[j].nRed + pPalette[i].nRed);
+            const unsigned char nG = (unsigned char)PAL_SATURATE(pPalette[j].nGreen + pPalette[i].nGreen);
+            const unsigned char nB = (unsigned char)PAL_SATURATE(pPalette[j].nBlue + pPalette[i].nBlue);
+            pTables[0x33500 + j * 256 + i] = GetClosestColor(pTables, 256, nR, nG, nB);
+        }
+    }
 }
 
 // 0x00605A90
@@ -1741,11 +1919,128 @@ int __fastcall CmpScanRun(unsigned char nValue, const unsigned char* pData, cons
     return nCount;
 }
 
-
 // 0x0060DD20
 int D2CmpStringStrc::sub_0060DD20_EqualsNoCase(const D2CmpStringStrc* pOther)
 {
     return !SStrCmpI(szText, pOther->szText, 0x7FFFFFFF);
+}
+
+static void sub_00604DF0_RgbToHsl(const unsigned char* pRgb, D2HslStrc* pHsl)
+{
+    for (unsigned int i = 0; i < 256; ++i)
+    {
+        const double dRed = pRgb[0] / 255.0;
+        const double dGreen = pRgb[1] / 255.0;
+        const double dBlue = pRgb[2] / 255.0;
+        double dMax = dRed > dGreen ? dRed : dGreen;
+        if (dBlue > dMax)
+        {
+            dMax = dBlue;
+        }
+
+        double dMin = dRed < dGreen ? dRed : dGreen;
+        if (dBlue < dMin)
+        {
+            dMin = dBlue;
+        }
+
+        const double dLightness = (dMax + dMin) * 0.5;
+        double dHue = 0.0;
+        double dSaturation = 0.0;
+        if (dMax != dMin)
+        {
+            const double dDelta = dMax - dMin;
+            dSaturation = dLightness <= 0.5 ? dDelta / (dMax + dMin) : dDelta / (2.0 - dMax - dMin);
+            if (dRed == dMax)
+            {
+                dHue = (dGreen - dBlue) / dDelta;
+            }
+            else if (dGreen == dMax)
+            {
+                dHue = (dBlue - dRed) / dDelta + 2.0;
+            }
+            else
+            {
+                dHue = (dRed - dGreen) / dDelta + 4.0;
+            }
+
+            dHue *= 60.0;
+            if (dHue < 0.0)
+            {
+                dHue += 360.0;
+            }
+        }
+
+        pHsl->f_0 = dHue;
+        pHsl->f_8 = dSaturation;
+        pHsl->f_10 = dLightness;
+        pRgb += 4;
+        ++pHsl;
+    }
+}
+
+static void sub_00605080_HslToRgb(const D2HslStrc* pHsl, D2PalRgbaStrc* pRgb)
+{
+    for (int i = 0; i < 256; ++i)
+    {
+        unsigned char nRed, nGreen, nBlue;
+        if (pHsl->f_8 == 0.0)
+        {
+            nRed = nGreen = nBlue = (unsigned char)(pHsl->f_10 * 255.0);
+        }
+        else
+        {
+            double dM2;
+            if (pHsl->f_10 <= 0.5)
+            {
+                dM2 = (pHsl->f_8 + 1.0) * pHsl->f_10;
+            }
+            else
+            {
+                dM2 = pHsl->f_10 + pHsl->f_8 - pHsl->f_10 * pHsl->f_8;
+            }
+
+            const double dM1 = pHsl->f_10 + pHsl->f_10 - dM2;
+            nRed = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->f_0 + 120.0) * 255.0);
+            nGreen = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->f_0) * 255.0);
+            nBlue = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->f_0 - 120.0) * 255.0);
+        }
+
+        pRgb->nRed = nRed;
+        pRgb->nGreen = nGreen;
+        pRgb->nBlue = nBlue;
+        ++pHsl;
+        ++pRgb;
+    }
+}
+
+
+static void sub_00606890_BuildBrightnessTable(unsigned char* pTables, D2HslStrc* pHsl)
+{
+    D2PalRgbaStrc tRgb[256];
+
+    for (int i = 0; i < 256; ++i)
+    {
+        if (pHsl[i].f_10 != 0.0)
+        {
+            pHsl[i].f_10 += 0.2f;
+            if (pHsl[i].f_10 > 1.0)
+            {
+                pHsl[i].f_10 = 1.0;
+            }
+        }
+    }
+
+    sub_00605080_HslToRgb(pHsl, tRgb);
+    for (unsigned int i = 0; i < 256; ++i)
+    {
+        pTables[0x3400 + i] = GetClosestColor(pTables, 256, tRgb[i].nRed, tRgb[i].nGreen, tRgb[i].nBlue);
+    }
+}
+
+void __cdecl sub_M386_Emit_00606890(int nUnused, unsigned char* pTables, D2HslStrc* pHsl)
+{
+    sub_00606890_BuildBrightnessTable(pTables, pHsl);
 }
 
 #include "gen/data/Source/D2CMP/SRC/FastCmp.inc"

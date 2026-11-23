@@ -6,7 +6,6 @@
 
 static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand); // 0x00442180
 
-
 struct D2WinButtonStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -645,7 +644,6 @@ extern int gnLoopValueIn_0077BC18;                                              
 
 extern int gnFlag_0077BD60; // 0x0077BD60
 
-
 struct D2StartupInfoAStrc;
 
 struct D2ProcessInformationStrc;
@@ -691,7 +689,6 @@ extern "C" __declspec(dllimport) void* __stdcall GetDesktopWindow(); // 0x006CC4
 extern "C" __declspec(dllimport) int __stdcall SetForegroundWindow(void* hWnd); // 0x006CC490
 
 extern "C" __declspec(dllimport) int __stdcall CreateProcessA(const char* szApplicationName, char* szCommandLine, void* pProcessAttributes, void* pThreadAttributes, int bInheritHandles, unsigned long dwCreationFlags, void* pEnvironment, const char* szCurrentDirectory, D2StartupInfoAStrc* pStartupInfo, D2ProcessInformationStrc* pProcessInformation); // 0x006CC33C
-
 
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
@@ -743,13 +740,11 @@ void* __stdcall sub_005066C0(int nA, int nMode, char* szA, char* szB); // 0x0050
 
 void __stdcall sub_005052B0(void* pObject, int nValue); // 0x005052B0
 
-
 void __fastcall CHATDLG_SetPlayerName(void* pArg); // 0x00440D10
 
 void __fastcall sub_0043E4C0(void* pA, void* pB); // 0x0043E4C0
 
 int __stdcall CHATDLG_OnTick(int nUnused); // 0x00441500
-
 
 extern D2WinControlInitStrc gatChatControlInits_0070CE50[17]; // 0x0070CE50
 
@@ -773,11 +768,9 @@ extern D2WinControlInitStrc gtControlInit_0070D360; // 0x0070D360
 
 extern D2WinControlStrc* gpQuitButton; // 0x0077B080
 
-
 void* gpLaunchContext; // 0x0077B0A4
 
 struct _FILETIME;
-
 
 void __stdcall sub_A09_Use(const char* szText);
 
@@ -797,10 +790,7 @@ extern D2WinControlInitStrc gtWaitInit; // 0x0070D3C0
 
 extern D2WinControlStrc* gpWaitText_0077BD9C; // 0x0077BD9C
 
-
-
 static int gdwGlobal_0077BBF8; // 0x0077BBF8
-
 
 D2WinControlStrc* gpNamesButton; // 0x0077BD08
 
@@ -816,12 +806,161 @@ static D2ChatMessageStrc* CHATDLG_PopChatMessage();
 
 static void CHATDLG_FreeChatMessage(D2ChatMessageStrc* pMessage);
 
-
 static int __stdcall CHATDLG_CompareCommand(const char* szText, const char* szCommand);
 
 static void CHATDLG_PushHistory(const char* szText);
 
 static void __stdcall CHATDLG_GetArgument(int nSize, char* szDest, const char* szText);
+
+struct D2WinEditBoxStrc;
+
+struct D2LaunchGameRecStrc;
+
+struct D2GameDetailsStrc;
+
+const Unicode* __fastcall sub_004FBB30_GetText(D2WinControlStrc* pControl); // 0x004FBB30
+
+int __stdcall CHARSEL_JoinByName(int nArg); // 0x004439F0
+
+void __fastcall CHATDLG_SetPendingText(const char* szText, unsigned short wRequestId); // 0x00442DD0
+
+extern D2LaunchGameRecStrc gaNewGames[]; // 0x0077BDC8
+
+extern D2WinControlStrc* gpJoinName; // 0x00798BD4
+
+extern unsigned long gdwGameListLastClickTick; // 0x00798CEC
+
+struct D2GameDetailsStrc
+{
+    char unk0x00[0x0C];
+    unsigned int dwElapsed;
+    unsigned char nLevel;
+    unsigned char nLevelDiff;
+    unsigned char nMaxPlayers;
+    char unk0x13;
+    int nPlayers;
+    char unk0x18[0x14];
+    char szDescription[0x20];
+    unsigned short wClass[16];
+    unsigned short wLevel[16];
+    char szNames[16][16];
+};
+
+extern "C" const char gszEmptyString_006CC837[]; // 0x006CC837
+
+D2WinControlStrc* gpGameInfoText; // 0x00798BC4
+
+struct D2ModuleInterfaceStrc;
+
+struct D2CelFileStrc;
+
+extern D2ModuleInterfaceStrc gtInterface; // 0x0070CD14
+
+const char* __stdcall SStrChrR(const char* szString, char nChar); // 0x004134D0
+
+int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam, int* pbUseResult, int* plResult); // 0x00420B00
+
+void* __cdecl sub_0044DA90(); // 0x0044DA90
+
+void* __cdecl WINDOW_GetWindow(); // 0x004F59A0
+
+struct D2WinMsgStrc
+{
+    void* hWnd;
+    unsigned int uMsg;
+    unsigned int wParam;
+    int lParam;
+};
+
+void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
+
+int __cdecl GAME_GetWaitHandle(); // 0x00449AC0
+
+int __cdecl GAME_IsMcpCharLogonReceived(); // 0x00449C30
+
+void __stdcall CHATDLG_SetCharLogonReceived(int nValue); // 0x00449C40
+
+extern D2WinControlStrc* gpChannelListBox; // 0x0077BCFC
+
+extern void* gpInstance; // 0x0077AD68
+
+void __cdecl sub_00515110_Nop(); // 0x00515110
+
+void __cdecl sub_00515EC0_Nop(); // 0x00515EC0
+
+void __cdecl sub_00515ED0_Nop(); // 0x00515ED0
+
+void __cdecl sub_0042B9D0_Nop(); // 0x0042B9D0
+
+void __cdecl sub_00650EA0_Nop(); // 0x00650EA0
+
+extern D2CelFileStrc* gpCellFile_0077BC24; // 0x0077BC24
+
+int __stdcall sub_0043DBA0_ClearSelection(int nArg1, int nArg2, int nArg3); // 0x0043DBA0
+
+int __stdcall sub_0043DBC0_OnWaitTick(SMSGHANDLER_PARAMS* pMsg); // 0x0043DBC0
+
+int __stdcall sub_0043DBF0_OnReceiveTick(SMSGHANDLER_PARAMS* pMsg); // 0x0043DBF0
+
+struct D2CompositeUnitStrc;
+
+void __stdcall D2Win_10142_CompUnitDestroy(D2CompositeUnitStrc* pCompositeUnit, int bUnlink); // 0x005041B0
+
+void __cdecl sub_0043DCE0_FreeChatCellFile(); // 0x0043DCE0
+
+struct Character;
+
+struct Character { signed char value; };
+
+enum { FIRST_PRINTABLE = 32, AFTER_PRINTABLE = 128 };
+
+void __fastcall sub_00442A70_SetFlagBits12(unsigned int* pFlags, int nValue); // 0x00442A70
+
+int __fastcall sub_00442A80_IsNightmareOpen(unsigned int nFlags); // 0x00442A80
+
+int __fastcall sub_00442AB0_IsHellOpen(unsigned int nFlags); // 0x00442AB0
+
+int __stdcall sub_00443540_IsNameChar(D2WinControlStrc* pControl, int nArg, const char* pChar); // 0x00443540
+
+int __stdcall sub_004435D0(void* unused1,void* unused2,const Character* text); // 0x004435D0
+
+extern int gdwGlobal_00798CC4;                                                                                     // 0x00798CC4
+
+extern D2WinControlStrc* gpNormalRadio;                                                                       // 0x00798C4C
+
+extern D2WinControlStrc* gpNightmareRadio;                                                                       // 0x00798C50
+
+extern D2WinControlStrc* gpHellRadio;                                                                       // 0x00798C54
+
+extern int gnDiffSelect;                                                                                  // 0x00798CD0
+
+extern char gszPendingEntryName[16];                                                                                  // 0x00798CD4
+
+extern int gnPendingValueA;                                                                               // 0x00798CE4
+
+extern int gnPendingValueB;                                                                               // 0x00798CE8
+
+int __cdecl WINMAIN_PollMcpConnection();                                                               // 0x00449B70
+
+void __cdecl CHATDLG_DestroyCreateControls();                                                                // 0x00443220
+
+void __cdecl CHATDLG_DestroyProfileControls();                                                                                // 0x00443E10
+
+void __fastcall CHATDLG_SelectEntry(const char* szName, int nValueA, int nValueB);                    // 0x0043EC60
+
+int __stdcall sub_00443870_SetCancel(int nArg); // 0x00443870
+
+int __stdcall sub_00443880_PollMcp(int nArg); // 0x00443880
+
+int __stdcall sub_004438C0_OnCancel(int nArg); // 0x004438C0
+
+int __stdcall sub_00443C20_SelectNormal(int nArg); // 0x00443C20
+
+int __stdcall sub_00443C70_SelectNightmare(int nArg); // 0x00443C70
+
+int __stdcall sub_00443CC0_SelectHell(int nArg); // 0x00443CC0
+
+int __stdcall sub_00443F70_OnRefresh(int nArg); // 0x00443F70
 
 static __forceinline int CONSOLE_FindSecondTokenInline(const char* szText, char* szCopy, const char** ppArg)
 {
@@ -907,6 +1046,32 @@ int __fastcall CHATDLG_UpdateSaveFlags(const char* szName)
 
     FOG_CloseFile(hFile);
     return nResult;
+}
+
+// 0x0043CBE0
+D2ModuleInterfaceStrc* __fastcall sub_0043CBE0_Init(void* hInstance)
+{
+    gpInstance = hInstance;
+    return &gtInterface;
+}
+
+// 0x0043CBF0
+void __cdecl sub_0043CBF0_Nop()
+{
+}
+
+// 0x0043CC00
+const char* __fastcall sub_0043CC00_StrChr(const char* szString, char nChar, int bReverse)
+{
+    if (bReverse)
+        return SStrChrR(szString, nChar);
+    return SStrChr(szString, nChar);
+}
+
+// 0x0043CC20
+int __fastcall sub_0043CC20_TestBit2(int nValue)
+{
+    return nValue & 4;
 }
 
 // 0x0043CC30
@@ -1048,6 +1213,27 @@ int __stdcall CHATDLG_ScrollPageUp(SMSGHANDLER_PARAMS* pMsg)
     return 1;
 }
 
+// 0x0043DA00
+int __stdcall sub_0043DA00_ScrollPageDown(SMSGHANDLER_PARAMS* pMsg)
+{
+    CHATDLG_UpdateScroll(10);
+    return 1;
+}
+
+// 0x0043DA20
+int __stdcall sub_0043DA20_ScrollUp(SMSGHANDLER_PARAMS* pMsg)
+{
+    CHATDLG_UpdateScroll(-1);
+    return 1;
+}
+
+// 0x0043DA30
+int __stdcall sub_0043DA30_ScrollForward(SMSGHANDLER_PARAMS* pMsg)
+{
+    CHATDLG_UpdateScroll(1);
+    return 1;
+}
+
 // 0x0043DA50
 static int __stdcall CHATDLG_ReadRegValueHKLM(const char* szSubKey, const char* szValueName, unsigned char* pData, unsigned long nSize, unsigned long* pcbData)
 {
@@ -1065,6 +1251,13 @@ static int __stdcall CHATDLG_ReadRegValueHKLM(const char* szSubKey, const char* 
         return 0;
     }
     return RegCloseKey(hKey) == 0;
+}
+
+// 0x0043DAD0
+int __fastcall sub_0043DAD0_SetMainState(int bSet)
+{
+    sub_004F9740_SetControlState(gpControlMain_0077BC4C, bSet);
+    return 1;
 }
 
 // 0x0043DAF0
@@ -2723,6 +2916,23 @@ void __stdcall CHATDLG_EnableConnection(int bEnable)
         sub_004F9740_ControlSetState(gpControlMain_0077BC4C, 1);
 }
 
+// 0x004414C0
+void __cdecl sub_004414C0_UpdateEnable()
+{
+    if (((*(unsigned short*)gpCharInfo->wFlags) & 8) && ((*(unsigned short*)gpCharInfo->wFlags) & 4))
+    {
+        return;
+    }
+
+    int bEnable = 0;
+    if (gpCharInfo->nByte22D && !sub_00449B30_QueryAddress())
+    {
+        bEnable = 1;
+    }
+
+    CHATDLG_EnableConnection(bEnable);
+}
+
 // 0x00441500
 int __stdcall CHATDLG_OnTick(int nUnused)
 {
@@ -3124,6 +3334,170 @@ int __fastcall CHATDLG_IsCharOverLimit(const unsigned char* pChar)
     return nChar - '0' > nLimit;
 }
 
+// 0x00442E30
+static void sub_00442E30_ShowGameInfo(int nIndex)
+{
+    if (!gpGameText_00798BC4)
+        return;
+
+    D2LaunchGameRecStrc* pGame = &gaNewGames[nIndex];
+    sub_004FB6A0_ClearText(gpGameText_00798BC4);
+    if (strlen(&pGame->szName[0x10]))
+    {
+        sub_004FCF80_SetTextA(gpGameText_00798BC4, &pGame->szName[0x10]);
+        sub_004FCF80_SetTextA(gpGameText_00798BC4, &gszEmptyAssertText);
+    }
+    D2Win_10053(gpGameText_00798BC4, 0);
+    if (pGame->szName)
+    {
+        sub_004FFE10_SetTextA(gpJoinName, pGame->szName);
+        CONTROL_SetFocusedEditBox(0);
+    }
+}
+
+int __stdcall sub_004450D0_OnGameListEvent(SMSGHANDLER_PARAMS* pMsg)
+{
+// build: symbol ?gpGameList@* 0x00798BC0
+    const int nSelection = sub_004FB990_GetSelection(gpGameList);
+    sub_004FB6A0_ClearText(gpGameText_00798BC4);
+    if (nSelection != -1)
+    {
+        if (pMsg->uMessage == 0x201)
+        {
+            const unsigned long dwTick = GetTickCount();
+// build: symbol ?gnGameListLastSelection@* 0x0070EBDC
+            if (nSelection == gnGameListLastSelection && dwTick - gdwGameListLastClickTick <= 500)
+            {
+                CHARSEL_JoinByName(0);
+                return 0;
+            }
+            gnGameListLastSelection = nSelection;
+            gdwGameListLastClickTick = dwTick;
+        }
+
+        if (sub_00449B30_QueryAddress())
+        {
+            const Unicode* pText = sub_004FBB30_GetText(gpGameList);
+            if (pText)
+            {
+                char szText[0x100];
+                sub_00526F70(szText, pText, 0x100);
+// build: symbol ?gwRequestId@* 0x0070CD60
+                while (++gwRequestId == 0)
+                {
+                }
+                CHATDLG_SetPendingText(szText, gwRequestId);
+                sub_004FF5A0_SetEditText(gpJoinName, pText);
+                CONTROL_SetFocusedEditBox(0);
+            }
+        }
+        else
+        {
+            sub_00442E30_ShowGameInfo(nSelection);
+        }
+    }
+    return 0;
+}
+
+// 0x00442EB0
+void __fastcall sub_00442EB0_ShowGameDetails(D2GameDetailsStrc* pDetails)
+{
+    char szLine[0x100];
+
+    if (!gpGameInfoText)
+        return;
+
+    sub_004FB6A0_ClearText(gpGameInfoText);
+    if (strlen(pDetails->szDescription))
+    {
+        sub_004FCF80_SetTextA(gpGameInfoText, pDetails->szDescription);
+        sub_004FCF80_SetTextA(gpGameInfoText, gszEmptyString_006CC837);
+    }
+
+    unsigned int nSecondsPerHour = 3600;
+    unsigned int nSecondsPerMinute = 60;
+    unsigned int dwElapsed = pDetails->dwElapsed;
+    unsigned int nHours = dwElapsed / nSecondsPerHour;
+    unsigned int nRest = dwElapsed % nSecondsPerHour;
+    sprintf(szLine, "Elapsed Time: %d:%02d:%02d", nHours, nRest / 60, dwElapsed % nSecondsPerMinute);
+    sub_004FCF80_SetTextA(gpGameInfoText, szLine);
+
+    unsigned char nLevelDiff = pDetails->nLevelDiff;
+    if (nLevelDiff < 100)
+    {
+        if (nLevelDiff)
+        {
+            int nDiff = nLevelDiff;
+            int nLevel = pDetails->nLevel;
+            int nMin = nLevel - nDiff;
+            if (nMin <= 1)
+                nMin = 1;
+            int nMax = nDiff + nLevel;
+            if (nMax >= 99)
+                nMax = 99;
+            sprintf(szLine, "Level %d to %d", nMin, nMax);
+        }
+        else
+        {
+            sprintf(szLine, "Level %d", pDetails->nLevel);
+        }
+        sub_004FCF80_SetTextA(gpGameInfoText, szLine);
+    }
+
+    if (pDetails->nMaxPlayers > 0 && pDetails->nMaxPlayers < 8)
+    {
+        sprintf(szLine, "Up to %d Players", pDetails->nMaxPlayers);
+        sub_004FCF80_SetTextA(gpGameInfoText, szLine);
+    }
+
+    sub_004FCF80_SetTextA(gpGameInfoText, gszEmptyString_006CC837);
+
+    for (int i = 0; i < pDetails->nPlayers; ++i)
+    {
+        if (pDetails->szNames[i][0])
+        {
+            sub_004FCF80_SetTextA(gpGameInfoText, pDetails->szNames[i]);
+            switch (pDetails->wClass[i])
+            {
+            case 0:
+                sprintf(szLine, "Level %d Amazon", pDetails->wLevel[i]);
+                D2Win_10046(gpGameInfoText, szLine, 5);
+                break;
+            case 1:
+                sprintf(szLine, "Level %d Sorceress", pDetails->wLevel[i]);
+                D2Win_10046(gpGameInfoText, szLine, 5);
+                break;
+            case 2:
+                sprintf(szLine, "Level %d Necromancer", pDetails->wLevel[i]);
+                D2Win_10046(gpGameInfoText, szLine, 5);
+                break;
+            case 3:
+                sprintf(szLine, "Level %d Paladin", pDetails->wLevel[i]);
+                D2Win_10046(gpGameInfoText, szLine, 5);
+                break;
+            case 4:
+                sprintf(szLine, "Level %d Barbarian", pDetails->wLevel[i]);
+                D2Win_10046(gpGameInfoText, szLine, 5);
+                break;
+            case 5:
+                sprintf(szLine, "Level %d Druid", pDetails->wLevel[i]);
+                D2Win_10046(gpGameInfoText, szLine, 5);
+                break;
+            case 6:
+                sprintf(szLine, "Level %d Assassin", pDetails->wLevel[i]);
+                D2Win_10046(gpGameInfoText, szLine, 5);
+                break;
+            default:
+                sprintf(szLine, "Level %d", pDetails->wLevel[i]);
+                D2Win_10046(gpGameInfoText, szLine, 5);
+                break;
+            }
+        }
+    }
+
+    D2Win_10053(gpGameInfoText, 0);
+}
+
 // 0x00443600
 int __stdcall CHATDLG_IsPrintableChar(int nA, int nB, const char* pChar)
 {
@@ -3139,6 +3513,28 @@ int __stdcall CHATDLG_CheckStartAdvResult(int nUnused)
     int nOut;
     if (gpLaunchFuncs->pfn0x8C(&nOut))
         D2Win_StopMessageLoop();
+    return 1;
+}
+
+// 0x00443EF0
+int __stdcall sub_00443EF0_OnSelect(int nArg)
+{
+    CHATDLG_DestroyProfileControls();
+    if (gnPendingValueB)
+    {
+        if (gnPendingValueA)
+            CHATDLG_OpenExpansionHardcoreLadder();
+        else
+            CHATDLG_OpenExpansionLadder();
+    }
+    else
+    {
+        if (gnPendingValueA)
+            CHATDLG_OpenHardcoreLadder();
+        else
+            CHATDLG_OpenStandardLadder();
+    }
+    CHATDLG_SelectEntry(gszPendingEntryName, gnPendingValueA, gnPendingValueB);
     return 1;
 }
 

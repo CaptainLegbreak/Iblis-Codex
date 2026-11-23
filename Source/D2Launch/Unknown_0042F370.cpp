@@ -27,16 +27,6 @@ extern int gdwGlobal_00779974; // 0x00779974
 
 int gbPaletteBusy; // 0x00779970
 
-// 0x0042F370
-void __cdecl sub_0042F370_RestorePalette()
-{
-    if (gbPaletteBusy)
-    {
-        MAINMENUS_ReadPaletteFiles(gszFeCharPalDat, "palette\\fechar\\pal.pl2");
-        gbPaletteBusy = 0;
-    }
-}
-
 // 0x0042F880
 void __cdecl sub_0042F880_DestroyControls()
 {
@@ -81,34 +71,6 @@ void __cdecl sub_0042F800()
 void __cdecl sub_0042FA20()
 {
     gbStopMainLoop = 0;
-}
-
-// 0x0042FF10
-void __fastcall sub_0042FF10_SetValue(int nValue)
-{
-    gnValue_00779980 = nValue;
-}
-
-// 0x0042FF20
-void __cdecl sub_0042FF20_ShowLocalAddress()
-{
-    const char* szAddress = FOG_GetHostIPAddress();
-    sub_004FB6A0_ClearText(gpControl_00779588);
-    if (!strcmp(szAddress, "127.0.0.1"))
-    {
-        sub_004FD060_SetText(gpControl_00779588, D2LANG_GetStringFromTblIndex(0x1404));
-// build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
-        CONTROL_SetEnabled(gpControl_007795A4, 0);
-        CONTROL_SetEnabled(gpControl_007795A0, 0);
-        CONTROL_SetEnabled(gpControl_00779338, 0);
-    }
-    else
-    {
-        D2Win_10045(gpControl_00779588, szAddress);
-        CONTROL_SetEnabled(gpControl_007795A4, 1);
-        CONTROL_SetEnabled(gpControl_007795A0, 1);
-        CONTROL_SetEnabled(gpControl_00779338, 1);
-    }
 }
 
 #include "gen/data/Source/D2Launch/Unknown_0042F370.inc"

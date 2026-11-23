@@ -558,7 +558,7 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
 extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0;                                                      // 0x0077ABF0
 
-extern int gnLaunchMode;                                                                           // 0x007795EC
+int gnLaunchMode;                                                                                  // 0x007795EC
 
 const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
 
@@ -1284,7 +1284,6 @@ Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCo
 
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 
-
 char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 
 int __fastcall sub_005264F0_Compare(const Unicode* pString1, const Unicode* pString2); // 0x005264F0
@@ -1381,6 +1380,58 @@ int __stdcall MAINMENUS_ChangePasswordOk(int nArg);
 int __stdcall MAINMENUS_LoginOk(int nArg);
 
 int __stdcall MAINMENUS_CreateAccountOk(int nArg);
+
+static int sub_0042FCE0_ArchiveFilePresent(const char* szFile);
+
+static void MAINMENUS_BuildLocalizedVideoPath(char* szOut, const char* szFormat, const char* szFile);
+
+extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds);                       // 0x006CC258
+
+void __cdecl MAINMENUS_FreeFrontEndCells();                                                              // 0x0042EF50
+
+int __cdecl sub_004309B0_ClearState();                                                                      // 0x004309B0
+
+void __stdcall sub_00430BB0_LoopCallback(unsigned long nArg);                                               // 0x00430BB0
+
+void __cdecl MAINMENUS_PlayIntroVideos();                                                                // 0x00435230
+
+int __fastcall CHARSEL_InitFuncTable(D2LaunchRecordStrc* pRecord);                                     // 0x0043B7A0
+
+int __stdcall WINDOW_CenterWindow(int nResolution);                                                   // 0x004F5BC0
+
+int __fastcall D2Win_10015();                                                                               // 0x004F8FE0
+
+int __stdcall CURSOR_SetCellFile(D2CelFileStrc* pCellFile);                                                 // 0x004F9160
+
+void __stdcall D2Win_SetQuitCallback(int (__cdecl* a1)());                                                            // 0x004F9180
+
+int __stdcall D2Win_RunMessageLoop(void (__stdcall* pCallback)(unsigned long));                                      // 0x004FA590
+
+void* __stdcall sub_004FAC80(int nArg);                                                                     // 0x004FAC80
+
+void __cdecl D2SOUND_InitWaveSlots();                                                                                // 0x00514DB0
+
+void __fastcall D2SOUND_PreloadWave(const char* szFile);                                                           // 0x00514E10
+
+int __cdecl D2SOUND_IsAnyWavePlaying();                                                                // 0x00514FB0
+
+void __cdecl sub_00515070();                                                                                // 0x00515070
+
+void __stdcall D2Win_10029(int a1); // 0x004FA410
+
+void __cdecl sub_0042F880_DestroyControls(); // 0x0042F880
+
+extern D2WinControlStrc* gpControl_00779338; // 0x00779338
+
+extern D2WinControlStrc* gpControl_00779588; // 0x00779588
+
+extern D2WinControlStrc* gpControl_007795A0; // 0x007795A0
+
+extern D2WinControlStrc* gpControl_007795A4; // 0x007795A4
+
+void __cdecl sub_0042F800(); // 0x0042F800
+
+void __cdecl sub_0042FA20(); // 0x0042FA20
 
 // 0x004065E0
 void __stdcall D2ServerServiceMain(unsigned long dwArgc, char** lpszArgv)
@@ -1733,6 +1784,16 @@ int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFil
     return 1;
 }
 
+// 0x0042F370
+void __cdecl sub_0042F370_RestorePalette()
+{
+    if (gbPaletteBusy)
+    {
+        MAINMENUS_ReadPaletteFiles(gszFeCharPalDat, "palette\\fechar\\pal.pl2");
+        gbPaletteBusy = 0;
+    }
+}
+
 // 0x0042F3A0
 D2WinControlStrc* __fastcall MAINMENUS_CreateFromTemplate(int nTemplateId)
 {
@@ -1917,6 +1978,7 @@ int __cdecl MAINMENUS_GetAuxBattleNetFlag()
     return 0;
 }
 
+// 0x0042FCE0
 static int sub_0042FCE0_ArchiveFilePresent(const char* szFile)
 {
     void* hFile;
@@ -1971,6 +2033,34 @@ int __stdcall MAINMENUS_FilterRestrictedChar(void* pControl, int nUnused, const 
 int __stdcall sub_0042FF00_FilterChar(void* pControl, int nUnused, const char* pChar)
 {
     return 1;
+}
+
+// 0x0042FF10
+void __fastcall sub_0042FF10_SetValue(int nValue)
+{
+    gnValue_00779980 = nValue;
+}
+
+// 0x0042FF20
+void __cdecl sub_0042FF20_ShowLocalAddress()
+{
+    const char* szAddress = FOG_GetHostIPAddress();
+    sub_004FB6A0_ClearText(gpControl_00779588);
+    if (!strcmp(szAddress, "127.0.0.1"))
+    {
+        sub_004FD060_SetText(gpControl_00779588, D2LANG_GetStringFromTblIndex(0x1404));
+// build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
+        CONTROL_SetEnabled(gpControl_007795A4, 0);
+        CONTROL_SetEnabled(gpControl_007795A0, 0);
+        CONTROL_SetEnabled(gpControl_00779338, 0);
+    }
+    else
+    {
+        D2Win_10045(gpControl_00779588, szAddress);
+        CONTROL_SetEnabled(gpControl_007795A4, 1);
+        CONTROL_SetEnabled(gpControl_007795A0, 1);
+        CONTROL_SetEnabled(gpControl_00779338, 1);
+    }
 }
 
 // 0x0042FFD0
@@ -4374,6 +4464,128 @@ void __cdecl MAINMENUS_CreateCharCreateScreen()
     MAINMENUS_UpdateNameOk();
 }
 
+// 0x004359D0
+int __fastcall sub_004359D0_RunFrontEnd(D2LaunchRecordStrc* pRecord)
+{
+// build: symbol ?gpLaunchRecord@* 0x007795D4
+    gpLaunchRecord = pRecord;
+    D2Win_10015();
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    D2_ASSERT(sub_005259C0(sub_004FAC80(FOG_IsExpansion()), 0), 0x125A);
+    MAINMENUS_LoadFrontEndCells();
+    CURSOR_SetCellFile(gpCursorOHandCelFile);
+    gpLaunchRecord->nByte361 = 0;
+    gpLaunchRecord->nByte381 = 0;
+    gpLaunchRecord->nByte1F = 0;
+    gpLaunchRecord->nByte245 = 0;
+    if (gnLaunchMode != 2)
+        gpLaunchRecord->nByte37 = 0;
+    D2SOUND_InitWaveSlots();
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\button.wav");
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\amazon select.wav");
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\amazon deselect.wav");
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\barbarian select.wav");
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\barbarian deselect.wav");
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\paladin select.wav");
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\paladin deselect.wav");
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\necromancer select.wav");
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\necromancer deselect.wav");
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\sorceress select.wav");
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\sorceress deselect.wav");
+    if (FOG_IsExpansion())
+    {
+        D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\druid select.wav");
+        D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\druid deselect.wav");
+        D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\assassin select.wav");
+        D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\assassin deselect.wav");
+    }
+    gpFuncTable_0077ABF0 = pRecord->pFuncTable;
+    const char nStartMode = gpLaunchRecord->nStartMode;
+    if (nStartMode == 2)
+    {
+        if (gpFuncTable_0077ABF0->pfnSlot68())
+        {
+            gnLaunchMode = 1;
+            sub_004F90A0(1);
+            sub_0043B080();
+        }
+        else
+        {
+            gnLaunchMode = 1;
+            sub_004F90A0(1);
+            MAINMENUS_ShowLoginScreen();
+        }
+    }
+    else if (nStartMode == 4)
+    {
+        if (gpFuncTable_0077ABF0->pfnSlot68())
+        {
+            gnLaunchMode = 3;
+            sub_004F90A0(1);
+            sub_0043B080();
+        }
+        else
+        {
+            gnLaunchMode = 3;
+            sub_004F90A0(1);
+            MAINMENUS_ShowLoginScreen();
+        }
+    }
+    else if (nStartMode == 3)
+    {
+        CHARSEL_InitFuncTable(gpLaunchRecord);
+        gnLaunchMode = 2;
+        sub_004F90A0(1);
+// build: symbol ?CHARSEL_CreateTcpIpScreen@* 0x0042FFE0
+        CHARSEL_CreateTcpIpScreen();
+    }
+    else
+    {
+        CHARSEL_InitFuncTable(gpLaunchRecord);
+        if (gpLaunchRecord->bRegistryMode)
+        {
+            unsigned long nValue = 0;
+            SRegLoadValue("Diablo II", "Skip To Open", 0, &nValue);
+            gpLaunchRecord->bRegistryMode = 0;
+            gpLaunchRecord->bIntroPlayed = 1;
+            sub_004F90A0(1);
+            WINDOW_CenterWindow(1);
+            gnLaunchMode = nValue ? 3 : 1;
+            MAINMENUS_ShowLoginScreen();
+        }
+        else
+        {
+            if (!gpLaunchRecord->bIntroPlayed)
+            {
+                gnLaunchMode = 0;
+                sub_004F90A0(1);
+                WINDOW_CenterWindow(1);
+                MAINMENUS_PlayIntroVideos();
+                gpLaunchRecord->bIntroPlayed = 1;
+            }
+            else
+            {
+                gnLaunchMode = 0;
+                sub_004F90A0(1);
+                sub_004336C0();
+            }
+        }
+    }
+    D2Win_SetQuitCallback(sub_004309B0_ClearState);
+    D2Win_RunMessageLoop(sub_00430BB0_LoopCallback);
+    sub_00515020();
+    while (D2SOUND_IsAnyWavePlaying())
+        Sleep(0);
+    sub_00515070();
+// build: symbol ?MAINMENUS_Reset@* 0x0042F480
+    MAINMENUS_Reset();
+    MAINMENUS_FreeFrontEndCells();
+    sub_00524E40();
+    memset(gpLaunchRecord->adwSecret, 0, sizeof(gpLaunchRecord->adwSecret));
+    sub_004FA550();
+    return gnLaunchState;
+}
+
 // 0x00435CD0
 int __stdcall MAINMENUS_OnSinglePlayer(int nArg)
 {
@@ -5178,6 +5390,12 @@ void __cdecl MAINMENUS_LoadMaxPlayers()
 int __stdcall sub_00443C10_AlwaysOne(int nArg)
 {
     return 1;
+}
+
+void __fastcall sub_J02_EmitLaunchVideoPath(char* szOut, const char* szFormat, const char* szFile)
+{
+    MAINMENUS_BuildLocalizedVideoPath(szOut, szFormat, szFile);
+    MAINMENUS_BuildLocalizedVideoPath(szOut + 1, szFormat, szFile);
 }
 
 #include "gen/data/Source/D2Launch/Src/MainMenus.inc"

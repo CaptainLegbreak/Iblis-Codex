@@ -17,14 +17,6 @@ extern int gnProjectOriginX; // 0x00880B60
 extern int gnProjectOriginY; // 0x00880B68
 
 
-// 0x0050DBC0
-void __fastcall sub_0050DBC0_GlideSetAmbientColor(int nRed, int nGreen, int nBlue)
-{
-    gbGlideAmbientRed = nRed;
-    gbGlideAmbientGreen = nGreen;
-    gbGlideAmbientBlue = nBlue;
-}
-
 int gnProjectOriginX; // 0x00880B60
 
 int gnGlideSpriteScale; // 0x00880B64

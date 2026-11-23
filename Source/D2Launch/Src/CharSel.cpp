@@ -245,7 +245,6 @@ int gnBusy; // 0x00779DAC
 
 extern "C" unsigned int __cdecl strlen(const char* sz);
 
-
 int __stdcall sub_005041B0_Destroy(D2CelFileStrc* pCellFile, int nFlag); // 0x005041B0
 
 D2LaunchCharEntryStrc* gpCharEntry_00779DC0;                                                                // 0x00779DC0
@@ -501,7 +500,6 @@ extern D2WinControlStrc* gpScrollDownButton;                                    
 
 D2WinControlStrc* gpControl_00779C68;                                                                       // 0x00779C68
 
-
 extern D2WinControlStrc* gpControl_00779C70;                                                                // 0x00779C70
 
 extern D2WinControlStrc* gpControl_00779C74;                                                                // 0x00779C74
@@ -592,10 +590,14 @@ int __fastcall D2Win_10143(D2CompositeUnitStrc* pCompositeUnit, int nMode);     
 
 void __cdecl sub_00438560_Refresh();
 
-
 char* gpszName; // 0x00779DB0
 
 unsigned long gdwLastClick; // 0x00779DEC
+
+extern "C" int __cdecl tolower(int nChar);
+
+// build: symbol ?gacCDKeyMap@* 0x006DF238
+extern const char gacCDKeyMap[];
 
 // 0x0042E5B0
 char* __cdecl CHARSEL_StrStr(char* szString, const char* szSubString)
@@ -928,6 +930,13 @@ int __stdcall CHARSEL_Back(int nArg)
 {
     sub_00435580();
     return 1;
+}
+
+// 0x004379C0
+// build: symbol ?BNDOWNLOAD_GetTime@* 0x00521B40
+static long BNDOWNLOAD_GetTime(long* pTime)
+{
+    return _time32(pTime);
 }
 
 // 0x004379D0
@@ -2082,6 +2091,47 @@ void __fastcall CHARSEL_ShowProgressSteps(int nDone, int nTotal)
         Sleep(250);
         ++nPosition;
     }
+}
+
+static unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
+{
+    nValue &= 0xF;
+    if (nValue >= 10)
+        return nValue + 0x37;
+    return nValue + 0x30;
+}
+
+static int sub_0051DD20_HexToNibble(char cChar)
+{
+    char cLower = (char)tolower(cChar);
+    if (cLower >= 'a')
+        return cLower - 0x57;
+    return cLower - 0x30;
+}
+
+static int sub_0051DD40_MapKeyChar(unsigned char cChar)
+{
+    return gacCDKeyMap[cChar];
+}
+
+long __stdcall sub_M106_Emit_0051DC70(long* pTime)
+{
+    return BNDOWNLOAD_GetTime(pTime);
+}
+
+unsigned int __stdcall sub_M106_Emit_0051DD10(int n)
+{
+    return sub_0051DD10_NibbleToHex(tolower(n)) + sub_0051DD10_NibbleToHex(tolower(n + 1));
+}
+
+int __stdcall sub_M106_Emit_0051DD20(int n)
+{
+    return sub_0051DD20_HexToNibble((char)tolower(n)) * 16 + sub_0051DD20_HexToNibble((char)tolower(n + 1));
+}
+
+int __stdcall sub_M106_Emit_0051DD40(int n)
+{
+    return sub_0051DD40_MapKeyChar((unsigned char)tolower(n)) * 24 + sub_0051DD40_MapKeyChar((unsigned char)tolower(n + 1));
 }
 
 #include "gen/data/Source/D2Launch/Src/CharSel.inc"
