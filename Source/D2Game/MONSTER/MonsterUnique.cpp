@@ -381,21 +381,6 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     }
 }
 
-// 0x0059F8A0
-void __fastcall MISSILES_Initialize(D2GameStrc* pGame, D2UnitStrc* pMissile, int nUnitGUID)
-{
-    if (!pMissile)
-    {
-        return;
-    }
-
-    MISSILE_AllocMissileData(pMissile);
-    pMissile->dwUnitId = nUnitGUID;
-    pMissile->dwFlags &= ~(UNITFLAG_TARGETABLE | UNITFLAG_ISVALIDTARGET);
-    D2GAME_DeleteTimersOnUnit_6FC34A30(pGame, pMissile);
-    sub_6FC35570(pGame, pMissile, 0, 0, 0);
-}
-
 int __fastcall sub_005A00F0_GetMonUModConstant(int nIndex); // 0x005A00F0
 
 // 0x005A0030
