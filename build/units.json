@@ -32257,6 +32257,16 @@
      "va": "0x004DE730",
      "length": 819,
      "name": "?sub_004DE730_UpdateView@D2FloorTileViewStrc@@QAEXPAX@Z"
+    },
+    {
+     "va": "0x004DED10",
+     "length": 12,
+     "name": "?sub_004DED10@@YIXPAX@Z"
+    },
+    {
+     "va": "0x004DED20",
+     "length": 141,
+     "name": "?MISSILE_UpdateRoomColor@@YAXXZ"
     }
    ]
   },
@@ -32292,16 +32302,6 @@
    "file": "Source/D2Client/Unknown_004DED10.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004DED10",
-     "length": 12,
-     "name": "?sub_004DED10@@YIXPAX@Z"
-    },
-    {
-     "va": "0x004DED20",
-     "length": 141,
-     "name": "?MISSILE_UpdateRoomColor@@YAXXZ"
-    },
     {
      "va": "0x004DEDB0",
      "length": 49,
