@@ -24,6 +24,10 @@ struct tagPOINT;
 struct tagPALETTEENTRY;
 struct D2PaletteTableStrc;
 struct D2CacheStatsStrc;
+struct D2TileLibraryEntryStrc;
+struct D2GfxLightStrc;
+struct D2GfxLightExStrc;
+struct D2GfxDataStrc;
 
 struct D2GraphicsInterfaceStrc
 {
@@ -57,18 +61,18 @@ struct D2GraphicsInterfaceStrc
     void (__fastcall* pfPerspectiveClearScale)();
     void (__fastcall* pfSetPalette)(tagPALETTEENTRY* pPalette);
     void (__fastcall* pfSetPaletteTables)(D2PaletteTableStrc* pPaletteTables);
-    void (__fastcall* pfSetAmbientColor)(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);
-    void* pfFloorTileDraw;
-    void* pfCelFlatSpriteDraw;
-    void* pfCelDraw;
-    void* pfCelDrawColor;
-    void* pfCelDrawEx;
-    void* pfCelDrawShadow;
-    void* pfCelDrawHilight;
-    void* pfCelDrawClipped;
-    void* pfTileDrawLit;
-    void* pfTileDrawTrans;
-    void* pfShadowTileDraw;
+    void (__fastcall* pfSetAmbientColor)(int nRed, int nGreen, int nBlue);
+    int (__fastcall* pfFloorTileDraw)(D2TileLibraryEntryStrc* pTile, D2GfxLightExStrc* pLight, int nPosX, int nPosY, int nWorldXpos, int nWorldYpos, unsigned char nAlpha, int nScreenPanels, void* pTileData);
+    void (__fastcall* pfCelFlatSpriteDraw)(D2GfxDataStrc* pData, int nPosX, int nPosY, unsigned int dwGamma, int eDrawMode, int nScreenMode, unsigned char* pPalette);
+    void (__fastcall* pfCelDraw)(D2GfxDataStrc* pData, int nPosX, int nPosY, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette);
+    void (__fastcall* pfCelDrawColor)(D2GfxDataStrc* pData, int nPosX, int nPosY, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift);
+    void (__fastcall* pfCelDrawEx)(D2GfxDataStrc* pData, int nPosX, int nPosY, int nSkipLines, int nDrawLines, int eDrawMode);
+    void (__fastcall* pfCelDrawShadow)(D2GfxDataStrc* pData, int nPosX, int nPosY);
+    void (__fastcall* pfCelDrawHilight)(D2GfxDataStrc* pData, int nPosX, int nPosY, unsigned char nPaletteIndex);
+    void (__fastcall* pfCelDrawClipped)(D2GfxDataStrc* pData, int nPosX, int nPosY, void* pCropRect, int eDrawMode);
+    int (__fastcall* pfTileDrawLit)(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels);
+    int (__fastcall* pfTileDrawTrans)(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels, unsigned char nAlpha);
+    int (__fastcall* pfShadowTileDraw)(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, int eDrawMode, int nScreenPanels);
     void (__fastcall* pfUtilDiamond)(tagRECT* pRect, unsigned char nPaletteIndex);
     void (__fastcall* pfUtilRect)(tagRECT* pRect, unsigned char nPaletteIndex);
     void (__fastcall* pfUtilFilledRect)(tagRECT* pRect, unsigned char nPaletteIndex);
@@ -77,9 +81,9 @@ struct D2GraphicsInterfaceStrc
     void (__fastcall* pfDrawBoxAlpha)(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha);
     void (__fastcall* pfDrawLine)(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha);
     void (__fastcall* pfClearScreen)(int bPartial);
-    void* pfOutputString;
-    void* pfDebugDraw;
-    void* pfDebugFillBackBuffer;
+    void (__fastcall* pfOutputString)(int nPosX, int nPosY, const char* szFormat, char* va);
+    void (__fastcall* pfDebugDraw)(unsigned int* pLight, unsigned int* pPlayerLight, int nPosX, int nPosY);
+    void (__fastcall* pfDebugFillBackBuffer)(int nPosX, int nPosY);
     void (__fastcall* pfClearCaches)();
 };
 
