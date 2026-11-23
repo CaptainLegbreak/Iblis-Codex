@@ -6751,40 +6751,6 @@ void __fastcall AITHINK_ExecuteMonsterAiTick(D2GameStrc* pGame, D2UnitStrc* pUni
     ((AIPARAMFN)aiTickParam.pAiControl->pAiParamFn)(pGame, pUnit, &aiTickParam);
 }
 
-// 0x005B23C0
-D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags)
-{
-    D2UnkMonCreateStrc monCreate;
-    monCreate.nUnitGUID = 0;
-    monCreate.nMonsterId = nMonsterId;
-    monCreate.nAnimMode = nAnimMode;
-    monCreate.pRoom = UNITS_GetRoom(pUnit);
-    monCreate.nMaxSearchRings = a5;
-    monCreate.nFlags = nFlags;
-    monCreate.pGame = pGame;
-    monCreate.pRoomCoordList = 0;
-    monCreate.nX = CLIENTS_GetUnitX_Local(pUnit);
-    monCreate.nY = CLIENTS_GetUnitY_Local(pUnit);
-    return D2GAME_SpawnNormalMonster_6FC68E30(&monCreate);
-}
-
-// 0x005B2F70
-D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnitInCoordList(D2GameStrc* pGame, D2RoomCoordListStrc* pRoomCoordList, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a6, short nFlags)
-{
-    D2UnkMonCreateStrc monCreate;
-    monCreate.nUnitGUID = 0;
-    monCreate.nMonsterId = nMonsterId;
-    monCreate.nAnimMode = nAnimMode;
-    monCreate.pRoom = UNITS_GetRoom(pUnit);
-    monCreate.nMaxSearchRings = a6;
-    monCreate.nFlags = nFlags;
-    monCreate.pGame = pGame;
-    monCreate.pRoomCoordList = pRoomCoordList;
-    monCreate.nX = CLIENTS_GetUnitX_Local(pUnit);
-    monCreate.nY = CLIENTS_GetUnitY_Local(pUnit);
-    return D2GAME_SpawnNormalMonster_6FC68E30(&monCreate);
-}
-
 // 0x005B3750
 bool __fastcall ACT4Q0_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
 {

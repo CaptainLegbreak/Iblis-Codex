@@ -60049,16 +60049,6 @@
      "name": "?AITHINK_ExecuteMonsterAiTick@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
-     "va": "0x005B23C0",
-     "length": 204,
-     "name": "MONSTERSPAWN_SpawnAtUnit"
-    },
-    {
-     "va": "0x005B2F70",
-     "length": 207,
-     "name": "MONSTERSPAWN_SpawnAtUnitInCoordList"
-    },
-    {
      "va": "0x005B3750",
      "length": 40,
      "name": "ACT4Q0_ActiveFilterCallback"
@@ -62837,6 +62827,11 @@
      "name": "?MONSTERSPAWN_SetupNormalMods@@YAXPAUD2UnkMonCreateStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005B23C0",
+     "length": 204,
+     "name": "MONSTERSPAWN_SpawnAtUnit"
+    },
+    {
      "va": "0x005B2490",
      "length": 74,
      "name": "sub_6FC6A150"
@@ -62862,6 +62857,11 @@
     {
      "va": "0x005B2F20",
      "length": 74
+    },
+    {
+     "va": "0x005B2F70",
+     "length": 207,
+     "name": "MONSTERSPAWN_SpawnAtUnitInCoordList"
     },
     {
      "va": "0x005B3040",
