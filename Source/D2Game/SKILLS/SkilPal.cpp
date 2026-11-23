@@ -1334,6 +1334,69 @@ int __fastcall SKILLS_SrvSt35_Vengeance(D2GameStrc* pGame,D2UnitStrc* pUnit,int 
     return 1;
 }
 
+void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nPathType);                                // 0x00648CF0
+int __stdcall SKILLS_GetConcentrationDamageBonus(D2UnitStrc* pUnit, int nSkillId);                          // 0x006461D0
+int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);                         // 0x006253B0
+
+enum D2C_SkilPal_005D0040Constants
+{
+    PATHTYPE_BLESSEDHAMMER = 0x0E,
+};
+
+// 0x005D0040
+int __fastcall SKILLS_SrvDo073_BlessedHammer(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    if (!SKILLS_GetSkillsTxtRecord(nSkillId))
+    {
+        return 0;
+    }
+
+    const int nMissileId = SKILLS_GetProgressiveSkillMissileId(pUnit, nSkillId);
+    int nTargetX;
+    int nTargetY;
+    D2UnitStrc* pMissile = 0;
+    if (nMissileId > 0 && D2GAME_GetXAndYFromTargetUnit_6FD14020(pGame, pUnit, &nTargetX, &nTargetY))
+    {
+        if (pUnit)
+        {
+            pUnit->dwFlags |= UNITFLAG_SKSRVDOFUNC;
+        }
+
+        D2MissileStrc missileParams = {};
+        missileParams.dwFlags = 0x20;
+        missileParams.pOwner = pUnit;
+        missileParams.pOrigin = pUnit;
+        missileParams.nTargetX = nTargetX;
+        missileParams.nTargetY = nTargetY;
+        missileParams.nSkill = nSkillId;
+        missileParams.nSkillLevel = nSkillLevel;
+        missileParams.nMissile = nMissileId;
+
+        pMissile = MISSILES_CreateMissileFromParams(pGame, &missileParams);
+    }
+
+    if (!pMissile)
+    {
+        return 0;
+    }
+
+    D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
+    PATH_SetType(pPath, PATHTYPE_BLESSEDHAMMER);
+    D2Common_10142(pPath, pMissile, 0);
+
+    const int nBonus = SKILLS_GetConcentrationDamageBonus(pUnit, nSkillId);
+    if (nBonus)
+    {
+        const int nPercentage = nBonus + 100;
+        const int nMinDamage = DATATBLS_ApplyRatio(STATLIST_GetUnitBaseStat(pMissile, STAT_MAGICMINDAM, 0), nPercentage, 100);
+        STATLIST_SetUnitStat(pMissile, STAT_MAGICMINDAM, nMinDamage, 0);
+        const int nMaxDamage = DATATBLS_ApplyRatio(STATLIST_GetUnitBaseStat(pMissile, STAT_MAGICMAXDAM, 0), nPercentage, 100);
+        STATLIST_SetUnitStat(pMissile, STAT_MAGICMAXDAM, nMaxDamage, 0);
+    }
+
+    return 1;
+}
+
 int __fastcall sub_M132_Emit_005CF8A0(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     return SKILLS_FindMeleeTarget(pGame, pUnit, 0x4D3) != 0;

@@ -8,6 +8,8 @@
 #include "D2Path.h"
 #include "D2GameTypes.h"
 #include "D2ItemsWorld.h"
+#include "D2GameAux.h"
+#include "D2UnitData.h"
 
 #define UNITFLAG_SKSRVDOFUNC 0x40
 
@@ -453,6 +455,93 @@ int __fastcall SKILLS_SrvDo070_DoubleSwing(D2GameStrc* pGame, D2UnitStrc* pUnit,
     SKILLS_SrvSt32_Conversion_Bash_Stun_Concentrate_BearSmite(pGame, pUnit, nSkillId, nSkillLevel);
     SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
 
+    return 1;
+}
+
+void __fastcall AITHINK_SetAiControlParams(D2AiControlStrc* pAiControl, int nParam0, int nParam1, int nParam2); // 0x005B0D70
+void __fastcall AIUTIL_SetOwnerGUIDAndType(D2UnitStrc* pUnit, D2UnitStrc* pOwner);                          // 0x005DD330
+int __fastcall SKILLS_AuraCallback_ApplyCurse(D2UnitStrc* pUnit, D2UnkNecSkillStrc* pArgs); // 0x005C35C0
+int __fastcall SKILLS_Callback_FindTargetForTaunt(D2GameStrc* pGame, D2UnitStrc* pUnit);                   // 0x005D8510
+D2UnitStrc* __fastcall SKILLS_FindAuraTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nAuraRange, int (__fastcall* pCallback)(D2GameStrc*, D2UnitStrc*)); // 0x0056BBC0
+int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);                    // 0x00554200
+extern const unsigned int gdwBitMasks[32]; // 0x006CE268
+
+
+
+
+
+
+
+// 0x005D8570
+int __fastcall SKILLS_SrvDo071_Taunt(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    if (pSkillsTxtRecord->wAuraTargetState < 0 || pSkillsTxtRecord->wAuraTargetState >= sgptDataTables->nStatesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (!pTarget || !SKILLS_Callback_FindTargetForTaunt(pGame, pTarget) || !SUNIT_AreUnitsHostile(pGame, pUnit, pTarget))
+    {
+        pTarget = SKILLS_FindAuraTarget(pGame, pUnit, 20, SKILLS_Callback_FindTargetForTaunt);
+    }
+
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    const int nDuration = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraLenCalc, nSkillId, nSkillLevel);
+
+    D2UnkNecSkillStrc curseData;
+    memset(&curseData, 0, sizeof(curseData));
+    curseData.pUnit = pUnit;
+    curseData.nDuration = nDuration;
+    curseData.pGame = pGame;
+    curseData.unk0x08 = 1;
+    curseData.nSkillId = nSkillId;
+    curseData.nSkillLevel = nSkillLevel;
+    curseData.bUpdateAnimRate = 0;
+
+    for (int i = 0; i < 6; ++i)
+    {
+        if (pSkillsTxtRecord->wAuraStat[i] < 0 || pSkillsTxtRecord->wAuraStat[i] >= sgptDataTables->nItemStatCostTxtRecordCount)
+        {
+            curseData.nAuraStat[i] = -1;
+            break;
+        }
+
+// build: symbol ?PLAYER_GetItemStatCostTxtRecord@* 0x0045C4F0
+        D2ItemStatCostTxt* pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(pSkillsTxtRecord->wAuraStat[i]);
+        if (!pItemStatCostTxtRecord)
+        {
+            break;
+        }
+
+        if (pItemStatCostTxtRecord->nItemStatFlags[9 >> 3] & gdwBitMasks[9 & 7])
+        {
+            curseData.bUpdateAnimRate = 1;
+        }
+
+        curseData.nAuraStat[i] = pSkillsTxtRecord->wAuraStat[i];
+        curseData.nAuraStatCalc[i] = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraStatCalc[i], nSkillId, nSkillLevel);
+    }
+
+    curseData.nAuraTargetState = pSkillsTxtRecord->wAuraTargetState;
+    SKILLS_AuraCallback_ApplyCurse(pTarget, &curseData);
+
+    D2AiControlStrc* pAiControl = (pTarget->dwUnitType == UNIT_MONSTER && pTarget->pMonsterData) ? pTarget->pMonsterData->pAiControl : 0;
+    AITHINK_SetAiControlParams(pAiControl, -666, -666, -666);
+    AIUTIL_SetOwnerGUIDAndType(pTarget, 0);
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pTarget, 2, 0);
+    EVENT_SetEvent(pGame, pTarget, 2, pGame->dwGameFrame + 1, 0, 0);
+    UNITS_SetTargetUnitForDynamicUnit(pTarget, pUnit);
     return 1;
 }
 

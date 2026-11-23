@@ -64101,11 +64101,6 @@
      "name": "SKILLS_SrvDo149_NecromageMissile"
     },
     {
-     "va": "0x005D0040",
-     "length": 308,
-     "name": "?SKILLS_SrvDo073_BlessedHammer@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
      "va": "0x005D1080",
      "length": 61,
      "name": "?SKILLS_GetThornsPercent@@YAHPAUD2UnitStrc@@0@Z"
@@ -64198,34 +64193,9 @@
      "name": "SKILLS_FindUseableCorpse"
     },
     {
-     "va": "0x005D4DB0",
-     "length": 182,
-     "name": "?SKILLS_SrvDo036_ClawsOfThunder_ProgressiveFn2@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005D5010",
-     "length": 112,
-     "name": "?SKILLS_SrvDo040_RoyalStrike_ProgressiveFn1@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005D5D70",
-     "length": 146,
-     "name": "?SKILLS_SrvDo043_ShockField@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
      "va": "0x005D6410",
      "length": 264,
      "name": "SKILLS_RemoveStatesOnHit"
-    },
-    {
-     "va": "0x005D68A0",
-     "length": 266,
-     "name": "?SKILLS_SrvDo048_BladeFury@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005D7A00",
-     "length": 342,
-     "name": "?SKILLS_SrvSt28_BladeShield@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D7C40",
@@ -64241,11 +64211,6 @@
      "va": "0x005D83E0",
      "length": 143,
      "name": "?SKILLS_SrvDo068_BasicShout@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005D8570",
-     "length": 494,
-     "name": "SKILLS_SrvDo071_Taunt"
     },
     {
      "va": "0x005E4830",
@@ -64666,6 +64631,11 @@
      "name": "?SKILLS_SrvSt35_Vengeance@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005D0040",
+     "length": 308,
+     "name": "?SKILLS_SrvDo073_BlessedHammer@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005D0180",
      "length": 27,
      "name": "?SKILLS_SrvSt36_HolyShield@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -64900,6 +64870,11 @@
      "name": "?SKILLS_CreateCurvingMissileRing@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@HHHHHHI@Z"
     },
     {
+     "va": "0x005D4DB0",
+     "length": 182,
+     "name": "?SKILLS_SrvDo036_ClawsOfThunder_ProgressiveFn2@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005D4E70",
      "length": 204,
      "name": "?SKILLS_SrvDo037_ClawsOfThunder_ProgressiveFn3@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -64908,6 +64883,11 @@
      "va": "0x005D4F40",
      "length": 204,
      "name": "?SKILLS_SrvDo143_FistsOfFire_RoyalStrike_ProgressiveFn@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005D5010",
+     "length": 112,
+     "name": "?SKILLS_SrvDo040_RoyalStrike_ProgressiveFn1@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D5080",
@@ -64942,6 +64922,11 @@
      "length": 376
     },
     {
+     "va": "0x005D5D70",
+     "length": 146,
+     "name": "?SKILLS_SrvDo043_ShockField@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005D5E10",
      "length": 517
     },
@@ -64974,6 +64959,11 @@
      "va": "0x005D6630",
      "length": 613,
      "name": "?SKILLS_SrvDo047_CloakOfShadows@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005D68A0",
+     "length": 266,
+     "name": "?SKILLS_SrvDo048_BladeFury@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D69B0",
@@ -65038,6 +65028,11 @@
      "va": "0x005D7850",
      "length": 430,
      "name": "?SKILLS_SrvDo052_DragonFlight@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005D7A00",
+     "length": 342,
+     "name": "?SKILLS_SrvSt28_BladeShield@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D7B60",
@@ -65161,6 +65156,11 @@
      "va": "0x005D8470",
      "length": 155,
      "name": "?SKILLS_SrvDo070_DoubleSwing@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005D8570",
+     "length": 494,
+     "name": "SKILLS_SrvDo071_Taunt"
     },
     {
      "va": "0x005D8760",
