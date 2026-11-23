@@ -4847,11 +4847,6 @@ void __fastcall MISSILE_GetArmorComponents(D2UnitStrc* pUnit, D2InventoryStrc* p
 }
 
 
-// 0x004DBFE0
-void __cdecl MISSILE_StartFadeTimer()
-{
-    gdwFadeTick = GetTickCount() + 500;
-}
 
 // 0x004DED20
 void __cdecl MISSILE_UpdateRoomColor()

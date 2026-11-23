@@ -20852,6 +20852,11 @@
      "name": "?GFXUTIL_HitTestUnitCel@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x004DBFE0",
+     "length": 17,
+     "name": "?MISSILE_StartFadeTimer@@YAXXZ"
+    },
+    {
      "va": "0x004DC000",
      "length": 158,
      "name": "?GFXUTIL_DrawFadeBox@@YAXXZ"
@@ -31276,11 +31281,6 @@
      "va": "0x004DAAB0",
      "length": 138,
      "name": "MISSILE_GetArmorComponents"
-    },
-    {
-     "va": "0x004DBFE0",
-     "length": 17,
-     "name": "?MISSILE_StartFadeTimer@@YAXXZ"
     },
     {
      "va": "0x004DED20",

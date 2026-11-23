@@ -908,6 +908,12 @@ int __fastcall GFXUTIL_HitTestUnitCel(D2UnitStrc* pUnit, int nX, int nY)
     return 0;
 }
 
+// 0x004DBFE0
+void __cdecl MISSILE_StartFadeTimer()
+{
+    gdwFadeTick = GetTickCount() + 500;
+}
+
 // 0x004DC000
 void __cdecl GFXUTIL_DrawFadeBox()
 {
