@@ -13,6 +13,8 @@
 #include "D2Path.h"
 #include "D2Unicode.h"
 #include "D2ClientUi.h"
+#include "D2Records.h"
+#include "D2LevelTxt.h"
 
 struct D2UnitStrc;
 
@@ -770,6 +772,84 @@ int __fastcall SKILLSMON_SetParamTimes(D2UnitStrc* pUnit, int nSkillId, int nSki
     SCMD_StartTimedEffect(nParam0, nTime1, nTime2, nTime3);
     return 1;
 }
+
+struct Unit0064A300;
+
+void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x00648820
+
+void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); // 0x0064A2B0
+
+extern "C" int __stdcall sub_0064A300(Unit0064A300* pUnit); // 0x0064A300
+
+void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame); // 0x0064A330
+
+inline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
+{
+    if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
+        return &sgptDataTables->pMissilesTxt[nMissileId];
+    return 0;
+}
+
+// 0x004F0830
+int __fastcall sub_004F0830_CreateTimedMissileLine(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+        return 0;
+    const int nMissileId = pSkillsTxtRecord->wCltMissileB;
+    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(nMissileId);
+    if (!pMissilesTxtRecord)
+        return 0;
+    int nTargetX;
+    int nTargetY;
+    if (!ITEM_GetTargetPosition(pUnit, &nTargetX, &nTargetY))
+        return 0;
+    int nDistance = sub_006417F0_GetDistanceToXY(pUnit, nTargetX, nTargetY);
+    if (nDistance < 1)
+        nDistance = 1;
+    const int nX = CLIENTS_GetUnitX(pUnit);
+    const int nY = CLIENTS_GetUnitY(pUnit);
+    const int nDeltaX = 100 * (nTargetX - nX) / nDistance;
+    const int nDeltaY = 100 * (nTargetY - nY) / nDistance;
+    const int nStep = pMissilesTxtRecord->dwParam[0] < 1 ? 1 : pMissilesTxtRecord->dwParam[0];
+    const int nFrameStep = pMissilesTxtRecord->dwParam[1] < 1 ? 1 : pMissilesTxtRecord->dwParam[1];
+    int nPos = nStep;
+    int nCount = 0;
+    while (nPos < nDistance)
+    {
+        D2UnitStrc* pMissile = GFXUTIL_SubmitMissileRequest(pUnit, nMissileId, nX + nPos * nDeltaX / 100, nY + nPos * nDeltaY / 100, nSkillId, nSkillLevel);
+        if (pMissile)
+        {
+            D2COMMON_10160_PathUpdateDirection(pMissile->pDynamicPath, UNITS_GetDirection(pUnit));
+            const int nFrames = sub_0064A300((Unit0064A300*)pMissile);
+            MISSILE_SetTotalFrames(pMissile, nFrames + nCount * nFrameStep);
+            MISSILE_SetCurrentFrame(pMissile, nFrames + nCount * nFrameStep);
+            MISSILE_SetActivateFrame(pMissile, nFrames - nCount * nFrameStep);
+            pMissile->dwFlagEx |= 0x40000;
+        }
+        nPos += nStep;
+        ++nCount;
+    }
+    const int nTargetMissile = pSkillsTxtRecord->wCltMissileA;
+    if (nTargetMissile >= 0 && nTargetMissile < sgptDataTables->nMissilesTxtRecordCount)
+    {
+        D2UnitStrc* pMissile = sub_004C5470_CreateMissileToTarget(pUnit, nTargetMissile, nSkillId, nSkillLevel);
+        if (!pMissile)
+            return 0;
+
+        const int nSpeed = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
+        if (nSpeed > 0)
+            UNITS_SetAnimationSpeed(pMissile, nSpeed);
+
+        const int nFrames = sub_0064A300((Unit0064A300*)pMissile);
+        MISSILE_SetTotalFrames(pMissile, nFrames + nCount * nFrameStep);
+        MISSILE_SetCurrentFrame(pMissile, nFrames + nCount * nFrameStep);
+        MISSILE_SetActivateFrame(pMissile, nFrames - nCount * nFrameStep);
+        pMissile->dwFlagEx |= 0x40000;
+    }
+    return 1;
+}
+
 
 // 0x004F0AB0
 int __fastcall SKILLSMON_StartTimedState(D2UnitStrc* pUnit, int nSkillId, int nArg)

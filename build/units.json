@@ -32003,6 +32003,10 @@
      "name": "SKILLSMON_SetParamTimes"
     },
     {
+     "va": "0x004F0830",
+     "length": 630
+    },
+    {
      "va": "0x004F0AB0",
      "length": 151,
      "name": "SKILLSMON_StartTimedState"
@@ -33250,10 +33254,6 @@
     {
      "va": "0x004EDCA0",
      "length": 289
-    },
-    {
-     "va": "0x004F0830",
-     "length": 630
     }
    ],
    "flags": [
