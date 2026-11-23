@@ -1,9 +1,6 @@
 #include "D2Glide.h"
 #include "D2GameTypes.h"
 
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
-
-
 struct D2GlideHwQueryStrc;
 
 extern int gdwGlobal_007C8CB0; // 0x007C8CB0
@@ -399,42 +396,6 @@ extern D2GlideTexCacheStrc gTexCacheB_0087EB48; // 0x0087EB48
 
 extern int gnGlideState_007C9140; // 0x007C9140
 
-void __fastcall GLIDE_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bFlush);                     // 0x0050ECB0
-
-void __fastcall GLIDE_TileCacheDestroy(D2GlideTileCacheStrc* pCache, int bFlush);                    // 0x0050F210
-
-void __fastcall GLIDE_FloorCacheDestroy(D2GlideFloorCacheStrc* pCache, int bFlush);                  // 0x0050F7C0
-
-extern D2GlideTileCacheStrc gtGlideTileCache;                                                       // 0x0087EB48
-
-extern D2GlideFloorCacheStrc gtGlideFloorCache;                                                     // 0x0087EB68
-
-int gdwGlobal_007B57E4; // 0x007B57E4
-
-D2PaletteTableStrc gtGfxPaletteView; // 0x0087E980
-
-int gbGlideDrawing; // 0x0087EFE4
-
-void (__stdcall* gpfnGrAlphaBlendFunction)(int a1, int a2, int a3, int a4); // 0x0087EACC
-
-void (__stdcall* gpfnGrAlphaCombine)(int a1, int a2, int a3, int a4, int a5); // 0x0087EAF0
-
-void (__stdcall* gpfnGrColorCombine)(int nFunction, int nFactor, int nLocal, int nOther, int bInvert); // 0x0087EB2C
-
-int gnGlideColorCombineState; // 0x0087EFD8
-
-int gnGlideAlphaCombineMode; // 0x0087EFDC
-
-int gnGlideTexFilterMode; // 0x0087EFE0
-
-int gbGlidePaletteTable; // 0x0087EFC8
-
-D2GlideFinishFn gpfnGrFinish; // 0x0087EB14
-
-D2GlideIdleFn gpfnGrSstWinClose; // 0x0087EFA4
-
-int gnGlideHandle_0087EB94; // 0x0087EB94
-
 // 0x004F5140
 int __cdecl sub_004F5140()
 {
@@ -549,6 +510,12 @@ void __fastcall SCROLLBAR_Destroy(void* pArg)
     sub_004F9310(pArg);
 }
 
+void __fastcall GLIDE_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bFlush);                     // 0x0050ECB0
+void __fastcall GLIDE_TileCacheDestroy(D2GlideTileCacheStrc* pCache, int bFlush);                    // 0x0050F210
+void __fastcall GLIDE_FloorCacheDestroy(D2GlideFloorCacheStrc* pCache, int bFlush);                  // 0x0050F7C0
+extern D2GlideTileCacheStrc gtGlideTileCache;                                                       // 0x0087EB48
+extern D2GlideFloorCacheStrc gtGlideFloorCache;                                                     // 0x0087EB68
+
 // 0x00508F90
 void __cdecl GLIDE_ClearCaches()
 {
@@ -564,6 +531,8 @@ int __cdecl GLIDE_CheckCutScene()
 {
     return gdwGlobal_0087EFD0;
 }
+
+int gdwGlobal_007B57E4; // 0x007B57E4
 
 // 0x005090A0
 void __fastcall GLIDE_SetGlobalScale(int nValue)
@@ -605,6 +574,10 @@ int __cdecl GLIDE_GammaCanBeControlled()
 {
     return 1;
 }
+
+D2PaletteTableStrc gtGfxPaletteView; // 0x0087E980
+
+int gbGlideDrawing; // 0x0087EFE4
 
 // 0x005091A0
 int __cdecl GLIDE_EndDraw()
@@ -694,6 +667,18 @@ void __fastcall GLIDE_SetPalette(const tagPALETTEENTRY* pPalette)
         gpfnGrTexDownloadTable(2, gaGlidePalette);
     }
 }
+
+void (__stdcall* gpfnGrAlphaBlendFunction)(int a1, int a2, int a3, int a4); // 0x0087EACC
+
+void (__stdcall* gpfnGrAlphaCombine)(int a1, int a2, int a3, int a4, int a5); // 0x0087EAF0
+
+void (__stdcall* gpfnGrColorCombine)(int nFunction, int nFactor, int nLocal, int nOther, int bInvert); // 0x0087EB2C
+
+int gnGlideColorCombineState; // 0x0087EFD8
+
+int gnGlideAlphaCombineMode; // 0x0087EFDC
+
+int gnGlideTexFilterMode; // 0x0087EFE0
 
 // 0x005093F0
 unsigned int __fastcall GLIDE_GetPaletteColor(int nPaletteIndex)
@@ -964,6 +949,14 @@ void __cdecl GLIDE_ClearAndSwap()
         gpfnGrBufferSwap(0);
     }
 }
+
+int gbGlidePaletteTable; // 0x0087EFC8
+
+D2GlideFinishFn gpfnGrFinish; // 0x0087EB14
+
+D2GlideIdleFn gpfnGrSstWinClose; // 0x0087EFA4
+
+int gnGlideHandle_0087EB94; // 0x0087EB94
 
 // 0x00509AA0
 int __cdecl GLIDE_CloseSurface()
@@ -1275,6 +1268,8 @@ void __fastcall GLIDE_ReleaseTexSlots(D2GlideTexSlotStrc* pSlots)
     }
 }
 
+
+
 // 0x0050C3A0
 void __fastcall GLIDE_UtilDiamond(tagRECT* pRect, int nPaletteIndex)
 {
@@ -1347,6 +1342,7 @@ void __fastcall GLIDE_UtilPoint(tagPOINT* pPoint, unsigned char nSize, int nPale
         sub_0050BF50_GlideDrawBox(tRect.left, tRect.top, tRect.right, tRect.bottom, nPaletteIndex, 5);
     }
 }
+
 
 // 0x00510140
 int __cdecl DDRAW_CheckCutScene()
@@ -1546,14 +1542,6 @@ int __cdecl D2SOUND_GetPositionalBiasOption()
 int __cdecl D2SOUND_GetNpcSpeechOption()
 {
     return gnNpcSpeech;
-}
-
-// 0x00514D60
-int __fastcall sub_00514D60_SetNpcSpeech(int nValue)
-{
-    SRegSaveValue("Diablo II", "NPC Speech", 0, nValue);
-    gnNpcSpeech = nValue;
-    return nValue;
 }
 
 // 0x00514D80
