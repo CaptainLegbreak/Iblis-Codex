@@ -35088,30 +35088,6 @@
      "name": "D2Win_COMMANDS_MouseButton_6F8AE070"
     },
     {
-     "va": "0x004FAD10",
-     "length": 95,
-     "name": "ARCHIVE_LoadVideoArchives"
-    },
-    {
-     "va": "0x004FAD70",
-     "length": 131,
-     "name": "?ARCHIVE_UnloadExpansionArchives@@YAXXZ"
-    },
-    {
-     "va": "0x004FAE00",
-     "length": 177,
-     "name": "?ARCHIVE_FreeArchives@@YAXXZ"
-    },
-    {
-     "va": "0x004FAEC0",
-     "length": 328
-    },
-    {
-     "va": "0x004FB010",
-     "length": 162,
-     "name": "PALETTE_ApplyPaletteTables"
-    },
-    {
      "va": "0x004FB740",
      "length": 74,
      "name": "D2Win_10062"
@@ -35180,27 +35156,7 @@
      "va": "0x004FAAE0",
      "length": 31,
      "name": "?ARCHIVE_FreeCellFile@@YIXPAUD2CelFileStrc@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Win/Unknown_004FAB00.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x004FAB00",
      "length": 35,
@@ -35227,35 +35183,28 @@
      "name": "?D2Win_GetArchive@@YGPAXXZ"
     },
     {
-     "va": "0x004FB0C0",
-     "length": 11,
-     "name": "?D2Win_10175_GetPL2Shift@@YIPAEH@Z"
-    },
-    {
-     "va": "0x004FB0D0",
-     "length": 96,
-     "name": "?D2Win_10179@@YGXXZ"
-    },
-    {
-     "va": "0x004FB130",
-     "length": 79,
-     "name": "?D2Win_10176@@YIXH@Z"
-    },
-    {
-     "va": "0x004FB1C0",
-     "length": 20,
-     "name": "?sub_004FB1C0_CopyRowTable@@YIXPAY0BAA@E@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Unknown_004FAC90.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x004FAC90",
      "length": 128,
      "name": "?sub_004FAC90_CheckCharArchive@@YAHXZ"
+    },
+    {
+     "va": "0x004FAD10",
+     "length": 95,
+     "name": "ARCHIVE_LoadVideoArchives"
+    },
+    {
+     "va": "0x004FAD70",
+     "length": 131,
+     "name": "?ARCHIVE_UnloadExpansionArchives@@YAXXZ"
+    },
+    {
+     "va": "0x004FAE00",
+     "length": 177,
+     "name": "?ARCHIVE_FreeArchives@@YAXXZ"
+    },
+    {
+     "va": "0x004FAEC0",
+     "length": 328
     }
    ],
    "flags": [
@@ -35274,20 +35223,44 @@
    ]
   },
   {
-   "file": "Source/D2Win/Unknown_004FB180.cpp",
-   "rank": 0,
+   "file": "Source/D2Win/Src/D2WinPalette.cpp",
+   "rank": 1,
    "functions": [
+    {
+     "va": "0x004FB010",
+     "length": 162,
+     "name": "PALETTE_ApplyPaletteTables"
+    },
+    {
+     "va": "0x004FB0C0",
+     "length": 11,
+     "name": "?D2Win_10175_GetPL2Shift@@YIPAEH@Z"
+    },
+    {
+     "va": "0x004FB0D0",
+     "length": 96,
+     "name": "?D2Win_10179@@YGXXZ"
+    },
+    {
+     "va": "0x004FB130",
+     "length": 79,
+     "name": "?D2Win_10176@@YIXH@Z"
+    },
     {
      "va": "0x004FB180",
      "length": 37,
      "name": "?sub_004FB180_FindPaletteIndex@@YGEEEE@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinPalette.cpp",
-   "rank": 1,
-   "functions": [
+    },
+    {
+     "va": "0x004FB1B0",
+     "length": 11,
+     "name": "?PALETTE_ApplyScreenPalette@@YAXXZ"
+    },
+    {
+     "va": "0x004FB1C0",
+     "length": 20,
+     "name": "?sub_004FB1C0_CopyRowTable@@YIXPAY0BAA@E@Z"
+    },
     {
      "va": "0x004FB1E0",
      "length": 665
@@ -35326,11 +35299,6 @@
     "/GS-"
    ],
    "functions": [
-    {
-     "va": "0x004FB1B0",
-     "length": 11,
-     "name": "?PALETTE_ApplyScreenPalette@@YAXXZ"
-    },
     {
      "va": "0x004FB480",
      "length": 128,
