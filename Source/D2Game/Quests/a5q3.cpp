@@ -265,6 +265,48 @@ extern "C" void* __cdecl memset(void*, int, unsigned int);
 
 #define QUEST_A5Q3_PRISONOFICE 33
 
+void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsigned char id); // 0x00544190
+
+// 0x00588EB0
+int __fastcall ACT5Q3_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, 37, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, 37, 15)
+        || QUESTRECORD_GetQuestState(pQuestFlags, 37, 13)
+        || QUESTRECORD_GetQuestState(pQuestFlags, 37, 14))
+    {
+        QUESTS_StatusCyclerEx(pGame, pUnit, 33);
+    }
+
+    return 0;
+}
+
+// 0x00588F80
+void __fastcall ACT5Q3_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    const int nClassId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
+    D2Act5Quest3Strc* pQuestDataEx = (D2Act5Quest3Strc*)pQuestData->pQuestDataEx;
+    if ((short)nClassId != 0x201)
+    {
+        return;
+    }
+
+    if (pQuestDataEx->bMalahIntroActivated)
+    {
+        pQuestData->nStatusFlags = 0;
+        QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q3_UnitIterate_StatusCyclerEx, 1);
+        pQuestDataEx->bMalahIntroActivated = 0;
+    }
+
+    if (pQuestData->bNotIntro && pQuestDataEx->bMalahActivated && pQuestData->fLastState < 4)
+    {
+        pQuestData->nStatusFlags = 0;
+        QUESTS_UnitIterate(pQuestData, 4, 0, ACT5Q3_UnitIterate_StatusCyclerEx, 1);
+        pQuestDataEx->bMalahActivated = 0;
+    }
+}
+
 // 0x00589000
 void __fastcall ACT5Q3_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {

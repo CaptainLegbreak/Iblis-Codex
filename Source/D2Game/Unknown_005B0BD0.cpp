@@ -52,12 +52,6 @@ int __fastcall AITHINK_GetSquaredDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2
     return nXDiff * nXDiff + nYDiff * nYDiff;
 }
 
-// 0x005B0D60
-int __fastcall AITHINK_GetSpecialStateFromAiControl(D2AiControlStrc* pAiControl)
-{
-    return pAiControl->nAiSpecialState;
-}
-
 // 0x005B0DA0
 int __fastcall AITHINK_CanUnitSwitchAi(D2UnitStrc* pUnit, D2MonStatsTxt* pMonStatsTxtRecord, int nAiSpecialState, int bCheckIfSuperUnique)
 {

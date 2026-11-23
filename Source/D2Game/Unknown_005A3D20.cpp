@@ -158,41 +158,7 @@ int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, unsigned short 
     return (unsigned short)(pMonsterData->nTypeFlag & nFlag) != 0;
 }
 
-// 0x005A4270
-static void __stdcall MONSTERUNIQUE_ExecuteUModCallbacks(D2GameStrc* pGame, D2UnitStrc* pMissile, int nCallbackIndex, D2UnitStrc* pUnit)
-{
-    const int bUnique = MONSTERUNIQUE_CheckMonTypeFlag(pUnit, 0x08);
-
-    unsigned char* pUMods = MONSTERUNIQUE_GetUMods(pUnit);
-    if (!pUMods || *pUMods == 0)
-    {
-        return;
-    }
-
-    if (nCallbackIndex != 5)
-    {
-        for (int i = 0; i < 9; ++i)
-        {
-            MONUMODFUNC pUModFunc = gpfnSrvUModCallbacks[pUMods[i]][nCallbackIndex];
-            if (pUModFunc)
-            {
-                pUModFunc(pGame, pUnit, pUMods[i], bUnique);
-            }
-        }
-    }
-    else
-    {
-        for (int i = 0; i < 9; ++i)
-        {
-            MONUMODFUNC pUModFunc = gpfnSrvUModCallbacks[pUMods[i]][nCallbackIndex];
-            if (pUModFunc)
-            {
-                pUModFunc(pGame, pMissile, pUMods[i], bUnique);
-            }
-        }
-    }
-}
-
+void __stdcall MONSTERUNIQUE_ExecuteUModCallbacks(D2GameStrc* pGame, D2UnitStrc* pMissile, int nCallbackIndex, D2UnitStrc* pUnit); // 0x005A4270
 void __fastcall MONSTERUNIQUE_ExecuteUModModeStartCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     MONSTERUNIQUE_ExecuteUModCallbacks(pGame, 0, 0, pUnit);
