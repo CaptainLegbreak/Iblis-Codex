@@ -224,8 +224,9 @@ struct D2LaunchRecordStrc
     };
     unsigned char unk0x1F1; // 0x1F1
     unsigned short unk0x1F2; // 0x1F2
-    int unk0x1F4[5]; // 0x1F4
-    unsigned char unk0x208; // 0x208
+    int unk0x1F4[4]; // 0x1F4
+    unsigned char unk0x204[3]; // 0x204
+    unsigned char aWord207[2]; // 0x207
     union
     {
         char aState209[4]; // 0x209
@@ -233,7 +234,8 @@ struct D2LaunchRecordStrc
         int nValue209;
     };
     unsigned char unk0x20D; // 0x20D
-    unsigned short unk0x20E; // 0x20E
+    unsigned char unk0x20E; // 0x20E
+    unsigned char unk0x20F; // 0x20F
     char nByte210; // 0x210
     unsigned char unk0x211; // 0x211
     unsigned short unk0x212; // 0x212
