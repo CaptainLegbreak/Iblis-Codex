@@ -99,15 +99,15 @@ FSafeSock* __stdcall sub_006BC810_LookupHandle(void* pConnection);              
 
 extern void* gpMcpConnection;                                                                         // 0x00798FB4
 
-D2LaunchThreadRecordStrc gtThreadRecord_00798FB8;                                                           // 0x00798FB8
+D2LaunchThreadRecordStrc gtThreadRecord;                                                           // 0x00798FB8
 
-#define gnServerAddress_00798FC8 (gtThreadRecord_00798FB8.nData[4])
+#define gnServerAddress_00798FC8 (gtThreadRecord.nData[4])
 
-#define gnServerPort_00798FCC (gtThreadRecord_00798FB8.nData[5])
+#define gnServerPort_00798FCC (gtThreadRecord.nData[5])
 
 int gnValue_0079929C;                                                                                       // 0x0079929C
 
-void* ghConnectEvent_007992EC;                                                                              // 0x007992EC
+void* ghConnectEvent;                                                                              // 0x007992EC
 
 int __cdecl sub_00449B30_QueryAddress()
 {
@@ -122,8 +122,8 @@ int __cdecl sub_00449B30_QueryAddress()
 // 0x00449FB0
 void __stdcall sub_00449FB0_WaitConnect(D2LaunchThreadRecordStrc* pRecord)
 {
-    if (!ghConnectEvent_007992EC)
-        ghConnectEvent_007992EC = CreateEventA(0, 0, 0, 0);
+    if (!ghConnectEvent)
+        ghConnectEvent = CreateEventA(0, 0, 0, 0);
     if (WINMAIN_SendMcpStartup(pRecord) == -1)
     {
         gnValue_0079929C = 0xB;
@@ -136,7 +136,7 @@ void __stdcall sub_00449FB0_WaitConnect(D2LaunchThreadRecordStrc* pRecord)
             break;
         if (GetTickCount() >= dwEndTick)
             break;
-        const unsigned long dwResult = WaitForSingleObject(ghConnectEvent_007992EC, 0);
+        const unsigned long dwResult = WaitForSingleObject(ghConnectEvent, 0);
         if (dwResult == 0)
             return;
         if (dwResult != 0x102)
@@ -170,7 +170,7 @@ int __cdecl sub_0044A070_ConnectThread()
             }
             char nValue = 1;
             FOG_ConnectionSend(pConnection, &nValue, 1);
-            sub_00449FB0_WaitConnect(&gtThreadRecord_00798FB8);
+            sub_00449FB0_WaitConnect(&gtThreadRecord);
             return gnValue_0079929C == 0;
         }
     }

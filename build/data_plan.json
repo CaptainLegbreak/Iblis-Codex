@@ -80752,8 +80752,8 @@
    "fn_types": {},
    "form": "declared",
    "fwd": null,
-   "head": "static int gnScaleFactor_0072DB44 = ",
-   "include": "gen/data/Source/D2Gfx/SRC/Window/gnScaleFactor_0072DB44.inc",
+   "head": "static int gnScaleFactor = ",
+   "include": "gen/data/Source/D2Gfx/SRC/Window/gnScaleFactor.inc",
    "linkage": "static",
    "model": {
     "k": "prim",
@@ -80761,7 +80761,7 @@
     "name": "int",
     "size": 4
    },
-   "name": "gnScaleFactor_0072DB44",
+   "name": "gnScaleFactor",
    "pointers": [],
    "region": "data",
    "size": 4,

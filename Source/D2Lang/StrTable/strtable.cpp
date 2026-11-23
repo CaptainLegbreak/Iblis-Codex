@@ -772,7 +772,7 @@ void __stdcall sub_00525FB0_FormatInt(Unicode* pOut, int nValue, int nSize)
         Unicode wszStar[2];
         wszStar[0].wChar = 0;
         wszStar[1].wChar = 0;
-        sub_00526320_ToUnicode(wszStar, szStar_006D5830, 2);
+        sub_00526320_ToUnicode(wszStar, gszStar, 2);
         sub_005267E0(pOut, wszStar);
     }
 }

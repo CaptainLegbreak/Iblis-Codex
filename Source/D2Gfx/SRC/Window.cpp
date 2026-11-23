@@ -266,7 +266,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-extern int gnChangedScaleFactor_0072DB40; // 0x0072DB40
+extern int gnChangedScaleFactor; // 0x0072DB40
 
 // build: symbol ?$S1@?1??sub_004F6130_GetElapsedMs@@YANXZ@4IA 0x007C9358
 // 0x004F6110
@@ -292,9 +292,9 @@ double __cdecl sub_004F6130_GetElapsedMs()
     return dTicks / ((double)tFrequency.nQuadPart / 1000.0);
 }
 
-int gnPerspectiveScaleX; // 0x007C977C
+static int gnPerspectiveScaleX; // 0x007C977C
 
-int gnPerspectiveScaleY; // 0x007C9778
+static int gnPerspectiveScaleY; // 0x007C9778
 
 // 0x004F6430
 void __stdcall D2GFX_SetAmbientColor(int nRed, int nGreen, int nBlue)
@@ -353,42 +353,38 @@ void __stdcall TEXTURE_DebugFillBackBuffer(int nXPos, int nYPos)
     return gpGraphicsInterface->pfDebugFillBackBuffer(nXPos, nYPos);
 }
 
-#include "gen/data/Source/D2Gfx/SRC/Window/gnChangedScaleFactor_0072DB40.inc"
+#include "gen/data/Source/D2Gfx/SRC/Window/gnChangedScaleFactor.inc"
 
-#include "gen/data/Source/D2Gfx/SRC/Window/gnScaleFactor_0072DB44.inc"
-
-static int gnPerspectiveScaleX_007C977C; // 0x007C977C
-
-static int gnPerspectiveScaleY_007C9778; // 0x007C9778
+#include "gen/data/Source/D2Gfx/SRC/Window/gnScaleFactor.inc"
 
 // 0x004F65C0
 void __stdcall SCALE_UpdateFactor()
 {
-    gnScaleFactor_0072DB44 = gnChangedScaleFactor_0072DB40;
-    return gpGraphicsInterface->pfSetGlobalScale(gnScaleFactor_0072DB44);
+    gnScaleFactor = gnChangedScaleFactor;
+    return gpGraphicsInterface->pfSetGlobalScale(gnScaleFactor);
 }
 
 // 0x004F65F0
 void __stdcall SCALE_SetDefaultFactor()
 {
-    gnScaleFactor_0072DB44 = 0x100;
-    return gpGraphicsInterface->pfSetGlobalScale(gnScaleFactor_0072DB44);
+    gnScaleFactor = 0x100;
+    return gpGraphicsInterface->pfSetGlobalScale(gnScaleFactor);
 }
 
 int __stdcall sub_J03_EmitScaleReaders()
 {
-    return gnChangedScaleFactor_0072DB40 + gnPerspectiveScaleX_007C977C + gnPerspectiveScaleY_007C9778;
+    return gnChangedScaleFactor + gnPerspectiveScaleX + gnPerspectiveScaleY;
 }
 
 // 0x004F6610
 void __cdecl sub_004F6610_IncreaseScaleFactor()
 {
-    if (gnChangedScaleFactor_0072DB40 < 0x200)
+    if (gnChangedScaleFactor < 0x200)
     {
-        gnChangedScaleFactor_0072DB40 += 0x20;
-        if (gnChangedScaleFactor_0072DB40 > 0x200)
+        gnChangedScaleFactor += 0x20;
+        if (gnChangedScaleFactor > 0x200)
         {
-            gnChangedScaleFactor_0072DB40 = 0x200;
+            gnChangedScaleFactor = 0x200;
         }
     }
 }
@@ -396,12 +392,12 @@ void __cdecl sub_004F6610_IncreaseScaleFactor()
 // 0x004F6640
 void __cdecl sub_004F6640_DecreaseScaleFactor()
 {
-    if (gnChangedScaleFactor_0072DB40 > 0x100)
+    if (gnChangedScaleFactor > 0x100)
     {
-        gnChangedScaleFactor_0072DB40 -= 0x20;
-        if (gnChangedScaleFactor_0072DB40 < 0x100)
+        gnChangedScaleFactor -= 0x20;
+        if (gnChangedScaleFactor < 0x100)
         {
-            gnChangedScaleFactor_0072DB40 = 0x100;
+            gnChangedScaleFactor = 0x100;
         }
     }
 }
@@ -411,8 +407,8 @@ void __stdcall SCALE_SetPerspectiveScale(int nXScale, int nYScale)
 {
     D2_ASSERT(gnDisplayType == DISPLAYTYPE_GLIDE || gnDisplayType == DISPLAYTYPE_OPENGL || gnDisplayType == DISPLAYTYPE_RAVE || gnDisplayType == DISPLAYTYPE_DIRECT3D, 0x61);
     D2_ASSERT(gGfxSettings.bPerspectiveEnabled, 0x62);
-    gnPerspectiveScaleX_007C977C = nXScale;
-    gnPerspectiveScaleY_007C9778 = nYScale;
+    gnPerspectiveScaleX = nXScale;
+    gnPerspectiveScaleY = nYScale;
     return gpGraphicsInterface->pfUpdatePerspective(nXScale, nYScale);
 }
 
@@ -497,9 +493,9 @@ int __stdcall TILE_ShadowTileDraw(D2TileLibraryEntryStrc* pTile, int nXPos, int 
     return gpGraphicsInterface->pfShadowTileDraw(pTile, nXPos, nYPos, eDrawMode, nScreenPanels);
 }
 
-extern int gnSubtileRowSrcOffset_0072DBC0[]; // 0x0072DBC0
-extern int gnSubtileRowWidth_0072DB84[]; // 0x0072DB84
-extern int gnSubtileRowXOffset_0072DB48[]; // 0x0072DB48
+extern int ganSubtileRowSrcOffset[]; // 0x0072DBC0
+extern int ganSubtileRowWidth[]; // 0x0072DB84
+extern int ganSubtileRowXOffset[]; // 0x0072DB48
 
 // 0x004F6BB0
 void __fastcall sub_004F6BB0_DrawLitSubtileRows(unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep)
@@ -507,53 +503,53 @@ void __fastcall sub_004F6BB0_DrawLitSubtileRows(unsigned char* pSrc, unsigned ch
     unsigned char* pRow = pDst;
     for (int i = 0; i < 15; ++i)
     {
-        const int nOff = gnSubtileRowXOffset_0072DB48[i];
-        unsigned char* v = (unsigned char*)gLightCube_007CA320 + 32 * ((nLightY >> 7) + 32 * (nLightX >> 7)) + nOff;
-        unsigned char* s = &pSrc[gnSubtileRowSrcOffset_0072DBC0[i]];
-        switch (gnSubtileRowWidth_0072DB84[i])
+        const int nOff = ganSubtileRowXOffset[i];
+        unsigned char* v = (unsigned char*)gabLightCube + 32 * ((nLightY >> 7) + 32 * (nLightX >> 7)) + nOff;
+        unsigned char* s = &pSrc[ganSubtileRowSrcOffset[i]];
+        switch (ganSubtileRowWidth[i])
         {
         case 32:
-            pRow[nOff + 31] = gLightPalettes_007D2348[v[31]].unk0x00[s[31]];
-            pRow[nOff + 30] = gLightPalettes_007D2348[v[30]].unk0x00[s[30]];
-            pRow[nOff + 29] = gLightPalettes_007D2348[v[29]].unk0x00[s[29]];
-            pRow[nOff + 28] = gLightPalettes_007D2348[v[28]].unk0x00[s[28]];
+            pRow[nOff + 31] = gatLightPalettes[v[31]].unk0x00[s[31]];
+            pRow[nOff + 30] = gatLightPalettes[v[30]].unk0x00[s[30]];
+            pRow[nOff + 29] = gatLightPalettes[v[29]].unk0x00[s[29]];
+            pRow[nOff + 28] = gatLightPalettes[v[28]].unk0x00[s[28]];
         case 28:
-            pRow[nOff + 27] = gLightPalettes_007D2348[v[27]].unk0x00[s[27]];
-            pRow[nOff + 26] = gLightPalettes_007D2348[v[26]].unk0x00[s[26]];
-            pRow[nOff + 25] = gLightPalettes_007D2348[v[25]].unk0x00[s[25]];
-            pRow[nOff + 24] = gLightPalettes_007D2348[v[24]].unk0x00[s[24]];
+            pRow[nOff + 27] = gatLightPalettes[v[27]].unk0x00[s[27]];
+            pRow[nOff + 26] = gatLightPalettes[v[26]].unk0x00[s[26]];
+            pRow[nOff + 25] = gatLightPalettes[v[25]].unk0x00[s[25]];
+            pRow[nOff + 24] = gatLightPalettes[v[24]].unk0x00[s[24]];
         case 24:
-            pRow[nOff + 23] = gLightPalettes_007D2348[v[23]].unk0x00[s[23]];
-            pRow[nOff + 22] = gLightPalettes_007D2348[v[22]].unk0x00[s[22]];
-            pRow[nOff + 21] = gLightPalettes_007D2348[v[21]].unk0x00[s[21]];
-            pRow[nOff + 20] = gLightPalettes_007D2348[v[20]].unk0x00[s[20]];
+            pRow[nOff + 23] = gatLightPalettes[v[23]].unk0x00[s[23]];
+            pRow[nOff + 22] = gatLightPalettes[v[22]].unk0x00[s[22]];
+            pRow[nOff + 21] = gatLightPalettes[v[21]].unk0x00[s[21]];
+            pRow[nOff + 20] = gatLightPalettes[v[20]].unk0x00[s[20]];
         case 20:
-            pRow[nOff + 19] = gLightPalettes_007D2348[v[19]].unk0x00[s[19]];
-            pRow[nOff + 18] = gLightPalettes_007D2348[v[18]].unk0x00[s[18]];
-            pRow[nOff + 17] = gLightPalettes_007D2348[v[17]].unk0x00[s[17]];
-            pRow[nOff + 16] = gLightPalettes_007D2348[v[16]].unk0x00[s[16]];
+            pRow[nOff + 19] = gatLightPalettes[v[19]].unk0x00[s[19]];
+            pRow[nOff + 18] = gatLightPalettes[v[18]].unk0x00[s[18]];
+            pRow[nOff + 17] = gatLightPalettes[v[17]].unk0x00[s[17]];
+            pRow[nOff + 16] = gatLightPalettes[v[16]].unk0x00[s[16]];
         case 16:
-            pRow[nOff + 15] = gLightPalettes_007D2348[v[15]].unk0x00[s[15]];
-            pRow[nOff + 14] = gLightPalettes_007D2348[v[14]].unk0x00[s[14]];
-            pRow[nOff + 13] = gLightPalettes_007D2348[v[13]].unk0x00[s[13]];
-            pRow[nOff + 12] = gLightPalettes_007D2348[v[12]].unk0x00[s[12]];
+            pRow[nOff + 15] = gatLightPalettes[v[15]].unk0x00[s[15]];
+            pRow[nOff + 14] = gatLightPalettes[v[14]].unk0x00[s[14]];
+            pRow[nOff + 13] = gatLightPalettes[v[13]].unk0x00[s[13]];
+            pRow[nOff + 12] = gatLightPalettes[v[12]].unk0x00[s[12]];
         case 12:
-            pRow[nOff + 11] = gLightPalettes_007D2348[v[11]].unk0x00[s[11]];
-            pRow[nOff + 10] = gLightPalettes_007D2348[v[10]].unk0x00[s[10]];
-            pRow[nOff + 9] = gLightPalettes_007D2348[v[9]].unk0x00[s[9]];
-            pRow[nOff + 8] = gLightPalettes_007D2348[v[8]].unk0x00[s[8]];
+            pRow[nOff + 11] = gatLightPalettes[v[11]].unk0x00[s[11]];
+            pRow[nOff + 10] = gatLightPalettes[v[10]].unk0x00[s[10]];
+            pRow[nOff + 9] = gatLightPalettes[v[9]].unk0x00[s[9]];
+            pRow[nOff + 8] = gatLightPalettes[v[8]].unk0x00[s[8]];
         case 8:
-            pRow[nOff + 7] = gLightPalettes_007D2348[v[7]].unk0x00[s[7]];
-            pRow[nOff + 6] = gLightPalettes_007D2348[v[6]].unk0x00[s[6]];
-            pRow[nOff + 5] = gLightPalettes_007D2348[v[5]].unk0x00[s[5]];
-            pRow[nOff + 4] = gLightPalettes_007D2348[v[4]].unk0x00[s[4]];
+            pRow[nOff + 7] = gatLightPalettes[v[7]].unk0x00[s[7]];
+            pRow[nOff + 6] = gatLightPalettes[v[6]].unk0x00[s[6]];
+            pRow[nOff + 5] = gatLightPalettes[v[5]].unk0x00[s[5]];
+            pRow[nOff + 4] = gatLightPalettes[v[4]].unk0x00[s[4]];
         case 4:
-            pRow[nOff + 3] = gLightPalettes_007D2348[v[3]].unk0x00[s[3]];
-            pRow[nOff + 2] = gLightPalettes_007D2348[v[2]].unk0x00[s[2]];
-            pRow[nOff + 1] = gLightPalettes_007D2348[v[1]].unk0x00[s[1]];
-            pRow[nOff + 0] = gLightPalettes_007D2348[v[0]].unk0x00[s[0]];
+            pRow[nOff + 3] = gatLightPalettes[v[3]].unk0x00[s[3]];
+            pRow[nOff + 2] = gatLightPalettes[v[2]].unk0x00[s[2]];
+            pRow[nOff + 1] = gatLightPalettes[v[1]].unk0x00[s[1]];
+            pRow[nOff + 0] = gatLightPalettes[v[0]].unk0x00[s[0]];
         }
-        pRow += gnScreenPitch_007D544C;
+        pRow += gnScreenPitch;
         nLightX += nLightXStep;
         nLightY += nLightYStep;
     }
