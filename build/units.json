@@ -47066,11 +47066,6 @@
      "name": "D2GAME_OBJMODE_InvokeEventFunction_6FC75250"
     },
     {
-     "va": "0x005A6260",
-     "length": 40,
-     "name": "MONSTERMODE_SetVelocityParams"
-    },
-    {
      "va": "0x005A7F80",
      "length": 114,
      "name": "MONSTERMODE_EventHandler"
@@ -59380,6 +59375,11 @@
      "va": "0x005A6250",
      "length": 4,
      "name": "?MONSTERMODE_GetTargetTimerPtr@@YIPAHPAUD2Field14Strc@@@Z"
+    },
+    {
+     "va": "0x005A6260",
+     "length": 40,
+     "name": "MONSTERMODE_SetVelocityParams"
     },
     {
      "va": "0x005A6290",
