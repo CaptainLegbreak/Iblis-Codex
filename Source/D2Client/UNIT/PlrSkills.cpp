@@ -1514,63 +1514,6 @@ D2StatListStrc* __fastcall PLRSKILLS_SetStateStat(D2UnitStrc* pUnit, D2StatListS
     return pStatList;
 }
 
-// 0x004E0D40
-int __fastcall PLRSKILLS_SkillDoFrameOffset(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    int nMissile = pSkillsTxtRecord->wCltMissileA;
-    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
-    if (!pSkill)
-    {
-        return 0;
-    }
-
-    int nX = SKILLS_GetParam1(pSkill);
-    int nY = SKILLS_GetParam2(pSkill);
-    if ((!nX || !nY) && !ITEM_GetTargetPosition(pUnit, &nX, &nY))
-    {
-        return 0;
-    }
-
-    unsigned char nDirection = (unsigned char)UNITS_GetDirectionToCoords(pUnit, nX, nY);
-    unsigned char nIndex = INVENTORY_GetEightWayDirection(nDirection) & 7;
-    nX = CLIENTS_GetUnitX(pUnit);
-    nY = CLIENTS_GetUnitY(pUnit);
-
-    int nOffsetX;
-    int nOffsetY;
-    INVENTORY_GetDirectionDelta(gabBaseDirections[nIndex], &nOffsetX, &nOffsetY);
-    nX += nOffsetX;
-    nY += nOffsetY;
-
-    int nFrame;
-    int nFrameCount;
-    UNITS_GetShiftedFrameMetrics(pUnit, &nFrame, &nFrameCount);
-    nFrame -= 4;
-    int nClamp = nFrame > 0 ? nFrame : 0;
-    nFrame = nClamp < 8 ? nClamp : 8;
-
-    unsigned char nDir = gabFrameDirections[nIndex][nFrame];
-    if (nDir != 99)
-    {
-        INVENTORY_GetDirectionDelta(nDir, &nOffsetX, &nOffsetY);
-        nX += nOffsetX;
-        nY += nOffsetY;
-    }
-
-    MISSILE_SubmitOwnerRequest(pUnit, nMissile, nX, nY, nSkillId, nSkillLevel);
-    return 1;
-}
 
 // 0x004E0FD0
 int __fastcall PLRSKILLS_SkillStartMarkTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
