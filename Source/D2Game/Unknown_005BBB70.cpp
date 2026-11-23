@@ -69,7 +69,6 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
 
-#include "gen/data/Source/D2Game/Unknown_005BBB70.inc"
 
 // 0x005BBB70
 void __fastcall OBJECTS_InitFunction53_StairsR(D2ObjInitFnStrc* pOp)
