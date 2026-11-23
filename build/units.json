@@ -45941,11 +45941,6 @@
      "va": "0x00541830",
      "length": 38,
      "name": "SKILLS_SetMonsterComponent"
-    },
-    {
-     "va": "0x005BD040",
-     "length": 100,
-     "name": "?ACT3Q6_ChangeNatalyaMapAI@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2MapAIStrc@@@Z"
     }
    ]
   },
@@ -57460,11 +57455,6 @@
      "name": "?MISSMODE_SrvDo01_BasicMissile@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
-     "va": "0x005B69F0",
-     "length": 115,
-     "name": "ACT4Q4_ActiveFilterCallback"
-    },
-    {
      "va": "0x005B6E20",
      "length": 15,
      "name": "ACT3Intro_StatusFilterCallback"
@@ -60576,11 +60566,6 @@
      "name": "OBJECTS_OperateFunction73_LastLastPortal"
     },
     {
-     "va": "0x005B69E0",
-     "length": 5,
-     "name": "?ACT3Q7_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
-    },
-    {
      "va": "0x005B6AD0",
      "length": 146,
      "name": "?ACT4Q2_SpawnSealObject@@YAXPAUD2ObjOperateFnStrc@@PAUD2CoordStrc@@H@Z"
@@ -60599,11 +60584,6 @@
      "va": "0x005B6C10",
      "length": 73,
      "name": "?OBJECTS_OperateFunction56_DiabloSeal@@YIHPAUD2ObjOperateFnStrc@@H@Z"
-    },
-    {
-     "va": "0x005BCFD0",
-     "length": 106,
-     "name": "?ACT3Q6_SetObjectModes@@YIXPAUD2GameStrc@@@Z"
     }
    ]
   },
@@ -60717,6 +60697,16 @@
      "va": "0x005B6940",
      "length": 156,
      "name": "?ACT4Q4_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005B69E0",
+     "length": 5,
+     "name": "?ACT3Q7_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
+    },
+    {
+     "va": "0x005B69F0",
+     "length": 115,
+     "name": "ACT4Q4_ActiveFilterCallback"
     },
     {
      "va": "0x005B6A70",
@@ -61576,6 +61566,16 @@
      "va": "0x005BCF60",
      "length": 108,
      "name": "?sub_005BCF60_ACT3Q6_UpdatePlayerStatus@@YIXPAUD2GameStrc@@_N@Z"
+    },
+    {
+     "va": "0x005BCFD0",
+     "length": 106,
+     "name": "?ACT3Q6_SetObjectModes@@YIXPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x005BD040",
+     "length": 100,
+     "name": "?ACT3Q6_ChangeNatalyaMapAI@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2MapAIStrc@@@Z"
     }
    ]
   },

@@ -6158,27 +6158,6 @@ struct D2AiCallback11ArgStrc
     int unk0x0C[7];
 };
 
-// 0x005B69F0
-bool __fastcall ACT4Q4_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    if (nNpcId == 408)
-    {
-        D2GameStrc* pGame = pQuest->pGame;
-        D2BitBufferStrc* pFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-        if (!QUESTRECORD_GetQuestState(pFlags, 27, 0) && !QUESTRECORD_GetQuestState(pFlags, 27, 1) && !QUESTRECORD_GetQuestState(pFlags, 27, 13))
-        {
-            return true;
-        }
-
-        if (!QUESTRECORD_GetQuestState(pFlags, 26, 13) && !QUESTRECORD_GetQuestState(pFlags, 26, 0))
-        {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 // 0x005B6E20
 bool __fastcall ACT3Intro_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus)
 {
