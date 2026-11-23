@@ -691,6 +691,7 @@ extern const int gaRing18OffsetX[]; // 0x006DB090
 
 extern const int gaRing18OffsetY[]; // 0x006DB048
 
+// 0x004CC800
 static int __stdcall sub_004CC800_CheckDistanceAndLineOfSight(int nMaxDistanceSq, int nX, int nY, D2ActiveRoomStrc* pRoom, int nOffsetX, int nOffsetY)
 {
     if (!pRoom)
@@ -912,6 +913,49 @@ static inline int SKILLS_GetLevelBasedParam(int nSkillId, int nLevel)
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 
 void __fastcall SKILLS_RotateUnitDirection(D2UnitStrc* pUnit, int nArg, int bForward); // 0x004C9060
+
+#define UNITFLAGEX_0x40000 0x40000
+
+#define PATHTYPE_CHARGEDBOLT 10
+
+struct D2TimedHintEntryStrc;
+
+struct D2MonSoundsTxt;
+
+struct D2UnitSndPlayerStrc;
+
+struct D2UnitSndObjectStrc;
+
+struct D2SuperUniquesTxt;
+
+struct D2MonStatsTxt;
+
+struct D2DirRateStrc;
+
+struct D2TimedHintNodeStrc;
+
+struct D2DrlgCoordsStrc;
+
+struct D2TileLibraryEntryStrc;
+
+struct T00481920;
+
+struct T00481920
+{
+    int unk0x00[7];
+    int nMaterial1;
+};
+
+void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance); // 0x00648E70
+
+void __cdecl UI_ClearGlobals(); // 0x00476AF0
+
+static inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecordInline(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    return 0;
+}
 
 // 0x004C95E0
 int __fastcall MISSILE_SkillStartAtTargetPos(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
@@ -7770,6 +7814,7 @@ int __fastcall MISSILE_SpawnOwnerSubMissile(D2UnitStrc* pMissile)
     return 1;
 }
 
+// 0x004CC910
 static int sub_004CC910_GetSpawnDelay(D2UnitStrc* pMissile)
 {
     const int nFrames = sub_0064A3B0_GetElapsedFrames(pMissile);
@@ -8224,10 +8269,88 @@ void __fastcall sub_004D8400_CltDoRotateTarget(D2UnitStrc* pMissile)
     MISSILE_CltDoCommon(pMissile);
 }
 
+// 0x004CC7C0
+int __fastcall sub_004CC7C0_GetSkillMissileRange(int nSkillId, int nLevel)
+{
+    D2SkillsTxt* pSkillsTxt = DATATBLS_GetSkillsTxtRecordInline(nSkillId);
+    if (!pSkillsTxt)
+        return 0;
+    if (nLevel <= 0)
+        return 0;
+    return pSkillsTxt->dwParam[2] + (nLevel - 1) * pSkillsTxt->dwParam[3];
+}
 
 
+// 0x004CCF20
+void __fastcall sub_004CCF20_SetValue(int nValue)
+{
+// build: symbol ?gbMissileLights@* 0x0072A348
+    gbMissileLights = nValue;
+}
 
+int __stdcall sub_M119_Emit_004CC800(D2ActiveRoomStrc* pRoom, int nOffsetX, int nOffsetY, int nMaxDistanceSq, int nX, int nY)
+{
+    return sub_004CC800_CheckDistanceAndLineOfSight(nMaxDistanceSq, nX, nY, pRoom, nOffsetX, nOffsetY);
+}
 
+// 0x004CC790
+int __fastcall sub_004CC790_RollRange(D2SeedStrc* pSeed, int nMin, int nMax)
+{
+    if (nMin >= nMax)
+        return nMin;
+
+    return ITEMS_RollLimitedRandomNumber(pSeed, nMax - nMin + 1) + nMin;
+}
+
+// 0x004CC9A0
+int __fastcall sub_004CC9A0_CltHitProgOverlay(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
+{
+    if (pUnit && pMissile)
+    {
+        D2MissilesTxt* pMissilesTxtRecord = CLTMISS_GetMissilesTxtRecord(pMissile->dwClassId);
+        if (pMissilesTxtRecord)
+        {
+            const short nOverlay = pMissilesTxtRecord->wProgOverlay;
+            if (nOverlay > 0)
+                GFX_AddUnitOverlay(pUnit, nOverlay, 2, 0, 0, 0, 0, 0);
+        }
+    }
+    return 1;
+}
+
+// 0x004CCCA0
+int __fastcall sub_004CCCA0_CltHitFlagOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
+{
+    D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pMissile);
+    if (pOwner)
+        pOwner->dwFlagEx |= UNITFLAGEX_0x40000;
+    return 1;
+}
+
+// 0x004CCCC0
+void __fastcall MISSMODE_CatapultChargedBall_LightningTrailingJavelin_SubmissileInitFunc(D2UnitStrc* pMissile, int nUnused)
+{
+    if (!pMissile)
+        return;
+
+    const int nRange = MISSILE_GetTotalFrames(pMissile) > 255 ? 255 : MISSILE_GetTotalFrames(pMissile);
+    D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
+    SEED_InitLowSeed(&pMissile->pSeed, D2COMMON_10175_PathGetFirstPointX(pPath));
+    PATH_SetType(pPath, PATHTYPE_CHARGEDBOLT);
+    PATH_SetNewDistance(pPath, nRange);
+    D2Common_10142(pPath, pMissile, 0);
+}
+
+// 0x004CCF00
+int __fastcall sub_004CCF00_CltHitClearGlobals(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        UI_ClearGlobals();
+        return 1;
+    }
+    return 0;
+}
 
 
 #include "gen/data/Source/D2Client/UNIT/Missile.inc"
