@@ -4,7 +4,12 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-(none; next work in progress)
+- lane6/cands-d 24b8d613 562->558 fifteen placements on main #297: address runs, the data seam, and the debug-font pairs; VERIFIED face79e0
+  - On origin/main (34ce356b); not stacked.
+  - Touches D2Client/GAME/Game.cpp (lane 4's file): sub_0043B830 and sub_0043B840, 6-byte getters inside CharSel.cpp's run that read CharSel.cpp's globals 0x0077AC04/08, move to CharSel.cpp.
+  - CharSel.cpp takes Unknown_0043A9D0.cpp. CharSel.cpp's bss runs without a break from 0x007799E8 to 0x0077AC0C, and the next file starts at 0x0077AC10, matching the second BNDOWNLOAD_GetTime copy at 0x0043C530. So CharSel.cpp runs to 0x0043C4F0.
+  - glDebugFont.cpp and ddDebugFont.cpp each take their debug draw-char and printf, and take /GS- (no stack cookie in the image; the existing functions build equal either way).
+  - Adjusted for #295-#297's D2ConfigStrc rename (sub_0043C180_Connect).
 
 ## Questions
 
@@ -17,6 +22,10 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Left in place (and why)
 
+- DUNGEON_ coordinate functions 0x00643260-0x00643560: filed alternately in Drlg.cpp and Skills.cpp, so there is no run. Drlg.cpp is asserted only to 0x00643060, and the names are d2moo. Unknown_00641320's 0x006432C0 and Unknown_00643560 stay.
+- D2DDraw software renderer 0x00511DF0-0x005132C0: ddCore.cpp is asserted only at 0x00511B80-0x00511CE0, and the shared global 0x007C9138 is used by a dozen files. No run, so Unknown_00512930, Unknown_00512C20 and the rest of Unknown_005125E0 stay.
+- Items.cpp 0x006313E0-0x006314A0 (Unknown_00631430): Items.cpp is scattered into ItemTbls.cpp's asserted span (0x006315D0-0x00639CC0), so adjacency here says little.
+- Waiting on lane 2's shared structs: glVertex.cpp 0x0050D6A0 (private D2GlideSettingsStrc lacks bLowQuality); UNISYS.CPP 0x00527A50 (unequal); CACHE.CPP 0x005191D0 (private D2CacheHeaderStrc, and its static callee must move with it).
 - `MAINMENUS_ReturnToCharSelect` (0x0042FDD0) stays in MainMenus.cpp, per the coordinator. It is probably misfiled: 15 bytes, and 0x00435030 and 0x004361B0 (both in MainMenus.cpp by shared globals) call it without inlining; it lies before the asserted span (0x00430A20-0x00434060). Evidence is in the block-c commit message (#294).
 - D2CMP palette code 0x00604DB0-0x006069F0 (FastCmp.cpp Palette* functions 0x006056D0, 0x006057A0, 0x00605880, 0x006059B0, and its neighbours in Palette.cpp, Tilecmp.cpp, TileLib.cpp, Unknown_00604DB0.cpp, Unknown_006056D0.cpp): no assert path, no small cross-file calls, no data to test; nothing in the image names a D2CMP Palette.cpp.
 - OutDesr.cpp 0x006801A0-0x006803D0: sits between OutWild.cpp's 0x00680040 and 0x006804E0, and OutWild's Act 1 init (0x006807F0) calls 0x00680200; but every name on both sides is inferred or d2moo, and no inlined copies show. Both weak.
