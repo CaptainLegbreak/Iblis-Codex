@@ -38,60 +38,6 @@ int gaGlideDebugFontCharWidths[96]; // 0x008802C8
 
 int gnGlideDebugFontTmu; // 0x00880450
 
-// 0x0050BBA0
-static int __stdcall sub_0050BBA0_GlideDebugDrawChar(char ch, int nX, int nY)
-{
-    if (nX > 640)
-        return 0;
-
-    if (nX < 0)
-        return gaGlideDebugFontCharWidths[ch];
-
-    if ((unsigned char)(ch - 0x20) <= 0x5F)
-    {
-        const int nRight = nX + 8;
-        const int nBottom = nY + 16;
-        gaGlideDebugFontVertices[0].x = (float)nX;
-        gaGlideDebugFontVertices[0].y = (float)nY;
-        gaGlideDebugFontVertices[1].x = (float)nX;
-        gaGlideDebugFontVertices[1].y = (float)nBottom;
-        gaGlideDebugFontVertices[2].x = (float)nRight;
-        gaGlideDebugFontVertices[2].y = (float)nBottom;
-        gaGlideDebugFontVertices[3].x = (float)nRight;
-        gaGlideDebugFontVertices[3].y = (float)nY;
-
-        ch -= 0x20;
-        gpfnGrTexSource(gnGlideDebugFontTmu, gaGlideDebugFontTexAddr[ch], 3, &gtGlideDebugFontTexInfo);
-        gpfnGrDrawVertexArrayContiguous(5, 4, gaGlideDebugFontVertices, sizeof(D2GlideSpriteVertexStrc));
-        return gaGlideDebugFontCharWidths[ch];
-    }
-
-    return gaGlideDebugFontCharWidths[0];
-}
-
-// 0x0050BC90
-void __fastcall sub_0050BC90_GlideDebugPrintf(int nX, int nY, const char* szFormat, char* args)
-{
-    char szText[0x200];
-    const int nLength = wvsprintfA(szText, szFormat, args);
-    const int nStartX = nX;
-
-    GLIDE_SetColorCombineMode(1);
-    GLIDE_SetAlphaBlendMode(1);
-    GLIDE_SetTextureFilterMode(1);
-    GLIDE_SetTextureCombineMode(gnGlideDebugFontTmu);
-
-    for (int i = 0; i < nLength; ++i)
-    {
-        nX += sub_0050BBA0_GlideDebugDrawChar(szText[i], nX, nY);
-        if (szText[i] == '\n')
-        {
-            nX = nStartX;
-            nY += 12;
-        }
-    }
-}
-
 // 0x0050BD30
 static void sub_0050BD30_GlideDrawPointCross(unsigned int dwColor, int nX, int nY)
 {

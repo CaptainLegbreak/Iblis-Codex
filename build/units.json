@@ -34670,7 +34670,31 @@
      "va": "0x0050BB70",
      "length": 38,
      "name": "?GLIDE_FreeDebugFont@@YAXXZ"
+    },
+    {
+     "va": "0x0050BBA0",
+     "length": 238,
+     "name": "?sub_0050BBA0_GlideDebugDrawChar@@YGHDHH@Z"
+    },
+    {
+     "va": "0x0050BC90",
+     "length": 145,
+     "name": "?sub_0050BC90_GlideDebugPrintf@@YIXHHPBDPAD@Z"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
@@ -37001,16 +37025,6 @@
    "file": "Source/D2Glide/Unknown_0050BBA0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0050BBA0",
-     "length": 238,
-     "name": "?sub_0050BBA0_GlideDebugDrawChar@@YGHDHH@Z"
-    },
-    {
-     "va": "0x0050BC90",
-     "length": 145,
-     "name": "?sub_0050BC90_GlideDebugPrintf@@YIXHHPBDPAD@Z"
-    },
     {
      "va": "0x0050BE20",
      "length": 204
