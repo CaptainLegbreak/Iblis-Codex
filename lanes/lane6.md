@@ -4,6 +4,8 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane6/bss-a 00982e88 558->554 four placements by data block (glPerspective.cpp 0x0050DE10, ddSmack.cpp 0x005135F0, BnDownload.cpp 0x00518C30, Outdoors.cpp 0x00675600); VERIFIED aa7523d9
+  - Stacked on lane6/cands-d (merge that first); based on main #297.
 - lane6/cands-d 24b8d613 562->558 fifteen placements on main #297: address runs, the data seam, and the debug-font pairs; VERIFIED face79e0
   - On origin/main (34ce356b); not stacked.
   - Touches D2Client/GAME/Game.cpp (lane 4's file): sub_0043B830 and sub_0043B840, 6-byte getters inside CharSel.cpp's run that read CharSel.cpp's globals 0x0077AC04/08, move to CharSel.cpp.
