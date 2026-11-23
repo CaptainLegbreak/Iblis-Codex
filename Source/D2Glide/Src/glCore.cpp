@@ -1556,10 +1556,4 @@ int __cdecl BNCLIENT_IsSetEmailRequested()
     return gdwGlobal_00881C04;
 }
 
-// 0x0051EA70
-int __cdecl BNCLIENT_GetDownloadPercent()
-{
-    return gdwGlobal_00881C50;
-}
-
 #include "gen/data/Source/D2Glide/Src/glCore.inc"
