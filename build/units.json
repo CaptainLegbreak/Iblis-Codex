@@ -1521,6 +1521,11 @@
      "name": "LOGMANAGER_DbgHelpThreadProc"
     },
     {
+     "va": "0x0040EBD0",
+     "length": 235,
+     "name": "sub_0040EBD0_OpenDatedLogFile"
+    },
+    {
      "va": "0x0040F000",
      "length": 111,
      "name": "?LOGMANAGER_GetLogDirectory@@YIXPADH@Z"
@@ -1628,6 +1633,11 @@
      "va": "0x0040FCB0",
      "length": 75,
      "name": "??0D2LogMsgNodeStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0040FFD0",
+     "length": 105,
+     "name": "?sub_0040FFD0_ShutdownLogSystem@@YAXXZ"
     },
     {
      "va": "0x00410040",
@@ -3708,11 +3718,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0040EBD0",
-     "length": 235,
-     "name": "sub_0040EBD0_OpenDatedLogFile"
-    },
-    {
      "va": "0x00410CF0",
      "length": 147,
      "name": "sub_00410CF0_NotBits"
@@ -3962,11 +3967,6 @@
      "va": "0x0040EB80",
      "length": 8,
      "name": "?Leave@CCritSect@@QAEXXZ"
-    },
-    {
-     "va": "0x0040FFD0",
-     "length": 105,
-     "name": "?sub_0040FFD0_ShutdownLogSystem@@YAXXZ"
     }
    ]
   },

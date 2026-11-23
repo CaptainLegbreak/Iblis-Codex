@@ -105,27 +105,6 @@ public:
     D2CriticalSectionStrc tLock;
 };
 
-void* ghLogThread; // 0x0075D2E8
-
-int gbLogThreadStop; // 0x0075E830
-
-// 0x0040FFD0
-void __cdecl sub_0040FFD0_ShutdownLogSystem()
-{
-    gbLogThreadStop = 1;
-    WaitForSingleObject(ghLogThread, 30000);
-    CloseHandle(ghLogThread);
-    EnterCriticalSection(&gtLogQueueLock);
-    gtLogMsgQueue_0075E868.sub_0040FED0_DeleteAll();
-    gnLogQueued = 0;
-    gnLogQueuedBytes = 0;
-    ghLogThread = 0;
-    gnLogThreadId = 0;
-    gbLogInitialized = 0;
-    gbLogThreadStop = 0;
-    LeaveCriticalSection(&gtLogQueueLock);
-}
-
 // 0x0040E300
 static void __stdcall sub_0040E300(char* szBuf, int nVendor, int nFamily, unsigned int nModel, int nBrand, int nType)
 {
