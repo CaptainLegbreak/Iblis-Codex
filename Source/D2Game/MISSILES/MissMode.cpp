@@ -6293,25 +6293,10 @@ int __fastcall MISSMODE_SrvDo37_CreateTimedSubmissiles(D2GameStrc* pGame, D2Unit
     return MISSMODE_HandleMissileCollision(pGame, pMissile);
 }
 
-// 0x005B0D70
-void __fastcall AITHINK_SetAiControlParams(D2AiControlStrc* pAiControl, int nParam0, int nParam1, int nParam2)
+// 0x005B0BC0
+int __fastcall MISSMODE_SrvDo01_BasicMissile(D2GameStrc* pGame, D2UnitStrc* pMissile)
 {
-    if (!pAiControl)
-    {
-        return;
-    }
-    if (nParam0 != -666)
-    {
-        pAiControl->dwAiParam[0] = nParam0;
-    }
-    if (nParam1 != -666)
-    {
-        pAiControl->dwAiParam[1] = nParam1;
-    }
-    if (nParam2 != -666)
-    {
-        pAiControl->dwAiParam[2] = nParam2;
-    }
+    return MISSMODE_HandleMissileCollision(pGame, pMissile);
 }
 
 // 0x005B0F50

@@ -52,32 +52,6 @@ int __fastcall AITHINK_GetSquaredDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2
     return nXDiff * nXDiff + nYDiff * nYDiff;
 }
 
-// 0x005B0DA0
-int __fastcall AITHINK_CanUnitSwitchAi(D2UnitStrc* pUnit, D2MonStatsTxt* pMonStatsTxtRecord, int nAiSpecialState, int bCheckIfSuperUnique)
-{
-    if (nAiSpecialState == 0)
-    {
-        return 1;
-    }
-
-    if (nAiSpecialState != 10 && nAiSpecialState != 11 && nAiSpecialState != 12)
-    {
-        return 1;
-    }
-
-    if (bCheckIfSuperUnique && MONSTERUNIQUE_CheckMonTypeFlag(pUnit, 2))
-    {
-        return 0;
-    }
-
-    if (!pUnit)
-    {
-        return UNITS_CanSwitchAI(-1);
-    }
-
-    return UNITS_CanSwitchAI(pUnit->dwClassId);
-}
-
 // 0x005B1BC0
 D2TargetNodeStrc* __fastcall sub_005B1BC0_FindTargetNode(D2UnitStrc* pUnit, D2GameStrc* pGame)
 {

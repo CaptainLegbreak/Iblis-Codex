@@ -180,11 +180,6 @@ int __cdecl PLRSAVE2_GetHighestClassSkillCount()
 }
 
 int SUNITNPC_GetItemStorePage(D2UnitStrc* pItem); // 0x00576320
-// 0x005B0BC0
-int __fastcall MISSMODE_SrvDo01_BasicMissile(D2GameStrc* pGame, D2UnitStrc* pMissile)
-{
-    return MISSMODE_HandleMissileCollision(pGame, pMissile);
-}
 
 // build: context CLIENTS_GetUnitX
 inline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)

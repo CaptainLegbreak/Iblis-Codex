@@ -910,6 +910,38 @@ void __fastcall sub_0052B6F0()
     FOG_10182_Return(gpServer);
 }
 
+void __fastcall D2GAME_DeleteTimersOnUnit_6FC34A30(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540F30
+
+enum D2C_UnitFlags
+{
+    UNITFLAG_ISVALIDTARGET = 0x00000008,
+};
+
+int __fastcall QUESTS_CreateChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuestId); // 0x005436B0
+
+void __stdcall STATLIST_AllocStatListEx(D2UnitStrc* pUnit, int nFlags, void* pCallback, D2GameStrc* pGame); // 0x00626D40
+
+// 0x00555D20
+void __fastcall ITEMMODE_InitializeItemUnit(D2UnitStrc* pUnit, D2GameStrc* pGame, int nUnitGUID, D2ActiveRoomStrc* pRoom)
+{
+    if (pUnit)
+    {
+        pUnit->dwUnitId = nUnitGUID;
+        pUnit->dwFlags = pUnit->dwFlags & ~UNITFLAG_ISVALIDTARGET | UNITFLAG_TARGETABLE;
+    }
+
+    ITEMS_SetItemFlag(pUnit, IFLAG_IDENTIFIED, 1);
+    STATLIST_AllocStatListEx(pUnit, 0, 0, 0);
+
+    const unsigned char nQuest = DATATBLS_GetItemsTxtRecord(!pUnit ? -1 : pUnit->dwClassId)->nQuest;
+    if (nQuest)
+    {
+        QUESTS_CreateChainRecord(pGame, pUnit, nQuest - 1);
+    }
+
+    D2GAME_DeleteTimersOnUnit_6FC34A30(pGame, pUnit);
+}
+
 // 0x00555DA0
 D2ActiveRoomStrc* __fastcall D2GAME_GetFreeSpaceEx_6FC4BF00(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2CoordStrc* pReturnCoords, int nUnitSize, unsigned char bAllowNeighborRooms)
 {
@@ -4074,37 +4106,6 @@ D2UnitStrc* __fastcall ITEMMODE_GetItemFromOppositeBodyLoc(D2InventoryStrc* pInv
 // 0x00564CA0
 extern "C" __declspec(dllexport) int __cdecl sub_00564CA0() {
     return 1;
-}
-
-// 0x00568DC0
-unsigned short __fastcall PLRSAVE2_GetItemIndex(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nGUID)
-{
-    if (nGUID == -1)
-    {
-        return 0;
-    }
-
-    if (!pPlayer->pInventory)
-    {
-        return 0;
-    }
-
-    int nIdx = 1;
-    D2UnitStrc* pNode = INVENTORY_GetFirstItem(pPlayer->pInventory);
-    while (pNode)
-    {
-        D2UnitStrc* pCheckedItem = INVENTORY_UnitIsItem(pNode);
-        pNode = INVENTORY_GetNextItem(pNode);
-        if ((!pCheckedItem ? -1 : pCheckedItem->dwUnitId) == nGUID)
-        {
-            D2_ASSERT(nIdx < 0x7FFF, 0x185);
-            return nIdx;
-        }
-
-        ++nIdx;
-    }
-
-    return 0;
 }
 
 // 0x00568E60

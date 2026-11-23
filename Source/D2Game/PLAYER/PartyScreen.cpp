@@ -404,3 +404,46 @@ void __fastcall PARTYSCREEN_PartyIterate_OpenHostility(D2GameStrc* pGame, D2Unit
     UnitGetClient(pPlayer1, ".\\PLAYER\\PartyScreen.cpp", 391)->PARTYSCREEN_SendEventUpdateToClient(!pPlayer2 ? -1 : pPlayer2->dwUnitId, PARTYSCREENTYPE_HOSTILE);
 }
 
+// 0x005A5FF0
+void __fastcall PARTYSCREEN_RefreshPartyRelationsAfterLeave(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+    SUNIT_IterateLivingPlayers(pGame, PARTYSCREEN_PlayerIterate_RefreshPartyRelations, pPlayer);
+}
+
+typedef void(__fastcall* PartyCommandFunc)(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int nParam, int* pFailure);
+
+typedef int(__stdcall* FARPROC)();
+
+extern PartyCommandFunc gpfnPartyCommands[10]; // 0x006E2218
+
+D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
+
+extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
+
+// 0x005A6000
+int __fastcall PARTYSCREEN_CommandHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nCallbackId, int nOtherPlayerGUID, int nParam)
+{
+    int bFailure = 0;
+    D2UnitStrc* pOtherPlayer = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, nOtherPlayerGUID);
+    if (!pOtherPlayer)
+    {
+        return 0;
+    }
+
+    if (gpfnPartyCommands[nCallbackId])
+    {
+        if (IsBadCodePtr((FARPROC)gpfnPartyCommands[nCallbackId]))
+        {
+            return 3;
+        }
+
+        gpfnPartyCommands[nCallbackId](pGame, pUnit, pOtherPlayer, nParam, &bFailure);
+        if (bFailure)
+        {
+            return 3;
+        }
+    }
+
+    return 0;
+}
+
