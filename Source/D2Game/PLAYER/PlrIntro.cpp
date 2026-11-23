@@ -1,20 +1,13 @@
 #include "D2Game.h"
 #include "D2GameStrc.h"
 #include "D2Primitives.h"
+#include "D2GameAux.h"
 
 #pragma intrinsic(memcpy)
 
 struct D2BitBufferStrc;
-struct D2PlrIntroStrc;
 struct D2NpcIndexMapStrc;
 struct D2GameStrc;
-
-
-struct D2PlrIntroStrc
-{
-    D2BitBufferStrc* pQuestIntroFlags;
-    D2BitBufferStrc* pNpcIntroFlags;
-};
 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);

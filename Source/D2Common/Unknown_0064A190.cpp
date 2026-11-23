@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Skills.h"
 struct Data0064A190;
 struct Unit0064A190;
 struct D2MissileDataStrc;
@@ -46,7 +47,6 @@ struct DataTables;
 struct Damage;
 struct D2StatStrc;
 struct D2MissileDamageDataStrc;
-struct D2MissileCalcStrc;
 
 struct Data0064A190 {
     unsigned int dwUnknown00;
@@ -85,8 +85,6 @@ struct D2MissileDataStrc
     int nTargetX;
     int nTargetY;
 };
-
-
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -728,13 +726,6 @@ enum
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 int __stdcall STATLIST_CopyStats(D2UnitStrc* pUnit, int nStatId, D2StatStrc* pBuffer, int nBufferSize); // 0x006261D0
 
-struct D2MissileCalcStrc
-{
-    D2UnitStrc* pMissile;
-    D2UnitStrc* pOwner;
-    int nMissileId;
-    int nMissileLevel;
-};
 
 int __stdcall MISSILE_GetSpecialParamValue(D2UnitStrc* pMissile, D2UnitStrc* pOwner, unsigned char nParamId, int nMissileId, int nLevel); // 0x0064B340
 

@@ -3,12 +3,12 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Skills.h"
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
 struct D2MissileDataStrc;
 struct D2MissilesTxt;
-struct D2MissileCalcStrc;
 
 struct D2MissileDataStrc
 {
@@ -38,13 +38,6 @@ int __stdcall MISSILE_GetMinElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner,
 int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B1D0
 int __stdcall sub_0064B2A0_GetMissileElementLength(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B2A0
 
-struct D2MissileCalcStrc
-{
-    D2UnitStrc* pMissile;
-    D2UnitStrc* pOwner;
-    int nMissileId;
-    int nMissileLevel;
-};
 
 extern void* gpfnMissileCalcFunctions[]; // 0x00745828
 extern int gnMissileCalcFunctionCount; // 0x00745848

@@ -24,13 +24,6 @@ struct D2MonPresetTxt
     unsigned short wPlace;
 };
 
-struct D2PresetCodeStrc
-{
-    char c0;
-    char c1;
-    char c2;
-    char c3;
-};
 
 struct D2ItemsTxt;
 

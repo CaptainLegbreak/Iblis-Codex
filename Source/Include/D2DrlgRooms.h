@@ -81,3 +81,73 @@ D2_CHECK_SIZE(D2DrlgSubstGroupStrc, 0x18);
 D2_CHECK_SIZE(D2DrlgBuildStrc, 0x10);
 D2_CHECK_SIZE(D2DrlgActStrc, 0x60);
 D2_CHECK_SIZE(D2UnkDrlgRoomTileStrc2, 0x1C);
+
+struct T00681490;
+
+struct D2EnvironmentCycleStrc
+{
+    int nTicksBegin; // 0x00
+    int nPeriodOfDay; // 0x04
+    unsigned char nRed; // 0x08
+    unsigned char nGreen; // 0x09
+    unsigned char nBlue; // 0x0A
+    unsigned char unk0x0B; // 0x0B
+};
+
+struct D2DrlgOutRectStrc
+{
+    int nX; // 0x00
+    int nY; // 0x04
+    int unk0x08; // 0x08
+    unsigned char nFlags; // 0x0C
+    char pad0x0D[3]; // 0x0D
+    D2DrlgOutRectStrc* pBounds; // 0x10
+};
+
+struct D2OutdoorColumnFilesStrc
+{
+    int nLeft; // 0x00
+    int nRight; // 0x04
+};
+
+struct D2DrlgRoadStrc
+{
+    char _pad_0x00[0x80];
+    D2CoordStrc tEnd;
+    char _pad_0x88[0x70];
+    D2CoordStrc tEndInner;
+    char _pad_0x100[0x70];
+    D2CoordStrc tStartInner;
+    char _pad_0x178[0x70];
+    D2CoordStrc tStart;
+    unsigned char nStartType;
+    char _pad_0x1F1[0x03];
+};
+
+struct T00681490
+{
+    int nCost; // 0x00
+    int nEstimate; // 0x04
+    int nSpent; // 0x08
+    int nX; // 0x0C
+    int nY; // 0x10
+    int nTried; // 0x14
+    const unsigned char* pTurn; // 0x18
+    unsigned char nDirection; // 0x1C
+    T00681490* pParent; // 0x20
+    T00681490* pChild; // 0x24
+};
+
+struct D2DrlgPathSearchStrc
+{
+    T00681490* pStart;
+    T00681490 tNodes[900];
+    int nNodes;
+};
+
+D2_CHECK_SIZE(D2EnvironmentCycleStrc, 0xC);
+D2_CHECK_SIZE(D2DrlgOutRectStrc, 0x14);
+D2_CHECK_SIZE(D2OutdoorColumnFilesStrc, 0x8);
+D2_CHECK_SIZE(D2DrlgRoadStrc, 0x1F4);
+D2_CHECK_SIZE(T00681490, 0x28);
+D2_CHECK_SIZE(D2DrlgPathSearchStrc, 0x8CA8);

@@ -8,6 +8,7 @@
 #include "D2LevelTxt.h"
 #include "D2ItemsWorld.h"
 #include "D2GameRecords.h"
+#include "D2GameAux.h"
 
 #define STAT_DEXTERITY 2
 
@@ -43,7 +44,6 @@
 
 #define MONSTATSFLAGINDEX_SWITCHAI 16
 
-struct D2InteractInfoStrc;
 
 struct D2PetInfoStrc;
 
@@ -79,7 +79,6 @@ struct D2HirelingInitStrc;
 
 struct D2GameStrc;
 
-struct D2MonsterInteractStrc;
 
 struct D2UnitStrc;
 
@@ -87,10 +86,6 @@ struct D2DataTablesStrc;
 
 struct D2HirelingTxt;
 
-struct D2MonsterInteractStrc
-{
-    D2InteractInfoStrc* pInteractInfo;
-};
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
@@ -124,12 +119,6 @@ D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045
 
 void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove); // 0x0056DEB0
 
-struct D2InteractInfoStrc
-{
-    D2UnitStrc* pUnit;
-    int nInteract;
-    D2InteractInfoStrc* pNext;
-};
 
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 

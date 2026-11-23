@@ -5,6 +5,7 @@
 #include "D2Txt.h"
 #include "D2Path.h"
 #include "D2GameTypes.h"
+#include "D2GameAux.h"
 
 struct MissileRecord;
 union D2SeedStrc;
@@ -12,7 +13,6 @@ struct D2StaticPathStrc;
 struct D2SkillsTxt;
 struct MonsterData;
 struct Skills;
-struct D2UnkNecSkillStrc;
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
@@ -68,21 +68,6 @@ D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId); // 0x0046ACE0
 Unit* __fastcall sub_0056EE90(Game*,int,Unit*,int,int,int,int,int,int,int); // 0x0056EE90
 Unit* __fastcall sub_0056ECB0(Game*,int,Unit*,int,int,int,int,int,int,int); // 0x0056ECB0
 
-struct D2UnkNecSkillStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pUnit;
-    int unk0x08;
-    int bUpdateAnimRate;
-    int nSkillId;
-    int nSkillLevel;
-    int nDuration;
-    int nAuraStat[6];
-    int nAuraStatCalc[6];
-    int nAuraTargetState;
-    int nAuraEvent[3];
-    int nAuraEventFunc[3];
-};
 
 typedef char D2SkillsTxtSizeCheck[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 

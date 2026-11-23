@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2AnimData.h"
 
 struct D2InventoryStrc;
 
@@ -13,12 +14,6 @@ struct D2AnimSeqTxt
     unsigned char nEvent;
 };
 
-struct D2AnimSeqRecordStrc
-{
-    D2AnimSeqTxt* pAnimSeqTxtRecord;
-    int nSeqFramesCount;
-    int nFramesCount;
-};
 
 struct D2PlayerWeaponSequencesStrc
 {

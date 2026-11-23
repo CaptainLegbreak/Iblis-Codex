@@ -10,6 +10,7 @@
 #include "D2TxtTables.h"
 #include "D2LevelIds.h"
 #include "D2Unicode.h"
+#include "D2DrlgRooms.h"
 
 #pragma intrinsic(strcpy)
 
@@ -264,7 +265,6 @@ struct Environment;
 
 struct D2DrlgEnvironmentStrc;
 
-struct D2EnvironmentCycleStrc;
 
 struct Unicode;
 
@@ -295,15 +295,6 @@ struct D2DrlgEnvironmentStrc
     int nPrev;
 };
 
-struct D2EnvironmentCycleStrc
-{
-    int nTicksBegin;
-    int nPeriodOfDay;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char unk0x0B;
-};
 
 extern "C" __declspec(dllimport) unsigned int __stdcall GetTickCount(); // 0x006CC260
 

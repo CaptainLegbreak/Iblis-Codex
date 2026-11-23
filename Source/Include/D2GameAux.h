@@ -138,3 +138,81 @@ D2_CHECK_SIZE(D2BasicAuraParamStrc, 0x50);
 D2_CHECK_SIZE(D2DamageAuraParamStrc, 0x50);
 D2_CHECK_SIZE(D2PetArgStrc, 0x1C);
 D2_CHECK_SIZE(D2TargetNodeStrc, 0x10);
+
+struct D2BitBufferStrc;
+struct D2MagicAffixTxt;
+struct D2MissilesTxt;
+struct D2InteractInfoStrc;
+
+struct D2UnkNecSkillStrc
+{
+    D2GameStrc* pGame; // 0x00
+    D2UnitStrc* pUnit; // 0x04
+    int unk0x08; // 0x08
+    int bUpdateAnimRate; // 0x0C
+    int nSkillId; // 0x10
+    int nSkillLevel; // 0x14
+    int nDuration; // 0x18
+    int nAuraStat[6]; // 0x1C
+    int nAuraStatCalc[6]; // 0x34
+    int nAuraTargetState; // 0x4C
+    int nAuraEvent[3]; // 0x50
+    int nAuraEventFunc[3]; // 0x5C
+};
+
+struct D2MonsterInteractStrc
+{
+    D2InteractInfoStrc* pInteractInfo; // 0x00
+};
+
+struct D2InteractInfoStrc
+{
+    D2UnitStrc* pUnit; // 0x00
+    int nInteract; // 0x04
+    D2InteractInfoStrc* pNext; // 0x08
+};
+
+struct D2PlrIntroStrc
+{
+    D2BitBufferStrc* pQuestIntroFlags; // 0x00
+    D2BitBufferStrc* pNpcIntroFlags; // 0x04
+};
+
+struct D2MagicAffixIndexAndPtrStrc
+{
+    int nAffixId; // 0x00
+    D2MagicAffixTxt* pMagicAffixRecord; // 0x04
+};
+
+struct D2MonSkillInfoStrc
+{
+    int nMinDamage; // 0x00
+    int nMaxDamage; // 0x04
+    int nToHit; // 0x08
+};
+
+struct D2MonsterEquipmentStrc
+{
+	int nItemCode; // 0x00
+	unsigned char nBodyLoc; // 0x04
+	unsigned char unk0x05; // 0x05
+	unsigned char unk0x06; // 0x06
+	unsigned char unk0x07; // 0x07
+};
+
+struct D2MissileUnitFindArgStrc
+{
+    D2GameStrc* pGame; // 0x00
+    D2UnitStrc* pMissile; // 0x04
+    D2UnitStrc* pOwner; // 0x08
+    D2MissilesTxt* pMissilesTxtRecord; // 0x0C
+};
+
+D2_CHECK_SIZE(D2UnkNecSkillStrc, 0x68);
+D2_CHECK_SIZE(D2MonsterInteractStrc, 0x4);
+D2_CHECK_SIZE(D2InteractInfoStrc, 0xC);
+D2_CHECK_SIZE(D2PlrIntroStrc, 0x8);
+D2_CHECK_SIZE(D2MagicAffixIndexAndPtrStrc, 0x8);
+D2_CHECK_SIZE(D2MonSkillInfoStrc, 0xC);
+D2_CHECK_SIZE(D2MonsterEquipmentStrc, 0x8);
+D2_CHECK_SIZE(D2MissileUnitFindArgStrc, 0x10);

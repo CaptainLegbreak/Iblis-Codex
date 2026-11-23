@@ -8,6 +8,7 @@
 #include "D2DataTbls.h"
 #include "D2TxtItems.h"
 #include "D2TxtTables.h"
+#include "D2AnimData.h"
 
 #pragma function(memset)
 
@@ -35,7 +36,6 @@ union D2SeedStrc;
 
 struct Unicode;
 
-struct D2UniqueNameTxt;
 
 struct D2TCExInfoStrc;
 
@@ -64,7 +64,6 @@ struct D2UnitStrc;
 
 struct D2AnimSeqTxt;
 
-struct D2AnimSeqRecordStrc;
 
 struct D2NpcTxt;
 
@@ -167,10 +166,6 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
 
-struct D2UniqueNameTxt
-{
-    unsigned short wStringId;
-};
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
@@ -591,12 +586,6 @@ struct D2AnimSeqTxt
     unsigned char nEvent;
 };
 
-struct D2AnimSeqRecordStrc
-{
-    D2AnimSeqTxt* pAnimSeqTxtRecord;
-    int nSeqFramesCount;
-    int nFramesCount;
-};
 
 D2TxtLinkStrc* gpMonSeqLinker; // 0x0096C7AC
 

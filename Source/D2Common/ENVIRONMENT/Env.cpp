@@ -8,7 +8,6 @@ struct D2DrlgActStrc;
 
 struct D2DrlgEnvironmentStrc;
 
-struct D2EnvironmentCycleStrc;
 
 struct D2DrlgEnvironmentStrc
 {
@@ -31,15 +30,6 @@ struct D2DrlgEnvironmentStrc
     int nPrev;
 };
 
-struct D2EnvironmentCycleStrc
-{
-    int nTicksBegin;
-    int nPeriodOfDay;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char unk0x0B;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 

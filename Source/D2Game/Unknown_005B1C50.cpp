@@ -2,21 +2,8 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2GameAux.h"
 struct D2ItemsTxt;
-#pragma pack(push, 1)
-struct D2MonsterEquipmentStrc
-{
-	int nItemCode;
-	unsigned char nBodyLoc;
-	unsigned char unk0x05;
-	unsigned char unk0x06;
-	unsigned char unk0x07;
-};
-#pragma pack(pop)
-
-
-
-
 extern const D2MonsterEquipmentStrc gtAncientEquipment[12]; // 0x006E2C90
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 void __fastcall MONSTERAI_CreateAndEquipItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MonsterEquipmentStrc* pItemInfo, int nLevel, unsigned int nFlags); // 0x00573B20

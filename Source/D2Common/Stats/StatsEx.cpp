@@ -4,6 +4,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2LevelTxt.h"
+#include "D2Skills.h"
 
 #define STATLIST_SET 0x2000
 
@@ -33,7 +34,6 @@ struct Obj006252F0;
 
 struct Obj00625330;
 
-struct D2ItemCalcStrc;
 
 struct Obj00625CE0;
 
@@ -89,11 +89,6 @@ int __stdcall STATLIST_GetStatValueWithPercent(D2StatListStrc* pStatList, int nS
 
 D2StatListStrc* __stdcall STATLIST_FindStatListByFlag(D2StatListStrc* pStatList, int nFlag); // 0x006256E0
 
-struct D2ItemCalcStrc
-{
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pItem;
-};
 
 extern void* gpItemsCalcFunctions[]; // 0x0074463C
 

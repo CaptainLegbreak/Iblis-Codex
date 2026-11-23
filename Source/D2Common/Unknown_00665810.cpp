@@ -1,15 +1,7 @@
 #include "D2Common.h"
+#include "D2DrlgPresets.h"
 
-struct D2PresetCodeStrc;
 
-
-struct D2PresetCodeStrc
-{
-    char c0;
-    char c1;
-    char c2;
-    char c3;
-};
 int __fastcall DRLGPRESET_MapTileType(int nId); // 0x0066D7F0
 extern D2CriticalSectionStrc gLevelFilesCriticalSection; // 0x0096D610
 extern int gnPresetObjectIndices[5][150]; // 0x00748AD8

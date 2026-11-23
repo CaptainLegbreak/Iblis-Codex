@@ -18,7 +18,6 @@ struct D2InactiveUnitNodeStrc;
 struct D2MinionListStrc;
 union D2SeedStrc;
 struct D2InactiveItemNodeStrc;
-struct D2InactiveItemBufferStrc;
 struct D2ObjectDataStrc;
 struct D2StaticPathStrc;
 struct D2MonsterDataStrc;
@@ -29,18 +28,6 @@ struct D2MonStatsTxt;
 struct D2MonStats2Txt;
 struct D2DrlgCoordsStrc;
 struct D2PlayerDataStrc;
-
-struct D2InactiveItemBufferStrc
-{
-    D2InactiveItemNodeStrc* pNext;
-    int nFrame;
-    int nOwnerId;
-    unsigned short nBitstreamSize;
-    unsigned char pBitstream[0x400];
-};
-
-
-
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837

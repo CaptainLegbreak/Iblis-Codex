@@ -74,7 +74,6 @@ struct D2MonsterDataStrc;
 
 struct D2MissilesTxt;
 
-struct D2MonSkillInfoStrc;
 
 struct D2ActiveRoomStrc;
 
@@ -417,12 +416,6 @@ void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLev
 
 unsigned short __stdcall COLLISION_CheckMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned int nSizeX, unsigned int nSizeY, unsigned short nMask); // 0x0064D800
 
-struct D2MonSkillInfoStrc
-{
-    int nMinDamage;
-    int nMaxDamage;
-    int nToHit;
-};
 
 int __stdcall SKILLS_GetHighestSkillLevelById(D2UnitStrc* pUnit, int nSkillId); // 0x00644AA0
 

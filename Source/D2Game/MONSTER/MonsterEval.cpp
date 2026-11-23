@@ -15,9 +15,7 @@
 #include "D2GameTypes.h"
 #include "D2Constants.h"
 #include "D2UnitData.h"
-
-
-
+#include "D2GameAux.h"
 
 
 union D2SeedStrc;
@@ -89,8 +87,6 @@ enum { RANGE_OVERRIDE = 0 };
 #define UNITFLAG_TARGETABLE 0x00000002
 
 #define UNITFLAG_ISVALIDTARGET 0x00000008
-
-
 
 
 #define UNIT_ALIGNMENT_EVIL 0
@@ -391,12 +387,6 @@ void __fastcall MONSTERMODE_AllocateTargetCombat(D2UnitStrc* pUnit, D2GameStrc* 
     }
 }
 
-struct D2MonSkillInfoStrc
-{
-    int nMinDamage;
-    int nMaxDamage;
-    int nToHit;
-};
 
 void __fastcall SKILLS_FillMinionSkillDamage(D2UnitStrc* pUnit, int nUnused, D2MonSkillInfoStrc* pMonSkillInfo); // 0x0056E050
 int __fastcall MONSTEREVAL_GetDifficultyScaledBonus(D2GameStrc* pGame, int nCount); // 0x005A4F20

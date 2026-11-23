@@ -1,11 +1,6 @@
 #include "D2Common.h"
 #include "D2DataTbls.h"
-
-struct D2ItemCalcStrc
-{
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pItem;
-};
+#include "D2Skills.h"
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304

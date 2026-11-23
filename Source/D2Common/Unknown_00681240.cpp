@@ -1,30 +1,8 @@
 #include "D2Structs.h"
 #include "D2Drlg.h"
+#include "D2Path.h"
+#include "D2DrlgRooms.h"
 struct D2DrlgGridStrc;
-
-
-
-struct D2DrlgCoordPairStrc
-{
-    int nX;
-    int nY;
-};
-
-struct D2DrlgRoadStrc
-{
-    char _pad_0x00[0x80];
-    D2DrlgCoordPairStrc tEnd;
-    char _pad_0x88[0x70];
-    D2DrlgCoordPairStrc tEndInner;
-    char _pad_0x100[0x70];
-    D2DrlgCoordPairStrc tStartInner;
-    char _pad_0x178[0x70];
-    D2DrlgCoordPairStrc tStart;
-    unsigned char nStartType;
-    char _pad_0x1F1[0x03];
-};
-
-
 
 
 void __fastcall sub_0067C890(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, int nFlag); // 0x0067C890
