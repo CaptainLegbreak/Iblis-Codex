@@ -253,14 +253,6 @@ struct D2AddressQueryStrc
     char nState[4];
 };
 
-struct D2SlotObjectStrc
-{
-    char unk0x00[0x04];
-    int f_4;
-    char unk0x08[0x2C];
-    unsigned int nKey;
-};
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 extern "C" const char gszGfxUtilSourceFile[]; // 0x006DB974
@@ -280,10 +272,6 @@ extern int gdwSongPositionTick; // 0x007C89E0
 extern D2TimedHintStrc gtTimedHint; // 0x007C89E4
 
 extern void* gpGlobal_007A0634; // 0x007A0634
-
-extern int gbSoundSystemInit; // 0x007C8C78
-
-extern D2SlotStrc gaSlots[16]; // 0x007C8A78
 
 int __cdecl sub_0044DB00(); // 0x0044DB00
 
@@ -312,8 +300,6 @@ int __fastcall sub_004DBB50(D2PanelGfxStrc* pGfx, D2UnitStrc* pUnit, int nArg3, 
 void __fastcall sub_004DBEA0(D2UnitStrc* pUnit, int nArg2, int nArg3, unsigned int* pWidth, unsigned int* pHeight); // 0x004DBEA0
 
 int __fastcall sub_004DC110(void* pArg1, int nArg2, int nArg3, int nArg4, void* pfnCallback, int nArg6, int nArg7); // 0x004DC110
-
-int __fastcall sub_00515710(D2SoundStrc* pSound); // 0x00515710
 
 int __fastcall sub_00516760(int nSocket, int* pParam, D2AddressInfoStrc* pInfo); // 0x00516760
 
@@ -4060,30 +4046,6 @@ int __fastcall ITEM_QueryCacheAddress(D2AddressQueryStrc* pQuery)
 
     pQuery->f_81 = 1;
     return 0;
-}
-
-// 0x004DF9D0
-D2SlotStrc* __fastcall SoundChannelFind(int nOwner)
-{
-    if (!gbSoundSystemInit)
-    {
-        return 0;
-    }
-
-    D2SlotStrc* pBest = 0;
-    for (int i = 0; i < 16; i++)
-    {
-        D2SlotStrc* pSlot = &gaSlots[i];
-        if (sub_00515710(pSlot->pSound) && pSlot->pObject && pSlot->pObject->f_4 == nOwner)
-        {
-            if (!pBest || pSlot->pObject->nKey < pBest->pObject->nKey)
-            {
-                pBest = pSlot;
-            }
-        }
-    }
-
-    return pBest;
 }
 
 #include "gen/data/Source/D2Client/UNIT/Item.inc"
