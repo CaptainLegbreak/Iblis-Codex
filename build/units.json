@@ -12566,6 +12566,11 @@
      "name": "CHATDLG_CheckStartAdvResult"
     },
     {
+     "va": "0x00443EF0",
+     "length": 88,
+     "name": "?sub_00443EF0_OnSelect@@YGHH@Z"
+    },
+    {
      "va": "0x00446810",
      "length": 9,
      "name": "CHATDLG_StrChr"
@@ -13088,11 +13093,6 @@
      "va": "0x00443CC0",
      "length": 72,
      "name": "?sub_00443CC0_SelectHell@@YGHH@Z"
-    },
-    {
-     "va": "0x00443EF0",
-     "length": 88,
-     "name": "?sub_00443EF0_OnSelect@@YGHH@Z"
     },
     {
      "va": "0x00443F70",

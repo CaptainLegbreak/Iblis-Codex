@@ -924,6 +924,44 @@ int __stdcall sub_00443540_IsNameChar(D2WinControlStrc* pControl, int nArg, cons
 
 int __stdcall sub_004435D0(void* unused1,void* unused2,const Character* text); // 0x004435D0
 
+extern int gdwGlobal_00798CC4;                                                                                     // 0x00798CC4
+
+extern D2WinControlStrc* gpNormalRadio;                                                                       // 0x00798C4C
+
+extern D2WinControlStrc* gpNightmareRadio;                                                                       // 0x00798C50
+
+extern D2WinControlStrc* gpHellRadio;                                                                       // 0x00798C54
+
+extern int gnDiffSelect;                                                                                  // 0x00798CD0
+
+extern char gszPendingEntryName[16];                                                                                  // 0x00798CD4
+
+extern int gnPendingValueA;                                                                               // 0x00798CE4
+
+extern int gnPendingValueB;                                                                               // 0x00798CE8
+
+int __cdecl WINMAIN_PollMcpConnection();                                                               // 0x00449B70
+
+void __cdecl CHATDLG_DestroyCreateControls();                                                                // 0x00443220
+
+void __cdecl CHATDLG_DestroyProfileControls();                                                                                // 0x00443E10
+
+void __fastcall CHATDLG_SelectEntry(const char* szName, int nValueA, int nValueB);                    // 0x0043EC60
+
+int __stdcall sub_00443870_SetCancel(int nArg); // 0x00443870
+
+int __stdcall sub_00443880_PollMcp(int nArg); // 0x00443880
+
+int __stdcall sub_004438C0_OnCancel(int nArg); // 0x004438C0
+
+int __stdcall sub_00443C20_SelectNormal(int nArg); // 0x00443C20
+
+int __stdcall sub_00443C70_SelectNightmare(int nArg); // 0x00443C70
+
+int __stdcall sub_00443CC0_SelectHell(int nArg); // 0x00443CC0
+
+int __stdcall sub_00443F70_OnRefresh(int nArg); // 0x00443F70
+
 static __forceinline int CONSOLE_FindSecondTokenInline(const char* szText, char* szCopy, const char** ppArg)
 {
     strcpy(szCopy, szText);
@@ -3475,6 +3513,28 @@ int __stdcall CHATDLG_CheckStartAdvResult(int nUnused)
     int nOut;
     if (gpLaunchFuncs->pfn0x8C(&nOut))
         D2Win_StopMessageLoop();
+    return 1;
+}
+
+// 0x00443EF0
+int __stdcall sub_00443EF0_OnSelect(int nArg)
+{
+    CHATDLG_DestroyProfileControls();
+    if (gnPendingValueB)
+    {
+        if (gnPendingValueA)
+            CHATDLG_OpenExpansionHardcoreLadder();
+        else
+            CHATDLG_OpenExpansionLadder();
+    }
+    else
+    {
+        if (gnPendingValueA)
+            CHATDLG_OpenHardcoreLadder();
+        else
+            CHATDLG_OpenStandardLadder();
+    }
+    CHATDLG_SelectEntry(gszPendingEntryName, gnPendingValueA, gnPendingValueB);
     return 1;
 }
 
