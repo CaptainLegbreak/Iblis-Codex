@@ -36035,11 +36035,6 @@
      "name": "D2Win_10188"
     },
     {
-     "va": "0x004FC3F0",
-     "length": 432,
-     "name": "TEXTBOX_HandleVirtualKeyInput"
-    },
-    {
      "va": "0x004FD5D0",
      "length": 236,
      "name": "IMAGE2_HandleMouseDown"
@@ -36371,6 +36366,11 @@
      "va": "0x004FC2F0",
      "length": 253,
      "name": "?TEXTBOX_HandleMouseDown@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004FC3F0",
+     "length": 432,
+     "name": "TEXTBOX_HandleVirtualKeyInput"
     },
     {
      "va": "0x004FC5A0",
