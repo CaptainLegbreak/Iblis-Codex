@@ -3317,63 +3317,6 @@ int __stdcall CHARSEL_OnChatLine(const Unicode* pText)
     return CHATDLG_SendChatText(szText, 0);
 }
 
-// build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
-// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
-// 0x00442C20
-void __cdecl CHARSEL_FillGameListControl()
-{
-    char szSel[0x100];
-    char szNumber[0x10];
-
-    if (!gpGameList)
-        return;
-
-    const Unicode* pSel = sub_004FBB30_GetText(gpGameList);
-    int bHaveSel = 0;
-    if (pSel)
-    {
-        sub_00526F70(szSel, pSel, 0x100);
-        bHaveSel = 1;
-    }
-
-    int nTop = sub_004FB950_GetFirstVisible(gpGameList);
-    sub_004FB6A0_ClearText(gpGameList);
-    sub_004FB6A0_ClearText(gpGameText_00798BC4);
-    gnLastGameCount = gnValue_00798CCC;
-    if (!gnLastGameCount)
-        return;
-
-    int bNoNumbers = !sub_00449B30_QueryAddress();
-    memcpy(gaGames, gaNewGames, gnValue_00798CCC * sizeof(D2LaunchGameRecStrc));
-    for (int i = 0; i < gnLastGameCount; ++i)
-    {
-        D2Win_10045(gpGameList, gaGames[i].szName);
-        int nRow = sub_004FBD20_GetLastRow(gpGameList);
-        if (!bNoNumbers)
-        {
-            _itoa(*(unsigned short*)gaGames[i].wValue0x31, szNumber, 10);
-            D2Win_10057(gpGameList, szNumber, nRow, 1);
-        }
-    }
-
-    if (bHaveSel)
-    {
-        for (int i = 0; i < gnLastGameCount; ++i)
-        {
-            if (!strcmp(szSel, gaGames[i].szName))
-            {
-                sub_004FB9D0_Select(gpGameList, i);
-                break;
-            }
-        }
-        D2Win_10053(gpGameList, nTop);
-    }
-    else
-    {
-        D2Win_10053(gpGameList, 0);
-    }
-}
-
 // 0x00443360
 int __cdecl CHARSEL_GetMaxPlayers()
 {

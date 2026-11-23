@@ -1,4 +1,5 @@
 #include "D2Multi.h"
+
 #include "D2FogTypes.h"
 
 #include "D2Structs.h"
@@ -2919,7 +2920,9 @@ int __stdcall CHATDLG_ShowExpansionHardcoreLadder(int nArg)
 }
 
 void __cdecl CHARSEL_DestroyPopupControls(); // 0x0043EA20
+
 int gbFlag_0077ADA4; // 0x0077ADA4
+
 D2LaunchRecord3Strc gtRecord_0077B0A8; // 0x0077B0A8
 
 // 0x00440CA0
@@ -3419,6 +3422,74 @@ void __fastcall CHATDLG_HandleGameListReply(D2LaunchReplyStrc* pReply)
     strcpy(gatReplyEntries[nCount].szName, pReply->szName);
     strcpy(gatReplyEntries[nCount].szDesc, pReply->szDesc);
     gnValue_00798CCC = nCount + 1;
+}
+
+extern "C" char* __cdecl _itoa(int nValue, char* szOut, int nRadix); // 0x00687605
+int __fastcall sub_004FBD20_GetLastRow(D2WinControlStrc* pControl); // 0x004FBD20
+int __fastcall D2Win_10057(D2WinControlStrc* pControl, const char* szText, int a3, int a4); // 0x004FCD40
+void __fastcall sub_004FB9D0_Select(D2WinControlStrc* pControl, int nLine); // 0x004FB9D0
+int __fastcall D2Win_10053(D2WinControlStrc* pTextBox, int nLine); // 0x004FBA30
+extern D2LaunchGameRecStrc gaGames[]; // 0x0078A440
+extern D2WinControlStrc* gpGameText_00798BC4; // 0x00798BC4
+D2WinControlStrc* gpGameList; // 0x00798BC0
+int gnLastGameCount; // 0x00798CC8
+void __fastcall sub_004FB6A0_ClearText(D2WinControlStrc* pControl);                                         // 0x004FB6A0
+
+// build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
+// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
+// 0x00442C20
+void __cdecl CHARSEL_FillGameListControl()
+{
+    char szSel[0x100];
+    char szNumber[0x10];
+
+    if (!gpGameList)
+        return;
+
+    const Unicode* pSel = sub_004FBB30_GetText(gpGameList);
+    int bHaveSel = 0;
+    if (pSel)
+    {
+        sub_00526F70(szSel, pSel, 0x100);
+        bHaveSel = 1;
+    }
+
+    int nTop = sub_004FB950_GetFirstVisible(gpGameList);
+    sub_004FB6A0_ClearText(gpGameList);
+    sub_004FB6A0_ClearText(gpGameText_00798BC4);
+    gnLastGameCount = gnValue_00798CCC;
+    if (!gnLastGameCount)
+        return;
+
+    int bNoNumbers = !sub_00449B30_QueryAddress();
+    memcpy(gaGames, gaNewGames, gnValue_00798CCC * sizeof(D2LaunchGameRecStrc));
+    for (int i = 0; i < gnLastGameCount; ++i)
+    {
+        D2Win_10045(gpGameList, gaGames[i].szName);
+        int nRow = sub_004FBD20_GetLastRow(gpGameList);
+        if (!bNoNumbers)
+        {
+            _itoa(*(unsigned short*)gaGames[i].wValue0x31, szNumber, 10);
+            D2Win_10057(gpGameList, szNumber, nRow, 1);
+        }
+    }
+
+    if (bHaveSel)
+    {
+        for (int i = 0; i < gnLastGameCount; ++i)
+        {
+            if (!strcmp(szSel, gaGames[i].szName))
+            {
+                sub_004FB9D0_Select(gpGameList, i);
+                break;
+            }
+        }
+        D2Win_10053(gpGameList, nTop);
+    }
+    else
+    {
+        D2Win_10053(gpGameList, 0);
+    }
 }
 
 // 0x00442DD0
