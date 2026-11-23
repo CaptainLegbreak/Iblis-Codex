@@ -1037,25 +1037,6 @@ int __fastcall ACT5Q2_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStr
     return 0;
 }
 
-// 0x00587FC0
-int __fastcall ACT5Q2_GetWussieGroupIndex(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
-{
-    D2Act5Quest2Strc* pQuestDataEx = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
-    const int nGUID = !pUnit ? -1 : pUnit->dwUnitId;
-    for (int i = 0; i < 3; ++i)
-    {
-        for (int j = 0; j < 5; ++j)
-        {
-            if (nGUID == pQuestDataEx->nWussieGUIDs[i][j])
-            {
-                return i;
-            }
-        }
-    }
-
-    return -1;
-}
-
 // 0x00588C50
 int __fastcall ACT5Q2_GetBarbsToBeRescued(D2QuestDataStrc* pQuestData)
 {

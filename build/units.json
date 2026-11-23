@@ -54287,11 +54287,6 @@
      "name": "?ACT5Q2_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
-     "va": "0x00587FC0",
-     "length": 68,
-     "name": "?ACT5Q2_GetWussieGroupIndex@@YIHPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
      "va": "0x00588C50",
      "length": 67,
      "name": "?ACT5Q2_GetBarbsToBeRescued@@YIHPAUD2QuestDataStrc@@@Z"
@@ -54345,6 +54340,11 @@
      "va": "0x00587F20",
      "length": 63,
      "name": "?ACT1Q1_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00587FC0",
+     "length": 68,
+     "name": "?ACT5Q2_GetWussieGroupIndex@@YIHPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00588010",
