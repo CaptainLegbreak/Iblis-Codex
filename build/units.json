@@ -24643,6 +24643,10 @@
      "name": "?TEXT_FreeTextResources@@YAXXZ"
     },
     {
+     "va": "0x004A0770",
+     "length": 269
+    },
+    {
      "va": "0x004A0A00",
      "length": 291,
      "name": "?TEXT_ShowHoverText@@YGXPBUUnicode@@PAUD2UnitStrc@@PAUD2HoverTextStrc@@PAUD2CoordStrc@@@Z"
@@ -24667,6 +24671,19 @@
      "name": "?TEXT_ShowTextBox@@YIXG@Z"
     },
     {
+     "va": "0x004A1600",
+     "length": 289,
+     "name": "?TEXT_HandleNpcTextPacket@@YIXPAUD2HoverTextPacketStrc@@@Z"
+    },
+    {
+     "va": "0x004A1950",
+     "length": 2250
+    },
+    {
+     "va": "0x004A2220",
+     "length": 224
+    },
+    {
      "va": "0x004A23D0",
      "length": 375,
      "name": "?TEXT_LoadQuestPanelCels@@YAXXZ"
@@ -24686,6 +24703,14 @@
      "name": "?sub_004A3050@@YAXXZ"
     },
     {
+     "va": "0x004A3220",
+     "length": 491
+    },
+    {
+     "va": "0x004A3E40",
+     "length": 406
+    },
+    {
      "va": "0x004A3FE0",
      "length": 229,
      "name": "?TEXT_ToggleQuestLog@@YIXH@Z"
@@ -24696,6 +24721,11 @@
      "name": "?TEXT_SetQuestRecord@@YIXPBUD2Record42Strc@@@Z"
     },
     {
+     "va": "0x004A4180",
+     "length": 219,
+     "name": "?TEXT_TestQuestCondition@@YIHH@Z"
+    },
+    {
      "va": "0x004A4260",
      "length": 51,
      "name": "??0D2QuestTextBufferStrc@@QAE@XZ"
@@ -24704,6 +24734,10 @@
      "va": "0x004A42A0",
      "length": 320,
      "name": "?TEXT_QuestLButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004A43E0",
+     "length": 220
     },
     {
      "va": "0x004A44C0",
@@ -24873,6 +24907,10 @@
      "name": "?TEXT_IsMouseOnStatButton@@YAHXZ"
     },
     {
+     "va": "0x004A6630",
+     "length": 93
+    },
+    {
      "va": "0x004A6690",
      "length": 74,
      "name": "?TEXT_IsMouseOnSkillButton@@YAHXZ"
@@ -24916,6 +24954,10 @@
      "name": "?TEXT_DrawSkillButton@@YAXXZ"
     },
     {
+     "va": "0x004A70C0",
+     "length": 177
+    },
+    {
      "va": "0x004A7180",
      "length": 379,
      "name": "?TEXT_DrawBlockChanceHover@@YAXHHH@Z"
@@ -24924,6 +24966,10 @@
      "va": "0x004A7300",
      "length": 50,
      "name": "?TEXT_AddToHitFactor@@YAHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004A7340",
+     "length": 339
     },
     {
      "va": "0x004A7660",
@@ -26405,72 +26451,6 @@
     {
      "va": "0x004A10E0",
      "length": 561
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/text_004A1600.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004A0770",
-     "length": 269
-    },
-    {
-     "va": "0x004A1600",
-     "length": 289,
-     "name": "?TEXT_HandleNpcTextPacket@@YIXPAUD2HoverTextPacketStrc@@@Z"
-    },
-    {
-     "va": "0x004A1950",
-     "length": 2250
-    },
-    {
-     "va": "0x004A2220",
-     "length": 224
-    },
-    {
-     "va": "0x004A3220",
-     "length": 491
-    },
-    {
-     "va": "0x004A3E40",
-     "length": 406
-    },
-    {
-     "va": "0x004A4180",
-     "length": 219,
-     "name": "?TEXT_TestQuestCondition@@YIHH@Z"
-    },
-    {
-     "va": "0x004A43E0",
-     "length": 220
-    },
-    {
-     "va": "0x004A6630",
-     "length": 93
-    },
-    {
-     "va": "0x004A70C0",
-     "length": 177
-    },
-    {
-     "va": "0x004A7340",
-     "length": 339
     }
    ],
    "flags": [
