@@ -1755,7 +1755,6 @@
    "definitions": 103,
    "externs": [
     "extern \"C\" void __cdecl sub_004B6C70_OpenNpcMenu(); // 0x004B6C70",
-    "extern \"C\" void __cdecl sub_004B6650_InitHandler(); // 0x004B6650",
     "extern \"C\" void __cdecl sub_004B6DA0_InitHandler(); // 0x004B6DA0"
    ],
    "fn_types": {},
