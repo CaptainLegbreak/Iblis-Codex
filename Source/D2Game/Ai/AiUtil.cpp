@@ -390,6 +390,33 @@ int __fastcall AIUTIL_GetMonsterVision(D2UnitStrc* pUnit)
     return 0;
 }
 
+// 0x005DC5C0
+unsigned int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc* hUnit, int nX, int nY)
+{
+    D2_ASSERT(hUnit, 267);
+    D2DynamicPathStrc* hPath = hUnit->pDynamicPath;
+    D2_ASSERT(hPath, 270);
+
+    int nXDiff = PATH_GetXPosition(hPath) - nX;
+    if (nXDiff < 0)
+    {
+        nXDiff = -nXDiff;
+    }
+
+    int nYDiff = PATH_GetYPosition(hPath) - nY;
+    if (nYDiff < 0)
+    {
+        nYDiff = -nYDiff;
+    }
+
+    if (nXDiff > nYDiff)
+    {
+        return (nYDiff + 2 * nXDiff) / 2;
+    }
+
+    return (nXDiff + 2 * nYDiff) / 2;
+}
+
 inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)

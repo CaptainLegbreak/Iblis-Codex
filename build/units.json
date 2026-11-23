@@ -63382,11 +63382,6 @@
      "name": "?SKILLITEM_GetMonEquipTxtRecord@@YIPAUD2MonEquipTxt@@H@Z"
     },
     {
-     "va": "0x005DC5C0",
-     "length": 118,
-     "name": "?AIUTIL_GetDistanceToCoordinates@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
      "va": "0x005FCF30",
      "length": 168,
      "name": "AIBAAL_RunSpecialAiState"
@@ -65144,6 +65139,11 @@
      "va": "0x005DC360",
      "length": 23,
      "name": "?AIUTIL_GetMonsterVision@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005DC5C0",
+     "length": 118,
+     "name": "?AIUTIL_GetDistanceToCoordinates@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005DC640",
