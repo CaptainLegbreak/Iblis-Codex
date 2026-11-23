@@ -351,6 +351,7 @@ static int sub_00467130_GetHoverCursorPos(int* pnX, int* pnY)
 }
 
 
+// 0x00467250
 static int __stdcall sub_00467250_CheckDoorSideA(D2UnitStrc* pOther, D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwAnimMode)
@@ -374,21 +375,23 @@ static int __stdcall sub_00467250_CheckDoorSideA(D2UnitStrc* pOther, D2UnitStrc*
     UNITS_GetCoords(pOther, &tOther);
     UNITS_GetCoords(pUnit, &tUnit);
 
-    if (UNITS_GetObjectTxtRecordFromObject(pUnit)->nSide != 1)
+    if (UNITS_GetObjectTxtRecordFromObject(pUnit)->nSide == 1)
     {
-        if ((tUnit.nX < tOther.nX && tUnit.nX > tPlayer.nX) || (tUnit.nX > tOther.nX && tUnit.nX < tPlayer.nX))
+        if (!(((unsigned int)tUnit.nY > tOther.nY && (unsigned int)tUnit.nY < tPlayer.nY) || ((unsigned int)tUnit.nY < tOther.nY && (unsigned int)tUnit.nY > tPlayer.nY)))
         {
-            return 0;
+            return 1;
         }
-        return 1;
     }
-
-    if ((tUnit.nY > tOther.nY && tUnit.nY < tPlayer.nY) || (tUnit.nY < tOther.nY && tUnit.nY > tPlayer.nY))
+    else
     {
-        return 0;
+        if (!(((unsigned int)tUnit.nX < tOther.nX && (unsigned int)tUnit.nX > tPlayer.nX) || ((unsigned int)tUnit.nX > tOther.nX && (unsigned int)tUnit.nX < tPlayer.nX)))
+        {
+            return 1;
+        }
     }
-    return 1;
+    return 0;
 }
+
 
 static int __stdcall sub_00467310_CheckDoorSideB(D2UnitStrc* pOther, D2UnitStrc* pUnit)
 {
