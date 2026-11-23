@@ -1284,7 +1284,6 @@ Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCo
 
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 
-
 char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 
 int __fastcall sub_005264F0_Compare(const Unicode* pString1, const Unicode* pString2); // 0x005264F0
@@ -1381,6 +1380,10 @@ int __stdcall MAINMENUS_ChangePasswordOk(int nArg);
 int __stdcall MAINMENUS_LoginOk(int nArg);
 
 int __stdcall MAINMENUS_CreateAccountOk(int nArg);
+
+static int sub_0042FCE0_ArchiveFilePresent(const char* szFile);
+
+static void MAINMENUS_BuildLocalizedVideoPath(char* szOut, const char* szFormat, const char* szFile);
 
 // 0x004065E0
 void __stdcall D2ServerServiceMain(unsigned long dwArgc, char** lpszArgv)
@@ -1917,6 +1920,7 @@ int __cdecl MAINMENUS_GetAuxBattleNetFlag()
     return 0;
 }
 
+// 0x0042FCE0
 static int sub_0042FCE0_ArchiveFilePresent(const char* szFile)
 {
     void* hFile;
@@ -5178,6 +5182,12 @@ void __cdecl MAINMENUS_LoadMaxPlayers()
 int __stdcall sub_00443C10_AlwaysOne(int nArg)
 {
     return 1;
+}
+
+void __fastcall sub_J02_EmitLaunchVideoPath(char* szOut, const char* szFormat, const char* szFile)
+{
+    MAINMENUS_BuildLocalizedVideoPath(szOut, szFormat, szFile);
+    MAINMENUS_BuildLocalizedVideoPath(szOut + 1, szFormat, szFile);
 }
 
 #include "gen/data/Source/D2Launch/Src/MainMenus.inc"
