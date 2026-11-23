@@ -55,7 +55,6 @@ int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster); // 0x0063EA40
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct D2AiTickStrc;
 
 struct D2AiTableStrc;
 
@@ -85,15 +84,7 @@ struct D2BaalThroneAiCallbackArgStrc;
 
 extern "C" void* __cdecl memset(void*,int,unsigned int);
 
-typedef void (__fastcall* AiFn)(D2GameStrc*,D2UnitStrc*,D2AiTickStrc*);
-
-struct D2AiTickStrc
-{
-    D2AiControlStrc* control;
-    int unk04[6];
-    void* monstats;
-    void* monstats2;
-};
+typedef void (__fastcall* AiFn)(D2GameStrc*,D2UnitStrc*,D2AiTickParamStrc*);
 
 struct D2AiTableStrc
 {
@@ -125,7 +116,7 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00
 
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 
-void __fastcall AITHINK_Fn001_100_Idle_Buffy(D2GameStrc*,D2UnitStrc*,D2AiTickStrc*); // 0x005B0CD0
+void __fastcall AITHINK_Fn001_100_Idle_Buffy(D2GameStrc*,D2UnitStrc*,D2AiTickParamStrc*); // 0x005B0CD0
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 
@@ -418,11 +409,11 @@ void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* hUnit, D2AiCo
 
     if (pAiTableRecord->init)
     {
-        D2AiTickStrc aiTickParam = {};
-        aiTickParam.control = pAiControl;
-        aiTickParam.monstats = DATATBLS_GetMonStatsTxtRecord(nClassId);
-        aiTickParam.monstats2 = UNITS_GetMonStats2TxtRecordFromMonsterId(nClassId);
-        if (!aiTickParam.monstats || !aiTickParam.monstats2)
+        D2AiTickParamStrc aiTickParam = {};
+        aiTickParam.pAiControl = pAiControl;
+        aiTickParam.pMonstatsTxt = DATATBLS_GetMonStatsTxtRecord(nClassId);
+        aiTickParam.pMonstats2Txt = UNITS_GetMonStats2TxtRecordFromMonsterId(nClassId);
+        if (!aiTickParam.pMonstatsTxt || !aiTickParam.pMonstats2Txt)
         {
             return;
         }
