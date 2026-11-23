@@ -3447,7 +3447,7 @@
   },
   "Source/D2Game/Quests/a2q4.cpp": {
    "bytes": 2396,
-   "definitions": 3,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a2q4.inc",
@@ -5099,7 +5099,7 @@
   },
   "Source/D2Game/Quests/a2q5.cpp": {
    "bytes": 784,
-   "definitions": 1,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a2q5.inc",
@@ -106094,7 +106094,7 @@
    "cname": "gData_0073B278",
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a2q4.cpp",
+   "file": "Source/D2Game/Quests/a2q5.cpp",
    "fill": 4,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_0073B278[4]; // 0x0073B278",
