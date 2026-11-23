@@ -41710,6 +41710,10 @@
      "name": "?BNSEND_GetChangePasswordResult@@YIHPAH@Z"
     },
     {
+     "va": "0x0051C570",
+     "length": 75
+    },
+    {
      "va": "0x0051C5C0",
      "length": 225,
      "name": "BNSEND_SendPacket"
@@ -41858,16 +41862,6 @@
      "va": "0x0051C460",
      "length": 11,
      "name": "?BNSEND_LeaveChat@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/Unknown_0051C570.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0051C570",
-     "length": 75
     }
    ]
   },
