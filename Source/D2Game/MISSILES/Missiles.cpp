@@ -93,9 +93,6 @@ struct D2GSPacketSrv73 { unsigned char nHeader; int unk01; unsigned short nMissi
 
 #pragma pack(pop)
 
-// CONFLICT name:sgptDataTables from Missiles_0059FEE0.cpp
-extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-
 extern const unsigned char gnMissileFlag_006CE27C; // 0x006CE27C
 
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc*, D2UnitStrc*); // 0x00552FD0

@@ -598,7 +598,8 @@ extern const char gszAssert_006CC837[]; // 0x006CC837
 
 extern const char gszFile_006FC460[]; // 0x006FC460
 
-// CONFLICT name:QSERVER_BanClient from QServer.cpp
+// A second view of 0x006C0770 for QSERVER_BanAddress, which calls it with three stack arguments and the table
+// already in EDI, where the static definition below takes it.
 void __stdcall QSERVER_BanClient(D2QueueServerStrc* table, int client, const char* file, int line); // 0x006C0770
 
 unsigned int gnLastHackListLog_00989C34; // 0x00989C34
