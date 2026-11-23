@@ -28,6 +28,8 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
+extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pCriticalSection);
+
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC1FC
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection);
@@ -41,6 +43,15 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
+// 0x006C1F60
+void __fastcall sub_006C1F60_InitLockedList(D2QSQueueStrc* pQueue)
+{
+    pQueue->pHead = 0;
+    pQueue->pTail = 0;
+    pQueue->bOverflow = 0;
+    InitializeCriticalSection(&pQueue->tLock);
+}
 
 // 0x006C1F80
 void D2QSQueueStrc::Destroy()
