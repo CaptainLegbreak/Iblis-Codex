@@ -405,7 +405,9 @@ struct D2MonStatsTxt
     short nA2MaxD[3]; // 0xEC
     short nS1MinD[3]; // 0xF2
     short nS1MaxD[3]; // 0xF8
-    unsigned char unk0xFE[0x10]; // 0xFE
+    unsigned char nElMode[3]; // 0xFE
+    unsigned char nElType[3]; // 0x101
+    unsigned char nElPct[3][3]; // 0x104
     short nElMinD[3][3]; // 0x10E
     short nElMaxD[3][3]; // 0x120
     short nElDur[3][3]; // 0x132

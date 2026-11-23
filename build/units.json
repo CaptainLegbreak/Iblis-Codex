@@ -40243,6 +40243,10 @@
      "name": "?D2SOUND_ResetSound@@YIXPAUD2SoundStrc@@@Z"
     },
     {
+     "va": "0x00516250",
+     "length": 691
+    },
+    {
      "va": "0x00516510",
      "length": 95,
      "name": "D2SOUND_StartSoundThread"
@@ -40286,7 +40290,39 @@
      "va": "0x00516720",
      "length": 53,
      "name": "?D2SOUND_InitWaveFormat@@YIXPAUD2WaveFormatStrc@@H@Z"
+    },
+    {
+     "va": "0x00516760",
+     "length": 196
+    },
+    {
+     "va": "0x00516830",
+     "length": 287
     }
+   ]
+  },
+  {
+   "file": "Source/D2Sound/Src/D2SoundSmp_005153C0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x005153C0",
+     "length": 361
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
@@ -40470,42 +40506,6 @@
      "length": 31,
      "name": "?sub_00514D60_SetNpcSpeech@@YIHH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Sound/Src/D2SoundSmp_005153C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005153C0",
-     "length": 361
-    },
-    {
-     "va": "0x00516250",
-     "length": 691
-    },
-    {
-     "va": "0x00516760",
-     "length": 196
-    },
-    {
-     "va": "0x00516830",
-     "length": 287
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -70515,6 +70515,11 @@
      "name": "?DRLGACTIVATE_RoomExStatusUnlink@@YAXPAUD2DrlgRoomStrc@@@Z"
     },
     {
+     "va": "0x0061B210",
+     "length": 121,
+     "name": "?DRLGACTIVATE_ForceRoomExStatusImpl@@YAXPAUD2DrlgRoomStrc@@E@Z"
+    },
+    {
      "va": "0x0061B290",
      "length": 10,
      "name": "?DRLGACTIVATE_ForceRoomExStatus_ClientInRoom@@YAXPAUD2DrlgRoomStrc@@@Z"
@@ -70688,17 +70693,6 @@
      "va": "0x0061BB60",
      "length": 25,
      "name": "?DRLGACTIVATE_ApplyArreatSummitLightColor@@YGXPAUD2ColorRecordStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0061B210.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0061B210",
-     "length": 121,
-     "name": "?DRLGACTIVATE_ForceRoomExStatusImpl@@YAXPAUD2DrlgRoomStrc@@E@Z"
     }
    ]
   },
@@ -75009,6 +75003,10 @@
      "name": "UNITS_IsInRange"
     },
     {
+     "va": "0x00641CB0",
+     "length": 620
+    },
+    {
      "va": "0x00641F60",
      "length": 168,
      "name": "DRLG_LoadTownTiles"
@@ -75286,30 +75284,6 @@
      "length": 69,
      "name": "DUNGEON_ClientToGameTileCoords"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00641CB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00641CB0",
-     "length": 620
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -76860,6 +76834,10 @@
      "va": "0x0064B760",
      "length": 87,
      "name": "MISSILE_GetSpecialParamValueForSkillMissile"
+    },
+    {
+     "va": "0x0064B860",
+     "length": 1780
     }
    ]
   },
@@ -77086,30 +77064,6 @@
    ]
   },
   {
-   "file": "Source/D2Common/UNITS/Missile_0064B860.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0064B860",
-     "length": 1780
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Common/UNITS/UnitRoom.cpp",
    "rank": 0,
    "functions": [
@@ -77161,28 +77115,42 @@
    ]
   },
   {
-   "file": "Source/D2Common/COLLISN/Collisn_0064C790.cpp",
+   "file": "Source/D2Common/COMPOSIT/Composit.cpp",
    "rank": 0,
    "functions": [
     {
-     "va": "0x0064C790",
-     "length": 196,
-     "name": "?COLLISION_ApplyAdjacentRoomTileCollision@@YGXPAUD2RoomCollisionGridStrc@@0PAUD2DrlgTileDataStrc@@HH@Z"
+     "va": "0x0064F020",
+     "length": 50,
+     "name": "?COMPOSIT_GetWeaponClassIdFromCode@@YGHH@Z"
     },
     {
-     "va": "0x0064E810",
-     "length": 44,
-     "name": "COLLISION_GetFreeCoordinatesWithField"
+     "va": "0x0064F380",
+     "length": 146,
+     "name": "COMPOSIT_GetWeaponClassId"
     },
     {
-     "va": "0x0064EA00",
-     "length": 130,
-     "name": "?COLLISION_SetMaskWithSize@@YGXPAUD2ActiveRoomStrc@@HHHG@Z"
+     "va": "0x0064F420",
+     "length": 51,
+     "name": "?COMPOSIT_IsArmorComponent@@YGHH@Z"
     },
     {
-     "va": "0x0064EA90",
-     "length": 272,
-     "name": "?COLLISION_SetMaskWithPattern@@YGXPAUD2ActiveRoomStrc@@HHHH@Z"
+     "va": "0x0064F460",
+     "length": 147,
+     "name": "COMPOSIT_IsWeaponBowOrXBow"
+    },
+    {
+     "va": "0x0064F500",
+     "length": 168,
+     "name": "?COMPOSIT_GetArmorTypeFromComponent@@YGIHPAE@Z"
+    },
+    {
+     "va": "0x0064F5B0",
+     "length": 1099
+    },
+    {
+     "va": "0x0064FA00",
+     "length": 146,
+     "name": "D2Common_10885_COMPOSIT_unk"
     }
    ]
   },
@@ -77209,6 +77177,11 @@
      "va": "0x0064C700",
      "length": 129,
      "name": "?COLLISION_SetCollisionMaskRect@@YGXPAUD2RoomCollisionGridStrc@@HHG@Z"
+    },
+    {
+     "va": "0x0064C790",
+     "length": 196,
+     "name": "?COLLISION_ApplyAdjacentRoomTileCollision@@YGXPAUD2RoomCollisionGridStrc@@0PAUD2DrlgTileDataStrc@@HH@Z"
     },
     {
      "va": "0x0064C860",
@@ -77409,8 +77382,23 @@
      "name": "?COLLISION_GetFreeCoordinatesEx@@YGPAUD2ActiveRoomStrc@@PAU1@PAUD2CoordStrc@@HIH@Z"
     },
     {
+     "va": "0x0064E810",
+     "length": 44,
+     "name": "COLLISION_GetFreeCoordinatesWithField"
+    },
+    {
      "va": "0x0064E840",
      "length": 447
+    },
+    {
+     "va": "0x0064EA00",
+     "length": 130,
+     "name": "?COLLISION_SetMaskWithSize@@YGXPAUD2ActiveRoomStrc@@HHHG@Z"
+    },
+    {
+     "va": "0x0064EA90",
+     "length": 272,
+     "name": "?COLLISION_SetMaskWithPattern@@YGXPAUD2ActiveRoomStrc@@HHHH@Z"
     },
     {
      "va": "0x0064EBA0",
@@ -77454,46 +77442,6 @@
      "va": "0x0064EFA0",
      "length": 53,
      "name": "?COLLISION_SetUnitCollisionMask@@YIXPAUD2ActiveRoomStrc@@HH0HHHG@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/COMPOSIT/Composit.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0064F020",
-     "length": 50,
-     "name": "?COMPOSIT_GetWeaponClassIdFromCode@@YGHH@Z"
-    },
-    {
-     "va": "0x0064F380",
-     "length": 146,
-     "name": "COMPOSIT_GetWeaponClassId"
-    },
-    {
-     "va": "0x0064F420",
-     "length": 51,
-     "name": "?COMPOSIT_IsArmorComponent@@YGHH@Z"
-    },
-    {
-     "va": "0x0064F460",
-     "length": 147,
-     "name": "COMPOSIT_IsWeaponBowOrXBow"
-    },
-    {
-     "va": "0x0064F500",
-     "length": 168,
-     "name": "?COMPOSIT_GetArmorTypeFromComponent@@YGIHPAE@Z"
-    },
-    {
-     "va": "0x0064F5B0",
-     "length": 1099
-    },
-    {
-     "va": "0x0064FA00",
-     "length": 146,
-     "name": "D2Common_10885_COMPOSIT_unk"
     }
    ]
   },
@@ -81980,6 +81928,15 @@
      "name": "?DRLGOUTWILD_SpawnCliffCaves@@YGHPAUD2DrlgLevelStrc@@HH@Z"
     },
     {
+     "va": "0x006801F0",
+     "length": 16,
+     "name": "?sub_006801F0_GetCliffPresetId@@YIHPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
+     "va": "0x00680200",
+     "length": 451
+    },
+    {
      "va": "0x006803D0",
      "length": 269,
      "name": "?DRLGOUTWILD_SpawnTownTransitionsAndCaves@@YAXPAUD2DrlgLevelStrc@@@Z"
@@ -82089,41 +82046,6 @@
     {
      "va": "0x00680070",
      "length": 294
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_006801F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006801F0",
-     "length": 16,
-     "name": "?sub_006801F0_GetCliffPresetId@@YIHPAUD2DrlgLevelStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00680200.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00680200",
-     "length": 451
     }
    ],
    "flags": [

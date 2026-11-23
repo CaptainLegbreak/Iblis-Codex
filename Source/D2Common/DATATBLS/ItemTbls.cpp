@@ -1301,10 +1301,7 @@ int __cdecl DATATBLS_CompareItemStatCostDescs(const void* pRecord1, const void* 
     return pElem1->nDescPriority != pElem2->nDescPriority;
 }
 
-static inline void STATFLAG_SET(unsigned char* pFlags, int nBit)
-{
-    pFlags[nBit >> 3] |= (unsigned char)gdwBitMasks[nBit & 7];
-}
+#define STATFLAG_SET(pFlags, nBit) ((pFlags)[(nBit) >> 3] |= (unsigned char)gdwBitMasks[(nBit) & 7])
 
 // 0x00637A00
 void __fastcall DATATBLS_LoadItemStatCostTxt(void* hArchive)

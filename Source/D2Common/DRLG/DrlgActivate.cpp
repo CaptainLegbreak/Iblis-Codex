@@ -148,6 +148,34 @@ void __fastcall DRLGACTIVATE_SetClientIsInSight(D2DrlgStrc* pDrlg, int nLevelId,
 
 void __fastcall DRLGACTIVATE_ChangeClientRoom(D2DrlgRoomStrc* pPreviousRoom, D2DrlgRoomStrc* pNewRoom);
 
+static void DRLGACTIVATE_RoomExStatusUnlink(D2DrlgRoomStrc* pDrlgRoom);
+
+static void DRLGACTIVATE_ForceRoomExStatus_ClientInRoom(D2DrlgRoomStrc* pDrlgRoom);
+
+static void DRLGACTIVATE_ForceRoomExStatus_ClientInSight(D2DrlgRoomStrc* pDrlgRoom);
+
+static void DRLGACTIVATE_ForceRoomExStatus_Untile(D2DrlgRoomStrc* pDrlgRoom);
+
+void __fastcall DRLGACTIVATE_RoomExSetStatus_ClientInRoom(D2DrlgRoomStrc* pDrlgRoom);
+
+void __fastcall DRLGACTIVATE_RoomExSetStatus_ClientInSight(D2DrlgRoomStrc* pDrlgRoom);
+
+void __fastcall DRLGACTIVATE_RoomExSetStatus_Untile(D2DrlgRoomStrc* pDrlgRoom);
+
+static void DRLGACTIVATE_RoomExIdentifyRealStatus(D2DrlgRoomStrc* pDrlgRoom);
+
+void __fastcall DRLGACTIVATE_RoomExStatusUnset_ClientInRoom(D2DrlgRoomStrc* pDrlgRoom);
+
+void __fastcall DRLGACTIVATE_RoomExStatusUnset_ClientInSight(D2DrlgRoomStrc* pDrlgRoom);
+
+void __fastcall DRLGACTIVATE_RoomExStatusUnset_ClientOutOfSight(D2DrlgRoomStrc* pDrlgRoom);
+
+void __fastcall DRLGACTIVATE_RoomExStatusUnset_Untile(D2DrlgRoomStrc* pDrlgRoom);
+
+static void DRLGACTIVATE_ForceRoomExStatus_ClientOutOfSight(D2DrlgRoomStrc* pDrlgRoom);
+
+void __fastcall DRLGACTIVATE_RoomExSetStatus_ClientOutOfSight(D2DrlgRoomStrc* pDrlgRoom);
+
 // 0x0061B170
 static inline void DRLGACTIVATE_InitRoomsInitTimeout(D2DrlgStrc* pDrlg)
 {
@@ -180,7 +208,7 @@ static void DRLGACTIVATE_RoomExStatusUnlink(D2DrlgRoomStrc* pDrlgRoom)
     }
 }
 
-// build: context DRLGACTIVATE_ForceRoomExStatusImpl
+// 0x0061B210
 static void DRLGACTIVATE_ForceRoomExStatusImpl(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus)
 {
     if (pDrlgRoom->fRoomStatus == nStatus)
@@ -194,8 +222,8 @@ static void DRLGACTIVATE_ForceRoomExStatusImpl(D2DrlgRoomStrc* pDrlgRoom, unsign
         pDrlgRoom->pStatusPrev = pHead->pStatusPrev;
         pHead->pStatusPrev->pStatusNext = pDrlgRoom;
         pHead->pStatusPrev = pDrlgRoom;
+        pDrlgRoom->fRoomStatus = nStatus;
     }
-    pDrlgRoom->fRoomStatus = nStatus;
 }
 
 // 0x0061B290

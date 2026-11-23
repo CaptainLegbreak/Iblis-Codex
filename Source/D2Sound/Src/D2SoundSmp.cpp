@@ -1,6 +1,9 @@
 #include "D2Sound.h"
 #include "D2SoundTypes.h"
 
+static D2SoundChannelEntryStrc* sub_N19_GetChannelEntry(int nIndex);
+
+
 #define DSBSTATUS_BUFFERLOST 0x00000002
 
 #define DSERR_BUFFERLOST ((long)0x88780096)
@@ -272,10 +275,102 @@ extern "C" int __stdcall SFileDdaInitialize(int nValue); // 0x00415EE0
 
 D2SoundStrc* __fastcall D2SOUND_CreateSound(unsigned int nFlags, int nValue); // 0x00515530
 
-
 extern const char gszEmptyAssert[]; // 0x006CC837
 
 extern "C" void* __cdecl memcpy(void*,const void*,unsigned int); // 0x006829C0
+
+extern "C" const char gszD2SoundSmpFile[];                                                          // 0x006DEAEC
+
+
+extern "C" __declspec(dllimport) int __stdcall IsIconic(void* hWnd); // 0x006CC50C
+
+extern int gbIconic; // 0x00881814
+
+extern "C" void* __cdecl sub_004F59A0_GetHwnd(); // 0x004F59A0
+
+int __cdecl D2SOUND_GetStreamChannelValue(); // 0x00514920
+
+int __cdecl D2SOUND_IsStreamChannelPlaying(); // 0x00514840
+
+int __cdecl sub_00514990_PickRandomChannel(); // 0x00514990
+
+int __fastcall D2SOUND_ClearSoundBuffer(D2DSoundBufferStrc* pBuffer, unsigned long nOffset, unsigned long nBytes); // 0x00515300
+
+int __fastcall D2SOUND_RestoreLostBuffer(D2SoundStrc* pSound); // 0x00515FD0
+
+extern "C" double __cdecl sqrt(double x); // 0x006879C0
+
+extern const float gfMaxSoundDistance; // 0x006DEB10
+
+const unsigned char* __fastcall sub_00516760_ReadWaveHeader(const unsigned int* pRiff, unsigned int* pnSize, D2WaveFormatStrc* pFormat);
+
+static void D2SOUND_ReleaseSoundBuffers(D2SoundStrc* pSound);
+
+void __fastcall D2SOUND_ResetSound(D2SoundStrc* pSound);
+
+static int __stdcall sub_005153C0_CreateSoundBuffer(unsigned int nFlags, D2SoundStrc* pSound)
+{
+    D2WaveFormatStrc tFormat;
+    D2SOUND_InitWaveFormat(&tFormat, (nFlags & 1) ? 2 : 1);
+
+    D2DSBufferDescStrc tDesc;
+    memset(&tDesc, 0, sizeof(tDesc));
+    const unsigned int nBytes = (nFlags & 1) ? 0x40000 : 0x20000;
+    tDesc.dwSize = 0x14;
+    tDesc.dwFlags = gbSoundGlobalFocus ? 0x80A0 : 0xA0;
+    if (nFlags & 2)
+        tDesc.dwFlags |= 0x14;
+    else
+        tDesc.dwFlags |= 0x40;
+    tDesc.dwBufferBytes = nBytes;
+    tDesc.lpwfxFormat = &tFormat;
+
+    D2DirectSoundStrc* pDirectSound = D2SOUND_GetDirectSound();
+    if (pDirectSound->CreateSoundBuffer(&tDesc, &pSound->pBuffer, 0) < 0)
+        return 0;
+
+    if (nFlags & 2)
+    {
+        if (pSound->pBuffer->QueryInterface(gIidDirectSound3DBuffer_006DE3D0, (void**)&pSound->p3DBuffer) < 0)
+        {
+            pSound->pBuffer->Release();
+            return 0;
+        }
+    }
+
+// build: symbol ?D2SOUND_IsEaxEnabled@* 0x00513B70
+    if ((nFlags & 2) && D2SOUND_IsEaxEnabled())
+    {
+        if (pSound->p3DBuffer->QueryInterface(gIidKsPropertySet_006DE410, (void**)&pSound->pPropertySet) < 0)
+        {
+            pSound->pBuffer->Release();
+            return 0;
+        }
+
+        unsigned long dwSupport = 0;
+        long hr;
+// build: symbol ?D2SOUND_GetEaxVersion@* 0x00513B90
+        if (D2SOUND_GetEaxVersion() == 1)
+            hr = pSound->pPropertySet->QuerySupport(gtEaxBuffer10PropertySet, 1, &dwSupport);
+        else
+            hr = pSound->pPropertySet->QuerySupport(gtEaxBuffer20PropertySet, 1, &dwSupport);
+        if (hr < 0 || (dwSupport & 3) != 3)
+        {
+            pSound->pPropertySet->Release();
+            pSound->pBuffer->Release();
+            return 0;
+        }
+    }
+
+    pSound->nBufferSize = nBytes;
+    pSound->nHalfBufferBytes = nBytes >> 1;
+    pSound->dwFlags = nFlags;
+    pSound->nLoopStart = -1;
+    return 1;
+}
+
+
+static const unsigned char* __stdcall D2SOUND_FindRiffChunk(const unsigned char* pData, unsigned int* pnSize, unsigned int nChunkId, unsigned int* pnChunkSize);
 
 void __cdecl sub_0042B9D0_Nop()
 {
@@ -409,6 +504,42 @@ const char* __fastcall D2SOUND_GetDirectSoundErrorString(long hResult)
     return 0;
 }
 
+// 0x00514780
+extern "C" void __fastcall D2SOUND_CreateStreamChannel(int nArg)
+{
+    gnStreamChannelArg = nArg;
+    SFileDdaInitialize((int)D2SOUND_GetDirectSound());
+    gpSoundChannel = D2SOUND_CreateSound(1, gnStreamChannelArg);
+}
+
+// 0x005147B0
+void __cdecl D2SOUND_DestroyStreamChannel()
+{
+    if (gpSoundChannel)
+    {
+        D2SOUND_DestroySound(gpSoundChannel);
+        gpSoundChannel = 0;
+    }
+    sub_00419F30();
+}
+
+// 0x00514860
+void __cdecl D2SOUND_ClearChannelTable()
+{
+    for (int i = 0; i < gnChannelCountA; ++i)
+        sub_N19_GetChannelEntry(i)->bBusy = 0;
+}
+
+extern "C" void __fastcall CLIENTS_SetPlayerUnitAlive(D2ClientStrc* pClient)
+{
+    D2_ASSERT(pClient, 518);
+    pClient->dwFlags |= 1;
+}
+
+void __cdecl sub_00650EA0_Nop()
+{
+}
+
 // 0x00514B60
 void __cdecl D2SOUND_LoadRegistrySettings()
 {
@@ -535,7 +666,6 @@ int __fastcall D2SOUND_FillSoundBuffer(D2SoundStrc* sound,unsigned int sourcePos
  exit(-1);
 }
 
-
 // 0x00515300
 int __fastcall D2SOUND_ClearSoundBuffer(D2DSoundBufferStrc* pBuffer, unsigned long nOffset, unsigned long nBytes)
 {
@@ -551,6 +681,568 @@ int __fastcall D2SOUND_ClearSoundBuffer(D2DSoundBufferStrc* pBuffer, unsigned lo
     pBuffer->Unlock(pAudio, nBytes, 0, 0);
     LeaveCriticalSection(&gtSoundLock);
     return 1;
+}
+
+// 0x00515530
+D2SoundStrc* __fastcall D2SOUND_CreateSound(unsigned int nFlags, int nValue)
+{
+    gbSoundGlobalFocus = nValue;
+// build: symbol ?D2SOUND_IsPositionalSoundEnabled@* 0x00513B60
+    if ((nFlags & 2) && !D2SOUND_IsPositionalSoundEnabled())
+        return 0;
+    if ((nFlags & 2) && (nFlags & 1))
+        return 0;
+
+    D2SoundStrc* pSound = (D2SoundStrc*)FOG_Alloc(0x60, ".\\Src\\D2SoundSmp.cpp", 0x1D9, 0);
+    memset(pSound, 0, 0x60);
+    if (!sub_005153C0_CreateSoundBuffer(nFlags, pSound))
+    {
+        FOG_Free(pSound, ".\\Src\\D2SoundSmp.cpp", 0x1E0, 0);
+        return 0;
+    }
+
+    EnterCriticalSection(&gtSoundLock);
+    D2SOUND_ListAddHead(&gpSoundList, pSound);
+    LeaveCriticalSection(&gtSoundLock);
+    return pSound;
+}
+
+// 0x005155D0
+int __fastcall D2SOUND_SetSoundData(D2SoundStrc* pSound, const void* pFile, unsigned int nSize)
+{
+    D2_ASSERT(pSound && pSound->pBuffer && pFile && nSize, 0x257);
+    EnterCriticalSection(&gtSoundLock);
+    unsigned int nDataSize = nSize;
+    D2WaveFormatStrc tFormat;
+    void* pData = sub_00516760_ParseWave(pFile, &nDataSize, &tFormat);
+    D2_ASSERT(pSound->nMinDataSize < nDataSize, 0x25F);
+    pSound->nDataSize = nDataSize;
+    pSound->pData = pData;
+    D2SOUND_FillSoundBuffer(pSound, 0, 0, pSound->nBufferSize);
+    pSound->bSecondHalf = 1;
+    if (!pSound->bNoLoop && pSound->nDataSize < pSound->nBufferSize)
+        pSound->nLoopStart = pSound->nDataSize;
+    else
+        pSound->nLoopStart = -1;
+    LeaveCriticalSection(&gtSoundLock);
+    return 1;
+}
+
+// 0x005156A0
+int __fastcall D2SOUND_PlaySound(D2SoundStrc* pSound)
+{
+    D2_ASSERT(pSound, 0x279);
+    EnterCriticalSection(&gtSoundLock);
+    if (pSound->pBuffer->Play(0, 0, 1) < 0)
+    {
+        LeaveCriticalSection(&gtSoundLock);
+        return 0;
+    }
+    pSound->bStreaming = 1;
+    LeaveCriticalSection(&gtSoundLock);
+    return 1;
+}
+
+// 0x00515710
+int __fastcall D2SOUND_GetSoundPlayingFlag(D2SoundStrc* pSound)
+{
+    D2_ASSERT(pSound && pSound->pBuffer, 0x2A5);
+    return pSound->bStreaming;
+}
+
+// 0x00515740
+int __fastcall D2SOUND_IsSoundBufferPlaying(D2SoundStrc* pSound)
+{
+    D2_ASSERT(pSound && pSound->pBuffer, 0x2B0);
+    EnterCriticalSection(&gtSoundLock);
+    unsigned long dwStatus;
+    if (pSound->pBuffer->GetStatus(&dwStatus) < 0)
+    {
+        LeaveCriticalSection(&gtSoundLock);
+        return 0;
+    }
+    LeaveCriticalSection(&gtSoundLock);
+    const unsigned char bPlaying = dwStatus & 1;
+    return bPlaying;
+}
+
+// 0x005157B0
+void __fastcall D2SOUND_SetSoundVolume(D2SoundStrc* pSound, int nVolume)
+{
+    D2_ASSERT(pSound && pSound->pBuffer, 0x2CB);
+// build: symbol ?gnSoundMasterVolume@* 0x0072F9B0
+    int nScaled = nVolume * gnSoundMasterVolume;
+    pSound->nVolume = nVolume;
+    nScaled /= 255;
+    if (!(pSound->dwFlags & 4) || D2SOUND_GetEaxVersion() != 2)
+        nScaled = (int)((1.0f - pSound->fAttenuation) * nScaled);
+    const int nDecibels = (int)sub_005165F0_ToDecibels(0.0f, 255.0f, (float)nScaled);
+    pSound->pBuffer->SetVolume(nDecibels);
+}
+
+// 0x00515860
+int __fastcall D2SOUND_GetSoundVolume(D2SoundViewStrc* pSound)
+{
+    D2_ASSERT(pSound, 0x2E4);
+    return pSound->nField38;
+}
+
+// 0x00515890
+void __fastcall D2SOUND_SetSoundPan(D2SoundStrc* pSound, int nPan)
+{
+    long lPan;
+
+    D2_ASSERT(pSound, 0x2EF);
+    if (nPan > 0x80)
+        lPan = (long)-sub_005165F0_ToDecibels(0.0f, 127.0f, (float)(0xFF - nPan));
+    else if (nPan < 0x80)
+        lPan = (long)sub_005165F0_ToDecibels(0.0f, 127.0f, (float)nPan);
+    else
+        lPan = 0;
+    pSound->pBuffer->SetPan(lPan);
+}
+
+// 0x00515950
+void __fastcall D2SOUND_SetSoundPosition(D2SoundStrc* pSound, float x, float y, float z)
+{
+    D2_ASSERT(pSound && pSound->pBuffer, 0x302);
+    if (pSound->dwFlags & 2)
+        pSound->p3DBuffer->SetPosition(x, y, z, 0);
+}
+
+// 0x005159B0
+unsigned int __fastcall D2SOUND_GetStreamPosition(D2SoundSampleStrc* pSound)
+{
+    D2_ASSERT(pSound, 784);
+    EnterCriticalSection(&gtSoundLock);
+    if (pSound->hSample)
+    {
+        unsigned int nValueA;
+        unsigned int nValueB;
+        if (sub_00418140(pSound->hSample, &nValueA, &nValueB))
+        {
+            LeaveCriticalSection(&gtSoundLock);
+            return nValueA >> 2;
+        }
+        LeaveCriticalSection(&gtSoundLock);
+        return 0;
+    }
+    LeaveCriticalSection(&gtSoundLock);
+    return 0;
+}
+
+// 0x00515A30
+extern "C" void __fastcall D2SOUND_SetSoundNoLoop(D2SoundObjStrc_00515A30* pSound, int nValue)
+{
+    D2_ASSERT(pSound, 815);
+    pSound->nValue40 = nValue;
+}
+
+// 0x00515A60
+extern "C" void __fastcall D2SOUND_SetSoundLoopStart(D2SoundObjStrc_00515A30* pSound, int nValue)
+{
+    D2_ASSERT(pSound, 826);
+    pSound->nValue44 = nValue;
+}
+
+// 0x00515A90
+void __fastcall D2SOUND_SetSoundAttenuation(D2SoundStrc* pSound, float fAttenuation)
+{
+    D2_ASSERT(pSound, 0x345);
+    pSound->fAttenuation = fAttenuation;
+    if (pSound->pPropertySet && D2SOUND_GetEaxVersion() == 2)
+    {
+        if ((pSound->dwFlags & 4) || fAttenuation == 0.0f)
+        {
+            fAttenuation = 1.0f - fAttenuation;
+            int nValue = (int)sub_005165F0_ToDecibels(0.0f, 1.0f, fAttenuation);
+            pSound->pPropertySet->Set(gtEaxBuffer20PropertySet, 7, 0, 0, &nValue, 4);
+        }
+    }
+}
+
+// 0x00515B40
+void __fastcall D2SOUND_SetSoundReverbMix(D2SoundStrc* pSound, float fReverbMix)
+{
+    D2_ASSERT(pSound, 0x359);
+    if (D2SOUND_IsEaxRoomOff())
+        fReverbMix = 0.0f;
+    if (pSound->pPropertySet)
+    {
+        if (D2SOUND_GetEaxVersion() == 1)
+        {
+            if (fReverbMix != 0.0f)
+                fReverbMix = -1.0f;
+            pSound->pPropertySet->Set(gtEaxBuffer10PropertySet, 1, 0, 0, &fReverbMix, 4);
+        }
+        else
+        {
+            int nValue = (int)sub_005165F0_ToDecibels(0.0f, 1.0f, fReverbMix);
+            pSound->pPropertySet->Set(gtEaxBuffer20PropertySet, 5, 0, 0, &nValue, 4);
+            pSound->pPropertySet->Set(gtEaxBuffer20PropertySet, 4, 0, 0, &nValue, 4);
+        }
+    }
+}
+
+// 0x00515C30
+int __fastcall D2SOUND_IsSoundStreaming(D2SoundStrc* pSound)
+{
+    D2_ASSERT(pSound, 0x37A);
+    return pSound->hStream != 0;
+}
+
+// 0x00515C60
+void __fastcall D2SOUND_StartSoundFade(D2SoundFadeStrc* pFade, int nTarget, int nDuration)
+{
+    D2_ASSERT(pFade, 0x39E);
+    if (D2SOUND_GetDirectSound())
+    {
+        EnterCriticalSection(&gtSoundLock);
+        pFade->f_4C = 1;
+        pFade->nFadeStart = pFade->nCurrent;
+        pFade->f_54 = nTarget;
+        const unsigned int dwTick = GetTickCount();
+        pFade->dwFadeStartTick = dwTick;
+        pFade->dwFadeEndTick = dwTick + nDuration;
+        LeaveCriticalSection(&gtSoundLock);
+    }
+}
+
+// 0x00515CE0
+void __fastcall D2SOUND_SetMasterVolume(int nVolume)
+{
+    if (!D2SOUND_GetDirectSound())
+        return;
+    if (nVolume == gnSoundMasterVolume)
+        return;
+    D2_ASSERT(nVolume >= 0 && nVolume <= 0xFF, 0x3B9);
+    EnterCriticalSection(&gtSoundLock);
+    gnSoundMasterVolume = nVolume;
+    for (D2SoundNodeStrc* pNode = gpSoundList; pNode; pNode = pNode->pNext)
+    {
+        D2_ASSERT(pNode->pSound, 0x2E4);
+        D2SOUND_SetSoundVolume(pNode->pSound, pNode->pSound->nVolume);
+    }
+    LeaveCriticalSection(&gtSoundLock);
+}
+
+// 0x00515D60
+int __cdecl D2SOUND_GetMasterVolume()
+{
+    return D2SOUND_GetDirectSound() ? gnSoundMasterVolume : 0;
+}
+
+// 0x00515D70
+int __fastcall D2SOUND_StartSoundStream(D2SoundStrc* pSound, const char* szFileName, int nPosition, int bLoop)
+{
+    D2_ASSERT(pSound, 0x3DB);
+    void* hFile;
+    if (!FOG_FOpenFile(szFileName, &hFile))
+        return 0;
+    EnterCriticalSection(&gtSoundLock);
+    if (!SFileDdaBeginEx(hFile, pSound->nBufferSize, bLoop ? 0x40000 : 0, nPosition * 4, 0x7FFFFFFF, 0x7FFFFFFF, pSound->pBuffer))
+    {
+// build: symbol ?FOG_FCloseFile@* 0x004068F0
+        FOG_FCloseFile(hFile);
+        LeaveCriticalSection(&gtSoundLock);
+        return 0;
+    }
+    pSound->hStream = hFile;
+    pSound->bStreaming = 1;
+    pSound->nLoopStart = -1;
+    LeaveCriticalSection(&gtSoundLock);
+    return 1;
+}
+
+// 0x00515E40
+void __fastcall D2SOUND_CloseSoundStream(D2SoundStrc* pSound)
+{
+    D2_ASSERT(pSound && pSound->pBuffer, 0x400);
+    EnterCriticalSection(&gtSoundLock);
+    if (pSound->hStream)
+    {
+        sub_0041A990(pSound->hStream);
+        pSound->pBuffer->Stop();
+        FOG_FCloseFile(pSound->hStream);
+        pSound->hStream = 0;
+        pSound->bStreaming = 0;
+    }
+    LeaveCriticalSection(&gtSoundLock);
+}
+
+// 0x00515EC0
+void __cdecl sub_00515EC0_Nop()
+{
+}
+
+// 0x00515ED0
+void __cdecl sub_00515ED0_Nop()
+{
+}
+
+// 0x00515EE0
+void __fastcall D2SOUND_StopSound(D2SoundStrc* pSound)
+{
+    D2_ASSERT(pSound && pSound->pBuffer, 658);
+    EnterCriticalSection(&gtSoundLock);
+    if (pSound->hStream)
+    {
+        D2SOUND_CloseSoundStream(pSound);
+    }
+    pSound->pBuffer->Stop();
+    pSound->bStreaming = 0;
+    LeaveCriticalSection(&gtSoundLock);
+}
+
+// 0x00515F50
+void __fastcall D2SOUND_FadeOutMasterVolume(int nTime)
+{
+    if (!D2SOUND_GetDirectSound())
+        return;
+    D2_ASSERT(nTime > 0, 0x387);
+    unsigned int nVolume = D2SOUND_GetMasterVolume();
+    const unsigned int nStep = nVolume / (nTime / 20u);
+    while (nVolume)
+    {
+        Sleep(20);
+        if (nVolume > nStep)
+            nVolume -= nStep;
+        else
+            nVolume = 0;
+        D2SOUND_SetMasterVolume(nVolume);
+    }
+}
+
+// 0x00515FD0
+int __fastcall D2SOUND_RestoreLostBuffer(D2SoundStrc* pSound)
+{
+    D2_ASSERT(pSound->pBuffer, 290);
+    EnterCriticalSection(&gtSoundLock);
+    unsigned long dwStatus;
+    if (pSound->pBuffer->GetStatus(&dwStatus) < 0)
+    {
+        LeaveCriticalSection(&gtSoundLock);
+        return 0;
+    }
+
+    if (dwStatus & DSBSTATUS_BUFFERLOST)
+    {
+        for (;;)
+        {
+            const long hResult = pSound->pBuffer->Restore();
+            if (hResult == DSERR_BUFFERLOST)
+            {
+                Sleep(10);
+                continue;
+            }
+            if (hResult >= 0)
+            {
+                break;
+            }
+        }
+        D2SOUND_StopSound(pSound);
+    }
+
+    LeaveCriticalSection(&gtSoundLock);
+    return 1;
+}
+
+// 0x00516070
+static void D2SOUND_ReleaseSoundBuffers(D2SoundStrc* pSound)
+{
+    D2SOUND_StopSound(pSound);
+    if (pSound->pPropertySet)
+    {
+        pSound->pPropertySet->Release();
+        pSound->pPropertySet = 0;
+    }
+    if (pSound->p3DBuffer)
+    {
+        pSound->p3DBuffer->Release();
+        pSound->p3DBuffer = 0;
+    }
+    if (pSound->pBuffer)
+    {
+        pSound->pBuffer->Release();
+        pSound->pBuffer = 0;
+    }
+    memset(pSound, 0, 0x60);
+}
+
+// 0x005160D0
+void __fastcall D2SOUND_DestroySound(D2SoundStrc* pSound)
+{
+    D2_ASSERT(pSound, 0x211);
+    EnterCriticalSection(&gtSoundLock);
+    D2SOUND_ReleaseSoundBuffers(pSound);
+    D2SOUND_ListRemove(&gpSoundList, pSound);
+    LeaveCriticalSection(&gtSoundLock);
+    FOG_Free(pSound, ".\\Src\\D2SoundSmp.cpp", 0x21D, 0);
+}
+
+// 0x00516140
+void __fastcall D2SOUND_ResetSound(D2SoundStrc* pSound)
+{
+    D2_ASSERT(pSound && pSound->pBuffer, 0x226);
+    D2_ASSERT(!pSound->hStream, 0x227);
+
+    EnterCriticalSection(&gtSoundLock);
+    if (sub_00513BB0())
+    {
+        pSound->pData = 0;
+        pSound->nDataSize = 0;
+        pSound->nPosition = 0;
+        pSound->nFillPosition = 0;
+        pSound->bStreamed = 0;
+        pSound->bNoLoop = 0;
+        pSound->nMinDataSize = 0;
+    }
+    else
+    {
+        const unsigned int nFlags = pSound->dwFlags;
+        D2SOUND_ReleaseSoundBuffers(pSound);
+        sub_005153C0_CreateSoundBuffer(nFlags, pSound);
+    }
+
+    pSound->pBuffer->SetCurrentPosition(0);
+    if (pSound->p3DBuffer)
+    {
+        pSound->p3DBuffer->SetMaxDistance(100.0f, 0);
+        pSound->p3DBuffer->SetMinDistance(2.0f, 0);
+    }
+    if (pSound->dwFlags & 2)
+        D2SOUND_SetSoundPosition(pSound, 0.0f, 0.0f, 0.0f);
+    else
+        pSound->pBuffer->SetPan(0);
+    D2SOUND_SetSoundAttenuation(pSound, 0.0f);
+    D2SOUND_SetSoundVolume(pSound, 0xFF);
+    LeaveCriticalSection(&gtSoundLock);
+}
+
+static inline void sub_00515EE0_StopSoundInline(D2SoundStrc* pSound)
+{
+    D2_ASSERT(pSound->pBuffer, 658);
+    EnterCriticalSection(&gtSoundLock);
+    if (pSound->hStream)
+    {
+        D2SOUND_CloseSoundStream(pSound);
+    }
+    pSound->pBuffer->Stop();
+    pSound->bStreaming = 0;
+    LeaveCriticalSection(&gtSoundLock);
+}
+
+static inline void sub_AdvancePlayPositionInline(D2SoundStrc* pSound, unsigned long dwPlay, unsigned long nMask)
+{
+    const unsigned long nOffset = pSound->nPosition & nMask;
+    unsigned long nPosition = pSound->nPosition - nOffset;
+    if (dwPlay < nOffset)
+    {
+        nPosition += pSound->nBufferSize;
+    }
+    pSound->nPosition = nPosition + dwPlay;
+}
+
+// 0x00516250
+unsigned long __stdcall sub_00516250_SoundThread(void* pParameter)
+{
+    unsigned long dwPlay;
+    while (WaitForSingleObject(ghSoundEvent, 50) == 0x102)
+    {
+        EnterCriticalSection(&gtSoundLock);
+
+        const int bWasIconic = gbIconic;
+        gbIconic = IsIconic(sub_004F59A0_GetHwnd());
+
+        if (D2SOUND_GetStreamChannelValue() && !D2SOUND_IsStreamChannelPlaying())
+        {
+            sub_00514990_PickRandomChannel();
+        }
+
+        for (D2SoundNodeStrc* pNode = gpSoundList; pNode; pNode = pNode->pNext)
+        {
+            D2SoundStrc* pSound = pNode->pSound;
+            D2SOUND_RestoreLostBuffer(pSound);
+
+            if (gbIconic != bWasIconic)
+            {
+                D2SOUND_SetSoundVolume(pSound, pSound->nVolume);
+            }
+
+            if (pSound->bFading)
+            {
+                const int nTick = GetTickCount();
+                if (nTick >= pSound->nFadeStart && nTick <= pSound->nFadeEnd)
+                {
+                    D2SOUND_SetSoundVolume(pSound, (pSound->nFadeTo - pSound->nFadeFrom) * (nTick - pSound->nFadeStart) / (pSound->nFadeEnd - pSound->nFadeStart) + pSound->nFadeFrom);
+                }
+                else
+                {
+                    D2SOUND_SetSoundVolume(pSound, pSound->nFadeTo);
+                    if (!pSound->nFadeTo)
+                    {
+                        sub_00515EE0_StopSoundInline(pSound);
+                    }
+                    pSound->bFading = 0;
+                }
+            }
+
+            if (pSound->hStream)
+            {
+                unsigned int nValueA;
+                unsigned int nValueB;
+                if (!sub_00418140(pSound->hStream, &nValueA, &nValueB))
+                {
+                    sub_00515EE0_StopSoundInline(pSound);
+                }
+            }
+            else if (pSound->bStreaming)
+            {
+                unsigned long dwWrite;
+                if (pSound->pBuffer->GetCurrentPosition(&dwPlay, &dwWrite) >= 0)
+                {
+                    const unsigned long nMask = pSound->nBufferSize - 1;
+                    sub_AdvancePlayPositionInline(pSound, dwPlay, nMask);
+
+                    if (!pSound->bStreamed)
+                    {
+                        const unsigned long* const pnPos = &pSound->nPosition;
+                        if (pSound->nFillPosition - *pnPos < pSound->nHalfBufferBytes || *pnPos > pSound->nFillPosition)
+                        {
+                            const unsigned long nFillOffset = pSound->nFillPosition & nMask;
+                            D2SOUND_FillSoundBuffer(pSound, pSound->nFillPosition, nFillOffset, pSound->nHalfBufferBytes);
+                            pSound->nLoopStart = -1;
+                            pSound->bSecondHalf = nFillOffset != 0;
+                        }
+                    }
+                    else if (!pSound->bNoLoop)
+                    {
+                        if (dwPlay < pSound->nHalfBufferBytes && !pSound->bSecondHalf)
+                        {
+                            D2SOUND_ClearSoundBuffer(pSound->pBuffer, pSound->nHalfBufferBytes, pSound->nHalfBufferBytes);
+                            pSound->bSecondHalf = 1;
+                        }
+
+                        if (dwPlay >= pSound->nHalfBufferBytes && pSound->bSecondHalf == 1)
+                        {
+                            D2SOUND_ClearSoundBuffer(pSound->pBuffer, 0, pSound->nHalfBufferBytes);
+                            pSound->bSecondHalf = 0;
+                        }
+
+                        if (pSound->nPosition > pSound->nDataSize)
+                        {
+                            pSound->pBuffer->Stop();
+                            pSound->bStreaming = 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        LeaveCriticalSection(&gtSoundLock);
+    }
+
+    return 0;
 }
 
 // 0x00516510
@@ -572,67 +1264,6 @@ float __stdcall sub_00516570_Log(float fValue)
 float __stdcall sub_00516590_Pow(float fBase, float fExponent)
 {
     return (float)pow(fBase, fExponent);
-}
-
-static int __stdcall sub_005153C0_CreateSoundBuffer(unsigned int nFlags, D2SoundStrc* pSound)
-{
-    D2WaveFormatStrc tFormat;
-    D2SOUND_InitWaveFormat(&tFormat, (nFlags & 1) ? 2 : 1);
-
-    D2DSBufferDescStrc tDesc;
-    memset(&tDesc, 0, sizeof(tDesc));
-    const unsigned int nBytes = (nFlags & 1) ? 0x40000 : 0x20000;
-    tDesc.dwSize = 0x14;
-    tDesc.dwFlags = gbSoundGlobalFocus ? 0x80A0 : 0xA0;
-    if (nFlags & 2)
-        tDesc.dwFlags |= 0x14;
-    else
-        tDesc.dwFlags |= 0x40;
-    tDesc.dwBufferBytes = nBytes;
-    tDesc.lpwfxFormat = &tFormat;
-
-    D2DirectSoundStrc* pDirectSound = D2SOUND_GetDirectSound();
-    if (pDirectSound->CreateSoundBuffer(&tDesc, &pSound->pBuffer, 0) < 0)
-        return 0;
-
-    if (nFlags & 2)
-    {
-        if (pSound->pBuffer->QueryInterface(gIidDirectSound3DBuffer_006DE3D0, (void**)&pSound->p3DBuffer) < 0)
-        {
-            pSound->pBuffer->Release();
-            return 0;
-        }
-    }
-
-// build: symbol ?D2SOUND_IsEaxEnabled@* 0x00513B70
-    if ((nFlags & 2) && D2SOUND_IsEaxEnabled())
-    {
-        if (pSound->p3DBuffer->QueryInterface(gIidKsPropertySet_006DE410, (void**)&pSound->pPropertySet) < 0)
-        {
-            pSound->pBuffer->Release();
-            return 0;
-        }
-
-        unsigned long dwSupport = 0;
-        long hr;
-// build: symbol ?D2SOUND_GetEaxVersion@* 0x00513B90
-        if (D2SOUND_GetEaxVersion() == 1)
-            hr = pSound->pPropertySet->QuerySupport(gtEaxBuffer10PropertySet, 1, &dwSupport);
-        else
-            hr = pSound->pPropertySet->QuerySupport(gtEaxBuffer20PropertySet, 1, &dwSupport);
-        if (hr < 0 || (dwSupport & 3) != 3)
-        {
-            pSound->pPropertySet->Release();
-            pSound->pBuffer->Release();
-            return 0;
-        }
-    }
-
-    pSound->nBufferSize = nBytes;
-    pSound->nHalfBufferBytes = nBytes >> 1;
-    pSound->dwFlags = nFlags;
-    pSound->nLoopStart = -1;
-    return 1;
 }
 
 // 0x005165B0
@@ -705,480 +1336,10 @@ void __fastcall D2SOUND_InitWaveFormat(D2WaveFormatStrc* pFormat, int nChannels)
     pFormat->nAvgBytesPerSec = pFormat->nSamplesPerSec * pFormat->nBlockAlign;
 }
 
-// 0x00515530
-D2SoundStrc* __fastcall D2SOUND_CreateSound(unsigned int nFlags, int nValue)
-{
-    gbSoundGlobalFocus = nValue;
-// build: symbol ?D2SOUND_IsPositionalSoundEnabled@* 0x00513B60
-    if ((nFlags & 2) && !D2SOUND_IsPositionalSoundEnabled())
-        return 0;
-    if ((nFlags & 2) && (nFlags & 1))
-        return 0;
-
-    D2SoundStrc* pSound = (D2SoundStrc*)FOG_Alloc(0x60, ".\\Src\\D2SoundSmp.cpp", 0x1D9, 0);
-    memset(pSound, 0, 0x60);
-    if (!sub_005153C0_CreateSoundBuffer(nFlags, pSound))
-    {
-        FOG_Free(pSound, ".\\Src\\D2SoundSmp.cpp", 0x1E0, 0);
-        return 0;
-    }
-
-    EnterCriticalSection(&gtSoundLock);
-    D2SOUND_ListAddHead(&gpSoundList, pSound);
-    LeaveCriticalSection(&gtSoundLock);
-    return pSound;
-}
-
-// 0x00516070
-static void D2SOUND_ReleaseSoundBuffers(D2SoundStrc* pSound)
-{
-    D2SOUND_StopSound(pSound);
-    if (pSound->pPropertySet)
-    {
-        pSound->pPropertySet->Release();
-        pSound->pPropertySet = 0;
-    }
-    if (pSound->p3DBuffer)
-    {
-        pSound->p3DBuffer->Release();
-        pSound->p3DBuffer = 0;
-    }
-    if (pSound->pBuffer)
-    {
-        pSound->pBuffer->Release();
-        pSound->pBuffer = 0;
-    }
-    memset(pSound, 0, 0x60);
-}
-
-// 0x005160D0
-void __fastcall D2SOUND_DestroySound(D2SoundStrc* pSound)
-{
-    D2_ASSERT(pSound, 0x211);
-    EnterCriticalSection(&gtSoundLock);
-    D2SOUND_ReleaseSoundBuffers(pSound);
-    D2SOUND_ListRemove(&gpSoundList, pSound);
-    LeaveCriticalSection(&gtSoundLock);
-    FOG_Free(pSound, ".\\Src\\D2SoundSmp.cpp", 0x21D, 0);
-}
-
-// 0x005155D0
-int __fastcall D2SOUND_SetSoundData(D2SoundStrc* pSound, const void* pFile, unsigned int nSize)
-{
-    D2_ASSERT(pSound && pSound->pBuffer && pFile && nSize, 0x257);
-    EnterCriticalSection(&gtSoundLock);
-    unsigned int nDataSize = nSize;
-    D2WaveFormatStrc tFormat;
-    void* pData = sub_00516760_ParseWave(pFile, &nDataSize, &tFormat);
-    D2_ASSERT(pSound->nMinDataSize < nDataSize, 0x25F);
-    pSound->nDataSize = nDataSize;
-    pSound->pData = pData;
-    D2SOUND_FillSoundBuffer(pSound, 0, 0, pSound->nBufferSize);
-    pSound->bSecondHalf = 1;
-    if (!pSound->bNoLoop && pSound->nDataSize < pSound->nBufferSize)
-        pSound->nLoopStart = pSound->nDataSize;
-    else
-        pSound->nLoopStart = -1;
-    LeaveCriticalSection(&gtSoundLock);
-    return 1;
-}
-
-// 0x005156A0
-int __fastcall D2SOUND_PlaySound(D2SoundStrc* pSound)
-{
-    D2_ASSERT(pSound, 0x279);
-    EnterCriticalSection(&gtSoundLock);
-    if (pSound->pBuffer->Play(0, 0, 1) < 0)
-    {
-        LeaveCriticalSection(&gtSoundLock);
-        return 0;
-    }
-    pSound->bStreaming = 1;
-    LeaveCriticalSection(&gtSoundLock);
-    return 1;
-}
-
-// 0x00515710
-int __fastcall D2SOUND_GetSoundPlayingFlag(D2SoundStrc* pSound)
-{
-    D2_ASSERT(pSound && pSound->pBuffer, 0x2A5);
-    return pSound->bStreaming;
-}
-
-// 0x00515740
-int __fastcall D2SOUND_IsSoundBufferPlaying(D2SoundStrc* pSound)
-{
-    D2_ASSERT(pSound && pSound->pBuffer, 0x2B0);
-    EnterCriticalSection(&gtSoundLock);
-    unsigned long dwStatus;
-    if (pSound->pBuffer->GetStatus(&dwStatus) < 0)
-    {
-        LeaveCriticalSection(&gtSoundLock);
-        return 0;
-    }
-    LeaveCriticalSection(&gtSoundLock);
-    const unsigned char bPlaying = dwStatus & 1;
-    return bPlaying;
-}
-
-// 0x00515860
-int __fastcall D2SOUND_GetSoundVolume(D2SoundViewStrc* pSound)
-{
-    D2_ASSERT(pSound, 0x2E4);
-    return pSound->nField38;
-}
-
-// 0x00515890
-void __fastcall D2SOUND_SetSoundPan(D2SoundStrc* pSound, int nPan)
-{
-    long lPan;
-
-    D2_ASSERT(pSound, 0x2EF);
-    if (nPan > 0x80)
-        lPan = (long)-sub_005165F0_ToDecibels(0.0f, 127.0f, (float)(0xFF - nPan));
-    else if (nPan < 0x80)
-        lPan = (long)sub_005165F0_ToDecibels(0.0f, 127.0f, (float)nPan);
-    else
-        lPan = 0;
-    pSound->pBuffer->SetPan(lPan);
-}
-
-// 0x00515950
-void __fastcall D2SOUND_SetSoundPosition(D2SoundStrc* pSound, float x, float y, float z)
-{
-    D2_ASSERT(pSound && pSound->pBuffer, 0x302);
-    if (pSound->dwFlags & 2)
-        pSound->p3DBuffer->SetPosition(x, y, z, 0);
-}
-
-// 0x005159B0
-unsigned int __fastcall D2SOUND_GetStreamPosition(D2SoundSampleStrc* pSound)
-{
-    D2_ASSERT(pSound, 784);
-    EnterCriticalSection(&gtSoundLock);
-    if (pSound->hSample)
-    {
-        unsigned int nValueA;
-        unsigned int nValueB;
-        if (sub_00418140(pSound->hSample, &nValueA, &nValueB))
-        {
-            LeaveCriticalSection(&gtSoundLock);
-            return nValueA >> 2;
-        }
-        LeaveCriticalSection(&gtSoundLock);
-        return 0;
-    }
-    LeaveCriticalSection(&gtSoundLock);
-    return 0;
-}
-
-// 0x00515A30
-extern "C" void __fastcall D2SOUND_SetSoundNoLoop(D2SoundObjStrc_00515A30* pSound, int nValue)
-{
-    D2_ASSERT(pSound, 815);
-    pSound->nValue40 = nValue;
-}
-
-// 0x00515D70
-int __fastcall D2SOUND_StartSoundStream(D2SoundStrc* pSound, const char* szFileName, int nPosition, int bLoop)
-{
-    D2_ASSERT(pSound, 0x3DB);
-    void* hFile;
-    if (!FOG_FOpenFile(szFileName, &hFile))
-        return 0;
-    EnterCriticalSection(&gtSoundLock);
-    if (!SFileDdaBeginEx(hFile, pSound->nBufferSize, bLoop ? 0x40000 : 0, nPosition * 4, 0x7FFFFFFF, 0x7FFFFFFF, pSound->pBuffer))
-    {
-// build: symbol ?FOG_FCloseFile@* 0x004068F0
-        FOG_FCloseFile(hFile);
-        LeaveCriticalSection(&gtSoundLock);
-        return 0;
-    }
-    pSound->hStream = hFile;
-    pSound->bStreaming = 1;
-    pSound->nLoopStart = -1;
-    LeaveCriticalSection(&gtSoundLock);
-    return 1;
-}
-
-// 0x00516140
-void __fastcall D2SOUND_ResetSound(D2SoundStrc* pSound)
-{
-    D2_ASSERT(pSound && pSound->pBuffer, 0x226);
-    D2_ASSERT(!pSound->hStream, 0x227);
-
-    EnterCriticalSection(&gtSoundLock);
-    if (sub_00513BB0())
-    {
-        pSound->pData = 0;
-        pSound->nDataSize = 0;
-        pSound->nPosition = 0;
-        pSound->nFillPosition = 0;
-        pSound->bStreamed = 0;
-        pSound->bNoLoop = 0;
-        pSound->nMinDataSize = 0;
-    }
-    else
-    {
-        const unsigned int nFlags = pSound->dwFlags;
-        D2SOUND_ReleaseSoundBuffers(pSound);
-        sub_005153C0_CreateSoundBuffer(nFlags, pSound);
-    }
-
-    pSound->pBuffer->SetCurrentPosition(0);
-    if (pSound->p3DBuffer)
-    {
-        pSound->p3DBuffer->SetMaxDistance(100.0f, 0);
-        pSound->p3DBuffer->SetMinDistance(2.0f, 0);
-    }
-    if (pSound->dwFlags & 2)
-        D2SOUND_SetSoundPosition(pSound, 0.0f, 0.0f, 0.0f);
-    else
-        pSound->pBuffer->SetPan(0);
-    D2SOUND_SetSoundAttenuation(pSound, 0.0f);
-    D2SOUND_SetSoundVolume(pSound, 0xFF);
-    LeaveCriticalSection(&gtSoundLock);
-}
-
-// 0x005157B0
-void __fastcall D2SOUND_SetSoundVolume(D2SoundStrc* pSound, int nVolume)
-{
-    D2_ASSERT(pSound && pSound->pBuffer, 0x2CB);
-// build: symbol ?gnSoundMasterVolume@* 0x0072F9B0
-    int nScaled = nVolume * gnSoundMasterVolume;
-    pSound->nVolume = nVolume;
-    nScaled /= 255;
-    if (!(pSound->dwFlags & 4) || D2SOUND_GetEaxVersion() != 2)
-        nScaled = (int)((1.0f - pSound->fAttenuation) * nScaled);
-    const int nDecibels = (int)sub_005165F0_ToDecibels(0.0f, 255.0f, (float)nScaled);
-    pSound->pBuffer->SetVolume(nDecibels);
-}
-
-// 0x00515A60
-extern "C" void __fastcall D2SOUND_SetSoundLoopStart(D2SoundObjStrc_00515A30* pSound, int nValue)
-{
-    D2_ASSERT(pSound, 826);
-    pSound->nValue44 = nValue;
-}
-
-// 0x00515A90
-void __fastcall D2SOUND_SetSoundAttenuation(D2SoundStrc* pSound, float fAttenuation)
-{
-    D2_ASSERT(pSound, 0x345);
-    pSound->fAttenuation = fAttenuation;
-    if (pSound->pPropertySet && D2SOUND_GetEaxVersion() == 2)
-    {
-        if ((pSound->dwFlags & 4) || fAttenuation == 0.0f)
-        {
-            fAttenuation = 1.0f - fAttenuation;
-            int nValue = (int)sub_005165F0_ToDecibels(0.0f, 1.0f, fAttenuation);
-            pSound->pPropertySet->Set(gtEaxBuffer20PropertySet, 7, 0, 0, &nValue, 4);
-        }
-    }
-}
-
-// 0x00515B40
-void __fastcall D2SOUND_SetSoundReverbMix(D2SoundStrc* pSound, float fReverbMix)
-{
-    D2_ASSERT(pSound, 0x359);
-    if (D2SOUND_IsEaxRoomOff())
-        fReverbMix = 0.0f;
-    if (pSound->pPropertySet)
-    {
-        if (D2SOUND_GetEaxVersion() == 1)
-        {
-            if (fReverbMix != 0.0f)
-                fReverbMix = -1.0f;
-            pSound->pPropertySet->Set(gtEaxBuffer10PropertySet, 1, 0, 0, &fReverbMix, 4);
-        }
-        else
-        {
-            int nValue = (int)sub_005165F0_ToDecibels(0.0f, 1.0f, fReverbMix);
-            pSound->pPropertySet->Set(gtEaxBuffer20PropertySet, 5, 0, 0, &nValue, 4);
-            pSound->pPropertySet->Set(gtEaxBuffer20PropertySet, 4, 0, 0, &nValue, 4);
-        }
-    }
-}
-
-// 0x00515C30
-int __fastcall D2SOUND_IsSoundStreaming(D2SoundStrc* pSound)
-{
-    D2_ASSERT(pSound, 0x37A);
-    return pSound->hStream != 0;
-}
-
-// 0x00515CE0
-void __fastcall D2SOUND_SetMasterVolume(int nVolume)
-{
-    if (!D2SOUND_GetDirectSound())
-        return;
-    if (nVolume == gnSoundMasterVolume)
-        return;
-    D2_ASSERT(nVolume >= 0 && nVolume <= 0xFF, 0x3B9);
-    EnterCriticalSection(&gtSoundLock);
-    gnSoundMasterVolume = nVolume;
-    for (D2SoundNodeStrc* pNode = gpSoundList; pNode; pNode = pNode->pNext)
-    {
-        D2_ASSERT(pNode->pSound, 0x2E4);
-        D2SOUND_SetSoundVolume(pNode->pSound, pNode->pSound->nVolume);
-    }
-    LeaveCriticalSection(&gtSoundLock);
-}
-
-// 0x00515D60
-int __cdecl D2SOUND_GetMasterVolume()
-{
-    return D2SOUND_GetDirectSound() ? gnSoundMasterVolume : 0;
-}
-
-// 0x00515F50
-void __fastcall D2SOUND_FadeOutMasterVolume(int nTime)
-{
-    if (!D2SOUND_GetDirectSound())
-        return;
-    D2_ASSERT(nTime > 0, 0x387);
-    unsigned int nVolume = D2SOUND_GetMasterVolume();
-    const unsigned int nStep = nVolume / (nTime / 20u);
-    while (nVolume)
-    {
-        Sleep(20);
-        if (nVolume > nStep)
-            nVolume -= nStep;
-        else
-            nVolume = 0;
-        D2SOUND_SetMasterVolume(nVolume);
-    }
-}
-
-// 0x00515FD0
-int __fastcall D2SOUND_RestoreLostBuffer(D2SoundStrc* pSound)
-{
-    D2_ASSERT(pSound->pBuffer, 290);
-    EnterCriticalSection(&gtSoundLock);
-    unsigned long dwStatus;
-    if (pSound->pBuffer->GetStatus(&dwStatus) < 0)
-    {
-        LeaveCriticalSection(&gtSoundLock);
-        return 0;
-    }
-
-    if (dwStatus & DSBSTATUS_BUFFERLOST)
-    {
-        for (;;)
-        {
-            const long hResult = pSound->pBuffer->Restore();
-            if (hResult == DSERR_BUFFERLOST)
-            {
-                Sleep(10);
-                continue;
-            }
-            if (hResult >= 0)
-            {
-                break;
-            }
-        }
-        D2SOUND_StopSound(pSound);
-    }
-
-    LeaveCriticalSection(&gtSoundLock);
-    return 1;
-}
-
-// 0x00515C60
-void __fastcall D2SOUND_StartSoundFade(D2SoundFadeStrc* pFade, int nTarget, int nDuration)
-{
-    D2_ASSERT(pFade, 0x39E);
-    if (D2SOUND_GetDirectSound())
-    {
-        EnterCriticalSection(&gtSoundLock);
-        pFade->f_4C = 1;
-        pFade->nFadeStart = pFade->nCurrent;
-        pFade->f_54 = nTarget;
-        const unsigned int dwTick = GetTickCount();
-        pFade->dwFadeStartTick = dwTick;
-        pFade->dwFadeEndTick = dwTick + nDuration;
-        LeaveCriticalSection(&gtSoundLock);
-    }
-}
-
-// 0x00515EE0
-void __fastcall D2SOUND_StopSound(D2SoundStrc* pSound)
-{
-    D2_ASSERT(pSound && pSound->pBuffer, 658);
-    EnterCriticalSection(&gtSoundLock);
-    if (pSound->hStream)
-    {
-        D2SOUND_CloseSoundStream(pSound);
-    }
-    pSound->pBuffer->Stop();
-    pSound->bStreaming = 0;
-    LeaveCriticalSection(&gtSoundLock);
-}
-
-// 0x00515E40
-void __fastcall D2SOUND_CloseSoundStream(D2SoundStrc* pSound)
-{
-    D2_ASSERT(pSound && pSound->pBuffer, 0x400);
-    EnterCriticalSection(&gtSoundLock);
-    if (pSound->hStream)
-    {
-        sub_0041A990(pSound->hStream);
-        pSound->pBuffer->Stop();
-        FOG_FCloseFile(pSound->hStream);
-        pSound->hStream = 0;
-        pSound->bStreaming = 0;
-    }
-    LeaveCriticalSection(&gtSoundLock);
-}
-
-// 0x00515EC0
-void __cdecl sub_00515EC0_Nop()
-{
-}
-
-// 0x00515ED0
-void __cdecl sub_00515ED0_Nop()
-{
-}
-
-// 0x00514780
-extern "C" void __fastcall D2SOUND_CreateStreamChannel(int nArg)
-{
-    gnStreamChannelArg = nArg;
-    SFileDdaInitialize((int)D2SOUND_GetDirectSound());
-    gpSoundChannel = D2SOUND_CreateSound(1, gnStreamChannelArg);
-}
-
-// 0x005147B0
-void __cdecl D2SOUND_DestroyStreamChannel()
-{
-    if (gpSoundChannel)
-    {
-        D2SOUND_DestroySound(gpSoundChannel);
-        gpSoundChannel = 0;
-    }
-    sub_00419F30();
-}
-
-// 0x00514860
-void __cdecl D2SOUND_ClearChannelTable()
-{
-    for (int i = 0; i < gnChannelCountA; ++i)
-        sub_N19_GetChannelEntry(i)->bBusy = 0;
-}
-
-extern "C" void __fastcall CLIENTS_SetPlayerUnitAlive(D2ClientStrc* pClient)
-{
-    D2_ASSERT(pClient, 518);
-    pClient->dwFlags |= 1;
-}
-
-void __cdecl sub_00650EA0_Nop()
-{
-}
-
+// 0x00516760
 const unsigned char* __fastcall sub_00516760_ReadWaveHeader(const unsigned int* pRiff, unsigned int* pnSize, D2WaveFormatStrc* pFormat)
 {
+    D2WaveFormatStrc* const pOut = pFormat;
     if (*pnSize < 0x20)
         return 0;
 
@@ -1197,25 +1358,83 @@ const unsigned char* __fastcall sub_00516760_ReadWaveHeader(const unsigned int* 
     if (*pnSize < nChunkSize)
         return 0;
 
+    const D2WaveFormatStrc* pChunkFormat = (const D2WaveFormatStrc*)pChunk;
     *pnSize -= nChunkSize;
-    const unsigned char* pNext = pChunk + nChunkSize;
-    pFormat->wFormatTag = ((const D2WaveFormatStrc*)pChunk)->wFormatTag;
-    pFormat->nChannels = ((const D2WaveFormatStrc*)pChunk)->nChannels;
-    pFormat->nSamplesPerSec = ((const D2WaveFormatStrc*)pChunk)->nSamplesPerSec;
-    pFormat->nAvgBytesPerSec = ((const D2WaveFormatStrc*)pChunk)->nAvgBytesPerSec;
-    pFormat->nBlockAlign = ((const D2WaveFormatStrc*)pChunk)->nBlockAlign;
-    pFormat->wBitsPerSample = ((const D2WaveFormatStrc*)pChunk)->wBitsPerSample;
-    pFormat->cbSize = 0;
+    pChunk += nChunkSize;
+    pOut->wFormatTag = pChunkFormat->wFormatTag;
+    pOut->nChannels = pChunkFormat->nChannels;
+    pOut->nSamplesPerSec = pChunkFormat->nSamplesPerSec;
+    pOut->nAvgBytesPerSec = pChunkFormat->nAvgBytesPerSec;
+    pOut->nBlockAlign = pChunkFormat->nBlockAlign;
+    pOut->wBitsPerSample = pChunkFormat->wBitsPerSample;
+    pOut->cbSize = 0;
 
-    pChunk = D2SOUND_FindRiffChunk(pNext, pnSize, 0x61746164, &nChunkSize);
-    if (!pChunk)
-        return 0;
+    pChunk = D2SOUND_FindRiffChunk(pChunk, pnSize, 0x61746164, &nChunkSize);
+    if (pChunk && *pnSize >= nChunkSize)
+    {
+        *pnSize = nChunkSize;
+        return pChunk;
+    }
 
-    if (*pnSize < nChunkSize)
-        return 0;
+    return 0;
+}
 
-    *pnSize = nChunkSize;
-    return pChunk;
+static float SOUND_SqrtF(float fValue)
+{
+    return (float)sqrt(fValue);
+}
+
+static float SOUND_LogF(float fValue)
+{
+    return (float)log(fValue);
+}
+
+static float SOUND_Log2F(float fValue)
+{
+    return SOUND_LogF(fValue) / 0.6931472f;
+}
+
+static float SOUND_PowF(float fBase, float fExponent)
+{
+    return (float)pow(fBase, fExponent);
+}
+
+static float SOUND_GetDistance(float fX, float fY, float fZ)
+{
+    return SOUND_SqrtF(fX * fX + fY * fY + fZ * fZ);
+}
+
+static __forceinline float SOUND_GetAttenuation(float fDistance)
+{
+    if (fDistance > 100.0)
+        fDistance = gfMaxSoundDistance;
+
+    if (fDistance < 2.0f)
+        return 0.0f;
+
+    return SOUND_Log2F(fDistance * 0.5f) * 6.0f;
+}
+
+// 0x00516830
+void __fastcall sub_00516830_GetPositionalVolumePan(int* pVolume, int* pPan, float fX, float fY, float fZ)
+{
+    // stands for the original rounding the distance twice through the fY slot and the pan through the fX slot (no plain form found)
+    *(volatile float*)&fY = SOUND_GetDistance(fX, fY, fZ);
+    const float fAttenuation = SOUND_GetAttenuation(*(volatile float*)&fY);
+
+    int nVolume = (int)(255.0f / SOUND_PowF(10.0f, fAttenuation / 20.0f));
+    nVolume = nVolume > 0 ? nVolume : 0;
+    if (nVolume >= 255)
+        nVolume = 255;
+
+    *(volatile float*)&fX = fX * 127.0f / 1.25f + 128.0f;
+    int nPan = (int)*(volatile float*)&fX;
+    nPan = nPan > 0 ? nPan : 0;
+    if (nPan >= 255)
+        nPan = 255;
+
+    *pVolume = nVolume;
+    *pPan = nPan;
 }
 
 #include "gen/data/Source/D2Sound/Src/D2SoundSmp.inc"
