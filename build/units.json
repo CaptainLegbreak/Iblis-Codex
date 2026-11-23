@@ -54966,11 +54966,6 @@
      "va": "0x00596BA0",
      "length": 1,
      "name": "?sub_00596BA0_EmptyCallback@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x0059F380",
-     "length": 185,
-     "name": "ACT2Q4_InitializeJerhynStartObject"
     }
    ]
   },
@@ -56096,6 +56091,25 @@
      "va": "0x0059F2A0",
      "length": 214,
      "name": "?ACT2Q4_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x0059F380",
+     "length": 185,
+     "name": "ACT2Q4_InitializeJerhynStartObject"
+    },
+    {
+     "va": "0x0059F440",
+     "length": 204
+    },
+    {
+     "va": "0x0059F510",
+     "length": 85,
+     "name": "?sub_0059F510_ACT2Q4_IsJerhynPalaceBlocked@@YIEPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x0059F570",
+     "length": 15,
+     "name": "?ACT2Q4_IsJerhynPalaceActivated@@YIHPAUD2GameStrc@@@Z"
     }
    ]
   },
@@ -56304,20 +56318,6 @@
    "file": "Source/D2Game/Unknown_0059F440.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0059F440",
-     "length": 204
-    },
-    {
-     "va": "0x0059F510",
-     "length": 85,
-     "name": "?sub_0059F510_ACT2Q4_IsJerhynPalaceBlocked@@YIEPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x0059F570",
-     "length": 15,
-     "name": "?ACT2Q4_IsJerhynPalaceActivated@@YIHPAUD2GameStrc@@@Z"
-    },
     {
      "va": "0x0059F580",
      "length": 668,
