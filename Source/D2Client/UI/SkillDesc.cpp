@@ -824,6 +824,8 @@ int __fastcall sub_004E4180(int nFrame, int nOffset, int nStepLength)
     return MINIMUM(MINIMUM(nDirect, nForward), nBackward);
 }
 
+void __fastcall GFXUTIL_ApplySoundEnviron(int nEnvironId); // 0x004DF6C0
+
 // 0x004E42E0
 void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
 {
@@ -937,7 +939,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
         gnWeatherSoundHandle = 0;
         gnWeatherSoundId = 0;
     }
-    sub_004DF6C0(nEnviron);
+    GFXUTIL_ApplySoundEnviron(nEnviron);
     if (nAmbient)
     {
         if (nAmbient != gnEnvironAmbientId)

@@ -1104,6 +1104,8 @@ static inline float GetEnvironVolume_Inline()
     return sub_00473C40() ? sub_00473C80() : 0.0f;
 }
 
+void __fastcall GFXUTIL_ApplySoundEnviron(int nEnvironId); // 0x004DF6C0
+
 void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
 {
     if (!sub_004DF870())
@@ -1213,7 +1215,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
         gnWeatherSoundHandle = 0;
         gnWeatherSoundId = 0;
     }
-    sub_004DF6C0(nEnviron);
+    GFXUTIL_ApplySoundEnviron(nEnviron);
     if (nAmbient)
     {
         if (nAmbient != gnEnvironAmbientId)
