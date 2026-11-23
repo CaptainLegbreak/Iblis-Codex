@@ -17,12 +17,6 @@ struct D2ObjInitFnStrc;
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
-// 0x005B6F90
-bool __fastcall ACT3Q7_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus)
-{
-    return false;
-}
-
 bool __fastcall ACT3Q7_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
 {
     return false;
@@ -30,23 +24,6 @@ bool __fastcall ACT3Q7_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId,
 
 void __cdecl sub_005BDB10_Return()
 {
-}
-
-// 0x005B7310
-void __fastcall sub_005B7310(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp)
-{
-    if (!pQuestData)
-    {
-        return;
-    }
-    if (!pQuestData->bNotIntro)
-    {
-        UNITS_ChangeAnimMode(pOp->pObject, 2);
-    }
-    else
-    {
-        UNITS_ChangeAnimMode(pOp->pObject, ((D2Act3Quest1Strc*)pQuestData->pQuestDataEx)->nTomeObjectMode);
-    }
 }
 
 // 0x005B7FE0

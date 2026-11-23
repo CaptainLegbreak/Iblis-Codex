@@ -15711,6 +15711,25 @@ void __fastcall AITHINK_Fn077_TrapMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStatsTxt->wAiParam[TRAPMISSILE_AI_PARAM_DELAY][pGame->nDifficulty]);
 }
 
+// 0x005FB650
+int __fastcall sub_005FB650_GetTrapArrowVariant(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit));
+    D2MonsterRegionStrc* pMonsterRegion = MONSTERREGION_GetMonsterRegionFromLevelId(pGame->pMonReg, nLevelId);
+    if (pMonsterRegion->nTrapVariant < 0)
+    {
+        if (nLevelId < LEVEL_AI_TRAPARROW_RANDOM)
+        {
+            pMonsterRegion->nTrapVariant = 0;
+        }
+        else
+        {
+            pMonsterRegion->nTrapVariant = OBJECTS_RollRandomNumber(&pUnit->pSeed, 0, 3);
+        }
+    }
+    return pMonsterRegion->nTrapVariant;
+}
+
 // 0x005EF620
 void __fastcall AITHINK_Fn138_BaalToStairs(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {

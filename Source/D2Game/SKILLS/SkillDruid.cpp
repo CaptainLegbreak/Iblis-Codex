@@ -3889,6 +3889,7 @@ D2UnitStrc* __fastcall SKILLS_FindUseableCorpse(D2GameStrc* pGame, D2UnitStrc* p
     return 0;
 }
 
+// 0x005D1E10
 static void __stdcall sub_005D1E10_Transform(Unit* owner, int level, int skill, Game* game, Unit* target)
 {
     SkillRecord* record = 0;
