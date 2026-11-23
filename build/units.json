@@ -34218,39 +34218,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/SkillDesc_004EAD60.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004EAD60",
-     "length": 260,
-     "name": "?SKILLDESC_DrawWeaponPhysElemDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
-    },
-    {
-     "va": "0x004EBB50",
-     "length": 498
-    },
-    {
-     "va": "0x004ECF50",
-     "length": 382
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/SkillDesc_004EAE70.cpp",
    "rank": 1,
    "functions": [
@@ -34269,6 +34236,30 @@
     {
      "va": "0x004ED150",
      "length": 663
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/UI/SkillDesc_004EC280.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x004EC280",
+     "length": 90
     }
    ],
    "flags": [
@@ -34525,6 +34516,11 @@
      "name": "?SKILLDESC_DrawOtherHandDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
     },
     {
+     "va": "0x004EAD60",
+     "length": 260,
+     "name": "?SKILLDESC_DrawWeaponPhysElemDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+    },
+    {
      "va": "0x004EAF90",
      "length": 679
     },
@@ -34552,6 +34548,10 @@
     {
      "va": "0x004EBA30",
      "length": 288
+    },
+    {
+     "va": "0x004EBB50",
+     "length": 498
     },
     {
      "va": "0x004EBD50",
@@ -34582,6 +34582,10 @@
      "length": 596
     },
     {
+     "va": "0x004ECF50",
+     "length": 382
+    },
+    {
      "va": "0x004ED480",
      "length": 167
     },
@@ -34609,30 +34613,6 @@
     {
      "va": "0x004F2BE0",
      "length": 494
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/SkillDesc_004EC280.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004EC280",
-     "length": 90
     }
    ],
    "flags": [
