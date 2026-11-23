@@ -230,14 +230,6 @@ struct D2GSPacketSrv27
 #pragma pack(pop)
 
 
-typedef void (__fastcall* PlrMsgFunc)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int nAnimMode);
-
-struct D2UnkPlrMsgStrc
-{
-    PlrMsgFunc field_0;
-    int field_4;
-    int field_8;
-};
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x00681CE0
 

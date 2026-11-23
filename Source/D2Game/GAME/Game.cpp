@@ -1080,14 +1080,6 @@ struct D2QuestInfoStrc
 };
 
 
-typedef void (__fastcall* PlrMsgFunc)(D2GameStrc*, D2UnitStrc*, D2ClientStrc*, int);
-
-struct D2UnkPlrMsgStrc
-{
-    PlrMsgFunc field_0;
-    int field_4;
-    int field_8;
-};
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 

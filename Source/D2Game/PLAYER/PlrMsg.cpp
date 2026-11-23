@@ -16,6 +16,7 @@
 #include "D2PlayerModes.h"
 #include "D2ItemModes.h"
 #include "D2Packets.h"
+#include "D2GameServer.h"
 
 struct D2ClientStrc;
 
@@ -87,14 +88,6 @@ struct D2GameItemChecks
 };
 
 
-typedef void (__fastcall* PlrMsgFunc)(D2GameStrc*, D2UnitStrc*, D2ClientStrc*, int);
-
-struct D2UnkPlrMsgStrc
-{
-    PlrMsgFunc field_0;
-    int field_4;
-    int field_8;
-};
 
 extern D2UnkPlrMsgStrc gaUnitModeMessages[20]; // 0x007319E8
 
@@ -907,7 +900,7 @@ void __fastcall PLRMSG_SendWalkMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Clie
             const int nTargetGUID = pTarget->dwUnitId;
             const int nTargetType = pTarget->dwUnitType;
             const int nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
-            D2GAME_PACKETS_SendPacket0x10_6FC3C9A0(pClient, 0x10, 0, nUnitGUID, (unsigned char)gaUnitModeMessages[nAnimMode].field_8, nTargetType, nTargetGUID, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
+            D2GAME_PACKETS_SendPacket0x10_6FC3C9A0(pClient, 0x10, 0, nUnitGUID, (unsigned char)gaUnitModeMessages[nAnimMode].nTargetMode, nTargetType, nTargetGUID, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
         }
         else
         {
@@ -923,7 +916,7 @@ void __fastcall PLRMSG_SendWalkMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Clie
             else
                 nX = pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
             const int nUnitId = pUnit->dwUnitId;
-            D2GAME_PACKETS_SendPacket0x0F_6FC3CA00(pClient, 0x0F, 0, nUnitId, (unsigned char)gaUnitModeMessages[nAnimMode].field_4, D2COMMON_10175_PathGetFirstPointX(pPath), D2COMMON_10176_PathGetFirstPointY(pPath), 0, nX, nY);
+            D2GAME_PACKETS_SendPacket0x0F_6FC3CA00(pClient, 0x0F, 0, nUnitId, (unsigned char)gaUnitModeMessages[nAnimMode].nLocationMode, D2COMMON_10175_PathGetFirstPointX(pPath), D2COMMON_10176_PathGetFirstPointY(pPath), 0, nX, nY);
         }
     }
 }
@@ -951,13 +944,13 @@ void __fastcall PLRMSG_SendKnockbackMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     else
         nX = pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
     const int nUnitId = pUnit->dwUnitId;
-    D2GAME_PACKETS_SendPacket0x0F_6FC3CA00(pClient, 0x0F, 0, nUnitId, (unsigned char)gaUnitModeMessages[nAnimMode].field_4, D2COMMON_10175_PathGetFirstPointX(pPath), D2COMMON_10176_PathGetFirstPointY(pPath), nHitClass, nX, nY);
+    D2GAME_PACKETS_SendPacket0x0F_6FC3CA00(pClient, 0x0F, 0, nUnitId, (unsigned char)gaUnitModeMessages[nAnimMode].nLocationMode, D2COMMON_10175_PathGetFirstPointX(pPath), D2COMMON_10176_PathGetFirstPointY(pPath), nHitClass, nX, nY);
 }
 
 // 0x00548350
 void __fastcall PLRMSG_SendGetHitMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int nAnimMode)
 {
-    const int nField = gaUnitModeMessages[nAnimMode].field_4;
+    const int nField = gaUnitModeMessages[nAnimMode].nLocationMode;
     const char nHitClass = pUnit->dwLastHitClass;
     const char nLife = UNITS_GetCurrentLifePercentage(pUnit);
     int nY;
@@ -979,7 +972,7 @@ void __fastcall PLRMSG_SendNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2C
     if (pUnit != CLIENTS_GetPlayerFromClient(pClient, 0))
     {
         const unsigned char nLife = UNITS_GetCurrentLifePercentage(pUnit);
-        const int nHitClass = gaUnitModeMessages[nAnimMode].field_4;
+        const int nHitClass = gaUnitModeMessages[nAnimMode].nLocationMode;
         int nY;
         if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > UNIT_MISSILE && pUnit->dwUnitType <= UNIT_TILE))
             nY = pUnit->pStaticPath->tGameCoords.nY;
@@ -1002,7 +995,7 @@ void __fastcall PLRMSG_SendUnitMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Clie
 {
     const int nAnimMode = !pUnit ? 0 : pUnit->dwAnimMode;
 
-    PlrMsgFunc pfSendMode = gaUnitModeMessages[nAnimMode].field_0;
+    PlrMsgFunc pfSendMode = gaUnitModeMessages[nAnimMode].pfSendMode;
     if (pfSendMode)
     {
         D2_ASSERT(!IsBadCodePtr((FARPROC)pfSendMode), 328);
