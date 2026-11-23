@@ -148,7 +148,7 @@ struct D2UnkNecSkillStrc
 {
     D2GameStrc* pGame; // 0x00
     D2UnitStrc* pUnit; // 0x04
-    int unk0x08; // 0x08
+    int bResetAi; // 0x08
     int bUpdateAnimRate; // 0x0C
     int nSkillId; // 0x10
     int nSkillLevel; // 0x14

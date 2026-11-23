@@ -323,7 +323,7 @@ static int __stdcall GLIDE_UploadTexInfo(int nPalette, int nColor, int nType, D2
         gbGlideMultiTmu = nCache == 1;
 
     int nAddress;
-    if (pSlots[nType].nId && (pCache->pEntries[pSlots[nType].nId - 1].unk0x10 == nPalette || nRequested == 4))
+    if (pSlots[nType].nId && (pCache->pEntries[pSlots[nType].nId - 1].nPalette == nPalette || nRequested == 4))
     {
         GLIDE_TexCacheTouch(&gaGlideTexCaches[nCache], pSlot->nId);
         nAddress = pCache->pEntries[pSlot->nId - 1].nAddress;
@@ -335,7 +335,7 @@ static int __stdcall GLIDE_UploadTexInfo(int nPalette, int nColor, int nType, D2
 
         pCache->pEntries[pSlot->nId - 1].pOwner = pSlots;
         pCache->pEntries[pSlot->nId - 1].nOwnerIndex = nType;
-        pCache->pEntries[pSlot->nId - 1].unk0x10 = nPalette;
+        pCache->pEntries[pSlot->nId - 1].nPalette = nPalette;
         nAddress = pCache->pEntries[pSlot->nId - 1].nAddress;
 
         unsigned char* pBuffer = gpGlideSpriteBufferA;
