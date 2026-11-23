@@ -37800,13 +37800,7 @@
      "va": "0x005125B0",
      "length": 35,
      "name": "?DDRAW_FreeDebugFont@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_005125E0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x005125E0",
      "length": 153,
@@ -37816,7 +37810,27 @@
      "va": "0x00512680",
      "length": 99,
      "name": "?sub_00512680_SoftDebugPrintf@@YIXHHPBDPAD@Z"
-    },
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2DDraw/Unknown_005125E0.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x00512A50",
      "length": 463
