@@ -795,27 +795,5 @@ int __stdcall MAINMENUS_AskEmailRegistration(int nArg)
     return 1;
 }
 
-
-// 0x00437620
-int __stdcall MAINMENUS_ConfirmText(int nArg)
-{
-    char szText[0x100];
-    const Unicode* pText1 = sub_004FDD90_GetEditText(gpEdit_007799CC);
-    const Unicode* pText2 = sub_004FDD90_GetEditText(gpEdit_007799D0);
-    if (!sub_005264F0_Compare(pText1, pText2))
-    {
-        sub_005263E0(szText, pText1, 0x100);
-        if (!MAINMENUS_CheckAtAndDot(szText))
-        {
-            MAINMENUS_ShowMessageBox(D2LANG_GetStringFromTblIndex(0x2B5C), D2LANG_GetStringFromTblIndex(0x2B5D), 0x13EE, 0, sub_004334D0_CloseBox, 0, 1, 0);
-            return 1;
-        }
-        gpFuncTable_0077ABF0->pfnSlotB8(szText);
-        D2Win_StopMessageLoop();
-        return 1;
-    }
-    MAINMENUS_ShowMessageBox(0, D2LANG_GetStringFromTblIndex(0x2B5B), 0x13EE, 0, sub_004334D0_CloseBox, 0, 1, 0);
-    return 1;
-}
 void __cdecl MAINMENUS_BuildRealmList(); // 0x00434060
 int __fastcall MAINMENUS_JoinGame(const char* szGameName, unsigned short wFlags, char nMode, const char* szPassword); // 0x00434A00

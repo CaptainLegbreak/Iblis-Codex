@@ -6,7 +6,7 @@
 
 struct Unicode;
 
-struct D2LaunchCharInfoStrc;
+struct D2LaunchRecordStrc;
 
 struct D2LaunchFuncsStrc;
 
@@ -54,7 +54,7 @@ extern D2WinControlInitStrc gtControlInit_0070E110; // 0x0070E110
 
 extern D2LaunchFuncsStrc* gpLaunchFuncs; // 0x0077B09C
 
-extern D2LaunchCharInfoStrc* gpCharInfo; // 0x0077BBD8
+extern D2LaunchRecordStrc* gpCharInfo; // 0x0077BBD8
 
 extern D2WinControlStrc* gpControl_0077BCEC; // 0x0077BCEC
 
@@ -137,19 +137,19 @@ int __fastcall sub_004438E0_Lookup(const char* szName, const char* szPassword, D
 {
     int nFilterA = 0;
     int nFilterB = 0;
-    if ((*(unsigned short*)gpCharInfo->wFlags) & 4)
+    if ((gpCharInfo->wFlags1EF) & 4)
     {
         nFilterA = 4;
         nFilterB = 4;
     }
-    if ((*(unsigned short*)gpCharInfo->wFlags) & 0x20)
+    if ((gpCharInfo->wFlags1EF) & 0x20)
     {
         nFilterA |= 8;
         nFilterB |= 8;
     }
-    if (!sub_004438E0_HasProgress(*(unsigned short*)gpCharInfo->wFlags, 0x800, 0xA00))
+    if (!sub_004438E0_HasProgress(gpCharInfo->wFlags1EF, 0x800, 0xA00))
     {
-        if (sub_004438E0_HasProgress(*(unsigned short*)gpCharInfo->wFlags, 0x400, 0x500))
+        if (sub_004438E0_HasProgress(gpCharInfo->wFlags1EF, 0x400, 0x500))
             nFilterB |= 2;
         else
             nFilterB |= 3;

@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2CelContext.h"
+#include "D2ClientTypes.h"
 struct D2UnitStrc;
 struct D2InventoryStrc;
 
@@ -231,9 +232,7 @@ int __fastcall sub_00471EC0_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, in
 }
 
 struct D2GfxLayerHeaderStrc { unsigned char nCount, unk01, nArg; };
-struct D2GfxNodeTargetStrc { int unk00[5]; void* pLayer; };
 struct D2GfxListNodeStrc { int nMode,nId; D2GfxNodeTargetStrc* pTarget; int unk0C; D2GfxListNodeStrc* pNext; };
-struct D2GfxDataStrc { int unk00[10]; D2GfxListNodeStrc* pList; };
 int __fastcall GAME_GetUnitClassId(D2UnitStrc*); // 0x00451F60
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int); // 0x00451FE0
 D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc*); // 0x004639D0

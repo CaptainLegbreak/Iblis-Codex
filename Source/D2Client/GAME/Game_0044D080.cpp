@@ -3,6 +3,7 @@
 #include "D2ClientTypes.h"
 #include "D2Unicode.h"
 #include "D2LevelTxt.h"
+#include "D2CelContext.h"
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
@@ -131,7 +132,7 @@ void __fastcall GAME_PushStateValue(int nValue); // 0x0044B440
 
 void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
 
-void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
+void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
@@ -791,7 +792,7 @@ int __cdecl GAME_PushState()
 int __stdcall GAME_ShowBetaScreens(int nArg)
 {
     char szPath[0x104];
-    D2GfxDataStrc tData;
+    D2CelContextStrc tData;
     if (!WINDOW_GetState())
     {
         if (!D2GFX_StartDraw(1, 0, 0, 0))

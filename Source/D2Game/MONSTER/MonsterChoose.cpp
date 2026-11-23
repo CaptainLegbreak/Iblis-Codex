@@ -30,7 +30,7 @@ void __stdcall sub_005BDB20_RollComponentVariants(D2SeedStrc* pSeed, D2MonPreset
  D2_ASSERT(pPreset, 0xa1);
  D2MonStats2Txt* pMonStats2Txt = UNITS_GetMonStats2TxtRecordFromMonsterId(pPreset->nMonsterId);
  if (!pMonStats2Txt) return;
- const int nRemaining = (1 << pMonStats2Txt->nTotalPieces) - pPreset->nCount;
+ const int nRemaining = (1 << pMonStats2Txt->nExtraComponentChoices) - pPreset->nCount;
  if (nCount > nRemaining) nCount = nRemaining;
  if (nCount <= 0) return;
  if (pPreset->nCount + nCount > 3) nCount = 3 - pPreset->nCount;

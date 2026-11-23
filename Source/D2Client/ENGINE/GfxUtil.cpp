@@ -931,8 +931,7 @@ unsigned char __fastcall MISSILE_GetGfxEntryByte(D2UnitStrc* pUnit, int nIndex)
     D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
     if (!pGfxData)
         return 0;
-    const D2GfxEntryStrc* pEntries = (const D2GfxEntryStrc*)pGfxData;
-    return pEntries[nIndex].nValue;
+    return pGfxData->aEntries[nIndex][0];
 }
 
 // 0x004DBEA0
@@ -1862,7 +1861,7 @@ void __fastcall GFXUTIL_SetGfxEntryByte(D2UnitStrc* pUnit, int nIndex, unsigned 
     D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
     if (pGfxData)
     {
-        ((D2GfxEntryStrc*)pGfxData)[nIndex].nValue = nValue;
+        pGfxData->aEntries[nIndex][0] = nValue;
     }
 }
 

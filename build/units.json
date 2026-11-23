@@ -3458,6 +3458,11 @@
      "name": "?MAINMENUS_ShowMessageNoArg@@YIXPBUUnicode@@P6AXXZ@Z"
     },
     {
+     "va": "0x00433450",
+     "length": 8,
+     "name": "?CHARSEL_ShowText@@YIXPBUUnicode@@P6AXXZ@Z"
+    },
+    {
      "va": "0x004334D0",
      "length": 13,
      "name": "?MAINMENUS_OnCloseBox@@YGHH@Z"
@@ -3758,64 +3763,6 @@
      "name": "?MAINMENUS_OnEditChange@@YGHH@Z"
     },
     {
-     "va": "0x00436F30",
-     "length": 384,
-     "name": "?MAINMENUS_CreateEmailScreen@@YAXXZ"
-    },
-    {
-     "va": "0x004370B0",
-     "length": 13
-    },
-    {
-     "va": "0x004370C0",
-     "length": 231,
-     "name": "?MAINMENUS_CreateInfoScreen@@YAXXZ"
-    },
-    {
-     "va": "0x004371B0",
-     "length": 13,
-     "name": "?sub_004371B0_OnLoginScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x004371C0",
-     "length": 13,
-     "name": "?sub_004371C0_OnEmailScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x004371D0",
-     "length": 13,
-     "name": "?sub_004371D0_OnShowLogin@@YGHH@Z"
-    },
-    {
-     "va": "0x004371E0",
-     "length": 192,
-     "name": "?MAINMENUS_UpdatePasswordOk@@YAXXZ"
-    },
-    {
-     "va": "0x004372A0",
-     "length": 13,
-     "name": "?sub_004372A0_OnEnter@@YGHH@Z"
-    },
-    {
-     "va": "0x004372B0",
-     "length": 554,
-     "name": "?MAINMENUS_CreatePasswordScreen@@YAXXZ"
-    },
-    {
-     "va": "0x004374E0",
-     "length": 13,
-     "name": "?sub_004374E0_OnInfoScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x004374F0",
-     "length": 89
-    },
-    {
-     "va": "0x00437550",
-     "length": 200,
-     "name": "?MAINMENUS_CreateStatusScreen@@YAXXZ"
-    },
-    {
      "va": "0x0043B4C0",
      "length": 82,
      "name": "MAINMENUS_OnRealmListClick"
@@ -3854,11 +3801,6 @@
      "va": "0x00436C90",
      "length": 51,
      "name": "?MAINMENUS_AskEmailRegistration@@YGHH@Z"
-    },
-    {
-     "va": "0x00437620",
-     "length": 229,
-     "name": "?MAINMENUS_ConfirmText@@YGHH@Z"
     }
    ],
    "flags": [
@@ -9334,11 +9276,6 @@
      "name": "?sub_004325B0_CreateScreen@@YAXXZ"
     },
     {
-     "va": "0x00433450",
-     "length": 8,
-     "name": "?CHARSEL_ShowText@@YIXPBUUnicode@@P6AXXZ@Z"
-    },
-    {
      "va": "0x00434700",
      "length": 90,
      "name": "?CHARSEL_OnRealmSelected@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
@@ -9468,6 +9405,11 @@
      "va": "0x00439780",
      "length": 189,
      "name": "?CHARSEL_PickClass@@YIXHH@Z"
+    },
+    {
+     "va": "0x00439840",
+     "length": 687,
+     "name": "?COMCALLBACK_OnCharSelectOk@@YGHH@Z"
     },
     {
      "va": "0x00439AF0",
@@ -9803,11 +9745,6 @@
    "file": "Source/D2Launch/Src/CharSel_004378D0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004378D0",
-     "length": 233,
-     "name": "?CHARSEL_SubmitPasswordReset@@YGHH@Z"
-    },
     {
      "va": "0x00437A20",
      "length": 55
@@ -11190,11 +11127,6 @@
      "name": "?COMCALLBACK_FilterNameChar@@YGHPAUD2WinControlStrc@@HPBD@Z"
     },
     {
-     "va": "0x00439840",
-     "length": 687,
-     "name": "?COMCALLBACK_OnCharSelectOk@@YGHH@Z"
-    },
-    {
      "va": "0x0043F730",
      "length": 196,
      "name": "?COMCALLBACK_UpdateNameListText@@YAXXZ"
@@ -11525,11 +11457,6 @@
      "va": "0x00451450",
      "length": 83,
      "name": "COMCALLBACK_RecordMessage"
-    },
-    {
-     "va": "0x00451DB0",
-     "length": 85,
-     "name": "COMCALLBACK_RegisterMsgHandlers"
     }
    ],
    "flags": [
@@ -12016,6 +11943,69 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00436F30",
+     "length": 384,
+     "name": "?MAINMENUS_CreateEmailScreen@@YAXXZ"
+    },
+    {
+     "va": "0x004370B0",
+     "length": 13
+    },
+    {
+     "va": "0x004370C0",
+     "length": 231,
+     "name": "?MAINMENUS_CreateInfoScreen@@YAXXZ"
+    },
+    {
+     "va": "0x004371B0",
+     "length": 13,
+     "name": "?sub_004371B0_OnLoginScreen@@YGHH@Z"
+    },
+    {
+     "va": "0x004371C0",
+     "length": 13,
+     "name": "?sub_004371C0_OnEmailScreen@@YGHH@Z"
+    },
+    {
+     "va": "0x004371D0",
+     "length": 13,
+     "name": "?sub_004371D0_OnShowLogin@@YGHH@Z"
+    },
+    {
+     "va": "0x004371E0",
+     "length": 192,
+     "name": "?MAINMENUS_UpdatePasswordOk@@YAXXZ"
+    },
+    {
+     "va": "0x004372A0",
+     "length": 13,
+     "name": "?sub_004372A0_OnEnter@@YGHH@Z"
+    },
+    {
+     "va": "0x004372B0",
+     "length": 554,
+     "name": "?MAINMENUS_CreatePasswordScreen@@YAXXZ"
+    },
+    {
+     "va": "0x004374E0",
+     "length": 13,
+     "name": "?sub_004374E0_OnInfoScreen@@YGHH@Z"
+    },
+    {
+     "va": "0x004374F0",
+     "length": 89
+    },
+    {
+     "va": "0x00437550",
+     "length": 200,
+     "name": "?MAINMENUS_CreateStatusScreen@@YAXXZ"
+    },
+    {
+     "va": "0x00437620",
+     "length": 229,
+     "name": "?MAINMENUS_ConfirmText@@YGHH@Z"
+    },
+    {
      "va": "0x00437710",
      "length": 13,
      "name": "?sub_00437710_OnInfoScreen@@YGHH@Z"
@@ -12024,17 +12014,16 @@
      "va": "0x00437720",
      "length": 13,
      "name": "?sub_00437720_OnPasswordScreen@@YGHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_004374F0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00437730",
      "length": 413,
      "name": "?sub_00437730_ChangePassword@@YGHH@Z"
+    },
+    {
+     "va": "0x004378D0",
+     "length": 233,
+     "name": "?CHARSEL_SubmitPasswordReset@@YGHH@Z"
     }
    ],
    "flags": [
@@ -16549,6 +16538,11 @@
      "name": "SCMD_UnregisterMsgHandler"
     },
     {
+     "va": "0x00451DB0",
+     "length": 85,
+     "name": "COMCALLBACK_RegisterMsgHandlers"
+    },
+    {
      "va": "0x00452090",
      "length": 35,
      "name": "SCMD_HandleResetMessage"
@@ -18167,6 +18161,33 @@
      "name": "?GFX_RemoveAiTargetUnit@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0046C770",
+     "length": 94,
+     "name": "?sub_0046C770_CommandOnUnit@@YGXHHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x0046C960",
+     "length": 254,
+     "name": "?sub_0046C960_StepRandom@@YGXEHHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046CE40",
+     "length": 552
+    },
+    {
+     "va": "0x0046D110",
+     "length": 363
+    },
+    {
+     "va": "0x0046D450",
+     "length": 524,
+     "name": "?sub_0046D450_AiType8@@YAXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046D780",
+     "length": 563
+    },
+    {
      "va": "0x0046DB30",
      "length": 89
     },
@@ -18387,6 +18408,34 @@
      "va": "0x00471BD0",
      "length": 740,
      "name": "?GFX_DrawUnitHealthBar@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004723F0",
+     "length": 6,
+     "name": "?sub_004723F0_GetPhase@@YAHXZ"
+    },
+    {
+     "va": "0x00472400",
+     "length": 301
+    },
+    {
+     "va": "0x00472530",
+     "length": 20,
+     "name": "?sub_00472530_SetPhaseActive@@YAXH@Z"
+    },
+    {
+     "va": "0x00472550",
+     "length": 57,
+     "name": "?sub_00472550_ResetWeather@@YAXXZ"
+    },
+    {
+     "va": "0x004732C0",
+     "length": 429
+    },
+    {
+     "va": "0x00473A70",
+     "length": 391,
+     "name": "?sub_00473A70@@YIXPAUD2WeatherStrc@@PAUD2WeatherLayerStateStrc@@@Z"
     },
     {
      "va": "0x00473E50",
@@ -20705,17 +20754,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_0046C770.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0046C770",
-     "length": 94,
-     "name": "?sub_0046C770_CommandOnUnit@@YGXHHPAUD2UnitStrc@@0@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_0046C7D0.cpp",
    "rank": 0,
    "functions": [
@@ -20779,86 +20817,6 @@
      "length": 226,
      "name": "?sub_0046D660_AiFlagged@@YAXPAUD2UnitStrc@@0@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0046C960.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0046C960",
-     "length": 254,
-     "name": "?sub_0046C960_StepRandom@@YGXEHHPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0046CE40.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0046CE40",
-     "length": 552
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0046D110.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0046D110",
-     "length": 363
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0046D450.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0046D450",
-     "length": 524,
-     "name": "?sub_0046D450_AiType8@@YAXPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0046D780.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0046D780",
-     "length": 563
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -21241,56 +21199,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004723F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004723F0",
-     "length": 6,
-     "name": "?sub_004723F0_GetPhase@@YAHXZ"
-    },
-    {
-     "va": "0x00472530",
-     "length": 20,
-     "name": "?sub_00472530_SetPhaseActive@@YAXH@Z"
-    },
-    {
-     "va": "0x00472550",
-     "length": 57,
-     "name": "?sub_00472550_ResetWeather@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00472400.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00472400",
-     "length": 301
-    },
-    {
-     "va": "0x00473A70",
-     "length": 391,
-     "name": "?sub_00473A70@@YIXPAUD2WeatherStrc@@PAUD2WeatherLayerStateStrc@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004726F0.cpp",
    "rank": 1,
    "functions": [
@@ -21492,30 +21400,6 @@
     {
      "va": "0x00473090",
      "length": 556
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004732C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004732C0",
-     "length": 429
     }
    ],
    "flags": [
@@ -22643,11 +22527,6 @@
      "va": "0x004B8370",
      "length": 39,
      "name": "@ROSTER_SetCtrlState@8"
-    },
-    {
-     "va": "0x004CA990",
-     "length": 48,
-     "name": "@ROSTER_GetLinkFirst@4"
     }
    ]
   },
@@ -22691,6 +22570,11 @@
      "name": "WARDENCLIENT_HandleChatKeyDown"
     },
     {
+     "va": "0x0047C3F0",
+     "length": 40,
+     "name": "?sub_0047C3F0_CopyCommandArgs@@YGXPADPBDI@Z"
+    },
+    {
      "va": "0x0047CA70",
      "length": 540,
      "name": "?sub_0047CA70_OnChatChar@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
@@ -22699,6 +22583,26 @@
      "va": "0x0047E090",
      "length": 360,
      "name": "WARDENCLIENT_ToggleEscMenuUIState"
+    },
+    {
+     "va": "0x0047E8B0",
+     "length": 229,
+     "name": "?sub_0047E8B0_LayoutSlots@@YAXH@Z"
+    },
+    {
+     "va": "0x0047F490",
+     "length": 448,
+     "name": "?sub_0047F490_ShowSlotTooltip@@YGXHHH@Z"
+    },
+    {
+     "va": "0x0047F650",
+     "length": 181,
+     "name": "?sub_0047F650_UpdateSlotHover@@YAXH@Z"
+    },
+    {
+     "va": "0x0047F710",
+     "length": 410,
+     "name": "?sub_0047F710_UpdateSlotBar@@YAXXZ"
     },
     {
      "va": "0x0047F8B0",
@@ -22714,6 +22618,11 @@
      "va": "0x0047F940",
      "length": 5,
      "name": "??1D2WardenModuleHolderAStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0047F950",
+     "length": 58,
+     "name": "?sub_0047F950_CheckBlockSignature@@YGHPBD0PAH0@Z"
     },
     {
      "va": "0x0047F990",
@@ -23423,51 +23332,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_0047C3F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0047C3F0",
-     "length": 40,
-     "name": "?sub_0047C3F0_CopyCommandArgs@@YGXPADPBDI@Z"
-    },
-    {
-     "va": "0x0047E8B0",
-     "length": 229,
-     "name": "?sub_0047E8B0_LayoutSlots@@YAXH@Z"
-    },
-    {
-     "va": "0x0047F490",
-     "length": 448,
-     "name": "?sub_0047F490_ShowSlotTooltip@@YGXHHH@Z"
-    },
-    {
-     "va": "0x0047F650",
-     "length": 181,
-     "name": "?sub_0047F650_UpdateSlotHover@@YAXH@Z"
-    },
-    {
-     "va": "0x0047F710",
-     "length": 410,
-     "name": "?sub_0047F710_UpdateSlotBar@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_0047C420.cpp",
    "rank": 1,
    "functions": [
@@ -23666,17 +23530,6 @@
      "va": "0x0047F210",
      "length": 135,
      "name": "?sub_0047F210_IsMouseInSlots@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0047F950.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0047F950",
-     "length": 58,
-     "name": "?sub_0047F950_CheckBlockSignature@@YGHPBD0PAH0@Z"
     }
    ]
   },
@@ -31163,6 +31016,11 @@
      "name": "?MISSILE_FindUnitSfxInRange@@YIPAXPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x004CA990",
+     "length": 48,
+     "name": "?ROSTER_GetLinkFirst@@YIPAXPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004CA9C0",
      "length": 72,
      "name": "?UNITSND_ReleaseUnitHints@@YIXPAUD2UnitStrc@@H@Z"
@@ -31999,7 +31857,7 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004DED10.cpp",
+   "file": "Source/D2Client/Unknown_004DEDB0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -32016,46 +31874,6 @@
      "va": "0x004DF480",
      "length": 46,
      "name": "?sub_004DF480_UpdateAllTileLights@@YIXPAUD2TileLightCtxStrc@@@Z"
-    },
-    {
-     "va": "0x004DF7B0",
-     "length": 66,
-     "name": "?sub_004DF7B0_StopSlot@@YIXPAUD2SlotStrc@@@Z"
-    },
-    {
-     "va": "0x004DF800",
-     "length": 103,
-     "name": "?sub_004DF800@@YAXXZ"
-    },
-    {
-     "va": "0x004DF870",
-     "length": 6,
-     "name": "sub_004DF870"
-    },
-    {
-     "va": "0x004DF880",
-     "length": 6,
-     "name": "sub_004DF880"
-    },
-    {
-     "va": "0x004DF890",
-     "length": 102,
-     "name": "?sub_004DF890@@YAXXZ"
-    },
-    {
-     "va": "0x004DF9D0",
-     "length": 98,
-     "name": "SoundChannelFind"
-    },
-    {
-     "va": "0x004DFA40",
-     "length": 18,
-     "name": "?sub_004DFA40_IsSlotPlaying@@YIHPAUD2SlotStrc@@@Z"
-    },
-    {
-     "va": "0x004DFA60",
-     "length": 56,
-     "name": "?sub_004DFA60@@YAXXZ"
     }
    ]
   },
@@ -32090,19 +31908,6 @@
     {
      "va": "0x004DF1C0",
      "length": 699
-    },
-    {
-     "va": "0x004DFB50",
-     "length": 207,
-     "name": "?sub_004DFB50_GetFreeSlot@@YGPAUD2SlotStrc@@PAUD2SlotObjectStrc@@H@Z"
-    },
-    {
-     "va": "0x004E01B0",
-     "length": 438
-    },
-    {
-     "va": "0x004E0590",
-     "length": 178
     },
     {
      "va": "0x004E0730",
@@ -32150,80 +31955,6 @@
      "va": "0x004DF510",
      "length": 280,
      "name": "sub_004DF510_DrawCellNodes"
-    },
-    {
-     "va": "0x004DF770",
-     "length": 18
-    },
-    {
-     "va": "0x004DF790",
-     "length": 26,
-     "name": "?sub_004DF790_ReleaseSlotObject@@YIXPAUD2SlotStrc@@@Z"
-    },
-    {
-     "va": "0x004DF900",
-     "length": 7,
-     "name": "?sub_004DF900_GetSlotSampleCount@@YIIPAUD2SlotStrc@@@Z"
-    },
-    {
-     "va": "0x004DF910",
-     "length": 5,
-     "name": "?sub_004DF910_GetSoundMode@@YAHXZ"
-    },
-    {
-     "va": "0x004DF920",
-     "length": 1,
-     "name": "?sub_004DF920_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x004DF930",
-     "length": 1,
-     "name": "?sub_004DF930_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x004DF940",
-     "length": 17,
-     "name": "?sub_004DF940@@YAHXZ"
-    },
-    {
-     "va": "0x004DF960",
-     "length": 17,
-     "name": "?sub_004DF960@@YAHXZ"
-    },
-    {
-     "va": "0x004DF980",
-     "length": 33,
-     "name": "?sub_004DF980_IsSoundMode1Or2@@YAHXZ"
-    },
-    {
-     "va": "0x004DF9B0",
-     "length": 28,
-     "name": "?sub_004DF9B0_IsSoundMode2@@YAHXZ"
-    },
-    {
-     "va": "0x004E00C0",
-     "length": 5,
-     "name": "?sub_004E00C0_CloseSoundChannels@@YAXXZ"
-    },
-    {
-     "va": "0x004E00D0",
-     "length": 106,
-     "name": "?sub_004E00D0_ToggleSoundMode01@@YAHXZ"
-    },
-    {
-     "va": "0x004E0140",
-     "length": 110,
-     "name": "?sub_004E0140_ToggleSoundMode12@@YAHXZ"
-    },
-    {
-     "va": "0x004E0650",
-     "length": 38,
-     "name": "?sub_004E0650_GetStringSound@@YIHG@Z"
-    },
-    {
-     "va": "0x004E0690",
-     "length": 7,
-     "name": "?sub_004E0690_SetSoundTableFlag@@YIXH@Z"
     },
     {
      "va": "0x004E06A0",
@@ -32293,24 +32024,9 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004DFAA0.cpp",
+   "file": "Source/D2Client/Unknown_004E12D0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004DFAA0",
-     "length": 176,
-     "name": "?sub_004DFAA0_InitSoundChannels@@YAHH@Z"
-    },
-    {
-     "va": "0x004E0000",
-     "length": 74,
-     "name": "?sub_004E0000_SetSoundMode@@YIHH@Z"
-    },
-    {
-     "va": "0x004E0050",
-     "length": 108,
-     "name": "?sub_004E0050_RestartSound@@YIXH@Z"
-    },
     {
      "va": "0x004E12D0",
      "length": 19,
@@ -32339,13 +32055,9 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004DFC20.cpp",
+   "file": "Source/D2Client/Unknown_004E1770.cpp",
    "rank": 1,
    "functions": [
-    {
-     "va": "0x004DFC20",
-     "length": 987
-    },
     {
      "va": "0x004E1770",
      "length": 378
@@ -32367,14 +32079,174 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004E0370.cpp",
+   "file": "Source/D2Client/Unknown_004DF770.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x004DF770",
+     "length": 18
+    },
+    {
+     "va": "0x004DF790",
+     "length": 26,
+     "name": "?sub_004DF790_ReleaseSlotObject@@YIXPAUD2SlotStrc@@@Z"
+    },
+    {
+     "va": "0x004DF7B0",
+     "length": 66,
+     "name": "?sub_004DF7B0_StopSlot@@YIXPAUD2SlotStrc@@@Z"
+    },
+    {
+     "va": "0x004DF800",
+     "length": 103,
+     "name": "?sub_004DF800@@YAXXZ"
+    },
+    {
+     "va": "0x004DF870",
+     "length": 6,
+     "name": "sub_004DF870"
+    },
+    {
+     "va": "0x004DF880",
+     "length": 6,
+     "name": "sub_004DF880"
+    },
+    {
+     "va": "0x004DF890",
+     "length": 102,
+     "name": "?sub_004DF890@@YAXXZ"
+    },
+    {
+     "va": "0x004DF900",
+     "length": 7,
+     "name": "?sub_004DF900_GetSlotSampleCount@@YIIPAUD2SlotStrc@@@Z"
+    },
+    {
+     "va": "0x004DF910",
+     "length": 5,
+     "name": "?sub_004DF910_GetSoundMode@@YAHXZ"
+    },
+    {
+     "va": "0x004DF920",
+     "length": 1,
+     "name": "?sub_004DF920_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x004DF930",
+     "length": 1,
+     "name": "?sub_004DF930_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x004DF940",
+     "length": 17,
+     "name": "?sub_004DF940@@YAHXZ"
+    },
+    {
+     "va": "0x004DF960",
+     "length": 17,
+     "name": "?sub_004DF960@@YAHXZ"
+    },
+    {
+     "va": "0x004DF980",
+     "length": 33,
+     "name": "?sub_004DF980_IsSoundMode1Or2@@YAHXZ"
+    },
+    {
+     "va": "0x004DF9B0",
+     "length": 28,
+     "name": "?sub_004DF9B0_IsSoundMode2@@YAHXZ"
+    },
+    {
+     "va": "0x004DF9D0",
+     "length": 98,
+     "name": "SoundChannelFind"
+    },
+    {
+     "va": "0x004DFA40",
+     "length": 18,
+     "name": "?sub_004DFA40_IsSlotPlaying@@YIHPAUD2SlotStrc@@@Z"
+    },
+    {
+     "va": "0x004DFA60",
+     "length": 56,
+     "name": "?sub_004DFA60@@YAXXZ"
+    },
+    {
+     "va": "0x004DFAA0",
+     "length": 176,
+     "name": "?sub_004DFAA0_InitSoundChannels@@YAHH@Z"
+    },
+    {
+     "va": "0x004DFB50",
+     "length": 207,
+     "name": "?sub_004DFB50_GetFreeSlot@@YGPAUD2SlotStrc@@PAUD2SlotObjectStrc@@H@Z"
+    },
+    {
+     "va": "0x004DFC20",
+     "length": 987
+    },
+    {
+     "va": "0x004E0000",
+     "length": 74,
+     "name": "?sub_004E0000_SetSoundMode@@YIHH@Z"
+    },
+    {
+     "va": "0x004E0050",
+     "length": 108,
+     "name": "?sub_004E0050_RestartSound@@YIXH@Z"
+    },
+    {
+     "va": "0x004E00C0",
+     "length": 5,
+     "name": "?sub_004E00C0_CloseSoundChannels@@YAXXZ"
+    },
+    {
+     "va": "0x004E00D0",
+     "length": 106,
+     "name": "?sub_004E00D0_ToggleSoundMode01@@YAHXZ"
+    },
+    {
+     "va": "0x004E0140",
+     "length": 110,
+     "name": "?sub_004E0140_ToggleSoundMode12@@YAHXZ"
+    },
+    {
+     "va": "0x004E01B0",
+     "length": 438
+    },
     {
      "va": "0x004E0370",
      "length": 536,
      "name": "?sub_004E0370_GetNpcSoundRecord@@YAPAUD2NpcSoundStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004E0590",
+     "length": 178
+    },
+    {
+     "va": "0x004E0650",
+     "length": 38,
+     "name": "?sub_004E0650_GetStringSound@@YIHG@Z"
+    },
+    {
+     "va": "0x004E0690",
+     "length": 7,
+     "name": "?sub_004E0690_SetSoundTableFlag@@YIXH@Z"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
@@ -44683,12 +44555,21 @@
      "length": 347
     },
     {
+     "va": "0x005DF2A0",
+     "length": 340
+    },
+    {
      "va": "0x005DF400",
      "length": 304
     },
     {
      "va": "0x005DF530",
      "length": 326
+    },
+    {
+     "va": "0x005DF680",
+     "length": 335,
+     "name": "?AITACTICS_RunCloseToTargetUnit@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1E@Z"
     },
     {
      "va": "0x005DF7D0",
@@ -62057,16 +61938,6 @@
      "name": "?SKILLITEM_GetMonEquipTxtRecord@@YIPAUD2MonEquipTxt@@H@Z"
     },
     {
-     "va": "0x005FD0F0",
-     "length": 269,
-     "name": "?AIBAAL_SpawnUberBaalMinion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005FD200",
-     "length": 3,
-     "name": "AITHINK_Fn145_UberBaal"
-    },
-    {
      "va": "0x005FD350",
      "length": 285
     },
@@ -63972,27 +63843,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005DF2A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005DF2A0",
-     "length": 340
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005DF680.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005DF680",
-     "length": 335,
-     "name": "?AITACTICS_RunCloseToTargetUnit@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1E@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/OBJECTS/OBJEVAL.CPP",
    "rank": 0,
    "functions": [
@@ -64175,57 +64025,25 @@
      "va": "0x005FCF30",
      "length": 168,
      "name": "AIBAAL_RunSpecialAiState"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005FCFE0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x005FCFE0",
      "length": 258
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005FD210.cpp",
-   "rank": 1,
-   "functions": [
+    },
+    {
+     "va": "0x005FD0F0",
+     "length": 269,
+     "name": "?AIBAAL_SpawnUberBaalMinion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005FD200",
+     "length": 3,
+     "name": "AITHINK_Fn145_UberBaal"
+    },
     {
      "va": "0x005FD210",
      "length": 310
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {

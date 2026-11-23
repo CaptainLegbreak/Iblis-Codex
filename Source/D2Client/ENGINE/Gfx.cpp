@@ -8,6 +8,10 @@
 #include "D2UnitData.h"
 #include "D2CelContext.h"
 #include "D2ClientGfx.h"
+#include "D2ClientTypes.h"
+#include "D2ClientGame.h"
+#include "D2Path.h"
+#include "D2LevelIds.h"
 
 struct D2UnitStrc;
 
@@ -91,15 +95,6 @@ struct D2UnitOverlayStrc
     D2UnitOverlayStrc* pNext;
 };
 
-struct D2GfxDataStrc
-{
-    D2GfxEntryStrc tEntries[GFX_ENTRY_COUNT];
-    D2GfxListNodeStrc* pList;
-    D2UnitOverlayStrc* pOverlays;
-    D2GfxMotionStrc* pMotion;
-    int nUnk0x34;
-    int nUnk0x38;
-};
 
 struct D2OverlayTxt
 {
@@ -272,15 +267,6 @@ struct D2MonStats2Txt;
 
 struct D2GfxBoundsStrc;
 
-struct D2GfxNodeTargetStrc
-{
-    char unk0x00[0x14];
-    union
-    {
-        int nValue;
-        D2GfxLayerStrc* pLayer;
-    };
-};
 
 
 
@@ -296,15 +282,6 @@ extern int gdwLastPreloadTick; // 0x007A8910
 
 extern int gnCofMemoryLimit; // 0x007A891C
 
-struct D2RosterPetStrc
-{
-    int nClassId;
-    int nType;
-    int dwUnitId;
-    int dwOwnerId;
-    char unk0x10[0x20];
-    D2RosterPetStrc* pNext;
-};
 
 struct D2RosterUnitStrc
 {
@@ -508,6 +485,821 @@ inline int STATES_IsUnitShapeShiftedInline(D2UnitStrc* pUnit)
         bResult = (pUnit->dwFlagEx >> 3) & 1;
     return bResult;
 }
+
+int* __fastcall MONSTER_GetAiValuePtr(D2UnitStrc* pUnit); // 0x004AE170
+
+void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2MonCommandStrc* pTarget); // 0x004AFF60
+
+void __fastcall CUNIT_RemoveServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465F00
+
+int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+
+int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
+
+int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
+
+void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance); // 0x00648E70
+
+static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+static inline unsigned int SEED_RollUnitHL_0046CE40(D2UnitStrc* pUnit)
+{
+    const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
+    pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
+    pUnit->pSeed.nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+static inline int UNITS_GetUnitIdInline(D2UnitStrc* pUnit)
+{
+    return !pUnit ? -1 : pUnit->dwUnitId;
+}
+
+static inline int AI_GetUnitMode_Inline(D2UnitStrc* pUnit)
+{
+    return !pUnit ? 0 : pUnit->dwAnimMode;
+}
+
+static void __stdcall sub_0046CA60_CommandToXY(int nCommand, D2UnitStrc* pUnit, int nX, int nArg, int nY); // 0x0046CA60
+
+static void __stdcall sub_0046CA60_CommandToXY(int nCommand, D2UnitStrc* pUnit, int nX, int nArg, int nY)
+{
+    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+    D2MonCommandStrc tCommand;
+    tCommand.nX = nX;
+    tCommand.nY = nY;
+    tCommand.nZero = 0;
+    tCommand.nPathValue = sub_00648E30_GetPathValue(pPath);
+    tCommand.nArg = nArg;
+    tCommand.nPathByte = sub_00648EA0_GetPathByte(pPath);
+    MONSTER_HandleMonsterCommand(nCommand, pUnit, &tCommand);
+}
+
+static void sub_0046CE40_AiType3(D2UnitStrc* pUnit);
+
+// 0x0046CE40
+static void sub_0046CE40_AiType3(D2UnitStrc* pUnit)
+{
+    if (AI_GetUnitMode_Inline(pUnit) == 1)
+    {
+        int* pState = MONSTER_GetAiValuePtr(pUnit);
+        if (pState)
+        {
+            D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+            const int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pPlayer);
+            if (*pState && nDistance > 25)
+            {
+                CUNIT_RemoveServerSideUnit(UNITS_GetUnitIdInline(pUnit), 1);
+                return;
+            }
+
+            *pState = 1;
+
+            int nOffsetY;
+            int nOffsetX;
+            if (SEED_RollUnitHL_0046CE40(pUnit) & 1)
+            {
+                nOffsetX = 40;
+                nOffsetY = SEED_RollUnitHL_0046CE40(pUnit) % 40;
+            }
+            else
+            {
+                nOffsetX = SEED_RollUnitHL_0046CE40(pUnit) % 40;
+                nOffsetY = 40;
+            }
+
+            if (SEED_RollUnitHL_0046CE40(pUnit) & 1)
+            {
+                nOffsetX = -nOffsetX;
+            }
+
+            if (SEED_RollUnitHL_0046CE40(pUnit) & 1)
+            {
+                nOffsetY = -nOffsetY;
+            }
+
+            int nTargetX = CLIENTS_GetUnitXInline(pPlayer);
+            int nTargetY = CLIENTS_GetUnitYInline(pPlayer);
+            nTargetX += nOffsetX;
+            nTargetY += nOffsetY;
+            const int nUnitX = CLIENTS_GetUnitXInline(pUnit);
+            const int nUnitY = CLIENTS_GetUnitYInline(pUnit);
+            PATH_SetNewDistance(pUnit->pDynamicPath, 90);
+            sub_0046CA60_CommandToXY(1, pUnit, 3 * nTargetX - 2 * nUnitX, 0, 3 * nTargetY - 2 * nUnitY);
+        }
+    }
+}
+
+void __fastcall sub_E19_Emit_0046CE40(D2UnitStrc* pUnit, int nClassId)
+{
+    switch (nClassId)
+    {
+    case 0x9D:
+    case 0x9E:
+    case 0x13F:
+        sub_0046CE40_AiType3(pUnit);
+        return;
+    }
+}
+
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                                                           // 0x00463DE0
+
+int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag);                                   // 0x00457490
+
+D2UnitStrc* __fastcall GFXUTIL_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB);// 0x004CDB40
+
+void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ);                    // 0x004DA1D0
+
+void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA200
+
+void __stdcall GFXUTIL_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA2A0
+
+void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet);                                  // 0x004DA6E0
+
+void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit);                                                // 0x004DA350
+
+unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
+
+int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster);                                                        // 0x0063EA40
+
+void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask);         // 0x00648C30
+
+void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames);                              // 0x0064A2B0
+
+void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame);                            // 0x0064A330
+
+void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX);                                      // 0x0064A710
+
+void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY);                                      // 0x0064A760
+
+static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
+{
+    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    return (unsigned int)lSeed;
+}
+
+static inline unsigned __int64 SEED_RollFrom_Inline(D2SeedStrc* pSeed, unsigned int nLow, unsigned int nHigh)
+{
+    const unsigned __int64 lSeed = nHigh + 0x6AC690C5i64 * nLow;
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    return lSeed;
+}
+
+static inline unsigned __int64 SEED_RollFromHL_Inline(D2SeedStrc* pSeed, unsigned int nLow, unsigned int nHigh)
+{
+    const unsigned __int64 lSeed = nHigh + 0x6AC690C5i64 * nLow;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return lSeed;
+}
+
+static inline unsigned int SEED_RollRandomNumberHL_Inline(D2SeedStrc* pSeed)
+{
+    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+static inline int SEED_RollPercentage_Inline(D2SeedStrc* pSeed)
+{
+    return SEED_RollRandomNumber_Inline(pSeed) % 100;
+}
+
+static inline void AI_SetTimer_Inline(D2UnitStrc* pUnit, int nTicks)
+{
+    int* pTimer = sub_004AE110_GetAiTimer(pUnit);
+    if (pTimer)
+    {
+        *pTimer = nTicks;
+    }
+}
+
+// build: context sub_0046C720_FindNearestTarget
+static D2UnitStrc* __stdcall sub_0046C720_FindNearestTarget(D2UnitStrc* pUnit, int* pDistance)
+{
+    D2UnitStrc* pNearest = 0;
+    for (int i = 0; i < 8; ++i)
+    {
+        D2UnitStrc* pTarget = gapAiTargets[i];
+        if (pTarget && pTarget->dwAnimMode && pTarget->dwAnimMode != 12)
+        {
+            const int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
+            if (nDistance < *pDistance)
+            {
+                pNearest = gapAiTargets[i];
+                *pDistance = nDistance;
+            }
+        }
+    }
+
+    return pNearest;
+}
+
+// 0x0046C770
+static void __stdcall sub_0046C770_CommandOnUnit(int nCommand, int nArg, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+{
+    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+    int nTargetType = 6;
+    if (pTarget)
+    {
+        nTargetType = pTarget->dwUnitType;
+    }
+
+    D2MonCommandStrc tCommand;
+    tCommand.nX = nTargetType;
+    const int nTargetId = !pTarget ? -1 : pTarget->dwUnitId;
+    tCommand.nY = nTargetId;
+    tCommand.nZero = 0;
+    tCommand.nPathValue = sub_00648E30_GetPathValue(pPath);
+    tCommand.nArg = nArg;
+    tCommand.nPathByte = sub_00648EA0_GetPathByte(pPath);
+    MONSTER_HandleMonsterCommand(nCommand, pUnit, &tCommand);
+}
+
+
+static int __stdcall sub_0046C7D0_StepAwayFromUnit(D2UnitStrc* pUnit, unsigned char nScale, int nCommand, int nArg, D2UnitStrc* pTarget)
+{
+    const int nUnitX = CLIENTS_GetUnitXInline(pUnit);
+    const int nUnitY = CLIENTS_GetUnitYInline(pUnit);
+    const int nTargetX = CLIENTS_GetUnitXInline(pTarget);
+    const int nTargetY = CLIENTS_GetUnitYInline(pTarget);
+
+    int nDirY = 0;
+    int nDirX = 0;
+    if ((unsigned int)nTargetX > (unsigned int)nUnitX)
+    {
+        nDirX = -1;
+    }
+    if ((unsigned int)nTargetX < (unsigned int)nUnitX)
+    {
+        nDirX = 1;
+    }
+    if ((unsigned int)nTargetY > (unsigned int)nUnitY)
+    {
+        nDirY = -1;
+    }
+    if ((unsigned int)nTargetY < (unsigned int)nUnitY)
+    {
+        nDirY = 1;
+    }
+
+    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+    if (COLLISION_CheckMaskWithSize(UNITS_GetRoom(pUnit), nDirX + nUnitX, nDirY + nUnitY, 1, PATH_GetFootprintCollisionMask(pPath)))
+    {
+        return 0;
+    }
+
+    D2MonCommandStrc tCommand;
+    tCommand.nX = nUnitX + nScale * nDirX;
+    tCommand.nY = nUnitY + nScale * nDirY;
+    tCommand.nZero = 0;
+    tCommand.nPathValue = sub_00648E30_GetPathValue(pPath);
+    tCommand.nArg = nArg;
+    tCommand.nPathByte = sub_00648EA0_GetPathByte(pPath);
+    MONSTER_HandleMonsterCommand(nCommand, pUnit, &tCommand);
+    return 1;
+}
+
+static inline unsigned int SEED_RollUnitHL_0046C960(D2UnitStrc* pUnit)
+{
+    const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
+    pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
+    pUnit->pSeed.nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+static inline unsigned int SEED_RollUnitLH_0046C960(D2UnitStrc* pUnit)
+{
+    const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
+    pUnit->pSeed.nLowSeed = (unsigned int)lSeed;
+    pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
+    return (unsigned int)lSeed;
+}
+
+// 0x0046C960
+static void __stdcall sub_0046C960_StepRandom(unsigned char nScale, int nCommand, int nArg, D2UnitStrc* pUnit)
+{
+    const int nUnitX = CLIENTS_GetUnitXInline(pUnit);
+    const int nUnitY = CLIENTS_GetUnitYInline(pUnit);
+
+    int nOffsetX = nScale;
+    int nOffsetY = nScale;
+    if (SEED_RollUnitHL_0046C960(pUnit) & 1)
+    {
+        nOffsetX = -nOffsetX;
+    }
+
+    if (SEED_RollUnitLH_0046C960(pUnit) & 1)
+    {
+        nOffsetY = -nOffsetY;
+    }
+
+    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+    D2MonCommandStrc tCommand;
+    tCommand.nX = nUnitX + nOffsetX;
+    tCommand.nY = nUnitY + nOffsetY;
+    tCommand.nZero = 0;
+    tCommand.nPathValue = sub_00648E30_GetPathValue(pPath);
+    tCommand.nArg = nArg;
+    tCommand.nPathByte = sub_00648EA0_GetPathByte(pPath);
+    MONSTER_HandleMonsterCommand(nCommand, pUnit, &tCommand);
+}
+
+
+static void sub_0046CAB0_CommandMode8(D2UnitStrc* pUnit)
+{
+    D2MonCommandStrc tCommand = {};
+    tCommand.nX = CLIENTS_GetUnitXInline(pUnit);
+    tCommand.nY = CLIENTS_GetUnitYInline(pUnit);
+    MONSTER_HandleMonsterCommand(8, pUnit, &tCommand);
+}
+
+static void sub_0046CB40_CommandMode7(D2UnitStrc* pUnit)
+{
+    D2MonCommandStrc tCommand = {};
+    tCommand.nX = CLIENTS_GetUnitXInline(pUnit);
+    tCommand.nY = CLIENTS_GetUnitYInline(pUnit);
+    MONSTER_HandleMonsterCommand(7, pUnit, &tCommand);
+}
+
+static __declspec(noinline) void sub_0046CBD0_SetAiTimerClamped(D2UnitStrc* pUnit, int nTicks)
+{
+    if (nTicks >= 200)
+    {
+        nTicks = 200;
+    }
+
+    int* pTimer = sub_004AE110_GetAiTimer(pUnit);
+    if (pTimer)
+    {
+        *pTimer = nTicks;
+    }
+}
+
+static int sub_0046CBF0_IsSamePosition(D2UnitStrc* pTarget, D2UnitStrc* pUnit)
+{
+    const int nUnitX = CLIENTS_GetUnitXInline(pUnit);
+    const int nUnitY = CLIENTS_GetUnitYInline(pUnit);
+    const int nTargetX = CLIENTS_GetUnitXInline(pTarget);
+    const int nTargetY = CLIENTS_GetUnitYInline(pTarget);
+    if (nUnitX == nTargetX && nUnitY == nTargetY)
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
+static void sub_0046CCD0_AiType1(D2UnitStrc* pUnit)
+{
+    if (AI_GetUnitMode_Inline(pUnit) == 1)
+    {
+        D2UnitStrc* pFound = 0;
+        int nDistance = 0x7FFFFFFF;
+        sub_0046C570_FindRoomUnit(pUnit, &pFound, &nDistance, sub_0046C600_CheckTarget);
+        if (pFound)
+        {
+            D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+            PATH_SetFootprintCollisionMask(pPath, 0x3C01);
+            if (nDistance < 4)
+            {
+                PATH_SetFootprintCollisionMask(pPath, 0xC01);
+                if (!sub_0046C7D0_StepAwayFromUnit(pUnit, 4, 0xC, 0x78, pFound))
+                {
+                    sub_0046C960_StepRandom(4, 0xC, 0x78, pUnit);
+                }
+                return;
+            }
+
+            if (SEED_RollPercentage_Inline(&pUnit->pSeed) < 30)
+            {
+                sub_0046C960_StepRandom(2, 1, 0, pUnit);
+                return;
+            }
+
+            AI_SetTimer_Inline(pUnit, 5);
+        }
+    }
+}
+
+static void __stdcall sub_0046CDC0_AiType2(D2UnitStrc* pTarget, unsigned int nDistance, D2UnitStrc* pUnit)
+{
+    if (AI_GetUnitMode_Inline(pUnit) == 1)
+    {
+        if (nDistance < 5)
+        {
+            if (SEED_RollPercentage_Inline(&pUnit->pSeed) < 66)
+            {
+                sub_0046C7D0_StepAwayFromUnit(pUnit, 8, 1, 30, pTarget);
+            }
+            else
+            {
+                sub_0046C960_StepRandom(12, 1, 30, pUnit);
+            }
+        }
+        else
+        {
+            sub_0046C960_StepRandom(9, 1, 0, pUnit);
+        }
+    }
+}
+
+static void __stdcall sub_0046D070_AiType4(D2UnitStrc* pTarget, D2UnitStrc* pUnit)
+{
+    const int nMode = AI_GetUnitMode_Inline(pUnit);
+    if (MONSTERS_IsDead(pUnit))
+    {
+        return;
+    }
+
+    if (sub_0046CBF0_IsSamePosition(pTarget, pUnit))
+    {
+        sub_0046CAB0_CommandMode8(pUnit);
+        return;
+    }
+
+    if (nMode == 1)
+    {
+        if (SEED_RollPercentage_Inline(&pUnit->pSeed) < 40)
+        {
+            AI_SetTimer_Inline(pUnit, 20);
+            sub_0046CB40_CommandMode7(pUnit);
+            return;
+        }
+
+        sub_0046C960_StepRandom(4, 1, 0, pUnit);
+    }
+}
+
+// 0x0046D110
+static void __stdcall sub_0046D110_AiType5(unsigned int nDistance, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+{
+    if (!pUnit)
+    {
+        return;
+    }
+
+    const int nMode = pUnit->dwAnimMode;
+    if (nMode == 12 || nMode == 0)
+    {
+        return;
+    }
+
+    if (nDistance < 2 && sub_0046CBF0_IsSamePosition(pTarget, pUnit))
+    {
+        sub_0046CAB0_CommandMode8(pUnit);
+        return;
+    }
+
+    if (nMode != 1)
+    {
+        return;
+    }
+
+    if (nDistance < 4)
+    {
+        sub_0046C7D0_StepAwayFromUnit(pUnit, 6, 1, 0, pTarget);
+        return;
+    }
+
+    D2UnitStrc* pFound = 0;
+    int nFoundDistance = 0;
+    if (nDistance > 7)
+    {
+        sub_0046C570_FindRoomUnit(pUnit, &pFound, &nFoundDistance, sub_0046C660_CheckTarget2);
+    }
+
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    int* pState = MONSTER_GetAiValuePtr(pUnit);
+    if (!pState)
+    {
+        AI_SetTimer_Inline(pUnit, 32);
+        sub_0046CB40_CommandMode7(pUnit);
+        return;
+    }
+
+    int bDone = 0;
+    if (!pFound || nDistance <= 7)
+    {
+        if (*pState)
+        {
+        Busy:
+            const int nRoll = SEED_RollLimitedRandomNumber(pSeed, 100);
+            if (nRoll < 20)
+            {
+                *pState = 0;
+            }
+
+            AI_SetTimer_Inline(pUnit, 32);
+            sub_0046CB40_CommandMode7(pUnit);
+            bDone = 1;
+        }
+        else
+        {
+            const int nRoll = SEED_RollLimitedRandomNumber(pSeed, 100);
+            if (nRoll < 75)
+            {
+                AI_SetTimer_Inline(pUnit, 30);
+                sub_0046CB40_CommandMode7(pUnit);
+                return;
+            }
+
+            sub_0046C960_StepRandom(5, 1, 0, pUnit);
+            return;
+        }
+    }
+
+    if (!bDone)
+    {
+        if (*pState)
+            goto Busy;
+        sub_0046C770_CommandOnUnit(0, 6, pUnit, pFound);
+        *pState = 1;
+    }
+}
+
+static void __stdcall sub_0046D280_AiType6(unsigned int nDistance, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+{
+    if (MONSTERS_IsDead(pUnit))
+    {
+        return;
+    }
+
+    if (sub_0046CBF0_IsSamePosition(pTarget, pUnit))
+    {
+        sub_0046CAB0_CommandMode8(pUnit);
+        return;
+    }
+
+    if (AI_GetUnitMode_Inline(pUnit) == 1)
+    {
+        if (nDistance <= 1)
+        {
+            sub_0046C7D0_StepAwayFromUnit(pUnit, 4, 1, 0, pTarget);
+            return;
+        }
+
+        const int nRoll = SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100);
+        if (nRoll < 75)
+        {
+            AI_SetTimer_Inline(pUnit, 32);
+            sub_0046CB40_CommandMode7(pUnit);
+            return;
+        }
+
+        sub_0046C960_StepRandom(4, 1, 0, pUnit);
+    }
+}
+
+static void sub_0046D310_AiType7(D2UnitStrc* pUnit)
+{
+    if (AI_GetUnitMode_Inline(pUnit) == 1)
+    {
+        if (COLLISION_CheckMask(UNITS_GetRoom(pUnit), CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit), 0x1C0))
+        {
+            sub_0046CAB0_CommandMode8(pUnit);
+            return;
+        }
+
+        D2UnitStrc* pFound = 0;
+        int nDistance = 0x7FFFFFFF;
+        sub_0046C570_FindRoomUnit(pUnit, &pFound, &nDistance, sub_0046C600_CheckTarget);
+        if (pFound)
+        {
+            D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+            PATH_SetFootprintCollisionMask(pPath, 0x3C01);
+            if (nDistance < 6)
+            {
+                PATH_SetFootprintCollisionMask(pPath, 0xC01);
+                if (!sub_0046C7D0_StepAwayFromUnit(pUnit, 6, 1, 0x78, pFound))
+                {
+                    sub_0046C960_StepRandom(6, 1, 0x78, pUnit);
+                }
+                return;
+            }
+
+            const int nRoll = SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100);
+            if (nRoll < 30)
+            {
+                sub_0046C960_StepRandom(2, 1, 0, pUnit);
+                return;
+            }
+
+            AI_SetTimer_Inline(pUnit, 5);
+        }
+    }
+}
+
+// 0x0046D450
+static void sub_0046D450_AiType8(D2UnitStrc* pUnit)
+{
+    if (!sub_00463DE0_GetPlayerUnit())
+    {
+        AI_SetTimer_Inline(pUnit, 5);
+        return;
+    }
+
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    unsigned __int64 lSeed = SEED_RollFromHL_Inline(pSeed, pSeed->nLowSeed, pSeed->nHighSeed);
+    if ((int)((unsigned int)lSeed % 100) < 5)
+    {
+        lSeed = SEED_RollFrom_Inline(pSeed, (unsigned int)lSeed, (unsigned int)(lSeed >> 32));
+        const int nMissileId = ((unsigned int)lSeed & 3) + 0x23A;
+        const int nX = CLIENTS_GetUnitXInline(pUnit) + SEED_RollRandomNumber_Inline(&pUnit->pSeed) % 60 - 30;
+        const int nY = CLIENTS_GetUnitYInline(pUnit) + SEED_RollRandomNumber_Inline(&pUnit->pSeed) % 60 - 30;
+        D2UnitStrc* pMissile = GFXUTIL_SubmitMissileRequest(pUnit, nMissileId, nX, nY, 0, 1);
+        if (pMissile)
+        {
+            int bFlag;
+            if (SEED_RollRandomNumberHL_Inline(&pUnit->pSeed) & 1)
+            {
+                GFXUTIL_SetMotionVectorA(pMissile, 0, 0, -100);
+                GFXUTIL_SetMotionVectorB(pMissile, 0, 0, 6, 1);
+                GFXUTIL_SetMotionVectorC(pMissile, 0, 0, 300, 1);
+                bFlag = 1;
+            }
+            else
+            {
+                GFXUTIL_SetMotionVectorA(pMissile, 0, 0, 300);
+                GFXUTIL_SetMotionVectorB(pMissile, 0, 0, -6, 1);
+                GFXUTIL_SetMotionVectorC(pMissile, 0, 0, -100, 1);
+                bFlag = 0;
+            }
+
+            MISSILE_SetMotionFlagMask(pMissile, bFlag);
+            sub_004DA350_UpdateMotion(pMissile);
+            MISSILE_SetTotalFrames(pMissile, 60);
+            MISSILE_SetCurrentFrame(pMissile, 60);
+            MISSILE_SetTargetX(pMissile, 100);
+            MISSILE_SetTargetY(pMissile, 300);
+        }
+    }
+}
+
+
+static void sub_0046D660_AiFlagged(D2UnitStrc* pTarget, D2UnitStrc* pUnit)
+{
+    const int nMode = AI_GetUnitMode_Inline(pUnit);
+    if (MONSTERS_IsDead(pUnit) || nMode != 1)
+    {
+        return;
+    }
+
+    if (!sub_0046C140_CheckMonStats2ModeFlag(!pUnit ? -1 : pUnit->dwClassId, 2))
+    {
+        AI_SetTimer_Inline(pUnit, 20);
+        sub_0046CB40_CommandMode7(pUnit);
+        return;
+    }
+
+    const int nRoll = SEED_RollPercentage_Inline(&pUnit->pSeed);
+    if (nRoll < 40)
+    {
+        AI_SetTimer_Inline(pUnit, 20);
+        sub_0046CB40_CommandMode7(pUnit);
+        return;
+    }
+
+    if (nRoll < 60 && pTarget)
+    {
+        sub_0046C770_CommandOnUnit(0, 6, pUnit, pTarget);
+        return;
+    }
+
+    if (nRoll < 80 && pTarget)
+    {
+        sub_0046C7D0_StepAwayFromUnit(pUnit, 8, 1, 4, pTarget);
+        return;
+    }
+
+    sub_0046C960_StepRandom(8, 1, 4, pUnit);
+}
+
+// 0x0046D780
+void __fastcall sub_0046D780(D2UnitStrc* pUnit)
+{
+    int* pTimer = sub_004AE110_GetAiTimer(pUnit);
+    if (!pTimer)
+    {
+        return;
+    }
+
+    if (*pTimer > 0)
+    {
+        *pTimer += -1;
+        return;
+    }
+
+    int nDistance = 0x7FFFFFFF;
+    D2UnitStrc* pTarget = sub_0046C720_FindNearestTarget(pUnit, &nDistance);
+    if (!pTarget)
+    {
+        pTarget = sub_00463DD0_GetPlayerUnit();
+        if (!pTarget)
+        {
+            AI_SetTimer_Inline(pUnit, 25);
+            sub_0046CB40_CommandMode7(pUnit);
+            return;
+        }
+    }
+
+    if (nDistance > 30)
+    {
+        sub_0046CBD0_SetAiTimerClamped(pUnit, nDistance - 15);
+        sub_0046CB40_CommandMode7(pUnit);
+        return;
+    }
+
+    if (MONSTERUNIQUE_CheckMonStatsFlag(pUnit->dwClassId, 22))
+    {
+        sub_0046D660_AiFlagged(pTarget, pUnit);
+        return;
+    }
+
+    switch (pUnit->dwClassId)
+    {
+    case 0x95:
+    case 0x10C:
+        sub_0046CCD0_AiType1(pUnit);
+        return;
+
+    case 0x9F:
+        sub_0046CDC0_AiType2(pTarget, nDistance, pUnit);
+        return;
+
+    case 0x9D:
+    case 0x9E:
+    case 0x13F:
+        sub_0046CE40_AiType3(pUnit);
+        return;
+
+    case 0xE3:
+        sub_0046D070_AiType4(pTarget, pUnit);
+        return;
+
+    case 0x97:
+    case 0x10D:
+    case 0x11B:
+    case 0x153:
+        sub_0046D110_AiType5(nDistance, pUnit, pTarget);
+        return;
+
+    case 0x13E:
+        sub_0046D280_AiType6(nDistance, pUnit, pTarget);
+        return;
+
+    case 0x22C:
+        sub_0046D310_AiType7(pUnit);
+        return;
+
+    case 0x23E:
+        sub_0046D450_AiType8(pUnit);
+        return;
+
+    case 0x116:
+    case 0x117:
+    case 0x118:
+    case 0x119:
+    case 0x11A:
+        return;
+
+    case 0x140:
+        sub_0046CB40_CommandMode7(pUnit);
+        return;
+    }
+
+    sub_0046CB40_CommandMode7(pUnit);
+}
+
+
 
 // 0x0046DB30
 D2InventoryStrc* __fastcall sub_0046DB30_GetCompInventory(D2UnitStrc* pUnit, int* pOut)
@@ -803,8 +1595,8 @@ D2GfxDataStrc* __cdecl GFX_AllocGfxData()
     D2GfxDataStrc* pGfxData = (D2GfxDataStrc*)FOG_Alloc(sizeof(D2GfxDataStrc), ".\\ENGINE\\Gfx.cpp", 0x804, 0);
     D2_ASSERT(pGfxData, 0x805);
     memset(pGfxData, 0, sizeof(D2GfxDataStrc));
-    pGfxData->nUnk0x34 = 2;
-    pGfxData->nUnk0x38 = 2;
+    pGfxData->nBasePalShift = 2;
+    pGfxData->nPalShift = 2;
     return pGfxData;
 }
 
@@ -1001,7 +1793,7 @@ void __fastcall GFX_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nValue)
     D2_ASSERT(pGfxData, 0xBBA);
     for (int i = 0; i < GFX_ENTRY_COUNT; ++i)
     {
-        pGfxData->tEntries[i].nValue = nValue;
+        pGfxData->aEntries[i][0] = nValue;
     }
 }
 
@@ -1067,7 +1859,7 @@ void __fastcall GFX_RemoveOverlays(D2UnitStrc* pUnit)
 void __fastcall GFX_SetGfxBasePalShift(D2GfxDataStrc* pGfxData, int nValue)
 {
     D2_ASSERT(pGfxData, 0xCE4);
-    pGfxData->nUnk0x34 = nValue;
+    pGfxData->nBasePalShift = nValue;
 }
 
 int __cdecl sub_M449_Emit_0046F090(D2UnitStrc* pUnit)
@@ -1079,21 +1871,21 @@ int __cdecl sub_M449_Emit_0046F090(D2UnitStrc* pUnit)
 int __fastcall GFX_GetGfxBasePalShift(D2GfxDataStrc* pGfxData)
 {
     D2_ASSERT(pGfxData, 0xCF1);
-    return pGfxData->nUnk0x34;
+    return pGfxData->nBasePalShift;
 }
 
 // 0x0046F220
 void __fastcall GFX_SetGfxPalShift(D2GfxDataStrc* pGfxData, int nValue)
 {
     D2_ASSERT(pGfxData, 0xCFD);
-    pGfxData->nUnk0x38 = nValue;
+    pGfxData->nPalShift = nValue;
 }
 
 // 0x0046F250
 int __fastcall GFX_GetGfxPalShift(D2GfxDataStrc* pGfxData)
 {
     D2_ASSERT(pGfxData, 0xD0A);
-    return pGfxData->nUnk0x38;
+    return pGfxData->nPalShift;
 }
 
 // 0x0046F280
@@ -1889,6 +2681,431 @@ int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit)
     GFX_GetHealthBarOffset(pUnit);
     return 1;
 }
+
+static D2WeatherStrc* gpWeatherParticles;                                                                   // 0x007A8A04
+
+// 0x004723F0
+int __cdecl sub_004723F0_GetPhase()
+{
+    return gnPhase;
+}
+
+struct D2WeatherSplashStrc;
+
+struct D2WeatherLayerStateStrc;
+
+D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
+
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
+
+extern int gnBaseWindAngleMax; // 0x007A899C
+
+extern int gnBaseWindAngleMin; // 0x007A89DC
+
+extern int gbWeatherSplash; // 0x007A8A14
+
+struct D2WeatherLayerStateStrc
+{
+    D2CelFileStrc* pCelFiles[4];
+};
+
+int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
+
+void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
+
+int __stdcall SCALE_CheckPerspectivePosition(int nXPos, int nYPos); // 0x004F66E0
+
+void __stdcall SCALE_AdjustPerspectivePosition(int nXPos, int nYPos, int nBias, int* pXAdjust, int* pYAdjust); // 0x004F6760
+
+typedef int (__stdcall* D2CelDrawRetFn)(D2CelContextStrc*, int, int, unsigned int, int, unsigned char*);
+
+extern int gnScreenHeight; // 0x00711470
+
+static int gbLightningEnabled; // 0x007A8A08
+
+static inline unsigned int sub_00472400_SeedStep(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+// 0x00472400
+void __cdecl sub_00472400_ResetPhaseState()
+{
+    int nLevelId = DUNGEON_GetLevelIdFromRoom(CUNIT_GetPlayerRoom());
+    D2SeedStrc* pSeed = &sub_00463DE0_GetPlayerUnit()->pSeed;
+
+    switch (nLevelId)
+    {
+    case LEVEL_HARROGATH:
+    case LEVEL_BLOODYFOOTHILLS:
+    case LEVEL_ID_ACT5_BARRICADE_1:
+    case LEVEL_ARREATPLATEAU:
+        gnBaseWindAngleMin = 42;
+// build: symbol ?gnWindAngleMin@* 0x007A89D8
+        gnWindAngleMin = 42;
+        gnBaseWindAngleMax = 170;
+// build: symbol ?gnWindAngleMax@* 0x007A8998
+        gnWindAngleMax = 170;
+// build: symbol ?gnPhaseLevel@* 0x007A89E0
+        gnPhaseLevel = gnPhaseMax = sub_00472280(pSeed, 0x20, 0x38);
+        return;
+
+    case LEVEL_TUNDRAWASTELANDS:
+        gnWindAngleMin = 170;
+        gnWindAngleMax = 56;
+        gnBaseWindAngleMin = 28;
+        gnBaseWindAngleMax = 56;
+        gnPhaseLevel = gnPhaseMax = sub_00472280(pSeed, 0x20, 0x70);
+        return;
+
+    case LEVEL_ROCKYSUMMIT:
+    case LEVEL_NIHLATHAKSTEMPLE:
+        gnWindAngleMin = 28;
+        gnWindAngleMax = 28;
+        gnBaseWindAngleMin = 28;
+        gnBaseWindAngleMax = 28;
+// build: symbol ?gnTargetAngle@* 0x007A89F8
+        gnTargetAngle = 28;
+// build: symbol ?gnWeatherAngle@* 0x007A89C4
+        gnWeatherAngle = 28;
+        gnPhaseMax = 0x100;
+        gnPhaseLevel = 0x100;
+        return;
+    }
+
+    gnPhaseLevel = gnPhaseMax;
+    if (!gbWeatherSplash)
+    {
+        sub_00472400_SeedStep(pSeed);
+        gbLightningEnabled = 0;
+    }
+    else
+    {
+        gbLightningEnabled = 0;
+    }
+}
+
+// 0x00472530
+static inline void sub_00472530_SetPhaseActive(int bValue)
+{
+    gbPhaseActive = bValue;
+    if (bValue)
+        sub_00473D00_SetPhase(2);
+}
+
+// 0x00472550
+void __cdecl sub_00472550_ResetWeather()
+{
+// build: symbol ?DATAARRAYS_Reset@* 0x006BCAC0
+    DATAARRAYS_Reset(gpWeatherParticles);
+    D2_ASSERT(!gpWeatherParticles->nCount, 0x15B);
+}
+
+void __fastcall sub_M110_Emit_00472530(int bValue)
+{
+    sub_00472530_SetPhaseActive(bValue - 1);
+}
+
+extern "C" double __cdecl fabs(double x);
+
+int __cdecl sub_004F5140();                                                                                 // 0x004F5140
+
+int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime);                       // 0x0061C100
+
+int __fastcall sub_006BCB40(D2WeatherStrc* pArray);                                             // 0x006BCB40
+
+extern D2DrlgActStrc* gpDrlgAct_007A0634;                                                                   // 0x007A0634
+
+extern const D2PeriodLightStrc gaPeriodLights[];                                                    // 0x006D6E40
+
+extern unsigned char gabOutdoorLightColors[];                                                             // 0x007A89EC
+
+extern unsigned char gabPeriodLightColors[];                                                              // 0x007A898C
+
+extern unsigned char gabParticleColorsTwilight[];                                                            // 0x007A894C
+
+extern unsigned char gabParticleColorsDay[];                                                            // 0x007A8980
+
+extern unsigned char gabParticleColorsNight[];                                                            // 0x007A89A4
+
+static int gbSnowWeather;                                                                               // 0x007A8A18
+
+extern int gnViewDeltaX;                                                                           // 0x007A0678
+
+extern int gnViewDeltaY;                                                                           // 0x007A067C
+
+extern unsigned int gnWeatherTick;                                                                 // 0x007A8A34
+
+static inline unsigned __int64 sub_U01_RollSeedInline(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return lSeed;
+}
+
+static inline void sub_U01_StepSeedInline(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+}
+
+static void __stdcall sub_00472FB0_GetPeriodLight(unsigned char* pOut2, int nValue, unsigned char* pOut1)
+{
+    int n = sub_004F5140();
+    int bFlag;
+    if (n > 0 && (n <= 3 || n == 6))
+    {
+        bFlag = 0;
+    }
+    else
+    {
+        bFlag = 1;
+    }
+
+    DUNGEON_GetLevelIdFromRoom(CUNIT_GetPlayerRoom());
+    int nPeriod = ENVIRONMENT_GetPeriodOfDayFromAct(gpDrlgAct_007A0634, 0);
+    D2_ASSERT(nPeriod >= 0 && nPeriod <= 3, 0x356);
+
+    if (pOut1)
+    {
+        *pOut1 = gaPeriodLights[nPeriod].nLight;
+    }
+
+    if (pOut2)
+    {
+        int nIndex = nValue * 12 / 8;
+        if (bFlag)
+        {
+            *pOut2 = gabOutdoorLightColors[nIndex];
+            return;
+        }
+
+        switch (nPeriod)
+        {
+        case 1:
+        case 3:
+            nIndex /= 2;
+            break;
+        case 2:
+            nIndex /= 4;
+            break;
+        }
+        *pOut2 = gabPeriodLightColors[nIndex];
+    }
+}
+
+static void sub_00473090_InitParticle(D2SeedStrc* pSeed)
+{
+    const int nRecord = sub_006BCB40(gpWeatherParticles);
+    if (nRecord == -1)
+    {
+        return;
+    }
+
+    T00473470* pParticle = &gpWeatherParticles->pParticles[(short)(nRecord >> 0x10)];
+    pParticle->bDrop = 0;
+    pParticle->nX = sub_00472280(pSeed, 0, gnScreenWidth);
+    pParticle->nYEnd = sub_00472280(pSeed, 0x28, gnScreenHeight - 0x57);
+    pParticle->nY = sub_00472280(pSeed, -0x14, pParticle->nYEnd + 0x14);
+    sub_U01_StepSeedInline(pSeed);
+    pParticle->nFrame = pSeed->nLowSeed & 0x1FF;
+
+    const float fRatio = (float)(pParticle->nYEnd - 0x28) / (gnScreenHeight - 0x57);
+    if (gbWeatherSplash)
+    {
+        pParticle->nAlpha = 0xFF;
+        unsigned char* pAlpha = &pParticle->nAlpha;
+        sub_U01_RollSeedInline(pSeed);
+        pParticle->nType = 1;
+        pParticle->nParam2 = 8 - (int)(fRatio * -28.0);
+        pParticle->nParam = 7 * (pParticle->nYEnd - 0x28) / (gnScreenHeight - 0x57);
+        if (gbSnowWeather)
+        {
+            ++pParticle->nParam;
+        }
+
+        D2_ASSERT(pParticle->nParam < 8 && pParticle->nParam >= 0, 0x390);
+        sub_00472FB0_GetPeriodLight(&pParticle->nColor, pParticle->nParam, pAlpha);
+        return;
+    }
+
+    const unsigned int nColor = (unsigned int)sub_U01_RollSeedInline(pSeed) % 12;
+    switch (ENVIRONMENT_GetPeriodOfDayFromAct(gpDrlgAct_007A0634, 0))
+    {
+    case 2:
+        pParticle->nColor = gabParticleColorsNight[nColor];
+        pParticle->nAlpha = 0xFF;
+        break;
+
+    case 1:
+    case 3:
+        pParticle->nColor = gabParticleColorsTwilight[nColor];
+        pParticle->nAlpha = 0xFF;
+        break;
+
+    case 0:
+        pParticle->nColor = gabParticleColorsDay[nColor];
+        pParticle->nAlpha = 0x7F;
+        break;
+    }
+
+    pParticle->nParam = 4 - (int)(fRatio * -8.0);
+    pParticle->nParam2 = 0xF - (int)(fRatio * -15.0);
+    pParticle->nType = 3;
+}
+
+// 0x004732C0
+void __stdcall sub_004732C0_StepParticles(D2SeedStrc* pSeed)
+{
+    float fScale;
+    if (gbWeatherSplash)
+    {
+// build: symbol ?gnWeatherAngle@* 0x007A89C4
+        const float fAbs = (float)fabs(sub_0040B330_Cos(gnWeatherAngle));
+        // volatile: the original stores the absolute value and reloads it as a float
+        fScale = *(float volatile*)&fAbs;
+        fScale = fScale < 0.25f ? 0.25f : fScale;
+    }
+    else
+    {
+// build: symbol ?gfPhaseLevel@* 0x007A89A0
+        fScale = (float)(gfPhaseLevel * (double)0.15f + (double)0.85f);
+    }
+
+    T00473470* pParticle = gpWeatherParticles->pParticles;
+    for (int i = 0; i <= gpWeatherParticles->nLastParticle; ++i, ++pParticle)
+    {
+        if (!pParticle->bActive)
+        {
+            continue;
+        }
+
+        const int nSpeed = (int)(pParticle->nParam2 * fScale);
+        const float fSpeed = (float)nSpeed;
+        int nDeltaX = (int)(sub_0040B330_Cos(gnWeatherAngle) * fSpeed);
+        const int nDeltaY = (int)(sub_0040B350_Sin(gnWeatherAngle) * fSpeed);
+        pParticle->nY += nDeltaY - gnViewDeltaY;
+        if (pParticle->nY > pParticle->nYEnd)
+        {
+            pParticle->bDrop = 1;
+        }
+
+        if (pParticle->bDrop)
+        {
+            if (!pParticle->nType)
+            {
+                sub_006BCCD0_FreeDataArraySlot(gpWeatherParticles, i << 16);
+// build: symbol ?gnPhaseLevel@* 0x007A89E0
+                if (gpWeatherParticles->nCount < gnPhaseLevel)
+                {
+                    sub_00473090_InitParticle(pSeed);
+                }
+            }
+            else
+            {
+                pParticle->nParam2 = 0;
+                nDeltaX = 0;
+                --pParticle->nType;
+            }
+        }
+
+        if (!pParticle->bActive)
+        {
+            continue;
+        }
+
+        if (gbWeatherSplash && !pParticle->bDrop)
+        {
+            nDeltaX += (int)(2 * sub_0040B350_Sin((pParticle->nFrame + (gnWeatherTick << 9) / 25) & 0x1FF));
+        }
+
+        pParticle->nX += nDeltaX - gnViewDeltaX;
+        if (pParticle->nX >= gnScreenWidth)
+        {
+            pParticle->nX -= gnScreenWidth;
+        }
+
+        if (pParticle->nX < 0)
+        {
+            pParticle->nX += gnScreenWidth;
+        }
+    }
+
+    ++gnWeatherTick;
+}
+
+
+// 0x00473A70
+void __fastcall sub_00473A70(D2WeatherStrc* pWeather, D2WeatherLayerStateStrc* pState)
+{
+    const int bPerspective = D2GFX_CheckPerspective();
+    int nOffset = 0;
+    int nLeft = 0;
+    int nRight = gnScreenWidth;
+    int nBottom = gnScreenHeight - 47;
+    switch (sub_0045AE90())
+    {
+    case 1:
+    {
+        const int nQuarter = gnScreenWidth / 4;
+        nOffset = -nQuarter;
+        nRight -= nQuarter * 2;
+        break;
+    }
+    case 2:
+        nOffset = gnScreenWidth / 4;
+        nLeft = gnScreenWidth / 4 * 2;
+        break;
+    }
+
+    D2CelContextStrc tGfxData = {};
+    D2WeatherSplashStrc* pRecord = pWeather->pRecords;
+    for (int i = 0; i <= pWeather->nLastParticle; ++i, ++pRecord)
+    {
+        if (!pRecord->bActive)
+        {
+            continue;
+        }
+
+        if (bPerspective)
+        {
+            if (SCALE_CheckPerspectivePosition(pRecord->nX, pRecord->nY))
+            {
+                int nX;
+                int nY;
+                SCALE_AdjustPerspectivePosition(pRecord->nX, pRecord->nY, 0, &nX, &nY);
+                nX += nOffset;
+                if (nX >= nLeft && nX < nRight && nY >= 0 && nY < nBottom)
+                {
+                    tGfxData.pCellFile = pState->pCelFiles[pRecord->nType];
+                    tGfxData.nFrame = pRecord->nFrame;
+                    if (((D2CelDrawRetFn)&TEXTURE_CelDraw)(&tGfxData, nX, nY, -1, 3, 0))
+                    {
+                        continue;
+                    }
+                }
+            }
+            sub_006BCCD0_FreeDataArraySlot(pWeather, i << 16);
+        }
+        else
+        {
+            const int nX = pRecord->nX + nOffset;
+            const int nY = pRecord->nY;
+            if (nX >= nLeft && nX < nRight && nY >= 0 && nY < nBottom)
+            {
+                tGfxData.pCellFile = pState->pCelFiles[pRecord->nType];
+                tGfxData.nFrame = pRecord->nFrame;
+                TEXTURE_CelDraw(&tGfxData, nX, nY, -1, 3, 0);
+            }
+        }
+    }
+}
+
 
 // 0x00473E50
 void __stdcall GFX_StepWeatherPhase(D2SeedStrc* pSeed)

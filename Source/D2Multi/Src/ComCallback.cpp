@@ -18,7 +18,7 @@ struct Unicode;
 
 struct D2LaunchNameNodeStrc;
 
-struct D2LaunchCharInfoStrc;
+struct D2LaunchRecordStrc;
 
 struct D2MultiChannelUserStrc;
 
@@ -200,7 +200,7 @@ extern D2WinControlStrc* gpJoinScreenButton; // 0x0077B078
 
 D2WinControlStrc* gpControlC_0077B07C;                                                                      // 0x0077B07C
 
-extern D2LaunchCharInfoStrc* gpCharInfo; // 0x0077BBD8
+extern D2LaunchRecordStrc* gpCharInfo; // 0x0077BBD8
 
 extern D2WinControlStrc* gpProfileViewBckg; // 0x00798C64
 
@@ -296,12 +296,6 @@ D2WinControlStrc* gpPanelTitle; // 0x00798BF0
 D2WinControlStrc* gpPanelText; // 0x00798BF4
 
 D2WinControlStrc* gpPanelCancelButton; // 0x00798C48
-
-#include "gen/data/Source/D2Multi/Src/ComCallback/s_nSelected_0070CC00.inc"
-
-#include "gen/data/Source/D2Multi/Src/ComCallback/s_nSelectionA_0070CC04.inc"
-
-#include "gen/data/Source/D2Multi/Src/ComCallback/s_nSelectionB_0070CC08.inc"
 
 #define AWAY_TEXT_SIZE 0x100
 
@@ -729,89 +723,11 @@ int __stdcall COMCALLBACK_FilterNameChar(D2WinControlStrc* pControl, int bAllowS
     return 0;
 }
 
-// 0x00439840
-int __stdcall COMCALLBACK_OnCharSelectOk(int nArg)
-{
-    char szName[0x100];
-
 // build: symbol ?gbCharSelBusy@* 0x00779DA0
-    if (gbCharSelBusy)
-        return 1;
-
-    gpCharSelect_007795D4->nMode = 0;
-    if (s_nSelected_0070CC00 == s_nSelectionA_0070CC04)
-    {
-        if (gnLaunchMode != 1 || !gbFlag_00779DD8)
-        {
-            CHARSEL_Back(nArg);
-            gnCounter_00779DDC -= 1;
-            if (gnCounter_00779DDC <= 0)
-            {
-                gbFlag_00779DD8 = 1;
-                return 1;
-            }
-        }
-    }
-    else if (s_nSelected_0070CC00 == s_nSelectionB_0070CC08)
-    {
-        sub_004FB6A0_ClearText(gpCharSelectText);
-        sub_004FC9B0_SetText(gpCharSelectText, D2LANG_GetStringFromTblIndex(0x2B3C), 0, 0, 0);
-        sub_004FC9B0_SetText(gpCharSelectText, D2LANG_GetStringFromTblIndex(0x2B3D), 0, 0, 0);
-        return 1;
-    }
-    else if (s_nSelected_0070CC00 != -1)
-    {
 // build: symbol ?gpCharList@* 0x00779DBC
-        D2LaunchCharEntryStrc* pEntry = gpCharList;
-        for (int i = 0; pEntry; pEntry = pEntry->pNext, ++i)
-        {
-            if (s_nSelected_0070CC00 == i)
-                break;
-        }
-
-        if (!pEntry)
-            return 1;
-
-        if (gnLaunchMode == 1 || gnLaunchMode == 3)
-        {
-            memcpy(gpCharSelect_007795D4->aBlock0x3A1, pEntry->aBlock0x300, 0x10);
-            memcpy(gpCharSelect_007795D4->aBlock0x3B1, pEntry->aBlock0x310, 0x10);
-            gpCharSelect_007795D4->nByte0x3C1 = pEntry->nByte0x322;
-            gpCharSelect_007795D4->nByte0x3C2 = pEntry->nByte0x32E;
-            gpCharSelect_007795D4->wFlags = pEntry->wFlags;
-        }
-
-        if (pEntry->wFlags & 0x20)
-        {
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
-            if (!FOG_IsExpansion())
-                return 0;
-        }
-
-        if ((pEntry->wFlags & 4) && (pEntry->wFlags & 8) && (gnLaunchMode == 0 || gnLaunchMode == 2))
-        {
 // build: symbol ?MAINMENUS_DestroyControls@* 0x0042F3F0
-            CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14B8), MAINMENUS_DestroyControls);
-            return 1;
-        }
-
-        if (gnLaunchMode == 0 || (gnLaunchMode == 2 && gpCharSelect_007795D4->nState == 8))
-        {
-            int nClass = (pEntry->wFlags >> 8) & 0x1F;
-            if ((!(pEntry->wFlags & 0x20) && nClass >= 4) || nClass >= 5)
-            {
-                CHARSEL_PickClass(nClass, pEntry->wFlags & 0x20);
-                return 1;
-            }
-        }
-
-        sub_00526F70(szName, pEntry->wszName, 0xFF);
 // build: symbol ?MAINMENUS_JoinGame@* 0x00434A00
-        MAINMENUS_JoinGame(pEntry, pEntry->wFlags, pEntry->nType, szName);
-    }
-
-    return 1;
-}
 
 // 0x0043F730
 void __cdecl COMCALLBACK_UpdateNameListText()
@@ -910,7 +826,7 @@ void __cdecl COMCALLBACK_BuildCreateGamePanel()
 // 0x00445A80
 void __fastcall COMCALLBACK_ShowProfileDialog(const char* szText, int nA, int nB)
 {
-    const char* szName = gpCharInfo->szText0x8D;
+    const char* szName = gpCharInfo->szAccount;
     char szA[12];
     char szB[44];
     char szC[204];
@@ -1240,12 +1156,12 @@ void __cdecl sub_00445FF0_BuildCreateScreen()
     unsigned long dwDifficulty = 0;
     if (!SRegLoadValue("Diablo II", "DIFF_LEVEL", 0, &dwDifficulty))
         SRegSaveValue("Diablo II", "DIFF_LEVEL", 0, 0);
-    int nLevel = gpCharInfo->wFlags[1] & 0x1F;
+    int nLevel = gpCharInfo->aFlags1EF[1] & 0x1F;
     gpHellRadio = CONTROL_Create(&gtHellRadioInit);
     gpHellLabel = CONTROL_Create(&gtHellLabelInit);
     gpNightmareRadio = CONTROL_Create(&gtNightmareRadioInit);
     gpNightmareLabel = CONTROL_Create(&gtNightmareLabelInit);
-    int bExpansion = gpCharInfo->wFlags[0] & 0x20;
+    int bExpansion = gpCharInfo->aFlags1EF[0] & 0x20;
     if ((!bExpansion && nLevel >= 8) || nLevel >= 10)
     {
         sub_004FC9B0_SetText(gpHellLabel, D2LANG_GetStringFromTblIndex(0x2720), 4, 0, 0);
@@ -2175,8 +2091,8 @@ void __cdecl COMCALLBACK_RefreshChannelList()
             CHAN_SETBIT(nState, 4, wFlags & 8);
             CHAN_SETBIT(nState, 5, wFlags & 4);
             CHAN_SETBIT(nState, 12, wFlags & 0x20);
-            int bDiffers = gpCharInfo->nValue3C2 != pUser->nValue94;
-            const unsigned short wCharFlags = *(const unsigned short*)gpCharInfo->wFlags;
+            int bDiffers = gpCharInfo->nByte3C2 != pUser->nValue94;
+            const unsigned short wCharFlags = *(const unsigned short*)gpCharInfo->aFlags1EF;
             bDiffers |= (wCharFlags & 4) && !pUser->nValue0xA0;
             bDiffers |= !(wCharFlags & 4) && pUser->nValue0xA0;
             bDiffers |= (wCharFlags & 0x20) && !pUser->nValue0xA8;
@@ -2584,7 +2500,7 @@ found:
                     ++szCompare;
                 else
                     szCompare = szName;
-                if (!strcmp(szCompare, gpCharInfo->szText0x8D))
+                if (!strcmp(szCompare, gpCharInfo->szAccount))
                 {
                     COMCALLBACK_ShowProfileDialog(pUser->szText, pUser->bFlagA0, pUser->bFlagA8);
                     return 1;
@@ -2660,7 +2576,7 @@ int __stdcall COMCALLBACK_SquelchSelectedUser(int nUnused)
     {
         pName = szName;
     }
-    if (SStrCmpI(pName, gpCharInfo->szText0x8D, 0x7FFFFFFF))
+    if (SStrCmpI(pName, gpCharInfo->szAccount, 0x7FFFFFFF))
     {
         sub_00611560_GetSquelchList()->Squelch(szName);
     }
@@ -3062,14 +2978,5 @@ void __stdcall COMCALLBACK_RecordMessage(unsigned int uMessage, unsigned int wPa
 }
 
 
-// 0x00451DB0
-void __fastcall COMCALLBACK_RegisterMsgHandlers(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount)
-{
-    D2_ASSERT(hWnd, 0x153);
-    for (unsigned int i = 0; i < nCount; i++)
-    {
-        SCMD_RegisterMsgHandler(hWnd, pTable[i].nType, pTable[i].nId, (SMSGHANDLER)pTable[i].pfnHandler);
-    }
-}
 
 #include "gen/data/Source/D2Multi/Src/ComCallback.inc"

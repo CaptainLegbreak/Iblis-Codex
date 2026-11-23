@@ -3411,6 +3411,12 @@ void __fastcall MAINMENUS_ShowMessageNoArg(const Unicode* pText, D2LaunchDoneFn 
     MAINMENUS_ShowMessage(pText, pfnDone, 0);
 }
 
+// 0x00433450
+void __fastcall CHARSEL_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone)
+{
+    MAINMENUS_ShowMessage(pText, pfnDone, 1);
+}
+
 // 0x004334D0
 int __stdcall MAINMENUS_OnCloseBox(int nArg)
 {
@@ -3498,7 +3504,7 @@ void __cdecl MAINMENUS_ShowMainMenu()
     D2WinControlStrc* pFirst;
     D2WinControlStrc* pSecond;
     CHARSEL_DisconnectBattleNet();
-    gpLaunchRecord->szName[0] = 0;
+    gpLaunchRecord->szText0x37[0] = 0;
     CHARSEL_CreateBaseScreen();
     if (FOG_IsExpansion())
     {
@@ -3808,7 +3814,7 @@ int __stdcall MAINMENUS_JoinTcpIp(int nUnused)
             return 1;
         }
     }
-    strcpy(gpLaunchRecord->szName, szText);
+    strcpy(gpLaunchRecord->szText0x37, szText);
     MAINMENUS_ShowConnectingPopup();
     sub_004FA590_RunLoop(sub_00431D10);
     gbConnectResult = 0;
@@ -3832,7 +3838,7 @@ int __stdcall MAINMENUS_JoinTcpIp(int nUnused)
     {
         gnLaunchMode = 2;
         *(int*)gpLaunchRecord->aState19 = 9;
-        *(unsigned short*)gpLaunchRecord->aWord1D = 1;
+        gpLaunchRecord->wValue = 1;
         sub_00515020();
         MAINMENUS_Reset();
         CHARSEL_InitCharSelectScreen();
@@ -4423,12 +4429,12 @@ int __fastcall sub_004359D0_RunFrontEnd(D2LaunchRecordStrc* pRecord)
     D2_ASSERT(sub_005259C0(sub_004FAC80(FOG_IsExpansion()), 0), 0x125A);
     MAINMENUS_LoadFrontEndCells();
     CURSOR_SetCellFile(gpCursorOHandCelFile);
-    gpLaunchRecord->nByte361 = 0;
-    gpLaunchRecord->nByte381 = 0;
-    gpLaunchRecord->nByte1F = 0;
-    gpLaunchRecord->nByte245 = 0;
+    gpLaunchRecord->szRealm0x361[0] = 0;
+    gpLaunchRecord->szRealm0x381[0] = 0;
+    gpLaunchRecord->szText0x1F[0] = 0;
+    gpLaunchRecord->szText0x245[0] = 0;
     if (gnLaunchMode != 2)
-        gpLaunchRecord->nByte37 = 0;
+        gpLaunchRecord->szText0x37[0] = 0;
     D2SOUND_InitWaveSlots();
     D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\button.wav");
     D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\amazon select.wav");
@@ -4579,7 +4585,7 @@ int __stdcall MAINMENUS_OnRealmDoubleClick(SMSGHANDLER_PARAMS* pMsg)
 int __stdcall MAINMENUS_OnTcpIpHost(int nArg)
 {
     gpLaunchRecord->nState19 = 8;
-    strcpy(gpLaunchRecord->szName, FOG_GetHostIPAddress());
+    strcpy(gpLaunchRecord->szText0x37, FOG_GetHostIPAddress());
     gnLaunchMode = 2;
     gpLaunchRecord->nValue209 = 4;
     if (!MAINMENUS_HasSaveFiles())
@@ -4592,11 +4598,6 @@ int __stdcall MAINMENUS_OnTcpIpHost(int nArg)
     MAINMENUS_Reset();
     CHARSEL_InitCharSelectScreen();
     return 1;
-}
-
-static inline void __fastcall ShowText(const Unicode* pText, void (__cdecl* pfnDone)())
-{
-    MAINMENUS_ShowMessage(pText, pfnDone, 1);
 }
 
 // 0x00435E00
@@ -4624,9 +4625,9 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
     {
         if (sub_00449B30_QueryAddress())
         {
-            gpLaunchRecord->nByte3C1 = 1;
-            SMemCopy(gpLaunchRecord->aData3A1, gabDefault, 0x10);
-            SMemZero(gpLaunchRecord->aData3B1, 0x10);
+            gpLaunchRecord->nLevel = 1;
+            SMemCopy(gpLaunchRecord->szText0x3A1, gabDefault, 0x10);
+            SMemZero(gpLaunchRecord->nComponentColors, 0x10);
             gpLaunchRecord->nByte3C2 = (gpLaunchRecord->wFlags1EF >> 6) & 1;
             gpLaunchRecord->wFlags3CB = gpLaunchRecord->wFlags1EF;
             CHATDLG_RequestCharCreate(gpLaunchRecord->szCharName, gpLaunchRecord->nClass, gpLaunchRecord->wFlags1EF);
@@ -4655,7 +4656,7 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
                     sub_00526320_ToUnicode(wszName, szName, 100);
                     sub_00526700(wszText, wszName);
                     sub_00526700(wszText, wszTail);
-                    ShowText(wszText, sub_00435580);
+                    CHARSEL_ShowText(wszText, sub_00435580);
                     return;
                 }
 
@@ -4664,7 +4665,7 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
                 Unicode wszName[256];
                 sub_00526F20_ToUnicode(wszName, gpLaunchRecord->szCharName, 256);
                 sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0x2B33), wszName);
-                ShowText(wszText, sub_00435580);
+                CHARSEL_ShowText(wszText, sub_00435580);
                 return;
             }
 
@@ -4690,7 +4691,7 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
     case 10:
     case 11:
     case 12:
-        ShowText(D2LANG_GetStringFromTblIndex(0x145D), sub_00435580);
+        CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x145D), sub_00435580);
         return;
 
     case 71:
@@ -4702,7 +4703,7 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
         break;
     }
 
-    ShowText(D2LANG_GetStringFromTblIndex(nString), MAINMENUS_ReturnToCharSelect);
+    CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(nString), MAINMENUS_ReturnToCharSelect);
 }
 
 // 0x004361B0
@@ -4917,11 +4918,11 @@ void __cdecl MAINMENUS_CreateCharacter()
         sub_0043C6A0(0);
         AUTOMAP_InitCharSaveHeader((gpLaunchRecord->szPassword + 0x18), gpLaunchRecord->nMode, (gpLaunchRecord->szPassword + 0x48), gpLaunchRecord->wFlags1EF);
         sub_0043C6B0((gpLaunchRecord->szPassword + 0x18));
-        gpLaunchRecord->nByte3C1 = 1;
-        SMemCopy(gpLaunchRecord->aData3A1, gabDefault, 0x10);
-        SMemZero(gpLaunchRecord->aData3B1, 0x10);
+        gpLaunchRecord->nLevel = 1;
+        SMemCopy(gpLaunchRecord->szText0x3A1, gabDefault, 0x10);
+        SMemZero(gpLaunchRecord->nComponentColors, 0x10);
         gpLaunchRecord->nByte3C2 = (gpLaunchRecord->wFlags1EF >> 6) & 1;
-        *(unsigned short*)gpLaunchRecord->aWord3CB = gpLaunchRecord->wFlags1EF;
+        gpLaunchRecord->wFlags3CB = gpLaunchRecord->wFlags1EF;
         gpLaunchRecord->nByte35E = 4;
         gpLaunchRecord->nByte22D = 0;
         gpLaunchRecord->szPassword[0x30] = 0;
@@ -5139,241 +5140,9 @@ int __stdcall MAINMENUS_OnEditChange(int nArg)
     return 1;
 }
 
-// 0x00436F30
-void __cdecl MAINMENUS_CreateEmailScreen()
-{
-    if (!gpFuncTable_0077ABF0->pfnSlot68())
-    {
-        CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
-        return;
-    }
-    CHARSEL_CreateBaseScreen();
-    D2WinControlStrc* pControl = MAINMENUS_CreateControl(0x12B);
-    D2Win_10051(pControl, D2LANG_GetStringFromTblIndex(0x2B6A), 0x0, 0x0, 0x0);
-    pControl = MAINMENUS_CreateControl(0x12E);
-    D2Win_10051(pControl, D2LANG_GetStringFromTblIndex(0x2B5F), 0x0, 0x0, 0x0);
-    MAINMENUS_CreateControl(0x12F);
-    pControl = MAINMENUS_CreateControl(0x130);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x1468));
-    gpEdit_007799DC = MAINMENUS_CreateControl(0x131);
-    sub_004FDD50_SetMaxLength(gpEdit_007799DC, 0x10);
-    sub_004FDAD0_SetKeyCallback(gpEdit_007799DC, MAINMENUS_FilterRestrictedChar);
-    sub_004FDB00_SetEnterCallback(gpEdit_007799DC, MAINMENUS_OnEditChange);
-    MAINMENUS_CreateControl(0x132);
-    pControl = MAINMENUS_CreateControl(0x133);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B57));
-    gpEdit_007799E0 = MAINMENUS_CreateControl(0x134);
-    sub_004FDB00_SetEnterCallback(gpEdit_007799E0, MAINMENUS_OnEditChange);
-    sub_004FFE10_SetTextA(gpEdit_007799DC, gpLaunchRecord->szAccount);
-    CONTROL_SetFocusedEditBox(gpEdit_007799DC);
-    sub_004FDDD0_LinkTab(gpEdit_007799DC, gpEdit_007799E0);
-    sub_004FDDD0_LinkTab(gpEdit_007799E0, gpEdit_007799DC);
-    gpButton_007799E4 = MAINMENUS_CreateControl(0x12C);
-    MAINMENUS_CreateControl(0x12D);
-    MAINMENUS_UpdateEmailOk();
-}
-
-// 0x004370B0
-int __stdcall sub_004370B0_ShowLoginScreen(int unused)
-{
-    MAINMENUS_ShowLoginScreen();
-    return 1;
-}
-
-// 0x004370C0
-void __cdecl MAINMENUS_CreateInfoScreen()
-{
-    if (!gpFuncTable_0077ABF0->pfnSlot68())
-    {
-        CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
-        return;
-    }
-    CHARSEL_CreateBaseScreen();
-    D2WinControlStrc* pControl = MAINMENUS_CreateControl(0x135);
-    D2Win_10051(pControl, D2LANG_GetStringFromTblIndex(0x2B65), 0x0, 0x0, 0x0);
-    pControl = MAINMENUS_CreateControl(0x136);
-    D2Win_10051(pControl, D2LANG_GetStringFromTblIndex(0x2B66), 0x0, 0x0, 0x0);
-    pControl = MAINMENUS_CreateControl(0x137);
-    D2Win_10051(pControl, D2LANG_GetStringFromTblIndex(0x2B67), 0x0, 0x0, 0x0);
-    pControl = MAINMENUS_CreateControl(0x138);
-    D2Win_10051(pControl, D2LANG_GetStringFromTblIndex(0x2B68), 0x0, 0x0, 0x0);
-    MAINMENUS_CreateControl(0x139);
-    MAINMENUS_CreateControl(0x13A);
-    MAINMENUS_CreateControl(0x13B);
-    MAINMENUS_CreateControl(0x13C);
-}
-
-// 0x004371B0
-int __stdcall sub_004371B0_OnLoginScreen(int nArg)
-{
-    MAINMENUS_CreateLoginScreen();
-    return 1;
-}
-
-// 0x004371C0
-int __stdcall sub_004371C0_OnEmailScreen(int nArg)
-{
-    MAINMENUS_CreateEmailScreen();
-    return 1;
-}
-
-// 0x004371D0
-int __stdcall sub_004371D0_OnShowLogin(int nArg)
-{
-    MAINMENUS_ShowLoginScreen();
-    return 1;
-}
-
-// 0x004371E0
-void __cdecl MAINMENUS_UpdatePasswordOk()
-{
-    char szText3[0x100];
-    char szText1[0x100];
-    char szText2[0x100];
-// build: symbol ?gpChangePwAccountEdit@* 0x007799BC
-    int bOk = sub_00526800(sub_004FDD90_GetEditText(gpChangePwAccountEdit)) > 2;
-    if (bOk)
-    {
-// build: symbol ?gpOldPasswordEdit@* 0x007799C0
-        const Unicode* pText1 = sub_004FDD90_GetEditText(gpOldPasswordEdit);
-            sub_005263E0(szText1, pText1, 0x100);
-        bOk = MAINMENUS_CheckAtAndDot(szText1);
-        if (bOk)
-        {
-// build: symbol ?gpNewPasswordEdit@* 0x007799C8
-            const Unicode* pText2 = sub_004FDD90_GetEditText(gpNewPasswordEdit);
-            sub_005263E0(szText2, pText2, 0x100);
-            bOk = MAINMENUS_CheckAtAndDot(szText2);
-            if (bOk)
-            {
-// build: symbol ?gpNewPasswordConfirmEdit@* 0x007799C4
-                const Unicode* pText3 = sub_004FDD90_GetEditText(gpNewPasswordConfirmEdit);
-            sub_005263E0(szText3, pText3, 0x100);
-                bOk = MAINMENUS_CheckAtAndDot(szText3);
-            }
-        }
-    }
-    CONTROL_SetEnabled(gpPasswordOk, bOk);
-}
-
-// 0x004372A0
-int __stdcall sub_004372A0_OnEnter(int nArg)
-{
-    MAINMENUS_UpdatePasswordOk();
-    return 1;
-}
-
-// 0x004372B0
-void __cdecl MAINMENUS_CreatePasswordScreen()
-{
-    if (!gpFuncTable_0077ABF0->pfnSlot68())
-    {
-        CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
-        return;
-    }
-    CHARSEL_CreateBaseScreen();
-    D2WinControlStrc* pControl = MAINMENUS_CreateControl(0x13D);
-    D2Win_10051(pControl, D2LANG_GetStringFromTblIndex(0x2B6C), 0x0, 0x0, 0x0);
-    pControl = MAINMENUS_CreateControl(0x13E);
-    D2Win_10051(pControl, D2LANG_GetStringFromTblIndex(0x2B70), 0x0, 0x0, 0x0);
-    MAINMENUS_CreateControl(0x13F);
-    pControl = MAINMENUS_CreateControl(0x140);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x1468));
-    gpChangePwAccountEdit = MAINMENUS_CreateControl(0x141);
-    sub_004FFE10_SetTextA(gpChangePwAccountEdit, gpLaunchRecord->szAccount);
-    sub_004FDD50_SetMaxLength(gpChangePwAccountEdit, 0x10);
-    sub_004FDAD0_SetKeyCallback(gpChangePwAccountEdit, MAINMENUS_FilterRestrictedChar);
-    sub_004FDB00_SetEnterCallback(gpChangePwAccountEdit, sub_004372A0_OnEnter);
-    MAINMENUS_CreateControl(0x142);
-    pControl = MAINMENUS_CreateControl(0x143);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B6D));
-    gpOldPasswordEdit = MAINMENUS_CreateControl(0x144);
-    sub_004FDB00_SetEnterCallback(gpOldPasswordEdit, sub_004372A0_OnEnter);
-    MAINMENUS_CreateControl(0x145);
-    pControl = MAINMENUS_CreateControl(0x146);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B6E));
-    gpNewPasswordEdit = MAINMENUS_CreateControl(0x147);
-    sub_004FDB00_SetEnterCallback(gpNewPasswordEdit, sub_004372A0_OnEnter);
-    MAINMENUS_CreateControl(0x148);
-    pControl = MAINMENUS_CreateControl(0x149);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B6F));
-    gpNewPasswordConfirmEdit = MAINMENUS_CreateControl(0x14A);
-    sub_004FDB00_SetEnterCallback(gpNewPasswordConfirmEdit, sub_004372A0_OnEnter);
-    gpPasswordOk = MAINMENUS_CreateControl(0x14B);
-    MAINMENUS_CreateControl(0x14C);
-    CONTROL_SetFocusedEditBox(gpChangePwAccountEdit);
-    sub_004FDDD0_LinkTab(gpChangePwAccountEdit, gpOldPasswordEdit);
-    sub_004FDDD0_LinkTab(gpOldPasswordEdit, gpNewPasswordEdit);
-    sub_004FDDD0_LinkTab(gpNewPasswordEdit, gpNewPasswordConfirmEdit);
-    sub_004FDDD0_LinkTab(gpNewPasswordConfirmEdit, gpChangePwAccountEdit);
-    MAINMENUS_UpdatePasswordOk();
-}
-
-// 0x004374E0
-int __stdcall sub_004374E0_OnInfoScreen(int nArg)
-{
-    MAINMENUS_CreateInfoScreen();
-    return 1;
-}
-
 int __cdecl sub_0043B830(); // 0x0043B830
 
 int gnStatusDots; // 0x007799B4
-
-// 0x004374F0
-int __stdcall sub_004374F0_UpdateStatusWait(int nArg)
-{
-// build: symbol ?MAINMENUS_UpdateStatus@* 0x00436AD0
-    MAINMENUS_UpdateStatus();
-    if (!gnStatusDots)
-    {
-// build: symbol ?CHARSEL_ClearCancelled@* 0x0043B820
-        CHARSEL_ClearCancelled();
-        gnStatusDots = (int)gpFuncTable_0077ABF0->pfnSlot04();
-        if (!gnStatusDots)
-        {
-            D2Win_StopMessageLoop();
-            return 1;
-        }
-    }
-
-    if (WaitForSingleObject((void*)gnStatusDots, 0) == 0)
-    {
-        D2Win_StopMessageLoop();
-    }
-
-    if (sub_0043B830())
-    {
-        gpFuncTable_0077ABF0->pfnSlot10();
-        D2Win_StopMessageLoop();
-    }
-
-    return 1;
-}
-
-// 0x00437550
-void __cdecl MAINMENUS_CreateStatusScreen()
-{
-    gdwStatusStart = GetTickCount();
-    MAINMENUS_DestroyControls();
-    sub_0042E6B0(0x1);
-    D2WinControlStrc* pFrame = MAINMENUS_CreateFromTemplate(0xE2);
-    D2Win_10033(pFrame, 0x0);
-    D2Win_10030_CONTROL_ToggleFourthFlag(pFrame, 0x1);
-    D2WinControlStrc* pOther = MAINMENUS_CreateFromTemplate(0xE3);
-    D2Win_10030_CONTROL_ToggleFourthFlag(pOther, 0x1);
-    D2WinControlStrc* pText = MAINMENUS_CreateFromTemplate(0xE4);
-    D2Win_10030_CONTROL_ToggleFourthFlag(pText, 0x1);
-    D2Win_10051(pText, D2LANG_GetStringFromTblIndex(0x1433), 0x0, 0x0, 0x0);
-    gpStatusText = MAINMENUS_CreateFromTemplate(0xE5);
-    D2Win_10030_CONTROL_ToggleFourthFlag(gpStatusText, 0x1);
-    gpCounterText = MAINMENUS_CreateFromTemplate(0xE6);
-    D2Win_10030_CONTROL_ToggleFourthFlag(gpCounterText, 0x1);
-    gnStatusStringId = -1;
-    gnStatusDots = 0x0;
-    sub_0042E6A0(CHARSEL_SetCancelled);
-    MAINMENUS_UpdateStatus();
-}
 
 // 0x0043B4C0
 int __stdcall MAINMENUS_OnRealmListClick(SMSGHANDLER_PARAMS* pMsg)

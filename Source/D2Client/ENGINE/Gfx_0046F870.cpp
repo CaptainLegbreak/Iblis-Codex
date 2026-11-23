@@ -4,6 +4,7 @@
 #include "D2CelContext.h"
 #include "D2ClientGfx.h"
 #include "D2Txt.h"
+#include "D2ClientTypes.h"
 struct D2UnitStrc;
 
 #define UNIT_PLAYER 0
@@ -18,22 +19,11 @@ struct D2MonStats2Txt;
 struct D2MonCofInfoStrc;
 struct D2CofModeEntryStrc;
 struct D2GfxHeaderStrc;
-struct D2GfxRecordStrc;
-struct D2GfxNodeStrc;
 
 
 
 
 
-struct D2GfxDataStrc
-{
-    char unk0x00[0x28];
-    union
-    {
-        D2GfxListNodeStrc* pList;
-        D2GfxNodeStrc* list;
-    };
-};
 
 
 
@@ -82,9 +72,6 @@ static int GFX_LoadGfxNodeSetByte(D2UnitStrc* pUnit, int nIndex); // 0x0046EA50
 
 struct D2GfxHeaderStrc { int unknown00[2],left,right,top,bottom; };
 
-struct D2GfxRecordStrc { char unknown00[0x14]; void* gfx; };
-
-struct D2GfxNodeStrc { int mode,unknown04; D2GfxRecordStrc* record; int unknown0C; D2GfxNodeStrc* next; };
 extern int gnScreenWidth; // 0x0071146C
 extern int gnScreenHeight; // 0x00711470
 D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
@@ -340,11 +327,11 @@ static inline D2InventoryStrc* GetInventory(D2UnitStrc* unit) {
 static inline void* GetModeGfx(D2UnitStrc* unit,int mode) {
  D2GfxDataStrc* data=sub_00463E10_GetGfxData(unit);
  if(!data) return 0;
- D2GfxNodeStrc* node=data->list;
+ D2GfxListNodeStrc* node=data->pList;
  if(!node) return 0;
  do {
-  if(node->mode==mode) return node->record->gfx;
-  node=node->next;
+  if(node->nMode==mode) return node->pTarget->pLayer;
+  node=node->pNext;
  } while(node);
  return 0;
 }

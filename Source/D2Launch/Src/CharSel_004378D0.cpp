@@ -294,35 +294,6 @@ void __stdcall CHARSEL_HandleCharList(const char* szName, unsigned char* pPacket
 extern char gszLastAccount[16]; // 0x0077ABF4
 // build: symbol ??0Unicode@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
-// 0x004378D0
-int __stdcall CHARSEL_SubmitPasswordReset(int nArg)
-{
-    char szA[0x100];
-    char szB[0x100];
-
-    if (!nArg)
-    {
-        sub_004370C0();
-        return 1;
-    }
-
-    if (!sub_004F9710_TestFlag(gpButton_007799E4))
-        return 1;
-
-    const Unicode* pTextA = sub_004FDD90_GetEditText(gpEdit_007799DC);
-    const Unicode* pTextB = sub_004FDD90_GetEditText(gpEdit_007799E0);
-    sub_005263E0(szA, pTextA, 0x100);
-    sub_005263E0(szB, pTextB, 0x100);
-
-    if (gpFuncTable_0077ABF0->pfnSlot68() && gpFuncTable_0077ABF0->pfnSlotBC(szA, szB))
-    {
-        MAINMENUS_ShowMessageBox(0, D2LANG_GetStringFromTblIndex(0x2B60), 0x13EE, 0, sub_004370B0_ShowLoginScreen, 0, 1, 0);
-        return 1;
-    }
-
-    CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
-    return 0;
-}
 // 0x00437A20
 static int CHARSEL_FindSlotByName(const char* szName)
 {

@@ -18,7 +18,7 @@ struct D2WinTextBoxStrc;
 
 struct Unicode;
 
-struct D2LaunchCharInfoStrc;
+struct D2LaunchRecordStrc;
 
 struct D2GameListRecordStrc;
 
@@ -68,7 +68,7 @@ struct D2GameListRecordStrc
 
 extern D2LaunchFuncsStrc* gpLaunchFuncs; // 0x0077B09C
 
-extern D2LaunchCharInfoStrc* gpCharInfo; // 0x0077BBD8
+extern D2LaunchRecordStrc* gpCharInfo; // 0x0077BBD8
 
 extern D2GameListRecordStrc gtGameList_0077BDC9[]; // 0x0077BDC9
 
@@ -321,19 +321,19 @@ void __cdecl sub_00444E70_FillGameList()
 {
     int nFlags = 0;
     int nDifficulties = 0;
-    if ((*(unsigned short*)gpCharInfo->wFlags) & 4)
+    if ((gpCharInfo->wFlags1EF) & 4)
     {
         nFlags = 4;
         nDifficulties = 4;
     }
-    if ((*(unsigned short*)gpCharInfo->wFlags) & 0x20)
+    if ((gpCharInfo->wFlags1EF) & 0x20)
     {
         nFlags |= 8;
         nDifficulties |= 8;
     }
-    if (!sub_00444E70_HasProgress(*(unsigned short*)gpCharInfo->wFlags, 0x800, 0xA00))
+    if (!sub_00444E70_HasProgress(gpCharInfo->wFlags1EF, 0x800, 0xA00))
     {
-        if (sub_00444E70_HasProgress(*(unsigned short*)gpCharInfo->wFlags, 0x400, 0x500))
+        if (sub_00444E70_HasProgress(gpCharInfo->wFlags1EF, 0x400, 0x500))
             nDifficulties |= 2;
         else
             nDifficulties |= 3;
@@ -391,11 +391,11 @@ void __cdecl CHARSEL_RequestGameList()
     gnChatLaunchMode = 3;
     gnValue_00798CCC = 0;
 // build: symbol ?gpCharInfo@* 0x0077BBD8
-    if (gpCharInfo->nType0x35E == 2)
+    if (gpCharInfo->nStartMode == 2)
     {
         D2LaunchRequestStrc tRequest;
         memset(&tRequest, 0, sizeof(tRequest));
-        if (gpCharInfo->wFlags[0] & 4)
+        if (gpCharInfo->aFlags1EF[0] & 4)
             tRequest.dwFlags |= 0x800;
         while (++gwRequestId == 0)
         {
