@@ -632,6 +632,75 @@ void __fastcall ACT1Q5_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, 
     }
 }
 
+void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeaderStrc* pTextControl, int nNPCID, int nIndex); // 0x00543790
+
+static unsigned int gnAct1Q5NpcMessageIndices[] =                                                                   // 0x007382AC
+{
+    0xFFFFFFFF, 0xFFFFFFFF, 0, 1, 2, 3
+};
+
+__forceinline int ACT1Q5_ContainsGUID_Inline(const int* pGUIDs, int nCount, int nUnitId)
+{
+    for (int i = 0; i < nCount; ++i)
+    {
+        if (pGUIDs[i] == nUnitId)
+        {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+// 0x00594C50
+void __fastcall ACT1Q5_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    if (!pQuestData->bNotIntro)
+    {
+        return;
+    }
+
+    D2BitBufferStrc* pQuestFlags = QUESTS_GetPlayerQuestFlags_Inline(pQuestArg->pGame, pQuestArg->pPlayer);
+    const int bRewardGranted = QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q5, QFLAG_REWARDGRANTED);
+    const int bPrimaryGoalDone = QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q5, QFLAG_PRIMARYGOALDONE);
+    if (bRewardGranted == 1 && !bPrimaryGoalDone)
+    {
+        return;
+    }
+
+    const int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
+    const int nUnitId = !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId;
+    D2Act1Quest5Strc* pQuestDataEx = (D2Act1Quest5Strc*)pQuestData->pQuestDataEx;
+    if (pQuestData->fState >= 4)
+    {
+        if (!ACT1Q5_ContainsGUID_Inline(pQuestDataEx->nUnitGUIDs2, pQuestDataEx->nUnitCount2, nUnitId) && !ACT1Q5_ContainsGUID_Inline(pQuestDataEx->nUnitGUIDs1, pQuestDataEx->nUnitCount1, nUnitId))
+        {
+            return;
+        }
+    }
+
+    if (ACT1Q5_ContainsGUID_Inline(pQuestDataEx->nUnitGUIDs2, pQuestDataEx->nUnitCount2, nUnitId))
+    {
+        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 2);
+        return;
+    }
+
+    if (bRewardGranted == 1 && bPrimaryGoalDone == 1)
+    {
+        if (ACT1Q5_ContainsGUID_Inline(pQuestDataEx->nUnitGUIDs1, pQuestDataEx->nUnitCount1, nUnitId))
+        {
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 3);
+        }
+        return;
+    }
+
+    const unsigned int nIndex = gnAct1Q5NpcMessageIndices[pQuestData->fState];
+    if (nIndex != -1 && nIndex < 5)
+    {
+        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);
+    }
+}
+
 // 0x00594DB0
 void __fastcall ACT1Q5_InitTowerTome(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp)
 {
@@ -894,6 +963,28 @@ bool __fastcall ACT1Q5_SeqCallback(D2QuestDataStrc* pQuestData)
     return false;
 }
 
+// 0x005952C0
+bool __fastcall ACT1Q5_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    D2Act1Quest5Strc* pQuestDataEx = (D2Act1Quest5Strc*)pQuest->pQuestDataEx;
+    int nUnitId = !pPlayer ? -1 : pPlayer->dwUnitId;
+
+    for (int i = 0; i < pQuestDataEx->nUnitCount2; ++i)
+    {
+        if (pQuestDataEx->nUnitGUIDs2[i] == nUnitId)
+        {
+            if (nNpcId == 155 || nNpcId == 147)
+            {
+                return false;
+            }
+
+            return true;
+        }
+    }
+
+    return false;
+}
+
 // 0x00595320
 int __fastcall ACT1Q5_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -1060,6 +1151,17 @@ void __stdcall ACT1Q5_SpawnTowerChestMissiles(D2QuestDataStrc* pQuestData, D2Act
     }
 }
 
+// 0x005956C0
+void __fastcall ACT1Q5_SpawnChestMissilesAndEvent(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
+{
+    ACT1Q5_SpawnTowerChestMissiles(pQuestData, (D2Act1Quest5Strc*)pQuestData->pQuestDataEx);
+
+    if (((D2Act1Quest5Strc*)pQuestData->pQuestDataEx)->bCountessKilled && !((D2Act1Quest5Strc*)pQuestData->pQuestDataEx)->bDeathMissilesCreated)
+    {
+        EVENT_SetEvent(pQuestData->pGame, pUnit, 7, pQuestData->pGame->dwGameFrame + 10, 0, 0);
+    }
+}
+
 // 0x00595710
 void __fastcall ACT1Q5_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -1172,79 +1274,6 @@ void __fastcall OBJECTS_InitFunction04_TowerTome(D2ObjInitFnStrc* pOp)
         return;
     }
     D2_ASSERT(pQuestInfo, 1059);
-}
-
-// 0x0059D870
-bool __fastcall ACT2Q6_Timer_UpdateObjects(D2GameStrc* pGame, D2QuestDataStrc* pQuestData)
-{
-    int nObjects = 0;
-    D2Act2Quest6Strc* pQuestDataEx = (D2Act2Quest6Strc*)pQuestData->pQuestDataEx;
-    if (pQuestDataEx->bObjectsNeedUpdate == 1)
-    {
-        if (pQuestDataEx->bUnusedObjectInitialized)
-        {
-            D2UnitStrc* pUnusedObject = SUNIT_GetServerUnit(pGame, UNIT_OBJECT, pQuestDataEx->nUnusedObjectGUID);
-            if (pUnusedObject)
-            {
-                nObjects = 1;
-                if (!pUnusedObject->dwAnimMode)
-                {
-                    if (pQuestDataEx->bDurielLairPortalNeedsToOpen)
-                    {
-                        UNITS_ChangeAnimMode(pUnusedObject, OBJMODE_OPENED);
-                    }
-                    else
-                    {
-                        UNITS_ChangeAnimMode(pUnusedObject, OBJMODE_OPERATING);
-                        const int nClassId = pUnusedObject->dwClassId;
-                        D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nClassId);
-                        EVENT_SetEvent(pQuestData->pGame, pUnusedObject, EVENTTYPE_ENDANIM, pQuestData->pGame->dwGameFrame + (pObjectsTxtRecord->dwFrameCnt[1] >> 8), 0, 0);
-                    }
-                }
-            }
-        }
-
-        if (pQuestDataEx->bHoradricOrificeInitialized)
-        {
-            D2UnitStrc* pHoradricOrifice = SUNIT_GetServerUnit(pGame, UNIT_OBJECT, pQuestDataEx->nHoradricOrificeGUID);
-            if (pHoradricOrifice)
-            {
-                const int nX = CLIENTS_GetUnitX(pHoradricOrifice) - 13;
-                const int nY = CLIENTS_GetUnitY(pHoradricOrifice) + 3;
-
-                D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pHoradricOrifice), nX, nY);
-                if (pRoom)
-                {
-                    D2UnitStrc* pDurielLairPortal = SUNIT_AllocUnitData(UNIT_OBJECT, OBJECT_PORTAL_TO_DURIELS_LAIR, nX, nY, pGame, pRoom, 1, 1, 0);
-                    if (pDurielLairPortal)
-                    {
-                        ++nObjects;
-                        if (pQuestDataEx->bDurielLairPortalNeedsToOpen)
-                        {
-                            UNITS_ChangeAnimMode(pDurielLairPortal, OBJMODE_OPENED);
-                        }
-                        else
-                        {
-                            UNITS_ChangeAnimMode(pDurielLairPortal, OBJMODE_OPERATING);
-                            DUNGEON_ToggleHasPortalFlag(UNITS_GetRoom(pHoradricOrifice), 1);
-                            DUNGEON_ToggleHasPortalFlag(pRoom, 1);
-                        }
-                    }
-                }
-            }
-        }
-
-        if (!nObjects)
-        {
-            return false;
-        }
-
-        pQuestDataEx->bDurielLairTombOpen = 1;
-        pQuestDataEx->bObjectsNeedUpdate = 0;
-    }
-
-    pQuestDataEx->bTimerActive = 0;
-    return true;
 }
 
 #include "gen/data/Source/D2Game/Quests/a1q5.inc"

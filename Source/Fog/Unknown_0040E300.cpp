@@ -105,66 +105,9 @@ public:
     D2CriticalSectionStrc tLock;
 };
 
-// 0x0040DDD0
-void __fastcall FOG_SOCKET_Lock(FSafeSock* pSafeSock)
-{
-    EnterCriticalSection(&pSafeSock->tCriticalSection);
-}
-
-// 0x0040DDE0
-void __fastcall FOG_SOCKET_Unlock(FSafeSock* pSafeSock)
-{
-    LeaveCriticalSection(&pSafeSock->tCriticalSection);
-}
-
-// 0x0040E0B0
-extern "C" __declspec(dllexport) int __fastcall sub_0040E0B0(Obj0040E0B0* pObj, unsigned int* pFirst, unsigned int* pSecond) {
-    *pFirst = pObj->dwValue30;
-    *pSecond = pObj->dwValue34;
-    return 1;
-}
-
-// 0x0040E0D0
-const char* __fastcall FOG_ResolveHostIPAddress(const char* szHostName)
-{
-    int bStarted = 0;
-    int a, b, c, d;
-    if (sscanf(szHostName, "%d.%d.%d.%d", &a, &b, &c, &d) == 4)
-    {
-        return szHostName;
-    }
-    D2HostentStrc* pHost = gethostbyname(szHostName);
-    if (!pHost || !pHost->h_addr_list || !pHost->h_addr_list[0])
-    {
-        if (WSAGetLastError() != 0x276D || !FOG_SOCKET_WSAStartup())
-        {
-            return 0;
-        }
-        pHost = gethostbyname(szHostName);
-        if (!pHost || !pHost->h_addr_list || !pHost->h_addr_list[0])
-        {
-            WSACleanup();
-            return 0;
-        }
-        bStarted = 1;
-    }
-    strcpy(gszResolvedHostIP, inet_ntoa(*(D2InAddrStrc*)pHost->h_addr_list[0]));
-    if (bStarted)
-    {
-        WSACleanup();
-    }
-    return gszResolvedHostIP;
-}
-
 void* ghLogThread; // 0x0075D2E8
 
 int gbLogThreadStop; // 0x0075E830
-
-// 0x0040E230
-FSafeSock* __fastcall FOG_SOCKET_Connect(char* szHostAddress, int nPortNumber, unsigned long (__stdcall* pThreadProc)(void* pParam), void* lpParameter, const char* szName)
-{
-    return FOG_SOCKET_ConnectEx(szHostAddress, nPortNumber, pThreadProc, lpParameter, szName, 0);
-}
 
 // 0x0040FFD0
 void __cdecl sub_0040FFD0_ShutdownLogSystem()

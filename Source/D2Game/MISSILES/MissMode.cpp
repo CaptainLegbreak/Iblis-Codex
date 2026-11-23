@@ -4082,15 +4082,6 @@ void __fastcall MISSMODE_SrvDmg03_Blaze_FireWall_ImmolationFire_MeteorFire(D2Gam
     }
 }
 
-// 0x005A8000
-void __fastcall MONSTERMODE_DropTreasureForFindItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nUnused)
-{
-    D2ModeChangeStrc modeChange;
-    modeChange.pUnit = pUnit;
-    modeChange.pTargetUnit = pTarget;
-    MONSTERMODE_DropTreasure(pGame, pUnit, 1, &modeChange);
-}
-
 inline int UNITS_IsValidTargetInline(D2UnitStrc* pUnit)
 {
     if (!pUnit)
@@ -4435,14 +4426,6 @@ void __fastcall FRIENDLY_OpenHostility(D2GameStrc* pGame, D2UnitStrc* hPlayer, D
 
     PLAYERLIST_AllocPlayerList(pGame, hPlayer, pPlayer2);
     PLAYERLIST_ToggleFlag(pGame, hPlayer, pPlayer2, PLAYERLIST_FLAG_HOSTILE, 1);
-}
-
-// 0x005A6230
-void __fastcall MONSTERMODE_GetVelocityParams(D2UnkFieldsStrc* pFields, int* pUnk0x18, int* pUnk0x1C, unsigned char* pUnk0x20)
-{
-    *pUnk0x18 = pFields->nUnk0x18;
-    *pUnk0x1C = pFields->nUnk0x1C;
-    *pUnk0x20 = pFields->nUnk0x20;
 }
 
 void __fastcall sub_M250_Emit_005AD930(D2GameStrc* pGame, D2UnitStrc* pMissile)
@@ -6798,62 +6781,6 @@ void __fastcall AITHINK_ExecuteMonsterAiTick(D2GameStrc* pGame, D2UnitStrc* pUni
     ((AIPARAMFN)aiTickParam.pAiControl->pAiParamFn)(pGame, pUnit, &aiTickParam);
 }
 
-// 0x005B3750
-bool __fastcall ACT4Q0_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    if (nNpcId == 367 && !QUESTRECORD_GetQuestState(pQuestFlags, 24, 0))
-    {
-        return true;
-    }
-    return false;
-}
-
-// 0x005B3F20
-int __fastcall ACT4Q1_UnitIterate_SetRewardPending(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 22);
-    D2_ASSERT(pQuestData, 452);
-
-    D2Act4Quest1Strc* pQuestDataEx = (D2Act4Quest1Strc*)pQuestData->pQuestDataEx;
-    D2ActiveRoomStrc* pTargetRoom = UNITS_GetRoom(pQuestDataEx->pTargetUnit);
-    if (!pRoom)
-    {
-        return 0;
-    }
-
-    int bFound = 0;
-    if (pRoom == pTargetRoom)
-    {
-        bFound = 1;
-    }
-    else
-    {
-        D2ActiveRoomStrc* pUnitRoom = UNITS_GetRoom(pUnit);
-        D2_ASSERT(pUnitRoom, 473);
-
-        D2ActiveRoomStrc** ppRoomList;
-        unsigned int nNumRooms;
-        DUNGEON_GetAdjacentRoomsListFromRoom(pUnitRoom, &ppRoomList, &nNumRooms);
-        for (unsigned int i = 0; i < nNumRooms; ++i)
-        {
-            if (ppRoomList[i] == pTargetRoom)
-            {
-                bFound = 1;
-                break;
-            }
-        }
-    }
-
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (!QUESTRECORD_GetQuestState(pQuestFlags, 25, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, 25, 1) && bFound)
-    {
-        QUESTRECORD_SetQuestState(pQuestFlags, 25, 13);
-        QUESTRECORD_SetQuestState(pQuestFlags, 25, 1);
-    }
-    return 0;
-}
-
 // 0x005B43D0
 void __fastcall ACT4Q1_UnitIterate_CheckDistanceToIzualGhost(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -6861,54 +6788,6 @@ void __fastcall ACT4Q1_UnitIterate_CheckDistanceToIzualGhost(D2GameStrc* pGame, 
     if (sub_006416D0_UnitEdgeDistance(pUnit, pQuestDataEx->pTargetUnit) < 5)
     {
         pQuestDataEx->bCloseToIzualGhost = 1;
-    }
-}
-
-// 0x005B4450
-bool __fastcall ACT4Q2_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    if (nNpcId == 367)
-    {
-        if (!QUESTRECORD_GetQuestState(pQuestFlags, 26, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, 26, 15) && pQuest->fState == 1
-            || !pQuest->pGame->bExpansion && QUESTRECORD_GetQuestState(pQuestFlags, 26, 0) && QUESTRECORD_GetQuestState(pQuestFlags, 26, 7))
-        {
-            return true;
-        }
-
-        if (pQuest->pGame->bExpansion && QUESTRECORD_GetQuestState(pQuestFlags, 26, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, 26, 9))
-        {
-            return true;
-        }
-    }
-    else if (nNpcId == 246)
-    {
-        if (!pQuest->pGame->bExpansion && QUESTRECORD_GetQuestState(pQuestFlags, 26, 0) && QUESTRECORD_GetQuestState(pQuestFlags, 26, 6))
-        {
-            return true;
-        }
-
-        if (!pQuest->pGame->bExpansion || !QUESTRECORD_GetQuestState(pQuestFlags, 26, 0))
-        {
-            return false;
-        }
-
-        if (!QUESTRECORD_GetQuestState(pQuestFlags, 26, 8))
-        {
-            return true;
-        }
-    }
-
-    return false;
-}
-
-// 0x005B4FF0
-void __stdcall ACT4Q2_ActivateHarrogathWaypoint(D2GameStrc* pGame, D2UnitStrc* pPlayer)
-{
-    unsigned short nWpNo;
-    if (WAYPOINTS_GetWaypointNoFromLevelId(LEVEL_HARROGATH, &nWpNo))
-    {
-        D2WaypointDataStrc* pWaypointData = UNITS_GetPlayerData(pPlayer)->pWaypointData[pGame->nDifficulty];
-        WAYPOINTS_ActivateWaypoint(pWaypointData, nWpNo);
     }
 }
 
@@ -6974,17 +6853,6 @@ bool __fastcall ACT3Q5_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId,
     }
 
     return false;
-}
-
-// 0x005BBFE0
-bool __fastcall ACT3Q6_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 22, 0) || nNpcId != 255 || pQuest->fState != 1)
-    {
-        return QUESTRECORD_GetQuestState(pQuestFlags, 22, 11);
-    }
-
-    return true;
 }
 
 // 0x005D2420
@@ -7188,33 +7056,6 @@ int __fastcall AIUTIL_GetDistanceToCoordinates_NoUnitSize(D2UnitStrc* pUnit, int
     {
         return (nXDiff + 2 * nYDiff) / 2;
     }
-}
-
-// 0x005DCD50
-D2UnitStrc* __fastcall AIUTIL_TargetCallback_FindClosestClosedDoor(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
-{
-    D2DoorObjectAiCallbackArgStrc* pArg = (D2DoorObjectAiCallbackArgStrc*)pCallbackArg;
-
-    if (!pTarget || pTarget->dwUnitType != UNIT_OBJECT || !UnitIsDoor(pTarget) || pTarget->dwAnimMode != OBJMODE_NEUTRAL)
-    {
-        return 0;
-    }
-
-    const int nDistance = AITHINK_GetSquaredDistance(pTarget, pUnit);
-    if (nDistance >= pArg->nDistance)
-    {
-        return 0;
-    }
-
-    pArg->pDoor = pTarget;
-    pArg->nDistance = nDistance;
-    return 0;
-}
-
-// 0x005DEC80
-int __fastcall AITACTICS_WalkToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, unsigned char nFlag)
-{
-    return AITACTICS_MoveToTarget(pGame, pUnit, pTargetUnit, 2, 0, 0, 1, nFlag);
 }
 
 // build: context sub_005ADA80_Shim

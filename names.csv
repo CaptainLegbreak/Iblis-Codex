@@ -347,7 +347,7 @@ address,name,source,alias
 0x0040EDE0,sub_0040EDE0_GetLogFile,placeholder,
 0x0040F000,LOGMANAGER_GetLogDirectory,inferred,
 0x0040F070,sub_0040F070_WriteDumpMessage,placeholder,
-0x0040F350,AUTOMAP_CloseStaleLogs,inferred,
+0x0040F350,LOGMANAGER_CloseStaleLogs,inferred,
 0x0040F3D0,LOGMANAGER_SweepLogFile,inferred,
 0x0040F470,EXCEPTIONS_CloseNamedLog,inferred,
 0x0040F4F0,sub_0040F4F0_NextLink,placeholder,

@@ -63,62 +63,6 @@ extern D2CriticalSectionStrc gtLogLock;                                         
 
 
 
-// 0x0040DC60
-int __fastcall FOG_SOCKET_Receive(FSafeSock* pSafeSock, char* pBuffer, int nBufferLength)
-{
-    if (!pSafeSock || pSafeSock->bStopping)
-    {
-        return 0;
-    }
-    EnterCriticalSection(&pSafeSock->tCriticalSection);
-    const int nReceived = recv(pSafeSock->nSocket, pBuffer, nBufferLength, 0);
-    LeaveCriticalSection(&pSafeSock->tCriticalSection);
-    if (nReceived <= 0)
-    {
-        pSafeSock->nWSALastError = WSAGetLastError();
-        pSafeSock->nFogErrorCode = 4;
-    }
-    return nReceived;
-}
-
-// 0x0040DCC0
-int __fastcall FOG_SOCKET_Send(FSafeSock* pSafeSock, char* pBuffer, int nBufferLength)
-{
-    if (!pSafeSock || pSafeSock->bStopping)
-    {
-        return 0;
-    }
-    EnterCriticalSection(&pSafeSock->tCriticalSection);
-    const int nSent = send(pSafeSock->nSocket, pBuffer, nBufferLength, 0);
-    int nResult;
-    if (nSent == nBufferLength)
-    {
-        nResult = nSent;
-    }
-    else if (nSent == -1)
-    {
-        pSafeSock->nWSALastError = WSAGetLastError();
-        if (pSafeSock->nWSALastError == 0x2733)
-        {
-            nResult = 0;
-        }
-        else
-        {
-            pSafeSock->nFogErrorCode = 4;
-            nResult = -1;
-        }
-    }
-    else
-    {
-        pSafeSock->nWSALastError = WSAGetLastError();
-        pSafeSock->nFogErrorCode = 4;
-        nResult = 0;
-    }
-    LeaveCriticalSection(&pSafeSock->tCriticalSection);
-    return nResult;
-}
-
-
 // 0x0040EBD0
 _iobuf* __fastcall sub_0040EBD0_OpenDatedLogFile(const char* szName, D2SystemTimeStrc* pTime, const char* szMode, int* pbNew, char* szPathOut, unsigned int nPathOutSize)
 {
@@ -201,4 +145,4 @@ void __stdcall sub_00411320_CapitalizeWords(char* szText)
     }
 }
 
-#include "gen/data/Source/Fog/Unknown_00408A30.inc"
+#include "gen/data/Source/Fog/Unknown_0040EBD0.inc"

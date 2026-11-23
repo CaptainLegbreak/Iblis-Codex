@@ -184,7 +184,7 @@ int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 
 
 short __fastcall MONSTERUNIQUE_GetBossHcIdx(D2UnitStrc* pUnit); // 0x005A01E0
 
-typedef void (__fastcall* QUESTUPDATE)(D2QuestDataStrc* pQuest);
+typedef bool (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
 
 struct D2QuestTimerStrc
 {
@@ -1185,6 +1185,53 @@ void __fastcall QUESTS_StatusCycleObjectReset(D2GameStrc* pGame, D2UnitStrc* pTa
     QUESTS_StatusCycler(0, &pArgs);
 }
 
+// 0x00543E10
+void __fastcall QUESTS_QuestUpdater(D2GameStrc* pGame)
+{
+    D2QuestInfoStrc* pQuestControl = pGame->pQuestControl;
+    if (!pQuestControl)
+        return;
+    ++pQuestControl->dwTick;
+    if (pQuestControl->dwTick == -1)
+    {
+        for (D2QuestTimerStrc* i = pQuestControl->pTimer; i; i = i->pNext)
+            i->dwTicks = -1 - i->dwTicks;
+    }
+    pQuestControl->bExecuting = 1;
+    D2QuestTimerStrc* pTimer = pQuestControl->pTimer;
+    D2QuestTimerStrc* pPrev = 0;
+    while (pTimer)
+    {
+        D2QuestTimerStrc* pNext = pTimer->pNext;
+        if (pTimer->dwTicks < pQuestControl->dwTick)
+        {
+            D2_ASSERT(!IsBadCodePtr((FARPROC)pTimer->pfUpdate), 0x3F0);
+            if (pTimer->pfUpdate(pGame, pTimer->pQuest) == 1)
+            {
+                if (!pPrev)
+                {
+                    pQuestControl->pTimer = pTimer->pNext;
+                    FOG_FreeServerMemory(pGame->pMemoryPool, pTimer, gszQuestsSourceFile, 0x3F7, 0);
+                    pTimer = 0;
+                }
+                else
+                {
+                    pPrev->pNext = pTimer->pNext;
+                    FOG_FreeServerMemory(pGame->pMemoryPool, pTimer, gszQuestsSourceFile, 0x3FE, 0);
+                    pTimer = pPrev;
+                }
+            }
+            else
+            {
+                pTimer->dwTicks = pQuestControl->dwTick + pTimer->dwTimeout;
+            }
+        }
+        pPrev = pTimer;
+        pTimer = pNext;
+    }
+    pQuestControl->bExecuting = 0;
+}
+
 // 0x00543F10
 void __fastcall QUESTS_CreateTimer(D2QuestDataStrc* pQuest, QUESTUPDATE pfnCallback, int nTicks)
 {
@@ -2066,6 +2113,12 @@ extern "C" __declspec(dllexport) int __fastcall QUESTS_CheckPlayerGUID(Obj005452
 int __fastcall QUESTS_GetPlayerGUIDCount(D2QuestGUIDStrc* pGUIDs)
 {
     return pGUIDs->nPlayerCount;
+}
+
+// 0x00545300
+void __fastcall QUESTS_ResetPlayerGUIDCount(D2QuestGUIDStrc* pGUIDs)
+{
+    pGUIDs->nPlayerCount = 0;
 }
 
 // 0x00545310
@@ -3202,19 +3255,6 @@ inline unsigned __int64 ITEMS_RollRandomNumberInline(D2SeedStrc* pSeed)
     return lSeed;
 }
 
-// 0x005484B0
-void __fastcall PLRMSG_SendUnitMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient)
-{
-    const int nAnimMode = !pUnit ? 0 : pUnit->dwAnimMode;
-
-    PlrMsgFunc pfSendMode = gaUnitModeMessages[nAnimMode].field_0;
-    if (pfSendMode)
-    {
-        D2_ASSERT(!IsBadCodePtr((FARPROC)pfSendMode), 328);
-        pfSendMode(pGame, pUnit, pClient, nAnimMode);
-    }
-}
-
 // 0x005490E0
 int __fastcall PLRMSG_CheckCursorItem(D2GameStrc* pGame, int nUnused, D2UnitStrc* pUnit, int nItemGUID)
 {
@@ -3255,25 +3295,6 @@ int __fastcall PLRMSG_CheckStoredOrEquippedItem(D2GameStrc* pGame, int nUnused, 
     }
 
     if (pItem->dwAnimMode != IMODE_STORED && pItem->dwAnimMode != IMODE_EQUIP)
-    {
-        return 1;
-    }
-
-    return !INVENTORY_CompareWithItemsParentInventory(pUnit->pInventory, pItem);
-}
-
-// 0x005492F0
-int __fastcall PLRMSG_CheckBeltItem(D2GameStrc* pGame, int nUnused, D2UnitStrc* pUnit, int nItemGUID)
-{
-    D2_ASSERT(pGame, 1256);
-
-    D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, nItemGUID);
-    if (!pItem)
-    {
-        return 1;
-    }
-
-    if (pItem->dwAnimMode != IMODE_INBELT)
     {
         return 1;
     }

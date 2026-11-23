@@ -1,4 +1,5 @@
 #include "D2LevelIds.h"
+#include "D2LevelTxt.h"
 #include "D2Common.h"
 #include "D2DataTbls.h"
 #include "D2Records.h"
@@ -66,54 +67,6 @@ extern D2EnvironmentCycleStrc gEclipseEnvironmentCycle[]; // 0x00744480
 static void ENVIRONMENT_UpdateLightIntensity(D2DrlgEnvironmentStrc* pEnvironment, int nLevelId, int nAct); // 0x0061BB80
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-
-struct D2LevelsTxt
-{
-    unsigned short wLevelNo;
-    unsigned char nPal;
-    unsigned char nAct;
-    unsigned char nTeleport;
-    unsigned char nRain;
-    unsigned char nMud;
-    unsigned char nNoPer;
-    unsigned char nIsInside;
-    unsigned char nDrawEdges;
-    unsigned short unk0x0A;
-    unsigned int dwWarpDist;
-    unsigned short wMonLvl[3];
-    unsigned short wMonLvlEx[3];
-    unsigned int dwMonDen[3];
-    unsigned char nMonUMin[3];
-    unsigned char nMonUMax[3];
-    unsigned char nMonWndr;
-    unsigned char nMonSpcWalk;
-    unsigned char nQuest;
-    unsigned char nRangedSpawn;
-    unsigned char nNumMon;
-    unsigned char nNumNormalMonsters;
-    unsigned char nNumNightmareHellMonsters;
-    unsigned char nNumUniqueMonsters;
-    short wNormalMonsters[25];
-    short wNightmareHellMonsters[25];
-    short wUniqueMonsters[25];
-    unsigned short wCMon[4];
-    unsigned short wCPct[4];
-    unsigned short wCAmt[4];
-    unsigned char nWaypoint;
-    unsigned char nObjGroup[8];
-    unsigned char nObjPrb[8];
-    char szLevelName[40];
-    char szLevelWarp[40];
-    char szEntryFile[40];
-    unsigned char pad0x16D;
-    Unicode wszLevelName[40];
-    Unicode wszLevelWarp[40];
-    unsigned short pad0x20E;
-    unsigned int dwThemes;
-    unsigned int dwFloorFilter;
-    unsigned int dwBlankScreen;
-    unsigned int dwSoundEnv;
-};
 
 enum
 {

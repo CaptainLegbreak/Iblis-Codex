@@ -319,6 +319,58 @@ void __fastcall ACT2Q1_Callback11_ScrollMessage(D2QuestDataStrc* q,D2QuestArgStr
  QUESTS_NPCActivateSpeeches(arg->pGame,arg->pPlayer,arg->pTarget);
 }
 
+enum D2C_P08QuestConstants
+{
+    QFLAG_REWARDGRANTED = 0,
+    QFLAG_REWARDPENDING = 1,
+};
+
+void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeaderStrc* pTextControl, int nNPCID, int nIndex); // 0x00543790
+
+int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc* pQuest, int dwGUID); // 0x005452C0
+
+#define QFLAG_REWARDGRANTED 0
+
+#define QFLAG_REWARDPENDING 1
+
+static int gnAct2Q1NpcMessageIndices[] =                                                                            // 0x007398FC
+{
+    -1, 0, 1, 2, 3, 4, 0
+};
+
+// 0x00598C40
+void __fastcall ACT2Q1_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    const int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
+    D2UnitStrc* pPlayer = pQuestArg->pPlayer;
+    D2GameStrc* pGame = pQuestArg->pGame;
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+    const int bPrimaryGoalDone = QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_PRIMARYGOALDONE);
+    const int bRewardGranted = QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDGRANTED);
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDPENDING))
+    {
+        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 3);
+    }
+    else if (QUESTS_CheckPlayerGUID(pQuestData, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId))
+    {
+        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 4);
+    }
+    else if (bRewardGranted != 1)
+    {
+        if (!pQuestData->fState || (pQuestData->fState >= 4 && !bPrimaryGoalDone))
+        {
+            return;
+        }
+
+        const unsigned int nIndex = gnAct2Q1NpcMessageIndices[pQuestData->fState];
+        if (nIndex != -1 && nIndex < 9)
+        {
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);
+        }
+    }
+}
+
 // 0x00598D40
 void __fastcall ACT2Q1_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -355,6 +407,82 @@ int __fastcall ACT2Q1_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStr
         QUESTRECORD_SetQuestState(pQuestFlags, 9, 14);
         QUESTS_SendLogUpdateEx(pUnit, 8, 0);
     }
+    return 0;
+}
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+typedef void(__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
+
+void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPartyId, PartyCallbackFunction pCallback, void* pArgs); // 0x00540510
+
+short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
+
+void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
+
+// 0x00598E20
+int __fastcall ACT2Q1_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
+    {
+        return 0;
+    }
+
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 8);
+    D2_ASSERT(pQuestData, 390);
+
+    D2Act2Quest1Strc* pQuestDataEx = (D2Act2Quest1Strc*)pQuestData->pQuestDataEx;
+    int bInRange = 0;
+    if (pRoom == pQuestDataEx->pRoom)
+    {
+        bInRange = 1;
+    }
+    else
+    {
+        D2ActiveRoomStrc* pUnitRoom = UNITS_GetRoom(pUnit);
+        D2_ASSERT(pUnitRoom, 405);
+
+        D2ActiveRoomStrc** ppRoomList;
+        unsigned int nNumRooms;
+        DUNGEON_GetAdjacentRoomsListFromRoom(pUnitRoom, &ppRoomList, &nNumRooms);
+        for (unsigned int i = 0; i < nNumRooms; ++i)
+        {
+            if (ppRoomList[i] == pQuestDataEx->pRoom)
+            {
+                bInRange = 1;
+                break;
+            }
+        }
+    }
+
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0))
+    {
+        return 0;
+    }
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 1))
+    {
+        return 0;
+    }
+
+    if (!bInRange)
+    {
+        return 0;
+    }
+
+    QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 13);
+    QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 1);
+    QUESTRECORD_SetQuestState(pQuestFlags, 9, 5);
+    QUESTS_UpdatePlayerFlags(pQuestData->pGame, pUnit);
+
+    const unsigned short nPartyId = SUNIT_GetPartyId(pUnit);
+    if (nPartyId != 0xFFFF)
+    {
+        PARTY_IteratePartyMembers(pGame, nPartyId, ACT2Q1_UnitIterate_SetPrimaryGoalDone, 0);
+    }
+
     return 0;
 }
 
@@ -507,6 +635,11 @@ void __fastcall ACT2Q1_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 
     QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q1.cpp", 551);
     SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT2Q1_UnitIterate_UpdateQuestStateFlags);
+}
+
+// 0x005991B0
+void __stdcall ACT2Q1_OnRadamentCreated(int nUnused1)
+{
 }
 
 // 0x005991C0

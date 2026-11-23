@@ -334,6 +334,31 @@ int __fastcall PARTY_GetPartyMemberCount(D2GameStrc* pGame, short nPartyId)
     return nCount;
 }
 
+// 0x00540510
+void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPartyId, PartyCallbackFunction pCallback, void* pArgs)
+{
+    D2_ASSERT(pGame->hParty, 210);
+
+    for (D2PartyStrc* pParty = pGame->hParty->pParties; pParty; pParty = pParty->pNext)
+    {
+        if ((unsigned short)pParty->nPartyId == nPartyId)
+        {
+            if (nPartyId != 0xFFFF)
+            {
+                for (D2PartyNodeStrc* pPartyNode = pParty->pPartyNodes; pPartyNode; pPartyNode = pPartyNode->pNext)
+                {
+                    D2UnitStrc* pPartyMember = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, pPartyNode->nUnitGUID);
+                    if (pPartyMember)
+                    {
+                        pCallback(pGame, pPartyMember, pArgs);
+                    }
+                }
+            }
+            return;
+        }
+    }
+}
+
 // 0x005405A0
 void __fastcall PARTY_IteratePartyMembersInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, PartyCallbackFunction pCallback, void* pArgs)
 {

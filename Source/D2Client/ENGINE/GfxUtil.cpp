@@ -730,6 +730,19 @@ int __stdcall GFXUTIL_GetMotionAY(D2UnitStrc* pUnit)
     return 0;
 }
 
+// 0x004DA620
+void __fastcall sub_004DA620_SetMotionFlag10(D2UnitStrc* pUnit, int bSet)
+{
+    D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pUnit);
+    if (pMotion)
+    {
+        if (bSet)
+            pMotion->dwFlags |= 0x10;
+        else
+            pMotion->dwFlags &= ~0x10;
+    }
+}
+
 // 0x004DBEA0
 void __fastcall GFXUTIL_GetUnitCelSize(D2UnitStrc* pUnit, int nArg40, int nArg0, int* pWidth, int* pHeight)
 {

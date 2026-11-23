@@ -1,18 +1,7 @@
+#include "D2StormAutoLink.h"
 int __stdcall SMemFree(void* pLocation, const char* szLogFileName, int nLogLine, unsigned int nFlags);       // 0x00412650
 
 extern const char gszTypeSGameData[];                                                              // 0x0070F56C
-
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2StormLinkStrc()
-    {
-        m_prevlink = 0;
-        m_next = 0;
-    }
-};
 
 struct D2SGameDataStrc
 {

@@ -892,6 +892,42 @@ void __fastcall PLRMSG_SendSkillMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Cli
     }
 }
 
+void __fastcall D2GAME_PACKETS_SendPacket0x10_6FC3C9A0(D2ClientStrc* pClient, char nHeader, char a3, int a4, char a5, int a6, int a7, short a8, short a9); // 0x0053B520
+
+void __fastcall PLRMSG_SendWalkMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int nAnimMode);
+
+// 0x00548180
+void __fastcall PLRMSG_SendWalkMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int nAnimMode)
+{
+    if (pUnit != CLIENTS_GetPlayerFromClient(pClient, 0))
+    {
+        D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+        if (pTarget && CLIENTS_IsInUnitsRoom(pTarget, pClient))
+        {
+            const int nTargetGUID = pTarget->dwUnitId;
+            const int nTargetType = pTarget->dwUnitType;
+            const int nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
+            D2GAME_PACKETS_SendPacket0x10_6FC3C9A0(pClient, 0x10, 0, nUnitGUID, (unsigned char)gaUnitModeMessages[nAnimMode].field_8, nTargetType, nTargetGUID, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
+        }
+        else
+        {
+            D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+            int nY;
+            if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > UNIT_MISSILE && pUnit->dwUnitType <= UNIT_TILE))
+                nY = pUnit->pStaticPath->tGameCoords.nY;
+            else
+                nY = pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+            int nX;
+            if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > UNIT_MISSILE && pUnit->dwUnitType <= UNIT_TILE))
+                nX = pUnit->pStaticPath->tGameCoords.nX;
+            else
+                nX = pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+            const int nUnitId = pUnit->dwUnitId;
+            D2GAME_PACKETS_SendPacket0x0F_6FC3CA00(pClient, 0x0F, 0, nUnitId, (unsigned char)gaUnitModeMessages[nAnimMode].field_4, D2COMMON_10175_PathGetFirstPointX(pPath), D2COMMON_10176_PathGetFirstPointY(pPath), 0, nX, nY);
+        }
+    }
+}
+
 // build: context sub_005485B0_Shim
 // calling-convention shim (not game code)
 int __stdcall sub_005485B0_Shim(D2UnitStrc* pUnit)
@@ -956,6 +992,21 @@ void __fastcall PLRMSG_SendNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2C
             nX = pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
         const int nUnitId = (pUnit ? pUnit->dwUnitId : -1);
         D2GAME_PACKETS_SendPacket0x0D_6FC3C920(pClient, 0x0D, 0, nUnitId, nHitClass, nX, nY, 0, nLife);
+    }
+}
+
+typedef int (__stdcall* FARPROC)();
+
+// 0x005484B0
+void __fastcall PLRMSG_SendUnitMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient)
+{
+    const int nAnimMode = !pUnit ? 0 : pUnit->dwAnimMode;
+
+    PlrMsgFunc pfSendMode = gaUnitModeMessages[nAnimMode].field_0;
+    if (pfSendMode)
+    {
+        D2_ASSERT(!IsBadCodePtr((FARPROC)pfSendMode), 328);
+        pfSendMode(pGame, pUnit, pClient, nAnimMode);
     }
 }
 
@@ -1204,6 +1255,23 @@ int __fastcall PLRMSG_SendPlayerStatUpdates(D2UnitStrc* pUnit, D2UnitStrc* pPlay
     pClientPlayerData->nPotionLifePercent = nPotionLifePercent;
     pClientPlayerData->nPotionManaPercent = nPotionManaPercent;
     return 1;
+}
+
+extern const int gnBaseStatIdsToSend[]; // 0x00731AD8
+
+// 0x005489F0
+void __fastcall PLRMSG_SendUnitBaseStats(D2UnitStrc* pUnit, D2ClientStrc* pClient)
+{
+    D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
+    if (pPlayer != pUnit)
+    {
+        for (int i = 0; gnBaseStatIdsToSend[i] != -1; ++i)
+        {
+            const int nStatId = gnBaseStatIdsToSend[i];
+            const int nValue = STATLIST_GetUnitBaseStat(pUnit, nStatId, 0);
+            D2GAME_UpdateAttribute_6FC822D0(pUnit, nStatId, nValue, pPlayer);
+        }
+    }
 }
 
 // 0x00548A50
@@ -1610,6 +1678,25 @@ static int __stdcall PLRMSG_IsHandBodyLocFree(D2UnitStrc* pUnit, int nBodyLoc)
         return 3;
     }
     return !INVENTORY_GetItemFromBodyLoc(pUnit->pInventory, nBodyLoc);
+}
+
+// 0x005492F0
+int __fastcall PLRMSG_CheckBeltItem(D2GameStrc* pGame, int nUnused, D2UnitStrc* pUnit, int nItemGUID)
+{
+    D2_ASSERT(pGame, 1256);
+
+    D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, nItemGUID);
+    if (!pItem)
+    {
+        return 1;
+    }
+
+    if (pItem->dwAnimMode != IMODE_INBELT)
+    {
+        return 1;
+    }
+
+    return !INVENTORY_CompareWithItemsParentInventory(pUnit->pInventory, pItem);
 }
 
 // 0x00549350

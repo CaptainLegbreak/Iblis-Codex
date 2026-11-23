@@ -315,14 +315,6 @@ struct D2MonStats2Txt;
 
 struct D2StatListStrc;
 
-static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
-{
-    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
-    return (unsigned int)lSeed;
-}
-
 static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -345,26 +337,6 @@ static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
         return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-}
-
-// 0x005E5730
-void __fastcall AITHINK_InitializeFormationOffsets(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
-{
-    D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
-    D2_ASSERT(pOwner, 3607);
-
-    const int nOwnerX = CLIENTS_GetUnitXInline(pOwner);
-    const int nOwnerY = CLIENTS_GetUnitYInline(pOwner);
-    const int nX = CLIENTS_GetUnitXInline(pUnit);
-    const int nY = CLIENTS_GetUnitYInline(pUnit);
-
-    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
-    pAiControl->dwAiParam[0] = nX - nOwnerX;
-    pAiControl->dwAiParam[1] = nY - nOwnerY;
-    if (pOwner == pUnit)
-    {
-        pAiControl->dwAiParam[2] = SEED_RollRandomNumber(&pUnit->pSeed) % 100;
-    }
 }
 
 // 0x005E8F20

@@ -2,6 +2,7 @@
 #include "D2SysTypes.h"
 #include "D2Win32Base.h"
 #include "D2GfxTypes.h"
+#include "D2CelContext.h"
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 
@@ -29,7 +30,6 @@ struct D2Callbacks006C7CF0Strc
 extern void* ghObject_0098A164; // 0x0098A164
 
 extern D2Callbacks006C7CF0Strc* gpCallbacks_007C914C; // 0x007C914C
-
 
 void __fastcall sub_006C9280_Apply(int enabled, unsigned char unusedRegister, int unusedA, int unusedB); // 0x006C9280
 
@@ -120,6 +120,70 @@ void __stdcall sub_006C8080_Nop(int unused1, int unused2, int unused3); // 0x006
 void __stdcall sub_006C8090_Nop(int unused1, int unused2, int unused3, int unused4); // 0x006C8090
 
 void __cdecl sub_006C80A0_Nop(); // 0x006C80A0
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+extern D2RgbQuadStrc gPaletteEntries_00989C40[256]; // 0x00989C40
+
+extern int gnValue_007C913C; // 0x007C913C
+
+extern int gnValue_007C9138; // 0x007C9138
+
+struct D2CelStrc;
+
+int __stdcall CelGetWidth(D2CelStrc* pCel);                                                                 // 0x006018C0
+
+int __stdcall CelGetHeight(D2CelStrc* pCel);                                                                // 0x006018F0
+
+int __stdcall CelGetOffsetX(D2CelStrc* pCel);                                                               // 0x00601920
+
+int __stdcall CelGetOffsetY(D2CelStrc* pCel);                                                               // 0x00601950
+
+int __fastcall sub_006C8250_GetSetting(unsigned int nSelector, int* pValue); // 0x006C8250
+
+extern D2PaletteTableStrc* gpGfxPaletteView;                                                               // 0x007C9150
+
+void __stdcall CelDrawEx(D2CelContextStrc* pContext, int nX, int nY, int nOriginX, int nModeWidth, unsigned char* pBuffer, int nHeight, int nWidth, int nArg9, unsigned char* pCaps, int nSkipTop, int nDrawHeight, int nArg13); // 0x00601650
+
+void __stdcall CelDrawShadow(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, unsigned char* pShadowTable, int nArg10); // 0x00601730
+
+int __cdecl sub_006C8A50_GetBlendedShadows(); // 0x006C8A50
+
+struct D2ClipRect006C8750Strc
+{
+    int nX1;
+    int nX2;
+    int nY1;
+    int nY2;
+};
+
+struct D2CelFileStrc;
+
+struct D2CelContext006C8750Strc
+{
+    unsigned char unk_00[0x3C];
+    D2CelFileStrc* pCelFile;
+};
+
+int __stdcall sub_006001F0_Prepare(D2CelContext006C8750Strc* pContext, int a2, int a3); // 0x006001F0
+
+int __fastcall sub_006C8250_GetSetting(int nArg, D2ClipRect006C8750Strc** ppClip, int nY1, int nY2, int nFlags); // 0x006C8250
+
+void __stdcall D2CMP_CelDrawEx(D2CelContext006C8750Strc* pContext, int nX, int nY, int nX1, int nX2, int a6, int a7, int a8, int a9, int a10); // 0x00601650
+
+int __stdcall sub_006018C0_CelGetWidth(D2CelFileStrc* pCelFile); // 0x006018C0
+
+int __stdcall sub_006018F0_CelGetHeight(D2CelFileStrc* pCelFile); // 0x006018F0
+
+int __stdcall sub_00601920_CelGetOffsetX(D2CelFileStrc* pCelFile); // 0x00601920
+
+int __stdcall sub_00601950_CelGetOffsetY(D2CelFileStrc* pCelFile); // 0x00601950
+
+extern const char gszAssertExpr_006CC837[]; // 0x006CC837
+
+#define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
+
+static int __stdcall sub_006C8380_Clip(D2CelFileStrc* pCelFile, int nY, D2ClipRect006C8750Strc* pClip, int nX, D2ClipRect006C8750Strc* pOut);
 
 // 0x006C7A70
 int __fastcall GDI_Init(void* pArg1, void* pArg2)
@@ -307,4 +371,202 @@ int __fastcall GDI_ChangeRes(int nUnused, int nMode)
     GDI_CreateBackBuffer(nMode);
     sub_006C82D0_Apply(nMode);
     return 1;
+}
+
+// 0x006C81A0
+void __fastcall sub_006C81A0_RENDERER_WINDOWED_GetPalette(void** phPalette, D2RgbQuadStrc** ppEntries)
+{
+    D2_ASSERT(phPalette, 546);
+    D2_ASSERT(ppEntries, 547);
+    *phPalette = ghPalette;
+    *ppEntries = gPaletteEntries_00989C40;
+}
+
+// 0x006C81E0
+void __fastcall sub_006C81E0_GetValues(int* pA, int* pB, int* pC)
+{
+    D2_ASSERT(pA, 0x230);
+    D2_ASSERT(pB, 0x231);
+    D2_ASSERT(pC, 0x232);
+    *pA = gnValue_007C9154;
+    *pB = gnValue_007C913C;
+    *pC = gnValue_007C9138;
+}
+
+static inline int __stdcall sub_00511E10_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY, int bCenter)
+{
+    int nWidth = CelGetWidth(pCel);
+    int nHeight = CelGetHeight(pCel);
+    if (bCenter)
+    {
+        nX -= nHeight;
+        nWidth += nHeight;
+        nHeight >>= 1;
+    }
+
+    nX += CelGetOffsetX(pCel);
+// build: symbol ?gnRenderWidth@* 0x007C9138
+    if (nX < gnRenderWidth && nWidth + nX >= 0)
+    {
+        nY += CelGetOffsetY(pCel);
+        if (nY >= 0 && nY - nHeight < gnRenderHeight)
+            return 0;
+    }
+
+    return 1;
+}
+
+// 0x006C84B0
+int __fastcall sub_006C84B0_Draw(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, void* pPalette)
+{
+    D2CelContextStrc* pContext = (D2CelContextStrc*)pData;
+    if (!sub_006001F0(pContext, 0, 1))
+        return 0;
+
+    if (sub_00511E10_IsCelOffScreen(pContext->pCel, nX, nY, 0))
+        return 0;
+
+    const int nGamma = (unsigned char)dwGamma;
+    unsigned char* pGammaTable = 0;
+    const int nCaps = sub_006C8250_GetSetting(nDrawMode, (int*)&dwGamma);
+    if (nGamma != 0xFF)
+        pGammaTable = gpGfxPaletteView->pShadowLightGammaPalettes[nGamma >> 3];
+    if (nDrawMode == 7)
+        pGammaTable = gpGfxPaletteView->pRemap;
+
+    CelDraw((D2CmpCelContextStrc*)pContext, nX, nY, gnOriginX_0098A168, gnModeWidth_0098A16C,
+        gpScreenBuffer_007C9154, gnRenderHeight, gnRenderWidth, (int)pGammaTable, nCaps, (int)pPalette);
+    return 1;
+}
+
+int __fastcall sub_006C8250_GetSetting(unsigned int nSelector, int* pValue)
+{
+// build: symbol ?gaSelectorValues@* 0x0074C5A0
+    *pValue = gaSelectorValues[nSelector];
+    switch (nSelector)
+    {
+    case 0:
+        return (int)gpGfxPaletteView_007C9150->pTransPalettes[2];
+    case 1:
+        return (int)gpGfxPaletteView_007C9150->pTransPalettes[1];
+    case 2:
+        return (int)gpGfxPaletteView_007C9150->pTransPalettes[0];
+    case 3:
+        return (int)gpGfxPaletteView_007C9150->pScreenPalette;
+    case 4:
+        return (int)gpGfxPaletteView_007C9150->pLuminancePalette;
+    case 6:
+        return (int)gpGfxPaletteView_007C9150->pDarkBlendPalette;
+    }
+    return 0;
+}
+
+// 0x006C86A0
+void __fastcall sub_006C86A0_DrawImageRows(D2CelContextStrc* pContext, int nX, int nY, int nSkipTop, int nDrawHeight, int nDrawMode)
+{
+    if (!sub_006001F0(pContext, 0, 1))
+        return;
+
+    if (sub_00511E10_IsCelOffScreen(pContext->pCel, nX, nY, 0))
+        return;
+
+    CelDrawEx(pContext, nX, nY, gnOriginX_0098A168, gnModeWidth_0098A16C, gpScreenBuffer_007C9154,
+        gnRenderHeight, gnRenderWidth, 0, (unsigned char*)sub_006C8250_GetSetting(nDrawMode, &nDrawHeight),
+        nSkipTop, nDrawHeight, 0);
+}
+
+// 0x006C87E0
+void __fastcall sub_006C87E0_DrawShadow(void* pData, int nX, int nY)
+{
+    D2CelContextStrc* pContext = (D2CelContextStrc*)pData;
+    if (!sub_006001F0(pContext, 0, 1))
+        return;
+
+    if (sub_00511E10_IsCelOffScreen(pContext->pCel, nX, nY, 1))
+        return;
+
+    unsigned char* pShadowTable = 0;
+    if (sub_006C8A50_GetBlendedShadows())
+        pShadowTable = gpGfxPaletteView_007C9150->pTransPalettes[0];
+
+    CelDrawShadow(pContext, nX, nY, gnOriginX_0098A168, gnModeWidth_0098A16C,
+        gpScreenBuffer_007C9154, gnRenderHeight, gnRenderWidth, pShadowTable, 0);
+}
+
+static int __stdcall sub_006C8380_Clip(D2CelFileStrc* pCelFile, int nY, D2ClipRect006C8750Strc* pClip, int nX, D2ClipRect006C8750Strc* pOut)
+{
+    const int nWidth = sub_006018C0_CelGetWidth(pCelFile);
+    const int nHeight = sub_006018F0_CelGetHeight(pCelFile);
+
+    const int nX1 = D2_MAX(pClip->nX1, 0);
+    const int nX2 = D2_MIN(pClip->nX2, gnValue_007C9138);
+    if (nX1 > nX2)
+    {
+        return 1;
+    }
+
+    nX += sub_00601920_CelGetOffsetX(pCelFile);
+    if (nX >= nX2 || nWidth + nX < nX1)
+    {
+        return 1;
+    }
+
+    int nY1 = D2_MAX(pClip->nY1, 0);
+    int nY2 = pClip->nY2;
+    nY2 = D2_MIN(nY2, gnValue_007C913C);
+    if (nY1 > nY2)
+    {
+        return 1;
+    }
+
+    nY += sub_00601950_CelGetOffsetY(pCelFile);
+    if (nY < nY1 || nY - nHeight > nY2)
+    {
+        return 1;
+    }
+
+    pOut->nX1 = nX1;
+    pOut->nX2 = nX2;
+    if (nY <= nY2)
+    {
+        pOut->nY1 = 0;
+    }
+    else
+    {
+        pOut->nY1 = nY - nY2 - 1;
+    }
+
+    if (nY - nHeight >= nY1)
+    {
+        pOut->nY2 = nHeight - pOut->nY1;
+    }
+    else
+    {
+        pOut->nY2 = nY - pOut->nY1 - nY1 + 1;
+    }
+
+    if (pOut->nY2 <= 0)
+    {
+        sub_00408A60(gszAssertExpr_006CC837, sub_00408090(), 209);
+        exit(-1);
+    }
+    return 0;
+}
+
+// 0x006C8750
+void __fastcall sub_006C8750_DrawCel(D2CelContext006C8750Strc* pContext, int nX, int nY, D2ClipRect006C8750Strc* pClip, int nC)
+{
+    D2ClipRect006C8750Strc tRect = {};
+    if (!sub_006001F0_Prepare(pContext, 0, 1))
+    {
+        return;
+    }
+
+    if (sub_006C8380_Clip(pContext->pCelFile, nY, pClip, nX, &tRect))
+    {
+        return;
+    }
+
+    D2CMP_CelDrawEx(pContext, nX, nY, tRect.nX1, tRect.nX2, gnValue_007C9154, gnValue_007C913C, gnValue_007C9138, 0,
+        sub_006C8250_GetSetting(nC, &pClip, tRect.nY1, tRect.nY2, 0));
 }

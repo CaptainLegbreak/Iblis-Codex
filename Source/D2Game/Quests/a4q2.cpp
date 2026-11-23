@@ -221,18 +221,6 @@ void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc* pGame, D2UnitStrc* pUnit); 
 
 void __stdcall ACT4Q2_ActivateHarrogathWaypoint(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x005B4FF0
 
-// 0x005B4390
-void __fastcall ACT4Q1_OnIzualActivated(D2GameStrc* pGame)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 22);
-
-    if (pQuestData && pQuestData->bNotIntro && pQuestData->fLastState < 2)
-    {
-        pQuestData->nStatusFlags = 0;
-        QUESTS_UnitIterate(pQuestData, 2, 0, ACT4Q1_UnitIterate_StatusCyclerEx, 1);
-    }
-}
-
 // 0x005B43F0
 int __fastcall ACT4Q1_IsAnyPlayerInRangeOfIzualGhost(D2GameStrc* pGame, D2UnitStrc* pTargetUnit)
 {
@@ -259,6 +247,43 @@ void __fastcall ACT4Q1_AttachCompletionSoundToPlayers(D2GameStrc* pGame)
     SUNIT_IterateUnitsOfType(pGame, 0, 0, ACT4Q1_UnitIterate_AttachCompletionSound);
 }
 
+// 0x005B4450
+bool __fastcall ACT4Q2_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    if (nNpcId == 367)
+    {
+        if (!QUESTRECORD_GetQuestState(pQuestFlags, 26, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, 26, 15) && pQuest->fState == 1
+            || !pQuest->pGame->bExpansion && QUESTRECORD_GetQuestState(pQuestFlags, 26, 0) && QUESTRECORD_GetQuestState(pQuestFlags, 26, 7))
+        {
+            return true;
+        }
+
+        if (pQuest->pGame->bExpansion && QUESTRECORD_GetQuestState(pQuestFlags, 26, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, 26, 9))
+        {
+            return true;
+        }
+    }
+    else if (nNpcId == 246)
+    {
+        if (!pQuest->pGame->bExpansion && QUESTRECORD_GetQuestState(pQuestFlags, 26, 0) && QUESTRECORD_GetQuestState(pQuestFlags, 26, 6))
+        {
+            return true;
+        }
+
+        if (!pQuest->pGame->bExpansion || !QUESTRECORD_GetQuestState(pQuestFlags, 26, 0))
+        {
+            return false;
+        }
+
+        if (!QUESTRECORD_GetQuestState(pQuestFlags, 26, 8))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 // 0x005B4530
 bool __fastcall ACT4Q2_SeqCallback(D2QuestDataStrc* pQuestData)
 {
@@ -267,6 +292,36 @@ bool __fastcall ACT4Q2_SeqCallback(D2QuestDataStrc* pQuestData)
         QUESTS_StateDebug(pQuestData, 1, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q2.cpp", 145);
     }
     return 1;
+}
+
+// 0x005B4560
+int __fastcall ACT4Q2_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 26, 0) == 1)
+    {
+        return 0;
+    }
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 23);
+    if (!pQuestData)
+    {
+        return 0;
+    }
+    if (pQuestData->fState == 2)
+    {
+        QUESTRECORD_SetQuestState(pQuestFlags, 26, 2);
+        return 0;
+    }
+    if (pQuestData->fState == 3)
+    {
+        if (pQuestData->fLastState == 1)
+        {
+            QUESTRECORD_SetQuestState(pQuestFlags, 26, 3);
+            return 0;
+        }
+        QUESTRECORD_SetQuestState(pQuestFlags, 26, 4);
+    }
+    return 0;
 }
 
 // 0x005B45E0
@@ -589,6 +644,21 @@ void __fastcall ACT4Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
     if (pQuestData->pGame->bExpansion && pQuestDataEx->bSpawnPortalToAct5Pending && !pQuestDataEx->bPortalToAct5Spawned)
     {
         ACT4Q2_SpawnPortalToHarrogath(pQuestArg, pQuestDataEx);
+    }
+}
+
+int __stdcall WAYPOINTS_GetWaypointNoFromLevelId(int nLevelId, unsigned short* pWaypointNo); // 0x00660E00
+
+void __stdcall WAYPOINTS_ActivateWaypoint(D2WaypointDataStrc* pData, unsigned short wField); // 0x00660EC0
+
+// 0x005B4FF0
+void __stdcall ACT4Q2_ActivateHarrogathWaypoint(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+    unsigned short nWpNo;
+    if (WAYPOINTS_GetWaypointNoFromLevelId(LEVEL_HARROGATH, &nWpNo))
+    {
+        D2WaypointDataStrc* pWaypointData = UNITS_GetPlayerData(pPlayer)->pWaypointData[pGame->nDifficulty];
+        WAYPOINTS_ActivateWaypoint(pWaypointData, nWpNo);
     }
 }
 
@@ -1232,48 +1302,6 @@ int __fastcall OBJECTS_OperateFunction56_DiabloSeal(D2ObjOperateFnStrc* pOp, int
     pQuestDataEx->pSealCoords[2].nX += 32;
     pQuestDataEx->pSealCoords[2].nY += 16;
     ACT4Q2_SpawnSealObject(pOp, pCoord, 5);
-    return 0;
-}
-
-// 0x005B86E0
-void __fastcall ACT3Q2_UpdateKhalimItemCounts(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (!QUESTRECORD_GetQuestState(pQuestFlags, 18, 0))
-    {
-        QUESTRECORD_GetQuestState(pQuestFlags, 18, 1);
-    }
-
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 16);
-    if (!pQuestData)
-    {
-        return;
-    }
-
-    D2Act3Quest2Strc* pQuestDataEx = (D2Act3Quest2Strc*)pQuestData->pQuestDataEx;
-
-    --pQuestDataEx->nEyesDropped;
-    --pQuestDataEx->nHeartsDropped;
-    --pQuestDataEx->nBrainsDropped;
-    --pQuestDataEx->nFlailsDropped;
-    ++pQuestDataEx->nCubedFlails;
-}
-
-// 0x005B9CA0
-int __fastcall ACT3Q3_GetAltarCoordinates(D2GameStrc* pGame, D2CoordStrc* pCoord)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 17);
-    if (pQuestData)
-    {
-        D2Act3Quest3Strc* pQuestDataEx = (D2Act3Quest3Strc*)pQuestData->pQuestDataEx;
-        if (pQuestDataEx->bAltarCanBeActivated)
-        {
-            pCoord->nX = pQuestDataEx->nAltarX;
-            pCoord->nY = pQuestDataEx->nAltarY;
-            return 1;
-        }
-    }
-
     return 0;
 }
 

@@ -924,6 +924,19 @@ void __fastcall SUNITNPC_SetItemTradeFlags(D2UnitStrc* pPlayer, D2UnitStrc* pIte
     }
 }
 
+int __stdcall sub_0062E880(D2UnitStrc* pItem); // 0x0062E880
+
+// 0x00576320
+static inline int SUNITNPC_GetItemStorePage(D2UnitStrc* pItem)
+{
+    return sub_0062E880(pItem);
+}
+
+int __stdcall sub_M114_Emit_00576320(D2UnitStrc* pItem)
+{
+    return SUNITNPC_GetItemStorePage(pItem) + 1;
+}
+
 // 0x00576330
 D2UnitStrc* __fastcall D2GAME_NPC_GenerateStoreItem_6FCC6A60(D2UnitStrc* hNPC, unsigned int dwCode, D2GameStrc* ptGame, int bVendorItem, int nQuality, int nItemLevel, int nPlayerLevel)
 {
@@ -1138,6 +1151,29 @@ void __fastcall D2GAME_NPC_BuildHirelingList_6FCC6FF0(D2GameStrc* pGame, D2Clien
             D2GAME_SendPacket0x4E_6FC3F410(pClient, &packet);
         }
     }
+}
+
+#define NPC_LEVEL_COUNT 5
+
+// 0x00576890
+int __fastcall SUNITNPC_CapStoreItemLevel(D2GameStrc* pGame, D2UnitStrc* pNpc, int nLevel)
+{
+    if (pGame->nDifficulty == DIFFMODE_NORMAL)
+    {
+        int nUnused;
+        D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromUnit(pGame, pNpc, &nUnused);
+        if (pNpcRecord)
+        {
+            const int npcLevels[NPC_LEVEL_COUNT] = { 12, 20, 28, 36, 45 };
+            if (pNpcRecord->nAct < NPC_LEVEL_COUNT)
+            {
+                const int nCap = npcLevels[pNpcRecord->nAct];
+                return nCap < nLevel ? nCap : nLevel;
+            }
+        }
+    }
+
+    return nLevel;
 }
 
 // 0x00576900
@@ -1376,6 +1412,37 @@ void __fastcall SUNITNPC_DecreaseSkillQuantity(D2UnitStrc* unit, int skillId, in
     if (!unit) { id = -1; type = 6; }
     else { id = unit->dwUnitId; type = unit->dwUnitType; }
     D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(UnitGetClient(unit, gszNpcSourceFile, 0x40b), (unsigned char)type, id, skillId, quantity);
+}
+
+// 0x00576ED0
+bool __fastcall SUNITNPC_IsPermanentStoreItem(D2GameStrc* pGame, D2UnitStrc* pNpc, D2UnitStrc* pItem)
+{
+    int nUnused;
+    D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromUnit(pGame, pNpc, &nUnused);
+    if (!pNpcRecord)
+    {
+        return false;
+    }
+
+    const int nCode = ITEMS_GetBaseCode(pItem);
+    if (pGame->nDifficulty > DIFFMODE_NORMAL)
+    {
+
+        if (nCode == 0x20347068 || nCode == 0x20357068 || nCode == 0x2034706D || nCode == 0x2035706D)
+        {
+            return true;
+        }
+    }
+
+    for (int i = 0; i < pNpcRecord->nPermStoreItems; ++i)
+    {
+        if (nCode == pNpcRecord->pPermStoreItems[i])
+        {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 // 0x00576F40
@@ -1627,6 +1694,36 @@ D2UnitStrc* __fastcall D2GAME_MERCS_Create_6FCC8630(D2GameStrc* pGame, D2UnitStr
     mercData.nMercName = wName;
     MONSTERAI_AssignHireling(pGame, pPlayer, pMerc, wVersion, &mercData, bDead);
     return pMerc;
+}
+
+inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
+{
+    if (pUnit)
+    {
+        return (pUnit->dwFlagEx & nFlag) != 0;
+    }
+
+    return 0;
+}
+
+// 0x00577670
+D2UnitStrc* __fastcall SUNITNPC_FindInventoryItemByClassId(D2UnitStrc* pUnit, int nClassId)
+{
+    if (pUnit->pInventory)
+    {
+        D2UnitStrc* pNext;
+        for (D2UnitStrc* pItem = INVENTORY_GetFirstItem(pUnit->pInventory); pItem; pItem = pNext)
+        {
+            D2UnitStrc* pCheck = INVENTORY_UnitIsItem(pItem);
+            pNext = INVENTORY_GetNextItem(pItem);
+            if ((!pCheck ? -1 : pCheck->dwClassId) == nClassId && !UNIT_HasFlagEx(pCheck, UNITFLAGEX_ITEMINIT))
+            {
+                return pCheck;
+            }
+        }
+    }
+
+    return 0;
 }
 
 // 0x00577700

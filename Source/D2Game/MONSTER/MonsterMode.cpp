@@ -920,6 +920,40 @@ int* __fastcall MONSTERMODE_GetTargetTimerPtr(D2Field14Strc* pRecord)
     return &pRecord->nField14;
 }
 
+#define AIPARAM_MAX_STEPS 77
+
+struct D2AiParamStrc
+{
+    char unk0x00[0x18];
+    int unk0x18;
+    int nVelocity;
+    unsigned char unk0x20;
+};
+
+// 0x005A6260
+void __fastcall MONSTERMODE_SetVelocityParams(D2AiParamStrc* pAiParam, int nParam18, int nParam1C, unsigned char nParam20)
+{
+    if (nParam18)
+    {
+        pAiParam->unk0x18 = nParam18;
+    }
+
+    if (nParam1C)
+    {
+        pAiParam->nVelocity = nParam1C;
+    }
+
+    if (nParam20)
+    {
+        if (nParam20 >= AIPARAM_MAX_STEPS + 1)
+        {
+            nParam20 = AIPARAM_MAX_STEPS;
+        }
+
+        pAiParam->unk0x20 = nParam20;
+    }
+}
+
 // 0x005A6290
 static int __stdcall MONSTERMODE_ComputePath(int nPathType, D2MonVelocityParamStrc* pAiParam, D2UnitStrc* pUnit, unsigned char nNewDist)
 {
@@ -1481,10 +1515,92 @@ void __fastcall MONSTERMODE_EventUpdateStatListExpirations(D2GameStrc* pGame, D2
     STATLIST_UpdateStatListsExpiration(pUnit, pGame->dwGameFrame);
 }
 
+#define UNITFLAG_HASTXTMSG 0x00000100
+
+#define HOVER_EVENT 6
+
+// 0x005A7F00
+void __fastcall MONSTERMODE_EventFreeHoverText(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4)
+{
+    if (!pUnit)
+    {
+        return;
+    }
+
+    D2HoverTextStrc* pHoverText = pUnit->pHoverText;
+    if (!pHoverText)
+    {
+        return;
+    }
+
+    const unsigned int nTimeout = CHAT_GetTimeoutFromHoverMsg(pHoverText);
+    if (nTimeout <= pGame->dwGameFrame)
+    {
+        CHAT_FreeHoverMsg(pGame->pMemoryPool, pHoverText);
+        pUnit->pHoverText = 0;
+        UNITROOM_RefreshUnit(pUnit);
+        pUnit->dwFlags |= UNITFLAG_HASTXTMSG;
+    }
+    else
+    {
+        EVENT_SetEvent(pGame, pUnit, HOVER_EVENT, nTimeout, 0, 0);
+    }
+}
+
 // 0x005A7F70
 void __fastcall MONSTERMODE_EventClearTargetOverride(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4)
 {
     MONSTERAI_ClearTargetOverride(pUnit);
+}
+
+#define EVENTTYPE_STATREGEN 3
+
+#define EVENTTYPE_TRAP 4
+
+#define EVENTTYPE_RESET 5
+
+#define EVENTTYPE_REMOVESTATE 12
+
+#define EVENTTYPE_COUNT 15
+
+// 0x005A7F80
+void __fastcall MONSTERMODE_EventHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent, int nSkillId, int nSkillLevel)
+{
+    if (nEvent < 0 || nEvent >= EVENTTYPE_COUNT)
+    {
+        return;
+    }
+
+    switch (nEvent)
+    {
+    case EVENTTYPE_STATREGEN:
+    case EVENTTYPE_TRAP:
+    case EVENTTYPE_RESET:
+    case EVENTTYPE_PERIODICSKILLS:
+    case EVENTTYPE_REMOVESTATE:
+        break;
+    default:
+        if (STATES_CheckState(pUnit, STATE_FREEZE) && !SUNIT_IsDead(pUnit))
+        {
+            return;
+        }
+        break;
+    }
+
+    const MonEventFunc pfMonEvent = gpMonsterEventFunctions[nEvent];
+    if (pfMonEvent)
+    {
+        pfMonEvent(pGame, pUnit, nSkillId, nSkillLevel);
+    }
+}
+
+// 0x005A8000
+void __fastcall MONSTERMODE_DropTreasureForFindItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nUnused)
+{
+    D2ModeChangeStrc modeChange;
+    modeChange.pUnit = pUnit;
+    modeChange.pTargetUnit = pTarget;
+    MONSTERMODE_DropTreasure(pGame, pUnit, 1, &modeChange);
 }
 
 // build: context sub_6FC63FD0
@@ -1559,6 +1675,24 @@ void __fastcall D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90(D2UnitStrc* pUni
     pAiParam->f_18 = 0;
     pAiParam->f_1C = 0;
     pAiParam->nNewDistOverride = 0;
+}
+
+struct D2UnkFieldsStrc;
+
+struct D2UnkFieldsStrc
+{
+    char pad0x00[0x18];
+    int nUnk0x18;
+    int nUnk0x1C;
+    unsigned char nUnk0x20;
+};
+
+// 0x005A6230
+void __fastcall MONSTERMODE_GetVelocityParams(D2UnkFieldsStrc* pFields, int* pUnk0x18, int* pUnk0x1C, unsigned char* pUnk0x20)
+{
+    *pUnk0x18 = pFields->nUnk0x18;
+    *pUnk0x1C = pFields->nUnk0x1C;
+    *pUnk0x20 = pFields->nUnk0x20;
 }
 
 static inline int HasCorpseExplosion(D2MonStatsTxt* pRecord)

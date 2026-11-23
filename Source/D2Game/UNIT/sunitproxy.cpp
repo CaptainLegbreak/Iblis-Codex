@@ -10,6 +10,7 @@
 #include "D2DataTbls.h"
 #include "D2GameRecords.h"
 #include "D2ItemsWorld.h"
+#include "D2MonsterIds.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -668,6 +669,25 @@ void __fastcall SUNITPROXY_QueueTradeEvent(D2UnitStrc* pNpc, D2GameStrc* pGame, 
     }
 }
 
+struct D2ActiveRoomStrc;
+
+struct D2UnitProxyArgStrc;
+
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
+
+// 0x00536820
+void __fastcall SUNITPROXY_CountPlayersInLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg)
+{
+    D2UnitProxyArgStrc* pUnitProxyArg = (D2UnitProxyArgStrc*)pArg;
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (pRoom && pUnitProxyArg->nLevelId == DUNGEON_GetLevelIdFromRoom(pRoom))
+    {
+        ++pUnitProxyArg->nCounter;
+    }
+}
+
 D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromClassId(D2GameStrc* pGame, int nNpcClassId, int* pIndex)
 {
     D2NpcRecordStrc* pRecords = pGame->pNpcControl->pFirstRecord;
@@ -750,6 +770,13 @@ void __fastcall SUNITPROXY_ProcessNpcEvents(D2GameStrc* game,D2UnitStrc* npc)
  }
 }
 
+// 0x00536B20
+D2InventoryStrc* __fastcall SUNITPROXY_GetNpcInventory(D2GameStrc* pGame, int nNpc)
+{
+    int nUnused;
+    return SUNITPROXY_GetNpcRecordFromClassId(pGame, nNpc, &nUnused)->pInventory;
+}
+
 // 0x00536B40
 extern "C" __declspec(dllexport) unsigned int __fastcall SUNITPROXY_GetSeedFromNpcControl(Obj00536B40* pObj) {
     return pObj->dwValue1D24 + 8;
@@ -824,6 +851,28 @@ void __fastcall SUNITPROXY_FreeVendorChain(D2GameStrc* pGame, D2UnitStrc* pPlaye
 
         pPreviousVendorChain = pVendorChain;
     }
+}
+
+// 0x00536C50
+D2InventoryStrc* __fastcall SUNITPROXY_GetGambleInventory(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc)
+{
+    int nUnused;
+    D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromClassId(pGame, !pNpc ? -1 : pNpc->dwClassId, &nUnused);
+    if (!pNpcRecord || !pNpcRecord->bGambleInit)
+    {
+        return 0;
+    }
+
+    const int nPlayerGUID = !pPlayer ? -1 : pPlayer->dwUnitId;
+    for (D2NpcGambleStrc* pGamble = pNpcRecord->pGamble; pGamble; pGamble = pGamble->pNext)
+    {
+        if (pGamble->dwGUID == nPlayerGUID)
+        {
+            return pGamble->pInventory;
+        }
+    }
+
+    return 0;
 }
 
 // 0x00536CB0
@@ -922,6 +971,83 @@ void __stdcall SUNITPROXY_FillIGlobaltemCacheRecordForNpc(int nNpcId)
     }
 }
 
+void __fastcall SUNITPROXY_FillGlobalItemCache(); // 0x00536F80
+
+enum D2C_MonStatsTxtFlagIndices
+{
+    MONSTATSFLAGINDEX_INTERACT = 9,
+};
+
+// 0x00536F80
+void __fastcall SUNITPROXY_FillGlobalItemCache()
+{
+    const int nRecordCount = sgptDataTables->nMonStatsTxtRecordCount;
+    for (int i = 0; i < nRecordCount; ++i)
+    {
+        D2MonStatsTxt* pMonStatsTxtRecord = SUNITPROXY_GetMonStatsTxtRecordInline(i);
+        int bInteract = 0;
+        if (pMonStatsTxtRecord)
+            bInteract = pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_INTERACT >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_INTERACT & 7];
+        if (bInteract)
+        {
+            switch (i)
+            {
+            case MONSTER_HALBU:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(12);
+                break;
+            case MONSTER_ALKOR:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(7);
+                break;
+            case MONSTER_CHARSI:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(2);
+                break;
+            case MONSTER_FARA:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(3);
+                break;
+            case MONSTER_ASHEARA:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(10);
+                break;
+            case MONSTER_HRATLI:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(6);
+                break;
+            case MONSTER_AKARA:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(0);
+                break;
+            case MONSTER_DROGNAN:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(5);
+                break;
+            case MONSTER_LYSANDER:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(4);
+                break;
+            case MONSTER_ORMUS:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(8);
+                break;
+            case MONSTER_GHEED:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(1);
+                break;
+            case MONSTER_ELZIX:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(9);
+                break;
+            case MONSTER_JAMELLA:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(13);
+                break;
+            case MONSTER_DREHYA:
+            case MONSTER_NIHLATHAK:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(16);
+                break;
+            case MONSTER_MALAH:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(14);
+                break;
+            case MONSTER_LARZUK:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(15);
+                break;
+            default:
+                break;
+            }
+        }
+    }
+}
+
 inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 {
     if (pUnit)
@@ -994,23 +1120,6 @@ void __fastcall SUNITPROXY_FreeNpcGamble(D2GameStrc* pGame, D2UnitStrc* pNpc, D2
     }
 }
 
-// 0x00545300
-void __fastcall QUESTS_ResetPlayerGUIDCount(D2QuestGUIDStrc* pGUIDs)
-{
-    pGUIDs->nPlayerCount = 0;
-}
-
-// 0x00553980
-D2EventTimerStrc* __fastcall SUNIT_GetTimerFromUnit(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    return pUnit->pTimer;
-}
-
 // 0x005A4F20
 int __fastcall MONSTEREVAL_GetDifficultyScaledBonus(D2GameStrc* pGame, int nCount)
 {
@@ -1030,44 +1139,6 @@ int __fastcall MONSTEREVAL_GetDifficultyScaledBonus(D2GameStrc* pGame, int nCoun
     }
 
     return 8 * nCount - 16;
-}
-
-// 0x005FA690
-D2UnitStrc* __fastcall AITHINK_TargetCallback_Regurgitator(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
-{
-    D2RegurgitatorAiCallbackArgStrc* pArg = (D2RegurgitatorAiCallbackArgStrc*)pCallbackArg;
-
-    if (pUnit == pTarget)
-    {
-        return 0;
-    }
-
-    const int nType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
-    if (nType != UNIT_MONSTER || UNIT_HasFlag(pTarget, UNITFLAG_ISMERC) || !UNIT_HasFlag(pTarget, UNITFLAG_TARGETABLE))
-    {
-        return 0;
-    }
-
-    if (!MONSTERS_IsDead(pTarget) || STATES_CheckStateMaskUdeadOnUnit(pTarget) || STATLIST_GetUnitAlignment(pTarget) != UNIT_ALIGNMENT_EVIL)
-    {
-        return 0;
-    }
-
-// build: symbol ?MONSTERREGION_CheckMonStats2Flag@* 0x004638A0
-    if (!MONSTERREGION_CheckMonStats2Flag(pTarget->dwClassId, MONSTATS2FLAGINDEX_SOFT))
-    {
-        return 0;
-    }
-
-    const int nDistance = AITHINK_GetSquaredDistance(pUnit, pTarget);
-    if (nDistance > pArg->nDistance)
-    {
-        return 0;
-    }
-
-    pArg->pTarget = pTarget;
-    pArg->nDistance = nDistance;
-    return 0;
 }
 
 #include "gen/data/Source/D2Game/UNIT/sunitproxy.inc"

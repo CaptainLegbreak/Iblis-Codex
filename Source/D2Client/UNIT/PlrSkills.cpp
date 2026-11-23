@@ -8,6 +8,7 @@
 #include "D2LevelTxt.h"
 #include "D2PlayerModes.h"
 #include "D2MonModes.h"
+#include "D2Path.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -124,6 +125,50 @@ D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fF
 void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
+int __fastcall ITEM_CallClientStateEvent(void* pArg1, int nArg2, int nArg3, int nArg4, unsigned int nIndex, int nArg6, int nArg7); // 0x004C7C40
+
+extern unsigned int gdwBitMasks[]; // 0x006CE268
+
+typedef void (__fastcall* CLIENTSTATEFN)(D2UnitStrc* pUnit, int nState);
+
+extern CLIENTSTATEFN gpfnClientStateSetFuncs[]; // 0x0072A690
+
+void __fastcall CUNITEVENT_RemoveCltUnitEvents(D2UnitStrc* pUnit, int nParam4, int nParam5); // 0x004DC190
+
+extern CLIENTSTATEFN gpfnClientStateRemFuncs[]; // 0x0072A710
+
+typedef char check_pointer_width[sizeof(void*)==4?1:-1];
+
+typedef char check_scalar_width[sizeof(U32)==4?1:-1];
+
+extern "C" int __stdcall SKILLS_GetUseState(D2UnitStrc* unit,D2SkillStrc* skill); // 0x00647960
+
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
+
+int __cdecl sub_0044DA90(); // 0x0044DA90
+
+int __cdecl GAME_GetSkillDelayUntil(); // 0x0044CE50
+
+void __fastcall SCMD_SetLightColorBytes(D2GfxLightStrc* pLight, unsigned char nValue0, unsigned char nValue1, unsigned char nValue2); // 0x00474390
+
+int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
+int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
+void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x00648820
+
+struct D2UnitEventArgsStrc
+{
+    int nX;
+    int nY;
+    int nArg2;
+    int nArg3;
+    int nArg4;
+    int nArg5;
+    int nArg6;
+};
+
+int __fastcall sub_00480C10_DispatchUnitEvent(int nEvent, D2UnitStrc* pUnit, D2UnitEventArgsStrc* pArgs, int nArg); // 0x00480C10
+
+// 0x004D84C0
 static int sub_004D84C0_IsInSequenceMode(D2UnitStrc* pUnit)
 {
     int nUnitType = UNIT_INVALID;
@@ -132,9 +177,9 @@ static int sub_004D84C0_IsInSequenceMode(D2UnitStrc* pUnit)
     switch (nUnitType)
     {
     case UNIT_MONSTER:
-        return (pUnit ? pUnit->dwAnimMode : 0) == MONMODE_SEQUENCE;
+        return (!pUnit ? 0 : pUnit->dwAnimMode) == MONMODE_SEQUENCE;
     case UNIT_PLAYER:
-        return (pUnit ? pUnit->dwAnimMode : 0) == PLRMODE_SEQUENCE;
+        return (!pUnit ? 0 : pUnit->dwAnimMode) == PLRMODE_SEQUENCE;
     }
     return 0;
 }
@@ -869,6 +914,303 @@ void __fastcall PLRSKILLS_StateOverlaySpread(D2UnitStrc* pUnit, int nState)
         }
     }
 }
+
+inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecordInline(int nSkillId)
+{
+    if (nSkillId < sgptDataTables->nSkillsTxtRecordCount && nSkillId >= 0)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+
+    return 0;
+}
+
+// 0x004D9180
+void __fastcall MISSILE_StateStartMissile(D2UnitStrc* pUnit, int nState)
+{
+    D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(nState);
+    if (!pStatesTxtRecord || pStatesTxtRecord->wSkill < 0)
+    {
+        return;
+    }
+
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecordInline(pStatesTxtRecord->wSkill);
+    if (!pSkillsTxtRecord || pSkillsTxtRecord->wCltMissileA < 0 || pSkillsTxtRecord->wCltMissileA >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return;
+    }
+
+    D2MissileStrc missileParams;
+    memset(&missileParams, 0, sizeof(missileParams));
+    missileParams.pOwner = pUnit;
+    missileParams.pOrigin = pUnit;
+    missileParams.nMissile = pSkillsTxtRecord->wCltMissileA;
+    missileParams.nSkill = pStatesTxtRecord->wSkill;
+    missileParams.nSkillLevel = 1;
+    MISSILE_CreateClientMissile(&missileParams);
+
+    if (pUnit)
+    {
+        pUnit->dwFlagEx |= 0x40000;
+        pUnit->dwFlags |= 0x20;
+    }
+}
+
+// 0x004D96B0
+void __fastcall MISSILE_StateMissile(D2UnitStrc* pUnit, int nState)
+{
+    D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(nState);
+    if (!pStatesTxtRecord || pStatesTxtRecord->wMissile < 0 || pStatesTxtRecord->wMissile >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return;
+    }
+
+    D2MissileStrc missileParams;
+    memset(&missileParams, 0, sizeof(missileParams));
+    missileParams.pOwner = pUnit;
+    missileParams.pOrigin = pUnit;
+    missileParams.nMissile = pStatesTxtRecord->wMissile;
+    missileParams.nSkill = pStatesTxtRecord->wSkill >= 0 ? pStatesTxtRecord->wSkill : 0;
+    missileParams.nSkillLevel = 1;
+    MISSILE_CreateClientMissile(&missileParams);
+}
+
+// 0x004D9E60
+void __fastcall sub_004D9E60_StartClientState(D2UnitStrc* pUnit, int nState)
+{
+    if (!pUnit || nState < 0 || nState >= sgptDataTables->nStatesTxtRecordCount)
+    {
+        return;
+    }
+
+    D2StatesTxt* pStatesTxt = &sgptDataTables->pStatesTxt[nState];
+    if (!pStatesTxt)
+    {
+        return;
+    }
+
+    if (pStatesTxt->nStateFlags[4] & gdwBitMasks[7])
+    {
+        if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->dwAnimMode == MONMODE_DEAD)
+        {
+            return;
+        }
+
+        if (pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode == PLRMODE_DEAD)
+        {
+            return;
+        }
+    }
+
+    if (pStatesTxt->wSetFunc >= 0 && pStatesTxt->wSetFunc < 31 && gpfnClientStateSetFuncs[pStatesTxt->wSetFunc])
+    {
+        gpfnClientStateSetFuncs[pStatesTxt->wSetFunc](pUnit, nState);
+    }
+
+    if (pStatesTxt->wCltEvent < 0)
+    {
+        return;
+    }
+
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
+    if (!pStatList)
+    {
+        return;
+    }
+
+    const int nValue1 = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
+    const int nValue2 = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
+    ITEM_CallClientStateEvent(pUnit, pStatesTxt->wCltEvent, nValue1, nValue2, pStatesTxt->wCltEventFunc, 1, nState);
+}
+
+// 0x004D9F40
+void __fastcall sub_004D9F40_EndClientState(D2UnitStrc* pUnit, int nState)
+{
+    if (!pUnit || nState < 0 || nState >= sgptDataTables->nStatesTxtRecordCount)
+    {
+        return;
+    }
+
+    D2StatesTxt* pStatesTxt = &sgptDataTables->pStatesTxt[nState];
+    if (!pStatesTxt)
+    {
+        return;
+    }
+
+    if (pStatesTxt->wRemFunc >= 0 && pStatesTxt->wRemFunc < 30 && gpfnClientStateRemFuncs[pStatesTxt->wRemFunc])
+    {
+        gpfnClientStateRemFuncs[pStatesTxt->wRemFunc](pUnit, nState);
+    }
+
+    if (pStatesTxt->wCltEvent < 0)
+    {
+        return;
+    }
+
+    if (!STATLIST_GetStatListFromUnitAndState(pUnit, nState))
+    {
+        return;
+    }
+
+    CUNITEVENT_RemoveCltUnitEvents(pUnit, 1, nState);
+}
+
+
+
+void __fastcall PLRSKILLS_StateCreateMissile(D2UnitStrc* pUnit, int nState); // 0x004D9740
+void __fastcall PLRSKILLS_StateResetValue(D2UnitStrc* pUnit, int nState); // 0x004D97E0
+
+// 0x004D8650
+void __fastcall MISSILE_CallSkillSeqDoBackward(D2UnitStrc* pUnit, int nArg)
+{
+    PLRSKILLS_SkillSeqDoBackward(pUnit, nArg);
+}
+
+// 0x004D9630
+void __fastcall MISSILE_StateOverlayRanges(D2UnitStrc* pUnit, int nState)
+{
+    D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(nState);
+    if (!pStatesTxtRecord)
+    {
+        return;
+    }
+
+    int nEnd = pStatesTxtRecord->wOverlay[1];
+    int nStart = pStatesTxtRecord->wOverlay[0];
+    if (nStart >= 0)
+    {
+        for (int i = nStart; i <= nEnd; ++i)
+        {
+            AUTOMAP_RemoveUnitOverlay(pUnit, 0, i);
+        }
+    }
+
+    nStart = pStatesTxtRecord->wOverlay[2];
+    nEnd = pStatesTxtRecord->wOverlay[3];
+    if (nStart >= 0)
+    {
+        for (int i = nStart; i <= nEnd; ++i)
+        {
+            AUTOMAP_RemoveUnitOverlay(pUnit, 0, i);
+        }
+    }
+}
+
+// 0x004D97F0
+void __stdcall MISSILE_UpdateStateColor(D2UnitStrc* pUnit)
+{
+    int nBestState = -1;
+    unsigned char nBestPri = 0;
+    for (int i = 0; i < sgptDataTables->nStatesTxtRecordCount; ++i)
+    {
+        D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(i);
+        if (pStatesTxtRecord && STATES_CheckState(pUnit, i) && pStatesTxtRecord->nColorPri > nBestPri)
+        {
+            nBestState = i;
+            nBestPri = pStatesTxtRecord->nColorPri;
+        }
+    }
+
+    if (nBestState > 0)
+    {
+        D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(nBestState);
+        if (!pStatesTxtRecord)
+        {
+            return;
+        }
+
+// build: symbol ?D2GFX_IsHardwareRenderMode@* 0x004F51C0
+        if (pStatesTxtRecord->nColorShift == 0x68 && pUnit == sub_00463DD0_GetPlayerUnit() && D2GFX_IsHardwareRenderMode())
+        {
+            pUnit->nPaletteIndex = 0;
+        }
+        else
+        {
+            pUnit->nPaletteIndex = pStatesTxtRecord->nColorShift;
+        }
+
+        if (pUnit == sub_00463DD0_GetPlayerUnit() && pUnit->pLight)
+        {
+            SCMD_SetLightColorBytes(pUnit->pLight, pStatesTxtRecord->nLightRGB[0], pStatesTxtRecord->nLightRGB[1], pStatesTxtRecord->nLightRGB[2]);
+        }
+    }
+    else
+    {
+        pUnit->nPaletteIndex = 0;
+        if (pUnit == sub_00463DD0_GetPlayerUnit() && pUnit->pLight)
+        {
+            SCMD_SetLightColorBytes(pUnit->pLight, 0xFF, 0xFF, 0xFF);
+        }
+    }
+}
+
+// 0x004D9160
+void __fastcall sub_004D9160(D2UnitStrc* pArg)
+{
+    SKILLS_RefreshPassiveSkills(pArg);
+}
+
+// 0x004D9170
+void __fastcall sub_004D9170(D2UnitStrc* pArg)
+{
+    SKILLS_RefreshPassiveSkills(pArg);
+}
+
+// 0x004D93B0
+void __fastcall ITEM_SendPositionEvent(D2UnitStrc* pUnit)
+{
+    D2UnitEventArgsStrc tArgs = {};
+
+    int nX;
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        nX = pUnit->pStaticPath->tGameCoords.nX;
+        break;
+
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            nX = PATH_GetXPosition(pUnit->pDynamicPath);
+        }
+        else
+        {
+            nX = 0;
+        }
+        break;
+    }
+    tArgs.nX = nX;
+
+    int nY;
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        nY = pUnit->pStaticPath->tGameCoords.nY;
+        break;
+
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            nY = PATH_GetYPosition(pUnit->pDynamicPath);
+        }
+        else
+        {
+            nY = 0;
+        }
+        break;
+    }
+    tArgs.nY = nY;
+
+    sub_00480C10_DispatchUnitEvent(0x19, pUnit, &tArgs, 0);
+    D2COMMON_10160_PathUpdateDirection(pUnit->pDynamicPath, 0);
+}
+
+
+
 
 #include "gen/data/Source/D2Client/UNIT/PlrSkills.inc"
 

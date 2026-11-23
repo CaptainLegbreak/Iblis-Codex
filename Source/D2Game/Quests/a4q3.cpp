@@ -6,6 +6,7 @@
 #include "D2QuestData.h"
 #include "D2GameObjs.h"
 #include "D2Txt.h"
+#include "D2MonsterIds.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -364,6 +365,20 @@ playSound:
  return 0;
 }
 
+// 0x005B5EE0
+bool __fastcall ACT4Q3_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    const int nId = nNpcId;
+    if (nId == MONSTER_CAIN4 && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A4Q3, QFLAG_REWARDGRANTED)
+        && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A4Q3, QFLAG_REWARDPENDING)
+        && pQuest->bNotIntro && pQuest->fState == 1 && !((D2Act4Quest3Strc*)pQuest->pQuestDataEx)->bSoulstoneAcquired)
+    {
+        return true;
+    }
+
+    return false;
+}
+
 // 0x005B6050
 void __fastcall ACT4Q3_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -566,6 +581,49 @@ void __fastcall ACT4Q3_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
     }
 }
 
+int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc* pQuest, int dwGUID); // 0x005452C0
+
+// 0x005B62D0
+void __fastcall ACT4Q3_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2GameStrc* pGame = pQuestArg->pGame;
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
+    const int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
+    const int bRewardGranted = QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0);
+    const int bPrimaryGoalDone = QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 13);
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 1))
+    {
+        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 2);
+    }
+    else if (QUESTS_CheckPlayerGUID(pQuestData, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId) == 1)
+    {
+        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 3);
+    }
+    else if (pQuestData->fState && bRewardGranted != 1 && (pQuestData->fState < 4 || bPrimaryGoalDone)
+        && !QUESTRECORD_GetQuestState(pQuestFlags, 27, 1) && pQuestData->bNotIntro)
+    {
+        if (pQuestData->fState == 1)
+        {
+            if (ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, ' ssm'))
+            {
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 0);
+            }
+            else if (!((D2Act4Quest3Strc*)pQuestData->pQuestDataEx)->bSoulstoneAcquired && pQuestData->fLastState < 3)
+            {
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 1);
+            }
+        }
+        else
+        {
+            if (!ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, ' ssm') && pQuestData->fLastState < 3 && !((D2Act4Quest3Strc*)pQuestData->pQuestDataEx)->bSoulstoneAcquired)
+            {
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 1);
+            }
+        }
+    }
+}
+
 // 0x005B6440
 void __fastcall ACT4Q3_Callback02_NpcDeactivate(D2QuestDataStrc* pQuest, D2QuestArgStrc* pArg)
 {
@@ -629,6 +687,23 @@ void __fastcall ACT4Q3_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
     {
         pQuestData->fLastState = 1;
         pQuestData->fState = 2;
+    }
+}
+
+// 0x005B65D0
+void __fastcall ACT4Q3_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2Act4Quest3Strc* pQuestDataEx = (D2Act4Quest3Strc*)pQuestData->pQuestDataEx;
+    if (!pQuestData->bNotIntro)
+    {
+        return;
+    }
+
+    pQuestArg->pTarget->dwDropItemCode = ' hfh';
+    int nItemLevel;
+    if (D2GAME_DropItemAtUnit_6FC4FEC0(pQuestArg->pGame, pQuestArg->pTarget, 7, &nItemLevel, 0, -1, 0))
+    {
+        ++pQuestDataEx->nHellforgeHammersInGame;
     }
 }
 
@@ -761,68 +836,6 @@ bool __fastcall ACT3Q3_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc*
     else if (QUESTRECORD_GetQuestState(pFlags, 19, 2))
     {
         *pStatus = 1;
-    }
-
-    return true;
-}
-
-// 0x005BA9E0
-void __fastcall ACT3Q4_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    D2Act3Quest4Strc* pQuestDataEx = (D2Act3Quest4Strc*)pQuestData->pQuestDataEx;
-    bool bGoldAcquired = false;
-    if (ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, ' 43j'))
-    {
-        ++pQuestDataEx->nGoldenBirdsInGame;
-    }
-
-    if (ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, ' 43g'))
-    {
-        bGoldAcquired = true;
-        ++pQuestDataEx->nGoldenBirdsInGame;
-    }
-
-    if (pQuestDataEx->nGoldenBirdsInGame != 1 || !pQuestData->bNotIntro || !pQuestDataEx->bPlayerDroppedWithItem)
-    {
-        return;
-    }
-
-    pQuestDataEx->bPlayerDroppedWithItem = 0;
-    pQuestData->nStatusFlags = 0;
-
-    int nState = 1;
-    if (bGoldAcquired)
-    {
-        nState = 3;
-    }
-
-    QUESTS_UnitIterate(pQuestData, nState, 0, ACT3Q4_UnitIterate_StatusCyclerEx, true);
-}
-
-// 0x005BBE20
-bool __fastcall ACT3Q5_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus)
-{
-    if (!QUESTRECORD_GetQuestState(pFlags, 15, 0))
-    {
-        *pStatus = 0;
-        return true;
-    }
-
-    *pStatus = pQuest->fLastState;
-    if (QUESTRECORD_GetQuestState(pFlags, 21, 0))
-    {
-        *pStatus = QUESTRECORD_GetQuestState(pFlags, 21, 13) ? 13 : 11;
-        return true;
-    }
-
-    if (QUESTRECORD_GetQuestState(pFlags, 21, 4))
-    {
-        *pStatus = ((D2Act3Quest5Strc*)pQuest->pQuestDataEx)->bOrbSmashed ? 13 : 4;
-    }
-
-    if (!pQuest->bNotIntro)
-    {
-        *pStatus = 0;
     }
 
     return true;

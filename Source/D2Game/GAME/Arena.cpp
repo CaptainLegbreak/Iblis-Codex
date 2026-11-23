@@ -381,6 +381,12 @@ void __fastcall ARENA_SetFlags(D2GameStrc* pGame, unsigned int nFlags, int bSet)
     }
 }
 
+// 0x0053FDF0
+int __cdecl ARENA_Return0()
+{
+    return 0;
+}
+
 // 0x0053F600
 static int ARENA_GetArenaType(D2GameStrc* pGame)
 {

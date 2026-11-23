@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2StormAutoLink.h"
 #include "D2GameTypes.h"
 
 struct D2CelListStrc;
@@ -97,39 +98,6 @@ struct D2StormEntry604080Strc
     D2StormEntry604080Strc(const D2StormEntry604080Strc& source) : nField18(source.nField18), nField1C(source.nField1C),
         nField20(source.nField20), nField24(source.nField24), nField28(source.nField28), tList(source.tList)
     {
-    }
-};
-
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-    D2StormLinkStrc()
-    {
-        m_prevlink = 0;
-        m_next = 0;
-    }
-    ~D2StormLinkStrc()
-    {
-        Unlink();
-    }
-    D2StormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
     }
 };
 

@@ -2184,12 +2184,6 @@ void __fastcall D2GAME_SendP0x9C_ItemAction_AddOrRemoveFromShop_6FC3F260(D2Clien
     }
 }
 
-// 0x0053FDF0
-int __cdecl ARENA_Return0()
-{
-    return 0;
-}
-
 // 0x0054B920
 int __stdcall D2GAME_PACKETCALLBACK_Rcv0x2E_Ignored(int nUnused1, int nUnused2)
 {
@@ -2247,11 +2241,6 @@ void __stdcall sub_00570690(int nUnused1)
 {
 }
 
-// 0x005991B0
-void __stdcall ACT2Q1_OnRadamentCreated(int nUnused1)
-{
-}
-
 // 0x0059B6C0
 void __stdcall ACT2Q4_OnJerhynSpawned(int nUnused1, int nUnused2)
 {
@@ -2259,11 +2248,6 @@ void __stdcall ACT2Q4_OnJerhynSpawned(int nUnused1, int nUnused2)
 
 // 0x0059B6D0
 void __stdcall ACT2Q4_OnPalaceGuardSpawned(int nUnused1, int nUnused2)
-{
-}
-
-// 0x0059C3B0
-void __stdcall ACT2Q5_OnSummonerCreated(int nUnused1)
 {
 }
 
@@ -2744,6 +2728,17 @@ void __fastcall SCMD_SendPlayerRelationshipCallback(D2GameStrc* pGame, D2UnitStr
     D2GAME_PACKETS_SendPacket_6FC3C710(UnitGetClient(pPlayer, ".\\GAME\\SCmd.cpp", 0xBAE), pPacket, sizeof(D2GSPacketSrv8C));
 }
 
+// 0x0053DE20
+void __fastcall SCMD_BroadcastPlayerRelationship(D2GameStrc* pGame, int dwPlayerId1, int dwPlayerId2, short wRelationState)
+{
+    D2GSPacketSrv8C packet8C;
+    packet8C.nHeader = 0x8C;
+    packet8C.dwPlayerGUID1 = dwPlayerId1;
+    packet8C.dwPlayerGUID2 = dwPlayerId2;
+    packet8C.nFlags = wRelationState;
+    SUNIT_IterateLivingPlayers(pGame, SCMD_SendPlayerRelationshipCallback, &packet8C);
+}
+
 // 0x0053DE50
 void __fastcall D2GAME_PACKETS_SendPacket0x8C_6FC3F8B0(D2UnitStrc* pUnit, int dwPlayerId1, int dwPlayerId2, unsigned short wRelationState)
 {
@@ -2793,6 +2788,17 @@ void __fastcall D2GAME_PACKETS_SendPacket0x8D_6FC3F960(D2UnitStrc* pUnit, D2Unit
 void __fastcall SCMD_SendCorpseAssignCallback(D2GameStrc* pGame, D2UnitStrc* pPlayer, void* pPacket)
 {
     D2GAME_PACKETS_SendPacket_6FC3C710(UnitGetClient(pPlayer, ".\\GAME\\SCmd.cpp", 0xBFF), pPacket, 0xA);
+}
+
+// 0x0053DF80
+void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(D2GameStrc* pGame, int nUnitId, int nCorpseId, unsigned char bAssign)
+{
+    D2GSPacketSrv8E packet8E;
+    packet8E.nHeader = 0x8E;
+    packet8E.dwPlayerGUID = nUnitId;
+    packet8E.dwCorpseGUID = nCorpseId;
+    packet8E.nType = bAssign;
+    SUNIT_IterateLivingPlayers(pGame, SCMD_SendCorpseAssignCallback, &packet8E);
 }
 
 // 0x0053DFB0

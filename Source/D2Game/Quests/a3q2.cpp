@@ -556,34 +556,6 @@ int __fastcall sub_005B8500_IsSewerStairsClosed(D2GameStrc* pGame)
     return 0;
 }
 
-// 0x005C01D0
-int __fastcall SKILLITEM_EventFunc28_HealAfterKill(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
-{
-    if (!pAttacker || !pUnit)
-    {
-        return 0;
-    }
-
-    const int nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, (unsigned int)nSkillId >> 16, nSkillId);
-    if (!nValue)
-    {
-        return 0;
-    }
-
-    const int nMaxHp = STATLIST_GetMaxLifeFromUnit(pAttacker);
-    int nHitpoints = STATLIST_UnitGetStatValue(pAttacker, STAT_HITPOINTS, 0);
-    if (nHitpoints >= nMaxHp)
-    {
-        return 0;
-    }
-
-    nHitpoints += nValue << 8;
-    nHitpoints = nHitpoints > 0 ? nHitpoints : 0;
-    STATLIST_SetUnitStat(pAttacker, STAT_HITPOINTS, nHitpoints < nMaxHp ? nHitpoints : nMaxHp, 0);
-    UNITS_SetOverlay(pAttacker, 151, 0);
-    return 1;
-}
-
 // 0x005C31F0
 int __fastcall SKILLS_IsValidAttractTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
@@ -720,6 +692,30 @@ int __fastcall OBJECTS_OperateFunction45_SewerLever(D2ObjOperateFnStrc* pOp, int
     return 0;
 }
 
+// 0x005B85E0
+void __fastcall ACT3Q2_OpenSewerStairs(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
+{
+    D2Act3Quest2Strc* pQuestDataEx = (D2Act3Quest2Strc*)pQuestData->pQuestDataEx;
+    if (pQuestDataEx->bSewerStairsInitialized == 1)
+    {
+        D2UnitStrc* pFoundUnit = SUNIT_GetServerUnit(pQuestData->pGame, UNIT_OBJECT, pQuestDataEx->nSewerStairsObjectGUID);
+        if (!pFoundUnit)
+        {
+            pQuestDataEx->nSewerStairsObjectMode = OBJMODE_OPENED;
+            return;
+        }
+
+        UNITS_ChangeAnimMode(pFoundUnit, pQuestDataEx->nSewerStairsObjectMode);
+        if (pQuestDataEx->nSewerStairsObjectMode != OBJMODE_OPENED)
+        {
+            pQuestDataEx->nSewerStairsObjectMode = OBJMODE_OPENED;
+            const int nClassId = pFoundUnit->dwClassId;
+            D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nClassId);
+            EVENT_SetEvent(pQuestData->pGame, pFoundUnit, EVENTTYPE_ENDANIM, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pQuestData->pGame->dwGameFrame, 0, 0);
+        }
+    }
+}
+
 // 0x005B8660
 void __fastcall OBJECTS_InitFunction41_SewerStairs(D2ObjInitFnStrc* pOp)
 {
@@ -751,6 +747,36 @@ void __fastcall OBJECTS_InitFunction42_SewerLever(D2ObjInitFnStrc* pOp)
     {
         UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPENED);
     }
+}
+
+// 0x005B86E0
+void __fastcall ACT3Q2_UpdateKhalimItemCounts(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, 18, 0))
+    {
+        QUESTRECORD_GetQuestState(pQuestFlags, 18, 1);
+    }
+
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 16);
+    if (!pQuestData)
+    {
+        return;
+    }
+
+    D2Act3Quest2Strc* pQuestDataEx = (D2Act3Quest2Strc*)pQuestData->pQuestDataEx;
+
+    --pQuestDataEx->nEyesDropped;
+    --pQuestDataEx->nHeartsDropped;
+    --pQuestDataEx->nBrainsDropped;
+    --pQuestDataEx->nFlailsDropped;
+    ++pQuestDataEx->nCubedFlails;
+}
+
+// 0x005B8750
+int __fastcall ACT3Q2_LacksKhalimsWill(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    return ITEMS_FindQuestItem(pGame, pUnit, ' 2fq') == 0;
 }
 
 // 0x005B8770
@@ -921,6 +947,69 @@ int __fastcall OBJECTS_OperateFunction59_KhalimChest(D2ObjOperateFnStrc* pOp, in
     return 0;
 }
 
+bool __fastcall ACT3Q5_IsOrbNotSmashed(D2GameStrc* pGame); // 0x005BBF80
+
+// 0x005BD500
+bool __fastcall ACT3Q2_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    if (nNpcId == 245)
+    {
+        if (pQuest->fState >= 1 && !QUESTRECORD_GetQuestState(pQuestFlags, 18, 2))
+        {
+            return true;
+        }
+
+        int nParts = 0;
+        if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' 1fq'))
+        {
+            ++nParts;
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, 18, 5))
+            {
+                return true;
+            }
+        }
+
+        if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' yeq'))
+        {
+            ++nParts;
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, 18, 3))
+            {
+                return true;
+            }
+        }
+
+        if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' rhq'))
+        {
+            ++nParts;
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, 18, 6))
+            {
+                return true;
+            }
+        }
+
+        if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' rbq'))
+        {
+            ++nParts;
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, 18, 4))
+            {
+                return true;
+            }
+        }
+
+        if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' 2fq') && !QUESTRECORD_GetQuestState(pQuestFlags, 18, 7) && ACT3Q5_IsOrbNotSmashed(pQuest->pGame))
+        {
+            return true;
+        }
+
+        if (nParts == 4 && !QUESTRECORD_GetQuestState(pQuestFlags, 18, 5))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 // 0x005BD630
 void __fastcall ACT3Q2_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -1045,6 +1134,106 @@ void __fastcall ACT3Q2_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
     {
         QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 245, 6);
     }
+}
+
+// 0x005BD850
+bool __fastcall ACT3Q2_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus)
+{
+    *pStatus = 0;
+
+    if (!QUESTRECORD_GetQuestState(pFlags, 15, 0))
+    {
+        return true;
+    }
+
+    const int bStarted = QUESTRECORD_GetQuestState(pFlags, 18, 2);
+    if (bStarted || pQuest->bNotIntro && pQuest->fState >= 2)
+    {
+        *pStatus = 1;
+    }
+
+    int nParts = 0;
+    if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' 2fq'))
+    {
+        D2QuestDataStrc* pQuestData19 = QUESTS_GetQuestData(pQuest->pGame, 19);
+        const bool bNotSmashed = pQuestData19 ? ((D2Act3Quest5Strc*)pQuestData19->pQuestDataEx)->bOrbSmashed == 0 : true;
+        if (bNotSmashed)
+        {
+            *pStatus = 6;
+        }
+        else
+        {
+            *pStatus = 12;
+        }
+        return true;
+    }
+
+    int bBaseFlail = 0;
+    int bEye = 0;
+    int bHeart = 0;
+    int bBrain = 0;
+    if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' 1fq'))
+    {
+        ++nParts;
+        bBaseFlail = 1;
+    }
+
+    if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' yeq'))
+    {
+        ++nParts;
+        bEye = 1;
+    }
+
+    if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' rhq'))
+    {
+        ++nParts;
+        bHeart = 1;
+    }
+
+    if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' rbq'))
+    {
+        ++nParts;
+        bBrain = 1;
+    }
+
+    if (nParts == 4)
+    {
+        *pStatus = QUESTRECORD_GetQuestState(pFlags, 18, 5) ? 5 : 7;
+        return true;
+    }
+
+    if (nParts)
+    {
+        if (!bEye)
+        {
+            *pStatus = 1;
+            return true;
+        }
+
+        if (!bBrain)
+        {
+            *pStatus = 2;
+            return true;
+        }
+
+        if (!bHeart)
+        {
+            *pStatus = 4;
+            return true;
+        }
+
+        *pStatus = bBaseFlail ? 7 : 3;
+        return true;
+    }
+
+    if (bStarted)
+    {
+        *pStatus = 1;
+        return true;
+    }
+
+    *pStatus = pQuest->fState > 1;
+    return true;
 }
 
 #include "gen/data/Source/D2Game/Quests/a3q2.inc"

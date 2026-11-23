@@ -60,8 +60,6 @@ struct D2SkillListStrc;
 struct D2ServerCallbackFunctions;
 struct D2DrlgCoordsStrc;
 struct D2ObjectControlStrc;
-struct D2W11RoomTileRecordStrc;
-struct D2W11RoomTileOwnerStrc;
 struct D2W11QuestEx5B7230Strc;
 struct D2W11QuestEx5BD040Strc;
 struct D2StaticPathStrc;
@@ -104,21 +102,6 @@ extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...); // 0x006CC468
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-
-struct D2W11RoomTileRecordStrc
-{
-    char unk0x00[0x18];
-    int nTileX;
-    int nTileY;
-    int nArg1;
-    int nArg2;
-};
-
-struct D2W11RoomTileOwnerStrc
-{
-    char unk0x00[0x14];
-    D2W11RoomTileRecordStrc* pRecord;
-};
 
 struct D2W11QuestEx5B7230Strc
 {
@@ -778,8 +761,6 @@ static inline void CLIENTS_UpdatePlayerPortalFlags(D2ClientStrc* pClient)
 
 #define STAT_LEVEL 12
 
-#define EVENTTYPE_AITHINK 2
-
 #define EVENTTYPE_STATREGEN 3
 
 #define EVENTTYPE_TRAP 4
@@ -790,8 +771,6 @@ static inline void CLIENTS_UpdatePlayerPortalFlags(D2ClientStrc* pClient)
 
 #define EVENTTYPE_COUNT 15
 
-#define DAMAGERESULTFLAG_WILLDIE 0x02
-
 #define UNITEVENTFLAG_IN_CALLBACK 0x01
 
 #define UNITEVENTFLAG_SHOULD_BE_FREED 0x02
@@ -801,10 +780,6 @@ static inline void CLIENTS_UpdatePlayerPortalFlags(D2ClientStrc* pClient)
 #define OBJRGN_MAX_WELLS 4
 
 #define OBJRGN_MAX_SHRINES 10
-
-#define AIPARAM_MAX_STEPS 77
-
-struct D2AiParamStrc;
 
 struct D2HotkeySkillStrc;
 
@@ -845,14 +820,6 @@ int __fastcall DATATBLS_GetClassFromCharTemplateTxtRecord(int nTemplate, int nLe
 typedef int (__fastcall* D2UnitEventCallbackFunction)(D2GameStrc* pGame, int nUnitEvent, D2UnitStrc* pUnit, D2UnitStrc* pEventSourceUnit, D2DamageStrc* pDamage, int nGUID1, int nGUID2);
 
 
-struct D2AiParamStrc
-{
-    char unk0x00[0x18];
-    int unk0x18;
-    int nVelocity;
-    unsigned char unk0x20;
-};
-
 typedef void (__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
 
 typedef void (__fastcall* EventCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit);
@@ -880,10 +847,6 @@ D2UnitStrc* __fastcall SUNIT_GetLastAttacker(D2GameStrc* pGame, D2UnitStrc* pUni
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 
 short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
-
-void __fastcall SUNITDMG_KillMonster(D2GameStrc* pGame, D2UnitStrc* pDefender, D2UnitStrc* pAttacker, int bSendMsg); // 0x0057CCB0
-
-void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage); // 0x0057CEE0
 
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 
@@ -1371,6 +1334,38 @@ void __fastcall CLIENTS_SendUnitIfOutsideAdjacentRooms(D2ClientStrc* pClient, D2
     }
     if (i >= nNumRooms)
         SUNITMSG_SendUnitToClient(pGame, pUnit, pClient);
+}
+
+void __fastcall SUNITMSG_SendRemoveObject(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571600
+
+// 0x005384E0
+void __fastcall CLIENTS_RemoveUnitIfNotAdjacent(D2ClientStrc* pClient, D2UnitStrc* pUnit)
+{
+    D2_ASSERT(pClient, 2131);
+
+    D2ActiveRoomStrc* pUnitRoom = UNITS_GetRoom(pUnit);
+    D2ActiveRoomStrc* pClientRoom = pClient->hRoom;
+    D2_ASSERT(pClientRoom, 2137);
+
+    D2ActiveRoomStrc** ppRoomList;
+    unsigned int nNumRooms;
+    DUNGEON_GetAdjacentRoomsListFromRoom(pClientRoom, &ppRoomList, &nNumRooms);
+
+    unsigned int i = 0;
+    for (; i < nNumRooms; ++i)
+    {
+        D2ActiveRoomStrc* pRoom = ppRoomList[i];
+        D2_ASSERT(pRoom, 2142);
+        if (pUnitRoom == pRoom)
+        {
+            break;
+        }
+    }
+
+    if (i >= nNumRooms)
+    {
+        SUNITMSG_SendRemoveObject(pUnit, pClient);
+    }
 }
 
 // 0x00538590
@@ -3537,6 +3532,47 @@ void __fastcall CLIENTS_ResetClientInAct(D2ClientStrc* pClient, int nAct)
     pClient->hRoom = pRoom;
 }
 
+inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nX;
+    }
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nY;
+    }
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x0053A420
+void __fastcall CLIENTS_RebuildPlayerWithClass(D2GameStrc* pGame, D2ClientStrc* pClient, unsigned char nClassId)
+{
+    D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
+    pClient->nClassId = nClassId;
+    const int nX = CLIENTS_GetUnitXInline(pPlayer);
+    const int nY = CLIENTS_GetUnitYInline(pPlayer);
+    const int nUnitId = pPlayer->dwUnitId;
+    const int nUnitType = pPlayer->dwUnitType;
+    DUNGEON_AllocDrlgDelete(UNITS_GetRoom(pPlayer), nUnitType, nUnitId);
+    SUNIT_RemoveUnit(pGame, pPlayer);
+    ClientAddPlayerToGame(pClient, pGame, 0, pRoom, nX, nY);
+    D2UnitStrc* pClientPlayer = pClient->pPlayer;
+    CLIENTS_SpawnPlayer(pClient, pClientPlayer, pGame, pRoom, nX, nY);
+}
+
 void __fastcall LEVEL_ClearAdjacentRoomUnitTargets(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pTarget); // 0x0053AB10
 // 0x00540890
 int __fastcall PARTY_SumLivingPartyLevelsInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit)
@@ -3568,25 +3604,6 @@ void __fastcall SKILLS_SetMonsterComponent(D2UnitStrc* pUnit, unsigned char nCom
     }
 }
 
-// 0x00547080
-void __fastcall OBJRGN_PrintObjectPlacementStats(D2GameStrc* pGame)
-{
-    char szText[0x80];
-    D2ObjectControlStrc* pObjectControl = pGame->pObjectControl;
-    for (int i = 1; i < 0x61; ++i)
-    {
-        if (pObjectControl->wGroupCount[i])
-        {
-            wsprintfA(szText, "Attempted to place group %d %d times\n", i, pObjectControl->wGroupCount[i]);
-            pGame->OBJRGN_BroadcastServerText(szText);
-        }
-    }
-    wsprintfA(szText, "%d Rooms where we wanted to place - no group beat the odds\n", pObjectControl->wRoomsNoGroup);
-    pGame->OBJRGN_BroadcastServerText(szText);
-    wsprintfA(szText, "%d rooms tried to place 1+ group(s); %d rooms w/no objs\n", pObjectControl->wRoomsTried, pObjectControl->wGroupCount[0]);
-    pGame->OBJRGN_BroadcastServerText(szText);
-}
-
 // 0x00547400
 void __fastcall OBJRGN_SetWellCoordinates(D2GameStrc* pGame, int nLevelId, int nX, int nY)
 {
@@ -3601,82 +3618,6 @@ void __fastcall OBJRGN_SetWellCoordinates(D2GameStrc* pGame, int nLevelId, int n
     ++pObjectRegion->nWells;
 }
 
-// 0x00547490
-void __fastcall OBJRGN_SetShrineCoordinates(D2GameStrc* pGame, int nLevelId, int nX, int nY)
-{
-    D2ObjectRegionStrc* pObjectRegion = pGame->pObjectControl->pObjectRegion[nLevelId];
-    if (pObjectRegion->nShrines >= OBJRGN_MAX_SHRINES)
-    {
-        return;
-    }
-
-    pObjectRegion->shrineCoordinates[pObjectRegion->nShrines].nX = nX;
-    pObjectRegion->shrineCoordinates[pObjectRegion->nShrines].nY = nY;
-    ++pObjectRegion->nShrines;
-}
-
-// 0x00552840
-void __fastcall OBJECTS_PopulateObject(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nObjectId)
-{
-    if (!DUNGEON_GetLevelIdFromPopulatedRoom(pRoom))
-        return;
-    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
-    D2_ASSERT(pObjectsTxtRecord->nPopulateFn < 10, 0xC7D);
-    if (sgPopulateTable[pObjectsTxtRecord->nPopulateFn])
-    {
-        D2_ASSERT(!IsBadCodePtr((FARPROC)sgPopulateTable[pObjectsTxtRecord->nPopulateFn]), 0xC80);
-// build: symbol ?gnObjectPopulateDensity@* 0x00731BBD
-        sgPopulateTable[pObjectsTxtRecord->nPopulateFn](pGame, pRoom, gnObjectPopulateDensity, nObjectId, 100);
-    }
-}
-
-// 0x005536E0
-void __fastcall SUNIT_StoreRoomTile(D2W11RoomTileOwnerStrc* pOwner, D2ActiveRoomStrc* pRoom, int nArg1, int nArg2)
-{
-    pOwner->pRecord->nArg1 = nArg1;
-    pOwner->pRecord->nArg2 = nArg2;
-    D2DrlgCoordsStrc tCoords;
-    DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
-    pOwner->pRecord->nTileX = tCoords.nTileXPos;
-    pOwner->pRecord->nTileY = tCoords.nTileYPos;
-}
-
-// 0x005544B0
-void __fastcall SUNIT_SetUninterruptable(D2UnitStrc* hUnit, int bSetUninterruptable)
-{
-    STATES_ToggleState(hUnit, STATE_UNINTERRUPTABLE, bSetUninterruptable);
-
-    D2_ASSERT(hUnit, 2601);
-    D2GameStrc* pGame = hUnit->pGame;
-    if (!pGame)
-    {
-        return;
-    }
-
-    if (!bSetUninterruptable && STATES_CheckState(hUnit, STATE_DEATH_DELAY))
-    {
-        STATES_ToggleState(hUnit, STATE_DEATH_DELAY, 0);
-
-        D2UnitStrc* pAttacker = SUNIT_GetLastAttacker(pGame, hUnit);
-        if (pAttacker)
-        {
-            D2DamageStrc damage;
-            memset(&damage, 0, sizeof(damage));
-            damage.wResultFlags |= DAMAGERESULTFLAG_WILLDIE;
-            SUNITDMG_ExecuteMissileDamage(pGame, pAttacker, hUnit, &damage);
-        }
-        else
-        {
-            SUNITDMG_KillMonster(pGame, hUnit, 0, 1);
-        }
-    }
-
-    if (hUnit->dwUnitType == UNIT_MONSTER)
-    {
-        D2GAME_EVENTS_Delete_6FC34840(pGame, hUnit, EVENTTYPE_AITHINK, 0);
-    }
-}
-
 // 0x00562DA0
 void __fastcall D2GAME_Items_EventsHandler_6FC4A460(D2GameStrc* pGame, D2UnitStrc* pUnit, int eEventType)
 {
@@ -3689,61 +3630,6 @@ void __fastcall D2GAME_OBJMODE_InvokeEventFunction_6FC75250(D2GameStrc* pGame, D
 {
     D2_ASSERT(!IsBadCodePtr((FARPROC)gpfnObjectEventFunctions[eEventType]), 576);
     gpfnObjectEventFunctions[eEventType](pGame, pObject);
-}
-
-// 0x005A6260
-void __fastcall MONSTERMODE_SetVelocityParams(D2AiParamStrc* pAiParam, int nParam18, int nParam1C, unsigned char nParam20)
-{
-    if (nParam18)
-    {
-        pAiParam->unk0x18 = nParam18;
-    }
-
-    if (nParam1C)
-    {
-        pAiParam->nVelocity = nParam1C;
-    }
-
-    if (nParam20)
-    {
-        if (nParam20 >= AIPARAM_MAX_STEPS + 1)
-        {
-            nParam20 = AIPARAM_MAX_STEPS;
-        }
-
-        pAiParam->unk0x20 = nParam20;
-    }
-}
-
-// 0x005A7F80
-void __fastcall MONSTERMODE_EventHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent, int nSkillId, int nSkillLevel)
-{
-    if (nEvent < 0 || nEvent >= EVENTTYPE_COUNT)
-    {
-        return;
-    }
-
-    switch (nEvent)
-    {
-    case EVENTTYPE_STATREGEN:
-    case EVENTTYPE_TRAP:
-    case EVENTTYPE_RESET:
-    case EVENTTYPE_PERIODICSKILLS:
-    case EVENTTYPE_REMOVESTATE:
-        break;
-    default:
-        if (STATES_CheckState(pUnit, STATE_FREEZE) && !SUNIT_IsDead(pUnit))
-        {
-            return;
-        }
-        break;
-    }
-
-    const MonEventFunc pfMonEvent = gpMonsterEventFunctions[nEvent];
-    if (pfMonEvent)
-    {
-        pfMonEvent(pGame, pUnit, nSkillId, nSkillLevel);
-    }
 }
 
 // 0x005B7230
@@ -3898,6 +3784,31 @@ int __fastcall CLIENTS_GetClientIdByName(const char* szName)
 
     LeaveCriticalSection(&gSrvClientListByNameLock);
     return nClientId;
+}
+
+// 0x00538C60
+int __fastcall CLIENTS_GetCanonicalName(const char* szName, char* szGameName)
+{
+    int result = 1;
+    const int nIndex = FOG_ComputeStringCRC16(szName) & 0xFF;
+    EnterCriticalSection(&gSrvClientListByNameLock_6FD443B8);
+
+    for (D2ClientStrc* pClient = gpClientListByName_6FD443D0[nIndex]; pClient; pClient = pClient->pServerNextByName)
+    {
+        if (!SStrCmpI(pClient->szName, szName, sizeof(pClient->szName)))
+        {
+            if (szGameName)
+            {
+                SStrCopy(szGameName, pClient->szName, sizeof(pClient->szName));
+            }
+
+            result = 0;
+            break;
+        }
+    }
+
+    LeaveCriticalSection(&gSrvClientListByNameLock_6FD443B8);
+    return result;
 }
 
 // 0x00539070

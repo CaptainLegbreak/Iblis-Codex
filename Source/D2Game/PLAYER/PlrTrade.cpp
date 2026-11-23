@@ -1372,6 +1372,27 @@ D2UnitStrc* __fastcall PLRTRADE_CreateCubeOutputs(D2GameStrc* game,D2UnitStrc* p
  return 0;
 }
 
+struct D2LocalDateStrc;
+
+struct D2LocalDateStrc
+{
+    int nDayOfWeek;
+    int f_4;
+    int nDay;
+    int f_C;
+};
+
+// 0x005665B0
+void __stdcall PLRTRADE_GetLocalDate(D2LocalDateStrc* pDate)
+{
+    D2SystemTimeStrc systemTime;
+    GetLocalTime(&systemTime);
+    pDate->nDayOfWeek = systemTime.wDayOfWeek + 1;
+    pDate->f_4 = systemTime.wMonth;
+    pDate->nDay = systemTime.wDay;
+    pDate->f_C = systemTime.wYear;
+}
+
 // 0x005665F0
 static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
@@ -2314,6 +2335,38 @@ void __fastcall PLRTRADE_IterateCallback_SendInventoryReset(D2GameStrc* pGame, D
     }
 }
 
+int __fastcall PLRSAVE_ReadItemSection(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char* pSection, int nVersion, int nSize, int nUnused, int* pReadSize); // 0x005337F0
+
+void __stdcall sub_0063BE30_Return(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BE30
+
+// 0x00566CC0
+void __fastcall PLRTRADE_RestoreTradeSnapshot(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    D2_ASSERT(pPlayerData, 0x880);
+
+    for (int i = 1; i < 13; ++i)
+    {
+        sub_0063BE30_Return(pPlayer->pInventory, i);
+    }
+
+    D2PlayerTradeStrc* ptTradeRecord = pPlayerData->hTrade;
+    D2_ASSERT(ptTradeRecord, 0x888);
+
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pPlayer, 9, 0);
+
+    int nUnused;
+    PLRSAVE_ReadItemSection(pGame, pPlayer, ptTradeRecord->pSaveData, 0x60, 0x2000, 0, &nUnused);
+
+    const int nGold = STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0);
+    const int nMode = pPlayer->dwAnimMode;
+    if (nGold > 0 && nMode != 0 && nMode != 17)
+    {
+        PLRTRADE_AddGold(pPlayer, 14, -nGold);
+        PLRTRADE_AddGold(pPlayer, 14, ptTradeRecord->nGoldInTradeOtherPlayer);
+    }
+}
+
 // 0x00568060
 int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short nButton, unsigned int nGold)
 {
@@ -2824,6 +2877,24 @@ void __fastcall PLRTRADE_RemoveItemFromTrade(D2GameStrc* pGame, D2UnitStrc* pPla
     }
 }
 
+// 0x005675E0
+int __fastcall PLRTRADE_CopyTradeSaveDataToBuffer(D2UnitStrc* pUnit, unsigned char* pBuffer, int nBufferSize)
+{
+    D2PlayerTradeStrc* pTrade = UNITS_GetPlayerData(pUnit)->hTrade;
+    if (!pTrade)
+    {
+        return 0;
+    }
+
+    if (nBufferSize < pTrade->nSaveLength)
+    {
+        return 0;
+    }
+
+    memcpy(pBuffer, pTrade->pSaveData, pTrade->nSaveLength);
+    return pTrade->nSaveLength;
+}
+
 // 0x00567620
 int __fastcall PLRTRADE_PrepareItemChange(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem)
 {
@@ -2903,6 +2974,27 @@ int __fastcall PLRTRADE_PrepareItemChange(D2GameStrc* pGame, D2UnitStrc* pPlayer
         }
     }
     return pPlayerData1->dwTradeState <= 4;
+}
+
+// 0x00567840
+int __fastcall PLRTRADE_IsTradeInventoryEmpty(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    int nUnitType;
+    int nUnitGUID;
+    if (!SUNIT_GetInteractInfo(pUnit, &nUnitType, &nUnitGUID) || nUnitType != UNIT_PLAYER)
+    {
+        return 1;
+    }
+
+    for (D2UnitStrc* pItem = INVENTORY_GetFirstItem(pUnit->pInventory); pItem; pItem = INVENTORY_GetNextItem(pItem))
+    {
+        if (INVENTORY_GetItemNodePage(pItem) == INVPAGE_TRADE)
+        {
+            return 0;
+        }
+    }
+
+    return 1;
 }
 
 // 0x005678A0

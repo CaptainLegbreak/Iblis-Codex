@@ -161,39 +161,9 @@ int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMo
 
 D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
 
-// 0x005B85E0
-void __fastcall ACT3Q2_OpenSewerStairs(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
-{
-    D2Act3Quest2Strc* pQuestDataEx = (D2Act3Quest2Strc*)pQuestData->pQuestDataEx;
-    if (pQuestDataEx->bSewerStairsInitialized == 1)
-    {
-        D2UnitStrc* pFoundUnit = SUNIT_GetServerUnit(pQuestData->pGame, UNIT_OBJECT, pQuestDataEx->nSewerStairsObjectGUID);
-        if (!pFoundUnit)
-        {
-            pQuestDataEx->nSewerStairsObjectMode = OBJMODE_OPENED;
-            return;
-        }
-
-        UNITS_ChangeAnimMode(pFoundUnit, pQuestDataEx->nSewerStairsObjectMode);
-        if (pQuestDataEx->nSewerStairsObjectMode != OBJMODE_OPENED)
-        {
-            pQuestDataEx->nSewerStairsObjectMode = OBJMODE_OPENED;
-            const int nClassId = pFoundUnit->dwClassId;
-            D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nClassId);
-            EVENT_SetEvent(pQuestData->pGame, pFoundUnit, EVENTTYPE_ENDANIM, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pQuestData->pGame->dwGameFrame, 0, 0);
-        }
-    }
-}
-
 static inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-}
-
-// 0x005B8750
-int __fastcall ACT3Q2_LacksKhalimsWill(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    return ITEMS_FindQuestItem(pGame, pUnit, ' 2fq') == 0;
 }
 
 // 0x005B8BF0
@@ -375,6 +345,72 @@ void __fastcall ACT3Q3_Callback09_PlayerDroppedWithQuestItem(D2QuestDataStrc* pQ
     if (!pQuestDataEx->nGidbinnsInGame && pQuestDataEx->bGidbinnDropped && pQuestData->bNotIntro && pQuestData->fState < 5)
     {
         pQuestDataEx->bPlayerWithGidbinnDropped = 1;
+    }
+}
+
+// 0x005B9700
+void __fastcall ACT3Q3_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2UnitStrc* pPlayer = pQuestArg->pPlayer;
+    D2GameStrc* pGame = pQuestArg->pGame;
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+    D2UnitStrc* pGidbinn = ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, ' 33g');
+    D2Act3Quest3Strc* pQuestDataEx = (D2Act3Quest3Strc*)pQuestData->pQuestDataEx;
+    if (pGidbinn)
+    {
+        ++pQuestDataEx->nGidbinnsInGame;
+    }
+
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, 19, 0))
+    {
+    if (pGidbinn)
+    {
+        pQuestData->fLastState = 4;
+        pQuestData->fState = 4;
+        SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT3Q3_UnitIterate_UpdateQuestStateFlags);
+    }
+    else if (QUESTRECORD_GetQuestState(pQuestFlags, 19, 6) == 1)
+    {
+        pQuestDataEx->nAltarObjectMode = 2;
+        pQuestData->fState = 5;
+
+        if (!QUESTRECORD_GetQuestState(pQuestFlags, 19, 7))
+        {
+            pQuestData->fLastState = 5;
+        }
+        else if (!QUESTRECORD_GetQuestState(pQuestFlags, 19, 8))
+        {
+            pQuestData->fLastState = 6;
+        }
+        else
+        {
+            QUESTRECORD_SetQuestState(pQuestFlags, 19, 0);
+            pQuestData->bNotIntro = 0;
+        }
+    }
+    else
+    {
+        if (QUESTRECORD_GetQuestState(pQuestFlags, 19, 5) == 1)
+        {
+            pQuestData->fState = 3;
+            pQuestData->fLastState = 2;
+        }
+
+        if (QUESTRECORD_GetQuestState(pQuestFlags, 19, 4) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, 19, 3) == 1)
+        {
+            pQuestData->fState = 2;
+            pQuestData->fLastState = 2;
+        }
+        else if (QUESTRECORD_GetQuestState(pQuestFlags, 19, 2) == 1)
+        {
+            pQuestData->fState = 3;
+            pQuestData->fLastState = 1;
+        }
+    }
+    }
+    else
+    {
+        pQuestDataEx->nAltarObjectMode = 2;
     }
 }
 
@@ -679,6 +715,24 @@ void __fastcall ACT3Q3_ClearBossSpawned(D2QuestDataStrc* pQuestData, D2UnitStrc*
     {
         pQuestDataEx->bBossHasSpawned = 0;
     }
+}
+
+// 0x005B9CA0
+int __fastcall ACT3Q3_GetAltarCoordinates(D2GameStrc* pGame, D2CoordStrc* pCoord)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 17);
+    if (pQuestData)
+    {
+        D2Act3Quest3Strc* pQuestDataEx = (D2Act3Quest3Strc*)pQuestData->pQuestDataEx;
+        if (pQuestDataEx->bAltarCanBeActivated)
+        {
+            pCoord->nX = pQuestDataEx->nAltarX;
+            pCoord->nY = pQuestDataEx->nAltarY;
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 // 0x005B9CD0

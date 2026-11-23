@@ -15,6 +15,8 @@
 #include "D2PlayerModes.h"
 #include "D2ObjModes.h"
 #include "D2ItemModes.h"
+#include "D2GameServer.h"
+#include "D2GameClient.h"
 
 struct D2ClientStrc;
 
@@ -860,7 +862,7 @@ int __fastcall PLRSAVE2_WriteSkillSection(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     return 0;
 }
 
-// build: symbol ?PLRSAVE2_WriteItemSection@* 0x005697B0
+// 0x005697B0
 __declspec(noinline) int __fastcall PLRSAVE2_WriteItemSection(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char** ppCursor, const unsigned char* pEnd, int nArg5, int nArg6, int nArg7)
 {
     unsigned char* pCursor = *ppCursor;
@@ -983,6 +985,48 @@ int __fastcall PLRSAVE2_WriteMercSection(D2GameStrc* pGame, D2UnitStrc* pPlayer,
     return 0;
 }
 
+int __fastcall D2GAME_SAVE_SerializeItem_6FC89AD0(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned char* pBitstream, unsigned int nSize, int a4, int a5, int a6); // 0x005316D0
+
+// 0x00569A00
+int __fastcall PLRSAVE2_WriteIronGolemSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, const unsigned char* pEnd, int a5, int a6)
+{
+    unsigned char* pData = *ppSection;
+    int bHasIronGolem = 0;
+    if (!pGame->bExpansion)
+    {
+        return 0;
+    }
+
+    *(unsigned short*)pData = 'fk';
+    pData += 2;
+
+    D2UnitStrc* pIronGolem = PLAYERPETS_GetFirstPetByType(pGame, pPlayer, 3, 1);
+    D2UnitStrc* pGolemItem = 0;
+    D2UnitStrc* pFirst;
+    if (pIronGolem && pIronGolem->dwClassId == 0x123 && SKILLS_GetSkillById(pPlayer, SKILL_IRONGOLEM, -1) && pIronGolem->pInventory
+        && (pFirst = INVENTORY_GetFirstItem(pIronGolem->pInventory)) != 0 && (pGolemItem = INVENTORY_UnitIsItem(pFirst)) != 0)
+    {
+        bHasIronGolem = 1;
+    }
+
+    unsigned char* pFlag = pData;
+    *pData = bHasIronGolem;
+    ++pData;
+    if (bHasIronGolem)
+    {
+        const int nLength = D2GAME_SAVE_SerializeItem_6FC89AD0(pGame, pPlayer, pGolemItem, pData, pEnd - pData, 0, a5, a6);
+        if (nLength <= 0)
+        {
+            *pFlag = 0;
+        }
+
+        pData += nLength;
+    }
+
+    *ppSection = pData;
+    return 0;
+}
+
 // 0x00569AD0
 int __fastcall PLRSAVE2_CreateSaveFile(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pData, unsigned int* pSize, unsigned int nMaxSize, int a6, int a7)
 {
@@ -1053,6 +1097,121 @@ int __fastcall PLRSAVE2_CreateSaveFile(D2GameStrc* pGame, D2UnitStrc* pPlayer, u
 LABEL_FAIL:
     *pSize = 0;
     return nResult;
+}
+
+#define CLIENTSAVEFLAG_HARDCORE 0x4
+
+#define CLIENTSAVEFLAG_DEAD 0x8
+
+#define CLIENTSAVEFLAG_EXPANSION 0x20
+
+#define CLIENTSAVEFLAG_LADDER 0x40
+
+#define GAMEFLAG_ARENA_HARDCORE 0x800
+
+struct D2ServerCallbackFunctions;
+
+struct D2FileTimeStrc;
+
+extern D2ServerCallbackFunctions* gpD2EventCallbackTable; // 0x00883D50
+
+extern int gbD2ServerCallbackFunctionsInitialized; // 0x00883D54
+
+unsigned int __fastcall ARENA_GetFlags(D2GameStrc* pGame); // 0x0053FD40
+
+extern "C" __declspec(dllimport) long __stdcall CompareFileTime(const D2FileTimeStrc* pFileTime1, const D2FileTimeStrc* pFileTime2); // 0x006CC390
+
+// 0x00569D80
+int __fastcall PLRSAVE2_CheckPlayerFlags(D2GameStrc* pGame, unsigned short nFlags, D2ClientStrc* pClient)
+{
+    if (nFlags & CLIENTSAVEFLAG_EXPANSION)
+    {
+        if (!pGame->bExpansion)
+        {
+            return 8;
+        }
+    }
+    else
+    {
+        if (pGame->bExpansion)
+        {
+            return 9;
+        }
+    }
+
+    if (gbD2ServerCallbackFunctionsInitialized)
+    {
+        D2FileTimeStrc tNow;
+        gpD2EventCallbackTable->pfGetTime(&tNow);
+        if ((nFlags & CLIENTSAVEFLAG_LADDER) && CompareFileTime(&pClient->nSaveCreationTimestamp, &tNow) > 0)
+        {
+            if (!pGame->dwGameType)
+            {
+                return 25;
+            }
+        }
+        else
+        {
+            if (pGame->dwGameType)
+            {
+                return 26;
+            }
+        }
+    }
+
+    if (nFlags & CLIENTSAVEFLAG_HARDCORE)
+    {
+        if (nFlags & CLIENTSAVEFLAG_DEAD)
+        {
+            return 10;
+        }
+
+        if (!(ARENA_GetFlags(pGame) & GAMEFLAG_ARENA_HARDCORE))
+        {
+            return 11;
+        }
+    }
+    else
+    {
+        if (ARENA_GetFlags(pGame) & GAMEFLAG_ARENA_HARDCORE)
+        {
+            return 12;
+        }
+    }
+
+    const int nProgression = (nFlags >> 8) & 0x1F;
+    if (pGame->nDifficulty > 1)
+    {
+        if (((nFlags & CLIENTSAVEFLAG_EXPANSION) && nProgression < 10) || nProgression < 8)
+        {
+            return 14;
+        }
+    }
+    else if (pGame->nDifficulty > 0)
+    {
+        if (((nFlags & CLIENTSAVEFLAG_EXPANSION) && nProgression < 5) || nProgression < 4)
+        {
+            return 13;
+        }
+    }
+
+    return 0;
+}
+
+// 0x00569F20
+void __fastcall PLRSAVE2_InitPlayerFromClient(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2ClientStrc* pClient)
+{
+    CLIENTS_SetPlayerInClient(pClient, pPlayer);
+    SUNIT_InitClientInPlayerData(pPlayer, pClient);
+    UNITS_SetNameInPlayerData(pPlayer, CLIENTS_GetName(pClient));
+    SUNIT_InitSeed(pPlayer, &pGame->pGameSeed);
+    UNITS_ChangeAnimMode(pPlayer, 1);
+
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    pPlayerData->hTrade = 0;
+    pPlayerData->dwTradeState = 0;
+    pPlayerData->dwAcceptTradeTick = 0;
+    *(int*)pPlayerData->unk0x54 = 0;
 }
 
 static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
@@ -1203,6 +1362,37 @@ int __fastcall PLRSAVE2_ReadSaveHeader(D2GameStrc* pGame, D2ClientStrc* pClient,
     StoreSkillPair(&pPlayerData->nSwitchRightSkillId, &pPlayerData->nSwitchRightSkillFlags, nSkillId, nOwner);
     sub_005391C0_SetClientBytes(pClient, pHeader->nGuildEmblemBgColor, 0, 0);
     *ppSection = pNext;
+    return 0;
+}
+
+// 0x0056A370
+int __fastcall PLRSAVE2_ReadQuestSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, unsigned char* pEnd, unsigned int nVersion)
+{
+    unsigned char* pSection = *ppSection;
+    unsigned char* pSectionEnd = pSection + 298;
+    if (pSectionEnd > pEnd)
+    {
+        return 15;
+    }
+
+    const D2SaveHeaderStrc* pQuestHeader = (const D2SaveHeaderStrc*)pSection;
+    if (pQuestHeader->dwHeaderMagic != 0x216F6F57)
+    {
+        return 15;
+    }
+
+    if (pQuestHeader->dwVersion != 6)
+    {
+        return 15;
+    }
+
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    for (int i = 0; i < 3; ++i)
+    {
+        QUESTRECORD_CopyBufferToRecord(pPlayerData->pQuestData[i], &pSection[10 + 96 * i], 96, 1);
+    }
+
+    *ppSection = pSectionEnd;
     return 0;
 }
 
@@ -2047,137 +2237,4 @@ void __fastcall PLRSAVE2_InitializeStats(D2GameStrc* pGame, D2UnitStrc* pUnit, i
     }
 }
 
-// 0x00577670
-D2UnitStrc* __fastcall SUNITNPC_FindInventoryItemByClassId(D2UnitStrc* pUnit, int nClassId)
-{
-    if (pUnit->pInventory)
-    {
-        D2UnitStrc* pNext;
-        for (D2UnitStrc* pItem = INVENTORY_GetFirstItem(pUnit->pInventory); pItem; pItem = pNext)
-        {
-            D2UnitStrc* pCheck = INVENTORY_UnitIsItem(pItem);
-            pNext = INVENTORY_GetNextItem(pItem);
-            if ((!pCheck ? -1 : pCheck->dwClassId) == nClassId && !UNIT_HasFlagEx(pCheck, UNITFLAGEX_ITEMINIT))
-            {
-                return pCheck;
-            }
-        }
-    }
-
-    return 0;
-}
-
-// 0x0057F020
-void __fastcall PLRMODE_StartXY_Neutral(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nMode, int nX, int nY)
-{
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
-    if (pRoom)
-    {
-        nMode = DUNGEON_IsRoomInTown(pRoom) != 0 ? PLRMODE_TOWNNEUTRAL : PLRMODE_NEUTRAL;
-    }
-
-    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pPlayer);
-    SUNIT_SetCombatMode(pGame, pPlayer, nMode);
-    UNITS_SetUsedSkill(pPlayer, 0);
-}
-
-// 0x00580460
-int __fastcall PLRMODE_UpdateSkill(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nSkillId, int nSkillLevel)
-{
-    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pPlayer);
-    if (!pSkill)
-    {
-        return 2;
-    }
-
-    UNITS_SetAnimationFrame(pPlayer, nSkillLevel);
-
-    const int nSkillFlags = SKILLS_GetFlags(pSkill);
-    if (nSkillFlags & 1 && (SUNIT_ValidateTargetUnit(pGame, pPlayer), SUNIT_UpdateUnitPath(pGame, pPlayer) == 2))
-    {
-        SKILLS_SetFlags(pSkill, nSkillFlags | 2);
-    }
-    else
-    {
-        if (pPlayer && UNIT_HasFlag(pPlayer, UNITFLAG_SKSRVDOFUNC) || nSkillId != SKILL_KICK && nSkillId != SKILL_THROW)
-        {
-            return (SUNIT_IsDead(pPlayer) != 0) + 1;
-        }
-    }
-
-    SKILLS_ExecuteUsedSkill(pGame, pPlayer);
-    return (SUNIT_IsDead(pPlayer) != 0) + 1;
-}
-
-// 0x00581AD0
-void __fastcall OBJMODE_SendObjectUpdates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient)
-{
-    if (pUnit)
-    {
-        if (UNIT_HasFlag(pUnit, UNITFLAG_DOUPDATE))
-        {
-            OBJMODE_SendObjectModeAndShrineUpdate(pUnit, pClient);
-        }
-
-        if (UNIT_HasFlag(pUnit, UNITFLAG_HASEVENTSOUND))
-        {
-            D2GAME_UpdateUnit_6FCC6080(pUnit, pClient);
-        }
-
-        if (UNIT_HasFlag(pUnit, UNITFLAG_HASTXTMSG))
-        {
-            SUNITMSG_SendHoverText(pUnit, pClient);
-        }
-
-        if (UNIT_HasFlagEx(pUnit, UNITFLAGEX_HASINV))
-        {
-            D2GAME_INVMODE_First_6FC40FB0(pGame, pUnit, pClient, 0);
-        }
-    }
-
-    SUNITMSG_SendQueuedMessages(pUnit, pClient);
-}
-
-// 0x0058A730
-void __fastcall ACT5Q3_UpdateDrehyaPortalMode(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
-{
-    const int nAnimMode = !pUnit ? 0 : pUnit->dwAnimMode;
-
-    switch (nAnimMode)
-    {
-    case OBJMODE_OPERATING:
-        UNITS_ChangeAnimMode(pUnit, OBJMODE_OPENED);
-        break;
-
-    case OBJMODE_OPENED:
-    {
-        D2Act5Quest3Strc* pQuestDataEx = (D2Act5Quest3Strc*)pQuestData->pQuestDataEx;
-        if (DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit)) == LEVEL_HARROGATH)
-        {
-            if (++pQuestDataEx->nObjectUpdateInvocations > 5)
-            {
-                pQuestDataEx->bChangeToSpecialObjectModeInTown = 1;
-            }
-
-            if (pQuestDataEx->bChangeToSpecialObjectModeInTown)
-            {
-                UNITS_ChangeAnimMode(pUnit, OBJMODE_SPECIAL1);
-            }
-        }
-        else
-        {
-            if (pQuestDataEx->bChangeToSpecialObjectModeOutsideTown)
-            {
-                UNITS_ChangeAnimMode(pUnit, OBJMODE_SPECIAL1);
-            }
-        }
-        break;
-    }
-
-    case OBJMODE_SPECIAL1:
-        UNITS_ChangeAnimMode(pUnit, OBJMODE_SPECIAL2);
-        break;
-    }
-
-    EVENT_SetEvent(pQuestData->pGame, pUnit, 7, pQuestData->pGame->dwGameFrame + 25, 0, 0);
-}
+void __fastcall ACT5Q3_UpdateDrehyaPortalMode(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x0058A730

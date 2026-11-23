@@ -151,11 +151,11 @@ int __fastcall ACT3Q5_UnitIterate_DetermineFlailAndCubeDropCounts(D2GameStrc* pG
 
 #define QFLAG_REWARDGRANTED 0
 
-#define QFLAG_LEAVETOWN 2
+#define QFLAG_STARTED 2
 
-#define QFLAG_ENTERAREA 3
+#define QFLAG_LEAVETOWN 3
 
-#define QFLAG_CUSTOM1 4
+#define QFLAG_ENTERAREA 4
 
 void __fastcall QUESTS_NPCActivateSpeeches(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pTarget); // 0x00545780
 
@@ -166,6 +166,35 @@ void __fastcall QUESTS_AddPlayerGUID(D2QuestGUIDStrc* pQuestGUID, int dwGUID); /
 static inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+}
+
+// 0x005BADC0
+int __fastcall ACT3Q5_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, QFLAG_REWARDGRANTED) == 1)
+    {
+        return 0;
+    }
+
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A3Q5_TRAVINCAL);
+    if (!pQuestData)
+    {
+        return 0;
+    }
+
+    const unsigned char nState = pQuestData->fState;
+    if (nState >= 2 && nState <= 3)
+    {
+        QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, QFLAG_STARTED);
+    }
+
+    if (((D2Act3Quest5Strc*)pQuestData->pQuestDataEx)->bMonstersSpawned)
+    {
+        QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, QFLAG_LEAVETOWN);
+    }
+
+    return 0;
 }
 
 // 0x005BAE20
@@ -452,7 +481,7 @@ void __fastcall ACT3Q5_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
         pQuestDataEx->bOrbSmashed = 1;
     }
 
-    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, QFLAG_REWARDGRANTED) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, QFLAG_CUSTOM1) == 1)
+    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, QFLAG_REWARDGRANTED) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, QFLAG_ENTERAREA) == 1)
     {
         QUESTS_SetGlobalState(pQuestData->pGame, QUESTSTATEFLAG_A3Q5, QFLAG_PRIMARYGOALDONE);
         pQuestData->bNotIntro = 0;
@@ -460,9 +489,9 @@ void __fastcall ACT3Q5_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
     }
 
     pQuestDataEx->bQuest1RewardGranted = QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q1, QFLAG_REWARDGRANTED);
-    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, QFLAG_LEAVETOWN))
+    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, QFLAG_STARTED))
     {
-        if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, QFLAG_ENTERAREA))
+        if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, QFLAG_LEAVETOWN))
         {
             if (pQuestDataEx->bQuest1RewardGranted)
             {
@@ -477,7 +506,7 @@ void __fastcall ACT3Q5_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
             return;
         }
     }
-    else if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, QFLAG_ENTERAREA))
+    else if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, QFLAG_LEAVETOWN))
     {
         return;
     }
@@ -797,6 +826,35 @@ void __fastcall ACT3Q5_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT3Q5_UnitIterate_SetCompletionFlag);
     SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT3Q5_UnitIterate_AttachCompletionSound);
     QUESTS_SetGlobalState(pQuestData->pGame, 21, 13);
+}
+
+// 0x005BBE20
+bool __fastcall ACT3Q5_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus)
+{
+    if (!QUESTRECORD_GetQuestState(pFlags, 15, 0))
+    {
+        *pStatus = 0;
+        return true;
+    }
+
+    *pStatus = pQuest->fLastState;
+    if (QUESTRECORD_GetQuestState(pFlags, 21, 0))
+    {
+        *pStatus = QUESTRECORD_GetQuestState(pFlags, 21, 13) ? 13 : 11;
+        return true;
+    }
+
+    if (QUESTRECORD_GetQuestState(pFlags, 21, 4))
+    {
+        *pStatus = ((D2Act3Quest5Strc*)pQuest->pQuestDataEx)->bOrbSmashed ? 13 : 4;
+    }
+
+    if (!pQuest->bNotIntro)
+    {
+        *pStatus = 0;
+    }
+
+    return true;
 }
 
 // 0x005BBEB0

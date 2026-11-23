@@ -1,4 +1,5 @@
 #include "D2GameTypes.h"
+#include "D2StormAutoLink.h"
 struct D2SGameDataStrc;
 struct D2StormLinkStrc;
 struct D2StormHashKeyNoneStrc;
@@ -11,17 +12,6 @@ struct D2CriticalSectionStrc;
 struct D2StormHashTableReuseStrc;
 struct D2StormExportTableSimpleStrc;
 struct D2StormExportTableSyncStrc;
-
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-    D2StormLinkStrc()
-    {
-        m_prevlink = 0;
-        m_next = 0;
-    }
-};
 
 struct D2StormHashKeyNoneStrc
 {

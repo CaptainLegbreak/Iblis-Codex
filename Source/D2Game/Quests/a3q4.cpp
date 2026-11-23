@@ -222,6 +222,49 @@ static inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStr
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }
 
+// 0x005B9D90
+bool __fastcall ACT3Q4_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 20, 0) || QUESTRECORD_GetQuestState(pQuestFlags, 20, 1))
+    {
+        return false;
+    }
+
+    if (nNpcId == 254)
+    {
+        if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' 43g'))
+        {
+            return true;
+        }
+
+        if (QUESTRECORD_GetQuestState(pQuestFlags, 20, 1))
+        {
+            return true;
+        }
+    }
+    else if (nNpcId == 264)
+    {
+        if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' 43j'))
+        {
+            return true;
+        }
+    }
+    else if (nNpcId == 245)
+    {
+        if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' 43j') && !QUESTRECORD_GetQuestState(pQuestFlags, 20, 2))
+        {
+            return true;
+        }
+
+        if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' 43g') && !QUESTRECORD_GetQuestState(pQuestFlags, 20, 4))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 // 0x005B9E70
 int __fastcall ACT3Q4_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -454,6 +497,63 @@ bool __fastcall ACT3Q4_SeqCallback(D2QuestDataStrc* pQuestData)
     return bResult;
 }
 
+// 0x005BA870
+void __fastcall ACT3Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2GameStrc* pGame = pQuestArg->pGame;
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
+    D2Act3Quest4Strc* pQuestDataEx = (D2Act3Quest4Strc*)pQuestData->pQuestDataEx;
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 20, 0) || QUESTRECORD_GetQuestState(pQuestFlags, 20, 1))
+    {
+        pQuestData->bNotIntro = 0;
+        pQuestDataEx->bWaitingForBoss = 0;
+        pQuestDataEx->bJadeFigurineDropPending = 0;
+        return;
+    }
+
+    D2UnitStrc* pGoldenBird = ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, ' 43g');
+    D2UnitStrc* pJadeFigurine = ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, ' 43j');
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 20, 1))
+    {
+        pQuestData->bNotIntro = 0;
+        pQuestDataEx->bWaitingForBoss = 0;
+        pQuestDataEx->bJadeFigurineDropPending = 0;
+        return;
+    }
+
+    if (pGoldenBird)
+    {
+        pQuestDataEx->bWaitingForBoss = 0;
+        pQuestDataEx->bJadeFigurineDropPending = 0;
+        if (QUESTRECORD_GetQuestState(pQuestFlags, 20, 4))
+        {
+            pQuestData->fState = 3;
+            pQuestData->fLastState = 4;
+        }
+        else
+        {
+            pQuestData->fState = 3;
+            pQuestData->fLastState = 3;
+        }
+    }
+    else if (pJadeFigurine)
+    {
+        pQuestDataEx->bWaitingForBoss = 0;
+        pQuestDataEx->bJadeFigurineDropPending = 0;
+        if (QUESTRECORD_GetQuestState(pQuestFlags, 20, 2))
+        {
+            pQuestData->fState = 2;
+            pQuestData->fLastState = 2;
+        }
+        else
+        {
+            pQuestData->fState = 1;
+            pQuestData->fLastState = 1;
+        }
+    }
+}
+
 // 0x005BA9A0
 void __fastcall ACT3Q4_Callback09_PlayerDroppedWithQuestItem(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -466,6 +566,39 @@ void __fastcall ACT3Q4_Callback09_PlayerDroppedWithQuestItem(D2QuestDataStrc* pQ
         pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 6, 0, ACT3Q4_UnitIterate_StatusCyclerEx, 1);
     }
+}
+
+// 0x005BA9E0
+void __fastcall ACT3Q4_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2Act3Quest4Strc* pQuestDataEx = (D2Act3Quest4Strc*)pQuestData->pQuestDataEx;
+    bool bGoldAcquired = false;
+    if (ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, ' 43j'))
+    {
+        ++pQuestDataEx->nGoldenBirdsInGame;
+    }
+
+    if (ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, ' 43g'))
+    {
+        bGoldAcquired = true;
+        ++pQuestDataEx->nGoldenBirdsInGame;
+    }
+
+    if (pQuestDataEx->nGoldenBirdsInGame != 1 || !pQuestData->bNotIntro || !pQuestDataEx->bPlayerDroppedWithItem)
+    {
+        return;
+    }
+
+    pQuestDataEx->bPlayerDroppedWithItem = 0;
+    pQuestData->nStatusFlags = 0;
+
+    int nState = 1;
+    if (bGoldAcquired)
+    {
+        nState = 3;
+    }
+
+    QUESTS_UnitIterate(pQuestData, nState, 0, ACT3Q4_UnitIterate_StatusCyclerEx, true);
 }
 
 // 0x005BAA70
@@ -749,33 +882,5 @@ void __fastcall ACT3Q4_CheckGoldenBirdBoss(D2QuestDataStrc* pQuestData, D2UnitSt
     }
 }
 
-// 0x005BADC0
-int __fastcall ACT3Q5_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, QFLAG_REWARDGRANTED) == 1)
-    {
-        return 0;
-    }
-
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A3Q5_TRAVINCAL);
-    if (!pQuestData)
-    {
-        return 0;
-    }
-
-    const unsigned char nState = pQuestData->fState;
-    if (nState >= 2 && nState <= 3)
-    {
-        QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, QFLAG_STARTED);
-    }
-
-    if (((D2Act3Quest5Strc*)pQuestData->pQuestDataEx)->bMonstersSpawned)
-    {
-        QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, QFLAG_LEAVETOWN);
-    }
-
-    return 0;
-}
-
+int __fastcall ACT3Q5_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005BADC0
 #include "gen/data/Source/D2Game/Quests/a3q4.inc"

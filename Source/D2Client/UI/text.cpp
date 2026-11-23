@@ -5,6 +5,14 @@
 #include "D2StormTypes.h"
 #include "D2MonsterIds.h"
 #include "D2Primitives.h"
+#include "D2Path.h"
+#include "D2ClientUi.h"
+#include "D2CelContext.h"
+#include "D2DataTbls.h"
+#include "D2Txt.h"
+#include "D2GameTypes.h"
+#include "D2LevelTxt.h"
+#include "D2StatIds.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -13,8 +21,6 @@ struct D2MsgHandlerEntryStrc;
 struct Unicode;
 
 struct D2ClientTabStrc;
-
-struct D2TextListNodeStrc;
 
 struct D2TextListStrc;
 
@@ -69,21 +75,6 @@ class ListBoxImplementation;
 class UIWidget;
 
 class ListBoxWrapper;
-
-struct D2TextListNodeStrc
-{
-    const Unicode* wszText;
-    D2TextListNodeStrc* pNext;
-};
-
-struct D2TextListStrc
-{
-    D2TextListNodeStrc* pFirst;
-    unsigned int wCount;
-    char unk0x08[0x08];
-    unsigned short nWidth;
-    unsigned short nHeight;
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
@@ -165,11 +156,11 @@ int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsi
 
 int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
-void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451E10
+void __fastcall AUTOMAP_UnregisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
 void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
-extern int gbTextHandlersRegistered; // 0x007BF27C
+int gbTextHandlersRegistered; // 0x007BF27C
 
 extern D2MsgHandlerEntryStrc gaTextMsgHandlers[]; // 0x00722600
 
@@ -204,7 +195,7 @@ void __fastcall TEXT_PrintChatLine(const Unicode* wszText, char nColor); // 0x00
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
-extern "C" Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
+Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource); // 0x005267E0
 
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pDst, const Unicode* pFormat, ...); // 0x005269D0
 
@@ -253,10 +244,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
-void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
-
-void __fastcall sub_00467430(void* pRect); // 0x00467430
-
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 void __stdcall TEXT_FreeTextList(void* pList); // 0x0049D4D0
@@ -281,7 +268,7 @@ void __stdcall CHAT_SetUsedInHoverMsg(D2HoverTextStrc* pHoverMsg, int bUsed); //
 
 void __stdcall sub_006612A0(int nHandle); // 0x006612A0
 
-extern unsigned int gdwTextEndTick; // 0x007BF1AC
+unsigned long gdwTextEndTick; // 0x007BF1AC
 
 D2ClientDialogStrc* gpListDialog; // 0x007BF1B0
 
@@ -332,7 +319,7 @@ public:
     virtual void sub_004BBFB0();
     virtual void Slot13();
     virtual void Slot14();
-    virtual void Slot15();
+    virtual void Refresh();
 
     ListBoxImplementation* pImpl;
 };
@@ -341,11 +328,7 @@ extern ListBoxWrapper* gpListBox; // 0x007BF1B4
 
 extern int gbTextBoxShown; // 0x007BF1C8
 
-extern char gtMessageTextList[]; // 0x007BF1E4
-
-extern char gtOverheadTextList[]; // 0x007BF1EA
-
-extern char gtTextHistory[]; // 0x007BF1F0
+D2TextListStrc gtMessageTextList; // 0x007BF1E4
 
 extern unsigned short gwTextStringId; // 0x007BF212
 
@@ -380,9 +363,7 @@ struct PacketWords
 {
     char prefix[1];
     unsigned short kind;
-    unsigned int a;
-    unsigned int b;
-    unsigned int c;
+    unsigned short wSlots[6];
 };
 
 struct PacketShorts
@@ -450,11 +431,7 @@ typedef char ByteRecord_value[OFFSET(ByteRecord,value)==0x3E?1:-1];
 
 typedef char PacketWords_kind[OFFSET(PacketWords,kind)==0x1?1:-1];
 
-typedef char PacketWords_a[OFFSET(PacketWords,a)==0x3?1:-1];
-
-typedef char PacketWords_b[OFFSET(PacketWords,b)==0x7?1:-1];
-
-typedef char PacketWords_c[OFFSET(PacketWords,c)==0xB?1:-1];
+typedef char PacketWords_wSlots[OFFSET(PacketWords,wSlots)==0x3?1:-1];
 
 typedef char PacketShorts_kind[OFFSET(PacketShorts,kind)==0x1?1:-1];
 
@@ -570,6 +547,8 @@ struct D2ClientStringListStrc
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
 
+extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize); // 0x00681EB0
+
 unsigned long gnStartTick; // 0x007BF22C
 
 unsigned char gbTextHoverSet; // 0x007BF23A
@@ -589,6 +568,1221 @@ void* gpScroin3Cel; // 0x007BF26C
 void* gpScroin2Cel; // 0x007BF270
 
 void* gpTextPanelFrameCel; // 0x007BF274
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+struct D2TextNodeStrc;
+
+struct D2RectStrc;
+
+extern "C" const char gszEmptyAssertText; // 0x006CC837
+
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
+#pragma pack(push, 2)
+
+struct D2TextNodeStrc
+{
+    Unicode* pLines[6];
+    unsigned short nLines;
+    int nColor;
+    unsigned int dwEndTick;
+    D2TextNodeStrc* pNext;
+};
+
+#pragma pack(pop)
+
+class D2SquelchListStrc
+{
+public:
+    virtual void Squelch(const char* szName);
+    virtual void Unsquelch(const char* szName);
+    virtual int IsNameSquelched(const char* szName);
+    virtual void Unknown0C();
+    virtual void Unknown10();
+    virtual int IsTextSquelched(const char* szText);
+    virtual void AddName(const char* szName, int nSize);
+};
+
+char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
+
+Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
+
+int __fastcall sub_00526D30_IsLineBreak(const Unicode* pText, unsigned int nIndex); // 0x00526D30
+
+int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
+
+D2TextNodeStrc* __fastcall TEXT_CloneStringList(D2TextNodeStrc* pSource); // 0x0049DB10
+
+extern D2TextListStrc gtOverheadTextList; // 0x007BF1EA
+
+extern D2TextListStrc gtTextHistory; // 0x007BF1F0
+
+#pragma pack(push, 2)
+
+#pragma pack(pop)
+
+extern "C" __declspec(dllimport) int __stdcall IntersectRect(D2RectStrc* pDest, const D2RectStrc* pSrc1, const D2RectStrc* pSrc2); // 0x006CC4C4
+
+extern "C" int __cdecl atoi(const char* szString); // 0x00681EBB
+
+int __cdecl sub_0045AE90(); // 0x0045AE90
+
+void __fastcall TEXT_DrawTextList(T00479230* pTextBox, int nX, int nY); // 0x0049D8E0
+
+void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
+
+void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
+
+unsigned int __stdcall CHAT_GetTimeoutFromHoverMsg(D2HoverTextStrc* pHoverMsg); // 0x006611D0
+
+unsigned char __stdcall CHAT_GetLangIdFromHoverMsg(D2HoverTextStrc* pHoverMsg); // 0x00661220
+
+extern "C" const char gszTextSourceFile[]; // 0x006DA13C
+
+extern int gaHoverDirs[]; // 0x00722654
+
+extern int gnHoverDirCount; // 0x00722674
+
+D2RectStrc gaHoverRects[16]; // 0x007BF0A8
+
+D2RectStrc gtHoverOffset; // 0x007BF214
+
+int gnHoverRectCount; // 0x007BF224
+
+bool __stdcall TEXT_PlaceHoverRect(int nCount, D2RectStrc* pRect); // 0x0049E070
+
+void __fastcall TEXT_AddToHistory(D2TextNodeStrc* pSource); // 0x0049DBC0
+
+struct D2CelFileStrc;
+
+struct D2ScrollPosStrc;
+
+struct D2ScrollPosStrc
+{
+    int nX;
+    int nY;
+};
+
+extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
+
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
+
+int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+
+extern D2ScrollPosStrc gaScrollPiecePos[5]; // 0x00722EB8
+
+extern D2ScrollPosStrc gaScrollFadePos[5]; // 0x00722EE0
+
+extern unsigned int gaScrollThresholds[5]; // 0x00722F08
+
+extern "C" { unsigned short gawScrollSlots[6]; } // 0x007BF098
+
+extern unsigned int gdwScrollTick; // 0x007BF243
+
+extern unsigned int gnScrollCounter; // 0x007BF247
+
+extern D2CelFileStrc* gpScroin3_007BF26C; // 0x007BF26C
+
+extern D2CelFileStrc* gpScroin2_007BF270; // 0x007BF270
+
+extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDest, const char* szFormat, ...); // 0x006CC468
+
+#pragma pack(push, 2)
+
+#pragma pack(pop)
+
+int __cdecl sub_00525150();
+
+#define UNIT_PLAYER 0
+
+#define STAT_LEVEL 12
+
+struct D2SliderButtonStrc;
+
+struct D2Record42Strc;
+
+struct D2QuestTextLineStrc;
+
+struct D2QuestTextBufferStrc;
+
+struct D2QuestPanelEntryStrc;
+
+struct D2QuestSlotRectStrc;
+
+struct D2AiControlStrc;
+
+struct D2AiTickParamStrc;
+
+struct D2HotkeyActionStrc;
+
+struct D2CharStatsTxt;
+
+struct D2MonStatsTxt;
+
+int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
+
+unsigned char __cdecl INV_IsCinematicBusy(); // 0x00483350
+
+void __cdecl TEXT_UpdateQuestPage(); // 0x004A2300
+
+void __cdecl TEXT_LoadQuestPanelCels(); // 0x004A23D0
+
+int __stdcall TEXT_OpenQuestPanel(int nArg); // 0x004A26B0
+
+int __cdecl sub_004A1760_Forward();
+
+void __stdcall sub_004A3220(int nPage, int nArg);
+
+void __fastcall MSG_SendHeaderOnly(char nValue); // 0x00478590
+
+#pragma pack(push, 2)
+
+struct D2SliderButtonStrc
+{
+    unsigned short nStringId;
+    void (__cdecl* pfnClick)();
+    int unk0x06;
+    int nLeft;
+    int nRight;
+    int nTop;
+    int nBottom;
+};
+
+struct D2Record42Strc
+{
+    int aData[10];
+    unsigned short wLast;
+};
+
+#pragma pack(pop)
+
+extern unsigned char gbFlag_007BF2B0; // 0x007BF2B0
+
+extern D2Record42Strc gtQuestRecord; // 0x007BF355
+
+extern int gnPage_007C0255; // 0x007C0255
+
+extern D2SliderButtonStrc gaKeyConfigButtons[3]; // 0x007246D8
+
+int gaPressed[7]; // 0x007C0288
+
+struct D2QuestTextLineStrc
+{
+    unsigned short wLead[9];
+    Unicode wszText[300];
+};
+
+struct D2QuestTextBufferStrc
+{
+    unsigned char pHead[0x106];
+    D2QuestTextLineStrc pLines[6];
+
+    D2QuestTextBufferStrc();
+};
+
+#pragma pack(push, 1)
+
+struct D2QuestPanelEntryStrc
+{
+    int nQuestId;
+    char unk0x004[0x25E - 0x004];
+    unsigned short wTextId;
+    unsigned char nSlot;
+    char unk0x261[0x263 - 0x261];
+    unsigned char bEnabled;
+    char unk0x264[0x265 - 0x264];
+    int bDone;
+    char unk0x269[0x26A - 0x269];
+};
+
+#pragma pack(pop)
+
+int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
+
+void __fastcall TEXT_ToggleQuestLog(int nMode); // 0x004A3FE0
+
+void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
+
+void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, int bSound); // 0x004A1320
+
+void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext); // 0x0049E7E0
+
+int __fastcall TEXT_CloseQuestText(void* pContext, int nArg, int nValue); // 0x004A27B0
+
+extern D2QuestSlotRectStrc gaQuestSlots[]; // 0x00723EB0
+
+extern int gnQuestCount; // 0x007BF2A0
+
+extern char gbGlobal_007BF2B0; // 0x007BF2B0
+
+extern char gbQuestDescriptionOpen; // 0x007BF2B3
+
+extern D2QuestPanelEntryStrc gaQuestEntries[]; // 0x007BF3AA
+
+extern char gbGlobal_007C025D; // 0x007C025D
+
+extern char gbGlobal_007C025E; // 0x007C025E
+
+extern char gbGlobal_007C025F; // 0x007C025F
+
+extern char gbGlobal_007C0260; // 0x007C0260
+
+static int gnKeyConfigEntryCount; // 0x007C0274
+
+int __cdecl TEXT_GetMaxFirstEntry(); // 0x004A44C0
+
+int gnKeyConfigThumbScale; // 0x007C0278
+
+int gnKeyConfigFirstVisible; // 0x007C02AC
+
+int gnKeyConfigThumbY; // 0x007C02CC
+
+#pragma pack(push, 2)
+
+struct D2ClientListEntryStrc
+{
+    int nId;
+    unsigned short nString;
+    unsigned char unk0x06[4];
+};
+
+#pragma pack(pop)
+
+int __cdecl GAME_IsExitPending(); // 0x0044DA30
+
+extern "C" void __cdecl GAME_UnregisterMouseHandlers(); // 0x0044DCE0
+
+extern "C" void __cdecl GAME_RegisterMouseHandlers(); // 0x0044DD20
+
+void __cdecl sub_00466FE0(); // 0x00466FE0
+
+void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
+
+void __cdecl CMDTBL_SaveHotkeys(); // 0x00469D20
+
+void __cdecl TEXT_InitKeyConfigEntries(); // 0x004A43E0
+
+extern int gbRedraw; // 0x007C0280
+
+static int gnKeyConfigSelected; // 0x007C02B0
+
+int gbKeyCaptureActive; // 0x007C02B8
+
+int gbKeyConfigPressRepeat; // 0x007C0284
+
+int __fastcall CUNIT_HasHotkeyBinding(int nA, int nB); // 0x00469D90
+
+int __stdcall sub_B05_Sink(int nA, int nB);
+
+int __fastcall EXCEPTIONS_ReleaseSymbols(int nArg); // 0x0040C720
+
+void __fastcall CMDTBL_ResetKeyConfig(int nArg); // 0x00469A60
+
+extern "C" void __cdecl sub_00517ABB(void* pMemory); // 0x00517ABB
+
+struct D2HotkeyActionStrc
+{
+    char unk0x00[0x0A];
+    short nValue0A;
+    char unk0x0C[0x0C];
+    int nState18;
+    int nState1C;
+};
+
+extern "C" int __stdcall sub_00420290_HandleMsg(void* pMessage); // 0x00420290
+
+extern D2MsgHandlerEntryStrc gaKeyCaptureMButtonHandlers[]; // 0x0072472C
+
+extern D2MsgHandlerEntryStrc gaKeyCaptureHandlers[]; // 0x00724738
+
+extern D2MsgHandlerEntryStrc gaKeyCaptureXButtonHandlers[]; // 0x00724780
+
+extern D2MsgHandlerEntryStrc gaKeyCaptureWheelHandlers[]; // 0x0072478C
+
+extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+
+int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
+
+unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
+
+int __cdecl sub_00466DC0(); // 0x00466DC0
+
+int __cdecl GAME_GetLadderFlag(); // 0x0044DCA0
+
+static int TEXT_GetKeyConfigButtonAt(int nX, int nY);
+
+int gtQuestLog; // 0x007BF298
+
+#pragma pack(push, 2)
+
+#pragma pack(pop)
+
+int __stdcall TEXT_IsAbovePanelLine(int nX); // 0x004A4780
+
+int gnThumbRange; // 0x007C027C
+
+int gnDragThumbY; // 0x007C02A4
+
+int gnDragMouseY; // 0x007C02A8
+
+unsigned long gdwKeyConfigRepeatTick; // 0x007C02C0
+
+int __fastcall TEXT_IsInPanelButton(int, int, int); // 0x004A6580
+
+int __cdecl TEXT_IsMouseOnStatButton(); // 0x004A65E0
+
+void __stdcall ROSTERPETS_HandleButtonDown(SMSGHANDLER_PARAMS*); // 0x00467F20
+
+int __cdecl NPCMENU_IsNpcTalkActive(); // 0x004B3470
+
+int __fastcall TEXT_IsInRightPanelButton(int, int, int); // 0x004A6630
+
+int __cdecl TEXT_IsMouseOnSkillButton(); // 0x004A6690
+
+D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
+
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
+
+int __cdecl UI_GetHoverClassId(); // 0x00466DD0
+
+void __fastcall D2Win_10132(const Unicode* wszText, int nX, int nY, unsigned int dwColor, int eDrawMode, int nColor); // 0x005023B0
+
+int __stdcall UNITS_GetBlockRate(D2UnitStrc* pUnit, int nArg); // 0x00622720
+
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+
+D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
+
+int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
+
+void __fastcall TEXT_ScrollKeyConfigList(int nStep);
+
+#define STAT_STATPTS 4
+
+#define STAT_NEWSKILLS 5
+
+#pragma pack(push, 2)
+
+#pragma pack(pop)
+
+void __cdecl CMDTBL_SaveAndBindHotkeys(); // 0x00469D40
+
+void __fastcall sub_0047E200_CloseMenus(int bRestore); // 0x0047E200
+
+void __fastcall WARDENCLIENT_ToggleEscMenuUIState(int bSaveState, int nMenu); // 0x0047E090
+
+extern int global_00724728; // 0x00724728
+
+enum { REPEAT_MASK = 0x40000000, UI_VARIABLE = 11 };
+
+void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
+
+int __cdecl sub_00468730(); // 0x00468730
+
+int __cdecl sub_00468740(); // 0x00468740
+
+int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
+
+extern "C" int gnFlag_007C02EC; // 0x007C02EC
+
+void __stdcall ROSTERPETS_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
+
+bool __stdcall TEXT_IsStatButtonHidden(int nArg); // 0x004A6A00
+
+bool __stdcall TEXT_IsSkillButtonHidden(int nArg); // 0x004A6D50
+
+void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
+
+D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
+
+int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
+
+void* gpLevelCel; // 0x007C02DC
+
+void* gpLevelSocketCel; // 0x007C02E0
+
+int gbStatButtonPressed; // 0x007C02E4
+
+int gbSkillButtonPressed; // 0x007C02E8
+
+void __fastcall TEXT_MoveKeyConfigSelection(int nStep);
+
+char gbGlobal_007BF2B2; // 0x007BF2B2
+
+char gbGlobal_007BF2B4; // 0x007BF2B4
+
+void* gpKeyConfigSliderCel; // 0x007C02BC
+
+static int TEXT_GetKeyConfigLineAt(int nY);
+
+static int TEXT_IsInKeyConfigList(int nX, int nY);
+
+static int TEXT_IsOnUpArrow(int nX, int nY);
+
+static int TEXT_IsOnDownArrow(int nX, int nY);
+
+static int TEXT_IsAboveThumb(int nX, int nY);
+
+static int TEXT_IsOnThumb(int nX, int nY);
+
+static int TEXT_IsBelowThumb(int nX, int nY);
+
+unsigned char gnTextColor; // 0x007C02F8
+
+#define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
+
+struct ListBoxView;
+
+#pragma pack(push, 2)
+
+struct ListBoxView
+{
+    void* pVtable;
+    int unk0x04;
+    char aLines[0x180700];
+    int nRectX;
+    int nRectY;
+    int nRectWidth;
+    int nRectHeight;
+    int nLineHeight;
+    int bMouseDown;
+    int bTopPressed;
+    int bBottomPressed;
+    int bRowsPressed;
+    int nPressY;
+    int nTopIndex;
+    int nCallbackRow;
+    int nSelectedIndex;
+    int nTextCount;
+    int nArg14;
+    int nArg18;
+    unsigned short nEntryCount;
+    int pfnCallback;
+    int nVisibleRows;
+    int nThumbStart;
+    int nThumbEnd;
+    int nX;
+    int nY;
+
+    void sub_004BE8D0_Refresh();                                                                            // 0x004BE8D0
+    int ClickScrollTrack(SMSGHANDLER_PARAMS* pMsg);
+};
+
+#pragma pack(pop)
+
+static int TEXT_IsOnKeyConfigButton(int nX, int nY);
+
+static int TEXT_IsOnPressedButton(int nX, int nY);
+
+void __fastcall TEXT_DrawUnitHoverText(D2UnitStrc* pUnit); // 0x004A0B30
+
+int __cdecl sub_0047F210_IsMouseInSlots();                                                                  // 0x0047F210
+
+void __cdecl sub_0049C6C0_SendWaypointClose();                                                              // 0x0049C6C0
+
+extern D2WaypointRowRectStrc gaWaypointRowRects[9];                                                // 0x007224F8
+
+extern D2WaypointMenuEntryStrc gaWaypointEntries[9];                                               // 0x007BF03C
+
+static bool gbWaypointClosePressed;                                                                        // 0x007BF06C
+
+static int gnWaypointSelected;                                                                       // 0x007BF06D
+
+char gbSent; // 0x007BF085
+
+extern int gnPanelOffsetX;                                                                               // 0x007A2858
+
+extern int gnPanelOffsetY;                                                                               // 0x007A285C
+
+int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
+
+typedef void (__fastcall* UNITFN)(D2UnitStrc* pUnit);
+
+int gnQuestAct; // 0x007BF2A4
+
+int gnQuestParam; // 0x007BF2AC
+
+extern "C" void __cdecl GAME_ConfigureEnvironmentOrDefer(); // 0x0044C820
+
+void __cdecl GAME_RequestExit(); // 0x0044D520
+
+void __fastcall GAME_SetPlayCinematic(int nValue); // 0x0044D530
+
+int __cdecl GAME_IsExpansion(); // 0x0044DCC0
+
+void __cdecl GAME_SetDifficultyFlags(); // 0x0044EC80
+
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
+
+void __fastcall CUNIT_ForEachMonster(UNITFN pfnCallback); // 0x00464990
+
+void __fastcall sub_0046BFD0_StartTimer(int nDelay); // 0x0046BFD0
+
+void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow); // 0x0046F870
+
+void __cdecl INV_StopCinematic(); // 0x00483300
+
+void __cdecl INV_ChainCinematic(); // 0x00483340
+
+void __fastcall TEXT_SelectQuestPage(int nCondition); // 0x004A2C30
+
+void __fastcall TEXT_ClearCainFlag(D2UnitStrc* pUnit); // 0x004A2C70
+
+void __fastcall TEXT_ClearNihlathakFlag(D2UnitStrc* pUnit); // 0x004A2C90
+
+D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
+
+int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
+
+static int TEXT_FindQuestIndex(int nKey);
+
+int gaQuestPageDefault[5]; // 0x007BF280
+
+void __fastcall sub_00600C60_CallFree(void* pMemory); // 0x00600C60
+
+struct D2StringSoundStrc;
+
+void __fastcall CUNIT_SetDialogState(int nState); // 0x004898D0
+
+void __cdecl DIALOG_LoadDialogHotkeys(); // 0x004B7C60
+
+void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
+
+int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
+
+D2BitBufferStrc* __stdcall QUESTRECORD_AllocRecord(void* pMemPool); // 0x0065C430
+
+extern D2MsgHandlerEntryStrc gaDialogWheelHandlers[]; // 0x007273E4
+
+extern D2MsgHandlerEntryStrc gaDialogHandlers[]; // 0x007273F0
+
+extern const char* gaszDialogCels[]; // 0x007274AC
+
+extern void* gpWaypointBackgroundCel; // 0x007BF071
+
+extern void* gpWaypointActTabsCel; // 0x007BF075
+
+extern void* gpWaypointIconCel; // 0x007BF079
+
+extern void* gpGlobal_007C0D43; // 0x007C0D43
+
+extern int gbWaitSoundPlayed; // 0x007C0DBC
+
+extern int gbWaitSoundScheduled; // 0x007C0DC0
+
+extern void* gpBuySellCel; // 0x007C0DC8
+
+extern void* gpGoldBtnCel; // 0x007C0DCC
+
+#pragma pack(push, 2)
+
+#pragma pack(pop)
+
+#pragma pack(push, 2)
+
+#pragma pack(pop)
+
+struct D2StringSoundStrc
+{
+    unsigned short wStringId;
+    unsigned short wSoundId;
+};
+
+extern "C" const char gszFormatD[]; // 0x006D57BC
+
+extern "C" const char gszFormatSound[]; // 0x006DA194
+
+extern D2StringSoundStrc* gapClassStringSounds[]; // 0x00722F1C
+
+extern D2StringSoundStrc gaMonStringSounds[]; // 0x00723750
+
+static void __stdcall TEXT_ShowHoverText(const Unicode* wszText, D2UnitStrc* pUnit, D2HoverTextStrc* pHoverText, D2CoordStrc* pPos); // 0x004A0A00
+
+char gabNpcMenuState[1]; // 0x007C0C68
+
+static int gnDialogHandlerRegCount; // 0x007C0E4C
+
+static D2ClientDialogStrc* gpDialogList; // 0x007C0E54
+
+static int gbDialogHandlersRegistered; // 0x007C0E58
+
+static int gnDialogCount; // 0x007C0E5C
+
+D2WaypointDataStrc* __stdcall WAYPOINTS_AllocWaypointData(void* pMemPool); // 0x00660F30
+
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+
+void __stdcall WAYPOINTS_FreeWaypointData(void* pMemPool, D2WaypointDataStrc* pData); // 0x00660FD0
+
+extern "C" void __cdecl sub_0049C650_CloseArchives(); // 0x0049C650
+
+static int TEXT_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect); // 0x0049D9A0
+
+static void TEXT_FreeTextLines(T0044CB60* pLine);
+
+void __stdcall TEXT_FreeTextBox(T00479230* pTextBox); // 0x0049D410
+
+static void TEXT_MeasureTextBox(T00479230* pBox);
+
+struct D2ActiveRoomStrc;
+
+struct D2StoredUnitRecordStrc;
+
+struct D2NamePacketStrc;
+
+struct D2GSPacketSrv5A;
+
+struct D2SuperUniquesTxt;
+
+struct D2NamePacketStrc
+{
+    unsigned char nHeader;
+    char szName[16];
+    unsigned char nValue[4];
+};
+
+void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
+
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+
+Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc); // 0x00526700
+
+void __stdcall D2Common_10474(D2UnitStrc* pUnused, D2StatListStrc* pStatList); // 0x006277E0
+
+void __stdcall sub_0065FEC0_ItemApplyProps(int nPass, int nArg1, D2UnitStrc* pItem, int nArg, int nArg2, int nArg5); // 0x0065FEC0
+
+extern Unicode gwszName_007C0E84[]; // 0x007C0E84
+
+#pragma pack(push, 1)
+
+struct D2GSPacketSrv5A
+{
+    unsigned char nHeader;
+    unsigned char nType;
+    unsigned char nColor;
+    int dwParam;
+    unsigned char nParam;
+    union
+    {
+        char szText[32];
+        char szTextData[2][16];
+    };
+};
+
+#pragma pack(pop)
+
+extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
+
+extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
+
+extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
+
+int __fastcall ROSTER_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord); // 0x0047A0C0
+
+D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
+
+unsigned int __fastcall GFXUTIL_TestRelationFlags(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC440
+
+void __fastcall TEXT_PrintPartyText(const Unicode* wszText, char nColor); // 0x0049E5C0
+
+D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
+
+D2SuperUniquesTxt* __stdcall DATATBLS_GetSuperUniquesTxtRecord(int nSuperUniqueId); // 0x006556E0
+
+extern D2DrlgActStrc* gpGlobal_007A0634; // 0x007A0634
+
+static int TEXT_FormatPartyEvent(Unicode* pOut, D2GSPacketSrv5A* pPacket); // 0x0049E8F0
+
+void __fastcall sub_0049E3A0_ShowChatText(const Unicode* wszText, char nColor);
+
+#pragma pack(push, 2)
+
+#pragma pack(pop)
+
+extern "C" __declspec(dllimport) int __stdcall SetRect(D2RectStrc* pRect, int nLeft, int nTop, int nRight, int nBottom);
+
+void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
+
+void __fastcall CUNIT_ForEachPlayer(UNITFN pfnCallback); // 0x00464950
+
+void __fastcall CUNIT_ForEachObject(UNITFN pfnCallback); // 0x004649D0
+
+void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTop, int* pRight, int* pBottom); // 0x00476070
+
+void __fastcall VIEW_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY); // 0x004760C0
+
+static __declspec(noinline) int __cdecl sub_0049D5A0_UpdateTextBox(T00479230* pTextBox);
+
+void __cdecl TEXT_DrawMessageList(); // 0x0049DC40
+
+void __cdecl TEXT_DrawOverheadTextList(); // 0x0049DEE0
+
+void __cdecl TEXT_FreeMainTextBox(); // 0x0049E300
+
+void __cdecl TEXT_ResetTextBox(); // 0x0049F960
+
+void __cdecl TEXT_CloseTextUnit(); // 0x004A0880
+
+void __fastcall TEXT_DrawObjectHoverText(D2UnitStrc* pUnit); // 0x004A0D20
+
+extern "C" void __fastcall NPCMENU_ClearNpcInventoryAndSound(int nUnitId); // 0x004B3830
+
+void __fastcall sub_004B8100_DrawDialog(D2ClientDialogStrc* pDialog); // 0x004B8100
+
+int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
+
+extern D2RectStrc gtTextRect_007BF1D0; // 0x007BF1D0
+
+extern D2TextCallback gpfnTextCallback; // 0x007BF258
+
+extern void* gpTextCallbackContext; // 0x007BF25C
+
+extern int gnTextLeft; // 0x007BF278
+
+static int __stdcall TEXT_AdvanceTextBox(int bIgnore, T00479230* pTextBox); // 0x004A0770
+
+int gnTradePartnerUnitId; // 0x007C0E60
+
+inline void* operator new(unsigned int, void* pWhere) { return pWhere; }
+
+// build: symbol ??0D2QuestTextBufferStrc@@QAE@XZ 0x004A4260
+
+extern D2QuestTextBufferStrc data_007BF298; // 0x007BF298
+
+int gbTextBoxDone; // 0x007BF1BC
+
+int gnTextActive; // 0x007BF1C0
+
+#define gbUpPressed_007C028C (gaPressed[1])
+
+#define gbDownPressed_007C0290 (gaPressed[2])
+
+#define KEYCFG_X ((gnScreenWidth_0071146C - 620) / 2)
+
+#define KEYCFG_Y ((gnAutomapHeight - 420) / 2)
+
+struct D2KeyConfigButtonStrc;
+
+#pragma pack(push, 1)
+
+#pragma pack(pop)
+
+int gnAutomapHeight; // 0x007A521C
+
+#pragma pack(push, 2)
+
+struct D2KeyConfigButtonStrc
+{
+    unsigned short nString;
+    unsigned char unk0x02[4];
+    int nColor;
+    int nX;
+    unsigned char unk0x0E[0x0C];
+};
+
+#pragma pack(pop)
+
+void __fastcall UI_DrawRectangleBorder(D2RectStrc* pRect); // 0x00452E50
+
+const Unicode* __fastcall CMDTBL_GetKeyText(int nKey, int nArg2); // 0x00469DE0
+
+extern D2KeyConfigButtonStrc gaButtons_007246D8[3]; // 0x007246D8
+
+extern unsigned int gdwMessageTick_007C02C8; // 0x007C02C8
+
+int gnKeyConfigPressedButton; // 0x007C02B4
+
+int gnMessage; // 0x007C02C4
+
+unsigned int gnBlink; // 0x007C02D0
+
+int gnLastMouseY; // 0x007C02D4
+
+int gnLastMouseX; // 0x007C02D8
+
+void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket);
+
+static int TEXT_GetKeyConfigEntryState(int nIndex, int nFlag);
+
+typedef int(__fastcall* PANELCLOSEFN)(void* pArg, int a2, int a3);
+
+extern int gnPending_007BF1C4; // 0x007BF1C4
+
+extern void* gpHint_007BF202; // 0x007BF202
+
+extern int gbHintActive_007BF20A; // 0x007BF20A
+
+extern void* gpHint_007BF24B; // 0x007BF24B
+
+extern PANELCLOSEFN gpfnClose_007BF258; // 0x007BF258
+
+void __fastcall sub_00467430_SetSelectionRect(void* pRect); // 0x00467430
+
+void __fastcall NPCMENU_CancelNpcAndFlag(void* pHint); // 0x004B3D10
+
+struct D2MessageListStrc;
+
+struct D2HoverTextPacketStrc;
+
+struct D2QuestTextMsgStrc;
+
+struct D2QuestTextsStrc;
+
+struct D2QuestPageRangeStrc;
+
+struct D2QuestPosStrc;
+
+struct D2QuestLogStateStrc;
+
+#pragma pack(push, 1)
+
+struct D2HoverTextPacketStrc
+{
+    unsigned char nHeader;
+    unsigned char nType;
+    unsigned int dwUnitId;
+    unsigned char nArg;
+    unsigned char unk0x07;
+    unsigned char nMode;
+    unsigned char unk0x09;
+    unsigned short wStringId;
+};
+
+#pragma pack(pop)
+
+void __fastcall TEXT_ShowTextBox(unsigned short nStringId); // 0x004A1510
+
+D2TextHeaderStrc* __stdcall TEXT_AllocTextHeader(void* pMemPool); // 0x00661240
+
+void __stdcall TEXT_CreateTextHeaderFromMessageList(D2TextHeaderStrc* pTextHeader, D2MessageListStrc* pMessageList); // 0x00661510
+
+void __stdcall TEXT_SortTextNodeListByStringId(D2TextHeaderStrc* pTextHeader); // 0x006616E0
+
+#pragma pack(push, 1)
+
+struct D2QuestTextMsgStrc
+{
+    unsigned char unk0x000[1];
+    int nQuestId;
+    unsigned short wTitle;
+    Unicode wszText[300];
+    unsigned short wDesc;
+    unsigned char nCelId;
+    unsigned char nCelId2;
+    unsigned char f_263;
+    unsigned char bValid;
+    unsigned char nStep;
+    int nState;
+};
+
+#pragma pack(pop)
+
+int __stdcall INV_GetTableByte(int nUnused, int nIndex); // 0x004B92E0
+
+extern D2QuestTextsStrc gtQuestTextsSevenTombs; // 0x00723A64
+
+extern D2QuestTextsStrc gtQuestTextsFallenAngel; // 0x00723C64
+
+extern D2QuestTextsStrc gtQuestTextsSiege; // 0x00723D24
+
+extern D2QuestPageRangeStrc gaQuestPageRanges[]; // 0x00723F08
+
+extern void* gapQuestIconCels[]; // 0x007BF2E1
+
+extern unsigned char gabQuestFlagsA[]; // 0x007BF356
+
+void __stdcall TEXT_LoadQuestPage(int nPage, int bReset); // 0x004A3220
+
+static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg); // 0x004A1950
+
+void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg); // 0x004785B0
+
+void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
+
+extern D2QuestPosStrc gaQuestPos[]; // 0x00723EA8
+
+#pragma pack(push, 1)
+
+struct D2QuestLogStateStrc
+{
+    int nState;
+    char unk0x004[4];
+    int f_8;
+    char unk0x00C[4];
+    int nA8;
+    char unk0x014[4];
+    char bB0;
+    char bB1;
+    char bB2;
+    char bB3;
+    char bB4;
+    int nIndexB5;
+    int nIndexB9;
+    char unk0x025[0x14];
+    void* pCelD1;
+    void* pCelD5;
+    void* pCelD9;
+    void* pCelDD;
+    void* apCel[27];
+    void* pCel34D;
+    void* pCel351;
+    char unk0x0BD[0x54];
+    D2QuestTextMsgStrc aMsgs[6];
+    int anAnim[6];
+    unsigned int anTick[6];
+    int nPage;
+    char unk0xFC1[0x13];
+    int n26C;
+    int n270;
+};
+
+#pragma pack(pop)
+
+extern D2QuestLogStateStrc gtQuestLog_007BF298; // 0x007BF298
+
+#pragma pack(push, 1)
+
+#pragma pack(pop)
+
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
+
+unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
+
+unsigned char gabQuestFlagsB[41]; // 0x007BF380
+
+unsigned short gwTextPanelClassId; // 0x007BF234
+
+D2TextHeaderStrc* gpTextHeader; // 0x007BF250
+
+#pragma pack(push, 1)
+
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+
+#pragma pack(pop)
+
+#pragma pack(push, 2)
+
+#pragma pack(pop)
+
+extern D2ClientListEntryStrc gaKeyConfigEntries[]; // 0x00724268
+
+extern D2ClientListEntryStrc gaKeyConfigEntriesExp[]; // 0x00724468
+
+static int TEXT_GetWeaponBlock(D2UnitStrc* pUnit); // 0x004A70C0
+
+static int TEXT_AddToHitFactor(D2UnitStrc* pUnit, int nAttackRate); // 0x004A7300
+
+static void TEXT_SetQuestPage(int nPageArg); // 0x004A2220
+
+int __fastcall TEXT_TestQuestCondition(int nCondition);
+
+void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg);
+
+void __cdecl sub_004A34F0_DrawQuestPage(); // 0x004A34F0
+
+void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg);
+
+int __stdcall TEXT_GetChanceToHit(int nAttackRate);
+
+struct D2PacketRecord6Strc;
+
+struct D2QuestTableStrc;
+
+struct D2UiEntry10Strc;
+
+struct D2QuestUiFlagsStrc;
+
+struct D2PacketRecord6Strc
+{
+    unsigned char nHeader;
+    unsigned char nId;
+    unsigned char nFlags;
+    unsigned char nValue;
+    short nParam;
+};
+
+struct D2QuestTableStrc
+{
+    unsigned char bEnabled;
+    unsigned char nCelId;
+    unsigned char nCelId2;
+    unsigned char nPage;
+    D2QuestTextsStrc* pTexts;
+    int nCondition;
+    int nQuestId;
+};
+
+struct D2QuestUiFlagsStrc
+{
+    char bLocked;
+    unsigned char unk0x01[0xA2];
+    unsigned char abFlags[41];
+};
+
+extern D2QuestTableStrc gaQuestTable[]; // 0x00723F30
+
+extern D2UiEntry10Strc gaQuestLookup[41]; // 0x00723F38
+
+extern D2QuestUiFlagsStrc gtQuestUiFlags_007BF2B3; // 0x007BF2B3
+
+#pragma pack(push, 2)
+
+#pragma pack(pop)
+
+Unicode* __fastcall strncpy(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
+
+#pragma pack(push, 2)
+
+#pragma pack(pop)
+
+static void TEXT_FreeTextNode(D2TextNodeStrc* pNode); // 0x0049D490
+
+
+static inline int sub_F08_ListTop()
+{
+    return (gnAutomapHeight - 0x1A4) / 2;
+}
+
+static inline int sub_KEYCFG_Rows()
+{
+    return ((sub_F08_ListTop() + 0x16C) - (sub_F08_ListTop() + 0x28)) / 0x12;
+}
+
+static inline int sub_KEYCFG_TrackCels()
+{
+    return ((KEYCFG_Y + 0x131) - (KEYCFG_Y + 0x2F)) / 0x0C;
+}
+
+static inline int sub_KEYCFG_RowTrackCels()
+{
+    return (sub_KEYCFG_Rows() * 0x12 - 0x4E) / 0x0C + 1;
+}
+
+static inline int sub_KEYCFG_VisibleLines()
+{
+    return ((KEYCFG_Y + 0x136) - (KEYCFG_Y + 0x28)) / 0x12;
+}
+
+static inline int sub_F08_VisibleLines()
+{
+    return sub_KEYCFG_Rows() - 3;
+}
+
+static inline int sub_F08_LinesTop()
+{
+    return sub_F08_ListTop() + 0x28;
+}
+
+static inline int sub_F08_LinesBottom()
+{
+    return sub_F08_ListTop() + 0x136;
+}
+
+static inline int sub_I18_ListTop()
+{
+    return (gnAutomapHeight - 0x1A4) / 2;
+}
+
+static inline int sub_I18_TrackTop()
+{
+    return sub_I18_ListTop() + 0x2F;
+}
+
+static inline int sub_I18_TrackBottom()
+{
+    return sub_I18_ListTop() + 0x125;
+}
+
+static inline int sub_I18_ThumbHeight()
+{
+    return gnKeyConfigThumbScale * 12;
+}
+
+static inline int sub_I18_TrackSpan()
+{
+    return sub_I18_TrackBottom() - sub_I18_TrackTop() - sub_I18_ThumbHeight();
+}
+
+static inline int sub_F08_PanelLeft()
+{
+    return (gnScreenWidth - 0x26C) / 2;
+}
+
+static inline int sub_F08_PanelRight()
+{
+    return sub_F08_PanelLeft() + (gnScreenWidth - sub_F08_PanelLeft() * 2);
+}
+
+static inline int sub_F08_TrackTop()
+{
+    return sub_F08_ListTop() + 0x2F;
+}
+
+static inline int sub_F08_TrackBottom()
+{
+    return sub_F08_ListTop() + 0x125;
+}
+
+static inline int sub_F08_ThumbHeight()
+{
+    return gnKeyConfigThumbScale * 12;
+}
+
+static __forceinline int sub_F08_TrackSpan()
+{
+    return sub_KEYCFG_Rows() * 0x12 - sub_F08_ThumbHeight() - 0x4E;
+}
+
+static inline int sub_F08_NoOtherPressed(int nIndex)
+{
+    for (int i = 0; i < 7; ++i)
+    {
+        if (gaPressed[i] && i != nIndex)
+            return 0;
+    }
+    return 1;
+}
+
+static inline int sub_KEYCFG_ListTop()
+{
+    return (gnAutomapHeight - 0x1A4) / 2;
+}
+
+static inline int sub_KEYCFG_PanelRight()
+{
+    return KEYCFG_X + (gnScreenWidth_0071146C - KEYCFG_X * 2);
+}
+
+static inline int sub_KEYCFG_IsOnUpArrow(int nX, int nY)
+{
+    if (nX >= sub_KEYCFG_PanelRight() - 0x1F && nX <= sub_KEYCFG_PanelRight() - 0x12)
+    {
+        const int nTop = sub_KEYCFG_ListTop();
+        if (nY >= nTop + 0x23 && nY <= nTop + 0x2F)
+            return 1;
+    }
+    return 0;
+}
+
+static inline int sub_KEYCFG_IsOnDownArrow(int nX, int nY)
+{
+    if (nX >= sub_KEYCFG_PanelRight() - 0x1F && nX <= sub_KEYCFG_PanelRight() - 0x12)
+    {
+        const int nTop = sub_KEYCFG_ListTop();
+        if (nY >= nTop + 0x125 && nY <= nTop + 0x131)
+            return 1;
+    }
+    return 0;
+}
 
 // 0x00491940
 void __cdecl TEXT_ResetNpcPanel()
@@ -662,23 +1856,102 @@ void __cdecl TEXT_LoadPopupHireling()
     }
 }
 
-int __cdecl sub_0047F210_IsMouseInSlots();                                                                  // 0x0047F210
+// 0x0049AAA0
+int __fastcall TEXT_GetCenteredStringX(unsigned short nStringIndex, int nCenterX)
+{
+    Unicode wszText[100];
+    sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nStringIndex));
+    return nCenterX - D2Win_10121_GetTextWidth(wszText) / 2;
+}
 
-void __cdecl sub_0049C6C0_SendWaypointClose();                                                              // 0x0049C6C0
+// 0x0049C580
+void __cdecl TEXT_LoadWaypointPanelCels()
+{
+    char szPath[0x104];
+    if (!gpWaypointBackgroundCel)
+    {
+// build: symbol ?gszDataGlobal@* 0x006D4118
+        sprintf(szPath, "%s\\ui\\menu\\waygatebackground", gszDataGlobal);
+        gpWaypointBackgroundCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+    if (!gpWaypointActTabsCel)
+    {
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+        if (FOG_IsExpansion() && GAME_IsExpansion())
+        {
+            sprintf(szPath, "%s\\ui\\menu\\expwaygatetabs", gszDataGlobal);
+        }
+        else
+        {
+            sprintf(szPath, "%s\\ui\\menu\\waygatetabs", gszDataGlobal);
+        }
+        gpWaypointActTabsCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+    if (!gpWaypointIconCel)
+    {
+        sprintf(szPath, "%s\\ui\\menu\\waygateicons", gszDataGlobal);
+        gpWaypointIconCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+}
 
-extern D2WaypointRowRectStrc gaWaypointRowRects[9];                                                // 0x007224F8
+// 0x0049C650
+extern "C" void __cdecl sub_0049C650_CloseArchives()
+{
+    if (gpWaypointBackgroundCel)
+    {
+        ARCHIVE_FreeClientCellFile(gpWaypointBackgroundCel);
+        gpWaypointBackgroundCel = 0;
+    }
+    if (gpWaypointActTabsCel)
+    {
+        ARCHIVE_FreeClientCellFile(gpWaypointActTabsCel);
+        gpWaypointActTabsCel = 0;
+    }
+    if (gpWaypointIconCel)
+    {
+        ARCHIVE_FreeClientCellFile(gpWaypointIconCel);
+        gpWaypointIconCel = 0;
+    }
+}
 
-extern D2WaypointMenuEntryStrc gaWaypointEntries[9];                                               // 0x007BF03C
+// 0x0049C6A0
+void __cdecl sub_0049C6A0()
+{
+// build: symbol ?gpWaypointData@* 0x007BF081
+    gpWaypointData = WAYPOINTS_AllocWaypointData(0);
+    gbSent = 0;
+}
 
-static bool gbWaypointClosePressed;                                                                        // 0x007BF06C
+// 0x0049C6C0
+void __cdecl sub_0049C6C0_SendWaypointClose()
+{
+    if (!gbSent && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
+    {
+// build: symbol ?gnWaypointId@* 0x007BF07D
+        MSG_SendTwoDwords(0x49, gnWaypointId, 0);
+        gbSent = 1;
+    }
+}
 
-static int gnWaypointSelected;                                                                       // 0x007BF06D
+// 0x0049C700
+void __cdecl sub_0049C700_CloseWaypointPanel()
+{
+    sub_0049C6C0_SendWaypointClose();
+    if (gpWaypointData)
+        WAYPOINTS_FreeWaypointData(0, gpWaypointData);
+    gpWaypointData = 0;
+    sub_0049C650_CloseArchives();
+}
 
-extern char gbSent;                                                                              // 0x007BF085
-
-extern int gnPanelOffsetX;                                                                               // 0x007A2858
-
-extern int gnPanelOffsetY;                                                                               // 0x007A285C
+// 0x0049CF50
+void __cdecl sub_0049CF50_SendWaypointClose()
+{
+    if (!gbSent && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
+    {
+        MSG_SendTwoDwords(0x49, gnWaypointId, 0);
+        gbSent = 1;
+    }
+}
 
 static int sub_0049C510_GetWaypointRowAtPoint(int nX, int nY)
 {
@@ -690,8 +1963,6 @@ static int sub_0049C510_GetWaypointRowAtPoint(int nX, int nY)
     }
     return -1;
 }
-
-int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
 // 0x0049D010
 void __stdcall sub_0049D010_WaypointMouseUp(SMSGHANDLER_PARAMS* pMsg)
@@ -765,10 +2036,61 @@ int __fastcall sub_0049D300_GetFieldA4(D2TextFieldA4Strc* pRecord)
     return pRecord->nFieldA4;
 }
 
+struct D2BitBufferStrc;
+
+// build: symbol ??0Unicode@@QAE@XZ 0x0042F530
+// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
+// 0x0049D370
+static void TEXT_FreeTextLines(T0044CB60* pLine)
+{
+    while (pLine)
+    {
+        T0044CB60* pNext = pLine->pNext;
+        FOG_Free(pLine->pText, ".\\UI\\text.cpp", 0x60F, 0);
+        FOG_Free(pLine, ".\\UI\\text.cpp", 0x610, 0);
+        pLine = pNext;
+    }
+}
+
 // 0x0049D3B0
 static inline void TEXT_SetWidthFromWord(D2TextWidthStrc* pRecord)
 {
     pRecord->nWidth = pRecord->wWidth;
+}
+
+// 0x0049D3C0
+static void TEXT_MeasureTextBox(T00479230* pBox)
+{
+    int nMaxWidth = 0;
+    pBox->nTextTop = 0;
+    pBox->nTextBottom = pBox->f_14;
+    for (T0044CB60* pLine = pBox->pFirst; pLine; pLine = pLine->pNext)
+    {
+        nMaxWidth = nMaxWidth > D2Win_10121_GetTextWidth(pLine->pText) ? nMaxWidth : D2Win_10121_GetTextWidth(pLine->pText);
+    }
+    pBox->nWidth = nMaxWidth + 0x14;
+    pBox->nHeight = pBox->nLines * 0x0F + 6;
+}
+
+// 0x0049D410
+void __stdcall TEXT_FreeTextBox(T00479230* pTextBox)
+{
+    if (pTextBox)
+    {
+        TEXT_FreeTextLines(pTextBox->pFirst);
+        FOG_Free(pTextBox, ".\\UI\\text.cpp", 0x68E, 0);
+    }
+}
+
+// 0x0049D490
+static void TEXT_FreeTextNode(D2TextNodeStrc* pNode)
+{
+    for (int i = 0; i < 6; i++)
+    {
+        if (pNode->pLines[i])
+            FOG_Free(pNode->pLines[i], ".\\UI\\text.cpp", 0x6B3, 0);
+    }
+    FOG_Free(pNode, ".\\UI\\text.cpp", 0x6B6, 0);
 }
 
 void __fastcall sub_M111_Emit_0049D3B0(D2TextWidthStrc* pRecord, int* pDone)
@@ -792,31 +2114,56 @@ unsigned int __fastcall TEXT_CalcTextOffset(unsigned int nValue)
 }
 
 // 0x0049D8E0
-void __fastcall TEXT_DrawTextList(D2TextListStrc* pList, int nX, int nY)
+void __fastcall TEXT_DrawTextList(T00479230* pTextBox, int nX, int nY)
 {
-    int nLines = pList->wCount > 10 ? 10 : pList->wCount;
+    int nLines = (unsigned int)pTextBox->nLines > 10 ? 10 : pTextBox->nLines;
 
-    D2TextListNodeStrc* pNode = pList->pFirst;
+    T0044CB60* pNode = pTextBox->pFirst;
     if (!nLines || !pNode || nY < 0)
     {
         return;
     }
 
-    const int nHeight = pList->nHeight;
+    const int nHeight = pTextBox->nHeight;
     if (nHeight + nY >= gnScreenHeight)
     {
         return;
     }
 
-    AUTOMAP_DrawFramedBox(nX, nY + 4, pList->nWidth, nHeight - 5, 0, 1);
+    AUTOMAP_DrawFramedBox(nX, nY + 4, pTextBox->nWidth, nHeight - 5, 0, 1);
     int i = 0;
     const int nOldFont = D2Win_10127_SetFont(13);
     for (; i < nLines && pNode; ++i)
     {
-        D2Win_10117_DrawText(pNode->wszText, nX + 10, nY + 18 + 15 * (i - nLines + pList->wCount), 0, 0);
+        D2Win_10117_DrawText(pNode->pText, nX + 10, nY + 18 + 15 * (i - nLines + pTextBox->nLines), 0, 0);
         pNode = pNode->pNext;
     }
     D2Win_10127_SetFont(nOldFont);
+}
+
+// 0x0049D9A0
+static int TEXT_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect)
+{
+    if (!pTextBox->nScroll)
+        pTextBox->nScroll = 1;
+    else if (pTextBox->nScroll == 3)
+        return 1;
+
+    switch (sub_0045AE90())
+    {
+    case 1:
+        if (pRect->nLeft > gnScreenWidth / 2 - 10)
+            return 1;
+        break;
+    case 2:
+        if (pRect->nLeft < gnScreenWidth / 2 + 10)
+            return 1;
+        break;
+    case 3:
+        return 1;
+    }
+    TEXT_DrawTextList(pTextBox, pRect->nLeft, pRect->nTop);
+    return 1;
 }
 
 // 0x0049DA30
@@ -842,7 +2189,7 @@ void __fastcall TEXT_ToggleTextHandlers(int nMode)
         if (gbTextHandlersRegistered == 1)
         {
             gbTextHandlersRegistered = 0;
-            AUTOMAP_UnregisterHandlerTable((void*)WINDOW_GetWindow(), gaTextMsgHandlers, 7);
+            AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaTextMsgHandlers, 7);
         }
     }
     else if (nMode == 1 && gbTextHandlersRegistered == 0)
@@ -887,6 +2234,385 @@ D2ClientStringListStrc* __fastcall TEXT_CloneStringList(D2ClientStringListStrc* 
     return pCopy;
 }
 
+// 0x0049DC40
+void __cdecl TEXT_DrawMessageList()
+{
+    int i;
+    int nLine;
+    D2TextNodeStrc* pNode;
+    T0044CB60* pNextLine;
+    int nBaseY;
+    int bSplit;
+    int nOldFont;
+    int nLineCount;
+    int nX;
+    int nWidth;
+    int nY;
+    T0044CB60* pTextLine;
+
+    if (!gtMessageTextList.wCount)
+    {
+        return;
+    }
+
+    nOldFont = D2Win_10127_SetFont(0xD);
+    pNode = gtMessageTextList.pFirst;
+    nBaseY = 0x14;
+    if (GAME_GetUIVarState(0x13))
+    {
+        nBaseY = 0x5F;
+    }
+
+    nX = 0xF;
+    nLine = 0;
+    bSplit = 0;
+    switch (sub_0045AE90())
+    {
+    case 1:
+        bSplit = 1;
+        break;
+
+    case 2:
+        nX = gnScreenWidth / 2 + 0xF;
+        bSplit = 1;
+        break;
+    }
+
+    for (; pNode; pNode = pNode->pNext)
+    {
+        for (i = 0; i < 6; ++i)
+        {
+            if (!pNode->pLines[i])
+            {
+                continue;
+            }
+
+            if (bSplit)
+            {
+                Unicode wszText[0x190];
+                sub_005267E0(wszText, pNode->pLines[i]);
+                pTextLine = sub_00502970_SplitText(wszText, &nLineCount, 0x12C);
+                if (pTextLine)
+                {
+                    nY = 15 * nLine + nBaseY;
+                    do
+                    {
+                        pNextLine = pTextLine->pNext;
+                        nWidth = D2Win_10123(pTextLine->pText, sub_00526800(pTextLine->pText));
+                        if (nWidth)
+                        {
+                            AUTOMAP_DrawFramedBox(nX - 5, nY - 0xE, nWidth + 0xA, 0x10, 0, 1);
+                            D2Win_10117_DrawText(pTextLine->pText, nX, nY, pNode->nColor, 0);
+                            ++nLine;
+                            nY += 0xF;
+                        }
+                        FOG_Free(pTextLine->pText, ".\\UI\\text.cpp", 0xA47, 0);
+                        FOG_Free(pTextLine, ".\\UI\\text.cpp", 0xA48, 0);
+                        pTextLine = pNextLine;
+                    }
+                    while (pTextLine);
+                }
+            }
+            else
+            {
+                nWidth = D2Win_10123(pNode->pLines[i], sub_00526800(pNode->pLines[i]));
+                if (nWidth)
+                {
+                    AUTOMAP_DrawFramedBox(nX - 4, 15 * nLine + nBaseY - 0xE, nWidth + 8, 0x10, 0, 1);
+                    D2Win_10117_DrawText(pNode->pLines[i], nX, 15 * nLine + nBaseY, pNode->nColor, 0);
+                    ++nLine;
+                }
+            }
+        }
+    }
+
+    pNode = gtMessageTextList.pFirst;
+    D2TextNodeStrc* pPrevious = 0;
+    const unsigned long dwTick = GetTickCount();
+    while (pNode)
+    {
+        if (pNode->dwEndTick < dwTick)
+        {
+            --gtMessageTextList.wCount;
+            D2TextNodeStrc* pNext = pNode->pNext;
+            if (gtMessageTextList.pFirst == pNode)
+            {
+                gtMessageTextList.pFirst = pNext;
+            }
+            for (int j = 0; j < 6; ++j)
+            {
+                if (pNode->pLines[j])
+                {
+                    FOG_Free(pNode->pLines[j], ".\\UI\\text.cpp", 0x6B3, 0);
+                }
+            }
+            FOG_Free(pNode, ".\\UI\\text.cpp", 0x6B6, 0);
+            if (pPrevious)
+            {
+                pPrevious->pNext = pNext;
+            }
+            pNode = pNext;
+        }
+        else
+        {
+            pPrevious = pNode;
+            pNode = pNode->pNext;
+        }
+    }
+
+    D2Win_10127_SetFont(nOldFont);
+}
+
+// 0x0049DEE0
+void __cdecl TEXT_DrawOverheadTextList()
+{
+    if (!gtOverheadTextList.wCount)
+    {
+        return;
+    }
+
+    int nOldFont = D2Win_10127_SetFont(13);
+    D2TextNodeStrc* pNode = gtOverheadTextList.pFirst;
+    int nX = 15;
+    if (GAME_GetUIVarState(6) || GAME_GetUIVarState(0x11))
+    {
+        nX = 100;
+    }
+
+    if (pNode)
+    {
+        int nBoxRow = 0;
+        int nTextRow = 0;
+        do
+        {
+            for (int i = 0; i < 6; ++i)
+            {
+                if (pNode->pLines[i])
+                {
+                    AUTOMAP_DrawFramedBox(nX - 5, gnScreenHeight - 25 * nBoxRow - i * 25 / 2 - 0x81,
+                                               D2Win_10123(pNode->pLines[i], sub_00526800(pNode->pLines[i])) + 10, 0x10, 0, 1);
+                    D2Win_10117_DrawText(pNode->pLines[i], nX, gnScreenHeight + 25 * nTextRow - i * 25 / 2 - 0x73, pNode->nColor, 0);
+                }
+            }
+            pNode = pNode->pNext;
+            ++nBoxRow;
+            --nTextRow;
+        }
+        while (pNode);
+    }
+
+    pNode = gtOverheadTextList.pFirst;
+    D2TextNodeStrc* pPrev = 0;
+    unsigned int dwNow = GetTickCount();
+    while (pNode)
+    {
+        if (pNode->dwEndTick < dwNow)
+        {
+            --gtOverheadTextList.wCount;
+            D2TextNodeStrc* pNext = pNode->pNext;
+            if (gtOverheadTextList.pFirst == pNode)
+            {
+                gtOverheadTextList.pFirst = pNext;
+            }
+
+            for (int j = 0; j < 6; ++j)
+            {
+                if (pNode->pLines[j])
+                {
+                    FOG_Free(pNode->pLines[j], ".\\UI\\text.cpp", 0x6B3, 0);
+                }
+            }
+            FOG_Free(pNode, ".\\UI\\text.cpp", 0x6B6, 0);
+
+            if (pPrev)
+            {
+                pPrev->pNext = pNext;
+            }
+            pNode = pNext;
+        }
+        else
+        {
+            pPrev = pNode;
+            pNode = pNode->pNext;
+        }
+    }
+
+    D2Win_10127_SetFont(nOldFont);
+}
+
+void __fastcall TEXT_AddToHistory(D2TextNodeStrc* pSource)
+{
+    D2TextNodeStrc* pClone = TEXT_CloneStringList(pSource);
+    D2TextNodeStrc* pNode;
+    if (gtTextHistory.wCount >= 0x80)
+    {
+        pNode = gtTextHistory.pFirst;
+        if (pNode)
+        {
+            D2TextNodeStrc* pPrevious = 0;
+            while (pNode->pNext)
+            {
+                pPrevious = pNode;
+                pNode = pNode->pNext;
+            }
+            TEXT_FreeTextNode(pNode);
+            if (pPrevious)
+                pPrevious->pNext = 0;
+            if (gtTextHistory.wCount >= 1)
+                gtTextHistory.wCount--;
+        }
+    }
+    pNode = gtTextHistory.pFirst;
+    pClone->pNext = pNode;
+    gtTextHistory.wCount++;
+    gtTextHistory.pFirst = pClone;
+}
+
+void __fastcall sub_0049E5C0_PrintWrappedLine(const Unicode* wszText, char nColor)
+{
+    const int nOldFont = D2Win_10127_SetFont(0xD);
+    D2TextNodeStrc* pNode = (D2TextNodeStrc*)FOG_Alloc(sizeof(D2TextNodeStrc), ".\\UI\\text.cpp", 0xDAD, 0);
+    memset(pNode, 0, sizeof(D2TextNodeStrc));
+    pNode->pNext = 0;
+    pNode->dwEndTick = GetTickCount() + 10000;
+
+    int nCount = sub_00526800(wszText);
+    const int nTotal = nCount;
+    int nStart = 0;
+    pNode->nLines = 0;
+    while (nCount > 0)
+    {
+        while (D2Win_10123(&wszText[nStart], nCount) > gnScreenWidth - 0x46)
+        {
+            nCount--;
+            if (nCount <= 0)
+                break;
+        }
+        if (nStart + nCount != nTotal)
+        {
+            while (nCount > 0 && !sub_00526D30_IsLineBreak(&wszText[nStart], nCount + 1))
+                nCount--;
+        }
+        if (!nCount)
+            break;
+
+        const Unicode* pSource = &wszText[nStart];
+        char szLine[0x400];
+        sub_005263E0(szLine, pSource, nCount);
+        if (pNode->nLines >= 6)
+            break;
+
+        const int nSize = nCount * 2 + 2;
+        pNode->pLines[pNode->nLines] = (Unicode*)FOG_Alloc(nSize, ".\\UI\\text.cpp", 0xDD7, 0);
+        memset(pNode->pLines[pNode->nLines], 0, nSize);
+        sub_00526790(pNode->pLines[pNode->nLines], pSource, nCount);
+        pNode->nLines++;
+        nStart = nCount;
+        nCount = nTotal - nCount;
+    }
+    pNode->nColor = (unsigned char)nColor;
+
+    if (gtOverheadTextList.pFirst)
+    {
+        D2TextNodeStrc* pLast = gtOverheadTextList.pFirst;
+        unsigned short nNodes = 0;
+        while (pLast->pNext)
+        {
+            pLast = pLast->pNext;
+            nNodes++;
+        }
+        D2_ASSERT(nNodes == gtOverheadTextList.wCount - 1, 0xDF1);
+        pLast->pNext = pNode;
+    }
+    else
+    {
+        gtOverheadTextList.pFirst = pNode;
+    }
+    gtOverheadTextList.wCount++;
+    TEXT_AddToHistory(pNode);
+
+    if (gtOverheadTextList.wCount > 2)
+    {
+        D2TextNodeStrc* pFirst = gtOverheadTextList.pFirst;
+        gtOverheadTextList.pFirst = pFirst->pNext;
+        TEXT_FreeTextNode(pFirst);
+        gtOverheadTextList.wCount--;
+    }
+
+    if (GAME_GetUIVarState(0x18) && gpListBox)
+    {
+        gpListBox->Refresh();
+        sub_0049E340();
+    }
+    D2Win_10127_SetFont(nOldFont);
+    sub_004B9A00(6, 0, 0, 0, 0);
+}
+
+// build: context sub_J06_IntersectsAnyHoverRect
+static __forceinline int sub_J06_IntersectsAnyHoverRect(const D2RectStrc* pRect, int nCount)
+{
+    for (int i = 0; i < nCount; ++i)
+    {
+        D2RectStrc tOverlap;
+        if (IntersectRect(&tOverlap, &gaHoverRects[i], pRect))
+            return 1;
+    }
+    return 0;
+}
+
+// 0x0049E070
+static bool __stdcall TEXT_PlaceHoverRect(int nCount, D2RectStrc* pRect)
+{
+    if (nCount >= 0x10)
+        return false;
+
+    if (!nCount)
+    {
+        gaHoverRects[0] = *pRect;
+        return true;
+    }
+
+    if (!sub_J06_IntersectsAnyHoverRect(pRect, nCount))
+    {
+        gaHoverRects[nCount] = *pRect;
+        return true;
+    }
+
+    int nDir;
+    for (int nDX = 0x32; nDX < 0x190; nDX += 0x32)
+    {
+        for (int nDY = 0x23; nDY < 0x118; nDY += 0x23)
+        {
+
+            for (nDir = 0; nDir < gnHoverDirCount; ++nDir)
+            {
+                D2RectStrc tRect = *pRect;
+                tRect.nLeft += gaHoverDirs[nDir] * nDX;
+                tRect.nRight = tRect.nLeft + 0x190;
+                tRect.nTop += gaHoverDirs[nDir] * nDY;
+                tRect.nBottom = tRect.nTop + 0x118;
+                if (tRect.nLeft < 0 || tRect.nRight > gnScreenWidth || tRect.nTop < 0 || tRect.nBottom > gnScreenHeight)
+                    continue;
+
+                bool bOverlap = false;
+                for (int j = 0; j < nCount; ++j)
+                {
+                    D2RectStrc tTest;
+                    if (IntersectRect(&tTest, &gaHoverRects[j], &tRect))
+                        bOverlap = true;
+                }
+                if (!bOverlap)
+                {
+                    gaHoverRects[nCount] = tRect;
+                    *pRect = tRect;
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
 // 0x0049E250
 static bool TEXT_IsLanguageCompatible(int nLangId)
 {
@@ -908,7 +2634,544 @@ static bool TEXT_IsLanguageCompatible(int nLangId)
     return true;
 }
 
-// build: context TEXT_HandleChatPacket
+int __fastcall sub_T49_Emit_0049E250(int nLangId)
+{
+    return TEXT_IsLanguageCompatible(nLangId);
+}
+
+static inline int sub_F02_IntersectsAnyHoverRect(const D2RectStrc* pRect, int nCount)
+{
+    for (int i = 0; i < nCount; ++i)
+    {
+        D2RectStrc tOverlap;
+        if (IntersectRect(&tOverlap, &gaHoverRects[i], pRect))
+            return 1;
+    }
+    return 0;
+}
+
+// 0x0049E280
+static bool TEXT_ConvertHoverText(int nLangId, Unicode* wszText, const char* szText)
+{
+    if (nLangId != 7 && nLangId != 0xC && nLangId != 6 && nLangId != 9)
+    {
+        sub_00526F20_ToUnicode(wszText, szText, 0x100);
+        return true;
+    }
+
+    MultiByteToWideChar(0, 1, szText, 0x100, wszText, 0x100);
+    const int nCurrentLangId = STRTABLE_GetLanguage();
+    if (nCurrentLangId == nLangId)
+        return true;
+    if (nCurrentLangId == 7)
+    {
+        if (nLangId == 0xC)
+            return true;
+    }
+    else if (nCurrentLangId == 0xC && nLangId == 7)
+    {
+        return true;
+    }
+
+    for (; wszText->wChar; ++wszText)
+    {
+        if (wszText->wChar >= 0x80)
+            return false;
+    }
+    return true;
+}
+
+// 0x0049E300
+void __cdecl TEXT_FreeMainTextBox()
+{
+    if (gpMainTextBox)
+    {
+        TEXT_FreeTextBox(gpMainTextBox);
+        gpMainTextBox = 0;
+    }
+}
+
+// 0x0049E390
+unsigned long __cdecl TEXT_GetTimeoutTick()
+{
+    return GetTickCount() + 10000;
+}
+
+// 0x0049E3A0
+void __fastcall TEXT_PrintChatLine(const Unicode* wszText, char nColor)
+{
+    D2TextNodeStrc* pNode = (D2TextNodeStrc*)FOG_Alloc(sizeof(D2TextNodeStrc), ".\\UI\\text.cpp", 0xD46, 0);
+    memset(pNode, 0, sizeof(D2TextNodeStrc));
+    pNode->pNext = 0;
+    pNode->dwEndTick = GetTickCount() + 10000;
+    int nOldFont = D2Win_10127_SetFont(0xD);
+
+    int nLines;
+    T0044CB60* pLine = sub_00502970_SplitText(wszText, &nLines, gnScreenWidth - 0x46);
+    pNode->nLines = (unsigned int)nLines > 6 ? 6 : nLines;
+    for (int i = 0; i < nLines; i++)
+    {
+        if (i < pNode->nLines)
+            pNode->pLines[i] = pLine->pText;
+        else
+            FOG_Free(pLine->pText, ".\\UI\\text.cpp", 0xD5A, 0);
+        T0044CB60* pNext = pLine->pNext;
+        FOG_Free(pLine, ".\\UI\\text.cpp", 0xD5D, 0);
+        pLine = pNext;
+    }
+    pNode->nColor = (unsigned char)nColor;
+
+    if (gtMessageTextList.pFirst)
+    {
+        D2TextNodeStrc* pLast = gtMessageTextList.pFirst;
+        unsigned short wCount = 0;
+        D2TextNodeStrc** ppNext = &pLast->pNext;
+        if (pLast->pNext)
+        {
+            do
+            {
+                pLast = *ppNext;
+                ppNext = &pLast->pNext;
+                wCount++;
+            }
+            while (*ppNext);
+        }
+        D2_ASSERT(wCount == gtMessageTextList.wCount - 1, 0xD6C);
+        pLast->pNext = pNode;
+    }
+    else
+    {
+        gtMessageTextList.pFirst = pNode;
+    }
+
+    if (pNode->nColor == 4 && pNode->nLines == 1)
+    {
+        char szName[0x100] = {0};
+        sub_005263E0(szName, pNode->pLines[0], 0x100);
+        sub_00611560_GetSquelchList()->AddName(szName, 0x100);
+    }
+
+    TEXT_AddToHistory(pNode);
+    gtMessageTextList.wCount++;
+
+    int nTotal = 0;
+    D2TextNodeStrc* p = gtMessageTextList.pFirst;
+    if (gtMessageTextList.pFirst)
+    {
+        do
+        {
+            nTotal += p->nLines;
+            p = p->pNext;
+        }
+        while (p);
+    }
+    if (nTotal > 0x12)
+    {
+        D2TextNodeStrc* pOld = gtMessageTextList.pFirst;
+        gtMessageTextList.pFirst = gtMessageTextList.pFirst->pNext;
+        gtMessageTextList.wCount--;
+        TEXT_FreeTextNode(pOld);
+    }
+
+    sub_004B9A00(6, 0, 0, 0, 0);
+    if (GAME_GetUIVarState(0x18) && gpListBox)
+    {
+        gpListBox->Refresh();
+        sub_0049E340();
+    }
+    D2Win_10127_SetFont(nOldFont);
+}
+
+// 0x0049E5C0
+void __fastcall TEXT_PrintPartyText(const Unicode* wszText, char nColor)
+{
+    const int nOldFont = D2Win_10127_SetFont(0xD);
+    D2TextNodeStrc* pNode = (D2TextNodeStrc*)FOG_Alloc(sizeof(D2TextNodeStrc), ".\\UI\\text.cpp", 0xDAD, 0);
+    memset(pNode, 0, 0x24);
+    pNode->pNext = 0;
+    pNode->dwEndTick = GetTickCount() + 10000;
+
+    int nCount = sub_00526800(wszText);
+    const int nTotal = nCount;
+    int nStart = 0;
+    pNode->nLines = 0;
+    for (;;)
+    {
+        while (nCount > 0 && D2Win_10123(&wszText[nStart], nCount) > gnScreenWidth - 0x46)
+            nCount--;
+
+        if (nStart + nCount != nTotal)
+        {
+            while (nCount > 0 && !sub_00526D30_IsLineBreak(&wszText[nStart], nCount + 1))
+                nCount--;
+        }
+
+        if (!nCount)
+            break;
+
+        const Unicode* pSource = &wszText[nStart];
+        int aLine[0x100];
+        sub_005263E0((char*)aLine, pSource, nCount);
+        if (pNode->nLines >= 6)
+            break;
+
+        const int nSize = nCount * 2 + 2;
+        pNode->pLines[pNode->nLines] = (Unicode*)FOG_Alloc(nSize, ".\\UI\\text.cpp", 0xDD7, 0);
+        memset(pNode->pLines[pNode->nLines], 0, nSize);
+        strncpy(pNode->pLines[pNode->nLines], pSource, nCount);
+        pNode->nLines++;
+        nStart = nCount;
+        nCount = nTotal - nCount;
+    }
+    pNode->nColor = (unsigned char)nColor;
+
+    if (gtOverheadTextList.pFirst)
+    {
+        D2TextNodeStrc* pLast = gtOverheadTextList.pFirst;
+        unsigned short nNodes = 0;
+        D2TextNodeStrc** ppNext = &pLast->pNext;
+        if (*ppNext)
+        {
+            do
+            {
+                pLast = *ppNext;
+                ppNext = &pLast->pNext;
+                nNodes++;
+            } while (*ppNext);
+        }
+        D2_ASSERT(nNodes == gtOverheadTextList.wCount - 1, 0xDF1);
+        pLast->pNext = pNode;
+    }
+    else
+    {
+        gtOverheadTextList.pFirst = pNode;
+    }
+    gtOverheadTextList.wCount++;
+    TEXT_AddToHistory(pNode);
+
+    if (gtOverheadTextList.wCount > 2)
+    {
+        D2TextNodeStrc* pFirst = gtOverheadTextList.pFirst;
+        gtOverheadTextList.pFirst = gtOverheadTextList.pFirst->pNext;
+        TEXT_FreeTextNode(pFirst);
+        gtOverheadTextList.wCount--;
+    }
+
+    if (GAME_GetUIVarState(0x18) && gpListBox)
+    {
+        gpListBox->Refresh();
+        sub_0049E340();
+    }
+    D2Win_10127_SetFont(nOldFont);
+    sub_004B9A00(6, 0, 0, 0, 0);
+}
+
+// 0x0049E7F0
+void __stdcall sub_0049E7F0_Nop()
+{
+}
+
+// 0x0049E800
+void __stdcall sub_0049E800_Nop()
+{
+}
+
+// 0x0049E860
+void __cdecl TEXT_ClearHint()
+{
+    if (gnHintId)
+    {
+        const int nHint = sub_004B9610_FindHint(gnHintId);
+        if (nHint)
+            sub_004B9EF0_ArmHint(nHint, 0, 0, 4);
+        gnHintId = 0;
+    }
+    ghHintSound = 0;
+}
+
+// 0x0049E8F0
+static int TEXT_FormatPartyEvent(Unicode* pOut, D2GSPacketSrv5A* pPacket)
+{
+    D2StoredUnitRecordStrc* pRecord = sub_00479BB0_FindRecord(pPacket->dwParam);
+    Unicode wszName[16];
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    char szName[16];
+    if (pRecord)
+        strcpy(szName, ROSTER_GetEntryName(pRecord));
+    else
+        szName[0] = 0;
+    sub_00526F20_ToUnicode(wszName, szName, 16);
+    switch (pPacket->nParam)
+    {
+    case 1:
+        sub_005269D0(0x132, pOut, D2LANG_GetStringFromTblIndex(0x277A), wszName);
+        break;
+    case 2:
+        sub_005269D0(0x132, pOut, D2LANG_GetStringFromTblIndex(0x277B), wszName);
+        break;
+    case 3:
+        sub_005267E0(pOut, wszName);
+        sub_00526700(pOut, D2LANG_GetStringFromTblIndex(0xFBA));
+        sub_004B9A00(16, 0, 0, 0, 0);
+        return 1;
+    case 4:
+        sub_005267E0(pOut, wszName);
+        sub_00526700(pOut, D2LANG_GetStringFromTblIndex(0xFBB));
+        return 1;
+    case 5:
+        sub_005267E0(pOut, wszName);
+        sub_00526700(pOut, D2LANG_GetStringFromTblIndex(0xFBC));
+        break;
+    case 6:
+        sub_005267E0(pOut, wszName);
+        sub_00526700(pOut, D2LANG_GetStringFromTblIndex(0xFBD));
+        break;
+    case 7:
+        sub_005267E0(pOut, wszName);
+        sub_00526700(pOut, D2LANG_GetStringFromTblIndex(0xFBE));
+        break;
+    case 8:
+        sub_005267E0(pOut, D2LANG_GetStringFromTblIndex(0xFBF));
+        sub_00526700(pOut, wszName);
+        break;
+    case 9:
+        sub_005267E0(pOut, wszName);
+        sub_00526700(pOut, D2LANG_GetStringFromTblIndex(0xFC0));
+        break;
+    case 10:
+        sub_005269D0(0x132, pOut, D2LANG_GetStringFromTblIndex(0x277C), wszName);
+        break;
+    case 11:
+        sub_005269D0(0x132, pOut, D2LANG_GetStringFromTblIndex(0x277D), wszName);
+        break;
+    }
+    if (pPlayer)
+    {
+        const int nPlayerId = pPlayer->dwUnitId;
+        if (GFXUTIL_TestRelationFlags(nPlayerId, ROSTER_GetRecordUnitId(pRecord), 4))
+            return 0;
+    }
+    return 1;
+}
+
+// build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
+// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
+// 0x0049EB10
+void __fastcall TEXT_HandleEventMessage(D2GSPacketSrv5A* pPacket)
+{
+    Unicode wszBuffer[0x132];
+    Unicode wszName[16];
+    Unicode wszName2[16];
+    if (strlen(pPacket->szTextData[0]) >= 15)
+        pPacket->szTextData[0][15] = 0;
+    switch (pPacket->nType)
+    {
+    case 10:
+        if (pPacket->szTextData[0][0])
+        {
+            sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
+            sub_005267E0(wszBuffer, wszName);
+            sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0x1026));
+            break;
+        }
+        sub_005267E0(wszBuffer, D2LANG_GetStringFromTblIndex(0x1027));
+        break;
+    case 16:
+        sub_005267E0(wszBuffer, D2LANG_GetStringFromTblIndex(0x2A38));
+        break;
+    case 9:
+        sub_005267E0(wszBuffer, D2LANG_GetStringFromTblIndex(0xFCF));
+        break;
+    case 8:
+        sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
+        sub_005267E0(wszBuffer, wszName);
+        sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0xFCC));
+        break;
+    case 0:
+        D2_ASSERT(sub_00526800(D2LANG_GetStringFromTblIndex(0xE37)) < 0x104, 0x114C);
+        sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
+        sub_005267E0(wszBuffer, wszName);
+        sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0xE37));
+        break;
+    case 1:
+        D2_ASSERT(sub_00526800(D2LANG_GetStringFromTblIndex(0xE38)) < 0x104, 0x1152);
+        sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
+        sub_005267E0(wszBuffer, wszName);
+        sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0xE38));
+        break;
+    case 2:
+        if (sub_00463DD0_GetPlayerUnit() && !strcmp(pPacket->szTextData[0], sub_0047A210(sub_00463DD0_GetPlayerUnit())))
+            break;
+        D2_ASSERT(sub_00526800(D2LANG_GetStringFromTblIndex(0xE39)) < 0x104, 0x115C);
+        sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
+        if (strlen(pPacket->szTextData[1]))
+        {
+            Unicode wszAccount[16];
+            sub_00526F20_ToUnicode(wszAccount, pPacket->szTextData[1], 16);
+            sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE3B), wszName, wszAccount);
+            break;
+        }
+        sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE39), wszName);
+        break;
+    case 3:
+        D2_ASSERT(sub_00526800(D2LANG_GetStringFromTblIndex(0xE3A)) < 0x104, 0x116A);
+        sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
+        if (strlen(pPacket->szTextData[1]))
+        {
+            Unicode wszAccount[16];
+            sub_00526F20_ToUnicode(wszAccount, pPacket->szTextData[1], 16);
+            sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE3C), wszName, wszAccount);
+            break;
+        }
+        sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE3A), wszName);
+        break;
+    case 4:
+        D2_ASSERT(sub_00526800(D2LANG_GetStringFromTblIndex(0xE3D)) < 0x104, 0x1178);
+        sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
+        sub_005267E0(wszBuffer, wszName);
+        sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0xE3D));
+        break;
+    case 13:
+        D2_ASSERT(sub_00526800(D2LANG_GetStringFromTblIndex(0xE44)) < 0x104, 0x117E);
+        sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
+        sub_005267E0(wszBuffer, wszName);
+        sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0xE44));
+        break;
+    case 5:
+        D2_ASSERT(sub_00526800(D2LANG_GetStringFromTblIndex(0xE3E)) < 0x104, 0x1184);
+        sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
+        sub_005267E0(wszBuffer, wszName);
+        sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0xE3E));
+        break;
+    case 6:
+    {
+        sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
+        const Unicode* pKiller;
+        int nStringId;
+        int bFound = 0;
+        switch (pPacket->nParam)
+        {
+        case 0:
+            if (strlen(pPacket->szTextData[1]))
+            {
+                sub_00526F20_ToUnicode(wszName2, pPacket->szTextData[1], 16);
+                nStringId = 0xE40;
+                pKiller = wszName2;
+                bFound = 1;
+            }
+            break;
+        case 1:
+            if (!pPacket->szTextData[1][0])
+            {
+                D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pPacket->dwParam);
+                if (pMonStatsTxtRecord)
+                {
+                    nStringId = 0xE3F;
+                    pKiller = D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr);
+                    bFound = 1;
+                }
+            }
+            else
+            {
+                unsigned short wSuperUnique = *(unsigned short*)pPacket->szTextData[1];
+                nStringId = 0xE40;
+                D2SuperUniquesTxt* pSuperUniquesTxtRecord = DATATBLS_GetSuperUniquesTxtRecord(wSuperUnique);
+                if (pSuperUniquesTxtRecord)
+                {
+                    pKiller = D2LANG_GetStringFromTblIndex(pSuperUniquesTxtRecord->wNameStr);
+                    bFound = 1;
+                }
+            }
+            break;
+        case 2:
+        {
+            D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(pPacket->dwParam);
+            if (pObjectsTxtRecord)
+            {
+                nStringId = 0xE3F;
+                if (pPacket->dwParam == 11)
+                    pKiller = D2LANG_GetStringFromTblIndex(0xC98);
+                else
+                    pKiller = (const Unicode*)pObjectsTxtRecord->wszName;
+                bFound = 1;
+            }
+            break;
+        }
+        }
+        if (!bFound)
+        {
+            sub_005267E0(wszBuffer, wszName);
+            sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0xE41));
+            break;
+        }
+        if (sub_00526800(D2LANG_GetStringFromTblIndex(nStringId)) + sub_00526800(pKiller) + 16 >= 0x132)
+            return;
+        sub_005267E0(wszBuffer, wszName);
+        sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(nStringId));
+        sub_00526700(wszBuffer, pKiller);
+        break;
+    }
+    case 7:
+        if (TEXT_FormatPartyEvent(wszBuffer, pPacket))
+            TEXT_PrintPartyText(wszBuffer, pPacket->nColor);
+        return;
+    case 11:
+        sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
+        sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0x69B), wszName);
+        break;
+    case 15:
+        sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE43), pPacket->dwParam);
+        break;
+    case 17:
+        sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0x2AFC), pPacket->dwParam);
+        break;
+    case 18:
+        sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0x2AFD));
+        if (gpGlobal_007A0634)
+            ENVIRONMENT_InitializeEnvironment(gpGlobal_007A0634, CUNIT_GetPlayerRoom(), 5, 0, 1);
+        sub_00476A80_StartTiming(6, 0xFA0, 0x2710, 0xFA0);
+        sub_004B9A00(0x1220, 0, 0, 0, 0);
+        break;
+    default:
+        return;
+    }
+    TEXT_PrintChatLine(wszBuffer, pPacket->nColor);
+}
+
+// 0x0049F3D0
+void __fastcall TEXT_FreeHoverText(D2HoverTextStrc* pHoverText)
+{
+    T00479230* pTextBox = CHAT_GetUsedFromHoverMsg(pHoverText);
+    if (pTextBox)
+    {
+        TEXT_FreeTextBox(pTextBox);
+        CHAT_SetUsedInHoverMsg(pHoverText, 0);
+    }
+    CHAT_FreeHoverMsg(0, pHoverText);
+}
+
+// 0x0049F410
+static void __stdcall TEXT_SetHoverText(int nLangId, const char* szText, D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+        return;
+
+    if (!strlen(szText))
+    {
+        if (pUnit->pHoverText)
+            CHAT_FreeHoverMsg(0, pUnit->pHoverText);
+        pUnit->pHoverText = 0;
+        return;
+    }
+
+    D2HoverTextStrc* pHoverText = CHAT_AllocHoverMsg(0, szText, gnGameFrame);
+    CHAT_SetLangIdInHoverMsg(pHoverText, nLangId);
+    if (pUnit->pHoverText)
+        CHAT_FreeHoverMsg(0, pUnit->pHoverText);
+    pUnit->pHoverText = pHoverText;
+}
+
+// 0x0049F490
 void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket)
 {
     if (pPacket->nUnitType == 0 && !ROSTER_IsNotSquelched(pPacket->dwUnitGUID))
@@ -936,7 +3199,7 @@ void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket)
 
     if (pPacket->nMessageType == 4)
     {
-        TEXT_PrintChatLine(wszText, pPacket->nMessageColor);
+        sub_0049E3A0_ShowChatText(wszText, pPacket->nMessageColor);
         return;
     }
 
@@ -949,7 +3212,7 @@ void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket)
         Unicode::win2Unicode(wszC, pPacket->szName, 0x10);
         sub_005269D0(0x264, wszA, D2LANG_GetStringFromTblIndex(0xE4A), wszC, wszB);
         SCMD_StripColorCodes(wszA);
-        TEXT_PrintChatLine(wszA, 2);
+        sub_0049E3A0_ShowChatText(wszA, 2);
     }
     else if (pPacket->nMessageType == 2)
     {
@@ -962,19 +3225,19 @@ void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket)
             Unicode::strcat(wszA, D2LANG_GetStringFromTblIndex(0xE46));
             sub_005267E0(wszB, wszText);
             Unicode::strcat(wszA, wszB);
-            TEXT_PrintChatLine(wszA, 2);
+            sub_0049E3A0_ShowChatText(wszA, 2);
             return;
         }
         if (nTextLen > 0x131)
             return;
         sub_005267E0(wszA, wszText);
-        TEXT_PrintChatLine(wszA, 2);
+        sub_0049E3A0_ShowChatText(wszA, 2);
     }
     else if (pPacket->nMessageType == 1)
     {
         if (pPacket->nUnitType == 0 || pPacket->nUnitType == 1)
         {
-            TEXT_PrintChatLine(wszText, pPacket->nMessageColor);
+            sub_0049E3A0_ShowChatText(wszText, pPacket->nMessageColor);
             return;
         }
         const int nNameLen = strlen(pPacket->szName);
@@ -989,13 +3252,13 @@ void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket)
             Unicode::strcat(wszB, wszText);
             INV_PrefixColorCode(wszB, 0);
             Unicode::strcat(wszA, wszB);
-            TEXT_PrintChatLine(wszA, pPacket->nMessageColor);
+            sub_0049E3A0_ShowChatText(wszA, pPacket->nMessageColor);
             return;
         }
         if (nTextLen > 0x131)
             return;
         sub_005267E0(wszA, wszText);
-        TEXT_PrintChatLine(wszA, pPacket->nMessageColor);
+        sub_0049E3A0_ShowChatText(wszA, pPacket->nMessageColor);
     }
     else if (pPacket->nMessageType == 5)
     {
@@ -1016,246 +3279,10 @@ void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket)
     }
 }
 
-// build: symbol ?TEXT_FreeTextLines@* 0x0049D370
-static void TEXT_FreeTextLines(T0044CB60* pLine)
-{
-    while (pLine)
-    {
-        T0044CB60* pNext = pLine->pNext;
-        FOG_Free(pLine->pText, ".\\UI\\text.cpp", 0x60F, 0);
-        FOG_Free(pLine, ".\\UI\\text.cpp", 0x610, 0);
-        pLine = pNext;
-    }
-}
-
-// build: symbol ?TEXT_MeasureTextBox@* 0x0049D3C0
-static void TEXT_MeasureTextBox(T00479230* pBox)
-{
-    int nMaxWidth = 0;
-    pBox->nTextTop = 0;
-    pBox->nTextBottom = pBox->f_14;
-    for (T0044CB60* pLine = pBox->pFirst; pLine; pLine = pLine->pNext)
-    {
-        nMaxWidth = nMaxWidth > D2Win_10121_GetTextWidth(pLine->pText) ? nMaxWidth : D2Win_10121_GetTextWidth(pLine->pText);
-    }
-    pBox->nWidth = nMaxWidth + 0x14;
-    pBox->nHeight = pBox->nLines * 0x0F + 6;
-}
-
-void __stdcall TEXT_FreeTextBox(T00479230* pTextBox)
-{
-    if (pTextBox)
-    {
-        TEXT_FreeTextLines(pTextBox->pFirst);
-        FOG_Free(pTextBox, ".\\UI\\text.cpp", 0x68E, 0);
-    }
-}
-
-// 0x004A0680
-void __cdecl TEXT_FreeTextResources()
-{
-    if (gdwGlobal_007BF250)
-    {
-        sub_006612A0(gdwGlobal_007BF250);
-        gdwGlobal_007BF250 = 0;
-    }
-    if (gpTextBox)
-    {
-        TEXT_FreeTextBox(gpTextBox);
-        gpTextBox = 0;
-    }
-    if (gpMainTextBox)
-    {
-        TEXT_FreeTextBox(gpMainTextBox);
-        FOG_Free(gpMainTextBox, ".\\UI\\text.cpp", 0x6E4, 0);
-        gpMainTextBox = 0;
-    }
-    if (gpListDialog)
-    {
-        DIALOG_DestroyDialog(gpListDialog);
-        gpListDialog = 0;
-    }
-    if (gpListBox)
-    {
-        delete gpListBox;
-        gpListBox = 0;
-    }
-    TEXT_FreeTextPanelCels();
-    sub_00467430(0);
-    TEXT_FreeTextList(gtMessageTextList);
-    TEXT_FreeTextList(gtOverheadTextList);
-    TEXT_FreeTextList(gtTextHistory);
-// build: symbol ?ghHintSound@* 0x007BF24B
-    ghHintSound = 0;
-}
-
-// 0x0049E300
-void __cdecl TEXT_FreeMainTextBox()
-{
-    if (gpMainTextBox)
-    {
-        TEXT_FreeTextBox(gpMainTextBox);
-        gpMainTextBox = 0;
-    }
-}
-
-// 0x0049E390
-unsigned long __cdecl TEXT_GetTimeoutTick()
-{
-    return GetTickCount() + 10000;
-}
-
-// 0x0049E7F0
-void __stdcall sub_0049E7F0_Nop()
-{
-}
-
-// 0x0049E800
-void __stdcall sub_0049E800_Nop()
-{
-}
-
-// 0x0049E860
-void __cdecl TEXT_ClearHint()
-{
-    if (gnHintId)
-    {
-        const int nHint = sub_004B9610_FindHint(gnHintId);
-        if (nHint)
-            sub_004B9EF0_ArmHint(nHint, 0, 0, 4);
-        gnHintId = 0;
-    }
-    ghHintSound = 0;
-}
-
-// build: context TEXT_ConvertHoverText
-static bool TEXT_ConvertHoverText(int nLangId, Unicode* wszText, const char* szText)
-{
-    if (nLangId != 7 && nLangId != 0xC && nLangId != 6 && nLangId != 9)
-    {
-        Unicode::win2Unicode(wszText, szText, 0x100);
-        return true;
-    }
-
-    MultiByteToWideChar(0, 1, szText, 0x100, wszText, 0x100);
-    if (TEXT_IsLanguageCompatible(nLangId))
-        return true;
-
-    for (; wszText->wChar; ++wszText)
-    {
-        if (wszText->wChar >= 0x80)
-            return false;
-    }
-    return true;
-}
-
-static void __stdcall TEXT_SetHoverText(int nLangId, const char* szText, D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-        return;
-
-    if (!strlen(szText))
-    {
-        if (pUnit->pHoverText)
-            CHAT_FreeHoverMsg(0, pUnit->pHoverText);
-        pUnit->pHoverText = 0;
-        return;
-    }
-
-    D2HoverTextStrc* pHoverText = CHAT_AllocHoverMsg(0, szText, gnGameFrame);
-    CHAT_SetLangIdInHoverMsg(pHoverText, nLangId);
-    if (pUnit->pHoverText)
-        CHAT_FreeHoverMsg(0, pUnit->pHoverText);
-    pUnit->pHoverText = pHoverText;
-}
-
-// 0x004A05E0
-T00479230* __fastcall TEXT_CreateTextBox(const Unicode* wszText, int nMode)
-{
-    T00479230* pTextBox = (T00479230*)FOG_Alloc(sizeof(T00479230), ".\\UI\\text.cpp", 0x65D, 0);
-    if (nMode == 3)
-    {
-        pTextBox->pFirst = sub_00502970_SplitText(wszText, &pTextBox->nLines, 0xB4);
-        TEXT_MeasureTextBox(pTextBox);
-        return pTextBox;
-    }
-
-    const int nOldFont = D2Win_10127_SetFont(8);
-    pTextBox->pFirst = TEXT_BuildTextLines(wszText, &pTextBox->nLines, &pTextBox->f_14);
-    pTextBox->nWidth = 0x145;
-    pTextBox->nHeight = 0x70;
-    pTextBox->nField1A = 0;
-    pTextBox->nField1E = 0;
-    pTextBox->nField22 = 0;
-    pTextBox->nField26 = 0;
-    pTextBox->nField2A = 0;
-    D2Win_10127_SetFont(nOldFont);
-    TEXT_MeasureTextBox(pTextBox);
-    return pTextBox;
-}
-
-// 0x004A1510
-void __fastcall TEXT_ShowTextBox(unsigned short nStringId)
-{
-    if (gpMainTextBox)
-    {
-        TEXT_FreeTextBox(gpMainTextBox);
-        gpMainTextBox = 0;
-    }
-
-    const Unicode* wszText = D2LANG_GetStringFromTblIndex(nStringId);
-    const int nOldFont = D2Win_10127_SetFont(0x0D);
-    gpMainTextBox = TEXT_CreateTextBox(wszText, 3);
-    D2Win_10127_SetFont(nOldFont);
-    if (gpMainTextBox)
-    {
-        gpMainTextBox->nScroll = 1;
-        gdwTextEndTick = GetTickCount() + (sub_00526800(wszText) + 0x19) * 0xC8;
-        gbTextBoxShown = 1;
-// build: symbol ?gbTextBoxPending@* 0x007BF1C4
-        gbTextBoxPending = 1;
-        gnTextBoxY = 0x64 - (gpMainTextBox->nHeight >> 2);
-        gnTextBoxX = 0x140 - (gpMainTextBox->nWidth >> 1);
-    }
-}
-
-// 0x0049F3D0
-void __fastcall TEXT_FreeHoverText(D2HoverTextStrc* pHoverText)
-{
-    T00479230* pTextBox = CHAT_GetUsedFromHoverMsg(pHoverText);
-    if (pTextBox)
-    {
-        TEXT_FreeTextBox(pTextBox);
-        CHAT_SetUsedInHoverMsg(pHoverText, 0);
-    }
-    CHAT_FreeHoverMsg(0, pHoverText);
-}
-
-extern "C" { unsigned int gawScrollSlots; } // 0x007BF098
-
-extern "C" { unsigned int gValue_007BF09C; } // 0x007BF09C
-
-extern "C" { unsigned int gValue_007BF0A0; } // 0x007BF0A0
-
-extern "C" { unsigned int gValue_007BF2A8; } // 0x007BF2A8
-
-// 0x004A28A0
-extern "C" void __fastcall TEXT_AcceptShortPacket(const PacketShorts* packet)
-{
-    switch (packet->kind)
-    {
-    case 1:
-        gValue_007BF2A4 = packet->a;
-        gValue_007BF2A8 = packet->b;
-        gValue_007BF2AC = packet->c;
-        break;
-    }
-}
-
 // 0x0049F960
 void __cdecl TEXT_ResetTextBox()
 {
-    sub_00467430(0);
+    sub_00467430_SetSelectionRect(0);
     if (gpTextBox)
     {
         TEXT_FreeTextBox(gpTextBox);
@@ -1272,13 +3299,131 @@ void __cdecl TEXT_ResetTextBox()
     if (gbTextHandlersRegistered == 1)
     {
         gbTextHandlersRegistered = 0;
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaTextMsgHandlers, 7);
+        AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaTextMsgHandlers, 7);
     }
     if (gbTextSound)
     {
         MSG_SendTwoDwords(0x31, -1, gwTextStringId);
         gbTextSound = 0;
     }
+}
+
+// 0x0049FA10
+void __cdecl TEXT_DrawPanelFrame()
+{
+    char szPath[0x104];
+    D2CelContextStrc tContext;
+
+    D2GFX_DrawBox(gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0xE0, gnScreenWidth / 2, gnScreenHeight - 0x30, 0, 5);
+
+    void* pCelFile = gpTextPanelFrameCel;
+    if (!pCelFile)
+    {
+        wsprintfA(szPath, "%s\\UI\\MENU\\scroin", gszDataGlobal);
+        pCelFile = ARCHIVE_LoadClientCellFile(szPath, 0);
+        gpTextPanelFrameCel = pCelFile;
+    }
+
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.pCellFile = pCelFile;
+    tContext.nDirection = 0;
+    tContext.nFrame = 0;
+    TEXTURE_CelDraw(&tContext, gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0x6D, -1, 5, 0);
+    tContext.nFrame = 1;
+    TEXTURE_CelDraw(&tContext, gnPanelOffsetX + 0x100, gnScreenHeight + gnPanelOffsetY - 0x6D, -1, 5, 0);
+    tContext.nFrame = 2;
+    TEXTURE_CelDraw(&tContext, gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0x31, -1, 5, 0);
+    tContext.nFrame = 3;
+    TEXTURE_CelDraw(&tContext, gnPanelOffsetX + 0x100, gnScreenHeight + gnPanelOffsetY - 0x31, -1, 5, 0);
+    tContext.pCellFile = sub_00454600();
+    tContext.nFrame = 10;
+    TEXTURE_CelDraw(&tContext, gnPanelOffsetX + 0x115, gnScreenHeight + gnPanelOffsetY - 0x3D, -1, 5, 0);
+}
+
+// 0x0049FBA0
+void __stdcall TEXT_OpenTextPanel(int bDraw)
+{
+    if (!sub_00463DD0_GetPlayerUnit())
+    {
+        return;
+    }
+
+    D2CelContextStrc tPiece;
+    memset(&tPiece, 0, sizeof(tPiece));
+    TEXT_DrawPanelFrame();
+
+    if (!gpScroin2_007BF270)
+    {
+        char szPath[0x104] = { 0 };
+        sprintf(szPath, "%s\\%s", "DATA\\GLOBAL", "UI\\menu\\scroin2");
+        gpScroin2_007BF270 = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+
+    if (!gpScroin3_007BF26C)
+    {
+        char szPath[0x104] = { 0 };
+        sprintf(szPath, "%s\\%s", "DATA\\GLOBAL", "UI\\menu\\scroin3");
+        gpScroin3_007BF26C = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+
+    if (!bDraw)
+    {
+        return;
+    }
+
+    const int nOldMode = D2Win_10127_SetFont(5);
+    tPiece.pCellFile = gpScroin2_007BF270;
+    if (!gdwScrollTick)
+    {
+        gdwScrollTick = GetTickCount();
+        gnScrollCounter = 0;
+    }
+    else if (gdwScrollTick + 50 < GetTickCount())
+    {
+        gdwScrollTick = GetTickCount();
+        ++gnScrollCounter;
+    }
+
+    for (int i = 0; i < 5; ++i)
+    {
+        if (gnScrollCounter > gaScrollThresholds[i])
+        {
+            const int nTicks = gnScrollCounter - gaScrollThresholds[i];
+            tPiece.nFrame = i;
+            int nDrawMode = 5;
+            if (nTicks == 1)
+            {
+                sub_004B9A00(0xA6F, 0, 0, 0, 0);
+            }
+            if (nTicks < 5)
+            {
+                nDrawMode = 0;
+            }
+            else if (nTicks < 10)
+            {
+                nDrawMode = 1;
+            }
+            else if (nTicks < 15)
+            {
+                nDrawMode = 2;
+            }
+
+            const unsigned short nSlot = gawScrollSlots[i];
+            if (nSlot < 6)
+            {
+                D2_ASSERT(nSlot < 5, 0x1673);
+                TEXTURE_CelDraw(&tPiece, gaScrollPiecePos[nSlot].nX + gnPanelOffsetX, gaScrollPiecePos[nSlot].nY - gnPanelOffsetY, -1, nDrawMode, 0);
+
+                D2CelContextStrc tFade;
+                memset(&tFade, 0, sizeof(tFade));
+                tFade.pCellFile = gpScroin3_007BF26C;
+                tFade.nFrame = nTicks >= 21 ? 0 : nTicks;
+                TEXTURE_CelDraw(&tFade, gaScrollFadePos[nSlot].nX + gnPanelOffsetX, gaScrollFadePos[nSlot].nY - gnPanelOffsetY, -1, 3, 0);
+            }
+        }
+    }
+
+    D2Win_10127_SetFont(nOldMode);
 }
 
 extern "C" void __fastcall sub_00524280_InitializeDigest(unsigned int index)
@@ -1362,9 +3507,7 @@ extern "C" void __fastcall TEXT_AcceptWordPacket(const PacketWords* packet)
 {
     if (packet->kind == 4)
     {
-        gawScrollSlots = packet->a;
-        gValue_007BF09C = packet->b;
-        gValue_007BF0A0 = packet->c;
+        memcpy(gawScrollSlots, packet->wSlots, sizeof(gawScrollSlots));
         gValue_007BF254 = 0;
     }
 }
@@ -1399,91 +3542,1047 @@ void TEXT_OpenMessageLogDialog()
         sub_004B82F0_Select(gpListDialog, -1);
     }
 }
-struct D2PacketRecord6Strc;
 
-struct D2QuestTableStrc;
-
-struct D2UiEntry10Strc;
-
-struct D2QuestUiFlagsStrc;
-
-typedef void (__fastcall* UNITFN)(D2UnitStrc* pUnit);
-
-struct D2PacketRecord6Strc
+// 0x004A0200
+void __fastcall TEXT_SetSpeechHoverText(D2UnitStrc* pUnit, int nStringId)
 {
-    unsigned char nHeader;
-    unsigned char nId;
-    unsigned char nFlags;
-    unsigned char nValue;
-    short nParam;
-};
+    char szText[12];
 
-struct D2QuestTableStrc
+    if (!pUnit)
+        return;
+
+    const int nLangId = sub_00525150();
+    if (nLangId < 6)
+        return;
+    if (nLangId > 7 && nLangId != 9)
+        return;
+    if (nStringId < 0xB76 || nStringId > 0x1230)
+        return;
+
+    const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
+    if (nUnitType == 0)
+    {
+        const int nClassId = !pUnit ? -1 : pUnit->dwClassId;
+        D2StringSoundStrc* pTable = gapClassStringSounds[nClassId];
+        for (unsigned int i = 0; i < 0x4A; ++i)
+        {
+            if (pTable[i].wStringId == nStringId)
+            {
+                sprintf(szText, gszFormatSound, -1, -1, pTable[i].wSoundId);
+                TEXT_SetHoverText(sub_00525150(), szText, pUnit);
+                return;
+            }
+        }
+    }
+    else if (nUnitType == 1)
+    {
+        for (unsigned int i = 0; i < 6; ++i)
+        {
+            if (gaMonStringSounds[i].wStringId == nStringId)
+            {
+                sprintf(szText, gszFormatD, gaMonStringSounds[i].wSoundId);
+                TEXT_SetHoverText(sub_00525150(), szText, pUnit);
+                return;
+            }
+        }
+    }
+}
+
+// build: context TEXT_ReadLine
+static __forceinline const unsigned short* TEXT_ReadLine(Unicode* pLine, const unsigned short* pText)
 {
-    unsigned char bEnabled;
-    unsigned char nCelId;
-    unsigned char nCelId2;
-    unsigned char nPage;
-    void* pTexts;
-    int nCondition;
-    int nQuestId;
-};
+    int i = 0;
+    memset(pLine, 0, 100 * sizeof(Unicode));
+    for (; i < 100 && *pText != '\n'; ++i)
+    {
+        pLine[i] = *pText++;
+    }
+    if (i < 100 && *pText == '\n')
+    {
+        ++pText;
+    }
+    return pText;
+}
 
-extern int gnQuestAct; // 0x007BF2A4
-
-extern int gnQuestParam; // 0x007BF2AC
-
-extern D2QuestTableStrc gaQuestTable[]; // 0x00723F30
-
-extern D2UiEntry10Strc gaQuestLookup[41]; // 0x00723F38
-
-struct D2QuestUiFlagsStrc
+// 0x004A0320
+T0044CB60* __stdcall TEXT_BuildTextLines(const unsigned short* wszText, int* pLineCount, unsigned short* pMaxLines)
 {
-    char bLocked;
-    unsigned char unk0x01[0xA2];
-    unsigned char abFlags[41];
-};
+    Unicode szLine[100];
+    const unsigned short* pText = wszText;
 
-extern D2QuestUiFlagsStrc gtQuestUiFlags_007BF2B3; // 0x007BF2B3
+    *pLineCount = 0;
+    T0044CB60* pLast = 0;
+    T0044CB60* pFirst = 0;
+    int bFirstLine = 1;
+    while (*pText)
+    {
+        pText = TEXT_ReadLine(szLine, pText);
 
-extern "C" void __cdecl GAME_ConfigureEnvironmentOrDefer(); // 0x0044C820
+        T0044CB60* pLine = (T0044CB60*)FOG_Alloc(sizeof(T0044CB60), ".\\UI\\text.cpp", 0x5B8, 0);
+        if (bFirstLine == 1)
+        {
+            const int nLength = sub_00526800(szLine);
+            int bAscii = 1;
+            for (int j = 0; j < nLength; ++j)
+            {
+                if (szLine[j].wChar >= 0x80)
+                {
+                    bAscii = 0;
+                }
+            }
 
-void __cdecl GAME_RequestExit(); // 0x0044D520
+            if (bAscii)
+            {
+                char szNumber[100];
+                sub_005263E0(szNumber, szLine, 100);
+                *pMaxLines = atoi(szNumber);
+            }
+            else
+            {
+                char szMessage[80];
+                wsprintfA(szMessage, "line 0 of string does not contain scroll rate");
+                *pMaxLines = 8;
+            }
 
-void __fastcall GAME_SetPlayCinematic(int nValue); // 0x0044D530
+            bFirstLine = 0;
+            pText = TEXT_ReadLine(szLine, pText);
+        }
 
-int __cdecl GAME_IsExpansion(); // 0x0044DCC0
+        const int nLength = sub_00526800(szLine);
+        if (D2Win_10121_GetTextWidth(szLine) >= 0x134)
+        {
+            char szMessage[80];
+            wsprintfA(szMessage, "line %d of string is too long", *pLineCount);
+        }
 
-void __cdecl GAME_SetDifficultyFlags(); // 0x0044EC80
+        pLine->pText = (Unicode*)FOG_Alloc(sizeof(Unicode) * (nLength + 1), ".\\UI\\text.cpp", 0x5EB, 0);
+        sub_005267E0(pLine->pText, szLine);
+        pLine->pNext = 0;
+        if (pLast)
+        {
+            pLast->pNext = pLine;
+        }
+        else
+        {
+            pFirst = pLine;
+        }
+        ++*pLineCount;
+        pLast = pLine;
+    }
+    return pFirst;
+}
 
-int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
+// 0x004A05E0
+T00479230* __fastcall TEXT_CreateTextBox(const Unicode* wszText, int nMode)
+{
+    T00479230* pTextBox = (T00479230*)FOG_Alloc(sizeof(T00479230), ".\\UI\\text.cpp", 0x65D, 0);
+    if (nMode == 3)
+    {
+        pTextBox->pFirst = sub_00502970_SplitText(wszText, &pTextBox->nLines, 0xB4);
+        TEXT_MeasureTextBox(pTextBox);
+        return pTextBox;
+    }
 
-void __fastcall CUNIT_ForEachMonster(UNITFN pfnCallback); // 0x00464990
+    const int nOldFont = D2Win_10127_SetFont(8);
+    pTextBox->pFirst = TEXT_BuildTextLines(wszText, &pTextBox->nLines, &pTextBox->f_14);
+    pTextBox->nWidth = 0x145;
+    pTextBox->nHeight = 0x70;
+    pTextBox->nField1A = 0;
+    pTextBox->nField1E = 0;
+    pTextBox->nField22 = 0;
+    pTextBox->nField26 = 0;
+    pTextBox->nField2A = 0;
+    D2Win_10127_SetFont(nOldFont);
+    TEXT_MeasureTextBox(pTextBox);
+    return pTextBox;
+}
 
-void __fastcall sub_0046BFD0_StartTimer(int nDelay); // 0x0046BFD0
+// 0x004A0680
+void __cdecl TEXT_FreeTextResources()
+{
+    if (gdwGlobal_007BF250)
+    {
+        sub_006612A0(gdwGlobal_007BF250);
+        gdwGlobal_007BF250 = 0;
+    }
+    if (gpTextBox)
+    {
+        TEXT_FreeTextBox(gpTextBox);
+        gpTextBox = 0;
+    }
+    if (gpMainTextBox)
+    {
+        TEXT_FreeTextBox(gpMainTextBox);
+        FOG_Free(gpMainTextBox, ".\\UI\\text.cpp", 0x6E4, 0);
+        gpMainTextBox = 0;
+    }
+    if (gpListDialog)
+    {
+        DIALOG_DestroyDialog(gpListDialog);
+        gpListDialog = 0;
+    }
+    if (gpListBox)
+    {
+        delete gpListBox;
+        gpListBox = 0;
+    }
+    TEXT_FreeTextPanelCels();
+    sub_00467430_SetSelectionRect(0);
+    TEXT_FreeTextList(&gtMessageTextList);
+    TEXT_FreeTextList(&gtOverheadTextList);
+    TEXT_FreeTextList(&gtTextHistory);
+// build: symbol ?ghHintSound@* 0x007BF24B
+    ghHintSound = 0;
+}
 
-void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow); // 0x0046F870
+// 0x004A0770
+static int __stdcall TEXT_AdvanceTextBox(int bIgnore, T00479230* pTextBox)
+{
+    if (bIgnore)
+    {
+        pTextBox->nScroll = 2;
+        return 0;
+    }
 
-void __cdecl INV_StopCinematic(); // 0x00483300
+    const int bBusy = D2SOUND_GetMasterVolumeOption();
+    if (!gpHint_007BF24B || sub_004B95C0_IsHintPlaying(gpHint_007BF24B) || !bBusy)
+    {
+        gpHint_007BF24B = 0;
+        if (sub_0049D5A0_UpdateTextBox(pTextBox))
+        {
+            gbTextBoxDone = 1;
+            if (!gbHintActive_007BF20A && gpTextBox)
+            {
+                TEXT_FreeTextBox(gpTextBox);
+                gpTextBox = 0;
+                sub_00467430_SetSelectionRect(0);
+            }
 
-void __cdecl INV_ChainCinematic(); // 0x00483340
+            TEXT_ResetTextBox();
+            if (gpfnClose_007BF258)
+            {
+                return gpfnClose_007BF258(gpTextCallbackContext, 0, 0);
+            }
 
-void __fastcall TEXT_SelectQuestPage(int nCondition); // 0x004A2C30
+            if (gnPending_007BF1C4 == 1)
+            {
+                gnPending_007BF1C4 = 0;
+            }
+            else if (gbHintActive_007BF20A)
+            {
+                NPCMENU_CancelNpcAndFlag(gpHint_007BF202);
+            }
 
-void __fastcall TEXT_ClearCainFlag(D2UnitStrc* pUnit); // 0x004A2C70
+            UI_StartUIVarDelay();
+            gbHintActive_007BF20A = 0;
+            sub_00467430_SetSelectionRect(0);
+            if (gbTextHandlersRegistered == 1)
+            {
+                gbTextHandlersRegistered = 0;
+                AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaTextMsgHandlers, 7);
+            }
 
-void __fastcall TEXT_ClearNihlathakFlag(D2UnitStrc* pUnit); // 0x004A2C90
+            return 0;
+        }
+    }
 
-D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
+    return 1;
+}
 
+// 0x004A0A00
+static void __stdcall TEXT_ShowHoverText(const Unicode* wszText, D2UnitStrc* pUnit, D2HoverTextStrc* pHoverText, D2CoordStrc* pPos)
+{
+    if (gnGameFrame > CHAT_GetTimeoutFromHoverMsg(pHoverText))
+    {
+        CHAT_FreeHoverMsg(0, pHoverText);
+        if (pUnit)
+            pUnit->pHoverText = 0;
+    }
 
-int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
+    const int nOldFont = D2Win_10127_SetFont(0x0D);
+    T00479230* pTextBox = (T00479230*)FOG_Alloc(sizeof(T00479230), ".\\UI\\text.cpp", 0x65D, 0);
+    pTextBox->pFirst = sub_00502970_SplitText(wszText, &pTextBox->nLines, 0xB4);
+    TEXT_MeasureTextBox(pTextBox);
 
-static int TEXT_FindQuestIndex(int nKey);
+    pPos->nX -= pTextBox->nWidth >> 1;
+    pPos->nY -= 0x32;
+    pPos->nY = pPos->nY - pTextBox->nLines * 0x0F - 3;
 
-extern int gaQuestPageDefault[5]; // 0x007BF280
+    D2RectStrc tRect;
+    tRect.nTop = pPos->nY;
+    tRect.nLeft = pPos->nX;
+    tRect.nBottom = pTextBox->nHeight + pPos->nY;
+    tRect.nRight = pTextBox->nWidth + pPos->nX;
+    if (gnHoverRectCount < 0x10 && !TEXT_PlaceHoverRect(gnHoverRectCount, &tRect))
+    {
+        TEXT_FreeTextBox(pTextBox);
+        return;
+    }
 
-// 0x004A1910
+    ++gnHoverRectCount;
+    TEXT_DrawTextBoxAt(pTextBox, &tRect);
+    TEXT_FreeTextBox(pTextBox);
+    D2Win_10127_SetFont(nOldFont);
+}
+
+// 0x004A0B30
+void __fastcall TEXT_DrawUnitHoverText(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+        return;
+
+    D2HoverTextStrc* pHoverText = pUnit->pHoverText;
+    if (!pHoverText)
+        return;
+
+    D2CoordStrc tPos;
+    UNITS_GetClientCoords(pUnit, &tPos);
+    tPos.nY += -0x1E - gtHoverOffset.nTop;
+    tPos.nX -= gtHoverOffset.nLeft;
+    switch (sub_0045AE90())
+    {
+    case 1:
+        tPos.nX -= gnScreenWidth / 4;
+        break;
+    case 2:
+        tPos.nX += gnScreenWidth / 4;
+        break;
+    case 3:
+        return;
+    }
+
+    if (tPos.nY <= 0 || tPos.nY >= gnScreenHeight)
+        return;
+    if (tPos.nX <= -0x64 || tPos.nX >= gnScreenWidth + 0x64)
+        return;
+
+    char szText[0x104];
+    CHAT_CopyHoverMsgToBuffer(pHoverText, szText);
+    if (szText[0] == -1 && szText[1] == -1)
+    {
+        const int nStringId = atoi(&szText[2]);
+        if ((nStringId >= 0x42D && nStringId <= 0x50F) || (nStringId >= 0x5587 && nStringId <= 0x5615)
+            || nStringId == 0x2AA4 || nStringId == 0x5586)
+        {
+            const Unicode* wszString = D2LANG_GetStringFromTblIndex(nStringId);
+            if (wszString)
+            {
+                Unicode wszBuffer[0xC8];
+                memset(wszBuffer, 0, sizeof(wszBuffer));
+                int nLength = sub_00526800(wszString);
+                if (nLength >= 0xC8)
+                    nLength = 0xC7;
+                sub_00526790(wszBuffer, wszString, nLength);
+                TEXT_ShowHoverText(wszBuffer, pUnit, pHoverText, &tPos);
+                return;
+            }
+        }
+    }
+
+    Unicode wszHover[0x100];
+    if (!TEXT_ConvertHoverText(CHAT_GetLangIdFromHoverMsg(pHoverText), wszHover, szText))
+        return;
+    wszHover[0xFF].wChar = 0;
+    TEXT_ShowHoverText(wszHover, pUnit, pHoverText, &tPos);
+}
+
+// 0x004A0D20
+void __fastcall TEXT_DrawObjectHoverText(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+        return;
+
+    D2HoverTextStrc* pHoverText = pUnit->pHoverText;
+    if (!pHoverText)
+        return;
+
+    D2CoordStrc tPos;
+    UNITS_GetClientCoords(pUnit, &tPos);
+    tPos.nY += -0x0A - gtHoverOffset.nTop;
+    tPos.nX -= gtHoverOffset.nLeft;
+    switch (sub_0045AE90())
+    {
+    case 1:
+        tPos.nX -= gnScreenWidth / 4;
+        break;
+    case 2:
+        tPos.nX += gnScreenWidth / 4;
+        break;
+    case 3:
+        return;
+    }
+
+    if (tPos.nY <= 0 || tPos.nY >= gnScreenHeight)
+        return;
+    if (tPos.nX <= -0x64 || tPos.nX >= gnScreenWidth + 0x64)
+        return;
+
+    char szText[0x100];
+    CHAT_CopyHoverMsgToBuffer(pHoverText, szText);
+    const int nStringId = atoi(szText);
+    if (nStringId < 1 || nStringId > 0xFFFE)
+        return;
+
+    const Unicode* wszString = D2LANG_GetStringFromTblIndex(nStringId);
+    if (!wszString)
+        return;
+
+    Unicode wszBuffer[0xC8];
+    memset(wszBuffer, 0, sizeof(wszBuffer));
+    int nLength = sub_00526800(wszString);
+    if (nLength >= 0xC8)
+        nLength = 0xC7;
+    sub_00526790(wszBuffer, wszString, nLength);
+    TEXT_ShowHoverText(wszBuffer, pUnit, pHoverText, &tPos);
+}
+
+// build: context sub_0049D5A0_UpdateTextBox
+// calling-convention shim (not game code)
+static int __cdecl sub_0049D5A0_UpdateTextBox(T00479230* pTextBox)
+{
+    int nA = WINDOW_GetWindow();
+    int nB = WINDOW_GetWindow();
+    sub_00467430_SetSelectionRect((void*)nA);
+    sub_00467430_SetSelectionRect((void*)nB);
+    sub_00467430_SetSelectionRect((void*)nA);
+    sub_00467430_SetSelectionRect((void*)nB);
+    pTextBox->nScroll = 1;
+    return *(char*)pTextBox;
+}
+
+// 0x004A0E70
+void __fastcall TEXT_UpdateTexts(D2ViewStrc* pView)
+{
+    D2RectStrc tViewRect;
+    D2CoordStrc tViewPos;
+
+    ++gnGameFrame;
+    int nResult = 0;
+    sub_00476070_GetViewRect(pView, &tViewRect.nLeft, &tViewRect.nTop, &tViewRect.nRight, &tViewRect.nBottom);
+    VIEW_GetViewOffset(pView, &tViewPos.nX, &tViewPos.nY);
+    SetRect(&gtHoverOffset, tViewPos.nX, tViewPos.nY, tViewPos.nX + tViewRect.nRight - tViewRect.nLeft, tViewPos.nY + tViewRect.nBottom - tViewRect.nTop);
+
+    if (gnTextActive == 1)
+    {
+        gaHoverRects[0].nLeft = gnTextLeft;
+        gaHoverRects[0].nRight = gnTextLeft + 0x145;
+// build: symbol ?gnTextTop@* 0x007225FC
+        gaHoverRects[0].nTop = gnTextTop;
+        gnHoverRectCount = 1;
+        gaHoverRects[0].nBottom = gnTextTop + 0x70;
+    }
+    else
+    {
+        gnHoverRectCount = 0;
+    }
+
+    CUNIT_ForEachPlayer(TEXT_DrawUnitHoverText);
+    CUNIT_ForEachMonster(TEXT_DrawObjectHoverText);
+    CUNIT_ForEachObject(TEXT_DrawObjectHoverText);
+
+    if (gnTextActive == 1 && gpTextBox && (gpTextBox->nScroll == 1 || !gpTextBox->nScroll))
+    {
+        nResult = TEXT_AdvanceTextBox(gbTextBoxDone, gpTextBox);
+
+        D2UnitStrc* pUnit = 0;
+        if (gbTextFromObject)
+        {
+            pUnit = CUNIT_FindClientUnit(gnTextNpcId, 1);
+        }
+
+        if (CUNIT_IsPlayerDeadOrMissing() || (gbTextFromObject && pUnit && pUnit->dwAnimMode == 0x0C))
+        {
+            if (gbTextFromObject)
+            {
+                MSG_SendTwoDwords(0x30, 1, gnTextNpcId);
+                NPCMENU_ClearNpcInventoryAndSound(gnTextNpcId);
+            }
+
+            TEXT_CloseTextUnit();
+            if (gbTextHandlersRegistered == 1)
+            {
+                gbTextHandlersRegistered = 0;
+                AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaTextMsgHandlers, 7);
+            }
+        }
+    }
+
+    if (gbTextBoxPending)
+    {
+        gbTextBoxShown ? (void)0 : (sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xD02), exit(-1));
+        int nDrawn = 1;
+        (gdwTextEndTick < GetTickCount()) ? (void)(nDrawn = 0) : (void)TEXT_DrawTextBoxAt(gpMainTextBox, &gtTextRect_007BF1D0);
+        if (!nDrawn)
+        {
+            TEXT_FreeMainTextBox();
+            gbTextBoxPending = 0;
+            gbTextFromObject = 0;
+        }
+        nResult += nDrawn;
+    }
+
+    if (!nResult && gnTextActive == 1)
+    {
+// build: symbol ?gbTextPanelOpen@* 0x007BF1FA
+        gbTextPanelOpen = 0;
+        gbTextFromObject = 0;
+        gbTextBoxDone = 1;
+        gnTextActive = 0;
+        if (gbTextHandlersRegistered == 1)
+        {
+            gbTextHandlersRegistered = 0;
+            AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaTextMsgHandlers, 7);
+        }
+    }
+
+    gbTextBoxDone = 0;
+    if (!GAME_GetUIVarState(0x18))
+    {
+        TEXT_DrawMessageList();
+        TEXT_DrawOverheadTextList();
+    }
+
+    if (gpListDialog)
+    {
+        sub_004B8100_DrawDialog(gpListDialog);
+    }
+}
+
+// 0x004A1510
+void __fastcall TEXT_ShowTextBox(unsigned short nStringId)
+{
+    if (gpMainTextBox)
+    {
+        TEXT_FreeTextBox(gpMainTextBox);
+        gpMainTextBox = 0;
+    }
+
+    const Unicode* wszText = D2LANG_GetStringFromTblIndex(nStringId);
+    const int nOldFont = D2Win_10127_SetFont(0x0D);
+    gpMainTextBox = TEXT_CreateTextBox(wszText, 3);
+    D2Win_10127_SetFont(nOldFont);
+    if (gpMainTextBox)
+    {
+        gpMainTextBox->nScroll = 1;
+        gdwTextEndTick = GetTickCount() + (sub_00526800(wszText) + 0x19) * 0xC8;
+        gbTextBoxShown = 1;
+// build: symbol ?gbTextBoxPending@* 0x007BF1C4
+        gbTextBoxPending = 1;
+        gnTextBoxY = 0x64 - (gpMainTextBox->nHeight >> 2);
+        gnTextBoxX = 0x140 - (gpMainTextBox->nWidth >> 1);
+    }
+}
+
+// build: context sub_004A0770_Shim
+// calling-convention shim (not game code)
+int __stdcall sub_004A0770_Shim()
+{
+    T00479230* pTextBox = gpTextBox;
+    if (pTextBox && (pTextBox->nScroll == 1 || pTextBox->nScroll == 0))
+    {
+        return TEXT_AdvanceTextBox(gbTextBoxDone, pTextBox);
+    }
+
+    return 0;
+}
+
+// build: context sub_00623C60
+static inline int sub_00623C60(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return -1;
+    }
+
+    return pUnit->dwClassId;
+}
+
+// 0x004A1600
+void __fastcall TEXT_HandleNpcTextPacket(D2HoverTextPacketStrc* pPacket)
+{
+    if (pPacket->nType == 1)
+    {
+        D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->dwUnitId, 1);
+        if (pUnit && pPacket->nArg == 1 && pPacket->nMode == 3)
+        {
+            if (pUnit->pHoverText)
+            {
+                CHAT_FreeHoverMsg(0, pUnit->pHoverText);
+            }
+
+            char szText[20];
+            sprintf(szText, gszFormatD, pPacket->wStringId);
+            pUnit->pHoverText = CHAT_AllocHoverMsg(0, szText, gnGameFrame);
+            return;
+        }
+
+        if (gpTextHeader)
+        {
+            TEXT_FreeTextHeader(gpTextHeader);
+        }
+
+        gpTextHeader = TEXT_AllocTextHeader(0);
+        TEXT_CreateTextHeaderFromMessageList(gpTextHeader, (D2MessageListStrc*)&pPacket->nArg);
+        TEXT_SortTextNodeListByStringId(gpTextHeader);
+    }
+    else if (pPacket->nType == 2)
+    {
+        D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->dwUnitId, 2);
+        if (pPacket->nMode == 3)
+        {
+            TEXT_ShowTextBox(pPacket->wStringId);
+            return;
+        }
+
+        gwTextPanelClassId = 0;
+// build: symbol ?gnTextObjectId@* 0x007BF206
+        gnTextObjectId = pPacket->dwUnitId;
+        if (pUnit)
+        {
+            gwTextPanelClassId = sub_00623C60(pUnit);
+        }
+        WARDENCLIENT_OpenTextPanel(pPacket->wStringId, 0, 1);
+    }
+    else
+    {
+        TEXT_FreeTextHeader(gpTextHeader);
+        gpTextHeader = 0;
+    }
+}
+
+static inline int sub_004A1950_GetActNumber(const D2QuestTextsStrc* pTexts)
+{
+    if (pTexts->awIds[0] == 0xE82)
+    {
+        return gnQuestAct;
+    }
+    return 0;
+}
+
+// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
+// 0x004A1950
+static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg)
+{
+    pMsg->wTitle = 0xE8C;
+    pMsg->wDesc = 0xE8C;
+    pMsg->wszText[0] = 0;
+    pMsg->f_263 = 0;
+    pMsg->bValid = 0;
+
+    int nIndex = -1;
+    for (int i = 0; i < 41; ++i)
+    {
+        if (gaQuestTable[i].nQuestId == pMsg->nQuestId)
+        {
+            nIndex = i;
+            break;
+        }
+    }
+
+    if (nIndex == -1)
+    {
+        pMsg->nState = 2;
+        return;
+    }
+
+    pMsg->nCelId = gaQuestTable[nIndex].nCelId2;
+    pMsg->nCelId2 = gaQuestTable[nIndex].nCelId;
+    D2BitBufferStrc* pQuestInfo = MONSTER_GetQuestFlags();
+    D2BitBufferStrc* pQuestHistory = sub_004B32E0_GetQuestHistory();
+    unsigned char nStep = gabQuestFlagsA[nIndex];
+    pMsg->nStep = nStep;
+    if (!gaQuestTable[nIndex].pTexts)
+    {
+        pMsg->nState = 2;
+        return;
+    }
+
+    const int bState0 = QUESTRECORD_GetQuestState(pQuestInfo, gaQuestTable[nIndex].nQuestId, 0);
+    const int bState13 = QUESTRECORD_GetQuestState(pQuestInfo, gaQuestTable[nIndex].nQuestId, 0xD);
+    const int bState1 = QUESTRECORD_GetQuestState(pQuestInfo, gaQuestTable[nIndex].nQuestId, 1);
+    D2QuestTextsStrc* pTexts = gaQuestTable[nIndex].pTexts;
+
+    if (pTexts == &gtQuestTextsSiege && bState1)
+    {
+        if (!nStep)
+        {
+            nStep = 4;
+        }
+    }
+    else if (pTexts == &gtQuestTextsSevenTombs && !bState0 && !bState13
+        && (QUESTRECORD_GetQuestState(pQuestInfo, 0xC, 0) || QUESTRECORD_GetQuestState(pQuestInfo, 0xC, 0xD)) && nStep == 1)
+    {
+        pMsg->wTitle = pTexts->awIds[0];
+        sub_00526790(pMsg->wszText, D2LANG_GetStringFromTblIndex(pTexts->awIds[7 * 2 + 1]), 300);
+        pMsg->wszText[300 - 1] = 0;
+        nStep = 7;
+        gabQuestFlagsB[nIndex] = nStep;
+        pMsg->wDesc = pTexts->awIds[7 * 2 + 2];
+        pMsg->nState = 3;
+        pMsg->bValid = 1;
+        pMsg->nStep = nStep;
+        return;
+    }
+    else if (pTexts == &gtQuestTextsSevenTombs && !bState0 && !bState13 && QUESTRECORD_GetQuestState(pQuestInfo, 0xE, 3) == 1)
+    {
+        pMsg->wTitle = pTexts->awIds[0];
+        sub_00526790(pMsg->wszText, D2LANG_GetStringFromTblIndex(pTexts->awIds[5 * 2 + 1]), 300);
+        pMsg->wszText[300 - 1] = 0;
+        nStep = 5;
+        gabQuestFlagsB[nIndex] = nStep;
+        pMsg->wDesc = pTexts->awIds[5 * 2 + 2];
+        pMsg->nState = 3;
+        pMsg->bValid = 1;
+        pMsg->nStep = nStep;
+        return;
+    }
+    else if (pTexts == &gtQuestTextsSevenTombs && !bState0 && !bState13 && QUESTRECORD_GetQuestState(pQuestInfo, 0xE, 4) == 1)
+    {
+        pMsg->wTitle = pTexts->awIds[0];
+        sub_00526790(pMsg->wszText, D2LANG_GetStringFromTblIndex(pTexts->awIds[6 * 2 + 1]), 300);
+        pMsg->wszText[300 - 1] = 0;
+        nStep = 6;
+        gabQuestFlagsB[nIndex] = nStep;
+        pMsg->wDesc = pTexts->awIds[6 * 2 + 2];
+        pMsg->nState = 3;
+        pMsg->bValid = 1;
+        pMsg->nStep = nStep;
+        return;
+    }
+    else if (bState13 && !bState0 && pTexts->awIds[2] != 0xFFFF && bState1 && pTexts != &gtQuestTextsFallenAngel)
+    {
+        nStep = (unsigned char)pTexts->awIds[2] + 1;
+        pMsg->wTitle = pTexts->awIds[0];
+        const unsigned short* pIds = &pTexts->awIds[nStep * 2];
+        sub_00526790(pMsg->wszText, D2LANG_GetStringFromTblIndex(pIds[1]), 300);
+        pMsg->wszText[300 - 1] = 0;
+        pMsg->f_263 = nStep != gabQuestFlagsB[nIndex];
+        const unsigned short wDesc = pIds[2];
+        gabQuestFlagsB[nIndex] = nStep;
+        pMsg->wDesc = wDesc;
+        pMsg->nState = 3;
+        pMsg->bValid = 1;
+        pMsg->nStep = nStep;
+        return;
+    }
+    else if (bState0)
+    {
+        unsigned short nString;
+        if (bState13)
+        {
+            nString = 0xE8E;
+            nStep = 0xD;
+        }
+        else
+        {
+            nString = 0xE90;
+            nStep = 0xB;
+        }
+
+        pMsg->nStep = nStep;
+        if (!pTexts)
+        {
+            pMsg->nState = 2;
+            return;
+        }
+
+        pMsg->wTitle = pTexts->awIds[0];
+        sub_00526790(pMsg->wszText, D2LANG_GetStringFromTblIndex(nString), 300);
+        pMsg->wszText[300 - 1] = 0;
+        pMsg->wDesc = pTexts->awIds[1];
+        gabQuestFlagsB[nIndex] = nStep;
+        pMsg->bValid = 1;
+        pMsg->nState = QUESTRECORD_GetQuestState(pQuestInfo, gaQuestTable[nIndex].nQuestId, 0xC) != 0;
+        return;
+    }
+    else if (bState1 && QUESTRECORD_GetQuestState(pQuestInfo, gaQuestTable[nIndex].nQuestId, 0xF))
+    {
+        unsigned char nNewStep = 0xA;
+        if (pMsg->nQuestId == 0x25)
+        {
+            if (QUESTRECORD_GetQuestState(pQuestInfo, 0x25, 8) && !QUESTRECORD_GetQuestState(pQuestInfo, 0x25, 9))
+            {
+                nNewStep = 6;
+            }
+            else if (!QUESTRECORD_GetQuestState(pQuestInfo, 0x25, 8))
+            {
+                nNewStep = 5;
+            }
+        }
+
+        if (pMsg->nQuestId == 0x26)
+        {
+            nNewStep = (QUESTRECORD_GetQuestState(pQuestInfo, 0x26, 4) != 0) + 4;
+        }
+
+        pMsg->nStep = nNewStep;
+        if (!pTexts)
+        {
+            pMsg->nState = 2;
+            return;
+        }
+
+        const unsigned short* pIds = &pTexts->awIds[nNewStep * 2];
+        if (pIds[1] == 0xE8D)
+        {
+            pMsg->nState = 2;
+            return;
+        }
+
+        pMsg->wTitle = pTexts->awIds[0];
+        sub_00526790(pMsg->wszText, D2LANG_GetStringFromTblIndex(pIds[1]), 300);
+        pMsg->wszText[300 - 1] = 0;
+        pMsg->wDesc = pIds[2];
+        gabQuestFlagsB[nIndex] = nNewStep;
+        pMsg->bValid = 1;
+        pMsg->nState = (pMsg->nQuestId != 0x1B) ? 3 : 1;
+        return;
+    }
+
+    if (nStep)
+    {
+        if (!gaQuestTable[nIndex].pTexts)
+        {
+            pMsg->nState = 2;
+            return;
+        }
+
+        if (pTexts->awIds[0] == 0xE82)
+        {
+            const int nStepIndex = nStep;
+            const Unicode* pString = D2LANG_GetStringFromTblIndex(pTexts->awIds[nStepIndex * 2 + 1]);
+            if (nStepIndex - 1 != 2 && nStepIndex - 1 != 3)
+            {
+                sub_00526790(pMsg->wszText, pString, 300);
+                pMsg->wszText[300 - 1] = 0;
+            }
+            else if (pTexts->awIds[0] == 0xE82 && gnQuestAct > 1)
+            {
+                Unicode wszNumber[10];
+                char szNumber[6];
+                sprintf(szNumber, gszFormatD, sub_004A1950_GetActNumber(pTexts));
+                sub_00526320_ToUnicode(wszNumber, szNumber, 9);
+                sub_005267E0(pMsg->wszText, pString);
+                D2_ASSERT(sub_00526800(pString) < 0x118, 0x4FA);
+                sub_00526700(pMsg->wszText, wszNumber);
+            }
+            else
+            {
+                pString = D2LANG_GetStringFromTblIndex(0xE9B);
+                sub_00526790(pMsg->wszText, pString, 300);
+                pMsg->wszText[300 - 1] = 0;
+            }
+
+            pMsg->wTitle = pTexts->awIds[0];
+            pMsg->f_263 = 0;
+            if (nStep != gabQuestFlagsB[nIndex])
+            {
+                pMsg->f_263 = 1;
+            }
+            gabQuestFlagsB[nIndex] = nStep;
+            pMsg->wDesc = pTexts->awIds[nStepIndex * 2 + 2];
+            pMsg->nState = 3;
+            pMsg->bValid = 1;
+            pMsg->nStep = nStep;
+            if (nStep == 0xD)
+            {
+                pMsg->nState = QUESTRECORD_GetQuestState(pQuestInfo, gaQuestTable[nIndex].nQuestId, 0xC) != 0;
+            }
+            return;
+        }
+
+        pMsg->wTitle = pTexts->awIds[0];
+        int nString;
+        if ((!bState0 && !bState13 && !QUESTRECORD_GetQuestState(pQuestInfo, gaQuestTable[nIndex].nQuestId, 1)
+            && pQuestHistory && QUESTRECORD_GetQuestState(pQuestHistory, gaQuestTable[nIndex].nQuestId, 0xD) && pMsg->nQuestId != 0x13)
+            || QUESTRECORD_GetQuestState(pQuestInfo, gaQuestTable[nIndex].nQuestId, 0xE))
+        {
+            nString = gdwGlobal_007A0610 ? 0xE92 : 0xE91;
+        }
+        else
+        {
+            nString = pTexts->awIds[nStep * 2 + 1];
+            if ((unsigned short)nString == 0xE8F && !gdwGlobal_007A0610)
+            {
+                nString = 0xE91;
+            }
+        }
+
+        sub_00526790(pMsg->wszText, D2LANG_GetStringFromTblIndex(nString), 300);
+        if (pTexts->awIds[0] == 0x585E && (unsigned short)nString == 0x5860)
+        {
+            if (!gnQuestParam)
+            {
+                sub_00526790(pMsg->wszText, D2LANG_GetStringFromTblIndex(0xE91), 300);
+            }
+            else
+            {
+                sub_005269D0(300, pMsg->wszText, D2LANG_GetStringFromTblIndex(0x5860), gnQuestParam);
+            }
+        }
+
+        pMsg->wszText[300 - 1] = 0;
+        pMsg->f_263 = 0;
+        if (nStep != gabQuestFlagsB[nIndex] && gaQuestTable[nIndex].pTexts)
+        {
+            pMsg->f_263 = 1;
+        }
+        const unsigned short wDesc = pTexts->awIds[nStep * 2 + 2];
+        gabQuestFlagsB[nIndex] = nStep;
+        pMsg->wDesc = wDesc;
+        pMsg->nState = 3;
+        pMsg->bValid = 1;
+        if (nStep == 0xD)
+        {
+            pMsg->nState = QUESTRECORD_GetQuestState(pQuestInfo, gaQuestTable[nIndex].nQuestId, 0xC) != 0;
+        }
+        return;
+    }
+
+    unsigned short nString;
+    if (QUESTRECORD_GetQuestState(pQuestHistory, gaQuestTable[nIndex].nQuestId, 0xD))
+    {
+        if (pMsg->nQuestId == 0x15 && !QUESTRECORD_GetQuestState(pQuestInfo, 0x15, 0) && QUESTRECORD_GetQuestState(pQuestInfo, 0x15, 4) == 1)
+        {
+            nString = 0x3DD;
+            goto lPrint;
+        }
+
+        if (!bState13 && !QUESTRECORD_GetQuestState(pQuestInfo, gaQuestTable[nIndex].nQuestId, 1))
+        {
+            unsigned short nNoneString = 0xE92;
+            if (!gdwGlobal_007A0610)
+            {
+                nNoneString = 0xE91;
+            }
+            sub_00526790(pMsg->wszText, D2LANG_GetStringFromTblIndex(nNoneString), 300);
+            pMsg->wszText[300 - 1] = 0;
+            pMsg->wDesc = 0xE8D;
+            pMsg->bValid = 1;
+            pMsg->nState = 3;
+            return;
+        }
+    }
+    else if (QUESTRECORD_GetQuestState(pQuestHistory, gaQuestTable[nIndex].nQuestId, 0xF) && !bState13
+        && !QUESTRECORD_GetQuestState(pQuestInfo, gaQuestTable[nIndex].nQuestId, 1))
+    {
+        nString = 0xE92;
+        if (!gdwGlobal_007A0610)
+        {
+            nString = 0xE91;
+        }
+lPrint:
+        sub_00526790(pMsg->wszText, D2LANG_GetStringFromTblIndex(nString), 300);
+        pMsg->wszText[300 - 1] = 0;
+        pMsg->wDesc = 0xE8D;
+        pMsg->bValid = 1;
+        pMsg->nState = 3;
+        return;
+    }
+
+    pMsg->nState = 2;
+}
+
+// 0x004A2220
+static void TEXT_SetQuestPage(int nPageArg)
+{
+    int nPage = nPageArg;
+    if (nPage >= 5)
+    {
+        nPage = 0;
+    }
+    switch (nPage)
+    {
+    case 4:
+        if (!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0x1A, 0)) nPage = 3;
+    case 3:
+        if (!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0x17, 0)) nPage = 2;
+    case 2:
+        if (!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0xF, 0)) nPage = 1;
+    case 1:
+        if (!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 7, 0)) nPage = 0;
+    }
+// build: symbol ?gnQuestSelectedSlot@* 0x007BF2B9
+    gnQuestSelectedSlot = -1;
+// build: symbol ?gnQuestPressedSlot@* 0x007BF2B5
+    gnQuestPressedSlot = -1;
+    for (int i = 0; i < 6; ++i)
+    {
+        ganGlobal_007C023D[i] = ganGlobal_007C0225[i] = 0;
+    }
+// build: symbol ?gnPage@* 0x007C0255
+    gnPage = nPage;
+}
+
+// 0x004A23D0
+void __cdecl TEXT_LoadQuestPanelCels()
+{
+    char szPath[0x104];
+    if (sub_00483350())
+    {
+        return;
+    }
+// build: symbol ?gpQuestBackgroundCel@* 0x007BF2D5
+    if (!gpQuestBackgroundCel)
+    {
+        sprintf(szPath, "%s\\ui\\menu\\questbackground", gszDataGlobal);
+        gpQuestBackgroundCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+// build: symbol ?gpQuestTabsCel@* 0x007BF2D9
+    if (!gpQuestTabsCel)
+    {
+        if (FOG_IsExpansion() && GAME_IsExpansion())
+        {
+            sprintf(szPath, "%s\\ui\\menu\\expquesttabs", gszDataGlobal);
+        }
+        else
+        {
+            sprintf(szPath, "%s\\ui\\menu\\questtabs", gszDataGlobal);
+        }
+        gpQuestTabsCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+// build: symbol ?gpQuestSocketsCel@* 0x007BF2D1
+    if (!gpQuestSocketsCel)
+    {
+        sprintf(szPath, "%s\\ui\\menu\\questsockets", gszDataGlobal);
+        gpQuestSocketsCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+// build: symbol ?gpQuestDoneCel@* 0x007BF2DD
+    if (!gpQuestDoneCel)
+    {
+        sprintf(szPath, "%s\\ui\\menu\\questdone", gszDataGlobal);
+        gpQuestDoneCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+// build: symbol ?gpInvPsCel@* 0x007BF351
+    if (!gpInvPsCel)
+    {
+        sprintf(szPath, "%s\\ui\\menu\\invps", gszDataGlobal);
+        gpInvPsCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+// build: symbol ?gpQuestLastCel@* 0x007BF34D
+    if (!gpQuestLastCel)
+    {
+        sprintf(szPath, "%s\\ui\\menu\\questlast", gszDataGlobal);
+        gpQuestLastCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+}
+
+extern "C" { unsigned int gValue_007BF2A8; } // 0x007BF2A8
+
+// 0x004A28A0
+extern "C" void __fastcall TEXT_AcceptShortPacket(const PacketShorts* packet)
+{
+    switch (packet->kind)
+    {
+    case 1:
+        gValue_007BF2A4 = packet->a;
+        gValue_007BF2A8 = packet->b;
+        gValue_007BF2AC = packet->c;
+        break;
+    }
+}
+
+// build: symbol ?TEXT_FindQuestIndex@* 0x004A1910
 int TEXT_FindQuestIndex(int nKey)
 {
     for (int i = 0; i < 41; i++)
@@ -1657,6 +4756,7 @@ refresh:
         }
     }
 }
+
 // build: symbol ?SCMD_HandleQuestEvent@* 0x0045E540
 void __fastcall SCMD_HandleQuestEvent(const D2PacketRecord6Strc* pPacket)
 {
@@ -1674,6 +4774,1996 @@ void __cdecl sub_004A3050()
     gaQuestPageDefault[4] = -1;
 }
 
+static void sub_004A2390_ResetQuestSelection()
+{
+// build: symbol ?gbQuestSlotDown@* 0x007BF2B1
+    gbQuestSlotDown = 0;
+    gbGlobal_007BF2B2 = 0;
+    gbGlobal_007BF2B0 = 0;
+    gnQuestPressedSlot = -1;
+    gbGlobal_007BF2B4 = 0;
+    gbGlobal_007C025D = 0;
+    gbGlobal_007C025E = 0;
+    gbGlobal_007C025F = 0;
+    gbGlobal_007C0260 = 0;
+}
 
+// build: symbol ?TEXT_GetQuestTabAtPoint@* 0x004A26F0
+static int __stdcall TEXT_GetQuestTabAtPoint(int nY, int nX)
+{
+    if (nY < 0 || nY > 0x1B || nX < 0 || nX > 0x13F)
+    {
+        return -1;
+    }
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (FOG_IsExpansion() && GAME_IsExpansion())
+    {
+        int i = 0;
+        for (int n = 0; n < 0x140; n += 0x40, ++i)
+        {
+            if (nX >= n && nX <= n + 0x40) return i;
+        }
+        return -1;
+    }
+    int i = 0;
+    for (int n = 0; n < 0x140; n += 0x50, ++i)
+    {
+        if (nX >= n && nX <= n + 0x50) return i;
+    }
+    return -1;
+}
+
+// 0x004A3220
+void __stdcall TEXT_LoadQuestPage(int nPage, int bReset)
+{
+    int nFirst;
+    int nCount = 0;
+    int nFound = 0;
+    nFirst = -1;
+    char szPath[260];
+
+    gnQuestSelectedSlot = -1;
+    if ((!FOG_IsExpansion() || !GAME_IsExpansion()) && nPage == 4)
+    {
+        return;
+    }
+
+    for (int i = gaQuestPageRanges[nPage].nFirst; i <= gaQuestPageRanges[nPage].nLast; ++i)
+    {
+        if (!gapQuestIconCels[i])
+        {
+// build: symbol ?gaszQuestCelNames@* 0x006DA2C8
+            sprintf(szPath, "%s\\ui\\menu\\%s", gszDataGlobal_006D4118, gaszQuestCelNames[i]);
+            gapQuestIconCels[i] = ARCHIVE_LoadClientCellFile(szPath, 0);
+        }
+    }
+
+    if (gaQuestPageDefault[nPage] != -1)
+    {
+        gnQuestSelectedSlot = gaQuestPageDefault[nPage];
+        if (bReset)
+        {
+            for (int j = 0; j < 5; ++j)
+            {
+                gaQuestPageDefault[j] = -1;
+            }
+        }
+        return;
+    }
+
+    D2QuestTableStrc* pQuest = gaQuestTable;
+    for (;;)
+    {
+        if (pQuest->nPage == nPage && pQuest->bEnabled && pQuest->nCelId < 0x1B && gapQuestIconCels[pQuest->nCelId])
+        {
+            D2QuestTextMsgStrc tMsg;
+            tMsg.nQuestId = pQuest->nQuestId;
+            TEXT_BuildQuestText(&tMsg);
+            if (tMsg.f_263 || !tMsg.nState)
+            {
+                nCount = 41;
+                gnQuestSelectedSlot = tMsg.nCelId;
+            }
+
+            if (tMsg.nState == 1 || tMsg.nState == 2 || tMsg.nState == 3)
+            {
+                if (tMsg.nState != 2 && tMsg.nState != 1 && nFirst == -1)
+                {
+                    nFirst = tMsg.nCelId;
+                }
+                ++nFound;
+            }
+        }
+
+        if (++nCount >= 41)
+        {
+            break;
+        }
+        ++pQuest;
+    }
+
+    if (nFound && gnQuestSelectedSlot == -1)
+    {
+        int nSelection = gaQuestPageSelection[nPage];
+        if (nSelection != -1 || (nSelection = nFirst) != -1)
+        {
+            gnQuestSelectedSlot = nSelection;
+        }
+    }
+
+    if (bReset)
+    {
+        for (int j = 0; j < 5; ++j)
+        {
+            gaQuestPageDefault[j] = -1;
+        }
+    }
+}
+
+// build: context sub_004A3E40_ClickSlot_Inline
+static __forceinline void sub_004A3E40_ClickSlot_Inline(int nIndex)
+{
+    for (int i = 0; i < gnQuestCount; ++i)
+    {
+        if (nIndex == gaQuestEntries[i].nSlot && gaQuestEntries[i].bEnabled)
+        {
+            gbQuestSlotDown = 1;
+            gnQuestPressedSlot = nIndex;
+            sub_004B9A00(4, 0, 0, 0, 0);
+        }
+    }
+}
+
+// build: symbol ?TEXT_GetQuestSlotAtPoint@* 0x004A2630
+static int TEXT_GetQuestSlotAtPoint(int nX, int nY)
+{
+    int nCount = gnQuestCount;
+    D2_ASSERT((unsigned int)nCount <= 6, 0x738);
+    for (int i = 0; i < nCount; ++i)
+    {
+        if (nX >= gaQuestSlots[i].nX && nX < gaQuestSlots[i].nX + 0x38 && nY >= gaQuestSlots[i].nY && nY < gaQuestSlots[i].nY + 0x34)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+static unsigned char sub_004A2690_HitTestButtonB(int nX, int nY)
+{
+    if (nX >= 0x116 && nX <= 0x116 + 0x23 && nY >= 0x188 && nY <= 0x188 + 0x21)
+    {
+        return 1;
+    }
+    return 0;
+}
+
+static unsigned char sub_004A2610_HitTestButtonA(int nX, int nY)
+{
+    if (nX >= 0xE6 && nX <= 0xE6 + 0x1D && nY >= 0x187 && nY <= 0x187 + 0x20)
+    {
+        return 1;
+    }
+    return 0;
+}
+
+// 0x004A3E40
+void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    int nX = D2_LOWORD(pMsg->lParam);
+    int nY = D2_HIWORD(pMsg->lParam);
+    if (sub_00483350())
+    {
+        return;
+    }
+    if (nX > gnScreenWidth / 2)
+    {
+        return;
+    }
+    if (D2GFX_GetResolutionMode() == 2)
+    {
+        if (nY > gnScreenHeight - 0x2F) return;
+    }
+    else
+    {
+        if (nY > gnScreenHeight - 0x31) return;
+    }
+    nX -= gnPanelOffsetX;
+    nY += gnPanelOffsetY;
+    int nIndex;
+    if (!gbQuestDescriptionOpen)
+    {
+        nIndex = TEXT_GetQuestTabAtPoint(nY, nX);
+        if (nIndex != -1)
+        {
+            if (nIndex < 5 && nIndex != gnPage && ((FOG_IsExpansion() && GAME_IsExpansion()) || nIndex != 4))
+            {
+                sub_004A2760(gnPage);
+                TEXT_SetQuestPage(nIndex);
+                TEXT_LoadQuestPage(gnPage, 1);
+                sub_004A2390_ResetQuestSelection();
+            }
+        }
+        else
+        {
+            nIndex = TEXT_GetQuestSlotAtPoint(nX, nY);
+            if (nIndex != -1 && nIndex < gnQuestCount)
+            {
+                sub_004A3E40_ClickSlot_Inline(nIndex);
+                pMsg->bReturn = 1;
+                pMsg->lResult = 0;
+                sub_00420290_BreakHandlerChain(pMsg);
+                return;
+            }
+            else
+            {
+                if (sub_004A2690_HitTestButtonB(nX, nY))
+                {
+                    gbGlobal_007BF2B2 = 1;
+                    sub_004B9A00(4, 0, 0, 0, 0);
+                }
+                else if (sub_004A2610_HitTestButtonA(nX, nY))
+                {
+                    gbGlobal_007BF2B4 = 1;
+                    sub_004B9A00(4, 0, 0, 0, 0);
+                }
+            }
+        }
+    }
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
+// build: symbol ??0Unicode@@QAE@XZ 0x0042F530
+// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
+// 0x004A3FE0
+void __fastcall TEXT_ToggleQuestLog(int nMode)
+{
+    if (gtQuestLog == 0)
+    {
+// build: symbol ?gdwQuestLogToggleTick@* 0x007C0259
+        if (GetTickCount() - gdwQuestLogToggleTick < 250)
+            return;
+        if (CUNIT_IsPlayerDeadOrMissing())
+            return;
+        if (INV_IsCinematicBusy())
+            return;
+        if (UI_SetUIVar(15, 0, nMode) != 1)
+            return;
+        TEXT_LoadQuestPanelCels();
+        gtQuestLog = 2;
+        TEXT_UpdateQuestPage();
+// build: symbol ?gnPage@* 0x007C0255
+        sub_004A3220(gnPage, 0);
+        MSG_SendHeaderOnly(0x40);
+        return;
+    }
+
+    if (gtQuestLog == 1)
+    {
+        gtQuestLog = 0;
+        if (INV_IsCinematicBusy())
+            return;
+        if (UI_SetUIVar(15, 0, nMode) != 1)
+            return;
+        TEXT_LoadQuestPanelCels();
+        gtQuestLog = 2;
+        TEXT_UpdateQuestPage();
+        sub_004A3220(gnPage, 0);
+        MSG_SendHeaderOnly(0x40);
+        return;
+    }
+
+    TEXT_OpenQuestPanel(nMode);
+    gdwQuestLogToggleTick = GetTickCount();
+    sub_004A1760_Forward();
+}
+
+// 0x004A40D0
+void __fastcall TEXT_SetQuestRecord(const D2Record42Strc* pRecord)
+{
+    gtQuestRecord = *pRecord;
+    gbFlag_007BF2B0 = 0;
+    if (!sub_00483350())
+    {
+        if (gnState_007BF298 == 2)
+        {
+            TEXT_LoadQuestPanelCels();
+        }
+        sub_004A3220(gnPage_007C0255, 1);
+    }
+}
+
+// 0x004A4180
+int __fastcall TEXT_TestQuestCondition(int nCondition)
+{
+    if (!INV_GetTableByte(0, nCondition))
+    {
+        return 0;
+    }
+
+    for (unsigned int i = 0; i < 41; ++i)
+    {
+        if (gaQuestTable[i].nCondition == nCondition)
+        {
+            const int nQuestId = gaQuestTable[i].nQuestId;
+            if (nQuestId == 0x2A)
+            {
+                break;
+            }
+
+            if (!sub_004B32E0_GetQuestHistory() || QUESTRECORD_GetQuestState(sub_004B32E0_GetQuestHistory(), nQuestId, 0xD))
+            {
+                break;
+            }
+
+            if (!MONSTER_GetQuestFlags() || QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), nQuestId, 1)
+                || QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), nQuestId, 0)
+                || QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), nQuestId, 0xE))
+            {
+                break;
+            }
+
+            if (nCondition == 1)
+            {
+                D2QuestTextMsgStrc tMsg;
+                tMsg.nQuestId = nQuestId;
+                TEXT_BuildQuestText(&tMsg);
+                if (tMsg.nStep >= 5)
+                {
+                    break;
+                }
+            }
+
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+// 0x004A4260
+D2QuestTextBufferStrc::D2QuestTextBufferStrc()
+{
+}
+
+// build: symbol ?TEXT_OpenQuestDescription@* 0x004A27D0
+static void TEXT_OpenQuestDescription(int nSlot)
+{
+    int nIndex = -1;
+    for (int i = 0; i < gnQuestCount; ++i)
+    {
+        if (gaQuestEntries[i].nSlot == nSlot)
+        {
+            nIndex = i;
+            break;
+        }
+    }
+    if (nIndex == -1)
+    {
+        return;
+    }
+    unsigned short wTextId = gaQuestEntries[nIndex].wTextId;
+    if (wTextId == 0xE8C || wTextId == 0xE8D)
+    {
+        return;
+    }
+    WARDENCLIENT_OpenTextPanel(wTextId, 1, 0);
+    TEXT_SetTextCallback(TEXT_CloseQuestText, 0);
+    gbQuestDescriptionOpen = 1;
+}
+
+// 0x004A42A0
+void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    int nX = D2_LOWORD(pMsg->lParam) - gnPanelOffsetX;
+    int nY = D2_HIWORD(pMsg->lParam) + gnPanelOffsetY;
+    if (gbGlobal_007BF2B2)
+    {
+        if (sub_004A2690_HitTestButtonB(nX, nY)) TEXT_ToggleQuestLog(0);
+    }
+    else if (!gbQuestDescriptionOpen)
+    {
+// build: symbol ?gnQuestPressedSlot@* 0x007BF2B5
+        if (gnQuestPressedSlot != -1)
+        {
+            int nSlot = TEXT_GetQuestSlotAtPoint(nX, nY);
+            if (nSlot == gnQuestPressedSlot)
+            {
+// build: symbol ?gaQuestPageSelection@* 0x007BF2BD
+                gaQuestPageSelection[gnPage] = nSlot;
+// build: symbol ?gnQuestSelectedSlot@* 0x007BF2B9
+                gnQuestSelectedSlot = nSlot;
+            }
+        }
+        else if (gbGlobal_007BF2B4 == 1)
+        {
+            if (sub_004A2610_HitTestButtonA(nX, nY) && gnQuestSelectedSlot != -1)
+            {
+                TEXT_OpenQuestDescription(gnQuestSelectedSlot);
+            }
+        }
+    }
+    D2_RESET_QUEST_SELECTION();
+    if (D2_LOWORD(pMsg->lParam) > gnScreenWidth / 2) return;
+    if (D2GFX_GetResolutionMode() == 2)
+    {
+        if ((int)(pMsg->lParam >> 16) > gnScreenHeight - 0x2F) return;
+    }
+    else
+    {
+        if ((int)(pMsg->lParam >> 16) > gnScreenHeight - 0x31) return;
+    }
+    GAME_ResetMouseButtons();
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
+// 0x004A43E0
+void __cdecl TEXT_InitKeyConfigEntries()
+{
+    if (GAME_IsExpansion())
+    {
+// build: symbol ?gpListEntries@* 0x00724264
+        gpListEntries = gaKeyConfigEntriesExp;
+        gnKeyConfigEntryCount = 62;
+        gnKeyConfigThumbScale = sub_KEYCFG_RowTrackCels() * sub_F08_VisibleLines() / gnKeyConfigEntryCount;
+        gnThumbRange = gnKeyConfigEntryCount - sub_F08_VisibleLines();
+    }
+    else
+    {
+        gpListEntries = gaKeyConfigEntries;
+        gnKeyConfigEntryCount = 51;
+        gnKeyConfigThumbScale = sub_KEYCFG_RowTrackCels() * sub_F08_VisibleLines() / gnKeyConfigEntryCount;
+        gnThumbRange = gnKeyConfigEntryCount - sub_F08_VisibleLines();
+    }
+}
+
+// 0x004A44C0
+int __cdecl TEXT_GetMaxFirstEntry()
+{
+    int nCount = gnKeyConfigEntryCount;
+    for (int i = 0; i < sub_F08_VisibleLines(); ++i)
+    {
+        if (--nCount <= 0)
+            return 0;
+    }
+    return nCount;
+}
+
+// 0x004A4500
+void __fastcall TEXT_ScrollKeyConfigList(int nStep)
+{
+    if (nStep < -1)
+    {
+        for (int i = nStep; i < 0; ++i)
+            TEXT_ScrollKeyConfigList(-1);
+        return;
+    }
+    if (nStep > 1)
+    {
+        for (int i = 0; i < nStep; ++i)
+            TEXT_ScrollKeyConfigList(1);
+        return;
+    }
+
+    const int nMax = TEXT_GetMaxFirstEntry();
+    int nFirst = gnKeyConfigFirstVisible;
+    if (nStep < 0)
+    {
+        const int nPrev = nFirst <= 0 ? nFirst : nFirst - 1;
+        if (nPrev < 0)
+            goto done;
+        nFirst = nPrev;
+    }
+    else if (nStep > 0)
+    {
+        const int nNext = nFirst >= nMax ? nFirst : nFirst + 1;
+        if (nNext > nMax)
+            goto done;
+        nFirst = nNext;
+    }
+    else
+        goto done;
+    gnKeyConfigFirstVisible = nFirst;
+done:
+    gnKeyConfigThumbY = sub_I18_TrackSpan() * nFirst / nMax + sub_I18_TrackTop();
+}
+
+// 0x004A45C0
+void __fastcall TEXT_MoveKeyConfigSelection(int nStep)
+{
+    if (!nStep)
+        return;
+    if (nStep < -1)
+    {
+        for (int i = nStep; i < 0; ++i)
+            TEXT_MoveKeyConfigSelection(-1);
+        return;
+    }
+    if (nStep > 1)
+    {
+        for (int i = 0; i < nStep; ++i)
+            TEXT_MoveKeyConfigSelection(1);
+        return;
+    }
+
+    const int nCount = gnKeyConfigEntryCount;
+    if (nStep < 0)
+    {
+        const int nOld = gnKeyConfigSelected;
+        const int nNew = nOld <= 0 ? nOld : nOld - 1;
+        if (nNew >= 0)
+            gnKeyConfigSelected = nNew;
+    }
+    else if (nStep > 0 && gnKeyConfigSelected < nCount)
+    {
+        const int nNew = gnKeyConfigSelected + 1;
+        if (nNew < nCount)
+            gnKeyConfigSelected = nNew;
+    }
+
+    const int nSelected = gnKeyConfigSelected;
+    int nFirst = gnKeyConfigFirstVisible;
+    if (nSelected < nFirst)
+    {
+        const int nTrackTop = sub_F08_TrackTop();
+        gnKeyConfigFirstVisible = nSelected;
+        gnKeyConfigThumbY = nSelected * sub_F08_TrackSpan() / TEXT_GetMaxFirstEntry() + nTrackTop;
+        return;
+    }
+
+    for (;;)
+    {
+        int nLast = nFirst;
+        for (int nLine = 0; nLast < nCount && nLine < 0x0F; ++nLine)
+            ++nLast;
+        if (gnKeyConfigSelected < nLast)
+            break;
+
+        const int nMax = TEXT_GetMaxFirstEntry();
+        const int nNew = nFirst >= nMax ? nFirst : nFirst + 1;
+        if (nNew <= nMax)
+            nFirst = nNew;
+        gnKeyConfigThumbY = sub_F08_TrackSpan() * nFirst / nMax + sub_F08_TrackTop();
+    }
+    gnKeyConfigFirstVisible = nFirst;
+}
+
+// 0x004A4720
+static int TEXT_GetKeyConfigLineAt(int nY)
+{
+    int nIndex = gnKeyConfigFirstVisible;
+    const int nCount = gnKeyConfigEntryCount;
+    int nLine = 0;
+    if (nIndex < nCount)
+    {
+        int nLineY = (gnAutomapHeight - 0x1A4) / 2 + 0x3A;
+        do
+        {
+            if (nLine >= 0x0F)
+                break;
+            if (nY <= nLineY)
+                return nIndex;
+            ++nIndex;
+            ++nLine;
+            nLineY += 0x12;
+        }
+        while (nIndex < nCount);
+        if (nIndex < nCount)
+            return nIndex;
+    }
+    return nCount < 0 ? nCount : nCount - 1;
+}
+
+int __stdcall sub_M119_Emit_004A4A00(int nX, int nY)
+{
+    if (TEXT_IsOnKeyConfigButton(nX, nY))
+    {
+        return TEXT_IsOnPressedButton(nX + 1, nY);
+    }
+    return 2;
+}
+
+// build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
+// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
+// 0x004A47C0
+static int TEXT_GetKeyConfigButtonAt(int nX, int nY)
+{
+    unsigned int i;
+    for (i = 0; i < 3; ++i)
+    {
+        if (nX >= gaKeyConfigButtons[i].nLeft && nX <= gaKeyConfigButtons[i].nRight
+            && nY >= gaKeyConfigButtons[i].nTop && nY <= gaKeyConfigButtons[i].nBottom)
+            break;
+    }
+    return i;
+}
+
+static int __stdcall sub_E10_IsAbovePanelLineCopy(int nY)
+{
+    int nHalf = (gnScreenWidth - 620) / 2;
+    return nY < nHalf + (gnScreenWidth - nHalf * 2 - 49) / 3 * 2 + 18;
+}
+
+// 0x004A47F0
+static int TEXT_IsInKeyConfigList(int nX, int nY)
+{
+    const int nHalf = (gnScreenWidth - 0x26C) / 2;
+    const int nLeft = nHalf + 0x12;
+    const int nRight = nHalf + (gnScreenWidth - nHalf * 2 - 0x31) / 3 * 3 + 0x12;
+    if (nX >= nLeft && nX <= nRight)
+    {
+        const int nTop = (gnAutomapHeight - 0x1A4) / 2;
+        if (nY >= nTop + 0x28 && nY <= nTop + 0x136)
+            return 1;
+    }
+    return 0;
+}
+
+// 0x004A4860
+static int TEXT_IsOnUpArrow(int nX, int nY)
+{
+    if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
+    {
+        const int nTop = sub_F08_ListTop();
+        if (nY >= nTop + 0x23 && nY <= nTop + 0x2F)
+            return 1;
+    }
+    return 0;
+}
+
+// 0x004A48B0
+static int TEXT_IsOnDownArrow(int nX, int nY)
+{
+    if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
+    {
+        const int nTop = sub_F08_ListTop();
+        if (nY >= nTop + 0x125 && nY <= nTop + 0x131)
+            return 1;
+    }
+    return 0;
+}
+
+// 0x004A4900
+static int TEXT_IsAboveThumb(int nX, int nY)
+{
+    if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
+    {
+        if (nY > sub_F08_ListTop() + 0x2F && nY < gnKeyConfigThumbY)
+            return 1;
+    }
+    return 0;
+}
+
+// 0x004A4950
+static int TEXT_IsOnThumb(int nX, int nY)
+{
+    if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
+    {
+        if (nY >= gnKeyConfigThumbY && nY <= gnKeyConfigThumbY + sub_F08_ThumbHeight())
+            return 1;
+    }
+    return 0;
+}
+
+// 0x004A49A0
+static int TEXT_IsBelowThumb(int nX, int nY)
+{
+    if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
+    {
+        if (nY < sub_F08_ListTop() + 0x125 && nY > gnKeyConfigThumbY + sub_F08_ThumbHeight())
+            return 1;
+    }
+    return 0;
+}
+
+// 0x004A4A00
+static inline int TEXT_IsOnKeyConfigButton(int nX, int nY)
+{
+    return TEXT_GetKeyConfigButtonAt(nX, nY) != 3;
+}
+
+// 0x004A4A10
+static int TEXT_IsOnSelectedLine(int nX, int nY)
+{
+    if (TEXT_IsInKeyConfigList(nX, nY) && TEXT_GetKeyConfigLineAt(nY) == gnKeyConfigSelected
+// build: symbol ?gnKeyConfigColumn@* 0x007246D4
+        && sub_E10_IsAbovePanelLineCopy(nX) == gnKeyConfigColumn)
+        return 1;
+    return 0;
+}
+
+// 0x004A4A80
+static inline int TEXT_IsOnPressedButton(int nX, int nY)
+{
+    const int nButton = gnPressedButton_007C02B4;
+    if (nButton != 3 && TEXT_GetKeyConfigButtonAt(nX, nY) == nButton)
+    {
+        return 1;
+    }
+    return 0;
+}
+
+// 0x004A4AA0
+int __fastcall TEXT_IsOnlyPressed(int nIndex)
+{
+    for (int i = 0; i < 7; i++)
+    {
+        if (gaPressed[i] && i != nIndex)
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+// 0x004A4FA0
+static int TEXT_GetKeyConfigEntryState(int nIndex, int nFlag)
+{
+    if (nIndex == gnKeyConfigSelected && (gbKeyCaptureActive || nFlag == gnKeyConfigColumn))
+    {
+        return 3;
+    }
+
+// build: symbol ?gpListEntries@* 0x00724264
+    if (!CUNIT_HasHotkeyBinding(gpListEntries[nIndex].nId, 1) && !CUNIT_HasHotkeyBinding(gpListEntries[nIndex].nId, 0))
+    {
+        return 1;
+    }
+
+    return CUNIT_HasHotkeyBinding(gpListEntries[nIndex].nId, nFlag) ? 4 : 5;
+}
+
+int sub_B05_Emit_004A4FA0(int* pIndex)
+{
+    int nA = TEXT_GetKeyConfigEntryState(*pIndex, 1);
+    int nB = TEXT_GetKeyConfigEntryState(*pIndex, 0);
+    return sub_B05_Sink(nA, nB);
+}
+
+int __cdecl sub_0040D530_Call0040C720()
+{
+    return EXCEPTIONS_ReleaseSymbols(1);
+}
+
+// 0x004A5010
+void __cdecl TEXT_ResetKeyConfigDefaults()
+{
+    CMDTBL_ResetKeyConfig(0);
+}
+
+// 0x004A5020
+void __cdecl TEXT_AcceptKeyConfig()
+{
+    CMDTBL_SaveAndBindHotkeys();
+    UI_SetUIVar(11, 1, 0);
+    sub_0047E200_CloseMenus(1);
+}
+
+// 0x004A5040
+void __cdecl TEXT_CancelKeyConfig()
+{
+    sub_00469D50();
+    UI_SetUIVar(11, 1, 0);
+    WARDENCLIENT_ToggleEscMenuUIState(0, 1);
+}
+
+// 0x004A5060
+void __cdecl TEXT_LayoutSlider()
+{
+    const int nOldFont = sub_00502EF0_SetFont(13);
+    for (unsigned int i = 0; i < 3; ++i)
+    {
+        const int nWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(gaKeyConfigButtons[i].nStringId));
+        const int nThird = (sub_F08_PanelRight() - sub_F08_PanelLeft()) / (sizeof(gaKeyConfigButtons) / sizeof(gaKeyConfigButtons[0]));
+        gaKeyConfigButtons[i].nLeft = nThird * i + sub_F08_PanelLeft() + nThird / 2 - nWidth / 2 - 10;
+        gaKeyConfigButtons[i].nRight = nThird * i + sub_F08_PanelLeft() + nThird / 2 + nWidth / 2 + 10;
+        gaKeyConfigButtons[i].nTop = sub_F08_ListTop() + 0x149;
+        gaKeyConfigButtons[i].nBottom = sub_F08_ListTop() + 0x16F;
+    }
+    sub_00502EF0_SetFont(nOldFont);
+
+    gnKeyConfigThumbY = sub_F08_TrackSpan() * gnKeyConfigFirstVisible / TEXT_GetMaxFirstEntry() + sub_F08_TrackTop();
+}
+
+// 0x004A5190
+void __cdecl TEXT_InitTextSlider()
+{
+    char szPath[0x104];
+    TEXT_InitKeyConfigEntries();
+    sprintf(szPath, "%s\\UI\\Menu\\TextSlid", gszDataGlobal);
+    gpKeyConfigSliderCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    sub_004A5060();
+    gnKeyConfigFirstVisible = 0;
+    gnKeyConfigSelected = 0;
+}
+
+// 0x004A51E0
+void __cdecl TEXT_FreeTextSliderCel()
+{
+    if (gpKeyConfigSliderCel)
+    {
+        ARCHIVE_FreeClientCellFile(gpKeyConfigSliderCel);
+        gpKeyConfigSliderCel = 0;
+    }
+}
+
+// 0x004A5200
+void __fastcall TEXT_ToggleKeyConfigPanel(int nArg)
+{
+    TEXT_InitKeyConfigEntries();
+    if (nArg)
+    {
+        if (gbKeyCaptureActive == 0)
+        {
+            CMDTBL_SaveHotkeys();
+            sub_0046AA20(0, 0);
+            GAME_UnregisterMouseHandlers();
+            sub_00467A70_RefreshHoverUnit(0);
+        }
+        gnKeyConfigFirstVisible = 0;
+        gnKeyConfigSelected = 0;
+    }
+    else if (gbKeyCaptureActive == 0)
+    {
+        sub_0046AA20(1, 0);
+        GAME_RegisterMouseHandlers();
+        sub_00466FE0();
+    }
+    sub_004A5060();
+}
+
+// 0x004A5270
+void __cdecl TEXT_DrawKeyConfigPanel()
+{
+    const int nMouseX = sub_00468730();
+    const int nMouseY = sub_00468740();
+    TEXT_InitKeyConfigEntries();
+    if (gnLastMouseX != nMouseX || gnLastMouseY != nMouseY || gbRedraw)
+    {
+        gnLastMouseX = nMouseX;
+        gnLastMouseY = nMouseY;
+        sub_004A4AD0_Press(nMouseX, nMouseY);
+    }
+
+    const int nOldFont = sub_00502EF0_SetFont(13);
+    AUTOMAP_DrawFramedBox(KEYCFG_X, KEYCFG_Y, gnScreenWidth_0071146C - 2 * KEYCFG_X, (KEYCFG_Y + 0x171) - KEYCFG_Y, 0, 1);
+
+    D2RectStrc tRect;
+    tRect.nLeft = KEYCFG_X;
+    tRect.nTop = KEYCFG_Y + 3;
+    tRect.nRight = gnScreenWidth_0071146C - KEYCFG_X - 3;
+    tRect.nBottom = KEYCFG_Y + 0x170;
+    UI_DrawRectangleBorder(&tRect);
+    tRect.nTop = KEYCFG_Y + 0x143;
+    UI_DrawRectangleBorder(&tRect);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF51), KEYCFG_X + 0x12, KEYCFG_Y + 0x1E, 4, 0);
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF52), KEYCFG_X + 0x12 + (gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3, KEYCFG_Y + 0x1E, 4, 0);
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF53), KEYCFG_X + 0x12 + 2 * ((gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3), KEYCFG_Y + 0x1E, 4, 0);
+
+    int i = 0;
+    while (i < sub_KEYCFG_VisibleLines() && i < gnKeyConfigEntryCount)
+    {
+        int nY = i * 0x12 + KEYCFG_Y + 0x22;
+        int nIndex = gnKeyConfigFirstVisible + i;
+        int bVisible;
+        if (gbKeyCaptureActive && nIndex == gnKeyConfigSelected && (gnBlink & 0xF) <= 4)
+            bVisible = 0;
+        else
+            bVisible = 1;
+
+        ++i;
+
+        if (gpListEntries[nIndex].nId == 0x39)
+            continue;
+
+        if (nIndex == gnKeyConfigSelected)
+        {
+            AUTOMAP_DrawFramedBox(KEYCFG_X + 0x12, nY + 1, 3 * ((gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3), 0x12, 0, 1);
+            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(gpListEntries[nIndex].nString), KEYCFG_X + 0x1E, nY + 0x12, gbKeyCaptureActive ? 3 : 0, 0);
+        }
+        else
+        {
+            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(gpListEntries[nIndex].nString), KEYCFG_X + 0x1E, nY + 0x12, 0, 0);
+        }
+
+        if (bVisible || !gnKeyConfigColumn)
+        {
+            D2Win_10117_DrawText(CMDTBL_GetKeyText(gpListEntries[nIndex].nId, 1), KEYCFG_X + 0x1E + (gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3, nY + 0x12, TEXT_GetKeyConfigEntryState(nIndex, 1), 0);
+        }
+
+        if (bVisible || gnKeyConfigColumn)
+        {
+            D2Win_10117_DrawText(CMDTBL_GetKeyText(gpListEntries[nIndex].nId, 0), KEYCFG_X + 0x1E + 2 * ((gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3), nY + 0x12, TEXT_GetKeyConfigEntryState(nIndex, 0), 0);
+        }
+    }
+
+    D2CelContextStrc tCel;
+    memset(&tCel, 0, sizeof(tCel));
+    tCel.pCellFile = gpKeyConfigSliderCel;
+    tCel.nFrame = 13;
+    for (int j = 0; j < sub_KEYCFG_TrackCels(); ++j)
+        TEXTURE_CelDraw(&tCel, sub_KEYCFG_PanelRight() - 0x1F, KEYCFG_Y + 0x3B + j * 0x0C, -1, 5, 0);
+
+    tCel.nFrame = 14;
+    for (int k = 0; k < gnKeyConfigThumbScale; ++k)
+        TEXTURE_CelDraw(&tCel, sub_KEYCFG_PanelRight() - 0x20, gnKeyConfigThumbY + 0x0C + k * 0x0C, -1, 5, 0);
+
+    if (gbUpPressed_007C028C && sub_KEYCFG_IsOnUpArrow(nMouseX, nMouseY))
+        tCel.nFrame = 9;
+    else
+        tCel.nFrame = 11;
+    TEXTURE_CelDraw(&tCel, sub_KEYCFG_PanelRight() - 0x1F, KEYCFG_Y + 0x2F, -1, 5, 0);
+
+    if (gbDownPressed_007C0290 && sub_KEYCFG_IsOnDownArrow(nMouseX, nMouseY))
+        tCel.nFrame = 8;
+    else
+        tCel.nFrame = 10;
+    TEXTURE_CelDraw(&tCel, sub_KEYCFG_PanelRight() - 0x1F, KEYCFG_Y + ((KEYCFG_Y + 0x171) - KEYCFG_Y) - 0x40, -1, 5, 0);
+
+    for (unsigned int m = 0; m < 3; ++m)
+    {
+        int nColor;
+        if (m == gnKeyConfigPressedButton)
+            nColor = gaButtons_007246D8[m].nColor;
+        else
+            nColor = 4;
+        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(gaButtons_007246D8[m].nString), gaButtons_007246D8[m].nX + 10, KEYCFG_Y + ((KEYCFG_Y + 0x171) - KEYCFG_Y) - 0x12, nColor, 0);
+    }
+
+    if (GetTickCount() < gdwMessageTick_007C02C8 + 2000)
+    {
+        const int nCenterX = gnScreenWidth_0071146C / 2;
+        const int nTextY = KEYCFG_Y + ((KEYCFG_Y + 0x171) - KEYCFG_Y) + 0x1E;
+        const int nTextX = nCenterX - D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(gnMessage)) / 2;
+        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(gnMessage), nTextX, nTextY, 1, 1);
+    }
+
+    sub_00502EF0_SetFont(nOldFont);
+    ++gnBlink;
+}
+
+int __fastcall AITHINK_BaalThroneCheckAiParamFlag(D2AiTickParamStrc* pAiTickParam, int nFlag)
+{
+    return pAiTickParam->pAiControl->dwAiParam[1] & nFlag;
+}
+
+// 0x004A59D0
+int __stdcall TEXT_KeyConfigWheelMsg(D2HotkeyActionStrc* pAction)
+{
+    if (GAME_IsExitPending())
+    {
+        pAction->nState18 = 0;
+        return (int)pAction;
+    }
+
+    int nDuration = pAction->nValue0A / 120;
+    if (nDuration)
+    {
+        TEXT_ScrollKeyConfigList(-nDuration * 2);
+        sub_004B9A00(1, 0, 0, 0, 0);
+    }
+    pAction->nState18 = 1;
+    pAction->nState1C = 0;
+    return sub_00420290_HandleMsg(pAction);
+}
+
+// 0x004A5C70
+void __stdcall TEXT_CancelKeyConfigMsg(SMSGHANDLER_PARAMS* message)
+{
+    if (GAME_IsExitPending()) { message->bReturn = 0; return; }
+    if (global_00724728) {
+        if (!(message->lParam & REPEAT_MASK)) {
+            sub_00469D50();
+            UI_SetUIVar(UI_VARIABLE, 1, 0);
+            WARDENCLIENT_ToggleEscMenuUIState(0, 1);
+            sub_004B9A00(1, 0, 0, 0, 0);
+        }
+    } else global_00724728 = 1;
+    message->bReturn = 1;
+    message->lResult = 0;
+    sub_00420290_BreakHandlerChain(message);
+}
+
+// 0x004A5D00
+void __cdecl TEXT_RegisterKeyCaptureHandlers()
+{
+    gbKeyCaptureActive = 1;
+    sub_00455AE0_CloseUIVar(0xB);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyCaptureHandlers, 6);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyCaptureMButtonHandlers, 1);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyCaptureXButtonHandlers, 1);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyCaptureWheelHandlers, 1);
+}
+
+// 0x004A5DE0
+void __cdecl TEXT_CloseKeyCaptureHandlers()
+{
+    if (gbKeyCaptureActive)
+    {
+        AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureHandlers, 6);
+        AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureWheelHandlers, 1);
+        AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureXButtonHandlers, 1);
+        AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureMButtonHandlers, 1);
+        sub_00469D50();
+        sub_0046AA20(1, 0);
+        GAME_RegisterMouseHandlers();
+        sub_00466FE0();
+        gbKeyCaptureActive = 0;
+    }
+}
+
+// 0x004A5E60
+static void TEXT_ReleaseKeyConfigPress(int nX, int nY)
+{
+    if (gaPressed[0])
+    {
+        if (TEXT_IsOnSelectedLine(nX, nY) && gpListEntries[gnKeyConfigSelected].nId != 0x39)
+        {
+            sub_004A5D00();
+            sub_004B9A00(2, 0, 0, 0, 0);
+        }
+    }
+    if (gaPressed[6])
+    {
+        const int nButton = gnPressedButton_007C02B4;
+        if (nButton != 3 && TEXT_GetKeyConfigButtonAt(nX, nY) == nButton)
+        {
+            gaKeyConfigButtons[nButton].pfnClick();
+            sub_004B9A00(2, 0, 0, 0, 0);
+        }
+    }
+    gbKeyConfigPressRepeat = 0;
+    gaPressed[0] = 0;
+    gaPressed[1] = 0;
+    gaPressed[2] = 0;
+    gaPressed[3] = 0;
+    gaPressed[4] = 0;
+    gaPressed[5] = 0;
+    gaPressed[6] = 0;
+}
+
+// 0x004A5F10
+void __stdcall TEXT_KeyConfigButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (GAME_IsExitPending())
+    {
+        pMsg->bReturn = 0;
+        return;
+    }
+
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
+    TEXT_ReleaseKeyConfigPress(nX, nY);
+    gbRedraw = 0;
+    sub_004A4AD0_Press(nX, nY);
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
+// 0x004A6460
+void __cdecl TEXT_LoadLevelCels()
+{
+    gpLevelCel = sub_004520C0_LoadUiCelFile("Panel\\Level");
+    gpLevelSocketCel = sub_004520C0_LoadUiCelFile("Panel\\Levelsocket");
+}
+
+// 0x004A6480
+void __cdecl TEXT_FreeLevelCels()
+{
+    if (gpLevelCel)
+    {
+        ARCHIVE_FreeClientCellFile(gpLevelCel);
+        gpLevelCel = 0;
+    }
+    if (gpLevelSocketCel)
+    {
+        ARCHIVE_FreeClientCellFile(gpLevelSocketCel);
+        gpLevelSocketCel = 0;
+    }
+}
+
+// 0x004A64C0
+void __cdecl TEXT_UpdateLevelUpButtons()
+{
+    if (GAME_GetUIVarState(0xB))
+        return;
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (GAME_GetUIVarState(6))
+    {
+        if (!STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0))
+            UI_SetUIVar(6, 1, 0);
+    }
+    else
+    {
+        if (STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0) && !GAME_GetUIVarState(2))
+            UI_SetUIVar(6, 0, 0);
+    }
+    if (GAME_GetUIVarState(7))
+    {
+        if (STATLIST_GetUnitBaseStat(pPlayer, STAT_NEWSKILLS, 0) <= 0)
+            UI_SetUIVar(7, 1, 0);
+    }
+    else
+    {
+        if (STATLIST_GetUnitBaseStat(pPlayer, STAT_NEWSKILLS, 0) > 0 && !GAME_GetUIVarState(4))
+            UI_SetUIVar(7, 0, 0);
+    }
+}
+
+// 0x004A65E0
+int __cdecl TEXT_IsMouseOnStatButton()
+{
+    int nX = sub_00468730();
+    int nY = sub_00468740();
+    if (nX > gnScreenWidth / 2 - 0xC2 && nX < gnScreenWidth / 2 - 0xA0 && nY > gnScreenHeight - 0x2A && nY < gnScreenHeight - 8)
+        return 1;
+    return 0;
+}
+
+// 0x004A6630
+int __fastcall TEXT_IsInRightPanelButton(int nMode, int nX, int nY)
+{
+    switch (nMode)
+    {
+    case 1:
+        if (nX > (gnScreenWidth - gnScreenWidth / 2) - 73 && nX < (gnScreenWidth - gnScreenWidth / 2) - 40 && nY > gnScreenHeight - 138 && nY < gnScreenHeight - 102)
+            return 1;
+        return 0;
+    default:
+        if (nX > gnScreenWidth - 73 && nX < gnScreenWidth - 40 && nY > gnScreenHeight - 138 && nY < gnScreenHeight - 102)
+            return 1;
+        return 0;
+    }
+}
+
+// 0x004A6690
+int __cdecl TEXT_IsMouseOnSkillButton()
+{
+    int nX = sub_00468730();
+    int nY = sub_00468740();
+    if (nX > gnScreenWidth / 2 + 0xA3 && nX < gnScreenWidth / 2 + 0xC5 && nY > gnScreenHeight - 0x2A && nY < gnScreenHeight - 8)
+        return 1;
+    return 0;
+}
+
+void __stdcall sub_004A4AD0_Press(int nX, int nY)
+{
+    gnPressedButton_007C02B4 = 3;
+    if (gbKeyConfigPressRepeat)
+        return;
+
+    const int bInList = TEXT_IsInKeyConfigList(nX, nY);
+    const int bUp = TEXT_IsOnUpArrow(nX, nY);
+    const int bDown = TEXT_IsOnDownArrow(nX, nY);
+    const int bPageUp = TEXT_IsAboveThumb(nX, nY);
+    const int bThumb = TEXT_IsOnThumb(nX, nY);
+    const int bPageDown = TEXT_IsBelowThumb(nX, nY);
+    const int bButton = TEXT_GetKeyConfigButtonAt(nX, nY) != 3;
+
+    if (sub_F08_NoOtherPressed(7) && !bInList && !bUp && !bDown && !bPageUp && !bThumb && !bPageDown && !bButton)
+    {
+        gbKeyConfigPressRepeat = gbRedraw;
+        return;
+    }
+
+    if (sub_F08_NoOtherPressed(0) && (bInList || gaPressed[0]))
+    {
+        gaPressed[0] = gbRedraw;
+        if (gbRedraw)
+        {
+            const int nTop = sub_F08_ListTop();
+            if (nY < nTop + 0x28)
+                TEXT_MoveKeyConfigSelection(-1);
+            if (nY > nTop + 0x136)
+                TEXT_MoveKeyConfigSelection(1);
+
+            const int nOldD4 = gnKeyConfigColumn;
+            const int nOldSelected = gnKeyConfigSelected;
+            const int nLine = TEXT_GetKeyConfigLineAt(nY);
+            gnKeyConfigSelected = nLine;
+            gnKeyConfigColumn = TEXT_IsAbovePanelLine(nX);
+            if (gpListEntries[nLine].nId == 0x39)
+            {
+                gnKeyConfigColumn = nOldD4;
+                gnKeyConfigSelected = nOldSelected;
+            }
+        }
+    }
+
+    if (sub_F08_NoOtherPressed(1) && bUp)
+    {
+        gaPressed[1] = gbRedraw;
+        if (gbRedraw && GetTickCount() > gdwKeyConfigRepeatTick + 0x32)
+        {
+            gdwKeyConfigRepeatTick = GetTickCount();
+            TEXT_ScrollKeyConfigList(-1);
+        }
+    }
+
+    if (sub_F08_NoOtherPressed(2) && bDown)
+    {
+        gaPressed[2] = gbRedraw;
+        if (gbRedraw && GetTickCount() > gdwKeyConfigRepeatTick + 0x32)
+        {
+            gdwKeyConfigRepeatTick = GetTickCount();
+            TEXT_ScrollKeyConfigList(1);
+        }
+    }
+
+    if (sub_F08_NoOtherPressed(3) && bPageUp)
+    {
+        gaPressed[3] = gbRedraw;
+        if (gbRedraw && GetTickCount() > gdwKeyConfigRepeatTick + 0x32)
+        {
+            gdwKeyConfigRepeatTick = GetTickCount();
+            TEXT_ScrollKeyConfigList(1 - sub_F08_VisibleLines());
+        }
+    }
+
+    if (sub_F08_NoOtherPressed(4) && (bThumb || gaPressed[4]))
+    {
+        if (bThumb && !gaPressed[4] && gbRedraw)
+        {
+            gnDragThumbY = gnKeyConfigThumbY;
+            gnDragMouseY = nY;
+        }
+        gaPressed[4] = gbRedraw;
+        if (gbRedraw)
+        {
+            const int nTop = sub_F08_ListTop();
+            TEXT_ScrollKeyConfigList((gnDragThumbY - nTop - gnDragMouseY + nY - 0x2F)
+                * (gnThumbRange + 1) / sub_F08_TrackSpan() - gnKeyConfigFirstVisible);
+        }
+    }
+
+    if (sub_F08_NoOtherPressed(5) && bPageDown)
+    {
+        gaPressed[5] = gbRedraw;
+        if (gbRedraw && GetTickCount() > gdwKeyConfigRepeatTick + 0x32)
+        {
+            gdwKeyConfigRepeatTick = GetTickCount();
+            TEXT_ScrollKeyConfigList(sub_F08_VisibleLines() - 1);
+        }
+    }
+
+    if (sub_F08_NoOtherPressed(6) && bButton)
+    {
+        gaPressed[6] = gbRedraw;
+        gnPressedButton_007C02B4 = TEXT_GetKeyConfigButtonAt(nX, nY);
+    }
+}
+
+// 0x004A66E0
+void __stdcall TEXT_StatButtonDownMsg(SMSGHANDLER_PARAMS* message)
+{
+    int x = message->nXpos;
+    int y = message->nYpos;
+    const int nResolution = D2GFX_GetResolutionMode();
+    if (nResolution == 2 && GAME_GetUIVarState(nResolution + 7))
+    {
+        return;
+    }
+    int border = sub_0045AE90();
+    if (D2GFX_GetResolutionMode() != 2)
+    {
+        if (TEXT_IsInPanelButton(border, x, y))
+        {
+            gbStatButtonPressed = 1;
+            sub_004B9A00(4, 0, 0, 0, 0);
+            ROSTERPETS_HandleButtonDown(message);
+            if (border == 2 && NPCMENU_IsNpcTalkActive()) return;
+            message->bReturn = 1;
+            message->lResult = 0;
+            sub_00420290_BreakHandlerChain(message);
+            return;
+        }
+    }
+    else
+    {
+        if (TEXT_IsMouseOnStatButton())
+        {
+            gbStatButtonPressed = 1;
+            sub_004B9A00(4, 0, 0, 0, 0);
+            ROSTERPETS_HandleButtonDown(message);
+            if (border == 2 && NPCMENU_IsNpcTalkActive()) return;
+            message->bReturn = 1;
+            message->lResult = 0;
+            sub_00420290_BreakHandlerChain(message);
+            return;
+        }
+    }
+    message->bReturn = 0;
+}
+
+static inline void MarkRightButtonPressed()
+{
+    gbSkillButtonPressed = 1;
+    const int nClickSound = 4;
+    sub_004B9A00(nClickSound, 0, 0, 0, 0);
+}
+
+// 0x004A6790
+void __stdcall TEXT_SkillButtonDownMsg(SMSGHANDLER_PARAMS* message)
+{
+    int x = message->nXpos;
+    int y = message->nYpos;
+    const int nResolution = D2GFX_GetResolutionMode();
+    if (nResolution == 2 && GAME_GetUIVarState(nResolution + 7))
+        return;
+    int border = sub_0045AE90();
+    if (D2GFX_GetResolutionMode() != 2)
+    {
+        if (TEXT_IsInRightPanelButton(border, x, y))
+        {
+            MarkRightButtonPressed();
+            ROSTERPETS_HandleButtonDown(message);
+            if (border == 1 && NPCMENU_IsNpcTalkActive()) return;
+            message->bReturn = 1;
+            message->lResult = 0;
+            sub_00420290_BreakHandlerChain(message);
+            return;
+        }
+    }
+    else
+    {
+        if (TEXT_IsMouseOnSkillButton())
+        {
+            MarkRightButtonPressed();
+            ROSTERPETS_HandleButtonDown(message);
+            if (border == 1 && NPCMENU_IsNpcTalkActive()) return;
+            message->bReturn = 1;
+            message->lResult = 0;
+            sub_00420290_BreakHandlerChain(message);
+            return;
+        }
+    }
+    message->bReturn = 0;
+}
+
+static int __fastcall CLIENT_HitPanelButton(int nMode, int nX, int nY)
+{
+    return TEXT_IsInPanelButton(nMode, nX, nY);
+}
+
+// 0x004A6840
+void __stdcall TEXT_StatButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    int nX = pMsg->nXpos;
+    int nY = pMsg->nYpos;
+    if (D2GFX_GetResolutionMode() == 2 && GAME_GetUIVarState(9))
+    {
+        return;
+    }
+
+    ROSTERPETS_HandleButtonUp(pMsg);
+    if (D2GFX_GetResolutionMode() != 2)
+    {
+        if (gbStatButtonPressed && CLIENT_HitPanelButton(sub_0045AE90(), nX, nY))
+        {
+            gbStatButtonPressed = 0;
+            UI_SetUIVar(6, 1, 0);
+            UI_SetUIVar(2, 0, 0);
+            pMsg->bReturn = 1;
+            pMsg->lResult = 0;
+            sub_00420290_BreakHandlerChain(pMsg);
+            return;
+        }
+    }
+    else
+    {
+        if (gbStatButtonPressed && sub_004A65E0_IsInLeftButton())
+        {
+            gbStatButtonPressed = 0;
+            UI_SetUIVar(2, 0, 0);
+            pMsg->bReturn = 1;
+            pMsg->lResult = 0;
+            sub_00420290_BreakHandlerChain(pMsg);
+            return;
+        }
+    }
+
+    gbStatButtonPressed = 0;
+    pMsg->bReturn = 0;
+}
+
+static int __fastcall CLIENT_HitRightPanelButton(int nMode, int nX, int nY)
+{
+    return TEXT_IsInRightPanelButton(nMode, nX, nY);
+}
+
+// 0x004A6920
+void __stdcall TEXT_SkillButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    int nX = pMsg->nXpos;
+    int nY = pMsg->nYpos;
+    if (D2GFX_GetResolutionMode() == 2 && GAME_GetUIVarState(9))
+    {
+        return;
+    }
+
+    ROSTERPETS_HandleButtonUp(pMsg);
+    if (D2GFX_GetResolutionMode() != 2)
+    {
+        if (gbSkillButtonPressed && CLIENT_HitRightPanelButton(sub_0045AE90(), nX, nY))
+        {
+            gbSkillButtonPressed = 0;
+            UI_SetUIVar(7, 1, 0);
+            UI_SetUIVar(4, 0, 0);
+            pMsg->bReturn = 1;
+            pMsg->lResult = 0;
+            sub_00420290_BreakHandlerChain(pMsg);
+            return;
+        }
+    }
+    else
+    {
+        if (gbSkillButtonPressed && TEXT_IsMouseOnSkillButton())
+        {
+            gbSkillButtonPressed = 0;
+            UI_SetUIVar(4, 0, 0);
+            pMsg->bReturn = 1;
+            pMsg->lResult = 0;
+            sub_00420290_BreakHandlerChain(pMsg);
+            return;
+        }
+    }
+
+    gbSkillButtonPressed = 0;
+    pMsg->bReturn = 0;
+}
+
+// 0x004A6A00
+bool __stdcall TEXT_IsStatButtonHidden(int nArg)
+{
+    if (nArg == 3)
+        return true;
+    if (GAME_GetUIVarState(2))
+        return true;
+    if (GAME_GetUIVarState(0x16) && GAME_GetUIVarState(1))
+        return true;
+    if (GAME_GetUIVarState(0x16) && GAME_GetUIVarState(4))
+        return true;
+    return (bool)GAME_GetUIVarState(0xC);
+}
+
+// 0x004A6B30
+void __cdecl TEXT_DrawStatButton()
+{
+    const int nBorder = sub_0045AE90();
+    if (D2GFX_GetResolutionMode() != 2 && TEXT_IsStatButtonHidden(nBorder))
+    {
+        gbStatButtonPressed = 0;
+        return;
+    }
+
+    int nX;
+    if (nBorder == 2)
+        nX = gnScreenWidth / 2 + 0x28;
+    else
+        nX = 0x28;
+
+    D2CelContextStrc tContext;
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.nDirection = 0;
+    tContext.pCellFile = gpLevelSocketCel;
+    tContext.nFrame = 0;
+    const int nCelWidth = CelGetWidth(CelGetHandle(&tContext));
+    const int nTextWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF92));
+    if (D2GFX_GetResolutionMode() != 2)
+    {
+        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF92), nCelWidth / 2 - nTextWidth / 2 + nX + 1, gnScreenHeight - 0x8E, 0, 0);
+        TEXTURE_CelDraw(&tContext, nX, gnScreenHeight - 0x69, -1, 5, 0);
+    }
+
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.nDirection = 0;
+    tContext.pCellFile = gpLevelCel;
+    if (D2GFX_GetResolutionMode() != 2)
+    {
+        if (gbStatButtonPressed && TEXT_IsInPanelButton(nBorder, sub_00468730(), sub_00468740()))
+            tContext.nFrame = 1;
+        else
+            tContext.nFrame = 0;
+    }
+    else
+    {
+        if (gbStatButtonPressed && sub_004A65E0_IsInLeftButton())
+            tContext.nFrame = 1;
+        else
+            tContext.nFrame = 0;
+    }
+    CelGetWidth(CelGetHandle(&tContext));
+    D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF92));
+    if (D2GFX_GetResolutionMode() != 2)
+    {
+        TEXTURE_CelDraw(&tContext, nX + 3, gnScreenHeight - 0x6D, -1, 5, 0);
+        return;
+    }
+
+    if (sub_004A65E0_IsInLeftButton() && !GAME_GetUIVarState(9))
+        D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF92), gnScreenWidth / 2 - 0xB3, gnScreenHeight - 0x32, 0, 1);
+    TEXTURE_CelDraw(&tContext, gnScreenWidth / 2 - 0xC2, gnScreenHeight - 8, -1, 5, 0);
+}
+
+// 0x004A6D50
+bool __stdcall TEXT_IsSkillButtonHidden(int nArg)
+{
+    if (nArg == 3)
+        return true;
+    if (GAME_GetUIVarState(4))
+        return true;
+    if (GAME_GetUIVarState(0xC))
+        return true;
+    if (GAME_GetUIVarState(0x16) && GAME_GetUIVarState(1))
+        return true;
+    return false;
+}
+
+// 0x004A6E60
+void __cdecl TEXT_DrawSkillButton()
+{
+    const int nBorder = sub_0045AE90();
+    if (D2GFX_GetResolutionMode() != 2 && TEXT_IsSkillButtonHidden(nBorder))
+    {
+        gbSkillButtonPressed = 0;
+        return;
+    }
+
+    int nX;
+    if (nBorder == 1)
+        nX = gnScreenWidth - gnScreenWidth / 2 - 0x49;
+    else
+        nX = gnScreenWidth - 0x49;
+
+    D2CelContextStrc tContext;
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.nDirection = 0;
+    tContext.pCellFile = gpLevelSocketCel;
+    tContext.nFrame = 0;
+    const int nCelWidth = CelGetWidth(CelGetHandle(&tContext));
+    const int nTextWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF93));
+    if (D2GFX_GetResolutionMode() != 2)
+    {
+        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF93), nCelWidth / 2 - nTextWidth / 2 + nX + 1, gnScreenHeight - 0x8E, 0, 0);
+        TEXTURE_CelDraw(&tContext, nX, gnScreenHeight - 0x69, -1, 5, 0);
+    }
+
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.nDirection = 0;
+    tContext.pCellFile = gpLevelCel;
+    if (D2GFX_GetResolutionMode() != 2)
+    {
+        if (gbSkillButtonPressed && sub_004A6630_IsInPanelButton2(nBorder, sub_00468730(), sub_00468740()))
+            tContext.nFrame = 1;
+        else
+            tContext.nFrame = 0;
+    }
+    else
+    {
+        if (gbSkillButtonPressed && sub_004A6690_IsInRightButton())
+            tContext.nFrame = 1;
+        else
+            tContext.nFrame = 0;
+    }
+    CelGetWidth(CelGetHandle(&tContext));
+    D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF93));
+    if (D2GFX_GetResolutionMode() != 2)
+    {
+        TEXTURE_CelDraw(&tContext, nX + 3, gnScreenHeight - 0x6D, -1, 5, 0);
+        return;
+    }
+
+    if (sub_004A6690_IsInRightButton() && !GAME_GetUIVarState(9))
+        D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF93), gnScreenWidth / 2 + 0xB2, gnScreenHeight - 0x32, 0, 1);
+    TEXTURE_CelDraw(&tContext, gnScreenWidth / 2 + 0xA3, gnScreenHeight - 8, -1, 5, 0);
+}
+
+// 0x004A70C0
+static int TEXT_GetWeaponBlock(D2UnitStrc* pUnit)
+{
+    int i;
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    D2UnitStrc* pRightItem = 0;
+    D2UnitStrc* pLeftItem = 0;
+    if (pInventory)
+    {
+        pRightItem = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
+        pLeftItem = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
+    }
+
+    D2StatStrc aStats[0x20];
+    const int nCount = STATLIST_CopyStats(pUnit, STAT_PASSIVE_WEAPONBLOCK, aStats, 0x20);
+    int nBest = 0;
+    for (i = 0; i < nCount; ++i)
+    {
+        const int nItemType = aStats[i].nLayer;
+        const int nValue = aStats[i].nValue;
+        if (nItemType <= 0)
+        {
+            nBest = nValue;
+        }
+        else if (pLeftItem && ITEMSIsA(pLeftItem, nItemType))
+        {
+            if (nValue > nBest)
+            {
+                nBest = nValue;
+            }
+        }
+        else if (pRightItem && ITEMSIsA(pRightItem, nItemType))
+        {
+            if (nValue > nBest)
+            {
+                nBest = nValue;
+            }
+        }
+    }
+
+    return nBest;
+}
+
+// 0x004A7180
+static void TEXT_DrawBlockChanceHover(int nX, int nY, int nValue)
+{
+    if (nValue < 5)
+    {
+        nValue = 5;
+    }
+    else if (nValue > 0x5F)
+    {
+        nValue = 0x5F;
+    }
+
+    Unicode wszText[0x80];
+    if (nX < gnPanelOffsetX + 0xAD || nX > gnPanelOffsetX + 0x137
+        || nY < gnScreenHeight + gnPanelOffsetY - 0x11E || nY > gnScreenHeight + gnPanelOffsetY - 0x10B)
+    {
+        return;
+    }
+
+    D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
+    int nLevel = UNITS_GetBlockRate(pPlayer, GAME_IsExpansion());
+    if (nLevel <= 0)
+    {
+        nLevel = TEXT_GetWeaponBlock(pPlayer);
+        if (nLevel > 0)
+        {
+            int nWeaponClass;
+            COMPOSIT_GetWeaponClassId(pPlayer, pPlayer->pInventory, &nWeaponClass, -1, 1);
+            if (nWeaponClass != 0x0D)
+            {
+                nLevel = 0;
+            }
+        }
+    }
+
+    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(UI_GetHoverClassId());
+    D2_ASSERT(pMonStatsTxtRecord, 0x15C);
+
+    if (nLevel)
+    {
+        sub_005269D0(0x80, wszText, D2LANG_GetStringFromTblIndex(0x2779), nLevel, nValue, D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), nValue);
+    }
+    else
+    {
+        sub_005269D0(0x80, wszText, D2LANG_GetStringFromTblIndex(0x2778), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), nValue);
+    }
+
+    D2Win_10132(wszText, gnPanelOffsetX + 0x8B, gnScreenHeight + gnPanelOffsetY - 0x13B, gnTextColor, 2, 0);
+}
+
+void __stdcall sub_I10_Emit_004A7180(int nX, int nY, int nValue)
+{
+    TEXT_DrawBlockChanceHover(nX, nY, nValue);
+}
+
+static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord_Inl(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    }
+
+    return 0;
+}
+
+static inline D2CharStatsTxt* DATATBLS_GetCharStatsTxtRecord_Inl(int nClass)
+{
+    if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pCharStatsTxt[nClass];
+    }
+
+    return 0;
+}
+
+// 0x004A7300
+static int TEXT_AddToHitFactor(D2UnitStrc* pUnit, int nAttackRate)
+{
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
+    {
+        D2CharStatsTxt* pCharStatsTxtRecord = DATATBLS_GetCharStatsTxtRecord_Inl(pUnit->dwClassId);
+        if (pCharStatsTxtRecord)
+        {
+            nAttackRate += pCharStatsTxtRecord->dwToHitFactor;
+        }
+    }
+
+    return nAttackRate;
+}
+
+int __fastcall sub_004A70C0_Emit(int nArg, D2UnitStrc* pUnit)
+{
+    int nValue = TEXT_GetWeaponBlock(pUnit);
+    return nValue > 0 ? nValue : nArg;
+}
+
+inline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    }
+
+    return 0;
+}
+
+// 0x004A7340
+int __stdcall TEXT_GetChanceToHit(int nAttackRate)
+{
+    if (!nAttackRate)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    int nPercent = 100;
+    const int nDifficulty = GAME_GetDifficulty();
+    D2_ASSERT(nDifficulty < 3, 398);
+
+    const int nMonsterId = sub_00466DC0();
+    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(nMonsterId);
+    D2_ASSERT(pMonStatsTxtRecord, 403);
+
+    D2MonStatsInitStrc monStatsInit;
+    memset(&monStatsInit, 0, sizeof(monStatsInit));
+    DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, GAME_GetLadderFlag(), nDifficulty, pMonStatsTxtRecord->nLevel[nDifficulty], 2, &monStatsInit);
+    int nDefense = monStatsInit.nAC;
+    if (pMonStatsTxtRecord->nAlign != 1 && !GAME_IsExpansion() && GAME_GetDifficulty())
+    {
+        nDefense = nDefense * 10 / 12;
+    }
+
+    int nToHit = TEXT_AddToHitFactor(pPlayer, nAttackRate);
+    if (nDefense < 0)
+    {
+        nToHit -= nDefense;
+        nDefense = 0;
+    }
+
+    if (nToHit < 0)
+    {
+        nDefense -= nToHit;
+        nToHit = 0;
+    }
+
+    if (nToHit || nDefense)
+    {
+        nDefense += nToHit;
+        nToHit *= 100;
+        nPercent = nToHit / nDefense;
+    }
+
+    const int nPlayerLevel = STATLIST_UnitGetStatValue(pPlayer, STAT_LEVEL, 0);
+    const int nChance = 2 * nPlayerLevel * nPercent / (pMonStatsTxtRecord->nLevel[nDifficulty] + nPlayerLevel);
+    if (nChance < 5)
+    {
+        return 5;
+    }
+    if (nChance > 95)
+    {
+        return 95;
+    }
+    return nChance;
+}
+
+// 0x004A7660
+int __fastcall TEXT_SplitAtNewline(Unicode* wszText, Unicode** ppNext)
+{
+    Unicode* pChar = wszText;
+    *ppNext = 0;
+    int nLen = sub_00526800(wszText);
+    int i = 0;
+    while (pChar->wChar)
+    {
+        if (pChar->wChar == '\n')
+        {
+            wszText[i].wChar = 0;
+            if (i >= nLen)
+                return 0;
+            *ppNext = pChar + 1;
+            return 1;
+        }
+        ++pChar;
+        ++i;
+    }
+    return 0;
+}
+
+// 0x004A7A90
+void __cdecl TEXT_SetGoldDialogFlag()
+{
+    gnFlag_007C02EC = 1;
+}
+
+// 0x004A7AD0
+void __cdecl sub_004A7AD0()
+{
+}
+
+// 0x004B23E0
+void __cdecl TEXT_InitNpcMenu()
+{
+    char szPath[0x104];
+    gbWaitSoundScheduled = 0;
+    gbWaitSoundPlayed = 0;
+    GetTickCount();
+    memset(gabNpcMenuState, 0, 0x160);
+    gpGlobal_007C0D43 = QUESTRECORD_AllocRecord(0);
+    gpGlobal_007C0D47 = QUESTRECORD_AllocRecord(0);
+// build: symbol ?gnNpcMenuState@* 0x007C0C6B
+    gnNpcMenuState = 0;
+    sprintf(szPath, "%s\\ui\\panel\\buysell", gszDataGlobal);
+    gpBuySellCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    sprintf(szPath, "%s\\ui\\menu\\goldbtn", gszDataGlobal);
+    gpGoldBtnCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+// build: symbol ?gnTradeRequestFailCount@* 0x007C0DED
+    gnTradeRequestFailCount = 0;
+// build: symbol ?gbTradeClickPending@* 0x007C0DE0
+    gbTradeClickPending = 0;
+// build: symbol ?gdwLastTradeSendTick@* 0x007C0DF1
+    gdwLastTradeSendTick = 0;
+// build: symbol ?gdwTradeRequestTick@* 0x007C0DE9
+    gdwTradeRequestTick = 0;
+}
+
+// 0x004B9010
+void __fastcall TEXT_SetNameFromPacket(D2NamePacketStrc* pPacket)
+{
+    char szName[16];
+    memcpy(szName, pPacket->szName, 16);
+    szName[15] = 0;
+    sub_00526F20_ToUnicode(gwszName_007C0E84, szName, 16);
+    gnTradePartnerUnitId = *(int*)pPacket->nValue;
+}
+
+// 0x004BF2F0
+int ListBoxView::ClickScrollTrack(SMSGHANDLER_PARAMS* pMsg)
+{
+    const int nMouseY = pMsg->nYpos;
+    const unsigned short nCount = nEntryCount;
+    const int nTop = nY;
+
+    if (nCount && nVisibleRows <= nCount && nMouseY - nTop > 0)
+    {
+        if (nThumbStart != nThumbEnd)
+        {
+            if (nMouseY < nTop + 12 * nThumbStart + 13)
+            {
+                if (nSelectedIndex - nVisibleRows > 0)
+                    nSelectedIndex = nSelectedIndex - nVisibleRows;
+                else
+                    nSelectedIndex = 0;
+            }
+            else
+            {
+                if (nMouseY <= nY + 12 * nThumbEnd + 13)
+                {
+                    return 0;
+                }
+
+                if (nSelectedIndex + nVisibleRows >= nCount)
+                    nSelectedIndex = nCount - 1;
+                else
+                    nSelectedIndex = nSelectedIndex + nVisibleRows;
+                if (nCount - nSelectedIndex < nVisibleRows)
+                {
+                    if (nCount >= nVisibleRows)
+                    {
+                        nSelectedIndex = nCount - nVisibleRows;
+                    }
+                    else
+                    {
+                        nSelectedIndex = 0;
+                    }
+                }
+            }
+
+            if (nSelectedIndex >= 0x80)
+            {
+                nSelectedIndex = D2_MAX(0, nCount - 1);
+            }
+
+            nTopIndex = nSelectedIndex;
+            sub_004B9A00(1, 0, 0, 0, 0);
+            sub_004BE8D0_Refresh();
+            return 1;
+        }
+
+        return 0;
+    }
+
+    return 0;
+}
+
+// 0x004E48B0
+void __fastcall TEXT_AppendUndeadDamageBonus(D2UnitStrc* pUnused, Unicode* wszOut, int nUnused)
+{
+    Unicode wszText[0x80];
+    const Unicode* wszA = D2LANG_GetStringFromTblIndex(0xFA2);
+    const Unicode* wszB = D2LANG_GetStringFromTblIndex(0xF9E);
+    const Unicode* wszC = D2LANG_GetStringFromTblIndex(0xF9B);
+    const Unicode* wszD = D2LANG_GetStringFromTblIndex(0xFA1);
+    Unicode wszNumber[10];
+    char szNumber[10];
+// build: symbol ?gszFormatI@* 0x006D6454
+    SStrPrintf(szNumber, 10, gszFormatI, 0x32);
+    sub_00526320_ToUnicode(wszNumber, szNumber, 9);
+    sub_00526700(wszText, wszA);
+    sub_00526700(wszText, wszNumber);
+    sub_00526700(wszText, wszD);
+    sub_00526700(wszText, wszC);
+    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xDE2));
+    sub_00526700(wszText, wszB);
+    sub_00526700(wszOut, wszText);
+}
+
+// 0x004E6720
+void __fastcall TEXT_BuildItemPropTextB(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4)
+{
+    sub_0065FEC0_ItemApplyProps(5, 0, pItem, nArg, nArg2, 0);
+    Unicode wszBuffer[1024];
+    wszBuffer[0].wChar = 0;
+    sub_004E6410_BuildPropText(pItem, wszBuffer, nArg3, 1, nArg4);
+    sub_00526700(wszText, wszBuffer);
+
+    D2StatListStrc* pStatList = sub_00625790_UnitFindStatList(pItem, 0, 0x40);
+    if (pStatList)
+    {
+        D2Common_10474(pItem, pStatList);
+        STATLIST_FreeStatList(pStatList);
+    }
+
+    if (wszText[sub_00526800(wszText) - 1].isNewline())
+    {
+        wszText[sub_00526800(wszText) - 1].wChar = 0;
+    }
+}
+
+// 0x004ED3F0
+void __stdcall TEXT_DrawHintText(int nArg1, int nStringIndex)
+{
+    Unicode wszText[100];
+    sub_005269D0(100, wszText, D2LANG_GetStringFromTblIndex(0x1058), nArg1);
+    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
+    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringIndex));
+    D2Win_10129_DrawFramedText(wszText, gnScreenWidth - 0x80, gnScreenHeight - 0x34, 0, 1);
+}
+
+// 0x006CACD0
+void __cdecl TEXT_InitQuestTextBuffer()
+{
+    new (&data_007BF298) D2QuestTextBufferStrc;
+}
 
 #include "gen/data/Source/D2Client/UI/text.inc"

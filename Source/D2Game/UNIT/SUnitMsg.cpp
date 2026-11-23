@@ -407,27 +407,6 @@ static inline D2ItemStatCostTxt* GetStatCostRecord(int nStat)
     return 0;
 }
 
-// 0x00576890
-int __fastcall SUNITNPC_CapStoreItemLevel(D2GameStrc* pGame, D2UnitStrc* pNpc, int nLevel)
-{
-    if (pGame->nDifficulty == DIFFMODE_NORMAL)
-    {
-        int nUnused;
-        D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromUnit(pGame, pNpc, &nUnused);
-        if (pNpcRecord)
-        {
-            const int npcLevels[NPC_LEVEL_COUNT] = { 12, 20, 28, 36, 45 };
-            if (pNpcRecord->nAct < NPC_LEVEL_COUNT)
-            {
-                const int nCap = npcLevels[pNpcRecord->nAct];
-                return nCap < nLevel ? nCap : nLevel;
-            }
-        }
-    }
-
-    return nLevel;
-}
-
 // 0x005711D0
 void __fastcall D2GAME_STATES_SendUnitStateUpdates_6FCC5BE0(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
@@ -971,61 +950,6 @@ int __fastcall PLRINTRO_GetQuestIntroFlag(D2UnitStrc* pUnit, D2GameStrc* pGame, 
 void __fastcall PLRINTRO_MaskNpcIntroFlag(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nNpcId); // 0x005724C0
 void __fastcall MONSTER_ClearTargetIfMatches(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00573750
 
-// 0x005749B0
-void __fastcall PLAYERPETS_UpdatePetInfo(D2UnitStrc* pUnit, int nPetType, int nUnitGUID, D2PetInfoStrc* pPetInfo)
-{
-    D2PlayerPetStrc* pPlayerPets = UNITS_GetPlayerData(pUnit)->pPlayerPets;
-    if (!pPlayerPets || nPetType < 0 || nPetType >= sgptDataTables->nPetTypeTxtRecordCount)
-    {
-        return;
-    }
-
-    D2PetListStrc* pPetList = &pPlayerPets->pPetList[nPetType];
-    if (!pPetList)
-    {
-        return;
-    }
-
-    for (D2PetDataStrc* pPetData = pPetList->pPetData; pPetData; pPetData = pPetData->pNext)
-    {
-        if (pPetData->nUnitGUID == nUnitGUID)
-        {
-            pPetData->petInfo = *pPetInfo;
-        }
-    }
-}
-
-// 0x00576ED0
-bool __fastcall SUNITNPC_IsPermanentStoreItem(D2GameStrc* pGame, D2UnitStrc* pNpc, D2UnitStrc* pItem)
-{
-    int nUnused;
-    D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromUnit(pGame, pNpc, &nUnused);
-    if (!pNpcRecord)
-    {
-        return false;
-    }
-
-    const int nCode = ITEMS_GetBaseCode(pItem);
-    if (pGame->nDifficulty > DIFFMODE_NORMAL)
-    {
-
-        if (nCode == 0x20347068 || nCode == 0x20357068 || nCode == 0x2034706D || nCode == 0x2035706D)
-        {
-            return true;
-        }
-    }
-
-    for (int i = 0; i < pNpcRecord->nPermStoreItems; ++i)
-    {
-        if (nCode == pNpcRecord->pPermStoreItems[i])
-        {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 // 0x00571620
 void __fastcall SUNITMSG_SendHoverText(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
@@ -1111,41 +1035,6 @@ void __fastcall SUNITMSG_SendQueuedMessages(D2UnitStrc* pUnit, D2ClientStrc* pCl
             break;
         }
     }
-}
-
-// 0x00585160
-int __fastcall OBJMODE_ObeliskPowerUp_IncreaseEnergy(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
-{
-    sub_006272B0_UnitStatListCall(pUnit, 1, nValue, 0);
-    return 1;
-}
-
-// 0x00585180
-int __fastcall OBJMODE_ObeliskPowerUp_IncreaseDexterity(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
-{
-    sub_006272B0_UnitStatListCall(pUnit, 2, nValue, 0);
-    return 1;
-}
-
-// 0x005851A0
-int __fastcall OBJMODE_ObeliskPowerUp_IncreaseVitality(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
-{
-    sub_006272B0_UnitStatListCall(pUnit, 3, nValue, 0);
-    return 1;
-}
-
-// 0x005851C0
-int __fastcall OBJMODE_ObeliskPowerUp_IncreaseStrength(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
-{
-    sub_006272B0_UnitStatListCall(pUnit, 0, nValue, 0);
-    return 1;
-}
-
-// 0x00585220
-int __fastcall OBJMODE_ObeliskPowerUp_IncreaseSkillpoints(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
-{
-    sub_006272B0_UnitStatListCall(pUnit, 5, nValue, 0);
-    return 1;
 }
 
 void __fastcall sub_M120_Emit_00571790(D2UnitStrc* pUnit, D2UnitPacketListStrc* pMsg)

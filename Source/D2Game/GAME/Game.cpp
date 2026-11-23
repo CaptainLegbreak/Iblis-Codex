@@ -1089,8 +1089,6 @@ struct D2UnkPlrMsgStrc
     int field_8;
 };
 
-extern "C" const char gszQuestsSourceFile[]; // 0x006E0BE4
-
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 extern D2UnkPlrMsgStrc gaUnitModeMessages[20]; // 0x007319E8
@@ -2794,34 +2792,9 @@ void __fastcall PLAYER_InitializePosition(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     EVENT_SetEvent(pGame, pUnit, EVENTTYPE_DELAYEDPORTAL, pGame->dwGameFrame + 250, 0, 0);
 }
 
-// 0x005356F0
-void __fastcall PLAYER_CountPlayersInLevelCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg)
-{
-    D2UnitProxyArgStrc* pCount = (D2UnitProxyArgStrc*)pArg;
-    if (DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit)) == pCount->nLevelId && pUnit && pUnit->dwAnimMode != PLRMODE_DEATH && pUnit->dwAnimMode != PLRMODE_DEAD)
-    {
-        ++pCount->nCounter;
-    }
-}
+void __fastcall PLAYER_CountPlayersInLevelCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg); // 0x005356F0
 
-// 0x00535730
-int __fastcall PLAYER_CountPlayersInLevel(D2GameStrc* pGame, int nLevelId)
-{
-    D2UnitProxyArgStrc arg = {};
-    arg.nLevelId = nLevelId;
-    SUNIT_IterateLivingPlayers(pGame, PLAYER_CountPlayersInLevelCallback, &arg);
-    return arg.nCounter;
-}
-
-// 0x00535760
-void __fastcall PLAYER_CountLivingPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pLivingPlayers)
-{
-    if (!SUNIT_IsDead(pUnit))
-    {
-        ++*((int*)pLivingPlayers);
-    }
-}
-
+void __fastcall PLAYER_CountLivingPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pLivingPlayers); // 0x00535760
 static inline D2MonStatsTxt* DESC_GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -2829,61 +2802,7 @@ static inline D2MonStatsTxt* DESC_GetMonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
-// 0x00535790
-int __fastcall PLAYER_GetPlayerCount(D2GameStrc* pGame)
-{
-    int nLivingPlayers = 0;
-    SUNIT_IterateLivingPlayers(pGame, PLAYER_CountLivingPlayers, &nLivingPlayers);
-
-    switch (pGame->nGameType)
-    {
-    case 1:
-    case 2:
-    case 3:
-        if (gnVirtualPlayerCount > nLivingPlayers)
-        {
-            return gnVirtualPlayerCount;
-        }
-        break;
-    }
-
-    return nLivingPlayers;
-}
-
-// 0x00535AF0
-void __fastcall PLAYER_CheckHostilityCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs)
-{
-    D2RosterIterateStrc* pRosterIterate = (D2RosterIterateStrc*)pArgs;
-    if (PLAYERLIST_CheckFlag(pRosterIterate->pUnit, pUnit, 8))
-    {
-        pRosterIterate->bFlag = 1;
-    }
-}
-
-// 0x00535B50
-void __fastcall PLAYER_CheckHostileToUnitCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs)
-{
-    D2RosterIterateStrc* pRosterIterate = (D2RosterIterateStrc*)pArgs;
-    if (PLAYERLIST_CheckFlag(pUnit, pRosterIterate->pUnit, 8))
-    {
-        pRosterIterate->bFlag = 1;
-    }
-}
-
-// 0x00535B80
-int __fastcall PLAYER_IsAnyPlayerHostileTo(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    if (!pGame || !pUnit || pUnit->dwUnitType != UNIT_PLAYER)
-    {
-        return 0;
-    }
-
-    D2RosterIterateStrc rosterIterate = {};
-    rosterIterate.bFlag = 0;
-    rosterIterate.pUnit = pUnit;
-    SUNIT_IterateLivingPlayers(pGame, PLAYER_CheckHostileToUnitCallback, &rosterIterate);
-    return rosterIterate.bFlag;
-}
+void __fastcall PLAYER_CheckHostileToUnitCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs); // 0x00535B50
 
 // 0x00535EA0
 D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromClassId(D2GameStrc* pGame, int nNpcClassId, int* pIndex)
@@ -2907,100 +2826,8 @@ D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromUnit(D2GameStrc* pGame, D
     return SUNITPROXY_GetNpcRecordFromClassId(pGame, !pNpc ? -1 : pNpc->dwClassId, pIndex);
 }
 
-// 0x00536820
-void __fastcall SUNITPROXY_CountPlayersInLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg)
-{
-    D2UnitProxyArgStrc* pUnitProxyArg = (D2UnitProxyArgStrc*)pArg;
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (pRoom && pUnitProxyArg->nLevelId == DUNGEON_GetLevelIdFromRoom(pRoom))
-    {
-        ++pUnitProxyArg->nCounter;
-    }
-}
-
-// 0x00536B20
-D2InventoryStrc* __fastcall SUNITPROXY_GetNpcInventory(D2GameStrc* pGame, int nNpc)
-{
-    int nUnused;
-    return SUNITPROXY_GetNpcRecordFromClassId(pGame, nNpc, &nUnused)->pInventory;
-}
-
-// 0x00536C50
-D2InventoryStrc* __fastcall SUNITPROXY_GetGambleInventory(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc)
-{
-    int nUnused;
-    D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromClassId(pGame, !pNpc ? -1 : pNpc->dwClassId, &nUnused);
-    if (!pNpcRecord || !pNpcRecord->bGambleInit)
-    {
-        return 0;
-    }
-
-    const int nPlayerGUID = !pPlayer ? -1 : pPlayer->dwUnitId;
-    for (D2NpcGambleStrc* pGamble = pNpcRecord->pGamble; pGamble; pGamble = pGamble->pNext)
-    {
-        if (pGamble->dwGUID == nPlayerGUID)
-        {
-            return pGamble->pInventory;
-        }
-    }
-
-    return 0;
-}
-
-// 0x005384E0
-void __fastcall CLIENTS_RemoveUnitIfNotAdjacent(D2ClientStrc* pClient, D2UnitStrc* pUnit)
-{
-    D2_ASSERT(pClient, 2131);
-
-    D2ActiveRoomStrc* pUnitRoom = UNITS_GetRoom(pUnit);
-    D2ActiveRoomStrc* pClientRoom = pClient->hRoom;
-    D2_ASSERT(pClientRoom, 2137);
-
-    D2ActiveRoomStrc** ppRoomList;
-    unsigned int nNumRooms;
-    DUNGEON_GetAdjacentRoomsListFromRoom(pClientRoom, &ppRoomList, &nNumRooms);
-
-    unsigned int i = 0;
-    for (; i < nNumRooms; ++i)
-    {
-        D2ActiveRoomStrc* pRoom = ppRoomList[i];
-        D2_ASSERT(pRoom, 2142);
-        if (pUnitRoom == pRoom)
-        {
-            break;
-        }
-    }
-
-    if (i >= nNumRooms)
-    {
-        SUNITMSG_SendRemoveObject(pUnit, pClient);
-    }
-}
-
 void __fastcall LEVEL_SynchronizeDayNightCycleWithClient(D2GameStrc* pGame, D2ClientStrc* pClient); // 0x0053ABE0
 void __fastcall LEVEL_UpdateQueuedUnitsInAllActs(D2GameStrc* pGame); // 0x0053B000
-
-// 0x0053DE20
-void __fastcall SCMD_BroadcastPlayerRelationship(D2GameStrc* pGame, int dwPlayerId1, int dwPlayerId2, short wRelationState)
-{
-    D2GSPacketSrv8C packet8C;
-    packet8C.nHeader = 0x8C;
-    packet8C.dwPlayerGUID1 = dwPlayerId1;
-    packet8C.dwPlayerGUID2 = dwPlayerId2;
-    packet8C.nFlags = wRelationState;
-    SUNIT_IterateLivingPlayers(pGame, SCMD_SendPlayerRelationshipCallback, &packet8C);
-}
-
-// 0x0053DF80
-void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(D2GameStrc* pGame, int nUnitId, int nCorpseId, unsigned char bAssign)
-{
-    D2GSPacketSrv8E packet8E;
-    packet8E.nHeader = 0x8E;
-    packet8E.dwPlayerGUID = nUnitId;
-    packet8E.dwCorpseGUID = nCorpseId;
-    packet8E.nType = bAssign;
-    SUNIT_IterateLivingPlayers(pGame, SCMD_SendCorpseAssignCallback, &packet8E);
-}
 
 // 0x005404C0
 void __fastcall PARTY_AddLivingMemberLevelCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs)
@@ -3089,38 +2916,7 @@ char* __fastcall sub_004167F0_LinkNext(D2StormLinkStrc* pLink)
     return (int)pLink->m_next > 0 ? pLink->m_next : 0;
 }
 
-// 0x00548180
-void __fastcall PLRMSG_SendWalkMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int nAnimMode)
-{
-    if (pUnit != CLIENTS_GetPlayerFromClient(pClient, 0))
-    {
-        D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-        if (pTarget && CLIENTS_IsInUnitsRoom(pTarget, pClient))
-        {
-            const int nTargetGUID = pTarget->dwUnitId;
-            const int nTargetType = pTarget->dwUnitType;
-            const int nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
-            D2GAME_PACKETS_SendPacket0x10_6FC3C9A0(pClient, 0x10, 0, nUnitGUID, (unsigned char)gaUnitModeMessages[nAnimMode].field_8, nTargetType, nTargetGUID, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
-        }
-        else
-        {
-            D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-            int nY;
-            if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > UNIT_MISSILE && pUnit->dwUnitType <= UNIT_TILE))
-                nY = pUnit->pStaticPath->tGameCoords.nY;
-            else
-                nY = pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-            int nX;
-            if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > UNIT_MISSILE && pUnit->dwUnitType <= UNIT_TILE))
-                nX = pUnit->pStaticPath->tGameCoords.nX;
-            else
-                nX = pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-            const int nUnitId = pUnit->dwUnitId;
-            D2GAME_PACKETS_SendPacket0x0F_6FC3CA00(pClient, 0x0F, 0, nUnitId, (unsigned char)gaUnitModeMessages[nAnimMode].field_4, D2COMMON_10175_PathGetFirstPointX(pPath), D2COMMON_10176_PathGetFirstPointY(pPath), 0, nX, nY);
-        }
-    }
-}
-
+void __fastcall PLRMSG_SendWalkMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int nAnimMode); // 0x00548180
 // 0x00549FA0
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x0B_6FC83EE0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
@@ -3750,53 +3546,7 @@ D2GameStrc* D2GameDataTableStrc::sub_00530820_New(unsigned int nHashVal, HASHKEY
     return pNode;
 }
 
-// 0x00543E10
-void __fastcall QUESTS_QuestUpdater(D2GameStrc* pGame)
-{
-    D2QuestInfoStrc* pQuestControl = pGame->pQuestControl;
-    if (!pQuestControl)
-        return;
-    ++pQuestControl->dwTick;
-    if (pQuestControl->dwTick == -1)
-    {
-        for (D2QuestTimerStrc* i = pQuestControl->pTimer; i; i = i->pNext)
-            i->dwTicks = -1 - i->dwTicks;
-    }
-    pQuestControl->bExecuting = 1;
-    D2QuestTimerStrc* pTimer = pQuestControl->pTimer;
-    D2QuestTimerStrc* pPrev = 0;
-    while (pTimer)
-    {
-        D2QuestTimerStrc* pNext = pTimer->pNext;
-        if (pTimer->dwTicks < pQuestControl->dwTick)
-        {
-            D2_ASSERT(!IsBadCodePtr((FARPROC)pTimer->pfUpdate), 0x3F0);
-            if (pTimer->pfUpdate(pGame, pTimer->pQuest) == 1)
-            {
-                if (!pPrev)
-                {
-                    pQuestControl->pTimer = pTimer->pNext;
-                    FOG_FreeServerMemory(pGame->pMemoryPool, pTimer, gszQuestsSourceFile, 0x3F7, 0);
-                    pTimer = 0;
-                }
-                else
-                {
-                    pPrev->pNext = pTimer->pNext;
-                    FOG_FreeServerMemory(pGame->pMemoryPool, pTimer, gszQuestsSourceFile, 0x3FE, 0);
-                    pTimer = pPrev;
-                }
-            }
-            else
-            {
-                pTimer->dwTicks = pQuestControl->dwTick + pTimer->dwTimeout;
-            }
-        }
-        pPrev = pTimer;
-        pTimer = pNext;
-    }
-    pQuestControl->bExecuting = 0;
-}
-
+void __fastcall QUESTS_QuestUpdater(D2GameStrc* pGame); // 0x00543E10
 // 0x0052FEE0
 D2GameStrc* __fastcall GAME_GetGameByClientId(int nClientId)
 {
@@ -5191,76 +4941,7 @@ static D2MonStatsTxt* SUNITPROXY_GetMonStatsTxtRecordInline(int nMonsterId)
     return 0;
 }
 
-// 0x00536F80
-void __fastcall SUNITPROXY_FillGlobalItemCache()
-{
-    const int nRecordCount = sgptDataTables->nMonStatsTxtRecordCount;
-    for (int i = 0; i < nRecordCount; ++i)
-    {
-        D2MonStatsTxt* pMonStatsTxtRecord = SUNITPROXY_GetMonStatsTxtRecordInline(i);
-        int bInteract = 0;
-        if (pMonStatsTxtRecord)
-            bInteract = pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_INTERACT >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_INTERACT & 7];
-        if (bInteract)
-        {
-            switch (i)
-            {
-            case MONSTER_HALBU:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(12);
-                break;
-            case MONSTER_ALKOR:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(7);
-                break;
-            case MONSTER_CHARSI:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(2);
-                break;
-            case MONSTER_FARA:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(3);
-                break;
-            case MONSTER_ASHEARA:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(10);
-                break;
-            case MONSTER_HRATLI:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(6);
-                break;
-            case MONSTER_AKARA:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(0);
-                break;
-            case MONSTER_DROGNAN:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(5);
-                break;
-            case MONSTER_LYSANDER:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(4);
-                break;
-            case MONSTER_ORMUS:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(8);
-                break;
-            case MONSTER_GHEED:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(1);
-                break;
-            case MONSTER_ELZIX:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(9);
-                break;
-            case MONSTER_JAMELLA:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(13);
-                break;
-            case MONSTER_DREHYA:
-            case MONSTER_NIHLATHAK:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(16);
-                break;
-            case MONSTER_MALAH:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(14);
-                break;
-            case MONSTER_LARZUK:
-                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(15);
-                break;
-            default:
-                break;
-            }
-        }
-    }
-}
-
+void __fastcall SUNITPROXY_FillGlobalItemCache(); // 0x00536F80
 // 0x0052F2C0
 int __stdcall GAME_GetUnitsInfoById(unsigned short nGameId, int nMaxCount, D2UnitInfoStrc* pUnitInfo, int* pUnitType, int* pUnitGUID)
 {

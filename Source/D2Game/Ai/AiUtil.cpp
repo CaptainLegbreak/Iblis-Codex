@@ -14,6 +14,7 @@
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
 #include "D2ItemsWorld.h"
+#include "D2ObjModes.h"
 
 #define D2_ASSERT(expr,line) if(!(expr)) { sub_00408A60(&gszEmptyAssertText,sub_00408090(),line);exit(-1); }
 
@@ -389,6 +390,33 @@ int __fastcall AIUTIL_GetMonsterVision(D2UnitStrc* pUnit)
     return 0;
 }
 
+// 0x005DC5C0
+unsigned int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc* hUnit, int nX, int nY)
+{
+    D2_ASSERT(hUnit, 267);
+    D2DynamicPathStrc* hPath = hUnit->pDynamicPath;
+    D2_ASSERT(hPath, 270);
+
+    int nXDiff = PATH_GetXPosition(hPath) - nX;
+    if (nXDiff < 0)
+    {
+        nXDiff = -nXDiff;
+    }
+
+    int nYDiff = PATH_GetYPosition(hPath) - nY;
+    if (nYDiff < 0)
+    {
+        nYDiff = -nYDiff;
+    }
+
+    if (nXDiff > nYDiff)
+    {
+        return (nYDiff + 2 * nXDiff) / 2;
+    }
+
+    return (nXDiff + 2 * nYDiff) / 2;
+}
+
 inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -551,6 +579,37 @@ D2UnitStrc* __fastcall AIUTIL_TargetCallback_FindMonsterInDeathMode(D2GameStrc* 
     }
 
     return (unsigned int)AIUTIL_GetDistanceToCoordinates_FullUnitSize(pTarget, pUnit) < pArg->nMaxDistance ? pTarget : 0;
+}
+
+// 0x005DC920
+int __fastcall AIUTIL_GetThreat(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_PLAYER:
+        return 14;
+
+    case UNIT_MONSTER:
+    {
+        const int nClassId = pUnit->dwClassId;
+        D2MonStatsTxt* pMonStatsTxtRecord = (nClassId >= 0 && nClassId < sgptDataTables->nMonStatsTxtRecordCount) ? &sgptDataTables->pMonStatsTxt[nClassId] : 0;
+        if (pMonStatsTxtRecord)
+        {
+            return pMonStatsTxtRecord->nThreat;
+        }
+        break;
+    }
+
+    default:
+        break;
+    }
+
+    return 0;
 }
 
 // 0x005DC970
@@ -765,6 +824,40 @@ D2UnitStrc* __fastcall AIUTIL_TargetCallback_SelectHighThreatTargetWithClearAppr
         pArg->nDistance = nDistance;
     }
 
+    return 0;
+}
+
+struct D2DoorObjectAiCallbackArgStrc;
+
+struct D2DoorObjectAiCallbackArgStrc
+{
+    D2UnitStrc* pDoor;
+    int nDistance;
+    int unk0x08[8];
+};
+
+int __stdcall UnitIsDoor(D2UnitStrc* pUnit); // 0x00621A70
+
+int __fastcall AITHINK_GetSquaredDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x005B0BD0
+
+// 0x005DCD50
+D2UnitStrc* __fastcall AIUTIL_TargetCallback_FindClosestClosedDoor(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
+{
+    D2DoorObjectAiCallbackArgStrc* pArg = (D2DoorObjectAiCallbackArgStrc*)pCallbackArg;
+
+    if (!pTarget || pTarget->dwUnitType != UNIT_OBJECT || !UnitIsDoor(pTarget) || pTarget->dwAnimMode != OBJMODE_NEUTRAL)
+    {
+        return 0;
+    }
+
+    const int nDistance = AITHINK_GetSquaredDistance(pTarget, pUnit);
+    if (nDistance >= pArg->nDistance)
+    {
+        return 0;
+    }
+
+    pArg->pDoor = pTarget;
+    pArg->nDistance = nDistance;
     return 0;
 }
 
@@ -1684,101 +1777,6 @@ void __fastcall AIUTIL_ApplyTerrorCurseState(D2GameStrc* pGame, D2UnitStrc* pUni
     AITHINK_ExecuteAiFn(pGame, pTarget, pAiControl, AISPECIALSTATE_TERROR);
     D2GAME_EVENTS_Delete_6FC34840(pGame, pTarget, EVENTTYPE_AITHINK, 0);
     EVENT_SetEvent(pGame, pTarget, EVENTTYPE_AITHINK, pGame->dwGameFrame + 1, 0, 0);
-}
-
-// 0x005E6800
-bool __fastcall AITHINK_InitHomeCommand(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pAiTickParam)
-{
-    D2AiCmdStrc* pAiCmd = AIGENERAL_SetCurrentAiCommand(pGame, pUnit, 10, 0);
-    if (pAiCmd && !pAiCmd->nCmdParam[1] && !pAiCmd->nCmdParam[2])
-    {
-        pAiCmd->nCmdParam[1] = CLIENTS_GetUnitX(pUnit);
-        pAiCmd->nCmdParam[2] = CLIENTS_GetUnitY(pUnit);
-        AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
-        return true;
-    }
-
-    return false;
-}
-
-// 0x005E6DE0
-bool __fastcall AITHINK_MapAiAction_WalkToPosition(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam, D2MapAIPathPositionStrc* pPosition)
-{
-    bool bResult = false;
-    if (pUnit && pPosition && pPosition->nX && pPosition->nY && AIUTIL_GetDistanceToCoordinates(pUnit, pPosition->nX, pPosition->nY) > 0)
-    {
-        sub_005DE190_SetAiParam(pUnit, 7, 0, 0);
-        AITACTICS_WalkToTargetCoordinatesNoSteps(pGame, pUnit, pPosition->nX, pPosition->nY);
-        D2AiCmdStrc* pAiCmd = AIGENERAL_SetCurrentAiCommand(pGame, pUnit, 4, 0);
-        if (pAiCmd)
-        {
-            pAiCmd->nCmdParam[1] = pPosition->nX;
-            pAiCmd->nCmdParam[2] = pPosition->nY;
-            pAiCmd->nCmdParam[3] = 12;
-            pAiCmd->nCmdParam[4] = 10;
-        }
-        bResult = true;
-    }
-
-    return bResult;
-}
-
-// 0x005EB650
-int __fastcall AITHINK_IsTargetKillableByShadowMaster(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
-{
-    if (!pTarget)
-    {
-        return 0;
-    }
-
-    if (pUnit == pTarget)
-    {
-        return 0;
-    }
-
-    const int nType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
-    if (nType != UNIT_MONSTER)
-    {
-        return 0;
-    }
-
-    if (SUNIT_IsDead(pTarget))
-    {
-        return 0;
-    }
-
-    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pTarget->dwClassId);
-    if (!pMonStatsTxtRecord)
-    {
-        return 0;
-    }
-
-    if (pMonStatsTxtRecord->nMonStatsFlags[1] & gdwBitMasks[MONSTATSFLAGINDEX_BYTE1_BIT0])
-    {
-        return 0;
-    }
-
-    if (!(pMonStatsTxtRecord->nMonStatsFlags[1] & gdwBitMasks[MONSTATSFLAGINDEX_BYTE1_BIT7]))
-    {
-        return 0;
-    }
-
-    if (pTarget->dwUnitType == UNIT_PLAYER)
-    {
-        return 1;
-    }
-
-    if (MONSTERS_IsBoss(0, pTarget))
-    {
-        return 1;
-    }
-
-    if (MONSTERS_IsPrimeEvil(pTarget))
-    {
-        return 1;
-    }
-
-    return MONSTERUNIQUE_CheckMonTypeFlag(pTarget, MONTYPEFLAG_UNIQUE_CHAMPION) != 0;
 }
 
 // 0x005F2EB0

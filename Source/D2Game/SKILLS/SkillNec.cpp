@@ -521,21 +521,6 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nL
 
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
 
-// 0x0057B7A0
-static inline void SUNITDMG_ApplyDamageTargetAc(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
-{
-    const int nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, 0x78, 0);
-    if (nValue)
-    {
-        int nNew = STATLIST_UnitGetStatValue(pDefender, STAT_ARMORCLASS, 0) + nValue;
-        if (nNew < 0)
-        {
-            nNew = 0;
-        }
-        STATLIST_SetUnitStat(pDefender, STAT_ARMORCLASS, nNew, 0);
-    }
-}
-
 // 0x005C3070
 int __fastcall SKILLS_SrvSt15_RaiseSkeleton_Mage(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -796,11 +781,6 @@ int __stdcall sub_M118_Emit_004FD5A0(const D2WinImageClickRectStrc* pClickRect, 
 D2CofNodeStrc* __stdcall sub_M118_Emit_00503310(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
 {
     return D2COMP_FindCofNode(nClass, nMode, dwWeaponClass);
-}
-
-void __stdcall sub_M118_Emit_0057B7A0(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
-{
-    SUNITDMG_ApplyDamageTargetAc(pAttacker, pDefender);
 }
 
 // 0x005C3400

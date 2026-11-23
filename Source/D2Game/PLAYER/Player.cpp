@@ -8,6 +8,8 @@
 #include "D2Txt.h"
 #include "D2LevelTxt.h"
 #include "D2UnitData.h"
+#include "D2PlayerModes.h"
+#include "D2StateIds.h"
 
 #define UNIT_PLAYER 0
 
@@ -242,6 +244,64 @@ void __fastcall PLAYER_FreePlayerDataExtras(D2GameStrc* pGame, D2UnitStrc* pPlay
     }
 }
 
+void __fastcall SUNIT_InitClientInPlayerData(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00553180
+
+#define UNITFLAG_TARGETABLE 0x02
+
+#define UNITFLAG_CANBEATTACKED 0x04
+
+#define UNITFLAG_ISVALIDTARGET 0x08
+
+struct D2SkillListStrc;
+
+typedef void (__fastcall* STATLIST_CallbackFn)(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pOther, int nLayer_StatId, int nPreviousValue, int nNewValue);
+
+void __fastcall sub_00534800_CreatePlayerIntros(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00534800
+
+void __fastcall ARENA_AllocArenaUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0053F530
+
+void __fastcall D2GAME_DeleteTimersOnUnit_6FC34A30(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540F30
+
+void __fastcall SUNIT_SetAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
+
+void __fastcall D2GAME_ITEMMODE_ServerStatlistCallback_6FC41910(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pOther, int nLayer_StatId, int nPreviousValue, int nNewValue); // 0x0055B800
+
+void __fastcall PLAYERPETS_AllocPetList(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00575AF0
+
+void __stdcall UNITS_AllocPlayerData(D2UnitStrc* pUnit); // 0x00621F90
+
+void __stdcall STATLIST_AllocStatListEx(D2UnitStrc* pUnit, int nFlags, STATLIST_CallbackFn pfCallback, D2GameStrc* pGame); // 0x00626D40
+
+D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* pOwner); // 0x0063ABD0
+
+D2SkillListStrc* __stdcall SKILLS_AllocSkillList(void* pMemPool); // 0x006438B0
+
+void __stdcall SKILLS_InitSkillList(D2UnitStrc* pUnit); // 0x00647EE0
+
+// 0x005348C0
+void __fastcall PLAYER_Create(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPlayerGUID)
+{
+    D2_ASSERT(pPlayer, 71);
+
+    pPlayer->dwFlags |= UNITFLAG_ISVALIDTARGET | UNITFLAG_CANBEATTACKED | UNITFLAG_TARGETABLE;
+    pPlayer->dwUnitId = nPlayerGUID;
+
+    INVENTORY_AllocInventory(0, pPlayer);
+
+    pPlayer->pSkills = SKILLS_AllocSkillList(pGame->pMemoryPool);
+    SKILLS_InitSkillList(pPlayer);
+
+    STATLIST_AllocStatListEx(pPlayer, 0, D2GAME_ITEMMODE_ServerStatlistCallback_6FC41910, pGame);
+    UNITS_AllocPlayerData(pPlayer);
+    sub_00534800_CreatePlayerIntros(pGame, pPlayer);
+
+    SUNIT_InitClientInPlayerData(pPlayer, 0);
+    D2GAME_DeleteTimersOnUnit_6FC34A30(pGame, pPlayer);
+    ARENA_AllocArenaUnit(pGame, pPlayer);
+    PLAYERPETS_AllocPetList(pGame, pPlayer);
+    SUNIT_SetAlignment(pPlayer, 2, 1);
+}
+
 // 0x00534970
 static void sub_00534970_RemoveCorpseUnits(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
@@ -472,6 +532,63 @@ void __fastcall PLAYER_CloseInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit)
     SCMD_SendInteractionTarget(UnitGetClient(pUnit, ".\\PLAYER\\Player.cpp", 0x217), 0x62, UNIT_INVALID, 0, 0);
 }
 
+int __stdcall UNITS_ChangeAnimMode(D2UnitStrc*,int); // 0x00624690
+
+void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(D2GameStrc* pGame, int nUnitId, int nCorpseId, unsigned char bAssign); // 0x0053DF80
+
+void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
+
+#define UNITFLAG_INITSEEDSET 0x10
+
+#define EVENTTYPE_FREEHOVER 3
+
+#define EVENTTYPE_STATREGEN 4
+
+#define EVENTTYPE_TRAP 6
+
+#define COLLIDE_MASK_CORPSE 0x9C19
+
+void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
+
+int __stdcall INVENTORY_GetOwnerId(D2InventoryStrc* pInventory); // 0x0063D450
+
+D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesEx(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int nPosIncrementValue); // 0x0064E7E0
+
+void __stdcall D2Common_10231(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650C20
+
+// 0x005352C0
+void __fastcall PLAYER_PlaceCorpse(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, int nPlayerGUID, D2CoordStrc* pCoord)
+{
+    D2_ASSERT(hRoom, 543);
+
+    COLLISION_GetFreeCoordinatesEx(hRoom, pCoord, 2, COLLIDE_MASK_CORPSE, 4);
+
+    D2UnitStrc* pPlayer = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, nPlayerGUID);
+    if (!pPlayer)
+    {
+        return;
+    }
+
+    D2Common_10231(pPlayer->pDynamicPath, pPlayer, hRoom, pCoord->nX, pCoord->nY);
+    pPlayer->dwFlags |= UNITFLAG_TARGETABLE;
+
+    UNITS_ChangeAnimMode(pPlayer, PLRMODE_DEAD);
+    pPlayer->dwFlags &= ~UNITFLAG_ISVALIDTARGET;
+
+    STATES_ToggleState(pPlayer, STATE_PLAYERBODY, 1);
+    pPlayer->dwFlags |= UNITFLAG_INITSEEDSET;
+
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pPlayer, EVENTTYPE_FREEHOVER, 0);
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pPlayer, EVENTTYPE_STATREGEN, 0);
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pPlayer, EVENTTYPE_TRAP, 0);
+
+    const int nOwnerGUID = INVENTORY_GetOwnerId(pPlayer->pInventory);
+    if (nOwnerGUID != -1)
+    {
+        D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(pGame, nOwnerGUID, nPlayerGUID, 1);
+    }
+}
+
 // 0x005353B0
 void __fastcall PLAYER_SetUniqueIdInPlayerData(D2UnitStrc* pPlayer, int nUnitGUID)
 {
@@ -481,6 +598,17 @@ void __fastcall PLAYER_SetUniqueIdInPlayerData(D2UnitStrc* pPlayer, int nUnitGUI
     D2_ASSERT(pPlayerData, 0x243);
 
     pPlayerData->dwUniqueId = nUnitGUID;
+}
+
+// 0x005353F0
+int __fastcall PLAYER_GetUniqueIdFromPlayerData(D2UnitStrc* pPlayer)
+{
+    D2_ASSERT(pPlayer, 0x24D);
+
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    D2_ASSERT(pPlayerData, 0x250);
+
+    return pPlayerData->dwUniqueId;
 }
 
 // 0x00535430
@@ -583,6 +711,46 @@ int __fastcall PLAYER_DropGold(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitGU
     return 1;
 }
 
+void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190
+
+int __fastcall PLRTRADE_PrepareItemChange(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* a3); // 0x00567620
+
+int __fastcall MONSTERAI_IsInteractionReady(D2UnitStrc* pNpc, D2UnitStrc* pPlayer); // 0x00573140
+
+// 0x00535610
+int __fastcall PLAYER_CanModifyInventory(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* a3)
+{
+    int nUnitType;
+    int nUnitGUID;
+    if (SUNIT_GetInteractInfo(pPlayer, &nUnitType, &nUnitGUID))
+    {
+        D2UnitStrc* pInteractUnit = SUNIT_GetServerUnit(pGame, nUnitType, nUnitGUID);
+        if (!pInteractUnit)
+        {
+            SUNIT_ResetInteractInfo(pPlayer);
+            return 0;
+        }
+
+        switch (nUnitType)
+        {
+        case UNIT_PLAYER:
+            return PLRTRADE_PrepareItemChange(pGame, pPlayer, a3);
+
+        case UNIT_MONSTER:
+            return MONSTERAI_IsInteractionReady(pInteractUnit, pPlayer);
+        }
+    }
+    else
+    {
+        if (UNITS_GetPlayerData(pPlayer)->bBusy)
+        {
+            return 0;
+        }
+    }
+
+    return PLRTRADE_PrepareItemChange(pGame, pPlayer, a3);
+}
+
 // 0x005356B0
 int __fastcall PLAYER_SetSkillHotKey(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nHotkeyId, short nSkillId, unsigned char nHand, int nFlags)
 {
@@ -596,6 +764,44 @@ int __fastcall PLAYER_SetSkillHotKey(D2GameStrc* pGame, D2UnitStrc* pPlayer, int
     return 1;
 }
 
+struct D2UnitProxyArgStrc;
+
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
+
+typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
+
+void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg); // 0x005538D0
+
+// 0x005356F0
+void __fastcall PLAYER_CountPlayersInLevelCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg)
+{
+    D2UnitProxyArgStrc* pCount = (D2UnitProxyArgStrc*)pArg;
+    if (DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit)) == pCount->nLevelId && pUnit && pUnit->dwAnimMode != PLRMODE_DEATH && pUnit->dwAnimMode != PLRMODE_DEAD)
+    {
+        ++pCount->nCounter;
+    }
+}
+
+// 0x00535730
+int __fastcall PLAYER_CountPlayersInLevel(D2GameStrc* pGame, int nLevelId)
+{
+    D2UnitProxyArgStrc arg = {};
+    arg.nLevelId = nLevelId;
+    SUNIT_IterateLivingPlayers(pGame, PLAYER_CountPlayersInLevelCallback, &arg);
+    return arg.nCounter;
+}
+
+int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
+
+// 0x00535760
+void __fastcall PLAYER_CountLivingPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pLivingPlayers)
+{
+    if (!SUNIT_IsDead(pUnit))
+    {
+        ++*((int*)pLivingPlayers);
+    }
+}
+
 // 0x00535780
 void __fastcall PLAYER_SetVirtualPlayerCount(int nPlayers)
 {
@@ -603,6 +809,27 @@ void __fastcall PLAYER_SetVirtualPlayerCount(int nPlayers)
     {
         gnVirtualPlayerCount = nPlayers;
     }
+}
+
+// 0x00535790
+int __fastcall PLAYER_GetPlayerCount(D2GameStrc* pGame)
+{
+    int nLivingPlayers = 0;
+    SUNIT_IterateLivingPlayers(pGame, PLAYER_CountLivingPlayers, &nLivingPlayers);
+
+    switch (pGame->nGameType)
+    {
+    case 1:
+    case 2:
+    case 3:
+        if (gnVirtualPlayerCount > nLivingPlayers)
+        {
+            return gnVirtualPlayerCount;
+        }
+        break;
+    }
+
+    return nLivingPlayers;
 }
 
 // build: context PLAYER_SetStatOrResetGold
@@ -768,5 +995,165 @@ void __fastcall PLAYER_ApplyDeathPenalty(D2GameStrc* pGame, D2UnitStrc* pDefende
         }
     }
     PLAYER_ApplyDeathExperienceLoss(pGame, pDefender);
+}
+
+struct D2RosterIterateStrc;
+
+struct D2RosterIterateStrc
+{
+    int bFlag;
+    D2UnitStrc* pUnit;
+};
+
+int __fastcall PLAYERLIST_CheckFlag(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, unsigned int nFlags); // 0x0055B300
+
+// 0x00535AF0
+void __fastcall PLAYER_CheckHostilityCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs)
+{
+    D2RosterIterateStrc* pRosterIterate = (D2RosterIterateStrc*)pArgs;
+    if (PLAYERLIST_CheckFlag(pRosterIterate->pUnit, pUnit, 8))
+    {
+        pRosterIterate->bFlag = 1;
+    }
+}
+
+// 0x00535B10
+int __fastcall PLAYER_HasHostilePlayer(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    if (!pGame || !pUnit || pUnit->dwUnitType != UNIT_PLAYER)
+    {
+        return 0;
+    }
+
+    D2RosterIterateStrc rosterIterate = {};
+
+    rosterIterate.bFlag = 0;
+    rosterIterate.pUnit = pUnit;
+
+    SUNIT_IterateLivingPlayers(pGame, PLAYER_CheckHostilityCallback, &rosterIterate);
+    return rosterIterate.bFlag;
+}
+
+// 0x00535B50
+void __fastcall PLAYER_CheckHostileToUnitCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs)
+{
+    D2RosterIterateStrc* pRosterIterate = (D2RosterIterateStrc*)pArgs;
+    if (PLAYERLIST_CheckFlag(pUnit, pRosterIterate->pUnit, 8))
+    {
+        pRosterIterate->bFlag = 1;
+    }
+}
+
+// 0x00535B80
+int __fastcall PLAYER_IsAnyPlayerHostileTo(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    if (!pGame || !pUnit || pUnit->dwUnitType != UNIT_PLAYER)
+    {
+        return 0;
+    }
+
+    D2RosterIterateStrc rosterIterate = {};
+    rosterIterate.bFlag = 0;
+    rosterIterate.pUnit = pUnit;
+    SUNIT_IterateLivingPlayers(pGame, PLAYER_CheckHostileToUnitCallback, &rosterIterate);
+    return rosterIterate.bFlag;
+}
+
+struct D2SkillsTxt;
+
+D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
+
+int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
+
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
+
+int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
+
+D2UnitStrc* __fastcall PLAYER_GetWeaponForSkill(D2UnitStrc* pUnit); // 0x00535BC0
+
+struct D2SkillStrc;
+
+// 0x00535BC0
+D2UnitStrc* __fastcall PLAYER_GetWeaponForSkill(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    if (!pInventory)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pEquippedWeapon;
+    int nBodyLoc;
+    int bIsLeftHandItem;
+    INVENTORY_GetEquippedWeapon(pInventory, &pEquippedWeapon, &nBodyLoc, &bIsLeftHandItem);
+
+    if (UNITS_CanDualWield(pUnit))
+    {
+        D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+        if (pSkill)
+        {
+            D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
+            if (pSkillsTxtRecord)
+            {
+                D2UnitStrc* pWeapon = 0;
+                switch (pSkillsTxtRecord->nWeapSel)
+                {
+                case 2:
+                {
+                    const int nFlag = SKILLS_GetFlags(pSkill) & 0x2000;
+// build: symbol ?INVENTORY_GetCompositItem@* 0x0063C050
+                    pWeapon = INVENTORY_GetCompositItem(pInventory, 5);
+                    D2UnitStrc* pTemp = INVENTORY_GetCompositItem(pInventory, 6);
+                    if (!pWeapon || !ITEMSIsA(pWeapon, ITEMTYPE_WEAPON) || pTemp && ITEMSIsA(pTemp, ITEMTYPE_WEAPON) && nFlag)
+                    {
+                        pWeapon = pTemp;
+                    }
+                    break;
+                }
+                case 3:
+                {
+                    if (((pUnit->dwSeqFrame >> 8) % 2) != 0)
+                    {
+                        pWeapon = INVENTORY_GetCompositItem(pInventory, 6);
+                    }
+                    else
+                    {
+                        pWeapon = INVENTORY_GetCompositItem(pInventory, 5);
+                    }
+                    break;
+                }
+                case 4:
+                {
+                    pEquippedWeapon = 0;
+                    break;
+                }
+                case 1:
+                {
+                    pWeapon = INVENTORY_GetCompositItem(pInventory, 6);
+                    break;
+                }
+                default:
+                    pWeapon = INVENTORY_GetCompositItem(pInventory, 5);
+                    if (!pWeapon || !ITEMSIsA(pWeapon, ITEMTYPE_WEAPON))
+                    {
+                        pWeapon = INVENTORY_GetCompositItem(pInventory, 6);
+                    }
+                    break;
+                }
+
+                if (ITEMSIsA(pWeapon, ITEMTYPE_WEAPON) && ITEMS_CanBeEquipped(pWeapon))
+                {
+                    return pWeapon;
+                }
+            }
+        }
+        return pEquippedWeapon;
+    }
+    return pEquippedWeapon;
 }
 

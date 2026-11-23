@@ -262,6 +262,22 @@ void __fastcall ACT5Q6_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitS
     CLIENTS_UpdateCharacterProgression(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q6.cpp", 384), 5, pGame->nDifficulty);
 }
 
+int __fastcall QUESTS_FastRemovePlayerGUID(D2QuestGUIDStrc* pGUIDs, int dwGUID); // 0x00545240
+
+static inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
+{
+    if (!pUnit) return -1;
+    return pUnit->dwUnitId;
+}
+
+// 0x0058DCF0
+void __fastcall ACT5Q6_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    QUESTS_FastRemovePlayerGUID(&pQuestData->tPlayerGUIDs, UNITS_GetUnitId(pQuestArg->pPlayer));
+    D2Act5Quest6Strc* pQuestDataEx = (D2Act5Quest6Strc*)pQuestData->pQuestDataEx;
+    QUESTS_FastRemovePlayerGUID(&pQuestDataEx->tPlayerGUIDs, UNITS_GetUnitId(pQuestArg->pPlayer));
+}
+
 // 0x0058DD30
 static void __stdcall ACT5Q6_CompleteQuestForPlayer(D2UnitStrc* pPlayer, D2GameStrc* pGame, D2BitBufferStrc* pQuestFlags)
 {
@@ -712,6 +728,17 @@ int __fastcall ACT5Q6_UnitIterate_CreateLastPortal(D2GameStrc* pGame, D2UnitStrc
     }
 
     return 0;
+}
+
+// 0x0058D870
+void __fastcall ACT5Q6_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2Act5Quest6Strc* pQuestDataEx = (D2Act5Quest6Strc*)pQuestData->pQuestDataEx;
+    if (pQuestArg->pTarget && (unsigned short)pQuestArg->pTarget->dwClassId == 0x209 && !pQuestDataEx->bLastPortalOpened)
+    {
+        SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, pQuestArg->pPlayer, ACT5Q6_UnitIterate_CreateLastPortal);
+        pQuestDataEx->bLastPortalOpened = 1;
+    }
 }
 
 // 0x0058D8B0
