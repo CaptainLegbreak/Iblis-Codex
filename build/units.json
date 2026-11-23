@@ -9580,6 +9580,11 @@
      "name": "?CHARSEL_Back@@YGHH@Z"
     },
     {
+     "va": "0x004379C0",
+     "length": 10,
+     "name": "?BNDOWNLOAD_GetTime@@YAJPAJ@Z"
+    },
+    {
      "va": "0x004379D0",
      "length": 6,
      "name": "?CHARSEL_IsExpansionFlag@@YIHH@Z"
@@ -11941,17 +11946,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_004379C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004379C0",
-     "length": 10,
-     "name": "?BNDOWNLOAD_GetTime@@YAJPAJ@Z"
-    }
    ]
   },
   {
