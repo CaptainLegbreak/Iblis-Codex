@@ -36,28 +36,6 @@ void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4); // 0x00649EF0
 
-// 0x004F3FB0
-D2UnitStrc* __fastcall sub_004F3FB0_GetTargetMonster(D2UnitStrc* pUnit)
-{
-    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
-    if (!pTarget)
-    {
-        return 0;
-    }
-    if (pTarget->dwUnitType != UNIT_MONSTER)
-    {
-        return 0;
-    }
-    if (!MONSTERREGION_CheckMonStats2Flag(pTarget->dwClassId, 8))
-    {
-        return 0;
-    }
-    if (!D2COMMON_11017_CheckUnitIfConsumeable(pTarget, 0))
-    {
-        return 0;
-    }
-    return sub_004B11F0(pTarget) ? pTarget : 0;
-}
 
 // 0x004F4140
 int __fastcall sub_004F4140_CanThrowCheck(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)

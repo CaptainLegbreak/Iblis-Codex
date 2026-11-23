@@ -1251,6 +1251,32 @@ int __fastcall sub_004F3EB0_CheckTargetRoom(D2UnitStrc* pUnit, int nSkillId, int
     return 1;
 }
 
+int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
+
+// 0x004F3FB0
+D2UnitStrc* __fastcall sub_004F3FB0_GetTargetMonster(D2UnitStrc* pUnit)
+{
+    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+    if (pTarget->dwUnitType != UNIT_MONSTER)
+    {
+        return 0;
+    }
+    if (!MONSTERREGION_CheckMonStats2Flag(pTarget->dwClassId, 8))
+    {
+        return 0;
+    }
+    if (!D2COMMON_11017_CheckUnitIfConsumeable(pTarget, 0))
+    {
+        return 0;
+    }
+    return sub_004B11F0(pTarget) ? pTarget : 0;
+}
+
+
 // 0x004F4610
 int __fastcall SKILLSMON_MissileLine(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
