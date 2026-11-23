@@ -33,22 +33,6 @@ static int MONSTERS_GetBaseIdInline_J03(int nMonsterId)
     return nMonsterId;
 }
 
-// 0x004F4EC0
-int __fastcall sub_004F4EC0_GetSkillOverlay(D2UnitStrc* pUnit, int nSkillId, int nDefault, int nUnused)
-{
-    int nResult = nDefault;
-    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
-    {
-        const int nBaseId = MONSTERS_GetBaseIdInline_J03(pUnit->dwClassId);
-        if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == MONSTER_BLOODRAVEN && nSkillId == SKILL_NEST)
-        {
-            GFX_AddUnitOverlay(pUnit, 0x55, 2, 0, 0, 0, 0, 0);
-            nResult = 0x54;
-        }
-    }
-
-    return nResult;
-}
 
 // 0x004F4FF0
 int __fastcall sub_004F4FF0_SetVideoMode(int nMode)
