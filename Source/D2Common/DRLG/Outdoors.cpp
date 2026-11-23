@@ -1,4 +1,5 @@
 #include "D2LevelIds.h"
+
 #include "D2DrlgPresets.h"
 
 #include "D2ItemTypes.h"
@@ -823,26 +824,7 @@ int __fastcall DRLGOUTDOORS_GetBorderLevelPrestId(int nA, int nB, int nC)
     return gaBorderLevelPrestIds[nRow][nC];
 }
 
-// 0x006757E0
-int __fastcall DRLGOUTDOORS_GetBorderLookupId(D2DrlgLevelStrc* pLevel, bool bFlag)
-{
-    switch (pLevel->nLevelType)
-    {
-    case 2:
-        return !bFlag;
-    case 16:
-        return 2;
-    case 27:
-        return 3;
-    case 31:
-        return DRLGOUTSIEGE_GetBorderLookupId(pLevel);
-    }
-    return -1;
-}
-
-extern int gaDesertBorderIds[][2]; // 0x006F112C
-void __fastcall DRLGOUTPLACE_SetBlankBorderGridCells(D2DrlgLevelStrc* pLevel); // 0x00675670
-void __fastcall DRLGVER_GetCoordDiff(D2DrlgVertexStrc* pVertex, int* pDirectionX, int* pDirectionY); // 0x0067D280
+// 0x00675600
 int __fastcall sub_00675600_LookupTable(int nA, int nB, int nC, int nD, int nE)
 {
     if (nA < 0)
@@ -872,11 +854,36 @@ int __fastcall sub_00675600_LookupTable(int nA, int nB, int nC, int nD, int nE)
 
     if (nE >= 4)
     {
+// build: symbol ?gaBarricadeCliffBorderIds@* 0x006F06F0
         return gaBarricadeCliffBorderIds[nRow - 1][nE - 4];
     }
 
+// build: symbol ?gaBorderLevelPrestIds@* 0x006F0630
     return gaBorderLevelPrestIds[nRow - 1][nE];
 }
+
+// 0x006757E0
+int __fastcall DRLGOUTDOORS_GetBorderLookupId(D2DrlgLevelStrc* pLevel, bool bFlag)
+{
+    switch (pLevel->nLevelType)
+    {
+    case 2:
+        return !bFlag;
+    case 16:
+        return 2;
+    case 27:
+        return 3;
+    case 31:
+        return DRLGOUTSIEGE_GetBorderLookupId(pLevel);
+    }
+    return -1;
+}
+
+extern int gaDesertBorderIds[][2]; // 0x006F112C
+
+void __fastcall DRLGOUTPLACE_SetBlankBorderGridCells(D2DrlgLevelStrc* pLevel); // 0x00675670
+
+void __fastcall DRLGVER_GetCoordDiff(D2DrlgVertexStrc* pVertex, int* pDirectionX, int* pDirectionY); // 0x0067D280
 
 // 0x00675850
 void __fastcall DRLGOUTPLACE_PlaceAct1245OutdoorBorders(D2DrlgLevelStrc* pLevel)
