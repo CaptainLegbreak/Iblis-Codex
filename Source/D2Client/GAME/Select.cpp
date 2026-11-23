@@ -6,6 +6,10 @@
 #include "D2ItemsWorld.h"
 #include "D2GameRecords.h"
 #include "D2Txt.h"
+#include "D2ObjModes.h"
+#include "D2StateIds.h"
+#include "D2Drlg.h"
+#include "D2ClientTypes.h"
 struct D2ActiveRoomStrc;
 struct D2SkillStrc;
 struct D2UnitStrc;
@@ -25,18 +29,18 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 extern D2ViewStrc* gpClientView;                                                                         // 0x007A0640
-extern int gbHoverLocked;                                                                              // 0x007A6A98
-extern int gbHasSelectedUnit;                                                                              // 0x007A6A94
-extern int gnSelectedUnitType;                                                                     // 0x007A6A8C
-extern unsigned int gnSelectedUnitId;                                                              // 0x007A6A78
+static int gbHoverLocked;                                                                              // 0x007A6A98
+static int gbHasSelectedUnit;                                                                              // 0x007A6A94
+static int gnSelectedUnitType;                                                                     // 0x007A6A8C
+static unsigned int gnSelectedUnitId;                                                              // 0x007A6A78
 extern int gnScreenWidth;                                                                               // 0x0071146C
 extern int gnScreenHeight;                                                                               // 0x00711470
-extern int gbSelectionRectValid;                                                                   // 0x007A6A9C
-extern int gnSelectionLeft;                                                                        // 0x007A6A7C
-extern int gnSelectionRight;                                                                       // 0x007A6A84
-extern int gnSelectionTop;                                                                         // 0x007A6A80
-extern int gnSelectionBottom;                                                                      // 0x007A6A88
-extern int gbWarpTileHovered;                                                                              // 0x007A6AA0
+int gbSelectionRectValid;                                                                   // 0x007A6A9C
+int gnSelectionLeft;                                                                        // 0x007A6A7C
+int gnSelectionRight;                                                                       // 0x007A6A84
+int gnSelectionTop;                                                                         // 0x007A6A80
+int gnSelectionBottom;                                                                      // 0x007A6A88
+static int gbWarpTileHovered;                                                                              // 0x007A6AA0
 
 int __cdecl TEXT_IsTextBoxOpen();                                                                                 // 0x004A0000
 D2UnitStrc* __cdecl TEXT_GetTextUnit();                                                             // 0x0049E8B0
@@ -51,7 +55,7 @@ D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonster
 int __fastcall SCMD_IsPointInTileRect(D2UnitStrc* pUnit, int nX, int nY);                           // 0x00463EE0
 int __cdecl GAME_IsLeftButtonHeld();                                                                                 // 0x0044BF30
 int __cdecl GAME_GetCurrentTime(); // 0x0044DAA0
-int __cdecl GAME_GetInteractDeadline(); // 0x0044DAC0
+unsigned int __cdecl GAME_GetInteractDeadline(); // 0x0044DAC0
 void __fastcall GAME_SetInteractDeadline(int nValue); // 0x0044DAD0
 extern "C" int __cdecl PLAYER_GetScreenOffsetX();                                                          // 0x0045AFC0
 extern "C" int __cdecl PLAYER_GetScreenOffsetY();                                                      // 0x0045AFD0
@@ -114,6 +118,51 @@ static inline int CLIENT_GetUnitYInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
+struct D2HoverCoordStrc;
+
+static inline unsigned int UNITS_GetUnitIdInline(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return -1;
+    }
+    return pUnit->dwUnitId;
+}
+
+struct D2SelectionRectStrc;
+
+struct D2SelectionRectStrc
+{
+    int nLeft;
+    int nTop;
+    int nRight;
+    int nBottom;
+};
+
+static inline int UNITS_GetClassIdInline(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return -1;
+    }
+    return pUnit->dwClassId;
+}
+
+// 0x00466DC0
+int __cdecl sub_00466DC0()
+{
+// build: symbol ?gnHoverMonClassId@* 0x00711F90
+    return gnHoverMonClassId;
+}
+
+// 0x00466DD0
+int __cdecl UI_GetHoverClassId()
+{
+// build: symbol ?gnHoverClassId@* 0x00711F94
+    return gnHoverClassId;
+}
+
+// 0x00466DE0
 static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
 {
     char szBuffer[0x200];
@@ -132,14 +181,18 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
     TEXT_ClearHoverUnit();
 
     int bSame = 0;
-    int nUnitType;
-    unsigned int nUnitId;
+    int nHoverType;
+    unsigned int nHoverId;
     if (pUnit)
     {
         D2_ASSERT(sub_00466870(pUnit, 0, 0, 0), 0x4F);
-        nUnitType = pUnit->dwUnitType;
-        nUnitId = pUnit->dwUnitId;
-        bSame = gbHasSelectedUnit && nUnitType == gnSelectedUnitType && nUnitId == gnSelectedUnitId;
+        nHoverType = pUnit->dwUnitType;
+        nHoverId = pUnit->dwUnitId;
+    }
+
+    if (pUnit && gbHasSelectedUnit && nHoverType == gnSelectedUnitType && nHoverId == gnSelectedUnitId)
+    {
+        bSame = 1;
     }
 
     if (!bSame && gbHasSelectedUnit && gnSelectedUnitType == 5)
@@ -158,35 +211,41 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
         return;
     }
 
-    nUnitType = pUnit->dwUnitType;
-    nUnitId = pUnit->dwUnitId;
-    gnSelectedUnitType = nUnitType;
-    gnSelectedUnitId = nUnitId;
+    nHoverType = pUnit->dwUnitType;
+    nHoverId = UNITS_GetUnitIdInline(pUnit);
+    gnSelectedUnitType = nHoverType;
+    gnSelectedUnitId = nHoverId;
     gbHasSelectedUnit = 1;
 
-    switch (nUnitType)
+    switch (gnSelectedUnitType)
     {
     case 5:
         if (!bSame)
         {
-            DUNGEON_UpdateWarpRoomSelect(UNITS_GetRoom(pUnit), pUnit->dwClassId);
+            DUNGEON_UpdateWarpRoomSelect(UNITS_GetRoom(pUnit), !pUnit ? -1 : pUnit->dwClassId);
             VIEW_SetViewDirty(gpClientView);
         }
         break;
 
     case 2:
-        if (UnitIsDoor(pUnit) && pUnit->dwAnimMode != 4)
+        if (!UnitIsDoor(pUnit) || pUnit->dwAnimMode == 4)
         {
-            const unsigned int dwNow = GetTickCount();
-            if (dwNow - pUnit->dwTickCount > 0x1F4)
-            {
-                sprintf(szBuffer, "msg at %d\n", dwNow);
-                OutputDebugStringA(szBuffer);
-                pUnit->dwTickCount = dwNow;
-                sub_00478680_SendPacket5(0x3D, gnSelectedUnitId);
-            }
+            break;
         }
+
+    {
+        const unsigned int dwTick = GetTickCount();
+        if (dwTick - pUnit->dwTickCount <= 0x1F4)
+        {
+            break;
+        }
+
+        sprintf(szBuffer, "msg at %d\n", dwTick);
+        OutputDebugStringA(szBuffer);
+        pUnit->dwTickCount = dwTick;
+        sub_00478680_SendPacket5(0x3D, gnSelectedUnitId);
         break;
+    }
 
     case 1:
         if (!bSame)
@@ -215,10 +274,24 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
     }
 }
 
-static int __stdcall sub_00467000_CheckWarpTileHover(D2UnitStrc* pPlayer, int nY1, int nX2, int nY2, D2UnitStrc* pUnit, int nX1, int* pnFlag)
+// 0x00466FE0
+void __cdecl sub_00466FE0()
+{
+    gbHoverLocked = 0;
+    gbHasSelectedUnit = 0;
+}
+
+// 0x00466FF0
+void __cdecl sub_00466FF0()
+{
+    gbHoverLocked = 0;
+}
+
+// 0x00467000
+static int __stdcall sub_00467000_CheckWarpTileHover(D2UnitStrc* pPlayer, D2HoverCoordStrc tY1, int nX2, int nY2, D2UnitStrc* pUnit, int nX1, int* pnFlag)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_TILE
-        && SCMD_IsPointInTileRect(pUnit, nX1, nY1)
+        && SCMD_IsPointInTileRect(pUnit, nX1, tY1.nValue)
         && SCMD_IsPointInTileRect(pUnit, nX2, nY2)
         && UNITS_IsInMovingMode(pPlayer)
         && GAME_IsLeftButtonHeld())
@@ -239,6 +312,14 @@ static int __stdcall sub_00467000_CheckWarpTileHover(D2UnitStrc* pPlayer, int nY
     return 0;
 }
 
+int __stdcall sub_662F_Emit_00467AC0(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int nPX, int nPY, int nX, int nY)
+{
+    D2HoverCoordStrc tY1;
+    tY1.nValue = nPY;
+    return sub_00467000_CheckWarpTileHover(pPlayer, tY1, nX, nY, pUnit, nPX, &gbWarpTileHovered);
+}
+
+// 0x004670A0
 static void __stdcall sub_004670A0_AdjustCursorPerspective(int* pnX, int* pnY)
 {
     if (sub_004F51D0_IsPerspective())
@@ -278,50 +359,79 @@ static inline void HOVER_ClearHoverUnit()
     gbHasSelectedUnit = 0;
 }
 
+// 0x00467130
 static int sub_00467130_GetHoverCursorPos(int* pnX, int* pnY)
 {
     const int nMode = sub_0045AE90();
     if (nMode == 3)
     {
-        HOVER_ClearHoverUnit();
+        if (gbHoverLocked)
+        {
+            goto Done;
+        }
+
+        if (TEXT_IsTextBoxOpen() && !TEXT_GetTextUnit())
+        {
+            TEXT_SetHoverUnit(0);
+            return 1;
+        }
+
+        TEXT_ClearHoverUnit();
+        if (gbHasSelectedUnit && gnSelectedUnitType == 5)
+        {
+            D2UnitStrc* pOld = CUNIT_FindClientUnit(gnSelectedUnitId, 5);
+            if (pOld)
+            {
+                DUNGEON_UpdateWarpRoomDeselect(UNITS_GetRoom(pOld), !pOld ? -1 : pOld->dwClassId);
+                VIEW_SetViewDirty(gpClientView);
+            }
+        }
+        gbHasSelectedUnit = 0;
+    Done:
         return 1;
     }
 
     *pnX = sub_00468730();
     *pnY = sub_00468740();
-    if (*pnY <= gnScreenHeight - 0x31
-        && (!gbSelectionRectValid || *pnX <= gnSelectionLeft || *pnX >= gnSelectionRight
-            || *pnY <= gnSelectionTop || *pnY >= gnSelectionBottom))
+    const int nMaxY = gnScreenHeight - 0x31;
+    if (*pnY > nMaxY)
     {
-        switch (nMode)
-        {
-        case 2:
-            if (*pnX < gnScreenWidth / 2)
-            {
-                break;
-            }
-            goto adjust;
-
-        case 1:
-            if (*pnX >= gnScreenWidth / 2)
-            {
-                break;
-            }
-            goto adjust;
-
-        default:
-            goto adjust;
-        }
+        sub_00466DE0_SetHoverUnit(0);
+        return 1;
     }
 
-    sub_00466DE0_SetHoverUnit(0);
-    return 1;
+    if (gbSelectionRectValid && *pnX > gnSelectionLeft && *pnX < gnSelectionRight
+        && *pnY > gnSelectionTop && *pnY < gnSelectionBottom)
+    {
+        sub_00466DE0_SetHoverUnit(0);
+        return 1;
+    }
 
-adjust:
+    switch (nMode)
+    {
+    case 2:
+        if (*pnX < gnScreenWidth / 2)
+        {
+            sub_00466DE0_SetHoverUnit(0);
+            return 1;
+        }
+        break;
+
+    case 1:
+        if (*pnX >= gnScreenWidth / 2)
+        {
+            sub_00466DE0_SetHoverUnit(0);
+            return 1;
+        }
+        break;
+    }
+
     sub_004670A0_AdjustCursorPerspective(pnX, pnY);
     return 0;
 }
 
+
+// 0x00467250
 static int __stdcall sub_00467250_CheckDoorSideA(D2UnitStrc* pOther, D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwAnimMode)
@@ -345,22 +455,25 @@ static int __stdcall sub_00467250_CheckDoorSideA(D2UnitStrc* pOther, D2UnitStrc*
     UNITS_GetCoords(pOther, &tOther);
     UNITS_GetCoords(pUnit, &tUnit);
 
-    if (UNITS_GetObjectTxtRecordFromObject(pUnit)->nSide != 1)
+    if (UNITS_GetObjectTxtRecordFromObject(pUnit)->nSide == 1)
     {
-        if ((tUnit.nX < tOther.nX && tUnit.nX > tPlayer.nX) || (tUnit.nX > tOther.nX && tUnit.nX < tPlayer.nX))
+        if (!(((unsigned int)tUnit.nY > tOther.nY && (unsigned int)tUnit.nY < tPlayer.nY) || ((unsigned int)tUnit.nY < tOther.nY && (unsigned int)tUnit.nY > tPlayer.nY)))
         {
-            return 0;
+            return 1;
         }
-        return 1;
     }
-
-    if ((tUnit.nY > tOther.nY && tUnit.nY < tPlayer.nY) || (tUnit.nY < tOther.nY && tUnit.nY > tPlayer.nY))
+    else
     {
-        return 0;
+        if (!(((unsigned int)tUnit.nX < tOther.nX && (unsigned int)tUnit.nX > tPlayer.nX) || ((unsigned int)tUnit.nX > tOther.nX && (unsigned int)tUnit.nX < tPlayer.nX)))
+        {
+            return 1;
+        }
     }
-    return 1;
+    return 0;
 }
 
+
+// 0x00467310
 static int __stdcall sub_00467310_CheckDoorSideB(D2UnitStrc* pOther, D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwAnimMode)
@@ -387,14 +500,14 @@ static int __stdcall sub_00467310_CheckDoorSideB(D2UnitStrc* pOther, D2UnitStrc*
 
     if (pObjectsTxtRecord->nSide == 1)
     {
-        if ((tOther.nY > tUnit.nY && tUnit.nY > tPlayer.nY) || (tOther.nY < tUnit.nY && tUnit.nY < tPlayer.nY))
+        if ((tOther.nY > (unsigned int)tUnit.nY && (unsigned int)tUnit.nY > tPlayer.nY) || (tOther.nY < (unsigned int)tUnit.nY && (unsigned int)tUnit.nY < tPlayer.nY))
         {
             return 1;
         }
     }
     else
     {
-        if ((tOther.nX < tUnit.nX && tUnit.nX < tPlayer.nX) || (tOther.nX > tUnit.nX && tUnit.nX > tPlayer.nX))
+        if ((tOther.nX < (unsigned int)tUnit.nX && (unsigned int)tUnit.nX < tPlayer.nX) || (tOther.nX > (unsigned int)tUnit.nX && (unsigned int)tUnit.nX > tPlayer.nX))
         {
             return 1;
         }
@@ -402,11 +515,68 @@ static int __stdcall sub_00467310_CheckDoorSideB(D2UnitStrc* pOther, D2UnitStrc*
     return 0;
 }
 
+// 0x004673C0
 static int sub_004673C0_GetDistanceSquared(D2UnitStrc* pUnit, D2UnitStrc* pOther)
 {
     const int nDX = UNITS_GetClientCoordX(pUnit) - UNITS_GetClientCoordX(pOther);
     const int nDY = UNITS_GetClientCoordY(pUnit) - UNITS_GetClientCoordY(pOther);
     return nDY * nDY + nDX * nDX;
+}
+
+struct Unicode;
+
+struct D2TileRectStrc
+{
+    int unk0x00;
+    int nX;
+    int nY;
+    unsigned int nWidth;
+    unsigned int nHeight;
+};
+
+struct D2UIVarRecordStrc
+{
+    int anCloseKind[0x26];
+};
+
+struct T0044CB60
+{
+    Unicode* pText;
+    T0044CB60* pNext;
+};
+
+// 0x00467400
+int __cdecl UI_HasSelectedUnit()
+{
+    return gbHasSelectedUnit;
+}
+
+// 0x00467430
+void __fastcall sub_00467430_SetSelectionRect(const D2SelectionRectStrc* pRect)
+{
+    if (pRect)
+    {
+        gnSelectionLeft = pRect->nLeft;
+        gnSelectionTop = pRect->nTop;
+        gnSelectionRight = pRect->nRight;
+        gnSelectionBottom = pRect->nBottom;
+        gbSelectionRectValid = 1;
+    }
+    else
+    {
+        gbSelectionRectValid = 0;
+    }
+}
+
+// 0x00467470
+int __fastcall sub_00467470_UnitFindTest(D2UnitStrc* pUnit, void* pArg)
+{
+    if (pUnit && pUnit->dwUnitType == UNIT_ITEM
+        && ITEMS_IsMetalItem(UNITS_GetClassIdInline(pUnit)))
+    {
+        return 1;
+    }
+    return 0;
 }
 
 // 0x00467490
@@ -468,24 +638,46 @@ static D2UnitStrc* __stdcall SELECT_FindSkillTarget(D2SkillStrc* pSkill, D2UnitS
     return pUnit;
 }
 
+extern const unsigned int gdwMask_006CE278;                                                                 // 0x006CE278
+
+static inline int UNITS_IsSelectable(D2UnitStrc* pUnit)
+{
+    int bResult = 0;
+    if (pUnit)
+    {
+        bResult = (pUnit->dwFlags >> 2) & 1;
+    }
+    return bResult;
+}
+
+struct SGAMEDATA;
+
+// 0x00467640
+int __fastcall sub_00467640_UnitIsOfTypeMonster(D2UnitStrc* pUnit, SGAMEDATA* pGame)
+{
+    if ((pUnit ? pUnit->dwUnitType : UNIT_INVALID) != 1)
+    {
+        return 0;
+    }
+    return 1;
+}
+
+// 0x00467660
 static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkillsTxtRecord, D2UnitStrc* pUnit)
 {
     const int nDirection = (unsigned char)UNITS_GetNewDirection(pUnit) >> 3;
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
     for (int i = 0; i < 5; ++i)
     {
-// build: symbol ?gaAdjacentDirOffsets@* 0x006D6B34
         const int nIndex = (gaAdjacentDirOffsets[i] + nDirection) & 7;
-// build: symbol ?gaDirectionDX@* 0x006D6B14
         const int nX = gaDirectionDX[nIndex] + CLIENT_GetUnitXInline(pUnit);
-// build: symbol ?gaDirectionDY@* 0x006D6AF4
         const int nY = gaDirectionDY[nIndex] + CLIENT_GetUnitYInline(pUnit);
         if (COLLISION_CheckMaskWithSize(pRoom, nX, nY, 1, 0x180))
         {
             D2UnitStrc* pTarget = D2Common_10407(pRoom, nX, nY, sub_00467640_UnitFindTest, 0, 1);
-            if (UNIT_HasFlag(pTarget, 4))
+            if (UNITS_IsSelectable(pTarget))
             {
-                if (!(pSkillsTxtRecord->nFlags[2] & gdwBitMasks[4])
+                if (!(pSkillsTxtRecord->nFlags[2] & gdwMask_006CE278)
                     || (pTarget->dwUnitType == UNIT_MONSTER && MONSTERREGION_CheckMonStats2Flag(pTarget->dwClassId, 6))
                     || CUNIT_IsHostileTo(pUnit, pTarget))
                 {
@@ -499,6 +691,17 @@ static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkill
     return 0;
 }
 
+D2UnitStrc* __fastcall sub_807B_Emit_00467660(D2SkillsTxt* pSkillsTxtRecord, D2UnitStrc* pPlayer, int bArg)
+{
+    if (bArg && pPlayer->dwUnitType == UNIT_PLAYER)
+    {
+        return sub_00467660_FindAdjacentTarget(pSkillsTxtRecord, pPlayer);
+    }
+    UNITS_SetTargetUnitForDynamicUnit(pPlayer, 0);
+    return pPlayer;
+}
+
+// 0x004677B0
 static D2UnitStrc* __stdcall sub_004677B0_FindFreeTargetCoords(int* pnX, int* pnY, D2UnitStrc* pUnit)
 {
     D2CoordStrc tCoord;
@@ -525,6 +728,7 @@ static D2UnitStrc* __stdcall sub_004677B0_FindFreeTargetCoords(int* pnX, int* pn
     return pUnit;
 }
 
+// 0x00467880
 D2UnitStrc* __fastcall sub_00467880_GetSkillTarget(D2SkillStrc* pSkill, D2UnitStrc* pUnit, int* pnX, int* pnY, unsigned char nFlags, int bArg)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
@@ -582,6 +786,7 @@ skip:
     return pUnit;
 }
 
+
 void __cdecl sub_E01_Emit_00467AC0(D2UnitStrc* pFirst)
 {
     int nX = 0;
@@ -597,7 +802,8 @@ void __cdecl sub_E01_Emit_00467AC0(D2UnitStrc* pFirst)
     D2UnitStrc* pBest = 0;
     for (D2UnitStrc* pUnit = pFirst; pUnit; pUnit = pUnit->ptRoomNext)
     {
-        if (sub_00467000_CheckWarpTileHover(pPlayer, nPY, nX, nY, pUnit, nPX, &gbWarpTileHovered))
+        D2HoverCoordStrc tPlayerY = { nPY };
+        if (sub_00467000_CheckWarpTileHover(pPlayer, tPlayerY, nX, nY, pUnit, nPX, &gbWarpTileHovered))
         {
             continue;
         }
@@ -621,3 +827,256 @@ void __cdecl sub_E01_Emit_00467AC0(D2UnitStrc* pFirst)
     }
     sub_00466DE0_SetHoverUnit(pBest);
 }
+
+// 0x00467A00
+void __cdecl sub_00467A00()
+{
+    gnHoverMonClassId = 0x13;
+// build: symbol ?gnHoverClassId@* 0x00711F94
+    gnHoverClassId = 0x13;
+}
+
+
+// 0x00467A10
+D2UnitStrc* __cdecl sub_00467A10()
+{
+    if (gbHasSelectedUnit)
+    {
+        D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnSelectedUnitId, gnSelectedUnitType);
+        if (pUnit && sub_00466870(pUnit, 0, 0, 0))
+        {
+            return pUnit;
+        }
+        gbHoverLocked = 0;
+        gbHasSelectedUnit = 0;
+        return 0;
+    }
+
+    return 0;
+}
+
+
+// 0x00467A70
+void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        if (sub_00466870(pUnit, 0, 0, 0))
+        {
+            gbHoverLocked = 0;
+            sub_00466DE0_SetHoverUnit(pUnit);
+            gbHoverLocked = 1;
+        }
+        else
+        {
+            gbHoverLocked = 0;
+            gbHasSelectedUnit = 0;
+        }
+    }
+    else
+    {
+        gbHasSelectedUnit = 0;
+        gbHoverLocked = 1;
+    }
+}
+
+
+extern int gaUnitHoverPriority[];                                                                  // 0x00711F98
+
+extern D2ActiveRoomStrc* gpHoverRoom;                                                             // 0x007A6AA4
+
+D2UnitStrc* __cdecl sub_00467A10();                                                            // 0x00467A10
+
+void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
+
+int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster);                                                       // 0x0063EA40
+
+int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                            // 0x00639DF0
+
+// 0x00467AC0
+void __cdecl sub_00467AC0_UpdateHoverUnit()
+{
+    if (gbHoverLocked)
+    {
+        return;
+    }
+
+    int nX = 0;
+    int nY = 0;
+    if (sub_00467130_GetHoverCursorPos(&nX, &nY))
+    {
+        return;
+    }
+
+    D2UnitStrc* pSelected = sub_00467A10();
+    if (pSelected && sub_00466870(pSelected, nX, nY, 1) && (pSelected->dwUnitType != UNIT_ITEM || !gdwGlobal_007A6A90))
+    {
+        sub_00466DE0_SetHoverUnit(pSelected);
+        return;
+    }
+
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (!pPlayer)
+    {
+        return;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
+    if (!pRoom)
+    {
+        return;
+    }
+
+    if (gpHoverRoom != pRoom)
+    {
+        gbWarpTileHovered = 1;
+    }
+    gpHoverRoom = pRoom;
+
+    int nPlayerX = CLIENTS_GetUnitX(pPlayer);
+    int nPlayerY = CLIENTS_GetUnitY(pPlayer);
+    DUNGEON_GameSubtileToClientCoords(&nPlayerX, &nPlayerY);
+
+    D2UnitStrc* pBest = 0;
+    D2ActiveRoomStrc** ppRoomList;
+    unsigned int nNumRooms;
+    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
+    for (unsigned int i = 0; i < nNumRooms; ++i)
+    {
+        D2UnitStrc* pUnit = ppRoomList[i]->pUnitFirst;
+        D2UnitStrc* pPrevious = 0;
+        int nCount = 0;
+        for (; pUnit; pUnit = pUnit->ptRoomNext)
+        {
+            const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
+            if (nUnitType == 3)
+            {
+                continue;
+            }
+
+            if (pPrevious == pUnit)
+            {
+                break;
+            }
+            pPrevious = pUnit;
+
+            D2_ASSERT(nCount++ <= 30000, 0x218);
+
+            if (pUnit == pPlayer)
+            {
+                continue;
+            }
+
+            D2HoverCoordStrc tPlayerY = { nPlayerY };
+            if (sub_00467000_CheckWarpTileHover(pPlayer, tPlayerY, nX, nY, pUnit, nPlayerX, &gbWarpTileHovered))
+            {
+                continue;
+            }
+
+            if (pUnit && pUnit->dwUnitType == UNIT_ITEM && gdwGlobal_007A6A90)
+            {
+                continue;
+            }
+
+            if (!sub_00466870(pUnit, nX, nY, 1))
+            {
+                continue;
+            }
+
+            if (pSelected == pUnit && !CUNIT_IsDeadOrDying(pUnit))
+            {
+                pBest = pUnit;
+                break;
+            }
+
+            if (!pBest)
+            {
+                pBest = pUnit;
+                continue;
+            }
+
+            const int nBestType = pBest->dwUnitType;
+            int nPriority = gaUnitHoverPriority[nUnitType];
+            int nBestPriority = gaUnitHoverPriority[nBestType];
+            if (nUnitType == 0)
+            {
+                if (CUNIT_IsDeadOrDying(pUnit))
+                {
+                    nPriority = 1;
+                }
+            }
+            else if (nUnitType == 1)
+            {
+                if (MONSTERS_IsDead(pUnit))
+                {
+                    nPriority = -8;
+                }
+
+                if (STATES_CheckState(pUnit, STATE_ATTACHED))
+                {
+                    continue;
+                }
+            }
+
+            if (nBestType == 1 && MONSTERS_IsDead(pBest))
+            {
+                nBestPriority = -8;
+            }
+
+            if (nUnitType != 2)
+            {
+                if (nBestType == 2)
+                {
+                    if (UnitIsDoor(pBest))
+                    {
+                        if (sub_00467250_CheckDoorSideA(pUnit, pBest))
+                        {
+                            pBest = pUnit;
+                        }
+                        continue;
+                    }
+                    goto NonDoorA;
+                }
+            }
+            else if (nBestType != 2)
+            {
+                if (UnitIsDoor(pUnit))
+                {
+                    if (sub_00467310_CheckDoorSideB(pBest, pUnit) && nBestPriority < nPriority)
+                    {
+                        pBest = pUnit;
+                    }
+                }
+                else if (nBestPriority < nPriority)
+                {
+                    pBest = pUnit;
+                }
+                continue;
+            }
+
+            if (nBestPriority != nPriority)
+            {
+                if (nBestPriority < nPriority)
+                {
+                    pBest = pUnit;
+                }
+            }
+            else if (sub_004673C0_GetDistanceSquared(pPlayer, pUnit) < sub_004673C0_GetDistanceSquared(pPlayer, pBest))
+            {
+                pBest = pUnit;
+            }
+            continue;
+
+NonDoorA:
+            if (nBestPriority < nPriority)
+            {
+                pBest = pUnit;
+            }
+        }
+    }
+
+    sub_00466DE0_SetHoverUnit(pBest);
+}
+
+
+#include "gen/data/Source/D2Client/GAME/Select.inc"

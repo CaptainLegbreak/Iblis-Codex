@@ -1178,46 +1178,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_00466DC0.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_00466DC0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/Unknown_00467640.cpp": {
-   "bytes": 276,
-   "definitions": 2,
-   "externs": [
-    "extern \"C\" void __cdecl sub_00467EF0_MsgHandler(); // 0x00467EF0",
-    "extern \"C\" void __cdecl ROSTERPETS_HandleButtonUp(); // 0x00467FA0",
-    "extern \"C\" void __cdecl sub_00468840_HandleMouseMotion(); // 0x00468840"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_00467640.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/Unknown_00467660.cpp": {
-   "bytes": 92,
-   "definitions": 3,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_00467660.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/Unknown_00467AC0.cpp": {
-   "bytes": 84,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_00467AC0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Client/Unknown_00467E40.cpp": {
    "bytes": 40,
    "definitions": 3,
@@ -5385,6 +5345,19 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/PLAYER/PlrIntro.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/GAME/Select.cpp": {
+   "bytes": 456,
+   "definitions": 7,
+   "externs": [
+    "extern \"C\" void __cdecl sub_00467EF0_MsgHandler(); // 0x00467EF0",
+    "extern \"C\" void __cdecl ROSTERPETS_HandleButtonUp(); // 0x00467FA0",
+    "extern \"C\" void __cdecl sub_00468840_HandleMouseMotion(); // 0x00468840"
+   ],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/GAME/Select.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -40958,7 +40931,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_00466DC0.cpp",
+   "file": "Source/D2Client/GAME/Select.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnHoverMonClassId = ",
@@ -40983,7 +40956,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_00467640.cpp",
+   "file": "Source/D2Client/GAME/Select.cpp",
    "fill": 3,
    "form": "declared",
    "fwd": null,
@@ -41069,7 +41042,7 @@
    "cname": "gData_007120EC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_00467640.cpp",
+   "file": "Source/D2Client/GAME/Select.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007120EC_t gData_007120EC; // 0x007120EC",
    "head": "extern \"C\" struct d2data_007120EC_t gData_007120EC = ",
@@ -41086,7 +41059,7 @@
    "cname": "gData_006D6AF4",
    "declared": true,
    "decorated": "?gaDirectionDY@@3QBHB",
-   "file": "Source/D2Client/Unknown_00467660.cpp",
+   "file": "Source/D2Client/GAME/Select.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006D6AF4[8]; // 0x006D6AF4",
@@ -41117,7 +41090,7 @@
    "cname": "gData_006D6B14",
    "declared": true,
    "decorated": "?gaDirectionDX@@3QBHB",
-   "file": "Source/D2Client/Unknown_00467660.cpp",
+   "file": "Source/D2Client/GAME/Select.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006D6B14[8]; // 0x006D6B14",
@@ -41148,7 +41121,7 @@
    "cname": "gData_006D6B34",
    "declared": true,
    "decorated": "?gaAdjacentDirOffsets@@3QBHB",
-   "file": "Source/D2Client/Unknown_00467660.cpp",
+   "file": "Source/D2Client/GAME/Select.cpp",
    "fill": 7,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006D6B34[7]; // 0x006D6B34",
@@ -41179,7 +41152,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_00467AC0.cpp",
+   "file": "Source/D2Client/GAME/Select.cpp",
    "fill": 21,
    "form": "declared",
    "fwd": null,

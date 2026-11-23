@@ -83,7 +83,6 @@ struct PairStrc_0045BA70
 
 void __stdcall sub_00625960(void* pArg); // 0x00625960
 
-extern int gbHasSelectedUnit; // 0x007A6A94
 
 
 extern int gdwGlobal_007A6AB0; // 0x007A6AB0
@@ -3502,18 +3501,7 @@ void __fastcall UI_FreeUnitModStats(void* pArg)
     sub_00625960(pArg);
 }
 
-// 0x00466DD0
-int __cdecl UI_GetHoverClassId()
-{
-// build: symbol ?gnHoverClassId@* 0x00711F94
-    return gnHoverClassId;
-}
 
-// 0x00467400
-int __cdecl UI_HasSelectedUnit()
-{
-    return gbHasSelectedUnit;
-}
 
 // 0x00468030
 int __cdecl UI_GetCursorFrame()

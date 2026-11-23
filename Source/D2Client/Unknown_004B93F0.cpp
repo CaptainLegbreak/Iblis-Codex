@@ -24,8 +24,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
-void __fastcall D2SOUND_ListAddHead(D2TimedHintNodeStrc** ppList, D2TimedHintEntryStrc* pEntry);       // 0x00516950
 int __fastcall sub_004B9590(int nKey);                                                                      // 0x004B9590
 int __fastcall sub_004DFA40_IsSoundPlaying(void* pSound);                                                   // 0x004DFA40
 int __fastcall sub_004DF900_GetSoundPosition(void* pSound);                                                 // 0x004DF900
@@ -34,29 +32,8 @@ void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned
 int __cdecl sub_004817F0();                                                                                 // 0x004817F0
 int __cdecl sub_00481800();                                                                                 // 0x00481800
 
-D2TimedHintEntryStrc gaHintEntries[200];                                                           // 0x007C0ED0
 extern D2TimedHintNodeStrc* gpClientSoundList;                                                       // 0x007C5458
-extern "C" { int gnSoundSerial; }                                                                  // 0x007C5460
 
-// 0x004B93F0
-D2TimedHintEntryStrc* __cdecl sub_004B93F0_AllocHintEntry()
-{
-    for (int i = 0; i < 200; ++i)
-    {
-        D2TimedHintEntryStrc* pEntry = &gaHintEntries[i];
-        if (!pEntry->bUsed)
-        {
-            memset(pEntry, 0, sizeof(D2TimedHintEntryStrc));
-            pEntry->bUsed = 1;
-            D2SOUND_ListAddHead(&gpClientSoundList, pEntry);
-            gnSoundSerial += 1;
-            pEntry->nKey = gnSoundSerial;
-            return pEntry;
-        }
-    }
-
-    return 0;
-}
 
 // 0x004B95C0
 int __fastcall sub_004B95C0_IsHintPlaying(int nKey)
