@@ -380,7 +380,7 @@ extern float gfOsVersion; // 0x0074D894
 
 void __cdecl LOGMANAGER_LogWritePrefixedNoNewline(const char* szPrefix, const char* szFormat, ...); // 0x004106B0
 
-void __cdecl MAINMENUS_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410740
+void __cdecl LOGMANAGER_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410740
 
 extern "C" const char gszPercentS_006FFC58[]; // 0x006FFC58
 
@@ -964,7 +964,7 @@ int __cdecl sub_0040D5B0_LoadImageHlp(); // 0x0040D5B0
 
 void __cdecl EXCEPTIONS_InitLogSystem(); // 0x00410540
 
-int __cdecl sub_00410960_IsPlatformNT(); // 0x00410960
+int __cdecl SYSTEM_IsPlatformNT(); // 0x00410960
 
 void __cdecl SYSTEM_InitTimeBase(); // 0x004109D0
 
@@ -1914,7 +1914,7 @@ static void __stdcall ERRORMANAGER_LogPrefixedText(const char* szPrefix, const c
     }
     else
     {
-        MAINMENUS_LogWritePrefixed(szPrefix, gszPercentS_006FFC58, szText);
+        LOGMANAGER_LogWritePrefixed(szPrefix, gszPercentS_006FFC58, szText);
     }
 }
 
@@ -2733,8 +2733,8 @@ static __declspec(noinline) void __stdcall ERRORMANAGER_DebugPrintV(unsigned int
     }
     if (nFlags & 1)
     {
-// build: symbol ?MAINMENUS_LogWritePrefixed@* 0x00410740
-        MAINMENUS_LogWritePrefixed("LOG", gszPercentS_006FFC58, szBuffer);
+// build: symbol ?LOGMANAGER_LogWritePrefixed@* 0x00410740
+        LOGMANAGER_LogWritePrefixed("LOG", gszPercentS_006FFC58, szBuffer);
     }
     if (nFlags & 0x18)
     {
@@ -3300,7 +3300,7 @@ void __cdecl ERRORMANAGER_RaiseErrorReport(int nType, const char* szFile, int nL
     {
         szFormat = "<no reason given>";
     }
-    MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszStringFormat, "---finished error callback---\n");
+    LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, gszStringFormat, "---finished error callback---\n");
     LOGMANAGER_CloseLogFiles();
     int bFatal = nErrorType == 5 || nErrorType == 6 || nErrorType == 2;
     if (!sub_004013A0_IsDebuggerAttached())
@@ -3604,8 +3604,8 @@ void __fastcall ERRORMANAGER_ShowErrorBox(int nType, const char* szFile, int nLi
     SStrPrintf(szCaption, 0x100, "%s Error", "Diablo II");
     strcpy(szBoxText, szText);
     strcat(szText, "\n");
-// build: symbol ?MAINMENUS_LogWritePrefixed@* 0x00410740
-    MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszStringFormat, szText);
+// build: symbol ?LOGMANAGER_LogWritePrefixed@* 0x00410740
+    LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, gszStringFormat, szText);
     LOGMANAGER_CloseLogFiles();
     MessageBoxA(0, szBoxText, szCaption, 0x30);
 }
