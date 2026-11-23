@@ -924,6 +924,19 @@ void __fastcall SUNITNPC_SetItemTradeFlags(D2UnitStrc* pPlayer, D2UnitStrc* pIte
     }
 }
 
+int __stdcall sub_0062E880(D2UnitStrc* pItem); // 0x0062E880
+
+// 0x00576320
+static inline int SUNITNPC_GetItemStorePage(D2UnitStrc* pItem)
+{
+    return sub_0062E880(pItem);
+}
+
+int __stdcall sub_M114_Emit_00576320(D2UnitStrc* pItem)
+{
+    return SUNITNPC_GetItemStorePage(pItem) + 1;
+}
+
 // 0x00576330
 D2UnitStrc* __fastcall D2GAME_NPC_GenerateStoreItem_6FCC6A60(D2UnitStrc* hNPC, unsigned int dwCode, D2GameStrc* ptGame, int bVendorItem, int nQuality, int nItemLevel, int nPlayerLevel)
 {

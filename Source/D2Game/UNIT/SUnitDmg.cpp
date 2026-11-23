@@ -1403,6 +1403,26 @@ static void __stdcall SUNITDMG_AddMonTypeDamagePercent(D2UnitStrc* pAttacker, D2
     }
 }
 
+// 0x0057B7A0
+static inline void SUNITDMG_ApplyDamageTargetAc(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
+{
+    const int nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, 0x78, 0);
+    if (nValue)
+    {
+        int nNew = STATLIST_UnitGetStatValue(pDefender, STAT_ARMORCLASS, 0) + nValue;
+        if (nNew < 0)
+        {
+            nNew = 0;
+        }
+        STATLIST_SetUnitStat(pDefender, STAT_ARMORCLASS, nNew, 0);
+    }
+}
+
+void __stdcall sub_M118_Emit_0057B7A0(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
+{
+    SUNITDMG_ApplyDamageTargetAc(pAttacker, pDefender);
+}
+
 // 0x0057B7D0
 void __fastcall SUNITDMG_FillDamageValues(D2GameStrc* pGame,D2UnitStrc* pAttacker,D2UnitStrc* pDefender,D2DamageStrc* pDamage,int nWeapon,unsigned char nSrcDam)
 {
