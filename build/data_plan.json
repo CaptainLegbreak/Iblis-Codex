@@ -1977,8 +1977,8 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/Missile.cpp": {
-   "bytes": 4040,
-   "definitions": 49,
+   "bytes": 4184,
+   "definitions": 52,
    "externs": [
     "extern \"C\" void __cdecl sub_004D2610(); // 0x004D2610",
     "extern \"C\" void __cdecl sub_004D47F0(); // 0x004D47F0",
@@ -2000,10 +2000,6 @@
     "extern \"C\" void __cdecl sub_004CCCA0_CltHitFlagOwner(); // 0x004CCCA0",
     "extern \"C\" void __cdecl sub_004CCF00_CltHitClearGlobals(); // 0x004CCF00",
     "extern \"C\" void __cdecl sub_004CF800(); // 0x004CF800",
-    "extern \"C\" void __cdecl sub_004CF9B0_CltHitRingSubMissiles(); // 0x004CF9B0",
-    "extern \"C\" void __cdecl MISSILE_ScanAreaCreateMissiles(); // 0x004CFE30",
-    "extern \"C\" void __cdecl MISSILE_CreateChildMissile(); // 0x004D0380",
-    "extern \"C\" void __cdecl MISSILE_SpawnOwnerSubMissile(); // 0x004D1820",
     "extern \"C\" void __cdecl sub_004D1BD0(); // 0x004D1BD0"
    ],
    "fn_types": {},
@@ -2026,15 +2022,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004CC790.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/UNIT/Missile_004CD540.cpp": {
-   "bytes": 144,
-   "definitions": 3,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UNIT/Missile_004D01D0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -71191,7 +71178,7 @@
    "cname": "gData_006DB100",
    "declared": true,
    "decorated": "?gaMissileFanTargetX@@3PAHA",
-   "file": "Source/D2Client/UNIT/Missile_004CD540.cpp",
+   "file": "Source/D2Client/UNIT/Missile.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006DB100[8]; // 0x006DB100",
@@ -71222,7 +71209,7 @@
    "cname": "gData_006DB120",
    "declared": true,
    "decorated": "?gaMissileFanTargetY@@3PAHA",
-   "file": "Source/D2Client/UNIT/Missile_004CD540.cpp",
+   "file": "Source/D2Client/UNIT/Missile.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006DB120[8]; // 0x006DB120",
@@ -72498,7 +72485,7 @@
    "cname": "gData_006DB7F8",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UNIT/Missile_004CD540.cpp",
+   "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006DB7F8_t gData_006DB7F8; // 0x006DB7F8",
    "head": "extern \"C\" const struct d2data_006DB7F8_t gData_006DB7F8 = ",
