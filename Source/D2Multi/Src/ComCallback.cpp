@@ -3036,22 +3036,6 @@ void* __fastcall sub_M109_Emit_00449320(const char* szName, const unsigned char*
     return COMCALLBACK_AddEntry(szName, pStat, 7);
 }
 
-// 0x0044CCA0
-int __fastcall COMCALLBACK_CountLevelThresholds(int nValue, int nUnused, int nLimit)
-{
-    int nCount = 0;
-    if (nLimit < 7)
-        nCount = 1;
-    if (nValue > 1)
-        nCount++;
-    if (nValue > 9)
-        nCount++;
-    if (nValue > 0x13)
-        nCount++;
-    if (nValue > 0x1D)
-        nCount++;
-    return nCount;
-}
 
 // 0x004512C0
 int __stdcall COMCALLBACK_LoadLngString(int nId, char* szBuffer, unsigned int nSize)
