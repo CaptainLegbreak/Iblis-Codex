@@ -44437,11 +44437,6 @@
      "name": "_sub_00564CA0"
     },
     {
-     "va": "0x00568E60",
-     "length": 179,
-     "name": "PLRSAVE2_WriteMercData"
-    },
-    {
      "va": "0x00604A30",
      "length": 15,
      "name": "TileSetHardwareFreeCallback"
@@ -50786,6 +50781,11 @@
      "va": "0x00568DC0",
      "length": 147,
      "name": "PLRSAVE2_GetItemIndex"
+    },
+    {
+     "va": "0x00568E60",
+     "length": 179,
+     "name": "PLRSAVE2_WriteMercData"
     },
     {
      "va": "0x00568F20",
