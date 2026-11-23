@@ -1,7 +1,8 @@
-#include "Storm.h"
+#include "Fog.h"
 #include "D2GameTypes.h"
 #include "D2Primitives.h"
 #include "D2StormTypes.h"
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct T00410B70;
 struct D2BitBufferStrc;
@@ -11,8 +12,6 @@ struct D2TimedRecordStrc;
 struct D2CriticalSectionStrc;
 
 struct T00410B70 { unsigned char bytes[1]; };
-
-extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 
 enum { BIT_MASK = 7 };
 
@@ -235,7 +234,7 @@ int __stdcall sub_004110D0_ReadTreeCode(D2BitBufferStrc* pBuffer, int* pTree)
     int nNode = 0;
     for (;;)
     {
-        int nBit = (gdwBitMasks_006CE268[pBuffer->nPosBits] & *pBuffer->pBuffer) >> pBuffer->nPosBits;
+        int nBit = (gdwBitMasks[pBuffer->nPosBits] & *pBuffer->pBuffer) >> pBuffer->nPosBits;
         ++pBuffer->nPosBits;
         if (pBuffer->nPosBits == 8)
         {
@@ -251,7 +250,7 @@ int __stdcall sub_004110D0_ReadTreeCode(D2BitBufferStrc* pBuffer, int* pTree)
     }
 }
 
-#include "gen/data/Source/Storm/Unknown_00410B70.inc"
+#include "gen/data/Source/Fog/Unknown_00410B70.inc"
 
 // 0x00410E90
 extern "C" __declspec(dllexport) int __stdcall sub_00410E90(Obj00410E90* pObj) {

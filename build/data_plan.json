@@ -254,12 +254,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_00410B70.cpp": {
+  "Source/Fog/Unknown_00410B70.cpp": {
    "bytes": 40,
    "definitions": 2,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_00410B70.inc",
+   "include": "gen/data/Source/Fog/Unknown_00410B70.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -8347,7 +8347,7 @@
    "cname": "gData_006CE368",
    "declared": true,
    "decorated": "?gdwLowMasks_006CE368@@3PAIA",
-   "file": "Source/Storm/Unknown_00410B70.cpp",
+   "file": "Source/Fog/Unknown_00410B70.cpp",
    "fill": 9,
    "form": "declared",
    "fwd": "extern \"C\" const unsigned int gData_006CE368[9]; // 0x006CE368",
@@ -8378,7 +8378,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Storm/Unknown_00410B70.cpp",
+   "file": "Source/Fog/Unknown_00410B70.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gbCallerFirst_00708340 = ",
