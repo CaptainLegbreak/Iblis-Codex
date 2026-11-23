@@ -29794,7 +29794,7 @@
     {
      "va": "0x004BB5F0",
      "length": 5,
-     "name": "?SKILLS_Return0@@YGHH@Z"
+     "name": "?MsgSlot02@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BB600",
@@ -29804,17 +29804,17 @@
     {
      "va": "0x004BB950",
      "length": 5,
-     "name": "?SKILLS_Return0@@YGHH@Z"
+     "name": "?MsgSlot05@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BB960",
      "length": 5,
-     "name": "?SKILLS_Return0@@YGHH@Z"
+     "name": "?MsgSlot07@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BB970",
      "length": 5,
-     "name": "?SKILLS_Return0@@YGHH@Z"
+     "name": "?MsgSlot08@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BB980",
@@ -30003,17 +30003,17 @@
     {
      "va": "0x004BC190",
      "length": 5,
-     "name": "?SKILLS_Return0@@YGHH@Z"
+     "name": "?MsgSlot06@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BC1C0",
      "length": 5,
-     "name": "?SKILLS_Return0@@YGHH@Z"
+     "name": "?MsgSlot08@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BC1D0",
      "length": 5,
-     "name": "?SKILLS_Return0@@YGHH@Z"
+     "name": "?MsgSlot09@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BC1F0",
