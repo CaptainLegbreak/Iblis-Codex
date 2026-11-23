@@ -53,16 +53,6 @@ void __cdecl sub_00520200_DeleteQueueLock()
     DeleteCriticalSection(&gtMessageLock);
 }
 
-// 0x00520680
-void __fastcall sub_00520680_SHA1Init(T0041D340* pContext)
-{
-    pContext->dwState[0] = 0x67452301;
-    pContext->dwState[1] = 0xEFCDAB89;
-    pContext->dwState[2] = 0x98BADCFE;
-    pContext->dwState[3] = 0x10325476;
-    pContext->dwState[4] = 0xC3D2E1F0;
-}
-
 // 0x00520A80
 static inline int sub_00520A80_CheckStringBlock(const char* pBuffer, unsigned int nPos, unsigned int nCount, unsigned int nSize)
 {

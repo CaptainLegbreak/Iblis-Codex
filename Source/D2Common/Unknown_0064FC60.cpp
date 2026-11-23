@@ -291,37 +291,6 @@ static BOOL __stdcall sub_00650150_TraceSteps(D2CoordStrc tDelta, D2FP32_16* pOu
 
 void sub_6FD5CEB0(int nBaseVelocity, D2DynamicPathStrc* pPath); // 0x006502D0
 
-// 0x00650590
-void __stdcall PATH_RecacheRoomIfNeeded(D2DynamicPathStrc* pPath)
-{
-    PATH_RecacheRoomAtCoordIfNeeded(PATH_MakeCoord(PATH_FP16FitToCenter(pPath->tGameCoords.dwPrecisionX), PATH_FP16FitToCenter(pPath->tGameCoords.dwPrecisionY)), 0, pPath);
-}
-
-// 0x006505E0
-void __stdcall D2Common_10235_PATH_UpdateRiderPath(D2UnitStrc* pRiderUnit, D2UnitStrc* pMountUnit)
-{
-    D2_ASSERT(pRiderUnit, 0x54E);
-    D2_ASSERT(pMountUnit, 0x54F);
-
-    D2DynamicPathStrc* pRiderPath = pRiderUnit->pDynamicPath;
-    D2DynamicPathStrc* pMountPath = pMountUnit->pDynamicPath;
-    if (pRiderPath->tGameCoords.wPosX == pMountPath->tGameCoords.wPosX && pRiderPath->tGameCoords.wPosY == pMountPath->tGameCoords.wPosY)
-    {
-        pRiderPath->dwFlags &= 0xFFFFFFF7;
-    }
-    else
-    {
-        pRiderPath->dwFlags |= 8;
-    }
-
-    if (pRiderPath->pRoom != pMountPath->pRoom)
-    {
-        pRiderPath->dwFlags |= 1;
-    }
-
-    PATH_RecacheRoomAtCoordIfNeeded(pMountPath->tGameCoords, pMountPath->pRoom, pRiderPath);
-}
-
 // 0x00650660
 static BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16* pOutCoord, int* pSteps, D2DynamicPathStrc* pPath)
 {
@@ -382,29 +351,6 @@ static BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16* pOutCoord, int* pSte
 }
 
 void PATH_ResetMovement(D2DynamicPathStrc* pPath); // 0x006507B0
-// 0x00650800
-D2DynamicPathStrc* __fastcall sub_00650800_CheckPathMoving(D2UnitStrc* pUnit)
-{
-    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-    if (!pPath)
-    {
-        return 0;
-    }
-
-    pPath->dwFlags &= 0xFFFFFFF7;
-    if (pPath->dwFlags & 0x40000)
-    {
-        pPath->nCollidedWithMask = 0;
-    }
-
-    if ((pPath->dwFlags & 0x20) && pPath->dwPathPoints > 0 && pPath->dwVelocity)
-    {
-        return pPath;
-    }
-
-    PATH_ResetMovement(pPath);
-    return 0;
-}
 
 // build: context D2Common_10226
 BOOL __stdcall D2Common_10226(D2UnitStrc* pUnit, int nBaseVelocity)
@@ -452,71 +398,6 @@ BOOL __stdcall D2Common_10226(D2UnitStrc* pUnit, int nBaseVelocity)
 
 BOOL __stdcall sub_6FDAD5E0(D2ActiveRoomStrc* pDestRoom, D2PathPointStrc tDest, D2DynamicPathStrc* pPath); // 0x00650910
 BOOL __stdcall D2Common_10231_Impl(D2ActiveRoomStrc* pRoomDest, D2PathPointStrc tDest, D2DynamicPathStrc* pPath); // 0x00650AA0
-
-// 0x00650BE0
-BOOL __stdcall D2Common_10229(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pDestRoom, unsigned int nDestX, unsigned int nDestY)
-{
-    D2PathPointStrc tCoords;
-    tCoords.X = (unsigned short)nDestX;
-    tCoords.Y = (unsigned short)nDestY;
-    const BOOL bResult = sub_6FDAD5E0(pDestRoom, tCoords, pDynamicPath);
-    if (!bResult)
-    {
-        return bResult;
-    }
-
-    pDynamicPath->dwPathPoints = 0;
-    return 1;
-}
-
-// 0x00650C20
-int __stdcall D2Common_10231(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit_unused, D2ActiveRoomStrc* pRooms, unsigned short nX, unsigned short nY)
-{
-    D2PathPointStrc tDest;
-    tDest.X = nX;
-    tDest.Y = nY;
-    D2Common_10231_Impl(pRooms, tDest, pDynamicPath);
-    pDynamicPath->dwPathPoints = 0;
-    return 1;
-}
-
-// 0x00650C60
-BOOL __stdcall D2Common_10230(D2DynamicPathStrc* pDynamicPath, int a2, D2ActiveRoomStrc* pRoom, unsigned int a4, short a5)
-{
-    D2PathPointStrc tPos;
-    tPos.X = (unsigned short)a4;
-    tPos.Y = a5;
-    const BOOL bResult = sub_6FDAD5E0(pRoom, tPos, pDynamicPath);
-    if (!bResult)
-    {
-        return bResult;
-    }
-
-    pDynamicPath->unk0x38 = 15;
-    return 1;
-}
-
-// 0x00650CA0
-BOOL __stdcall D2Common_10232(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pDestRoom, int nTargetX, int nTargetY)
-{
-    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    D2_ASSERT(nUnitType == 0 || nUnitType == 1, 0x50D);
-
-    if (COLLISION_TrySetUnitCollisionMask(pPath->pRoom, pPath->tGameCoords.wPosX, pPath->tGameCoords.wPosY, pDestRoom, nTargetX, nTargetY, pPath->dwCollisionPattern, pPath->nFootprintCollisionMask, pPath->nMoveTestCollisionMask))
-    {
-        return FALSE;
-    }
-
-    if (pPath->pRoom != pDestRoom)
-    {
-        pPath->dwFlags |= 1;
-    }
-
-    PATH_RecacheRoomAtCoordIfNeeded(PATH_MakeCoord(PATH_ToFP16Center(nTargetX), PATH_ToFP16Center(nTargetY)), pDestRoom, pPath);
-    D2_ASSERT(sub_00463740_FindRoomAtPoint(pDestRoom, nTargetX, nTargetY), 0x524);
-    PATH_ResetMovement(pPath);
-    return 1;
-}
 
 // 0x00650F00
 void __stdcall sub_00650F00(int nRecordCount)

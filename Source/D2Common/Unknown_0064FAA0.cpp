@@ -758,28 +758,6 @@ BOOL __stdcall D2Common_10230(D2DynamicPathStrc* pDynamicPath, int a2, D2ActiveR
     return 1;
 }
 
-// 0x00650CA0
-BOOL __stdcall D2Common_10232(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pDestRoom, int nTargetX, int nTargetY)
-{
-    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    D2_ASSERT(nUnitType == 0 || nUnitType == 1, 0x50D);
-
-    if (COLLISION_TrySetUnitCollisionMask(pPath->pRoom, pPath->tGameCoords.wPosX, pPath->tGameCoords.wPosY, pDestRoom, nTargetX, nTargetY, pPath->dwCollisionPattern, pPath->nFootprintCollisionMask, pPath->nMoveTestCollisionMask))
-    {
-        return FALSE;
-    }
-
-    if (pPath->pRoom != pDestRoom)
-    {
-        pPath->dwFlags |= 1;
-    }
-
-    PATH_RecacheRoomAtCoordIfNeeded(PATH_MakeCoord(PATH_ToFP16Center(nTargetX), PATH_ToFP16Center(nTargetY)), pDestRoom, pPath);
-    D2_ASSERT(sub_00463740_FindRoomAtPoint(pDestRoom, nTargetX, nTargetY), 0x524);
-    PATH_ResetMovement(pPath);
-    return 1;
-}
-
 // 0x00650D70
 int __stdcall STATLIST_AreUnitsAligned(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2)
 {
@@ -1025,26 +1003,6 @@ int __fastcall sub_00416AB0_TestField14C(D2Storm416A90Strc* pRecord)
     if (pRecord && pRecord->n14C)
         return 1;
     return 0;
-}
-
-// 0x00515110
-void __cdecl sub_00515110_Nop()
-{
-}
-
-// 0x00515EC0
-void __cdecl sub_00515EC0_Nop()
-{
-}
-
-// 0x00515ED0
-void __cdecl sub_00515ED0_Nop()
-{
-}
-
-// 0x0042B9D0
-void __cdecl sub_0042B9D0_Nop()
-{
 }
 
 // 0x00650EA0

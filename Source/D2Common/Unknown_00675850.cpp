@@ -512,32 +512,3 @@ int __fastcall sub_00676650_LinkStepDirectionSideSized(D2DrlgLevelLinkDataStrc* 
     return 1;
 }
 
-// 0x00678E30
-int __fastcall sub_00678E30_UpdateMotion(D2MotionPathStrc* pPath)
-{
-    if (pPath->tStart.X == pPath->tTarget.X && pPath->tStart.Y == pPath->tTarget.Y)
-    {
-        pPath->tDirectionVector.nX = 0;
-        pPath->tDirectionVector.nY = 0;
-        pPath->tVelocity.nX = 0;
-        pPath->tVelocity.nY = 0;
-        pPath->nSpeed = 0;
-        return 1;
-    }
-    int nDirection;
-    PATH_GetDirectionVectorFromPoints(&pPath->tDirectionVector, &nDirection, pPath->tStart, pPath->tTarget);
-    pPath->nDirection = nDirection;
-    if (pPath->nFlags & 0x200)
-        pPath->nDirection = (pPath->nDirection - 32) & 63;
-    pPath->tVelocity.nX = (pPath->tDirectionVector.nX * pPath->nSpeed) >> 8;
-    pPath->tVelocity.nY = (pPath->tDirectionVector.nY * pPath->nSpeed) >> 8;
-    const int nVelocityX = pPath->tVelocity.nX < 0 ? -pPath->tVelocity.nX : pPath->tVelocity.nX;
-    unsigned short nTargetCoordinate = pPath->tTarget.X;
-    const int nDiffX = (int)pPath->tStart.X - nTargetCoordinate;
-    const int nDeltaX = (nDiffX < 0 ? -nDiffX : nDiffX) << 16;
-    const int nVelocityY = pPath->tVelocity.nY < 0 ? -pPath->tVelocity.nY : pPath->tVelocity.nY;
-    nTargetCoordinate = pPath->tTarget.Y;
-    const int nDiffY = (int)pPath->tStart.Y - nTargetCoordinate;
-    const int nDeltaY = nDiffY < 0 ? -nDiffY : nDiffY;
-    return (nVelocityX <= nDeltaX || nVelocityY <= (nDeltaY << 16)) ? 1 : 0;
-}

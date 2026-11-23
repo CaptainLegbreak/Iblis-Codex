@@ -360,16 +360,31 @@
    "state": "included"
   },
   "Source/Storm/Unknown_00426900.cpp": {
-   "bytes": 8388,
-   "definitions": 5,
+   "bytes": 68,
+   "definitions": 2,
    "externs": [
-    "extern \"C\" void __cdecl deflate_fast(); // 0x00427DD0",
-    "extern \"C\" void __cdecl deflate_slow(); // 0x00428150",
-    "extern \"C\" void __cdecl deflate_stored(); // 0x00427BB0",
     "extern \"C\" void __cdecl sub_004359D0_RunFrontEnd(); // 0x004359D0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/Storm/Unknown_00426900.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/Storm/Unknown_00427160.cpp": {
+   "bytes": 128,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/Storm/Unknown_00427160.inc",
+   "lang": "c",
+   "state": "included"
+  },
+  "Source/Storm/Unknown_0042D450.cpp": {
+   "bytes": 8192,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/Storm/Unknown_0042D450.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -382,30 +397,21 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_00426F20.cpp": {
-   "bytes": 2176,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_00426F20.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/Storm/Unknown_00427420.cpp": {
+  "Source/Storm/Unknown_0042DC30.cpp": {
    "bytes": 40,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_00427420.inc",
+   "include": "gen/data/Source/Storm/Unknown_0042DC30.inc",
    "lang": "c",
    "state": "included"
   },
-  "Source/Storm/Unknown_00429AC0.cpp": {
-   "bytes": 38,
-   "definitions": 1,
+  "Source/Storm/Unknown_00429810.cpp": {
+   "bytes": 2214,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_00429AC0.inc",
+   "include": "gen/data/Source/Storm/Unknown_00429810.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -1606,8 +1612,8 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/Monster.cpp": {
-   "bytes": 2828,
-   "definitions": 15,
+   "bytes": 2356,
+   "definitions": 12,
    "externs": [
     "extern \"C\" void __cdecl NPCMENU_StateOverlayBurst(); // 0x004AD0C0",
     "extern \"C\" void __cdecl NPCMENU_StateOverlayCross(); // 0x004AD1A0",
@@ -5311,8 +5317,8 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_004DF770.cpp": {
-   "bytes": 7592,
-   "definitions": 5,
+   "bytes": 8104,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004DF770.inc",
@@ -9502,11 +9508,11 @@
    "alias": true,
    "cname": "gData_006D0280",
    "declared": true,
-   "decorated": "?configuration_table@@3PAUconfig@@A",
-   "file": "Source/Storm/Unknown_00426900.cpp",
+   "decorated": "_configuration_table",
+   "file": "Source/Storm/Unknown_00427160.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const config gData_006D0280[10]; // 0x006D0280",
-   "head": "extern \"C\" const config gData_006D0280[10] = ",
+   "fwd": "extern const config gData_006D0280[10]; // 0x006D0280",
+   "head": "extern const config gData_006D0280[10] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -9656,7 +9662,7 @@
    "size": 120,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D0280\n#pragma comment(linker, \"/alternatename:?configuration_table@@3PAUconfig@@A=_gData_006D0280\")",
+   "tail": "; // 0x006D0280\n#pragma comment(linker, \"/alternatename:_configuration_table=_gData_006D0280\")",
    "type": "config",
    "va": "0x006D0280"
   },
@@ -9665,10 +9671,10 @@
    "cname": "gData_006D02F8",
    "declared": false,
    "decorated": null,
-   "file": "Source/Storm/Unknown_00426900.cpp",
+   "file": "Source/Storm/Unknown_00427160.cpp",
    "form": "bytes",
-   "fwd": "extern \"C\" const struct d2data_006D02F8_t gData_006D02F8; // 0x006D02F8",
-   "head": "extern \"C\" const struct d2data_006D02F8_t gData_006D02F8 = ",
+   "fwd": "extern const struct d2data_006D02F8_t gData_006D02F8; // 0x006D02F8",
+   "head": "extern const struct d2data_006D02F8_t gData_006D02F8 = ",
    "name": "gData_006D02F8",
    "pointers": [],
    "region": "rdata",
@@ -9682,7 +9688,7 @@
    "cname": "gData_006D17C8",
    "declared": true,
    "decorated": "?crc_table@@3QAY0BAA@$$CBKA",
-   "file": "Source/Storm/Unknown_00426900.cpp",
+   "file": "Source/Storm/Unknown_0042D450.cpp",
    "form": "declared_owner",
    "fwd": "extern \"C\" const unsigned long gData_006D17C8[8][256]; // 0x006D17C8",
    "head": "extern \"C\" const unsigned long gData_006D17C8[8][256] = ",
@@ -9897,7 +9903,7 @@
    "cname": "gData_006D0300",
    "declared": true,
    "decorated": "?lenfix_006D0300@@3QBUcode@@B",
-   "file": "Source/Storm/Unknown_00426F20.cpp",
+   "file": "Source/Storm/Unknown_00429810.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const code gData_006D0300[512]; // 0x006D0300",
    "head": "extern \"C\" const code gData_006D0300[512] = ",
@@ -9958,7 +9964,7 @@
    "cname": "gData_006D0B00",
    "declared": true,
    "decorated": "?distfix_006D0B00@@3QBUcode@@B",
-   "file": "Source/Storm/Unknown_00426F20.cpp",
+   "file": "Source/Storm/Unknown_00429810.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const code gData_006D0B00[32]; // 0x006D0B00",
    "head": "extern \"C\" const code gData_006D0B00[32] = ",
@@ -10019,7 +10025,7 @@
    "cname": "gData_006D3848",
    "declared": true,
    "decorated": "_z_errmsg",
-   "file": "Source/Storm/Unknown_00427420.cpp",
+   "file": "Source/Storm/Unknown_0042DC30.cpp",
    "form": "declared",
    "fwd": "extern const char* const gData_006D3848[10]; // 0x006D3848",
    "head": "extern const char* const gData_006D3848[10] = ",
@@ -10130,7 +10136,7 @@
    "cname": "gData_006D0B80",
    "declared": true,
    "decorated": "?order_006D0B80@@3QBGB",
-   "file": "Source/Storm/Unknown_00429AC0.cpp",
+   "file": "Source/Storm/Unknown_00429810.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned short gData_006D0B80[19]; // 0x006D0B80",
    "head": "extern \"C\" const unsigned short gData_006D0B80[19] = ",
@@ -54743,99 +54749,6 @@
   },
   {
    "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UNIT/Monster.cpp",
-   "fill": 16,
-   "form": "declared",
-   "fwd": null,
-   "head": "extern char gData_0072AE40[16] = ",
-   "model": {
-    "elem": {
-     "k": "prim",
-     "kind": "c",
-     "name": "char",
-     "size": 1
-    },
-    "k": "arr",
-    "n": 16,
-    "size": 16
-   },
-   "name": "gData_0072AE40",
-   "pointers": [],
-   "region": "data",
-   "size": 16,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0072AE40",
-   "type": "char",
-   "va": "0x0072AE40"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UNIT/Monster.cpp",
-   "fill": 240,
-   "form": "declared",
-   "fwd": null,
-   "head": "extern char gData_0072AF18[240] = ",
-   "model": {
-    "elem": {
-     "k": "prim",
-     "kind": "c",
-     "name": "char",
-     "size": 1
-    },
-    "k": "arr",
-    "n": 240,
-    "size": 240
-   },
-   "name": "gData_0072AF18",
-   "pointers": [],
-   "region": "data",
-   "size": 240,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0072AF18",
-   "type": "char",
-   "va": "0x0072AF18"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UNIT/Monster.cpp",
-   "fill": 216,
-   "form": "declared",
-   "fwd": null,
-   "head": "extern char gData_0072B008[216] = ",
-   "model": {
-    "elem": {
-     "k": "prim",
-     "kind": "c",
-     "name": "char",
-     "size": 1
-    },
-    "k": "arr",
-    "n": 216,
-    "size": 216
-   },
-   "name": "gData_0072B008",
-   "pointers": [],
-   "region": "data",
-   "size": 216,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0072B008",
-   "type": "char",
-   "va": "0x0072B008"
-  },
-  {
-   "alias": false,
    "cname": "gData_00724824",
    "declared": true,
    "decorated": "?gaTextEntries@@3PAUD2TextEntryStrc@@A",
@@ -75511,37 +75424,95 @@
   },
   {
    "alias": false,
-   "cname": "gData_0072AE28",
+   "cname": null,
    "declared": true,
-   "decorated": "?gaNpcSounds@@3PAUD2NpcSoundStrc@@A",
+   "decorated": null,
    "file": "Source/D2Client/Unknown_004DF770.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072AE28_t gData_0072AE28; // 0x0072AE28",
-   "head": "extern \"C\" struct d2data_0072AE28_t gData_0072AE28 = ",
+   "fill": 29,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2NpcSoundStrc gaNpcSounds[29] = ",
+   "model": {
+    "elem": {
+     "k": "struct",
+     "members": [
+      [
+       "f_0",
+       0,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nDaySound",
+       4,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nNightSound",
+       8,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nGreetSound",
+       12,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nLastSound",
+       16,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nLastTick",
+       20,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ]
+     ],
+     "name": "D2NpcSoundStrc",
+     "size": 24
+    },
+    "k": "arr",
+    "n": 29,
+    "size": 696
+   },
    "name": "gaNpcSounds",
    "pointers": [],
    "region": "data",
-   "size": 16,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072AE28_t\n{\n    unsigned char b0[16];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072AE28\n#pragma comment(linker, \"/alternatename:?gaNpcSounds@@3PAUD2NpcSoundStrc@@A=_gData_0072AE28\")",
+   "size": 696,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0072AE28",
+   "type": "D2NpcSoundStrc",
    "va": "0x0072AE28"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0072AE70",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/Unknown_004DF770.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072AE70_t gData_0072AE70; // 0x0072AE70",
-   "head": "extern \"C\" struct d2data_0072AE70_t gData_0072AE70 = ",
-   "name": "gData_0072AE70",
-   "pointers": [],
-   "region": "data",
-   "size": 168,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072AE70_t\n{\n    unsigned char b0[168];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072AE70",
-   "va": "0x0072AE70"
   },
   {
    "alias": false,

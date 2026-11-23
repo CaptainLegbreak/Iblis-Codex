@@ -94,29 +94,3 @@ terminate:
     return pDest;
 }
 
-// 0x00527D50
-int __fastcall sub_00527D50_GetCodePageCharCount(const char* szSrc, int nCount)
-{
-    if (!gpCharMapIndex)
-    {
-        return strlen(szSrc);
-    }
-    int nLength = 0;
-    for (int i = 0; i < nCount; ++nLength)
-    {
-        const unsigned char nByte = szSrc[i];
-        if (!nByte)
-        {
-            break;
-        }
-        if (sub_005276E0_IsLeadByte(nByte))
-        {
-            i += 2;
-        }
-        else
-        {
-            i += 1;
-        }
-    }
-    return nLength;
-}

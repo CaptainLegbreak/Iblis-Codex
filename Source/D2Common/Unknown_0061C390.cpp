@@ -285,30 +285,6 @@ int __stdcall ENVIRONMENT_UpdateCycleIndex(D2DrlgActStrc* pAct, int nActNo)
     return 0;
 }
 
-// 0x0061C180
-void __stdcall ENVIRONMENT_NextEnvCycle(D2DrlgActStrc* pAct, D2ActiveRoomStrc* pRoom)
-{
-    D2DrlgEnvironmentStrc* pEnvironment = DUNGEON_GetEnvironmentFromAct(pAct);
-    if (++pEnvironment->nCycleIndex >= NUM_ENVIRONMENT_CYCLES)
-    {
-        pEnvironment->nCycleIndex = 0;
-    }
-
-    const D2EnvironmentCycleStrc* pEnvironmentCycle = !pEnvironment->bEclipse ? &gNormalEnvironmentCycle[pEnvironment->nCycleIndex] : &gEclipseEnvironmentCycle[pEnvironment->nCycleIndex];
-    pEnvironment->nPeriodOfDay = pEnvironmentCycle->nPeriodOfDay;
-    pEnvironment->nTicks = pEnvironmentCycle->nTicksBegin * pEnvironment->nTimeRate;
-    int nLevelId = 0;
-    if (pRoom)
-    {
-        nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
-    }
-
-    const int nActNo = DRLG_GetActNoFromLevelId(nLevelId);
-    ENVIRONMENT_UpdateLightIntensity(pEnvironment, nLevelId, nActNo);
-    ENVIRONMENT_UpdateLightColor(nActNo, pEnvironment);
-    DRLGACTIVATE_ApplyArreatSummitLightColor(pEnvironment, nLevelId);
-}
-
 void __stdcall ENVIRONMENT_InitializeEnvironment(D2DrlgActStrc* pAct, D2ActiveRoomStrc* pRoom, int nIndex, int nTicks, int bEclipse)
 {
     D2DrlgEnvironmentStrc* pEnvironment = DUNGEON_GetEnvironmentFromAct(pAct);

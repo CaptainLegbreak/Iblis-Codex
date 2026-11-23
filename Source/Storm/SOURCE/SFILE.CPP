@@ -393,9 +393,7 @@ struct PairStrc_00426920
     int nSecond;
 };
 
-extern char gData_006D17C8[]; // 0x006D17C8
 
-extern char gData_006D3870[]; // 0x006D3870
 
 struct D2IdentityView {
  D2StormLinkStrc link;
@@ -2463,24 +2461,6 @@ void __fastcall sub_00426920(PairStrc_00426920* pPair)
 {
     pPair->nFirst = 0;
     pPair->nSecond = 0;
-}
-
-// 0x0042D450
-void* __cdecl sub_0042D450()
-{
-    return gData_006D17C8;
-}
-
-// 0x0042DC30
-void* __cdecl sub_0042DC30()
-{
-    return gData_006D3870;
-}
-
-// 0x0042DC40
-int __cdecl sub_0042DC40()
-{
-    return 85;
 }
 
 // 0x004168A0

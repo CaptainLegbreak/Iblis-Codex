@@ -520,33 +520,6 @@ static int __stdcall PATH_RayTrace(D2PathPointStrc tStartCoord, D2PathPointStrc*
 }
 
 int PATH_CheckCollisionsToNextPosition(D2DynamicPathStrc* pDynamicPath, D2PathPointStrc* pGameCoord); // 0x00679A60
-// 0x00679F70
-int __fastcall PATH_Leap_6FDAB1E0(D2PathInfoStrc* pPathInfo)
-{
-    D2DynamicPathStrc* pDynamicPath = pPathInfo->pDynamicPath;
-    pDynamicPath->dwCurrentPointIdx = 0;
-    D2PathPointStrc pGameCoord = pPathInfo->tTargetCoord;
-    pDynamicPath->PathPoints[0] = pGameCoord;
-    PATH_CheckCollisionsToNextPosition(pDynamicPath, &pGameCoord);
-    if (pPathInfo->tStartCoord.X == pGameCoord.X && pPathInfo->tStartCoord.Y == pGameCoord.Y)
-    {
-        return 0;
-    }
-
-    pDynamicPath->PathPoints[0] = pGameCoord;
-    pDynamicPath->dwPathPoints = 1;
-    return pDynamicPath->dwPathPoints;
-}
-
-// 0x00679FD0
-int __fastcall PATH_Knockback_Client(D2PathInfoStrc* pPathInfo)
-{
-    D2DynamicPathStrc* pDynamicPath = pPathInfo->pDynamicPath;
-    pDynamicPath->dwCurrentPointIdx = 0;
-    pDynamicPath->PathPoints[0] = pPathInfo->tTargetCoord;
-    PATH_CheckCollisionsToNextPosition(pDynamicPath, &pDynamicPath->PathPoints[0]);
-    return 1;
-}
 
 static inline int PATH_ScaleDelta(int nScale, int nDelta, int nMax)
 {

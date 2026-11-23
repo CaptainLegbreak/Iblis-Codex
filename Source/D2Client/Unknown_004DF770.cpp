@@ -811,6 +811,13 @@ int __fastcall sub_004E0650_GetStringSound(unsigned short nStringId)
     return 0;
 }
 
+// 0x004E0680
+int __cdecl MONSTER_GetNpcSpeechAudio()
+{
+// build: symbol ?gbNpcSpeechAudio@* 0x0072AE24
+    return gbNpcSpeechAudio;
+}
+
 // 0x004E0690
 void __fastcall sub_004E0690_SetSoundTableFlag(int nValue)
 {

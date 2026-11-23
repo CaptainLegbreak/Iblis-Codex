@@ -102,27 +102,6 @@ struct D2CelEntryStrc : D2StormNodeStrc
     void* pData;
 };
 
-// 0x005FE000
-void __fastcall D2CMPTileCacheSetFreeCallback(void* pfnCallback)
-{
-    gpfnTileFreeCallback = pfnCallback;
-}
-
-// 0x005FE070
-void __cdecl D2CMPTileFreeAsyncLoads()
-{
-    sub_006093E0_PoolFreeAll(&gCmpPool);
-}
-
-// 0x005FEE10
-unsigned int __cdecl D2CMPSpriteCacheGetUsedMemory()
-{
-    EnterCriticalSection(&gCmpTileCache.tLock);
-    const unsigned int nTotalSize = gCmpTileCache.nTotalSize;
-    LeaveCriticalSection(&gCmpTileCache.tLock);
-    return nTotalSize;
-}
-
 D2CmpCacheListEntryStrc* gpCmpCacheEntries; // 0x0089DB7C
 
 // 0x005FF2A0
