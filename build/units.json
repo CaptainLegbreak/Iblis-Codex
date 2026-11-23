@@ -67431,6 +67431,16 @@
      "name": "PaletteTestBackground"
     },
     {
+     "va": "0x006056D0",
+     "length": 198,
+     "name": "?Palette24BitTo8BitPixel@@YGEEEE@Z"
+    },
+    {
+     "va": "0x006057A0",
+     "length": 145,
+     "name": "?Palette24BitTo8BitImage@@YGHPBEPAEIP6GEEEE@Z@Z"
+    },
+    {
      "va": "0x00605840",
      "length": 15,
      "name": "PaletteFixBlack"
@@ -67803,16 +67813,6 @@
    "file": "Source/D2CMP/Unknown_006056D0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x006056D0",
-     "length": 198,
-     "name": "?Palette24BitTo8BitPixel@@YGEEEE@Z"
-    },
-    {
-     "va": "0x006057A0",
-     "length": 145,
-     "name": "?Palette24BitTo8BitImage@@YGHPBEPAEIP6GEEEE@Z@Z"
-    },
     {
      "va": "0x00605AA0",
      "length": 199
