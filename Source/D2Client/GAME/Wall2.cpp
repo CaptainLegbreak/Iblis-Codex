@@ -1132,6 +1132,47 @@ void __thiscall D2GridLightStrc::sub_004DE410_ApplyUnitLight(D2GridUnitStrc* pUn
     sub_004DDE80_UpdateBounds(pUnit, nSubX, nSubY);
 }
 
+struct D2SlotObjectStrc;
+
+struct D2SlotObjectStrc
+{
+    char unk0x00[0x04];
+    int f_4;
+    char unk0x08[0x2C];
+    unsigned int nKey;
+};
+
+D2TileStrc* __stdcall DUNGEON_GetTileDataFromAct(void* pAct); // 0x00619720
+
+void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
+
+// 0x004DE630
+void __thiscall D2FloorTileViewStrc::sub_004DE630_DrawTileAt(int nX, int nY)
+{
+    int nScreenX = nX;
+    int nScreenY = nY + 5;
+    DUNGEON_GameSubtileToClientCoords(&nScreenX, &nScreenY);
+    nScreenY += 0x28;
+    D2_ASSERT(gpGlobal_007A0634, 0xDF);
+    nScreenX += nOffsetX;
+    nScreenY += nOffsetY;
+    D2TileStrc* pTile = DUNGEON_GetTileDataFromAct(gpGlobal_007A0634);
+    if (pTile)
+    {
+        sub_004DE410_DrawFloorTile(pTile, 1, nScreenX, nScreenY, nX, nY);
+    }
+}
+
+// 0x004DE6C0
+void __thiscall D2FloorTileViewStrc::sub_004DE6C0_DrawTileTriple(int nX, int nY, int nStepX, int nStepY)
+{
+    const int nBaseX = nX / 5 * 5;
+    const int nBaseY = nY / 5 * 5;
+    sub_004DE630_DrawTileAt(nBaseX, nBaseY);
+    sub_004DE630_DrawTileAt(nBaseX + nStepX, nBaseY + nStepY);
+    sub_004DE630_DrawTileAt(nBaseX + 2 * nStepX, nBaseY + 2 * nStepY);
+}
+
 // 0x004DE730
 void __thiscall D2FloorTileViewStrc::sub_004DE730_UpdateView(void* pArgument)
 {
