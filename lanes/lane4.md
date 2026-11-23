@@ -4,7 +4,9 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane4/soundenv-name 1d95fa82 573->573 SkillDesc.cpp and SkillDesc_004E1FF0.cpp call 0x4DF6C0 as GFXUTIL_ApplySoundEnviron (local prototype) instead of sub_004DF6C0; VERIFIED 585736b45a04
+- lane4/chat-more 357c70e6 570->567 chat.cpp places Unknown_0047AA60, Unknown_0047B5C0 and Unknown_0047B720 (0x47B720 calls the caret helper 0x47B450 with chat.cpp's argument order); VERIFIED 9a6fee97e073
+  - Based on #294. Nothing outside lane 4. Borrowed data 15,691 B on this build, as on main.
+- lane4/soundenv-name 1d95fa82 570->570 SkillDesc.cpp and SkillDesc_004E1FF0.cpp call 0x4DF6C0 as GFXUTIL_ApplySoundEnviron (local prototype) instead of sub_004DF6C0; VERIFIED 585736b45a04
   - Based on #294. Nothing outside lane 4.
   - `lane4/chat-run-3` is not needed: chat-run-2 is in #294; ignore -3.
 
