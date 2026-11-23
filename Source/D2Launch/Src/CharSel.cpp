@@ -1,36 +1,20 @@
 #include "D2Launch.h"
+
 #include "D2StormTypes.h"
+
 #include "D2Structs.h"
+
 #include "D2DataTbls.h"
+
 #include "D2Drlg.h"
+
 #include "D2MultiTypes.h"
+
 #include "D2LevelTxt.h"
+
 #include "D2Unicode.h"
 
 static long BNDOWNLOAD_GetTime(long* pTime);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #pragma intrinsic(strlen)
 
@@ -688,7 +672,6 @@ void __cdecl MAINMENUS_ShowMainMenu(); // 0x004336C0
 
 void __cdecl CHARSEL_FreeCharList(); // 0x00438EA0
 
-
 int __fastcall D2Win_10047(D2WinTextBoxStrc* pTextBox); // 0x004FB6A0
 
 void __fastcall D2Win_10046(D2WinControlStrc* pTextBox, const char* szText, int a3); // 0x004FCFF0
@@ -760,7 +743,6 @@ int __fastcall D2Win_10193(D2WinTextBoxStrc* ptTextData, int nCurrentStep); // 0
 
 D2WinControlStrc* gpControl_00779D98; // 0x00779D98
 
-
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -780,7 +762,6 @@ extern "C" int __cdecl atoi(const char* szString); // 0x00681EBB
 extern "C" char* __cdecl _itoa(int nValue, char* szOut, int nRadix); // 0x00687605
 
 extern "C" char* __cdecl strtok(char* szText, const char* szDelim); // 0x0068264F
-
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
@@ -1020,7 +1001,6 @@ void __cdecl CHARSEL_FreeCache();                                               
 
 static int CHARSEL_FindSlotByName(const char* szName); // 0x00437A20
 
-
 void __cdecl CHARSEL_CreateCharInfoControls(); // 0x00437BF0
 
 void __cdecl CHARSEL_RefreshCharEntry(); // 0x0043A650
@@ -1060,13 +1040,11 @@ void __fastcall sub_0042FF10_SetValue(int nValue); // 0x0042FF10
 
 extern int gnLogonRetries; // 0x0070CC4C
 
-
 char gszLastAccount[16]; // 0x0077ABF4
 
 static void CHARSEL_ShowConnectError(int nError);
 
 int __stdcall CHARSEL_PollConnect(int nUnused);
-
 
 static void CHARSEL_SelectNamedSlot(const char* szName);
 
@@ -1088,7 +1066,6 @@ static void CHARSEL_SelectNamedSlot(const char* szName)
     }
 }
 
-
 // build: symbol ?CHARSEL_FindSlotByName@* 0x00437A20
 static int CHARSEL_FindSlotByName(const char* szName)
 {
@@ -1109,11 +1086,25 @@ static int CHARSEL_FindSlotByName(const char* szName)
     return 0;
 }
 
-
 // 0x0042E5B0
 char* __cdecl CHARSEL_StrStr(char* szString, const char* szSubString)
 {
     return strstr(szString, szSubString);
+}
+
+extern "C" unsigned short __cdecl _rotl16(unsigned short nValue, unsigned char nShift);
+
+// 0x0042E5C0
+unsigned short __fastcall sub_0042E5C0_SwapBytes(unsigned short wValue)
+{
+    return _rotl16(wValue, 8);
+}
+
+// 0x0042E5D0
+extern "C" __declspec(dllexport) void __fastcall sub_0042E5D0(unsigned short* pValues, unsigned int nCount) {
+    for (unsigned int i = 0; i < nCount; i++) {
+        pValues[i] = (unsigned short)((pValues[i] << 8) | (pValues[i] >> 8));
+    }
 }
 
 // 0x0042FDE0

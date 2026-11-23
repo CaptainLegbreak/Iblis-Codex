@@ -119,7 +119,7 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(volatile lo
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 
-void __cdecl sub_00410660_LogWritePrefixed(const char* szChannel, const char* szFormat, ...); // 0x00410660
+void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szChannel, const char* szFormat, ...); // 0x00410660
 
 extern const char gszHackChannel_006FC4A8[]; // 0x006FC4A8
 
@@ -826,7 +826,7 @@ void __stdcall QSERVER_LogHackListSize(int nSize)
     const unsigned long dwNow = GetTickCount();
     if (dwNow - gdwLastLogTick_00989C34 > 2000)
     {
-        sub_00410660_LogWritePrefixed(gszHackChannel_006FC4A8, gszHackListSizeFormat, nSize);
+        LOGMANAGER_LogWritePrefixedLine(gszHackChannel_006FC4A8, gszHackListSizeFormat, nSize);
         gdwLastLogTick_00989C34 = dwNow;
     }
 }
@@ -907,7 +907,7 @@ void __thiscall D2HackListStrc::ExpireEntries()
             unsigned int logTick = GetTickCount();
             if (logTick - gnLastHackListLog_00989C34 > 2000)
             {
-                sub_00410660_LogWritePrefixed(gszHackCategory_006FC4A8, gszHackListSize_006FC4B0, count);
+                LOGMANAGER_LogWritePrefixedLine(gszHackCategory_006FC4A8, gszHackListSize_006FC4B0, count);
                 gnLastHackListLog_00989C34 = logTick;
             }
         }
@@ -952,7 +952,7 @@ void __fastcall QSERVER_UnlistIP(D2Server006BE890Strc* pServer, const char* szFi
     unsigned long dwTick = GetTickCount();
     if (dwTick - gdwLastHackListLog > 2000)
     {
-        sub_00410660_LogWritePrefixed("HACK", "[HACKLIST]  Hacklist size is %d", nSize);
+        LOGMANAGER_LogWritePrefixedLine("HACK", "[HACKLIST]  Hacklist size is %d", nSize);
         gdwLastHackListLog = dwTick;
     }
 }
@@ -1231,7 +1231,7 @@ void __stdcall QSERVER_HackUnlistIP(D2Server006BEFB0Strc* pServer, unsigned long
 {
     if (pServer->bHackListBD0)
     {
-        sub_00410660_LogWritePrefixed(gszHackChannel_006FC4A8, "[HACKLIST]  IP:%s  QSHackUnlistIP() from FILE:%s  LINE:%d", sub_006B013E_InetNtoa(dwAddress), szFile, nLine);
+        LOGMANAGER_LogWritePrefixedLine(gszHackChannel_006FC4A8, "[HACKLIST]  IP:%s  QSHackUnlistIP() from FILE:%s  LINE:%d", sub_006B013E_InetNtoa(dwAddress), szFile, nLine);
         QSERVER_UnlistIP(pServer, szFile, dwAddress, nLine);
     }
 }
@@ -1241,7 +1241,7 @@ void __stdcall QSERVER_HackListSize(D2QueueServerStrc* pServer, unsigned int nFi
 {
     if (pServer->bEnabled)
     {
-        sub_00410660_LogWritePrefixed("HACK", "[HACKLIST]  Size:%s  QSHackListSize() from FILE:%s  LINE:%d", pServer->nRecordCount, nFile, nLine);
+        LOGMANAGER_LogWritePrefixedLine("HACK", "[HACKLIST]  Size:%s  QSHackListSize() from FILE:%s  LINE:%d", pServer->nRecordCount, nFile, nLine);
     }
 }
 
@@ -2210,7 +2210,7 @@ void __fastcall QSrvCloseRemoteConnection(D2QSrvServerStrc* pServer, int nKey, c
     LeaveCriticalSection(&pConnection->tLock);
 
     if (nResult)
-        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "[QSrvCloseRemoteConnection] *** closesocket() err = %d ***", WSAGetLastError());
+        LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "[QSrvCloseRemoteConnection] *** closesocket() err = %d ***", WSAGetLastError());
 
     sub_006C0360_RemoveConnection(pServer, pConnection);
     if (nResult == -1)
@@ -2229,11 +2229,11 @@ void __stdcall QSERVER_HackListClient(D2QueueServerStrc* pTable, int nClient, co
     LeaveCriticalSection(&pTable->pLocks[nBucket]);
     if (!pNode)
     {
-        sub_00410660_LogWritePrefixed(gszLogTag_006FC4A8, "[HACKLIST]  Couldn't hacklist client %d (closed) from FILE:%s  LINE:%d", nClient, szFile, nLine);
+        LOGMANAGER_LogWritePrefixedLine(gszLogTag_006FC4A8, "[HACKLIST]  Couldn't hacklist client %d (closed) from FILE:%s  LINE:%d", nClient, szFile, nLine);
         return;
     }
     unsigned int nAddress = pNode->nAddress;
-    sub_00410660_LogWritePrefixed(gszLogTag_006FC4A8, "[HACKLIST]  IP:%s  QSHackList() from FILE:%s  LINE:%d", sub_006B013E_InetNtoa(nAddress), szFile, nLine);
+    LOGMANAGER_LogWritePrefixedLine(gszLogTag_006FC4A8, "[HACKLIST]  IP:%s  QSHackList() from FILE:%s  LINE:%d", sub_006B013E_InetNtoa(nAddress), szFile, nLine);
     sub_006C0420_CloseClient(pTable, nClient, szFile, nLine);
     QSERVER_HackListAddress(pTable, szFile, nAddress, nLine);
 }
@@ -2248,8 +2248,8 @@ void __stdcall QSERVER_HackListIP(D2QueueServerStrc* table, unsigned int ip, con
     while (node && node->nAddress != ip) node = node->pNextByAddress;
     LeaveCriticalSection(&table->tAddressLock);
     if (node) sub_006C0420_CloseClient(table, node->iId, file, line);
-    else sub_00410660_LogWritePrefixed(gszLogTag_006FC4A8, "[HACKLIST]  Client %s is already closed", sub_006B013E_InetNtoa(ip));
-    sub_00410660_LogWritePrefixed(gszLogTag_006FC4A8, "[HACKLIST]  IP:%s  QSHackListIP() from FILE:%s  LINE:%d", sub_006B013E_InetNtoa(ip), file, line);
+    else LOGMANAGER_LogWritePrefixedLine(gszLogTag_006FC4A8, "[HACKLIST]  Client %s is already closed", sub_006B013E_InetNtoa(ip));
+    LOGMANAGER_LogWritePrefixedLine(gszLogTag_006FC4A8, "[HACKLIST]  IP:%s  QSHackListIP() from FILE:%s  LINE:%d", sub_006B013E_InetNtoa(ip), file, line);
     QSERVER_HackListAddress(table, file, ip, line);
 }
 
@@ -2275,8 +2275,8 @@ void __stdcall QSERVER_DisconnectIP(D2ConnectionTableStrc* pTable, unsigned int 
     if (pNode)
         QSrvCloseRemoteConnection(pTable, pNode->nClient, pFile, nLine);
     else
-        sub_00410660_LogWritePrefixed(gszHackChannel_006FC4A8, "[HACKLIST]  Client %s is already closed", sub_006B013E_FormatIP(nIP));
-    sub_00410660_LogWritePrefixed(gszHackChannel_006FC4A8, "[HACKLIST]  IP:%s  QSDisconnectIP() from FILE:%s  LINE:%d", sub_006B013E_FormatIP(nIP), pFile, nLine);
+        LOGMANAGER_LogWritePrefixedLine(gszHackChannel_006FC4A8, "[HACKLIST]  Client %s is already closed", sub_006B013E_FormatIP(nIP));
+    LOGMANAGER_LogWritePrefixedLine(gszHackChannel_006FC4A8, "[HACKLIST]  IP:%s  QSDisconnectIP() from FILE:%s  LINE:%d", sub_006B013E_FormatIP(nIP), pFile, nLine);
 }
 
 // calling-convention shim (not game code)
@@ -2304,7 +2304,7 @@ int __fastcall QSERVER_BanAddress(D2QueueServerStrc* pServer, unsigned int* pAdd
     LeaveCriticalSection(&pServer->tAddressLock);
     if (pNode && !pServer->sub_006BF660_CheckAddress(pNode->nAddress))
     {
-        sub_00410660_LogWritePrefixed(gszHack, "[HACKLIST]  Client %d at %s banned via QSBanByAddr()", pNode->iId, sub_006B013E_FormatAddress(*pAddress));
+        LOGMANAGER_LogWritePrefixedLine(gszHack, "[HACKLIST]  Client %d at %s banned via QSBanByAddr()", pNode->iId, sub_006B013E_FormatAddress(*pAddress));
         QSERVER_BanClient(pNode->iId, gszServerFile_006FC460, 0x584);
     }
     return 1;
@@ -2322,14 +2322,14 @@ void __fastcall QSERVER_ProcessReceived(D2QueueServerStrc* server, D2QClientStrc
         switch (result) {
         case 2:
             if (server->bEnabled && !QSERVER_AccountTraffic(server, charge, client)) {
-                sub_00410660_LogWritePrefixed(gszHack, "[HACKLIST]  User at %s banned due to sQSSpamCheck in QSrvProcessMsg", sub_006B013E_InetNtoa(client->nAddress));
+                LOGMANAGER_LogWritePrefixedLine(gszHack, "[HACKLIST]  User at %s banned due to sQSSpamCheck in QSrvProcessMsg", sub_006B013E_InetNtoa(client->nAddress));
                 QSERVER_BanClient(server, client->iId, gszFile_006FC460, 0x649);
                 return;
             }
             break;
         case 3: return;
         case 4:
-            sub_00410660_LogWritePrefixed(gszHack, "[HACKLIST]  User at %s banned due to PACKET_INVALID in QSrvProcessMsg", sub_006B013E_InetNtoa(client->nAddress));
+            LOGMANAGER_LogWritePrefixedLine(gszHack, "[HACKLIST]  User at %s banned due to PACKET_INVALID in QSrvProcessMsg", sub_006B013E_InetNtoa(client->nAddress));
             QSERVER_BanClient(server, client->iId, gszFile_006FC460, 0x635);
             return;
         }

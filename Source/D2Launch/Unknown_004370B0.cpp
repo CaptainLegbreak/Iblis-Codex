@@ -1,4 +1,5 @@
 #include "D2Launch.h"
+
 #include "D2MultiTypes.h"
 
 struct D2FuncTable_0077ABF0Strc;
@@ -6,57 +7,24 @@ struct D2FuncTable_0077ABF0Strc;
 void __cdecl MAINMENUS_ShowLoginScreen(); // 0x00435330
 
 extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
+
 extern int gnStatusDots; // 0x007799B4
+
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
+
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
+
 void __cdecl MAINMENUS_CreateLoginScreen(); // 0x00432100
+
 void __cdecl MAINMENUS_CreateEmailScreen(); // 0x00436F30
+
 void __cdecl MAINMENUS_UpdatePasswordOk(); // 0x004371E0
+
 void __cdecl MAINMENUS_CreateInfoScreen(); // 0x004370C0
+
 void __cdecl MAINMENUS_CreatePasswordScreen(); // 0x004372B0
+
 int __cdecl sub_0043B830(); // 0x0043B830
-
-// 0x004370B0
-int __stdcall sub_004370B0_ShowLoginScreen(int unused)
-{
-    MAINMENUS_ShowLoginScreen();
-    return 1;
-}
-
-// 0x004371B0
-int __stdcall sub_004371B0_OnLoginScreen(int nArg)
-{
-    MAINMENUS_CreateLoginScreen();
-    return 1;
-}
-
-// 0x004371C0
-int __stdcall sub_004371C0_OnEmailScreen(int nArg)
-{
-    MAINMENUS_CreateEmailScreen();
-    return 1;
-}
-
-// 0x004371D0
-int __stdcall sub_004371D0_OnShowLogin(int nArg)
-{
-    MAINMENUS_ShowLoginScreen();
-    return 1;
-}
-
-// 0x004372A0
-int __stdcall sub_004372A0_OnEnter(int nArg)
-{
-    MAINMENUS_UpdatePasswordOk();
-    return 1;
-}
-
-// 0x004374E0
-int __stdcall sub_004374E0_OnInfoScreen(int nArg)
-{
-    MAINMENUS_CreateInfoScreen();
-    return 1;
-}
 
 // 0x00437710
 int __stdcall sub_00437710_OnInfoScreen(int nArg)

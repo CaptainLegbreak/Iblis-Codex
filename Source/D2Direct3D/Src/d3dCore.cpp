@@ -502,7 +502,7 @@ extern const unsigned int gdwBitMask7_006CE284;                                 
 
 extern const unsigned int gdwBitMask8;                                                             // 0x006CE288
 
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...);                                          // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...);                                          // 0x00410610
 
 extern const unsigned int gnGammaMask_006CE278;                                                             // 0x006CE278
 
@@ -1004,7 +1004,7 @@ int __cdecl D3D_InitCutsceneMode()
         szError = "Failed to create primary surface for cutscenes";
 fail:
         sub_006B20E0_DDrawLogError(szError, hResult);
-        sub_00410610_WriteLogLine("Opening Direct3D window for cutscenes failed!");
+        LOGMANAGER_WriteLogLine("Opening Direct3D window for cutscenes failed!");
         return 0;
     }
 
@@ -1258,7 +1258,7 @@ int __stdcall sub_006B3FD0_EnumerateDisplayMode(D2SurfaceDescStrc* mode,D2Displa
     if(!context) goto done;
     if(!mode || mode->size!=0x7c) return 0;
     if(context->count>=32) {
-        sub_00410610_WriteLogLine(gszTooMany,context->count,32);
+        LOGMANAGER_WriteLogLine(gszTooMany,context->count,32);
         if(device) { device->Release(); device=0; }
         if(attached) attached=0;
         if(primary) primary->Release();
@@ -1733,7 +1733,7 @@ void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult)
     default: szError = "< unknown >"; break;
     }
 
-    sub_00410610_WriteLogLine("***** DirectDraw error: %s - %s (0x%x)", szWhere, szError, hResult);
+    LOGMANAGER_WriteLogLine("***** DirectDraw error: %s - %s (0x%x)", szWhere, szError, hResult);
 }
 
 #include "gen/data/Source/D2Direct3D/Src/d3dCore.inc"

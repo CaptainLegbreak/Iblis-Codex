@@ -1,69 +1,105 @@
 #include "D2Common.h"
+
 #include "D2Structs.h"
+
 #include "D2Path.h"
+
 #include "D2Structs.h"
+
 #include "D2Drlg.h"
+
 #include "D2StormLink.h"
+
 #define D2_ABS(x) ((x) >= 0 ? (x) : -(x))
+
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
+
 #define UNIT_ALIGNMENT_EVIL 0
+
 #define UNIT_ALIGNMENT_NEUTRAL 1
+
 union D2FP32_16;
+
 struct D2CoordStrc;
+
 struct D2DrlgCoordsStrc;
+
 union D2SeedStrc;
+
 struct Pair00650E60;
+
 struct Pair00650E70;
+
 struct D2StormLinkStrc;
+
 struct D2StormListStrc;
+
 struct D2Storm4167B0Strc;
+
 struct D2Storm4168F0Strc;
+
 struct D2Storm416A90Strc;
-
-
-
 
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 
-
-
 int __stdcall UNITROOM_AddUnitToRoom(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x0064C350
+
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit); // 0x0064C370
 
 typedef int BOOL;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern const D2CoordStrc gtPathZeroVelocity; // 0x006EB7D4
+
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
+
 void __stdcall DUNGEON_GameToClientCoords(int* pX, int* pY); // 0x00643290
+
 void __stdcall COLLISION_ResetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, unsigned short nMask); // 0x0064EBA0
+
 void __stdcall COLLISION_ResetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064EC10
+
 unsigned short __fastcall COLLISION_TryMoveUnitCollisionMask(D2ActiveRoomStrc* pRoom, int nX1, int nY1, int nX2, int nY2, int nUnitSize, unsigned short nCollisionMask, unsigned short nMoveConditionMask); // 0x0064ED20
+
 unsigned short __fastcall COLLISION_TryTeleportUnitCollisionMask(D2ActiveRoomStrc* pRoom, int nX1, int nY1, int nX2, int nY2, int nCollisionPattern, unsigned short nFootprintCollisionMask, unsigned short nMoveConditionMask); // 0x0064EDA0
+
 unsigned short __fastcall COLLISION_ForceTeleportUnitCollisionMaskAndGetCollision(D2ActiveRoomStrc* pRoom1, int nX1, int nY1, D2ActiveRoomStrc* pRoom2, int nX2, int nY2, int nUnitSize, unsigned short nFootprintCollisionMask, unsigned short nMoveConditionMask); // 0x0064EE70
+
 unsigned short __fastcall COLLISION_TeleportUnitCollisionMask(D2ActiveRoomStrc* pRoom1, int nX1, int nY1, D2ActiveRoomStrc* pRoom2, int nX2, int nY2, int nUnitSize, int nMask); // 0x0064EED0
+
 int __fastcall COLLISION_TrySetUnitCollisionMask(D2ActiveRoomStrc* pRoom1, int nX1, int nY1, D2ActiveRoomStrc* pRoom2, int nX2, int nY2, int nCollisionPattern, unsigned short nFootprintCollisionMask, unsigned short nMoveConditionMask); // 0x0064EF10
+
 void __fastcall COLLISION_SetUnitCollisionMask(D2ActiveRoomStrc* pRoom1, int nX1, int nY1, D2ActiveRoomStrc* pRoom2, int nX2, int nY2, int nCollisionPattern, unsigned short nCollisionMask); // 0x0064EFA0
+
 int __fastcall PATH_ComputeVelocityAndDirectionVectorsToNextPoint(D2DynamicPathStrc* pPath, int bNormalizeDirectionIfSamePos, int bForceDirectionNormalization); // 0x0064FE40
+
 int __stdcall D2Common_10236(D2UnitStrc* pUnit, int a2); // 0x00650350
+
 void __fastcall sub_6FDAB810(int* a1, int* a2); // 0x00678F00
+
 void __fastcall sub_6FDAB940(D2PathPointStrc* pOutPathPoint, D2DynamicPathStrc* pPath); // 0x00679250
+
 extern "C" long __cdecl _time32(long* pTime);
+
 extern "C" int __cdecl tolower(int nChar);
+
 // build: symbol ?gacCDKeyMap@* 0x006DF238
 extern const char gacCDKeyMap[];
-extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
 
+extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
 
 struct Pair00650E60 { unsigned int dwFirst; unsigned int dwSecond; };
 
 struct Pair00650E70 { unsigned int dwFirst; unsigned int dwSecond; };
 
 extern unsigned short gwValue_0077905C;
-
 
 struct D2StormListStrc
 {
@@ -1003,11 +1039,6 @@ void __cdecl sub_00515EC0_Nop()
 
 // 0x00515ED0
 void __cdecl sub_00515ED0_Nop()
-{
-}
-
-// 0x0043CBF0
-void __cdecl sub_0043CBF0_Nop()
 {
 }
 

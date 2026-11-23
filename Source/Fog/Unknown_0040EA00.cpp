@@ -1,7 +1,7 @@
 #include "Fog.h"
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...);                                                           // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...);                                                           // 0x00410610
 int __stdcall ERRORMANAGER_MeasureCpuMHz();                                                                   // 0x0040E870
 struct T004013C0
 {
@@ -185,11 +185,11 @@ void __cdecl sub_0040EA00_WriteProcessorReport()
     switch (gwProcessorLevel_0074D8C0)
     {
     case 3:
-        sub_00410610_WriteLogLine("Intel 386");
+        LOGMANAGER_WriteLogLine("Intel 386");
         break;
 
     case 4:
-        sub_00410610_WriteLogLine("Intel 486");
+        LOGMANAGER_WriteLogLine("Intel 486");
         break;
 
     default:
@@ -202,9 +202,9 @@ void __cdecl sub_0040EA00_WriteProcessorReport()
         int nBrand = sub_0040E980_GetCpuBrand() & 0xFF;
         sub_0040E300(szName, nVendor, nFamily, nModel, nBrand, nType);
 // build: symbol ?gaszCpuVendorNames@* 0x00708004
-        sub_00410610_WriteLogLine("Vendor:  %s", gaszCpuVendorNames[nVendor]);
-        sub_00410610_WriteLogLine("Version: %s (Type %X, Family %X, Model %X, Stepping %X, Brand %X)", szName, nType, nFamily, nModel, dwSignature & 0xF, nBrand);
-        sub_00410610_WriteLogLine("Speed: Approx. %d MHz", ERRORMANAGER_MeasureCpuMHz());
+        LOGMANAGER_WriteLogLine("Vendor:  %s", gaszCpuVendorNames[nVendor]);
+        LOGMANAGER_WriteLogLine("Version: %s (Type %X, Family %X, Model %X, Stepping %X, Brand %X)", szName, nType, nFamily, nModel, dwSignature & 0xF, nBrand);
+        LOGMANAGER_WriteLogLine("Speed: Approx. %d MHz", ERRORMANAGER_MeasureCpuMHz());
         break;
     }
     }

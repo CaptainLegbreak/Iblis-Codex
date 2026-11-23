@@ -63,14 +63,6 @@ void __fastcall sub_004B6390_HandleNpcTransaction(D2GSPacketSrv2A* pPacket)
         sub_004B9A00(0xDD, 0, 0, 0, 0);
 }
 
-// 0x004B6650
-int __cdecl sub_004B6650_InitHandler()
-{
-    gnGlobal_007272D9 = 3;
-    gpfnGlobal_007272EB = sub_004B5C60_Handler;
-    gwGlobal_007272DF = 0xD45;
-    return 1;
-}
 
 // 0x004B6C70
 int __cdecl sub_004B6C70_OpenNpcMenu()

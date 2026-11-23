@@ -273,7 +273,7 @@ void __fastcall EXCEPTIONS_CloseNamedLog(const char* szName); // 0x0040F470
 
 void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle, unsigned long dwAddress, unsigned int nSize, int nArg5, int nArg6, int nArg7); // 0x00410040
 
-void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410660
+void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szPrefix, const char* szFormat, ...); // 0x00410660
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -321,7 +321,7 @@ extern int gbLogInitialized; // 0x0075D2EC
 
 extern int gnLogQueueCount; // 0x0075E870
 
-extern D2CriticalSectionStrc gtLogQueueLock; // 0x0075E838
+D2CriticalSectionStrc gtLogQueueLock; // 0x0075E838
 
 _iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot); // 0x0040EDE0
 
@@ -1072,6 +1072,7 @@ struct D2LogMsgListStrc
     D2StormLinkStrc m_terminator;
 
     char* sub_0040FF40_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags); // 0x0040FF40
+    void sub_0040FED0_DeleteAll(); // 0x0040FED0
 };
 
 struct D2LogMemoryInfoStrc
@@ -1085,9 +1086,9 @@ struct D2LogMemoryInfoStrc
 
 extern "C" __declspec(dllimport) int __stdcall IsBadReadPtr(const void* pAddress, unsigned int nSize); // 0x006CC238
 
-extern int gnLogQueuedBytes; // 0x0075D144
+int gnLogQueuedBytes; // 0x0075D144
 
-extern int gnLogQueued; // 0x0075D140
+int gnLogQueued; // 0x0075D140
 
 extern D2LogMsgListStrc gtLogMsgQueue_0075E868; // 0x0075E868
 
@@ -1127,7 +1128,7 @@ extern int ganLogNewFile[20]; // 0x0075D298
 
 extern char gaszLogFilePaths[20][0x104]; // 0x0075D340
 
-extern unsigned long gadwLogOpenTick[20]; // 0x0075E7E0
+unsigned long gadwLogOpenTick[20]; // 0x0075E7E0
 
 extern "C" const char gszLogTimeStampFormat[]; // 0x006CE1DC
 
@@ -1168,6 +1169,33 @@ unsigned long __stdcall LOGMANAGER_DbgHelpThreadProc(void* pParam)
         WaitForSingleObject(ghDbgHelpWorkEvent, 0xFFFFFFFF);
     }
     return 0;
+}
+
+// 0x0040EBD0
+_iobuf* __fastcall sub_0040EBD0_OpenDatedLogFile(const char* szName, D2SystemTimeStrc* pTime, const char* szMode, int* pbNew, char* szPathOut, unsigned int nPathOutSize)
+{
+    char szPath[0x104];
+    GetLocalTime(pTime);
+// build: symbol ?gszLogPrefix@* 0x00708018
+    SStrPrintf(szPath, sizeof(szPath), "%s%s%02d%02d%02d.txt", gszLogPrefix, szName, pTime->wYear % 100, pTime->wMonth, pTime->wDay);
+    if (szPathOut)
+    {
+        SStrCopy(szPathOut, szPath, nPathOutSize);
+    }
+    if (pbNew)
+    {
+        *pbNew = 1;
+        if (*szMode == 'a')
+        {
+            _iobuf* pFile = fopen(szPath, "r");
+            if (pFile)
+            {
+                fclose(pFile);
+                *pbNew = 0;
+            }
+        }
+    }
+    return fopen(szPath, szMode);
 }
 
 // 0x0040F000
@@ -1460,6 +1488,29 @@ D2LogMsgNodeStrc::~D2LogMsgNodeStrc()
 // 0x0040FCB0
 D2LogMsgNodeStrc::D2LogMsgNodeStrc()
 {
+}
+
+void* ghLogThread; // 0x0075D2E8
+
+int gbLogThreadStop; // 0x0075E830
+
+extern unsigned long gnLogThreadId; // 0x0075E834
+
+// 0x0040FFD0
+void __cdecl sub_0040FFD0_ShutdownLogSystem()
+{
+    gbLogThreadStop = 1;
+    WaitForSingleObject(ghLogThread, 30000);
+    CloseHandle(ghLogThread);
+    EnterCriticalSection(&gtLogQueueLock);
+    gtLogMsgQueue_0075E868.sub_0040FED0_DeleteAll();
+    gnLogQueued = 0;
+    gnLogQueuedBytes = 0;
+    ghLogThread = 0;
+    gnLogThreadId = 0;
+    gbLogInitialized = 0;
+    gbLogThreadStop = 0;
+    LeaveCriticalSection(&gtLogQueueLock);
 }
 
 // 0x00410C40
@@ -1980,6 +2031,91 @@ void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle,
     LeaveCriticalSection(&gtLogQueueLock);
 }
 
+extern "C" int __cdecl _vsnprintf(char* szDest, size_t nCount, const char* szFormat, va_list args); // 0x00682F22
+extern "C" int __cdecl _snprintf(char* szDest, size_t nCount, const char* szFormat, ...); // 0x006831DB
+// 0x00410340
+void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, const char* szFormat, va_list args)
+{
+// build: symbol ?gbLogThreadStop@* 0x0075E830
+    if (gbLogThreadStop || !gbLogInitialized)
+    {
+        return;
+    }
+
+    char szBuffer[0x1000];
+    __try
+    {
+        _vsnprintf(szBuffer, sizeof(szBuffer), szFormat, args);
+        szBuffer[sizeof(szBuffer) - 1] = 0;
+    }
+    __except (1)
+    {
+        _snprintf(szBuffer, sizeof(szBuffer), "Bad message: format string is '%s'", szFormat);
+    }
+
+    if (nArg3 == 1)
+    {
+        SStrPack(szBuffer, gszNewline, sizeof(szBuffer));
+    }
+
+    unsigned int nExtraBytes = SStrLen(szPrefix) + 1;
+    nExtraBytes += SStrLen(szBuffer) + 1;
+
+    EnterCriticalSection(&gtLogQueueLock);
+    D2LogMessageStrc* pMessage = (D2LogMessageStrc*)gtLogMsgQueue_0075E868.sub_0040FF40_NewNode(0, nExtraBytes, 0);
+    LeaveCriticalSection(&gtLogQueueLock);
+
+    pMessage->nSize = nExtraBytes + 0x24;
+    pMessage->nType = 1;
+    pMessage->bTimeStamp = nArg2 == 1;
+    GetLocalTime(&pMessage->f_14);
+
+    char* pText = pMessage->szName;
+    SStrCopy(pText, szPrefix, nExtraBytes);
+    pText += SStrLen(pText) + 1;
+    SStrCopy(pText, szBuffer, nExtraBytes);
+
+    EnterCriticalSection(&gtLogQueueLock);
+    D2StormLinkStrc* pLink = &pMessage->f_0;
+    if (pLink->m_prevlink)
+    {
+        pLink->NextLink(-1)->m_prevlink = pLink->m_prevlink;
+        pLink->m_prevlink->m_next = pLink->m_next;
+        pLink->m_prevlink = 0;
+        pLink->m_next = 0;
+    }
+    D2StormLinkStrc* pPrev = gtLogMsgQueue_0075E868.m_terminator.m_prevlink;
+    pLink->m_prevlink = pPrev;
+    pLink->m_next = pPrev->m_next;
+    pPrev->m_next = (char*)pMessage;
+    gtLogMsgQueue_0075E868.m_terminator.m_prevlink = pLink;
+    ++gnLogQueued;
+    gnLogQueuedBytes += pMessage->nSize;
+    LeaveCriticalSection(&gtLogQueueLock);
+}
+
+// 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...)
+{
+    D2_ASSERT(szFormat, 299);
+    va_list args;
+    va_start(args, szFormat);
+    sub_00410340_LogV(&gszEmptyAssertText, 1, 1, szFormat, args);
+}
+
+// 0x00410660
+void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szPrefix, const char* szFormat, ...)
+{
+    D2_ASSERT(szFormat, 316);
+    if (!szPrefix)
+    {
+        szPrefix = &gszEmptyAssertText;
+    }
+    va_list args;
+    va_start(args, szFormat);
+    sub_00410340_LogV(szPrefix, 1, 1, szFormat, args);
+}
+
 // 0x004106B0
 void __cdecl LOGMANAGER_LogWritePrefixedNoNewline(const char* szPrefix, const char* szFormat, ...)
 {
@@ -2096,6 +2232,13 @@ void __cdecl LOGMANAGER_SweepOldLogFiles()
 // 0x0040F590
 extern "C" void* __fastcall sub_0040F590(void* value) { return value; }
 
+char gaszLogNames[20][0x10]; // 0x0075D148
+
+unsigned long gadwLogWriteTick[20]; // 0x0075D2F0
+
+_iobuf* gapLogFiles[20]; // 0x0075E790
+
+// 0x0040EDE0
 _iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot)
 {
     const unsigned long dwTick = GetTickCount();

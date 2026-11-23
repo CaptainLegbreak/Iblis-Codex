@@ -1,7 +1,11 @@
 #include "D2Launch.h"
+
 #include "D2FogTypes.h"
+
 #include "D2StormTypes.h"
+
 #include "D2Unicode.h"
+
 #include "D2MultiTypes.h"
 
 void __cdecl ERRORMANAGER_LogPoolError(const char* szFormat, ...); // 0x00409020
@@ -111,7 +115,7 @@ int __cdecl ERRORMANAGER_DenyProcessAccess(); // 0x004061C0
 
 void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, const char* szFormat, va_list args); // 0x00410340
 
-void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410660
+void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szPrefix, const char* szFormat, ...); // 0x00410660
 
 char* __fastcall Int64ToString(char* szBuffer, unsigned int nBufferSize, __int64 nValue); // 0x00411540
 
@@ -1486,6 +1490,12 @@ void __fastcall MAINMENUS_SetGatewayValue(int nValue)
 void __cdecl MAINMENUS_SetGatewayFlag()
 {
     gbGatewayFlag = 1;
+}
+
+// 0x0042E6C0
+int __cdecl sub_0042E6C0_GetGatewayFlag()
+{
+    return gbGatewayFlag;
 }
 
 // 0x0042E6D0
@@ -4627,7 +4637,7 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
                 if (nError != 20)
                 {
                     Unicode wszName[100];
-                    sub_00410610_WriteLogLine("Error from MCP trying to create '%s' (err=%d)", gpLaunchRecord->szCharName, GAME_GetConnectError());
+                    LOGMANAGER_WriteLogLine("Error from MCP trying to create '%s' (err=%d)", gpLaunchRecord->szCharName, GAME_GetConnectError());
                     D2MCPClientCloseMCP();
                     Unicode wszText[255];
                     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x145E));
@@ -5156,6 +5166,13 @@ void __cdecl MAINMENUS_CreateEmailScreen()
     MAINMENUS_UpdateEmailOk();
 }
 
+// 0x004370B0
+int __stdcall sub_004370B0_ShowLoginScreen(int unused)
+{
+    MAINMENUS_ShowLoginScreen();
+    return 1;
+}
+
 // 0x004370C0
 void __cdecl MAINMENUS_CreateInfoScreen()
 {
@@ -5177,6 +5194,27 @@ void __cdecl MAINMENUS_CreateInfoScreen()
     MAINMENUS_CreateControl(0x13A);
     MAINMENUS_CreateControl(0x13B);
     MAINMENUS_CreateControl(0x13C);
+}
+
+// 0x004371B0
+int __stdcall sub_004371B0_OnLoginScreen(int nArg)
+{
+    MAINMENUS_CreateLoginScreen();
+    return 1;
+}
+
+// 0x004371C0
+int __stdcall sub_004371C0_OnEmailScreen(int nArg)
+{
+    MAINMENUS_CreateEmailScreen();
+    return 1;
+}
+
+// 0x004371D0
+int __stdcall sub_004371D0_OnShowLogin(int nArg)
+{
+    MAINMENUS_ShowLoginScreen();
+    return 1;
 }
 
 // 0x004371E0
@@ -5209,6 +5247,13 @@ void __cdecl MAINMENUS_UpdatePasswordOk()
         }
     }
     CONTROL_SetEnabled(gpPasswordOk, bOk);
+}
+
+// 0x004372A0
+int __stdcall sub_004372A0_OnEnter(int nArg)
+{
+    MAINMENUS_UpdatePasswordOk();
+    return 1;
 }
 
 // 0x004372B0
@@ -5255,6 +5300,47 @@ void __cdecl MAINMENUS_CreatePasswordScreen()
     sub_004FDDD0_LinkTab(gpNewPasswordEdit, gpNewPasswordConfirmEdit);
     sub_004FDDD0_LinkTab(gpNewPasswordConfirmEdit, gpChangePwAccountEdit);
     MAINMENUS_UpdatePasswordOk();
+}
+
+// 0x004374E0
+int __stdcall sub_004374E0_OnInfoScreen(int nArg)
+{
+    MAINMENUS_CreateInfoScreen();
+    return 1;
+}
+
+int __cdecl sub_0043B830(); // 0x0043B830
+int gnStatusDots; // 0x007799B4
+
+// 0x004374F0
+int __stdcall sub_004374F0_UpdateStatusWait(int nArg)
+{
+// build: symbol ?MAINMENUS_UpdateStatus@* 0x00436AD0
+    MAINMENUS_UpdateStatus();
+    if (!gnStatusDots)
+    {
+// build: symbol ?CHARSEL_ClearCancelled@* 0x0043B820
+        CHARSEL_ClearCancelled();
+        gnStatusDots = (int)gpFuncTable_0077ABF0->pfnSlot04();
+        if (!gnStatusDots)
+        {
+            D2Win_StopMessageLoop();
+            return 1;
+        }
+    }
+
+    if (WaitForSingleObject((void*)gnStatusDots, 0) == 0)
+    {
+        D2Win_StopMessageLoop();
+    }
+
+    if (sub_0043B830())
+    {
+        gpFuncTable_0077ABF0->pfnSlot10();
+        D2Win_StopMessageLoop();
+    }
+
+    return 1;
 }
 
 // 0x00437550

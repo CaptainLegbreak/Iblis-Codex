@@ -52,9 +52,7 @@ struct D2LogMemoryInfoStrc
 
 extern D2CriticalSectionStrc gtLogQueueLock; // 0x0075E838
 extern int gnLogQueued; // 0x0075D140
-extern int gnLogQueuedBytes; // 0x0075D144
-
-struct T00410610
+extern struct T00410610
 {
     int nFirst;
     int nSecond;
@@ -78,97 +76,6 @@ extern "C" long __cdecl _time32(long* pTime);
 extern "C" int __cdecl tolower(int nChar);
 // build: symbol ?gacCDKeyMap@* 0x006DF238
 extern const char gacCDKeyMap[];
-
-D2CriticalSectionStrc gtLogQueueLock; // 0x0075E838
-
-int gnLogQueued; // 0x0075D140
-
-int gnLogQueuedBytes; // 0x0075D144
-
-
-// 0x00410340
-void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, const char* szFormat, va_list args)
-{
-// build: symbol ?gbLogThreadStop@* 0x0075E830
-    if (gbLogThreadStop || !gbLogInitialized)
-    {
-        return;
-    }
-
-    char szBuffer[0x1000];
-    __try
-    {
-        _vsnprintf(szBuffer, sizeof(szBuffer), szFormat, args);
-        szBuffer[sizeof(szBuffer) - 1] = 0;
-    }
-    __except (1)
-    {
-        _snprintf(szBuffer, sizeof(szBuffer), "Bad message: format string is '%s'", szFormat);
-    }
-
-    if (nArg3 == 1)
-    {
-// build: symbol ?gszNewline@* 0x006FFCB0
-        SStrPack(szBuffer, gszNewline, sizeof(szBuffer));
-    }
-
-    unsigned int nExtraBytes = SStrLen(szPrefix) + 1;
-    nExtraBytes += SStrLen(szBuffer) + 1;
-
-    EnterCriticalSection(&gtLogQueueLock);
-    D2LogMessageStrc* pMessage = (D2LogMessageStrc*)gtLogMsgQueue_0075E868.sub_0040FF40_NewNode(0, nExtraBytes, 0);
-    LeaveCriticalSection(&gtLogQueueLock);
-
-    pMessage->nSize = nExtraBytes + 0x24;
-    pMessage->nType = 1;
-    pMessage->bTimeStamp = nArg2 == 1;
-    GetLocalTime(&pMessage->f_14);
-
-    char* pText = pMessage->szName;
-    SStrCopy(pText, szPrefix, nExtraBytes);
-    pText += SStrLen(pText) + 1;
-    SStrCopy(pText, szBuffer, nExtraBytes);
-
-    EnterCriticalSection(&gtLogQueueLock);
-    D2StormLinkStrc* pLink = &pMessage->f_0;
-    if (pLink->m_prevlink)
-    {
-        pLink->NextLink(-1)->m_prevlink = pLink->m_prevlink;
-        pLink->m_prevlink->m_next = pLink->m_next;
-        pLink->m_prevlink = 0;
-        pLink->m_next = 0;
-    }
-    D2StormLinkStrc* pPrev = gtLogMsgQueue_0075E868.m_terminator.m_prevlink;
-    pLink->m_prevlink = pPrev;
-    pLink->m_next = pPrev->m_next;
-    pPrev->m_next = (char*)pMessage;
-    gtLogMsgQueue_0075E868.m_terminator.m_prevlink = pLink;
-    ++gnLogQueued;
-    gnLogQueuedBytes += pMessage->nSize;
-    LeaveCriticalSection(&gtLogQueueLock);
-}
-
-// 0x00410610
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...)
-{
-    D2_ASSERT(szFormat, 299);
-    va_list args;
-    va_start(args, szFormat);
-    sub_00410340_LogV(&gszEmptyAssertText, 1, 1, szFormat, args);
-}
-
-// 0x00410660
-void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...)
-{
-    D2_ASSERT(szFormat, 316);
-    if (!szPrefix)
-    {
-        szPrefix = &gszEmptyAssertText;
-    }
-    va_list args;
-    va_start(args, szFormat);
-    sub_00410340_LogV(szPrefix, 1, 1, szFormat, args);
-}
 
 
 // 0x00410B10

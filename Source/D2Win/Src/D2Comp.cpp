@@ -1,13 +1,23 @@
 #include "D2Win32Types.h"
+
 #include "D2Win.h"
+
 #include "D2Records.h"
+
 #include "D2CmpTypes.h"
+
 #include "D2Unicode.h"
+
 #include "D2ItemTypes.h"
+
 #include "D2Txt.h"
+
 #include "D2WinTypes.h"
+
 #include "D2WinControls.h"
+
 #include "D2StormTypes.h"
+
 #include "D2TxtTables.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -2539,43 +2549,6 @@ void __stdcall LIST_LoadPentspinCellfile()
     char szFile[260];
     wsprintfA(szFile, "%s\\UI\\CURSOR\\Pentspin", gszDataGlobal);
     sghPentagram = ARCHIVE_LoadCellFile(szFile, 0);
-}
-
-// 0x005072F0
-int __stdcall LIST_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
-{
-    D2WinListStrc* pList = (D2WinListStrc*)pMsg->hWnd;
-    D2_ASSERT(pList->controlHeader.eType == D2WIN_LIST, 0x154);
-    const int nX = gtMousePosition.x;
-    const int nY = gtMousePosition.y;
-    const unsigned long dwTickCount = GetTickCount();
-    for (D2WinListDataStrc* pData = pList->pDataList; pData; pData = pData->pNext)
-    {
-        if (nX > pData->field_208 && nX < pData->field_20C && nY > pData->field_210 && nY < pData->field_214)
-        {
-            if (pData != pList->pSelectedDataEntry || dwTickCount - gdwListLastClickTick >= 300)
-                pList->pSelectedDataEntry = pData;
-            else if (pData->field_204)
-                return pData->field_204(pMsg);
-        }
-    }
-    gdwListLastClickTick = dwTickCount;
-    if (pList->controlHeader.field_34)
-        return pList->controlHeader.field_34(pMsg);
-    return 0;
-}
-
-// 0x005073B0
-int __stdcall LIST_HandleCharInput(SMSGHANDLER_PARAMS* pMsg)
-{
-    D2WinListStrc* pList = (D2WinListStrc*)pMsg->hWnd;
-    D2_ASSERT(pList->controlHeader.eType == D2WIN_LIST, 0x179);
-    for (D2WinListDataStrc* pData = pList->pDataList; pData; pData = pData->pNext)
-    {
-        if (pData->field_218 == (char)pMsg->wParam && pData->field_204)
-            return pData->field_204(pMsg);
-    }
-    return 0;
 }
 
 // 0x00507420

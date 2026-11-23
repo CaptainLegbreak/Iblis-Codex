@@ -563,7 +563,7 @@ void __fastcall SKILLS_InitGfxCaches(void* pMemPool, int bCelPool)
     D2_ASSERT(pInfo, 0x30);
     if (pInfo->nTotalMemory < 0x167D000)
     {
-        sub_00410610_WriteLogLine("This machine doesn't have enough physical memory (> %.2f MB) for minimal performance!", (float)pInfo->nTotalMemory / 1048576.0);
+        LOGMANAGER_WriteLogLine("This machine doesn't have enough physical memory (> %.2f MB) for minimal performance!", (float)pInfo->nTotalMemory / 1048576.0);
         exit(-1);
     }
     unsigned int nSize = pInfo->nTotalMemory - 0xB00000;
@@ -3157,10 +3157,6 @@ int __fastcall SKILLS_GetFirstSkillParam(int nSkillId)
 
 int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
 
-void __stdcall sub_0064A710(D2UnitStrc*,int); // 0x0064A710
-
-void __stdcall sub_0064A760(D2UnitStrc*,int); // 0x0064A760
-
 void __stdcall PATH_SetType(D2DynamicPathStrc* pPath, int nType); // 0x00648CF0
 
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
@@ -3239,8 +3235,8 @@ int __fastcall sub_004C96D0(D2UnitStrc* pUnit,int nSkillId,int nSkillLevel)
  params.nMissile=nMissile;
  D2UnitStrc* pMissile=MISSILE_CreateClientMissile(&params);
  if(!pMissile) return 0;
- sub_0064A710(pMissile,!pTarget ? 6 : pTarget->dwUnitType);
- sub_0064A760(pMissile,!pTarget ? -1 : pTarget->dwUnitId);
+ MISSILE_SetTargetX(pMissile,!pTarget ? 6 : pTarget->dwUnitType);
+ MISSILE_SetTargetY(pMissile,!pTarget ? -1 : pTarget->dwUnitId);
  return 1;
 }
 

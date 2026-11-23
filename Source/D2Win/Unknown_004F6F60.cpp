@@ -1,142 +1,102 @@
 #include "D2Win.h"
+
 #include "D2GfxTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 // build: symbol ?ganRowOffsets@* 0x007C97A8
 #define gnRowOffsets_007C9828 (ganRowOffsets + 32)
+
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
+
 #define DISPLAYTYPE_GLIDE 4
+
 struct D2PaletteStrc;
+
 struct D2TileLibraryBlockStrc;
 
 struct D2PaletteStrc
 {
     unsigned char unk0x00[0x100];
 };
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 void __fastcall CMNSUBTILE_DrawIsoBlockFlat(unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette); // 0x004F69B0
+
 void __fastcall D2GFX_DrawLitSubtileRows(unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep); // 0x004F6BB0
+
 void __fastcall sub_004F71A0_DrawLitRleRows(unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep, int nRows, int nArg); // 0x004F71A0
+
 void __fastcall sub_004F7580_DrawRleRowsClipped(int nX, int nY, unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette, int nRows); // 0x004F7580
+
 extern int gnClipBottom; // 0x007C978C
+
 extern int gnClipLeft; // 0x007C9794
+
 extern int gnInnerRight; // 0x007C9784
+
 extern int gnInnerBottom; // 0x007C9790
+
 extern int gnInnerTop; // 0x007CA31C
+
 extern int gnClipRight; // 0x007D2324
+
 extern int gnInnerLeft; // 0x007D2328
+
 extern int gnClipTop; // 0x007D232C
+
 extern D2PaletteStrc gatLightPalettes[]; // 0x007D2348
+
 extern unsigned char* gpScreenBuffer; // 0x007D5448
+
 extern int gnScreenPitch; // 0x007D544C
+
 void __fastcall sub_004F7850_DrawLitRleRowsClipped(int nX, int nY, unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep, int nRows, int nArg);
+
 void __fastcall sub_004F7EA0_DrawVisTile(unsigned char* pSrc, int nX, int nY);
+
 void __fastcall sub_004F8050_DrawRleVisTile(unsigned char* pSrc, int nX, int nY, unsigned char nLight); // 0x004F8050
+
 extern int gdwGlobal_0072DA50; // 0x0072DA50
+
 extern "C" int gnFlag_007788DC;
+
 extern "C" int gnBufferBase_007D5448; // 0x007D5448
+
 extern "C" int gnSoundFlag_007C545C;
+
 // build: symbol _gnSoundSerial 0x007C5460
 extern "C" int gnSoundSerial;
+
 // build: symbol _gnSubsystemActive 0x007A0458
 extern "C" int gnSubsystemActive;
+
 void __cdecl sub_004142A0_InitPowTable(); // 0x004142A0
+
 extern "C" void __cdecl CMNSUBTILE_BuildGouraudCache(); // 0x004F7CC0
+
 extern "C" void __cdecl sub_004E4280(); // 0x004E4280
+
 int __stdcall GAME_Shutdown(); // 0x0052C030
+
 extern D2PaletteTableStrc gtPaletteTables; // 0x007D5458
 
 extern int gnViewMatrixAdjustDefault; // 0x0072DBFC
+
 extern int gnDisplayType; // 0x007C8CB0
+
 extern D2GfxSettingsStrc gGfxSettings; // 0x0072DA48
+
 int __stdcall D2GFX_SetGamma(int nGamma); // 0x004F5230
+
 int __fastcall D2GFX_SetOption(int nOption, int nValue); // 0x004F52B0
+
 void __fastcall sub_004F7DA0_SetPanelCoords(int nPitch, int nHeight); // 0x004F7DA0
+
 void __cdecl CMNSUBTILE_BuildLineOffsets(); // 0x004F7E70
-
-// 0x004F6F60
-void __fastcall sub_004F6F60_DrawRleRows(unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette, int nRows)
-{
-    unsigned char* p = pDst;
-    while (nRows)
-    {
-        int nSkip = *pSrc++;
-        int nCount = *pSrc++;
-        if (!nSkip && !nCount)
-        {
-            --nRows;
-            pDst += gnScreenPitch;
-            p = pDst;
-        }
-        else
-        {
-            p += nSkip;
-            switch (nCount)
-            {
-            case 32: p[31] = pPalette[pSrc[31]];
-            case 31: p[30] = pPalette[pSrc[30]];
-            case 30: p[29] = pPalette[pSrc[29]];
-            case 29: p[28] = pPalette[pSrc[28]];
-            case 28: p[27] = pPalette[pSrc[27]];
-            case 27: p[26] = pPalette[pSrc[26]];
-            case 26: p[25] = pPalette[pSrc[25]];
-            case 25: p[24] = pPalette[pSrc[24]];
-            case 24: p[23] = pPalette[pSrc[23]];
-            case 23: p[22] = pPalette[pSrc[22]];
-            case 22: p[21] = pPalette[pSrc[21]];
-            case 21: p[20] = pPalette[pSrc[20]];
-            case 20: p[19] = pPalette[pSrc[19]];
-            case 19: p[18] = pPalette[pSrc[18]];
-            case 18: p[17] = pPalette[pSrc[17]];
-            case 17: p[16] = pPalette[pSrc[16]];
-            case 16: p[15] = pPalette[pSrc[15]];
-            case 15: p[14] = pPalette[pSrc[14]];
-            case 14: p[13] = pPalette[pSrc[13]];
-            case 13: p[12] = pPalette[pSrc[12]];
-            case 12: p[11] = pPalette[pSrc[11]];
-            case 11: p[10] = pPalette[pSrc[10]];
-            case 10: p[9] = pPalette[pSrc[9]];
-            case 9: p[8] = pPalette[pSrc[8]];
-            case 8: p[7] = pPalette[pSrc[7]];
-            case 7: p[6] = pPalette[pSrc[6]];
-            case 6: p[5] = pPalette[pSrc[5]];
-            case 5: p[4] = pPalette[pSrc[4]];
-            case 4: p[3] = pPalette[pSrc[3]];
-            case 3: p[2] = pPalette[pSrc[2]];
-            case 2: p[1] = pPalette[pSrc[1]];
-            case 1: p[0] = pPalette[pSrc[0]];
-            }
-            p += nCount;
-            pSrc += nCount;
-        }
-    }
-}
-
-// 0x004F8050
-void __fastcall sub_004F8050_DrawRleVisTile(unsigned char* pSrc, int nX, int nY, unsigned char nLight)
-{
-    if (nY < gnClipTop || nY >= gnClipBottom || nX < gnClipLeft || nX >= gnClipRight)
-        return;
-
-    unsigned char* pPalette = gatLightPalettes[nLight >> 3].unk0x00;
-    unsigned char* pDst = gnRowOffsets_007C9828[nY] + gpScreenBuffer + nX;
-    D2_ASSERT(gpScreenBuffer, 0x373);
-    if (nY >= gnInnerTop && nY < gnInnerBottom && nX >= gnInnerLeft && nX < gnInnerRight)
-        sub_004F6F60_DrawRleRows(pSrc, pDst, pPalette, 0x20);
-    else
-        sub_004F7580_DrawRleRowsClipped(nX, nY, pSrc, pDst, pPalette, 0x20);
-}
-
-// 0x004F8810
-void __fastcall sub_004F8810_DrawBlock(D2TileLibraryBlockStrc* pBlock, unsigned char* pDst, unsigned char nLight)
-{
-    unsigned char* pPalette = gatLightPalettes[nLight >> 3].unk0x00;
-    if (pBlock->nFormat & 4)
-        sub_004F6F60_DrawRleRows(pBlock->pData, pDst, pPalette, 0xF);
-    else
-        CMNSUBTILE_DrawIsoBlockFlat(pBlock->pData, pDst, pPalette);
-}
 
 // 0x004F8850
 void __fastcall sub_004F8850_DrawLitBlock(D2TileLibraryBlockStrc* pBlock, unsigned char* pDst, int* pLight)
@@ -154,60 +114,6 @@ void __fastcall sub_004F8850_DrawLitBlock(D2TileLibraryBlockStrc* pBlock, unsign
 unsigned char* gpScreenBuffer; // 0x007D5448
 
 int gnLightingOff; // 0x007D2340
-
-// 0x004F8120
-void __fastcall sub_004F8120_TileDrawLit(unsigned char* pSrc, int nX, int nY, int* pLight)
-{
-    if (gnLightingOff)
-    {
-        const unsigned char nLight = *(unsigned char*)pLight;
-        if ((nLight & 0xF8) == 0xF8)
-        {
-            sub_004F7EA0_DrawVisTile(pSrc, nX, nY);
-            return;
-        }
-
-        sub_004F8050_DrawRleVisTile(pSrc, nX, nY, nLight);
-        return;
-    }
-
-    const int nLightX = pLight[0] << 5;
-    const int nLightXStep = pLight[3] - pLight[0];
-    const int nLightY = pLight[1] << 5;
-    const int nLightYStep = pLight[2] - pLight[1];
-    const int nLightDelta = pLight[1] - pLight[0];
-    const int nDiff1 = D2_ABS(nLightDelta);
-    const int nDiff2 = D2_ABS(nLightXStep);
-    const int nDiff3 = D2_ABS(nLightYStep);
-    if (!gdwGlobal_0072DA50 && nDiff3 + nDiff2 + nDiff1 >= 10)
-    {
-        if (nY < gnClipTop || nY >= gnClipBottom || nX < gnClipLeft || nX >= gnClipRight)
-        {
-            return;
-        }
-
-        D2_ASSERT(gpScreenBuffer, 958);
-        unsigned char* pDst = gnRowOffsets_007C9828[nY] + gpScreenBuffer + nX;
-        if (nY >= gnInnerTop && nY < gnInnerBottom && nX >= gnInnerLeft && nX < gnInnerRight)
-        {
-            sub_004F71A0_DrawLitRleRows(pSrc, pDst, nLightX, nLightXStep, nLightY, nLightYStep, 0x20, 8);
-        }
-        else
-        {
-            sub_004F7850_DrawLitRleRowsClipped(nX, nY, pSrc, pDst, nLightX, nLightXStep, nLightY, nLightYStep, 0x20, 8);
-        }
-
-        return;
-    }
-
-    if ((nLightX >> 8) == 0x1F)
-    {
-        sub_004F7EA0_DrawVisTile(pSrc, nX, nY);
-        return;
-    }
-
-    sub_004F8050_DrawRleVisTile(pSrc, nX, nY, *(unsigned char*)pLight);
-}
 
 extern "C" void __cdecl sub_00414360_CallThenSetFlag(); // 0x00414360
 

@@ -27,7 +27,7 @@ extern "C" __declspec(dllimport) int __stdcall DestroyWindow(HWND hWnd);        
 extern "C" __declspec(dllimport) HWND __stdcall CreateWindowExA(unsigned long dwExStyle, const char* szClassName, const char* szWindowName, unsigned long dwStyle, int nX, int nY, int nWidth, int nHeight, HWND hParent, HMENU hMenu, HINSTANCE hInstance, void* pParam); // 0x006CC4F0
 extern "C" HRESULT __stdcall DirectDrawEnumerateA(LPDDENUMCALLBACKA pCallback, void* pContext);             // 0x006C9B82
 
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...) throw();                                                  // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...) throw();                                                  // 0x00410610
 void __cdecl sub_0051793E_FormatAndRaise(unsigned long dwError, ...); // 0x0051793E
 void __fastcall sub_006B20E0_ReportError(const char* szMessage, long hResult) throw();                      // 0x006B20E0
 void __fastcall sub_006B2F60_SaveVideoConfig(int nRender, int nDevice);                                     // 0x006B2F60
@@ -66,7 +66,7 @@ static int __stdcall sub_006B4C90_DetectDirect3D(HINSTANCE hInstance)
 
     try
     {
-        sub_00410610_WriteLogLine("Detecting boards which support Direct3D...");
+        LOGMANAGER_WriteLogLine("Detecting boards which support Direct3D...");
 
         memset(&wc, 0, sizeof(wc));
         gnD3DDeviceCount = 0;
@@ -89,7 +89,7 @@ static int __stdcall sub_006B4C90_DetectDirect3D(HINSTANCE hInstance)
         ghEnumWindow = CreateWindowExA(0x40000, gszEnumerationClass, gszEnumerationWindow, 0xA0000000, 0, 0, 640, 480, 0, 0, hInstance, 0);
         if (!ghEnumWindow)
         {
-            sub_00410610_WriteLogLine("***** Failed to create window for D3D enumeration= %d", GetLastError());
+            LOGMANAGER_WriteLogLine("***** Failed to create window for D3D enumeration= %d", GetLastError());
             return 0;
         }
 
@@ -101,7 +101,7 @@ static int __stdcall sub_006B4C90_DetectDirect3D(HINSTANCE hInstance)
     }
     catch (...)
     {
-        sub_00410610_WriteLogLine(" ** Caught a failure in Direct3DDetect ** ");
+        LOGMANAGER_WriteLogLine(" ** Caught a failure in Direct3DDetect ** ");
     }
 
     try
@@ -109,12 +109,12 @@ static int __stdcall sub_006B4C90_DetectDirect3D(HINSTANCE hInstance)
         if (ghEnumWindow)
         {
             DestroyWindow(ghEnumWindow);
-            sub_00410610_WriteLogLine("Destroyed D3D window.");
+            LOGMANAGER_WriteLogLine("Destroyed D3D window.");
         }
 
         if (!gnD3DDeviceCount)
         {
-            sub_00410610_WriteLogLine("Found no valid Direct3D devices to use!");
+            LOGMANAGER_WriteLogLine("Found no valid Direct3D devices to use!");
             return 0;
         }
     }

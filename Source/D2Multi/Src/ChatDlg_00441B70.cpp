@@ -77,7 +77,7 @@ extern D2WinControlInitStrc gtControlInit_0070D360; // 0x0070D360
 
 extern D2WinControlInitStrc gtGemButtonInit; // 0x0070D390
 
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 void __cdecl sub_0043D510_FreeCellFiles(); // 0x0043D510
 
@@ -1299,7 +1299,7 @@ int __fastcall CHATDLG_RunChat(D2LaunchCharInfoStrc* pInfo)
     }
     else
     {
-        sub_00410610_WriteLogLine("[D2MULTI]  Could not restore MCP connection.");
+        LOGMANAGER_WriteLogLine("[D2MULTI]  Could not restore MCP connection.");
         gpLaunchFuncs->pfn0x10();
     }
     if (gpLaunchFuncs->pfn0x68())

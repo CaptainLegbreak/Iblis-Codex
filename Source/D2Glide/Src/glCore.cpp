@@ -839,7 +839,7 @@ int __cdecl GLIDE_InitTextureMemory()
 
 	if ((float)nTotal < 3.5 * 1024 * 1024)
 	{
-		sub_00410610_WriteLogLine(gszInsufficientTextureMemory);
+		LOGMANAGER_WriteLogLine(gszInsufficientTextureMemory);
 		return 0;
 	}
 
@@ -1108,7 +1108,7 @@ static int GLIDE_OpenDevice(int nResolution, void* hWnd)
     }
     else
     {
-        sub_00410610_WriteLogLine("Opening Glide window failed!");
+        LOGMANAGER_WriteLogLine("Opening Glide window failed!");
     }
 
     return tQuery.bResult;

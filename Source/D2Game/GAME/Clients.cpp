@@ -3145,14 +3145,14 @@ int __fastcall ClientAddPlayerToGame(D2ClientStrc* ptClient, D2GameStrc* ptGame,
     ptClient->dwFlags |= 1;
     if (!ptGame->bExpansion && ptClient->nClassId >= 5)
     {
-        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "[PLAYER CREATE]  ClientAddPlayerToGame()  Error Creating:%s  Error:%d=%s", CLIENTS_GetName(ptClient), 0x18, "nError");
+        LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "[PLAYER CREATE]  ClientAddPlayerToGame()  Error Creating:%s  Error:%d=%s", CLIENTS_GetName(ptClient), 0x18, "nError");
         ptClient->pPlayer = 0;
         return 0x18;
     }
     const int nError = D2GAME_SAVE_GetUnitDataFromFile_6FC8CB40(ptGame, ptClient, ptClient->szName, bLoadFromSave, &pPlayer, pRoom, nX, nY);
     if (nError)
     {
-        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "[PLAYER LOAD]  ClientAddPlayerToGame()  Error Loading:%s  Error:%d=%s", CLIENTS_GetName(ptClient), nError, "nError");
+        LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "[PLAYER LOAD]  ClientAddPlayerToGame()  Error Loading:%s  Error:%d=%s", CLIENTS_GetName(ptClient), nError, "nError");
         ptClient->pPlayer = 0;
         return nError;
     }

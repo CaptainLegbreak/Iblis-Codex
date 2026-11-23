@@ -1,9 +1,21 @@
 #include "D2Win.h"
+
 #include "D2CelContext.h"
+
 #include "D2Win32Types.h"
+
 #include "D2StormTypes.h"
+
 #include "D2WinTypes.h"
+
 #include "D2WinControls.h"
+
+enum D2ControlTypes
+{
+    D2WIN_IMAGE = 2,
+    D2WIN_TYPE_5 = 5,
+    D2WIN_TYPE_6 = 6,
+};
 
 #define D2WIN_BUTTON 6
 
@@ -52,6 +64,21 @@ int __stdcall BUTTON_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg);           
 void __fastcall D2SOUND_10039(const char* szFile);                                                          // 0x00514EC0
 
 int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl);                                           // 0x004F9310
+
+// 0x005009A0
+extern "C" void __fastcall BUTTON_SetIsPressed(D2WinButtonStrc* ptBtnData, int bIsPressed)
+{
+    D2_ASSERT(ptBtnData->controlHeader.eType == D2WIN_TYPE_6, 0x72);
+    ptBtnData->bIsPressed = bIsPressed;
+    ptBtnData->bIsCallbackPending = bIsPressed;
+}
+
+// 0x00500B20
+extern "C" void __fastcall BUTTON_SetBaseFrame(D2WinButtonStrc* ptBtnData, int nValue)
+{
+    D2_ASSERT(ptBtnData->controlHeader.eType == D2WIN_TYPE_6, 0xD6);
+    ptBtnData->nBaseFrame = nValue;
+}
 
 // 0x00500C20
 static __declspec(noinline) int BUTTON_IsPointInside(D2WinButtonStrc* pButton, int nX, int nY)

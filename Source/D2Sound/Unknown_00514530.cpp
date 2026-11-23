@@ -80,7 +80,7 @@ void __fastcall sub_00514530_InitSound(int nArg1, int nArg2)
                 sub_005140D0_InitDirectSound();
                 if (!gbSoundReady)
                 {
-                    sub_00410610_WriteLogLine("\tCouldn't initialize DirectSound");
+                    LOGMANAGER_WriteLogLine("\tCouldn't initialize DirectSound");
                 }
             }
         }

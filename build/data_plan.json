@@ -512,10 +512,6 @@
    "bytes": 15432,
    "definitions": 61,
    "externs": [
-    "extern \"C\" void __cdecl sub_004371B0_OnLoginScreen(); // 0x004371B0",
-    "extern \"C\" void __cdecl sub_004371C0_OnEmailScreen(); // 0x004371C0",
-    "extern \"C\" void __cdecl sub_004371D0_OnShowLogin(); // 0x004371D0",
-    "extern \"C\" void __cdecl sub_004374E0_OnInfoScreen(); // 0x004374E0",
     "extern \"C\" void __cdecl sub_00437710_OnInfoScreen(); // 0x00437710",
     "extern \"C\" void __cdecl sub_00437720_OnPasswordScreen(); // 0x00437720",
     "extern \"C\" void __cdecl sub_00437730_ChangePassword(); // 0x00437730",
@@ -1755,7 +1751,6 @@
    "definitions": 103,
    "externs": [
     "extern \"C\" void __cdecl sub_004B6C70_OpenNpcMenu(); // 0x004B6C70",
-    "extern \"C\" void __cdecl sub_004B6650_InitHandler(); // 0x004B6650",
     "extern \"C\" void __cdecl sub_004B6DA0_InitHandler(); // 0x004B6DA0"
    ],
    "fn_types": {},
@@ -1807,9 +1802,7 @@
   "Source/D2Client/UI/useitem.cpp": {
    "bytes": 216,
    "definitions": 1,
-   "externs": [
-    "extern \"C\" void __cdecl sub_004C04E0_OnHotspotClick(); // 0x004C04E0"
-   ],
+   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/useitem_004BFA70.inc",
    "lang": "cpp",
@@ -1860,11 +1853,7 @@
     "extern \"C\" void __cdecl sub_004D7880(); // 0x004D7880",
     "extern \"C\" void __cdecl sub_004D7E00(); // 0x004D7E00",
     "extern \"C\" void __cdecl sub_004CF800(); // 0x004CF800",
-    "extern \"C\" void __cdecl sub_004D1BD0(); // 0x004D1BD0",
-    "extern \"C\" void __cdecl sub_004CCFB0_CltCanCollideWithMonster(); // 0x004CCFB0",
-    "extern \"C\" void __cdecl sub_004CCFE0_CltCanCollideWithGoodAlignmentUnit(); // 0x004CCFE0",
-    "extern \"C\" void __cdecl sub_004CD020_CltCanCollideWithPlayerOrMonster(); // 0x004CD020",
-    "extern \"C\" void __cdecl sub_004CD050_CltCanMissileDestroy(); // 0x004CD050"
+    "extern \"C\" void __cdecl sub_004D1BD0(); // 0x004D1BD0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/Missile.inc",
@@ -2248,8 +2237,6 @@
    "bytes": 188,
    "definitions": 7,
    "externs": [
-    "extern \"C\" void __cdecl sub_004F8050_DrawRleVisTile(); // 0x004F8050",
-    "extern \"C\" void __cdecl sub_004F8120_TileDrawLit(); // 0x004F8120",
     "extern \"C\" void __cdecl sub_004F8B80(); // 0x004F8B80",
     "extern \"C\" void __cdecl sub_004F8DE0(); // 0x004F8DE0"
    ],

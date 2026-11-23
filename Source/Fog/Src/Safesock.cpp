@@ -389,9 +389,9 @@ void __cdecl ERRORMANAGER_LogPoolError(const char* szFormat, ...);              
 
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);            // 0x0040B480
 
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...);                                                           // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...);                                                           // 0x00410610
 
-void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...);                // 0x00410660
+void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szPrefix, const char* szFormat, ...);                // 0x00410660
 
 unsigned __int64 __cdecl AUTOMAP_ReadTimeStampCounter(); // 0x0040E850
 
@@ -1193,7 +1193,7 @@ int __fastcall FOG_SOCKET_SendNoLock(FSafeSock* pSafeSock, char* pBuffer, int nB
     if (nSent == -1 && nError == 0x274C)
     {
         nSent = 0;
-        sub_00410610_WriteLogLine("ERROR: Disconnecting socket due to WSAETIMEDOUT\n");
+        LOGMANAGER_WriteLogLine("ERROR: Disconnecting socket due to WSAETIMEDOUT\n");
         closesocket(pSafeSock->nSocket);
     }
     return nSent;

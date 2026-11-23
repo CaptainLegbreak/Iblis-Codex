@@ -15,6 +15,7 @@ extern "C" __declspec(dllimport) int __stdcall SetThreadPriority(void* hThread, 
 extern "C" long __cdecl _time32(long* pTime);                                                               // 0x006850E6
 void __fastcall sub_004107B0_AtomicStore64(void* pDest, const void* pSource);                               // 0x004107B0
 void __fastcall sub_004107D0_Read64Locked(void* pDest, const void* pSource);                                // 0x004107D0
+extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock);       // 0x006CC1FC
 D2CriticalSectionStrc gtTimeLock;                                                                   // 0x0075E880
 D2TimeStampStrc gtTimeBase;                                                                        // 0x0075E878
 
@@ -90,6 +91,31 @@ struct D2OsVersionInfoStrc
 extern "C" __declspec(dllimport) void __stdcall GlobalMemoryStatus(D2MemoryStatusStrc* pStatus); // 0x006CC1F4
 extern "C" __declspec(dllimport) int __stdcall GetVersionExA(D2OsVersionInfoStrc* pInfo); // 0x006CC1F8
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
+// 0x004107A0
+void __cdecl sub_004107A0_DeleteTimeLock()
+{
+    DeleteCriticalSection(&gtTimeLock);
+}
+
+// 0x004107D0
+__declspec(naked) void __fastcall sub_004107D0_Read64Locked(void* pDest, const void* pSource)
+{
+    __asm
+    {
+        push ebx
+        push esi
+        mov esi, edx
+        mov eax, ebx
+        mov edx, ecx
+        lock cmpxchg8b qword ptr [esi]
+        mov [ecx], eax
+        mov [ecx + 4], edx
+        pop esi
+        pop ebx
+        ret
+    }
+}
 
 // 0x004107F0
 unsigned __int64 __cdecl SYSTEM_GetSaveDiskFreeSpace()

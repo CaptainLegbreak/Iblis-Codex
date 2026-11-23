@@ -71,11 +71,11 @@ struct Obj004DCF10 {
 
 static tagRECT s_tWallRect; // 0x007C8A14
 
-static unsigned int s_nPlayerX; // 0x007C8A08
+static int s_nPlayerX; // 0x007C8A08
 
 static int s_nCollision; // 0x007C8A0C
 
-static unsigned int s_nPlayerY; // 0x007C8A10
+static int s_nPlayerY; // 0x007C8A10
 
 struct D2ViewStrc
 {
@@ -118,12 +118,6 @@ struct Node
 extern "C" __declspec(dllimport) u32 __stdcall GetTickCount(); // 0x006CC260
 
 extern s32 gVar_0072A968_Mode; // 0x0072A968
-
-extern s32 gVar_007C8A08_X; // 0x007C8A08
-
-extern s32 gVar_007C8A0C_Level; // 0x007C8A0C
-
-extern s32 gVar_007C8A10_Y; // 0x007C8A10
 
 extern u32 gVar_006CE268_Flags; // 0x006CE268
 
@@ -366,16 +360,16 @@ static s32 __stdcall sub_004DD060_Occludes(D2ActiveRoomStrc* room,Tile* tile)
     {
         Frame* frame=FIELD(Frame*,tile,16);
         if(!frame) return 0;
-        if(FIELD(s32,frame,40)==gVar_007C8A0C_Level) return 0;
-        if(gVar_007C8A08_X<FIELD(s32,frame,0)) return 1;
-        return gVar_007C8A10_Y<FIELD(s32,frame,4);
+        if(FIELD(s32,frame,40)==s_nCollision) return 0;
+        if(s_nPlayerX<FIELD(s32,frame,0)) return 1;
+        return s_nPlayerY<FIELD(s32,frame,4);
     }
     D2DrlgCoordsStrc coordinates;
     DUNGEON_GetRoomCoordinates(room, &coordinates);
     s32 x=coordinates.nSubtileX+5*FIELD(s32,tile,8);
     s32 y=coordinates.nSubtileY+5*FIELD(s32,tile,12);
-    s32 viewX=5*gVar_007C8A08_X;
-    s32 viewY=5*gVar_007C8A10_Y;
+    s32 viewX=5*s_nPlayerX;
+    s32 viewY=5*s_nPlayerY;
     if(viewX<x && viewX>x-20)
     {
         switch(FIELD(s32,tile,28))

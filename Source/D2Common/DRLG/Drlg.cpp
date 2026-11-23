@@ -1,16 +1,24 @@
 #include "D2LevelIds.h"
+
 #include "D2Common.h"
+
 #include "D2Structs.h"
+
 #include "D2Path.h"
+
 #include "D2Drlg.h"
+
 #include "D2DrlgTiles.h"
+
 #include "D2TxtItems.h"
+
 #include "D2DrlgMaps.h"
+
 #include "D2DrlgRooms.h"
+
 #include "D2ItemModes.h"
 
 unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed);
-
 
 struct D2ObjGroupTxt
 {
@@ -1394,57 +1402,6 @@ D2DrlgTableEntryStrc* __fastcall PATH_AStar_AllocNewNode(D2DrlgEntryTableStrc* p
     D2DrlgTableEntryStrc* pEntry = &pTable->pEntries[pTable->nEntries++];
     memset(pEntry, 0, sizeof(D2DrlgTableEntryStrc));
     return pEntry;
-}
-
-// 0x0067F560
-void __fastcall DRLGOUTDESR_PlaceDesertTransitionToTown(D2DrlgLevelStrc* pLevel)
-{
-    D2DrlgOrthStrc* pTownRoomData = pLevel->pOutdoors->pRoomData;
-
-    while (pTownRoomData && pTownRoomData->pLevel->eLevelId != LEVEL_LUTGHOLEIN)
-    {
-        pTownRoomData = pTownRoomData->pNext;
-    }
-
-    if (pTownRoomData)
-    {
-        if (pTownRoomData->nDirection == 3)
-        {
-            DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 0, pLevel->pOutdoors->nGridHeight - 1, 0x16B, -1, 0);
-        }
-        else
-        {
-            DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, pLevel->pOutdoors->nGridWidth - 1, 0, 0x16A, -1, 0);
-        }
-    }
-}
-
-// 0x0067F670
-void __fastcall DRLGOUTDESR_AddExits(D2DrlgLevelStrc* pLevel)
-{
-    int nLevelPrestId = 0;
-
-    switch (pLevel->eLevelId)
-    {
-    case 41:
-    case 42:
-        nLevelPrestId = 0x184;
-        break;
-
-    case 43:
-        nLevelPrestId = 0x186;
-        break;
-
-    case 44:
-        nLevelPrestId = 0x19C;
-        break;
-
-    case 45:
-        nLevelPrestId = 0x185;
-        break;
-    }
-
-    D2_ASSERT(nLevelPrestId && DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nLevelPrestId, -1, 0, 15), 0xAA);
 }
 
 #include "gen/data/Source/D2Common/DRLG/Drlg.inc"

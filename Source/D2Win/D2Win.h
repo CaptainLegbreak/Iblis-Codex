@@ -82,7 +82,7 @@ int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
 int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
 unsigned char __stdcall D2Win_10034_MixRGB(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
 unsigned char* __fastcall D2COMP_GetComponentPalette(int nColor); // 0x005038D0
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 void __fastcall FOG_FCloseFile(void* hFile); // 0x004068F0
 void __fastcall sub_004FAAE0_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
 void __fastcall sub_004FB130_SetActiveState(int bActive); // 0x004FB130

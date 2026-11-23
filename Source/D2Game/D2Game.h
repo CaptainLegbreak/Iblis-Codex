@@ -453,8 +453,8 @@ unsigned short __fastcall sub_005C1940_RollAutoAffix(D2UnitStrc* pItem, int a2, 
 unsigned short __stdcall COLLISION_CheckMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D870
 unsigned short __stdcall ITEMS_GetAutoAffix(D2UnitStrc* pItem); // 0x00627F20
 unsigned short __stdcall ITEMS_GetPrefixId(D2UnitStrc* pItem, int nPrefixNo); // 0x00627EC0
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
-void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410660
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
+void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szPrefix, const char* szFormat, ...); // 0x00410660
 void __cdecl sub_0052DF40_UnlockFirstGame(); // 0x0052DF40
 void __fastcall ACT1Q4_SpawnCainPortalInTown(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005944F0
 void __fastcall ACT2Q2_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00599A10

@@ -1,8 +1,13 @@
 #include "D2ItemTypes.h"
+
 #include "D2DrlgMaps.h"
+
 #include "D2DrlgTiles.h"
+
 #include "D2TxtTables.h"
+
 #include "D2LevelIds.h"
+
 #include "D2Unicode.h"
 
 #include "D2StateIds.h"
@@ -2699,18 +2704,6 @@ void __stdcall D2COMMON_10193_PATH_AdjustDirection(D2DynamicPathStrc* pDynamicPa
     }
 }
 
-// 0x006486F0
-int __stdcall PATH_GetMaxVelocity(D2DynamicPathStrc* pDynamicPath)
-{
-    return pDynamicPath->dwMaxVelocity;
-}
-
-// 0x00648720
-int __stdcall PATH_GetAcceleration(D2DynamicPathStrc* pDynamicPath)
-{
-    return pDynamicPath->dwAcceleration;
-}
-
 // 0x00648770
 int __stdcall D2COMMON_10209_PathCheckPathingFlag(D2DynamicPathStrc* pDynamicPath)
 {
@@ -2751,41 +2744,6 @@ inline int UNITS_GetYPositionInl(D2UnitStrc* pUnit)
         }
         return 0;
     }
-}
-
-// 0x006484E0
-int __stdcall PATH_GetCollisionPatternFromMonStats2Txt(int nMonsterId)
-{
-    D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId_Inl(nMonsterId);
-    if (pMonStats2TxtRecord)
-    {
-        int nSizeX = pMonStats2TxtRecord->nSizeX;
-        if (nSizeX >= 0 && nSizeX < COLLISION_UNIT_SIZE_COUNT)
-        {
-            int nCollisionPattern = gaCollisionPatternsFromSize[nSizeX];
-
-            if (pMonStats2TxtRecord->nFlags[MONSTATS2FLAGINDEX_REVIVE >> 3] & gdwBitMasks[MONSTATS2FLAGINDEX_REVIVE & 7]
-                || pMonStats2TxtRecord->nFlags[MONSTATS2FLAGINDEX_SMALL >> 3] & gdwBitMasks[MONSTATS2FLAGINDEX_SMALL & 7])
-            {
-                if (!(pMonStats2TxtRecord->nFlags[MONSTATS2FLAGINDEX_ISATT >> 3] & gdwBitMasks[MONSTATS2FLAGINDEX_ISATT & 7]))
-                {
-                    switch (nCollisionPattern)
-                    {
-                    case COLLISION_PATTERN_SMALL_UNIT_PRESENCE:
-                        nCollisionPattern = COLLISION_PATTERN_SMALL_PET_PRESENCE;
-                        break;
-                    case COLLISION_PATTERN_BIG_UNIT_PRESENCE:
-                        nCollisionPattern = COLLISION_PATTERN_BIG_PET_PRESENCE;
-                        break;
-                    }
-                }
-            }
-
-            return nCollisionPattern;
-        }
-    }
-
-    return COLLISION_PATTERN_SMALL_UNIT_PRESENCE;
 }
 
 // 0x006487C0
@@ -2876,28 +2834,6 @@ char __stdcall SKILLS_GetModeSideChar(int nMode)
     return nMode == 11 ? 'r' : 'l';
 }
 
-// 0x006752A0
-void __fastcall DRLGOUTDOORS_AddAct124SecondaryBorder(D2DrlgLevelStrc* pLevel, int nLvlSubId, int nLevelPrestId)
-{
-    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
-    D2UnkOutdoorStrc a1 = {};
-
-    a1.pLevel = pLevel;
-    a1.field_4 = &pOutdoors->unk0x54;
-    a1.pGrid1 = &pOutdoors->pGrid[0];
-    a1.pGrid2 = &pOutdoors->pGrid[2];
-    a1.nLevelPrestId = nLevelPrestId;
-    a1.field_14 = -1;
-    a1.nLvlSubId = nLvlSubId;
-    a1.field_1C = DRLGOUTDOORS_TestGridCellNonLvlLink;
-    a1.field_20 = DRLGOUTDOORS_TestOutdoorLevelPreset;
-    a1.field_2C = DRLGOUTDOORS_AlterAdjacentPresetGridCells;
-    a1.field_30 = DRLGOUTDOORS_SetBlankGridCell;
-    a1.field_34 = DRLGOUTDOORS_SpawnOutdoorLevelPresetEx;
-
-    sub_00670750_ApplySubstitutionBorder(&a1);
-}
-
 static inline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -2957,20 +2893,6 @@ int __stdcall D2Common_10227(D2UnitStrc* pUnit)
     }
 
     return pDynamicPath->tGameCoords.wPosX == pDynamicPath->tTargetCoord.X && pDynamicPath->tGameCoords.wPosY == pDynamicPath->tTargetCoord.Y;
-}
-
-// 0x006755C0
-int __fastcall DRLGOUTDOORS_GetBorderLevelPrestId(int nA, int nB, int nC)
-{
-// build: symbol ?gaBorderIndices@* 0x006F0FD0
-    const int nRow = gaBorderIndices[nA + 3 * nB];
-    if (nC >= 4)
-    {
-// build: symbol ?gaBarricadeCliffBorderIds@* 0x006F06F0
-        return gaBarricadeCliffBorderIds[nRow][nC - 4];
-    }
-// build: symbol ?gaBorderLevelPrestIds@* 0x006F0630
-    return gaBorderLevelPrestIds[nRow][nC];
 }
 
 // 0x00678B40
@@ -4041,33 +3963,6 @@ static __forceinline void SKILLS_RemoveChargedSkill(D2UnitStrc* pUnit, D2SkillLi
         }
 
         FOG_FreePool(pUnit->pMemoryPool, pSkill, ".\\SKILLS\\Skills.cpp", 1511, 0);
-    }
-}
-
-// 0x00648300
-void __stdcall PATH_GetClientCoordsVelocity(D2UnitStrc* pUnit, int* pX, int* pY)
-{
-    if (pUnit && UNITS_IsInMovingMode(pUnit))
-    {
-        D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
-        if (pDynamicPath->dwPathPoints)
-        {
-            *pX = pDynamicPath->tVelocityVector.nX;
-            *pY = pDynamicPath->tVelocityVector.nY;
-            *pX >>= 11;
-            *pY >>= 11;
-            DUNGEON_GameToClientCoords(pX, pY);
-        }
-        else
-        {
-            *pX = 0;
-            *pY = 0;
-        }
-    }
-    else
-    {
-        *pX = 0;
-        *pY = 0;
     }
 }
 
