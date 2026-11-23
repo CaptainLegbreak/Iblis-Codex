@@ -584,6 +584,18 @@ static inline D2SkillsTxt* sub_004F21B0_GetSkillsTxtRecord(int nSkillId)
 	return 0;
 }
 
+// 0x004E4200
+float __cdecl sub_004E4200_GetFloatIfEnabled()
+{
+    if (!sub_00473C40())
+    {
+        return 0.0f;
+    }
+
+    return sub_00473C80();
+}
+
+
 // 0x004F21B0
 int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId)
 {

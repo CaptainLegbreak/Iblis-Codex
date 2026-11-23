@@ -32407,11 +32407,6 @@
      "va": "0x004E40A0",
      "length": 85,
      "name": "?sub_004E40A0@@YIHH@Z"
-    },
-    {
-     "va": "0x004E4200",
-     "length": 17,
-     "name": "?sub_004E4200_GetFloatIfEnabled@@YAMXZ"
     }
    ]
   },
@@ -32715,6 +32710,11 @@
      "va": "0x004E4180",
      "length": 91,
      "name": "?sub_004E4180@@YIHHHH@Z"
+    },
+    {
+     "va": "0x004E4200",
+     "length": 17,
+     "name": "?sub_004E4200_GetFloatIfEnabled@@YAMXZ"
     },
     {
      "va": "0x004E42E0",
