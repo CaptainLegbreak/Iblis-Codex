@@ -2863,7 +2863,7 @@
   },
   "Source/D2Game/PLAYER/PlrSave.cpp": {
    "bytes": 120,
-   "definitions": 2,
+   "definitions": 1,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/PLAYER/PlrSave.inc",
@@ -2950,7 +2950,7 @@
   },
   "Source/D2Game/PLAYER/PlrMsg.cpp": {
    "bytes": 848,
-   "definitions": 2,
+   "definitions": 3,
    "externs": [
     "extern \"C\" void __cdecl D2GAME_PACKETCALLBACK_Rcv0x61_DropPickupMercItem_0054D430(); // 0x0054D430",
     "extern \"C\" void __cdecl sub_005497E0(); // 0x005497E0",
@@ -92214,7 +92214,7 @@
    "cname": "gData_00731AD8",
    "declared": true,
    "decorated": "?gnBaseStatIdsToSend@@3QBHB",
-   "file": "Source/D2Game/PLAYER/PlrSave.cpp",
+   "file": "Source/D2Game/PLAYER/PlrMsg.cpp",
    "fill": 21,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_00731AD8[21]; // 0x00731AD8",
