@@ -457,12 +457,6 @@ void __fastcall IMAGE2_Destroy(void* pArg)
     sub_004F9310(pArg);
 }
 
-// 0x00505150
-int __cdecl D2COMP_GetFirstCompositeUnit()
-{
-    return gdwGlobal_0087E838;
-}
-
 // 0x00507DB0
 void __fastcall PROGRESSBAR_Destroy(void* pArg)
 {
