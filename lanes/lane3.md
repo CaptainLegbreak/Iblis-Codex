@@ -4,6 +4,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane3/trees-data fe5889d1 571->571 trees.c defines zlib's `_dist_code` (0x6D13D8, 512 B) and `_length_code` (0x6D15D8, 256 B) as trees.h does; deflate.c declares them extern. Borrowed data 15,691 -> 14,923 B (-768 B). VERIFIED 4c3a88e0 on base 71db0201 (j62; 14,918/14,918; borrowed code 12,041 B / 9 functions), then rebased onto ecc95640 (j63) without conflicts and prechecked. Not stacked.
 - lane3/crt-init bea40fd5 571->570 two more dynamic initializers go to their own files: STORM.CPP gets 0x6CA890, a static startup object whose inline constructor calls InitStorm (Unknown_006CA890 goes away); ErrorManager.cpp defines `gdwMainThreadId = GetCurrentThreadId()` at 0x992B1C with its initializer 0x6CA6F0. VERIFIED 689e9e33 on base 5a5617e0 (j61; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 15,691 B), then rebased onto 71db0201 (j62) without conflicts (docs only) and prechecked. Not stacked.
 - lane3/crt-locks 3ffb533d 571->571 the six long-lived critical sections become `CCritSect` objects (InitializeCriticalSection in the constructor, DeleteCriticalSection in the destructor) in their own files, with their dynamic initializer and atexit destructor: LogManager.cpp gtLogQueueLock/gtLogLock, SFILE.CPP gBasePathLock/gStormExplodeLock, SCOMP.CPP gtWorkBufferLock, SEVT.CPP gtSEvtLock; 12 functions leave Unknown_006C9A68/Unknown_006CAE80. VERIFIED 5fa1e275 on base 34ce356b (j60; same totals), then rebased onto 5a5617e0 (j61) without conflicts and prechecked. Not stacked; crt-init touches different lines of Unknown_006C9A68 and units.json.
 
@@ -30,7 +31,3 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 - 0x4101C0, the log thread in Fog: it only matches if the dequeue is forced inline, and adding a forceinline isn't allowed; left in `Unknown_004101C0.cpp`.
 - SBig pieces: parked (status in the b4f02807 commit message).
 - 0x6BE190 (gamma table, asserts at lines 14-16) sits inside Excel.cpp's run, but its asserts say it comes from a short file of its own; left as a placeholder.
-
-## In progress
-
-- `_dist_code`/`_length_code` (0x6D13D8, 768 B) defined in trees.c from trees.h: the unit builds equal; full verify running.
