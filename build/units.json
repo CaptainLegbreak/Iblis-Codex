@@ -31325,11 +31325,6 @@
      "va": "0x004E6680",
      "length": 152,
      "name": "?MISSILE_AddSetStatePropText@@YIXPAUD2UnitStrc@@0HH@Z"
-    },
-    {
-     "va": "0x004F16F0",
-     "length": 337,
-     "name": "MISSILE_CreateMissileVolley"
     }
    ],
    "flags": [
@@ -33951,6 +33946,11 @@
     {
      "va": "0x004ED570",
      "length": 1189
+    },
+    {
+     "va": "0x004F16F0",
+     "length": 337,
+     "name": "MISSILE_CreateMissileVolley"
     },
     {
      "va": "0x004F1A30",

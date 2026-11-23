@@ -6105,65 +6105,6 @@ void __fastcall sub_M130_Emit_004CD290(D2UnitStrc* pMissile)
     MISSILE_ApplyAnimSpeedSteps(pMissile, sub_0064A3B0_GetElapsedFrames(pMissile));
 }
 
-// 0x004F16F0
-int __fastcall MISSILE_CreateMissileVolley(D2UnitStrc* pUnit, int nCount, int nArg0, int nArg3, int nArg4, int nMissileArg, int bFirst, int bClearPathFlag)
-{
-    int nTargetX;
-    int nTargetY;
-    if (!ITEM_GetTargetPosition(pUnit, &nTargetX, &nTargetY))
-    {
-        return 0;
-    }
-
-    if (bFirst)
-    {
-        --nCount;
-        D2UnitStrc* pMissile = sub_004C5420_CreateFirstMissile(pUnit, nArg0, nArg3, nArg4);
-        if (pMissile)
-        {
-            if (bClearPathFlag)
-            {
-                sub_00649030_SetPathFlag40(pMissile->pDynamicPath, 0);
-            }
-
-            sub_00621780_SetMissileArg(pMissile, nMissileArg);
-        }
-    }
-
-    D2RequestStrc tRequest;
-    memset(&tRequest, 0, sizeof(tRequest));
-    tRequest.nType = 0x21;
-    tRequest.pUnit = pUnit;
-    tRequest.nArg1 = UNITS_GetXPositionInline(pUnit);
-    tRequest.nArg2 = UNITS_GetYPositionInline(pUnit);
-    tRequest.nArg5 = nTargetX;
-    tRequest.nArg6 = nTargetY;
-    tRequest.nArg3 = nArg3;
-    tRequest.nArg4 = nArg4;
-    tRequest.nArg0 = nArg0;
-    tRequest.pfCallback = SKILLDESC_InitCappedChargedPath;
-    if (bClearPathFlag)
-    {
-        tRequest.nType |= 0x2000;
-    }
-
-    for (int i = 0; i < nCount; ++i)
-    {
-        tRequest.nIndex = i;
-        D2UnitStrc* pMissile = sub_004CD540_HandleRequest(&tRequest);
-        if (pMissile)
-        {
-            if (bClearPathFlag)
-            {
-                sub_00649030_SetPathFlag40(pMissile->pDynamicPath, 0);
-            }
-
-            sub_00621780_SetMissileArg(pMissile, nMissileArg);
-        }
-    }
-
-    return 1;
-}
 
 // 0x004CDDB0
 void __fastcall sub_004CDDB0(D2UnitStrc* pUnit, const int* pMissiles, int nMissiles, int nRange, int nOffset, int nChance)
