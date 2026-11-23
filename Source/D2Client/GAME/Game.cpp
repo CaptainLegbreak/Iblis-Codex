@@ -258,8 +258,6 @@ struct D2AutomapRecordStrc;
 
 extern int gbStopMainLoop; // 0x0077932C
 
-extern int gdwGlobal_007799D8; // 0x007799D8
-
 extern char gszPreferredRealm[]; // 0x00779A40
 
 extern int gdwGlobal_0077AC04; // 0x0077AC04
@@ -2067,12 +2065,6 @@ int __cdecl GAME_GetSlotNameCount()
 {
 // build: symbol ?gnSlotCount@* 0x0077998C
     return gnSlotCount;
-}
-
-// 0x00436EA0
-int __cdecl sub_00436EA0()
-{
-    return gdwGlobal_007799D8;
 }
 
 // 0x00437D00

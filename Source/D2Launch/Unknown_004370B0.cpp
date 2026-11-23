@@ -8,6 +8,8 @@
 
 #include "D2MultiTypes.h"
 
+extern int gdwGlobal_007799D8; // 0x007799D8
+
 struct D2FuncTable_0077ABF0Strc;
 
 void __cdecl MAINMENUS_ShowLoginScreen(); // 0x00435330
@@ -144,6 +146,18 @@ static int MAINMENUS_CheckAtAndDot(const char* szText)
             bValid = 1;
     }
     return bValid;
+}
+
+// 0x00436E90
+int __stdcall sub_00436E90_AlwaysOne(int nArg)
+{
+    return 1;
+}
+
+// 0x00436EA0
+int __cdecl sub_00436EA0()
+{
+    return gdwGlobal_007799D8;
 }
 
 // 0x00436F30

@@ -9947,11 +9947,6 @@
      "name": "GAME_GetSlotNameCount"
     },
     {
-     "va": "0x00436EA0",
-     "length": 6,
-     "name": "sub_00436EA0"
-    },
-    {
      "va": "0x00437D00",
      "length": 6,
      "name": "GAME_GetPreferredRealm"
@@ -11602,11 +11597,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00436E90",
-     "length": 8,
-     "name": "?sub_00436E90_AlwaysOne@@YGHH@Z"
-    },
-    {
      "va": "0x00457300",
      "length": 282,
      "name": "?SKILLS_InitGfxCaches@@YIXPAXH@Z"
@@ -11977,6 +11967,16 @@
    "file": "Source/D2Launch/Unknown_004370B0.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00436E90",
+     "length": 8,
+     "name": "?sub_00436E90_AlwaysOne@@YGHH@Z"
+    },
+    {
+     "va": "0x00436EA0",
+     "length": 6,
+     "name": "sub_00436EA0"
+    },
     {
      "va": "0x00436F30",
      "length": 384,
