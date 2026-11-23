@@ -399,6 +399,114 @@ void __fastcall ACT4Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
     }
 }
 
+void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeaderStrc* pTextControl, int nNPCID, int nIndex); // 0x00543790
+
+static int gnAct4Q2NpcMessageIndices[] =                                                                            // 0x0073D56C
+{
+    -1, 0, 1, -1, -1
+};
+
+// 0x005B4790
+void __fastcall ACT4Q2_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2GameStrc* pGame = pQuestArg->pGame;
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
+    const int bRewardGranted = QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0);
+    const int bPrimaryGoalDone = QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 13);
+    const int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
+    const int bCustom3 = QUESTRECORD_GetQuestState(pQuestFlags, 26, 7);
+    const int bCustom2 = QUESTRECORD_GetQuestState(pQuestFlags, 26, 6);
+    const int bCustom5 = QUESTRECORD_GetQuestState(pQuestFlags, 26, 9);
+    const int bCustom4 = QUESTRECORD_GetQuestState(pQuestFlags, 26, 8);
+
+    if (!pQuestData->pGame->bExpansion)
+    {
+        if (bCustom3 && nNpcId == 367)
+        {
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 367, 2);
+            return;
+        }
+        if (bCustom2 && nNpcId == 246)
+        {
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 246, 2);
+            return;
+        }
+        if (bCustom3)
+        {
+            if (nNpcId == 246)
+            {
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 246, 3);
+            }
+            return;
+        }
+        if (bCustom2)
+        {
+            if (nNpcId == 367)
+            {
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 367, 3);
+            }
+            return;
+        }
+    }
+
+    if (bRewardGranted == 1)
+    {
+        if (!pQuestData->pGame->bExpansion)
+        {
+            return;
+        }
+
+        if (!bCustom5)
+        {
+            if (nNpcId == 367)
+            {
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 367, 4);
+            }
+            else if (nNpcId == 246)
+            {
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 246, 5);
+            }
+        }
+
+        if (!bCustom4)
+        {
+            if (nNpcId == 246)
+            {
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 246, 4);
+            }
+            else if (nNpcId == 367)
+            {
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 367, 5);
+            }
+        }
+        return;
+    }
+
+    if ((pQuestData->fState < 4 || bPrimaryGoalDone) && pQuestData->bNotIntro && pQuestData->fState)
+    {
+        const int nIndex = gnAct4Q2NpcMessageIndices[pQuestData->fState];
+        if (nIndex != -1 && (unsigned int)nIndex < 7)
+        {
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);
+        }
+    }
+}
+
+void __fastcall QUESTS_SendLogUpdateEx(D2UnitStrc* pPlayer, int nQuestId, unsigned char nAct); // 0x00545920
+
+// 0x005B4970
+int __fastcall ACT4Q2_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 26, 0) == 1)
+    {
+        return 0;
+    }
+    QUESTRECORD_SetQuestState(pQuestFlags, 26, 14);
+    QUESTS_SendLogUpdateEx(pUnit, 23, 0);
+    return 0;
+}
+
 // 0x005B49C0
 int __fastcall ACT4Q2_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -591,6 +699,43 @@ void __fastcall ACT4Q2_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitS
     }
 
     ACT4Q2_SetQuestCompleted(pGame, pQuestFlags, pUnit);
+}
+
+typedef void (__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
+
+short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
+
+void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPartyId, PartyCallbackFunction pCallback, void* pArgs); // 0x00540510
+
+// 0x005B4DF0
+int __fastcall ACT4Q2_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, 26, 13))
+    {
+        return 0;
+    }
+    const unsigned short nPartyId = SUNIT_GetPartyId(pUnit);
+    if (nPartyId != 0xFFFF)
+    {
+        PARTY_IteratePartyMembers(pGame, nPartyId, ACT4Q2_UnitIterate_SetPrimaryGoalDone, 0);
+    }
+    return 0;
+}
+
+void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsigned char id); // 0x00544190
+
+// 0x005B4E40
+int __fastcall ACT4Q2_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, 26, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, 26, 15)
+        || QUESTRECORD_GetQuestState(pQuestFlags, 26, 13)
+        || QUESTRECORD_GetQuestState(pQuestFlags, 26, 14))
+    {
+        QUESTS_StatusCyclerEx(pGame, pUnit, 23);
+    }
+    return 0;
 }
 
 // 0x005B4EA0
@@ -1196,11 +1341,6 @@ int __fastcall OBJECTS_OperateFunction73_LastLastPortal(D2ObjOperateFnStrc* pOp,
     QUESTS_UpdatePlayerFlags(pOp->pGame, pOp->hPlayer);
     ACT4Q2_ActivateHarrogathWaypoint(pOp->pGame, pOp->hPlayer);
     return 0;
-}
-
-// 0x005B6930
-void __fastcall ACT4Q3_OnSoulstonesDropped(D2GameStrc* pGame, int nSoulStonesDropped)
-{
 }
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740

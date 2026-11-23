@@ -409,11 +409,6 @@ int __fastcall ACT2Q2_UnitIterate_DetermineHoradricScrollDropCount(D2GameStrc* p
     return 0;
 }
 
-// 0x00599A20
-void __fastcall ACT2Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-}
-
 // 0x00599BD0
 void __fastcall ACT2Q2_AddAmulets(D2QuestDataStrc* pQuestData, int nCount)
 {

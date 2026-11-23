@@ -136,6 +136,85 @@ int __fastcall ACT2Q2_UnitIterate_DetermineCubeDropCount(D2GameStrc* pGame, D2Un
     return 0;
 }
 
+struct D2QuestGUIDStrc;
+
+enum D2C_P08QuestConstants
+{
+    MONSTER_CAIN6 = 244,
+    QFLAG_REWARDPENDING = 1,
+    QFLAG_ENTERAREA = 4,
+    QFLAG_CUSTOM1 = 5,
+    QFLAG_CUSTOM2 = 6,
+    QFLAG_CUSTOM6 = 10,
+};
+
+void __fastcall QUESTS_NPCActivateSpeeches(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pTarget); // 0x00545780
+
+void __fastcall QUESTS_AddPlayerGUID(D2QuestGUIDStrc* pQuestGUID, int dwGUID); // 0x00545200
+
+void __fastcall QUESTS_DeleteItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, int dwCode); // 0x00544160
+
+#define QFLAG_REWARDPENDING 1
+
+#define QFLAG_ENTERAREA 4
+
+void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
+
+// 0x005997F0
+void __fastcall ACT2Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    const unsigned short nNPCNo = pQuestArg->nNPCNo;
+    const unsigned short nMessageIndex = pQuestArg->nMessageIndex;
+    D2GameStrc* pGame = pQuestArg->pGame;
+    D2UnitStrc* pPlayer = pQuestArg->pPlayer;
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+
+    if (nNPCNo == MONSTER_CAIN6)
+    {
+        switch (nMessageIndex)
+        {
+        case 335:
+            QUESTS_DeleteItem(pQuestArg->pGame, pQuestArg->pPlayer, 0x20317274);
+            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_LEAVETOWN);
+            break;
+
+        case 336:
+            pQuestData->dwFlags &= 0xFFFFFF00;
+            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_ENTERAREA);
+            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_LEAVETOWN);
+            break;
+
+        case 337:
+            pQuestData->dwFlags &= 0xFFFFFF00;
+            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_CUSTOM1);
+            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_LEAVETOWN);
+            break;
+
+        case 338:
+            pQuestData->dwFlags &= 0xFFFFFF00;
+            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_CUSTOM2);
+            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_LEAVETOWN);
+            break;
+
+        case 339:
+            QUESTRECORD_ClearQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_REWARDPENDING);
+            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_LEAVETOWN);
+
+            QUESTS_AddPlayerGUID(&pQuestData->tPlayerGUIDs, (!pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId));
+
+            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_CUSTOM6);
+            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_ENTERAREA);
+            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_CUSTOM2);
+            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_CUSTOM1);
+            QUESTS_NPCActivateSpeeches(pQuestArg->pGame, pQuestArg->pPlayer, pQuestArg->pTarget);
+            break;
+
+        default:
+            return;
+        }
+    }
+}
+
 // 0x00599A00
 void __fastcall ACT2Q2_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -143,6 +222,11 @@ void __fastcall ACT2Q2_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
     {
         QUESTS_QuickRemovePlayerGUID(pQuestData, pQuestArg);
     }
+}
+
+// 0x00599A20
+void __fastcall ACT2Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
 }
 
 // 0x00599510

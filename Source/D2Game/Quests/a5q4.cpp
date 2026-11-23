@@ -706,6 +706,30 @@ void __fastcall ACT5Q4_InitQuestData(D2QuestDataStrc* pQuestData)
     QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->tPlayerGUIDs);
 }
 
+// 0x0058BC00
+void __fastcall ACT5Q4_SetRewardGranted(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+
+    QUESTRECORD_SetQuestState(pQuestFlags, 0x26, 0);
+    QUESTRECORD_ClearQuestState(pQuestFlags, 0x26, 1);
+
+    QUESTRECORD_GetQuestState(pQuestFlags, 0x26, 0x0F);
+}
+
+// 0x0058BC40
+void __fastcall ACT5Q4_OnNihlathakActivated(D2GameStrc* pGame)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x22);
+    if (!pQuestData || !pQuestData->bNotIntro || pQuestData->fLastState >= 3)
+    {
+        return;
+    }
+
+    pQuestData->nStatusFlags = 0;
+    QUESTS_UnitIterate(pQuestData, 3, 0, ACT5Q4_UnitIterate_StatusCyclerEx, 1);
+}
+
 // 0x0058B050
 void __fastcall ACT5Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -999,111 +1023,6 @@ void __fastcall ACT5Q6_SpawnTyrael(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D
     {
         D2GAME_SpawnMonster_6FC69F10(pGame, pFreeRoom, coord.nX, coord.nY, MONSTER_TYRAEL3, MONMODE_NEUTRAL, 4, 66);
     }
-}
-
-// 0x00590B10
-void __fastcall ACT1Q2_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    const int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
-    D2UnitStrc* pPlayer = pQuestArg->pPlayer;
-    D2GameStrc* pGame = pQuestArg->pGame;
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-    const int bRewardGranted = QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDGRANTED);
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDPENDING))
-    {
-        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 3);
-        return;
-    }
-
-    if (QUESTS_CheckPlayerGUID(pQuestData, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId) == 1)
-    {
-        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 4);
-        return;
-    }
-
-    if (!pQuestData->fState)
-    {
-        return;
-    }
-
-    if (bRewardGranted == 1)
-    {
-        return;
-    }
-
-    if (pQuestData->fState >= 4)
-    {
-        return;
-    }
-
-    const unsigned int nIndex = gnAct1Quest2NpcIndices[pQuestData->fState];
-    if (nIndex != -1 && nIndex < 6)
-    {
-        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);
-    }
-}
-
-// 0x00590C40
-int __fastcall ACT1Q2_UnitIterate_SetRewardPending(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2ActiveRoomStrc* pPlayerRoom = UNITS_GetRoom(pUnit);
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A1Q2_BLOODRAVEN);
-    D2_ASSERT(pQuestData, 307);
-
-    D2Act1Quest2Strc* pQuestDataEx = (D2Act1Quest2Strc*)pQuestData->pQuestDataEx;
-    if (!pQuestDataEx->bBloodravenKilled)
-    {
-        return 0;
-    }
-
-    D2ActiveRoomStrc* pMonsterRoom = UNITS_GetRoom(SUNIT_GetServerUnit(pGame, UNIT_MONSTER, pQuestDataEx->nBloodravenGUID));
-    if (!pPlayerRoom)
-    {
-        return 0;
-    }
-
-    int bInRange = 0;
-    if (pPlayerRoom == pMonsterRoom)
-    {
-        bInRange = 1;
-    }
-    else
-    {
-        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-        D2_ASSERT(pRoom, 334);
-
-        D2ActiveRoomStrc** ppRoomList;
-        unsigned int nRooms;
-        DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nRooms);
-        for (unsigned int i = 0; i < nRooms; ++i)
-        {
-            if (ppRoomList[i] == pMonsterRoom)
-            {
-                bInRange = 1;
-                break;
-            }
-        }
-    }
-
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q2, QFLAG_REWARDGRANTED))
-    {
-        return 0;
-    }
-
-    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q2, QFLAG_REWARDPENDING))
-    {
-        return 0;
-    }
-
-    if (!bInRange)
-    {
-        return 0;
-    }
-
-    QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q2, QFLAG_PRIMARYGOALDONE);
-    QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q2, QFLAG_REWARDPENDING);
-    return 0;
 }
 
 // 0x00592D50
