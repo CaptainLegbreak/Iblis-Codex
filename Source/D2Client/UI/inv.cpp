@@ -5710,6 +5710,17 @@ void __fastcall INV_UpdateTradeAcceptSound(int bFirst, int bSecond)
     gbTradeAcceptedOther = bSecond;
 }
 
+// 0x00489840
+int __cdecl CUNIT_IsInvPanelTradeMode()
+{
+    if (gnInvPanelMode == 1 || gnInvPanelMode == 2 || gnInvPanelMode == 3)
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
 // 0x00489860
 int __cdecl INV_IsSellMode()
 {

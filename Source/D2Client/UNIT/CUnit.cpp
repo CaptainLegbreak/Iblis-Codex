@@ -3574,16 +3574,6 @@ D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nIndex)
 }
 
 
-// 0x00489840
-int __cdecl CUNIT_IsInvPanelTradeMode()
-{
-    if (gnInvPanelMode == 1 || gnInvPanelMode == 2 || gnInvPanelMode == 3)
-    {
-        return 1;
-    }
-
-    return 0;
-}
 
 // 0x004898A0
 void __fastcall sub_004898A0(int nMode)
