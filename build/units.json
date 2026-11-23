@@ -2407,6 +2407,11 @@
      "name": "?MAINMENUS_ReadPaletteFiles@@YIHPBD0@Z"
     },
     {
+     "va": "0x0042F370",
+     "length": 35,
+     "name": "?sub_0042F370_RestorePalette@@YAXXZ"
+    },
+    {
      "va": "0x0042F3A0",
      "length": 80,
      "name": "?MAINMENUS_CreateFromTemplate@@YIPAUD2WinControlStrc@@H@Z"
@@ -2485,6 +2490,16 @@
      "va": "0x0042FF00",
      "length": 8,
      "name": "?sub_0042FF00_FilterChar@@YGHPAXHPBD@Z"
+    },
+    {
+     "va": "0x0042FF10",
+     "length": 7,
+     "name": "?sub_0042FF10_SetValue@@YIXH@Z"
+    },
+    {
+     "va": "0x0042FF20",
+     "length": 168,
+     "name": "?sub_0042FF20_ShowLocalAddress@@YAXXZ"
     },
     {
      "va": "0x0042FFD0",
@@ -9948,11 +9963,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0042F370",
-     "length": 35,
-     "name": "?sub_0042F370_RestorePalette@@YAXXZ"
-    },
-    {
      "va": "0x0042F800",
      "length": 122,
      "name": "?sub_0042F800@@YAXXZ"
@@ -9966,16 +9976,6 @@
      "va": "0x0042FA20",
      "length": 11,
      "name": "?sub_0042FA20@@YAXXZ"
-    },
-    {
-     "va": "0x0042FF10",
-     "length": 7,
-     "name": "?sub_0042FF10_SetValue@@YIXH@Z"
-    },
-    {
-     "va": "0x0042FF20",
-     "length": 168,
-     "name": "?sub_0042FF20_ShowLocalAddress@@YAXXZ"
     }
    ]
   },

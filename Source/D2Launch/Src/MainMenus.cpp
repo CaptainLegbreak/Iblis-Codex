@@ -1417,6 +1417,22 @@ int __cdecl D2SOUND_IsAnyWavePlaying();                                         
 
 void __cdecl sub_00515070();                                                                                // 0x00515070
 
+void __stdcall D2Win_10029(int a1); // 0x004FA410
+
+void __cdecl sub_0042F880_DestroyControls(); // 0x0042F880
+
+extern D2WinControlStrc* gpControl_00779338; // 0x00779338
+
+extern D2WinControlStrc* gpControl_00779588; // 0x00779588
+
+extern D2WinControlStrc* gpControl_007795A0; // 0x007795A0
+
+extern D2WinControlStrc* gpControl_007795A4; // 0x007795A4
+
+void __cdecl sub_0042F800(); // 0x0042F800
+
+void __cdecl sub_0042FA20(); // 0x0042FA20
+
 // 0x004065E0
 void __stdcall D2ServerServiceMain(unsigned long dwArgc, char** lpszArgv)
 {
@@ -1768,6 +1784,16 @@ int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFil
     return 1;
 }
 
+// 0x0042F370
+void __cdecl sub_0042F370_RestorePalette()
+{
+    if (gbPaletteBusy)
+    {
+        MAINMENUS_ReadPaletteFiles(gszFeCharPalDat, "palette\\fechar\\pal.pl2");
+        gbPaletteBusy = 0;
+    }
+}
+
 // 0x0042F3A0
 D2WinControlStrc* __fastcall MAINMENUS_CreateFromTemplate(int nTemplateId)
 {
@@ -2007,6 +2033,34 @@ int __stdcall MAINMENUS_FilterRestrictedChar(void* pControl, int nUnused, const 
 int __stdcall sub_0042FF00_FilterChar(void* pControl, int nUnused, const char* pChar)
 {
     return 1;
+}
+
+// 0x0042FF10
+void __fastcall sub_0042FF10_SetValue(int nValue)
+{
+    gnValue_00779980 = nValue;
+}
+
+// 0x0042FF20
+void __cdecl sub_0042FF20_ShowLocalAddress()
+{
+    const char* szAddress = FOG_GetHostIPAddress();
+    sub_004FB6A0_ClearText(gpControl_00779588);
+    if (!strcmp(szAddress, "127.0.0.1"))
+    {
+        sub_004FD060_SetText(gpControl_00779588, D2LANG_GetStringFromTblIndex(0x1404));
+// build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
+        CONTROL_SetEnabled(gpControl_007795A4, 0);
+        CONTROL_SetEnabled(gpControl_007795A0, 0);
+        CONTROL_SetEnabled(gpControl_00779338, 0);
+    }
+    else
+    {
+        D2Win_10045(gpControl_00779588, szAddress);
+        CONTROL_SetEnabled(gpControl_007795A4, 1);
+        CONTROL_SetEnabled(gpControl_007795A0, 1);
+        CONTROL_SetEnabled(gpControl_00779338, 1);
+    }
 }
 
 // 0x0042FFD0
