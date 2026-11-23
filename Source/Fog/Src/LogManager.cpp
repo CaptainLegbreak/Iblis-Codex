@@ -1577,27 +1577,6 @@ void __cdecl sub_0040FFD0_ShutdownLogSystem()
     LeaveCriticalSection(&gtLogQueueLock);
 }
 
-// 0x00410C40
-void __stdcall LOGMANAGER_OrBits(const unsigned char* pA, const unsigned char* pB, unsigned char* pOut, int nBits)
-{
-    nBits = (nBits + 7) / 8;
-    const int nAligned = 4 * (nBits / 4);
-    int i;
-    for (i = 0; i < nAligned; i += 4)
-    {
-        *(int*)&pOut[i] = *(const int*)&pA[i] | *(const int*)&pB[i];
-    }
-    switch (nBits - nAligned)
-    {
-    case 3:
-        pOut[i + 2] = pA[i + 2] | pB[i + 2];
-    case 2:
-        pOut[i + 1] = pA[i + 1] | pB[i + 1];
-    case 1:
-        pOut[i] = pA[i] | pB[i];
-    }
-}
-
 // 0x00417780
 sub_00417780::sub_00417780()
 {

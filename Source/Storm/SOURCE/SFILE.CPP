@@ -176,13 +176,7 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 
-extern "C" __declspec(dllimport) int __stdcall QueryPerformanceFrequency(__int64* pnFrequency); // 0x006CC254
-
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-
-extern char gaTimerTable_0075E8A0[0x18000]; // 0x0075E8A0
-
-extern unsigned long gnTimerStartTick_007768A0; // 0x007768A0
 
 extern int gnFlag3_007788CC; // 0x007788CC
 
@@ -570,10 +564,6 @@ static int sub_00415950_GetFileRec(void* hFile, FILEREC** ppRec);
 
 D2SystemTimeStrc gLogStartTime_0075D288; // 0x0075D288
 
-int gnTimerTicksPerMs_0075E89C; // 0x0075E89C
-
-int gnTimerTicksPerUs_0075E898; // 0x0075E898
-
 int gnValueA_00779060; // 0x00779060
 
 int gnValueB_00779064; // 0x00779064
@@ -803,17 +793,6 @@ void D2StormFixedListStrc::sub_0040FBB0_LinkNode(char* pNode, int nLinkType, cha
 void D2StormFixedListStrc::sub_0040FC60_UnlinkNode(char* pNode)
 {
     Link(pNode)->Unlink();
-}
-
-// 0x00411210
-void __cdecl sub_00411210_InitTimer()
-{
-    __int64 nFrequency;
-    QueryPerformanceFrequency(&nFrequency);
-    gnTimerTicksPerMs_0075E89C = (int)(nFrequency / 1000);
-    gnTimerTicksPerUs_0075E898 = (int)(nFrequency / 1000000);
-    memset(gaTimerTable_0075E8A0, 0, sizeof(gaTimerTable_0075E8A0));
-    gnTimerStartTick_007768A0 = GetTickCount();
 }
 
 // 0x00413F30

@@ -1512,6 +1512,159 @@
    ]
   },
   {
+   "file": "Source/Fog/Unknown_00410790.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00410790",
+     "length": 10,
+     "name": "?BNDOWNLOAD_GetTime@@YAJPAJ@Z"
+    },
+    {
+     "va": "0x004107B0",
+     "length": 23,
+     "name": "?sub_004107B0_AtomicStore64@@YIXPA_JPB_J@Z"
+    },
+    {
+     "va": "0x00410B10",
+     "length": 32,
+     "name": "sub_00410B10"
+    },
+    {
+     "va": "0x00410B30",
+     "length": 32,
+     "name": "sub_00410B30"
+    },
+    {
+     "va": "0x00410B50",
+     "length": 32,
+     "name": "sub_00410B50"
+    },
+    {
+     "va": "0x00410B70",
+     "length": 32,
+     "name": "?sub_00410B70@@YGXPAUBitBuffer@@H@Z"
+    },
+    {
+     "va": "0x00410B90",
+     "length": 173,
+     "name": "?sub_00410B90@@YGXPBE0PAEH@Z"
+    },
+    {
+     "va": "0x00410C40",
+     "length": 173,
+     "name": "BITMANIP_OrBits"
+    },
+    {
+     "va": "0x00410CF0",
+     "length": 147,
+     "name": "sub_00410CF0_NotBits"
+    },
+    {
+     "va": "0x00410D90",
+     "length": 173,
+     "name": "sub_00410D90_XorBits"
+    },
+    {
+     "va": "0x00410E40",
+     "length": 73,
+     "name": "BITMANIP_Initialize"
+    },
+    {
+     "va": "0x00410E90",
+     "length": 22,
+     "name": "_sub_00410E90@4"
+    },
+    {
+     "va": "0x00410EB0",
+     "length": 173,
+     "name": "BITMANIP_Write"
+    },
+    {
+     "va": "0x00410F60",
+     "length": 180
+    },
+    {
+     "va": "0x00411020",
+     "length": 9,
+     "name": "sub_00411020_ReadBits"
+    },
+    {
+     "va": "0x00411030",
+     "length": 57,
+     "name": "BITMANIP_ReadSigned"
+    },
+    {
+     "va": "0x00411070",
+     "length": 49,
+     "name": "BITMANIP_GoToNextByte"
+    },
+    {
+     "va": "0x004110B0",
+     "length": 31,
+     "name": "sub_004110B0_WriteCode"
+    },
+    {
+     "va": "0x004110D0",
+     "length": 92,
+     "name": "sub_004110D0_ReadTreeCode"
+    },
+    {
+     "va": "0x00411130",
+     "length": 50,
+     "name": "FOG_ComputeChecksum"
+    },
+    {
+     "va": "0x00411170",
+     "length": 40,
+     "name": "sub_00411170_SumByteTable"
+    },
+    {
+     "va": "0x004111A0",
+     "length": 104,
+     "name": "sub_004111A0_GetLowestSetBit"
+    },
+    {
+     "va": "0x00411210",
+     "length": 99,
+     "name": "sub_00411210_InitTimer"
+    },
+    {
+     "va": "0x00411280",
+     "length": 42,
+     "name": "sub_00411280_ResetRecords"
+    },
+    {
+     "va": "0x004112B0",
+     "length": 6,
+     "name": "?sub_004112B0_GetTickCount@@YAKXZ"
+    },
+    {
+     "va": "0x004112C0",
+     "length": 83
+    },
+    {
+     "va": "0x00411320",
+     "length": 154,
+     "name": "sub_00411320_CapitalizeWords"
+    },
+    {
+     "va": "0x004113C0",
+     "length": 32,
+     "name": "sub_004113C0"
+    },
+    {
+     "va": "0x004113E0",
+     "length": 341,
+     "name": "?sub_004113E0_EscapeString@@YIPADPADPBDHD@Z"
+    },
+    {
+     "va": "0x00411540",
+     "length": 221
+    }
+   ]
+  },
+  {
    "file": "Source/Fog/Src/LogManager.cpp",
    "rank": 0,
    "functions": [
@@ -1519,11 +1672,6 @@
      "va": "0x004027C0",
      "length": 96,
      "name": "LOGMANAGER_DbgHelpThreadProc"
-    },
-    {
-     "va": "0x0040EB30",
-     "length": 1,
-     "name": "??3D2LogMessageStrc@@SAXPAX0@Z"
     },
     {
      "va": "0x0040EBD0",
@@ -1639,44 +1787,9 @@
      "name": "??1D2LogMsgNodeStrc@@QAE@XZ"
     },
     {
-     "va": "0x0040FB50",
-     "length": 84,
-     "name": "??0D2LogMsgListStrc@@QAE@XZ"
-    },
-    {
      "va": "0x0040FCB0",
      "length": 75,
      "name": "??0D2LogMsgNodeStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0040FD40",
-     "length": 65,
-     "name": "??1D2LogMessageStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0040FD90",
-     "length": 126,
-     "name": "??1D2LogMsgListStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0040FE10",
-     "length": 75,
-     "name": "??0D2LogMessageStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0040FE60",
-     "length": 98,
-     "name": "??_GD2LogMessageStrc@@QAEPAXI@Z"
-    },
-    {
-     "va": "0x0040FED0",
-     "length": 97,
-     "name": "?sub_0040FED0_DeleteAll@D2LogMsgListStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x0040FF40",
-     "length": 138,
-     "name": "?sub_0040FF40_NewNode@D2LogMsgListStrc@@QAEPADHII@Z"
     },
     {
      "va": "0x0040FFD0",
@@ -1716,11 +1829,6 @@
      "va": "0x00410740",
      "length": 69,
      "name": "LOGMANAGER_LogWritePrefixed"
-    },
-    {
-     "va": "0x00410C40",
-     "length": 173,
-     "name": "LOGMANAGER_OrBits"
     },
     {
      "va": "0x00417780",
@@ -1981,14 +2089,6 @@
      "va": "0x00426D80",
      "length": 50,
      "name": "??1sub_00426D80@@QAE@XZ"
-    },
-    {
-     "va": "0x006CA740",
-     "length": 101
-    },
-    {
-     "va": "0x006CB090",
-     "length": 10
     }
    ],
    "flags": [
@@ -3766,22 +3866,6 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_0040EBD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00410CF0",
-     "length": 147,
-     "name": "sub_00410CF0_NotBits"
-    },
-    {
-     "va": "0x00411320",
-     "length": 154,
-     "name": "sub_00411320_CapitalizeWords"
-    }
-   ]
-  },
-  {
    "file": "Source/Fog/Src/AsyncData.cpp",
    "rank": 0,
    "functions": [
@@ -4070,11 +4154,6 @@
      "va": "0x0040FC60",
      "length": 66,
      "name": "sub_0040FC60_UnlinkNode"
-    },
-    {
-     "va": "0x00411210",
-     "length": 99,
-     "name": "sub_00411210_InitTimer"
     },
     {
      "va": "0x00413F30",
@@ -5144,57 +5223,6 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_00410040.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00410790",
-     "length": 10,
-     "name": "?BNDOWNLOAD_GetTime@@YAJPAJ@Z"
-    },
-    {
-     "va": "0x004107B0",
-     "length": 23,
-     "name": "?sub_004107B0_AtomicStore64@@YIXPA_JPB_J@Z"
-    },
-    {
-     "va": "0x00410B10",
-     "length": 32,
-     "name": "sub_00410B10"
-    },
-    {
-     "va": "0x00410B30",
-     "length": 32,
-     "name": "sub_00410B30"
-    },
-    {
-     "va": "0x00410B50",
-     "length": 32,
-     "name": "sub_00410B50"
-    },
-    {
-     "va": "0x00411130",
-     "length": 50,
-     "name": "FOG_ComputeChecksum"
-    },
-    {
-     "va": "0x00411170",
-     "length": 40,
-     "name": "sub_00411170_SumByteTable"
-    },
-    {
-     "va": "0x004111A0",
-     "length": 104,
-     "name": "sub_004111A0_GetLowestSetBit"
-    },
-    {
-     "va": "0x004113C0",
-     "length": 32,
-     "name": "sub_004113C0"
-    }
-   ]
-  },
-  {
    "file": "Source/Fog/Unknown_004101C0.cpp",
    "rank": 1,
    "functions": [
@@ -5255,120 +5283,6 @@
      "va": "0x00410A80",
      "length": 132,
      "name": "?FOG_GetSyncTime@@YAJXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00410B70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00410B70",
-     "length": 32,
-     "name": "?sub_00410B70@@YGXPAUBitBuffer@@H@Z"
-    },
-    {
-     "va": "0x00410B90",
-     "length": 173,
-     "name": "?sub_00410B90@@YGXPBE0PAEH@Z"
-    },
-    {
-     "va": "0x00410D90",
-     "length": 173,
-     "name": "sub_00410D90_XorBits"
-    },
-    {
-     "va": "0x00410E40",
-     "length": 73,
-     "name": "BITMANIP_Initialize"
-    },
-    {
-     "va": "0x00410E90",
-     "length": 22,
-     "name": "_sub_00410E90@4"
-    },
-    {
-     "va": "0x00410EB0",
-     "length": 173,
-     "name": "BITMANIP_Write"
-    },
-    {
-     "va": "0x00411020",
-     "length": 9,
-     "name": "sub_00411020_ReadBits"
-    },
-    {
-     "va": "0x00411030",
-     "length": 57,
-     "name": "BITMANIP_ReadSigned"
-    },
-    {
-     "va": "0x00411070",
-     "length": 49,
-     "name": "BITMANIP_GoToNextByte"
-    },
-    {
-     "va": "0x004110B0",
-     "length": 31,
-     "name": "sub_004110B0_WriteCode"
-    },
-    {
-     "va": "0x004110D0",
-     "length": 92,
-     "name": "sub_004110D0_ReadTreeCode"
-    },
-    {
-     "va": "0x00411280",
-     "length": 42,
-     "name": "sub_00411280_ResetRecords"
-    },
-    {
-     "va": "0x004113E0",
-     "length": 341,
-     "name": "?sub_004113E0_EscapeString@@YIPADPADPBDHD@Z"
-    },
-    {
-     "va": "0x00411540",
-     "length": 221
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00410F60.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00410F60",
-     "length": 180
-    },
-    {
-     "va": "0x004112C0",
-     "length": 83
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_004112B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004112B0",
-     "length": 6,
-     "name": "?sub_004112B0_GetTickCount@@YAKXZ"
     }
    ]
   },
