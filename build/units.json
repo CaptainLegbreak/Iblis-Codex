@@ -65382,11 +65382,6 @@
      "name": "DATATBLS_GetAnimData"
     },
     {
-     "va": "0x00624710",
-     "length": 6,
-     "name": "sub_00624710"
-    },
-    {
      "va": "0x0062A360",
      "length": 5,
      "name": "sub_0062A360"
@@ -69775,6 +69770,11 @@
      "va": "0x00624700",
      "length": 7,
      "name": "?LOG_SetLogValue@@YIXH@Z"
+    },
+    {
+     "va": "0x00624710",
+     "length": 6,
+     "name": "sub_00624710"
     },
     {
      "va": "0x00624720",

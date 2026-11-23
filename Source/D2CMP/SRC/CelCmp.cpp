@@ -1853,24 +1853,39 @@ D2LRUNodeStrc* __fastcall LRUCacheAlloc(D2CmpPoolStrc* pPool, unsigned int nSize
 void __stdcall sub_0060A4C0_TileEntryLoaded(D2TileLibraryEntryStrc* pEntry); // 0x0060A4C0
 
 struct Config;
+
 struct D2CmpSpriteContextStrc;
+
 struct D2CmpDC6HeaderStrc;
+
 struct D2CmpDC6CacheEntryStrc;
+
 struct D2CmpDC6FrameStrc;
+
 typedef char* va_list;
+
 extern "C" int __cdecl vsprintf(char*,const char*,va_list);
+
 extern "C" char* __cdecl strcat(char*,const char*);
+
 struct Config { int enabled; const char* compressed; const char* standard; };
+
 extern Config extensions; // 0x00741EFC
+
 enum { DISABLED = 0 };
+
 void* __fastcall sub_0040A9E0(AsyncData* pAsync); // 0x0040A9E0
+
 struct D2CmpDC6CacheEntryStrc
 {
     char unk0x00[0x20];
     D2CmpDC6HeaderStrc tHeader;
 };
+
 static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader); // 0x005FEB80
+
 static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpDC6CacheEntryStrc* pEntry); // 0x005FEC50
+
 void __stdcall sub_P04_Emit_005FEC50(D2CmpSpriteContextStrc* pContext, D2CmpDC6CacheEntryStrc* pEntry)
 {
     pContext->pFrame = sub_005FEC50_GetCachedDC6Frame(pContext, pEntry);
@@ -1894,7 +1909,6 @@ static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2
 
     return 0;
 }
-
 
 // build: symbol ?sub_005FEB80_FindDC6Frame@* 0x005FEB80
 static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader)
@@ -1972,7 +1986,6 @@ static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContext
 
     return pFrame;
 }
-
 
 // 0x005FE210
 void __stdcall D2CMPBuildFileName(char* output,int allowCompressed,const char* format,va_list args)
@@ -4143,12 +4156,6 @@ int __cdecl DATATBLS_GetCharstatsTxtTable()
 int __cdecl DATATBLS_GetAnimData()
 {
     return gpAnimData;
-}
-
-// 0x00624710
-int __cdecl sub_00624710()
-{
-    return gdwGlobal_0096CA48;
 }
 
 // 0x0062A360

@@ -1,9 +1,19 @@
 #include "D2Common.h"
+#include "D2CmpTileRecord.h"
+#include "D2DrlgMaps.h"
+#include "D2CmpTypes.h"
+#include "D2LRUNode.h"
+
 #include "D2GameTypes.h"
+
 #include "D2Win32Types.h"
+
 #include "D2Structs.h"
+
 #include "D2DataTbls.h"
+
 #include "D2Txt.h"
+
 #include "D2LevelTxt.h"
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock);    // 0x006CC210
@@ -58,6 +68,14 @@ extern "C" unsigned int __cdecl strlen(const char* sz);
 void __fastcall LOG_SetLogValue(int nValue)
 {
     gnLogValue = nValue;
+}
+
+extern int gdwGlobal_0096CA48; // 0x0096CA48
+
+// 0x00624710
+int __cdecl sub_00624710()
+{
+    return gdwGlobal_0096CA48;
 }
 
 // 0x00624720
