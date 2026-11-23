@@ -283,6 +283,166 @@ static void USEITEM_ToggleUseMode(D2UnitStrc* pItem)
     }
 }
 
+struct D2PanelGfxStrc;
+
+struct D2CellNodeStrc;
+
+struct D2SlotObjectStrc;
+
+struct D2GridCellStrc;
+
+extern "C" const char gszEmptyAssertText; // 0x006CC837
+
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
+
+struct D2PanelGfxStrc
+{
+    int unk0x00[15];
+    int f_3C;
+    int unk0x40[2];
+};
+
+struct D2GridCellStrc
+{
+    int unk0x00[4];
+    D2CellNodeStrc* pNodes;
+    int f_14;
+    int unk0x18[3];
+};
+
+struct D2SlotObjectStrc
+{
+    char unk0x00[0x04];
+    int f_4;
+    char unk0x08[0x2C];
+    unsigned int nKey;
+};
+
+int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
+
+int __fastcall GFX_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
+
+int __fastcall sub_004DBB50(D2PanelGfxStrc* pGfx, D2UnitStrc* pUnit, int nArg3, int nArg4, int nArg5, int* pOut, int nArg7, int nArg8); // 0x004DBB50
+
+void __fastcall sub_004DBEA0(D2UnitStrc* pUnit, int nArg2, int nArg3, unsigned int* pWidth, unsigned int* pHeight); // 0x004DBEA0
+
+int __stdcall sub_006001F0(D2PanelGfxStrc* pGfx, int nArg2, int nArg3); // 0x006001F0
+
+int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
+
+// 0x004BFDD0
+void __cdecl USEITEM_DrawUseItemPanel()
+{
+ int oldFont=D2Win_10127_SetFont(1);
+ int mode=gnUseItemPanelMode;
+ if(mode==1 || mode==0){
+  D2CelContextStrc context;
+  memset(&context,0,sizeof(context));
+  context.direction=0;
+  if(mode==0)context.cellFile=gpHoradricBackCel;
+  else context.cellFile=gpUpgradeCel;
+  context.frame=0;
+  sub_004F6480(&context,105,270,-1,5,0);
+  context.cellFile=GAME_GetBuySellButtonCells();
+  for(int i=0;i<gnHotspotCount;++i){
+   const int drawY=gaUseItemHotspots[i].y;
+   const int drawX=gaUseItemHotspots[i].x;
+   context.frame=gaUseItemHotspots[i].frame+(gaUseItemHotspots[i].hovered!=0);
+   sub_004F6480(&context,drawX,drawY,-1,5,0);
+  }
+  int mouseX=sub_00468730_GetMouseX();
+  int mouseY=sub_00468740_GetMouseY();
+  if(mouseX<320 && mouseY<gnScreenHeight-48){
+   for(int i=0;i<gnHotspotCount;++i){
+    D2HotspotStrc* spot=&gaUseItemHotspots[i];
+    if(mouseX>=spot->left && mouseX<=spot->right && mouseY>=spot->top && mouseY<=spot->bottom){
+     unsigned short textIndex=spot->textIndex;
+     if(textIndex==4017){
+      if(gnUseItemPanelMode==0)textIndex=3401;
+      if(MONSTER_GetUseItemMode()==511)textIndex=22748;
+      else if(MONSTER_GetUseItemMode()==512)textIndex=22749;
+     }
+     const Unicode* text=D2LANG_GetStringFromTblIndex(textIndex);
+     int width=D2Win_10121_GetTextWidth(text);
+     AUTOMAP_DrawFramedBox(spot->tooltipX-(width/2)+10,spot->tooltipY-D2Win_10125()-42,width+12,D2Win_10125()+6,0,2);
+     D2Win_10117_DrawText(text,spot->tooltipX-(width/2)+16,spot->tooltipY-38,0,0);
+    }
+   }
+  }
+  if(gnUseItemPanelMode==1){
+   unsigned short textIndex=10076;
+   if(MONSTER_GetUseItemMode()==511)textIndex=22750;
+   else if(MONSTER_GetUseItemMode()==512)textIndex=22747;
+   const Unicode* panelText=D2LANG_GetStringFromTblIndex(textIndex);
+   int lineCount;
+   T0044CB60* line=sub_00502970_SplitText(panelText,&lineCount,300);
+   if(line){
+    int y=30;
+    do {
+    int lineWidth=D2Win_10121_GetTextWidth(line->text);
+    D2Win_10117_DrawText(line->text,160-lineWidth/2,y,4,0);
+    T0044CB60* next=line->next;
+    FOG_Free(line->text,gszUseItemCpp,707,0);
+    FOG_Free(line,gszUseItemCpp,708,0);
+    y+=20;line=next;
+    } while(line);
+   }
+  }
+ }
+ if(gpUseItemConfirmDialog)sub_004B8100_DrawControl(gpUseItemConfirmDialog);
+ D2Win_10127_SetFont(oldFont);
+}
+
+// 0x004C01E0
+void __cdecl ITEM_DrawPanelUnit()
+{
+    if (gnUseItemDialogState)
+    {
+        if (CUNIT_IsPlayerDeadOrMissing())
+        {
+            sub_004C0090();
+            return;
+        }
+
+        USEITEM_DrawUseItemPanel();
+        if (gnUseItemDialogState == 2)
+        {
+            D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnAnvilItemId, 4);
+            if (pUnit)
+            {
+                D2PanelGfxStrc tGfx;
+                int nOut;
+                memset(&tGfx, 0, sizeof(tGfx));
+                if (sub_004DBB50(&tGfx, pUnit, 0, 0, 0, &nOut, 1, -1) && sub_006001F0(&tGfx, 0, 1) && tGfx.f_3C)
+                {
+                    unsigned int nWidth;
+                    unsigned int nHeight;
+                    sub_004DBEA0(pUnit, 0, 0, &nWidth, &nHeight);
+                    UNITS_ChangeAnimMode(pUnit, 0);
+                    int nOffsetY = 0;
+                    if (nHeight < 0x70)
+                    {
+                        nOffsetY = (0x72 - nHeight) >> 1;
+                    }
+                    GFX_DrawItemCel(pUnit, 0xA7 - (nWidth >> 1), nOffsetY + 0x6A);
+                    UNITS_ChangeAnimMode(pUnit, 4);
+                }
+            }
+        }
+    }
+    else
+    {
+        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x31D);
+        exit(-1);
+    }
+}
+
 // 0x004C02F0
 int __cdecl USEITEM_ClosePanel()
 {
@@ -372,69 +532,6 @@ void __stdcall USEITEM_EatMsg(SMSGHANDLER_PARAMS* pMsg)
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
-}
-
-// 0x004BFDD0
-void __cdecl USEITEM_DrawUseItemPanel()
-{
- int oldFont=D2Win_10127_SetFont(1);
- int mode=gnUseItemPanelMode;
- if(mode==1 || mode==0){
-  D2CelContextStrc context;
-  memset(&context,0,sizeof(context));
-  context.direction=0;
-  if(mode==0)context.cellFile=gpHoradricBackCel;
-  else context.cellFile=gpUpgradeCel;
-  context.frame=0;
-  sub_004F6480(&context,105,270,-1,5,0);
-  context.cellFile=GAME_GetBuySellButtonCells();
-  for(int i=0;i<gnHotspotCount;++i){
-   const int drawY=gaUseItemHotspots[i].y;
-   const int drawX=gaUseItemHotspots[i].x;
-   context.frame=gaUseItemHotspots[i].frame+(gaUseItemHotspots[i].hovered!=0);
-   sub_004F6480(&context,drawX,drawY,-1,5,0);
-  }
-  int mouseX=sub_00468730_GetMouseX();
-  int mouseY=sub_00468740_GetMouseY();
-  if(mouseX<320 && mouseY<gnScreenHeight-48){
-   for(int i=0;i<gnHotspotCount;++i){
-    D2HotspotStrc* spot=&gaUseItemHotspots[i];
-    if(mouseX>=spot->left && mouseX<=spot->right && mouseY>=spot->top && mouseY<=spot->bottom){
-     unsigned short textIndex=spot->textIndex;
-     if(textIndex==4017){
-      if(gnUseItemPanelMode==0)textIndex=3401;
-      if(MONSTER_GetUseItemMode()==511)textIndex=22748;
-      else if(MONSTER_GetUseItemMode()==512)textIndex=22749;
-     }
-     const Unicode* text=D2LANG_GetStringFromTblIndex(textIndex);
-     int width=D2Win_10121_GetTextWidth(text);
-     AUTOMAP_DrawFramedBox(spot->tooltipX-(width/2)+10,spot->tooltipY-D2Win_10125()-42,width+12,D2Win_10125()+6,0,2);
-     D2Win_10117_DrawText(text,spot->tooltipX-(width/2)+16,spot->tooltipY-38,0,0);
-    }
-   }
-  }
-  if(gnUseItemPanelMode==1){
-   unsigned short textIndex=10076;
-   if(MONSTER_GetUseItemMode()==511)textIndex=22750;
-   else if(MONSTER_GetUseItemMode()==512)textIndex=22747;
-   const Unicode* panelText=D2LANG_GetStringFromTblIndex(textIndex);
-   int lineCount;
-   T0044CB60* line=sub_00502970_SplitText(panelText,&lineCount,300);
-   if(line){
-    int y=30;
-    do {
-    int lineWidth=D2Win_10121_GetTextWidth(line->text);
-    D2Win_10117_DrawText(line->text,160-lineWidth/2,y,4,0);
-    T0044CB60* next=line->next;
-    FOG_Free(line->text,gszUseItemCpp,707,0);
-    FOG_Free(line,gszUseItemCpp,708,0);
-    y+=20;line=next;
-    } while(line);
-   }
-  }
- }
- if(gpUseItemConfirmDialog)sub_004B8100_DrawControl(gpUseItemConfirmDialog);
- D2Win_10127_SetFont(oldFont);
 }
 
 // 0x004C0080
