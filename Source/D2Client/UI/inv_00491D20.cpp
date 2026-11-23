@@ -693,7 +693,19 @@ AFTER_BODY:
     sub_00486E60_ClickOutsidePanel(y,pMsg,x);
 }
 
-struct D2PanelButtonStrc { int active,selected; unsigned short text,padA; int padC[2]; };
+#pragma pack(push, 2)
+struct D2PanelButtonStrc
+{
+    int bActive;
+    int nValue;
+    unsigned short nString;
+    int nCel;
+    unsigned short nFrame;
+    int nType;
+};
+
+#pragma pack(pop)
+
 extern D2PanelButtonStrc gaPanelButtons_007BC9E0[]; // 0x007BC9E0
 extern int gnButtonCount; // 0x00722160
 extern int gnButtonRow; // 0x0072215C
@@ -780,23 +792,23 @@ void __stdcall sub_00491D20_HandleNpcClick(SMSGHANDLER_PARAMS* msg)
         if(y>=top && y<=gnGlobal_007BCBBC) {
             int hasSelected=0;int selected=0;int clicked=-1;
             for(int i=0;i<gnButtonCount;++i) {
-                if(gaPanelButtons_007BC9E0[i].selected==1) {selected=i;hasSelected=1;}
+                if(gaPanelButtons_007BC9E0[i].nValue==1) {selected=i;hasSelected=1;}
                 if(gnInvMouseX>gaNpcButtonX[gnButtonRow][i]+gnPanelOffsetX && gnInvMouseX<gaNpcButtonX[gnButtonRow][i]+gnPanelOffsetX+45 && gnInvMouseY>top && gnInvMouseY<gnPanelOffsetY+gnScreenHeight-0x41) clicked=i;
             }
             if(clicked!=-1) {
-                if(gaPanelButtons_007BC9E0[clicked].active==1) {
+                if(gaPanelButtons_007BC9E0[clicked].bActive==1) {
                     sub_004B9A00(1,0,0,0,0);
                     if(hasSelected==1) {
                         if(clicked==selected) {
-                            gaPanelButtons_007BC9E0[clicked].selected=0;gnInvPanelMode=1;
+                            gaPanelButtons_007BC9E0[clicked].nValue=0;gnInvPanelMode=1;
                             if(sub_00463DD0_GetPlayerUnit()) {
                                 D2InventoryStrc* inventory=sub_00463DD0_GetPlayerUnit()->pInventory;
                                 if(inventory && !INVENTORY_GetCursorItem(inventory)) sub_00468070_SetCursorItemState(0);
                             }
                         } else {
-                            gaPanelButtons_007BC9E0[clicked].selected=1;gaPanelButtons_007BC9E0[selected].selected=0;
+                            gaPanelButtons_007BC9E0[clicked].nValue=1;gaPanelButtons_007BC9E0[selected].nValue=0;
                         }
-                    } else gaPanelButtons_007BC9E0[clicked].selected=1;
+                    } else gaPanelButtons_007BC9E0[clicked].nValue=1;
                     gbPanelButtonClicked=1;
                 } else {INV_ResetNpcButtons();gbPanelButtonClicked=0;}
             }

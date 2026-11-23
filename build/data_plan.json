@@ -1239,9 +1239,13 @@
    "state": "included"
   },
   "Source/D2Client/UI/inv.cpp": {
-   "bytes": 732,
-   "definitions": 4,
-   "externs": [],
+   "bytes": 780,
+   "definitions": 5,
+   "externs": [
+    "extern \"C\" void __cdecl sub_00490780(); // 0x00490780",
+    "extern \"C\" void __cdecl sub_00490BA0(); // 0x00490BA0",
+    "extern \"C\" void __cdecl sub_00490FC0(); // 0x00490FC0"
+   ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/inv.inc",
    "lang": "cpp",
@@ -1889,19 +1893,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_0048EDF0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/UI/inv_0048C060.cpp": {
-   "bytes": 48,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" void __cdecl sub_00490780(); // 0x00490780",
-    "extern \"C\" void __cdecl sub_00490BA0(); // 0x00490BA0",
-    "extern \"C\" void __cdecl sub_00490FC0(); // 0x00490FC0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004912A0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -50649,7 +50640,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/inv_0048C060.cpp",
+   "file": "Source/D2Client/UI/inv.cpp",
    "fill": 12,
    "form": "declared",
    "fwd": null,
