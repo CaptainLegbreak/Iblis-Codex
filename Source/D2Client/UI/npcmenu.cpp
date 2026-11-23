@@ -422,9 +422,11 @@ void __fastcall NPCMENU_RemoveInventoryClientUnits(D2UnitStrc* pUnit); // 0x004B
 
 void __fastcall sub_004BA840(int nHandle);                                                                  // 0x004BA840
 
-extern "C" int gnNpcSoundActive; // 0x007C0DB4
+#include "gen/data/Source/D2Client/UI/npcmenu/gnHandlerCount.inc"
 
-extern "C" int gnNpcSoundHandle; // 0x007C0DB8
+int gnNpcSoundActive; // 0x007C0DB4
+
+int gnNpcSoundHandle; // 0x007C0DB8
 
 char gbNpcMessageShown; // 0x007C0C69
 
@@ -2843,69 +2845,72 @@ int __cdecl NPCMENU_InitTravelHarrogathHandler()
     return 1;
 }
 
+// 0x004B6440
 static int __stdcall sub_004B6440_ToggleNpcHandler(int bAdd, int nIndex)
 {
-// build: symbol ?FOG_IsExpansion@* 0x00408F20
     if (!FOG_IsExpansion() || !GAME_IsExpansion())
     {
         return 0;
     }
 
+#define NPC_ENTRY (gaNpcIndex[nIndex])
     if (bAdd)
     {
-        const int nCount = gaNpcIndex[nIndex].nCount;
-        for (int i = 0; i < nCount; ++i)
+        for (int i = 0; i < NPC_ENTRY.nCount; ++i)
         {
-            if (gaNpcIndex[nIndex].apfHandlers[i] == NPCMENU_ResurrectMercWait)
+            if (NPC_ENTRY.apfHandlers[i] == NPCMENU_ResurrectMercWait)
             {
                 return 1;
             }
         }
 
-        for (int i = 0; i < nCount; ++i)
+        for (int i = 0; i < NPC_ENTRY.nCount; ++i)
         {
-            if (gaNpcIndex[nIndex].apfHandlers[i] == sub_004B5C60_Handler)
+            if (NPC_ENTRY.apfHandlers[i] == sub_004B5C60_Handler)
             {
-                for (int j = nCount - 1; j >= i; --j)
+                for (int j = NPC_ENTRY.nCount - 1; j >= i; --j)
                 {
-                    gaNpcIndex[nIndex].apfHandlers[j + 1] = gaNpcIndex[nIndex].apfHandlers[j];
-                    gaNpcIndex[nIndex].awIds[j + 1] = gaNpcIndex[nIndex].awIds[j];
+                    NPC_ENTRY.apfHandlers[j + 1] = NPC_ENTRY.apfHandlers[j];
+                    NPC_ENTRY.awIds[j + 1] = NPC_ENTRY.awIds[j];
                 }
-                ++gaNpcIndex[nIndex].nCount;
-                gaNpcIndex[nIndex].apfHandlers[i] = NPCMENU_ResurrectMercWait;
-                gaNpcIndex[nIndex].awIds[i] = 0x1507;
+                ++NPC_ENTRY.nCount;
+                NPC_ENTRY.apfHandlers[i] = NPCMENU_ResurrectMercWait;
+                NPC_ENTRY.awIds[i] = 0x1507;
                 return 1;
             }
         }
 
-        const int nPos = nCount - 1;
-        for (int j = nCount - 1; j >= nPos; --j)
+        const int nPos = NPC_ENTRY.nCount - 1;
+        for (int j = NPC_ENTRY.nCount - 1; j >= nPos; --j)
         {
-            gaNpcIndex[nIndex].apfHandlers[j + 1] = gaNpcIndex[nIndex].apfHandlers[j];
-            gaNpcIndex[nIndex].awIds[j + 1] = gaNpcIndex[nIndex].awIds[j];
+            NPC_ENTRY.apfHandlers[j + 1] = NPC_ENTRY.apfHandlers[j];
+            NPC_ENTRY.awIds[j + 1] = NPC_ENTRY.awIds[j];
         }
-        ++gaNpcIndex[nIndex].nCount;
-        gaNpcIndex[nIndex].apfHandlers[nPos] = NPCMENU_ResurrectMercWait;
-        gaNpcIndex[nIndex].awIds[nPos] = 0x1507;
+        ++NPC_ENTRY.nCount;
+        NPC_ENTRY.apfHandlers[nPos] = NPCMENU_ResurrectMercWait;
+        NPC_ENTRY.awIds[nPos] = 0x1507;
         return 1;
     }
-
-    const int nCount = gaNpcIndex[nIndex].nCount;
-    for (int i = 0; i < nCount; ++i)
+    else
     {
-        if (gaNpcIndex[nIndex].apfHandlers[i] == NPCMENU_ResurrectMercWait)
+    for (int i = 0; i < (NPC_ENTRY.nCount); ++i)
+    {
+        if (NPC_ENTRY.apfHandlers[i] == NPCMENU_ResurrectMercWait)
         {
-            for (int j = i; j < gaNpcIndex[nIndex].nCount - 1; ++j)
+            for (int j = i; j < NPC_ENTRY.nCount - 1; ++j)
             {
-                gaNpcIndex[nIndex].apfHandlers[j] = gaNpcIndex[nIndex].apfHandlers[j + 1];
-                gaNpcIndex[nIndex].awIds[j] = gaNpcIndex[nIndex].awIds[j + 1];
+                NPC_ENTRY.apfHandlers[j] = NPC_ENTRY.apfHandlers[j + 1];
+                NPC_ENTRY.awIds[j] = NPC_ENTRY.awIds[j + 1];
             }
-            --gaNpcIndex[nIndex].nCount;
+            --NPC_ENTRY.nCount;
             return 1;
         }
     }
+    }
     return 1;
 }
+
+#undef NPC_ENTRY
 
 // 0x004B6980
 void __fastcall NPCMENU_SetNpcMenuState(unsigned short wValue, int nValue)
@@ -2922,6 +2927,7 @@ void __fastcall NPCMENU_SetNpcMenuState(unsigned short wValue, int nValue)
     }
 }
 
+// 0x004B66B0
 static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReopen)
 {
     GAME_ResetMouseState();
@@ -2936,8 +2942,7 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
 
     gnNpcMenuState = 1;
     gnNpcTradeMode = 0;
-// build: symbol ?gnNpcGoldSnapshot@* 0x007C0C73
-    gnNpcGoldSnapshot = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), 0xE, 0);
+    gnNpcGoldSnapshot = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
     UI_CloseUIVars(0, 0);
 
     if (!bReopen)
@@ -2963,7 +2968,6 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
     pUnit->dwFlags &= ~2;
 
     const int nNpcId = pUnit->dwClassId;
-// build: symbol ?gnHandlerCount@* 0x007253DC
     NPCMENU_RunNpcQuestHandlers(nNpcId, gpPlayerQuestFlags, gaNpcHandlers, gnHandlerCount);
 
     if (gnNpcSoundActive)
@@ -2976,14 +2980,13 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
         gnNpcSoundActive = 0;
     }
 
-    switch (pUnit->dwClassId)
+    switch ((unsigned int)pUnit->dwClassId)
     {
     case 0x96:
-        if (STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), 0xC, 0) >= 8)
+        if (STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_LEVEL, 0) >= 8)
         {
             NPCMENU_InitHireHandler();
         }
-// build: symbol ?gnHirelingName@* 0x00725494
         sub_004B6440_ToggleNpcHandler(gnHirelingName != 0xFFFF, 0xB);
         break;
 
@@ -3008,7 +3011,7 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
     {
         gnNpcMenuState = 0;
         pUnit->dwFlags |= 2;
-        MSG_SendTwoDwords(0x30, 1, pUnit->dwUnitId);
+        MSG_SendTwoDwords(0x30, 1, !pUnit ? -1 : pUnit->dwUnitId);
         gbNpcInteracting = 0;
         NPCMENU_ClearNpcInventoryAndSound(pUnit->dwUnitId);
         return;

@@ -28433,6 +28433,10 @@
      "name": "?NPCMENU_InitHireHandler@@YAHXZ"
     },
     {
+     "va": "0x004B6440",
+     "length": 432
+    },
+    {
      "va": "0x004B65F0",
      "length": 35,
      "name": "?NPCMENU_InitTravelLutGholeinHandler@@YAHXZ"
@@ -28446,6 +28450,10 @@
      "va": "0x004B6680",
      "length": 44,
      "name": "?NPCMENU_InitTravelHarrogathHandler@@YAHXZ"
+    },
+    {
+     "va": "0x004B66B0",
+     "length": 713
     },
     {
      "va": "0x004B6980",
@@ -28789,34 +28797,6 @@
      "length": 35,
      "name": "?sub_004B6DA0_InitHandler@@YAHXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/npcmenu_004B6440.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B6440",
-     "length": 432
-    },
-    {
-     "va": "0x004B66B0",
-     "length": 713
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

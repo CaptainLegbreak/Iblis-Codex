@@ -2102,18 +2102,24 @@
    "state": "included"
   },
   "Source/D2Client/UI/npcmenu.cpp": {
-   "bytes": 7669,
-   "definitions": 101,
+   "bytes": 7855,
+   "definitions": 103,
    "externs": [
     "extern \"C\" void __cdecl NPCMENU_OpenTradeShop(); // 0x004B42B0",
     "extern \"C\" void __cdecl sub_004B5260_NpcMenuAction28b(); // 0x004B5260",
     "extern \"C\" void __cdecl NPCMENU_TravelToRogueEncampment(); // 0x004B52C0",
-    "extern \"C\" void __cdecl sub_004B6C70_OpenNpcMenu(); // 0x004B6C70"
+    "extern \"C\" void __cdecl sub_004B6C70_OpenNpcMenu(); // 0x004B6C70",
+    "extern \"C\" void __cdecl NPCMENU_InitImbueHandler(); // 0x004B3700",
+    "extern \"C\" void __cdecl NPCMENU_InitSocketHandler(); // 0x004B3730",
+    "extern \"C\" void __cdecl NPCMENU_InitPersonalizeHandler(); // 0x004B3760",
+    "extern \"C\" void __cdecl sub_004B6650_InitHandler(); // 0x004B6650",
+    "extern \"C\" void __cdecl sub_004B6DA0_InitHandler(); // 0x004B6DA0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/npcmenu.inc",
    "lang": "cpp",
-   "state": "included"
+   "state": "included",
+   "static_definitions": 1
   },
   "Source/D2Client/Unknown_004B6390.cpp": {
    "bytes": 12,
@@ -2125,25 +2131,6 @@
    "include": "gen/data/Source/D2Client/Unknown_004B6390.inc",
    "lang": "cpp",
    "state": "included"
-  },
-  "Source/D2Client/UI/npcmenu_004B6440.cpp": {
-   "bytes": 186,
-   "definitions": 3,
-   "externs": [
-    "extern \"C\" void __cdecl NPCMENU_InitImbueHandler(); // 0x004B3700",
-    "extern \"C\" void __cdecl NPCMENU_InitSocketHandler(); // 0x004B3730",
-    "extern \"C\" void __cdecl NPCMENU_InitPersonalizeHandler(); // 0x004B3760",
-    "extern \"C\" void __cdecl NPCMENU_InitTravelLutGholeinHandler(); // 0x004B65F0",
-    "extern \"C\" void __cdecl NPCMENU_InitTravelKurastDocksHandler(); // 0x004B6620",
-    "extern \"C\" void __cdecl sub_004B6650_InitHandler(); // 0x004B6650",
-    "extern \"C\" void __cdecl NPCMENU_InitTravelHarrogathHandler(); // 0x004B6680",
-    "extern \"C\" void __cdecl sub_004B6DA0_InitHandler(); // 0x004B6DA0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004B66B0.inc",
-   "lang": "cpp",
-   "state": "included",
-   "static_definitions": 1
   },
   "Source/D2Client/UI/dialog.cpp": {
    "bytes": 180,
@@ -60321,36 +60308,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "externs": [],
-   "file": "Source/D2Client/UI/npcmenu_004B6440.cpp",
-   "fn_types": {},
-   "form": "declared",
-   "fwd": null,
-   "head": "static int gnHandlerCount = ",
-   "include": "gen/data/Source/D2Client/UI/npcmenu_004B6440/gnHandlerCount.inc",
-   "linkage": "static",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnHandlerCount",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": ";                                                                  // 0x007253DC",
-   "type": "int",
-   "va": "0x007253DC"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu_004B6440.cpp",
+   "file": "Source/D2Client/UI/npcmenu.cpp",
    "fill": 9,
    "form": "declared",
    "fwd": null,
@@ -60505,7 +60463,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu_004B6440.cpp",
+   "file": "Source/D2Client/UI/npcmenu.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern unsigned short gnHirelingName = ",
@@ -60531,10 +60489,14 @@
    "cname": null,
    "declared": true,
    "decorated": null,
+   "externs": [],
    "file": "Source/D2Client/UI/npcmenu.cpp",
+   "fn_types": {},
    "form": "declared",
    "fwd": null,
-   "head": "extern int gnHandlerCount = ",
+   "head": "static int gnHandlerCount = ",
+   "include": "gen/data/Source/D2Client/UI/npcmenu/gnHandlerCount.inc",
+   "linkage": "static",
    "model": {
     "k": "prim",
     "kind": "s",
@@ -60547,7 +60509,7 @@
    "size": 4,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x007253DC",
+   "tail": ";                                                                  // 0x007253DC",
    "type": "int",
    "va": "0x007253DC"
   },
