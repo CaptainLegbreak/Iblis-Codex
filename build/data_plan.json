@@ -5028,15 +5028,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_006B1C10.cpp": {
-   "bytes": 8,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_006B1C10.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Direct3D/Unknown_006B2F60.cpp": {
    "bytes": 4,
    "definitions": 1,
@@ -5056,8 +5047,8 @@
    "state": "included"
   },
   "Source/D2Direct3D/Src/d3dCore.cpp": {
-   "bytes": 1724,
-   "definitions": 29,
+   "bytes": 1340,
+   "definitions": 19,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Direct3D/Src/d3dCore.inc",
@@ -152607,56 +152598,6 @@
   },
   {
    "alias": true,
-   "cname": "gData_006CE278",
-   "declared": true,
-   "decorated": "?gdwMask_006CE278@@3IB",
-   "file": "Source/Storm/Unknown_006B1C10.cpp",
-   "form": "declared_owner",
-   "fwd": "extern \"C\" const unsigned int gData_006CE278; // 0x006CE278",
-   "head": "extern \"C\" const unsigned int gData_006CE278 = ",
-   "model": {
-    "k": "prim",
-    "kind": "u",
-    "name": "unsigned int",
-    "size": 4
-   },
-   "name": "gdwMask_006CE278",
-   "pointers": [],
-   "region": "rdata",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x006CE278\n#pragma comment(linker, \"/alternatename:?gdwMask_006CE278@@3IB=_gData_006CE278\")",
-   "type": "unsigned int",
-   "va": "0x006CE278"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/Storm/Unknown_006B1C10.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gnValue_0074C020 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnValue_0074C020",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0074C020",
-   "type": "int",
-   "va": "0x0074C020"
-  },
-  {
-   "alias": true,
    "cname": "gData_006CE288",
    "declared": true,
    "decorated": "?gdwBitMask8@@3IB",
@@ -157469,6 +157410,56 @@
    "tail": ";                                                                      // 0x00731010",
    "type": "int",
    "va": "0x00731010"
+  },
+  {
+   "alias": true,
+   "cname": "gData_006CE278",
+   "declared": true,
+   "decorated": "?gnGammaMask_006CE278@@3IB",
+   "file": "Source/D2Direct3D/Src/d3dCore.cpp",
+   "form": "declared_owner",
+   "fwd": "extern \"C\" const unsigned int gData_006CE278; // 0x006CE278",
+   "head": "extern \"C\" const unsigned int gData_006CE278 = ",
+   "model": {
+    "k": "prim",
+    "kind": "u",
+    "name": "unsigned int",
+    "size": 4
+   },
+   "name": "gnGammaMask_006CE278",
+   "pointers": [],
+   "region": "rdata",
+   "size": 4,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006CE278\n#pragma comment(linker, \"/alternatename:?gnGammaMask_006CE278@@3IB=_gData_006CE278\")",
+   "type": "unsigned int",
+   "va": "0x006CE278"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Direct3D/Src/d3dCore.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern int gnGammaScale_0074C020 = ",
+   "model": {
+    "k": "prim",
+    "kind": "s",
+    "name": "int",
+    "size": 4
+   },
+   "name": "gnGammaScale_0074C020",
+   "pointers": [],
+   "region": "data",
+   "size": 4,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0074C020",
+   "type": "int",
+   "va": "0x0074C020"
   }
  ]
 }
