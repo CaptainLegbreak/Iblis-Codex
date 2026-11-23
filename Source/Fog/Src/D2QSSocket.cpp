@@ -159,3 +159,23 @@ void __stdcall sub_006BC5A0_StartThread(D2ThreadRecord006BC5A0Strc* pRecord)
         }
     }
 }
+
+// 0x006BC620
+void* __stdcall sub_006BC620_StartThread(D2ThreadRecord006BC5A0Strc* pRecord)
+{
+    if (!pRecord)
+        return 0;
+    if (pRecord->hThread)
+        return 0;
+    pRecord->n124 = 0;
+    pRecord->hEvent = CreateEventA(0, 0, 0, 0);
+    pRecord->hThread = CreateThread(0, 0, sub_006BC560_ThreadProc, pRecord, 0, &pRecord->nThreadId);
+    return pRecord->hThread;
+}
+
+// 0x006BC680
+void __stdcall sub_006BC680_Signal(sub_006BC780_Strc* pThis)
+{
+    if (pThis)
+        sub_006BC2C0_SetClosing(pThis);
+}
