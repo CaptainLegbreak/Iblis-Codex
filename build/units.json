@@ -75390,6 +75390,11 @@
      "name": "MISSILE_GetMaxElemDamage"
     },
     {
+     "va": "0x0064B2A0",
+     "length": 158,
+     "name": "?sub_0064B2A0_GetMissileElementLength@@YGHPAUD2UnitStrc@@0HH@Z"
+    },
+    {
      "va": "0x0064B6E0",
      "length": 29,
      "name": "?MISSILE_GetCalcParamValue@@YIHHPAX@Z"
@@ -75614,17 +75619,6 @@
     "/Gd",
     "/GS-",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0064B2A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0064B2A0",
-     "length": 158,
-     "name": "?sub_0064B2A0_GetMissileElementLength@@YGHPAUD2UnitStrc@@0HH@Z"
-    }
    ]
   },
   {
