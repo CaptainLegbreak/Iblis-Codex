@@ -5655,26 +5655,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_0041E570.static.cpp": {
-   "bytes": 40,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": null,
-   "lang": "cpp",
-   "state": "static",
-   "static_definitions": 1
-  },
-  "Source/Storm/Unknown_0041E720.static.cpp": {
-   "bytes": 40,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": null,
-   "lang": "cpp",
-   "state": "static",
-   "static_definitions": 1
-  },
   "Source/D2Game/GAME/Game_0052D720.static.cpp": {
    "bytes": 4,
    "definitions": 1,
@@ -5830,6 +5810,16 @@
    "include": "gen/data/Source/D2Client/UI/editbox_004BBBB0.inc",
    "lang": "cpp",
    "state": "included"
+  },
+  "Source/Storm/SOURCE/SCOMP.static.cpp": {
+   "bytes": 80,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": null,
+   "lang": "cpp",
+   "state": "static",
+   "static_definitions": 2
   }
  },
  "definitions": [
@@ -157661,19 +157651,13 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "externs": [
-    "extern \"C\" void __cdecl Compress_huff(); // 0x0041F980",
-    "extern \"C\" void __cdecl PkwareCompress(); // 0x0041DF40",
-    "extern \"C\" void __cdecl ZlibCompress(); // 0x0041E1F0",
-    "extern \"C\" void __cdecl ImaAdpcmMonoCompress(); // 0x0041E360",
-    "extern \"C\" void __cdecl ImaAdpcmStereoCompress(); // 0x0041E3C0"
-   ],
-   "file": "Source/Storm/Unknown_0041E570.static.cpp",
+   "externs": [],
+   "file": "Source/Storm/SOURCE/SCOMP.static.cpp",
    "fn_types": {},
    "form": "declared",
    "fwd": null,
    "head": "static const D2SCompCompStrc gtCompTable_006CFE9C[5] = ",
-   "include": "gen/data/Source/Storm/Unknown_0041E570.static/gtCompTable_006CFE9C.inc",
+   "include": "gen/data/Source/Storm/SOURCE/SCOMP.static/gtCompTable_006CFE9C.inc",
    "linkage": "static",
    "model": {
     "elem": {
@@ -157712,7 +157696,7 @@
     [
      4,
      "0x0041E360",
-     "names.json",
+     "owner",
      "ImaAdpcmMonoCompress",
      0,
      "func"
@@ -157720,7 +157704,7 @@
     [
      12,
      "0x0041E3C0",
-     "names.json",
+     "owner",
      "ImaAdpcmStereoCompress",
      0,
      "func"
@@ -157728,15 +157712,15 @@
     [
      20,
      "0x0041F980",
-     "names.json",
-     "Compress_huff",
+     "owner",
+     "HuffmanCompress",
      0,
      "func"
     ],
     [
      28,
      "0x0041E1F0",
-     "names.json",
+     "owner",
      "ZlibCompress",
      0,
      "func"
@@ -157744,7 +157728,7 @@
     [
      36,
      "0x0041DF40",
-     "names.json",
+     "owner",
      "PkwareCompress",
      0,
      "func"
@@ -157764,12 +157748,12 @@
    "declared": true,
    "decorated": null,
    "externs": [],
-   "file": "Source/Storm/Unknown_0041E720.static.cpp",
+   "file": "Source/Storm/SOURCE/SCOMP.static.cpp",
    "fn_types": {},
    "form": "declared",
    "fwd": null,
    "head": "static const D2SCompDecompStrc gtDecompTable_006CFEC4[5] = ",
-   "include": "gen/data/Source/Storm/Unknown_0041E720.static/gtDecompTable_006CFEC4.inc",
+   "include": "gen/data/Source/Storm/SOURCE/SCOMP.static/gtDecompTable_006CFEC4.inc",
    "linkage": "static",
    "model": {
     "elem": {

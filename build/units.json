@@ -5602,6 +5602,14 @@
      "name": "?sub_0041E510_FreeWorkBuffer@@YGXHPAX@Z"
     },
     {
+     "va": "0x0041E570",
+     "length": 423
+    },
+    {
+     "va": "0x0041E720",
+     "length": 416
+    },
+    {
      "va": "0x0041E8C0",
      "length": 43,
      "name": "_SCompDestroy"
@@ -7098,40 +7106,6 @@
     {
      "va": "0x0041DCE0",
      "length": 474
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_0041E570.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0041E570",
-     "length": 423
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_0041E720.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0041E720",
-     "length": 416
     }
    ],
    "flags": [
