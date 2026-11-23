@@ -16418,6 +16418,11 @@
      "name": "UI_GetAutomapCenters"
     },
     {
+     "va": "0x00457750",
+     "length": 31,
+     "name": "?OBJECT_SaveAutomapCenters@@YIHH@Z"
+    },
+    {
      "va": "0x00457770",
      "length": 6,
      "name": "UI_GetAutomapLeft"
@@ -29635,11 +29640,6 @@
      "va": "0x00457460",
      "length": 35,
      "name": "@OBJECT_SetUnitFlag@12"
-    },
-    {
-     "va": "0x00457750",
-     "length": 31,
-     "name": "?OBJECT_SaveAutomapCenters@@YIHH@Z"
     },
     {
      "va": "0x00457780",
