@@ -26736,11 +26736,6 @@
      "name": "sub_004B1DC0"
     },
     {
-     "va": "0x004B2010",
-     "length": 3,
-     "name": "sub_004B2010"
-    },
-    {
      "va": "0x004B32D0",
      "length": 6,
      "name": "MONSTER_GetQuestFlags"
@@ -27482,6 +27477,11 @@
      "va": "0x004B1F80",
      "length": 137,
      "name": "?NPCMENU_ItemNeedsRepair@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004B2010",
+     "length": 3,
+     "name": "sub_004B2010"
     },
     {
      "va": "0x004B2020",
