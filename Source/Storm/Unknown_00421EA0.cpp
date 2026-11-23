@@ -39,7 +39,6 @@ struct D2StormArrayAStrc
             nValue += nAlign - nRemainder;
         return nValue;
     }
-    // build: context D2StormArrayAStrc::Reserve
     void Reserve(unsigned int nCount, int bRound)
     {
         nCount += f_4;
@@ -53,7 +52,6 @@ struct D2StormArrayAStrc
             sub_004216E0_ReallocData(nCount);
         }
     }
-    // build: context D2StormArrayAStrc::SetCountReserve
     void SetCountReserve(unsigned int nCount)
     {
         if (nCount > f_4)

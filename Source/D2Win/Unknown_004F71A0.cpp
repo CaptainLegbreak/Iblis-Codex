@@ -716,7 +716,6 @@ void __fastcall sub_004F88B0_DrawBlockClipped(D2TileLibraryBlockStrc* pBlock, in
     }
 }
 
-// build: context ClipRowSpan
 static inline int ClipRowSpan(int* pnSkip, int nWidth, int nRight, int nLeft)
 {
     *pnSkip = nLeft;

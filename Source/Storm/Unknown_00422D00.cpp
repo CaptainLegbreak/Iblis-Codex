@@ -1,4 +1,3 @@
-// build: context new
 inline void* operator new(unsigned int, void* pWhere) throw()
 {
     return pWhere;

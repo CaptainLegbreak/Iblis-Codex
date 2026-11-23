@@ -59,7 +59,6 @@ static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int n
     return SEED_RollRandomNumber(pSeed) & (nMax - 1);
 }
 
-// build: context MONSTER_GetComponents
 static inline unsigned char* MONSTER_GetComponents(D2UnitStrc* pUnit)
 {
     if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)

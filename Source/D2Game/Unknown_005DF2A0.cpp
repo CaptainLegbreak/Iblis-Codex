@@ -21,7 +21,6 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                      
 unsigned char __stdcall PATH_GetNewDirection(D2DynamicPathStrc* pPath);                                    // 0x00648810
 void __stdcall PATH_SetStepNum(D2DynamicPathStrc* pDynamicPath, unsigned char nSteps);                      // 0x00649070
 
-// build: context CLIENTS_GetUnitXInline
 static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -34,7 +33,6 @@ static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-// build: context CLIENTS_GetUnitYInline
 static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -54,13 +52,11 @@ unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed); // 0x0045C370
 
 #define EVENTTYPE_AITHINK 2
 
-// build: context AI_RollPercentage
 inline int AI_RollPercentage(D2UnitStrc* pUnit)
 {
     return SEED_RollRandomNumber(&pUnit->pSeed) % 100;
 }
 
-// build: context AIGENERAL_GetAiControlFromUnit
 inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit)
 {
     const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;

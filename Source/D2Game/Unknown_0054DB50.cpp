@@ -198,7 +198,6 @@ int __fastcall MONSTERREGION_FindSpawnLocation(D2GameStrc* pGame, D2ActiveRoomSt
     return 0;
 }
 
-// build: context GetMonStatsRecord
 static inline D2MonStatsTxt* GetMonStatsRecord(D2DataTablesStrc* pDataTables, int nClassId)
 {
     D2MonStatsTxt* pRecord = 0;
