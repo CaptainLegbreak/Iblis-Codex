@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2PathFind.h"
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 struct D2PathInfoStrc;
@@ -60,19 +61,6 @@ void __fastcall PATH_GetScaledDirectionVector(int nVelocity, D2CoordStrc* pDirec
 static int __stdcall sub_6FDAA880(D2PathPointStrc tPoint, int* pTestDir, int* pDirection, D2PathInfoStrc* pPathInfo); // 0x006793E0
 
 
-struct D2PathIDAStarNodeStrc
-{
-    unsigned short nFScore;
-    unsigned short nHeuristicDistanceToTarget;
-    unsigned short nBestDistanceFromStart;
-    short nEvaluationsCount;
-    D2PathPointStrc tCoord;
-    const int* pNeighborsSequence;
-    int nNextNeighborIndex;
-    D2PathIDAStarNodeStrc* pParent;
-    D2PathIDAStarNodeStrc* pBestChild;
-};
-
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 static int PATH_IDAStar_FlushNodeToDynamicPath(D2PathInfoStrc* pPathInfo, D2PathIDAStarNodeStrc* pNode);
 
@@ -93,19 +81,6 @@ struct D2DrlgCoordsStrc
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 
 #pragma pack(push, 1)
-struct D2PathFoWallNodeStrc
-{
-    D2PathPointStrc tPoint;
-    short nFScore;
-    short nHeuristicDistanceToTarget;
-    short nBestDistanceFromStart;
-    unsigned short wPad;
-    D2PathFoWallNodeStrc* pBestParent;
-    D2PathFoWallNodeStrc* pChildren[8];
-    D2PathFoWallNodeStrc* pNextCachePoint;
-    D2PathFoWallNodeStrc* pNextSortedByFScore;
-};
-
 struct D2PathFoWallContextStrc
 {
     D2PathFoWallNodeStrc* aPendingCache[128];
