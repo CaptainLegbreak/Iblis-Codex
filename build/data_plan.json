@@ -3229,10 +3229,7 @@
     "extern \"C\" void __cdecl sub_00580BE0(); // 0x00580BE0",
     "extern \"C\" void __cdecl sub_00581020(); // 0x00581020",
     "extern \"C\" void __cdecl PlayerTradeUpdate(); // 0x005689D0",
-    "extern \"C\" void __cdecl PLRMODE_StartID_AttackCastThrowKickSpecialSequence(); // 0x0057FEF0",
     "extern \"C\" void __cdecl PLRMODE_StartID_Death(); // 0x00580EC0",
-    "extern \"C\" void __cdecl PLRMODE_StartXY_AttackCastThrowKickSpecialSequence(); // 0x0057FE90",
-    "extern \"C\" void __cdecl PLRMODE_StartXY_GetHit(); // 0x0057FE30",
     "extern \"C\" void __cdecl PLRMODE_StartXY_WalkRunKnockback(); // 0x0057F1F0",
     "extern \"C\" void __cdecl sub_0057F070(); // 0x0057F070",
     "extern \"C\" void __cdecl sub_00580C20(); // 0x00580C20"
@@ -3698,11 +3695,9 @@
     "extern \"C\" void __cdecl PARTYSCREEN_AcceptInvitation(); // 0x005A5A30",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod16_Champion(); // 0x005A0E80",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod17_LightningEnchanted(); // 0x005A1B00",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_UMod18_ColdEnchanted(); // 0x005A1C70",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod23_PoisonEnchanted(); // 0x005A1E00",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod25_ManaSteal(); // 0x005A1F90",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod26_Teleport(); // 0x005A1600",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_UMod36_Ghostly(); // 0x005A1080",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod38_Possessed(); // 0x005A1230",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod9_FireEnchanted(); // 0x005A1990",
     "extern \"C\" void __cdecl sub_005A1280_UModChampion(); // 0x005A1280"

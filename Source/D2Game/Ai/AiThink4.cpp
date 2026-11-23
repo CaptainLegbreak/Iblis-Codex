@@ -11301,6 +11301,54 @@ void __fastcall AITHINK_Fn022_GreaterMummy(D2GameStrc* pGame,D2UnitStrc* pUnit,D
   AITACTICS_IdleInNeutralMode(pGame,pUnit,6);
 }
 
+void __stdcall COLLISION_ResetMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask);          // 0x0064CBE0
+
+void __stdcall PATH_SetMoveTestCollisionMask(D2DynamicPathStrc* pDynamicPath, int nMask);                   // 0x00648CE0
+
+// 0x005F2EB0
+void __fastcall AITHINK_RemoveGroundCollision(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        pUnit->dwFlags &= 0xFFFFFFF1;
+    }
+
+    COLLISION_ResetMask(UNITS_GetRoom(pUnit), CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit), 0x1000);
+    COLLISION_ResetMask(UNITS_GetRoom(pUnit), CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit), 0x100);
+    sub_00649190_SetPathMode(pUnit, 5);
+    PATH_SetMoveTestCollisionMask(pUnit->pDynamicPath, 0);
+    AITACTICS_Idle(pGame, pUnit, 12);
+}
+
+void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064EA90
+
+int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit);                                              // 0x00649180
+
+// 0x005F2FC0
+int __fastcall AITHINK_TryRestoreGroundCollision(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0xE;
+    }
+
+    if (PATH_GetUnitCollisionPattern(pUnit) != 1)
+    {
+        if (!SUNIT_TeleportUnit(pGame, pUnit, UNITS_GetRoom(pUnit), CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit), 0, 0))
+        {
+            return 0;
+        }
+
+        COLLISION_SetMaskWithPattern(UNITS_GetRoom(pUnit), CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit), 1, 0x100);
+        sub_00649190_SetPathMode(pUnit, 1);
+        PATH_SetMoveTestCollisionMask(pUnit->pDynamicPath, 0x3C01);
+        AITACTICS_Idle(pGame, pUnit, 12);
+        return 1;
+    }
+
+    return 0;
+}
+
 // 0x005FA010
 void __fastcall AITHINK_Fn068_VileMother(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
@@ -15510,6 +15558,60 @@ void __fastcall AITHINK_Fn076_EvilHole(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
     }
 
     AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, 0, 0, 0);
+}
+
+static inline void AITHINK_DieInline(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        pUnit->dwFlags |= UNITFLAG_NOTC;
+    }
+    AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, MONMODE_DEATH, 0, 0);
+}
+
+enum D2C_AiThink4_005FB5B0Constants
+{
+    TRAPMISSILE_AI_PARAM_DELAY = 2,
+    TRAPMISSILE_AI_PARAM_DISTANCE = 0,
+    TRAPMISSILE_AI_PARAM_NUM_TO_SHOOT = 1,
+};
+
+// 0x005FB5B0
+void __fastcall AITHINK_Fn077_TrapMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    const int nTargetDistance = pAiTickParam->nTargetDistance;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+
+    if (!pTarget)
+    {
+        AITHINK_DieInline(pGame, pUnit);
+        return;
+    }
+
+    if (nTargetDistance > pMonStatsTxt->wAiParam[TRAPMISSILE_AI_PARAM_DISTANCE][pGame->nDifficulty])
+    {
+        AITHINK_DieInline(pGame, pUnit);
+        return;
+    }
+
+    if (pAiControl->dwAiParam[0] >= pMonStatsTxt->wAiParam[TRAPMISSILE_AI_PARAM_NUM_TO_SHOOT][pGame->nDifficulty])
+    {
+        AITHINK_DieInline(pGame, pUnit);
+        return;
+    }
+
+    if (!pAiControl->dwAiParam[1])
+    {
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+        pAiControl->dwAiParam[0] += 1;
+        pAiControl->dwAiParam[1] = 1;
+        return;
+    }
+
+    pAiControl->dwAiParam[1] = 0;
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStatsTxt->wAiParam[TRAPMISSILE_AI_PARAM_DELAY][pGame->nDifficulty]);
 }
 
 // 0x005EF620

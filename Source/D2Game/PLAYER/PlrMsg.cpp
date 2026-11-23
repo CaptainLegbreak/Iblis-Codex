@@ -1632,6 +1632,53 @@ static inline int PLRMSG_CheckName(const char* szName)
     return 2;
 }
 
+// 0x005490E0
+int __fastcall PLRMSG_CheckCursorItem(D2GameStrc* pGame, int nUnused, D2UnitStrc* pUnit, int nItemGUID)
+{
+    D2_ASSERT(pGame, 1123);
+
+    D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, nItemGUID);
+    if (pItem && pItem->dwAnimMode == IMODE_ONCURSOR && INVENTORY_GetCursorItem(pUnit->pInventory) == pItem)
+    {
+        return 0;
+    }
+
+    return 1;
+}
+
+// 0x00549150
+int __fastcall PLRMSG_CheckStoredItem(D2GameStrc* pGame, int nUnused, D2UnitStrc* pUnit, int nItemGUID)
+{
+    D2_ASSERT(pGame, 1146);
+
+    D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, nItemGUID);
+    if (pItem && pItem->dwAnimMode == IMODE_STORED && INVENTORY_CompareWithItemsParentInventory(pUnit->pInventory, pItem))
+    {
+        return 0;
+    }
+
+    return 1;
+}
+
+// 0x005491B0
+int __fastcall PLRMSG_CheckStoredOrEquippedItem(D2GameStrc* pGame, int nUnused, D2UnitStrc* pUnit, int nItemGUID)
+{
+    D2_ASSERT(pGame, 1169);
+
+    D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, nItemGUID);
+    if (!pItem)
+    {
+        return 1;
+    }
+
+    if (pItem->dwAnimMode != IMODE_STORED && pItem->dwAnimMode != IMODE_EQUIP)
+    {
+        return 1;
+    }
+
+    return !INVENTORY_CompareWithItemsParentInventory(pUnit->pInventory, pItem);
+}
+
 // 0x00549220
 static int __stdcall PLRMSG_CheckOwnedItem(int nItemGUID, D2GameStrc* pGame, D2UnitStrc* pUnit)
 {

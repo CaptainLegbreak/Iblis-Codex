@@ -1566,6 +1566,39 @@ static unsigned int __stdcall PLRSAVE_GetSaveFileSize(D2GameStrc* pGame, D2UnitS
     return nSize;
 }
 
+// 0x00531D60
+void __fastcall PLRSAVE_ByteToHex(char* szOut, unsigned char nByte)
+{
+    char szHex[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+    szOut[0] = szHex[nByte >> 4];
+    szOut[1] = szHex[nByte & 0xF];
+}
+
+// 0x00531DE0
+char* __fastcall PLRSAVE_BytesToHexString(char* szOut, const unsigned char* pData, int nLength)
+{
+    if (nLength <= 0)
+    {
+        return 0;
+    }
+
+    *szOut = '0';
+    ++szOut;
+    *szOut = 'x';
+    ++szOut;
+    do
+    {
+        PLRSAVE_ByteToHex(szOut, *pData);
+        szOut += 2;
+        ++pData;
+        --nLength;
+    }
+    while (nLength);
+
+    *szOut = 0;
+    return szOut;
+}
+
 unsigned int __fastcall sub_K10_EmitSaveFileSize(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     unsigned char aBuffer[4];
@@ -2092,6 +2125,48 @@ int __fastcall PLRSAVE_ReadLegacyStats(D2GameStrc* pGame, D2UnitStrc* pUnit, uns
     const int nStamina = STATLIST_GetMaxStaminaFromUnit(pUnit);
     STATLIST_SetUnitStat(pUnit, STAT_STAMINA, nStamina, 0);
     *pSize = nSize;
+    return 0;
+}
+
+void __fastcall sub_0056DEB0(int a1, int a2, int a3, int a4); // 0x0056DEB0
+
+// 0x00532E70
+void __stdcall PLRSAVE_SetSkillIfLevelSet(int a1, int a2, unsigned char a3)
+{
+    if (a3)
+    {
+        sub_0056DEB0(a1, a2, a3, 1);
+    }
+}
+
+void __fastcall SCMD_SendSkillList(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053C5D0
+
+void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove); // 0x0056DEB0
+
+// 0x00532E90
+int __fastcall PLRSAVE_ReadLegacySkills(D2GameStrc* pGame, D2ClientStrc* pClient, D2UnitStrc* pUnit, unsigned char* pSection, int a5, int a6, int* pSkillCount)
+{
+    *pSkillCount = 0;
+
+    if (*(unsigned short*)pSection != 0x6669)
+        return 5;
+
+    const unsigned char* pData = pSection + 2;
+    const int nClassId = CLIENTS_GetClassId(pClient);
+    for (int i = 0; i < SKILLS_GetPlayerSkillCount(nClassId); ++i)
+    {
+        const int nSkillId = SKILLS_GetClassSkillId(nClassId, i);
+        if (pData[i])
+        {
+            D2GAME_SetSkills_6FD14C60(pUnit, nSkillId, pData[i], 1);
+        }
+    }
+
+    SCMD_SendSkillList(pClient, pUnit);
+
+    const int nCount = SKILLS_GetPlayerSkillCount(nClassId) + 2;
+    sub_6FD14C30(pUnit);
+    *pSkillCount = nCount;
     return 0;
 }
 
@@ -3035,30 +3110,6 @@ void __fastcall PLAYER_SynchronizeItemsToClient(D2UnitStrc* pUnit, D2ClientStrc*
             D2GAME_SendP0x9C_ItemAction_PutInBelt_6FC3EB90(pClient, pUnit, pCheckedItem, 0);
         }
     }
-}
-
-// 0x00535060
-int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit)
-{
-    if (!pUnit || pUnit->dwUnitType != UNIT_PLAYER)
-    {
-        return 0;
-    }
-
-    int nUnitType;
-    int nUnitGUID;
-    if (SUNIT_GetInteractInfo(pUnit, &nUnitType, &nUnitGUID))
-    {
-        return 1;
-    }
-
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    if (INVENTORY_GetCursorItem(pInventory))
-    {
-        return 1;
-    }
-
-    return UNITS_GetPlayerData(pUnit)->bBusy;
 }
 
 static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)

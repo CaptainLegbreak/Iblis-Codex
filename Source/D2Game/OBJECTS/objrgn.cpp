@@ -1748,6 +1748,33 @@ void __fastcall OBJRGN_AllocObjectRoomCoords(D2GameStrc* pGame, D2UnitStrc* pUni
     pObjectControl->pObjectRoomCoord = pObjectRoomCoord;
 }
 
+// 0x00547210
+void __fastcall OBJECTS_InitFunction17_Waypoint(D2ObjInitFnStrc* pOp)
+{
+    D2ObjectControlStrc* pObjectControl = pOp->pGame->pObjectControl;
+    D2ObjectRoomCoordStrc* pObjectRoomCoord = pObjectControl->pObjectRoomCoord;
+    while (pObjectRoomCoord)
+    {
+        if (pObjectRoomCoord->pRoom == pOp->pRoom
+            || (pOp->pRoom && pObjectRoomCoord->nX >= pOp->pRoom->tCoords.nSubtileX && pObjectRoomCoord->nX < pOp->pRoom->tCoords.nSubtileX + pOp->pRoom->tCoords.nSubtileWidth
+                && pObjectRoomCoord->nY >= pOp->pRoom->tCoords.nSubtileY && pObjectRoomCoord->nY < pOp->pRoom->tCoords.nSubtileY + pOp->pRoom->tCoords.nSubtileHeight))
+        {
+            if (!pOp->pObject || pOp->pObject->dwAnimMode == OBJMODE_NEUTRAL)
+            {
+                UNITS_ChangeAnimMode(pOp->pObject, 1);
+                D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(!pOp->pObject ? -1 : pOp->pObject->dwClassId);
+                EVENT_SetEvent(pOp->pGame, pOp->pObject, 1, pOp->pGame->dwGameFrame + (pObjectsTxtRecord->dwFrameCnt[1] >> 8), 0, 0);
+            }
+            FOG_FreeServerMemory(pOp->pGame->pMemoryPool, pObjectRoomCoord, ".\\OBJECTS\\objrgn.cpp", 0x19B, 0);
+            pObjectControl->pObjectRoomCoord = 0;
+            return;
+        }
+        pObjectRoomCoord = pObjectRoomCoord->pNext;
+    }
+    if (DUNGEON_IsRoomInTown(pOp->pRoom))
+        UNITS_ChangeAnimMode(pOp->pObject, 2);
+}
+
 #define OBJRGN_MAX_SHRINES 10
 
 // 0x00547490

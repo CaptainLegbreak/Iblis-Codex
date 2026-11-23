@@ -334,6 +334,24 @@ int __fastcall PARTY_GetPartyMemberCount(D2GameStrc* pGame, short nPartyId)
     return nCount;
 }
 
+int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
+
+// 0x005404C0
+void __fastcall PARTY_AddLivingMemberLevelCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs)
+{
+    if (!SUNIT_IsDead(pUnit))
+        *(int*)pArgs += STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
+}
+
+// 0x005404F0
+void __fastcall PARTY_CountLivingUnits(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pLivingUnits)
+{
+    if (pUnit && !SUNIT_IsDead(pUnit))
+    {
+        ++*((int*)pLivingUnits);
+    }
+}
+
 // 0x00540510
 void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPartyId, PartyCallbackFunction pCallback, void* pArgs)
 {
@@ -544,6 +562,14 @@ void __fastcall PARTY_LeaveParty(D2GameStrc* pGame, D2UnitStrc* pUnit)
     {
         PARTY_RemoveParty(pGame, nPartyId);
     }
+}
+
+// 0x005408E0
+int __fastcall PARTY_GetLivingPartyMemberCountInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    int nLivingPartyMembers = 0;
+    PARTY_IteratePartyMembersInSameLevel(pGame, pUnit, PARTY_CountLivingUnits, &nLivingPartyMembers);
+    return nLivingPartyMembers;
 }
 
 static inline void PLRTRADE_AddGoldInline(D2UnitStrc* pUnit, int nStat, int nValue)
