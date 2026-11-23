@@ -217,12 +217,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Fog/Unknown_00409FF0.cpp": {
+  "Source/Fog/Unknown_0040B330.cpp": {
    "bytes": 2052,
    "definitions": 2,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Fog/Unknown_00409FF0.inc",
+   "include": "gen/data/Source/Fog/Unknown_0040B330.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -7900,7 +7900,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Fog/Unknown_00409FF0.cpp",
+   "file": "Source/Fog/Unknown_0040B330.cpp",
    "fill": 512,
    "form": "declared",
    "fwd": null,
@@ -7931,7 +7931,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Fog/Unknown_00409FF0.cpp",
+   "file": "Source/Fog/Unknown_0040B330.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gbUsePools = ",

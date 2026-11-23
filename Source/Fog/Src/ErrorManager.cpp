@@ -2183,4 +2183,32 @@ void* __fastcall sub_0040A1F0_PoolRealloc(D2PoolSystemStrc* pPool, void* pMemory
     return 0;
 }
 
+// 0x00409FF0
+void __cdecl FOG_SetMemoryPoolSystemMode(D2PoolSystemStrc* pSystem, int bFreePoolAlloc)
+{
+    if (!pSystem)
+    {
+        pSystem = &gtDefaultPoolSystem_0074F104;
+    }
+    if (pSystem->nPools)
+    {
+        EnterCriticalSection(&pSystem->tLock);
+        pSystem->bFreePoolAlloc = bFreePoolAlloc;
+        LeaveCriticalSection(&pSystem->tLock);
+    }
+}
+
+// 0x0040A040
+int __cdecl sub_0040A040_GetPoolSystemCount(D2PoolSystemStrc* pSystem)
+{
+    if (!pSystem)
+    {
+        pSystem = &gtDefaultPoolSystem_0074F104;
+    }
+    EnterCriticalSection(&pSystem->tLock);
+    int nCount = pSystem->nCount;
+    LeaveCriticalSection(&pSystem->tLock);
+    return nCount;
+}
+
 #include "gen/data/Source/Fog/Src/ErrorManager.inc"

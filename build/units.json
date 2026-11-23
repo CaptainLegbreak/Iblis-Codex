@@ -855,6 +855,16 @@
      "name": "?sub_00409C70_Nop@@YAXXZ"
     },
     {
+     "va": "0x00409FF0",
+     "length": 49,
+     "name": "FOG_SetMemoryPoolSystemMode"
+    },
+    {
+     "va": "0x0040A040",
+     "length": 46,
+     "name": "sub_0040A040_GetPoolSystemCount"
+    },
+    {
      "va": "0x0040A080",
      "length": 358,
      "name": "?sub_0040A080_PoolAlloc@@YIPAXPAUD2PoolSystemStrc@@HPBDH@Z"
@@ -3554,19 +3564,9 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_00409FF0.cpp",
+   "file": "Source/Fog/Unknown_0040B330.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00409FF0",
-     "length": 49,
-     "name": "FOG_SetMemoryPoolSystemMode"
-    },
-    {
-     "va": "0x0040A040",
-     "length": 46,
-     "name": "sub_0040A040_GetPoolSystemCount"
-    },
     {
      "va": "0x0040B330",
      "length": 27,
