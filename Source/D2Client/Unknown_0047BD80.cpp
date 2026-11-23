@@ -29,7 +29,6 @@ struct D2ChatMessageStrc
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 extern "C" size_t __cdecl strlen(const char* sz);
-D2ClientNotifyStrc* __cdecl GAME_GetClientNotify(); // 0x0044B7B0
 
 struct T0044CB60
 {
@@ -395,7 +394,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
             Unicode wszName[0x22];
             char szName[0x11];
             sub_0047C3F0_CopyCommandArgs(szName, pText, sizeof(szName));
-            if (SStrCmpI(&szName[1], gpClientInfo_007A0438->szAccount, 0x7FFFFFFF))
+            if (SStrCmpI(&szName[1], gpConfig->szAccount, 0x7FFFFFFF))
             {
                 sub_00526320_ToUnicode(wszLine, gszBattleNetPrefix, 0x208);
                 sub_00526320_ToUnicode(wszName, szName, 0x22);

@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2MultiTypes.h"
 
 struct D2ConfigStrc;
 
@@ -10,10 +11,6 @@ extern "C" const char gszD2CharMpq[]; // 0x006DC77C
 
 typedef int (__cdecl* DiscCallback)();
 
-#pragma pack(push, 1)
-struct D2ConfigStrc { char unk00[0x211]; int (__cdecl* expansion)(); };
-
-#pragma pack(pop)
 
 void __cdecl ARCHIVE_UnloadExpansionArchives(); // 0x004FAD70
 void* __fastcall sub_00517332_LoadMpqFile(const char*,void*,DiscCallback,int); // 0x00517332

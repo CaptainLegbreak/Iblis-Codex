@@ -592,7 +592,6 @@ extern "C" int __cdecl atoi(const char* szString);                              
 
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 
-D2ClientNotifyStrc* __cdecl GAME_GetClientNotify();                                                       // 0x0044B7B0
 
 void __cdecl sub_00477C60_CheckCacheStats();                                                                // 0x00477C60
 
@@ -849,7 +848,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
             Unicode wszName[0x22];
             char szName[0x11];
             sub_0047C3F0_CopyCommandArgs(szName, pText, sizeof(szName));
-            if (SStrCmpI(&szName[1], gpClientInfo_007A0438->szAccount, 0x7FFFFFFF))
+            if (SStrCmpI(&szName[1], gpConfig->szAccount, 0x7FFFFFFF))
             {
                 sub_00526320_ToUnicode(wszLine, gszBattleNetPrefix, 0x208);
                 sub_00526320_ToUnicode(wszName, szName, 0x22);

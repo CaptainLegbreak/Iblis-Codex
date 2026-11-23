@@ -48,7 +48,6 @@ public:
     virtual int IsTextSquelched(const char* szText);
 };
 
-D2ClientNotifyStrc* __cdecl GAME_GetClientNotify(); // 0x0044B7B0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700

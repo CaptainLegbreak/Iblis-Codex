@@ -13,8 +13,8 @@ struct D2CellPosStrc;
 struct D2ChatMessageStrc;
 struct D2ClientDialogStrc;
 struct D2ClientInfoStrc;
-struct D2LaunchRecordStrc;
 struct D2ClientListEntryStrc;
+struct D2ClientNotifyStrc;
 struct D2ClientServiceStrc;
 struct D2ClientSoundStrc;
 struct D2CommonIgnoreListStrc;
@@ -33,7 +33,6 @@ struct D2HirelingInitStrc;
 struct D2HoverTextStrc;
 struct D2InventoryStrc;
 struct D2ItemsTxt;
-struct D2LaunchRecordStrc;
 struct D2LevelDefBin;
 struct D2LevelsTxt;
 struct D2MonAnimRecStrc;
@@ -82,6 +81,7 @@ D2ActiveRoomStrc* __stdcall DUNGEON_GetRoomFromAct(D2DrlgActStrc* pAct); // 0x00
 D2AnimSeqTxt* __stdcall DATATBLS_GetMonSeqTxtRecordFromUnit(D2UnitStrc* pUnit); // 0x006633B0
 D2BitBufferStrc* __cdecl sub_004B32E0_GetQuestHistory(); // 0x004B32E0
 D2CacheStatsStrc* __cdecl D2GFX_GetCacheResults(); // 0x004F5290
+D2ClientNotifyStrc* __cdecl GAME_GetClientNotify(); // 0x0044B7B0
 D2ClientServiceStrc* __cdecl BNCLIENT_GetInterfaceTable(); // 0x00518C10
 D2ClientSoundStrc* __cdecl sub_004B93F0_AllocHintEntry(); // 0x004B93F0
 D2CommonIgnoreListStrc* IGNORELIST_GetOrCreateIgnoreList(); // 0x00611560
@@ -202,10 +202,10 @@ extern D2ClientDialogStrc* gpNpcMessageDialog; // 0x007C0D6F
 extern D2ClientDialogStrc* gpNpcConfirmDialog; // 0x007C0D73
 extern D2ClientDialogStrc* gpNpcHireDialog; // 0x007C0D77
 extern D2ClientDialogStrc* gpNpcGreetingDialog; // 0x007C0D7B
-extern D2LaunchRecordStrc* gpClientInfo_007A0438; // 0x007A0438
+extern D2ConfigStrc* gpConfig; // 0x007A0438
 extern D2ClientListEntryStrc* gpListEntries; // 0x00724264
 extern D2DataTablesStrc* sgptDataTable; // 0x00744304
-extern D2LaunchRecordStrc* gpLaunchRecord; // 0x007795D4
+extern D2ConfigStrc* gpLaunchRecord; // 0x007795D4
 extern D2MsgRecordChunkStrc* gpMsgRecordChunk_0070F7A0; // 0x0070F7A0
 extern D2NpcEntryStrc* gpNpcEntry; // 0x007C0C7D
 extern D2NpcTradeObjStrc* gpNpcTradeObj; // 0x007C0D83

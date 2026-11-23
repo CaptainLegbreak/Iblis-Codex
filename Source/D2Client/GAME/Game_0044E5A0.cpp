@@ -64,7 +64,6 @@ void __cdecl PROFCORE_WriteProfileCounters(); // 0x006116B0
 
 extern "C" int __cdecl GAME_ShutdownIfActive(); // 0x0044BB80
 
-extern D2LaunchRecordStrc* gpCharRecord; // 0x007A0438
 
 extern int (__cdecl* gpfnLaunchStates[])(); // 0x0070EE54
 
@@ -459,9 +458,9 @@ unsigned char* gpSaveBuffer; // 0x007A5224
 unsigned int gnSaveBufferSize; // 0x007A5228
 
 // 0x0044B8A0
-int __stdcall GAME_LauncherRun(void* hInstance, D2LaunchRecordStrc* pRecord)
+int __stdcall GAME_LauncherRun(void* hInstance, D2ConfigStrc* pRecord)
 {
-    gpCharRecord = pRecord;
+    gpConfig = pRecord;
     sub_00409B80(0);
     FOG_SetMemoryPoolSystemMode(0, 1);
     ghLaunchInstance = hInstance;
@@ -478,7 +477,7 @@ int __stdcall GAME_LauncherRun(void* hInstance, D2LaunchRecordStrc* pRecord)
     int nLanguage;
 // build: symbol ?STRTABLE_GetLanguageInfoField@* 0x00525260
     STRTABLE_GetLanguageInfoField(&nLanguage, 0);
-    sub_00619300(sub_004FAC80(0), pRecord->nState19 == 6);
+    sub_00619300(sub_004FAC80(0), pRecord->dwGameType == 6);
 // build: symbol ?gnClientLaunchState@* 0x0070EE4C
     gnClientLaunchState = 3;
 // build: symbol ?gbExitApplication@* 0x0070EE8C
@@ -502,7 +501,7 @@ int __stdcall GAME_LauncherRun(void* hInstance, D2LaunchRecordStrc* pRecord)
     }
     else
     {
-        switch (pRecord->nState19)
+        switch (pRecord->dwGameType)
         {
         case 0:
         case 8:
@@ -748,7 +747,7 @@ void __cdecl GAME_SaveCharFile()
         {
             return;
         }
-        gpCharRecord->wFlags1EF = *(unsigned short*)(pBuffer + 0x18);
+        gpConfig->wFlags1EF = *(unsigned short*)(pBuffer + 0x18);
     }
     else
     {
@@ -756,7 +755,7 @@ void __cdecl GAME_SaveCharFile()
         {
             return;
         }
-        gpCharRecord->wFlags1EF = *(unsigned short*)(pBuffer + 0x24);
+        gpConfig->wFlags1EF = *(unsigned short*)(pBuffer + 0x24);
     }
 
     FOG_GetSavePath(szDir, 0x400);
@@ -953,7 +952,7 @@ int __cdecl GAME_RunGameSession()
         sub_00477F70_SendGameLogon(gnServerToken_007A0520,gnServerHash_007A05C0);
         if(gnMode_007A0610==2 || gnMode_007A0610==3)WARDENCLIENT_InitWarden(gnServerHash_007A05C0);
     }
-    SOUNDHDR_UpdateSoundSystem(gpClientInfo_007A0438->nSoundArg);
+    SOUNDHDR_UpdateSoundSystem(gpConfig->bSoundBackground);
     GAME_InitGameState();
     if(UI_IsRecordingEnabled() || UI_IsPlaybackEnabled())
     {
@@ -1002,8 +1001,8 @@ int __cdecl GAME_RunGameSession()
     if(gnCinematicPlayed_007A062C)
     {
         int nDifficulty=gnClientDifficulty;
-        int nProgress=gpClientInfo_007A0438->aFlags1EF[1]&31;
-        D2LaunchRecordStrc* pClientInfo=gpClientInfo_007A0438;
+        int nProgress=gpConfig->aFlags1EF[1]&31;
+        D2ConfigStrc* pClientInfo=gpConfig;
         switch(nDifficulty)
         {
         case 0:

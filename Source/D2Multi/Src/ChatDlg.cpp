@@ -28,7 +28,7 @@ struct D2CharSaveHeaderStrc;
 
 struct D2CharSaveFileStrc;
 
-struct D2LaunchRecordStrc;
+struct D2ConfigStrc;
 
 struct Unicode;
 
@@ -110,7 +110,7 @@ extern D2WinControlStrc* gpChatControl_0077B06C; // 0x0077B06C
 
 extern D2WinControlStrc* gpChatControl_0077B074; // 0x0077B074
 
-D2LaunchRecordStrc* gpCharInfo;                                                                  // 0x0077BBD8
+D2ConfigStrc* gpCharInfo;                                                                  // 0x0077BBD8
 
 int gbGemToggle; // 0x0077BBEC
 
@@ -801,7 +801,7 @@ int __fastcall D2Win_10015(); // 0x004F8FE0
 
 int __stdcall D2Win_10005(int nResolution); // 0x004F90A0
 
-int __fastcall CHATDLG_RunChat(D2LaunchRecordStrc* pInfo); // 0x00441B70
+int __fastcall CHATDLG_RunChat(D2ConfigStrc* pInfo); // 0x00441B70
 
 int __fastcall D2Win_10016(); // 0x004FA550
 
@@ -2588,14 +2588,14 @@ int __fastcall CHATDLG_SetupCharacter(unsigned short wValue, const char* szText0
 {
     gnChatLaunchMode = 2;
     CHATDLG_SetCallback(0, sub_0043DAF0_OnConnect);
-    gpCharInfo->wValue = wValue;
-    strcpy(gpCharInfo->szText0x1F, szText0x1F);
+    gpCharInfo->wJoinID = wValue;
+    strcpy(gpCharInfo->szGameName, szText0x1F);
     strcpy(gpCharInfo->szText0x245, szText0x245);
     if (gpCharInfo->nByte22D)
     {
         if (sub_00449B30_QueryAddress())
         {
-            gpCharInfo->nState19 = 3;
+            gpCharInfo->dwGameType = 3;
             while (++gwRequestId == 0)
             {
             }
@@ -2609,8 +2609,8 @@ int __fastcall CHATDLG_SetupCharacter(unsigned short wValue, const char* szText0
         CHATDLG_ShowWait(D2LANG_GetStringFromTblIndex(0x1413), sub_0043DAF0_OnConnect);
         return 0;
     }
-    gpCharInfo->nState19 = 7;
-    strcpy(gpCharInfo->szText0x37, szText0x37);
+    gpCharInfo->dwGameType = 7;
+    strcpy(gpCharInfo->szServerIP, szText0x37);
     gbDone = 1;
     sub_004F9160_SetLoopValue(0);
     D2Win_StopMessageLoop();
@@ -3269,7 +3269,7 @@ int __cdecl CHATDLG_ConnectRealm()
 }
 
 // 0x00442150
-int __fastcall CHATDLG_StartChat(D2LaunchRecordStrc* pInfo)
+int __fastcall CHATDLG_StartChat(D2ConfigStrc* pInfo)
 {
     gpCharInfo = pInfo;
     D2Win_10015();

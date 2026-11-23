@@ -6,46 +6,15 @@
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
 #include "D2GameTypes.h"
+#include "D2MultiTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2ClientNotifyStrc;
 
-struct D2ClientCharRecordStrc;
 
 struct D2RangeStrc;
 
-#pragma pack(push, 1)
-
-struct D2ClientCharRecordStrc
-{
-    char unk0x00[0x19];
-    char aState[4];
-    char unk0x1D[2];
-    union
-    {
-        char szName[0x1D0];
-        struct
-        {
-            char szText0x1F[0x18];
-            char szText0x37[0x1B8];
-        };
-    };
-    union
-    {
-        unsigned char aFlags[2];
-        unsigned short wValue;
-    };
-    char unk0x1F1[0x1F];
-    unsigned char nKind;
-    char unk0x211[0x14];
-    D2ClientNotifyStrc* pNotify;
-    char unk0x229[0x1C];
-    char szText245[0x18];
-    char szText25D[0x10];
-};
-
-#pragma pack(pop)
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -137,7 +106,7 @@ extern D2McpCallbackFn gpfnMcpPacket08Callback; // 0x007992F8
 
 extern D2McpCallbackFn gpfnMcpPacket09Callback; // 0x007992FC
 
-D2ClientCharRecordStrc* gpCharRecord; // 0x007A0438
+D2ConfigStrc* gpConfig; // 0x007A0438
 
 int gbRunKeyHeld; // 0x007A065C
 
@@ -628,7 +597,7 @@ void __cdecl GAME_RaiseGameWindow(); // 0x0044B780
 // 0x0044B7B0
 D2ClientNotifyStrc* __cdecl GAME_GetClientNotify()
 {
-    return gpCharRecord->pNotify;
+    return (D2ClientNotifyStrc*)gpConfig->pComInterface;
 }
 
 const char* __cdecl GAME_GetGameName(); // 0x0044B7C0
