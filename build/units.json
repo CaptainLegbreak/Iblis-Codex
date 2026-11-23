@@ -66706,6 +66706,10 @@
      "name": "?sub_00605E60_BuildLightenTables@@YGXPAE@Z"
     },
     {
+     "va": "0x00605F00",
+     "length": 2439
+    },
+    {
      "va": "0x00606890",
      "length": 157,
      "name": "?sub_00606890_BuildBrightnessTable@@YAXPAEPAUD2HslStrc@@@Z"
@@ -66715,30 +66719,6 @@
      "length": 188,
      "name": "?CreateD2Palette@@YGPAXPAX@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_00605880.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00605F00",
-     "length": 2439
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
