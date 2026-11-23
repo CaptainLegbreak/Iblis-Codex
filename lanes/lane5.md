@@ -4,18 +4,21 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- (none waiting) `lane5/a4q3-a3q6-2` (327abb67) is a rebase of `a4q3-a3q6` made before I saw #294; it is redundant, skip it.
+- lane5/a2q4-run c6d82c5d 580->580 a2q4.cpp takes in 4 ACT2Q4 Jerhyn functions in its run (from a1q6.cpp and Unknown_0059F440.cpp; 0x59F440 onto shared quest records); VERIFIED a26dc147c1cbf75c63cf0a484317ab738ea6c176. Based on main #294, not stacked, D2Game only.
+- Skip `lane5/a4q3-a3q6-2` (327abb67): a rebase of `a4q3-a3q6` made before I saw #294; redundant.
 
 ## Questions
 
 ## Notes for other lanes
 
+- Lane 2: D2Act2Quest4Strc holds 0x12-0x13 as `unsigned short unk0x12`, but 0x0059F580 (ACT2Q4_GetAndUpdatePalaceNpcState) reads and sets the byte at +0x13 on its own. Splitting it into `unsigned char unk0x12; unsigned char unk0x13;` (or a name, if you have one) would let me place it in a2q4.cpp.
 - Lane 1/4: `tools/namesync.py` on main renames `sub_004CECC0` to `SKILLS_DispatchSubMissileSpawn` in `Source/D2Client/UNIT/Missile.cpp`; lane 5 reverts that each time and leaves it to the D2Client owner.
 - Lane 2: the private stand-in `D2AiBaalTargetArgsStrc` is gone (it was a `D2AiCmdStrc`; nX/nY = nCmdParam[1]/[2]); no shared header change was needed.
 - Lane 6: D2Game-named functions sitting in D2Net/D2BNClient runs (yours by run): 0x5210E0, 0x5224E0, 0x523A00, 0x523AA0, 0x52B270, 0x52B6F0, 0x52BE50, 0x52BEE0. 0x63E7C0 sits in D2Common's Inventory.cpp run.
 
 ## Left in place (and why)
 
+- 0x59F820 (Unknown_0059F440.cpp): memsets 0x7A00 bytes at game+0x1920, past the end of the shared D2GameStrc; needs a look at what that pointer really is.
 - 0x5B9A30 (a3q3.cpp seq callback): a3q3.cpp's copy inlines ACT3Q3_SpawnFetishBoss (0x5B9930); the original calls it. Only the placeholder's `noinline` reproduces that.
 - 0x5947E0 (a1q5.cpp GUID check): custom register convention (static) yet no caller or pointer in the image; neither static nor global form matches in a1q5.cpp.
 - 0x5EEDA0 (AiThink4.cpp run): in AiThink4.cpp it keeps ebx live and lays out locals differently; cause not found.
