@@ -922,22 +922,6 @@ int __fastcall DDRAW_FloorTileDraw(D2TileLibraryEntryStrc* pTile, D2GfxLightExSt
 
 void __fastcall DDRAW_CloseSmacker(D2SmackRecordStrc* pRecord);                                      // 0x00513330
 
-// 0x00513330
-void __fastcall DDRAW_CloseSmacker(D2SmackRecordStrc* pRecord)
-{
-    if (gpDDrawSmackBuffer)
-    {
-// build: symbol ?gszDDSmackFile@* 0x006DE20C
-        FOG_Free(gpDDrawSmackBuffer, gszDDSmackFile, 0xF0, 0);
-        gpDDrawSmackBuffer = 0;
-    }
-    if (pRecord->nType == 's' && pRecord->hSmack)
-    {
-        SmackClose(pRecord->hSmack);
-        pRecord->hSmack = 0;
-    }
-}
-
 // 0x005136F0
 void __cdecl DDRAW_DrawVideoFrame()
 {
