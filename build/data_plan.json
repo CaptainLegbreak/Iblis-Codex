@@ -905,8 +905,7 @@
    "definitions": 7,
    "externs": [
     "extern \"C\" void __cdecl GAME_SaveDefaultCmdLine(); // 0x0044B5E0",
-    "extern \"C\" void __cdecl RECORD_RegisterLngArgument(); // 0x00451260",
-    "extern \"C\" void __cdecl sub_0044AB80_McpIncoming1B(); // 0x0044AB80"
+    "extern \"C\" void __cdecl RECORD_RegisterLngArgument(); // 0x00451260"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/CORE/WINMAIN.inc",
