@@ -1,11 +1,19 @@
 #include "D2Common.h"
+
 #include "D2Structs.h"
+
 #include "D2Path.h"
+
 #include "D2Txt.h"
+
 #include "D2Records.h"
+
 #include "D2TxtItems.h"
+
 #include "D2Skills.h"
+
 #include "D2TxtTables.h"
+
 #include "D2Unicode.h"
 
 struct D2SkillListStrc;
@@ -2031,74 +2039,6 @@ void __stdcall DATATBLS_LoadAllTxts(void* hArchive, int a2, int a3)
     DATATBLS_UnloadSoundsTxt();
 }
 
-// 0x00620BB0
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* ptUnit)
-{
-    D2_ASSERT(ptUnit, 2198);
-
-    switch (ptUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return ptUnit->pStaticPath->pRoom;
-    default:
-        if (ptUnit->pDynamicPath)
-        {
-            return PATH_GetRoom(ptUnit->pDynamicPath);
-        }
-        return 0;
-    }
-}
-
-// 0x00621780
-void __stdcall UNITS_SetAnimationSpeed(D2UnitStrc* pUnit, int nSpeed)
-{
-    nSpeed = nSpeed > 0 ? nSpeed : 0;
-    pUnit->wAnimSpeed = nSpeed < 0x7FFF ? nSpeed : 0x7FFF;
-}
-
-// 0x006219F0
-D2SkillStrc* __stdcall UNITS_GetSkillFromSkillId(D2UnitStrc* hUnit, int nSkillId)
-{
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-
-    D2_ASSERT(pSkillsTxtRecord, 3579);
-    D2_ASSERT(hUnit, 1592);
-
-    for (D2SkillStrc* pSkill = SKILLS_GetFirstSkillFromSkillList(hUnit->pSkills); pSkill; pSkill = pSkill->pNextSkill)
-    {
-        if (pSkill->pSkillsTxt == pSkillsTxtRecord)
-        {
-            return pSkill;
-        }
-    }
-    return 0;
-}
-
-// 0x006254F0
-int __stdcall STATLIST_GetTotalStatValueStub(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
-{
-    return STATLIST_GetTotalStatValue(pStatList, nStatId, nLayer);
-}
-
-// 0x00625500
-int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer)
-{
-    return STATLIST_GetTotalStatValue(pUnit->pStatListEx, nStatId, nLayer);
-}
-
-// 0x00625520
-int __stdcall STATLIST_GetStatBonus(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
-{
-    if (!pStatList)
-    {
-        return 0;
-    }
-
-    return STATLIST_GetTotalStatValue(pStatList, nStatId, nLayer) - STATLIST_GetBaseStatValue(pStatList, nStatId, nLayer);
-}
-
 // 0x00625560
 int __stdcall STATLIST_GetUnitStatBonus(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer)
 {
@@ -2112,42 +2052,12 @@ int __stdcall STATLIST_GetUnitStatBonus(D2UnitStrc* pUnit, int nStatId, unsigned
     return nValue - STATLIST_GetBaseStatValue(pStatList, nStatId, nLayer);
 }
 
-// 0x00625A50
-int __stdcall STATLIST_GetTotalStatValue_Layer0(D2StatListStrc* pStatListEx, int nStatId)
-{
-    return STATLIST_GetTotalStatValue(pStatListEx, nStatId, 0);
-}
-
-// 0x006260D0
-void __stdcall STATLIST_SetSkillId(D2StatListStrc* pStatList, int nSkillId)
-{
-    pStatList->dwSkillNo = nSkillId;
-}
-
-// 0x006260F0
-void __stdcall STATLIST_SetSkillLevel(D2StatListStrc* pStatList, int nSkillLevel)
-{
-    pStatList->dwSLvl = nSkillLevel;
-}
-
 // 0x00640E90
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId)
 {
     D2_ASSERT(nObjectId < gnObjectsTxtRecordCount, 221);
     D2_ASSERT(nObjectId >= 0, 222);
     return &gpObjectsTxt[nObjectId];
-}
-
-// 0x0065FD20
-int __fastcall ITEMMODS_PropertyFunc23(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
-{
-    if (pProperty && pItem && pItem->dwUnitType == UNIT_ITEM && !ITEMS_IsEthereal(pItem) && ITEMS_HasDurability(pItem))
-    {
-        ITEMMODS_ApplyEthereality(pItem);
-        return 1;
-    }
-
-    return 0;
 }
 
 #include "gen/data/Source/D2Common/DATATBLS/DataTbls.inc"

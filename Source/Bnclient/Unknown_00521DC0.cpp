@@ -1,8 +1,11 @@
 #include "Bnclient.h"
 
 struct D2CDKeyInfoStrc;
+
 struct D2AuthCheckPacketStrc;
+
 struct D2CipherKeyStringView;
+
 struct D2EncodedTrailerStrc;
 
 struct D2CDKeyInfoStrc
@@ -24,22 +27,39 @@ struct D2AuthCheckPacketStrc
     D2CDKeyInfoStrc pKeys[2];
     char szData[0x200];
 };
+
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 extern "C" long __cdecl _time32(long* pTime); // 0x006850E6
+
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
+
 int __cdecl sub_0051BEC0_IsExpansion(); // 0x0051BEC0
+
 int __fastcall sub_0051E340_BuildCDKeyInfoForSlot(D2CDKeyInfoStrc* pInfo, unsigned int dwClientToken, int nSlot); // 0x0051E340
+
 int __fastcall BNDOWNLOAD_RunCheckRevision(unsigned int* pExeVersion, unsigned int* pExeHash, char* szText); // 0x0051E6D0
+
 int __cdecl BNDOWNLOAD_HasArchiveName(); // 0x0051EAA0
+
 int __fastcall BNMESSQUEUE_SetError(int nError); // 0x005204A0
+
 int __cdecl BNCLIENT_GetAbortFlag(); // 0x00520AE0
+
 void __cdecl GRID_LockCDKeys(); // 0x005234D0
+
 void __cdecl GRID_UnlockCDKeys(); // 0x005239C0
+
 const char* __cdecl sub_00523AA0_GetExeInfo(); // 0x00523AA0
+
 extern "C" const char* __fastcall sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
 struct D2CipherKeyStringView
@@ -56,10 +76,15 @@ struct D2EncodedTrailerStrc
 };
 
 unsigned int __fastcall sub_00523020_GetAlignedData(unsigned int nSize); // 0x00523020
+
 void __fastcall sub_005241C0_GetDigest(int nIndex, unsigned int* pDigest); // 0x005241C0
+
 void __fastcall sub_00524200_HashBlock(int nIndex, const void* pBlock, unsigned int* pDigest); // 0x00524200
+
 void __fastcall sub_00524760_CipherBlock(int nIndex, const unsigned short* pIn, unsigned short* pOut); // 0x00524760
+
 void __cdecl sub_00524740_ClearKeySchedules(); // 0x00524740
+
 void __cdecl sub_005241A0_ClearHashContexts(); // 0x005241A0
 
 unsigned int gdwBnClientToken; // 0x00882530
@@ -120,65 +145,4 @@ int __cdecl sub_00521DC0_SendAuthCheck()
 // build: symbol ?BNSEND_SendPacket@* 0x0051C5C0
     BNSEND_SendPacket(0x51, &tPacket, (pString - (char*)&tPacket) + SStrLen(pString) + 1);
     return 1;
-}
-
-// 0x00523060
-void __fastcall sub_00523060_EncodeData(unsigned char* pData, unsigned int nSize, unsigned int nBufferSize, unsigned int nKey)
-{
-    unsigned char abDigest[20];
-    unsigned char aaBlocks[2][64];
-    unsigned char abFinalDigest[20];
-
-    D2_ASSERT(pData, 0x105);
-    const unsigned int& nKeyValue = nKey;
-    const char* szKey = (const char*)nKeyValue;
-    D2_ASSERT(szKey, 0x106);
-    D2_ASSERT(nBufferSize == sub_00523020_GetAlignedData(nSize), 0x108);
-
-    ((D2CipherKeyStringView*)szKey)->BNDOWNLOAD_InitCipherKeys(1);
-
-    unsigned int nBlock = 0;
-    unsigned int nChunk = 0;
-    while (nSize)
-    {
-        nChunk = nSize;
-        if (nChunk >= 0x40)
-            nChunk = 0x40;
-
-        memcpy(aaBlocks[0], pData, nChunk);
-        if (nChunk < 0x40)
-            memset(&aaBlocks[0][nChunk], 0, 0x40 - nChunk);
-
-        sub_005241C0_GetDigest(0, (unsigned int*)abDigest);
-        if (!(nBlock & 0xF))
-            sub_00524200_HashBlock(0, aaBlocks[0], 0);
-
-        for (int i = 0; i < 0x40; ++i)
-            aaBlocks[1][i] = abDigest[(unsigned int)(0x3F - i) % 20] + aaBlocks[0][i];
-
-        if (!(nBlock & 7))
-        {
-            for (int i = 0; i < 0x40; i += 8)
-                sub_00524760_CipherBlock(0, (unsigned short*)&aaBlocks[1][i], (unsigned short*)&aaBlocks[0][i]);
-        }
-        else
-        {
-            memcpy(aaBlocks[0], aaBlocks[1], 0x40);
-        }
-
-        memcpy(pData, aaBlocks[0], 0x40);
-        nSize -= nChunk;
-        pData += 0x40;
-        ++nBlock;
-    }
-
-    sub_005241C0_GetDigest(0, (unsigned int*)abFinalDigest);
-    D2EncodedTrailerStrc* pTrailer = (D2EncodedTrailerStrc*)pData;
-    pTrailer->nDigest = *(unsigned int*)abFinalDigest;
-    pTrailer->nReserved = 0;
-    pTrailer->nLastBlockSize = (unsigned char)nChunk;
-    pTrailer->wReserved = 0;
-
-    sub_00524740_ClearKeySchedules();
-    sub_005241A0_ClearHashContexts();
 }

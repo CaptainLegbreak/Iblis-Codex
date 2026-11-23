@@ -1,7 +1,11 @@
 #include "D2SkillIds.h"
+
 #include "D2GfxTypes.h"
+
 #include "D2MultiTypes.h"
+
 #include "D2Structs.h"
+
 #include "D2Txt.h"
 
 #include "D2StatIds.h"
@@ -398,66 +402,6 @@ static inline int IMAGE_IsInClickRect(const D2WinImageClickRectStrc* pClickRect,
     return 0;
 }
 
-// 0x004FD860
-int __fastcall TIMER_UpdateDefault(D2WinControlStrc* pControl)
-{
-    D2WinTimerStrc* pTimer = (D2WinTimerStrc*)pControl;
-
-    D2_ASSERT(pTimer->controlHeader.eType == D2WIN_TIMER, 0x52);
-
-    if (!(pTimer->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pTimer->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
-    {
-        return 0;
-    }
-
-    const unsigned int dwNow = GetTickCount();
-    const unsigned int dwStart = pTimer->dwTickCount / 1000;
-    if (dwNow / 1000 - dwStart <= pTimer->nTimeout)
-    {
-        return 1;
-    }
-
-    SMSGHANDLER_PARAMS tMsg;
-    tMsg.hWnd = pTimer;
-
-    if (pTimer->controlHeader.field_34)
-    {
-        pTimer->controlHeader.field_34(&tMsg);
-    }
-
-    return 1;
-}
-
-// 0x004FD8F0
-int __fastcall TIMER_UpdateRepeating(D2WinControlStrc* pControl)
-{
-    D2WinTimerStrc* pTimer = (D2WinTimerStrc*)pControl;
-
-    D2_ASSERT(pTimer->controlHeader.eType == D2WIN_TIMER, 0x6A);
-
-    if (!(pTimer->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pTimer->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
-    {
-        return 0;
-    }
-
-    const unsigned int dwTickCount = GetTickCount();
-    if (dwTickCount < gdwTimeoutTickCount)
-    {
-        return 1;
-    }
-
-    SMSGHANDLER_PARAMS tMsg;
-    tMsg.hWnd = pTimer;
-
-    if (pTimer->controlHeader.field_34)
-    {
-        pTimer->controlHeader.field_34(&tMsg);
-    }
-
-    gdwTimeoutTickCount = dwTickCount + pTimer->nTimeout;
-    return 1;
-}
-
 // 0x00503310
 static inline D2CofNodeStrc* D2COMP_FindCofNode(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
 {
@@ -600,34 +544,6 @@ int __fastcall LIST_Draw(D2WinControlStrc* pControl)
     }
 
     D2Win_10127_SetFont(1);
-
-    return 1;
-}
-
-// 0x005087A0
-int __fastcall POPUP_Draw(D2WinControlStrc* pControl)
-{
-    D2WinPopUpStrc* pPopUp = (D2WinPopUpStrc*)pControl;
-
-    D2_ASSERT(pPopUp->controlHeader.eType == D2WIN_POPUP, 0xC6);
-
-    if (!(pPopUp->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pPopUp->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
-    {
-        return 0;
-    }
-
-    const unsigned char nColor = D2Win_10034_MixRGB(0x3F, 0x3F, 0x3F);
-
-    tagRECT tRect = { pPopUp->controlHeader.nImageX - 5, pPopUp->controlHeader.nImageY - pPopUp->controlHeader.nHeight - 5, pPopUp->controlHeader.nImageX + pPopUp->controlHeader.nWidth + 5, pPopUp->controlHeader.nImageY + 5 };
-
-    D2GFX_UtilRect(&tRect, 0xFF);
-    D2GFX_DrawBox(tRect.left, tRect.bottom, tRect.right, tRect.top, nColor, 2);
-    D2Win_10127_SetFont(1);
-
-    for (int i = 0; i < pPopUp->nLines; ++i)
-    {
-        D2Win_10117_DrawText(pPopUp->lines[i].wszText, pPopUp->controlHeader.nImageX, pPopUp->controlHeader.nImageY + 20 * (i - pPopUp->nLines + 1), ((i != pPopUp->nCurrentLine) - 1) & 3, 0);
-    }
 
     return 1;
 }

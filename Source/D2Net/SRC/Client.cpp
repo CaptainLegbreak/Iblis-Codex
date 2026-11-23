@@ -620,8 +620,11 @@ void __fastcall CLIENT_ReadPacketFromBuffer(D2PacketBufferStrc* pBuffer, int nBu
 }
 
 extern "C" char* __stdcall inet_ntoa(D2InAddrStrc tAddress);                                                // 0x006B013E
+
 extern "C" int __stdcall getsockname(unsigned int nSocket, void* pAddress, int* pnLength);                 // 0x006B0144
+
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax);                     // 0x004135D0
+
 extern int gClientSocket;                                                                                   // 0x00730AE0
 
 // 0x0052AFE0
@@ -658,76 +661,8 @@ void __stdcall SERVER_SetMaxClientsPerGame(int nArg1)
     sub_006BE4A0(gpServer, nArg1);
 }
 
-// 0x0052B280
-int __stdcall SERVER_SetHackListEnabled(int nArg1)
-{
-    return FOG_SetHackListEnabled(gpServer, nArg1);
-}
-
-// 0x0052B2A0
-void __cdecl SERVER_Release()
-{
-    unsigned char nMessage = 0xB0;
-    sub_006C0170(gpServer, &nMessage, 1);
-    gpServer = 0;
-}
-
-// 0x0052B2D0
-int __stdcall SERVER_ReadGamePacket(int nArg1, int nArg2)
-{
-    return sub_006BEAD0(gpServer, 1, nArg1, nArg2);
-}
-
-// 0x0052B2F0
-int __stdcall SERVER_ReadSystemPacket(int nArg1, int nArg2)
-{
-    return sub_006BEAD0(gpServer, 0, nArg1, nArg2);
-}
-
-// 0x0052B310
-int __stdcall SERVER_ReadAdminPacket(int nArg1, int nArg2)
-{
-    return sub_006BEAD0(gpServer, 2, nArg1, nArg2);
-}
-
 // 0x0052B490
 int __stdcall sub_0052B490_ObjectCall_6BED90(int nArg1, int nArg2, int nArg3)
 {
     return sub_006BED90(gpServer, nArg1, nArg2, nArg3);
-}
-
-// 0x0052B4B0
-int __stdcall SERVER_GetIpAddressFromClientId(int nArg1)
-{
-    return sub_006BEE20(gpServer, nArg1);
-}
-
-// 0x0052B4D0
-int __stdcall SERVER_GetSocketFromClientId(int nArg1)
-{
-    return sub_006BEF40(gpServer, nArg1);
-}
-
-// 0x0052B4F0
-int __stdcall SERVER_HackListClient(int nArg1, int nArg2, int nArg3)
-{
-    return sub_006C0530(gpServer, nArg1, nArg2, nArg3);
-}
-
-// 0x0052B510
-int __stdcall SERVER_HackListIP(int nArg1, int nArg2, int nArg3)
-{
-    return sub_006C0600(gpServer, nArg1, nArg2, nArg3);
-}
-
-// 0x0052B530
-int __stdcall SERVER_HackUnlistIP(int nArg1, int nArg2, int nArg3)
-{
-    return sub_006BEFB0(gpServer, nArg1, nArg2, nArg3);
-}
-
-// 0x0052B550
-int __stdcall SERVER_DisconnectIP(int nArg1, int nArg2, int nArg3)
-{
-    return sub_006C06D0(gpServer, nArg1, nArg2, nArg3);
 }

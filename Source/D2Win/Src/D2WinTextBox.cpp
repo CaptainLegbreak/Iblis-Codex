@@ -1,6 +1,9 @@
 #include "D2Win.h"
+
 #include "D2CelContext.h"
+
 #include "D2GfxTypes.h"
+
 #include "D2MultiTypes.h"
 
 #include "D2Win32Types.h"
@@ -1638,108 +1641,12 @@ static void __stdcall IMAGE_DrawTiled(const D2CropRectStrc* pDst, const D2CropRe
     }
 }
 
-// 0x004FD470
-int __fastcall IMAGE_Draw(D2WinControlStrc* pControl)
-{
-    D2WinImageStrc* pImage = (D2WinImageStrc*)pControl;
-
-    D2_ASSERT(pImage->controlHeader.eType == D2WIN_IMAGE, 0x10F);
-
-    const int nBorderX = pImage->field_4C;
-    const int nBorderY = pImage->field_50;
-    D2GfxDataStrc tGfxData;
-    memset(&tGfxData, 0, sizeof(tGfxData));
-    tGfxData.pCellFile = pImage->controlHeader.pCellFile;
-    tGfxData.nDirection = 0;
-    tGfxData.nFrame = 0;
-
-    int nX[4];
-    int nY[4];
-    int nSrcY[4];
-    int nSrcX[4];
-    nSrcX[0] = 0;
-    nSrcX[1] = nBorderX;
-    nSrcX[2] = 256 - nBorderX;
-    nSrcX[3] = 256;
-    nSrcY[0] = 0;
-    nSrcY[1] = nBorderY;
-    nSrcY[2] = 256 - nBorderY;
-    nSrcY[3] = 256;
-    nX[0] = pImage->controlHeader.nImageX;
-    nX[1] = pImage->controlHeader.nImageX + nBorderX;
-    nX[2] = pImage->controlHeader.nImageX + pImage->controlHeader.nWidth - nBorderX;
-    nX[3] = pImage->controlHeader.nImageX + pImage->controlHeader.nWidth;
-    nY[0] = pImage->controlHeader.nImageY - pImage->controlHeader.nHeight;
-    nY[1] = pImage->controlHeader.nImageY - pImage->controlHeader.nHeight + nBorderY;
-    nY[2] = pImage->controlHeader.nImageY - nBorderY;
-    nY[3] = pImage->controlHeader.nImageY;
-    D2CropRectStrc tDst;
-    D2CropRectStrc tSrc;
-    for (int j = 0; j < 3; ++j)
-    {
-        tSrc.nY0 = nSrcY[j];
-        tSrc.nY1 = nSrcY[j + 1];
-        for (int i = 0; i < 3; ++i)
-        {
-            tDst.nX0 = nX[i];
-            tDst.nX1 = nX[i + 1];
-            tDst.nY0 = nY[j];
-            tDst.nY1 = nY[j + 1];
-            tSrc.nX0 = nSrcX[i];
-            tSrc.nX1 = nSrcX[i + 1];
-            IMAGE_DrawTiled(&tDst, &tSrc, &tGfxData);
-        }
-    }
-
-    return 1;
-}
-
 // 0x004FFE10
 int __fastcall D2Win_10076(D2WinControlStrc* pControl, const char* szText)
 {
     Unicode wszText[256];
     sub_00526F20_ToUnicode(wszText, szText, 256);
     return sub_004FF5A0_SetEditText(pControl, wszText);
-}
-
-// 0x00501690
-D2CharStrc* __fastcall FONT_FindCharInfo(unsigned short wChar)
-{
-    int nIterations = 0;
-    int nMin = 0;
-// build: symbol ?gnCurrentFont@* 0x0072DFFC
-    D2FontCacheStrc* pFontCache = &gatFontCache[gnCurrentFont];
-    int nMax = pFontCache->pFontInfo[1]->nCharCount - 1;
-    if (nMax >= 0)
-    {
-        D2CharStrc* pCharInfo = pFontCache->pCharInfo;
-        do
-        {
-            const int nMid = (nMin + nMax) / 2;
-            ++nIterations;
-            if (wChar == pCharInfo[nMid].wChar)
-            {
-                return &pCharInfo[nMid];
-            }
-
-            if (wChar < pCharInfo[nMid].wChar)
-            {
-                nMax = nMid - 1;
-            }
-            else
-            {
-                nMin = nMid + 1;
-            }
-
-            if (nIterations > 1000)
-            {
-                break;
-            }
-        }
-        while (nMax >= nMin);
-    }
-
-    return pFontCache->pCharInfo + 31;
 }
 
 #include "gen/data/Source/D2Win/Src/D2WinTextBox.inc"

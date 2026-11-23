@@ -1,51 +1,99 @@
 #include "D2Common.h"
+
 #include "D2Structs.h"
+
 #include "D2DataTbls.h"
+
 #include "D2Txt.h"
+
 #include "D2Skills.h"
+
 struct Data0064A190;
+
 struct Unit0064A190;
+
 struct D2MissileDataStrc;
+
 struct D2MissilesTxt;
+
 struct B24Roster;
+
 struct B24MissileData;
+
 struct B24Unit;
+
 struct Data0064A210;
+
 struct Unit0064A210;
+
 struct Data0064A280;
+
 struct Unit0064A280;
+
 struct Data0064A300;
+
 struct Unit0064A300;
+
 struct Data0064A380;
+
 struct Unit0064A380;
+
 struct Data0064A3B0;
+
 struct Unit0064A3B0;
+
 struct Unit0064A3E0;
+
 struct Data0064A4E0;
+
 struct Unit0064A4E0;
+
 struct Data0064A510;
+
 struct Unit0064A510;
+
 struct Data0064A540;
+
 struct Unit0064A540;
+
 struct Data0064A570;
+
 struct Unit0064A570;
+
 struct Data0064A640;
+
 struct Unit0064A640;
+
 struct Data0064A6D0;
+
 struct Unit0064A6D0;
+
 struct Data0064A6F0;
+
 struct Unit0064A6F0;
+
 struct TargetData;
+
 struct UnitView;
+
 struct SlotPair;
+
 struct Node32;
+
 struct Queue32;
+
 struct Node24;
+
 struct Queue24;
+
 struct MissileRecord;
+
 struct DataTables;
+
 struct Damage;
+
 struct D2StatStrc;
+
 struct D2MissileDamageDataStrc;
 
 struct Data0064A190 {
@@ -86,7 +134,6 @@ struct D2MissileDataStrc
     int nTargetY;
 };
 
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 typedef unsigned char U8;
@@ -126,15 +173,25 @@ typedef char B24MissileLevel[(OFFSET(B24MissileData,nLevel)==0xC)?1:-1];
 typedef char B24UnitData[(OFFSET(B24Unit,missileData)==0x14)?1:-1];
 
 extern "C" U8 gB24Selection;
+
 extern "C" U8* gB24PackedState;
+
 extern "C" int gB24Dirty;
+
 extern "C" B24Roster* gB24Roster;
+
 extern "C" int gB24MinX;
+
 extern "C" int gB24MaxX;
+
 extern "C" int gB24MinY;
+
 extern "C" int gB24MaxY;
+
 extern "C" int gB24RowCount;
+
 extern "C" unsigned int gB24SelectedKey;
+
 extern "C" U8 gB24Rows[];
 
 struct Data0064A210 {
@@ -300,9 +357,11 @@ struct Unit0064A640 {
 };
 
 #pragma pack(push, 1)
+
 struct Data0064A6D0 { unsigned char bUnknown00[0x30]; unsigned int dwValue30; };
 
 #pragma pack(pop)
+
 struct Unit0064A6D0 {
     int nType;
     unsigned int dwUnknown04;
@@ -640,14 +699,20 @@ struct Damage
 };
 
 extern "C" int __stdcall sub_00625480_GetStat(Unit*, int, int); // 0x00625480
-extern "C" int __stdcall sub_00625500_GetBaseStat(Unit*, int, int); // 0x00625500
-extern "C" short __stdcall sub_00629860_GetStrengthFactor(Unit*); // 0x00629860
-extern "C" short __stdcall sub_006298A0_GetDexterityFactor(Unit*); // 0x006298A0
-extern "C" int __stdcall sub_0064A280_GetMissileSkill(Unit*); // 0x0064A280
-extern "C" int __stdcall sub_0064B2A0_GetMissileElementLength(Unit*, Unit*, int, int); // 0x0064B2A0
-extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
-extern "C" DataTables* gVar_00744304; // 0x00744304
 
+extern "C" int __stdcall sub_00625500_GetBaseStat(Unit*, int, int); // 0x00625500
+
+extern "C" short __stdcall sub_00629860_GetStrengthFactor(Unit*); // 0x00629860
+
+extern "C" short __stdcall sub_006298A0_GetDexterityFactor(Unit*); // 0x006298A0
+
+extern "C" int __stdcall sub_0064A280_GetMissileSkill(Unit*); // 0x0064A280
+
+extern "C" int __stdcall sub_0064B2A0_GetMissileElementLength(Unit*, Unit*, int, int); // 0x0064B2A0
+
+extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
+
+extern "C" DataTables* gVar_00744304; // 0x00744304
 
 struct D2MissileDamageDataStrc
 {
@@ -724,8 +789,8 @@ enum
 };
 
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
-int __stdcall STATLIST_CopyStats(D2UnitStrc* pUnit, int nStatId, D2StatStrc* pBuffer, int nBufferSize); // 0x006261D0
 
+int __stdcall STATLIST_CopyStats(D2UnitStrc* pUnit, int nStatId, D2StatStrc* pBuffer, int nBufferSize); // 0x006261D0
 
 int __stdcall MISSILE_GetSpecialParamValue(D2UnitStrc* pMissile, D2UnitStrc* pOwner, unsigned char nParamId, int nMissileId, int nLevel); // 0x0064B340
 
@@ -1374,16 +1439,4 @@ void __stdcall MISSILE_SetDamageStats(D2UnitStrc* pOwner, D2UnitStrc* pMissile, 
             }
         }
     }
-}
-
-// 0x0064B6E0
-int __fastcall MISSILE_GetCalcParamValue(int nParamId, void* pUserData)
-{
-    D2MissileCalcStrc* pMissileCalc = (D2MissileCalcStrc*)pUserData;
-    if (!pMissileCalc)
-    {
-        return 0;
-    }
-
-    return MISSILE_GetSpecialParamValue(pMissileCalc->pMissile, pMissileCalc->pOwner, nParamId, pMissileCalc->nMissileId, pMissileCalc->nMissileLevel);
 }

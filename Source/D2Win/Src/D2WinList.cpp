@@ -268,27 +268,6 @@ int __stdcall LIST_HandleCharInput(SMSGHANDLER_PARAMS* pMsg)
     return 0;
 }
 
-// 0x005079C0
-int __fastcall ACCOUNTLIST_GetTextFromSelectedEntry(D2WinAccountListStrc* ptListData, char* szBuffer)
-{
-    D2_ASSERT(ptListData->controlHeader.eType == D2WIN_ACCOUNTLIST, 0xB9);
-    const char* szText = ptListData->pSelectedDataEntry->szText;
-    if (szText)
-    {
-        char c;
-        do
-        {
-            c = *szText;
-            *szBuffer = c;
-            ++szText;
-            ++szBuffer;
-        }
-        while (c);
-        return 1;
-    }
-    return 0;
-}
-
 D2CelFileStrc* sghPentagram; // 0x0087E96C
 
 // 0x004760C0

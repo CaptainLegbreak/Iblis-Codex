@@ -1,8 +1,13 @@
 #include "D2Common.h"
+
 #include "D2Drlg.h"
+
 #include "D2DrlgRooms.h"
+
 #include "D2Win32Base.h"
+
 #include "D2StormLink.h"
+
 #include "D2CmpCache.h"
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags) throw(); // 0x00412650
@@ -34,7 +39,6 @@ struct D2CommonStormSlotListBStrc;
 struct D2CommonStormSlotListAStrc;
 
 struct D2DrlgActStrc;
-
 
 struct D2ChatStormLinkAStrc;
 
@@ -671,7 +675,6 @@ struct D2ExperienceDataTbl
     D2ExperienceTxt tMax;
     D2ExperienceTxt aLevels[1];
 };
-
 
 typedef void(__stdcall* PROFHOOKFN)(int nA, char* pBuffer, int nC);
 
@@ -2667,48 +2670,6 @@ unsigned int __stdcall DATATBLS_GetExpRatio(int nLevel)
     if (nLevel > (int)gpExperienceTxt->tMax.dwClass[0])
         return 0;
     return gpExperienceTxt->aLevels[nLevel].dwExpRatio;
-}
-
-// 0x00619B10
-D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomByTileCoordinates(D2DrlgActStrc* pAct, int nX, int nY)
-{
-    for (D2ActiveRoomStrc* pRoom = pAct->pRoom; pRoom; pRoom = pRoom->pRoomNext)
-    {
-        if (nX >= pRoom->tCoords.nTileXPos && nX < pRoom->tCoords.nTileXPos + pRoom->tCoords.nTileWidth && nY >= pRoom->tCoords.nTileYPos
-            && nY < pRoom->tCoords.nTileYPos + pRoom->tCoords.nTileHeight)
-            return pRoom;
-    }
-    return 0;
-}
-
-// 0x00619D00
-void __stdcall DUNGEON_GetSubtileRect(D2ActiveRoomStrc* pRoom, tagRECT* pRect)
-{
-    D2_ASSERT(pRoom, 0x1E3);
-    pRect->top = pRoom->tCoords.nSubtileY;
-    pRect->bottom = pRoom->tCoords.nSubtileY + pRoom->tCoords.nSubtileHeight;
-    pRect->left = pRoom->tCoords.nSubtileX;
-    pRect->right = pRoom->tCoords.nSubtileWidth + pRoom->tCoords.nSubtileX;
-    D2_ASSERT(pRect->top <= pRect->bottom, 0x1EB);
-    D2_ASSERT(pRect->left <= pRect->right, 0x1EC);
-}
-
-// 0x00619F20
-void __stdcall DUNGEON_DecreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom)
-{
-    if (pRoom)
-    {
-        D2_ASSERT(pRoom->nAllies > 0, 0x27C);
-        --pRoom->nAllies;
-    }
-}
-
-// 0x0061A1D0
-int __stdcall DUNGEON_GetWarpDestinationLevel(D2ActiveRoomStrc* pRoom, int nSourceLevel)
-{
-    if (!pRoom)
-        return 0;
-    return DRLGROOM_GetWarpDestinationLevel(pRoom->pDrlgRoom, nSourceLevel);
 }
 
 // 0x00610F90
