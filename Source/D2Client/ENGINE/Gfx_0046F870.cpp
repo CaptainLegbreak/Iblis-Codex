@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2CelContext.h"
 #include "D2ClientGfx.h"
+#include "D2Txt.h"
 struct D2UnitStrc;
 
 #define UNIT_PLAYER 0
@@ -32,32 +33,6 @@ struct D2GfxDataStrc
         D2GfxListNodeStrc* pList;
         D2GfxNodeStrc* list;
     };
-};
-
-struct D2ObjectsTxt
-{
-    char unk0x000[0x13F];
-    unsigned char nModeEnabled[16];
-};
-
-struct D2MonStatsTxt
-{
-    char unk0x00[0x10];
-    unsigned int dwCode;
-    char unk0x14[0x18 - 0x14];
-    short nMonStatsEx;
-    char unk0x1A[0x1A8 - 0x1A];
-};
-
-struct D2MonStats2Txt
-{
-    char unk0x00[0x04];
-    unsigned char nFlags[4];
-    char unk0x08[0x10 - 0x08];
-    unsigned int dwBaseW;
-    char unk0x14[0xF0 - 0x14];
-    unsigned char nModeFlags[4];
-    char unk0xF4[0x134 - 0xF4];
 };
 
 
@@ -325,7 +300,7 @@ void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow)
         return;
     }
 
-    D2MonStats2Txt* pMonStats2TxtRecord = DATATBLS_GetMonStats2TxtRecordInl(DATATBLS_GetMonStatsTxtRecordInl(nMonsterId)->nMonStatsEx);
+    D2MonStats2Txt* pMonStats2TxtRecord = DATATBLS_GetMonStats2TxtRecordInl(DATATBLS_GetMonStatsTxtRecordInl(nMonsterId)->wMonStatsEx);
     if (!pMonStats2TxtRecord)
     {
         return;

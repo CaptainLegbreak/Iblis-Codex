@@ -7,6 +7,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2UnitData.h"
 
 #define UNIT_OBJECT 2
 #define UNIT_ITEM 4
@@ -46,14 +47,6 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 int __stdcall DATATBLS_CalculateMonsterStatsByLevel(int nMonsterId, int nGameType, int nDifficulty, int nLevel, short nFlags, D2MonStatsInitStrc* pMonStatsInit); // 0x006538A0
 int __fastcall SUNITDMG_SetMissileDamageFlagsForNearbyUnits(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nSize, D2DamageStrc* pDamage, int a7, int a8, int(__fastcall* pfCallback)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*), int a10); // 0x0057E090
-
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x16];
-    unsigned char nTypeFlag;
-    char unk0x17[5];
-    unsigned char nUMods[9];
-};
 
 typedef void(__fastcall* MONUMODFUNC)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique);
 
@@ -132,7 +125,7 @@ unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit)
     {
         return 0;
     }
-    return pMonsterData->nUMods;
+    return pMonsterData->nMonUmod;
 }
 
 // build: context MONSTERUNIQUE_CheckMonTypeFlag

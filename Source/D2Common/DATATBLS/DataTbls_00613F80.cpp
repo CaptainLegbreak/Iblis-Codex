@@ -5,6 +5,7 @@
 #include "D2Records.h"
 
 #include "D2Unicode.h"
+#include "D2Txt.h"
 
 struct D2BinFieldStrc;
 
@@ -15,17 +16,6 @@ struct D2PetTypeTxt;
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize); // 0x006122F0
 
 typedef unsigned int size_t;
-
-struct D2SkillsTxt
-{
-    char unk0x00[0x0C];
-    char nCharClass;
-    char unk0x0D[0x94 - 0x0D];
-    short wPassiveState;
-    char unk0x96[0xBE - 0x96];
-    char nPetType;
-    char unk0xBF[0x23C - 0xBF];
-};
 
 struct D2PetTypeTxt
 {
@@ -558,14 +548,14 @@ void __stdcall DATATBLS_LoadSkills_SkillDescTxt(void* hArchive)
 
         if (nSkillId > 0)
         {
-            if (pSkillsTxtRecord->wPassiveState < 0)
+            if (pSkillsTxtRecord->nPassiveState < 0)
             {
                 goto LABEL_NEXT_SKILL;
             }
         }
         else
         {
-            if (pSkillsTxtRecord->wPassiveState < 0)
+            if (pSkillsTxtRecord->nPassiveState < 0)
             {
                 goto LABEL_NEXT_SKILL;
             }
@@ -605,7 +595,7 @@ LABEL_NEXT_SKILL:
             ++gpClassSkillCount_0096C7D4[pSkillsTxtRecord->nCharClass];
         }
 
-        if (pSkillsTxtRecord->wPassiveState >= 0)
+        if (pSkillsTxtRecord->nPassiveState >= 0)
         {
             gpPassiveSkills_0096C7E4[gnPassiveSkills_0096C7E0] = i;
             ++gnPassiveSkills_0096C7E0;
