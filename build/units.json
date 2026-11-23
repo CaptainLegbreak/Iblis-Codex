@@ -15268,6 +15268,26 @@
      "name": "INV_SetHotkeySkillSlot"
     },
     {
+     "va": "0x004AA6B0",
+     "length": 46,
+     "name": "?sub_004AA6B0_BuildLeftRows@@YIXH@Z"
+    },
+    {
+     "va": "0x004AA6E0",
+     "length": 33,
+     "name": "?sub_004AA6E0_BuildRightRows2@@YAXXZ"
+    },
+    {
+     "va": "0x004AA710",
+     "length": 40,
+     "name": "?sub_004AA710_BuildLeftRows2@@YAXXZ"
+    },
+    {
+     "va": "0x004AA8E0",
+     "length": 11,
+     "name": "?sub_004AA8E0_ClearValue7C0C3C@@YAXXZ"
+    },
+    {
      "va": "0x004AA8F0",
      "length": 11,
      "name": "_INV_ClearSkillPointsHighlight"
@@ -27086,32 +27106,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004AA6B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004AA6B0",
-     "length": 46,
-     "name": "?sub_004AA6B0_BuildLeftRows@@YIXH@Z"
-    },
-    {
-     "va": "0x004AA6E0",
-     "length": 33,
-     "name": "?sub_004AA6E0_BuildRightRows2@@YAXXZ"
-    },
-    {
-     "va": "0x004AA710",
-     "length": 40,
-     "name": "?sub_004AA710_BuildLeftRows2@@YAXXZ"
-    },
-    {
-     "va": "0x004AA8E0",
-     "length": 11,
-     "name": "?sub_004AA8E0_ClearValue7C0C3C@@YAXXZ"
-    }
    ]
   },
   {
