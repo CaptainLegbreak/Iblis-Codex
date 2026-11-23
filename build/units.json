@@ -12102,6 +12102,11 @@
      "name": "SKILLS_DoSkillAtPosition"
     },
     {
+     "va": "0x004CA270",
+     "length": 12,
+     "name": "?sub_004CA270_GetLevelsTxtRecordCount@@YAHXZ"
+    },
+    {
      "va": "0x004CA280",
      "length": 52,
      "name": "?SKILLS_ResetLevelSpeech@@YAXXZ"
@@ -31495,17 +31500,6 @@
      "va": "0x004CA030",
      "length": 47,
      "name": "?sub_004CA030_TickEvent@@YIHPAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004CA270.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004CA270",
-     "length": 12,
-     "name": "?sub_004CA270_GetLevelsTxtRecordCount@@YAHXZ"
     }
    ]
   },
