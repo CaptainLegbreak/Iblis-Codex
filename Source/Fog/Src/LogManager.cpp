@@ -1170,34 +1170,6 @@ unsigned long __stdcall LOGMANAGER_DbgHelpThreadProc(void* pParam)
     return 0;
 }
 
-// 0x0040B540
-void __fastcall LOGMANAGER_DumpThreadStackAndCode(void* hThread)
-{
-    D2ThreadContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.ContextFlags = 0x10007;
-    GetThreadContext(hThread, &tContext);
-// build: symbol ?MAINMENUS_LogWritePrefixed@* 0x00410740
-    MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "Stack bytes:\n");
-    LOGMANAGER_LogMemoryDump("ERR", &gszEmptyAssertText, tContext.Esp, 0x1000, 0, 1, 0);
-    MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "Code bytes:\n");
-    LOGMANAGER_LogMemoryDump("ERR", &gszEmptyAssertText, tContext.Eip, 0x20, 0, 1, 0);
-}
-
-// 0x0040D540
-void __cdecl LOGMANAGER_SETranslator(unsigned int nCode, D2ExceptionPointersStrc* pExceptionInfo)
-{
-    if (!gbImageHlpLoaded)
-    {
-        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "ExceptionHandler: imagehlp.dll not loaded");
-        return;
-    }
-    void* hThread;
-    DuplicateHandle(GetCurrentProcess(), GetCurrentThread(), GetCurrentProcess(), &hThread, 0, 0, 2);
-    sShowStack(hThread, pExceptionInfo->pContextRecord);
-    CloseHandle(hThread);
-}
-
 // 0x0040F000
 void __fastcall LOGMANAGER_GetLogDirectory(char* szDirectory, int nSize)
 {

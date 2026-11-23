@@ -1491,16 +1491,6 @@
      "name": "LOGMANAGER_DbgHelpThreadProc"
     },
     {
-     "va": "0x0040B540",
-     "length": 179,
-     "name": "LOGMANAGER_DumpThreadStackAndCode"
-    },
-    {
-     "va": "0x0040D540",
-     "length": 100,
-     "name": "LOGMANAGER_SETranslator"
-    },
-    {
      "va": "0x0040F000",
      "length": 111,
      "name": "?LOGMANAGER_GetLogDirectory@@YIXPADH@Z"
@@ -3758,6 +3748,16 @@
      "name": "?FOG_10082_Noop@@YAXXZ"
     },
     {
+     "va": "0x0040B500",
+     "length": 53,
+     "name": "?sub_0040B500_UnloadImageHlp@@YAHXZ"
+    },
+    {
+     "va": "0x0040B540",
+     "length": 179,
+     "name": "EXCEPTIONS_DumpThreadStackAndCode"
+    },
+    {
      "va": "0x0040B600",
      "length": 88,
      "name": "?EXCEPTIONS_GetLineFromAddrRetry@@YGHPAXKPAKPAUD2ImageHlpLineStrc@@@Z"
@@ -3837,6 +3837,25 @@
      "length": 664
     },
     {
+     "va": "0x0040D530",
+     "length": 10,
+     "name": "?sub_0040D530_Call0040C720@@YAHXZ"
+    },
+    {
+     "va": "0x0040D540",
+     "length": 100,
+     "name": "EXCEPTIONS_SETranslator"
+    },
+    {
+     "va": "0x0040D5B0",
+     "length": 531,
+     "name": "?sub_0040D5B0_LoadImageHlp@@YAHXZ"
+    },
+    {
+     "va": "0x0040D7D0",
+     "length": 162
+    },
+    {
      "va": "0x0040EB90",
      "length": 49,
      "name": "?EXCEPTIONS_GetLogFilePaths@@YIIPAPADI@Z"
@@ -3855,43 +3874,6 @@
      "va": "0x00410540",
      "length": 196,
      "name": "?EXCEPTIONS_InitLogSystem@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_0040B500.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0040B500",
-     "length": 53,
-     "name": "?sub_0040B500_UnloadImageHlp@@YAHXZ"
-    },
-    {
-     "va": "0x0040D5B0",
-     "length": 531,
-     "name": "?sub_0040D5B0_LoadImageHlp@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_0040D530.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0040D530",
-     "length": 10,
-     "name": "?sub_0040D530_Call0040C720@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_0040D7D0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0040D7D0",
-     "length": 162
     }
    ]
   },
