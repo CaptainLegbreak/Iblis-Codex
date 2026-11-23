@@ -9423,6 +9423,21 @@
      "name": "?CHARSEL_DisconnectBattleNet@@YAXXZ"
     },
     {
+     "va": "0x0043BF40",
+     "length": 24,
+     "name": "?sub_0043BF40_ReportStatus@@YAXHH@Z"
+    },
+    {
+     "va": "0x0043BF60",
+     "length": 539,
+     "name": "?CLIENT_ConnectToBattleNet@@YAHXZ"
+    },
+    {
+     "va": "0x0043C180",
+     "length": 872,
+     "name": "?sub_0043C180_Connect@@YIHPAUD2LaunchRecordStrc@@HH@Z"
+    },
+    {
      "va": "0x0043C4F0",
      "length": 57,
      "name": "?CHARSEL_CreateBaseScreen@@YAXXZ"
@@ -11929,27 +11944,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_0043A9D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043BF40",
-     "length": 24,
-     "name": "?sub_0043BF40_ReportStatus@@YAXHH@Z"
-    },
-    {
-     "va": "0x0043BF60",
-     "length": 539,
-     "name": "?CLIENT_ConnectToBattleNet@@YAHXZ"
-    },
-    {
-     "va": "0x0043C180",
-     "length": 872,
-     "name": "?sub_0043C180_Connect@@YIHPAUD2LaunchRecordStrc@@HH@Z"
-    }
    ]
   },
   {
