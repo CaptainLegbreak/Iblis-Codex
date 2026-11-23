@@ -2102,14 +2102,12 @@
    "state": "included"
   },
   "Source/D2Client/UI/npcmenu.cpp": {
-   "bytes": 1751,
-   "definitions": 67,
+   "bytes": 1838,
+   "definitions": 69,
    "externs": [
-    "extern \"C\" void __cdecl NPCMENU_OpenGambleShop(); // 0x004B3D40",
     "extern \"C\" void __cdecl NPCMENU_OpenTradeShop(); // 0x004B42B0",
     "extern \"C\" void __cdecl sub_004B5260_NpcMenuAction28b(); // 0x004B5260",
     "extern \"C\" void __cdecl NPCMENU_TravelToRogueEncampment(); // 0x004B52C0",
-    "extern \"C\" void __cdecl sub_004B5C60_Handler(); // 0x004B5C60",
     "extern \"C\" void __cdecl sub_004B6C70_OpenNpcMenu(); // 0x004B6C70"
    ],
    "fn_types": {},
@@ -2155,17 +2153,6 @@
    "lang": "cpp",
    "state": "included",
    "static_definitions": 1
-  },
-  "Source/D2Client/UI/npcmenu_004B2650.cpp": {
-   "bytes": 87,
-   "definitions": 2,
-   "externs": [
-    "extern \"C\" void __cdecl sub_004B6C70_OpenNpcMenu(); // 0x004B6C70"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004B6980.inc",
-   "lang": "cpp",
-   "state": "included"
   },
   "Source/D2Client/UI/dialog.cpp": {
    "bytes": 180,
@@ -60553,7 +60540,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu_004B2650.cpp",
+   "file": "Source/D2Client/UI/npcmenu.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnHandlerCount = ",
@@ -60578,7 +60565,7 @@
    "cname": "gData_00726C6E",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu_004B2650.cpp",
+   "file": "Source/D2Client/UI/npcmenu.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00726C6E_t gData_00726C6E; // 0x00726C6E",
    "head": "extern \"C\" struct d2data_00726C6E_t gData_00726C6E = ",

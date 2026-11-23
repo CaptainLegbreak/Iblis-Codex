@@ -28079,6 +28079,11 @@
      "name": "?NPCMENU_GetFreeStringId@@YIGG@Z"
     },
     {
+     "va": "0x004B18C0",
+     "length": 164,
+     "name": "?NPCMENU_NpcMessageCallback@@YIHPAXHH@Z"
+    },
+    {
      "va": "0x004B1980",
      "length": 32,
      "name": "?NPCMENU_AddUsedString@@YIXG@Z"
@@ -28094,6 +28099,26 @@
      "name": "?NPCMENU_IsSpecialNpc@@YA_NH@Z"
     },
     {
+     "va": "0x004B1A80",
+     "length": 246,
+     "name": "?NPCMENU_OnSelectMessage@@YAHXZ"
+    },
+    {
+     "va": "0x004B1B80",
+     "length": 118,
+     "name": "?NPCMENU_PlayIntroMessage@@YAHXZ"
+    },
+    {
+     "va": "0x004B1C00",
+     "length": 118,
+     "name": "?NPCMENU_PlayGossipMessage@@YAHXZ"
+    },
+    {
+     "va": "0x004B1C80",
+     "length": 205,
+     "name": "?NPCMENU_GetNpcDialogPos@@YAHPAUD2CoordStrc@@@Z"
+    },
+    {
      "va": "0x004B1DD0",
      "length": 176,
      "name": "?NPCMENU_ResurrectMercWait@@YAHXZ"
@@ -28102,6 +28127,11 @@
      "va": "0x004B1E80",
      "length": 211,
      "name": "?NPCMENU_HireMercWait@@YAXXZ"
+    },
+    {
+     "va": "0x004B1F60",
+     "length": 19,
+     "name": "?MONSTER_IsItemIdentified@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004B1F80",
@@ -28174,6 +28204,10 @@
      "name": "?sub_004B2640@@YIXH@Z"
     },
     {
+     "va": "0x004B2650",
+     "length": 682
+    },
+    {
      "va": "0x004B2900",
      "length": 50,
      "name": "?NPCMENU_CloseWaitDialog@@YAXXZ"
@@ -28214,6 +28248,11 @@
      "name": "?NPCMENU_ResetHoverForItem@@YIXH@Z"
     },
     {
+     "va": "0x004B2AD0",
+     "length": 835,
+     "name": "?NPCMENU_GetTradeCostText@@YIHPAUD2UnitStrc@@HPAHPAUUnicode@@H@Z"
+    },
+    {
      "va": "0x004B2E20",
      "length": 12,
      "name": "?NPCMENU_IsNpcMenuActive@@YAHXZ"
@@ -28231,6 +28270,10 @@
      "va": "0x004B3230",
      "length": 13,
      "name": "?NPCMENU_GetInteractNpcId@@YIHPAH@Z"
+    },
+    {
+     "va": "0x004B3240",
+     "length": 65
     },
     {
      "va": "0x004B3290",
@@ -28263,6 +28306,16 @@
      "name": "?NPCMENU_IsNpcTalkActive@@YAHXZ"
     },
     {
+     "va": "0x004B34A0",
+     "length": 81,
+     "name": "?NPCMENU_IsAnyDialogOpen@@YAHXZ"
+    },
+    {
+     "va": "0x004B3510",
+     "length": 79,
+     "name": "?NPCMENU_FlagNpcEntries@@YIXPAUD2NpcMonListPacketStrc@@@Z"
+    },
+    {
      "va": "0x004B3560",
      "length": 65,
      "name": "??0D2ClientValueBlockStrc@@QAE@XZ"
@@ -28283,14 +28336,29 @@
      "name": "@NPCMENU_ClearNpcInventoryAndSound@4"
     },
     {
+     "va": "0x004B3C20",
+     "length": 228,
+     "name": "?NPCMENU_EndNpcInteraction@@YIXH@Z"
+    },
+    {
      "va": "0x004B3D10",
      "length": 33,
      "name": "?NPCMENU_CancelNpcAndFlag@@YIXH@Z"
     },
     {
+     "va": "0x004B3D40",
+     "length": 145,
+     "name": "?NPCMENU_OpenGambleShop@@YAHXZ"
+    },
+    {
      "va": "0x004B3DE0",
      "length": 42,
      "name": "?sub_004B3DE0_CloseNpc@@YAXXZ"
+    },
+    {
+     "va": "0x004B3E10",
+     "length": 182,
+     "name": "?NPCMENU_RefreshNpcEntries@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004B3ED0",
@@ -28316,6 +28384,11 @@
      "va": "0x004B4070",
      "length": 84,
      "name": "?NPCMENU_CloseConfirmDialog@@YAHXZ"
+    },
+    {
+     "va": "0x004B4380",
+     "length": 580,
+     "name": "?NPCMENU_UpdateNpcInteract@@YAXXZ"
     },
     {
      "va": "0x004B4DB0",
@@ -28346,6 +28419,16 @@
      "name": "?NPCMENU_OpenConfirmDialog@@YGXH@Z"
     },
     {
+     "va": "0x004B5C20",
+     "length": 64,
+     "name": "?NPCMENU_CloseHireDialog@@YAHXZ"
+    },
+    {
+     "va": "0x004B6410",
+     "length": 35,
+     "name": "?NPCMENU_InitHireHandler@@YAHXZ"
+    },
+    {
      "va": "0x004B65F0",
      "length": 35,
      "name": "?NPCMENU_InitTravelLutGholeinHandler@@YAHXZ"
@@ -28359,109 +28442,6 @@
      "va": "0x004B6680",
      "length": 44,
      "name": "?NPCMENU_InitTravelHarrogathHandler@@YAHXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/npcmenu_004B2650.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004B18C0",
-     "length": 164,
-     "name": "?NPCMENU_NpcMessageCallback@@YIHPAXHH@Z"
-    },
-    {
-     "va": "0x004B1A80",
-     "length": 246,
-     "name": "?NPCMENU_OnSelectMessage@@YAHXZ"
-    },
-    {
-     "va": "0x004B1B80",
-     "length": 118,
-     "name": "?NPCMENU_PlayIntroMessage@@YAHXZ"
-    },
-    {
-     "va": "0x004B1C00",
-     "length": 118,
-     "name": "?NPCMENU_PlayGossipMessage@@YAHXZ"
-    },
-    {
-     "va": "0x004B1C80",
-     "length": 205,
-     "name": "?NPCMENU_GetNpcDialogPos@@YAHPAUD2CoordStrc@@@Z"
-    },
-    {
-     "va": "0x004B1F60",
-     "length": 19,
-     "name": "?MONSTER_IsItemIdentified@@YAHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004B2650",
-     "length": 682
-    },
-    {
-     "va": "0x004B2AD0",
-     "length": 835,
-     "name": "?NPCMENU_GetTradeCostText@@YIHPAUD2UnitStrc@@HPAHPAUUnicode@@H@Z"
-    },
-    {
-     "va": "0x004B3240",
-     "length": 65
-    },
-    {
-     "va": "0x004B34A0",
-     "length": 81,
-     "name": "?NPCMENU_IsAnyDialogOpen@@YAHXZ"
-    },
-    {
-     "va": "0x004B3510",
-     "length": 79,
-     "name": "?NPCMENU_FlagNpcEntries@@YIXPAUD2NpcMonListPacketStrc@@@Z"
-    },
-    {
-     "va": "0x004B3C20",
-     "length": 228,
-     "name": "?NPCMENU_EndNpcInteraction@@YIXH@Z"
-    },
-    {
-     "va": "0x004B3D40",
-     "length": 145,
-     "name": "?NPCMENU_OpenGambleShop@@YAHXZ"
-    },
-    {
-     "va": "0x004B3E10",
-     "length": 182,
-     "name": "?NPCMENU_RefreshNpcEntries@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004B4380",
-     "length": 580,
-     "name": "?NPCMENU_UpdateNpcInteract@@YAXXZ"
-    },
-    {
-     "va": "0x004B5C20",
-     "length": 64,
-     "name": "?NPCMENU_CloseHireDialog@@YAHXZ"
-    },
-    {
-     "va": "0x004B6410",
-     "length": 35,
-     "name": "?NPCMENU_InitHireHandler@@YAHXZ"
     },
     {
      "va": "0x004B6980",
