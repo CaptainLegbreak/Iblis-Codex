@@ -2671,7 +2671,7 @@
   },
   "Source/D2Game/GAME/Game.cpp": {
    "bytes": 444,
-   "definitions": 10,
+   "definitions": 9,
    "externs": [
     "extern \"C\" void __cdecl sub_00548090(); // 0x00548090",
     "extern \"C\" void __cdecl sub_005482A0(); // 0x005482A0",
@@ -2759,7 +2759,7 @@
   },
   "Source/D2Game/ITEMS/ItemMode.cpp": {
    "bytes": 712,
-   "definitions": 5,
+   "definitions": 6,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/ITEMS/ItemMode.inc",
@@ -2937,7 +2937,7 @@
   },
   "Source/D2Game/PLAYER/PlrMsg.cpp": {
    "bytes": 848,
-   "definitions": 2,
+   "definitions": 4,
    "externs": [
     "extern \"C\" void __cdecl D2GAME_PACKETCALLBACK_Rcv0x61_DropPickupMercItem_0054D430(); // 0x0054D430",
     "extern \"C\" void __cdecl sub_005497E0(); // 0x005497E0",
@@ -3166,15 +3166,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/UNIT/SUnitMsg.cpp": {
-   "bytes": 588,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/UNIT/SUnitMsg.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/UNIT/SUnitDmg.cpp": {
    "bytes": 808,
    "definitions": 7,
@@ -3209,7 +3200,7 @@
   },
   "Source/D2Game/OBJECTS/ObjMode.cpp": {
    "bytes": 1092,
-   "definitions": 10,
+   "definitions": 11,
    "externs": [
     "extern \"C\" void __cdecl sub_005822F0(); // 0x005822F0",
     "extern \"C\" void __cdecl sub_00582490(); // 0x00582490",
@@ -3267,7 +3258,9 @@
     "extern \"C\" void __cdecl OBJECTS_OperateFunction41_StaffOfKingsChest(); // 0x00599CF0",
     "extern \"C\" void __cdecl OBJECTS_OperateFunction49_HellForge(); // 0x005B5C10",
     "extern \"C\" void __cdecl sub_005B8530(); // 0x005B8530",
-    "extern \"C\" void __cdecl OBJECTS_OperateFunction31_GidbinnDecoy(); // 0x005B9B40"
+    "extern \"C\" void __cdecl OBJECTS_OperateFunction31_GidbinnDecoy(); // 0x005B9B40",
+    "extern \"C\" void __cdecl sub_00581250_ObjectTimer_Light(); // 0x00581250",
+    "extern \"C\" void __cdecl sub_00581410_OpenLinkPortal(); // 0x00581410"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/OBJECTS/ObjMode.inc",
@@ -3285,7 +3278,7 @@
   },
   "Source/D2Game/Quests/a5q1.cpp": {
    "bytes": 1616,
-   "definitions": 3,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a5q1.inc",
@@ -3429,7 +3422,7 @@
   },
   "Source/D2Game/Quests/a2q1.cpp": {
    "bytes": 2944,
-   "definitions": 3,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a2q1.inc",
@@ -3447,7 +3440,7 @@
   },
   "Source/D2Game/Quests/a2q4.cpp": {
    "bytes": 2396,
-   "definitions": 3,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a2q4.inc",
@@ -3456,7 +3449,7 @@
   },
   "Source/D2Game/Quests/a2q7.cpp": {
    "bytes": 1704,
-   "definitions": 2,
+   "definitions": 1,
    "externs": [
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod1_RandomName(); // 0x005A0CE0",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod2_HealthBonus(); // 0x005A0DC0"
@@ -3662,19 +3655,11 @@
     "extern \"C\" void __cdecl PARTYSCREEN_AcceptInvitation(); // 0x005A5A30",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod26_Teleport(); // 0x005A1600",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod38_Possessed(); // 0x005A1230",
-    "extern \"C\" void __cdecl sub_005A1280_UModChampion(); // 0x005A1280"
+    "extern \"C\" void __cdecl sub_005A1280_UModChampion(); // 0x005A1280",
+    "extern \"C\" void __cdecl MONSTERUNIQUE_ApplyCorpseFireDamage(); // 0x005A3D20"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/MONSTER/MonsterUnique.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Unknown_0059F8E0.cpp": {
-   "bytes": 24,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_0059F8E0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -3710,46 +3695,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/MONSTER/MonsterMode_005A1080.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Unknown_005A4200.cpp": {
-   "bytes": 1560,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" void __cdecl MONSTERUNIQUE_ApplyCorpseFireDamage(); // 0x005A3D20",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_ApplyElementalDamage(); // 0x005A3040",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_ApplyShatterState(); // 0x005A3A80",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_CastAmplifyDamage(); // 0x005A2530",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_CastBugLightningMissile(); // 0x005A2EE0",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_CastColdUniqueMissile(); // 0x005A2BD0",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_CastCorpseExplode2(); // 0x005A2840",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_CastCorpsePoisonCloud(); // 0x005A2C20",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_CastLightUniqueMissile(); // 0x005A29A0",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_CastNova(); // 0x005A2910",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_CastQueenPoisonCloudMissile(); // 0x005A3490",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_CastSuicideExplodeMissile(); // 0x005A3EF0",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_ColdEnchantedModeChange(); // 0x005A3800",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_FireEnchantedModeChange(); // 0x005A25F0",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_KillMinions(); // 0x005A2D10",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_LightningEnchantedModeChange(); // 0x005A37D0",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_QuestCompleteModeChange(); // 0x005A3250",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_ScarabModeChange(); // 0x005A2EB0",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_SetTrapDamage(); // 0x005A3B50",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_StealBeltItem(); // 0x005A30E0",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_SuicideModeChange(); // 0x005A3E70",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_CastCorpseExplode(); // 0x005A2620",
-    "extern \"C\" void __cdecl sub_005A2BA0(); // 0x005A2BA0",
-    "extern \"C\" void __cdecl sub_005A2D80(); // 0x005A2D80",
-    "extern \"C\" void __cdecl sub_005A2E00(); // 0x005A2E00",
-    "extern \"C\" void __cdecl sub_005A30B0(); // 0x005A30B0",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_CreateMultishotMissiles(); // 0x005A3610",
-    "extern \"C\" void __cdecl sub_005A3840(); // 0x005A3840",
-    "extern \"C\" void __cdecl sub_005A3910(); // 0x005A3910",
-    "extern \"C\" void __cdecl sub_005A3AA0(); // 0x005A3AA0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005A4200.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -3879,19 +3824,10 @@
   },
   "Source/D2Game/Quests/a4q3.cpp": {
    "bytes": 2228,
-   "definitions": 3,
+   "definitions": 9,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a4q3_005B6050.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Unknown_005B6710.cpp": {
-   "bytes": 216,
-   "definitions": 6,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005B6710.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -3928,15 +3864,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a3q4.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Unknown_005BBB70.cpp": {
-   "bytes": 32,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005BBB70.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -4002,7 +3929,7 @@
   },
   "Source/D2Game/SKILLS/SkillDruid.cpp": {
    "bytes": 208,
-   "definitions": 8,
+   "definitions": 7,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/SkillDruid_005C7F10.inc",
@@ -4011,7 +3938,7 @@
   },
   "Source/D2Game/SKILLS/SkillMonst.cpp": {
    "bytes": 80,
-   "definitions": 2,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/SkillMonst_005CCD10.inc",
@@ -5108,7 +5035,7 @@
   },
   "Source/D2Game/Quests/a2q5.cpp": {
    "bytes": 784,
-   "definitions": 1,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a2q5.inc",
@@ -5148,7 +5075,7 @@
   },
   "Source/D2Game/Ai/AiTatics.cpp": {
    "bytes": 184,
-   "definitions": 2,
+   "definitions": 1,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Ai/AiTatics.inc",
@@ -5157,7 +5084,7 @@
   },
   "Source/D2Game/Quests/a3q5.cpp": {
    "bytes": 1568,
-   "definitions": 1,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a3q5.inc",
@@ -5166,7 +5093,7 @@
   },
   "Source/D2Game/Quests/a1q2.cpp": {
    "bytes": 1176,
-   "definitions": 1,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a1q2.inc",
@@ -5175,7 +5102,7 @@
   },
   "Source/D2Game/Quests/a5q4.cpp": {
    "bytes": 1616,
-   "definitions": 3,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a5q4_0058B0B0.inc",
@@ -5188,31 +5115,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a1q5_00594740.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/GAME/Clients.cpp": {
-   "bytes": 120,
-   "definitions": 2,
-   "externs": [
-    "extern \"C\" void __cdecl OBJMODE_UpdateTrapProximity(); // 0x00581700",
-    "extern \"C\" void __cdecl OBJMODE_UpdateTrappedSoul(); // 0x00585CE0",
-    "extern \"C\" void __cdecl ITEMMODE_EventFn4_Return(); // 0x0055F120",
-    "extern \"C\" void __cdecl ITEMMODE_UpdateItemStatListExpiration(); // 0x0055F130",
-    "extern \"C\" void __cdecl sub_00562D30(); // 0x00562D30",
-    "extern \"C\" void __cdecl sub_00581250_ObjectTimer_Light(); // 0x00581250",
-    "extern \"C\" void __cdecl sub_00581410_OpenLinkPortal(); // 0x00581410",
-    "extern \"C\" void __cdecl sub_00581490(); // 0x00581490",
-    "extern \"C\" void __cdecl sub_005814D0(); // 0x005814D0",
-    "extern \"C\" void __cdecl sub_00581510(); // 0x00581510",
-    "extern \"C\" void __cdecl sub_00581620(); // 0x00581620",
-    "extern \"C\" void __cdecl sub_005817A0(); // 0x005817A0",
-    "extern \"C\" void __cdecl sub_005818B0(); // 0x005818B0",
-    "extern \"C\" void __cdecl OBJMODE_HandleQuestObjectEvent(); // 0x00581A10",
-    "extern \"C\" void __cdecl sub_00586850(); // 0x00586850"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/GAME/Clients.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -5286,6 +5188,66 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Unknown_0054DAC0.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/MISSILES/Missiles.cpp": {
+   "bytes": 24,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/MISSILES/Missiles.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/Quests/a2q0.cpp": {
+   "bytes": 2944,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/Quests/a2q0.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/Quests/a2q8.cpp": {
+   "bytes": 1704,
+   "definitions": 1,
+   "externs": [
+    "extern \"C\" void __cdecl MONSTERUNIQUE_UMod1_RandomName(); // 0x005A0CE0",
+    "extern \"C\" void __cdecl MONSTERUNIQUE_UMod2_HealthBonus(); // 0x005A0DC0"
+   ],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/Quests/a2q8.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/PLAYER/PartyScreen.cpp": {
+   "bytes": 484,
+   "definitions": 1,
+   "externs": [
+    "extern \"C\" void __cdecl PARTYSCREEN_InvitationCancelled(); // 0x005A5B30",
+    "extern \"C\" void __cdecl PARTYSCREEN_PlayerLeftParty(); // 0x005A5D20",
+    "extern \"C\" void __cdecl PARTYSCREEN_ReceivedInvitation(); // 0x005A5BE0",
+    "extern \"C\" void __cdecl PARTYSCREEN_ToggleHostile(); // 0x005A5E50",
+    "extern \"C\" void __cdecl PARTYSCREEN_ToggleIgnore(); // 0x005A5840",
+    "extern \"C\" void __cdecl PARTYSCREEN_ToggleLootability(); // 0x005A57B0",
+    "extern \"C\" void __cdecl PARTYSCREEN_ToggleSquelch(); // 0x005A58A0",
+    "extern \"C\" void __cdecl PARTYSCREEN_AcceptInvitation(); // 0x005A5A30",
+    "extern \"C\" void __cdecl MONSTERUNIQUE_UMod26_Teleport(); // 0x005A1600",
+    "extern \"C\" void __cdecl MONSTERUNIQUE_UMod38_Possessed(); // 0x005A1230",
+    "extern \"C\" void __cdecl sub_005A1280_UModChampion(); // 0x005A1280"
+   ],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/PLAYER/PartyScreen.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/PLAYER/PlrIntro.cpp": {
+   "bytes": 588,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/PLAYER/PlrIntro.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -91426,7 +91388,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/GAME/Game.cpp",
+   "file": "Source/D2Game/PLAYER/PlrMsg.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern D2UnkPlrMsgStrc gaUnitModeMessages[20] = ",
@@ -91477,16 +91439,16 @@
     [
      0,
      "0x0054DA10",
-     "queue_function",
-     "sub_0054DA10",
+     "names.json",
+     "PLRMSG_SendDeathMode",
      0,
      "func"
     ],
     [
      12,
      "0x00548400",
-     "queue_function",
-     "sub_00548400",
+     "names.json",
+     "PLRMSG_SendNeutralMode",
      0,
      "func"
     ],
@@ -91509,16 +91471,16 @@
     [
      48,
      "0x00548350",
-     "queue_function",
-     "sub_00548350",
+     "names.json",
+     "PLRMSG_SendGetHitMode",
      0,
      "func"
     ],
     [
      60,
      "0x00548400",
-     "queue_function",
-     "sub_00548400",
+     "names.json",
+     "PLRMSG_SendNeutralMode",
      0,
      "func"
     ],
@@ -91533,104 +91495,104 @@
     [
      84,
      "0x00548090",
-     "queue_function",
-     "sub_00548090",
+     "names.json",
+     "PLRMSG_SendSkillMode",
      0,
      "func"
     ],
     [
      96,
      "0x00548090",
-     "queue_function",
-     "sub_00548090",
+     "names.json",
+     "PLRMSG_SendSkillMode",
      0,
      "func"
     ],
     [
      108,
      "0x00548350",
-     "queue_function",
-     "sub_00548350",
+     "names.json",
+     "PLRMSG_SendGetHitMode",
      0,
      "func"
     ],
     [
      120,
      "0x00548090",
-     "queue_function",
-     "sub_00548090",
+     "names.json",
+     "PLRMSG_SendSkillMode",
      0,
      "func"
     ],
     [
      132,
      "0x00548090",
-     "queue_function",
-     "sub_00548090",
+     "names.json",
+     "PLRMSG_SendSkillMode",
      0,
      "func"
     ],
     [
      144,
      "0x00548090",
-     "queue_function",
-     "sub_00548090",
+     "names.json",
+     "PLRMSG_SendSkillMode",
      0,
      "func"
     ],
     [
      156,
      "0x00548090",
-     "queue_function",
-     "sub_00548090",
+     "names.json",
+     "PLRMSG_SendSkillMode",
      0,
      "func"
     ],
     [
      168,
      "0x00548090",
-     "queue_function",
-     "sub_00548090",
+     "names.json",
+     "PLRMSG_SendSkillMode",
      0,
      "func"
     ],
     [
      180,
      "0x00548090",
-     "queue_function",
-     "sub_00548090",
+     "names.json",
+     "PLRMSG_SendSkillMode",
      0,
      "func"
     ],
     [
      192,
      "0x00548090",
-     "queue_function",
-     "sub_00548090",
+     "names.json",
+     "PLRMSG_SendSkillMode",
      0,
      "func"
     ],
     [
      204,
      "0x00548350",
-     "queue_function",
-     "sub_00548350",
+     "names.json",
+     "PLRMSG_SendGetHitMode",
      0,
      "func"
     ],
     [
      216,
      "0x00548090",
-     "queue_function",
-     "sub_00548090",
+     "names.json",
+     "PLRMSG_SendSkillMode",
      0,
      "func"
     ],
     [
      228,
      "0x005482A0",
-     "queue_function",
-     "sub_005482A0",
+     "names.json",
+     "PLRMSG_SendKnockbackMode",
      0,
      "func"
     ]
@@ -91764,7 +91726,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Ai/AiTatics.cpp",
+   "file": "Source/D2Game/PLAYER/PlrSave.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gbWriteSaveFile = ",
@@ -92167,7 +92129,7 @@
    "cname": "gData_00731AD8",
    "declared": true,
    "decorated": "?gnBaseStatIdsToSend@@3QBHB",
-   "file": "Source/D2Game/PLAYER/PlrSave.cpp",
+   "file": "Source/D2Game/PLAYER/PlrMsg.cpp",
    "fill": 21,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_00731AD8[21]; // 0x00731AD8",
@@ -93379,7 +93341,7 @@
    "cname": "gData_006E117C",
    "declared": true,
    "decorated": "?gpfnItemEventFunctions@@3PAP6IXPAUD2GameStrc@@PAUD2UnitStrc@@@ZA",
-   "file": "Source/D2Game/GAME/Clients.cpp",
+   "file": "Source/D2Game/ITEMS/ItemMode.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const EventCallbackFunction gData_006E117C[15]; // 0x006E117C",
    "head": "extern \"C\" const EventCallbackFunction gData_006E117C[15] = ",
@@ -93399,8 +93361,8 @@
     [
      12,
      "0x00562D30",
-     "queue_function",
-     "sub_00562D30",
+     "names.json",
+     "ITEMMODE_ReplenishItem",
      0,
      "func"
     ],
@@ -93434,7 +93396,7 @@
    "cname": "gData_006E19B0",
    "declared": true,
    "decorated": "?gpfnObjectEventFunctions@@3PAP6IXPAUD2GameStrc@@PAUD2UnitStrc@@@ZA",
-   "file": "Source/D2Game/GAME/Clients.cpp",
+   "file": "Source/D2Game/OBJECTS/ObjMode.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const EventCallbackFunction gData_006E19B0[15]; // 0x006E19B0",
    "head": "extern \"C\" const EventCallbackFunction gData_006E19B0[15] = ",
@@ -93462,48 +93424,48 @@
     [
      4,
      "0x00581490",
-     "queue_function",
-     "sub_00581490",
+     "names.json",
+     "OBJMODE_CompleteObjectAnimation",
      0,
      "func"
     ],
     [
      8,
      "0x00581510",
-     "queue_function",
-     "sub_00581510",
+     "names.json",
+     "OBJMODE_RegenerateWell",
      0,
      "func"
     ],
     [
      12,
      "0x005818B0",
-     "queue_function",
-     "sub_005818B0",
+     "names.json",
+     "D2GAME_SpikeTraps_6FC74F60",
      0,
      "func"
     ],
     [
      16,
      "0x005817A0",
-     "queue_function",
-     "sub_005817A0",
+     "names.json",
+     "OBJMODE_DispatchTrap",
      0,
      "func"
     ],
     [
      20,
      "0x005814D0",
-     "queue_function",
-     "sub_005814D0",
+     "names.json",
+     "OBJMODE_ResetShrine",
      0,
      "func"
     ],
     [
      24,
      "0x00581620",
-     "queue_function",
-     "sub_00581620",
+     "names.json",
+     "OBJMODE_ExpireHoverText",
      0,
      "func"
     ],
@@ -93534,8 +93496,8 @@
     [
      40,
      "0x00586850",
-     "queue_function",
-     "sub_00586850",
+     "names.json",
+     "OBJMODE_DropJungleStashItems",
      0,
      "func"
     ],
@@ -99879,7 +99841,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/UNIT/SUnitMsg.cpp",
+   "file": "Source/D2Game/PLAYER/PlrIntro.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnPlrIntroNpcIndexMapCount = ",
@@ -99904,7 +99866,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/UNIT/SUnitMsg.cpp",
+   "file": "Source/D2Game/PLAYER/PlrIntro.cpp",
    "fill": 73,
    "form": "declared",
    "fwd": null,
@@ -103523,7 +103485,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a5q1.cpp",
+   "file": "Source/D2Game/Quests/a5q4.cpp",
    "fill": 6,
    "form": "declared",
    "fwd": null,
@@ -104678,7 +104640,7 @@
    "cname": "gData_006E1B98",
    "declared": true,
    "decorated": "_gszA1Q2SourceFile",
-   "file": "Source/D2Game/Quests/a5q4.cpp",
+   "file": "Source/D2Game/Quests/a1q2.cpp",
    "fill": 24,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006E1B98[24]; // 0x006E1B98",
@@ -104709,7 +104671,7 @@
    "cname": "gData_00737180",
    "declared": true,
    "decorated": "_gnAct1Quest2NpcIndices",
-   "file": "Source/D2Game/Quests/a5q4.cpp",
+   "file": "Source/D2Game/Quests/a1q2.cpp",
    "fill": 6,
    "form": "declared",
    "fwd": "extern \"C\" const unsigned int gData_00737180[6]; // 0x00737180",
@@ -105961,7 +105923,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a2q1.cpp",
+   "file": "Source/D2Game/Quests/a2q0.cpp",
    "fill": 592,
    "form": "declared",
    "fwd": null,
@@ -106085,7 +106047,7 @@
    "cname": "gData_0073B278",
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a2q4.cpp",
+   "file": "Source/D2Game/Quests/a2q5.cpp",
    "fill": 4,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_0073B278[4]; // 0x0073B278",
@@ -106240,7 +106202,7 @@
    "cname": "gData_0073BD58",
    "declared": true,
    "decorated": "?gpAct2Q8NpcMessages@@3PADA",
-   "file": "Source/D2Game/Quests/a2q7.cpp",
+   "file": "Source/D2Game/Quests/a2q8.cpp",
    "fill": 528,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0073BD58_t gData_0073BD58; // 0x0073BD58",
@@ -106984,7 +106946,7 @@
    "cname": "gData_006E2218",
    "declared": true,
    "decorated": "?gpfnPartyCommands@@3PAP6IXPAUD2GameStrc@@PAUD2UnitStrc@@1HPAH@ZA",
-   "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
+   "file": "Source/D2Game/PLAYER/PartyScreen.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const PartyCommandFunc gData_006E2218[10]; // 0x006E2218",
    "head": "extern \"C\" const PartyCommandFunc gData_006E2218[10] = ",
@@ -107079,7 +107041,7 @@
    "cname": "gData_006E2150",
    "declared": true,
    "decorated": "_gszMissilesSourceFile",
-   "file": "Source/D2Game/Unknown_0059F8E0.cpp",
+   "file": "Source/D2Game/MISSILES/Missiles.cpp",
    "fill": 24,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006E2150[24]; // 0x006E2150",
@@ -107580,7 +107542,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005A4200.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
    "fill": 65,
    "form": "declared",
    "fwd": null,
@@ -107678,8 +107640,8 @@
     [
      424,
      "0x005A2BA0",
-     "queue_function",
-     "sub_005A2BA0",
+     "names.json",
+     "MONSTERUNIQUE_CastLightUniqueMissileIfNotGetHit",
      0,
      "func"
     ],
@@ -107702,16 +107664,16 @@
     [
      456,
      "0x005A2D80",
-     "queue_function",
-     "sub_005A2D80",
+     "names.json",
+     "MONSTERUNIQUE_AddSecondaryDamage",
      0,
      "func"
     ],
     [
      476,
      "0x005A2E00",
-     "queue_function",
-     "sub_005A2E00",
+     "names.json",
+     "MONSTERUNIQUE_AddRogueHireMissileSecondaryDamage",
      0,
      "func"
     ],
@@ -107734,8 +107696,8 @@
     [
      512,
      "0x005A3AA0",
-     "queue_function",
-     "sub_005A3AA0",
+     "names.json",
+     "MONSTERUNIQUE_KillUnitOrRemovePet",
      0,
      "func"
     ],
@@ -107774,8 +107736,8 @@
     [
      668,
      "0x005A30B0",
-     "queue_function",
-     "sub_005A30B0",
+     "names.json",
+     "MONSTERUNIQUE_ApplyMissileElementalDamage",
      0,
      "func"
     ],
@@ -107838,16 +107800,16 @@
     [
      820,
      "0x005A3840",
-     "queue_function",
-     "sub_005A3840",
+     "names.json",
+     "MONSTERUNIQUE_ScheduleSelfResurrection",
      0,
      "func"
     ],
     [
      824,
      "0x005A3910",
-     "queue_function",
-     "sub_005A3910",
+     "names.json",
+     "MONSTERUNIQUE_TrySelfResurrection",
      0,
      "func"
     ],
@@ -112622,7 +112584,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005B6710.cpp",
+   "file": "Source/D2Game/Quests/a4q3.cpp",
    "fill": 11,
    "form": "declared",
    "fwd": null,
@@ -112653,7 +112615,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005B6710.cpp",
+   "file": "Source/D2Game/Quests/a4q3.cpp",
    "fill": 11,
    "form": "declared",
    "fwd": null,
@@ -112684,7 +112646,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005B6710.cpp",
+   "file": "Source/D2Game/Quests/a4q3.cpp",
    "fill": 11,
    "form": "declared",
    "fwd": null,
@@ -112715,7 +112677,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005B6710.cpp",
+   "file": "Source/D2Game/Quests/a4q3.cpp",
    "fill": 7,
    "form": "declared",
    "fwd": null,
@@ -112746,7 +112708,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005B6710.cpp",
+   "file": "Source/D2Game/Quests/a4q3.cpp",
    "fill": 7,
    "form": "declared",
    "fwd": null,
@@ -112777,7 +112739,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005B6710.cpp",
+   "file": "Source/D2Game/Quests/a4q3.cpp",
    "fill": 7,
    "form": "declared",
    "fwd": null,
@@ -112994,7 +112956,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005BBB70.cpp",
+   "file": "Source/D2Game/Quests/a3q5.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": null,
@@ -115000,7 +114962,7 @@
    "cname": "gData_006E31A8",
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/SKILLS/SkillDruid.cpp",
+   "file": "Source/D2Game/SKILLS/SkillMonst.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E31A8[16]; // 0x006E31A8",
    "head": "extern \"C\" const int gData_006E31A8[16] = ",

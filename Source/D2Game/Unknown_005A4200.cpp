@@ -126,7 +126,6 @@ void __fastcall sub_005A43B0_OwnerMissileHook(D2GameStrc* pGame, D2UnitStrc* pUn
     }
 }
 
-#include "gen/data/Source/D2Game/Unknown_005A4200.inc"
 
 static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {

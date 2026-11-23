@@ -4,6 +4,7 @@
 #include "D2Check.h"
 #include "D2Structs.h"
 #include "D2Drlg.h"
+#include "D2Win32Base.h"
 
 struct D2DrlgSubstGroupStrc;
 struct D2GlideTileStrc;
@@ -17,6 +18,15 @@ struct D2DrlgFileStrc;
 struct D2DrlgMapStrc;
 struct D2DrlgOrthStrc;
 struct D2TileLibraryEntryStrc;
+
+struct D2RoomCoordListStrc
+{
+    tagRECT pBox[2]; // 0x00
+    int bNode; // 0x20
+    int bRoomActive; // 0x24
+    int nIndex; // 0x28
+    D2RoomCoordListStrc* pNext; // 0x2C
+};
 
 struct D2DrlgTileDataStrc
 {
@@ -115,6 +125,7 @@ struct D2TileLibraryEntryStrc
     D2LRUNodeStrc* pNode; // 0x5C
 };
 
+D2_CHECK_SIZE(D2RoomCoordListStrc, 0x30);
 D2_CHECK_SIZE(D2DrlgTileDataStrc, 0x30);
 D2_CHECK_SIZE(D2DrlgFileStrc, 0x5C);
 D2_CHECK_SIZE(D2DrlgMapStrc, 0x58);

@@ -127,6 +127,48 @@ static inline int GetUnitType(D2UnitStrc* pUnit)
     return !pUnit ? 6 : pUnit->dwUnitType;
 }
 
+D2UnitStrc* __fastcall SUNIT_GetNextUnitFromList(D2UnitStrc* pUnit); // 0x00552DB0
+
+void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555600
+
+// 0x0059F840
+void __fastcall MISSILES_RemoveAll(D2GameStrc* pGame)
+{
+    for (int i = 0; i < 128; ++i)
+    {
+        D2UnitStrc* pUnit = pGame->pUnitList[4][i];
+        while (pUnit)
+        {
+            D2UnitStrc* pCurrent = pUnit;
+            pUnit = SUNIT_GetNextUnitFromList(pUnit);
+            SUNIT_RemoveUnit(pGame, pCurrent);
+        }
+    }
+}
+
+#define UNITFLAG_TARGETABLE 0x00000002
+
+#define UNITFLAG_ISVALIDTARGET 0x00000008
+
+void __stdcall MISSILE_AllocMissileData(D2UnitStrc* pMissile); // 0x0064A100
+
+void __fastcall D2GAME_DeleteTimersOnUnit_6FC34A30(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540F30
+
+// 0x0059F8A0
+void __fastcall MISSILES_Initialize(D2GameStrc* pGame, D2UnitStrc* pMissile, int nUnitGUID)
+{
+    if (!pMissile)
+    {
+        return;
+    }
+
+    MISSILE_AllocMissileData(pMissile);
+    pMissile->dwUnitId = nUnitGUID;
+    pMissile->dwFlags &= ~(UNITFLAG_TARGETABLE | UNITFLAG_ISVALIDTARGET);
+    D2GAME_DeleteTimersOnUnit_6FC34A30(pGame, pMissile);
+    sub_6FC35570(pGame, pMissile, 0, 0, 0);
+}
+
 // 0x0059F8E0
 void __fastcall MISSILES_Free(D2GameStrc* pGame, D2UnitStrc* pMissile)
 {
@@ -139,6 +181,17 @@ void __fastcall MISSILES_Free(D2GameStrc* pGame, D2UnitStrc* pMissile)
     EVENT_FreeUnitTimers(pGame, pMissile);
 }
 
+// 0x0059F900
+static void __stdcall sub_0059F900_ApplyMissileDamage(D2UnitStrc* pOrigin, D2UnitStrc* pMissile, int nLevel, D2UnitStrc* pOwner)
+{
+    D2MissileDamageDataStrc tDamage;
+
+    PLAYER_ApplyWeaponStatsForSkill(pOwner, 0);
+    MISSILE_CalculateDamageData(&tDamage, pOwner, pOrigin, pMissile, nLevel);
+    MISSILE_SetDamageStats(pOwner, pMissile, &tDamage, nLevel);
+    PLAYER_RestoreWeaponStats(pOwner, 0);
+}
+
 static void __stdcall sub_0059F900_ApplyMissileDamage(D2UnitStrc* pOrigin, D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nLevel) // 0x0059F900
 {
     D2MissileDamageDataStrc tDamage;
@@ -149,6 +202,7 @@ static void __stdcall sub_0059F900_ApplyMissileDamage(D2UnitStrc* pOrigin, D2Uni
     PLAYER_RestoreWeaponStats(pOwner, 0);
 }
 
+// 0x0059F940
 static void __stdcall sub_0059F940_RollMissilePierce(D2UnitStrc* pMissile, D2UnitStrc* pOwner)
 {
     if (!pOwner || !pMissile || pMissile->dwUnitType != UNIT_MISSILE)
@@ -511,3 +565,5 @@ void __fastcall MISSILES_SyncToClient(D2ClientStrc* pClient, D2GameStrc* pGame, 
     packet.nPierce = STATLIST_UnitGetStatValue(pMissile, STAT_PIERCE_IDX, 0);
     D2GAME_PACKETS_SendPacket0x73(pClient, &packet);
 }
+
+#include "gen/data/Source/D2Game/MISSILES/Missiles.inc"

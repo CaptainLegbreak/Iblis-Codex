@@ -24,15 +24,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct D2RoomCoordListStrc
-{
-    D2DrlgCoordStrc pBox[2];
-    int bNode;
-    int bRoomActive;
-    int nIndex;
-    D2RoomCoordListStrc* pNext;
-};
-
 D2DrlgTileDataStrc* __stdcall DUNGEON_GetWallTilesFromRoom(D2ActiveRoomStrc* pRoom, int* pWallCount); // 0x006196A0
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 D2RoomCoordListStrc* __stdcall DUNGEON_GetRoomCoordList(D2ActiveRoomStrc* pRoom); // 0x0061AD50
@@ -149,10 +140,10 @@ void __stdcall sub_0045B5F0(D2ActiveRoomStrc* pRoom)
         int aY[4];
         for (D2RoomCoordListStrc* pCoordList = DUNGEON_GetRoomCoordList(pRoom); pCoordList; pCoordList = pCoordList->pNext)
         {
-            aX[0] = aX[1] = pCoordList->pBox[0].nPosX;
-            aX[2] = aX[3] = pCoordList->pBox[0].nWidth;
-            aY[0] = aY[2] = pCoordList->pBox[0].nPosY;
-            aY[1] = aY[3] = pCoordList->pBox[0].nHeight;
+            aX[0] = aX[1] = pCoordList->pBox[0].left;
+            aX[2] = aX[3] = pCoordList->pBox[0].right;
+            aY[0] = aY[2] = pCoordList->pBox[0].top;
+            aY[1] = aY[3] = pCoordList->pBox[0].bottom;
 
             for (int j = 0; j < 4; ++j)
             {

@@ -185,3 +185,5 @@ void __fastcall ACT2Q0_InitQuestData(D2QuestDataStrc* pQuestData)
     QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->tPlayerGUIDs);
 }
 
+
+#include "gen/data/Source/D2Game/Quests/a2q0.inc"
