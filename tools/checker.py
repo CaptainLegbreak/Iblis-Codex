@@ -90,7 +90,7 @@ def parse_markers(src):
         if m:
             pending = int(m.group(1), 16); continue
         m2 = re.search(r"//\s*(0x[0-9A-Fa-f]{8})\s*$", t)
-        code = t.split("//")[0]
+        code = re.sub(r'"(\\.|[^"\\])*"', '""', t).split("//")[0]
         if m2 and code.strip():
             nm = decl_name(code)
             if nm:

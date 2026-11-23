@@ -39,11 +39,11 @@ extern unsigned int gdwCallerWord_007768AC;                                     
 extern int gnCallerLine_007768B0;                                                                           // 0x007768B0
 extern const char* gszCallerFile_007768B4;                                                                  // 0x007768B4
 extern D2SMemHeapStrc* gapFreeBlocks_007768B8[0x100];                                                       // 0x007768B8
-extern unsigned int gnPageSize_00776CB8;                                                                    // 0x00776CB8
-extern int gnFlag2_00776CBC;                                                                                // 0x00776CBC
+static unsigned int gnPageSize_00776CB8;                                                                    // 0x00776CB8
+extern unsigned long gnFlag2_00776CBC;                                                                                // 0x00776CBC
 D2CriticalSectionStrc gaFreeBlockLocks_00776CC0[0x100];                                                     // 0x00776CC0
 extern int gnFlag1_007784C0;                                                                                // 0x007784C0
-extern int gnFlag0_007784C4;                                                                                // 0x007784C4
+extern unsigned long gnFlag0_007784C4;                                                                                // 0x007784C4
 extern int gabFreeBlockDirty_007784C8[0x100];                                                               // 0x007784C8
 extern D2SMemHeapStrc* gpFreeBlockSweep_007788C8;                                                           // 0x007788C8
 int gnFlag3_007788CC;                                                                                       // 0x007788CC
@@ -53,20 +53,65 @@ extern int gnFlag_00779098;                                                     
 static void __stdcall sub_004117A0_SetAndShowError(const char* szFile, int nLine, unsigned int nError);
 static void sub_00411AA0_FreeBlock(D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBlock);
 
+struct SMEMHEAPDETAILS;
+struct SMEMBLOCKDETAILS
+{
+    unsigned int size;
+    void* pMemory;
+    int bAllocated;
+    int bValid;
+    unsigned int nDataSize;
+    unsigned int nHeaderSize;
+    unsigned int unk_18;
+};
+extern "C" const char szSMemFindNextBlock_006CED04[]; // 0x006CED04
+unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
+extern "C" const char szSMemFindNextHeap_006CED18[]; // 0x006CED18
+extern "C" const char szSMemAlloc_006CEDCC[]; // 0x006CEDCC
+// build: context SMemGetBlockHeader
+static inline D2SMemBlockStrc* SMemGetBlockHeader(void* pMemory)
+{
+    if (!pMemory)
+        return 0;
+    D2SMemBlockStrc* pBlock = &((D2SMemBlockStrc*)pMemory)[-1];
+    if (pBlock->flags & SMEM_BLOCK_INDIRECT)
+        pBlock = ((D2SMemBlockStrc**)pBlock)[-1];
+    return pBlock;
+}
+// build: context SMemGetBlockData
+static inline void* SMemGetBlockData(D2SMemBlockStrc* pBlock)
+{
+    if (!pBlock)
+        return 0;
+    void* pData = &pBlock[1];
+    if (pBlock->flags & SMEM_BLOCK_LARGE)
+        pData = *(void**)pData;
+    return pData;
+}
+
+typedef void (__stdcall* SMEMDUMPCALLBACK)(void* pParam, const char* szText);
+
+extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
+int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
+
+extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
+void __stdcall SErrReportResourceLeak(const char* szName); // 0x0041D1E0
+
 // 0x00411620
-static __declspec(noinline) __declspec(noreturn) void sub_00411620_FatalError(unsigned int nError, const char* szFile, int nLine)
+static __declspec(noreturn) void sub_00411620_FatalError(unsigned int nError, const char* szFile, int nLine)
 {
     SErrDisplayError(nError, szFile, nLine, 0, 0, 1);
     ExitProcess(1);
 }
 
-static unsigned int sub_00411670_GetCallerId(int nLine, const char* szFile)
+// 0x00411670
+static unsigned int sub_00411670_GetCallerId(const char* szFile, int nLine)
 {
     unsigned int dwWord = szFile ? *(const unsigned int*)szFile : 0;
     int bHit = 0;
-    if (gbCallerFirst_00708340)
+    if (gbCallerFirst_00708340 && szFile == gszCallerFile_007768B4 && nLine == gnCallerLine_007768B0)
     {
-        if (szFile == gszCallerFile_007768B4 && nLine == gnCallerLine_007768B0 && dwWord == gdwCallerWord_007768AC)
+        if (dwWord == gdwCallerWord_007768AC)
             bHit = 1;
         else
             gbCallerFirst_00708340 = 0;
@@ -86,7 +131,7 @@ static unsigned int sub_00411670_GetCallerId(int nLine, const char* szFile)
 }
 
 // 0x00411710
-static __declspec(noinline) D2SMemHeapStrc* __stdcall sub_00411710_LockHeap(int* pLockIndex, D2SMemBlockStrc* pBlock)
+static D2SMemHeapStrc* __stdcall sub_00411710_LockHeap(int* pLockIndex, D2SMemBlockStrc* pBlock)
 {
     D2SMemHeapStrc* pHeap = (D2SMemHeapStrc*)(pBlock->tSig.wHeapHigh << 16);
     EnterCriticalSection(&gaFreeBlockLocks_00776CC0[pHeap->nLockIndex]);
@@ -94,7 +139,8 @@ static __declspec(noinline) D2SMemHeapStrc* __stdcall sub_00411710_LockHeap(int*
     return pHeap;
 }
 
-static __declspec(noinline) void __stdcall sub_004117A0_SetAndShowError(const char* szFile, int nLine, unsigned int nError)
+// 0x004117A0
+static void __stdcall sub_004117A0_SetAndShowError(const char* szFile, int nLine, unsigned int nError)
 {
     sub_0041C340_SetLastError(nError);
     if (gnFlag1_007784C0)
@@ -104,7 +150,7 @@ static __declspec(noinline) void __stdcall sub_004117A0_SetAndShowError(const ch
 }
 
 // 0x004117D0
-static __declspec(noinline) void sub_004117D0_ReleaseHeapLock(int* pLockIndex)
+static void sub_004117D0_ReleaseHeapLock(int* pLockIndex)
 {
     if (*pLockIndex != -1)
     {
@@ -113,19 +159,27 @@ static __declspec(noinline) void sub_004117D0_ReleaseHeapLock(int* pLockIndex)
     }
 }
 
-static D2SMemHeapStrc* __stdcall sub_004117F0_CreateHeap(int nLine, unsigned int dwId, int nLockIndex, unsigned int nPageSize, unsigned int nCommit, unsigned int nReserve, const char* szFile)
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+
+// 0x004117F0
+static D2SMemHeapStrc* __stdcall sub_004117F0_CreateHeap(const char* szFile, int nLine, unsigned int dwId, int nLockIndex, unsigned int nPageSize, unsigned int nCommit, unsigned int nReserve)
 {
+    unsigned int nNameSize;
+    unsigned int nHeaderSize;
+    D2SMemBlockStrc tHeader;
     D2SMemHeapStrc* pHeap = (D2SMemHeapStrc*)VirtualAlloc(0, nReserve, 0x2000, 1);
     if (!pHeap)
         sub_00411620_FatalError(8, szFile, nLine);
     if (!VirtualAlloc(pHeap, nCommit, 0x1000, 4))
         sub_00411620_FatalError(8, szFile, nLine);
-    unsigned int nNameSize = (szFile ? SStrLen(szFile) : 0) + 1;
-    unsigned int nHeaderSize = nNameSize + 0x63;
+    nNameSize = (szFile ? SStrLen(szFile) : 0) + 1;
+    nHeaderSize = nNameSize + 0x63;
     if (nHeaderSize & 3)
         nHeaderSize += 4 - (nHeaderSize & 3);
     pHeap->dwId = dwId;
     pHeap->pNext = gapFreeBlocks_007768B8[nLockIndex];
+    _ReadWriteBarrier();
     pHeap->pFirst = (D2SMemBlockStrc*)((char*)pHeap + nHeaderSize);
     pHeap->pEnd = pHeap->pFirst;
     pHeap->nPageSize = nPageSize;
@@ -148,7 +202,6 @@ static D2SMemHeapStrc* __stdcall sub_004117F0_CreateHeap(int nLine, unsigned int
         SMemCopy(pHeap->szFile, szFile, nNameSize);
     else
         pHeap->szFile[0] = 0;
-    D2SMemBlockStrc tHeader;
     tHeader.tSig.wHeapHigh = (unsigned short)((unsigned int)pHeap >> 16);
     tHeader.tSig.wMagic = 0x6F6D;
     pHeap->tSig = tHeader.tSig;
@@ -157,7 +210,7 @@ static D2SMemHeapStrc* __stdcall sub_004117F0_CreateHeap(int nLine, unsigned int
 }
 
 // 0x00411910
-static __declspec(noinline) int sub_00411910_CheckPtr(void* pMemory, int bReport, const char* szFile, int nLine)
+static int sub_00411910_CheckPtr(void* pMemory, int bReport, const char* szFile, int nLine)
 {
     if (!pMemory)
     {
@@ -183,6 +236,7 @@ static __declspec(noinline) int sub_00411910_CheckPtr(void* pMemory, int bReport
     return 1;
 }
 
+// 0x004119A0
 static inline unsigned int sub_A21_FreeListIndex(unsigned int nSize)
 {
     unsigned int nIndex = nSize >> 5;
@@ -194,7 +248,7 @@ static inline unsigned int sub_A21_FreeListIndex(unsigned int nSize)
 void __stdcall sub_004119B0_CalcBlockSize(unsigned int* pTotal, unsigned int* pPadding, int* pbLarge, int* pbSentinel, unsigned int nSize); // 0x004119B0
 
 // 0x00411A50
-static __declspec(noinline) void __stdcall sub_00411A50_InitBlock(D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBlock, unsigned int nSize, unsigned int nPadding, unsigned char nFlags)
+static void __stdcall sub_00411A50_InitBlock(D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBlock, unsigned int nSize, unsigned int nPadding, unsigned char nFlags)
 {
     pBlock->bytes = (unsigned short)nSize;
     pBlock->nPadding = (unsigned char)nPadding;
@@ -204,7 +258,7 @@ static __declspec(noinline) void __stdcall sub_00411A50_InitBlock(D2SMemHeapStrc
         *(unsigned short*)((char*)pBlock + nSize - nPadding - 2) = 0x12B1;
 }
 
-// build: context sub_00411AA0_FreeBlock
+// 0x00411AA0
 static void sub_00411AA0_FreeBlock(D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBlock)
 {
     unsigned int nSize;
@@ -215,7 +269,7 @@ static void sub_00411AA0_FreeBlock(D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBloc
         {
             nSize = pLarge[-1].nSize;
             pHeap->nLargeBytes -= nSize;
-            VirtualFree((void*)(((unsigned int)pLarge - sizeof(D2SMemLargeHeaderStrc)) & ~(gnPageSize_00776CB8 - 1)), 0, 0x8000);
+            VirtualFree((void*)((unsigned int)(pLarge - 1) & ~(gnPageSize_00776CB8 - 1)), 0, 0x8000);
         }
         else
             nSize = 0;
@@ -268,7 +322,7 @@ static void sub_00411AA0_FreeBlock(D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBloc
 }
 
 // 0x00411B90
-static __declspec(noinline) void sub_00411B90_GetBlockSizes(D2SMemBlockStrc* pBlock, void* pMemory, unsigned int* pDataSize, unsigned int* pHeaderSize)
+static void sub_00411B90_GetBlockSizes(D2SMemBlockStrc* pBlock, void* pMemory, unsigned int* pDataSize, unsigned int* pHeaderSize)
 {
     if (pBlock->flags & SMEM_BLOCK_LARGE)
     {
@@ -305,7 +359,7 @@ static void __stdcall sub_00411C20_FreeBlockEx(void* pMemory, D2SMemHeapStrc* pH
 }
 
 // 0x00411C70
-static void __stdcall sub_00411C70_SplitBlock(unsigned int* pPadding, D2SMemHeapStrc* pHeap, unsigned int* pSize, D2SMemBlockStrc* pBlock)
+static void __stdcall sub_00411C70_SplitBlock(unsigned int* pPadding, D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBlock, unsigned int* pSize)
 {
     D2SMemBlockStrc* pNext = (D2SMemBlockStrc*)((char*)pBlock + pBlock->bytes);
     unsigned int nRemain = pBlock->bytes - *pSize;
@@ -371,7 +425,7 @@ D2SMemHeapStrc** __fastcall sub_00411F00_ProcessUsedBlock(D2SMemHeapStrc** ppLin
     return &pHeap->pNext;
 }
 
-// build: context sub_00412080_GrowBlock
+// 0x00412080
 static int __stdcall sub_00412080_GrowBlock(D2SMemBlockStrc* pBlock, unsigned int nOldSize, unsigned int nNewSize, D2SMemHeapStrc* pHeap)
 {
     int bSentinel;
@@ -418,7 +472,7 @@ static int __stdcall sub_00412080_GrowBlock(D2SMemBlockStrc* pBlock, unsigned in
             pHeap->pEnd = pNewEnd;
         }
         pBlock->bytes = (unsigned short)nNewBlockSize;
-        sub_00411C70_SplitBlock(&nPadding, pHeap, &nTotal, pBlock);
+        sub_00411C70_SplitBlock(&nPadding, pHeap, pBlock, &nTotal);
         pBlock->bytes = (unsigned short)nTotal;
         if (pNewEnd != pHeap->pEnd)
         {
@@ -433,7 +487,7 @@ static int __stdcall sub_00412080_GrowBlock(D2SMemBlockStrc* pBlock, unsigned in
     return 1;
 }
 
-// build: context sub_004121D0_ShrinkBlock
+// 0x004121D0
 static void __stdcall sub_004121D0_ShrinkBlock(D2SMemBlockStrc* pBlock, unsigned int nOldSize, unsigned int nNewSize, D2SMemHeapStrc* pHeap)
 {
     int bLarge;
@@ -442,7 +496,7 @@ static void __stdcall sub_004121D0_ShrinkBlock(D2SMemBlockStrc* pBlock, unsigned
     unsigned int nPadding;
     sub_004119B0_CalcBlockSize(&nTotal, &nPadding, &bLarge, &bSentinel, nNewSize);
     unsigned char nFlags = (pBlock->flags & ~SMEM_BLOCK_SENTINEL) | (bSentinel != 0);
-    sub_00411C70_SplitBlock(&nPadding, pHeap, &nTotal, pBlock);
+    sub_00411C70_SplitBlock(&nPadding, pHeap, pBlock, &nTotal);
     sub_00411A50_InitBlock(pHeap, pBlock, nTotal, nPadding, nFlags);
     pHeap->nUsedBytes += nNewSize - nOldSize;
 }
@@ -491,7 +545,7 @@ unsigned int __stdcall SMemGetHeapByCaller(const char* szFile, int nLine)
             return 0;
         }
     }
-    return sub_00411670_GetCallerId(nLine, szFile);
+    return sub_00411670_GetCallerId(szFile, nLine);
 }
 
 // 0x00412760
@@ -594,7 +648,7 @@ unsigned int __stdcall SMemHeapCreate(unsigned int dwOptions, unsigned int nInit
     } while (sub_A21_HeapIdInUse(gnHeapId_00708344));
     int nLockIndex = (unsigned char)gnHeapId_00708344;
     EnterCriticalSection(&gaFreeBlockLocks_00776CC0[nLockIndex]);
-    sub_004117F0_CreateHeap(0, gnHeapId_00708344, nLockIndex, 0x1000, nInitialSize, 0x10000, 0);
+    sub_004117F0_CreateHeap(0, 0, gnHeapId_00708344, nLockIndex, 0x1000, nInitialSize, 0x10000);
     LeaveCriticalSection(&gaFreeBlockLocks_00776CC0[nLockIndex]);
     if (!gnHeapId_00708344)
         sub_004117A0_SetAndShowError("SMemHeapCreate()", -1, 8);
@@ -665,6 +719,7 @@ unsigned int __stdcall SMemHeapSize(unsigned int hHeap, unsigned int dwFlags, vo
     return nDataSize;
 }
 
+// 0x00412BA0
 static void* __stdcall sub_00412BA0_AllocBlock(unsigned int nSize, unsigned char nUserFlags, D2SMemHeapStrc* pHeap)
 {
     int bSentinel;
@@ -672,21 +727,32 @@ static void* __stdcall sub_00412BA0_AllocBlock(unsigned int nSize, unsigned char
     unsigned int nPadding;
     unsigned int nTotal;
     sub_004119B0_CalcBlockSize(&nTotal, &nPadding, &bLarge, &bSentinel, nSize);
-    unsigned int nIndex = sub_A21_FreeListIndex(nTotal);
+    const unsigned int nShifted = nTotal >> 5;
+    unsigned int nIndex = nShifted < 8 ? nShifted : 8;
     if (pHeap->nFragments >= 4 && !pHeap->apFree[nIndex])
         sub_00411DC0_RebuildFreeLists(pHeap);
     D2SMemBlockStrc** ppBest = 0;
-    D2SMemBlockStrc** ppLink = &pHeap->apFree[nIndex];
+    D2SMemBlockStrc** ppLink;
+    D2SMemBlockStrc* pFree;
     unsigned int nBestDiff = 0x7FFFFFFF;
-    unsigned int i = nIndex + 1;
-    while (!*ppLink)
+    if (!pHeap->apFree[nIndex])
     {
-        if (i >= 9)
-            break;
-        ++ppLink;
-        ++i;
+        unsigned int i = nIndex + 1;
+        ppLink = &pHeap->apFree[nIndex];
+        do
+        {
+            if (i >= 9)
+                break;
+            ++ppLink;
+            ++i;
+        } while (!*ppLink);
+        pFree = *ppLink;
     }
-    D2SMemBlockStrc* pFree = *ppLink;
+    else
+    {
+        ppLink = &pHeap->apFree[nIndex];
+        pFree = *ppLink;
+    }
     if (pFree)
     {
         unsigned int nThreshold = 0x10;
@@ -701,7 +767,7 @@ static void* __stdcall sub_00412BA0_AllocBlock(unsigned int nSize, unsigned char
                     break;
                 nThreshold += 4;
             }
-            ppLink = &pFree->pNextFree;
+            ppLink = &(*ppLink)->pNextFree;
             pFree = *ppLink;
         } while (pFree);
     }
@@ -710,21 +776,22 @@ static void* __stdcall sub_00412BA0_AllocBlock(unsigned int nSize, unsigned char
     if (ppBest)
     {
         pResult = *ppBest;
-        bPrevFree = (pResult->flags & SMEM_BLOCK_PREVFREE) != 0;
+        bPrevFree = ((pResult->flags) & SMEM_BLOCK_PREVFREE) != 0;
         *ppBest = pResult->pNextFree;
         D2SMemBlockStrc* pNext = (D2SMemBlockStrc*)((char*)pResult + pResult->bytes);
         if (pHeap->nFragments && (bPrevFree || (pNext != pHeap->pEnd && (pNext->flags & SMEM_BLOCK_FREE))))
             pHeap->nFragments -= 1;
-        sub_00411C70_SplitBlock(&nPadding, pHeap, &nTotal, pResult);
+        sub_00411C70_SplitBlock(&nPadding, pHeap, pResult, &nTotal);
     }
     else
     {
         D2SMemBlockStrc** ppEnd = &pHeap->pEnd;
-        unsigned int nEnd = (char*)pHeap->pEnd - (char*)pHeap + nTotal;
-        if (nEnd > pHeap->nReserved)
+        unsigned int nEnd = (char*)*ppEnd - (char*)pHeap + nTotal;
+        unsigned int const tNReserved = pHeap->nReserved;
+        if (nEnd > tNReserved)
         {
-            unsigned int nReserve = pHeap->nReserved < 0x10000000 ? pHeap->nReserved * 2 : pHeap->nReserved;
-            D2SMemHeapStrc* pNewHeap = sub_004117F0_CreateHeap(pHeap->nLine, pHeap->dwId, pHeap->nLockIndex, nReserve >> 3, nReserve >> 3, nReserve, pHeap->szFile);
+            unsigned int nReserve = tNReserved < 0x10000000 ? tNReserved * 2 : tNReserved;
+            D2SMemHeapStrc* pNewHeap = sub_004117F0_CreateHeap(pHeap->szFile, pHeap->nLine, pHeap->dwId, pHeap->nLockIndex, nReserve >> 3, nReserve >> 3, nReserve);
             if (!pNewHeap)
                 return 0;
             pHeap->bReportLeak = 0;
@@ -756,13 +823,19 @@ static void* __stdcall sub_00412BA0_AllocBlock(unsigned int nSize, unsigned char
         if (gnFlag0_007784C4 || gnFlag2_00776CBC)
         {
             nOffset = nPageSize - (nAlloc & (nPageSize - 1));
+            int bReserve;
             if (gnFlag2_00776CBC)
             {
                 nOffset &= nPageSize - 1;
-                pBase = (char*)VirtualAlloc(0, nOffset + nAlloc + 4, 0x2000, 1);
+                bReserve = 1;
             }
             else
+            {
                 nOffset &= gnPageSize_00776CB8 - 4;
+                bReserve = 0;
+            }
+            if (bReserve)
+                pBase = (char*)VirtualAlloc(0, nOffset + nAlloc + 4, 0x2000, 1);
         }
         pBase = (char*)VirtualAlloc(pBase, nOffset + nAlloc, 0x1000, 4);
         if (!pBase)
@@ -774,13 +847,15 @@ static void* __stdcall sub_00412BA0_AllocBlock(unsigned int nSize, unsigned char
         D2SMemLargeHeaderStrc* pLarge = (D2SMemLargeHeaderStrc*)pBase;
         pLarge->nSize = nSize;
         pLarge->pBlock = pResult;
-        pLarge->tBlock.bytes = (unsigned short)((nSize + 0xFFFF) >> 16);
-        pLarge->tBlock.nPadding = 0;
-        pLarge->tBlock.flags = SMEM_BLOCK_LARGE | SMEM_BLOCK_INDIRECT;
-        pLarge->tBlock.tSig = pHeap->tSig;
-        *(D2SMemLargeHeaderStrc**)&pResult[1] = &pLarge[1];
+        D2SMemBlockStrc* pHdr = &pLarge->tBlock;
+        pHdr->bytes = (unsigned short)((nSize + 0xFFFF) >> 16);
+        pHdr->nPadding = 0;
+        pHdr->flags = SMEM_BLOCK_LARGE | SMEM_BLOCK_INDIRECT;
+        pHdr->tSig = pHeap->tSig;
+        ++pLarge;
+        *(D2SMemLargeHeaderStrc**)&pResult[1] = pLarge;
         pHeap->nLargeBytes += nSize;
-        return &pLarge[1];
+        return pLarge;
     }
     return &pResult[1];
 }
@@ -946,6 +1021,515 @@ void* __stdcall SMemReAlloc(void* pMemory, unsigned int nSize, const char* szFil
     if (nLockIndex != -1)
         LeaveCriticalSection(&gaFreeBlockLocks_00776CC0[nLockIndex]);
     return pResult;
+}
+
+
+#include "Storm.h"
+#include "D2SFileTypes.h"
+#include "D2GameTypes.h"
+#include "D2StormTypes.h"
+#include "D2StormLink.h"
+
+struct T004013C0
+{
+    unsigned long dwOemId;
+    unsigned long dwPageSize;
+    void* lpMinimumApplicationAddress;
+    void* lpMaximumApplicationAddress;
+    unsigned long dwActiveProcessorMask;
+    unsigned long dwNumberOfProcessors;
+    unsigned long dwProcessorType;
+    unsigned long dwAllocationGranularity;
+    unsigned short wProcessorLevel;
+    unsigned short wProcessorRevision;
+};
+
+extern "C" __declspec(dllimport) void __stdcall GetSystemInfo(T004013C0* pInfo); // 0x006CC1F0
+extern int gnFlag3_007788CC; // 0x007788CC
+
+extern int (__stdcall* gpfnReadErrorCallback_00779030)(const char* szName, unsigned long dwError, int nRetry); // 0x00779030
+
+enum { NO_NODE = 0 };
+
+unsigned long gnFlag0_007784C4; // 0x007784C4
+unsigned long gnFlag2_00776CBC; // 0x00776CBC
+int gnFlag1_007784C0; // 0x007784C0
+
+// 0x00411700
+int __stdcall sub_00411700_ToByte(unsigned char nValue)
+{
+    return nValue;
+}
+
+// 0x00411A20
+void __cdecl sub_00411A20_InitPageSize()
+{
+    T004013C0 systemInfo;
+    GetSystemInfo(&systemInfo);
+    gnPageSize_00776CB8 = 1;
+    while (gnPageSize_00776CB8 < systemInfo.dwPageSize)
+        gnPageSize_00776CB8 *= 2;
+}
+
+// 0x00411D40
+void __stdcall sub_00411D40_SetFlags(unsigned int dwValues, unsigned int dwMask)
+{
+    if (dwMask & 1)
+        gnFlag0_007784C4 = dwValues & 1;
+    if (dwMask & 8)
+        gnFlag3_007788CC = (dwValues >> 3) & 1;
+    if (dwMask & 4)
+        gnFlag2_00776CBC = (dwValues >> 2) & 1;
+    if (dwMask & 2)
+        gnFlag1_007784C0 = (dwValues >> 1) & 1;
+}
+
+// 0x00411DC0
+static void sub_00411DC0_RebuildFreeLists(D2SMemHeapStrc* pHeap)
+{
+    D2SMemBlockStrc** apTail[9];
+    apTail[0] = &pHeap->apFree[0];
+    apTail[1] = &pHeap->apFree[1];
+    apTail[2] = &pHeap->apFree[2];
+    apTail[3] = &pHeap->apFree[3];
+    apTail[4] = &pHeap->apFree[4];
+    apTail[5] = &pHeap->apFree[5];
+    apTail[6] = &pHeap->apFree[6];
+    apTail[7] = &pHeap->apFree[7];
+    apTail[8] = &pHeap->apFree[8];
+    D2SMemBlockStrc* pPrev = 0;
+    for (D2SMemBlockStrc* pBlock = pHeap->pFirst; pBlock != pHeap->pEnd; pBlock = (D2SMemBlockStrc*)((char*)pBlock + pBlock->bytes))
+    {
+        if (!(pBlock->flags & SMEM_BLOCK_FREE))
+            continue;
+        pBlock->pNextFree = 0;
+        if (pPrev)
+        {
+            unsigned short wPrevSize = pPrev->bytes;
+            unsigned int nPrevSize = wPrevSize;
+            if (pBlock == (D2SMemBlockStrc*)((char*)pPrev + nPrevSize))
+            {
+                unsigned short wSize = pBlock->bytes;
+                unsigned int nMerged = wSize + nPrevSize;
+                if (nMerged <= 0xFFFF)
+                {
+                    pPrev->bytes = pBlock->bytes + pPrev->bytes;
+                    continue;
+                }
+            }
+            unsigned int nIndex = sub_A21_FreeListIndex(nPrevSize);
+            *apTail[nIndex] = pPrev;
+            apTail[nIndex] = &pPrev->pNextFree;
+        }
+        pPrev = pBlock;
+    }
+    if (pPrev)
+    {
+        unsigned int nIndex = sub_A21_FreeListIndex(pPrev->bytes);
+        *apTail[nIndex] = pPrev;
+        apTail[nIndex] = &pPrev->pNextFree;
+    }
+    *apTail[0] = 0;
+    *apTail[1] = 0;
+    *apTail[2] = 0;
+    *apTail[3] = 0;
+    *apTail[4] = 0;
+    *apTail[5] = 0;
+    *apTail[6] = 0;
+    *apTail[7] = 0;
+    *apTail[8] = 0;
+    pHeap->nFragments = 0;
+}
+
+// 0x004119B0
+static void __stdcall sub_004119B0_CalcBlockSize(unsigned int* pTotal, unsigned int* pPadding, int* pbLarge, int* pbSentinel, unsigned int nSize)
+{
+    *pbLarge = gnFlag2_00776CBC || nSize > 0xFE87;
+    *pbSentinel = gnFlag0_007784C4 && !*pbLarge;
+    nSize = (*pbLarge ? 4 : nSize) + (*pbSentinel ? 2 : 0) + sizeof(D2SMemBlockStrc);
+    *pTotal = nSize + ((0 - nSize) & 7);
+    *pPadding = *pTotal - nSize;
+}
+
+// 0x004122F0
+int __stdcall SMemFindNextBlock(unsigned int hHeap, void* pMemory, void** ppBlock, SMEMBLOCKDETAILS* pInfo)
+{
+    if (!gbHeapInitialized_007788D0)
+    {
+        SMemInitialize();
+        if (!gbHeapInitialized_007788D0)
+        {
+            sub_004117A0_SetAndShowError(szSMemFindNextBlock_006CED04, -1, 0x8510007D);
+            return 0;
+        }
+    }
+
+    int nValid = -1;
+    VALIDATE(hHeap);
+    VALIDATE(ppBlock);
+    VALIDATE(pInfo);
+    VALIDATE(pInfo->size == sizeof(SMEMBLOCKDETAILS));
+    if (!nValid)
+    {
+        sub_0041C340_SetLastError(0x57);
+        return 0;
+    }
+
+    SMemZero(&pInfo->pMemory, pInfo->size - sizeof(pInfo->size));
+    const unsigned int nIndex = (unsigned char)hHeap;
+    D2CriticalSectionStrc* pLock = &gaFreeBlockLocks_00776CC0[nIndex];
+    EnterCriticalSection(pLock);
+
+    D2SMemBlockStrc* pAfter = SMemGetBlockHeader(pMemory);
+    D2SMemBlockStrc* pPrevious = 0;
+    D2SMemBlockStrc* pBlock = 0;
+    int bFound = 0;
+    D2SMemHeapStrc* pHeap = (gapFreeBlocks_007768B8[nIndex]);
+    while (pHeap)
+    {
+        if (!pHeap->pNext)
+            break;
+        pHeap = pHeap->pNext;
+    }
+
+    while (pHeap)
+    {
+        if (bFound)
+            break;
+        if (pHeap->dwId == hHeap)
+        {
+            for (pBlock = pHeap->pFirst; pBlock != pHeap->pEnd;
+                 pBlock = (D2SMemBlockStrc*)((char*)pBlock + pBlock->bytes))
+            {
+                if (pPrevious == pAfter)
+                {
+                    bFound = 1;
+                    break;
+                }
+                pPrevious = pBlock;
+            }
+        }
+        if (pHeap == (gapFreeBlocks_007768B8[nIndex]))
+            break;
+        D2SMemHeapStrc* pNext = pHeap;
+        pHeap = (gapFreeBlocks_007768B8[nIndex]);
+        while (pHeap->pNext != pNext)
+            pHeap = pHeap->pNext;
+    }
+
+    if (!bFound)
+    {
+        *ppBlock = 0;
+        LeaveCriticalSection(pLock);
+        return 0;
+    }
+
+    void* pResult = SMemGetBlockData(pBlock);
+    *ppBlock = pResult;
+    pInfo->pMemory = pResult;
+    pInfo->bAllocated = !(pBlock->flags & SMEM_BLOCK_FREE);
+    pInfo->bValid = sub_00411910_CheckPtr(pResult, 0, 0, 0);
+    sub_00411B90_GetBlockSizes(pBlock, pResult, &pInfo->nDataSize, &pInfo->nHeaderSize);
+    LeaveCriticalSection(pLock);
+    return 1;
+}
+
+// 0x004124B0
+int __stdcall SMemFindNextHeap(unsigned int hPrev, unsigned int* phNext, SMEMHEAPDETAILS* pInfo)
+{
+    if (!gbHeapInitialized_007788D0)
+    {
+        SMemInitialize();
+        if (!gbHeapInitialized_007788D0)
+        {
+            sub_004117A0_SetAndShowError(szSMemFindNextHeap_006CED18, -1, 0x8510007D);
+            return 0;
+        }
+    }
+    VALIDATEBEGIN;
+    VALIDATE(phNext);
+    VALIDATE(pInfo);
+    VALIDATE(pInfo->size == 0x128);
+    VALIDATEEND;
+
+    SMemZero(&pInfo->hHeap, pInfo->size - 4);
+
+    unsigned int i = 0;
+    if (hPrev)
+        i = (unsigned char)hPrev;
+    unsigned int dwLastId = 0;
+    D2SMemHeapStrc* pHeap = 0;
+    for (; i < 0x100; ++i)
+    {
+        EnterCriticalSection(&gaFreeBlockLocks_00776CC0[i]);
+        for (pHeap = gapFreeBlocks_007768B8[i]; pHeap; pHeap = pHeap->pNext)
+        {
+            if (pHeap->bReportLeak)
+            {
+                if (dwLastId == hPrev && pHeap->dwId != hPrev)
+                    break;
+                dwLastId = pHeap->dwId;
+            }
+        }
+        if (pHeap)
+            break;
+        LeaveCriticalSection(&gaFreeBlockLocks_00776CC0[i]);
+    }
+
+    if (!pHeap)
+    {
+        *phNext = 0;
+        return 0;
+    }
+
+    *phNext = pHeap->dwId;
+    pInfo->hHeap = pHeap->dwId;
+    pInfo->nLine = pHeap->nLine;
+    pInfo->dwUnk11C = 0x7FFFFFFF;
+    SStrCopy(pInfo->szName, pHeap->szFile, 0x104);
+    for (; pHeap; pHeap = pHeap->pNext)
+    {
+        if (pHeap->dwId == *phNext)
+        {
+            pInfo->dwSizeA += pHeap->nCommitted + pHeap->nLargeBytes;
+            pInfo->dwSizeB += pHeap->nReserved + pHeap->nLargeBytes;
+            pInfo->nBlocks += pHeap->nBlocks;
+            pInfo->dwSizeC += pHeap->nUsedBytes;
+        }
+    }
+    LeaveCriticalSection(&gaFreeBlockLocks_00776CC0[i]);
+    return 1;
+}
+
+// 0x00413020
+void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int dwFlags)
+{
+    if (!gbHeapInitialized_007788D0)
+    {
+        SMemInitialize();
+        if (!gbHeapInitialized_007788D0)
+            sub_00411620_FatalError(0x8510007D, szSMemAlloc_006CEDCC, -1);
+    }
+    unsigned int dwId = sub_00411670_GetCallerId(szFile, nLine);
+    EnterCriticalSection(&gaFreeBlockLocks_00776CC0[dwId & 0xFF]);
+    int nLockIndex = dwId & 0xFF;
+    D2SMemHeapStrc* pFound;
+    for (pFound = gapFreeBlocks_007768B8[nLockIndex]; pFound; pFound = pFound->pNext)
+    {
+        if (pFound->dwId == dwId)
+            break;
+    }
+    D2SMemHeapStrc* pHeap = pFound ? pFound : sub_004117F0_CreateHeap(szFile, nLine, dwId, nLockIndex, 0x1000, 0x1000, 0x10000);
+    void* pResult = sub_00412E40_HeapAlloc(pHeap, dwFlags, &nLockIndex, nSize);
+    if (nLockIndex != -1)
+        LeaveCriticalSection(&gaFreeBlockLocks_00776CC0[nLockIndex]);
+    if (gpFreeBlockSweep_007788C8 && gpFreeBlockSweep_007788C8 != pHeap)
+        AUTOMAP_ReleaseFreeBlocks();
+    return pResult;
+}
+
+// 0x004129D0
+int __stdcall SMemHeapDestroy(unsigned int hHeap)
+{
+    if (!gbHeapInitialized_007788D0)
+    {
+        SMemInitialize();
+        if (!gbHeapInitialized_007788D0)
+        {
+            sub_004117A0_SetAndShowError("SMemHeapDestroy()", -1, 0x8510007D);
+            return 0;
+        }
+    }
+    int nLockIndex = (unsigned char)hHeap;
+    EnterCriticalSection(&gaFreeBlockLocks_00776CC0[nLockIndex]);
+    int bResult = 0;
+    D2SMemHeapStrc** ppLink = &gapFreeBlocks_007768B8[nLockIndex];
+    while (*ppLink)
+    {
+        if ((*ppLink)->dwId == hHeap)
+        {
+            bResult = 1;
+            ppLink = sub_00411F00_ProcessUsedBlock(ppLink);
+        }
+        else
+        {
+            ppLink = &(*ppLink)->pNext;
+        }
+    }
+    LeaveCriticalSection(&gaFreeBlockLocks_00776CC0[nLockIndex]);
+    return bResult;
+}
+
+// 0x00413100
+int __stdcall SMemDumpState(SMEMDUMPCALLBACK pfnCallback, void* pParam)
+{
+    if (!gbHeapInitialized_007788D0)
+    {
+        SMemInitialize();
+        if (!gbHeapInitialized_007788D0)
+        {
+            sub_004117A0_SetAndShowError("SMemDumpState()", -1, 0x8510007D);
+            return 0;
+        }
+    }
+    VALIDATEBEGIN;
+    VALIDATE(pfnCallback);
+    VALIDATEEND;
+    SMEMHEAPDETAILS tInfo;
+    tInfo.size = 0x128;
+    unsigned int hHeap = 0;
+    if (SMemFindNextHeap(0, &hHeap, &tInfo))
+    {
+        do
+        {
+            char szText[0x100];
+            wsprintfA(szText, "%s:%d  blocks=%u  %uk/%uk/%uk", tInfo.szName, tInfo.nLine, tInfo.nBlocks,
+                (tInfo.dwSizeC + 0x200) >> 10, (tInfo.dwSizeA + 0x200) >> 10, (tInfo.dwSizeB + 0x200) >> 10);
+            pfnCallback(pParam, szText);
+        } while (SMemFindNextHeap(hHeap, &hHeap, &tInfo));
+    }
+    return nValid ? 1 : 0;
+}
+
+// 0x00411A80
+void __fastcall sub_00411A80_ReleaseBlock(D2SMemHeapStrc** ppLink)
+{
+    D2SMemHeapStrc* pBlock = *ppLink;
+    *ppLink = pBlock->pNext;
+    VirtualFree(pBlock, 0, 0x8000);
+}
+
+// 0x00411CD0
+void __cdecl SMemInitialize()
+{
+    if (!gbHeapInitialized_007788D0)
+    {
+        SRegLoadValue("Internal", "Debug Memory", 0, &gnFlag0_007784C4);
+        SRegLoadValue("Internal", "Protect Memory", 0, &gnFlag2_00776CBC);
+        D2CriticalSectionStrc* pLock = gaFreeBlockLocks_00776CC0;
+        int n = 0x100;
+        do
+        {
+            InitializeCriticalSection(pLock);
+            ++pLock;
+        }
+        while (--n);
+        gbHeapInitialized_007788D0 = 1;
+    }
+}
+
+// 0x00412240
+int __cdecl sub_00412240_DestroyHeaps()
+{
+    int i = 0;
+    if (gbHeapInitialized_007788D0)
+    {
+        gbHeapInitialized_007788D0 = 0;
+        D2CriticalSectionStrc* pLock = gaFreeBlockLocks_00776CC0;
+        int n = 0x100;
+        do
+        {
+            EnterCriticalSection(pLock);
+            D2SMemHeapStrc** ppLink = &gapFreeBlocks_007768B8[i];
+            gabFreeBlockDirty_007784C8[i] = 0;
+            while (*ppLink)
+            {
+                D2SMemHeapStrc* pBlock = *ppLink;
+                if (pBlock->nBlocks)
+                {
+                    ppLink = sub_00411F00_ProcessUsedBlock(ppLink);
+                }
+                else
+                {
+                    if (pBlock->bReportLeak && pBlock->dwId >= 0x80000000)
+                        SErrReportResourceLeak("HSHEAP");
+                    sub_00411A80_ReleaseBlock(ppLink);
+                }
+            }
+            LeaveCriticalSection(pLock);
+            DeleteCriticalSection(pLock);
+            ++i;
+            ++pLock;
+        } while (--n);
+    }
+    return 1;
+}
+
+// 0x00411640
+static inline char* sub_00411640_GetBlockHeader(char* pMemory)
+{
+    if (!pMemory)
+    {
+        return pMemory;
+    }
+    char* pHeader = pMemory - 8;
+    if (pHeader[3] & 8)
+    {
+        pHeader = *(char**)(pHeader - 4);
+    }
+    return pHeader;
+}
+
+// 0x00411660
+static inline int sub_00411660_GetSegmentField(char* pBlock)
+{
+    return *(int*)((*(unsigned short*)(pBlock + 4) << 16) + 4);
+}
+
+int __stdcall sub_M114_Emit_00411640(char* p, char* q)
+{
+    return (int)sub_00411640_GetBlockHeader(p) + sub_00411660_GetSegmentField(q);
+}
+
+// 0x004116E0
+char* __fastcall sub_004116E0_GetBlockData(char* pHeader)
+{
+    if (!pHeader)
+    {
+        return 0;
+    }
+    char* pData = pHeader + 8;
+    if (pHeader[3] & 4)
+    {
+        pData = *(char**)pData;
+    }
+    return pData;
+}
+
+// 0x00411740
+static D2SMemHeapStrc* __stdcall sub_00411740_FindFreeBlock(unsigned int dwSize, unsigned int* pHash, int bLeaveIfMissing)
+{
+    const unsigned int nHash = (unsigned char)dwSize;
+    EnterCriticalSection(&gaFreeBlockLocks_00776CC0[nHash]);
+    *pHash = nHash;
+    for (D2SMemHeapStrc* pBlock = gapFreeBlocks_007768B8[nHash]; pBlock; pBlock = pBlock->pNext)
+    {
+        if (pBlock->dwId == dwSize)
+        {
+            return pBlock;
+        }
+    }
+    if (bLeaveIfMissing)
+    {
+        LeaveCriticalSection(&gaFreeBlockLocks_00776CC0[nHash]);
+        *pHash = -1;
+    }
+    return 0;
+}
+
+D2SMemHeapStrc* __stdcall sub_K01_Emit_00411740(unsigned int dwSize, unsigned int* pHash, int bLeaveIfMissing)
+{
+    return sub_00411740_FindFreeBlock(dwSize, pHash, bLeaveIfMissing);
+}
+
+// 0x00411DA0
+int __cdecl sub_00411DA0_GetHeap()
+{
+    if (!gbHeapInitialized_007788D0)
+    {
+        SMemInitialize();
+    }
+    return gbHeapInitialized_007788D0;
 }
 
 #include "gen/data/Source/Storm/SOURCE/SMEM.inc"
