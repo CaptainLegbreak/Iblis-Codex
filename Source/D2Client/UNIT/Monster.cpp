@@ -2805,11 +2805,6 @@ int __cdecl sub_004B1DC0()
     return 0;
 }
 
-// 0x004B2010
-int __cdecl sub_004B2010()
-{
-    return 0;
-}
 
 // 0x004B32D0
 int __cdecl MONSTER_GetQuestFlags()
