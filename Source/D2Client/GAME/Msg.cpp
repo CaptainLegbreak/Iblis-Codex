@@ -189,6 +189,43 @@ void __fastcall MSG_SetProgress(int nValue, int nDivisor)
     gnProgress = (nValue << 8) / nDivisor;
 }
 
+struct D2GridCellStrc;
+
+struct D2GridCellStrc
+{
+    int nFlag;
+    unsigned char nValue[4];
+};
+
+extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long nMilliseconds); // 0x006CC258
+
+void __fastcall UI_DrawLoadingScreen(int nArg); // 0x004565E0
+
+struct D2ChatMessageStrc
+{
+    char* szText;
+    int nColor;
+    int bClear;
+    D2ChatMessageStrc* pNext;
+};
+
+// 0x00478160
+void __fastcall CHARSEL_ShowProgressSteps(int nDone, int nTotal)
+{
+    const int nDivisor = nTotal * 8;
+    int nPosition = nDone * 8;
+    for (int i = 0; i < 8; ++i)
+    {
+        if (nDivisor == 0)
+            gnProgress = 0;
+        else
+            gnProgress = (nPosition * 0x100) / nDivisor;
+        UI_DrawLoadingScreen(0);
+        Sleep(250);
+        ++nPosition;
+    }
+}
+
 // 0x004781D0
 void __fastcall MSG_UploadSaveFile(int bAnimate)
 {
