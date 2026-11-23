@@ -339,6 +339,20 @@ int __fastcall ACT5Q4_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
     return 0;
 }
 
+// 0x0058AF00
+bool __fastcall sub_0058AF00_GetQuestStatus(D2QuestDataStrc* quest, D2UnitStrc* unit, D2BitBufferStrc* globalFlags, D2BitBufferStrc* flags, unsigned char* status)
+{
+    *status = 0;
+    if (QUESTRECORD_GetQuestState(flags, 38, 0)) return true;
+    if (QUESTRECORD_GetQuestState(flags, 38, 1) || QUESTRECORD_GetQuestState(flags, 38, 13)) {
+        *status = QUESTRECORD_GetQuestState(flags, 38, 4) != 0 ? 5 : 4;
+    } else if (quest->bNotIntro) {
+        if (QUESTRECORD_GetQuestState(flags, 38, 14)) { *status = 12; return true; }
+        if (quest->fState < 4) { *status = quest->fLastState; return true; }
+    }
+    return true;
+}
+
 // 0x0058AF90
 static bool __stdcall ACT5Q4_OpenDrehyaPortal(D2QuestDataStrc* pQuestData, D2UnitStrc* pTarget)
 {

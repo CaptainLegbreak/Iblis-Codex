@@ -45326,20 +45326,14 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00534800.cpp",
+   "file": "Source/D2Game/PLAYER/Player.cpp",
    "rank": 0,
    "functions": [
     {
      "va": "0x00534800",
      "length": 62,
      "name": "sub_00534800_CreatePlayerIntros"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/Player.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00534840",
      "length": 54,
@@ -54104,10 +54098,6 @@
      "va": "0x00588CA0",
      "length": 178,
      "name": "?ACT5Q2_UpdatePortalMode@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00588F10",
-     "length": 109
     }
    ]
   },
@@ -54168,6 +54158,10 @@
      "va": "0x00588EB0",
      "length": 96,
      "name": "?ACT5Q3_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00588F10",
+     "length": 109
     },
     {
      "va": "0x00588F80",
@@ -54388,17 +54382,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_0058AEA0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0058AF00",
-     "length": 139,
-     "name": "?sub_0058AF00_GetQuestStatus@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Quests/a5q4.cpp",
    "rank": 0,
    "functions": [
@@ -54406,6 +54389,11 @@
      "va": "0x0058AEA0",
      "length": 96,
      "name": "?ACT5Q4_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x0058AF00",
+     "length": 139,
+     "name": "?sub_0058AF00_GetQuestStatus@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
     },
     {
      "va": "0x0058AF90",
@@ -54552,19 +54540,13 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_0058BE80.cpp",
-   "rank": 1,
+   "file": "Source/D2Game/Quests/a5q5.cpp",
+   "rank": 0,
    "functions": [
     {
      "va": "0x0058BE80",
      "length": 52
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q5.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0058BEC0",
      "length": 122,
@@ -54824,6 +54806,10 @@
      "name": "?ACT5Q6_UnitIterate_UpdateQuestStateFlags@@YIHPAUGame@@PAUUnit@@PAX@Z"
     },
     {
+     "va": "0x0058D940",
+     "length": 168
+    },
+    {
      "va": "0x0058DC60",
      "length": 141,
      "name": "?ACT5Q6_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -54932,30 +54918,6 @@
      "length": 225,
      "name": "OBJECTS_OperateFunction72_LastPortal"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0058D940.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0058D940",
-     "length": 168
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
