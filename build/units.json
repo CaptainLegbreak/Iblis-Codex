@@ -14441,8 +14441,18 @@
      "length": 316
     },
     {
+     "va": "0x00483F80",
+     "length": 99,
+     "name": "?INV_IsUnusableQuestBook@@YAHPAUD2ItemsTxt@@@Z"
+    },
+    {
      "va": "0x00483FF0",
      "length": 1000
+    },
+    {
+     "va": "0x004843E0",
+     "length": 183,
+     "name": "?INV_CanSocketInto@@YAHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x00484A70",
@@ -14469,9 +14479,19 @@
      "length": 1992
     },
     {
+     "va": "0x00485EE0",
+     "length": 544,
+     "name": "?INV_AppendDefense@@YGXPAUD2UnitStrc@@0PAUUnicode@@@Z"
+    },
+    {
      "va": "0x00486370",
      "length": 601,
      "name": "?INV_AppendItemFormulaText@@YGXPAUD2UnitStrc@@PAUD2ItemFormulaRecordStrc@@PAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004865D0",
+     "length": 108,
+     "name": "?INV_AppendBookCharges@@YAXPAUUnicode@@@Z"
     },
     {
      "va": "0x00486640",
@@ -14482,6 +14502,21 @@
      "va": "0x00486670",
      "length": 255,
      "name": "?INV_AppendSocketedGemLetters@@YGXPAUUnicode@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00486770",
+     "length": 175,
+     "name": "?INV_FindSetItem@@YAPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
+    },
+    {
+     "va": "0x00486820",
+     "length": 64,
+     "name": "?INV_IsMouseInBox@@YGHHHHH@Z"
+    },
+    {
+     "va": "0x00486860",
+     "length": 77,
+     "name": "?INV_IsOverWeaponSwapTab@@YAHHH@Z"
     },
     {
      "va": "0x004868B0",
@@ -14538,9 +14573,38 @@
      "name": "?sub_00486D80_IsState1Or2@@YAHXZ"
     },
     {
+     "va": "0x00486DA0",
+     "length": 84,
+     "name": "?INV_IsOverGoldButton@@YAHHH@Z"
+    },
+    {
      "va": "0x00486E10",
      "length": 69,
      "name": "?INV_IsInNpcPanelRect@@YIHHH@Z"
+    },
+    {
+     "va": "0x00486E60",
+     "length": 139,
+     "name": "?INV_ClickOutsidePanel@@YGXHPAUSMSGHANDLER_PARAMS@@H@Z"
+    },
+    {
+     "va": "0x00486EF0",
+     "length": 265,
+     "name": "?INV_NpcPanelMouseMove@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00487000",
+     "length": 554
+    },
+    {
+     "va": "0x00487230",
+     "length": 353,
+     "name": "?INV_UpdateBodyLocHover@@YGXHPAUD2UnitStrc@@PAUD2InventoryStrc@@@Z"
+    },
+    {
+     "va": "0x004873A0",
+     "length": 925,
+     "name": "?INV_UpdateInventoryHover@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x00487740",
@@ -14661,9 +14725,19 @@
      "name": "INV_ResetShopCursorMsg"
     },
     {
+     "va": "0x004889D0",
+     "length": 299,
+     "name": "?INV_NpcShopMouseMoveMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x00488DF0",
      "length": 30,
      "name": "INV_ConsumeMsg"
+    },
+    {
+     "va": "0x00488E10",
+     "length": 81,
+     "name": "?INV_SelectButtonByKey@@YAXH@Z"
     },
     {
      "va": "0x00488E70",
@@ -14674,6 +14748,10 @@
      "va": "0x00488EC0",
      "length": 76,
      "name": "INV_ShopKeyMsg"
+    },
+    {
+     "va": "0x00488F10",
+     "length": 322
     },
     {
      "va": "0x00489060",
@@ -14701,6 +14779,21 @@
      "name": "?INV_SetTradePanelOpen@@YIXH@Z"
     },
     {
+     "va": "0x00489430",
+     "length": 65,
+     "name": "?INV_IsOverTradeButtonLeft@@YAHHH@Z"
+    },
+    {
+     "va": "0x00489480",
+     "length": 65,
+     "name": "?INV_IsOverTradeButtonRight@@YAHHH@Z"
+    },
+    {
+     "va": "0x00489580",
+     "length": 495,
+     "name": "?INV_TradePanelMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x00489770",
      "length": 39,
      "name": "INV_TradeBlockMsg"
@@ -14726,9 +14819,29 @@
      "name": "_INV_ReturnToStashState"
     },
     {
+     "va": "0x00489920",
+     "length": 92,
+     "name": "?INV_IsOverCloseButton@@YAHHH@Z"
+    },
+    {
+     "va": "0x00489980",
+     "length": 132,
+     "name": "?INV_IsOverTransmuteButton@@YAHHH@Z"
+    },
+    {
      "va": "0x00489A10",
      "length": 32,
      "name": "?INV_CloseStashAndNotify@@YAXXZ"
+    },
+    {
+     "va": "0x00489A30",
+     "length": 139,
+     "name": "?INV_StashMouseMoveMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00489AC0",
+     "length": 516,
+     "name": "?INV_StashClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x00489CE0",
@@ -14765,6 +14878,16 @@
      "name": "?INV_ResetStashPanel@@YAXXZ"
     },
     {
+     "va": "0x00489FB0",
+     "length": 65,
+     "name": "?sub_00489FB0_IsOverButtonC@@YAHHH@Z"
+    },
+    {
+     "va": "0x0048A000",
+     "length": 71,
+     "name": "?INV_IsOverCubeButton@@YAHHH@Z"
+    },
+    {
      "va": "0x0048A050",
      "length": 116,
      "name": "?INV_CloseCubePanel@@YAXXZ"
@@ -14778,6 +14901,11 @@
      "va": "0x0048A0F0",
      "length": 152,
      "name": "INV_CubeMouseMoveMsg"
+    },
+    {
+     "va": "0x0048A190",
+     "length": 536,
+     "name": "?INV_CubeClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x0048A3B0",
@@ -14893,9 +15021,19 @@
      "name": "?INV_GetMercUnit@@YAPAUD2UnitStrc@@XZ"
     },
     {
+     "va": "0x0048B680",
+     "length": 305,
+     "name": "?INV_MercPanelClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x0048B7C0",
      "length": 647,
      "name": "?INV_MercInvClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0048BA50",
+     "length": 389,
+     "name": "?INV_MercPanelHoverMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x0048BBE0",
@@ -15042,6 +15180,30 @@
     "/Ob2",
     "/Gd",
     "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/UI/inv_0048BC10.cpp",
+   "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
+   "functions": [
+    {
+     "va": "0x0048BC10",
+     "length": 361
+    }
    ]
   },
   {
@@ -24056,168 +24218,6 @@
     {
      "va": "0x00491AD0",
      "length": 577
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/inv_00485EE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00483F80",
-     "length": 99,
-     "name": "?INV_IsUnusableQuestBook@@YAHPAUD2ItemsTxt@@@Z"
-    },
-    {
-     "va": "0x004843E0",
-     "length": 183,
-     "name": "?INV_CanSocketInto@@YAHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x00485EE0",
-     "length": 544,
-     "name": "?INV_AppendDefense@@YGXPAUD2UnitStrc@@0PAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004865D0",
-     "length": 108,
-     "name": "?INV_AppendBookCharges@@YAXPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x00486770",
-     "length": 175,
-     "name": "?INV_FindSetItem@@YAPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
-    },
-    {
-     "va": "0x00486820",
-     "length": 64,
-     "name": "?INV_IsMouseInBox@@YGHHHHH@Z"
-    },
-    {
-     "va": "0x00486860",
-     "length": 77,
-     "name": "?INV_IsOverWeaponSwapTab@@YAHHH@Z"
-    },
-    {
-     "va": "0x00486DA0",
-     "length": 84,
-     "name": "?INV_IsOverGoldButton@@YAHHH@Z"
-    },
-    {
-     "va": "0x00486E60",
-     "length": 139,
-     "name": "?INV_ClickOutsidePanel@@YGXHPAUSMSGHANDLER_PARAMS@@H@Z"
-    },
-    {
-     "va": "0x00486EF0",
-     "length": 265,
-     "name": "?INV_NpcPanelMouseMove@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00487000",
-     "length": 554
-    },
-    {
-     "va": "0x00487230",
-     "length": 353,
-     "name": "?INV_UpdateBodyLocHover@@YGXHPAUD2UnitStrc@@PAUD2InventoryStrc@@@Z"
-    },
-    {
-     "va": "0x004873A0",
-     "length": 925,
-     "name": "?INV_UpdateInventoryHover@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004889D0",
-     "length": 299,
-     "name": "?INV_NpcShopMouseMoveMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00488E10",
-     "length": 81,
-     "name": "?INV_SelectButtonByKey@@YAXH@Z"
-    },
-    {
-     "va": "0x00488F10",
-     "length": 322
-    },
-    {
-     "va": "0x00489430",
-     "length": 65,
-     "name": "?INV_IsOverTradeButtonLeft@@YAHHH@Z"
-    },
-    {
-     "va": "0x00489480",
-     "length": 65,
-     "name": "?INV_IsOverTradeButtonRight@@YAHHH@Z"
-    },
-    {
-     "va": "0x00489580",
-     "length": 495,
-     "name": "?INV_TradePanelMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00489920",
-     "length": 92,
-     "name": "?INV_IsOverCloseButton@@YAHHH@Z"
-    },
-    {
-     "va": "0x00489980",
-     "length": 132,
-     "name": "?INV_IsOverTransmuteButton@@YAHHH@Z"
-    },
-    {
-     "va": "0x00489A30",
-     "length": 139,
-     "name": "?INV_StashMouseMoveMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00489AC0",
-     "length": 516,
-     "name": "?INV_StashClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00489FB0",
-     "length": 65,
-     "name": "?sub_00489FB0_IsOverButtonC@@YAHHH@Z"
-    },
-    {
-     "va": "0x0048A000",
-     "length": 71,
-     "name": "?INV_IsOverCubeButton@@YAHHH@Z"
-    },
-    {
-     "va": "0x0048A190",
-     "length": 536,
-     "name": "?INV_CubeClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0048B680",
-     "length": 305,
-     "name": "?INV_MercPanelClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0048BA50",
-     "length": 389,
-     "name": "?INV_MercPanelHoverMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0048BC10",
-     "length": 361
     }
    ],
    "flags": [
