@@ -6,7 +6,6 @@
 
 static int sub_00520A80_CheckStringBlock(const char* pBuffer, unsigned int nPos, unsigned int nCount, unsigned int nSize);
 
-
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CriticalSectionStrc;
@@ -1700,19 +1699,30 @@ int __fastcall BNDOWNLOAD_HandleChatEvent(const void* pData, unsigned int nSize)
 }
 
 struct T0041D340;
+
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
+
 struct T0041D340
 {
     unsigned int dwState[5];
 };
+
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
+
 void* gpBnStateArg; // 0x00882000
+
 D2CriticalSectionStrc gtMessageLock; // 0x00882004
+
 int gnBnState; // 0x0088201C
+
 void __cdecl sub_005201E0_InitMessageQueue(); // 0x005201E0
+
 int __fastcall sub_005205F0_GetState(D2BnStateStrc* pState); // 0x005205F0
+
 void __cdecl sub_00520200_DeleteQueueLock(); // 0x00520200
+
 void __fastcall sub_00520C30_SetSlot(unsigned char nIndex, int nValue); // 0x00520C30
+
 int __fastcall sub_M119_Emit_00520A80(int nPos, int nCount, int nSize)
 {
     return sub_00520A80_CheckStringBlock((const char*)nSize, nPos, nCount, nSize + 3);
@@ -2789,6 +2799,110 @@ unsigned int __fastcall BNDOWNLOAD_DecryptData(unsigned char* data,unsigned int 
  size+=data[5];
  size-=64;
  sub_00524740_ClearKeySchedules();sub_005241A0_ClearHashContexts();return size;
+}
+
+struct D2CDKeyInfoStrc;
+struct D2AuthCheckPacketStrc;
+struct D2CipherKeyStringView;
+struct D2EncodedTrailerStrc;
+struct D2CDKeyInfoStrc
+{
+    unsigned int dwKeyLength;
+    unsigned int dwProductValue;
+    unsigned int f_8;
+    unsigned int f_C;
+    unsigned int dwHash[5];
+};
+struct D2AuthCheckPacketStrc
+{
+    unsigned int f_0;
+    unsigned int f_4;
+    unsigned int f_8;
+    unsigned int nKeys;
+    unsigned int bSpawn;
+    D2CDKeyInfoStrc pKeys[2];
+    char szData[0x200];
+};
+int __cdecl sub_0051BEC0_IsExpansion(); // 0x0051BEC0
+int __fastcall sub_0051E340_BuildCDKeyInfoForSlot(D2CDKeyInfoStrc* pInfo, unsigned int dwClientToken, int nSlot); // 0x0051E340
+int __cdecl BNCLIENT_GetAbortFlag(); // 0x00520AE0
+void __cdecl GRID_LockCDKeys(); // 0x005234D0
+void __cdecl GRID_UnlockCDKeys(); // 0x005239C0
+const char* __cdecl sub_00523AA0_GetExeInfo(); // 0x00523AA0
+struct D2CipherKeyStringView
+{
+    void __thiscall BNDOWNLOAD_InitCipherKeys(int bEncrypt); // 0x00522C30
+};
+struct D2EncodedTrailerStrc
+{
+    unsigned int nDigest;
+    unsigned char nReserved;
+    unsigned char nLastBlockSize;
+    unsigned short wReserved;
+};
+unsigned int __fastcall sub_00523020_GetAlignedData(unsigned int nSize); // 0x00523020
+unsigned int gdwBnClientToken; // 0x00882530
+int __cdecl sub_00521DC0_SendAuthCheck(); // 0x00521DC0
+
+// 0x00523060
+void __fastcall sub_00523060_EncodeData(unsigned char* pData, unsigned int nSize, unsigned int nBufferSize, unsigned int nKey)
+{
+    unsigned char abDigest[20];
+    unsigned char aaBlocks[2][64];
+    unsigned char abFinalDigest[20];
+
+    D2_ASSERT(pData, 0x105);
+    const unsigned int& nKeyValue = nKey;
+    const char* szKey = (const char*)nKeyValue;
+    D2_ASSERT(szKey, 0x106);
+    D2_ASSERT(nBufferSize == sub_00523020_GetAlignedData(nSize), 0x108);
+
+    ((D2CipherKeyStringView*)szKey)->BNDOWNLOAD_InitCipherKeys(1);
+
+    unsigned int nBlock = 0;
+    unsigned int nChunk = 0;
+    while (nSize)
+    {
+        nChunk = nSize;
+        if (nChunk >= 0x40)
+            nChunk = 0x40;
+
+        memcpy(aaBlocks[0], pData, nChunk);
+        if (nChunk < 0x40)
+            memset(&aaBlocks[0][nChunk], 0, 0x40 - nChunk);
+
+        sub_005241C0_GetDigest(0, (unsigned int*)abDigest);
+        if (!(nBlock & 0xF))
+            sub_00524200_HashBlock(0, aaBlocks[0], 0);
+
+        for (int i = 0; i < 0x40; ++i)
+            aaBlocks[1][i] = abDigest[(unsigned int)(0x3F - i) % 20] + aaBlocks[0][i];
+
+        if (!(nBlock & 7))
+        {
+            for (int i = 0; i < 0x40; i += 8)
+                sub_00524760_CipherBlock(0, (unsigned short*)&aaBlocks[1][i], (unsigned short*)&aaBlocks[0][i]);
+        }
+        else
+        {
+            memcpy(aaBlocks[0], aaBlocks[1], 0x40);
+        }
+
+        memcpy(pData, aaBlocks[0], 0x40);
+        nSize -= nChunk;
+        pData += 0x40;
+        ++nBlock;
+    }
+
+    sub_005241C0_GetDigest(0, (unsigned int*)abFinalDigest);
+    D2EncodedTrailerStrc* pTrailer = (D2EncodedTrailerStrc*)pData;
+    pTrailer->nDigest = *(unsigned int*)abFinalDigest;
+    pTrailer->nReserved = 0;
+    pTrailer->nLastBlockSize = (unsigned char)nChunk;
+    pTrailer->wReserved = 0;
+
+    sub_00524740_ClearKeySchedules();
+    sub_005241A0_ClearHashContexts();
 }
 
 // 0x00523280
