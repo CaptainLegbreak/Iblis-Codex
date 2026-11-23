@@ -2301,6 +2301,19 @@ void __fastcall sub_004F8810_DrawBlock(D2TileLibraryBlockStrc* pBlock, unsigned 
         CMNSUBTILE_DrawIsoBlockFlat(pBlock->pData, pDst, pPalette);
 }
 
+// 0x004F8850
+void __fastcall sub_004F8850_DrawLitBlock(D2TileLibraryBlockStrc* pBlock, unsigned char* pDst, int* pLight)
+{
+    const int nLightX = pLight[0] << 4;
+    const int nLightXStep = pLight[3] - pLight[0];
+    const int nLightY = pLight[1] << 4;
+    const int nLightYStep = pLight[2] - pLight[1];
+    if (pBlock->nFormat & 4)
+        sub_004F71A0_DrawLitRleRows(pBlock->pData, pDst, nLightX, nLightXStep, nLightY, nLightYStep, 0xF, 7);
+    else
+        D2GFX_DrawLitSubtileRows(pBlock->pData, pDst, nLightX, nLightXStep, nLightY, nLightYStep);
+}
+
 // 0x004F88B0
 void __fastcall sub_004F88B0_DrawBlockClipped(D2TileLibraryBlockStrc* pBlock, int nX, int nY, unsigned char* pDst, unsigned char nLight)
 {
