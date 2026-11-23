@@ -1382,7 +1382,6 @@
    "bytes": 60492,
    "definitions": 32,
    "externs": [
-    "extern \"C\" void __cdecl sub_0047AA60_OnImeComposition(); // 0x0047AA60",
     "extern \"C\" void __cdecl ROSTERPETS_HandleImeStartComposition(); // 0x0047ACA0",
     "extern \"C\" void __cdecl INV_ResetImeCompositionMsg(); // 0x0047AD10",
     "extern \"C\" void __cdecl INV_SetMsgHandled(); // 0x0047B070",

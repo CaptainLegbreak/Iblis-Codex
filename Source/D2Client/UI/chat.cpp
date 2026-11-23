@@ -138,6 +138,89 @@ int __cdecl CHAT_HasClassOverride()
     return gtClientFlags_00712EFC.bClassOverride;
 }
 
+extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(unsigned int nCodePage, unsigned long dwFlags, const char* szSource, int nSource, wchar_t* wszDest, int nDest); // 0x006CC29C
+
+extern "C" long __stdcall ImmGetCompositionStringA(T0046E1B0* hImc, unsigned long dwIndex, void* pBuf, unsigned long dwBufLen); // 0x006B00C0
+
+int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);                   // 0x004B9A00
+
+Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
+
+Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
+
+// 0x0047AA60
+void __stdcall sub_0047AA60_OnImeComposition(SMSGHANDLER_PARAMS* pMsg)
+{
+    char szComp[200];
+    memset(szComp, 0, sizeof(szComp));
+    T0046E1B0* hImc = ImmGetContext(WINDOW_GetWindow());
+    if (hImc)
+    {
+        Unicode wszText[32];
+        for (int i = 0; i < 32; ++i)
+            wszText[i].wChar = 0;
+        if (pMsg->lParam & 0x800)
+        {
+            unsigned long nLength = ImmGetCompositionStringA(hImc, 0x800, 0, 0);
+            if (nLength > 199)
+                nLength = 199;
+            ImmGetCompositionStringA(hImc, 0x800, szComp, nLength);
+            szComp[199] = 0;
+            MultiByteToWideChar(0, 1, szComp, -1, (wchar_t*)wszText, 32);
+            wszText[31].wChar = 0;
+            const int nTextLength = sub_00526800(wszText);
+            if (sub_00526800(gwszChatLine_007BB638) + sub_00526800(gwszImeResult) < 0x7F)
+            {
+                sub_00526700(gwszChatLine_007BB638, gwszImeResult);
+                gnChatCaret += sub_00526800(gwszImeResult);
+            }
+            if (sub_00526800(gwszChatLine_007BB638) + nTextLength < 0x7F)
+            {
+                sub_00526700(gwszChatLine_007BB638, wszText);
+                gnChatCaret += nTextLength;
+            }
+            gwszImeResult[0].wChar = 0;
+            gwszImeComposition[0].wChar = 0;
+        }
+        if ((pMsg->lParam & 8) && ImmGetOpenStatus(hImc))
+        {
+            unsigned long nLength = ImmGetCompositionStringA(hImc, 8, 0, 0);
+            if (nLength > 0)
+            {
+                memset(szComp, 0, sizeof(szComp));
+                memset(wszText, 0, sizeof(wszText));
+                if (nLength > 199)
+                    nLength = 199;
+                if (ImmGetCompositionStringA(hImc, 8, szComp, nLength) > 0)
+                {
+                    szComp[199] = 0;
+                    MultiByteToWideChar(0, 1, szComp, -1, (wchar_t*)wszText, 32);
+                    const int nCount = sub_00526800(wszText);
+                    if (nCount < 31)
+                        wszText[nCount].wChar = 0;
+                    else
+                        wszText[31].wChar = 0;
+                    if (nCount >= 32)
+                    {
+                        Unicode::strncpy(gwszImeComposition, wszText, 31);
+                        gwszImeComposition[31].wChar = 0;
+                        sub_004B9A00(1, 0, 0, 0, 0);
+                    }
+                    else
+                    {
+                        sub_005267E0(gwszImeComposition, wszText);
+                    }
+                }
+            }
+        }
+        ImmReleaseContext(WINDOW_GetWindow(), hImc);
+    }
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
+
 // 0x0047AD60
 static void CHAT_RefreshCandidates(HIMC hImc)
 {
