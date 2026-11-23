@@ -1548,6 +1548,13 @@ static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int n
     return SEED_RollRandomNumber(pSeed) & (nMax - 1);
 }
 
+// 0x004B1670
+int __cdecl MONSTER_GetUseItemMode()
+{
+// build: symbol ?gnInteractNpcClassId@* 0x007C0D2D
+    return gnInteractNpcClassId;
+}
+
 // 0x004B1680
 void __stdcall sub_004B1680(D2NpcEntryStrc* pEntry)
 {

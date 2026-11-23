@@ -2755,12 +2755,6 @@ Unicode Unicode::sub_004B15F0() const
     return Unicode(wChar < CASE_BOUND ? gaCaseTable[wChar] : wChar);
 }
 
-// 0x004B1670
-int __cdecl MONSTER_GetUseItemMode()
-{
-// build: symbol ?gnInteractNpcClassId@* 0x007C0D2D
-    return gnInteractNpcClassId;
-}
 
 // 0x004B17D0
 static inline void MONSTER_SetNpcMenuState(int nState)
