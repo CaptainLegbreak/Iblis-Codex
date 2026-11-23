@@ -476,7 +476,7 @@
   },
   "Source/D2Launch/Unknown_0042F370.cpp": {
    "bytes": 1428,
-   "definitions": 4,
+   "definitions": 1,
    "externs": [
     "extern \"C\" char gData_007089AC[]; // 0x007089AC",
     "extern \"C\" char gData_007089DC[]; // 0x007089DC",
@@ -510,7 +510,7 @@
   },
   "Source/D2Launch/Src/MainMenus.cpp": {
    "bytes": 15432,
-   "definitions": 61,
+   "definitions": 64,
    "externs": [
     "extern \"C\" void __cdecl sub_00437710_OnInfoScreen(); // 0x00437710",
     "extern \"C\" void __cdecl sub_00437720_OnPasswordScreen(); // 0x00437720",
@@ -11523,7 +11523,7 @@
    "cname": "gData_00708C30",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Unknown_0042F370.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00708C30_t gData_00708C30; // 0x00708C30",
    "head": "extern \"C\" struct d2data_00708C30_t gData_00708C30 = ",
@@ -11621,7 +11621,7 @@
    "cname": "gData_00708C80",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Unknown_0042F370.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00708C80_t gData_00708C80; // 0x00708C80",
    "head": "extern \"C\" struct d2data_00708C80_t gData_00708C80 = ",
@@ -11719,7 +11719,7 @@
    "cname": "gData_00708D10",
    "declared": true,
    "decorated": "?gatControlTemplates@@3PAUD2LaunchControlTemplateStrc@@A",
-   "file": "Source/D2Launch/Unknown_0042F370.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "fill": 26,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00708D10_t gData_00708D10; // 0x00708D10",
