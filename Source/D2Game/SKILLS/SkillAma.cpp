@@ -615,6 +615,111 @@ int __fastcall SKILLS_SrvDo007_Jab(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
     return 1;
 }
 
+// 0x005DB410
+int __fastcall sub_005DB410_CreateMissileWall(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2MissileStrc missile;
+    if (pUnit) pUnit->dwFlags |= 0x40;
+    D2SkillsTxt* pSkillsTxtRecord = 0;
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        pSkillsTxtRecord = &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+    if (!pSkillsTxtRecord) goto ReturnZero;
+    int nX;
+    int nY;
+    if (D2GAME_GetXAndYFromTargetUnit_6FD14020(pGame, pUnit, &nX, &nY))
+    {
+        const int nTotal = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
+        int nUnitX;
+        switch (pUnit->dwUnitType)
+        {
+        case UNIT_OBJECT:
+        case UNIT_ITEM:
+        case UNIT_TILE:
+            nUnitX = pUnit->pStaticPath->nXPos;
+            break;
+        default:
+            nUnitX = pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+            break;
+        }
+        int nDx = nX - nUnitX;
+        int nUnitY;
+        switch (pUnit->dwUnitType)
+        {
+        case UNIT_OBJECT:
+        case UNIT_ITEM:
+        case UNIT_TILE:
+            nUnitY = pUnit->pStaticPath->nYPos;
+            break;
+        default:
+            nUnitY = pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+            break;
+        }
+        int nDy = nY - nUnitY;
+        SKILLS_EnlargeVector(&nDx, &nDy);
+        SKILLS_MakeShortPerpendicularVector(&nDx, &nDy);
+        nX += -(nDx * nTotal / 2);
+        nY += -(nDy * nTotal / 2);
+        int nMissile = pSkillsTxtRecord->wSrvMissileA;
+        if (UNITS_GetWeaponClass(pUnit) != 1 && pSkillsTxtRecord->wSrvMissileB >= 0) nMissile = pSkillsTxtRecord->wSrvMissileB;
+        if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount) goto ReturnZero;
+        int nActive = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[2], nSkillId, nSkillLevel);
+        if (!nActive) nActive = nTotal;
+        memset(&missile, 0, sizeof(missile));
+        missile.dwFlags = 0x820;
+        missile.pOwner = pUnit;
+        missile.pOrigin = pUnit;
+        missile.nSkill = nSkillId;
+        missile.nSkillLevel = nSkillLevel;
+        missile.nMissile = nMissile;
+        missile.nActivateFrame = SKILLS_EvaluateSkillFormula(missile.pOwner, pSkillsTxtRecord->dwCalc[1], missile.nSkill, missile.nSkillLevel);
+        missile.dwFlags |= 0x10000;
+        const int nOutside = (nTotal - nActive) / 2;
+        if (nOutside > 0)
+        {
+            int i = nOutside;
+            do
+            {
+                missile.nTargetX = nX;
+                missile.nTargetY = nY;
+                MISSILES_CreateMissileFromParams(pGame, &missile);
+                nX += nDx;
+                nY += nDy;
+            } while (--i);
+        }
+        missile.dwFlags &= ~0x10000u;
+        if (nActive > 0)
+        {
+            int i = nActive;
+            do
+            {
+                missile.nTargetX = nX;
+                missile.nTargetY = nY;
+                MISSILES_CreateMissileFromParams(pGame, &missile);
+                nX += nDx;
+                nY += nDy;
+            } while (--i);
+        }
+        missile.dwFlags |= 0x10000;
+        int nRemaining = nTotal - nOutside - nActive;
+        if (nRemaining > 0)
+        {
+            do
+            {
+                missile.nTargetX = nX;
+                missile.nTargetY = nY;
+                MISSILES_CreateMissileFromParams(pGame, &missile);
+                nX += nDx;
+                nY += nDy;
+            } while (--nRemaining);
+        }
+    }
+    return 1;
+ReturnZero:
+    return 0;
+}
+
 #define STAT_DAMAGEPERCENT 25
 
 // 0x005DB6A0
@@ -788,6 +893,79 @@ int __fastcall SKILLS_SrvDo011_ChargedStrike(D2GameStrc* pGame, D2UnitStrc* pUni
         MISSILES_CreateMissileFromParams(pGame, &missileParams);
     }
 
+    return 1;
+}
+
+static inline int GetTargetType(D2UnitStrc* pUnit)
+{
+    int nType = 6;
+    if (pUnit)
+    {
+        nType = pUnit->dwUnitType;
+    }
+    return nType;
+}
+
+static inline int GetTargetId(D2UnitStrc* pUnit)
+{
+    int nId = -1;
+    if (pUnit)
+    {
+        nId = pUnit->dwUnitId;
+    }
+    return nId;
+}
+
+// 0x005DBA40
+int __fastcall sub_005DBA40_CreateSkillMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxt) return 0;
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+    if (!pSkill) return 0;
+    const int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwAuraRangeCalc, nSkillId, nSkillLevel);
+    int nCount = SKILLS_GetParam1(pSkill);
+    if (!nCount) return 0;
+    const int nTargetId = SKILLS_GetParam3(pSkill);
+    D2UnitStrc* pTarget = SUNIT_GetServerUnit(pGame, SKILLS_GetParam2(pSkill), nTargetId);
+    if (!pTarget)
+    {
+        pTarget = SKILLS_FindNextAuraTarget(pGame, pUnit, 0, 0, nRange, 3, nTargetId, 0);
+        if (!pTarget) return 1;
+    }
+    UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);
+    int nX = 0;
+    int nY = 0;
+    D2GAME_GetXAndYFromTargetUnit_6FD14020(pGame, pUnit, &nX, &nY);
+    int nMissile = pSkillsTxt->wSrvMissileA;
+    if (UNITS_GetWeaponClass(pUnit) != 1 && pSkillsTxt->wSrvMissileB >= 0)
+        nMissile = pSkillsTxt->wSrvMissileB;
+    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount) return 0;
+    const int nDamage = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwCalc[1], nSkillId, nSkillLevel);
+    D2MissileStrc missile;
+    memset(&missile, 0, sizeof(missile));
+    missile.dwFlags = 0x21;
+    missile.pOwner = pUnit;
+    missile.nX = CLIENTS_GetUnitX(pUnit);
+    missile.nY = CLIENTS_GetUnitY(pUnit);
+    missile.nSkill = nSkillId;
+    missile.nSkillLevel = nSkillLevel;
+    missile.nMissile = nMissile;
+    missile.nTargetX = nX;
+    missile.nTargetY = nY;
+    missile.pInitFunc = SKILLS_AddDamagePercentBonus;
+    missile.nInitArg = nDamage;
+    MISSILES_CreateMissileFromParams(pGame, &missile);
+    --nCount;
+    SKILLS_SetParam1(pSkill, nCount);
+    if (nCount <= 0) return 0;
+    D2UnitStrc* pNextTarget = SKILLS_FindNextAuraTarget(pGame, pUnit, 0, 0, nRange, 3, !pTarget ? -1 : pTarget->dwUnitId, 0);
+    if (pNextTarget)
+    {
+        SKILLS_SetParam2(pSkill, GetTargetType(pNextTarget));
+        SKILLS_SetParam3(pSkill, GetTargetId(pNextTarget));
+        SKILLS_RewindUnitAnimation(pUnit, SKILLDESC_GetSkillParamSix(nSkillId));
+    }
     return 1;
 }
 

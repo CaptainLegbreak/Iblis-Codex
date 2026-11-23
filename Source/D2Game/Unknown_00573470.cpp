@@ -50,8 +50,6 @@ struct D2DataTablesStrc
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-extern const int gnHpBonusTable[9]; // 0x006E1590
-extern const int gnExperienceBonusTable[9]; // 0x006E15B4
 
 struct Data005734C0 { unsigned char bUnknown00[0x54]; unsigned int dwValue54; };
 
@@ -169,81 +167,4 @@ D2MonStats2Txt* __fastcall sub_00573470(int nMonsterId)
     return 0;
 }
 
-// 0x005738F0
-int __fastcall MONSTER_GetHpBonus(int nPlayerCount)
-{
-    if (nPlayerCount < BONUS_TABLE_SIZE)
-    {
-        return gnHpBonusTable[nPlayerCount];
-    }
 
-    return (nPlayerCount - HP_BONUS_BASE) * HP_BONUS_STEP;
-}
-
-// 0x00573910
-int __fastcall MONSTER_GetExperienceBonus(int nPlayerCount)
-{
-    if (nPlayerCount < BONUS_TABLE_SIZE)
-    {
-        return gnExperienceBonusTable[nPlayerCount];
-    }
-
-    return 2 * (5 * nPlayerCount + XP_BONUS_BASE);
-}
-
-#include "gen/data/Source/D2Game/Unknown_00573470.inc"
-
-// 0x005734C0
-extern "C" __declspec(dllexport) void __fastcall sub_005734C0(Unit005734C0* pUnit, unsigned int dwValue) {
-    if (pUnit && pUnit->nType == 1 && pUnit->pData) {
-        pUnit->pData->dwValue54 = dwValue;
-    }
-}
-
-// 0x005734E0
-extern "C" __declspec(dllexport) unsigned int __fastcall sub_005734E0(Unit005734E0* pUnit) {
-    Data005734E0* pData = (pUnit && pUnit->nType == 1) ? pUnit->pData : 0;
-    if (!pData) {
-        return 1;
-    }
-    return pData->dwValue54;
-}
-
-// 0x00573500
-extern "C" __declspec(dllexport) void __fastcall sub_00573500(Unit00573500* pUnit, unsigned int dwValue) {
-    if (pUnit && pUnit->nType == 1 && pUnit->pData) {
-        pUnit->pData->dwValue58 = dwValue;
-    }
-}
-
-// 0x00573520
-extern "C" __declspec(dllexport) unsigned int __fastcall sub_00573520(Unit00573520* pUnit) {
-    Data00573520* pData = (pUnit && pUnit->nType == 1) ? pUnit->pData : 0;
-    if (!pData) {
-        return 0;
-    }
-    return pData->dwValue58;
-}
-
-// 0x00573540
-extern "C" __declspec(dllexport) int __fastcall sub_00573540(Unit00573540* pUnit, unsigned short wMask) {
-    Data00573540* pData = (pUnit && pUnit->nType == 1) ? pUnit->pData : 0;
-    if (!pData) {
-        return 0;
-    }
-    return (unsigned short)(pData->wFlags5C & wMask) != 0;
-}
-
-// 0x00573570
-extern "C" __declspec(dllexport) void __fastcall sub_00573570(Unit00573570* pUnit, unsigned short wMask, int bSet) {
-    if (pUnit && pUnit->nType == 1) {
-        Data00573570* pData = pUnit->pData;
-        if (pData) {
-            if (bSet) {
-                pData->wFlags5C |= wMask;
-            } else {
-                pData->wFlags5C &= ~wMask;
-            }
-        }
-    }
-}

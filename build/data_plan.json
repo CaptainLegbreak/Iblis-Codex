@@ -263,8 +263,8 @@
    "state": "included"
   },
   "Source/Storm/SOURCE/SFILE.CPP": {
-   "bytes": 424,
-   "definitions": 13,
+   "bytes": 432,
+   "definitions": 14,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
@@ -353,17 +353,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/Storm/SOURCE/SFILE_004177E0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/Storm/Unknown_0041A450.cpp": {
-   "bytes": 8,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_0041A450.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -2248,16 +2237,8 @@
    "bytes": 620,
    "definitions": 14,
    "externs": [
-    "extern \"C\" void __cdecl SKILLDESC_DrawKickBaseDamage(); // 0x004EA450",
-    "extern \"C\" void __cdecl SKILLDESC_DrawSkillDamage(); // 0x004EA990",
     "extern \"C\" void __cdecl SKILLDESC_DrawThrowAndElemDamage(); // 0x004EAAA0",
-    "extern \"C\" void __cdecl SKILLDESC_DrawWeaponPhysElemDamage(); // 0x004EAD60",
-    "extern \"C\" void __cdecl sub_004EAE70_DrawPhysWeaponElemDamage(); // 0x004EAE70",
     "extern \"C\" void __cdecl sub_004EB290_DrawElemDamage(); // 0x004EB290",
-    "extern \"C\" void __cdecl SKILLDESC_DrawElementalDamageLine(); // 0x004EB390",
-    "extern \"C\" void __cdecl SKILLDESC_DrawThrowDamage(); // 0x004EB460",
-    "extern \"C\" void __cdecl SKILLDESC_DrawBoostedElemDamage(); // 0x004EB830",
-    "extern \"C\" void __cdecl SKILLDESC_DrawKickDamagePercent(); // 0x004EBB50",
     "extern \"C\" void __cdecl SKILLSMON_DescIfRecord(); // 0x004EC040"
    ],
    "fn_types": {},
@@ -3049,12 +3030,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/SRP/Unknown_005284F0.cpp": {
+  "Source/SRP/SRP.cpp": {
    "bytes": 4,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/SRP/Unknown_005284F0.inc",
+   "include": "gen/data/Source/SRP/SRP.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -3493,15 +3474,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/UNIT/SUnitMsg.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Unknown_00573470.cpp": {
-   "bytes": 72,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_00573470.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -5691,6 +5663,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/SkillSor.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/MONSTER/Monster.cpp": {
+   "bytes": 72,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/MONSTER/Monster.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -9298,7 +9279,7 @@
    "cname": "gData_00708390",
    "declared": false,
    "decorated": null,
-   "file": "Source/Storm/Unknown_0041A450.cpp",
+   "file": "Source/Storm/SOURCE/SFILE.CPP",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00708390_t gData_00708390; // 0x00708390",
    "head": "extern \"C\" struct d2data_00708390_t gData_00708390 = ",
@@ -90330,7 +90311,7 @@
    "cname": "gData_006E03F0",
    "declared": true,
    "decorated": "_gabSha1Pad80",
-   "file": "Source/SRP/Unknown_005284F0.cpp",
+   "file": "Source/SRP/SRP.cpp",
    "fill": 4,
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006E03F0[4]; // 0x006E03F0",
@@ -100979,7 +100960,7 @@
    "cname": "gData_006E1590",
    "declared": true,
    "decorated": "?gnHpBonusTable@@3QBHB",
-   "file": "Source/D2Game/Unknown_00573470.cpp",
+   "file": "Source/D2Game/MONSTER/Monster.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E1590[9]; // 0x006E1590",
    "head": "extern \"C\" const int gData_006E1590[9] = ",
@@ -101009,7 +100990,7 @@
    "cname": "gData_006E15B4",
    "declared": true,
    "decorated": "?gnExperienceBonusTable@@3QBHB",
-   "file": "Source/D2Game/Unknown_00573470.cpp",
+   "file": "Source/D2Game/MONSTER/Monster.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E15B4[9]; // 0x006E15B4",
    "head": "extern \"C\" const int gData_006E15B4[9] = ",

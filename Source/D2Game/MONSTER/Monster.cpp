@@ -66,6 +66,188 @@ inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
+struct D2MonStats2Txt;
+
+struct Data005734C0;
+
+struct Unit005734C0;
+
+struct Data005734E0;
+
+struct Unit005734E0;
+
+struct Data00573500;
+
+struct Unit00573500;
+
+struct Data00573520;
+
+struct Unit00573520;
+
+struct Data00573540;
+
+struct Unit00573540;
+
+struct Data00573570;
+
+struct Unit00573570;
+
+struct Data005734C0 { unsigned char bUnknown00[0x54]; unsigned int dwValue54; };
+
+struct Unit005734C0 {
+    int nType;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int f_10;
+    Data005734C0* pData;
+};
+
+struct Data005734E0 { unsigned char bUnknown00[0x54]; unsigned int dwValue54; };
+
+struct Unit005734E0 { int nType; unsigned int dwUnknown04; unsigned int dwUnknown08; unsigned int dwUnknown0C; unsigned int dwUnknown10; Data005734E0* pData; };
+
+struct Data00573500 { unsigned char bUnknown00[0x58]; unsigned int dwValue58; };
+
+struct Unit00573500 {
+    int nType;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int f_10;
+    Data00573500* pData;
+};
+
+struct Data00573520 {
+    unsigned int dwUnknown00;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int f_10;
+    unsigned int dwUnknown14;
+    unsigned int dwUnknown18;
+    unsigned int dwUnknown1C;
+    unsigned int dwUnknown20;
+    unsigned int dwUnknown24;
+    unsigned int dwUnknown28;
+    unsigned int dwUnknown2C;
+    unsigned int dwUnknown30;
+    unsigned int dwUnknown34;
+    unsigned int dwUnknown38;
+    unsigned int dwUnknown3C;
+    unsigned int dwUnknown40;
+    unsigned int dwUnknown44;
+    unsigned int dwUnknown48;
+    unsigned int dwUnknown4C;
+    unsigned int dwUnknown50;
+    unsigned int dwUnknown54;
+    unsigned int dwValue58;
+};
+
+struct Unit00573520 {
+    int nType;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int f_10;
+    Data00573520* pData;
+};
+
+struct Data00573540 {
+    unsigned int dwUnknown00;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int f_10;
+    unsigned int dwUnknown14;
+    unsigned int dwUnknown18;
+    unsigned int dwUnknown1C;
+    unsigned int dwUnknown20;
+    unsigned int dwUnknown24;
+    unsigned int dwUnknown28;
+    unsigned int dwUnknown2C;
+    unsigned int dwUnknown30;
+    unsigned int dwUnknown34;
+    unsigned int dwUnknown38;
+    unsigned int dwUnknown3C;
+    unsigned int dwUnknown40;
+    unsigned int dwUnknown44;
+    unsigned int dwUnknown48;
+    unsigned int dwUnknown4C;
+    unsigned int dwUnknown50;
+    unsigned int dwUnknown54;
+    unsigned int dwUnknown58;
+    unsigned short wFlags5C;
+};
+
+struct Unit00573540 {
+    int nType;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int f_10;
+    Data00573540* pData;
+};
+
+struct Data00573570 { unsigned char bUnknown00[0x5C]; unsigned short wFlags5C; };
+
+struct Unit00573570 { int nType; unsigned int dwUnknown04; unsigned int dwUnknown08; unsigned int dwUnknown0C; unsigned int dwUnknown10; Data00573570* pData; };
+
+// 0x005734C0
+extern "C" __declspec(dllexport) void __fastcall sub_005734C0(Unit005734C0* pUnit, unsigned int dwValue) {
+    if (pUnit && pUnit->nType == 1 && pUnit->pData) {
+        pUnit->pData->dwValue54 = dwValue;
+    }
+}
+
+// 0x005734E0
+extern "C" __declspec(dllexport) unsigned int __fastcall sub_005734E0(Unit005734E0* pUnit) {
+    Data005734E0* pData = (pUnit && pUnit->nType == 1) ? pUnit->pData : 0;
+    if (!pData) {
+        return 1;
+    }
+    return pData->dwValue54;
+}
+
+// 0x00573500
+extern "C" __declspec(dllexport) void __fastcall sub_00573500(Unit00573500* pUnit, unsigned int dwValue) {
+    if (pUnit && pUnit->nType == 1 && pUnit->pData) {
+        pUnit->pData->dwValue58 = dwValue;
+    }
+}
+
+// 0x00573520
+extern "C" __declspec(dllexport) unsigned int __fastcall sub_00573520(Unit00573520* pUnit) {
+    Data00573520* pData = (pUnit && pUnit->nType == 1) ? pUnit->pData : 0;
+    if (!pData) {
+        return 0;
+    }
+    return pData->dwValue58;
+}
+
+// 0x00573540
+extern "C" __declspec(dllexport) int __fastcall sub_00573540(Unit00573540* pUnit, unsigned short wMask) {
+    Data00573540* pData = (pUnit && pUnit->nType == 1) ? pUnit->pData : 0;
+    if (!pData) {
+        return 0;
+    }
+    return (unsigned short)(pData->wFlags5C & wMask) != 0;
+}
+
+// 0x00573570
+extern "C" __declspec(dllexport) void __fastcall sub_00573570(Unit00573570* pUnit, unsigned short wMask, int bSet) {
+    if (pUnit && pUnit->nType == 1) {
+        Data00573570* pData = pUnit->pData;
+        if (pData) {
+            if (bSet) {
+                pData->wFlags5C |= wMask;
+            } else {
+                pData->wFlags5C &= ~wMask;
+            }
+        }
+    }
+}
+
 // 0x005735A0
 int __fastcall MONSTER_SetVelocityAndPosition(D2GameStrc* pGame, D2UnitStrc* pMonster, int nX, int nY, int a5)
 {
@@ -90,6 +272,31 @@ int __fastcall MONSTER_SetVelocityAndPosition(D2GameStrc* pGame, D2UnitStrc* pMo
     modeChange.nX = nX;
     modeChange.nY = nY;
     return D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+}
+
+D2UnitStrc* __fastcall SUNIT_GetNextUnitFromList(D2UnitStrc* pUnit); // 0x00552DB0
+void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555600
+
+D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
+void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit); // 0x00620C10
+
+#define EVENTTYPE_AITHINK 2
+#define EVENTTYPE_STATREGEN 3
+
+// 0x00573640
+void __fastcall MONSTER_RemoveAll(D2GameStrc* pGame)
+{
+    for (int i = 0; i < 128; ++i)
+    {
+        D2UnitStrc* pMonster = pGame->pUnitList[1][i];
+        while (pMonster)
+        {
+            D2UnitStrc* pNext = SUNIT_GetNextUnitFromList(pMonster);
+            pGame->pUnitList[1][i] = pNext;
+            SUNIT_RemoveUnit(pGame, pMonster);
+            pMonster = pNext;
+        }
+    }
 }
 
 static inline int sub_E09_CheckMonStatsFlag(int nMonsterId, int nFlag)
@@ -133,6 +340,16 @@ void __fastcall MONSTER_Free(D2GameStrc* pGame, D2UnitStrc* pMonster)
     EVENT_FreeUnitTimers(pGame, pMonster);
 }
 
+// 0x00573750
+void __fastcall MONSTER_ClearTargetIfMatches(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+{
+    if (pTarget == SUNIT_GetTargetUnit(pGame, pUnit))
+    {
+        UNITS_SetTargetUnitForDynamicUnit(pUnit, 0);
+        PATH_SetTargetUnit(pUnit->pDynamicPath, 0);
+    }
+}
+
 union D2SeedStrc;
 
 struct D2MonsterDataStrc;
@@ -174,6 +391,13 @@ void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUn
     }
 }
 
+// 0x005738D0
+void __fastcall MONSTER_DeleteEvents(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_STATREGEN, 0);
+}
+
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 
 #pragma intrinsic(memset)
@@ -190,9 +414,9 @@ struct D2PlayerCountBonusStrc
 
 struct D2ActiveRoomStrc;
 
-extern const int gnHpBonusTable[9];
+extern const int gnHpBonusTable[9]; // 0x006E1590
 
-extern const int gnExperienceBonusTable[9];
+extern const int gnExperienceBonusTable[9]; // 0x006E15B4
 
 int __fastcall PLAYER_GetPlayerCount(D2GameStrc* pGame);                                                    // 0x00535790
 
@@ -212,7 +436,7 @@ D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDiff
 
 int __fastcall MONSTER_GetHpBonus(int nPlayerCount); // 0x005738F0
 
-// build: context MONSTER_GetHpBonus
+// 0x005738F0
 __declspec(noinline) int __fastcall MONSTER_GetHpBonus(int nPlayerCount)
 {
     if (nPlayerCount < BONUS_TABLE_SIZE)
@@ -225,7 +449,7 @@ __declspec(noinline) int __fastcall MONSTER_GetHpBonus(int nPlayerCount)
 
 int __fastcall MONSTER_GetExperienceBonus(int nPlayerCount); // 0x00573910
 
-// build: context MONSTER_GetExperienceBonus
+// 0x00573910
 __declspec(noinline) int __fastcall MONSTER_GetExperienceBonus(int nPlayerCount)
 {
     if (nPlayerCount < BONUS_TABLE_SIZE)
@@ -352,3 +576,5 @@ int __fastcall MONSTER_Reinitialize(D2GameStrc* pGame, D2UnitStrc* pUnit, int nC
 
     return 0;
 }
+
+#include "gen/data/Source/D2Game/MONSTER/Monster.inc"

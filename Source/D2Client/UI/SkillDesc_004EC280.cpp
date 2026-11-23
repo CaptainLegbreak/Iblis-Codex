@@ -4,10 +4,10 @@
 #include "D2Txt.h"
 #include "D2Records.h"
 #include "D2LevelTxt.h"
+#include "D2Unicode.h"
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 
-typedef wchar_t Unicode;
 
 struct D2UnitStrc;
 

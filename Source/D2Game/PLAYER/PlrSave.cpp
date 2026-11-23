@@ -3995,22 +3995,7 @@ int __fastcall PLRSAVE2_CheckPlayerFlags(D2GameStrc* pGame, unsigned short nFlag
     return 0;
 }
 
-// 0x00573640
-void __fastcall MONSTER_RemoveAll(D2GameStrc* pGame)
-{
-    for (int i = 0; i < 128; ++i)
-    {
-        D2UnitStrc* pMonster = pGame->pUnitList[1][i];
-        while (pMonster)
-        {
-            D2UnitStrc* pNext = SUNIT_GetNextUnitFromList(pMonster);
-            pGame->pUnitList[1][i] = pNext;
-            SUNIT_RemoveUnit(pGame, pMonster);
-            pMonster = pNext;
-        }
-    }
-}
-
+void __fastcall MONSTER_RemoveAll(D2GameStrc* pGame); // 0x00573640
 // 0x0058B4A0
 int __fastcall ACT5Q4_UnitIterate_SetRewardPending(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
