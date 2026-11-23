@@ -546,6 +546,13 @@ static int gnChunkExpected; // 0x00799310
 
 extern unsigned char gabChunkBuffer[]; // 0x00799318
 
+// 0x0044AB70
+int __fastcall sub_0044AB70_McpIncomingIgnore(void* pPacket, int nSize)
+{
+    return 1;
+}
+
+
 // 0x0044AFC0
 int __fastcall sub_0044AFC0_ReceiveChunk(const unsigned char* packet,unsigned int size)
 {
