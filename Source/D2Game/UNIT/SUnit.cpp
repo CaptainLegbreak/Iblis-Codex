@@ -87,7 +87,6 @@ struct D2MonsterDataStrc;
 
 struct D2MonStatsTxt;
 
-struct D2AiTableStrc;
 
 struct D2PresetUnitStrc;
 
@@ -324,13 +323,6 @@ void __fastcall SUNITMSG_SendRemoveObject(D2UnitStrc* pUnit, D2ClientStrc* pClie
 
 void __stdcall PATH_SetCurrentRoomInvalid(D2DynamicPathStrc* pPath, int bValue); // 0x00648B40
 
-struct D2AiTableStrc
-{
-    int unk0x00;
-    void* unk0x04;
-    void* pAiParamFn;
-    void* unk0x0C;
-};
 
 void __fastcall SUNIT_SynchronizeRoomClients(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x00554670
 

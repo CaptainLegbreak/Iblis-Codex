@@ -36,7 +36,6 @@ union D2PackedFloorStrc;
 
 struct D2UnkDrlgLogicStrc;
 
-struct D2LogicTargetStrc;
 
 struct D2RoomCoordListStrc
 {
@@ -118,11 +117,6 @@ void __stdcall DRLGLOGIC_SetCoordListForTiles(D2DrlgRoomStrc* pDrlgRoom); // 0x0
 
 void __stdcall DRLGLOGIC_AssignCoordListsForGrids(D2DrlgRoomStrc* pDrlgRoom, D2DrlgLogicalRoomInfoStrc* pDrlgCoordList); // 0x0066CA50
 
-struct D2LogicTargetStrc
-{
-    char unk0x00[0x10];
-    D2RoomCoordListStrc* pCoordList;
-};
 
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 

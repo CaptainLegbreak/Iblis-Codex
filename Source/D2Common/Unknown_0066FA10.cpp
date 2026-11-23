@@ -7,11 +7,6 @@
 
 struct D2PresetUnitStrc;
 
-struct D2DrlgDrlgStrc
-{
-    char unk0x000[0x464];
-    void* hArchive;
-};
 
 struct D2UnkOutdoorStrc
 {

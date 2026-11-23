@@ -53,7 +53,6 @@ struct D2ServerCallbackFunctions;
 
 struct D2NetPacketRecStrc;
 
-struct D2NetLockStrc;
 
 struct D2Net52BE10Strc;
 
@@ -69,7 +68,6 @@ struct D2StormLinkStrc;
 
 struct D2StormListAStrc;
 
-struct D2StormChunkListStrc;
 
 struct D2StormListArrayStrc;
 
@@ -303,13 +301,6 @@ struct D2NetPacketRecStrc
     D2NetPacketRecStrc* pNext;
 };
 
-struct D2NetLockStrc
-{
-    D2CriticalSectionStrc tLock;
-
-    void Lock(int nUnused);
-    void Unlock(int nUnused);
-};
 
 struct D2Net52BE10Strc
 {
@@ -435,13 +426,6 @@ struct D2StormListAStrc
     }
 };
 
-struct D2StormChunkListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    void sub_00450580_DeleteAll();                                                                          // 0x00450580
-};
 
 struct D2StormListArrayStrc
 {
@@ -1076,7 +1060,6 @@ struct D2UnkPlrMsgStrc;
 
 struct D2PlayerDataStrc;
 
-struct D2NpcEventStrc;
 
 struct D2NpcGambleStrc;
 
@@ -1183,14 +1166,6 @@ int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath)
 
 void __stdcall QUESTRECORD_FreeRecord(void* pMemPool, D2BitBufferStrc* pQuestRecord); // 0x0065C490
 
-struct D2NpcEventStrc
-{
-    D2UnitStrc* pUnit;
-    int field_4;
-    int field_8;
-    int field_C;
-    D2NpcEventStrc* pNext;
-};
 
 struct D2NpcControlStrc
 {

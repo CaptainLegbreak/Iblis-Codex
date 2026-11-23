@@ -40,7 +40,6 @@ struct D2UnitEventStrc
 };
 
 
-
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
 // 0x005C0A90
@@ -85,7 +84,6 @@ struct D2CurseStrc;
 
 struct D2SkillsTxt;
 
-struct D2MonEquipTxt;
 
 struct Unit005A0180;
 
@@ -257,10 +255,6 @@ int __fastcall SKILL_ComputePeriodicRate(D2GameStrc* pGame, D2UnitStrc* pUnit, D
 
 int __fastcall sub_0056F7F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5, int a6, int a7); // 0x0056F7F0
 
-struct D2MonEquipTxt
-{
-    char unk0x00[0x1C];
-};
 
 struct D2AnimSeqTxt
 {
@@ -552,11 +546,6 @@ int __fastcall sub_005C07A0_UnitEventCallback(D2GameStrc* pGame, int nUnitEvent,
 
 D2UnitEventStrc* __fastcall SUNITEVENT_Register(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitEvent, int nGUID1, int nGUID2, D2UnitEventCallbackFunction pCallback, unsigned int nQueueNo, int a8); // 0x005C0AD0
 
-struct D2AffixIndexAndPtrStrc
-{
-    int nIndex;
-    D2MagicAffixTxt* pAffix;
-};
 
 D2MagicAffixDataTbl* __stdcall DATATBLS_GetMagicAffixDataTables(); // 0x00633ED0
 
@@ -713,7 +702,6 @@ void __fastcall SUNITEVENT_Unregister(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
 
 #define AIPARAM_MAX_STEPS 77
 
-struct D2AiParamStrc;
 
 struct D2StaticPathStrc;
 
@@ -807,13 +795,6 @@ extern D2CriticalSectionStrc gClientListLock; // 0x008846A8
 
 extern D2CriticalSectionStrc gSrvClientListByNameLock; // 0x008846C0
 
-struct D2AiParamStrc
-{
-    char unk0x00[0x18];
-    int unk0x18;
-    int nVelocity;
-    unsigned char unk0x20;
-};
 
 typedef int (__stdcall* FARPROC)();
 
@@ -942,6 +923,5 @@ int __fastcall SUNITEVENT_Trigger(D2GameStrc* pGame, int nUnitEvent, D2UnitStrc*
 
     return nResult;
 }
-
 
 

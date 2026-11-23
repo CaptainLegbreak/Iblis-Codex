@@ -17,15 +17,6 @@ enum
 };
 
 
-
-
-struct D2UnkMonCompStrc
-{
-    unsigned char nComposit[12];
-};
-
-
-
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern int gnMonStatsMissileOffsets[];                                                             // 0x006EA938
 extern const unsigned int* gpSkeletonComponentCodes[16];                                           // 0x007489A8

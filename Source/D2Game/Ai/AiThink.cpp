@@ -17,27 +17,11 @@ struct D2MonStatsTxt;
 
 struct D2LevelsTxt;
 
-struct D2PantherAiCallbackArgStrc;
-
-struct D2AiCallback11ArgStrc;
 
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
-struct D2PantherAiCallbackArgStrc
-{
-    D2UnitStrc* pTarget;
-    int nDistance;
-};
-
-struct D2AiCallback11ArgStrc
-{
-    D2UnitStrc* pTarget;
-    int nDistance;
-    D2UnitStrc* unk0x08;
-    int unk0x0C[7];
-};
 
 typedef D2UnitStrc* (__fastcall* AITARGETCALLBACK)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, void*);
 

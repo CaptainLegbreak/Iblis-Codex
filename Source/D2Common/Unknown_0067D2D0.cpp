@@ -34,20 +34,6 @@ struct D2DrlgOutdoorTileCtxStrc
     int n38;
 };
 
-struct D2RoomTileInfoStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int nCount08;
-    int nCount0C;
-    int nCount10;
-    int unk0x14;
-    int nTotal18;
-    int unk0x1C;
-    int nTotal20;
-    int unk0x24;
-    int nTotal28;
-};
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);    // 0x0040B430
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);  // 0x0040B480

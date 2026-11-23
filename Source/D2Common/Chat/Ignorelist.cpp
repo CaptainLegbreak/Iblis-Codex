@@ -35,7 +35,6 @@ struct D2CommonStormSlotListAStrc;
 
 struct D2DrlgActStrc;
 
-struct D2DrlgDeleteStrc;
 
 struct D2ChatStormLinkAStrc;
 
@@ -673,12 +672,6 @@ struct D2ExperienceDataTbl
     D2ExperienceTxt aLevels[1];
 };
 
-struct D2DrlgDeleteStrc
-{
-    int nUnitType;
-    int nUnitGUID;
-    D2DrlgDeleteStrc* pNext;
-};
 
 typedef void(__stdcall* PROFHOOKFN)(int nA, char* pBuffer, int nC);
 
