@@ -34278,6 +34278,11 @@
      "name": "GLIDE_CheckCutScene"
     },
     {
+     "va": "0x00508FE0",
+     "length": 188,
+     "name": "GLIDE_StartDraw"
+    },
+    {
      "va": "0x005090A0",
      "length": 7,
      "name": "?GLIDE_SetGlobalScale@@YIXH@Z"
@@ -37317,11 +37322,6 @@
    "file": "Source/D2DDraw/Src/ddCore.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00508FE0",
-     "length": 188,
-     "name": "GLIDE_StartDraw"
-    },
     {
      "va": "0x0050BEF0",
      "length": 71,
