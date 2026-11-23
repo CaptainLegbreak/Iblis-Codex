@@ -134,47 +134,6 @@ void __fastcall FOG_AsyncDataHandlePriorityChanges(int bPostpone)
     }
 }
 
-// build: symbol ?LOGMANAGER_HeapSiftDown@* 0x0040ABF0
-void __fastcall LOGMANAGER_HeapSiftDown(int* pHeap, int nCount, int nIndex)
-{
-    int nValue = pHeap[nIndex];
-    int nHalf = nCount / 2;
-    nCount -= 1;
-    while (nIndex < nHalf)
-    {
-        int nChild = 2 * nIndex + 1;
-        if (nChild < nCount && pHeap[nChild] < pHeap[nChild + 1])
-            nChild += 1;
-        if (nValue > pHeap[nChild])
-            break;
-        pHeap[nIndex] = pHeap[nChild];
-        nIndex = nChild;
-    }
-    pHeap[nIndex] = nValue;
-}
-
-// 0x0040AC60
-void __fastcall ASYNCDATA_HeapSort(int* pHeap, int nCount)
-{
-    for (int i = nCount / 2; i;)
-    {
-        --i;
-        LOGMANAGER_HeapSiftDown(pHeap, nCount, i);
-    }
-    while (--nCount)
-    {
-        const int nTop = pHeap[0];
-        pHeap[0] = pHeap[nCount];
-        pHeap[nCount] = nTop;
-        LOGMANAGER_HeapSiftDown(pHeap, nCount, 0);
-    }
-}
-
-// 0x0040ADA0
-void __cdecl sub_0040ADA0_Nop()
-{
-}
-
 static int sgfAsyncDataEnabled; // 0x0075AF94
 
 static unsigned int gnAsyncEventSlots; // 0x0075AF98

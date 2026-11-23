@@ -2815,6 +2815,103 @@ void __fastcall ERRORMANAGER_PoolFreeLarge(D2PoolSystemStrc* pSystem, int* pBloc
 
 void __cdecl ERRORMANAGER_ForceCrash(); // 0x00407970
 
+// 0x0040ABF0
+void __fastcall ERRORMANAGER_HeapSiftDown(int* pHeap, int nCount, int nIndex)
+{
+    int nValue = pHeap[nIndex];
+    int nHalf = nCount / 2;
+    nCount -= 1;
+    while (nIndex < nHalf)
+    {
+        int nChild = 2 * nIndex + 1;
+        if (nChild < nCount && pHeap[nChild] < pHeap[nChild + 1])
+            nChild += 1;
+        if (nValue > pHeap[nChild])
+            break;
+        pHeap[nIndex] = pHeap[nChild];
+        nIndex = nChild;
+    }
+    pHeap[nIndex] = nValue;
+}
+
+// 0x0040AC60
+void __fastcall ERRORMANAGER_HeapSort(int* pHeap, int nCount)
+{
+    for (int i = nCount / 2; i;)
+    {
+        --i;
+        ERRORMANAGER_HeapSiftDown(pHeap, nCount, i);
+    }
+    while (--nCount)
+    {
+        const int nTop = pHeap[0];
+        pHeap[0] = pHeap[nCount];
+        pHeap[nCount] = nTop;
+        ERRORMANAGER_HeapSiftDown(pHeap, nCount, 0);
+    }
+}
+
+// 0x0040ACA0
+void __fastcall ERRORMANAGER_CalcCodeLengths(int* pA, int nCount)
+{
+    int nRoot, nLeaf, nNext, nAvail, nUsed, nDepth;
+    if (nCount == 0)
+        return;
+    if (nCount == 1)
+    {
+        pA[0] = 0;
+        return;
+    }
+    pA[0] += pA[1];
+    nRoot = 0;
+    nLeaf = 2;
+    for (nNext = 1; nNext < nCount - 1; nNext++)
+    {
+        if (nLeaf >= nCount || pA[nRoot] < pA[nLeaf])
+        {
+            pA[nNext] = pA[nRoot];
+            pA[nRoot++] = nNext;
+        }
+        else
+            pA[nNext] = pA[nLeaf++];
+        if (nLeaf >= nCount || (nRoot < nNext && pA[nRoot] < pA[nLeaf]))
+        {
+            pA[nNext] += pA[nRoot];
+            pA[nRoot++] = nNext;
+        }
+        else
+            pA[nNext] += pA[nLeaf++];
+    }
+    pA[nCount - 2] = 0;
+    for (nNext = nCount - 3; nNext >= 0; nNext--)
+        pA[nNext] = pA[pA[nNext]] + 1;
+    nAvail = 1;
+    nUsed = nDepth = 0;
+    nRoot = nCount - 2;
+    nNext = nCount - 1;
+    while (nAvail > 0)
+    {
+        while (nRoot >= 0 && pA[nRoot] == nDepth)
+        {
+            nUsed++;
+            nRoot--;
+        }
+        while (nAvail > nUsed)
+        {
+            pA[nNext--] = nDepth;
+            nAvail--;
+        }
+        nAvail = 2 * nUsed;
+        nDepth++;
+        nUsed = 0;
+    }
+}
+
+// 0x0040ADA0
+void __cdecl sub_0040ADA0_Nop()
+{
+}
+
 typedef unsigned char Byte;
 
 extern Byte gnSymbolCodes_0075B6A0[256]; // 0x0075B6A0
