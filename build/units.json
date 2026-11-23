@@ -8408,7 +8408,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00427160.cpp",
+   "file": "Source/Storm/zlib/deflate.c",
    "rank": 0,
    "functions": [
     {
@@ -8553,7 +8553,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00429810.cpp",
+   "file": "Source/Storm/zlib/inflate.c",
    "rank": 0,
    "functions": [
     {
@@ -8667,7 +8667,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0042B660.cpp",
+   "file": "Source/Storm/zlib/adler32.c",
    "rank": 0,
    "functions": [
     {
@@ -8707,7 +8707,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0042B9E0.cpp",
+   "file": "Source/Storm/zlib/trees.c",
    "rank": 0,
    "functions": [
     {
@@ -8832,7 +8832,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0042D450.cpp",
+   "file": "Source/Storm/zlib/crc32.c",
    "rank": 0,
    "functions": [
     {
@@ -8892,11 +8892,12 @@
     "/O2",
     "/Oy-",
     "/Ob2",
-    "/Gd"
+    "/Gd",
+    "/TC"
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0042DC30.cpp",
+   "file": "Source/Storm/zlib/zutil.c",
    "rank": 0,
    "functions": [
     {
