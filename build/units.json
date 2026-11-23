@@ -22144,39 +22144,14 @@
      "name": "?NET_D2GS_CLIENT_Send_0x6C@@YIXH@Z"
     },
     {
-     "va": "0x00478590",
-     "length": 27,
-     "name": "?MSG_SendHeaderOnly@@YIXD@Z"
-    },
-    {
-     "va": "0x004786A0",
-     "length": 40,
-     "name": "?MSG_SendTwoDwords@@YIXEII@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00478350.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x00478350",
      "length": 566,
      "name": "?sub_00478350_SendToServer@@YGXPBEH@Z"
+    },
+    {
+     "va": "0x00478590",
+     "length": 27,
+     "name": "?MSG_SendHeaderOnly@@YIXD@Z"
     },
     {
      "va": "0x004785B0",
@@ -22202,6 +22177,11 @@
      "va": "0x00478680",
      "length": 32,
      "name": "?sub_00478680_SendPacket5@@YIXDH@Z"
+    },
+    {
+     "va": "0x004786A0",
+     "length": 40,
+     "name": "?MSG_SendTwoDwords@@YIXEII@Z"
     },
     {
      "va": "0x004786D0",
