@@ -42,11 +42,11 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 1159 |
+| Compilation units | 1156 |
 | … in a file with its original name, whole | 279 |
 | … pieces of an original file still split (in 39 files) | 133 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 747 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3151 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 744 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3155 |
 | Unnamed fields (`unk0x..`) in the shared headers | 760 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 43 |
 | Calling-convention shims | 123 |
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 3257 functions are compiled with `/GS-` and 475 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 105 times and `__declspec(dllexport)` 171 times to keep a body out of line or emitted.
+Not listed one by one: 3374 functions are compiled with `/GS-` and 475 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 105 times and `__declspec(dllexport)` 171 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -467,7 +467,7 @@ Not listed one by one: 3257 functions are compiled with `/GS-` and 475 with `/EH
 | 0x004F0650 | sub_004F0650_CreateClientMissiles | `D2Client/Unknown_004F0650.cpp` | compiler option /Ob1 |
 | 0x004F2BE0 | SKILLDESC_InitCurvingMissilePath | `D2Client/UI/SkillDesc.cpp` | volatile read or qualifier |
 | 0x004F4590 | sub_004F4590_DoSkillSound | `D2Client/Unknown_004F4590.cpp` | compiler option /Ob1 |
-| 0x004F82D0 | sub_004F82D0_DrawBlendVisTile | `D2Win/Unknown_004F71A0.cpp` | __assume |
+| 0x004F82D0 | sub_004F82D0_DrawBlendVisTile | `D2Gfx/SRC/Window.cpp` | __assume |
 | 0x004F8F10 | D2Win_InitializeSpriteCache | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004F8FC0 | D2Win_10014_SetWndProc | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004F8FE0 | D2Win_10015 | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
@@ -556,7 +556,7 @@ Not listed one by one: 3257 functions are compiled with `/GS-` and 475 with `/EH
 | 0x00516F85 | ARCHIVE_ReadFileToBuffer | `D2Hell/SRC/Archive.cpp` | compiler option /O1 |
 | 0x00517015 | ARCHIVE_ReadFileToSizedBuffer | `D2Hell/SRC/Archive.cpp` | compiler option /O1 |
 | 0x00517079 | ARCHIVE_AllocateBufferAndReadFile | `D2Hell/SRC/Archive.cpp` | compiler option /O1 |
-| 0x005170E7 | sub_005170E7_GetModuleDirectory | `D2Win/Unknown_005170E7.cpp` | calling-convention shim, compiler option /O1 |
+| 0x005170E7 | sub_005170E7_GetModuleDirectory | `D2Hell/SRC/Archive.cpp` | calling-convention shim, compiler option /O1 |
 | 0x00517128 | sub_00517128_FindArchive | `D2Hell/SRC/Archive.cpp` | compiler option /O1 |
 | 0x00517299 | ARCHIVE_FindAndOpenArchive | `D2Hell/SRC/Archive.cpp` | compiler option /O1 |
 | 0x00517332 | ARCHIVE_LoadMPQFile | `D2Hell/SRC/Archive.cpp` | compiler option /O1 |

@@ -109,7 +109,8 @@ struct D2MonsterDataStrc
     };
     unsigned char unk0x4C[0x4]; // 0x4C
     int pVision; // 0x50
-    unsigned char unk0x54[0x8]; // 0x54
+    unsigned char unk0x54[0x4]; // 0x54
+    int nLevelId; // 0x58
 };
 
 struct D2QuestGUIDStrc

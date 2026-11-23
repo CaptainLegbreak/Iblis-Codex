@@ -46,6 +46,11 @@ static int __stdcall sub_00517128_FindArchive(const char* filename,int priority,
 
 D2ArchiveHandleStrc* __fastcall ARCHIVE_LoadMPQFile(const char* szName, const char* szModule, ARCHIVE_ShowMessageFunctionPtr pfShowMessage, int nPriority);
 
+extern "C" __declspec(dllimport) unsigned long __stdcall GetModuleFileNameA(void* hModule, char* szFileName, unsigned long nSize); // 0x006CC1BC
+
+
+static void sub_005170E7_GetModuleDirectory(char* szPath);
+
 // 0x00516E46
 int __fastcall ARCHIVE_OpenFile(void* pUnused, const char* szFileName, void** phFile, int bAllowMissing)
 {
@@ -153,6 +158,19 @@ void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* s
     return pBuffer;
 }
 
+// 0x005170E7
+static void sub_005170E7_GetModuleDirectory(char* szPath)
+{
+    GetModuleFileNameA(0, szPath, 260);
+    szPath[259] = 0;
+    char* pEnd = szPath;
+    while (*pEnd && SStrChr(pEnd + 1, '\\'))
+    {
+        pEnd = (char*)SStrChr(pEnd + 1, '\\');
+    }
+    *pEnd = 0;
+}
+
 // 0x00517128
 static int __stdcall sub_00517128_FindArchive(const char* filename,int priority,void** outHandle,char* path)
 {
@@ -252,4 +270,12 @@ void __fastcall ARCHIVE_UnloadMPQFile(D2ArchiveHandleStrc* pArchive)
 int __cdecl EmitFindArchive(const char* filename,int priority,void** outHandle,char* path)
 {
  return sub_00517128_FindArchive(filename,priority,outHandle,path);
+}
+
+// build: context sub_005170E7_Shim
+
+// calling-convention shim (not game code)
+void __fastcall sub_005170E7_Shim(char* szPath)
+{
+    sub_005170E7_GetModuleDirectory(szPath);
 }
