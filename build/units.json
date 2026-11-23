@@ -81933,6 +81933,10 @@
      "name": "?sub_006801F0_GetCliffPresetId@@YIHPAUD2DrlgLevelStrc@@@Z"
     },
     {
+     "va": "0x00680200",
+     "length": 451
+    },
+    {
      "va": "0x006803D0",
      "length": 269,
      "name": "?DRLGOUTWILD_SpawnTownTransitionsAndCaves@@YAXPAUD2DrlgLevelStrc@@@Z"
@@ -82042,30 +82046,6 @@
     {
      "va": "0x00680070",
      "length": 294
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00680200.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00680200",
-     "length": 451
     }
    ],
    "flags": [
