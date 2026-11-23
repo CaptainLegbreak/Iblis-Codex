@@ -3719,50 +3719,6 @@
      "name": "?MAINMENUS_OnCharCreateOk@@YGHH@Z"
     },
     {
-     "va": "0x00436AC0",
-     "length": 13,
-     "name": "?MAINMENUS_ClearStatusTexts@@YAXXZ"
-    },
-    {
-     "va": "0x00436AD0",
-     "length": 316,
-     "name": "?MAINMENUS_UpdateStatus@@YAXXZ"
-    },
-    {
-     "va": "0x00436C10",
-     "length": 93,
-     "name": "?MAINMENUS_CheckAtAndDot@@YAHPBD@Z"
-    },
-    {
-     "va": "0x00436C70",
-     "length": 31,
-     "name": "?MAINMENUS_DeclineEmail@@YGHH@Z"
-    },
-    {
-     "va": "0x00436CD0",
-     "length": 23,
-     "name": "?MAINMENUS_OnConnectCancel@@YGHH@Z"
-    },
-    {
-     "va": "0x00436CF0",
-     "length": 75
-    },
-    {
-     "va": "0x00436D40",
-     "length": 13,
-     "name": "?MAINMENUS_OnTwoEditChange@@YGHH@Z"
-    },
-    {
-     "va": "0x00436EB0",
-     "length": 99,
-     "name": "?MAINMENUS_UpdateEmailOk@@YAXXZ"
-    },
-    {
-     "va": "0x00436F20",
-     "length": 13,
-     "name": "?MAINMENUS_OnEditChange@@YGHH@Z"
-    },
-    {
      "va": "0x0043B4C0",
      "length": 82,
      "name": "MAINMENUS_OnRealmListClick"
@@ -3776,31 +3732,6 @@
      "va": "0x00443C10",
      "length": 8,
      "name": "?sub_00443C10_AlwaysOne@@YGHH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Src/MainMenus_00436C90.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00436C90",
-     "length": 51,
-     "name": "?MAINMENUS_AskEmailRegistration@@YGHH@Z"
     }
    ],
    "flags": [
@@ -9833,11 +9764,6 @@
      "name": "?CHARSEL_CreateTcpIpScreen@@YAXXZ"
     },
     {
-     "va": "0x00436D50",
-     "length": 312,
-     "name": "?CHARSEL_CreateConnectScreen@@YAXXZ"
-    },
-    {
      "va": "0x0043AD10",
      "length": 155,
      "name": "?CHARSEL_RequestCharList@@YAXPAD@Z"
@@ -11977,6 +11903,60 @@
    "file": "Source/D2Launch/Unknown_004370B0.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00436AC0",
+     "length": 13,
+     "name": "?MAINMENUS_ClearStatusTexts@@YAXXZ"
+    },
+    {
+     "va": "0x00436AD0",
+     "length": 316,
+     "name": "?MAINMENUS_UpdateStatus@@YAXXZ"
+    },
+    {
+     "va": "0x00436C10",
+     "length": 93,
+     "name": "?MAINMENUS_CheckAtAndDot@@YAHPBD@Z"
+    },
+    {
+     "va": "0x00436C70",
+     "length": 31,
+     "name": "?MAINMENUS_DeclineEmail@@YGHH@Z"
+    },
+    {
+     "va": "0x00436C90",
+     "length": 51,
+     "name": "?MAINMENUS_AskEmailRegistration@@YGHH@Z"
+    },
+    {
+     "va": "0x00436CD0",
+     "length": 23,
+     "name": "?MAINMENUS_OnConnectCancel@@YGHH@Z"
+    },
+    {
+     "va": "0x00436CF0",
+     "length": 75
+    },
+    {
+     "va": "0x00436D40",
+     "length": 13,
+     "name": "?MAINMENUS_OnTwoEditChange@@YGHH@Z"
+    },
+    {
+     "va": "0x00436D50",
+     "length": 312,
+     "name": "?CHARSEL_CreateConnectScreen@@YAXXZ"
+    },
+    {
+     "va": "0x00436EB0",
+     "length": 99,
+     "name": "?MAINMENUS_UpdateEmailOk@@YAXXZ"
+    },
+    {
+     "va": "0x00436F20",
+     "length": 13,
+     "name": "?MAINMENUS_OnEditChange@@YGHH@Z"
+    },
     {
      "va": "0x00436F30",
      "length": 384,
