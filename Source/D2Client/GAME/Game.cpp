@@ -4319,6 +4319,29 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 
 void __cdecl GAME_InitColors(); // 0x00452130
 
+struct D2CelFileStrc;
+
+extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);           // 0x006CC468
+
+unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
+
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
+
+// 0x004520C0
+void* __fastcall sub_004520C0_LoadUiCelFile(const char* szFile)
+{
+    char szPath[0x104];
+// build: symbol ?gszDataGlobal@* 0x006D4118
+    wsprintfA(szPath, "%s\\UI\\", gszDataGlobal);
+    char* pDest = &szPath[SStrLen(szPath)];
+    const char* pSrc = szFile;
+    while (*pSrc)
+        *pDest++ = *pSrc++;
+    *pDest = 0;
+    return ARCHIVE_LoadClientCellFile(szPath, 0);
+}
+
+
 // 0x00452170
 Unicode* __fastcall sub_00452170(Unicode* pText)
 {
