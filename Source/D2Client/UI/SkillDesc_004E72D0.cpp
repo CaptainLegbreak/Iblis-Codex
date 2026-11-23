@@ -4,9 +4,9 @@
 #include "D2Txt.h"
 #include "D2Records.h"
 #include "D2LevelTxt.h"
+#include "D2Unicode.h"
 struct D2UnitStrc;
 
-typedef wchar_t Unicode;
 
 
 
