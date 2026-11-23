@@ -51203,10 +51203,6 @@
      "va": "0x00570E10",
      "length": 24,
      "name": "?sub_00570E10_GetStateMaskCount@@YAHXZ"
-    },
-    {
-     "va": "0x00570E30",
-     "length": 914
     }
    ]
   },
@@ -51229,6 +51225,10 @@
    "file": "Source/D2Game/UNIT/SUnitMsg.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00570E30",
+     "length": 914
+    },
     {
      "va": "0x005711D0",
      "length": 938
