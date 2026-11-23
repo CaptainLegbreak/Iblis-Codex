@@ -3460,9 +3460,28 @@
      "name": "?MAINMENUS_CreateEmailScreen@@YAXXZ"
     },
     {
+     "va": "0x004370B0",
+     "length": 13
+    },
+    {
      "va": "0x004370C0",
      "length": 231,
      "name": "?MAINMENUS_CreateInfoScreen@@YAXXZ"
+    },
+    {
+     "va": "0x004371B0",
+     "length": 13,
+     "name": "?sub_004371B0_OnLoginScreen@@YGHH@Z"
+    },
+    {
+     "va": "0x004371C0",
+     "length": 13,
+     "name": "?sub_004371C0_OnEmailScreen@@YGHH@Z"
+    },
+    {
+     "va": "0x004371D0",
+     "length": 13,
+     "name": "?sub_004371D0_OnShowLogin@@YGHH@Z"
     },
     {
      "va": "0x004371E0",
@@ -3470,9 +3489,19 @@
      "name": "?MAINMENUS_UpdatePasswordOk@@YAXXZ"
     },
     {
+     "va": "0x004372A0",
+     "length": 13,
+     "name": "?sub_004372A0_OnEnter@@YGHH@Z"
+    },
+    {
      "va": "0x004372B0",
      "length": 554,
      "name": "?MAINMENUS_CreatePasswordScreen@@YAXXZ"
+    },
+    {
+     "va": "0x004374E0",
+     "length": 13,
+     "name": "?sub_004374E0_OnInfoScreen@@YGHH@Z"
     },
     {
      "va": "0x00437550",
@@ -12132,35 +12161,6 @@
    "file": "Source/D2Launch/Unknown_004370B0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004370B0",
-     "length": 13
-    },
-    {
-     "va": "0x004371B0",
-     "length": 13,
-     "name": "?sub_004371B0_OnLoginScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x004371C0",
-     "length": 13,
-     "name": "?sub_004371C0_OnEmailScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x004371D0",
-     "length": 13,
-     "name": "?sub_004371D0_OnShowLogin@@YGHH@Z"
-    },
-    {
-     "va": "0x004372A0",
-     "length": 13,
-     "name": "?sub_004372A0_OnEnter@@YGHH@Z"
-    },
-    {
-     "va": "0x004374E0",
-     "length": 13,
-     "name": "?sub_004374E0_OnInfoScreen@@YGHH@Z"
-    },
     {
      "va": "0x00437710",
      "length": 13,

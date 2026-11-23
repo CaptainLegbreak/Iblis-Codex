@@ -1,7 +1,11 @@
 #include "D2Launch.h"
+
 #include "D2FogTypes.h"
+
 #include "D2StormTypes.h"
+
 #include "D2Unicode.h"
+
 #include "D2MultiTypes.h"
 
 void __cdecl MAINMENUS_LogPoolError(const char* szFormat, ...); // 0x00409020
@@ -5217,6 +5221,13 @@ void __cdecl MAINMENUS_CreateEmailScreen()
     MAINMENUS_UpdateEmailOk();
 }
 
+// 0x004370B0
+int __stdcall sub_004370B0_ShowLoginScreen(int unused)
+{
+    MAINMENUS_ShowLoginScreen();
+    return 1;
+}
+
 // 0x004370C0
 void __cdecl MAINMENUS_CreateInfoScreen()
 {
@@ -5238,6 +5249,27 @@ void __cdecl MAINMENUS_CreateInfoScreen()
     MAINMENUS_CreateControl(0x13A);
     MAINMENUS_CreateControl(0x13B);
     MAINMENUS_CreateControl(0x13C);
+}
+
+// 0x004371B0
+int __stdcall sub_004371B0_OnLoginScreen(int nArg)
+{
+    MAINMENUS_CreateLoginScreen();
+    return 1;
+}
+
+// 0x004371C0
+int __stdcall sub_004371C0_OnEmailScreen(int nArg)
+{
+    MAINMENUS_CreateEmailScreen();
+    return 1;
+}
+
+// 0x004371D0
+int __stdcall sub_004371D0_OnShowLogin(int nArg)
+{
+    MAINMENUS_ShowLoginScreen();
+    return 1;
 }
 
 // 0x004371E0
@@ -5270,6 +5302,13 @@ void __cdecl MAINMENUS_UpdatePasswordOk()
         }
     }
     CONTROL_SetEnabled(gpPasswordOk, bOk);
+}
+
+// 0x004372A0
+int __stdcall sub_004372A0_OnEnter(int nArg)
+{
+    MAINMENUS_UpdatePasswordOk();
+    return 1;
 }
 
 // 0x004372B0
@@ -5316,6 +5355,13 @@ void __cdecl MAINMENUS_CreatePasswordScreen()
     sub_004FDDD0_LinkTab(gpNewPasswordEdit, gpNewPasswordConfirmEdit);
     sub_004FDDD0_LinkTab(gpNewPasswordConfirmEdit, gpChangePwAccountEdit);
     MAINMENUS_UpdatePasswordOk();
+}
+
+// 0x004374E0
+int __stdcall sub_004374E0_OnInfoScreen(int nArg)
+{
+    MAINMENUS_CreateInfoScreen();
+    return 1;
 }
 
 // 0x00437550
