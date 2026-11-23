@@ -4,7 +4,7 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane6/bss-a 00982e88 558->554 four placements by data block (glPerspective.cpp 0x0050DE10, ddSmack.cpp 0x005135F0, BnDownload.cpp 0x00518C30, Outdoors.cpp 0x00675600); VERIFIED aa7523d9
+- lane6/bss-a 00982e88 558->556 four placements by data block (glPerspective.cpp 0x0050DE10, ddSmack.cpp 0x005135F0, BnDownload.cpp 0x00518C30, Outdoors.cpp 0x00675600); VERIFIED aa7523d9
   - Stacked on lane6/cands-d (merge that first); based on main #297.
 - lane6/cands-d 24b8d613 562->558 fifteen placements on main #297: address runs, the data seam, and the debug-font pairs; VERIFIED face79e0
   - On origin/main (34ce356b); not stacked.
