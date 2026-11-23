@@ -2640,6 +2640,7 @@ void __cdecl GAME_DefaultGetGameServerInfo()
 {
 }
 
+// 0x0052BF40
 void __stdcall sub_0052BF40_Stub(int a1, int a2, int a3, int a4)
 {
 }

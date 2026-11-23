@@ -211,6 +211,11 @@ void __fastcall OBJECTS_InitFunction50_HratliEnd(D2ObjInitFnStrc* pOp)
     }
 }
 
+// 0x005B72A0
+void __stdcall sub_005B72A0(int nUnused1)
+{
+}
+
 // 0x005B72B0
 bool __fastcall ACT3Q1_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
 {

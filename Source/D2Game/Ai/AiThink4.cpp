@@ -4383,6 +4383,12 @@ void __fastcall AITHINK_HirelingCombat(D2GameStrc* pGame, D2UnitStrc* pUnit, int
     AITACTICS_RunToTargetUnitWithFlags(pGame, pUnit, pTarget, 1);
 }
 
+// 0x005E5270
+int __stdcall sub_005E5270(int nUnused1, int nUnused2)
+{
+    return 0;
+}
+
 // 0x005E5280
 void __fastcall sub_005E5280_AiSpecialState04(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
@@ -14240,6 +14246,11 @@ void __fastcall AITHINK_SetSecondaryAiParams(D2GameStrc* pGame, D2AiControlStrc*
     pAiControl->dwAiParam[2] = nParam2;
 }
 
+// 0x005EDC40
+void __stdcall sub_005EDC40(int nUnused1)
+{
+}
+
 static inline int CLIENTS_GetUnitX_FrogDemon(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -14676,6 +14687,11 @@ void __fastcall AITHINK_Fn131_Wussie(D2GameStrc* pGame,D2UnitStrc* pUnit,D2AiTic
         }
     }
     AITACTICS_IdleInNeutralMode(pGame,pUnit,25);
+}
+
+// 0x005EE5C0
+void __stdcall sub_005EE5C0(int nUnused1)
+{
 }
 
 // 0x005EE5D0
@@ -15433,6 +15449,11 @@ void __fastcall AITHINK_BaalThroneSpawnMinions(D2UnitStrc* pUnit, int nSuperUniq
     pAiTickParam->pAiControl->dwAiParam[2] = pGame->dwGameFrame + 100;
     AITHINK_BaalThroneSetAiParamFlag(pAiTickParam, 2, 1);
     AITHINK_BaalThroneSetAiParamFlag(pAiTickParam, 1, 0);
+}
+
+// 0x005EF310
+void __stdcall sub_005EF310(int nUnused1)
+{
 }
 
 // 0x005EF5E0
