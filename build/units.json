@@ -62795,21 +62795,6 @@
     {
      "va": "0x005B1C00",
      "length": 65
-    },
-    {
-     "va": "0x005B1CF0",
-     "length": 1202,
-     "name": "?MONSTERSPAWN_SetupBossMods@@YAXPAUD2MonsterSpawnParamsStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005B21B0",
-     "length": 513,
-     "name": "?MONSTERSPAWN_SetupNormalMods@@YAXPAUD2UnkMonCreateStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005B2490",
-     "length": 74,
-     "name": "sub_6FC6A150"
     }
    ]
   },
@@ -62841,6 +62826,21 @@
    "file": "Source/D2Game/Unknown_005B24E0.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x005B1CF0",
+     "length": 1202,
+     "name": "?MONSTERSPAWN_SetupBossMods@@YAXPAUD2MonsterSpawnParamsStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005B21B0",
+     "length": 513,
+     "name": "?MONSTERSPAWN_SetupNormalMods@@YAXPAUD2UnkMonCreateStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005B2490",
+     "length": 74,
+     "name": "sub_6FC6A150"
+    },
     {
      "va": "0x005B24E0",
      "length": 135,

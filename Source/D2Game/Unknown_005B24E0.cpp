@@ -487,6 +487,19 @@ inline int CLIENTS_GetUnitY_Inline(D2UnitStrc* pUnit)
 
 D2UnitStrc* __fastcall sub_6FC6A150(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B2490
 
+// 0x005B2490
+D2UnitStrc* __fastcall sub_6FC6A150(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags)
+{
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!DUNGEON_GetLevelIdFromPopulatedRoom(pRoom))
+    {
+        return 0;
+    }
+
+    const int nSpawnMonsterId = D2Common_11063(pRoom, nMonsterId);
+    return MONSTERSPAWN_SpawnAtUnit(pGame, pUnit, nSpawnMonsterId, nAnimMode, a5, nFlags);
+}
+
 // 0x005B2F20
 D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags)
 {
@@ -572,6 +585,7 @@ static inline int MONSTERREGION_SanitizeMonsterId_Inline(int nMonsterId)
     return nMonsterId;
 }
 
+// 0x005B21B0
 static void MONSTERSPAWN_SetupNormalMods(D2UnkMonCreateStrc* pMonCreate, D2UnitStrc* pUnit)
 {
     D2GameStrc* pGame = pMonCreate->pGame;
@@ -683,6 +697,7 @@ static inline void MONSTERUNIQUE_ToggleUnitFlag_Inline(D2UnitStrc* pUnit, unsign
     }
 }
 
+// 0x005B1CF0
 static void MONSTERSPAWN_SetupBossMods(D2UnkMonCreateStrc* pMonCreate, D2UnitStrc* pUnit)
 {
     D2GameStrc* pGame = pMonCreate->pGame;
