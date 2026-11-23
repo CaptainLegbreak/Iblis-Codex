@@ -2186,14 +2186,14 @@ void __cdecl MAINMENUS_UpdateNameOk()
 // 0x00430730
 int __stdcall MAINMENUS_ToggleHardcore(int nArg)
 {
-    *(unsigned short*)gpLaunchRecord->aFlags1EF ^= 4;
+    gpLaunchRecord->wFlags1EF ^= 4;
     return 1;
 }
 
 // 0x00430750
 int __stdcall MAINMENUS_ToggleLadder(int nArg)
 {
-    *(unsigned short*)gpLaunchRecord->aFlags1EF ^= 0x40;
+    gpLaunchRecord->wFlags1EF ^= 0x40;
     return 1;
 }
 
@@ -2202,7 +2202,7 @@ int __stdcall MAINMENUS_ToggleExpansion(int nArg)
 {
     if (!FOG_IsExpansion())
         return 0;
-    *(unsigned short*)gpLaunchRecord->aFlags1EF ^= 0x20;
+    gpLaunchRecord->wFlags1EF ^= 0x20;
     return 1;
 }
 
@@ -4793,12 +4793,12 @@ int __stdcall MAINMENUS_GatewayBack(int nUnused)
 int __stdcall MAINMENUS_SubmitCharacter(int nArg)
 {
     if (gpLaunchRecord->nClass == 6 || gpLaunchRecord->nClass == 5)
-        *(unsigned short*)gpLaunchRecord->aFlags1EF |= 0x20;
+        gpLaunchRecord->wFlags1EF |= 0x20;
     if (gnLaunchMode == 3)
     {
         D2MCPClientCloseMCP();
         sub_0043C6A0(0);
-        AUTOMAP_InitCharSaveHeader(gpLaunchRecord->szCharName, gpLaunchRecord->nClass, gpLaunchRecord->aDataED, *(unsigned short*)gpLaunchRecord->aFlags1EF);
+        AUTOMAP_InitCharSaveHeader(gpLaunchRecord->szCharName, gpLaunchRecord->nClass, gpLaunchRecord->aDataED, gpLaunchRecord->wFlags1EF);
         CHATDLG_WriteSaveHeader(gpLaunchRecord->szCharName);
         gpLaunchRecord->nByte35E = 4;
         gnLaunchState = 3;
@@ -4810,14 +4810,14 @@ int __stdcall MAINMENUS_SubmitCharacter(int nArg)
     }
     if (gnLaunchMode == 0)
     {
-        AUTOMAP_InitCharSaveHeader(gpLaunchRecord->szCharName, gpLaunchRecord->nClass, gpLaunchRecord->aDataED, *(unsigned short*)gpLaunchRecord->aFlags1EF);
+        AUTOMAP_InitCharSaveHeader(gpLaunchRecord->szCharName, gpLaunchRecord->nClass, gpLaunchRecord->aDataED, gpLaunchRecord->wFlags1EF);
         CHATDLG_WriteSaveHeader(gpLaunchRecord->szCharName);
         gpLaunchRecord->nByte35E = 1;
         *(int*)gpLaunchRecord->aState19 = 0;
         *(int*)gpLaunchRecord->aState209 = 4;
-        if (*(unsigned short*)gpLaunchRecord->aFlags1EF & 4)
+        if (gpLaunchRecord->wFlags1EF & 4)
             *(int*)gpLaunchRecord->aState209 = 0x804;
-        if (*(unsigned short*)gpLaunchRecord->aFlags1EF & 0x20)
+        if (gpLaunchRecord->wFlags1EF & 0x20)
             *(int*)gpLaunchRecord->aState209 |= 0x100000;
         gnLaunchState = 1;
         D2Win_StopMessageLoop();
@@ -4826,14 +4826,14 @@ int __stdcall MAINMENUS_SubmitCharacter(int nArg)
     if (gnLaunchMode == 2)
     {
         sub_0043C6A0(0);
-        AUTOMAP_InitCharSaveHeader(gpLaunchRecord->szCharName, gpLaunchRecord->nClass, gpLaunchRecord->aDataED, *(unsigned short*)gpLaunchRecord->aFlags1EF);
+        AUTOMAP_InitCharSaveHeader(gpLaunchRecord->szCharName, gpLaunchRecord->nClass, gpLaunchRecord->aDataED, gpLaunchRecord->wFlags1EF);
         CHATDLG_WriteSaveHeader(gpLaunchRecord->szCharName);
         gpLaunchRecord->nByte35E = 3;
         gnLaunchState = 1;
         *(int*)gpLaunchRecord->aState209 = 4;
-        if (*(unsigned short*)gpLaunchRecord->aFlags1EF & 4)
+        if (gpLaunchRecord->wFlags1EF & 4)
             *(int*)gpLaunchRecord->aState209 = 0x804;
-        if (*(unsigned short*)gpLaunchRecord->aFlags1EF & 0x20)
+        if (gpLaunchRecord->wFlags1EF & 0x20)
             *(int*)gpLaunchRecord->aState209 |= 0x100000;
         D2Win_StopMessageLoop();
         return 1;
@@ -4861,14 +4861,14 @@ void __cdecl MAINMENUS_CreateCharacter()
         return;
     }
     if (gpLaunchRecord->nMode == 6 || gpLaunchRecord->nMode == 5)
-        *(unsigned short*)gpLaunchRecord->aFlags1EF |= 0x20;
+        gpLaunchRecord->wFlags1EF |= 0x20;
     const Unicode* pText = sub_004FDD90_GetEditText(gpNameEdit_0077934C);
     sub_005263E0(szName, pText, 0x100);
     sprintf((gpLaunchRecord->szPassword + 0x18), gszStringFormat, szName);
     gpLaunchRecord->szPassword[0x30] = 0;
-    if (*(unsigned short*)gpLaunchRecord->aFlags1EF & 0x20)
+    if (gpLaunchRecord->wFlags1EF & 0x20)
         gbFlag_00779984 = 1;
-    if (*(unsigned short*)gpLaunchRecord->aFlags1EF & 4)
+    if (gpLaunchRecord->wFlags1EF & 4)
     {
         sub_00430520();
         return;
@@ -4876,15 +4876,15 @@ void __cdecl MAINMENUS_CreateCharacter()
     if (gnLaunchMode == 0)
     {
         MAINMENUS_Reset();
-        AUTOMAP_InitCharSaveHeader((gpLaunchRecord->szPassword + 0x18), gpLaunchRecord->nMode, (gpLaunchRecord->szPassword + 0x48), *(unsigned short*)gpLaunchRecord->aFlags1EF);
+        AUTOMAP_InitCharSaveHeader((gpLaunchRecord->szPassword + 0x18), gpLaunchRecord->nMode, (gpLaunchRecord->szPassword + 0x48), gpLaunchRecord->wFlags1EF);
         sub_0043C6B0((gpLaunchRecord->szPassword + 0x18));
         gpLaunchRecord->nByte35E = 1;
         *(int*)gpLaunchRecord->aState19 = 0;
         gnLaunchState = 1;
         *(int*)gpLaunchRecord->aState209 = 4;
-        if (*(unsigned short*)gpLaunchRecord->aFlags1EF & 4)
+        if (gpLaunchRecord->wFlags1EF & 4)
             *(int*)gpLaunchRecord->aState209 = 0x804;
-        if (*(unsigned short*)gpLaunchRecord->aFlags1EF & 0x20)
+        if (gpLaunchRecord->wFlags1EF & 0x20)
             *(int*)gpLaunchRecord->aState209 |= 0x100000;
         D2Win_StopMessageLoop();
     }
@@ -4892,14 +4892,14 @@ void __cdecl MAINMENUS_CreateCharacter()
     {
         MAINMENUS_Reset();
         sub_0043C6A0(0);
-        AUTOMAP_InitCharSaveHeader((gpLaunchRecord->szPassword + 0x18), gpLaunchRecord->nMode, (gpLaunchRecord->szPassword + 0x48), *(unsigned short*)gpLaunchRecord->aFlags1EF);
+        AUTOMAP_InitCharSaveHeader((gpLaunchRecord->szPassword + 0x18), gpLaunchRecord->nMode, (gpLaunchRecord->szPassword + 0x48), gpLaunchRecord->wFlags1EF);
         sub_0043C6B0((gpLaunchRecord->szPassword + 0x18));
         gpLaunchRecord->nByte35E = 3;
         gnLaunchState = 1;
         *(int*)gpLaunchRecord->aState209 = 4;
-        if (*(unsigned short*)gpLaunchRecord->aFlags1EF & 4)
+        if (gpLaunchRecord->wFlags1EF & 4)
             *(int*)gpLaunchRecord->aState209 = 0x804;
-        if (*(unsigned short*)gpLaunchRecord->aFlags1EF & 0x20)
+        if (gpLaunchRecord->wFlags1EF & 0x20)
             *(int*)gpLaunchRecord->aState209 |= 0x100000;
         D2Win_StopMessageLoop();
     }
@@ -4908,21 +4908,21 @@ void __cdecl MAINMENUS_CreateCharacter()
         MAINMENUS_Reset();
         D2MCPClientCloseMCP();
         sub_0043C6A0(0);
-        AUTOMAP_InitCharSaveHeader((gpLaunchRecord->szPassword + 0x18), gpLaunchRecord->nMode, (gpLaunchRecord->szPassword + 0x48), *(unsigned short*)gpLaunchRecord->aFlags1EF);
+        AUTOMAP_InitCharSaveHeader((gpLaunchRecord->szPassword + 0x18), gpLaunchRecord->nMode, (gpLaunchRecord->szPassword + 0x48), gpLaunchRecord->wFlags1EF);
         sub_0043C6B0((gpLaunchRecord->szPassword + 0x18));
         gpLaunchRecord->nByte3C1 = 1;
         SMemCopy(gpLaunchRecord->aData3A1, gabDefault, 0x10);
         SMemZero(gpLaunchRecord->aData3B1, 0x10);
-        gpLaunchRecord->nByte3C2 = (*(unsigned short*)gpLaunchRecord->aFlags1EF >> 6) & 1;
-        *(unsigned short*)gpLaunchRecord->aWord3CB = *(unsigned short*)gpLaunchRecord->aFlags1EF;
+        gpLaunchRecord->nByte3C2 = (gpLaunchRecord->wFlags1EF >> 6) & 1;
+        *(unsigned short*)gpLaunchRecord->aWord3CB = gpLaunchRecord->wFlags1EF;
         gpLaunchRecord->nByte35E = 4;
         gpLaunchRecord->nByte22D = 0;
         gpLaunchRecord->szPassword[0x30] = 0;
         gnLaunchState = 3;
         *(int*)gpLaunchRecord->aState209 = 4;
-        if (*(unsigned short*)gpLaunchRecord->aFlags1EF & 4)
+        if (gpLaunchRecord->wFlags1EF & 4)
             *(int*)gpLaunchRecord->aState209 = 0x804;
-        if (*(unsigned short*)gpLaunchRecord->aFlags1EF & 0x20)
+        if (gpLaunchRecord->wFlags1EF & 0x20)
             *(int*)gpLaunchRecord->aState209 |= 0x100000;
         D2Win_StopMessageLoop();
     }

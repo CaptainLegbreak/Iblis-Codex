@@ -1,4 +1,5 @@
 #include "D2Launch.h"
+#include "D2MultiTypes.h"
 struct D2FileTimeStrc;
 struct D2FuncTable;
 struct D2MenuCallbackArgStrc;
@@ -9,11 +10,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-struct D2FuncTable_0077ABF0Strc
-{
-    char unk0x00[0x98];
-    D2FuncRecordStrc* (__cdecl* pfnGetRecord)();
-};
 extern "C" __declspec(dllimport) int __stdcall FindNextFileA(void* hFindFile, D2FindDataStrc* pFindData); // 0x006CC1C8
 extern "C" __declspec(dllimport) unsigned long __stdcall GetFileAttributesA(const char* szFileName); // 0x006CC1B0
 extern "C" __declspec(dllimport) int __stdcall DeleteFileA(const char* lpFileName); // 0x006CC1A0
@@ -70,15 +66,6 @@ void __fastcall D2Win_10053(D2WinControlStrc*, int); // 0x004FBA30
 
 struct D2MenuCallbackArgStrc { D2WinControlStrc* pControl; unsigned int nMessage, nParam, nArg; };
 
-#pragma pack(push, 1)
-struct D2LaunchRecordStrc
-{
-    char unknown00[0x85];
-    unsigned char nFlag085, nFlag086, nFlag087, nFlag088, nFlag089, nFlag08A, nFlag08B;
-    char unknown08C[0x1EE-0x8C]; char nMode; unsigned short nFlags;
-};
-
-#pragma pack(pop)
 extern D2WinControlStrc* gpClassImages_0077956C[7]; // 0x0077956C
 extern D2LaunchRecordStrc* gpLaunchRecord; // 0x007795D4
 extern D2WinControlStrc* gpOkButton; // 0x00779330
@@ -720,7 +707,7 @@ int __stdcall MAINMENUS_SelectCharacterClass(D2MenuCallbackArgStrc* pArg)
             CONTROL_SetVisible(gpControl_00779568, 1);
             CONTROL_SetVisible(gpControl_007795C8, 0);
             CONTROL_SetVisible(gpControl_007795B4, 1);
-            gpLaunchRecord->nFlags |= 0x20;
+            gpLaunchRecord->wFlags1EF |= 0x20;
         }
         else if (gnTextSentinel != -1)
         {
@@ -728,13 +715,13 @@ int __stdcall MAINMENUS_SelectCharacterClass(D2MenuCallbackArgStrc* pArg)
             CONTROL_SetVisible(gpControl_007795C8, 1);
             CONTROL_SetVisible(gpControl_007795B4, 0);
             BUTTON_SetIsPressed(gpControl_007795C8, 1);
-            gpLaunchRecord->nFlags |= 0x20;
+            gpLaunchRecord->wFlags1EF |= 0x20;
         }
     }
     if (gnLaunchMode == 1)
     {
         BUTTON_SetIsPressed(gpControl_00779348, 1);
-        gpLaunchRecord->nFlags |= 0x40;
+        gpLaunchRecord->wFlags1EF |= 0x40;
     }
     return 1;
 }
