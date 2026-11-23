@@ -2,6 +2,7 @@
 #include "D2Client.h"
 #include "D2Txt.h"
 #include "D2Structs.h"
+#include "D2MultiTypes.h"
 
 struct D2MissilesTxt;
 struct D2TimedHintStrc;
@@ -28,7 +29,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 int __cdecl sub_004817F0(); // 0x004817F0
 int __cdecl sub_00481800(); // 0x00481800
 extern "C" void* __cdecl sub_00481810_GetTokenData(); // 0x00481810
-extern "C" char* gpGlobal_007A0438; // 0x007A0438
 extern "C" int gdwLevelEnterTick; // 0x007C89D0
 extern "C" int gdwSongStartTick; // 0x007C89D4
 extern "C" int gnCurrentSongId; // 0x007C89D8
@@ -172,7 +172,7 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
 // 0x004DCA30
 void __cdecl sub_004DCA30_ResetTokenCache()
 {
-    if (gpGlobal_007A0438[0x220])
+    if (gpClientConfig->bNoSound)
         return;
 
     gdwLevelEnterTick = 0;

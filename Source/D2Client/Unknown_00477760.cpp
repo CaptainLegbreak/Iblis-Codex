@@ -4,7 +4,7 @@
 #define LOBYTE(w) ((unsigned char)(((unsigned long)(w)) & 0xFF))
 #define HIBYTE(w) ((unsigned char)((((unsigned long)(w)) >> 8) & 0xFF))
 struct D2ClientPacket67Strc;
-struct D2LaunchRecordStrc;
+struct D2ConfigStrc;
 
 struct D2CacheStatsStrc
 {
@@ -50,7 +50,6 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 int __cdecl CHAT_HasClassOverride(); // 0x0047AA30
 extern unsigned char gnCharClass; // 0x007A0522
-extern D2LaunchRecordStrc* gpCharRecord; // 0x007A0438
 extern char gszClientCharName[]; // 0x007A05C4
 extern int gnSentBytes; // 0x007A6AF8
 extern int gnSentPackets; // 0x007A6B00
@@ -130,17 +129,17 @@ void __fastcall sub_00477CA0_SendPacket67(const char* szName)
     else
         tPacket.nClass = gnCharClass;
     tPacket.f_2D = STRTABLE_GetLanguage();
-    if (!gpCharRecord->dwFlags209)
+    if (!gpClientConfig->dwFlags209)
     {
-        gpCharRecord->dwFlags209 = 4;
-        gpCharRecord->dwFlags209 |= 0x100000;
+        gpClientConfig->dwFlags209 = 4;
+        gpClientConfig->dwFlags209 |= 0x100000;
     }
-    memcpy(tPacket.aWord, gpCharRecord->aWord207, sizeof(tPacket.aWord));
-    memcpy(tPacket.aFlags, gpCharRecord->aState209, sizeof(tPacket.aFlags));
-    tPacket.nByte13 = gpCharRecord->unk0x20D;
-    tPacket.nByte2B = gpCharRecord->unk0x20E;
-    tPacket.nByte2C = gpCharRecord->unk0x20F;
-    tPacket.nByte14 = gpCharRecord->nByte210;
+    memcpy(tPacket.aWord, gpClientConfig->aWord207, sizeof(tPacket.aWord));
+    memcpy(tPacket.aFlags, gpClientConfig->aState209, sizeof(tPacket.aFlags));
+    tPacket.nByte13 = gpClientConfig->unk0x20D;
+    tPacket.nByte2B = gpClientConfig->unk0x20E;
+    tPacket.nByte2C = gpClientConfig->unk0x20F;
+    tPacket.nByte14 = gpClientConfig->nByte210;
     SStrCopy(tPacket.szCharName, gszClientCharName, 0x7FFFFFFF);
 // build: symbol ?CLIENT_Send@* 0x0052AE50
     CLIENT_Send(sizeof(tPacket), 0, &tPacket);

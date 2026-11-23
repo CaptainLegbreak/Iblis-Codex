@@ -12,7 +12,7 @@ void __stdcall sub_005052B0(void* pObject, int nValue); // 0x005052B0
 void* __stdcall sub_005066C0(int nA, int nMode, char* szA, char* szB); // 0x005066C0
 
 
-static void __cdecl CHATDLG_CreateChatCellFile(D2LaunchRecordStrc* pInfo); // 0x0043DC50
+static void __cdecl CHATDLG_CreateChatCellFile(D2ConfigStrc* pInfo); // 0x0043DC50
 
 
 void __cdecl CHARSEL_ClearHistory(); // 0x0043F4D0
@@ -97,7 +97,7 @@ struct D2WinButtonStrc;
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2CharSaveHeaderStrc;
 struct D2CharSaveFileStrc;
-struct D2LaunchRecordStrc;
+struct D2ConfigStrc;
 struct Unicode;
 struct D2ChatMessageStrc;
 struct D2LaunchFuncsStrc;
@@ -147,7 +147,7 @@ extern D2WinControlStrc* gpChatControl_0077B064; // 0x0077B064
 extern D2WinControlStrc* gpChatControl_0077B068; // 0x0077B068
 extern D2WinControlStrc* gpChatControl_0077B06C; // 0x0077B06C
 extern D2WinControlStrc* gpChatControl_0077B074; // 0x0077B074
-extern D2LaunchRecordStrc* gpCharInfo;                                                                  // 0x0077BBD8
+extern D2ConfigStrc* gpCharInfo;                                                                  // 0x0077BBD8
 extern int gbGemToggle; // 0x0077BBEC
 extern D2CelFileStrc* gpChatCellFile; // 0x0077BBFC
 extern D2WinControlStrc* gpChatControl_0077BC44; // 0x0077BC44
@@ -843,7 +843,7 @@ int __stdcall CHATDLG_CheckStartAdvResult(int nUnused); // 0x00443840
 char* __cdecl CHATDLG_StrChr(const char* szString, int nChar); // 0x00446810
 void __stdcall CHATDLG_RemoveTableString(Unicode* pText); // 0x00446A90
 // 0x0043DC50
-static void __cdecl CHATDLG_CreateChatCellFile(D2LaunchRecordStrc* pInfo)
+static void __cdecl CHATDLG_CreateChatCellFile(D2ConfigStrc* pInfo)
 {
     int nMode = 5;
     const unsigned short wFlags = pInfo->wFlags3CB;
@@ -1035,12 +1035,12 @@ int __stdcall CHATDLG_OnTick(int nUnused)
                     {
                     case 0:
                     {
-                        gpCharInfo->nState19 = 3;
+                        gpCharInfo->dwGameType = 3;
 // build: symbol ?GAME_GetMcpGameToken@* 0x00449BE0
-                        gpCharInfo->wValue = (unsigned short)GAME_GetMcpGameToken();
-                        *(int*)gpCharInfo->nValue0x229 = GAME_GetMcpGameHash();
+                        gpCharInfo->wJoinID = (unsigned short)GAME_GetMcpGameToken();
+                        gpCharInfo->dwGameHash = GAME_GetMcpGameHash();
                         const char* szSource = (const char*)GAME_GetMcpGameServerIP();
-                        char* szDest = gpCharInfo->szText0x37;
+                        char* szDest = gpCharInfo->szServerIP;
                         char c;
                         do
                         {
@@ -1051,7 +1051,7 @@ int __stdcall CHATDLG_OnTick(int nUnused)
                         }
                         while (c != 0);
                         gbDone = 1;
-                        gpLaunchFuncs->pfn0x3C(gpCharInfo->szText0x1F, gpCharInfo->szText0x245);
+                        gpLaunchFuncs->pfn0x3C(gpCharInfo->szGameName, gpCharInfo->szText0x245);
                         sub_004F9160_SetLoopValue(0);
                         D2Win_StopMessageLoop();
                         return 1;
@@ -1127,9 +1127,9 @@ int __stdcall CHATDLG_OnTick(int nUnused)
                         while (++gwRequestId == 0)
                         {
                         }
-                        WINMAIN_SendMcpJoinGame(gpCharInfo->szText0x1F, gpCharInfo->szText0x245, gwRequestId);
+                        WINMAIN_SendMcpJoinGame(gpCharInfo->szGameName, gpCharInfo->szText0x245, gwRequestId);
                         gwSavedRequestId = gwRequestId;
-                        gpLaunchFuncs->pfn0x34(gpCharInfo->szText0x1F, gpCharInfo->szText0x245, &gszEmptyAssertText, 0);
+                        gpLaunchFuncs->pfn0x34(gpCharInfo->szGameName, gpCharInfo->szText0x245, &gszEmptyAssertText, 0);
                         break;
                     case 30:
                         gnChatLaunchMode = 0;
@@ -1197,7 +1197,7 @@ int __stdcall CHATDLG_OnTick(int nUnused)
 
 
 // 0x00441B70
-int __fastcall CHATDLG_RunChat(D2LaunchRecordStrc* pInfo)
+int __fastcall CHATDLG_RunChat(D2ConfigStrc* pInfo)
 {
     char szTitle[256];
     D2WinControlStrc* pControl8;

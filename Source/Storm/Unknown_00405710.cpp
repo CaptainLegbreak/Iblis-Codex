@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2MultiTypes.h"
 
 struct D2ConfigStrc;
 
@@ -9,23 +10,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-#pragma pack(push, 1)
-struct D2ConfigStrc
-{
-    int bIsExpansion;
-    int nUnk0x04;
-    unsigned char bWindow;
-    unsigned char bNoFixedAspect;
-    unsigned char b3DFX;
-    unsigned char bOpenGL;
-    unsigned char bRave;
-    unsigned char bD3D;
-    char unk0x0E[0x203];
-    int (__cdecl* pAllowExpansionCallback)();
-    char unk0x215[0x1B8];
-};
-
-#pragma pack(pop)
 
 extern "C" char* __cdecl strtok(char* szText, const char* szDelim); // 0x0068264F
 extern "C" int __cdecl strncmp(const char* szLeft, const char* szRight, size_t nCount); // 0x00682591
@@ -221,7 +205,7 @@ int __fastcall GameInit(int argc, const char** argv)
     sub_00406340_SelectModule(lpArgvCmd, &nChosenModule);
     D2ConfigStrc tCfg;
     ParseCmdLine(&tCfg, lpArgvCmd);
-    tCfg.pAllowExpansionCallback = sub_00405EF0;
+    tCfg.pfnAllowExpansion = sub_00405EF0;
     tCfg.bOpenGL = 0;
     if (!tCfg.b3DFX)
     {

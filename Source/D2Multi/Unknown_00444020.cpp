@@ -18,7 +18,7 @@ struct D2WinTextBoxStrc;
 
 struct Unicode;
 
-struct D2LaunchRecordStrc;
+struct D2ConfigStrc;
 
 struct D2GameListRecordStrc;
 
@@ -68,7 +68,7 @@ struct D2GameListRecordStrc
 
 extern D2LaunchFuncsStrc* gpLaunchFuncs; // 0x0077B09C
 
-extern D2LaunchRecordStrc* gpCharInfo; // 0x0077BBD8
+extern D2ConfigStrc* gpCharInfo; // 0x0077BBD8
 
 extern D2GameListRecordStrc gtGameList_0077BDC9[]; // 0x0077BDC9
 
