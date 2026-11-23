@@ -2978,14 +2978,5 @@ void __stdcall COMCALLBACK_RecordMessage(unsigned int uMessage, unsigned int wPa
 }
 
 
-// 0x00451DB0
-void __fastcall COMCALLBACK_RegisterMsgHandlers(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount)
-{
-    D2_ASSERT(hWnd, 0x153);
-    for (unsigned int i = 0; i < nCount; i++)
-    {
-        SCMD_RegisterMsgHandler(hWnd, pTable[i].nType, pTable[i].nId, (SMSGHANDLER)pTable[i].pfnHandler);
-    }
-}
 
 #include "gen/data/Source/D2Multi/Src/ComCallback.inc"

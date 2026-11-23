@@ -11457,11 +11457,6 @@
      "va": "0x00451450",
      "length": 83,
      "name": "COMCALLBACK_RecordMessage"
-    },
-    {
-     "va": "0x00451DB0",
-     "length": 85,
-     "name": "COMCALLBACK_RegisterMsgHandlers"
     }
    ],
    "flags": [
@@ -16541,6 +16536,11 @@
      "va": "0x00451D10",
      "length": 152,
      "name": "SCMD_UnregisterMsgHandler"
+    },
+    {
+     "va": "0x00451DB0",
+     "length": 85,
+     "name": "COMCALLBACK_RegisterMsgHandlers"
     },
     {
      "va": "0x00452090",
