@@ -17,6 +17,7 @@
 #include "D2LevelTxt.h"
 
 #include "D2StormSha1.h"
+#include "D2SetsTxt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -223,8 +224,6 @@ struct D2CommonIgnoreListStrc : D2CommonChatIgnoreListStrc
 D2CommonIgnoreListStrc* IGNORELIST_GetOrCreateIgnoreList(); // 0x00611560
 
 extern "C" int __fastcall BNDOWNLOAD_GetReplyValue(unsigned char nSlot); // 0x00520C20
-
-struct D2SetsTxt { char unk0x000[0x128]; };
 
 enum
 {

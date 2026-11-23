@@ -18,6 +18,7 @@
 #include "D2PlayerModes.h"
 #include "D2MonModes.h"
 #include "D2ObjModes.h"
+#include "D2SetsTxt.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -456,8 +457,6 @@ int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile
 int __fastcall sub_M210_EmitTest(D2UnitStrc* pPlayer, D2UnitStrc* pUnit);
 
 int __fastcall sub_M210_EmitUse(D2UnitStrc* pUnit);
-
-struct D2SetsTxt { char unk0x000[0x128]; };
 
 #pragma pack(push, 2)
 

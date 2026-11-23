@@ -34,6 +34,7 @@
 #include "D2Txt.h"
 
 #include "D2Path.h"
+#include "D2SetsTxt.h"
 
 #define STAT_ITEM_INDESCTRUCTIBLE 152
 
@@ -687,14 +688,6 @@ static void __stdcall ITEMS_SerializeItemCompact(int bServer, D2UnitStrc* pItem,
 static int ITEMS_HasSocketedItem(D2UnitStrc* pItem);
 
 int __stdcall ITEMS_IsSocketable(D2UnitStrc* pItem);
-
-struct D2SetsTxt
-{
-    char unk0x000[0x0C];
-    int nSetItems;
-    char unk0x010[0x110 - 0x010];
-    D2SetItemsTxt* pSetItem[6];
-};
 
 int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit);                                                 // 0x00451F50
 
