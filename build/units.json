@@ -34584,11 +34584,6 @@
      "va": "0x0051CA70",
      "length": 6,
      "name": "BNCLIENT_IsSetEmailRequested"
-    },
-    {
-     "va": "0x0051EA70",
-     "length": 6,
-     "name": "BNCLIENT_GetDownloadPercent"
     }
    ]
   },
@@ -40173,6 +40168,11 @@
      "va": "0x0051EA40",
      "length": 45,
      "name": "?BNDOWNLOAD_SetStatus@@YIXH@Z"
+    },
+    {
+     "va": "0x0051EA70",
+     "length": 6,
+     "name": "BNCLIENT_GetDownloadPercent"
     },
     {
      "va": "0x0051EA80",

@@ -1,4 +1,9 @@
 #include "D2BNClient.h"
+#include "D2GfxTypes.h"
+#include "D2Win32Base.h"
+#include "D2DDrawTypes.h"
+#include "D2GlideTypes.h"
+#include "D2GameTypes.h"
 
 #include "D2Primitives.h"
 
@@ -956,6 +961,14 @@ void __fastcall BNDOWNLOAD_SetStatus(int nStatus)
     gszAdList[1] = 0;
     gnPercent = nStatus;
     LeaveCriticalSection(&gtDownloadLock);
+}
+
+extern int gdwGlobal_00881C50; // 0x00881C50
+
+// 0x0051EA70
+int __cdecl BNCLIENT_GetDownloadPercent()
+{
+    return gdwGlobal_00881C50;
 }
 
 // 0x0051EA80
@@ -2802,9 +2815,13 @@ unsigned int __fastcall BNDOWNLOAD_DecryptData(unsigned char* data,unsigned int 
 }
 
 struct D2CDKeyInfoStrc;
+
 struct D2AuthCheckPacketStrc;
+
 struct D2CipherKeyStringView;
+
 struct D2EncodedTrailerStrc;
+
 struct D2CDKeyInfoStrc
 {
     unsigned int dwKeyLength;
@@ -2813,6 +2830,7 @@ struct D2CDKeyInfoStrc
     unsigned int f_C;
     unsigned int dwHash[5];
 };
+
 struct D2AuthCheckPacketStrc
 {
     unsigned int f_0;
@@ -2823,16 +2841,24 @@ struct D2AuthCheckPacketStrc
     D2CDKeyInfoStrc pKeys[2];
     char szData[0x200];
 };
+
 int __cdecl sub_0051BEC0_IsExpansion(); // 0x0051BEC0
+
 int __fastcall sub_0051E340_BuildCDKeyInfoForSlot(D2CDKeyInfoStrc* pInfo, unsigned int dwClientToken, int nSlot); // 0x0051E340
+
 int __cdecl BNCLIENT_GetAbortFlag(); // 0x00520AE0
+
 void __cdecl GRID_LockCDKeys(); // 0x005234D0
+
 void __cdecl GRID_UnlockCDKeys(); // 0x005239C0
+
 const char* __cdecl sub_00523AA0_GetExeInfo(); // 0x00523AA0
+
 struct D2CipherKeyStringView
 {
     void __thiscall BNDOWNLOAD_InitCipherKeys(int bEncrypt); // 0x00522C30
 };
+
 struct D2EncodedTrailerStrc
 {
     unsigned int nDigest;
@@ -2840,8 +2866,11 @@ struct D2EncodedTrailerStrc
     unsigned char nLastBlockSize;
     unsigned short wReserved;
 };
+
 unsigned int __fastcall sub_00523020_GetAlignedData(unsigned int nSize); // 0x00523020
+
 unsigned int gdwBnClientToken; // 0x00882530
+
 int __cdecl sub_00521DC0_SendAuthCheck(); // 0x00521DC0
 
 // 0x00523060
