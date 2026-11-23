@@ -12498,6 +12498,11 @@
      "name": "CHATDLG_EnableConnection"
     },
     {
+     "va": "0x004414C0",
+     "length": 55,
+     "name": "?sub_004414C0_UpdateEnable@@YAXXZ"
+    },
+    {
      "va": "0x00441500",
      "length": 1409,
      "name": "?JoinOrCreateGame@@YGHH@Z"
@@ -12974,11 +12979,6 @@
    "file": "Source/D2Multi/Unknown_004414C0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004414C0",
-     "length": 55,
-     "name": "?sub_004414C0_UpdateEnable@@YAXXZ"
-    },
     {
      "va": "0x00442A70",
      "length": 15,

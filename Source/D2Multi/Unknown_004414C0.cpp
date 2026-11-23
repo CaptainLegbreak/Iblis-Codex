@@ -13,23 +13,6 @@ struct Character { signed char value; };
 
 enum { FIRST_PRINTABLE = 32, AFTER_PRINTABLE = 128 };
 
-// 0x004414C0
-void __cdecl sub_004414C0_UpdateEnable()
-{
-    if (((*(unsigned short*)gpCharInfo->wFlags) & 8) && ((*(unsigned short*)gpCharInfo->wFlags) & 4))
-    {
-        return;
-    }
-
-    int bEnable = 0;
-    if (gpCharInfo->nByte22D && !sub_00449B30_QueryAddress())
-    {
-        bEnable = 1;
-    }
-
-    CHATDLG_EnableConnection(bEnable);
-}
-
 char gszChatBuffer[0x200]; // 0x0077AE40
 
 // 0x00442A70

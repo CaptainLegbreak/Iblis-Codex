@@ -908,6 +908,22 @@ void __stdcall D2Win_10142_CompUnitDestroy(D2CompositeUnitStrc* pCompositeUnit, 
 
 void __cdecl sub_0043DCE0_FreeChatCellFile(); // 0x0043DCE0
 
+struct Character;
+
+struct Character { signed char value; };
+
+enum { FIRST_PRINTABLE = 32, AFTER_PRINTABLE = 128 };
+
+void __fastcall sub_00442A70_SetFlagBits12(unsigned int* pFlags, int nValue); // 0x00442A70
+
+int __fastcall sub_00442A80_IsNightmareOpen(unsigned int nFlags); // 0x00442A80
+
+int __fastcall sub_00442AB0_IsHellOpen(unsigned int nFlags); // 0x00442AB0
+
+int __stdcall sub_00443540_IsNameChar(D2WinControlStrc* pControl, int nArg, const char* pChar); // 0x00443540
+
+int __stdcall sub_004435D0(void* unused1,void* unused2,const Character* text); // 0x004435D0
+
 static __forceinline int CONSOLE_FindSecondTokenInline(const char* szText, char* szCopy, const char** ppArg)
 {
     strcpy(szCopy, szText);
@@ -2860,6 +2876,23 @@ void __stdcall CHATDLG_EnableConnection(int bEnable)
     CONTROL_SetEnabled(gpControlC_0077B07C, gbCheck == 0);
     if (gpControlMain_0077BC4C)
         sub_004F9740_ControlSetState(gpControlMain_0077BC4C, 1);
+}
+
+// 0x004414C0
+void __cdecl sub_004414C0_UpdateEnable()
+{
+    if (((*(unsigned short*)gpCharInfo->wFlags) & 8) && ((*(unsigned short*)gpCharInfo->wFlags) & 4))
+    {
+        return;
+    }
+
+    int bEnable = 0;
+    if (gpCharInfo->nByte22D && !sub_00449B30_QueryAddress())
+    {
+        bEnable = 1;
+    }
+
+    CHATDLG_EnableConnection(bEnable);
 }
 
 // 0x00441500
