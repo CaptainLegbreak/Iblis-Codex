@@ -34491,11 +34491,6 @@
      "name": "DDRAW_CelDrawHilight"
     },
     {
-     "va": "0x00512E80",
-     "length": 66,
-     "name": "DDRAW_UtilPoint"
-    },
-    {
      "va": "0x00513AE0",
      "length": 6,
      "name": "D2SOUND_IsExpansion"
@@ -37426,6 +37421,11 @@
      "va": "0x00512900",
      "length": 47,
      "name": "DDRAW_SetPixel"
+    },
+    {
+     "va": "0x00512E80",
+     "length": 66,
+     "name": "DDRAW_UtilPoint"
     },
     {
      "va": "0x005132C0",

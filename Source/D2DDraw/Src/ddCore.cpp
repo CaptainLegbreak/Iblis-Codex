@@ -1,4 +1,5 @@
 #include "D2DDraw.h"
+
 #include "D2GameTypes.h"
 
 #include "D2GfxTypes.h"
@@ -882,6 +883,20 @@ void __fastcall DDRAW_SetPixel(int nX, int nY, unsigned char nColor)
 {
     if (nX >= 0 && nX < gnRenderWidth && nY >= 0 && nY < gnRenderHeight)
         gpScreenBuffer_007C9154[gnRenderWidth * nY + nX] = nColor;
+}
+
+void __fastcall sub_00512D90_DDrawUtilFilledRect(tagRECT* pRect, unsigned char nColor);                     // 0x00512D90
+
+// 0x00512E80
+void __fastcall DDRAW_UtilPoint(tagPOINT* pPoint, unsigned char nSize, unsigned char nPaletteIndex)
+{
+    if (nSize)
+    {
+        --nSize;
+        tagRECT tRect;
+        SetRect(&tRect, pPoint->x - nSize, pPoint->y - nSize, pPoint->x + nSize + 1, pPoint->y + nSize + 1);
+        sub_00512D90_DDrawUtilFilledRect(&tRect, nPaletteIndex);
+    }
 }
 
 // 0x005132C0
