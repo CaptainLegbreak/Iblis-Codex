@@ -407,6 +407,94 @@ static inline D2ItemStatCostTxt* GetStatCostRecord(int nStat)
     return 0;
 }
 
+
+
+unsigned int* __stdcall D2COMMON_10494_STATES_GetStatFlags(D2UnitStrc*); // 0x0063A100
+
+static inline D2StatesTxt* SKILLS_GetStatesTxtRecord(int id) { if (id < 0 || id >= sgptDataTables->nStatesTxtRecordCount) return 0; return &sgptDataTables->pStatesTxt[id]; }
+
+static inline D2ItemStatCostTxt* SKILLS_GetItemStatCostTxtRecord(int id) { if (id < 0 || id >= sgptDataTables->nItemStatCostTxtRecordCount) return 0; return &sgptDataTables->pItemStatCostTxt[id]; }
+
+static inline int sub_GetUnitTypeOrInvalid(D2UnitStrc* pUnit) { if (!pUnit) return UNIT_INVALID; return pUnit->dwUnitType; }
+
+// 0x00570E30
+void __fastcall D2GAME_STATES_SendUnitStates_6FCC58E0(D2UnitStrc* pUnit, D2ClientStrc* pClient)
+{
+    D2BitBufferStrc bitBuffer;
+    unsigned int nFlags[8];
+    D2StatStrc stats[16];
+    if (!pUnit || !pClient) return;
+    unsigned int* pFlags = D2COMMON_10494_STATES_GetStatFlags(pUnit);
+    const int nTotalStatFlagCount = (sgptDataTables->nStatesTxtRecordCount + 31) / 32;
+    memcpy(nFlags, pFlags, sizeof(unsigned int) * nTotalStatFlagCount);
+    D2GSPacketSrvAA packetAA;
+    packetAA.nHeader = 0xAA;
+    packetAA.nUnitType = sub_GetUnitTypeOrInvalid(pUnit);
+    packetAA.nUnitId = pUnit->dwUnitId;
+    BITMANIP_Initialize(&bitBuffer, packetAA.pStream, 244);
+    int i = 0;
+    int nStateOffset = 0;
+    for (; i < nTotalStatFlagCount; ++i, nStateOffset += 32)
+    {
+        int nBit = sub_004111A0_GetLowestSetBit(nFlags[i]);
+        while (nBit >= 0)
+        {
+            nFlags[i + (nBit >> 5)] &= gdwInvBitMasks[nBit & 31];
+            const int nStateId = nBit + nStateOffset;
+            D2StatesTxt* pStatesTxtRecord = SKILLS_GetStatesTxtRecord(nStateId);
+            if (!pStatesTxtRecord) { nBit = sub_004111A0_GetLowestSetBit(nFlags[i]); continue; }
+            if (pStatesTxtRecord->nStateFlags[0] & gdwBitMasks[0]) { nBit = sub_004111A0_GetLowestSetBit(nFlags[i]); continue; }
+            {
+                if (BITMANIP_GetSize(&bitBuffer) + 7 >= 219) break;
+                BITMANIP_Write(&bitBuffer, nStateId, 8);
+                D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nStateId);
+                if (pStatList)
+                {
+                    const int nStatCount = STATLIST_GetBaseStatsData(pStatList, stats, 16);
+                    if (nStatCount > 0)
+                    {
+                        BITMANIP_Write(&bitBuffer, 1, 1);
+                        for (int j = 0; j < nStatCount; ++j)
+                        {
+                            const int nStatId = (unsigned int)stats[j].nPackedValue >> 16;
+                            const unsigned short nLayer = stats[j].nLayer;
+                            int nValue = stats[j].nValue;
+                            D2ItemStatCostTxt* pItemStatCostTxtRecord = SKILLS_GetItemStatCostTxtRecord(nStatId);
+                            if (pItemStatCostTxtRecord && pItemStatCostTxtRecord->nSendBits > 0)
+                            {
+                                if (pItemStatCostTxtRecord->nSendBits < 32)
+                                {
+                                    if (pItemStatCostTxtRecord->nItemStatFlags[0] & gdwBitMasks[1])
+                                    {
+                                        const int nMin = -1 << (pItemStatCostTxtRecord->nSendBits - 1);
+                                        nValue = D2_MIN(D2_MAX(nValue, nMin), (1 << (pItemStatCostTxtRecord->nSendBits - 1)) - 1);
+                                    }
+                                    else
+                                    {
+                                        nValue = D2_MIN(D2_MAX(nValue, 0), (1 << pItemStatCostTxtRecord->nSendBits) - 1);
+                                    }
+                                }
+                                BITMANIP_Write(&bitBuffer, nStatId, 9);
+                                if (pItemStatCostTxtRecord->nSendParamBits)
+                                    BITMANIP_Write(&bitBuffer, nLayer, pItemStatCostTxtRecord->nSendParamBits);
+                                BITMANIP_Write(&bitBuffer, nValue, pItemStatCostTxtRecord->nSendBits);
+                            }
+                        }
+                        BITMANIP_Write(&bitBuffer, 0x1FF, 9);
+                    }
+                    else BITMANIP_Write(&bitBuffer, 0, 1);
+                }
+                else BITMANIP_Write(&bitBuffer, 0, 1);
+            }
+            nBit = sub_004111A0_GetLowestSetBit(nFlags[i]);
+        }
+    }
+    BITMANIP_Write(&bitBuffer, 0xFF, 8);
+    const int nSize = BITMANIP_GetSize(&bitBuffer) + 7;
+    packetAA.nSize = nSize;
+    SCMD_SendRawPacket(pClient, &packetAA, nSize);
+}
+
 // 0x005711D0
 void __fastcall D2GAME_STATES_SendUnitStateUpdates_6FCC5BE0(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {

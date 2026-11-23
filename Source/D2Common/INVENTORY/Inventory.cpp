@@ -1,14 +1,35 @@
 #include "D2ItemTypes.h"
+
+#include "D2CmpTileRecord.h"
+
+#include "D2GameTypes.h"
+
+#include "D2DrlgMaps.h"
+
+#include "D2CmpTypes.h"
+
+#include "D2LRUNode.h"
+
 #include "D2MonsterIds.h"
+
 #include "D2Common.h"
+
 #include "D2ClientTypes.h"
+
 #include "D2Structs.h"
+
 #include "D2Path.h"
+
 #include "D2DataTbls.h"
+
 #include "D2Txt.h"
+
 #include "D2Skills.h"
+
 #include "D2ItemsWorld.h"
+
 #include "D2TxtItems.h"
+
 #include "D2ItemModes.h"
 
 #define STATEMASK_BLUE 18
@@ -40,7 +61,6 @@ struct AppearanceRecord;
 struct ItemData;
 
 struct ItemLink;
-
 
 struct D2ItemExtraDataStrc;
 
@@ -226,7 +246,6 @@ int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, int nInvPage, int bL
 void __stdcall ITEMS_GetDimensions(D2UnitStrc* pItem, unsigned char* pWidth, unsigned char* pHeight, const char* szFile, int nLine); // 0x006286C0
 
 BOOL __stdcall INVENTORY_GetFreePosition(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nInventoryRecordId, int* pFreeX, int* pFreeY, unsigned char nPage); // 0x0063B850
-
 
 void __stdcall sub_0065C1F0(int nInventoryRecordId, int nUnused, D2InventoryGridInfoStrc* pInventoryGridInfo); // 0x0065C1F0
 
@@ -3659,6 +3678,11 @@ static void __stdcall INVENTORY_FillItemComponentGfxInfo(Unit* unit, u8* firstOu
     }
 }
 
+// 0x0063DB80
+void __stdcall sub_0063DB80(int nUnused1, int nUnused2)
+{
+}
+
 // 0x0063DB90
 static int __stdcall INVENTORY_SelectValue(int a, int b)
 {
@@ -3798,6 +3822,11 @@ static int __stdcall INVENTORY_CheckHandSlotPlacement(D2UnitStrc* pUnit, int nOt
     }
 
     return 0;
+}
+
+// 0x0063E050
+void __stdcall sub_0063E050(int nUnused1, int nUnused2)
+{
 }
 
 // 0x0063E490

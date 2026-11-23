@@ -2190,7 +2190,7 @@ int __fastcall SKILLS_SrvDo112_MonCurseCast(D2GameStrc* pGame, D2UnitStrc* pUnit
     memset(&args, 0, sizeof(args));
     args.pGame = pGame;
     args.pUnit = pUnit;
-    args.unk0x08 = 0;
+    args.bResetAi = 0;
     args.nSkillId = nCurseSkillId;
     args.nSkillLevel = nSkillLevel;
     args.nDuration = nDuration;

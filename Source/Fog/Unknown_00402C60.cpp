@@ -28,7 +28,7 @@ static void sub_00402C60_FormatModule(char* szOut, const D2CrashModuleStrc* pMod
         pModule->tGuid.Data4[0], pModule->tGuid.Data4[1], pModule->tGuid.Data4[2], pModule->tGuid.Data4[3],
         pModule->tGuid.Data4[4], pModule->tGuid.Data4[5], pModule->tGuid.Data4[6], pModule->tGuid.Data4[7]);
     _snprintf_s(szOut, 0x400, -1, "DBG-MODULE<%p %08x \"%s\" \"%s\" %u %s %u %u%s>", pModule->pBase, pModule->nSize, pModule->szName, pModule->szPath,
-        pModule->nTimeStamp, szGuid, pModule->nAge, pModule->nUnknown220, szVersion);
+        pModule->nTimeStamp, szGuid, pModule->nAge, pModule->nTimeDateStamp, szVersion);
 }
 
 static bool sub_00404DC0_EnumModulesToolhelp(void* pContext)
@@ -122,7 +122,7 @@ static void sub_00402FE0_InitModuleList(D2CrashModuleListStrc* pList)
         *(unsigned long*)&pModule->tGuid.Data4[0] = 0;
         *(unsigned long*)&pModule->tGuid.Data4[4] = 0;
         pModule->nAge = 0;
-        pModule->nUnknown220 = 0;
+        pModule->nTimeDateStamp = 0;
         pModule->nVersion = 0;
         pModule->szName[0] = 0;
         pModule->szPath[0] = 0;

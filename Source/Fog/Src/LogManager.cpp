@@ -283,24 +283,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct D2LogMessageStrc
-{
-    union
-    {
-        struct
-        {
-            void* pLinkPrev;
-            char* pLinkNext;
-        };
-        D2StormLinkStrc f_0;
-    };
-    unsigned int nSize;
-    int nType;
-    int bTimeStamp;
-    D2SystemTimeStrc f_14;
-    char szName[1];
-};
-
 extern "C" int __cdecl sscanf(const char* szSource, const char* szFormat, ...); // 0x00684BD5
 
 extern "C" __declspec(dllimport) long __stdcall SHGetFolderPathA(void* hWnd, int nFolder, void* hToken, unsigned long dwFlags, char* szPath); // 0x006CC43C
@@ -337,7 +319,7 @@ struct sub_0040F810
     sub_0040F810();
 };
 
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
+int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
@@ -1062,6 +1044,25 @@ struct D2LogMsgNodeStrc
     ~D2LogMsgNodeStrc();
 };
 
+struct D2LogMessageStrc : D2LogMsgNodeStrc
+{
+    unsigned int nSize;
+    int nType;
+    int bTimeStamp;
+    D2SystemTimeStrc f_14;
+
+    D2LogMessageStrc();
+    ~D2LogMessageStrc();
+    char* GetName() { return (char*)(this + 1); }
+    static void operator delete(void* pMemory);
+    static void operator delete(void*, void*) {}
+};
+
+inline void* operator new(unsigned int, void* pWhere) throw()
+{
+    return pWhere;
+}
+
 D2CriticalSectionStrc gtLogLock; // 0x0075E850
 
 void* gpMiniDumpRequest; // 0x0098A6E4
@@ -1069,10 +1070,14 @@ void* gpMiniDumpRequest; // 0x0098A6E4
 struct D2LogMsgListStrc
 {
     int m_linkoffset;
-    D2StormLinkStrc m_terminator;
+    D2LogMsgLinkStrc m_terminator;
 
-    char* sub_0040FF40_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags); // 0x0040FF40
-    void sub_0040FED0_DeleteAll(); // 0x0040FED0
+    D2LogMsgListStrc();
+    ~D2LogMsgListStrc();
+    void sub_0040FD00_UnlinkAll(); // 0x0040FD00
+    void sub_0040FBB0_LinkNode(char* pNode, int nLinkType, char* pExistingNode); // 0x0040FBB0
+    void sub_0040FED0_DeleteAll();
+    char* sub_0040FF40_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
 };
 
 struct D2LogMemoryInfoStrc
@@ -1090,7 +1095,9 @@ int gnLogQueuedBytes; // 0x0075D144
 
 int gnLogQueued; // 0x0075D140
 
-extern D2LogMsgListStrc gtLogMsgQueue_0075E868; // 0x0075E868
+// build: symbol ??__EgtLogMsgQueue_0075E868@@YAXXZ 0x006CA740
+// build: symbol ??__FgtLogMsgQueue_0075E868@@YAXXZ 0x006CB090
+D2LogMsgListStrc gtLogMsgQueue_0075E868; // 0x0075E868
 
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nSize); // 0x006829C0
 
@@ -1490,6 +1497,63 @@ D2LogMsgNodeStrc::D2LogMsgNodeStrc()
 {
 }
 
+void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
+
+extern "C" const char gszLogMessageTypeName[]; // 0x00708124
+
+// build: symbol ??3D2LogMessageStrc@@SAXPAX0@Z 0x0040EB30
+// 0x0040FB50
+D2LogMsgListStrc::D2LogMsgListStrc()
+{
+    m_linkoffset = 0;
+    m_terminator.m_prevlink = &m_terminator;
+    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+// 0x0040FD90
+D2LogMsgListStrc::~D2LogMsgListStrc()
+{
+    sub_0040FD00_UnlinkAll();
+}
+
+// build: symbol ??_GD2LogMessageStrc@@QAEPAXI@Z 0x0040FE60
+inline void D2LogMessageStrc::operator delete(void* pMemory)
+{
+    if (pMemory)
+        SMemFree(pMemory, "delete", -1, 0);
+}
+
+// 0x0040FED0
+void D2LogMsgListStrc::sub_0040FED0_DeleteAll()
+{
+    while (D2LogMessageStrc* pNode = (D2LogMessageStrc*)m_terminator.Next())
+    {
+        pNode->~D2LogMessageStrc();
+        SMemFree(pNode, gszLogMessageTypeName, -2, 0);
+    }
+}
+
+// 0x0040FF40
+char* D2LogMsgListStrc::sub_0040FF40_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
+{
+    void* pMemory = SMemAlloc(sizeof(D2LogMessageStrc) + nExtraBytes, gszLogMessageTypeName, -2, nFlags | 8);
+    D2LogMessageStrc* pNode = new (pMemory) D2LogMessageStrc;
+    if (nLinkType)
+        sub_0040FBB0_LinkNode((char*)pNode, nLinkType, 0);
+    return (char*)pNode;
+}
+
+// 0x0040FE10
+D2LogMessageStrc::D2LogMessageStrc()
+{
+}
+
+// 0x0040FD40
+D2LogMessageStrc::~D2LogMessageStrc()
+{
+}
+
+
 void* ghLogThread; // 0x0075D2E8
 
 int gbLogThreadStop; // 0x0075E830
@@ -1511,27 +1575,6 @@ void __cdecl sub_0040FFD0_ShutdownLogSystem()
     gbLogInitialized = 0;
     gbLogThreadStop = 0;
     LeaveCriticalSection(&gtLogQueueLock);
-}
-
-// 0x00410C40
-void __stdcall LOGMANAGER_OrBits(const unsigned char* pA, const unsigned char* pB, unsigned char* pOut, int nBits)
-{
-    nBits = (nBits + 7) / 8;
-    const int nAligned = 4 * (nBits / 4);
-    int i;
-    for (i = 0; i < nAligned; i += 4)
-    {
-        *(int*)&pOut[i] = *(const int*)&pA[i] | *(const int*)&pB[i];
-    }
-    switch (nBits - nAligned)
-    {
-    case 3:
-        pOut[i + 2] = pA[i + 2] | pB[i + 2];
-    case 2:
-        pOut[i + 1] = pA[i + 1] | pB[i + 1];
-    case 1:
-        pOut[i] = pA[i] | pB[i];
-    }
 }
 
 // 0x00417780
@@ -2000,7 +2043,7 @@ void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle,
     pMessage->nType = 2;
     pMessage->bTimeStamp = 1;
     GetLocalTime(&pMessage->f_14);
-    char* pText = pMessage->szName;
+    char* pText = pMessage->GetName();
     pText += SStrCopy(pText, szPrefix, 0x7FFFFFFF) + 1;
     D2LogMemoryInfoStrc* pInfo = (D2LogMemoryInfoStrc*)pText;
     pInfo->pAddress = (const void*)dwAddress;
@@ -2013,7 +2056,7 @@ void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle,
     if (!bBadPointer)
         memcpy(pText, (const void*)dwAddress, nSize);
     EnterCriticalSection(&gtLogQueueLock);
-    D2StormLinkStrc* pLink = &pMessage->f_0;
+    D2LogMsgLinkStrc* pLink = &pMessage->f_0;
     if (pLink->m_prevlink)
     {
         pLink->NextLink(-1)->m_prevlink = pLink->m_prevlink;
@@ -2021,7 +2064,7 @@ void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle,
         pLink->m_prevlink = 0;
         pLink->m_next = 0;
     }
-    D2StormLinkStrc* pPrev = gtLogMsgQueue_0075E868.m_terminator.m_prevlink;
+    D2LogMsgLinkStrc* pPrev = gtLogMsgQueue_0075E868.m_terminator.m_prevlink;
     pLink->m_prevlink = pPrev;
     pLink->m_next = pPrev->m_next;
     pPrev->m_next = (char*)pMessage;
@@ -2070,13 +2113,13 @@ void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, co
     pMessage->bTimeStamp = nArg2 == 1;
     GetLocalTime(&pMessage->f_14);
 
-    char* pText = pMessage->szName;
+    char* pText = pMessage->GetName();
     SStrCopy(pText, szPrefix, nExtraBytes);
     pText += SStrLen(pText) + 1;
     SStrCopy(pText, szBuffer, nExtraBytes);
 
     EnterCriticalSection(&gtLogQueueLock);
-    D2StormLinkStrc* pLink = &pMessage->f_0;
+    D2LogMsgLinkStrc* pLink = &pMessage->f_0;
     if (pLink->m_prevlink)
     {
         pLink->NextLink(-1)->m_prevlink = pLink->m_prevlink;
@@ -2084,7 +2127,7 @@ void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, co
         pLink->m_prevlink = 0;
         pLink->m_next = 0;
     }
-    D2StormLinkStrc* pPrev = gtLogMsgQueue_0075E868.m_terminator.m_prevlink;
+    D2LogMsgLinkStrc* pPrev = gtLogMsgQueue_0075E868.m_terminator.m_prevlink;
     pLink->m_prevlink = pPrev;
     pLink->m_next = pPrev->m_next;
     pPrev->m_next = (char*)pMessage;
@@ -2155,7 +2198,7 @@ void __cdecl LOGMANAGER_LogWritePrefixed(const char* szPrefix, const char* szFor
 void __fastcall LOGMANAGER_WriteMessage(D2LogMessageStrc* pMessage)
 {
     D2_ASSERT(pMessage->nType == 1, 0x2A1);
-    char* szName = pMessage->szName;
+    char* szName = pMessage->GetName();
     char* szText = szName + SStrLen(szName) + 1;
     int nSlot;
     _iobuf* pFile = sub_0040EDE0_GetLogFile(szName, &nSlot);
@@ -2350,7 +2393,7 @@ void __fastcall sub_0040F070_WriteDumpMessage(D2LogMessageStrc* pMessage)
 {
     D2SystemTimeStrc* const pStamp = &pMessage->f_14;
     D2_ASSERT(pMessage->nType == 2, 0x389);
-    char* szName = pMessage->szName;
+    char* szName = pMessage->GetName();
     D2LogDumpStrc* pDump = (D2LogDumpStrc*)(szName + SStrLen(szName) + 1);
     const unsigned char* pData;
     char* const szLabel = pDump->szLabel;

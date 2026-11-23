@@ -286,6 +286,21 @@ enum D2C_F33QuestConstants
     MONSTATSFLAGINDEX_ZOO = 22,
 };
 
+// 0x0058BE80
+void __fastcall ACT5Q5_Callback02_NpcDeactivate(D2QuestDataStrc* quest, D2QuestArgStrc* argument)
+{
+    if (argument->pTarget && (unsigned short)argument->pTarget->dwClassId == 515)
+    {
+        D2Act5Quest5Strc* data = (D2Act5Quest5Strc*)quest->pQuestDataEx;
+        if (data->bQualKehkActivated == 1)
+        {
+            quest->nStatusFlags = 0;
+            QUESTS_UnitIterate(quest, 1, 0, ACT5Q5_UnitIterate_StatusCyclerEx, true);
+            data->bQualKehkActivated = 0;
+        }
+    }
+}
+
 // 0x0058BEC0
 static bool ACT5Q5_RemoveAncientMonster(D2GameStrc* pGame, int nAncientMonsterGUID)
 {

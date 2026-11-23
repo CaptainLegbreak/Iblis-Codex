@@ -25,7 +25,7 @@ struct D2CrashModuleStrc
     unsigned long nTimeStamp;
     D2CrashGuidStrc tGuid;
     unsigned long nAge;
-    unsigned long nUnknown220;
+    unsigned long nTimeDateStamp;
     unsigned long nVersion;
 
     D2CrashModuleStrc()
@@ -39,7 +39,7 @@ struct D2CrashModuleStrc
         *(unsigned long*)&tGuid.Data4[0] = 0;
         *(unsigned long*)&tGuid.Data4[4] = 0;
         nAge = 0;
-        nUnknown220 = 0;
+        nTimeDateStamp = 0;
         nVersion = 0;
         szName[0] = 0;
         szPath[0] = 0;
@@ -128,7 +128,7 @@ static bool __stdcall sub_004049A0_ReadImageInfo(D2CrashModuleStrc* pModule, con
         return false;
     }
     pModule->nSize = pNt->OptionalHeader.SizeOfImage;
-    pModule->nUnknown220 = pNt->FileHeader.TimeDateStamp;
+    pModule->nTimeDateStamp = pNt->FileHeader.TimeDateStamp;
     if (pImage->e_res2[2] == 0xB74F && pImage->e_res2[3] == 0x2D98)
     {
         pModule->nVersion = (pImage->e_res2[1] << 16) + pImage->e_res2[0];

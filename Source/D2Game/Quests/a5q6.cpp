@@ -133,6 +133,10 @@ void __fastcall sub_0058D940_Callback11_ScrollMessage(D2QuestDataStrc* pQuestDat
 
 void __fastcall ACT5Q6_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);     // 0x0058D9F0
 
+void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeaderStrc* pTextControl, int nNPCID, int nIndex); // 0x00543790
+
+extern unsigned int gnA5Q6NpcActivateIndices[4]; // 0x00735EE4
+
 void __fastcall ACT5Q6_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0058DCF0
 
 void __fastcall ACT5Q6_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0058DF20
@@ -840,6 +844,140 @@ int __fastcall ACT5Q6_UnitIterate_UpdateQuestStateFlags(Game* game, Unit* unit, 
     if (quest->state == 2) sub_0065C360(flags, QUEST_FLAGS_ID, 2);
     else if (quest->state == 3) sub_0065C360(flags, QUEST_FLAGS_ID, 3);
     return 0;
+}
+
+// 0x0058D940
+void __fastcall sub_0058D940_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    switch (pQuestArg->nMessageIndex)
+    {
+    case 20178:
+    {
+        D2UnitStrc* pPlayer = pQuestArg->pPlayer;
+        D2GameStrc* pGame = pQuestData->pGame;
+        D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 4);
+        break;
+    }
+    case 20177:
+    {
+        D2UnitStrc* pPlayer = pQuestArg->pPlayer;
+        D2GameStrc* pGame = pQuestData->pGame;
+        D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 5);
+        break;
+    }
+    case 20179:
+    {
+        D2UnitStrc* pPlayer = pQuestArg->pPlayer;
+        D2GameStrc* pGame = pQuestData->pGame;
+        D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 6);
+        break;
+    }
+    case 20175:
+    {
+        D2UnitStrc* pPlayer = pQuestArg->pPlayer;
+        D2GameStrc* pGame = pQuestData->pGame;
+        D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 7);
+        break;
+    }
+    case 20180:
+    {
+        D2UnitStrc* pPlayer = pQuestArg->pPlayer;
+        D2GameStrc* pGame = pQuestData->pGame;
+        D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 8);
+        break;
+    }
+    case 20176:
+    {
+        D2UnitStrc* pPlayer = pQuestArg->pPlayer;
+        D2GameStrc* pGame = pQuestData->pGame;
+        D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 9);
+        break;
+    }
+    }
+}
+
+// 0x0058D9F0
+void __fastcall ACT5Q6_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2GameStrc* pGame = pQuestData->pGame;
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
+    int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
+    D2Act5Quest6Strc* pQuestDataEx = (D2Act5Quest6Strc*)pQuestData->pQuestDataEx;
+    switch (nNpcId)
+    {
+    case MONSTER_ANCIENTSTATUE1:
+    case MONSTER_ANCIENTSTATUE2:
+    case MONSTER_ANCIENTSTATUE3:
+    {
+        D2QuestDataStrc* pAncientsQuest = QUESTS_GetQuestData(pQuestData->pGame, QUEST_A5Q5_ANCIENTS);
+        if (pAncientsQuest && ((D2Act5Quest5Strc*)pAncientsQuest->pQuestDataEx)->bAncientsActivated && !((D2Act5Quest5Strc*)pAncientsQuest->pQuestDataEx)->nAncientsAlive)
+        {
+            if ((pQuestData->fState == 1 && !pQuestDataEx->bQuestStarted) || (pQuestData->fState == 2 && pQuestDataEx->bQuestStarted))
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 3);
+        }
+        return;
+    }
+    default:
+        break;
+    }
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q6, QFLAG_REWARDGRANTED))
+    {
+        switch (nNpcId)
+        {
+        case MONSTER_LARZUK:
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q6, QFLAG_ENTERAREA))
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 2);
+            else if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q6, QFLAG_PRIMARYGOALDONE))
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 3);
+            break;
+        case MONSTER_CAIN6:
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_CUSTOM6))
+            {
+                if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q6, QFLAG_CUSTOM1))
+                    QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 4);
+                else if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q6, QFLAG_PRIMARYGOALDONE))
+                    QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 5);
+            }
+            break;
+        case MONSTER_MALAH:
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q6, QFLAG_CUSTOM2))
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 2);
+            else if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q6, QFLAG_PRIMARYGOALDONE))
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 3);
+            break;
+        case MONSTER_TYRAEL3:
+            if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q6, QFLAG_PRIMARYGOALDONE))
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 2);
+            break;
+        case MONSTER_QUAL_KEHK:
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q6, QFLAG_CUSTOM4))
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 2);
+            else if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q6, QFLAG_PRIMARYGOALDONE))
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 3);
+            break;
+        case MONSTER_DREHYA:
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q6, QFLAG_CUSTOM5))
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 2);
+            else if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q6, QFLAG_PRIMARYGOALDONE))
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 3);
+            break;
+        }
+        return;
+    }
+
+    if (pQuestData->fState < 4)
+    {
+        unsigned int nIndex = gnA5Q6NpcActivateIndices[pQuestData->fState];
+        if (nIndex != -1 && nIndex < 9)
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);
+    }
 }
 
 #include "gen/data/Source/D2Game/Quests/a5q6.inc"

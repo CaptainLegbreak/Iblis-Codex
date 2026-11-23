@@ -1,6 +1,14 @@
 #include "D2StatIds.h"
+#include "D2CmpTileRecord.h"
+#include "D2GameTypes.h"
+#include "D2DrlgMaps.h"
+#include "D2CmpTypes.h"
+#include "D2LRUNode.h"
+
 #include "D2Path.h"
+
 #include "D2Records.h"
+
 #include "D2ItemsWorld.h"
 
 #include "D2Common.h"
@@ -202,6 +210,11 @@ const Unicode* __fastcall MONSTERS_GetHirelingDescString(int nId)
     return 0;
 }
 
+// 0x00663740
+void __stdcall sub_00663740(int nUnused1)
+{
+}
+
 // 0x00663790
 int __stdcall MONSTERS_GetHirelingExpForNextLevel(int nLevel, int nExpPerLevel)
 {
@@ -240,6 +253,7 @@ unsigned int __stdcall MONSTERS_GetHirelingResurrectionCost(D2UnitStrc* pHirelin
 }
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
+
 struct D2HirelingInitStrc
 {
     int nId;
@@ -259,7 +273,9 @@ struct D2HirelingInitStrc
     short nFlags;
     short unk0x3A;
 };
+
 D2HirelingTxt* __stdcall DATATBLS_GetNextHirelingTxtRecordFromActAndDifficulty(int bExpansion, int nAct, int nDifficulty, D2HirelingTxt* pOldRecord); // 0x00656580
+
 static inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;

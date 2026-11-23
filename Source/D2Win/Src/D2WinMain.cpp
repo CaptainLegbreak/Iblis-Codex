@@ -1,5 +1,7 @@
 #include "D2Win.h"
 
+#include "D2GameTypes.h"
+
 #include "D2Win32Types.h"
 
 #include "D2CelContext.h"
@@ -1102,6 +1104,14 @@ int __stdcall CONTROL_SetFocusedEditBox(D2WinEditBoxStrc* pEditBox)
     return 1;
 }
 
+extern int gdwGlobal_007D55CC; // 0x007D55CC
+
+// 0x004F9200
+int __cdecl CONTROL_GetFocusedEditBox()
+{
+    return gdwGlobal_007D55CC;
+}
+
 // 0x004F9210
 int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl)
 {
@@ -1415,6 +1425,14 @@ int __fastcall CONTROL_IsVisible(D2WinControlStrc* pControl)
 int __stdcall CONTROL_MouseInsideRect(const tagRECT* pRect)
 {
     return PtInRect(pRect, gtMousePosition);
+}
+
+extern int gdwGlobal_007D55E4; // 0x007D55E4
+
+// 0x004F97D0
+int __cdecl D2Win_IsCtrlKeyDown()
+{
+    return gdwGlobal_007D55E4;
 }
 
 // 0x004F97E0

@@ -5,15 +5,6 @@
 struct D2InventoryStrc;
 
 
-struct D2AnimSeqTxt
-{
-    unsigned short wSequence;
-    unsigned char nMode;
-    unsigned char nFrame;
-    unsigned char nDir;
-    unsigned char nEvent;
-};
-
 
 struct D2PlayerWeaponSequencesStrc
 {

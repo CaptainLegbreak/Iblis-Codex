@@ -1,16 +1,32 @@
 #include "D2Sound.h"
+#include "D2GfxTypes.h"
+#include "D2Win32Base.h"
+#include "D2DDrawTypes.h"
+#include "D2GlideTypes.h"
+#include "D2GameTypes.h"
+
 #include "D2SysTypes.h"
+
 #include "D2SoundTypes.h"
 
 struct D2SoundStrc;
+
 struct D2DSGuid;
+
 struct D2DSBufferCaps;
+
 struct D2DSCaps;
+
 struct D2DSUnknown;
+
 struct D2DSBuffer;
+
 struct D2DSDirectSound;
+
 struct D2DSPropertySet;
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 struct D2DSGuid { unsigned long a; unsigned short b; unsigned short c; unsigned char d[8]; };
@@ -58,31 +74,57 @@ struct D2DSPropertySet : D2DSUnknown
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
+
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
+
 extern "C" long __stdcall DirectSoundCreate(const D2DSGuid* pGuid, D2DSDirectSound** ppDS, D2DSUnknown* pOuter); // 0x006B1344
+
 void* __cdecl WINDOW_GetWindow(); // 0x004F59A0
+
 void __cdecl D2SOUND_ReleaseSoundObjects(); // 0x00513AF0
+
 int __fastcall sub_00513BC0_SetEaxRoomOff(int nEaxVersion); // 0x00513BC0
+
 const char* __fastcall D2SOUND_GetDirectSoundErrorString(long hResult); // 0x00513ED0
+
 void __cdecl D2SOUND_CloseSoundSystem(); // 0x00514060
+
 extern "C" void __fastcall D2SOUND_CreateStreamChannel(int nArg); // 0x00514780
+
 void __cdecl D2SOUND_LoadRegistrySettings(); // 0x00514B60
+
 int __fastcall D2SOUND_ClearSoundBuffer(D2DSBuffer* pBuffer, unsigned long nOffset, unsigned long nBytes); // 0x00515300
+
 void __fastcall D2SOUND_SetMasterVolume(int nVolume); // 0x00515CE0
+
 void __cdecl D2SOUND_StartSoundThread(); // 0x00516510
+
 void __fastcall D2SOUND_InitWaveFormat(D2WaveFormatStrc* pFormat, int nChannels); // 0x00516720
+
 extern D2DSPropertySet* gpPropertySet_008816D8; // 0x008816D8
+
 extern D2DSCaps gtDSCaps; // 0x008816E0
+
 extern D2CriticalSectionStrc gtSoundLock; // 0x0088174C
+
 extern int gbUseEax_00881770; // 0x00881770
+
 extern int gbSoundInit_00881784; // 0x00881784
+
 extern const D2DSGuid gtIidDirectSound3DBuffer; // 0x006DE3D0
+
 extern const D2DSGuid gtIidKsPropertySet; // 0x006DE410
+
 extern const D2DSGuid gDSPROPSETID_EAX20_ListenerProperties_006DE460; // 0x006DE460
+
 extern const D2DSGuid gDSPROPSETID_EAX_ReverbProperties_006DE480; // 0x006DE480
+
 int __fastcall D2SOUND_IsSoundStreaming(D2SoundStrc* pSound); // 0x00515C30
+
 void __fastcall D2SOUND_StopSound(D2SoundStrc* pSound); // 0x00515EE0
+
 extern D2SoundStrc* gpSoundChannel; // 0x00881794
+
 extern int gnChannelValue; // 0x00881798
 
 int gnChannelArg; // 0x008816DC
@@ -246,6 +288,14 @@ void __cdecl sub_005140D0_InitDirectSound()
 }
 
 #include "gen/data/Source/D2Sound/Unknown_005140D0.inc"
+
+extern int gdwGlobal_00881798; // 0x00881798
+
+// 0x00514920
+int __cdecl D2SOUND_GetStreamChannelValue()
+{
+    return gdwGlobal_00881798;
+}
 
 // 0x00514930
 void __cdecl sub_00514930_StopChannel()

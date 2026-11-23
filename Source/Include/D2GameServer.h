@@ -7,6 +7,7 @@
 
 struct D2ActiveRoomStrc;
 struct D2ClientInfoStrc;
+struct D2ClientStrc;
 struct D2FileTimeStrc;
 struct D2GameStrc;
 struct D2InventoryStrc;
@@ -16,6 +17,15 @@ struct D2NpcGambleStrc;
 struct D2ObjectRegionStrc;
 struct D2UnkMonCreateStrc;
 struct D2ServerCallbackFunctions;
+
+typedef void (__fastcall* PlrMsgFunc)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int nAnimMode);
+
+struct D2UnkPlrMsgStrc
+{
+    PlrMsgFunc pfSendMode; // 0x00
+    int nLocationMode; // 0x04
+    int nTargetMode; // 0x08
+};
 
 struct D2ArenaStrc
 {

@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2GameTypes.h"
 
 #include "D2WinTypes.h"
 
@@ -56,6 +57,14 @@ extern tagPOINT gtMousePosition;                                                
 int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl);                                             // 0x004F9210
 
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
+
+void __stdcall sub_004F9310(void* pArg); // 0x004F9310
+
+// 0x00500300
+void __fastcall ANIMIMAGE_Destroy(void* pArg)
+{
+    sub_004F9310(pArg);
+}
 
 // 0x00500310
 extern "C" int __fastcall D2Win_10106(D2WinAnimImageStrc* ptAnim)

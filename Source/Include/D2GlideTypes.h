@@ -78,7 +78,7 @@ struct D2GlideTexCacheEntryStrc
     unsigned int nAddress; // 0x04
     D2GlideTexSlotStrc* pOwner; // 0x08
     int nOwnerIndex; // 0x0C
-    int unk0x10; // 0x10
+    int nPalette; // 0x10
     D2GlideTexCacheEntryStrc* pNext; // 0x14
     D2GlideTexCacheEntryStrc* pPrev; // 0x18
 };

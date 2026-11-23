@@ -1,4 +1,7 @@
 #include "D2DDraw.h"
+
+#include "D2GameTypes.h"
+
 #include "D2GfxTypes.h"
 
 #include "D2Win32Base.h"
@@ -315,25 +318,6 @@ extern int gbDDrawPlatformFlag; // 0x0088125C
 extern char gszDDrawDeviceName[256]; // 0x00881154
 
 T004013C0* __cdecl FOG_GetSystemInfo(); // 0x00407360
-
-// 0x00508FE0
-int __fastcall GLIDE_StartDraw(int bClear, unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
-{
-// build: symbol ?gbRenderPaused@* 0x007C9144
-    if (gbRenderPaused)
-        return 0;
-    gbGlideDrawing = 1;
-    D2_ASSERT(gpRenderCriticalSection, 0x401);
-    EnterCriticalSection(gpRenderCriticalSection);
-    if (bClear)
-        gpfnGrBufferClear((((nRed << 4) | nGreen) << 4 | nBlue) << 4, 0, 0);
-    gnGlideColorCombineState = 0;
-    gnGlideAlphaCombineMode = 0;
-    gnGlideTexFilterMode = 0;
-    gpfnGrChromakeyMode(1);
-    sub_0050DBC0_GlideSetAmbientColor(0xFF, 0xFF, 0xFF);
-    return 1;
-}
 
 void __fastcall GLIDE_SetPalette(const tagPALETTEENTRY* pPalette); // 0x00509300
 
@@ -866,6 +850,11 @@ int __fastcall DDRAW_GetDrawModePalette(int nIndex, int* pType)
     return 0;
 }
 
+// 0x005126F0
+void __stdcall DDRAW_DebugDraw(int nUnused1, int nUnused2)
+{
+}
+
 // 0x00512700
 int __cdecl DDRAW_GetBlendedShadows()
 {
@@ -894,6 +883,20 @@ void __fastcall DDRAW_SetPixel(int nX, int nY, unsigned char nColor)
 {
     if (nX >= 0 && nX < gnRenderWidth && nY >= 0 && nY < gnRenderHeight)
         gpScreenBuffer_007C9154[gnRenderWidth * nY + nX] = nColor;
+}
+
+void __fastcall sub_00512D90_DDrawUtilFilledRect(tagRECT* pRect, unsigned char nColor);                     // 0x00512D90
+
+// 0x00512E80
+void __fastcall DDRAW_UtilPoint(tagPOINT* pPoint, unsigned char nSize, unsigned char nPaletteIndex)
+{
+    if (nSize)
+    {
+        --nSize;
+        tagRECT tRect;
+        SetRect(&tRect, pPoint->x - nSize, pPoint->y - nSize, pPoint->x + nSize + 1, pPoint->y + nSize + 1);
+        sub_00512D90_DDrawUtilFilledRect(&tRect, nPaletteIndex);
+    }
 }
 
 // 0x005132C0

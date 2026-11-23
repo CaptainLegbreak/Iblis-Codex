@@ -1132,6 +1132,37 @@ void __thiscall D2GridLightStrc::sub_004DE410_ApplyUnitLight(D2GridUnitStrc* pUn
     sub_004DDE80_UpdateBounds(pUnit, nSubX, nSubY);
 }
 
+D2TileStrc* __stdcall DUNGEON_GetTileDataFromAct(void* pAct); // 0x00619720
+
+void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
+
+// 0x004DE630
+void __thiscall D2FloorTileViewStrc::sub_004DE630_DrawTileAt(int nX, int nY)
+{
+    int nScreenX = nX;
+    int nScreenY = nY + 5;
+    DUNGEON_GameSubtileToClientCoords(&nScreenX, &nScreenY);
+    nScreenY += 0x28;
+    D2_ASSERT(gpGlobal_007A0634, 0xDF);
+    nScreenX += nOffsetX;
+    nScreenY += nOffsetY;
+    D2TileStrc* pTile = DUNGEON_GetTileDataFromAct(gpGlobal_007A0634);
+    if (pTile)
+    {
+        sub_004DE410_DrawFloorTile(pTile, 1, nScreenX, nScreenY, nX, nY);
+    }
+}
+
+// 0x004DE6C0
+void __thiscall D2FloorTileViewStrc::sub_004DE6C0_DrawTileTriple(int nX, int nY, int nStepX, int nStepY)
+{
+    const int nBaseX = nX / 5 * 5;
+    const int nBaseY = nY / 5 * 5;
+    sub_004DE630_DrawTileAt(nBaseX, nBaseY);
+    sub_004DE630_DrawTileAt(nBaseX + nStepX, nBaseY + nStepY);
+    sub_004DE630_DrawTileAt(nBaseX + 2 * nStepX, nBaseY + 2 * nStepY);
+}
+
 // 0x004DE730
 void __thiscall D2FloorTileViewStrc::sub_004DE730_UpdateView(void* pArgument)
 {
@@ -1226,6 +1257,68 @@ void __thiscall D2FloorTileViewStrc::sub_004DE730_UpdateView(void* pArgument)
         sub_004DE6C0_DrawTileTriple(nX, nMinY - 5, -5, 0);
     if (nMaxY - nY < nRangeB)
         sub_004DE6C0_DrawTileTriple(nX, nMaxY + 5, 5, 0);
+}
+
+struct D2SlotObjectStrc;
+
+struct D2SlotObjectStrc
+{
+    char unk0x00[0x04];
+    int f_4;
+    char unk0x08[0x24];
+    int nField0x2C;
+    int nField0x30;
+    unsigned int nKey;
+    char unk0x38[0x09];
+    unsigned int f_41;
+};
+
+static D2FloorTileViewStrc gObj_007C8A28; // 0x007C8A28
+
+unsigned char gnRoomColorBlue; // 0x007C8A6C
+
+unsigned char gnRoomColorGreen; // 0x007C8A6D
+
+unsigned char gnRoomColorIntensity; // 0x007C8A6E
+
+unsigned char gnRoomColorRed; // 0x007C8A6F
+
+// 0x004DED10
+void __fastcall sub_004DED10(void* pArg)
+{
+    gObj_007C8A28.sub_004DE730_UpdateView(pArg);
+}
+
+// 0x004DED20
+void __cdecl MISSILE_UpdateRoomColor()
+{
+    sub_0061C0B0(gpGlobal_007A0634, &gnRoomColorRed, &gnRoomColorGreen, &gnRoomColorBlue);
+    gnRoomColorIntensity = sub_0061C0E0(gpGlobal_007A0634);
+
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (!pPlayer)
+    {
+        return;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
+    if (!pRoom)
+    {
+        return;
+    }
+
+    unsigned char nIntensity;
+    unsigned char nRed;
+    unsigned char nGreen;
+    unsigned char nBlue;
+    sub_00619D70(pRoom, &nIntensity, &nRed, &nGreen, &nBlue);
+    if (nRed || nGreen || nBlue)
+    {
+        gnRoomColorIntensity = nIntensity;
+        gnRoomColorRed = nRed;
+        gnRoomColorGreen = nGreen;
+        gnRoomColorBlue = nBlue;
+    }
 }
 
 #include "gen/data/Source/D2Client/GAME/Wall2.inc"

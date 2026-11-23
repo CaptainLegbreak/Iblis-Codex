@@ -577,15 +577,6 @@ extern D2TxtLinkStrc* gpSoundsLinker; // 0x0096BDC8
 
 extern int gnSoundsGuard; // 0x0096C8B4
 
-struct D2AnimSeqTxt
-{
-    short wSequence;
-    unsigned char nMode;
-    unsigned char nFrame;
-    unsigned char nDir;
-    unsigned char nEvent;
-};
-
 
 D2TxtLinkStrc* gpMonSeqLinker; // 0x0096C7AC
 

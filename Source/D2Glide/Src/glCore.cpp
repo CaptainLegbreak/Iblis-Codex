@@ -1,5 +1,22 @@
 #include "D2Glide.h"
+
+#include "D2GfxTypes.h"
+
+#include "D2Win32Base.h"
+
+#include "D2DDrawTypes.h"
+
+#include "D2GlideTypes.h"
+
 #include "D2GameTypes.h"
+
+extern int gbGlideDrawing; // 0x0087EFE4
+
+extern int gnGlideAlphaCombineMode; // 0x0087EFDC
+
+extern int gnGlideColorCombineState; // 0x0087EFD8
+
+extern int gnGlideTexFilterMode; // 0x0087EFE0
 
 struct D2GlideHwQueryStrc;
 
@@ -432,30 +449,6 @@ int __cdecl D2GFX_CheckLowQuality()
     return gdwGlobal_0072DA50;
 }
 
-// 0x004F59A0
-int __cdecl WINDOW_GetWindow()
-{
-    return gdwGlobal_007C8CBC;
-}
-
-// 0x004F65E0
-int __cdecl SCALE_GetFactor()
-{
-    return gnScaleFactor;
-}
-
-// 0x004F9200
-int __cdecl CONTROL_GetFocusedEditBox()
-{
-    return gdwGlobal_007D55CC;
-}
-
-// 0x004F97D0
-int __cdecl D2Win_IsCtrlKeyDown()
-{
-    return gdwGlobal_007D55E4;
-}
-
 // 0x004FA460
 int __cdecl D2Win_IsMouseButtonPressed()
 {
@@ -480,24 +473,6 @@ void __fastcall IMAGE2_Destroy(void* pArg)
     sub_004F9310(pArg);
 }
 
-// 0x004FD820
-void __fastcall TIMER_Destroy(void* pArg)
-{
-    sub_004F9310(pArg);
-}
-
-// 0x00500300
-void __fastcall ANIMIMAGE_Destroy(void* pArg)
-{
-    sub_004F9310(pArg);
-}
-
-// 0x00505150
-int __cdecl D2COMP_GetFirstCompositeUnit()
-{
-    return gdwGlobal_0087E838;
-}
-
 // 0x00507DB0
 void __fastcall PROGRESSBAR_Destroy(void* pArg)
 {
@@ -511,9 +486,13 @@ void __fastcall SCROLLBAR_Destroy(void* pArg)
 }
 
 void __fastcall GLIDE_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bFlush);                     // 0x0050ECB0
+
 void __fastcall GLIDE_TileCacheDestroy(D2GlideTileCacheStrc* pCache, int bFlush);                    // 0x0050F210
+
 void __fastcall GLIDE_FloorCacheDestroy(D2GlideFloorCacheStrc* pCache, int bFlush);                  // 0x0050F7C0
+
 extern D2GlideTileCacheStrc gtGlideTileCache;                                                       // 0x0087EB48
+
 extern D2GlideFloorCacheStrc gtGlideFloorCache;                                                     // 0x0087EB68
 
 // 0x00508F90
@@ -533,6 +512,29 @@ int __cdecl GLIDE_CheckCutScene()
 }
 
 int gdwGlobal_007B57E4; // 0x007B57E4
+
+extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC218
+
+D2CriticalSectionStrc* gpRenderCriticalSection; // 0x007C9134
+
+// 0x00508FE0
+int __fastcall GLIDE_StartDraw(int bClear, unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
+{
+// build: symbol ?gbRenderPaused@* 0x007C9144
+    if (gbRenderPaused)
+        return 0;
+    gbGlideDrawing = 1;
+    D2_ASSERT(gpRenderCriticalSection, 0x401);
+    EnterCriticalSection(gpRenderCriticalSection);
+    if (bClear)
+        gpfnGrBufferClear((((nRed << 4) | nGreen) << 4 | nBlue) << 4, 0, 0);
+    gnGlideColorCombineState = 0;
+    gnGlideAlphaCombineMode = 0;
+    gnGlideTexFilterMode = 0;
+    gpfnGrChromakeyMode(1);
+    sub_0050DBC0_GlideSetAmbientColor(0xFF, 0xFF, 0xFF);
+    return 1;
+}
 
 // 0x005090A0
 void __fastcall GLIDE_SetGlobalScale(int nValue)
@@ -1268,8 +1270,6 @@ void __fastcall GLIDE_ReleaseTexSlots(D2GlideTexSlotStrc* pSlots)
     }
 }
 
-
-
 // 0x0050C3A0
 void __fastcall GLIDE_UtilDiamond(tagRECT* pRect, int nPaletteIndex)
 {
@@ -1342,7 +1342,6 @@ void __fastcall GLIDE_UtilPoint(tagPOINT* pPoint, unsigned char nSize, int nPale
         sub_0050BF50_GlideDrawBox(tRect.left, tRect.top, tRect.right, tRect.bottom, nPaletteIndex, 5);
     }
 }
-
 
 // 0x00510140
 int __cdecl DDRAW_CheckCutScene()
@@ -1443,23 +1442,6 @@ void __stdcall DDRAW_CelDrawHilight(int nUnused1, int nUnused2)
 {
 }
 
-// 0x005126F0
-void __stdcall DDRAW_DebugDraw(int nUnused1, int nUnused2)
-{
-}
-
-// 0x00512E80
-void __fastcall DDRAW_UtilPoint(tagPOINT* pPoint, unsigned char nSize, unsigned char nPaletteIndex)
-{
-    if (nSize)
-    {
-        --nSize;
-        tagRECT tRect;
-        SetRect(&tRect, pPoint->x - nSize, pPoint->y - nSize, pPoint->x + nSize + 1, pPoint->y + nSize + 1);
-        sub_00512D90_DDrawUtilFilledRect(&tRect, nPaletteIndex);
-    }
-}
-
 // 0x00513AE0
 int __cdecl D2SOUND_IsExpansion()
 {
@@ -1508,12 +1490,6 @@ int __cdecl sub_00513BB0()
     return gdwGlobal_0072F830;
 }
 
-// 0x00514920
-int __cdecl D2SOUND_GetStreamChannelValue()
-{
-    return gdwGlobal_00881798;
-}
-
 // 0x00514C90
 int __cdecl D2SOUND_GetSoundMixerOption()
 {
@@ -1550,12 +1526,6 @@ int __cdecl D2SOUND_GetOptionsMusicOption()
     return gdwGlobal_008817C0;
 }
 
-// 0x00515060
-int __cdecl D2SOUND_AreWaveSlotsInitialized()
-{
-    return gdwGlobal_008817FC;
-}
-
 // 0x00518C10
 void* __cdecl BNCLIENT_GetInterfaceTable()
 {
@@ -1584,12 +1554,6 @@ int __cdecl sub_0051CA10()
 int __cdecl BNCLIENT_IsSetEmailRequested()
 {
     return gdwGlobal_00881C04;
-}
-
-// 0x0051EA70
-int __cdecl BNCLIENT_GetDownloadPercent()
-{
-    return gdwGlobal_00881C50;
 }
 
 #include "gen/data/Source/D2Glide/Src/glCore.inc"

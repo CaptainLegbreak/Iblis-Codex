@@ -1,18 +1,38 @@
 #include "D2ItemTypes.h"
+#include "D2CmpTileRecord.h"
+#include "D2GameTypes.h"
+#include "D2DrlgMaps.h"
+#include "D2CmpTypes.h"
+#include "D2LRUNode.h"
+
 #include "D2MonsterIds.h"
+
 #include "D2LevelIds.h"
+
 #include "D2Common.h"
+
 #include "D2ItemModes.h"
+
 #include "D2Structs.h"
+
 #include "D2DataTbls.h"
+
 #include "D2Records.h"
+
 #include "D2ItemsWorld.h"
+
 #include "D2LevelTxt.h"
+
 #include "D2GameRecords.h"
+
 #include "D2TxtTables.h"
+
 #include "D2Primitives.h"
+
 #include "D2TxtItems.h"
+
 #include "D2Txt.h"
+
 #include "D2Path.h"
 
 #define STAT_ITEM_INDESCTRUCTIBLE 152
@@ -92,7 +112,6 @@ struct Data00627EF0;
 struct Unit00627EF0;
 
 struct Data00627F20;
-
 
 struct Data00627F50;
 
@@ -250,7 +269,6 @@ struct Data00627F20
     unsigned char bUnknown00[0x36];
     unsigned short wValue36;
 };
-
 
 struct Data00627F50
 {
@@ -1528,6 +1546,12 @@ void __stdcall ITEMS_SetOrRemoveFlag(int* pFlags, int nFlag, int bSet)
     {
         *pFlags &= ~nFlag;
     }
+}
+
+// 0x0062A360
+int __stdcall sub_0062A360(int nUnused1, int nUnused2)
+{
+    return 0;
 }
 
 // 0x0062BA60
