@@ -217,15 +217,6 @@ struct D2MonEquipTxt
     char unk0x00[0x1C];
 };
 
-struct D2AnimSeqTxt
-{
-    unsigned short wSequence;
-    unsigned char nMode;
-    unsigned char nFrame;
-    unsigned char nDir;
-    unsigned char nEvent;
-};
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
