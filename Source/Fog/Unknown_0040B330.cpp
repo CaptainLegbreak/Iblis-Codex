@@ -43,34 +43,6 @@ void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const
     return pNew;
 }
 
-// 0x00409FF0
-void __cdecl FOG_SetMemoryPoolSystemMode(D2PoolSystemStrc* pSystem, int bFreePoolAlloc)
-{
-    if (!pSystem)
-    {
-        pSystem = &gtDefaultPoolSystem_0074F104;
-    }
-    if (pSystem->nPools)
-    {
-        EnterCriticalSection(&pSystem->tLock);
-        pSystem->bFreePoolAlloc = bFreePoolAlloc;
-        LeaveCriticalSection(&pSystem->tLock);
-    }
-}
-
-// 0x0040A040
-int __cdecl sub_0040A040_GetPoolSystemCount(D2PoolSystemStrc* pSystem)
-{
-    if (!pSystem)
-    {
-        pSystem = &gtDefaultPoolSystem_0074F104;
-    }
-    EnterCriticalSection(&pSystem->tLock);
-    int nCount = pSystem->nCount;
-    LeaveCriticalSection(&pSystem->tLock);
-    return nCount;
-}
-
 // 0x0040B330
 float __stdcall sub_0040B330_Cos(int nAngle)
 {
@@ -118,4 +90,4 @@ void* __fastcall FOG_Realloc(void* pMemory, int nSize, const char* szFile, int n
     return pNew;
 }
 
-#include "gen/data/Source/Fog/Unknown_00409FF0.inc"
+#include "gen/data/Source/Fog/Unknown_0040B330.inc"

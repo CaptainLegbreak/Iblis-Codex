@@ -605,77 +605,25 @@ public:
 
 int __stdcall GAME_Shutdown(); // 0x0052C030
 
-// 0x0044B190
-int __fastcall GAME_DispatchMcpPacket(const unsigned char* pPacket, unsigned int nSize)
-{
-    int nResult = 0;
-    if (nSize <= 0)
-        return nResult;
-    const unsigned char nCmd = pPacket[0];
-    if (nCmd >= 0x1A)
-        return 0;
-    D2McpPacketHandler pfnHandler = gpfnMcpPacketHandlers[nCmd];
-    if (pfnHandler)
-        nResult = pfnHandler(pPacket, nSize);
-    return nResult;
-}
+int __fastcall GAME_DispatchMcpPacket(const unsigned char* pPacket, unsigned int nSize); // 0x0044B190
 
-// 0x0044B1F0
-void __fastcall GAME_SetMcpCallbackA(D2McpCallbackFn pfnCallback)
-{
-    gpfnMcpPacket08Callback = pfnCallback;
-}
+void __fastcall GAME_SetMcpCallbackA(D2McpCallbackFn pfnCallback); // 0x0044B1F0
 
-// 0x0044B200
-void __fastcall GAME_SetMcpCallbackB(D2McpCallbackFn pfnCallback)
-{
-    gpfnMcpPacket09Callback = pfnCallback;
-}
+void __fastcall GAME_SetMcpCallbackB(D2McpCallbackFn pfnCallback); // 0x0044B200
 
 extern "C" { U32 gSlotFirst; } // 0x00799300
 
 extern "C" { U32 gSlotSecond; } // 0x00799304
 
-// 0x0044B210
-extern "C" void __fastcall sub_0044B210_StoreSlots(U32 first, U32 second)
-{
-    gSlotFirst = first;
-    gSlotSecond = second;
-}
+extern "C" void __fastcall sub_0044B210_StoreSlots(U32 first, U32 second); // 0x0044B210
 
-// 0x0044B220
-void __fastcall GAME_SetMcpChatCallback(void (__fastcall* pfnCallback)(void* pArg))
-{
-    gpfnMcpMotdCallback = pfnCallback;
-}
+void __fastcall GAME_SetMcpChatCallback(void (__fastcall* pfnCallback)(void* pArg)); // 0x0044B220
 
-// 0x0044B440
-void __fastcall GAME_PushStateValue(int nValue)
-{
-    D2_ASSERT(gnStateStackCount < 5, 0xAA);
-    gaStateStack[gnStateStackCount] = nValue;
-    gnStateStackCount += 1;
-}
+void __fastcall GAME_PushStateValue(int nValue); // 0x0044B440
 
-// 0x0044B480
-int __cdecl GAME_PopStateValue()
-{
-    D2_ASSERT(gnStateStackCount, 0xB4);
-    int nValue = gaStateStack[0];
-    --gnStateStackCount;
-    for (int i = 0; i < 3; ++i)
-        gaStateStack[i] = gaStateStack[i + 1];
-    return nValue;
-}
+int __cdecl GAME_PopStateValue(); // 0x0044B480
 
-// 0x0044B780
-void __cdecl GAME_RaiseGameWindow()
-{
-    void* hWnd = (void*)WINDOW_GetWindow();
-    if (hWnd)
-        SendMessageA(hWnd, 0x1C, 0, 0);
-    WINDOW_ShowAll();
-}
+void __cdecl GAME_RaiseGameWindow(); // 0x0044B780
 
 // 0x0044B7B0
 D2ClientNotifyStrc* __cdecl GAME_GetClientNotify()
@@ -683,48 +631,17 @@ D2ClientNotifyStrc* __cdecl GAME_GetClientNotify()
     return gpCharRecord->pNotify;
 }
 
-// 0x0044B7C0
-const char* __cdecl GAME_GetGameName()
-{
-    if (gpCharRecord && strlen(gpCharRecord->szText0x1F) >= 1)
-        return gpCharRecord->szText0x1F;
-    return 0;
-}
+const char* __cdecl GAME_GetGameName(); // 0x0044B7C0
 
-// 0x0044B7F0
-const char* __cdecl GAME_GetGameDescription()
-{
-    if (gpCharRecord && strlen(gpCharRecord->szText245) >= 1)
-        return gpCharRecord->szText245;
-    return 0;
-}
+const char* __cdecl GAME_GetGameDescription(); // 0x0044B7F0
 
-// 0x0044B820
-const char* __cdecl GAME_GetGamePassword()
-{
-    if (gpCharRecord && strlen(gpCharRecord->szText0x37) >= 1)
-        return gpCharRecord->szText0x37;
-    return 0;
-}
+const char* __cdecl GAME_GetGamePassword(); // 0x0044B820
 
-// 0x0044B850
-int __cdecl GAME_IsHardcore()
-{
-    return gpCharRecord->aFlags[0] & 4;
-}
+int __cdecl GAME_IsHardcore(); // 0x0044B850
 
-// 0x0044B860
-void __cdecl GAME_SetCharDiedFlag()
-{
-    *(unsigned short*)gpCharRecord->aFlags |= 8;
-}
+void __cdecl GAME_SetCharDiedFlag(); // 0x0044B860
 
-// 0x0044B870
-void __cdecl GAME_SetLaunchStateOne()
-{
-// build: symbol ?gnClientLaunchState@* 0x0070EE4C
-    gnClientLaunchState = 1;
-}
+void __cdecl GAME_SetLaunchStateOne(); // 0x0044B870
 
 // 0x0044B880
 void __fastcall GAME_SetExitApplication(int nValue)
@@ -733,102 +650,26 @@ void __fastcall GAME_SetExitApplication(int nValue)
     gbExitApplication = nValue;
 }
 
-// 0x0044BA20
-void __fastcall GAME_SetResolution(int nResolution)
-{
-    if (nResolution == D2GFX_GetResolutionMode())
-        return;
-    switch (nResolution)
-    {
-    case 0:
-        gnScreenWidth = 640;
-        gnScreenHeight = 480;
-        gnBeltUiRecordRow = 0;
-        break;
-    case 2:
-        gnScreenWidth = 800;
-        gnScreenHeight = 600;
-        gnBeltUiRecordRow = 1;
-        break;
-    }
-    gnAutomapWidth = gnScreenWidth;
-    gnAutomapHeight_007A521C = gnScreenHeight - 40;
-    gnSavedScreenWidth = gnScreenWidth;
-    sub_004F90A0(nResolution);
-    PLAYER_SetPanelSlide(sub_0045AE90());
-    sub_00457640(1);
-    sub_00457440_Nop(nResolution);
-    sub_004549B0(nResolution);
-}
+void __fastcall GAME_SetResolution(int nResolution); // 0x0044BA20
 
-// 0x0044BB70
-int __stdcall GAME_StartSubsystem()
-{
-// build: symbol ?gnSubsystemActive@* 0x007A0458
-    gnSubsystemActive = 1;
-    return GAME_Initialize();
-}
+int __stdcall GAME_StartSubsystem(); // 0x0044BB70
 
 
-// 0x0044BB80
-extern "C" int __cdecl GAME_ShutdownIfActive()
-{
-    if (gnSubsystemActive == 0)
-        return 0;
-    gnSubsystemActive = 0;
-    return GAME_Shutdown();
-}
+extern "C" int __cdecl GAME_ShutdownIfActive(); // 0x0044BB80
 
-// 0x0044BC10
-int __fastcall GAME_RunClient(int nArg, const char* szAddress)
-{
-    CLIENT_Initialize(nArg, szAddress);
-    SCMD_RunMessageLoop(WINMAIN_WaitConnect);
-    return 1;
-}
+int __fastcall GAME_RunClient(int nArg, const char* szAddress); // 0x0044BC10
 
-// 0x0044BE10
-int __fastcall GAME_GetRangeEnd(D2RangeStrc* pRange)
-{
-    return pRange->nLength + pRange->nStart;
-}
+int __fastcall GAME_GetRangeEnd(D2RangeStrc* pRange); // 0x0044BE10
 
-// 0x0044BE80
-void __fastcall GAME_SetAlwaysRun(int bAlwaysRun)
-{
-    gbAlwaysRun = bAlwaysRun;
-}
+void __fastcall GAME_SetAlwaysRun(int bAlwaysRun); // 0x0044BE80
 
-// 0x0044BEA0
-void __fastcall GAME_SetStandStillHeld(int nValue)
-{
-    gbStandStillHeld = nValue;
-}
+void __fastcall GAME_SetStandStillHeld(int nValue); // 0x0044BEA0
 
-// 0x0044BEC0
-unsigned short __cdecl GAME_GetClickFlags()
-{
-    int nFlags = 0;
-    if (gbRunKeyHeld)
-        nFlags = 8;
-    if (gbAlwaysRun)
-        nFlags |= 8;
-    if (gbStandStillHeld)
-        nFlags |= 4;
-    return nFlags;
-}
+unsigned short __cdecl GAME_GetClickFlags(); // 0x0044BEC0
 
-// 0x0044BEF0
-void __cdecl GAME_SetClickHandled()
-{
-    gbClickHandled = 1;
-}
+void __cdecl GAME_SetClickHandled(); // 0x0044BEF0
 
-// 0x0044BFE0
-int __cdecl GAME_IsLeftClickRepeating()
-{
-    return gbLeftClickRepeating != 0;
-}
+int __cdecl GAME_IsLeftClickRepeating(); // 0x0044BFE0
 
 static unsigned short __cdecl sub_0044BEC0_GetClickFlags_static()
 {
@@ -842,22 +683,7 @@ static unsigned short __cdecl sub_0044BEC0_GetClickFlags_static()
     return nFlags;
 }
 
-// 0x0044C000
-void __cdecl GAME_StartClick()
-{
-// build: symbol ?gnLeftClickState@* 0x0070F234
-    gnLeftClickState = 8;
-    if (gbPositionalSound && gbLeftButtonDown && !gbClickHandled)
-    {
-        gbLeftClickRepeating = 1;
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        const int nFlags = sub_0044BEC0_GetClickFlags_static();
-        if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
-        {
-            sub_00462D00(1, sub_00468730(), sub_00468740(), nFlags);
-        }
-    }
-}
+void __cdecl GAME_StartClick(); // 0x0044C000
 
 static __forceinline int CLIENT_GetClickFlags_inl()
 {
@@ -871,121 +697,33 @@ static __forceinline int CLIENT_GetClickFlags_inl()
     return nFlags;
 }
 
-// 0x0044C060
-void __cdecl GAME_ResetLeftClick()
-{
-    gnLeftClickState = 0x10;
-    gbLeftButtonDown = 0;
-    gbLeftClickRepeating = 0;
-    gbClickHandled = 0;
-    sub_00466FF0();
-    if (gbPositionalSound)
-    {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
-            sub_00462D00(2, sub_00468730(), sub_00468740(), CLIENT_GetClickFlags_inl());
-    }
-}
+void __cdecl GAME_ResetLeftClick(); // 0x0044C060
 
-// 0x0044C0F0
-void __stdcall GAME_HandleLeftButtonUp(SMSGHANDLER_PARAMS* pMsg)
-{
-    GAME_ResetLeftClick();
-}
+void __stdcall GAME_HandleLeftButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x0044C0F0
 
-// 0x0044C820
-extern "C" void __cdecl GAME_ConfigureEnvironmentOrDefer()
-{
-    if(gContext != (Context*)0)
-        sub_0061C240_Configure(gContext,sub_004646A0_GetAuxiliary(),5,0,1);
-    else
-        gDeferred=1;
-}
+extern "C" void __cdecl GAME_ConfigureEnvironmentOrDefer(); // 0x0044C820
 
-// 0x0044DCD0
-unsigned char __cdecl GAME_GetDifficulty()
-{
-    return gnClientDifficulty;
-}
+unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
 
-// 0x0044DFF0
-int __fastcall GAME_IsTimerExpired(D2LoadingTimerStrc* pTimer)
-{
-    if (pTimer->dwLength)
-    {
-        unsigned long dwNow = GetTickCount();
-        unsigned long dwLeft;
-        if (dwNow >= pTimer->dwStart + pTimer->dwLength)
-        {
-            pTimer->dwStart = 0;
-            pTimer->dwLength = 0;
-            dwLeft = 0;
-        }
-        else
-        {
-            dwLeft = pTimer->dwLength - (dwNow - pTimer->dwStart);
-        }
-        return dwLeft == 0;
-    }
-    return 1;
-}
+int __fastcall GAME_IsTimerExpired(D2LoadingTimerStrc* pTimer); // 0x0044DFF0
 
-// 0x0044E040
-int __fastcall GAME_IsTimerRunning(D2LoadingTimerStrc* pTimer)
-{
-    return !GAME_IsTimerExpired(pTimer);
-}
+int __fastcall GAME_IsTimerRunning(D2LoadingTimerStrc* pTimer); // 0x0044E040
 
-// 0x0044DB40
-void __fastcall GAME_ExtendDelay(int nDelay)
-{
-    const unsigned long dwEnd = GetTickCount() + nDelay;
-    if (dwEnd > gdwDelayEnd)
-        gdwDelayEnd = dwEnd;
-}
+void __fastcall GAME_ExtendDelay(int nDelay); // 0x0044DB40
 
-// 0x0044DC70
-void __fastcall GAME_SetDifficulty(unsigned char nDifficulty)
-{
-    gnClientDifficulty = nDifficulty;
-}
+void __fastcall GAME_SetDifficulty(unsigned char nDifficulty); // 0x0044DC70
 
-// 0x0044DC80
-void __fastcall GAME_SetExpansion(unsigned char nValue)
-{
-    gbExpansion = nValue;
-}
+void __fastcall GAME_SetExpansion(unsigned char nValue); // 0x0044DC80
 
-// 0x0044DC90
-void __fastcall GAME_SetLadderFlag(int nValue)
-{
-    gbLadder = nValue;
-}
+void __fastcall GAME_SetLadderFlag(int nValue); // 0x0044DC90
 
-// 0x0044DCA0
-int __cdecl GAME_GetLadderFlag()
-{
-    return (gdwGlobal_007A0610 >= 2 && gdwGlobal_007A0610 <= 3) ? gbLadder : 1;
-}
+int __cdecl GAME_GetLadderFlag(); // 0x0044DCA0
 
-// 0x0044C850
-void __stdcall GAME_DestroyWindowAndGfx(int nArg1, int nArg2, int nArg3)
-{
-    WINDOW_Destroy();
-    D2GFX_Release();
-}
+void __stdcall GAME_DestroyWindowAndGfx(int nArg1, int nArg2, int nArg3); // 0x0044C850
 
-// 0x0044C860
-void __fastcall GAME_SetCinematicExit(int nValue)
-{
-    gbCinematicExit = nValue;
-}
+void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
 
-// 0x0044C880
-void __cdecl GAME_FreeWeather()
-{
-    sub_00472BD0();
-}
+void __cdecl GAME_FreeWeather(); // 0x0044C880
 
 // 0x0044E200
 void __cdecl GAME_InitGameState()
@@ -1033,91 +771,21 @@ void __cdecl GAME_InitGameState()
     gbPositionalSound = 0;
 }
 
-// 0x00451170
-D2StormExportTableSimpleStrc::TSExportTableSimple()
-{
-    m_sequence = ~(unsigned int)this & 0x0FFFFFFF;
-    m_wrapper = 0;
-}
 
-// 0x004511F0
-D2StormExportTableSyncStrc::TSExportTableSync()
-{
-    InitializeCriticalSection(&m_cs);
-}
 
-// 0x00451330
-int __cdecl GAME_LoadLngModule()
-{
-    if (gszLngPath[0])
-    {
-        ghLngModule = LoadLibraryExA(gszLngPath, 0, 2);
-        SRegSaveString("Diablo II", "LNG File", 0, gszLngPath);
-    }
-    if (!ghLngModule)
-    {
-        if (SRegLoadString("Diablo II", "LNG File", 0, gszLngPath, sizeof(gszLngPath)))
-            ghLngModule = LoadLibraryExA(gszLngPath, 0, 2);
-        if (!ghLngModule)
-        {
-            ghLngModule = LoadLibraryExA(gszLngFileName, 0, 2);
-            if (!ghLngModule)
-            {
-                sub_0051740B_ErrorBox("Unable to start LNG manager.");
-                return 0;
-            }
-        }
-    }
-    ghAccelerators = LoadAcceleratorsA(ghLngModule, (const char*)0x64);
-    SErrRegisterMessageSource(0xFFF, ghLngModule, 0);
-    sub_005177B2_SetLoadStringFn(COMCALLBACK_LoadLngString);
-    return 1;
-}
+int __cdecl GAME_LoadLngModule(); // 0x00451330
 
-// 0x00451940
-void __cdecl GAME_InstallRecordHandler()
-{
-    gbRecordHandlerInstalled = 1;
-    gpfnPrevHandler = sub_005173D3_SetRecordHandler(CHARSEL_RecordHandler);
-}
+void __cdecl GAME_InstallRecordHandler(); // 0x00451940
 
-// 0x00451970
-void __cdecl GAME_SetRecordPlaying()
-{
-    gbRecordPlaying = 1;
-}
+void __cdecl GAME_SetRecordPlaying(); // 0x00451970
 
-// 0x00451F10
-int __cdecl GAME_PushRegisterState()
-{
-    return SMsgPushRegisterState(WINDOW_GetWindow());
-}
+int __cdecl GAME_PushRegisterState(); // 0x00451F10
 
-// 0x00451F50
-int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-        return -1;
-    return pUnit->dwUnitId;
-}
+int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
-// 0x00451F60
-int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-        return -1;
-    return pUnit->dwClassId;
-}
+int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 
-// 0x00451F80
-D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
-{
-    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        return &sgptDataTables->pMonStatsTxt[nMonsterId];
-    }
-    return 0;
-}
+D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 
 // 0x00452130
 void __cdecl GAME_InitColors()
@@ -1132,308 +800,57 @@ void __cdecl GAME_InitColors()
     sub_00497290();
 }
 
-// 0x00452170
-Unicode* __fastcall sub_00452170(Unicode* pText)
-{
-    return pText;
-}
+Unicode* __fastcall sub_00452170(Unicode* pText); // 0x00452170
 
-// 0x00452180
-void __fastcall GAME_StrToUpper(Unicode* pText)
-{
-    if (!pText)
-        return;
-    const int nLength = sub_00526800(pText);
-    for (int i = 0; i < nLength; i++)
-    {
-        const unsigned short wChar = pText[i].wChar;
-        pText[i].wChar = wChar >= 0x100 ? wChar : gawToUpperTable[wChar];
-    }
-}
+void __fastcall GAME_StrToUpper(Unicode* pText); // 0x00452180
 
-// 0x00452520
-void __fastcall GAME_SetHoverLine(const Unicode* pText, int nColor)
-{
-    if (!pText)
-    {
-        gwszHoverLine_007A2D30[0].wChar = 0;
-        return;
-    }
-    sub_005267E0(gwszHoverLine_007A2D30, pText);
-    gnHoverTextColor = nColor;
-}
+void __fastcall GAME_SetHoverLine(const Unicode* pText, int nColor); // 0x00452520
 
-// 0x00453060
-void __cdecl GAME_DrawPopUpText()
-{
-    if (!sub_00526800(gwszPopUpText))
-        return;
-    const int nWidth = D2Win_10121_GetTextWidth(gwszPopUpText) + 8;
-    const int nHeight = D2Win_10125() + 7;
-    int nX = gnPopUpTextX - (nWidth >> 1);
-    int nY = gnPopUpTextY + 2;
-    if (nX < 0)
-        nX = 0;
-    if (nX + nWidth > gnScreenWidth)
-        nX = gnScreenWidth - nWidth;
-    if (nY - nHeight < 0)
-        nY = nHeight;
-    if (nY > gnScreenHeight - 0x1F)
-        nY = gnScreenHeight - 0x1F;
-    D2Win_10117_DrawText(gwszPopUpText, nX, nY - 2, 0, 1);
-    memset(gwszPopUpText, 0, sizeof(gwszPopUpText));
-}
+void __cdecl GAME_DrawPopUpText(); // 0x00453060
 
-// 0x004538D0
-int __fastcall GAME_GetUIVarState(unsigned int nUIVar)
-{
-    D2_ASSERT(nUIVar < 0x26, 0xC34);
-    return gaUIVarStates[nUIVar];
-}
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
-// 0x0044C890
-void __cdecl GAME_ReleaseGameState()
-{
-    sub_00472BD0();
-    PALSHIFT_FreePalShifts();
-    CUNIT_FreeAllUnits();
-    if (gpAct)
-        DUNGEON_FreeAct(gpAct);
-    gpAct = 0;
-    D2CMPSpriteFreeAsyncLoads();
-    D2CMPTileFreeAsyncLoads();
-    AUTOMAP_FreeCaches(0);
-    VIEW_FreeView(gpClientView);
-    gpClientView = 0;
-    UI_ShutdownUI();
-    sub_00473CF0_Nop();
-    DLIGHTMAP_FreeAllLights();
-    sub_004723C0();
-    FOG_DestroyMemoryPoolSystem(gpMemPool);
-    memset(gaClientState_007A0480, 0, sizeof(gaClientState_007A0480));
-    FOG_Free(gpAutomapRecord, ".\\GAME\\Game.cpp", 0x599, 0);
-}
+void __cdecl GAME_ReleaseGameState(); // 0x0044C890
 
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()
 {
     return pWhere;
 }
 
-// 0x00450ED0
-D2SGameDataStrc* D2StormGameDataArrayStrc::sub_00450ED0_New()
-{
-    Reserve(1, 1);
-    new (&f_8[f_4]) D2SGameDataStrc;
-    return &f_8[f_4++];
-}
 
 // build: symbol ??_7?$TSExportTableSimple@USGAMEDATA@@PAUHSGAMEDATA__@@$0A@@@6B@ 0x006D5E84
 // build: symbol ??_7?$TSExportTableSync@USGAMEDATA@@PAUHSGAMEDATA__@@PAUHSGAMEDATALOCK__@@VCCritSect@@$0A@@@6B@ 0x006D5E98
-// 0x0044CCE0
-void __cdecl GAME_AverageFrameCounters()
-{
-    const int nNow = gdwTickCount;
-    if ((unsigned int)(nNow - gdwFpsWindowStart) > 3000)
-    {
-        gnFramesPerSecond = gdwGlobal_007A04AC / 3;
-        gdwGlobal_007A04B0 = gdwGlobal_007A04B4 / 3;
-        gdwFpsWindowStart = nNow;
-        gdwGlobal_007A04AC = 0;
-        gdwGlobal_007A04B4 = 0;
-    }
-}
+void __cdecl GAME_AverageFrameCounters(); // 0x0044CCE0
 
-// 0x0044CD70
-void __cdecl GAME_TickKeepAlive()
-{
-    const unsigned long dwNow = GetTickCount();
-    if (gdwNextTick_007A049C < dwNow)
-    {
-        sub_00477DD0();
-        gdwLastPingTick = dwNow;
-        if (gpClientInfo_007A0438->wFlags & 4)
-            gdwNextTick_007A049C = dwNow + 5000;
-        else
-            gdwNextTick_007A049C = dwNow + 5000;
-    }
-}
+void __cdecl GAME_TickKeepAlive(); // 0x0044CD70
 
 void __cdecl sub_00451290(); // 0x00451290
 
-// 0x0044CE40
-void __fastcall GAME_SetSkillDelayUntil(int nValue)
-{
-    gnSkillDelayUntil = nValue;
-}
+void __fastcall GAME_SetSkillDelayUntil(int nValue); // 0x0044CE40
 
-// 0x0044CE90
-void __cdecl GAME_UpdateKeyState()
-{
-    if (CUNIT_HasHotkeyBinding(0x24, 1))
-    {
-        const unsigned short wKey = CUNIT_GetHotkeyBinding(0x24, 1);
-        if (wKey != 0xFFFF && (GetAsyncKeyState(wKey) & 0x8000))
-        {
-            gbStandStillHeld = 1;
-            return;
-        }
-    }
-    if (CUNIT_HasHotkeyBinding(0x24, 0))
-    {
-        const unsigned short wKey = CUNIT_GetHotkeyBinding(0x24, 0);
-        if (wKey != 0xFFFF && (GetAsyncKeyState(wKey) & 0x8000))
-        {
-            gbStandStillHeld = 1;
-            return;
-        }
-    }
-    gbStandStillHeld = 0;
-}
+void __cdecl GAME_UpdateKeyState(); // 0x0044CE90
 
-// 0x0044D510
-void __cdecl GAME_SetCinematicPlayed()
-{
-    gnCinematicPlayed = 1;
-}
+void __cdecl GAME_SetCinematicPlayed(); // 0x0044D510
 
-// 0x0044D520
-void __cdecl GAME_RequestExit()
-{
-    gbLeavingGame = 1;
-}
+void __cdecl GAME_RequestExit(); // 0x0044D520
 
-// 0x0044D530
-void __fastcall GAME_SetPlayCinematic(int nValue)
-{
-    gnPlayCinematic = nValue;
-}
+void __fastcall GAME_SetPlayCinematic(int nValue); // 0x0044D530
 
-// 0x0044D9F0
-int __fastcall GAME_RunInitHandlers(void* pArg)
-{
-    gbInitHandlersResult = 1;
-    for (unsigned int i = 0; i < 52; i++)
-    {
-        if (gpfnInitHandlers[i])
-            gpfnInitHandlers[i](pArg);
-    }
-    return gbInitHandlersResult;
-}
+int __fastcall GAME_RunInitHandlers(void* pArg); // 0x0044D9F0
 
-// 0x0044DA40
-void __cdecl GAME_ResetMouseState()
-{
-// build: symbol ?gnRightClickState@* 0x0070F2BC
-    gnRightClickState = 0x10;
-    gnLeftClickState = 0x10;
-    gbLeftButtonDown = 0;
-    gbRightButtonDown = 0;
-    gbLeftClickRepeating = 0;
-    gbRightClickConsumed = 0;
-    sub_00466FE0();
-}
+void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
-// 0x0044DA70
-void __cdecl GAME_ResetMouseButtons()
-{
-    gbLeftButtonDown = 0;
-    gbRightButtonDown = 0;
-    gbLeftClickRepeating = 0;
-    gbRightClickConsumed = 0;
-}
+void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
-// 0x0044DAD0
-void __fastcall GAME_SetInteractDeadline(int nValue)
-{
-    gnInteractDeadline = nValue;
-}
+void __fastcall GAME_SetInteractDeadline(int nValue); // 0x0044DAD0
 
-// 0x0044C180
-void __stdcall GAME_HandleRightButtonDown(SMSGHANDLER_PARAMS* pMsg)
-{
-    gnRightClickState = 4;
-    gbClickHandled = 0;
-    sub_00466FF0();
-    if (!gbPositionalSound || sub_0045AE90() == 3)
-    {
-        return;
-    }
-    const int nY = pMsg->nYpos;
-    const int nX = pMsg->nXpos;
-    int bLeftPanel = 0;
-    if (sub_0045AE90() == 2 && nX > 0 && nX < gnScreenWidth / 2 && nY > 0 && nY < gnScreenHeight - 0x2F)
-    {
-        bLeftPanel = 1;
-    }
-    int bRightPanel = 0;
-    if (sub_0045AE90() == 1 && nX > gnScreenWidth / 2 && nX < gnScreenWidth && nY > 0 && nY < gnAutomapHeight_007A521C)
-    {
-        bRightPanel = 1;
-    }
-    if (bLeftPanel || bRightPanel)
-    {
-        pMsg->bReturn = 0;
-        pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
-        return;
-    }
-    gbRightButtonDown = 1;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    const int nFlags = sub_0044BEC0_GetClickFlags_static();
-    if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
-    {
-        gbRightButtonDown = sub_00462D00(3, pMsg->nXpos, pMsg->nYpos, nFlags);
-    }
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
+void __stdcall GAME_HandleRightButtonDown(SMSGHANDLER_PARAMS* pMsg); // 0x0044C180
 
-// 0x0044C2C0
-void __cdecl GAME_StartRightClick()
-{
-    gnRightClickState = 8;
-    if (gbPositionalSound && gbRightButtonDown)
-    {
-        gbRightClickConsumed = 1;
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        const int nFlags = CLIENT_GetClickFlags_inl();
-        if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
-            sub_00462D00(4, sub_00468730(), sub_00468740(), nFlags);
-    }
-}
+void __cdecl GAME_StartRightClick(); // 0x0044C2C0
 
-// 0x0044C750
-void __cdecl GAME_InitRooms()
-{
-    for (D2ActiveRoomStrc* pRoom = DUNGEON_GetRoomFromAct(gpAct); pRoom; pRoom = pRoom->pRoomNext)
-    {
-        if (!(pRoom->dwFlags & 1))
-        {
-            sub_0046C460_PopulateRoom(pRoom);
-            VIEW_SpawnRoomPresets(pRoom);
-            sub_0046BE60_ApplyDenOfEvilRoom(pRoom);
-            pRoom->dwFlags |= 1;
-        }
-    }
-}
+void __cdecl GAME_InitRooms(); // 0x0044C750
 
-// 0x0044C790
-void __cdecl GAME_UpdateGameState()
-{
-    gdwTickCount_007A048C = GetTickCount();
-    GAME_InitRooms();
-    CUNIT_ResetUnitTables();
-    DUNGEON_AnimateTiles(CUNIT_GetPlayerRoom());
-    sub_0046BEB0_UpdateTimers();
-    GFX_PreloadTick(1);
-    if (ENVIRONMENT_UpdatePeriodOfDay(gpAct, CUNIT_GetPlayerRoom()))
-        CUNIT_UpdateObjectsForPeriod();
-    DRLGACTIVATE_Update(DUNGEON_GetDrlgFromAct(gpAct));
-    AUTOMAP_UpdateAutomapReveal();
-    if (++gnTickCounter_007A0498 % 13 == 0)
-        DUNGEON_UpdateAndFreeInactiveRooms(gpAct);
-}
+void __cdecl GAME_UpdateGameState(); // 0x0044C790
 
 struct D2UnitStrc;
 
@@ -1455,4 +872,3 @@ extern "C" int __cdecl sub_00486B00_Coordinate()
     return gCoordinateOffset+gCoordinateBase-64;
 }
 
-#include "gen/data/Source/D2Client/GAME/Game_0044C880.inc"

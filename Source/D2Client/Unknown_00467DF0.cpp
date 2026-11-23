@@ -33,7 +33,7 @@ static inline int sub_00467DF0_GetCursorAnimField00(int nIndex)
 // build: symbol ?gnCursorAnimCount@* 0x007120D4
     D2_ASSERT(gnCursorAnimCount == CURSOR_ANIM_COUNT, 0x84);
     D2_ASSERT(nIndex < CURSOR_ANIM_COUNT, 0x85);
-    return gaCursorAnim[nIndex].unk0x00;
+    return gaCursorAnim[nIndex].bAnimated;
 }
 
 int __stdcall sub_M121_Emit_00467DF0(int nIndex) { return sub_00467DF0_GetCursorAnimField00(nIndex); }

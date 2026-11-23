@@ -1343,7 +1343,7 @@ void* __cdecl AUTOMAP_OpenAutomapFile()
     {
         tHeader.nVersion = 12;
         tHeader.nNext = 1;
-        tHeader.nSeeds[0] = gpAutomapRecord->nUnk0x00;
+        tHeader.nSeeds[0] = gpAutomapRecord->nGameSeed;
         for (int i = 0; i < 4; ++i)
         {
             sprintf(szFileName, "%s%s.ma%d", szSavePath, gszClientCharName, i);
@@ -1355,7 +1355,7 @@ void* __cdecl AUTOMAP_OpenAutomapFile()
     {
         for (nIndex = 0; nIndex < 4; ++nIndex)
         {
-            if (tHeader.nSeeds[nIndex] == gpAutomapRecord->nUnk0x00)
+            if (tHeader.nSeeds[nIndex] == gpAutomapRecord->nGameSeed)
             {
                 break;
             }
@@ -1368,7 +1368,7 @@ void* __cdecl AUTOMAP_OpenAutomapFile()
 
         nIndex = tHeader.nNext;
         tHeader.nNext = (nIndex + 1) % 4;
-        tHeader.nSeeds[nIndex] = gpAutomapRecord->nUnk0x00;
+        tHeader.nSeeds[nIndex] = gpAutomapRecord->nGameSeed;
         sprintf(szFileName, "%s%s.ma%d", szSavePath, gszClientCharName, nIndex);
         FOG_DeleteFileA(szFileName);
     }
@@ -1425,7 +1425,7 @@ static void AUTOMAP_WriteAutomapLayer(D2AutomapSaveStrc* pSave)
     FOG_WriteFile(hFile, &nEnd, 4, &nCount, 0);
     FOG_WriteFile(hFile, &pSave->nLayerNo, 4, &nCount, 0);
     FOG_WriteFile(hFile, &pSave->fSaved, 4, &nCount, 0);
-    FOG_WriteFile(hFile, &pSave->nUnk0x08, 4, &nCount, 0);
+    FOG_WriteFile(hFile, &pSave->nObjectSeed, 4, &nCount, 0);
     FOG_WriteFile(hFile, &pSave->dwFloorSize, 4, &nCount, 0);
     FOG_WriteFile(hFile, &pSave->dwWallsSize, 4, &nCount, 0);
     FOG_WriteFile(hFile, &pSave->nObjects, 4, &nCount, 0);
@@ -1490,7 +1490,7 @@ void __cdecl AUTOMAP_SaveAutomapLayer()
     memset(&tSave.fSaved, 0, sizeof(tSave) - sizeof(tSave.nLayerNo));
     tSave.nLayerNo = pLayer->nLayerNo;
     tSave.fSaved = pLayer->fSaved;
-    tSave.nUnk0x08 = gpAutomapRecord->nValue;
+    tSave.nObjectSeed = gpAutomapRecord->nValue;
     AUTOMAP_CountCells(pLayer->pFloors, &tSave.dwFloorSize);
     AUTOMAP_CountCells(pLayer->pWalls, &tSave.dwWallsSize);
     AUTOMAP_CountCells(pLayer->pObjects, &tSave.nObjects);
@@ -1602,7 +1602,7 @@ void __cdecl AUTOMAP_LoadAutomapLayer()
             FOG_ReadFile(hFile, &nLink, 4, &nCount, 0);
             FOG_ReadFile(hFile, &tSave.nLayerNo, 4, &nCount, 0);
             FOG_ReadFile(hFile, &tSave.fSaved, 4, &nCount, 0);
-            FOG_ReadFile(hFile, &tSave.nUnk0x08, 4, &nCount, 0);
+            FOG_ReadFile(hFile, &tSave.nObjectSeed, 4, &nCount, 0);
             FOG_ReadFile(hFile, &tSave.dwFloorSize, 4, &nCount, 0);
             FOG_ReadFile(hFile, &tSave.dwWallsSize, 4, &nCount, 0);
             FOG_ReadFile(hFile, &tSave.nObjects, 4, &nCount, 0);
@@ -1648,7 +1648,7 @@ void __cdecl AUTOMAP_LoadAutomapLayer()
             }
             if (tSave.nObjects)
             {
-                if (tSave.nUnk0x08 == gpAutomapRecord->nValue)
+                if (tSave.nObjectSeed == gpAutomapRecord->nValue)
                 {
                     pData = (unsigned short*)FOG_Alloc(tSave.nObjects, ".\\UI\\automap.cpp", 0x5A2, 0);
                     nWords = tSave.nObjects / 2;
