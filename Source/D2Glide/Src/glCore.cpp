@@ -457,12 +457,6 @@ void __fastcall IMAGE2_Destroy(void* pArg)
     sub_004F9310(pArg);
 }
 
-// 0x00500300
-void __fastcall ANIMIMAGE_Destroy(void* pArg)
-{
-    sub_004F9310(pArg);
-}
-
 // 0x00505150
 int __cdecl D2COMP_GetFirstCompositeUnit()
 {
