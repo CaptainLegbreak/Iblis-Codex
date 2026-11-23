@@ -21445,6 +21445,16 @@
      "name": "?DLIGHTMAP_InitLightTables@@YAXXZ"
     },
     {
+     "va": "0x00475D20",
+     "length": 10,
+     "name": "?sub_00475D20_FreeIfSet@@YIXPAX@Z"
+    },
+    {
+     "va": "0x00475DE0",
+     "length": 10,
+     "name": "?sub_00475DE0_FreeIfSet@@YIXPAX@Z"
+    },
+    {
      "va": "0x00475DF0",
      "length": 185,
      "name": "?DLIGHTMAP_BuildLerpTables@@YAXXZ"
@@ -21584,16 +21594,6 @@
      "va": "0x00475C30",
      "length": 10,
      "name": "?sub_00475C30_FreeIfSet@@YIXPAX@Z"
-    },
-    {
-     "va": "0x00475D20",
-     "length": 10,
-     "name": "?sub_00475D20_FreeIfSet@@YIXPAX@Z"
-    },
-    {
-     "va": "0x00475DE0",
-     "length": 10,
-     "name": "?sub_00475DE0_FreeIfSet@@YIXPAX@Z"
     },
     {
      "va": "0x00475EB0",
