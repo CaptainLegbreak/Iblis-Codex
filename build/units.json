@@ -42169,11 +42169,6 @@
      "name": "sub_005276C0_Contains"
     },
     {
-     "va": "0x00527720",
-     "length": 103,
-     "name": "?sub_00527720_FreeCodePageTables@@YAXXZ"
-    },
-    {
      "va": "0x00527AE0",
      "length": 21,
      "name": "sub_00527AE0_CompareKey"
@@ -42321,6 +42316,11 @@
    "file": "Source/D2Lang/Unicode/UNISYS.CPP",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00527720",
+     "length": 103,
+     "name": "?sub_00527720_FreeCodePageTables@@YAXXZ"
+    },
     {
      "va": "0x00527790",
      "length": 699,

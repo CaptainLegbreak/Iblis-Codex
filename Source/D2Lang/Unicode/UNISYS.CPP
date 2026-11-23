@@ -1,7 +1,9 @@
 #include "D2Lang.h"
+
 #include "D2LangTypes.h"
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);                  // 0x00412650
+
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 
 void __cdecl operator delete[](void* pMemory)
@@ -18,17 +20,53 @@ void* __cdecl operator new[](size_t nSize)
 }
 
 extern "C" int __cdecl strncmp(const char* szLeft, const char* szRight, size_t nCount);
+
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount);
+
 extern "C" char* __cdecl strtok(char* szText, const char* szDelim);
+
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
+
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
+
 void* __fastcall sub_00517079_LoadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine);
+
 extern "C" const char gszNewline[];                                                                // 0x006FFCB0
+
 static unsigned short gnCharMapCount;                                                              // 0x00882B20
+
 static unsigned char gnLeadByteRangeCount;                                                         // 0x00882B22
+
 extern D2LangByteRangeStrc* gpLeadByteRanges;                                                      // 0x00882B28
+
 extern unsigned short* gpCharMapIndex;                                                             // 0x00882B2C
+
 char gszCodePageName[0x28];                                                                        // 0x00882AF8
+
+void __cdecl operator delete[](void* pMemory); // 0x00527660
+D2LangByteRangeStrc* gpLeadByteRanges; // 0x00882B28
+unsigned short* gpCharMapIndex; // 0x00882B2C
+
+// 0x00527720
+void __cdecl sub_00527720_FreeCodePageTables()
+{
+    if (gpLeadByteRanges)
+    {
+        SMemFree(gpLeadByteRanges, "delete[]", -1, 0);
+        gpLeadByteRanges = 0;
+    }
+// build: symbol ?gpCharMap@* 0x00882B24
+    if (gpCharMap)
+    {
+        SMemFree(gpCharMap, "delete[]", -1, 0);
+        gpCharMap = 0;
+    }
+    if (gpCharMapIndex)
+    {
+        SMemFree(gpCharMapIndex, "delete[]", -1, 0);
+        gpCharMapIndex = 0;
+    }
+}
 
 // 0x00527790
 int __fastcall UNISYS_LoadSysMap(void* hArchive, const char* szPath)
