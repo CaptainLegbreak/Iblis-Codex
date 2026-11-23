@@ -2052,9 +2052,6 @@ struct D2StormLinkStrc;
 struct D2StormListAStrc;
 
 
-struct D2StormListArrayStrc;
-
-
 struct D2HashKeyNoneStrc;
 
 struct D2GameDataTableStrc;
@@ -2065,8 +2062,6 @@ union D2LargeIntegerUnion;
 struct D2StormSlotLink00530600Strc;
 
 struct D2StormSlotList00530600Strc;
-
-struct D2StormSlotArray00530600Strc;
 
 
 extern char gData_00882028[]; // 0x00882028
@@ -2285,17 +2280,6 @@ struct D2StormListAStrc
 };
 
 
-struct D2StormListArrayStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    D2StormListAStrc* m_data;
-    unsigned int m_chunk;
-
-    void sub_00450110_SetCount(unsigned int nCount);                                                        // 0x00450110
-};
-
-
 extern unsigned short gwValue_0077905C;
 
 
@@ -2422,15 +2406,6 @@ struct D2StormSlotList00530600Strc
 {
     int m_linkoffset;
     D2StormSlotLink00530600Strc m_terminator;
-
-};
-
-struct D2StormSlotArray00530600Strc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    D2StormSlotList00530600Strc* m_data;
-    unsigned int m_chunk;
 
 };
 
@@ -2684,8 +2659,6 @@ struct D2InactiveItemNodeStrc;
 
 struct D2InactiveUnitListStrc;
 
-struct D2QuestTimerStrc;
-
 
 struct D2ObjInitFnStrc;
 
@@ -2700,15 +2673,6 @@ enum D2C_MonStatsTxtFlagIndices
 };
 
 typedef unsigned char (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuest);
-
-struct D2QuestTimerStrc
-{
-    QUESTUPDATE pfUpdate;
-    D2QuestDataStrc* pQuest;
-    unsigned int dwTicks;
-    unsigned int dwTimeout;
-    D2QuestTimerStrc* pNext;
-};
 
 
 typedef void (__fastcall* PlrMsgFunc)(D2GameStrc*, D2UnitStrc*, D2ClientStrc*, int);
