@@ -288,7 +288,7 @@ void __fastcall MAINMENUS_ShowFourTexts(const Unicode* pText1, const Unicode* pT
 void __cdecl MAINMENUS_ShowMainMenu(); // 0x004336C0
 void __cdecl MAINMENUS_ShowLoginScreen(); // 0x00435330
 void __fastcall sub_0042FF10_SetValue(int nValue); // 0x0042FF10
-extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
+extern D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
 extern int gnLogonRetries; // 0x0070CC4C
 void __stdcall CHARSEL_HandleCharList(const char* szName, unsigned char* pPacket, int bFlag); // 0x0043AAB0
 extern char gszLastAccount[16]; // 0x0077ABF4

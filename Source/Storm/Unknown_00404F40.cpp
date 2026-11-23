@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2MultiTypes.h"
 
 #include "D2CrashTypes.h"
 #include "D2FogTypes.h"
@@ -80,35 +81,6 @@ int __fastcall sub_00405710_ParseCmdArgument(char* szCommandNameTestBuf, const c
 
 typedef int BOOL;
 
-struct D2ComInterfaceStrc
-{
-    char unk0x00[0x10];
-    void (__cdecl* pfnRelease)();
-};
-
-struct D2ConfigStrc
-{
-    int bIsExpansion;
-    int nUnk0x04;
-    unsigned char bWindow;
-    unsigned char bNoFixedAspect;
-    unsigned char b3DFX;
-    unsigned char unk0x0B[2];
-    unsigned char bD3D;
-    unsigned char bPerspective;
-    unsigned char bQuality;
-    int nGamma;
-    unsigned char bVSync;
-    char unk0x15[0x1EF];
-    unsigned char bDirect;
-    unsigned char unk0x205;
-    unsigned char bNoCompress;
-    char unk0x207[0x19];
-    unsigned char bNoSound;
-    char unk0x221[3];
-    unsigned char bSoundBackground;
-    unsigned char pComInterface[4];
-};
 int __stdcall ERRORMANAGER_RunModeInterface(D2ConfigStrc* pCfg); // 0x004059D0
 void __stdcall sub_00405A70_WriteSurveyLocale(); // 0x00405A70
 void __fastcall MAINMENUS_InitStorm(int nDirectFlags, int nValue); // 0x00406870
@@ -635,7 +607,7 @@ void* ghModKeyhook_0074C70C; // 0x0074C70C
 // 0x00405C30
 int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
 {
-    if (pCfg->nUnk0x04 == 1)
+    if (pCfg->unk0x04 == 1)
     {
         ERRORMANAGER_ForceCrash();
     }
@@ -719,9 +691,9 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
         D2GFX_ToggleLowQuality();
     }
 
-    if (pCfg->nGamma)
+    if (pCfg->dwGamma)
     {
-        D2GFX_SetGamma(pCfg->nGamma);
+        D2GFX_SetGamma(pCfg->dwGamma);
     }
 
     if (pCfg->bVSync)
@@ -794,10 +766,10 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
     FOG_AsyncDataDestroy();
     D2MCPClientCloseMCP();
 
-    D2ComInterfaceStrc* pComInterface = *(D2ComInterfaceStrc**)pCfg->pComInterface;
+    D2ComInterfaceStrc* pComInterface = pCfg->pComInterface;
     if (pComInterface)
     {
-        pComInterface->pfnRelease();
+        pComInterface->pfnSlot10();
     }
 
     IGNORELIST_FreeIgnoreList();

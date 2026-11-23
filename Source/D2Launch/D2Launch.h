@@ -7,7 +7,7 @@ struct D2CelFileStrc;
 struct D2CriticalSectionStrc;
 struct D2FindDataStrc;
 struct D2FuncRecordStrc;
-struct D2FuncTable_0077ABF0Strc;
+struct D2ComInterfaceStrc;
 struct D2ConfigStrc;
 struct D2LaunchFuncsStrc;
 struct D2WinControlStrc;
@@ -106,7 +106,7 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x00
 extern "C" int __cdecl sscanf(const char* szSource, const char* szFormat, ...); // 0x00684BD5
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
-extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
+extern D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
 extern D2ConfigStrc* gpCharInfo; // 0x0077BBD8
 extern D2LaunchFuncsStrc* gpLaunchFuncs; // 0x0077B09C
 extern D2WinControlStrc* gpCharSelectText; // 0x00779DD4

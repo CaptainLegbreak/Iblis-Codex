@@ -3,6 +3,7 @@
 
 #include "D2Check.h"
 #include "D2Structs.h"
+#include "D2ComInterface.h"
 
 struct D2FuncRecordStrc;
 struct D2LaunchGameListStrc;
@@ -16,7 +17,6 @@ struct SMSGHANDLER_PARAMS;
 struct D2LaunchFuncsStrc;
 struct D2WinControlInitStrc;
 struct D2ConfigStrc;
-struct D2FuncTable_0077ABF0Strc;
 struct D2CompositeStrc;
 struct D2MultiChannelUserStrc;
 struct D2LaunchGameRecStrc;
@@ -169,7 +169,7 @@ struct D2ConfigStrc
     unsigned char unk0x222; // 0x222
     char bFlag223; // 0x223
     unsigned char bSoundBackground; // 0x224
-    D2FuncTable_0077ABF0Strc* pComInterface; // 0x225
+    D2ComInterfaceStrc* pComInterface; // 0x225
     int dwGameHash; // 0x229
     union
     {
@@ -216,46 +216,6 @@ struct D2ConfigStrc
 };
 #pragma pack(pop)
 
-struct D2FuncTable_0077ABF0Strc
-{
-    int (__fastcall* pfnInit)(D2ConfigStrc*); // 0x00
-    void* (__fastcall* pfnSlot04)(void); // 0x04
-    void (__fastcall* pfnSlot08)(char*, char*); // 0x08
-    int (__fastcall* pfnSlot0C)(void); // 0x0C
-    union
-    {
-        void (__fastcall* pfnSlot10)(void); // 0x10
-        int (__fastcall* pfnSlot10Result)(void);
-    };
-    int unk0x14[5]; // 0x14
-    int (__fastcall* pfnSlot28)(D2StatusStrc*); // 0x28
-    int unk0x2C[5]; // 0x2C
-    D2MenuListStrc* (__fastcall* pfnGetMenuList)(int); // 0x40
-    D2LaunchPayloadStrc* (__fastcall* pfn0x44)(const char*, const char*); // 0x44
-    int (__fastcall* pfnSlot48)(int*); // 0x48
-    int (__fastcall* pfnSlot4C)(void); // 0x4C
-    int unk0x50[4]; // 0x50
-    void (__fastcall* pfnSlot60)(char*, char*); // 0x60
-    int (__fastcall* pfnSlot64)(int*); // 0x64
-    int (__fastcall* pfnSlot68)(void); // 0x68
-    int unk0x6C; // 0x6C
-    int (__fastcall* pfnSlot70)(void); // 0x70
-    int unk0x74[3]; // 0x74
-    void (__fastcall* pfnSlot80)(int*); // 0x80
-    int unk0x84[5]; // 0x84
-    union
-    {
-        D2FuncRecordStrc* (__cdecl* pfnGetRecord)(void); // 0x98
-        int (__fastcall* pfnSlot98)(void);
-    };
-    void (__fastcall* pfnSlot9C)(char*, char*, char*); // 0x9C
-    int (__fastcall* pfnSlotA0)(int*); // 0xA0
-    int unk0xA4[4]; // 0xA4
-    int (__fastcall* pfnSlotB4)(void); // 0xB4
-    void (__fastcall* pfnSlotB8)(char*); // 0xB8
-    int (__fastcall* pfnSlotBC)(char*, char*); // 0xBC
-    int (__fastcall* pfnSlotC0)(char*, char*, char*); // 0xC0
-};
 
 struct D2MultiChannelUserStrc
 {
@@ -308,4 +268,3 @@ D2_CHECK_SIZE(D2LaunchGameRecStrc, 0x3B);
 D2_CHECK_SIZE(D2LaunchFuncsStrc, 0xB0);
 D2_CHECK_SIZE(D2WinControlInitStrc, 0x30);
 D2_CHECK_SIZE(D2ConfigStrc, 0x3CD);
-D2_CHECK_SIZE(D2FuncTable_0077ABF0Strc, 0xC4);

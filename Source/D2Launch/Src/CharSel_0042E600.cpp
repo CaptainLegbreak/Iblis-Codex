@@ -20,7 +20,7 @@ struct D2UnitDropItemsPacketStrc;
 struct D2GridCellStrc;
 struct D2CelFileStrc;
 struct Unicode;
-struct D2FuncTable_0077ABF0Strc;
+struct D2ComInterfaceStrc;
 struct D2ConfigStrc;
 struct D2FuncRecordStrc;
 struct D2LaunchCharEntryStrc;
