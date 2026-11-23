@@ -61262,6 +61262,11 @@
      "length": 562
     },
     {
+     "va": "0x005E7AC0",
+     "length": 336,
+     "name": "?AITHINK_Fn060_GoodNpcRanged@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005E7C10",
      "length": 280
     },
@@ -61660,6 +61665,16 @@
      "name": "?AITHINK_Fn015_SandMaggot@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
+     "va": "0x005F1B60",
+     "length": 626,
+     "name": "?AITHINK_Fn016_ClawViper@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005F1DE0",
+     "length": 698,
+     "name": "?AITHINK_Fn142_ClawViperEx@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005F20A0",
      "length": 524,
      "name": "?AITHINK_Fn017_SandLeaper@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -61667,6 +61682,10 @@
     {
      "va": "0x005F22B0",
      "length": 427
+    },
+    {
+     "va": "0x005F2460",
+     "length": 209
     },
     {
      "va": "0x005F2540",
@@ -61839,6 +61858,11 @@
      "length": 1620
     },
     {
+     "va": "0x005F7F10",
+     "length": 253,
+     "name": "?sub_005F7F10_SpawnRandomMinion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
      "va": "0x005F8010",
      "length": 417,
      "name": "?AITHINK_GetTargetForUberMinion@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@@Z"
@@ -61919,6 +61943,11 @@
      "va": "0x005FA010",
      "length": 611,
      "name": "?AITHINK_Fn068_VileMother@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005FA280",
+     "length": 253,
+     "name": "?AITHINK_Fn069_VileDog@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005FA380",
@@ -66106,17 +66135,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005E7AC0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005E7AC0",
-     "length": 336,
-     "name": "?AITHINK_Fn060_GoodNpcRanged@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_005E8EB0.cpp",
    "rank": 0,
    "functions": [
@@ -66173,61 +66191,13 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005F1B60.cpp",
+   "file": "Source/D2Game/Unknown_005FB650.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x005F1B60",
-     "length": 626,
-     "name": "?AITHINK_Fn016_ClawViper@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F1DE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F1DE0",
-     "length": 698,
-     "name": "?AITHINK_Fn142_ClawViperEx@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F2460.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005F2460",
-     "length": 209
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F6220.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F7F10",
-     "length": 253,
-     "name": "?sub_005F7F10_SpawnRandomMinion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
     {
      "va": "0x005FB650",
      "length": 98,
      "name": "?sub_005FB650_GetTrapArrowVariant@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005FA280.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005FA280",
-     "length": 253,
-     "name": "?AITHINK_Fn069_VileDog@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },

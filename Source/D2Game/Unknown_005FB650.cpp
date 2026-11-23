@@ -83,30 +83,6 @@ inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
     }
 }
 
-// 0x005F7F10
-void __fastcall sub_005F7F10_SpawnRandomMinion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner)
-{
-    const int nX = UNITS_GetUnitXPosition(pUnit);
-    const int nY = UNITS_GetUnitYPosition(pUnit);
-    int nMonsterIds[8] = { 725, 725, 726, 726, 727, 728, 729, 730 };
-    int nModes[8] = { 8, 8, 8, 8, 8, 8, 8, 8 };
-    const int nIndex = (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) & 7;
-    D2UnitStrc* pMonster;
-    if (pOwner)
-    {
-        pMonster = MONSTERSPAWN_SpawnAtUnit(pGame, pOwner, nMonsterIds[nIndex], nModes[nIndex], 4, 0);
-    }
-    else
-    {
-        pMonster = MONSTERSPAWN_SpawnAtUnit(pGame, pUnit, nMonsterIds[nIndex], nModes[nIndex], 4, 0);
-    }
-    if (pMonster)
-    {
-        pMonster->dwFlags |= UNITFLAG_J11_SPAWNED;
-        STATES_ToggleState(pMonster, STATE_J11_SPAWNED, 1);
-    }
-}
-
 // 0x005FB650
 int __fastcall sub_005FB650_GetTrapArrowVariant(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
