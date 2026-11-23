@@ -1993,18 +1993,6 @@ int __cdecl sub_00437D10()
     return 0;
 }
 
-// 0x0043B830
-int __cdecl sub_0043B830()
-{
-    return gdwGlobal_0077AC04;
-}
-
-// 0x0043B840
-int __cdecl sub_0043B840()
-{
-    return gdwGlobal_0077AC08;
-}
-
 // 0x0043DB10
 int __cdecl GAME_IsLaunchExpansion()
 {

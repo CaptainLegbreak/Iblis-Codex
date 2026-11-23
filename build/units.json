@@ -9398,6 +9398,16 @@
      "name": "?CHARSEL_ClearCancelled@@YAXXZ"
     },
     {
+     "va": "0x0043B830",
+     "length": 6,
+     "name": "sub_0043B830"
+    },
+    {
+     "va": "0x0043B840",
+     "length": 6,
+     "name": "sub_0043B840"
+    },
+    {
      "va": "0x0043B850",
      "length": 50,
      "name": "?CHARSEL_OnDownloadTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
@@ -9747,16 +9757,6 @@
      "va": "0x00437D10",
      "length": 3,
      "name": "sub_00437D10"
-    },
-    {
-     "va": "0x0043B830",
-     "length": 6,
-     "name": "sub_0043B830"
-    },
-    {
-     "va": "0x0043B840",
-     "length": 6,
-     "name": "sub_0043B840"
     },
     {
      "va": "0x0043DB10",
