@@ -2705,6 +2705,68 @@ int __fastcall SKILLDESC_AttackRatingCallback(D2UnitStrc* pUnit, int* pValue1, i
     return SKILLDESC_GetAttackRatingValues(pUnit, pItem, pValue1, pValue2, nAdd, pSkill);
 }
 
+void __stdcall STATLIST_ExpireUnitStatlist(D2UnitStrc* pUnused, D2UnitStrc* pUnit); // 0x006277F0
+
+// 0x004E9040
+void __fastcall PLRSKILLS_DescAttackRating(D2UnitStrc* pUnit, void* pArg, D2SkillsTxt* pSkillsTxtRecord, int nSkillLevel, int* pValue, int* pColor, int nArg5, int nArg6)
+{
+    D2UnitStrc* pWeapon = 0;
+    if (pUnit->pInventory)
+    {
+        pWeapon = INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
+    }
+
+    *pValue = 0;
+    *pColor = 0;
+    if (!pArg)
+    {
+        return;
+    }
+
+    if (pWeapon)
+    {
+        int bStatNotDynamic = 0;
+        D2UnitStrc* pOwner = STATLIST_GetOwner(pWeapon, &bStatNotDynamic);
+        STATLIST_MergeStatLists(pUnit, pWeapon, 0);
+        *pValue = UNITS_GetAttackRate(pUnit);
+        if (pOwner)
+        {
+            STATLIST_MergeStatLists(pUnit, pWeapon, bStatNotDynamic);
+        }
+        else
+        {
+            STATLIST_ExpireUnitStatlist(pUnit, pWeapon);
+        }
+    }
+    else
+    {
+        *pValue = UNITS_GetAttackRate(pUnit);
+    }
+
+    int nToHit = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_TOHIT_PERCENT, 0);
+    nToHit += SKILLS_GetToHitFactor(pUnit, pSkillsTxtRecord->nSkillId, nSkillLevel);
+    if (pSkillsTxtRecord->nFlags[0] & gnBitMasks_006CE268[3])
+    {
+        const int nBonus = STATLIST_UnitGetStatValue(pUnit, STAT_PROGRESSIVE_TOHIT, 0);
+        if (nBonus)
+        {
+            nToHit += nBonus;
+            *pColor = 3;
+        }
+    }
+
+    *pValue += *pValue * nToHit / 100;
+    if (STATES_CheckStateMaskAttBlueOnUnit(pUnit))
+    {
+        *pColor = 3;
+    }
+
+    if (STATES_CheckStateMaskAttRedOnUnit(pUnit))
+    {
+        *pColor = 1;
+    }
+}
+
 // 0x004E9260
 static D2UnitStrc* SKILLDESC_MergeOtherHandWeapon(D2UnitStrc* pUnit)
 {
