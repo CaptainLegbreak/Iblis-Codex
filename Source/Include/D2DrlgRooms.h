@@ -151,3 +151,26 @@ D2_CHECK_SIZE(D2OutdoorColumnFilesStrc, 0x8);
 D2_CHECK_SIZE(D2DrlgRoadStrc, 0x1F4);
 D2_CHECK_SIZE(T00681490, 0x28);
 D2_CHECK_SIZE(D2DrlgPathSearchStrc, 0x8CA8);
+
+struct D2DrlgEnvironmentStrc
+{
+    int nCycleIndex; // 0x00
+    int nPeriodOfDay; // 0x04
+    int nTicks; // 0x08
+    int nIntensity; // 0x0C
+    unsigned int dwInitTick; // 0x10
+    int unk0x14; // 0x14
+    unsigned char nRed; // 0x18
+    unsigned char nGreen; // 0x19
+    unsigned char nBlue; // 0x1A
+    unsigned char pad0x1B; // 0x1B
+    float fCos; // 0x1C
+    float fLast; // 0x20
+    float fSin; // 0x24
+    int nTimeRate; // 0x28
+    int nTimeRateIndex; // 0x2C
+    int bEclipse; // 0x30
+    int nPrev; // 0x34
+};
+
+D2_CHECK_SIZE(D2DrlgEnvironmentStrc, 0x38);

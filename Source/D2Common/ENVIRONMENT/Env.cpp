@@ -6,30 +6,6 @@
 
 struct D2DrlgActStrc;
 
-struct D2DrlgEnvironmentStrc;
-
-
-struct D2DrlgEnvironmentStrc
-{
-    int nCycleIndex;
-    int nPeriodOfDay;
-    int nTicks;
-    int nIntensity;
-    unsigned int dwInitTick;
-    int unk0x14;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char unk0x1B;
-    float fCos;
-    float fLast;
-    float fSin;
-    int nTimeRate;
-    int nTimeRateIndex;
-    int bEclipse;
-    int nPrev;
-};
-
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 

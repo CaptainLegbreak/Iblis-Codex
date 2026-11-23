@@ -33,7 +33,6 @@ struct D2GameStrc;
 
 struct D2DrlgStrc;
 
-struct D2DrlgEnvironmentStrc;
 
 struct D2DrlgActStrc;
 
@@ -316,26 +315,6 @@ int gnUniqueNameTxtRecordCounts[4]; // 0x0096D498
 
 Unicode gwszDataTablesDefault; // 0x0096D4B4
 
-struct D2DrlgEnvironmentStrc
-{
-    int nCycleIndex;
-    int nPeriodOfDay;
-    int nTicks;
-    int nIntensity;
-    unsigned int dwInitTick;
-    int unk0x14;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char pad0x1B;
-    float fCos;
-    float fLast;
-    float fSin;
-    int nTimeRate;
-    int nTimeRateIndex;
-    int bEclipse;
-    int nPrev;
-};
 
 D2DrlgEnvironmentStrc* __fastcall DUNGEON_GetEnvironmentFromAct(D2DrlgActStrc* pAct);                       // 0x0061AA60
 
