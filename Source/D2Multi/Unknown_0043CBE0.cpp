@@ -37,13 +37,6 @@ extern D2WinControlStrc* gpChannelListBox; // 0x0077BCFC
 
 void* gpInstance; // 0x0077AD68
 
-// 0x0043CBE0
-D2ModuleInterfaceStrc* __fastcall sub_0043CBE0_Init(void* hInstance)
-{
-    gpInstance = hInstance;
-    return &gtInterface;
-}
-
 #include "gen/data/Source/D2Multi/Unknown_0043CBE0.inc"
 #include "D2StormTypes.h"
 
@@ -62,11 +55,6 @@ void __cdecl sub_00515ED0_Nop()
 {
 }
 
-// 0x0043CBF0
-void __cdecl sub_0043CBF0_Nop()
-{
-}
-
 // 0x0042B9D0
 void __cdecl sub_0042B9D0_Nop()
 {
@@ -75,20 +63,6 @@ void __cdecl sub_0042B9D0_Nop()
 // 0x00650EA0
 void __cdecl sub_00650EA0_Nop()
 {
-}
-
-// 0x0043CC00
-const char* __fastcall sub_0043CC00_StrChr(const char* szString, char nChar, int bReverse)
-{
-    if (bReverse)
-        return SStrChrR(szString, nChar);
-    return SStrChr(szString, nChar);
-}
-
-// 0x0043CC20
-int __fastcall sub_0043CC20_TestBit2(int nValue)
-{
-    return nValue & 4;
 }
 
 D2CelFileStrc* gpChatBackground; // 0x0077BC04
@@ -528,20 +502,6 @@ void __cdecl sub_0043D510_FreeCellFiles()
 }
 
 int gnFlag_0077BD60; // 0x0077BD60
-
-// 0x0043DA00
-int __stdcall sub_0043DA00_ScrollPageDown(SMSGHANDLER_PARAMS* pMsg)
-{
-    CHATDLG_UpdateScroll(10);
-    return 1;
-}
-
-// 0x0043DA20
-int __stdcall sub_0043DA20_ScrollUp(SMSGHANDLER_PARAMS* pMsg)
-{
-    CHATDLG_UpdateScroll(-1);
-    return 1;
-}
 
 // 0x0043DBA0
 int __stdcall sub_0043DBA0_ClearSelection(int nArg1, int nArg2, int nArg3)

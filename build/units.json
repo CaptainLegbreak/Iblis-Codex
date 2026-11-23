@@ -12027,6 +12027,26 @@
      "name": "?CHATDLG_UpdateSaveFlags@@YIHPBD@Z"
     },
     {
+     "va": "0x0043CBE0",
+     "length": 12,
+     "name": "?sub_0043CBE0_Init@@YIPAUD2ModuleInterfaceStrc@@PAX@Z"
+    },
+    {
+     "va": "0x0043CBF0",
+     "length": 1,
+     "name": "?sub_0043CBF0_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x0043CC00",
+     "length": 29,
+     "name": "sub_0043CC00_StrChr"
+    },
+    {
+     "va": "0x0043CC20",
+     "length": 6,
+     "name": "?sub_0043CC20_TestBit2@@YIHH@Z"
+    },
+    {
      "va": "0x0043CC30",
      "length": 2271,
      "name": "?CHATDLG_LoadFrontEndCels@@YAXXZ"
@@ -12045,6 +12065,16 @@
      "va": "0x0043D9E0",
      "length": 18,
      "name": "?CHATDLG_ScrollPageUp@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043DA00",
+     "length": 18,
+     "name": "?sub_0043DA00_ScrollPageDown@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043DA20",
+     "length": 16,
+     "name": "?sub_0043DA20_ScrollUp@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x0043DA50",
@@ -12691,39 +12721,9 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0043CBE0",
-     "length": 12,
-     "name": "?sub_0043CBE0_Init@@YIPAUD2ModuleInterfaceStrc@@PAX@Z"
-    },
-    {
-     "va": "0x0043CBF0",
-     "length": 1,
-     "name": "?sub_0043CBF0_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x0043CC00",
-     "length": 29,
-     "name": "sub_0043CC00_StrChr"
-    },
-    {
-     "va": "0x0043CC20",
-     "length": 6,
-     "name": "?sub_0043CC20_TestBit2@@YIHH@Z"
-    },
-    {
      "va": "0x0043D510",
      "length": 1139,
      "name": "?sub_0043D510_FreeCellFiles@@YAXXZ"
-    },
-    {
-     "va": "0x0043DA00",
-     "length": 18,
-     "name": "?sub_0043DA00_ScrollPageDown@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0043DA20",
-     "length": 16,
-     "name": "?sub_0043DA20_ScrollUp@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x0043DBA0",

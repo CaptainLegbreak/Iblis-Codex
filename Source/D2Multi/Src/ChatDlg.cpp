@@ -818,8 +818,6 @@ struct D2LaunchGameRecStrc;
 
 struct D2GameDetailsStrc;
 
-
-
 const Unicode* __fastcall sub_004FBB30_GetText(D2WinControlStrc* pControl); // 0x004FBB30
 
 int __stdcall CHARSEL_JoinByName(int nArg); // 0x004439F0
@@ -851,6 +849,58 @@ struct D2GameDetailsStrc
 extern "C" const char gszEmptyString_006CC837[]; // 0x006CC837
 
 D2WinControlStrc* gpGameInfoText; // 0x00798BC4
+
+struct D2ModuleInterfaceStrc;
+
+struct D2CelFileStrc;
+
+extern D2ModuleInterfaceStrc gtInterface; // 0x0070CD14
+
+const char* __stdcall SStrChrR(const char* szString, char nChar); // 0x004134D0
+
+int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam, int* pbUseResult, int* plResult); // 0x00420B00
+
+void* __cdecl sub_0044DA90(); // 0x0044DA90
+
+void* __cdecl WINDOW_GetWindow(); // 0x004F59A0
+
+struct D2WinMsgStrc
+{
+    void* hWnd;
+    unsigned int uMsg;
+    unsigned int wParam;
+    int lParam;
+};
+
+void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
+
+int __cdecl GAME_GetWaitHandle(); // 0x00449AC0
+
+int __cdecl GAME_IsMcpCharLogonReceived(); // 0x00449C30
+
+void __stdcall CHATDLG_SetCharLogonReceived(int nValue); // 0x00449C40
+
+extern D2WinControlStrc* gpChannelListBox; // 0x0077BCFC
+
+extern void* gpInstance; // 0x0077AD68
+
+void __cdecl sub_00515110_Nop(); // 0x00515110
+
+void __cdecl sub_00515EC0_Nop(); // 0x00515EC0
+
+void __cdecl sub_00515ED0_Nop(); // 0x00515ED0
+
+void __cdecl sub_0042B9D0_Nop(); // 0x0042B9D0
+
+void __cdecl sub_00650EA0_Nop(); // 0x00650EA0
+
+extern D2CelFileStrc* gpCellFile_0077BC24; // 0x0077BC24
+
+int __stdcall sub_0043DBA0_ClearSelection(int nArg1, int nArg2, int nArg3); // 0x0043DBA0
+
+int __stdcall sub_0043DBC0_OnWaitTick(SMSGHANDLER_PARAMS* pMsg); // 0x0043DBC0
+
+int __stdcall sub_0043DBF0_OnReceiveTick(SMSGHANDLER_PARAMS* pMsg); // 0x0043DBF0
 
 static __forceinline int CONSOLE_FindSecondTokenInline(const char* szText, char* szCopy, const char** ppArg)
 {
@@ -936,6 +986,32 @@ int __fastcall CHATDLG_UpdateSaveFlags(const char* szName)
 
     FOG_CloseFile(hFile);
     return nResult;
+}
+
+// 0x0043CBE0
+D2ModuleInterfaceStrc* __fastcall sub_0043CBE0_Init(void* hInstance)
+{
+    gpInstance = hInstance;
+    return &gtInterface;
+}
+
+// 0x0043CBF0
+void __cdecl sub_0043CBF0_Nop()
+{
+}
+
+// 0x0043CC00
+const char* __fastcall sub_0043CC00_StrChr(const char* szString, char nChar, int bReverse)
+{
+    if (bReverse)
+        return SStrChrR(szString, nChar);
+    return SStrChr(szString, nChar);
+}
+
+// 0x0043CC20
+int __fastcall sub_0043CC20_TestBit2(int nValue)
+{
+    return nValue & 4;
 }
 
 // 0x0043CC30
@@ -1074,6 +1150,20 @@ int __stdcall CHATDLG_NextRequestCallback(int nArg)
 int __stdcall CHATDLG_ScrollPageUp(SMSGHANDLER_PARAMS* pMsg)
 {
     CHATDLG_UpdateScroll(-10);
+    return 1;
+}
+
+// 0x0043DA00
+int __stdcall sub_0043DA00_ScrollPageDown(SMSGHANDLER_PARAMS* pMsg)
+{
+    CHATDLG_UpdateScroll(10);
+    return 1;
+}
+
+// 0x0043DA20
+int __stdcall sub_0043DA20_ScrollUp(SMSGHANDLER_PARAMS* pMsg)
+{
+    CHATDLG_UpdateScroll(-1);
     return 1;
 }
 
