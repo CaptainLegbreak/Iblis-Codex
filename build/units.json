@@ -1382,14 +1382,33 @@
      "name": "?LOGMANAGER_GetLogDirectory@@YIXPADH@Z"
     },
     {
+     "va": "0x0040F070",
+     "length": 723
+    },
+    {
+     "va": "0x0040F350",
+     "length": 123,
+     "name": "AUTOMAP_CloseStaleLogs"
+    },
+    {
      "va": "0x0040F3D0",
      "length": 153,
      "name": "?LOGMANAGER_SweepLogFile@@YIXPBUD2FileTimeStrc@@PBD@Z"
     },
     {
+     "va": "0x0040F520",
+     "length": 16,
+     "name": "?sub_0040F520_LinkNext@@YIPADPAUD2StormLinkStrc@@@Z"
+    },
+    {
      "va": "0x0040F530",
      "length": 50,
      "name": "??1sub_0040F530@@QAE@XZ"
+    },
+    {
+     "va": "0x0040F580",
+     "length": 11,
+     "name": "?sub_0040F580_InitTerminator@@YIXPAUD2StormListStrc@@@Z"
     },
     {
      "va": "0x0040F590",
@@ -5199,31 +5218,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_0040F070.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0040F070",
-     "length": 723
-    },
-    {
-     "va": "0x0040F350",
-     "length": 123,
-     "name": "AUTOMAP_CloseStaleLogs"
-    },
-    {
-     "va": "0x0040F520",
-     "length": 16,
-     "name": "?sub_0040F520_LinkNext@@YIPADPAUD2StormLinkStrc@@@Z"
-    },
-    {
-     "va": "0x0040F580",
-     "length": 11,
-     "name": "?sub_0040F580_InitTerminator@@YIXPAUD2StormListStrc@@@Z"
-    }
    ]
   },
   {

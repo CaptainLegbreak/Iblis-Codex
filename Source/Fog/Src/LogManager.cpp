@@ -1095,6 +1095,62 @@ extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int n
 
 void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, const char* szFormat, va_list args); // 0x00410340
 
+extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
+
+struct D2LogDumpStrc;
+
+struct D2StormListStrc;
+
+
+struct D2LogDumpStrc
+{
+    const unsigned char* pAddress;
+    unsigned int nSize;
+    int bShortAddress;
+    int bIndirect;
+    int bShowAscii;
+    char szLabel[1];
+};
+
+extern "C" unsigned int __cdecl strlen(const char* szString);
+
+extern "C" int __cdecl strcmp(const char* szA, const char* szB);
+
+extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
+
+
+void __fastcall sub_0040ECC0_LogWriteHeader(_iobuf* pFile, const D2SystemTimeStrc* pTime); // 0x0040ECC0
+
+void __fastcall sub_0040ED40_LogWriteStartup(_iobuf* pFile); // 0x0040ED40
+
+extern int ganLogNewFile[20]; // 0x0075D298
+
+extern char gaszLogFilePaths[20][0x104]; // 0x0075D340
+
+extern unsigned long gadwLogOpenTick[20]; // 0x0075E7E0
+
+extern "C" const char gszLogTimeStampFormat[]; // 0x006CE1DC
+
+extern "C" const char gszLogBlankStamp[]; // 0x006CE1CC
+
+extern "C" const char gszLogDumpAddress16[]; // 0x006CE1C0
+
+extern "C" const char gszLogDumpAddress32[]; // 0x006CE1B4
+
+extern "C" const char gszLogUnreadable[]; // 0x006CD880
+
+extern "C" const char gszLogDumpByte[]; // 0x006CE1AC
+
+extern "C" const char gszLogDumpByteSpaced[]; // 0x006CE1A4
+
+extern "C" const char gszLogLineFormat_006CD90C[]; // 0x006CD90C
+
+struct D2StormListStrc
+{
+    int m_linkoffset;
+    D2StormLinkStrc m_terminator;
+};
+
 // 0x004027C0
 unsigned long __stdcall LOGMANAGER_DbgHelpThreadProc(void* pParam)
 {
@@ -2120,3 +2176,228 @@ void __cdecl LOGMANAGER_SweepOldLogFiles()
 
 // 0x0040F590
 extern "C" void* __fastcall sub_0040F590(void* value) { return value; }
+
+_iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot)
+{
+    const unsigned long dwTick = GetTickCount();
+    int nEmpty = -1;
+    int nFree = -1;
+    int nOldest;
+    int nSlot = -1;
+    _iobuf* pFile;
+
+    int i = szName[0] != 0;
+    nOldest = 1;
+    for (; i < 20; ++i)
+    {
+// build: symbol ?gaszLogNames@* 0x0075D148
+        if (!strcmp(gaszLogNames[i], szName))
+        {
+            nSlot = i;
+// build: symbol ?gapLogFiles@* 0x0075E790
+            pFile = gapLogFiles[i];
+            if (pFile)
+            {
+                goto done;
+            }
+            break;
+        }
+
+        if (!gaszLogNames[i][0])
+        {
+            if (nEmpty < 0)
+            {
+                nEmpty = i;
+            }
+        }
+        else if (!gapLogFiles[i])
+        {
+            if (nFree < 0)
+            {
+                nFree = i;
+            }
+// build: symbol ?gadwLogWriteTick@* 0x0075D2F0
+            else if (dwTick - gadwLogWriteTick[i] > gadwLogWriteTick[nFree])
+            {
+                nFree = i;
+            }
+        }
+        else if (dwTick - gadwLogWriteTick[i] > dwTick - gadwLogWriteTick[nOldest])
+        {
+            nOldest = i;
+        }
+    }
+
+    if (nSlot < 0)
+    {
+        if (nEmpty >= 0)
+        {
+            nSlot = nEmpty;
+        }
+        else
+        {
+            if (nFree >= 0)
+            {
+                nOldest = nFree;
+            }
+
+            if (gapLogFiles[nOldest])
+            {
+                fclose(gapLogFiles[nOldest]);
+                gapLogFiles[nOldest] = 0;
+            }
+
+            nSlot = nOldest;
+        }
+    }
+
+    {
+        D2_ASSERT(SStrLen(szName) < 16, 0x34C);
+        strcpy(gaszLogNames[nSlot], szName);
+
+        D2SystemTimeStrc tTime;
+        int bNew;
+        _iobuf* pNewFile = sub_0040EBD0_OpenDatedLogFile(szName, &tTime, "a", &bNew, gaszLogFilePaths[nSlot], 0x104);
+        gapLogFiles[nSlot] = pNewFile;
+        gadwLogOpenTick[nSlot] = dwTick;
+        gadwLogWriteTick[nSlot] = dwTick;
+        if (ganLogNewFile[nSlot] && pNewFile)
+        {
+            sub_0040ED40_LogWriteStartup(pNewFile);
+            ganLogNewFile[nSlot] = 0;
+        }
+        else if (bNew)
+        {
+            sub_0040ECC0_LogWriteHeader(pNewFile, &tTime);
+        }
+    }
+
+    pFile = gapLogFiles[nSlot];
+
+done:
+    if (pFile && pnSlot)
+    {
+        *pnSlot = nSlot;
+    }
+
+    return pFile;
+}
+
+// 0x0040F070
+void __fastcall sub_0040F070_WriteDumpMessage(D2LogMessageStrc* pMessage)
+{
+    D2SystemTimeStrc* const pStamp = &pMessage->f_14;
+    D2_ASSERT(pMessage->nType == 2, 0x389);
+    char* szName = pMessage->szName;
+    D2LogDumpStrc* pDump = (D2LogDumpStrc*)(szName + SStrLen(szName) + 1);
+    const unsigned char* pData;
+    char* const szLabel = pDump->szLabel;
+    if (pDump->bIndirect)
+    {
+        pData = pDump->pAddress;
+    }
+    else
+    {
+        pData = (const unsigned char*)(szLabel + SStrLen(szLabel) + 1);
+    }
+
+    int nSlot;
+    _iobuf* pFile = sub_0040EDE0_GetLogFile(szName, &nSlot);
+    if (!pFile)
+    {
+        return;
+    }
+
+    char szTime[32];
+    SStrPrintf(szTime, sizeof(szTime), gszLogTimeStampFormat, pStamp->wHour, pStamp->wMinute, pStamp->wSecond, pStamp->wMilliseconds);
+    char szWhite[32];
+    SStrCopy(szWhite, gszLogBlankStamp, sizeof(szWhite));
+
+    const unsigned char* pCur = pData;
+    unsigned int nRemain = pDump->nSize;
+    int bFirst = 1;
+    while (nRemain > 0)
+    {
+        const unsigned int nOffset = pCur - pData;
+        fprintf(pFile, pDump->bShortAddress ? gszLogDumpAddress16 : gszLogDumpAddress32, bFirst ? szTime : szWhite, szLabel, pDump->bShortAddress ? nOffset : (unsigned int)pDump->pAddress + nOffset);
+        bFirst = 0;
+        unsigned int nLine = nRemain < 16 ? nRemain : 16;
+
+        char szLine[0x100];
+        szLine[0] = 0;
+        if (IsBadReadPtr(pCur, nLine))
+        {
+            SStrCopy(szLine, gszLogUnreadable, 0x7FFFFFFF);
+        }
+        else
+        {
+            unsigned int i;
+            for (i = 0; i < nLine; ++i)
+            {
+                const unsigned int nLen = strlen(szLine);
+                SStrPrintf(&szLine[nLen], sizeof(szLine) - nLen, (i & 3) ? gszLogDumpByte : gszLogDumpByteSpaced, pCur[i]);
+            }
+
+            if (pDump->bShowAscii)
+            {
+                for (i = (16 - nLine) * 9 / 4 + 2; i; --i)
+                {
+// build: symbol ?gszSpace@* 0x006FFC44
+                    SStrPack(szLine, gszSpace, sizeof(szLine));
+                }
+
+                const int nLen = strlen(szLine);
+                int j = nLen;
+                for (i = 0; i < nLine; ++i)
+                {
+                    unsigned char c = pCur[i];
+                    szLine[j++] = (c & 0x7F) < 0x20 ? '.' : c;
+                }
+                szLine[nLen + i] = 0;
+            }
+        }
+
+        fprintf(pFile, gszLogLineFormat_006CD90C, szLine);
+        pCur += nLine;
+        nRemain -= nLine;
+    }
+}
+
+// 0x0040F520
+char* __fastcall sub_0040F520_LinkNext(D2StormLinkStrc* pLink)
+{
+    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
+}
+
+// 0x0040F580
+void __fastcall sub_0040F580_InitTerminator(D2StormListStrc* pList)
+{
+    pList->m_terminator.m_prevlink = &pList->m_terminator;
+    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
+}
+
+// 0x0040F350
+void __cdecl AUTOMAP_CloseStaleLogs()
+{
+    char szPath[0x104];
+    int bLog = 0;
+    szPath[0] = 0;
+    unsigned long nNow = GetTickCount();
+    for (int i = 0; i < 20; ++i)
+    {
+        if (gapLogFiles[i])
+        {
+            if (nNow - gadwLogOpenTick[i] > 15000 || nNow - gadwLogWriteTick[i] > 5000)
+            {
+                if (bLog)
+                {
+                    OutputDebugStringA(szPath);
+                }
+                fclose(gapLogFiles[i]);
+                gapLogFiles[i] = 0;
+            }
+        }
+    }
+}
+
+#include "gen/data/Source/Fog/Src/LogManager.inc"
