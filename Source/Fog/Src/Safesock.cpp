@@ -3,6 +3,8 @@
 #include "D2FogTypes.h"
 #include "D2Win32Types.h"
 #include "D2NetTypes.h"
+#include "D2Primitives.h"
+#include "D2StormLink.h"
 
 int __stdcall SFileCloseFile(void* pArg);    // 0x004198D0
 
@@ -487,7 +489,7 @@ int __fastcall FOG_GetInstallPath(char* szPath, unsigned int nSize); // 0x00406B
 
 extern "C" const char gszExpansionMpq[]; // 0x006CD3A0
 
-extern D2PoolDirectoryStrc gtPoolManager; // 0x0074F0E8
+D2PoolDirectoryStrc gtPoolManager;                                                                   // 0x0074F0E8
 
 extern "C" __declspec(dllimport) int __stdcall VirtualFree(void* pAddress, size_t nSize, unsigned long dwFreeType); // 0x006CC220
 
@@ -523,12 +525,104 @@ extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes,
 
 extern "C" int __stdcall setsockopt(unsigned int nSocket, int nLevel, int nOption, const char* pValue, int nLength); // 0x006B0162
 
-
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 
 extern "C" const char gszUnknownUpper[];                                                           // 0x006CCED8
+
+
+extern "C" int __cdecl toupper(int nChar);                                                                  // 0x00685385
+
+extern "C" int __cdecl tolower(int nChar);                                                                  // 0x0068523E
+
+extern "C" __declspec(dllimport) int __stdcall FindClose(void* hFindFile);                                  // 0x006CC1C4
+
+extern "C" int __stdcall recv(unsigned int nSocket, char* pBuffer, int nLength, int nFlags);                // 0x006B0174
+
+void __fastcall LOGMANAGER_GetLogDirectory(char* szDirectory, int nSize);                                 // 0x0040F000
+
+void __fastcall LOGMANAGER_SweepLogFile(const D2FileTimeStrc* pNow, const char* szFile);                  // 0x0040F3D0
+
+extern D2CriticalSectionStrc gtLogLock;                                                            // 0x0075E850
+
+struct FSafeSock;
+
+struct Obj0040E0B0;
+
+struct D2LogMsgListStrc;
+
+struct D2LogMsgNodeStrc;
+
+struct D2LogMessageStrc;
+
+class CCritSect;
+
+struct Obj0040E0B0 { unsigned char bUnknown00[0x30]; unsigned int dwValue30; unsigned int dwValue34; };
+
+extern "C" int __cdecl sscanf(const char* szSource, const char* szFormat, ...); // 0x00684BD5
+
+int __fastcall FOG_SOCKET_WSAStartup(); // 0x0040D890
+
+struct D2LogMsgListStrc
+{
+    int m_linkoffset;
+    D2StormLinkStrc m_terminator;
+
+    void sub_0040FED0_DeleteAll();                                          // 0x0040FED0
+};
+
+FSafeSock* __fastcall FOG_SOCKET_ConnectEx(char* szHostAddress, int nPortNumber, unsigned long (__stdcall* pThreadProc)(void* pParam), void* lpParameter, const char* szName, int bNonBlocking); // 0x0040D8E0
+
+extern int gnLogQueued; // 0x0075D140
+
+extern int gnLogQueuedBytes; // 0x0075D144
+
+extern int gbLogInitialized; // 0x0075D2EC
+
+extern unsigned long gnLogThreadId; // 0x0075E834
+
+extern D2CriticalSectionStrc gtLogQueueLock; // 0x0075E838
+
+extern D2LogMsgListStrc gtLogMsgQueue_0075E868; // 0x0075E868
+
+extern D2CriticalSectionStrc gtTimeLock; // 0x0075E880
+
+int __cdecl ERRORMANAGER_MeasureCpuMHz(); // 0x0040E870
+
+
+
+extern "C" const char gszIntel386[]; // 0x006CE074
+
+extern "C" const char gszIntel486[]; // 0x006CE080
+
+extern "C" const char gszCpuSpeedFormat[]; // 0x006CE08C
+
+extern "C" const char gszCpuVersionFormat[]; // 0x006CE0A8
+
+extern "C" const char gszCpuVendorFormat[]; // 0x006CE0EC
+
+struct D2LogMsgNodeStrc
+{
+    D2LogMsgNodeStrc* pPrev;
+    D2LogMsgNodeStrc* pNext;
+};
+
+struct D2LogMessageStrc : D2LogMsgNodeStrc
+{
+    char unk0x08[0x1C];
+};
+
+class CCritSect
+{
+public:
+    CCritSect();                                                                                            // 0x0040EB50
+    ~CCritSect();                                                                                           // 0x0040EB60
+    void Enter();
+    void Leave();
+
+    D2CriticalSectionStrc tLock;
+};
 
 // build: context sub_00406BA0_GetModuleDirectoryAndSave
 
@@ -880,4 +974,120 @@ void __fastcall FOG_SOCKET_Destroy(FSafeSock* pSafeSock)
     }
     DeleteCriticalSection(&pSafeSock->tCriticalSection);
     FOG_Free(pSafeSock, ".\\Src\\Safesock.cpp", 387, 0);
+}
+
+// 0x0040DC60
+int __fastcall FOG_SOCKET_Receive(FSafeSock* pSafeSock, char* pBuffer, int nBufferLength)
+{
+    if (!pSafeSock || pSafeSock->bStopping)
+    {
+        return 0;
+    }
+    EnterCriticalSection(&pSafeSock->tCriticalSection);
+    const int nReceived = recv(pSafeSock->nSocket, pBuffer, nBufferLength, 0);
+    LeaveCriticalSection(&pSafeSock->tCriticalSection);
+    if (nReceived <= 0)
+    {
+        pSafeSock->nWSALastError = WSAGetLastError();
+        pSafeSock->nFogErrorCode = 4;
+    }
+    return nReceived;
+}
+
+// 0x0040DCC0
+int __fastcall FOG_SOCKET_Send(FSafeSock* pSafeSock, char* pBuffer, int nBufferLength)
+{
+    if (!pSafeSock || pSafeSock->bStopping)
+    {
+        return 0;
+    }
+    EnterCriticalSection(&pSafeSock->tCriticalSection);
+    const int nSent = send(pSafeSock->nSocket, pBuffer, nBufferLength, 0);
+    int nResult;
+    if (nSent == nBufferLength)
+    {
+        nResult = nSent;
+    }
+    else if (nSent == -1)
+    {
+        pSafeSock->nWSALastError = WSAGetLastError();
+        if (pSafeSock->nWSALastError == 0x2733)
+        {
+            nResult = 0;
+        }
+        else
+        {
+            pSafeSock->nFogErrorCode = 4;
+            nResult = -1;
+        }
+    }
+    else
+    {
+        pSafeSock->nWSALastError = WSAGetLastError();
+        pSafeSock->nFogErrorCode = 4;
+        nResult = 0;
+    }
+    LeaveCriticalSection(&pSafeSock->tCriticalSection);
+    return nResult;
+}
+
+// 0x0040DDD0
+void __fastcall FOG_SOCKET_Lock(FSafeSock* pSafeSock)
+{
+    EnterCriticalSection(&pSafeSock->tCriticalSection);
+}
+
+// 0x0040DDE0
+void __fastcall FOG_SOCKET_Unlock(FSafeSock* pSafeSock)
+{
+    LeaveCriticalSection(&pSafeSock->tCriticalSection);
+}
+
+// 0x0040E0B0
+extern "C" __declspec(dllexport) int __fastcall sub_0040E0B0(Obj0040E0B0* pObj, unsigned int* pFirst, unsigned int* pSecond) {
+    *pFirst = pObj->dwValue30;
+    *pSecond = pObj->dwValue34;
+    return 1;
+}
+
+// 0x0040E0D0
+const char* __fastcall FOG_ResolveHostIPAddress(const char* szHostName)
+{
+    int bStarted = 0;
+    int a, b, c, d;
+    if (sscanf(szHostName, "%d.%d.%d.%d", &a, &b, &c, &d) == 4)
+    {
+        return szHostName;
+    }
+    D2HostentStrc* pHost = gethostbyname(szHostName);
+    if (!pHost || !pHost->h_addr_list || !pHost->h_addr_list[0])
+    {
+        if (WSAGetLastError() != 0x276D || !FOG_SOCKET_WSAStartup())
+        {
+            return 0;
+        }
+        pHost = gethostbyname(szHostName);
+        if (!pHost || !pHost->h_addr_list || !pHost->h_addr_list[0])
+        {
+            WSACleanup();
+            return 0;
+        }
+        bStarted = 1;
+    }
+    strcpy(gszResolvedHostIP, inet_ntoa(*(D2InAddrStrc*)pHost->h_addr_list[0]));
+    if (bStarted)
+    {
+        WSACleanup();
+    }
+    return gszResolvedHostIP;
+}
+
+void* ghLogThread; // 0x0075D2E8
+
+int gbLogThreadStop; // 0x0075E830
+
+// 0x0040E230
+FSafeSock* __fastcall FOG_SOCKET_Connect(char* szHostAddress, int nPortNumber, unsigned long (__stdcall* pThreadProc)(void* pParam), void* lpParameter, const char* szName)
+{
+    return FOG_SOCKET_ConnectEx(szHostAddress, nPortNumber, pThreadProc, lpParameter, szName, 0);
 }
