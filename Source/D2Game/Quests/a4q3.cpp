@@ -848,22 +848,6 @@ void __fastcall ACT4Q4_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pfActiveFilter = ACT4Q4_ActiveFilterCallback;
 }
 
-// 0x005B6E60
-void __fastcall ACT3Intro_InitQuestData(D2QuestDataStrc* pQuestData)
-{
-    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
-    pQuestData->pCallback[0] = ACT3Intro_Callback00_NpcActivate;
-    pQuestData->pCallback[11] = ACT3Intro_Callback11_ScrollMessage;
-    pQuestData->pNPCMessages = gpAct3IntroNpcMessages;
-    pQuestData->bActive = 1;
-    pQuestData->fState = 0;
-    pQuestData->fLastState = 0;
-    pQuestData->pQuestDataEx = 0;
-    pQuestData->eFilter = 42;
-    pQuestData->pfStatusFilter = ACT3Intro_StatusFilterCallback;
-    pQuestData->pfActiveFilter = ACT3Intro_ActiveFilterCallback;
-}
-
 struct D2UnitStrc;
 
 #include "gen/data/Source/D2Game/Quests/a4q3.inc"

@@ -163,22 +163,6 @@ static inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
     return pUnit->dwUnitId;
 }
 
-// 0x005985D0
-void __fastcall ACT2Intro_InitQuestData(D2QuestDataStrc* pQuestData)
-{
-    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
-    pQuestData->pCallback[0] = ACT2Intro_Callback00_NpcActivate;
-    pQuestData->pCallback[11] = ACT2Intro_Callback11_ScrollMessage;
-    pQuestData->pNPCMessages = gpAct2IntroNpcMessages;
-    pQuestData->bActive = 1;
-    pQuestData->fState = 0;
-    pQuestData->fLastState = 0;
-    pQuestData->pQuestDataEx = 0;
-    pQuestData->eFilter = 42;
-    pQuestData->pfStatusFilter = ACT2Intro_StatusFilterCallback;
-    pQuestData->pfActiveFilter = ACT2Intro_ActiveFilterCallback;
-}
-
 // 0x005988B0
 int __fastcall ACT2Q1_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
