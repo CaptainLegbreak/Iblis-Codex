@@ -9807,11 +9807,6 @@
      "name": "CHARSEL_SetAutomapContext"
     },
     {
-     "va": "0x004756D0",
-     "length": 171,
-     "name": "CHARSEL_ScanGridCollision"
-    },
-    {
      "va": "0x00478160",
      "length": 101,
      "name": "CHARSEL_ShowProgressSteps"
@@ -21713,6 +21708,11 @@
      "va": "0x004755A0",
      "length": 297,
      "name": "?DLIGHTMAP_UpdateLight@@YGXHPAUD2R01LightStrc@@@Z"
+    },
+    {
+     "va": "0x004756D0",
+     "length": 171,
+     "name": "CHARSEL_ScanGridCollision"
     },
     {
      "va": "0x00475780",
