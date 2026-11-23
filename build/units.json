@@ -16309,6 +16309,11 @@
      "name": "SCMD_HandleQuitMessage"
     },
     {
+     "va": "0x00451AB0",
+     "length": 31,
+     "name": "?sub_00451AB0@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x00451AD0",
      "length": 43,
      "name": "SCMD_HandleDefaultMessage"
@@ -17175,17 +17180,6 @@
      "va": "0x00476A80",
      "length": 61,
      "name": "SCMD_StartTimedEffect"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00451AB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00451AB0",
-     "length": 31,
-     "name": "?sub_00451AB0@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     }
    ]
   },

@@ -2189,6 +2189,16 @@ void __stdcall SCMD_HandleQuitMessage(SMSGHANDLER_PARAMS* pMsg)
     pMsg->lResult = 0;
 }
 
+enum { USE_RESULT = 0 };
+
+// 0x00451AB0
+void __stdcall sub_00451AB0(SMSGHANDLER_PARAMS* msg)
+{
+// build: symbol ?gbClientAppActive@* 0x0070F7E0
+    gbClientAppActive = msg->wParam != 0;
+    msg->bReturn = USE_RESULT;
+}
+
 // 0x00451AD0
 void __stdcall SCMD_HandleDefaultMessage(SMSGHANDLER_PARAMS* pMsg)
 {
