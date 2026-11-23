@@ -3502,12 +3502,6 @@ void __fastcall UI_FreeUnitModStats(void* pArg)
     sub_00625960(pArg);
 }
 
-// 0x00466DD0
-int __cdecl UI_GetHoverClassId()
-{
-// build: symbol ?gnHoverClassId@* 0x00711F94
-    return gnHoverClassId;
-}
 
 
 // 0x00468030

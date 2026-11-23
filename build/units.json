@@ -16533,11 +16533,6 @@
      "name": "UI_FreeUnitModStats"
     },
     {
-     "va": "0x00466DD0",
-     "length": 6,
-     "name": "UI_GetHoverClassId"
-    },
-    {
      "va": "0x00468030",
      "length": 6,
      "name": "UI_GetCursorFrame"
@@ -19444,6 +19439,11 @@
      "va": "0x00466DC0",
      "length": 6,
      "name": "?sub_00466DC0@@YAHXZ"
+    },
+    {
+     "va": "0x00466DD0",
+     "length": 6,
+     "name": "UI_GetHoverClassId"
     },
     {
      "va": "0x00466DE0",

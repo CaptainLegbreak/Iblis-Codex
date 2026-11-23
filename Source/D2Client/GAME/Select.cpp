@@ -155,6 +155,13 @@ int __cdecl sub_00466DC0()
     return gnHoverMonClassId;
 }
 
+// 0x00466DD0
+int __cdecl UI_GetHoverClassId()
+{
+// build: symbol ?gnHoverClassId@* 0x00711F94
+    return gnHoverClassId;
+}
+
 // 0x00466DE0
 static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
 {
