@@ -961,6 +961,25 @@ void __fastcall VIEW_SetPetEntryValue(void* pOwner, D2ClientRecordStrc* pRecord,
     }
 }
 
+typedef void (__cdecl* LEVELEVENT_Fn)();
+
+extern LEVELEVENT_Fn gpfnLevelEvents[];                                                            // 0x007129D8
+
+unsigned int gdwLevelEventBits;                                                                    // 0x007A7458
+
+// 0x0046B630
+void __fastcall sub_0046B630_FireLevelEvent(int nIndex)
+{
+    D2_ASSERT(nIndex < 0x20, 0x1D9);
+    D2_ASSERT(nIndex < 0x14, 0x1DA);
+    gdwLevelEventBits |= 1 << nIndex;
+    if (gpfnLevelEvents[nIndex])
+    {
+        gpfnLevelEvents[nIndex]();
+    }
+}
+
+
 // 0x00475EF0
 void __cdecl VIEW_FreeLerpTables()
 {
