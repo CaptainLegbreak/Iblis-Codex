@@ -17,12 +17,6 @@ extern int gbHelpButtonVisible; // 0x007BEF08
 
 unsigned char gnHelpShadeColor; // 0x007BEEF8
 
-// 0x004945F0
-void __cdecl sub_00494EB0()
-{
-    sub_00499E30();
-    AUTOMAP_DrawFramedBox(0, 0, gnScreenWidth, gnScreenHeight - 0x31, gnHelpShadeColor, 1);
-}
 
 void __cdecl sub_00494FC0()
 {
