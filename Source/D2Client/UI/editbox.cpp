@@ -364,6 +364,24 @@ extern "C" void _ReadWriteBarrier(void);
 
 #pragma intrinsic(_ReadWriteBarrier)
 
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
+
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel);                                                                   // 0x00478A00
+
+struct SMSGHANDLER_PARAMS;
+
+// build: symbol ??1UIWidget@@UAE@XZ 0x004BE080
+// build: symbol ??_7ButtonWrapper@@6B@ 0x006DA72C
+// build: symbol ??_7EditBoxImplementation@@6B@ 0x006DA77C
+// build: symbol ??_7EditBoxWrapper@@6B@ 0x006DA7CC
+// build: symbol ??_7SpinnerImplementation@@6B@ 0x006DA83C
+// build: symbol ??_7SpinnerWrapper@@6B@ 0x006DA874
+// 0x004BADD0
+ButtonWrapper::~ButtonWrapper()
+{
+    delete pImpl;
+}
+
 // build: symbol ?MsgSlot02@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAE60
 // 0x004BAE60
 int ButtonWrapper::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
@@ -470,6 +488,22 @@ void ButtonImplementation::Slot01()
         D2Win_10117_DrawText(wszText, nX + (nWidth - nTextWidth) / 2, nY - nHeight - 5, 0, 0);
         sub_00502EF0(nOldFont);
     }
+}
+
+// 0x004BB170
+EditBoxImplementation::~EditBoxImplementation()
+{
+    if (pText)
+    {
+        FOG_Free(pText, ".\\UI\\editbox.cpp", 0x8E, 0);
+        pText = 0;
+    }
+    if (pTextCopy)
+    {
+        FOG_Free(pTextCopy, ".\\UI\\editbox.cpp", 0x93, 0);
+        pTextCopy = 0;
+    }
+    ARCHIVE_FreeClientCellFile(pCellFile);
 }
 
 // 0x004BB200
@@ -611,6 +645,12 @@ int EditBoxImplementation::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
     return 1;
 }
 
+// 0x004BB9F0
+EditBoxWrapper::~EditBoxWrapper()
+{
+    delete pImpl;
+}
+
 // build: symbol ?MsgSlot02@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBA80
 // 0x004BBA80
 int EditBoxWrapper::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
@@ -727,6 +767,12 @@ void EditBoxWrapper::sub_004BBB90_SetUnk24(int nValue)
 void EditBoxWrapper::sub_004BBBA0_SetUnk20(int nValue)
 {
     pImpl->sub_004BB200_SetUnk20(nValue);
+}
+
+// 0x004BBE10
+SpinnerImplementation::~SpinnerImplementation()
+{
+    ARCHIVE_FreeClientCellFile(pCellFile);
 }
 
 // build: symbol ?Slot01@SpinnerImplementation@@UAEXXZ 0x004BBE70
@@ -933,5 +979,18 @@ int SpinnerImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
 {
     return 0;
 }
+// build: symbol ?MsgSlot08@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC1C0
+// 0x004BC1C0
+int SpinnerImplementation::MsgSlot08(SMSGHANDLER_PARAMS* pMsg)
+{
+    return 0;
+}
+// 0x004BC1F0
+SpinnerWrapper::~SpinnerWrapper()
+{
+    delete pImpl;
+}
+
+
 
 
