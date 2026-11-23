@@ -1808,6 +1808,52 @@ bool __fastcall OBJRGN_CanNotSpawnMoreShrines(D2GameStrc* pGame, int nLevelId)
     return false;
 }
 
+// 0x005473A0
+bool __fastcall OBJRGN_CanSpawnWell(D2GameStrc* pGame, int nLevelId, int nX, int nY)
+{
+    D2ObjectRegionStrc* pObjectRegion = pGame->pObjectControl->pObjectRegion[nLevelId];
+    for (int i = 0; i < pObjectRegion->nWells; ++i)
+    {
+        int nDistance = pObjectRegion->wellCoordinates[i].nX - nX;
+        if (nDistance < 0)
+        {
+            nDistance = -nDistance;
+        }
+        if (nDistance < OBJRGN_WELL_DISTANCE)
+        {
+            return false;
+        }
+
+        nDistance = pObjectRegion->wellCoordinates[i].nY - nY;
+        if (nDistance < 0)
+        {
+            nDistance = -nDistance;
+        }
+        if (nDistance < OBJRGN_WELL_DISTANCE)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+#define OBJRGN_MAX_WELLS 4
+
+// 0x00547400
+void __fastcall OBJRGN_SetWellCoordinates(D2GameStrc* pGame, int nLevelId, int nX, int nY)
+{
+    D2ObjectRegionStrc* pObjectRegion = pGame->pObjectControl->pObjectRegion[nLevelId];
+    if (pObjectRegion->nWells >= OBJRGN_MAX_WELLS)
+    {
+        return;
+    }
+
+    pObjectRegion->wellCoordinates[pObjectRegion->nWells].nX = nX;
+    pObjectRegion->wellCoordinates[pObjectRegion->nWells].nY = nY;
+    ++pObjectRegion->nWells;
+}
+
 #define OBJRGN_MAX_SHRINES 10
 
 // 0x00547490

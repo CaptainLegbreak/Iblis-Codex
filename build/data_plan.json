@@ -3028,7 +3028,6 @@
     "extern \"C\" void __cdecl sub_0054BA90(); // 0x0054BA90",
     "extern \"C\" void __cdecl sub_0054BB20(); // 0x0054BB20",
     "extern \"C\" void __cdecl sub_0054BB60(); // 0x0054BB60",
-    "extern \"C\" void __cdecl sub_0054BBD0(); // 0x0054BBD0",
     "extern \"C\" void __cdecl sub_0054BC30(); // 0x0054BC30",
     "extern \"C\" void __cdecl sub_0054BCA0(); // 0x0054BCA0",
     "extern \"C\" void __cdecl sub_0054BD00(); // 0x0054BD00",
@@ -4118,7 +4117,6 @@
     "extern \"C\" void __cdecl SKILLS_SrvDo036_ClawsOfThunder_ProgressiveFn2(); // 0x005D4DB0",
     "extern \"C\" void __cdecl SKILLS_SrvDo040_RoyalStrike_ProgressiveFn1(); // 0x005D5010",
     "extern \"C\" void __cdecl SKILLS_SrvDo043_ShockField(); // 0x005D5D70",
-    "extern \"C\" void __cdecl SKILLS_SrvDo045_Sentry(); // 0x005D6170",
     "extern \"C\" void __cdecl SKILLS_SrvDo048_BladeFury(); // 0x005D68A0",
     "extern \"C\" void __cdecl SKILLS_SrvDo053_Unused(); // 0x005D7B60",
     "extern \"C\" void __cdecl SKILLS_SrvDo054_BladeShield(); // 0x005D7E10",
@@ -95379,8 +95377,8 @@
     [
      432,
      "0x0054BBD0",
-     "queue_function",
-     "sub_0054BBD0",
+     "names.json",
+     "D2GAME_PACKETCALLBACK_Rcv0x36_HireMerc_6FC86BD0",
      0,
      "func"
     ],

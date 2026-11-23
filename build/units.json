@@ -42943,11 +42943,6 @@
      "va": "0x00535F10",
      "length": 25,
      "name": "SUNITPROXY_GetNpcRecordFromUnit"
-    },
-    {
-     "va": "0x0054BBD0",
-     "length": 43,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x36_HireMerc_6FC86BD0"
     }
    ]
   },
@@ -45251,16 +45246,6 @@
      "name": "SKILL_ComputePeriodicRate"
     },
     {
-     "va": "0x0056D2C0",
-     "length": 162,
-     "name": "D2GAME_GetXAndYFromTargetUnit_6FD14020"
-    },
-    {
-     "va": "0x0056E620",
-     "length": 84,
-     "name": "D2GAME_GetSummonIdFromSkill"
-    },
-    {
      "va": "0x00570850",
      "length": 17,
      "name": "PLAYERSTATS_OnPlayerLeveledUp"
@@ -46689,11 +46674,6 @@
      "va": "0x00541830",
      "length": 38,
      "name": "SKILLS_SetMonsterComponent"
-    },
-    {
-     "va": "0x00547400",
-     "length": 46,
-     "name": "OBJRGN_SetWellCoordinates"
     },
     {
      "va": "0x005B7230",
@@ -48704,11 +48684,6 @@
      "name": "?QUESTS_HellPortalActChange@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H1@Z"
     },
     {
-     "va": "0x005473A0",
-     "length": 89,
-     "name": "OBJRGN_CanSpawnWell"
-    },
-    {
      "va": "0x00547430",
      "length": 89,
      "name": "OBJRGN_CanSpawnShrine"
@@ -48787,6 +48762,16 @@
      "va": "0x00547360",
      "length": 40,
      "name": "?OBJRGN_CanNotSpawnMoreShrines@@YI_NPAUD2GameStrc@@H@Z"
+    },
+    {
+     "va": "0x005473A0",
+     "length": 89,
+     "name": "OBJRGN_CanSpawnWell"
+    },
+    {
+     "va": "0x00547400",
+     "length": 46,
+     "name": "OBJRGN_SetWellCoordinates"
     },
     {
      "va": "0x00547490",
@@ -49337,6 +49322,11 @@
      "va": "0x0054BBA0",
      "length": 36,
      "name": "D2GAME_PACKETCALLBACK_Rcv0x34_IdentifyItemsWithNpc_6FC86BA0"
+    },
+    {
+     "va": "0x0054BBD0",
+     "length": 43,
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x36_HireMerc_6FC86BD0"
     },
     {
      "va": "0x0054BC00",
@@ -51358,6 +51348,11 @@
      "name": "?D2GAME_CreatePortalObject_6FD13DF0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HHHPAPAU2@HH@Z"
     },
     {
+     "va": "0x0056D2C0",
+     "length": 162,
+     "name": "D2GAME_GetXAndYFromTargetUnit_6FD14020"
+    },
+    {
      "va": "0x0056D370",
      "length": 62,
      "name": "?SKILLS_EnlargeVector@@YIXPAH0@Z"
@@ -51531,6 +51526,11 @@
      "name": "?SKILLS_GetBaseWalkVelocity@@YIHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0056E620",
+     "length": 84,
+     "name": "D2GAME_GetSummonIdFromSkill"
+    },
+    {
      "va": "0x0056E680",
      "length": 109,
      "name": "SKILLS_SetDamageResultFlagsFromSkill"
@@ -51660,11 +51660,6 @@
      "va": "0x00570530",
      "length": 86,
      "name": "SKILLS_StatRemoveCallback_ResetAiAndRefresh"
-    },
-    {
-     "va": "0x00571580",
-     "length": 27,
-     "name": "D2GAME_STATES_SendStates_6FCC5F00"
     }
    ]
   },
@@ -51748,6 +51743,11 @@
     {
      "va": "0x005711D0",
      "length": 938
+    },
+    {
+     "va": "0x00571580",
+     "length": 27,
+     "name": "D2GAME_STATES_SendStates_6FCC5F00"
     },
     {
      "va": "0x005715A0",
@@ -58375,21 +58375,6 @@
      "name": "ACT3Q5_ActiveFilterCallback"
     },
     {
-     "va": "0x005D2420",
-     "length": 112,
-     "name": "SKILLS_SrvSt62_MinionSpawner"
-    },
-    {
-     "va": "0x005D2E50",
-     "length": 43,
-     "name": "SKILLS_AreaEffect_BaalCorpseExplode"
-    },
-    {
-     "va": "0x005D6170",
-     "length": 130,
-     "name": "SKILLS_SrvDo045_Sentry"
-    },
-    {
      "va": "0x005D7E10",
      "length": 134,
      "name": "SKILLS_SrvDo054_BladeShield"
@@ -64040,6 +64025,11 @@
      "name": "SKILLS_SrvDo134_SiegeBeastStomp"
     },
     {
+     "va": "0x005D2420",
+     "length": 112,
+     "name": "SKILLS_SrvSt62_MinionSpawner"
+    },
+    {
      "va": "0x005D2490",
      "length": 287,
      "name": "?SKILLS_SrvDo135_MinionSpawner@@YIHPAUGame@@PAUUnit@@HH@Z"
@@ -64082,6 +64072,11 @@
      "va": "0x005D2C20",
      "length": 551,
      "name": "?SKILLS_SrvDo140_BaalTentacle@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005D2E50",
+     "length": 43,
+     "name": "SKILLS_AreaEffect_BaalCorpseExplode"
     },
     {
      "va": "0x005D2E80",
@@ -64247,6 +64242,11 @@
      "va": "0x005D6020",
      "length": 334,
      "name": "SKILLS_SrvDo044_BladeSentinel"
+    },
+    {
+     "va": "0x005D6170",
+     "length": 130,
+     "name": "SKILLS_SrvDo045_Sentry"
     },
     {
      "va": "0x005D6200",

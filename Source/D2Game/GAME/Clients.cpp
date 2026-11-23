@@ -3596,20 +3596,6 @@ void __fastcall SKILLS_SetMonsterComponent(D2UnitStrc* pUnit, unsigned char nCom
     }
 }
 
-// 0x00547400
-void __fastcall OBJRGN_SetWellCoordinates(D2GameStrc* pGame, int nLevelId, int nX, int nY)
-{
-    D2ObjectRegionStrc* pObjectRegion = pGame->pObjectControl->pObjectRegion[nLevelId];
-    if (pObjectRegion->nWells >= OBJRGN_MAX_WELLS)
-    {
-        return;
-    }
-
-    pObjectRegion->wellCoordinates[pObjectRegion->nWells].nX = nX;
-    pObjectRegion->wellCoordinates[pObjectRegion->nWells].nY = nY;
-    ++pObjectRegion->nWells;
-}
-
 // 0x005B7230
 void __fastcall ACT3Q0_ChangeHratliMapAI(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MapAIStrc* pMapAI)
 {
