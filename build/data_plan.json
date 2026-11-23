@@ -3456,7 +3456,7 @@
   },
   "Source/D2Game/Quests/a2q7.cpp": {
    "bytes": 1704,
-   "definitions": 2,
+   "definitions": 1,
    "externs": [
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod1_RandomName(); // 0x005A0CE0",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod2_HealthBonus(); // 0x005A0DC0"
@@ -5295,6 +5295,18 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a2q0.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/Quests/a2q8.cpp": {
+   "bytes": 1704,
+   "definitions": 1,
+   "externs": [
+    "extern \"C\" void __cdecl MONSTERUNIQUE_UMod1_RandomName(); // 0x005A0CE0",
+    "extern \"C\" void __cdecl MONSTERUNIQUE_UMod2_HealthBonus(); // 0x005A0DC0"
+   ],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/Quests/a2q8.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -106249,7 +106261,7 @@
    "cname": "gData_0073BD58",
    "declared": true,
    "decorated": "?gpAct2Q8NpcMessages@@3PADA",
-   "file": "Source/D2Game/Quests/a2q7.cpp",
+   "file": "Source/D2Game/Quests/a2q8.cpp",
    "fill": 528,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0073BD58_t gData_0073BD58; // 0x0073BD58",
