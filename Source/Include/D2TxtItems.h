@@ -59,7 +59,7 @@ struct D2GemsTxt
         int dwItemCode; // 0x28
     };
     unsigned short wStringId; // 0x2C
-    unsigned char unk0x2E; // 0x2E
+    unsigned char nNumMods; // 0x2E
     unsigned char nTransform; // 0x2F
     D2PropertyStrc pProperties[3][3]; // 0x30
 };

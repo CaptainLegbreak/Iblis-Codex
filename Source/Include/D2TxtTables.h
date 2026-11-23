@@ -109,20 +109,28 @@ struct D2BooksTxt
 struct D2OverlayTxt
 {
     unsigned short wOverlay; // 0x00
-    union
-    {
-        char szFilename[130]; // 0x02
-        struct
-        {
-            char unk0x02[0x7A]; // 0x02
-            unsigned char nTrans; // 0x7C
-            unsigned char nRed; // 0x7D
-            unsigned char nGreen; // 0x7E
-            unsigned char nBlue; // 0x7F
-            unsigned char nNumDirections; // 0x80
-            unsigned char nLocalBlood; // 0x81
-        };
-    };
+    char szFilename[64]; // 0x02
+    unsigned short wVersion; // 0x42
+    unsigned int dwFrames; // 0x44
+    unsigned char nPreDraw; // 0x48
+    unsigned int dw1ofN; // 0x4C
+    unsigned char nDir; // 0x50
+    unsigned char nOpen; // 0x51
+    unsigned char nBeta; // 0x52
+    unsigned int dwOffsetX; // 0x54
+    unsigned int dwOffsetY; // 0x58
+    unsigned int dwHeight[4]; // 0x5C
+    unsigned int dwAnimRate; // 0x6C
+    unsigned int dwInitRadius; // 0x70
+    unsigned int dwRadius; // 0x74
+    unsigned int dwLoopWaitTime; // 0x78
+    unsigned char nTrans; // 0x7C
+    unsigned char nRed; // 0x7D
+    unsigned char nGreen; // 0x7E
+    unsigned char nBlue; // 0x7F
+    unsigned char nNumDirections; // 0x80
+    unsigned char nLocalBlood; // 0x81
+    unsigned short pad0x82; // 0x82
 };
 
 struct D2MonUModTxt

@@ -101,9 +101,9 @@ struct D2DifficultyLevelsTxt
     int dwUltraCodeOddsGood; // 0x24
     int dwLifeStealDiv; // 0x28
     int dwManaStealDiv; // 0x2C
-    int unk0x30; // 0x30
+    int dwUniqueDamageBonus; // 0x30
     int dwChampionDmgBonus; // 0x34
-    int unk0x38; // 0x38
+    int dwHireableBossDamagePercent; // 0x38
     int nMonsterCEDamagePercent; // 0x3C
     int dwStaticFieldMin; // 0x40
 };

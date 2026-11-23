@@ -2,48 +2,16 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2TxtTables.h"
 
-struct D2OverlayTxt;
 struct D2MonStatsTxt;
 struct D2MonStats2CompStrc;
 struct D2MonStats2Txt;
-
-struct D2OverlayTxt
-{
-    unsigned short wOverlay;
-    char szFilename[64];
-    unsigned short wVersion;
-    unsigned int dwFrames;
-    unsigned char nPreDraw;
-    unsigned char pad0x49[3];
-    unsigned int dw1ofN;
-    unsigned char nDir;
-    unsigned char nOpen;
-    unsigned char nBeta;
-    unsigned char pad0x53;
-    unsigned int dwOffsetX;
-    unsigned int dwOffsetY;
-    unsigned int dwHeight[4];
-    unsigned int dwAnimRate;
-    unsigned int dwInitRadius;
-    unsigned int dwRadius;
-    unsigned int dwLoopWaitTime;
-    unsigned char nTrans;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nNumDirections;
-    unsigned char nLocalBlood;
-    unsigned short pad0x82;
-};
 
 
 extern D2DataTablesStrc sgtDataTables; // 0x0096BC30
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
-
-
-
 
 
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0

@@ -478,8 +478,8 @@ void __fastcall MONSTERMODE_UpdateModeAttackStats(D2UnitStrc* pUnit, int nMode)
     STATLIST_SetStatIfListIsValid(pStatList, STAT_MAXDAMAGE, maxDamage, 0);
     STATLIST_SetStatIfListIsValid(pStatList, STAT_TOHIT, toHit, 0);
     for (int i = 0; i < 3; ++i) {
-        if (pRecord->unk0xFE[i] > 0 && nMode == pRecord->unk0xFE[i]) {
-            if (pRecord->unk0xFE[6 + 3 * i + difficulty] > 0 && (pRecord->unk0xFE[6 + 3 * i + difficulty] >= 100 || (int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < pRecord->unk0xFE[6 + 3 * i + difficulty])) {
+        if (pRecord->nElMode[i] > 0 && nMode == pRecord->nElMode[i]) {
+            if (pRecord->nElPct[i][difficulty] > 0 && (pRecord->nElPct[i][difficulty] >= 100 || (int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < pRecord->nElPct[i][difficulty])) {
             D2MonStatsInitStrc init;
             memset(&init, 0, sizeof(init));
             DATATBLS_CalculateMonsterStatsByLevel(sub_00451F60_GetClassId(pUnit), gameType, difficulty, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0), 64 + i, &init);
@@ -491,7 +491,7 @@ void __fastcall MONSTERMODE_UpdateModeAttackStats(D2UnitStrc* pUnit, int nMode)
                 maxElement += maxElement * bonus / 128;
                 duration += duration * bonus / 128;
             }
-            unsigned char element = pRecord->unk0xFE[3 + i];
+            unsigned char element = pRecord->nElType[i];
             if (element == 10) {
                 element = SEED_RollLimitedRandomNumber(&pUnit->pSeed, 5) + 1;
                 if (!duration) duration = 25;
