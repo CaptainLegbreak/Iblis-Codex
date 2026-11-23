@@ -446,11 +446,11 @@ struct D2MonStats2Txt
     unsigned int dwBaseW; // 0x10
     unsigned char nHitClass; // 0x14
     unsigned char nComponentChoiceCounts[16]; // 0x15
-    unsigned char nTotalPieces; // 0x25
+    unsigned char nExtraComponentChoices; // 0x25
     D2MonStats2CompStrc pComponents[16]; // 0x26
     unsigned char unk0xE6[0x2]; // 0xE6
     unsigned char nComponentFlags[4]; // 0xE8
-    unsigned char unk0xEC; // 0xEC
+    unsigned char nTotalPieces; // 0xEC
     unsigned char unk0xED[0x3]; // 0xED
     unsigned char nModeFlags[4]; // 0xF0
     unsigned char nModeDirections[16]; // 0xF4

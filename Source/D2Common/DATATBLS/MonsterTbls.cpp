@@ -2676,7 +2676,7 @@ void __fastcall DATATBLS_MonStats2CompositLinker(char* pSrc, void* pRecord, int 
             nTotal = 254;
         }
 
-        pMonStats2TxtRecord->nTotalPieces = (unsigned char)nTotal;
+        pMonStats2TxtRecord->nExtraComponentChoices = (unsigned char)nTotal;
     }
 }
 

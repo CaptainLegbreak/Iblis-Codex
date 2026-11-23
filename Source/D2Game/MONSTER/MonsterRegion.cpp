@@ -828,7 +828,7 @@ D2MonRegDataStrc* __fastcall MONSTERREGION_GetMonsterComponentData(D2MonsterRegi
     }
 
     D2MonStats2Txt* pMonStats2TxtRecord = MONSTERREGION_GetMonStats2TxtRecord(nClassId);
-    if (pMonStats2TxtRecord && pMonStats2TxtRecord->unk0xEC > 2u)
+    if (pMonStats2TxtRecord && pMonStats2TxtRecord->nTotalPieces > 2u)
     {
         pMonsterRegionData->nMonHcIdx = nClassId;
         ++pMonsterRegion->nSpawnCount;
