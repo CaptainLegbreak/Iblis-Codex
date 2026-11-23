@@ -764,6 +764,44 @@ int __fastcall PLAYER_SetSkillHotKey(D2GameStrc* pGame, D2UnitStrc* pPlayer, int
     return 1;
 }
 
+struct D2UnitProxyArgStrc;
+
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
+
+typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
+
+void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg); // 0x005538D0
+
+// 0x005356F0
+void __fastcall PLAYER_CountPlayersInLevelCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg)
+{
+    D2UnitProxyArgStrc* pCount = (D2UnitProxyArgStrc*)pArg;
+    if (DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit)) == pCount->nLevelId && pUnit && pUnit->dwAnimMode != PLRMODE_DEATH && pUnit->dwAnimMode != PLRMODE_DEAD)
+    {
+        ++pCount->nCounter;
+    }
+}
+
+// 0x00535730
+int __fastcall PLAYER_CountPlayersInLevel(D2GameStrc* pGame, int nLevelId)
+{
+    D2UnitProxyArgStrc arg = {};
+    arg.nLevelId = nLevelId;
+    SUNIT_IterateLivingPlayers(pGame, PLAYER_CountPlayersInLevelCallback, &arg);
+    return arg.nCounter;
+}
+
+int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
+
+// 0x00535760
+void __fastcall PLAYER_CountLivingPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pLivingPlayers)
+{
+    if (!SUNIT_IsDead(pUnit))
+    {
+        ++*((int*)pLivingPlayers);
+    }
+}
+
 // 0x00535780
 void __fastcall PLAYER_SetVirtualPlayerCount(int nPlayers)
 {
@@ -771,6 +809,27 @@ void __fastcall PLAYER_SetVirtualPlayerCount(int nPlayers)
     {
         gnVirtualPlayerCount = nPlayers;
     }
+}
+
+// 0x00535790
+int __fastcall PLAYER_GetPlayerCount(D2GameStrc* pGame)
+{
+    int nLivingPlayers = 0;
+    SUNIT_IterateLivingPlayers(pGame, PLAYER_CountLivingPlayers, &nLivingPlayers);
+
+    switch (pGame->nGameType)
+    {
+    case 1:
+    case 2:
+    case 3:
+        if (gnVirtualPlayerCount > nLivingPlayers)
+        {
+            return gnVirtualPlayerCount;
+        }
+        break;
+    }
+
+    return nLivingPlayers;
 }
 
 // build: context PLAYER_SetStatOrResetGold
@@ -936,5 +995,165 @@ void __fastcall PLAYER_ApplyDeathPenalty(D2GameStrc* pGame, D2UnitStrc* pDefende
         }
     }
     PLAYER_ApplyDeathExperienceLoss(pGame, pDefender);
+}
+
+struct D2RosterIterateStrc;
+
+struct D2RosterIterateStrc
+{
+    int bFlag;
+    D2UnitStrc* pUnit;
+};
+
+int __fastcall PLAYERLIST_CheckFlag(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, unsigned int nFlags); // 0x0055B300
+
+// 0x00535AF0
+void __fastcall PLAYER_CheckHostilityCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs)
+{
+    D2RosterIterateStrc* pRosterIterate = (D2RosterIterateStrc*)pArgs;
+    if (PLAYERLIST_CheckFlag(pRosterIterate->pUnit, pUnit, 8))
+    {
+        pRosterIterate->bFlag = 1;
+    }
+}
+
+// 0x00535B10
+int __fastcall PLAYER_HasHostilePlayer(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    if (!pGame || !pUnit || pUnit->dwUnitType != UNIT_PLAYER)
+    {
+        return 0;
+    }
+
+    D2RosterIterateStrc rosterIterate = {};
+
+    rosterIterate.bFlag = 0;
+    rosterIterate.pUnit = pUnit;
+
+    SUNIT_IterateLivingPlayers(pGame, PLAYER_CheckHostilityCallback, &rosterIterate);
+    return rosterIterate.bFlag;
+}
+
+// 0x00535B50
+void __fastcall PLAYER_CheckHostileToUnitCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs)
+{
+    D2RosterIterateStrc* pRosterIterate = (D2RosterIterateStrc*)pArgs;
+    if (PLAYERLIST_CheckFlag(pUnit, pRosterIterate->pUnit, 8))
+    {
+        pRosterIterate->bFlag = 1;
+    }
+}
+
+// 0x00535B80
+int __fastcall PLAYER_IsAnyPlayerHostileTo(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    if (!pGame || !pUnit || pUnit->dwUnitType != UNIT_PLAYER)
+    {
+        return 0;
+    }
+
+    D2RosterIterateStrc rosterIterate = {};
+    rosterIterate.bFlag = 0;
+    rosterIterate.pUnit = pUnit;
+    SUNIT_IterateLivingPlayers(pGame, PLAYER_CheckHostileToUnitCallback, &rosterIterate);
+    return rosterIterate.bFlag;
+}
+
+struct D2SkillsTxt;
+
+D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
+
+int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
+
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
+
+int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
+
+D2UnitStrc* __fastcall PLAYER_GetWeaponForSkill(D2UnitStrc* pUnit); // 0x00535BC0
+
+struct D2SkillStrc;
+
+// 0x00535BC0
+D2UnitStrc* __fastcall PLAYER_GetWeaponForSkill(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    if (!pInventory)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pEquippedWeapon;
+    int nBodyLoc;
+    int bIsLeftHandItem;
+    INVENTORY_GetEquippedWeapon(pInventory, &pEquippedWeapon, &nBodyLoc, &bIsLeftHandItem);
+
+    if (UNITS_CanDualWield(pUnit))
+    {
+        D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+        if (pSkill)
+        {
+            D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
+            if (pSkillsTxtRecord)
+            {
+                D2UnitStrc* pWeapon = 0;
+                switch (pSkillsTxtRecord->nWeapSel)
+                {
+                case 2:
+                {
+                    const int nFlag = SKILLS_GetFlags(pSkill) & 0x2000;
+// build: symbol ?INVENTORY_GetCompositItem@* 0x0063C050
+                    pWeapon = INVENTORY_GetCompositItem(pInventory, 5);
+                    D2UnitStrc* pTemp = INVENTORY_GetCompositItem(pInventory, 6);
+                    if (!pWeapon || !ITEMSIsA(pWeapon, ITEMTYPE_WEAPON) || pTemp && ITEMSIsA(pTemp, ITEMTYPE_WEAPON) && nFlag)
+                    {
+                        pWeapon = pTemp;
+                    }
+                    break;
+                }
+                case 3:
+                {
+                    if (((pUnit->dwSeqFrame >> 8) % 2) != 0)
+                    {
+                        pWeapon = INVENTORY_GetCompositItem(pInventory, 6);
+                    }
+                    else
+                    {
+                        pWeapon = INVENTORY_GetCompositItem(pInventory, 5);
+                    }
+                    break;
+                }
+                case 4:
+                {
+                    pEquippedWeapon = 0;
+                    break;
+                }
+                case 1:
+                {
+                    pWeapon = INVENTORY_GetCompositItem(pInventory, 6);
+                    break;
+                }
+                default:
+                    pWeapon = INVENTORY_GetCompositItem(pInventory, 5);
+                    if (!pWeapon || !ITEMSIsA(pWeapon, ITEMTYPE_WEAPON))
+                    {
+                        pWeapon = INVENTORY_GetCompositItem(pInventory, 6);
+                    }
+                    break;
+                }
+
+                if (ITEMSIsA(pWeapon, ITEMTYPE_WEAPON) && ITEMS_CanBeEquipped(pWeapon))
+                {
+                    return pWeapon;
+                }
+            }
+        }
+        return pEquippedWeapon;
+    }
+    return pEquippedWeapon;
 }
 
