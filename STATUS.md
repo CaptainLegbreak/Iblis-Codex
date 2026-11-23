@@ -42,15 +42,15 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 1001 |
+| Compilation units | 985 |
 | … in a file with its original name, whole | 281 |
 | … pieces of an original file still split (in 36 files) | 115 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 605 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3083 |
-| Unnamed fields (`unk0x..`) in the shared headers | 711 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 589 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3070 |
+| Unnamed fields (`unk0x..`) in the shared headers | 663 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 43 |
 | Calling-convention shims | 108 |
-| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 547 |
+| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 527 |
 | `__declspec(noinline)` / `__forceinline` | 99 / 211 |
 | Function names: blizzard / d2moo / inferred / placeholder | 460 / 5409 / 5292 / 3766 |
 
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 3373 functions are compiled with `/GS-` and 581 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 99 times and `__declspec(dllexport)` 170 times to keep a body out of line or emitted.
+Not listed one by one: 3396 functions are compiled with `/GS-` and 581 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 99 times and `__declspec(dllexport)` 170 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -461,7 +461,7 @@ Not listed one by one: 3373 functions are compiled with `/GS-` and 581 with `/EH
 | 0x00463260 | sub_00463260_UpdateStoredUnit | `D2Client/Unknown_004630E0.cpp` | calling-convention shim |
 | 0x00468750 | sub_00468750_SetCursorPos | `D2Client/Unknown_00468750.cpp` | compiler option /Ob1 |
 | 0x0046E040 | GFX_RemoveStateOverlay | `D2Client/ENGINE/Gfx_0046DCC0.cpp` | calling-convention shim |
-| 0x004732C0 | sub_004732C0_StepParticles | `D2Client/Unknown_004732C0.cpp` | volatile read or qualifier |
+| 0x004732C0 | sub_004732C0_StepParticles | `D2Client/ENGINE/Gfx.cpp` | volatile read or qualifier |
 | 0x00474160 | DLIGHTMAP_MakeLightEntry | `D2Client/DRAW/dLightMap.cpp` | volatile read or qualifier |
 | 0x00477060 | PALSHIFT_BuildBloodShift | `D2Client/GAME/PalShift.cpp` | calling-convention shim |
 | 0x00477DD0 | sub_00477DD0 | `D2Client/Unknown_00477760.cpp` | __assume |
@@ -472,7 +472,7 @@ Not listed one by one: 3373 functions are compiled with `/GS-` and 581 with `/EH
 | 0x004A9870 | sub_004A9870_DrawSkillSlot | `D2Client/Unknown_004A7AE0.cpp` | volatile read or qualifier |
 | 0x004B8100 | sub_004B8100_DrawDialog | `D2Client/Unknown_004B8100.cpp` | volatile read or qualifier |
 | 0x004C0450 | sub_004C0450_ClickHotspots | `D2Client/UI/useitem.cpp` | volatile read or qualifier |
-| 0x004DF770 | sub_004DF770 | `D2Client/Unknown_004DF4B0.cpp` | calling-convention shim |
+| 0x004DF770 | sub_004DF770 | `D2Client/Unknown_004DF770.cpp` | calling-convention shim |
 | 0x004EB290 | sub_004EB290_DrawElemDamage | `D2Client/UI/SkillDesc_004EAE70.cpp` | volatile read or qualifier |
 | 0x004F0650 | sub_004F0650_CreateClientMissiles | `D2Client/Unknown_004F0650.cpp` | compiler option /Ob1 |
 | 0x004F2BE0 | SKILLDESC_InitCurvingMissilePath | `D2Client/UI/SkillDesc.cpp` | volatile read or qualifier |
@@ -723,8 +723,6 @@ Not listed one by one: 3373 functions are compiled with `/GS-` and 581 with `/EH
 | 0x005EB970 | AITHINK_Fn106_143_ShadowMaster | `D2Game/Ai/AiThink4.cpp` | volatile read or qualifier |
 | 0x005EEDA0 | AITHINK_AncientBarb2SkillHandler | `D2Game/Unknown_005EEDA0.cpp` | compiler option /Ob1 |
 | 0x005FC450 | AIBAAL_RollRandomAiParamForNonCollidingUnit | `D2Game/Ai/AiBaal.cpp` | calling-convention shim |
-| 0x005FCFE0 | AITHINK_Fn135_BaalCrab | `D2Game/Unknown_005FCFE0.cpp` | compiler option /Ob1 |
-| 0x005FD210 | AITHINK_Fn140_BaalCrabClone | `D2Game/Unknown_005FD210.cpp` | compiler option /Ob1 |
 | 0x005FFE90 | D2CMPSpriteLoadDc6Entry | `D2CMP/SRC/SpriteCache.cpp` | calling-convention shim |
 | 0x006009C0 | sub_006009C0 | `D2CMP/Unknown_006009C0.cpp` | compiler option /Od, compiler option /Oi, compiler option /Oy, without /Oy- |
 | 0x0060B280 | sub_0060B280_ReadBitsSigned | `D2CMP/Unknown_0060B280.cpp` | calling-convention shim, compiler option /Ob1 |
