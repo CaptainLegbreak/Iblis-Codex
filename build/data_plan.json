@@ -3775,7 +3775,7 @@
   },
   "Source/D2Game/Ai/AiThink.cpp": {
    "bytes": 40,
-   "definitions": 3,
+   "definitions": 6,
    "externs": [
     "extern \"C\" void __cdecl AITHINK_Fn002_Skeleton(); // 0x005EFCF0",
     "extern \"C\" void __cdecl AITHINK_Fn003_Zombie(); // 0x005EFE20",
@@ -3939,7 +3939,20 @@
     "extern \"C\" void __cdecl AITHINK_Fn144_UberIzual(); // 0x005F8C80",
     "extern \"C\" void __cdecl AITHINK_Fn145_UberBaal(); // 0x005FD200",
     "extern \"C\" void __cdecl AITHINK_Fn146_UberMephisto(); // 0x005F81C0",
-    "extern \"C\" void __cdecl AITHINK_Fn147_UberDiablo(); // 0x005E9DF0"
+    "extern \"C\" void __cdecl AITHINK_Fn147_UberDiablo(); // 0x005E9DF0",
+    "extern \"C\" void __cdecl AITHINK_InitializeFormationOffsets(); // 0x005E5730",
+    "extern \"C\" void __cdecl sub_005E5870(); // 0x005E5870",
+    "extern \"C\" void __cdecl AITHINK_SpecialState06_HireableNonPlayerOwner(); // 0x005E7C10",
+    "extern \"C\" void __cdecl AITHINK_SpecialState08_TownRogue(); // 0x005E7DC0",
+    "extern \"C\" void __cdecl sub_005E7F80(); // 0x005E7F80",
+    "extern \"C\" void __cdecl AITHINK_SpecialState10_17_DimVision(); // 0x005E8020",
+    "extern \"C\" void __cdecl sub_005E80E0(); // 0x005E80E0",
+    "extern \"C\" void __cdecl sub_005E8140(); // 0x005E8140",
+    "extern \"C\" void __cdecl sub_005E8340(); // 0x005E8340",
+    "extern \"C\" void __cdecl AITHINK_SpecialState13_Countess(); // 0x005E5C50",
+    "extern \"C\" void __cdecl AITHINK_SpecialState14_AttackOrApproach(); // 0x005E2610",
+    "extern \"C\" void __cdecl AITHINK_InitializeMountedImpSkills(); // 0x005E2CD0",
+    "extern \"C\" void __cdecl sub_005E2D80(); // 0x005E2D80"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Ai/AiThink.inc",
@@ -4264,36 +4277,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Ai/AiThink4_005E0260.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Unknown_005E8EB0.cpp": {
-   "bytes": 408,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" void __cdecl AITHINK_Fn060_GoodNpcRanged(); // 0x005E7AC0",
-    "extern \"C\" void __cdecl AITHINK_Fn067_NecroPet(); // 0x005E4CF0",
-    "extern \"C\" void __cdecl sub_005B0CD0(); // 0x005B0CD0",
-    "extern \"C\" void __cdecl sub_005B14E0(); // 0x005B14E0",
-    "extern \"C\" void __cdecl sub_005E1D30(); // 0x005E1D30",
-    "extern \"C\" void __cdecl AITHINK_SpecialState14_AttackOrApproach(); // 0x005E2610",
-    "extern \"C\" void __cdecl sub_005E2D80(); // 0x005E2D80",
-    "extern \"C\" void __cdecl sub_005E5280(); // 0x005E5280",
-    "extern \"C\" void __cdecl sub_005E52D0(); // 0x005E52D0",
-    "extern \"C\" void __cdecl AITHINK_InitializeFormationOffsets(); // 0x005E5730",
-    "extern \"C\" void __cdecl sub_005E5870(); // 0x005E5870",
-    "extern \"C\" void __cdecl AITHINK_SpecialState13_Countess(); // 0x005E5C50",
-    "extern \"C\" void __cdecl AITHINK_SpecialState06_HireableNonPlayerOwner(); // 0x005E7C10",
-    "extern \"C\" void __cdecl AITHINK_SpecialState08_TownRogue(); // 0x005E7DC0",
-    "extern \"C\" void __cdecl sub_005E7F80(); // 0x005E7F80",
-    "extern \"C\" void __cdecl AITHINK_SpecialState10_17_DimVision(); // 0x005E8020",
-    "extern \"C\" void __cdecl sub_005E80E0(); // 0x005E80E0",
-    "extern \"C\" void __cdecl sub_005E8140(); // 0x005E8140",
-    "extern \"C\" void __cdecl sub_005E8340(); // 0x005E8340",
-    "extern \"C\" void __cdecl AITHINK_InitializeMountedImpSkills(); // 0x005E2CD0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005E8EB0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -118608,29 +118591,81 @@
    "va": "0x00741D90"
   },
   {
-   "alias": false,
+   "alias": true,
    "cname": "gData_0073D358",
    "declared": true,
-   "decorated": null,
-   "file": "Source/D2Game/Unknown_005E8EB0.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0073D358_t gData_0073D358; // 0x0073D358",
-   "head": "extern \"C\" struct d2data_0073D358_t gData_0073D358 = ",
+   "decorated": "?gaSpecialAiStateTable@@3QBUD2AiTableStrc@@B",
+   "file": "Source/D2Game/Ai/AiThink.cpp",
+   "form": "declared",
+   "fwd": "extern \"C\" const D2AiTableStrc gData_0073D358[18]; // 0x0073D358",
+   "head": "extern \"C\" const D2AiTableStrc gData_0073D358[18] = ",
+   "model": {
+    "elem": {
+     "k": "struct",
+     "members": [
+      [
+       "unk00",
+       0,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "init",
+       4,
+       {
+        "fn": true,
+        "k": "ptr",
+        "size": 4,
+        "spell": "AiFn"
+       }
+      ],
+      [
+       "function",
+       8,
+       {
+        "fn": true,
+        "k": "ptr",
+        "size": 4,
+        "spell": "AiFn"
+       }
+      ],
+      [
+       "alternate",
+       12,
+       {
+        "fn": true,
+        "k": "ptr",
+        "size": 4,
+        "spell": "AiFn"
+       }
+      ]
+     ],
+     "name": "D2AiTableStrc",
+     "size": 16
+    },
+    "k": "arr",
+    "n": 18,
+    "size": 288
+   },
    "name": "gaSpecialAiStateTable",
    "pointers": [
     [
      24,
      "0x005B0CD0",
-     "queue_function",
-     "sub_005B0CD0",
+     "names.json",
+     "AITHINK_Fn001_100_Idle_Buffy",
      0,
      "func"
     ],
     [
      40,
      "0x005B14E0",
-     "queue_function",
-     "sub_005B14E0",
+     "names.json",
+     "D2GAME_AI_SpecialState02_6FCD1660",
      0,
      "func"
     ],
@@ -118785,9 +118820,40 @@
      "AITHINK_SpecialState10_17_DimVision",
      0,
      "func"
-    ],
+    ]
+   ],
+   "region": "data",
+   "size": 288,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0073D358\n#pragma comment(linker, \"/alternatename:?gaSpecialAiStateTable@@3QBUD2AiTableStrc@@B=_gData_0073D358\")",
+   "type": "D2AiTableStrc",
+   "va": "0x0073D358"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Game/Ai/AiThink.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern const char* gaszLanguageNames_0073D478[15] = ",
+   "model": {
+    "elem": {
+     "fn": false,
+     "k": "ptr",
+     "size": 4,
+     "spell": "const char*"
+    },
+    "k": "arr",
+    "n": 15,
+    "size": 60
+   },
+   "name": "gaszLanguageNames_0073D478",
+   "pointers": [
     [
-     288,
+     0,
      "0x006CC81C",
      "literal",
      null,
@@ -118795,7 +118861,7 @@
      "string"
     ],
     [
-     292,
+     4,
      "0x006CC814",
      "literal",
      null,
@@ -118803,7 +118869,7 @@
      "string"
     ],
     [
-     296,
+     8,
      "0x006CC80C",
      "literal",
      null,
@@ -118811,7 +118877,7 @@
      "string"
     ],
     [
-     300,
+     12,
      "0x006CC804",
      "literal",
      null,
@@ -118819,7 +118885,7 @@
      "string"
     ],
     [
-     304,
+     16,
      "0x006CC7F8",
      "literal",
      null,
@@ -118827,7 +118893,7 @@
      "string"
     ],
     [
-     308,
+     20,
      "0x006CC7F0",
      "literal",
      null,
@@ -118835,7 +118901,7 @@
      "string"
     ],
     [
-     312,
+     24,
      "0x006CC7E4",
      "literal",
      null,
@@ -118843,7 +118909,7 @@
      "string"
     ],
     [
-     316,
+     28,
      "0x006CC7DC",
      "literal",
      null,
@@ -118851,7 +118917,7 @@
      "string"
     ],
     [
-     320,
+     32,
      "0x006CC7C8",
      "literal",
      null,
@@ -118859,7 +118925,7 @@
      "string"
     ],
     [
-     324,
+     36,
      "0x006CC7B4",
      "literal",
      null,
@@ -118867,7 +118933,7 @@
      "string"
     ],
     [
-     328,
+     40,
      "0x006CC7AC",
      "literal",
      null,
@@ -118875,7 +118941,7 @@
      "string"
     ],
     [
-     332,
+     44,
      "0x006CC7A4",
      "literal",
      null,
@@ -118883,7 +118949,7 @@
      "string"
     ],
     [
-     336,
+     48,
      "0x006CC788",
      "literal",
      null,
@@ -118891,7 +118957,7 @@
      "string"
     ],
     [
-     340,
+     52,
      "0x006CC780",
      "literal",
      null,
@@ -118899,127 +118965,7 @@
      "string"
     ],
     [
-     344,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     348,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     352,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     356,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     360,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     364,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     368,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     372,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     376,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     380,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     384,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     388,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     392,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     396,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     400,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     404,
+     56,
      "0x006CC77C",
      "literal",
      null,
@@ -119028,10 +118974,163 @@
     ]
    ],
    "region": "data",
-   "size": 408,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0073D358_t\n{\n    unsigned char b0[24];\n    const void* p1;\n    unsigned char b2[12];\n    const void* p3;\n    unsigned char b4[8];\n    const void* p5;\n    const void* p6;\n    unsigned char b7[12];\n    const void* p8;\n    const void* p9;\n    unsigned char b10[8];\n    const void* p11;\n    unsigned char b12[12];\n    const void* p13;\n    unsigned char b14[12];\n    const void* p15;\n    unsigned char b16[12];\n    const void* p17;\n    unsigned char b18[12];\n    const void* p19;\n    unsigned char b20[12];\n    const void* p21;\n    unsigned char b22[8];\n    const void* p23;\n    const void* p24;\n    unsigned char b25[12];\n    const void* p26;\n    unsigned char b27[12];\n    const void* p28;\n    unsigned char b29[12];\n    const void* p30;\n    unsigned char b31[12];\n    const void* p32;\n    unsigned char b33[8];\n    const void* p34;\n    const void* p35;\n    unsigned char b36[12];\n    const void* p37;\n    unsigned char b38[4];\n    const void* p39;\n    const void* p40;\n    const void* p41;\n    const void* p42;\n    const void* p43;\n    const void* p44;\n    const void* p45;\n    const void* p46;\n    const void* p47;\n    const void* p48;\n    const void* p49;\n    const void* p50;\n    const void* p51;\n    const void* p52;\n    const void* p53;\n    const void* p54;\n    const void* p55;\n    const void* p56;\n    const void* p57;\n    const void* p58;\n    const void* p59;\n    const void* p60;\n    const void* p61;\n    const void* p62;\n    const void* p63;\n    const void* p64;\n    const void* p65;\n    const void* p66;\n    const void* p67;\n    const void* p68;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0073D358",
-   "va": "0x0073D358"
+   "size": 60,
+   "stars": 1,
+   "struct": null,
+   "tail": "; // 0x0073D478",
+   "type": "char",
+   "va": "0x0073D478"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Game/Ai/AiThink.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern const char* gaszLanguageNames_0073D4B4[15] = ",
+   "model": {
+    "elem": {
+     "fn": false,
+     "k": "ptr",
+     "size": 4,
+     "spell": "const char*"
+    },
+    "k": "arr",
+    "n": 15,
+    "size": 60
+   },
+   "name": "gaszLanguageNames_0073D4B4",
+   "pointers": [
+    [
+     0,
+     "0x006CC81C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006CC814",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
+     "0x006CC77C",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 60,
+   "stars": 1,
+   "struct": null,
+   "tail": "; // 0x0073D4B4",
+   "type": "char",
+   "va": "0x0073D4B4"
   },
   {
    "alias": true,
