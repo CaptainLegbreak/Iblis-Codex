@@ -619,6 +619,9 @@ void D2BnLogStrc::sub_00518BA0_LogWrite(const char* szText)
     SLogWrite(hLog, szText);
 }
 
+// build: symbol ?$S1@?1??sub_00518C30_GetLog@@YAAAUD2BnLogStrc@@XZ@4IA 0x0088187C
+// build: symbol ??__FtLog_00881878@?1??sub_00518C30_GetLog@@YAAAUD2BnLogStrc@@XZ@YAXXZ 0x006CB430
+// 0x00518C30
 static D2BnLogStrc& sub_00518C30_GetLog()
 {
     static D2BnLogStrc tLog_00881878; // 0x00881878
@@ -1964,7 +1967,9 @@ int __fastcall BNDOWNLOAD_HandleLogonResponse(const int* pData, unsigned int nSi
 }
 
 extern int gnLastStatus_0072FFA8; // 0x0072FFA8
+
 int __fastcall BNSEND_SetErrorText(int nError, const char* szText); // 0x005204D0
+
 struct D2BnReply00520DC0Strc
 {
     int nStatus;
