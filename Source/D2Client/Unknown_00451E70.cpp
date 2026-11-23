@@ -123,77 +123,19 @@ void __fastcall sub_00451EB0_UnregisterWindowHandlers(void* hWnd)
 
 #include "gen/data/Source/D2Client/Unknown_00451E70.inc"
 
-// 0x00451F30
-extern "C" __declspec(dllexport) int __fastcall sub_00451F30(Obj00451F30* pObj, unsigned int dwMask) {
-    if (!pObj) {
-        return 0;
-    }
-    return (pObj->dwFlagsC4 & dwMask) != 0;
-}
+extern "C" __declspec(dllexport) int __fastcall sub_00451F30(Obj00451F30* pObj, unsigned int dwMask); // 0x00451F30
 
-// 0x00451F70
-extern "C" __declspec(dllexport) unsigned int __fastcall sub_00451F70(Obj00451F70* pObj) {
-    if (!pObj) {
-        return 0;
-    }
-    return pObj->dwValue10;
-}
+extern "C" __declspec(dllexport) unsigned int __fastcall sub_00451F70(Obj00451F70* pObj); // 0x00451F70
 
-// 0x00451FB0
-D2MonStats2Txt* __fastcall sub_00451FB0(int nId)
-{
-    if (nId >= 0 && nId < sgptDataTables->nMonStats2TxtRecordCount)
-    {
-        return &sgptDataTables->pMonStats2Txt[nId];
-    }
-    return 0;
-}
 
-// 0x00451FE0
-D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId)
-{
-    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        const int nId = sgptDataTables->pMonStatsTxt[nMonsterId].wMonStatsEx;
-        if (nId >= 0 && nId < sgptDataTables->nMonStats2TxtRecordCount)
-        {
-            return &sgptDataTables->pMonStats2Txt[nId];
-        }
-    }
-    return 0;
-}
 
 Unicode gwszHoverText[256]; // 0x007A2A78
 
 int gnHoverTextState; // 0x007A2C78
 
-// 0x00452020
-int __fastcall sub_00452020_GetOverlayTxtRecordCount()
-{
-    return sgptDataTables->nOverlayTxtRecordCount;
-}
 
-// 0x00452030
-int __fastcall sub_00452030_GetItemStatCostTxtRecordCount()
-{
-    return sgptDataTables->nItemStatCostTxtRecordCount;
-}
 
-// 0x00452070
-int* __fastcall sub_00452070_ClearBlock(int* pData)
-{
-    for (int i = 0; i < 0x80; ++i)
-    {
-        pData[i] = 0;
-    }
 
-    return pData;
-}
-
-// 0x00452160
-void __cdecl sub_00452160_Nop()
-{
-}
 
 // 0x00452550
 void __fastcall sub_00452550_SetHoverText(const Unicode* pText, int nState)
@@ -228,16 +170,6 @@ inline D2ItemTypesTxt* DATATBLS_GetItemTypesTxtRecord(int nItemType)
     return 0;
 }
 
-// 0x00452040
-extern "C" D2StatesTxt* __fastcall sub_00452040_GetStatesTxtRecord(int nStateId)
-{
-    if (nStateId >= 0 && nStateId < sgptDataTables->nStatesTxtRecordCount)
-    {
-        return &sgptDataTables->pStatesTxt[nStateId];
-    }
-
-    return 0;
-}
 
 // 0x00478A20
 extern "C" D2PetTypeTxt* __fastcall sub_00478A20_GetPetTypeTxtRecord(int nPetType)
