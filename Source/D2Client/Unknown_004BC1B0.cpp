@@ -150,13 +150,13 @@ public:
     virtual void sub_004BE0B0_Clear();                                                                      // 0x004BE0B0
     virtual void sub_004BE500_AddLine(const Unicode* wszText0, const Unicode* wszText1, const Unicode* wszText2,
         const Unicode* wszText3, const Unicode* wszText4, const Unicode* wszText5, int nArg20, int nData,
-        int bUseDefault, int nArg2C);                                                                       // 0x004BE500
+        int bUseDefault, int nArg2C);
 
     void DrawClippedText(const Unicode* wszSource, int nX, int nY, int nColor);
     int HitTestScrollDown(SMSGHANDLER_PARAMS* pMsg);                                                        // 0x004BE770
     int HitTestScrollTrack(SMSGHANDLER_PARAMS* pMsg);                                                       // 0x004BE7C0
     int sub_004BE810_HitTestRect(SMSGHANDLER_PARAMS* pMsg);
-    int sub_004BEA50_HitTestEntry(SMSGHANDLER_PARAMS* pMsg);                                                // 0x004BEA50
+    int sub_004BEA50_HitTestEntry(SMSGHANDLER_PARAMS* pMsg);
     int GetListEntryData(int nIndex);                                                                       // 0x004BEC40
 
     int HitTestTopRowInline(SMSGHANDLER_PARAMS* pMsg)
@@ -205,7 +205,7 @@ class ListBoxWrapper : public UIWidget
 public:
     ListBoxWrapper(int nX, int nY, int nWidth, int nHeight, int nArg10, int nArg14, int nArg18, int nCallback,
         bool bLargeFont);
-    virtual ~ListBoxWrapper();                                                                              // 0x004BECC0
+    virtual ~ListBoxWrapper();
 
     virtual void Slot01();
     virtual int sub_004BEE20_ForwardSlot08(SMSGHANDLER_PARAMS* pMsg);                                       // 0x004BEE20
@@ -280,6 +280,69 @@ void ListBoxImplementation::DrawClippedText(const Unicode* wszSource, int nX, in
     D2Win_10117_DrawText(wszText, nX, nY, nColor, 0);
 }
 
+// 0x004BE500
+void ListBoxImplementation::sub_004BE500_AddLine(const Unicode* wszText0, const Unicode* wszText1, const Unicode* wszText2,
+    const Unicode* wszText3, const Unicode* wszText4, const Unicode* wszText5, int nArg20, int nData, int bUseDefault,
+    int nArg2C)
+{
+    if (nEntryCount >= 0x80)
+    {
+        return;
+    }
+
+    aLines[nEntryCount].unk0x3002 = nArg20;
+    if (nSelectedIndex == -1)
+    {
+        nSelectedIndex = 0;
+    }
+    if (wszText0)
+    {
+        Unicode::strncpy(aLines[nEntryCount].wszText0, wszText0, 0x3FF);
+        aLines[nEntryCount].wszText0[0x3FF].wChar = 0;
+        ++nTextCount;
+    }
+    if (wszText1)
+    {
+        Unicode::strncpy(aLines[nEntryCount].f_800, wszText1, 0x3FF);
+        aLines[nEntryCount].f_800[0x3FF].wChar = 0;
+        ++nTextCount;
+    }
+    if (wszText2)
+    {
+        Unicode::strncpy(aLines[nEntryCount].f_1000, wszText2, 0x3FF);
+        aLines[nEntryCount].f_1000[0x3FF].wChar = 0;
+        ++nTextCount;
+    }
+    if (wszText3)
+    {
+        Unicode::strncpy(aLines[nEntryCount].f_1800, wszText3, 0x3FF);
+        aLines[nEntryCount].f_1800[0x3FF].wChar = 0;
+        ++nTextCount;
+    }
+    if (wszText4)
+    {
+        Unicode::strncpy(aLines[nEntryCount].f_2000, wszText4, 0x3FF);
+        aLines[nEntryCount].f_2000[0x3FF].wChar = 0;
+        ++nTextCount;
+    }
+    if (wszText5)
+    {
+        Unicode::strncpy(aLines[nEntryCount].wszText5, wszText5, 0x3FF);
+        aLines[nEntryCount].wszText5[0x3FF].wChar = 0;
+        ++nTextCount;
+    }
+    if (bUseDefault)
+    {
+        aLines[nEntryCount].nData = nArg14;
+    }
+    else
+    {
+        aLines[nEntryCount].nData = nData;
+    }
+    aLines[nEntryCount].nFont = nArg2C;
+    ++nEntryCount;
+}
+
 // 0x004BE810
 int ListBoxImplementation::sub_004BE810_HitTestRect(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -292,6 +355,53 @@ int ListBoxImplementation::sub_004BE810_HitTestRect(SMSGHANDLER_PARAMS* pMsg)
     return 0;
 }
 
+// 0x004BEA50
+int ListBoxImplementation::sub_004BEA50_HitTestEntry(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (pMsg->nXpos <= tBar.nX - 0xF && pfnCallback)
+    {
+        const int nMouseY = pMsg->nYpos;
+        int nOffset = 0;
+        for (int i = f_180730; i < nEntryCount; i++)
+        {
+            const int nStart = nOffset;
+            if (aLines[i].wszText0[0].wChar)
+            {
+                nOffset += nScrollStep;
+            }
+            if (aLines[i].f_800[0].wChar)
+            {
+                nOffset += nScrollStep;
+            }
+            if (aLines[i].f_1000[0].wChar)
+            {
+                nOffset += nScrollStep;
+            }
+            if (aLines[i].f_1800[0].wChar)
+            {
+                nOffset += nScrollStep;
+            }
+            if (aLines[i].f_2000[0].wChar)
+            {
+                nOffset += nScrollStep;
+            }
+            if (aLines[i].wszText5[0].wChar)
+            {
+                nOffset += nScrollStep;
+            }
+            if (nMouseY > f_18070C + nStart + 0xC && nMouseY < f_18070C + nOffset + 0xC)
+            {
+                nSelectedIndex = i;
+                return i;
+            }
+            nOffset += nArg10;
+        }
+        nSelectedIndex = -1;
+        return -1;
+    }
+    return -1;
+}
+
 // 0x004BEB70
 int ListBoxImplementation::sub_004BEB70_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -300,6 +410,12 @@ int ListBoxImplementation::sub_004BEB70_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
         sub_004BEA50_HitTestEntry(pMsg);
     }
     return 0;
+}
+
+// 0x004BECC0
+ListBoxWrapper::~ListBoxWrapper()
+{
+    delete pImpl;
 }
 
 // 0x004BEDF0

@@ -30193,14 +30193,29 @@
      "name": "?DrawClippedText@ListBoxImplementation@@QAEXPBUUnicode@@HHH@Z"
     },
     {
+     "va": "0x004BE500",
+     "length": 536,
+     "name": "?sub_004BE500_AddLine@ListBoxImplementation@@QAEXPBUUnicode@@00000HHHH@Z"
+    },
+    {
      "va": "0x004BE810",
      "length": 78,
      "name": "sub_004BE810_HitTestRect"
     },
     {
+     "va": "0x004BEA50",
+     "length": 275,
+     "name": "?sub_004BEA50_HitTestEntry@ListBoxImplementation@@QAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x004BEB70",
      "length": 76,
      "name": "sub_004BEB70_MouseMoveMsg"
+    },
+    {
+     "va": "0x004BECC0",
+     "length": 80,
+     "name": "??1ListBoxWrapper@@UAE@XZ"
     },
     {
      "va": "0x004BED10",
@@ -31297,42 +31312,6 @@
      "length": 560,
      "name": "?sub_004BE110_UpdateScrollBar@ListBoxImplementation@@QAEXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004BE500.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BE500",
-     "length": 536,
-     "name": "?sub_004BE500_AddLine@ListBoxImplementation@@QAEXPBUUnicode@@00000HHHH@Z"
-    },
-    {
-     "va": "0x004BEA50",
-     "length": 275,
-     "name": "?sub_004BEA50_HitTestEntry@ListBoxImplementation@@QAEHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004BECC0",
-     "length": 80,
-     "name": "??1ListBoxWrapper@@UAE@XZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc",
-    "/GS-"
    ]
   },
   {
