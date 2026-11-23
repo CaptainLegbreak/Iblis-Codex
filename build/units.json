@@ -58474,6 +58474,16 @@
      "length": 121
     },
     {
+     "va": "0x005A1990",
+     "length": 356,
+     "name": "MONSTERUNIQUE_UMod9_FireEnchanted"
+    },
+    {
+     "va": "0x005A1B00",
+     "length": 356,
+     "name": "MONSTERUNIQUE_UMod17_LightningEnchanted"
+    },
+    {
      "va": "0x005A1C70",
      "length": 385,
      "name": "MONSTERUNIQUE_UMod18_ColdEnchanted"
@@ -58815,16 +58825,6 @@
     "/Ob1"
    ],
    "functions": [
-    {
-     "va": "0x005A1990",
-     "length": 356,
-     "name": "MONSTERUNIQUE_UMod9_FireEnchanted"
-    },
-    {
-     "va": "0x005A1B00",
-     "length": 356,
-     "name": "MONSTERUNIQUE_UMod17_LightningEnchanted"
-    },
     {
      "va": "0x005A5650",
      "length": 62,

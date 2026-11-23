@@ -3694,10 +3694,8 @@
     "extern \"C\" void __cdecl PARTYSCREEN_ToggleSquelch(); // 0x005A58A0",
     "extern \"C\" void __cdecl PARTYSCREEN_AcceptInvitation(); // 0x005A5A30",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod16_Champion(); // 0x005A0E80",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_UMod17_LightningEnchanted(); // 0x005A1B00",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod26_Teleport(); // 0x005A1600",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod38_Possessed(); // 0x005A1230",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_UMod9_FireEnchanted(); // 0x005A1990",
     "extern \"C\" void __cdecl sub_005A1280_UModChampion(); // 0x005A1280"
    ],
    "fn_types": {},
