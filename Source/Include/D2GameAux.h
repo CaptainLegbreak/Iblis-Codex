@@ -216,3 +216,43 @@ D2_CHECK_SIZE(D2MagicAffixIndexAndPtrStrc, 0x8);
 D2_CHECK_SIZE(D2MonSkillInfoStrc, 0xC);
 D2_CHECK_SIZE(D2MonsterEquipmentStrc, 0x8);
 D2_CHECK_SIZE(D2MissileUnitFindArgStrc, 0x10);
+
+typedef int (__fastcall* D2UnitEventCallbackFunction)(D2GameStrc* pGame, int nUnitEvent, D2UnitStrc* pUnit, D2UnitStrc* pEventSourceUnit, D2DamageStrc* pDamage, int nGUID1, int nGUID2);
+typedef int (__fastcall* PSPELLFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pTarget, int nX, int nY, int nSkillId);
+
+struct D2UnitEventStrc
+{
+    unsigned char nUnitEvent; // 0x00
+    unsigned char unk0x01; // 0x01
+    unsigned short nFlags; // 0x02
+    unsigned int nEventGroup; // 0x04
+    int unk0x08; // 0x08
+    int nGUID1; // 0x0C
+    int nGUID2; // 0x10
+    D2UnitEventCallbackFunction pCallback; // 0x14
+    D2UnitEventStrc* pPrevious; // 0x18
+    D2UnitEventStrc* pNext; // 0x1C
+};
+
+struct D2pSpellTblStrc
+{
+    PSPELLFN pfSpellPrepare; // 0x00
+    PSPELLFN pfSpellDo; // 0x04
+};
+
+struct D2EffectStrc
+{
+    unsigned int nFlags; // 0x00
+    D2UnitStrc* pUnit; // 0x04
+    int nSkillId; // 0x08
+    int nX; // 0x0C
+    int nY; // 0x10
+    int nParam; // 0x14
+    int nSkillLevel; // 0x18
+    int unk0x1C; // 0x1C
+    void* pfAreaEffect; // 0x20
+};
+
+D2_CHECK_SIZE(D2UnitEventStrc, 0x20);
+D2_CHECK_SIZE(D2pSpellTblStrc, 0x8);
+D2_CHECK_SIZE(D2EffectStrc, 0x24);
