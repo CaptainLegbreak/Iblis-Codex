@@ -3557,11 +3557,6 @@
      "name": "MAINMENUS_OnRealmListClick"
     },
     {
-     "va": "0x00440CA0",
-     "length": 110,
-     "name": "MAINMENUS_RequestProfile"
-    },
-    {
      "va": "0x004431B0",
      "length": 112,
      "name": "MAINMENUS_LoadMaxPlayers"
@@ -12705,6 +12700,11 @@
      "va": "0x00440C70",
      "length": 35,
      "name": "?CHATDLG_ShowExpansionHardcoreLadder@@YGHH@Z"
+    },
+    {
+     "va": "0x00440CA0",
+     "length": 110,
+     "name": "MAINMENUS_RequestProfile"
     },
     {
      "va": "0x00440D10",

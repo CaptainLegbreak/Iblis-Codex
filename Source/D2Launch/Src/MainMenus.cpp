@@ -5310,6 +5310,7 @@ int __stdcall sub_004374E0_OnInfoScreen(int nArg)
 }
 
 int __cdecl sub_0043B830(); // 0x0043B830
+
 int gnStatusDots; // 0x007799B4
 
 // 0x004374F0
@@ -5378,21 +5379,6 @@ int __stdcall MAINMENUS_OnRealmListClick(SMSGHANDLER_PARAMS* pMsg)
     if (MAINMENUS_IsDoubleClick(pMsg))
         return CHARSEL_OnRealmChosen(pMsg);
     return 1;
-}
-
-// 0x00440CA0
-int __fastcall MAINMENUS_RequestProfile(int nA, int nB, int nC, int nD)
-{
-    gtRecord_0077B0A8.nValue0 = nB;
-    gtRecord_0077B0A8.nValue1 = nC;
-    gtRecord_0077B0A8.f_8 = nD;
-// build: symbol ?gpLaunchFuncs@* 0x0077B09C
-    gpLaunchFuncs->pfn0x78(nA, 3, 1, &gKey_0070CD54);
-    gbFlag_0077ADA4 = 0;
-    CHATDLG_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), CHATDLG_SetUserDataFlag);
-    sub_004FA590_RunLoop(CHATDLG_GetUserDataReply);
-    CHARSEL_DestroyPopupControls();
-    return gbFlag_0077ADA4 == 0;
 }
 
 // 0x004431B0
