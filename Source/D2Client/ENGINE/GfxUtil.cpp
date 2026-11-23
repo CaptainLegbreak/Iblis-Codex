@@ -8,6 +8,7 @@
 #include "D2LevelTxt.h"
 #include "D2CmpTypes.h"
 #include "D2ClientGfx.h"
+#include "D2ClientTypes.h"
 #include "D2Txt.h"
 #include "D2TxtTables.h"
 #include "D2Records.h"
@@ -100,12 +101,6 @@ struct D2TokRecord;
 struct D2ObjectsTxt;
 
 struct D2ItemsTxt;
-
-struct D2GfxDataStrc
-{
-    D2GfxEntryStrc tEntries[20];
-    D2GfxListNodeStrc* pNodeList;
-};
 
 struct D2CellBlockStrc
 {
@@ -617,7 +612,7 @@ D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nId
         nMode = sub_0046DA60_GetUnitMode(pUnit);
     }
 
-    for (D2GfxListNodeStrc* pNode = pGfxData->pNodeList; pNode; pNode = pNode->pNext)
+    for (D2GfxListNodeStrc* pNode = pGfxData->pList; pNode; pNode = pNode->pNext)
     {
         if (pNode->nMode == nMode && pNode->nId == nId)
         {
@@ -1668,7 +1663,7 @@ void __fastcall GFXUTIL_SetGfxEntryByte(D2UnitStrc* pUnit, int nIndex, unsigned 
     D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
     if (pGfxData)
     {
-        pGfxData->tEntries[nIndex].nValue = nValue;
+        ((D2GfxEntryStrc*)pGfxData)[nIndex].nValue = nValue;
     }
 }
 
