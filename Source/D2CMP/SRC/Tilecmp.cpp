@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2DrlgMaps.h"
 #include "D2CmpTileLib.h"
 #include "D2CmpTypes.h"
 #include "D2CmpTiles.h"
@@ -51,14 +52,6 @@ struct D2TileRecordStrc
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
-
-struct D2TileLibraryEntryStrc
-{
-    char unk0x00[0x50];
-    void* pUnk0x50;
-    void* pUnk0x54;
-    char unk0x58[0x08];
-};
 
 struct D2TileListHeaderStrc;
 
@@ -836,8 +829,8 @@ void __stdcall TileLibraryCopyHeaders(D2TileLibraryHeaderStrc* pSource, D2TileLi
     pCopy->pFirst = pEntries;
     for (int i = 0; i < pCopy->nTiles; ++i)
     {
-        pEntries[i].pUnk0x54 = 0;
-        pEntries[i].pUnk0x50 = 0;
+        pEntries[i].pBlocks = 0;
+        pEntries[i].nBlocks = 0;
     }
     pCopy->dwFlags &= 4;
 
