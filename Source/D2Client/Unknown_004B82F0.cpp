@@ -10,7 +10,6 @@ struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct UiControl;
-class SpinnerImplementation;
 struct Unicode;
 struct D2RectStrc;
 struct D2DialogLineStrc;
@@ -27,7 +26,6 @@ struct D2UnkFieldsStrc;
 struct D2UnkSortItemStrc;
 class UIWidget;
 class ButtonImplementation;
-class SpinnerWrapper;
 struct D2HintRecordStrc;
 struct D2TimedHintEntryStrc;
 struct D2TimedHintNodeStrc;
@@ -254,20 +252,6 @@ public:
     char unk0x08[0x1C];
     int unk0x24;
     int (__cdecl* pfnCallback)();
-};
-
-class SpinnerWrapper : public UIWidget
-{
-public:
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
-
-    SpinnerImplementation* pImpl;
-};
-
-class SpinnerImplementation : public UIWidget
-{
-public:
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
 };
 
 struct D2HintRecordStrc
@@ -1117,12 +1101,6 @@ int ButtonImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
     }
 
     return 0;
-}
-
-// 0x004BC280
-int SpinnerWrapper::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
-{
-    return pImpl->MsgSlot02(pMsg);
 }
 
 D2TimedHintNodeStrc* gpClientSoundList; // 0x007C5458

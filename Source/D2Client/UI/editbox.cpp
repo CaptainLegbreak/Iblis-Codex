@@ -25,6 +25,7 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags)
 // build: symbol ??_GButtonWrapper@@UAEPAXI@Z 0x004BAE30
 // build: symbol ??_GEditBoxImplementation@@UAEPAXI@Z 0x004BBD50
 // build: symbol ??_GEditBoxWrapper@@UAEPAXI@Z 0x004BBA50
+// build: symbol ??_GSpinnerWrapper@@UAEPAXI@Z 0x004BC250
 
 // build: symbol ??3UIWidget@@SAXPAX@Z 0x004053F0
 
@@ -204,7 +205,7 @@ public:
 class SpinnerImplementation : public UIWidget
 {
 public:
-    SpinnerImplementation(int nX, int nY, int bHorizontal, int nArg0C);                                     // 0x004BC340
+    SpinnerImplementation(int nX, int nY, int bHorizontal, int nArg0C);
     virtual ~SpinnerImplementation();
     virtual void Slot01();
     virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
@@ -468,11 +469,11 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);   
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
-D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext);                                        // 0x00601840
+extern "C" D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext);                                        // 0x00601840
 
-int __stdcall CelGetWidth(D2CelStrc* pCel);                                                                 // 0x006018C0
+extern "C" int __stdcall CelGetWidth(D2CelStrc* pCel);                                                                 // 0x006018C0
 
-int __stdcall CelGetHeight(D2CelStrc* pCel);                                                                // 0x006018F0
+extern "C" int __stdcall CelGetHeight(D2CelStrc* pCel);                                                                // 0x006018F0
 
 // build: symbol ??1UIWidget@@UAE@XZ 0x004BE080
 // build: symbol ??_7ButtonImplementation@@6B@ 0x006DA6F4
@@ -1164,9 +1165,47 @@ int __fastcall EDITBOX_HandleSpinnerPress(D2ButtonPairStrc* pButtons, int nUnuse
     return 0;
 }
 
+// build: symbol ?MsgSlot04@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC160
+// 0x004BC160
+int SpinnerImplementation::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (!unk0x30)
+    {
+        return 0;
+    }
+
+    nUnk0x3CCalls = 0;
+    unk0x30 = 0;
+    if (unk0x34 == 1)
+    {
+        unk0x34 = 0;
+        return 1;
+    }
+
+    if (unk0x38 == 1)
+    {
+        unk0x38 = 0;
+        return 1;
+    }
+
+    return 0;
+}
+
 // build: symbol ?MsgSlot06@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC190
 // 0x004BC190
 int SpinnerImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
+{
+    return 0;
+}
+// build: symbol ?MsgSlot05@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC1A0
+// 0x004BC1A0
+int SpinnerImplementation::MsgSlot05(SMSGHANDLER_PARAMS* pMsg)
+{
+    return 0;
+}
+// build: symbol ?MsgSlot07@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC1B0
+// 0x004BC1B0
+int SpinnerImplementation::MsgSlot07(SMSGHANDLER_PARAMS* pMsg)
 {
     return 0;
 }
@@ -1182,11 +1221,141 @@ int SpinnerImplementation::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
 {
     return 0;
 }
+// build: symbol ?MsgSlot10@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC1E0
+// 0x004BC1E0
+int SpinnerImplementation::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
+{
+    return 0;
+}
 
 // 0x004BC1F0
 SpinnerWrapper::~SpinnerWrapper()
 {
     delete pImpl;
+}
+
+// build: symbol ?MsgSlot02@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC280
+// 0x004BC280
+int SpinnerWrapper::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot02(pMsg);
+}
+
+// build: symbol ?MsgSlot03@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC290
+// 0x004BC290
+int SpinnerWrapper::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot03(pMsg);
+}
+
+// build: symbol ?MsgSlot04@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC2A0
+// 0x004BC2A0
+int SpinnerWrapper::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot04(pMsg);
+}
+
+// build: symbol ?MsgSlot05@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC2B0
+// 0x004BC2B0
+int SpinnerWrapper::MsgSlot05(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot05(pMsg);
+}
+
+// build: symbol ?Slot01@SpinnerWrapper@@UAEXXZ 0x004BC2C0
+// 0x004BC2C0
+void SpinnerWrapper::Slot01()
+{
+    pImpl->Slot01();
+}
+
+// build: symbol ?MsgSlot06@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC2D0
+// 0x004BC2D0
+int SpinnerWrapper::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot06(pMsg);
+}
+
+// build: symbol ?MsgSlot08@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC2E0
+// 0x004BC2E0
+int SpinnerWrapper::MsgSlot08(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot08(pMsg);
+}
+
+// build: symbol ?MsgSlot07@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC2F0
+// 0x004BC2F0
+int SpinnerWrapper::MsgSlot07(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot07(pMsg);
+}
+
+// build: symbol ?MsgSlot09@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC300
+// 0x004BC300
+int SpinnerWrapper::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot09(pMsg);
+}
+
+// build: symbol ?MsgSlot10@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC310
+// 0x004BC310
+int SpinnerWrapper::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot10(pMsg);
+}
+
+// build: symbol ?Slot11@SpinnerWrapper@@UAEHXZ 0x004BC320
+// 0x004BC320
+int SpinnerWrapper::Slot11()
+{
+    return pImpl->Slot11();
+}
+
+// 0x004BC330
+int SpinnerWrapper::sub_004BC330_ForwardSlot30(int nArg)
+{
+    return pImpl->sub_004BBFB0();
+}
+
+// build: symbol ??_7SpinnerImplementation@@6B@ 0x006DA83C
+// build: symbol ??_GSpinnerImplementation@@UAEPAXI@Z 0x004BC450
+// 0x004BC340
+SpinnerImplementation::SpinnerImplementation(int nX, int nY, int bHorizontal, int nArg0C)
+{
+    char szPath[260];
+    sprintf(szPath, "%s\\ui\\menu\\spinner", gszDataGlobal);
+    void* pFile = ARCHIVE_LoadClientCellFile(szPath, 0);
+    pCellFile = pFile;
+    this->nX = nX;
+    this->nY = nY;
+    pfUnk0x3C = (void (__cdecl*)())nArg0C;
+    this->f_2C = bHorizontal;
+    unk0x34 = 0;
+    unk0x38 = 0;
+    unk0x30 = 0;
+    unk0x4C = 0;
+    nUnk0x3CCalls = 0;
+    D2CelContextStrc tContext;
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.pCellFile = pFile;
+    tContext.nDirection = 0;
+    tContext.nFrame = 0;
+    D2CelStrc* pCel = CelGetHandle(&tContext);
+    nArrowHeight = CelGetHeight(pCel);
+    nArrowWidth = CelGetWidth(pCel);
+    nUpY = nY;
+    if (this->f_2C)
+    {
+        nUpX = nX + 1;
+        nDownX = nX + nArrowWidth;
+        nDownY = nY;
+    }
+    else
+    {
+        nUpX = nX + 1;
+        nDownX = nX + 1;
+        nDownY = nY + nArrowHeight + 1;
+    }
 }
 // 0x004BC480
 SpinnerWrapper::SpinnerWrapper(int nX, int nY, int bHorizontal, int nArg0C)

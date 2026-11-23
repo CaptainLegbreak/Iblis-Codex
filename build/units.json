@@ -29383,11 +29383,6 @@
      "name": "MsgSlot06"
     },
     {
-     "va": "0x004BC280",
-     "length": 14,
-     "name": "MsgSlot02"
-    },
-    {
      "va": "0x004BE060",
      "length": 26,
      "name": "?sub_004BE060@@YAXXZ"
@@ -29995,9 +29990,24 @@
      "length": 190
     },
     {
+     "va": "0x004BC160",
+     "length": 45,
+     "name": "?MsgSlot04@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x004BC190",
      "length": 5,
      "name": "?MsgSlot06@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004BC1A0",
+     "length": 5,
+     "name": "?MsgSlot05@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004BC1B0",
+     "length": 5,
+     "name": "?MsgSlot07@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BC1C0",
@@ -30010,9 +30020,89 @@
      "name": "?MsgSlot09@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x004BC1E0",
+     "length": 5,
+     "name": "?MsgSlot10@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x004BC1F0",
      "length": 88,
      "name": "??1SpinnerWrapper@@UAE@XZ"
+    },
+    {
+     "va": "0x004BC250",
+     "length": 43,
+     "name": "??_GSpinnerWrapper@@UAEPAXI@Z"
+    },
+    {
+     "va": "0x004BC280",
+     "length": 14,
+     "name": "?MsgSlot02@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004BC290",
+     "length": 14,
+     "name": "?MsgSlot03@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004BC2A0",
+     "length": 14,
+     "name": "?MsgSlot04@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004BC2B0",
+     "length": 14,
+     "name": "?MsgSlot05@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004BC2C0",
+     "length": 10,
+     "name": "?Slot01@SpinnerWrapper@@UAEXXZ"
+    },
+    {
+     "va": "0x004BC2D0",
+     "length": 14,
+     "name": "?MsgSlot06@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004BC2E0",
+     "length": 14,
+     "name": "?MsgSlot08@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004BC2F0",
+     "length": 14,
+     "name": "?MsgSlot07@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004BC300",
+     "length": 14,
+     "name": "?MsgSlot09@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004BC310",
+     "length": 14,
+     "name": "?MsgSlot10@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004BC320",
+     "length": 10,
+     "name": "?Slot11@SpinnerWrapper@@UAEHXZ"
+    },
+    {
+     "va": "0x004BC330",
+     "length": 13,
+     "name": "?sub_004BC330_ForwardSlot30@SpinnerWrapper@@UAEHH@Z"
+    },
+    {
+     "va": "0x004BC340",
+     "length": 262,
+     "name": "??0SpinnerImplementation@@QAE@HHHH@Z"
+    },
+    {
+     "va": "0x004BC450",
+     "length": 43,
+     "name": "??_GSpinnerImplementation@@UAEPAXI@Z"
     },
     {
      "va": "0x004BC480",
@@ -30127,24 +30217,9 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004BC160.cpp",
+   "file": "Source/D2Client/Unknown_004BC500.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004BC160",
-     "length": 45,
-     "name": "?MsgSlot04@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004BC1A0",
-     "length": 5,
-     "name": "?SKILLS_Return0@@YGHH@Z"
-    },
-    {
-     "va": "0x004BC330",
-     "length": 13,
-     "name": "?sub_004BC330_ForwardSlot30@SpinnerWrapper@@QAEHH@Z"
-    },
     {
      "va": "0x004BC500",
      "length": 113,
@@ -30157,21 +30232,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x004BC1B0",
-     "length": 5,
-     "name": "?SKILLS_Return0@@YGHH@Z"
-    },
-    {
-     "va": "0x004BC250",
-     "length": 43,
-     "name": "?_GSpinnerWrapper"
-    },
-    {
-     "va": "0x004BC450",
-     "length": 43,
-     "name": "?_GSpinnerImplementation"
-    },
-    {
      "va": "0x004BE020",
      "length": 56,
      "name": "?TEXT_LoadTextSliderCel@@YAXXZ"
@@ -30180,6 +30240,26 @@
      "va": "0x004BE080",
      "length": 7,
      "name": "??1UIWidget@@UAE@XZ"
+    },
+    {
+     "va": "0x004BE090",
+     "length": 7,
+     "name": "??1ListBoxImplementation@@UAE@XZ"
+    },
+    {
+     "va": "0x004BE0A0",
+     "length": 8,
+     "name": "?sub_004BE0A0_GetLineCount@ListBoxImplementation@@UAEHXZ"
+    },
+    {
+     "va": "0x004BE0B0",
+     "length": 88,
+     "name": "?sub_004BE0B0_Clear@ListBoxImplementation@@UAEXXZ"
+    },
+    {
+     "va": "0x004BE110",
+     "length": 560,
+     "name": "?sub_004BE110_UpdateScrollBar@ListBoxImplementation@@QAEXXZ"
     },
     {
      "va": "0x004BE410",
@@ -30192,9 +30272,44 @@
      "name": "?sub_004BE500_AddLine@ListBoxImplementation@@QAEXPBUUnicode@@00000HHHH@Z"
     },
     {
+     "va": "0x004BE720",
+     "length": 66,
+     "name": "HitTestScrollUp"
+    },
+    {
      "va": "0x004BE810",
      "length": 78,
      "name": "sub_004BE810_HitTestRect"
+    },
+    {
+     "va": "0x004BE860",
+     "length": 100,
+     "name": "sub_004BE860_WheelMsg"
+    },
+    {
+     "va": "0x004BE8D0",
+     "length": 50,
+     "name": "?sub_004BE8D0_ClampTopToSelection@ListBoxImplementation@@QAEXXZ"
+    },
+    {
+     "va": "0x004BE910",
+     "length": 123,
+     "name": "?sub_004BE910_ScrollUp@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004BE990",
+     "length": 159,
+     "name": "?sub_004BE990_ScrollDown@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004BEA30",
+     "length": 5,
+     "name": "?MsgSlot10@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004BEA40",
+     "length": 5,
+     "name": "?MsgSlot09@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BEA50",
@@ -30207,6 +30322,21 @@
      "name": "sub_004BEB70_MouseMoveMsg"
     },
     {
+     "va": "0x004BEBC0",
+     "length": 97,
+     "name": "sub_004BEBC0_KeyMsg"
+    },
+    {
+     "va": "0x004BEC30",
+     "length": 7,
+     "name": "?sub_004BEC30_GetSelectedIndex@ListBoxImplementation@@UAEHXZ"
+    },
+    {
+     "va": "0x004BEC40",
+     "length": 121,
+     "name": "GetListEntryData"
+    },
+    {
      "va": "0x004BECC0",
      "length": 80,
      "name": "??1ListBoxWrapper@@UAE@XZ"
@@ -30215,137 +30345,6 @@
      "va": "0x004BED10",
      "length": 43,
      "name": "?_GListBoxWrapper"
-    },
-    {
-     "va": "0x004BEDF0",
-     "length": 12,
-     "name": "sub_004BEDF0_ForwardGetEntryData"
-    },
-    {
-     "va": "0x004BEE90",
-     "length": 1107
-    },
-    {
-     "va": "0x004BF430",
-     "length": 256,
-     "name": "sub_004BF430_MouseDownMsg"
-    },
-    {
-     "va": "0x004BF650",
-     "length": 622,
-     "name": "??0ListBoxImplementation@@QAE@HHHHHHHH_N@Z"
-    },
-    {
-     "va": "0x004BF8C0",
-     "length": 40,
-     "name": "?_GListBoxImplementation"
-    },
-    {
-     "va": "0x004BF8F0",
-     "length": 145,
-     "name": "??0ListBoxWrapper@@QAE@HHHHHHHH_N@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004BC1E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BC1E0",
-     "length": 5,
-     "name": "?SKILLS_Return0@@YGHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/useitem.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BC290",
-     "length": 14,
-     "name": "sub_004BC290_ForwardSlot0C"
-    },
-    {
-     "va": "0x004BC2A0",
-     "length": 14,
-     "name": "sub_004BC2A0_ForwardSlot10"
-    },
-    {
-     "va": "0x004BC2B0",
-     "length": 14,
-     "name": "sub_004BC2B0_ForwardSlot14"
-    },
-    {
-     "va": "0x004BC2D0",
-     "length": 14,
-     "name": "sub_004BC2D0_ForwardSlot18"
-    },
-    {
-     "va": "0x004BC2E0",
-     "length": 14,
-     "name": "sub_004BC2E0_ForwardSlot20"
-    },
-    {
-     "va": "0x004BC2F0",
-     "length": 14,
-     "name": "sub_004BC2F0_ForwardSlot1C"
-    },
-    {
-     "va": "0x004BC300",
-     "length": 14,
-     "name": "sub_004BC300_ForwardSlot24"
-    },
-    {
-     "va": "0x004BC310",
-     "length": 14,
-     "name": "sub_004BC310_ForwardSlot28"
-    },
-    {
-     "va": "0x004BE720",
-     "length": 66,
-     "name": "HitTestScrollUp"
-    },
-    {
-     "va": "0x004BE770",
-     "length": 78,
-     "name": "HitTestScrollDown"
-    },
-    {
-     "va": "0x004BE7C0",
-     "length": 76,
-     "name": "HitTestScrollTrack"
-    },
-    {
-     "va": "0x004BE860",
-     "length": 100,
-     "name": "sub_004BE860_WheelMsg"
-    },
-    {
-     "va": "0x004BEBC0",
-     "length": 97,
-     "name": "sub_004BEBC0_KeyMsg"
-    },
-    {
-     "va": "0x004BEC40",
-     "length": 121,
-     "name": "GetListEntryData"
     },
     {
      "va": "0x004BED40",
@@ -30388,15 +30387,126 @@
      "name": "sub_004BEDB0_ForwardSlot18"
     },
     {
+     "va": "0x004BEDC0",
+     "length": 10,
+     "name": "?Slot11@ListBoxWrapper@@UAEHXZ"
+    },
+    {
+     "va": "0x004BEDD0",
+     "length": 10,
+     "name": "?Slot01@ListBoxWrapper@@UAEXXZ"
+    },
+    {
      "va": "0x004BEDE0",
      "length": 14,
      "name": "sub_004BEDE0_ForwardSlot3C"
+    },
+    {
+     "va": "0x004BEDF0",
+     "length": 12,
+     "name": "sub_004BEDF0_ForwardGetEntryData"
+    },
+    {
+     "va": "0x004BEE00",
+     "length": 10,
+     "name": "?sub_004BEE00_Slot14@ListBoxWrapper@@UAEHXZ"
+    },
+    {
+     "va": "0x004BEE10",
+     "length": 10,
+     "name": "?sub_004BEE10_Slot15@ListBoxWrapper@@UAEXXZ"
     },
     {
      "va": "0x004BEE20",
      "length": 14,
      "name": "sub_004BEE20_ForwardSlot08"
     },
+    {
+     "va": "0x004BEE30",
+     "length": 83,
+     "name": "??0D2ListBoxLineStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x004BEE90",
+     "length": 1107
+    },
+    {
+     "va": "0x004BF430",
+     "length": 256,
+     "name": "sub_004BF430_MouseDownMsg"
+    },
+    {
+     "va": "0x004BF530",
+     "length": 281,
+     "name": "?sub_004BF530@ListBox@@QAEHPAUMessage@@@Z"
+    },
+    {
+     "va": "0x004BF650",
+     "length": 622,
+     "name": "??0ListBoxImplementation@@QAE@HHHHHHHH_N@Z"
+    },
+    {
+     "va": "0x004BF8C0",
+     "length": 40,
+     "name": "?_GListBoxImplementation"
+    },
+    {
+     "va": "0x004BF8F0",
+     "length": 145,
+     "name": "??0ListBoxWrapper@@QAE@HHHHHHHH_N@Z"
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHsc",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/Unknown_004BC1B0_004BE770.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004BE770",
+     "length": 78,
+     "name": "HitTestScrollDown"
+    },
+    {
+     "va": "0x004BE7C0",
+     "length": 76,
+     "name": "HitTestScrollTrack"
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHsc",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/UI/useitem.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x004BF9D0",
      "length": 87,
@@ -30466,47 +30576,6 @@
      "length": 27,
      "name": "?USEITEM_LeaveGame@@YAXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004BC2C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BC2C0",
-     "length": 10,
-     "name": "?Slot01@ButtonWrapper@@UAEXXZ"
-    },
-    {
-     "va": "0x004BC320",
-     "length": 10,
-     "name": "?Slot11@ButtonWrapper@@UAEHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004BC340.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004BC340",
-     "length": 262
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc",
-    "/GS-"
    ]
   },
   {
@@ -31220,107 +31289,9 @@
      "name": "@sub_004BDFD0@4"
     },
     {
-     "va": "0x004BE0A0",
-     "length": 8,
-     "name": "?sub_004BE0A0_GetLineCount@ListBoxImplementation@@UAEHXZ"
-    },
-    {
-     "va": "0x004BE0B0",
-     "length": 88,
-     "name": "?sub_004BE0B0_Clear@ListBoxImplementation@@UAEXXZ"
-    },
-    {
-     "va": "0x004BE910",
-     "length": 123,
-     "name": "?sub_004BE910_ScrollUp@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004BE990",
-     "length": 159,
-     "name": "?sub_004BE990_ScrollDown@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004BEA30",
-     "length": 5,
-     "name": "?SKILLS_Return0@@YGHH@Z"
-    },
-    {
-     "va": "0x004BEDC0",
-     "length": 10,
-     "name": "?Slot11@ListBoxWrapper@@UAEHXZ"
-    },
-    {
-     "va": "0x004BEDD0",
-     "length": 10,
-     "name": "?Slot01@ListBoxWrapper@@UAEXXZ"
-    },
-    {
-     "va": "0x004BEE00",
-     "length": 10,
-     "name": "?sub_004BEE00_Slot14@ListBoxWrapper@@UAEHXZ"
-    },
-    {
-     "va": "0x004BEE10",
-     "length": 10,
-     "name": "?sub_004BEE10_Slot15@ListBoxWrapper@@UAEXXZ"
-    },
-    {
-     "va": "0x004BF530",
-     "length": 281,
-     "name": "?sub_004BF530@ListBox@@QAEHPAUMessage@@@Z"
-    },
-    {
      "va": "0x004BF990",
      "length": 22,
      "name": "?sub_004BF990_GetPlayerCursorItem@@YAPAUD2UnitStrc@@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004BE090.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BE090",
-     "length": 7,
-     "name": "??1UIWidget@@UAE@XZ"
-    },
-    {
-     "va": "0x004BE8D0",
-     "length": 50,
-     "name": "?sub_004BE8D0_ClampTopToSelection@ListBoxImplementation@@QAEXXZ"
-    },
-    {
-     "va": "0x004BEA40",
-     "length": 5,
-     "name": "?SKILLS_Return0@@YGHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004BE110.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BE110",
-     "length": 560,
-     "name": "?sub_004BE110_UpdateScrollBar@ListBoxImplementation@@QAEXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004BEC30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BEC30",
-     "length": 7,
-     "name": "?sub_004BEC30_GetSelectedIndex@ListBoxImplementation@@UAEHXZ"
-    },
-    {
-     "va": "0x004BEE30",
-     "length": 83,
-     "name": "??0D2ListBoxLineStrc@@QAE@XZ"
     }
    ]
   },
