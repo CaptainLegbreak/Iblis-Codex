@@ -1,4 +1,5 @@
 #include "D2DDraw.h"
+
 #include "D2GfxTypes.h"
 
 extern "C" __declspec(dllimport) int __stdcall SmackWait(D2SmackStrc* hSmack);                             // 0x006CC5F8
@@ -63,48 +64,6 @@ static void __stdcall DDRAW_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsi
         sub_00513380_RemapSpan(pDst, pSrc, nWidth);
         pDst += gnRenderWidth;
         pSrc += nWidth;
-    }
-}
-
-void __fastcall sub_005135F0_DDrawPlaySmacker(D2SmackRecordStrc* pRecord)
-{
-    switch (pRecord->nType)
-    {
-    case 's':
-    {
-        D2SmackStrc* hSmack = pRecord->pSmack;
-        if (!hSmack)
-            return;
-        if (!SmackWait(hSmack))
-        {
-            if (!gbSurfaceActive_007C9140)
-                return;
-            if (hSmack->bNewPalette)
-            {
-                for (int i = 0; i < 256; ++i)
-                {
-                    gabDDrawSmackRemap[i] = GetClosestColor(gabGamePalette_007C8CC8, 256, hSmack->aPalette[i].nRed, hSmack->aPalette[i].nGreen, hSmack->aPalette[i].nBlue);
-                }
-                gbDDrawSmackRemapReady = 1;
-            }
-            SmackDoFrame(hSmack);
-            if (hSmack->nFrameNum == hSmack->nFrames)
-                DDRAW_CloseSmacker(pRecord);
-            else
-                SmackNextFrame(hSmack);
-        }
-// build: symbol ?gbRenderPaused@* 0x007C9144
-        if (gbRenderPaused)
-            return;
-        if (!gbDDrawSmackRemapReady)
-            return;
-        DDRAW_RemapRows(hSmack->nWidth, pRecord, hSmack->nHeight);
-        return;
-    }
-    case 'p':
-        if (!gbRenderPaused)
-            DDRAW_RemapRows(468, pRecord, 60);
-        break;
     }
 }
 
@@ -184,6 +143,52 @@ void __fastcall DDRAW_DecodeSmacker(const char* szFile, D2SmackRecordStrc* pReco
     }
 
     DDRAW_CloseSmacker(pRecord);
+}
+
+unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
+extern int gbSurfaceActive_007C9140;                                                                        // 0x007C9140
+
+// 0x005135F0
+void __fastcall sub_005135F0_DDrawPlaySmacker(D2SmackRecordStrc* pRecord)
+{
+    switch (pRecord->nType)
+    {
+    case 's':
+    {
+        D2SmackStrc* hSmack = pRecord->pSmack;
+        if (!hSmack)
+            return;
+        if (!SmackWait(hSmack))
+        {
+            if (!gbSurfaceActive_007C9140)
+                return;
+            if (hSmack->bNewPalette)
+            {
+                for (int i = 0; i < 256; ++i)
+                {
+                    gabDDrawSmackRemap[i] = GetClosestColor(gabGamePalette_007C8CC8, 256, hSmack->aPalette[i].nRed, hSmack->aPalette[i].nGreen, hSmack->aPalette[i].nBlue);
+                }
+                gbDDrawSmackRemapReady = 1;
+            }
+            SmackDoFrame(hSmack);
+            if (hSmack->nFrameNum == hSmack->nFrames)
+                DDRAW_CloseSmacker(pRecord);
+            else
+                SmackNextFrame(hSmack);
+        }
+// build: symbol ?gbRenderPaused@* 0x007C9144
+        if (gbRenderPaused)
+            return;
+        if (!gbDDrawSmackRemapReady)
+            return;
+        DDRAW_RemapRows(hSmack->nWidth, pRecord, hSmack->nHeight);
+        return;
+    }
+    case 'p':
+        if (!gbRenderPaused)
+            DDRAW_RemapRows(468, pRecord, 60);
+        break;
+    }
 }
 
 #include "gen/data/Source/D2DDraw/Src/ddSmack.inc"

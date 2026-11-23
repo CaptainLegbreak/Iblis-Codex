@@ -37844,27 +37844,7 @@
      "va": "0x00513400",
      "length": 491,
      "name": "?DDRAW_DecodeSmacker@@YIXPBDPAUD2SmackRecordStrc@@E@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_005135F0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x005135F0",
      "length": 246
