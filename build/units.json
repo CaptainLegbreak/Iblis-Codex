@@ -24563,6 +24563,11 @@
      "length": 35
     },
     {
+     "va": "0x0049E280",
+     "length": 128,
+     "name": "?TEXT_ConvertHoverText@@YA_NHPBDPAUUnicode@@@Z"
+    },
+    {
      "va": "0x0049E300",
      "length": 50,
      "name": "?TEXT_FreeMainTextBox@@YAXXZ"
@@ -24575,6 +24580,10 @@
     {
      "va": "0x0049E3A0",
      "length": 541
+    },
+    {
+     "va": "0x0049E5C0",
+     "length": 537
     },
     {
      "va": "0x0049E7F0",
@@ -26448,35 +26457,6 @@
      "length": 305,
      "name": "?TEXT_CloseText@@YAHXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/text_0049E280.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0049E280",
-     "length": 128,
-     "name": "?TEXT_ConvertHoverText@@YA_NHPBDPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x0049E5C0",
-     "length": 537
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
