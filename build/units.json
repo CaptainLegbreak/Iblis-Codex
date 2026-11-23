@@ -40249,6 +40249,14 @@
      "length": 117
     },
     {
+     "va": "0x005179B3",
+     "length": 131
+    },
+    {
+     "va": "0x00517A36",
+     "length": 133
+    },
+    {
      "va": "0x00517ABB",
      "length": 27
     },
@@ -40341,35 +40349,6 @@
      "length": 15,
      "name": "?sub_005179A4_FreeVirtualMemory@@YIXPAX@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_005179B3.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005179B3",
-     "length": 131
-    },
-    {
-     "va": "0x00517A36",
-     "length": 133
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/O1",
-    "/GS-"
    ]
   },
   {
