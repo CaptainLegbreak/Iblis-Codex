@@ -34470,11 +34470,6 @@
      "name": "IMAGE2_Destroy"
     },
     {
-     "va": "0x00505150",
-     "length": 6,
-     "name": "D2COMP_GetFirstCompositeUnit"
-    },
-    {
      "va": "0x00507DB0",
      "length": 7,
      "name": "PROGRESSBAR_Destroy"
@@ -37103,6 +37098,11 @@
      "va": "0x00505100",
      "length": 68,
      "name": "?D2Win_10146@@YGXXZ"
+    },
+    {
+     "va": "0x00505150",
+     "length": 6,
+     "name": "D2COMP_GetFirstCompositeUnit"
     },
     {
      "va": "0x00505160",
