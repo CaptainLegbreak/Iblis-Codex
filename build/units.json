@@ -69080,11 +69080,6 @@
      "name": "?DUNGEON_SkillCalcGetRandomNumberInRange@@YIHHHHPAX@Z"
     },
     {
-     "va": "0x0064B720",
-     "length": 49,
-     "name": "?MISSILE_GetRandomNumberInRange@@YIHHHHPAX@Z"
-    },
-    {
      "va": "0x00650E50",
      "length": 3,
      "name": "?SEED_GetLowSeed@@YIIPATD2SeedStrc@@@Z"
@@ -75449,6 +75444,11 @@
      "va": "0x0064B1D0",
      "length": 198,
      "name": "MISSILE_GetMaxElemDamage"
+    },
+    {
+     "va": "0x0064B720",
+     "length": 49,
+     "name": "?MISSILE_GetRandomNumberInRange@@YIHHHHPAX@Z"
     },
     {
      "va": "0x0064B760",
