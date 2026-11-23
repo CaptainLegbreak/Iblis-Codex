@@ -293,9 +293,11 @@ int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 
 struct D2RoomCoordListStrc
 {
-    tagRECT box[2];
-    char unknown20[8];
+    tagRECT pBox[2];
+    int bNode;
+    int bRoomActive;
     int nIndex;
+    D2RoomCoordListStrc* pNext;
 };
 
 extern unsigned char gbNeverCount_006CE270; // 0x006CE270
@@ -1125,7 +1127,7 @@ D2UnitStrc* __fastcall D2GAME_SpawnNormalMonster(D2UnkMonCreateStrc* pCreate)
     }
     else
     {
-        CopyRect(&area,&pCreate->pRoomCoordList->box[1]);
+        CopyRect(&area,&pCreate->pRoomCoordList->pBox[1]);
         sub_00643560_GameTileToSubtileCoords((int*)&area.left,(int*)&area.top);
         sub_00643560_GameTileToSubtileCoords((int*)&area.right,(int*)&area.bottom);
         nAreaTile=pCreate->pRoomCoordList->nIndex;bCheckTile=1;
