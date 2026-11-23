@@ -1078,3 +1078,5 @@ NonDoorA:
     sub_00466DE0_SetHoverUnit(pBest);
 }
 
+
+#include "gen/data/Source/D2Client/GAME/Select.inc"
