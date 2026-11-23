@@ -29,14 +29,3 @@ D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-// 0x004AA8B0
-int __fastcall sub_004AA8B0_GetSkillMaxLevel(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        const int nValue = sgptDataTables->pSkillsTxt[nSkillId].nMaxLevel;
-        if (nValue > 0)
-            return nValue;
-    }
-    return 20;
-}
