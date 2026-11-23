@@ -7953,6 +7953,13 @@ void __fastcall sub_004CCF20_SetValue(int nValue)
     gbMissileLights = nValue;
 }
 
+// 0x004CCF30
+int __cdecl sub_004CCF30()
+{
+// build: symbol ?gbMissileLights@* 0x0072A348
+    return gbMissileLights;
+}
+
 int __stdcall sub_M119_Emit_004CC800(D2ActiveRoomStrc* pRoom, int nOffsetX, int nOffsetY, int nMaxDistanceSq, int nX, int nY)
 {
     return sub_004CC800_CheckDistanceAndLineOfSight(nMaxDistanceSq, nX, nY, pRoom, nOffsetX, nOffsetY);
