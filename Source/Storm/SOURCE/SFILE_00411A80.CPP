@@ -518,12 +518,6 @@ void D2ChatStormListAStrc::IGNORELIST_InitStringListTerminator()
     InitializeTerminator();
 }
 
-// 0x004177D0
-char* D2ChatStormListAStrc::IGNORELIST_GetStringListHead()
-{
-    return m_terminator.MaskNext();
-}
-
 void D2ChatStormListBStrc::IGNORELIST_InitMappingListTerminator()
 {
     InitializeTerminator();
@@ -593,13 +587,6 @@ void D2CommonStringEntryNodeStrc::IGNORELIST_DestroyStringEntryNode()
 void D2CommonStormHashTableAStrc::IGNORELIST_ClearStringTable()
 {
     IGNORELIST_InternalClearStringTable(0);
-}
-
-// 0x00417A30
-void D2ChatStormListAStrc::IGNORELIST_ResetStringList()
-{
-    m_linkoffset = 0;
-    InitializeTerminator();
 }
 
 inline void* operator new(unsigned int, void* pWhere) throw()
@@ -796,14 +783,6 @@ int __stdcall SFileFileExistsEx(void* hArchive, const char* szFileName, int nFla
     int nResult = GetFileBlockEntry(hArchive, szFileName, nFlags, 0, 0, 0);
     LeaveCriticalSection(&gBasePathLock_00779068);
     return nResult;
-}
-
-// 0x00418640
-D2ChatStormListCStrc::D2ChatStormListCStrc()
-{
-    m_linkoffset = 0;
-    m_terminator.m_prevlink = &m_terminator;
-    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
 }
 
 // 0x00418900

@@ -5019,16 +5019,6 @@
      "name": "?sub_00416860_LinkPrev@@YIPADPAUD2StormLinkStrc@@@Z"
     },
     {
-     "va": "0x004177D0",
-     "length": 16,
-     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
-    },
-    {
-     "va": "0x00417A30",
-     "length": 17,
-     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
-    },
-    {
      "va": "0x00417F10",
      "length": 556
     },
@@ -5036,11 +5026,6 @@
      "va": "0x00418140",
      "length": 169,
      "name": "?SFileDdaGetPos@@YGHPAXPAI1@Z"
-    },
-    {
-     "va": "0x00418640",
-     "length": 32,
-     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
     },
     {
      "va": "0x00418900",
@@ -5158,6 +5143,27 @@
     {
      "va": "0x0041BCA0",
      "length": 514
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SFILE_004177D0.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004177D0",
+     "length": 16,
+     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
+    },
+    {
+     "va": "0x00417A30",
+     "length": 17,
+     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x00418640",
+     "length": 32,
+     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
     }
    ]
   },
