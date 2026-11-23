@@ -65382,11 +65382,6 @@
      "name": "DATATBLS_GetAnimData"
     },
     {
-     "va": "0x0062A360",
-     "length": 5,
-     "name": "sub_0062A360"
-    },
-    {
      "va": "0x00631490",
      "length": 6,
      "name": "sub_00631490"
@@ -71015,6 +71010,11 @@
      "va": "0x0062A310",
      "length": 78,
      "name": "ITEMS_CanItemBeUsedForThrowSkill"
+    },
+    {
+     "va": "0x0062A360",
+     "length": 5,
+     "name": "sub_0062A360"
     },
     {
      "va": "0x0062A370",
