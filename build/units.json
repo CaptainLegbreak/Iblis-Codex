@@ -38002,6 +38002,11 @@
      "name": "?D2SOUND_GetDirectSoundErrorString@@YIPBDJ@Z"
     },
     {
+     "va": "0x00514710",
+     "length": 102,
+     "name": "?sub_00514710_GetChannelEntry@@YAPAUD2SoundChannelEntryStrc@@H@Z"
+    },
+    {
      "va": "0x00514780",
      "length": 39,
      "name": "@D2SOUND_CreateStreamChannel@4"
@@ -38423,17 +38428,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Sound/Unknown_00514710.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00514710",
-     "length": 102,
-     "name": "?sub_00514710_GetChannelEntry@@YAPAUD2SoundChannelEntryStrc@@H@Z"
-    }
    ]
   },
   {
