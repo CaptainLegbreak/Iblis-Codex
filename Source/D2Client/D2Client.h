@@ -844,7 +844,7 @@ D2UnitStrc* __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitSt
 void __fastcall sub_004DA620(D2UnitStrc* pUnit, int nArg); // 0x004DA620
 void __fastcall sub_004DB1C0_SetGfxByte(D2UnitStrc* pUnit, int nIndex, unsigned char nValue); // 0x004DB1C0
 void __fastcall sub_004DC7B0(D2CellPosStrc* pPos, unsigned int nColor, int nArg); // 0x004DC7B0
-void __fastcall sub_004DF6C0(int nArg); // 0x004DF6C0
+void __fastcall GFXUTIL_ApplySoundEnviron(int nEnvironId); // 0x004DF6C0
 void __fastcall sub_004DF7B0(void* pStream); // 0x004DF7B0
 void __fastcall sub_004F9740_SetControlState(D2WinControlStrc* pControl, int bSet); // 0x004F9740
 void __fastcall sub_004FB0D0(); // 0x004FB0D0
