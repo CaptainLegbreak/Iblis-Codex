@@ -58726,11 +58726,6 @@
      "name": "?AITHINK_ExecuteMonsterAiTick@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
-     "va": "0x005B3750",
-     "length": 40,
-     "name": "ACT4Q0_ActiveFilterCallback"
-    },
-    {
      "va": "0x005B43D0",
      "length": 31,
      "name": "ACT4Q1_UnitIterate_CheckDistanceToIzualGhost"
@@ -61572,6 +61567,11 @@
      "va": "0x005B3740",
      "length": 5,
      "name": "?ACT3Q7_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
+    },
+    {
+     "va": "0x005B3750",
+     "length": 40,
+     "name": "ACT4Q0_ActiveFilterCallback"
     },
     {
      "va": "0x005B3780",

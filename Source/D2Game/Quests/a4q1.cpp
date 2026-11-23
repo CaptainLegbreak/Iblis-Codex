@@ -814,6 +814,16 @@ bool __fastcall ACT3Q7_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc*
     return false;
 }
 
+// 0x005B3750
+bool __fastcall ACT4Q0_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    if (nNpcId == 367 && !QUESTRECORD_GetQuestState(pQuestFlags, 24, 0))
+    {
+        return true;
+    }
+    return false;
+}
+
 // 0x005B3780
 void __fastcall ACT4Q0_InitQuestData(D2QuestDataStrc* pQuestData)
 {
