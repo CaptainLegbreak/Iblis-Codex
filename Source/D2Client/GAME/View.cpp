@@ -782,6 +782,23 @@ void D2ClientArrayStrc::sub_00450680_SetCount(unsigned int nCount)
     sub_00450110_SetCount(nCount);
 }
 
+struct D2Warden47F930Strc
+{
+    int n00;
+    int n04;
+    int n08;
+
+    D2Warden47F930Strc();
+};
+
+// 0x00450870
+D2Warden47F930Strc::D2Warden47F930Strc()
+{
+    n00 = 0;
+    n04 = 0;
+    n08 = 0;
+}
+
 // 0x004508A0
 void D2ClientOffsetListBStrc::sub_004508A0_LinkNode(D2ClientListNodeStrc* pNode, unsigned int nLinkType, D2ClientListNodeStrc* pExisting)
 {

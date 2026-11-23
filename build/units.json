@@ -13608,6 +13608,11 @@
      "name": "sub_00450680_SetCount"
     },
     {
+     "va": "0x00450870",
+     "length": 13,
+     "name": "??0D2Warden47F930Strc@@QAE@XZ"
+    },
+    {
      "va": "0x004508A0",
      "length": 171,
      "name": "sub_004508A0_LinkNode"
@@ -15668,17 +15673,6 @@
      "va": "0x00451220",
      "length": 55,
      "name": "?_GD2StormExportTableSyncStrc"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00450870.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00450870",
-     "length": 13,
-     "name": "??0D2Warden47F930Strc@@QAE@XZ"
     }
    ]
   },
