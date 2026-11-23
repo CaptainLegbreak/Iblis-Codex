@@ -65,6 +65,32 @@ long __cdecl FOG_GetSyncTime()
     return (nTick - tBase.nTick) / 1000 + tBase.nTime;
 }
 
+struct D2MemoryStatusStrc
+{
+    unsigned long dwLength;
+    unsigned long dwMemoryLoad;
+    unsigned long dwTotalPhys;
+    unsigned long dwAvailPhys;
+    unsigned long dwTotalPageFile;
+    unsigned long dwAvailPageFile;
+    unsigned long dwTotalVirtual;
+    unsigned long dwAvailVirtual;
+};
+
+struct D2OsVersionInfoStrc
+{
+    unsigned long dwOSVersionInfoSize;
+    unsigned long dwMajorVersion;
+    unsigned long dwMinorVersion;
+    unsigned long dwBuildNumber;
+    unsigned long dwPlatformId;
+    char szCSDVersion[128];
+};
+
+extern "C" __declspec(dllimport) void __stdcall GlobalMemoryStatus(D2MemoryStatusStrc* pStatus); // 0x006CC1F4
+extern "C" __declspec(dllimport) int __stdcall GetVersionExA(D2OsVersionInfoStrc* pInfo); // 0x006CC1F8
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 // 0x004107F0
 unsigned __int64 __cdecl SYSTEM_GetSaveDiskFreeSpace()
 {
@@ -99,3 +125,22 @@ unsigned __int64 __cdecl SYSTEM_GetSaveDiskFreeSpace()
     GetDiskFreeSpaceA(szPath, &nSectorsPerCluster, &nBytesPerSector, &nFreeClusters, &nTotalClusters);
     return nFreeClusters * nBytesPerSector * nSectorsPerCluster;
 }
+// 0x00410930
+void __cdecl SYSTEM_GetMemoryStatus(D2MemoryStatusStrc* pStatus)
+{
+    memset(pStatus, 0, sizeof(*pStatus));
+    pStatus->dwLength = sizeof(*pStatus);
+    GlobalMemoryStatus(pStatus);
+}
+
+// 0x00410960
+int __cdecl SYSTEM_IsPlatformNT()
+{
+    D2OsVersionInfoStrc versionInfo;
+    memset(&versionInfo, 0, sizeof(versionInfo));
+    versionInfo.dwOSVersionInfoSize = sizeof(versionInfo);
+    if (!GetVersionExA(&versionInfo))
+        return 0;
+    return versionInfo.dwPlatformId == 2;
+}
+

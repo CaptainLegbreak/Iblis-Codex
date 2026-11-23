@@ -321,7 +321,7 @@ extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2Crit
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int nFlags); // 0x0040B380
 
-int __cdecl sub_00410960_IsPlatformNT(); // 0x00410960
+int __cdecl SYSTEM_IsPlatformNT(); // 0x00410960
 
 extern "C" int __stdcall WSAStartup(unsigned short wVersionRequested, D2WSADataStrc* pData); // 0x006B0132
 
@@ -1667,7 +1667,7 @@ QServer* __stdcall QSInit(int nState, int nSlots, int nPort, int bDisableNt, D2N
     pServer->pClients = 0;
     pServer->pChain88C = 0;
     InitializeCriticalSection(&pServer->tLock854);
-    if (sub_00410960_IsPlatformNT() && !bDisableNt)
+    if (SYSTEM_IsPlatformNT() && !bDisableNt)
         pServer->bUseNt = 1;
     else
         pServer->bUseNt = 0;

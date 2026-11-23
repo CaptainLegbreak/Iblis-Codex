@@ -1639,6 +1639,16 @@
      "name": "LOGMANAGER_LogWritePrefixedNoNewline"
     },
     {
+     "va": "0x00410700",
+     "length": 62,
+     "name": "LOGMANAGER_LogWrite"
+    },
+    {
+     "va": "0x00410740",
+     "length": 69,
+     "name": "LOGMANAGER_LogWritePrefixed"
+    },
+    {
      "va": "0x00410C40",
      "length": 173,
      "name": "LOGMANAGER_OrBits"
@@ -2692,16 +2702,6 @@
      "va": "0x00406870",
      "length": 108,
      "name": "MAINMENUS_InitStorm"
-    },
-    {
-     "va": "0x00410700",
-     "length": 62,
-     "name": "MAINMENUS_LogWrite"
-    },
-    {
-     "va": "0x00410740",
-     "length": 69,
-     "name": "MAINMENUS_LogWritePrefixed"
     },
     {
      "va": "0x0042E6A0",
@@ -3970,16 +3970,6 @@
      "va": "0x0040FC60",
      "length": 66,
      "name": "sub_0040FC60_UnlinkNode"
-    },
-    {
-     "va": "0x00410930",
-     "length": 44,
-     "name": "sub_00410930_GetMemoryStatus"
-    },
-    {
-     "va": "0x00410960",
-     "length": 108,
-     "name": "sub_00410960_IsPlatformNT"
     },
     {
      "va": "0x00411210",
@@ -5279,6 +5269,16 @@
      "va": "0x004107F0",
      "length": 308,
      "name": "SYSTEM_GetSaveDiskFreeSpace"
+    },
+    {
+     "va": "0x00410930",
+     "length": 44,
+     "name": "SYSTEM_GetMemoryStatus"
+    },
+    {
+     "va": "0x00410960",
+     "length": 108,
+     "name": "SYSTEM_IsPlatformNT"
     },
     {
      "va": "0x004109D0",

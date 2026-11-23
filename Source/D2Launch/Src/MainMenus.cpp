@@ -1476,28 +1476,6 @@ void __fastcall MAINMENUS_InitStorm(int nDirectFlags, int nValue)
     StormGetOption(3, &bEnable, 4);
 }
 
-// 0x00410700
-void __cdecl MAINMENUS_LogWrite(const char* szFormat, ...)
-{
-    D2_ASSERT(szFormat, 354);
-    va_list args;
-    va_start(args, szFormat);
-    sub_00410340_LogV(&gszEmptyAssertText, 0, 0, szFormat, args);
-}
-
-// 0x00410740
-void __cdecl MAINMENUS_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...)
-{
-    D2_ASSERT(szFormat, 371);
-    if (!szPrefix)
-    {
-        szPrefix = &gszEmptyAssertText;
-    }
-    va_list args;
-    va_start(args, szFormat);
-    sub_00410340_LogV(szPrefix, 0, 0, szFormat, args);
-}
-
 // 0x0042E6A0
 void __fastcall MAINMENUS_SetGatewayValue(int nValue)
 {

@@ -23,9 +23,7 @@ struct D2FileStrc;
 
 struct D2StormFileSubStrc;
 
-struct D2MemoryStatusStrc;
 
-struct D2OsVersionInfoStrc;
 
 struct D2CriticalSectionStrc;
 
@@ -139,28 +137,6 @@ struct WNDREC;
 
 struct D2StormNodeListBStrc;
 
-struct D2MemoryStatusStrc
-{
-    unsigned long dwLength;
-    unsigned long dwMemoryLoad;
-    unsigned long dwTotalPhys;
-    unsigned long dwAvailPhys;
-    unsigned long dwTotalPageFile;
-    unsigned long dwAvailPageFile;
-    unsigned long dwTotalVirtual;
-    unsigned long dwAvailVirtual;
-};
-
-struct D2OsVersionInfoStrc
-{
-    unsigned long dwOSVersionInfoSize;
-    unsigned long dwMajorVersion;
-    unsigned long dwMinorVersion;
-    unsigned long dwBuildNumber;
-    unsigned long dwPlatformId;
-    char szCSDVersion[128];
-};
-
 struct T004013C0
 {
     unsigned long dwOemId;
@@ -194,9 +170,7 @@ extern "C" char* __cdecl _strlwr(char* szString); // 0x006864E1
 
 extern "C" __declspec(dllimport) void __stdcall GetSystemInfo(T004013C0* pInfo); // 0x006CC1F0
 
-extern "C" __declspec(dllimport) void __stdcall GlobalMemoryStatus(D2MemoryStatusStrc* pStatus); // 0x006CC1F4
 
-extern "C" __declspec(dllimport) int __stdcall GetVersionExA(D2OsVersionInfoStrc* pInfo); // 0x006CC1F8
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 
@@ -829,25 +803,6 @@ void D2StormFixedListStrc::sub_0040FBB0_LinkNode(char* pNode, int nLinkType, cha
 void D2StormFixedListStrc::sub_0040FC60_UnlinkNode(char* pNode)
 {
     Link(pNode)->Unlink();
-}
-
-// 0x00410930
-void __cdecl sub_00410930_GetMemoryStatus(D2MemoryStatusStrc* pStatus)
-{
-    memset(pStatus, 0, sizeof(*pStatus));
-    pStatus->dwLength = sizeof(*pStatus);
-    GlobalMemoryStatus(pStatus);
-}
-
-// 0x00410960
-int __cdecl sub_00410960_IsPlatformNT()
-{
-    D2OsVersionInfoStrc versionInfo;
-    memset(&versionInfo, 0, sizeof(versionInfo));
-    versionInfo.dwOSVersionInfoSize = sizeof(versionInfo);
-    if (!GetVersionExA(&versionInfo))
-        return 0;
-    return versionInfo.dwPlatformId == 2;
 }
 
 // 0x00411210
