@@ -26771,11 +26771,6 @@
      "name": "MONSTER_GetPrimaryTradeGold"
     },
     {
-     "va": "0x004BB5D0",
-     "length": 3,
-     "name": "sub_004BB5D0"
-    },
-    {
      "va": "0x004BF9B0",
      "length": 3,
      "name": "sub_004BF9B0"
@@ -28885,6 +28880,11 @@
      "va": "0x004BB5B0",
      "length": 23,
      "name": "sub_004BB5B0_Slot12"
+    },
+    {
+     "va": "0x004BB5D0",
+     "length": 3,
+     "name": "sub_004BB5D0"
     },
     {
      "va": "0x004BB5E0",
