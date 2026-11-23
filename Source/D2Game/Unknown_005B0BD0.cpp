@@ -52,27 +52,4 @@ int __fastcall AITHINK_GetSquaredDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2
     return nXDiff * nXDiff + nYDiff * nYDiff;
 }
 
-// 0x005B1BC0
-D2TargetNodeStrc* __fastcall sub_005B1BC0_FindTargetNode(D2UnitStrc* pUnit, D2GameStrc* pGame)
-{
-    if (!pGame || !pUnit || (pUnit->dwUnitType != UNIT_PLAYER && pUnit->dwUnitType != UNIT_MONSTER))
-    {
-        return 0;
-    }
-
-    const int nNodeIndex = pUnit->dwNodeIndex;
-    if (nNodeIndex == 11)
-    {
-        return 0;
-    }
-
-    for (D2TargetNodeStrc* pNode = pGame->pTargetNodes[nNodeIndex]; pNode; pNode = pNode->pNext)
-    {
-        if (pNode->hUnit == pUnit)
-        {
-            return pNode;
-        }
-    }
-
-    return 0;
-}
+D2TargetNodeStrc* __fastcall sub_005B1BC0_FindTargetNode(D2UnitStrc* pUnit, D2GameStrc* pGame); // 0x005B1BC0

@@ -59303,11 +59303,6 @@
      "va": "0x005B0BD0",
      "length": 231,
      "name": "?AITHINK_GetSquaredDistance@@YIHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x005B1BC0",
-     "length": 62,
-     "name": "?sub_005B1BC0_FindTargetNode@@YIPAUD2TargetNodeStrc@@PAUD2UnitStrc@@PAUD2GameStrc@@@Z"
     }
    ]
   },
@@ -60798,6 +60793,16 @@
     {
      "va": "0x005B1A90",
      "length": 221
+    },
+    {
+     "va": "0x005B1B70",
+     "length": 66,
+     "name": "?sub_005B1B70_FreeAllTargetNodes@@YIXPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x005B1BC0",
+     "length": 62,
+     "name": "?sub_005B1BC0_FindTargetNode@@YIPAUD2TargetNodeStrc@@PAUD2UnitStrc@@PAUD2GameStrc@@@Z"
     }
    ]
   },
@@ -60805,11 +60810,6 @@
    "file": "Source/D2Game/Unknown_005B1B70.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x005B1B70",
-     "length": 66,
-     "name": "?sub_005B1B70_FreeAllTargetNodes@@YIXPAUD2GameStrc@@@Z"
-    },
     {
      "va": "0x005B1C00",
      "length": 65
