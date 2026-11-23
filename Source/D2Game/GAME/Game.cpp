@@ -2794,34 +2794,9 @@ void __fastcall PLAYER_InitializePosition(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     EVENT_SetEvent(pGame, pUnit, EVENTTYPE_DELAYEDPORTAL, pGame->dwGameFrame + 250, 0, 0);
 }
 
-// 0x005356F0
-void __fastcall PLAYER_CountPlayersInLevelCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg)
-{
-    D2UnitProxyArgStrc* pCount = (D2UnitProxyArgStrc*)pArg;
-    if (DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit)) == pCount->nLevelId && pUnit && pUnit->dwAnimMode != PLRMODE_DEATH && pUnit->dwAnimMode != PLRMODE_DEAD)
-    {
-        ++pCount->nCounter;
-    }
-}
+void __fastcall PLAYER_CountPlayersInLevelCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg); // 0x005356F0
 
-// 0x00535730
-int __fastcall PLAYER_CountPlayersInLevel(D2GameStrc* pGame, int nLevelId)
-{
-    D2UnitProxyArgStrc arg = {};
-    arg.nLevelId = nLevelId;
-    SUNIT_IterateLivingPlayers(pGame, PLAYER_CountPlayersInLevelCallback, &arg);
-    return arg.nCounter;
-}
-
-// 0x00535760
-void __fastcall PLAYER_CountLivingPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pLivingPlayers)
-{
-    if (!SUNIT_IsDead(pUnit))
-    {
-        ++*((int*)pLivingPlayers);
-    }
-}
-
+void __fastcall PLAYER_CountLivingPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pLivingPlayers); // 0x00535760
 static inline D2MonStatsTxt* DESC_GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -2829,61 +2804,7 @@ static inline D2MonStatsTxt* DESC_GetMonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
-// 0x00535790
-int __fastcall PLAYER_GetPlayerCount(D2GameStrc* pGame)
-{
-    int nLivingPlayers = 0;
-    SUNIT_IterateLivingPlayers(pGame, PLAYER_CountLivingPlayers, &nLivingPlayers);
-
-    switch (pGame->nGameType)
-    {
-    case 1:
-    case 2:
-    case 3:
-        if (gnVirtualPlayerCount > nLivingPlayers)
-        {
-            return gnVirtualPlayerCount;
-        }
-        break;
-    }
-
-    return nLivingPlayers;
-}
-
-// 0x00535AF0
-void __fastcall PLAYER_CheckHostilityCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs)
-{
-    D2RosterIterateStrc* pRosterIterate = (D2RosterIterateStrc*)pArgs;
-    if (PLAYERLIST_CheckFlag(pRosterIterate->pUnit, pUnit, 8))
-    {
-        pRosterIterate->bFlag = 1;
-    }
-}
-
-// 0x00535B50
-void __fastcall PLAYER_CheckHostileToUnitCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs)
-{
-    D2RosterIterateStrc* pRosterIterate = (D2RosterIterateStrc*)pArgs;
-    if (PLAYERLIST_CheckFlag(pUnit, pRosterIterate->pUnit, 8))
-    {
-        pRosterIterate->bFlag = 1;
-    }
-}
-
-// 0x00535B80
-int __fastcall PLAYER_IsAnyPlayerHostileTo(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    if (!pGame || !pUnit || pUnit->dwUnitType != UNIT_PLAYER)
-    {
-        return 0;
-    }
-
-    D2RosterIterateStrc rosterIterate = {};
-    rosterIterate.bFlag = 0;
-    rosterIterate.pUnit = pUnit;
-    SUNIT_IterateLivingPlayers(pGame, PLAYER_CheckHostileToUnitCallback, &rosterIterate);
-    return rosterIterate.bFlag;
-}
+void __fastcall PLAYER_CheckHostileToUnitCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs); // 0x00535B50
 
 // 0x00535EA0
 D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromClassId(D2GameStrc* pGame, int nNpcClassId, int* pIndex)

@@ -43098,41 +43098,6 @@
      "name": "PLAYER_InitializePosition"
     },
     {
-     "va": "0x005356F0",
-     "length": 50,
-     "name": "PLAYER_CountPlayersInLevelCallback"
-    },
-    {
-     "va": "0x00535730",
-     "length": 38,
-     "name": "PLAYER_CountPlayersInLevel"
-    },
-    {
-     "va": "0x00535760",
-     "length": 24,
-     "name": "PLAYER_CountLivingPlayers"
-    },
-    {
-     "va": "0x00535790",
-     "length": 56,
-     "name": "PLAYER_GetPlayerCount"
-    },
-    {
-     "va": "0x00535AF0",
-     "length": 32,
-     "name": "PLAYER_CheckHostilityCallback"
-    },
-    {
-     "va": "0x00535B50",
-     "length": 34,
-     "name": "PLAYER_CheckHostileToUnitCallback"
-    },
-    {
-     "va": "0x00535B80",
-     "length": 59,
-     "name": "PLAYER_IsAnyPlayerHostileTo"
-    },
-    {
      "va": "0x00535EA0",
      "length": 105,
      "name": "SUNITPROXY_GetNpcRecordFromClassId"
@@ -45980,16 +45945,6 @@
      "name": "PLAYER_CloseInteraction"
     },
     {
-     "va": "0x00535B10",
-     "length": 59,
-     "name": "?PLAYER_HasHostilePlayer@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00535BC0",
-     "length": 336,
-     "name": "?PLAYER_GetWeaponForSkill@@YIPAUD2UnitStrc@@PAU1@@Z"
-    },
-    {
      "va": "0x00535D10",
      "length": 270,
      "name": "?PLAYER_ApplyWeaponStatsForSkill@@YIXPAUD2UnitStrc@@H@Z"
@@ -46215,9 +46170,29 @@
      "name": "PLAYER_SetSkillHotKey"
     },
     {
+     "va": "0x005356F0",
+     "length": 50,
+     "name": "PLAYER_CountPlayersInLevelCallback"
+    },
+    {
+     "va": "0x00535730",
+     "length": 38,
+     "name": "PLAYER_CountPlayersInLevel"
+    },
+    {
+     "va": "0x00535760",
+     "length": 24,
+     "name": "PLAYER_CountLivingPlayers"
+    },
+    {
      "va": "0x00535780",
      "length": 12,
      "name": "?PLAYER_SetVirtualPlayerCount@@YIXH@Z"
+    },
+    {
+     "va": "0x00535790",
+     "length": 56,
+     "name": "PLAYER_GetPlayerCount"
     },
     {
      "va": "0x005357D0",
@@ -46232,6 +46207,31 @@
      "va": "0x00535AB0",
      "length": 60,
      "name": "?PLAYER_ApplyDeathPenalty@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
+     "va": "0x00535AF0",
+     "length": 32,
+     "name": "PLAYER_CheckHostilityCallback"
+    },
+    {
+     "va": "0x00535B10",
+     "length": 59,
+     "name": "?PLAYER_HasHostilePlayer@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00535B50",
+     "length": 34,
+     "name": "PLAYER_CheckHostileToUnitCallback"
+    },
+    {
+     "va": "0x00535B80",
+     "length": 59,
+     "name": "PLAYER_IsAnyPlayerHostileTo"
+    },
+    {
+     "va": "0x00535BC0",
+     "length": 336,
+     "name": "?PLAYER_GetWeaponForSkill@@YIPAUD2UnitStrc@@PAU1@@Z"
     }
    ]
   },
