@@ -29710,6 +29710,16 @@
      "va": "0x004BBF40",
      "length": 66,
      "name": "HitTestDownArrow"
+    },
+    {
+     "va": "0x004BC050",
+     "length": 71,
+     "name": "MsgSlot02"
+    },
+    {
+     "va": "0x004BC190",
+     "length": 5,
+     "name": "?SKILLS_Return0@@YGHH@Z"
     }
    ]
   },
@@ -30205,22 +30215,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/editbox_004BC050.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BC050",
-     "length": 71,
-     "name": "MsgSlot02"
-    },
-    {
-     "va": "0x004BC190",
-     "length": 5,
-     "name": "?SKILLS_Return0@@YGHH@Z"
-    }
    ]
   },
   {

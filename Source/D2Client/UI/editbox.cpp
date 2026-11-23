@@ -346,3 +346,33 @@ void D2WrapperStrc::sub_004BBB80_Forward(int nArg)
 {
     pImplementation->slot16(nArg);
 }
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+
+// 0x004BC050
+int SpinnerImplementation::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
+{
+    if ((short)pMsg->wParamHigh > 0)
+    {
+        unk0x34 = 1;
+        unk0x38 = 0;
+        unk0x20 = 1;
+    }
+    else if ((short)pMsg->wParamHigh < 0)
+    {
+        unk0x34 = 0;
+        unk0x38 = 1;
+        unk0x20 = 1;
+    }
+
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+    return 1;
+}
+// 0x004BC190
+int SpinnerImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
+{
+    return 0;
+}
+
+
