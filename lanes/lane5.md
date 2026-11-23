@@ -6,10 +6,6 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 - lane5/game-defaults 37ddf94b 0 placeholders; Game.cpp takes in 0x52BFB0/0x52BFC0 from D2Net.cpp (inside Game.cpp's run; lane 6 file) and defines the borrowed zero blocks 0x6E0498 (184 B), 0x6E0550 (24 B), 0x6E0568 (272 B) as const char arrays; borrowed data 15,211 B on this branch; VERIFIED db10a6a4d4e916035cbbe1b1002f4b483b683bda. Based on main #298, not stacked; touches D2Net.cpp (removes the two functions only).
 - lane5/a3q2-run b250ff23 561->558 a3q2.cpp takes in four strays in its runs (0x5B7F90 from a3q1.cpp; 0x5B7FE0, 0x5B8B00, 0x5BDB10 from placeholders); VERIFIED eabdc2af95c0bf45405ca91445b37593b91ec622. Based on main #297, not stacked, D2Game only.
-- lane5/a3q7-dogs f8baab1a 561->560 a3q7.cpp takes in its vile-dog spawn pair (0x5BD390 from Unknown_005BD390.cpp, 0x5BD4A0 from a2q3.cpp) with gaSpawnOffsets and the unread language-name list after it (typed gaszLanguageNames_00741578); VERIFIED acb9538a68004b0b2aa8ee229d723a1c8a6d6ce2. Based on main #297, not stacked, D2Game only.
-- lane5/a3q5-orb caddfed2 570->569 a3q5.cpp takes in the Compelling Orb functions (0x5BB980 from a1q4.cpp, 0x5BBB70/0x5BBBA0 from Unknown_005BBB70.cpp); assert lines 465/501/851/913 run in order through a3q5.cpp; VERIFIED 6b9416cf4705f3729bc019e141033063e6320b8e. Based on main #296, not stacked, D2Game only.
-- lane5/a2q4-run c6d82c5d 580->580 a2q4.cpp takes in 4 ACT2Q4 Jerhyn functions in its run (from a1q6.cpp and Unknown_0059F440.cpp; 0x59F440 onto shared quest records); VERIFIED a26dc147c1cbf75c63cf0a484317ab738ea6c176. Based on main #294, not stacked, D2Game only.
-- Skip `lane5/a4q3-a3q6-2` (327abb67): a rebase of `a4q3-a3q6` made before I saw #294; redundant.
 
 ## Questions
 
