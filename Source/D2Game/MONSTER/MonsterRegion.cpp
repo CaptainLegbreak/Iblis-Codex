@@ -57,7 +57,7 @@ D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int); // 0x0061DB70
 
 void __stdcall sub_005BDB20_GenerateComponentVariants(D2SeedStrc*,D2MonRegDataStrc*,int); // 0x005BDB20
 
-__declspec(noinline) static void __stdcall sub_005475E0_SelectMonsters(D2SeedStrc* pSeed, int bHigher, D2MonsterRegionStrc* pRegion, D2LevelsTxt* pLevels);
+static void __stdcall sub_005475E0_SelectMonsters(D2SeedStrc* pSeed, int bHigher, D2LevelsTxt* pLevels, D2MonsterRegionStrc* pRegion);
 
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
@@ -621,18 +621,91 @@ void __fastcall MONSTER_ToggleSummonerFlag(D2UnitStrc* pUnit, int nFlag, int bSe
 
 void __stdcall QUESTRECORD_FreeRecord(void* pMemPool, D2BitBufferStrc* pQuestRecord); // 0x0065C490
 
-// build: context sub_005475E0_SelectMonsters
-// calling-convention shim (not game code)
-static void __stdcall sub_005475E0_SelectMonsters(D2SeedStrc* pSeed, int bHigher, D2MonsterRegionStrc* pRegion, D2LevelsTxt* pLevels)
+extern const unsigned char gnSpawnMask; // 0x006CE268
+
+extern const unsigned char gnRangedMask; // 0x006CE278
+
+extern "C" void* __cdecl memmove(void*,const void*,unsigned int); // 0x00683840
+
+static inline unsigned __int64 Roll(D2SeedStrc* pSeed)
 {
-    SEED_InitLowSeed((D2SeedStrc*)bHigher, (unsigned int)pRegion);
-    D2LevelsTxt* pA = DATATBLS_GetLevelsTxtRecord((int)pLevels);
-    D2LevelsTxt* pB = DATATBLS_GetLevelsTxtRecord((int)pA);
-    SEED_InitLowSeed((D2SeedStrc*)pA, (unsigned int)pB);
-    SEED_InitLowSeed((D2SeedStrc*)pB, (unsigned int)pA);
-    SEED_InitLowSeed((D2SeedStrc*)pA, (unsigned int)pB);
-    SEED_InitLowSeed((D2SeedStrc*)pB, (unsigned int)pA);
-    SEED_InitLowSeed(pSeed, pSeed->nHighSeed + (unsigned int)pB);
+    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return lSeed;
+}
+
+static inline unsigned int RollLimited(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0)
+        return 0;
+    return (unsigned int)((((unsigned int)nMax - 1) & (unsigned int)nMax) ? (unsigned int)Roll(pSeed) % nMax : Roll(pSeed) & (nMax - 1));
+}
+
+static inline D2MonStatsTxt* MonStats(int id) {
+ if(id<0||id>=sgptDataTables->nMonStatsTxtRecordCount)return 0;
+ return &sgptDataTables->pMonStatsTxt[id];
+}
+
+// 0x005475E0
+static void __stdcall sub_005475E0_SelectMonsters(D2SeedStrc* pSeed, int bHigher, D2LevelsTxt* pLevels, D2MonsterRegionStrc* pRegion)
+{
+    int nToSpawn = pLevels->nNumMon;
+    if (nToSpawn > 13)
+        nToSpawn = 13;
+
+    int nAvailable = pLevels->nNumNormalMonsters;
+    if (bHigher)
+        nAvailable = pLevels->nNumNightmareHellMonsters;
+
+    if (nToSpawn > nAvailable)
+        nToSpawn = nAvailable;
+
+    short nMonsterIds[25];
+    D2MonRegDataStrc* pMonData = pRegion->pMonData;
+    if (bHigher)
+    {
+        for (int i = 0; i < pLevels->nNumNightmareHellMonsters; ++i)
+            nMonsterIds[i] = pLevels->wNightmareHellMonsters[i];
+    }
+    else
+    {
+        for (int i = 0; i < pLevels->nNumNormalMonsters; ++i)
+            nMonsterIds[i] = pLevels->wNormalMonsters[i];
+    }
+
+    for (int i = 0; i < nToSpawn && nAvailable > 0; ++i)
+    {
+        int nIndex = RollLimited(pSeed, nAvailable);
+        short nMonsterId = nMonsterIds[nIndex];
+        if (!i && pLevels->nRangedSpawn)
+        {
+            for (int j = 0; j < 20; ++j)
+            {
+                D2MonStatsTxt* pMonStatsTxtRecord = MonStats(nMonsterId);
+                if (pMonStatsTxtRecord && (pMonStatsTxtRecord->nMonStatsFlags[3] & gnRangedMask))
+                    break;
+
+                nIndex = RollLimited(pSeed, nAvailable);
+                nMonsterId = nMonsterIds[nIndex];
+            }
+        }
+
+        --nAvailable;
+        if (nIndex < nAvailable)
+            memmove(&nMonsterIds[nIndex], &nMonsterIds[nIndex + 1], 2 * (nAvailable - nIndex));
+
+        D2MonStatsTxt* pMonStatsTxtRecord = MonStats(nMonsterId);
+        if (pMonStatsTxtRecord && (pMonStatsTxtRecord->nMonStatsFlags[0] & gnSpawnMask))
+        {
+            pMonData->nMonHcIdx = nMonsterId;
+            pMonData->nRarity = pMonStatsTxtRecord->rarity;
+            pRegion->nTotalRarity += pMonStatsTxtRecord->rarity;
+            ++pRegion->nSpawnCount;
+            ++pRegion->nMonCount;
+            ++pMonData;
+        }
+    }
 }
 
 // 0x005479C0
@@ -652,7 +725,7 @@ void __fastcall MONSTERREGION_InitializeAll(void* pool,D2MonsterRegionStrc** reg
   region->nMonWander=levels->nWandering;region->nQuest=levels->nQuest;region->nTrapVariant=-1;region->nMonsterRegionLevel=-1;
   if(expansion) {region->nDungeonLevel=levels->wMonLvlEx[difficulty];region->nDungeonLevelEx=levels->wMonLvlEx[difficulty];}
   else {region->nDungeonLevel=(short)levels->wMonLvl[difficulty];region->nDungeonLevelEx=(short)levels->wMonLvl[difficulty];}
-  sub_005475E0_SelectMonsters(seed,difficulty>0,region,levels);
+  sub_005475E0_SelectMonsters(seed,difficulty>0,levels,region);
   D2MonRegDataStrc* entry=region->pMonData;
   for(int i=0;i<region->nMonCount;++i){sub_005BDB20_GenerateComponentVariants(seed,entry,3);++entry;}
   *regions=region;++regions;
