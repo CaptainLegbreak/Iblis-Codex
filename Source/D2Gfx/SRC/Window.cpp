@@ -1,4 +1,5 @@
 #include "D2Gfx.h"
+#include "D2GameTypes.h"
 
 #include "D2GfxTypes.h"
 
@@ -684,6 +685,14 @@ int __stdcall WINDOW_Destroy()
 void __stdcall WINDOW_SetPaused(int bPaused)
 {
     gbPaused = bPaused;
+}
+
+extern int gdwGlobal_007C8CBC; // 0x007C8CBC
+
+// 0x004F59A0
+int __cdecl WINDOW_GetWindow()
+{
+    return gdwGlobal_007C8CBC;
 }
 
 // 0x004F59B0
@@ -1438,11 +1447,17 @@ void __fastcall D2GFX_DrawLitSubtileRows(unsigned char* pSrc, unsigned char* pDs
 
 // build: symbol ?ganRowOffsets@* 0x007C97A8
 #define gnRowOffsets_007C9828 (ganRowOffsets + 32)
+
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
+
 void __fastcall CMNSUBTILE_DrawIsoBlockFlat(unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette); // 0x004F69B0
+
 void __fastcall sub_004F8050_DrawRleVisTile(unsigned char* pSrc, int nX, int nY, unsigned char nLight); // 0x004F8050
+
 extern int gdwGlobal_0072DA50; // 0x0072DA50
+
 unsigned char* gpScreenBuffer; // 0x007D5448
+
 int gnLightingOff; // 0x007D2340
 
 // 0x004F6F60
