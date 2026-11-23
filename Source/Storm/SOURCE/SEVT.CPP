@@ -7,7 +7,19 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC218
 
-D2CriticalSectionStrc gtSEvtLock;                                                                           // 0x0077930C
+extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
+extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
+
+// A critical section for the whole run: initialized before main, deleted at exit.
+struct CCritSect : D2CriticalSectionStrc
+{
+    CCritSect() { InitializeCriticalSection(this); }
+    ~CCritSect() { DeleteCriticalSection(this); }
+};
+
+// build: symbol ??__EgtSEvtLock@@YAXXZ 0x006CA920
+// build: symbol ??__FgtSEvtLock@@YAXXZ 0x006CB370
+CCritSect gtSEvtLock;                                                                           // 0x0077930C
 
 static D2StormEventTypeStrc** gppSEvtTypes_00779300;                                                        // 0x00779300
 

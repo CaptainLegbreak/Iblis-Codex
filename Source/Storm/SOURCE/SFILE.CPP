@@ -180,7 +180,19 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 extern int gnFlag3_007788CC; // 0x007788CC
 
-D2CriticalSectionStrc gBasePathLock_00779068; // 0x00779068
+extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
+extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
+
+// A critical section for the whole run: initialized before main, deleted at exit.
+struct CCritSect : D2CriticalSectionStrc
+{
+    CCritSect() { InitializeCriticalSection(this); }
+    ~CCritSect() { DeleteCriticalSection(this); }
+};
+
+// build: symbol ??__EgBasePathLock_00779068@@YAXXZ 0x006CA7F0
+// build: symbol ??__FgBasePathLock_00779068@@YAXXZ 0x006CB0A0
+CCritSect gBasePathLock_00779068; // 0x00779068
 
 char gszBasePath_00778F28[260]; // 0x00778F28
 
@@ -453,7 +465,6 @@ struct D2StormList00418490Strc : D2StormListBaseStrc { int sub_00418490_IsEmpty(
 
 struct D2StormList004185B0Strc : D2StormListBaseStrc { int sub_004185B0_IsEmpty(); };
 
-extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 
 extern "C" __declspec(dllimport) void* __stdcall CreateEventA(void* pAttributes, int bManualReset, int bInitialState, const char* szName); // 0x006CC228
 
@@ -659,7 +670,9 @@ unsigned int __fastcall bjhash(const unsigned char* k, unsigned int nLength, uns
 
 extern char* gpStormExplodeWork;                                                                            // 0x0077903C
 
-D2CriticalSectionStrc gStormExplodeLock;                                                                    // 0x00779080
+// build: symbol ??__EgStormExplodeLock@@YAXXZ 0x006CA870
+// build: symbol ??__FgStormExplodeLock@@YAXXZ 0x006CB0B0
+CCritSect gStormExplodeLock;                                                                    // 0x00779080
 
 unsigned int __cdecl sub_004151D0_ExplodeRead(char* pBuffer, unsigned int* pnSize, void* pParam);          // 0x004151D0
 

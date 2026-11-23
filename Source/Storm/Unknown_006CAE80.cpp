@@ -50,10 +50,6 @@ void __cdecl sub_006CB550_DestroyList(); // 0x006CB550
 
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* lpCriticalSection); // 0x006CC1FC
-extern D2CriticalSectionStrc gCriticalSection_0075E838; // 0x0075E838
-extern D2CriticalSectionStrc gCriticalSection_0075E850; // 0x0075E850
-extern D2CriticalSectionStrc gCriticalSection_00779068; // 0x00779068
-extern D2CriticalSectionStrc gCriticalSection_00779080; // 0x00779080
 
 // build: symbol ?UnlinkAll@?$TSList@UARCHIVEREC@@U?$TSGetLink@UARCHIVEREC@@@@@@QAEXXZ 0x00418900
 // build: symbol ?UnlinkAll@?$TSList@UREQUEST@@U?$TSGetLink@UREQUEST@@@@@@QAEXXZ 0x00418940
@@ -82,10 +78,8 @@ extern TSList<EVENTREC> gList_00708378; // 0x00708378
 extern TSList<AUDIOSTREAM> gList_00708384; // 0x00708384
 
 extern TSList<HANDLER> gList_00708420; // 0x00708420
-extern D2CriticalSectionStrc gCriticalSection_00779214; // 0x00779214
 
 extern TSList<WNDREC> gList_00708860; // 0x00708860
-extern D2CriticalSectionStrc gCriticalSection_0077930C; // 0x0077930C
 
 extern TSList<BREAKCMD> gList_007088E8; // 0x007088E8
 
@@ -178,30 +172,6 @@ void __cdecl sub_006CB050_InitializeList()
     atexit(sub_006CB550_DestroyList);
 }
 
-// 0x006CB070
-void __cdecl sub_006CB070_DeleteCriticalSection()
-{
-    DeleteCriticalSection(&gCriticalSection_0075E838);
-}
-
-// 0x006CB080
-void __cdecl sub_006CB080_DeleteCriticalSection()
-{
-    DeleteCriticalSection(&gCriticalSection_0075E850);
-}
-
-// 0x006CB0A0
-void __cdecl sub_006CB0A0_DeleteCriticalSection()
-{
-    DeleteCriticalSection(&gCriticalSection_00779068);
-}
-
-// 0x006CB0B0
-void __cdecl sub_006CB0B0_DeleteCriticalSection()
-{
-    DeleteCriticalSection(&gCriticalSection_00779080);
-}
-
 // 0x006CB0C0
 void __cdecl sub_006CB0C0_DestroyList()
 {
@@ -238,22 +208,10 @@ void __cdecl sub_006CB2A0_DestroyList()
     gList_00708420.~TSList();
 }
 
-// 0x006CB300
-void __cdecl sub_006CB300_DeleteCriticalSection()
-{
-    DeleteCriticalSection(&gCriticalSection_00779214);
-}
-
 // 0x006CB310
 void __cdecl sub_006CB310_DestroyList()
 {
     gList_00708860.~TSList();
-}
-
-// 0x006CB370
-void __cdecl sub_006CB370_DeleteCriticalSection()
-{
-    DeleteCriticalSection(&gCriticalSection_0077930C);
 }
 
 // 0x006CB380
