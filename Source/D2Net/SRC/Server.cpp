@@ -1,4 +1,13 @@
 #include "D2Net.h"
+#include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2Primitives.h"
+#include "D2ClientMenus.h"
+#include "D2BnCryptTypes.h"
+#include "D2Records.h"
+#include "D2LevelTxt.h"
+#include "D2StormSha1.h"
+
 #include "D2GameServer.h"
 
 #include "D2NetTypes.h"
@@ -265,6 +274,18 @@ int __stdcall D2NET_10022(int dwMilliseconds)
 void __stdcall D2NET_10029_Return(int nUnused)
 {
     FOG_10183_Return(gpServer, nUnused);
+}
+
+int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
+
+// 0x0052B720
+int __fastcall SERVER_OnClientConnectedCallback(QServer* pServer, int nClientId, const char* szFile, int nLine)
+{
+    unsigned char data[2];
+    data[0] = 0xAF;
+    data[1] = 1;
+    sub_0052B330(0, nClientId, data, sizeof(data));
+    return 1;
 }
 
 // 0x0052B750
