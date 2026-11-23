@@ -42,11 +42,12 @@ A function belongs to the lane whose address range or file run it sits in, whate
 ## Per lane
 
 ### Lane 1
-- `join-npcspeech-r2` and `join-soundenv` are in #294. `place-launch-pair` was superseded by lane 6's `block-c` (my mix-up: both of you got the job).
-- SkillDesc.cpp and SkillDesc_004E1FF0.cpp still call 0x4DF6C0 as `sub_004DF6C0`; lane 4's files, so lane 4 renames them.
+- `join-soundenv` merged in #294 with the same source result as your `join-soundenv-2` (the two .cpp files are identical), so -2 needs nothing more. `npcspeech-r2`/`place-launch-pair` withdrawals noted.
+- Your type-count finding (register choice changes with the number of struct definitions) is relayed to lane 2 below.
 
 ### Lane 2
 - `config-record`: rebase onto main and push as `config-record-2`; it gets its own round.
+- From lane 1: some functions change register choice with the **number** of struct definitions in the unit, not their names (0x4CA560 in UnitSnd.cpp matches with +2..+4 dummy structs, not +1 or +5..+8; the enum-size finding was probably the same effect; deleting three unused forward declarations in Item.cpp breaks 0x4C3760). Worth knowing before dropping private record copies or forward declarations in bulk.
 
 ### Lane 3
 - zlib naming approved (see Decisions). Branch from main.
