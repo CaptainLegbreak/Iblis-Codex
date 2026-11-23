@@ -80263,6 +80263,10 @@
      "name": "?sub_0067FCD0_GetPresetPairValue@@YGHHHI@Z"
     },
     {
+     "va": "0x0067FD20",
+     "length": 355
+    },
+    {
      "va": "0x0067FE90",
      "length": 278,
      "name": "?sub_0067FE90_PlaceColumns@@YGXPAUD2DrlgLevelStrc@@H@Z"
@@ -80272,30 +80276,6 @@
      "length": 61,
      "name": "?sub_0067FFB0_IsRectAdjacent@@YAHPAUD2DrlgOutRectStrc@@0@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0067FD20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0067FD20",
-     "length": 355
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
