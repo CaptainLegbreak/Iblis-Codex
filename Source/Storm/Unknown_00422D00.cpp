@@ -405,25 +405,3 @@ void __stdcall SBigMulMod(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBi
 {
     sub_004245F0_MulMod(pResult->tPrimary, pA->tPrimary, pB->tPrimary, pC->tPrimary, pResult->tStack);
 }
-
-// build: context ??2@YAPAXIPAX@Z
-// build: context ?RoundUp@D2StormArrayAStrc@@SGIII@Z
-// build: context ?Reserve@D2StormArrayAStrc@@QAEXIH@Z
-// build: context ?SetCount@D2StormArrayAStrc@@QAEXI@Z
-// build: context ?GrowToFit@D2StormArrayAStrc@@QAEXIH@Z
-// build: context ?CalcChunkSizeInline@D2StormArrayAStrc@@QAEII@Z
-// build: context ?GrowToFitInline@D2StormArrayAStrc@@QAEXI@Z
-// build: context ?RoundUp@D2StormArrayBStrc@@SGIII@Z
-// build: context ?CalcChunkSize@D2StormArrayBStrc@@QAEII@Z
-// build: context ?Reserve@D2StormArrayBStrc@@QAEXIH@Z
-// build: context ?Add@D2StormArrayBStrc@@QAEXIPBE@Z
-// build: context ?New@D2StormArrayBStrc@@QAEPAEXZ
-// build: context ?Count@BigBuffer@@QBEIXZ
-// build: context ?IsUsed@BigBuffer@@QBEHI@Z
-// build: context ??ABigBuffer@@QBEII@Z
-// build: context ??ABigBuffer@@QAEAAII@Z
-// build: context ?SetCount@BigBuffer@@QAEXI@Z
-// build: context ?CopyFrom@BigBuffer@@QAEXABU1@@Z
-// build: context ?Ref@BigBuffer@@QAEAAIH@Z
-// build: context ?At@BigBuffer@@QAEAAII@Z
-// build: context ?SetStart@BigBuffer@@QAEXI@Z

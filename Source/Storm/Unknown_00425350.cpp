@@ -1,22 +1,4 @@
 #include "D2StormTypes.h"
-// build: context MakeLarge
-// build: context ExtractLowPart
-// build: context ExtractLowPartSx
-// build: context D2StormArrayAStrc::RoundUp
-// build: context D2StormArrayAStrc::Reserve
-// build: context D2StormArrayAStrc::SetCount
-// build: context D2StormArrayAStrc::GrowToFit
-// build: context D2StormArrayAStrc::CalcChunkSizeInline
-// build: context D2StormArrayAStrc::GrowToFitInline
-// build: context BigBuffer::Count
-// build: context BigBuffer::IsUsed
-// build: context BigBuffer::operator[]
-// build: context BigBuffer::SetCount
-// build: context BigBuffer::CopyFrom
-// build: context BigBuffer::operator=
-// build: context BigBuffer::Ref
-// build: context BigBuffer::At
-// build: context BigBuffer::SetStart
 
 inline void* operator new(unsigned int, void* pWhere) throw()
 {

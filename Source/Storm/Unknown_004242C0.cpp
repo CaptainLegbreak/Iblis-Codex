@@ -185,14 +185,3 @@ void __stdcall sub_004242C0_BigOp(BigBuffer* pResult, const BigBuffer* pB, const
         pStack->nUsed--;
     }
 }
-
-// build: context ?RoundUp@D2StormArrayAStrc@@SGIII@Z
-// build: context ?Alloc@BigStack@@QAEAAUBigBuffer@@XZ
-// build: context ?MakeDistinct@BigStack@@QAEAAUBigBuffer@@AAU2@H@Z
-// build: context ?ExtractLowPart@@YAIAA_K@Z
-// build: context ?Reserve@D2StormArrayAStrc@@QAEXIH@Z
-// build: context ?SetCount@D2StormArrayAStrc@@QAEXI@Z
-// build: context ?GrowToFit@D2StormArrayAStrc@@QAEXIH@Z
-// build: context ??ABigBuffer@@QBEII@Z
-// build: context ??ABigBuffer@@QAEAAII@Z
-// build: context ?SetCount@BigBuffer@@QAEXI@Z

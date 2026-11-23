@@ -2,7 +2,6 @@
 #include "D2Structs.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
-// build: context SEED_RollRandomNumber_Wild
 typedef int BOOL;
 
 struct D2DrlgStrc;

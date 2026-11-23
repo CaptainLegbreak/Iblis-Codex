@@ -146,11 +146,3 @@ void __stdcall sub_00424B00_BigSquare(BigBuffer* pResult, BigBuffer* pA, BigStac
         pStack->nUsed--;
     }
 }
-
-// build: context ?RoundUp@D2StormArrayAStrc@@SGIII@Z
-// build: context ?IsUsed@BigBuffer@@QBEHI@Z
-// build: context ?GetInline@BigBuffer@@QBEII@Z
-// build: context ?SetCountInline@BigBuffer@@QAEXI@Z
-// build: context ?ChunkSizeInline@BigBuffer@@QAEII@Z
-// build: context ?GrowToFitInline@BigBuffer@@QAEXI@Z
-// build: context ?AtInline@BigBuffer@@QAEAAII@Z

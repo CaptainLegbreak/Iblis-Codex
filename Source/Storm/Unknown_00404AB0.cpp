@@ -263,7 +263,6 @@ static bool sub_00404FF0_ReadRsds(const D2CvRsdsStrc* pCv, D2CrashModuleStrc* pM
     sub_00404890_CopyRsdsGuid(pModule, pCv);
     return true;
 }
-// build: context ??0D2CrashModuleStrc@@QAE@XZ
 
 struct D2UnicodeStringStrc
 {

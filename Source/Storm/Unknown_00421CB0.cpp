@@ -202,10 +202,3 @@ void __stdcall SBigToStreamPtr(D2StormBigStrc* pBig, unsigned char** ppData, uns
     *ppData = pBig->tBuffer.f_8;
     *pSize = pBig->tBuffer.f_4;
 }
-
-// build: context ?RoundUp@D2StormArrayBStrc@@QAEIII@Z
-// build: context ?InlineReserve@D2StormArrayBStrc@@QAEXIH@Z
-// build: context ?New@D2StormArrayBStrc@@QAEPAEXZ
-// build: context ?Count@D2StormArrayAStrc@@QBEIXZ
-// build: context ?Count@BigBuffer@@QBEIXZ
-// build: context ??ABigBuffer@@QBEII@Z

@@ -98,8 +98,6 @@ unsigned int __fastcall DRLGOUTROOM_CheckOutdoorRoomFlag(D2DrlgRoomStrc* pRoom);
 void sub_0067D7B0(D2DrlgCoordsStrc* pCoords, int nType);
 void __stdcall DRLGOUTROOM_GetOrthCoords(D2DrlgCoordsStrc* pCoords, int nType, int nDirection, D2DrlgCoordsStrc* pBase);
 
-// build: context DRLGOUTROOM_LinkLevelsByOffsetCoords
-
 extern const D2CoordStrc gaOutdoorOrthOffsets[4]; // 0x006F1F7C
 
 struct D2DrlgOutSiegeInitStrc

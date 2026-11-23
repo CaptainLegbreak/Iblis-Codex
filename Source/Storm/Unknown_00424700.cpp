@@ -1,27 +1,4 @@
 #include "D2StormTypes.h"
-// build: context MakeLarge
-// build: context ExtractLowPart
-// build: context ExtractLowPartSx
-// build: context D2StormArrayAStrc::RoundUp
-// build: context D2StormArrayAStrc::Reserve
-// build: context D2StormArrayAStrc::SetCount
-// build: context D2StormArrayAStrc::GrowToFit
-// build: context D2StormArrayAStrc::CalcChunkSizeInline
-// build: context D2StormArrayAStrc::ReserveInline
-// build: context D2StormArrayAStrc::SetCountInline
-// build: context D2StormArrayAStrc::GrowToFitInline
-// build: context BigBuffer::Count
-// build: context BigBuffer::IsUsed
-// build: context BigBuffer::SetCount
-// build: context BigBuffer::SetCountInline
-// build: context BigBuffer::CopyFrom
-// build: context BigBuffer::Ref
-// build: context BigBuffer::At
-// build: context BigBuffer::SetStart
-// build: context BigStack::Alloc
-// build: context BigStack::Free
-// build: context BigStack::MakeDistinct
-// build: context BigStack::UnmakeDistinct
 
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 
@@ -461,8 +438,5 @@ void __stdcall Rand(BigBuffer* pResult, BigBuffer* pModulus, BigBuffer* pSeed, B
     }
     pStack->nUsed -= 2;
 }
-
-// build: context ??ABigBuffer@@QBEII@Z
-// build: context ??ABigBuffer@@QAEAAII@Z
 
 #include "gen/data/Source/Storm/Unknown_00424700.inc"

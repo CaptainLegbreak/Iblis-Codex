@@ -71,8 +71,6 @@ extern "C" int __fastcall CUNIT_ValidateMonsterId(int); // 0x00463900
 extern "C" int __fastcall SEED_RollLimitedRandomNumber(Seed*, int); // 0x0045C390
 extern "C" int __stdcall STATES_CheckState(Unit*, int); // 0x00639DF0
 
-// build: context GetSkillRecord
-
 static inline SkillRecord* GetSkillRecord(int skill)
 {
     if (skill < 0 || skill >= sgptDataTables->skillCount)
