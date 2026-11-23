@@ -34238,11 +34238,6 @@
      "name": "D2GFX_CheckLowQuality"
     },
     {
-     "va": "0x004F59A0",
-     "length": 6,
-     "name": "WINDOW_GetWindow"
-    },
-    {
      "va": "0x004F65E0",
      "length": 6,
      "name": "SCALE_GetFactor"
@@ -34835,6 +34830,11 @@
      "va": "0x004F5990",
      "length": 15,
      "name": "WINDOW_SetPaused"
+    },
+    {
+     "va": "0x004F59A0",
+     "length": 6,
+     "name": "WINDOW_GetWindow"
     },
     {
      "va": "0x004F59B0",

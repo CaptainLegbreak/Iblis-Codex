@@ -1,4 +1,5 @@
 #include "D2Glide.h"
+
 #include "D2GameTypes.h"
 
 struct D2GlideHwQueryStrc;
@@ -432,12 +433,6 @@ int __cdecl D2GFX_CheckLowQuality()
     return gdwGlobal_0072DA50;
 }
 
-// 0x004F59A0
-int __cdecl WINDOW_GetWindow()
-{
-    return gdwGlobal_007C8CBC;
-}
-
 // 0x004F65E0
 int __cdecl SCALE_GetFactor()
 {
@@ -511,9 +506,13 @@ void __fastcall SCROLLBAR_Destroy(void* pArg)
 }
 
 void __fastcall GLIDE_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bFlush);                     // 0x0050ECB0
+
 void __fastcall GLIDE_TileCacheDestroy(D2GlideTileCacheStrc* pCache, int bFlush);                    // 0x0050F210
+
 void __fastcall GLIDE_FloorCacheDestroy(D2GlideFloorCacheStrc* pCache, int bFlush);                  // 0x0050F7C0
+
 extern D2GlideTileCacheStrc gtGlideTileCache;                                                       // 0x0087EB48
+
 extern D2GlideFloorCacheStrc gtGlideFloorCache;                                                     // 0x0087EB68
 
 // 0x00508F90
@@ -1268,8 +1267,6 @@ void __fastcall GLIDE_ReleaseTexSlots(D2GlideTexSlotStrc* pSlots)
     }
 }
 
-
-
 // 0x0050C3A0
 void __fastcall GLIDE_UtilDiamond(tagRECT* pRect, int nPaletteIndex)
 {
@@ -1342,7 +1339,6 @@ void __fastcall GLIDE_UtilPoint(tagPOINT* pPoint, unsigned char nSize, int nPale
         sub_0050BF50_GlideDrawBox(tRect.left, tRect.top, tRect.right, tRect.bottom, nPaletteIndex, 5);
     }
 }
-
 
 // 0x00510140
 int __cdecl DDRAW_CheckCutScene()
