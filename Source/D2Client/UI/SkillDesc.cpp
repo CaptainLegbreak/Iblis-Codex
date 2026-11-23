@@ -6105,6 +6105,127 @@ D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
 D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
 
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
+
+int __fastcall SKILLDESC_GetSkillParamSix(int nSkillId); // 0x004F4110
+
+int __fastcall UNITS_GetWeaponClass(D2UnitStrc* pUnit); // 0x00623C60
+
+void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue); // 0x006445A0
+
+void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
+
+void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4); // 0x00649EF0
+
+inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+
+    return 0;
+}
+
+// 0x004F4A30
+int __fastcall sub_004F4A30_CltDoChargedMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    int nCharges = SKILLS_GetParam1(pSkill);
+    if (nCharges <= 0)
+    {
+        return 0;
+    }
+
+    const int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
+    const int nUnitGUID = SKILLS_GetParam3(pSkill);
+    D2UnitStrc* pTarget = CUNIT_FindClientUnit(nUnitGUID, SKILLS_GetParam2(pSkill));
+    if (!pTarget)
+    {
+        pTarget = sub_004C5EB0_FindDestination(pUnit, 0, 0, nRange, 3, nUnitGUID, 0);
+    }
+
+    if (pTarget)
+    {
+        UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);
+    }
+
+    int nTargetX;
+    int nTargetY;
+    if (!ITEM_GetTargetPosition(pUnit, &nTargetX, &nTargetY))
+    {
+        return 0;
+    }
+
+    int nMissileId = pSkillsTxtRecord->wCltMissileA;
+    if (UNITS_GetWeaponClass(pUnit) != 1 && pSkillsTxtRecord->wCltMissileB >= 0)
+    {
+        nMissileId = pSkillsTxtRecord->wCltMissileB;
+    }
+
+    if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    D2MissileStrc tMissileParams;
+    memset(&tMissileParams, 0, sizeof(tMissileParams));
+    tMissileParams.dwFlags = 0x21;
+    tMissileParams.pOwner = pUnit;
+    tMissileParams.nX = CLIENTS_GetUnitX(pUnit);
+    tMissileParams.nY = CLIENTS_GetUnitY(pUnit);
+    tMissileParams.nSkill = nSkillId;
+    tMissileParams.nSkillLevel = nSkillLevel;
+    tMissileParams.nMissile = nMissileId;
+    tMissileParams.nTargetX = nTargetX;
+    tMissileParams.nTargetY = nTargetY;
+    MISSILE_CreateClientMissile(&tMissileParams);
+
+    --nCharges;
+    SKILLS_SetParam1(pSkill, nCharges);
+    if (nCharges > 0)
+    {
+        D2UnitStrc* pNext = sub_004C5EB0_FindDestination(pUnit, 0, 0, nRange, 3, pTarget ? pTarget->dwUnitId : -1, 0);
+        if (!pNext)
+        {
+            return 0;
+        }
+
+        D2Common_10216(pUnit->pDynamicPath, CLIENTS_GetUnitX(pNext), CLIENTS_GetUnitY(pNext), 0);
+        int nUnitType = -1;
+        if (pNext)
+        {
+            nUnitType = pNext->dwUnitType;
+        }
+        SKILLS_SetParam2(pSkill, nUnitType);
+        int nNextGUID;
+        if (!pNext)
+        {
+            nNextGUID = -1;
+        }
+        else
+        {
+            nNextGUID = pNext->dwUnitId;
+        }
+        SKILLS_SetParam3(pSkill, nNextGUID);
+        SKILLS_ScaleFramePrecise(pUnit, SKILLDESC_GetSkillParamSix(nSkillId));
+    }
+
+    return 1;
+}
+
+
 // 0x004F4D90
 int __fastcall sub_004F4D90_MissileAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
