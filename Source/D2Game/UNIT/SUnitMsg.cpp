@@ -1113,41 +1113,6 @@ void __fastcall SUNITMSG_SendQueuedMessages(D2UnitStrc* pUnit, D2ClientStrc* pCl
     }
 }
 
-// 0x00585160
-int __fastcall OBJMODE_ObeliskPowerUp_IncreaseEnergy(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
-{
-    sub_006272B0_UnitStatListCall(pUnit, 1, nValue, 0);
-    return 1;
-}
-
-// 0x00585180
-int __fastcall OBJMODE_ObeliskPowerUp_IncreaseDexterity(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
-{
-    sub_006272B0_UnitStatListCall(pUnit, 2, nValue, 0);
-    return 1;
-}
-
-// 0x005851A0
-int __fastcall OBJMODE_ObeliskPowerUp_IncreaseVitality(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
-{
-    sub_006272B0_UnitStatListCall(pUnit, 3, nValue, 0);
-    return 1;
-}
-
-// 0x005851C0
-int __fastcall OBJMODE_ObeliskPowerUp_IncreaseStrength(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
-{
-    sub_006272B0_UnitStatListCall(pUnit, 0, nValue, 0);
-    return 1;
-}
-
-// 0x00585220
-int __fastcall OBJMODE_ObeliskPowerUp_IncreaseSkillpoints(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
-{
-    sub_006272B0_UnitStatListCall(pUnit, 5, nValue, 0);
-    return 1;
-}
-
 void __fastcall sub_M120_Emit_00571790(D2UnitStrc* pUnit, D2UnitPacketListStrc* pMsg)
 {
     SUNITMSG_AppendUnitMessage(pUnit, pMsg);

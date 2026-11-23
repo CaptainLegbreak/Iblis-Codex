@@ -1060,6 +1060,63 @@ void __fastcall OBJMODE_SendObjectModeAndShrineUpdate(D2UnitStrc* pUnit, D2Clien
     }
 }
 
+#define UNITFLAG_HASEVENTSOUND 0x00000400
+
+void __fastcall SUNITMSG_SendHoverText(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571620
+
+void __fastcall D2GAME_INVMODE_First_6FC40FB0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, D2InventoryStrc* pInventoryArg); // 0x00597890
+
+void __fastcall SUNITMSG_SendQueuedMessages(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571CD0
+
+inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
+{
+    if (pUnit)
+    {
+        return (pUnit->dwFlags & nFlag) != 0;
+    }
+
+    return 0;
+}
+
+inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
+{
+    if (pUnit)
+    {
+        return (pUnit->dwFlagEx & nFlag) != 0;
+    }
+
+    return 0;
+}
+
+// 0x00581AD0
+void __fastcall OBJMODE_SendObjectUpdates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient)
+{
+    if (pUnit)
+    {
+        if (UNIT_HasFlag(pUnit, UNITFLAG_DOUPDATE))
+        {
+            OBJMODE_SendObjectModeAndShrineUpdate(pUnit, pClient);
+        }
+
+        if (UNIT_HasFlag(pUnit, UNITFLAG_HASEVENTSOUND))
+        {
+            D2GAME_UpdateUnit_6FCC6080(pUnit, pClient);
+        }
+
+        if (UNIT_HasFlag(pUnit, UNITFLAG_HASTXTMSG))
+        {
+            SUNITMSG_SendHoverText(pUnit, pClient);
+        }
+
+        if (UNIT_HasFlagEx(pUnit, UNITFLAGEX_HASINV))
+        {
+            D2GAME_INVMODE_First_6FC40FB0(pGame, pUnit, pClient, 0);
+        }
+    }
+
+    SUNITMSG_SendQueuedMessages(pUnit, pClient);
+}
+
 // 0x00581B50
 static void OBJMODE_TeleportToUnit(D2UnitStrc* pUnit, D2UnitStrc* pPlayer, D2ActiveRoomStrc* pRoom)
 {
@@ -1087,6 +1144,34 @@ int __fastcall OBJMODE_ObeliskPowerUp_IncreaseMana(D2GameStrc* pGame, D2UnitStrc
     return 1;
 }
 
+// 0x00585160
+int __fastcall OBJMODE_ObeliskPowerUp_IncreaseEnergy(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
+{
+    sub_006272B0_UnitStatListCall(pUnit, 1, nValue, 0);
+    return 1;
+}
+
+// 0x00585180
+int __fastcall OBJMODE_ObeliskPowerUp_IncreaseDexterity(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
+{
+    sub_006272B0_UnitStatListCall(pUnit, 2, nValue, 0);
+    return 1;
+}
+
+// 0x005851A0
+int __fastcall OBJMODE_ObeliskPowerUp_IncreaseVitality(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
+{
+    sub_006272B0_UnitStatListCall(pUnit, 3, nValue, 0);
+    return 1;
+}
+
+// 0x005851C0
+int __fastcall OBJMODE_ObeliskPowerUp_IncreaseStrength(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
+{
+    sub_006272B0_UnitStatListCall(pUnit, 0, nValue, 0);
+    return 1;
+}
+
 static inline unsigned int GetAnimMode(D2UnitStrc* unit) { if(!unit) return 0; return unit->dwAnimMode; }
 
 // 0x005851E0
@@ -1095,6 +1180,13 @@ int __fastcall OBJMODE_ObeliskPowerUp_IncreaseHitpoints(D2GameStrc* pGame, D2Uni
     const int nNewValue = (nValue << 8) + STATLIST_GetMaxLifeFromUnit(pUnit);
     STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, nNewValue, 0);
     STATLIST_SetUnitStat(pUnit, STAT_MAXHP, nNewValue, 0);
+    return 1;
+}
+
+// 0x00585220
+int __fastcall OBJMODE_ObeliskPowerUp_IncreaseSkillpoints(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
+{
+    sub_006272B0_UnitStatListCall(pUnit, 5, nValue, 0);
     return 1;
 }
 
@@ -1338,6 +1430,43 @@ int __fastcall OBJECTS_OperateFunction02_Shrine(D2ObjOperateFnStrc* pOp, int nOp
         if (!pObjectsTxtRecord->nCycleAnim[1] && pObjectsTxtRecord->nMode[2])
         {
             EVENT_SetEvent(pOp->pGame, pOp->hObject, EVENTTYPE_ENDANIM, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame + 1, 0, 0);
+        }
+    }
+
+    return 1;
+}
+
+#define EVENTTYPE_QUESTFN 7
+
+D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
+
+void __fastcall D2GAME_SetSparkChest_6FCBD7C0(D2UnitStrc* pUnit, unsigned char nSparkChest); // 0x005540A0
+
+int __stdcall DUNGEON_GetTownLevelIdFromActNo(unsigned char nAct); // 0x0061AB70
+
+int __fastcall D2GAME_CreatePortalObject_6FD13DF0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nDestLevel, D2UnitStrc** ppSourceUnit, int nObjectId, int bPerm); // 0x0056D130
+
+D2UnitStrc* __fastcall D2GAME_DropArmor_6FC4F830(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, int a4, int a5, D2UnitStrc* pUnit); // 0x005594C0
+
+D2UnitStrc* __fastcall D2GAME_DropWeapon_6FC4FA50(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, int a4, int a5, D2UnitStrc* pUnit); // 0x00559630
+
+int __stdcall UNITS_IsObjectInInteractRange(D2UnitStrc* pUnit, D2UnitStrc* pObject); // 0x00623660
+
+// 0x00583E70
+int __fastcall OBJECTS_OperateFunction33_WirtsBody(D2ObjOperateFnStrc* pOp, int nOperate)
+{
+    if (!pOp->hObject || pOp->hObject->dwAnimMode == OBJMODE_NEUTRAL)
+    {
+        pOp->hObject->dwDropItemCode = ' gel';
+
+        int nItemLevel;
+        if (D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 0))
+        {
+            UNITS_ChangeAnimMode(pOp->hObject, OBJMODE_OPERATING);
+
+            D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(pOp->nObjectIdx);
+            EVENT_SetEvent(pOp->pGame, pOp->hObject, EVENTTYPE_ENDANIM, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame + 1, 0, 0);
+            EVENT_SetEvent(pOp->pGame, pOp->hObject, EVENTTYPE_QUESTFN, pOp->pGame->dwGameFrame + 10, 0, 0);
         }
     }
 
@@ -1619,6 +1748,23 @@ void __fastcall D2GAME_SHRINES_Enirhs_6FC76850(D2ObjOperateFnStrc* pOp, D2Shrine
     if (szName)
     {
         strncpy(szName, _strrev(szName), 16);
+    }
+}
+
+// 0x00582A30
+void __fastcall D2GAME_SHRINES_Portal_6FC76880(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord)
+{
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pOp->hPlayer);
+
+    D2CoordStrc pCoord;
+    UNITS_GetCoords(pOp->hPlayer, &pCoord);
+
+    const unsigned char nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
+    const int nTownId = DUNGEON_GetTownLevelIdFromActNo(nAct);
+
+    if (COLLISION_GetFreeCoordinates(UNITS_GetRoom(pOp->hPlayer), &pCoord, 3, 0x1C09, 0))
+    {
+        D2GAME_CreatePortalObject_6FD13DF0(pOp->pGame, pOp->hPlayer, pRoom, pCoord.nX + 5, pCoord.nY + 5, nTownId, 0, OBJECT_TOWN_PORTAL, 0);
     }
 }
 
@@ -2016,6 +2162,22 @@ int __fastcall OBJMODE_IsMonsterShrineCandidate(D2UnitStrc* pMonster, D2UnitStrc
     return MONSTERUNIQUE_CheckMonTypeFlag(pMonster, 31) == 0;
 }
 
+// 0x00582800
+D2StatListStrc* __fastcall OBJMODE_ApplyShrineCurse(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nDuration, int nStatValue, int nStat, int nState, StatListRemoveCallback pStateRemoveCallback)
+{
+    D2CurseStrc curse = {};
+    curse.pUnit = pUnit;
+    curse.nSkill = 0;
+    curse.nSkillLevel = 0;
+    curse.pTarget = pTarget;
+    curse.nDuration = nDuration;
+    curse.nStat = nStat;
+    curse.nStatValue = nStatValue;
+    curse.nState = nState;
+    curse.pStateRemoveCallback = pStateRemoveCallback;
+    return SKILLS_ApplyStateEffect(&curse);
+}
+
 static inline D2CharStatsTxt* sub_00583740_GetCharStatsRecord(int nClassId)
 {
     return (nClassId >= 0 && nClassId < sgptDataTables->nCharStatsTxtRecordCount) ? &sgptDataTables->pCharStatsTxt[nClassId] : 0;
@@ -2096,6 +2258,30 @@ void __fastcall D2GAME_OBJECTS_TrapHandler8_9_6FC75AC0(D2GameStrc* pGame, D2Unit
         {
             D2GAME_SpawnTrapMonster_6FC75B40(&op, nMonsterId, 8);
         }
+    }
+}
+
+// 0x00582380
+void __fastcall D2GAME_OBJECTS_TrapHandler5_7_6FC75BC0(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2CoordStrc pCoord;
+    UNITS_GetCoords(pUnit, &pCoord);
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    D2UnitStrc* pFireLarge = SUNIT_AllocUnitData(UNIT_OBJECT, OBJECT_FIRE_LARGE, pCoord.nX, pCoord.nY, pGame, pRoom, 1, 1, 0);
+    if (pFireLarge)
+    {
+        D2GAME_SetSparkChest_6FCBD7C0(pFireLarge, 2);
+    }
+
+    D2DrlgCoordsStrc drlgCoords;
+    DUNGEON_GetRoomCoordinates(pRoom, &drlgCoords);
+
+    const int nX = pCoord.nX + 1;
+    if (nX >= drlgCoords.nSubtileX && nX < drlgCoords.nSubtileX + drlgCoords.nSubtileWidth)
+    {
+        D2UnitStrc* pFireSmall = SUNIT_AllocUnitData(UNIT_OBJECT, OBJECT_FIRE_SMALL, nX, pCoord.nY, pGame, UNITS_GetRoom(pUnit), 1, 1, 0);
+        D2GAME_SetSparkChest_6FCBD7C0(pFireSmall, 2);
     }
 }
 
@@ -2344,6 +2530,34 @@ int __fastcall OBJECTS_OperateHandler(D2GameStrc* pGame, D2UnitStrc* pPlayer, un
 
     D2_ASSERT(pObjectTxtRecord->nOperateFn < 101, 3320);
     return 0;
+}
+
+// 0x00584540
+int __fastcall OBJMODE_OperateObjectInRange(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned short nObjectType, int nObjectGUID)
+{
+    D2UnitStrc* pObject = SUNIT_GetServerUnit(pGame, nObjectType, nObjectGUID);
+    if (!pObject)
+    {
+        return 0;
+    }
+
+    const int nClassId = pObject->dwClassId;
+    if (pUnit)
+    {
+        if (pUnit->dwUnitType == UNIT_MONSTER && !DATATBLS_GetObjectsTxtRecord(nClassId)->nMonsterOK)
+        {
+            return 1;
+        }
+
+        if (!UNITS_IsObjectInInteractRange(pUnit, pObject))
+        {
+            return 1;
+        }
+    }
+
+    int nResult = 1;
+    OBJECTS_OperateHandler(pGame, pUnit, nObjectType, nObjectGUID, &nResult);
+    return nResult;
 }
 
 // 0x005845D0
@@ -3051,6 +3265,46 @@ int __fastcall OBJECTS_OperateFunction26_BookShelf(D2ObjOperateFnStrc* pOp, int 
     return 1;
 }
 
+// 0x00584160
+int __fastcall OBJECTS_OperateFunction19_ArmorStand(D2ObjOperateFnStrc* pOp, int nOperate)
+{
+    if (!pOp->hObject || pOp->hObject->dwAnimMode == OBJMODE_NEUTRAL)
+    {
+        D2CoordStrc pCoord;
+        UNITS_GetCoords(pOp->hObject, &pCoord);
+        D2GAME_DropArmor_6FC4F830(pOp->pGame, UNITS_GetRoom(pOp->hObject), &pCoord, -1, 0, 0);
+        UNITS_ChangeAnimMode(pOp->hObject, OBJMODE_OPENED);
+
+        D2UnitStrc* pObject = pOp->hObject;
+        if (pObject)
+        {
+            pObject->dwFlags &= ~UNITFLAG_TARGETABLE;
+        }
+    }
+
+    return 1;
+}
+
+// 0x005841D0
+int __fastcall OBJECTS_OperateFunction20_WeaponRack(D2ObjOperateFnStrc* pOp, int nOperate)
+{
+    if (!pOp->hObject || pOp->hObject->dwAnimMode == OBJMODE_NEUTRAL)
+    {
+        D2CoordStrc pCoord;
+        UNITS_GetCoords(pOp->hObject, &pCoord);
+        D2GAME_DropWeapon_6FC4FA50(pOp->pGame, UNITS_GetRoom(pOp->hObject), &pCoord, -1, 0, 0);
+        UNITS_ChangeAnimMode(pOp->hObject, OBJMODE_OPENED);
+
+        D2UnitStrc* pObject = pOp->hObject;
+        if (pObject)
+        {
+            pObject->dwFlags &= ~UNITFLAG_TARGETABLE;
+        }
+    }
+
+    return 1;
+}
+
 // 0x00584240
 static int OBJMODE_ExplodeBarrel(D2ObjOperateFnStrc* pOp)
 {
@@ -3407,6 +3661,13 @@ void __fastcall OBJMODE_RefreshPassives(D2UnitStrc* pUnit)
     sub_6FD14C30(pUnit);
 }
 
+// 0x00583BD0
+void __fastcall OBJMODE_RemoveSkillShrine(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
+{
+    SKILLS_RemoveStateAndRefreshPassives(pUnit, nState, pStatList);
+    sub_6FD14C30(pUnit);
+}
+
 // 0x005839B0
 void __fastcall D2GAME_SHRINES_CombatBoost_6FC77690(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* ptShrineData)
 {
@@ -3416,6 +3677,14 @@ void __fastcall D2GAME_SHRINES_CombatBoost_6FC77690(D2ObjOperateFnStrc* pOp, D2S
     const int nValue = OBJMODE_CalculateShrineStatBonus(0x13, ptShrineData->dwArg0, pOp->hPlayer);
     D2StatListStrc* pStatList = OBJMODE_ApplyShrineCurse(pOp->hObject, pOp->hPlayer, ptShrineData->dwDurationInFrames, ptShrineData->dwArg1, 0x19, pShrineRecord->unk0x08, 0);
     STATLIST_SetStatValue(pStatList, 0x13, nValue, 0);
+}
+
+// 0x00583A40
+void __fastcall OBJMODE_RemoveStaminaShrine(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
+{
+    SKILLS_RemoveStateAndRefreshPassives(pUnit, nState, pStatList);
+    const int nMaxStamina = STATLIST_GetMaxStaminaFromUnit(pUnit);
+    STATLIST_SetUnitStat(pUnit, STAT_STAMINA, nMaxStamina, 0);
 }
 
 // 0x00583BF0

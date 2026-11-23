@@ -45503,24 +45503,9 @@
      "length": 514
     },
     {
-     "va": "0x00552D60",
-     "length": 20,
-     "name": "@SUNIT_SetMonsterVision@8"
-    },
-    {
-     "va": "0x00552D80",
-     "length": 42,
-     "name": "?SUNIT_SetListNext@@YIXPAUD2UnitStrc@@0@Z"
-    },
-    {
      "va": "0x00552DE0",
      "length": 15,
      "name": "?SUNIT_AssignUnitId@@YAXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005545C0",
-     "length": 103,
-     "name": "SUNIT_GetValidNextRoom"
     },
     {
      "va": "0x00555CD0",
@@ -45536,31 +45521,6 @@
      "va": "0x00557FF0",
      "length": 117,
      "name": "ITEMS_IsInPlayersInventory"
-    },
-    {
-     "va": "0x0055B260",
-     "length": 148,
-     "name": "PLAYERLIST_ToggleFlag"
-    },
-    {
-     "va": "0x0055B300",
-     "length": 77,
-     "name": "PLAYERLIST_CheckFlag"
-    },
-    {
-     "va": "0x0055B3A0",
-     "length": 71,
-     "name": "PLAYERLIST_SetPartyState"
-    },
-    {
-     "va": "0x0055B4C0",
-     "length": 125,
-     "name": "PLAYERLIST_BroadcastFlags"
-    },
-    {
-     "va": "0x0055B720",
-     "length": 87,
-     "name": "PLAYERLIST_SetHostileDelay"
     },
     {
      "va": "0x0055CA00",
@@ -46194,21 +46154,6 @@
      "name": "D2GAME_PACKETCALLBACK_Rcv0x54_TurnStaminaOff_6FC88380"
     },
     {
-     "va": "0x005531E0",
-     "length": 53,
-     "name": "SUNIT_UpdateClientIfRoomInvalid"
-    },
-    {
-     "va": "0x005538D0",
-     "length": 151,
-     "name": "SUNIT_IterateLivingPlayers"
-    },
-    {
-     "va": "0x00554120",
-     "length": 106,
-     "name": "SUNIT_SetInteractInfo"
-    },
-    {
      "va": "0x00564340",
      "length": 80,
      "name": "TASK_GetClockTime"
@@ -46490,11 +46435,6 @@
      "va": "0x00545300",
      "length": 10,
      "name": "?QUESTS_ResetPlayerGUIDCount@@YIXPAUD2QuestGUIDStrc@@@Z"
-    },
-    {
-     "va": "0x00553980",
-     "length": 14,
-     "name": "?SUNIT_GetTimerFromUnit@@YIPAUD2EventTimerStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005A4F20",
@@ -47066,16 +47006,6 @@
      "va": "0x00552840",
      "length": 147,
      "name": "?OBJECTS_PopulateObject@@YIXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@H@Z"
-    },
-    {
-     "va": "0x005536E0",
-     "length": 62,
-     "name": "?SUNIT_StoreRoomTile@@YIXPAUD2W11RoomTileOwnerStrc@@PAUD2ActiveRoomStrc@@HH@Z"
-    },
-    {
-     "va": "0x005544B0",
-     "length": 182,
-     "name": "SUNIT_SetUninterruptable"
     },
     {
      "va": "0x00562DA0",
@@ -50135,6 +50065,16 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00552D60",
+     "length": 20,
+     "name": "@SUNIT_SetMonsterVision@8"
+    },
+    {
+     "va": "0x00552D80",
+     "length": 42,
+     "name": "?SUNIT_SetListNext@@YIXPAUD2UnitStrc@@0@Z"
+    },
+    {
      "va": "0x00552DB0",
      "length": 42,
      "name": "SUNIT_GetNextUnitFromList"
@@ -50204,6 +50144,11 @@
      "name": "UnitGetClient"
     },
     {
+     "va": "0x005531E0",
+     "length": 53,
+     "name": "SUNIT_UpdateClientIfRoomInvalid"
+    },
+    {
      "va": "0x00553220",
      "length": 344
     },
@@ -50238,6 +50183,11 @@
      "name": "SUNIT_LinkPortalCoordinates"
     },
     {
+     "va": "0x005536E0",
+     "length": 62,
+     "name": "?SUNIT_StoreRoomTile@@YIXPAUD2W11RoomTileOwnerStrc@@PAUD2ActiveRoomStrc@@HH@Z"
+    },
+    {
      "va": "0x00553720",
      "length": 165
     },
@@ -50247,9 +50197,19 @@
      "name": "?SUNIT_IterateUnitsOfType@@YIPAUD2UnitStrc@@PAUD2GameStrc@@HPAXP6IH0PAU1@1@Z@Z"
     },
     {
+     "va": "0x005538D0",
+     "length": 151,
+     "name": "SUNIT_IterateLivingPlayers"
+    },
+    {
      "va": "0x00553970",
      "length": 11,
      "name": "@SUNIT_SetTimerOnUnit@8"
+    },
+    {
+     "va": "0x00553980",
+     "length": 14,
+     "name": "?SUNIT_GetTimerFromUnit@@YIPAUD2EventTimerStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00553990",
@@ -50316,6 +50276,11 @@
      "name": "_sub_00554100@12"
     },
     {
+     "va": "0x00554120",
+     "length": 106,
+     "name": "SUNIT_SetInteractInfo"
+    },
+    {
      "va": "0x00554190",
      "length": 28,
      "name": "_SUNIT_ResetInteractInfo@4"
@@ -50345,9 +50310,19 @@
      "name": "?SUNIT_SetAlignment@@YIXPAUD2UnitStrc@@EH@Z"
     },
     {
+     "va": "0x005544B0",
+     "length": 182,
+     "name": "SUNIT_SetUninterruptable"
+    },
+    {
      "va": "0x00554570",
      "length": 78,
      "name": "?SUNIT_EventClearTeleportCoordinates@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HHH@Z"
+    },
+    {
+     "va": "0x005545C0",
+     "length": 103,
+     "name": "SUNIT_GetValidNextRoom"
     },
     {
      "va": "0x00554630",
@@ -50820,9 +50795,24 @@
      "name": "?PLAYERLIST_IterateCallback_FreePlayerList@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x0055B260",
+     "length": 148,
+     "name": "PLAYERLIST_ToggleFlag"
+    },
+    {
+     "va": "0x0055B300",
+     "length": 77,
+     "name": "PLAYERLIST_CheckFlag"
+    },
+    {
      "va": "0x0055B350",
      "length": 67,
      "name": "?PLAYERLIST_GetFlags@@YIGPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x0055B3A0",
+     "length": 71,
+     "name": "PLAYERLIST_SetPartyState"
     },
     {
      "va": "0x0055B3F0",
@@ -50833,6 +50823,11 @@
      "va": "0x0055B440",
      "length": 126,
      "name": "?PLAYERLIST_SendPartyState@@YIXPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x0055B4C0",
+     "length": 125,
+     "name": "PLAYERLIST_BroadcastFlags"
     },
     {
      "va": "0x0055B540",
@@ -50853,6 +50848,11 @@
      "va": "0x0055B6C0",
      "length": 86,
      "name": "?PLAYERLIST_GetHostileDelay@@YIHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x0055B720",
+     "length": 87,
+     "name": "PLAYERLIST_SetHostileDelay"
     },
     {
      "va": "0x0055B780",
@@ -51366,11 +51366,6 @@
      "va": "0x00580460",
      "length": 160,
      "name": "PLRMODE_UpdateSkill"
-    },
-    {
-     "va": "0x00581AD0",
-     "length": 122,
-     "name": "OBJMODE_SendObjectUpdates"
     },
     {
      "va": "0x0058A730",
@@ -52078,31 +52073,6 @@
      "va": "0x00579130",
      "length": 71,
      "name": "D2GAME_NPC_ResetInteract_6FCCB4D0"
-    },
-    {
-     "va": "0x00585160",
-     "length": 26,
-     "name": "OBJMODE_ObeliskPowerUp_IncreaseEnergy"
-    },
-    {
-     "va": "0x00585180",
-     "length": 26,
-     "name": "OBJMODE_ObeliskPowerUp_IncreaseDexterity"
-    },
-    {
-     "va": "0x005851A0",
-     "length": 26,
-     "name": "OBJMODE_ObeliskPowerUp_IncreaseVitality"
-    },
-    {
-     "va": "0x005851C0",
-     "length": 26,
-     "name": "OBJMODE_ObeliskPowerUp_IncreaseStrength"
-    },
-    {
-     "va": "0x00585220",
-     "length": 26,
-     "name": "OBJMODE_ObeliskPowerUp_IncreaseSkillpoints"
     }
    ]
   },
@@ -53246,51 +53216,6 @@
      "va": "0x0057FEF0",
      "length": 114,
      "name": "PLRMODE_StartID_AttackCastThrowKickSpecialSequence"
-    },
-    {
-     "va": "0x00582380",
-     "length": 157,
-     "name": "D2GAME_OBJECTS_TrapHandler5_7_6FC75BC0"
-    },
-    {
-     "va": "0x00582800",
-     "length": 91,
-     "name": "OBJMODE_ApplyShrineCurse"
-    },
-    {
-     "va": "0x00582A30",
-     "length": 132,
-     "name": "D2GAME_SHRINES_Portal_6FC76880"
-    },
-    {
-     "va": "0x00583A40",
-     "length": 37,
-     "name": "OBJMODE_RemoveStaminaShrine"
-    },
-    {
-     "va": "0x00583BD0",
-     "length": 27,
-     "name": "OBJMODE_RemoveSkillShrine"
-    },
-    {
-     "va": "0x00583E70",
-     "length": 148,
-     "name": "OBJECTS_OperateFunction33_WirtsBody"
-    },
-    {
-     "va": "0x00584160",
-     "length": 105,
-     "name": "OBJECTS_OperateFunction19_ArmorStand"
-    },
-    {
-     "va": "0x005841D0",
-     "length": 105,
-     "name": "OBJECTS_OperateFunction20_WeaponRack"
-    },
-    {
-     "va": "0x00584540",
-     "length": 131,
-     "name": "OBJMODE_OperateObjectInRange"
     }
    ]
   },
@@ -53839,6 +53764,11 @@
      "length": 167
     },
     {
+     "va": "0x00581AD0",
+     "length": 122,
+     "name": "OBJMODE_SendObjectUpdates"
+    },
+    {
      "va": "0x00581B50",
      "length": 152,
      "name": "?OBJMODE_TeleportToUnit@@YAXPAUD2UnitStrc@@0PAUD2ActiveRoomStrc@@@Z"
@@ -53895,6 +53825,11 @@
      "name": "?D2GAME_OBJECTS_TrapHandler8_9_6FC75AC0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00582380",
+     "length": 157,
+     "name": "D2GAME_OBJECTS_TrapHandler5_7_6FC75BC0"
+    },
+    {
      "va": "0x00582420",
      "length": 111,
      "name": "?OBJMODE_SpawnTrapMonster@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
@@ -53944,6 +53879,11 @@
      "name": "?OBJMODE_IsMonsterShrineCandidate@@YIHPAUD2UnitStrc@@0@Z"
     },
     {
+     "va": "0x00582800",
+     "length": 91,
+     "name": "OBJMODE_ApplyShrineCurse"
+    },
+    {
      "va": "0x00582860",
      "length": 49,
      "name": "?D2GAME_SHRINES_Health_6FC766B0@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
@@ -53972,6 +53912,11 @@
      "va": "0x00582A00",
      "length": 39,
      "name": "?D2GAME_SHRINES_Enirhs_6FC76850@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
+    },
+    {
+     "va": "0x00582A30",
+     "length": 132,
+     "name": "D2GAME_SHRINES_Portal_6FC76880"
     },
     {
      "va": "0x00582AC0",
@@ -54014,6 +53959,11 @@
      "name": "?D2GAME_SHRINES_CombatBoost_6FC77690@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
     },
     {
+     "va": "0x00583A40",
+     "length": 37,
+     "name": "OBJMODE_RemoveStaminaShrine"
+    },
+    {
      "va": "0x00583A70",
      "length": 184,
      "name": "?D2GAME_SHRINES_Stamina_6FC779C0@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
@@ -54029,6 +53979,11 @@
      "name": "?OBJMODE_RefreshPassives@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00583BD0",
+     "length": 27,
+     "name": "OBJMODE_RemoveSkillShrine"
+    },
+    {
      "va": "0x00583BF0",
      "length": 116,
      "name": "?D2GAME_SHRINES_SkillBoost@@YIXPAUD2SkillContext00583BF0Strc@@PAUD2Event00583BF0Strc@@@Z"
@@ -54037,6 +53992,11 @@
      "va": "0x00583C70",
      "length": 502,
      "name": "OBJECTS_OperateFunction02_Shrine"
+    },
+    {
+     "va": "0x00583E70",
+     "length": 148,
+     "name": "OBJECTS_OperateFunction33_WirtsBody"
     },
     {
      "va": "0x00583F10",
@@ -54052,6 +54012,16 @@
      "va": "0x00584060",
      "length": 250,
      "name": "?OBJECTS_OperateFunction26_BookShelf@@YIHPAUD2ObjOperateFnStrc@@H@Z"
+    },
+    {
+     "va": "0x00584160",
+     "length": 105,
+     "name": "OBJECTS_OperateFunction19_ArmorStand"
+    },
+    {
+     "va": "0x005841D0",
+     "length": 105,
+     "name": "OBJECTS_OperateFunction20_WeaponRack"
     },
     {
      "va": "0x00584240",
@@ -54076,6 +54046,11 @@
      "va": "0x00584420",
      "length": 285,
      "name": "OBJECTS_OperateHandler"
+    },
+    {
+     "va": "0x00584540",
+     "length": 131,
+     "name": "OBJMODE_OperateObjectInRange"
     },
     {
      "va": "0x005845D0",
@@ -54122,9 +54097,34 @@
      "name": "OBJMODE_ObeliskPowerUp_IncreaseMana"
     },
     {
+     "va": "0x00585160",
+     "length": 26,
+     "name": "OBJMODE_ObeliskPowerUp_IncreaseEnergy"
+    },
+    {
+     "va": "0x00585180",
+     "length": 26,
+     "name": "OBJMODE_ObeliskPowerUp_IncreaseDexterity"
+    },
+    {
+     "va": "0x005851A0",
+     "length": 26,
+     "name": "OBJMODE_ObeliskPowerUp_IncreaseVitality"
+    },
+    {
+     "va": "0x005851C0",
+     "length": 26,
+     "name": "OBJMODE_ObeliskPowerUp_IncreaseStrength"
+    },
+    {
      "va": "0x005851E0",
      "length": 56,
      "name": "OBJMODE_ObeliskPowerUp_IncreaseHitpoints"
+    },
+    {
+     "va": "0x00585220",
+     "length": 26,
+     "name": "OBJMODE_ObeliskPowerUp_IncreaseSkillpoints"
     },
     {
      "va": "0x00585240",

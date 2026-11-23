@@ -60,8 +60,6 @@ struct D2SkillListStrc;
 struct D2ServerCallbackFunctions;
 struct D2DrlgCoordsStrc;
 struct D2ObjectControlStrc;
-struct D2W11RoomTileRecordStrc;
-struct D2W11RoomTileOwnerStrc;
 struct D2W11QuestEx5B7230Strc;
 struct D2W11QuestEx5BD040Strc;
 struct D2StaticPathStrc;
@@ -104,21 +102,6 @@ extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...); // 0x006CC468
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-
-struct D2W11RoomTileRecordStrc
-{
-    char unk0x00[0x18];
-    int nTileX;
-    int nTileY;
-    int nArg1;
-    int nArg2;
-};
-
-struct D2W11RoomTileOwnerStrc
-{
-    char unk0x00[0x14];
-    D2W11RoomTileRecordStrc* pRecord;
-};
 
 struct D2W11QuestEx5B7230Strc
 {
@@ -778,8 +761,6 @@ static inline void CLIENTS_UpdatePlayerPortalFlags(D2ClientStrc* pClient)
 
 #define STAT_LEVEL 12
 
-#define EVENTTYPE_AITHINK 2
-
 #define EVENTTYPE_STATREGEN 3
 
 #define EVENTTYPE_TRAP 4
@@ -789,8 +770,6 @@ static inline void CLIENTS_UpdatePlayerPortalFlags(D2ClientStrc* pClient)
 #define EVENTTYPE_REMOVESTATE 12
 
 #define EVENTTYPE_COUNT 15
-
-#define DAMAGERESULTFLAG_WILLDIE 0x02
 
 #define UNITEVENTFLAG_IN_CALLBACK 0x01
 
@@ -880,10 +859,6 @@ D2UnitStrc* __fastcall SUNIT_GetLastAttacker(D2GameStrc* pGame, D2UnitStrc* pUni
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 
 short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
-
-void __fastcall SUNITDMG_KillMonster(D2GameStrc* pGame, D2UnitStrc* pDefender, D2UnitStrc* pAttacker, int bSendMsg); // 0x0057CCB0
-
-void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage); // 0x0057CEE0
 
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 
@@ -3627,53 +3602,6 @@ void __fastcall OBJECTS_PopulateObject(D2GameStrc* pGame, D2ActiveRoomStrc* pRoo
         D2_ASSERT(!IsBadCodePtr((FARPROC)sgPopulateTable[pObjectsTxtRecord->nPopulateFn]), 0xC80);
 // build: symbol ?gnObjectPopulateDensity@* 0x00731BBD
         sgPopulateTable[pObjectsTxtRecord->nPopulateFn](pGame, pRoom, gnObjectPopulateDensity, nObjectId, 100);
-    }
-}
-
-// 0x005536E0
-void __fastcall SUNIT_StoreRoomTile(D2W11RoomTileOwnerStrc* pOwner, D2ActiveRoomStrc* pRoom, int nArg1, int nArg2)
-{
-    pOwner->pRecord->nArg1 = nArg1;
-    pOwner->pRecord->nArg2 = nArg2;
-    D2DrlgCoordsStrc tCoords;
-    DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
-    pOwner->pRecord->nTileX = tCoords.nTileXPos;
-    pOwner->pRecord->nTileY = tCoords.nTileYPos;
-}
-
-// 0x005544B0
-void __fastcall SUNIT_SetUninterruptable(D2UnitStrc* hUnit, int bSetUninterruptable)
-{
-    STATES_ToggleState(hUnit, STATE_UNINTERRUPTABLE, bSetUninterruptable);
-
-    D2_ASSERT(hUnit, 2601);
-    D2GameStrc* pGame = hUnit->pGame;
-    if (!pGame)
-    {
-        return;
-    }
-
-    if (!bSetUninterruptable && STATES_CheckState(hUnit, STATE_DEATH_DELAY))
-    {
-        STATES_ToggleState(hUnit, STATE_DEATH_DELAY, 0);
-
-        D2UnitStrc* pAttacker = SUNIT_GetLastAttacker(pGame, hUnit);
-        if (pAttacker)
-        {
-            D2DamageStrc damage;
-            memset(&damage, 0, sizeof(damage));
-            damage.wResultFlags |= DAMAGERESULTFLAG_WILLDIE;
-            SUNITDMG_ExecuteMissileDamage(pGame, pAttacker, hUnit, &damage);
-        }
-        else
-        {
-            SUNITDMG_KillMonster(pGame, hUnit, 0, 1);
-        }
-    }
-
-    if (hUnit->dwUnitType == UNIT_MONSTER)
-    {
-        D2GAME_EVENTS_Delete_6FC34840(pGame, hUnit, EVENTTYPE_AITHINK, 0);
     }
 }
 
