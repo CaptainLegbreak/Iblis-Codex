@@ -31999,7 +31999,7 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004DED10.cpp",
+   "file": "Source/D2Client/Unknown_004DEDB0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -32016,46 +32016,6 @@
      "va": "0x004DF480",
      "length": 46,
      "name": "?sub_004DF480_UpdateAllTileLights@@YIXPAUD2TileLightCtxStrc@@@Z"
-    },
-    {
-     "va": "0x004DF7B0",
-     "length": 66,
-     "name": "?sub_004DF7B0_StopSlot@@YIXPAUD2SlotStrc@@@Z"
-    },
-    {
-     "va": "0x004DF800",
-     "length": 103,
-     "name": "?sub_004DF800@@YAXXZ"
-    },
-    {
-     "va": "0x004DF870",
-     "length": 6,
-     "name": "sub_004DF870"
-    },
-    {
-     "va": "0x004DF880",
-     "length": 6,
-     "name": "sub_004DF880"
-    },
-    {
-     "va": "0x004DF890",
-     "length": 102,
-     "name": "?sub_004DF890@@YAXXZ"
-    },
-    {
-     "va": "0x004DF9D0",
-     "length": 98,
-     "name": "SoundChannelFind"
-    },
-    {
-     "va": "0x004DFA40",
-     "length": 18,
-     "name": "?sub_004DFA40_IsSlotPlaying@@YIHPAUD2SlotStrc@@@Z"
-    },
-    {
-     "va": "0x004DFA60",
-     "length": 56,
-     "name": "?sub_004DFA60@@YAXXZ"
     }
    ]
   },
@@ -32090,19 +32050,6 @@
     {
      "va": "0x004DF1C0",
      "length": 699
-    },
-    {
-     "va": "0x004DFB50",
-     "length": 207,
-     "name": "?sub_004DFB50_GetFreeSlot@@YGPAUD2SlotStrc@@PAUD2SlotObjectStrc@@H@Z"
-    },
-    {
-     "va": "0x004E01B0",
-     "length": 438
-    },
-    {
-     "va": "0x004E0590",
-     "length": 178
     },
     {
      "va": "0x004E0730",
@@ -32150,80 +32097,6 @@
      "va": "0x004DF510",
      "length": 280,
      "name": "sub_004DF510_DrawCellNodes"
-    },
-    {
-     "va": "0x004DF770",
-     "length": 18
-    },
-    {
-     "va": "0x004DF790",
-     "length": 26,
-     "name": "?sub_004DF790_ReleaseSlotObject@@YIXPAUD2SlotStrc@@@Z"
-    },
-    {
-     "va": "0x004DF900",
-     "length": 7,
-     "name": "?sub_004DF900_GetSlotSampleCount@@YIIPAUD2SlotStrc@@@Z"
-    },
-    {
-     "va": "0x004DF910",
-     "length": 5,
-     "name": "?sub_004DF910_GetSoundMode@@YAHXZ"
-    },
-    {
-     "va": "0x004DF920",
-     "length": 1,
-     "name": "?sub_004DF920_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x004DF930",
-     "length": 1,
-     "name": "?sub_004DF930_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x004DF940",
-     "length": 17,
-     "name": "?sub_004DF940@@YAHXZ"
-    },
-    {
-     "va": "0x004DF960",
-     "length": 17,
-     "name": "?sub_004DF960@@YAHXZ"
-    },
-    {
-     "va": "0x004DF980",
-     "length": 33,
-     "name": "?sub_004DF980_IsSoundMode1Or2@@YAHXZ"
-    },
-    {
-     "va": "0x004DF9B0",
-     "length": 28,
-     "name": "?sub_004DF9B0_IsSoundMode2@@YAHXZ"
-    },
-    {
-     "va": "0x004E00C0",
-     "length": 5,
-     "name": "?sub_004E00C0_CloseSoundChannels@@YAXXZ"
-    },
-    {
-     "va": "0x004E00D0",
-     "length": 106,
-     "name": "?sub_004E00D0_ToggleSoundMode01@@YAHXZ"
-    },
-    {
-     "va": "0x004E0140",
-     "length": 110,
-     "name": "?sub_004E0140_ToggleSoundMode12@@YAHXZ"
-    },
-    {
-     "va": "0x004E0650",
-     "length": 38,
-     "name": "?sub_004E0650_GetStringSound@@YIHG@Z"
-    },
-    {
-     "va": "0x004E0690",
-     "length": 7,
-     "name": "?sub_004E0690_SetSoundTableFlag@@YIXH@Z"
     },
     {
      "va": "0x004E06A0",
@@ -32293,24 +32166,9 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004DFAA0.cpp",
+   "file": "Source/D2Client/Unknown_004E12D0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004DFAA0",
-     "length": 176,
-     "name": "?sub_004DFAA0_InitSoundChannels@@YAHH@Z"
-    },
-    {
-     "va": "0x004E0000",
-     "length": 74,
-     "name": "?sub_004E0000_SetSoundMode@@YIHH@Z"
-    },
-    {
-     "va": "0x004E0050",
-     "length": 108,
-     "name": "?sub_004E0050_RestartSound@@YIXH@Z"
-    },
     {
      "va": "0x004E12D0",
      "length": 19,
@@ -32339,13 +32197,9 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004DFC20.cpp",
+   "file": "Source/D2Client/Unknown_004E1770.cpp",
    "rank": 1,
    "functions": [
-    {
-     "va": "0x004DFC20",
-     "length": 987
-    },
     {
      "va": "0x004E1770",
      "length": 378
@@ -32367,14 +32221,174 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004E0370.cpp",
+   "file": "Source/D2Client/Unknown_004DF770.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x004DF770",
+     "length": 18
+    },
+    {
+     "va": "0x004DF790",
+     "length": 26,
+     "name": "?sub_004DF790_ReleaseSlotObject@@YIXPAUD2SlotStrc@@@Z"
+    },
+    {
+     "va": "0x004DF7B0",
+     "length": 66,
+     "name": "?sub_004DF7B0_StopSlot@@YIXPAUD2SlotStrc@@@Z"
+    },
+    {
+     "va": "0x004DF800",
+     "length": 103,
+     "name": "?sub_004DF800@@YAXXZ"
+    },
+    {
+     "va": "0x004DF870",
+     "length": 6,
+     "name": "sub_004DF870"
+    },
+    {
+     "va": "0x004DF880",
+     "length": 6,
+     "name": "sub_004DF880"
+    },
+    {
+     "va": "0x004DF890",
+     "length": 102,
+     "name": "?sub_004DF890@@YAXXZ"
+    },
+    {
+     "va": "0x004DF900",
+     "length": 7,
+     "name": "?sub_004DF900_GetSlotSampleCount@@YIIPAUD2SlotStrc@@@Z"
+    },
+    {
+     "va": "0x004DF910",
+     "length": 5,
+     "name": "?sub_004DF910_GetSoundMode@@YAHXZ"
+    },
+    {
+     "va": "0x004DF920",
+     "length": 1,
+     "name": "?sub_004DF920_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x004DF930",
+     "length": 1,
+     "name": "?sub_004DF930_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x004DF940",
+     "length": 17,
+     "name": "?sub_004DF940@@YAHXZ"
+    },
+    {
+     "va": "0x004DF960",
+     "length": 17,
+     "name": "?sub_004DF960@@YAHXZ"
+    },
+    {
+     "va": "0x004DF980",
+     "length": 33,
+     "name": "?sub_004DF980_IsSoundMode1Or2@@YAHXZ"
+    },
+    {
+     "va": "0x004DF9B0",
+     "length": 28,
+     "name": "?sub_004DF9B0_IsSoundMode2@@YAHXZ"
+    },
+    {
+     "va": "0x004DF9D0",
+     "length": 98,
+     "name": "SoundChannelFind"
+    },
+    {
+     "va": "0x004DFA40",
+     "length": 18,
+     "name": "?sub_004DFA40_IsSlotPlaying@@YIHPAUD2SlotStrc@@@Z"
+    },
+    {
+     "va": "0x004DFA60",
+     "length": 56,
+     "name": "?sub_004DFA60@@YAXXZ"
+    },
+    {
+     "va": "0x004DFAA0",
+     "length": 176,
+     "name": "?sub_004DFAA0_InitSoundChannels@@YAHH@Z"
+    },
+    {
+     "va": "0x004DFB50",
+     "length": 207,
+     "name": "?sub_004DFB50_GetFreeSlot@@YGPAUD2SlotStrc@@PAUD2SlotObjectStrc@@H@Z"
+    },
+    {
+     "va": "0x004DFC20",
+     "length": 987
+    },
+    {
+     "va": "0x004E0000",
+     "length": 74,
+     "name": "?sub_004E0000_SetSoundMode@@YIHH@Z"
+    },
+    {
+     "va": "0x004E0050",
+     "length": 108,
+     "name": "?sub_004E0050_RestartSound@@YIXH@Z"
+    },
+    {
+     "va": "0x004E00C0",
+     "length": 5,
+     "name": "?sub_004E00C0_CloseSoundChannels@@YAXXZ"
+    },
+    {
+     "va": "0x004E00D0",
+     "length": 106,
+     "name": "?sub_004E00D0_ToggleSoundMode01@@YAHXZ"
+    },
+    {
+     "va": "0x004E0140",
+     "length": 110,
+     "name": "?sub_004E0140_ToggleSoundMode12@@YAHXZ"
+    },
+    {
+     "va": "0x004E01B0",
+     "length": 438
+    },
     {
      "va": "0x004E0370",
      "length": 536,
      "name": "?sub_004E0370_GetNpcSoundRecord@@YAPAUD2NpcSoundStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004E0590",
+     "length": 178
+    },
+    {
+     "va": "0x004E0650",
+     "length": 38,
+     "name": "?sub_004E0650_GetStringSound@@YIHG@Z"
+    },
+    {
+     "va": "0x004E0690",
+     "length": 7,
+     "name": "?sub_004E0690_SetSoundTableFlag@@YIXH@Z"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
