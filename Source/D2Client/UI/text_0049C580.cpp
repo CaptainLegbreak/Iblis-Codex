@@ -185,6 +185,88 @@ void __cdecl TEXT_LoadWaypointPanelCels()
     }
 }
 
+struct Archive;
+
+extern "C" void __fastcall sub_00478A00_CloseArchive(Archive* archive);
+
+extern "C" Archive* gArchiveA; // 0x007BF071
+
+extern "C" Archive* gArchiveB; // 0x007BF075
+
+extern "C" Archive* gArchiveC; // 0x007BF079
+
+D2WaypointDataStrc* __stdcall WAYPOINTS_AllocWaypointData(void* pMemPool); // 0x00660F30
+
+extern char gbSent; // 0x007BF085
+
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+
+void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+
+void __stdcall WAYPOINTS_FreeWaypointData(void* pMemPool, D2WaypointDataStrc* pData); // 0x00660FD0
+
+extern "C" void __cdecl sub_0049C650_CloseArchives(); // 0x0049C650
+
+char gbSent; // 0x007BF085
+
+// 0x0049C650
+extern "C" void __cdecl sub_0049C650_CloseArchives()
+{
+    if(gArchiveA) {
+        sub_00478A00_CloseArchive(gArchiveA);
+        gArchiveA=(Archive*)0;
+    }
+    if(gArchiveB) {
+        sub_00478A00_CloseArchive(gArchiveB);
+        gArchiveB=(Archive*)0;
+    }
+    if(gArchiveC) {
+        sub_00478A00_CloseArchive(gArchiveC);
+        gArchiveC=(Archive*)0;
+    }
+}
+
+// 0x0049C6A0
+void __cdecl sub_0049C6A0()
+{
+// build: symbol ?gpWaypointData@* 0x007BF081
+    gpWaypointData = WAYPOINTS_AllocWaypointData(0);
+    gbSent = 0;
+}
+
+// 0x0049C6C0
+void __cdecl sub_0049C6C0_SendWaypointClose()
+{
+    if (!gbSent && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
+    {
+// build: symbol ?gnWaypointId@* 0x007BF07D
+        MSG_SendTwoDwords(0x49, gnWaypointId, 0);
+        gbSent = 1;
+    }
+}
+
+// 0x0049C700
+void __cdecl sub_0049C700_CloseWaypointPanel()
+{
+    sub_0049C6C0_SendWaypointClose();
+    if (gpWaypointData)
+        WAYPOINTS_FreeWaypointData(0, gpWaypointData);
+    gpWaypointData = 0;
+    sub_0049C650_CloseArchives();
+}
+
+// 0x0049CF50
+void __cdecl sub_0049CF50_SendWaypointClose()
+{
+    if (!gbSent && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
+    {
+        MSG_SendTwoDwords(0x49, gnWaypointId, 0);
+        gbSent = 1;
+    }
+}
+
 // 0x0049FA10
 void __cdecl TEXT_DrawPanelFrame()
 {

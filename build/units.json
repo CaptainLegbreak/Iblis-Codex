@@ -26043,6 +26043,31 @@
      "name": "?TEXT_LoadWaypointPanelCels@@YAXXZ"
     },
     {
+     "va": "0x0049C650",
+     "length": 76,
+     "name": "_sub_0049C650_CloseArchives"
+    },
+    {
+     "va": "0x0049C6A0",
+     "length": 20,
+     "name": "?sub_0049C6A0@@YAXXZ"
+    },
+    {
+     "va": "0x0049C6C0",
+     "length": 56,
+     "name": "?sub_0049C6C0_SendWaypointClose@@YAXXZ"
+    },
+    {
+     "va": "0x0049C700",
+     "length": 87,
+     "name": "?sub_0049C700_CloseWaypointPanel@@YAXXZ"
+    },
+    {
+     "va": "0x0049CF50",
+     "length": 56,
+     "name": "?sub_0049CF50_SendWaypointClose@@YAXXZ"
+    },
+    {
      "va": "0x0049D370",
      "length": 58,
      "name": "?TEXT_FreeTextLines@@YAXPAUD2TextLineStrc@@@Z"
@@ -26119,37 +26144,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0049C650.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0049C650",
-     "length": 76,
-     "name": "_sub_0049C650_CloseArchives"
-    },
-    {
-     "va": "0x0049C6A0",
-     "length": 20,
-     "name": "?sub_0049C6A0@@YAXXZ"
-    },
-    {
-     "va": "0x0049C6C0",
-     "length": 56,
-     "name": "?sub_0049C6C0_SendWaypointClose@@YAXXZ"
-    },
-    {
-     "va": "0x0049C700",
-     "length": 87,
-     "name": "?sub_0049C700_CloseWaypointPanel@@YAXXZ"
-    },
-    {
-     "va": "0x0049CF50",
-     "length": 56,
-     "name": "?sub_0049CF50_SendWaypointClose@@YAXXZ"
-    }
    ]
   },
   {
