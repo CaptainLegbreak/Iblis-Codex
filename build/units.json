@@ -84354,6 +84354,14 @@
     {
      "va": "0x006C80B0",
      "length": 63
+    },
+    {
+     "va": "0x006C81A0",
+     "length": 60
+    },
+    {
+     "va": "0x006C81E0",
+     "length": 93
     }
    ],
    "flags": [
@@ -84446,20 +84454,6 @@
     {
      "va": "0x006C8110",
      "length": 115
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C81A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C81A0",
-     "length": 60
-    },
-    {
-     "va": "0x006C81E0",
-     "length": 93
     }
    ]
   },
