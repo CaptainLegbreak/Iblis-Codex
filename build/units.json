@@ -83067,27 +83067,38 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_006BC290.cpp",
-   "rank": 1,
+   "file": "Source/Fog/Src/D2QSSocket.cpp",
+   "rank": 0,
    "functions": [
     {
      "va": "0x006BC290",
      "length": 41
+    },
+    {
+     "va": "0x006BC560",
+     "length": 50
+    },
+    {
+     "va": "0x006BC5A0",
+     "length": 118,
+     "name": "?sub_006BC5A0_StartThread@@YGXPAUD2ThreadRecord006BC5A0Strc@@@Z"
+    },
+    {
+     "va": "0x006BC620",
+     "length": 82
+    },
+    {
+     "va": "0x006BC680",
+     "length": 21
+    },
+    {
+     "va": "0x006BC6A0",
+     "length": 218
+    },
+    {
+     "va": "0x006BC780",
+     "length": 82
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -83155,37 +83166,6 @@
     {
      "va": "0x006BC3A0",
      "length": 442
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/D2QSSocket.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BC560",
-     "length": 50
-    },
-    {
-     "va": "0x006BC5A0",
-     "length": 118,
-     "name": "?sub_006BC5A0_StartThread@@YGXPAUD2ThreadRecord006BC5A0Strc@@@Z"
-    },
-    {
-     "va": "0x006BC620",
-     "length": 82
-    },
-    {
-     "va": "0x006BC680",
-     "length": 21
-    },
-    {
-     "va": "0x006BC6A0",
-     "length": 218
-    },
-    {
-     "va": "0x006BC780",
-     "length": 82
     }
    ]
   },

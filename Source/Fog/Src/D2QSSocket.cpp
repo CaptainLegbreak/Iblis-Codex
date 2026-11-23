@@ -1,20 +1,39 @@
 #include "Fog.h"
 
+struct sub_006BC290_Strc
+{
+    char unk_000[0x118];
+    int nValue118;
+    int nValue11C;
+    int nValue120;
+};
+
 #define D2_ASSERT(x,line) do { if (!(x)) { sub_00408A60(gszAssert_006CC837, sub_00408090(), line); exit(-1); } } while (0)
 
 struct T006BC290;
+
 struct FSafeSock;
+
 struct sub_006BC780_Strc;
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern const char gszAssert_006CC837[]; // 0x006CC837
+
 extern "C" unsigned int __cdecl strlen(const char*);
+
 extern "C" void* __cdecl memset(void*, int, unsigned int);
+
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
+
 void __fastcall sub_006C1F60_InitLockedList(void* pList); // 0x006C1F60
+
 extern const char gszSocketFile[]; // 0x006FC418
+
 extern const char gszUnknown_006CCED8[]; // 0x006CCED8
 
 struct T006BC290
@@ -32,6 +51,7 @@ struct T006BC290
 };
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SECTION* lpCriticalSection);
+
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(CRITICAL_SECTION* lpCriticalSection);
 
 struct FSafeSock
@@ -54,11 +74,24 @@ struct sub_006BC780_Strc
 };
 
 void __fastcall FOG_SOCKET_Destroy(FSafeSock* pSafeSock); // 0x0040DBD0
+
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
 void __fastcall sub_006C1F80(void* pQueue); // 0x006C1F80
+
 static void sub_006BC2C0_SetClosing(sub_006BC780_Strc* pThis);
 
-// 0x006BC2C0
+// 0x006BC290
+void __stdcall sub_006BC290_SetValues(sub_006BC290_Strc* pThis, int nA, int nB, int nC)
+{
+    if (pThis)
+    {
+        pThis->nValue118 = nA;
+        pThis->nValue11C = nB;
+        pThis->nValue120 = nC;
+    }
+}
+
 static void sub_006BC2C0_SetClosing(sub_006BC780_Strc* pThis)
 {
     if (pThis && pThis->pConn && pThis->pConn->bActive)
@@ -119,6 +152,7 @@ struct sub_006BC560_Strc
 };
 
 void __stdcall sub_006BC3A0(void* pContext); // 0x006BC3A0
+
 int __fastcall FOG_SOCKET_Connect(void* pSocket, int nPort, void (__stdcall* pfnCallback)(void*), void* pContext, void* pAddress); // 0x0040E230
 
 // 0x006BC560
@@ -129,8 +163,11 @@ int __stdcall sub_006BC560_Connect(sub_006BC560_Strc* pThis)
 }
 
 extern "C" __declspec(dllimport) void* __stdcall CreateEventA(void* pAttributes, int bManualReset, int bInitialState, const char* szName);
+
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes, unsigned long nStackSize, unsigned long (__stdcall* pfStart)(void*), void* pParameter, unsigned long nFlags, unsigned long* pThreadId);
+
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds);
+
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds);
 
 struct D2ThreadRecord006BC5A0Strc
