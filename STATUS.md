@@ -42,10 +42,10 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 963 |
+| Compilation units | 962 |
 | … in a file with its original name, whole | 287 |
 | … pieces of an original file still split (in 36 files) | 114 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 562 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 561 |
 | Record definitions private to a source file (`struct`/`union` in a .cpp) | 3045 |
 | Unnamed fields (`unk0x..`) in the shared headers | 660 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 43 |
