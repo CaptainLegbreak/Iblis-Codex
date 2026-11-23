@@ -930,39 +930,6 @@ D2ActiveRoomStrc* __fastcall D2GAME_GetFreeSpaceEx_6FC4BF00(D2ActiveRoomStrc* pR
     return COLLISION_GetFreeCoordinatesWithField(pRoom, pReturnCoords, pCoords, nUnitSize, 0x3E01, 0x801, bAllowNeighborRooms);
 }
 
-// 0x00558AA0
-void __fastcall D2GAME_DropItem_6FC52260(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2ActiveRoomStrc* pRoom, int nX, int nY)
-{
-    if (!pRoom)
-    {
-        return;
-    }
-
-    UNITS_InitializeStaticPath(pItem, pRoom, nX, nY);
-    UNITS_BlockCollisionPath(pItem, pRoom, nX, nY);
-    UNITROOM_AddUnitToRoom(pItem, pRoom);
-
-    if (pItem)
-    {
-        pItem->dwFlags |= 0x1002;
-    }
-
-    UNITS_ChangeAnimMode(pItem, 3);
-    ITEMS_SetInvPage(pItem, 0xFF);
-
-    if (pItem)
-    {
-        pItem->dwFlags |= 0x2000000;
-    }
-
-    pItem->pItemData->dwActionStamp = ITEMS_GetGroundRemovalTime(pGame, pItem);
-
-    if (pUnit)
-    {
-        QUESTS_ItemDropped(pGame, pUnit, pItem);
-    }
-}
-
 // 0x0055BFE0
 void __fastcall ITEMMODE_ClearUnitTargetingFlags(D2UnitStrc* pUnit)
 {
@@ -2394,6 +2361,11 @@ void __stdcall sub_0055D920_Nop()
 {
 }
 
+// 0x0055D930
+void __stdcall sub_0055D930(int nUnused1)
+{
+}
+
 // 0x0055D940
 static void __stdcall ITEMMODE_DetachItemAndUpdate(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
@@ -3564,6 +3536,12 @@ static void __stdcall ITEMMODE_InitItemDropFromItem(int nId, D2GameStrc* pGame, 
     pItemDrop->dwItemSeed = nItemSeed;
 }
 
+// 0x0055E9A0
+int __stdcall sub_0055E9A0(int nUnused1, int nUnused2)
+{
+    return 0;
+}
+
 int __fastcall ITEMMODE_CheckAndResolveBodySlotPair(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc** ppPrimary, D2UnitStrc** ppOther, int* pBodyLoc)
 {
     if (!pUnit || !pItem || GetUnitType(pItem) != 4) return 0;
@@ -3991,6 +3969,21 @@ void __fastcall ITEMMODE_ReplenishItem(D2GameStrc* pGame, D2UnitStrc* pUnit)
     }
 }
 
+typedef int (__stdcall* FARPROC)();
+
+typedef void (__fastcall* EventCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit);
+
+extern EventCallbackFunction gpfnItemEventFunctions[15]; // 0x006E117C
+
+extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
+
+// 0x00562DA0
+void __fastcall D2GAME_Items_EventsHandler_6FC4A460(D2GameStrc* pGame, D2UnitStrc* pUnit, int eEventType)
+{
+    D2_ASSERT(!IsBadCodePtr((FARPROC)gpfnItemEventFunctions[eEventType]), 5610);
+    gpfnItemEventFunctions[eEventType](pGame, pUnit);
+}
+
 // 0x0055F140
 int __fastcall D2GAME_DoKeyCheck_6FC4A4B0(D2GameStrc* ptGame, D2UnitStrc* hUnit)
 {
@@ -4151,12 +4144,6 @@ int __fastcall sub_J07_Emit_00560020(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Uni
     return ITEMMODE_PickupStackable(pGame, pUnit, pItem);
 }
 
-// 0x005776E0
-void __stdcall sub_005776E0(D2UnitStrc* pUnit)
-{
-    sub_0055A2A0(pUnit, 1);
-}
-
 // 0x00604A30
 void __stdcall TileSetHardwareFreeCallback(void* pfnCallback)
 {
@@ -4233,6 +4220,11 @@ int __fastcall ITEMMODE_ResolveBodySlotPair(D2UnitStrc* pUnit, D2UnitStrc* pItem
         }
     default: return *ppPrimary == 0;
     }
+}
+
+// 0x0055F4F0
+void __stdcall sub_0055F4F0(int nUnused1)
+{
 }
 
 static __forceinline int PlaceIntoInventory(Game* game, Unit* player, int itemId, int line)

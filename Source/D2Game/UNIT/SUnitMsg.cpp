@@ -813,13 +813,6 @@ void __fastcall D2GAME_SUNITMSG_FreeUnitMessages_6FCC6790(D2UnitStrc* pUnit)
     }
 }
 
-// 0x00579130
-void __fastcall D2GAME_NPC_ResetInteract_6FCCB4D0(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc)
-{
-    SUNIT_ResetInteractInfo(pPlayer);
-    MONSTERAI_RemoveInteractInfoFor(pGame, pPlayer, (pNpc && pNpc->dwUnitType == UNIT_MONSTER && pNpc->pMonsterData) ? pNpc->pMonsterData->pMonInteract : 0);
-}
-
 static inline int UnitHasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 {
     if (pUnit) return (pUnit->dwFlags & nFlag) != 0;

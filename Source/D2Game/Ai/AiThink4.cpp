@@ -4020,6 +4020,103 @@ static inline int UNITS_TestIgnoreTargetFlag(D2UnitStrc* pUnit)
     return bResult;
 }
 
+// 0x005E4830
+void __fastcall AITHINK_MeleePet(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
+    if (!pOwner)
+    {
+        if (pAiControl->dwAiParam[2])
+        {
+            D2UnitStrc* pOldOwner = SUNIT_GetServerUnit(pGame, 0, pAiControl->dwAiParam[2]);
+            if (pOldOwner)
+            {
+                D2GAME_AI_PetMove_6FCE2BA0(pGame, pOldOwner, pUnit, 3, 0, 0, 0);
+                return;
+            }
+        }
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+        return;
+    }
+    pAiControl->dwAiParam[2] = pOwner->dwUnitId;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    const int nOwnerDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pUnit, pOwner);
+    if (nOwnerDistance > 50)
+    {
+        D2GAME_AI_PetMove_6FCE2BA0(pGame, pOwner, pUnit, 3, 0, 0, 0);
+        return;
+    }
+    int nVelocity;
+    if (pMonStatsTxt->nVelocity > 0)
+    {
+        nVelocity = 100 * pMonStatsTxt->nRun / pMonStatsTxt->nVelocity - 100;
+        if (nVelocity >= 100)
+            nVelocity = 100;
+    }
+    else
+        nVelocity = 100;
+    if (nOwnerDistance > 28)
+    {
+        D2GAME_AI_PetMove_6FCE2BA0(pGame, pOwner, pUnit, 0, 0, nVelocity, 0);
+        return;
+    }
+    int nOwnerTargetDistance;
+    int bOwnerCombat;
+    D2UnitStrc* pOwnerTarget = sub_6FCF2110(pGame, pOwner, pAiControl, &nOwnerTargetDistance, &bOwnerCombat);
+    if (pOwnerTarget && UNITS_TestIgnoreTargetFlag(pOwnerTarget))
+        pOwnerTarget = 0;
+    int nTargetDistance;
+    int bCombat;
+    D2UnitStrc* pTarget = AITACTICS_FindTargetInRange(pGame, pUnit, pAiControl, &nTargetDistance, &bCombat, 24);
+    if (!pTarget || nTargetDistance > 6)
+    {
+        pTarget = 0;
+        if (pOwnerTarget)
+        {
+            nTargetDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pUnit, pOwnerTarget);
+            if (nTargetDistance < 36)
+                pTarget = pOwnerTarget;
+        }
+    }
+    if (!AIUTIL_HasClearApproachToTarget(pUnit, pTarget))
+        pTarget = 0;
+    int nResult;
+    if ((int)(AI_RollUnitSeed(pUnit) % 100) < 15)
+        nResult = AITHINK_TryPetFollowOwner(pGame, pUnit, pTarget, pOwner, bCombat, pAiTickParam, 1, 8);
+    else
+        nResult = AITHINK_TryPetFollowOwner(pGame, pUnit, pTarget, pOwner, bCombat, pAiTickParam, 0, 7);
+    if (nResult)
+        return;
+    if (pTarget && DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
+    {
+        AITACTICS_WanderToTarget(pGame, pUnit, pOwner, 4);
+        return;
+    }
+    if (!pTarget)
+    {
+        AITACTICS_WanderToTarget(pGame, pUnit, pOwner, 4);
+        return;
+    }
+    if (!DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
+    {
+        if (bCombat)
+        {
+            if ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < 80)
+            {
+                AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
+                return;
+            }
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+            return;
+        }
+        sub_005DE190_SetAiParam(pUnit, 0, 0, 12);
+        AITACTICS_WalkToTargetWithPathType13(pGame, pUnit, pTarget, 7);
+        return;
+    }
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
+}
+
 // 0x005E4AC0
 void __fastcall AITHINK_UpdateNecroPet(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {

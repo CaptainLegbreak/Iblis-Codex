@@ -3610,20 +3610,6 @@ void __fastcall OBJRGN_SetWellCoordinates(D2GameStrc* pGame, int nLevelId, int n
     ++pObjectRegion->nWells;
 }
 
-// 0x00562DA0
-void __fastcall D2GAME_Items_EventsHandler_6FC4A460(D2GameStrc* pGame, D2UnitStrc* pUnit, int eEventType)
-{
-    D2_ASSERT(!IsBadCodePtr((FARPROC)gpfnItemEventFunctions[eEventType]), 5610);
-    gpfnItemEventFunctions[eEventType](pGame, pUnit);
-}
-
-// 0x00586AD0
-void __fastcall D2GAME_OBJMODE_InvokeEventFunction_6FC75250(D2GameStrc* pGame, D2UnitStrc* pObject, int eEventType)
-{
-    D2_ASSERT(!IsBadCodePtr((FARPROC)gpfnObjectEventFunctions[eEventType]), 576);
-    gpfnObjectEventFunctions[eEventType](pGame, pObject);
-}
-
 // 0x005B7230
 void __fastcall ACT3Q0_ChangeHratliMapAI(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MapAIStrc* pMapAI)
 {

@@ -1726,6 +1726,14 @@ D2UnitStrc* __fastcall SUNITNPC_FindInventoryItemByClassId(D2UnitStrc* pUnit, in
     return 0;
 }
 
+void __stdcall sub_0055A2A0(D2UnitStrc* pUnit, int nArg); // 0x0055A2A0
+
+// 0x005776E0
+void __stdcall sub_005776E0(D2UnitStrc* pUnit)
+{
+    sub_0055A2A0(pUnit, 1);
+}
+
 // 0x00577700
 D2UnitStrc* __fastcall SUNITNPC_FindStackForStorePurchase(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int* a4)
 {
@@ -2936,6 +2944,17 @@ void __fastcall SUNITNPC_RefillNpcStore(D2GameStrc* pGame, D2UnitStrc* pPlayer)
         D2GAME_NPC_FillStoreInventory_6FCC7100(pStoreGame, pStorePlayer, pNpc, pTrade);
         pTrade->bVendorInit = 1;
     }
+}
+
+void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190
+
+void __fastcall MONSTERAI_RemoveInteractInfoFor(D2GameStrc* pGame, D2UnitStrc* pMonster, D2MonsterInteractStrc* pMonInteract); // 0x00572E00
+
+// 0x00579130
+void __fastcall D2GAME_NPC_ResetInteract_6FCCB4D0(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc)
+{
+    SUNIT_ResetInteractInfo(pPlayer);
+    MONSTERAI_RemoveInteractInfoFor(pGame, pPlayer, (pNpc && pNpc->dwUnitType == UNIT_MONSTER && pNpc->pMonsterData) ? pNpc->pMonsterData->pMonInteract : 0);
 }
 
 static inline int GetId(D2UnitStrc* u){ if(u) return u->dwUnitId; return -1; }

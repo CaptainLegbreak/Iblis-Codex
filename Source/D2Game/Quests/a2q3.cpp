@@ -386,29 +386,7 @@ bool __fastcall ACT2Q1_IsDoneOrInactive(D2GameStrc* pGame)
     return pQuestData->fState == 5 ? true : false;
 }
 
-// 0x00599700
-int __fastcall ACT2Q2_UnitIterate_DetermineHoradricScrollDropCount(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, 0) == 1)
-    {
-        return 0;
-    }
-
-    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, 3))
-    {
-        return 0;
-    }
-
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A2Q2_HORADRICSTAFF);
-    if (pQuestData)
-    {
-        ++((D2Act2Quest2Strc*)pQuestData->pQuestDataEx)->nItemDropCount;
-    }
-
-    return 0;
-}
-
+int __fastcall ACT2Q2_UnitIterate_DetermineHoradricScrollDropCount(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00599700
 // 0x00599BD0
 void __fastcall ACT2Q2_AddAmulets(D2QuestDataStrc* pQuestData, int nCount)
 {
