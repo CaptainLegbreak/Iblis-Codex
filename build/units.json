@@ -65382,11 +65382,6 @@
      "name": "DATATBLS_GetAnimData"
     },
     {
-     "va": "0x0063EBC0",
-     "length": 3,
-     "name": "sub_0063EBC0"
-    },
-    {
      "va": "0x00641500",
      "length": 6,
      "name": "DATATBLS_GetShrinesTxtRecordCount"
@@ -72551,6 +72546,11 @@
      "va": "0x0063EA70",
      "length": 325,
      "name": "MONSTERS_GetSpawnMode_XY"
+    },
+    {
+     "va": "0x0063EBC0",
+     "length": 3,
+     "name": "sub_0063EBC0"
     },
     {
      "va": "0x0063EBD0",

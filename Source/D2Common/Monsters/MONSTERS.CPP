@@ -1,13 +1,28 @@
 #include "D2MonsterIds.h"
+#include "D2CmpTileRecord.h"
+#include "D2GameTypes.h"
+#include "D2DrlgMaps.h"
+#include "D2CmpTypes.h"
+#include "D2LRUNode.h"
+
 #include "D2StatIds.h"
+
 #include "D2Common.h"
+
 #include "D2Structs.h"
+
 #include "D2DataTbls.h"
+
 #include "D2Txt.h"
+
 #include "D2LevelTxt.h"
+
 #include "D2Unicode.h"
+
 #include "D2Path.h"
+
 #include "D2UnitData.h"
+
 #include "D2MonModes.h"
 
 #define CHECK(p,line) if (!(p)) { sub_00408A60(text_006CC837,sub_00408090(),line); sub_00681E09(-1); }
@@ -331,6 +346,11 @@ int __stdcall MONSTERS_GetSpawnMode_XY(D2UnitStrc* pMonster, int bFromMonster, i
     }
 
     return -1;
+}
+
+// 0x0063EBC0
+void __stdcall sub_0063EBC0(int nUnused1, int nUnused2)
+{
 }
 
 // 0x0063EBD0
