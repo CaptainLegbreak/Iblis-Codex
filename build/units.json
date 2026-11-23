@@ -1674,6 +1674,11 @@
      "name": "LOGMANAGER_DbgHelpThreadProc"
     },
     {
+     "va": "0x0040EB30",
+     "length": 1,
+     "name": "??3D2LogMessageStrc@@SAXPAX0@Z"
+    },
+    {
      "va": "0x0040EBD0",
      "length": 235,
      "name": "sub_0040EBD0_OpenDatedLogFile"
@@ -1787,9 +1792,44 @@
      "name": "??1D2LogMsgNodeStrc@@QAE@XZ"
     },
     {
+     "va": "0x0040FB50",
+     "length": 84,
+     "name": "??0D2LogMsgListStrc@@QAE@XZ"
+    },
+    {
      "va": "0x0040FCB0",
      "length": 75,
      "name": "??0D2LogMsgNodeStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0040FD40",
+     "length": 65,
+     "name": "??1D2LogMessageStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0040FD90",
+     "length": 126,
+     "name": "??1D2LogMsgListStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0040FE10",
+     "length": 75,
+     "name": "??0D2LogMessageStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0040FE60",
+     "length": 98,
+     "name": "??_GD2LogMessageStrc@@QAEPAXI@Z"
+    },
+    {
+     "va": "0x0040FED0",
+     "length": 97,
+     "name": "?sub_0040FED0_DeleteAll@D2LogMsgListStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x0040FF40",
+     "length": 138,
+     "name": "?sub_0040FF40_NewNode@D2LogMsgListStrc@@QAEPADHII@Z"
     },
     {
      "va": "0x0040FFD0",
@@ -2089,6 +2129,14 @@
      "va": "0x00426D80",
      "length": 50,
      "name": "??1sub_00426D80@@QAE@XZ"
+    },
+    {
+     "va": "0x006CA740",
+     "length": 101
+    },
+    {
+     "va": "0x006CB090",
+     "length": 10
     }
    ],
    "flags": [
