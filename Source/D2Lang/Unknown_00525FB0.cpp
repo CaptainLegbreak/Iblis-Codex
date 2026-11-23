@@ -51,57 +51,6 @@ void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlag
 void __cdecl operator delete[](void* pMemory);
 void* __cdecl operator new[](size_t nSize);
 
-// 0x00525FB0
-void __stdcall sub_00525FB0_FormatInt(Unicode* pOut, int nValue, int nSize)
-{
-    char szBuffer[64];
-    int nGroup = 0;
-    D2_ASSERT(nSize > 2, 0x4B9);
-    if (nValue < 0)
-    {
-        pOut->wChar = '-';
-        ++pOut;
-        --nSize;
-        nValue = -nValue;
-    }
-    _itoa(nValue, szBuffer, 10);
-    int nLength = strlen(szBuffer);
-    if (nLength)
-    {
-        int nPos = nLength + (nLength - 1) / 3;
-        if (nPos >= 1 && nPos < nSize - 1)
-        {
-            pOut[nPos].wChar = 0;
-            while (nLength)
-            {
-                D2_ASSERT(nPos != 0, 0x4D3);
-                --nLength;
-                --nPos;
-                pOut[nPos].wChar = szBuffer[nLength];
-                ++nGroup;
-                if (nGroup >= 3 && strlen(szBuffer) > 3)
-                {
-                    nGroup = 0;
-                    if (nPos > 0)
-                    {
-                        --nPos;
-                        pOut[nPos].wChar = ',';
-                    }
-                }
-            }
-            return;
-        }
-    }
-    {
-        Unicode wszStar[2];
-        wszStar[0].wChar = 0;
-        wszStar[1].wChar = 0;
-// build: symbol ?gszStar@* 0x006D5830
-        sub_00526320_ToUnicode(wszStar, gszStar, 2);
-        sub_005267E0(pOut, wszStar);
-    }
-}
-
 // 0x00526740
 Unicode* __fastcall Unicode::strncat(Unicode* dest, const Unicode* src, int count)
 {
