@@ -749,7 +749,6 @@
     "extern \"C\" void __cdecl sub_004F4A30_CltDoChargedMissile(); // 0x004F4A30",
     "extern \"C\" void __cdecl sub_004F4C20_CltDoRepeatAttack(); // 0x004F4C20",
     "extern \"C\" void __cdecl sub_004F4D90_MissileAtTarget(); // 0x004F4D90",
-    "extern \"C\" void __cdecl ITEM_EvaluateClientSkillCalc(); // 0x004C7CF0",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltStartPosition(); // 0x004C83C0",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltStartLeap(); // 0x004C8D90",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltStartRun(); // 0x004C9120",
