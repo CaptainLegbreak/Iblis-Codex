@@ -65,52 +65,7 @@ extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 
 
 
-// 0x006C7D80
-int __fastcall sub_006C7D80_LockAndSend(void* pObject, char nKey, int a, int b)
-{
-    if (gnValue_007C9144)
-    {
-        return 0;
-    }
-    D2_ASSERT(gpLock_007C9134, 0x10D);
-    EnterCriticalSection(gpLock_007C9134);
-    if (pObject)
-    {
-        sub_006C9280_Apply(1, nKey, a, b);
-    }
-    return 1;
-}
-
-
 void* ghRenderWindow; // 0x007C9140
-
-// 0x006C7E30
-int __cdecl sub_006C7E30_BlitWindow()
-{
-    void* hDC = GetDC(ghRenderWindow);
-    void* hMemoryDC = CreateCompatibleDC(hDC);
-    SelectObject(hMemoryDC, ghObject_0098A164);
-    SetDIBColorTable(hMemoryDC, 0, 256, gaPalette_00989C40);
-    SelectPalette(hDC, ghPalette, 0);
-    RealizePalette(hDC);
-    tagRECT tRect;
-    GetClientRect(WINDOW_GetWindow(), &tRect);
-    StretchBlt(hDC, 0, 0, tRect.right - tRect.left, tRect.bottom - tRect.top,
-// build: symbol ?gnRenderWidth@* 0x007C9138
-        hMemoryDC, 0, 0, gnRenderWidth, gnRenderHeight, 0xCC0020);
-    GdiFlush();
-    DeleteDC(hMemoryDC);
-    ReleaseDC(ghRenderWindow, hDC);
-    return 1;
-}
-
-// 0x006C7F90
-void __fastcall sub_006C7F90_GetScreenSize(int* width, int* height)
-{
-    *width = gnRenderWidth;
-    *height = gnRenderHeight;
-}
-
 
 D2PaletteTableStrc gtPaletteView; // 0x0098A040
 

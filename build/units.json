@@ -84566,9 +84566,23 @@
      "name": "?GDI_PauseSurface@@YGXH@Z"
     },
     {
+     "va": "0x006C7D80",
+     "length": 108,
+     "name": "?sub_006C7D80_LockAndSend@@YIHPAXDHH@Z"
+    },
+    {
      "va": "0x006C7DF0",
      "length": 53,
      "name": "?GDI_EndDraw@@YAHXZ"
+    },
+    {
+     "va": "0x006C7E30",
+     "length": 190
+    },
+    {
+     "va": "0x006C7F90",
+     "length": 16,
+     "name": "?sub_006C7F90_GetScreenSize@@YIXPAH0@Z"
     },
     {
      "va": "0x006C7FA0",
@@ -84621,20 +84635,6 @@
    "file": "Source/D2Gdi/Unknown_006C7CF0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x006C7D80",
-     "length": 108,
-     "name": "?sub_006C7D80_LockAndSend@@YIHPAXDHH@Z"
-    },
-    {
-     "va": "0x006C7E30",
-     "length": 190
-    },
-    {
-     "va": "0x006C7F90",
-     "length": 16,
-     "name": "?sub_006C7F90_GetScreenSize@@YIXPAH0@Z"
-    },
     {
      "va": "0x006C8000",
      "length": 29,
