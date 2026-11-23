@@ -14062,17 +14062,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_0044B210.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0044B210",
-     "length": 13,
-     "name": "@sub_0044B210_StoreSlots@8"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004B9D00.cpp",
    "rank": 0,
    "functions": [
@@ -14741,6 +14730,11 @@
      "va": "0x0044B200",
      "length": 7,
      "name": "?GAME_SetMcpCallbackB@@YIXP6IXGPAE@Z@Z"
+    },
+    {
+     "va": "0x0044B210",
+     "length": 13,
+     "name": "@sub_0044B210_StoreSlots@8"
     },
     {
      "va": "0x0044B220",

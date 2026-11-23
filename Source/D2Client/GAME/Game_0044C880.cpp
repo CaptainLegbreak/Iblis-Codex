@@ -632,6 +632,17 @@ void __fastcall GAME_SetMcpCallbackB(D2McpCallbackFn pfnCallback)
     gpfnMcpPacket09Callback = pfnCallback;
 }
 
+extern "C" { U32 gSlotFirst; } // 0x00799300
+
+extern "C" { U32 gSlotSecond; } // 0x00799304
+
+// 0x0044B210
+extern "C" void __fastcall sub_0044B210_StoreSlots(U32 first, U32 second)
+{
+    gSlotFirst = first;
+    gSlotSecond = second;
+}
+
 // 0x0044B220
 void __fastcall GAME_SetMcpChatCallback(void (__fastcall* pfnCallback)(void* pArg))
 {
