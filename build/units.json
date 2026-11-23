@@ -33302,21 +33302,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004E3AB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004E3AB0",
-     "length": 403
-    },
-    {
-     "va": "0x004E6CE0",
-     "length": 81,
-     "name": "?sub_004E6CE0_GetStringId@@YIGHH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004E40A0.cpp",
    "rank": 0,
    "functions": [
@@ -33615,6 +33600,10 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x004E3AB0",
+     "length": 403
+    },
+    {
      "va": "0x004E4180",
      "length": 91,
      "name": "?sub_004E4180@@YIHHHH@Z"
@@ -33630,6 +33619,11 @@
     {
      "va": "0x004E5E90",
      "length": 527
+    },
+    {
+     "va": "0x004E6CE0",
+     "length": 81,
+     "name": "?sub_004E6CE0_GetStringId@@YIGHH@Z"
     },
     {
      "va": "0x004E6DE0",
