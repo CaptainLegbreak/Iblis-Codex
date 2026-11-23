@@ -287,6 +287,98 @@ void __fastcall AITHINK_Fn001_100_Idle_Buffy(D2GameStrc* pGame, D2UnitStrc* pUni
     }
 }
 
+struct D2PantherAiCallbackArgStrc;
+
+struct D2PantherAiCallbackArgStrc
+{
+    D2UnitStrc* pTarget;
+    int nDistance;
+    int unk0x08[8];
+};
+
+D2UnitStrc* __fastcall AITHINK_TargetCallback_Panther(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005B0D00
+
+// 0x005B0D00
+D2UnitStrc* __fastcall AITHINK_TargetCallback_Panther(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
+{
+    D2PantherAiCallbackArgStrc* pArg = (D2PantherAiCallbackArgStrc*)pCallbackArg;
+
+    if (!pTarget || pTarget->dwUnitType != UNIT_MONSTER || pUnit == pTarget)
+    {
+        return 0;
+    }
+
+    if (CUNIT_GetMonsterBaseId(pUnit) != CUNIT_GetMonsterBaseId(pTarget) || MONSTERS_IsDead(pTarget))
+    {
+        return 0;
+    }
+
+    const int nDistance = AITHINK_GetSquaredDistance(pUnit, pTarget);
+    if (nDistance >= pArg->nDistance)
+    {
+        return 0;
+    }
+
+    pArg->pTarget = pTarget;
+    pArg->nDistance = nDistance;
+    return 0;
+}
+
+// 0x005B0D60
+int __fastcall AITHINK_GetSpecialStateFromAiControl(D2AiControlStrc* pAiControl)
+{
+    return pAiControl->nAiSpecialState;
+}
+
+// 0x005B0D70
+void __fastcall AITHINK_SetAiControlParams(D2AiControlStrc* pAiControl, int nParam0, int nParam1, int nParam2)
+{
+    if (!pAiControl)
+    {
+        return;
+    }
+    if (nParam0 != -666)
+    {
+        pAiControl->dwAiParam[0] = nParam0;
+    }
+    if (nParam1 != -666)
+    {
+        pAiControl->dwAiParam[1] = nParam1;
+    }
+    if (nParam2 != -666)
+    {
+        pAiControl->dwAiParam[2] = nParam2;
+    }
+}
+
+int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
+
+// 0x005B0DA0
+int __fastcall AITHINK_CanUnitSwitchAi(D2UnitStrc* pUnit, D2MonStatsTxt* pMonStatsTxtRecord, int nAiSpecialState, int bCheckIfSuperUnique)
+{
+    if (nAiSpecialState == 0)
+    {
+        return 1;
+    }
+
+    if (nAiSpecialState != 10 && nAiSpecialState != 11 && nAiSpecialState != 12)
+    {
+        return 1;
+    }
+
+    if (bCheckIfSuperUnique && MONSTERUNIQUE_CheckMonTypeFlag(pUnit, 2))
+    {
+        return 0;
+    }
+
+    if (!pUnit)
+    {
+        return UNITS_CanSwitchAI(-1);
+    }
+
+    return UNITS_CanSwitchAI(pUnit->dwClassId);
+}
+
 // 0x005B0E00
 void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* hUnit, D2AiControlStrc* pAiControl, int nAiSpecialState)
 {
