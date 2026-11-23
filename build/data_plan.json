@@ -4939,7 +4939,7 @@
   },
   "Source/D2Direct3D/Unknown_006B3570.cpp": {
    "bytes": 160,
-   "definitions": 2,
+   "definitions": 1,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Direct3D/Unknown_006B3570.inc",
@@ -4948,7 +4948,7 @@
   },
   "Source/D2Direct3D/Src/d3dCore.cpp": {
    "bytes": 1340,
-   "definitions": 19,
+   "definitions": 20,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Direct3D/Src/d3dCore.inc",
@@ -152695,7 +152695,7 @@
    "cname": "gData_006FF478",
    "declared": true,
    "decorated": "?gabIidTexture@@3QBEB",
-   "file": "Source/D2Direct3D/Unknown_006B3570.cpp",
+   "file": "Source/D2Direct3D/Src/d3dCore.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006FF478[16]; // 0x006FF478",
    "head": "extern \"C\" const unsigned char gData_006FF478[16] = ",
