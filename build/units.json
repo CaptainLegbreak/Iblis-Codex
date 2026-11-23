@@ -73846,16 +73846,6 @@
      "va": "0x0067B1C0",
      "length": 59,
      "name": "?PATH_AStar_AllocNewNode@@YIPAUD2DrlgTableEntryStrc@@PAUD2DrlgEntryTableStrc@@@Z"
-    },
-    {
-     "va": "0x0067F560",
-     "length": 87,
-     "name": "?DRLGOUTDESR_PlaceDesertTransitionToTown@@YIXPAUD2DrlgLevelStrc@@@Z"
-    },
-    {
-     "va": "0x0067F670",
-     "length": 116,
-     "name": "?DRLGOUTDESR_AddExits@@YIXPAUD2DrlgLevelStrc@@@Z"
     }
    ]
   },
@@ -80478,6 +80468,11 @@
      "name": "?DRLGOUTDESR_PlacePresetVariants@@YGXPBHHHPAUD2DrlgLevelStrc@@@Z"
     },
     {
+     "va": "0x0067F560",
+     "length": 87,
+     "name": "?DRLGOUTDESR_PlaceDesertTransitionToTown@@YIXPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
      "va": "0x0067F5C0",
      "length": 98,
      "name": "?DRLGOUTDESR_PlaceCliffs@@YAXPAUD2DrlgLevelStrc@@@Z"
@@ -80486,6 +80481,11 @@
      "va": "0x0067F630",
      "length": 52,
      "name": "?DRLGOUTDESR_PlaceBorders@@YAXPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
+     "va": "0x0067F670",
+     "length": 116,
+     "name": "?DRLGOUTDESR_AddExits@@YIXPAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x0067F6F0",
