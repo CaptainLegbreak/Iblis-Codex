@@ -1,9 +1,12 @@
 #include "D2Structs.h"
-#include "D2Path.h"
-#include "D2PathFind.h"
-extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                               // 0x00681EF0
-#pragma intrinsic(memset)
 
+#include "D2Path.h"
+
+#include "D2PathFind.h"
+
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                               // 0x00681EF0
+
+#pragma intrinsic(memset)
 
 struct D2PathIDAStarContextStrc
 {
@@ -24,6 +27,19 @@ static D2PathIDAStarNodeStrc* PATH_IDAStar_GetNewNode(D2PathIDAStarContextStrc* 
     D2PathIDAStarNodeStrc* pNewNode = &pContext->aNodesStorage[pContext->nNodesCount++];
     memset(pNewNode, 0, sizeof(*pNewNode));
     return pNewNode;
+}
+
+struct D2PathBoundsContextStrc
+{
+    char unk0x0000[0x6278];
+    D2PathPointStrc tMin;
+    D2PathPointStrc tMax;
+};
+
+// 0x0067A5F0
+int __fastcall PATH_IsPointInBounds(D2PathBoundsContextStrc* pContext, int nUnused, D2PathPointStrc tPoint)
+{
+    return tPoint.X >= pContext->tMin.X && tPoint.X <= pContext->tMax.X && tPoint.Y >= pContext->tMin.Y && tPoint.Y <= pContext->tMax.Y;
 }
 
 D2PathIDAStarNodeStrc* __stdcall sub_M125_Emit_0067A590(int nUnused1, int nUnused2, int nUnused3, D2PathIDAStarContextStrc* pContext)
