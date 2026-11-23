@@ -292,28 +292,6 @@ D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesEx(D2ActiveRoomStrc* pRo
 
 bool __fastcall ACT2Q3_IsAltarDestroyed(D2QuestDataStrc* pQuest);                              // 0x0059AC80
 
-// 0x005945F0
-void __fastcall ACT1Q4_OnCainInTownActivated(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 4);
-    if (pQuestData)
-    {
-        ((D2Act1Quest4Strc*)pQuestData->pQuestDataEx)->bChangePortalInTownToSpecialMode = 1;
-    }
-}
-
-// 0x00594610
-int __fastcall ACT1Q4_IsCainInTristramDeactivated(D2GameStrc* pGame)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 4);
-    if (!pQuestData)
-    {
-        return 0;
-    }
-
-    return ((D2Act1Quest4Strc*)pQuestData->pQuestDataEx)->bCainInTristramDeactivated != 0;
-}
-
 bool __fastcall ACT2Q3_IsAltarDestroyed(D2QuestDataStrc* pQuest); // 0x0059AC80
 
 enum D2C_P08QuestConstants

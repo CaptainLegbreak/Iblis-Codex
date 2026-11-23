@@ -1823,6 +1823,25 @@ void __fastcall OBJECTS_InitFunction09_InifussTree(D2ObjInitFnStrc* pOp)
     }
 }
 
+int __fastcall QUESTS_CreateChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuestId); // 0x005436B0
+
+// 0x00594020
+void __fastcall OBJECTS_InitFunction13_InvisibleObject(D2ObjInitFnStrc* pOp)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A1Q4_CAIN);
+    if (pQuestData)
+    {
+        QUESTS_CreateChainRecord(pQuestData->pGame, pOp->pObject, QUEST_A1Q4_CAIN);
+    }
+    else
+    {
+        if (!pOp->pObject || pOp->pObject->dwAnimMode != OBJMODE_OPENED)
+        {
+            UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPENED);
+        }
+    }
+}
+
 // 0x00594060
 void __fastcall ACT1Q4_InitCainGibbet(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp)
 {
@@ -2097,6 +2116,287 @@ int __fastcall ACT1Q4_CreateUberRunPortal(D2GameStrc* pGame, D2UnitStrc* pUnit)
 int __fastcall ACT1Q4_CreateUberFinalePortal(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     return 0;
+}
+
+#define EVENTTYPE_QUESTFN 7
+
+#define QUESTFN_DELAY 25
+
+// 0x00594290
+void __fastcall OBJECTS_InitFunction61_CainPortal(D2ObjInitFnStrc* pOp)
+{
+    UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPERATING);
+    EVENT_SetEvent(pOp->pGame, pOp->pObject, EVENTTYPE_QUESTFN, pOp->pGame->dwGameFrame + QUESTFN_DELAY, 0, 0);
+}
+
+#define PORTAL_INVOCATIONS_MAX 5
+
+static inline int UNITS_GetAnimModeOrZero(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    return pUnit->dwAnimMode;
+}
+
+// 0x005942C0
+void __fastcall ACT1Q4_UpdatePortalInTown(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
+{
+    switch (UNITS_GetAnimModeOrZero(pUnit))
+    {
+    case OBJMODE_OPERATING:
+        UNITS_ChangeAnimMode(pUnit, OBJMODE_OPENED);
+        break;
+
+    case OBJMODE_OPENED:
+    {
+        D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuestData->pQuestDataEx;
+        if (DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit)) == LEVEL_ROGUEENCAMPMENT)
+        {
+            ++pQuestDataEx->nObjectUpdateInvocations;
+            if (pQuestDataEx->nObjectUpdateInvocations > PORTAL_INVOCATIONS_MAX)
+            {
+                pQuestDataEx->bChangePortalInTownToSpecialMode = 1;
+            }
+
+            if (pQuestDataEx->bChangePortalInTownToSpecialMode)
+            {
+                UNITS_ChangeAnimMode(pUnit, OBJMODE_SPECIAL1);
+            }
+        }
+        else
+        {
+            if (pQuestDataEx->bChangePortalOutsideTownToSpecialMode)
+            {
+                UNITS_ChangeAnimMode(pUnit, OBJMODE_SPECIAL1);
+            }
+        }
+        break;
+    }
+
+    case OBJMODE_SPECIAL1:
+        UNITS_ChangeAnimMode(pUnit, OBJMODE_SPECIAL2);
+        break;
+    }
+
+    EVENT_SetEvent(pQuestData->pGame, pUnit, EVENTTYPE_QUESTFN, pQuestData->pGame->dwGameFrame + QUESTFN_DELAY, 0, 0);
+}
+
+// 0x00594360
+int __fastcall ACT1Q4_GetCainPortalInTownCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2CoordStrc* pCoord)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A1Q4_CAIN);
+    if (pQuestData && pQuestData->bNotIntro)
+    {
+        D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuestData->pQuestDataEx;
+        if (pQuestDataEx->bCainPortalInTownSpawned && !pQuestDataEx->bChangePortalInTownToSpecialMode)
+        {
+            pCoord->nX = pQuestDataEx->pCainPortalInTownCoords.nX;
+            pCoord->nY = pQuestDataEx->pCainPortalInTownCoords.nY;
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+#define PORTAL_RETRY_STEP 3
+
+D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
+
+// 0x005943B0
+int __fastcall ACT1Q4_SpawnCainPortalOutsideTown(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A1Q4_CAIN);
+    if (!pQuestData)
+    {
+        return 1;
+    }
+
+    D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuestData->pQuestDataEx;
+    if (pQuestDataEx->bCainPortalOutsideTownSpawned)
+    {
+        return 1;
+    }
+
+    D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), pQuestDataEx->pCainPortalOutsideTownCoords.nX, pQuestDataEx->pCainPortalOutsideTownCoords.nY);
+    if (!pRoom)
+    {
+        pQuestDataEx->pCainPortalOutsideTownCoords.nX += PORTAL_RETRY_STEP;
+        pQuestDataEx->pCainPortalOutsideTownCoords.nY += PORTAL_RETRY_STEP;
+        return 1;
+    }
+
+    D2UnitStrc* pCainPortal = SUNIT_AllocUnitData(UNIT_OBJECT, OBJECT_CAINPORTAL, pQuestDataEx->pCainPortalOutsideTownCoords.nX, pQuestDataEx->pCainPortalOutsideTownCoords.nY, pGame, pRoom, 1, 1, 0);
+    if (pCainPortal)
+    {
+        pQuestDataEx->bCainPortalOutsideTownSpawned = 1;
+        pQuestDataEx->nCainPortalOutsideTownGUID = pCainPortal->dwUnitId;
+    }
+
+    return 1;
+}
+
+// 0x00594450
+int __fastcall ACT1Q4_GetCainPortalOutsideTownCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2CoordStrc* pCoord)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A1Q4_CAIN);
+    if (!pQuestData)
+    {
+        return 0;
+    }
+
+    D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuestData->pQuestDataEx;
+    if (!pQuestDataEx->bCainPortalOutsideTownSpawned)
+    {
+        UNITS_GetCoords(pUnit, pCoord);
+    }
+    else
+    {
+        pCoord->nX = pQuestDataEx->pCainPortalOutsideTownCoords.nX;
+        pCoord->nY = pQuestDataEx->pCainPortalOutsideTownCoords.nY;
+    }
+
+    return 1;
+}
+
+// 0x005944B0
+int __fastcall ACT1Q4_UpdateCainPortalCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A1Q4_CAIN);
+    if (!pQuestData)
+    {
+        return 0;
+    }
+
+    D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuestData->pQuestDataEx;
+    if (pQuestDataEx->bCainPortalCoordsInitialized)
+    {
+        return 0;
+    }
+
+    UNITS_GetCoords(pUnit, &pQuestDataEx->pCainPortalOutsideTownCoords);
+    pQuestDataEx->bCainPortalCoordsInitialized = 1;
+    return 1;
+}
+
+// 0x005944F0
+void __fastcall ACT1Q4_SpawnCainPortalInTown(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A1Q4_CAIN);
+    if (!pQuestData)
+    {
+        return;
+    }
+
+    D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuestData->pQuestDataEx;
+    pQuestDataEx->bChangePortalOutsideTownToSpecialMode = 1;
+    pQuestDataEx->bCainInTownSpawnPending = 1;
+    if (pQuestDataEx->bCainObjectInitialized != 1)
+    {
+        return;
+    }
+
+    D2UnitStrc* pCainObject = SUNIT_GetServerUnit(pGame, UNIT_OBJECT, pQuestDataEx->nCainObjectGUID);
+    if (!pCainObject)
+    {
+        return;
+    }
+
+    D2ObjInitFnStrc tObjInit;
+    tObjInit.pObject = pCainObject;
+    tObjInit.pGame = pGame;
+    tObjInit.pRoom = UNITS_GetRoom(pCainObject);
+    tObjInit.nX = CLIENTS_GetUnitX(pCainObject);
+    tObjInit.nY = CLIENTS_GetUnitY(pCainObject);
+    OBJECTS_InitFunction54_CainStartPosition(&tObjInit);
+
+    if (pQuestDataEx->bCainInTownSpawned != 1)
+    {
+        return;
+    }
+
+    D2UnitStrc* pCain = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, pQuestDataEx->nCainMonsterInTownGUID);
+    if (!pCain)
+    {
+        return;
+    }
+
+    D2CoordStrc tCoord;
+    UNITS_GetCoords(pCain, &tCoord);
+    D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pCain), tCoord.nX, tCoord.nY);
+    if (!pRoom)
+    {
+        return;
+    }
+
+    D2UnitStrc* pPortal = SUNIT_AllocUnitData(UNIT_OBJECT, OBJECT_CAINPORTAL, tCoord.nX, tCoord.nY, pGame, pRoom, 1, 1, 0);
+    if (pPortal)
+    {
+        pQuestDataEx->bCainPortalInTownSpawned = 1;
+        pQuestDataEx->nCainPortalInTownGUID = pPortal->dwUnitId;
+    }
+}
+
+// 0x005945F0
+void __fastcall ACT1Q4_OnCainInTownActivated(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 4);
+    if (pQuestData)
+    {
+        ((D2Act1Quest4Strc*)pQuestData->pQuestDataEx)->bChangePortalInTownToSpecialMode = 1;
+    }
+}
+
+// 0x00594610
+int __fastcall ACT1Q4_IsCainInTristramDeactivated(D2GameStrc* pGame)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 4);
+    if (!pQuestData)
+    {
+        return 0;
+    }
+
+    return ((D2Act1Quest4Strc*)pQuestData->pQuestDataEx)->bCainInTristramDeactivated != 0;
+}
+
+int __fastcall OBJECTS_RollRandomNumber(D2SeedStrc* pSeed, int nMin, int nMax); // 0x004BC500
+
+// 0x00594630
+void __fastcall ACT1Q4_DropWirtsBodyGold(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
+{
+    D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuestData->pQuestDataEx;
+    if (!pQuestDataEx->bWirtsBodyInitialized)
+    {
+        pQuestDataEx->bWirtsBodyInitialized = 1;
+        pQuestDataEx->nGoldPilesToDropFromWirtsBody = OBJECTS_RollRandomNumber(QUESTS_GetGlobalSeed(pQuestData->pGame), 10, 20);
+        pUnit->dwDropItemCode = ' dlg';
+    }
+
+    if (pQuestDataEx->nGoldPilesToDropFromWirtsBody)
+    {
+        int nItemLevel = 0;
+        if (D2GAME_DropItemAtUnit_6FC4FEC0(pQuestData->pGame, pUnit, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 0))
+        {
+            --pQuestDataEx->nGoldPilesToDropFromWirtsBody;
+            if (pQuestDataEx->nGoldPilesToDropFromWirtsBody > 0)
+            {
+                EVENT_SetEvent(pQuestData->pGame, pUnit, EVENTTYPE_QUESTFN, pQuestData->pGame->dwGameFrame + 10, 0, 0);
+            }
+        }
+    }
+}
+
+// 0x005946D0
+void __fastcall sub_005946D0_SetA1Q4Unk0xB0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A1Q4_CAIN);
+    if (pQuestData)
+    {
+        ((D2Act1Quest4Strc*)pQuestData->pQuestDataEx)->unk0xB0 = nValue;
+    }
 }
 
 // 0x00596CA0
