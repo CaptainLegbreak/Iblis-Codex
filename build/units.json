@@ -37861,6 +37861,11 @@
      "name": "DDRAW_FloorTileDraw"
     },
     {
+     "va": "0x00513330",
+     "length": 67,
+     "name": "?DDRAW_CloseSmacker@@YIXPAUD2SmackRecordStrc@@@Z"
+    },
+    {
      "va": "0x005136F0",
      "length": 238,
      "name": "DDRAW_DrawVideoFrame"
@@ -38942,11 +38947,6 @@
    "file": "Source/D2DDraw/Src/ddSmack.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00513330",
-     "length": 67,
-     "name": "?DDRAW_CloseSmacker@@YIXPAUD2SmackRecordStrc@@@Z"
-    },
     {
      "va": "0x00513380",
      "length": 113

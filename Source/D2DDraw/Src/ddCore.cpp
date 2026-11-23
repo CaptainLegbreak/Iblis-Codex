@@ -1,6 +1,10 @@
 #include "D2DDraw.h"
+#include "D2GfxTypes.h"
+
 #include "D2Win32Base.h"
+
 #include "D2DDrawTypes.h"
+
 #include "D2GlideTypes.h"
 
 struct D2CriticalSectionStrc;
@@ -371,6 +375,7 @@ void __cdecl GLIDE_DrawVideoFrame()
 }
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
+
 int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 
 // 0x00510020
@@ -861,7 +866,6 @@ int __fastcall DDRAW_GetDrawModePalette(int nIndex, int* pType)
     return 0;
 }
 
-
 // 0x00512700
 int __cdecl DDRAW_GetBlendedShadows()
 {
@@ -913,6 +917,23 @@ int __fastcall DDRAW_FloorTileDraw(D2TileLibraryEntryStrc* pTile, D2GfxLightExSt
     return nResult;
 }
 
+void __fastcall DDRAW_CloseSmacker(D2SmackRecordStrc* pRecord);                                      // 0x00513330
+
+// 0x00513330
+void __fastcall DDRAW_CloseSmacker(D2SmackRecordStrc* pRecord)
+{
+    if (gpDDrawSmackBuffer)
+    {
+// build: symbol ?gszDDSmackFile@* 0x006DE20C
+        FOG_Free(gpDDrawSmackBuffer, gszDDSmackFile, 0xF0, 0);
+        gpDDrawSmackBuffer = 0;
+    }
+    if (pRecord->nType == 's' && pRecord->hSmack)
+    {
+        SmackClose(pRecord->hSmack);
+        pRecord->hSmack = 0;
+    }
+}
 
 // 0x005136F0
 void __cdecl DDRAW_DrawVideoFrame()
