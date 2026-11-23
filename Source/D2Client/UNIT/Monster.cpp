@@ -2850,11 +2850,6 @@ int __cdecl MONSTER_GetPrimaryTradeGold()
 }
 
 
-// 0x004BB5D0
-int __cdecl sub_004BB5D0()
-{
-    return 0;
-}
 
 // 0x004BF9B0
 int __cdecl sub_004BF9B0()
