@@ -1,14 +1,21 @@
 #include "D2DDraw.h"
+
 #include "D2DDrawTypes.h"
+
 #include "D2GlideTypes.h"
+
 #include "D2DrlgMaps.h"
 
 struct D2CoordPairStrc;
+
 struct D2TileLightStrc;
 
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const char* szFormat, char* args); // 0x006CC4AC
+
 extern int gaDDrawDebugFontGlyphOffsets[96]; // 0x008812A8
+
 extern unsigned char* gpDDrawDebugFontGlyphs; // 0x008815AC
+
 extern int gaDDrawDebugFontCharWidths[96]; // 0x00881428
 
 struct D2CoordPairStrc
@@ -18,6 +25,7 @@ struct D2CoordPairStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
+
 extern D2DDrawSurfaceStrc* gpDDrawOffscreenSurface; // 0x00881280
 
 struct D2TileLightStrc
@@ -186,6 +194,50 @@ void __fastcall sub_00512ED0_ClearScreen(int bPartial)
             }
         }
     }
+}
+
+int __cdecl DDRAW_GetBlendedShadows(); // 0x00512700
+
+// 0x00512F90
+int __fastcall sub_00512F90_DrawWallTile(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, void* pLight, int nScreenPanels)
+{
+    int bDrawn = 0;
+
+    if (D2CMPTileValidate(pTile, 1, 0))
+    {
+        int nMinX = -32;
+// build: symbol ?gnRenderWidth@* 0x007C9138
+        int nMaxX = gnRenderWidth;
+// build: symbol ?gnRenderHeight@* 0x007C913C
+        int nMaxY = gnRenderHeight + 32;
+
+        switch (nScreenPanels)
+        {
+        case 1:
+            nMaxX -= gnRenderWidth / 2;
+            break;
+        case 2:
+            nMinX = gnRenderWidth / 2 - 32;
+            break;
+        }
+
+        for (int i = 0; i < pTile->nBlocks; ++i)
+        {
+            D2GlideTileStrc* pBlock = &pTile->pBlocks[i];
+            const int nX = pBlock->nPosX + nPosX;
+            const int nY = pTile->pBlocks[i].nPosY + nPosY;
+            if (nX >= nMinX && nX < nMaxX && nY >= -32 && nY < nMaxY)
+            {
+                bDrawn = 1;
+                if (DDRAW_GetBlendedShadows())
+                    gpTileDrawFunctions_007C914C->pfDrawShadowBlock(pTile->pBlocks[i].pData, nX, nY, 0xC0);
+                else
+                    gpTileDrawFunctions_007C914C->pfDrawWallBlock(pTile->pBlocks[i].pData, nX, nY);
+            }
+        }
+    }
+
+    return bDrawn;
 }
 
 // 0x005130A0

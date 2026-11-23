@@ -38664,6 +38664,10 @@
      "length": 177
     },
     {
+     "va": "0x00512F90",
+     "length": 272
+    },
+    {
      "va": "0x005130A0",
      "length": 261
     },
@@ -38744,30 +38748,6 @@
     {
      "va": "0x00512CE0",
      "length": 163
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_00512F90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00512F90",
-     "length": 272
     }
    ],
    "flags": [
