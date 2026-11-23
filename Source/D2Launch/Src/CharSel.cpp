@@ -1100,6 +1100,13 @@ unsigned short __fastcall sub_0042E5C0_SwapBytes(unsigned short wValue)
     return _rotl16(wValue, 8);
 }
 
+// 0x0042E5D0
+extern "C" __declspec(dllexport) void __fastcall sub_0042E5D0(unsigned short* pValues, unsigned int nCount) {
+    for (unsigned int i = 0; i < nCount; i++) {
+        pValues[i] = (unsigned short)((pValues[i] << 8) | (pValues[i] >> 8));
+    }
+}
+
 // 0x0042FDE0
 int __stdcall CHARSEL_IsRestrictedChar(void* pControl, int nUnused, const char* pChar)
 {
