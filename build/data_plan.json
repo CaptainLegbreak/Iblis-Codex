@@ -31,12 +31,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Fog/Unknown_00401B00.cpp": {
+  "Source/Fog/Unknown_00401010.cpp": {
    "bytes": 28,
    "definitions": 2,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Fog/Unknown_00401B00.inc",
+   "include": "gen/data/Source/Fog/Unknown_00401010_00401B00.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -6104,7 +6104,7 @@
    "cname": "gData_006FFB94",
    "declared": true,
    "decorated": "_gszMiniDumpWriteDump",
-   "file": "Source/Fog/Unknown_00401B00.cpp",
+   "file": "Source/Fog/Unknown_00401010.cpp",
    "fill": 24,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006FFB94[24]; // 0x006FFB94",
@@ -6135,7 +6135,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Fog/Unknown_00401B00.cpp",
+   "file": "Source/Fog/Unknown_00401010.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern void* ghProcess = ",

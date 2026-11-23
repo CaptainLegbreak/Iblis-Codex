@@ -825,9 +825,19 @@
      "name": "?sub_00401A60_UnlockSymbols@@YAXXZ"
     },
     {
+     "va": "0x00401B00",
+     "length": 381,
+     "name": "?sub_00401B00_LoadDbgHelp@@YA_NXZ"
+    },
+    {
      "va": "0x00401C80",
      "length": 36,
      "name": "?sub_00401C80_FreeDbgHelp@@YAXXZ"
+    },
+    {
+     "va": "0x00401CB0",
+     "length": 279,
+     "name": "?sub_00401CB0_InitSymbols@@YA_NXZ"
     },
     {
      "va": "0x00401DD0",
@@ -1266,22 +1276,6 @@
      "va": "0x0040F570",
      "length": 14,
      "name": "sub_0040F570"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00401B00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00401B00",
-     "length": 381,
-     "name": "?sub_00401B00_LoadDbgHelp@@YA_NXZ"
-    },
-    {
-     "va": "0x00401CB0",
-     "length": 279,
-     "name": "?sub_00401CB0_InitSymbols@@YA_NXZ"
     }
    ]
   },
