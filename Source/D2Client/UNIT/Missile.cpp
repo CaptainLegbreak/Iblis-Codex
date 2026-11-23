@@ -5202,54 +5202,6 @@ void __fastcall MISSILE_CltDoOwnerTarget(D2UnitStrc* pMissile)
     }
 }
 
-// 0x004E0A40
-int __fastcall MISSILE_SkillStartPlace(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecordStd(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    UNITS_SetAnimStartFrame(pUnit);
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 0xE;
-    }
-
-    int nMissile = pSkillsTxtRecord->wCltMissileA;
-    if (nMissile > 0 && nMissile < sgptDataTables->nMissilesTxtRecordCount)
-    {
-        if (DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit))) == 1 && pSkillsTxtRecord->wCltMissileB > 0 && pSkillsTxtRecord->wCltMissileB < sgptDataTables->nMissilesTxtRecordCount)
-        {
-            nMissile = pSkillsTxtRecord->wCltMissileB;
-        }
-
-        MISSILE_SubmitOwnerRequest(pUnit, nMissile, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), nSkillId, nSkillLevel);
-    }
-
-    D2CoordStrc tCoord;
-    tCoord.nX = UNITS_GetUnitXPosition(pUnit);
-    tCoord.nY = UNITS_GetUnitYPosition(pUnit);
-    D2ActiveRoomStrc* pRoom = COLLISION_GetFreeCoordinates(UNITS_GetRoom(pUnit), &tCoord, UNITS_GetUnitSizeX(pUnit), 0x1C09, 1);
-    if (!pRoom)
-    {
-        return 0;
-    }
-
-    if (!pUnit->pDynamicPath)
-    {
-        return 0;
-    }
-
-    if (!D2Common_10231(pUnit->pDynamicPath, pUnit, pRoom, tCoord.nX, tCoord.nY))
-    {
-        return 0;
-    }
-
-    COLLISION_SetMaskWithPattern(UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 1, 0x1000);
-    return 1;
-}
 
 // 0x004E1090
 int __fastcall MISSILE_SkillDoClearTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
