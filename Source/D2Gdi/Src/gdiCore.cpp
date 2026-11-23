@@ -30,7 +30,6 @@ extern void* ghObject_0098A164; // 0x0098A164
 
 extern D2Callbacks006C7CF0Strc* gpCallbacks_007C914C; // 0x007C914C
 
-
 void __fastcall sub_006C9280_Apply(int enabled, unsigned char unusedRegister, int unusedA, int unusedB); // 0x006C9280
 
 struct D2RgbQuadStrc { unsigned char nBlue, nGreen, nRed, nReserved; };
@@ -120,6 +119,15 @@ void __stdcall sub_006C8080_Nop(int unused1, int unused2, int unused3); // 0x006
 void __stdcall sub_006C8090_Nop(int unused1, int unused2, int unused3, int unused4); // 0x006C8090
 
 void __cdecl sub_006C80A0_Nop(); // 0x006C80A0
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+
+extern D2RgbQuadStrc gPaletteEntries_00989C40[256]; // 0x00989C40
+
+extern int gnValue_007C913C; // 0x007C913C
+
+extern int gnValue_007C9138; // 0x007C9138
 
 // 0x006C7A70
 int __fastcall GDI_Init(void* pArg1, void* pArg2)
@@ -307,4 +315,24 @@ int __fastcall GDI_ChangeRes(int nUnused, int nMode)
     GDI_CreateBackBuffer(nMode);
     sub_006C82D0_Apply(nMode);
     return 1;
+}
+
+// 0x006C81A0
+void __fastcall sub_006C81A0_RENDERER_WINDOWED_GetPalette(void** phPalette, D2RgbQuadStrc** ppEntries)
+{
+    D2_ASSERT(phPalette, 546);
+    D2_ASSERT(ppEntries, 547);
+    *phPalette = ghPalette;
+    *ppEntries = gPaletteEntries_00989C40;
+}
+
+// 0x006C81E0
+void __fastcall sub_006C81E0_GetValues(int* pA, int* pB, int* pC)
+{
+    D2_ASSERT(pA, 0x230);
+    D2_ASSERT(pB, 0x231);
+    D2_ASSERT(pC, 0x232);
+    *pA = gnValue_007C9154;
+    *pB = gnValue_007C913C;
+    *pC = gnValue_007C9138;
 }
