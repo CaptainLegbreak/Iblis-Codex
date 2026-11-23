@@ -1,7 +1,18 @@
 #include "D2WinTypes.h"
+#include "D2GfxTypes.h"
+#include "D2MultiTypes.h"
+#include "D2Win32Types.h"
+#include "D2StormTypes.h"
+#include "D2WinControls.h"
+#include "D2Structs.h"
+#include "D2Txt.h"
+
 #include "D2Unicode.h"
+
 #include "D2Win.h"
+
 #include "D2ClientTypes.h"
+
 #include "D2CelContext.h"
 
 struct D2CelFileStrc;
@@ -264,6 +275,46 @@ inline int D2Win_IsColorCodePrefix(unsigned short wChar)
     }
 
     return wChar == 0xFF;
+}
+
+// 0x00501690
+D2CharStrc* __fastcall FONT_FindCharInfo(unsigned short wChar)
+{
+    int nIterations = 0;
+    int nMin = 0;
+// build: symbol ?gnCurrentFont@* 0x0072DFFC
+    D2FontCacheStrc* pFontCache = &gatFontCache[gnCurrentFont];
+    int nMax = pFontCache->pFontInfo[1]->nCharCount - 1;
+    if (nMax >= 0)
+    {
+        D2CharStrc* pCharInfo = pFontCache->pCharInfo;
+        do
+        {
+            const int nMid = (nMin + nMax) / 2;
+            ++nIterations;
+            if (wChar == pCharInfo[nMid].wChar)
+            {
+                return &pCharInfo[nMid];
+            }
+
+            if (wChar < pCharInfo[nMid].wChar)
+            {
+                nMax = nMid - 1;
+            }
+            else
+            {
+                nMin = nMid + 1;
+            }
+
+            if (nIterations > 1000)
+            {
+                break;
+            }
+        }
+        while (nMax >= nMin);
+    }
+
+    return pFontCache->pCharInfo + 31;
 }
 
 // 0x00501730
