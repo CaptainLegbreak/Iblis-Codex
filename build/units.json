@@ -57873,52 +57873,6 @@
      "name": "?MISSMODE_SrvDo01_BasicMissile@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
-     "va": "0x005B0F50",
-     "length": 154,
-     "name": "?AITHINK_TryOpenNearbyDoor@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005B0FF0",
-     "length": 237
-    },
-    {
-     "va": "0x005B10E0",
-     "length": 92,
-     "name": "AITHINK_CheckAiTickPreconditions"
-    },
-    {
-     "va": "0x005B1140",
-     "length": 176,
-     "name": "AITHINK_TryBossTauntOnSight"
-    },
-    {
-     "va": "0x005B11F0",
-     "length": 485
-    },
-    {
-     "va": "0x005B13E0",
-     "length": 252,
-     "name": "?AITHINK_HandleMonsterAiPreActions@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005B14E0",
-     "length": 236,
-     "name": "?D2GAME_AI_SpecialState02_6FCD1660@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005B15D0",
-     "length": 116
-    },
-    {
-     "va": "0x005B1650",
-     "length": 232
-    },
-    {
-     "va": "0x005B1740",
-     "length": 313,
-     "name": "?AITHINK_ExecuteMonsterAiTick@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
      "va": "0x005B69F0",
      "length": 115,
      "name": "ACT4Q4_ActiveFilterCallback"
@@ -60520,6 +60474,52 @@
     {
      "va": "0x005B0E00",
      "length": 328
+    },
+    {
+     "va": "0x005B0F50",
+     "length": 154,
+     "name": "?AITHINK_TryOpenNearbyDoor@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005B0FF0",
+     "length": 237
+    },
+    {
+     "va": "0x005B10E0",
+     "length": 92,
+     "name": "AITHINK_CheckAiTickPreconditions"
+    },
+    {
+     "va": "0x005B1140",
+     "length": 176,
+     "name": "AITHINK_TryBossTauntOnSight"
+    },
+    {
+     "va": "0x005B11F0",
+     "length": 485
+    },
+    {
+     "va": "0x005B13E0",
+     "length": 252,
+     "name": "?AITHINK_HandleMonsterAiPreActions@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005B14E0",
+     "length": 236,
+     "name": "?D2GAME_AI_SpecialState02_6FCD1660@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005B15D0",
+     "length": 116
+    },
+    {
+     "va": "0x005B1650",
+     "length": 232
+    },
+    {
+     "va": "0x005B1740",
+     "length": 313,
+     "name": "?AITHINK_ExecuteMonsterAiTick@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005E8F20",
