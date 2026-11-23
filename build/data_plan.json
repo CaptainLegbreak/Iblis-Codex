@@ -1179,19 +1179,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_00467640.cpp": {
-   "bytes": 276,
-   "definitions": 2,
-   "externs": [
-    "extern \"C\" void __cdecl sub_00467EF0_MsgHandler(); // 0x00467EF0",
-    "extern \"C\" void __cdecl ROSTERPETS_HandleButtonUp(); // 0x00467FA0",
-    "extern \"C\" void __cdecl sub_00468840_HandleMouseMotion(); // 0x00468840"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_00467640.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Client/Unknown_00467E40.cpp": {
    "bytes": 40,
    "definitions": 3,
@@ -5225,9 +5212,13 @@
    "state": "included"
   },
   "Source/D2Client/GAME/Select.cpp": {
-   "bytes": 180,
-   "definitions": 5,
-   "externs": [],
+   "bytes": 456,
+   "definitions": 7,
+   "externs": [
+    "extern \"C\" void __cdecl sub_00467EF0_MsgHandler(); // 0x00467EF0",
+    "extern \"C\" void __cdecl ROSTERPETS_HandleButtonUp(); // 0x00467FA0",
+    "extern \"C\" void __cdecl sub_00468840_HandleMouseMotion(); // 0x00468840"
+   ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/GAME/Select.inc",
    "lang": "cpp",
@@ -40828,7 +40819,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_00467640.cpp",
+   "file": "Source/D2Client/GAME/Select.cpp",
    "fill": 3,
    "form": "declared",
    "fwd": null,
@@ -40914,7 +40905,7 @@
    "cname": "gData_007120EC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_00467640.cpp",
+   "file": "Source/D2Client/GAME/Select.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007120EC_t gData_007120EC; // 0x007120EC",
    "head": "extern \"C\" struct d2data_007120EC_t gData_007120EC = ",
