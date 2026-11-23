@@ -1945,6 +1945,20 @@ void __cdecl VIEW_DrawHelpFrameHighRes()
     sub_004F6480(&tContext, 0x30C, 0x200, -1, 5, 0);
 }
 
+void __cdecl sub_00499E30();
+
+void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
+
+unsigned char gnHelpShadeColor; // 0x007BEEF8
+
+// 0x004945F0
+void __cdecl sub_00494EB0()
+{
+    sub_00499E30();
+    AUTOMAP_DrawFramedBox(0, 0, gnScreenWidth, gnScreenHeight - 0x31, gnHelpShadeColor, 1);
+}
+
+
 // 0x00494680
 void __cdecl VIEW_DrawHelpLinesLowRes()
 {
