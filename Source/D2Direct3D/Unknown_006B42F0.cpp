@@ -63,7 +63,7 @@ typedef char CheckD3DCapsSize[sizeof(D3DDEVICEDESC)==0xfc?1:-1];
 typedef char CheckIdentifierSize[sizeof(DDDEVICEIDENTIFIER)==0x428?1:-1];
 typedef char CheckRendererSize[sizeof(D2RendererInfoStrc)==0x3c0?1:-1];
 extern "C" char* __cdecl sub_00687330_Strncpy(char*,const char*,unsigned int); // 0x00687330
-extern "C" void __cdecl sub_00410610_WriteLogLine(const char*,...); // 0x00410610
+extern "C" void __cdecl LOGMANAGER_WriteLogLine(const char*,...); // 0x00410610
 void __cdecl FOG_GetSystemInfo(); // 0x00407360
 extern "C" HRESULT __stdcall sub_006B1350_DirectDrawCreate(GUID*,IDirectDraw**,void*); // 0x006B1350
 void __fastcall sub_006B20E0_DDrawLogError(const char*,HRESULT) throw(); // 0x006B20E0
@@ -152,7 +152,7 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
  try {
   FOG_GetSystemInfo();
   int index=gnDisplayCount;
-  if(index>=2) { sub_00410610_WriteLogLine(gszMaxDisplayCountFormat,index,2); return 0; }
+  if(index>=2) { LOGMANAGER_WriteLogLine(gszMaxDisplayCountFormat,index,2); return 0; }
   D2RendererInfoStrc* display=&gaDisplays[index];
   memset(display,0,0x134);
   if(!guid) display->flags|=gFlag_006CE268;
@@ -167,10 +167,10 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
   DDDEVICEIDENTIFIER& identifier=aIdentifier[0];
   hr=gpDirectDraw4->vtbl->GetDeviceIdentifier(gpDirectDraw4,&identifier,0);
   if(!hr) sub_00687330_Strncpy(display->description,identifier.description,256); else sub_00687330_Strncpy(display->description,name,256);
-  sub_00410610_WriteLogLine(gszCheckingCapabilitiesFormat,display->description);
+  LOGMANAGER_WriteLogLine(gszCheckingCapabilitiesFormat,display->description);
   if(!hr) {
    display->vendor=identifier.vendor; display->device=identifier.device;
-   sub_00410610_WriteLogLine(gszVendorDeviceIdFormat,display->vendor,display->device);
+   LOGMANAGER_WriteLogLine(gszVendorDeviceIdFormat,display->vendor,display->device);
   }
   hr=gpDirectDraw4->vtbl->QueryInterface(gpDirectDraw4,&gIIDDirect3D3,(void**)&gpDirect3D3);
   if(hr) { sub_006B20E0_DDrawLogError(gszGetD3DInterfaceFailed,hr); goto Cleanup; }
@@ -178,7 +178,7 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
   if(hr) { sub_006B20E0_DDrawLogError(gszSetCooperativeLevelFailed,hr); goto Cleanup; }
   hr=gpDirectDraw4->vtbl->EnumDisplayModes(gpDirectDraw4,0,0,display,sub_006B3FD0);
   if(hr) { sub_006B20E0_DDrawLogError(gszEnumDisplayModesCall,hr); goto Cleanup; }
-  if(!display->modeCount) { sub_00410610_WriteLogLine(gszNoValidDisplayModes); goto Cleanup; }
+  if(!display->modeCount) { LOGMANAGER_WriteLogLine(gszNoValidDisplayModes); goto Cleanup; }
   int hasUI=0,hasGame=0,has32=0,has24=0;
   int invalid=0;
   for(int i=0;i<display->modeCount;++i) {
@@ -187,10 +187,10 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
    if(display->modes[i].flags&gFlag_006CE268) hasUI=1;
    if(display->modes[i].flags&gdwBitMask1) hasGame=1;
   }
-  if(has32) { sub_00410610_WriteLogLine(gszSupports32BitCutscenes); display->flags|=gFlag_006CE284; }
-  if(has24) { sub_00410610_WriteLogLine(gszSupports24BitCutscenes); display->flags|=gFlag_006CE288; }
-  if(!hasUI) { sub_00410610_WriteLogLine(gszNoUIDisplayMode); invalid=1; }
-  if(!hasGame) { sub_00410610_WriteLogLine(gszNoGameDisplayMode); goto Cleanup; }
+  if(has32) { LOGMANAGER_WriteLogLine(gszSupports32BitCutscenes); display->flags|=gFlag_006CE284; }
+  if(has24) { LOGMANAGER_WriteLogLine(gszSupports24BitCutscenes); display->flags|=gFlag_006CE288; }
+  if(!hasUI) { LOGMANAGER_WriteLogLine(gszNoUIDisplayMode); invalid=1; }
+  if(!hasGame) { LOGMANAGER_WriteLogLine(gszNoGameDisplayMode); goto Cleanup; }
   if(invalid) goto Cleanup;
   D2DisplayModeStrc* mode=&display->modes[display->modeCount-1];
   hr=gpDirectDraw4->vtbl->SetDisplayMode(gpDirectDraw4,mode->width,mode->height,mode->bpp,mode->refresh,0);
@@ -204,46 +204,46 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
   if(hr) { sub_006B20E0_DDrawLogError(gszGetBackbufferFailed,hr); goto Cleanup; }
   hr=gpDirectDraw4->vtbl->GetCaps(gpDirectDraw4,&caps,0);
   if(hr) { sub_006B20E0_DDrawLogError(gszGetDD4CapsFailed,hr); goto Cleanup; }
-  if(!(caps.caps&1)) { sub_00410610_WriteLogLine(gszNo3DSupport); goto Cleanup; }
+  if(!(caps.caps&1)) { LOGMANAGER_WriteLogLine(gszNo3DSupport); goto Cleanup; }
   if(caps.caps2&0x20000) display->flags|=gFlag_006CE278;
-  else sub_00410610_WriteLogLine(gszNoGammaControl);
-  if(caps.caps2&0x100000) { display->flags|=gFlag_006CE27C; sub_00410610_WriteLogLine(gszSupportsGammaCalibration); }
+  else LOGMANAGER_WriteLogLine(gszNoGammaControl);
+  if(caps.caps2&0x100000) { display->flags|=gFlag_006CE27C; LOGMANAGER_WriteLogLine(gszSupportsGammaCalibration); }
   gpDirect3D3->vtbl->CreateDevice(gpDirect3D3,&gIIDHardwareDevice,back,&device,0);
-  if(!device) { sub_00410610_WriteLogLine(gszNoHardware3D); goto Cleanup; }
+  if(!device) { LOGMANAGER_WriteLogLine(gszNoHardware3D); goto Cleanup; }
   D3DDEVICEDESC hardware,software;
   hardware.size=sizeof(hardware);software.size=sizeof(software);
   hr=device->vtbl->GetCaps(device,&hardware,&software);
   if(hr) { sub_006B39B0_ShowD3DError(gszGetD3DDeviceCapsFailed,hr); goto Cleanup; }
-  if(!(hardware.devCaps&0x200)) { sub_00410610_WriteLogLine(gszNoVideoMemoryTextures); goto Cleanup; }
-  if(hardware.textureCaps&0x100) sub_00410610_WriteLogLine(gszSupportsNonPow2Textures);
+  if(!(hardware.devCaps&0x200)) { LOGMANAGER_WriteLogLine(gszNoVideoMemoryTextures); goto Cleanup; }
+  if(hardware.textureCaps&0x100) LOGMANAGER_WriteLogLine(gszSupportsNonPow2Textures);
   if(hardware.flags&0x40) {
-  if(!(hardware.textureCaps&1)) sub_00410610_WriteLogLine(gszNoPerspectiveTextures);
-  if(hardware.textureCaps&0x20) { sub_00410610_WriteLogLine(gszRequiresSquareTextures); display->flags|=gFlag_006CE270; goto Cleanup; }
+  if(!(hardware.textureCaps&1)) LOGMANAGER_WriteLogLine(gszNoPerspectiveTextures);
+  if(hardware.textureCaps&0x20) { LOGMANAGER_WriteLogLine(gszRequiresSquareTextures); display->flags|=gFlag_006CE270; goto Cleanup; }
   if(hardware.textureFilterCaps&0x20) display->flags|=gdwBitMask3;
-  else sub_00410610_WriteLogLine(gszNoMipmapping);
+  else LOGMANAGER_WriteLogLine(gszNoMipmapping);
   display->videoTotal=caps.videoTotal;display->videoFree=caps.videoFree;
-  sub_00410610_WriteLogLine(gszVideoMemoryFormat,display->videoTotal/1048576.0f,display->videoFree/1048576.0f);
+  LOGMANAGER_WriteLogLine(gszVideoMemoryFormat,display->videoTotal/1048576.0f,display->videoFree/1048576.0f);
   DDSCAPS2 memoryCaps;memset(&memoryCaps,0,sizeof(memoryCaps));memoryCaps.caps=0x5000;
   hr=gpDirectDraw4->vtbl->GetAvailableVidMem(gpDirectDraw4,&memoryCaps,&display->textureTotal,&display->textureFree);
   if(hr) { sub_006B20E0_DDrawLogError(gszTextureMemoryFailed,hr); goto Cleanup; }
-  sub_00410610_WriteLogLine(gszTextureMemoryFormat,display->textureTotal/1048576.0f,display->textureFree/1048576.0f);
+  LOGMANAGER_WriteLogLine(gszTextureMemoryFormat,display->textureTotal/1048576.0f,display->textureFree/1048576.0f);
   memset(&memoryCaps,0,sizeof(memoryCaps));memoryCaps.caps=0x10005000;
   hr=gpDirectDraw4->vtbl->GetAvailableVidMem(gpDirectDraw4,&memoryCaps,&display->localTotal,&display->localFree);
   if(hr) { sub_006B20E0_DDrawLogError(gszLocalMemoryFailed,hr); goto Cleanup; }
-  sub_00410610_WriteLogLine(gszLocalMemoryFormat,display->localTotal/1048576.0f,display->localFree/1048576.0f);
+  LOGMANAGER_WriteLogLine(gszLocalMemoryFormat,display->localTotal/1048576.0f,display->localFree/1048576.0f);
   if((caps.caps2&0x200)&&(hardware.devCaps&0x1000)) {
    display->flags|=gdwBitMask1;
    memset(&memoryCaps,0,sizeof(memoryCaps));memoryCaps.caps=0x20005000;
    hr=gpDirectDraw4->vtbl->GetAvailableVidMem(gpDirectDraw4,&memoryCaps,&display->agpTotal,&display->agpFree);
    if(hr) sub_006B20E0_DDrawLogError(gszAgpMemoryFailed,hr);
-   else sub_00410610_WriteLogLine(gszAgpMemoryFormat,display->agpTotal/1048576.0f,display->agpFree/1048576.0f);
-  } else sub_00410610_WriteLogLine(gszNoAgpTexturing);
+   else LOGMANAGER_WriteLogLine(gszAgpMemoryFormat,display->agpTotal/1048576.0f,display->agpFree/1048576.0f);
+  } else LOGMANAGER_WriteLogLine(gszNoAgpTexturing);
   hr=device->vtbl->EnumTextureFormats(device,sub_006B1B60_EnumTextureFormat,display);
   if(hr) { sub_006B39B0_ShowD3DError(gszEnumTextureFormatsFailed,hr); goto Cleanup; }
 
   int textures=0;
-  if(display->flags&gFlag_006CE28C) { sub_00410610_WriteLogLine(gszSupports1555Textures); textures=1; }
-  if(!textures) { sub_00410610_WriteLogLine(gszNoTextureFormats); goto Cleanup; }
+  if(display->flags&gFlag_006CE28C) { LOGMANAGER_WriteLogLine(gszSupports1555Textures); textures=1; }
+  if(!textures) { LOGMANAGER_WriteLogLine(gszNoTextureFormats); goto Cleanup; }
   if(gnDisplayCount==0) {
    gPrimarySelection.flags=display->flags;gPrimarySelection.guid=display->guid;
    gPrimarySelection.vendor=display->vendor;gPrimarySelection.device=display->device;
@@ -255,11 +255,11 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
    strcpy(gSecondarySelection.description,display->description);
    gSecondarySelection.renderer=2;gnSecondaryRenderer=2;
   }
-  ++gnDisplayCount;sub_00410610_WriteLogLine(gszPassedRequirements);
+  ++gnDisplayCount;LOGMANAGER_WriteLogLine(gszPassedRequirements);
 
-  } else sub_00410610_WriteLogLine(gszNoTriangleSupport);
+  } else LOGMANAGER_WriteLogLine(gszNoTriangleSupport);
  } catch(...) {
-  sub_00410610_WriteLogLine(gszEnumD3DCaughtFailure);
+  LOGMANAGER_WriteLogLine(gszEnumD3DCaughtFailure);
   if(!gnDisplayCount) gPrimarySelection.renderer=0;
   else if(gnDisplayCount==1) gSecondarySelection.renderer=0;
  }
@@ -270,7 +270,7 @@ Cleanup:
   if(primary) { primary->vtbl->Release(primary);primary=0; }
   if(gpDirect3D3) { gpDirect3D3->vtbl->Release(gpDirect3D3);gpDirect3D3=0; }
   if(gpDirectDraw4) { gpDirectDraw4->vtbl->Release(gpDirectDraw4);gpDirectDraw4=0; }
- } catch(...) { sub_00410610_WriteLogLine(gszEnumD3DCleanupFailed); }
+ } catch(...) { LOGMANAGER_WriteLogLine(gszEnumD3DCleanupFailed); }
  return 1;
 }
 

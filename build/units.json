@@ -1634,6 +1634,21 @@
      "length": 375
     },
     {
+     "va": "0x00410340",
+     "length": 508,
+     "name": "?sub_00410340_LogV@@YIXPBDHH0PAD@Z"
+    },
+    {
+     "va": "0x00410610",
+     "length": 65,
+     "name": "LOGMANAGER_WriteLogLine"
+    },
+    {
+     "va": "0x00410660",
+     "length": 72,
+     "name": "LOGMANAGER_LogWritePrefixedLine"
+    },
+    {
      "va": "0x004106B0",
      "length": 72,
      "name": "LOGMANAGER_LogWritePrefixedNoNewline"
@@ -5189,21 +5204,6 @@
    "file": "Source/Fog/Unknown_00410040.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00410340",
-     "length": 508,
-     "name": "?sub_00410340_LogV@@YIXPBDHH0PAD@Z"
-    },
-    {
-     "va": "0x00410610",
-     "length": 65,
-     "name": "sub_00410610_WriteLogLine"
-    },
-    {
-     "va": "0x00410660",
-     "length": 72,
-     "name": "sub_00410660_LogWritePrefixed"
-    },
     {
      "va": "0x00410790",
      "length": 10,

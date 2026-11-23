@@ -59,7 +59,7 @@ extern D2CriticalSectionStrc gtLogQueueLock; // 0x0075E838
 extern D2LogMsgListStrc gtLogMsgQueue_0075E868; // 0x0075E868
 extern D2CriticalSectionStrc gtTimeLock; // 0x0075E880
 
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 int __cdecl ERRORMANAGER_MeasureCpuMHz(); // 0x0040E870
 
 struct T004013C0
@@ -297,10 +297,10 @@ void __cdecl sub_0040EA00_WriteProcessorReport()
     switch (gwProcessorLevel_0074D8C0)
     {
     case 3:
-        sub_00410610_WriteLogLine(gszIntel386);
+        LOGMANAGER_WriteLogLine(gszIntel386);
         break;
     case 4:
-        sub_00410610_WriteLogLine(gszIntel486);
+        LOGMANAGER_WriteLogLine(gszIntel486);
         break;
     default:
     {
@@ -312,9 +312,9 @@ void __cdecl sub_0040EA00_WriteProcessorReport()
         const int nBrand = sub_0040E980_GetCpuBrand() & 0xFF;
         sub_0040E300(szName, nVendor, nFamily, nModel, nBrand, nType);
 // build: symbol ?gaszCpuVendorNames@* 0x00708004
-        sub_00410610_WriteLogLine(gszCpuVendorFormat, gaszCpuVendorNames[nVendor]);
-        sub_00410610_WriteLogLine(gszCpuVersionFormat, szName, nType, nFamily, nModel, nSignature & 0xF, nBrand);
-        sub_00410610_WriteLogLine(gszCpuSpeedFormat, ERRORMANAGER_MeasureCpuMHz());
+        LOGMANAGER_WriteLogLine(gszCpuVendorFormat, gaszCpuVendorNames[nVendor]);
+        LOGMANAGER_WriteLogLine(gszCpuVersionFormat, szName, nType, nFamily, nModel, nSignature & 0xF, nBrand);
+        LOGMANAGER_WriteLogLine(gszCpuSpeedFormat, ERRORMANAGER_MeasureCpuMHz());
         break;
     }
     }

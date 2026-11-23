@@ -60,7 +60,7 @@ int __fastcall ARCHIVE_OpenFile(void* pUnused, const char* szFileName, void** ph
 
     DWORD dwError = GetLastError();
     if (!bAllowMissing || dwError != 2)
-        sub_00410610_WriteLogLine("Error opening file: %s", szFileName);
+        LOGMANAGER_WriteLogLine("Error opening file: %s", szFileName);
     return 0;
 }
 

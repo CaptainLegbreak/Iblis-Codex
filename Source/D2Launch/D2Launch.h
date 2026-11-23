@@ -46,7 +46,7 @@ int __fastcall ARCHIVE_LoadExpansionArchives(int (__cdecl* pfnPlayDisc)(), int (
 int __fastcall sub_005259C0(void* pArg, int nArg); // 0x005259C0
 int __stdcall SStrCmp(const char* szString1, const char* szString2, int nMaxChars); // 0x00413550
 int __stdcall sub_004334D0_CloseBox(int nArg); // 0x004334D0
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 void __cdecl MAINMENUS_Reset(); // 0x0042F480
 void __cdecl MAINMENUS_ShowConnectingPopup(); // 0x0042F6E0
 void __cdecl MAINMENUS_ReturnToCharSelect(); // 0x0042FDD0

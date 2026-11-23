@@ -56,7 +56,7 @@ int __fastcall sub_004F4FF0_SetVideoMode(int nMode)
     D2GraphicsInterfaceStrc* pInterface = gapGraphicsInterfaces[nMode];
     if (!pInterface)
     {
-        sub_00410610_WriteLogLine("Unsupported video mode - %d", nMode);
+        LOGMANAGER_WriteLogLine("Unsupported video mode - %d", nMode);
         return 0;
     }
     gpGraphicsInterface = pInterface;

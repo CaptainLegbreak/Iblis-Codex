@@ -40,7 +40,7 @@ struct D2SpritePixelsStrc { int unknown00,width,height; char unknown0C[0x14]; un
 
 struct D2SpriteCelStrc { int unknown00[7]; unsigned int dataSize; };
 
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 void* __cdecl sub_006829C0_Copy(void* dest,const void* source,unsigned int size); // 0x006829C0
 
@@ -783,7 +783,7 @@ int __fastcall CodecDecodeDccData(unsigned char* pData, void* pMemPool, int nSiz
                         if (!sub_0060BDB0_EncodeFrame(pDone, pHeader, pHeader->abData))
                         {
                             char szError[0x200];
-                            sub_00410610_WriteLogLine("Sprite Decompression Error -- File:%s", szFile);
+                            LOGMANAGER_WriteLogLine("Sprite Decompression Error -- File:%s", szFile);
                             sprintf(szError, "Error decompressing sprite - Possible corruption in data file: %s", szFile);
                             sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x660);
                             exit(-1);

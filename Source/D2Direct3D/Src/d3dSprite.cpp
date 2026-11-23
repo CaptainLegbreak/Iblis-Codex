@@ -77,7 +77,7 @@ int __stdcall sub_00601920_CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
 
 int __stdcall sub_00601950_CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
 
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 int __stdcall shim_7(D2CelStrc* pCel, int nWidth, int nHeight, int nMode, int* pArg1, int* pArg2);
 
@@ -163,7 +163,7 @@ static int __stdcall sub_006B5C80_LoadCelInfo(D2CelContextStrc* pContext, D2Spri
 
     if (!pContext->pCel)
     {
-        sub_00410610_WriteLogLine("error loading sprite unit:%d  class:%d  mode:%d  %s", pContext->nType, pContext->nClass, pContext->nMode, pContext->szName);
+        LOGMANAGER_WriteLogLine("error loading sprite unit:%d  class:%d  mode:%d  %s", pContext->nType, pContext->nClass, pContext->nMode, pContext->szName);
         return 0;
     }
 

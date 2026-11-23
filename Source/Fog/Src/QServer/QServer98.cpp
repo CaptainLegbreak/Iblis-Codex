@@ -64,7 +64,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 int __stdcall sub_006C9B6A_Accept(int,D2SocketAddressStrc*,int*); // 0x006C9B6A
 void __stdcall sub_006C9B7C_SetLastSocketError(int); // 0x006C9B7C
 int __cdecl sub_006823FD_Format(char*,const char*,...); // 0x006823FD
-void __cdecl sub_00410660_LogWritePrefixed(const char*,const char*,...); // 0x00410660
+void __cdecl LOGMANAGER_LogWritePrefixedLine(const char*,const char*,...); // 0x00410660
 extern const char gszSource[]; // 0x006FCB1C
 extern const char gszHack[]; // 0x006FC4A8
 extern const char gszReconnect[]; // 0x006FCB6C
@@ -225,7 +225,7 @@ void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
                         sub_0040D880(accepted);
                     }
                     else if(!sub_006BFFA0_CheckAddress(server,&buffers.address.address)) {
-                        sub_00410660_LogWritePrefixed(gszHack,gszReconnect);
+                        LOGMANAGER_LogWritePrefixedLine(gszHack,gszReconnect);
                         QSERVER_HackListAddress(server,gszSource,buffers.address.address,0x142);
                         sub_0040D880(accepted);
                     }

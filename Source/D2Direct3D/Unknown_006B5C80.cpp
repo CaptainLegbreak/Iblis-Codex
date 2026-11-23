@@ -3,7 +3,7 @@
 
 struct D2CelStrc;
 int __stdcall sub_006001F0(D2CelContextStrc* context, int a2, int a3); // 0x006001F0
-void __cdecl sub_00410610_WriteLogLine(const char* format, ...); // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* format, ...); // 0x00410610
 int __stdcall CelGetWidth(D2CelStrc* cel); // 0x006018C0
 int __stdcall CelGetHeight(D2CelStrc* cel); // 0x006018F0
 int __stdcall CelGetOffsetX(D2CelStrc* cel); // 0x00601920
@@ -17,7 +17,7 @@ int sub_006B5C80_LoadSpriteInfo(D2CelContextStrc* context, D2SpriteInfoStrc* inf
         return 0;
     if (!context->pCel)
     {
-        sub_00410610_WriteLogLine("error loading sprite unit:%d  class:%d  mode:%d  %s", context->nType, context->nClass, context->nMode, context->szName);
+        LOGMANAGER_WriteLogLine("error loading sprite unit:%d  class:%d  mode:%d  %s", context->nType, context->nClass, context->nMode, context->szName);
         return 0;
     }
     info->pContext = context;

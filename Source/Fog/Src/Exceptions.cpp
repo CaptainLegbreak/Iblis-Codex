@@ -180,7 +180,7 @@ extern "C" __declspec(dllimport) void* __stdcall GetCurrentProcess(); // 0x006CC
 
 extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 
-void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410660
+void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szPrefix, const char* szFormat, ...); // 0x00410660
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
@@ -590,7 +590,7 @@ typedef void (__cdecl* D2SETranslatorFn)(unsigned int, D2ExceptionPointersStrc*)
 
 extern "C" D2SETranslatorFn __cdecl _set_se_translator(D2SETranslatorFn pfnTranslator); // 0x00684AF3
 
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle, unsigned long dwAddress, unsigned int nSize, int nArg5, int nArg6, int nArg7); // 0x00410040
 
@@ -715,18 +715,18 @@ D2ModuleInfoStrc* __stdcall EXCEPTIONS_GetModuleListToolhelp(unsigned long dwPid
 
     if (!hLibrary)
     {
-        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "Unable to load toolhelp library");
+        LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "Unable to load toolhelp library");
         return 0;
     }
 
     void* hSnapshot = pfnCreateToolhelp32Snapshot(8, dwPid);
     if (hSnapshot == (void*)-1)
     {
-        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "Unable to get toolhelp snapshot");
+        LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "Unable to get toolhelp snapshot");
         return 0;
     }
 
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "Enumerate modules...");
+    LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "Enumerate modules...");
     for (int bFound = pfnModule32First(hSnapshot, &tModuleEntry); bFound; bFound = pfnModule32Next(hSnapshot, &tModuleEntry))
     {
         D2ModuleInfoStrc* pEntry = (D2ModuleInfoStrc*)FOG_Alloc(sizeof(D2ModuleInfoStrc), ".\\Src\\Exceptions.cpp", 0x253, 0);
@@ -784,37 +784,37 @@ D2ModuleInfoStrc* __stdcall EXCEPTIONS_GetModuleListPsapi(void* hProcess)
     GetModuleInformationFn pfnGetModuleInformation = (GetModuleInformationFn)GetProcAddress(hPsapi, "GetModuleInformation");
     if (!pfnEnumProcessModules || !pfnGetModuleFileNameEx || !pfnGetModuleBaseName || !pfnGetModuleInformation)
     {
-        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "Unable to load psapi library");
+        LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "Unable to load psapi library");
         goto failed;
     }
     if (!pfnEnumProcessModules(hProcess, ahModules, sizeof(ahModules), &nNeeded))
     {
-        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "Error enumerating modules using PSAPI:  error(%d)", GetLastError());
+        LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "Error enumerating modules using PSAPI:  error(%d)", GetLastError());
         goto failed;
     }
     {
         const int nModules = nNeeded / sizeof(void*);
         if (nModules > 0x100)
         {
-            sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "PSAPI EnumProcessModules returned invalid number of modules");
+            LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "PSAPI EnumProcessModules returned invalid number of modules");
             goto failed;
         }
-        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "\nEnumerate modules...");
+        LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "\nEnumerate modules...");
         for (int i = 0; i < nModules; ++i)
         {
             if (!pfnGetModuleInformation(hProcess, ahModules[i], &tInfo, sizeof(tInfo)))
             {
-                sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "ERROR: PSAPI GetModuleInformation (%d)", GetLastError());
+                LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "ERROR: PSAPI GetModuleInformation (%d)", GetLastError());
                 goto failed;
             }
             if (!pfnGetModuleFileNameEx(hProcess, ahModules[i], szFileName, sizeof(szFileName)))
             {
-                sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "ERROR: PSAPI GetModuleFileNameExA (%d)", GetLastError());
+                LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "ERROR: PSAPI GetModuleFileNameExA (%d)", GetLastError());
                 goto failed;
             }
             if (!pfnGetModuleBaseName(hProcess, ahModules[i], szBaseName, sizeof(szBaseName) - 1))
             {
-                sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "ERROR: PSAPI GetModuleBaseNameA (%d)", GetLastError());
+                LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "ERROR: PSAPI GetModuleBaseNameA (%d)", GetLastError());
                 goto failed;
             }
             D2ModuleInfoStrc* pEntry = (D2ModuleInfoStrc*)FOG_Alloc(sizeof(D2ModuleInfoStrc), gszExceptionsCpp_006CD628, 0x2D3, 0);
@@ -867,7 +867,7 @@ static D2ModuleInfoStrc* __stdcall EXCEPTIONS_GetModuleList(void* hProcess, unsi
 
     for (D2ModuleInfoStrc* pModule = pList; pModule; pModule = pModule->pNext)
     {
-        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "    Base:%08lXh  Size:%7lXh  Name:%-15.15s  Path:%s", pModule->dwBase, pModule->dwSize, pModule->szName, pModule->szPath);
+        LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "    Base:%08lXh  Size:%7lXh  Name:%-15.15s  Path:%s", pModule->dwBase, pModule->dwSize, pModule->szName, pModule->szPath);
     }
 
     return pList;
@@ -912,8 +912,8 @@ void __fastcall EXCEPTIONS_DumpAnnotatedStack(void* hProcess, D2ThreadContextStr
     unsigned char* pStack = (unsigned char*)pContext->Esp;
     tSymbol.tSymbol.dwSizeOfStruct = 0x18;
     tSymbol.tSymbol.dwMaxNameLength = 0x100;
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, &gszEmptyAssertText);
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "Annotated stack dump");
+    LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, &gszEmptyAssertText);
+    LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "Annotated stack dump");
 
     {
         unsigned long dwDisplacement;
@@ -994,8 +994,8 @@ static D2ModuleInfoStrc* __stdcall EXCEPTIONS_LoadModuleSymbols(unsigned long dw
     char szModuleName[0x100];
 
     D2ModuleInfoStrc* pList = EXCEPTIONS_GetModuleList(hProcess, dwPid);
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, &gszEmptyAssertText);
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "Load symbols...");
+    LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, &gszEmptyAssertText);
+    LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "Load symbols...");
 
     D2ModuleInfoStrc* pModule = pList;
     while (pModule)
@@ -1008,11 +1008,11 @@ static D2ModuleInfoStrc* __stdcall EXCEPTIONS_LoadModuleSymbols(unsigned long dw
         {
             if (!dwLoaded)
             {
-                sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "Error (%d) loading symbols for '%s'", GetLastError(), szModuleName);
+                LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "Error (%d) loading symbols for '%s'", GetLastError(), szModuleName);
             }
             else
             {
-                sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "Symbols Loaded for '%s'", szModuleName);
+                LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "Symbols Loaded for '%s'", szModuleName);
             }
         }
 
@@ -1098,11 +1098,11 @@ static char* EXCEPTIONS_ComposeSymbolPath(char* szPath)
     if (nLength)
     {
         szPath[nLength - 1] = 0;
-        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "User defined symbols path: %s", szPath);
+        LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "User defined symbols path: %s", szPath);
     }
     else
     {
-        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "Unable to generate symbols search path");
+        LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "Unable to generate symbols search path");
     }
 
     return *szPath ? szPath : 0;
@@ -1179,7 +1179,7 @@ int __cdecl s_DoSymInitialize()
             void* hProcess = GetCurrentProcess();
             if (!gpfnImageHlpSymInitialize(hProcess, gszImageHlpSymSearchPath, 0))
             {
-                sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "s_DoSymInitialize(): err = %lu", GetLastError());
+                LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "s_DoSymInitialize(): err = %lu", GetLastError());
                 gpfnImageHlpSymCleanup(hProcess);
                 bResult = 0;
                 gnSymInitCount = 0;
@@ -1335,17 +1335,17 @@ int __fastcall QuickStackWalk(const char* szPrefix, void* hThread, D2ThreadConte
                 {
                     nPad = 1;
                 }
-                sub_00410660_LogWritePrefixed(szPrefix, "    %08X  %s!%s+%04X  %*s%s,%d", tFrame.tAddrPC.dwOffset, tModule.szModuleName, szSymbol, dwDisplacement, nPad, gszEmptyString_006FFC44, szFile, tLine.dwLineNumber);
+                LOGMANAGER_LogWritePrefixedLine(szPrefix, "    %08X  %s!%s+%04X  %*s%s,%d", tFrame.tAddrPC.dwOffset, tModule.szModuleName, szSymbol, dwDisplacement, nPad, gszEmptyString_006FFC44, szFile, tLine.dwLineNumber);
             }
             else
             {
-                sub_00410660_LogWritePrefixed(szPrefix, "    %08X  %s!%s+%04X", tFrame.tAddrPC.dwOffset, tModule.szModuleName, szSymbol, dwDisplacement);
+                LOGMANAGER_LogWritePrefixedLine(szPrefix, "    %08X  %s!%s+%04X", tFrame.tAddrPC.dwOffset, tModule.szModuleName, szSymbol, dwDisplacement);
             }
         }
     }
 
     EXCEPTIONS_ReleaseSymbols(0);
-    sub_00410660_LogWritePrefixed(szPrefix, "QuickStackWalk: %d entries, %I64d+%I64d+%I64d+%I64d cycles, %I64d avg", nEntries, aTotals[0], aTotals[1], aTotals[2], aTotals[3], (aTotals[0] + aTotals[1] + aTotals[2] + aTotals[3]) / nEntries);
+    LOGMANAGER_LogWritePrefixedLine(szPrefix, "QuickStackWalk: %d entries, %I64d+%I64d+%I64d+%I64d cycles, %I64d avg", nEntries, aTotals[0], aTotals[1], aTotals[2], aTotals[3], (aTotals[0] + aTotals[1] + aTotals[2] + aTotals[3]) / nEntries);
     --gnStackWalkDepth;
     return 1;
 }
@@ -1357,13 +1357,13 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
     SRegLoadValue("Diablo II", "NoStackDump", 0, &dwNoStackDump);
     if (dwNoStackDump)
     {
-        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "sShowStack: Stack dump turned off in registry");
+        LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "sShowStack: Stack dump turned off in registry");
         return 0;
     }
 
     if (!gbImageHlpLoaded)
     {
-        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "sShowStack: imagehlp.dll not loaded");
+        LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "sShowStack: imagehlp.dll not loaded");
         return 0;
     }
 
@@ -1374,7 +1374,7 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
     const char* szPath = EXCEPTIONS_ComposeSymbolPath(szSearchPath);
     if (!gpfnImageHlpSymInitialize(hProcess, szPath, 0))
     {
-        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "SymInitialize(): gle = %lu", GetLastError());
+        LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "SymInitialize(): gle = %lu", GetLastError());
         gpfnImageHlpSymCleanup(hProcess);
         CloseHandle(hProcess);
         return 0;
@@ -1387,9 +1387,9 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
     EXCEPTIONS_FreeModuleList(pModules);
     LOGMANAGER_CloseLogFiles();
 
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, &gszEmptyAssertText);
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "Stack Crawl:");
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "Address  Frame    Module       Return    Stack");
+    LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, &gszEmptyAssertText);
+    LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "Stack Crawl:");
+    LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "Address  Frame    Module       Return    Stack");
 
     D2ImageHlpStackFrameStrc tFrame;
     memset(&tFrame, 0, sizeof(tFrame));
@@ -1418,7 +1418,7 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
 
         if (!gpfnStackWalk(0x14C, hProcess, hThread, &tFrame, pContext, 0, gpfnSymFunctionTableAccess, gpfnSymGetModuleBase, 0))
         {
-            sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "Stack walk error: %d", GetLastError());
+            LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "Stack walk error: %d", GetLastError());
             break;
         }
 
@@ -1510,7 +1510,7 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
         LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, gszNewline);
     }
 
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "%d frames dumped", nFrames);
+    LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "%d frames dumped", nFrames);
     LOGMANAGER_CloseLogFiles();
     gpfnImageHlpSymCleanup(hProcess);
     CloseHandle(hProcess);
@@ -1636,7 +1636,7 @@ void __cdecl EXCEPTIONS_SETranslator(unsigned int nCode, D2ExceptionPointersStrc
 {
     if (!gbImageHlpLoaded)
     {
-        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "ExceptionHandler: imagehlp.dll not loaded");
+        LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "ExceptionHandler: imagehlp.dll not loaded");
         return;
     }
     void* hThread;
@@ -1663,7 +1663,7 @@ int __cdecl sub_0040D5B0_LoadImageHlp()
             ghImageHlp = LoadLibraryA("imagehlp.dll");
             if (!ghImageHlp)
             {
-                sub_00410610_WriteLogLine("Missing imagehlp.dll.  Can't generate better stack crawls!");
+                LOGMANAGER_WriteLogLine("Missing imagehlp.dll.  Can't generate better stack crawls!");
                 return 0;
             }
         }
@@ -1689,10 +1689,10 @@ int __cdecl sub_0040D5B0_LoadImageHlp()
         && gpfnUnDecorateSymbolName && gpfnSymLoadModule && gpfnSymUnloadModule)
     {
         gbImageHlpLoaded = 1;
-        sub_00410610_WriteLogLine("imagehlp.dll loaded for better stack crawls.");
+        LOGMANAGER_WriteLogLine("imagehlp.dll loaded for better stack crawls.");
         return 1;
     }
-    sub_00410610_WriteLogLine("Missing functions in imagehlp.dll.  Can't generate better stack crawls!");
+    LOGMANAGER_WriteLogLine("Missing functions in imagehlp.dll.  Can't generate better stack crawls!");
     return 0;
 }
 

@@ -27,7 +27,7 @@ int __cdecl sub_00513BB0(); // 0x00513BB0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 int __stdcall sub_00418140(void* hSample, unsigned int* pValueA, unsigned int* pValueB); // 0x00418140
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
