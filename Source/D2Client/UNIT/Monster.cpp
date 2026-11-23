@@ -2788,11 +2788,6 @@ static inline bool MONSTER_IsStringUnused(unsigned short wString)
     return true;
 }
 
-// 0x004B1970
-void __cdecl MONSTER_ResetUsedStrings()
-{
-    gtStringList.wCount = 0;
-}
 
 // 0x004B1D50
 void __cdecl MONSTER_CloseNpcResource()

@@ -26732,11 +26732,6 @@
      "name": "?MONSTER_IsStringUnused@@YA_NG@Z"
     },
     {
-     "va": "0x004B1970",
-     "length": 10,
-     "name": "?MONSTER_ResetUsedStrings@@YAXXZ"
-    },
-    {
      "va": "0x004B1D50",
      "length": 26,
      "name": "?MONSTER_CloseNpcResource@@YAXXZ"
@@ -27433,6 +27428,11 @@
      "va": "0x004B18C0",
      "length": 164,
      "name": "?NPCMENU_NpcMessageCallback@@YIHPAXHH@Z"
+    },
+    {
+     "va": "0x004B1970",
+     "length": 10,
+     "name": "?MONSTER_ResetUsedStrings@@YAXXZ"
     },
     {
      "va": "0x004B1980",
