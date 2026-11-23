@@ -52,30 +52,6 @@ extern D2InventoryGridInfoStrc gtHirelingInvGrid; // 0x007BCBC0
 extern D2InvCompGridStrc gaCompGrids[11]; // 0x007BCC58
 extern D2InvCompGridStrc gaBodyLocRects[11]; // 0x007BCD38
 
-// 0x00478D10
-int __fastcall sub_00478D10_GetPetOwnerRelation(int nUnitId)
-{
-    for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
-    {
-        if (pPet->dwUnitId == nUnitId)
-        {
-            D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-            const int nPlayerId = !pPlayer ? -1 : pPlayer->dwUnitId;
-            if (pPet->dwOwnerId == nPlayerId)
-            {
-                return 1;
-            }
-
-            const unsigned short nPartyId = ROSTER_GetEntryIndex(ROSTER_FindRosterUnitById(nPlayerId));
-            if (nPartyId == 0xFFFF || nPartyId != ROSTER_GetEntryIndex(ROSTER_FindRosterUnitById(pPet->dwOwnerId)))
-            {
-                break;
-            }
-            return 2;
-        }
-    }
-    return 0;
-}
 
 inline D2PetTypeTxt* PETTXT_GetRecordInl(int nPetType)
 {
@@ -86,41 +62,6 @@ inline D2PetTypeTxt* PETTXT_GetRecordInl(int nPetType)
     return 0;
 }
 
-// 0x00478D90
-int __fastcall sub_00478D90_GetPetRelation(int nUnitId)
-{
-    for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
-    {
-        if (pPet->dwUnitId == nUnitId)
-        {
-            D2PetTypeTxt* pPetTypeTxtRecord = PETTXT_GetRecordInl(pPet->nType);
-            if (!pPetTypeTxtRecord)
-            {
-                return 3;
-            }
-
-            if (!(pPetTypeTxtRecord->nPetFlags[PETTYPE_FLAG_PARTY >> 3] & gdwBitMasks[PETTYPE_FLAG_PARTY & 7]))
-            {
-                return 3;
-            }
-
-            D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-            const int nPlayerId = !pPlayer ? -1 : pPlayer->dwUnitId;
-            if (pPet->dwOwnerId == nPlayerId)
-            {
-                return 1;
-            }
-
-            const unsigned short nPartyId = ROSTER_GetEntryIndex(ROSTER_FindRosterUnitById(nPlayerId));
-            if (nPartyId == 0xFFFF || nPartyId != ROSTER_GetEntryIndex(ROSTER_FindRosterUnitById(pPet->dwOwnerId)))
-            {
-                break;
-            }
-            return 2;
-        }
-    }
-    return 0;
-}
 
 D2RosterPetStrc* gpRosterPets; // 0x007BB5BC
 
