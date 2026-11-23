@@ -302,6 +302,7 @@ int gbHasClassSkill; // 0x007C8CA0
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 #include "D2Client.h"
+#include "D2MonsterIds.h"
 
 extern "C" __declspec(dllimport)
 int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
@@ -6273,5 +6274,42 @@ int __fastcall sub_004F4D90_MissileAtTarget(D2UnitStrc* pUnit, int nSkillId, int
 
     return 1;
 }
+
+static D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline_J03(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    }
+    return 0;
+}
+
+static int MONSTERS_GetBaseIdInline_J03(int nMonsterId)
+{
+    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecordInline_J03(nMonsterId);
+    if (pMonStatsTxtRecord)
+    {
+        return pMonStatsTxtRecord->nBaseId;
+    }
+    return nMonsterId;
+}
+
+// 0x004F4EC0
+int __fastcall sub_004F4EC0_GetSkillOverlay(D2UnitStrc* pUnit, int nSkillId, int nDefault, int nUnused)
+{
+    int nResult = nDefault;
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
+    {
+        const int nBaseId = MONSTERS_GetBaseIdInline_J03(pUnit->dwClassId);
+        if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == MONSTER_BLOODRAVEN && nSkillId == SKILL_NEST)
+        {
+            GFX_AddUnitOverlay(pUnit, 0x55, 2, 0, 0, 0, 0, 0);
+            nResult = 0x54;
+        }
+    }
+
+    return nResult;
+}
+
 
 #include "gen/data/Source/D2Client/UI/SkillDesc.inc"
