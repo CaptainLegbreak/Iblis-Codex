@@ -6,23 +6,12 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2UnitData.h"
+#include "D2Txt.h"
 
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
 struct D2PlayerDataStrc;
-struct D2CharStatsTxt;
 struct D2SaveHeaderStrc;
-struct D2MonStatsTxt;
-struct D2MissilesTxt;
-
-
-
-struct D2CharStatsTxt
-{
-    char unk0x00[0xAC];
-    short wStartSkill;
-    char unk0xAE[0x16];
-};
 
 
 struct D2SaveHeaderStrc
@@ -67,28 +56,14 @@ void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, i
 void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555600
 void __fastcall CLIENTS_SetPlayerInClient(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x005378E0
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x0C];
-    unsigned char nFlags[4];
-    char unk0x010[0x1A8 - 0x10];
-};
-
-struct D2MissilesTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[4];
-    char unk0x008[0x1A4 - 0x08];
-};
-
 
 typedef char M195_CheckUnitFlags[(int)&((D2UnitStrc*)0)->dwFlags == 0xC4 ? 1 : -1];
 
 typedef char M195_CheckUnitMode[(int)&((D2UnitStrc*)0)->dwAnimMode == 0x10 ? 1 : -1];
 
-typedef char M195_CheckMonStatsFlags[(int)&((D2MonStatsTxt*)0)->nFlags == 0x0C ? 1 : -1];
+typedef char M195_CheckMonStatsFlags[(int)&((D2MonStatsTxt*)0)->nMonStatsFlags == 0x0C ? 1 : -1];
 
-typedef char M195_CheckMissilesFlags[(int)&((D2MissilesTxt*)0)->nFlags == 0x04 ? 1 : -1];
+typedef char M195_CheckMissilesFlags[(int)&((D2MissilesTxt*)0)->nMissileFlags == 0x04 ? 1 : -1];
 
 enum
 {
@@ -350,7 +325,7 @@ int __fastcall SKILLS_CheckAuraTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget, un
         }
 
         D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0(pTarget->dwClassId);
-        if (!pMissilesTxtRecord || pMissilesTxtRecord->nFlags[0] & gdwBitMasks[1])
+        if (!pMissilesTxtRecord || pMissilesTxtRecord->nMissileFlags[0] & gdwBitMasks[1])
         {
             return 0;
         }
@@ -404,7 +379,7 @@ int __fastcall SKILLS_CheckAuraTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget, un
         if (pTarget->dwUnitType == UNIT_MONSTER)
         {
             D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pTarget->dwClassId);
-            if (!pMonStatsTxtRecord || pMonStatsTxtRecord->nFlags[1] & gdwBitMasks[0])
+            if (!pMonStatsTxtRecord || pMonStatsTxtRecord->nMonStatsFlags[1] & gdwBitMasks[0])
             {
                 return 0;
             }
