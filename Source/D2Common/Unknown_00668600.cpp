@@ -1,25 +1,8 @@
 #include "D2TxtItems.h"
+#include "D2LevelTxt.h"
+#include "D2Records.h"
 struct D2ItemsTxt;
 
-struct D2CubeMainTxtStrc
-{
-    char unk0x00[0x0C];
-    D2CubeInputItem pInputItem[7];
-};
-
-struct D2UniqueItemsTxtStrc
-{
-    char unk0x00[0x28];
-    int dwBaseItemCode;
-    char unk0x2C[0x120];
-};
-
-struct D2SetItemsTxtStrc
-{
-    char unk0x00[0x28];
-    int szItemCode;
-    char unk0x2C[0x18C];
-};
 
 extern "C" unsigned int __cdecl strcspn(const char* szString, const char* szSet);                          // 0x00688990
 extern "C" int __cdecl atoi(const char* szString);                                                          // 0x00681EBB
@@ -34,9 +17,9 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, in
 
 extern void* gpItemTypesLinker_0096C824;                                                                    // 0x0096C824
 extern void* gpSetItemsLinker;                                                                     // 0x0096C844
-extern D2SetItemsTxtStrc* gpSetItemsTxt_0096C848;                                                          // 0x0096C848
+extern D2SetItemsTxt* gpSetItemsTxt_0096C848;                                                          // 0x0096C848
 extern void* gpUniqueItemsLinker;                                                                  // 0x0096C850
-extern D2UniqueItemsTxtStrc* gpUniqueItemsTxt_0096C854;                                                    // 0x0096C854
+extern D2UniqueItemsTxt* gpUniqueItemsTxt_0096C854;                                                    // 0x0096C854
 
 static __declspec(noinline) void sub_00668510_MakeCode(const char* szText, char* szCode);
 
@@ -93,8 +76,8 @@ static __forceinline int DATATBLS_CubeInputFindUniqueOrSet(D2CubeInputItem* pCub
 
     if (nLinkId >= 0)
     {
-        D2UniqueItemsTxtStrc* pUniqueItemsTxtRecord = &gpUniqueItemsTxt_0096C854[nLinkId];
-        DATATBLS_GetItemRecordFromItemCode(pUniqueItemsTxtRecord->dwBaseItemCode, pBaseItemId);
+        D2UniqueItemsTxt* pUniqueItemsTxtRecord = &gpUniqueItemsTxt_0096C854[nLinkId];
+        DATATBLS_GetItemRecordFromItemCode(pUniqueItemsTxtRecord->dwCode, pBaseItemId);
         pCubeInput->wInputFlags |= 0x41;
         pCubeInput->nQuality = 7;
         pCubeInput->wItemID = nLinkId + 1;
@@ -114,8 +97,8 @@ static __forceinline int DATATBLS_CubeInputFindUniqueOrSet(D2CubeInputItem* pCub
         return 0;
     }
 
-    D2SetItemsTxtStrc* pSetItemsTxtRecord = &gpSetItemsTxt_0096C848[nSetId];
-    DATATBLS_GetItemRecordFromItemCode(pSetItemsTxtRecord->szItemCode, pBaseItemId);
+    D2SetItemsTxt* pSetItemsTxtRecord = &gpSetItemsTxt_0096C848[nSetId];
+    DATATBLS_GetItemRecordFromItemCode(pSetItemsTxtRecord->dwItemCode, pBaseItemId);
     pCubeInput->wInputFlags |= 0x41;
     pCubeInput->nQuality = 5;
     pCubeInput->wItemID = nSetId + 1;

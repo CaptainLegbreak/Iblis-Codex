@@ -1,11 +1,10 @@
 #include "D2LevelIds.h"
 #include "D2Common.h"
+#include "D2DrlgRooms.h"
 
 struct D2DrlgActStrc;
 struct D2Entry0061B7E0Strc;
 struct D2Owner0061B7E0Strc;
-struct D2DrlgEnvironmentStrc;
-struct D2EnvironmentCycleStrc;
 
 struct D2Entry0061B7E0Strc
 {
@@ -25,36 +24,6 @@ struct D2Owner0061B7E0Strc
     D2Entry0061B7E0Strc pEntries[4];
 };
 
-struct D2DrlgEnvironmentStrc
-{
-    int nCycleIndex;
-    int nPeriodOfDay;
-    int nTicks;
-    int nIntensity;
-    unsigned int dwInitTick;
-    int unk0x14;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char unk0x1B;
-    float fCos;
-    float fLast;
-    float fSin;
-    int nTimeRate;
-    int nTimeRateIndex;
-    int bEclipse;
-    int nPrev;
-};
-
-struct D2EnvironmentCycleStrc
-{
-    int nTicksBegin;
-    int nPeriodOfDay;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char unk0x0B;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

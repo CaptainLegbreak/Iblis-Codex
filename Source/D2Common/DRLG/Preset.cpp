@@ -24,13 +24,6 @@ struct D2MonPresetTxt
     unsigned short wPlace;
 };
 
-struct D2PresetCodeStrc
-{
-    char c0;
-    char c1;
-    char c2;
-    char c3;
-};
 
 struct D2ItemsTxt;
 
@@ -70,32 +63,6 @@ struct D2LevelFileListStrc
     D2LevelFileListStrc* pNext;
 };
 
-union D2C_PackedTileInformation
-{
-    unsigned int nPackedValue;
-    struct
-    {
-        unsigned int bIsWall : 1;
-        unsigned int bIsFloor : 1;
-        unsigned int bLOS : 1;
-        unsigned int bEnclosed : 1;
-        unsigned int bExit : 1;
-        unsigned int bUnk0x20 : 1;
-        unsigned int bLayerBelow : 1;
-        unsigned int bLayerAbove : 1;
-        unsigned int nTileSequence : 8;
-        unsigned int bFillLOS : 1;
-        unsigned int bUnwalkable : 1;
-        unsigned int nWallLayer : 2;
-        unsigned int nTileStyle : 6;
-        unsigned int bRevealHidden : 1;
-        unsigned int bShadow : 1;
-        unsigned int bLinkage : 1;
-        unsigned int bObjectWall : 1;
-        unsigned int bUnk0x40000000 : 1;
-        unsigned int bHidden : 1;
-    };
-};
 
 struct D2DrlgVertexStrc;
 
@@ -229,7 +196,6 @@ void __fastcall DRLGPRESET_AddPresetRoomMapTiles(D2DrlgRoomStrc* pDrlgRoom);
 
 struct D2LevelFileListStrc;
 
-struct D2DrlgRoomSubStrc;
 
 struct D2DrlgCoordStrc;
 
@@ -241,7 +207,6 @@ struct D2PresetUnitStrc;
 
 struct D2LvlPrestTxt;
 
-union D2C_PackedTileInformation;
 
 struct D2DrlgMapStrc;
 
@@ -285,11 +250,6 @@ struct D2DataTablesStrc;
 
 struct D2DrlgPresetInfoStrc;
 
-struct D2DrlgRoomSubStrc
-{
-    char unk0x00[0xEC];
-    int nFieldEC;
-};
 
 extern unsigned short gwValue_0077905C;
 

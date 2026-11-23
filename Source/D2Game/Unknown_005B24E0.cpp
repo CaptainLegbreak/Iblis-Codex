@@ -16,6 +16,8 @@
 #include "D2QuestData.h"
 #include "D2GameTypes.h"
 #include "D2Win32Base.h"
+#include "D2Packets.h"
+#include "D2GameAux.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -39,9 +41,6 @@ struct D2QuestGUIDStrc;
 
 struct D2ObjOperateFnStrc;
 
-struct D2GSPacketSrv5D;
-
-struct D2GSPacketSrv50;
 
 struct D2Act4Quest2Strc;
 
@@ -161,21 +160,6 @@ void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsign
 
 typedef bool(__fastcall* QUESTUPDATE)(D2GameStrc*, D2QuestDataStrc*);
 
-struct D2GSPacketSrv5D
-{
-    unsigned char nHeader;
-    unsigned char nQuestId;
-    unsigned char nFlags;
-    unsigned char nState;
-    unsigned short field_4;
-};
-
-struct D2GSPacketSrv50
-{
-    unsigned char nHeader;
-    unsigned char nQuestId[2];
-    unsigned char data[0x0C];
-};
 
 void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc* pQuestRecord, int nQuest, int nState); // 0x0065C3A0
 
@@ -372,14 +356,6 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                             
 
 void __fastcall QUESTS_WarrivSpawn(D2GameStrc* pGame, void* pRoom, int nXpos, int nYpos, int nWarrivId);    // 0x005447A0
 
-struct D2MonsterEquipmentStrc
-{
-	int nItemCode;
-	unsigned char nBodyLoc;
-	unsigned char unk0x05;
-	unsigned char unk0x06;
-	unsigned char unk0x07;
-};
 
 extern const D2MonsterEquipmentStrc gtAncientEquipment[12]; // 0x006E2C90
 

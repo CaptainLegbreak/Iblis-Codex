@@ -4,13 +4,9 @@
 #include "D2ItemsWorld.h"
 #include "D2GameRecords.h"
 #include "D2DataTbls.h"
+#include "D2GameAux.h"
 struct D2UnitStrc;
 
-struct D2MagicAffixIndexAndPtrStrc
-{
-    int nAffixId;
-    D2MagicAffixTxt* pMagicAffixRecord;
-};
 
 struct D2RareAffixDataTbl
 {

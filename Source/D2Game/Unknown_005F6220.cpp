@@ -11,19 +11,6 @@
 #include "D2GameStrc.h"
 #include "D2MonModes.h"
 
-struct D2MephistoAiCallbackArgStrc
-{
-    D2UnitStrc* unk0x00;
-    int unk0x04;
-    int unk0x08;
-    D2UnitStrc* unk0x0C;
-    int unk0x10;
-    D2UnitStrc* unk0x14;
-    int unk0x18;
-    int nCounter;
-    int unk0x20;
-    int unk0x24;
-};
 
 enum D2C_J11AiConstants
 {

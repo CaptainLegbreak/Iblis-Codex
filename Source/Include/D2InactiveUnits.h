@@ -82,3 +82,14 @@ D2_CHECK_SIZE(D2InactiveItemNodeStrc, 0x10);
 D2_CHECK_SIZE(D2InactiveMonsterNodeStrc, 0x5C);
 D2_CHECK_SIZE(D2InactiveUnitNodeStrc, 0x34);
 D2_CHECK_SIZE(D2InactiveUnitListStrc, 0x18);
+
+struct D2InactiveItemBufferStrc
+{
+    D2InactiveItemNodeStrc* pNext; // 0x00
+    int nFrame; // 0x04
+    int nOwnerId; // 0x08
+    unsigned short nBitstreamSize; // 0x0C
+    unsigned char pBitstream[0x400]; // 0x0E
+};
+
+D2_CHECK_SIZE(D2InactiveItemBufferStrc, 0x410);

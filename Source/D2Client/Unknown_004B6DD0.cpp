@@ -91,7 +91,7 @@ short __stdcall TEXT_GetStringIdOfMenuType1Node(D2TextHeaderStrc* pTextHeader, i
 extern unsigned short gnHirelingName;                                                                    // 0x00725494
 extern D2NpcQuestHandlerStrc gaNpcHandlers[];                                                      // 0x007253E0
 // build: symbol ?gnHandlerCount@* 0x007253DC
-#include "gen/data/Source/D2Client/UI/npcmenu_004B6440/gnHandlerCount.inc"
+#include "gen/data/Source/D2Client/UI/npcmenu/gnHandlerCount.inc"
 struct D2UnitStrc;
 extern int gnNpcEntryCount;                                                                        // 0x0072554C
 extern int gnNpcIndexCount;                                                                        // 0x00725A74

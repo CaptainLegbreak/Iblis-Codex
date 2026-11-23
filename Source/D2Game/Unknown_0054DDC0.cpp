@@ -55,12 +55,6 @@ struct D2FormationOffsetStrc
     int unk0x08;
 };
 
-struct D2UnkMonCreateStrc2
-{
-    int nCount;
-    int unk0x04[2];
-    D2FormationOffsetStrc pOffsets[1];
-};
 
 int __stdcall D2Common_10095(D2ActiveRoomStrc* pRoom, int nX, int nY);                                       // 0x0061B130
 D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20

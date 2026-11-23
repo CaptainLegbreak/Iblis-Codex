@@ -139,3 +139,13 @@ D2_CHECK_SIZE(D2RoomCollisionGridStrc, 0x24);
 D2_CHECK_SIZE(D2MazeLevelIdStrc, 0x10);
 D2_CHECK_SIZE(D2MazeLavaSetStrc, 0xC);
 D2_CHECK_SIZE(D2PathInfoStrc, 0x34);
+
+struct D2PresetCodeStrc
+{
+    char c0; // 0x00
+    char c1; // 0x01
+    char c2; // 0x02
+    char c3; // 0x03
+};
+
+D2_CHECK_SIZE(D2PresetCodeStrc, 0x4);

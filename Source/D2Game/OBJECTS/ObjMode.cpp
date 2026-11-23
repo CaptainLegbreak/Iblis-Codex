@@ -21,6 +21,7 @@
 #include "D2ItemsWorld.h"
 #include "D2GameTypes.h"
 #include "D2GameRecords.h"
+#include "D2Packets.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -34,11 +35,6 @@
 #define UNITFLAGEX_TELEPORTED 0x10000
 
 #define UNITFLAG_TARGETABLE 0x00000002
-
-
-
-
-
 
 
 #define STATE_FREEZE 1
@@ -70,7 +66,6 @@ struct D2ContextStrc;
 
 struct D2MonStats2Txt;
 
-struct D2GSPacketSrv58;
 
 struct D2PlayerDataStrc;
 
@@ -215,18 +210,6 @@ int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMo
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
 
 D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
-
-#pragma pack(push, 1)
-
-struct D2GSPacketSrv58
-{
-    unsigned char nHeader;
-    int nUnitId;
-    unsigned char nAction;
-    unsigned char nResult;
-};
-
-#pragma pack(pop)
 
 void __fastcall D2GAME_SendPacket0x58(D2ClientStrc* pClient, D2GSPacketSrv58* pPacket); // 0x0053D8D0
 
@@ -465,12 +448,6 @@ struct D2SkillStrc;
 
 struct D2StatListStrc;
 
-struct D2GSPacketSrv63
-{
-    unsigned char nHeader;
-    unsigned char dwUnitId[4];
-    unsigned char pData[16];
-};
 
 typedef void(__fastcall* PlayerPetCallback)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPet, void* pArg);
 
@@ -516,7 +493,6 @@ void __stdcall WAYPOINTS_ActivateWaypoint(D2WaypointDataStrc* pData, unsigned sh
 #define EVENTTYPE_ENDANIM 1
 
 #define EVENTTYPE_ACTIVESTATE 5
-
 
 
 #define QFLAG_REWARDGRANTED 0

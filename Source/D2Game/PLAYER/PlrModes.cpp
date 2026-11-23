@@ -1932,6 +1932,23 @@ done:
     gaPlayerModeChart[4].pfnStartXY(pGame, pUnit, 4, -1, 0);
 }
 
+typedef int (__fastcall* D2ModeCheckFn)(D2GameStrc*, D2UnitStrc*, int, int);
+
+extern D2ModeCheckFn gpfnModeChecks[]; // 0x00732C10
+
+// 0x005811D0
+void __fastcall sub_005811D0_CheckPlayerMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    const int nMode = !pUnit ? 0 : pUnit->dwAnimMode;
+    if (gpfnModeChecks[!pUnit ? 0 : pUnit->dwAnimMode])
+    {
+        if (gpfnModeChecks[nMode](pGame, pUnit, nSkillId, nSkillLevel) == 2)
+        {
+            PLRMODE_EndAnimation(pGame, pUnit, nSkillId, nSkillLevel);
+        }
+    }
+}
+
 // 0x00581220
 void __fastcall D2GAME_EVENTS_Callback_6FC81BD0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent, int nCustomId, int nCustomParam)
 {

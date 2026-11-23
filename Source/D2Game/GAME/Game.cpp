@@ -22,6 +22,7 @@
 #include "D2GameRecords.h"
 #include "D2ItemsWorld.h"
 #include "D2QuestData.h"
+#include "D2Packets.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -49,11 +50,9 @@ struct D2SGameDataStrc;
 
 struct D2ServerCallbackFunctions;
 
-struct D2GSPacketClt6B;
 
 struct D2NetPacketRecStrc;
 
-struct D2NetLockStrc;
 
 struct D2Net52BE10Strc;
 
@@ -69,7 +68,6 @@ struct D2StormLinkStrc;
 
 struct D2StormListAStrc;
 
-struct D2StormChunkListStrc;
 
 struct D2StormListArrayStrc;
 
@@ -99,7 +97,6 @@ struct D2GameStrc;
 
 struct D2UnitStrc;
 
-struct D2GSPacketSrv5A;
 
 struct D2ObjectsTxt;
 
@@ -245,15 +242,6 @@ D2ServerCallbackFunctions* gpD2EventCallbackTable;                              
 
 void __fastcall D2GAME_PACKETS_SendGameLeft(int nClientId); // 0x0053B220
 
-struct D2GSPacketSrv5A
-{
-    unsigned char nHeader;
-    unsigned char nType;
-    unsigned char nColor;
-    unsigned char abParam[4];
-    unsigned char nParam;
-    char szText[32];
-};
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize); // 0x006829C0
 
@@ -291,18 +279,6 @@ void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc* pUnit, int nSkillId, int n
 
 unsigned int __fastcall CLIENT_IsGameOwner(D2ClientStrc* pClient); // 0x00539030
 
-#pragma pack(push, 1)
-
-struct D2GSPacketClt6B
-{
-    unsigned char nHeader;
-    unsigned char nSize;
-    unsigned int dwTotalSize;
-    unsigned char saveData[8192];
-};
-
-#pragma pack(pop)
-
 typedef int (__fastcall* D2NET_Unk_Callback)(int, int, int, int);
 
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
@@ -325,13 +301,6 @@ struct D2NetPacketRecStrc
     D2NetPacketRecStrc* pNext;
 };
 
-struct D2NetLockStrc
-{
-    D2CriticalSectionStrc tLock;
-
-    void Lock(int nUnused);
-    void Unlock(int nUnused);
-};
 
 struct D2Net52BE10Strc
 {
@@ -457,13 +426,6 @@ struct D2StormListAStrc
     }
 };
 
-struct D2StormChunkListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    void sub_00450580_DeleteAll();                                                                          // 0x00450580
-};
 
 struct D2StormListArrayStrc
 {
@@ -761,19 +723,6 @@ int __stdcall GAME_GetPlayerUnitsCount(unsigned short nGameId);
 
 #define UNLOCK_LINE 4196
 
-struct D2UnitInfoStrc
-{
-    int nUnitType;
-    int nClassId;
-    int nUnitGUID;
-    int nAnimMode;
-    int nX;
-    int nY;
-    int nOwnerType;
-    int nOwnerGUID;
-    int unk0x20;
-    char szDescription[INFO_DESCRIPTION_SIZE];
-};
 
 void __fastcall SUNIT_FillUnitInfo(D2UnitStrc* pUnit, D2UnitInfoStrc* pUnitInfo);                           // 0x00553F30
 
@@ -807,12 +756,6 @@ struct D2GameListStrc
     D2GameStrc* DeleteNode(D2GameStrc* pGame);
 };
 
-struct D2MessageThreadArgsStrc
-{
-    int nParam1;
-    int nParam2;
-    char szMessage[0x100];
-};
 
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* lpThreadAttributes, unsigned long dwStackSize, unsigned long (__stdcall* lpStartAddress)(D2MessageThreadArgsStrc*), D2MessageThreadArgsStrc* lpParameter, unsigned long dwCreationFlags, unsigned long* lpThreadId); // 0x006CC250
 
@@ -862,21 +805,6 @@ void __fastcall D2GAME_PACKETS_SendHeaderOnlyPacket(D2ClientStrc* pClient, unsig
 
 void __fastcall D2GAME_PACKETS_SendPacket0x01_6FC3C7C0(D2ClientStrc* pClient, char nHeader, D2GameStrc* pGame); // 0x0053B340
 
-struct D2GSPacketClt66
-{
-    unsigned char nHeader;
-    char szGameName[16];
-    unsigned char nGameType;
-    unsigned char nPlayerClass;
-    unsigned char nTemplate;
-    unsigned char nDifficulty;
-    char szClientName[16];
-    unsigned char abArena[2];
-    unsigned char abGameFlags[4];
-    unsigned char unk0x2B;
-    unsigned char unk0x2C;
-    unsigned char nLocale;
-};
 
 extern int gbCheckHeartbeat;                                                                       // 0x00730FFC
 
@@ -984,7 +912,6 @@ enum { MODE_MASK = 15 };
 
 struct D2GameStatisticsStrc;
 
-struct D2UnitInfoStrc;
 
 struct HASHKEY_NONE;
 
@@ -1102,11 +1029,9 @@ struct D2QuestInfoStrc;
 
 struct D2DrlgCoordsStrc;
 
-struct D2ObjectRoomCoordStrc;
 
 struct D2ObjectControlStrc;
 
-struct D2GSPacketSrv53;
 
 struct D2ObjInitFnStrc;
 
@@ -1114,7 +1039,6 @@ struct D2UnkPlrMsgStrc;
 
 struct D2PlayerDataStrc;
 
-struct D2NpcEventStrc;
 
 struct D2NpcGambleStrc;
 
@@ -1128,9 +1052,6 @@ struct D2RosterIterateStrc;
 
 struct D2UnitProxyArgStrc;
 
-struct D2GSPacketSrv8C;
-
-struct D2GSPacketSrv8E;
 
 enum D2C_MonStatsTxtFlagIndices
 {
@@ -1158,27 +1079,6 @@ struct D2QuestInfoStrc
     unsigned int dwTick;
 };
 
-struct D2ObjectRoomCoordStrc
-{
-    D2ActiveRoomStrc* pRoom;
-    int nX;
-    int nY;
-    D2ObjectRoomCoordStrc* pNext;
-};
-
-struct D2GSPacketSrv53
-{
-    unsigned char nHeader;
-    unsigned char nCycleIndex;
-    unsigned char nCycleIndex1;
-    unsigned char nCycleIndex2;
-    unsigned char nCycleIndex3;
-    unsigned char nTicks;
-    unsigned char nTicks1;
-    unsigned char nTicks2;
-    unsigned char nTicks3;
-    unsigned char nEclipse;
-};
 
 typedef void (__fastcall* PlrMsgFunc)(D2GameStrc*, D2UnitStrc*, D2ClientStrc*, int);
 
@@ -1237,14 +1137,6 @@ int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath)
 
 void __stdcall QUESTRECORD_FreeRecord(void* pMemPool, D2BitBufferStrc* pQuestRecord); // 0x0065C490
 
-struct D2NpcEventStrc
-{
-    D2UnitStrc* pUnit;
-    int field_4;
-    int field_8;
-    int field_C;
-    D2NpcEventStrc* pNext;
-};
 
 struct D2NpcControlStrc
 {
@@ -1258,34 +1150,6 @@ struct D2RosterIterateStrc
     D2UnitStrc* pUnit;
 };
 
-struct D2GSPacketSrv8C
-{
-    unsigned char nHeader;
-    unsigned char dwPlayerGUID1;
-    unsigned char dwPlayerGUID1_1;
-    unsigned char dwPlayerGUID1_2;
-    unsigned char dwPlayerGUID1_3;
-    unsigned char dwPlayerGUID2;
-    unsigned char dwPlayerGUID2_1;
-    unsigned char dwPlayerGUID2_2;
-    unsigned char dwPlayerGUID2_3;
-    unsigned char nFlags;
-    unsigned char nFlags1;
-};
-
-struct D2GSPacketSrv8E
-{
-    unsigned char nHeader;
-    unsigned char nType;
-    unsigned char dwPlayerGUID;
-    unsigned char dwPlayerGUID1;
-    unsigned char dwPlayerGUID2;
-    unsigned char dwPlayerGUID3;
-    unsigned char dwCorpseGUID;
-    unsigned char dwCorpseGUID1;
-    unsigned char dwCorpseGUID2;
-    unsigned char dwCorpseGUID3;
-};
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 
@@ -1609,6 +1473,14 @@ int __cdecl sub_0052BF70()
     return 0;
 }
 
+void __stdcall SMemZero(void* pDest, unsigned int nSize);                                                   // 0x0041D300
+
+// 0x0052BF80
+void __fastcall sub_0052BF80_ZeroBlock8(void* pData)
+{
+    SMemZero(pData, 8);
+}
+
 // 0x0052BF90
 void* __cdecl sub_0052BF90()
 {
@@ -1710,10 +1582,12 @@ static __declspec(noinline) void GAME_SendGameInit(D2GameStrc* pGame, D2ClientSt
     CLIENTS_SetClientState(pClient, 1);
 }
 
+// build: symbol ?gnInitSeed@* 0x00731004
+#include "gen/data/Source/D2Game/GAME/Game/gnInitSeed.inc"
+
 // 0x0052C320
 void __stdcall GAME_SetInitSeed(int nInitSeed)
 {
-// build: symbol ?gnInitSeed@* 0x00731004
     gnInitSeed = nInitSeed;
 }
 
@@ -1723,7 +1597,7 @@ int __fastcall SrvVerifyCreateNewGame(int nClientId, D2GSPacketClt66* pPacket)
     const char* szGameName = pPacket->szGameName;
     const unsigned char nPlayerClass = pPacket->nPlayerClass;
     const char* szClientName = pPacket->szClientName;
-    const unsigned int nGameFlags = *(const unsigned int*)pPacket->abGameFlags;
+    const unsigned int nGameFlags = pPacket->nGameFlags;
     char szCurrentGame[16];
 
     if (gpD2EventCallbackTable && pPacket->nGameType)
@@ -2044,7 +1918,7 @@ void __fastcall SrvDisconnectClient(D2GameStrc* pGame, D2ClientStrc* pClient, in
     tPacket.nHeader = 0x5A;
     tPacket.nType = nEventType;
     tPacket.nColor = 4;
-    *(int*)tPacket.abParam = 0;
+    tPacket.dwParam = 0;
     CLIENTS_CopyAccountNameToBuffer(pClient, &tPacket.szText[16]);
     tPacket.szText[31] = '\0';
     SStrCopy(tPacket.szText, CLIENTS_GetName(pClient), 16);
@@ -2484,7 +2358,7 @@ static void GAME_UpdateAllClients(D2GameStrc* pGame)
                 packet5A.nHeader = 0x5A;
                 packet5A.nType = 2;
                 packet5A.nColor = 4;
-                *(int*)packet5A.abParam = 0;
+                packet5A.dwParam = 0;
                 packet5A.szText[16] = '\0';
 
                 char szAccountName[256];
@@ -3103,58 +2977,17 @@ void __fastcall CLIENTS_RemoveUnitIfNotAdjacent(D2ClientStrc* pClient, D2UnitStr
     }
 }
 
-// 0x0053ABE0
-void __fastcall LEVEL_SynchronizeDayNightCycleWithClient(D2GameStrc* pGame, D2ClientStrc* pClient)
-{
-    const unsigned char nAct = CLIENTS_GetActNo(pClient);
-    D2GAME_PACKETS_SendPacket0x03_6FC3C810(pClient, 3, nAct, pGame->dwInitSeed, pGame->dwObjSeed, DUNGEON_GetTownLevelIdFromAct(pGame->pAct[nAct]));
-
-    int nCycleIndex;
-    int nTicks;
-    int nEclipse;
-    ENVIRONMENT_GetCycleIndex_Ticks_EclipseFromAct(pGame->pAct[nAct], &nCycleIndex, &nTicks, &nEclipse);
-
-    D2GSPacketSrv53 packet53;
-    packet53.nHeader = 0x53;
-    *(int*)&packet53.nCycleIndex = nCycleIndex;
-    *(int*)&packet53.nTicks = nTicks;
-    packet53.nEclipse = nEclipse;
-    D2GAME_SendPacket0x53_6FC3DF50(pClient, &packet53);
-}
-
-// 0x0053B000
-void __fastcall LEVEL_UpdateQueuedUnitsInAllActs(D2GameStrc* pGame)
-{
-    for (int i = 0; i < 5; ++i)
-    {
-        D2DrlgActStrc* pAct = pGame->pAct[i];
-        if (pAct && pAct->bHasPendingUnitListUpdates)
-        {
-            for (D2ActiveRoomStrc* pRoom = DUNGEON_GetRoomFromAct(pAct); pRoom; pRoom = pRoom->pRoomNext)
-            {
-                for (D2UnitStrc* pUnit = pRoom->pUnitUpdate; pUnit; pUnit = pUnit->pChangeNextUnit)
-                {
-                    sub_00553220(pGame, pUnit);
-                }
-
-                UNITROOM_ClearUpdateQueue(pRoom);
-            }
-
-            pGame->pAct[i]->bHasPendingUnitListUpdates = 0;
-        }
-    }
-
-    ARENA_ClearUpdateFlag(pGame);
-}
+void __fastcall LEVEL_SynchronizeDayNightCycleWithClient(D2GameStrc* pGame, D2ClientStrc* pClient); // 0x0053ABE0
+void __fastcall LEVEL_UpdateQueuedUnitsInAllActs(D2GameStrc* pGame); // 0x0053B000
 
 // 0x0053DE20
 void __fastcall SCMD_BroadcastPlayerRelationship(D2GameStrc* pGame, int dwPlayerId1, int dwPlayerId2, short wRelationState)
 {
     D2GSPacketSrv8C packet8C;
     packet8C.nHeader = 0x8C;
-    *(int*)&packet8C.dwPlayerGUID1 = dwPlayerId1;
-    *(int*)&packet8C.dwPlayerGUID2 = dwPlayerId2;
-    *(short*)&packet8C.nFlags = wRelationState;
+    packet8C.dwPlayerGUID1 = dwPlayerId1;
+    packet8C.dwPlayerGUID2 = dwPlayerId2;
+    packet8C.nFlags = wRelationState;
     SUNIT_IterateLivingPlayers(pGame, SCMD_SendPlayerRelationshipCallback, &packet8C);
 }
 
@@ -3163,8 +2996,8 @@ void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(D2GameS
 {
     D2GSPacketSrv8E packet8E;
     packet8E.nHeader = 0x8E;
-    *(int*)&packet8E.dwPlayerGUID = nUnitId;
-    *(int*)&packet8E.dwCorpseGUID = nCorpseId;
+    packet8E.dwPlayerGUID = nUnitId;
+    packet8E.dwCorpseGUID = nCorpseId;
     packet8E.nType = bAssign;
     SUNIT_IterateLivingPlayers(pGame, SCMD_SendCorpseAssignCallback, &packet8E);
 }
@@ -4094,7 +3927,7 @@ void __stdcall GAME_RemoveClientById(int nClientId)
     tPacket.nHeader = 0x5A;
     tPacket.nType = 0;
     tPacket.nColor = 4;
-    *(int*)tPacket.abParam = 0;
+    tPacket.dwParam = 0;
     tPacket.szText[16] = 0;
     SStrCopy(tPacket.szText, CLIENTS_GetName(pClient), 16);
     sub_6FC84D40(pGame, &tPacket);
@@ -4150,7 +3983,7 @@ void __fastcall SrvEndGame(int nClientId, int bSendLeaveMessage)
             packet5A.nHeader = 0x5A;
             packet5A.nType = 3;
             packet5A.nColor = 4;
-            *(int*)packet5A.abParam = 0;
+            packet5A.dwParam = 0;
             CLIENTS_CopyAccountNameToBuffer(pClient, &packet5A.szText[16]);
             packet5A.szText[31] = '\0';
             SStrCopy(packet5A.szText, CLIENTS_GetName(pClient), 16);
@@ -4452,8 +4285,8 @@ void __fastcall GAME_UpdateEnvironment(D2GameStrc* pGame)
             ENVIRONMENT_GetCycleIndex_Ticks_EclipseFromAct(pGame->pAct[i], &nCycleIndex, &nTicks, &nEclipse);
             D2GSPacketSrv53 packet53;
             packet53.nHeader = 0x53;
-            *(int*)&packet53.nCycleIndex = nCycleIndex;
-            *(int*)&packet53.nTicks = nTicks;
+            packet53.nCycleIndex = nCycleIndex;
+            packet53.nTicks = nTicks;
             packet53.nEclipse = nEclipse;
             for (D2ClientStrc* pClient = pGame->pClientList; pClient; pClient = pClient->pNext)
             {
@@ -4671,7 +4504,7 @@ inline unsigned __int64 sub_I08_RollGameSeed(D2SeedStrc* pSeed)
     return lSeed;
 }
 
-// build: context sub_0052C280_InitGameSeed
+// 0x0052C280
 static void sub_0052C280_InitGameSeed(D2GameStrc* pGame)
 {
     if (gnInitSeed == -1)
@@ -5524,7 +5357,7 @@ void __stdcall GAME_SendMessageToAllClients(int a1, int nPacketParam, const char
                 packet5A.nHeader = 0x5A;
                 packet5A.nType = 0x0F;
                 packet5A.nColor = 4;
-                *(int*)packet5A.abParam = nPacketParam;
+                packet5A.dwParam = nPacketParam;
                 packet5A.szText[16] = 0;
                 sub_6FC84D40(ptGame, &packet5A);
                 break;

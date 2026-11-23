@@ -1,24 +1,8 @@
 #include "D2TxtItems.h"
+#include "D2LevelTxt.h"
+#include "D2Records.h"
 struct D2ItemsTxt;
-struct D2CubeMainTxtStrc
-{
-    char unk0x00[0x0C];
-    D2CubeInputItem pInputItem[7];
-};
 
-struct D2UniqueItemsTxtStrc
-{
-    char unk0x00[0x28];
-    int dwBaseItemCode;
-    char unk0x2C[0x120];
-};
-
-struct D2SetItemsTxtStrc
-{
-    char unk0x00[0x28];
-    int szItemCode;
-    char unk0x2C[0x18C];
-};
 
 extern "C" unsigned int __cdecl strcspn(const char* szString, const char* szSet);                          // 0x00688990
 extern "C" int __cdecl atoi(const char* szString);                                                          // 0x00681EBB
@@ -33,9 +17,9 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, in
 
 extern void* gpItemTypesLinker_0096C824;                                                                    // 0x0096C824
 extern void* gpSetItemsLinker;                                                                     // 0x0096C844
-extern D2SetItemsTxtStrc* gpSetItemsTxt_0096C848;                                                          // 0x0096C848
+extern D2SetItemsTxt* gpSetItemsTxt_0096C848;                                                          // 0x0096C848
 extern void* gpUniqueItemsLinker;                                                                  // 0x0096C850
-extern D2UniqueItemsTxtStrc* gpUniqueItemsTxt_0096C854;                                                    // 0x0096C854
+extern D2UniqueItemsTxt* gpUniqueItemsTxt_0096C854;                                                    // 0x0096C854
 
 static void sub_00668510_MakeCode(const char* szText, char* szCode);
 
@@ -160,7 +144,7 @@ StoreBaseItem:
 
                 if (nLinkId >= 0)
                 {
-                    DATATBLS_GetItemRecordFromItemCode(gpUniqueItemsTxt_0096C854[nLinkId].dwBaseItemCode, &nBaseItemId);
+                    DATATBLS_GetItemRecordFromItemCode(gpUniqueItemsTxt_0096C854[nLinkId].dwCode, &nBaseItemId);
                     pCubeInput->wInputFlags |= 0x41;
                     pCubeInput->nQuality = 7;
                     pCubeInput->wItemID = nLinkId + 1;
@@ -177,7 +161,7 @@ StoreBaseItem:
 
                     if (nLinkId >= 0)
                     {
-                        DATATBLS_GetItemRecordFromItemCode(gpSetItemsTxt_0096C848[nLinkId].szItemCode, &nBaseItemId);
+                        DATATBLS_GetItemRecordFromItemCode(gpSetItemsTxt_0096C848[nLinkId].dwItemCode, &nBaseItemId);
                         pCubeInput->wInputFlags |= 0x41;
                         pCubeInput->nQuality = 5;
                         pCubeInput->wItemID = nLinkId + 1;

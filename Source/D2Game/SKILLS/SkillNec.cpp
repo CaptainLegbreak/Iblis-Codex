@@ -36,7 +36,6 @@ struct D2StaticPathStrc;
 
 struct D2CurseStrc;
 
-struct D2UnkNecSkillStrc;
 
 struct D2UnkNecSkillStrc2;
 
@@ -109,21 +108,6 @@ void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventT
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
 
-struct D2UnkNecSkillStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pUnit;
-    int unk0x08;
-    int bUpdateAnimRate;
-    int nSkillId;
-    int nSkillLevel;
-    int nDuration;
-    int nAuraStat[6];
-    int nAuraStatCalc[6];
-    int nAuraTargetState;
-    int nAuraEvent[3];
-    int nAuraEventFunc[3];
-};
 
 struct D2UnkNecSkillStrc2
 {

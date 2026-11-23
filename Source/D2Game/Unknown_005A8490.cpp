@@ -8,11 +8,11 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2MonModes.h"
+#include "D2GameAux.h"
 
 struct D2ModeChangeStrc;
 struct D2MonStatsTxt;
 struct D2MissilesTxt;
-struct D2MissileUnitFindArgStrc;
 
 int __fastcall SUNIT_UpdateUnitPath(D2GameStrc* pGame, D2UnitStrc* pMissile); // 0x00554CA0
 void __fastcall MONSTERMODE_HandleEndAnimation(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A8030
@@ -32,13 +32,6 @@ void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill); /
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
 void __fastcall sub_6FC64CD0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A8520
 
-struct D2MissileUnitFindArgStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pMissile;
-    D2UnitStrc* pOwner;
-    D2MissilesTxt* pMissilesTxtRecord;
-};
 int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 

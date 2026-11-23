@@ -15,3 +15,14 @@ struct D2AnimDataRecordStrc
 };
 
 D2_CHECK_SIZE(D2AnimDataRecordStrc, 0xA0);
+
+struct D2AnimSeqTxt;
+
+struct D2AnimSeqRecordStrc
+{
+    D2AnimSeqTxt* pAnimSeqTxtRecord; // 0x00
+    int nSeqFramesCount; // 0x04
+    int nFramesCount; // 0x08
+};
+
+D2_CHECK_SIZE(D2AnimSeqRecordStrc, 0xC);

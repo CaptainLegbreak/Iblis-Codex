@@ -85,7 +85,6 @@ struct D2DrlgCoordsStrc;
 
 struct D2DrlgVertexStrc;
 
-struct D2UnkDrlgRoomTileStrc;
 
 struct D2UnkDrlgRoomTileStrc2;
 
@@ -203,12 +202,6 @@ int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pDrlgGrid, int nX, int nY);
 
 void __fastcall DRLGGRID_AlterFlagsAlongVertexEdge(D2DrlgGridStrc* pDrlgGrid, D2DrlgVertexStrc* pDrlgVertex, int nFlag, int nOperation, int bAlterNextVertex); // 0x0067C760
 
-struct D2UnkDrlgRoomTileStrc
-{
-    int nLevelId;
-    int nArrayStartId;
-    int nArrayEndId;
-};
 
 extern const D2UnkDrlgRoomTileStrc gaDrlgRoomTileLevelRanges[37]; // 0x006EEFC8
 

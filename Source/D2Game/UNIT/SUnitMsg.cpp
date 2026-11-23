@@ -13,20 +13,7 @@
 #include "D2GameAux.h"
 #include "D2GameRecords.h"
 #include "D2GameObjs.h"
-
-#pragma pack(push, 1)
-
-struct D2GSPacketSrvA8
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    int nUnitId;
-    unsigned char nSize;
-    unsigned char nState;
-    unsigned char pData[244];
-};
-
-#pragma pack(pop)
+#include "D2Packets.h"
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -69,7 +56,6 @@ void __fastcall D2GAME_PACKETS_SendPacket0xA9_StateOff_6FC3FC50(D2ClientStrc* pC
 
 struct D2NpcRecordStrc;
 
-struct D2InteractInfoStrc;
 
 struct D2UnitPacketListStrc;
 
@@ -101,9 +87,6 @@ struct D2DataTablesStrc;
 
 struct D2BitBufferStrc;
 
-struct D2PlrIntroStrc;
-
-struct D2MonsterInteractStrc;
 
 struct D2GameStrc;
 
@@ -168,23 +151,6 @@ void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0
 
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 
-struct D2PlrIntroStrc
-{
-    D2BitBufferStrc* pQuestIntroFlags;
-    D2BitBufferStrc* pNpcIntroFlags;
-};
-
-struct D2MonsterInteractStrc
-{
-    D2InteractInfoStrc* pInteractInfo;
-};
-
-struct D2InteractInfoStrc
-{
-    D2UnitStrc* pUnit;
-    int nInteract;
-    D2InteractInfoStrc* pNext;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -194,7 +160,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-extern D2NpcIndexMapStrc gaPlrIntroNpcIndexMap[]; // 0x00732738
 
 void __stdcall sub_00410B10(unsigned char* pBits, int nBit); // 0x00410B10
 
@@ -414,27 +379,6 @@ D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit);                
 int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);                     // 0x00554200
 
 
-struct D2GSPacketSrv26;
-
-struct D2GSPacketSrv2C;
-
-#pragma pack(push, 1)
-
-struct D2GSPacketSrv26
-{
-    unsigned char nHeader;
-    unsigned char nChatType;
-    unsigned char nLanguage;
-    unsigned char nUnitType;
-    int nUnitGUID;
-    unsigned char nColor;
-    unsigned char nSubType;
-    char szName[16];
-    char szMessage[256];
-};
-
-#pragma pack(pop)
-
 D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc*); // 0x005387C0
 
 int __fastcall PLAYERLIST_CheckFlag(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, unsigned int nFlags); // 0x0055B300
@@ -446,18 +390,6 @@ void __stdcall CHAT_CopyHoverMsgToBuffer(D2HoverTextStrc*, char*); // 0x006611E0
 void __fastcall D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(D2ClientStrc*, D2GSPacketSrv26*); // 0x0053C750
 
 void __fastcall D2GAME_PACKETS_SendPacketSize06_6FC3C850(D2ClientStrc*, unsigned char, int, int); // 0x0053B3D0
-
-#pragma pack(push, 1)
-
-struct D2GSPacketSrv2C
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    unsigned int dwUnitGUID;
-    unsigned short nSoundEvent;
-};
-
-#pragma pack(pop)
 
 void __fastcall SCMD_SendPacket0x2C(D2ClientStrc* pClient, D2GSPacketSrv2C* pPacket); // 0x0053D780
 
@@ -1033,40 +965,10 @@ void __fastcall SUNITMSG_SendUnitToClient(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     }
 }
 
-static int PLRINTRO_GetNpcIndex(int nNpcId)
-{
-    for (int i = 0; i < gnPlrIntroNpcIndexMapCount; ++i)
-    {
-        if (gaPlrIntroNpcIndexMap[i].nNpcClassId == nNpcId)
-        {
-            return gaPlrIntroNpcIndexMap[i].nIndex;
-        }
-    }
+void __fastcall PLRINTRO_SetQuestIntroFlag(D2UnitStrc* pUnit, D2GameStrc* pGame, int nNpcId); // 0x00572360
+int __fastcall PLRINTRO_GetQuestIntroFlag(D2UnitStrc* pUnit, D2GameStrc* pGame, int nNpcId); // 0x005723C0
 
-    return 0;
-}
-
-// 0x00572360
-void __fastcall PLRINTRO_SetQuestIntroFlag(D2UnitStrc* pUnit, D2GameStrc* pGame, int nNpcId)
-{
-    D2PlrIntroStrc* pPlayerIntro = UNITS_GetPlayerData(pUnit)->pPlayerIntro[pGame->nDifficulty];
-    sub_00410B10(pPlayerIntro->pQuestIntroFlags->pBuffer, PLRINTRO_GetNpcIndex(nNpcId));
-}
-
-// 0x005723C0
-int __fastcall PLRINTRO_GetQuestIntroFlag(D2UnitStrc* pUnit, D2GameStrc* pGame, int nNpcId)
-{
-    D2PlrIntroStrc* pPlayerIntro = UNITS_GetPlayerData(pUnit)->pPlayerIntro[pGame->nDifficulty];
-    return sub_00410B30(pPlayerIntro->pQuestIntroFlags->pBuffer, PLRINTRO_GetNpcIndex(nNpcId));
-}
-
-// 0x005724C0
-void __fastcall PLRINTRO_MaskNpcIntroFlag(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nNpcId)
-{
-    D2PlrIntroStrc* pPlayerIntro = UNITS_GetPlayerData(pPlayer)->pPlayerIntro[pGame->nDifficulty];
-    sub_00410B50(pPlayerIntro->pNpcIntroFlags->pBuffer, PLRINTRO_GetNpcIndex(nNpcId));
-}
-
+void __fastcall PLRINTRO_MaskNpcIntroFlag(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nNpcId); // 0x005724C0
 // 0x00573750
 void __fastcall MONSTER_ClearTargetIfMatches(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
@@ -1146,13 +1048,13 @@ void __fastcall SUNITMSG_SendHoverText(D2UnitStrc* pUnit, D2ClientStrc* pClient)
                 return;
         }
         D2GSPacketSrv26 packet;
-        packet.nUnitGUID = pUnit ? pUnit->dwUnitId : -1;
+        packet.dwUnitGUID = pUnit ? pUnit->dwUnitId : -1;
         const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
         packet.nHeader = 0x26;
         packet.nUnitType = nType;
         packet.szName[0] = 0;
-        packet.nChatType = 5;
-        packet.nLanguage = CHAT_GetLangIdFromHoverMsg(pHoverText);
+        packet.nMessageType = 5;
+        packet.nLang = CHAT_GetLangIdFromHoverMsg(pHoverText);
         memset(packet.szMessage, 0, 256);
         CHAT_CopyHoverMsgToBuffer(pHoverText, packet.szMessage);
         D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(pClient, &packet);

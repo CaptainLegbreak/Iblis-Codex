@@ -28049,6 +28049,36 @@
      "name": "NPCMENU_StateStartEffect"
     },
     {
+     "va": "0x004AD5F0",
+     "length": 233,
+     "name": "?NPCMENU_StateDurielDeath@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AD6E0",
+     "length": 420,
+     "name": "?NPCMENU_StateMissileBurst@@YGXHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004AD890",
+     "length": 73,
+     "name": "?NPCMENU_StateBurstOnFrame@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AD8E0",
+     "length": 50,
+     "name": "?NPCMENU_StateBurst@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AD920",
+     "length": 73,
+     "name": "?NPCMENU_StateBurstNeutral@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AD970",
+     "length": 426,
+     "name": "?NPCMENU_StateMissileSplit@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x004ADB20",
      "length": 152,
      "name": "NPCMENU_StateOverlayAtPath"
@@ -28057,6 +28087,21 @@
      "va": "0x004ADBC0",
      "length": 283,
      "name": "NPCMENU_StateMonOverlay"
+    },
+    {
+     "va": "0x004ADCE0",
+     "length": 151,
+     "name": "?NPCMENU_StateRequests@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004ADD80",
+     "length": 8,
+     "name": "?NPCMENU_StateRequestsCallback@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AE080",
+     "length": 29,
+     "name": "@NPCMENU_GetMonsterTypeFlags@8"
     },
     {
      "va": "0x004B1240",
@@ -28074,9 +28119,18 @@
      "name": "?NPCMENU_SetNpcInteract@@YAXPAUD2NpcRecordStrc@@@Z"
     },
     {
+     "va": "0x004B1680",
+     "length": 287
+    },
+    {
      "va": "0x004B1830",
      "length": 140,
      "name": "?NPCMENU_GetFreeStringId@@YIGG@Z"
+    },
+    {
+     "va": "0x004B18C0",
+     "length": 164,
+     "name": "?NPCMENU_NpcMessageCallback@@YIHPAXHH@Z"
     },
     {
      "va": "0x004B1980",
@@ -28094,6 +28148,26 @@
      "name": "?NPCMENU_IsSpecialNpc@@YA_NH@Z"
     },
     {
+     "va": "0x004B1A80",
+     "length": 246,
+     "name": "?NPCMENU_OnSelectMessage@@YAHXZ"
+    },
+    {
+     "va": "0x004B1B80",
+     "length": 118,
+     "name": "?NPCMENU_PlayIntroMessage@@YAHXZ"
+    },
+    {
+     "va": "0x004B1C00",
+     "length": 118,
+     "name": "?NPCMENU_PlayGossipMessage@@YAHXZ"
+    },
+    {
+     "va": "0x004B1C80",
+     "length": 205,
+     "name": "?NPCMENU_GetNpcDialogPos@@YAHPAUD2CoordStrc@@@Z"
+    },
+    {
      "va": "0x004B1DD0",
      "length": 176,
      "name": "?NPCMENU_ResurrectMercWait@@YAHXZ"
@@ -28102,6 +28176,11 @@
      "va": "0x004B1E80",
      "length": 211,
      "name": "?NPCMENU_HireMercWait@@YAXXZ"
+    },
+    {
+     "va": "0x004B1F60",
+     "length": 19,
+     "name": "?MONSTER_IsItemIdentified@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004B1F80",
@@ -28174,6 +28253,10 @@
      "name": "?sub_004B2640@@YIXH@Z"
     },
     {
+     "va": "0x004B2650",
+     "length": 682
+    },
+    {
      "va": "0x004B2900",
      "length": 50,
      "name": "?NPCMENU_CloseWaitDialog@@YAXXZ"
@@ -28214,6 +28297,11 @@
      "name": "?NPCMENU_ResetHoverForItem@@YIXH@Z"
     },
     {
+     "va": "0x004B2AD0",
+     "length": 835,
+     "name": "?NPCMENU_GetTradeCostText@@YIHPAUD2UnitStrc@@HPAHPAUUnicode@@H@Z"
+    },
+    {
      "va": "0x004B2E20",
      "length": 12,
      "name": "?NPCMENU_IsNpcMenuActive@@YAHXZ"
@@ -28224,6 +28312,16 @@
      "name": "?NPCMENU_FindNpcIndex@@YAHPAUD2NpcRecordStrc@@@Z"
     },
     {
+     "va": "0x004B2E70",
+     "length": 140,
+     "name": "?NPCMENU_MenuBack@@YAHXZ"
+    },
+    {
+     "va": "0x004B2F00",
+     "length": 67,
+     "name": "?NPCMENU_MenuClose@@YAHXZ"
+    },
+    {
      "va": "0x004B2F50",
      "length": 736
     },
@@ -28231,6 +28329,10 @@
      "va": "0x004B3230",
      "length": 13,
      "name": "?NPCMENU_GetInteractNpcId@@YIHPAH@Z"
+    },
+    {
+     "va": "0x004B3240",
+     "length": 65
     },
     {
      "va": "0x004B3290",
@@ -28253,6 +28355,11 @@
      "name": "?NPCMENU_ReloadHirelingPopup@@YIXG@Z"
     },
     {
+     "va": "0x004B3360",
+     "length": 27,
+     "name": "?NPCMENU_CheckObjectFound@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004B3380",
      "length": 237,
      "name": "?NPCMENU_OnNpcWantsInteract@@YIXPAUD2PacketRecord6Strc@@@Z"
@@ -28261,167 +28368,6 @@
      "va": "0x004B3470",
      "length": 47,
      "name": "?NPCMENU_IsNpcTalkActive@@YAHXZ"
-    },
-    {
-     "va": "0x004B3560",
-     "length": 65,
-     "name": "??0D2ClientValueBlockStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x004B3610",
-     "length": 68,
-     "name": "?NPCMENU_CloseTradeDialog@@YAXXZ"
-    },
-    {
-     "va": "0x004B3790",
-     "length": 154,
-     "name": "NPCMENU_RemoveInventoryClientUnits"
-    },
-    {
-     "va": "0x004B3830",
-     "length": 57,
-     "name": "@NPCMENU_ClearNpcInventoryAndSound@4"
-    },
-    {
-     "va": "0x004B3D10",
-     "length": 33,
-     "name": "?NPCMENU_CancelNpcAndFlag@@YIXH@Z"
-    },
-    {
-     "va": "0x004B3DE0",
-     "length": 42,
-     "name": "?sub_004B3DE0_CloseNpc@@YAXXZ"
-    },
-    {
-     "va": "0x004B3ED0",
-     "length": 57,
-     "name": "?NPCMENU_CloseNpcShop@@YAXXZ"
-    },
-    {
-     "va": "0x004B3F10",
-     "length": 152,
-     "name": "?NPCMENU_CloseByState@@YAXXZ"
-    },
-    {
-     "va": "0x004B3FB0",
-     "length": 42,
-     "name": "?sub_004B3FB0_CloseNpc2@@YAXXZ"
-    },
-    {
-     "va": "0x004B3FE0",
-     "length": 42,
-     "name": "?sub_004B3FE0@@YAXXZ"
-    },
-    {
-     "va": "0x004B4070",
-     "length": 84,
-     "name": "?NPCMENU_CloseConfirmDialog@@YAHXZ"
-    },
-    {
-     "va": "0x004B4DB0",
-     "length": 533,
-     "name": "?NPCMENU_OpenGreetingDialog@@YAXXZ"
-    },
-    {
-     "va": "0x004B5320",
-     "length": 196
-    },
-    {
-     "va": "0x004B53F0",
-     "length": 592
-    },
-    {
-     "va": "0x004B5810",
-     "length": 64,
-     "name": "?NPCMENU_CloseSubMenuToMain@@YAHXZ"
-    },
-    {
-     "va": "0x004B5890",
-     "length": 570,
-     "name": "?NPCMENU_OpenNpcPanel@@YGXHH@Z"
-    },
-    {
-     "va": "0x004B5AD0",
-     "length": 237,
-     "name": "?NPCMENU_OpenConfirmDialog@@YGXH@Z"
-    },
-    {
-     "va": "0x004B65F0",
-     "length": 35,
-     "name": "?NPCMENU_InitTravelLutGholeinHandler@@YAHXZ"
-    },
-    {
-     "va": "0x004B6620",
-     "length": 35,
-     "name": "?NPCMENU_InitTravelKurastDocksHandler@@YAHXZ"
-    },
-    {
-     "va": "0x004B6680",
-     "length": 44,
-     "name": "?NPCMENU_InitTravelHarrogathHandler@@YAHXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/npcmenu_004B2650.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004B18C0",
-     "length": 164,
-     "name": "?NPCMENU_NpcMessageCallback@@YIHPAXHH@Z"
-    },
-    {
-     "va": "0x004B1A80",
-     "length": 246,
-     "name": "?NPCMENU_OnSelectMessage@@YAHXZ"
-    },
-    {
-     "va": "0x004B1B80",
-     "length": 118,
-     "name": "?NPCMENU_PlayIntroMessage@@YAHXZ"
-    },
-    {
-     "va": "0x004B1C00",
-     "length": 118,
-     "name": "?NPCMENU_PlayGossipMessage@@YAHXZ"
-    },
-    {
-     "va": "0x004B1C80",
-     "length": 205,
-     "name": "?NPCMENU_GetNpcDialogPos@@YAHPAUD2CoordStrc@@@Z"
-    },
-    {
-     "va": "0x004B1F60",
-     "length": 19,
-     "name": "?MONSTER_IsItemIdentified@@YAHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004B2650",
-     "length": 682
-    },
-    {
-     "va": "0x004B2AD0",
-     "length": 835,
-     "name": "?NPCMENU_GetTradeCostText@@YIHPAUD2UnitStrc@@HPAHPAUUnicode@@H@Z"
-    },
-    {
-     "va": "0x004B3240",
-     "length": 65
     },
     {
      "va": "0x004B34A0",
@@ -28434,171 +28380,19 @@
      "name": "?NPCMENU_FlagNpcEntries@@YIXPAUD2NpcMonListPacketStrc@@@Z"
     },
     {
-     "va": "0x004B3C20",
-     "length": 228,
-     "name": "?NPCMENU_EndNpcInteraction@@YIXH@Z"
-    },
-    {
-     "va": "0x004B3D40",
-     "length": 145,
-     "name": "?NPCMENU_OpenGambleShop@@YAHXZ"
-    },
-    {
-     "va": "0x004B3E10",
-     "length": 182,
-     "name": "?NPCMENU_RefreshNpcEntries@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004B4380",
-     "length": 580,
-     "name": "?NPCMENU_UpdateNpcInteract@@YAXXZ"
-    },
-    {
-     "va": "0x004B5C20",
-     "length": 64,
-     "name": "?NPCMENU_CloseHireDialog@@YAHXZ"
-    },
-    {
-     "va": "0x004B6410",
-     "length": 35,
-     "name": "?NPCMENU_InitHireHandler@@YAHXZ"
-    },
-    {
-     "va": "0x004B6980",
-     "length": 81,
-     "name": "?NPCMENU_SetNpcMenuState@@YIXGH@Z"
-    },
-    {
-     "va": "0x004B6A30",
-     "length": 568,
-     "name": "?NPCMENU_NpcTextCallback@@YIHPAXHH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/npcmenu_004B3870.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B1680",
-     "length": 287
-    },
-    {
-     "va": "0x004B3870",
-     "length": 898
-    },
-    {
-     "va": "0x004B5640",
-     "length": 452
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/npcmenu_004B4FD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B4FD0",
-     "length": 366
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/npcmenu_004B4830.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004AD5F0",
-     "length": 233,
-     "name": "?NPCMENU_StateDurielDeath@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AD6E0",
-     "length": 420,
-     "name": "?NPCMENU_StateMissileBurst@@YGXHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004AD890",
-     "length": 73,
-     "name": "?NPCMENU_StateBurstOnFrame@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AD8E0",
-     "length": 50,
-     "name": "?NPCMENU_StateBurst@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AD920",
-     "length": 73,
-     "name": "?NPCMENU_StateBurstNeutral@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AD970",
-     "length": 426,
-     "name": "?NPCMENU_StateMissileSplit@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004ADCE0",
-     "length": 151,
-     "name": "?NPCMENU_StateRequests@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004ADD80",
-     "length": 8,
-     "name": "?NPCMENU_StateRequestsCallback@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AE080",
-     "length": 29,
-     "name": "@NPCMENU_GetMonsterTypeFlags@8"
-    },
-    {
-     "va": "0x004B2E70",
-     "length": 140,
-     "name": "?NPCMENU_MenuBack@@YAHXZ"
-    },
-    {
-     "va": "0x004B2F00",
-     "length": 67,
-     "name": "?NPCMENU_MenuClose@@YAHXZ"
-    },
-    {
-     "va": "0x004B3360",
-     "length": 27,
-     "name": "?NPCMENU_CheckObjectFound@@YIXPAUD2UnitStrc@@@Z"
+     "va": "0x004B3560",
+     "length": 65,
+     "name": "??0D2ClientValueBlockStrc@@QAE@XZ"
     },
     {
      "va": "0x004B35B0",
      "length": 87,
      "name": "?NPCMENU_OpenItemServicePanel@@YAHXZ"
+    },
+    {
+     "va": "0x004B3610",
+     "length": 68,
+     "name": "?NPCMENU_CloseTradeDialog@@YAXXZ"
     },
     {
      "va": "0x004B3660",
@@ -28621,14 +28415,78 @@
      "name": "?NPCMENU_InitPersonalizeHandler@@YAHXZ"
     },
     {
+     "va": "0x004B3790",
+     "length": 154,
+     "name": "NPCMENU_RemoveInventoryClientUnits"
+    },
+    {
+     "va": "0x004B3830",
+     "length": 57,
+     "name": "@NPCMENU_ClearNpcInventoryAndSound@4"
+    },
+    {
+     "va": "0x004B3870",
+     "length": 898
+    },
+    {
      "va": "0x004B3C00",
      "length": 32,
      "name": "?sub_004B3C00@@YIXH@Z"
     },
     {
+     "va": "0x004B3C20",
+     "length": 228,
+     "name": "?NPCMENU_EndNpcInteraction@@YIXH@Z"
+    },
+    {
+     "va": "0x004B3D10",
+     "length": 33,
+     "name": "?NPCMENU_CancelNpcAndFlag@@YIXH@Z"
+    },
+    {
+     "va": "0x004B3D40",
+     "length": 145,
+     "name": "?NPCMENU_OpenGambleShop@@YAHXZ"
+    },
+    {
+     "va": "0x004B3DE0",
+     "length": 42,
+     "name": "?sub_004B3DE0_CloseNpc@@YAXXZ"
+    },
+    {
+     "va": "0x004B3E10",
+     "length": 182,
+     "name": "?NPCMENU_RefreshNpcEntries@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004B3ED0",
+     "length": 57,
+     "name": "?NPCMENU_CloseNpcShop@@YAXXZ"
+    },
+    {
+     "va": "0x004B3F10",
+     "length": 152,
+     "name": "?NPCMENU_CloseByState@@YAXXZ"
+    },
+    {
+     "va": "0x004B3FB0",
+     "length": 42,
+     "name": "?sub_004B3FB0_CloseNpc2@@YAXXZ"
+    },
+    {
+     "va": "0x004B3FE0",
+     "length": 42,
+     "name": "?sub_004B3FE0@@YAXXZ"
+    },
+    {
      "va": "0x004B4010",
      "length": 84,
      "name": "?NPCMENU_CloseSubMenuDialog@@YAHXZ"
+    },
+    {
+     "va": "0x004B4070",
+     "length": 84,
+     "name": "?NPCMENU_CloseConfirmDialog@@YAHXZ"
     },
     {
      "va": "0x004B40D0",
@@ -28654,6 +28512,11 @@
      "va": "0x004B42B0",
      "length": 197,
      "name": "?NPCMENU_OpenTradeShop@@YAHXZ"
+    },
+    {
+     "va": "0x004B4380",
+     "length": 580,
+     "name": "?NPCMENU_UpdateNpcInteract@@YAXXZ"
     },
     {
      "va": "0x004B45D0",
@@ -28690,6 +28553,15 @@
      "name": "?NPCMENU_NpcMenuReturn@@YAHXZ"
     },
     {
+     "va": "0x004B4DB0",
+     "length": 533,
+     "name": "?NPCMENU_OpenGreetingDialog@@YAXXZ"
+    },
+    {
+     "va": "0x004B4FD0",
+     "length": 366
+    },
+    {
      "va": "0x004B5140",
      "length": 89,
      "name": "?sub_004B5140_NpcMenuAction28@@YAHXZ"
@@ -28713,6 +28585,76 @@
      "va": "0x004B52C0",
      "length": 89,
      "name": "?NPCMENU_TravelToRogueEncampment@@YAHXZ"
+    },
+    {
+     "va": "0x004B5320",
+     "length": 196
+    },
+    {
+     "va": "0x004B53F0",
+     "length": 592
+    },
+    {
+     "va": "0x004B5640",
+     "length": 452
+    },
+    {
+     "va": "0x004B5810",
+     "length": 64,
+     "name": "?NPCMENU_CloseSubMenuToMain@@YAHXZ"
+    },
+    {
+     "va": "0x004B5890",
+     "length": 570,
+     "name": "?NPCMENU_OpenNpcPanel@@YGXHH@Z"
+    },
+    {
+     "va": "0x004B5AD0",
+     "length": 237,
+     "name": "?NPCMENU_OpenConfirmDialog@@YGXH@Z"
+    },
+    {
+     "va": "0x004B5C20",
+     "length": 64,
+     "name": "?NPCMENU_CloseHireDialog@@YAHXZ"
+    },
+    {
+     "va": "0x004B6410",
+     "length": 35,
+     "name": "?NPCMENU_InitHireHandler@@YAHXZ"
+    },
+    {
+     "va": "0x004B6440",
+     "length": 432
+    },
+    {
+     "va": "0x004B65F0",
+     "length": 35,
+     "name": "?NPCMENU_InitTravelLutGholeinHandler@@YAHXZ"
+    },
+    {
+     "va": "0x004B6620",
+     "length": 35,
+     "name": "?NPCMENU_InitTravelKurastDocksHandler@@YAHXZ"
+    },
+    {
+     "va": "0x004B6680",
+     "length": 44,
+     "name": "?NPCMENU_InitTravelHarrogathHandler@@YAHXZ"
+    },
+    {
+     "va": "0x004B66B0",
+     "length": 713
+    },
+    {
+     "va": "0x004B6980",
+     "length": 81,
+     "name": "?NPCMENU_SetNpcMenuState@@YIXGH@Z"
+    },
+    {
+     "va": "0x004B6A30",
+     "length": 568,
+     "name": "?NPCMENU_NpcTextCallback@@YIHPAXHH@Z"
     }
    ],
    "flags": [
@@ -28815,34 +28757,6 @@
      "length": 35,
      "name": "?sub_004B6DA0_InitHandler@@YAHXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/npcmenu_004B6440.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B6440",
-     "length": 432
-    },
-    {
-     "va": "0x004B66B0",
-     "length": 713
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -43279,6 +43193,11 @@
      "name": "sub_0052BF70"
     },
     {
+     "va": "0x0052BF80",
+     "length": 9,
+     "name": "?sub_0052BF80_ZeroBlock8@@YIXPAX@Z"
+    },
+    {
      "va": "0x0052BF90",
      "length": 6,
      "name": "sub_0052BF90"
@@ -43322,6 +43241,11 @@
      "va": "0x0052C260",
      "length": 31,
      "name": "?GAME_SendGameInit@@YAXPAUD2GameStrc@@PAUD2ClientStrc@@@Z"
+    },
+    {
+     "va": "0x0052C280",
+     "length": 151,
+     "name": "?sub_0052C280_InitGameSeed@@YAXPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x0052C320",
@@ -44072,16 +43996,6 @@
      "va": "0x005384E0",
      "length": 162,
      "name": "CLIENTS_RemoveUnitIfNotAdjacent"
-    },
-    {
-     "va": "0x0053ABE0",
-     "length": 130,
-     "name": "LEVEL_SynchronizeDayNightCycleWithClient"
-    },
-    {
-     "va": "0x0053B000",
-     "length": 133,
-     "name": "LEVEL_UpdateQueuedUnitsInAllActs"
     },
     {
      "va": "0x0053DE20",
@@ -46105,17 +46019,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_0052BF80.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052BF80",
-     "length": 9,
-     "name": "?sub_0052BF80_ZeroBlock8@@YIXPAX@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/GAME/Game_0052C170.cpp",
    "rank": 1,
    "functions": [
@@ -46137,17 +46040,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0052C280.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052C280",
-     "length": 151,
-     "name": "?sub_0052C280_InitGameSeed@@YAXPAUD2GameStrc@@@Z"
-    }
    ]
   },
   {
@@ -47135,21 +47027,6 @@
      "name": "CLIENTS_RebuildPlayerWithClass"
     },
     {
-     "va": "0x0053A770",
-     "length": 169,
-     "name": "LEVEL_RemoveUnitsExceptClientPlayer"
-    },
-    {
-     "va": "0x0053A820",
-     "length": 84,
-     "name": "LEVEL_FreeDrlgDeletes"
-    },
-    {
-     "va": "0x0053AB80",
-     "length": 93,
-     "name": "LEVEL_RemoveClientFromAdjacentRooms"
-    },
-    {
      "va": "0x0053FF00",
      "length": 143,
      "name": "?PLRTRADE_AddGold@@YIXPAUD2UnitStrc@@HH@Z"
@@ -47241,17 +47118,6 @@
      "name": "?DEBUG_ClearText@@YIPADHPAD@Z"
     },
     {
-     "va": "0x005347F0",
-     "length": 8,
-     "name": "?DEBUG_SetRecordValue@@YIXPAUD2Game5347F0Strc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005347B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x005347B0",
      "length": 3,
      "name": "?sub_005347B0_Stub5@@YIXHHHHH@Z"
@@ -47271,6 +47137,17 @@
      "length": 3,
      "name": "?sub_005347E0_Stub5@@YIXHHHHH@Z"
     },
+    {
+     "va": "0x005347F0",
+     "length": 8,
+     "name": "?DEBUG_SetRecordValue@@YIXPAUD2Game5347F0Strc@@H@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Unknown_00534800.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x00534800",
      "length": 62,
@@ -47512,6 +47389,11 @@
      "va": "0x005377A0",
      "length": 12,
      "name": "?CLIENTS_UnlockClientList@@YIXH@Z"
+    },
+    {
+     "va": "0x005377B0",
+     "length": 83,
+     "name": "?sub_005377B0_CountFlaggedClients@@YAHXZ"
     },
     {
      "va": "0x00537810",
@@ -47999,19 +47881,14 @@
      "length": 1239
     },
     {
+     "va": "0x0053A280",
+     "length": 103,
+     "name": "?sub_0053A280_GetDeadTargetUnit@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ClientStrc@@@Z"
+    },
+    {
      "va": "0x0053A2F0",
      "length": 290,
      "name": "?CLIENTS_ResetClientInAct@@YIXPAUD2ClientStrc@@H@Z"
-    },
-    {
-     "va": "0x0053A6F0",
-     "length": 119,
-     "name": "?LEVEL_FixAdjacentRoomUnits@@YIXPAUD2ActiveRoomStrc@@PAUD2ClientStrc@@@Z"
-    },
-    {
-     "va": "0x0053AB10",
-     "length": 101,
-     "name": "?LEVEL_ClearAdjacentRoomUnitTargets@@YIXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00540890",
@@ -48091,36 +47968,14 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005377B0.cpp",
+   "file": "Source/D2Game/GAME/Level.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x005377B0",
-     "length": 83,
-     "name": "?sub_005377B0_CountFlaggedClients@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0053A280.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0053A280",
-     "length": 103,
-     "name": "?sub_0053A280_GetDeadTargetUnit@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ClientStrc@@@Z"
-    },
     {
      "va": "0x0053A500",
      "length": 200,
      "name": "?sub_0053A500_UpdateUnitForClient@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ClientStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0053A5D0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0053A5D0",
      "length": 76,
@@ -48130,17 +47985,26 @@
      "va": "0x0053A620",
      "length": 127,
      "name": "?LEVEL_UpdateUnitsInAdjacentRooms@@YIXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2ClientStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Level.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0053A6A0",
      "length": 69,
      "name": "?LEVEL_FixRoomUnits@@YAXPAUD2ActiveRoomStrc@@PAUD2ClientStrc@@@Z"
+    },
+    {
+     "va": "0x0053A6F0",
+     "length": 119,
+     "name": "?LEVEL_FixAdjacentRoomUnits@@YIXPAUD2ActiveRoomStrc@@PAUD2ClientStrc@@@Z"
+    },
+    {
+     "va": "0x0053A770",
+     "length": 169,
+     "name": "LEVEL_RemoveUnitsExceptClientPlayer"
+    },
+    {
+     "va": "0x0053A820",
+     "length": 84,
+     "name": "LEVEL_FreeDrlgDeletes"
     },
     {
      "va": "0x0053A880",
@@ -48172,6 +48036,21 @@
      "name": "LEVEL_ClearRoomUnitTargets"
     },
     {
+     "va": "0x0053AB10",
+     "length": 101,
+     "name": "?LEVEL_ClearAdjacentRoomUnitTargets@@YIXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0053AB80",
+     "length": 93,
+     "name": "LEVEL_RemoveClientFromAdjacentRooms"
+    },
+    {
+     "va": "0x0053ABE0",
+     "length": 130,
+     "name": "LEVEL_SynchronizeDayNightCycleWithClient"
+    },
+    {
      "va": "0x0053AC70",
      "length": 72,
      "name": "?LEVEL_AllocAct@@YAXPAUD2GameStrc@@E@Z"
@@ -48195,6 +48074,16 @@
      "va": "0x0053AFD0",
      "length": 44,
      "name": "?LEVEL_RemoveAllUnits@@YIXPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x0053B000",
+     "length": 133,
+     "name": "LEVEL_UpdateQueuedUnitsInAllActs"
+    },
+    {
+     "va": "0x0053B090",
+     "length": 77,
+     "name": "?sub_0053B090_CountActRooms@@YIHPAUD2GameStrc@@E@Z"
     }
    ]
   },
@@ -48202,11 +48091,6 @@
    "file": "Source/D2Game/Unknown_0053AFD0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0053B090",
-     "length": 77,
-     "name": "?sub_0053B090_CountActRooms@@YIHPAUD2GameStrc@@E@Z"
-    },
     {
      "va": "0x0053B0E0",
      "length": 94,
@@ -51852,24 +51736,23 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005641C0.cpp",
+   "file": "Source/D2Game/GAME/Task.cpp",
    "rank": 0,
    "functions": [
     {
      "va": "0x005641C0",
      "length": 6,
      "name": "?sub_005641C0_Init@@YIXPAUD2LinkStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Task.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x005641D0",
      "length": 9,
      "name": "?TASK_LinkList_IsEmpty@@YIHPAUD2LinkStrc@@@Z"
+    },
+    {
+     "va": "0x005641E0",
+     "length": 3,
+     "name": "?sub_005641E0_Identity@@YIPAUD2LinkStrc@@PAUD2IdentityView@@@Z"
     },
     {
      "va": "0x005641F0",
@@ -51981,17 +51864,6 @@
     {
      "va": "0x005645E0",
      "length": 651
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005641E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005641E0",
-     "length": 3,
-     "name": "?sub_005641E0_Identity@@YIPAUD2LinkStrc@@PAUD2IdentityView@@@Z"
     }
    ]
   },
@@ -53046,21 +52918,6 @@
      "length": 916
     },
     {
-     "va": "0x00572360",
-     "length": 92,
-     "name": "PLRINTRO_SetQuestIntroFlag"
-    },
-    {
-     "va": "0x005723C0",
-     "length": 92,
-     "name": "PLRINTRO_GetQuestIntroFlag"
-    },
-    {
-     "va": "0x005724C0",
-     "length": 94,
-     "name": "PLRINTRO_MaskNpcIntroFlag"
-    },
-    {
      "va": "0x00573750",
      "length": 42,
      "name": "MONSTER_ClearTargetIfMatches"
@@ -53113,20 +52970,24 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00572330.cpp",
+   "file": "Source/D2Game/PLAYER/PlrIntro.cpp",
    "rank": 0,
    "functions": [
     {
      "va": "0x00572330",
      "length": 43,
      "name": "?sub_00572330_GetNpcIndex@@YIHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrIntro.cpp",
-   "rank": 0,
-   "functions": [
+    },
+    {
+     "va": "0x00572360",
+     "length": 92,
+     "name": "PLRINTRO_SetQuestIntroFlag"
+    },
+    {
+     "va": "0x005723C0",
+     "length": 92,
+     "name": "PLRINTRO_GetQuestIntroFlag"
+    },
     {
      "va": "0x00572420",
      "length": 69,
@@ -53136,6 +52997,11 @@
      "va": "0x00572470",
      "length": 69,
      "name": "?PLRINTRO_GetNpcIntroFlag@@YIHPAUD2PlrIntroStrc@@H@Z"
+    },
+    {
+     "va": "0x005724C0",
+     "length": 94,
+     "name": "PLRINTRO_MaskNpcIntroFlag"
     },
     {
      "va": "0x00572520",
@@ -54737,6 +54603,11 @@
      "name": "?PLRMODE_EndAnimation@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005811D0",
+     "length": 80,
+     "name": "?sub_005811D0_CheckPlayerMode@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x00581220",
      "length": 38,
      "name": "?D2GAME_EVENTS_Callback_6FC81BD0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HHH@Z"
@@ -54749,14 +54620,9 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005811D0.cpp",
+   "file": "Source/D2Game/Unknown_00581250.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x005811D0",
-     "length": 80,
-     "name": "?sub_005811D0_CheckPlayerMode@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
     {
      "va": "0x00581250",
      "length": 436

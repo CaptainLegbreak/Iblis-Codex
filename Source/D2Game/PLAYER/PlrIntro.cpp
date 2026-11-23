@@ -1,20 +1,14 @@
 #include "D2Game.h"
 #include "D2GameStrc.h"
 #include "D2Primitives.h"
+#include "D2GameAux.h"
+#include "D2UnitData.h"
 
 #pragma intrinsic(memcpy)
 
 struct D2BitBufferStrc;
-struct D2PlrIntroStrc;
 struct D2NpcIndexMapStrc;
 struct D2GameStrc;
-
-
-struct D2PlrIntroStrc
-{
-    D2BitBufferStrc* pQuestIntroFlags;
-    D2BitBufferStrc* pNpcIntroFlags;
-};
 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
@@ -22,11 +16,14 @@ extern D2NpcIndexMapStrc gaPlrIntroNpcIndexMap[]; // 0x00732738
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void __stdcall sub_00410B10(unsigned char* pBitBuffer, int nBit); // 0x00410B10
 int __stdcall sub_00410B30(unsigned char* pBitBuffer, int nBit); // 0x00410B30
+void __stdcall sub_00410B50(unsigned char* pBitBuffer, int nBit); // 0x00410B50
+D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBitStream, int nSize); // 0x00410E40
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
-static int PLRINTRO_GetNpcIndex(int nNpcId)
+// 0x00572330
+int __fastcall sub_00572330_GetNpcIndex(int nNpcId)
 {
     for (int i = 0; i < gnPlrIntroNpcIndexMapCount; ++i)
     {
@@ -39,16 +36,37 @@ static int PLRINTRO_GetNpcIndex(int nNpcId)
     return 0;
 }
 
+// 0x00572360
+void __fastcall PLRINTRO_SetQuestIntroFlag(D2UnitStrc* pUnit, D2GameStrc* pGame, int nNpcId)
+{
+    D2PlrIntroStrc* pPlayerIntro = UNITS_GetPlayerData(pUnit)->pPlayerIntro[pGame->nDifficulty];
+    sub_00410B10(pPlayerIntro->pQuestIntroFlags->pBuffer, sub_00572330_GetNpcIndex(nNpcId));
+}
+
+// 0x005723C0
+int __fastcall PLRINTRO_GetQuestIntroFlag(D2UnitStrc* pUnit, D2GameStrc* pGame, int nNpcId)
+{
+    D2PlrIntroStrc* pPlayerIntro = UNITS_GetPlayerData(pUnit)->pPlayerIntro[pGame->nDifficulty];
+    return sub_00410B30(pPlayerIntro->pQuestIntroFlags->pBuffer, sub_00572330_GetNpcIndex(nNpcId));
+}
+
 // 0x00572420
 void __fastcall PLRINTRO_SetNpcIntroFlag(D2PlrIntroStrc* pPlayerIntro, int nNpcId)
 {
-    sub_00410B10(pPlayerIntro->pNpcIntroFlags->pBuffer, PLRINTRO_GetNpcIndex(nNpcId));
+    sub_00410B10(pPlayerIntro->pNpcIntroFlags->pBuffer, sub_00572330_GetNpcIndex(nNpcId));
 }
 
 // 0x00572470
 int __fastcall PLRINTRO_GetNpcIntroFlag(D2PlrIntroStrc* pPlayerIntro, int nNpcId)
 {
-    return sub_00410B30(pPlayerIntro->pNpcIntroFlags->pBuffer, PLRINTRO_GetNpcIndex(nNpcId));
+    return sub_00410B30(pPlayerIntro->pNpcIntroFlags->pBuffer, sub_00572330_GetNpcIndex(nNpcId));
+}
+
+// 0x005724C0
+void __fastcall PLRINTRO_MaskNpcIntroFlag(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nNpcId)
+{
+    D2PlrIntroStrc* pPlayerIntro = UNITS_GetPlayerData(pPlayer)->pPlayerIntro[pGame->nDifficulty];
+    sub_00410B50(pPlayerIntro->pNpcIntroFlags->pBuffer, sub_00572330_GetNpcIndex(nNpcId));
 }
 
 struct Pair00572520 { unsigned int dwFirst; unsigned int dwSecond; };

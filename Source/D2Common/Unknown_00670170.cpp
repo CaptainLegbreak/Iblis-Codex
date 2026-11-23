@@ -7,21 +7,6 @@
 #include "D2TxtTables.h"
 
 
-
-
-
-
-struct D2DrlgDrlgStrc
-{
-    char unk0x000[0x464];
-    void* hArchive;
-    char unk0x468[0x10];
-    void* pMemPool;
-};
-
-
-
-
 struct D2UnkOutdoorStrc2
 {
     D2DrlgRoomStrc* pDrlgRoom;

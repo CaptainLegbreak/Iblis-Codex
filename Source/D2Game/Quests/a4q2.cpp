@@ -12,6 +12,7 @@
 #include "D2GameObjs.h"
 #include "D2DataTbls.h"
 #include "D2ObjModes.h"
+#include "D2Packets.h"
 
 #define QUEST_A4Q2_DIABLO 23
 
@@ -43,7 +44,6 @@ struct D2Act3Quest5Strc;
 
 struct D2Act3Quest6Strc;
 
-struct D2GSPacketSrv5D;
 
 struct D2ObjInitFnStrc;
 
@@ -89,14 +89,6 @@ D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
-struct D2GSPacketSrv5D
-{
-    unsigned char nHeader;
-    unsigned char nQuestId;
-    unsigned char nFlags;
-    unsigned char nState;
-    unsigned short field_4;
-};
 
 void __fastcall LEVEL_WarpUnit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nDestinationLevelId, int nTileCalc); // 0x0053AEC0
 
@@ -214,12 +206,6 @@ void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nSoundId, D2UnitStrc* p
 
 void __fastcall PLAYER_CloseInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005351C0
 
-struct D2GSPacketSrv50
-{
-    unsigned char nHeader;
-    unsigned char nQuestId[2];
-    unsigned char data[0x0C];
-};
 
 void __fastcall D2GAME_SendPacket0x50_6FC3F440(D2ClientStrc* pClient, D2GSPacketSrv50* pPacket); // 0x0053D7E0
 
@@ -473,7 +459,7 @@ int __fastcall ACT4Q2_UnitIterate_WarpToTownEndGame(D2GameStrc* pGame, D2UnitStr
     {
         D2GSPacketSrv50 packet50;
         packet50.nHeader = 0x50;
-        *(unsigned short*)packet50.nQuestId = 23;
+        packet50.nQuestId = 23;
         D2GAME_SendPacket0x50_6FC3F440(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q2.cpp", 474), &packet50);
     }
 

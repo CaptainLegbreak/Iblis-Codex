@@ -9,18 +9,8 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2QuestData.h"
+#include "D2DataTbls.h"
 
-
-
-
-
-
-
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB36];
-    unsigned short wAncientSuperUniqueIds[3];
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
@@ -132,17 +122,17 @@ void __fastcall ACT5Q5_SpawnAncientMonsters(D2QuestDataStrc* pQuestData, D2UnitS
     {
     case OBJECT_ANCIENTSTATUE3:
         nIndex = 1;
-        nMonsterId = sgptDataTables->wAncientSuperUniqueIds[2];
+        nMonsterId = sgptDataTables->nSuperUniqueIds[45];
         break;
 
     case OBJECT_ANCIENTSTATUE1:
         nIndex = 0;
-        nMonsterId = sgptDataTables->wAncientSuperUniqueIds[0];
+        nMonsterId = sgptDataTables->nSuperUniqueIds[43];
         break;
 
     case OBJECT_ANCIENTSTATUE2:
         nIndex = 0x02;
-        nMonsterId = sgptDataTables->wAncientSuperUniqueIds[1];
+        nMonsterId = sgptDataTables->nSuperUniqueIds[44];
         break;
 
     default:

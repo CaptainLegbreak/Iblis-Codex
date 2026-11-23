@@ -2,32 +2,11 @@
 #include "D2Structs.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
+#include "D2DrlgRooms.h"
 
 typedef int BOOL;
 
 struct D2DrlgStrc;
-
-struct D2DrlgOutRectStrc
-{
-    int nX;
-    int nY;
-    int unk0x08;
-    unsigned char nFlags;
-    char pad0x0D[3];
-    D2DrlgOutRectStrc* pBounds;
-};
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nPickedFile, int a6); // 0x006743C0
@@ -70,9 +49,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nLevelPrestId, int nRand, int nOffset, char nFlags); // 0x00674730
 
 int __fastcall DRLGOUTDOORS_SpawnRandomOutdoorDS1(D2DrlgLevelStrc* pLevel, int nLvlPrestId, int nRand);       // 0x00674920
-
-
-
 
 
 static inline unsigned int SEED_RollRandomNumber_Wild(D2SeedStrc* pSeed)

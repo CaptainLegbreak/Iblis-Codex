@@ -8,6 +8,7 @@
 #include "D2UnitData.h"
 #include "D2QuestData.h"
 #include "D2GameObjs.h"
+#include "D2Packets.h"
 
 struct Flags;
 
@@ -71,7 +72,6 @@ struct D2PlayerDataStrc;
 
 struct D2Act5Quest6Strc;
 
-struct D2GSPacketSrv50;
 
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
 
@@ -84,18 +84,6 @@ void __fastcall CLIENTS_UpdateCharacterProgression(D2ClientStrc* pClient, int nA
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
-
-#pragma pack(push, 1)
-
-struct D2GSPacketSrv50
-{
-    unsigned char nHeader;
-    unsigned short nQuestId;
-    unsigned short nZooMonsterId;
-    unsigned char unk0x05[0x0A];
-};
-
-#pragma pack(pop)
 
 typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
@@ -213,14 +201,6 @@ int __fastcall ACT5Q6_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2Uni
 
 #define QFLAG_CUSTOM6 10
 
-struct D2GSPacketSrv5D
-{
-    unsigned char nHeader;
-    unsigned char nQuestId;
-    unsigned char nFlags;
-    unsigned char nState;
-    unsigned short field_4;
-};
 
 void __fastcall SCMD_SendPacket0x5D(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
 
@@ -352,7 +332,7 @@ static void ACT5Q6_SendZooMonsterId(D2GameStrc* pGame, D2UnitStrc* pUnit)
     D2GSPacketSrv50 packet50;
     packet50.nHeader = 0x50;
     packet50.nQuestId = QUEST_A5Q6_BAAL;
-    packet50.nZooMonsterId = ((D2Act5Quest6Strc*)QUESTS_GetQuestData(pGame, QUEST_A5Q6_BAAL)->pQuestDataEx)->nZooMonsterId;
+    packet50.nParams[0] = ((D2Act5Quest6Strc*)QUESTS_GetQuestData(pGame, QUEST_A5Q6_BAAL)->pQuestDataEx)->nZooMonsterId;
     D2GAME_SendPacket0x50_6FC3F440(pClient, &packet50);
 }
 

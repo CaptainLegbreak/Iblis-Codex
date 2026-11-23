@@ -16,6 +16,7 @@
 #include "D2Drlg.h"
 #include "D2MonModes.h"
 #include "D2PlayerModes.h"
+#include "D2GameAux.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
@@ -468,7 +469,6 @@ struct D2StatListStrc;
 struct D2SkillStrc;
 
 
-
 extern "C" const char gszMonsterModeSourceFile[];                                                  // 0x006E23B0
 
 int __stdcall UNITS_IsAtEndOfFrameCycle(D2UnitStrc* pUnit);                                                              // 0x006217C0
@@ -527,7 +527,6 @@ static inline int MONSTERMODE_IsActionFrame(D2UnitStrc* pUnit);
 
 struct D2MissilesTxt;
 
-struct D2MissileUnitFindArgStrc;
 
 extern unsigned char gbModeReset[]; // 0x0073C6D0
 
@@ -537,13 +536,6 @@ extern ModeCallback gpfnMonsterEventCallbacks; // 0x006E2498
 
 void __stdcall UNITS_ChangeAnimMode(D2UnitStrc*, int); // 0x00624690
 
-struct D2MissileUnitFindArgStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pMissile;
-    D2UnitStrc* pOwner;
-    D2MissilesTxt* pMissilesTxtRecord;
-};
 
 int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
 

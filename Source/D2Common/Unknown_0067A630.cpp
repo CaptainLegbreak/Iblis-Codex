@@ -1,7 +1,6 @@
 #include "D2Common.h"
 #include "D2Path.h"
-
-
+#include "D2PathFind.h"
 
 
 struct D2DrlgCoordsStrc
@@ -13,7 +12,6 @@ struct D2DrlgCoordsStrc
 
     int PATH_IdaStar_ComputePathWithRooms(struct D2PathInfoStrc* pPathInfo);
 };
-
 
 
 struct D2PathInfoStrc
@@ -33,18 +31,6 @@ struct D2PathInfoStrc
     D2DynamicPathStrc* pDynamicPath;
 };
 
-struct D2PathIDAStarNodeStrc
-{
-    unsigned short nFScore;
-    unsigned short nHeuristicDistanceToTarget;
-    unsigned short nBestDistanceFromStart;
-    short nEvaluationsCount;
-    D2PathPointStrc tCoord;
-    const int* pNeighborsSequence;
-    int nNextNeighborIndex;
-    D2PathIDAStarNodeStrc* pParent;
-    D2PathIDAStarNodeStrc* pBestChild;
-};
 
 struct D2PathIDAStarContextStrc
 {

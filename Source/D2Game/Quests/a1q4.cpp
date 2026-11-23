@@ -13,6 +13,7 @@
 #include "D2Drlg.h"
 #include "D2QuestData.h"
 #include "D2GameObjs.h"
+#include "D2Packets.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -60,7 +61,6 @@ struct D2Act3Quest5Strc;
 
 struct D2Act5Quest2Strc;
 
-struct D2GSPacketSrv50;
 
 typedef bool(__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuestData);
 
@@ -195,18 +195,6 @@ int __fastcall ACT1Q4_UnitIterate_AddPlayerGUIDs(D2GameStrc* pGame, D2UnitStrc* 
 void __fastcall ACT1Q4_Callback09_PlayerDroppedWithQuestItem(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00592C80
 
 bool __fastcall ACT1Q4_Timer_RemoveCainFromTristram(D2GameStrc* pGame, D2QuestDataStrc* pQuestData); // 0x00593260
-
-#pragma pack(push, 1)
-
-struct D2GSPacketSrv50
-{
-    unsigned char nHeader;
-    unsigned short nQuestId;
-    unsigned short nStoneOrder[5];
-    unsigned char unk0x0D[3];
-};
-
-#pragma pack(pop)
 
 extern const char gszAct1Q4SourceFile[]; // 0x006E1C48
 
@@ -356,14 +344,6 @@ void __fastcall ACT1Q4_UpdateQuestStateOnActChange(D2GameStrc* pGame, D2UnitStrc
 
 int __fastcall OBJECTS_OperateFunction12_InifussTree(D2ObjOperateFnStrc* pOp, int nOperate);
 
-struct D2GSPacketSrv5D
-{
-    unsigned char nHeader;
-    unsigned char nQuestId;
-    unsigned char nFlags;
-    unsigned char nState;
-    unsigned short field_4;
-};
 
 void __fastcall SCMD_SendPacket0x5D(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
 
@@ -1690,8 +1670,8 @@ void __fastcall ACT1Q4_SendStoneOrderToClient(D2GameStrc* pGame, D2UnitStrc* pUn
         {
             do
             {
-                packet.nStoneOrder[i] = pQuestDataEx->nStoneOrder[i] - 17;
-                if (packet.nStoneOrder[i] >= 5)
+                packet.nParams[i] = pQuestDataEx->nStoneOrder[i] - 17;
+                if (packet.nParams[i] >= 5)
                 {
                     sub_00408A60(&gszEmptyAssertText, sub_00408090(), 2175);
                     exit(-1);

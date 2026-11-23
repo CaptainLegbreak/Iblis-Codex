@@ -36,7 +36,6 @@ struct D2MonsterDataStrc;
 
 struct D2CurseStrc;
 
-struct D2EffectStrc;
 
 struct D2UnitFindArgStrc;
 
@@ -63,18 +62,6 @@ struct D2MonsterItemCodeStrc;
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 
-struct D2EffectStrc
-{
-    unsigned int nFlags;
-    D2UnitStrc* pUnit;
-    int nSkillId;
-    int nX;
-    int nY;
-    int nParam;
-    int nSkillLevel;
-    int unk0x1C;
-    void* pfAreaEffect;
-};
 
 struct D2SrvDo51Strc
 {

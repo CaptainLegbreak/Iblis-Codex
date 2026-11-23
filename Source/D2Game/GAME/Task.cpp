@@ -111,10 +111,28 @@ struct D2TaskGameStrc
 
 
 
+// 0x005641C0
+void __fastcall sub_005641C0_Init(D2LinkStrc* list)
+{
+    list->pPrev = list;
+    list->pNext = list;
+}
+
 // 0x005641D0
 int __fastcall TASK_LinkList_IsEmpty(D2LinkStrc* pList)
 {
     return pList->pNext == pList;
+}
+
+struct D2IdentityView
+{
+    D2LinkStrc link;
+};
+
+// 0x005641E0
+D2LinkStrc* __fastcall sub_005641E0_Identity(D2IdentityView* value)
+{
+    return &value->link;
 }
 
 // 0x005641F0

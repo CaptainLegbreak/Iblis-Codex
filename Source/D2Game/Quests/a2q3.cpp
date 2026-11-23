@@ -8,6 +8,7 @@
 #include "D2QuestData.h"
 #include "D2Path.h"
 #include "D2GameObjs.h"
+#include "D2Packets.h"
 
 #define QUEST_A1Q4_CAIN 4
 
@@ -49,9 +50,6 @@ union D2SeedStrc;
 
 struct D2ObjInitFnStrc;
 
-struct D2GSPacketSrv53;
-
-struct D2GSPacketSrv5D;
 
 struct D2QuestGUIDStrc;
 
@@ -70,27 +68,6 @@ struct D2Act2Quest2Strc;
 struct D2Act2Quest3Strc;
 
 struct D2PlayerDataStrc;
-
-#pragma pack(push, 1)
-
-struct D2GSPacketSrv53
-{
-    unsigned char nHeader;
-    int nIndex;
-    int nTicks;
-    unsigned char bEclipse;
-};
-
-struct D2GSPacketSrv5D
-{
-    unsigned char nHeader;
-    unsigned char nQuestId;
-    unsigned char nFlags;
-    unsigned char nState;
-    unsigned short field_4;
-};
-
-#pragma pack(pop)
 
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
@@ -706,9 +683,9 @@ int __fastcall ACT2Q3_UnitIterate_UpdateClient(D2GameStrc* pGame, D2UnitStrc* pU
     {
         D2GSPacketSrv53 packet53;
         packet53.nHeader = 0x53;
-        packet53.nIndex = 5;
+        packet53.nCycleIndex = 5;
         packet53.nTicks = 0;
-        packet53.bEclipse = 1;
+        packet53.nEclipse = 1;
         D2GAME_SendPacket0x53_6FC3DF50(pClient, &packet53);
 
         D2GSPacketSrv5D packet5D;
@@ -730,9 +707,9 @@ int __fastcall ACT2Q3_UnitIterate_SendPacket0x53ToClient(D2GameStrc* pGame, D2Un
     {
         D2GSPacketSrv53 packet53;
         packet53.nHeader = 0x53;
-        packet53.nIndex = 2;
+        packet53.nCycleIndex = 2;
         packet53.nTicks = 0;
-        packet53.bEclipse = 0;
+        packet53.nEclipse = 0;
         D2GAME_SendPacket0x53_6FC3DF50(pClient, &packet53);
     }
 

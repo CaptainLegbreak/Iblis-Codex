@@ -19,6 +19,7 @@
 #include "D2ItemModes.h"
 
 #include "D2TxtTables.h"
+#include "D2GameServer.h"
 struct D2MapAIStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -87,7 +88,6 @@ struct D2MonsterDataStrc;
 
 struct D2MonStatsTxt;
 
-struct D2AiTableStrc;
 
 struct D2PresetUnitStrc;
 
@@ -324,13 +324,6 @@ void __fastcall SUNITMSG_SendRemoveObject(D2UnitStrc* pUnit, D2ClientStrc* pClie
 
 void __stdcall PATH_SetCurrentRoomInvalid(D2DynamicPathStrc* pPath, int bValue); // 0x00648B40
 
-struct D2AiTableStrc
-{
-    int unk0x00;
-    void* unk0x04;
-    void* pAiParamFn;
-    void* unk0x0C;
-};
 
 void __fastcall SUNIT_SynchronizeRoomClients(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x00554670
 
@@ -506,7 +499,6 @@ struct D2UnitStrc;
 
 struct D2AnimDataRecordStrc;
 
-struct D2UnitInfoStrc;
 
 void __fastcall MONSTERAI_RemoveInteractInfoFor(D2GameStrc* pGame, D2UnitStrc* pMonster, D2MonsterInteractStrc* pMonInteract); // 0x00572E00
 
@@ -518,19 +510,6 @@ void __stdcall D2Common_10228(D2UnitStrc* pUnit); // 0x00649F50
 
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit); // 0x0064C370
 
-struct D2UnitInfoStrc
-{
-    int nUnitType;
-    int nClassId;
-    int nUnitGUID;
-    int nAnimMode;
-    int nX;
-    int nY;
-    int nOwnerType;
-    int nOwnerGUID;
-    int unk0x20;
-    char szDescription[16];
-};
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 

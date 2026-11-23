@@ -9,7 +9,6 @@
 #include "D2Txt.h"
 
 struct D2TargetNodeStrc;
-struct D2MonsterSpawnParamsStrc;
 struct D2MonStatsTxt;
 struct D2ItemsTxt;
 struct D2MonsterItemCodeStrc;
@@ -17,15 +16,6 @@ struct D2UnkMonCreateStrc;
 
 void __fastcall D2GAME_FreeUnitNode_6FC40310(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005B1A20
 D2TargetNodeStrc* __fastcall sub_005B1BC0_FindTargetNode(D2UnitStrc* pUnit, D2GameStrc* pGame); // 0x005B1BC0
-
-struct D2MonsterSpawnParamsStrc
-{
-    D2GameStrc* pGame;
-    void* pRoom;
-    void* pRoomCoordList;
-    int nMonsterId;
-};
-
 
 
 struct D2MonsterItemCodeStrc

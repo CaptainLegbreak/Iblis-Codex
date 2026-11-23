@@ -6,6 +6,8 @@
 #include "D2DrlgTiles.h"
 #include "D2Path.h"
 #include "D2Win32Types.h"
+#include "D2Skills.h"
+#include "D2TxtTables.h"
 
 struct D2DrlgRoomStrc;
 
@@ -31,7 +33,6 @@ struct D2GameStrc;
 
 struct D2DrlgStrc;
 
-struct D2DrlgEnvironmentStrc;
 
 struct D2DrlgActStrc;
 
@@ -65,13 +66,11 @@ struct D2Act00619DA0Strc;
 
 struct Obj00619EE0;
 
-struct D2ItemCalcStrc;
 
 struct D2SkillCalcStrc;
 
 struct Unicode;
 
-struct D2UniqueNameTxt;
 
 struct Room;
 
@@ -241,21 +240,12 @@ unsigned char __fastcall DRLGACTIVATE_GetRoomStatusFlags(D2DrlgRoomStrc*); // 0x
 
 void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 
-struct D2ItemCalcStrc
-{
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pItem;
-};
 
 struct D2SkillCalcStrc
 {
     D2UnitStrc* pUnit;
 };
 
-struct D2UniqueNameTxt
-{
-    unsigned short wStringId;
-};
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
@@ -325,26 +315,6 @@ int gnUniqueNameTxtRecordCounts[4]; // 0x0096D498
 
 Unicode gwszDataTablesDefault; // 0x0096D4B4
 
-struct D2DrlgEnvironmentStrc
-{
-    int nCycleIndex;
-    int nPeriodOfDay;
-    int nTicks;
-    int nIntensity;
-    unsigned int dwInitTick;
-    int unk0x14;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char pad0x1B;
-    float fCos;
-    float fLast;
-    float fSin;
-    int nTimeRate;
-    int nTimeRateIndex;
-    int bEclipse;
-    int nPrev;
-};
 
 D2DrlgEnvironmentStrc* __fastcall DUNGEON_GetEnvironmentFromAct(D2DrlgActStrc* pAct);                       // 0x0061AA60
 

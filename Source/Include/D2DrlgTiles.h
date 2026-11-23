@@ -86,3 +86,22 @@ D2_CHECK_SIZE(D2RoomTileStrc, 0x18);
 D2_CHECK_SIZE(D2DrlgRoomTilesStrc, 0x18);
 D2_CHECK_SIZE(D2DrlgTileGridStrc, 0x2C);
 D2_CHECK_SIZE(D2LevelDefBin, 0x9C);
+
+struct D2DrlgAnimTileGridStrc
+{
+    D2DrlgTileDataStrc** ppMapTileData; // 0x00
+    int nFrames; // 0x04
+    int nCurrentFrame; // 0x08
+    int nAnimationSpeed; // 0x0C
+    D2DrlgAnimTileGridStrc* pNext; // 0x10
+};
+
+struct D2UnkDrlgRoomTileStrc
+{
+    int nLevelId; // 0x00
+    int nArrayStartId; // 0x04
+    int nArrayEndId; // 0x08
+};
+
+D2_CHECK_SIZE(D2DrlgAnimTileGridStrc, 0x14);
+D2_CHECK_SIZE(D2UnkDrlgRoomTileStrc, 0xC);

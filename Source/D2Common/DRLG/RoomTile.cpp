@@ -40,7 +40,6 @@ struct D2DrlgStrc;
 
 struct D2DrlgLevelStrc;
 
-struct D2DrlgAnimTileGridStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -103,14 +102,6 @@ void __fastcall DRLGPRESET_InitPresetRoomGrids(D2DrlgRoomStrc* pDrlgRoom); // 0x
 
 D2DrlgRoomStrc* __fastcall DUNGEON_GetRoomExFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061AAE0
 
-struct D2DrlgAnimTileGridStrc
-{
-    D2DrlgTileDataStrc** ppMapTileData;
-    int nFrames;
-    int nCurrentFrame;
-    int nAnimationSpeed;
-    D2DrlgAnimTileGridStrc* pNext;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -136,12 +127,6 @@ static void DRLGROOMTILE_ResetRoomTileSelections(D2DrlgRoomStrc* pDrlgRoom);
 
 #define SEQ_SHIFT 8
 
-struct D2UnkDrlgRoomTileStrc
-{
-    int nLevelId;
-    int nArrayStartId;
-    int nArrayEndId;
-};
 
 extern const D2UnkDrlgRoomTileStrc gaDrlgRoomTileLevelRanges[RANGE_COUNT];                                  // 0x006EEFC8
 

@@ -147,3 +147,10 @@ D2_CHECK_SIZE(D2ItemTypesTxt, 0xE4);
 D2_CHECK_SIZE(D2BooksTxt, 0x20);
 D2_CHECK_SIZE(D2OverlayTxt, 0x84);
 D2_CHECK_SIZE(D2MonUModTxt, 0x20);
+
+struct D2UniqueNameTxt
+{
+    unsigned short wStringId; // 0x00
+};
+
+D2_CHECK_SIZE(D2UniqueNameTxt, 0x2);

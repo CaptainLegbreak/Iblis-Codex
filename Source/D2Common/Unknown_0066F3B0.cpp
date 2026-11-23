@@ -14,7 +14,6 @@ struct D2UnkOutdoorStrc;
 union D2SeedStrc;
 struct D2DrlgOutdoorInfoStrc;
 struct D2CoordStrc;
-struct D2DrlgDrlgStrc;
 struct D2DrlgOutdoorRoomStrc;
 struct D2UnkOutdoorStrc2;
 
@@ -37,11 +36,6 @@ int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 
 void __stdcall DRLGTILESUB_ReplaceSubPreset(int nX, int nY, D2UnkOutdoorStrc* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord, int nOffset); // 0x0066F520
 static int __stdcall DRLGTILESUB_TestReplaceSubPreset(int nX, int nY, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord, D2UnkOutdoorStrc* pOutdoor); // 0x0066F3B0
 
-struct D2DrlgDrlgStrc
-{
-    char pad_00[1124];
-    void* hArchive;
-};
 
 extern int __fastcall sub_0045C3E0_RollLimited(D2SeedStrc* pSeed, int nLimit); // 0x0045C3E0
 extern D2LvlSubTxt* __fastcall DATATBLS_GetLvlSubTxtRecord(int nId); // 0x0061FA90

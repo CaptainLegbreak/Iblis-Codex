@@ -243,20 +243,6 @@ void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int
 
 static void SUNITPROXY_InitializeItemCache(D2GameStrc* pGame, D2UnitProxyStrc* pUnitProxy, int nNpcInventoryId);
 
-struct D2NpcConfigStrc
-{
-    int nClassId;
-    unsigned char bTrader;
-    unsigned char nAct;
-    unsigned char unknown06;
-    unsigned char unknown07;
-};
-
-struct D2NpcConfigTableStrc
-{
-    int nCount;
-    D2NpcConfigStrc entries[64];
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 

@@ -34,7 +34,6 @@ struct D2InactiveUnitListStrc;
 
 struct D2DrlgCoordsStrc;
 
-struct D2InactiveItemBufferStrc;
 
 union D2SeedStrc;
 
@@ -90,14 +89,6 @@ int __stdcall INVENTORY_PlaceItemInSocket(D2InventoryStrc* pInventory, D2UnitStr
 
 void __fastcall D2GAME_ITEMS_UpdateStatList_6FC4BC00(D2GameStrc* pGame, D2UnitStrc* pSocketable, D2UnitStrc* pItem); // 0x0055FE60
 
-struct D2InactiveItemBufferStrc
-{
-    D2InactiveItemNodeStrc* pNext;
-    int nFrame;
-    int nOwnerId;
-    unsigned short nBitstreamSize;
-    unsigned char pBitstream[0x400];
-};
 
 int __stdcall ITEMS_SerializeItemToBitstream(D2UnitStrc* pItem, unsigned char* pBitstream, int nSize, int bServer, int bSaveItemInv, int bGamble); // 0x006313E0
 
