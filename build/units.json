@@ -80795,6 +80795,10 @@
      "length": 289
     },
     {
+     "va": "0x0067C890",
+     "length": 75
+    },
+    {
      "va": "0x0067C8E0",
      "length": 628,
      "name": "DRLGGRID_AlterFlagsAlongVertexLine"
@@ -80839,30 +80843,6 @@
      "length": 14,
      "name": "DRLGGRID_ResetGrid"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0067C890.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0067C890",
-     "length": 75
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
