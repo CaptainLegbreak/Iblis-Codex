@@ -101,7 +101,6 @@ int __stdcall TEXT_IsMouseInRect(int nX, int nY, int nWidth, int nHeight); // 0x
 void __cdecl ROSTER_SendLeaveParty(); // 0x00479FC0
 void __fastcall ROSTER_HandlePartyButton(D2StoredUnitRecordStrc* pEntry); // 0x00479EB0
 int __fastcall ROSTER_GetPartyFlags(D2StoredUnitRecordStrc* pEntry); // 0x00479D20
-D2ClientNotifyStrc* __cdecl GAME_GetClientNotify(); // 0x0044B7B0
 extern int gnScreenWidth; // 0x0071146C
 extern int gbRosterButtonDown; // 0x007BF030
 extern int gbRosterMode; // 0x007BF038

@@ -15,7 +15,7 @@ D2WinControlStrc* __stdcall CONTROL_Create(D2WinControlInitStrc* pControlInit); 
 void __fastcall CONTROL_SetEnabled(D2WinControlStrc* pControl, int nFlags);                     // 0x004F96F0
 const char* __stdcall D2Win_10161(int nA, int nB, int nC, int nD);                                         // 0x005068A0
 
-extern D2LaunchRecordStrc* gpCharInfo;                                                           // 0x0077BBD8
+extern D2ConfigStrc* gpCharInfo;                                                           // 0x0077BBD8
 extern D2WinControlStrc* gapChatDlgControls[17];                                                        // 0x0077B058
 extern D2WinControlStrc* gpCreateScreenButton;                                                               // 0x0077B070
 extern D2WinControlStrc* gpChatControl_0077B074;                                                            // 0x0077B074
@@ -95,7 +95,7 @@ void __cdecl sub_0043DDD0_CreateCharControls()
     }
     gpControl_0077BC40 = CONTROL_Create(&gtControlInit_0070D1E0);
 
-    D2LaunchRecordStrc* pInfo = gpCharInfo;
+    D2ConfigStrc* pInfo = gpCharInfo;
     Unicode wszClass[100];
     char szText[100];
     szText[0] = 0;

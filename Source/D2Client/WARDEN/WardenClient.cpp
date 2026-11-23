@@ -565,7 +565,6 @@ extern "C" int __cdecl atoi(const char* szString);                              
 
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 
-D2ClientNotifyStrc* __cdecl GAME_GetClientNotify();                                                       // 0x0044B7B0
 
 void __cdecl sub_00477C60_CheckCacheStats();                                                                // 0x00477C60
 

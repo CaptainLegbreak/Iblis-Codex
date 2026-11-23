@@ -91,7 +91,7 @@ extern D2WinControlStrc* gpChatDownButtonA;                                     
 extern D2WinControlStrc* gpChatUpButtonB;                                                            // 0x0077B08C
 extern D2WinControlStrc* gpChatDownButtonB;                                                            // 0x0077B090
 extern D2LaunchFuncsStrc* gpLaunchFuncs;                                                           // 0x0077B09C
-extern D2LaunchRecordStrc* gpCharInfo;                                                           // 0x0077BBD8
+extern D2ConfigStrc* gpCharInfo;                                                           // 0x0077BBD8
 extern unsigned short gwSavedRequestId;                                                            // 0x0077BBDC
 extern unsigned short gwOtherRequestId;                                                            // 0x0077BBE0
 extern int gnChatLaunchMode;                                                                           // 0x0077BBE4
@@ -179,7 +179,7 @@ static inline int LAUNCH_SetCallback_inl(int nUnused, D2LaunchCallback pfnCallba
 int __fastcall CHATDLG_SetupLogin(D2LaunchLoginStrc* pLogin, const char* szText0x37)
 {
     LAUNCH_SetCallback_inl(0, sub_0043DAF0_OnConnect);
-    strcpy(gpCharInfo->szText0x1F, pLogin->szText0x00);
+    strcpy(gpCharInfo->szGameName, pLogin->szText0x00);
     strcpy(gpCharInfo->szText0x245, pLogin->szText0x10);
     strcpy(gpCharInfo->szText0x25D, pLogin->szText0x20);
     gnChatLaunchMode = 1;
@@ -187,7 +187,7 @@ int __fastcall CHATDLG_SetupLogin(D2LaunchLoginStrc* pLogin, const char* szText0
     {
         if (sub_00449B30_QueryAddress())
         {
-            gpCharInfo->nState19 = 2;
+            gpCharInfo->dwGameType = 2;
             while (++*(unsigned short*)&gnRequestId_0070CD60 == 0)
             {
             }
@@ -200,8 +200,8 @@ int __fastcall CHATDLG_SetupLogin(D2LaunchLoginStrc* pLogin, const char* szText0
         CHATDLG_ShowWait(D2LANG_GetStringFromTblIndex(0x2B0C), sub_0043DAF0_OnConnect);
         return 0;
     }
-    gpCharInfo->nState19 = 6;
-    strcpy(gpCharInfo->szText0x37, szText0x37);
+    gpCharInfo->dwGameType = 6;
+    strcpy(gpCharInfo->szServerIP, szText0x37);
     gbDone = 1;
     sub_004F9160_SetLoopValue(0);
     D2Win_StopMessageLoop();

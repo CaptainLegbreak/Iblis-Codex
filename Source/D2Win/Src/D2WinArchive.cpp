@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2MultiTypes.h"
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
@@ -151,11 +152,6 @@ extern D2ArchiveHandleStrc* gpD2XTalkMPQ; // 0x007D5618
 extern D2ArchiveHandleStrc* gpD2MusicMPQ; // 0x007D5628
 extern D2ArchiveHandleStrc* gpD2XMusicMPQ; // 0x007D5604
 typedef int (__cdecl* DiscCallback)();
-#pragma pack(push, 1)
-
-struct D2ConfigStrc { char unk00[0x211]; int (__cdecl* expansion)(); };
-
-#pragma pack(pop)
 void __cdecl ARCHIVE_UnloadExpansionArchives(); // 0x004FAD70
 extern void* ghXMusicMpq; // 0x007D5604
 extern void* ghCharMpq; // 0x007D5610
@@ -291,7 +287,7 @@ int __fastcall ARCHIVE_LoadExpansionArchives(DiscCallback play,DiscCallback expa
     ghXVideoMpq=0;
     int bOk;
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
-    if (!(FOG_IsExpansion() && (!config || config->expansion()))) {
+    if (!(FOG_IsExpansion() && (!config || config->pfnAllowExpansion()))) {
         ghCharMpq=sub_00517332_LoadMpqFile("d2char.mpq",file,play,1000);
         ghMusicMpq=sub_00517332_LoadMpqFile("d2music.mpq",file,play,1000);
         ghXMusicMpq=0;

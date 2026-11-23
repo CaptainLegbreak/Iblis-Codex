@@ -193,7 +193,6 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 
 void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
-D2ClientNotifyStrc* __cdecl GAME_GetClientNotify(); // 0x0044B7B0
 
 void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
@@ -1488,7 +1487,6 @@ extern "C" const char gszRes640x292[]; // 0x006D421C
 
 extern int gnAuxLevelEntries; // 0x00721D94
 
-extern D2ConfigStrc* gpConfig_007A0438; // 0x007A0438
 
 char gbCinematicPlaying; // 0x007BC9D5
 
@@ -2264,7 +2262,7 @@ lMissing:
     }
 
     sub_004FAD70();
-    ARCHIVE_LoadExpansionArchives(sub_00460500_RunPopup, sub_004605A0_RunPopup, 0, gpConfig_007A0438);
+    ARCHIVE_LoadExpansionArchives(sub_00460500_RunPopup, sub_004605A0_RunPopup, 0, gpClientConfig);
     gbCinematicBusy = 0;
 }
 
