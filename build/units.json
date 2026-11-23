@@ -894,9 +894,44 @@
      "name": "FOG_DecompressPacket"
     },
     {
+     "va": "0x0040E870",
+     "length": 226,
+     "name": "ERRORMANAGER_MeasureCpuMHz"
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHa"
+   ]
+  },
+  {
+   "file": "Source/Fog/Src/Safesock.cpp",
+   "rank": 0,
+   "functions": [
+    {
      "va": "0x0040D890",
      "length": 57,
      "name": "FOG_SOCKET_WSAStartup"
+    },
+    {
+     "va": "0x0040D8E0",
+     "length": 747,
+     "name": "?FOG_SOCKET_ConnectEx@@YIPAUFSafeSock@@PADHP6GKPAX@Z1PBDH@Z"
+    },
+    {
+     "va": "0x0040DBD0",
+     "length": 144,
+     "name": "?FOG_SOCKET_Destroy@@YIXPAUFSafeSock@@@Z"
     },
     {
      "va": "0x0040DD80",
@@ -937,26 +972,7 @@
      "va": "0x0040E200",
      "length": 33,
      "name": "FOG_SOCKET_SetBlocking"
-    },
-    {
-     "va": "0x0040E870",
-     "length": 226,
-     "name": "ERRORMANAGER_MeasureCpuMHz"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHa"
    ]
   },
   {
@@ -3889,22 +3905,6 @@
     {
      "va": "0x0040D7D0",
      "length": 162
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/Safesock.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0040D8E0",
-     "length": 747,
-     "name": "?FOG_SOCKET_ConnectEx@@YIPAUFSafeSock@@PADHP6GKPAX@Z1PBDH@Z"
-    },
-    {
-     "va": "0x0040DBD0",
-     "length": 144,
-     "name": "?FOG_SOCKET_Destroy@@YIXPAUFSafeSock@@@Z"
     }
    ]
   },
