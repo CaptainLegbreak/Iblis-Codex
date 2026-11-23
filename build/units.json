@@ -18190,6 +18190,33 @@
      "name": "?GFX_RemoveAiTargetUnit@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0046C770",
+     "length": 94,
+     "name": "?sub_0046C770_CommandOnUnit@@YGXHHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x0046C960",
+     "length": 254,
+     "name": "?sub_0046C960_StepRandom@@YGXEHHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046CE40",
+     "length": 552
+    },
+    {
+     "va": "0x0046D110",
+     "length": 363
+    },
+    {
+     "va": "0x0046D450",
+     "length": 524,
+     "name": "?sub_0046D450_AiType8@@YAXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046D780",
+     "length": 563
+    },
+    {
      "va": "0x0046DB30",
      "length": 89
     },
@@ -18410,6 +18437,34 @@
      "va": "0x00471BD0",
      "length": 740,
      "name": "?GFX_DrawUnitHealthBar@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004723F0",
+     "length": 6,
+     "name": "?sub_004723F0_GetPhase@@YAHXZ"
+    },
+    {
+     "va": "0x00472400",
+     "length": 301
+    },
+    {
+     "va": "0x00472530",
+     "length": 20,
+     "name": "?sub_00472530_SetPhaseActive@@YAXH@Z"
+    },
+    {
+     "va": "0x00472550",
+     "length": 57,
+     "name": "?sub_00472550_ResetWeather@@YAXXZ"
+    },
+    {
+     "va": "0x004732C0",
+     "length": 429
+    },
+    {
+     "va": "0x00473A70",
+     "length": 391,
+     "name": "?sub_00473A70@@YIXPAUD2WeatherStrc@@PAUD2WeatherLayerStateStrc@@@Z"
     },
     {
      "va": "0x00473E50",
@@ -20728,17 +20783,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_0046C770.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0046C770",
-     "length": 94,
-     "name": "?sub_0046C770_CommandOnUnit@@YGXHHPAUD2UnitStrc@@0@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_0046C7D0.cpp",
    "rank": 0,
    "functions": [
@@ -20802,86 +20846,6 @@
      "length": 226,
      "name": "?sub_0046D660_AiFlagged@@YAXPAUD2UnitStrc@@0@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0046C960.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0046C960",
-     "length": 254,
-     "name": "?sub_0046C960_StepRandom@@YGXEHHPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0046CE40.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0046CE40",
-     "length": 552
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0046D110.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0046D110",
-     "length": 363
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0046D450.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0046D450",
-     "length": 524,
-     "name": "?sub_0046D450_AiType8@@YAXPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0046D780.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0046D780",
-     "length": 563
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -21264,56 +21228,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004723F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004723F0",
-     "length": 6,
-     "name": "?sub_004723F0_GetPhase@@YAHXZ"
-    },
-    {
-     "va": "0x00472530",
-     "length": 20,
-     "name": "?sub_00472530_SetPhaseActive@@YAXH@Z"
-    },
-    {
-     "va": "0x00472550",
-     "length": 57,
-     "name": "?sub_00472550_ResetWeather@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00472400.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00472400",
-     "length": 301
-    },
-    {
-     "va": "0x00473A70",
-     "length": 391,
-     "name": "?sub_00473A70@@YIXPAUD2WeatherStrc@@PAUD2WeatherLayerStateStrc@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004726F0.cpp",
    "rank": 1,
    "functions": [
@@ -21515,30 +21429,6 @@
     {
      "va": "0x00473090",
      "length": 556
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004732C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004732C0",
-     "length": 429
     }
    ],
    "flags": [
