@@ -42780,11 +42780,6 @@
      "length": 156
     },
     {
-     "va": "0x005241C0",
-     "length": 54,
-     "name": "?sub_005241C0_GetDigest@@YIXHPAI@Z"
-    },
-    {
      "va": "0x005242F0",
      "length": 103,
      "name": "?sub_005242F0_MulInv@@YIII@Z"
@@ -42893,6 +42888,11 @@
      "va": "0x005241A0",
      "length": 21,
      "name": "?sub_005241A0_ClearHashContexts@@YAXXZ"
+    },
+    {
+     "va": "0x005241C0",
+     "length": 54,
+     "name": "?sub_005241C0_GetDigest@@YIXHPAI@Z"
     },
     {
      "va": "0x00524200",

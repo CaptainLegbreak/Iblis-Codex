@@ -1,4 +1,6 @@
 #include "D2BnCryptTypes.h"
+#include "Bnclient.h"
+
 #define IDEA_MUL(x, y) (x = IdeaMul((x) & 0xFFFF, y))
 
 struct D2BnHashCtxStrc;
@@ -6,7 +8,9 @@ struct D2BnHashCtxStrc;
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 extern D2BnHashCtxStrc gatBnHashCtx[]; // 0x00882760
+
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
+
 void __stdcall sub_00523AF0_HashTransform(D2BnHashCtxStrc* pCtx); // 0x00523AF0
 
 typedef unsigned int D2IdeaUInt16;
@@ -21,6 +25,16 @@ static inline D2IdeaUInt16 IdeaMul(D2IdeaUInt16 a, D2IdeaUInt16 b);
 void __cdecl sub_005241A0_ClearHashContexts()
 {
     memset(gatBnHashCtx, 0, sizeof(D2BnHashCtxStrc) * 3);
+}
+
+// 0x005241C0
+void __fastcall sub_005241C0_GetDigest(int nIndex, unsigned int* pDigest)
+{
+    if (pDigest)
+    {
+        for (int i = 0; i < 5; ++i)
+            pDigest[i] = gatBnHashCtx[nIndex].aState[i];
+    }
 }
 
 // 0x00524200
