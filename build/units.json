@@ -9322,11 +9322,6 @@
      "name": "?sub_0042E5A0_Nop@@YAXXZ"
     },
     {
-     "va": "0x0042E5C0",
-     "length": 8,
-     "name": "?sub_0042E5C0_SwapBytes@@YIGG@Z"
-    },
-    {
      "va": "0x0042E620",
      "length": 10,
      "name": "?isNewline@Unicode@@QBEHXZ"
@@ -9346,6 +9341,11 @@
      "va": "0x0042E5B0",
      "length": 9,
      "name": "CHARSEL_StrStr"
+    },
+    {
+     "va": "0x0042E5C0",
+     "length": 8,
+     "name": "?sub_0042E5C0_SwapBytes@@YIGG@Z"
     },
     {
      "va": "0x0042FDE0",
