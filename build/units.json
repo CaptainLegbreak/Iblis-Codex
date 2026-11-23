@@ -84399,33 +84399,13 @@
      "length": 12
     },
     {
+     "va": "0x006CB480",
+     "length": 10
+    },
+    {
      "va": "0x006CB490",
      "length": 12
     }
-   ]
-  },
-  {
-   "file": "Source/Bnclient/Unknown_006CB480.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006CB480",
-     "length": 10
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
