@@ -9802,11 +9802,6 @@
      "name": "CHARSEL_RecordHandler"
     },
     {
-     "va": "0x00453470",
-     "length": 343,
-     "name": "CHARSEL_DrawProgressiveStates"
-    },
-    {
      "va": "0x00458CD0",
      "length": 30,
      "name": "CHARSEL_SetAutomapContext"
@@ -16078,6 +16073,11 @@
      "va": "0x00453330",
      "length": 315,
      "name": "?UI_DrawPartyMemberText@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00453470",
+     "length": 343,
+     "name": "CHARSEL_DrawProgressiveStates"
     },
     {
      "va": "0x004535D0",
