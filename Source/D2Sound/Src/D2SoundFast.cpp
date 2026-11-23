@@ -1,4 +1,10 @@
 #include "D2Sound.h"
+#include "D2GfxTypes.h"
+#include "D2Win32Base.h"
+#include "D2DDrawTypes.h"
+#include "D2GlideTypes.h"
+#include "D2GameTypes.h"
+
 #include "D2SoundTypes.h"
 
 struct D2SoundStrc;
@@ -215,6 +221,14 @@ void __cdecl D2SOUND_InitWaveSlots()
             gapWaveSlots[i] = D2SOUND_CreateSound(i < 4, 0);
         gbWaveSlotsInit = 1;
     }
+}
+
+extern int gdwGlobal_008817FC; // 0x008817FC
+
+// 0x00515060
+int __cdecl D2SOUND_AreWaveSlotsInitialized()
+{
+    return gdwGlobal_008817FC;
 }
 
 // 0x00515070
