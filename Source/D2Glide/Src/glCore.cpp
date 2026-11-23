@@ -433,12 +433,6 @@ int __cdecl D2GFX_CheckLowQuality()
     return gdwGlobal_0072DA50;
 }
 
-// 0x004F97D0
-int __cdecl D2Win_IsCtrlKeyDown()
-{
-    return gdwGlobal_007D55E4;
-}
-
 // 0x004FA460
 int __cdecl D2Win_IsMouseButtonPressed()
 {
