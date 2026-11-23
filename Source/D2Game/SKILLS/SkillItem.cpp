@@ -1164,6 +1164,12 @@ int __fastcall ITEMS_ApplyLowQualityForFormat(D2UnitStrc* pItem, D2ItemDropStrc*
     return ITEMS_ApplyLegacyLowQuality(pItem, pItemDrop);
 }
 
+// 0x005C2FE0
+int __cdecl sub_005C2FE0()
+{
+    return 43;
+}
+
 // 0x005D30A0
 D2MonEquipTxt* __fastcall SKILLITEM_GetMonEquipTxtRecord(int nMonsterId)
 {

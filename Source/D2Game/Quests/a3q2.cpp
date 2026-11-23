@@ -667,6 +667,11 @@ void __fastcall ACT3Q2_UpdateKhalimItemCounts(D2GameStrc* pGame, D2UnitStrc* pUn
     ++pQuestDataEx->nCubedFlails;
 }
 
+// 0x005B8740
+void __stdcall sub_005B8740(int nUnused1)
+{
+}
+
 // 0x005B8750
 int __fastcall ACT3Q2_LacksKhalimsWill(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {

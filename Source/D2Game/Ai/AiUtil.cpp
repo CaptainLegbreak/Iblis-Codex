@@ -1474,6 +1474,14 @@ void __fastcall AIUTIL_ToggleAiControlFlag0x20(D2UnitStrc* pUnit, int bSet)
         pAiControl->nAiFlags &= ~0x20;
 }
 
+int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc* pUnit); // 0x00621F20
+
+// 0x005DD280
+int __fastcall sub_005DD280(D2UnitStrc* pArg)
+{
+    return UNITS_GetCurrentLifePercentage(pArg);
+}
+
 // 0x005DD290
 int __fastcall AIUTIL_HasClearMissilePath(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
