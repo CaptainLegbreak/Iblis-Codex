@@ -1,12 +1,4 @@
-#include "D2StormArrayA.h"
-
-struct BigBuffer
-{
-    D2StormArrayAStrc m_array;
-    unsigned int m_start;
-
-    unsigned int sub_004212D0_Get(unsigned int nIndex);                                                      // 0x004212D0
-};
+#include "D2StormBigBuffer.h"
 
 // 0x00421470
 unsigned int __stdcall sub_00421470_FindLowestSetBit(BigBuffer* pQueue)

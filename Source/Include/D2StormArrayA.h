@@ -73,4 +73,5 @@ struct D2StormArrayAStrc
     unsigned int sub_004210A0_CalcChunkSize(unsigned int nCount);                                           // 0x004210A0
     void sub_004215C0_Set(unsigned int nCount, const unsigned int* pData);                                  // 0x004215C0
     void sub_004216E0_ReallocData(unsigned int nAlloc);                                                     // 0x004216E0
+    unsigned int* sub_00420FE0_Top();                                                                       // 0x00420FE0
 };
