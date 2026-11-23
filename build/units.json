@@ -66134,11 +66134,6 @@
      "va": "0x0060D310",
      "length": 141,
      "name": "CmpScanRun"
-    },
-    {
-     "va": "0x0060DD20",
-     "length": 33,
-     "name": "sub_0060DD20_EqualsNoCase"
     }
    ]
   },
@@ -66896,6 +66891,11 @@
      "va": "0x0060DD00",
      "length": 24,
      "name": "?0D2StormHashKeyStrIBStrc"
+    },
+    {
+     "va": "0x0060DD20",
+     "length": 33,
+     "name": "sub_0060DD20_EqualsNoCase"
     },
     {
      "va": "0x0060DD50",

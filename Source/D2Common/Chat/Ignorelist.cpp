@@ -1,4 +1,6 @@
 #include "D2Common.h"
+#include "D2CmpTypes.h"
+#include "D2CmpTiles.h"
 
 #include "D2Drlg.h"
 
@@ -1068,6 +1070,20 @@ D2StormHashKeyStrIBStrc::D2StormHashKeyStrIBStrc(const char* szString)
 inline void D2CommonChatIgnoreListStrc::operator delete(void* pMemory)
 {
     SMemFree(pMemory, "delete", -1, 0);
+}
+
+int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
+struct D2CmpStringStrc
+{
+    const char* szText;
+
+    int sub_0060DD20_EqualsNoCase(const D2CmpStringStrc* pOther);
+};
+
+// 0x0060DD20
+int D2CmpStringStrc::sub_0060DD20_EqualsNoCase(const D2CmpStringStrc* pOther)
+{
+    return !SStrCmpI(szText, pOther->szText, 0x7FFFFFFF);
 }
 
 // 0x0060DD50
