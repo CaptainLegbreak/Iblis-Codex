@@ -399,9 +399,9 @@ static s32 __stdcall sub_004DD060_Occludes(Room* room,Tile* tile)
 }
 
 // @ref 0x004DD180
+// 0x004DD180
 static void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,Room* room,Tile* tile)
 {
-    RoomCoordinates coordinates;
     if(FIELD(s32,tile,28)!=0 && FIELD(s32,tile,28)!=13 && !(FIELD(u32,tile,20)&4)) FIELD(u32,cell,0)|=4;
     WallContext* wallContext=(WallContext*)context;
     u32 index=wallContext->count++;
@@ -437,15 +437,18 @@ static void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,Room* roo
             FIELD(u32,tile,36)=(flags&~1)|2;
         }
     }
-    sub_00619730_Coordinates(room,&coordinates);
-    node->x=8*(coordinates.x+5*FIELD(s32,tile,8));
-    node->y=8*(coordinates.y+5*FIELD(s32,tile,12));
+    {
+        RoomCoordinates coordinates;
+        sub_00619730_Coordinates(room,&coordinates);
+        node->x=8*(coordinates.x+5*FIELD(s32,tile,8));
+        node->y=8*(coordinates.y+5*FIELD(s32,tile,12));
+    }
     Node* last=FIELD(Node*,cell,20);
     if(!last) { FIELD(Node*,cell,20)=node; return; }
     Node* previous=0;
     s32 order=(FIELD(u32,node->object,20)>>14)&7;
-    Node* next;
-    while((next=last->next)!=0)
+    Node* next=last->next;
+    if(next) do
     {
         if(order<s32((FIELD(u32,last->object,20)>>14)&7))
         {
@@ -455,8 +458,9 @@ static void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,Room* roo
             break;
         }
         previous=last;
-        last=next;
-    }
+        last=previous->next;
+        next=last->next;
+    } while(next);
     if(!last->next) last->next=node;
 }
 
@@ -885,6 +889,7 @@ static void sub_B08_FillCellsInline(D2GridCellStrc* pCells)
     }
 }
 
+// 0x004DDFD0
 static void __stdcall sub_004DDFD0_BuildSmallFlatGrid(D2GridCoordStrc tX, int nY, int bCorners, D2GridCellStrc* pCells, int nMode)
 {
     switch (nMode)
@@ -968,6 +973,72 @@ static inline int CLIENTS_GetUnitY_FloorView(D2UnitStrc* pUnit)
         return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x004DE260
+void __stdcall sub_004DE260(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ, int nMode, int bCorners)
+{
+    const unsigned char nB0 = sub_0061C0E0(gpGlobal_007A0634);
+    D2GridCellStrc* pCell = pCells;
+
+    int nOffset = 0;
+    switch (nMode)
+    {
+    case 1:
+        nOffset = -(gnScreenWidth / 4);
+        break;
+
+    case 2:
+        nOffset = gnScreenWidth / 4;
+        break;
+    }
+
+    unsigned char nB1, nB2, nB3;
+    sub_0061C0B0(gpGlobal_007A0634, &nB1, &nB2, &nB3);
+
+    int i;
+    int j;
+
+    if (nZ)
+    {
+        for (j = 0; j < 6; ++j)
+        {
+            const int nY = j + nSubY;
+            for (i = 0; i < 6; ++i)
+            {
+                if (!bCorners || (i == 0 && j == 0) || (i == 5 && j == 0) || (i == 5 && j == 5) || (i == 0 && j == 5))
+                {
+                    sub_004F6760((i + nSubX) << 16, nY << 16, nZ, &pCell->nX, &pCell->nY);
+                    pCell->nX += nOffset;
+                    pCell->nB0 = nB0;
+                    pCell->nB1 = nB1;
+                    pCell->nB3 = nB3;
+                    pCell->nB2 = nB2;
+                }
+
+                ++pCell;
+            }
+        }
+    }
+    else
+    {
+        for (j = 0; j < 6; ++j)
+        {
+            const int nY = j + nSubY;
+            for (i = 0; i < 6; ++i)
+            {
+                if (!bCorners || (i == 0 && j == 0) || (i == 5 && j == 0) || (i == 5 && j == 5) || (i == 0 && j == 5))
+                {
+                    const int nX = i + nSubX;
+                    sub_004F6760(nX << 16, nY << 16, 0, &pCell->nX, &pCell->nY);
+                    pCell->nX += nOffset;
+                    SCMD_ReadGridCell(nX << 3, nY << 3, &pCell->nB0, &pCell->nB1, &pCell->nB2, &pCell->nB3);
+                }
+
+                ++pCell;
+            }
+        }
+    }
 }
 
 // 0x004DE410
