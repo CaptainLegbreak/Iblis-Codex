@@ -117,6 +117,41 @@ void __fastcall PLAYERLIST_IterateCallback_FreePlayerList(D2GameStrc* pGame, D2U
     }
 }
 
+void __fastcall SCMD_BroadcastPlayerRelationship(D2GameStrc* pGame, int dwPlayerId1, int dwPlayerId2, short wRelationState); // 0x0053DE20
+
+// 0x0055B260
+void __fastcall PLAYERLIST_ToggleFlag(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, unsigned int nFlags, int bSet)
+{
+    D2PlayerListStrc* pPlayerList = PLAYERLIST_FindPlayerList(pPlayer1, pPlayer2);
+    if (pPlayer1 == pPlayer2 || !pPlayerList)
+    {
+        return;
+    }
+
+    if (bSet)
+    {
+        pPlayerList->dwFlags |= nFlags;
+    }
+    else
+    {
+        pPlayerList->dwFlags &= ~nFlags;
+    }
+
+    SCMD_BroadcastPlayerRelationship(pGame, !pPlayer1 ? -1 : pPlayer1->dwUnitId, !pPlayer2 ? -1 : pPlayer2->dwUnitId, pPlayerList->dwFlags);
+}
+
+// 0x0055B300
+int __fastcall PLAYERLIST_CheckFlag(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, unsigned int nFlags)
+{
+    D2PlayerListStrc* pPlayerList = PLAYERLIST_FindPlayerList(pPlayer1, pPlayer2);
+    if (pPlayer1 == pPlayer2 || !pPlayerList)
+    {
+        return 0;
+    }
+
+    return pPlayerList->dwFlags & nFlags;
+}
+
 // 0x0055B540
 void __fastcall PLAYERLIST_IterateCallback_InitializePlayerRelation(D2GameStrc* pGame, D2UnitStrc* pPlayer, void* pArg)
 {
@@ -222,6 +257,18 @@ unsigned short __fastcall PLAYERLIST_GetFlags(D2UnitStrc* pPlayer1, D2UnitStrc* 
     return 0;
 }
 
+// 0x0055B3A0
+void __fastcall PLAYERLIST_SetPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int a3)
+{
+    D2PlayerListStrc* pPlayerList = PLAYERLIST_FindPlayerList(pPlayer1, pPlayer2);
+    if (pPlayer1 == pPlayer2 || !pPlayerList)
+    {
+        return;
+    }
+
+    pPlayerList->field_C = a3;
+}
+
 // 0x0055B3F0
 short __fastcall PLAYERLIST_GetPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2)
 {
@@ -247,6 +294,18 @@ void __fastcall PLAYERLIST_SendPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPla
     {
         D2GAME_PACKETS_SendPacket0x8B_6FC3F810(UnitGetClient(pPlayer1, ".\\UNIT\\PlayerList.cpp", 0x10B), !pPlayer2 ? -1 : pPlayer2->dwUnitId, pPlayerList->field_C);
     }
+}
+
+// 0x0055B4C0
+void __fastcall PLAYERLIST_BroadcastFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2)
+{
+    D2PlayerListStrc* pPlayerList = PLAYERLIST_FindPlayerList(pPlayer1, pPlayer2);
+    if (!pPlayerList)
+    {
+        return;
+    }
+
+    SCMD_BroadcastPlayerRelationship(pGame, !pPlayer1 ? -1 : pPlayer1->dwUnitId, !pPlayer2 ? -1 : pPlayer2->dwUnitId, pPlayerList->dwFlags);
 }
 
 // 0x0055B620
@@ -275,4 +334,22 @@ int __fastcall PLAYERLIST_GetHostileDelay(D2UnitStrc* pPlayer1, D2UnitStrc* pPla
     }
 
     return pPlayerList->field_8;
+}
+
+extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
+
+// 0x0055B720
+void __fastcall PLAYERLIST_SetHostileDelay(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int a3)
+{
+    D2PlayerListStrc* pPlayerList = PLAYERLIST_FindPlayerList(pPlayer1, pPlayer2);
+    if (pPlayerList)
+    {
+        pPlayerList->field_8 = a3;
+    }
+
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer1);
+    if (pPlayerData)
+    {
+        pPlayerData->dwHostileDelay = GetTickCount();
+    }
 }

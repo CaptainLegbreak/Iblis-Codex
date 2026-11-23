@@ -2109,35 +2109,6 @@ int __fastcall PLRMODE_UpdateSkill(D2GameStrc* pGame, D2UnitStrc* pPlayer, int n
     return (SUNIT_IsDead(pPlayer) != 0) + 1;
 }
 
-// 0x00581AD0
-void __fastcall OBJMODE_SendObjectUpdates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient)
-{
-    if (pUnit)
-    {
-        if (UNIT_HasFlag(pUnit, UNITFLAG_DOUPDATE))
-        {
-            OBJMODE_SendObjectModeAndShrineUpdate(pUnit, pClient);
-        }
-
-        if (UNIT_HasFlag(pUnit, UNITFLAG_HASEVENTSOUND))
-        {
-            D2GAME_UpdateUnit_6FCC6080(pUnit, pClient);
-        }
-
-        if (UNIT_HasFlag(pUnit, UNITFLAG_HASTXTMSG))
-        {
-            SUNITMSG_SendHoverText(pUnit, pClient);
-        }
-
-        if (UNIT_HasFlagEx(pUnit, UNITFLAGEX_HASINV))
-        {
-            D2GAME_INVMODE_First_6FC40FB0(pGame, pUnit, pClient, 0);
-        }
-    }
-
-    SUNITMSG_SendQueuedMessages(pUnit, pClient);
-}
-
 // 0x0058A730
 void __fastcall ACT5Q3_UpdateDrehyaPortalMode(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
 {
