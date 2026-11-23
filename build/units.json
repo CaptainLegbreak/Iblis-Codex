@@ -28119,6 +28119,10 @@
      "name": "?NPCMENU_SetNpcInteract@@YAXPAUD2NpcRecordStrc@@@Z"
     },
     {
+     "va": "0x004B1680",
+     "length": 287
+    },
+    {
      "va": "0x004B1830",
      "length": 140,
      "name": "?NPCMENU_GetFreeStringId@@YIGG@Z"
@@ -28421,6 +28425,10 @@
      "name": "@NPCMENU_ClearNpcInventoryAndSound@4"
     },
     {
+     "va": "0x004B3870",
+     "length": 898
+    },
+    {
      "va": "0x004B3C00",
      "length": 32,
      "name": "?sub_004B3C00@@YIXH@Z"
@@ -28587,6 +28595,10 @@
      "length": 592
     },
     {
+     "va": "0x004B5640",
+     "length": 452
+    },
+    {
      "va": "0x004B5810",
      "length": 64,
      "name": "?NPCMENU_CloseSubMenuToMain@@YAHXZ"
@@ -28643,38 +28655,6 @@
      "va": "0x004B6A30",
      "length": 568,
      "name": "?NPCMENU_NpcTextCallback@@YIHPAXHH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/npcmenu_004B3870.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B1680",
-     "length": 287
-    },
-    {
-     "va": "0x004B3870",
-     "length": 898
-    },
-    {
-     "va": "0x004B5640",
-     "length": 452
     }
    ],
    "flags": [
