@@ -4,9 +4,9 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #298 (round j61). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 15,691 B.
+- `main`: #299 (round j62). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 15,691 B.
 - Units 963, placeholder files 562.
-- In progress: round j62 = `lane5/a3q7-dogs`, `lane4/place-c`, `lane6/cands-d`. Next: j63 = `lane2/com-interface` alone (shared header, touches lanes 3, 4 and 6).
+- In progress: round j63 = `lane5/a3q2-run`. Next: j64 = `lane2/com-interface`. It conflicts with `cands-d` (#299), which folded Unknown_0043A9D0.cpp into CharSel.cpp. The coordinator resolves it by carrying the type rename into CharSel.cpp. Lane 2: no rebase needed.
 - **Borrowed data by lane:** [borrowed-data.md](borrowed-data.md) lists every block of the 15,691 B still copied from Game.exe, with the file that owns it and how that was decided. Each lane has a section with its leads. Take them after your current branch.
 - Rounds: the coordinator polls `lane*` branches, merges by cherry-pick (skipping commits already on main by subject), checks the data plan, units.json and data includes against main plus each lane's own moves, prechecks, runs one full verify, and ships.
 
@@ -67,20 +67,20 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 - Borrowed data: 0x006D13D8, 768 B, is zlib's `_dist_code`/`_length_code` (read by deflate.c and trees.c). In zlib 1.2.8 they come from trees.h, included by trees.c. That one block is half your borrowed data.
 
 ### Lane 4
-- `place-c` is in j62.
+- `place-c` is in #299.
 - Borrowed data: gszServerIP (WINMAIN.CPP) and gszMcpIP (Game_0044D080.cpp) are planned as char[16], and each is followed by 244 zero bytes copied from the image: 16 + 244 = 260. Check whether they are char[260]. More in borrowed-data.md.
 - `chat-run-2` is in #294.
 - SkillDesc.cpp and SkillDesc_004E1FF0.cpp call 0x4DF6C0 as `sub_004DF6C0`; it is `GFXUTIL_ApplySoundEnviron` now (in lane 1's sound unit). Rename the two calls.
 - Leave `sub_00436E90_AlwaysOne` and `sub_00436EA0`: they moved to lane 6's `Unknown_004370B0.cpp` in #294.
 
 ### Lane 5
-- `a3q5-orb` is in #298; `a3q7-dogs` is in j62.
+- `a3q5-orb` is in #298; `a3q7-dogs` is in #299; `a3q2-run` is in j63.
 - Borrowed data: 0x006E0498, 480 B of zeros read by D2Game GAME/Game.cpp, and 0x007415F4, 408 B of strings read by Unknown_005BDE80.cpp.
 - `a5q2-run` and `a4q3-a3q6` are in #294; `a1q6-npc` (#292) and `a1q4-run` (#293) before that.
 - 0x5B9A30 and 0x5947E0: listing them is right; no forcing constructs.
 
 ### Lane 6
-- `cands-d` is in j62. CharSel.cpp taking sub_0043B830/0x43B840 from Game.cpp is fine: the run and the globals settle it.
+- `cands-d` is in #299. CharSel.cpp taking sub_0043B830/0x43B840 from Game.cpp is fine: the run and the globals settle it.
 - Pathfinding cluster: answered in Decisions. DUNGEON_ 0x00643260-0x00643560, the D2DDraw renderer, and Items.cpp 0x006313E0: leaving them is right.
 - Borrowed data: you have the largest share, 7,361 B. 5,127 B of it is one block at 0x007420D1 between CelCmp.cpp and Unknown_006056D0.cpp: four small-int tables that no code addresses directly. See borrowed-data.md.
 - `d2win-a` and `block-c` are in #294.
@@ -90,6 +90,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #299 j62: a3q7 vile-dog pair (lane 5), ten D2Client placements (lane 4), fifteen placements incl. the CharSel.cpp seam and debug fonts (lane 6).
 - #298 j61: a3q5 takes in the Compelling Orb functions (lane 5).
 - #297 j60: zlib under Source/Storm/zlib/ (lane 3), a2q4 run (lane 5), chat.cpp placements (lane 4).
 - #296 j59: D2ConfigStrc and gpClientConfig (lane 2), alone.
