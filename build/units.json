@@ -60680,6 +60680,10 @@
      "name": "MONSTERSPAWN_SpawnLinkedMinionsAtCoordinates"
     },
     {
+     "va": "0x005B2570",
+     "length": 399
+    },
+    {
      "va": "0x005B2700",
      "length": 295,
      "name": "?MONSTERSPAWN_FindFloorPosition@@YGHPAUD2ActiveRoomStrc@@PAH1@Z"
@@ -60876,16 +60880,6 @@
      "va": "0x005B4440",
      "length": 15,
      "name": "?ACT4Q1_AttachCompletionSoundToPlayers@@YIXPAUD2GameStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005B2570.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005B2570",
-     "length": 399
     }
    ]
   },
