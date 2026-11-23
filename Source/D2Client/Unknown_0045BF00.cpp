@@ -102,29 +102,13 @@ int __stdcall SMemFindNextHeap(unsigned int hPrev, unsigned int* phNext, D2SMemH
 int __stdcall SMemFindNextBlock(unsigned int hHeap, void* pMemory, void** ppBlock, D2SMemBlockInfoStrc* pInfo); // 0x004122F0
 unsigned int __stdcall SMemGetHeapByCaller(const char* szFile, int nLine);                                 // 0x00412710
 
-extern "C" const char gszHeapsTitle[];        // 0x006D69C0
-extern "C" const char gszSeparator[];         // 0x006D698C
-extern "C" const char gszHeapsHeader[];       // 0x006D6938
-extern "C" const char gszHeapLine[];          // 0x006D6910
-extern "C" const char gszHeapCount[];         // 0x006D68F8
-extern "C" const char gszTotal124[];          // 0x006D68E0
-extern "C" const char gszTotal120[];          // 0x006D68C8
-extern "C" const char gszTotal118[];          // 0x006D68B0
-extern "C" const char gszTotal114[];          // 0x006D6898
-extern "C" const char gszTotal11C[];          // 0x006D6880
-extern "C" const char gszTotal110[];          // 0x006D6864
-extern "C" const char gszArchiveCpp[];        // 0x006D6844
-extern "C" const char gszAllocTotal[];        // 0x006D6830
-extern "C" const char gszBlockTotal[];        // 0x006D681C
-extern "C" const char gszAllocCount[];        // 0x006D6804
-extern "C" const char gszAllocLine[];         // 0x006D67F0
 
 // 0x0045BF00
 void __cdecl sub_0045BF00_DumpMemory()
 {
     void* hFile = CreateFileA("D2Mem.txt", 0x40000000, 0, 0, 2, 0x80, 0);
-    sub_0045B960_FilePrintf(hFile, gszHeapsTitle);
-    sub_0045B960_FilePrintf(hFile, gszSeparator);
+    sub_0045B960_FilePrintf(hFile, "D2 MEMORY CHECK\n");
+    sub_0045B960_FilePrintf(hFile, "================================================\n\n");
 
     D2ClientAllocRecListStrc tList;
     D2SMemHeapInfoStrc tInfo;
@@ -164,10 +148,10 @@ void __cdecl sub_0045BF00_DumpMemory()
     unsigned int nTotal11C = 0;
     unsigned int nTotal110 = 0;
     int nHeaps = 0;
-    sub_0045B960_FilePrintf(hFile, gszHeapsHeader);
+    sub_0045B960_FilePrintf(hFile, "      SIZE|    BLOCKS|  RESERVED| COMMITTED|       MAX|   REGIONS|FILENAME:LINE\n");
     for (D2ClientAllocRecStrc* pRec = tList.First(); (int)pRec > 0; pRec = (D2ClientAllocRecStrc*)pRec->f_0.m_next)
     {
-        sub_0045B960_FilePrintf(hFile, gszHeapLine, pRec->tInfo.dw124, pRec->tInfo.dw120, pRec->tInfo.dw118,
+        sub_0045B960_FilePrintf(hFile, "%10d|%10d|%10d|%10d|%10d|%10d|%s:%d\n", pRec->tInfo.dw124, pRec->tInfo.dw120, pRec->tInfo.dw118,
             pRec->tInfo.dw114, pRec->tInfo.dw11C, pRec->tInfo.dw110, (char*)pRec->tInfo.adwName, pRec->tInfo.nLine);
         nTotal124 += pRec->tInfo.dw124;
         nTotal120 += pRec->tInfo.dw120;
@@ -178,17 +162,17 @@ void __cdecl sub_0045BF00_DumpMemory()
         ++nHeaps;
     }
 
-    sub_0045B960_FilePrintf(hFile, gszSeparator);
-    sub_0045B960_FilePrintf(hFile, gszHeapCount, nHeaps);
-    sub_0045B960_FilePrintf(hFile, gszTotal124, nTotal124);
-    sub_0045B960_FilePrintf(hFile, gszTotal120, nTotal120);
-    sub_0045B960_FilePrintf(hFile, gszTotal118, nTotal118);
-    sub_0045B960_FilePrintf(hFile, gszTotal114, nTotal114);
-    sub_0045B960_FilePrintf(hFile, gszTotal11C, nTotal11C);
-    sub_0045B960_FilePrintf(hFile, gszTotal110, nTotal110);
-    sub_0045B960_FilePrintf(hFile, gszSeparator);
+    sub_0045B960_FilePrintf(hFile, "================================================\n\n");
+    sub_0045B960_FilePrintf(hFile, "NUM HEAPS:       %10d\n", nHeaps);
+    sub_0045B960_FilePrintf(hFile, "TOTAL MEMORY:    %10d\n", nTotal124);
+    sub_0045B960_FilePrintf(hFile, "TOTAL BLOCKS:    %10d\n", nTotal120);
+    sub_0045B960_FilePrintf(hFile, "TOTAL RESERVED:  %10d\n", nTotal118);
+    sub_0045B960_FilePrintf(hFile, "TOTAL COMMITTED: %10d\n", nTotal114);
+    sub_0045B960_FilePrintf(hFile, "TOTAL MAX:       %10d\n", nTotal11C);
+    sub_0045B960_FilePrintf(hFile, "TOTAL REGIONS:   %10d\n\n\n\n\n", nTotal110);
+    sub_0045B960_FilePrintf(hFile, "================================================\n\n");
 
-    hHeap = SMemGetHeapByCaller(gszArchiveCpp, 0xF5);
+    hHeap = SMemGetHeapByCaller("SOURCE\\D2HELL\\Src\\Archive.cpp", 0xF5);
     D2SMemBlockInfoStrc tBlock;
     tBlock.dwSize = sizeof(tBlock);
     void* pBlock = 0;
@@ -204,7 +188,7 @@ void __cdecl sub_0045BF00_DumpMemory()
                 if (p[0] == 'LOAD' && p[1] == 'FUCK' && p[2] == 'THIS' && p[3] == 'NOW ')
                 {
                     D2HellAllocHeaderStrc* pHeader = (D2HellAllocHeaderStrc*)p;
-                    sub_0045B960_FilePrintf(hFile, gszAllocLine, pHeader->nSize, (char*)pHeader->adwName, (char*)pHeader->adwFile, pHeader->nLine);
+                    sub_0045B960_FilePrintf(hFile, "%8d\t%50s\t(%s:%d)\n", pHeader->nSize, (char*)pHeader->adwName, (char*)pHeader->adwFile, pHeader->nLine);
                     nAllocTotal += pHeader->nSize;
                     nBlockTotal += tBlock.nBytes;
                     ++nAllocCount;
@@ -214,8 +198,8 @@ void __cdecl sub_0045BF00_DumpMemory()
         }
     }
 
-    sub_0045B960_FilePrintf(hFile, gszAllocTotal, nAllocTotal);
-    sub_0045B960_FilePrintf(hFile, gszBlockTotal, nBlockTotal);
-    sub_0045B960_FilePrintf(hFile, gszAllocCount, nAllocCount);
+    sub_0045B960_FilePrintf(hFile, "TOTAL MEMORY: %8d\n", nAllocTotal);
+    sub_0045B960_FilePrintf(hFile, "TOTAL ALLOC:  %8d\n", nBlockTotal);
+    sub_0045B960_FilePrintf(hFile, "TOTAL BLOCKS: %8d\n\n\n\n", nAllocCount);
     CloseHandle(hFile);
 }
