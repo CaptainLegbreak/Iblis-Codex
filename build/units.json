@@ -59016,11 +59016,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x005B0CC0",
-     "length": 3,
-     "name": "sub_005B0CC0"
-    },
-    {
      "va": "0x005B72A0",
      "length": 3,
      "name": "sub_005B72A0"
@@ -60438,6 +60433,11 @@
    "file": "Source/D2Game/Ai/AiThink.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x005B0CC0",
+     "length": 3,
+     "name": "sub_005B0CC0"
+    },
     {
      "va": "0x005B0CD0",
      "length": 35,
