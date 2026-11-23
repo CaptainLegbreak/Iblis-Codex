@@ -1442,18 +1442,6 @@ void __stdcall DDRAW_CelDrawHilight(int nUnused1, int nUnused2)
 {
 }
 
-// 0x00512E80
-void __fastcall DDRAW_UtilPoint(tagPOINT* pPoint, unsigned char nSize, unsigned char nPaletteIndex)
-{
-    if (nSize)
-    {
-        --nSize;
-        tagRECT tRect;
-        SetRect(&tRect, pPoint->x - nSize, pPoint->y - nSize, pPoint->x + nSize + 1, pPoint->y + nSize + 1);
-        sub_00512D90_DDrawUtilFilledRect(&tRect, nPaletteIndex);
-    }
-}
-
 // 0x00513AE0
 int __cdecl D2SOUND_IsExpansion()
 {
