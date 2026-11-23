@@ -1,11 +1,16 @@
 #include "D2Glide.h"
+#include "D2DrlgMaps.h"
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
+
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 extern int* gpnPerspectiveTable; // 0x00880B6C
+
 extern int gnProjectOriginX; // 0x00880B60
+
 extern int gnGlideSpriteScale; // 0x00880B64
+
 extern int gnProjectOriginY; // 0x00880B68
 
 // 0x0050DC80
@@ -34,6 +39,16 @@ void __cdecl GLIDE_FillPerspectiveTable()
         pTable[i] = 0x2EE000 / (MIN(MAX(nX, -0xBB7), 0xBB7) - 0xBB8);
     }
     gnGlideSpriteScale = 0x100;
+}
+
+int gnProjectOriginX; // 0x00880B60
+int gnProjectOriginY; // 0x00880B68
+
+// 0x0050DD50
+void __fastcall sub_0050DD50_SetProjectOrigin(int nX, int nY)
+{
+    gnProjectOriginX = nX;
+    gnProjectOriginY = nY;
 }
 
 // 0x0050DD60
