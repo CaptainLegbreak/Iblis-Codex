@@ -59593,6 +59593,11 @@
      "length": 451
     },
     {
+     "va": "0x005A0930",
+     "length": 167,
+     "name": "?sub_005A0930_TransferUMods@@YGXPAUD2UnitStrc@@0H@Z"
+    },
+    {
      "va": "0x005A09E0",
      "length": 457,
      "name": "?MONSTERUNIQUE_SpawnUniqueMonster@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@HHHHH@Z"
@@ -59611,6 +59616,11 @@
      "va": "0x005A11F0",
      "length": 55,
      "name": "MONSTERUNIQUE_UMod37_Fanatic"
+    },
+    {
+     "va": "0x005A1330",
+     "length": 50,
+     "name": "?MONSTERUNIQUE_UMod41_AlwaysRun@@YIXPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005A1370",
@@ -59716,6 +59726,11 @@
      "name": "MONSTERUNIQUE_CastBugLightningMissile"
     },
     {
+     "va": "0x005A3040",
+     "length": 100,
+     "name": "?MONSTERUNIQUE_ApplyElementalDamage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005A30B0",
      "length": 33,
      "name": "MONSTERUNIQUE_ApplyMissileElementalDamage"
@@ -59781,6 +59796,11 @@
     {
      "va": "0x005A4440",
      "length": 663
+    },
+    {
+     "va": "0x005A46E0",
+     "length": 361,
+     "name": "?sub_6FC6FDC0@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@HHHHPAE@Z"
     },
     {
      "va": "0x005A4850",
@@ -60014,17 +60034,6 @@
      "va": "0x005A03E0",
      "length": 278,
      "name": "?MONSTERUNIQUE_CanAssignUMod@@YGHPAUD2UnitStrc@@PAUD2MonUModTxt@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A0930.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A0930",
-     "length": 167,
-     "name": "?sub_005A0930_TransferUMods@@YGXPAUD2UnitStrc@@0H@Z"
     }
    ]
   },
@@ -60383,28 +60392,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005A1330.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A1330",
-     "length": 50,
-     "name": "?MONSTERUNIQUE_UMod41_AlwaysRun@@YIXPAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A29A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A3040",
-     "length": 100,
-     "name": "?MONSTERUNIQUE_ApplyElementalDamage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_005A3D20.cpp",
    "rank": 1,
    "functions": [
@@ -60516,17 +60503,6 @@
      "va": "0x005A5490",
      "length": 86,
      "name": "MONSTERMODE_AllocateTargetCombat"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A46E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A46E0",
-     "length": 361,
-     "name": "?sub_6FC6FDC0@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@HHHHPAE@Z"
     }
    ]
   },

@@ -981,6 +981,21 @@ void __fastcall MONSTERUNIQUE_UMod37_Fanatic(D2UnitStrc* pUnit, int nUMod, int b
     }
 }
 
+D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
+
+// 0x005A1330
+void __fastcall MONSTERUNIQUE_UMod41_AlwaysRun(D2UnitStrc* pUnit, int nUMod, int bUnique)
+{
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
+    {
+        D2GameStrc* pGame = SUNIT_GetGameFromUnit(pUnit);
+        if (pGame)
+        {
+            EVENT_SetEvent(pGame, pUnit, 7, pGame->dwGameFrame + 75, 0, 0);
+        }
+    }
+}
+
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -2518,7 +2533,7 @@ void __fastcall MONSTERUNIQUE_TrySelfResurrection(D2GameStrc* pGame, D2UnitStrc*
     }
 }
 
-// build: context sub_005A0930_TransferUMods
+// 0x005A0930
 static void __stdcall sub_005A0930_TransferUMods(D2UnitStrc* pOwner, D2UnitStrc* pMinion, int bFromStart)
 {
     unsigned char* pOwnerUMods = UModsOfData(pOwner);
@@ -2767,6 +2782,54 @@ D2UnitStrc* __fastcall MONSTERUNIQUE_RestoreUniqueMonster(D2GameStrc* pGame, D2A
     return pMonster;
 }
 
+#define MONTYPEFLAG_MINION 0x10
+#define MONSTERDATA_UMODS_OFFSET 0x1C
+
+// 0x005A46E0
+D2UnitStrc* __fastcall sub_6FC6FDC0(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nClassId, int nUnitGUID, unsigned char* pUMods)
+{
+    D2UnitStrc* pMonster = MONSTERSPAWN_SpawnWithUnitId(pGame, pRoom, nX, nY, nClassId, 1, nUnitGUID, -1, 98);
+    if (!pMonster)
+    {
+        pMonster = MONSTERSPAWN_SpawnWithUnitId(pGame, pRoom, nX, nY, nClassId, 1, nUnitGUID, 4, 98);
+        if (!pMonster && MONSTERREGION_FindSpawnLocation(pGame, pRoom, 0, nClassId, &nX, &nY, 1))
+        {
+            pMonster = MONSTERSPAWN_SpawnWithUnitId(pGame, pRoom, nX, nY, nClassId, 1, nUnitGUID, -1, 98);
+        }
+    }
+
+    if (!pMonster)
+    {
+        return 0;
+    }
+
+    unsigned char* pMonUMods = 0;
+    if (pMonster->dwUnitType == UNIT_MONSTER)
+    {
+        pMonUMods = (unsigned char*)pMonster->pMonsterData;
+    }
+    pMonUMods = !pMonUMods ? 0 : pMonUMods + MONSTERDATA_UMODS_OFFSET;
+    for (int i = 0; i < 9; ++i)
+    {
+        pMonUMods[i] = pUMods[i];
+    }
+
+    SetMonTypeFlag(pMonster, MONTYPEFLAG_MINION, 1);
+
+    int nBaseUMods[4] = { 1, 2, 3, 4 };
+    for (int i = 0; i < 4; ++i)
+    {
+        InitUMod(pMonster, nBaseUMods[i], 0);
+    }
+
+    for (int i = 0; i < 9; ++i)
+    {
+        InitUMod(pMonster, pMonUMods[i], 0);
+    }
+
+    return pMonster;
+}
+
 // 0x005A4850
 void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
@@ -2865,6 +2928,7 @@ void __fastcall MONSTERUNIQUE_PromoteToUnique(D2GameStrc* pGame, D2UnitStrc* pUn
     MONSTER_ToggleSummonerFlag(pUnit, 1, 1);
 }
 
+// 0x005A3040
 void __fastcall MONSTERUNIQUE_ApplyElementalDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
     if (!bUnique)
