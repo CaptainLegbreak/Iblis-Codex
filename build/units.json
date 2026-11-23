@@ -45989,11 +45989,6 @@
      "name": "PLRSAVE2_CheckPlayerFlags"
     },
     {
-     "va": "0x0059D300",
-     "length": 334,
-     "name": "ACT2Q6_ActiveFilterCallback"
-    },
-    {
      "va": "0x005CEC90",
      "length": 297,
      "name": "SKILLS_ShortenPoisonAndCurses"
@@ -56852,6 +56847,11 @@
      "va": "0x0059D1C0",
      "length": 313,
      "name": "ACT2Q6_Callback03_ChangedLevel"
+    },
+    {
+     "va": "0x0059D300",
+     "length": 334,
+     "name": "ACT2Q6_ActiveFilterCallback"
     },
     {
      "va": "0x0059D450",
