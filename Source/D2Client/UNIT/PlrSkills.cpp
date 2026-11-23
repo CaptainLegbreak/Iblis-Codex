@@ -870,6 +870,67 @@ void __fastcall PLRSKILLS_StateOverlaySpread(D2UnitStrc* pUnit, int nState)
     }
 }
 
+inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecordInline(int nSkillId)
+{
+    if (nSkillId < sgptDataTables->nSkillsTxtRecordCount && nSkillId >= 0)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+
+    return 0;
+}
+
+// 0x004D9180
+void __fastcall MISSILE_StateStartMissile(D2UnitStrc* pUnit, int nState)
+{
+    D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(nState);
+    if (!pStatesTxtRecord || pStatesTxtRecord->wSkill < 0)
+    {
+        return;
+    }
+
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecordInline(pStatesTxtRecord->wSkill);
+    if (!pSkillsTxtRecord || pSkillsTxtRecord->wCltMissileA < 0 || pSkillsTxtRecord->wCltMissileA >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return;
+    }
+
+    D2MissileStrc missileParams;
+    memset(&missileParams, 0, sizeof(missileParams));
+    missileParams.pOwner = pUnit;
+    missileParams.pOrigin = pUnit;
+    missileParams.nMissile = pSkillsTxtRecord->wCltMissileA;
+    missileParams.nSkill = pStatesTxtRecord->wSkill;
+    missileParams.nSkillLevel = 1;
+    MISSILE_CreateClientMissile(&missileParams);
+
+    if (pUnit)
+    {
+        pUnit->dwFlagEx |= 0x40000;
+        pUnit->dwFlags |= 0x20;
+    }
+}
+
+// 0x004D96B0
+void __fastcall MISSILE_StateMissile(D2UnitStrc* pUnit, int nState)
+{
+    D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(nState);
+    if (!pStatesTxtRecord || pStatesTxtRecord->wMissile < 0 || pStatesTxtRecord->wMissile >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return;
+    }
+
+    D2MissileStrc missileParams;
+    memset(&missileParams, 0, sizeof(missileParams));
+    missileParams.pOwner = pUnit;
+    missileParams.pOrigin = pUnit;
+    missileParams.nMissile = pStatesTxtRecord->wMissile;
+    missileParams.nSkill = pStatesTxtRecord->wSkill >= 0 ? pStatesTxtRecord->wSkill : 0;
+    missileParams.nSkillLevel = 1;
+    MISSILE_CreateClientMissile(&missileParams);
+}
+
+
 #include "gen/data/Source/D2Client/UNIT/PlrSkills.inc"
 
 static D2StatesTxt* STATES_GetStatesTxtRecord_J03(int nState)

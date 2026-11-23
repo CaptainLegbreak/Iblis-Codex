@@ -5192,56 +5192,6 @@ void __fastcall MISSILE_CltDoOwnerTarget(D2UnitStrc* pMissile)
     }
 }
 
-// 0x004D9180
-void __fastcall MISSILE_StateStartMissile(D2UnitStrc* pUnit, int nState)
-{
-    D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(nState);
-    if (!pStatesTxtRecord || pStatesTxtRecord->wSkill < 0)
-    {
-        return;
-    }
-
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(pStatesTxtRecord->wSkill);
-    if (!pSkillsTxtRecord || pSkillsTxtRecord->wCltMissileA < 0 || pSkillsTxtRecord->wCltMissileA >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return;
-    }
-
-    D2MissileStrc missileParams;
-    memset(&missileParams, 0, sizeof(missileParams));
-    missileParams.pOwner = pUnit;
-    missileParams.pOrigin = pUnit;
-    missileParams.nMissile = pSkillsTxtRecord->wCltMissileA;
-    missileParams.nSkill = pStatesTxtRecord->wSkill;
-    missileParams.nSkillLevel = 1;
-    MISSILE_CreateClientMissile(&missileParams);
-
-    if (pUnit)
-    {
-        pUnit->dwFlagEx |= 0x40000;
-        pUnit->dwFlags |= 0x20;
-    }
-}
-
-// 0x004D96B0
-void __fastcall MISSILE_StateMissile(D2UnitStrc* pUnit, int nState)
-{
-    D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(nState);
-    if (!pStatesTxtRecord || pStatesTxtRecord->wMissile < 0 || pStatesTxtRecord->wMissile >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return;
-    }
-
-    D2MissileStrc missileParams;
-    memset(&missileParams, 0, sizeof(missileParams));
-    missileParams.pOwner = pUnit;
-    missileParams.pOrigin = pUnit;
-    missileParams.nMissile = pStatesTxtRecord->wMissile;
-    missileParams.nSkill = pStatesTxtRecord->wSkill >= 0 ? pStatesTxtRecord->wSkill : 0;
-    missileParams.nSkillLevel = 1;
-    MISSILE_CreateClientMissile(&missileParams);
-}
-
 // 0x004E0A40
 int __fastcall MISSILE_SkillStartPlace(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
