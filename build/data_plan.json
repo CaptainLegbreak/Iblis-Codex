@@ -29911,10 +29911,10 @@
    "declared": true,
    "decorated": null,
    "file": "Source/D2Client/CORE/WINMAIN.CPP",
-   "fill": 16,
+   "fill": 260,
    "form": "declared",
    "fwd": null,
-   "head": "extern char gszServerIP[16] = ",
+   "head": "extern char gszServerIP[260] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -29923,13 +29923,13 @@
      "size": 1
     },
     "k": "arr",
-    "n": 16,
-    "size": 16
+    "n": 260,
+    "size": 260
    },
    "name": "gszServerIP",
    "pointers": [],
    "region": "data",
-   "size": 16,
+   "size": 260,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x0070EF20",
@@ -31651,10 +31651,10 @@
    "declared": true,
    "decorated": null,
    "file": "Source/D2Client/GAME/Game_0044D080.cpp",
-   "fill": 16,
+   "fill": 260,
    "form": "declared",
    "fwd": null,
-   "head": "extern char gszMcpIP[16] = ",
+   "head": "extern char gszMcpIP[260] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -31663,13 +31663,13 @@
      "size": 1
     },
     "k": "arr",
-    "n": 16,
-    "size": 16
+    "n": 260,
+    "size": 260
    },
    "name": "gszMcpIP",
    "pointers": [],
    "region": "data",
-   "size": 16,
+   "size": 260,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x0070F130",
