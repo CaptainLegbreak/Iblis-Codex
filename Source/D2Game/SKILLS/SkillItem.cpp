@@ -1187,11 +1187,6 @@ D2MonEquipTxt* __fastcall SKILLITEM_GetMonEquipTxtRecord(int nMonsterId)
     return &sgptDataTables->pMonEquipTxt[pMonStatsTxtRecord->nMonEquipTxtRecordId];
 }
 
-// 0x005FD200
-void __fastcall AITHINK_Fn145_UberBaal(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
-{
-}
-
 static inline int GetItemType(D2UnitStrc* pItem)
 {
     int nType = 6;
@@ -3849,29 +3844,6 @@ inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-    }
-}
-
-// 0x005FD0F0
-void __fastcall AIBAAL_SpawnUberBaalMinion(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2CoordStrc coord;
-    coord.nX = UNITS_GetUnitXPosition(pUnit);
-    coord.nY = UNITS_GetUnitYPosition(pUnit);
-
-    const int nMinionTypes[3] = { 0x2DC, 0x2DB, 0x2DD };
-    const int nMinionModes[3] = { 1, 7, 8 };
-    const int nChoice = (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) & 1;
-
-    D2ActiveRoomStrc* pRoom = COLLISION_GetFreeCoordinates(UNITS_GetRoom(pUnit), &coord, 2, 0x100, 0);
-    if (pRoom)
-    {
-        D2UnitStrc* pMinion = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, coord.nX, coord.nY, nMinionTypes[nChoice], nMinionModes[nChoice], -1, 0);
-        if (pMinion)
-        {
-            pMinion->dwFlags |= 0x4000000;
-            STATES_ToggleState(pMinion, 0xB8, 1);
-        }
     }
 }
 

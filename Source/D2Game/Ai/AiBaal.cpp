@@ -1174,3 +1174,185 @@ void __fastcall AIBAAL_RunSpecialAiState(D2GameStrc* pGame, D2UnitStrc* pUnit, D
 
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 1);
 }
+
+static inline int UNITS_GetXPos(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    }
+
+    if (pUnit->pDynamicPath)
+    {
+        return PATH_GetXPosition(pUnit->pDynamicPath);
+    }
+
+    return 0;
+}
+
+static inline int UNITS_GetYPos(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    }
+
+    if (pUnit->pDynamicPath)
+    {
+        return PATH_GetYPosition(pUnit->pDynamicPath);
+    }
+
+    return 0;
+}
+
+// 0x005FCFE0
+void __fastcall AITHINK_Fn135_BaalCrab(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int nMax = 0;
+    int nCount = 0;
+
+    D2UnitStrc* pTarget = AIBAAL_GetUberTarget(pGame, &nMax, &nCount, 0, AIBAAL_CullPotentialTargets, pUnit);
+    D2AiCmdStrc* pAiCmd = AIGENERAL_GetAiCommandFromParam(pUnit, 10, 0);
+    if (!pAiCmd)
+    {
+        D2AiCmdStrc aiCmd;
+        aiCmd.nCmdParam[0] = 10;
+        aiCmd.nCmdParam[1] = UNITS_GetXPos(pUnit);
+        aiCmd.nCmdParam[2] = UNITS_GetYPos(pUnit);
+        AIGENERAL_CopyAiCommand(pGame, pUnit, &aiCmd);
+        pAiCmd = AIGENERAL_GetAiCommandFromParam(pUnit, 10, 0);
+    }
+
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    const int nParam = AIBAAL_RollRandomAiParam(pGame, pUnit, pAiControl, pTarget, nMax, nCount, pAiCmd);
+    AIBAAL_MainSkillHandler(pGame, pUnit, pAiControl, pTarget, nParam, pAiCmd);
+    AITACTICS_Idle(pGame, pUnit, 25);
+}
+
+D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
+
+inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+// 0x005FD0F0
+void __fastcall AIBAAL_SpawnUberBaalMinion(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2CoordStrc coord;
+    coord.nX = UNITS_GetUnitXPosition(pUnit);
+    coord.nY = UNITS_GetUnitYPosition(pUnit);
+
+    const int nMinionTypes[3] = { 0x2DC, 0x2DB, 0x2DD };
+    const int nMinionModes[3] = { 1, 7, 8 };
+    const int nChoice = (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) & 1;
+
+    D2ActiveRoomStrc* pRoom = COLLISION_GetFreeCoordinates(UNITS_GetRoom(pUnit), &coord, 2, 0x100, 0);
+    if (pRoom)
+    {
+        D2UnitStrc* pMinion = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, coord.nX, coord.nY, nMinionTypes[nChoice], nMinionModes[nChoice], -1, 0);
+        if (pMinion)
+        {
+            pMinion->dwFlags |= 0x4000000;
+            STATES_ToggleState(pMinion, 0xB8, 1);
+        }
+    }
+}
+
+// 0x005FD200
+void __fastcall AITHINK_Fn145_UberBaal(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+}
+
+D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0
+
+void __fastcall SUNITDMG_KillMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pKiller, int bSkipDrops); // 0x0057CCB0
+
+int __stdcall shim_1(void* p1, void* p2);
+
+// build: context sub_005FC630
+static int __stdcall sub_005FC630(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, D2UnitStrc* pTarget, int nMax, int nCount, D2AiCmdStrc* pAiCmd)
+{
+
+    pTarget->dwUnitType = 0;
+    pUnit->dwUnitType = 1;
+    shim_1(&pGame, &pAiControl);
+    return shim_1(&nMax, &nCount) + shim_1(&pAiCmd, 0);
+}
+
+// 0x005FD210
+void __fastcall AITHINK_Fn140_BaalCrabClone(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
+    if (pOwner && SUNIT_IsDead(pOwner))
+    {
+        SUNITDMG_KillMonster(pGame, pUnit, 0, 1);
+        return;
+    }
+
+    pOwner = SUNIT_GetOwner(pGame, pUnit);
+    if (!pOwner || SUNIT_IsDead(pOwner))
+    {
+        SUNITDMG_KillMonster(pGame, pUnit, 0, 1);
+        return;
+    }
+
+    int nMax = 0;
+    int nCount = 0;
+    D2UnitStrc* pTarget = AIBAAL_GetUberTarget(pGame, &nMax, &nCount, 0, AIBAAL_CullPotentialTargets, pUnit);
+
+    D2AiCmdStrc* pAiCmd = AIGENERAL_GetAiCommandFromParam(pUnit, 10, 0);
+    if (!pAiCmd)
+    {
+        D2AiCmdStrc aiCmd;
+        aiCmd.nCmdParam[0] = 10;
+        aiCmd.nCmdParam[1] = CLIENTS_GetUnitX(pUnit);
+        aiCmd.nCmdParam[2] = CLIENTS_GetUnitY(pUnit);
+        AIGENERAL_CopyAiCommand(pGame, pUnit, &aiCmd);
+        pAiCmd = AIGENERAL_GetAiCommandFromParam(pUnit, 10, 0);
+    }
+
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    int nParam = sub_005FC630(pGame, pUnit, pAiControl, pTarget, nMax, nCount, pAiCmd);
+    if (nParam == 7 || nParam == 9 || nParam == 14 || nParam == 15)
+    {
+        nParam = 2;
+    }
+
+    if (pTarget)
+    {
+        AIBAAL_MainSkillHandler(pGame, pUnit, pAiControl, pTarget, nParam, pAiCmd);
+        AITACTICS_Idle(pGame, pUnit, 25);
+    }
+    else
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
+    }
+}
