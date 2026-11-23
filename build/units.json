@@ -40243,6 +40243,10 @@
      "name": "?D2SOUND_ResetSound@@YIXPAUD2SoundStrc@@@Z"
     },
     {
+     "va": "0x00516250",
+     "length": 691
+    },
+    {
      "va": "0x00516510",
      "length": 95,
      "name": "D2SOUND_StartSoundThread"
@@ -40286,7 +40290,39 @@
      "va": "0x00516720",
      "length": 53,
      "name": "?D2SOUND_InitWaveFormat@@YIXPAUD2WaveFormatStrc@@H@Z"
+    },
+    {
+     "va": "0x00516760",
+     "length": 196
+    },
+    {
+     "va": "0x00516830",
+     "length": 287
     }
+   ]
+  },
+  {
+   "file": "Source/D2Sound/Src/D2SoundSmp_005153C0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x005153C0",
+     "length": 361
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
@@ -40470,42 +40506,6 @@
      "length": 31,
      "name": "?sub_00514D60_SetNpcSpeech@@YIHH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Sound/Src/D2SoundSmp_005153C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005153C0",
-     "length": 361
-    },
-    {
-     "va": "0x00516250",
-     "length": 691
-    },
-    {
-     "va": "0x00516760",
-     "length": 196
-    },
-    {
-     "va": "0x00516830",
-     "length": 287
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
