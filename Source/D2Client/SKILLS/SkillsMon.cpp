@@ -12,6 +12,7 @@
 #include "D2TxtItems.h"
 #include "D2Path.h"
 #include "D2Unicode.h"
+#include "D2ClientUi.h"
 
 struct D2UnitStrc;
 
@@ -257,6 +258,20 @@ int __fastcall SKILLSMON_FireVolley(D2UnitStrc* pUnit, int nSkillId, int nSkillL
     }
     return 1;
 }
+
+// 0x004E1E30
+int __fastcall sub_004E1E30_SkillClearSkillFlags(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    SKILLS_SetFlags(pSkill, 0);
+    return 1;
+}
+
 
 // 0x004E1E50
 int __fastcall SKILLSMON_ChargeFrames(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
