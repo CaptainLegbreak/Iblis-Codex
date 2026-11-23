@@ -81468,11 +81468,6 @@
      "name": "sub_006B76C0"
     },
     {
-     "va": "0x006BC850",
-     "length": 3,
-     "name": "sub_006BC850"
-    },
-    {
      "va": "0x006BE3C0",
      "length": 132
     },
@@ -82874,70 +82869,13 @@
     {
      "va": "0x006BBCE0",
      "length": 573
-    },
-    {
-     "va": "0x006BBF20",
-     "length": 28,
-     "name": "_sub_006BBF20@4"
-    },
-    {
-     "va": "0x006BBF40",
-     "length": 28,
-     "name": "_sub_006BBF40@8"
-    },
-    {
-     "va": "0x006BC010",
-     "length": 32,
-     "name": "_sub_006BC010_SetHandler@12"
-    },
-    {
-     "va": "0x006BC030",
-     "length": 128
     }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_006BBF60.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BBF60",
-     "length": 54
-    },
-    {
-     "va": "0x006BBFA0",
-     "length": 99
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
    "file": "Source/Fog/Src/Excel/Excel.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x006BC0B0",
-     "length": 101,
-     "name": "_FOG_ConnectionSend@12"
-    },
-    {
-     "va": "0x006BC120",
-     "length": 36,
-     "name": "_FOG_ConnectionReceive@12"
-    },
     {
      "va": "0x006BCDA0",
      "length": 52,
@@ -83047,6 +82985,43 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x006BBF20",
+     "length": 28,
+     "name": "_sub_006BBF20@4"
+    },
+    {
+     "va": "0x006BBF40",
+     "length": 28,
+     "name": "_sub_006BBF40@8"
+    },
+    {
+     "va": "0x006BBF60",
+     "length": 54
+    },
+    {
+     "va": "0x006BBFA0",
+     "length": 99
+    },
+    {
+     "va": "0x006BC010",
+     "length": 32,
+     "name": "_sub_006BC010_SetHandler@12"
+    },
+    {
+     "va": "0x006BC030",
+     "length": 128
+    },
+    {
+     "va": "0x006BC0B0",
+     "length": 101,
+     "name": "_FOG_ConnectionSend@12"
+    },
+    {
+     "va": "0x006BC120",
+     "length": 36,
+     "name": "_FOG_ConnectionReceive@12"
+    },
+    {
      "va": "0x006BC150",
      "length": 305
     },
@@ -83107,6 +83082,11 @@
     {
      "va": "0x006BC830",
      "length": 27
+    },
+    {
+     "va": "0x006BC850",
+     "length": 3,
+     "name": "sub_006BC850"
     },
     {
      "va": "0x006BC860",

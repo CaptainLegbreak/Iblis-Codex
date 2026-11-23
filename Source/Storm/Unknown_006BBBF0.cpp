@@ -3,8 +3,6 @@
 #include "D2GfxTypes.h"
 
 struct D2CriticalSectionStrc;
-struct ConnectionHandlerView;
-struct D2Socket006BC030Strc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -44,39 +42,6 @@ void __fastcall D2SOUND_SetMasterVolume(int nVolume); // 0x00515CE0
 extern int gnRenderHeight; // 0x007C913C
 extern unsigned int gnBinkY_00989C08; // 0x00989C08
 extern unsigned int gnBinkFlags_00989C18; // 0x00989C18
-
-typedef int (__fastcall* PacketHandler)(const unsigned char* data,unsigned int size,int context);
-
-typedef char check_pointer_width[sizeof(void*)==4?1:-1];
-
-typedef char check_callback_width[sizeof(PacketHandler)==4?1:-1];
-
-struct ConnectionHandlerView
-{
-    char retained[0x168];
-    PacketHandler callback;
-    int context;
-};
-
-typedef char check_callback[OFFSET(ConnectionHandlerView,callback)==0x168?1:-1];
-
-typedef char check_context[OFFSET(ConnectionHandlerView,context)==0x16c?1:-1];
-
-typedef char check_partial_view[sizeof(ConnectionHandlerView)==0x170?1:-1];
-
-int __stdcall sub_006B017A_Send(int nSocket, const void* pBuffer, int nLength, int nFlags); // 0x006B017A
-int __stdcall sub_006B0168_GetLastError(); // 0x006B0168
-
-struct D2Socket006BC030Strc
-{
-    unsigned char unk_00[8];
-    int nSocket;
-    D2CriticalSectionStrc tLock;
-    unsigned char unk_24[8];
-    int bClosed;
-    int nState;
-    int nLastError;
-};
 
 unsigned int gnBinkY_00989C08; // 0x00989C08
 
@@ -243,57 +208,4 @@ LABEL_FAIL:
     {
         exit(-1);
     }
-}
-
-// 0x006BBF20
-extern "C" __declspec(dllexport) int __stdcall sub_006BBF20(const unsigned char* pBuffer) {
-    return ((*(pBuffer + 1) & 0x7F) << 7) + (*pBuffer & 0x7F);
-}
-
-// 0x006BBF40
-extern "C" __declspec(dllexport) void __stdcall sub_006BBF40(unsigned char* pBuffer, unsigned int nValue) {
-    *pBuffer = (unsigned char)(nValue | 0x80);
-    *(pBuffer + 1) = (unsigned char)((nValue >> 7) | 0x80);
-}
-
-// 0x006BC010
-extern "C" void __stdcall sub_006BC010_SetHandler(ConnectionHandlerView* connection,PacketHandler callback,int context)
-{
-    if (connection)
-    {
-        connection->callback = callback;
-        connection->context = context;
-    }
-}
-
-// 0x006BC030
-int __fastcall sub_006BC030_Send(D2Socket006BC030Strc* pSocket, const void* pBuffer, int nLength)
-{
-    if (!pSocket || pSocket->bClosed)
-    {
-        return -1;
-    }
-    EnterCriticalSection(&pSocket->tLock);
-    int nResult;
-    const int nSent = sub_006B017A_Send(pSocket->nSocket, pBuffer, nLength, 0);
-    if (nSent == -1)
-    {
-        const int nError = sub_006B0168_GetLastError();
-        pSocket->nLastError = nError;
-        if (nError == 0x2733)
-        {
-            nResult = 0;
-        }
-        else
-        {
-            pSocket->nState = 4;
-            return -1;
-        }
-    }
-    else
-    {
-        nResult = nSent;
-    }
-    LeaveCriticalSection(&pSocket->tLock);
-    return nResult;
 }

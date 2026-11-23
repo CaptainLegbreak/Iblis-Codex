@@ -4,10 +4,6 @@
 
 struct Server;
 
-struct SafeSocketView;
-
-struct ConnectionView;
-
 struct LinkNode;
 
 struct LinkerView;
@@ -16,15 +12,11 @@ struct PaletteColor;
 
 struct Unit;
 
-struct ReceiveQueue;
-
 struct BinFile;
 
 struct ClientNode;
 
 struct PaletteTables;
-
-struct ReceiveConnection;
 
 struct Obj006BCDE0;
 
@@ -68,17 +60,6 @@ struct D2BinFileStrc;
 
 typedef unsigned short U16;
 
-struct SafeSocketView
-{
-    int connected;
-};
-
-struct ConnectionView
-{
-    char retained[0x110];
-    SafeSocketView* socket;
-};
-
 struct LinkNode
 {
     char retained[0x24];
@@ -93,10 +74,6 @@ struct LinkerView
     LinkNode* root;
 };
 
-typedef char check_connected[OFFSET(SafeSocketView,connected)==0?1:-1];
-
-typedef char check_socket[OFFSET(ConnectionView,socket)==0x110?1:-1];
-
 typedef char check_node_first[OFFSET(LinkNode,firstChild)==0x24?1:-1];
 
 typedef char check_node_second[OFFSET(LinkNode,secondChild)==0x28?1:-1];
@@ -108,12 +85,6 @@ typedef char check_entries[OFFSET(LinkerView,entries)==0x8?1:-1];
 typedef char check_root[OFFSET(LinkerView,root)==0xC?1:-1];
 
 typedef char check_linker_size[sizeof(LinkerView)==0x10?1:-1];
-
-extern "C" void __fastcall sub_0040DDD0_Lock(SafeSocketView* socket);
-
-extern "C" int __fastcall sub_0040DD80_SendNoLock(SafeSocketView* socket,const char* data,int length);
-
-extern "C" void __fastcall sub_0040DDE0_Unlock(SafeSocketView* socket);
 
 extern "C" void __fastcall sub_006BD070_FreeNodes(LinkNode* node);
 
@@ -155,8 +126,6 @@ extern "C" U8 __stdcall GetClosestColor(const U8* palette,U32 count,int c0,int c
 extern "C" int __fastcall sub_0063E860_UnitPredicate(Unit* unit);
 
 extern "C" int __fastcall sub_00457490_MonsterFlag(int classId,int flag);
-
-extern "C" U32 __fastcall sub_006C2090_ReadQueue(ReceiveQueue* queue,char* buffer,int capacity);
 
 extern "C" int __fastcall sub_0040B3C0_Free(void* block,const char* file,int line,int flags);
 
@@ -463,29 +432,6 @@ extern "C" void __stdcall PATH_SetCurrentRoomInvalid(PathFlags* path, int invali
         path->flags |= 2U;
     else
         path->flags &= ~2U;
-}
-
-// 0x006BC0B0
-extern "C" int __stdcall FOG_ConnectionSend(ConnectionView* connection,const char* data,U16 length)
-{
-    if (connection && connection->socket && connection->socket->connected != 0)
-    {
-        int sent = 0;
-        sub_0040DDD0_Lock(connection->socket);
-        if (data && length)
-            sent = sub_0040DD80_SendNoLock(connection->socket,data,length);
-        sub_0040DDE0_Unlock(connection->socket);
-        return length == (U16)sent;
-    }
-    return 0;
-}
-
-// 0x006BC120
-extern "C" U32 __stdcall FOG_ConnectionReceive(ReceiveConnection* connection, char* buffer, int capacity)
-{
-    if (!connection)
-        return 0;
-    return sub_006C2090_ReadQueue(&connection->queue, buffer, capacity);
 }
 
 // 0x006BCDA0

@@ -674,11 +674,6 @@ void __stdcall sub_006B76C0(int nUnused1, int nUnused2)
 {
 }
 
-// 0x006BC850
-void __stdcall sub_006BC850(int nUnused1)
-{
-}
-
 // build: symbol ?FOG_SetServerConfig@* 0x006BE310
 void __stdcall FOG_SetServerConfig(D2QServerConfigStrc* pConfig)
 {
