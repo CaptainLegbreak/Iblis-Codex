@@ -22575,6 +22575,11 @@
      "name": "WARDENCLIENT_HandleChatKeyDown"
     },
     {
+     "va": "0x0047C3F0",
+     "length": 40,
+     "name": "?sub_0047C3F0_CopyCommandArgs@@YGXPADPBDI@Z"
+    },
+    {
      "va": "0x0047CA70",
      "length": 540,
      "name": "?sub_0047CA70_OnChatChar@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
@@ -22583,6 +22588,26 @@
      "va": "0x0047E090",
      "length": 360,
      "name": "WARDENCLIENT_ToggleEscMenuUIState"
+    },
+    {
+     "va": "0x0047E8B0",
+     "length": 229,
+     "name": "?sub_0047E8B0_LayoutSlots@@YAXH@Z"
+    },
+    {
+     "va": "0x0047F490",
+     "length": 448,
+     "name": "?sub_0047F490_ShowSlotTooltip@@YGXHHH@Z"
+    },
+    {
+     "va": "0x0047F650",
+     "length": 181,
+     "name": "?sub_0047F650_UpdateSlotHover@@YAXH@Z"
+    },
+    {
+     "va": "0x0047F710",
+     "length": 410,
+     "name": "?sub_0047F710_UpdateSlotBar@@YAXXZ"
     },
     {
      "va": "0x0047F8B0",
@@ -23294,51 +23319,6 @@
     {
      "va": "0x0047E3D0",
      "length": 840
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0047C3F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0047C3F0",
-     "length": 40,
-     "name": "?sub_0047C3F0_CopyCommandArgs@@YGXPADPBDI@Z"
-    },
-    {
-     "va": "0x0047E8B0",
-     "length": 229,
-     "name": "?sub_0047E8B0_LayoutSlots@@YAXH@Z"
-    },
-    {
-     "va": "0x0047F490",
-     "length": 448,
-     "name": "?sub_0047F490_ShowSlotTooltip@@YGXHHH@Z"
-    },
-    {
-     "va": "0x0047F650",
-     "length": 181,
-     "name": "?sub_0047F650_UpdateSlotHover@@YAXH@Z"
-    },
-    {
-     "va": "0x0047F710",
-     "length": 410,
-     "name": "?sub_0047F710_UpdateSlotBar@@YAXXZ"
     }
    ],
    "flags": [
