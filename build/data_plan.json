@@ -798,7 +798,7 @@
   },
   "Source/D2Multi/Src/ChatDlg.cpp": {
    "bytes": 1544,
-   "definitions": 54,
+   "definitions": 57,
    "externs": [
     "extern \"C\" void __cdecl CHARSEL_SendChatLine(); // 0x00446890",
     "extern \"C\" void __cdecl COMCALLBACK_SendChatLine(); // 0x004468F0",
@@ -808,7 +808,10 @@
     "extern \"C\" void __cdecl COMCALLBACK_UnsquelchSelectedUser(); // 0x00448F60",
     "extern \"C\" char gData_0070CD84[]; // 0x0070CD84",
     "extern \"C\" void __cdecl CHARSEL_OnChatLine(); // 0x004429A0",
-    "extern \"C\" char gData_0070CD9C[]; // 0x0070CD9C"
+    "extern \"C\" char gData_0070CD9C[]; // 0x0070CD9C",
+    "extern \"C\" void __cdecl CHARSEL_UseEditText(); // 0x00441240",
+    "extern \"C\" void __cdecl sub_00441320(); // 0x00441320",
+    "extern \"C\" struct d2data_0070CDD0_t gData_0070CDD0; // 0x0070CDD0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Multi/Src/ChatDlg_0043C6B0.inc",
@@ -849,7 +852,7 @@
   },
   "Source/D2Multi/Unknown_00440FC0.cpp": {
    "bytes": 1828,
-   "definitions": 7,
+   "definitions": 4,
    "externs": [
     "extern \"C\" char gData_0070CD94[]; // 0x0070CD94",
     "extern \"C\" char gData_0070CD9C[]; // 0x0070CD9C",
@@ -24598,7 +24601,7 @@
    "cname": "gData_0070D990",
    "declared": true,
    "decorated": "?gtChannelNameEditInit@@3UD2WinControlInitStrc@@A",
-   "file": "Source/D2Multi/Unknown_00440FC0.cpp",
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070D990_t gData_0070D990; // 0x0070D990",
    "head": "extern \"C\" struct d2data_0070D990_t gData_0070D990 = ",
@@ -24640,7 +24643,7 @@
    "cname": "gData_0070D9F0",
    "declared": true,
    "decorated": "?gtChannelListInit@@3UD2WinControlInitStrc@@A",
-   "file": "Source/D2Multi/Unknown_00440FC0.cpp",
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070D9F0_t gData_0070D9F0; // 0x0070D9F0",
    "head": "extern \"C\" struct d2data_0070D9F0_t gData_0070D9F0 = ",
@@ -24690,7 +24693,7 @@
    "cname": "gData_0070DA20",
    "declared": true,
    "decorated": "?gtChannelOkButtonInit@@3UD2WinControlInitStrc@@A",
-   "file": "Source/D2Multi/Unknown_00440FC0.cpp",
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070DA20_t gData_0070DA20; // 0x0070DA20",
    "head": "extern \"C\" struct d2data_0070DA20_t gData_0070DA20 = ",
