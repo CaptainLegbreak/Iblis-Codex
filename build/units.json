@@ -32062,6 +32062,11 @@
      "name": "sub_004F3EB0_CheckTargetRoom"
     },
     {
+     "va": "0x004F3FB0",
+     "length": 65,
+     "name": "?sub_004F3FB0_GetTargetMonster@@YIPAUD2UnitStrc@@PAU1@@Z"
+    },
+    {
      "va": "0x004F4610",
      "length": 402,
      "name": "SKILLSMON_MissileLine"
@@ -33464,11 +33469,6 @@
    "file": "Source/D2Client/Unknown_004F3FB0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004F3FB0",
-     "length": 65,
-     "name": "?sub_004F3FB0_GetTargetMonster@@YIPAUD2UnitStrc@@PAU1@@Z"
-    },
     {
      "va": "0x004F4140",
      "length": 14,
