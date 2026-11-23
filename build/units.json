@@ -12515,6 +12515,15 @@
      "name": "CHATDLG_IsCharOverLimit"
     },
     {
+     "va": "0x00442E30",
+     "length": 123,
+     "name": "?sub_00442E30_ShowGameInfo@@YAXH@Z"
+    },
+    {
+     "va": "0x00442EB0",
+     "length": 636
+    },
+    {
      "va": "0x00443600",
      "length": 38,
      "name": "CHATDLG_IsPrintableChar"
@@ -13017,35 +13026,6 @@
     {
      "va": "0x004423B0",
      "length": 1118
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_00442E30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00442E30",
-     "length": 123,
-     "name": "?sub_00442E30_ShowGameInfo@@YAXH@Z"
-    },
-    {
-     "va": "0x00442EB0",
-     "length": 636
     }
    ],
    "flags": [
