@@ -76860,6 +76860,10 @@
      "va": "0x0064B760",
      "length": 87,
      "name": "MISSILE_GetSpecialParamValueForSkillMissile"
+    },
+    {
+     "va": "0x0064B860",
+     "length": 1780
     }
    ]
   },
@@ -77083,30 +77087,6 @@
      "length": 158,
      "name": "?sub_0064B2A0_GetMissileElementLength@@YGHPAUD2UnitStrc@@0HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/UNITS/Missile_0064B860.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0064B860",
-     "length": 1780
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
