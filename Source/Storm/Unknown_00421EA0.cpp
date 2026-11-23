@@ -622,11 +622,6 @@ static void __stdcall FromStream(BigBuffer* pBuf, unsigned int* pnUsed, unsigned
         *pnUsed = nOffset + nLength;
 }
 
-void __stdcall sub_00423850(void* hBig, const void* pData, unsigned int nSize)
-{
-    FROM_BINARY((const unsigned char*)pData, nSize, (BigBuffer*)hBig);
-}
-
 // 0x00423890
 void __stdcall SBigFromStream(void* hBig, const void* pData, unsigned int nSize, unsigned int* pnUsed)
 {

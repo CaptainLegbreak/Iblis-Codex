@@ -189,12 +189,7 @@ static inline AUDIOSTREAM* DdaHead()
     return (int)gpDdaHead_0070838C > 0 ? gpDdaHead_0070838C : 0;
 }
 
-static int sub_00415950_GetFileRec(void* hFile, FILEREC** ppRec)
-{
-    *ppRec = (FILEREC*)hFile;
-    return 1;
-}
-
+int sub_00415950_GetFileRec(void* hFile, FILEREC** ppRec); // 0x00415950
 unsigned int sub_00415760_UpdatePlayed(AUDIOSTREAM* pStream); // 0x00415760
 // 0x00418140
 int __stdcall SFileDdaGetPos(void* hFile, unsigned int* pnPlayed, unsigned int* pnSize)
