@@ -4323,6 +4323,42 @@ int __cdecl NPCMENU_CloseHireDialog()
     return 1;
 }
 
+#pragma pack(push, 1)
+struct D2GSPacketSrv2A
+{
+    unsigned char nHeader;
+    unsigned char unk0x01;
+    unsigned char unk0x02;
+    unsigned int unk0x03;
+    unsigned int unk0x07;
+    unsigned int unk0x0B;
+};
+#pragma pack(pop)
+
+extern D2GSPacketSrv2A gtPacket2A;                                                                  // 0x007C0D87
+
+// 0x004B6390
+void __fastcall sub_004B6390_HandleNpcTransaction(D2GSPacketSrv2A* pPacket)
+{
+    gtPacket2A = *pPacket;
+// build: symbol ?gnNpcGoldSnapshot@* 0x007C0C73
+    gnNpcGoldSnapshot = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
+// build: symbol ?gnNpcMenuState@* 0x007C0C6B
+    if (gnNpcMenuState == 5)
+    {
+        NPCMENU_OnTransactionResult();
+        return;
+    }
+    if (gnNpcMenuState == 10)
+    {
+        sub_004B5640_OpenNpcMenu();
+        return;
+    }
+    if (pPacket->unk0x02 == 1)
+        sub_004B9A00(0xDD, 0, 0, 0, 0);
+}
+
+
 // 0x004B6410
 int __cdecl NPCMENU_InitHireHandler()
 {
