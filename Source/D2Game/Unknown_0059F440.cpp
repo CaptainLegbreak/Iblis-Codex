@@ -168,49 +168,8 @@ void __stdcall ACT2Q4_InitializeJerhynMonster(D2QuestDataStrc* quest,D2ActiveRoo
     }
 }
 
-// 0x0059F440
-void __fastcall ACT2Q4_InitializeJerhynPalaceObject(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp)
-{
-    D2QuestExStrc* pQuestDataEx = pQuestData->ex;
-    if (QUESTS_GetGlobalState((!pQuestData ? 0 : pQuestData->game), 14, 13) != 1)
-    {
-        D2ActiveRoomStrc* pRoom = pOp->pRoom;
-        pQuestDataEx->guardX = pOp->nX + 1;
-        pQuestDataEx->guardY = pOp->nY;
-        MONSTERSPAWN_SpawnAtCoordinates((pQuestData ? pQuestData->game : 0), pRoom, pQuestDataEx->guardX, pQuestDataEx->guardY, MONSTER_ACT2GUARD2, 1, 0);
-    }
-    EVENT_SetEvent(pOp->pGame, pOp->pObject, 7, pOp->pGame->dwGameFrame + 1, 0, 0);
-    D2CoordStrc pCoord;
-    pCoord.nX = pOp->nX;
-    pCoord.nY = pOp->nY;
-    if (pQuestDataEx->spawned) return;
-    if (!QUESTS_GetGlobalState((pQuestData ? pQuestData->game : 0), 8, 13) && !QUESTS_GetGlobalState((pQuestData ? pQuestData->game : 0), 9, 13))
-    {
-        D2QuestDataStrc* pQuest = QUESTS_GetQuestData((pQuestData ? pQuestData->game : 0), 13);
-        if (pQuest && pQuest->notIntro && pQuest->state < 2) return;
-    }
-    ACT2Q4_InitializeJerhynMonster(pQuestData, pOp->pRoom, &pCoord);
-}
-
-// 0x0059F510
-unsigned char __fastcall sub_0059F510_ACT2Q4_IsJerhynPalaceBlocked(D2GameStrc* pGame)
-{
-    D2QuestDataStrc* pQuestData11 = QUESTS_GetQuestData(pGame, 11);
-    if (!pQuestData11 || !((D2Act2Quest4Strc*)pQuestData11->pQuestDataEx)->bJerhynPalaceInitialized)
-    {
-        return 1;
-    }
-
-    D2QuestDataStrc* pQuestData8 = QUESTS_GetQuestData(pQuestData11->pGame, 8);
-    return !pQuestData8 || !pQuestData8->bNotIntro || pQuestData8->fState == 5 || ACT2Q6_IsTyraelPortalOpened(pQuestData11->pGame)
-        || pQuestData11->bNotIntro != 1 || pQuestData11->fState >= 2;
-}
-
-// 0x0059F570
-int __fastcall ACT2Q4_IsJerhynPalaceActivated(D2GameStrc* pGame)
-{
-    return sub_0059F510_ACT2Q4_IsJerhynPalaceBlocked(pGame) == 1 ? 1 : 0;
-}
+void __fastcall ACT2Q4_InitializeJerhynPalaceObject(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp); // 0x0059F440
+unsigned char __fastcall sub_0059F510_ACT2Q4_IsJerhynPalaceBlocked(D2GameStrc* pGame); // 0x0059F510
 
 // 0x0059F580
 void __fastcall ACT2Q4_GetAndUpdatePalaceNpcState(D2GameStrc* pGame, D2UnitStrc* pUnit, int* a3, int* pIdle)

@@ -998,34 +998,4 @@ void __fastcall sub_00596BA0_EmptyCallback(D2QuestDataStrc* pQuestData, D2QuestA
 {
 }
 
-// 0x0059F380
-void __fastcall ACT2Q4_InitializeJerhynStartObject(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp)
-{
-    D2Act2Quest4Strc* pQuestDataEx = (D2Act2Quest4Strc*)pQuestData->pQuestDataEx;
-    if (pQuestDataEx->bJerhynPalaceInitialized || QUESTS_GetGlobalState(pQuestData->pGame, QUESTSTATEFLAG_A2Q0, QFLAG_PRIMARYGOALDONE) || QUESTS_GetGlobalState(pQuestData->pGame, QUESTSTATEFLAG_A2Q4, QFLAG_PRIMARYGOALDONE))
-    {
-        return;
-    }
-
-    D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pQuestData->pGame, QUEST_A2Q6_DURIEL);
-    if (!pQuest || !pQuest->bNotIntro || pQuest->fState >= 2)
-    {
-        return;
-    }
-
-    D2ActiveRoomStrc* pRoom = pOp->pRoom;
-    D2CoordStrc pCoord;
-    pCoord.nX = pOp->nX;
-    pCoord.nY = pOp->nY;
-
-    QUESTS_GetFreePosition(pRoom, &pCoord, 2, 0x100, &pRoom, 10, 100);
-
-    D2UnitStrc* pJerhyn = D2GAME_SpawnMonster_6FC69F10(pQuestData->pGame, pRoom, pCoord.nX, pCoord.nY, MONSTER_JERHYN, 1, -1, 0);
-    if (pJerhyn)
-    {
-        pQuestDataEx->bJerhynStartInitialized = 1;
-        pQuestDataEx->nJerhynGUID = pJerhyn->dwUnitId;
-    }
-}
-
 #include "gen/data/Source/D2Game/Quests/a1q6.inc"
