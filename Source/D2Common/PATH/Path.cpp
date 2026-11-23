@@ -1,18 +1,33 @@
 #include "D2MonsterIds.h"
+
 #include "D2ItemTypes.h"
+
 #include "D2DrlgMaps.h"
+
 #include "D2DrlgTiles.h"
+
 #include "D2TxtTables.h"
+
 #include "D2LevelIds.h"
+
 #include "D2Unicode.h"
+
 #include "D2StateIds.h"
+
 #include "D2SkillIds.h"
+
 #include "D2StatIds.h"
+
 #include "D2Records.h"
+
 #include "D2Skills.h"
+
 #include "D2LevelTxt.h"
+
 #include "D2PlayerModes.h"
+
 #include "D2MonModes.h"
+
 #include "D2PathFind.h"
 
 #include "D2Common.h"
@@ -1076,39 +1091,6 @@ void __cdecl sub_00403F50_Nop()
 {
 }
 
-static void PATH_FindValidTargetCoordsByMovingOrthogonally(D2PathInfoStrc* pPathInfo)
-{
-    int nY;
-    const int nDeltaX = pPathInfo->tTargetCoord.X - pPathInfo->tStartCoord.X;
-    const int nDeltaY = pPathInfo->tTargetCoord.Y - pPathInfo->tStartCoord.Y;
-    const int nAbsDeltaX = D2_ABS(nDeltaX);
-    const int nAbsDeltaY = D2_ABS(nDeltaY);
-    if (nAbsDeltaX < PATH_SNAP_RANGE && nAbsDeltaY < PATH_SNAP_RANGE && (nAbsDeltaX != 0 || nAbsDeltaY != 0))
-    {
-        int nX = pPathInfo->tTargetCoord.X;
-        const int nCollisionPattern = pPathInfo->nCollisionPattern;
-        const int nCollisionMask = pPathInfo->nCollisionMask;
-// build: symbol ?gnOrthogonalStepTable@* 0x006EB490
-        const int nOffsetX = gnOrthogonalStepTable[nDeltaY][nDeltaX];
-        const int nOffsetY = gnOrthogonalStepTable[nDeltaX][nDeltaY];
-        nY = pPathInfo->tTargetCoord.Y;
-        int nChebyshevDistance = D2_MAX(nAbsDeltaX, nAbsDeltaY);
-        while (nChebyshevDistance < PATH_SNAP_RANGE)
-        {
-            nX += nOffsetX;
-            nY += nOffsetY;
-            if (COLLISION_CheckAnyCollisionWithPattern(pPathInfo->pStartRoom, nX, nY, nCollisionPattern, nCollisionMask))
-            {
-                break;
-            }
-
-            pPathInfo->tTargetCoord.X = nX;
-            pPathInfo->tTargetCoord.Y = nY;
-            ++nChebyshevDistance;
-        }
-    }
-}
-
 inline unsigned int PATH_InlineGetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -1134,6 +1116,39 @@ inline unsigned int PATH_InlineGetUnitY(D2UnitStrc* pUnit)
 }
 
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
+
+// 0x00648050
+static void PATH_FindValidTargetCoordsByMovingOrthogonally(D2PathInfoStrc* pPathInfo)
+{
+    int nY;
+    const int nDeltaX = pPathInfo->tTargetCoord.X - pPathInfo->tStartCoord.X;
+    const int nDeltaY = pPathInfo->tTargetCoord.Y - pPathInfo->tStartCoord.Y;
+    const int nAbsDeltaX = D2_ABS(nDeltaX);
+    const int nAbsDeltaY = D2_ABS(nDeltaY);
+    if (nAbsDeltaX < PATH_SNAP_RANGE && nAbsDeltaY < PATH_SNAP_RANGE && (nAbsDeltaX != 0 || nAbsDeltaY != 0))
+    {
+        int nX = pPathInfo->tTargetCoord.X;
+        const int nCollisionPattern = pPathInfo->nCollisionPattern;
+        const int nCollisionMask = pPathInfo->nCollisionMask;
+        const int nOffsetX = gnOrthogonalStepTable[nDeltaY][nDeltaX];
+        const int nOffsetY = gnOrthogonalStepTable[nDeltaX][nDeltaY];
+        nY = pPathInfo->tTargetCoord.Y;
+        int nChebyshevDistance = D2_MAX(nAbsDeltaX, nAbsDeltaY);
+        while (nChebyshevDistance < PATH_SNAP_RANGE)
+        {
+            nX += nOffsetX;
+            nY += nOffsetY;
+            if (COLLISION_CheckAnyCollisionWithPattern(pPathInfo->pStartRoom, nX, nY, nCollisionPattern, nCollisionMask))
+            {
+                break;
+            }
+
+            pPathInfo->tTargetCoord.X = nX;
+            pPathInfo->tTargetCoord.Y = nY;
+            ++nChebyshevDistance;
+        }
+    }
+}
 
 // 0x00648120
 static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo)
@@ -1233,10 +1248,15 @@ static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo)
 }
 
 #define MONSTATS2FLAGINDEX_REVIVE 8
+
 #define MONSTATS2FLAGINDEX_ISATT 9
+
 #define MONSTATS2FLAGINDEX_SMALL 10
+
 int __stdcall UNITS_IsInMovingMode(D2UnitStrc* pUnit); // 0x00622D00
+
 struct D2SkillFormulaCtxStrc { D2UnitStrc* pUnit; int nSkillId; int nSkillLevel; };
+
 inline D2MonStats2Txt* UNITS_GetMonStats2TxtRecordFromMonsterId_Inl(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
