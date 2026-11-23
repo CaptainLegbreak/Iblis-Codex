@@ -45350,6 +45350,11 @@
      "name": "SERVER_OnClientDisconnectedCallback"
     },
     {
+     "va": "0x0052B780",
+     "length": 31,
+     "name": "?sub_0052B780@@YIXXZ"
+    },
+    {
      "va": "0x0052B7A0",
      "length": 52,
      "name": "SERVER_Initialize"
@@ -45479,17 +45484,6 @@
      "va": "0x0052BFE0",
      "length": 78,
      "name": "?GAME_GetGamesCount@@YIHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Net/Unknown_0052B780.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052B780",
-     "length": 31,
-     "name": "?sub_0052B780@@YIXXZ"
     }
    ]
   },
