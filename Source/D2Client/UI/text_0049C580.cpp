@@ -59,8 +59,6 @@ extern int gbWaitSoundPlayed; // 0x007C0DBC
 extern int gbWaitSoundScheduled; // 0x007C0DC0
 extern void* gpBuySellCel; // 0x007C0DC8
 extern void* gpGoldBtnCel; // 0x007C0DCC
-extern void* gpListBoxSliderCel; // 0x007C546C
-
 struct T0044CB60
 {
     Unicode* pText;
@@ -308,14 +306,6 @@ void __cdecl TEXT_InitNpcMenu()
     gdwLastTradeSendTick = 0;
 // build: symbol ?gdwTradeRequestTick@* 0x007C0DE9
     gdwTradeRequestTick = 0;
-}
-
-// 0x004BE020
-void __cdecl TEXT_LoadTextSliderCel()
-{
-    char szPath[0x104];
-    sprintf(szPath, "%s\\ui\\menu\\textslid", gszDataGlobal);
-    gpListBoxSliderCel = ARCHIVE_LoadClientCellFile(szPath, 0);
 }
 
 #include "gen/data/Source/D2Client/UI/text_0049C580.inc"

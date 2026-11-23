@@ -2,8 +2,6 @@
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
 
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, int nFlags);                   // 0x00413020
-
 #pragma pack(push, 2)
 
 struct D2ListBoxLineStrc
@@ -29,20 +27,12 @@ public:
     }
     virtual void Slot01();
 
-    static void* operator new(unsigned int nSize)
-    {
-// build: symbol ?gszNew@* 0x006CC82C
-        return SMemAlloc(nSize, gszNew, -1, 0);
-    }
-
     int unk0x04;
 };
 
 class ListBoxImplementation : public UIWidget
 {
 public:
-    ListBoxImplementation(int nX, int nY, int nWidth, int nHeight, int nArg10, int nArg14, int nArg18,
-        int nCallback, bool bLargeFont);                                                                    // 0x004BF650
     virtual void Slot01();
 
     void sub_004BE500_AddLine(const Unicode* wszText0, const Unicode* wszText1, const Unicode* wszText2,
@@ -84,8 +74,6 @@ public:
 class ListBoxWrapper : public UIWidget
 {
 public:
-    ListBoxWrapper(int nX, int nY, int nWidth, int nHeight, int nArg10, int nArg14, int nArg18, int nCallback,
-        bool bLargeFont);
     virtual ~ListBoxWrapper();
     virtual void Slot01();
 
@@ -94,7 +82,6 @@ public:
 
 #pragma pack(pop)
 
-// build: symbol ??0ListBoxImplementation@@QAE@HHHHHHHH_N@Z 0x004BF650
 // build: symbol ??_7ListBoxWrapper@@6B@ 0x006DAAA4
 // build: symbol ??_7UIWidget@@6B@ 0x006DA6C0
 // 0x004BE500
@@ -211,11 +198,4 @@ int ListBoxImplementation::sub_004BEA50_HitTestEntry(SMSGHANDLER_PARAMS* pMsg)
 ListBoxWrapper::~ListBoxWrapper()
 {
     delete pImpl;
-}
-
-// 0x004BF8F0
-ListBoxWrapper::ListBoxWrapper(int nX, int nY, int nWidth, int nHeight, int nArg10, int nArg14, int nArg18,
-    int nCallback, bool bLargeFont)
-{
-    pImpl = new ListBoxImplementation(nX, nY, nWidth, nHeight, nArg10, nArg14, nArg18, nCallback, bLargeFont);
 }

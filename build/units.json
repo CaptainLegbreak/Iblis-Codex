@@ -25097,11 +25097,6 @@
      "va": "0x004A28A0",
      "length": 38,
      "name": "@TEXT_AcceptShortPacket@4"
-    },
-    {
-     "va": "0x004BF650",
-     "length": 622,
-     "name": "??0ListBoxImplementation@@QAE@HHHHHHHH_N@Z"
     }
    ],
    "flags": [
@@ -26318,11 +26313,6 @@
      "name": "?TEXT_SetNameFromPacket@@YIXPAUD2NamePacketStrc@@@Z"
     },
     {
-     "va": "0x004BE410",
-     "length": 231,
-     "name": "?DrawClippedText@ListBoxImplementation@@QAEXPBUUnicode@@HHH@Z"
-    },
-    {
      "va": "0x004E48B0",
      "length": 268,
      "name": "?TEXT_AppendUndeadDamageBonus@@YIXPAUD2UnitStrc@@PAUUnicode@@H@Z"
@@ -26560,11 +26550,6 @@
      "va": "0x004B23E0",
      "length": 192,
      "name": "?TEXT_InitNpcMenu@@YAXXZ"
-    },
-    {
-     "va": "0x004BE020",
-     "length": 56,
-     "name": "?TEXT_LoadTextSliderCel@@YAXXZ"
     }
    ],
    "flags": [
@@ -26943,10 +26928,6 @@
      "va": "0x004A7AD0",
      "length": 1,
      "name": "?sub_004A7AD0@@YAXXZ"
-    },
-    {
-     "va": "0x004BEE90",
-     "length": 1107
     },
     {
      "va": "0x004BF2F0",
@@ -30294,9 +30275,19 @@
      "name": "?_GSpinnerImplementation"
     },
     {
+     "va": "0x004BE020",
+     "length": 56,
+     "name": "?TEXT_LoadTextSliderCel@@YAXXZ"
+    },
+    {
      "va": "0x004BE080",
      "length": 7,
      "name": "??1UIWidget@@UAE@XZ"
+    },
+    {
+     "va": "0x004BE410",
+     "length": 231,
+     "name": "?DrawClippedText@ListBoxImplementation@@QAEXPBUUnicode@@HHH@Z"
     },
     {
      "va": "0x004BE810",
@@ -30319,15 +30310,44 @@
      "name": "sub_004BEDF0_ForwardGetEntryData"
     },
     {
+     "va": "0x004BEE90",
+     "length": 1107
+    },
+    {
      "va": "0x004BF430",
      "length": 256,
      "name": "sub_004BF430_MouseDownMsg"
     },
     {
+     "va": "0x004BF650",
+     "length": 622,
+     "name": "??0ListBoxImplementation@@QAE@HHHHHHHH_N@Z"
+    },
+    {
      "va": "0x004BF8C0",
      "length": 40,
      "name": "?_GListBoxImplementation"
+    },
+    {
+     "va": "0x004BF8F0",
+     "length": 145,
+     "name": "??0ListBoxWrapper@@QAE@HHHHHHHH_N@Z"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHsc",
+    "/GS-"
    ]
   },
   {
@@ -31394,11 +31414,6 @@
      "va": "0x004BECC0",
      "length": 80,
      "name": "??1ListBoxWrapper@@UAE@XZ"
-    },
-    {
-     "va": "0x004BF8F0",
-     "length": 145,
-     "name": "??0ListBoxWrapper@@QAE@HHHHHHHH_N@Z"
     }
    ],
    "flags": [
