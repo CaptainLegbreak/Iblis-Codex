@@ -68551,11 +68551,6 @@
      "name": "?DATATBLS_LoadAllTxts@@YGXPAXHH@Z"
     },
     {
-     "va": "0x006254F0",
-     "length": 9,
-     "name": "STATLIST_GetTotalStatValueStub"
-    },
-    {
      "va": "0x00625500",
      "length": 27,
      "name": "STATLIST_UnitGetItemStatOrSkillStatValue"
@@ -70618,6 +70613,11 @@
      "va": "0x006254E0",
      "length": 9,
      "name": "?STATLIST_GetBaseStatValueByLayer@@YGHPAUD2StatListStrc@@HG@Z"
+    },
+    {
+     "va": "0x006254F0",
+     "length": 9,
+     "name": "STATLIST_GetTotalStatValueStub"
     },
     {
      "va": "0x006255A0",
