@@ -31273,6 +31273,10 @@
      "name": "?MISSILE_SpawnHellfireFragments@@YIHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004D1BD0",
+     "length": 410
+    },
+    {
      "va": "0x004D1D70",
      "length": 329,
      "name": "?MISSILE_CltHitLinkMissile@@YIHPAUD2UnitStrc@@0@Z"
@@ -31394,6 +31398,10 @@
      "va": "0x004D3E00",
      "length": 269,
      "name": "?MISSILE_CltDoTimedRequests@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004D3F10",
+     "length": 293
     },
     {
      "va": "0x004D4040",
@@ -32350,17 +32358,9 @@
    ]
   },
   {
-   "file": "Source/D2Client/UNIT/Missile_004D1BD0.cpp",
+   "file": "Source/D2Client/UNIT/Missile_004D6FA0.cpp",
    "rank": 1,
    "functions": [
-    {
-     "va": "0x004D1BD0",
-     "length": 410
-    },
-    {
-     "va": "0x004D3F10",
-     "length": 293
-    },
     {
      "va": "0x004D6FA0",
      "length": 789
