@@ -82395,11 +82395,6 @@
     {
      "va": "0x006B32B0",
      "length": 101
-    },
-    {
-     "va": "0x006B3400",
-     "length": 21,
-     "name": "?sub_006B3400_ReleaseWindow@@YAHXZ"
     }
    ]
   },
@@ -82550,6 +82545,66 @@
    ]
   },
   {
+   "file": "Source/D2Direct3D/Src/d3dSprite_006B5D40.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x006B5D40",
+     "length": 1120
+    },
+    {
+     "va": "0x006B61A0",
+     "length": 578
+    },
+    {
+     "va": "0x006B63F0",
+     "length": 650
+    },
+    {
+     "va": "0x006B6730",
+     "length": 1040
+    },
+    {
+     "va": "0x006B6B40",
+     "length": 168
+    },
+    {
+     "va": "0x006B6BF0",
+     "length": 158
+    },
+    {
+     "va": "0x006B6C90",
+     "length": 224
+    },
+    {
+     "va": "0x006B6D70",
+     "length": 367
+    },
+    {
+     "va": "0x006B6EE0",
+     "length": 274
+    },
+    {
+     "va": "0x006B7000",
+     "length": 137
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
    "file": "Source/D2Direct3D/Src/d3dCore.cpp",
    "rank": 0,
    "functions": [
@@ -82582,6 +82637,11 @@
     {
      "va": "0x006B3320",
      "length": 224
+    },
+    {
+     "va": "0x006B3400",
+     "length": 21,
+     "name": "?sub_006B3400_ReleaseWindow@@YAHXZ"
     },
     {
      "va": "0x006B3420",
@@ -82659,66 +82719,6 @@
     {
      "va": "0x006B59A0",
      "length": 355
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dSprite_006B5D40.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B5D40",
-     "length": 1120
-    },
-    {
-     "va": "0x006B61A0",
-     "length": 578
-    },
-    {
-     "va": "0x006B63F0",
-     "length": 650
-    },
-    {
-     "va": "0x006B6730",
-     "length": 1040
-    },
-    {
-     "va": "0x006B6B40",
-     "length": 168
-    },
-    {
-     "va": "0x006B6BF0",
-     "length": 158
-    },
-    {
-     "va": "0x006B6C90",
-     "length": 224
-    },
-    {
-     "va": "0x006B6D70",
-     "length": 367
-    },
-    {
-     "va": "0x006B6EE0",
-     "length": 274
-    },
-    {
-     "va": "0x006B7000",
-     "length": 137
     }
    ],
    "flags": [

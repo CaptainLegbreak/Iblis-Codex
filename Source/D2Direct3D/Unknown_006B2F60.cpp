@@ -192,13 +192,4 @@ void __cdecl sub_006B32B0_ReleaseRenderer()
     D3D_ReleaseSprites();
 }
 
-// 0x006B3400
-int __cdecl sub_006B3400_ReleaseWindow()
-{
-    D3D_ReleaseResources();
-    ghDDrawWindow_007C9140 = 0;
-    return 1;
-}
-
-
 #include "gen/data/Source/D2Direct3D/Unknown_006B2F60.inc"
