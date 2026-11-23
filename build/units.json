@@ -44486,6 +44486,11 @@
      "name": "SERVER_EnqueueClientPacket"
     },
     {
+     "va": "0x0052B690",
+     "length": 64,
+     "name": "?SERVER_EnqueueLocalClientPacket@@YIHPBEG@Z"
+    },
+    {
      "va": "0x0052B6D0",
      "length": 23,
      "name": "D2NET_10022"
@@ -44516,11 +44521,6 @@
    "file": "Source/D2Net/SRC/D2Net.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0052B690",
-     "length": 64,
-     "name": "?SERVER_EnqueueLocalClientPacket@@YIHPBEG@Z"
-    },
     {
      "va": "0x0052B7E0",
      "length": 22,

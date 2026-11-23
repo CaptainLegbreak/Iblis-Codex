@@ -1,5 +1,8 @@
 #include "D2Net.h"
+#include "D2GameServer.h"
+
 #include "D2NetTypes.h"
+
 #include "D2NetTypes.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
@@ -65,14 +68,23 @@ struct D2GSPacketSrvAFStrc
 };
 
 int __stdcall FOG_SetHackListEnabled(void* pObject, int nArg1); // 0x006BF4E0
+
 int __stdcall sub_006C0170(void* pObject, const unsigned char* pData, int nSize); // 0x006C0170
+
 int __stdcall sub_006BEAD0(void* pObject, int nMode, int nArg1, int nArg2); // 0x006BEAD0
+
 int __stdcall sub_006BEE20(void* pObject, int nArg1); // 0x006BEE20
+
 int __stdcall sub_006BEF40(void* pObject, int nArg1); // 0x006BEF40
+
 int __stdcall sub_006C0530(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C0530
+
 int __stdcall sub_006C0600(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C0600
+
 int __stdcall sub_006BEFB0(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006BEFB0
+
 int __stdcall sub_006C06D0(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C06D0
+
 QServer* gpServer; // 0x00882D08
 
 // 0x0052B280
@@ -234,6 +246,13 @@ int __fastcall SERVER_EnqueueClientPacket(const unsigned char* pBuffer, unsigned
     D2_ASSERT(nBufferSize <= MAX_MSG_SIZE, 521);
 
     return FOG_10175(gpServer, pBuffer, nBufferSize, a3);
+}
+
+// 0x0052B690
+int __fastcall SERVER_EnqueueLocalClientPacket(const unsigned char* pBuffer, unsigned short nSize)
+{
+    D2_ASSERT(nSize <= MAX_MSG_SIZE, 0x217);
+    return FOG_10175(gpServer, pBuffer, nSize, 0) != 0;
 }
 
 // 0x0052B6D0
