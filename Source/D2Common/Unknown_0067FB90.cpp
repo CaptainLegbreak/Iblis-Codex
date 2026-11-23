@@ -1,15 +1,11 @@
 #include "D2Common.h"
 #include "D2Drlg.h"
 #include "D2Structs.h"
+#include "D2DrlgRooms.h"
 
 struct D2DrlgOutdoorInfoStrc;
 struct D2PresetPairStrc;
-struct D2DrlgOutRectStrc;
 union D2SeedStrc;
-struct D2OutdoorColumnFilesStrc;
-
-
-
 
 
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
@@ -20,24 +16,10 @@ struct D2PresetPairStrc
     int nSecond;
 };
 
-struct D2DrlgOutRectStrc
-{
-    int nX;
-    int nY;
-    int unk0x08;
-    unsigned char nFlags;
-    char pad0x0D[3];
-    D2DrlgOutRectStrc* pBounds;
-};
 
 extern D2PresetPairStrc gaPresetPairs_006F2680[]; // 0x006F2680
 void __stdcall sub_M127_EmitSink(int nValue);
 
-struct D2OutdoorColumnFilesStrc
-{
-    int nLeft;
-    int nRight;
-};
 
 extern D2OutdoorColumnFilesStrc gaPresetPairs[]; // 0x006F2680
 

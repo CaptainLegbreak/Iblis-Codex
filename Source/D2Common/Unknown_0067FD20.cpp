@@ -1,12 +1,8 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Drlg.h"
+#include "D2DrlgRooms.h"
 
-struct D2OutdoorColumnFilesStrc
-{
-    int nLeft;
-    int nRight;
-};
 extern D2OutdoorColumnFilesStrc gaPresetPairs[]; // 0x006F2680
 
 static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)

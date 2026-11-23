@@ -82,7 +82,6 @@ struct D2PathFoWallContextStrc;
 
 struct D2SkillCalcStrc;
 
-struct D2ItemCalcStrc;
 
 struct D2MonStatsTxt;
 
@@ -264,11 +263,6 @@ struct D2SkillCalcStrc
     int nSkillLevel;
 };
 
-struct D2ItemCalcStrc
-{
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pItem;
-};
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 

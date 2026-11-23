@@ -8,25 +8,12 @@ struct D2TileLibraryEntryStrc;
 struct D2DrlgCoordStrc;
 struct D2DrlgRoomTilesStrc;
 struct D2DrlgTileDataStrc;
-struct D2DrlgAnimTileGridStrc;
-
-
-
 
 
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
 int __stdcall TileLibraryGetTiles(D2TileLibraryHeaderStrc** ppTiles, int nTileType, int nStyle, int nSequence, D2TileLibraryEntryStrc** ppTileEntries, int nMaxEntries); // 0x00604AE0
 int __stdcall TileGetFlags(D2TileLibraryEntryStrc* hTile); // 0x00604BC0
 
-
-struct D2DrlgAnimTileGridStrc
-{
-    D2DrlgTileDataStrc** ppMapTileData;
-    int nFrames;
-    int nCurrentFrame;
-    int nAnimationSpeed;
-    D2DrlgAnimTileGridStrc* pNext;
-};
 
 void __fastcall DRLGANIM_AllocAnimationTileGrid(D2DrlgGridStrc* pGrid, D2DrlgRoomStrc* pRoom, int nAnimationSpeed, D2DrlgTileDataStrc* pTiles, int nTiles); // 0x0066D440
 

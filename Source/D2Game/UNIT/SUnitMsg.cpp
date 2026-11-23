@@ -56,7 +56,6 @@ void __fastcall D2GAME_PACKETS_SendPacket0xA9_StateOff_6FC3FC50(D2ClientStrc* pC
 
 struct D2NpcRecordStrc;
 
-struct D2InteractInfoStrc;
 
 struct D2UnitPacketListStrc;
 
@@ -88,9 +87,6 @@ struct D2DataTablesStrc;
 
 struct D2BitBufferStrc;
 
-struct D2PlrIntroStrc;
-
-struct D2MonsterInteractStrc;
 
 struct D2GameStrc;
 
@@ -155,23 +151,6 @@ void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0
 
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 
-struct D2PlrIntroStrc
-{
-    D2BitBufferStrc* pQuestIntroFlags;
-    D2BitBufferStrc* pNpcIntroFlags;
-};
-
-struct D2MonsterInteractStrc
-{
-    D2InteractInfoStrc* pInteractInfo;
-};
-
-struct D2InteractInfoStrc
-{
-    D2UnitStrc* pUnit;
-    int nInteract;
-    D2InteractInfoStrc* pNext;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 

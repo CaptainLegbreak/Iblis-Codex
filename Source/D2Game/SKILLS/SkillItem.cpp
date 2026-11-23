@@ -21,6 +21,7 @@
 #include "D2Path.h"
 #include "D2ItemModes.h"
 #include "D2Records.h"
+#include "D2GameAux.h"
 
 #define IFLAG_TARGETING 4
 
@@ -577,7 +578,6 @@ int __fastcall SKILLITEM_HandleItemEffectSkill(D2GameStrc* pGame, D2UnitStrc* pU
 
 struct D2MagicAffixTxt;
 
-struct D2MagicAffixIndexAndPtrStrc;
 
 struct D2SkillPairStrc;
 
@@ -585,11 +585,6 @@ struct D2RareAffixIndexAndPtrStrc;
 
 struct D2SetItemsTxt;
 
-struct D2MagicAffixIndexAndPtrStrc
-{
-    int nAffixId;
-    D2MagicAffixTxt* pMagicAffixRecord;
-};
 
 D2MagicAffixTxt* __stdcall DATATBLS_GetMagicAffixTxtRecord(int nIndex); // 0x00633EE0
 

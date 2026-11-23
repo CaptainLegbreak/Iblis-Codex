@@ -2,24 +2,11 @@
 #include "D2Structs.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
+#include "D2DrlgRooms.h"
 typedef int BOOL;
 
 struct D2DrlgStrc;
 
-
-
-
-
-
-struct D2DrlgOutRectStrc
-{
-    int nX;
-    int nY;
-    int unk0x08;
-    unsigned char nFlags;
-    char pad0x0D[3];
-    D2DrlgOutRectStrc* pBounds;
-};
 
 #define M303_OFFSET_CHECK(name, type, field, offset) typedef char name[((unsigned int)&((type*)0)->field == (offset)) ? 1 : -1]
 M303_OFFSET_CHECK(M303_check_pOutdoors, D2DrlgLevelStrc, pOutdoors, 0x14);

@@ -17,6 +17,7 @@
 #include "D2GameTypes.h"
 #include "D2Win32Base.h"
 #include "D2Packets.h"
+#include "D2GameAux.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -355,14 +356,6 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                             
 
 void __fastcall QUESTS_WarrivSpawn(D2GameStrc* pGame, void* pRoom, int nXpos, int nYpos, int nWarrivId);    // 0x005447A0
 
-struct D2MonsterEquipmentStrc
-{
-	int nItemCode;
-	unsigned char nBodyLoc;
-	unsigned char unk0x05;
-	unsigned char unk0x06;
-	unsigned char unk0x07;
-};
 
 extern const D2MonsterEquipmentStrc gtAncientEquipment[12]; // 0x006E2C90
 

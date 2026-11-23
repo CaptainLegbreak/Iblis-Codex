@@ -306,21 +306,6 @@ struct D2Do142ArgsStrc
     unsigned char unk0x11[3];
 };
 
-struct D2UnkNecSkillStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pUnit;
-    int unk0x08;
-    int bUpdateAnimRate;
-    int nSkillId;
-    int nSkillLevel;
-    int nDuration;
-    int nAuraStat[6];
-    int nAuraStatCalc[6];
-    int nAuraTargetState;
-    int nAuraEvent[3];
-    int nAuraEventFunc[3];
-};
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 

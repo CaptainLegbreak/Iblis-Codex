@@ -1,32 +1,8 @@
 #include "D2Common.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
+#include "D2DrlgRooms.h"
 
-
-
-
-
-
-struct T00681490
-{
-    int nCost;
-    int nEstimate;
-    int nSpent;
-    int nX;
-    int nY;
-    int nTried;
-    const unsigned char* pTurn;
-    unsigned char nDirection;
-    T00681490* pParent;
-    T00681490* pChild;
-};
-
-struct D2DrlgPathSearchStrc
-{
-    T00681490* pStart;
-    T00681490 tNodes[900];
-    int nNodes;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 T00681490* __stdcall sub_00681560(D2DrlgPathSearchStrc* pSearch, T00681490* pNode);

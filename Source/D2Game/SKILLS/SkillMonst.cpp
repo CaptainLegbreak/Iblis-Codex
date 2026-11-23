@@ -548,22 +548,6 @@ void __fastcall SKILLS_SetElementalDurationFromSkill(D2UnitStrc* pUnit, D2Damage
 void __fastcall SUNITDMG_FillDamageValues(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage, int a5, unsigned char nSrcDam); // 0x0057B7D0
 
 
-struct D2UnkNecSkillStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pUnit;
-    int unk0x08;
-    int bUpdateAnimRate;
-    int nSkillId;
-    int nSkillLevel;
-    int nDuration;
-    int nAuraStat[6];
-    int nAuraStatCalc[6];
-    int nAuraTargetState;
-    int nAuraEvent[3];
-    int nAuraEventFunc[3];
-};
-
 int __fastcall SKILLS_ApplyAreaDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, D2DamageStrc* pDamage, unsigned int nAuraFilter); // 0x0056BAD0
 
 int __fastcall SKILLS_DoInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nMissileId); // 0x005C8CA0
@@ -1919,7 +1903,6 @@ struct MonsterData;
 
 struct Skills;
 
-struct D2UnkNecSkillStrc;
 
 Unit* __stdcall sub_00553540(Game*, Unit*); // 0x00553540
 
