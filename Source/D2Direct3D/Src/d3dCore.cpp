@@ -468,7 +468,6 @@ struct D2Device006B2030Strc
     D2DeviceVtbl006B2030Strc* lpVtbl;
 };
 
-
 extern int gbVideoUp; // 0x00970E40
 
 extern int gnVideoState; // 0x00970E44
@@ -514,6 +513,14 @@ int gpTileDrawFunctions; // 0x007C914C
 int gbD3DInitialized_00970E48; // 0x00970E48
 
 D2ComObjectStrc* gpDirectDraw4_00970E60; // 0x00970E60
+
+int __cdecl D3D_InitCutsceneMode(); // 0x006B3420
+
+extern unsigned int gnRenderFlags_0096F3A8; // 0x0096F3A8
+
+extern const unsigned int gnRenderFlag_006CE284; // 0x006CE284
+
+extern const unsigned int gnRenderFlag_006CE288; // 0x006CE288
 
 // 0x006B1C70
 void __fastcall D3D_SetPalette(tagPALETTEENTRY* pPalette)
@@ -764,6 +771,24 @@ fail:
     gbVideoUp = 1;
     gnVideoState = 1;
     return 1;
+}
+
+// 0x006B3530
+int __cdecl sub_006B3530_BeginCutScene()
+{
+// build: symbol ?gbRenderPaused@* 0x007C9144
+    if (gbRenderPaused)
+    {
+        return 0;
+    }
+
+    if (!(gnRenderFlags_0096F3A8 & gnRenderFlag_006CE284) && !(gnRenderFlags_0096F3A8 & gnRenderFlag_006CE288))
+    {
+        return 1;
+    }
+
+    D3D_ReleaseResources();
+    return D3D_InitCutsceneMode();
 }
 
 struct D2GammaRampStrc

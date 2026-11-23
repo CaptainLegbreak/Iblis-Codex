@@ -82504,16 +82504,6 @@
    ]
   },
   {
-   "file": "Source/D2Direct3D/Unknown_006B3530.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B3530",
-     "length": 49
-    }
-   ]
-  },
-  {
    "file": "Source/D2Direct3D/Unknown_006B3570.cpp",
    "rank": 1,
    "functions": [
@@ -82626,6 +82616,16 @@
    ]
   },
   {
+   "file": "Source/D2Direct3D/Unknown_006B5C80.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x006B5C80",
+     "length": 108
+    }
+   ]
+  },
+  {
    "file": "Source/D2Direct3D/Src/d3dCore.cpp",
    "rank": 0,
    "functions": [
@@ -82662,6 +82662,10 @@
     {
      "va": "0x006B3420",
      "length": 268
+    },
+    {
+     "va": "0x006B3530",
+     "length": 49
     },
     {
      "va": "0x006B3570",
@@ -82742,16 +82746,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006B5C80.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B5C80",
-     "length": 108
-    }
    ]
   },
   {
