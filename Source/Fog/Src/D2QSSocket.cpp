@@ -13,13 +13,15 @@ typedef int (__fastcall* D2QSPacketHandlerFn)(unsigned char* pData, int nLength,
 struct FSafeSock
 {
     int bConnected;                         // 0x00
-    int unk_04;                             // 0x04
-    unsigned int hSocket;                   // 0x08
-    char cs[0x18];                          // 0x0C
+    int bConnecting;                        // 0x04
+    unsigned int nSocket;                   // 0x08
+    char tCriticalSection[0x18];            // 0x0C
     void* hThread;                          // 0x24
-    int unk_28;                             // 0x28
-    int bError;                             // 0x2C
-    int bClosed;                            // 0x30
+    unsigned long nThreadId;                // 0x28
+    int bStopping;                          // 0x2C
+    unsigned long nFogErrorCode;            // 0x30
+    unsigned long nWSALastError;            // 0x34
+    char szName[64];                        // 0x38
 };
 
 // A queued-socket record (0x194 bytes): its receive thread, the connection and the packet queue.
@@ -76,12 +78,108 @@ FSafeSock* __fastcall FOG_SOCKET_Connect(void* pSocket, int nPort, void (__stdca
 struct D2PacketHeaderStrc { unsigned char id, command; unsigned short size; };
 
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
-extern "C" int __fastcall sub_006BC030_Send(FSafeSock* pSafeSock, const char* pBuffer, unsigned int nSize); // 0x006BC030
+void __fastcall FOG_SOCKET_Lock(FSafeSock* pSafeSock); // 0x0040DDD0
+void __fastcall FOG_SOCKET_Unlock(FSafeSock* pSafeSock); // 0x0040DDE0
+int __fastcall FOG_SOCKET_SendNoLock(FSafeSock* pSafeSock, char* pBuffer, int nBufferLength); // 0x0040DD80
+int __fastcall D2QSQUEUE_Pop(void* pQueue, void* pDest, unsigned short nMaxLength); // 0x006C2090
+extern "C" int __stdcall send(unsigned int nSocket, const char* pBuffer, int nLength, int nFlags); // 0x006B017A
+extern "C" int __stdcall WSAGetLastError(); // 0x006B0168
 
 static int __stdcall sub_006BC150_SplitPackets(unsigned char* pBuffer, int nLength, D2ThreadRecord006BC5A0Strc* pRecord);
 static void sub_006BC2C0_SetClosing(D2ThreadRecord006BC5A0Strc* pRecord);
 static void sub_006BC310_CloseSocket(D2ThreadRecord006BC5A0Strc* pRecord);
 static void __stdcall sub_006BC370_FreeNet(D2ThreadRecord006BC5A0Strc* pRecord);
+
+// 0x006BBF20
+extern "C" __declspec(dllexport) int __stdcall sub_006BBF20(const unsigned char* pBuffer)
+{
+    return ((pBuffer[1] & 0x7F) << 7) + (pBuffer[0] & 0x7F);
+}
+
+// 0x006BBF40
+extern "C" __declspec(dllexport) void __stdcall sub_006BBF40(unsigned char* pBuffer, unsigned int nValue)
+{
+    pBuffer[0] = (unsigned char)(nValue | 0x80);
+    pBuffer[1] = (unsigned char)((nValue >> 7) | 0x80);
+}
+
+// 0x006BBF60
+int __stdcall sub_006BBF60_DecodeBase255(const unsigned char* pBytes)
+{
+    return (((pBytes[3] - 1) * 255 + (pBytes[2] - 1)) * 255 + (pBytes[1] - 1)) * 255 + (pBytes[0] - 1);
+}
+
+// 0x006BBFA0
+void __stdcall sub_006BBFA0_EncodeBase255(unsigned char* pOut, unsigned int nValue)
+{
+    pOut[0] = (unsigned char)(nValue % 255 + 1);
+    pOut[1] = (unsigned char)(nValue / 255 % 255 + 1);
+    pOut[2] = (unsigned char)(nValue / (255 * 255) % 255 + 1);
+    pOut[3] = (unsigned char)(nValue / (255 * 255 * 255) % 255 + 1);
+}
+
+// 0x006BC010
+extern "C" void __stdcall sub_006BC010_SetHandler(D2ThreadRecord006BC5A0Strc* pRecord, D2QSPacketHandlerFn pfnHandler, void* pHandlerArg)
+{
+    if (pRecord)
+    {
+        pRecord->pfnHandler = pfnHandler;
+        pRecord->pHandlerArg = pHandlerArg;
+    }
+}
+
+// 0x006BC030
+extern "C" int __fastcall sub_006BC030_Send(FSafeSock* pSafeSock, const char* pBuffer, unsigned int nSize)
+{
+    if (!pSafeSock || pSafeSock->bStopping)
+        return -1;
+    EnterCriticalSection((CRITICAL_SECTION*)pSafeSock->tCriticalSection);
+    int nResult;
+    const int nSent = send(pSafeSock->nSocket, pBuffer, nSize, 0);
+    if (nSent == -1)
+    {
+        const int nError = WSAGetLastError();
+        pSafeSock->nWSALastError = nError;
+        if (nError == 0x2733)
+        {
+            nResult = 0;
+        }
+        else
+        {
+            pSafeSock->nFogErrorCode = 4;
+            return -1;
+        }
+    }
+    else
+    {
+        nResult = nSent;
+    }
+    LeaveCriticalSection((CRITICAL_SECTION*)pSafeSock->tCriticalSection);
+    return nResult;
+}
+
+// 0x006BC0B0
+extern "C" int __stdcall FOG_ConnectionSend(D2ThreadRecord006BC5A0Strc* pRecord, const char* pData, unsigned short nLength)
+{
+    if (pRecord && pRecord->pSafeSock && pRecord->pSafeSock->bConnected != 0)
+    {
+        int nSent = 0;
+        FOG_SOCKET_Lock(pRecord->pSafeSock);
+        if (pData && nLength)
+            nSent = FOG_SOCKET_SendNoLock(pRecord->pSafeSock, (char*)pData, nLength);
+        FOG_SOCKET_Unlock(pRecord->pSafeSock);
+        return nLength == (unsigned short)nSent;
+    }
+    return 0;
+}
+
+// 0x006BC120
+extern "C" unsigned int __stdcall FOG_ConnectionReceive(D2ThreadRecord006BC5A0Strc* pRecord, char* pBuffer, int nCapacity)
+{
+    if (!pRecord)
+        return 0;
+    return D2QSQUEUE_Pop(pRecord->tQueue, pBuffer, (unsigned short)nCapacity);
+}
 
 // 0x006BC150
 static int __stdcall sub_006BC150_SplitPackets(unsigned char* pBuffer, int nLength, D2ThreadRecord006BC5A0Strc* pRecord)
@@ -146,22 +244,22 @@ static void sub_006BC2C0_SetClosing(D2ThreadRecord006BC5A0Strc* pRecord)
     if (pRecord && pRecord->pSafeSock && pRecord->pSafeSock->hThread)
     {
         pRecord->bStop = 1;
-        EnterCriticalSection((CRITICAL_SECTION*)pRecord->pSafeSock->cs);
-        pRecord->pSafeSock->bError = 1;
-        LeaveCriticalSection((CRITICAL_SECTION*)pRecord->pSafeSock->cs);
+        EnterCriticalSection((CRITICAL_SECTION*)pRecord->pSafeSock->tCriticalSection);
+        pRecord->pSafeSock->bStopping = 1;
+        LeaveCriticalSection((CRITICAL_SECTION*)pRecord->pSafeSock->tCriticalSection);
     }
 }
 
 // 0x006BC310
 static void sub_006BC310_CloseSocket(D2ThreadRecord006BC5A0Strc* pRecord)
 {
-    if (pRecord && pRecord->pSafeSock && pRecord->pSafeSock->bConnected && pRecord->pSafeSock->hSocket)
+    if (pRecord && pRecord->pSafeSock && pRecord->pSafeSock->bConnected && pRecord->pSafeSock->nSocket)
     {
-        EnterCriticalSection((CRITICAL_SECTION*)pRecord->pSafeSock->cs);
-        sub_0040D880(pRecord->pSafeSock->hSocket);
-        pRecord->pSafeSock->hSocket = (unsigned int)-1;
+        EnterCriticalSection((CRITICAL_SECTION*)pRecord->pSafeSock->tCriticalSection);
+        sub_0040D880(pRecord->pSafeSock->nSocket);
+        pRecord->pSafeSock->nSocket = (unsigned int)-1;
         pRecord->pSafeSock->bConnected = 0;
-        LeaveCriticalSection((CRITICAL_SECTION*)pRecord->pSafeSock->cs);
+        LeaveCriticalSection((CRITICAL_SECTION*)pRecord->pSafeSock->tCriticalSection);
     }
 }
 
@@ -196,10 +294,10 @@ unsigned long __stdcall sub_006BC3A0_ReceiveLoop(D2ThreadRecord006BC5A0Strc* pRe
     while (!pRecord->bStop)
     {
         FSafeSock* pSafeSock = pRecord->pSafeSock;
-        if (!pSafeSock || !pSafeSock->bConnected || pSafeSock->bError || pSafeSock->bClosed)
+        if (!pSafeSock || !pSafeSock->bConnected || pSafeSock->bStopping || pSafeSock->nFogErrorCode)
             break;
         int bReady = FOG_SOCKET_Select(pSafeSock);
-        if (!pRecord->pSafeSock || pRecord->pSafeSock->bError)
+        if (!pRecord->pSafeSock || pRecord->pSafeSock->bStopping)
             break;
         if (bReady)
         {
@@ -212,13 +310,13 @@ unsigned long __stdcall sub_006BC3A0_ReceiveLoop(D2ThreadRecord006BC5A0Strc* pRe
                 if (nError || nReceived == 0 || nReceived == (unsigned int)-1)
                 {
                     FSafeSock* pSock = pRecord->pSafeSock;
-                    if (pSock && pSock->bConnected && pSock->hSocket)
+                    if (pSock && pSock->bConnected && pSock->nSocket)
                     {
-                        EnterCriticalSection((CRITICAL_SECTION*)pSock->cs);
-                        sub_0040D880(pRecord->pSafeSock->hSocket);
-                        pRecord->pSafeSock->hSocket = (unsigned int)-1;
+                        EnterCriticalSection((CRITICAL_SECTION*)pSock->tCriticalSection);
+                        sub_0040D880(pRecord->pSafeSock->nSocket);
+                        pRecord->pSafeSock->nSocket = (unsigned int)-1;
                         pRecord->pSafeSock->bConnected = 0;
-                        LeaveCriticalSection((CRITICAL_SECTION*)pRecord->pSafeSock->cs);
+                        LeaveCriticalSection((CRITICAL_SECTION*)pRecord->pSafeSock->tCriticalSection);
                     }
                     return 0;
                 }
@@ -334,6 +432,11 @@ void __stdcall sub_006BC830_SetEvent(D2ThreadRecord006BC5A0Strc* pRecord)
 {
     if (pRecord)
         SetEvent(pRecord->hEvent);
+}
+
+// 0x006BC850
+void __stdcall sub_006BC850(int nUnused1)
+{
 }
 
 // 0x006BC860
