@@ -74766,16 +74766,6 @@
      "name": "SKILLS_GetModeSideChar"
     },
     {
-     "va": "0x006752A0",
-     "length": 121,
-     "name": "DRLGOUTDOORS_AddAct124SecondaryBorder"
-    },
-    {
-     "va": "0x006755C0",
-     "length": 52,
-     "name": "DRLGOUTDOORS_GetBorderLevelPrestId"
-    },
-    {
      "va": "0x00678B40",
      "length": 55,
      "name": "sub_00678B40_PathHeuristic"
@@ -79363,6 +79353,11 @@
      "name": "?DRLGOUTDOORS_GetRoadEntry@@YIHPAUD2DrlgLevelStrc@@H@Z"
     },
     {
+     "va": "0x006752A0",
+     "length": 121,
+     "name": "DRLGOUTDOORS_AddAct124SecondaryBorder"
+    },
+    {
      "va": "0x00675320",
      "length": 58,
      "name": "?DRLGOUTDOORS_AllocOutdoorInfo@@YIXPAUD2DrlgLevelStrc@@@Z"
@@ -79375,6 +79370,11 @@
      "va": "0x006754C0",
      "length": 253,
      "name": "DRLGOUTDOORS_FreeOutdoorInfo"
+    },
+    {
+     "va": "0x006755C0",
+     "length": 52,
+     "name": "DRLGOUTDOORS_GetBorderLevelPrestId"
     },
     {
      "va": "0x006757E0",

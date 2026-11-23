@@ -1,9 +1,30 @@
 #include "D2LevelIds.h"
+#include "D2ItemTypes.h"
+#include "D2DrlgTiles.h"
+#include "D2TxtTables.h"
+#include "D2Unicode.h"
+#include "D2StateIds.h"
+#include "D2SkillIds.h"
+#include "D2StatIds.h"
+#include "D2DataTbls.h"
+#include "D2Records.h"
+#include "D2Skills.h"
+#include "D2LevelTxt.h"
+#include "D2Txt.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
+#include "D2PathFind.h"
+
 #include "D2Common.h"
+
 #include "D2Structs.h"
+
 #include "D2Path.h"
+
 #include "D2Drlg.h"
+
 #include "D2DrlgMaps.h"
+
 #include "D2DrlgRooms.h"
 
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
@@ -624,6 +645,50 @@ static inline int sub_006750F0_GetLevelRoomFlags(int nLevelType)
     return nFlags;
 }
 
+struct D2UnkOutdoorStrc
+{
+    D2DrlgLevelStrc* pLevel;
+    int* field_4;
+    D2DrlgGridStrc* pGrid1;
+    D2DrlgGridStrc* pGrid2;
+    int nLevelPrestId;
+    int field_14;
+    int nLvlSubId;
+    unsigned int(__fastcall* field_1C)(D2DrlgLevelStrc* pLevel, int nX, int nY);
+    int(__fastcall* field_20)(D2DrlgLevelStrc* pLevel, int nX, int nY, int nId, int nOffset, char nFlags);
+    int(__fastcall* field_24)(D2DrlgLevelStrc* pLevel, int nX, int nY, int a4, int a5, unsigned int a6);
+    int(__fastcall* field_28)(D2DrlgLevelStrc* pLevel, int nStyle, int a3);
+    void(__fastcall* field_2C)(D2DrlgLevelStrc* pLevel, int nX, int nY);
+    void(__fastcall* field_30)(D2DrlgLevelStrc* pLevel, int nX, int nY);
+    void(__fastcall* field_34)(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nRand, int a6);
+};
+void __fastcall sub_00670750_ApplySubstitutionBorder(D2UnkOutdoorStrc* pOutdoor); // 0x00670750
+void __fastcall DRLGOUTDOORS_AlterAdjacentPresetGridCells(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674160
+void __fastcall DRLGOUTDOORS_SetBlankGridCell(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x006741A0
+unsigned int __fastcall DRLGOUTDOORS_TestGridCellNonLvlLink(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x006741E0
+
+// 0x006752A0
+void __fastcall DRLGOUTDOORS_AddAct124SecondaryBorder(D2DrlgLevelStrc* pLevel, int nLvlSubId, int nLevelPrestId)
+{
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
+    D2UnkOutdoorStrc a1 = {};
+
+    a1.pLevel = pLevel;
+    a1.field_4 = &pOutdoors->unk0x54;
+    a1.pGrid1 = &pOutdoors->pGrid[0];
+    a1.pGrid2 = &pOutdoors->pGrid[2];
+    a1.nLevelPrestId = nLevelPrestId;
+    a1.field_14 = -1;
+    a1.nLvlSubId = nLvlSubId;
+    a1.field_1C = DRLGOUTDOORS_TestGridCellNonLvlLink;
+    a1.field_20 = DRLGOUTDOORS_TestOutdoorLevelPreset;
+    a1.field_2C = DRLGOUTDOORS_AlterAdjacentPresetGridCells;
+    a1.field_30 = DRLGOUTDOORS_SetBlankGridCell;
+    a1.field_34 = DRLGOUTDOORS_SpawnOutdoorLevelPresetEx;
+
+    sub_00670750_ApplySubstitutionBorder(&a1);
+}
+
 // 0x00675320
 void __fastcall DRLGOUTDOORS_AllocOutdoorInfo(D2DrlgLevelStrc* pLevel)
 {
@@ -722,6 +787,20 @@ void __fastcall DRLGOUTDOORS_FreeOutdoorInfo(D2DrlgLevelStrc* pLevel, int bKeepR
         FOG_FreeServerMemory(pMemPool, pLevel->pOutdoors, ".\\DRLG\\Outdoors.cpp", 940, 0);
         pLevel->pOutdoors = 0;
     }
+}
+
+// 0x006755C0
+int __fastcall DRLGOUTDOORS_GetBorderLevelPrestId(int nA, int nB, int nC)
+{
+// build: symbol ?gaBorderIndices@* 0x006F0FD0
+    const int nRow = gaBorderIndices[nA + 3 * nB];
+    if (nC >= 4)
+    {
+// build: symbol ?gaBarricadeCliffBorderIds@* 0x006F06F0
+        return gaBarricadeCliffBorderIds[nRow][nC - 4];
+    }
+// build: symbol ?gaBorderLevelPrestIds@* 0x006F0630
+    return gaBorderLevelPrestIds[nRow][nC];
 }
 
 // 0x006757E0
