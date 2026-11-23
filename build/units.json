@@ -11560,11 +11560,6 @@
      "name": "COMCALLBACK_RecordMessage"
     },
     {
-     "va": "0x00451B30",
-     "length": 114,
-     "name": "COMCALLBACK_WindowProc"
-    },
-    {
      "va": "0x00451DB0",
      "length": 85,
      "name": "COMCALLBACK_RegisterMsgHandlers"
@@ -16560,6 +16555,11 @@
      "va": "0x00451B00",
      "length": 41,
      "name": "SCMD_HandleCloseMessage"
+    },
+    {
+     "va": "0x00451B30",
+     "length": 114,
+     "name": "COMCALLBACK_WindowProc"
     },
     {
      "va": "0x00451BB0",
