@@ -1,8 +1,13 @@
 #include "D2ItemTypes.h"
+
 #include "D2CmpTileRecord.h"
+
 #include "D2GameTypes.h"
+
 #include "D2DrlgMaps.h"
+
 #include "D2CmpTypes.h"
+
 #include "D2LRUNode.h"
 
 #include "D2MonsterIds.h"
@@ -3817,6 +3822,11 @@ static int __stdcall INVENTORY_CheckHandSlotPlacement(D2UnitStrc* pUnit, int nOt
     }
 
     return 0;
+}
+
+// 0x0063E050
+void __stdcall sub_0063E050(int nUnused1, int nUnused2)
+{
 }
 
 // 0x0063E490
