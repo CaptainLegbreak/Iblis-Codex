@@ -36465,11 +36465,6 @@
      "va": "0x004FFE10",
      "length": 63,
      "name": "?D2Win_10076@@YIHPAUD2WinControlStrc@@PBD@Z"
-    },
-    {
-     "va": "0x00501690",
-     "length": 151,
-     "name": "FONT_FindCharInfo"
     }
    ]
   },
@@ -36938,6 +36933,11 @@
      "va": "0x00501650",
      "length": 49,
      "name": "?FONT_GetCharInfoByIndex@@YIPAUD2CharStrc@@G@Z"
+    },
+    {
+     "va": "0x00501690",
+     "length": 151,
+     "name": "FONT_FindCharInfo"
     },
     {
      "va": "0x00501730",
