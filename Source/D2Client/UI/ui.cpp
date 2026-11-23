@@ -1483,6 +1483,88 @@ void __fastcall UI_DrawPartyMemberText(D2UnitStrc* pUnit)
     UI_GetPlayerHoverName(pUnit, wszName, 0x80, &nPercent, &bFlag);
 }
 
+struct D2StatListStrc;
+
+struct D2StatesTxt;
+
+struct D2GridCellStrc;
+
+struct D2GridCellStrc
+{
+    int nFlag;
+    unsigned char nValue[4];
+};
+
+extern "C" D2StatesTxt* __fastcall sub_00452040_GetStatesTxtRecord(int nStateId); // 0x00452040
+
+void __fastcall GFX_DrawProgressiveStateOverlays(D2UnitStrc* pUnit, int nOverlay, int nX, int nY); // 0x0046E1B0
+
+int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
+
+D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
+
+extern unsigned int gdwBitMasks[]; // 0x006CE268
+
+extern int gnGlobal_007111CC; // 0x007111CC
+
+extern int gnGlobal_007111D0; // 0x007111D0
+
+extern int gnGlobal_007111D4; // 0x007111D4
+
+extern void* gpGlobal_007A0634; // 0x007A0634
+
+int gbOverlaysEnabled; // 0x007A289C
+
+int gnOverlayStep; // 0x007A3138
+
+struct D2ChatMessageStrc
+{
+    char* szText;
+    int nColor;
+    int bClear;
+    D2ChatMessageStrc* pNext;
+};
+
+// 0x00453470
+void __cdecl CHARSEL_DrawProgressiveStates()
+{
+    if (!gpGlobal_007A0634)
+        return;
+    if (!sub_00463DE0_GetPlayerUnit())
+        return;
+    if (!UNITS_GetRoom(sub_00463DE0_GetPlayerUnit()))
+        return;
+    if (!gbOverlaysEnabled)
+        return;
+    int nY = gnScreenHeight - gnGlobal_007111D4;
+    int nX = gnScreenWidth - gnGlobal_007111D0;
+    if (D2GFX_GetResolutionMode() == 2)
+        nY = gnScreenHeight - gnGlobal_007111CC;
+    D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
+    for (int i = 0; i < sgptDataTables->nProgressiveStates; ++i)
+    {
+        const int nState = sgptDataTables->pProgressiveStates[i];
+        if (!STATES_CheckState(pUnit, nState))
+            continue;
+        if (!STATLIST_GetStatListFromUnitAndState(pUnit, nState))
+            continue;
+        D2StatesTxt* pStatesTxtRecord = sub_00452040_GetStatesTxtRecord(nState);
+        if (!pStatesTxtRecord)
+            continue;
+        if (!(pStatesTxtRecord->nStateFlags[0] & gdwBitMasks[4]))
+            continue;
+        if (pStatesTxtRecord->wPrgOverlay <= 0 || pStatesTxtRecord->wPrgOverlay >= sgptDataTables->nOverlayTxtRecordCount)
+            continue;
+        if (pStatesTxtRecord->wStat < 0 || pStatesTxtRecord->wStat > sgptDataTables->nItemStatCostTxtRecordCount)
+            continue;
+        const int nCharges = STATLIST_UnitGetStatValue(pUnit, pStatesTxtRecord->wStat, 0);
+        if (nCharges < 1 || nCharges > 3)
+            continue;
+        GFX_DrawProgressiveStateOverlays(pUnit, pStatesTxtRecord->wPrgOverlay + nCharges - 1, nX, nY);
+        nX -= gnOverlayStep;
+    }
+}
+
 // 0x004535D0
 void __cdecl UI_DrawPartyTexts()
 {

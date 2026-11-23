@@ -3612,45 +3612,6 @@ void __stdcall CHARSEL_RecordHandler(int nArg1, int nArg2, int nArg3)
         gpfnPrevHandler(nArg1, nArg2, nArg3);
 }
 
-// 0x00453470
-void __cdecl CHARSEL_DrawProgressiveStates()
-{
-    if (!gpGlobal_007A0634)
-        return;
-    if (!sub_00463DE0_GetPlayerUnit())
-        return;
-    if (!UNITS_GetRoom(sub_00463DE0_GetPlayerUnit()))
-        return;
-    if (!gbOverlaysEnabled)
-        return;
-    int nY = gnScreenHeight - gnGlobal_007111D4;
-    int nX = gnScreenWidth - gnGlobal_007111D0;
-    if (D2GFX_GetResolutionMode() == 2)
-        nY = gnScreenHeight - gnGlobal_007111CC;
-    D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
-    for (int i = 0; i < sgptDataTables->nProgressiveStates; ++i)
-    {
-        const int nState = sgptDataTables->pProgressiveStates[i];
-        if (!STATES_CheckState(pUnit, nState))
-            continue;
-        if (!STATLIST_GetStatListFromUnitAndState(pUnit, nState))
-            continue;
-        D2StatesTxt* pStatesTxtRecord = sub_00452040_GetStatesTxtRecord(nState);
-        if (!pStatesTxtRecord)
-            continue;
-        if (!(pStatesTxtRecord->nStateFlags[0] & gdwBitMasks[4]))
-            continue;
-        if (pStatesTxtRecord->wPrgOverlay <= 0 || pStatesTxtRecord->wPrgOverlay >= sgptDataTables->nOverlayTxtRecordCount)
-            continue;
-        if (pStatesTxtRecord->wStat < 0 || pStatesTxtRecord->wStat > sgptDataTables->nItemStatCostTxtRecordCount)
-            continue;
-        const int nCharges = STATLIST_UnitGetStatValue(pUnit, pStatesTxtRecord->wStat, 0);
-        if (nCharges < 1 || nCharges > 3)
-            continue;
-        GFX_DrawProgressiveStateOverlays(pUnit, pStatesTxtRecord->wPrgOverlay + nCharges - 1, nX, nY);
-        nX -= gnOverlayStep;
-    }
-}
 
 // 0x00458CD0
 void __stdcall CHARSEL_SetAutomapContext(void* pContext)
