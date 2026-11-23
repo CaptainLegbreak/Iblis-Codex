@@ -979,6 +979,11 @@
      "name": "FOG_GetHostIPAddress"
     },
     {
+     "va": "0x0040E080",
+     "length": 36,
+     "name": "?FOG_inet_ntoa@@YIPADH@Z"
+    },
+    {
      "va": "0x0040E0B0",
      "length": 25,
      "name": "@sub_0040E0B0@12"
@@ -3868,11 +3873,6 @@
     {
      "va": "0x0040D290",
      "length": 664
-    },
-    {
-     "va": "0x0040E080",
-     "length": 36,
-     "name": "?FOG_inet_ntoa@@YIPADH@Z"
     },
     {
      "va": "0x0040EB90",

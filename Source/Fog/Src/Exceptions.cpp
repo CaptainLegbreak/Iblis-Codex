@@ -450,7 +450,6 @@ int gnSymInitCount; // 0x0075CFD4
 
 static void __stdcall EXCEPTIONS_GetLogicalAddress(char* szModule, unsigned long* pnSection, unsigned long* pnOffset, void* pAddress, unsigned int nSize); // 0x0040C520
 
-char gszAddressText[32]; // 0x0075D020
 
 int ganLogNewFile[20]; // 0x0075D298
 
@@ -1560,14 +1559,6 @@ int __fastcall EXCEPTIONS_ReadCrashDump(char* pBuffer, unsigned int* pnSize)
     return 1;
 }
 
-
-// 0x0040E080
-char* __fastcall FOG_inet_ntoa(int nAddress)
-{
-    D2InAddrStrc tAddress;
-    tAddress.s_addr = nAddress;
-    return strcpy(gszAddressText, inet_ntoa(tAddress));
-}
 
 // 0x0040EB90
 unsigned int __fastcall EXCEPTIONS_GetLogFilePaths(char** apszFiles, unsigned int nCount)

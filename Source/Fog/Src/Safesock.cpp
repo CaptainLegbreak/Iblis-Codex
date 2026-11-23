@@ -531,7 +531,6 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);    
 
 extern "C" const char gszUnknownUpper[];                                                           // 0x006CCED8
 
-
 extern "C" int __cdecl toupper(int nChar);                                                                  // 0x00685385
 
 extern "C" int __cdecl tolower(int nChar);                                                                  // 0x0068523E
@@ -578,9 +577,9 @@ extern int gnLogQueued; // 0x0075D140
 
 extern int gnLogQueuedBytes; // 0x0075D144
 
-extern int gbLogInitialized; // 0x0075D2EC
+int gbLogInitialized; // 0x0075D2EC
 
-extern unsigned long gnLogThreadId; // 0x0075E834
+unsigned long gnLogThreadId; // 0x0075E834
 
 extern D2CriticalSectionStrc gtLogQueueLock; // 0x0075E838
 
@@ -589,8 +588,6 @@ extern D2LogMsgListStrc gtLogMsgQueue_0075E868; // 0x0075E868
 extern D2CriticalSectionStrc gtTimeLock; // 0x0075E880
 
 int __cdecl ERRORMANAGER_MeasureCpuMHz(); // 0x0040E870
-
-
 
 extern "C" const char gszIntel386[]; // 0x006CE074
 
@@ -623,6 +620,468 @@ public:
 
     D2CriticalSectionStrc tLock;
 };
+
+struct D2TSLinkStrc;
+
+struct D2TSListStrc;
+
+struct D2ImageHlpLineStrc;
+
+struct D2PeDosHeaderStrc;
+
+struct D2PeNtHeadersStrc;
+
+struct D2PeSectionStrc;
+
+struct List204;
+
+struct List08;
+
+struct ListCD;
+
+struct PoolOwner;
+
+struct SingleWord;
+
+struct FourWords;
+
+struct QuestView;
+
+struct Extra11;
+
+struct Extra14;
+
+struct GameMode;
+
+struct D2ImageHlpAddressStrc;
+
+struct D2ImageHlpStackFrameStrc;
+
+struct D2ImageHlpSymbolStrc;
+
+struct D2ImageHlpModuleStrc;
+
+struct T0040D1C0;
+
+struct D2CrashDumpEntryStrc;
+
+struct D2SystemTimeStrc;
+
+struct D2ModuleInfoStrc;
+
+struct D2MemoryBasicInfoStrc;
+
+struct D2TSLinkStrc
+{
+    D2TSLinkStrc* pPrevLink;
+    D2TSLinkStrc* pNext;
+
+    D2TSLinkStrc* NextLink(int nLinkOffset)
+    {
+        const int nNext = (int)pNext;
+        if (nNext < 0)
+        {
+            return (D2TSLinkStrc*)~nNext;
+        }
+        if (nLinkOffset < 0)
+        {
+            nLinkOffset = (int)this - (int)pPrevLink->pNext;
+        }
+        return (D2TSLinkStrc*)(nNext + nLinkOffset);
+    }
+
+    void Unlink()
+    {
+        if (pPrevLink)
+        {
+            NextLink(-1)->pPrevLink = pPrevLink;
+            pPrevLink->pNext = pNext;
+            pPrevLink = 0;
+            pNext = 0;
+        }
+    }
+};
+
+struct D2TSListStrc
+{
+    int nLinkOffset;
+    D2TSLinkStrc tTerminator;
+
+    D2TSLinkStrc* Head()
+    {
+        return (int)tTerminator.pNext > 0 ? tTerminator.pNext : 0;
+    }
+
+    void sub_0040FD00_UnlinkAll();
+};
+
+
+unsigned long __stdcall sub_004101C0_LogThreadProc(void* pParam); // 0x004101C0
+
+extern D2SystemTimeStrc gLogStartTime_0075D288; // 0x0075D288
+
+struct D2ModuleInfoStrc
+{
+    char szPath[0x104];
+    char szName[0x100];
+    unsigned long dwBase;
+    unsigned long dwSize;
+    D2ModuleInfoStrc* pNext;
+};
+
+extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError(); // 0x006CC1B4
+
+int __fastcall EXCEPTIONS_GetAppPath(char* szPath, unsigned int nSize); // 0x0040C220
+
+D2ModuleInfoStrc* __stdcall EXCEPTIONS_GetModuleListToolhelp(unsigned long dwPid); // 0x0040B690
+
+extern int (__stdcall* gpfnImageHlpSymCleanup)(void* hProcess); // 0x0075CFDC
+
+extern unsigned long (__stdcall* gpfnImageHlpSymGetOptions)(); // 0x0075CFF0
+
+extern int (__stdcall* gpfnImageHlpSymInitialize)(void* hProcess, const char* szSearchPath, int bInvadeProcess); // 0x0075CFF8
+
+extern unsigned long (__stdcall* gpfnSymLoadModule)(void* hProcess, void* hFile, const char* szImageName, const char* szModuleName, unsigned long dwBase, unsigned long dwSize); // 0x0075CFFC
+
+extern unsigned long (__stdcall* gpfnImageHlpSymSetOptions)(unsigned long dwOptions); // 0x0075D004
+
+extern int gbImageHlpLoaded; // 0x0075D014
+
+void __stdcall sub_H13_EmitUse(const char* szText, unsigned long nValue1, unsigned long nValue2, unsigned long nValue3);
+
+struct List204
+{
+    char gap00[0x204];
+    List204* next;
+};
+
+struct List08
+{
+    char gap00[0x8];
+    List08* next;
+};
+
+#pragma pack(push, 1)
+
+struct ListCD
+{
+    char gap00[0xCD];
+    ListCD* next;
+};
+
+#pragma pack(pop)
+
+struct PoolOwner
+{
+    char gap00[0x1C];
+    void* pool;
+};
+
+struct SingleWord
+{
+    int value;
+};
+
+struct FourWords
+{
+    int first;
+    int second;
+    int third;
+    int fourth;
+};
+
+struct QuestView
+{
+    char gap00[0x9];
+    unsigned char active;
+    char gapAfterActive[2];
+    unsigned char state;
+    char gapAfterState[0xB];
+    void* extra;
+};
+
+struct Extra11
+{
+    char gap00[0x11];
+    unsigned char flag;
+};
+
+struct Extra14
+{
+    char gap00[0x14];
+    unsigned char flag;
+};
+
+struct GameMode
+{
+    char gap00[0x70];
+    int mode;
+};
+
+typedef char pointer_width[sizeof(void*)==4?1:-1];
+
+typedef char List204_next[OFFSET(List204,next)==0x204?1:-1];
+
+typedef char List08_next[OFFSET(List08,next)==0x8?1:-1];
+
+typedef char ListCD_next[OFFSET(ListCD,next)==0xCD?1:-1];
+
+typedef char PoolOwner_pool[OFFSET(PoolOwner,pool)==0x1C?1:-1];
+
+typedef char SingleWord_value[OFFSET(SingleWord,value)==0x0?1:-1];
+
+typedef char FourWords_first[OFFSET(FourWords,first)==0x0?1:-1];
+
+typedef char FourWords_second[OFFSET(FourWords,second)==0x4?1:-1];
+
+typedef char FourWords_third[OFFSET(FourWords,third)==0x8?1:-1];
+
+typedef char FourWords_fourth[OFFSET(FourWords,fourth)==0xC?1:-1];
+
+typedef char QuestView_active[OFFSET(QuestView,active)==0x9?1:-1];
+
+typedef char QuestView_state[OFFSET(QuestView,state)==0xC?1:-1];
+
+typedef char QuestView_extra[OFFSET(QuestView,extra)==0x18?1:-1];
+
+typedef char Extra11_flag[OFFSET(Extra11,flag)==0x11?1:-1];
+
+typedef char Extra14_flag[OFFSET(Extra14,flag)==0x14?1:-1];
+
+typedef char GameMode_mode[OFFSET(GameMode,mode)==0x70?1:-1];
+
+typedef char packed_ListCD_size[sizeof(ListCD)==0xD1?1:-1];
+
+extern "C" void* __fastcall FOG_AllocPool(void* pool,int size,const char* file,int line,int flags);
+
+extern "C" QuestView* __fastcall QUESTS_GetQuestData(void* game,int id);
+
+extern "C" List204* gList_0077BDB4;
+
+extern "C" List08* gList_007BB5C8;
+
+extern "C" ListCD* gList_007BF014;
+
+extern "C" void* gpSmackFrameBuffer; // 0x009897D0
+
+extern "C" const char gszExceptionsCppFile[]; // 0x006CD628
+
+// build: symbol _gszChatDlgFile 0x006D5460
+extern "C" const char gszChatDlgFile[];
+
+extern "C" const char gSource_006D7268[];
+
+// build: symbol _gszPartyFile 0x006DA04C
+extern "C" const char gszPartyFile[];
+
+// build: symbol _gszMonsterAIFile 0x006E1560
+extern "C" const char gszMonsterAIFile[];
+
+struct D2ImageHlpAddressStrc
+{
+    unsigned long dwOffset;
+    unsigned short wSegment;
+    int nMode;
+};
+
+struct D2ImageHlpStackFrameStrc
+{
+    D2ImageHlpAddressStrc tAddrPC;
+    D2ImageHlpAddressStrc tAddrReturn;
+    D2ImageHlpAddressStrc tAddrFrame;
+    D2ImageHlpAddressStrc tAddrStack;
+    void* pFuncTableEntry;
+    unsigned long dwParams[4];
+    int bFar;
+    int bVirtual;
+    unsigned long dwReserved[3];
+    unsigned long dwKdHelp[19];
+};
+
+struct D2ImageHlpSymbolStrc
+{
+    unsigned long dwSizeOfStruct;
+    unsigned long dwAddress;
+    unsigned long dwSize;
+    unsigned long dwFlags;
+    unsigned long dwMaxNameLength;
+    char szName[1];
+};
+
+struct D2ImageHlpModuleStrc
+{
+    unsigned long dwSizeOfStruct;
+    unsigned long dwBaseOfImage;
+    unsigned long dwImageSize;
+    unsigned long dwTimeDateStamp;
+    unsigned long dwCheckSum;
+    unsigned long dwNumSyms;
+    int nSymType;
+    char szModuleName[32];
+    char szImageName[256];
+    char szLoadedImageName[256];
+};
+
+typedef int (__stdcall* StackWalkFn)(unsigned long dwMachine, void* hProcess, void* hThread, D2ImageHlpStackFrameStrc* pFrame, void* pContext, void* pfnReadMemory, void* pfnFunctionTableAccess, void* pfnGetModuleBase, void* pfnTranslateAddress);
+
+typedef int (__stdcall* SymGetSymFromAddrFn)(void* hProcess, unsigned long dwAddress, unsigned long* pdwDisplacement, D2ImageHlpSymbolStrc* pSymbol);
+
+typedef int (__stdcall* SymGetModuleInfoFn)(void* hProcess, unsigned long dwAddress, D2ImageHlpModuleStrc* pModuleInfo);
+
+typedef int (__stdcall* SymGetLineFromAddrFn)(void* hProcess, unsigned long dwAddress, unsigned long* pdwDisplacement, D2ImageHlpLineStrc* pLine);
+
+extern "C" const char gszEmptyString_006FFC44[]; // 0x006FFC44
+
+int __cdecl s_DoSymInitialize(); // 0x0040C620
+
+int __fastcall EXCEPTIONS_ReleaseSymbols(int all); // 0x0040C720
+
+int (__stdcall* gpfnSymGetLineFromAddr)(void* hProcess, unsigned long dwAddress, unsigned long* pdwDisplacement, D2ImageHlpLineStrc* pLine); // 0x0075CFE4
+
+extern void* gpfnSymFunctionTableAccess; // 0x0075CFE0
+
+extern void* gpfnSymGetModuleBase; // 0x0075CFE8
+
+extern SymGetModuleInfoFn gpfnSymGetModuleInfo; // 0x0075CFEC
+
+extern SymGetSymFromAddrFn gpfnSymGetSymFromAddr; // 0x0075CFF4
+
+extern StackWalkFn gpfnStackWalk; // 0x0075D008
+
+extern unsigned int gnStackWalkDepth; // 0x0075D018
+
+struct T0040D1C0
+{
+    unsigned long f_0;
+    unsigned long f_4;
+    unsigned long dwType;
+    int nCount;
+    unsigned long adwData[8];
+};
+
+void __stdcall SMemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
+
+#pragma pack(push, 1)
+
+struct D2CrashDumpEntryStrc
+{
+    unsigned short nHits;
+    unsigned long f_2;
+    unsigned long f_6;
+    unsigned long dwType;
+    unsigned char nCount;
+    unsigned long adwData[8];
+};
+
+#pragma pack(pop)
+
+extern "C" unsigned int __cdecl fread(void* pBuffer, unsigned int nSize, unsigned int nCount, _iobuf* pFile); // 0x00684782
+
+int __stdcall SMemCmp(void* pLocation1, void* pLocation2, unsigned int nSize); // 0x0041D200
+
+extern "C" const char gszReadBinary_006CDC90[]; // 0x006CDC90
+
+D2CriticalSectionStrc gtImageHlpLock; // 0x0075CFBC
+
+int gnSymInitCount; // 0x0075CFD4
+
+static void __stdcall EXCEPTIONS_GetLogicalAddress(char* szModule, unsigned long* pnSection, unsigned long* pnOffset, void* pAddress, unsigned int nSize); // 0x0040C520
+
+char gszAddressText[32]; // 0x0075D020
+
+int ganLogNewFile[20]; // 0x0075D298
+
+char gaszLogFilePaths[20][0x104]; // 0x0075D340
+
+int gnLogQueueCount; // 0x0075E870
+
+struct D2ToolhelpModuleEntryStrc;
+
+struct D2ToolhelpModuleEntryStrc
+{
+    unsigned long dwSize;
+    unsigned long th32ModuleID;
+    unsigned long th32ProcessID;
+    unsigned long GlblcntUsage;
+    unsigned long ProccntUsage;
+    unsigned int modBaseAddr;
+    unsigned int modBaseSize;
+    void* hModule;
+    char szModule[0x100];
+    char szExePath[0x104];
+};
+
+typedef void* (__stdcall* CreateToolhelp32SnapshotFn)(unsigned long dwFlags, unsigned long dwProcessId);
+
+typedef int (__stdcall* Module32Fn)(void* hSnapshot, D2ToolhelpModuleEntryStrc* pEntry);
+
+typedef int (__stdcall* EnumProcessModulesFn)(void* hProcess, void** phModules, unsigned long nSize, unsigned long* pnNeeded);
+
+typedef unsigned long (__stdcall* GetModuleNameFn)(void* hProcess, void* hModule, char* szName, unsigned long nSize);
+
+typedef int (__stdcall* GetModuleInformationFn)(void* hProcess, void* hModule, D2PsapiModuleInfoStrc* pInfo, unsigned long nSize);
+
+extern "C" const char gszExceptionsCpp_006CD628[]; // 0x006CD628
+
+struct D2ImageHlpSymbolBufferStrc
+{
+    D2ImageHlpSymbolStrc tSymbol;
+    char szNameBuffer[0x100];
+};
+
+extern "C" __declspec(dllimport) int __stdcall IsBadReadPtr(const void* lp, unsigned int ucb); // 0x006CC238
+
+extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2); // 0x006841E9
+
+#pragma intrinsic(strlen)
+
+unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
+
+void __cdecl MAINMENUS_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410740
+
+char* __fastcall sub_004113E0_EscapeString(char* szDst, const char* szSrc, int nSize, char cQuote); // 0x004113E0
+
+D2ModuleInfoStrc* __fastcall EXCEPTIONS_FindModuleByAddress(unsigned long dwAddress, D2ModuleInfoStrc* pList); // 0x0040BCB0
+
+extern const char gszStackEipLine[]; // 0x006CD938
+
+extern const char gszLogLineFormat[]; // 0x006CD90C
+
+extern const char gszStackStringLine[]; // 0x006CD8C8
+
+extern const char gszStackSymbolLine[]; // 0x006CD890
+
+extern const char gszStackPad_006FFC44[]; // 0x006FFC44
+
+static int __stdcall EXCEPTIONS_GetLineFromAddrRetry(void* hProcess, unsigned long dwAddress, unsigned long* pdwDisplacement, D2ImageHlpLineStrc* pLine); // 0x0040B600
+
+static D2ModuleInfoStrc* __stdcall EXCEPTIONS_GetModuleList(void* hProcess, unsigned long dwPid); // 0x0040BC50
+
+static D2ModuleInfoStrc* __stdcall EXCEPTIONS_LoadModuleSymbols(unsigned long dwPid, void* hProcess); // 0x0040C0F0
+
+static char* EXCEPTIONS_ComposeSymbolPath(char* szPath); // 0x0040C290
+
+extern "C" void __fastcall EXCEPTIONS_FreeModuleList(D2ModuleInfoStrc* pList);                                  // 0x0040B660
+
+void __fastcall EXCEPTIONS_DumpAnnotatedStack(void* hProcess, D2ThreadContextStrc* pContext, D2ModuleInfoStrc* pModules); // 0x0040BCF0
+
+struct D2FpoDataStrc
+{
+    unsigned long dwOffStart;
+    unsigned long dwProcSize;
+    unsigned long dwLocals;
+    unsigned short wParams;
+    unsigned short cbProlog : 8;
+    unsigned short cbRegs : 3;
+    unsigned short fHasSEH : 1;
+    unsigned short fUseBP : 1;
+    unsigned short reserved : 1;
+    unsigned short cbFrame : 2;
+};
+
+char gszImageHlpSymSearchPath[4096]; // 0x0075BFB8
+
+int gbSymQuiet; // 0x0075CFB8
 
 // build: context sub_00406BA0_GetModuleDirectoryAndSave
 
@@ -1090,4 +1549,66 @@ int gbLogThreadStop; // 0x0075E830
 FSafeSock* __fastcall FOG_SOCKET_Connect(char* szHostAddress, int nPortNumber, unsigned long (__stdcall* pThreadProc)(void* pParam), void* lpParameter, const char* szName)
 {
     return FOG_SOCKET_ConnectEx(szHostAddress, nPortNumber, pThreadProc, lpParameter, szName, 0);
+}
+
+extern "C" FourWords* __stdcall sub_006BD040_AllocateFourWords(const char* file, int line)
+{
+    FourWords* result = (FourWords*)FOG_AllocPool(0, 0x10, file, line, 0);
+    result->first = 0;
+    result->second = 0;
+    result->third = 0;
+    result->fourth = 0;
+    return result;
+}
+
+extern "C" unsigned char __fastcall sub_0059D7E0_QuestStateCheck(void* game)
+{
+    QuestView* quest = QUESTS_GetQuestData(game, 0xD);
+    if (quest && quest->active != 0 && quest->state == 1)
+        return 1;
+    return 0;
+}
+
+// 0x0040E080
+char* __fastcall FOG_inet_ntoa(int nAddress)
+{
+    D2InAddrStrc tAddress;
+    tAddress.s_addr = nAddress;
+    return strcpy(gszAddressText, inet_ntoa(tAddress));
+}
+
+extern "C" void __cdecl sub_0043F800_FreeList()
+{
+    List204* node = gList_0077BDB4;
+    while (node)
+    {
+        List204* next = node->next;
+        FOG_Free(node, gszChatDlgFile, 0x1C01, 0);
+        node = next;
+    }
+    gList_0077BDB4 = 0;
+}
+
+extern "C" void __cdecl sub_004797C0_FreeList()
+{
+    List08* node = gList_007BB5C8;
+    while (node)
+    {
+        List08* next = node->next;
+        FOG_Free(node, gSource_006D7268, 0x22F, 0);
+        node = next;
+    }
+    gList_007BB5C8 = 0;
+}
+
+extern "C" void __cdecl sub_0049A020_FreeList()
+{
+    ListCD* node = gList_007BF014;
+    while (node)
+    {
+        ListCD* next = node->next;
+        FOG_Free(node, gszPartyFile, 0x108, 0);
+        node = next;
+    }
+    gList_007BF014 = 0;
 }
