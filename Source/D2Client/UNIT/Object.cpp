@@ -293,14 +293,6 @@ extern "C" __declspec(dllexport) void __fastcall OBJECT_SetUnitFlag(Obj00457460*
 
 
 
-// 0x004577C0
-int __fastcall OBJECT_SaveAutomapParty(int nValue)
-{
-    SRegSaveValue("Diablo II", "AutoMap Party", 0, nValue);
-// build: symbol ?gbAutomapParty@* 0x007113E4
-    gbAutomapParty = nValue;
-    return nValue;
-}
 
 // 0x004577F0
 int __fastcall OBJECT_SaveAutomapPartyNames(int nValue)

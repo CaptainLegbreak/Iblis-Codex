@@ -16432,6 +16432,11 @@
      "name": "UI_GetAutomapParty"
     },
     {
+     "va": "0x004577C0",
+     "length": 31,
+     "name": "?OBJECT_SaveAutomapParty@@YIHH@Z"
+    },
+    {
      "va": "0x004577E0",
      "length": 6,
      "name": "UI_GetAutomapPartyNames"
@@ -29639,11 +29644,6 @@
      "va": "0x00457460",
      "length": 35,
      "name": "@OBJECT_SetUnitFlag@12"
-    },
-    {
-     "va": "0x004577C0",
-     "length": 31,
-     "name": "?OBJECT_SaveAutomapParty@@YIHH@Z"
     },
     {
      "va": "0x004577F0",
