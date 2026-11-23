@@ -42,26 +42,6 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall D2Common_11063(D2ActiveRoomStrc* pRoom, int nMonsterId); // 0x0063EC70
 D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B23C0
 
-// 0x005B1B70
-void __fastcall sub_005B1B70_FreeAllTargetNodes(D2GameStrc* pGame)
-{
-    if (!pGame)
-    {
-        return;
-    }
-
-    D2TargetNodeStrc** ppTargetNode = pGame->pTargetNodes;
-    D2TargetNodeStrc* pTargetNode = *ppTargetNode;
-    for (int nCount = 10; nCount; --nCount)
-    {
-        if (pTargetNode && pTargetNode->hUnit)
-        {
-            D2GAME_FreeUnitNode_6FC40310(pGame, pTargetNode->hUnit);
-        }
-        pTargetNode = *++ppTargetNode;
-    }
-}
-
 // 0x005B1C00
 void __fastcall sub_005B1C00_ToggleTargetFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFlags, int bSet)
 {
