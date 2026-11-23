@@ -61565,11 +61565,6 @@
      "name": "CelFileIteratePixels"
     },
     {
-     "va": "0x006011F0",
-     "length": 325,
-     "name": "CelFileSerialize"
-    },
-    {
      "va": "0x00601450",
      "length": 105,
      "name": "CelFileTransform"
@@ -67132,6 +67127,11 @@
     {
      "va": "0x00600FB0",
      "length": 456
+    },
+    {
+     "va": "0x006011F0",
+     "length": 325,
+     "name": "CelFileSerialize"
     },
     {
      "va": "0x00601340",

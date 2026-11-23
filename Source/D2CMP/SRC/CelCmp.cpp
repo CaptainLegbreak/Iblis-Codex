@@ -1851,6 +1851,47 @@ D2LRUNodeStrc* __fastcall LRUCacheAlloc(D2CmpPoolStrc* pPool, unsigned int nSize
 
 void __stdcall sub_0060A4C0_TileEntryLoaded(D2TileLibraryEntryStrc* pEntry); // 0x0060A4C0
 
+// 0x006011F0
+int __stdcall CelFileSerialize(D2CelFileStrc* pCelFile, D2CelFileStrc** ppNewCelFile, unsigned int* pnSize)
+{
+    const unsigned int nCels = pCelFile->nCelsPerDirection * pCelFile->nDirections;
+    unsigned int nSize = nCels * sizeof(D2CelStrc*) + 0x18;
+    for (unsigned int i = 0; i < nCels; i++)
+    {
+        nSize += pCelFile->pCels[i]->nLength + pCelFile->pCels[i]->nDataSize + 0x23;
+    }
+    D2CelFileStrc* pNewCelFile = (D2CelFileStrc*)FOG_Alloc(nSize, ".\\SRC\\CelCmp.cpp", 0x345, 0);
+    *pNewCelFile = *pCelFile;
+    pNewCelFile->dwFlags = pNewCelFile->dwFlags & ~2 | 1;
+    char* pData = (char*)&pNewCelFile->pCels[nCels];
+    D2CelBlockStrc* pBlockToFree = 0;
+    for (unsigned int i = 0; i < nCels; i++)
+    {
+        D2CelStrc* pNewCel = (D2CelStrc*)pData;
+        const unsigned int nCelSize = pCelFile->pCels[i]->nLength + 0x23;
+        pNewCelFile->pCels[i] = (D2CelStrc*)(pData - (char*)pNewCelFile);
+        memcpy(pData, pCelFile->pCels[i], nCelSize);
+        pData += nCelSize;
+        if (pCelFile->pCels[i]->pBlockPixelData && pCelFile->pCels[i]->pBlockPixelData->pPixels)
+        {
+            memcpy(pData, pCelFile->pCels[i]->pBlockPixelData->pPixels, pCelFile->pCels[i]->nDataSize);
+            if (!i)
+            {
+                pBlockToFree = pCelFile->pCels[0]->pBlockPixelData;
+            }
+        }
+        pNewCel->pBlockPixelData = (D2CelBlockStrc*)(pData - (char*)pNewCelFile);
+        pData += pCelFile->pCels[i]->nDataSize;
+    }
+    if (pBlockToFree)
+    {
+        FOG_Free(pBlockToFree, ".\\SRC\\CelCmp.cpp", 0x375, 0);
+    }
+    *ppNewCelFile = pNewCelFile;
+    *pnSize = nSize;
+    return 1;
+}
+
 // 0x00601340
 void __stdcall CelFileNormalize(D2CelFileStrc* pFile, D2CelFileStrc** ppOutFile, const char* szFile, int nLine, int nSpecVersion, int nUnused)
 {
