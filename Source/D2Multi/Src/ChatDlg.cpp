@@ -28,7 +28,7 @@ struct D2CharSaveHeaderStrc;
 
 struct D2CharSaveFileStrc;
 
-struct D2LaunchCharInfoStrc;
+struct D2LaunchRecordStrc;
 
 struct Unicode;
 
@@ -110,7 +110,7 @@ extern D2WinControlStrc* gpChatControl_0077B06C; // 0x0077B06C
 
 extern D2WinControlStrc* gpChatControl_0077B074; // 0x0077B074
 
-D2LaunchCharInfoStrc* gpCharInfo;                                                                  // 0x0077BBD8
+D2LaunchRecordStrc* gpCharInfo;                                                                  // 0x0077BBD8
 
 int gbGemToggle; // 0x0077BBEC
 
@@ -801,7 +801,7 @@ int __fastcall D2Win_10015(); // 0x004F8FE0
 
 int __stdcall D2Win_10005(int nResolution); // 0x004F90A0
 
-int __fastcall CHATDLG_RunChat(D2LaunchCharInfoStrc* pInfo); // 0x00441B70
+int __fastcall CHATDLG_RunChat(D2LaunchRecordStrc* pInfo); // 0x00441B70
 
 int __fastcall D2Win_10016(); // 0x004FA550
 
@@ -1879,7 +1879,7 @@ int __cdecl CHATDLG_ResetControls()
     BUTTON_SetIsPressed(gpCreateScreenButton, 0);
     BUTTON_SetIsPressed(gpJoinScreenButton, 0);
     BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
-    const unsigned short wFlags = *(unsigned short*)gpCharInfo->wFlags;
+    const unsigned short wFlags = gpCharInfo->wFlags1EF;
     if (!(wFlags & 8) || !(wFlags & 4))
     {
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
@@ -1954,7 +1954,7 @@ void __fastcall sub_004423B0_RunCommand(char* szText)
         Unicode wszName[0x22];
         char szName[0x11];
         CHATDLG_GetArgument(0x11, szName, szText);
-        if (!SStrCmpI(&szName[1], gpCharInfo->szText0x8D, 0x7FFFFFFF))
+        if (!SStrCmpI(&szName[1], gpCharInfo->szAccount, 0x7FFFFFFF))
             return;
 
         sub_00526320_ToUnicode(wszName, szName, 0x22);
@@ -2529,7 +2529,7 @@ void __cdecl CHATDLG_CreateChatScreen()
         return;
 
     gbChatSetup = 0;
-    sprintf(szText, "%s,%s", gpCharInfo->szRealm0x22D, gpCharInfo->szName0xBD);
+    sprintf(szText, "%s,%s", gpCharInfo->szRealm0x22D, gpCharInfo->szCharName);
     CHARSEL_ResetChatControls();
 
     if (gpChatCellFile)
@@ -2588,14 +2588,14 @@ int __fastcall CHATDLG_SetupCharacter(unsigned short wValue, const char* szText0
 {
     gnChatLaunchMode = 2;
     CHATDLG_SetCallback(0, sub_0043DAF0_OnConnect);
-    *(unsigned short*)gpCharInfo->wValue = wValue;
+    gpCharInfo->wValue = wValue;
     strcpy(gpCharInfo->szText0x1F, szText0x1F);
     strcpy(gpCharInfo->szText0x245, szText0x245);
     if (gpCharInfo->nByte22D)
     {
         if (sub_00449B30_QueryAddress())
         {
-            *(int*)gpCharInfo->nState = 3;
+            gpCharInfo->nState19 = 3;
             while (++gwRequestId == 0)
             {
             }
@@ -2609,7 +2609,7 @@ int __fastcall CHATDLG_SetupCharacter(unsigned short wValue, const char* szText0
         CHATDLG_ShowWait(D2LANG_GetStringFromTblIndex(0x1413), sub_0043DAF0_OnConnect);
         return 0;
     }
-    *(int*)gpCharInfo->nState = 7;
+    gpCharInfo->nState19 = 7;
     strcpy(gpCharInfo->szText0x37, szText0x37);
     gbDone = 1;
     sub_004F9160_SetLoopValue(0);
@@ -3142,7 +3142,7 @@ void __cdecl sub_00440FC0_CreateGatewayControls()
 
     gpChannelListBox = CONTROL_Create(&gtChannelListInit);
 
-    const char* szList = gpLaunchFuncs->pfn0x20(gpCharInfo->wFlags[0] & 0x20);
+    const char* szList = gpLaunchFuncs->pfn0x20(gpCharInfo->aFlags1EF[0] & 0x20);
 
     if (gpCharInfo->szRealm0x381[0])
     {
@@ -3206,7 +3206,7 @@ void __stdcall CHATDLG_EnableConnection(int bEnable)
     }
     if (!gnChatLaunchMode && gpWaitText)
         CHARSEL_ResetLaunchState();
-    const unsigned short wFlags = *(unsigned short*)gpCharInfo->wFlags;
+    const unsigned short wFlags = gpCharInfo->wFlags1EF;
     if (!(wFlags & 8) || !(wFlags & 4))
     {
         CONTROL_SetEnabled(gpCreateScreenButton, 1);
@@ -3220,7 +3220,7 @@ void __stdcall CHATDLG_EnableConnection(int bEnable)
 // 0x004414C0
 void __cdecl sub_004414C0_UpdateEnable()
 {
-    if (((*(unsigned short*)gpCharInfo->wFlags) & 8) && ((*(unsigned short*)gpCharInfo->wFlags) & 4))
+    if (((gpCharInfo->wFlags1EF) & 8) && ((gpCharInfo->wFlags1EF) & 4))
     {
         return;
     }
@@ -3262,14 +3262,14 @@ int __cdecl CHATDLG_ConnectRealm()
         CHARSEL_DestroyPopupControls();
         return 0;
     }
-    CHATDLG_RequestCharLogon(gpCharInfo->szName0xBD);
+    CHATDLG_RequestCharLogon(gpCharInfo->szCharName);
     sub_004FA590_RunLoop(sub_0043DBF0);
     CHARSEL_DestroyPopupControls();
     return GAME_GetConnectError() == 0;
 }
 
 // 0x00442150
-int __fastcall CHATDLG_StartChat(D2LaunchCharInfoStrc* pInfo)
+int __fastcall CHATDLG_StartChat(D2LaunchRecordStrc* pInfo)
 {
     gpCharInfo = pInfo;
     D2Win_10015();
@@ -3396,7 +3396,7 @@ const char* __fastcall CHATDLG_SkipString(const char* szText)
 int __fastcall CHATDLG_IsCharOverLimit(const unsigned char* pChar)
 {
     unsigned char nChar = *pChar;
-    const unsigned short wFlags = *(unsigned short*)gpCharInfo->wFlags;
+    const unsigned short wFlags = gpCharInfo->wFlags1EF;
     const int nLimit = ((wFlags >> 8) & 0x1F) / 5 + 1;
     if (wFlags & 4)
     {

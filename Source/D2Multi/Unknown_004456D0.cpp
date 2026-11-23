@@ -40,7 +40,7 @@ extern "C" const char gszMaxPlayer[]; // 0x006D57C0
 extern "C" const char gszLvlRest[]; // 0x006D57CC
 extern "C" const char gszDiffLevel[]; // 0x006D57DC
 extern D2LaunchFuncsStrc* gpLaunchFuncs; // 0x0077B09C
-extern D2LaunchCharInfoStrc* gpCharInfo; // 0x0077BBD8
+extern D2LaunchRecordStrc* gpCharInfo; // 0x0077BBD8
 extern D2WinControlStrc* gpCreateButton; // 0x00798C28
 extern D2WinControlStrc* gpCreateName; // 0x00798C2C
 extern D2WinControlStrc* gpCreatePassword_00798C30; // 0x00798C30
@@ -104,12 +104,12 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
 
         if (!sub_00449B30_QueryAddress())
         {
-            int bExpansion = (*(unsigned short*)gpCharInfo->wFlags) & 4;
-            int bLadder = (*(unsigned short*)gpCharInfo->wFlags) & 0x20;
+            int bExpansion = (gpCharInfo->wFlags1EF) & 4;
+            int bLadder = (gpCharInfo->wFlags1EF) & 0x20;
             if (bExpansion)
-                gpCharInfo->dwFlags |= 0x800;
+                gpCharInfo->dwFlags209 |= 0x800;
             if (bLadder)
-                gpCharInfo->dwFlags |= 0x100000;
+                gpCharInfo->dwFlags209 |= 0x100000;
 
             szDesc[0] = (bExpansion ? 3 : 0) + gnDiffSelect + '1';
             SStrCopy(&szDesc[1], tLogin.szText0x20, 0x7FFFFFFF);
@@ -119,9 +119,9 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
                 nFlags = 1;
             if (gpCharInfo->nByte210 == 2)
                 nFlags |= 2;
-            if ((*(unsigned short*)gpCharInfo->wFlags) & 4)
+            if ((gpCharInfo->wFlags1EF) & 4)
                 nFlags |= 4;
-            if ((*(unsigned short*)gpCharInfo->wFlags) & 0x20)
+            if ((gpCharInfo->wFlags1EF) & 0x20)
                 nFlags |= 8;
 
             gpLaunchFuncs->pfn0x34(tLogin.szText0x00, tLogin.szText0x10, szDesc, nFlags);

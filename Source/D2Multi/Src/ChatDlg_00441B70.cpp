@@ -12,7 +12,7 @@ void __stdcall sub_005052B0(void* pObject, int nValue); // 0x005052B0
 void* __stdcall sub_005066C0(int nA, int nMode, char* szA, char* szB); // 0x005066C0
 
 
-static void __cdecl CHATDLG_CreateChatCellFile(D2LaunchCharInfoStrc* pInfo); // 0x0043DC50
+static void __cdecl CHATDLG_CreateChatCellFile(D2LaunchRecordStrc* pInfo); // 0x0043DC50
 
 
 void __cdecl CHARSEL_ClearHistory(); // 0x0043F4D0
@@ -97,7 +97,7 @@ struct D2WinButtonStrc;
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2CharSaveHeaderStrc;
 struct D2CharSaveFileStrc;
-struct D2LaunchCharInfoStrc;
+struct D2LaunchRecordStrc;
 struct Unicode;
 struct D2ChatMessageStrc;
 struct D2LaunchFuncsStrc;
@@ -147,7 +147,7 @@ extern D2WinControlStrc* gpChatControl_0077B064; // 0x0077B064
 extern D2WinControlStrc* gpChatControl_0077B068; // 0x0077B068
 extern D2WinControlStrc* gpChatControl_0077B06C; // 0x0077B06C
 extern D2WinControlStrc* gpChatControl_0077B074; // 0x0077B074
-extern D2LaunchCharInfoStrc* gpCharInfo;                                                                  // 0x0077BBD8
+extern D2LaunchRecordStrc* gpCharInfo;                                                                  // 0x0077BBD8
 extern int gbGemToggle; // 0x0077BBEC
 extern D2CelFileStrc* gpChatCellFile; // 0x0077BBFC
 extern D2WinControlStrc* gpChatControl_0077BC44; // 0x0077BC44
@@ -679,7 +679,7 @@ void __fastcall sub_004423B0_RunCommand(char* szText)
         Unicode wszName[0x22];
         char szName[0x11];
         CHATDLG_GetArgument(0x11, szName, szText);
-        if (!SStrCmpI(&szName[1], gpCharInfo->szText0x8D, 0x7FFFFFFF))
+        if (!SStrCmpI(&szName[1], gpCharInfo->szAccount, 0x7FFFFFFF))
             return;
 
         sub_00526320_ToUnicode(wszName, szName, 0x22);
@@ -843,14 +843,14 @@ int __stdcall CHATDLG_CheckStartAdvResult(int nUnused); // 0x00443840
 char* __cdecl CHATDLG_StrChr(const char* szString, int nChar); // 0x00446810
 void __stdcall CHATDLG_RemoveTableString(Unicode* pText); // 0x00446A90
 // 0x0043DC50
-static void __cdecl CHATDLG_CreateChatCellFile(D2LaunchCharInfoStrc* pInfo)
+static void __cdecl CHATDLG_CreateChatCellFile(D2LaunchRecordStrc* pInfo)
 {
     int nMode = 5;
-    const unsigned short wFlags = *(unsigned short*)pInfo->wFlags0x3CB;
+    const unsigned short wFlags = pInfo->wFlags3CB;
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
-    if ((wFlags & 4) && !(wFlags & 8) && (FOG_IsExpansion() || pInfo->nValue0x1EE < 5))
+    if ((wFlags & 4) && !(wFlags & 8) && (FOG_IsExpansion() || pInfo->nClass < 5))
         nMode = 1;
-    gpChatCellFile = (D2CelFileStrc*)sub_005066C0(pInfo->nValue0x1EE, nMode, pInfo->szText0x3A1, (char*)&pInfo->nComponentColors);
+    gpChatCellFile = (D2CelFileStrc*)sub_005066C0(pInfo->nClass, nMode, pInfo->szText0x3A1, (char*)pInfo->nComponentColors);
     if (gpChatCellFile)
     {
         sub_005052B0(gpChatCellFile, 0x42);
@@ -1035,12 +1035,12 @@ int __stdcall CHATDLG_OnTick(int nUnused)
                     {
                     case 0:
                     {
-                        *(int*)gpCharInfo->nState = 3;
+                        gpCharInfo->nState19 = 3;
 // build: symbol ?GAME_GetMcpGameToken@* 0x00449BE0
-                        *(unsigned short*)gpCharInfo->wValue = (unsigned short)GAME_GetMcpGameToken();
+                        gpCharInfo->wValue = (unsigned short)GAME_GetMcpGameToken();
                         *(int*)gpCharInfo->nValue0x229 = GAME_GetMcpGameHash();
                         const char* szSource = (const char*)GAME_GetMcpGameServerIP();
-                        char* szDest = (char*)&gpCharInfo->unk0x37;
+                        char* szDest = gpCharInfo->szText0x37;
                         char c;
                         do
                         {
@@ -1074,21 +1074,21 @@ int __stdcall CHATDLG_OnTick(int nUnused)
                         break;
                     case 115:
                         gnChatLaunchMode = 0;
-                        if (*(unsigned short*)gpCharInfo->wFlags & 0x20)
+                        if (gpCharInfo->wFlags1EF & 0x20)
                             CHATDLG_ShowWait(D2LANG_GetStringFromTblIndex(0x5522), sub_0043DAF0_OnConnect);
                         else
                             CHATDLG_ShowWait(D2LANG_GetStringFromTblIndex(0x14F4), sub_0043DAF0_OnConnect);
                         break;
                     case 116:
                         gnChatLaunchMode = 0;
-                        if (*(unsigned short*)gpCharInfo->wFlags & 0x20)
+                        if (gpCharInfo->wFlags1EF & 0x20)
                             CHATDLG_ShowWait(D2LANG_GetStringFromTblIndex(0x5521), sub_0043DAF0_OnConnect);
                         else
                             CHATDLG_ShowWait(D2LANG_GetStringFromTblIndex(0x14F3), sub_0043DAF0_OnConnect);
                         break;
                     case 125:
                         gnChatLaunchMode = 0;
-                        if (gpCharInfo->nValue3C2)
+                        if (gpCharInfo->nByte3C2)
                             CHATDLG_ShowWait(D2LANG_GetStringFromTblIndex(0x2AB1), sub_0043DAF0_OnConnect);
                         else
                             CHATDLG_ShowWait(D2LANG_GetStringFromTblIndex(0x2AB2), sub_0043DAF0_OnConnect);
@@ -1160,7 +1160,7 @@ int __stdcall CHATDLG_OnTick(int nUnused)
             s_dwTimer_0077BDC0 += dwElapsed;
             bUpdated = 1;
             gpLaunchFuncs->pfn0x30();
-            const unsigned short wFlags = *(unsigned short*)gpCharInfo->wFlags;
+            const unsigned short wFlags = gpCharInfo->wFlags1EF;
             if (!(wFlags & 8) || !(wFlags & 4))
             {
                 int bEnable = 0;
@@ -1197,7 +1197,7 @@ int __stdcall CHATDLG_OnTick(int nUnused)
 
 
 // 0x00441B70
-int __fastcall CHATDLG_RunChat(D2LaunchCharInfoStrc* pInfo)
+int __fastcall CHATDLG_RunChat(D2LaunchRecordStrc* pInfo)
 {
     char szTitle[256];
     D2WinControlStrc* pControl8;
@@ -1271,7 +1271,7 @@ int __fastcall CHATDLG_RunChat(D2LaunchCharInfoStrc* pInfo)
     VIEW_SendMcpMotdRequest();
     COMCALLBACK_UpdateNameListText();
     pControl4 = CONTROL_Create(&gtControlInit_0070D360);
-    const unsigned short wFlags = *(unsigned short*)gpCharInfo->wFlags;
+    const unsigned short wFlags = gpCharInfo->wFlags1EF;
     if ((wFlags & 8) && (wFlags & 4))
     {
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
@@ -1285,17 +1285,17 @@ int __fastcall CHATDLG_RunChat(D2LaunchCharInfoStrc* pInfo)
     D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\button.wav");
     if (D2SOUND_GetOptionsMusicOption())
         D2SOUND_10034(1);
-    gbCheck = gpCharInfo->nType0x35E == 4;
+    gbCheck = gpCharInfo->nStartMode == 4;
     CONTROL_SetEnabled(gpControlC_0077B07C, gbCheck == 0);
     if (CHATDLG_ConnectRealm())
     {
-        sprintf(szTitle, "%s,%s", pInfo->szRealm0x22D, pInfo->szName0xBD);
+        sprintf(szTitle, "%s,%s", pInfo->szRealm0x22D, pInfo->szCharName);
         int nFlags = 0;
-        if (*(unsigned short*)pInfo->wFlags & 0x20)
+        if (pInfo->wFlags1EF & 0x20)
             nFlags = 1;
         if (gpCharInfo->szRealm0x361[0])
             nFlags |= 2;
-        gpLaunchFuncs->pfn0x54(pInfo->szName0xBD, szTitle, 0x25, pInfo->szRealm0x361, nFlags);
+        gpLaunchFuncs->pfn0x54(pInfo->szCharName, szTitle, 0x25, pInfo->szRealm0x361, nFlags);
     }
     else
     {
@@ -1391,7 +1391,7 @@ int __fastcall CHATDLG_SendChatText(char* szText, int bWhisper)
     else
         strcpy(gszChatBuffer, szText);
 
-    if (CHATDLG_FindHashedWord(szText, gpCharInfo->nWordHash, gpCharInfo->nWordLength))
+    if (CHATDLG_FindHashedWord(szText, gpCharInfo->dwPasswordHash, gpCharInfo->nPasswordLength))
     {
         CHATDLG_ShowMessage(D2LANG_GetStringFromTblIndex(0x2B37), D2LANG_GetStringFromTblIndex(0x2B38));
         gszChatBuffer[0] = 0;

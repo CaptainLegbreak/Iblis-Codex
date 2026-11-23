@@ -8,7 +8,7 @@ struct D2CriticalSectionStrc;
 struct D2FindDataStrc;
 struct D2FuncRecordStrc;
 struct D2FuncTable_0077ABF0Strc;
-struct D2LaunchCharInfoStrc;
+struct D2LaunchRecordStrc;
 struct D2LaunchFuncsStrc;
 struct D2WinControlStrc;
 struct Unicode;
@@ -107,7 +107,7 @@ extern "C" int __cdecl sscanf(const char* szSource, const char* szFormat, ...); 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
-extern D2LaunchCharInfoStrc* gpCharInfo; // 0x0077BBD8
+extern D2LaunchRecordStrc* gpCharInfo; // 0x0077BBD8
 extern D2LaunchFuncsStrc* gpLaunchFuncs; // 0x0077B09C
 extern D2WinControlStrc* gpCharSelectText; // 0x00779DD4
 extern D2WinControlStrc* gpChatEdit; // 0x0077BD94

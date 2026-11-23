@@ -18,7 +18,7 @@ struct Unicode;
 
 struct D2LaunchNameNodeStrc;
 
-struct D2LaunchCharInfoStrc;
+struct D2LaunchRecordStrc;
 
 struct D2MultiChannelUserStrc;
 
@@ -200,7 +200,7 @@ extern D2WinControlStrc* gpJoinScreenButton; // 0x0077B078
 
 D2WinControlStrc* gpControlC_0077B07C;                                                                      // 0x0077B07C
 
-extern D2LaunchCharInfoStrc* gpCharInfo; // 0x0077BBD8
+extern D2LaunchRecordStrc* gpCharInfo; // 0x0077BBD8
 
 extern D2WinControlStrc* gpProfileViewBckg; // 0x00798C64
 
@@ -910,7 +910,7 @@ void __cdecl COMCALLBACK_BuildCreateGamePanel()
 // 0x00445A80
 void __fastcall COMCALLBACK_ShowProfileDialog(const char* szText, int nA, int nB)
 {
-    const char* szName = gpCharInfo->szText0x8D;
+    const char* szName = gpCharInfo->szAccount;
     char szA[12];
     char szB[44];
     char szC[204];
@@ -1240,12 +1240,12 @@ void __cdecl sub_00445FF0_BuildCreateScreen()
     unsigned long dwDifficulty = 0;
     if (!SRegLoadValue("Diablo II", "DIFF_LEVEL", 0, &dwDifficulty))
         SRegSaveValue("Diablo II", "DIFF_LEVEL", 0, 0);
-    int nLevel = gpCharInfo->wFlags[1] & 0x1F;
+    int nLevel = gpCharInfo->aFlags1EF[1] & 0x1F;
     gpHellRadio = CONTROL_Create(&gtHellRadioInit);
     gpHellLabel = CONTROL_Create(&gtHellLabelInit);
     gpNightmareRadio = CONTROL_Create(&gtNightmareRadioInit);
     gpNightmareLabel = CONTROL_Create(&gtNightmareLabelInit);
-    int bExpansion = gpCharInfo->wFlags[0] & 0x20;
+    int bExpansion = gpCharInfo->aFlags1EF[0] & 0x20;
     if ((!bExpansion && nLevel >= 8) || nLevel >= 10)
     {
         sub_004FC9B0_SetText(gpHellLabel, D2LANG_GetStringFromTblIndex(0x2720), 4, 0, 0);
@@ -2175,8 +2175,8 @@ void __cdecl COMCALLBACK_RefreshChannelList()
             CHAN_SETBIT(nState, 4, wFlags & 8);
             CHAN_SETBIT(nState, 5, wFlags & 4);
             CHAN_SETBIT(nState, 12, wFlags & 0x20);
-            int bDiffers = gpCharInfo->nValue3C2 != pUser->nValue94;
-            const unsigned short wCharFlags = *(const unsigned short*)gpCharInfo->wFlags;
+            int bDiffers = gpCharInfo->nByte3C2 != pUser->nValue94;
+            const unsigned short wCharFlags = *(const unsigned short*)gpCharInfo->aFlags1EF;
             bDiffers |= (wCharFlags & 4) && !pUser->nValue0xA0;
             bDiffers |= !(wCharFlags & 4) && pUser->nValue0xA0;
             bDiffers |= (wCharFlags & 0x20) && !pUser->nValue0xA8;
@@ -2584,7 +2584,7 @@ found:
                     ++szCompare;
                 else
                     szCompare = szName;
-                if (!strcmp(szCompare, gpCharInfo->szText0x8D))
+                if (!strcmp(szCompare, gpCharInfo->szAccount))
                 {
                     COMCALLBACK_ShowProfileDialog(pUser->szText, pUser->bFlagA0, pUser->bFlagA8);
                     return 1;
@@ -2660,7 +2660,7 @@ int __stdcall COMCALLBACK_SquelchSelectedUser(int nUnused)
     {
         pName = szName;
     }
-    if (SStrCmpI(pName, gpCharInfo->szText0x8D, 0x7FFFFFFF))
+    if (SStrCmpI(pName, gpCharInfo->szAccount, 0x7FFFFFFF))
     {
         sub_00611560_GetSquelchList()->Squelch(szName);
     }

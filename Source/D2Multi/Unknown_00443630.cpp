@@ -75,7 +75,7 @@ extern D2WinControlStrc* gpControl_00779C80;                                    
 extern int gbFlag_00779DD8;                                                                                 // 0x00779DD8
 extern int gnCounter_00779DDC;                                                                              // 0x00779DDC
 extern D2LaunchFuncsStrc* gpLaunchFuncs;                                                           // 0x0077B09C
-extern D2LaunchCharInfoStrc* gpCharInfo;                                                           // 0x0077BBD8
+extern D2LaunchRecordStrc* gpCharInfo;                                                           // 0x0077BBD8
 extern D2WinControlStrc* gpChannelOkButton;                                                                 // 0x0077BCEC
 extern D2WinControlStrc* gpChatEdit;                                                               // 0x0077BD94
 extern D2LaunchGameRecStrc gaNewGames[];                                                           // 0x0077BDC8

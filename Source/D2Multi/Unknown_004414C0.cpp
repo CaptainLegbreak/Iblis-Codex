@@ -2,11 +2,11 @@
 #include "D2Unicode.h"
 #include "D2MultiTypes.h"
 
-struct D2LaunchCharInfoStrc;
+struct D2LaunchRecordStrc;
 struct Unicode;
 struct Character;
 
-extern D2LaunchCharInfoStrc* gpCharInfo; // 0x0077BBD8
+extern D2LaunchRecordStrc* gpCharInfo; // 0x0077BBD8
 void __stdcall CHATDLG_EnableConnection(int bEnable); // 0x004413E0
 
 struct Character { signed char value; };

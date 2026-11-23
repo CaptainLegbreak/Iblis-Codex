@@ -3498,7 +3498,7 @@ void __cdecl MAINMENUS_ShowMainMenu()
     D2WinControlStrc* pFirst;
     D2WinControlStrc* pSecond;
     CHARSEL_DisconnectBattleNet();
-    gpLaunchRecord->szName[0] = 0;
+    gpLaunchRecord->szText0x37[0] = 0;
     CHARSEL_CreateBaseScreen();
     if (FOG_IsExpansion())
     {
@@ -3808,7 +3808,7 @@ int __stdcall MAINMENUS_JoinTcpIp(int nUnused)
             return 1;
         }
     }
-    strcpy(gpLaunchRecord->szName, szText);
+    strcpy(gpLaunchRecord->szText0x37, szText);
     MAINMENUS_ShowConnectingPopup();
     sub_004FA590_RunLoop(sub_00431D10);
     gbConnectResult = 0;
@@ -3832,7 +3832,7 @@ int __stdcall MAINMENUS_JoinTcpIp(int nUnused)
     {
         gnLaunchMode = 2;
         *(int*)gpLaunchRecord->aState19 = 9;
-        *(unsigned short*)gpLaunchRecord->aWord1D = 1;
+        gpLaunchRecord->wValue = 1;
         sub_00515020();
         MAINMENUS_Reset();
         CHARSEL_InitCharSelectScreen();
@@ -4423,12 +4423,12 @@ int __fastcall sub_004359D0_RunFrontEnd(D2LaunchRecordStrc* pRecord)
     D2_ASSERT(sub_005259C0(sub_004FAC80(FOG_IsExpansion()), 0), 0x125A);
     MAINMENUS_LoadFrontEndCells();
     CURSOR_SetCellFile(gpCursorOHandCelFile);
-    gpLaunchRecord->nByte361 = 0;
-    gpLaunchRecord->nByte381 = 0;
-    gpLaunchRecord->nByte1F = 0;
-    gpLaunchRecord->nByte245 = 0;
+    gpLaunchRecord->szRealm0x361[0] = 0;
+    gpLaunchRecord->szRealm0x381[0] = 0;
+    gpLaunchRecord->szText0x1F[0] = 0;
+    gpLaunchRecord->szText0x245[0] = 0;
     if (gnLaunchMode != 2)
-        gpLaunchRecord->nByte37 = 0;
+        gpLaunchRecord->szText0x37[0] = 0;
     D2SOUND_InitWaveSlots();
     D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\button.wav");
     D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\amazon select.wav");
@@ -4579,7 +4579,7 @@ int __stdcall MAINMENUS_OnRealmDoubleClick(SMSGHANDLER_PARAMS* pMsg)
 int __stdcall MAINMENUS_OnTcpIpHost(int nArg)
 {
     gpLaunchRecord->nState19 = 8;
-    strcpy(gpLaunchRecord->szName, FOG_GetHostIPAddress());
+    strcpy(gpLaunchRecord->szText0x37, FOG_GetHostIPAddress());
     gnLaunchMode = 2;
     gpLaunchRecord->nValue209 = 4;
     if (!MAINMENUS_HasSaveFiles())
@@ -4624,9 +4624,9 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
     {
         if (sub_00449B30_QueryAddress())
         {
-            gpLaunchRecord->nByte3C1 = 1;
-            SMemCopy(gpLaunchRecord->aData3A1, gabDefault, 0x10);
-            SMemZero(gpLaunchRecord->aData3B1, 0x10);
+            gpLaunchRecord->nLevel = 1;
+            SMemCopy(gpLaunchRecord->szText0x3A1, gabDefault, 0x10);
+            SMemZero(gpLaunchRecord->nComponentColors, 0x10);
             gpLaunchRecord->nByte3C2 = (gpLaunchRecord->wFlags1EF >> 6) & 1;
             gpLaunchRecord->wFlags3CB = gpLaunchRecord->wFlags1EF;
             CHATDLG_RequestCharCreate(gpLaunchRecord->szCharName, gpLaunchRecord->nClass, gpLaunchRecord->wFlags1EF);
@@ -4917,11 +4917,11 @@ void __cdecl MAINMENUS_CreateCharacter()
         sub_0043C6A0(0);
         AUTOMAP_InitCharSaveHeader((gpLaunchRecord->szPassword + 0x18), gpLaunchRecord->nMode, (gpLaunchRecord->szPassword + 0x48), gpLaunchRecord->wFlags1EF);
         sub_0043C6B0((gpLaunchRecord->szPassword + 0x18));
-        gpLaunchRecord->nByte3C1 = 1;
-        SMemCopy(gpLaunchRecord->aData3A1, gabDefault, 0x10);
-        SMemZero(gpLaunchRecord->aData3B1, 0x10);
+        gpLaunchRecord->nLevel = 1;
+        SMemCopy(gpLaunchRecord->szText0x3A1, gabDefault, 0x10);
+        SMemZero(gpLaunchRecord->nComponentColors, 0x10);
         gpLaunchRecord->nByte3C2 = (gpLaunchRecord->wFlags1EF >> 6) & 1;
-        *(unsigned short*)gpLaunchRecord->aWord3CB = gpLaunchRecord->wFlags1EF;
+        gpLaunchRecord->wFlags3CB = gpLaunchRecord->wFlags1EF;
         gpLaunchRecord->nByte35E = 4;
         gpLaunchRecord->nByte22D = 0;
         gpLaunchRecord->szPassword[0x30] = 0;

@@ -37,7 +37,7 @@ extern int gbShowJoinLeave;                                                     
 extern D2WinControlStrc* gpChatTextBox;                                                            // 0x0077BD8C
 extern char gszLastWhisperer[];                                                                    // 0x0077B0D0
 extern D2LaunchFuncsStrc* gpLaunchFuncs;                                                           // 0x0077B09C
-extern D2LaunchCharInfoStrc* gpCharInfo;                                                           // 0x0077BBD8
+extern D2LaunchRecordStrc* gpCharInfo;                                                           // 0x0077BBD8
 extern "C" const char gszCmdIgnorePersist[];                                                       // 0x006D56B0
 extern "C" const char gszCmdIgnore[];                                                              // 0x006D56A4
 extern "C" const char gszCmdUnignore[];                                                            // 0x006D568C
@@ -214,7 +214,7 @@ void __fastcall sub_004423B0_RunCommand(char* szText)
         Unicode wszName[0x22];
         char szName[0x11];
         CHATDLG_GetArgument(0x11, szText, szName);
-        if (!SStrCmpI(&szName[1], gpCharInfo->szText0x8D, 0x7FFFFFFF))
+        if (!SStrCmpI(&szName[1], gpCharInfo->szAccount, 0x7FFFFFFF))
             return;
 
         sub_00526320_ToUnicode(wszName, szName, 0x22);
