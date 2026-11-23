@@ -3130,39 +3130,6 @@ void __fastcall PLAYER_CloseInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit)
     ACT5Q5_OnPlayerDied(pGame, pUnit);
 }
 
-// 0x005352C0
-void __fastcall PLAYER_PlaceCorpse(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, int nPlayerGUID, D2CoordStrc* pCoord)
-{
-    D2_ASSERT(hRoom, 543);
-
-    COLLISION_GetFreeCoordinatesEx(hRoom, pCoord, 2, COLLIDE_MASK_CORPSE, 4);
-
-    D2UnitStrc* pPlayer = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, nPlayerGUID);
-    if (!pPlayer)
-    {
-        return;
-    }
-
-    D2Common_10231(pPlayer->pDynamicPath, pPlayer, hRoom, pCoord->nX, pCoord->nY);
-    pPlayer->dwFlags |= UNITFLAG_TARGETABLE;
-
-    UNITS_ChangeAnimMode(pPlayer, PLRMODE_DEAD);
-    pPlayer->dwFlags &= ~UNITFLAG_ISVALIDTARGET;
-
-    STATES_ToggleState(pPlayer, STATE_PLAYERBODY, 1);
-    pPlayer->dwFlags |= UNITFLAG_INITSEEDSET;
-
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pPlayer, EVENTTYPE_FREEHOVER, 0);
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pPlayer, EVENTTYPE_STATREGEN, 0);
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pPlayer, EVENTTYPE_TRAP, 0);
-
-    const int nOwnerGUID = INVENTORY_GetOwnerId(pPlayer->pInventory);
-    if (nOwnerGUID != -1)
-    {
-        D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(pGame, nOwnerGUID, nPlayerGUID, 1);
-    }
-}
-
 // 0x00535B10
 int __fastcall PLAYER_HasHostilePlayer(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {

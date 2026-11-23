@@ -3429,7 +3429,6 @@
     "extern \"C\" void __cdecl PLRMODE_StartXY_GetHit(); // 0x0057FE30",
     "extern \"C\" void __cdecl PLRMODE_StartXY_WalkRunKnockback(); // 0x0057F1F0",
     "extern \"C\" void __cdecl sub_0057F070(); // 0x0057F070",
-    "extern \"C\" void __cdecl sub_00580460(); // 0x00580460",
     "extern \"C\" void __cdecl sub_00580C20(); // 0x00580C20"
    ],
    "fn_types": {},
@@ -4427,7 +4426,6 @@
     "extern \"C\" void __cdecl sub_005DCBD0(); // 0x005DCBD0",
     "extern \"C\" void __cdecl sub_005DCC60(); // 0x005DCC60",
     "extern \"C\" void __cdecl sub_005DCCC0(); // 0x005DCCC0",
-    "extern \"C\" void __cdecl sub_005DCD50(); // 0x005DCD50",
     "extern \"C\" void __cdecl sub_005DCE10(); // 0x005DCE10"
    ],
    "fn_types": {},
@@ -102025,16 +102023,16 @@
     [
      28,
      "0x00580460",
-     "queue_function",
-     "sub_00580460",
+     "names.json",
+     "PLRMODE_UpdateSkill",
      0,
      "func"
     ],
     [
      32,
      "0x00580460",
-     "queue_function",
-     "sub_00580460",
+     "names.json",
+     "PLRMODE_UpdateSkill",
      0,
      "func"
     ],
@@ -102049,56 +102047,56 @@
     [
      40,
      "0x00580460",
-     "queue_function",
-     "sub_00580460",
+     "names.json",
+     "PLRMODE_UpdateSkill",
      0,
      "func"
     ],
     [
      44,
      "0x00580460",
-     "queue_function",
-     "sub_00580460",
+     "names.json",
+     "PLRMODE_UpdateSkill",
      0,
      "func"
     ],
     [
      48,
      "0x00580460",
-     "queue_function",
-     "sub_00580460",
+     "names.json",
+     "PLRMODE_UpdateSkill",
      0,
      "func"
     ],
     [
      52,
      "0x00580460",
-     "queue_function",
-     "sub_00580460",
+     "names.json",
+     "PLRMODE_UpdateSkill",
      0,
      "func"
     ],
     [
      56,
      "0x00580460",
-     "queue_function",
-     "sub_00580460",
+     "names.json",
+     "PLRMODE_UpdateSkill",
      0,
      "func"
     ],
     [
      60,
      "0x00580460",
-     "queue_function",
-     "sub_00580460",
+     "names.json",
+     "PLRMODE_UpdateSkill",
      0,
      "func"
     ],
     [
      64,
      "0x00580460",
-     "queue_function",
-     "sub_00580460",
+     "names.json",
+     "PLRMODE_UpdateSkill",
      0,
      "func"
     ],
@@ -102113,8 +102111,8 @@
     [
      72,
      "0x00580460",
-     "queue_function",
-     "sub_00580460",
+     "names.json",
+     "PLRMODE_UpdateSkill",
      0,
      "func"
     ],
@@ -117732,8 +117730,8 @@
     [
      68,
      "0x005DCD50",
-     "queue_function",
-     "sub_005DCD50",
+     "names.json",
+     "AIUTIL_TargetCallback_FindClosestClosedDoor",
      0,
      "func"
     ],

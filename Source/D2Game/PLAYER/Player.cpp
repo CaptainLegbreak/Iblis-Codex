@@ -8,6 +8,8 @@
 #include "D2Txt.h"
 #include "D2LevelTxt.h"
 #include "D2UnitData.h"
+#include "D2PlayerModes.h"
+#include "D2StateIds.h"
 
 #define UNIT_PLAYER 0
 
@@ -528,6 +530,63 @@ void __fastcall PLAYER_CloseInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit)
     }
 
     SCMD_SendInteractionTarget(UnitGetClient(pUnit, ".\\PLAYER\\Player.cpp", 0x217), 0x62, UNIT_INVALID, 0, 0);
+}
+
+int __stdcall UNITS_ChangeAnimMode(D2UnitStrc*,int); // 0x00624690
+
+void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(D2GameStrc* pGame, int nUnitId, int nCorpseId, unsigned char bAssign); // 0x0053DF80
+
+void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
+
+#define UNITFLAG_INITSEEDSET 0x10
+
+#define EVENTTYPE_FREEHOVER 3
+
+#define EVENTTYPE_STATREGEN 4
+
+#define EVENTTYPE_TRAP 6
+
+#define COLLIDE_MASK_CORPSE 0x9C19
+
+void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
+
+int __stdcall INVENTORY_GetOwnerId(D2InventoryStrc* pInventory); // 0x0063D450
+
+D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesEx(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int nPosIncrementValue); // 0x0064E7E0
+
+void __stdcall D2Common_10231(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650C20
+
+// 0x005352C0
+void __fastcall PLAYER_PlaceCorpse(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, int nPlayerGUID, D2CoordStrc* pCoord)
+{
+    D2_ASSERT(hRoom, 543);
+
+    COLLISION_GetFreeCoordinatesEx(hRoom, pCoord, 2, COLLIDE_MASK_CORPSE, 4);
+
+    D2UnitStrc* pPlayer = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, nPlayerGUID);
+    if (!pPlayer)
+    {
+        return;
+    }
+
+    D2Common_10231(pPlayer->pDynamicPath, pPlayer, hRoom, pCoord->nX, pCoord->nY);
+    pPlayer->dwFlags |= UNITFLAG_TARGETABLE;
+
+    UNITS_ChangeAnimMode(pPlayer, PLRMODE_DEAD);
+    pPlayer->dwFlags &= ~UNITFLAG_ISVALIDTARGET;
+
+    STATES_ToggleState(pPlayer, STATE_PLAYERBODY, 1);
+    pPlayer->dwFlags |= UNITFLAG_INITSEEDSET;
+
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pPlayer, EVENTTYPE_FREEHOVER, 0);
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pPlayer, EVENTTYPE_STATREGEN, 0);
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pPlayer, EVENTTYPE_TRAP, 0);
+
+    const int nOwnerGUID = INVENTORY_GetOwnerId(pPlayer->pInventory);
+    if (nOwnerGUID != -1)
+    {
+        D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(pGame, nOwnerGUID, nPlayerGUID, 1);
+    }
 }
 
 // 0x005353B0

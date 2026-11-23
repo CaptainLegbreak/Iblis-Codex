@@ -10,6 +10,7 @@
 #include "D2Txt.h"
 #include "D2PlayerModes.h"
 #include "D2ItemModes.h"
+#include "D2SkillIds.h"
 
 #define EVENTTYPE_ENDANIM 1
 
@@ -1669,6 +1670,44 @@ void __fastcall PLRMODE_BreakDepletedWeapons(D2GameStrc* pGame, D2UnitStrc* pPla
             pItem = INVENTORY_GetNextItem(pItem);
         }
     }
+}
+
+#define UNITFLAG_SKSRVDOFUNC 0x00000040
+
+void __stdcall UNITS_SetAnimationFrame(D2UnitStrc* pUnit, int nFrame); // 0x006212C0
+
+int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
+
+void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
+
+void __fastcall SKILLS_ExecuteUsedSkill(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0056FC50
+
+// 0x00580460
+int __fastcall PLRMODE_UpdateSkill(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nSkillId, int nSkillLevel)
+{
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pPlayer);
+    if (!pSkill)
+    {
+        return 2;
+    }
+
+    UNITS_SetAnimationFrame(pPlayer, nSkillLevel);
+
+    const int nSkillFlags = SKILLS_GetFlags(pSkill);
+    if (nSkillFlags & 1 && (SUNIT_ValidateTargetUnit(pGame, pPlayer), SUNIT_UpdateUnitPath(pGame, pPlayer) == 2))
+    {
+        SKILLS_SetFlags(pSkill, nSkillFlags | 2);
+    }
+    else
+    {
+        if (pPlayer && UNIT_HasFlag(pPlayer, UNITFLAG_SKSRVDOFUNC) || nSkillId != SKILL_KICK && nSkillId != SKILL_THROW)
+        {
+            return (SUNIT_IsDead(pPlayer) != 0) + 1;
+        }
+    }
+
+    SKILLS_ExecuteUsedSkill(pGame, pPlayer);
+    return (SUNIT_IsDead(pPlayer) != 0) + 1;
 }
 
 // 0x00580500

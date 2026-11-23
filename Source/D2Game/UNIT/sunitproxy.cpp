@@ -10,6 +10,7 @@
 #include "D2DataTbls.h"
 #include "D2GameRecords.h"
 #include "D2ItemsWorld.h"
+#include "D2MonsterIds.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -965,6 +966,83 @@ void __stdcall SUNITPROXY_FillIGlobaltemCacheRecordForNpc(int nNpcId)
             {
                 gaUnitProxyItemCache[nNpcId].pPermCache[nPermCacheIndex] = pItemDataTbl->pItemsTxt[i].dwCode;
                 ++nPermCacheIndex;
+            }
+        }
+    }
+}
+
+void __fastcall SUNITPROXY_FillGlobalItemCache(); // 0x00536F80
+
+enum D2C_MonStatsTxtFlagIndices
+{
+    MONSTATSFLAGINDEX_INTERACT = 9,
+};
+
+// 0x00536F80
+void __fastcall SUNITPROXY_FillGlobalItemCache()
+{
+    const int nRecordCount = sgptDataTables->nMonStatsTxtRecordCount;
+    for (int i = 0; i < nRecordCount; ++i)
+    {
+        D2MonStatsTxt* pMonStatsTxtRecord = SUNITPROXY_GetMonStatsTxtRecordInline(i);
+        int bInteract = 0;
+        if (pMonStatsTxtRecord)
+            bInteract = pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_INTERACT >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_INTERACT & 7];
+        if (bInteract)
+        {
+            switch (i)
+            {
+            case MONSTER_HALBU:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(12);
+                break;
+            case MONSTER_ALKOR:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(7);
+                break;
+            case MONSTER_CHARSI:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(2);
+                break;
+            case MONSTER_FARA:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(3);
+                break;
+            case MONSTER_ASHEARA:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(10);
+                break;
+            case MONSTER_HRATLI:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(6);
+                break;
+            case MONSTER_AKARA:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(0);
+                break;
+            case MONSTER_DROGNAN:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(5);
+                break;
+            case MONSTER_LYSANDER:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(4);
+                break;
+            case MONSTER_ORMUS:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(8);
+                break;
+            case MONSTER_GHEED:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(1);
+                break;
+            case MONSTER_ELZIX:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(9);
+                break;
+            case MONSTER_JAMELLA:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(13);
+                break;
+            case MONSTER_DREHYA:
+            case MONSTER_NIHLATHAK:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(16);
+                break;
+            case MONSTER_MALAH:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(14);
+                break;
+            case MONSTER_LARZUK:
+                SUNITPROXY_FillIGlobaltemCacheRecordForNpc(15);
+                break;
+            default:
+                break;
             }
         }
     }

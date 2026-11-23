@@ -1024,20 +1024,6 @@ void __fastcall ACT2Q3_InitQuestData(D2QuestDataStrc* pQuestData)
     QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->tPlayerGUIDs);
 }
 
-// 0x005B5EE0
-bool __fastcall ACT4Q3_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    const int nId = nNpcId;
-    if (nId == MONSTER_CAIN4 && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A4Q3, QFLAG_REWARDGRANTED)
-        && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A4Q3, QFLAG_REWARDPENDING)
-        && pQuest->bNotIntro && pQuest->fState == 1 && !((D2Act4Quest3Strc*)pQuest->pQuestDataEx)->bSoulstoneAcquired)
-    {
-        return true;
-    }
-
-    return false;
-}
-
 // 0x005BD4A0
 void __fastcall ACT3Q7_CreateVileDogSpawnTimer(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
