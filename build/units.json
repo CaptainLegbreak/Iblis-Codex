@@ -36451,11 +36451,6 @@
      "name": "?D2Win_10044@@YIXPAUD2WinControlStrc@@PBUUnicode@@@Z"
     },
     {
-     "va": "0x004FD470",
-     "length": 299,
-     "name": "?IMAGE_Draw@@YIHPAUD2WinControlStrc@@@Z"
-    },
-    {
      "va": "0x004FFE10",
      "length": 63,
      "name": "?D2Win_10076@@YIHPAUD2WinControlStrc@@PBD@Z"
@@ -36498,6 +36493,11 @@
     {
      "va": "0x004FD340",
      "length": 289
+    },
+    {
+     "va": "0x004FD470",
+     "length": 299,
+     "name": "?IMAGE_Draw@@YIHPAUD2WinControlStrc@@@Z"
     },
     {
      "va": "0x004FD5A0",
