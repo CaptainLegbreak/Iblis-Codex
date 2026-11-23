@@ -68530,11 +68530,6 @@
      "name": "STATLIST_GetUnitStatBonus"
     },
     {
-     "va": "0x006260D0",
-     "length": 16,
-     "name": "STATLIST_SetSkillId"
-    },
-    {
      "va": "0x006260F0",
      "length": 16,
      "name": "STATLIST_SetSkillLevel"
@@ -70777,6 +70772,11 @@
      "va": "0x006260B0",
      "length": 28,
      "name": "_STATLIST_SetListExpireFrame@8"
+    },
+    {
+     "va": "0x006260D0",
+     "length": 16,
+     "name": "STATLIST_SetSkillId"
     },
     {
      "va": "0x006260E0",
