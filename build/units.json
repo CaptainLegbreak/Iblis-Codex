@@ -48512,11 +48512,6 @@
      "va": "0x00546AC0",
      "length": 411,
      "name": "?QUESTS_HellPortalActChange@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H1@Z"
-    },
-    {
-     "va": "0x00547430",
-     "length": 89,
-     "name": "OBJRGN_CanSpawnShrine"
     }
    ]
   },
@@ -48594,6 +48589,11 @@
      "name": "?OBJRGN_CanNotSpawnMoreShrines@@YI_NPAUD2GameStrc@@H@Z"
     },
     {
+     "va": "0x00547390",
+     "length": 15,
+     "name": "@sub_00547390@8"
+    },
+    {
      "va": "0x005473A0",
      "length": 89,
      "name": "OBJRGN_CanSpawnWell"
@@ -48604,6 +48604,11 @@
      "name": "OBJRGN_SetWellCoordinates"
     },
     {
+     "va": "0x00547430",
+     "length": 89,
+     "name": "OBJRGN_CanSpawnShrine"
+    },
+    {
      "va": "0x00547490",
      "length": 46,
      "name": "OBJRGN_SetShrineCoordinates"
@@ -48612,17 +48617,6 @@
      "va": "0x005474C0",
      "length": 288,
      "name": "?OBJRGN_GetTrapMonsterId@@YIHPAUD2ObjOperateFnStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00547300.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00547390",
-     "length": 15,
-     "name": "@sub_00547390@8"
     }
    ]
   },
