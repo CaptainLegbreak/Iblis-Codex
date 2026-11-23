@@ -2250,6 +2250,11 @@
      "name": "?AUTOMAP_LoadLayerFromFile@@YAXXZ"
     },
     {
+     "va": "0x00458CD0",
+     "length": 30,
+     "name": "CHARSEL_SetAutomapContext"
+    },
+    {
      "va": "0x00458CF0",
      "length": 65,
      "name": "AUTOMAP_PushAutomapLayer"
@@ -9885,11 +9890,6 @@
      "va": "0x00446890",
      "length": 88,
      "name": "?CHARSEL_SendChatLine@@YGHH@Z"
-    },
-    {
-     "va": "0x00458CD0",
-     "length": 30,
-     "name": "CHARSEL_SetAutomapContext"
     }
    ],
    "flags": [
