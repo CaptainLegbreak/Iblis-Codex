@@ -69098,11 +69098,6 @@
      "va": "0x00653F50",
      "length": 52,
      "name": "?DATATBLS_RollRandomUniqueAppellationString@@YIPBUUnicode@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0065E9E0",
-     "length": 98,
-     "name": "?ITEMMODS_RollRandomValueInRange@@YIHPAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -76815,6 +76810,11 @@
      "va": "0x0065E9B0",
      "length": 43,
      "name": "?ITEMMODS_GetItemsTxtRecordFromUnitOrItem@@YIPAUD2ItemsTxt@@PAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x0065E9E0",
+     "length": 98,
+     "name": "?ITEMMODS_RollRandomValueInRange@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x0065EA50",

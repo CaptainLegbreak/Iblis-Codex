@@ -1,7 +1,18 @@
 #include "D2ItemTypes.h"
+#include "D2Win32Base.h"
+#include "D2StormLink.h"
+#include "D2CmpCache.h"
+#include "D2Drlg.h"
+#include "D2DrlgRooms.h"
+#include "D2DrlgTiles.h"
+#include "D2Win32Types.h"
+
 #include "D2Path.h"
+
 #include "D2Skills.h"
+
 #include "D2TxtTables.h"
+
 #include "D2Unicode.h"
 
 #include "D2StateIds.h"
@@ -1579,6 +1590,35 @@ D2ItemsTxt* __fastcall ITEMMODS_GetItemsTxtRecordFromUnitOrItem(D2UnitStrc* pUni
     return DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
 }
 
+// 0x0065E9E0
+int __fastcall ITEMMODS_RollRandomValueInRange(D2UnitStrc* pItem, int nMin, int nMax)
+{
+    if (nMax == nMin)
+    {
+        return nMin;
+    }
+    if (nMax < nMin)
+    {
+        const int nTemp = nMax;
+        nMax = nMin;
+        nMin = nTemp;
+    }
+    if (pItem && pItem->dwUnitType == UNIT_ITEM)
+    {
+        D2SeedStrc* pSeed = ITEMS_GetItemSeed(pItem);
+        if (nMin >= nMax)
+        {
+            return nMin;
+        }
+        return nMin + ITEMS_RollLimitedRandomNumber(pSeed, nMax - nMin + 1);
+    }
+    if (nMin >= nMax)
+    {
+        return nMin;
+    }
+    return nMin + ITEMS_RollLimitedRandomNumber(&pItem->pSeed, nMax - nMin + 1);
+}
+
 // 0x0065EA50
 int __fastcall ITEMMODS_AddPropertyToItemStatList(D2UnitStrc* pItem, int fStatList, D2UnitStrc* pUnit, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState)
 {
@@ -2433,6 +2473,7 @@ int __fastcall ITEMMODS_PropertyFunc13(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem); // 0x00629930
+
 int __stdcall ITEMS_IsEthereal(D2UnitStrc* pItem); // 0x0062A8D0
 
 // 0x0065FD20
