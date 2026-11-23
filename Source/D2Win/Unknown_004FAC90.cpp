@@ -47,26 +47,3 @@ void* ghXTalkMpq; // 0x007D5618
 
 void* ghXVideoMpq; // 0x007D562C
 
-// 0x004FAEC0
-int __fastcall ARCHIVE_LoadExpansionArchives(DiscCallback play,DiscCallback expansion,void* file,D2ConfigStrc* config) {
-    if (sub_00406D20()) { play=0; expansion=0; }
-    ghXVideoMpq=0;
-    int bOk;
-// build: symbol ?FOG_IsExpansion@* 0x00408F20
-    if (!(FOG_IsExpansion() && (!config || config->expansion()))) {
-        ghCharMpq=sub_00517332_LoadMpqFile("d2char.mpq",file,play,1000);
-        ghMusicMpq=sub_00517332_LoadMpqFile("d2music.mpq",file,play,1000);
-        ghXMusicMpq=0;
-        ghXTalkMpq=0;
-        bOk = ghCharMpq && ghMusicMpq;
-    } else {
-        ghCharMpq=sub_00517332_LoadMpqFile("d2char.mpq",0,play,1000);
-        ghMusicMpq=sub_00517332_LoadMpqFile("d2music.mpq",0,play,1000);
-        ghXMusicMpq=sub_00517332_LoadMpqFile("d2Xmusic.mpq",file,expansion,3000);
-        ghXTalkMpq=sub_00517332_LoadMpqFile("d2Xtalk.mpq",file,expansion,3000);
-        ghXVideoMpq=sub_00517332_LoadMpqFile("d2Xvideo.mpq",file,expansion,3000);
-        bOk = ghCharMpq && ghMusicMpq && ghXMusicMpq && ghXTalkMpq && ghXVideoMpq;
-    }
-    if (!bOk) { ARCHIVE_UnloadExpansionArchives(); return 0; }
-    return 1;
-}

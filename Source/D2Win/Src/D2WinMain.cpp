@@ -649,7 +649,6 @@ tagRECT gtWindowRect; // 0x007C9160
 
 void __stdcall D2Win_COMMANDS_MouseWheel_6F8AE220(SMSGHANDLER_PARAMS* pMsg);
 
-
 extern "C" __declspec(dllimport) int __stdcall MessageBoxA(void* hWnd, const char* szText, const char* szCaption, unsigned int nType); // 0x006CC464
 
 void __fastcall ARCHIVE_UnloadMPQFile(D2ArchiveHandleStrc* pMPQHandle); // 0x005173AC
@@ -721,6 +720,41 @@ void __fastcall D2Win_10176(int bTimed); // 0x004FB130
 void __fastcall sub_004FB590(int nValue); // 0x004FB590
 
 void* __stdcall D2Win_GetArchive(); // 0x004FAC80
+
+struct D2ConfigStrc;
+
+extern "C" __declspec(dllimport) unsigned long __stdcall GetFileAttributesA(const char* szFileName); // 0x006CC1B0
+
+int __fastcall FOG_GetInstallPath(char* szPath, unsigned int nSize); // 0x00406BA0
+
+unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
+
+unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
+
+extern "C" const char gszD2CharMpq[]; // 0x006DC77C
+
+typedef int (__cdecl* DiscCallback)();
+
+#pragma pack(push, 1)
+
+struct D2ConfigStrc { char unk00[0x211]; int (__cdecl* expansion)(); };
+
+#pragma pack(pop)
+
+void __cdecl ARCHIVE_UnloadExpansionArchives(); // 0x004FAD70
+
+
+extern void* ghXMusicMpq; // 0x007D5604
+
+int __cdecl sub_004FAC90_CheckCharArchive(); // 0x004FAC90
+
+extern void* ghCharMpq; // 0x007D5610
+
+extern void* ghMusicMpq; // 0x007D5628
+
+extern void* ghXTalkMpq; // 0x007D5618
+
+extern void* ghXVideoMpq; // 0x007D562C
 
 // 0x004F8F10
 int __stdcall D2Win_InitializeSpriteCache(int bWindowed, int nResolution)
@@ -2461,6 +2495,30 @@ void __cdecl ARCHIVE_FreeArchives()
     }
 
     ARCHIVE_UnloadExpansionArchives();
+}
+
+// 0x004FAEC0
+int __fastcall ARCHIVE_LoadExpansionArchives(DiscCallback play,DiscCallback expansion,void* file,D2ConfigStrc* config) {
+    if (sub_00406D20()) { play=0; expansion=0; }
+    ghXVideoMpq=0;
+    int bOk;
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (!(FOG_IsExpansion() && (!config || config->expansion()))) {
+        ghCharMpq=sub_00517332_LoadMpqFile("d2char.mpq",file,play,1000);
+        ghMusicMpq=sub_00517332_LoadMpqFile("d2music.mpq",file,play,1000);
+        ghXMusicMpq=0;
+        ghXTalkMpq=0;
+        bOk = ghCharMpq && ghMusicMpq;
+    } else {
+        ghCharMpq=sub_00517332_LoadMpqFile("d2char.mpq",0,play,1000);
+        ghMusicMpq=sub_00517332_LoadMpqFile("d2music.mpq",0,play,1000);
+        ghXMusicMpq=sub_00517332_LoadMpqFile("d2Xmusic.mpq",file,expansion,3000);
+        ghXTalkMpq=sub_00517332_LoadMpqFile("d2Xtalk.mpq",file,expansion,3000);
+        ghXVideoMpq=sub_00517332_LoadMpqFile("d2Xvideo.mpq",file,expansion,3000);
+        bOk = ghCharMpq && ghMusicMpq && ghXMusicMpq && ghXTalkMpq && ghXVideoMpq;
+    }
+    if (!bOk) { ARCHIVE_UnloadExpansionArchives(); return 0; }
+    return 1;
 }
 
 // 0x004FB010

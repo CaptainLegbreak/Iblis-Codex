@@ -36611,6 +36611,10 @@
      "name": "?ARCHIVE_FreeArchives@@YAXXZ"
     },
     {
+     "va": "0x004FAEC0",
+     "length": 328
+    },
+    {
      "va": "0x004FB010",
      "length": 162,
      "name": "PALETTE_ApplyPaletteTables"
@@ -36775,10 +36779,6 @@
      "va": "0x004FAC90",
      "length": 128,
      "name": "?sub_004FAC90_CheckCharArchive@@YAHXZ"
-    },
-    {
-     "va": "0x004FAEC0",
-     "length": 328
     }
    ],
    "flags": [
