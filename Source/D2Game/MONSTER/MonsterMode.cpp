@@ -17,6 +17,7 @@
 #include "D2MonModes.h"
 #include "D2PlayerModes.h"
 #include "D2GameAux.h"
+#include "D2Packets.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
@@ -1407,6 +1408,14 @@ void __fastcall D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90(D2UnitStrc* pUni
     pAiParam->f_18 = 0;
     pAiParam->f_1C = 0;
     pAiParam->nNewDistOverride = 0;
+}
+
+
+
+// 0x005A6220
+int __fastcall sub_005A6220(FieldStrc_005A6220* pObject)
+{
+    return pObject->unk0x10;
 }
 
 struct D2UnkFieldsStrc;
