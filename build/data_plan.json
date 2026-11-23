@@ -3213,7 +3213,7 @@
   },
   "Source/D2Game/OBJECTS/ObjMode.cpp": {
    "bytes": 1092,
-   "definitions": 10,
+   "definitions": 11,
    "externs": [
     "extern \"C\" void __cdecl sub_005822F0(); // 0x005822F0",
     "extern \"C\" void __cdecl sub_00582490(); // 0x00582490",
@@ -3271,7 +3271,9 @@
     "extern \"C\" void __cdecl OBJECTS_OperateFunction41_StaffOfKingsChest(); // 0x00599CF0",
     "extern \"C\" void __cdecl OBJECTS_OperateFunction49_HellForge(); // 0x005B5C10",
     "extern \"C\" void __cdecl sub_005B8530(); // 0x005B8530",
-    "extern \"C\" void __cdecl OBJECTS_OperateFunction31_GidbinnDecoy(); // 0x005B9B40"
+    "extern \"C\" void __cdecl OBJECTS_OperateFunction31_GidbinnDecoy(); // 0x005B9B40",
+    "extern \"C\" void __cdecl sub_00581250_ObjectTimer_Light(); // 0x00581250",
+    "extern \"C\" void __cdecl sub_00581410_OpenLinkPortal(); // 0x00581410"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/OBJECTS/ObjMode.inc",
@@ -5136,31 +5138,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a1q5_00594740.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/GAME/Clients.cpp": {
-   "bytes": 120,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" void __cdecl OBJMODE_UpdateTrapProximity(); // 0x00581700",
-    "extern \"C\" void __cdecl OBJMODE_UpdateTrappedSoul(); // 0x00585CE0",
-    "extern \"C\" void __cdecl ITEMMODE_EventFn4_Return(); // 0x0055F120",
-    "extern \"C\" void __cdecl ITEMMODE_UpdateItemStatListExpiration(); // 0x0055F130",
-    "extern \"C\" void __cdecl sub_00562D30(); // 0x00562D30",
-    "extern \"C\" void __cdecl sub_00581250_ObjectTimer_Light(); // 0x00581250",
-    "extern \"C\" void __cdecl sub_00581410_OpenLinkPortal(); // 0x00581410",
-    "extern \"C\" void __cdecl sub_00581490(); // 0x00581490",
-    "extern \"C\" void __cdecl sub_005814D0(); // 0x005814D0",
-    "extern \"C\" void __cdecl sub_00581510(); // 0x00581510",
-    "extern \"C\" void __cdecl sub_00581620(); // 0x00581620",
-    "extern \"C\" void __cdecl sub_005817A0(); // 0x005817A0",
-    "extern \"C\" void __cdecl sub_005818B0(); // 0x005818B0",
-    "extern \"C\" void __cdecl OBJMODE_HandleQuestObjectEvent(); // 0x00581A10",
-    "extern \"C\" void __cdecl sub_00586850(); // 0x00586850"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/GAME/Clients.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -93442,7 +93419,7 @@
    "cname": "gData_006E19B0",
    "declared": true,
    "decorated": "?gpfnObjectEventFunctions@@3PAP6IXPAUD2GameStrc@@PAUD2UnitStrc@@@ZA",
-   "file": "Source/D2Game/GAME/Clients.cpp",
+   "file": "Source/D2Game/OBJECTS/ObjMode.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const EventCallbackFunction gData_006E19B0[15]; // 0x006E19B0",
    "head": "extern \"C\" const EventCallbackFunction gData_006E19B0[15] = ",
@@ -93470,48 +93447,48 @@
     [
      4,
      "0x00581490",
-     "queue_function",
-     "sub_00581490",
+     "names.json",
+     "OBJMODE_CompleteObjectAnimation",
      0,
      "func"
     ],
     [
      8,
      "0x00581510",
-     "queue_function",
-     "sub_00581510",
+     "names.json",
+     "OBJMODE_RegenerateWell",
      0,
      "func"
     ],
     [
      12,
      "0x005818B0",
-     "queue_function",
-     "sub_005818B0",
+     "names.json",
+     "D2GAME_SpikeTraps_6FC74F60",
      0,
      "func"
     ],
     [
      16,
      "0x005817A0",
-     "queue_function",
-     "sub_005817A0",
+     "names.json",
+     "OBJMODE_DispatchTrap",
      0,
      "func"
     ],
     [
      20,
      "0x005814D0",
-     "queue_function",
-     "sub_005814D0",
+     "names.json",
+     "OBJMODE_ResetShrine",
      0,
      "func"
     ],
     [
      24,
      "0x00581620",
-     "queue_function",
-     "sub_00581620",
+     "names.json",
+     "OBJMODE_ExpireHoverText",
      0,
      "func"
     ],
@@ -93542,8 +93519,8 @@
     [
      40,
      "0x00586850",
-     "queue_function",
-     "sub_00586850",
+     "names.json",
+     "OBJMODE_DropJungleStashItems",
      0,
      "func"
     ],
