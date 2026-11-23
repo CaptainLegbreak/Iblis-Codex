@@ -77141,28 +77141,42 @@
    ]
   },
   {
-   "file": "Source/D2Common/COLLISN/Collisn_0064C790.cpp",
+   "file": "Source/D2Common/COMPOSIT/Composit.cpp",
    "rank": 0,
    "functions": [
     {
-     "va": "0x0064C790",
-     "length": 196,
-     "name": "?COLLISION_ApplyAdjacentRoomTileCollision@@YGXPAUD2RoomCollisionGridStrc@@0PAUD2DrlgTileDataStrc@@HH@Z"
+     "va": "0x0064F020",
+     "length": 50,
+     "name": "?COMPOSIT_GetWeaponClassIdFromCode@@YGHH@Z"
     },
     {
-     "va": "0x0064E810",
-     "length": 44,
-     "name": "COLLISION_GetFreeCoordinatesWithField"
+     "va": "0x0064F380",
+     "length": 146,
+     "name": "COMPOSIT_GetWeaponClassId"
     },
     {
-     "va": "0x0064EA00",
-     "length": 130,
-     "name": "?COLLISION_SetMaskWithSize@@YGXPAUD2ActiveRoomStrc@@HHHG@Z"
+     "va": "0x0064F420",
+     "length": 51,
+     "name": "?COMPOSIT_IsArmorComponent@@YGHH@Z"
     },
     {
-     "va": "0x0064EA90",
-     "length": 272,
-     "name": "?COLLISION_SetMaskWithPattern@@YGXPAUD2ActiveRoomStrc@@HHHH@Z"
+     "va": "0x0064F460",
+     "length": 147,
+     "name": "COMPOSIT_IsWeaponBowOrXBow"
+    },
+    {
+     "va": "0x0064F500",
+     "length": 168,
+     "name": "?COMPOSIT_GetArmorTypeFromComponent@@YGIHPAE@Z"
+    },
+    {
+     "va": "0x0064F5B0",
+     "length": 1099
+    },
+    {
+     "va": "0x0064FA00",
+     "length": 146,
+     "name": "D2Common_10885_COMPOSIT_unk"
     }
    ]
   },
@@ -77189,6 +77203,11 @@
      "va": "0x0064C700",
      "length": 129,
      "name": "?COLLISION_SetCollisionMaskRect@@YGXPAUD2RoomCollisionGridStrc@@HHG@Z"
+    },
+    {
+     "va": "0x0064C790",
+     "length": 196,
+     "name": "?COLLISION_ApplyAdjacentRoomTileCollision@@YGXPAUD2RoomCollisionGridStrc@@0PAUD2DrlgTileDataStrc@@HH@Z"
     },
     {
      "va": "0x0064C860",
@@ -77389,8 +77408,23 @@
      "name": "?COLLISION_GetFreeCoordinatesEx@@YGPAUD2ActiveRoomStrc@@PAU1@PAUD2CoordStrc@@HIH@Z"
     },
     {
+     "va": "0x0064E810",
+     "length": 44,
+     "name": "COLLISION_GetFreeCoordinatesWithField"
+    },
+    {
      "va": "0x0064E840",
      "length": 447
+    },
+    {
+     "va": "0x0064EA00",
+     "length": 130,
+     "name": "?COLLISION_SetMaskWithSize@@YGXPAUD2ActiveRoomStrc@@HHHG@Z"
+    },
+    {
+     "va": "0x0064EA90",
+     "length": 272,
+     "name": "?COLLISION_SetMaskWithPattern@@YGXPAUD2ActiveRoomStrc@@HHHH@Z"
     },
     {
      "va": "0x0064EBA0",
@@ -77434,46 +77468,6 @@
      "va": "0x0064EFA0",
      "length": 53,
      "name": "?COLLISION_SetUnitCollisionMask@@YIXPAUD2ActiveRoomStrc@@HH0HHHG@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/COMPOSIT/Composit.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0064F020",
-     "length": 50,
-     "name": "?COMPOSIT_GetWeaponClassIdFromCode@@YGHH@Z"
-    },
-    {
-     "va": "0x0064F380",
-     "length": 146,
-     "name": "COMPOSIT_GetWeaponClassId"
-    },
-    {
-     "va": "0x0064F420",
-     "length": 51,
-     "name": "?COMPOSIT_IsArmorComponent@@YGHH@Z"
-    },
-    {
-     "va": "0x0064F460",
-     "length": 147,
-     "name": "COMPOSIT_IsWeaponBowOrXBow"
-    },
-    {
-     "va": "0x0064F500",
-     "length": 168,
-     "name": "?COMPOSIT_GetArmorTypeFromComponent@@YGIHPAE@Z"
-    },
-    {
-     "va": "0x0064F5B0",
-     "length": 1099
-    },
-    {
-     "va": "0x0064FA00",
-     "length": 146,
-     "name": "D2Common_10885_COMPOSIT_unk"
     }
    ]
   },
