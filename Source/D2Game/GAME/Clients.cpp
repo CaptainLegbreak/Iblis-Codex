@@ -3532,6 +3532,47 @@ void __fastcall CLIENTS_ResetClientInAct(D2ClientStrc* pClient, int nAct)
     pClient->hRoom = pRoom;
 }
 
+inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nX;
+    }
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nY;
+    }
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x0053A420
+void __fastcall CLIENTS_RebuildPlayerWithClass(D2GameStrc* pGame, D2ClientStrc* pClient, unsigned char nClassId)
+{
+    D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
+    pClient->nClassId = nClassId;
+    const int nX = CLIENTS_GetUnitXInline(pPlayer);
+    const int nY = CLIENTS_GetUnitYInline(pPlayer);
+    const int nUnitId = pPlayer->dwUnitId;
+    const int nUnitType = pPlayer->dwUnitType;
+    DUNGEON_AllocDrlgDelete(UNITS_GetRoom(pPlayer), nUnitType, nUnitId);
+    SUNIT_RemoveUnit(pGame, pPlayer);
+    ClientAddPlayerToGame(pClient, pGame, 0, pRoom, nX, nY);
+    D2UnitStrc* pClientPlayer = pClient->pPlayer;
+    CLIENTS_SpawnPlayer(pClient, pClientPlayer, pGame, pRoom, nX, nY);
+}
+
 void __fastcall LEVEL_ClearAdjacentRoomUnitTargets(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pTarget); // 0x0053AB10
 // 0x00540890
 int __fastcall PARTY_SumLivingPartyLevelsInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit)
@@ -3577,20 +3618,6 @@ void __fastcall OBJRGN_SetWellCoordinates(D2GameStrc* pGame, int nLevelId, int n
     ++pObjectRegion->nWells;
 }
 
-// 0x00547490
-void __fastcall OBJRGN_SetShrineCoordinates(D2GameStrc* pGame, int nLevelId, int nX, int nY)
-{
-    D2ObjectRegionStrc* pObjectRegion = pGame->pObjectControl->pObjectRegion[nLevelId];
-    if (pObjectRegion->nShrines >= OBJRGN_MAX_SHRINES)
-    {
-        return;
-    }
-
-    pObjectRegion->shrineCoordinates[pObjectRegion->nShrines].nX = nX;
-    pObjectRegion->shrineCoordinates[pObjectRegion->nShrines].nY = nY;
-    ++pObjectRegion->nShrines;
-}
-
 // 0x00562DA0
 void __fastcall D2GAME_Items_EventsHandler_6FC4A460(D2GameStrc* pGame, D2UnitStrc* pUnit, int eEventType)
 {
@@ -3603,37 +3630,6 @@ void __fastcall D2GAME_OBJMODE_InvokeEventFunction_6FC75250(D2GameStrc* pGame, D
 {
     D2_ASSERT(!IsBadCodePtr((FARPROC)gpfnObjectEventFunctions[eEventType]), 576);
     gpfnObjectEventFunctions[eEventType](pGame, pObject);
-}
-
-// 0x005A7F80
-void __fastcall MONSTERMODE_EventHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent, int nSkillId, int nSkillLevel)
-{
-    if (nEvent < 0 || nEvent >= EVENTTYPE_COUNT)
-    {
-        return;
-    }
-
-    switch (nEvent)
-    {
-    case EVENTTYPE_STATREGEN:
-    case EVENTTYPE_TRAP:
-    case EVENTTYPE_RESET:
-    case EVENTTYPE_PERIODICSKILLS:
-    case EVENTTYPE_REMOVESTATE:
-        break;
-    default:
-        if (STATES_CheckState(pUnit, STATE_FREEZE) && !SUNIT_IsDead(pUnit))
-        {
-            return;
-        }
-        break;
-    }
-
-    const MonEventFunc pfMonEvent = gpMonsterEventFunctions[nEvent];
-    if (pfMonEvent)
-    {
-        pfMonEvent(pGame, pUnit, nSkillId, nSkillLevel);
-    }
 }
 
 // 0x005B7230

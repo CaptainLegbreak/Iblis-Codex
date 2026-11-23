@@ -1553,6 +1553,56 @@ void __fastcall MONSTERMODE_EventClearTargetOverride(D2GameStrc* pGame, D2UnitSt
     MONSTERAI_ClearTargetOverride(pUnit);
 }
 
+#define EVENTTYPE_STATREGEN 3
+
+#define EVENTTYPE_TRAP 4
+
+#define EVENTTYPE_RESET 5
+
+#define EVENTTYPE_REMOVESTATE 12
+
+#define EVENTTYPE_COUNT 15
+
+// 0x005A7F80
+void __fastcall MONSTERMODE_EventHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent, int nSkillId, int nSkillLevel)
+{
+    if (nEvent < 0 || nEvent >= EVENTTYPE_COUNT)
+    {
+        return;
+    }
+
+    switch (nEvent)
+    {
+    case EVENTTYPE_STATREGEN:
+    case EVENTTYPE_TRAP:
+    case EVENTTYPE_RESET:
+    case EVENTTYPE_PERIODICSKILLS:
+    case EVENTTYPE_REMOVESTATE:
+        break;
+    default:
+        if (STATES_CheckState(pUnit, STATE_FREEZE) && !SUNIT_IsDead(pUnit))
+        {
+            return;
+        }
+        break;
+    }
+
+    const MonEventFunc pfMonEvent = gpMonsterEventFunctions[nEvent];
+    if (pfMonEvent)
+    {
+        pfMonEvent(pGame, pUnit, nSkillId, nSkillLevel);
+    }
+}
+
+// 0x005A8000
+void __fastcall MONSTERMODE_DropTreasureForFindItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nUnused)
+{
+    D2ModeChangeStrc modeChange;
+    modeChange.pUnit = pUnit;
+    modeChange.pTargetUnit = pTarget;
+    MONSTERMODE_DropTreasure(pGame, pUnit, 1, &modeChange);
+}
+
 // build: context sub_6FC63FD0
 static void __stdcall sub_6FC63FD0(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
@@ -1625,6 +1675,24 @@ void __fastcall D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90(D2UnitStrc* pUni
     pAiParam->f_18 = 0;
     pAiParam->f_1C = 0;
     pAiParam->nNewDistOverride = 0;
+}
+
+struct D2UnkFieldsStrc;
+
+struct D2UnkFieldsStrc
+{
+    char pad0x00[0x18];
+    int nUnk0x18;
+    int nUnk0x1C;
+    unsigned char nUnk0x20;
+};
+
+// 0x005A6230
+void __fastcall MONSTERMODE_GetVelocityParams(D2UnkFieldsStrc* pFields, int* pUnk0x18, int* pUnk0x1C, unsigned char* pUnk0x20)
+{
+    *pUnk0x18 = pFields->nUnk0x18;
+    *pUnk0x1C = pFields->nUnk0x1C;
+    *pUnk0x20 = pFields->nUnk0x20;
 }
 
 static inline int HasCorpseExplosion(D2MonStatsTxt* pRecord)

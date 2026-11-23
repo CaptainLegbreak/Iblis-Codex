@@ -5,6 +5,7 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2QuestData.h"
+#include "D2MonsterIds.h"
 #define QFLAG_PRIMARYGOALDONE 13
 
 struct D2UnitStrc;
@@ -119,6 +120,20 @@ static inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
     }
 
     return pUnit->dwUnitId;
+}
+
+// 0x0059BB40
+bool __fastcall ACT2Q5_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    if ((nNpcId == MONSTER_ATMA || nNpcId == MONSTER_WARRIV2 || nNpcId == MONSTER_ELZIX || nNpcId == MONSTER_DROGNAN
+        || nNpcId == MONSTER_LYSANDER || nNpcId == MONSTER_CAIN2 || nNpcId == MONSTER_MESHIF1 || nNpcId == MONSTER_JERHYN
+        || nNpcId == MONSTER_GEGLASH || nNpcId == MONSTER_FARA)
+        && QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q5, QFLAG_REWARDPENDING) == 1)
+    {
+        return true;
+    }
+
+    return false;
 }
 
 // 0x0059BBC0
@@ -513,6 +528,11 @@ void __fastcall ACT2Q5_OnSummonerActivated(D2GameStrc* pGame)
         QUESTS_UnitIterate(pQuestData, 2, 0, ACT2Q5_UnitIterate_StatusCyclerEx, 1);
         SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT2Q5_UnitIterate_UpdateQuestStateFlags);
     }
+}
+
+// 0x0059C3B0
+void __stdcall ACT2Q5_OnSummonerCreated(int nUnused1)
+{
 }
 
 // 0x0059C650

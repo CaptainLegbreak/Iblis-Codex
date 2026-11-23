@@ -749,6 +749,36 @@ void __fastcall OBJECTS_InitFunction42_SewerLever(D2ObjInitFnStrc* pOp)
     }
 }
 
+// 0x005B86E0
+void __fastcall ACT3Q2_UpdateKhalimItemCounts(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, 18, 0))
+    {
+        QUESTRECORD_GetQuestState(pQuestFlags, 18, 1);
+    }
+
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 16);
+    if (!pQuestData)
+    {
+        return;
+    }
+
+    D2Act3Quest2Strc* pQuestDataEx = (D2Act3Quest2Strc*)pQuestData->pQuestDataEx;
+
+    --pQuestDataEx->nEyesDropped;
+    --pQuestDataEx->nHeartsDropped;
+    --pQuestDataEx->nBrainsDropped;
+    --pQuestDataEx->nFlailsDropped;
+    ++pQuestDataEx->nCubedFlails;
+}
+
+// 0x005B8750
+int __fastcall ACT3Q2_LacksKhalimsWill(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    return ITEMS_FindQuestItem(pGame, pUnit, ' 2fq') == 0;
+}
+
 // 0x005B8770
 int __fastcall ACT3Q2_UnitIterate_DetermineKhalimEyeDropCount(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -915,6 +945,69 @@ int __fastcall OBJECTS_OperateFunction59_KhalimChest(D2ObjOperateFnStrc* pOp, in
 
     OBJMODE_DropFromChestTCWithQuality(pOp, ITEMQUAL_MAGIC);
     return 0;
+}
+
+bool __fastcall ACT3Q5_IsOrbNotSmashed(D2GameStrc* pGame); // 0x005BBF80
+
+// 0x005BD500
+bool __fastcall ACT3Q2_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    if (nNpcId == 245)
+    {
+        if (pQuest->fState >= 1 && !QUESTRECORD_GetQuestState(pQuestFlags, 18, 2))
+        {
+            return true;
+        }
+
+        int nParts = 0;
+        if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' 1fq'))
+        {
+            ++nParts;
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, 18, 5))
+            {
+                return true;
+            }
+        }
+
+        if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' yeq'))
+        {
+            ++nParts;
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, 18, 3))
+            {
+                return true;
+            }
+        }
+
+        if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' rhq'))
+        {
+            ++nParts;
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, 18, 6))
+            {
+                return true;
+            }
+        }
+
+        if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' rbq'))
+        {
+            ++nParts;
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, 18, 4))
+            {
+                return true;
+            }
+        }
+
+        if (ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' 2fq') && !QUESTRECORD_GetQuestState(pQuestFlags, 18, 7) && ACT3Q5_IsOrbNotSmashed(pQuest->pGame))
+        {
+            return true;
+        }
+
+        if (nParts == 4 && !QUESTRECORD_GetQuestState(pQuestFlags, 18, 5))
+        {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 // 0x005BD630

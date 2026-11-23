@@ -1696,6 +1696,36 @@ D2UnitStrc* __fastcall D2GAME_MERCS_Create_6FCC8630(D2GameStrc* pGame, D2UnitStr
     return pMerc;
 }
 
+inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
+{
+    if (pUnit)
+    {
+        return (pUnit->dwFlagEx & nFlag) != 0;
+    }
+
+    return 0;
+}
+
+// 0x00577670
+D2UnitStrc* __fastcall SUNITNPC_FindInventoryItemByClassId(D2UnitStrc* pUnit, int nClassId)
+{
+    if (pUnit->pInventory)
+    {
+        D2UnitStrc* pNext;
+        for (D2UnitStrc* pItem = INVENTORY_GetFirstItem(pUnit->pInventory); pItem; pItem = pNext)
+        {
+            D2UnitStrc* pCheck = INVENTORY_UnitIsItem(pItem);
+            pNext = INVENTORY_GetNextItem(pItem);
+            if ((!pCheck ? -1 : pCheck->dwClassId) == nClassId && !UNIT_HasFlagEx(pCheck, UNITFLAGEX_ITEMINIT))
+            {
+                return pCheck;
+            }
+        }
+    }
+
+    return 0;
+}
+
 // 0x00577700
 D2UnitStrc* __fastcall SUNITNPC_FindStackForStorePurchase(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int* a4)
 {
