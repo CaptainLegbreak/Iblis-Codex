@@ -17,7 +17,6 @@ enum D2ControlTypes
     D2WIN_TYPE_6 = 6,
 };
 
-
 #define D2WIN_BUTTON 6
 
 #define DRAWMODE_NORMAL 5
@@ -72,6 +71,13 @@ extern "C" void __fastcall BUTTON_SetIsPressed(D2WinButtonStrc* ptBtnData, int b
     D2_ASSERT(ptBtnData->controlHeader.eType == D2WIN_TYPE_6, 0x72);
     ptBtnData->bIsPressed = bIsPressed;
     ptBtnData->bIsCallbackPending = bIsPressed;
+}
+
+// 0x00500B20
+extern "C" void __fastcall BUTTON_SetBaseFrame(D2WinButtonStrc* ptBtnData, int nValue)
+{
+    D2_ASSERT(ptBtnData->controlHeader.eType == D2WIN_TYPE_6, 0xD6);
+    ptBtnData->nBaseFrame = nValue;
 }
 
 // 0x00500C20
