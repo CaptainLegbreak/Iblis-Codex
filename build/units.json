@@ -934,9 +934,29 @@
      "name": "?FOG_SOCKET_Destroy@@YIXPAUFSafeSock@@@Z"
     },
     {
+     "va": "0x0040DC60",
+     "length": 91,
+     "name": "FOG_SOCKET_Receive"
+    },
+    {
+     "va": "0x0040DCC0",
+     "length": 182,
+     "name": "FOG_SOCKET_Send"
+    },
+    {
      "va": "0x0040DD80",
      "length": 74,
      "name": "FOG_SOCKET_SendNoLock"
+    },
+    {
+     "va": "0x0040DDD0",
+     "length": 11,
+     "name": "?FOG_SOCKET_Lock@@YIXPAUFSafeSock@@@Z"
+    },
+    {
+     "va": "0x0040DDE0",
+     "length": 11,
+     "name": "?FOG_SOCKET_Unlock@@YIXPAUFSafeSock@@@Z"
     },
     {
      "va": "0x0040DDF0",
@@ -959,6 +979,16 @@
      "name": "FOG_GetHostIPAddress"
     },
     {
+     "va": "0x0040E0B0",
+     "length": 25,
+     "name": "@sub_0040E0B0@12"
+    },
+    {
+     "va": "0x0040E0D0",
+     "length": 193,
+     "name": "FOG_ResolveHostIPAddress"
+    },
+    {
      "va": "0x0040E1A0",
      "length": 34,
      "name": "FOG_SOCKET_SetBlockingMode"
@@ -972,6 +1002,11 @@
      "va": "0x0040E200",
      "length": 33,
      "name": "FOG_SOCKET_SetBlocking"
+    },
+    {
+     "va": "0x0040E230",
+     "length": 26,
+     "name": "?FOG_SOCKET_Connect@@YIPAUFSafeSock@@PADHP6GKPAX@Z1PBD@Z"
     }
    ]
   },
@@ -3553,19 +3588,9 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_00408A30.cpp",
+   "file": "Source/Fog/Unknown_0040EBD0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0040DC60",
-     "length": 91,
-     "name": "FOG_SOCKET_Receive"
-    },
-    {
-     "va": "0x0040DCC0",
-     "length": 182,
-     "name": "FOG_SOCKET_Send"
-    },
     {
      "va": "0x0040EBD0",
      "length": 235,
@@ -3909,34 +3934,9 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_0040DDD0.cpp",
+   "file": "Source/Fog/Unknown_0040E300.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0040DDD0",
-     "length": 11,
-     "name": "?FOG_SOCKET_Lock@@YIXPAUFSafeSock@@@Z"
-    },
-    {
-     "va": "0x0040DDE0",
-     "length": 11,
-     "name": "?FOG_SOCKET_Unlock@@YIXPAUFSafeSock@@@Z"
-    },
-    {
-     "va": "0x0040E0B0",
-     "length": 25,
-     "name": "@sub_0040E0B0@12"
-    },
-    {
-     "va": "0x0040E0D0",
-     "length": 193,
-     "name": "FOG_ResolveHostIPAddress"
-    },
-    {
-     "va": "0x0040E230",
-     "length": 26,
-     "name": "?FOG_SOCKET_Connect@@YIPAUFSafeSock@@PADHP6GKPAX@Z1PBD@Z"
-    },
     {
      "va": "0x0040E300",
      "length": 1350,

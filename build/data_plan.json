@@ -206,14 +206,14 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Fog/Unknown_00408A30.cpp": {
+  "Source/Fog/Unknown_0040EBD0.cpp": {
    "bytes": 268,
    "definitions": 1,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/Fog/Unknown_00408A30.inc",
+   "include": "gen/data/Source/Fog/Unknown_0040EBD0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -7774,7 +7774,7 @@
    "cname": "gData_00708018",
    "declared": true,
    "decorated": "?gszLogPrefix@@3PADA",
-   "file": "Source/Fog/Unknown_00408A30.cpp",
+   "file": "Source/Fog/Unknown_0040EBD0.cpp",
    "fill": 268,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00708018_t gData_00708018; // 0x00708018",
