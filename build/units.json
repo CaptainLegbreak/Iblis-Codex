@@ -57161,6 +57161,11 @@
      "name": "?ACT2Q2_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
+     "va": "0x00599A10",
+     "length": 5,
+     "name": "?ACT3Q5_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
      "va": "0x00599A20",
      "length": 1,
      "name": "?ACT2Q2_Callback08_MonsterKilled@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
@@ -57203,17 +57208,6 @@
      "va": "0x0059EB00",
      "length": 218,
      "name": "?ACT2Q2_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00599A10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00599A10",
-     "length": 5,
-     "name": "?ACT3Q5_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     }
    ]
   },
