@@ -209,6 +209,18 @@ int __fastcall sub_004B9CA0_GetHintIdByKey(int nKey)
     return 0;
 }
 
+extern "C" int gnSoundFlag_007C545C; // 0x007C545C
+
+extern "C" void __cdecl sub_004E4280(); // 0x004E4280
+
+// 0x004B9D00
+extern "C" void __cdecl sub_004B9D00_ResetSoundState()
+{
+    gnSoundFlag_007C545C = 1;
+    gnSoundSerial = 0;
+    sub_004E4280();
+}
+
 // 0x004B9D50
 int __fastcall sub_004B9D50_GetPosition(int nKey)
 {
