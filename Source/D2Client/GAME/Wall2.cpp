@@ -1147,3 +1147,5 @@ void __thiscall D2FloorTileViewStrc::sub_004DE730_UpdateView(void* pArgument)
     if (nMaxY - nY < nRangeB)
         sub_004DE6C0_DrawTileTriple(nX, nMaxY + 5, 5, 0);
 }
+
+#include "gen/data/Source/D2Client/GAME/Wall2.inc"
