@@ -434,6 +434,7 @@ int ButtonWrapper::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
     return pImpl->MsgSlot10(pMsg);
 }
 
+// build: symbol ?Slot11@ButtonWrapper@@UAEHXZ 0x004BAF00
 // 0x004BAF00
 int ButtonWrapper::Slot11()
 {
@@ -477,6 +478,27 @@ void EditBoxImplementation::sub_004BB200_SetUnk20(int nValue)
     unk0x20 = nValue;
 }
 
+extern "C" unsigned int __cdecl strlen(const char* szString);
+
+extern "C" int __cdecl atoi(const char* szString);                                                          // 0x00681EBB
+
+extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
+
+// 0x004BB4D0
+void EditBoxImplementation::sub_004BB4D0_Slot15(int nValue)
+{
+    char szBuffer[0x14];
+    sprintf(szBuffer, szIntFormat_006D57BC, nValue);
+    if (strlen(szBuffer) > nMaxLength)
+    {
+        szBuffer[nMaxLength - 1] = 0;
+    }
+    sub_00526F20_ToUnicode(pText, szBuffer, nMaxLength);
+    const int nLength = sub_00526800(pText);
+    unk0x36 = nLength;
+    unk0x3A = nLength;
+}
+
 // 0x004BB530
 void EditBoxImplementation::sub_004BB530_Slot14(const char* szText)
 {
@@ -484,6 +506,24 @@ void EditBoxImplementation::sub_004BB530_Slot14(const char* szText)
     const int nLength = sub_00526800(pText);
     unk0x36 = nLength;
     unk0x3A = nLength;
+}
+
+// build: symbol ?Slot11@EditBoxImplementation@@UAEHXZ 0x004BB560
+// 0x004BB560
+int EditBoxImplementation::Slot11()
+{
+    if (!sub_00526800(pText))
+    {
+        return 0;
+    }
+    char szBuffer[100];
+    sub_005263E0(szBuffer, pText, nMaxLength);
+    const int nValue = atoi(szBuffer);
+    if (nValue > nMaxValue)
+    {
+        return 0;
+    }
+    return nValue;
 }
 
 // 0x004BB5B0
