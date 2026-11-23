@@ -1,0 +1,879 @@
+#include "Fog.h"
+#include "D2StormLink.h"
+#include "D2GameTypes.h"
+#include "D2Primitives.h"
+#include "D2StormTypes.h"
+#include "D2NetTypes.h"
+#include "D2FogTypes.h"
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+struct D2CriticalSectionStrc;
+
+struct D2LogMsgListStrc;
+
+struct D2LogMessageStrc;
+
+struct D2LogMemoryInfoStrc;
+
+struct D2LogMsgListStrc
+{
+    int m_linkoffset;
+    D2StormLinkStrc m_terminator;
+
+    char* sub_0040FF40_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags); // 0x0040FF40
+};
+
+struct D2LogMessageStrc
+{
+    D2StormLinkStrc f_0;
+    unsigned int nSize;
+    int nType;
+    int bTimeStamp;
+    D2SystemTimeStrc f_14;
+    char szName[1];
+};
+
+extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC218
+
+extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC214
+
+extern "C" __declspec(dllimport) void __stdcall GetLocalTime(D2SystemTimeStrc* pSystemTime); // 0x006CC1D4
+
+extern "C" int __cdecl _vsnprintf(char* szDest, size_t nCount, const char* szFormat, va_list args); // 0x00682F22
+
+extern "C" int __cdecl _snprintf(char* szDest, size_t nCount, const char* szFormat, ...); // 0x006831DB
+
+unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
+
+unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
+
+extern "C" const char gszLogFormatError[]; // 0x006CE22C
+
+extern int gbLogInitialized; // 0x0075D2EC
+
+extern D2LogMsgListStrc gtLogMsgQueue_0075E868; // 0x0075E868
+
+extern "C" __declspec(dllimport) int __stdcall IsBadReadPtr(const void* pAddress, unsigned int nSize); // 0x006CC238
+
+extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nSize); // 0x006829C0
+
+struct D2LogMemoryInfoStrc
+{
+    const void* pAddress;
+    unsigned int nSize;
+    int nArg5;
+    int bBadPointer;
+    int bArg7;
+};
+
+extern D2CriticalSectionStrc gtLogQueueLock; // 0x0075E838
+
+extern int gnLogQueued; // 0x0075D140
+
+extern "C" const char gszEmptyAssertText; // 0x006CC837
+
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
+extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
+
+void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, const char* szFormat, va_list args); // 0x00410340
+
+extern int gnBitMasks_006CE268[8]; // 0x006CE268
+
+extern int gnBitClearMasks_006CE2E8[8]; // 0x006CE2E8
+
+extern int ganByteTable[256]; // 0x006CE398
+
+extern int ganLowBitTable[256]; // 0x006CE798
+
+extern char gszLowerTable[256]; // 0x006CEB98
+
+extern "C" long __cdecl _time32(long* pTime);
+
+extern "C" int __cdecl tolower(int nChar);
+
+// build: symbol ?gacCDKeyMap@* 0x006DF238
+extern const char gacCDKeyMap[];
+
+struct T00410B70;
+
+struct D2BitBufferStrc;
+
+struct D2BitCodeStrc;
+
+struct Obj00410E90;
+
+struct D2TimedRecordStrc;
+
+struct T00410B70 { unsigned char bytes[1]; };
+
+enum { BIT_MASK = 7 };
+
+typedef unsigned char Byte;
+
+typedef unsigned int Word;
+
+enum { ROUND_BITS = 7, TAIL_HIGH = 2 };
+
+struct D2BitCodeStrc
+{
+    int nValue;
+    int nBits;
+};
+
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
+extern unsigned int gdwLowMasks_006CE368[]; // 0x006CE368
+
+unsigned int __stdcall sub_00410F60_ReadBits(D2BitBufferStrc* pBuffer, int nBits); // 0x00410F60
+
+struct Obj00410E90 {
+    unsigned int dwUnknown00;
+    unsigned int dwUnknown04;
+    int nValue08;
+    int nFlag0C;
+};
+
+struct D2TimedRecordStrc
+{
+    char unk0x00[0x08];
+    __int64 qwValue;
+    char unk0x10[0x08];
+};
+
+extern "C" __declspec(dllimport) int __stdcall QueryPerformanceFrequency(__int64* pnFrequency); // 0x006CC254
+
+D2TimedRecordStrc gaTimerTable_0075E8A0[0x1000]; // 0x0075E8A0
+
+int gnTimerTicksPerMs_0075E89C; // 0x0075E89C
+
+int gnTimerTicksPerUs_0075E898; // 0x0075E898
+
+unsigned int gnRecordCount_007768A4; // 0x007768A4
+
+int gnTickAtReset_007768A0; // 0x007768A0
+
+extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
+
+extern "C" void* __cdecl memset(void*, int, unsigned int);
+
+enum D2SMemBlockFlags
+{
+    SMEM_BLOCK_SENTINEL = 0x01,
+    SMEM_BLOCK_FREE = 0x02,
+    SMEM_BLOCK_LARGE = 0x04,
+    SMEM_BLOCK_INDIRECT = 0x08,
+    SMEM_BLOCK_PREVFREE = 0x10,
+    SMEM_BLOCK_NOREPORT = 0x40,
+    SMEM_BLOCK_KEEP = 0x80,
+};
+
+extern "C" __declspec(dllimport) void* __stdcall VirtualAlloc(void* pAddress, unsigned long nSize, unsigned long dwAllocationType, unsigned long dwProtect); // 0x006CC21C
+
+extern "C" __declspec(dllimport) int __stdcall VirtualFree(void* pAddress, unsigned long nSize, unsigned long dwFreeType); // 0x006CC220
+
+extern "C" __declspec(dllimport) __declspec(noreturn) void __stdcall ExitProcess(unsigned int nExitCode); // 0x006CC2E0
+
+extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
+
+extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...); // 0x006CC468
+
+int __stdcall SErrDisplayError(unsigned int nErrorCode, const char* szFile, int nLine, const char* szDescription, int bRecoverable, unsigned int nExitCode); // 0x0041CAF0
+
+void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
+
+unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
+
+void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
+
+void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith); // 0x0041D2C0
+
+void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
+
+void __cdecl SMemInitialize(); // 0x00411CD0
+
+void __cdecl sub_00411A20_InitPageSize(); // 0x00411A20
+
+void __fastcall sub_00411A80_ReleaseBlock(D2SMemHeapStrc** ppLink); // 0x00411A80
+
+void __cdecl AUTOMAP_ReleaseFreeBlocks(); // 0x00412000
+
+extern "C" const char szSMemAlloc_006CEDCC[]; // 0x006CEDCC
+
+extern int gbCallerFirst_00708340; // 0x00708340
+
+extern unsigned int gnHeapId_00708344; // 0x00708344
+
+extern D2SMemHeapStrc* gapFreeBlocks_007768B8[0x100]; // 0x007768B8
+
+extern unsigned int gnPageSize_00776CB8; // 0x00776CB8
+
+extern int gnFlag2_00776CBC; // 0x00776CBC
+
+extern D2CriticalSectionStrc gaFreeBlockLocks_00776CC0[0x100]; // 0x00776CC0
+
+extern int gnFlag1_007784C0; // 0x007784C0
+
+extern int gnFlag0_007784C4; // 0x007784C4
+
+extern int gabFreeBlockDirty[0x100]; // 0x007784C8
+
+extern D2SMemHeapStrc* gpFreeBlockSweep_007788C8; // 0x007788C8
+
+extern int gnFlag3_007788CC; // 0x007788CC
+
+extern int gbHeapInitialized_007788D0; // 0x007788D0
+
+extern int gnFlag_00779098; // 0x00779098
+
+static void __stdcall sub_004117A0_SetAndShowError(const char* szFile, int nLine, unsigned int nError);
+
+static void sub_00411AA0_FreeBlock(D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBlock);
+
+void* __stdcall SMemHeapAlloc(unsigned int hHeap, unsigned int dwFlags, unsigned int nSize);
+
+void __cdecl sub_00411280_ResetRecords(); // 0x00411280
+
+struct FSafeSock
+{
+    int bConnected;
+    int bConnecting;
+    unsigned int nSocket;
+    D2CriticalSectionStrc tCriticalSection;
+    void* hThread;
+    unsigned long nThreadId;
+    int bStopping;
+    unsigned long nFogErrorCode;
+    unsigned long nWSALastError;
+    char szName[64];
+};
+
+extern "C" size_t __cdecl strlen(const char* szString);
+
+extern "C" int __cdecl toupper(int nChar);                                                                  // 0x00685385
+
+extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC1FC
+
+extern "C" __declspec(dllimport) int __stdcall FindClose(void* hFindFile);                                  // 0x006CC1C4
+
+extern "C" int __stdcall closesocket(unsigned int nSocket);                                                 // 0x006B012C
+
+extern "C" int __stdcall WSAStartup(unsigned short wVersionRequested, D2WSADataStrc* pData);                // 0x006B0132
+
+extern "C" int __stdcall WSACleanup();                                                                      // 0x006B0138
+
+extern "C" char* __stdcall inet_ntoa(D2InAddrStrc tAddress);                                                // 0x006B013E
+
+extern "C" unsigned short __stdcall htons(unsigned short nValue);                                           // 0x006B0156
+
+extern "C" int __stdcall WSAGetLastError();                                                                 // 0x006B0168
+
+extern "C" unsigned int __stdcall socket(int nFamily, int nType, int nProtocol);                            // 0x006B016E
+
+extern "C" int __stdcall recv(unsigned int nSocket, char* pBuffer, int nLength, int nFlags);                // 0x006B0174
+
+extern "C" int __stdcall send(unsigned int nSocket, const char* pBuffer, int nLength, int nFlags);          // 0x006B017A
+
+extern "C" D2HostentStrc* __stdcall gethostbyname(const char* szName);                                      // 0x006B0192
+
+extern "C" int __stdcall gethostname(char* szName, int nNameLength);                                        // 0x006B0198
+
+void __cdecl ERRORMANAGER_RaiseErrorReport(int nType, const char* szFile, int nLine, const char* szFormat, ...); // 0x00408900
+
+void __cdecl LOGMANAGER_CloseLogFiles();                                                                  // 0x0040F960
+
+void __cdecl LOGMANAGER_CloseLogFilesNow();                                                               // 0x0040F8A0
+
+void __fastcall LOGMANAGER_GetLogDirectory(char* szDirectory, int nSize);                                 // 0x0040F000
+
+void __fastcall LOGMANAGER_SweepLogFile(const D2FileTimeStrc* pNow, const char* szFile);                  // 0x0040F3D0
+
+D2PoolDirectoryStrc gtPoolManager;                                                                   // 0x0074F0E8
+
+extern char gszResolvedHostIP[];                                                                   // 0x0075D040
+
+extern D2CriticalSectionStrc gtLogLock;                                                            // 0x0075E850
+
+struct D2FogBlockStrc;
+
+struct D2FogBlockStrc
+{
+    D2FogBlockStrc* pNext;
+    unsigned int dwSize;
+    int unk0x08[3];
+    int bInUse;
+};
+
+extern const unsigned int gdwBitMasks_006CE368[9]; // 0x006CE368
+
+extern const unsigned char gabOffsetMasks[9]; // 0x006CE38C
+
+extern unsigned short gawStringCrcTable[256]; // 0x00708140
+
+// 0x00410790
+// build: symbol ?BNDOWNLOAD_GetTime@* 0x00521B40
+static long BNDOWNLOAD_GetTime(long* pTime)
+{
+    return _time32(pTime);
+}
+
+static unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
+{
+    nValue &= 0xF;
+    if (nValue >= 10)
+        return nValue + 0x37;
+    return nValue + 0x30;
+}
+
+static int sub_0051DD20_HexToNibble(char cChar)
+{
+    char cLower = (char)tolower(cChar);
+    if (cLower >= 'a')
+        return cLower - 0x57;
+    return cLower - 0x30;
+}
+
+static int sub_0051DD40_MapKeyChar(unsigned char cChar)
+{
+    return gacCDKeyMap[cChar];
+}
+
+long __stdcall sub_M106_Emit_0051DC70(long* pTime)
+{
+    return BNDOWNLOAD_GetTime(pTime);
+}
+
+unsigned int __stdcall sub_M106_Emit_0051DD10(int n)
+{
+    return sub_0051DD10_NibbleToHex(tolower(n)) + sub_0051DD10_NibbleToHex(tolower(n + 1));
+}
+
+int __stdcall sub_M106_Emit_0051DD20(int n)
+{
+    return sub_0051DD20_HexToNibble((char)tolower(n)) * 16 + sub_0051DD20_HexToNibble((char)tolower(n + 1));
+}
+
+int __stdcall sub_M106_Emit_0051DD40(int n)
+{
+    return sub_0051DD40_MapKeyChar((unsigned char)tolower(n)) * 24 + sub_0051DD40_MapKeyChar((unsigned char)tolower(n + 1));
+}
+
+// 0x004107B0
+void __fastcall sub_004107B0_AtomicStore64(__int64* pDest, const __int64* pSrc)
+{
+    __asm
+    {
+        mov edi, ecx
+        mov ebx, [edx]
+        mov ecx, [edx + 4]
+        mov eax, [edi]
+        mov edx, [edi + 4]
+    retry:
+        lock cmpxchg8b qword ptr [edi]
+        jne retry
+    }
+}
+
+// 0x00410B10
+void __stdcall sub_00410B10(unsigned char* pBits, int nBit)
+{
+    pBits[nBit >> 3] |= gnBitMasks_006CE268[nBit & 7];
+}
+
+// 0x00410B30
+int __stdcall sub_00410B30(unsigned char* pBits, int nBit)
+{
+    return pBits[nBit >> 3] & gnBitMasks_006CE268[nBit & 7];
+}
+
+// 0x00410B50
+void __stdcall sub_00410B50(unsigned char* pBits, int nBit)
+{
+    pBits[nBit >> 3] &= gnBitClearMasks_006CE2E8[nBit & 7];
+}
+
+// 0x00410B70
+void __stdcall sub_00410B70(T00410B70* buffer,int bit)
+{
+    buffer->bytes[bit >> 3] ^= (unsigned char)gdwBitMasks[bit & BIT_MASK];
+}
+
+// 0x00410B90
+void __stdcall sub_00410B90(const Byte* first,const Byte* second,Byte* output,int bitCount)
+{
+    bitCount=(bitCount+ROUND_BITS)/8;
+    int wholeBytes=(bitCount/4)*4;
+    int i=0;
+    for (;i<wholeBytes;i+=4) *(Word*)(output+i)=*(const Word*)(first+i)&*(const Word*)(second+i);
+    switch (bitCount-wholeBytes) {
+    case 3: output[i+TAIL_HIGH]=first[i+TAIL_HIGH]&second[i+TAIL_HIGH];
+    case 2: output[i+1]=first[i+1]&second[i+1];
+    case 1: output[i]=first[i]&second[i];
+    }
+}
+
+// 0x00410C40
+void __stdcall BITMANIP_OrBits(const unsigned char* pA, const unsigned char* pB, unsigned char* pOut, int nBits)
+{
+    nBits = (nBits + 7) / 8;
+    const int nAligned = 4 * (nBits / 4);
+    int i;
+    for (i = 0; i < nAligned; i += 4)
+    {
+        *(int*)&pOut[i] = *(const int*)&pA[i] | *(const int*)&pB[i];
+    }
+    switch (nBits - nAligned)
+    {
+    case 3:
+        pOut[i + 2] = pA[i + 2] | pB[i + 2];
+    case 2:
+        pOut[i + 1] = pA[i + 1] | pB[i + 1];
+    case 1:
+        pOut[i] = pA[i] | pB[i];
+    }
+}
+
+// 0x00410CF0
+void __stdcall sub_00410CF0_NotBits(const unsigned char* pIn, unsigned char* pOut, int nBits)
+{
+    const int nBytes = (nBits + 7) / 8;
+    const int nAligned = 4 * (nBytes / 4);
+    int i;
+    for (i = 0; i < nAligned; i += 4)
+    {
+        *(int*)&pOut[i] = ~*(const int*)&pIn[i];
+    }
+    switch (nBytes - nAligned)
+    {
+    case 3:
+        pOut[i + 2] = ~pIn[i + 2];
+    case 2:
+        pOut[i + 1] = ~pIn[i + 1];
+    case 1:
+        pOut[i] = ~pIn[i];
+    }
+}
+
+// 0x00410D90
+void __stdcall sub_00410D90_XorBits(const unsigned char* pA, const unsigned char* pB, unsigned char* pOut, int nBits)
+{
+    nBits = (nBits + 7) / 8;
+    int nAligned = 4 * (nBits / 4);
+    int i;
+    for (i = 0; i < nAligned; i += 4)
+    {
+        *(int*)&pOut[i] = *(const int*)&pA[i] ^ *(const int*)&pB[i];
+    }
+    switch (nBits - nAligned)
+    {
+    case 3:
+        pOut[i + 2] = pA[i + 2] ^ pB[i + 2];
+    case 2:
+        pOut[i + 1] = pA[i + 1] ^ pB[i + 1];
+    case 1:
+        pOut[i] = pA[i] ^ pB[i];
+    }
+}
+
+// 0x00410E40
+void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBitStream, int nSize)
+{
+    D2_ASSERT(pBuffer, 316);
+    pBuffer->pBuffer = pBitStream;
+    pBuffer->nBits = 8 * nSize;
+    pBuffer->nPos = 0;
+    pBuffer->nPosBits = 0;
+    pBuffer->bFull = 0;
+}
+
+// 0x00410E90
+extern "C" __declspec(dllexport) int __stdcall sub_00410E90(Obj00410E90* pObj) {
+    return pObj->nFlag0C ? pObj->nValue08 + 1 : pObj->nValue08;
+}
+
+// 0x00410EB0
+void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits)
+{
+    if (pBuffer->nPosBits + 8 * pBuffer->nPos + nBits > pBuffer->nBits)
+    {
+        pBuffer->bFull = 1;
+        pBuffer->nPos = pBuffer->nBits / 8;
+        pBuffer->nPosBits = 0;
+        return;
+    }
+    if (!pBuffer->nPosBits)
+    {
+        *pBuffer->pBuffer = 0;
+    }
+    while (nBits > 0)
+    {
+        int n = 8 - pBuffer->nPosBits;
+        if (n > nBits)
+        {
+            n = nBits;
+        }
+        *pBuffer->pBuffer |= (unsigned char)(gdwLowMasks_006CE368[n] & nValue) << pBuffer->nPosBits;
+        pBuffer->nPosBits += n;
+        if (pBuffer->nPosBits != 8)
+        {
+            break;
+        }
+        ++pBuffer->nPos;
+        ++pBuffer->pBuffer;
+        pBuffer->nPosBits = 0;
+        if (8 * pBuffer->nPos < pBuffer->nBits)
+        {
+            *pBuffer->pBuffer = 0;
+        }
+        nValue >>= n;
+        nBits -= n;
+    }
+}
+
+// 0x00410F60
+unsigned int __stdcall sub_00410F60_ReadBits(D2BitBufferStrc* pBuffer, int nBits)
+{
+    int n = pBuffer->nPosBits + nBits + 8 * pBuffer->nPos - pBuffer->nBits;
+
+    if (n < 0)
+    {
+        n = 0;
+    }
+
+    nBits -= n;
+    if (n)
+    {
+        pBuffer->bFull = 1;
+    }
+
+    unsigned int dwValue = 0;
+    unsigned int dw = 0;
+    int dwBitsLeft = nBits;
+
+    if (dwBitsLeft > 0)
+    {
+        do
+        {
+            int i = 8 - pBuffer->nPosBits;
+            if (i > dwBitsLeft)
+            {
+                i = dwBitsLeft;
+            }
+            const int nPosBits = pBuffer->nPosBits;
+
+            dwValue += (gdwBitMasks_006CE368[i] & ((unsigned char)(*pBuffer->pBuffer & gabOffsetMasks[nPosBits]) >> nPosBits)) << dw;
+            dwBitsLeft -= i;
+            dw += i;
+            pBuffer->nPosBits += i;
+
+            if (pBuffer->nPosBits == 8)
+            {
+                pBuffer->pBuffer = pBuffer->pBuffer + 1;
+                ++pBuffer->nPos;
+                pBuffer->nPosBits = 0;
+            }
+        }
+        while (dwBitsLeft > 0);
+    }
+
+    return dwValue;
+}
+
+// 0x00411020
+unsigned int __stdcall sub_00411020_ReadBits(D2BitBufferStrc* pBuffer, int nBits)
+{
+    return sub_00410F60_ReadBits(pBuffer, nBits);
+}
+
+// 0x00411030
+int __stdcall BITMANIP_ReadSigned(D2BitBufferStrc* pBuffer, int nBits)
+{
+    int nValue = sub_00410F60_ReadBits(pBuffer, nBits);
+    if (nBits < 32 && ((1 << (nBits - 1)) & nValue))
+    {
+        nValue |= ~((1 << nBits) - 1);
+    }
+    return nValue;
+}
+
+// 0x00411070
+void __stdcall BITMANIP_GoToNextByte(D2BitBufferStrc* pBuffer)
+{
+    if (pBuffer->nPosBits)
+    {
+        ++pBuffer->nPos;
+        ++pBuffer->pBuffer;
+        pBuffer->nPosBits = 0;
+        if (8 * pBuffer->nPos < pBuffer->nBits)
+        {
+            *pBuffer->pBuffer = 0;
+        }
+    }
+}
+
+// 0x004110B0
+void __stdcall sub_004110B0_WriteCode(D2BitBufferStrc* pBuffer, D2BitCodeStrc* pCodes, int nIndex)
+{
+    BITMANIP_Write(pBuffer, pCodes[nIndex].nValue, pCodes[nIndex].nBits);
+}
+
+// 0x004110D0
+int __stdcall sub_004110D0_ReadTreeCode(D2BitBufferStrc* pBuffer, int* pTree)
+{
+    int nNode = 0;
+    for (;;)
+    {
+        int nBit = (gdwBitMasks[pBuffer->nPosBits] & *pBuffer->pBuffer) >> pBuffer->nPosBits;
+        ++pBuffer->nPosBits;
+        if (pBuffer->nPosBits == 8)
+        {
+            ++pBuffer->pBuffer;
+            ++pBuffer->nPos;
+            pBuffer->nPosBits = 0;
+        }
+        if (pTree[nBit + nNode] >= 0)
+        {
+            return pTree[nBit + nNode];
+        }
+        nNode = 2 * (nBit + nNode) + 2;
+    }
+}
+
+// 0x00411130
+int __stdcall FOG_ComputeChecksum(unsigned char* pData, int nSize)
+{
+    int nChecksum = 0;
+    for (int i = 0; i < nSize; ++i)
+    {
+        nChecksum = pData[i] + (nChecksum < 0) + 2 * nChecksum;
+    }
+    return nChecksum;
+}
+
+// 0x00411170
+int __stdcall sub_00411170_SumByteTable(unsigned char* pData, int nSize)
+{
+    int nTotal = 0;
+    for (unsigned char* pEnd = pData + nSize; pData < pEnd; ++pData)
+    {
+        nTotal += ganByteTable[*pData];
+    }
+    return nTotal;
+}
+
+// 0x004111A0
+int __stdcall sub_004111A0_GetLowestSetBit(unsigned int nValue)
+{
+    if (nValue)
+    {
+        unsigned char* pBytes = (unsigned char*)&nValue;
+        if (pBytes[0] > 0) return ganLowBitTable[pBytes[0]];
+        if (pBytes[1] > 0) return ganLowBitTable[pBytes[1]] + 8;
+        if (pBytes[2] > 0) return ganLowBitTable[pBytes[2]] + 16;
+        if (pBytes[3] > 0) return ganLowBitTable[pBytes[3]] + 24;
+    }
+    return -1;
+}
+
+// 0x00411210
+void __cdecl sub_00411210_InitTimer()
+{
+    __int64 nFrequency;
+    QueryPerformanceFrequency(&nFrequency);
+    gnTimerTicksPerMs_0075E89C = (int)(nFrequency / 1000);
+    gnTimerTicksPerUs_0075E898 = (int)(nFrequency / 1000000);
+    memset(gaTimerTable_0075E8A0, 0, sizeof(gaTimerTable_0075E8A0));
+    gnTickAtReset_007768A0 = GetTickCount();
+}
+
+// 0x00411280
+void __cdecl sub_00411280_ResetRecords()
+{
+    for (unsigned int i = 0; i < gnRecordCount_007768A4; ++i)
+    {
+        gaTimerTable_0075E8A0[i].qwValue = 0;
+    }
+    gnTickAtReset_007768A0 = GetTickCount();
+}
+
+// 0x004112B0
+unsigned long __cdecl sub_004112B0_GetTickCount()
+{
+    return GetTickCount();
+}
+
+// 0x004112C0
+unsigned short __stdcall FOG_ComputeStringCRC16(const char* szString)
+{
+    unsigned short wCrc = 0xFFFF;
+    char c;
+    while ((c = (char)tolower((unsigned char)*szString++)) != 0)
+    {
+        wCrc = (wCrc >> 2) ^ gawStringCrcTable[(c ^ wCrc) & 0xFF];
+    }
+    return wCrc;
+}
+
+// 0x00411320
+void __stdcall sub_00411320_CapitalizeWords(char* szText)
+{
+    int bNewWord = 1;
+    if (!szText)
+    {
+        return;
+    }
+    int i = 0;
+    const int nLength = strlen(szText);
+    while (i < nLength)
+    {
+        D2_ASSERT(i < 0x400, 120);
+        const char c = szText[i];
+        if (c == ' ')
+        {
+            bNewWord = 1;
+            ++i;
+            continue;
+        }
+        if (bNewWord)
+        {
+            bNewWord = 0;
+            szText[i] = toupper(c);
+        }
+        else
+        {
+            szText[i] = tolower(c);
+        }
+        ++i;
+    }
+}
+
+// 0x004113C0
+void __fastcall sub_004113C0(char* szString, int nLength)
+{
+    for (char* pEnd = szString + nLength; *szString && szString < pEnd; ++szString)
+    {
+        *szString = gszLowerTable[*szString];
+    }
+}
+
+// 0x004113E0
+char* __fastcall sub_004113E0_EscapeString(char* szDst, const char* szSrc, int nSize, char cQuote)
+{
+    const char* pSrc = szSrc;
+
+    D2_ASSERT(szDst, 0xC0);
+
+    if (!szSrc)
+    {
+        SStrPrintf(szDst, nSize, "<NULL>");
+        return szDst;
+    }
+
+    int nLeft = nSize - 1;
+    if (nSize)
+    {
+        char* p = szDst;
+        if (cQuote && nLeft > 0)
+        {
+            *p++ = cQuote;
+            --nLeft;
+        }
+
+        while (nLeft > 0)
+        {
+            const char c = *pSrc;
+            if (!c)
+            {
+                break;
+            }
+            ++pSrc;
+            --nLeft;
+
+            if (c >= 0x20)
+            {
+                *p++ = c;
+                continue;
+            }
+
+            *p++ = '\\';
+            if (!nLeft)
+            {
+                break;
+            }
+            --nLeft;
+
+            if (c == '\r')
+            {
+                *p++ = 'r';
+            }
+            else if (c == '\n')
+            {
+                *p++ = 'n';
+            }
+            else if (c == '\t')
+            {
+                *p++ = 't';
+            }
+            else
+            {
+                if (nLeft < 2)
+                {
+                    break;
+                }
+                *p++ = 'x';
+                *p++ = ((c & 0xF0) < 0xA0) ? ((unsigned char)c >> 4) + '0' : ((unsigned char)c >> 4) + ('A' - 10);
+                *p++ = ((c & 0x0F) < 0x0A) ? (c & 0x0F) + '0' : (c & 0x0F) + ('A' - 10);
+                nLeft -= 2;
+            }
+        }
+
+        if (cQuote && nLeft > 0)
+        {
+            *p++ = cQuote;
+            --nLeft;
+        }
+
+        *p = 0;
+        D2_ASSERT(nLeft >= 0, 0x100);
+        D2_ASSERT(p - szDst + 1 <= nSize, 0x101);
+    }
+
+    return szDst;
+}
+
+// 0x00411540
+char* __fastcall Int64ToString(char* szBuffer, unsigned int nBufferSize, __int64 nValue)
+{
+    char digits[32];
+    if (nBufferSize > 32)
+        nBufferSize = 32;
+    char* pDigit = digits;
+    unsigned int nGroup = 0;
+    while (nValue)
+    {
+        if (pDigit >= digits + nBufferSize - 1)
+        {
+            memset(szBuffer, '*', nBufferSize - 1);
+            szBuffer[nBufferSize - 1] = 0;
+            return szBuffer;
+        }
+        *pDigit++ = (char)('0' + nValue % 10);
+        nValue /= 10;
+        ++nGroup;
+        if (nGroup == 3 && nValue)
+        {
+            *pDigit++ = ',';
+            nGroup = 0;
+        }
+    }
+    char* pOut = szBuffer;
+    while (pDigit >= digits)
+        *pOut++ = *--pDigit;
+    *pOut = 0;
+    return szBuffer;
+}
+
+#include "gen/data/Source/Fog/Unknown_00410790.inc"

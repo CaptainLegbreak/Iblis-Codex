@@ -417,7 +417,7 @@
   ["0x00410B50", 32, "verified", "sub_00410B50"],
   ["0x00410B70", 32, "verified", "?sub_00410B70@@YGXPAUBitBuffer@@H@Z"],
   ["0x00410B90", 173, "verified", "?sub_00410B90@@YGXPBE0PAEH@Z"],
-  ["0x00410C40", 173, "verified", "LOGMANAGER_OrBits"],
+  ["0x00410C40", 173, "verified", "BITMANIP_OrBits"],
   ["0x00410CF0", 147, "verified", "sub_00410CF0_NotBits"],
   ["0x00410D90", 173, "verified", "sub_00410D90_XorBits"],
   ["0x00410E40", 73, "verified", "BITMANIP_Initialize"],
