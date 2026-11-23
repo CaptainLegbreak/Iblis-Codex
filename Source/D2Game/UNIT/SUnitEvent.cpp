@@ -235,15 +235,6 @@ int __fastcall SKILL_ComputePeriodicRate(D2GameStrc* pGame, D2UnitStrc* pUnit, D
 int __fastcall sub_0056F7F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5, int a6, int a7); // 0x0056F7F0
 
 
-struct D2AnimSeqTxt
-{
-    unsigned short wSequence;
-    unsigned char nMode;
-    unsigned char nFrame;
-    unsigned char nDir;
-    unsigned char nEvent;
-};
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
