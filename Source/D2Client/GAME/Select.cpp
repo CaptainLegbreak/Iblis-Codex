@@ -9,6 +9,7 @@
 #include "D2ObjModes.h"
 #include "D2StateIds.h"
 #include "D2Drlg.h"
+#include "D2ClientTypes.h"
 struct D2ActiveRoomStrc;
 struct D2SkillStrc;
 struct D2UnitStrc;
@@ -614,6 +615,18 @@ static inline int UNITS_IsSelectable(D2UnitStrc* pUnit)
     return bResult;
 }
 
+struct SGAMEDATA;
+
+// 0x00467640
+int __fastcall sub_00467640_UnitIsOfTypeMonster(D2UnitStrc* pUnit, SGAMEDATA* pGame)
+{
+    if ((pUnit ? pUnit->dwUnitType : UNIT_INVALID) != 1)
+    {
+        return 0;
+    }
+    return 1;
+}
+
 // 0x00467660
 static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkillsTxtRecord, D2UnitStrc* pUnit)
 {
@@ -786,6 +799,25 @@ void __cdecl sub_00467A00()
     gnHoverMonClassId = 0x13;
 // build: symbol ?gnHoverClassId@* 0x00711F94
     gnHoverClassId = 0x13;
+}
+
+
+// 0x00467A10
+D2UnitStrc* __cdecl sub_00467A10()
+{
+    if (gbHasSelectedUnit)
+    {
+        D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnSelectedUnitId, gnSelectedUnitType);
+        if (pUnit && sub_00466870(pUnit, 0, 0, 0))
+        {
+            return pUnit;
+        }
+        gbHoverLocked = 0;
+        gbHasSelectedUnit = 0;
+        return 0;
+    }
+
+    return 0;
 }
 
 
