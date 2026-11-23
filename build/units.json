@@ -54804,6 +54804,11 @@
      "length": 168
     },
     {
+     "va": "0x0058D9F0",
+     "length": 620,
+     "name": "?sub_0058D9F0@@YIXPAUQuest@@PAUArgs@@@Z"
+    },
+    {
      "va": "0x0058DC60",
      "length": 141,
      "name": "?ACT5Q6_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -54911,17 +54916,6 @@
      "va": "0x0058E740",
      "length": 225,
      "name": "OBJECTS_OperateFunction72_LastPortal"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0058D9F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0058D9F0",
-     "length": 620,
-     "name": "?sub_0058D9F0@@YIXPAUQuest@@PAUArgs@@@Z"
     }
    ]
   },
