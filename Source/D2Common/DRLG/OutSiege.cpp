@@ -185,37 +185,6 @@ static const D2Act5CornerPresetStrc gAct5CornerPresets[3] =
     { 117, 0, 0, 985, 986 },
 };
 
-// build: context DRLGACT5_PlaceCornerPresets
-static void DRLGACT5_PlaceCornerPresets(D2DrlgLevelStrc* pLevel)
-{
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
-    for (int i = 0; i < 3; ++i)
-    {
-        const D2Act5CornerPresetStrc* pEntry = &gAct5CornerPresets[i];
-        if (pLevel->eLevelId == pEntry->nLevelId)
-        {
-            int nPresetId;
-            int nX;
-            int nY;
-            if (pLevel->nWidth > pLevel->nHeight)
-            {
-                nPresetId = pEntry->nPresetWide;
-                sub_0061F0B0(nPresetId);
-                nX = pEntry->f_8 ? pInfo->nGridWidth - 2 : 0;
-                nY = 2;
-            }
-            else
-            {
-                nPresetId = pEntry->nPresetTall;
-                sub_0061F0B0(nPresetId);
-                nX = 2;
-                nY = pEntry->f_8 ? pInfo->nGridHeight - 2 : 0;
-            }
-            DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY, nPresetId, pEntry->nArg, 0);
-        }
-    }
-}
-
 // build: symbol ?DRLGOUTSIEGE_InitAct5OutdoorLevel@@YIXPAUD2DrlgLevelStrc@@@Z 0x0067E600
 // build: symbol ?DRLGOUTSIEGE_PlaceSpecialPresets@@YGXPAUD2DrlgLevelStrc@@@Z 0x0067E160
 // 0x0067DB00

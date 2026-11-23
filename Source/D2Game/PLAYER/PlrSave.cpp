@@ -3427,26 +3427,7 @@ void __fastcall PLAYER_RestoreWeaponStats(D2UnitStrc* pTarget, int bTemporaryWea
     }
 }
 
-// 0x00536510
-static void __stdcall SUNITPROXY_RemoveInventoryItems(D2GameStrc* pGame, D2InventoryStrc* pInventory)
-{
-    if (!pInventory)
-    {
-        return;
-    }
-
-    D2UnitStrc* pItem = INVENTORY_GetFirstItem(pInventory);
-    while (pItem)
-    {
-        D2UnitStrc* pUnit = INVENTORY_UnitIsItem(pItem);
-        D2UnitStrc* pNext = INVENTORY_GetNextItem(pItem);
-        D2_ASSERT(pUnit, 0x1C6);
-        INVENTORY_GetItemNodePage(pItem);
-        SUNIT_RemoveUnit(pGame, pUnit);
-        pItem = pNext;
-    }
-}
-
+void __stdcall SUNITPROXY_RemoveInventoryItems(D2GameStrc* pGame, D2InventoryStrc* pInventory); // 0x00536510
 // 0x00536580
 static void __stdcall SUNITPROXY_ClearNpcRecordData(D2NpcRecordStrc* pNpcRecord, D2GameStrc* pGame)
 {

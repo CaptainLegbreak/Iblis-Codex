@@ -38,7 +38,7 @@ int __stdcall PATH_GetTableHeuristic(D2PathPointStrc pPoint1, D2PathPointStrc pP
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 extern const D2CoordStrc gatDirectionToOffset[8]; // 0x006F1798
-static int __stdcall sub_6FDAA880(D2PathPointStrc tPoint, int* pTestDir, int* pDirection, D2PathInfoStrc* pPathInfo); // 0x006793E0
+int __stdcall sub_6FDAA880(D2PathPointStrc tPoint, int* pTestDir, int* pDirection, D2PathInfoStrc* pPathInfo); // 0x006793E0
 static int __stdcall PATH_RayTrace(D2PathPointStrc tStartCoord, D2PathPointStrc* pPathDestination, D2DynamicPathStrc* pDynamicPath); // 0x00679720
 int __fastcall sub_6FDAA720(D2PathInfoStrc* pPathInfo); // 0x00679B30
 
@@ -121,47 +121,6 @@ inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
         return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-}
-
-// build: context sub_6FDAA880
-static int __stdcall sub_6FDAA880(D2PathPointStrc tPoint, int* pTestDir, int* pDirection, D2PathInfoStrc* pPathInfo)
-{
-    D2_ASSERT(((pPathInfo->pDynamicPath->pUnit && pPathInfo->pDynamicPath->pUnit->dwUnitType == UNIT_PLAYER) || (pPathInfo->pDynamicPath->pUnit && pPathInfo->pDynamicPath->pUnit->dwUnitType == UNIT_MONSTER)) != 0, 52);
-
-    const int nCollisionMask = pPathInfo->nCollisionMask;
-    D2ActiveRoomStrc* pRoom = pPathInfo->pStartRoom;
-    const int nCollisionPattern = pPathInfo->nCollisionPattern;
-
-    D2PathPointStrc tTest0;
-    tTest0.X = tPoint.X + gatDirectionToOffset[pTestDir[0]].nX;
-    tTest0.Y = tPoint.Y + gatDirectionToOffset[pTestDir[0]].nY;
-    if (!COLLISION_CheckAnyCollisionWithPattern(pRoom, tTest0.X, tTest0.Y, nCollisionPattern, nCollisionMask))
-    {
-        *pDirection = pTestDir[0];
-        return 1;
-    }
-
-    D2PathPointStrc tTest1;
-    tTest1.X = tPoint.X + gatDirectionToOffset[pTestDir[1]].nX;
-    tTest1.Y = tPoint.Y + gatDirectionToOffset[pTestDir[1]].nY;
-    if (!COLLISION_CheckAnyCollisionWithPattern(pRoom, tTest1.X, tTest1.Y, nCollisionPattern, nCollisionMask))
-    {
-        *pDirection = pTestDir[1];
-        return 1;
-    }
-
-    D2_ASSERT(pTestDir[2] != 0xFF, 76);
-
-    D2PathPointStrc tTest2;
-    tTest2.X = tPoint.X + gatDirectionToOffset[pTestDir[2]].nX;
-    tTest2.Y = tPoint.Y + gatDirectionToOffset[pTestDir[2]].nY;
-    if (!COLLISION_CheckAnyCollisionWithPattern(pRoom, tTest2.X, tTest2.Y, nCollisionPattern, nCollisionMask))
-    {
-        *pDirection = pTestDir[2];
-        return 1;
-    }
-
-    return 0;
 }
 
 static inline int PATH_TestCollision(const D2CollisionTestStrc* pTest, int nX, int nY)
@@ -328,37 +287,7 @@ static int __stdcall PATH_RayTrace(D2PathPointStrc tStartCoord, D2PathPointStrc*
     return 1;
 }
 
-// 0x00679A60
-static int PATH_CheckCollisionsToNextPosition(D2DynamicPathStrc* pDynamicPath, D2PathPointStrc* pGameCoord)
-{
-    D2PathPointStrc tPoint;
-
-    D2_ASSERT(((pDynamicPath->pUnit && pDynamicPath->pUnit->dwUnitType == UNIT_PLAYER) || (pDynamicPath->pUnit && pDynamicPath->pUnit->dwUnitType == UNIT_MONSTER)) != 0, 324);
-    D2_ASSERT(pDynamicPath->eType != 4, 325);
-    D2_ASSERT(pGameCoord->X != 0, 326);
-    D2_ASSERT(pGameCoord->Y != 0, 327);
-
-    if (!pDynamicPath->dwVelocity)
-    {
-        pGameCoord->X = pDynamicPath->wPosX;
-        pGameCoord->Y = pDynamicPath->wPosY;
-        return 0;
-    }
-
-    PATH_ComputeVelocityAndDirectionVectorsToNextPoint(pDynamicPath, 1, 1);
-
-    if (!pDynamicPath->dwVelocity)
-    {
-        pGameCoord->X = pDynamicPath->wPosX;
-        pGameCoord->Y = pDynamicPath->wPosY;
-        return 0;
-    }
-
-    tPoint.X = pDynamicPath->wPosX;
-    tPoint.Y = pDynamicPath->wPosY;
-    return PATH_RayTrace(tPoint, pGameCoord, pDynamicPath);
-}
-
+int PATH_CheckCollisionsToNextPosition(D2DynamicPathStrc* pDynamicPath, D2PathPointStrc* pGameCoord); // 0x00679A60
 
 int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo)
 {
@@ -557,14 +486,6 @@ static inline unsigned short PATH_AStar_HeuristicInline(D2PathPointStrc tPoint1,
     return nDiffX + 2 * nDiffY;
 }
 
-// 0x0067AEA0
-static void PATH_AStar_PushToVisitedCache(D2PathFoWallContextStrc* pContext, D2PathFoWallNodeStrc* pNode)
-{
-    const int nHash = (gaIdaStar_PointCacheHashMaskY[pNode->tPoint.Y & 0x7F] + gaIdaStar_PointCacheHashMaskX[pNode->tPoint.X & 0x7F]) & 0x7F;
-    pNode->pNextCachePoint = pContext->aVisitedCache[nHash];
-    pContext->aVisitedCache[nHash] = pNode;
-}
-
 // 0x0067AED0
 static void PATH_AStar_MakeCandidate(D2PathFoWallContextStrc* pContext, D2PathFoWallNodeStrc* pNode)
 {
@@ -650,34 +571,7 @@ static D2PathFoWallNodeStrc* __stdcall PATH_AStar_PopBestScoreForVisit(D2PathFoW
     return pPopped;
 }
 
-// 0x0067AFE0
-static void PATH_AStar_PropagateNewFScoreToChildren(D2PathFoWallContextStrc* pContext, D2PathFoWallNodeStrc* pNewNode)
-{
-    pContext->aPointsStack[pContext->nStackCount++] = pNewNode;
-    while (pContext->nStackCount != 0)
-    {
-        D2PathFoWallNodeStrc* pCurrent = pContext->aPointsStack[--pContext->nStackCount];
-        for (int i = 0; i < 8; ++i)
-        {
-            D2PathFoWallNodeStrc* pChild = pCurrent->pChildren[i];
-            if (!pChild)
-            {
-                break;
-            }
-
-            const short nCost = (pCurrent->tPoint.X == pChild->tPoint.X || pCurrent->tPoint.Y == pChild->tPoint.Y) ? 2 : 3;
-            const short nDistance = pCurrent->nBestDistanceFromStart + nCost;
-            if (nDistance < pChild->nBestDistanceFromStart)
-            {
-                pChild->pBestParent = pCurrent;
-                pChild->nBestDistanceFromStart = nDistance;
-                pChild->nFScore = nDistance + pChild->nHeuristicDistanceToTarget;
-                pContext->aPointsStack[pContext->nStackCount++] = pChild;
-            }
-        }
-    }
-}
-
+void PATH_AStar_PropagateNewFScoreToChildren(D2PathFoWallContextStrc* pContext, D2PathFoWallNodeStrc* pNewNode); // 0x0067AFE0
 static inline void PATH_AStar_AddChildToNode(D2PathFoWallNodeStrc* pNode, D2PathFoWallNodeStrc* pChild)
 {
     if (!pNode->pChildren[0])

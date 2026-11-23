@@ -121,37 +121,7 @@ static int __stdcall sub_0050CDD0_GlideTileDrawFlat(D2TileLibraryEntryStrc* pTil
 
 int __stdcall sub_0050CF70_GlideTileDrawPerspective(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels); // 0x0050CF70
 
-// 0x0050D410
-static int __stdcall sub_0050D410_GlideTileDrawAlpha(int nPosX, int nPosY, D2GfxLightStrc* pLight, unsigned char nAlpha, D2TileLibraryEntryStrc* pTile, int nScreenPanels)
-{
-    int nResult = 0;
-    if (D2CMPTileValidate(pTile, 1, 0))
-    {
-        GLIDE_SetColorCombineMode(1);
-        if (nAlpha == 0xFF)
-        {
-            GLIDE_SetAlphaBlendMode(1);
-        }
-        else
-        {
-            GLIDE_SetAlphaBlendMode(4);
-            gpfnGrConstantColorValue(nAlpha);
-        }
-
-        GLIDE_SetTextureFilterMode(1);
-        if (GLIDE_IsPerspective())
-        {
-            nResult = sub_0050CF70_GlideTileDrawPerspective(pTile, nPosX, nPosY, pLight, nScreenPanels);
-        }
-        else
-        {
-            nResult = sub_0050CDD0_GlideTileDrawFlat(pTile, nPosX, nPosY, pLight, nScreenPanels);
-        }
-    }
-
-    return nResult;
-}
-
+int __stdcall sub_0050D410_GlideTileDrawAlpha(int nPosX, int nPosY, D2GfxLightStrc* pLight, unsigned char nAlpha, D2TileLibraryEntryStrc* pTile, int nScreenPanels); // 0x0050D410
 // 0x0050D490
 int __fastcall sub_0050D490_GlideTileDrawTrans(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels, unsigned char nAlpha)
 {

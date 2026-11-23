@@ -942,39 +942,11 @@ static void __stdcall sub_00677680_AddLevelOrths(D2DrlgStrc* pDrlg, int nEndId, 
     }
 }
 
-static void sub_00677750_CreateAct1LevelConnections(D2DrlgStrc* pDrlg);
-static void sub_00677750_CreateAct1LevelConnections(D2DrlgStrc* pDrlg); // 0x00677750
-// 0x00677750
-static void sub_00677750_CreateAct1LevelConnections(D2DrlgStrc* pDrlg)
-{
-    sub_006772C0_InitLevelLinks(gAct1WildernessDrlgLink, sub_00676DD0_LinkAct1Wilderness, sub_00677180_SetAct1OutdoorFlags, pDrlg);
-    sub_006772C0_InitLevelLinks(gAct1MonasteryDrlgLink, sub_6FD82130, sub_00677180_SetAct1OutdoorFlags, pDrlg);
-    sub_00677680_AddLevelOrths(pDrlg, 0x11, 1);
-}
+void sub_00677750_CreateAct1LevelConnections(D2DrlgStrc* pDrlg); // 0x00677750
 
-static void sub_00677790_CreateAct2LevelConnections(D2DrlgStrc* pDrlg);
-static void sub_00677790_CreateAct2LevelConnections(D2DrlgStrc* pDrlg); // 0x00677790
-// 0x00677790
-static void sub_00677790_CreateAct2LevelConnections(D2DrlgStrc* pDrlg)
-{
-    sub_006772C0_InitLevelLinks(gAct2OutdoorDrlgLink, DRLGOUTPLACE_LinkAct2Outdoors, 0, pDrlg);
-    sub_006772C0_InitLevelLinks(gAct2CanyonDrlgLink, DRLGOUTPLACE_LinkAct2Canyon, 0, pDrlg);
-    sub_00677680_AddLevelOrths(pDrlg, 0x2E, 0x28);
-}
+void sub_00677790_CreateAct2LevelConnections(D2DrlgStrc* pDrlg); // 0x00677790
 
-static void sub_00678A20_CreateAct4LevelConnections(D2DrlgStrc* pDrlg);
-static void sub_00678A20_CreateAct4LevelConnections(D2DrlgStrc* pDrlg); // 0x00678A20
-
-// build: context sub_00678A20_CreateAct4LevelConnections
-static void sub_00678A20_CreateAct4LevelConnections(D2DrlgStrc* pDrlg)
-{
-    sub_006772C0_InitLevelLinks(gAct4OutdoorDrlgLink, DRLGOUTPLACE_LinkAct4Outdoors, 0, pDrlg);
-    sub_006772C0_InitLevelLinks(gAct4ChaosSanctumDrlgLink, DRLGOUTPLACE_LinkAct4ChaosSanctum, 0, pDrlg);
-
-    DRLG_GetLevel(pDrlg, LEVEL_OUTERSTEPPES)->pOutdoors->dwFlags |= gnDrlgLinkFlags;
-
-    sub_00677680_AddLevelOrths(pDrlg, 0x6A, 0x67);
-}
+void sub_00678A20_CreateAct4LevelConnections(D2DrlgStrc* pDrlg); // 0x00678A20
 
 static void sub_00678A70_CreateAct5LevelConnections(D2DrlgStrc* pDrlg);
 static void sub_00678A70_CreateAct5LevelConnections(D2DrlgStrc* pDrlg); // 0x00678A70
@@ -994,7 +966,6 @@ static void sub_00678A70_CreateAct5LevelConnections(D2DrlgStrc* pDrlg)
     sub_006772C0_InitLevelLinks(gAct5UbersDrlgLink, DRLGOUTPLACE_LinkAct5Ubers, 0, pDrlg);
 }
 
-D2DrlgLevelStrc* __stdcall sub_00678910_PlaceKurastLevels(D2DrlgLevelStrc* pLevel); // 0x00678910
 D2DrlgLevelStrc* __stdcall sub_00678910_PlaceKurastLevels(D2DrlgLevelStrc* pLevel); // 0x00678910
 
 

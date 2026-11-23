@@ -7,24 +7,7 @@ unsigned char gnLeadByteRangeCount;                                             
 extern D2LangCharMapEntryStrc* gpCharMap;                                                          // 0x00882B24
 extern "C" unsigned int __cdecl strlen(const char* szString);
 
-// 0x005276E0
-static int sub_005276E0_IsLeadByte(unsigned char nByte)
-{
-    if (nByte < 0x20)
-    {
-        return 0;
-    }
-    for (int i = 0; i < gnLeadByteRangeCount; ++i)
-    {
-// build: symbol ?gpLeadByteRanges@* 0x00882B28
-        if (gpLeadByteRanges[i].nLow <= nByte && nByte <= gpLeadByteRanges[i].nHigh)
-        {
-            return 0;
-        }
-    }
-    return 1;
-}
-
+int sub_005276E0_IsLeadByte(unsigned char nByte); // 0x005276E0
 // build: context - inferred inline helper of 0x00527A50 (no address of its own): the index search with the map
 
 static __forceinline int sub_00527A50_FindIndex(const D2LangCharMapEntryStrc* pMap, unsigned short wChar)
@@ -61,23 +44,6 @@ static int sub_00527A50_MapCodePageChar(unsigned short wChar)
     if (nIndex < 0)
         return -1;
     return gpCharMap[gpCharMapIndex[nIndex]].f_2;
-}
-
-// 0x00527B00
-static int sub_00527B00_MapUnicodeChar(unsigned short wChar)
-{
-    if (wChar < 0x20)
-    {
-        return wChar;
-    }
-    D2LangCharMapEntryStrc tKey;
-    tKey.f_2 = wChar;
-    const D2LangCharMapEntryStrc* pEntry = (const D2LangCharMapEntryStrc*)bsearch(&tKey, gpCharMap, gnCharMapCount, sizeof(D2LangCharMapEntryStrc), sub_00527AE0_CompareKey);
-    if (!pEntry)
-    {
-        return -1;
-    }
-    return pEntry->wValue;
 }
 
 // 0x00527B50
