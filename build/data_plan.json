@@ -360,16 +360,31 @@
    "state": "included"
   },
   "Source/Storm/Unknown_00426900.cpp": {
-   "bytes": 8388,
-   "definitions": 5,
+   "bytes": 68,
+   "definitions": 2,
    "externs": [
-    "extern \"C\" void __cdecl deflate_fast(); // 0x00427DD0",
-    "extern \"C\" void __cdecl deflate_slow(); // 0x00428150",
-    "extern \"C\" void __cdecl deflate_stored(); // 0x00427BB0",
     "extern \"C\" void __cdecl sub_004359D0_RunFrontEnd(); // 0x004359D0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/Storm/Unknown_00426900.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/Storm/Unknown_00427160.cpp": {
+   "bytes": 128,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/Storm/Unknown_00427160.inc",
+   "lang": "c",
+   "state": "included"
+  },
+  "Source/Storm/Unknown_0042D450.cpp": {
+   "bytes": 8192,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/Storm/Unknown_0042D450.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -382,30 +397,21 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_00426F20.cpp": {
-   "bytes": 2176,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_00426F20.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/Storm/Unknown_00427420.cpp": {
+  "Source/Storm/Unknown_0042DC30.cpp": {
    "bytes": 40,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_00427420.inc",
+   "include": "gen/data/Source/Storm/Unknown_0042DC30.inc",
    "lang": "c",
    "state": "included"
   },
-  "Source/Storm/Unknown_00429AC0.cpp": {
-   "bytes": 38,
-   "definitions": 1,
+  "Source/Storm/Unknown_00429810.cpp": {
+   "bytes": 2214,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_00429AC0.inc",
+   "include": "gen/data/Source/Storm/Unknown_00429810.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -9499,11 +9505,11 @@
    "alias": true,
    "cname": "gData_006D0280",
    "declared": true,
-   "decorated": "?configuration_table@@3PAUconfig@@A",
-   "file": "Source/Storm/Unknown_00426900.cpp",
+   "decorated": "_configuration_table",
+   "file": "Source/Storm/Unknown_00427160.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const config gData_006D0280[10]; // 0x006D0280",
-   "head": "extern \"C\" const config gData_006D0280[10] = ",
+   "fwd": "extern const config gData_006D0280[10]; // 0x006D0280",
+   "head": "extern const config gData_006D0280[10] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -9653,7 +9659,7 @@
    "size": 120,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D0280\n#pragma comment(linker, \"/alternatename:?configuration_table@@3PAUconfig@@A=_gData_006D0280\")",
+   "tail": "; // 0x006D0280\n#pragma comment(linker, \"/alternatename:_configuration_table=_gData_006D0280\")",
    "type": "config",
    "va": "0x006D0280"
   },
@@ -9662,10 +9668,10 @@
    "cname": "gData_006D02F8",
    "declared": false,
    "decorated": null,
-   "file": "Source/Storm/Unknown_00426900.cpp",
+   "file": "Source/Storm/Unknown_00427160.cpp",
    "form": "bytes",
-   "fwd": "extern \"C\" const struct d2data_006D02F8_t gData_006D02F8; // 0x006D02F8",
-   "head": "extern \"C\" const struct d2data_006D02F8_t gData_006D02F8 = ",
+   "fwd": "extern const struct d2data_006D02F8_t gData_006D02F8; // 0x006D02F8",
+   "head": "extern const struct d2data_006D02F8_t gData_006D02F8 = ",
    "name": "gData_006D02F8",
    "pointers": [],
    "region": "rdata",
@@ -9679,7 +9685,7 @@
    "cname": "gData_006D17C8",
    "declared": true,
    "decorated": "?crc_table@@3QAY0BAA@$$CBKA",
-   "file": "Source/Storm/Unknown_00426900.cpp",
+   "file": "Source/Storm/Unknown_0042D450.cpp",
    "form": "declared_owner",
    "fwd": "extern \"C\" const unsigned long gData_006D17C8[8][256]; // 0x006D17C8",
    "head": "extern \"C\" const unsigned long gData_006D17C8[8][256] = ",
@@ -9894,7 +9900,7 @@
    "cname": "gData_006D0300",
    "declared": true,
    "decorated": "?lenfix_006D0300@@3QBUcode@@B",
-   "file": "Source/Storm/Unknown_00426F20.cpp",
+   "file": "Source/Storm/Unknown_00429810.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const code gData_006D0300[512]; // 0x006D0300",
    "head": "extern \"C\" const code gData_006D0300[512] = ",
@@ -9955,7 +9961,7 @@
    "cname": "gData_006D0B00",
    "declared": true,
    "decorated": "?distfix_006D0B00@@3QBUcode@@B",
-   "file": "Source/Storm/Unknown_00426F20.cpp",
+   "file": "Source/Storm/Unknown_00429810.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const code gData_006D0B00[32]; // 0x006D0B00",
    "head": "extern \"C\" const code gData_006D0B00[32] = ",
@@ -10016,7 +10022,7 @@
    "cname": "gData_006D3848",
    "declared": true,
    "decorated": "_z_errmsg",
-   "file": "Source/Storm/Unknown_00427420.cpp",
+   "file": "Source/Storm/Unknown_0042DC30.cpp",
    "form": "declared",
    "fwd": "extern const char* const gData_006D3848[10]; // 0x006D3848",
    "head": "extern const char* const gData_006D3848[10] = ",
@@ -10127,7 +10133,7 @@
    "cname": "gData_006D0B80",
    "declared": true,
    "decorated": "?order_006D0B80@@3QBGB",
-   "file": "Source/Storm/Unknown_00429AC0.cpp",
+   "file": "Source/Storm/Unknown_00429810.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned short gData_006D0B80[19]; // 0x006D0B80",
    "head": "extern \"C\" const unsigned short gData_006D0B80[19] = ",

@@ -5189,21 +5189,6 @@
      "va": "0x00426920",
      "length": 14,
      "name": "sub_00426920"
-    },
-    {
-     "va": "0x0042D450",
-     "length": 6,
-     "name": "sub_0042D450"
-    },
-    {
-     "va": "0x0042DC30",
-     "length": 6,
-     "name": "sub_0042DC30"
-    },
-    {
-     "va": "0x0042DC40",
-     "length": 6,
-     "name": "sub_0042DC40"
     }
    ]
   },
@@ -8618,109 +8603,9 @@
      "name": "SEvtBreakHandlerChain"
     },
     {
-     "va": "0x00427220",
-     "length": 56,
-     "name": "deflatePending"
-    },
-    {
-     "va": "0x00427260",
-     "length": 137,
-     "name": "deflatePrime"
-    },
-    {
-     "va": "0x004272F0",
-     "length": 59,
-     "name": "deflateTune"
-    },
-    {
-     "va": "0x00427330",
-     "length": 235,
-     "name": "deflateBound"
-    },
-    {
-     "va": "0x00427560",
-     "length": 405,
-     "name": "deflateCopy"
-    },
-    {
-     "va": "0x00429700",
-     "length": 229,
-     "name": "deflateParams"
-    },
-    {
-     "va": "0x004297F0",
-     "length": 28,
-     "name": "deflateInit_"
-    },
-    {
-     "va": "0x004298B0",
-     "length": 148,
-     "name": "inflateReset2"
-    },
-    {
-     "va": "0x00429A10",
-     "length": 22,
-     "name": "inflateInit_"
-    },
-    {
-     "va": "0x00429A30",
-     "length": 107,
-     "name": "inflatePrime"
-    },
-    {
-     "va": "0x0042B1B0",
-     "length": 102,
-     "name": "inflateGetDictionary"
-    },
-    {
-     "va": "0x0042B490",
-     "length": 326,
-     "name": "inflateCopy"
-    },
-    {
-     "va": "0x0042B660",
-     "length": 629,
-     "name": "adler32"
-    },
-    {
      "va": "0x0042B9D0",
      "length": 1,
      "name": "?sub_0042B9D0_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x0042C600",
-     "length": 154,
-     "name": "_tr_tally"
-    },
-    {
-     "va": "0x0042D460",
-     "length": 657,
-     "name": "?crc32_little@@YAKKPBEI@Z"
-    },
-    {
-     "va": "0x0042DBC0",
-     "length": 24,
-     "name": "crc32_combine"
-    },
-    {
-     "va": "0x0042DBE0",
-     "length": 22,
-     "name": "crc32_combine64"
-    },
-    {
-     "va": "0x0042DC00",
-     "length": 34,
-     "name": "?crc32@@YIKKPBEI@Z"
-    },
-    {
-     "va": "0x0042DC70",
-     "length": 20,
-     "name": "zcalloc"
-    },
-    {
-     "va": "0x0042DC90",
-     "length": 8,
-     "name": "?zcfree@@YIXPAX0@Z"
     },
     {
      "va": "0x0042E590",
@@ -8772,51 +8657,6 @@
      "name": "sub_00426DC0_NewNode"
     },
     {
-     "va": "0x00427770",
-     "length": 140,
-     "name": "?lm_init@@YAXPAUdeflate_state@@@Z"
-    },
-    {
-     "va": "0x00428C40",
-     "length": 28,
-     "name": "?deflateReset@@YIHPAUz_stream@@@Z"
-    },
-    {
-     "va": "0x00429810",
-     "length": 109,
-     "name": "?inflateResetKeep@@YIHPAUz_stream_00429810@@@Z"
-    },
-    {
-     "va": "0x0042B8E0",
-     "length": 174,
-     "name": "?adler32_combine_@@YGKKK_J@Z"
-    },
-    {
-     "va": "0x0042B990",
-     "length": 24,
-     "name": "?adler32_combine@@YIKKKJ@Z"
-    },
-    {
-     "va": "0x0042B9B0",
-     "length": 22,
-     "name": "?adler32_combine64@@YIKKK_J@Z"
-    },
-    {
-     "va": "0x0042D9F0",
-     "length": 23,
-     "name": "?gf2_matrix_times@@YAKPAKK@Z"
-    },
-    {
-     "va": "0x0042DA10",
-     "length": 64,
-     "name": "?gf2_matrix_square@@YAXPAK0@Z"
-    },
-    {
-     "va": "0x0042DA50",
-     "length": 354,
-     "name": "?crc32_combine_@@YGKKK_J@Z"
-    },
-    {
      "va": "0x00450390",
      "length": 85,
      "name": "sub_00450390_NewNode"
@@ -8849,46 +8689,6 @@
      "va": "0x00426F20",
      "length": 106,
      "name": "?sub_00426F20_DeleteNode@D2StormBreakCmdListStrc@@QAEPADPAD@Z"
-    },
-    {
-     "va": "0x004294C0",
-     "length": 573,
-     "name": "?deflateInit2_@@YIHPAUz_stream@@HHHHHPBDH@Z"
-    },
-    {
-     "va": "0x00429880",
-     "length": 33,
-     "name": "?inflateReset@@YIHPAUz_stream@@@Z"
-    },
-    {
-     "va": "0x00429950",
-     "length": 190,
-     "name": "?inflateInit2_@@YIHPAUz_stream@@HPBDH@Z"
-    },
-    {
-     "va": "0x00429AA0",
-     "length": 29,
-     "name": "?fixedtables@@YAXPAUinflate_state@@@Z"
-    },
-    {
-     "va": "0x0042B2D0",
-     "length": 36,
-     "name": "?inflateGetHeader@@YIHPAUz_stream@@PAUgz_header@@@Z"
-    },
-    {
-     "va": "0x0042B460",
-     "length": 37,
-     "name": "?inflateSyncPoint@@YIHPAUz_stream@@@Z"
-    },
-    {
-     "va": "0x0042B5E0",
-     "length": 33,
-     "name": "?inflateUndermine@@YIHPAUz_stream@@H@Z"
-    },
-    {
-     "va": "0x0042B610",
-     "length": 79,
-     "name": "?inflateMark@@YIJPAUz_stream@@@Z"
     }
    ]
   },
@@ -8902,42 +8702,30 @@
      "name": "?deflateResetKeep@@YIHPAUz_stream@@@Z"
     },
     {
-     "va": "0x004274A0",
-     "length": 185,
-     "name": "?deflateEnd@@YIHPAUz_stream@@@Z"
-    },
-    {
-     "va": "0x0042B170",
-     "length": 62,
-     "name": "?inflateEnd@@YIHPAUz_stream@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_00427200.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x00427200",
      "length": 29,
      "name": "?deflateSetHeader@@YIHPAUz_stream@@PAUgz_header@@@Z"
     },
     {
-     "va": "0x00427700",
-     "length": 100,
-     "name": "?read_buf@@YAIPAUz_stream@@PAEI@Z"
+     "va": "0x00427220",
+     "length": 56,
+     "name": "deflatePending"
     },
     {
-     "va": "0x0042DC50",
-     "length": 17,
-     "name": "?zError@@YIPBDH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_00427420.cpp",
-   "rank": 0,
-   "functions": [
+     "va": "0x00427260",
+     "length": 137,
+     "name": "deflatePrime"
+    },
+    {
+     "va": "0x004272F0",
+     "length": 59,
+     "name": "deflateTune"
+    },
+    {
+     "va": "0x00427330",
+     "length": 235,
+     "name": "deflateBound"
+    },
     {
      "va": "0x00427420",
      "length": 39,
@@ -8947,6 +8735,26 @@
      "va": "0x00427450",
      "length": 71,
      "name": "_flush_pending"
+    },
+    {
+     "va": "0x004274A0",
+     "length": 185,
+     "name": "?deflateEnd@@YIHPAUz_stream@@@Z"
+    },
+    {
+     "va": "0x00427560",
+     "length": 405,
+     "name": "deflateCopy"
+    },
+    {
+     "va": "0x00427700",
+     "length": 100,
+     "name": "?read_buf@@YAIPAUz_stream@@PAEI@Z"
+    },
+    {
+     "va": "0x00427770",
+     "length": 140,
+     "name": "?lm_init@@YAXPAUdeflate_state@@@Z"
     },
     {
      "va": "0x00427800",
@@ -8989,9 +8797,29 @@
      "name": "@deflateSetDictionary@12"
     },
     {
+     "va": "0x00428C40",
+     "length": 28,
+     "name": "?deflateReset@@YIHPAUz_stream@@@Z"
+    },
+    {
      "va": "0x00428C60",
      "length": 2142,
      "name": "@deflate@8"
+    },
+    {
+     "va": "0x004294C0",
+     "length": 573,
+     "name": "?deflateInit2_@@YIHPAUz_stream@@HHHHHPBDH@Z"
+    },
+    {
+     "va": "0x00429700",
+     "length": 229,
+     "name": "deflateParams"
+    },
+    {
+     "va": "0x004297F0",
+     "length": 28,
+     "name": "deflateInit_"
     }
    ],
    "flags": [
@@ -9010,9 +8838,44 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00429AC0.cpp",
+   "file": "Source/Storm/Unknown_00429810.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00429810",
+     "length": 109,
+     "name": "?inflateResetKeep@@YIHPAUz_stream_00429810@@@Z"
+    },
+    {
+     "va": "0x00429880",
+     "length": 33,
+     "name": "?inflateReset@@YIHPAUz_stream@@@Z"
+    },
+    {
+     "va": "0x004298B0",
+     "length": 148,
+     "name": "inflateReset2"
+    },
+    {
+     "va": "0x00429950",
+     "length": 190,
+     "name": "?inflateInit2_@@YIHPAUz_stream@@HPBDH@Z"
+    },
+    {
+     "va": "0x00429A10",
+     "length": 22,
+     "name": "inflateInit_"
+    },
+    {
+     "va": "0x00429A30",
+     "length": 107,
+     "name": "inflatePrime"
+    },
+    {
+     "va": "0x00429AA0",
+     "length": 29,
+     "name": "?fixedtables@@YAXPAUinflate_state@@@Z"
+    },
     {
      "va": "0x00429AC0",
      "length": 238,
@@ -9024,9 +8887,54 @@
      "name": "?inflate@@YIHPAUz_stream@@H@Z"
     },
     {
+     "va": "0x0042B170",
+     "length": 62,
+     "name": "?inflateEnd@@YIHPAUz_stream@@@Z"
+    },
+    {
+     "va": "0x0042B1B0",
+     "length": 102,
+     "name": "inflateGetDictionary"
+    },
+    {
      "va": "0x0042B220",
      "length": 174,
      "name": "?inflateSetDictionary@@YIHPAUz_stream@@PBEI@Z"
+    },
+    {
+     "va": "0x0042B2D0",
+     "length": 36,
+     "name": "?inflateGetHeader@@YIHPAUz_stream@@PAUgz_header@@@Z"
+    },
+    {
+     "va": "0x0042B300",
+     "length": 90,
+     "name": "?syncsearch@@YGIPAIPBEI@Z"
+    },
+    {
+     "va": "0x0042B360",
+     "length": 247,
+     "name": "?inflateSync@@YIHPAUz_stream@@@Z"
+    },
+    {
+     "va": "0x0042B460",
+     "length": 37,
+     "name": "?inflateSyncPoint@@YIHPAUz_stream@@@Z"
+    },
+    {
+     "va": "0x0042B490",
+     "length": 326,
+     "name": "inflateCopy"
+    },
+    {
+     "va": "0x0042B5E0",
+     "length": 33,
+     "name": "?inflateUndermine@@YIHPAUz_stream@@H@Z"
+    },
+    {
+     "va": "0x0042B610",
+     "length": 79,
+     "name": "?inflateMark@@YIJPAUz_stream@@@Z"
     }
    ],
    "flags": [
@@ -9044,19 +8952,43 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0042B300.cpp",
+   "file": "Source/Storm/Unknown_0042B660.cpp",
    "rank": 0,
    "functions": [
     {
-     "va": "0x0042B300",
-     "length": 90,
-     "name": "?syncsearch@@YGIPAIPBEI@Z"
+     "va": "0x0042B660",
+     "length": 629,
+     "name": "adler32"
     },
     {
-     "va": "0x0042B360",
-     "length": 247,
-     "name": "?inflateSync@@YIHPAUz_stream@@@Z"
+     "va": "0x0042B8E0",
+     "length": 174,
+     "name": "?adler32_combine_@@YGKKK_J@Z"
+    },
+    {
+     "va": "0x0042B990",
+     "length": 24,
+     "name": "?adler32_combine@@YIKKKJ@Z"
+    },
+    {
+     "va": "0x0042B9B0",
+     "length": 22,
+     "name": "?adler32_combine64@@YIKKK_J@Z"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/TC"
    ]
   },
   {
@@ -9092,6 +9024,11 @@
      "va": "0x0042C390",
      "length": 609,
      "name": "_send_all_trees@16"
+    },
+    {
+     "va": "0x0042C600",
+     "length": 154,
+     "name": "_tr_tally"
     },
     {
      "va": "0x0042C6A0",
@@ -9180,14 +9117,112 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0042D700.cpp",
+   "file": "Source/Storm/Unknown_0042D450.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x0042D450",
+     "length": 6,
+     "name": "sub_0042D450"
+    },
+    {
+     "va": "0x0042D460",
+     "length": 657,
+     "name": "?crc32_little@@YAKKPBEI@Z"
+    },
     {
      "va": "0x0042D700",
      "length": 741,
      "name": "?crc32_big@@YGKKPBEI@Z"
+    },
+    {
+     "va": "0x0042D9F0",
+     "length": 23,
+     "name": "?gf2_matrix_times@@YAKPAKK@Z"
+    },
+    {
+     "va": "0x0042DA10",
+     "length": 64,
+     "name": "?gf2_matrix_square@@YAXPAK0@Z"
+    },
+    {
+     "va": "0x0042DA50",
+     "length": 354,
+     "name": "?crc32_combine_@@YGKKK_J@Z"
+    },
+    {
+     "va": "0x0042DBC0",
+     "length": 24,
+     "name": "crc32_combine"
+    },
+    {
+     "va": "0x0042DBE0",
+     "length": 22,
+     "name": "crc32_combine64"
+    },
+    {
+     "va": "0x0042DC00",
+     "length": 34,
+     "name": "?crc32@@YIKKPBEI@Z"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd"
+   ]
+  },
+  {
+   "file": "Source/Storm/Unknown_0042DC30.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0042DC30",
+     "length": 6,
+     "name": "sub_0042DC30"
+    },
+    {
+     "va": "0x0042DC40",
+     "length": 6,
+     "name": "sub_0042DC40"
+    },
+    {
+     "va": "0x0042DC50",
+     "length": 17,
+     "name": "?zError@@YIPBDH@Z"
+    },
+    {
+     "va": "0x0042DC70",
+     "length": 20,
+     "name": "zcalloc"
+    },
+    {
+     "va": "0x0042DC90",
+     "length": 8,
+     "name": "?zcfree@@YIXPAX0@Z"
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/TC"
    ]
   },
   {
