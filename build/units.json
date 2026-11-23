@@ -38248,6 +38248,16 @@
      "name": "?D2SOUND_10034@@YIXH@Z"
     },
     {
+     "va": "0x00514920",
+     "length": 6,
+     "name": "D2SOUND_GetStreamChannelValue"
+    },
+    {
+     "va": "0x00514930",
+     "length": 41,
+     "name": "?sub_00514930_StopChannel@@YAXXZ"
+    },
+    {
      "va": "0x00514960",
      "length": 48,
      "name": "?D2SOUND_FadeOutStreamChannel@@YAXXZ"
@@ -38311,16 +38321,6 @@
      "va": "0x005140D0",
      "length": 1107,
      "name": "?sub_005140D0_InitDirectSound@@YAXXZ"
-    },
-    {
-     "va": "0x00514920",
-     "length": 6,
-     "name": "D2SOUND_GetStreamChannelValue"
-    },
-    {
-     "va": "0x00514930",
-     "length": 41,
-     "name": "?sub_00514930_StopChannel@@YAXXZ"
     }
    ]
   },
