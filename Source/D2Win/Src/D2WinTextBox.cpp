@@ -319,12 +319,6 @@ void __fastcall D2Win_10176(int bTimed); // 0x004FB130
 
 void* __stdcall D2Win_GetArchive(); // 0x004FAC80
 
-// 0x004FB1B0
-void __cdecl PALETTE_ApplyScreenPalette()
-{
-    D2GFX_SetPalette(gaPalette_0081E668);
-}
-
 void __fastcall sub_004E6850_BuildSocketFillerText(D2UnitStrc* pItem, Unicode* pBuffer, int nSize)
 {
     Unicode wszTemp[0x100];

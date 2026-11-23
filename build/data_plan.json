@@ -2251,15 +2251,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Win/Unknown_004FAB00.cpp": {
-   "bytes": 64,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Win/Unknown_004FAB00.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Win/Src/D2WinTextBox.cpp": {
    "bytes": 408,
    "definitions": 3,
@@ -2270,8 +2261,8 @@
    "state": "included"
   },
   "Source/D2Win/Src/D2WinPalette.cpp": {
-   "bytes": 24,
-   "definitions": 1,
+   "bytes": 88,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Win/Src/D2WinPalette.inc",
@@ -80953,7 +80944,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Win/Unknown_004FAB00.cpp",
+   "file": "Source/D2Win/Src/D2WinPalette.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gbPaletteFlash = ",
@@ -80978,7 +80969,7 @@
    "cname": "gData_0072DE54",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Win/Unknown_004FAB00.cpp",
+   "file": "Source/D2Win/Src/D2WinPalette.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0072DE54_t gData_0072DE54; // 0x0072DE54",
    "head": "extern \"C\" struct d2data_0072DE54_t gData_0072DE54 = ",
