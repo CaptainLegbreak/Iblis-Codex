@@ -927,6 +927,7 @@ static void __stdcall INV_DrawGridCells(D2InventoryGridInfoStrc* pGrid, int nX, 
 
 void INV_DrawSlotFrame(D2InvCompGridStrc* pCompGrid, int nColor); // 0x00483A70
 
+// 0x00483C50
 static void __stdcall sub_00483C50_DrawCursorPlacement(D2InventoryStrc* pInventory, D2InventoryGridInfoStrc* pGrid, int nRecord, unsigned char nPage, D2UnitStrc* pCursorItem)
 {
     if (nPage == 0xFF)
