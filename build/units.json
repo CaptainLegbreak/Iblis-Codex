@@ -42094,6 +42094,11 @@
      "name": "?BNSEND_SetEmailRequested@@YIXH@Z"
     },
     {
+     "va": "0x0051CA90",
+     "length": 1539,
+     "name": "?sFastestConnect@@YGHPAD@Z"
+    },
+    {
      "va": "0x0051D0A0",
      "length": 286,
      "name": "?BattleConnectFastest@@YAKPAX@Z"
@@ -42245,11 +42250,6 @@
      "va": "0x0051C7E0",
      "length": 451,
      "name": "sub_0051C7E0_ReceiveThread"
-    },
-    {
-     "va": "0x0051CA90",
-     "length": 1539,
-     "name": "?sFastestConnect@@YGHPAD@Z"
     }
    ]
   },
