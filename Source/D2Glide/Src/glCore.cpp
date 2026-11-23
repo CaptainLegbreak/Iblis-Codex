@@ -1,6 +1,19 @@
 #include "D2Glide.h"
+#include "D2GfxTypes.h"
+#include "D2Win32Base.h"
+#include "D2DDrawTypes.h"
+#include "D2GlideTypes.h"
 
 #include "D2GameTypes.h"
+
+extern int gbGlideDrawing; // 0x0087EFE4
+
+extern int gnGlideAlphaCombineMode; // 0x0087EFDC
+
+extern int gnGlideColorCombineState; // 0x0087EFD8
+
+extern int gnGlideTexFilterMode; // 0x0087EFE0
+
 
 struct D2GlideHwQueryStrc;
 
@@ -496,6 +509,28 @@ int __cdecl GLIDE_CheckCutScene()
 }
 
 int gdwGlobal_007B57E4; // 0x007B57E4
+
+extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC218
+D2CriticalSectionStrc* gpRenderCriticalSection; // 0x007C9134
+
+// 0x00508FE0
+int __fastcall GLIDE_StartDraw(int bClear, unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
+{
+// build: symbol ?gbRenderPaused@* 0x007C9144
+    if (gbRenderPaused)
+        return 0;
+    gbGlideDrawing = 1;
+    D2_ASSERT(gpRenderCriticalSection, 0x401);
+    EnterCriticalSection(gpRenderCriticalSection);
+    if (bClear)
+        gpfnGrBufferClear((((nRed << 4) | nGreen) << 4 | nBlue) << 4, 0, 0);
+    gnGlideColorCombineState = 0;
+    gnGlideAlphaCombineMode = 0;
+    gnGlideTexFilterMode = 0;
+    gpfnGrChromakeyMode(1);
+    sub_0050DBC0_GlideSetAmbientColor(0xFF, 0xFF, 0xFF);
+    return 1;
+}
 
 // 0x005090A0
 void __fastcall GLIDE_SetGlobalScale(int nValue)
