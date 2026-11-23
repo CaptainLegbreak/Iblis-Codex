@@ -13410,6 +13410,10 @@
      "name": "?WINMAIN_HandleMcpServerAddress@@YIHPAUD2McpPacket10Strc@@H@Z"
     },
     {
+     "va": "0x0044AFC0",
+     "length": 339
+    },
+    {
      "va": "0x0044B120",
      "length": 38,
      "name": "?WINMAIN_HandleMcpMotd@@YIHPBEI@Z"
@@ -14040,30 +14044,6 @@
      "length": 22,
      "name": "?sub_0044AF10_McpIncoming0F@@YIHPAUD2McpPacketValueStrc@@H@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0044AFC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0044AFC0",
-     "length": 339
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
