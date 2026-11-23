@@ -63,34 +63,6 @@ extern D2CriticalSectionStrc gtLogLock;                                         
 
 
 
-// 0x0040EBD0
-_iobuf* __fastcall sub_0040EBD0_OpenDatedLogFile(const char* szName, D2SystemTimeStrc* pTime, const char* szMode, int* pbNew, char* szPathOut, unsigned int nPathOutSize)
-{
-    char szPath[0x104];
-    GetLocalTime(pTime);
-// build: symbol ?gszLogPrefix@* 0x00708018
-    SStrPrintf(szPath, sizeof(szPath), "%s%s%02d%02d%02d.txt", gszLogPrefix, szName, pTime->wYear % 100, pTime->wMonth, pTime->wDay);
-    if (szPathOut)
-    {
-        SStrCopy(szPathOut, szPath, nPathOutSize);
-    }
-    if (pbNew)
-    {
-        *pbNew = 1;
-        if (*szMode == 'a')
-        {
-            _iobuf* pFile = fopen(szPath, "r");
-            if (pFile)
-            {
-                fclose(pFile);
-                *pbNew = 0;
-            }
-        }
-    }
-    return fopen(szPath, szMode);
-}
-
-
 // 0x00410CF0
 void __stdcall sub_00410CF0_NotBits(const unsigned char* pIn, unsigned char* pOut, int nBits)
 {

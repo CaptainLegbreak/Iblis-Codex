@@ -1072,6 +1072,7 @@ struct D2LogMsgListStrc
     D2StormLinkStrc m_terminator;
 
     char* sub_0040FF40_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags); // 0x0040FF40
+    void sub_0040FED0_DeleteAll(); // 0x0040FED0
 };
 
 struct D2LogMemoryInfoStrc
@@ -1168,6 +1169,33 @@ unsigned long __stdcall LOGMANAGER_DbgHelpThreadProc(void* pParam)
         WaitForSingleObject(ghDbgHelpWorkEvent, 0xFFFFFFFF);
     }
     return 0;
+}
+
+// 0x0040EBD0
+_iobuf* __fastcall sub_0040EBD0_OpenDatedLogFile(const char* szName, D2SystemTimeStrc* pTime, const char* szMode, int* pbNew, char* szPathOut, unsigned int nPathOutSize)
+{
+    char szPath[0x104];
+    GetLocalTime(pTime);
+// build: symbol ?gszLogPrefix@* 0x00708018
+    SStrPrintf(szPath, sizeof(szPath), "%s%s%02d%02d%02d.txt", gszLogPrefix, szName, pTime->wYear % 100, pTime->wMonth, pTime->wDay);
+    if (szPathOut)
+    {
+        SStrCopy(szPathOut, szPath, nPathOutSize);
+    }
+    if (pbNew)
+    {
+        *pbNew = 1;
+        if (*szMode == 'a')
+        {
+            _iobuf* pFile = fopen(szPath, "r");
+            if (pFile)
+            {
+                fclose(pFile);
+                *pbNew = 0;
+            }
+        }
+    }
+    return fopen(szPath, szMode);
 }
 
 // 0x0040F000
@@ -1460,6 +1488,29 @@ D2LogMsgNodeStrc::~D2LogMsgNodeStrc()
 // 0x0040FCB0
 D2LogMsgNodeStrc::D2LogMsgNodeStrc()
 {
+}
+
+void* ghLogThread; // 0x0075D2E8
+
+int gbLogThreadStop; // 0x0075E830
+
+extern unsigned long gnLogThreadId; // 0x0075E834
+
+// 0x0040FFD0
+void __cdecl sub_0040FFD0_ShutdownLogSystem()
+{
+    gbLogThreadStop = 1;
+    WaitForSingleObject(ghLogThread, 30000);
+    CloseHandle(ghLogThread);
+    EnterCriticalSection(&gtLogQueueLock);
+    gtLogMsgQueue_0075E868.sub_0040FED0_DeleteAll();
+    gnLogQueued = 0;
+    gnLogQueuedBytes = 0;
+    ghLogThread = 0;
+    gnLogThreadId = 0;
+    gbLogInitialized = 0;
+    gbLogThreadStop = 0;
+    LeaveCriticalSection(&gtLogQueueLock);
 }
 
 // 0x00410C40
