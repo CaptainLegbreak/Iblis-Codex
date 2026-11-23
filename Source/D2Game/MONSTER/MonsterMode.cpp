@@ -1827,12 +1827,12 @@ static int MONSTERMODE_IsModeEventEnabled(D2UnitStrc* pUnit, int nMode)
     }
 
     const D2MonModeInfoTableStrc* pMonModeInfoTableRecord = &gtMonsterModeEventPolicies[nMode];
-    if (pMonModeInfoTableRecord->unk0x00)
+    if (pMonModeInfoTableRecord->bAlwaysEnabled)
     {
         return 1;
     }
 
-    if (!pMonModeInfoTableRecord->unk0x04 && pMonModeInfoTableRecord->unk0x08)
+    if (!pMonModeInfoTableRecord->unk0x04 && pMonModeInfoTableRecord->bUseMovingFlags)
     {
         D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(pUnit->dwClassId);
         if (pMonStats2TxtRecord)

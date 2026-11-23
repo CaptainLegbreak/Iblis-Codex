@@ -82,7 +82,7 @@ struct D2UnitSndPlayerStrc
 {
     int f_0;
     int nDeathSound;
-    int unk0x08[8];
+    int anEventSounds[8];
     int nFootstep;
 };
 

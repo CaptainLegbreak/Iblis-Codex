@@ -1096,7 +1096,7 @@ struct D2AutomapPointStrc
 
 struct D2AutomapRecordStrc
 {
-    unsigned int nUnk0x00;
+    unsigned int nGameSeed;
     unsigned int nValue;
 };
 
@@ -1104,7 +1104,7 @@ struct D2AutomapSaveStrc
 {
     unsigned int nLayerNo;
     unsigned int fSaved;
-    unsigned int nUnk0x08;
+    unsigned int nObjectSeed;
     unsigned int dwFloorSize;
     unsigned int dwWallsSize;
     unsigned int nObjects;
@@ -1543,7 +1543,7 @@ struct D2CoordPairStrc { int nX; int nY; };
 
 struct D2CursorAnimStrc
 {
-    int unk0x00;
+    int bAnimated;
     int f_4;
     int nFrames;
     int nStep;
@@ -2024,7 +2024,7 @@ struct D2UnitSndPlayerStrc
 {
     int f_0;
     int nDeathSound;
-    int unk0x08[8];
+    int anEventSounds[8];
     int nFootstep;
 };
 

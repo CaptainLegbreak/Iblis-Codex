@@ -3915,7 +3915,7 @@ void __fastcall GAME_LoadAct(unsigned char nAct, unsigned int dwGameSeed, unsign
     UI_DrawLoadingScreen(1);
 
     *gpAutomapRecord = D2AutomapRecordStrc();
-    gpAutomapRecord->nUnk0x00 = dwGameSeed;
+    gpAutomapRecord->nGameSeed = dwGameSeed;
     gpAutomapRecord->nValue = dwObjectSeed;
 
     AUTOMAP_InitAutomapColors();

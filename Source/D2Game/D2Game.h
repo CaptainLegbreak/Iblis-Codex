@@ -980,9 +980,9 @@ struct D2MonLvlTxt
 
 struct D2MonModeInfoTableStrc
 {
-    int unk0x00;
+    int bAlwaysEnabled;
     int unk0x04;
-    int unk0x08;
+    int bUseMovingFlags;
 };
 
 struct D2MonStatsCountStrc

@@ -1501,12 +1501,12 @@ void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStri
 
     if (nId >= 0x19 && nId <= 0x20 && !sub_004B9E90_HasUnitSound(pUnit))
     {
-        nSoundId = pRecord->unk0x08[6] + 2 * (nId - 0x19);
+        nSoundId = pRecord->anEventSounds[6] + 2 * (nId - 0x19);
     }
 
     if (nId >= 0x21 && nId <= 0x53)
     {
-        int nHintSound = pRecord->unk0x08[7] + nId - 0x21;
+        int nHintSound = pRecord->anEventSounds[7] + nId - 0x21;
         if (nId == 0x23)
         {
             ITEM_ShowTimedHint(0x1250, 0x0, 0x12C, 1, nHintSound, 0xFA, 1);
@@ -1602,32 +1602,32 @@ void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStri
     switch (nId)
     {
     case 0x13:
-        nSoundId = pRecord->unk0x08[0];
+        nSoundId = pRecord->anEventSounds[0];
         bCheckRepeat = 1;
         break;
 
     case 0x15:
-        nSoundId = pRecord->unk0x08[1];
+        nSoundId = pRecord->anEventSounds[1];
         bCheckRepeat = 1;
         break;
 
     case 0x16:
-        nSoundId = pRecord->unk0x08[2];
+        nSoundId = pRecord->anEventSounds[2];
         bCheckRepeat = 1;
         break;
 
     case 0x17:
-        nSoundId = pRecord->unk0x08[3];
+        nSoundId = pRecord->anEventSounds[3];
         bCheckRepeat = 1;
         break;
 
     case 0x14:
-        nSoundId = pRecord->unk0x08[4];
+        nSoundId = pRecord->anEventSounds[4];
         bCheckRepeat = 1;
         break;
 
     case 0x18:
-        nSoundId = pRecord->unk0x08[5];
+        nSoundId = pRecord->anEventSounds[5];
         bCheckRepeat = 1;
         break;
 

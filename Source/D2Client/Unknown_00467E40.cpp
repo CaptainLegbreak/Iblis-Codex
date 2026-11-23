@@ -129,7 +129,7 @@ void __cdecl sub_00468310_UpdateCursor()
     const unsigned int dwTick = GetTickCount();
     D2_ASSERT(gnCursorAnimCount == CURSOR_ANIM_COUNT, 0x84);
     D2_ASSERT(gnCursorAnim < CURSOR_ANIM_COUNT, 0x85);
-    if (gaCursorAnim[gnCursorAnim].unk0x00 && dwTick > gdwCursorAnimTick + 0x10)
+    if (gaCursorAnim[gnCursorAnim].bAnimated && dwTick > gdwCursorAnimTick + 0x10)
     {
         gdwCursorAnimTick = dwTick;
         if (gnCursorState != 3)
