@@ -15417,10 +15417,6 @@
     {
      "va": "0x004AD020",
      "length": 150
-    },
-    {
-     "va": "0x004AD2F0",
-     "length": 539
     }
    ]
   },
@@ -27344,6 +27340,10 @@
      "va": "0x004AD1A0",
      "length": 335,
      "name": "NPCMENU_StateOverlayCross"
+    },
+    {
+     "va": "0x004AD2F0",
+     "length": 539
     },
     {
      "va": "0x004AD510",
