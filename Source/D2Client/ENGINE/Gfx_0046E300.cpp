@@ -35,7 +35,7 @@ struct D2OverlayStrc
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
-extern int gnGlobal_0071146C;                                                                               // 0x0071146C
+extern int gnScreenWidth;                                                                               // 0x0071146C
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -84,10 +84,10 @@ void __stdcall GFX_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int nColor, int 
         switch (sub_0045AE90())
         {
         case 1:
-            nX -= gnGlobal_0071146C / 4;
+            nX -= gnScreenWidth / 4;
             break;
         case 2:
-            nX += gnGlobal_0071146C / 4;
+            nX += gnScreenWidth / 4;
             break;
         }
         nDrawX = nX;

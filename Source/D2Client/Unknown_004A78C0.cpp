@@ -12,12 +12,12 @@ struct D2BeltSlotStrc
 };
 #pragma pack(pop)
 
-extern int gnGlobal_0071146C;                                                                               // 0x0071146C
-extern int gnGlobal_00711470;                                                                               // 0x00711470
-extern int gnGlobal_007A2858;                                                                               // 0x007A2858
-extern int gnGlobal_007A285C;                                                                               // 0x007A285C
-extern int gnGlobal_007C02F4;                                                                               // 0x007C02F4
-extern D2BeltSlotStrc gtSlots_00724A48[4];                                                                  // 0x00724A48
+extern int gnScreenWidth;                                                                               // 0x0071146C
+extern int gnScreenHeight;                                                                               // 0x00711470
+extern int gnPanelOffsetX;                                                                               // 0x007A2858
+extern int gnPanelOffsetY;                                                                               // 0x007A285C
+extern int gbStatScreenButtonDown;                                                                               // 0x007C02F4
+extern D2BeltSlotStrc gaStatButtons[4];                                                                  // 0x00724A48
 int __cdecl D2GFX_GetResolutionMode();
 int __fastcall sub_00498DC0(SMSGHANDLER_PARAMS* pMsg);
 int __cdecl sub_00468830();
@@ -34,7 +34,7 @@ void __cdecl sub_0044DA70();
 
 static int sub_004A76C0_ClaimLeftPanelClick(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (D2GFX_GetResolutionMode() == 2 && !sub_00498DC0(pMsg) && pMsg->nXpos <= gnGlobal_0071146C / 2 && pMsg->nYpos < gnGlobal_00711470 - 0x2F)
+    if (D2GFX_GetResolutionMode() == 2 && !sub_00498DC0(pMsg) && pMsg->nXpos <= gnScreenWidth / 2 && pMsg->nYpos < gnScreenHeight - 0x2F)
     {
         if (sub_00468830() == 6)
             UI_CancelCursorItemUse();
@@ -51,22 +51,22 @@ void __stdcall sub_004A78C0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
     sub_00467FA0_MsgHandler(pMsg);
-    gnGlobal_007C02F4 = 0;
-    if (nX >= gnGlobal_007A2858 + 0x80 && nX <= gnGlobal_007A2858 + 0xA0 && nY >= gnGlobal_00711470 + gnGlobal_007A285C - 0x5C && nY <= gnGlobal_00711470 + gnGlobal_007A285C - 0x3C)
+    gbStatScreenButtonDown = 0;
+    if (nX >= gnPanelOffsetX + 0x80 && nX <= gnPanelOffsetX + 0xA0 && nY >= gnScreenHeight + gnPanelOffsetY - 0x5C && nY <= gnScreenHeight + gnPanelOffsetY - 0x3C)
     {
         sub_00455F20(2, 1, 0);
         return;
     }
-    if (nX >= gnGlobal_007A2858 && nX <= gnGlobal_0071146C / 2 - 1 && nY >= gnGlobal_007A285C && nY <= gnGlobal_00711470 + gnGlobal_007A285C - 0x31)
+    if (nX >= gnPanelOffsetX && nX <= gnScreenWidth / 2 - 1 && nY >= gnPanelOffsetY && nY <= gnScreenHeight + gnPanelOffsetY - 0x31)
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0))
         {
-            const int nScreenH = gnGlobal_00711470;
+            const int nScreenH = gnScreenHeight;
             for (int i = 0; i < 4; ++i)
             {
-                gtSlots_00724A48[i].bActive = 0;
-                if (nY > gtSlots_00724A48[i].nY + gnGlobal_007A285C + nScreenH - 0x1F6 && nY < gtSlots_00724A48[i].nY + gnGlobal_007A285C + nScreenH - 0x1E0 && nX > gtSlots_00724A48[i].nX + gnGlobal_007A2858 && nX < gtSlots_00724A48[i].nX + gnGlobal_007A2858 + 0x28)
+                gaStatButtons[i].bActive = 0;
+                if (nY > gaStatButtons[i].nY + gnPanelOffsetY + nScreenH - 0x1F6 && nY < gaStatButtons[i].nY + gnPanelOffsetY + nScreenH - 0x1E0 && nX > gaStatButtons[i].nX + gnPanelOffsetX && nX < gaStatButtons[i].nX + gnPanelOffsetX + 0x28)
                 {
                     int nCount = STATLIST_UnitGetStatValue(pPlayer, STAT_STATPTS, 0);
                     if (GetKeyState(0x10) >= 0)
@@ -77,7 +77,7 @@ void __stdcall sub_004A78C0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
                     {
                         const int nStack = nCount < 0x20 ? nCount : 0x20;
                         nCount -= nStack;
-                        sub_004785B0_SendPacket3(0x3A, ((unsigned char)(nStack - 1) << 8) | gtSlots_00724A48[i].wCode);
+                        sub_004785B0_SendPacket3(0x3A, ((unsigned char)(nStack - 1) << 8) | gaStatButtons[i].wCode);
                     }
                     while (nCount);
                     break;

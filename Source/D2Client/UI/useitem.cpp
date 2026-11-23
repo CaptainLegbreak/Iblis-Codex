@@ -125,7 +125,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-int gnGlobal_007C5474;                                                                                      // 0x007C5474
+int gnUseItemDialogState;                                                                                      // 0x007C5474
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
@@ -151,21 +151,21 @@ void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
-extern D2HotspotStrc gaHotspots_00727900[]; // 0x00727900
+extern D2HotspotStrc gaUseItemHotspots[]; // 0x00727900
 
 int gnGlobal_007C5478; // 0x007C5478
 
-int gnGlobal_007C547C; // 0x007C547C
+int gnAnvilObjectId; // 0x007C547C
 
-unsigned long gdwTick_007C5488; // 0x007C5488
+unsigned long gdwUseItemClickTick; // 0x007C5488
 
-int gnGlobal_007C5480;                                                                                      // 0x007C5480
+int gnAnvilItemId;                                                                                      // 0x007C5480
 
-int gnGlobal_007C5470; // 0x007C5470
+int gnUseItemPanelMode; // 0x007C5470
 
-void* gpGlobal_007C5484;                                                                                    // 0x007C5484
+void* gpUseItemConfirmDialog;                                                                                    // 0x007C5484
 
-extern D2MsgHandlerEntryStrc gaMsgHandlers_00727950[]; // 0x00727950
+extern D2MsgHandlerEntryStrc gaUseItemHandlers[]; // 0x00727950
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
@@ -229,9 +229,9 @@ struct D2CelContextStrc { int frame; int unk04[12]; void* cellFile; int unk38[2]
 
 #pragma pack(pop)
 
-extern int gnGlobal_00711470; // 0x00711470
+extern int gnScreenHeight; // 0x00711470
 
-extern const char gszUseItemCpp_006DAB50[]; // 0x006DAB50
+extern const char gszUseItemCpp[]; // 0x006DAB50
 
 extern "C" void* __cdecl memset(void*,int,unsigned int);
 
@@ -255,9 +255,9 @@ int __fastcall sub_00502EF0(int); // 0x00502EF0
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short); // 0x00524A30
 
-void* gpCelFile_007C5494; // 0x007C5494
+void* gpUpgradeCel; // 0x007C5494
 
-void* gpCelFile_007C5498; // 0x007C5498
+void* gpHoradricBackCel; // 0x007C5498
 
 void __stdcall USEITEM_ClickMsg(SMSGHANDLER_PARAMS* pMsg);
 
@@ -481,37 +481,38 @@ int ListBoxWrapper::sub_004BEE20_ForwardSlot08(int nArg)
 // 0x004BF9D0
 void __cdecl USEITEM_InitUseItemPanel()
 {
-    gnGlobal_007C5474 = 0;
-    gnGlobal_007C547C = 0;
+    gnUseItemDialogState = 0;
+    gnAnvilObjectId = 0;
     gnGlobal_007C5478 = 0;
-    gdwTick_007C5488 = 0;
-    gpCelFile_007C5494 = sub_004520C0_LoadUiCelFile("menu\\upgrade");
-    gpCelFile_007C5498 = sub_004520C0_LoadUiCelFile("menu\\horadricback");
-    for (int i = 0; i < gnGlobal_007278FC; i++)
+    gdwUseItemClickTick = 0;
+    gpUpgradeCel = sub_004520C0_LoadUiCelFile("menu\\upgrade");
+    gpHoradricBackCel = sub_004520C0_LoadUiCelFile("menu\\horadricback");
+// build: symbol ?gnHotspotCount@* 0x007278FC
+    for (int i = 0; i < gnHotspotCount; i++)
     {
-        gaHotspots_00727900[i].pressed = 0;
-        gaHotspots_00727900[i].hovered = 0;
+        gaUseItemHotspots[i].pressed = 0;
+        gaUseItemHotspots[i].hovered = 0;
     }
 }
 
 // 0x004C0100
 void __cdecl USEITEM_FreeUseItemPanel()
 {
-    if (gnGlobal_007C5474)
+    if (gnUseItemDialogState)
     {
         sub_004C0090();
     }
 
-    if (gpCelFile_007C5494)
+    if (gpUpgradeCel)
     {
-        ARCHIVE_FreeClientCellFile(gpCelFile_007C5494);
-        gpCelFile_007C5494 = 0;
+        ARCHIVE_FreeClientCellFile(gpUpgradeCel);
+        gpUpgradeCel = 0;
     }
 
-    if (gpCelFile_007C5498)
+    if (gpHoradricBackCel)
     {
-        ARCHIVE_FreeClientCellFile(gpCelFile_007C5498);
-        gpCelFile_007C5498 = 0;
+        ARCHIVE_FreeClientCellFile(gpHoradricBackCel);
+        gpHoradricBackCel = 0;
     }
 }
 
@@ -520,7 +521,7 @@ void __stdcall USEITEM_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     D2Win_10129_DrawFramedText(0, -1, -1, 0, 0);
     AUTOMAP_IsCursorOverMiniPanelButton(pMsg);
-    if (gnGlobal_007C5474 == 1)
+    if (gnUseItemDialogState == 1)
     {
         INV_InvRectClickMsg(pMsg);
     }
@@ -538,20 +539,20 @@ static D2UnitStrc* GetCursorItem_Inline()
 // 0x004BFA70
 static void USEITEM_ToggleUseMode(D2UnitStrc* pItem)
 {
-    if (gnGlobal_007C5474 == 1)
+    if (gnUseItemDialogState == 1)
     {
-        gnGlobal_007C5474 = 2;
+        gnUseItemDialogState = 2;
         sub_00468070_SetCursorItemState(0);
         if (!pItem)
             return;
-        gnGlobal_007C5480 = pItem->dwUnitId;
+        gnAnvilItemId = pItem->dwUnitId;
         sub_004B9A00(sub_004C1D60(pItem), 0, 0, 0, 0);
         return;
     }
-    if (gnGlobal_007C5474 == 2)
+    if (gnUseItemDialogState == 2)
     {
-        gnGlobal_007C5474 = 1;
-        gnGlobal_007C5480 = 0;
+        gnUseItemDialogState = 1;
+        gnAnvilItemId = 0;
         if (pItem)
             sub_00468070_SetCursorItemState(pItem);
         sub_004B9A00(1, 0, 0, 0, 0);
@@ -561,7 +562,7 @@ static void USEITEM_ToggleUseMode(D2UnitStrc* pItem)
 // 0x004C02F0
 int __cdecl USEITEM_ClosePanel()
 {
-    int mode = gnGlobal_007C5474;
+    int mode = gnUseItemDialogState;
     if (mode == 3) return 0;
     if (mode == 2) {
         D2UnitStrc* player = sub_00463DD0_GetPlayerUnit();
@@ -569,10 +570,10 @@ int __cdecl USEITEM_ClosePanel()
         sub_00468070_SetCursorItemState(player ? INVENTORY_GetCursorItem(inventory) : 0);
     }
     sub_004B9A00(1, 0, 0, 0, 0);
-    if (!gnGlobal_007C5470) {
+    if (!gnUseItemPanelMode) {
         D2UnitStrc* player = sub_00463DD0_GetPlayerUnit();
         int id = !player ? -1 : player->dwUnitId;
-        int value = gnGlobal_007C547C;
+        int value = gnAnvilObjectId;
         sub_00478700_SendCommand(0x44, id, value, 0, 2);
         USEITEM_CloseUseItemPanel();
     } else {
@@ -590,15 +591,15 @@ void __stdcall USEITEM_ClickMsg(SMSGHANDLER_PARAMS* pMsg)
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
-    if (GetTickCount() - gdwTick_007C5488 < 0x190)
+    if (GetTickCount() - gdwUseItemClickTick < 0x190)
         return;
-    gdwTick_007C5488 = GetTickCount();
+    gdwUseItemClickTick = GetTickCount();
     int bHandled;
-    if (gnGlobal_007C5474 == 1)
+    if (gnUseItemDialogState == 1)
     {
         bHandled = WARDENCLIENT_HandlePanelAreaClick(pMsg);
     }
-    else if (gnGlobal_007C5474 == 2)
+    else if (gnUseItemDialogState == 2)
     {
         bHandled = sub_00489190(pMsg);
     }
@@ -621,7 +622,7 @@ check_item:
         return;
     if (ITEMS_CheckItemFlag(pItem, 0x10, 0x210, ".\\UI\\UseItem.cpp"))
     {
-        if (gnGlobal_007C5470 == 1)
+        if (gnUseItemPanelMode == 1)
         {
             if (MONSTER_GetUseItemMode() == 0x9A && ITEMS_CanBeImbued(pItem))
                 goto use_item;
@@ -630,7 +631,7 @@ check_item:
             if (MONSTER_GetUseItemMode() == 0x200 && sub_0062C6A0(pItem))
                 goto use_item;
         }
-        else if (!gnGlobal_007C5470 && pTxt->dwCode == 0x20747368)
+        else if (!gnUseItemPanelMode && pTxt->dwCode == 0x20747368)
         {
             goto use_item;
         }
@@ -653,31 +654,31 @@ void __stdcall USEITEM_EatMsg(SMSGHANDLER_PARAMS* pMsg)
 void __cdecl USEITEM_DrawUseItemPanel()
 {
  int oldFont=sub_00502EF0(1);
- int mode=gnGlobal_007C5470;
+ int mode=gnUseItemPanelMode;
  if(mode==1 || mode==0){
   D2CelContextStrc context;
   memset(&context,0,sizeof(context));
   context.direction=0;
-  if(mode==0)context.cellFile=gpCelFile_007C5498;
-  else context.cellFile=gpCelFile_007C5494;
+  if(mode==0)context.cellFile=gpHoradricBackCel;
+  else context.cellFile=gpUpgradeCel;
   context.frame=0;
   sub_004F6480(&context,105,270,-1,5,0);
   context.cellFile=GAME_GetBuySellButtonCells();
-  for(int i=0;i<gnGlobal_007278FC;++i){
-   const int drawY=gaHotspots_00727900[i].y;
-   const int drawX=gaHotspots_00727900[i].x;
-   context.frame=gaHotspots_00727900[i].frame+(gaHotspots_00727900[i].hovered!=0);
+  for(int i=0;i<gnHotspotCount;++i){
+   const int drawY=gaUseItemHotspots[i].y;
+   const int drawX=gaUseItemHotspots[i].x;
+   context.frame=gaUseItemHotspots[i].frame+(gaUseItemHotspots[i].hovered!=0);
    sub_004F6480(&context,drawX,drawY,-1,5,0);
   }
   int mouseX=sub_00468730_GetMouseX();
   int mouseY=sub_00468740_GetMouseY();
-  if(mouseX<320 && mouseY<gnGlobal_00711470-48){
-   for(int i=0;i<gnGlobal_007278FC;++i){
-    D2HotspotStrc* spot=&gaHotspots_00727900[i];
+  if(mouseX<320 && mouseY<gnScreenHeight-48){
+   for(int i=0;i<gnHotspotCount;++i){
+    D2HotspotStrc* spot=&gaUseItemHotspots[i];
     if(mouseX>=spot->left && mouseX<=spot->right && mouseY>=spot->top && mouseY<=spot->bottom){
      unsigned short textIndex=spot->textIndex;
      if(textIndex==4017){
-      if(gnGlobal_007C5470==0)textIndex=3401;
+      if(gnUseItemPanelMode==0)textIndex=3401;
       if(MONSTER_GetUseItemMode()==511)textIndex=22748;
       else if(MONSTER_GetUseItemMode()==512)textIndex=22749;
      }
@@ -688,7 +689,7 @@ void __cdecl USEITEM_DrawUseItemPanel()
     }
    }
   }
-  if(gnGlobal_007C5470==1){
+  if(gnUseItemPanelMode==1){
    unsigned short textIndex=10076;
    if(MONSTER_GetUseItemMode()==511)textIndex=22750;
    else if(MONSTER_GetUseItemMode()==512)textIndex=22747;
@@ -701,14 +702,14 @@ void __cdecl USEITEM_DrawUseItemPanel()
     int lineWidth=D2Win_10121_GetTextWidth(line->text);
     D2Win_10117_DrawText(line->text,160-lineWidth/2,y,4,0);
     T0044CB60* next=line->next;
-    FOG_Free(line->text,gszUseItemCpp_006DAB50,707,0);
-    FOG_Free(line,gszUseItemCpp_006DAB50,708,0);
+    FOG_Free(line->text,gszUseItemCpp,707,0);
+    FOG_Free(line,gszUseItemCpp,708,0);
     y+=20;line=next;
     } while(line);
    }
   }
  }
- if(gpGlobal_007C5484)sub_004B8100_DrawControl(gpGlobal_007C5484);
+ if(gpUseItemConfirmDialog)sub_004B8100_DrawControl(gpUseItemConfirmDialog);
  sub_00502EF0(oldFont);
 }
 
@@ -720,14 +721,14 @@ void __cdecl sub_004C0080_Return()
 // 0x004C0090
 void __cdecl USEITEM_CloseUseItemPanel()
 {
-    gnGlobal_007C5474 = 0;
+    gnUseItemDialogState = 0;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     USEITEM_ToggleUseMode(pPlayer ? INVENTORY_GetCursorItem(pPlayer->pInventory) : 0);
-    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_00727950, 8);
-    if (gpGlobal_007C5484)
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaUseItemHandlers, 8);
+    if (gpUseItemConfirmDialog)
     {
-        DIALOG_DestroyDialog(gpGlobal_007C5484);
-        gpGlobal_007C5484 = 0;
+        DIALOG_DestroyDialog(gpUseItemConfirmDialog);
+        gpUseItemConfirmDialog = 0;
     }
     sub_00455F20(0xE, 1, 0);
     sub_00467430(0);
@@ -739,7 +740,7 @@ void __stdcall USEITEM_OnPanelCloseMsg(SMSGHANDLER_PARAMS* pMsg)
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
-    const int nMode = gnGlobal_007C5474;
+    const int nMode = gnUseItemDialogState;
     if (nMode != 1)
     {
         if (nMode != 2)
@@ -752,11 +753,11 @@ void __stdcall USEITEM_OnPanelCloseMsg(SMSGHANDLER_PARAMS* pMsg)
         sub_00468070_SetCursorItemState(pPlayer ? INVENTORY_GetCursorItem(pInventory) : 0);
     }
 
-    if (!gnGlobal_007C5470)
+    if (!gnUseItemPanelMode)
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         const int nUnitId = !pPlayer ? -1 : pPlayer->dwUnitId;
-        const int nValue = gnGlobal_007C547C;
+        const int nValue = gnAnvilObjectId;
         sub_00478700_SendCommand(0x44, nUnitId, nValue, 0, 2);
         sub_004C0090();
     }
@@ -771,16 +772,16 @@ void __stdcall USEITEM_OnPanelCloseMsg(SMSGHANDLER_PARAMS* pMsg)
 void __cdecl USEITEM_OpenPanel()
 {
     UI_CloseUIVars(0, 0);
-    gnGlobal_007C5474 = 1;
-    gdwTick_007C5488 = GetTickCount();
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMsgHandlers_00727950, 8);
+    gnUseItemDialogState = 1;
+    gdwUseItemClickTick = GetTickCount();
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaUseItemHandlers, 8);
     sub_00487B80();
     if (!sub_00455F20(14, 0, 0))
     {
-        if (!gnGlobal_007C5470)
+        if (!gnUseItemPanelMode)
         {
             D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-            sub_00478700_SendCommand(0x44, !pPlayer ? -1 : pPlayer->dwUnitId, gnGlobal_007C547C, 0, 2);
+            sub_00478700_SendCommand(0x44, !pPlayer ? -1 : pPlayer->dwUnitId, gnAnvilObjectId, 0, 2);
             sub_004C0090();
         }
         else
@@ -803,7 +804,7 @@ void __cdecl USEITEM_OpenPanel()
 // 0x004C0620
 void __fastcall USEITEM_OpenNpcItemPanel(int nValue)
 {
-    gnGlobal_007C5470 = 1;
+    gnUseItemPanelMode = 1;
     gnGlobal_007C5478 = nValue;
     USEITEM_OpenPanel();
 }

@@ -23,9 +23,9 @@ struct D2PlayerModeInfoStrc
     int nDoneMode;
 };
 
-extern D2PlayerModeInfoStrc gaPlayerModeInfo_00711E00[];                                                    // 0x00711E00
+extern D2PlayerModeInfoStrc gaPlayerModeInfo[];                                                    // 0x00711E00
 extern void* gpDrlgAct_007A0634;                                                                            // 0x007A0634
-extern int gnInTown_007A5260;                                                                               // 0x007A5260
+extern int gnInTown;                                                                               // 0x007A5260
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                                                           // 0x00463DE0
@@ -160,9 +160,9 @@ static void PLAYER_UpdateRoomState(D2UnitStrc* pUnit)
     UNITS_SetPlayerPortalFlags(pUnit, nPortalFlags);
     sub_0061AF10(gpDrlgAct_007A0634, PATH_GetNextRoom(pUnit->pDynamicPath), UNITS_GetRoom(pUnit));
     const int bInTown = DUNGEON_IsRoomInTown(pRoom) != 0;
-    if (gnInTown_007A5260 != bInTown && !bInTown)
+    if (gnInTown != bInTown && !bInTown)
         NPCMENU_RefreshNpcEntries(pUnit);
-    gnInTown_007A5260 = bInTown;
+    gnInTown = bInTown;
     sub_00473C90_SetGlobal(DUNGEON_CheckLOSDraw(pRoom));
     sub_0046BF30_CheckThroneLevel(pRoom);
 }
@@ -523,7 +523,7 @@ void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* pUnit)
 {
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
     int bPathDone = 0;
-    if (gaPlayerModeInfo_00711E00[pUnit->dwAnimMode].nType == 1)
+    if (gaPlayerModeInfo[pUnit->dwAnimMode].nType == 1)
     {
         bPathDone = UNITMODE_UpdateUnitPath(pUnit);
         if (pUnit == sub_00463DD0_GetPlayerUnit())
@@ -531,7 +531,7 @@ void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* pUnit)
         UNITSND_UpdateFootsteps(pUnit);
     }
 
-    if (gaPlayerModeInfo_00711E00[pUnit->dwAnimMode].nType == 2)
+    if (gaPlayerModeInfo[pUnit->dwAnimMode].nType == 2)
     {
         D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
         if (pSkill)
@@ -559,7 +559,7 @@ void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* pUnit)
         }
     }
 
-    switch (gaPlayerModeInfo_00711E00[pUnit->dwAnimMode].nSeqMode)
+    switch (gaPlayerModeInfo[pUnit->dwAnimMode].nSeqMode)
     {
     case 0:
         UNITS_StopSequence(pUnit);
@@ -589,7 +589,7 @@ void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* pUnit)
         GFX_RefreshUnitGfx(pUnit, 0);
 
     int bDone;
-    switch (gaPlayerModeInfo_00711E00[pUnit->dwAnimMode].nDoneMode)
+    switch (gaPlayerModeInfo[pUnit->dwAnimMode].nDoneMode)
     {
     case 1:
         bDone = bPathDone;

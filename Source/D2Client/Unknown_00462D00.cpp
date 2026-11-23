@@ -25,11 +25,11 @@ struct D2GfxLightStrc;
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 extern void* gpDrlgAct_007A0634;                                                                            // 0x007A0634
-extern int gnInTown_007A5260;                                                                               // 0x007A5260
-extern unsigned int gdwLastTick_007A5268;                                                                   // 0x007A5268
-int gdwGlobal_007A5264;                                                                                     // 0x007A5264
-extern int gnStringCount_00711EF0;                                                                          // 0x00711EF0
-extern D2StringRefStrc gaStringRefs_00711DDC[];                                                             // 0x00711DDC
+extern int gnInTown;                                                                               // 0x007A5260
+extern unsigned int gdwLastClampTick;                                                                   // 0x007A5268
+int gbPlayerCommandPending;                                                                                     // 0x007A5264
+extern int gnStringCount;                                                                          // 0x00711EF0
+extern D2StringRefStrc gaStringRefs[];                                                             // 0x00711DDC
 
 void __cdecl GAME_SetClickHandled(); // 0x0044BEF0
 int __cdecl sub_0044DA90(); // 0x0044DA90
@@ -209,9 +209,9 @@ static void PLAYER_UpdateRoomState(D2UnitStrc* pUnit)
     UNITS_SetPlayerPortalFlags(pUnit, nPortalFlags);
     sub_0061AF10(gpDrlgAct_007A0634, PATH_GetNextRoom(pUnit->pDynamicPath), UNITS_GetRoom(pUnit));
     const int bInTown = DUNGEON_IsRoomInTown(pRoom) != 0;
-    if (gnInTown_007A5260 != bInTown && !bInTown)
+    if (gnInTown != bInTown && !bInTown)
         NPCMENU_RefreshNpcEntries(pUnit);
-    gnInTown_007A5260 = bInTown;
+    gnInTown = bInTown;
     sub_00473C90_SetGlobal(DUNGEON_CheckLOSDraw(pRoom));
     sub_0046BF30_CheckThroneLevel(pRoom);
 }
@@ -291,8 +291,8 @@ static void PLAYER_ResetPlayerState(D2UnitStrc* pUnit)
 // build: symbol ?PLAYER_RequestSkillString@* 0x00461070
 static void __stdcall PLAYER_RequestSkillString(D2UnitStrc* pUnit, int nIndex)
 {
-    D2_ASSERT(gnStringCount_00711EF0 > nIndex, 0x2CB);
-    const unsigned short nStringId = gaStringRefs_00711DDC[nIndex].nStringId;
+    D2_ASSERT(gnStringCount > nIndex, 0x2CB);
+    const unsigned short nStringId = gaStringRefs[nIndex].nStringId;
     if (nStringId)
         sub_004CB9C0_Request(pUnit, nStringId);
 }
@@ -916,13 +916,13 @@ static int __stdcall PLAYER_ClampTarget(D2UnitStrc* pUnit, D2PlayerCmdStrc* pCmd
         case 2:
         case 3:
         case 6:
-            if (dwTick - gdwLastTick_007A5268 < 7)
+            if (dwTick - gdwLastClampTick < 7)
                 return 0;
             break;
         }
     }
 
-    gdwLastTick_007A5268 = dwTick;
+    gdwLastClampTick = dwTick;
     return 1;
 }
 
@@ -1251,10 +1251,10 @@ int __fastcall sub_00462D00_PlayerCommand(int nCommand, int nX, int nY, unsigned
     if (GAME_GetUIVarState(9))
         return 0;
 
-    if (gdwGlobal_007A5264 && (nX || nY))
+    if (gbPlayerCommandPending && (nX || nY))
         return 0;
 
-    gdwGlobal_007A5264 = 1;
+    gbPlayerCommandPending = 1;
     AUTOMAP_ScreenToMap(&nX, &nY);
     D2PlayerCmdStrc tCmd = {};
     tCmd.dwFlags = 0;

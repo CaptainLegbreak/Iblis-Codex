@@ -22,17 +22,17 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* 
 
 extern "C" const char szFmtD_006D57BC[]; // 0x006D57BC
 
-extern "C" const char szFmtRange_006D9D70[]; // 0x006D9D70
+extern "C" const char gszFmtRange[]; // 0x006D9D70
 
-extern "C" const char szFmtRangeKK_006DBEAC[]; // 0x006DBEAC
+extern "C" const char gszFmtRangeKK[]; // 0x006DBEAC
 
-extern "C" const char szFmtRangeK_006DBEB8[]; // 0x006DBEB8
+extern "C" const char gszFmtRangeK[]; // 0x006DBEB8
 
-extern int gnGlobal_00711470; // 0x00711470
+extern int gnScreenHeight; // 0x00711470
 
-extern int gnGlobal_007A2858; // 0x007A2858
+extern int gnPanelOffsetX; // 0x007A2858
 
-extern int gnGlobal_007A285C; // 0x007A285C
+extern int gnPanelOffsetY; // 0x007A285C
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -128,7 +128,7 @@ static int __stdcall sub_004EC140_AddElemRange(int nMin, unsigned short nString,
 
 struct D2UnitStrc;
 
-extern "C" const char gszFormatD_006D57BC[];                                                                // 0x006D57BC
+extern "C" const char gszFormatD[];                                                                // 0x006D57BC
 
 static int __stdcall sub_004EC540_AddElemRatePerSecond(unsigned short nString, Unicode* wszText, int nMin, int nMax);
 
@@ -295,15 +295,15 @@ static void __stdcall sub_004E96E0_DrawDamageRange(int nMin, int nMax, int nColo
     }
     else if (nMin < 10000 && nMax < 10000)
     {
-        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szText, gszFmtRange, nMin, nMax);
     }
     else if (nMin >= 10000)
     {
-        wsprintfA(szText, szFmtRangeKK_006DBEAC, &gszEmptyAssertText, (nMin + 500) / 1000, (nMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeKK, &gszEmptyAssertText, (nMin + 500) / 1000, (nMax + 500) / 1000);
     }
     else
     {
-        wsprintfA(szText, szFmtRangeK_006DBEB8, &gszEmptyAssertText, nMin, (nMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeK, &gszEmptyAssertText, nMin, (nMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText, szText, 32);
     int nWidth = 0;
@@ -319,7 +319,7 @@ static void __stdcall sub_004E96E0_DrawDamageRange(int nMin, int nMax, int nColo
     {
         sub_00502EF0(1);
     }
-    TEXT_DrawCenteredText(gnGlobal_007A2858 + nLeft, gnGlobal_00711470 + gnGlobal_007A285C + nY - 480, gnGlobal_007A2858 + nRight, wszText, nColor);
+    TEXT_DrawCenteredText(gnPanelOffsetX + nLeft, gnScreenHeight + gnPanelOffsetY + nY - 480, gnPanelOffsetX + nRight, wszText, nColor);
 }
 
 // 0x004EAE70
@@ -387,13 +387,14 @@ void __fastcall sub_004EB290_DrawElemDamage(D2UnitStrc* pUnit, D2SkillStrc* pSki
     const int nMax = SKILLS_GetMaxElemDamage(pUnit, pSkillsTxt->nSkillId, nLevel, 1);
     const int nColor = sub_004E6FB0_GetETypeColor(pSkillsTxt->nEType);
 
-    int nFrames = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDesc->dwDamCalc[0], SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 3114), nLevel);
+// build: symbol ?gszSkillDescFile@* 0x006DBF24
+    int nFrames = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDesc->dwDamCalc[0], SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 3114), nLevel);
     if (!nFrames)
     {
         nFrames = 1;
     }
 
-    int nDivisor = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDesc->dwDamCalc[1], SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 3119), nLevel);
+    int nDivisor = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDesc->dwDamCalc[1], SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 3119), nLevel);
     if (!nDivisor)
     {
         nDivisor = 1;
@@ -413,11 +414,11 @@ static int __stdcall sub_004EC540_AddElemRatePerSecond(unsigned short nString, U
 
     if (nMin == nMax)
     {
-        wsprintfA(szNumber, gszFormatD_006D57BC, nMin);
+        wsprintfA(szNumber, gszFormatD, nMin);
     }
     else
     {
-        wsprintfA(szNumber, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szNumber, gszFmtRange, nMin, nMax);
     }
     sub_00526320_ToUnicode(wszNumber, szNumber, 32);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x10E2));
@@ -581,7 +582,7 @@ static int __stdcall sub_004EC140_AddElemRange(int nMin, unsigned short nString,
 
     if ((nMin || nMax) && nMin != nMax)
     {
-        wsprintfA(szNumber, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szNumber, gszFmtRange, nMin, nMax);
     }
     else
     {

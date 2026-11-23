@@ -16,7 +16,7 @@ void __cdecl VIEW_DrawHelpLinesLowRes();                                        
 void __cdecl VIEW_DrawHelpLinesHighRes();                                                               // 0x00494A00
 void __cdecl VIEW_DrawHelpPanelCel();                                                                   // 0x00494E40
 void __cdecl sub_00495DC0_DrawHelpText();                                                                   // 0x00495DC0
-extern int gbHelpUiOpened_007BEF00;                                                                         // 0x007BEF00
+extern int gbHelpUiOpened;                                                                         // 0x007BEF00
 
 static int __fastcall GetCenteredX_Inl(unsigned short nString, int nX)
 {
@@ -142,7 +142,7 @@ void __cdecl sub_004966C0_DrawHelpScreen()
     if (!GAME_GetUIVarState(0x15))
     {
         sub_00455F20(0x15, 0, 0);
-        gbHelpUiOpened_007BEF00 = 1;
+        gbHelpUiOpened = 1;
     }
     if (D2GFX_GetResolutionMode() == 2)
     {

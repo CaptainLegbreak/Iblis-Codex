@@ -35,11 +35,11 @@ void __cdecl sub_004E00C0_CloseSoundChannels(); // 0x004E00C0
 
 void __cdecl SOUNDHDR_ReleaseSoundTables(); // 0x004828B0
 
-extern int gdwGlobal_007BC9BC; // 0x007BC9BC
+extern int gdwSoundTick; // 0x007BC9BC
 
-unsigned int gnCacheMax_007BC9CC; // 0x007BC9CC
+unsigned int gnCacheMax; // 0x007BC9CC
 
-unsigned int gdwCacheUsed_007BC9D0; // 0x007BC9D0
+unsigned int gdwCacheUsed; // 0x007BC9D0
 
 #pragma pack(push, 1)
 
@@ -97,11 +97,11 @@ D2BinFileStrc* __stdcall FOG_CreateBinFile(void* pDataBuffer, int nBufferSize); 
 
 void __stdcall FOG_10207(D2BinFileStrc* pBinFile, D2BinFieldStrc* pBinField, void* pTxt, int nRecordCount, int nRecordSize); // 0x006BD780
 
-unsigned int gnCacheLastTick_007BC9C0; // 0x007BC9C0
+unsigned int gnCacheLastTick; // 0x007BC9C0
 
-unsigned int gnCacheLastLoadTick_007BC9C4; // 0x007BC9C4
+unsigned int gnCacheLastLoadTick; // 0x007BC9C4
 
-unsigned int gnCacheLoading_007BC9C8; // 0x007BC9C8
+unsigned int gnCacheLoading; // 0x007BC9C8
 
 void __fastcall SOUNDHDR_LoadCacheEntry(int nIndex, int bDirect, int nArg); // 0x00482970
 
@@ -166,21 +166,21 @@ int __fastcall D2Win_10121_GetTextWidth(const U16* text); // 0x00501820
 
 void __fastcall D2Win_10117_DrawText(const U16* text, int x, int y, int color, int mode); // 0x00502320
 
-D2ClientCacheNodeStrc* gpCacheList_007BC9B8; // 0x007BC9B8
+D2ClientCacheNodeStrc* gpCacheList; // 0x007BC9B8
 
-static int gnSoundsTxtRecordCount_007BC9A4; // 0x007BC9A4
+static int gnClientSoundsTxtRecordCount; // 0x007BC9A4
 
-int* gpSongTable_007BC99C; // 0x007BC99C
+int* gpSongTable; // 0x007BC99C
 
 static D2SoundsTxtStrc* sgptSoundHeaderTable; // 0x007BC9A0
 
 D2SoundEnvironTxtStrc* sgptSoundEnvironTable; // 0x007BC9A8
 
-int gnSoundEnvironTxtRecordCount_007BC9AC; // 0x007BC9AC
+int gnSoundEnvironTxtRecordCount; // 0x007BC9AC
 
-static int gnSongMax_007BC9B4; // 0x007BC9B4
+static int gnSongMax; // 0x007BC9B4
 
-static int gnSongMin_007BC9B0; // 0x007BC9B0
+static int gnSongMin; // 0x007BC9B0
 
 // 0x00481720
 static void SOUNDHDR_FinishCacheLoad(D2SoundsTxtStrc* pEntry)
@@ -190,13 +190,13 @@ static void SOUNDHDR_FinishCacheLoad(D2SoundsTxtStrc* pEntry)
     pEntry->nSize = sub_0040AA40(pEntry->pAsync);
     pEntry->nState = 2;
     ITEM_QueryCacheAddress(pEntry);
-    gnCacheLoading_007BC9C8 -= 1;
+    gnCacheLoading -= 1;
 }
 
 // 0x00481860
 D2SoundsTxtStrc* __fastcall SOUNDHDR_GetSoundRecord(int nIndex)
 {
-    if (sgptSoundHeaderTable && nIndex >= 0 && nIndex < gnSoundsTxtRecordCount_007BC9A4)
+    if (sgptSoundHeaderTable && nIndex >= 0 && nIndex < gnClientSoundsTxtRecordCount)
         return &sgptSoundHeaderTable[nIndex];
     return 0;
 }
@@ -291,26 +291,26 @@ void __cdecl SOUNDHDR_LoadSoundTables()
     wsprintfA(szPath, "%s\\sounds.txt", "DATA\\GLOBAL\\EXCEL");
     void* pData = sub_00517079(D2Win_GetArchive(), szPath, &nSize, ".\\Sound\\SoundHdr.cpp", 0x101);
     D2BinFileStrc* pBinFile = FOG_CreateBinFile(pData, nSize);
-    gnSoundsTxtRecordCount_007BC9A4 = FOG_GetRecordCountFromBinFile(pBinFile);
-    D2SoundsTxtStrc* pSounds = (D2SoundsTxtStrc*)FOG_Alloc(gnSoundsTxtRecordCount_007BC9A4 * sizeof(D2SoundsTxtStrc), ".\\Sound\\SoundHdr.cpp", 0x106, 0);
+    gnClientSoundsTxtRecordCount = FOG_GetRecordCountFromBinFile(pBinFile);
+    D2SoundsTxtStrc* pSounds = (D2SoundsTxtStrc*)FOG_Alloc(gnClientSoundsTxtRecordCount * sizeof(D2SoundsTxtStrc), ".\\Sound\\SoundHdr.cpp", 0x106, 0);
     sgptSoundHeaderTable = pSounds;
-    memset(pSounds, 0, gnSoundsTxtRecordCount_007BC9A4 * sizeof(D2SoundsTxtStrc));
-    FOG_10207(pBinFile, pTbl2, pSounds, gnSoundsTxtRecordCount_007BC9A4, sizeof(D2SoundsTxtStrc));
+    memset(pSounds, 0, gnClientSoundsTxtRecordCount * sizeof(D2SoundsTxtStrc));
+    FOG_10207(pBinFile, pTbl2, pSounds, gnClientSoundsTxtRecordCount, sizeof(D2SoundsTxtStrc));
     FOG_FreeBinFile(pBinFile);
 
     wsprintfA(szPath, "%s\\soundenviron.txt", "DATA\\GLOBAL\\EXCEL");
     pData = sub_00517079(D2Win_GetArchive(), szPath, &nSize, ".\\Sound\\SoundHdr.cpp", 0x10D);
     pBinFile = FOG_CreateBinFile(pData, nSize);
-    gnSoundEnvironTxtRecordCount_007BC9AC = FOG_GetRecordCountFromBinFile(pBinFile);
-    D2SoundEnvironTxtStrc* pSoundEnviron = (D2SoundEnvironTxtStrc*)FOG_Alloc(gnSoundEnvironTxtRecordCount_007BC9AC * sizeof(D2SoundEnvironTxtStrc), ".\\Sound\\SoundHdr.cpp", 0x112, 0);
+    gnSoundEnvironTxtRecordCount = FOG_GetRecordCountFromBinFile(pBinFile);
+    D2SoundEnvironTxtStrc* pSoundEnviron = (D2SoundEnvironTxtStrc*)FOG_Alloc(gnSoundEnvironTxtRecordCount * sizeof(D2SoundEnvironTxtStrc), ".\\Sound\\SoundHdr.cpp", 0x112, 0);
     sgptSoundEnvironTable = pSoundEnviron;
-    memset(pSoundEnviron, 0, gnSoundEnvironTxtRecordCount_007BC9AC * sizeof(D2SoundEnvironTxtStrc));
-    FOG_10207(pBinFile, pTbl, pSoundEnviron, gnSoundEnvironTxtRecordCount_007BC9AC, sizeof(D2SoundEnvironTxtStrc));
+    memset(pSoundEnviron, 0, gnSoundEnvironTxtRecordCount * sizeof(D2SoundEnvironTxtStrc));
+    FOG_10207(pBinFile, pTbl, pSoundEnviron, gnSoundEnvironTxtRecordCount, sizeof(D2SoundEnvironTxtStrc));
     FOG_FreeBinFile(pBinFile);
 
     int nGroupStart = 0;
     int nGroupSize = 1;
-    for (int i = 1; i < gnSoundsTxtRecordCount_007BC9A4; ++i)
+    for (int i = 1; i < gnClientSoundsTxtRecordCount; ++i)
     {
         D2SoundsTxtStrc* pSound = &sgptSoundHeaderTable[i];
         if (nGroupStart && i >= nGroupStart && i < nGroupSize + nGroupStart)
@@ -338,25 +338,25 @@ void __cdecl SOUNDHDR_LoadSoundTables()
     }
 
     D2SoundEnvironTxtStrc* pEnv = sgptSoundEnvironTable;
-    gnSongMin_007BC9B0 = gnSoundsTxtRecordCount_007BC9A4;
-    gnSongMax_007BC9B4 = 0;
-    for (int j = 0; j < gnSoundEnvironTxtRecordCount_007BC9AC; ++j, ++pEnv)
+    gnSongMin = gnClientSoundsTxtRecordCount;
+    gnSongMax = 0;
+    for (int j = 0; j < gnSoundEnvironTxtRecordCount; ++j, ++pEnv)
     {
         const int nSong = pEnv->f_0;
         if (nSong > 0)
         {
-            if (nSong < gnSongMin_007BC9B0)
-                gnSongMin_007BC9B0 = nSong;
-            int nNewMax = gnSongMax_007BC9B4;
+            if (nSong < gnSongMin)
+                gnSongMin = nSong;
+            int nNewMax = gnSongMax;
             if (nSong > nNewMax)
                 nNewMax = nSong;
-            gnSongMax_007BC9B4 = nNewMax;
+            gnSongMax = nNewMax;
         }
     }
 
-    const int nSongCount = gnSongMax_007BC9B4 - gnSongMin_007BC9B0 + 1;
-    gpSongTable_007BC99C = (int*)FOG_Alloc(nSongCount * sizeof(int), ".\\Sound\\SoundHdr.cpp", 0x147, 0);
-    memset(gpSongTable_007BC99C, 0, nSongCount * sizeof(int));
+    const int nSongCount = gnSongMax - gnSongMin + 1;
+    gpSongTable = (int*)FOG_Alloc(nSongCount * sizeof(int), ".\\Sound\\SoundHdr.cpp", 0x147, 0);
+    memset(gpSongTable, 0, nSongCount * sizeof(int));
 }
 
 // 0x004828B0
@@ -366,18 +366,18 @@ void __cdecl SOUNDHDR_ReleaseSoundTables()
     {
         FOG_Free(sgptSoundEnvironTable, ".\\Sound\\SoundHdr.cpp", 385, 0);
         sgptSoundEnvironTable = 0;
-        gnSoundEnvironTxtRecordCount_007BC9AC = 0;
+        gnSoundEnvironTxtRecordCount = 0;
     }
     if (sgptSoundHeaderTable)
     {
-        for (int index = 1; index < gnSoundsTxtRecordCount_007BC9A4; index += 1)
+        for (int index = 1; index < gnClientSoundsTxtRecordCount; index += 1)
             SOUNDHDR_ReleaseCacheEntry(index);
         FOG_Free(sgptSoundHeaderTable, ".\\Sound\\SoundHdr.cpp", 398, 0);
         sgptSoundHeaderTable = 0;
-        gnSoundsTxtRecordCount_007BC9A4 = 0;
+        gnClientSoundsTxtRecordCount = 0;
     }
-    gnSongMin_007BC9B0 = 0;
-    gnSongMax_007BC9B4 = 0;
+    gnSongMin = 0;
+    gnSongMax = 0;
 }
 
 // 0x00482710
@@ -411,10 +411,10 @@ void __fastcall SOUNDHDR_UpdateSoundSystem(int nArg)
     SKILLS_ResetLevelSpeech();
 // build: symbol ?D2SOUND_SetMasterVolume@* 0x00515CE0
     D2SOUND_SetMasterVolume(0xFF);
-    gdwGlobal_007BC9BC = 0;
-    gnCacheLastTick_007BC9C0 = 0;
-    gnCacheLastLoadTick_007BC9C4 = 0;
-    gnCacheLoading_007BC9C8 = 0;
+    gdwSoundTick = 0;
+    gnCacheLastTick = 0;
+    gnCacheLastLoadTick = 0;
+    gnCacheLoading = 0;
 }
 
 // 0x00482940
@@ -470,8 +470,8 @@ void __fastcall SOUNDHDR_ReleaseCacheEntry(int nIndex)
         sub_00408A60(&gszEmptyAssertText_006CC837, sub_00408090(), 0x259);
         exit(-1);
     }
-    gdwCacheUsed_007BC9D0 -= pEntry->nSize;
-    D2SOUND_ListRemove(&gpCacheList_007BC9B8, nIndex);
+    gdwCacheUsed -= pEntry->nSize;
+    D2SOUND_ListRemove(&gpCacheList, nIndex);
     pEntry->dwLastUse = 0;
     if (pEntry->pAsync)
     {
@@ -557,15 +557,15 @@ int __fastcall SOUNDHDR_PickVariant(int nIndex)
 // 0x00482860
 void __fastcall SOUNDHDR_TouchCacheEntry(int nIndex)
 {
-    SOUNDHDR_GetSoundRecord(nIndex)->dwLastUse = gdwGlobal_007BC9BC;
-    D2SOUND_ListRemove(&gpCacheList_007BC9B8, nIndex);
-    D2SOUND_ListAddTail(&gpCacheList_007BC9B8, nIndex);
+    SOUNDHDR_GetSoundRecord(nIndex)->dwLastUse = gdwSoundTick;
+    D2SOUND_ListRemove(&gpCacheList, nIndex);
+    D2SOUND_ListAddTail(&gpCacheList, nIndex);
 }
 
 // 0x00481840
 void __fastcall SOUNDHDR_SetCacheMax(unsigned int nMax)
 {
-    gnCacheMax_007BC9CC = nMax;
+    gnCacheMax = nMax;
 }
 
 // 0x00481850
@@ -577,12 +577,12 @@ void __cdecl sub_00481850()
 void __fastcall SOUNDHDR_LoadCacheEntry(int nIndex, int bDirect, int nArg)
 {
     D2SoundsTxtStrc* pEntry;
-    if (sgptSoundHeaderTable && nIndex >= 0 && nIndex < gnSoundsTxtRecordCount_007BC9A4)
+    if (sgptSoundHeaderTable && nIndex >= 0 && nIndex < gnClientSoundsTxtRecordCount)
         pEntry = &sgptSoundHeaderTable[nIndex];
     else
         pEntry = 0;
 
-    const int nSaved = gdwGlobal_007BC9BC;
+    const int nSaved = gdwSoundTick;
     if (pEntry->bFailed)
         return;
 
@@ -612,12 +612,12 @@ void __fastcall SOUNDHDR_LoadCacheEntry(int nIndex, int bDirect, int nArg)
     const unsigned int nSize = FOG_FGetFileSize(hFile, 0);
 // build: symbol ?FOG_FCloseFile@* 0x004068F0
     FOG_FCloseFile(hFile);
-    if (gdwCacheUsed_007BC9D0 + nSize > gnCacheMax_007BC9CC)
+    if (gdwCacheUsed + nSize > gnCacheMax)
     {
-        const unsigned int nFree = gdwCacheUsed_007BC9D0 - gnCacheMax_007BC9CC + nSize;
+        const unsigned int nFree = gdwCacheUsed - gnCacheMax + nSize;
         if (!INV_FreeCacheEntries(nFree, bDirect, nArg))
         {
-            gnCacheLastLoadTick_007BC9C4 = nSaved;
+            gnCacheLastLoadTick = nSaved;
             return;
         }
     }
@@ -626,7 +626,7 @@ void __fastcall SOUNDHDR_LoadCacheEntry(int nIndex, int bDirect, int nArg)
     {
         pEntry->pData = ARCHIVE_AllocateBufferAndReadFile(D2Win_GetArchive(), szPath, &pEntry->nSize, ".\\Sound\\SoundHdr.cpp", 0x301);
         D2_ASSERT(pEntry->pData && pEntry->nSize, 0x302);
-        gdwCacheUsed_007BC9D0 += pEntry->nSize;
+        gdwCacheUsed += pEntry->nSize;
         SOUNDHDR_TouchCacheEntry(nIndex);
         pEntry->nState = 2;
         ITEM_QueryCacheAddress(pEntry);
@@ -637,10 +637,10 @@ void __fastcall SOUNDHDR_LoadCacheEntry(int nIndex, int bDirect, int nArg)
     if (pEntry->pAsync)
     {
         const unsigned int nAsyncSize = sub_0040AA40(pEntry->pAsync);
-        gdwCacheUsed_007BC9D0 += nAsyncSize;
+        gdwCacheUsed += nAsyncSize;
         pEntry->nSize = nAsyncSize;
         SOUNDHDR_TouchCacheEntry(nIndex);
-        gnCacheLoading_007BC9C8 += 1;
+        gnCacheLoading += 1;
         pEntry->nState = 1;
     }
 }
@@ -652,7 +652,7 @@ void __fastcall SOUNDHDR_UpdateCache(unsigned int nTick)
         return;
 
     const int bForce = nTick == 0;
-    if (nTick && nTick - gnCacheLastTick_007BC9C0 < 0x19)
+    if (nTick && nTick - gnCacheLastTick < 0x19)
         return;
 
     for (int i = 1; i <= 0xB75; i++)
@@ -662,9 +662,9 @@ void __fastcall SOUNDHDR_UpdateCache(unsigned int nTick)
         {
             if (!bForce)
             {
-                if (gnCacheLoading_007BC9C8 >= 0xF)
+                if (gnCacheLoading >= 0xF)
                     continue;
-                if (nTick - gnCacheLastLoadTick_007BC9C4 < 0xFA)
+                if (nTick - gnCacheLastLoadTick < 0xFA)
                     continue;
             }
             SOUNDHDR_LoadCacheEntry(i, bForce, 1);
@@ -672,5 +672,5 @@ void __fastcall SOUNDHDR_UpdateCache(unsigned int nTick)
         if (pEntry->nState == 1 && sub_0040A7F0_AsyncDataCheck(pEntry->pAsync))
             SOUNDHDR_FinishCacheLoad(pEntry);
     }
-    gnCacheLastTick_007BC9C0 = nTick;
+    gnCacheLastTick = nTick;
 }

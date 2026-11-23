@@ -81,12 +81,12 @@ void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2UnitOverlayStrc* pOve
 int __cdecl sub_004FAC90_CheckCharArchive(); // 0x004FAC90
 void __cdecl PARTICLE_InitModeTokens(); // 0x004DA790
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-extern D2MonGfxCacheStrc* gpPoolBlock_007A80FC; // 0x007A80FC
-extern D2HashedFileStrc gtHashedFile_007A8100; // 0x007A8100
-extern D2HashedFileStrc gtHashedFile_007A78F0; // 0x007A78F0
+extern D2MonGfxCacheStrc* gpPoolBlock; // 0x007A80FC
+extern D2HashedFileStrc gtUnitGfxHashedFile; // 0x007A8100
+extern D2HashedFileStrc gtGlobalHashedFile; // 0x007A78F0
 extern char gData_007A7490[0x460]; // 0x007A7490
-extern int gdwGlobal_007A8910; // 0x007A8910
-extern int gdwGlobal_007A891C; // 0x007A891C
+extern int gdwLastPreloadTick; // 0x007A8910
+extern int gnCofMemoryLimit; // 0x007A891C
 
 
 
@@ -135,24 +135,24 @@ int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit); // 0x00648B90
-extern int gbPhaseActive_007A8A1C; // 0x007A8A1C
-extern int gbPhaseBusy_007A8A20; // 0x007A8A20
-extern int gnPhaseRange_007A8958[]; // 0x007A8958
-extern int gnPhaseOffset_007A8970[]; // 0x007A8970
-extern D2RosterPetStrc* gpRosterPets_007BB5BC; // 0x007BB5BC
-extern D2MsgHandlerEntryStrc gtChatHandlers_00712F4C[]; // 0x00712F4C
-extern D2MsgHandlerEntryStrc gtChatInputHandlers_00712FA8[]; // 0x00712FA8
-extern unsigned char gbChatInputOpen_007BB5E1; // 0x007BB5E1
-extern int gnLanguageId_007BB5DC; // 0x007BB5DC
-extern unsigned short gwChatText_007BB5F8; // 0x007BB5F8
-extern unsigned short gwChatText_007BC850; // 0x007BC850
+extern int gbPhaseActive; // 0x007A8A1C
+extern int gbPhaseBusy; // 0x007A8A20
+extern int gaWeatherPhaseRange[]; // 0x007A8958
+extern int gaWeatherPhaseOffset[]; // 0x007A8970
+extern D2RosterPetStrc* gpRosterPets; // 0x007BB5BC
+extern D2MsgHandlerEntryStrc gaChatHandlers[]; // 0x00712F4C
+extern D2MsgHandlerEntryStrc gaChatInputHandlers[]; // 0x00712FA8
+extern unsigned char gbChatInputOpen; // 0x007BB5E1
+extern int gnLanguageId; // 0x007BB5DC
+extern unsigned short gwszImeResult; // 0x007BB5F8
+extern unsigned short gwszImeComposition; // 0x007BC850
 extern unsigned short gwChatCount_007BB5E4; // 0x007BB5E4
-extern int gnSlotFrame_007BC918[]; // 0x007BC918
-extern int gnSlotX_007BC898[]; // 0x007BC898
-extern int gnSlotY_007BC8B8[]; // 0x007BC8B8
-extern void* gpSlotCells_007BC964; // 0x007BC964
-extern void* gpWardenBuffer_007BC988; // 0x007BC988
-extern unsigned int gnWardenBufferSize_007BC98C; // 0x007BC98C
+extern int gaSlotFrame[]; // 0x007BC918
+extern int gaSlotX[]; // 0x007BC898
+extern int gaSlotY[]; // 0x007BC8B8
+extern void* gpSlotCells; // 0x007BC964
+extern void* gpWardenBuffer; // 0x007BC988
+extern unsigned int gnWardenBufferSize; // 0x007BC98C
 
 typedef unsigned long DWORD;
 
@@ -186,10 +186,10 @@ int __fastcall GFXUTIL_InitUnitCelContext(D2CelContextStrc* pContext, D2UnitStrc
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pnNumRooms); // 0x00619790
-extern D2MonGfxCacheStrc gaPlayerGfxCache_007A7490[7]; // 0x007A7490
+extern D2MonGfxCacheStrc gaPlayerGfxCache[7]; // 0x007A7490
 extern unsigned int gdwBitMasks[]; // 0x006CE268
-extern int gbPreloadForce_007A8920; // 0x007A8920
-extern int gdwGlobal_007A8928; // 0x007A8928
+extern int gbPreloadForce; // 0x007A8920
+extern int gbCharArchiveLoaded; // 0x007A8928
 static void GFX_PreloadPlayerModes(int bAsync, D2UnitStrc* pUnit); // 0x00470040
 
 D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nWeaponClass, int nIndex); // 0x0046E5A0
@@ -206,7 +206,7 @@ struct D2GfxBoundsStrc
 
 extern "C" void* __fastcall sub_004DB040_identity(void* pointer); // 0x004DB040
 
-int gdwGlobal_007A8928; // 0x007A8928
+int gbCharArchiveLoaded; // 0x007A8928
 
 // 0x0046E100
 int __fastcall GFX_HasOverlay(D2UnitStrc* pUnit, int nOverlay)
@@ -311,7 +311,7 @@ unsigned char* __stdcall GFX_BuildLerpTable(unsigned int nCount, int nSteps)
 // 0x00478FA0
 void __cdecl GFX_UpdatePetFlags()
 {
-    D2RosterPetStrc* pPet = gpRosterPets_007BB5BC;
+    D2RosterPetStrc* pPet = gpRosterPets;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     for (; pPet; pPet = pPet->pNext)
     {
@@ -405,15 +405,15 @@ int __fastcall GFX_GetNodeValue(D2UnitStrc* pUnit, int nMode)
 // 0x00470200
 void __fastcall GFX_InitGfxTables(int nValue)
 {
-    gdwGlobal_007A8910 = 0;
-    gdwGlobal_007A891C = nValue;
-    memset(&gtHashedFile_007A8100, 0, sizeof(gtHashedFile_007A8100));
-    memset(&gtHashedFile_007A78F0, 0, sizeof(gtHashedFile_007A78F0));
+    gdwLastPreloadTick = 0;
+    gnCofMemoryLimit = nValue;
+    memset(&gtUnitGfxHashedFile, 0, sizeof(gtUnitGfxHashedFile));
+    memset(&gtGlobalHashedFile, 0, sizeof(gtGlobalHashedFile));
     memset(gData_007A7490, 0, sizeof(gData_007A7490));
     const int nSize = sgptDataTables->nMonStatsTxtRecordCount * sizeof(D2MonGfxCacheStrc);
-    gpPoolBlock_007A80FC = (D2MonGfxCacheStrc*)sub_0040B430(0, nSize, ".\\ENGINE\\Gfx.cpp", 0x7E1, 0);
-    memset(gpPoolBlock_007A80FC, 0, nSize);
-    gdwGlobal_007A8928 = sub_004FAC90_CheckCharArchive();
+    gpPoolBlock = (D2MonGfxCacheStrc*)sub_0040B430(0, nSize, ".\\ENGINE\\Gfx.cpp", 0x7E1, 0);
+    memset(gpPoolBlock, 0, nSize);
+    gbCharArchiveLoaded = sub_004FAC90_CheckCharArchive();
     PARTICLE_InitModeTokens();
 }
 
@@ -484,53 +484,55 @@ void __fastcall GFX_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nValue)
     }
 }
 
-int gnPhase_007A8A24; // 0x007A8A24
+int gnPhase; // 0x007A8A24
 
-unsigned int gnPhaseTotal_007A8A38; // 0x007A8A38
+unsigned int gnPhaseTotal; // 0x007A8A38
 
-unsigned int gnPhaseLeft_007A8A3C; // 0x007A8A3C
+unsigned int gnPhaseLeft; // 0x007A8A3C
 
-unsigned int gnPhaseMax_007A89C0; // 0x007A89C0
+unsigned int gnPhaseMax; // 0x007A89C0
 
-unsigned char gRowTable_007B5C10[49][0x100]; // 0x007B5C10
+unsigned char gabRowTable[49][0x100]; // 0x007B5C10
 
-int gnChatIndex_007BB5D8; // 0x007BB5D8
+int gnChatHistoryCursor; // 0x007BB5D8
 
 // 0x00473E50
 void __stdcall GFX_StepWeatherPhase(D2SeedStrc* pSeed)
 {
-    int nPhase = gnPhase_007A8A24;
-    if (gbPhaseActive_007A8A1C && nPhase != 2)
+    int nPhase = gnPhase;
+    if (gbPhaseActive && nPhase != 2)
     {
-        if (!gbPhaseBusy_007A8A20)
+        if (!gbPhaseBusy)
         {
-            gnPhase_007A8A24 = 2;
+            gnPhase = 2;
             D2_ASSERT(sub_00463DD0_GetPlayerUnit(), 0x137);
             sub_00472400_ResetPhaseState();
         }
         return;
     }
-    if (!gnPhaseLeft_007A8A3C)
+    if (!gnPhaseLeft)
     {
         ++nPhase;
         if (nPhase == 4)
         {
             nPhase = 0;
         }
-        gnPhaseTotal_007A8A38 = sub_00472280(pSeed, gnPhaseOffset_007A8970[nPhase], gnPhaseRange_007A8958[nPhase]);
-        gnPhaseLeft_007A8A3C = gnPhaseTotal_007A8A38;
+        gnPhaseTotal = sub_00472280(pSeed, gaWeatherPhaseOffset[nPhase], gaWeatherPhaseRange[nPhase]);
+        gnPhaseLeft = gnPhaseTotal;
         sub_00473D00_SetPhase(nPhase);
     }
-    --gnPhaseLeft_007A8A3C;
+    --gnPhaseLeft;
     if (nPhase == 1)
     {
-        gnPhaseLevel_007A89E0 = (gnPhaseTotal_007A8A38 - gnPhaseLeft_007A8A3C) * gnPhaseMax_007A89C0 / gnPhaseTotal_007A8A38;
+// build: symbol ?gnPhaseLevel@* 0x007A89E0
+        gnPhaseLevel = (gnPhaseTotal - gnPhaseLeft) * gnPhaseMax / gnPhaseTotal;
     }
     else if (nPhase == 3)
     {
-        gnPhaseLevel_007A89E0 = gnPhaseMax_007A89C0 * gnPhaseLeft_007A8A3C / gnPhaseTotal_007A8A38;
+        gnPhaseLevel = gnPhaseMax * gnPhaseLeft / gnPhaseTotal;
     }
-    gfPhaseLevel_007A89A0 = gnPhaseLevel_007A89E0 * (1.0 / 256.0);
+// build: symbol ?gfPhaseLevel@* 0x007A89A0
+    gfPhaseLevel = gnPhaseLevel * (1.0 / 256.0);
 }
 
 // 0x00475C40
@@ -548,10 +550,10 @@ unsigned char** __stdcall GFX_BuildLerpRowTable(unsigned int nCount, int nSteps)
             for (unsigned int k = 0; k < nSteps; ++k)
             {
                 nIndex = nValue / 65536;
-                *pOut++ = gRowTable_007B5C10[nIndex];
+                *pOut++ = gabRowTable[nIndex];
                 nValue += nStep;
             }
-            *pOut++ = gRowTable_007B5C10[nIndex];
+            *pOut++ = gabRowTable[nIndex];
         }
     }
     return pTable;
@@ -560,19 +562,19 @@ unsigned char** __stdcall GFX_BuildLerpRowTable(unsigned int nCount, int nSteps)
 // 0x0047BA80
 void __stdcall GFX_StepChatIndex(int nDelta)
 {
-    int nOld = gnChatIndex_007BB5D8;
-    gnChatIndex_007BB5D8 += nDelta;
-    if (gnChatIndex_007BB5D8 >= 8)
+    int nOld = gnChatHistoryCursor;
+    gnChatHistoryCursor += nDelta;
+    if (gnChatHistoryCursor >= 8)
     {
-        gnChatIndex_007BB5D8 = 0;
+        gnChatHistoryCursor = 0;
     }
-    else if (gnChatIndex_007BB5D8 < 0)
+    else if (gnChatHistoryCursor < 0)
     {
-        gnChatIndex_007BB5D8 = 7;
+        gnChatHistoryCursor = 7;
     }
-    if (gwChatCount_007BB5E4 < 7 && 8 - gnChatIndex_007BB5D8 > gwChatCount_007BB5E4)
+    if (gwChatCount_007BB5E4 < 7 && 8 - gnChatHistoryCursor > gwChatCount_007BB5E4)
     {
-        gnChatIndex_007BB5D8 = nOld;
+        gnChatHistoryCursor = nOld;
     }
 }
 
@@ -652,7 +654,7 @@ void __fastcall GFX_ClearGfxBytes(D2UnitStrc* pUnit, int nIndex)
 // 0x0046F9D0
 D2MonGfxCacheStrc* __fastcall GFX_GetMonGfxCache(int nMonsterId)
 {
-    return &gpPoolBlock_007A80FC[nMonsterId];
+    return &gpPoolBlock[nMonsterId];
 }
 
 inline int IsShapeShifted(D2UnitStrc* pUnit)
@@ -700,7 +702,8 @@ static int __stdcall GFX_LoadUnitLayers(int bAsync, int nMode, D2UnitStrc* pUnit
         char szBuffer[256];
         const int nClassArg = pUnit ? pUnit->dwClassId : -1;
         const int nTypeArg = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-        sprintf(szBuffer, gszAsyncLoadFailed_006D6CC8, bAsync, nTypeArg, nClassArg, nMode, nWeaponClass, nToken);
+// build: symbol ?gszAsyncLoadFailed@* 0x006D6CC8
+        sprintf(szBuffer, gszAsyncLoadFailed, bAsync, nTypeArg, nClassArg, nMode, nWeaponClass, nToken);
         return 0;
     }
 
@@ -774,25 +777,25 @@ static void __stdcall GFX_PreloadMonsterMode(int bAsync, D2UnitStrc* pUnit, int 
     nClass = nClassValue;
     nAnimMode = UNITS_GetAnimOrSeqMode(pUnit);
     D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, ".\\ENGINE\\Gfx.cpp", 0x70A);
-    if (nClass >= sgptDataTables->nMonStatsTxtRecordCount || gpPoolBlock_007A80FC[nClass].nModeFlags[nMode])
+    if (nClass >= sgptDataTables->nMonStatsTxtRecordCount || gpPoolBlock[nClass].nModeFlags[nMode])
     {
         return;
     }
-    if (!gpPoolBlock_007A80FC[nClass].aPending[nMode])
+    if (!gpPoolBlock[nClass].aPending[nMode])
     {
         if (GFX_LoadUnitLayers(bAsync, nMode, pUnit) != 1)
         {
-            gpPoolBlock_007A80FC[nClass].aPending[nMode] = 0;
-            gpPoolBlock_007A80FC[nClass].nModeFlags[nMode] = 0;
+            gpPoolBlock[nClass].aPending[nMode] = 0;
+            gpPoolBlock[nClass].nModeFlags[nMode] = 0;
         }
         else
         {
-            gpPoolBlock_007A80FC[nClass].aPending[nMode] = 1;
+            gpPoolBlock[nClass].aPending[nMode] = 1;
         }
     }
     else if (!D2CMPSpriteFindAsynchSiblings(nType, nMode, nClass))
     {
-        gpPoolBlock_007A80FC[nClass].nModeFlags[nMode] = 1;
+        gpPoolBlock[nClass].nModeFlags[nMode] = 1;
     }
 }
 
@@ -816,25 +819,25 @@ static void __stdcall sub_0046FF50_PreloadPlayerMode(int bAsync, D2UnitStrc* pUn
     nClass = nClassValue;
     nAnimMode = UNITS_GetAnimOrSeqMode(pUnit);
     D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, ".\\ENGINE\\Gfx.cpp", 0x751);
-    if (gaPlayerGfxCache_007A7490[nClass].nModeFlags[nMode])
+    if (gaPlayerGfxCache[nClass].nModeFlags[nMode])
     {
         return;
     }
-    if (!gaPlayerGfxCache_007A7490[nClass].aPending[nMode])
+    if (!gaPlayerGfxCache[nClass].aPending[nMode])
     {
         if (GFX_LoadUnitLayers(bAsync, nMode, pUnit) != 1)
         {
-            gaPlayerGfxCache_007A7490[nClass].aPending[nMode] = 0;
-            gaPlayerGfxCache_007A7490[nClass].nModeFlags[nMode] = 0;
+            gaPlayerGfxCache[nClass].aPending[nMode] = 0;
+            gaPlayerGfxCache[nClass].nModeFlags[nMode] = 0;
         }
         else
         {
-            gaPlayerGfxCache_007A7490[nClass].aPending[nMode] = 1;
+            gaPlayerGfxCache[nClass].aPending[nMode] = 1;
         }
     }
     else if (!D2CMPSpriteFindAsynchSiblings(nType, nMode, nClass))
     {
-        gaPlayerGfxCache_007A7490[nClass].nModeFlags[nMode] = 1;
+        gaPlayerGfxCache[nClass].nModeFlags[nMode] = 1;
     }
 }
 
@@ -847,9 +850,11 @@ int __stdcall sub_M389_Emit_0046FEB0(int bAsync, D2UnitStrc* pUnit)
 // 0x00470040
 static void GFX_PreloadPlayerModes(int bAsync, D2UnitStrc* pUnit)
 {
-    for (unsigned int i = 0; i < gnPlayerModeCount_00712AC0; ++i)
+// build: symbol ?gnPlayerModeCount@* 0x00712AC0
+    for (unsigned int i = 0; i < gnPlayerModeCount; ++i)
     {
-        sub_0046FF50_PreloadPlayerMode(bAsync, pUnit, gaPlayerModes_00712AA0[i]);
+// build: symbol ?gaPlayerModes@* 0x00712AA0
+        sub_0046FF50_PreloadPlayerMode(bAsync, pUnit, gaPlayerModes[i]);
     }
 }
 

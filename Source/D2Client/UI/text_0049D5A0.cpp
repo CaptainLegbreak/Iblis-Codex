@@ -39,12 +39,12 @@ void __fastcall sub_00501DF0_DrawClippedFontText(const Unicode* pText, int nX, i
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 
-extern int gnGlobal_007225FC;                                                                               // 0x007225FC
-extern unsigned long gnGlobal_007BF1F6;                                                                     // 0x007BF1F6
-extern int gnGlobal_007BF1FA;                                                                               // 0x007BF1FA
-extern int gbTextSide_007BF236;                                                                             // 0x007BF236
+extern int gnTextTop;                                                                               // 0x007225FC
+extern unsigned long gnTextDisplaySetting;                                                                     // 0x007BF1F6
+extern int gbTextPanelOpen;                                                                               // 0x007BF1FA
+extern int gbTextSide;                                                                             // 0x007BF236
 extern int gnGlobal_007BF264;                                                                               // 0x007BF264
-extern int gnGlobal_007BF278;                                                                               // 0x007BF278
+extern int gnTextLeft;                                                                               // 0x007BF278
 
 // 0x0049D590
 unsigned int __fastcall TEXT_CalcTextOffset(unsigned int nValue)
@@ -55,9 +55,9 @@ unsigned int __fastcall TEXT_CalcTextOffset(unsigned int nValue)
 // build: context sub_0049D5A0_DrawClippedLine
 static __forceinline void sub_0049D5A0_DrawClippedLine(T0044CB60* pLine, int nY, int nColor, int nSkipLines, int nDrawLines)
 {
-    if (gnGlobal_007BF1F6 || gnGlobal_007BF1FA)
+    if (gnTextDisplaySetting || gbTextPanelOpen)
     {
-        sub_00501DF0_DrawClippedFontText(pLine->wszText, gnGlobal_007BF278 + 0x10, gnGlobal_007225FC + nY, nColor, nSkipLines, nDrawLines);
+        sub_00501DF0_DrawClippedFontText(pLine->wszText, gnTextLeft + 0x10, gnTextTop + nY, nColor, nSkipLines, nDrawLines);
     }
 }
 
@@ -105,14 +105,14 @@ static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec)
         pRec->nPos = (nExtra + nElapsed) * pRec->nSpeed;
     }
 
-    if (!gbTextSide_007BF236 && (gnGlobal_007BF1F6 || gnGlobal_007BF1FA))
+    if (!gbTextSide && (gnTextDisplaySetting || gbTextPanelOpen))
     {
-        sub_0046EFD0_DrawFramedBox(gnGlobal_007BF278, gnGlobal_007225FC - 5, 0x145, 0x7A, 0, 1);
+        sub_0046EFD0_DrawFramedBox(gnTextLeft, gnTextTop - 5, 0x145, 0x7A, 0, 1);
         D2RectStrc tRect;
-        tRect.nLeft = gnGlobal_007BF278 - 1;
-        tRect.nTop = gnGlobal_007225FC - 6;
-        tRect.nRight = gnGlobal_007BF278 + 0x146;
-        tRect.nBottom = gnGlobal_007225FC + 0x75;
+        tRect.nLeft = gnTextLeft - 1;
+        tRect.nTop = gnTextTop - 6;
+        tRect.nRight = gnTextLeft + 0x146;
+        tRect.nBottom = gnTextTop + 0x75;
         UI_DrawRectangleBorder(&tRect);
     }
 
@@ -129,9 +129,9 @@ static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec)
             if (nPos < 0x17800)
             {
                 int nY = TEXT_CalcTextOffset(nPos);
-                if (gnGlobal_007BF1F6 || gnGlobal_007BF1FA)
+                if (gnTextDisplaySetting || gbTextPanelOpen)
                 {
-                    D2Win_10117_DrawText(pLine->wszText, gnGlobal_007BF278 + 0x10, gnGlobal_007225FC + nY, 0, 0);
+                    D2Win_10117_DrawText(pLine->wszText, gnTextLeft + 0x10, gnTextTop + nY, 0, 0);
                 }
 
                 if (!pFirst)
@@ -233,7 +233,7 @@ static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec)
 typedef int(__fastcall* PANELCLOSEFN)(void* pArg, int a2, int a3);
 #pragma pack(pop)
 
-extern D2TextScrollStrc* gpTextBox_007BF0A4; // 0x007BF0A4
+extern D2TextScrollStrc* gpTextBox; // 0x007BF0A4
 extern int gnPanelOpen_007BF1BC; // 0x007BF1BC
 extern int gnPending_007BF1C4; // 0x007BF1C4
 extern void* gpHint_007BF202; // 0x007BF202
@@ -270,10 +270,10 @@ static int __stdcall TEXT_AdvanceTextBox(int bIgnore, D2TextScrollStrc* pTextBox
         if (sub_0049D5A0_UpdateScrollText(pTextBox))
         {
             gnPanelOpen_007BF1BC = 1;
-            if (!gbHintActive_007BF20A && gpTextBox_007BF0A4)
+            if (!gbHintActive_007BF20A && gpTextBox)
             {
-                TEXT_FreeTextBox(gpTextBox_007BF0A4);
-                gpTextBox_007BF0A4 = 0;
+                TEXT_FreeTextBox(gpTextBox);
+                gpTextBox = 0;
                 sub_00467430_SetSelectionRect(0);
             }
 
@@ -312,7 +312,7 @@ static int __stdcall TEXT_AdvanceTextBox(int bIgnore, D2TextScrollStrc* pTextBox
 // calling-convention shim (not game code)
 int __stdcall sub_004A0770_Shim()
 {
-    D2TextScrollStrc* pTextBox = gpTextBox_007BF0A4;
+    D2TextScrollStrc* pTextBox = gpTextBox;
     if (pTextBox && (pTextBox->nState == 1 || pTextBox->nState == 0))
     {
         return TEXT_AdvanceTextBox(gnPanelOpen_007BF1BC, pTextBox);

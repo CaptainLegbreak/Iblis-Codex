@@ -6,8 +6,8 @@ struct SGAMEDATA;
 struct D2MsgHandlerEntryStrc;
 struct D2PanelAnimEntryStrc;
 
-extern int gdwGlobal_007A6A94; // 0x007A6A94
-extern int gdwGlobal_007A6A98; // 0x007A6A98
+extern int gbHasSelectedUnit; // 0x007A6A94
+extern int gbHoverLocked; // 0x007A6A98
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 enum D2C_W04CursorConstants
@@ -29,11 +29,11 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
-extern D2MsgHandlerEntryStrc gaCursorMsgHandlers_00711FEC[]; // 0x00711FEC
-extern D2PanelAnimEntryStrc gaPanelAnim_00712020[]; // 0x00712020
-extern int gnGlobal_0071146C; // 0x0071146C
-extern int gnGlobal_00711470; // 0x00711470
-extern int gnGlobal_007A6B08; // 0x007A6B08
+extern D2MsgHandlerEntryStrc gaCursorMsgHandlers[]; // 0x00711FEC
+extern D2PanelAnimEntryStrc gaPanelAnim[]; // 0x00712020
+extern int gnScreenWidth; // 0x0071146C
+extern int gnScreenHeight; // 0x00711470
+extern int gbCursorVisible; // 0x007A6B08
 
 // 0x00467640
 int __fastcall sub_00467640_UnitIsOfTypeMonster(D2UnitStrc* pUnit, SGAMEDATA* pGame)
@@ -45,49 +45,49 @@ int __fastcall sub_00467640_UnitIsOfTypeMonster(D2UnitStrc* pUnit, SGAMEDATA* pG
     return 1;
 }
 
-int gnSelectedUnitId_007A6A78; // 0x007A6A78
+int gnSelectedUnitId; // 0x007A6A78
 
-int gnSelectedUnitType_007A6A8C; // 0x007A6A8C
+int gnSelectedUnitType; // 0x007A6A8C
 
 // 0x00467A10
 D2UnitStrc* __cdecl sub_00467A10()
 {
-    if (gdwGlobal_007A6A94)
+    if (gbHasSelectedUnit)
     {
-        D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnSelectedUnitId_007A6A78, gnSelectedUnitType_007A6A8C);
+        D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnSelectedUnitId, gnSelectedUnitType);
         if (pUnit && sub_00466870(pUnit, 0, 0, 0))
         {
             return pUnit;
         }
-        gdwGlobal_007A6A98 = 0;
-        gdwGlobal_007A6A94 = 0;
+        gbHoverLocked = 0;
+        gbHasSelectedUnit = 0;
         return 0;
     }
 
     return 0;
 }
 
-static int gnGlobal_007A6AAC; // 0x007A6AAC
+static int gnCursorY; // 0x007A6AAC
 
-static int gnGlobal_007A6AB0; // 0x007A6AB0
+static int gnCursorX; // 0x007A6AB0
 
-static int gnGlobal_007A6AB4; // 0x007A6AB4
+static int gnCursorOffsetX; // 0x007A6AB4
 
-static void* gpCursorCells_007A6AC0[NUM_CURSOR_CELLS]; // 0x007A6AC0
+static void* gapCursorCels[NUM_CURSOR_CELLS]; // 0x007A6AC0
 
-static int gnGlobal_007A6ADC; // 0x007A6ADC
+static int gnCursorAnim; // 0x007A6ADC
 
-static int gnGlobal_007A6AE0; // 0x007A6AE0
+static int gnCursorAnimFrame; // 0x007A6AE0
 
 static unsigned short gwGlobal_007A6AE4; // 0x007A6AE4
 
-static int gnGlobal_007A6AE8; // 0x007A6AE8
+static int gdwLastMouseMoveTick; // 0x007A6AE8
 
-static int gnGlobal_007A6AF0; // 0x007A6AF0
+static int gnCursorState; // 0x007A6AF0
 
 int __cdecl sub_W04_EmitReadStatics()
 {
-    return gnGlobal_007A6AAC + gnGlobal_007A6AB0 + gnGlobal_007A6AB4 + gnGlobal_007A6ADC + gnGlobal_007A6AE0 + gwGlobal_007A6AE4 + gnGlobal_007A6AE8 + gnGlobal_007A6AF0 + (gpCursorCells_007A6AC0[0] ? 1 : 0);
+    return gnCursorY + gnCursorX + gnCursorOffsetX + gnCursorAnim + gnCursorAnimFrame + gwGlobal_007A6AE4 + gdwLastMouseMoveTick + gnCursorState + (gapCursorCels[0] ? 1 : 0);
 }
 
 #include "gen/data/Source/D2Client/Unknown_00467640.inc"

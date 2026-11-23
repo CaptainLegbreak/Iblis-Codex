@@ -59,13 +59,17 @@ struct Obj004DCF10 {
     unsigned int dwValueEAB0;
 };
 
-static tagRECT s_tWallRect_007C8A14;
+// build: symbol ?s_tWallRect@* 0x007C8A14
+static tagRECT s_tWallRect;
 
-static unsigned int s_nPlayerX_007C8A08;
+// build: symbol ?s_nPlayerX@* 0x007C8A08
+static unsigned int s_nPlayerX;
 
-static int s_nCollision_007C8A0C;
+// build: symbol ?s_nCollision@* 0x007C8A0C
+static int s_nCollision;
 
-static unsigned int s_nPlayerY_007C8A10;
+// build: symbol ?s_nPlayerY@* 0x007C8A10
+static unsigned int s_nPlayerY;
 
 struct D2ViewStrc
 {
@@ -208,7 +212,7 @@ void __fastcall sub_004DDB70_PrepareWallCells(D2WallCtxStrc* pCtx, int nValue)
         SetRect(&tArg.tRect, pCtx->nX - 0x30, pCtx->nY - 0x30, pCtx->nRight - pCtx->nLeft + pCtx->nX + 0x30, pCtx->nBottom - pCtx->nTop + pCtx->nY);
     else
         SetRect(&tArg.tRect, pCtx->nX, pCtx->nY, pCtx->nRight - pCtx->nLeft + pCtx->nX, pCtx->nBottom - pCtx->nTop + pCtx->nY);
-    s_tWallRect_007C8A14 = tArg.tRect;
+    s_tWallRect = tArg.tRect;
     pCtx->nUnk0xEA9C = 0;
     pCtx->nUnk0x38 = 0;
     D2_ASSERT(pCtx->pCells, 0x33C);
@@ -233,9 +237,9 @@ void __fastcall sub_004DDB70_PrepareWallCells(D2WallCtxStrc* pCtx, int nValue)
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2_ASSERT(pPlayer, 0x351);
     tArg.pRoom = sub_004646A0_GetPlayerRoom();
-    s_nPlayerX_007C8A08 = GetUnitXPosition_Inline(pPlayer) / 5;
-    s_nPlayerY_007C8A10 = GetUnitYPosition_Inline(pPlayer) / 5;
-    s_nCollision_007C8A0C = sub_0061B130_GetCollision(UNITS_GetRoom(pPlayer), GetUnitXPosition_Inline(pPlayer), GetUnitYPosition_Inline(pPlayer));
+    s_nPlayerX = GetUnitXPosition_Inline(pPlayer) / 5;
+    s_nPlayerY = GetUnitYPosition_Inline(pPlayer) / 5;
+    s_nCollision = sub_0061B130_GetCollision(UNITS_GetRoom(pPlayer), GetUnitXPosition_Inline(pPlayer), GetUnitYPosition_Inline(pPlayer));
     sub_00619BD0(tArg.pRoom, sub_004DD7C0, &tArg);
 }
 

@@ -19,7 +19,7 @@ int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile
 unsigned short __cdecl GAME_GetClickFlags(); // 0x0044BEC0
 int __fastcall AUTOMAP_DispatchUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg); // 0x00480C10
 void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
-extern "C" const char szUnitModeFile_006D8E84[]; // 0x006D8E84
+extern "C" const char gszUnitModeFile[]; // 0x006D8E84
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
@@ -47,7 +47,7 @@ static int UNITMODE_CanUseSkillNow(D2UnitStrc* pPlayer)
         return 1;
     }
 
-    D2SkillsTxt* pSkillsTxt = UMODE_GetSkillsTxtRecord(SKILLS_GetSkillIdFromSkill(pSkill, szUnitModeFile_006D8E84, 0x2CC));
+    D2SkillsTxt* pSkillsTxt = UMODE_GetSkillsTxtRecord(SKILLS_GetSkillIdFromSkill(pSkill, gszUnitModeFile, 0x2CC));
     if (!pSkillsTxt || BITARRAY_CHECK((unsigned char*)pSkillsTxt, 63))
     {
         return 1;

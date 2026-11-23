@@ -102,10 +102,10 @@ unsigned long __stdcall LOGMANAGER_DbgHelpThreadProc(void* pParam); // 0x004027C
 void __stdcall sub_M127_EmitSink(D2CrashGuidStrc* pGuid);
 extern D2CriticalSectionStrc gtSymbolLock_0098A6F0; // 0x0098A6F0
 
-extern int gdwGlobal_007A0670; // 0x007A0670
-extern int gnGlobal_007A5254; // 0x007A5254
+extern int gbRightClickConsumed; // 0x007A0670
+extern int gbPopupDismissed; // 0x007A5254
 extern int gdwGlobal_007BC974; // 0x007BC974
-extern int gdwGlobal_007BCBF4; // 0x007BCBF4
+extern int gpHoverItem; // 0x007BCBF4
 
 extern "C" int __stdcall GetModuleInformation(void* hProcess, void* hModule, D2PsapiModuleInfoStrc* pInfo, unsigned long cb); // 0x006B13C8
 void __stdcall sub_M452_EmitSink(D2CrashModuleListStrc* pList);
@@ -371,13 +371,13 @@ int __cdecl sub_00402A80_IsDbgHelpLoaded()
 // 0x0044BFF0
 int __cdecl sub_0044BFF0_IsSet()
 {
-    return gdwGlobal_007A0670 != 0;
+    return gbRightClickConsumed != 0;
 }
 
 // 0x0045FDD0
 int __cdecl INV_IsPopupDismissed()
 {
-    return gnGlobal_007A5254 != 0;
+    return gbPopupDismissed != 0;
 }
 
 // 0x0047EC40
@@ -389,7 +389,7 @@ int __cdecl sub_0047EC40_IsSet()
 // 0x0048A690
 int __cdecl INV_HasHoverItem()
 {
-    return gdwGlobal_007BCBF4 != 0;
+    return gpHoverItem != 0;
 }
 
 // 0x00402A90

@@ -14,13 +14,13 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-#define gnGlobal_007BCAA0 (gInvRect_007BCAA0.nLeft)
+#define gnGlobal_007BCAA0 (gtPlayerInvRect.nLeft)
 
-#define gnGlobal_007BCAA4 (gInvRect_007BCAA0.nRight)
+#define gnGlobal_007BCAA4 (gtPlayerInvRect.nRight)
 
-#define gnGlobal_007BCAA8 (gInvRect_007BCAA0.nTop)
+#define gnGlobal_007BCAA8 (gtPlayerInvRect.nTop)
 
-#define gnGlobal_007BCAAC (gInvRect_007BCAA0.nBottom)
+#define gnGlobal_007BCAAC (gtPlayerInvRect.nBottom)
 
 struct D2MsgHandlerEntryStrc;
 
@@ -254,71 +254,71 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern int gaSetPartialCounts_006DBD90[]; // 0x006DBD90
 
-extern int gnGlobal_0071146C; // 0x0071146C
+extern int gnScreenWidth; // 0x0071146C
 
-extern int gnGlobal_00711470; // 0x00711470
+extern int gnScreenHeight; // 0x00711470
 
-extern D2OptionHeaderStrc gOptionHeader_00713044; // 0x00713044
+extern D2OptionHeaderStrc gtMainOptionHeader; // 0x00713044
 
-extern D2EscMenuUIStateStrc gaEscMenuUIState_00713058[38]; // 0x00713058
+extern D2EscMenuUIStateStrc gaEscMenuUIState[38]; // 0x00713058
 
-extern D2OptionEntryStrc gaOptionEntries_00713220[]; // 0x00713220
+extern D2OptionEntryStrc gaMainOptionEntries[]; // 0x00713220
 
-extern D2OptionHeaderStrc gOptionHeader_00714210; // 0x00714210
+extern D2OptionHeaderStrc gtOptionsHeader; // 0x00714210
 
-extern D2OptionHeaderStrc gOptionHeader_00714224; // 0x00714224
+extern D2OptionHeaderStrc gtSoundOptionHeader; // 0x00714224
 
-extern D2OptionEntryStrc gaOptionEntries_00714238[]; // 0x00714238
+extern D2OptionEntryStrc gaOptionsEntries[]; // 0x00714238
 
-extern D2OptionEntryStrc gaOptionEntries_00715CC8[]; // 0x00715CC8
+extern D2OptionEntryStrc gaSoundOptionEntries[]; // 0x00715CC8
 
-extern D2OptionHeaderStrc gOptionHeader_00718748; // 0x00718748
+extern D2OptionHeaderStrc gtVideoOptionHeader; // 0x00718748
 
-extern D2OptionHeaderStrc gOptionHeader_0071875C; // 0x0071875C
+extern D2OptionHeaderStrc gtVideoResOptionHeader; // 0x0071875C
 
-extern D2OptionEntryStrc gaOptionEntries_00718770[]; // 0x00718770
+extern D2OptionEntryStrc gaVideoOptionEntries[]; // 0x00718770
 
-extern D2OptionEntryStrc gaOptionEntries_0071ACA0[]; // 0x0071ACA0
+extern D2OptionEntryStrc gaVideoResOptionEntries[]; // 0x0071ACA0
 
-extern D2MsgHandlerEntryStrc gaTextMsgHandlers_00722600[]; // 0x00722600
+extern D2MsgHandlerEntryStrc gaTextMsgHandlers[]; // 0x00722600
 
-extern D2WaypointActRangeStrc gaWaypointActRanges_007224AC[]; // 0x007224AC
+extern D2WaypointActRangeStrc gaWaypointActRanges[]; // 0x007224AC
 
-extern D2OptionHeaderStrc gOptionHeader_0071D720; // 0x0071D720
+extern D2OptionHeaderStrc gtAutomapOptionHeader; // 0x0071D720
 
-extern D2OptionHeaderStrc gOptionHeader_0071D734; // 0x0071D734
+extern D2OptionHeaderStrc gtAutomapModeOptionHeader; // 0x0071D734
 
-extern D2OptionEntryStrc gaOptionEntries_0071D748[]; // 0x0071D748
+extern D2OptionEntryStrc gaAutomapOptionEntries[]; // 0x0071D748
 
-extern D2OptionEntryStrc gaOptionEntries_0071F728[]; // 0x0071F728
+extern D2OptionEntryStrc gaAutomapModeOptionEntries[]; // 0x0071F728
 
-extern D2RosterPetStrc* gpRosterPets_007BB5BC; // 0x007BB5BC
+extern D2RosterPetStrc* gpRosterPets; // 0x007BB5BC
 
-extern D2InvRectStrc gInvRect_007BCAA0; // 0x007BCAA0
+extern D2InvRectStrc gtPlayerInvRect; // 0x007BCAA0
 
-extern D2OptionHeaderStrc* gpOptionHeader_007BC93C; // 0x007BC93C
+extern D2OptionHeaderStrc* gpOptionHeader; // 0x007BC93C
 
-extern int gnGlobal_007A2858; // 0x007A2858
+extern int gnPanelOffsetX; // 0x007A2858
 
-extern int gnGlobal_007A285C; // 0x007A285C
+extern int gnPanelOffsetY; // 0x007A285C
 
-extern char gbGlobal_007BF085; // 0x007BF085
+extern char gbSent; // 0x007BF085
 
-extern int gnWaypointCount_007BF08A; // 0x007BF08A
+extern int gnWaypointCount; // 0x007BF08A
 
-extern int gnWaypointEnabled_007BF08E; // 0x007BF08E
+extern int gnWaypointEnabledCount; // 0x007BF08E
 
-extern T00479230* gpTextBox_007BF0A4; // 0x007BF0A4
+extern T00479230* gpTextBox; // 0x007BF0A4
 
-extern int gnGlobal_007BF1BC; // 0x007BF1BC
+extern int gbTextBoxDone; // 0x007BF1BC
 
-extern int gnGlobal_007BF1C0; // 0x007BF1C0
+extern int gnTextActive; // 0x007BF1C0
 
-extern unsigned long gnGlobal_007BF22C; // 0x007BF22C
+extern unsigned long gnStartTick; // 0x007BF22C
 
-extern int gbTextSound_007BF230; // 0x007BF230
+extern int gbTextSound; // 0x007BF230
 
-extern int gbTextSide_007BF236; // 0x007BF236
+extern int gbTextSide; // 0x007BF236
 
 extern int gnGlobal_007BEEE8; // 0x007BEEE8
 
@@ -444,9 +444,9 @@ struct D2ClientServiceStrc
     void (__fastcall* pfnCall)(const char* szName, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
 };
 
-extern WardenModule* gpPendingWarden_007BC994; // 0x007BC994
+extern WardenModule* gpPendingWarden; // 0x007BC994
 
-extern D2ClientServiceStrc* gpService_007BC998; // 0x007BC998
+extern D2ClientServiceStrc* gpService; // 0x007BC998
 
 static void __stdcall WARDENCLIENT_HashModule(const char* szName, unsigned char* pDigest, const unsigned char* pData, unsigned int nSkip, unsigned int nSize); // 0x0047F990
 
@@ -458,33 +458,33 @@ static int __stdcall WARDENCLIENT_VerifyModuleSignature(const char* szName, unsi
 
 void __cdecl WARDENCLIENT_ActivatePendingModule(); // 0x00480230
 
-extern WardenModule* gpSlotHolder_007BC990; // 0x007BC990
+extern WardenModule* gpSlotHolder; // 0x007BC990
 
-int gnOptionSelected_007BC938; // 0x007BC938
+int gnOptionSelected; // 0x007BC938
 
-D2OptionEntryStrc* gpOptionEntries_007BC940; // 0x007BC940
+D2OptionEntryStrc* gpOptionEntries; // 0x007BC940
 
-static int gnGlobal_007BCA4C; // 0x007BCA4C
+static int gnInvMouseX; // 0x007BCA4C
 
-static int gnGlobal_007BCBD8; // 0x007BCBD8
+static int gnInvMouseY; // 0x007BCBD8
 
-static int gnGlobal_007BEECC; // 0x007BEECC
+static int gnPetIconPopupState; // 0x007BEECC
 
-D2WaypointMenuEntryStrc gaWaypointEntries_007BF03C[9]; // 0x007BF03C
+D2WaypointMenuEntryStrc gaWaypointEntries[9]; // 0x007BF03C
 
-unsigned short gwTextStringId_007BF212; // 0x007BF212
+unsigned short gwTextStringId; // 0x007BF212
 
-int gnHintId_007BF260; // 0x007BF260
+int gnHintId; // 0x007BF260
 
-int gnGlobal_007BF278; // 0x007BF278
+int gnTextLeft; // 0x007BF278
 
-static int gbStarted_007BF27C; // 0x007BF27C
+static int gbTextHandlersRegistered; // 0x007BF27C
 
 int gnGlobal_007BEED4; // 0x007BEED4
 
-void* gpWardenBuffer_007BC988; // 0x007BC988
+void* gpWardenBuffer; // 0x007BC988
 
-unsigned int gnWardenBufferSize_007BC98C; // 0x007BC98C
+unsigned int gnWardenBufferSize; // 0x007BC98C
 
 static int __stdcall WARDENCLIENT_LoadModule(const unsigned char* pData, const unsigned char* pKey, unsigned int nSize); // 0x0047FC70
 
@@ -494,13 +494,13 @@ bool __stdcall WARDENCLIENT_ServiceLoadModule(const unsigned char* pModuleKey, c
 
 
 
-extern D2WardenIfaceStrc gWardenIface_00721C98; // 0x00721C98
+extern D2WardenIfaceStrc gtWardenIface; // 0x00721C98
 
 
 // 0x00479230
 void __fastcall WARDENCLIENT_UpdateOwnerPetFlags(int nOwnerId)
 {
-    for (D2RosterPetStrc* pPet = gpRosterPets_007BB5BC; pPet; pPet = pPet->pNext)
+    for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
     {
         if (pPet->dwOwnerId == nOwnerId)
         {
@@ -558,12 +558,12 @@ void __fastcall WARDENCLIENT_ToggleEscMenuUIState(int bSaveState, int nMenu)
     {
         for (unsigned int i = 0; i < 38; ++i)
         {
-            gaEscMenuUIState_00713058[i].nSaved = 0;
-            if (gaEscMenuUIState_00713058[i].bCheck)
+            gaEscMenuUIState[i].nSaved = 0;
+            if (gaEscMenuUIState[i].bCheck)
             {
-                if (gaEscMenuUIState_00713058[i].bSave)
+                if (gaEscMenuUIState[i].bSave)
                 {
-                    gaEscMenuUIState_00713058[i].nSaved = GAME_GetUIVarState(i);
+                    gaEscMenuUIState[i].nSaved = GAME_GetUIVarState(i);
                 }
                 if (GAME_GetUIVarState(i))
                 {
@@ -576,47 +576,47 @@ void __fastcall WARDENCLIENT_ToggleEscMenuUIState(int bSaveState, int nMenu)
     switch (nMenu)
     {
     case 0:
-        gpOptionHeader_007BC93C = &gOptionHeader_00713044;
-        gpOptionEntries_007BC940 = gaOptionEntries_00713220;
+        gpOptionHeader = &gtMainOptionHeader;
+        gpOptionEntries = gaMainOptionEntries;
         break;
     case 1:
-        gpOptionHeader_007BC93C = &gOptionHeader_00714210;
-        gpOptionEntries_007BC940 = gaOptionEntries_00714238;
+        gpOptionHeader = &gtOptionsHeader;
+        gpOptionEntries = gaOptionsEntries;
         break;
     case 2:
-        gpOptionHeader_007BC93C = &gOptionHeader_00714224;
-        gpOptionEntries_007BC940 = gaOptionEntries_00715CC8;
+        gpOptionHeader = &gtSoundOptionHeader;
+        gpOptionEntries = gaSoundOptionEntries;
         break;
     case 3:
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
         if (FOG_IsExpansion())
         {
-            gpOptionHeader_007BC93C = &gOptionHeader_0071875C;
-            gpOptionEntries_007BC940 = gaOptionEntries_0071ACA0;
+            gpOptionHeader = &gtVideoResOptionHeader;
+            gpOptionEntries = gaVideoResOptionEntries;
         }
         else
         {
-            gpOptionHeader_007BC93C = &gOptionHeader_00718748;
-            gpOptionEntries_007BC940 = gaOptionEntries_00718770;
+            gpOptionHeader = &gtVideoOptionHeader;
+            gpOptionEntries = gaVideoOptionEntries;
         }
         break;
     case 4:
         if (FOG_IsExpansion())
         {
-            gpOptionHeader_007BC93C = &gOptionHeader_0071D734;
-            gpOptionEntries_007BC940 = gaOptionEntries_0071F728;
+            gpOptionHeader = &gtAutomapModeOptionHeader;
+            gpOptionEntries = gaAutomapModeOptionEntries;
         }
         else
         {
-            gpOptionHeader_007BC93C = &gOptionHeader_0071D720;
-            gpOptionEntries_007BC940 = gaOptionEntries_0071D748;
+            gpOptionHeader = &gtAutomapOptionHeader;
+            gpOptionEntries = gaAutomapOptionEntries;
         }
         break;
     }
-    gnOptionSelected_007BC938 = gpOptionHeader_007BC93C->nCount - 1;
+    gnOptionSelected = gpOptionHeader->nCount - 1;
     if (nMenu == 5)
     {
-        gnOptionSelected_007BC938 = 1;
+        gnOptionSelected = 1;
     }
 }
 
@@ -769,11 +769,11 @@ static int __stdcall WARDENCLIENT_LoadModule(const unsigned char* pData, const u
     {
         szName[i] *= 0xD3;
     }
-    if (gpPendingWarden_007BC994)
+    if (gpPendingWarden)
     {
-        gpPendingWarden_007BC994->~WardenModule();
-        delete gpPendingWarden_007BC994;
-        gpPendingWarden_007BC994 = 0;
+        gpPendingWarden->~WardenModule();
+        delete gpPendingWarden;
+        gpPendingWarden = 0;
     }
     unsigned char* pBuffer = (unsigned char*)SMemAlloc(nSize, ".\\WARDEN\\WardenClient.cpp", 0x16E, 0);
     SMemCopy(pBuffer, pData, nSize);
@@ -784,7 +784,9 @@ static int __stdcall WARDENCLIENT_LoadModule(const unsigned char* pData, const u
     D2RC4Strc tRc4;
     tRc4.sub_004E09B0_Init(pKey, 0x10);
     tRc4.ApplyKeystream(pBuffer, nSize);
-    if (!WARDENCLIENT_VerifyModuleSignature(szName, pBuffer, gabModulus_006D8D18, gabExponent_006D8D14, 4, 0, nSize, 0x100))
+// build: symbol ?gabExponent@* 0x006D8D14
+// build: symbol ?gabModulus@* 0x006D8D18
+    if (!WARDENCLIENT_VerifyModuleSignature(szName, pBuffer, gabModulus, gabExponent, 4, 0, nSize, 0x100))
     {
         SMemFree(pBuffer, ".\\WARDEN\\WardenClient.cpp", 0x17C, 0);
         return 0;
@@ -824,16 +826,19 @@ static int __stdcall WARDENCLIENT_LoadModule(const unsigned char* pData, const u
         return 0;
     }
     SMemFree(pModule, ".\\WARDEN\\WardenClient.cpp", 0x1B0, 0);
-    gpPendingWarden_007BC994 = pWarden;
+    gpPendingWarden = pWarden;
     return 1;
 }
 
 // 0x0047FEE0
 static int __stdcall WARDENCLIENT_LoadModuleByKey(const unsigned char* pRc4Key, const unsigned char* pModuleKey)
 {
-    if (!SMemCmp(pModuleKey, gabBuiltinModuleKey_006D8768, 0x10))
+// build: symbol ?gabBuiltinModuleKey@* 0x006D8768
+    if (!SMemCmp(pModuleKey, gabBuiltinModuleKey, 0x10))
     {
-        return WARDENCLIENT_LoadModule(gabBuiltinModule_006D74B0, gabBuiltinModuleRc4Key_006D8778, 0x12B2);
+// build: symbol ?gabBuiltinModule@* 0x006D74B0
+// build: symbol ?gabBuiltinModuleRc4Key@* 0x006D8778
+        return WARDENCLIENT_LoadModule(gabBuiltinModule, gabBuiltinModuleRc4Key, 0x12B2);
     }
     char szName[0x28];
     for (unsigned int i = 0; i < 0x10; ++i)
@@ -841,19 +846,19 @@ static int __stdcall WARDENCLIENT_LoadModuleByKey(const unsigned char* pRc4Key, 
         sprintf(&szName[i * 2], "%02x", pModuleKey[i]);
     }
     SStrCopy(&szName[0x20], ".mod", 5);
-    if (!gpService_007BC998)
+    if (!gpService)
     {
         return 0;
     }
     D2WardenFindArgStrc tFindArg;
     void* pModule;
     int nModuleSize;
-    if (!gpService_007BC998->pfnFind(szName, &tFindArg.unk0x00, &pModule, &nModuleSize))
+    if (!gpService->pfnFind(szName, &tFindArg.unk0x00, &pModule, &nModuleSize))
     {
         return 0;
     }
     int nResult = WARDENCLIENT_LoadModule((const unsigned char*)pModule, pRc4Key, nModuleSize);
-    gpService_007BC998->pfnFree(pModule, nModuleSize);
+    gpService->pfnFree(pModule, nModuleSize);
     return nResult;
 }
 
@@ -870,11 +875,11 @@ void __stdcall WARDENCLIENT_CallServiceWithHashName(const unsigned char* pHash, 
     for (unsigned int i = 0; i < 16; ++i)
         sprintf(&szName[i * 2], "%02x", pHash[i]);
     SStrCopy(&szName[32], ".mod", 5);
-    if (!gpService_007BC998)
+    if (!gpService)
         return;
     _FILETIME tTime;
     GetSystemTimeAsFileTime(&tTime);
-    gpService_007BC998->pfnCall(szName, nArg2, nArg3, &tTime, -1, -1);
+    gpService->pfnCall(szName, nArg2, nArg3, &tTime, -1, -1);
 }
 
 
@@ -895,29 +900,29 @@ void __stdcall WARDENCLIENT_ServiceFree(void* pMemory)
 // 0x00480100
 void __stdcall WARDENCLIENT_SetWardenBuffer(const void* pData, unsigned int nSize)
 {
-    if (gpWardenBuffer_007BC988)
+    if (gpWardenBuffer)
     {
-        SMemFree(gpWardenBuffer_007BC988, ".\\WARDEN\\WardenClient.cpp", 0x283, 0);
+        SMemFree(gpWardenBuffer, ".\\WARDEN\\WardenClient.cpp", 0x283, 0);
     }
-    gpWardenBuffer_007BC988 = SMemAlloc(nSize, ".\\WARDEN\\WardenClient.cpp", 0x284, 0);
-    gnWardenBufferSize_007BC98C = nSize;
-    sub_0041D2A0_MemCopy(gpWardenBuffer_007BC988, pData, nSize);
+    gpWardenBuffer = SMemAlloc(nSize, ".\\WARDEN\\WardenClient.cpp", 0x284, 0);
+    gnWardenBufferSize = nSize;
+    sub_0041D2A0_MemCopy(gpWardenBuffer, pData, nSize);
 }
 
 // 0x00480150
 bool __stdcall WARDENCLIENT_TakeWardenBuffer(void* pDst, unsigned int* pSize)
 {
-    void* pBuffer = gpWardenBuffer_007BC988;
+    void* pBuffer = gpWardenBuffer;
     if (!pBuffer)
     {
         return false;
     }
-    unsigned int nSize = *pSize < gnWardenBufferSize_007BC98C ? *pSize : gnWardenBufferSize_007BC98C;
+    unsigned int nSize = *pSize < gnWardenBufferSize ? *pSize : gnWardenBufferSize;
     *pSize = nSize;
     sub_0041D2A0_MemCopy(pDst, pBuffer, nSize);
-    SMemFree(gpWardenBuffer_007BC988, ".\\WARDEN\\WardenClient.cpp", 0x292, 0);
-    gpWardenBuffer_007BC988 = 0;
-    gnWardenBufferSize_007BC98C = 0;
+    SMemFree(gpWardenBuffer, ".\\WARDEN\\WardenClient.cpp", 0x292, 0);
+    gpWardenBuffer = 0;
+    gnWardenBufferSize = 0;
     return true;
 }
 
@@ -931,41 +936,42 @@ void WardenModule_EmitDelete(WardenModule* pModule)
 // 0x004801D0
 void __cdecl WARDENCLIENT_UnloadWarden()
 {
-    if (gpSlotHolder_007BC990)
+    if (gpSlotHolder)
     {
-        gpSlotHolder_007BC990->pObj->Slot1();
-        gpSlotHolder_007BC990->~WardenModule();
-        delete gpSlotHolder_007BC990;
+        gpSlotHolder->pObj->Slot1();
+        gpSlotHolder->~WardenModule();
+        delete gpSlotHolder;
     }
-    gpSlotHolder_007BC990 = 0;
+    gpSlotHolder = 0;
 }
 
 
 // 0x00480230
 void __cdecl WARDENCLIENT_ActivatePendingModule()
 {
-    while (gpPendingWarden_007BC994)
+    while (gpPendingWarden)
     {
-        if (gpSlotHolder_007BC990)
+        if (gpSlotHolder)
         {
-            gpSlotHolder_007BC990->pObj->Slot1();
-            gpSlotHolder_007BC990->~WardenModule();
-            delete gpSlotHolder_007BC990;
+            gpSlotHolder->pObj->Slot1();
+            gpSlotHolder->~WardenModule();
+            delete gpSlotHolder;
         }
-        gpSlotHolder_007BC990 = gpPendingWarden_007BC994;
-        gpPendingWarden_007BC994 = 0;
-        gpSlotHolder_007BC990->pObj = gpSlotHolder_007BC990->pfnCreate(&gWardenIface_00721C98);
-        int nValue = gnWardenIfaceValue_00721C94;
-        gpSlotHolder_007BC990->pObj->Slot0(&nValue, 4);
+        gpSlotHolder = gpPendingWarden;
+        gpPendingWarden = 0;
+        gpSlotHolder->pObj = gpSlotHolder->pfnCreate(&gtWardenIface);
+// build: symbol ?gnWardenIfaceValue@* 0x00721C94
+        int nValue = gnWardenIfaceValue;
+        gpSlotHolder->pObj->Slot0(&nValue, 4);
     }
 }
 
 // 0x00480320
 void __fastcall WARDENCLIENT_TickModule(int nArg)
 {
-    if (gpSlotHolder_007BC990)
+    if (gpSlotHolder)
     {
-        gpSlotHolder_007BC990->pObj->Slot3(nArg);
+        gpSlotHolder->pObj->Slot3(nArg);
         WARDENCLIENT_ActivatePendingModule();
     }
 }
@@ -974,33 +980,33 @@ void __fastcall WARDENCLIENT_TickModule(int nArg)
 // 0x00480340
 void __cdecl WARDENCLIENT_ResetWarden()
 {
-    if (gpPendingWarden_007BC994)
+    if (gpPendingWarden)
     {
-        gpPendingWarden_007BC994->~WardenModule();
-        delete gpPendingWarden_007BC994;
-        gpPendingWarden_007BC994 = 0;
+        gpPendingWarden->~WardenModule();
+        delete gpPendingWarden;
+        gpPendingWarden = 0;
     }
     WARDENCLIENT_UnloadWarden();
-    gnWardenIfaceValue_00721C94 = -1;
-    gpService_007BC998 = 0;
-    if (gpWardenBuffer_007BC988)
-        SMemFree(gpWardenBuffer_007BC988, ".\\WARDEN\\WardenClient.cpp", 0x24F, 0);
-    gpWardenBuffer_007BC988 = 0;
-    gnWardenBufferSize_007BC98C = 0;
+    gnWardenIfaceValue = -1;
+    gpService = 0;
+    if (gpWardenBuffer)
+        SMemFree(gpWardenBuffer, ".\\WARDEN\\WardenClient.cpp", 0x24F, 0);
+    gpWardenBuffer = 0;
+    gnWardenBufferSize = 0;
 }
 
 // 0x004803C0
 int __fastcall WARDENCLIENT_InitWarden(int nValue)
 {
     sub_00480340();
-    gnWardenIfaceValue_00721C94 = nValue;
+    gnWardenIfaceValue = nValue;
 // build: symbol ?BNCLIENT_GetInterfaceTable@* 0x00518C10
-    gpService_007BC998 = BNCLIENT_GetInterfaceTable();
-    if (!gpService_007BC998)
+    gpService = BNCLIENT_GetInterfaceTable();
+    if (!gpService)
     {
         return 0;
     }
-    WARDENCLIENT_LoadModuleByKey(gabBuiltinModuleRc4Key_006D8778, gabBuiltinModuleKey_006D8768);
+    WARDENCLIENT_LoadModuleByKey(gabBuiltinModuleRc4Key, gabBuiltinModuleKey);
     WARDENCLIENT_ActivatePendingModule();
     return 1;
 }
@@ -1010,8 +1016,8 @@ int __stdcall WARDENCLIENT_HandlePanelAreaClick(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
-    gnGlobal_007BCA4C = nX;
-    gnGlobal_007BCBD8 = nY;
+    gnInvMouseX = nX;
+    gnInvMouseY = nY;
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
@@ -1038,7 +1044,7 @@ void __stdcall WARDENCLIENT_HandlePetIconClick(SMSGHANDLER_PARAMS* pMsg)
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
     pMsg->bReturn = 0;
-    const int bHit = gnGlobal_007BEECC != 2 && InBox(nX, nY, gnGlobal_007BEED4, gnGlobal_007BEED4 + 0x2E, 0x18, 0x18 + 0x24);
+    const int bHit = gnPetIconPopupState != 2 && InBox(nX, nY, gnGlobal_007BEED4, gnGlobal_007BEED4 + 0x2E, 0x18, 0x18 + 0x24);
     if (!bHit)
     {
         gnGlobal_007BEEE8 = 0;
@@ -1083,7 +1089,7 @@ void __cdecl WARDENCLIENT_DrawHostileIcon()
     {
         nYOffset = 0x46;
     }
-    sub_004F6480(&tContext, gnGlobal_0071146C - 0x3A, nYOffset + 0x2D, -1, 1, 0);
+    sub_004F6480(&tContext, gnScreenWidth - 0x3A, nYOffset + 0x2D, -1, 1, 0);
 }
 
 // 0x00496BE0
@@ -1140,61 +1146,63 @@ void __fastcall WARDENCLIENT_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkil
 // 0x0049C7F0
 void __cdecl WARDENCLIENT_BuildWaypointList()
 {
-    gnWaypointCount_007BF08A = 0;
-    gnWaypointEnabled_007BF08E = 0;
+    gnWaypointCount = 0;
+    gnWaypointEnabledCount = 0;
     const int nCurrentLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()));
 
     for (int i = 0; i < 9; ++i)
     {
-        *(int*)gaWaypointEntries_007BF03C[i].nLevelId = 0;
-        gaWaypointEntries_007BF03C[i].bEnabled = 0;
+        *(int*)gaWaypointEntries[i].nLevelId = 0;
+        gaWaypointEntries[i].bEnabled = 0;
     }
 
-    if ((unsigned int)gnWaypointAct_007BF086 > 5)
+// build: symbol ?gnWaypointAct@* 0x007BF086
+    if ((unsigned int)gnWaypointAct > 5)
     {
-        gbGlobal_007BF085 = 0;
+        gbSent = 0;
         return;
     }
 
-    if (!gaWaypointActRanges_007224AC[gnWaypointAct_007BF086].bInit)
+    if (!gaWaypointActRanges[gnWaypointAct].bInit)
     {
-        gaWaypointActRanges_007224AC[gnWaypointAct_007BF086].bInit = 1;
-        for (int nLevelId = *(int*)gaWaypointActRanges_007224AC[gnWaypointAct_007BF086].nFirstLevelId;
-            nLevelId <= *(int*)gaWaypointActRanges_007224AC[gnWaypointAct_007BF086].nLastLevelId; ++nLevelId)
+        gaWaypointActRanges[gnWaypointAct].bInit = 1;
+        for (int nLevelId = *(int*)gaWaypointActRanges[gnWaypointAct].nFirstLevelId;
+            nLevelId <= *(int*)gaWaypointActRanges[gnWaypointAct].nLastLevelId; ++nLevelId)
         {
             unsigned short wWaypoint;
             if (WAYPOINTS_GetWaypointNoFromLevelId(nLevelId, &wWaypoint))
             {
                 const unsigned char nIndex = (unsigned char)wWaypoint;
-                if (gaWaypointActRanges_007224AC[gnWaypointAct_007BF086].nMinWaypoint == 0xFF)
+                if (gaWaypointActRanges[gnWaypointAct].nMinWaypoint == 0xFF)
                 {
-                    gaWaypointActRanges_007224AC[gnWaypointAct_007BF086].nMinWaypoint = nIndex;
+                    gaWaypointActRanges[gnWaypointAct].nMinWaypoint = nIndex;
                 }
 
-                gaWaypointActRanges_007224AC[gnWaypointAct_007BF086].nMaxWaypoint = nIndex > gaWaypointActRanges_007224AC[gnWaypointAct_007BF086].nMaxWaypoint ? nIndex : gaWaypointActRanges_007224AC[gnWaypointAct_007BF086].nMaxWaypoint;
+                gaWaypointActRanges[gnWaypointAct].nMaxWaypoint = nIndex > gaWaypointActRanges[gnWaypointAct].nMaxWaypoint ? nIndex : gaWaypointActRanges[gnWaypointAct].nMaxWaypoint;
             }
         }
     }
 
-    for (int i = gaWaypointActRanges_007224AC[gnWaypointAct_007BF086].nMinWaypoint; i <= gaWaypointActRanges_007224AC[gnWaypointAct_007BF086].nMaxWaypoint; ++i)
+    for (int i = gaWaypointActRanges[gnWaypointAct].nMinWaypoint; i <= gaWaypointActRanges[gnWaypointAct].nMaxWaypoint; ++i)
     {
         const unsigned short wWaypoint = (unsigned short)i;
-        if (WAYPOINTS_IsActivated(gpWaypointData_007BF081, wWaypoint))
+// build: symbol ?gpWaypointData@* 0x007BF081
+        if (WAYPOINTS_IsActivated(gpWaypointData, wWaypoint))
         {
             int nLevelId;
             if (WAYPOINTS_GetLevelIdFromWaypointNo(wWaypoint, &nLevelId))
             {
-                *(int*)gaWaypointEntries_007BF03C[gnWaypointCount_007BF08A].nLevelId = nLevelId;
+                *(int*)gaWaypointEntries[gnWaypointCount].nLevelId = nLevelId;
                 if (nCurrentLevelId == nLevelId)
                 {
-                    gaWaypointEntries_007BF03C[gnWaypointCount_007BF08A].bEnabled = 0;
+                    gaWaypointEntries[gnWaypointCount].bEnabled = 0;
                 }
                 else
                 {
-                    ++gnWaypointEnabled_007BF08E;
-                    gaWaypointEntries_007BF03C[gnWaypointCount_007BF08A].bEnabled = 1;
+                    ++gnWaypointEnabledCount;
+                    gaWaypointEntries[gnWaypointCount].bEnabled = 1;
                 }
-                ++gnWaypointCount_007BF08A;
+                ++gnWaypointCount;
             }
         }
         else
@@ -1202,9 +1210,9 @@ void __cdecl WARDENCLIENT_BuildWaypointList()
             int nLevelId;
             if (WAYPOINTS_GetLevelIdFromWaypointNo(wWaypoint, &nLevelId))
             {
-                *(int*)gaWaypointEntries_007BF03C[gnWaypointCount_007BF08A].nLevelId = nLevelId;
-                gaWaypointEntries_007BF03C[gnWaypointCount_007BF08A].bEnabled = 0;
-                ++gnWaypointCount_007BF08A;
+                *(int*)gaWaypointEntries[gnWaypointCount].nLevelId = nLevelId;
+                gaWaypointEntries[gnWaypointCount].bEnabled = 0;
+                ++gnWaypointCount;
             }
         }
     }
@@ -1215,77 +1223,81 @@ void __fastcall sub_004A1320_OpenTextPanel(unsigned short nStringId, int bSide, 
 {
     if (!bSide)
     {
-        gbTextSide_007BF236 = 0;
-        gnGlobal_007225FC = 0x0C;
-        gnGlobal_007BF278 = (gnGlobal_0071146C - 0x145) / 2;
+        gbTextSide = 0;
+// build: symbol ?gnTextTop@* 0x007225FC
+        gnTextTop = 0x0C;
+        gnTextLeft = (gnScreenWidth - 0x145) / 2;
     }
     else
     {
-        gbTextSide_007BF236 = 1;
-        gnGlobal_007225FC = 0x105 - gnGlobal_007A285C;
-        gnGlobal_007BF278 = gnGlobal_007A2858;
+        gbTextSide = 1;
+        gnTextTop = 0x105 - gnPanelOffsetY;
+        gnTextLeft = gnPanelOffsetX;
     }
 
     GAME_ResetMouseState();
 
-    if (gnHintId_007BF260)
+    if (gnHintId)
     {
-        const int nHint = sub_004B9610_FindHint(gnHintId_007BF260);
+        const int nHint = sub_004B9610_FindHint(gnHintId);
         if (nHint)
         {
             sub_004B9EF0_ArmHint(nHint, 0, 0, 4);
         }
-        gnHintId_007BF260 = 0;
+        gnHintId = 0;
     }
 
-    gnHintSound_007BF24B = 0;
-    gdwGlobal_007BF20A = 0;
+// build: symbol ?ghHintSound@* 0x007BF24B
+    ghHintSound = 0;
+// build: symbol ?gbTextFromObject@* 0x007BF20A
+    gbTextFromObject = 0;
 
     D2RectStrc tRect;
-    const int nScreenBottom = gnGlobal_00711470 - 0x35;
-    tRect.nTop = gnGlobal_007225FC;
-    tRect.nBottom = gnGlobal_007225FC + 0xB6;
+    const int nScreenBottom = gnScreenHeight - 0x35;
+    tRect.nTop = gnTextTop;
+    tRect.nBottom = gnTextTop + 0xB6;
     if (tRect.nBottom >= nScreenBottom)
     {
         tRect.nBottom = nScreenBottom;
     }
-    tRect.nLeft = gnGlobal_007BF278 - 10;
-    tRect.nRight = gnGlobal_007BF278 + 0x14F;
+    tRect.nLeft = gnTextLeft - 10;
+    tRect.nRight = gnTextLeft + 0x14F;
     sub_00467430(&tRect);
     sub_00466FE0();
 
-    gwTextStringId_007BF212 = nStringId;
-    if (gpTextBox_007BF0A4)
+    gwTextStringId = nStringId;
+    if (gpTextBox)
     {
         return;
     }
 
-    gnGlobal_007BF1BC = 0;
+    gbTextBoxDone = 0;
     const int nOldFont = sub_00502EF0(8);
-    gpTextBox_007BF0A4 = TEXT_CreateTextBox(D2LANG_GetStringFromTblIndex(nStringId), 2);
-    D2_ASSERT(gpTextBox_007BF0A4, 0x1063);
+    gpTextBox = TEXT_CreateTextBox(D2LANG_GetStringFromTblIndex(nStringId), 2);
+    D2_ASSERT(gpTextBox, 0x1063);
     sub_00502EF0(nOldFont);
 
-    *(int*)gpTextBox_007BF0A4->nScroll = 0;
-    gnGlobal_007BF1C0 = 1;
-    gnGlobal_007BF1FA = 1;
-    if (!gbStarted_007BF27C)
+    *(int*)gpTextBox->nScroll = 0;
+    gnTextActive = 1;
+// build: symbol ?gbTextPanelOpen@* 0x007BF1FA
+    gbTextPanelOpen = 1;
+    if (!gbTextHandlersRegistered)
     {
-        gbStarted_007BF27C = 1;
-        gnGlobal_007BF22C = GetTickCount();
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaTextMsgHandlers_00722600, 7);
+        gbTextHandlersRegistered = 1;
+        gnStartTick = GetTickCount();
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaTextMsgHandlers, 7);
     }
 
     const int nSoundId = sub_004E0650_GetStringSound(nStringId);
     if (nSoundId)
     {
-        gnHintSound_007BF24B = sub_004B9A00(nSoundId, sub_00463DD0_GetPlayerUnit(), 5, 0, 0);
-        gnHintId_007BF260 = nSoundId;
+        ghHintSound = sub_004B9A00(nSoundId, sub_00463DD0_GetPlayerUnit(), 5, 0, 0);
+        gnHintId = nSoundId;
     }
 
     if ((nStringId == 0x7F || nStringId == 0x4E22 || nStringId == 0x4EC9 || nStringId == 0x4EA3 || nStringId == 0x18C) && bSound)
     {
-        gbTextSound_007BF230 = 1;
+        gbTextSound = 1;
     }
 }
 
@@ -1326,11 +1338,11 @@ int __fastcall WARDENCLIENT_UpdateUnitGfx(D2UnitStrc* pUnit, int nArg)
         switch (sub_0045AE90())
         {
         case 1:
-            nX -= gnGlobal_0071146C / 4;
+            nX -= gnScreenWidth / 4;
             break;
 
         case 2:
-            nX += gnGlobal_0071146C / 4;
+            nX += gnScreenWidth / 4;
             break;
         }
     }
@@ -1415,7 +1427,8 @@ void __fastcall WARDENCLIENT_SetItemPropTexts(D2UnitStrc* pPlayer, D2UnitStrc* p
 
             if (nMask & (1 << i))
             {
-                sub_004E60A0_AddSetPropText(pItem, nArg1, nArg2, 0, gaSetPropIds_006DBD70[nIndex], 0, 0, 1);
+// build: symbol ?gaSetPropIds@* 0x006DBD70
+                sub_004E60A0_AddSetPropText(pItem, nArg1, nArg2, 0, gaSetPropIds[nIndex], 0, 0, 1);
             }
         }
         break;
@@ -1426,7 +1439,7 @@ void __fastcall WARDENCLIENT_SetItemPropTexts(D2UnitStrc* pPlayer, D2UnitStrc* p
         const int nCount = (nWorn >= 0x40 ? 0 : gaSetPartialCounts_006DBD90[nWorn]) - 1;
         for (int i = 0; i < nCount; ++i)
         {
-            sub_004E60A0_AddSetPropText(pItem, nArg1, nArg2, 0, gaSetPropIds_006DBD70[i], 0, 0, 1);
+            sub_004E60A0_AddSetPropText(pItem, nArg1, nArg2, 0, gaSetPropIds[i], 0, 0, 1);
         }
         break;
     }

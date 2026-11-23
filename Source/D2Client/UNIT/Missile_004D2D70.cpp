@@ -16,8 +16,8 @@ typedef int (__fastcall* CLTHITFUNC)(D2UnitStrc* pMissile, D2UnitStrc* pTarget);
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern "C" unsigned char gbChargeMissileMask_006CE270;                                                     // 0x006CE270
-extern int gnCltHitFuncCount_0072A504;                                                                      // 0x0072A504
-extern CLTHITFUNC gpfCltHitFuncs_0072A508[];                                                                // 0x0072A508
+extern int gnCltHitFuncCount;                                                                      // 0x0072A504
+extern CLTHITFUNC gpfnCltHitFuncs[];                                                                // 0x0072A508
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit);                                        // 0x004639D0
@@ -149,9 +149,9 @@ D2UnitStrc* __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitSt
             sub_004DC210_RunCltUnitEvents(0, pTarget, pMissile, 0);
 
             const short nCltHitFunc = pMissilesTxtRecord->wCltHitFunc;
-            if (nCltHitFunc > 0 && nCltHitFunc < gnCltHitFuncCount_0072A504 && gpfCltHitFuncs_0072A508[nCltHitFunc])
+            if (nCltHitFunc > 0 && nCltHitFunc < gnCltHitFuncCount && gpfnCltHitFuncs[nCltHitFunc])
             {
-                if (!gpfCltHitFuncs_0072A508[nCltHitFunc](pMissile, pTarget))
+                if (!gpfnCltHitFuncs[nCltHitFunc](pMissile, pTarget))
                     return 0;
             }
 

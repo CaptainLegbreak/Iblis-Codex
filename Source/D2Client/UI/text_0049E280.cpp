@@ -58,14 +58,14 @@ void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoor
 void __stdcall CHAT_FreeHoverMsg(void* pMemoryPool, D2HoverTextStrc* pHoverText); // 0x006611A0
 unsigned int __stdcall CHAT_GetTimeoutFromHoverMsg(D2HoverTextStrc* pHoverMsg); // 0x006611D0
 unsigned char __stdcall CHAT_GetLangIdFromHoverMsg(D2HoverTextStrc* pHoverMsg); // 0x00661220
-extern int gnGlobal_0071146C; // 0x0071146C
-extern int gnGlobal_00711470; // 0x00711470
-extern int gaHoverDirs_00722654[]; // 0x00722654
-extern int gnHoverDirCount_00722674; // 0x00722674
-extern D2RectStrc gaHoverRects_007BF0A8[16]; // 0x007BF0A8
-extern int gnGameFrame_007BF20E; // 0x007BF20E
-extern D2CoordStrc gtHoverOffset_007BF214; // 0x007BF214
-extern int gnHoverRectCount_007BF224; // 0x007BF224
+extern int gnScreenWidth; // 0x0071146C
+extern int gnScreenHeight; // 0x00711470
+extern int gaHoverDirs[]; // 0x00722654
+extern int gnHoverDirCount; // 0x00722674
+extern D2RectStrc gaHoverRects[16]; // 0x007BF0A8
+extern int gnGameFrame; // 0x007BF20E
+extern D2CoordStrc gtHoverOffset; // 0x007BF214
+extern int gnHoverRectCount; // 0x007BF224
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -100,8 +100,8 @@ int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int n
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 void __fastcall TEXT_AddToHistory(D2TextNodeStrc* pSource); // 0x0049DBC0
 static void sub_0049D490_FreeTextNode(D2TextNodeStrc* pNode);
-extern ListBoxWrapper* gpListBox_007BF1B4; // 0x007BF1B4
-extern D2TextListStrc gtTextList_007BF1EA; // 0x007BF1EA
+extern ListBoxWrapper* gpListBox; // 0x007BF1B4
+extern D2TextListStrc gtOverheadTextList; // 0x007BF1EA
 
 static void sub_0049D370_FreeTextLines(T0044CB60* pLine)
 {
@@ -146,11 +146,11 @@ static int TEXT_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect)
     switch (sub_0045AE90())
     {
     case 1:
-        if (pRect->nLeft > gnGlobal_0071146C / 2 - 10)
+        if (pRect->nLeft > gnScreenWidth / 2 - 10)
             return 1;
         break;
     case 2:
-        if (pRect->nLeft < gnGlobal_0071146C / 2 + 10)
+        if (pRect->nLeft < gnScreenWidth / 2 + 10)
             return 1;
         break;
     case 3:
@@ -165,7 +165,7 @@ static inline int sub_F02_IntersectsAnyHoverRect(const D2RectStrc* pRect, int nC
     for (int i = 0; i < nCount; ++i)
     {
         D2RectStrc tOverlap;
-        if (IntersectRect(&tOverlap, &gaHoverRects_007BF0A8[i], pRect))
+        if (IntersectRect(&tOverlap, &gaHoverRects[i], pRect))
             return 1;
     }
     return 0;
@@ -178,13 +178,13 @@ static bool __stdcall sub_0049E070_PlaceHoverRect(int nCount, D2RectStrc* pRect)
 
     if (!nCount)
     {
-        gaHoverRects_007BF0A8[0] = *pRect;
+        gaHoverRects[0] = *pRect;
         return true;
     }
 
     if (!sub_F02_IntersectsAnyHoverRect(pRect, nCount))
     {
-        gaHoverRects_007BF0A8[nCount] = *pRect;
+        gaHoverRects[nCount] = *pRect;
         return true;
     }
 
@@ -193,26 +193,26 @@ static bool __stdcall sub_0049E070_PlaceHoverRect(int nCount, D2RectStrc* pRect)
     {
         for (int nDY = 0x23; nDY < 0x118; nDY += 0x23)
         {
-            for (nDir = 0; gnHoverDirCount_00722674 > nDir; ++nDir)
+            for (nDir = 0; gnHoverDirCount > nDir; ++nDir)
             {
                 D2RectStrc tRect = *pRect;
-                tRect.nLeft += gaHoverDirs_00722654[nDir] * nDX;
-                tRect.nTop += gaHoverDirs_00722654[nDir] * nDY;
+                tRect.nLeft += gaHoverDirs[nDir] * nDX;
+                tRect.nTop += gaHoverDirs[nDir] * nDY;
                 tRect.nRight = tRect.nLeft + 0x190;
                 tRect.nBottom = tRect.nTop + 0x118;
-                if (tRect.nLeft < 0 || tRect.nRight > gnGlobal_0071146C || tRect.nTop < 0 || tRect.nBottom > gnGlobal_00711470)
+                if (tRect.nLeft < 0 || tRect.nRight > gnScreenWidth || tRect.nTop < 0 || tRect.nBottom > gnScreenHeight)
                     continue;
 
                 bool bOverlap = false;
                 for (int j = 0; j < nCount; ++j)
                 {
                     D2RectStrc tTest;
-                    if (IntersectRect(&tTest, &gaHoverRects_007BF0A8[j], &tRect))
+                    if (IntersectRect(&tTest, &gaHoverRects[j], &tRect))
                         bOverlap = true;
                 }
                 if (!bOverlap)
                 {
-                    gaHoverRects_007BF0A8[nCount] = tRect;
+                    gaHoverRects[nCount] = tRect;
                     *pRect = tRect;
                     return true;
                 }
@@ -255,7 +255,7 @@ static bool sub_0049E280_ConvertHoverText(int nLangId, const char* szText, Unico
 
 static void __stdcall sub_004A0A00_ShowHoverText(const Unicode* wszText, D2UnitStrc* pUnit, D2HoverTextStrc* pHoverText, D2CoordStrc* pPos)
 {
-    if (gnGameFrame_007BF20E > CHAT_GetTimeoutFromHoverMsg(pHoverText))
+    if (gnGameFrame > CHAT_GetTimeoutFromHoverMsg(pHoverText))
     {
         CHAT_FreeHoverMsg(0, pHoverText);
         if (pUnit)
@@ -276,13 +276,13 @@ static void __stdcall sub_004A0A00_ShowHoverText(const Unicode* wszText, D2UnitS
     tRect.nLeft = pPos->nX;
     tRect.nBottom = pTextBox->nHeight + pPos->nY;
     tRect.nRight = pTextBox->nWidth + pPos->nX;
-    if (gnHoverRectCount_007BF224 < 0x10 && !sub_0049E070_PlaceHoverRect(gnHoverRectCount_007BF224, &tRect))
+    if (gnHoverRectCount < 0x10 && !sub_0049E070_PlaceHoverRect(gnHoverRectCount, &tRect))
     {
         TEXT_FreeTextBox(pTextBox);
         return;
     }
 
-    ++gnHoverRectCount_007BF224;
+    ++gnHoverRectCount;
     TEXT_DrawTextBoxAt(pTextBox, &tRect);
     TEXT_FreeTextBox(pTextBox);
     sub_00502EF0(nOldFont);
@@ -299,23 +299,23 @@ void __fastcall TEXT_DrawUnitHoverText(D2UnitStrc* pUnit)
 
     D2CoordStrc tPos;
     UNITS_GetClientCoords(pUnit, &tPos);
-    tPos.nX -= gtHoverOffset_007BF214.nX;
-    tPos.nY += -0x1E - gtHoverOffset_007BF214.nY;
+    tPos.nX -= gtHoverOffset.nX;
+    tPos.nY += -0x1E - gtHoverOffset.nY;
     switch (sub_0045AE90())
     {
     case 1:
-        tPos.nX -= gnGlobal_0071146C / 4;
+        tPos.nX -= gnScreenWidth / 4;
         break;
     case 2:
-        tPos.nX += gnGlobal_0071146C / 4;
+        tPos.nX += gnScreenWidth / 4;
         break;
     case 3:
         return;
     }
 
-    if (tPos.nY <= 0 || tPos.nY >= gnGlobal_00711470)
+    if (tPos.nY <= 0 || tPos.nY >= gnScreenHeight)
         return;
-    if (tPos.nX <= -0x64 || tPos.nX >= gnGlobal_0071146C + 0x64)
+    if (tPos.nX <= -0x64 || tPos.nX >= gnScreenWidth + 0x64)
         return;
 
     char szText[0x100];
@@ -374,7 +374,7 @@ void __fastcall TEXT_PrintPartyText(const Unicode* wszText, char nColor)
     pNode->nLines = 0;
     for (;;)
     {
-        while (nCount > 0 && D2Win_10123(&wszText[nStart], nCount) > gnGlobal_0071146C - 0x46)
+        while (nCount > 0 && D2Win_10123(&wszText[nStart], nCount) > gnScreenWidth - 0x46)
             nCount--;
 
         if (nStart + nCount != nTotal)
@@ -402,9 +402,9 @@ void __fastcall TEXT_PrintPartyText(const Unicode* wszText, char nColor)
     }
     pNode->nColor = (unsigned char)nColor;
 
-    if (gtTextList_007BF1EA.pFirst)
+    if (gtOverheadTextList.pFirst)
     {
-        D2TextNodeStrc* pLast = gtTextList_007BF1EA.pFirst;
+        D2TextNodeStrc* pLast = gtOverheadTextList.pFirst;
         unsigned short nNodes = 0;
         D2TextNodeStrc** ppNext = (D2TextNodeStrc**)pLast->pNext;
         if (*ppNext)
@@ -416,27 +416,27 @@ void __fastcall TEXT_PrintPartyText(const Unicode* wszText, char nColor)
                 nNodes++;
             } while (*ppNext);
         }
-        D2_ASSERT(nNodes == gtTextList_007BF1EA.wCount - 1, 0xDF1);
+        D2_ASSERT(nNodes == gtOverheadTextList.wCount - 1, 0xDF1);
         *(D2TextNodeStrc**)pLast->pNext = pNode;
     }
     else
     {
-        gtTextList_007BF1EA.pFirst = pNode;
+        gtOverheadTextList.pFirst = pNode;
     }
-    gtTextList_007BF1EA.wCount++;
+    gtOverheadTextList.wCount++;
     TEXT_AddToHistory(pNode);
 
-    if (gtTextList_007BF1EA.wCount > 2)
+    if (gtOverheadTextList.wCount > 2)
     {
-        D2TextNodeStrc* pFirst = gtTextList_007BF1EA.pFirst;
-        gtTextList_007BF1EA.pFirst = *(D2TextNodeStrc**)gtTextList_007BF1EA.pFirst->pNext;
+        D2TextNodeStrc* pFirst = gtOverheadTextList.pFirst;
+        gtOverheadTextList.pFirst = *(D2TextNodeStrc**)gtOverheadTextList.pFirst->pNext;
         sub_0049D490_FreeTextNode(pFirst);
-        gtTextList_007BF1EA.wCount--;
+        gtOverheadTextList.wCount--;
     }
 
-    if (GAME_GetUIVarState(0x18) && gpListBox_007BF1B4)
+    if (GAME_GetUIVarState(0x18) && gpListBox)
     {
-        gpListBox_007BF1B4->Refresh();
+        gpListBox->Refresh();
         sub_0049E340();
     }
     sub_00502EF0(nOldFont);

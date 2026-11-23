@@ -161,7 +161,8 @@ D2StormListFixedArrayStrc::~D2StormListFixedArrayStrc()
     for (unsigned int i = 0; i < f_4; i++)
         f_8[i].~D2StormListAStrc();
     if (f_8)
-        SMemFree(f_8, gszTypeExplicitList_0070F584, -2, 0);
+// build: symbol ?gszTypeExplicitList@* 0x0070F584
+        SMemFree(f_8, gszTypeExplicitList, -2, 0);
 }
 
 // 0x00450D90
@@ -171,11 +172,12 @@ void D2StormGameDataArrayStrc::sub_00450D90_ReallocData(unsigned int nAlloc)
     for (unsigned int i = nAlloc; i < f_4; i++)
         pOld[i].~D2SGameDataStrc();
     f_0 = nAlloc;
-    void* pNew = SMemReAlloc(pOld, nAlloc * sizeof(D2SGameDataStrc), gszTypeSGameData_0070F56C, -2, 0x10);
+// build: symbol ?gszTypeSGameData@* 0x0070F56C
+    void* pNew = SMemReAlloc(pOld, nAlloc * sizeof(D2SGameDataStrc), gszTypeSGameData, -2, 0x10);
     f_8 = (D2SGameDataStrc*)pNew;
     if (!pNew)
     {
-        f_8 = (D2SGameDataStrc*)SMemAlloc(nAlloc * sizeof(D2SGameDataStrc), gszTypeSGameData_0070F56C, -2, 0);
+        f_8 = (D2SGameDataStrc*)SMemAlloc(nAlloc * sizeof(D2SGameDataStrc), gszTypeSGameData, -2, 0);
         if (pOld)
         {
             unsigned int nCopy = nAlloc >= f_4 ? f_4 : nAlloc;
@@ -184,7 +186,7 @@ void D2StormGameDataArrayStrc::sub_00450D90_ReallocData(unsigned int nAlloc)
                 new (&f_8[i]) D2SGameDataStrc(pOld[i]);
                 pOld[i].~D2SGameDataStrc();
             }
-            SMemFree(pOld, gszTypeSGameData_0070F56C, -2, 0);
+            SMemFree(pOld, gszTypeSGameData, -2, 0);
         }
     }
 }

@@ -91,9 +91,9 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);           
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);              // 0x005269D0
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                   // 0x00526F20
 
-extern int gnGlobal_0071146C;                                                                               // 0x0071146C
+extern int gnScreenWidth;                                                                               // 0x0071146C
 extern int gnAutomapHeight_007A521C;                                                                        // 0x007A521C
-extern D2ClientItemSlotStrc gaItemSlots_007C0C85[10];                                                       // 0x007C0C85
+extern D2ClientItemSlotStrc gaNpcItemSlots[10];                                                       // 0x007C0C85
 extern ListBoxWrapper* gpListBox_007C0D83;                                                                  // 0x007C0D83
 
 // build: symbol ??0ListBoxWrapper@@QAE@HHHHHHHHH@Z 0x004BF8F0
@@ -101,33 +101,35 @@ extern ListBoxWrapper* gpListBox_007C0D83;                                      
 // 0x004B5C60
 int __cdecl sub_004B5C60_Handler()
 {
-    if (gpDialog_007C0D6B)
+// build: symbol ?gpNpcMainMenuDialog@* 0x007C0D6B
+    if (gpNpcMainMenuDialog)
     {
-        DIALOG_DestroyDialog(gpDialog_007C0D6B);
-        gpDialog_007C0D6B = 0;
+        DIALOG_DestroyDialog(gpNpcMainMenuDialog);
+        gpNpcMainMenuDialog = 0;
     }
 
-    if (gpDialog_007C0D77)
+// build: symbol ?gpNpcHireDialog@* 0x007C0D77
+    if (gpNpcHireDialog)
     {
-        DIALOG_DestroyDialog(gpDialog_007C0D77);
+        DIALOG_DestroyDialog(gpNpcHireDialog);
         delete gpListBox_007C0D83;
         gpListBox_007C0D83 = 0;
-        gpDialog_007C0D77 = 0;
+        gpNpcHireDialog = 0;
         NPCMENU_BuildNpcMenu();
         return 0;
     }
 
-    gpDialog_007C0D77 = sub_004B7EB0_CreateDialog((gnGlobal_0071146C - 0x1EA) / 2, gnAutomapHeight_007A521C / 2 - 0xC3,
+    gpNpcHireDialog = sub_004B7EB0_CreateDialog((gnScreenWidth - 0x1EA) / 2, gnAutomapHeight_007A521C / 2 - 0xC3,
         (int)NPCMENU_CloseHireDialog, 0, 0, 0, 0, 0x1EA, 0x15E, 0, 1);
-    sub_004B8370_SetField5C(gpDialog_007C0D77, 1);
+    sub_004B8370_SetField5C(gpNpcHireDialog, 1);
 
     Unicode wszGold[300];
     sub_005269D0(300, wszGold, D2LANG_GetStringFromTblIndex(0xD24),
         STATLIST_UnitGetStatValue(sub_00463DD0(), STAT_GOLDBANK, 0) + STATLIST_UnitGetStatValue(sub_00463DD0(), STAT_GOLD, 0));
-    sub_004B85F0_AddTextLine(gpDialog_007C0D77, wszGold, 0x15, 0, 4, 1, 0, 0);
-    sub_004B85F0_AddTextLine(gpDialog_007C0D77, D2LANG_GetStringFromTblIndex(0xD48), 0x13B, 0, 0, 1, NPCMENU_CloseHireDialog, 1);
+    sub_004B85F0_AddTextLine(gpNpcHireDialog, wszGold, 0x15, 0, 4, 1, 0, 0);
+    sub_004B85F0_AddTextLine(gpNpcHireDialog, D2LANG_GetStringFromTblIndex(0xD48), 0x13B, 0, 0, 1, NPCMENU_CloseHireDialog, 1);
 
-    gpListBox_007C0D83 = new ListBoxWrapper((gnGlobal_0071146C - 0x1EA) / 2, gnAutomapHeight_007A521C / 2 - 0xA0, 0x1EA,
+    gpListBox_007C0D83 = new ListBoxWrapper((gnScreenWidth - 0x1EA) / 2, gnAutomapHeight_007A521C / 2 - 0xA0, 0x1EA,
         0x118, 6, 0, 1, (int)NPCMENU_HireMercHandler, 0);
     if (!gpListBox_007C0D83)
     {
@@ -135,9 +137,9 @@ int __cdecl sub_004B5C60_Handler()
         return 0;
     }
 
-    DIALOG_AddWidget(gpDialog_007C0D77, gpListBox_007C0D83, 0x23, 0x1E);
+    DIALOG_AddWidget(gpNpcHireDialog, gpListBox_007C0D83, 0x23, 0x1E);
 
-    D2ClientItemSlotStrc* pSlot = gaItemSlots_007C0C85;
+    D2ClientItemSlotStrc* pSlot = gaNpcItemSlots;
     int nCount = 0;
     int i;
     for (i = 0; i < 10; ++i)
@@ -235,6 +237,6 @@ int __cdecl sub_004B5C60_Handler()
         gpListBox_007C0D83->AddItem(D2LANG_GetStringFromTblIndex(0xD25), 0, 0, 0, 0, 0, 10, 0, 1, 0xE);
     }
 
-    sub_004B82F0_Select(gpDialog_007C0D77, -1);
+    sub_004B82F0_Select(gpNpcHireDialog, -1);
     return 1;
 }

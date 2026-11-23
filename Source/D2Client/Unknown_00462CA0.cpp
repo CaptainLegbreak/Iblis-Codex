@@ -36,12 +36,18 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 extern D2DataTablesStrc* sgptDataTables;
 extern unsigned int gdwBitMasks[];
 extern void* gpDrlgAct_007A0634;
-extern int gnInTown_007A5260;
-extern unsigned int gdwLastTick_007A5268;
-extern int gdwGlobal_007A5264;
-extern int gnStringCount_00711EF0;
-extern D2StringRefStrc gaStringRefs_00711DDC[];
-extern "C" const char gszPlayerCpp_006D6A34[];
+// build: symbol ?gnInTown@* 0x007A5260
+extern int gnInTown;
+// build: symbol ?gdwLastClampTick@* 0x007A5268
+extern unsigned int gdwLastClampTick;
+// build: symbol ?gbPlayerCommandPending@* 0x007A5264
+extern int gbPlayerCommandPending;
+// build: symbol ?gnStringCount@* 0x00711EF0
+extern int gnStringCount;
+// build: symbol ?gaStringRefs@* 0x00711DDC
+extern D2StringRefStrc gaStringRefs[];
+// build: symbol _gszPlayerCpp 0x006D6A34
+extern "C" const char gszPlayerCpp[];
 unsigned int __cdecl GAME_SetClickHandled(); // 0x0044BEF0
 unsigned int __cdecl sub_0044DA90();
 unsigned int __cdecl GAME_GetCurrentTime(); // 0x0044DAA0
@@ -157,8 +163,8 @@ unsigned short __stdcall COLLISION_CheckMaskWithPattern(D2ActiveRoomStrc* pRoom,
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms);
 void __cdecl sub_004608C0();
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc*, D2ActiveRoomStrc***, int*); // 0x00619790
-extern D2UnitStrc* gpUnitHashTable_007A5E70[6 * 0x80]; // 0x007A5E70
-extern D2UnitStrc* gpUnitHashTable_007A5270[6 * 0x80]; // 0x007A5270
+extern D2UnitStrc* gapClientUnitTable[6 * 0x80]; // 0x007A5E70
+extern D2UnitStrc* gapServerUnitTable[6 * 0x80]; // 0x007A5270
 
 // build: symbol ?PLAYER_SetModeAndSync@* 0x00460830
 static void __stdcall PLAYER_SetModeAndSync(int bSync, int nState, D2UnitStrc* pUnit)
@@ -227,9 +233,9 @@ static void PLAYER_UpdateRoomState(D2UnitStrc* pUnit)
     UNITS_SetPlayerPortalFlags(pUnit, nPortalFlags);
     sub_0061AF10(gpDrlgAct_007A0634, PATH_GetNextRoom(pUnit->pDynamicPath), UNITS_GetRoom(pUnit));
     const int bInTown = DUNGEON_IsRoomInTown(pRoom) != 0;
-    if (gnInTown_007A5260 != bInTown && !bInTown)
+    if (gnInTown != bInTown && !bInTown)
         sub_004B3E10(pUnit);
-    gnInTown_007A5260 = bInTown;
+    gnInTown = bInTown;
     sub_00473C90_SetGlobal(sub_0061AA40(pRoom));
     sub_0046BF30_CheckThroneLevel(pRoom);
 }
@@ -266,8 +272,8 @@ void PLAYER_ResetPlayerState(D2UnitStrc* pUnit); // 0x00461010
 // build: symbol ?PLAYER_RequestSkillString@* 0x00461070
 static void __stdcall PLAYER_RequestSkillString(D2UnitStrc* pUnit, int nIndex)
 {
-    D2_ASSERT(gnStringCount_00711EF0 > nIndex, 0x2CB);
-    const unsigned short nStringId = gaStringRefs_00711DDC[nIndex].nStringId;
+    D2_ASSERT(gnStringCount > nIndex, 0x2CB);
+    const unsigned short nStringId = gaStringRefs[nIndex].nStringId;
     if (nStringId)
         sub_004CB9C0_Request(pUnit, nStringId);
 }
@@ -320,7 +326,7 @@ static int __stdcall PLAYER_RefreshSkillRef(int* pUseState, D2UnitStrc* pUnit, D
         return 0;
 
     const int nOldSkillId = pRef->nSkillId;
-    pRef->nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, gszPlayerCpp_006D6A34, 0x32C);
+    pRef->nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, gszPlayerCpp, 0x32C);
     if (pRef->nSkillId != nOldSkillId)
         pRef->nOwnerGUID = -1;
     return 1;
@@ -877,13 +883,13 @@ static int __stdcall PLAYER_ClampTarget(D2UnitStrc* pUnit, D2PlayerCmdStrc* pCmd
         case 2:
         case 3:
         case 6:
-            if (dwTick - gdwLastTick_007A5268 < 7)
+            if (dwTick - gdwLastClampTick < 7)
                 return 0;
             break;
         }
     }
 
-    gdwLastTick_007A5268 = dwTick;
+    gdwLastClampTick = dwTick;
     return 1;
 }
 
@@ -892,7 +898,7 @@ static int PLAYER_IsSkillFlagSet(D2SkillStrc* pSkill)
 {
     if (pSkill)
     {
-        const int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, gszPlayerCpp_006D6A34, 0x75A);
+        const int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, gszPlayerCpp, 0x75A);
         D2SkillsTxt* pSkillsTxt = (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
         if (pSkillsTxt->nFlags[1] & gdwBitMasks[0])
             return 1;
@@ -954,7 +960,7 @@ no_target:
             if (!PLAYER_CheckSkillUse(&nResult, ppSkill, pCmd->pPlayer))
                 return;
             D2SkillStrc* pSkill = *ppSkill;
-            if (!pSkill || SKILLS_GetSkillIdFromSkill(pSkill, gszPlayerCpp_006D6A34, 0x7AF) || nResult != 1 || bNoTarget)
+            if (!pSkill || SKILLS_GetSkillIdFromSkill(pSkill, gszPlayerCpp, 0x7AF) || nResult != 1 || bNoTarget)
             {
                 PLAYER_SendCommand(0, pCmd);
                 sub_00467A70(0);
@@ -1159,7 +1165,7 @@ static int sub_00462BA0_CmdRightSkill(D2PlayerCmdStrc* pCmd)
     if (!sub_00464600(pCmd->pPlayer, pCmd->pSkill))
         return 1;
 
-    const int nSkillId = SKILLS_GetSkillIdFromSkill(pCmd->pSkill, gszPlayerCpp_006D6A34, 0x9DD);
+    const int nSkillId = SKILLS_GetSkillIdFromSkill(pCmd->pSkill, gszPlayerCpp, 0x9DD);
     D2SkillsTxt* pSkillsTxt = (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
     switch (pSkillsTxt->nAuraTargetState)
     {
@@ -1181,7 +1187,7 @@ static int sub_00462C20_CmdRightSkillMove(D2PlayerCmdStrc* pCmd)
     if (!sub_00464600(pCmd->pPlayer, pCmd->pSkill))
         return 1;
 
-    const int nSkillId = SKILLS_GetSkillIdFromSkill(pCmd->pSkill, gszPlayerCpp_006D6A34, 0x9FD);
+    const int nSkillId = SKILLS_GetSkillIdFromSkill(pCmd->pSkill, gszPlayerCpp, 0x9FD);
     D2SkillsTxt* pSkillsTxt = (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
     switch (pSkillsTxt->nAuraTargetState)
     {
@@ -1213,10 +1219,10 @@ int __fastcall sub_00462D00_PlayerCommand(int nCommand, int nX, int nY, unsigned
     if (GAME_GetUIVarState(9))
         return 0;
 
-    if (gdwGlobal_007A5264 && (nX || nY))
+    if (gbPlayerCommandPending && (nX || nY))
         return 0;
 
-    gdwGlobal_007A5264 = 1;
+    gbPlayerCommandPending = 1;
     sub_0045AFF0(&nX, &nY);
     D2PlayerCmdStrc tCmd = {};
     tCmd.dwFlags = 0;

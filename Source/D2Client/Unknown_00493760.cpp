@@ -16,15 +16,15 @@ int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 void __stdcall sub_K04_EmitUse(int nValue);
 
-static int gnGlobal_007BEECC; // 0x007BEECC
+static int gnPetIconPopupState; // 0x007BEECC
 
-static int gnPopupX_007BEED4; // 0x007BEED4
+static int gnPopupX; // 0x007BEED4
 
-static int gbPopupShown_007BEEDC; // 0x007BEEDC
+static int gbPopupShown; // 0x007BEEDC
 
-static int gnGlobal_007BEEE0; // 0x007BEEE0
+static int gbPopupPending; // 0x007BEEE0
 
-static int gdwPopupTick_007BEEE8; // 0x007BEEE8
+static int gdwPopupTick; // 0x007BEEE8
 
 static inline int InBox(int nX, int nY, int nLeft, int nRight, int nTop, int nBottom)
 {
@@ -41,17 +41,17 @@ void __stdcall sub_00493760_HirelingIconHoverMsg(SMSGHANDLER_PARAMS* pMsg)
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
     pMsg->bReturn = 0;
-    gnGlobal_007BEEE0 = 0;
-    const int bHit = gnGlobal_007BEECC != 2 && InBox(nX, nY, gnPopupX_007BEED4, gnPopupX_007BEED4 + 0x2E, 0x18, 0x18 + 0x24);
+    gbPopupPending = 0;
+    const int bHit = gnPetIconPopupState != 2 && InBox(nX, nY, gnPopupX, gnPopupX + 0x2E, 0x18, 0x18 + 0x24);
     if (!bHit)
     {
-        gbPopupShown_007BEEDC = 0;
-        gdwPopupTick_007BEEE8 = 0;
+        gbPopupShown = 0;
+        gdwPopupTick = 0;
         return;
     }
-    if (!gdwPopupTick_007BEEE8)
+    if (!gdwPopupTick)
     {
-        gdwPopupTick_007BEEE8 = GetTickCount();
+        gdwPopupTick = GetTickCount();
     }
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2UnitStrc* pCursorItem = pPlayer ? INVENTORY_GetCursorItem(pPlayer->pInventory) : 0;
@@ -59,16 +59,16 @@ void __stdcall sub_00493760_HirelingIconHoverMsg(SMSGHANDLER_PARAMS* pMsg)
     {
         if (sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0) != -1)
         {
-            gnGlobal_007BEEE0 = 1;
-            if (GetTickCount() - gdwPopupTick_007BEEE8 >= 700)
+            gbPopupPending = 1;
+            if (GetTickCount() - gdwPopupTick >= 700)
             {
-                gbPopupShown_007BEEDC = 1;
+                gbPopupShown = 1;
             }
         }
     }
     if (HIREABLES_CanEquipHirelingItem(0))
     {
-        gbPopupShown_007BEEDC = 1;
+        gbPopupShown = 1;
     }
 }
 
@@ -82,17 +82,17 @@ void __stdcall sub_004938E0_HirelingIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
     pMsg->bReturn = 0;
-    const int bHit = gnGlobal_007BEECC != 2 && InBox(nX, nY, gnPopupX_007BEED4, gnPopupX_007BEED4 + 0x2E, 0x18, 0x18 + 0x24);
+    const int bHit = gnPetIconPopupState != 2 && InBox(nX, nY, gnPopupX, gnPopupX + 0x2E, 0x18, 0x18 + 0x24);
     if (!bHit)
     {
-        gdwPopupTick_007BEEE8 = 0;
+        gdwPopupTick = 0;
         return;
     }
-    if (!gdwPopupTick_007BEEE8)
+    if (!gdwPopupTick)
     {
-        gdwPopupTick_007BEEE8 = GetTickCount();
+        gdwPopupTick = GetTickCount();
     }
-    if (GetTickCount() - gdwPopupTick_007BEEE8 >= 700)
+    if (GetTickCount() - gdwPopupTick >= 700)
     {
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
@@ -103,13 +103,14 @@ void __stdcall sub_004938E0_HirelingIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
         }
         sub_00455F20(0x24, 0, 0);
     }
-    gdwPopupTick_007BEEE8 = 0;
+    gdwPopupTick = 0;
 }
 
 // 0x00494300
 static inline void sub_00494300_SetHelpMenuSetting(unsigned long dwValue)
 {
-    gdwHelpMenu_00722310 = dwValue;
+// build: symbol ?gdwHelpMenu@* 0x00722310
+    gdwHelpMenu = dwValue;
     SRegSaveValue("Diablo II", "Help Menu", 1, dwValue);
 }
 

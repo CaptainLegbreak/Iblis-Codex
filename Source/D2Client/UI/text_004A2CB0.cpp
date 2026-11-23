@@ -30,10 +30,10 @@ struct D2QuestTableStrc
     int nCondition;
     int nQuestId;
 };
-extern int gnGlobal_007BF2A4; // 0x007BF2A4
-extern int gnGlobal_007BF2AC; // 0x007BF2AC
-extern D2QuestTableStrc gaQuestTable_00723F30[]; // 0x00723F30
-extern D2UiEntry10Strc gaUiEntries_00723F38[41]; // 0x00723F38
+extern int gnQuestAct; // 0x007BF2A4
+extern int gnQuestParam; // 0x007BF2AC
+extern D2QuestTableStrc gaQuestTable[]; // 0x00723F30
+extern D2UiEntry10Strc gaQuestLookup[41]; // 0x00723F38
 
 struct D2QuestUiFlagsStrc
 {
@@ -64,14 +64,14 @@ int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int n
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 static int TEXT_FindQuestIndex(int nKey);
-extern int ganPageSelection_007BF280[5]; // 0x007BF280
+extern int gaQuestPageDefault[5]; // 0x007BF280
 
 // 0x004A1910
 int TEXT_FindQuestIndex(int nKey)
 {
     for (int i = 0; i < 41; i++)
     {
-        if (gaUiEntries_00723F38[i].nKey == nKey)
+        if (gaQuestLookup[i].nKey == nKey)
             return i;
     }
     return -1;
@@ -168,7 +168,7 @@ void __fastcall TEXT_HandleQuestEvent(int nArg, D2PacketRecord6Strc* pPacket)
             unsigned char nId = pPacket->nId;
             if (nId == 32)
             {
-                gnGlobal_007BF2AC = pPacket->nParam;
+                gnQuestParam = pPacket->nParam;
             }
             else if (nId == 33)
             {
@@ -188,13 +188,13 @@ void __fastcall TEXT_HandleQuestEvent(int nArg, D2PacketRecord6Strc* pPacket)
                     return;
                 }
 
-                gnGlobal_007BF2A4 = pPacket->nParam;
-                if (gnGlobal_007BF2A4 > 5 || gnGlobal_007BF2A4 < 0)
+                gnQuestAct = pPacket->nParam;
+                if (gnQuestAct > 5 || gnQuestAct < 0)
                 {
-                    gnGlobal_007BF2A4 = 666;
+                    gnQuestAct = 666;
                 }
 
-                if (gnGlobal_007BF2A4 != 5)
+                if (gnQuestAct != 5)
                 {
                     gtQuestUiFlags_007BF2B3.abFlags[TEXT_FindQuestIndex(1)] = pPacket->nValue;
                     return;
@@ -229,10 +229,12 @@ refresh:
             gtQuestUiFlags_007BF2B3.abFlags[nIndex] = pPacket->nValue;
             if (!gtQuestUiFlags_007BF2B3.bLocked)
             {
-                D2QuestTableStrc* pEntry = &gaQuestTable_00723F30[nIndex];
-                if (pEntry->nPage == gnGlobal_007C0255)
+                D2QuestTableStrc* pEntry = &gaQuestTable[nIndex];
+// build: symbol ?gnPage@* 0x007C0255
+                if (pEntry->nPage == gnPage)
                 {
-                    gnIndex_007BF2B9 = pEntry->nCelId2;
+// build: symbol ?gnQuestSelectedSlot@* 0x007BF2B9
+                    gnQuestSelectedSlot = pEntry->nCelId2;
                 }
             }
         }
@@ -249,9 +251,9 @@ void __fastcall SCMD_HandleQuestEvent(const D2PacketRecord6Strc* pPacket)
 // 0x004A3050
 void __cdecl sub_004A3050()
 {
-    ganPageSelection_007BF280[0] = -1;
-    ganPageSelection_007BF280[1] = -1;
-    ganPageSelection_007BF280[2] = -1;
-    ganPageSelection_007BF280[3] = -1;
-    ganPageSelection_007BF280[4] = -1;
+    gaQuestPageDefault[0] = -1;
+    gaQuestPageDefault[1] = -1;
+    gaQuestPageDefault[2] = -1;
+    gaQuestPageDefault[3] = -1;
+    gaQuestPageDefault[4] = -1;
 }

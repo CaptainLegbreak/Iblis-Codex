@@ -21,10 +21,10 @@ struct D2GameLogonPacketStrc
 
 D2ClientInterfaceStrc* __cdecl sub_0044D540_GetClientInterface();                                           // 0x0044D540
 int __cdecl CHAT_HasClassOverride();                                                                // 0x0047AA30
-extern char gszCharName_007A05C4[];                                                                         // 0x007A05C4
+extern char gszClientCharName[];                                                                         // 0x007A05C4
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
-extern int gnSentBytes_007A6AF8;                                                                            // 0x007A6AF8
-extern int gnSentPackets_007A6B00;                                                                          // 0x007A6B00
+extern int gnSentBytes;                                                                            // 0x007A6AF8
+extern int gnSentPackets;                                                                          // 0x007A6B00
 
 // 0x00477F70
 void __fastcall sub_00477F70_SendGameLogon(int nServerToken, int nServerHash)
@@ -39,9 +39,9 @@ void __fastcall sub_00477F70_SendGameLogon(int nServerToken, int nServerHash)
     *(unsigned int*)tPacket.nKey2 = 0x91A519B6;
     tPacket.f_14 = STRTABLE_GetLanguage();
     tPacket.nClass = CHAT_HasClassOverride() ? sub_0047AA20_GetClassOverride() : gnCharClass_007A0522;
-    SStrCopy(tPacket.szName, gszCharName_007A05C4, 0x7FFFFFFF);
+    SStrCopy(tPacket.szName, gszClientCharName, 0x7FFFFFFF);
 // build: symbol ?CLIENT_Send@* 0x0052AE50
     CLIENT_Send(sizeof(D2GameLogonPacketStrc), 0, &tPacket);
-    gnSentBytes_007A6AF8 += sizeof(D2GameLogonPacketStrc);
-    gnSentPackets_007A6B00 += 1;
+    gnSentBytes += sizeof(D2GameLogonPacketStrc);
+    gnSentPackets += 1;
 }

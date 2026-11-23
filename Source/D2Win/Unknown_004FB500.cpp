@@ -13,8 +13,9 @@ int __stdcall D2Win_10028(const char* pszPalDatFilename, const char* pszPalPL2Fi
     {
         char szPalDatFilename[260];
         char szPalPL2Filename[260];
-        wsprintfA(szPalDatFilename, gszPathFormat_006D4124, szDataGlobal_006D4118, szPalDat_006DC7FC);
-        wsprintfA(szPalPL2Filename, gszPathFormat_006D4124, szDataGlobal_006D4118, "palette\\act1\\pal.pl2");
+// build: symbol ?gszDataGlobal@* 0x006D4118
+        wsprintfA(szPalDatFilename, gszPathFormat_006D4124, gszDataGlobal, szPalDat_006DC7FC);
+        wsprintfA(szPalPL2Filename, gszPathFormat_006D4124, gszDataGlobal, "palette\\act1\\pal.pl2");
         sub_004FB1E0_LoadPaletteFiles(szPalDatFilename, szPalPL2Filename);
     }
     else

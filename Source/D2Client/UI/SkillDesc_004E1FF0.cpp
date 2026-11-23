@@ -178,7 +178,7 @@ void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064
 
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
 
-extern D2DrlgActStrc* gpAct_007A0634; // 0x007A0634
+extern D2DrlgActStrc* gpAct; // 0x007A0634
 
 typedef char check_scalar_width[(sizeof(U32) == 4 && sizeof(int) == 4) ? 1 : -1];
 
@@ -201,21 +201,21 @@ struct T00481920
     int nEntryB;
 };
 
-extern int gnGlobal_007C8C7C; // 0x007C8C7C
+extern int gnEnvironLevelId; // 0x007C8C7C
 
-extern int gnGlobal_007C8C80; // 0x007C8C80
+extern int gnEnvironSoundHandle; // 0x007C8C80
 
-extern int gnGlobal_007C8C84; // 0x007C8C84
+extern int gnWeatherSoundHandle; // 0x007C8C84
 
-extern int gnGlobal_007C8C88; // 0x007C8C88
+extern int gnEnvironSoundId; // 0x007C8C88
 
-extern int gnGlobal_007C8C8C; // 0x007C8C8C
+extern int gnWeatherSoundId; // 0x007C8C8C
 
-extern int gnGlobal_007C8C90; // 0x007C8C90
+extern int gnEnvironAmbientId; // 0x007C8C90
 
-extern unsigned int gnGlobal_007C8C94; // 0x007C8C94
+extern unsigned int gnAmbientDelay; // 0x007C8C94
 
-extern unsigned int gnGlobal_007C8C98; // 0x007C8C98
+extern unsigned int gnAmbientTick; // 0x007C8C98
 
 int __cdecl sub_004DF870(); // 0x004DF870
 
@@ -250,7 +250,7 @@ int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsi
 
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
-extern const int gnSetMaskToBonusMappingTable_006DBD90[0x40]; // 0x006DBD90
+extern const int gaSetMaskToBonusMappingTable[0x40]; // 0x006DBD90
 
 void __fastcall sub_004E5A10_UseBonusCount(int nCount);
 
@@ -286,15 +286,15 @@ int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc* pUnit, D2UnitStrc* pItem,
 
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 
-extern int gnTextOffset1_0072D8D4; // 0x0072D8D4
+extern int gnTextOffset1; // 0x0072D8D4
 
-extern int gnTextOffset2_0072D8D0; // 0x0072D8D0
+extern int gnTextOffset2; // 0x0072D8D0
 
-extern int gnGlobal_00711470; // 0x00711470
+extern int gnScreenHeight; // 0x00711470
 
-extern int gnGlobal_007A2858; // 0x007A2858
+extern int gnPanelOffsetX; // 0x007A2858
 
-extern int gnGlobal_007A285C; // 0x007A285C
+extern int gnPanelOffsetY; // 0x007A285C
 
 extern int gnGlobal_0072D844; // 0x0072D844
 
@@ -316,7 +316,7 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* 
 
 extern "C" const char szFmtD_006D57BC[];                                                                    // 0x006D57BC
 
-extern "C" const char szFmtRange_006D9D70[];                                                                // 0x006D9D70
+extern "C" const char gszFmtRange[];                                                                // 0x006D9D70
 
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
@@ -356,9 +356,9 @@ int __stdcall STATES_CheckStateMaskDamRedOnUnit(D2UnitStrc* pUnit);             
 
 int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, D2SkillStrc* pSkill); // 0x004E89A0
 
-char gbTextOffsetInit_007C8C9C; // 0x007C8C9C
+char gbTextOffsetInit; // 0x007C8C9C
 
-char gbSkillRefreshInit_007C8CA4; // 0x007C8CA4
+char gbSkillRefreshInit; // 0x007C8CA4
 
 void __fastcall SKILLDESC_MissileScatter(D2UnitStrc* pUnit, int nSeed, int nMissile, int nX, int nY, int nCount, int nSkillId, int nSkillLevel); // 0x004F28A0
 
@@ -1074,7 +1074,7 @@ extern "C" int __fastcall SKILLDESC_RandomSpread(int nRange)
 // 0x004E41E0
 int __cdecl SKILLDESC_IsOutsideDayCycle()
 {
-    const int nCycle = ENVIRONMENT_GetCycleIndexFromAct(gpAct_007A0634);
+    const int nCycle = ENVIRONMENT_GetCycleIndexFromAct(gpAct);
     return nCycle < 1 || nCycle > 3;
 }
 
@@ -1114,7 +1114,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
     int nSound = 0;
     int nAmbient = 0;
     int nVolume = 0;
-    const int bNight = 2 < (unsigned int)(ENVIRONMENT_GetCycleIndexFromAct(gpAct_007A0634) - 1);
+    const int bNight = 2 < (unsigned int)(ENVIRONMENT_GetCycleIndexFromAct(gpAct) - 1);
     const int nEnviron = sub_004817A0_GetPlayerSoundEnviron();
     T00481920* pEnv = sub_00481920_GetSoundEnvironTxtRecord(nEnviron);
     if (pEnv)
@@ -1136,52 +1136,52 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
         const float fVolume = GetEnvironVolume_Inline();
         nVolume = (int)(fVolume * 255.0);
     }
-    if (nSound != gnGlobal_007C8C88)
+    if (nSound != gnEnvironSoundId)
     {
         int bCross = 0;
-        if (nSound == pEnv->nDaySound && gnGlobal_007C8C88 == pEnv->nNightSound)
+        if (nSound == pEnv->nDaySound && gnEnvironSoundId == pEnv->nNightSound)
             bCross = 1;
-        if (nSound == pEnv->nNightSound && gnGlobal_007C8C88 == pEnv->nDaySound)
+        if (nSound == pEnv->nNightSound && gnEnvironSoundId == pEnv->nDaySound)
             bCross = 1;
         if (bCross)
         {
-            sub_004B9EF0_ArmHint(gnGlobal_007C8C80, 0, 0, 0xFA);
+            sub_004B9EF0_ArmHint(gnEnvironSoundHandle, 0, 0, 0xFA);
         }
         else
         {
             sub_004BA950_RefreshHintsInRangeA(nSound, nSecond);
             sub_004BA9D0_RefreshHintsInRangeB(nAmbient, 0);
         }
-        if (nSound != gnGlobal_007C8C88)
+        if (nSound != gnEnvironSoundId)
         {
             if (nSound)
             {
-                gnGlobal_007C8C80 = sub_004B9A00(nSound, 0, 0, 0, 0);
+                gnEnvironSoundHandle = sub_004B9A00(nSound, 0, 0, 0, 0);
                 if (bCross)
                 {
-                    sub_004B9B50_SetValue(gnGlobal_007C8C80, 0);
-                    sub_004B9EF0_ArmHint(gnGlobal_007C8C80, 0xFF, 0, 0xFA);
+                    sub_004B9B50_SetValue(gnEnvironSoundHandle, 0);
+                    sub_004B9EF0_ArmHint(gnEnvironSoundHandle, 0xFF, 0, 0xFA);
                 }
-                gnGlobal_007C8C88 = nSound;
+                gnEnvironSoundId = nSound;
             }
             else
             {
-                gnGlobal_007C8C80 = 0;
-                gnGlobal_007C8C88 = 0;
+                gnEnvironSoundHandle = 0;
+                gnEnvironSoundId = 0;
             }
         }
     }
     if (nSecond)
     {
-        if (nVolume && !gnGlobal_007C8C84)
+        if (nVolume && !gnWeatherSoundHandle)
         {
-            gnGlobal_007C8C84 = sub_004B9A00(gnGlobal_007C8C8C, 0, 0, 0, 0);
-            if (gnGlobal_007C8C84)
-                sub_004B9B50_SetValue(gnGlobal_007C8C84, nVolume);
+            gnWeatherSoundHandle = sub_004B9A00(gnWeatherSoundId, 0, 0, 0, 0);
+            if (gnWeatherSoundHandle)
+                sub_004B9B50_SetValue(gnWeatherSoundHandle, nVolume);
         }
-        if (gnGlobal_007C8C84)
+        if (gnWeatherSoundHandle)
         {
-            const int nCurrent = sub_004B9B20(gnGlobal_007C8C84);
+            const int nCurrent = sub_004B9B20(gnWeatherSoundHandle);
             int nNext;
             if (nVolume > nCurrent)
             {
@@ -1197,32 +1197,32 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
             }
             if (nNext)
             {
-                sub_004B9B50_SetValue(gnGlobal_007C8C84, nNext);
+                sub_004B9B50_SetValue(gnWeatherSoundHandle, nNext);
             }
             else
             {
-                sub_004BA840(gnGlobal_007C8C84);
-                gnGlobal_007C8C84 = 0;
+                sub_004BA840(gnWeatherSoundHandle);
+                gnWeatherSoundHandle = 0;
             }
         }
-        gnGlobal_007C8C8C = nSecond;
+        gnWeatherSoundId = nSecond;
     }
     else
     {
-        sub_004BA840(gnGlobal_007C8C84);
-        gnGlobal_007C8C84 = 0;
-        gnGlobal_007C8C8C = 0;
+        sub_004BA840(gnWeatherSoundHandle);
+        gnWeatherSoundHandle = 0;
+        gnWeatherSoundId = 0;
     }
     sub_004DF6C0(nEnviron);
     if (nAmbient)
     {
-        if (nAmbient != gnGlobal_007C8C90)
+        if (nAmbient != gnEnvironAmbientId)
         {
-            gnGlobal_007C8C94 = sub_004E4120(pEnv->nAmbientDelay / 3) + pEnv->nAmbientDelay;
-            gnGlobal_007C8C98 = dwTick - sub_004E40A0(gnGlobal_007C8C94);
-            gnGlobal_007C8C90 = nAmbient;
+            gnAmbientDelay = sub_004E4120(pEnv->nAmbientDelay / 3) + pEnv->nAmbientDelay;
+            gnAmbientTick = dwTick - sub_004E40A0(gnAmbientDelay);
+            gnEnvironAmbientId = nAmbient;
         }
-        if (dwTick - gnGlobal_007C8C98 >= gnGlobal_007C8C94)
+        if (dwTick - gnAmbientTick >= gnAmbientDelay)
         {
             const int nHandle = sub_004B9A00(nAmbient, 0, 0, 0, 0);
             if (nHandle)
@@ -1231,12 +1231,12 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
                 const int nPan = SKILLDESC_RandomInRange(0x1C2, 0x2EE) * nSign;
                 const int nPanVolume = sub_004E4120(0x64);
                 sub_004B99A0(nHandle, nPan, nPanVolume, 0);
-                gnGlobal_007C8C98 = dwTick;
-                gnGlobal_007C8C94 = sub_004E4120(pEnv->nAmbientDelay / 3) + pEnv->nAmbientDelay;
+                gnAmbientTick = dwTick;
+                gnAmbientDelay = sub_004E4120(pEnv->nAmbientDelay / 3) + pEnv->nAmbientDelay;
             }
         }
     }
-    if (nLevelId != gnGlobal_007C8C7C)
+    if (nLevelId != gnEnvironLevelId)
     {
         const int nEntryA = pEnv->nEntryA;
         const int nEntryB = pEnv->nEntryB;
@@ -1246,7 +1246,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
             SKILLDESC_AddEnvironSoundRefs(nEntryA);
         if (nEntryB)
             SKILLDESC_AddEnvironSoundRefs(nEntryB);
-        gnGlobal_007C8C7C = nLevelId;
+        gnEnvironLevelId = nLevelId;
     }
 }
 
@@ -1305,9 +1305,9 @@ int __stdcall SKILLDESC_IsStatGroupUniform(D2UnitStrc* pUnit, D2StatListStrc* pS
 // 0x004E5A10
 static int SKILLDESC_GetSetBonusCount(unsigned int nSetItemMask)
 {
-    if (nSetItemMask >= sizeof(gnSetMaskToBonusMappingTable_006DBD90) / sizeof(gnSetMaskToBonusMappingTable_006DBD90[0]))
+    if (nSetItemMask >= sizeof(gaSetMaskToBonusMappingTable) / sizeof(gaSetMaskToBonusMappingTable[0]))
         return 0;
-    return gnSetMaskToBonusMappingTable_006DBD90[nSetItemMask];
+    return gaSetMaskToBonusMappingTable[nSetItemMask];
 }
 
 void __stdcall sub_004E5A10_Emit(int nUnused, unsigned int nSetItemMask)
@@ -1564,22 +1564,22 @@ void __fastcall SKILLDESC_DescAttackRate(D2UnitStrc* pUnit, D2SkillStrc* pSkill,
 void __fastcall sub_004E9870_DrawTwoTexts(const Unicode* wszText1, const Unicode* wszText2, int nLeft, int nY, int nRight, int nColor1, int nColor2)
 {
     sub_00502EF0(6);
-    if (!gbTextOffsetInit_007C8C9C)
+    if (!gbTextOffsetInit)
     {
         if (STRTABLE_GetLanguage() >= 6 && STRTABLE_GetLanguage() <= 9)
         {
-            gnTextOffset1_0072D8D4 = -7;
+            gnTextOffset1 = -7;
         }
         else
         {
-            gnTextOffset1_0072D8D4 = -6;
+            gnTextOffset1 = -6;
         }
 
-        gbTextOffsetInit_007C8C9C = 1;
+        gbTextOffsetInit = 1;
     }
 
-    TEXT_DrawCenteredText(gnGlobal_007A2858 + nLeft, gnGlobal_00711470 + gnGlobal_007A285C + gnTextOffset1_0072D8D4 + nY - 480, gnGlobal_007A2858 + nRight, wszText1, nColor1);
-    TEXT_DrawCenteredText(gnGlobal_007A2858 + nLeft, gnTextOffset2_0072D8D0 + gnGlobal_00711470 + gnGlobal_007A285C + nY - 480, gnGlobal_007A2858 + nRight, wszText2, nColor2);
+    TEXT_DrawCenteredText(gnPanelOffsetX + nLeft, gnScreenHeight + gnPanelOffsetY + gnTextOffset1 + nY - 480, gnPanelOffsetX + nRight, wszText1, nColor1);
+    TEXT_DrawCenteredText(gnPanelOffsetX + nLeft, gnTextOffset2 + gnScreenHeight + gnPanelOffsetY + nY - 480, gnPanelOffsetX + nRight, wszText2, nColor2);
 }
 
 static D2SkillsTxt* sub_I05_GetSkillsTxtRecord(int nSkillId)
@@ -1829,7 +1829,7 @@ static void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin,
     }
     else if (nMin < 10000 && nMax < 10000)
     {
-        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szText, gszFmtRange, nMin, nMax);
     }
     else if (nMin >= 10000)
     {
@@ -1853,7 +1853,7 @@ static void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin,
     {
         sub_00502EF0(1);
     }
-    TEXT_DrawCenteredText(gnGlobal_007A2858 + nLeft, gnGlobal_007A285C + gnGlobal_00711470 + nY - 480, gnGlobal_007A2858 + nRight, wszText, nColor);
+    TEXT_DrawCenteredText(gnPanelOffsetX + nLeft, gnPanelOffsetY + gnScreenHeight + nY - 480, gnPanelOffsetX + nRight, wszText, nColor);
 }
 
 void __fastcall SKILLDESC_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
@@ -1899,7 +1899,7 @@ void __fastcall SKILLDESC_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStr
     }
     else if (nWeaponMin < 10000 && nWeaponMax < 10000)
     {
-        wsprintfA(szText, szFmtRange_006D9D70, nWeaponMin, nWeaponMax);
+        wsprintfA(szText, gszFmtRange, nWeaponMin, nWeaponMax);
     }
     else if (nWeaponMin >= 10000)
     {
@@ -1918,7 +1918,7 @@ void __fastcall SKILLDESC_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStr
     }
     else if (nMin < 10000 && nMax < 10000)
     {
-        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szText, gszFmtRange, nMin, nMax);
     }
     else if (nMin >= 10000)
     {
@@ -1948,8 +1948,9 @@ void __fastcall SKILLDESC_DrawSkillWeaponLine(D2UnitStrc* pUnit, D2SkillStrc* pS
     int nMin = 0;
     int nMax = 0;
     int nColor = 0;
-    const int nBonus = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[0], SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 0x98C), nSkillLevel);
-    const int nAdd = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[1], SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 0x98D), nSkillLevel);
+// build: symbol ?gszSkillDescFile@* 0x006DBF24
+    const int nBonus = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[0], SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 0x98C), nSkillLevel);
+    const int nAdd = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[1], SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 0x98D), nSkillLevel);
     sub_004E86F0_GetWeaponDamage(&nMin, &nMax, &nColor, nAdd, pSkill, 0x80, 0, 0, pUnit, nBonus);
     sub_004E89A0_GetElementalDamage(pUnit, &nMin, &nMax, &nColor, pSkill);
     if (pSkillsTxt->nSrcDam != 0x80)
@@ -2035,7 +2036,7 @@ void __fastcall SKILLDESC_DrawWeaponAndElemDamage(D2UnitStrc* pUnit, D2SkillStrc
     }
     else if (nWeaponMin < 10000 && nWeaponMax < 10000)
     {
-        wsprintfA(szText, szFmtRange_006D9D70, nWeaponMin, nWeaponMax);
+        wsprintfA(szText, gszFmtRange, nWeaponMin, nWeaponMax);
     }
     else if (nWeaponMin >= 10000)
     {
@@ -2054,7 +2055,7 @@ void __fastcall SKILLDESC_DrawWeaponAndElemDamage(D2UnitStrc* pUnit, D2SkillStrc
     }
     else if (nMin < 10000 && nMax < 10000)
     {
-        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
+        wsprintfA(szText, gszFmtRange, nMin, nMax);
     }
     else if (nMin >= 10000)
     {
@@ -2161,7 +2162,7 @@ void __fastcall SKILLDESC_DrawWeaponDamageWithParam(D2UnitStrc* pUnit, D2SkillSt
     int nMax = 0;
     int nColor = 0;
     sub_004E86F0_GetWeaponDamage(&nMin, &nMax, &nColor, 0, pSkill, 0, 0, 0, pUnit, 0);
-    const int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 0xD40);
+    const int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 0xD40);
     D2SkillsTxt* pRecord = sub_I05_GetSkillsTxtRecord(nSkillId);
     const int nParam = !pRecord ? 0 : pRecord->dwParam[4];
     nMin += nParam * nMin / 100;
@@ -2173,7 +2174,7 @@ void __fastcall SKILLDESC_DrawWeaponDamageWithParam(D2UnitStrc* pUnit, D2SkillSt
 // 0x004EDA20
 void __fastcall SKILLDESC_RefreshSkills(D2UnitStrc* pUnit)
 {
-    if (!gbSkillRefreshInit_007C8CA4)
+    if (!gbSkillRefreshInit)
     {
         if (STRTABLE_GetLanguage() >= 6 && STRTABLE_GetLanguage() <= 9)
         {
@@ -2181,7 +2182,7 @@ void __fastcall SKILLDESC_RefreshSkills(D2UnitStrc* pUnit)
             gnGlobal_0072D88C -= 1;
         }
 
-        gbSkillRefreshInit_007C8CA4 = 1;
+        gbSkillRefreshInit = 1;
     }
 
     if (pUnit)

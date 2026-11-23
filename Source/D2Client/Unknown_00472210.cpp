@@ -16,11 +16,11 @@ D2WeatherStrc* __fastcall DATAARRAYS_Create(const char* szName, int nCount, int 
 void __fastcall DATAARRAYS_Destroy(void* pBlock); // 0x006BCA90
 void __fastcall sub_006BCCC0(D2WeatherStrc* pArray); // 0x006BCCC0
 int __stdcall sub_004726F0(int nArg); // 0x004726F0
-extern int gnGlobal_007A896C; // 0x007A896C
+extern int gbLightningFlash; // 0x007A896C
 extern int gnGlobal_007A8A0C; // 0x007A8A0C
-extern int gnGlobal_007A89E8; // 0x007A89E8
-extern int gnSplashFrames_007A89C8[]; // 0x007A89C8
-extern int gnBubbleFrames_007A892C[]; // 0x007A892C
+extern int gnLightningFlashFrames; // 0x007A89E8
+extern int gaSplashFrames[]; // 0x007A89C8
+extern int gaBubbleFrames[]; // 0x007A892C
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -31,14 +31,14 @@ D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 void __fastcall sub_00473D00_SetPhase(int nPhase); // 0x00473D00
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
-extern int gnGlobal_007A8A08; // 0x007A8A08
-extern int gnGlobal_007A8968; // 0x007A8968
+extern int gbLightningEnabled; // 0x007A8A08
+extern int gnLightningCountdown; // 0x007A8968
 
 int __cdecl sub_004F5140(); // 0x004F5140
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime); // 0x0061C100
 extern D2DrlgActStrc* gpDrlgAct_007A0634; // 0x007A0634
-extern const D2PeriodLightStrc gtPeriodLight_006D6E40[]; // 0x006D6E40
-extern unsigned char gnOutdoorLight_007A89EC[]; // 0x007A89EC
+extern const D2PeriodLightStrc gaPeriodLights[]; // 0x006D6E40
+extern unsigned char gabOutdoorLightColors[]; // 0x007A89EC
 
 struct D2B10EmitWeatherStrc
 {
@@ -66,10 +66,10 @@ D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 void __cdecl sub_00472400_ResetPhaseState(); // 0x00472400
-extern unsigned int gnPhaseMax_007A89C0; // 0x007A89C0
-extern int gbPhaseActive_007A8A1C; // 0x007A8A1C
-extern int gbPhaseBusy_007A8A20; // 0x007A8A20
-extern int gnPhase_007A8A24; // 0x007A8A24
+extern unsigned int gnPhaseMax; // 0x007A89C0
+extern int gbPhaseActive; // 0x007A8A1C
+extern int gbPhaseBusy; // 0x007A8A20
+extern int gnPhase; // 0x007A8A24
 
 inline unsigned __int64 SEED_RollRandomNumberInline_00472210(D2SeedStrc* pSeed)
 {
@@ -129,55 +129,58 @@ int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange)
     return nOffset + RNG_RollLimitedRef(pSeed, nRange);
 }
 
-static D2WeatherStrc* gpWeather_007A8A04; // 0x007A8A04
+static D2WeatherStrc* gpWeatherParticles; // 0x007A8A04
 
-static D2WeatherStrc* gpWeather_007A89FC; // 0x007A89FC
+static D2WeatherStrc* gpWeatherSplashes; // 0x007A89FC
 
-static D2WeatherStrc* gpWeather_007A8A00; // 0x007A8A00
+static D2WeatherStrc* gpWeatherBubbles; // 0x007A8A00
 
-int gnGlobal_007A89DC; // 0x007A89DC
+int gnBaseWindAngleMin; // 0x007A89DC
 
-int gnGlobal_007A899C; // 0x007A899C
+int gnBaseWindAngleMax; // 0x007A899C
 
-int gnGlobal_007A8A08; // 0x007A8A08
+int gbLightningEnabled; // 0x007A8A08
 
-int gnViewDeltaX_007A0678; // 0x007A0678
+int gnViewDeltaX; // 0x007A0678
 
-int gnViewDeltaY_007A067C; // 0x007A067C
+int gnViewDeltaY; // 0x007A067C
 
 // 0x00472320
 void __cdecl sub_00472320()
 {
-    gpWeather_007A8A04 = DATAARRAYS_Create("Environment Particles", 0x100, 0x28);
-    sub_006BCCC0(gpWeather_007A8A04);
-    gnPhaseLevel_007A89E0 = 0;
-    gpWeather_007A89FC = DATAARRAYS_Create("Environment Splashes", 0x200, 0x18);
-    sub_006BCCC0(gpWeather_007A89FC);
-    gpWeather_007A8A00 = DATAARRAYS_Create("Environment Bubbles", 0x80, 0x18);
-    sub_006BCCC0(gpWeather_007A8A00);
-    gnGlobal_007A89DC = 0x2A;
-    gnGlobal_007A89D8 = 0x2A;
-    gnGlobal_007A896C = 0;
-    gnGlobal_007A8A08 = 0;
+    gpWeatherParticles = DATAARRAYS_Create("Environment Particles", 0x100, 0x28);
+    sub_006BCCC0(gpWeatherParticles);
+// build: symbol ?gnPhaseLevel@* 0x007A89E0
+    gnPhaseLevel = 0;
+    gpWeatherSplashes = DATAARRAYS_Create("Environment Splashes", 0x200, 0x18);
+    sub_006BCCC0(gpWeatherSplashes);
+    gpWeatherBubbles = DATAARRAYS_Create("Environment Bubbles", 0x80, 0x18);
+    sub_006BCCC0(gpWeatherBubbles);
+    gnBaseWindAngleMin = 0x2A;
+// build: symbol ?gnWindAngleMin@* 0x007A89D8
+    gnWindAngleMin = 0x2A;
+    gbLightningFlash = 0;
+    gbLightningEnabled = 0;
     gnGlobal_007A8A0C = 0;
-    gnGlobal_007A899C = 0xAA;
-    gnGlobal_007A8998 = 0xAA;
+    gnBaseWindAngleMax = 0xAA;
+// build: symbol ?gnWindAngleMax@* 0x007A8998
+    gnWindAngleMax = 0xAA;
 }
 
 // 0x004723C0
 void __cdecl sub_004723C0()
 {
-    DATAARRAYS_Destroy(gpWeather_007A8A04);
-    DATAARRAYS_Destroy(gpWeather_007A89FC);
-    DATAARRAYS_Destroy(gpWeather_007A8A00);
+    DATAARRAYS_Destroy(gpWeatherParticles);
+    DATAARRAYS_Destroy(gpWeatherSplashes);
+    DATAARRAYS_Destroy(gpWeatherBubbles);
 }
 
 // 0x00472C20
 void __fastcall sub_00472C20_PlayerMoved(int nArg)
 {
 // build: symbol ?DATAARRAYS_Reset@* 0x006BCAC0
-    DATAARRAYS_Reset(gpWeather_007A89FC);
-    DATAARRAYS_Reset(gpWeather_007A8A00);
+    DATAARRAYS_Reset(gpWeatherSplashes);
+    DATAARRAYS_Reset(gpWeatherBubbles);
     if (nArg)
         sub_004726F0(nArg);
 }
@@ -185,12 +188,13 @@ void __fastcall sub_00472C20_PlayerMoved(int nArg)
 // 0x00472C50
 void __fastcall sub_00472C50(int nArg)
 {
-    if (!gnGlobal_007A8A08)
+    if (!gbLightningEnabled)
     {
-        gnGlobal_007A8A08 = 1;
-        gnGlobal_007A89E8 = 1;
-        gnGlobal_007A896C = 0;
-        gnGlobal_00712B4C = nArg;
+        gbLightningEnabled = 1;
+        gnLightningFlashFrames = 1;
+        gbLightningFlash = 0;
+// build: symbol ?gbPlayThunderSound@* 0x00712B4C
+        gbPlayThunderSound = nArg;
     }
 }
 
@@ -198,16 +202,16 @@ void __fastcall sub_00472C50(int nArg)
 void __fastcall sub_00472C80_StepSplashes(int nUnused)
 {
     const int bPerspective = sub_004F51D0_IsPerspective();
-    D2WeatherSplashStrc* pSplash = gpWeather_007A89FC->pRecords;
-    for (int i = 0; i <= gpWeather_007A89FC->nLastParticle; i += 1, ++pSplash)
+    D2WeatherSplashStrc* pSplash = gpWeatherSplashes->pRecords;
+    for (int i = 0; i <= gpWeatherSplashes->nLastParticle; i += 1, ++pSplash)
     {
         if (!pSplash->bActive)
             continue;
 
         if (!bPerspective)
         {
-            pSplash->nX -= gnViewDeltaX_007A0678;
-            pSplash->nY -= gnViewDeltaY_007A067C;
+            pSplash->nX -= gnViewDeltaX;
+            pSplash->nY -= gnViewDeltaY;
         }
 
         pSplash->f_14 -= 1;
@@ -215,8 +219,8 @@ void __fastcall sub_00472C80_StepSplashes(int nUnused)
         {
             pSplash->nFrame += 1;
             pSplash->f_14 = 2;
-            if (pSplash->nFrame >= gnSplashFrames_007A89C8[pSplash->nType])
-                sub_006BCCD0_FreeDataArraySlot(gpWeather_007A89FC, i << 16);
+            if (pSplash->nFrame >= gaSplashFrames[pSplash->nType])
+                sub_006BCCD0_FreeDataArraySlot(gpWeatherSplashes, i << 16);
         }
     }
 }
@@ -225,16 +229,16 @@ void __fastcall sub_00472C80_StepSplashes(int nUnused)
 void __fastcall sub_00472D10_StepBubbles(int nUnused)
 {
     const int bPerspective = sub_004F51D0_IsPerspective();
-    D2WeatherSplashStrc* pSplash = gpWeather_007A8A00->pRecords;
-    for (int i = 0; i <= gpWeather_007A8A00->nLastParticle; i += 1, ++pSplash)
+    D2WeatherSplashStrc* pSplash = gpWeatherBubbles->pRecords;
+    for (int i = 0; i <= gpWeatherBubbles->nLastParticle; i += 1, ++pSplash)
     {
         if (!pSplash->bActive)
             continue;
 
         if (!bPerspective)
         {
-            pSplash->nX -= gnViewDeltaX_007A0678;
-            pSplash->nY -= gnViewDeltaY_007A067C;
+            pSplash->nX -= gnViewDeltaX;
+            pSplash->nY -= gnViewDeltaY;
         }
 
         pSplash->f_14 -= 1;
@@ -242,17 +246,17 @@ void __fastcall sub_00472D10_StepBubbles(int nUnused)
         {
             pSplash->nFrame += 1;
             pSplash->f_14 = 2;
-            if (pSplash->nFrame >= gnBubbleFrames_007A892C[pSplash->nType])
-                sub_006BCCD0_FreeDataArraySlot(gpWeather_007A8A00, i << 16);
+            if (pSplash->nFrame >= gaBubbleFrames[pSplash->nType])
+                sub_006BCCD0_FreeDataArraySlot(gpWeatherBubbles, i << 16);
         }
     }
 }
 
-int gbWeatherSplash_007A8A14; // 0x007A8A14
+int gbWeatherSplash; // 0x007A8A14
 
-int gnGlobal_007A8A18; // 0x007A8A18
+int gbSnowWeather; // 0x007A8A18
 
-int gbPhaseActive_007A8A1C; // 0x007A8A1C
+int gbPhaseActive; // 0x007A8A1C
 
 static inline unsigned __int64 CLIENT_RollRandomNumberForceInline(D2SeedStrc* pSeed)
 {
@@ -265,16 +269,16 @@ static inline unsigned __int64 CLIENT_RollRandomNumberForceInline(D2SeedStrc* pS
 // 0x00472590
 static void __stdcall sub_00472590_SetSplash(int bForce, int bValue)
 {
-    if (gnGlobal_007A8A08 && bValue)
-        gnGlobal_007A8A08 = 0;
-    if (gbPhaseActive_007A8A1C && !bValue)
-        gbPhaseActive_007A8A1C = bValue;
-    if (bValue != gbWeatherSplash_007A8A14 || bForce)
+    if (gbLightningEnabled && bValue)
+        gbLightningEnabled = 0;
+    if (gbPhaseActive && !bValue)
+        gbPhaseActive = bValue;
+    if (bValue != gbWeatherSplash || bForce)
     {
-        DATAARRAYS_Reset(gpWeather_007A8A04);
-        D2_ASSERT(!gpWeather_007A8A04->nCount, 0x15B);
+        DATAARRAYS_Reset(gpWeatherParticles);
+        D2_ASSERT(!gpWeatherParticles->nCount, 0x15B);
     }
-    gbWeatherSplash_007A8A14 = bValue;
+    gbWeatherSplash = bValue;
 }
 
 int __stdcall sub_004726F0(int bForce)
@@ -302,7 +306,7 @@ int __stdcall sub_004726F0(int bForce)
     case LEVEL_BLOODYFOOTHILLS:
     case LEVEL_ID_ACT5_BARRICADE_1:
     case LEVEL_ARREATPLATEAU:
-        gnGlobal_007A8A18 = 0;
+        gbSnowWeather = 0;
         nChance = 0x19;
         break;
     case LEVEL_ROCKYSUMMIT:
@@ -310,7 +314,7 @@ int __stdcall sub_004726F0(int bForce)
         bFlag = 1;
 
     case LEVEL_TUNDRAWASTELANDS:
-        gnGlobal_007A8A18 = 1;
+        gbSnowWeather = 1;
         break;
     }
 
@@ -321,7 +325,7 @@ int __stdcall sub_004726F0(int bForce)
         return 0;
     }
 
-    gbPhaseActive_007A8A1C = bFlag;
+    gbPhaseActive = bFlag;
     if (bFlag)
         sub_00473D00_SetPhase(2);
     sub_00472590_SetSplash(bForce, 1);
@@ -351,25 +355,28 @@ void __cdecl sub_00472610_InitWindAngle()
     if (pPlayer)
     {
         D2SeedStrc tSeed;
-        gnWindCountdown_007A89E4 = SEED_RollFromInline(&pPlayer->pSeed, &tSeed) % 375 + 125;
-        gnGlobal_007A8968 = SEED_RollLowInline(&tSeed) % 1500 + 500;
+// build: symbol ?gnWindCountdown@* 0x007A89E4
+        gnWindCountdown = SEED_RollFromInline(&pPlayer->pSeed, &tSeed) % 375 + 125;
+        gnLightningCountdown = SEED_RollLowInline(&tSeed) % 1500 + 500;
         const unsigned int nRoll = SEED_RollLowInline(&tSeed);
         pPlayer->pSeed.nHighSeed = tSeed.nHighSeed;
         pPlayer->pSeed.nLowSeed = tSeed.nLowSeed;
         const int nAngle = nRoll % 71 + 92;
-        gnWeatherAngle_007A89C4 = nAngle;
-        gnTargetAngle_007A89F8 = nAngle;
+// build: symbol ?gnWeatherAngle@* 0x007A89C4
+        gnWeatherAngle = nAngle;
+// build: symbol ?gnTargetAngle@* 0x007A89F8
+        gnTargetAngle = nAngle;
     }
     else
     {
-        gnWindCountdown_007A89E4 = 0x138;
-        gnGlobal_007A8968 = 0x4E2;
-        gnWeatherAngle_007A89C4 = 0x7F;
-        gnTargetAngle_007A89F8 = 0x7F;
+        gnWindCountdown = 0x138;
+        gnLightningCountdown = 0x4E2;
+        gnWeatherAngle = 0x7F;
+        gnTargetAngle = 0x7F;
     }
 }
 
-unsigned char gnPeriodLight_007A898C[12]; // 0x007A898C
+unsigned char gabPeriodLightColors[12]; // 0x007A898C
 
 // 0x00472FB0
 static void __stdcall sub_00472FB0_GetPeriodLight(unsigned char* pOut2, int nValue, unsigned char* pOut1)
@@ -391,7 +398,7 @@ static void __stdcall sub_00472FB0_GetPeriodLight(unsigned char* pOut2, int nVal
 
     if (pOut1)
     {
-        *pOut1 = gtPeriodLight_006D6E40[nPeriod].nLight;
+        *pOut1 = gaPeriodLights[nPeriod].nLight;
     }
 
     if (pOut2)
@@ -399,7 +406,7 @@ static void __stdcall sub_00472FB0_GetPeriodLight(unsigned char* pOut2, int nVal
         int nIndex = nValue * 12 / 8;
         if (bFlag)
         {
-            *pOut2 = gnOutdoorLight_007A89EC[nIndex];
+            *pOut2 = gabOutdoorLightColors[nIndex];
             return;
         }
 
@@ -413,7 +420,7 @@ static void __stdcall sub_00472FB0_GetPeriodLight(unsigned char* pOut2, int nVal
             nIndex /= 4;
             break;
         }
-        *pOut2 = gnPeriodLight_007A898C[nIndex];
+        *pOut2 = gabPeriodLightColors[nIndex];
     }
 }
 
@@ -494,29 +501,29 @@ void __fastcall sub_00473D00_SetPhase(int nPhase)
 {
     D2_ASSERT(nPhase >= 0 && nPhase <= 3, 0x12A);
 
-    if (gbPhaseBusy_007A8A20 && nPhase != 0)
+    if (gbPhaseBusy && nPhase != 0)
     {
         return;
     }
 
-    if (gbPhaseActive_007A8A1C && nPhase != 2)
+    if (gbPhaseActive && nPhase != 2)
     {
         return;
     }
 
-    gnPhase_007A8A24 = nPhase;
+    gnPhase = nPhase;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2_ASSERT(pPlayer, 0x137);
 
     switch (nPhase)
     {
     case 0:
-        gnPhaseLevel_007A89E0 = 0;
+        gnPhaseLevel = 0;
         break;
 
     case 1:
         sub_004726F0(0);
-        gnPhaseMax_007A89C0 = sub_00472280(&pPlayer->pSeed, 0x20, 0xE0);
+        gnPhaseMax = sub_00472280(&pPlayer->pSeed, 0x20, 0xE0);
         break;
 
     case 2:
@@ -524,25 +531,25 @@ void __fastcall sub_00473D00_SetPhase(int nPhase)
         break;
 
     case 3:
-        gnGlobal_007A8A08 = 0;
+        gbLightningEnabled = 0;
         break;
     }
 }
 
-int gbPhaseBusy_007A8A20; // 0x007A8A20
+int gbPhaseBusy; // 0x007A8A20
 
 // 0x00473DC0
 void __cdecl sub_00473DC0_ToggleWeather()
 {
-    gbPhaseBusy_007A8A20 = !gbPhaseBusy_007A8A20;
-    if (gbPhaseBusy_007A8A20)
+    gbPhaseBusy = !gbPhaseBusy;
+    if (gbPhaseBusy)
     {
-        gbPhaseActive_007A8A1C = 0;
-        gnPhase_007A8A24 = 0;
+        gbPhaseActive = 0;
+        gnPhase = 0;
         D2_ASSERT(sub_00463DD0_GetPlayerUnit(), 0x137);
         gnGlobal_007A89E0 = 0;
-        DATAARRAYS_Reset(gpWeather_007A8A04);
-        D2_ASSERT(!gpWeather_007A8A04->nCount, 0x15B);
+        DATAARRAYS_Reset(gpWeatherParticles);
+        D2_ASSERT(!gpWeatherParticles->nCount, 0x15B);
     }
     else
     {

@@ -59,16 +59,16 @@ void __cdecl sub_004B8720(); // 0x004B8720
 void __cdecl TEXT_LoadTextSliderCel(); // 0x004BE020
 void __cdecl USEITEM_InitUseItemPanel(); // 0x004BF9D0
 int __cdecl WINDOW_GetWindow(); // 0x004F59A0
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D5F28[]; // 0x006D5F28
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D6300[]; // 0x006D6300
-extern D2CelFileStrc* gpBoxPiecesCel_007A2798; // 0x007A2798
-extern D2UiControlAStrc* gpGoldControlA_007A27A4; // 0x007A27A4
-extern D2UiControlBStrc* gpGoldControlB_007A27A8; // 0x007A27A8
-extern D2UiControlCStrc* gpGoldControlC_007A27AC; // 0x007A27AC
-extern D2UiControlCStrc* gpGoldControlD_007A27B0; // 0x007A27B0
-extern int gbGoldPanelFlag_007A27B4; // 0x007A27B4
-extern D2CelFileStrc* gpPentspinCel_007A2878; // 0x007A2878
-extern D2CelFileStrc* gpFocus16Cel_007A2880; // 0x007A2880
+extern D2MsgHandlerEntryStrc gaGameUIHandlers[]; // 0x006D5F28
+extern D2MsgHandlerEntryStrc gaHelpButtonHandlers[]; // 0x006D6300
+extern D2CelFileStrc* gpBoxPiecesCel; // 0x007A2798
+extern D2UiControlAStrc* gpGoldControlA; // 0x007A27A4
+extern D2UiControlBStrc* gpGoldControlB; // 0x007A27A8
+extern D2UiControlCStrc* gpGoldControlC; // 0x007A27AC
+extern D2UiControlCStrc* gpGoldControlD; // 0x007A27B0
+extern int gbGoldPanelFlag; // 0x007A27B4
+extern D2CelFileStrc* gpPentspinCel; // 0x007A2878
+extern D2CelFileStrc* gpFocus16Cel; // 0x007A2880
 
 // 0x004549F0
 static void __stdcall sub_004549F0_DrawHoverLine(const unsigned short* wszText, int nFont, int nY, int nColor)
@@ -100,7 +100,7 @@ void __fastcall sub_004549F0_Shim(const unsigned short* wszText, int nFont)
     sub_004549F0_DrawHoverLine(wszText, nFont, 10, 0);
 }
 
-int gaUIVarStates_007A27C0[1]; // 0x007A27C0
+int gaUIVarStates[1]; // 0x007A27C0
 
 // 0x00456970
 void __cdecl sub_00456970_InitUI()
@@ -115,29 +115,32 @@ void __cdecl sub_00456970_InitUI()
     AUTOMAP_InitAutomap();
     sub_0049C6A0();
     sub_004B8720();
-    gpGlobal_007A27A0 = 0;
-    gpGoldControlA_007A27A4 = 0;
-    gpGoldControlB_007A27A8 = 0;
-    gpGoldControlD_007A27B0 = 0;
-    gpGoldControlC_007A27AC = 0;
-    gbGoldPanelFlag_007A27B4 = 0;
+// build: symbol ?gpGoldPanel@* 0x007A27A0
+    gpGoldPanel = 0;
+    gpGoldControlA = 0;
+    gpGoldControlB = 0;
+    gpGoldControlD = 0;
+    gpGoldControlC = 0;
+    gbGoldPanelFlag = 0;
     sub_004868B0();
     for (int i = 0; i < 0x26; i++)
-        gaUIVarStates_007A27C0[i] = 0;
+        gaUIVarStates[i] = 0;
 
     {
-        const int bWasOn = gaUIVarStates_007A27C0[0];
+        const int bWasOn = gaUIVarStates[0];
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
         if (FOG_IsExpansion())
             GAME_IsExpansion();
-        D2_ASSERT(gnUIVarCount_0070F9CC == 0x26, 0x1397);
+// build: symbol ?gnUIVarCount@* 0x0070F9CC
+        D2_ASSERT(gnUIVarCount == 0x26, 0x1397);
         if (TEXT_IsTextBoxOpen())
             goto mini_panel;
-        for (int i = 0; i < gnUIVarCount_0070F9CC; ++i)
+        for (int i = 0; i < gnUIVarCount; ++i)
         {
-            if (gaUIVarStates_007A27C0[i] == 1)
+            if (gaUIVarStates[i] == 1)
             {
-                switch (gpUIVarRecords_00711130[i]->anCloseKind[0])
+// build: symbol ?gapUIVarRecords@* 0x00711130
+                switch (gapUIVarRecords[i]->anCloseKind[0])
                 {
                 case 0:
                     break;
@@ -160,16 +163,16 @@ void __cdecl sub_00456970_InitUI()
         }
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (!pPlayer || (pPlayer->dwUnitType == UNIT_PLAYER && !CUNIT_IsDeadOrDying(pPlayer)))
-            gaUIVarStates_007A27C0[0] = 1;
+            gaUIVarStates[0] = 1;
         if (!bWasOn)
         {
-            if (gaUIVarStates_007A27C0[0])
-                COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D5F28, 4);
+            if (gaUIVarStates[0])
+                COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaGameUIHandlers, 4);
         }
         else
         {
-            if (!gaUIVarStates_007A27C0[0])
-                sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D5F28, 4);
+            if (!gaUIVarStates[0])
+                sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaGameUIHandlers, 4);
         }
         sub_00468730();
         sub_00468740();
@@ -178,18 +181,18 @@ void __cdecl sub_00456970_InitUI()
 mini_panel:
     UI_ToggleMiniPanel();
     {
-        const int bWasOn = gaUIVarStates_007A27C0[0x22];
+        const int bWasOn = gaUIVarStates[0x22];
         if (FOG_IsExpansion())
             GAME_IsExpansion();
-        D2_ASSERT(gnUIVarCount_0070F9CC == 0x26, 0x1397);
+        D2_ASSERT(gnUIVarCount == 0x26, 0x1397);
         if (TEXT_IsTextBoxOpen())
             goto load_cels;
-        for (int i = 0; i < gnUIVarCount_0070F9CC; ++i)
+        for (int i = 0; i < gnUIVarCount; ++i)
         {
-            if (gaUIVarStates_007A27C0[i] == 1)
+            if (gaUIVarStates[i] == 1)
             {
                 bool bClose = true;
-                switch (gpUIVarRecords_00711130[i]->anCloseKind[0x22])
+                switch (gapUIVarRecords[i]->anCloseKind[0x22])
                 {
                 case 0:
                     break;
@@ -216,28 +219,29 @@ mini_panel:
         }
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (!pPlayer || (pPlayer->dwUnitType == UNIT_PLAYER && !CUNIT_IsDeadOrDying(pPlayer)))
-            gaUIVarStates_007A27C0[0x22] = 1;
+            gaUIVarStates[0x22] = 1;
         if (!bWasOn)
         {
-            if (gaUIVarStates_007A27C0[0x22])
-                COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6300, 2);
+            if (gaUIVarStates[0x22])
+                COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaHelpButtonHandlers, 2);
         }
         else
         {
-            if (!gaUIVarStates_007A27C0[0x22])
-                sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6300, 2);
+            if (!gaUIVarStates[0x22])
+                sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaHelpButtonHandlers, 2);
         }
         sub_00468730();
         sub_00468740();
     }
 
 load_cels:
-    wsprintfA(szPath, "%s\\UI\\CURSOR\\Pentspin", szDataGlobal_006D4118);
-    gpPentspinCel_007A2878 = ARCHIVE_LoadClientCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\UI\\CURSOR\\focus16", szDataGlobal_006D4118);
-    gpFocus16Cel_007A2880 = ARCHIVE_LoadClientCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\UI\\menu\\boxpieces", szDataGlobal_006D4118);
-    gpBoxPiecesCel_007A2798 = ARCHIVE_LoadClientCellFile(szPath, 0);
+// build: symbol ?gszDataGlobal@* 0x006D4118
+    wsprintfA(szPath, "%s\\UI\\CURSOR\\Pentspin", gszDataGlobal);
+    gpPentspinCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\UI\\CURSOR\\focus16", gszDataGlobal);
+    gpFocus16Cel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\UI\\menu\\boxpieces", gszDataGlobal);
+    gpBoxPiecesCel = ARCHIVE_LoadClientCellFile(szPath, 0);
     USEITEM_InitUseItemPanel();
     DIALOG_InitDialogs();
     INV_LoadShopPanelCels();

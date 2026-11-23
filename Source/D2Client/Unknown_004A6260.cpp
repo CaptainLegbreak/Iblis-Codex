@@ -15,25 +15,25 @@ void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStr
 void __cdecl UI_RegisterKeyConfigHandlers();                                                                                // 0x00454980
 int __fastcall CMDTBL_QueryKey(int nId, int nMode, int nCommand, int* pKey);                          // 0x00469C20
 int __cdecl WINDOW_GetWindow();                                                                                // 0x004F59A0
-extern D2MsgHandlerEntryStrc gaMsgHandlers_0072472C[];                                                      // 0x0072472C
-extern D2MsgHandlerEntryStrc gaMsgHandlers_00724738[];                                                      // 0x00724738
-extern D2MsgHandlerEntryStrc gaMsgHandlers_00724780[];                                                      // 0x00724780
-extern D2MsgHandlerEntryStrc gaMsgHandlers_0072478C[];                                                      // 0x0072478C
-extern int gnGlobal_007C02B0;                                                                               // 0x007C02B0
-extern int gnGlobal_007C02B8;                                                                               // 0x007C02B8
-extern unsigned long gnGlobal_007C02C8;                                                                     // 0x007C02C8
+extern D2MsgHandlerEntryStrc gaKeyCaptureMButtonHandlers[];                                                      // 0x0072472C
+extern D2MsgHandlerEntryStrc gaKeyCaptureHandlers[];                                                      // 0x00724738
+extern D2MsgHandlerEntryStrc gaKeyCaptureXButtonHandlers[];                                                      // 0x00724780
+extern D2MsgHandlerEntryStrc gaKeyCaptureWheelHandlers[];                                                      // 0x0072478C
+extern int gnKeyConfigSelected;                                                                               // 0x007C02B0
+extern int gbKeyCaptureActive;                                                                               // 0x007C02B8
+extern unsigned long gdwMessageTick;                                                                     // 0x007C02C8
 
 // 0x004A5D70
 static inline void __stdcall TEXT_UnregisterKeyConfigHandlers(int bReset)
 {
-    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_00724738, 6);
-    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_0072478C, 1);
-    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_00724780, 1);
-    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_0072472C, 1);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureHandlers, 6);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureWheelHandlers, 1);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureXButtonHandlers, 1);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureMButtonHandlers, 1);
     if (bReset)
     {
         UI_RegisterKeyConfigHandlers();
-        gnGlobal_007C02B8 = 0;
+        gbKeyCaptureActive = 0;
     }
 }
 
@@ -43,14 +43,16 @@ static void sub_004A6260_UpdateKeyState(int nCommand);
 static void sub_004A6260_UpdateKeyState(int nCommand)
 {
     int nKey = 0;
-    if (CMDTBL_QueryKey(*(int*)gpListEntries_00724264[gnGlobal_007C02B0].nId, gnGlobal_007246D4, nCommand, &nKey))
+// build: symbol ?gpListEntries@* 0x00724264
+// build: symbol ?gnKeyConfigColumn@* 0x007246D4
+    if (CMDTBL_QueryKey(*(int*)gpListEntries[gnKeyConfigSelected].nId, gnKeyConfigColumn, nCommand, &nKey))
     {
         TEXT_UnregisterKeyConfigHandlers(1);
     }
     else if ((unsigned short)nKey)
     {
         gwGlobal_007C02C4 = nKey;
-        gnGlobal_007C02C8 = GetTickCount();
+        gdwMessageTick = GetTickCount();
     }
 }
 

@@ -35,14 +35,14 @@ extern "C" const char gszCmdHomeSpace_006D5638[]; // 0x006D5638
 extern "C" const char gszCmdHome_006D5630[]; // 0x006D5630
 extern "C" const char gszCmdR_006D56D4[]; // 0x006D56D4
 extern "C" const char gszCmdReply_006D56CC[]; // 0x006D56CC
-extern "C" const char gszCmdSquelch_006D5698[]; // 0x006D5698
-extern "C" const char gszCmdUnsquelch_006D5680[]; // 0x006D5680
+extern "C" const char gszCmdSquelch[]; // 0x006D5698
+extern "C" const char gszCmdUnsquelch[]; // 0x006D5680
 extern "C" const char gszCommandSpace_006D5618[]; // 0x006D5618
 extern "C" const char gszCorrectUsage_006D55F8[]; // 0x006D55F8
 extern "C" const char gszDefaultChannel_006D5504[]; // 0x006D5504
 extern "C" const char gszDiablo2_006CC8B8[]; // 0x006CC8B8
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char gszFormatD_006D57BC[]; // 0x006D57BC
+extern "C" const char gszFormatD[]; // 0x006D57BC
 extern "C" const char gszNobodyToReply_006D561C[]; // 0x006D561C
 extern "C" const char gszReplyFormat_006D55EC[]; // 0x006D55EC
 extern "C" const char gszSpace_006FFC44[]; // 0x006FFC44

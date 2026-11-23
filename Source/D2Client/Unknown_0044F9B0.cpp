@@ -69,7 +69,7 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
 void* __stdcall SMemAlloc(unsigned int nAmount, const char* szLogFileName, int nLogLine, unsigned int nFlags); // 0x00413020
-extern const char gszTypeHashObjectChunk_0070F5F4[]; // 0x0070F5F4
+extern const char gszTypeHashObjectChunk[]; // 0x0070F5F4
 
 struct D2StormLinkStrc
 {
@@ -747,7 +747,8 @@ void D2StormListAStrc::sub_0044FC60_DeleteAll()
     {
         pNode->f_C.Unlink();
         pNode->m_linktoslot.Unlink();
-        SMemFree(pNode, gszTypeSGameData_0070F56C, -2, 0);
+// build: symbol ?gszTypeSGameData@* 0x0070F56C
+        SMemFree(pNode, gszTypeSGameData, -2, 0);
     }
 }
 
@@ -758,11 +759,12 @@ void D2StormListArrayStrc::sub_0044FE10_ReallocData(unsigned int nAlloc)
     for (unsigned int i = nAlloc; i < f_4; i++)
         pOld[i].~D2StormListAStrc();
     f_0 = nAlloc;
-    void* pNew = SMemReAlloc(pOld, nAlloc * sizeof(D2StormListAStrc), gszTypeExplicitList_0070F584, -2, 0x10);
+// build: symbol ?gszTypeExplicitList@* 0x0070F584
+    void* pNew = SMemReAlloc(pOld, nAlloc * sizeof(D2StormListAStrc), gszTypeExplicitList, -2, 0x10);
     f_8 = (D2StormListAStrc*)pNew;
     if (!pNew)
     {
-        f_8 = (D2StormListAStrc*)SMemAlloc(nAlloc * sizeof(D2StormListAStrc), gszTypeExplicitList_0070F584, -2, 0);
+        f_8 = (D2StormListAStrc*)SMemAlloc(nAlloc * sizeof(D2StormListAStrc), gszTypeExplicitList, -2, 0);
         if (pOld)
         {
             unsigned int nCopy = nAlloc >= f_4 ? f_4 : nAlloc;
@@ -771,7 +773,7 @@ void D2StormListArrayStrc::sub_0044FE10_ReallocData(unsigned int nAlloc)
                 new (&f_8[i]) D2StormListAStrc(pOld[i]);
                 pOld[i].~D2StormListAStrc();
             }
-            SMemFree(pOld, gszTypeExplicitList_0070F584, -2, 0);
+            SMemFree(pOld, gszTypeExplicitList, -2, 0);
         }
     }
 }
@@ -780,13 +782,13 @@ void D2StormListArrayStrc::sub_0044FE10_ReallocData(unsigned int nAlloc)
 void D2StormHashTableStrc::InternalDelete(D2SGameDataStrc* pNode)
 {
     pNode->~D2SGameDataStrc();
-    SMemFree(pNode, gszTypeSGameData_0070F56C, -2, 0);
+    SMemFree(pNode, gszTypeSGameData, -2, 0);
 }
 
 // build: symbol ?InternalNew@D2StormHashTableStrc@@UAEPAUD2SGameDataStrc@@PAUD2StormListAStrc@@II@Z 0x00450420
 D2SGameDataStrc* D2StormHashTableStrc::InternalNew(D2StormListAStrc* pList, unsigned int nExtraBytes, unsigned int nFlags)
 {
-    void* pMemory = SMemAlloc(sizeof(D2SGameDataStrc) + nExtraBytes, gszTypeSGameData_0070F56C, -2, nFlags | 8);
+    void* pMemory = SMemAlloc(sizeof(D2SGameDataStrc) + nExtraBytes, gszTypeSGameData, -2, nFlags | 8);
     D2SGameDataStrc* pNode = new (pMemory) D2SGameDataStrc;
     pList->LinkNode((char*)pNode, 1, 0);
     return pNode;
@@ -806,8 +808,8 @@ void D2StormChunkListStrc::sub_00450580_DeleteAll()
             pNode->m_linktoslot.Unlink();
         }
         if (pChunk->m_array.f_8)
-            SMemFree(pChunk->m_array.f_8, gszTypeSGameData_0070F56C, -2, 0);
-        SMemFree(pChunk, gszTypeHashObjectChunk_0070F5F4, -2, 0);
+            SMemFree(pChunk->m_array.f_8, gszTypeSGameData, -2, 0);
+        SMemFree(pChunk, gszTypeHashObjectChunk, -2, 0);
     }
 }
 
@@ -815,13 +817,13 @@ void D2StormChunkListStrc::sub_00450580_DeleteAll()
 void D2StormHashTableReuseStrc::InternalDelete(D2SGameDataStrc* pNode)
 {
     pNode->~D2SGameDataStrc();
-    SMemFree(pNode, gszTypeSGameData_0070F56C, -2, 0);
+    SMemFree(pNode, gszTypeSGameData, -2, 0);
 }
 
 // build: symbol ?InternalNew@D2StormHashTableReuseStrc@@UAEPAUD2SGameDataStrc@@PAUD2StormListAStrc@@II@Z 0x00451000
 D2SGameDataStrc* D2StormHashTableReuseStrc::InternalNew(D2StormListAStrc* pList, unsigned int nExtraBytes, unsigned int nFlags)
 {
-    void* pMemory = SMemAlloc(sizeof(D2SGameDataStrc) + nExtraBytes, gszTypeSGameData_0070F56C, -2, nFlags | 8);
+    void* pMemory = SMemAlloc(sizeof(D2SGameDataStrc) + nExtraBytes, gszTypeSGameData, -2, nFlags | 8);
     D2SGameDataStrc* pNode = new (pMemory) D2SGameDataStrc;
     pList->LinkNode((char*)pNode, 1, 0);
     return pNode;

@@ -67,13 +67,13 @@ void __stdcall sub_00449DB0_SetValue(int nValue);                               
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
 
 extern void* ghConnectEvent_007992EC;                                                                       // 0x007992EC
-unsigned short gwMcpRequestId_00798F8C;                                                                     // 0x00798F8C
-unsigned short gwRequestId_00798F80;                                                                        // 0x00798F80
-int gdwGlobal_00798FB0;                                                                                     // 0x00798FB0
-int gdwGlobal_00798F88;                                                                                     // 0x00798F88
-char gData_007992CC[20];                                                                                    // 0x007992CC
-D2McpCallbackFn gpfnMcpCallback_007992F8;                                                                   // 0x007992F8
-D2McpCallbackFn gpfnMcpCallback_007992FC;                                                                   // 0x007992FC
+unsigned short gwMcpRequestId;                                                                     // 0x00798F8C
+unsigned short gwMcpReplyRequestId;                                                                        // 0x00798F80
+int gnMcpGameToken;                                                                                     // 0x00798FB0
+int gdwMcpGameHash;                                                                                     // 0x00798F88
+char gszMcpGameServerIP[20];                                                                                    // 0x007992CC
+D2McpCallbackFn gpfnMcpPacket08Callback;                                                                   // 0x007992F8
+D2McpCallbackFn gpfnMcpPacket09Callback;                                                                   // 0x007992FC
 
 // 0x0044AB80
 int __fastcall sub_0044AB80_McpIncoming1B(D2McpPacketValueStrc* pPacket, int nSize)
@@ -105,11 +105,11 @@ int __fastcall sub_0044ABC0_McpIncoming07(D2McpPacketValueStrc* pPacket, int nSi
 int __fastcall sub_0044ABE0_McpIncoming03(D2McpIncoming03Strc* pPacket, int nSize)
 {
     const int nValueB0 = pPacket->nValueB0;
-    if (pPacket->f_1 == gwMcpRequestId_00798F8C)
+    if (pPacket->f_1 == gwMcpRequestId)
     {
         CHATDLG_SetMcpResult(pPacket->nCode);
-        gwRequestId_00798F80 = gwMcpRequestId_00798F8C;
-        gdwGlobal_00798FB0 = nValueB0;
+        gwMcpReplyRequestId = gwMcpRequestId;
+        gnMcpGameToken = nValueB0;
     }
     return 1;
 }
@@ -121,11 +121,11 @@ int __fastcall sub_0044AC20_McpIncoming04(D2McpIncoming04Strc* pPacket, int nSiz
     const int nAddress = pPacket->f_7;
     const int nValue88 = pPacket->nValue88;
     const int nCode = pPacket->nCode;
-    if (pPacket->f_1 == gwMcpRequestId_00798F8C)
+    if (pPacket->f_1 == gwMcpRequestId)
     {
-        gwRequestId_00798F80 = gwMcpRequestId_00798F8C;
-        gdwGlobal_00798FB0 = nValueB0;
-        gdwGlobal_00798F88 = nValue88;
+        gwMcpReplyRequestId = gwMcpRequestId;
+        gnMcpGameToken = nValueB0;
+        gdwMcpGameHash = nValue88;
         if (!nAddress)
         {
             if (nCode)
@@ -137,7 +137,7 @@ int __fastcall sub_0044AC20_McpIncoming04(D2McpIncoming04Strc* pPacket, int nSiz
             return 1;
         }
 // build: symbol ?FOG_inet_ntoa@* 0x0040E080
-        SStrCopy(gData_007992CC, FOG_inet_ntoa(nAddress), 0x12);
+        SStrCopy(gszMcpGameServerIP, FOG_inet_ntoa(nAddress), 0x12);
     }
     return 1;
 }
@@ -145,23 +145,23 @@ int __fastcall sub_0044AC20_McpIncoming04(D2McpIncoming04Strc* pPacket, int nSiz
 // 0x0044ADF0
 int __fastcall sub_0044ADF0_McpIncoming08(D2McpIncoming08Strc* pPacket, int nSize)
 {
-    if (gpfnMcpCallback_007992F8)
-        gpfnMcpCallback_007992F8(pPacket->f_1, pPacket->aData);
+    if (gpfnMcpPacket08Callback)
+        gpfnMcpPacket08Callback(pPacket->f_1, pPacket->aData);
     return 1;
 }
 
 // 0x0044AE10
 int __fastcall sub_0044AE10_McpIncoming09(D2McpIncoming09Strc* pPacket, int nSize)
 {
-    if (gpfnMcpCallback_007992FC)
-        gpfnMcpCallback_007992FC(pPacket->f_1, pPacket->aData);
+    if (gpfnMcpPacket09Callback)
+        gpfnMcpPacket09Callback(pPacket->f_1, pPacket->aData);
     return 1;
 }
 
 // 0x0044AE30
 int __fastcall sub_0044AE30_McpIncoming0A(D2McpIncoming0AStrc* pPacket, int nSize)
 {
-    if (pPacket->f_1 == gwMcpRequestId_00798F8C)
+    if (pPacket->f_1 == gwMcpRequestId)
     {
         CHATDLG_SetMcpResult(pPacket->nCode);
         CHATDLG_SetCharDeleteReceived(1);

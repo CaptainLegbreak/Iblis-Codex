@@ -24,15 +24,15 @@ struct D2GfxNodeStrc
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
-unsigned int gaPlrModeTokens_007C88D0[20];                                                                  // 0x007C88D0
+unsigned int gaPlrModeTokens[20];                                                                  // 0x007C88D0
 
-unsigned int gaCompTokens_007C8920[16];                                                                     // 0x007C8920
+unsigned int gaCompTokens[16];                                                                     // 0x007C8920
 
-unsigned int gaObjModeTokens_007C8960[8];                                                                   // 0x007C8960
+unsigned int gaObjModeTokens[8];                                                                   // 0x007C8960
 
-unsigned int gaMonModeTokens_007C8980[16];                                                                  // 0x007C8980
+unsigned int gaMonModeTokens[16];                                                                  // 0x007C8980
 
-unsigned int gaClassTokens_007C89C0[3];                                                                     // 0x007C89C0
+unsigned int gaClassTokens[3];                                                                     // 0x007C89C0
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 
@@ -223,44 +223,44 @@ int __fastcall sub_004DA700_GetGfxMotionFlag5(D2UnitStrc* pUnit)
 // 0x004DA790
 void __cdecl PARTICLE_InitModeTokens()
 {
-    memset(gaCompTokens_007C8920, 0, sizeof(gaCompTokens_007C8920));
+    memset(gaCompTokens, 0, sizeof(gaCompTokens));
     for (unsigned int i = 0; i < 16; ++i)
     {
         D2TokRecord* pRecord = DATATBLS_GetCompositTxtRecord(i);
         D2_ASSERT(pRecord, 0x36);
-        gaCompTokens_007C8920[i] = pRecord->dwCode;
+        gaCompTokens[i] = pRecord->dwCode;
     }
 
-    memset(gaPlrModeTokens_007C88D0, 0, sizeof(gaPlrModeTokens_007C88D0));
+    memset(gaPlrModeTokens, 0, sizeof(gaPlrModeTokens));
     for (unsigned int i = 0; i < 20; ++i)
     {
         D2TokRecord* pRecord = DATATBLS_GetPlrModeTypeTxtRecord(i, 1);
         D2_ASSERT(pRecord, 0x3F);
-        gaPlrModeTokens_007C88D0[i] = pRecord->dwCode;
+        gaPlrModeTokens[i] = pRecord->dwCode;
     }
 
-    memset(gaMonModeTokens_007C8980, 0, sizeof(gaMonModeTokens_007C8980));
+    memset(gaMonModeTokens, 0, sizeof(gaMonModeTokens));
     for (unsigned int i = 0; i < 16; ++i)
     {
         D2TokRecord* pRecord = DATATBLS_GetMonModeTxtRecord(i, 1);
         D2_ASSERT(pRecord, 0x48);
-        gaMonModeTokens_007C8980[i] = pRecord->dwCode;
+        gaMonModeTokens[i] = pRecord->dwCode;
     }
 
-    memset(gaObjModeTokens_007C8960, 0, sizeof(gaObjModeTokens_007C8960));
+    memset(gaObjModeTokens, 0, sizeof(gaObjModeTokens));
     for (unsigned int i = 0; i < 8; ++i)
     {
         D2TokRecord* pRecord = DATATBLS_GetObjModeTypeTxtRecord(i, 1);
         D2_ASSERT(pRecord, 0x51);
-        gaObjModeTokens_007C8960[i] = pRecord->dwCode;
+        gaObjModeTokens[i] = pRecord->dwCode;
     }
 
-    memset(gaClassTokens_007C89C0, 0, sizeof(gaClassTokens_007C89C0));
+    memset(gaClassTokens, 0, sizeof(gaClassTokens));
     for (unsigned int i = 0; i < 3; ++i)
     {
         D2TokRecord* pRecord = DATATBLS_GetArmTypeTxtRecord(i);
         D2_ASSERT(pRecord, 0x5A);
-        gaClassTokens_007C89C0[i] = pRecord->dwCode;
+        gaClassTokens[i] = pRecord->dwCode;
     }
 }
 

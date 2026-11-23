@@ -88,7 +88,7 @@ void __stdcall sub_004DE260(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ
 
 static void __stdcall sub_004DDEF0_BuildLargeGrid(int nX, int nY, int bFlat, D2GridCellStrc* pCells);
 
-extern int gnGlobal_0071146C; // 0x0071146C
+extern int gnScreenWidth; // 0x0071146C
 
 // 0x004DDEF0
 static void __stdcall sub_004DDEF0_BuildLargeGrid(int nX, int nY, int bFlat, D2GridCellStrc* pCells)
@@ -131,10 +131,10 @@ void __stdcall sub_004DE070(D2GridCellStrc* pCells, int nX, int nY, int nSubX, i
     switch (nMode)
     {
     case 1:
-        nX += -(gnGlobal_0071146C / 4);
+        nX += -(gnScreenWidth / 4);
         break;
     case 2:
-        nX += gnGlobal_0071146C / 4;
+        nX += gnScreenWidth / 4;
         break;
     }
 

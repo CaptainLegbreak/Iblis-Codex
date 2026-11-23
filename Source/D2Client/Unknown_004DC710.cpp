@@ -29,13 +29,13 @@ int __cdecl sub_004817F0(); // 0x004817F0
 int __cdecl sub_00481800(); // 0x00481800
 extern "C" void* __cdecl sub_00481810_GetTokenData(); // 0x00481810
 extern "C" char* gpGlobal_007A0438; // 0x007A0438
-extern "C" int gnGlobal_007C89D0; // 0x007C89D0
-extern "C" int gnGlobal_007C89D4; // 0x007C89D4
-extern "C" int gnGlobal_007C89D8; // 0x007C89D8
-extern "C" int gnGlobal_007C89DC; // 0x007C89DC
-extern "C" int gnGlobal_007C89E0; // 0x007C89E0
+extern "C" int gdwLevelEnterTick; // 0x007C89D0
+extern "C" int gdwSongStartTick; // 0x007C89D4
+extern "C" int gnCurrentSongId; // 0x007C89D8
+extern "C" int gnSongLevelId; // 0x007C89DC
+extern "C" int gdwSongPositionTick; // 0x007C89E0
 extern "C" int gnGlobal_007C89E4; // 0x007C89E4
-extern "C" int gnGlobal_007C8A04; // 0x007C8A04
+extern "C" int gnSpeechLevelId; // 0x007C8A04
 
 struct D2TimedHintStrc
 {
@@ -50,7 +50,7 @@ struct D2TimedHintStrc
 };
 
 int __cdecl sub_0044DB00(); // 0x0044DB00
-extern D2TimedHintStrc gTimedHint_007C89E4; // 0x007C89E4
+extern D2TimedHintStrc gtTimedHint; // 0x007C89E4
 
 // 0x004DC710
 static int sub_004DC710_UpdateUnitSightFlag(D2UnitStrc* pUnit)
@@ -175,13 +175,13 @@ void __cdecl sub_004DCA30_ResetTokenCache()
     if (gpGlobal_007A0438[0x220])
         return;
 
-    gnGlobal_007C89D0 = 0;
-    gnGlobal_007C89D4 = 0;
-    gnGlobal_007C89D8 = 0;
-    gnGlobal_007C89DC = 0;
-    gnGlobal_007C89E0 = 0;
+    gdwLevelEnterTick = 0;
+    gdwSongStartTick = 0;
+    gnCurrentSongId = 0;
+    gnSongLevelId = 0;
+    gdwSongPositionTick = 0;
     gnGlobal_007C89E4 = 0;
-    gnGlobal_007C8A04 = 0;
+    gnSpeechLevelId = 0;
 
     void* pTokenData = sub_00481810_GetTokenData();
     if (pTokenData)
@@ -193,14 +193,14 @@ void __cdecl sub_004DCA30_ResetTokenCache()
 // 0x004DCE10
 void __fastcall sub_004DCE10_UpdateTimedHint(int nDelay, int nArg)
 {
-    if (gTimedHint_007C89E4.bActive)
+    if (gtTimedHint.bActive)
     {
         if (nArg)
         {
-            gTimedHint_007C89E4.nEndTickF = sub_0044DB00() + nDelay;
+            gtTimedHint.nEndTickF = sub_0044DB00() + nDelay;
         }
 
-        gTimedHint_007C89E4.nArgG = nArg;
-        gTimedHint_007C89E4.nEndTickC = gTimedHint_007C89E4.nEndTickF + 0x32;
+        gtTimedHint.nArgG = nArg;
+        gtTimedHint.nEndTickC = gtTimedHint.nEndTickF + 0x32;
     }
 }

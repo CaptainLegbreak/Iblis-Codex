@@ -31,7 +31,8 @@ public:
 
     static void* operator new(unsigned int nSize)
     {
-        return SMemAlloc(nSize, gszNew_006CC82C, -1, 0);
+// build: symbol ?gszNew@* 0x006CC82C
+        return SMemAlloc(nSize, gszNew, -1, 0);
     }
 
     int unk0x04;

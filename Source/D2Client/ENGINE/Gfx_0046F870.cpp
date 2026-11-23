@@ -98,10 +98,10 @@ void __stdcall D2Common_10885_COMPOSIT_unk(D2UnitStrc* pUnit, char* szPath, int*
 int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
-extern D2CofModeEntryStrc gaCofModeCodes_00712B04[]; // 0x00712B04
-extern int gdwGlobal_007A8918; // 0x007A8918
-extern D2HashedFileStrc gtHashedFile_007A78F0; // 0x007A78F0
-extern D2HashedFileStrc gtHashedFile_007A8100; // 0x007A8100
+extern D2CofModeEntryStrc gaCofModeCodes[]; // 0x00712B04
+extern int gnCofMemoryUsed; // 0x007A8918
+extern D2HashedFileStrc gtGlobalHashedFile; // 0x007A78F0
+extern D2HashedFileStrc gtUnitGfxHashedFile; // 0x007A8100
 static int __stdcall GFX_LoadGfxNode(int* pValue, int nIndex, D2UnitStrc* pUnit); // 0x0046E740
 static int GFX_LoadGfxNodeSetByte(D2UnitStrc* pUnit, int nIndex); // 0x0046EA50
 
@@ -201,11 +201,12 @@ static int __stdcall GFX_LoadGfxNode(int* pValue, int nIndex, D2UnitStrc* pUnit)
     D2GfxListNodeStrc* pNode;
     if (GFX_FindGfxNode(nId, &pNode, pValue, pUnit, nIndex))
     {
-        D2GfxListNodeStrc* pNewNode = (D2GfxListNodeStrc*)FOG_Alloc(sizeof(D2GfxListNodeStrc), gszGfxFile_006D6C1C, 0x434, 0);
+// build: symbol ?gszGfxFile@* 0x006D6C1C
+        D2GfxListNodeStrc* pNewNode = (D2GfxListNodeStrc*)FOG_Alloc(sizeof(D2GfxListNodeStrc), gszGfxFile, 0x434, 0);
         D2_ASSERT(pNewNode, 0x435);
         memset(pNewNode, 0, sizeof(D2GfxListNodeStrc));
 
-        D2HashedFileStrc* pTable = !sub_0046D9F0_GetConvertedUnitType(pUnit) ? &gtHashedFile_007A8100 : &gtHashedFile_007A78F0;
+        D2HashedFileStrc* pTable = !sub_0046D9F0_GetConvertedUnitType(pUnit) ? &gtUnitGfxHashedFile : &gtGlobalHashedFile;
         D2HashedFileEntryStrc* pEntry = GFX_FindHashedEntry(pTable, szPath);
         if (!pEntry)
         {
@@ -251,10 +252,10 @@ static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int 
     unsigned int dwCode;
     GFX_BuildMonsterCofPath(nMode, szPath, &dwCode, pInfo->nMonsterId);
 
-    D2HashedFileEntryStrc* pEntry = GFX_FindHashedEntry(&gtHashedFile_007A78F0, szPath);
+    D2HashedFileEntryStrc* pEntry = GFX_FindHashedEntry(&gtGlobalHashedFile, szPath);
     if (!pEntry)
     {
-        pEntry = sub_0046DCC0_LoadHashedEntry(&gtHashedFile_007A78F0, szPath);
+        pEntry = sub_0046DCC0_LoadHashedEntry(&gtGlobalHashedFile, szPath);
         D2_ASSERT(pEntry, 0xEC3);
     }
 
@@ -330,9 +331,11 @@ void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow)
         return;
     }
 
-    for (int i = 0; i < gnCofModeCount_00712B00; ++i)
+// build: symbol ?gnCofModeCount@* 0x00712B00
+    for (int i = 0; i < gnCofModeCount; ++i)
     {
-        const int nMode = gaCofModes_00712AC4[i];
+// build: symbol ?gaCofModes@* 0x00712AC4
+        const int nMode = gaCofModes[i];
         if (pMonStats2TxtRecord->nModeFlags[nMode >> 3] & gdwBitMasks[nMode & 7])
         {
             D2MonCofInfoStrc tInfo;

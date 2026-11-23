@@ -54,9 +54,9 @@ struct D2OrbSmoothStrc
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-extern int gnGlobal_0071146C; // 0x0071146C
+extern int gnScreenWidth; // 0x0071146C
 
-extern int gnGlobal_00711470; // 0x00711470
+extern int gnScreenHeight; // 0x00711470
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
@@ -72,21 +72,21 @@ int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
-D2OrbSmoothStrc gtOrbSmooth_007BEF30[3]; // 0x007BEF30
+D2OrbSmoothStrc gaOrbSmooth[3]; // 0x007BEF30
 
-static int gnGlobal_007BEFA4;        // 0x007BEFA4
+static int gbControlPanelClicked;        // 0x007BEFA4
 
-extern int gnGlobal_007BEF84; // 0x007BEF84
+extern int gbLeftSkillButtonDown; // 0x007BEF84
 
-extern int gnGlobal_007BEF88; // 0x007BEF88
+extern int gbRightSkillButtonDown; // 0x007BEF88
 
-extern int gnGlobal_007BEFDC; // 0x007BEFDC
+extern int gdwShowHpText; // 0x007BEFDC
 
-extern int gnGlobal_007BEFE0; // 0x007BEFE0
+extern int gdwShowMpText; // 0x007BEFE0
 
-static int gnGlobal_007BEFD0;        // 0x007BEFD0
+static int gbMiniPanelButtonDown;        // 0x007BEFD0
 
-static int gnGlobal_007BEFD8;        // 0x007BEFD8
+static int gbRunButtonDown;        // 0x007BEFD8
 
 int __cdecl GAME_IsExitPending(); // 0x0044DA30
 
@@ -135,29 +135,29 @@ D2GfxMotionStrc* __fastcall GFX_GetGfxMotion(D2UnitStrc* pUnit); // 0x0046F060
 
 void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
-extern int gnTabSelection_00724CE0; // 0x00724CE0
+extern int gnTabSelection; // 0x00724CE0
 
-extern int gnGlobal_00724BEC; // 0x00724BEC
+extern int gnSkillPage; // 0x00724BEC
 
-extern unsigned char gbGlobal_007A0522; // 0x007A0522
+extern unsigned char gnCharClass; // 0x007A0522
 
-extern int gnGlobal_007A2858; // 0x007A2858
+extern int gnPanelOffsetX; // 0x007A2858
 
-extern int gnGlobal_007A285C; // 0x007A285C
+extern int gnPanelOffsetY; // 0x007A285C
 
-void* gpPanelQuadCel_007BF018; // 0x007BF018
+void* gpPanelQuadCel; // 0x007BF018
 
 extern D2HotkeySlotTableStrc gtHotkeySlots_007C0300; // 0x007C0300
 
-extern int gnHotkeySkill_007C06C8[16]; // 0x007C06C8
+extern int gaHotkeySkills[16]; // 0x007C06C8
 
-extern int gnHotkeyOwner_007C0768[16]; // 0x007C0768
+extern int gaHotkeyOwners[16]; // 0x007C0768
 
-extern int gbHotkeyLeft_007C07B8[16]; // 0x007C07B8
+extern int gaHotkeyLeft[16]; // 0x007C07B8
 
-extern int gbGlobal_007C07FC; // 0x007C07FC
+extern int gbSkillSelectRight; // 0x007C07FC
 
-extern int gbGlobal_007C0C38; // 0x007C0C38
+extern int gbSkillTabPressed; // 0x007C0C38
 
 int __cdecl ROSTER_IsAnyoneHostile(); // 0x0047A560
 
@@ -241,17 +241,17 @@ int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, i
 
 int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
 
-extern int gnUiRecordRow_007A5218; // 0x007A5218
+extern int gnBeltUiRecordRow; // 0x007A5218
 
-extern int gdwGlobal_007A061C; // 0x007A061C
+extern int gbPositionalSound; // 0x007A061C
 
-static int gnBeltHover_007BEF94; // 0x007BEF94
+static int gnBeltHover; // 0x007BEF94
 
-static int gbUiRecordMode_007BEF98;                                                                                // 0x007BEF98
+static int gbUiRecordMode;                                                                                // 0x007BEF98
 
-static int gnBeltRecordMode2_007BEF9C; // 0x007BEF9C
+static int gnBeltRecordMode2; // 0x007BEF9C
 
-D2UnitStrc* gpBeltItemA_007BEFA8; // 0x007BEFA8
+D2UnitStrc* gpBeltItemA; // 0x007BEFA8
 
 int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
@@ -289,11 +289,11 @@ void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int n
 
 extern int gdwGlobal_007BEFA8; // 0x007BEFA8
 
-extern int gdwGlobal_007BEFAC; // 0x007BEFAC
+extern int gpBeltItemB; // 0x007BEFAC
 
-extern void* gpCelFile_007BF020; // 0x007BF020
+extern void* gpPartyBoxesCel; // 0x007BF020
 
-extern unsigned char gbGlobal_007BF034; // 0x007BF034
+extern unsigned char gnBoxColor; // 0x007BF034
 
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
 
@@ -311,7 +311,7 @@ int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, int nArg, int nMode)
 
 void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType, unsigned short nEvent); // 0x004CBDE0
 
-unsigned char gabBeltHotkey_007BEFB0[1]; // 0x007BEFB0
+unsigned char gabBeltHotkey[1]; // 0x007BEFB0
 
 static void __stdcall sub_00498870_ClickBeltBox(D2InventoryStrc* pInventory, int nX, int nY);
 
@@ -319,11 +319,11 @@ void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2Invent
 
 static int __stdcall sub_00498A20_CheckState(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2ItemsTxt* pState);
 
-unsigned char gnTextColorRed_007BEFBA; // 0x007BEFBA
+unsigned char gnTextColorRed; // 0x007BEFBA
 
-unsigned char gnTextColorA_007BEFBB; // 0x007BEFBB
+unsigned char gnTextColorA; // 0x007BEFBB
 
-unsigned char gnTextColorB_007BEFE4; // 0x007BEFE4
+unsigned char gnTextColorB; // 0x007BEFE4
 
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
 
@@ -357,9 +357,9 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                      
 
 extern D2CelFileStrc* gpCellFile_007BEF10;                                                                  // 0x007BEF10
 
-unsigned char gabBeltColors_007BEF6C[4];                                                                    // 0x007BEF6C
+unsigned char gabBeltColors[4];                                                                    // 0x007BEF6C
 
-int gbGlobal_007BEFA0;                                                                                      // 0x007BEFA0
+int gbBeltRowsShown;                                                                                      // 0x007BEFA0
 
 void __cdecl VIEW_InitBeltColors(); // 0x004972B0
 
@@ -367,17 +367,17 @@ static void __stdcall PANEL_DrawBeltBoxFrame(int nBox, int nColor); // 0x004978D
 
 static void __cdecl PANEL_DrawCursorBeltBox(D2InventoryStrc* pInventory); // 0x00497920
 
-void* gpBorderFrameCel_007BEF18; // 0x007BEF18
+void* gpBorderFrameCel; // 0x007BEF18
 
-int gnLevelTimer_007BEFEC; // 0x007BEFEC
+int gnLevelTimer; // 0x007BEFEC
 
-int gnLevelId_007BEFF0; // 0x007BEFF0
+int gnLevelId; // 0x007BEFF0
 
-void* gpCelFile_007BF01C; // 0x007BF01C
+void* gpPartyButtonsCel; // 0x007BF01C
 
-void* gpCelFile_007BF024; // 0x007BF024
+void* gpInvGoldBtnCel; // 0x007BF024
 
-void* gpCelFile_007BF028; // 0x007BF028
+void* gpPartyBarCel; // 0x007BF028
 
 void __cdecl PARTY_DrawPlayerName(); // 0x0049A580
 
@@ -424,15 +424,15 @@ struct D2QtyWarnStrc
     unsigned int nLevel2;
 };
 
-extern unsigned char gabSlots_007BEFB4[]; // 0x007BEFB4
+extern unsigned char gabSlots[]; // 0x007BEFB4
 
-extern int gaBodyLocs_00722374[]; // 0x00722374
+extern int gaBodyLocs[]; // 0x00722374
 
-extern unsigned int gnBodyLocCount_0072237C; // 0x0072237C
+extern unsigned int gnBodyLocCount; // 0x0072237C
 
-extern D2QtyWarnStrc gaQtyWarn_00722380[]; // 0x00722380
+extern D2QtyWarnStrc gaQtyWarn[]; // 0x00722380
 
-extern unsigned int gnQtyWarnCount_007223E4; // 0x007223E4
+extern unsigned int gnQtyWarnCount; // 0x007223E4
 
 int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 
@@ -480,9 +480,9 @@ void __cdecl sub_00497A40_DrawPanelText();
 
 extern "C" void __cdecl PANEL_UpdateMiniPanelTooltip(); // 0x00498340
 
-void* gpCel_007BEF1C; // 0x007BEF1C
+void* gpCtrlPnl7Cel; // 0x007BEF1C
 
-void* gpCel_007BEF74; // 0x007BEF74
+void* gp800CtrlPnl7Cel; // 0x007BEF74
 
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
@@ -492,7 +492,8 @@ int __cdecl GAME_GetAlwaysRun(); // 0x0044BE90
 
 void __fastcall GAME_SetAlwaysRun(int); // 0x0044BE80
 
-#include "gen/data/Source/D2Client/UI/panel/gnGlobal_00722358.inc"
+// build: symbol ?gbControlPanelMouseDown@* 0x00722358
+#include "gen/data/Source/D2Client/UI/panel/gbControlPanelMouseDown.inc"
 
 static int gnGlobal_007BEFD4;        // 0x007BEFD4
 
@@ -542,7 +543,7 @@ void __cdecl PANEL_ValidateActiveSkills()
         SKILLS_SetLeftActiveSkill(pPlayer, SKILL_ATTACK, -1);
         pSkill = UNITS_GetLeftSkill(pPlayer);
     }
-    WARDENCLIENT_DrawSkillInfo(pPlayer, pSkill, 0x75, gnGlobal_00711470, 1);
+    WARDENCLIENT_DrawSkillInfo(pPlayer, pSkill, 0x75, gnScreenHeight, 1);
     pSkill = UNITS_GetRightSkill(pPlayer);
     if (pSkill && SKILLS_GetSkillLevel(pPlayer, pSkill, 1) <= 0)
     {
@@ -550,7 +551,7 @@ void __cdecl PANEL_ValidateActiveSkills()
         SKILLS_SetRightActiveSkill(pPlayer, SKILL_ATTACK, -1);
         pSkill = UNITS_GetRightSkill(pPlayer);
     }
-    WARDENCLIENT_DrawSkillInfo(pPlayer, pSkill, gnGlobal_0071146C - 0xA5, gnGlobal_00711470, 0);
+    WARDENCLIENT_DrawSkillInfo(pPlayer, pSkill, gnScreenWidth - 0xA5, gnScreenHeight, 0);
 }
 
 // 0x00496DD0
@@ -583,44 +584,44 @@ static int PANEL_GetSmoothedOrbValue(int nStatId)
 
     if (sub_0044DA90() <= 1)
     {
-        gtOrbSmooth_007BEF30[nIndex].f_8 = nValue;
-        gtOrbSmooth_007BEF30[nIndex].nValue = nValue;
+        gaOrbSmooth[nIndex].f_8 = nValue;
+        gaOrbSmooth[nIndex].nValue = nValue;
     }
 
-    if (!bCheckDrop && nValue < gtOrbSmooth_007BEF30[nIndex].nValue)
+    if (!bCheckDrop && nValue < gaOrbSmooth[nIndex].nValue)
     {
-        gtOrbSmooth_007BEF30[nIndex].f_8 = nValue;
-        gtOrbSmooth_007BEF30[nIndex].nValue = nValue;
+        gaOrbSmooth[nIndex].f_8 = nValue;
+        gaOrbSmooth[nIndex].nValue = nValue;
         const unsigned int nTick = sub_0044DA90();
-        gtOrbSmooth_007BEF30[nIndex].nTick = nTick;
-        gtOrbSmooth_007BEF30[nIndex].nPrevTick = nTick;
+        gaOrbSmooth[nIndex].nTick = nTick;
+        gaOrbSmooth[nIndex].nPrevTick = nTick;
     }
 
-    const int nLast = gtOrbSmooth_007BEF30[nIndex].nValue;
+    const int nLast = gaOrbSmooth[nIndex].nValue;
     if (nLast != nValue)
     {
         const int nDiff = ORB_AbsValue(nLast - nValue);
 
         if (nDiff >= nMax / 8)
         {
-            gtOrbSmooth_007BEF30[nIndex].f_8 = nValue;
-            gtOrbSmooth_007BEF30[nIndex].nPrevTick = sub_0044DA90();
+            gaOrbSmooth[nIndex].f_8 = nValue;
+            gaOrbSmooth[nIndex].nPrevTick = sub_0044DA90();
         }
         else
         {
-            gtOrbSmooth_007BEF30[nIndex].nPrevTick = gtOrbSmooth_007BEF30[nIndex].nTick;
+            gaOrbSmooth[nIndex].nPrevTick = gaOrbSmooth[nIndex].nTick;
             if (nValue == nMax)
-                gtOrbSmooth_007BEF30[nIndex].f_8 = nValue;
+                gaOrbSmooth[nIndex].f_8 = nValue;
             else
-                gtOrbSmooth_007BEF30[nIndex].f_8 = nLast;
+                gaOrbSmooth[nIndex].f_8 = nLast;
         }
-        gtOrbSmooth_007BEF30[nIndex].nValue = nValue;
-        gtOrbSmooth_007BEF30[nIndex].nTick = sub_0044DA90();
+        gaOrbSmooth[nIndex].nValue = nValue;
+        gaOrbSmooth[nIndex].nTick = sub_0044DA90();
     }
 
-    const int nStart = gtOrbSmooth_007BEF30[nIndex].nTick;
+    const int nStart = gaOrbSmooth[nIndex].nTick;
     const int nElapsed = sub_0044DA90() - nStart;
-    int nDuration = nStart - gtOrbSmooth_007BEF30[nIndex].nPrevTick;
+    int nDuration = nStart - gaOrbSmooth[nIndex].nPrevTick;
     if (nDuration < 7)
         nDuration = 7;
     else if (nDuration > 15)
@@ -628,8 +629,8 @@ static int PANEL_GetSmoothedOrbValue(int nStatId)
 
     if (nValue > 0 && nElapsed < nDuration)
     {
-        const int nFrom = gtOrbSmooth_007BEF30[nIndex].f_8;
-        const int nDelta = gtOrbSmooth_007BEF30[nIndex].nValue - nFrom;
+        const int nFrom = gaOrbSmooth[nIndex].f_8;
+        const int nDelta = gaOrbSmooth[nIndex].nValue - nFrom;
         if (nDelta)
         {
             nValue = (int)((double)(nElapsed + 1) / nDuration * nDelta) + nFrom;
@@ -673,9 +674,9 @@ void __cdecl PANEL_DrawLifeOrb()
         if (nPoison > nHeight)
         {
             if (sub_004F5140() == 6)
-                sub_004F64E0(&tContext, 0x1C, gnGlobal_00711470 - 0xD, nHeight, nPoison - nHeight, 0);
+                sub_004F64E0(&tContext, 0x1C, gnScreenHeight - 0xD, nHeight, nPoison - nHeight, 0);
             else
-                sub_004F64E0(&tContext, 0x1D, gnGlobal_00711470 - 0xD, nHeight, nPoison - nHeight, 0);
+                sub_004F64E0(&tContext, 0x1D, gnScreenHeight - 0xD, nHeight, nPoison - nHeight, 0);
         }
     }
 
@@ -686,17 +687,17 @@ void __cdecl PANEL_DrawLifeOrb()
         {
         case 1:
         case 3:
-            sub_004F64E0(&tContext, 0x1D, gnGlobal_00711470 - 0xD, 0, nHeight, 5);
+            sub_004F64E0(&tContext, 0x1D, gnScreenHeight - 0xD, 0, nHeight, 5);
             break;
         default:
-            sub_004F64E0(&tContext, 0x1D, gnGlobal_00711470 - 0xD, 0, nHeight, 5);
+            sub_004F64E0(&tContext, 0x1D, gnScreenHeight - 0xD, 0, nHeight, 5);
             break;
         }
     }
 
     tContext.pCellFile = gpCellFile_007BEF80;
     tContext.nFrame = 0;
-    sub_004F6480(&tContext, 0x1C, gnGlobal_00711470 - 5, -1, 5, 0);
+    sub_004F6480(&tContext, 0x1C, gnScreenHeight - 5, -1, 5, 0);
 }
 
 // 0x00497110
@@ -725,9 +726,9 @@ void __cdecl PANEL_DrawManaOrb()
         if (nShield > nHeight)
         {
             if (sub_004F5140() == 6)
-                sub_004F64E0(&tContext, gnGlobal_0071146C - 0x70, gnGlobal_00711470 - 0xD, nHeight, nShield - nHeight, 0);
+                sub_004F64E0(&tContext, gnScreenWidth - 0x70, gnScreenHeight - 0xD, nHeight, nShield - nHeight, 0);
             else
-                sub_004F64E0(&tContext, gnGlobal_0071146C - 0x6F, gnGlobal_00711470 - 0xD, nHeight, nShield - nHeight, 0);
+                sub_004F64E0(&tContext, gnScreenWidth - 0x6F, gnScreenHeight - 0xD, nHeight, nShield - nHeight, 0);
         }
     }
 
@@ -735,24 +736,24 @@ void __cdecl PANEL_DrawManaOrb()
     {
     case 1:
     case 3:
-        sub_004F64E0(&tContext, gnGlobal_0071146C - 0x6F, gnGlobal_00711470 - 0xD, 0, nHeight, 5);
+        sub_004F64E0(&tContext, gnScreenWidth - 0x6F, gnScreenHeight - 0xD, 0, nHeight, 5);
         break;
     default:
-        sub_004F64E0(&tContext, gnGlobal_0071146C - 0x6F, gnGlobal_00711470 - 0xD, 0, nHeight, 5);
+        sub_004F64E0(&tContext, gnScreenWidth - 0x6F, gnScreenHeight - 0xD, 0, nHeight, 5);
         break;
     }
 
     tContext.pCellFile = gpCellFile_007BEF80;
     tContext.nFrame = 1;
-    sub_004F6480(&tContext, gnGlobal_0071146C - 0x6E, gnGlobal_00711470 - 9, -1, 5, 0);
+    sub_004F6480(&tContext, gnScreenWidth - 0x6E, gnScreenHeight - 9, -1, 5, 0);
 }
 
 // 0x00497440
 static int __cdecl sub_00497440_Bounds(int nX,int nY)
 {
-    int nHalf=gnGlobal_0071146C / 2;
+    int nHalf=gnScreenWidth / 2;
     if (nX >= nHalf + -145 && nX <= nHalf + -128
-        && nY >= gnGlobal_00711470 + -28 && nY <= gnGlobal_00711470 + -8)
+        && nY >= gnScreenHeight + -28 && nY <= gnScreenHeight + -8)
         return 1;
     return 0;
 }
@@ -763,18 +764,18 @@ void __cdecl PANEL_DrawStaminaBar()
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nStamina = PANEL_GetSmoothedOrbValue(10);
     int nMaxStamina = STATLIST_GetMaxStaminaFromUnit(pPlayer);
-    if (!gnTextColorRed_007BEFBA)
+    if (!gnTextColorRed)
     {
-        gnTextColorRed_007BEFBA = D2Win_10034_MixRGB(0xFF, 0, 0);
-        gnTextColorA_007BEFBB = D2Win_10034_MixRGB(0xF4, 0xC0, 0x4C);
-        gnTextColorB_007BEFE4 = D2Win_10034_MixRGB(0, 0, 0xFF);
+        gnTextColorRed = D2Win_10034_MixRGB(0xFF, 0, 0);
+        gnTextColorA = D2Win_10034_MixRGB(0xF4, 0xC0, 0x4C);
+        gnTextColorB = D2Win_10034_MixRGB(0, 0, 0xFF);
     }
 
-    int nColor = gnTextColorA_007BEFBB;
+    int nColor = gnTextColorA;
     if (nMaxStamina + 5 < nStamina || STATES_CheckStateMaskOnUnit(pPlayer, 0x18))
     {
         nMaxStamina = nStamina;
-        nColor = gnTextColorB_007BEFE4;
+        nColor = gnTextColorB;
     }
 
     int nWidth;
@@ -783,9 +784,9 @@ void __cdecl PANEL_DrawStaminaBar()
     else
         nWidth = 102 * nStamina / nMaxStamina;
     if (nWidth < 25)
-        nColor = gnTextColorRed_007BEFBA;
+        nColor = gnTextColorRed;
 
-    sub_0046EFD0_DrawFramedBox(gnGlobal_0071146C / 2 - 0x7F, gnGlobal_00711470 - 0x1B, nWidth, 0x12, nColor, 2);
+    sub_0046EFD0_DrawFramedBox(gnScreenWidth / 2 - 0x7F, gnScreenHeight - 0x1B, nWidth, 0x12, nColor, 2);
 
     const int nMouseX = sub_00468730();
     const int nMouseY = sub_00468740();
@@ -799,20 +800,20 @@ void __cdecl PANEL_DrawStaminaBar()
     }
 
     Unicode wszText[100];
-    if (nMouseX >= gnGlobal_0071146C / 2 - 0x7F && nMouseX <= gnGlobal_0071146C / 2 - 0x19
-        && nMouseY >= gnGlobal_00711470 - 0x1B && nMouseY <= gnGlobal_00711470 - 9)
+    if (nMouseX >= gnScreenWidth / 2 - 0x7F && nMouseX <= gnScreenWidth / 2 - 0x19
+        && nMouseY >= gnScreenHeight - 0x1B && nMouseY <= gnScreenHeight - 9)
     {
         sub_005269D0(100, wszText, D2LANG_GetStringFromTblIndex(0x1044), nCur, nMax);
-        D2Win_10129_DrawFramedText(wszText, gnGlobal_0071146C / 2 - 0x4C, gnGlobal_00711470 - 0x34, nTextColor, 1);
+        D2Win_10129_DrawFramedText(wszText, gnScreenWidth / 2 - 0x4C, gnScreenHeight - 0x34, nTextColor, 1);
     }
 }
 
 // 0x00497780
 static int __cdecl sub_00497780_Bounds(int nX,int nY)
 {
-    int nHalf=gnGlobal_0071146C / 2;
+    int nHalf=gnScreenWidth / 2;
     if (nX >= nHalf + -8 && nX <= nHalf + 5
-        && nY >= gnGlobal_00711470 + -39 && nY <= gnGlobal_00711470 + -13)
+        && nY >= gnScreenHeight + -39 && nY <= gnScreenHeight + -13)
         return 1;
     return 0;
 }
@@ -829,11 +830,11 @@ void __stdcall sub_00499500_Click(SMSGHANDLER_PARAMS* pMsg)
     int nX=pMsg->nXpos;
     if (sub_00498DC0_OverlayHit(pMsg))
     {
-        gnGlobal_007BEFA4=1;
+        gbControlPanelClicked=1;
         goto handled;
     }
     {
-        int nHeight=gnGlobal_00711470;
+        int nHeight=gnScreenHeight;
         if (nY<=nHeight + -48)
         {
             pMsg->bReturn=0;
@@ -841,37 +842,37 @@ void __stdcall sub_00499500_Click(SMSGHANDLER_PARAMS* pMsg)
         }
         if ((unsigned int)(nX + -117)<=48 && nY<=nHeight)
         {
-            gnGlobal_007BEFA4=1;
-            gnGlobal_007BEF84=1;
+            gbControlPanelClicked=1;
+            gbLeftSkillButtonDown=1;
             goto refresh;
         }
-        int nWidth=gnGlobal_0071146C;
+        int nWidth=gnScreenWidth;
         if (nX>=nWidth + -165 && nX<=nWidth + -117 && nY<=nHeight)
         {
-            gnGlobal_007BEFA4=1;
-            gnGlobal_007BEF88=1;
+            gbControlPanelClicked=1;
+            gbRightSkillButtonDown=1;
             goto refresh;
         }
         if ((unsigned int)(nX + -30)<=80 && nY>=nHeight + -75 && nY<=nHeight + -15)
         {
-            gnGlobal_007BEFDC=!gnGlobal_007BEFDC;
-            sub_004150E0_SaveValue("Diablo II","Show HP Text",0,gnGlobal_007BEFDC);
+            gdwShowHpText=!gdwShowHpText;
+            sub_004150E0_SaveValue("Diablo II","Show HP Text",0,gdwShowHpText);
             goto refresh;
         }
         if (nX>=nWidth + -111 && nX<=nWidth + -31 && nY>=nHeight + -75 && nY<=nHeight + -15)
         {
-            gnGlobal_007BEFE0=!gnGlobal_007BEFE0;
-            sub_004150E0_SaveValue("Diablo II","Show MP Text",0,gnGlobal_007BEFE0);
+            gdwShowMpText=!gdwShowMpText;
+            sub_004150E0_SaveValue("Diablo II","Show MP Text",0,gdwShowMpText);
             goto refresh;
         }
-        if (sub_00497780_Bounds(nX,nY)) gnGlobal_007BEFD0=1;
-        else if (sub_00497440_Bounds(nX,nY)) gnGlobal_007BEFD8=1;
+        if (sub_00497780_Bounds(nX,nY)) gbMiniPanelButtonDown=1;
+        else if (sub_00497440_Bounds(nX,nY)) gbRunButtonDown=1;
         else goto refresh;
-        gnGlobal_007BEFA4=1;
+        gbControlPanelClicked=1;
         sub_004B9A00_Sound(4,0,0,0,0);
     }
 refresh:
-    gnGlobal_00722358=1;
+    gbControlPanelMouseDown=1;
 handled:
     pMsg->bReturn=1;
     pMsg->lResult=0;
@@ -880,7 +881,7 @@ handled:
 
 static int sub_004977C0_IsInButtonRect(int nX, int nY)
 {
-    return nX >= gnGlobal_0071146C / 2 - 8 && nX <= gnGlobal_0071146C / 2 + 5 && nY >= gnGlobal_00711470 - 39 && nY <= gnGlobal_00711470 - 13;
+    return nX >= gnScreenWidth / 2 - 8 && nX <= gnScreenWidth / 2 + 5 && nY >= gnScreenHeight - 39 && nY <= gnScreenHeight - 13;
 }
 
 // 0x004977C0
@@ -912,7 +913,7 @@ void __cdecl PANEL_DrawMiniPanelButton()
             tContext.nFrame = 0;
         }
     }
-    sub_004F6480(&tContext, gnGlobal_0071146C / 2 - 8, gnGlobal_00711470 - 16, -1, 5, 0);
+    sub_004F6480(&tContext, gnScreenWidth / 2 - 8, gnScreenHeight - 16, -1, 5, 0);
 }
 
 // 0x004978D0
@@ -923,36 +924,38 @@ static void __stdcall PANEL_DrawBeltBoxFrame(int nBox, int nColor)
         return;
 
     D2UiRectStrc tRect;
-    DATATBLS_GetInvRectFromBeltsTxt(gnUiRecordIndex_00722354, gnUiRecordRow_007A5218, &tRect, nBox);
-    sub_0046EFD0_DrawFramedBox(tRect.nLeft, tRect.nTop, 0x1D, 0x1D, gabBeltColors_007BEF6C[nColor], 0);
+// build: symbol ?gnUiRecordIndex@* 0x00722354
+    DATATBLS_GetInvRectFromBeltsTxt(gnUiRecordIndex, gnBeltUiRecordRow, &tRect, nBox);
+    sub_0046EFD0_DrawFramedBox(tRect.nLeft, tRect.nTop, 0x1D, 0x1D, gabBeltColors[nColor], 0);
 }
 
 // 0x00497920
 static void __cdecl PANEL_DrawCursorBeltBox(D2InventoryStrc* pInventory)
 {
     D2UnitStrc* pItem = INVENTORY_GetCursorItem(pInventory);
-    if (!pItem || !gnBeltHover_007BEF94)
+    if (!pItem || !gnBeltHover)
         return;
 
     D2UiRecordStrc tRecord;
-    sub_00660CB0_GetUiRecord(gnUiRecordIndex_00722354, gnUiRecordRow_007A5218, &tRecord);
-    if (gnBeltBox_0072235C < 0 || gnBeltBox_0072235C >= tRecord.nBoxes)
+    sub_00660CB0_GetUiRecord(gnUiRecordIndex, gnBeltUiRecordRow, &tRecord);
+// build: symbol ?gnBeltBox@* 0x0072235C
+    if (gnBeltBox < 0 || gnBeltBox >= tRecord.nBoxes)
         return;
 
-    if (!INVENTORY_GetItemFromBeltSlot(pInventory, gnBeltBox_0072235C) && ITEMS_CheckIfBeltable(pItem))
+    if (!INVENTORY_GetItemFromBeltSlot(pInventory, gnBeltBox) && ITEMS_CheckIfBeltable(pItem))
     {
-        PANEL_DrawBeltBoxFrame(gnBeltBox_0072235C, 1);
+        PANEL_DrawBeltBoxFrame(gnBeltBox, 1);
         return;
     }
 
     int nResult;
-    if (sub_0063C830_CanPlaceInBelt(pInventory, pItem, gnBeltBox_0072235C, &nResult))
+    if (sub_0063C830_CanPlaceInBelt(pInventory, pItem, gnBeltBox, &nResult))
     {
-        PANEL_DrawBeltBoxFrame(gnBeltBox_0072235C, 3);
+        PANEL_DrawBeltBoxFrame(gnBeltBox, 3);
         return;
     }
 
-    PANEL_DrawBeltBoxFrame(gnBeltBox_0072235C, 0);
+    PANEL_DrawBeltBoxFrame(gnBeltBox, 0);
 }
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
@@ -964,7 +967,7 @@ void __cdecl PANEL_DrawBeltItemHoverText()
     Unicode wszText[0x180] = { 0 };
 
     D2UnitStrc* pPlayer = sub_00463DD0();
-    if (!gnBeltHover_007BEF94 || !gpBeltItemA_007BEFA8)
+    if (!gnBeltHover || !gpBeltItemA)
     {
         return;
     }
@@ -974,26 +977,28 @@ void __cdecl PANEL_DrawBeltItemHoverText()
         return;
     }
 
-    if (gnBeltBox_0072235C > 3 && !gbUiRecordMode_007BEF98 && !gnBeltRecordMode2_007BEF9C)
+    if (gnBeltBox > 3 && !gbUiRecordMode && !gnBeltRecordMode2)
     {
         return;
     }
 
-    if (!DATATBLS_GetItemsTxtRecord(!gpBeltItemA_007BEFA8 ? -1 : gpBeltItemA_007BEFA8->dwClassId))
+    if (!DATATBLS_GetItemsTxtRecord(!gpBeltItemA ? -1 : gpBeltItemA->dwClassId))
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x61D);
         exit(-1);
     }
 
-    INV_BuildItemName(gpBeltItemA_007BEFA8, wszName, 0x80);
-    if (ITEMS_GetItemQuality(gpBeltItemA_007BEFA8) != 3)
+    INV_BuildItemName(gpBeltItemA, wszName, 0x80);
+    if (ITEMS_GetItemQuality(gpBeltItemA) != 3)
     {
-        sub_004E6410_BuildPropText(gpBeltItemA_007BEFA8, wszProps, 0x100, 1, 0);
+        sub_004E6410_BuildPropText(gpBeltItemA, wszProps, 0x100, 1, 0);
     }
 
     sub_005267E0(wszText, INV_PrefixColorCode(wszProps, 3));
     sub_00526700(wszText, INV_PrefixColorCode(wszName, 0));
-    if (gnBeltRectX_00722360 < 0 || gnBeltRectY_00722364 < 0)
+// build: symbol ?gnBeltRectX@* 0x00722360
+// build: symbol ?gnBeltRectY@* 0x00722364
+    if (gnBeltRectX < 0 || gnBeltRectY < 0)
     {
         return;
     }
@@ -1003,14 +1008,14 @@ void __cdecl PANEL_DrawBeltItemHoverText()
     {
         Unicode wszSocket[0x40] = { 0 };
         int nUnused;
-        if (sub_004B2AD0(gpBeltItemA_007BEFA8, 1, &nUnused, wszSocket, 0x40) && wszSocket[0].wChar)
+        if (sub_004B2AD0(gpBeltItemA, 1, &nUnused, wszSocket, 0x40) && wszSocket[0].wChar)
         {
             sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
             sub_00526700(wszText, wszSocket);
         }
     }
 
-    D2Win_10129_DrawFramedText(wszText, gnBeltRectX_00722360, gnBeltRectY_00722364, 0, 1);
+    D2Win_10129_DrawFramedText(wszText, gnBeltRectX, gnBeltRectY, 0, 1);
 }
 
 // 0x00497CF0
@@ -1061,16 +1066,16 @@ static void __stdcall sub_00497CF0_DrawDurabilityIcon(int nState, int bType, int
     {
         if (ROSTER_IsAnyoneHostile())
             nOffset = 0x2B;
-        sub_004F6480(&tContext, gnGlobal_0071146C - 0x3C, nOffset + 0x8C, -1, 1, 0);
+        sub_004F6480(&tContext, gnScreenWidth - 0x3C, nOffset + 0x8C, -1, 1, 0);
     }
     else
-        sub_004F6480(&tContext, gnGlobal_0071146C - 0x3C, 0x6E, -1, 1, 0);
+        sub_004F6480(&tContext, gnScreenWidth - 0x3C, 0x6E, -1, 1, 0);
 }
 
 // 0x00497E00
 void __cdecl PANEL_DrawQuantityWarningIcons()
 {
-    memset(gabSlots_007BEFB4, 0, 6);
+    memset(gabSlots, 0, 6);
 
     D2UnitStrc* pPlayer = sub_00463DD0();
     D2InventoryStrc* pInventory = pPlayer->pInventory;
@@ -1082,9 +1087,9 @@ void __cdecl PANEL_DrawQuantityWarningIcons()
         INV_DrawWarningIcon(2);
     }
 
-    for (unsigned int i = 0; i < gnBodyLocCount_0072237C; ++i)
+    for (unsigned int i = 0; i < gnBodyLocCount; ++i)
     {
-        D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, gaBodyLocs_00722374[i]);
+        D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, gaBodyLocs[i]);
         if (!pItem)
         {
             continue;
@@ -1096,9 +1101,9 @@ void __cdecl PANEL_DrawQuantityWarningIcons()
             continue;
         }
 
-        for (unsigned int j = 0; j < gnQtyWarnCount_007223E4; ++j)
+        for (unsigned int j = 0; j < gnQtyWarnCount; ++j)
         {
-            if (nWarnType != gaQtyWarn_00722380[j].nWarnType)
+            if (nWarnType != gaQtyWarn[j].nWarnType)
             {
                 continue;
             }
@@ -1118,17 +1123,17 @@ void __cdecl PANEL_DrawQuantityWarningIcons()
                 }
             }
 
-            if (nQuantity <= gaQtyWarn_00722380[j].nLevel2)
+            if (nQuantity <= gaQtyWarn[j].nLevel2)
             {
-                INV_DrawWarningIcon(gaQtyWarn_00722380[j].nFrame + 2);
+                INV_DrawWarningIcon(gaQtyWarn[j].nFrame + 2);
             }
-            else if (nQuantity <= gaQtyWarn_00722380[j].nLevel1)
+            else if (nQuantity <= gaQtyWarn[j].nLevel1)
             {
-                INV_DrawWarningIcon(gaQtyWarn_00722380[j].nFrame + 1);
+                INV_DrawWarningIcon(gaQtyWarn[j].nFrame + 1);
             }
-            else if (nQuantity <= gaQtyWarn_00722380[j].nLevel0)
+            else if (nQuantity <= gaQtyWarn[j].nLevel0)
             {
-                INV_DrawWarningIcon(gaQtyWarn_00722380[j].nFrame);
+                INV_DrawWarningIcon(gaQtyWarn[j].nFrame);
             }
         }
     }
@@ -1140,7 +1145,8 @@ void __cdecl PANEL_DrawDurabilityIcons()
     D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
     for (int j = 0; j < 7; ++j)
     {
-        const int nLoc = gnBodyLocs_007223E8[j];
+// build: symbol ?gaDurabilityBodyLocs@* 0x007223E8
+        const int nLoc = gaDurabilityBodyLocs[j];
         D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, nLoc);
         if (!pItem || !ITEMS_HasDurability(pItem) || ITEMS_CheckIfStackable(pItem))
             continue;
@@ -1154,7 +1160,7 @@ void __cdecl PANEL_DrawDurabilityIcons()
 found:
     for (int i = 0; i < 7; ++i)
     {
-        const int nBodyLoc = gnBodyLocs_007223E8[i];
+        const int nBodyLoc = gaDurabilityBodyLocs[i];
         D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, nBodyLoc);
         int nState = 0;
         int bType = 0;
@@ -1194,7 +1200,7 @@ void __cdecl PANEL_DrawLifeManaText()
     Unicode wszManaText[100];
 
     if (gdwShowHpText_007BEFDC || (nMouseX >= 0x1E && nMouseX <= 0x1E + 0x50
-        && nMouseY >= gnGlobal_00711470 - 0x4B && nMouseY <= gnGlobal_00711470 - 0xF))
+        && nMouseY >= gnScreenHeight - 0x4B && nMouseY <= gnScreenHeight - 0xF))
     {
         int nLife = PANEL_GetSmoothedOrbValue(6) >> 8;
         const int nMaxLife = STATLIST_GetMaxLifeFromUnit(pPlayer) >> 8;
@@ -1205,17 +1211,17 @@ void __cdecl PANEL_DrawLifeManaText()
         sub_005269D0(100, wszLifeText, D2LANG_GetStringFromTblIndex(0x1045), nLife, nMaxLife);
         sub_00526700(wszLife, wszLifeText);
         const int nHalfWidth = D2Win_10121_GetTextWidth(wszLife) / 2;
-        D2Win_10117_DrawText(wszLife, 0x41 - nHalfWidth, gnGlobal_00711470 - 0x5F, 0, 0);
+        D2Win_10117_DrawText(wszLife, 0x41 - nHalfWidth, gnScreenHeight - 0x5F, 0, 0);
     }
 
-    if (gdwShowMpText_007BEFE0 || (nMouseX >= gnGlobal_0071146C - 0x6F && nMouseX <= gnGlobal_0071146C - 0x1F
-        && nMouseY >= gnGlobal_00711470 - 0x4B && nMouseY <= gnGlobal_00711470 - 0xF))
+    if (gdwShowMpText_007BEFE0 || (nMouseX >= gnScreenWidth - 0x6F && nMouseX <= gnScreenWidth - 0x1F
+        && nMouseY >= gnScreenHeight - 0x4B && nMouseY <= gnScreenHeight - 0xF))
     {
         const int nMana = PANEL_GetSmoothedOrbValue(8) >> 8;
         sub_005269D0(100, wszManaText, D2LANG_GetStringFromTblIndex(0x1046), nMana, STATLIST_GetMaxManaFromUnit(pPlayer) >> 8);
         sub_00526700(wszMana, wszManaText);
         const int nHalfWidth = D2Win_10121_GetTextWidth(wszMana) / 2;
-        D2Win_10117_DrawText(wszMana, gnGlobal_0071146C - nHalfWidth - 0x50, gnGlobal_00711470 - 0x5F, 0, 0);
+        D2Win_10117_DrawText(wszMana, gnScreenWidth - nHalfWidth - 0x50, gnScreenHeight - 0x5F, 0, 0);
     }
 }
 
@@ -1226,10 +1232,10 @@ void __cdecl PANEL_UpdateLevelTimer()
     if (pRoom)
     {
         const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
-        if (gnLevelId_007BEFF0 != nLevelId)
+        if (gnLevelId != nLevelId)
         {
-            gnLevelId_007BEFF0 = nLevelId;
-            gnLevelTimer_007BEFEC = 0x3C;
+            gnLevelId = nLevelId;
+            gnLevelTimer = 0x3C;
         }
     }
 }
@@ -1256,58 +1262,58 @@ static void PANEL_DrawControlPanelFrame(int nOffset)
     memset(&tContext, 0, sizeof(tContext));
     if (D2GFX_GetResolutionMode() - 2)
     {
-        if (!gpCel_007BEF1C)
+        if (!gpCtrlPnl7Cel)
         {
-            gpCel_007BEF1C = sub_004520C0_LoadUiCelFile("Panel\\CtrlPnl7");
+            gpCtrlPnl7Cel = sub_004520C0_LoadUiCelFile("Panel\\CtrlPnl7");
         }
-        if (gpCel_007BEF74)
+        if (gp800CtrlPnl7Cel)
         {
-            ARCHIVE_FreeClientCellFile(gpCel_007BEF74);
-            gpCel_007BEF74 = 0;
+            ARCHIVE_FreeClientCellFile(gp800CtrlPnl7Cel);
+            gp800CtrlPnl7Cel = 0;
         }
-        if (gpBorderFrameCel_007BEF18)
+        if (gpBorderFrameCel)
         {
-            ARCHIVE_FreeClientCellFile(gpBorderFrameCel_007BEF18);
-            gpBorderFrameCel_007BEF18 = 0;
+            ARCHIVE_FreeClientCellFile(gpBorderFrameCel);
+            gpBorderFrameCel = 0;
         }
-        tContext.pCellFile = gpCel_007BEF1C;
+        tContext.pCellFile = gpCtrlPnl7Cel;
         tContext.nDirection = 0;
         tContext.nFrame = 0;
-        sub_004F6480(&tContext, 0, gnGlobal_00711470 - nOffset, -1, 5, 0);
+        sub_004F6480(&tContext, 0, gnScreenHeight - nOffset, -1, 5, 0);
         tContext.nFrame = 1;
-        sub_004F6480(&tContext, gnGlobal_0071146C / 2 - 0x9B, gnGlobal_00711470, -1, 5, 0);
+        sub_004F6480(&tContext, gnScreenWidth / 2 - 0x9B, gnScreenHeight, -1, 5, 0);
         tContext.nFrame = 2;
-        sub_004F6480(&tContext, gnGlobal_0071146C / 2 - 0x1B, gnGlobal_00711470, -1, 5, 0);
+        sub_004F6480(&tContext, gnScreenWidth / 2 - 0x1B, gnScreenHeight, -1, 5, 0);
         tContext.nFrame = 3;
-        sub_004F6480(&tContext, gnGlobal_0071146C / 2 + 0x65, gnGlobal_00711470, -1, 5, 0);
+        sub_004F6480(&tContext, gnScreenWidth / 2 + 0x65, gnScreenHeight, -1, 5, 0);
         tContext.nFrame = 4;
-        sub_004F6480(&tContext, gnGlobal_0071146C - 0x75, gnGlobal_00711470 - nOffset, -1, 5, 0);
+        sub_004F6480(&tContext, gnScreenWidth - 0x75, gnScreenHeight - nOffset, -1, 5, 0);
     }
     else
     {
-        if (gpCel_007BEF1C)
+        if (gpCtrlPnl7Cel)
         {
-            ARCHIVE_FreeClientCellFile(gpCel_007BEF1C);
-            gpCel_007BEF1C = 0;
+            ARCHIVE_FreeClientCellFile(gpCtrlPnl7Cel);
+            gpCtrlPnl7Cel = 0;
         }
-        if (!gpCel_007BEF74)
+        if (!gp800CtrlPnl7Cel)
         {
-            gpCel_007BEF74 = sub_004520C0_LoadUiCelFile("Panel\\800CtrlPnl7");
+            gp800CtrlPnl7Cel = sub_004520C0_LoadUiCelFile("Panel\\800CtrlPnl7");
         }
-        tContext.pCellFile = gpCel_007BEF74;
+        tContext.pCellFile = gp800CtrlPnl7Cel;
         tContext.nDirection = 0;
         tContext.nFrame = 0;
-        sub_004F6480(&tContext, 0, gnGlobal_00711470 - nOffset, -1, 5, 0);
+        sub_004F6480(&tContext, 0, gnScreenHeight - nOffset, -1, 5, 0);
         tContext.nFrame = 1;
-        sub_004F6480(&tContext, gnGlobal_0071146C / 2 - 0xEB, gnGlobal_00711470, -1, 5, 0);
+        sub_004F6480(&tContext, gnScreenWidth / 2 - 0xEB, gnScreenHeight, -1, 5, 0);
         tContext.nFrame = 2;
-        sub_004F6480(&tContext, gnGlobal_0071146C / 2 - 0x6B, gnGlobal_00711470, -1, 5, 0);
+        sub_004F6480(&tContext, gnScreenWidth / 2 - 0x6B, gnScreenHeight, -1, 5, 0);
         tContext.nFrame = 3;
-        sub_004F6480(&tContext, gnGlobal_0071146C / 2 + 0x15, gnGlobal_00711470, -1, 5, 0);
+        sub_004F6480(&tContext, gnScreenWidth / 2 + 0x15, gnScreenHeight, -1, 5, 0);
         tContext.nFrame = 4;
-        sub_004F6480(&tContext, gnGlobal_0071146C / 2 + 0x95, gnGlobal_00711470, -1, 5, 0);
+        sub_004F6480(&tContext, gnScreenWidth / 2 + 0x95, gnScreenHeight, -1, 5, 0);
         tContext.nFrame = 5;
-        sub_004F6480(&tContext, gnGlobal_0071146C - 0x75, gnGlobal_00711470 - nOffset, -1, 5, 0);
+        sub_004F6480(&tContext, gnScreenWidth - 0x75, gnScreenHeight - nOffset, -1, 5, 0);
     }
 }
 
@@ -1316,11 +1322,11 @@ void __cdecl PANEL_DrawBorderFrameLeft()
 {
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    if (!gpBorderFrameCel_007BEF18)
+    if (!gpBorderFrameCel)
     {
-        gpBorderFrameCel_007BEF18 = sub_004520C0_LoadUiCelFile("Panel\\800BorderFrame");
+        gpBorderFrameCel = sub_004520C0_LoadUiCelFile("Panel\\800BorderFrame");
     }
-    tContext.pCellFile = gpBorderFrameCel_007BEF18;
+    tContext.pCellFile = gpBorderFrameCel;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, 0, 253, -1, 5, 0);
@@ -1337,13 +1343,13 @@ void __cdecl PANEL_DrawBorderFrameLeft()
 // 0x00498700
 void __cdecl PANEL_DrawBorderFrameRight()
 {
-    if (!gpBorderFrameCel_007BEF18)
+    if (!gpBorderFrameCel)
     {
-        gpBorderFrameCel_007BEF18 = sub_004520C0_LoadUiCelFile("Panel\\800BorderFrame");
+        gpBorderFrameCel = sub_004520C0_LoadUiCelFile("Panel\\800BorderFrame");
     }
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpBorderFrameCel_007BEF18;
+    tContext.pCellFile = gpBorderFrameCel;
     tContext.nDirection = 0;
     tContext.nFrame = 5;
     sub_004F6480(&tContext, 400, 63, -1, 5, 0);
@@ -1385,11 +1391,11 @@ static int __stdcall sub_004987E0_GetBeltBoxAt(int nY, int nX)
 {
     D2UiRecordStrc tRecord;
     int nResult = -1;
-    sub_00660CB0_GetUiRecord(gnUiRecordIndex_00722354, gnUiRecordRow_007A5218, &tRecord);
+    sub_00660CB0_GetUiRecord(gnUiRecordIndex, gnBeltUiRecordRow, &tRecord);
     for (int i = 0; i < tRecord.nBoxes; ++i)
     {
         D2UiRectStrc tRect;
-        DATATBLS_GetInvRectFromBeltsTxt(gnUiRecordIndex_00722354, gnUiRecordRow_007A5218, &tRect, i);
+        DATATBLS_GetInvRectFromBeltsTxt(gnUiRecordIndex, gnBeltUiRecordRow, &tRect, i);
         if (nX >= tRect.nLeft && nX <= tRect.nRight && nY >= tRect.nTop && nY <= tRect.nBottom)
         {
             nResult = i;
@@ -1459,18 +1465,18 @@ static void sub_00498930_HoverBeltBox(int nX, D2InventoryStrc* pInventory, int n
 
     if (pCursorItem)
     {
-        gnBeltBox_0072235C = nBox;
-        gnBeltHover_007BEF94 = 1;
-        gpBeltItemA_007BEFA8 = 0;
+        gnBeltBox = nBox;
+        gnBeltHover = 1;
+        gpBeltItemA = 0;
         gpBeltItemB_007BEFAC = 0;
         return;
     }
 
     D2UnitStrc* pItem = INVENTORY_GetItemFromBeltSlot(pInventory, nBox);
-    gnBeltBox_0072235C = nBox;
+    gnBeltBox = nBox;
     if (pItem)
     {
-        gnBeltHover_007BEF94 = 1;
+        gnBeltHover = 1;
         if (pItem == gpBeltItemB_007BEFAC)
         {
             return;
@@ -1478,16 +1484,16 @@ static void sub_00498930_HoverBeltBox(int nX, D2InventoryStrc* pInventory, int n
 
         D2UiRectStrc tRect;
         const int nBoxId = CLIENTS_GetUnitX(pItem);
-        DATATBLS_GetInvRectFromBeltsTxt(gnUiRecordIndex_00722354, gnUiRecordRow_007A5218, &tRect, nBoxId);
-        gpBeltItemA_007BEFA8 = pItem;
+        DATATBLS_GetInvRectFromBeltsTxt(gnUiRecordIndex, gnBeltUiRecordRow, &tRect, nBoxId);
+        gpBeltItemA = pItem;
         gpBeltItemB_007BEFAC = pItem;
-        gnBeltRectX_00722360 = tRect.nLeft + 0xE;
-        gnBeltRectY_00722364 = tRect.nTop;
+        gnBeltRectX = tRect.nLeft + 0xE;
+        gnBeltRectY = tRect.nTop;
     }
     else
     {
-        gnBeltHover_007BEF94 = 0;
-        gpBeltItemA_007BEFA8 = 0;
+        gnBeltHover = 0;
+        gpBeltItemA = 0;
         gpBeltItemB_007BEFAC = 0;
     }
 }
@@ -1512,7 +1518,7 @@ static void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D
 
     D2Block1 tBlock1;
     const int nClass = UNITS_GetInventoryRecordId(pPlayer, 0, GAME_IsExpansion());
-    sub_0065C1F0(nClass, gnUiRecordRow_007A5218, &tBlock1);
+    sub_0065C1F0(nClass, gnBeltUiRecordRow, &tBlock1);
     D2UnitStrc* pItem = INVENTORY_GetItemFromBeltSlot(pInventory, nSlot);
     if (!pItem)
     {
@@ -1547,17 +1553,17 @@ static void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D
             {
                 sub_004CBDE0_PlayEventSound(nPetId, 1, 0x55);
             }
-            gnBeltHover_007BEF94 = 0;
+            gnBeltHover = 0;
             return;
         }
 
         sub_004B9A00(ITEM_GetItemUseSound(pItem), 0, 0, 0, 0);
-        gnBeltHover_007BEF94 = 0;
+        gnBeltHover = 0;
         return;
     }
 
     sub_004B9A00(ITEM_GetItemUseSound(pItem), 0, 0, 0, 0);
-    gnBeltHover_007BEF94 = 0;
+    gnBeltHover = 0;
 }
 
 // 0x00498C00
@@ -1598,7 +1604,7 @@ static void PANEL_BeltHotkey(int nSlot)
         return;
     }
 
-    if (gabBeltHotkey_007BEFB0[nSlot] != 1)
+    if (gabBeltHotkey[nSlot] != 1)
     {
         return;
     }
@@ -1636,7 +1642,7 @@ void __fastcall PANEL_SetBeltType(int nIndex)
 {
     if (nIndex >= 0)
     {
-        gnUiRecordIndex_00722354 = nIndex;
+        gnUiRecordIndex = nIndex;
         return;
     }
     sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xB07);
@@ -1647,13 +1653,13 @@ void __fastcall PANEL_SetBeltType(int nIndex)
 void __cdecl sub_00498E80_ClearPair()
 {
     gdwGlobal_007BEFA8 = 0;
-    gdwGlobal_007BEFAC = 0;
+    gpBeltItemB = 0;
 }
 
 // 0x00498E90
 void __cdecl PANEL_SetBeltExpandedMode()
 {
-    gbUiRecordMode_007BEF98 = 1;
+    gbUiRecordMode = 1;
 }
 
 // 0x00498EA0
@@ -1686,10 +1692,10 @@ void __cdecl PANEL_DrawExperienceBar()
         wszText[i].wChar = 0;
     }
 
-    if (nMouseX >= gnGlobal_0071146C / 2 - 0x92 && nMouseX <= gnGlobal_0071146C / 2 - 0x17 && nMouseY >= gnGlobal_00711470 - 0x2B && nMouseY <= gnGlobal_00711470 - 0x22)
+    if (nMouseX >= gnScreenWidth / 2 - 0x92 && nMouseX <= gnScreenWidth / 2 - 0x17 && nMouseY >= gnScreenHeight - 0x2B && nMouseY <= gnScreenHeight - 0x22)
     {
         sub_005269D0(100, wszText, D2LANG_GetStringFromTblIndex(0x1043), nExperience, nNextExperience);
-        D2Win_10129_DrawFramedText(wszText, gnGlobal_0071146C / 2 - 0x92, gnGlobal_00711470 - 0x33, 0, 1);
+        D2Win_10129_DrawFramedText(wszText, gnScreenWidth / 2 - 0x92, gnScreenHeight - 0x33, 0, 1);
     }
 
     if (nRange)
@@ -1711,8 +1717,8 @@ void __cdecl PANEL_DrawExperienceBar()
 
         if (nLevel < DATATBLS_GetMaxLevel(nClass) && nWidth > 0)
         {
-            const int nX = gnGlobal_0071146C / 2 - 0x90;
-            int nY = gnGlobal_00711470 - 0x26;
+            const int nX = gnScreenWidth / 2 - 0x90;
+            int nY = gnScreenHeight - 0x26;
             D2GFX_DrawLine(nX, nY, nX + nWidth, nY, 0xFF, 0xFF);
             nY += 1;
             D2GFX_DrawLine(nX, nY, nX + nWidth, nY, 0xFF, 0xFF);
@@ -1722,10 +1728,10 @@ void __cdecl PANEL_DrawExperienceBar()
 
 void __cdecl VIEW_InitBeltColors()
 {
-    gabBeltColors_007BEF6C[0] = D2Win_10034_MixRGB(0x80, 0, 0);
-    gabBeltColors_007BEF6C[1] = D2Win_10034_MixRGB(0, 0x80, 0);
-    gabBeltColors_007BEF6C[2] = D2Win_10034_MixRGB(0, 0, 0x80);
-    gabBeltColors_007BEF6C[3] = D2Win_10034_MixRGB(0x80, 0x80, 0);
+    gabBeltColors[0] = D2Win_10034_MixRGB(0x80, 0, 0);
+    gabBeltColors[1] = D2Win_10034_MixRGB(0, 0x80, 0);
+    gabBeltColors[2] = D2Win_10034_MixRGB(0, 0, 0x80);
+    gabBeltColors[3] = D2Win_10034_MixRGB(0x80, 0x80, 0);
 }
 
 // 0x00499040
@@ -1741,7 +1747,7 @@ void __cdecl sub_00499040_DrawBelt()
             const int nBeltType = UNITS_GetBeltType(pBelt);
             if (nBeltType >= 0)
             {
-                gnUiRecordIndex_00722354 = nBeltType;
+                gnUiRecordIndex = nBeltType;
             }
             else
             {
@@ -1752,44 +1758,44 @@ void __cdecl sub_00499040_DrawBelt()
     }
     else
     {
-        gnUiRecordIndex_00722354 = 2;
+        gnUiRecordIndex = 2;
     }
 
-    if (!GAME_GetUIVarState(0x1F) && !gnBeltRecordMode2_007BEF9C)
-        gbUiRecordMode_007BEF98 = 0;
+    if (!GAME_GetUIVarState(0x1F) && !gnBeltRecordMode2)
+        gbUiRecordMode = 0;
 
     if (GAME_GetUIVarState(9))
-        gbUiRecordMode_007BEF98 = 0;
+        gbUiRecordMode = 0;
 
-    gbGlobal_007BEFA0 = 0;
-    if (gbUiRecordMode_007BEF98)
+    gbBeltRowsShown = 0;
+    if (gbUiRecordMode)
     {
         unsigned char abShow[3];
         abShow[0] = 1;
         abShow[1] = 1;
         abShow[2] = 1;
-        switch (gnUiRecordIndex_00722354)
+        switch (gnUiRecordIndex)
         {
         case 2:
             abShow[0] = 0;
             abShow[1] = 0;
             abShow[2] = 0;
-            gbGlobal_007BEFA0 = 0;
+            gbBeltRowsShown = 0;
             break;
         case 1:
         case 4:
             abShow[1] = 0;
             abShow[2] = 0;
-            gbGlobal_007BEFA0 = 1;
+            gbBeltRowsShown = 1;
             break;
         case 0:
         case 5:
             abShow[2] = 0;
-            gbGlobal_007BEFA0 = 1;
+            gbBeltRowsShown = 1;
             break;
         case 3:
         default:
-            gbGlobal_007BEFA0 = 1;
+            gbBeltRowsShown = 1;
             break;
         }
 
@@ -1803,7 +1809,7 @@ void __cdecl sub_00499040_DrawBelt()
         for (int i = 0; i < 3; ++i)
         {
             if (*pShow)
-                sub_004F6480(&tContext, gnGlobal_0071146C / 2 + 0x15, gnGlobal_00711470 - nOffset - 0x29, -1, 5, 0);
+                sub_004F6480(&tContext, gnScreenWidth / 2 + 0x15, gnScreenHeight - nOffset - 0x29, -1, 5, 0);
 
             ++pShow;
             nOffset += 0x20;
@@ -1811,10 +1817,10 @@ void __cdecl sub_00499040_DrawBelt()
     }
 
     D2UiRecordStrc tRecord;
-    sub_00660CB0_GetUiRecord(gnUiRecordIndex_00722354, gnUiRecordRow_007A5218, &tRecord);
+    sub_00660CB0_GetUiRecord(gnUiRecordIndex, gnBeltUiRecordRow, &tRecord);
     for (int nSlot = 0; nSlot < tRecord.nBoxes; ++nSlot)
     {
-        if (nSlot > 3 && !gbGlobal_007BEFA0)
+        if (nSlot > 3 && !gbBeltRowsShown)
             break;
 
         D2UnitStrc* pItem = INVENTORY_GetItemFromBeltSlot(pInventory, nSlot);
@@ -1839,7 +1845,7 @@ void __cdecl sub_00499040_DrawBelt()
 
         if (!ITEMS_CheckItemFlag(pItem, 4, 0x5D5, ".\\UI\\panel.cpp") && ITEMS_CheckIfUseable(pItem) && !sub_004C2240(pItem))
         {
-            if (pItem == gpBeltItemA_007BEFA8 && gnBeltHover_007BEF94)
+            if (pItem == gpBeltItemA && gnBeltHover)
                 PANEL_DrawBeltBoxFrame(nBox, 1);
             else
                 PANEL_DrawBeltBoxFrame(nBox, 2);
@@ -1850,9 +1856,10 @@ void __cdecl sub_00499040_DrawBelt()
         }
 
         D2UiRectStrc tRect;
-        DATATBLS_GetInvRectFromBeltsTxt(gnUiRecordIndex_00722354, gnUiRecordRow_007A5218, &tRect, nBox);
+        DATATBLS_GetInvRectFromBeltsTxt(gnUiRecordIndex, gnBeltUiRecordRow, &tRect, nBox);
         GFX_DrawItemCel(pItem, tRect.nLeft, tRect.nTop);
-        if (nSlot < sizeof(gaBeltKeys_00722404) / sizeof(gaBeltKeys_00722404[0]) && ITEMS_CheckIfUseable(pItem))
+// build: symbol ?gaBeltKeys@* 0x00722404
+        if (nSlot < sizeof(gaBeltKeys) / sizeof(gaBeltKeys[0]) && ITEMS_CheckIfUseable(pItem))
         {
             Unicode wszKey[100];
             for (int i = 0; i < 100; ++i)
@@ -1860,9 +1867,9 @@ void __cdecl sub_00499040_DrawBelt()
                 wszKey[i].wChar = 0;
             }
 
-            if (CUNIT_GetHotkeyBinding(gaBeltKeys_00722404[nSlot], 1) != 0xFFFF || CUNIT_GetHotkeyBinding(gaBeltKeys_00722404[nSlot], 0) != 0xFFFF)
+            if (CUNIT_GetHotkeyBinding(gaBeltKeys[nSlot], 1) != 0xFFFF || CUNIT_GetHotkeyBinding(gaBeltKeys[nSlot], 0) != 0xFFFF)
             {
-                sub_005267E0(wszKey, CMDTBL_GetKeyName(gaBeltKeys_00722404[nSlot], 1));
+                sub_005267E0(wszKey, CMDTBL_GetKeyName(gaBeltKeys[nSlot], 1));
                 const int nLength = sub_00526800(wszKey);
                 if (D2Win_10121_GetTextWidth(wszKey) > 0x1C)
                 {
@@ -1879,7 +1886,7 @@ void __cdecl sub_00499040_DrawBelt()
         }
     }
 
-    if (gnUiRecordIndex_00722354 == 2 || GAME_GetUIVarState(0x1F) || gbUiRecordMode_007BEF98)
+    if (gnUiRecordIndex == 2 || GAME_GetUIVarState(0x1F) || gbUiRecordMode)
         PANEL_DrawCursorBeltBox(pInventory);
 }
 
@@ -1916,10 +1923,10 @@ void __cdecl PANEL_DrawControlPanel()
     if (pRoom)
     {
         const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
-        if (gnLevelId_007BEFF0 != nLevelId)
+        if (gnLevelId != nLevelId)
         {
-            gnLevelId_007BEFF0 = nLevelId;
-            gnLevelTimer_007BEFEC = 0x3C;
+            gnLevelId = nLevelId;
+            gnLevelTimer = 0x3C;
         }
     }
     PANEL_UpdateMiniPanelTooltip();
@@ -1941,10 +1948,10 @@ void __stdcall PANEL_BeltMouseReleaseMsg(SMSGHANDLER_PARAMS* pMsg)
     D2UnitStrc* pPlayer=sub_00463DD0_GetPlayerUnit();
     const int x=pMsg->nXpos;
     const int y=pMsg->nYpos;
-    gnGlobal_007BEF88=0;
-    gnGlobal_007BEF84=0;
-    if(gnGlobal_007BEFA4) {
-        if(gbUiRecordMode_007BEF98) {
+    gbRightSkillButtonDown=0;
+    gbLeftSkillButtonDown=0;
+    if(gbControlPanelClicked) {
+        if(gbUiRecordMode) {
             if(AUTOMAP_IsCursorOverMiniPanelButton(pMsg)) {
                 CancelCursorMode();
                 sub_00498870_ClickBeltBox(pPlayer->pInventory,x,y);
@@ -1952,50 +1959,50 @@ void __stdcall PANEL_BeltMouseReleaseMsg(SMSGHANDLER_PARAMS* pMsg)
                 pMsg->lResult=0;
                 sub_00420290_BreakHandlerChain(pMsg);
             }
-            else if(x>=gnGlobal_0071146C/2-8 && x<=gnGlobal_0071146C/2+5 && y>=gnGlobal_00711470-39 && y<=gnGlobal_00711470-13) {
+            else if(x>=gnScreenWidth/2-8 && x<=gnScreenWidth/2+5 && y>=gnScreenHeight-39 && y<=gnScreenHeight-13) {
                 if(GAME_GetUIVarState(21)) sub_00455F20(21,1,0);
                 else sub_00455F20(21,2,0);
             }
-            else if(x>=117 && x<=165 && y>=gnGlobal_00711470-48 && y<=gnGlobal_00711470) {
+            else if(x>=117 && x<=165 && y>=gnScreenHeight-48 && y<=gnScreenHeight) {
                 sub_00455F20(3,2,0);
                 sub_004A8CE0_SetValue(1);
             }
-            else if(x>=gnGlobal_0071146C-165 && x<=gnGlobal_0071146C-117 && y>=gnGlobal_00711470-48 && y<=gnGlobal_00711470) {
+            else if(x>=gnScreenWidth-165 && x<=gnScreenWidth-117 && y>=gnScreenHeight-48 && y<=gnScreenHeight) {
                 sub_00455F20(3,2,0);
                 sub_004A8CE0_SetValue(0);
             }
-            else if(x>=gnGlobal_0071146C/2-145 && x<=gnGlobal_0071146C/2-128 && y>=gnGlobal_00711470-28 && y<=gnGlobal_00711470-8) {
+            else if(x>=gnScreenWidth/2-145 && x<=gnScreenWidth/2-128 && y>=gnScreenHeight-28 && y<=gnScreenHeight-8) {
                 GAME_SetAlwaysRun(!GAME_GetAlwaysRun());
             }
-            gnGlobal_007BEFA4=0;
+            gbControlPanelClicked=0;
         }
-        else if(y>gnGlobal_00711470-48) {
-            if(x>=gnGlobal_0071146C/2+23 && x<=gnGlobal_0071146C/2+145 && y>=gnGlobal_00711470-39 && y<=gnGlobal_00711470-10) {
+        else if(y>gnScreenHeight-48) {
+            if(x>=gnScreenWidth/2+23 && x<=gnScreenWidth/2+145 && y>=gnScreenHeight-39 && y<=gnScreenHeight-10) {
                 CancelCursorMode();
                 sub_00498870_ClickBeltBox(pPlayer->pInventory,x,y);
             }
-            else if(x>=117 && x<=165 && y<=gnGlobal_00711470) {
+            else if(x>=117 && x<=165 && y<=gnScreenHeight) {
                 CancelCursorMode();
                 if(GAME_GetUIVarState(3)) sub_00455F20(3,1,0);
                 else sub_00455F20(3,0,0);
                 sub_004A8CE0_SetValue(1);
             }
-            else if(x>=gnGlobal_0071146C-165 && x<=gnGlobal_0071146C-117 && y<=gnGlobal_00711470) {
+            else if(x>=gnScreenWidth-165 && x<=gnScreenWidth-117 && y<=gnScreenHeight) {
                 CancelCursorMode();
                 if(GAME_GetUIVarState(3)) sub_00455F20(3,1,0);
                 else sub_00455F20(3,0,0);
                 sub_004A8CE0_SetValue(0);
             }
-            else if(x>=gnGlobal_0071146C/2-145 && x<=gnGlobal_0071146C/2-128 && y>=gnGlobal_00711470-28 && y<=gnGlobal_00711470-8) {
+            else if(x>=gnScreenWidth/2-145 && x<=gnScreenWidth/2-128 && y>=gnScreenHeight-28 && y<=gnScreenHeight-8) {
                 GAME_SetAlwaysRun(!GAME_GetAlwaysRun());
             }
-            else if(x>=gnGlobal_0071146C/2-8 && x<=gnGlobal_0071146C/2+5 && y>=gnGlobal_00711470-39 && y<=gnGlobal_00711470-13) {
+            else if(x>=gnScreenWidth/2-8 && x<=gnScreenWidth/2+5 && y>=gnScreenHeight-39 && y<=gnScreenHeight-13) {
                 if(GAME_GetUIVarState(21)) sub_00455F20(21,1,0);
                 else sub_00455F20(21,2,0);
-                if(gnGlobal_007BEFD0) gnGlobal_007BEFD4=!gnGlobal_007BEFD4;
+                if(gbMiniPanelButtonDown) gnGlobal_007BEFD4=!gnGlobal_007BEFD4;
             }
-            gnGlobal_007BEFA4=0;
-            gnGlobal_00722358=0;
+            gbControlPanelClicked=0;
+            gbControlPanelMouseDown=0;
             pMsg->bReturn=1;
             pMsg->lResult=0;
             sub_00420290_BreakHandlerChain(pMsg);
@@ -2005,21 +2012,21 @@ void __stdcall PANEL_BeltMouseReleaseMsg(SMSGHANDLER_PARAMS* pMsg)
         }
     }
     else {
-        if((x>=117 && x<=165 && y>=gnGlobal_00711470-48 && y<=gnGlobal_00711470) ||
-           (x>=gnGlobal_0071146C-165 && x<=gnGlobal_0071146C-117 && y>=gnGlobal_00711470-48 && y<=gnGlobal_00711470)) {
+        if((x>=117 && x<=165 && y>=gnScreenHeight-48 && y<=gnScreenHeight) ||
+           (x>=gnScreenWidth-165 && x<=gnScreenWidth-117 && y>=gnScreenHeight-48 && y<=gnScreenHeight)) {
             if(GAME_GetUIVarState(3)) sub_00455F20(3,1,0);
         }
-        gnGlobal_007BEFA4=0;
+        gbControlPanelClicked=0;
         pMsg->bReturn=0;
     }
-    gnGlobal_007BEFD0=0;
-    gnGlobal_007BEFD8=0;
+    gbMiniPanelButtonDown=0;
+    gbRunButtonDown=0;
 }
 
 // 0x00499BB0
 void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (!gdwGlobal_007A061C || GAME_IsExitPending() || sub_00463DF0())
+    if (!gbPositionalSound || GAME_IsExitPending() || sub_00463DF0())
     {
         pMsg->bReturn = 0;
         return;
@@ -2033,7 +2040,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
         return;
     }
 
-    if (gbUiRecordMode_007BEF98)
+    if (gbUiRecordMode)
     {
         if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg))
         {
@@ -2049,29 +2056,29 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
         if (!GAME_GetUIVarState(0x1F))
         {
             pMsg->bReturn = 0;
-            gbUiRecordMode_007BEF98 = 0;
-            gnBeltRecordMode2_007BEF9C = 0;
+            gbUiRecordMode = 0;
+            gnBeltRecordMode2 = 0;
         }
         else
         {
             pMsg->bReturn = 0;
-            gnBeltRecordMode2_007BEF9C = 0;
+            gnBeltRecordMode2 = 0;
         }
-        gnBeltHover_007BEF94 = 0;
+        gnBeltHover = 0;
         return;
     }
 
-    if (nX < gnGlobal_0071146C / 2 + 0x17 || nX > gnGlobal_0071146C / 2 + 0x91 || nY < gnGlobal_00711470 - 0x27 || nY > gnGlobal_00711470 - 0xA)
+    if (nX < gnScreenWidth / 2 + 0x17 || nX > gnScreenWidth / 2 + 0x91 || nY < gnScreenHeight - 0x27 || nY > gnScreenHeight - 0xA)
     {
         pMsg->bReturn = 0;
-        gnBeltHover_007BEF94 = 0;
+        gnBeltHover = 0;
         return;
     }
 
     if (!UI_GetUIVarUnchecked(9))
     {
-        gbUiRecordMode_007BEF98 = 1;
-        gnBeltRecordMode2_007BEF9C = 1;
+        gbUiRecordMode = 1;
+        gnBeltRecordMode2 = 1;
         sub_00498930_HoverBeltBox(nX, pPlayer->pInventory, nY);
     }
     pMsg->bReturn = 1;
@@ -2116,58 +2123,58 @@ void __stdcall PANEL_BeltClickMsg(SMSGHANDLER_PARAMS* pMsg)
     }
 
     pMsg->bReturn = 0;
-    gnBeltHover_007BEF94 = 0;
+    gnBeltHover = 0;
 }
 
 // 0x00499E10
 void __cdecl PANEL_SetRedColour()
 {
-    gbGlobal_007BF034 = D2Win_10034_MixRGB(0xFF, 0, 0);
+    gnBoxColor = D2Win_10034_MixRGB(0xFF, 0, 0);
 }
 
 // 0x00499E30
 void __cdecl PANEL_SetBlackColour()
 {
-    gbGlobal_007BF034 = D2Win_10034_MixRGB(0, 0, 0);
+    gnBoxColor = D2Win_10034_MixRGB(0, 0, 0);
 }
 
 // 0x0049C0A0
 void __cdecl PANEL_LoadPartyCels()
 {
-    gpPanelQuadCel_007BF018 = sub_004520C0_LoadUiCelFile("Menu\\party");
-    gpCelFile_007BF01C = sub_004520C0_LoadUiCelFile("Menu\\partybuttons");
-    gpCelFile_007BF020 = sub_004520C0_LoadUiCelFile("Menu\\partyboxes");
-    gpCelFile_007BF024 = sub_004520C0_LoadUiCelFile("Panel\\inv_goldbtn");
-    gpCelFile_007BF028 = sub_004520C0_LoadUiCelFile("Menu\\partybar");
+    gpPanelQuadCel = sub_004520C0_LoadUiCelFile("Menu\\party");
+    gpPartyButtonsCel = sub_004520C0_LoadUiCelFile("Menu\\partybuttons");
+    gpPartyBoxesCel = sub_004520C0_LoadUiCelFile("Menu\\partyboxes");
+    gpInvGoldBtnCel = sub_004520C0_LoadUiCelFile("Panel\\inv_goldbtn");
+    gpPartyBarCel = sub_004520C0_LoadUiCelFile("Menu\\partybar");
 }
 
 // 0x0049C0F0
 void __cdecl PANEL_FreePartyCels()
 {
-    if (gpPanelQuadCel_007BF018)
+    if (gpPanelQuadCel)
     {
-        ARCHIVE_FreeClientCellFile(gpPanelQuadCel_007BF018);
-        gpPanelQuadCel_007BF018 = 0;
+        ARCHIVE_FreeClientCellFile(gpPanelQuadCel);
+        gpPanelQuadCel = 0;
     }
-    if (gpCelFile_007BF01C)
+    if (gpPartyButtonsCel)
     {
-        ARCHIVE_FreeClientCellFile(gpCelFile_007BF01C);
-        gpCelFile_007BF01C = 0;
+        ARCHIVE_FreeClientCellFile(gpPartyButtonsCel);
+        gpPartyButtonsCel = 0;
     }
-    if (gpCelFile_007BF020)
+    if (gpPartyBoxesCel)
     {
-        ARCHIVE_FreeClientCellFile(gpCelFile_007BF020);
-        gpCelFile_007BF020 = 0;
+        ARCHIVE_FreeClientCellFile(gpPartyBoxesCel);
+        gpPartyBoxesCel = 0;
     }
-    if (gpCelFile_007BF024)
+    if (gpInvGoldBtnCel)
     {
-        ARCHIVE_FreeClientCellFile(gpCelFile_007BF024);
-        gpCelFile_007BF024 = 0;
+        ARCHIVE_FreeClientCellFile(gpInvGoldBtnCel);
+        gpInvGoldBtnCel = 0;
     }
-    if (gpCelFile_007BF028)
+    if (gpPartyBarCel)
     {
-        ARCHIVE_FreeClientCellFile(gpCelFile_007BF028);
-        gpCelFile_007BF028 = 0;
+        ARCHIVE_FreeClientCellFile(gpPartyBarCel);
+        gpPartyBarCel = 0;
     }
 }
 
@@ -2184,8 +2191,8 @@ void __cdecl PANEL_DrawPartyPanel()
     sub_0049A9B0_RefreshRosterIndices();
     int nX = sub_00468730();
     int nY = sub_00468740();
-    if (nX >= gnGlobal_007A2858 + 0x116 && nX <= gnGlobal_007A2858 + 0x136 && nY >= 0x185 - gnGlobal_007A285C && nY <= 0x1A5 - gnGlobal_007A285C)
-        D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x102F), gnGlobal_007A2858 + 0x125, 0x182 - gnGlobal_007A285C, 0, 1);
+    if (nX >= gnPanelOffsetX + 0x116 && nX <= gnPanelOffsetX + 0x136 && nY >= 0x185 - gnPanelOffsetY && nY <= 0x1A5 - gnPanelOffsetY)
+        D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x102F), gnPanelOffsetX + 0x125, 0x182 - gnPanelOffsetY, 0, 1);
 }
 
 // 0x004BE340

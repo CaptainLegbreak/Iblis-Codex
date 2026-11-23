@@ -20,20 +20,20 @@ int __fastcall SCMD_RunMessageLoop(int (__stdcall* pfnIdle)(int));              
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount);     // 0x00451E10
 void __cdecl UI_FreeCels();                                                                       // 0x00460430
 
-extern D2MsgHandlerEntryStrc gaMsgHandlers_00711D40[];                                                      // 0x00711D40
-extern D2MsgHandlerEntryStrc gaMsgHandlers_00711D70[];                                                      // 0x00711D70
-D2CelFileStrc* gpGlobal_007A523C;                                                                          // 0x007A523C
-D2CelFileStrc* gpGlobal_007A5240;                                                                          // 0x007A5240
-D2CelFileStrc* gpGlobal_007A5244;                                                                          // 0x007A5244
-extern int gnGlobal_007A524C;                                                                               // 0x007A524C
-int gnGlobal_007A5254;                                                                                      // 0x007A5254
-int gnGlobal_007A5258;                                                                                      // 0x007A5258
-int gnGlobal_007A525C;                                                                                      // 0x007A525C
+extern D2MsgHandlerEntryStrc gaPopupHandlers[];                                                      // 0x00711D40
+extern D2MsgHandlerEntryStrc gaOkCancelHandlers[];                                                      // 0x00711D70
+D2CelFileStrc* gpPopupOkCelA;                                                                          // 0x007A523C
+D2CelFileStrc* gpOkCancelButtonCel;                                                                          // 0x007A5240
+D2CelFileStrc* gpPopupOkCelB;                                                                          // 0x007A5244
+extern int gbPopupOkPressed;                                                                               // 0x007A524C
+int gbPopupDismissed;                                                                                      // 0x007A5254
+int gbOkCancelAccepted;                                                                                      // 0x007A5258
+int gbOkCancelCancelled;                                                                                      // 0x007A525C
 
 // 0x00460420
 void __stdcall sub_00460420_SetCancelFlag(int nArg)
 {
-    gnGlobal_007A525C = 1;
+    gbOkCancelCancelled = 1;
 }
 
 // 0x00460490
@@ -46,28 +46,28 @@ int __stdcall sub_00460490_DrawPopup(int nArg)
         sub_004FB0D0();
         UI_DrawCelPair(1);
         SCMD_DrawLoadingTexts();
-        VIEW_DrawPanelCel(gnGlobal_007A524C);
+        VIEW_DrawPanelCel(gbPopupOkPressed);
         UI_DrawCenteredString();
         CURSOR_DrawCursor();
         D2GFX_EndScene();
     }
     INV_TickSound();
-    return gnGlobal_007A5254 != 0;
+    return gbPopupDismissed != 0;
 }
 
 // 0x00460500
 int __cdecl sub_00460500_RunPopup()
 {
-    gnGlobal_007A5254 = 0;
+    gbPopupDismissed = 0;
     sub_004FB130_SetActiveState(0);
-    gpGlobal_007A523C = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Bigmenu\\popupok", 0);
-    gpGlobal_007A5244 = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Bigmenu\\popupok", 0);
-    gpGlobal_007A5240 = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Menu\\okcancelbtn", 0);
+    gpPopupOkCelA = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Bigmenu\\popupok", 0);
+    gpPopupOkCelB = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Bigmenu\\popupok", 0);
+    gpOkCancelButtonCel = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Menu\\okcancelbtn", 0);
     sub_004FB480_SetActA(0);
     GAME_SetClientState(1);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMsgHandlers_00711D40, 4);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaPopupHandlers, 4);
     SCMD_RunMessageLoop(sub_00460490_DrawPopup);
-    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_00711D40, 4);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaPopupHandlers, 4);
     GAME_SetClientState(0);
     UI_FreeCels();
     return 1;
@@ -76,16 +76,16 @@ int __cdecl sub_00460500_RunPopup()
 // 0x004605A0
 int __cdecl sub_004605A0_RunPopup()
 {
-    gnGlobal_007A5254 = 0;
+    gbPopupDismissed = 0;
     sub_004FB130_SetActiveState(0);
-    gpGlobal_007A523C = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Bigmenu\\popupok", 0);
-    gpGlobal_007A5244 = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Bigmenu\\popupok", 0);
-    gpGlobal_007A5240 = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Menu\\okcancelbtn", 0);
+    gpPopupOkCelA = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Bigmenu\\popupok", 0);
+    gpPopupOkCelB = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Bigmenu\\popupok", 0);
+    gpOkCancelButtonCel = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Menu\\okcancelbtn", 0);
     sub_004FB480_SetActA(0);
     GAME_SetClientState(1);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMsgHandlers_00711D40, 4);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaPopupHandlers, 4);
     SCMD_RunMessageLoop(sub_00460490_DrawPopup);
-    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_00711D40, 4);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaPopupHandlers, 4);
     GAME_SetClientState(0);
     UI_FreeCels();
     return 1;
@@ -97,7 +97,7 @@ int __stdcall sub_00460640_PaintConfirmFrame(int nArg)
     sub_00477DD0();
     sub_00460190_DrawFrame(1);
     INV_TickSound();
-    if (!gnGlobal_007A5258 && !gnGlobal_007A525C)
+    if (!gbOkCancelAccepted && !gbOkCancelCancelled)
         return 0;
     return 1;
 }
@@ -106,19 +106,19 @@ int __stdcall sub_00460640_PaintConfirmFrame(int nArg)
 int __cdecl sub_00460680_RunOkCancel()
 {
     int nResult = 1;
-    gnGlobal_007A525C = 0;
-    gnGlobal_007A5258 = 0;
+    gbOkCancelCancelled = 0;
+    gbOkCancelAccepted = 0;
     sub_004FB130_SetActiveState(0);
-    gpGlobal_007A523C = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Bigmenu\\popupok", 0);
-    gpGlobal_007A5244 = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Bigmenu\\popupok", 0);
-    gpGlobal_007A5240 = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Menu\\okcancelbtn", 0);
+    gpPopupOkCelA = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Bigmenu\\popupok", 0);
+    gpPopupOkCelB = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Bigmenu\\popupok", 0);
+    gpOkCancelButtonCel = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Menu\\okcancelbtn", 0);
     sub_004FB480_SetActA(0);
     GAME_SetClientState(2);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMsgHandlers_00711D70, 4);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaOkCancelHandlers, 4);
     SCMD_RunMessageLoop(sub_00460640_PaintConfirmFrame);
-    if (gnGlobal_007A525C)
+    if (gbOkCancelCancelled)
         nResult = 0;
-    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_00711D70, 4);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaOkCancelHandlers, 4);
     GAME_SetClientState(0);
     UI_FreeCels();
     return nResult;

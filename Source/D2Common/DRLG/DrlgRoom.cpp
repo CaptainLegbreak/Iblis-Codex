@@ -937,13 +937,14 @@ void __fastcall DRLGROOMTILE_LoadDT1FilesForRoom(D2DrlgRoomStrc* pDrlgRoom)
 
     char szPath[260] = { 0 };
 
-    wsprintfA(szPath, "%s\\Tiles\\Act1\\Outdoors\\Blank.dt1", szDataGlobal_006D4118);
+// build: symbol ?gszDataGlobal@* 0x006D4118
+    wsprintfA(szPath, "%s\\Tiles\\Act1\\Outdoors\\Blank.dt1", gszDataGlobal);
     TileLibraryAddProject(&pDrlgRoom->pTiles, szPath);
 
-    wsprintfA(szPath, "%s\\Tiles\\Act1\\Barracks\\InvisWal.dt1", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\Tiles\\Act1\\Barracks\\InvisWal.dt1", gszDataGlobal);
     TileLibraryAddProject(&pDrlgRoom->pTiles, szPath);
 
-    wsprintfA(szPath, "%s\\Tiles\\Act1\\Barracks\\Warp.dt1", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\Tiles\\Act1\\Barracks\\Warp.dt1", gszDataGlobal);
     TileLibraryAddProject(&pDrlgRoom->pTiles, szPath);
 
     pDrlgRoom->dwFlags |= 0x1000000;

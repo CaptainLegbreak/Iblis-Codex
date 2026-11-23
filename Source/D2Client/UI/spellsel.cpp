@@ -36,9 +36,9 @@ extern D2DataTablesStrc* sgptDataTables;                                        
 
 extern D2SpellSelSlotsStrc gtHotkeySlots_007C0300;                                                           // 0x007C0300
 
-int gnSkillRowY_007C070C[4];                                                                                 // 0x007C070C
+int gaSkillRowY[4];                                                                                 // 0x007C070C
 
-extern int gnGlobal_00711470;                                                                                // 0x00711470
+extern int gnScreenHeight;                                                                                // 0x00711470
 
 extern unsigned int gdwBitMasks_006CE268[];                                                                  // 0x006CE268
 
@@ -93,7 +93,7 @@ D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int
 int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* pSkill); // 0x00643AD0
 
 
-extern int gbGlobal_007C07FC; // 0x007C07FC
+extern int gbSkillSelectRight; // 0x007C07FC
 
 static inline D2SkillsTxt* CLIENT_GetSkillsTxtRecord(int nSkillId)
 {
@@ -166,16 +166,16 @@ void __stdcall SPELLSEL_SkillSelectClickMsg(SMSGHANDLER_PARAMS* pMsg)
                     return;
                 }
 
-                sub_004786A0_SendDwords2(0x3C, (gbGlobal_007C07FC ? 0x80000000 : 0) + gtHotkeySlots_007C0300.nSkill[i], gtHotkeySlots_007C0300.f_2D0[i]);
+                sub_004786A0_SendDwords2(0x3C, (gbSkillSelectRight ? 0x80000000 : 0) + gtHotkeySlots_007C0300.nSkill[i], gtHotkeySlots_007C0300.f_2D0[i]);
                 sub_00455F20(3, 1, 0);
-                gbGlobal_007C07FC = 0;
+                gbSkillSelectRight = 0;
                 bHandled = 1;
                 GAME_ResetMouseState();
             }
         }
     }
 
-    if (nStartY <= gnGlobal_00711470 - 49 && !bHandled && GAME_GetUIVarState(3))
+    if (nStartY <= gnScreenHeight - 49 && !bHandled && GAME_GetUIVarState(3))
     {
         sub_00455F20(3, 1, 0);
     }
@@ -188,7 +188,7 @@ void __stdcall SPELLSEL_SkillSelectClickMsg(SMSGHANDLER_PARAMS* pMsg)
 // 0x004AA3A0
 void __fastcall SPELLSEL_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int bLeft, int bNoSlots, int bNoDraw)
 {
-    int nY = gnGlobal_00711470 - 0x56;
+    int nY = gnScreenHeight - 0x56;
     int nMaxRow = 0;
     const int nStepX = bLeft ? 0x30 : -0x30;
     unsigned char abPoolUsed[0x100];
@@ -265,16 +265,16 @@ void __fastcall SPELLSEL_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int bLef
             switch (nRow)
             {
             case 1:
-                gnSkillRowY_007C070C[0] = nY;
+                gaSkillRowY[0] = nY;
                 break;
             case 2:
-                gnSkillRowY_007C070C[1] = nY;
+                gaSkillRowY[1] = nY;
                 break;
             case 3:
-                gnSkillRowY_007C070C[2] = nY;
+                gaSkillRowY[2] = nY;
                 break;
             case 4:
-                gnSkillRowY_007C070C[3] = nY;
+                gaSkillRowY[3] = nY;
                 break;
             }
         }

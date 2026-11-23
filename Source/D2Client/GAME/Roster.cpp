@@ -28,7 +28,7 @@ struct Obj0047A1E0;
 
 struct Obj0047A670;
 
-extern D2RosterPetStrc* gpRosterPets_007BB5BC; // 0x007BB5BC
+extern D2RosterPetStrc* gpRosterPets; // 0x007BB5BC
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
@@ -152,11 +152,11 @@ void __fastcall GFXUTIL_SetRelationFlags(int nUnitId1, int nUnitId2, unsigned in
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 
-static D2StoredUnitRecordStrc* gpStoredUnits_007BB5C0; // 0x007BB5C0
+static D2StoredUnitRecordStrc* gpStoredUnits; // 0x007BB5C0
 
-static D2StoredUnitRecordStrc* gpStoredUnits2_007BB5C4; // 0x007BB5C4
+static D2StoredUnitRecordStrc* gpStoredUnits2; // 0x007BB5C4
 
-static D2RosterGroupStrc* gpRosterGroups_007BB5C8; // 0x007BB5C8
+static D2RosterGroupStrc* gpRosterGroups; // 0x007BB5C8
 
 extern "C" int __cdecl strcmp(const char* szLeft, const char* szRight);
 
@@ -308,7 +308,7 @@ void __cdecl ROSTER_SendLeaveParty(); // 0x00479FC0
 // 0x00479080
 int __fastcall sub_00479080_GetPetLife(int nUnitId)
 {
-    for (D2RosterPetStrc* pPet = gpRosterPets_007BB5BC; pPet; pPet = pPet->pNext)
+    for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
     {
         if (pPet->dwUnitId == nUnitId)
         {
@@ -322,7 +322,7 @@ int __fastcall sub_00479080_GetPetLife(int nUnitId)
 // 0x00479180
 int __fastcall ROSTER_GetPetType(int nUnitId)
 {
-    for (D2RosterPetStrc* pPet = gpRosterPets_007BB5BC; pPet; pPet = pPet->pNext)
+    for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
     {
         if (pPet->dwUnitId == nUnitId)
         {
@@ -349,7 +349,7 @@ static inline int ROSTER_HasCorpse(D2RosterUnitStrc* pRosterUnit, unsigned int d
 // 0x004792E0
 static D2StoredUnitRecordStrc* ROSTER_FindRosterUnit(int nUnitId)
 {
-    D2StoredUnitRecordStrc* pRec = gpStoredUnits_007BB5C0;
+    D2StoredUnitRecordStrc* pRec = gpStoredUnits;
     if (nUnitId == -1)
         return 0;
     for (; pRec; pRec = pRec->pNext)
@@ -377,7 +377,7 @@ D2StoredUnitRecordStrc* __cdecl ROSTER_GetPlayerRosterUnit()
 // 0x00479360
 static D2StoredUnitRecordStrc* ROSTER_FindRosterUnitByIdOrName(int nUnitId, const char* szName)
 {
-    for (D2StoredUnitRecordStrc* pRec = gpStoredUnits_007BB5C0; pRec; pRec = pRec->pNext)
+    for (D2StoredUnitRecordStrc* pRec = gpStoredUnits; pRec; pRec = pRec->pNext)
     {
         if (pRec->dwUnitId == nUnitId)
             return pRec;
@@ -433,36 +433,38 @@ void __fastcall ROSTER_SetPrimaryClientFlag(int bClear)
 {
     if (bClear)
     {
-        gdwGlobal_00712EFC &= ~1;
+// build: symbol ?gdwClientFlags@* 0x00712EFC
+        gdwClientFlags &= ~1;
     }
     else
     {
-        gdwGlobal_00712EFC |= 1;
+        gdwClientFlags |= 1;
     }
 }
 
 // 0x0047A9E0
 int __cdecl sub_0047A9E0_GetClientFlag40()
 {
-    return gdwGlobal_00712EFC & 0x40;
+    return gdwClientFlags & 0x40;
 }
 
 // 0x0047A9F0
 int __cdecl sub_0047A9F0_GetClientFlag80()
 {
-    return gdwGlobal_00712EFC & 0x80;
+    return gdwClientFlags & 0x80;
 }
 
 // 0x0047AA00
 int __cdecl sub_0047AA00_GetClientFlag200()
 {
-    return gdwGlobal_00712EFC & 0x200;
+    return gdwClientFlags & 0x200;
 }
 
 // 0x0047AA10
 void __fastcall ROSTER_SetCTemp(int nValue)
 {
-    gdwGlobal_00712F00 = nValue;
+// build: symbol ?gnCTemp@* 0x00712F00
+    gnCTemp = nValue;
 }
 
 // 0x0047AA40
@@ -484,7 +486,7 @@ extern "C" void __fastcall ROSTER_SetCtrlState(D2PanelCtrlStrc_004B8370* pCtrl, 
 
 static inline D2RosterGroupStrc* ROSTER_FindGroup(unsigned short wId)
 {
-    for (D2RosterGroupStrc* pGroup = gpRosterGroups_007BB5C8; pGroup; pGroup = pGroup->pNext)
+    for (D2RosterGroupStrc* pGroup = gpRosterGroups; pGroup; pGroup = pGroup->pNext)
     {
         if (pGroup->wPartyId == wId)
         {
@@ -538,7 +540,7 @@ extern "C" void* __fastcall ROSTER_GetLinkFirst(D2OwnerStrc_004CA990* pOwner)
 // 0x004794B0
 void __cdecl ROSTER_FreeRosterLists()
 {
-    D2StoredUnitRecordStrc* pEntry = gpStoredUnits_007BB5C0;
+    D2StoredUnitRecordStrc* pEntry = gpStoredUnits;
     while (pEntry)
     {
         D2StoredUnitRecordStrc* pNext = pEntry->pNext;
@@ -555,9 +557,9 @@ void __cdecl ROSTER_FreeRosterLists()
         FOG_Free(pEntry, ".\\GAME\\Roster.cpp", 0x14D, 0);
         pEntry = pNext;
     }
-    gpStoredUnits_007BB5C0 = 0;
+    gpStoredUnits = 0;
 
-    pEntry = gpStoredUnits2_007BB5C4;
+    pEntry = gpStoredUnits2;
     while (pEntry)
     {
         D2StoredUnitRecordStrc* pNext = pEntry->pNext;
@@ -574,7 +576,7 @@ void __cdecl ROSTER_FreeRosterLists()
         FOG_Free(pEntry, ".\\GAME\\Roster.cpp", 0x159, 0);
         pEntry = pNext;
     }
-    gpStoredUnits2_007BB5C4 = 0;
+    gpStoredUnits2 = 0;
 }
 
 // 0x004795A0
@@ -582,7 +584,7 @@ D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordS
 {
     if (pEntry)
         return pEntry->pNext;
-    return gpStoredUnits_007BB5C0;
+    return gpStoredUnits;
 }
 
 // 0x004795C0
@@ -595,7 +597,7 @@ extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pE
 // 0x004796B0
 void __cdecl ROSTER_SortMainListByName()
 {
-    gpStoredUnits_007BB5C0 = GFX_SortRosterByName(gpStoredUnits_007BB5C0);
+    gpStoredUnits = GFX_SortRosterByName(gpStoredUnits);
 }
 
 // 0x004796D0
@@ -633,13 +635,13 @@ static D2StoredUnitRecordStrc* ROSTER_SortRosterByKills(D2StoredUnitRecordStrc* 
 // 0x00479740
 void __cdecl ROSTER_SortMainListByKills()
 {
-    gpStoredUnits_007BB5C0 = ROSTER_SortRosterByKills(gpStoredUnits_007BB5C0);
+    gpStoredUnits = ROSTER_SortRosterByKills(gpStoredUnits);
 }
 
 // 0x00479750
 D2RosterGroupStrc* __fastcall ROSTER_FindPartyGroup(unsigned short wId)
 {
-    for (D2RosterGroupStrc* pGroup = gpRosterGroups_007BB5C8; pGroup; pGroup = pGroup->pNext)
+    for (D2RosterGroupStrc* pGroup = gpRosterGroups; pGroup; pGroup = pGroup->pNext)
     {
         if (pGroup->wPartyId == wId)
         {
@@ -660,15 +662,15 @@ static D2RosterGroupStrc* ROSTER_GetOrAddGroup(unsigned short wId)
     pGroup = (D2RosterGroupStrc*)FOG_Alloc(sizeof(D2RosterGroupStrc), ".\\GAME\\Roster.cpp", 0x1FC, 0);
     memset(pGroup, 0, 8);
     pGroup->wPartyId = wId;
-    pGroup->pNext = gpRosterGroups_007BB5C8;
-    gpRosterGroups_007BB5C8 = pGroup;
+    pGroup->pNext = gpRosterGroups;
+    gpRosterGroups = pGroup;
     return pGroup;
 }
 
 // 0x004797C0
 void __cdecl ROSTER_FreeRosterGroups()
 {
-    D2RosterGroupStrc* pGroup = gpRosterGroups_007BB5C8;
+    D2RosterGroupStrc* pGroup = gpRosterGroups;
     while (pGroup)
     {
         D2RosterGroupStrc* pNext = pGroup->pNext;
@@ -676,14 +678,14 @@ void __cdecl ROSTER_FreeRosterGroups()
         pGroup = pNext;
     }
 
-    gpRosterGroups_007BB5C8 = 0;
+    gpRosterGroups = 0;
 }
 
 // 0x00479800
 static void ROSTER_MoveGroupMembers(D2RosterGroupStrc* pGroup)
 {
     D2StoredUnitRecordStrc* pPrev = 0;
-    D2StoredUnitRecordStrc* pRecord = gpStoredUnits_007BB5C0;
+    D2StoredUnitRecordStrc* pRecord = gpStoredUnits;
     while (pRecord)
     {
         if (pRecord->wPartyId == pGroup->wPartyId)
@@ -693,7 +695,7 @@ static void ROSTER_MoveGroupMembers(D2RosterGroupStrc* pGroup)
             if (pPrev)
                 pPrev->pNext = pRecord;
             else
-                gpStoredUnits_007BB5C0 = pRecord;
+                gpStoredUnits = pRecord;
             pMoved->pNext = pGroup->pFirst;
             pGroup->pFirst = pMoved;
         }
@@ -708,7 +710,7 @@ static void ROSTER_MoveGroupMembers(D2RosterGroupStrc* pGroup)
 // 0x00479860
 void __cdecl ROSTER_SortRosterGroups()
 {
-    D2RosterGroupStrc* pList = gpRosterGroups_007BB5C8;
+    D2RosterGroupStrc* pList = gpRosterGroups;
     D2RosterGroupStrc* pSorted = 0;
     D2RosterGroupStrc* pCurrent;
     while ((pCurrent = pList) != 0)
@@ -734,13 +736,13 @@ void __cdecl ROSTER_SortRosterGroups()
             pSorted = pCurrent;
         }
     }
-    gpRosterGroups_007BB5C8 = pSorted;
+    gpRosterGroups = pSorted;
 }
 
 // 0x004798C0
 static void ROSTER_MovePlayerGroupToFront(int nPlayerId, unsigned short wPartyId)
 {
-    D2RosterGroupStrc* pHead = gpRosterGroups_007BB5C8;
+    D2RosterGroupStrc* pHead = gpRosterGroups;
     D2RosterGroupStrc* pGroup = pHead;
     D2RosterGroupStrc* pPrevGroup = 0;
     D2StoredUnitRecordStrc* pPrev = 0;
@@ -757,7 +759,7 @@ static void ROSTER_MovePlayerGroupToFront(int nPlayerId, unsigned short wPartyId
     {
         pPrevGroup->pNext = pGroup->pNext;
         pGroup->pNext = pHead;
-        gpRosterGroups_007BB5C8 = pGroup;
+        gpRosterGroups = pGroup;
     }
     D2StoredUnitRecordStrc* pRec = pGroup->pFirst;
     while (pRec ? pRec->dwUnitId != nPlayerId : false)
@@ -778,10 +780,10 @@ static void ROSTER_MovePlayerGroupToFront(int nPlayerId, unsigned short wPartyId
 // 0x00479940
 void __cdecl ROSTER_BuildRosterGroups()
 {
-    while (gpStoredUnits_007BB5C0)
+    while (gpStoredUnits)
     {
-        const unsigned short wPartyId = gpStoredUnits_007BB5C0->wPartyId;
-        D2RosterGroupStrc* pGroup = gpRosterGroups_007BB5C8;
+        const unsigned short wPartyId = gpStoredUnits->wPartyId;
+        D2RosterGroupStrc* pGroup = gpRosterGroups;
         while (pGroup)
         {
             if (pGroup->wPartyId == wPartyId)
@@ -793,8 +795,8 @@ void __cdecl ROSTER_BuildRosterGroups()
             pGroup = (D2RosterGroupStrc*)FOG_Alloc(sizeof(D2RosterGroupStrc), szRosterCpp_006D7268, 0x1FC, 0);
             memset(pGroup, 0, 8);
             pGroup->wPartyId = wPartyId;
-            pGroup->pNext = gpRosterGroups_007BB5C8;
-            gpRosterGroups_007BB5C8 = pGroup;
+            pGroup->pNext = gpRosterGroups;
+            gpRosterGroups = pGroup;
         }
         ROSTER_MoveGroupMembers(pGroup);
     }
@@ -803,7 +805,7 @@ void __cdecl ROSTER_BuildRosterGroups()
 // 0x004799C0
 void __cdecl ROSTER_SortGroupMembers()
 {
-    for (D2RosterGroupStrc* pGroup = gpRosterGroups_007BB5C8; pGroup; pGroup = pGroup->pNext)
+    for (D2RosterGroupStrc* pGroup = gpRosterGroups; pGroup; pGroup = pGroup->pNext)
     {
         if (CHAT_IsNumberDisplayEnabled())
             pGroup->pFirst = ROSTER_SortRosterByKills(pGroup->pFirst);
@@ -817,7 +819,7 @@ void __cdecl ROSTER_SortGroupMembers()
 void __cdecl ROSTER_JoinRosterGroups()
 {
     D2StoredUnitRecordStrc* pTail = 0;
-    for (D2RosterGroupStrc* pGroup = gpRosterGroups_007BB5C8; pGroup; pGroup = pGroup->pNext)
+    for (D2RosterGroupStrc* pGroup = gpRosterGroups; pGroup; pGroup = pGroup->pNext)
     {
         if (pTail)
         {
@@ -826,7 +828,7 @@ void __cdecl ROSTER_JoinRosterGroups()
         else
         {
             pTail = pGroup->pFirst;
-            gpStoredUnits_007BB5C0 = pTail;
+            gpStoredUnits = pTail;
         }
         pGroup->pFirst = 0;
         if (pTail)
@@ -841,13 +843,13 @@ void __cdecl ROSTER_JoinRosterGroups()
 static void ROSTER_MovePlayerToFront(int nPlayerId)
 {
     D2StoredUnitRecordStrc* pPrev = 0;
-    for (D2StoredUnitRecordStrc* pRec = gpStoredUnits_007BB5C0; pRec; pRec = pRec->pNext)
+    for (D2StoredUnitRecordStrc* pRec = gpStoredUnits; pRec; pRec = pRec->pNext)
     {
         if (pRec->dwUnitId == nPlayerId && pPrev)
         {
             pPrev->pNext = pRec->pNext;
-            pRec->pNext = gpStoredUnits_007BB5C0;
-            gpStoredUnits_007BB5C0 = pRec;
+            pRec->pNext = gpStoredUnits;
+            gpStoredUnits = pRec;
         }
         pPrev = pRec;
     }
@@ -949,7 +951,7 @@ D2StoredUnitRecordStrc* __fastcall ROSTER_FindRosterUnitById(int nUnitId)
 // 0x00479BC0
 unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry)
 {
-    D2StoredUnitRecordStrc* pRoster = gpStoredUnits_007BB5C0;
+    D2StoredUnitRecordStrc* pRoster = gpStoredUnits;
     int nCount = 0;
     if (pEntry && pRoster)
     {
@@ -1125,7 +1127,7 @@ inline int ROSTER_TestPvpFlag4Inl(D2StoredUnitRecordStrc* pEntry)
 void __fastcall ROSTER_AddRosterUnit(int nUnitId, int nClassId, const char* szName, unsigned short wLevel, unsigned short wPartyId, int nUnused, int nPartyFlags, unsigned short wGuildFlags, const char* szGuildTag, const char* szGuildName)
 {
     D2StoredUnitRecordStrc* pPrev = 0;
-    D2StoredUnitRecordStrc* pIter = gpStoredUnits2_007BB5C4;
+    D2StoredUnitRecordStrc* pIter = gpStoredUnits2;
     D2_ASSERT(nUnitId != -1, 0xB3);
     D2StoredUnitRecordStrc* pRec = ROSTER_FindRosterUnitByIdOrName(nUnitId, szName);
     if (pRec)
@@ -1153,7 +1155,7 @@ void __fastcall ROSTER_AddRosterUnit(int nUnitId, int nClassId, const char* szNa
         if (pPrev)
             pPrev->pNext = pRec->pNext;
         else
-            gpStoredUnits2_007BB5C4 = pRec->pNext;
+            gpStoredUnits2 = pRec->pNext;
         pRec->pNext = 0;
     }
     else
@@ -1163,8 +1165,8 @@ void __fastcall ROSTER_AddRosterUnit(int nUnitId, int nClassId, const char* szNa
     }
     pRec->pRosterInfo = PLAYERLIST_AllocRosterInfoList();
     ROSTER_FillRosterUnit(nUnitId, nClassId, wLevel, wPartyId, nPartyFlags, wGuildFlags, szGuildName, szGuildTag, szName, pRec);
-    pRec->pNext = gpStoredUnits_007BB5C0;
-    gpStoredUnits_007BB5C0 = pRec;
+    pRec->pNext = gpStoredUnits;
+    gpStoredUnits = pRec;
     ROSTER_RebuildRosterOrder();
     PARTY_RebuildRosterUnits();
 }
@@ -1173,7 +1175,7 @@ void __fastcall ROSTER_AddRosterUnit(int nUnitId, int nClassId, const char* szNa
 void __fastcall ROSTER_RemoveRosterUnit(int nUnitId)
 {
     D2StoredUnitRecordStrc* pPrev = 0;
-    D2StoredUnitRecordStrc* pRec = gpStoredUnits_007BB5C0;
+    D2StoredUnitRecordStrc* pRec = gpStoredUnits;
     D2_ASSERT(nUnitId != -1, 0x121);
     for (; pRec; pRec = pRec->pNext)
     {
@@ -1185,7 +1187,7 @@ void __fastcall ROSTER_RemoveRosterUnit(int nUnitId)
             }
             else
             {
-                gpStoredUnits_007BB5C0 = pRec->pNext;
+                gpStoredUnits = pRec->pNext;
             }
             PLAYERLIST_FreeRosterInfoList(pRec->pRosterInfo);
             pRec->pRosterInfo = 0;
@@ -1376,7 +1378,7 @@ void __fastcall ROSTER_SetPortalIds(int nUnitId, int nA, int nB)
 // 0x0047A290
 const char* __fastcall ROSTER_GetPortalOwnerName(int nUnitId)
 {
-    for (D2StoredUnitRecordStrc* pRec = gpStoredUnits_007BB5C0; pRec; pRec = pRec->pNext)
+    for (D2StoredUnitRecordStrc* pRec = gpStoredUnits; pRec; pRec = pRec->pNext)
     {
         if (pRec->dwPortalA == nUnitId || pRec->dwPortalB == nUnitId)
         {
@@ -1389,7 +1391,7 @@ const char* __fastcall ROSTER_GetPortalOwnerName(int nUnitId)
 // 0x0047A2C0
 int __fastcall ROSTER_HasPartyMate(D2UnitStrc* pUnit)
 {
-    D2StoredUnitRecordStrc* pRoster = gpStoredUnits_007BB5C0;
+    D2StoredUnitRecordStrc* pRoster = gpStoredUnits;
     const int nUnitId = !pUnit ? -1 : pUnit->dwUnitId;
     const unsigned short wPartyId = CUNIT_GetPlayerPartyId(pUnit);
     if (wPartyId == 0xFFFF)
@@ -1458,8 +1460,8 @@ void __fastcall ROSTER_AddCorpse(int nUnitId, int nCorpseId)
         D2_ASSERT(pRec, 0x687);
         memset(pRec, 0, sizeof(D2StoredUnitRecordStrc));
         pRec->dwUnitId = nUnitId;
-        pRec->pNext = gpStoredUnits2_007BB5C4;
-        gpStoredUnits2_007BB5C4 = pRec;
+        pRec->pNext = gpStoredUnits2;
+        gpStoredUnits2 = pRec;
     }
     for (D2RosterCorpseStrc* pCorpse = pRec->pCorpse; pCorpse; pCorpse = pCorpse->pNext)
     {
@@ -1524,7 +1526,7 @@ int __fastcall ROSTER_IsSameParty(int nUnitId1, int nUnitId2)
 // 0x0047A560
 int __cdecl ROSTER_IsAnyoneHostile()
 {
-    D2StoredUnitRecordStrc* pRoster = gpStoredUnits_007BB5C0;
+    D2StoredUnitRecordStrc* pRoster = gpStoredUnits;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nPlayerId = !pPlayer ? -1 : pPlayer->dwUnitId;
     for (; pRoster; pRoster = pRoster->pNext)

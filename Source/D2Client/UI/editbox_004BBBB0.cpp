@@ -24,14 +24,15 @@ int __stdcall CelGetWidth(D2CelStrc* pCel);                                     
 
 int __stdcall CelGetHeight(D2CelStrc* pCel);                                                                // 0x006018F0
 
-extern D2ButtonStringStrc gaButtonStrings_007275A8[];                                                       // 0x007275A8
+extern D2ButtonStringStrc gaButtonStrings[];                                                       // 0x007275A8
 
 class UIWidget
 {
 public:
     static void* operator new(size_t nSize)
     {
-        return SMemAlloc(nSize, gszNew_006CC82C, -1, 0);
+// build: symbol ?gszNew@* 0x006CC82C
+        return SMemAlloc(nSize, gszNew, -1, 0);
     }
 
     virtual ~UIWidget();
@@ -250,7 +251,7 @@ public:
 // 0x004BAF20
 ButtonImplementation::ButtonImplementation(int nX, int nY, int nStringSlot, int (__cdecl* pfnCallback)())
 {
-    nBaseFrame = gaButtonStrings_007275A8[nStringSlot].nCelFrame;
+    nBaseFrame = gaButtonStrings[nStringSlot].nCelFrame;
     this->nStringSlot = nStringSlot;
     this->pfnCallback = pfnCallback;
     f_20 = 0;
@@ -279,7 +280,8 @@ EditBoxImplementation::EditBoxImplementation(int nX, int nY, int nTextWidth, int
     unsigned short nMaxLength, int nArg18, int nFont)
 {
     char szPath[260];
-    sprintf(szPath, "%s\\ui\\menu\\textslid", szDataGlobal_006D4118);
+// build: symbol ?gszDataGlobal@* 0x006D4118
+    sprintf(szPath, "%s\\ui\\menu\\textslid", gszDataGlobal);
     pCellFile = ARCHIVE_LoadClientCellFile(szPath, 0);
     this->nX = nX;
     this->nY = nY;

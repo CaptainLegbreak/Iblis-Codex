@@ -138,7 +138,7 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 void __fastcall DLIGHTMAP_ReleaseLight(void* pResource); // 0x004743D0
 
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
-extern int gnGlobal_0071146C; // 0x0071146C
+extern int gnScreenWidth; // 0x0071146C
 int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
@@ -173,7 +173,7 @@ void __stdcall GFX_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int nColor, int 
 
 int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int bForce); // 0x00461250
-extern D2UnitStrc* gpAiTargets_007A7470[]; // 0x007A7470
+extern D2UnitStrc* gapAiTargets[]; // 0x007A7470
 
 struct D2UnitOverlayStrc
 {
@@ -385,9 +385,9 @@ void __fastcall GFX_FreeGfxData(D2UnitStrc* pUnit)
     FOG_Free(pGfxData, ".\\ENGINE\\Gfx.cpp", 0x820, 0);
 }
 
-int gbHealthBarColorsInit_007A8924; // 0x007A8924
+int gbHealthBarColorsInit; // 0x007A8924
 
-unsigned char gnHealthBarColors_007A890C[4]; // 0x007A890C
+unsigned char gabHealthBarColors[4]; // 0x007A890C
 
 inline int STATES_IsUnitShapeShiftedInl(D2UnitStrc* pUnit)
 {
@@ -412,13 +412,13 @@ inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInl(int nMonsterId)
 // 0x0046ED50
 static unsigned char GFX_GetHealthBarColor(D2UnitStrc* pUnit)
 {
-    if (!gbHealthBarColorsInit_007A8924)
+    if (!gbHealthBarColorsInit)
     {
-        gnHealthBarColors_007A890C[0] = D2Win_10034_MixRGB(0, 0xC0, 0);
-        gnHealthBarColors_007A890C[1] = D2Win_10034_MixRGB(0xE0, 0xE0, 0);
-        gnHealthBarColors_007A890C[2] = D2Win_10034_MixRGB(0xE0, 0, 0);
-        gnHealthBarColors_007A890C[3] = D2Win_10034_MixRGB(0, 0, 0xC0);
-        gbHealthBarColorsInit_007A8924 = 1;
+        gabHealthBarColors[0] = D2Win_10034_MixRGB(0, 0xC0, 0);
+        gabHealthBarColors[1] = D2Win_10034_MixRGB(0xE0, 0xE0, 0);
+        gabHealthBarColors[2] = D2Win_10034_MixRGB(0xE0, 0, 0);
+        gabHealthBarColors[3] = D2Win_10034_MixRGB(0, 0, 0xC0);
+        gbHealthBarColorsInit = 1;
     }
     int nType;
     int nClass;
@@ -435,28 +435,28 @@ static unsigned char GFX_GetHealthBarColor(D2UnitStrc* pUnit)
     D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nMode, ".\\ENGINE\\Gfx.cpp", 0x991);
     if (nType != UNIT_MONSTER)
     {
-        return gnHealthBarColors_007A890C[0];
+        return gabHealthBarColors[0];
     }
     D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecordInl(nClass);
     if (pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_INTERACT >> 3] & gdwBitMasks_006CE268[MONSTATSFLAGINDEX_INTERACT & 7])
     {
-        return gnHealthBarColors_007A890C[3];
+        return gabHealthBarColors[3];
     }
     int nMaxLife = STATLIST_GetMaxLifeFromUnit(pUnit);
     if (!nMaxLife)
     {
-        return gnHealthBarColors_007A890C[0];
+        return gabHealthBarColors[0];
     }
     int nPercent = 100 * STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0) / nMaxLife;
     if (nPercent < 33)
     {
-        return gnHealthBarColors_007A890C[2];
+        return gabHealthBarColors[2];
     }
     if (nPercent < 66)
     {
-        return gnHealthBarColors_007A890C[1];
+        return gabHealthBarColors[1];
     }
-    return gnHealthBarColors_007A890C[0];
+    return gabHealthBarColors[0];
 }
 
 // 0x00471A30
@@ -496,10 +496,10 @@ int __fastcall GFX_GetHealthBarOffset(D2UnitStrc* pUnit)
         switch (sub_0045AE90())
         {
         case 1:
-            nX += -(gnGlobal_0071146C / 4);
+            nX += -(gnScreenWidth / 4);
             break;
         case 2:
-            nX += gnGlobal_0071146C / 4;
+            nX += gnScreenWidth / 4;
             break;
         }
     }
@@ -538,10 +538,10 @@ int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit)
             switch (sub_0045AE90())
             {
             case 1:
-                nX += -(gnGlobal_0071146C / 4);
+                nX += -(gnScreenWidth / 4);
                 break;
             case 2:
-                nX += gnGlobal_0071146C / 4;
+                nX += gnScreenWidth / 4;
                 break;
             }
             nY += 0x10;
@@ -684,7 +684,7 @@ void __fastcall GFX_RequeuePlayerMode(D2UnitStrc* pUnit)
 // 0x0046C6E0
 void __fastcall GFX_AddAiTargetUnit(D2UnitStrc* pUnit)
 {
-    D2UnitStrc** ppSlot = gpAiTargets_007A7470;
+    D2UnitStrc** ppSlot = gapAiTargets;
     for (int i = 0; i < 8; ++i, ++ppSlot)
     {
         if (!*ppSlot)
@@ -698,7 +698,7 @@ void __fastcall GFX_AddAiTargetUnit(D2UnitStrc* pUnit)
 // 0x0046C700
 void __fastcall GFX_RemoveAiTargetUnit(D2UnitStrc* pUnit)
 {
-    D2UnitStrc** ppSlot = gpAiTargets_007A7470;
+    D2UnitStrc** ppSlot = gapAiTargets;
     for (int i = 0; i < 8; ++i, ++ppSlot)
     {
         if (*ppSlot == pUnit)
@@ -780,13 +780,13 @@ void __cdecl sub_0046F9C0_Empty()
 {
 }
 
-D2HashedFileStrc gtHashedFile_007A8100; // 0x007A8100
+D2HashedFileStrc gtUnitGfxHashedFile; // 0x007A8100
 
-D2HashedFileStrc gtHashedFile_007A78F0; // 0x007A78F0
+D2HashedFileStrc gtGlobalHashedFile; // 0x007A78F0
 
-int gdwGlobal_007A8918; // 0x007A8918
+int gnCofMemoryUsed; // 0x007A8918
 
-void* gpPoolBlock_007A80FC; // 0x007A80FC
+void* gpPoolBlock; // 0x007A80FC
 
 // 0x0046F370
 static void GFX_FreeHashedEntries(D2HashedFileStrc* pTable)
@@ -800,7 +800,7 @@ static void GFX_FreeHashedEntries(D2HashedFileStrc* pTable)
             if (pEntry->nFlags & 1)
             {
                 unsigned char* pData = pEntry->pData;
-                gdwGlobal_007A8918 -= pEntry->nSize + sizeof(D2HashedFileEntryStrc);
+                gnCofMemoryUsed -= pEntry->nSize + sizeof(D2HashedFileEntryStrc);
                 FOG_Free(pData, ".\\ENGINE\\Gfx.cpp", 0xE3C, 0);
                 FOG_Free(pEntry, ".\\ENGINE\\Gfx.cpp", 0xE3D, 0);
             }
@@ -812,25 +812,25 @@ static void GFX_FreeHashedEntries(D2HashedFileStrc* pTable)
 // 0x0046F3F0
 void __cdecl GFX_FreeGlobalHashedFile()
 {
-    GFX_FreeHashedEntries(&gtHashedFile_007A8100);
-    gdwGlobal_007A8918 -= gtHashedFile_007A8100.nSize;
-    if (gtHashedFile_007A8100.pData)
+    GFX_FreeHashedEntries(&gtUnitGfxHashedFile);
+    gnCofMemoryUsed -= gtUnitGfxHashedFile.nSize;
+    if (gtUnitGfxHashedFile.pData)
     {
-        FOG_Free(gtHashedFile_007A8100.pData, ".\\ENGINE\\Gfx.cpp", 0xE50, 0);
+        FOG_Free(gtUnitGfxHashedFile.pData, ".\\ENGINE\\Gfx.cpp", 0xE50, 0);
     }
-    memset(&gtHashedFile_007A8100, 0, sizeof(gtHashedFile_007A8100));
+    memset(&gtUnitGfxHashedFile, 0, sizeof(gtUnitGfxHashedFile));
 }
 
 // 0x0046F440
 void __cdecl GFX_FreeActHashedFile()
 {
-    GFX_FreeHashedEntries(&gtHashedFile_007A78F0);
-    gdwGlobal_007A8918 -= gtHashedFile_007A78F0.nSize;
-    if (gtHashedFile_007A78F0.pData)
+    GFX_FreeHashedEntries(&gtGlobalHashedFile);
+    gnCofMemoryUsed -= gtGlobalHashedFile.nSize;
+    if (gtGlobalHashedFile.pData)
     {
-        FOG_Free(gtHashedFile_007A78F0.pData, ".\\ENGINE\\Gfx.cpp", 0xE61, 0);
+        FOG_Free(gtGlobalHashedFile.pData, ".\\ENGINE\\Gfx.cpp", 0xE61, 0);
     }
-    memset(&gtHashedFile_007A78F0, 0, sizeof(gtHashedFile_007A78F0));
+    memset(&gtGlobalHashedFile, 0, sizeof(gtGlobalHashedFile));
 }
 
 // 0x00470290
@@ -838,10 +838,10 @@ void __cdecl GFX_FreeHashedFiles()
 {
     GFX_FreeGlobalHashedFile();
     GFX_FreeActHashedFile();
-    if (gpPoolBlock_007A80FC)
+    if (gpPoolBlock)
     {
-        FOG_FreePool(0, gpPoolBlock_007A80FC, ".\\ENGINE\\Gfx.cpp", 0x7F9, 0);
-        gpPoolBlock_007A80FC = 0;
+        FOG_FreePool(0, gpPoolBlock, ".\\ENGINE\\Gfx.cpp", 0x7F9, 0);
+        gpPoolBlock = 0;
     }
 }
 
@@ -997,10 +997,10 @@ int __fastcall GFX_DrawSimpleUnitShadow(D2UnitStrc* pUnit)
         switch (sub_0045AE90())
         {
         case 1:
-            nX += -(gnGlobal_0071146C / 4);
+            nX += -(gnScreenWidth / 4);
             break;
         case 2:
-            nX += gnGlobal_0071146C / 4;
+            nX += gnScreenWidth / 4;
             break;
         }
         nY += 16;

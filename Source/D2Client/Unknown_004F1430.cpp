@@ -63,16 +63,16 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
 int __fastcall SKILLSMON_StartStateList(D2UnitStrc* pUnit, int nSkillId, int nArg); // 0x004F2450
-extern int gnRingX_006DBFE8[]; // 0x006DBFE8
-extern int gnRingY_006DC0E8[]; // 0x006DC0E8
+extern int gaMissileRingX[]; // 0x006DBFE8
+extern int gaMissileRingY[]; // 0x006DC0E8
 void __fastcall sub_004F2AC0_MissileInit(D2UnitStrc* pMissile, int nArg); // 0x004F2AC0
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 int __fastcall SKILLDESC_GetSkillParamTwo(int nSkillId); // 0x004EFC20
 int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
-extern int gnRing2X_006DC228[]; // 0x006DC228
-extern int gnRing2Y_006DC328[]; // 0x006DC328
+extern int gaMissileRing2X[]; // 0x006DC228
+extern int gaMissileRing2Y[]; // 0x006DC328
 void __fastcall SKILLDESC_InitCurvingMissilePath(D2UnitStrc* pMissile, int nArg); // 0x004F2BE0
 unsigned int __fastcall SEED_GetLowSeed(D2SeedStrc* pSeed); // 0x00650E50
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
@@ -243,8 +243,10 @@ static void __stdcall sub_004F1A30_CreateSprayMissile(D2SkillsTxt* pSkillsTxt, i
     const int nIndex = SEED_RollRandomNumber_Spray(&pUnit->pSeed) & 7;
     int nX = CLIENTS_GetUnitX_Spray(pUnit);
     int nY = CLIENTS_GetUnitY_Spray(pUnit);
-    const int nOffsetX = gaSprayOffsetX_006DBFA8[nIndex];
-    const int nOffsetY = gaSprayOffsetY_006DBFC8[nIndex];
+// build: symbol ?gaSprayOffsetX@* 0x006DBFA8
+    const int nOffsetX = gaSprayOffsetX[nIndex];
+// build: symbol ?gaSprayOffsetY@* 0x006DBFC8
+    const int nOffsetY = gaSprayOffsetY[nIndex];
     nX += nOffsetX;
     nY += nOffsetY;
 
@@ -511,8 +513,8 @@ static void __stdcall sub_004F2B20_CreateMissileRing(D2UnitStrc* pUnit, int nMis
     tMissileParams.pInitFunc = sub_004F2AC0_MissileInit;
     for (int i = 0; i < 64; i += nCount)
     {
-        tMissileParams.nTargetX = gnRingX_006DBFE8[i];
-        tMissileParams.nTargetY = gnRingY_006DC0E8[i];
+        tMissileParams.nTargetX = gaMissileRingX[i];
+        tMissileParams.nTargetY = gaMissileRingY[i];
         tMissileParams.nInitArg = SEED_RollRandomNumberInline(&tSeed);
         D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
         MISSILE_SetTargetX(pMissile, SKILLDESC_GetSkillParamTwo(nSkillId) + 1);
@@ -573,8 +575,8 @@ static void __stdcall sub_004F2DD0_CreateMissileRing2(D2UnitStrc* pUnit, int nMi
     tMissileParams.pInitFunc = SKILLDESC_InitCurvingMissilePath;
     for (int i = 0; i < 64; i += nCount)
     {
-        tMissileParams.nTargetX = gnRing2X_006DC228[i];
-        tMissileParams.nTargetY = gnRing2Y_006DC328[i];
+        tMissileParams.nTargetX = gaMissileRing2X[i];
+        tMissileParams.nTargetY = gaMissileRing2Y[i];
         tMissileParams.nInitArg = SEED_RollRandomNumberInline(&tSeed);
         D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
         MISSILE_SetTargetX(pMissile, SKILLDESC_GetSkillParamTwo(nSkillId) + 1);

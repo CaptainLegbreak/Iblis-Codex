@@ -8,14 +8,14 @@
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);
 
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304
-extern int gnGlobal_0071146C;                                                                               // 0x0071146C
-extern int gnGlobal_00711470;                                                                               // 0x00711470
-extern int gnGlobal_007A2858;                                                                               // 0x007A2858
-extern int gnGlobal_007A285C;                                                                               // 0x007A285C
-extern int gnGlobal_00724BEC;                                                                               // 0x00724BEC
-extern int gnGlobal_007C0C44;                                                                               // 0x007C0C44
-extern int ganSkillMode_007C0838[];                                                                         // 0x007C0838
-extern int ganSkillState_007C0A38[];                                                                        // 0x007C0A38
+extern int gnScreenWidth;                                                                               // 0x0071146C
+extern int gnScreenHeight;                                                                               // 0x00711470
+extern int gnPanelOffsetX;                                                                               // 0x007A2858
+extern int gnPanelOffsetY;                                                                               // 0x007A285C
+extern int gnSkillPage;                                                                               // 0x00724BEC
+extern int gbInSkillPanelDraw;                                                                               // 0x007C0C44
+extern int gaSkillButtonFrame[];                                                                         // 0x007C0838
+extern int gaSkillButtonState[];                                                                        // 0x007C0A38
 
 int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit);                                                 // 0x00451F60
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
@@ -62,14 +62,14 @@ void __cdecl sub_004AC4D0_DrawSkillTree()
     if (!pPlayer)
         return;
 
-    if (!gnGlobal_007C0C44)
+    if (!gbInSkillPanelDraw)
     {
         Unicode wszText[10];
         char szText[12];
-        wsprintfA(szText, "%d", gnGlobal_007C0C44);
+        wsprintfA(szText, "%d", gbInSkillPanelDraw);
         sub_00526320_ToUnicode(wszText, szText, 9);
-        const int nX = gnGlobal_0071146C - gnGlobal_007A2858;
-        TEXT_DrawCenteredText(nX - 0x41, gnGlobal_00711470 + gnGlobal_007A285C - 0x190, nX - 0x19, wszText, 0);
+        const int nX = gnScreenWidth - gnPanelOffsetX;
+        TEXT_DrawCenteredText(nX - 0x41, gnScreenHeight + gnPanelOffsetY - 0x190, nX - 0x19, wszText, 0);
     }
 
     for (int i = 0; i < SKILLS_GetPlayerSkillCount(GAME_GetUnitClassId(pPlayer)); ++i)
@@ -82,13 +82,13 @@ void __cdecl sub_004AC4D0_DrawSkillTree()
         }
 
         D2SkillDescTxt* pDesc = SKILLTREE_GetSkillDescRec(nSkillId);
-        if (!pDesc || gnGlobal_00724BEC != pDesc->nSkillPage)
+        if (!pDesc || gnSkillPage != pDesc->nSkillPage)
         {
             continue;
         }
 
-        ganSkillState_007C0A38[i] = -1;
-        ganSkillMode_007C0838[i] = 5;
+        gaSkillButtonState[i] = -1;
+        gaSkillButtonFrame[i] = 5;
         int nSkillLevel = 0;
         D2SkillStrc* pSkill = SKILLS_GetSkillById(pPlayer, nSkillId, -1);
         if (pSkill)
@@ -96,10 +96,10 @@ void __cdecl sub_004AC4D0_DrawSkillTree()
             nSkillLevel = SKILLS_GetSkillLevel(pPlayer, pSkill, 1);
             if (nSkillLevel > 0)
             {
-                ganSkillState_007C0A38[i] = 0;
-                ganSkillMode_007C0838[i] = 0;
+                gaSkillButtonState[i] = 0;
+                gaSkillButtonFrame[i] = 0;
             }
         }
-        sub_004ABF60_DrawSkillIcon(nSkillId, pSkillsTxt, nSkillLevel, ganSkillState_007C0A38[i], ganSkillMode_007C0838[i]);
+        sub_004ABF60_DrawSkillIcon(nSkillId, pSkillsTxt, nSkillLevel, gaSkillButtonState[i], gaSkillButtonFrame[i]);
     }
 }

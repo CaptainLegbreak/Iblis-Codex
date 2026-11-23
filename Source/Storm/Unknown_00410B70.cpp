@@ -90,7 +90,7 @@ extern int gnFlag2_00776CBC; // 0x00776CBC
 extern D2CriticalSectionStrc gaFreeBlockLocks_00776CC0[0x100]; // 0x00776CC0
 extern int gnFlag1_007784C0; // 0x007784C0
 extern int gnFlag0_007784C4; // 0x007784C4
-extern int gabFreeBlockDirty_007784C8[0x100]; // 0x007784C8
+extern int gabFreeBlockDirty[0x100]; // 0x007784C8
 extern D2SMemHeapStrc* gpFreeBlockSweep_007788C8; // 0x007788C8
 extern int gnFlag3_007788CC; // 0x007788CC
 extern int gbHeapInitialized_007788D0; // 0x007788D0

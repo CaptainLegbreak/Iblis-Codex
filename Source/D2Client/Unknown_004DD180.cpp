@@ -75,7 +75,7 @@ struct D2GridCellStrc
     int nY;
 };
 
-extern int gnGlobal_0071146C; // 0x0071146C
+extern int gnScreenWidth; // 0x0071146C
 static void __stdcall sub_004DDFD0_BuildSmallFlatGrid(D2GridCoordStrc tX, int nY, int bCorners, D2GridCellStrc* pCells, int nMode);
 extern void* gpGlobal_007A0634; // 0x007A0634
 unsigned char __stdcall sub_0061C0E0(void* pAct); // 0x0061C0E0
@@ -450,10 +450,10 @@ static void __stdcall sub_004DDFD0_BuildSmallFlatGrid(D2GridCoordStrc tX, int nY
     switch (nMode)
     {
     case 1:
-        tX.n -= gnGlobal_0071146C / 4;
+        tX.n -= gnScreenWidth / 4;
         break;
     case 2:
-        tX.n += gnGlobal_0071146C / 4;
+        tX.n += gnScreenWidth / 4;
         break;
     }
 
@@ -494,11 +494,11 @@ void __stdcall sub_004DE260(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ
     switch (nMode)
     {
     case 1:
-        nOffset = -(gnGlobal_0071146C / 4);
+        nOffset = -(gnScreenWidth / 4);
         break;
 
     case 2:
-        nOffset = gnGlobal_0071146C / 4;
+        nOffset = gnScreenWidth / 4;
         break;
     }
 

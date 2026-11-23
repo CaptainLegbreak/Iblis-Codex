@@ -67,7 +67,7 @@ struct D2GridLightStrc
 };
 
 extern void* gpGlobal_007A0634; // 0x007A0634
-extern int gnGlobal_0071146C; // 0x0071146C
+extern int gnScreenWidth; // 0x0071146C
 unsigned char __stdcall sub_0061C0E0(void* pAct); // 0x0061C0E0
 void __stdcall sub_0061C0B0(void* pAct, unsigned char* pR, unsigned char* pG, unsigned char* pB); // 0x0061C0B0
 void __fastcall SCMD_ReadGridCell(int nX, int nY, unsigned char* pB0, unsigned char* pB1, unsigned char* pB2, unsigned char* pB3); // 0x00475AA0
@@ -171,10 +171,10 @@ static void __stdcall sub_B08_BuildSmallFlatGrid(int nX, int nY, int bCorners, D
     switch (nMode)
     {
     case 1:
-        nX -= gnGlobal_0071146C / 4;
+        nX -= gnScreenWidth / 4;
         break;
     case 2:
-        nX += gnGlobal_0071146C / 4;
+        nX += gnScreenWidth / 4;
         break;
     }
 
@@ -203,10 +203,10 @@ static void __stdcall sub_004DE190_BuildSmallGrid(int nSubX, int nSubY, int nZ, 
     switch (nMode)
     {
     case 1:
-        nShift = -(gnGlobal_0071146C / 4);
+        nShift = -(gnScreenWidth / 4);
         break;
     case 2:
-        nShift = gnGlobal_0071146C / 4;
+        nShift = gnScreenWidth / 4;
         break;
     }
 

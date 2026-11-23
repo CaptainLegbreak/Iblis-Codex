@@ -55,9 +55,9 @@ void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLev
 
 typedef void (__fastcall* UMODCALLBACK)(D2UnitStrc* pUnit, int nUMod, int bUnique);
 
-extern const int gaUModList_006DA4C8[4];                                                                     // 0x006DA4C8
+extern const int gaUModList[4];                                                                     // 0x006DA4C8
 
-extern UMODCALLBACK gpfnUModCallbacks_00724D78[];                                                            // 0x00724D78
+extern UMODCALLBACK gpfnUModCallbacks[];                                                            // 0x00724D78
 
 static inline unsigned __int64 SEED_RollLocalSeed(D2SeedStrc* pSeed)
 {
@@ -148,16 +148,16 @@ void __fastcall MONUNIQUE_ApplyUMods(D2UnitStrc* pUnit)
 
         for (int j = 0; j < 4; ++j)
         {
-            const int nUMod = gaUModList_006DA4C8[j];
-            if (gpfnUModCallbacks_00724D78[nUMod])
-                gpfnUModCallbacks_00724D78[nUMod](pUnit, nUMod, bUnique);
+            const int nUMod = gaUModList[j];
+            if (gpfnUModCallbacks[nUMod])
+                gpfnUModCallbacks[nUMod](pUnit, nUMod, bUnique);
         }
 
         for (int i = 0; i < 9; ++i)
         {
             const int nUMod = pUMods[i];
-            if (gpfnUModCallbacks_00724D78[nUMod])
-                gpfnUModCallbacks_00724D78[nUMod](pUnit, nUMod, bUnique);
+            if (gpfnUModCallbacks[nUMod])
+                gpfnUModCallbacks[nUMod](pUnit, nUMod, bUnique);
         }
         }
     }

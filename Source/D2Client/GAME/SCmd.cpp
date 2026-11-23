@@ -481,19 +481,19 @@ void __fastcall NPCMENU_SetMinionSpawnClass(D2ClientPacket7Strc* pPacket); // 0x
 
 void __fastcall sub_0049F8C0_UsePacket6(D2ClientPacket6Strc* pPacket); // 0x0049F8C0
 
-extern int gdwGlobal_007A0664; // 0x007A0664
+extern int gbStandStillHeld; // 0x007A0664
 
-extern int gdwGlobal_007A065C; // 0x007A065C
+extern int gbRunKeyHeld; // 0x007A065C
 
-extern int gdwGlobal_007A0654; // 0x007A0654
+extern int gbRightButtonDown; // 0x007A0654
 
-extern int gdwGlobal_007A0670; // 0x007A0670
+extern int gbRightClickConsumed; // 0x007A0670
 
-extern int gdwGlobal_007A0658; // 0x007A0658
+extern int gbClickHandled; // 0x007A0658
 
-extern void* gxGlobal_007A0708; // 0x007A0708
+extern void* ghAccelerators; // 0x007A0708
 
-extern Unicode gxGlobal_007A2C80[80]; // 0x007A2C80
+extern Unicode gwszPopUpText[80]; // 0x007A2C80
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -538,7 +538,7 @@ void __cdecl GAME_SaveCharFile(); // 0x0045C520
 
 void __fastcall GAME_ShowLoadingMessage(int nError); // 0x0044E380
 
-extern int gdwGlobal_007A0618; // 0x007A0618
+extern int gbGameServerReady; // 0x007A0618
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv01
@@ -574,9 +574,9 @@ void __cdecl sub_00456970_InitUI(); // 0x00456970
 
 void __fastcall GAME_LoadAct(unsigned char nAct, unsigned int dwGameSeed, unsigned int dwObjectSeed, int nTownLevelId); // 0x0044E100
 
-extern int gdwGlobal_007A061C; // 0x007A061C
+extern int gbPositionalSound; // 0x007A061C
 
-extern int gnValue_007A0624; // 0x007A0624
+extern int gbActUnloaded; // 0x007A0624
 
 void __fastcall sub_00470B10_PreloadForceAct(int nAct); // 0x00470B10
 
@@ -626,7 +626,7 @@ struct D2GSPacketSrv51
 
 void __cdecl GAME_FreeWeather(); // 0x0044C880
 
-extern int gdwGlobal_007A0620; // 0x007A0620
+extern int gbLeavingGame; // 0x007A0620
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
@@ -781,7 +781,7 @@ struct D2GSPacketSrvAA
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-extern void* gpGlobal_007BB384; // 0x007BB384
+extern void* gpBloodRemap; // 0x007BB384
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -1177,20 +1177,20 @@ void __fastcall sub_004647A0_SetPacketBuffer(D2UnitStrc* pUnit, D2PacketBufferSt
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
-extern D2PacketTableEntryStrc gtPacketTable_007114D0[]; // 0x007114D0
+extern D2PacketTableEntryStrc gaPacketTable[]; // 0x007114D0
 
-int gnPacketBytes_007A6AF4; // 0x007A6AF4
+int gnPacketBytes; // 0x007A6AF4
 
-int gnPacketBlocks_007A6AFC; // 0x007A6AFC
+int gnPacketBlocks; // 0x007A6AFC
 
-int gnLargePacketBlocks_007A6B04; // 0x007A6B04
+int gnLargePacketBlocks; // 0x007A6B04
 
-unsigned char gnLastPacketId_007A5234; // 0x007A5234
+unsigned char gnLastPacketId; // 0x007A5234
 
 // build: symbol _gszSCmdSourceFile 0x006D69E4
 extern "C" const char gszSCmdSourceFile[];
 
-int gnGlobal_007A5230; // 0x007A5230
+int gnPacketRecordSize; // 0x007A5230
 
 #pragma pack(push, 1)
 struct D2GSPacketCoordinateStrc
@@ -1543,11 +1543,11 @@ void __fastcall sub_004B9330_UniqueEvent(const D2GSPacketSrv89* pPacket); // 0x0
 
 void __fastcall GAME_StorePong(const D2GSPacketSrv8F* pPacket); // 0x0044CDB0
 
-int gdwGlobal_007A2D20; // 0x007A2D20
+int gnPopUpTextX; // 0x007A2D20
 
-int gdwGlobal_007A2D24; // 0x007A2D24
+int gnPopUpTextY; // 0x007A2D24
 
-int gdwGlobal_007A2D28; // 0x007A2D28
+int gnPopUpTextMode; // 0x007A2D28
 
 struct D2ClientSightPacketStrc;
 
@@ -1584,23 +1584,23 @@ int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 
-extern int gnGlobal_007A2858; // 0x007A2858
+extern int gnPanelOffsetX; // 0x007A2858
 
-extern int gnGlobal_0071146C; // 0x0071146C
+extern int gnScreenWidth; // 0x0071146C
 
-extern int gnGlobal_007A285C; // 0x007A285C
+extern int gnPanelOffsetY; // 0x007A285C
 
-extern int gnGlobal_007A5254; // 0x007A5254
+extern int gbPopupDismissed; // 0x007A5254
 
 static void SCMD_ReceiveSaveChunk(D2SaveChunkPacketStrc* pPacket); // 0x0045C620
 
-#define gnGlobal_007A7430 (gtTimedBox_007A742C.nValue)
+#define gnGlobal_007A7430 (gtTimedBox.nValue)
 
-#define gnGlobal_007A7434 (gtTimedBox_007A742C.nColor[0])
+#define gnGlobal_007A7434 (gtTimedBox.nColor[0])
 
-#define gnGlobal_007A7435 (gtTimedBox_007A742C.nColor[1])
+#define gnGlobal_007A7435 (gtTimedBox.nColor[1])
 
-#define gnGlobal_007A7436 (gtTimedBox_007A742C.nColor[2])
+#define gnGlobal_007A7436 (gtTimedBox.nColor[2])
 
 struct D2StaticPathStrc;
 
@@ -1898,31 +1898,31 @@ void __stdcall sub_0061C0B0(void* pAct, unsigned char* pRed, unsigned char* pGre
 
 int __stdcall sub_0061C0E0(void* pAct); // 0x0061C0E0
 
-extern int gnGlobal_007A5248; // 0x007A5248
+extern int gbPopupMouseDown; // 0x007A5248
 
-extern int gnGlobal_007A5258; // 0x007A5258
+extern int gbOkCancelAccepted; // 0x007A5258
 
-extern int gnGlobal_007A6B08; // 0x007A6B08
+extern int gbCursorVisible; // 0x007A6B08
 
 extern D2HotkeyStrc gtHotkeys_007A6F90[NUM_HOTKEYS]; // 0x007A6F90
 
-extern D2HotkeyCommandStrc gtHotkeyCommands_00712698[]; // 0x00712698
+extern D2HotkeyCommandStrc gaHotkeyCommands[]; // 0x00712698
 
-extern int gnGlobal_007A7418; // 0x007A7418
+extern int gnHotkeyMode; // 0x007A7418
 
-extern int gnGlobal_007A7460; // 0x007A7460
+extern int gbChaosLightEvent; // 0x007A7460
 
-extern D2ClientTimedBoxStrc gtTimedBox_007A742C; // 0x007A742C
+extern D2ClientTimedBoxStrc gtTimedBox; // 0x007A742C
 
 extern D2GridCellStrc gtGridCells_007B0E68[]; // 0x007B0E68
 
-extern unsigned char gRowTable_007B5C10[][0x100]; // 0x007B5C10
+extern unsigned char gabRowTable[][0x100]; // 0x007B5C10
 
-extern int gnGlobal_007B8D10; // 0x007B8D10
+extern int gdwViewEffectStartTick; // 0x007B8D10
 
-extern int gnSentBytes_007A6AF8; // 0x007A6AF8
+extern int gnSentBytes; // 0x007A6AF8
 
-extern int gnSentPackets_007A6B00; // 0x007A6B00
+extern int gnSentPackets; // 0x007A6B00
 
 struct D2StatListStrc;
 
@@ -2133,15 +2133,15 @@ void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, 
 
 static void SCMD_RefreshUnitItems(D2UnitStrc* pUnit); // 0x0045D3B0
 
-static unsigned char* gpSaveBuffer_007A5224; // 0x007A5224
+static unsigned char* gpSaveBuffer; // 0x007A5224
 
-static unsigned int gnSaveBufferSize_007A5228; // 0x007A5228
+static unsigned int gnSaveBufferSize; // 0x007A5228
 
 static void SCMD_HandleServerError(D2ErrorPacketStrc* pPacket); // 0x0045C6D0
 
 void __fastcall SCMD_HandleSystemPacket(unsigned char* pPacket, int nSize); // 0x0045C850
 
-int gdwGlobal_007A0524; // 0x007A0524
+int gdwUnloadCompleteTick; // 0x007A0524
 
 static void SCMD_RefreshUnitItems(D2UnitStrc* pUnit); // 0x0045D3B0
 
@@ -2155,13 +2155,13 @@ void __fastcall SCMD_HandleMercStatUpdate(D2UnitStatPacketStrc* pPacket); // 0x0
 
 void __fastcall SCMD_ProcessPackets(unsigned char* pData, int nSize); // 0x0045F7B0
 
-int gnGlobal_007B8D14; // 0x007B8D14
+int gnViewEffectFadeIn; // 0x007B8D14
 
-int gnGlobal_007B8D18; // 0x007B8D18
+int gnViewEffectHold; // 0x007B8D18
 
-int gnGlobal_007B8D1C; // 0x007B8D1C
+int gnViewEffectFadeOut; // 0x007B8D1C
 
-int gnGlobal_007B9534; // 0x007B9534
+int gnViewEffectMagnitude; // 0x007B9534
 
 static void SCMD_ReadVitalsUpdate(unsigned char* pData, D2Packet18RecordStrc* pRecord); // 0x0045D900
 
@@ -2217,9 +2217,9 @@ int __fastcall SCMD_RunMessageLoop(int (__stdcall* pfnIdle)(int))
         if (PeekMessageA(&msg, 0, 0, 0, 0))
         {
             bContinue = GetMessageA(&msg, 0, 0, 0);
-            if (bContinue && gxGlobal_007A0708)
+            if (bContinue && ghAccelerators)
             {
-                TranslateAcceleratorA((void*)WINDOW_GetWindow(), gxGlobal_007A0708, &msg);
+                TranslateAcceleratorA((void*)WINDOW_GetWindow(), ghAccelerators, &msg);
             }
             TranslateMessage(&msg);
             DispatchMessageA(&msg);
@@ -2235,7 +2235,8 @@ int __fastcall SCMD_RunMessageLoop(int (__stdcall* pfnIdle)(int))
                 }
             }
 
-            if (!gdwGlobal_0070F7E0 && gdwGlobal_007A0610 != 6 && gdwGlobal_007A0610 != 8)
+// build: symbol ?gbClientAppActive@* 0x0070F7E0
+            if (!gbClientAppActive && gdwGlobal_007A0610 != 6 && gdwGlobal_007A0610 != 8)
             {
                 Sleep(10);
             }
@@ -2320,13 +2321,13 @@ Unicode* __fastcall SCMD_StripColorCodes(Unicode* pString)
 // 0x004524D0
 void __fastcall SCMD_SetPopUpText(const Unicode* wszText, int nA, int nB, int nC)
 {
-    gxGlobal_007A2C80[0].wChar = 0;
+    gwszPopUpText[0].wChar = 0;
     if (wszText)
     {
-        sub_005267E0(gxGlobal_007A2C80, wszText);
-        gdwGlobal_007A2D20 = nA;
-        gdwGlobal_007A2D24 = nB;
-        gdwGlobal_007A2D28 = nC;
+        sub_005267E0(gwszPopUpText, wszText);
+        gnPopUpTextX = nA;
+        gnPopUpTextY = nB;
+        gnPopUpTextMode = nC;
     }
 }
 
@@ -2375,29 +2376,29 @@ int __cdecl SCMD_GetSkillsTxtRecordCount()
 // 0x0045C620
 static void SCMD_ReceiveSaveChunk(D2SaveChunkPacketStrc* pPacket)
 {
-    if (gpSaveBuffer_007A5224 && pPacket->bFirst)
+    if (gpSaveBuffer && pPacket->bFirst)
     {
-        FOG_Free(gpSaveBuffer_007A5224, ".\\GAME\\SCmd.cpp", 0x5B, 0);
-        gpSaveBuffer_007A5224 = 0;
-        gnSaveBufferSize_007A5228 = 0;
+        FOG_Free(gpSaveBuffer, ".\\GAME\\SCmd.cpp", 0x5B, 0);
+        gpSaveBuffer = 0;
+        gnSaveBufferSize = 0;
     }
 
-    if (!gpSaveBuffer_007A5224)
-        gpSaveBuffer_007A5224 = (unsigned char*)FOG_Alloc(pPacket->nTotal, ".\\GAME\\SCmd.cpp", 0x62, 0);
+    if (!gpSaveBuffer)
+        gpSaveBuffer = (unsigned char*)FOG_Alloc(pPacket->nTotal, ".\\GAME\\SCmd.cpp", 0x62, 0);
 
-    unsigned int nSize = gnSaveBufferSize_007A5228;
-    unsigned char* pDest = gpSaveBuffer_007A5224 + nSize;
+    unsigned int nSize = gnSaveBufferSize;
+    unsigned char* pDest = gpSaveBuffer + nSize;
     const unsigned char* pSource = pPacket->aData;
     for (int i = 0; i < pPacket->nLength; i++)
         pDest[i] = pSource[i];
 
-    gnSaveBufferSize_007A5228 += pPacket->nLength;
-    if (pPacket->nTotal == gnSaveBufferSize_007A5228)
+    gnSaveBufferSize += pPacket->nLength;
+    if (pPacket->nTotal == gnSaveBufferSize)
     {
         GAME_SaveCharFile();
-        FOG_Free(gpSaveBuffer_007A5224, ".\\GAME\\SCmd.cpp", 0x71, 0);
-        gpSaveBuffer_007A5224 = 0;
-        gnSaveBufferSize_007A5228 = 0;
+        FOG_Free(gpSaveBuffer, ".\\GAME\\SCmd.cpp", 0x71, 0);
+        gpSaveBuffer = 0;
+        gnSaveBufferSize = 0;
     }
 }
 
@@ -2444,10 +2445,10 @@ void __fastcall SCMD_HandleSystemPacket(unsigned char* pPacket, int nSize)
     switch (pPacket[0])
     {
     case 0xAF:
-        gdwGlobal_007A0618 = 1;
+        gbGameServerReady = 1;
         return;
     case 0xB0:
-        gdwGlobal_007A0618 = 0;
+        gbGameServerReady = 0;
         return;
     case 0xB3:
         SCMD_ReceiveSaveChunk((D2SaveChunkPacketStrc*)pPacket);
@@ -2492,8 +2493,8 @@ int __fastcall SCMD_GetUnitActNo(D2UnitStrc* pUnit)
 // 0x0045C9A0
 void __fastcall SCMD_HandleLoadComplete(void* pPacket)
 {
-    gdwGlobal_007A061C = 1;
-    gnValue_007A0624 = 0;
+    gbPositionalSound = 1;
+    gbActUnloaded = 0;
     D2ActiveRoomStrc* pRoom = sub_004646A0_GetPlayerRoom();
     if (pRoom)
     {
@@ -2519,9 +2520,9 @@ void __fastcall SCMD_HandleUnloadComplete(void* pPacket)
 {
     GAME_FreeWeather();
     sub_00409B80(0);
-    gdwGlobal_007A061C = 0;
-    gnValue_007A0624 = 1;
-    gdwGlobal_007A0524 = GetTickCount();
+    gbPositionalSound = 0;
+    gbActUnloaded = 1;
+    gdwUnloadCompleteTick = GetTickCount();
 }
 
 // 0x0045CA60
@@ -2532,9 +2533,9 @@ void __fastcall SCMD_HandleLogoutComplete(void* pPacket)
         if (!GAME_IsCinematicExit())
             GAME_ShowLoadingMessage(8);
     }
-    if ((gdwGlobal_007A0610 == 2 || gdwGlobal_007A0610 == 3) && gdwGlobal_007A061C)
+    if ((gdwGlobal_007A0610 == 2 || gdwGlobal_007A0610 == 3) && gbPositionalSound)
         GAME_ShowLoadingMessage(7);
-    gdwGlobal_007A0620 = 1;
+    gbLeavingGame = 1;
 }
 
 // 0x0045CAB0
@@ -3328,8 +3329,8 @@ void __fastcall SCMD_FreePacketBuffer(D2UnitStrc* pUnit)
 // 0x0045FF70
 void __stdcall SCMD_ConfirmPopup(SMSGHANDLER_PARAMS* pMsg)
 {
-    gnGlobal_007A5254 = 1;
-    gnGlobal_007A5248 = 0;
+    gbPopupDismissed = 1;
+    gbPopupMouseDown = 0;
     sub_0044DA70();
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
@@ -3339,14 +3340,14 @@ void __stdcall SCMD_ConfirmPopup(SMSGHANDLER_PARAMS* pMsg)
 // 0x0045FFB0
 void __stdcall SCMD_HandlePopupEscape(SMSGHANDLER_PARAMS* pMsg)
 {
-    gnGlobal_007A5254 = 0;
+    gbPopupDismissed = 0;
 }
 
 // 0x004603E0
 void __stdcall SCMD_ConfirmOkCancelPopup(SMSGHANDLER_PARAMS* pMsg)
 {
-    gnGlobal_007A5258 = 1;
-    gnGlobal_007A5248 = 0;
+    gbOkCancelAccepted = 1;
+    gbPopupMouseDown = 0;
     sub_0044DA70();
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
@@ -3447,20 +3448,20 @@ void __stdcall SCMD_HandleHotkeyMessage(SMSGHANDLER_PARAMS* pMsg)
     {
         if (gtHotkeys_007A6F90[i].nKey == pMsg->wParam && gtHotkeys_007A6F90[i].nCommand != 0xFFFF
             && gtHotkeys_007A6F90[i].nCommand < NUM_HOTKEY_COMMANDS && gtHotkeys_007A6F90[i].nCommand <= 0xDF
-            && gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnCommand)
+            && gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnCommand)
         {
             if (gtHotkeys_007A6F90[i].nKey == VK_F4 && (GetKeyState(VK_MENU) & 0x8000))
             {
                 return;
             }
 
-            if (gnGlobal_007A7418 == 2 && !gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].nModeFlag)
+            if (gnHotkeyMode == 2 && !gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].nModeFlag)
             {
                 return;
             }
 
-            D2_ASSERT(!IsBadCodePtr((FARPROC)gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnCommand), 2038);
-            gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnCommand();
+            D2_ASSERT(!IsBadCodePtr((FARPROC)gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnCommand), 2038);
+            gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnCommand();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
@@ -4390,12 +4391,12 @@ void __fastcall SCMD_HandleEndState(const D2GSPacketSrvA9* pPacket)
 void __cdecl SCMD_DrawLoadingTexts()
 {
     const int nOldFont = sub_00502EF0(1);
-    TEXT_DrawCenteredText(gnGlobal_0071146C / 2 - 0x84, 0xBE - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(0x1430), 0);
+    TEXT_DrawCenteredText(gnScreenWidth / 2 - 0x84, 0xBE - gnPanelOffsetY, gnPanelOffsetX + 0x1C4, D2LANG_GetStringFromTblIndex(0x1430), 0);
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     if (FOG_IsExpansion())
-        TEXT_DrawCenteredText(gnGlobal_0071146C / 2 - 0x84, 0xCD - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(0x5578), 0);
+        TEXT_DrawCenteredText(gnScreenWidth / 2 - 0x84, 0xCD - gnPanelOffsetY, gnPanelOffsetX + 0x1C4, D2LANG_GetStringFromTblIndex(0x5578), 0);
     else
-        TEXT_DrawCenteredText(gnGlobal_0071146C / 2 - 0x84, 0xCD - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(0x1431), 0);
+        TEXT_DrawCenteredText(gnScreenWidth / 2 - 0x84, 0xCD - gnPanelOffsetY, gnPanelOffsetX + 0x1C4, D2LANG_GetStringFromTblIndex(0x1431), 0);
     sub_00502EF0(nOldFont);
 }
 
@@ -4652,16 +4653,16 @@ int __fastcall SCMD_IsPointInTileRect(D2UnitStrc* pUnit, int nX, int nY)
 // 0x0045F610
 static D2PacketBufferStrc* SCMD_GrowPacketBuffer(D2UnitStrc* pUnit)
 {
-    if (!gnGlobal_007A5230)
+    if (!gnPacketRecordSize)
     {
         for (int i = 0; i < 0xAF; ++i)
         {
-            if (gtPacketTable_007114D0[i].pfnAltHandler && gtPacketTable_007114D0[i].nSize > gnGlobal_007A5230)
+            if (gaPacketTable[i].pfnAltHandler && gaPacketTable[i].nSize > gnPacketRecordSize)
             {
-                gnGlobal_007A5230 = gtPacketTable_007114D0[i].nSize;
+                gnPacketRecordSize = gaPacketTable[i].nSize;
             }
         }
-        gnGlobal_007A5230 += 5;
+        gnPacketRecordSize += 5;
     }
     D2PacketBufferStrc* pBuffer = sub_00464770_GetPacketBuffer(pUnit);
     if (!pBuffer)
@@ -4671,11 +4672,11 @@ static D2PacketBufferStrc* SCMD_GrowPacketBuffer(D2UnitStrc* pUnit)
         sub_004647A0_SetPacketBuffer(pUnit, pBuffer);
     }
     int nNewMax = pBuffer->nMax + 5;
-    unsigned char* pData = (unsigned char*)FOG_Alloc(gnGlobal_007A5230 * nNewMax, ".\\GAME\\SCmd.cpp", 0x126B, 0);
-    memset(pData, 0, gnGlobal_007A5230 * nNewMax);
+    unsigned char* pData = (unsigned char*)FOG_Alloc(gnPacketRecordSize * nNewMax, ".\\GAME\\SCmd.cpp", 0x126B, 0);
+    memset(pData, 0, gnPacketRecordSize * nNewMax);
     if (pBuffer->pData)
     {
-        memcpy(pData, pBuffer->pData, pBuffer->nMax * gnGlobal_007A5230);
+        memcpy(pData, pBuffer->pData, pBuffer->nMax * gnPacketRecordSize);
         FOG_Free(pBuffer->pData, ".\\GAME\\SCmd.cpp", 0x126F, 0);
     }
     pBuffer->nMax = nNewMax;
@@ -4693,8 +4694,8 @@ static void __stdcall SCMD_QueuePacket(unsigned char* pPacket, int nLength, D2Un
     {
         pBuffer = SCMD_GrowPacketBuffer(pUnit);
     }
-    D2_ASSERT(nLength <= gnGlobal_007A5230, 0x127F);
-    memcpy(pBuffer->pData + pBuffer->nCount * gnGlobal_007A5230, pPacket, nLength);
+    D2_ASSERT(nLength <= gnPacketRecordSize, 0x127F);
+    memcpy(pBuffer->pData + pBuffer->nCount * gnPacketRecordSize, pPacket, nLength);
     ++pBuffer->nCount;
 }
 
@@ -4711,7 +4712,7 @@ void __fastcall SCMD_ProcessPackets(unsigned char* pData, int nSize)
     GetTickCount();
     if (nSize > 500)
     {
-        ++gnLargePacketBlocks_007A6B04;
+        ++gnLargePacketBlocks;
     }
 
     while (nRemaining > 0)
@@ -4727,7 +4728,7 @@ void __fastcall SCMD_ProcessPackets(unsigned char* pData, int nSize)
 
         unsigned short nLength = (unsigned short)nPacketSize;
         D2_ASSERT(nId < 0xAF, 0x1449);
-        D2PacketTableEntryStrc* pEntry = &gtPacketTable_007114D0[nId];
+        D2PacketTableEntryStrc* pEntry = &gaPacketTable[nId];
         if (pEntry->nSize != -1)
         {
             D2_ASSERT(nLength == pEntry->nSize, 0x1450);
@@ -4787,13 +4788,13 @@ void __fastcall SCMD_ProcessPackets(unsigned char* pData, int nSize)
             }
         }
 
-        gnPacketBytes_007A6AF4 += nLength;
+        gnPacketBytes += nLength;
         nRemaining -= nLength;
         pPacket += nLength;
-        gnLastPacketId_007A5234 = nId;
+        gnLastPacketId = nId;
     }
 
-    ++gnPacketBlocks_007A6AFC;
+    ++gnPacketBlocks;
 }
 
 // 0x00476A80
@@ -4801,11 +4802,11 @@ void __fastcall SCMD_StartTimedEffect(int nArg0, int nArg1, int nArg2, int nArg3
 {
     if (nArg2)
     {
-        gnGlobal_007B8D10 = GetTickCount();
-        gnGlobal_007B8D14 = nArg1;
-        gnGlobal_007B8D18 = nArg2;
-        gnGlobal_007B8D1C = nArg3;
-        gnGlobal_007B9534 = nArg0;
+        gdwViewEffectStartTick = GetTickCount();
+        gnViewEffectFadeIn = nArg1;
+        gnViewEffectHold = nArg2;
+        gnViewEffectFadeOut = nArg3;
+        gnViewEffectMagnitude = nArg0;
     }
 }
 
@@ -4839,7 +4840,8 @@ int __fastcall SCMD_GetLevelLight(D2ActiveRoomStrc* pRoom, unsigned char* pRed, 
 
     case LEVEL_107:
     case LEVEL_108:
-        if (gnGlobal_007A7460 && gnGlobal_007129D0 == -1)
+// build: symbol ?gnLevelEffectTick@* 0x007129D0
+        if (gbChaosLightEvent && gnLevelEffectTick == -1)
         {
             *pRed = 0xFF;
             *pGreen = 0x40;
@@ -4961,7 +4963,7 @@ unsigned char** __stdcall SCMD_BuildRampTable(unsigned int nSize, int nSteps)
             int nValue = i << 16;
             for (unsigned int k = 0; k < nSteps; ++k)
             {
-                *ppEntry = gRowTable_007B5C10[(unsigned char)(nValue / 0x10000)];
+                *ppEntry = gabRowTable[(unsigned char)(nValue / 0x10000)];
                 ++ppEntry;
                 nValue += nStep;
             }

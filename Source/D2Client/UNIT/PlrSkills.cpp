@@ -94,8 +94,8 @@ typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-extern const unsigned char gnFrameDirections_006DBA08[8][9]; // 0x006DBA08
-extern const unsigned char gnBaseDirections_006DBA50[8]; // 0x006DBA50
+extern const unsigned char gabFrameDirections[8][9]; // 0x006DBA08
+extern const unsigned char gabBaseDirections[8]; // 0x006DBA50
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
@@ -1207,7 +1207,7 @@ int __fastcall PLRSKILLS_SkillDoFrameOffset(D2UnitStrc* pUnit, int nSkillId, int
 
     int nOffsetX;
     int nOffsetY;
-    INVENTORY_GetDirectionDelta(gnBaseDirections_006DBA50[nIndex], &nOffsetX, &nOffsetY);
+    INVENTORY_GetDirectionDelta(gabBaseDirections[nIndex], &nOffsetX, &nOffsetY);
     nX += nOffsetX;
     nY += nOffsetY;
 
@@ -1218,7 +1218,7 @@ int __fastcall PLRSKILLS_SkillDoFrameOffset(D2UnitStrc* pUnit, int nSkillId, int
     int nClamp = nFrame > 0 ? nFrame : 0;
     nFrame = nClamp < 8 ? nClamp : 8;
 
-    unsigned char nDir = gnFrameDirections_006DBA08[nIndex][nFrame];
+    unsigned char nDir = gabFrameDirections[nIndex][nFrame];
     if (nDir != 99)
     {
         INVENTORY_GetDirectionDelta(nDir, &nOffsetX, &nOffsetY);

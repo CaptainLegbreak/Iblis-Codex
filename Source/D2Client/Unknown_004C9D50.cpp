@@ -14,15 +14,15 @@ D2UnitStrc* __fastcall sub_M109_Emit_004C9D50(D2UnitStrc* pUnit, int nUnitId)
     return sub_004C9D50_FindDestinationById(pUnit, nUnitId + 1);
 }
 
-unsigned int gdwNextTick_007C78B0; // 0x007C78B0
+unsigned int gdwNextTick; // 0x007C78B0
 
 // 0x004CA030
 int __fastcall sub_004CA030_TickEvent(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     const unsigned int nTick = sub_0044DA90();
-    if (nTick > gdwNextTick_007C78B0)
+    if (nTick > gdwNextTick)
     {
-        gdwNextTick_007C78B0 = nTick + 5;
+        gdwNextTick = nTick + 5;
         sub_004AF890(pUnit, 1, 0);
     }
     return 1;

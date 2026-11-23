@@ -53,27 +53,27 @@ struct D2DataTablesStrc;
 
 struct D2ImmunityTextStrc;
 
-extern int gdwGlobal_007A277C; // 0x007A277C
+extern int gbPlaybackRequested; // 0x007A277C
 
-extern int gdwGlobal_007A2784; // 0x007A2784
+extern int gnRecordPos; // 0x007A2784
 
-extern int gdwGlobal_007A2788; // 0x007A2788
+extern int gbRecordPlaying; // 0x007A2788
 
 extern int gdwGlobal_007A2878; // 0x007A2878
 
 extern int gdwGlobal_007A2880; // 0x007A2880
 
-int gdwGlobal_007A288C; // 0x007A288C
+int gnLoadingAct; // 0x007A288C
 
-extern int gdwGlobal_007A51E0; // 0x007A51E0
+extern int gbAutomapLeft; // 0x007A51E0
 
-extern int gdwGlobal_007113E8; // 0x007113E8
+extern int gbAutomapPartyNames; // 0x007113E8
 
-extern int gdwGlobal_007A5150; // 0x007A5150
+extern int gnAutomapMode; // 0x007A5150
 
-extern int gdwGlobal_007A520C; // 0x007A520C
+extern int gnAutomapOriginX; // 0x007A520C
 
-extern int gdwGlobal_007A5208; // 0x007A5208
+extern int gnAutomapOriginY; // 0x007A5208
 
 struct PairStrc_0045BA70
 {
@@ -83,7 +83,7 @@ struct PairStrc_0045BA70
 
 void __stdcall sub_00625960(void* pArg); // 0x00625960
 
-extern int gdwGlobal_007A6A94; // 0x007A6A94
+extern int gbHasSelectedUnit; // 0x007A6A94
 
 
 extern int gdwGlobal_007A6AB0; // 0x007A6AB0
@@ -92,9 +92,9 @@ extern int gdwGlobal_007A6AAC; // 0x007A6AAC
 
 extern int gdwGlobal_007A6AF0; // 0x007A6AF0
 
-extern int gdwGlobal_007A8918; // 0x007A8918
+extern int gnCofMemoryUsed; // 0x007A8918
 
-D2CelFileStrc* gpBoxPiecesCel_007A2798; // 0x007A2798
+D2CelFileStrc* gpBoxPiecesCel; // 0x007A2798
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -168,71 +168,71 @@ void TEXT_OpenMessageLogDialog(); // 0x004A0050
 
 void __cdecl PARTY_RebuildRosterUnits(); // 0x0049A640
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D5F28[]; // 0x006D5F28
+extern D2MsgHandlerEntryStrc gaGameUIHandlers[]; // 0x006D5F28
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D5F58[]; // 0x006D5F58
+extern D2MsgHandlerEntryStrc gaInventoryHandlers[]; // 0x006D5F58
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D5FAC[]; // 0x006D5FAC
+extern D2MsgHandlerEntryStrc gaSkillTreeHandlers[]; // 0x006D5FAC
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D5FC4[]; // 0x006D5FC4
+extern D2MsgHandlerEntryStrc gaMiniSkillHandlers[]; // 0x006D5FC4
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D5FD0[]; // 0x006D5FD0
+extern D2MsgHandlerEntryStrc gaStatScreenHandlers[]; // 0x006D5FD0
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D5FE8[]; // 0x006D5FE8
+extern D2MsgHandlerEntryStrc gaNewStatsHandlers[]; // 0x006D5FE8
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D6000[]; // 0x006D6000
+extern D2MsgHandlerEntryStrc gaPetIconHandlers[]; // 0x006D6000
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D600C[]; // 0x006D600C
+extern D2MsgHandlerEntryStrc gaNewSkillsHandlers[]; // 0x006D600C
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D6030[]; // 0x006D6030
+extern D2MsgHandlerEntryStrc gaEscMenuHandlers[]; // 0x006D6030
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D6084[]; // 0x006D6084
+extern D2MsgHandlerEntryStrc gaAutomapHandlers[]; // 0x006D6084
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D615C[]; // 0x006D615C
+extern D2MsgHandlerEntryStrc gaQuestLogHandlers[]; // 0x006D615C
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D61B0[]; // 0x006D61B0
+extern D2MsgHandlerEntryStrc gaIniScrollHandlers[]; // 0x006D61B0
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D61C8[]; // 0x006D61C8
+extern D2MsgHandlerEntryStrc gaWaypointHandlers[]; // 0x006D61C8
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D6204[]; // 0x006D6204
+extern D2MsgHandlerEntryStrc gaMiniPanelHandlers[]; // 0x006D6204
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D621C[]; // 0x006D621C
+extern D2MsgHandlerEntryStrc gaPartyScreenHandlers[]; // 0x006D621C
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D62C4[]; // 0x006D62C4
+extern D2MsgHandlerEntryStrc gaHelpScreenHandlers[]; // 0x006D62C4
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D6300[]; // 0x006D6300
+extern D2MsgHandlerEntryStrc gaHelpButtonHandlers[]; // 0x006D6300
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D6318[]; // 0x006D6318
+extern D2MsgHandlerEntryStrc gaHireIconHandlers[]; // 0x006D6318
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D633C[]; // 0x006D633C
+extern D2MsgHandlerEntryStrc gaMercInvHandlers[]; // 0x006D633C
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D6360[]; // 0x006D6360
+extern D2MsgHandlerEntryStrc gaRecipeScrollHandlers[]; // 0x006D6360
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_0070F878[]; // 0x0070F878
+extern D2MsgHandlerEntryStrc gaNpcShopHandlers[]; // 0x0070F878
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_0070F8D8[]; // 0x0070F8D8
+extern D2MsgHandlerEntryStrc gaQuestScreenHandlers[]; // 0x0070F8D8
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_0070F930[]; // 0x0070F930
+extern D2MsgHandlerEntryStrc gaMpTradeHandlers[]; // 0x0070F930
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_0070F9D0[]; // 0x0070F9D0
+extern D2MsgHandlerEntryStrc gaStashHandlers[]; // 0x0070F9D0
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_0070FA30[]; // 0x0070FA30
+extern D2MsgHandlerEntryStrc gaCubeHandlers[]; // 0x0070FA30
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_0070FA84[]; // 0x0070FA84
+extern D2MsgHandlerEntryStrc gaBeltRowsHandlers[]; // 0x0070FA84
 
-extern const D2PanelHotkeysStrc gtPanelHotkeys_006D5F88; // 0x006D5F88
+extern const D2PanelHotkeysStrc gtNpcShopHotkeys; // 0x006D5F88
 
-extern const D2PanelHotkeysStrc gtPanelHotkeys_006D618C; // 0x006D618C
+extern const D2PanelHotkeysStrc gtQuestScreenHotkeys; // 0x006D618C
 
-extern const D2PanelHotkeysStrc gtPanelHotkeys_006D6234; // 0x006D6234
+extern const D2PanelHotkeysStrc gtMpTradeHotkeys; // 0x006D6234
 
-extern const D2PanelHotkeysStrc gtPanelHotkeys_006D6258; // 0x006D6258
+extern const D2PanelHotkeysStrc gtStashHotkeys; // 0x006D6258
 
-extern const D2PanelHotkeysStrc gtPanelHotkeys_006D627C; // 0x006D627C
+extern const D2PanelHotkeysStrc gtCubeHotkeys; // 0x006D627C
 
-extern const D2PanelHotkeysStrc gtPanelHotkeys_006D62A0; // 0x006D62A0
+extern const D2PanelHotkeysStrc gtBeltRowsHotkeys; // 0x006D62A0
 
-int gnPanelState_007A27E8;                                                                                  // 0x007A27E8
+int gnPanelState;                                                                                  // 0x007A27E8
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
@@ -246,25 +246,25 @@ int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
-extern int gnGlobal_0071146C; // 0x0071146C
+extern int gnScreenWidth; // 0x0071146C
 
-unsigned long gdwUIVarTick_007A2790;                                                                        // 0x007A2790
+unsigned long gdwUIVarTick;                                                                        // 0x007A2790
 
-extern int gnGlobal_007A2858; // 0x007A2858
+extern int gnPanelOffsetX; // 0x007A2858
 
-extern int gnGlobal_007A285C; // 0x007A285C
+extern int gnPanelOffsetY; // 0x007A285C
 
-extern int gdwGlobal_007A5238; // 0x007A5238
+extern int gbCinematicExpansion; // 0x007A5238
 
-extern void* gpGlobal_007A523C; // 0x007A523C
+extern void* gpPopupOkCelA; // 0x007A523C
 
-extern void* gpGlobal_007A5240; // 0x007A5240
+extern void* gpOkCancelButtonCel; // 0x007A5240
 
-extern void* gpGlobal_007A5244; // 0x007A5244
+extern void* gpPopupOkCelB; // 0x007A5244
 
-extern int gnGlobal_007B9534; // 0x007B9534
+extern int gnViewEffectMagnitude; // 0x007B9534
 
-extern D2RosterPetStrc* gpRosterPets_007BB5BC; // 0x007BB5BC
+extern D2RosterPetStrc* gpRosterPets; // 0x007BB5BC
 
 void __cdecl sub_00489880_OpenPanel(); // 0x00489880
 
@@ -272,7 +272,7 @@ void __cdecl sub_004A7A80_OpenPanel0(); // 0x004A7A80
 
 void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 
-extern unsigned int gnDialogAmount_007A2A68; // 0x007A2A68
+extern unsigned int gnGoldPanelValue; // 0x007A2A68
 
 void __cdecl UI_CloseGoldDialog(); // 0x00453EE0
 
@@ -292,15 +292,15 @@ void __cdecl TEXT_ToggleListDialogUI(); // 0x004A02F0
 
 void __cdecl sub_004B69E0_CloseTrade(); // 0x004B69E0
 
-D2UiControlAStrc* gpGoldControlA_007A27A4; // 0x007A27A4
+D2UiControlAStrc* gpGoldControlA; // 0x007A27A4
 
-D2UiControlBStrc* gpGoldControlB_007A27A8; // 0x007A27A8
+D2UiControlBStrc* gpGoldControlB; // 0x007A27A8
 
-D2UiControlCStrc* gpGoldControlC_007A27AC; // 0x007A27AC
+D2UiControlCStrc* gpGoldControlC; // 0x007A27AC
 
-D2UiControlCStrc* gpGoldControlD_007A27B0; // 0x007A27B0
+D2UiControlCStrc* gpGoldControlD; // 0x007A27B0
 
-int gbGoldPanelFlag_007A27B4; // 0x007A27B4
+int gbGoldPanelFlag; // 0x007A27B4
 
 #pragma pack(push, 2)
 
@@ -355,21 +355,21 @@ void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int n
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-extern const D2ImmunityTextStrc gaImmunityTexts_006D6418[6]; // 0x006D6418
+extern const D2ImmunityTextStrc gaImmunityTexts[6]; // 0x006D6418
 
-extern Unicode gwszText_007A2A78[]; // 0x007A2A78
+extern Unicode gwszHoverText[]; // 0x007A2A78
 
-extern int gnHoverTextState_007A2C78; // 0x007A2C78
+extern int gnHoverTextState; // 0x007A2C78
 
-extern Unicode gwszHoverName_007A2F38[]; // 0x007A2F38
+extern Unicode gwszHoverName[]; // 0x007A2F38
 
-int gdwGlobal_007A2780; // 0x007A2780
+int gbRecordHandlerInstalled; // 0x007A2780
 
-int gdwGlobal_007A2868; // 0x007A2868
+int gbLoadingScreenActive; // 0x007A2868
 
-int gdwGlobal_007A8914; // 0x007A8914
+int gnGfxMemory; // 0x007A8914
 
-int gdwGlobal_007A891C; // 0x007A891C
+int gnCofMemoryLimit; // 0x007A891C
 
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 
@@ -395,7 +395,7 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* 
 
 extern "C" const char gszFmtInt_006D6454[]; // 0x006D6454
 
-extern "C" const char gszUiCpp_006D6458[]; // 0x006D6458
+extern "C" const char gszUiCpp[]; // 0x006D6458
 
 void __fastcall INV_BuildItemName(D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x0048C060
 
@@ -411,7 +411,7 @@ int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
-extern "C" const char gszFormatD_006D57BC[]; // 0x006D57BC
+extern "C" const char gszFormatD[]; // 0x006D57BC
 
 int __cdecl CHAT_IsNumberDisplayEnabled(); // 0x0047A980
 
@@ -490,25 +490,25 @@ D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);            
 
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther);                         // 0x006416D0
 
-extern int gnGlobal_00711470;                                                                               // 0x00711470
+extern int gnScreenHeight;                                                                               // 0x00711470
 
-extern D2ViewStrc* gpView_007A0640;                                                                         // 0x007A0640
+extern D2ViewStrc* gpClientView;                                                                         // 0x007A0640
 
-extern int gaUIVarStates_007A27C0[];                                                                        // 0x007A27C0
+extern int gaUIVarStates[];                                                                        // 0x007A27C0
 
-extern Unicode gxGlobal_007A2C80[80];                                                                       // 0x007A2C80
+extern Unicode gwszPopUpText[80];                                                                       // 0x007A2C80
 
-extern int gdwGlobal_007A2D20;                                                                              // 0x007A2D20
+extern int gnPopUpTextX;                                                                              // 0x007A2D20
 
-extern int gdwGlobal_007A2D24;                                                                              // 0x007A2D24
+extern int gnPopUpTextY;                                                                              // 0x007A2D24
 
-extern int gdwGlobal_007A2D28;                                                                              // 0x007A2D28
+extern int gnPopUpTextMode;                                                                              // 0x007A2D28
 
-extern unsigned short gwszText_007A2D30[];                                                                  // 0x007A2D30
+extern unsigned short gwszHoverLine[];                                                                  // 0x007A2D30
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D6024[];                                                    // 0x006D6024
+extern D2MsgHandlerEntryStrc gaKeyConfigWheelHandlers[];                                                    // 0x006D6024
 
-extern D2MsgHandlerEntryStrc gtPanelHandlers_006D60C0[];                                                    // 0x006D60C0
+extern D2MsgHandlerEntryStrc gaKeyConfigHandlers[];                                                    // 0x006D60C0
 
 struct D2Block0xA0Strc;
 
@@ -694,23 +694,23 @@ void __cdecl UI_DrawDeathScreen(); // 0x00453100
 
 void __cdecl sub_0046C130_DrawCountdown(); // 0x0046C130
 
-D2CelFileStrc* gpLoadingScreen_007A2888; // 0x007A2888
+D2CelFileStrc* gpLoadingScreen; // 0x007A2888
 
-int gnLoadingFrame_007A2A6C; // 0x007A2A6C
+int gnLoadingFrame; // 0x007A2A6C
 
-int gnValue_007A27B8; // 0x007A27B8
+int gbLoadingAfterUnload; // 0x007A27B8
 
-unsigned char gnLoadingBarColor_007A2A70; // 0x007A2A70
+unsigned char gnLoadingBarColor; // 0x007A2A70
 
-unsigned char gnLoadingBoxColor_007A2A71; // 0x007A2A71
+unsigned char gnLoadingBoxColor; // 0x007A2A71
 
-int gbMiniPanel_007A2814; // 0x007A2814
+int gbMiniPanel; // 0x007A2814
 
-int gnPanelFlag_007A2864; // 0x007A2864
+int gnPanelFlag; // 0x007A2864
 
-unsigned short gwDialogAmountHigh_007A2A6A; // 0x007A2A6A
+unsigned short gwDialogAmountHigh; // 0x007A2A6A
 
-int gnDialogMode_007A279C; // 0x007A279C
+int gnGoldPanelMode; // 0x007A279C
 
 int __cdecl GAME_IsHardcore();                                                                      // 0x0044B850
 
@@ -722,13 +722,13 @@ void __fastcall D2Win_10134_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, i
 
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pDst, const Unicode* pFormat, ...);                  // 0x005269D0
 
-int gbDeathScreenShown_007A2890;                                                                            // 0x007A2890
+int gbDeathScreenShown;                                                                            // 0x007A2890
 
-D2CelFileStrc* gpYouDiedHardcoreCel_007A2894;                                                              // 0x007A2894
+D2CelFileStrc* gpYouDiedHardcoreCel;                                                              // 0x007A2894
 
-D2CelFileStrc* gpYouDiedInstCel_007A2898;                                                                  // 0x007A2898
+D2CelFileStrc* gpYouDiedInstCel;                                                                  // 0x007A2898
 
-extern int gnAutomapWidth_007A5220;                                                                         // 0x007A5220
+extern int gnAutomapWidth;                                                                         // 0x007A5220
 
 static void __stdcall UI_GetPlayerHoverName(D2UnitStrc* pUnit, Unicode* pDst, int nMaxLength, int* pValue, int* pFlag);
 
@@ -766,11 +766,11 @@ void __cdecl CHAT_ClearChatLine();                                              
 
 void __cdecl TEXT_CloseKeyCaptureHandlers();                                                                                // 0x004A5DE0
 
-extern const int gaUIVarDefaults_006D6378[];                                                                // 0x006D6378
+extern const int gaUIVarDefaults[];                                                                // 0x006D6378
 
-extern int gdwGlobal_007A0618;                                                                              // 0x007A0618
+extern int gbGameServerReady;                                                                              // 0x007A0618
 
-extern int gdwGlobal_007A061C;                                                                              // 0x007A061C
+extern int gbPositionalSound;                                                                              // 0x007A061C
 
 void __fastcall GAME_ExtendDelay(int nDelay); // 0x0044DB40
 
@@ -870,17 +870,17 @@ void __stdcall D2Win_10116(); // 0x005015F0
 
 extern D2DrlgActStrc* gpGlobal_007A063C; // 0x007A063C
 
-extern D2CelFileStrc* gpLoadingCell_007A2794; // 0x007A2794
+extern D2CelFileStrc* gpLoadingCell; // 0x007A2794
 
-extern D2CelFileStrc* gpBuySellButton_007A287C; // 0x007A287C
+extern D2CelFileStrc* gpBuySellButton; // 0x007A287C
 
-D2CelFileStrc* gpPentspinCel_007A2878; // 0x007A2878
+D2CelFileStrc* gpPentspinCel; // 0x007A2878
 
-D2CelFileStrc* gpFocus16Cel_007A2880; // 0x007A2880
+D2CelFileStrc* gpFocus16Cel; // 0x007A2880
 
 int gdwGlobal_007A2884; // 0x007A2884
 
-unsigned long gdwLastTick_007A313C; // 0x007A313C
+unsigned long gdwUILastTick; // 0x007A313C
 
 #pragma function(memset)
 
@@ -894,13 +894,13 @@ struct T0044CB60
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 
-extern "C" const char gszNew_006CC82C[];                                                                    // 0x006CC82C
+extern "C" const char gszNew[];                                                                    // 0x006CC82C
 
 struct D2UiControlBaseStrc
 {
     static void* operator new(unsigned int nSize)
     {
-        return SMemAlloc(nSize, gszNew_006CC82C, -1, 0);
+        return SMemAlloc(nSize, gszNew, -1, 0);
     }
 };
 
@@ -1001,7 +1001,7 @@ int __cdecl UI_CancelGoldDialog();                                              
 
 extern int gnGoldPanelMode_007A279C;                                                                        // 0x007A279C
 
-void* gpGlobal_007A27A0;                                                                                    // 0x007A27A0
+void* gpGoldPanel;                                                                                    // 0x007A27A0
 
 extern "C" void _ReadWriteBarrier(void);
 
@@ -1025,25 +1025,25 @@ extern int gnCursorX_007A6AB0; // 0x007A6AB0
 // 0x00451910
 int __cdecl UI_IsRecordingEnabled()
 {
-    return gdwGlobal_007A277C;
+    return gbPlaybackRequested;
 }
 
 // 0x00451960
 int __cdecl UI_IsRecordHandlerInstalled()
 {
-    return gdwGlobal_007A2780;
+    return gbRecordHandlerInstalled;
 }
 
 // 0x00451980
 int __cdecl UI_IsPlaybackEnabled()
 {
-    return gdwGlobal_007A2784;
+    return gnRecordPos;
 }
 
 // 0x00451990
 int __cdecl UI_IsReplayActive()
 {
-    return gdwGlobal_007A2788;
+    return gbRecordPlaying;
 }
 
 // 0x004525F0
@@ -1100,7 +1100,7 @@ static void UI_BuildImmunityText(D2UnitStrc* pUnit)
     wszText[0] = 0;
     for (int n = 0; n < 6; n++)
     {
-        if (STATLIST_UnitGetStatValue(pUnit, gaImmunityTexts_006D6418[n].nStat, 0) >= 100)
+        if (STATLIST_UnitGetStatValue(pUnit, gaImmunityTexts[n].nStat, 0) >= 100)
         {
             unsigned short wszItem[0x100];
             for (int i = 0; i < 0x100; i++)
@@ -1110,20 +1110,21 @@ static void UI_BuildImmunityText(D2UnitStrc* pUnit)
                 sub_00526700((Unicode*)wszText, pComma);
                 sub_00526700((Unicode*)wszText, pNewLine);
             }
-            sub_005267E0((Unicode*)wszItem, D2LANG_GetStringFromTblIndex(gaImmunityTexts_006D6418[n].wString));
-            INV_PrefixColorCode((Unicode*)wszItem, gaImmunityTexts_006D6418[n].nColor);
+            sub_005267E0((Unicode*)wszItem, D2LANG_GetStringFromTblIndex(gaImmunityTexts[n].wString));
+            INV_PrefixColorCode((Unicode*)wszItem, gaImmunityTexts[n].nColor);
             sub_00526700((Unicode*)wszText, (Unicode*)wszItem);
         }
     }
-    sub_005267E0(gwszText_007A2A78, (Unicode*)wszText);
-    gnHoverTextState_007A2C78 = 4;
+    sub_005267E0(gwszHoverText, (Unicode*)wszText);
+    gnHoverTextState = 4;
 }
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x004527D0
 void __fastcall UI_BuildItemHoverName(D2UnitStrc* pUnit, Unicode* pOut, int nMaxLength)
 {
-    gnHoverY_0070F858 -= 0x10;
+// build: symbol ?gnHoverY@* 0x0070F858
+    gnHoverY -= 0x10;
     if (!pUnit)
         return;
 
@@ -1150,9 +1151,9 @@ void __fastcall UI_BuildItemHoverName(D2UnitStrc* pUnit, Unicode* pOut, int nMax
         nColor = 4;
         break;
     default:
-        if (ITEMS_CheckItemFlag(pUnit, 0x800, 0x5AA, gszUiCpp_006D6458))
+        if (ITEMS_CheckItemFlag(pUnit, 0x800, 0x5AA, gszUiCpp))
             nColor = 5;
-        else if (ITEMS_CheckItemFlag(pUnit, 0x400000, 0x5AE, gszUiCpp_006D6458))
+        else if (ITEMS_CheckItemFlag(pUnit, 0x400000, 0x5AE, gszUiCpp))
             nColor = 5;
         break;
     }
@@ -1180,7 +1181,8 @@ void __fastcall UI_BuildItemHoverName(D2UnitStrc* pUnit, Unicode* pOut, int nMax
         sub_00526700(wszText, pName);
         if (!pOut)
         {
-            D2Win_10129_DrawFramedText(wszText, gnHoverX_0070F854, gnHoverY_0070F858, nColor, 1);
+// build: symbol ?gnHoverX@* 0x0070F854
+            D2Win_10129_DrawFramedText(wszText, gnHoverX, gnHoverY, nColor, 1);
             return;
         }
 
@@ -1195,7 +1197,7 @@ void __fastcall UI_BuildItemHoverName(D2UnitStrc* pUnit, Unicode* pOut, int nMax
         INV_BuildItemName(pUnit, (Unicode*)wszItem, 0x100);
         if (!pOut)
         {
-            D2Win_10129_DrawFramedText((Unicode*)wszItem, gnHoverX_0070F854, gnHoverY_0070F858, nColor, 1);
+            D2Win_10129_DrawFramedText((Unicode*)wszItem, gnHoverX, gnHoverY, nColor, 1);
             return;
         }
 
@@ -1241,18 +1243,18 @@ static void __stdcall UI_ShowUnitHoverName(D2UnitStrc* pUnit, int bSet)
         return;
     }
     nValues[1] = sub_004525F0_GetHoverTextY(pUnit);
-    const int nY = gnHoverY_0070F858 - 0x48;
-    const int nX = gnHoverX_0070F854;
+    const int nY = gnHoverY - 0x48;
+    const int nX = gnHoverX;
     const Unicode* pName = CUNIT_GetUnitName(pUnit);
     if (bSet)
     {
-        gxGlobal_007A2C80[0].wChar = 0;
+        gwszPopUpText[0].wChar = 0;
         if (pName)
         {
-            sub_005267E0(gxGlobal_007A2C80, pName);
-            gdwGlobal_007A2D24 = nY;
-            gdwGlobal_007A2D20 = nX;
-            gdwGlobal_007A2D28 = nValues[1];
+            sub_005267E0(gwszPopUpText, pName);
+            gnPopUpTextY = nY;
+            gnPopUpTextX = nX;
+            gnPopUpTextMode = nValues[1];
         }
     }
     else
@@ -1329,7 +1331,7 @@ void __fastcall UI_DrawRectangleBorder(D2RectStrc* pRect)
     D2CelContextStrc context;
     int nPiece = 0;
     memset(&context, 0, sizeof(context));
-    context.pCellFile = gpBoxPiecesCel_007A2798;
+    context.pCellFile = gpBoxPiecesCel;
     context.nDirection = 0;
 
     const int nRightCorner = nRight - 12;
@@ -1376,26 +1378,26 @@ void __cdecl UI_DrawDeathScreen()
 
     if (CUNIT_IsDeadOrDying(pPlayer))
     {
-        int nY = gnGlobal_00711470 / 2 - 0x5E;
+        int nY = gnScreenHeight / 2 - 0x5E;
 // build: symbol ?STRTABLE_GetLanguageInfoField@* 0x00525260
         STRTABLE_GetLanguageInfoField(szLanguage, 0);
-        if (!gpYouDiedHardcoreCel_007A2894)
+        if (!gpYouDiedHardcoreCel)
         {
             sprintf(szPath, "%s\\UI\\%s\\youdiedhardcore", szDataLocal_006D41A8, szLanguage);
-            gpYouDiedHardcoreCel_007A2894 = ARCHIVE_LoadClientCellFile(szPath, 0);
+            gpYouDiedHardcoreCel = ARCHIVE_LoadClientCellFile(szPath, 0);
         }
-        if (gpYouDiedHardcoreCel_007A2894)
-            D2Win_10134_DrawCellFile(gpYouDiedHardcoreCel_007A2894, gnGlobal_0071146C / 2, nY, 1, 5, 1);
+        if (gpYouDiedHardcoreCel)
+            D2Win_10134_DrawCellFile(gpYouDiedHardcoreCel, gnScreenWidth / 2, nY, 1, 5, 1);
 
         nY += 0x30;
-        gbDeathScreenShown_007A2890 = 1;
-        if (!gpYouDiedInstCel_007A2898)
+        gbDeathScreenShown = 1;
+        if (!gpYouDiedInstCel)
         {
             sprintf(szPath, "%s\\UI\\%s\\youdiedinst", szDataLocal_006D41A8, szLanguage);
-            gpYouDiedInstCel_007A2898 = ARCHIVE_LoadClientCellFile(szPath, 0);
+            gpYouDiedInstCel = ARCHIVE_LoadClientCellFile(szPath, 0);
         }
-        if (gpYouDiedInstCel_007A2898)
-            D2Win_10134_DrawCellFile(gpYouDiedInstCel_007A2898, gnGlobal_0071146C / 2, nY, 1, 5, 1);
+        if (gpYouDiedInstCel)
+            D2Win_10134_DrawCellFile(gpYouDiedInstCel, gnScreenWidth / 2, nY, 1, 5, 1);
 
         Unicode wszText[0x100];
         if (GAME_IsHardcore())
@@ -1412,7 +1414,7 @@ void __cdecl UI_DrawDeathScreen()
         sub_00502EF0(2);
         {
             const int nWidth = D2Win_10121_GetTextWidth(wszText);
-            const int nX = gnAutomapWidth_007A5220 / 2 - nWidth / 2;
+            const int nX = gnAutomapWidth / 2 - nWidth / 2;
             D2Win_10117_DrawText(wszText, nX, nY, 1, 1);
         }
 
@@ -1421,14 +1423,14 @@ second_text:
         {
             sub_00502EF0(2);
             const int nWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0x13E7));
-            const int nX = gnAutomapWidth_007A5220 / 2 - nWidth / 2;
+            const int nX = gnAutomapWidth / 2 - nWidth / 2;
             nY += 0x30;
             D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x13E7), nX, nY, 1, 1);
         }
     }
     else
     {
-        gbDeathScreenShown_007A2890 = 0;
+        gbDeathScreenShown = 0;
     }
 }
 
@@ -1445,10 +1447,10 @@ void __fastcall UI_DrawPartyMemberText(D2UnitStrc* pUnit)
         return;
     }
     D2RectStrc tView;
-    sub_00476070_GetViewRect(gpView_007A0640, &tView.nLeft, &tView.nTop, &tView.nRight, &tView.nBottom);
+    sub_00476070_GetViewRect(gpClientView, &tView.nLeft, &tView.nTop, &tView.nRight, &tView.nBottom);
     int nOffsetX;
     int nOffsetY;
-    VIEW_GetViewOffset(gpView_007A0640, &nOffsetX, &nOffsetY);
+    VIEW_GetViewOffset(gpClientView, &nOffsetX, &nOffsetY);
     tagRECT tRect;
     SetRect(&tRect, nOffsetX, nOffsetY, tView.nRight - tView.nLeft + nOffsetX, tView.nBottom - tView.nTop + nOffsetY);
     D2CoordStrc tCoords;
@@ -1458,21 +1460,21 @@ void __fastcall UI_DrawPartyMemberText(D2UnitStrc* pUnit)
     switch (nBorder)
     {
     case 1:
-        tCoords.nX -= gnGlobal_0071146C / 4;
-        if (tCoords.nX > gnGlobal_0071146C / 2)
+        tCoords.nX -= gnScreenWidth / 4;
+        if (tCoords.nX > gnScreenWidth / 2)
         {
             return;
         }
         break;
     case 2:
-        tCoords.nX += gnGlobal_0071146C / 4;
-        if (tCoords.nX < gnGlobal_0071146C / 2)
+        tCoords.nX += gnScreenWidth / 4;
+        if (tCoords.nX < gnScreenWidth / 2)
         {
             return;
         }
         break;
     }
-    if (tCoords.nY <= 0 || tCoords.nY >= gnGlobal_0071146C || tCoords.nX <= -0x32 || tCoords.nX >= gnGlobal_00711470 + 0x32)
+    if (tCoords.nY <= 0 || tCoords.nY >= gnScreenWidth || tCoords.nX <= -0x32 || tCoords.nX >= gnScreenHeight + 0x32)
     {
         return;
     }
@@ -1561,16 +1563,17 @@ int __cdecl UI_IsDialogOpen()
 // 0x00453910
 static int UI_CanSetUIVar(int nUIVar, int nState)
 {
-    D2_ASSERT(gnUIVarCount_0070F9CC == 0x26, 0x1397);
-    if (nState == 0 || (nState == 2 && !gaUIVarStates_007A27C0[nUIVar]))
+// build: symbol ?gnUIVarCount@* 0x0070F9CC
+    D2_ASSERT(gnUIVarCount == 0x26, 0x1397);
+    if (nState == 0 || (nState == 2 && !gaUIVarStates[nUIVar]))
     {
         if (nUIVar == 0x05 || nUIVar == 0x09)
         {
-            if (sub_004B85E0() && nUIVar == 0x05 && !gaUIVarStates_007A27C0[0x18])
+            if (sub_004B85E0() && nUIVar == 0x05 && !gaUIVarStates[0x18])
             {
                 return 0;
             }
-            if (gdwUIVarTick_007A2790 > GetTickCount())
+            if (gdwUIVarTick > GetTickCount())
             {
                 return 0;
             }
@@ -1588,8 +1591,8 @@ static int UI_CanSetUIVar(int nUIVar, int nState)
                     if (GAME_IsHardcore())
                     {
                         sub_00477EE0();
-                        gdwGlobal_007A061C = 0;
-                        gdwGlobal_007A0618 = 0;
+                        gbPositionalSound = 0;
+                        gbGameServerReady = 0;
                         GAME_SetCharDiedFlag();
                         sub_0044B880_SetValue(0);
                         GAME_RequestExit();
@@ -1602,11 +1605,12 @@ static int UI_CanSetUIVar(int nUIVar, int nState)
         {
             return 0;
         }
-        for (int i = 0; i < gnUIVarCount_0070F9CC; i++)
+        for (int i = 0; i < gnUIVarCount; i++)
         {
-            if (gaUIVarStates_007A27C0[i] == 1)
+            if (gaUIVarStates[i] == 1)
             {
-                switch (gpUIVarRecords_00711130[i]->anCloseKind[nUIVar])
+// build: symbol ?gapUIVarRecords@* 0x00711130
+                switch (gapUIVarRecords[i]->anCloseKind[nUIVar])
                 {
                 case 0:
                     break;
@@ -1637,7 +1641,7 @@ static int UI_CanSetUIVar(int nUIVar, int nState)
 // 0x00453A90
 int __fastcall UI_GetUIVarUnchecked(int nUIVar)
 {
-    return gaUIVarStates_007A27C0[nUIVar];
+    return gaUIVarStates[nUIVar];
 }
 
 // 0x00453AA0
@@ -1657,8 +1661,9 @@ int __cdecl UI_GetFocusCel()
 // 0x00453AC0
 void __cdecl UI_DisableUIVarDelay()
 {
-    gdwGlobal_0070FA9C = 0;
-    gdwUIVarTick_007A2790 = 0;
+// build: symbol ?gbUIVarDelayEnabled@* 0x0070FA9C
+    gbUIVarDelayEnabled = 0;
+    gdwUIVarTick = 0;
 }
 
 static inline int IsGoldPanelMode(int nMode)
@@ -1679,15 +1684,15 @@ static inline int IsGoldPanelMode(int nMode)
 // 0x00453AD0
 void __cdecl UI_EnableUIVarDelay()
 {
-    gdwGlobal_0070FA9C = 1;
+    gbUIVarDelayEnabled = 1;
 }
 
 // 0x00453AE0
 void __cdecl UI_StartUIVarDelay()
 {
-    if (gdwGlobal_0070FA9C)
+    if (gbUIVarDelayEnabled)
     {
-        gdwUIVarTick_007A2790 = GetTickCount() + 0x64;
+        gdwUIVarTick = GetTickCount() + 0x64;
     }
 }
 
@@ -1720,7 +1725,7 @@ void __cdecl UI_DrawStoredUnitNumber()
     const int nValue = sub_00479B80_GetRecordValue(pRecord);
     char szText[12];
     Unicode wszText[12];
-    wsprintfA(szText, gszFormatD_006D57BC, nValue);
+    wsprintfA(szText, gszFormatD, nValue);
     sub_00526F20_ToUnicode(wszText, szText, 12);
     D2Win_10117_DrawText(wszText, 600, 25, 4, 0);
 }
@@ -1754,20 +1759,20 @@ void __cdecl UI_FreePlayerUI()
     sub_004B91F0();
     TEXT_FreeTextLists();
     VIEW_ResetLifeColors();
-    if (gpLoadingCell_007A2794)
+    if (gpLoadingCell)
     {
-        ARCHIVE_FreeClientCellFile(gpLoadingCell_007A2794);
-        gpLoadingCell_007A2794 = 0;
+        ARCHIVE_FreeClientCellFile(gpLoadingCell);
+        gpLoadingCell = 0;
     }
-    if (gpYouDiedHardcoreCel_007A2894)
+    if (gpYouDiedHardcoreCel)
     {
-        ARCHIVE_FreeClientCellFile(gpYouDiedHardcoreCel_007A2894);
-        gpYouDiedHardcoreCel_007A2894 = 0;
+        ARCHIVE_FreeClientCellFile(gpYouDiedHardcoreCel);
+        gpYouDiedHardcoreCel = 0;
     }
-    if (gpYouDiedInstCel_007A2898)
+    if (gpYouDiedInstCel)
     {
-        ARCHIVE_FreeClientCellFile(gpYouDiedInstCel_007A2898);
-        gpYouDiedInstCel_007A2898 = 0;
+        ARCHIVE_FreeClientCellFile(gpYouDiedInstCel);
+        gpYouDiedInstCel = 0;
     }
     sub_0047E750_SaveAlwaysRun();
     sub_00468070_SetCursorItemState(0);
@@ -1805,45 +1810,45 @@ void __cdecl UI_CancelCursorItemUse()
 // 0x00453EE0
 void __cdecl UI_CloseGoldDialog()
 {
-    if (gbGoldPanelFlag_007A27B4)
+    if (gbGoldPanelFlag)
     {
         sub_0046AA20(1, 1);
-        gbGoldPanelFlag_007A27B4 = 0;
+        gbGoldPanelFlag = 0;
     }
 
-    if (gpGoldControlB_007A27A8)
+    if (gpGoldControlB)
     {
-        gnGoldPanelValue_007A2A68 = gpGoldControlB_007A27A8->GetValue();
+        gnGoldPanelValue_007A2A68 = gpGoldControlB->GetValue();
     }
 
-    if (gpGlobal_007A27A0)
+    if (gpGoldPanel)
     {
-        DIALOG_DestroyDialog(gpGlobal_007A27A0);
-        gpGlobal_007A27A0 = 0;
+        DIALOG_DestroyDialog(gpGoldPanel);
+        gpGoldPanel = 0;
     }
 
-    if (gpGoldControlA_007A27A4)
+    if (gpGoldControlA)
     {
-        delete gpGoldControlA_007A27A4;
-        gpGoldControlA_007A27A4 = 0;
+        delete gpGoldControlA;
+        gpGoldControlA = 0;
     }
 
-    if (gpGoldControlB_007A27A8)
+    if (gpGoldControlB)
     {
-        delete gpGoldControlB_007A27A8;
-        gpGoldControlB_007A27A8 = 0;
+        delete gpGoldControlB;
+        gpGoldControlB = 0;
     }
 
-    if (gpGoldControlC_007A27AC)
+    if (gpGoldControlC)
     {
-        delete gpGoldControlC_007A27AC;
-        gpGoldControlC_007A27AC = 0;
+        delete gpGoldControlC;
+        gpGoldControlC = 0;
     }
 
-    if (gpGoldControlD_007A27B0)
+    if (gpGoldControlD)
     {
-        delete gpGoldControlD_007A27B0;
-        gpGoldControlD_007A27B0 = 0;
+        delete gpGoldControlD;
+        gpGoldControlD = 0;
     }
 
     if (gnGoldPanelMode_007A279C != 0)
@@ -1875,11 +1880,11 @@ int __cdecl UI_GoldSpinnerDefaultCallback()
 // 0x00453FE0
 int __cdecl UI_GoldSpinnerChanged()
 {
-    const int nDirection = gpGoldControlA_007A27A4->GetDirection();
-    const unsigned int nStep = gpGoldControlA_007A27A4->GetStep(0);
-    if (gpGoldControlB_007A27A8)
+    const int nDirection = gpGoldControlA->GetDirection();
+    const unsigned int nStep = gpGoldControlA->GetStep(0);
+    if (gpGoldControlB)
     {
-        gnGoldPanelValue_007A2A68 = gpGoldControlB_007A27A8->GetValue();
+        gnGoldPanelValue_007A2A68 = gpGoldControlB->GetValue();
     }
     unsigned int nValue = gnGoldPanelValue_007A2A68;
     unsigned int nMax;
@@ -1911,9 +1916,9 @@ int __cdecl UI_GoldSpinnerChanged()
         }
     }
     gnGoldPanelValue_007A2A68 = nValue;
-    if (gpGoldControlB_007A27A8)
+    if (gpGoldControlB)
     {
-        gpGoldControlB_007A27A8->SetValue(nValue);
+        gpGoldControlB->SetValue(nValue);
     }
     return 0;
 }
@@ -1929,30 +1934,30 @@ static inline int GetUnitId(D2UnitStrc* pUnit)
 int __cdecl UI_ConfirmGoldDialog()
 {
     UI_CloseGoldDialog();
-    if (!gnDialogAmount_007A2A68)
+    if (!gnGoldPanelValue)
     {
-        if (gnDialogMode_007A279C == 2)
-            sub_004B9110_SendGoldRequest(gnDialogAmount_007A2A68);
+        if (gnGoldPanelMode == 2)
+            sub_004B9110_SendGoldRequest(gnGoldPanelValue);
         return 1;
     }
-    switch (gnDialogMode_007A279C)
+    switch (gnGoldPanelMode)
     {
     case 0:
     case 1:
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         int nId = GetUnitId(pPlayer);
-        sub_004786A0_SendDwords2(0x50, nId, gnDialogAmount_007A2A68);
+        sub_004786A0_SendDwords2(0x50, nId, gnGoldPanelValue);
         return 1;
     }
     case 2:
-        sub_004B9110_SendGoldRequest(gnDialogAmount_007A2A68);
+        sub_004B9110_SendGoldRequest(gnGoldPanelValue);
         break;
     case 4:
-        sub_00478600_SendShorts(0x4F, 0x13, gwDialogAmountHigh_007A2A6A, gnDialogAmount_007A2A68);
+        sub_00478600_SendShorts(0x4F, 0x13, gwDialogAmountHigh, gnGoldPanelValue);
         break;
     case 3:
-        sub_00478600_SendShorts(0x4F, 0x14, gwDialogAmountHigh_007A2A6A, gnDialogAmount_007A2A68);
+        sub_00478600_SendShorts(0x4F, 0x14, gwDialogAmountHigh, gnGoldPanelValue);
         break;
     default:
         return 1;
@@ -1983,14 +1988,14 @@ void __fastcall UI_OpenGoldPanel(int nMode)
         UI_CloseGoldDialog();
         return;
     }
-    if (gpGlobal_007A27A0)
+    if (gpGoldPanel)
     {
         return;
     }
-    if (!gbGoldPanelFlag_007A27B4)
+    if (!gbGoldPanelFlag)
     {
         CMDTBL_SetHotkeyHandlers(0, 1);
-        gbGoldPanelFlag_007A27B4 = 1;
+        gbGoldPanelFlag = 1;
     }
     gnGoldPanelValue_007A2A68 = 0;
 
@@ -2029,8 +2034,8 @@ void __fastcall UI_OpenGoldPanel(int nMode)
     }
 
     gnGoldPanelMode_007A279C = nMode;
-    gpGlobal_007A27A0 = sub_004B7CD0_CreatePanel(0xD7, 0x8C, UI_GoldPanelCloseCallback, 0, 0, 1);
-    sub_004B8370(gpGlobal_007A27A0, 1);
+    gpGoldPanel = sub_004B7CD0_CreatePanel(0xD7, 0x8C, UI_GoldPanelCloseCallback, 0, 0, 1);
+    sub_004B8370(gpGoldPanel, 1);
     sub_00502EF0(1);
 
     Unicode wszText[0x100];
@@ -2048,26 +2053,26 @@ void __fastcall UI_OpenGoldPanel(int nMode)
     T0044CB60* pLine = sub_00502970_SplitText(wszText, &nLineCount, 0xC8);
     while (pLine)
     {
-        sub_004B85F0_AddTextLine(gpGlobal_007A27A0, pLine->pText, 0x18, 0, 4, 1, 0, 0);
+        sub_004B85F0_AddTextLine(gpGoldPanel, pLine->pText, 0x18, 0, 4, 1, 0, 0);
         T0044CB60* pNext = pLine->pNext;
         FOG_Free(pLine->pText, ".\\UI\\ui.cpp", 0x1827, 0);
         FOG_Free(pLine, ".\\UI\\ui.cpp", 0x1828, 0);
         pLine = pNext;
     }
 
-    gpGoldControlA_007A27A4 = new D2UiControlAStrc(0xDF, 0xDB, 0, UI_GoldSpinnerChanged);
-    sub_004B7C00_AddControl(gpGlobal_007A27A0, gpGoldControlA_007A27A4, 0, 0);
-    gpGoldControlB_007A27A8 = new D2UiControlBStrc(0x102, 0xE4, 0x64, 1, nGold, 0xA, UI_GoldSpinnerDefaultCallback, 1);
-    sub_004B7C00_AddControl(gpGlobal_007A27A0, gpGoldControlB_007A27A8, 0, 0);
-    if (gpGoldControlB_007A27A8)
+    gpGoldControlA = new D2UiControlAStrc(0xDF, 0xDB, 0, UI_GoldSpinnerChanged);
+    sub_004B7C00_AddControl(gpGoldPanel, gpGoldControlA, 0, 0);
+    gpGoldControlB = new D2UiControlBStrc(0x102, 0xE4, 0x64, 1, nGold, 0xA, UI_GoldSpinnerDefaultCallback, 1);
+    sub_004B7C00_AddControl(gpGoldPanel, gpGoldControlB, 0, 0);
+    if (gpGoldControlB)
     {
-        gpGoldControlB_007A27A8->SetActive(1);
+        gpGoldControlB->SetActive(1);
     }
-    gpGoldControlC_007A27AC = new D2UiControlCStrc(0xFA, 0x11F, 0, UI_ConfirmGoldDialog);
-    sub_004B7C00_AddControl(gpGlobal_007A27A0, gpGoldControlC_007A27AC, 0, 0);
-    gpGoldControlC_007A27AC->SetActive(1);
-    gpGoldControlD_007A27B0 = new D2UiControlCStrc(0x163, 0x11F, 1, UI_CancelGoldDialog);
-    sub_004B7C00_AddControl(gpGlobal_007A27A0, gpGoldControlD_007A27B0, 0, 0);
+    gpGoldControlC = new D2UiControlCStrc(0xFA, 0x11F, 0, UI_ConfirmGoldDialog);
+    sub_004B7C00_AddControl(gpGoldPanel, gpGoldControlC, 0, 0);
+    gpGoldControlC->SetActive(1);
+    gpGoldControlD = new D2UiControlCStrc(0x163, 0x11F, 1, UI_CancelGoldDialog);
+    sub_004B7C00_AddControl(gpGoldPanel, gpGoldControlD, 0, 0);
 
     if (nMode == 2)
     {
@@ -2076,9 +2081,9 @@ void __fastcall UI_OpenGoldPanel(int nMode)
     }
     if (nMode == 3 || nMode == 7 || nMode == 6)
     {
-        if (gpGoldControlB_007A27A8)
+        if (gpGoldControlB)
         {
-            gpGoldControlB_007A27A8->SetValue(nGold);
+            gpGoldControlB->SetValue(nGold);
         }
     }
 }
@@ -2086,12 +2091,12 @@ void __fastcall UI_OpenGoldPanel(int nMode)
 // 0x00454570
 void __cdecl UI_ClearGoldPanel()
 {
-    gpGlobal_007A27A0 = 0;
-    gpGoldControlA_007A27A4 = 0;
-    gpGoldControlB_007A27A8 = 0;
-    gpGoldControlD_007A27B0 = 0;
-    gpGoldControlC_007A27AC = 0;
-    gbGoldPanelFlag_007A27B4 = 0;
+    gpGoldPanel = 0;
+    gpGoldControlA = 0;
+    gpGoldControlB = 0;
+    gpGoldControlD = 0;
+    gpGoldControlC = 0;
+    gbGoldPanelFlag = 0;
 }
 
 // 0x004545A0
@@ -2103,8 +2108,8 @@ void __cdecl UI_CloseGoldPanel()
 // 0x004545B0
 void __cdecl UI_DrawGoldPanel()
 {
-    if (gpGlobal_007A27A0)
-        sub_004B8100(gpGlobal_007A27A0);
+    if (gpGoldPanel)
+        sub_004B8100(gpGoldPanel);
 }
 
 // 0x004545C0
@@ -2112,16 +2117,16 @@ void __fastcall UI_TogglePanelHandlers(int bRegister)
 {
     if (bRegister)
     {
-        if (gnPanelState_007A27E8)
+        if (gnPanelState)
         {
-            COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6084, 5);
+            COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaAutomapHandlers, 5);
         }
     }
     else
     {
-        if (gnPanelState_007A27E8)
+        if (gnPanelState)
         {
-            sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6084, 5);
+            sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaAutomapHandlers, 5);
         }
     }
 }
@@ -2150,24 +2155,24 @@ void* __fastcall UI_ReadWholeFile(const char* szName, unsigned long* pSize)
 // 0x00454790
 void __fastcall UI_SetLoadingAct(int nValue)
 {
-    gdwGlobal_007A288C = nValue;
+    gnLoadingAct = nValue;
 }
 
 // 0x004547A0
 int __cdecl UI_GetLoadingAct()
 {
-    return gdwGlobal_007A288C;
+    return gnLoadingAct;
 }
 
 // 0x004547B0
 void __fastcall UI_FreeLoadingScreen()
 {
-    if (gpLoadingScreen_007A2888)
+    if (gpLoadingScreen)
     {
-        ARCHIVE_FreeClientCellFile(gpLoadingScreen_007A2888);
-        gpLoadingScreen_007A2888 = 0;
-        sub_004FB480_SetActA(gdwGlobal_007A288C);
-        sub_00600C00_SetActB(gdwGlobal_007A288C);
+        ARCHIVE_FreeClientCellFile(gpLoadingScreen);
+        gpLoadingScreen = 0;
+        sub_004FB480_SetActA(gnLoadingAct);
+        sub_00600C00_SetActB(gnLoadingAct);
         AUTOMAP_InitAutomapColors();
         CUNIT_InitColorTable();
         sub_00499E10();
@@ -2181,23 +2186,23 @@ void __fastcall UI_FreeLoadingScreen()
         GAME_ExtendDelay(0x7D0);
     }
     gdwGlobal_007A2884 = 0;
-    gpLoadingScreen_007A2888 = 0;
-    gdwGlobal_007A2868 = 0;
+    gpLoadingScreen = 0;
+    gbLoadingScreenActive = 0;
 }
 
 // 0x00454840
 int __cdecl UI_IsLoadingScreenActive()
 {
-    return gdwGlobal_007A2868;
+    return gbLoadingScreenActive;
 }
 
 // 0x00454850
 int __cdecl UI_TickElapsed()
 {
     const unsigned long dwTick = GetTickCount();
-    if (dwTick - gdwLastTick_007A313C > 0x32)
+    if (dwTick - gdwUILastTick > 0x32)
     {
-        gdwLastTick_007A313C = dwTick;
+        gdwUILastTick = dwTick;
         return 1;
     }
     return 0;
@@ -2207,23 +2212,23 @@ int __cdecl UI_TickElapsed()
 int __fastcall UI_GetHoverRect(D2RectStrc* pRect)
 {
     pRect->nLeft = 0;
-    pRect->nRight = gnGlobal_0071146C;
+    pRect->nRight = gnScreenWidth;
     pRect->nTop = 0;
-    pRect->nBottom = gnGlobal_0071146C;
-    if (gaUIVarStates_007A27C0[0x17] || gaUIVarStates_007A27C0[0x19] || gaUIVarStates_007A27C0[0x1A]
-        || gaUIVarStates_007A27C0[0x0C] || gaUIVarStates_007A27C0[0x1C] || gaUIVarStates_007A27C0[0x1B])
+    pRect->nBottom = gnScreenWidth;
+    if (gaUIVarStates[0x17] || gaUIVarStates[0x19] || gaUIVarStates[0x1A]
+        || gaUIVarStates[0x0C] || gaUIVarStates[0x1C] || gaUIVarStates[0x1B])
     {
         return 0;
     }
-    if (gaUIVarStates_007A27C0[0x1D] || gaUIVarStates_007A27C0[0x16] || gaUIVarStates_007A27C0[0x02]
-        || gaUIVarStates_007A27C0[0x0F] || gaUIVarStates_007A27C0[0x24] || gaUIVarStates_007A27C0[0x25]
-        || gaUIVarStates_007A27C0[0x14])
+    if (gaUIVarStates[0x1D] || gaUIVarStates[0x16] || gaUIVarStates[0x02]
+        || gaUIVarStates[0x0F] || gaUIVarStates[0x24] || gaUIVarStates[0x25]
+        || gaUIVarStates[0x14])
     {
-        pRect->nLeft = gnGlobal_0071146C / 2;
+        pRect->nLeft = gnScreenWidth / 2;
     }
-    if (gaUIVarStates_007A27C0[0x01] || gaUIVarStates_007A27C0[0x04])
+    if (gaUIVarStates[0x01] || gaUIVarStates[0x04])
     {
-        pRect->nRight = gnGlobal_0071146C / 2;
+        pRect->nRight = gnScreenWidth / 2;
     }
     return pRect->nLeft != pRect->nRight;
 }
@@ -2231,8 +2236,8 @@ int __fastcall UI_GetHoverRect(D2RectStrc* pRect)
 // 0x00454980
 void __cdecl UI_RegisterKeyConfigHandlers()
 {
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D60C0, 13);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6024, 1);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyConfigHandlers, 13);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyConfigWheelHandlers, 1);
 }
 
 // 0x004549B0
@@ -2245,7 +2250,7 @@ void __cdecl UI_ToggleListDialog()
 // 0x004549C0
 int __cdecl UI_IsGoldPanelOpen()
 {
-    return gpGlobal_007A27A0 != 0;
+    return gpGoldPanel != 0;
 }
 
 // 0x004549D0
@@ -2272,19 +2277,19 @@ static __forceinline int SetHoverPositionFromUnit(D2UnitStrc* pUnit)
         switch (sub_0045AE90())
         {
         case 1:
-            nX -= gnGlobal_0071146C / 4;
+            nX -= gnScreenWidth / 4;
             break;
         case 2:
-            nX += gnGlobal_0071146C / 4;
+            nX += gnScreenWidth / 4;
             break;
         }
-        gnHoverX_0070F854 = nX;
-        gnHoverY_0070F858 = nY + 0x10;
+        gnHoverX = nX;
+        gnHoverY = nY + 0x10;
     }
     else
     {
-        gnHoverX_0070F854 = UNITS_GetClientCoordX(pUnit) - PLAYER_GetScreenOffsetX();
-        gnHoverY_0070F858 = UNITS_GetClientCoordY(pUnit) - PLAYER_GetScreenOffsetY();
+        gnHoverX = UNITS_GetClientCoordX(pUnit) - PLAYER_GetScreenOffsetX();
+        gnHoverY = UNITS_GetClientCoordY(pUnit) - PLAYER_GetScreenOffsetY();
     }
     return 1;
 }
@@ -2319,11 +2324,11 @@ void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit)
         int nPercent;
         int bFlag;
         UI_GetPlayerHoverName(pUnit, wszName, 0x80, &nPercent, &bFlag);
-        D2Win_10130_DrawFramedTextEx(wszName, gnHoverX_0070F854, gnHoverY_0070F858 - 0x48, bFlag, 1, nPercent);
+        D2Win_10130_DrawFramedTextEx(wszName, gnHoverX, gnHoverY - 0x48, bFlag, 1, nPercent);
         return;
     }
     case UNIT_ITEM:
-        if (gaUIVarStates_007A27C0[13])
+        if (gaUIVarStates[13])
         {
             return;
         }
@@ -2347,7 +2352,7 @@ void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit)
                         {
                             return;
                         }
-                        D2Win_10130_DrawFramedTextEx(wszName, gnHoverX_0070F854, gnHoverY_0070F858 - 0x48, bFlag, 1, nPercent);
+                        D2Win_10130_DrawFramedTextEx(wszName, gnHoverX, gnHoverY - 0x48, bFlag, 1, nPercent);
                         return;
                     }
                 }
@@ -2365,9 +2370,9 @@ void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit)
                 UI_ShowUnitHoverName(pUnit, 0);
             }
         }
-        gwszText_007A2D30[0] = 0;
-        gwszText_007A2A78[0] = 0;
-        gwszHoverName_007A2F38[0].wChar = 0;
+        gwszHoverLine[0] = 0;
+        gwszHoverText[0] = 0;
+        gwszHoverName[0].wChar = 0;
         return;
     }
     case UNIT_OBJECT:
@@ -2409,7 +2414,7 @@ void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit)
                     sub_00526700(wszText, wszOwner);
                 }
             }
-            D2Win_10129_DrawFramedText(wszText, gnHoverX_0070F854, gnHoverY_0070F858 + nOffset, 0, 1);
+            D2Win_10129_DrawFramedText(wszText, gnHoverX, gnHoverY + nOffset, 0, 1);
             return;
         }
         if (nFlags & 0x80)
@@ -2429,10 +2434,10 @@ void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit)
             sub_00526700(wszLine, D2LANG_GetStringFromTblIndex(0xF9B));
             sub_00526700(wszLine, D2LANG_GetStringFromTblIndex(0xF9E));
             sub_00526700(wszLine, D2LANG_GetStringByReferenceString(pLevelsTxt->szLevelName));
-            D2Win_10129_DrawFramedText(wszLine, gnHoverX_0070F854, gnHoverY_0070F858 + nOffset, 0, 1);
+            D2Win_10129_DrawFramedText(wszLine, gnHoverX, gnHoverY + nOffset, 0, 1);
             return;
         }
-        D2Win_10129_DrawFramedText(pName, gnHoverX_0070F854, gnHoverY_0070F858 + nOffset, 0, 1);
+        D2Win_10129_DrawFramedText(pName, gnHoverX, gnHoverY + nOffset, 0, 1);
         return;
     }
     case UNIT_TILE:
@@ -2450,8 +2455,8 @@ void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit)
         {
             return;
         }
-        const int nX = (pRect->nWidth >> 1) + pRect->nX + gnHoverX_0070F854;
-        const int nY = (pRect->nHeight >> 1) + pRect->nY + gnHoverY_0070F858;
+        const int nX = (pRect->nWidth >> 1) + pRect->nX + gnHoverX;
+        const int nY = (pRect->nHeight >> 1) + pRect->nY + gnHoverY;
         Unicode wszText[0xC8] = { 0 };
         const Unicode* pText = (const Unicode*)pLevelsTxt->wszLevelWarp;
         if (nLevelId == LEVEL_DENOFEVIL)
@@ -2478,43 +2483,43 @@ void __fastcall UI_SetPanelHandlers(int nPanel)
     switch (nPanel)
     {
     case 0xA:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6084, 0x5);
-        gnPanelFlag_007A2864 = 0x1;
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaAutomapHandlers, 0x5);
+        gnPanelFlag = 0x1;
         return;
     case 0x0:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D5F28, 0x4);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaGameUIHandlers, 0x4);
         return;
     case 0x3:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D5FC4, 0x1);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMiniSkillHandlers, 0x1);
         return;
     case 0x4:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D5FAC, 0x2);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaSkillTreeHandlers, 0x2);
         return;
     case 0x2:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D5FD0, 0x2);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaStatScreenHandlers, 0x2);
         return;
     case 0x1:
         sub_00487B30();
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D5F58, 0x4);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaInventoryHandlers, 0x4);
         return;
     case 0x5:
         CHAT_InitChatIme();
         sub_0046AA20(0, 0x1);
-        if (gnPanelState_007A27E8)
-            sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6084, 0x5);
+        if (gnPanelState)
+            sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaAutomapHandlers, 0x5);
         sub_0047B4D0_Nop();
         return;
     case 0x6:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D5FE8, 0x2);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaNewStatsHandlers, 0x2);
         return;
     case 0x13:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6000, 0x1);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaPetIconHandlers, 0x1);
         return;
     case 0x7:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D600C, 0x2);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaNewSkillsHandlers, 0x2);
         return;
     case 0x9:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6030, 0x7);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaEscMenuHandlers, 0x7);
         sub_00467A70_RefreshHoverUnit(0);
         return;
     case 0xB:
@@ -2524,69 +2529,69 @@ void __fastcall UI_SetPanelHandlers(int nPanel)
     case 0xC:
         sub_0046AA20(0x2, 0x1);
         TEXT_ResetNpcPanel();
-        UI_SetPanelHotkeys(&gtPanelHotkeys_006D5F88);
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_0070F878, 0x8);
+        UI_SetPanelHotkeys(&gtNpcShopHotkeys);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaNpcShopHandlers, 0x8);
         return;
     case 0xF:
-        UI_SetPanelHotkeys(&gtPanelHotkeys_006D618C);
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_0070F8D8, 0x7);
+        UI_SetPanelHotkeys(&gtQuestScreenHotkeys);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaQuestScreenHandlers, 0x7);
         return;
     case 0x11:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D615C, 0x4);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaQuestLogHandlers, 0x4);
         return;
     case 0x10:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D61B0, 0x2);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaIniScrollHandlers, 0x2);
         return;
     case 0x14:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D61C8, 0x5);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaWaypointHandlers, 0x5);
         return;
     case 0x15:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6204, 0x2);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMiniPanelHandlers, 0x2);
         return;
     case 0x16:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D621C, 0x2);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaPartyScreenHandlers, 0x2);
         PARTY_RebuildRosterUnits();
         return;
     case 0x17:
         sub_0046AA20(0, 0x1);
         sub_004B8920();
         sub_0048A680();
-        UI_SetPanelHotkeys(&gtPanelHotkeys_006D6234);
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_0070F930, 0xD);
+        UI_SetPanelHotkeys(&gtMpTradeHotkeys);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMpTradeHandlers, 0xD);
         return;
     case 0x19:
         sub_0046AA20(0x2, 0x1);
         INV_LoadStashPanelCels();
-        UI_SetPanelHotkeys(&gtPanelHotkeys_006D6258);
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_0070F9D0, 0x8);
+        UI_SetPanelHotkeys(&gtStashHotkeys);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaStashHandlers, 0x8);
         return;
     case 0x1A:
         sub_0046AA20(0x2, 0x1);
         INV_LoadCubePanelCel();
-        UI_SetPanelHotkeys(&gtPanelHotkeys_006D627C);
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_0070FA30, 0x7);
+        UI_SetPanelHotkeys(&gtCubeHotkeys);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaCubeHandlers, 0x7);
         return;
     case 0x18:
         TEXT_OpenMessageLogDialog();
         return;
     case 0x1F:
-        UI_SetPanelHotkeys(&gtPanelHotkeys_006D62A0);
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_0070FA84, 0x2);
+        UI_SetPanelHotkeys(&gtBeltRowsHotkeys);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaBeltRowsHandlers, 0x2);
         return;
     case 0x21:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D62C4, 0x5);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaHelpScreenHandlers, 0x5);
         return;
     case 0x22:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6300, 0x2);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaHelpButtonHandlers, 0x2);
         return;
     case 0x23:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6318, 0x3);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaHireIconHandlers, 0x3);
         return;
     case 0x24:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D633C, 0x3);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMercInvHandlers, 0x3);
         return;
     case 0x25:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6360, 0x2);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaRecipeScrollHandlers, 0x2);
         return;
     }
 }
@@ -2597,49 +2602,49 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
     switch (nPanel)
     {
     case 0xA:
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6084, 0x5);
-        gnPanelFlag_007A2864 = 0x0;
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaAutomapHandlers, 0x5);
+        gnPanelFlag = 0x0;
         return;
     case 0x0:
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D5F28, 0x4);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaGameUIHandlers, 0x4);
         return;
     case 0x3:
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D5FC4, 0x1);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMiniSkillHandlers, 0x1);
         return;
     case 0x4:
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D5FAC, 0x2);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaSkillTreeHandlers, 0x2);
         UI_StartUIVarDelay();
         sub_004ABF10_ClearSkillStates();
         return;
     case 0x2:
         UI_CloseGoldDialog();
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D5FD0, 0x2);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaStatScreenHandlers, 0x2);
     case 0x12:
         UI_StartUIVarDelay();
         return;
     case 0x1:
         UI_CloseGoldDialog();
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D5F58, 0x4);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaInventoryHandlers, 0x4);
         UI_StartUIVarDelay();
         return;
     case 0x5:
         CHAT_CloseChatInput();
         sub_0047B4E0();
-        if (!gaUIVarStates_007A27C0[0xC] && !gaUIVarStates_007A27C0[0x17] && !gaUIVarStates_007A27C0[0x19]
-            && !gaUIVarStates_007A27C0[0x1A] && !gaUIVarStates_007A27C0[0x1B] && !gaUIVarStates_007A27C0[0x1C]
-            && !gaUIVarStates_007A27C0[0x1D] && !gaUIVarStates_007A27C0[0x1E] && !gaUIVarStates_007A27C0[0x20])
+        if (!gaUIVarStates[0xC] && !gaUIVarStates[0x17] && !gaUIVarStates[0x19]
+            && !gaUIVarStates[0x1A] && !gaUIVarStates[0x1B] && !gaUIVarStates[0x1C]
+            && !gaUIVarStates[0x1D] && !gaUIVarStates[0x1E] && !gaUIVarStates[0x20])
             sub_0046AA20(0x1, 0x1);
-        if (gaUIVarStates_007A27C0[0xA])
-            COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6084, 0x5);
+        if (gaUIVarStates[0xA])
+            COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaAutomapHandlers, 0x5);
         return;
     case 0x6:
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D5FE8, 0x2);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaNewStatsHandlers, 0x2);
         return;
     case 0x13:
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6000, 0x1);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaPetIconHandlers, 0x1);
         return;
     case 0x7:
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D600C, 0x2);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaNewSkillsHandlers, 0x2);
         return;
     case 0x8:
     case 0xE:
@@ -2647,43 +2652,43 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
         NPCMENU_CloseByState();
         return;
     case 0x9:
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6030, 0x7);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaEscMenuHandlers, 0x7);
         sub_00466FE0();
         return;
     case 0xB:
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6024, 0x1);
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D60C0, 0xD);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyConfigWheelHandlers, 0x1);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyConfigHandlers, 0xD);
         TEXT_ToggleKeyConfigPanel(0);
         return;
     case 0xC:
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_0070F878, 0x8);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaNpcShopHandlers, 0x8);
         NPCMENU_CloseByState();
         sub_0046AA20(0x1, 0x1);
         return;
     case 0xF:
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_0070F8D8, 0x7);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaQuestScreenHandlers, 0x7);
         TEXT_ResetQuestButton();
         UI_StartUIVarDelay();
         return;
     case 0x11:
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D615C, 0x4);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaQuestLogHandlers, 0x4);
         TEXT_ResetQuestButtonState();
         return;
     case 0x10:
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D61B0, 0x2);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaIniScrollHandlers, 0x2);
         sub_0049FF00();
         UI_StartUIVarDelay();
         return;
     case 0x14:
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D61C8, 0x5);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaWaypointHandlers, 0x5);
         sub_0049CF50_SendWaypointClose();
         UI_StartUIVarDelay();
         return;
     case 0x15:
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6204, 0x2);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMiniPanelHandlers, 0x2);
         return;
     case 0x16:
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D621C, 0x2);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaPartyScreenHandlers, 0x2);
         PARTY_FreeRosterUnits();
         UI_StartUIVarDelay();
         return;
@@ -2692,7 +2697,7 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
             return;
         PLAYER_SetPanelSlide(0);
         UI_CloseGoldDialog();
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_0070F930, 0xD);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMpTradeHandlers, 0xD);
         UI_StartUIVarDelay();
         sub_004B8940_CloseWait(0);
         sub_0046AA20(0x1, 0x1);
@@ -2701,14 +2706,14 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
         UI_CloseGoldDialog();
         PLAYER_SetPanelSlide(0);
         sub_00489EE0();
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_0070F9D0, 0x8);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaStashHandlers, 0x8);
         UI_StartUIVarDelay();
         sub_0046AA20(0x1, 0x1);
         return;
     case 0x1A:
         PLAYER_SetPanelSlide(0);
         sub_0048A500();
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_0070FA30, 0x7);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaCubeHandlers, 0x7);
         UI_StartUIVarDelay();
         sub_0046AA20(0x1, 0x1);
         return;
@@ -2716,24 +2721,24 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
         TEXT_CloseMessageLogDialog();
         return;
     case 0x1F:
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_0070FA84, 0x2);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaBeltRowsHandlers, 0x2);
         return;
     case 0x21:
         sub_00494FC0();
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D62C4, 0x5);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaHelpScreenHandlers, 0x5);
         return;
     case 0x22:
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6300, 0x2);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaHelpButtonHandlers, 0x2);
         return;
     case 0x23:
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6318, 0x3);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaHireIconHandlers, 0x3);
         return;
     case 0x24:
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D633C, 0x3);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMercInvHandlers, 0x3);
         INV_ResetHover();
         return;
     case 0x25:
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6360, 0x2);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaRecipeScrollHandlers, 0x2);
         return;
     }
 }
@@ -2743,7 +2748,7 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
 {
     D2_ASSERT(nUIVar < 0x26, 0x13FB);
     D2_ASSERT(nState <= 2, 0x13FC);
-    const int nOldState = gaUIVarStates_007A27C0[nUIVar];
+    const int nOldState = gaUIVarStates[nUIVar];
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     if (!FOG_IsExpansion() || !GAME_IsExpansion())
     {
@@ -2762,32 +2767,32 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
     case 0:
         if (!pPlayer || (pPlayer->dwUnitType == UNIT_PLAYER && !CUNIT_IsDeadOrDying(pPlayer)))
         {
-            gaUIVarStates_007A27C0[nUIVar] = 1;
+            gaUIVarStates[nUIVar] = 1;
         }
         break;
     case 1:
-        gaUIVarStates_007A27C0[nUIVar] = 0;
+        gaUIVarStates[nUIVar] = 0;
         break;
     case 2:
         if (pPlayer)
         {
             if (pPlayer->dwUnitType == UNIT_PLAYER && !CUNIT_IsDeadOrDying(pPlayer))
             {
-                gaUIVarStates_007A27C0[nUIVar] = !gaUIVarStates_007A27C0[nUIVar];
+                gaUIVarStates[nUIVar] = !gaUIVarStates[nUIVar];
             }
             else if (nUIVar == 0x05)
             {
-                gaUIVarStates_007A27C0[0x05] = !gaUIVarStates_007A27C0[0x05];
+                gaUIVarStates[0x05] = !gaUIVarStates[0x05];
             }
         }
         else
         {
-            gaUIVarStates_007A27C0[nUIVar] = !gaUIVarStates_007A27C0[nUIVar];
+            gaUIVarStates[nUIVar] = !gaUIVarStates[nUIVar];
         }
         break;
     }
 
-    const int nNewState = gaUIVarStates_007A27C0[nUIVar];
+    const int nNewState = gaUIVarStates[nUIVar];
     if (!nOldState)
     {
         if (nNewState)
@@ -2844,23 +2849,23 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
         INV_ResetHover();
 
     case 4:
-        if (!gaUIVarStates_007A27C0[2] && !gaUIVarStates_007A27C0[0x14] && !gaUIVarStates_007A27C0[0xF] && !gaUIVarStates_007A27C0[0x10]
-            && !gaUIVarStates_007A27C0[0x24] && !gaUIVarStates_007A27C0[0x25] && !gaUIVarStates_007A27C0[0x16])
+        if (!gaUIVarStates[2] && !gaUIVarStates[0x14] && !gaUIVarStates[0xF] && !gaUIVarStates[0x10]
+            && !gaUIVarStates[0x24] && !gaUIVarStates[0x25] && !gaUIVarStates[0x16])
         {
             if (nNewState)
             {
                 PLAYER_SetPanelSlide(1);
-                if (nArg && nA > gnGlobal_0071146C / 4)
+                if (nArg && nA > gnScreenWidth / 4)
                 {
-                    UI_SetCursorPosition(nA - gnGlobal_0071146C / 4, nB);
+                    UI_SetCursorPosition(nA - gnScreenWidth / 4, nB);
                 }
             }
             else
             {
                 PLAYER_SetPanelSlide(0);
-                if (nArg && nA < gnGlobal_0071146C / 2)
+                if (nArg && nA < gnScreenWidth / 2)
                 {
-                    UI_SetCursorPosition(gnGlobal_0071146C / 4 + nA, nB);
+                    UI_SetCursorPosition(gnScreenWidth / 4 + nA, nB);
                 }
             }
         }
@@ -2880,22 +2885,22 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
     case 22:
     case 36:
     case 37:
-        if (!gaUIVarStates_007A27C0[1] && !gaUIVarStates_007A27C0[4])
+        if (!gaUIVarStates[1] && !gaUIVarStates[4])
         {
             if (nNewState)
             {
                 PLAYER_SetPanelSlide(2);
-                if (nArg && nA < gnGlobal_0071146C - gnGlobal_0071146C / 4)
+                if (nArg && nA < gnScreenWidth - gnScreenWidth / 4)
                 {
-                    UI_SetCursorPosition(gnGlobal_0071146C / 4 + nA, nB);
+                    UI_SetCursorPosition(gnScreenWidth / 4 + nA, nB);
                 }
             }
             else
             {
                 PLAYER_SetPanelSlide(0);
-                if (nArg && nA > gnGlobal_0071146C / 2)
+                if (nArg && nA > gnScreenWidth / 2)
                 {
-                    UI_SetCursorPosition(nA - gnGlobal_0071146C / 4, nB);
+                    UI_SetCursorPosition(nA - gnScreenWidth / 4, nB);
                 }
             }
         }
@@ -2918,7 +2923,7 @@ int __fastcall UI_CloseUIVars(int bArg1, int nArg2)
     int bResult = 0;
     for (int i = 0; i < 0x26; i++)
     {
-        if (gaUIVarStates_007A27C0[i] == 1 && (gaUIVarDefaults_006D6378[i] == 1 || (bArg1 && i == 0x0A)))
+        if (gaUIVarStates[i] == 1 && (gaUIVarDefaults[i] == 1 || (bArg1 && i == 0x0A)))
         {
             sub_00455F20(i, 1, nArg2);
             bResult = 1;
@@ -2946,7 +2951,7 @@ void __fastcall UI_DrawLoadingScreen(int bAdvanceFrame)
     {
         if (bAdvanceFrame)
         {
-            ++gnLoadingFrame_007A2A6C;
+            ++gnLoadingFrame;
         }
         return;
     }
@@ -2956,56 +2961,56 @@ void __fastcall UI_DrawLoadingScreen(int bAdvanceFrame)
     {
         if (bAdvanceFrame)
         {
-            ++gnLoadingFrame_007A2A6C;
+            ++gnLoadingFrame;
         }
         return;
     }
 
-    if (!gpLoadingScreen_007A2888)
+    if (!gpLoadingScreen)
     {
         GAME_LoadLoadingScreen();
-        D2_ASSERT(gpLoadingScreen_007A2888, 6594);
+        D2_ASSERT(gpLoadingScreen, 6594);
     }
 
     if (nLoadState == 6 || nLoadState == 8 || nLoadState == 7 || nLoadState == 9)
     {
-        if (!gnLoadingBarColor_007A2A70)
+        if (!gnLoadingBarColor)
         {
-            gnLoadingBarColor_007A2A70 = D2Win_10034_MixRGB(0x60, 0, 0);
-            gnLoadingBoxColor_007A2A71 = D2Win_10034_MixRGB(0xFF, 0xFF, 0);
+            gnLoadingBarColor = D2Win_10034_MixRGB(0x60, 0, 0);
+            gnLoadingBoxColor = D2Win_10034_MixRGB(0xFF, 0xFF, 0);
         }
 
-        if (!gnValue_007A27B8)
+        if (!gbLoadingAfterUnload)
         {
-            D2GFX_DrawBox(gnGlobal_0071146C / 2 - 0x82, gnGlobal_00711470 / 2 + 0x9E, gnGlobal_0071146C / 2 + 0x82, gnGlobal_00711470 / 2 + 0xB2, gnLoadingBoxColor_007A2A71, 1);
-            D2GFX_DrawBox(gnGlobal_0071146C / 2 - 0x80, gnGlobal_00711470 / 2 + 0xA0, gnGlobal_0071146C / 2 + 0x80, gnGlobal_00711470 / 2 + 0xB0, 0, 5);
+            D2GFX_DrawBox(gnScreenWidth / 2 - 0x82, gnScreenHeight / 2 + 0x9E, gnScreenWidth / 2 + 0x82, gnScreenHeight / 2 + 0xB2, gnLoadingBoxColor, 1);
+            D2GFX_DrawBox(gnScreenWidth / 2 - 0x80, gnScreenHeight / 2 + 0xA0, gnScreenWidth / 2 + 0x80, gnScreenHeight / 2 + 0xB0, 0, 5);
 
             const int nWidth = sub_00478150();
             if (nWidth)
             {
-                sub_0046EFD0_DrawFramedBox(gnGlobal_0071146C / 2 - 0x80, gnGlobal_00711470 / 2 + 0xA0, nWidth, 0x10, gnLoadingBarColor_007A2A70, 5);
+                sub_0046EFD0_DrawFramedBox(gnScreenWidth / 2 - 0x80, gnScreenHeight / 2 + 0xA0, nWidth, 0x10, gnLoadingBarColor, 5);
             }
         }
     }
 
-    const int nFrames = CelFileGetCelsPerDirection(gpLoadingScreen_007A2888);
-    if (gnLoadingFrame_007A2A6C >= nFrames)
+    const int nFrames = CelFileGetCelsPerDirection(gpLoadingScreen);
+    if (gnLoadingFrame >= nFrames)
     {
-        gnLoadingFrame_007A2A6C = nFrames - 1;
+        gnLoadingFrame = nFrames - 1;
     }
 
     D2CelContextStrc tContext;
-    tContext.pCellFile = gpLoadingScreen_007A2888;
-    tContext.nFrame = gnLoadingFrame_007A2A6C;
+    tContext.pCellFile = gpLoadingScreen;
+    tContext.nFrame = gnLoadingFrame;
     tContext.nDirection = 0;
-    sub_004F6480(&tContext, gnGlobal_0071146C / 2 - 0x80, gnGlobal_00711470 / 2 + 0x80, -1, 5, 0);
+    sub_004F6480(&tContext, gnScreenWidth / 2 - 0x80, gnScreenHeight / 2 + 0x80, -1, 5, 0);
     D2GFX_EndScene();
     GAME_ResetMouseState();
     sub_0044DA70();
 
     if (bAdvanceFrame)
     {
-        ++gnLoadingFrame_007A2A6C;
+        ++gnLoadingFrame;
     }
 }
 
@@ -3015,20 +3020,20 @@ void __cdecl UI_ToggleMiniPanel()
     unsigned long dwValue;
     if (SRegLoadValue("Diablo II", "Mini Panel", 1, &dwValue) && dwValue)
         return;
-    const int bWasOn = gbMiniPanel_007A2814;
+    const int bWasOn = gbMiniPanel;
     if (FOG_IsExpansion())
         GAME_IsExpansion();
-    D2_ASSERT(gnUIVarCount_0070F9CC == 0x26, 0x1397);
-    if (!gbMiniPanel_007A2814)
+    D2_ASSERT(gnUIVarCount == 0x26, 0x1397);
+    if (!gbMiniPanel)
     {
         if (TEXT_IsTextBoxOpen())
             return;
-        for (int i = 0; i < gnUIVarCount_0070F9CC; ++i)
+        for (int i = 0; i < gnUIVarCount; ++i)
         {
-            if (gaUIVarStates_007A27C0[i] == 1)
+            if (gaUIVarStates[i] == 1)
             {
                 bool bClose = true;
-                switch (gpUIVarRecords_00711130[i]->anCloseKind[0x15])
+                switch (gapUIVarRecords[i]->anCloseKind[0x15])
                 {
                 case 0:
                     break;
@@ -3056,16 +3061,16 @@ void __cdecl UI_ToggleMiniPanel()
     }
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer || (pPlayer->dwUnitType == UNIT_PLAYER && !CUNIT_IsDeadOrDying(pPlayer)))
-        gbMiniPanel_007A2814 = gbMiniPanel_007A2814 == 0;
+        gbMiniPanel = gbMiniPanel == 0;
     if (!bWasOn)
     {
-        if (gbMiniPanel_007A2814)
-            COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6204, 2);
+        if (gbMiniPanel)
+            COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMiniPanelHandlers, 2);
     }
     else
     {
-        if (!gbMiniPanel_007A2814)
-            sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6204, 2);
+        if (!gbMiniPanel)
+            sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMiniPanelHandlers, 2);
     }
     sub_00468730();
     sub_00468740();
@@ -3074,17 +3079,17 @@ void __cdecl UI_ToggleMiniPanel()
 // 0x00456D80
 void __cdecl UI_ShutdownUI()
 {
-    const int nPrevState = gaUIVarStates_007A27C0[0];
+    const int nPrevState = gaUIVarStates[0];
     if (FOG_IsExpansion())
     {
         GAME_IsExpansion();
     }
-    D2_ASSERT(gnUIVarCount_0070F9CC == 0x26, 0x1397);
+    D2_ASSERT(gnUIVarCount == 0x26, 0x1397);
     sub_00463DD0_GetPlayerUnit();
-    gaUIVarStates_007A27C0[0] = 0;
+    gaUIVarStates[0] = 0;
     if (nPrevState)
     {
-        AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D5F28, 4);
+        AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaGameUIHandlers, 4);
     }
     sub_00468730();
     sub_00468740();
@@ -3111,30 +3116,30 @@ void __cdecl UI_ShutdownUI()
     sub_004892F0();
     DIALOG_FreeDialogs();
     sub_004BE060();
-    if (gpPentspinCel_007A2878)
+    if (gpPentspinCel)
     {
-        ARCHIVE_FreeClientCellFile(gpPentspinCel_007A2878);
-        gpPentspinCel_007A2878 = 0;
+        ARCHIVE_FreeClientCellFile(gpPentspinCel);
+        gpPentspinCel = 0;
     }
-    if (gpFocus16Cel_007A2880)
+    if (gpFocus16Cel)
     {
-        ARCHIVE_FreeClientCellFile(gpFocus16Cel_007A2880);
-        gpFocus16Cel_007A2880 = 0;
+        ARCHIVE_FreeClientCellFile(gpFocus16Cel);
+        gpFocus16Cel = 0;
     }
-    if (gpBoxPiecesCel_007A2798)
+    if (gpBoxPiecesCel)
     {
-        ARCHIVE_FreeClientCellFile(gpBoxPiecesCel_007A2798);
-        gpBoxPiecesCel_007A2798 = 0;
+        ARCHIVE_FreeClientCellFile(gpBoxPiecesCel);
+        gpBoxPiecesCel = 0;
     }
-    if (gpBuySellButton_007A287C)
+    if (gpBuySellButton)
     {
-        ARCHIVE_FreeClientCellFile(gpBuySellButton_007A287C);
-        gpBuySellButton_007A287C = 0;
+        ARCHIVE_FreeClientCellFile(gpBuySellButton);
+        gpBuySellButton = 0;
     }
-    if (gpLoadingCell_007A2794)
+    if (gpLoadingCell)
     {
-        ARCHIVE_FreeClientCellFile(gpLoadingCell_007A2794);
-        gpLoadingCell_007A2794 = 0;
+        ARCHIVE_FreeClientCellFile(gpLoadingCell);
+        gpLoadingCell = 0;
     }
     CMDTBL_DisableHotkeyHandlers();
     sub_0047DFD0_FreeOptionMenus();
@@ -3144,111 +3149,111 @@ void __cdecl UI_ShutdownUI()
 // 0x00456EE0
 void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
 {
-    if (gaUIVarStates_007A27C0[18])
+    if (gaUIVarStates[18])
         return;
     if (D2GFX_GetResolutionMode() == 2)
     {
-        gnGlobal_007A2858 = 0x50;
-        gnGlobal_007A285C = -0x3C;
+        gnPanelOffsetX = 0x50;
+        gnPanelOffsetY = -0x3C;
     }
     else
     {
-        gnGlobal_007A2858 = 0;
-        gnGlobal_007A285C = 0;
+        gnPanelOffsetX = 0;
+        gnPanelOffsetY = 0;
     }
     sub_00502280_SetPopUpText(0, 0, 0, 0, 0);
-    gwszText_007A2D30[0] = 0;
-    gwszText_007A2A78[0] = 0;
-    if (gaUIVarStates_007A27C0[9])
+    gwszHoverLine[0] = 0;
+    gwszHoverText[0] = 0;
+    if (gaUIVarStates[9])
         sub_0047E3D0_DrawOptions();
-    if (gaUIVarStates_007A27C0[11])
+    if (gaUIVarStates[11])
         TEXT_DrawKeyConfigPanel();
     UI_DrawUnitHover(sub_00467A10());
-    if (gaUIVarStates_007A27C0[35])
+    if (gaUIVarStates[35])
         UI_DrawPetHover();
-    if (!gaUIVarStates_007A27C0[1] && !gaUIVarStates_007A27C0[12] && !gaUIVarStates_007A27C0[14])
+    if (!gaUIVarStates[1] && !gaUIVarStates[12] && !gaUIVarStates[14])
     {
         PANEL_DrawDurabilityIcons();
         PANEL_DrawQuantityWarningIcons();
     }
-    if (gaUIVarStates_007A27C0[10] && sub_0045AE90() != 3)
+    if (gaUIVarStates[10] && sub_0045AE90() != 3)
         PLAYER_DrawAutomap();
     GAME_DrawLevelLoadingScreen();
     HIREABLES_UpdateHirelingPanel();
-    if (gaUIVarStates_007A27C0[19])
+    if (gaUIVarStates[19])
         sub_00494020_DrawPetIcons();
-    if (gaUIVarStates_007A27C0[36])
+    if (gaUIVarStates[36])
         sub_004929F0_DrawMercPanel();
-    if (gaUIVarStates_007A27C0[37])
+    if (gaUIVarStates[37])
         INV_DrawRecipeScroll();
-    if (gaUIVarStates_007A27C0[15])
+    if (gaUIVarStates[15])
         sub_004A34F0_DrawQuestPage();
-    if (gaUIVarStates_007A27C0[1] || gaUIVarStates_007A27C0[12] || gaUIVarStates_007A27C0[14] || gaUIVarStates_007A27C0[25]
-        || gaUIVarStates_007A27C0[26] || gaUIVarStates_007A27C0[28] || gaUIVarStates_007A27C0[29])
+    if (gaUIVarStates[1] || gaUIVarStates[12] || gaUIVarStates[14] || gaUIVarStates[25]
+        || gaUIVarStates[26] || gaUIVarStates[28] || gaUIVarStates[29])
         sub_0048EDF0_DrawInventoryPanel();
-    if (gaUIVarStates_007A27C0[23])
+    if (gaUIVarStates[23])
     {
         sub_004B8730_DrawDialogHover();
         sub_0048EDF0_DrawInventoryPanel();
     }
     CHARSEL_DrawProgressiveStates();
-    if (gaUIVarStates_007A27C0[4])
+    if (gaUIVarStates[4])
         sub_004AC690_DrawSkillPanel();
-    if (gaUIVarStates_007A27C0[2])
+    if (gaUIVarStates[2])
         sub_004A7D00_DrawCharStats();
-    if (gaUIVarStates_007A27C0[22])
+    if (gaUIVarStates[22])
         PANEL_DrawPartyPanel();
-    if (gpGlobal_007A27A0)
-        sub_004B8100(gpGlobal_007A27A0);
-    if (gaUIVarStates_007A27C0[16])
+    if (gpGoldPanel)
+        sub_004B8100(gpGoldPanel);
+    if (gaUIVarStates[16])
         TEXT_DispatchTextData();
-    if (gaUIVarStates_007A27C0[20])
+    if (gaUIVarStates[20])
         sub_0049C9C0_DrawWaypointPanel();
-    if (gaUIVarStates_007A27C0[33])
+    if (gaUIVarStates[33])
     {
         HIREABLES_LoadHelpCels();
         sub_00494EB0();
     }
     PANEL_DrawControlPanel();
-    if (gaUIVarStates_007A27C0[3])
+    if (gaUIVarStates[3])
         sub_004AA7E0_ResetSkillIcons();
-    if (gaUIVarStates_007A27C0[31])
+    if (gaUIVarStates[31])
         PANEL_SetBeltExpandedMode();
     TEXT_UpdateLevelUpButtons();
-    if (gaUIVarStates_007A27C0[34])
+    if (gaUIVarStates[34])
         VIEW_DrawHelpButtons();
-    if (gaUIVarStates_007A27C0[6])
+    if (gaUIVarStates[6])
         TEXT_DrawStatButton();
     else
         sub_004A6A70_DrawLeftPanelButton();
-    if (gaUIVarStates_007A27C0[7])
+    if (gaUIVarStates[7])
         TEXT_DrawSkillButton();
     else
         sub_004A6DA0_DrawRightPanelButton();
-    if (gaUIVarStates_007A27C0[17])
+    if (gaUIVarStates[17])
         TEXT_DrawQuestButton();
     PANEL_DrawLifeManaText();
-    if (gaUIVarStates_007A27C0[21])
+    if (gaUIVarStates[21])
         sub_0047F710_UpdateSlotBar();
-    if (gaUIVarStates_007A27C0[5])
+    if (gaUIVarStates[5])
         sub_0047B720_DrawChatPanel();
-    if (gaUIVarStates_007A27C0[33])
+    if (gaUIVarStates[33])
     {
         UI_CloseUIVars(0, 0);
-        const int bWasOn = gaUIVarStates_007A27C0[33];
+        const int bWasOn = gaUIVarStates[33];
         if (FOG_IsExpansion())
             GAME_IsExpansion();
-        D2_ASSERT(gnUIVarCount_0070F9CC == 0x26, 0x1397);
-        if (!gaUIVarStates_007A27C0[33])
+        D2_ASSERT(gnUIVarCount == 0x26, 0x1397);
+        if (!gaUIVarStates[33])
         {
             if (TEXT_IsTextBoxOpen())
                 goto done;
-            for (int i = 0; i < gnUIVarCount_0070F9CC; ++i)
+            for (int i = 0; i < gnUIVarCount; ++i)
             {
-                if (gaUIVarStates_007A27C0[i] == 1)
+                if (gaUIVarStates[i] == 1)
                 {
                     bool bClose = true;
-                    switch (gpUIVarRecords_00711130[i]->anCloseKind[0x21])
+                    switch (gapUIVarRecords[i]->anCloseKind[0x21])
                     {
                     case 0:
                         break;
@@ -3277,18 +3282,18 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
         {
             D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
             if (!pPlayer || (pPlayer->dwUnitType == UNIT_PLAYER && !CUNIT_IsDeadOrDying(pPlayer)))
-                gaUIVarStates_007A27C0[33] = gaUIVarStates_007A27C0[33] == 0;
+                gaUIVarStates[33] = gaUIVarStates[33] == 0;
             if (!bWasOn)
             {
-                if (gaUIVarStates_007A27C0[33])
-                    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D62C4, 5);
+                if (gaUIVarStates[33])
+                    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaHelpScreenHandlers, 5);
             }
             else
             {
-                if (!gaUIVarStates_007A27C0[33])
+                if (!gaUIVarStates[33])
                 {
                     sub_00494FC0();
-                    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D62C4, 5);
+                    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaHelpScreenHandlers, 5);
                 }
             }
             sub_00468730();
@@ -3297,15 +3302,15 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
 done:
         sub_004966C0_DrawHelpScreen();
     }
-    if (gaUIVarStates_007A27C0[13] && sub_0045AE90() != 3)
+    if (gaUIVarStates[13] && sub_0045AE90() != 3)
     {
         sub_004C0810_DrawUnitNames();
         if (GAME_GetConnectionType())
             CUNIT_ForEachPlayer(UI_DrawPartyMemberText);
     }
-    if (gaUIVarStates_007A27C0[8])
+    if (gaUIVarStates[8])
         NPCMENU_UpdateNpcInteract();
-    if (gaUIVarStates_007A27C0[14])
+    if (gaUIVarStates[14])
         ITEM_DrawPanelUnit();
     WARDENCLIENT_DrawHostileIcon();
     TEXT_UpdateTexts(pView);
@@ -3326,31 +3331,33 @@ void __stdcall sub_00457510(int nUnused1)
 // 0x00457740
 int __cdecl UI_GetAutomapCenters()
 {
-    return gdwGlobal_007113E0;
+// build: symbol ?gbAutomapCenter@* 0x007113E0
+    return gbAutomapCenter;
 }
 
 // 0x00457770
 int __cdecl UI_GetAutomapLeft()
 {
-    return gdwGlobal_007A51E0;
+    return gbAutomapLeft;
 }
 
 // 0x004577B0
 int __cdecl UI_GetAutomapParty()
 {
-    return gdwGlobal_007113E4;
+// build: symbol ?gbAutomapParty@* 0x007113E4
+    return gbAutomapParty;
 }
 
 // 0x004577E0
 int __cdecl UI_GetAutomapPartyNames()
 {
-    return gdwGlobal_007113E8;
+    return gbAutomapPartyNames;
 }
 
 // 0x0045A710
 int __cdecl UI_GetAutomapMode()
 {
-    return gdwGlobal_007A5150;
+    return gnAutomapMode;
 }
 
 // 0x0045AE60
@@ -3368,13 +3375,13 @@ int __cdecl sub_0045AE80()
 // 0x0045AFA0
 int __cdecl UI_GetAutomapOffsetX()
 {
-    return gdwGlobal_007A520C;
+    return gnAutomapOriginX;
 }
 
 // 0x0045AFB0
 int __cdecl UI_GetAutomapOffsetY()
 {
-    return gdwGlobal_007A5208;
+    return gnAutomapOriginY;
 }
 
 // 0x0045BA70
@@ -3395,21 +3402,21 @@ void __stdcall UI_DrawCelPair(int bFirst)
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     if (bFirst)
-        tContext.pCellFile = gpGlobal_007A523C;
+        tContext.pCellFile = gpPopupOkCelA;
     else
-        tContext.pCellFile = gpGlobal_007A5244;
+        tContext.pCellFile = gpPopupOkCelB;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
-    sub_004F6480(&tContext, gnGlobal_007A2858 + 0xBC, 0x148 - gnGlobal_007A285C, -1, 5, 0);
+    sub_004F6480(&tContext, gnPanelOffsetX + 0xBC, 0x148 - gnPanelOffsetY, -1, 5, 0);
     tContext.nFrame = 1;
-    sub_004F6480(&tContext, gnGlobal_007A2858 + 0x1BC, 0x148 - gnGlobal_007A285C, -1, 5, 0);
+    sub_004F6480(&tContext, gnPanelOffsetX + 0x1BC, 0x148 - gnPanelOffsetY, -1, 5, 0);
 }
 
 // 0x0045FD80
 void __cdecl UI_DrawCenteredString()
 {
     const int nOldFont = sub_00502EF0(1);
-    TEXT_DrawCenteredText(gnGlobal_007A2858 + 0x110, 0x136 - gnGlobal_007A285C, gnGlobal_007A2858 + 0x170, D2LANG_GetStringFromTblIndex(0x13EE), 0);
+    TEXT_DrawCenteredText(gnPanelOffsetX + 0x110, 0x136 - gnPanelOffsetY, gnPanelOffsetX + 0x170, D2LANG_GetStringFromTblIndex(0x13EE), 0);
     sub_00502EF0(nOldFont);
 }
 
@@ -3417,11 +3424,11 @@ void __cdecl UI_DrawCenteredString()
 void __cdecl UI_DrawCenteredStrings()
 {
     const int nOldFont = sub_00502EF0(1);
-    TEXT_DrawCenteredText(gnGlobal_0071146C / 2 - 0x84, 0xBE - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(0x1430), 0);
+    TEXT_DrawCenteredText(gnScreenWidth / 2 - 0x84, 0xBE - gnPanelOffsetY, gnPanelOffsetX + 0x1C4, D2LANG_GetStringFromTblIndex(0x1430), 0);
     unsigned short nString = 0x1432;
-    if (gdwGlobal_007A5238)
+    if (gbCinematicExpansion)
         nString = 0x5578;
-    TEXT_DrawCenteredText(gnGlobal_0071146C / 2 - 0x84, 0xCD - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(nString), 0);
+    TEXT_DrawCenteredText(gnScreenWidth / 2 - 0x84, 0xCD - gnPanelOffsetY, gnPanelOffsetX + 0x1C4, D2LANG_GetStringFromTblIndex(nString), 0);
     sub_00502EF0(nOldFont);
 }
 
@@ -3429,28 +3436,28 @@ void __cdecl UI_DrawCenteredStrings()
 void __cdecl UI_DrawCenteredStringPair()
 {
     const int nOldFont = sub_00502EF0(1);
-    TEXT_DrawCenteredText(gnGlobal_007A2858 + 0xCE, 0x136 - gnGlobal_007A285C, gnGlobal_007A2858 + 0x12E, D2LANG_GetStringFromTblIndex(0x13EE), 0);
-    TEXT_DrawCenteredText(gnGlobal_007A2858 + 0x152, 0x136 - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1B2, D2LANG_GetStringFromTblIndex(0x13EF), 0);
+    TEXT_DrawCenteredText(gnPanelOffsetX + 0xCE, 0x136 - gnPanelOffsetY, gnPanelOffsetX + 0x12E, D2LANG_GetStringFromTblIndex(0x13EE), 0);
+    TEXT_DrawCenteredText(gnPanelOffsetX + 0x152, 0x136 - gnPanelOffsetY, gnPanelOffsetX + 0x1B2, D2LANG_GetStringFromTblIndex(0x13EF), 0);
     sub_00502EF0(nOldFont);
 }
 
 // 0x00460430
 void __cdecl UI_FreeCels()
 {
-    if (gpGlobal_007A523C)
+    if (gpPopupOkCelA)
     {
-        ARCHIVE_FreeClientCellFile(gpGlobal_007A523C);
-        gpGlobal_007A523C = 0;
+        ARCHIVE_FreeClientCellFile(gpPopupOkCelA);
+        gpPopupOkCelA = 0;
     }
-    if (gpGlobal_007A5244)
+    if (gpPopupOkCelB)
     {
-        ARCHIVE_FreeClientCellFile(gpGlobal_007A5244);
-        gpGlobal_007A5244 = 0;
+        ARCHIVE_FreeClientCellFile(gpPopupOkCelB);
+        gpPopupOkCelB = 0;
     }
-    if (gpGlobal_007A5240)
+    if (gpOkCancelButtonCel)
     {
-        ARCHIVE_FreeClientCellFile(gpGlobal_007A5240);
-        gpGlobal_007A5240 = 0;
+        ARCHIVE_FreeClientCellFile(gpOkCancelButtonCel);
+        gpOkCancelButtonCel = 0;
     }
     GAME_LoadLoadingPalette();
 }
@@ -3464,13 +3471,14 @@ void __fastcall UI_FreeUnitModStats(void* pArg)
 // 0x00466DD0
 int __cdecl UI_GetHoverClassId()
 {
-    return gdwGlobal_00711F94;
+// build: symbol ?gnHoverClassId@* 0x00711F94
+    return gnHoverClassId;
 }
 
 // 0x00467400
 int __cdecl UI_HasSelectedUnit()
 {
-    return gdwGlobal_007A6A94;
+    return gbHasSelectedUnit;
 }
 
 // 0x00468030
@@ -3515,26 +3523,27 @@ int __cdecl sub_00468830()
 int __fastcall UI_SetTimerUnitId(D2UnitStrc* pUnit)
 {
     const int nUnitId = !pUnit ? -1 : pUnit->dwUnitId;
-    gnTimerUnitId_007129D4 = nUnitId;
+// build: symbol ?gnTimerUnitId@* 0x007129D4
+    gnTimerUnitId = nUnitId;
     return nUnitId;
 }
 
 // 0x0046F980
 int __cdecl UI_GetGfxMemory()
 {
-    return gdwGlobal_007A8914;
+    return gnGfxMemory;
 }
 
 // 0x0046F990
 int __cdecl UI_GetCofMemoryUsed()
 {
-    return gdwGlobal_007A8918;
+    return gnCofMemoryUsed;
 }
 
 // 0x0046F9A0
 int __cdecl UI_GetCofMemoryLimit()
 {
-    return gdwGlobal_007A891C;
+    return gnCofMemoryLimit;
 }
 
 void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
@@ -3551,7 +3560,7 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
         D2MonStats2Txt* pMonStats2Txt = UNITS_GetMonStats2TxtRecordFromMonsterId(!pUnit ? -1 : pUnit->dwClassId);
         if (pMonStats2Txt)
         {
-            gnHoverY_0070F858 -= pMonStats2Txt->nPixHeight;
+            gnHoverY -= pMonStats2Txt->nPixHeight;
         }
         sub_005267E0((Unicode*)wszText, D2LANG_GetStringFromTblIndex(0xF9B));
         sub_00526700((Unicode*)wszText, D2LANG_GetStringFromTblIndex(0xF9B));
@@ -3609,7 +3618,7 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
             D2Win_10130_DrawFramedTextEx((Unicode*)wszText, ((tRect.nLeft + tRect.nRight) >> 1) - (nWidth >> 1), 0x20, nColor, 0, nY);
             if (bDead)
             {
-                gwszHoverName_007A2F38[0].wChar = 0;
+                gwszHoverName[0].wChar = 0;
             }
             else
             {
@@ -3647,15 +3656,15 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
     }
     else
     {
-        gwszHoverName_007A2F38[0].wChar = 0;
+        gwszHoverName[0].wChar = 0;
         if (!NPCMENU_GetInteractNpcId(&bDead) && !TEXT_IsTextBoxOpen())
         {
             D2MonStats2Txt* pMonStats2Txt = UNITS_GetMonStats2TxtRecordFromMonsterId(!pUnit ? -1 : pUnit->dwClassId);
             if (pMonStats2Txt)
             {
-                gnHoverY_0070F858 -= pMonStats2Txt->nPixHeight;
+                gnHoverY -= pMonStats2Txt->nPixHeight;
             }
-            D2Win_10129_DrawFramedText(CUNIT_GetUnitName(pUnit), gnHoverX_0070F854, gnHoverY_0070F858, 0, 1);
+            D2Win_10129_DrawFramedText(CUNIT_GetUnitName(pUnit), gnHoverX, gnHoverY, 0, 1);
         }
     }
     sub_00502EF0(nOld);

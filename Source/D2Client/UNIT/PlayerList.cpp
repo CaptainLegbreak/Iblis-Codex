@@ -31,7 +31,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
-extern unsigned int gdwFadeTick_007C89CC; // 0x007C89CC
+extern unsigned int gdwFadeTick; // 0x007C89CC
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 D2GfxDataStrc* __cdecl GFX_AllocGfxData(); // 0x0046EBB0
@@ -42,7 +42,7 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 // 0x004DC0A0
 void __cdecl PLAYERLIST_ClearFadeTimer()
 {
-    gdwFadeTick_007C89CC = 0;
+    gdwFadeTick = 0;
 }
 
 // 0x004DC270

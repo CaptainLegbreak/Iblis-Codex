@@ -72,13 +72,13 @@ unsigned int __fastcall D2Win_10128(unsigned char nChar);                       
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 T0044CB60* __fastcall sub_00502970_SplitText(Unicode* pText, unsigned int* pLineCount, int nWidth);    // 0x00502970
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
-extern int gnLanguageId_007BB5DC;                                                                           // 0x007BB5DC
-extern unsigned char gbChatInputOpen_007BB5E1;                                                              // 0x007BB5E1
-unsigned int gnChatCaret_007BB5E8;                                                                          // 0x007BB5E8
-extern int gdwGlobal_007BB5EC;                                                                              // 0x007BB5EC
-extern int gnGlobal_0071146C;                                                                               // 0x0071146C
-extern int gbNoPickup_007A6A90;                                                                             // 0x007A6A90
-extern unsigned short gwChatHistoryCount_007BB5E4;                                                          // 0x007BB5E4
+extern int gnLanguageId;                                                                           // 0x007BB5DC
+extern unsigned char gbChatInputOpen;                                                              // 0x007BB5E1
+unsigned int gnChatCaret;                                                                          // 0x007BB5E8
+extern int gnChatDrawCount;                                                                              // 0x007BB5EC
+extern int gnScreenWidth;                                                                               // 0x0071146C
+extern int gbNoPickup;                                                                             // 0x007A6A90
+extern unsigned short gwChatHistoryCount;                                                          // 0x007BB5E4
 extern Unicode gawszChatHistory_007BB840[8][257];                                                           // 0x007BB840
 extern Unicode gwszChatLine_007BB638[];                                                                     // 0x007BB638
 
@@ -102,22 +102,24 @@ static int __stdcall sub_0047B3B0_CompareCommand(const char* szCommand, const ch
 static void sub_0047BA00_PushChatHistory(const Unicode* pText)
 {
     int nIndex;
-    if (gwChatHistoryCount_007BB5E4 != 8)
+    if (gwChatHistoryCount != 8)
     {
-        if (gwChatHistoryCount_007BB5E4)
+        if (gwChatHistoryCount)
         {
-            if (--gnChatHistoryHead_00712F44 < 0)
-                gnChatHistoryHead_00712F44 = 7;
+// build: symbol ?gnChatHistoryHead@* 0x00712F44
+            if (--gnChatHistoryHead < 0)
+                gnChatHistoryHead = 7;
         }
-        nIndex = gnChatHistoryHead_00712F44;
-        ++gwChatHistoryCount_007BB5E4;
+        nIndex = gnChatHistoryHead;
+        ++gwChatHistoryCount;
     }
     else
     {
-        nIndex = gnChatHistoryTail_00712F48;
-        gnChatHistoryHead_00712F44 = nIndex;
-        if (--gnChatHistoryTail_00712F48 < 0)
-            gnChatHistoryTail_00712F48 = 7;
+// build: symbol ?gnChatHistoryTail@* 0x00712F48
+        nIndex = gnChatHistoryTail;
+        gnChatHistoryHead = nIndex;
+        if (--gnChatHistoryTail < 0)
+            gnChatHistoryTail = 7;
     }
     gnChatHistoryCursor_007BB5D8 = nIndex;
     memcpy(gawszChatHistory_007BB840[nIndex], pText, sizeof(gawszChatHistory_007BB840[0]));
@@ -177,7 +179,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
 {
     D2ChatSendStrc tSend;
     memset(tSend.szText, 0, sizeof(tSend.szText));
-    tSend.nLang = gnLanguageId_007BB5DC;
+    tSend.nLang = gnLanguageId;
     char* pText = &szText[nSkip];
     char* pCommand = pText;
     if (!_stricmp(pText, "/fps"))
@@ -207,7 +209,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
     }
     if (!_stricmp(pText, "/nopickup"))
     {
-        gbNoPickup_007A6A90 = !gbNoPickup_007A6A90;
+        gbNoPickup = !gbNoPickup;
     }
     else if (!_stricmp(pText, "soundchaosdebug"))
     {
@@ -217,8 +219,8 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
     {
         tSend.nCode = 1;
         tSend.nType = 0x15;
-        tSend.nLang = gnLanguageId_007BB5DC;
-        if (!gbChatInputOpen_007BB5E1 || CHAT_IsNarrowText(pLine))
+        tSend.nLang = gnLanguageId;
+        if (!gbChatInputOpen || CHAT_IsNarrowText(pLine))
         {
             if (sub_0047BAD0_ParseChatCommand(&pCommand, &tSend.nCode, tSend.szArgument) && !tSend.nCode)
                 tSend.nType = 0x14;
@@ -230,14 +232,16 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
             D2SquelchListStrc* pSetList = sub_00611560_GetSquelchList();
             pSetList->SetPersistent(!pGetList->IsPersistent());
             Unicode wszText[0x104];
-            sub_00526320_ToUnicode(wszText, gszBattleNetPrefix_006D72B0, 0x208);
+// build: symbol ?gszBattleNetPrefix@* 0x006D72B0
+            sub_00526320_ToUnicode(wszText, gszBattleNetPrefix, 0x208);
             if (sub_00611560_GetSquelchList()->IsPersistent())
                 sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x2BA1));
             else
                 sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x2BA2));
             TEXT_PrintChatLine(wszText, 3);
         }
-        else if (!sub_0047B3B0_CompareCommand("/ignore ", pText) || !sub_0047B3B0_CompareCommand(gszCmdSquelch_006D5698, pText))
+// build: symbol ?gszCmdSquelch@* 0x006D5698
+        else if (!sub_0047B3B0_CompareCommand("/ignore ", pText) || !sub_0047B3B0_CompareCommand(gszCmdSquelch, pText))
         {
             Unicode wszText[0x208];
             Unicode wszLine[0x208];
@@ -246,7 +250,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
             sub_0047C3F0_CopyCommandArgs(szName, pText, sizeof(szName));
             if (SStrCmpI(&szName[1], gpClientInfo_007A0438->szName, 0x7FFFFFFF))
             {
-                sub_00526320_ToUnicode(wszLine, gszBattleNetPrefix_006D72B0, 0x208);
+                sub_00526320_ToUnicode(wszLine, gszBattleNetPrefix, 0x208);
                 sub_00526320_ToUnicode(wszName, szName, 0x22);
                 if (sub_00611560_GetSquelchList()->Squelch(szName))
                     sub_005269D0(0x208, wszText, D2LANG_GetStringFromTblIndex(0x2BA3), wszName);
@@ -256,14 +260,15 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
             }
             TEXT_PrintChatLine(wszLine, 3);
         }
-        else if (!sub_0047B3B0_CompareCommand("/unignore ", pText) || !sub_0047B3B0_CompareCommand(gszCmdUnsquelch_006D5680, pText))
+// build: symbol ?gszCmdUnsquelch@* 0x006D5680
+        else if (!sub_0047B3B0_CompareCommand("/unignore ", pText) || !sub_0047B3B0_CompareCommand(gszCmdUnsquelch, pText))
         {
             Unicode wszText[0x208];
             Unicode wszLine[0x208];
             Unicode wszName[0x22];
             char szName[0x11];
             sub_0047C3F0_CopyCommandArgs(szName, pText, sizeof(szName));
-            sub_00526320_ToUnicode(wszLine, gszBattleNetPrefix_006D72B0, 0x208);
+            sub_00526320_ToUnicode(wszLine, gszBattleNetPrefix, 0x208);
             sub_00526320_ToUnicode(wszName, szName, 0x22);
             if (sub_00611560_GetSquelchList()->Unsquelch(szName))
                 sub_005269D0(0x208, wszText, D2LANG_GetStringFromTblIndex(0x2BA5), wszName);
@@ -277,7 +282,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
             Unicode wszText[0x208];
             char szFilter[0x104];
             sub_0047C3F0_CopyCommandArgs(szFilter, pText, sizeof(szFilter));
-            sub_00526320_ToUnicode(wszText, gszBattleNetPrefix_006D72B0, 0x208);
+            sub_00526320_ToUnicode(wszText, gszBattleNetPrefix, 0x208);
             if (sub_00611560_GetSquelchList()->AddFilter(szFilter))
                 sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x2BA7));
             else
@@ -289,14 +294,14 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
             Unicode wszText[0x104];
             char szFilter[0x104];
             sub_0047C3F0_CopyCommandArgs(szFilter, pText, sizeof(szFilter));
-            sub_00526320_ToUnicode(wszText, gszBattleNetPrefix_006D72B0, 0x208);
+            sub_00526320_ToUnicode(wszText, gszBattleNetPrefix, 0x208);
             if (sub_00611560_GetSquelchList()->RemoveFilter(szFilter))
                 sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x2BA9));
             else
                 sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x2BAA));
             TEXT_PrintChatLine(wszText, 3);
         }
-        else if (tSend.nCode == 3 && (!gbChatInputOpen_007BB5E1 || CHAT_IsNarrowText(pLine)))
+        else if (tSend.nCode == 3 && (!gbChatInputOpen || CHAT_IsNarrowText(pLine)))
         {
             if (!sub_0047C1F0_HandleWhisperCommand(1, pText, "/msg")
                 && !sub_0047C1F0_HandleWhisperCommand(1, pText, "/m")
@@ -323,16 +328,16 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
 // 0x0047CA70
 void __stdcall sub_0047CA70_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (gdwGlobal_007BB5EC < 1)
+    if (gnChatDrawCount < 1)
         return;
     const int nLength = sub_00526800(gwszChatLine_007BB638);
     switch (pMsg->wParam)
     {
     case 8:
-        if (gnChatCaret_007BB5E8 > 0)
+        if (gnChatCaret > 0)
         {
-            --gnChatCaret_007BB5E8;
-            gwszChatLine_007BB638[gnChatCaret_007BB5E8].wChar = 0;
+            --gnChatCaret;
+            gwszChatLine_007BB638[gnChatCaret].wChar = 0;
         }
         break;
     case 0x1B:
@@ -357,13 +362,13 @@ void __stdcall sub_0047CA70_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
     }
     default:
     {
-        if (!gbChatInputOpen_007BB5E1 && !D2Win_10128(pMsg->wParam))
+        if (!gbChatInputOpen && !D2Win_10128(pMsg->wParam))
             break;
-        if (gnChatCaret_007BB5E8 >= 0xFF || nLength >= 0xFF)
+        if (gnChatCaret >= 0xFF || nLength >= 0xFF)
             break;
         const int nOldFont = sub_00502EF0(0xD);
         unsigned int nLines;
-        T0044CB60* pLines = sub_00502970_SplitText(gwszChatLine_007BB638, &nLines, gnGlobal_0071146C - 0x109);
+        T0044CB60* pLines = sub_00502970_SplitText(gwszChatLine_007BB638, &nLines, gnScreenWidth - 0x109);
         int nWidth = 0;
         for (T0044CB60* pLine = pLines; pLine; )
         {
@@ -373,10 +378,10 @@ void __stdcall sub_0047CA70_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
         }
 // build: symbol ?D2Win_10200@* 0x005028A0
         D2Win_10200(pLines);
-        if (nLines <= 3 && (nLines != 3 || nWidth <= gnGlobal_0071146C - 0x113))
+        if (nLines <= 3 && (nLines != 3 || nWidth <= gnScreenWidth - 0x113))
         {
             gwszChatLine_007BB638[nLength].wChar = pMsg->wParam;
-            pLines = sub_00502970_SplitText(gwszChatLine_007BB638, &nLines, gnGlobal_0071146C - 0x109);
+            pLines = sub_00502970_SplitText(gwszChatLine_007BB638, &nLines, gnScreenWidth - 0x109);
             nWidth = 0;
             for (T0044CB60* pLine = pLines; pLine; )
             {
@@ -385,8 +390,8 @@ void __stdcall sub_0047CA70_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
                 pLine = pNext;
             }
             D2Win_10200(pLines);
-            if (nLines != 3 || nWidth < gnGlobal_0071146C - 0x113)
-                ++gnChatCaret_007BB5E8;
+            if (nLines != 3 || nWidth < gnScreenWidth - 0x113)
+                ++gnChatCaret;
         }
         sub_00502EF0(nOldFont);
         break;

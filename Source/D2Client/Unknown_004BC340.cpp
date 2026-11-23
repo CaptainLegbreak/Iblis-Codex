@@ -13,16 +13,17 @@ void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMa
 extern "C" D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext);                                        // 0x00601840
 extern "C" int __stdcall CelGetWidth(D2CelStrc* pCel);                                                                 // 0x006018C0
 extern "C" int __stdcall CelGetHeight(D2CelStrc* pCel);                                                                // 0x006018F0
-extern "C" const char gszEditBoxCpp_006DA760[];                                                             // 0x006DA760
-extern "C" const char gszTextSlidPath_006DA824[];                                                           // 0x006DA824
-extern D2ButtonStringStrc gaButtonStrings_007275A8[];                                                       // 0x007275A8
+extern "C" const char gszEditBoxCpp[];                                                             // 0x006DA760
+extern "C" const char gszTextSlidPath[];                                                           // 0x006DA824
+extern D2ButtonStringStrc gaButtonStrings[];                                                       // 0x007275A8
 
 class UIWidget
 {
 public:
     static void* operator new(size_t nSize)
     {
-        return SMemAlloc(nSize, gszNew_006CC82C, -1, 0);
+// build: symbol ?gszNew@* 0x006CC82C
+        return SMemAlloc(nSize, gszNew, -1, 0);
     }
 
     virtual ~UIWidget();
@@ -89,7 +90,8 @@ public:
 SpinnerImplementation::SpinnerImplementation(int nX, int nY, int bHorizontal, int nArg0C)
 {
     char szPath[260];
-    sprintf(szPath, "%s\\ui\\menu\\spinner", szDataGlobal_006D4118);
+// build: symbol ?gszDataGlobal@* 0x006D4118
+    sprintf(szPath, "%s\\ui\\menu\\spinner", gszDataGlobal);
     void* pFile = ARCHIVE_LoadClientCellFile(szPath, 0);
     pCellFile = pFile;
     this->nX = nX;

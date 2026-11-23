@@ -200,7 +200,7 @@ struct D2AnimSeqTxt
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 
-extern int gaLevelVisited_007C78B8[]; // 0x007C78B8
+extern int gaLevelVisited[]; // 0x007C78B8
 
 extern int gnGlobal_007C88B8; // 0x007C88B8
 
@@ -258,7 +258,7 @@ typedef int (__fastcall* CLIENTSKILLSTARTFN)(D2UnitStrc* pUnit, int nSkillId, in
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-extern CLIENTSKILLSTARTFN gpfnClientSkillStartFuncs_00727A90[]; // 0x00727A90
+extern CLIENTSKILLSTARTFN gpfnClientSkillStartFuncs[]; // 0x00727A90
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
@@ -332,21 +332,21 @@ struct D2BallisticStrc
     int nFrames;
 };
 
-extern const int gaSpiralOuterY_006DADC0[7]; // 0x006DADC0
+extern const int gaSpiralOuterY[7]; // 0x006DADC0
 
-extern const int gaSpiralOuterX_006DADE0[7]; // 0x006DADE0
+extern const int gaSpiralOuterX[7]; // 0x006DADE0
 
-extern const int gaSpiralOuterB_006DAE00[7]; // 0x006DAE00
+extern const int gaSpiralOuterB[7]; // 0x006DAE00
 
-extern const int gaSpiralInnerY_006DAE1C[4]; // 0x006DAE1C
+extern const int gaSpiralInnerY[4]; // 0x006DAE1C
 
-extern const int gaSpiralOuterA_006DAE2C[7]; // 0x006DAE2C
+extern const int gaSpiralOuterA[7]; // 0x006DAE2C
 
-extern const int gaSpiralInnerX_006DAE48[4]; // 0x006DAE48
+extern const int gaSpiralInnerX[4]; // 0x006DAE48
 
-extern D2LobBracketStrc gaLobBrackets_006DAE70[2]; // 0x006DAE70
+extern D2LobBracketStrc gaLobBrackets[2]; // 0x006DAE70
 
-extern D2CollideTypeMaskStrc gaCollideTypeMasks_0072A354[]; // 0x0072A354
+extern D2CollideTypeMaskStrc gaCollideTypeMasks[]; // 0x0072A354
 
 void __fastcall sub_004CEA00(int nArg1, int nArg2, int nArg3, int nArg4); // 0x004CEA00
 
@@ -426,7 +426,7 @@ static int sub_004C5BD0_IsPointNearRoom(D2ActiveRoomStrc* pRoom, int nX, int nY,
 
 typedef int (__fastcall* CLIENTSKILLDOFN)(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 
-extern CLIENTSKILLDOFN gpfnClientSkillDoFuncs_00727BA8[]; // 0x00727BA8
+extern CLIENTSKILLDOFN gpfnClientSkillDoFuncs[]; // 0x00727BA8
 
 D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
 
@@ -446,9 +446,9 @@ void __fastcall sub_004C5C40_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRa
 
 int __fastcall SKILLS_ScanCountCallback(D2AreaScanStrc* pScan, D2UnitStrc* pUnit); // 0x004C5E20
 
-extern const int gaRingTargetY_006DABC0[64]; // 0x006DABC0
+extern const int gaRingTargetY[64]; // 0x006DABC0
 
-extern const int gaRingTargetX_006DACC0[64]; // 0x006DACC0
+extern const int gaRingTargetX[64]; // 0x006DACC0
 
 struct D2PetTypeTxt;
 
@@ -464,7 +464,7 @@ void __fastcall SKILLSBAR_ResetLeapCollision(D2UnitStrc* pUnit); // 0x004C8B80
 
 void __fastcall SKILLS_EndLoopSoundSkill(D2UnitStrc* pUnit, int nSkillId); // 0x004C9420
 
-extern "C" const char szSkillsCppFile_006DAB88[]; // 0x006DAB88
+extern "C" const char gszSkillsCppFile[]; // 0x006DAB88
 
 D2SkillStrc* __stdcall SKILLS_GetFirstSkillFromSkillList(D2SkillListStrc* pSkillList); // 0x00643910
 
@@ -1580,9 +1580,10 @@ static int __stdcall SKILLS_StartClientSkill(int nOwnerGUID, int nSkillLevel, D2
 
     int nResult = 1;
     const short nStartFunc = pSkillsTxtRecord->wStartFunc;
-    if (nStartFunc >= 0 && nStartFunc < gnClientSkillStartFuncs_00727A8C && gpfnClientSkillStartFuncs_00727A90[nStartFunc])
+// build: symbol ?gnClientSkillStartFuncs@* 0x00727A8C
+    if (nStartFunc >= 0 && nStartFunc < gnClientSkillStartFuncs && gpfnClientSkillStartFuncs[nStartFunc])
     {
-        nResult = gpfnClientSkillStartFuncs_00727A90[nStartFunc](pUnit, nSkillId, nSkillLevel);
+        nResult = gpfnClientSkillStartFuncs[nStartFunc](pUnit, nSkillId, nSkillLevel);
         if (!nResult)
         {
             UNITS_SetUsedSkill(pUnit, NULL);
@@ -1892,8 +1893,9 @@ void __fastcall SKILLS_DoSkillPrgFunc(D2UnitStrc* pUnit, D2UnitStrc* pTarget, in
     }
 
     const short nFunc = pSkillsTxtRecord->wCltPrgFunc[0];
-    if (nFunc >= 0 && nFunc < gnClientSkillDoFuncs_00727DB0 && gpfnClientSkillDoFuncs_00727BA8[nFunc]
-        && gpfnClientSkillDoFuncs_00727BA8[nFunc](pUnit, nSkillId, nSkillLevel))
+// build: symbol ?gnClientSkillDoFuncs@* 0x00727DB0
+    if (nFunc >= 0 && nFunc < gnClientSkillDoFuncs && gpfnClientSkillDoFuncs[nFunc]
+        && gpfnClientSkillDoFuncs[nFunc](pUnit, nSkillId, nSkillLevel))
     {
         if (pSkillsTxtRecord->wDoSound > 0)
         {
@@ -1991,10 +1993,10 @@ void __fastcall sub_004C6AC0_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int
     {
         for (int i = 0; i < nCharges; ++i)
         {
-            if (gpfnClientSkillDoFuncs_00727BA8[pSkillsTxtRecord->wCltPrgFunc[i]])
+            if (gpfnClientSkillDoFuncs[pSkillsTxtRecord->wCltPrgFunc[i]])
             {
                 STATLIST_SetStatIfListIsValid(pStatList, pSkillsTxtRecord->wAuraStat[0], i + 1, 0);
-                gpfnClientSkillDoFuncs_00727BA8[pSkillsTxtRecord->wCltPrgFunc[i]](pUnit, nSkillId, nSkillLevel);
+                gpfnClientSkillDoFuncs[pSkillsTxtRecord->wCltPrgFunc[i]](pUnit, nSkillId, nSkillLevel);
             }
         }
 
@@ -2002,7 +2004,7 @@ void __fastcall sub_004C6AC0_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int
     }
 
     const short nFunc = pSkillsTxtRecord->wCltPrgFunc[nCharges];
-    if (nFunc >= 0 && nFunc < gnClientSkillDoFuncs_00727DB0)
+    if (nFunc >= 0 && nFunc < gnClientSkillDoFuncs)
     {
         if (pSkillsTxtRecord->wAuraFunc > 0)
         {
@@ -2021,9 +2023,9 @@ void __fastcall sub_004C6AC0_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int
             pUnit->dwFlags |= 0x40;
         }
 
-        if (gpfnClientSkillDoFuncs_00727BA8[pSkillsTxtRecord->wCltPrgFunc[nCharges]])
+        if (gpfnClientSkillDoFuncs[pSkillsTxtRecord->wCltPrgFunc[nCharges]])
         {
-            if (gpfnClientSkillDoFuncs_00727BA8[pSkillsTxtRecord->wCltPrgFunc[nCharges]](pUnit, nSkillId, nSkillLevel))
+            if (gpfnClientSkillDoFuncs[pSkillsTxtRecord->wCltPrgFunc[nCharges]](pUnit, nSkillId, nSkillLevel))
             {
                 if (pSkillsTxtRecord->wDoSound > 0)
                 {
@@ -2178,14 +2180,14 @@ static void __stdcall SKILLS_SpawnRing(D2MissileStrc* pAltParams, D2MissileStrc*
         {
             if (SEED_RollRandomNumber(&pParams->pOwner->pSeed) % 6)
             {
-                pParams->nTargetX = gaRingTargetX_006DACC0[i];
-                pParams->nTargetY = gaRingTargetY_006DABC0[i];
+                pParams->nTargetX = gaRingTargetX[i];
+                pParams->nTargetY = gaRingTargetY[i];
                 sub_004CD540_CreateMissile(pParams);
             }
             else
             {
-                pAltParams->nTargetX = gaRingTargetX_006DACC0[i];
-                pAltParams->nTargetY = gaRingTargetY_006DABC0[i];
+                pAltParams->nTargetX = gaRingTargetX[i];
+                pAltParams->nTargetY = gaRingTargetY[i];
                 sub_004CD540_CreateMissile(pAltParams);
             }
         }
@@ -2194,8 +2196,8 @@ static void __stdcall SKILLS_SpawnRing(D2MissileStrc* pAltParams, D2MissileStrc*
     {
         for (int i = 0; i < 64; ++i)
         {
-            pParams->nTargetX = gaRingTargetX_006DACC0[i];
-            pParams->nTargetY = gaRingTargetY_006DABC0[i];
+            pParams->nTargetX = gaRingTargetX[i];
+            pParams->nTargetY = gaRingTargetY[i];
             if (pParams->nMissile == MISSILE_DIABFIRE)
                 pParams->dwFlags ^= 0x4000;
             sub_004CD540_CreateMissile(pParams);
@@ -2250,17 +2252,17 @@ void __fastcall SKILLS_CreateSpiralMissiles(int nCount, D2MissileStrc* pMissileP
 
         for (int j = 0; j < 4 && nRemaining > 0; j++)
         {
-            pMissileParams->nTargetX = gaSpiralInnerX_006DAE48[j] * gaSpiralOuterA_006DAE2C[i];
-            pMissileParams->nTargetY = gaSpiralInnerY_006DAE1C[j] * gaSpiralOuterB_006DAE00[i];
+            pMissileParams->nTargetX = gaSpiralInnerX[j] * gaSpiralOuterA[i];
+            pMissileParams->nTargetY = gaSpiralInnerY[j] * gaSpiralOuterB[i];
             sub_004CD540_CreateMissile(pMissileParams);
-            pMissileParams->nTargetX = gaSpiralInnerX_006DAE48[j] * gaSpiralOuterB_006DAE00[i];
-            pMissileParams->nTargetY = gaSpiralInnerY_006DAE1C[j] * gaSpiralOuterA_006DAE2C[i];
+            pMissileParams->nTargetX = gaSpiralInnerX[j] * gaSpiralOuterB[i];
+            pMissileParams->nTargetY = gaSpiralInnerY[j] * gaSpiralOuterA[i];
             sub_004CD540_CreateMissile(pMissileParams);
             nRemaining -= 2;
         }
 
-        pMissileParams->nTargetX = gaSpiralOuterX_006DADE0[i];
-        pMissileParams->nTargetY = gaSpiralOuterY_006DADC0[i];
+        pMissileParams->nTargetX = gaSpiralOuterX[i];
+        pMissileParams->nTargetY = gaSpiralOuterY[i];
         sub_004CD540_CreateMissile(pMissileParams);
         nRemaining -= 1;
     }
@@ -2290,8 +2292,8 @@ void __fastcall SKILLS_RunStateActiveFuncs(D2UnitStrc* pUnit)
         if (STATES_CheckState(pUnit, nState))
         {
             D2StatesTxt* pStatesTxtRecord = SKILLS_GetStatesTxtRecord(nState);
-            if (pStatesTxtRecord && pStatesTxtRecord->wCltActiveFunc >= 0 && pStatesTxtRecord->wCltActiveFunc < gnClientSkillDoFuncs_00727DB0
-                && gpfnClientSkillDoFuncs_00727BA8[pStatesTxtRecord->wCltActiveFunc])
+            if (pStatesTxtRecord && pStatesTxtRecord->wCltActiveFunc >= 0 && pStatesTxtRecord->wCltActiveFunc < gnClientSkillDoFuncs
+                && gpfnClientSkillDoFuncs[pStatesTxtRecord->wCltActiveFunc])
             {
                 int nA = 0;
                 int nB = 1;
@@ -2301,7 +2303,7 @@ void __fastcall SKILLS_RunStateActiveFuncs(D2UnitStrc* pUnit)
                     nA = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
                     nB = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
                 }
-                gpfnClientSkillDoFuncs_00727BA8[pStatesTxtRecord->wCltActiveFunc](pUnit, nA, nB);
+                gpfnClientSkillDoFuncs[pStatesTxtRecord->wCltActiveFunc](pUnit, nA, nB);
             }
         }
     }
@@ -2550,7 +2552,7 @@ void __fastcall SKILLS_ApplySkillLevelBonus(D2UnitStrc* pUnit, int nA, int nB, u
     while (pSkill)
     {
         D2SkillStrc* pNextSkill = SKILLS_GetNextSkill(pSkill);
-        D2SkillsTxt* pSkillsTxtRecord = SKILLCLT_GetSkillsTxtRecord(nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, szSkillsCppFile_006DAB88, 2420));
+        D2SkillsTxt* pSkillsTxtRecord = SKILLCLT_GetSkillsTxtRecord(nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, gszSkillsCppFile, 2420));
         if (!pSkillsTxtRecord)
         {
             continue;
@@ -2572,7 +2574,7 @@ void __fastcall SKILLS_ApplySkillLevelBonus(D2UnitStrc* pUnit, int nA, int nB, u
             D2SkillStrc* pUnitSkill = SKILLS_GetSkillById(pUnit, nSkillId, -1);
             if (pUnitSkill && !SKILLS_GetSkillLevel(pUnit, pUnitSkill, 1))
             {
-                SKILLS_RemoveSkill(pUnit, nSkillId, szSkillsCppFile_006DAB88, 2465);
+                SKILLS_RemoveSkill(pUnit, nSkillId, gszSkillsCppFile, 2465);
             }
         }
 
@@ -2886,13 +2888,13 @@ void __fastcall SKILLS_SetLobVelocity(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
     int i = 0;
     for (; i < 1; i++)
     {
-        if (nDistance < gaLobBrackets_006DAE70[i].nMaxDistance)
+        if (nDistance < gaLobBrackets[i].nMaxDistance)
         {
             break;
         }
     }
 
-    int nVelocity = gaLobBrackets_006DAE70[i].nMultiplier * nDistance + gaLobBrackets_006DAE70[i].nAddend;
+    int nVelocity = gaLobBrackets[i].nMultiplier * nDistance + gaLobBrackets[i].nAddend;
     if (nVelocity < 0x1F4)
     {
         nVelocity = 0x1F4;
@@ -3129,7 +3131,7 @@ void __cdecl SKILLS_ResetLevelSpeech()
     gnGlobal_007C88C0 = 0x5A;
     gnGlobal_007C88C4 = 0;
     gnGlobal_007C88C8 = 0;
-    memset(gaLevelVisited_007C78B8, 0, 0x1000);
+    memset(gaLevelVisited, 0, 0x1000);
 }
 
 // 0x004CD0A0
@@ -3159,7 +3161,7 @@ void __fastcall SKILLS_InitMissileUnit(D2UnitStrc* pMissile, int nArg, int nTarg
     {
         PATH_SetFootprintCollisionMask(pDynamicPath, 0);
     }
-    PATH_SetMoveTestCollisionMask(pDynamicPath, gaCollideTypeMasks_0072A354[pMissilesTxtRecord->nCollideType].nCollisionMask);
+    PATH_SetMoveTestCollisionMask(pDynamicPath, gaCollideTypeMasks[pMissilesTxtRecord->nCollideType].nCollisionMask);
 
     if (pMissilesTxtRecord->nMissileFlags[0] & gnBitMasks_006CE268[4])
     {

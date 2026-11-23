@@ -31,7 +31,7 @@ struct D2TimedHintEntryStrc
 D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
 int __fastcall SOUNDHDR_GetGroupStart(int nId); // 0x00481890
 void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
-extern D2TimedHintNodeStrc* gpTimedHintList_007C5458; // 0x007C5458
+extern D2TimedHintNodeStrc* gpClientSoundList; // 0x007C5458
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -53,7 +53,7 @@ static void __fastcall CLIENT_ArmHintInline(int nKey, int nGroup, int nOffset, u
     {
         return;
     }
-    D2TimedHintNodeStrc* pHead = gpTimedHintList_007C5458;
+    D2TimedHintNodeStrc* pHead = gpClientSoundList;
     D2TimedHintNodeStrc* pNode = pHead;
     if (!pHead)
     {
@@ -140,7 +140,7 @@ static void __fastcall CLIENT_ArmHintInline(int nKey, int nGroup, int nOffset, u
 // 0x004BAAB0
 void __cdecl sub_004BAAB0_RefreshGroupTimers()
 {
-    for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
+    for (D2TimedHintNodeStrc* pNode = gpClientSoundList; pNode; pNode = pNode->pNext)
     {
         D2TimedHintEntryStrc* pEntry = pNode->pEntry;
         D2HintCursorStrc* pCursor = sub_00481860(pEntry->nHintId);

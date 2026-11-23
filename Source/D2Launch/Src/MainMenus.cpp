@@ -2148,7 +2148,8 @@ void __cdecl MAINMENUS_LoadMaxPlayers()
     int nPlayers = nValue;
     if (nPlayers < 9 && nPlayers > 0)
     {
-        sprintf(szText, gszFormatD_006D57BC, nPlayers);
+// build: symbol ?gszFormatD@* 0x006D57BC
+        sprintf(szText, gszFormatD, nPlayers);
         sub_004FFE10_SetTextA(gpMaxPlayerControl_00798C38, szText);
     }
 }

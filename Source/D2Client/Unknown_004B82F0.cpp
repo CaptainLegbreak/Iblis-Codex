@@ -42,8 +42,8 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-extern int gnGlobal_0071146C; // 0x0071146C
-extern int gnGlobal_00711470; // 0x00711470
+extern int gnScreenWidth; // 0x0071146C
+extern int gnScreenHeight; // 0x00711470
 void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
 void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex); // 0x004B82F0
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
@@ -72,7 +72,7 @@ struct Obj004B8580 {
     int nValue44;
 };
 
-extern char gbGlobal_007C0E80; // 0x007C0E80
+extern char gbTradeActive; // 0x007C0E80
 int __cdecl UI_IsGoldPanelOpen(); // 0x004549C0
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
@@ -88,11 +88,11 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 int __stdcall DUNGEON_IsTownLevelId(int nLevelId); // 0x0061AAF0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-extern int gnGlobal_007A2858; // 0x007A2858
-extern int gnGlobal_007A285C; // 0x007A285C
-extern D2ClientDialogStrc* gpDialog_007C0E64; // 0x007C0E64
-extern D2ClientDialogStrc* gpDialog_007C0E6C; // 0x007C0E6C
-extern int gnGlobal_007C0E7C; // 0x007C0E7C
+extern int gnPanelOffsetX; // 0x007A2858
+extern int gnPanelOffsetY; // 0x007A285C
+extern D2ClientDialogStrc* gpTradeRequestDialog; // 0x007C0E64
+extern D2ClientDialogStrc* gpTradeWaitDialog; // 0x007C0E6C
+extern int gnTradeState; // 0x007C0E7C
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
@@ -113,10 +113,10 @@ void __cdecl sub_004B8BF0_OpenWait2(); // 0x004B8BF0
 void __cdecl sub_004B8CB0(); // 0x004B8CB0
 void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
-extern int gnGlobal_007C0E60; // 0x007C0E60
-extern unsigned long gdwGlobal_007C0E68; // 0x007C0E68
-extern unsigned long gdwTick_007C0E70; // 0x007C0E70
-extern unsigned long gdwGlobal_007C0E78; // 0x007C0E78
+extern int gnTradePartnerUnitId; // 0x007C0E60
+extern unsigned long gdwPrimaryTradeGold; // 0x007C0E68
+extern unsigned long gdwTradeTimeoutTick; // 0x007C0E70
+extern unsigned long gdwSecondaryTradeGold; // 0x007C0E78
 
 extern "C" void __fastcall sub_00478600_SendPacket(U8 command, U16 value, U16 first, U16 second);
 extern "C" int __fastcall sub_004FC9B0_AppendText(UiControl* control, const U16* text, int style, U8 metadata, int mode);
@@ -297,7 +297,7 @@ struct D2TimedHintEntryStrc
 
 D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
 int __fastcall sub_005169D0_ListHasKey(void* pKeyList, int nKey); // 0x005169D0
-extern D2TimedHintNodeStrc* gpTimedHintList_007C5458; // 0x007C5458
+extern D2TimedHintNodeStrc* gpClientSoundList; // 0x007C5458
 
 struct D2ValueNodeStrc
 {
@@ -410,12 +410,12 @@ void __fastcall sub_004B8410_LayoutDialog(D2ClientDialogStrc* pDialog)
         pDialog->nY = pDialog->nCenterY - nDisabled * 0x15;
     else
         pDialog->nY = pDialog->nCenterY - nHeight / 3;
-    D2_ASSERT(nMaxWidth <= gnGlobal_0071146C - 0x50, 0x5D2);
-    D2_ASSERT(nHeight <= gnGlobal_00711470 - 0x62, 0x5D7);
-    if (pDialog->nX + nMaxWidth > gnGlobal_0071146C - 0xA)
-        pDialog->nX = gnGlobal_0071146C - nMaxWidth;
-    if (pDialog->nY + nHeight > gnGlobal_00711470 - 0x3A)
-        pDialog->nY = gnGlobal_00711470 - nHeight - 0x30;
+    D2_ASSERT(nMaxWidth <= gnScreenWidth - 0x50, 0x5D2);
+    D2_ASSERT(nHeight <= gnScreenHeight - 0x62, 0x5D7);
+    if (pDialog->nX + nMaxWidth > gnScreenWidth - 0xA)
+        pDialog->nX = gnScreenWidth - nMaxWidth;
+    if (pDialog->nY + nHeight > gnScreenHeight - 0x3A)
+        pDialog->nY = gnScreenHeight - nHeight - 0x30;
     if (pDialog->nX <= 0xA)
         pDialog->nX = 0xA;
     if (pDialog->nY <= 0xA)
@@ -457,7 +457,7 @@ void __fastcall sub_004B85B0_GetRect(D2ClientDialogStrc* pDialog, D2RectStrc* pR
 // 0x004B8A00
 int __cdecl sub_004B8A00_IsGlobalClear()
 {
-    return gbGlobal_007C0E80 == 0;
+    return gbTradeActive == 0;
 }
 
 // 0x004B85F0
@@ -504,14 +504,14 @@ void __cdecl sub_004B8730_DrawDialogHover()
 {
     int nX = sub_00468730();
     int nY = sub_00468740();
-    if (gnGlobal_007C0E7C > 2 && !UI_IsGoldPanelOpen())
+    if (gnTradeState > 2 && !UI_IsGoldPanelOpen())
     {
-        if (nX >= gnGlobal_007A2858 + 0x111 && nX <= gnGlobal_007A2858 + 0x133 && nY >= 0xA8 - gnGlobal_007A285C && nY <= 0xCA - gnGlobal_007A285C)
-            D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1023), gnGlobal_007A2858 + 0xEF, 0xA7 - gnGlobal_007A285C, 0, 0);
-        if (nX >= gnGlobal_007A2858 + 0xDD && nX <= gnGlobal_007A2858 + 0xFF && nY >= 0x17F - gnGlobal_007A285C && nY <= 0x1A1 - gnGlobal_007A285C)
-            D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1023), gnGlobal_007A2858 + 0xBB, 0x17E - gnGlobal_007A285C, 0, 0);
-        if (nX >= gnGlobal_007A2858 + 0x111 && nX <= gnGlobal_007A2858 + 0x133 && nY >= 0x17F - gnGlobal_007A285C && nY <= 0x1A1 - gnGlobal_007A285C)
-            D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1022), gnGlobal_007A2858 + 0x107, 0x17E - gnGlobal_007A285C, 0, 0);
+        if (nX >= gnPanelOffsetX + 0x111 && nX <= gnPanelOffsetX + 0x133 && nY >= 0xA8 - gnPanelOffsetY && nY <= 0xCA - gnPanelOffsetY)
+            D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1023), gnPanelOffsetX + 0xEF, 0xA7 - gnPanelOffsetY, 0, 0);
+        if (nX >= gnPanelOffsetX + 0xDD && nX <= gnPanelOffsetX + 0xFF && nY >= 0x17F - gnPanelOffsetY && nY <= 0x1A1 - gnPanelOffsetY)
+            D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1023), gnPanelOffsetX + 0xBB, 0x17E - gnPanelOffsetY, 0, 0);
+        if (nX >= gnPanelOffsetX + 0x111 && nX <= gnPanelOffsetX + 0x133 && nY >= 0x17F - gnPanelOffsetY && nY <= 0x1A1 - gnPanelOffsetY)
+            D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1022), gnPanelOffsetX + 0x107, 0x17E - gnPanelOffsetY, 0, 0);
     }
 
     if (sub_00463DD0_GetPlayerUnit())
@@ -525,37 +525,37 @@ void __cdecl sub_004B8730_DrawDialogHover()
                 sub_00455F20(0x17, 1, 0);
                 INV_ClearTradeFlag();
                 INV_ResetNpcState();
-                gnGlobal_007C0E7C = 0;
+                gnTradeState = 0;
             }
             return;
         }
     }
 
-    if (gnGlobal_007C0E7C >= 3 && gnGlobal_007C0E7C <= 6)
+    if (gnTradeState >= 3 && gnTradeState <= 6)
         return;
-    if (!gnGlobal_007C0E7C)
+    if (!gnTradeState)
         return;
-    if (gnGlobal_007C0E7C == 1)
+    if (gnTradeState == 1)
     {
-        if (gpDialog_007C0E6C)
-            sub_004B8100_DrawDialog(gpDialog_007C0E6C);
+        if (gpTradeWaitDialog)
+            sub_004B8100_DrawDialog(gpTradeWaitDialog);
     }
-    else if (gnGlobal_007C0E7C == 2)
+    else if (gnTradeState == 2)
     {
-        if (gpDialog_007C0E64)
-            sub_004B8100_DrawDialog(gpDialog_007C0E64);
+        if (gpTradeRequestDialog)
+            sub_004B8100_DrawDialog(gpTradeRequestDialog);
     }
 }
 
-unsigned long gdwTick_007C0E70; // 0x007C0E70
+unsigned long gdwTradeTimeoutTick; // 0x007C0E70
 
 // 0x004B8A30
 int __cdecl sub_004B8A30_OnCancel()
 {
     sub_004B9A00(2, 0, 0, 0, 0);
-    DIALOG_DestroyDialog(gpDialog_007C0E64);
-    gpDialog_007C0E64 = 0;
-    gnGlobal_007C0E7C = 3;
+    DIALOG_DestroyDialog(gpTradeRequestDialog);
+    gpTradeRequestDialog = 0;
+    gnTradeState = 3;
     sub_00478600_SendShorts(0x4F, 3, 0, 0);
     return 1;
 }
@@ -564,11 +564,11 @@ int __cdecl sub_004B8A30_OnCancel()
 int __cdecl sub_004B8A80_OnClose()
 {
     sub_004B9A00(2, 0, 0, 0, 0);
-    DIALOG_DestroyDialog(gpDialog_007C0E64);
-    gpDialog_007C0E64 = 0;
-    gnGlobal_007C0E7C = 7;
+    DIALOG_DestroyDialog(gpTradeRequestDialog);
+    gpTradeRequestDialog = 0;
+    gnTradeState = 7;
     sub_00478600_SendShorts(0x4F, 2, 0, 0);
-    gdwTick_007C0E70 = GetTickCount();
+    gdwTradeTimeoutTick = GetTickCount();
     return 1;
 }
 
@@ -576,10 +576,10 @@ int __cdecl sub_004B8A80_OnClose()
 int __cdecl sub_004B8BA0_OnClose2()
 {
     sub_004B9A00(2, 0, 0, 0, 0);
-    DIALOG_DestroyDialog(gpDialog_007C0E6C);
-    gpDialog_007C0E6C = 0;
-    gnGlobal_007C0E7C = 7;
-    gdwTick_007C0E70 = GetTickCount();
+    DIALOG_DestroyDialog(gpTradeWaitDialog);
+    gpTradeWaitDialog = 0;
+    gnTradeState = 7;
+    gdwTradeTimeoutTick = GetTickCount();
     sub_00478600_SendShorts(0x4F, 2, 0, 0);
     return 1;
 }
@@ -602,17 +602,17 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
         return;
 
     case 12:
-        gnGlobal_007C0E7C = 0;
+        gnTradeState = 0;
         sub_004B8940_CloseWait(0);
         return;
 
     case 13:
-        gnGlobal_007C0E7C = 0;
+        gnTradeState = 0;
         sub_004B8940_CloseWait(1);
         return;
 
     case 0:
-        if (!gnGlobal_007C0E7C)
+        if (!gnTradeState)
         {
             if (!GAME_GetUIVarState(0x17))
             {
@@ -623,10 +623,10 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
                 }
 
                 INV_ClearTradeFlag();
-                gdwTick_007C0E70 = 0xFFFFFFFF;
+                gdwTradeTimeoutTick = 0xFFFFFFFF;
             }
 
-            gnGlobal_007C0E7C = 1;
+            gnTradeState = 1;
             sub_004B8BF0_OpenWait2();
             INV_SetTradePanelOpen(0);
             return;
@@ -641,7 +641,7 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
 
     case 10:
     {
-        D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnGlobal_007C0E60, 0);
+        D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnTradePartnerUnitId, 0);
         if (pUnit)
         {
             sub_004CB9C0_Request(pUnit, 0x17);
@@ -650,7 +650,7 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
     }
 
     case 1:
-        if (!gnGlobal_007C0E7C)
+        if (!gnTradeState)
         {
             D2InventoryStrc* const pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
             if (INVENTORY_GetCursorItem(pInventory))
@@ -673,10 +673,10 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
                     return;
                 }
 
-                gdwTick_007C0E70 = 0xFFFFFFFF;
+                gdwTradeTimeoutTick = 0xFFFFFFFF;
             }
 
-            gnGlobal_007C0E7C = 2;
+            gnTradeState = 2;
             INV_SetTradePanelOpen(0);
             return;
         }
@@ -695,18 +695,18 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
             return;
         }
 
-        gdwTick_007C0E70 = 0xFFFFFFFF;
+        gdwTradeTimeoutTick = 0xFFFFFFFF;
         INV_SetTradePanelOpen(1);
-        switch (gnGlobal_007C0E7C)
+        switch (gnTradeState)
         {
         case 3:
-            gnGlobal_007C0E7C = 5;
+            gnTradeState = 5;
         case 5:
             INV_UpdateTradeAcceptSound(0, 1);
             return;
 
         case 4:
-            gnGlobal_007C0E7C = 6;
+            gnTradeState = 6;
             INV_UpdateTradeAcceptSound(1, 1);
             return;
 
@@ -725,13 +725,13 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
             return;
         }
 
-        sub_00478600_SendShorts(0x4F, 8, (unsigned short)(gdwGlobal_007C0E68 >> 16), (unsigned short)gdwGlobal_007C0E68);
-        gdwTick_007C0E70 = 0xFFFFFFFF;
+        sub_00478600_SendShorts(0x4F, 8, (unsigned short)(gdwPrimaryTradeGold >> 16), (unsigned short)gdwPrimaryTradeGold);
+        gdwTradeTimeoutTick = 0xFFFFFFFF;
         INV_SetTradePanelOpen(1);
-        switch (gnGlobal_007C0E7C)
+        switch (gnTradeState)
         {
         case 7:
-            gnGlobal_007C0E7C = 3;
+            gnTradeState = 3;
         case 3:
             INV_UpdateTradeAcceptSound(0, 0);
             return;
@@ -740,17 +740,17 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
         case 5:
         case 6:
             INV_UpdateTradeAcceptSound(0, 0);
-            gnGlobal_007C0E7C = 3;
+            gnTradeState = 3;
             return;
 
         case 1:
-            gdwGlobal_007C0E78 = 0;
+            gdwSecondaryTradeGold = 0;
             INV_UpdateTradeAcceptSound(0, 0);
-            gnGlobal_007C0E7C = 3;
-            if (gpDialog_007C0E6C)
+            gnTradeState = 3;
+            if (gpTradeWaitDialog)
             {
-                DIALOG_DestroyDialog(gpDialog_007C0E6C);
-                gpDialog_007C0E6C = 0;
+                DIALOG_DestroyDialog(gpTradeWaitDialog);
+                gpTradeWaitDialog = 0;
             }
             return;
 
@@ -807,42 +807,42 @@ extern "C" void __cdecl sub_004898A0_OpenUi()
     sub_00455F20_SetUiState(5, 1, 0);
 }
 
-unsigned long gdwGlobal_007C0E78; // 0x007C0E78
+unsigned long gdwSecondaryTradeGold; // 0x007C0E78
 
-D2GSPacketText5EStrc gtTable_007C0EA4; // 0x007C0EA4
+D2GSPacketText5EStrc gaQuestIntroFlags; // 0x007C0EA4
 
-int gdwTableInit_007C0ECC; // 0x007C0ECC
+int gbQuestIntroFlagsReady; // 0x007C0ECC
 
 // 0x004B90D0
 void __fastcall sub_004B90D0_SetValue(unsigned long nValue, bool bFirst)
 {
     if (bFirst)
     {
-        gdwGlobal_007C0E68 = nValue;
+        gdwPrimaryTradeGold = nValue;
     }
     else
     {
-        gdwGlobal_007C0E78 = nValue;
+        gdwSecondaryTradeGold = nValue;
     }
 }
 
 // 0x004B9200
 void __cdecl sub_004B9200_ResetTable()
 {
-    gdwTableInit_007C0ECC = 0;
+    gbQuestIntroFlagsReady = 0;
 }
 
 // 0x004B92B0
 void __fastcall sub_004B92B0_StorePacketText(const D2GSPacketSrv5E* pPacket)
 {
-    gtTable_007C0EA4 = pPacket->tText;
-    gdwTableInit_007C0ECC = 1;
+    gaQuestIntroFlags = pPacket->tText;
+    gbQuestIntroFlagsReady = 1;
 }
 
 // 0x004B92D0
 int __stdcall sub_004B92D0_IsTableReady(int nUnused)
 {
-    return gdwTableInit_007C0ECC;
+    return gbQuestIntroFlagsReady;
 }
 
 // 0x004B9330
@@ -918,22 +918,22 @@ int __fastcall sub_M112_Emit_004B9BB0(D2SoundStream4B9BB0Strc* pStream)
 // 0x004B9110
 void __fastcall sub_004B9110_SendGoldRequest(unsigned long nGold)
 {
-    if (gnGlobal_007C0E7C == 4 || gnGlobal_007C0E7C == 5 || gnGlobal_007C0E7C == 6)
+    if (gnTradeState == 4 || gnTradeState == 5 || gnTradeState == 6)
     {
         sub_00478600_SendShorts(0x4F, 7, 0, 0);
-        gnGlobal_007C0E7C = 3;
+        gnTradeState = 3;
         return;
     }
 
     const unsigned long nMaxGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
     if (nGold >= nMaxGold)
     {
-        gdwGlobal_007C0E68 = nMaxGold;
+        gdwPrimaryTradeGold = nMaxGold;
         sub_00478600_SendShorts(0x4F, 8, nMaxGold >> 0x10, nMaxGold);
     }
     else
     {
-        gdwGlobal_007C0E68 = nGold;
+        gdwPrimaryTradeGold = nGold;
         sub_00478600_SendShorts(0x4F, 8, nGold >> 0x10, nGold);
     }
 }
@@ -947,12 +947,12 @@ void __cdecl sub_004B91F0()
 // 0x004B9180
 int __cdecl sub_004B9180_PollWait()
 {
-    if (gnGlobal_007C0E7C == 7)
+    if (gnTradeState == 7)
     {
-        if (gdwTick_007C0E70 != 0xFFFFFFFF && GetTickCount() > gdwTick_007C0E70 + 30000)
+        if (gdwTradeTimeoutTick != 0xFFFFFFFF && GetTickCount() > gdwTradeTimeoutTick + 30000)
         {
             sub_0048A6A0_ClearHover();
-            gnGlobal_007C0E7C = 0;
+            gnTradeState = 0;
             sub_004B8940_CloseWait(0);
             sub_00477EE0();
             sub_0044B880_SetValue(0);
@@ -966,9 +966,9 @@ int __cdecl sub_004B9180_PollWait()
     return 0;
 }
 
-int gbHintsOff_007C5468; // 0x007C5468
+int gbRandomSoundTest; // 0x007C5468
 
-void* gpCelFile_007C546C; // 0x007C546C
+void* gpListBoxSliderCel; // 0x007C546C
 
 // 0x004B9210
 void __fastcall sub_004B9210_DispatchUiPacket(D2UiPacketStrc_004B9210* pPacket)
@@ -1009,8 +1009,8 @@ void __fastcall sub_004B9210_DispatchUiPacket(D2UiPacketStrc_004B9210* pPacket)
 // 0x004BABC0
 void __cdecl sub_004BABC0_ToggleHints()
 {
-    gbHintsOff_007C5468 = !gbHintsOff_007C5468;
-    if (!gbHintsOff_007C5468)
+    gbRandomSoundTest = !gbRandomSoundTest;
+    if (!gbRandomSoundTest)
     {
         sub_004BAA50_RefreshHintRange();
     }
@@ -1019,10 +1019,10 @@ void __cdecl sub_004BABC0_ToggleHints()
 // 0x004BE060
 void __cdecl sub_004BE060()
 {
-    if (gpCelFile_007C546C)
+    if (gpListBoxSliderCel)
     {
-        ARCHIVE_FreeClientCellFile(gpCelFile_007C546C);
-        gpCelFile_007C546C = 0;
+        ARCHIVE_FreeClientCellFile(gpListBoxSliderCel);
+        gpListBoxSliderCel = 0;
     }
 }
 
@@ -1126,14 +1126,14 @@ int SpinnerWrapper::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
     return pImpl->MsgSlot02(pMsg);
 }
 
-D2TimedHintNodeStrc* gpTimedHintList_007C5458; // 0x007C5458
+D2TimedHintNodeStrc* gpClientSoundList; // 0x007C5458
 
 // 0x004B9590
 int __fastcall sub_004B9590(int nKey)
 {
     if (nKey)
     {
-        for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
+        for (D2TimedHintNodeStrc* pNode = gpClientSoundList; pNode; pNode = pNode->pNext)
         {
             D2TimedHintEntryStrc* pEntry = pNode->pEntry;
             if (pEntry->nKey == nKey)
@@ -1150,7 +1150,7 @@ int __fastcall sub_004B9BE0_HasActiveHint(int nKey)
 {
     if (nKey)
     {
-        for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
+        for (D2TimedHintNodeStrc* pNode = gpClientSoundList; pNode; pNode = pNode->pNext)
         {
             D2TimedHintEntryStrc* pEntry = pNode->pEntry;
             if (pEntry->nKey == nKey)
@@ -1171,8 +1171,8 @@ int __fastcall sub_004B9BE0_HasActiveHint(int nKey)
 D2TimedHintEntryStrc* __stdcall sub_004B9690_FindOldestEntry(int nGroup, int nKey, D2TimedHintEntryStrc* pExclude)
 {
     D2TimedHintEntryStrc* pOldest = 0;
-    D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458;
-    if (gpTimedHintList_007C5458)
+    D2TimedHintNodeStrc* pNode = gpClientSoundList;
+    if (gpClientSoundList)
     {
         for (; pNode; pNode = pNode->pNext)
         {

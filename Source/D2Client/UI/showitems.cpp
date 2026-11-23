@@ -22,7 +22,7 @@ struct D2UiBlockRectStrc
     char unk0x10[0x110];
 };
 
-extern int gnGlobal_00711470;                                                                               // 0x00711470
+extern int gnScreenHeight;                                                                               // 0x00711470
 
 extern int gnBlockRectCount_007C54A0;                                                                       // 0x007C54A0
 
@@ -30,11 +30,11 @@ extern D2UiBlockRectStrc gaBlockRects_007C54A8[32];                             
 
 struct D2ItemLabelStrc { int nLeft,nTop,nRight,nBottom; D2UnitStrc* pItem; Unicode wszText[128]; int nFillColor,nDrawMode,nTextColor; };
 
-extern int gnItemLabelCount_007C54A0; // 0x007C54A0
+extern int gnItemLabelCount; // 0x007C54A0
 
-extern D2ItemLabelStrc gaItemLabels_007C54A8[32]; // 0x007C54A8
+extern D2ItemLabelStrc gaItemLabels[32]; // 0x007C54A8
 
-extern "C" const char gszShowItems_006DAB64[]; // 0x006DAB64
+extern "C" const char gszShowItems[]; // 0x006DAB64
 
 int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 
@@ -127,7 +127,7 @@ static inline void sub_004C0640_ClampToScreen(int* pLeft, int* pTop, int* pRight
 // 0x004C0640
 int __fastcall sub_004C0640_ClampRectToScreen(int* pLeft, int* pTop, int* pRight, int* pBottom, int nMode, int nMaxX, int nMinX)
 {
-    int nMaxY = gnGlobal_00711470 - 48;
+    int nMaxY = gnScreenHeight - 48;
 
     sub_004C0640_ClampToScreen(pLeft, pTop, pRight, pBottom, nMaxX, nMinX, nMaxY);
 
@@ -186,34 +186,34 @@ int __fastcall sub_004C0640_AdjustLabel(int* pLeft, int* pTop, int* pRight, int*
 
     sub_004C0640_ClampToScreen(pLeft, pTop, pRight, pBottom, nMaxX, nMinX, nMaxY);
 
-    if (gnItemLabelCount_007C54A0 >= 32)
+    if (gnItemLabelCount >= 32)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x47);
         exit(-1);
     }
 
-    for (int i = 0; i < gnItemLabelCount_007C54A0; ++i)
+    for (int i = 0; i < gnItemLabelCount; ++i)
     {
-        const int bX = (*pLeft <= gaItemLabels_007C54A8[i].nRight && *pRight >= gaItemLabels_007C54A8[i].nLeft) ? 1 : 0;
-        const int bY = (*pTop <= gaItemLabels_007C54A8[i].nBottom && *pBottom >= gaItemLabels_007C54A8[i].nTop) ? 1 : 0;
+        const int bX = (*pLeft <= gaItemLabels[i].nRight && *pRight >= gaItemLabels[i].nLeft) ? 1 : 0;
+        const int bY = (*pTop <= gaItemLabels[i].nBottom && *pBottom >= gaItemLabels[i].nTop) ? 1 : 0;
         if (bX && bY)
         {
             int nDelta;
             if (nMode > 6)
             {
                 if ((*pRight - *pLeft) / 2 && *pLeft >= nMaxX)
-                    nDelta = gaItemLabels_007C54A8[i].nLeft - *pRight - 1;
+                    nDelta = gaItemLabels[i].nLeft - *pRight - 1;
                 else
-                    nDelta = gaItemLabels_007C54A8[i].nRight - *pLeft + 1;
+                    nDelta = gaItemLabels[i].nRight - *pLeft + 1;
                 *pLeft += nDelta;
                 *pRight += nDelta;
                 return 0;
             }
 
             if ((*pBottom - *pTop) / 2 && *pTop <= nMaxY)
-                nDelta = gaItemLabels_007C54A8[i].nTop - *pBottom - 3;
+                nDelta = gaItemLabels[i].nTop - *pBottom - 3;
             else
-                nDelta = gaItemLabels_007C54A8[i].nBottom - *pTop + 5;
+                nDelta = gaItemLabels[i].nBottom - *pTop + 5;
             *pTop += nDelta;
             *pBottom += nDelta;
             return 0;
@@ -238,14 +238,14 @@ void __cdecl sub_004C0810_DrawUnitNames()
     unsigned int nRoomCount;
     DUNGEON_GetAdjacentRoomsListFromRoom(pRoom,&ppRooms,&nRoomCount);
     unsigned char nHighlight=sub_004FB180_FindPaletteIndex(0,64,128);
-    gnItemLabelCount_007C54A0=0;
+    gnItemLabelCount=0;
     int bSelected=0;
     for(unsigned int nRoom=0;nRoom<nRoomCount;++nRoom)
     {
         for(D2UnitStrc* pItem=ppRooms[nRoom]->pUnitFirst;pItem;pItem=pItem->ptRoomNext)
         {
-            if(!UnitIsSelectable(pItem) || GetUnitType(pItem)!=4 || gnItemLabelCount_007C54A0>=32)continue;
-            D2ItemLabelStrc* pLabel=&gaItemLabels_007C54A8[gnItemLabelCount_007C54A0];
+            if(!UnitIsSelectable(pItem) || GetUnitType(pItem)!=4 || gnItemLabelCount>=32)continue;
+            D2ItemLabelStrc* pLabel=&gaItemLabels[gnItemLabelCount];
             pLabel->pItem=pItem;
             int nX,nY,nBottom;
             if(bPerspective)
@@ -325,7 +325,7 @@ Placed:
                 case ITEMQUAL_UNIQUE:nColor=4;break;
                 case ITEMQUAL_SET:nColor=2;break;
                 default:
-                    if((ITEMS_CheckItemFlag(pItem,0x800,0x106,gszShowItems_006DAB64) && ITEMS_CheckIfSocketable(pItem) && ITEMS_GetMaxSockets(pItem)>0) || ITEMS_CheckItemFlag(pItem,0x400000,0x10C,gszShowItems_006DAB64))nColor=5;
+                    if((ITEMS_CheckItemFlag(pItem,0x800,0x106,gszShowItems) && ITEMS_CheckIfSocketable(pItem) && ITEMS_GetMaxSockets(pItem)>0) || ITEMS_CheckItemFlag(pItem,0x400000,0x10C,gszShowItems))nColor=5;
                     break;
                 }
                 int nClassId=pItem->dwClassId;
@@ -333,12 +333,12 @@ Placed:
                 if(pRecord->nQuest && pRecord->dwCode!=0x2067656C)nColor=4;
                 pLabel->nTextColor=nColor;
             }
-            ++gnItemLabelCount_007C54A0;
+            ++gnItemLabelCount;
         }
     }
-    for(int i=0;i<gnItemLabelCount_007C54A0;++i)
+    for(int i=0;i<gnItemLabelCount;++i)
     {
-        D2ItemLabelStrc* pLabel=&gaItemLabels_007C54A8[i];
+        D2ItemLabelStrc* pLabel=&gaItemLabels[i];
         D2Win_10132(pLabel->wszText,pLabel->nLeft,pLabel->nBottom,pLabel->nFillColor,pLabel->nDrawMode,pLabel->nTextColor);
     }
     if(!bSelected)

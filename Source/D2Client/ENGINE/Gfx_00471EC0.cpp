@@ -18,8 +18,8 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-extern const char gszGfxFile_006D6C1C[];                                                                    // 0x006D6C1C
-extern int gnGlobal_0071146C;                                                                               // 0x0071146C
+extern const char gszGfxFile[];                                                                    // 0x006D6C1C
+extern int gnScreenWidth;                                                                               // 0x0071146C
 
 int __cdecl GAME_GetColorFlag();                                                                                 // 0x0044DC60
 int __cdecl sub_0045AE90();                                                                         // 0x0045AE90
@@ -81,7 +81,7 @@ int __fastcall sub_00471EC0_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, in
     const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
     int nClassId = nClassValue;
     int nMode = UNITS_GetAnimOrSeqMode(pUnit);
-    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, gszGfxFile_006D6C1C, 0xAF0);
+    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, gszGfxFile, 0xAF0);
 
     int nOffsetX = 0;
     int nOffsetY = 0;
@@ -158,10 +158,10 @@ int __fastcall sub_00471EC0_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, in
         switch (sub_0045AE90())
         {
         case 1:
-            nDrawX -= gnGlobal_0071146C / 4;
+            nDrawX -= gnScreenWidth / 4;
             break;
         case 2:
-            nDrawX += gnGlobal_0071146C / 4;
+            nDrawX += gnScreenWidth / 4;
             break;
         }
     }
@@ -290,7 +290,7 @@ static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, in
     const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
     int nClassId = nClassValue;
     int nMode = UNITS_GetAnimOrSeqMode(pUnit);
-    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, gszGfxFile_006D6C1C, 0x52B);
+    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, gszGfxFile, 0x52B);
     int nDrawX = nX - PLAYER_GetScreenOffsetX();
     int nDrawY = nY - PLAYER_GetScreenOffsetY();
     int bPerspective = D2GFX_CheckPerspective();
@@ -299,8 +299,8 @@ static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, in
     {
         switch (nBorder)
         {
-        case 1: nDrawX -= gnGlobal_0071146C / 4; break;
-        case 2: nDrawX += gnGlobal_0071146C / 4; break;
+        case 1: nDrawX -= gnScreenWidth / 4; break;
+        case 2: nDrawX += gnScreenWidth / 4; break;
         }
     }
     int bRestoreTown = 0;

@@ -199,7 +199,8 @@ void __fastcall sub_004423B0_RunCommand(char* szText)
         return;
     }
 
-    if (!CHATDLG_CompareCommand(szText, gszCmdIgnore_006D56A4) || !CHATDLG_CompareCommand(szText, gszCmdSquelch_006D5698))
+// build: symbol ?gszCmdSquelch@* 0x006D5698
+    if (!CHATDLG_CompareCommand(szText, gszCmdIgnore_006D56A4) || !CHATDLG_CompareCommand(szText, gszCmdSquelch))
     {
         Unicode wszFormat[0x208];
         Unicode wszMessage[0x208];
@@ -219,7 +220,8 @@ void __fastcall sub_004423B0_RunCommand(char* szText)
         return;
     }
 
-    if (!CHATDLG_CompareCommand(szText, gszCmdUnignore_006D568C) || !CHATDLG_CompareCommand(szText, gszCmdUnsquelch_006D5680))
+// build: symbol ?gszCmdUnsquelch@* 0x006D5680
+    if (!CHATDLG_CompareCommand(szText, gszCmdUnignore_006D568C) || !CHATDLG_CompareCommand(szText, gszCmdUnsquelch))
     {
         Unicode wszFormat[0x208];
         Unicode wszMessage[0x208];

@@ -13,19 +13,19 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const cha
 
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
-extern "C" const char gszFormatD_006D57BC[];                                                                // 0x006D57BC
-extern int gnGlobal_0071146C;                                                                               // 0x0071146C
-extern int gnGlobal_00711470;                                                                               // 0x00711470
-extern int gnGlobal_007A2858;                                                                               // 0x007A2858
-extern int gnGlobal_007A285C;                                                                               // 0x007A285C
-extern int gnGlobal_00724BEC;                                                                               // 0x00724BEC
-extern int gnTabSelection_00724CE0;                                                                         // 0x00724CE0
-extern int gbGlobal_007C0C38;                                                                               // 0x007C0C38
-extern "C" int gnValue_007C0C3C;                                                                            // 0x007C0C3C
-extern int gnGlobal_007C0C44;                                                                               // 0x007C0C44
-extern int gnGlobal_007C0C4C;                                                                               // 0x007C0C4C
-int ganSkillMode_007C0838[128];                                                                             // 0x007C0838
-extern int ganSkillState_007C0A38[];                                                                        // 0x007C0A38
+extern "C" const char gszFormatD[];                                                                // 0x006D57BC
+extern int gnScreenWidth;                                                                               // 0x0071146C
+extern int gnScreenHeight;                                                                               // 0x00711470
+extern int gnPanelOffsetX;                                                                               // 0x007A2858
+extern int gnPanelOffsetY;                                                                               // 0x007A285C
+extern int gnSkillPage;                                                                               // 0x00724BEC
+extern int gnTabSelection;                                                                         // 0x00724CE0
+extern int gbSkillTabPressed;                                                                               // 0x007C0C38
+extern "C" int gbSkillPointsHighlight;                                                                            // 0x007C0C3C
+extern int gbInSkillPanelDraw;                                                                               // 0x007C0C44
+extern int gbSkillPanelDrawn;                                                                               // 0x007C0C4C
+int gaSkillButtonFrame[128];                                                                             // 0x007C0838
+extern int gaSkillButtonState[];                                                                        // 0x007C0A38
 
 int __cdecl sub_00468730();                                                                                 // 0x00468730
 int __cdecl sub_00468740();                                                                                 // 0x00468740
@@ -97,17 +97,17 @@ static inline D2SkillDescTxt* SKILLTREE_GetSkillDescRec(int nSkillId)
 static int sub_004AA9C0_GetSkillRowY(unsigned char nRow)
 {
     if (nRow == 1)
-        return gnGlobal_00711470 + gnGlobal_007A285C - 0x1A2;
+        return gnScreenHeight + gnPanelOffsetY - 0x1A2;
     if (nRow == 2)
-        return gnGlobal_00711470 + gnGlobal_007A285C - 0x15E;
+        return gnScreenHeight + gnPanelOffsetY - 0x15E;
     if (nRow == 3)
-        return gnGlobal_00711470 + gnGlobal_007A285C - 0x11A;
+        return gnScreenHeight + gnPanelOffsetY - 0x11A;
     if (nRow == 4)
-        return gnGlobal_00711470 + gnGlobal_007A285C - 0xD6;
+        return gnScreenHeight + gnPanelOffsetY - 0xD6;
     if (nRow == 5)
-        return gnGlobal_00711470 + gnGlobal_007A285C - 0x91;
+        return gnScreenHeight + gnPanelOffsetY - 0x91;
     if (nRow == 6)
-        return gnGlobal_00711470 + gnGlobal_007A285C - 0x4D;
+        return gnScreenHeight + gnPanelOffsetY - 0x4D;
     return 0;
 }
 
@@ -115,11 +115,11 @@ static int sub_004AA9C0_GetSkillRowY(unsigned char nRow)
 static int sub_004AAA50_GetSkillColumnX(unsigned char nColumn)
 {
     if (nColumn == 1)
-        return gnGlobal_0071146C - gnGlobal_007A2858 - 0x131;
+        return gnScreenWidth - gnPanelOffsetX - 0x131;
     if (nColumn == 2)
-        return gnGlobal_0071146C - gnGlobal_007A2858 - 0xEC;
+        return gnScreenWidth - gnPanelOffsetX - 0xEC;
     if (nColumn == 3)
-        return gnGlobal_0071146C - gnGlobal_007A2858 - 0xA7;
+        return gnScreenWidth - gnPanelOffsetX - 0xA7;
     return 0;
 }
 
@@ -136,20 +136,20 @@ static int __stdcall sub_004AB5F0_IsMouseInRect(int nX, int nY, int nWidth, int 
 // 0x004AB630
 void __cdecl sub_004AB630_DrawTabHint()
 {
-    if (gnTabSelection_00724CE0 == 1)
+    if (gnTabSelection == 1)
     {
-        if (sub_004AB5F0_IsMouseInRect(gnGlobal_0071146C - gnGlobal_007A2858 - 0x95, gnGlobal_00711470 + gnGlobal_007A285C - 0x3F, 0x22, 0x22))
-            D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1030), gnGlobal_0071146C - gnGlobal_007A2858 - 0x86, gnGlobal_00711470 + gnGlobal_007A285C - 0x62, 0, 1);
+        if (sub_004AB5F0_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0x95, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
+            D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1030), gnScreenWidth - gnPanelOffsetX - 0x86, gnScreenHeight + gnPanelOffsetY - 0x62, 0, 1);
     }
-    else if (gnTabSelection_00724CE0 == 2)
+    else if (gnTabSelection == 2)
     {
-        if (sub_004AB5F0_IsMouseInRect(gnGlobal_0071146C - gnGlobal_007A2858 - 0xDC, gnGlobal_00711470 + gnGlobal_007A285C - 0x3F, 0x22, 0x22))
-            D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1030), gnGlobal_0071146C - gnGlobal_007A2858 - 0xCD, gnGlobal_00711470 + gnGlobal_007A285C - 0x62, 0, 1);
+        if (sub_004AB5F0_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0xDC, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
+            D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1030), gnScreenWidth - gnPanelOffsetX - 0xCD, gnScreenHeight + gnPanelOffsetY - 0x62, 0, 1);
     }
-    else if (gnTabSelection_00724CE0 == 3)
+    else if (gnTabSelection == 3)
     {
-        if (sub_004AB5F0_IsMouseInRect(gnGlobal_0071146C - gnGlobal_007A2858 - 0x131, gnGlobal_00711470 + gnGlobal_007A285C - 0x3F, 0x22, 0x22))
-            D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1030), gnGlobal_0071146C - gnGlobal_007A2858 - 0x122, gnGlobal_00711470 + gnGlobal_007A285C - 0x62, 0, 1);
+        if (sub_004AB5F0_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0x131, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
+            D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1030), gnScreenWidth - gnPanelOffsetX - 0x122, gnScreenHeight + gnPanelOffsetY - 0x62, 0, 1);
     }
 }
 
@@ -166,10 +166,10 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
         return;
 
     const int nClassId = pPlayer->dwClassId;
-    if (nMouseY > gnGlobal_00711470 - 0x30)
+    if (nMouseY > gnScreenHeight - 0x30)
         return;
 
-    if (!gnGlobal_007C0C4C)
+    if (!gbSkillPanelDrawn)
     {
         sub_0044DA70();
         pMsg->bReturn = 1;
@@ -178,7 +178,7 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
         return;
     }
 
-    if (nMouseX > gnGlobal_0071146C - gnGlobal_007A2858 - 0x140 && nMouseX < gnGlobal_0071146C - gnGlobal_007A2858 - 0x58)
+    if (nMouseX > gnScreenWidth - gnPanelOffsetX - 0x140 && nMouseX < gnScreenWidth - gnPanelOffsetX - 0x58)
     {
         if (STATLIST_GetUnitBaseStat(pPlayer, STAT_SKILLPTS, 0) <= 0)
         {
@@ -193,13 +193,13 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
                 if (!pDesc)
                     continue;
 
-                if (gnGlobal_00724BEC == pDesc->nSkillPage)
+                if (gnSkillPage == pDesc->nSkillPage)
                 {
                     const int nY = sub_004AA9C0_GetSkillRowY(pDesc->nSkillRow);
                     if (nMouseY > nY - 0x30 && nMouseY < nY)
                     {
                         const int nX = sub_004AAA50_GetSkillColumnX(pDesc->nSkillColumn);
-                        if (nMouseX > nX && nMouseX < nX + 0x30 && !ganSkillState_007C0A38[i] && !BITARRAY_CHECK(pSkillsTxt->nFlags, 4))
+                        if (nMouseX > nX && nMouseX < nX + 0x30 && !gaSkillButtonState[i] && !BITARRAY_CHECK(pSkillsTxt->nFlags, 4))
                         {
                             sub_004786A0_SendDwords2(0x3C, pSkillsTxt->nSkillId, -1);
                             sub_00455F20(4, 1, 0);
@@ -219,18 +219,18 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
         }
     }
 
-    if (nMouseX >= gnGlobal_0071146C - gnGlobal_007A2858 - 0x58)
+    if (nMouseX >= gnScreenWidth - gnPanelOffsetX - 0x58)
     {
-        if (nMouseX <= gnGlobal_0071146C - gnGlobal_007A2858)
+        if (nMouseX <= gnScreenWidth - gnPanelOffsetX)
         {
-            const int nOldPage = gnGlobal_00724BEC;
-            if (nMouseY > gnGlobal_00711470 + gnGlobal_007A285C - 0x174 && nMouseY < gnGlobal_00711470 + gnGlobal_007A285C - 0x109)
-                gnGlobal_00724BEC = 3;
-            if (nMouseY > gnGlobal_00711470 + gnGlobal_007A285C - 0x108 && nMouseY < gnGlobal_00711470 + gnGlobal_007A285C - 0x9D)
-                gnGlobal_00724BEC = 2;
-            if (nMouseY > gnGlobal_00711470 + gnGlobal_007A285C - 0x9C && nMouseY < gnGlobal_00711470 - 0x31)
-                gnGlobal_00724BEC = 1;
-            if (gnGlobal_00724BEC != nOldPage)
+            const int nOldPage = gnSkillPage;
+            if (nMouseY > gnScreenHeight + gnPanelOffsetY - 0x174 && nMouseY < gnScreenHeight + gnPanelOffsetY - 0x109)
+                gnSkillPage = 3;
+            if (nMouseY > gnScreenHeight + gnPanelOffsetY - 0x108 && nMouseY < gnScreenHeight + gnPanelOffsetY - 0x9D)
+                gnSkillPage = 2;
+            if (nMouseY > gnScreenHeight + gnPanelOffsetY - 0x9C && nMouseY < gnScreenHeight - 0x31)
+                gnSkillPage = 1;
+            if (gnSkillPage != nOldPage)
                 sub_004B9A00(6, 0, 0, 0, 0);
         }
 
@@ -239,32 +239,32 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
         sub_00420290_BreakHandlerChain(pMsg);
     }
 
-    if (gnTabSelection_00724CE0 == 1)
+    if (gnTabSelection == 1)
     {
-        if (sub_004AB5F0_IsMouseInRect(gnGlobal_0071146C - gnGlobal_007A2858 - 0x95, gnGlobal_00711470 + gnGlobal_007A285C - 0x3F, 0x22, 0x22))
+        if (sub_004AB5F0_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0x95, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
         {
             sub_004B9A00(4, 0, 0, 0, 0);
-            gbGlobal_007C0C38 = 1;
+            gbSkillTabPressed = 1;
         }
     }
-    else if (gnTabSelection_00724CE0 == 2)
+    else if (gnTabSelection == 2)
     {
-        if (sub_004AB5F0_IsMouseInRect(gnGlobal_0071146C - gnGlobal_007A2858 - 0xDC, gnGlobal_00711470 + gnGlobal_007A285C - 0x3F, 0x22, 0x22))
+        if (sub_004AB5F0_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0xDC, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
         {
             sub_004B9A00(4, 0, 0, 0, 0);
-            gbGlobal_007C0C38 = 1;
+            gbSkillTabPressed = 1;
         }
     }
-    else if (gnTabSelection_00724CE0 == 3)
+    else if (gnTabSelection == 3)
     {
-        if (sub_004AB5F0_IsMouseInRect(gnGlobal_0071146C - gnGlobal_007A2858 - 0x131, gnGlobal_00711470 + gnGlobal_007A285C - 0x3F, 0x22, 0x22))
+        if (sub_004AB5F0_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0x131, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
         {
             sub_004B9A00(4, 0, 0, 0, 0);
-            gbGlobal_007C0C38 = 1;
+            gbSkillTabPressed = 1;
         }
     }
 
-    if (nMouseX > gnGlobal_0071146C - gnGlobal_007A2858 - 0x140 && nMouseX < gnGlobal_0071146C - gnGlobal_007A2858 - 0x58)
+    if (nMouseX > gnScreenWidth - gnPanelOffsetX - 0x140 && nMouseX < gnScreenWidth - gnPanelOffsetX - 0x58)
     {
         if (STATLIST_GetUnitBaseStat(pPlayer, STAT_SKILLPTS, 0) > 0)
         {
@@ -278,7 +278,7 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
                 if (!pDesc)
                     continue;
 
-                if (gnGlobal_00724BEC != pDesc->nSkillPage)
+                if (gnSkillPage != pDesc->nSkillPage)
                     continue;
 
                 const int nY = sub_004AA9C0_GetSkillRowY(pDesc->nSkillRow);
@@ -286,11 +286,11 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
                     continue;
 
                 const int nX = sub_004AAA50_GetSkillColumnX(pDesc->nSkillColumn);
-                if (nMouseX <= nX || nMouseX >= nX + 0x30 || ganSkillState_007C0A38[i])
+                if (nMouseX <= nX || nMouseX >= nX + 0x30 || gaSkillButtonState[i])
                     continue;
 
-                ganSkillState_007C0A38[i] = 1;
-                ganSkillMode_007C0838[i] = 3;
+                gaSkillButtonState[i] = 1;
+                gaSkillButtonFrame[i] = 3;
                 sub_00467F20_MsgHandler(pMsg);
                 pMsg->bReturn = 1;
                 pMsg->lResult = 0;
@@ -328,7 +328,7 @@ void __stdcall sub_004ABC30_SkillTreeLButtonUp(SMSGHANDLER_PARAMS* pMsg)
     if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg))
         return;
 
-    if (!gnGlobal_007C0C4C)
+    if (!gbSkillPanelDrawn)
     {
         sub_0044DA70();
         pMsg->bReturn = 1;
@@ -337,22 +337,22 @@ void __stdcall sub_004ABC30_SkillTreeLButtonUp(SMSGHANDLER_PARAMS* pMsg)
         return;
     }
 
-    if (gbGlobal_007C0C38)
+    if (gbSkillTabPressed)
     {
-        gbGlobal_007C0C38 = 0;
-        if (gnTabSelection_00724CE0 == 1)
+        gbSkillTabPressed = 0;
+        if (gnTabSelection == 1)
         {
-            if (sub_004AB5F0_IsMouseInRect(gnGlobal_0071146C - gnGlobal_007A2858 - 0x95, gnGlobal_00711470 + gnGlobal_007A285C - 0x3F, 0x22, 0x22))
+            if (sub_004AB5F0_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0x95, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
                 sub_00455F20(4, 2, 0);
         }
-        else if (gnTabSelection_00724CE0 == 2)
+        else if (gnTabSelection == 2)
         {
-            if (sub_004AB5F0_IsMouseInRect(gnGlobal_0071146C - gnGlobal_007A2858 - 0xDC, gnGlobal_00711470 + gnGlobal_007A285C - 0x3F, 0x22, 0x22))
+            if (sub_004AB5F0_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0xDC, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
                 sub_00455F20(4, 2, 0);
         }
-        else if (gnTabSelection_00724CE0 == 3)
+        else if (gnTabSelection == 3)
         {
-            if (sub_004AB5F0_IsMouseInRect(gnGlobal_0071146C - gnGlobal_007A2858 - 0x131, gnGlobal_00711470 + gnGlobal_007A285C - 0x3F, 0x22, 0x22))
+            if (sub_004AB5F0_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0x131, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
                 sub_00455F20(4, 2, 0);
         }
 
@@ -362,7 +362,7 @@ void __stdcall sub_004ABC30_SkillTreeLButtonUp(SMSGHANDLER_PARAMS* pMsg)
         return;
     }
 
-    if (nMouseX > gnGlobal_0071146C / 2)
+    if (nMouseX > gnScreenWidth / 2)
     {
         const int nNewSkills = STATLIST_GetUnitBaseStat(pPlayer, STAT_SKILLPTS, 0);
         if (nNewSkills > 0)
@@ -378,13 +378,13 @@ void __stdcall sub_004ABC30_SkillTreeLButtonUp(SMSGHANDLER_PARAMS* pMsg)
                 if (!pDesc)
                     continue;
 
-                if (gnGlobal_00724BEC == pDesc->nSkillPage)
+                if (gnSkillPage == pDesc->nSkillPage)
                 {
                     const int nY = sub_004AA9C0_GetSkillRowY(pDesc->nSkillRow);
                     if (nMouseY > nY - 0x30 && nMouseY < nY)
                     {
                         const int nX = sub_004AAA50_GetSkillColumnX(pDesc->nSkillColumn);
-                        if (nMouseX > nX && nMouseX < nX + 0x30 && ganSkillState_007C0A38[i] == 1)
+                        if (nMouseX > nX && nMouseX < nX + 0x30 && gaSkillButtonState[i] == 1)
                         {
                             if (pSkillsTxt->dwSkPoints != -1)
                             {
@@ -406,13 +406,13 @@ void __stdcall sub_004ABC30_SkillTreeLButtonUp(SMSGHANDLER_PARAMS* pMsg)
                                 if (nLevel <= sub_004AA8B0_GetSkillMaxLevel(pSkillsTxt->nSkillId) && !sub_004AA900_IsStateOrValue())
                                 {
                                     sub_004785B0_SendPacket3(0x3B, nSkillId);
-                                    gnValue_007C0C3C = 0;
+                                    gbSkillPointsHighlight = 0;
                                 }
                             }
 
 LDone:
-                            ganSkillState_007C0A38[i] = 0;
-                            ganSkillMode_007C0838[i] = 0;
+                            gaSkillButtonState[i] = 0;
+                            gaSkillButtonFrame[i] = 0;
                             pMsg->bReturn = 1;
                             pMsg->lResult = 0;
                             sub_00420290_BreakHandlerChain(pMsg);
@@ -421,10 +421,10 @@ LDone:
                     }
                 }
 
-                if (ganSkillState_007C0A38[i] != -1)
+                if (gaSkillButtonState[i] != -1)
                 {
-                    ganSkillState_007C0A38[i] = 0;
-                    ganSkillMode_007C0838[i] = 0;
+                    gaSkillButtonState[i] = 0;
+                    gaSkillButtonFrame[i] = 0;
                 }
             }
         }

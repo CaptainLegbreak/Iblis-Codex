@@ -19,7 +19,7 @@
 
 #define LIGHT_ABS(x) ((x) >= 0 ? (x) : -(x))
 
-#define LIGHT_CELL(v, r, c) { v = gdwLightOverrideRows_007ACA50[r][c]; if (!v) { v = gdwLightMapRows_007A8A50[r][c]; } }
+#define LIGHT_CELL(v, r, c) { v = gadwLightOverrideRows[r][c]; if (!v) { v = gadwLightMapRows[r][c]; } }
 
 struct D2UnitRefStrc;
 
@@ -59,7 +59,7 @@ D2UnitStrc* __fastcall CUNIT_FindServerSideUnit(unsigned int nUnitId, int nUnitT
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-extern int gbFlag_00712B8C; // 0x00712B8C
+extern int gbBlendLightColor; // 0x00712B8C
 
 extern int gnCellOriginX_007B0A54; // 0x007B0A54
 
@@ -105,17 +105,17 @@ extern unsigned int gdwLightGrid_007B0E68[]; // 0x007B0E68
 
 extern D2DrlgActStrc* gpGlobal_007A0634; // 0x007A0634
 
-extern unsigned char gRowTable_007B5C10[][0x100]; // 0x007B5C10
+extern unsigned char gabRowTable[][0x100]; // 0x007B5C10
 
-extern unsigned char** gppLerpRows_007B953C; // 0x007B953C
+extern unsigned char** gppLerpRows; // 0x007B953C
 
-extern unsigned char* gpLerpTable_007B9540; // 0x007B9540
+extern unsigned char* gpLerpTable16; // 0x007B9540
 
-extern unsigned char* gpLerpTable_007B9544; // 0x007B9544
+extern unsigned char* gpLerpTable32; // 0x007B9544
 
 extern unsigned char** gppRampTable_007B954C; // 0x007B954C
 
-extern unsigned char* gpLerpTable_007B9550; // 0x007B9550
+extern unsigned char* gpLerpTable40; // 0x007B9550
 
 extern int gdwGlobal_007BB384; // 0x007BB384
 
@@ -135,7 +135,7 @@ extern int gdwGlobal_007BC9B4; // 0x007BC9B4
 
 extern int gdwGlobal_007BC99C; // 0x007BC99C
 
-extern int gdwGlobal_007BC9BC; // 0x007BC9BC
+extern int gdwSoundTick; // 0x007BC9BC
 
 extern int gdwGlobal_007BF024; // 0x007BF024
 
@@ -158,33 +158,33 @@ struct D2P08LightSourceStrc
     unsigned char nBlue;
 };
 
-unsigned int gdwReciprocals_007B0A68[0x100]; // 0x007B0A68
+unsigned int gadwReciprocals[0x100]; // 0x007B0A68
 
 extern D2GridCellStrc gtGridCells_007B0E68[]; // 0x007B0E68
 
-D2LightCellStrc gaCells_007B0E68[0x30][0x30]; // 0x007B0E68
+D2LightCellStrc gaLightGrid[0x30][0x30]; // 0x007B0E68
 
-unsigned int gdwLightOverrideRows_007ACA50[64][64]; // 0x007ACA50
+unsigned int gadwLightOverrideRows[64][64]; // 0x007ACA50
 
-static D2R01LightStrc* gpLights_007B5668; // 0x007B5668
+static D2R01LightStrc* gpLights; // 0x007B5668
 
 extern "C" int __cdecl abs(int nValue);
 
-int gnPathStepSignX_007B0A50; // 0x007B0A50
+int gnPathStepSignX; // 0x007B0A50
 
-int gnPathStepSignY_007A8A48; // 0x007A8A48
+int gnPathStepSignY; // 0x007A8A48
 
 static inline unsigned char DLIGHTMAP_IsCellBlocked(int nX, int nY); // 0x00474A30
 
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 
-int gnGlobal_007B0A5C;                                                                                      // 0x007B0A5C
+int gnCellLimitX;                                                                                      // 0x007B0A5C
 
-int gnGlobal_007B0A60;                                                                                      // 0x007B0A60
+int gnCellLimitY;                                                                                      // 0x007B0A60
 
-int gnPathStepMode_007B0A64; // 0x007B0A64
+int gnPathStepMode; // 0x007B0A64
 
-int gnPathStepRatio_007A8A4C; // 0x007A8A4C
+int gnPathStepRatio; // 0x007A8A4C
 
 static void __stdcall DLIGHTMAP_SetupStepDirection(int nX, int nY, D2R01LightStrc* pPoint); // 0x00474B50
 
@@ -208,7 +208,7 @@ unsigned int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit); // 0x006203B0
 
 unsigned int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit); // 0x00620410
 
-int gnLightsAllocated_007B566C; // 0x007B566C
+int gnLightsAllocated; // 0x007B566C
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
@@ -251,7 +251,7 @@ extern int gnGlobal_007B0A54;                                                   
 
 extern int gnGlobal_007B0A58;                                                                               // 0x007B0A58
 
-int gnLightCount_007B5674;                                                                                  // 0x007B5674
+int gnLightCount;                                                                                  // 0x007B5674
 
 static unsigned int __stdcall DLIGHTMAP_ApproxDistance(int nB, int nA); // 0x004740D0
 
@@ -261,17 +261,17 @@ static void DLIGHTMAP_BuildLightMask(D2R01LightStrc* pLight); // 0x004750F0
 
 static void DLIGHTMAP_AddMaskedAreaLight(D2R01LightStrc* pLight); // 0x00475420
 
-int gnLightsReleased_007B5670; // 0x007B5670
+int gnLightsReleased; // 0x007B5670
 
-int gnIndicatorLevel_007B567C; // 0x007B567C
+int gnIndicatorLevel; // 0x007B567C
 
-unsigned long gdwIndicatorTick_007B5678; // 0x007B5678
+unsigned long gdwIndicatorTick; // 0x007B5678
 
 int gdwGlobal_007BB388; // 0x007BB388
 
 int gdwGlobal_007BCC48; // 0x007BCC48
 
-unsigned int gdwLightMapRows_007A8A50[64][64]; // 0x007A8A50
+unsigned int gadwLightMapRows[64][64]; // 0x007A8A50
 
 static void __stdcall DLIGHTMAP_UpdateLight(int nLevel, D2R01LightStrc* pLight); // 0x004755A0
 
@@ -307,7 +307,7 @@ static inline D2UnitStrc* DLIGHTMAP_FindUnitFromRef(D2UnitRefStrc* pRef)
 // 0x00474140
 void __cdecl sub_00474140_ToggleFlag()
 {
-    gbFlag_00712B8C = !gbFlag_00712B8C;
+    gbBlendLightColor = !gbBlendLightColor;
 }
 
 static inline int UNITS_IsServerSide(D2UnitStrc* pUnit)
@@ -338,7 +338,7 @@ D2R01LightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nM
             nRadius = 18;
         }
 
-        ++gnLightsAllocated_007B566C;
+        ++gnLightsAllocated;
 
         D2R01LightStrc* pLight = (D2R01LightStrc*)FOG_Alloc(sizeof(D2R01LightStrc), ".\\DRAW\\dLightMap.cpp", 255, 0);
         pLight->nUnitType = sub_0044BE50(pUnit);
@@ -365,7 +365,7 @@ D2R01LightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nM
         pLight->nMode = nNativeMode;
         pLight->bFixed = 0;
         pLight->nBlue = nBlue;
-        pLight->pNext = gpLights_007B5668;
+        pLight->pNext = gpLights;
         pLight->bMaskReady = 0;
         if (nNativeMode == 2)
         {
@@ -375,7 +375,7 @@ D2R01LightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nM
         {
             pLight->pMask = 0;
         }
-        gpLights_007B5668 = pLight;
+        gpLights = pLight;
         return pLight;
     }
     return 0;
@@ -451,7 +451,7 @@ void __fastcall DLIGHTMAP_ReleaseLight(D2R01LightStrc* pLight)
         return;
     }
     D2R01LightStrc* pPrev = 0;
-    D2R01LightStrc* pCurrent = gpLights_007B5668;
+    D2R01LightStrc* pCurrent = gpLights;
     while (pCurrent)
     {
         if (pCurrent == pLight)
@@ -468,14 +468,14 @@ void __fastcall DLIGHTMAP_ReleaseLight(D2R01LightStrc* pLight)
     }
     else
     {
-        gpLights_007B5668 = pCurrent->pNext;
+        gpLights = pCurrent->pNext;
     }
     if (pLight->pMask)
     {
         FOG_Free(pLight->pMask, ".\\DRAW\\dLightMap.cpp", 0x181, 0);
     }
     FOG_Free(pLight, ".\\DRAW\\dLightMap.cpp", 0x183, 0);
-    gnLightsReleased_007B5670 += 1;
+    gnLightsReleased += 1;
 }
 
 // 0x00474470
@@ -612,9 +612,9 @@ static void __stdcall DLIGHTMAP_AddGridLight(int nIntensity, unsigned char nRed,
     const int nOld = pCell->nValue0;
     const unsigned int nNew = LIGHT_MIN((unsigned int)(nOld + nIntensity), 0xFFu);
 
-    if (gbFlag_00712B8C)
+    if (gbBlendLightColor)
     {
-        const unsigned int nRecip = gdwReciprocals_007B0A68[nNew];
+        const unsigned int nRecip = gadwReciprocals[nNew];
         int nR = (pCell->nValue1 * nOld + nRed * nIntensity) * nRecip >> 0x10;
         if (nR > 0xFF)
         {
@@ -692,8 +692,8 @@ static void __stdcall DLIGHTMAP_AddAreaLight(D2R01LightStrc* pLight, int bNoClam
     const int nStartX = pLight->nX - (pLight->nX & 7) - nRadius;
     const int nStartY = pLight->nY - (pLight->nY & 7) - nRadius;
     const int nSpan = (nRadius * 2) >> 3;
-    if ((nStartX >> 3) > gnGlobal_007B0A5C || (nStartX >> 3) + nSpan + 1 < gnCellOriginX_007B0A54
-        || (nStartY >> 3) > gnGlobal_007B0A60 || (nStartY >> 3) + nSpan + 1 < gnCellOriginY_007B0A58)
+    if ((nStartX >> 3) > gnCellLimitX || (nStartX >> 3) + nSpan + 1 < gnCellOriginX_007B0A54
+        || (nStartY >> 3) > gnCellLimitY || (nStartY >> 3) + nSpan + 1 < gnCellOriginY_007B0A58)
     {
         return;
     }
@@ -740,7 +740,7 @@ static inline unsigned char DLIGHTMAP_IsCellBlocked(int nX, int nY)
     {
         return 1;
     }
-    return gaCells_007B0E68[nY][nX].f_0;
+    return gaLightGrid[nY][nX].f_0;
 }
 
 void __stdcall sub_P08_Emit_004747C0(D2P08LightSourceStrc* pSource, int nX, int nY, int nIntensity)
@@ -761,7 +761,7 @@ static void DLIGHTMAP_BuildOverrideWindow(D2R01LightStrc* pLight)
     for (int j = 0; j <= nSpan; ++j)
     {
         const int nY = nStartY + j * 8;
-        unsigned int* pCell = &gdwLightOverrideRows_007ACA50[nOffset + j][nOffset];
+        unsigned int* pCell = &gadwLightOverrideRows[nOffset + j][nOffset];
         int nX = nStartX;
         for (int i = 0; i <= nSpan; ++i)
         {
@@ -778,51 +778,51 @@ static void __stdcall DLIGHTMAP_SetupStepDirection(int nX, int nY, D2R01LightStr
     int nDy = pPoint->nY - nY;
     if (!nDx && !nDy)
     {
-        gnPathStepMode_007B0A64 = 0;
+        gnPathStepMode = 0;
         return;
     }
 
     if (nDx < 0)
     {
-        gnPathStepSignX_007B0A50 = -1;
+        gnPathStepSignX = -1;
         nDx = -nDx;
     }
     else
     {
-        gnPathStepSignX_007B0A50 = 1;
+        gnPathStepSignX = 1;
     }
 
     if (nDy < 0)
     {
-        gnPathStepSignY_007A8A48 = -1;
+        gnPathStepSignY = -1;
         nDy = -nDy;
     }
     else
     {
-        gnPathStepSignY_007A8A48 = 1;
+        gnPathStepSignY = 1;
     }
 
     if (!nDx)
     {
-        gnPathStepMode_007B0A64 = 4;
+        gnPathStepMode = 4;
         return;
     }
 
     if (!nDy)
     {
-        gnPathStepMode_007B0A64 = 1;
+        gnPathStepMode = 1;
         return;
     }
 
     if (nDx >= nDy)
     {
-        gnPathStepMode_007B0A64 = 2;
-        gnPathStepRatio_007A8A4C = (nDy << 8) / nDx;
+        gnPathStepMode = 2;
+        gnPathStepRatio = (nDy << 8) / nDx;
     }
     else
     {
-        gnPathStepMode_007B0A64 = 3;
-        gnPathStepRatio_007A8A4C = (nDx << 8) / nDy;
+        gnPathStepMode = 3;
+        gnPathStepRatio = (nDx << 8) / nDy;
     }
 }
 
@@ -840,31 +840,31 @@ static void DLIGHTMAP_BlendLightCell(int nCol, int nRow)
 {
     int nValue1;
     int nValue2;
-    switch (gnPathStepMode_007B0A64)
+    switch (gnPathStepMode)
     {
     case 0:
         return;
 
     case 2:
-        LIGHT_CELL(nValue1, nRow, gnPathStepSignX_007B0A50 + nCol);
-        LIGHT_CELL(nValue2, nRow + gnPathStepSignY_007A8A48, gnPathStepSignX_007B0A50 + nCol);
-        gdwLightMapRows_007A8A50[nRow][nCol] = ((0x100 - gnPathStepRatio_007A8A4C) * nValue1 + gnPathStepRatio_007A8A4C * nValue2) >> 8;
+        LIGHT_CELL(nValue1, nRow, gnPathStepSignX + nCol);
+        LIGHT_CELL(nValue2, nRow + gnPathStepSignY, gnPathStepSignX + nCol);
+        gadwLightMapRows[nRow][nCol] = ((0x100 - gnPathStepRatio) * nValue1 + gnPathStepRatio * nValue2) >> 8;
         break;
 
     case 3:
-        LIGHT_CELL(nValue1, nRow + gnPathStepSignY_007A8A48, nCol);
-        LIGHT_CELL(nValue2, nRow + gnPathStepSignY_007A8A48, gnPathStepSignX_007B0A50 + nCol);
-        gdwLightMapRows_007A8A50[nRow][nCol] = ((0x100 - gnPathStepRatio_007A8A4C) * nValue1 + gnPathStepRatio_007A8A4C * nValue2) >> 8;
+        LIGHT_CELL(nValue1, nRow + gnPathStepSignY, nCol);
+        LIGHT_CELL(nValue2, nRow + gnPathStepSignY, gnPathStepSignX + nCol);
+        gadwLightMapRows[nRow][nCol] = ((0x100 - gnPathStepRatio) * nValue1 + gnPathStepRatio * nValue2) >> 8;
         break;
 
     case 1:
-        LIGHT_CELL(nValue1, nRow, gnPathStepSignX_007B0A50 + nCol);
-        gdwLightMapRows_007A8A50[nRow][nCol] = nValue1;
+        LIGHT_CELL(nValue1, nRow, gnPathStepSignX + nCol);
+        gadwLightMapRows[nRow][nCol] = nValue1;
         break;
 
     case 4:
-        LIGHT_CELL(nValue1, nRow + gnPathStepSignY_007A8A48, nCol);
-        gdwLightMapRows_007A8A50[nRow][nCol] = nValue1;
+        LIGHT_CELL(nValue1, nRow + gnPathStepSignY, nCol);
+        gadwLightMapRows[nRow][nCol] = nValue1;
         break;
     }
 }
@@ -893,18 +893,18 @@ static void DLIGHTMAP_AddBlendedAreaLight(D2R01LightStrc* pLight)
     const int nStartY = pLight->nY - (pLight->nY & 7) - pLight->nRadius;
     const int nSpan = (pLight->nRadius * 2) >> 3;
     const int nCellStartX = nStartX >> 3;
-    if (nCellStartX > gnGlobal_007B0A5C || nCellStartX + nSpan + 1 < gnCellOriginX_007B0A54)
+    if (nCellStartX > gnCellLimitX || nCellStartX + nSpan + 1 < gnCellOriginX_007B0A54)
     {
         return;
     }
 
     const int nCellStartY = nStartY >> 3;
-    if (nCellStartY > gnGlobal_007B0A60 || nCellStartY + nSpan + 1 < gnCellOriginY_007B0A58)
+    if (nCellStartY > gnCellLimitY || nCellStartY + nSpan + 1 < gnCellOriginY_007B0A58)
     {
         return;
     }
 
-    memset(gdwLightMapRows_007A8A50, 0, 0x1000);
+    memset(gadwLightMapRows, 0, 0x1000);
     const int nRadCells = pLight->nRadius >> 3;
     const int nCellX = pLight->nX >> 3;
     const int nCellY = pLight->nY >> 3;
@@ -953,7 +953,7 @@ static void DLIGHTMAP_AddBlendedAreaLight(D2R01LightStrc* pLight)
         int nX = nStartX;
         for (int i = 0; i <= nSpan; ++i)
         {
-            const int nMask = gdwLightMapRows_007A8A50[nOffset + j][nOffset + i];
+            const int nMask = gadwLightMapRows[nOffset + j][nOffset + i];
             if (nMask < 0x10)
             {
                 const int nDiffX = pLight->nX - nX;
@@ -1015,7 +1015,7 @@ static void DLIGHTMAP_BuildLightMask(D2R01LightStrc* pLight)
     }
 
     const int nSpan = (pLight->nRadius * 2) >> 3;
-    memset(gdwLightMapRows_007A8A50, 0, 0x1000);
+    memset(gadwLightMapRows, 0, 0x1000);
     const int nRadCells = pLight->nRadius >> 3;
     const int nCellX = pLight->nX >> 3;
     const int nCellY = pLight->nY >> 3;
@@ -1040,7 +1040,7 @@ static void DLIGHTMAP_BuildLightMask(D2R01LightStrc* pLight)
     {
         for (int i = 0; i < 0x40; ++i)
         {
-            gdwLightOverrideRows_007ACA50[j][i] = COLLISION_CheckMask(pRoom, i + nBaseX, j + nBaseY, 0x22) ? 0x10 : 0;
+            gadwLightOverrideRows[j][i] = COLLISION_CheckMask(pRoom, i + nBaseX, j + nBaseY, 0x22) ? 0x10 : 0;
         }
     }
 
@@ -1086,7 +1086,7 @@ static void DLIGHTMAP_BuildLightMask(D2R01LightStrc* pLight)
     {
         for (int x = 0; x <= nSpan; ++x)
         {
-            *pDst++ = gdwLightMapRows_007A8A50[nOffset + y][nOffset + x];
+            *pDst++ = gadwLightMapRows[nOffset + y][nOffset + x];
         }
     }
 
@@ -1105,13 +1105,13 @@ static void DLIGHTMAP_AddMaskedAreaLight(D2R01LightStrc* pLight)
     const int nStartY = pLight->nY - (pLight->nY & 7) - pLight->nRadius;
     const int nSpan = (pLight->nRadius * 2) >> 3;
     int nCell = nStartX >> 3;
-    if (nCell > gnGlobal_007B0A5C || nCell + nSpan + 1 < gnGlobal_007B0A54)
+    if (nCell > gnCellLimitX || nCell + nSpan + 1 < gnGlobal_007B0A54)
     {
         return;
     }
 
     nCell = nStartY >> 3;
-    if (nCell > gnGlobal_007B0A60 || nCell + nSpan + 1 < gnGlobal_007B0A58)
+    if (nCell > gnCellLimitY || nCell + nSpan + 1 < gnGlobal_007B0A58)
     {
         return;
     }
@@ -1222,7 +1222,7 @@ static void __stdcall DLIGHTMAP_UpdateLight(int nLevel, D2R01LightStrc* pLight)
 // 0x00475B20
 void __cdecl DLIGHTMAP_DebugDrawLights()
 {
-    D2R01LightStrc* pLight = gpLights_007B5668;
+    D2R01LightStrc* pLight = gpLights;
     D2GFX_DebugDraw(gdwLightMap_007A8A50, gdwLightGrid_007B0E68, pLight->nX, pLight->nY);
 }
 
@@ -1255,7 +1255,7 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 // 0x00475930
 void __fastcall DLIGHTMAP_ActRoomCallback(D2ActiveRoomStrc* pRoom)
 {
-    for (D2R01LightStrc* pLight = gpLights_007B5668; pLight; pLight = pLight->pNext)
+    for (D2R01LightStrc* pLight = gpLights; pLight; pLight = pLight->pNext)
     {
         if (pLight->nMode == 2)
         {
@@ -1304,27 +1304,27 @@ void sub_M241_Emit_00474D70(D2R01LightStrc* pLight)
 void __cdecl DLIGHTMAP_InitLightTables()
 {
     DUNGEON_SetActCallbackFunc(gpGlobal_007A0634, DLIGHTMAP_ActRoomCallback);
-    gdwReciprocals_007B0A68[0] = 0;
+    gadwReciprocals[0] = 0;
     for (int i = 1; i < 0x100; ++i)
     {
-        gdwReciprocals_007B0A68[i] = 0x10000u / i;
+        gadwReciprocals[i] = 0x10000u / i;
     }
 }
 
 // 0x00475DF0
 void __cdecl DLIGHTMAP_BuildLerpTables()
 {
-    D2_ASSERT(!gppLerpRows_007B953C, 0xCA);
-    D2_ASSERT(!gpLerpTable_007B9540, 0xCB);
-    D2_ASSERT(!gpLerpTable_007B9544, 0xCC);
+    D2_ASSERT(!gppLerpRows, 0xCA);
+    D2_ASSERT(!gpLerpTable16, 0xCB);
+    D2_ASSERT(!gpLerpTable32, 0xCC);
     D2_ASSERT(!gppRampTable_007B954C, 0xCD);
-    D2_ASSERT(!gpLerpTable_007B9550, 0xCE);
-    sub_004FB1C0_CopyRowTable(gRowTable_007B5C10);
-    gppLerpRows_007B953C = GFX_BuildLerpRowTable(0x20, 8);
-    gpLerpTable_007B9540 = GFX_BuildLerpTable(0x20, 0x10);
-    gpLerpTable_007B9544 = GFX_BuildLerpTable(0x20, 0x20);
+    D2_ASSERT(!gpLerpTable40, 0xCE);
+    sub_004FB1C0_CopyRowTable(gabRowTable);
+    gppLerpRows = GFX_BuildLerpRowTable(0x20, 8);
+    gpLerpTable16 = GFX_BuildLerpTable(0x20, 0x10);
+    gpLerpTable32 = GFX_BuildLerpTable(0x20, 0x20);
     gppRampTable_007B954C = SCMD_BuildRampTable(0x20, 0x20);
-    gpLerpTable_007B9550 = GFX_BuildLerpTable(0x20, 0x28);
+    gpLerpTable40 = GFX_BuildLerpTable(0x20, 0x28);
 }
 
 // 0x00477680
@@ -1366,7 +1366,8 @@ int __cdecl sub_00478150()
 // 0x0047A990
 int __cdecl DLIGHTMAP_GetClientFlags()
 {
-    return gdwGlobal_00712EFC;
+// build: symbol ?gdwClientFlags@* 0x00712EFC
+    return gdwClientFlags;
 }
 
 // 0x0047A9D0
@@ -1378,7 +1379,8 @@ int __cdecl sub_0047A9D0()
 // 0x0047AA20
 int __cdecl DLIGHTMAP_GetCTemp()
 {
-    return gdwGlobal_00712F00;
+// build: symbol ?gnCTemp@* 0x00712F00
+    return gnCTemp;
 }
 
 // 0x004817D0
@@ -1414,7 +1416,7 @@ int __cdecl sub_00481810()
 // 0x00481820
 int __cdecl sub_00481820()
 {
-    return gdwGlobal_007BC9BC;
+    return gdwSoundTick;
 }
 
 // 0x00486E00
@@ -1493,23 +1495,23 @@ low:
     }
     else if (nValue <= 15)
     {
-        if (gnIndicatorLevel_007B567C >= 1)
+        if (gnIndicatorLevel >= 1)
         {
-            return gnIndicatorLevel_007B567C;
+            return gnIndicatorLevel;
         }
         nLevel = 1;
     }
-    if (nLevel != gnIndicatorLevel_007B567C)
+    if (nLevel != gnIndicatorLevel)
     {
         const unsigned long dwTick = GetTickCount();
-        if (dwTick - gdwIndicatorTick_007B5678 > INDICATOR_HOLD_MS)
+        if (dwTick - gdwIndicatorTick > INDICATOR_HOLD_MS)
         {
-            gdwIndicatorTick_007B5678 = dwTick;
-            gnIndicatorLevel_007B567C = nLevel;
+            gdwIndicatorTick = dwTick;
+            gnIndicatorLevel = nLevel;
         }
         else
         {
-            return gnIndicatorLevel_007B567C;
+            return gnIndicatorLevel;
         }
     }
     return nLevel;
@@ -1523,16 +1525,16 @@ void __cdecl sub_00475800_RunLightPass()
     const int nY = CLIENTS_GetUnitYInline(pPlayer);
     gnGlobal_007B0A54 = nX - 0x18;
     gnGlobal_007B0A58 = nY - 0x18;
-    gnGlobal_007B0A5C = gnGlobal_007B0A54 + 0x30;
-    gnGlobal_007B0A60 = gnGlobal_007B0A58 + 0x30;
+    gnCellLimitX = gnGlobal_007B0A54 + 0x30;
+    gnCellLimitY = gnGlobal_007B0A58 + 0x30;
     DLIGHTMAP_UpdateLightGrid(0);
     CHARSEL_ScanGridCollision();
     const int nLevel = DLIGHTMAP_GetIndicatorLevel();
-    gnLightCount_007B5674 = 0;
-    D2R01LightStrc* pLight = gpLights_007B5668;
+    gnLightCount = 0;
+    D2R01LightStrc* pLight = gpLights;
     while (pLight)
     {
-        ++gnLightCount_007B5674;
+        ++gnLightCount;
         D2R01LightStrc* pNext = pLight->pNext;
         DLIGHTMAP_UpdateLight(nLevel, pLight);
         pLight = pNext;
@@ -1542,7 +1544,7 @@ void __cdecl sub_00475800_RunLightPass()
 // 0x004758D0
 void __cdecl DLIGHTMAP_FreeAllLights()
 {
-    D2R01LightStrc* pLight = gpLights_007B5668;
+    D2R01LightStrc* pLight = gpLights;
     while (pLight)
     {
         D2R01LightStrc* pNext = pLight->pNext;
@@ -1554,7 +1556,7 @@ void __cdecl DLIGHTMAP_FreeAllLights()
         pLight = pNext;
     }
 
-    gpLights_007B5668 = 0;
+    gpLights = 0;
 }
 
 #include "gen/data/Source/D2Client/DRAW/dLightMap.inc"

@@ -20,10 +20,10 @@ struct D2RosterUnitStrc
     D2RosterUnitStrc* pNext;
 };
 #pragma pack(pop)
-extern D2RosterUnitStrc* gpRosterUnits_007BF014;  // 0x007BF014
+extern D2RosterUnitStrc* gpRosterUnits;  // 0x007BF014
 // 0x00499DE0
 D2RosterUnitStrc* __fastcall sub_00499DE0_FindRoster(int nId) {
- D2RosterUnitStrc* pFound=gpRosterUnits_007BF014;
+ D2RosterUnitStrc* pFound=gpRosterUnits;
  while(pFound) {
   if(pFound->nId == nId) return pFound;
   pFound=pFound->pNext;

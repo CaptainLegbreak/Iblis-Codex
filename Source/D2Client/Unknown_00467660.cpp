@@ -8,9 +8,9 @@ struct D2ActiveRoomStrc;
 typedef int (__fastcall* D2UnitFindCallback)(D2UnitStrc* pUnit, void* pArg);
 
 extern const unsigned int gdwMask_006CE278;                                                                 // 0x006CE278
-extern const int gnAdjacentDirOffsets_006D6B34[];                                                           // 0x006D6B34
-extern const int gnDirectionDX_006D6B14[];                                                                  // 0x006D6B14
-extern const int gnDirectionDY_006D6AF4[];                                                                  // 0x006D6AF4
+extern const int gaAdjacentDirOffsets[];                                                           // 0x006D6B34
+extern const int gaDirectionDX[];                                                                  // 0x006D6B14
+extern const int gaDirectionDY[];                                                                  // 0x006D6AF4
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                  // 0x006488C0
@@ -67,9 +67,9 @@ static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkill
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
     for (int i = 0; i < 5; ++i)
     {
-        const int nIndex = (gnAdjacentDirOffsets_006D6B34[i] + nDirection) & 7;
-        const int nX = gnDirectionDX_006D6B14[nIndex] + CLIENT_GetUnitXInline(pUnit);
-        const int nY = gnDirectionDY_006D6AF4[nIndex] + CLIENT_GetUnitYInline(pUnit);
+        const int nIndex = (gaAdjacentDirOffsets[i] + nDirection) & 7;
+        const int nX = gaDirectionDX[nIndex] + CLIENT_GetUnitXInline(pUnit);
+        const int nY = gaDirectionDY[nIndex] + CLIENT_GetUnitYInline(pUnit);
         if (COLLISION_CheckMaskWithSize(pRoom, nX, nY, 1, 0x180))
         {
             D2UnitStrc* pTarget = D2Common_10407(pRoom, nX, nY, sub_00467640_UnitFindTest, 0, 1);

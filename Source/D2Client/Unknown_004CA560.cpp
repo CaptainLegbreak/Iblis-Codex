@@ -128,14 +128,14 @@ struct D2SkillsTxt
 struct D2SkillStrc;
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
-extern D2UnitSndPlayerStrc* gpUnitSndPlayer_0072A008[];                                                     // 0x0072A008
-extern D2UnitSndObjectStrc* gpUnitSndObject_007295F8[];                                                     // 0x007295F8
-extern D2UnitSndObjectStrc gUnitSndObject_00729328;                                                         // 0x00729328
-extern int gnUnitSndObject3D_00728338[];                                                                    // 0x00728338
-extern D2DirRateStrc gaDirRate_00727ED8[];                                                                  // 0x00727ED8
-extern unsigned int gnNeutralTick_007C88B8;                                                                 // 0x007C88B8
-extern unsigned int gnSfxTick_007C88BC;                                                                     // 0x007C88BC
-extern unsigned int gnNeutralDelay_007C88C0;                                                                // 0x007C88C0
+extern D2UnitSndPlayerStrc* gapUnitSndPlayers[];                                                     // 0x0072A008
+extern D2UnitSndObjectStrc* gapUnitSndObjects[];                                                     // 0x007295F8
+extern D2UnitSndObjectStrc gtUnitSndObject;                                                         // 0x00729328
+extern int gaUnitSndObject3D[];                                                                    // 0x00728338
+extern D2DirRateStrc gaDirRate[];                                                                  // 0x00727ED8
+extern unsigned int gnNeutralTick;                                                                 // 0x007C88B8
+extern unsigned int gnSfxTick;                                                                     // 0x007C88BC
+extern unsigned int gnNeutralDelay;                                                                // 0x007C88C0
 
 int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit);                                                    // 0x00621190
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270

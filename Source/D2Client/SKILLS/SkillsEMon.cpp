@@ -100,8 +100,10 @@ static int __stdcall sub_004F04F0_CreateMissileFan(int nMissile, int nSkillId, i
 
     for (int i = 0; i < nCount; ++i)
     {
-        tMissileParams.nTargetX = gnFanOffsetX_006DBF50[i & 7];
-        tMissileParams.nTargetY = gnFanOffsetY_006DBF70[i & 7];
+// build: symbol ?gaFanOffsetX@* 0x006DBF50
+        tMissileParams.nTargetX = gaFanOffsetX[i & 7];
+// build: symbol ?gaFanOffsetY@* 0x006DBF70
+        tMissileParams.nTargetY = gaFanOffsetY[i & 7];
         tMissileParams.nInitArg = i;
         sub_004CD540_CreateMissile(&tMissileParams);
     }
@@ -139,7 +141,8 @@ int __fastcall sub_004F0F30_CltSkillMonMissile(D2UnitStrc* pUnit, int nSkillId, 
     D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, SKILL_VINEATTACK);
     if (!pSkill)
     {
-        SKILLS_AssignSkill(pUnit, SKILL_VINEATTACK, 1, 0, szSkillsEMonCpp_006DBF90, 0x35C);
+// build: symbol ?gszSkillsEMonCpp@* 0x006DBF90
+        SKILLS_AssignSkill(pUnit, SKILL_VINEATTACK, 1, 0, gszSkillsEMonCpp, 0x35C);
         pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, SKILL_VINEATTACK);
         if (!pSkill)
         {
@@ -147,7 +150,7 @@ int __fastcall sub_004F0F30_CltSkillMonMissile(D2UnitStrc* pUnit, int nSkillId, 
         }
     }
 
-    const int nSkill = SKILLS_GetSkillIdFromSkill(pSkill, szSkillsEMonCpp_006DBF90, 0x364);
+    const int nSkill = SKILLS_GetSkillIdFromSkill(pSkill, gszSkillsEMonCpp, 0x364);
     nSkillLevel = SKILLS_GetSkillLevel(pUnit, pSkill, 1);
     struct { int nX; int nY; int nValue; } tLocals;
     tLocals.nValue = SKILLS_GetParam1(pSkill);

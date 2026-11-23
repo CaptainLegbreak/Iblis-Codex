@@ -20,7 +20,7 @@ struct D2InvCompGridStrc;
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2StoredUnitRecordStrc* __fastcall ROSTER_FindRosterUnitById(int nUnitId); // 0x00479BB0
 unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
-extern D2RosterPetStrc* gpRosterPets_007BB5BC; // 0x007BB5BC
+extern D2RosterPetStrc* gpRosterPets; // 0x007BB5BC
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
@@ -37,25 +37,25 @@ void __stdcall sub_0065C1F0_2(int nInventoryTxtId, int bHigherRes, D2InventoryGr
 void __stdcall sub_0065C270_2(int nInventoryTxtId, int bHigherRes, D2InvCompGridStrc* pInvCompGrid, int nComponent); // 0x0065C270
 int __fastcall NPCMENU_GetInteractNpcId(int* pUnitId); // 0x004B3230
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
-extern int gdwGlobal_007BCBF0; // 0x007BCBF0
-extern D2InventoryGridInfoStrc gGrid_007BCA30; // 0x007BCA30
-extern D2InventoryGridInfoStrc gGrid_007BCA78; // 0x007BCA78
-extern D2InvRectStrc gInvRect_007BCAA0; // 0x007BCAA0
-extern D2InventoryGridInfoStrc gGrid_007BCB18; // 0x007BCB18
-extern D2InvRectStrc gInvRect_007BCB30; // 0x007BCB30
-extern D2InventoryGridInfoStrc gGrid_007BCB40; // 0x007BCB40
-extern D2InventoryGridInfoStrc gGrid_007BCB58; // 0x007BCB58
-extern D2InventoryGridInfoStrc gGrid_007BCB70; // 0x007BCB70
-extern D2InventoryGridInfoStrc gGrid_007BCB88; // 0x007BCB88
-extern D2InvRectStrc gRect_007BCBB0; // 0x007BCBB0
-extern D2InventoryGridInfoStrc gInventoryGrid_007BCBC0; // 0x007BCBC0
-extern D2InvCompGridStrc gaCompGrids_007BCC58[11]; // 0x007BCC58
-extern D2InvCompGridStrc gaBodyLocRects_007BCD38[11]; // 0x007BCD38
+extern int gnInvPanelMode; // 0x007BCBF0
+extern D2InventoryGridInfoStrc gtTradePage2Grid; // 0x007BCA30
+extern D2InventoryGridInfoStrc gtBigBankGrid; // 0x007BCA78
+extern D2InvRectStrc gtPlayerInvRect; // 0x007BCAA0
+extern D2InventoryGridInfoStrc gtTradePage1Grid; // 0x007BCB18
+extern D2InvRectStrc gtCubeRect; // 0x007BCB30
+extern D2InventoryGridInfoStrc gtBankGrid; // 0x007BCB40
+extern D2InventoryGridInfoStrc gtNpcInvGrid; // 0x007BCB58
+extern D2InventoryGridInfoStrc gtCubeGrid; // 0x007BCB70
+extern D2InventoryGridInfoStrc gtPlayerInvGrid; // 0x007BCB88
+extern D2InvRectStrc gtNpcInvRect; // 0x007BCBB0
+extern D2InventoryGridInfoStrc gtHirelingInvGrid; // 0x007BCBC0
+extern D2InvCompGridStrc gaCompGrids[11]; // 0x007BCC58
+extern D2InvCompGridStrc gaBodyLocRects[11]; // 0x007BCD38
 
 // 0x00478D10
 int __fastcall sub_00478D10_GetPetOwnerRelation(int nUnitId)
 {
-    for (D2RosterPetStrc* pPet = gpRosterPets_007BB5BC; pPet; pPet = pPet->pNext)
+    for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
     {
         if (pPet->dwUnitId == nUnitId)
         {
@@ -89,7 +89,7 @@ inline D2PetTypeTxt* PETTXT_GetRecordInl(int nPetType)
 // 0x00478D90
 int __fastcall sub_00478D90_GetPetRelation(int nUnitId)
 {
-    for (D2RosterPetStrc* pPet = gpRosterPets_007BB5BC; pPet; pPet = pPet->pNext)
+    for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
     {
         if (pPet->dwUnitId == nUnitId)
         {
@@ -122,12 +122,12 @@ int __fastcall sub_00478D90_GetPetRelation(int nUnitId)
     return 0;
 }
 
-D2RosterPetStrc* gpRosterPets_007BB5BC; // 0x007BB5BC
+D2RosterPetStrc* gpRosterPets; // 0x007BB5BC
 
 // 0x00478EE0
 int __fastcall sub_00478EE0_CountPets(D2UnitStrc* pOwner, int nType)
 {
-    D2RosterPetStrc* pPet = gpRosterPets_007BB5BC;
+    D2RosterPetStrc* pPet = gpRosterPets;
     const int nOwnerId = !pOwner ? -1 : pOwner->dwUnitId;
     int nCount = 0;
     for (; pPet; pPet = pPet->pNext)
@@ -141,7 +141,7 @@ int __fastcall sub_00478EE0_CountPets(D2UnitStrc* pOwner, int nType)
 // 0x00478F70
 int __fastcall sub_00478F70_HasPets(D2UnitStrc* pOwner)
 {
-    D2RosterPetStrc* pPet = gpRosterPets_007BB5BC;
+    D2RosterPetStrc* pPet = gpRosterPets;
     const int nOwnerId = !pOwner ? -1 : pOwner->dwUnitId;
     for (; pPet; pPet = pPet->pNext)
     {
@@ -154,7 +154,7 @@ int __fastcall sub_00478F70_HasPets(D2UnitStrc* pOwner)
 // 0x00479120
 int __fastcall sub_00479120_GetHirelingClassId(int nUnitId)
 {
-    for (D2RosterPetStrc* pPet = gpRosterPets_007BB5BC; pPet; pPet = pPet->pNext)
+    for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
     {
         if (pPet->dwUnitId == nUnitId)
             return pPet->nClassId;
@@ -165,7 +165,7 @@ int __fastcall sub_00479120_GetHirelingClassId(int nUnitId)
 // 0x00479150
 int __fastcall sub_00479150_FindRosterIndex(int nUnitId)
 {
-    for (D2RosterPetStrc* pPet = gpRosterPets_007BB5BC; pPet; pPet = pPet->pNext)
+    for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
     {
         if (pPet->dwUnitId == nUnitId)
             return pPet->dwOwnerId;
@@ -188,7 +188,7 @@ int __fastcall sub_004791B0_IsOwnedByPlayer(D2UnitStrc* pUnit)
 
 static inline D2RosterPetStrc* PETS_FindRosterPetInl(int nUnitId)
 {
-    for (D2RosterPetStrc* pPet = gpRosterPets_007BB5BC; pPet; pPet = pPet->pNext)
+    for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
     {
         if (pPet->dwUnitId == nUnitId)
         {
@@ -206,7 +206,7 @@ int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int b
         return -1;
 
     const int nUnitId = pUnit->dwUnitId;
-    for (D2RosterPetStrc* pPet = gpRosterPets_007BB5BC; pPet; pPet = pPet->pNext)
+    for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
     {
         if (pPet->nType == nType && pPet->dwOwnerId == nUnitId && (bAny || !pPet->bDead))
             return pPet->dwUnitId;

@@ -26,7 +26,7 @@ extern "C" const char gszCofPathFormat_006D6C94[]; // 0x006D6C94
 extern "C" const char gszD2CompSourceFile[]; // 0x006DCC20
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char gszMonstersDir_006D6CAC[]; // 0x006D6CAC
-extern "C" const char szDataGlobal_006D4118[]; // 0x006D4118
+extern "C" const char gszDataGlobal[]; // 0x006D4118
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" int __cdecl isspace(int c); // 0x00687006
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD

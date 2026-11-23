@@ -43,10 +43,10 @@ int __fastcall ROSTER_TestHostileFlag(D2StoredUnitRecordStrc* pEntry);          
 int __fastcall ROSTER_TestLootFlag(D2StoredUnitRecordStrc* pEntry);                                                // 0x00479C20
 int __fastcall ROSTER_TestMuteFlag(D2StoredUnitRecordStrc* pEntry);                                                // 0x00479C60
 int __fastcall ROSTER_TestSquelchFlag(D2StoredUnitRecordStrc* pEntry);                                                // 0x00479CA0
-extern int gnGlobal_007A2858;                                                                               // 0x007A2858
-extern int gnGlobal_007A285C;                                                                               // 0x007A285C
-extern unsigned char gbGlobal_007BF034;                                                                     // 0x007BF034
-extern D2RosterUnitStrc* gpRosterUnits_007BF014;                                                            // 0x007BF014
+extern int gnPanelOffsetX;                                                                               // 0x007A2858
+extern int gnPanelOffsetY;                                                                               // 0x007A285C
+extern unsigned char gnBoxColor;                                                                     // 0x007BF034
+extern D2RosterUnitStrc* gpRosterUnits;                                                            // 0x007BF014
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
 static inline int GetCenteredStringXInline(unsigned short nStringIndex, int nCenterX)
@@ -60,7 +60,7 @@ static inline int GetCenteredScreenXInline(unsigned short nStringIndex, int nCen
 {
     Unicode wszText[100];
     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nStringIndex));
-    return gnGlobal_007A2858 - D2Win_10121_GetTextWidth(wszText) / 2 + nCenterX;
+    return gnPanelOffsetX - D2Win_10121_GetTextWidth(wszText) / 2 + nCenterX;
 }
 
 static void __stdcall sub_0049AAF0_DrawTextFrame(unsigned short nAltString, unsigned short nString, int nX, int bLarge); // 0x0049AAF0
@@ -95,9 +95,9 @@ static void __stdcall sub_0049AAF0_DrawTextFrame(unsigned short nAltString, unsi
         nHeight = 0xF;
     }
     if (nWidth > nAltWidth)
-        sub_0046EFD0_DrawFramedBox(gnGlobal_007A2858 - nWidth / 2 + nX - 5, nY - gnGlobal_007A285C, nWidth + 0xA, nHeight, gbGlobal_007BF034, 2);
+        sub_0046EFD0_DrawFramedBox(gnPanelOffsetX - nWidth / 2 + nX - 5, nY - gnPanelOffsetY, nWidth + 0xA, nHeight, gnBoxColor, 2);
     else
-        sub_0046EFD0_DrawFramedBox(gnGlobal_007A2858 - nAltWidth / 2 + nX - 5, nY - gnGlobal_007A285C, nAltWidth + 0xA, nHeight, gbGlobal_007BF034, 2);
+        sub_0046EFD0_DrawFramedBox(gnPanelOffsetX - nAltWidth / 2 + nX - 5, nY - gnPanelOffsetY, nAltWidth + 0xA, nHeight, gnBoxColor, 2);
 }
 
 static void __stdcall sub_0049AF60_DrawButtonHint(unsigned short nString1, unsigned short nString2, int nCenterX, int nUnused, int nY2, int nY1, int nColor)
@@ -107,18 +107,18 @@ static void __stdcall sub_0049AF60_DrawButtonHint(unsigned short nString1, unsig
         sub_0049AAF0_DrawTextFrame(0, nString1, nCenterX, 0);
         {
             const int nTextX = TEXT_GetCenteredStringX(nString1, nCenterX);
-            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(nString1), nTextX + gnGlobal_007A2858, nY1 - gnGlobal_007A285C, nColor, nUnused);
+            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(nString1), nTextX + gnPanelOffsetX, nY1 - gnPanelOffsetY, nColor, nUnused);
         }
         return;
     }
     sub_0049AAF0_DrawTextFrame(nString2, nString1, nCenterX, 1);
     {
         const int nTextX = TEXT_GetCenteredStringX(nString1, nCenterX);
-        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(nString1), nTextX + gnGlobal_007A2858, nY1 - gnGlobal_007A285C, nColor, nUnused);
+        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(nString1), nTextX + gnPanelOffsetX, nY1 - gnPanelOffsetY, nColor, nUnused);
     }
     {
         const int nTextX = TEXT_GetCenteredStringX(nString2, nCenterX);
-        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(nString2), nTextX + gnGlobal_007A2858, nY2 - gnGlobal_007A285C, nColor, nUnused);
+        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(nString2), nTextX + gnPanelOffsetX, nY2 - gnPanelOffsetY, nColor, nUnused);
     }
 }
 
@@ -146,13 +146,15 @@ static void sub_0049B030_DrawRosterTooltip(D2StoredUnitRecordStrc* pEntry)
     if (nA == nC)
     {
         if (bE)
-            sub_005267E0(wszLine1, D2LANG_GetStringFromTblIndex(gawRosterStrings_00722450[nA][nC]));
+// build: symbol ?gawRosterHostileMale@* 0x00722450
+            sub_005267E0(wszLine1, D2LANG_GetStringFromTblIndex(gawRosterHostileMale[nA][nC]));
         else
-            sub_005267E0(wszLine1, D2LANG_GetStringFromTblIndex(gawRosterStrings_00722458[nA][nC]));
+// build: symbol ?gawRosterHostileFemale@* 0x00722458
+            sub_005267E0(wszLine1, D2LANG_GetStringFromTblIndex(gawRosterHostileFemale[nA][nC]));
     }
     else
     {
-        const unsigned short nFormat = bE ? gawRosterStrings_00722450[nA][nC] : gawRosterStrings_00722458[nA][nC];
+        const unsigned short nFormat = bE ? gawRosterHostileMale[nA][nC] : gawRosterHostileFemale[nA][nC];
         sub_005269D0(0x80, wszLine1, D2LANG_GetStringFromTblIndex(nFormat), wszName);
     }
     if (GAME_IsHardcore())
@@ -161,16 +163,18 @@ static void sub_0049B030_DrawRosterTooltip(D2StoredUnitRecordStrc* pEntry)
         if (nB == nD)
         {
             if (ROSTER_IsMaleClass(pEntry))
-                sub_005267E0(wszLine2, D2LANG_GetStringFromTblIndex(gawRosterStrings_00722460[nB][nD]));
+// build: symbol ?gawRosterLootMale@* 0x00722460
+                sub_005267E0(wszLine2, D2LANG_GetStringFromTblIndex(gawRosterLootMale[nB][nD]));
             else
-                sub_005267E0(wszLine2, D2LANG_GetStringFromTblIndex(gawRosterStrings_00722468[nB][nD]));
+// build: symbol ?gawRosterLootFemale@* 0x00722468
+                sub_005267E0(wszLine2, D2LANG_GetStringFromTblIndex(gawRosterLootFemale[nB][nD]));
         }
         else
         {
             if (ROSTER_IsMaleClass(pEntry))
-                sub_005269D0(0x80, wszLine2, D2LANG_GetStringFromTblIndex(gawRosterStrings_00722460[nB][nD]), wszName);
+                sub_005269D0(0x80, wszLine2, D2LANG_GetStringFromTblIndex(gawRosterLootMale[nB][nD]), wszName);
             else
-                sub_005269D0(0x80, wszLine2, D2LANG_GetStringFromTblIndex(gawRosterStrings_00722468[nB][nD]), wszName);
+                sub_005269D0(0x80, wszLine2, D2LANG_GetStringFromTblIndex(gawRosterLootFemale[nB][nD]), wszName);
         }
     }
     if (nA)
@@ -183,20 +187,20 @@ static void sub_0049B030_DrawRosterTooltip(D2StoredUnitRecordStrc* pEntry)
         nColor2 = 4;
     const int nWidth1 = D2Win_10121_GetTextWidth(wszLine1) + 0xA;
     const int nWidth2 = D2Win_10121_GetTextWidth(wszLine2) + 0xA;
-    sub_0046EFD0_DrawFramedBox(gnGlobal_007A2858 + 0x24, 0x23 - gnGlobal_007A285C, nWidth1 > nWidth2 ? nWidth1 : nWidth2, nHeight, gbGlobal_007BF034, 2);
-    D2Win_10117_DrawText(wszLine1, gnGlobal_007A2858 + 0x29, 0x32 - gnGlobal_007A285C, nColor1, 0);
-    D2Win_10117_DrawText(wszLine2, gnGlobal_007A2858 + 0x29, 0x41 - gnGlobal_007A285C, nColor2, 0);
+    sub_0046EFD0_DrawFramedBox(gnPanelOffsetX + 0x24, 0x23 - gnPanelOffsetY, nWidth1 > nWidth2 ? nWidth1 : nWidth2, nHeight, gnBoxColor, 2);
+    D2Win_10117_DrawText(wszLine1, gnPanelOffsetX + 0x29, 0x32 - gnPanelOffsetY, nColor1, 0);
+    D2Win_10117_DrawText(wszLine2, gnPanelOffsetX + 0x29, 0x41 - gnPanelOffsetY, nColor2, 0);
 }
 
 // 0x0049B330
 void __cdecl sub_0049B330_DrawRosterButtonHints()
 {
-    D2RosterUnitStrc* pRow = gpRosterUnits_007BF014;
+    D2RosterUnitStrc* pRow = gpRosterUnits;
     D2StoredUnitRecordStrc* pFirst = sub_004795A0_GetNextEntry(0);
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(sub_00463DD0_GetPlayerUnit());
     int bInTown = 0;
     D2StoredUnitRecordStrc* pEntry = sub_004795A0_GetNextEntry(pFirst);
-    gbGlobal_007BF034 = D2Win_10034_MixRGB(0, 0, 0);
+    gnBoxColor = D2Win_10034_MixRGB(0, 0, 0);
     if (pRoom && DUNGEON_IsRoomInTown(pRoom))
         bInTown = 1;
     while (pRow)
@@ -204,7 +208,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
         const int nRowY = pRow->nY;
         const int nMouseX = sub_00468730();
         const int nMouseY = sub_00468740();
-        if (nMouseX >= gnGlobal_007A2858 + 0x24 && nMouseX <= gnGlobal_007A2858 + 0x8C && nMouseY >= nRowY - gnGlobal_007A285C - 0x1A && nMouseY <= nRowY - gnGlobal_007A285C)
+        if (nMouseX >= gnPanelOffsetX + 0x24 && nMouseX <= gnPanelOffsetX + 0x8C && nMouseY >= nRowY - gnPanelOffsetY - 0x1A && nMouseY <= nRowY - gnPanelOffsetY)
             sub_0049B030_DrawRosterTooltip(pEntry);
         else
         {
@@ -214,7 +218,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                 const int nX = pRow->aButtons[k].nX;
                 const int nBX = sub_00468730();
                 const int nBY = sub_00468740();
-                if (nBX >= gnGlobal_007A2858 + nX && nBX <= gnGlobal_007A2858 + nX + 0x14 && nBY >= nY - gnGlobal_007A285C - 0x14 && nBY <= nY - gnGlobal_007A285C)
+                if (nBX >= gnPanelOffsetX + nX && nBX <= gnPanelOffsetX + nX + 0x14 && nBY >= nY - gnPanelOffsetY - 0x14 && nBY <= nY - gnPanelOffsetY)
                 {
                     if (pRow->aButtons[k].nType == 1)
                     {
@@ -227,7 +231,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                                     sub_0049AAF0_DrawTextFrame(0, 0x1019, 0x6E, 0);
                                     {
                                         const int nTextX = TEXT_GetCenteredStringX(0x1019, 0x6E);
-                                        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1019), nTextX + gnGlobal_007A2858, 0x37 - gnGlobal_007A285C, 1, 0);
+                                        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1019), nTextX + gnPanelOffsetX, 0x37 - gnPanelOffsetY, 1, 0);
                                     }
                                     return;
                                 }
@@ -240,11 +244,11 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                             sub_0049AAF0_DrawTextFrame(0x101B, 0x101A, 0xA0, 1);
                             {
                                 const int nTextX = TEXT_GetCenteredStringX(0x101A, 0xA0);
-                                D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x101A), nTextX + gnGlobal_007A2858, 0x32 - gnGlobal_007A285C, 0, 0);
+                                D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x101A), nTextX + gnPanelOffsetX, 0x32 - gnPanelOffsetY, 0, 0);
                             }
                             {
                                 const int nTextX = TEXT_GetCenteredStringX(0x101B, 0xA0);
-                                D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x101B), nTextX + gnGlobal_007A2858, 0x41 - gnGlobal_007A285C, 0, 0);
+                                D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x101B), nTextX + gnPanelOffsetX, 0x41 - gnPanelOffsetY, 0, 0);
                             }
                             return;
                         }
@@ -254,14 +258,14 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                             sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x101A));
                             const int nWidth = D2Win_10121_GetTextWidth(wszText);
                             const int nHalfWidth = nWidth / 2;
-                            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x101A), gnGlobal_007A2858 - nHalfWidth + 0xA0, 0x32 - gnGlobal_007A285C, 0, 0);
+                            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x101A), gnPanelOffsetX - nHalfWidth + 0xA0, 0x32 - gnPanelOffsetY, 0, 0);
                         }
                         {
                             Unicode wszText[100];
                             sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x101B));
                             const int nWidth = D2Win_10121_GetTextWidth(wszText);
                             const int nHalfWidth = nWidth / 2;
-                            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x101B), gnGlobal_007A2858 - nHalfWidth + 0xA0, 0x41 - gnGlobal_007A285C, 0, 0);
+                            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x101B), gnPanelOffsetX - nHalfWidth + 0xA0, 0x41 - gnPanelOffsetY, 0, 0);
                         }
                         return;
                     }
@@ -274,22 +278,22 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                                 sub_0049AAF0_DrawTextFrame(0x1011, 0x1010, 0xFF, 1);
                                 {
                                     const int nTextX = TEXT_GetCenteredStringX(0x1010, 0xFF);
-                                    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1010), nTextX + gnGlobal_007A2858, 0x32 - gnGlobal_007A285C, 0, 0);
+                                    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1010), nTextX + gnPanelOffsetX, 0x32 - gnPanelOffsetY, 0, 0);
                                 }
                                 {
                                     const int nTextX = TEXT_GetCenteredStringX(0x1011, 0xFF);
-                                    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1011), nTextX + gnGlobal_007A2858, 0x41 - gnGlobal_007A285C, 0, 0);
+                                    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1011), nTextX + gnPanelOffsetX, 0x41 - gnPanelOffsetY, 0, 0);
                                 }
                                 return;
                             }
                             sub_0049AAF0_DrawTextFrame(0x100F, 0x100E, 0xFF, 1);
                             {
                                 const int nTextX = TEXT_GetCenteredStringX(0x100E, 0xFF);
-                                D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x100E), nTextX + gnGlobal_007A2858, 0x32 - gnGlobal_007A285C, 0, 0);
+                                D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x100E), nTextX + gnPanelOffsetX, 0x32 - gnPanelOffsetY, 0, 0);
                             }
                             {
                                 const int nTextX = TEXT_GetCenteredStringX(0x100F, 0xFF);
-                                D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x100F), nTextX + gnGlobal_007A2858, 0x41 - gnGlobal_007A285C, 0, 0);
+                                D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x100F), nTextX + gnPanelOffsetX, 0x41 - gnPanelOffsetY, 0, 0);
                             }
                             return;
                         }
@@ -301,22 +305,22 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                             sub_0049AAF0_DrawTextFrame(0x1013, 0x1012, 0x114, 1);
                             {
                                 const int nTextX = TEXT_GetCenteredStringX(0x1012, 0x114);
-                                D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1012), nTextX + gnGlobal_007A2858, 0x32 - gnGlobal_007A285C, 0, 0);
+                                D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1012), nTextX + gnPanelOffsetX, 0x32 - gnPanelOffsetY, 0, 0);
                             }
                             {
                                 const int nTextX = TEXT_GetCenteredStringX(0x1013, 0x114);
-                                D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1013), nTextX + gnGlobal_007A2858, 0x41 - gnGlobal_007A285C, 0, 0);
+                                D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1013), nTextX + gnPanelOffsetX, 0x41 - gnPanelOffsetY, 0, 0);
                             }
                             return;
                         }
                         sub_0049AAF0_DrawTextFrame(0x1015, 0x1014, 0x114, 1);
                         {
                             const int nTextX = TEXT_GetCenteredStringX(0x1014, 0x114);
-                            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1014), nTextX + gnGlobal_007A2858, 0x32 - gnGlobal_007A285C, 0, 0);
+                            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1014), nTextX + gnPanelOffsetX, 0x32 - gnPanelOffsetY, 0, 0);
                         }
                         {
                             const int nTextX = TEXT_GetCenteredStringX(0x1015, 0x114);
-                            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1015), nTextX + gnGlobal_007A2858, 0x41 - gnGlobal_007A285C, 0, 0);
+                            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1015), nTextX + gnPanelOffsetX, 0x41 - gnPanelOffsetY, 0, 0);
                         }
                         return;
                     }
@@ -327,14 +331,14 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                             sub_0049AAF0_DrawTextFrame(0, 0x1017, 0x128, 0);
                             {
                                 const int nTextX = TEXT_GetCenteredStringX(0x1017, 0x128);
-                                D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1017), nTextX + gnGlobal_007A2858, 0x37 - gnGlobal_007A285C, 0, 0);
+                                D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1017), nTextX + gnPanelOffsetX, 0x37 - gnPanelOffsetY, 0, 0);
                             }
                             return;
                         }
                         sub_0049AAF0_DrawTextFrame(0, 0x1016, 0x128, 0);
                         {
                             const int nTextX = TEXT_GetCenteredStringX(0x1016, 0x128);
-                            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1016), gnGlobal_007A2858 + nTextX, 0x37 - gnGlobal_007A285C, 0, 0);
+                            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1016), gnPanelOffsetX + nTextX, 0x37 - gnPanelOffsetY, 0, 0);
                         }
                         return;
                     }

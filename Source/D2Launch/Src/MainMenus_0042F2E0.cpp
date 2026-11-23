@@ -862,127 +862,128 @@ void __cdecl MAINMENUS_UpdateStatus(); // 0x00436AD0
 void __cdecl sub_0042E6D0_LoadFrontEndCells()
 {
     char szPath[0x104];
-    wsprintfA(szPath, "%s\\UI\\FrontEnd\\blizno", szDataGlobal_006D4118);
+// build: symbol ?gszDataGlobal@* 0x006D4118
+    wsprintfA(szPath, "%s\\UI\\FrontEnd\\blizno", gszDataGlobal);
     gpCellFile_007796F8 = sub_004FA9B0_LoadCellFile(szPath, 0);
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     if (FOG_IsExpansion())
-        wsprintfA(szPath, "%s\\UI\\FrontEnd\\trademarkscreenEXP", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\UI\\FrontEnd\\trademarkscreenEXP", gszDataGlobal);
     else
-        wsprintfA(szPath, "%s\\UI\\FrontEnd\\trademark", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\UI\\FrontEnd\\trademark", gszDataGlobal);
     gpCellFile_007796FC = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\UI\\CURSOR\\ohand", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\UI\\CURSOR\\ohand", gszDataGlobal);
     gpCellFile_0077971C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\Diablo2", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\Diablo2", gszDataGlobal);
     gpCellFile_00779704 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\D2logoBlackLeft", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\D2logoBlackLeft", gszDataGlobal);
     gpCellFile_00779708 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\D2logoFireLeft", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\D2logoFireLeft", gszDataGlobal);
     gpCellFile_0077970C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\D2logoBlackRight", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\D2logoBlackRight", gszDataGlobal);
     gpCellFile_00779710 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\D2logoFireRight", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\D2logoFireRight", gszDataGlobal);
     gpCellFile_00779714 = sub_004FA9B0_LoadCellFile(szPath, 0);
     if (FOG_IsExpansion())
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\gameselectscreenEXP", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\gameselectscreenEXP", gszDataGlobal);
     else
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\TitleScreen", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\TitleScreen", gszDataGlobal);
     gpCellFile_00779718 = sub_004FA9B0_LoadCellFile(szPath, 0);
     if (FOG_IsExpansion())
-        wsprintfA(szPath, "%s\\ui\\CharSelect\\creditsbckgexpand", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\CharSelect\\creditsbckgexpand", gszDataGlobal);
     else
-        wsprintfA(szPath, "%s\\ui\\CharSelect\\creditsbckg", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\CharSelect\\creditsbckg", gszDataGlobal);
     gpCellFile_00779720 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\WideButtonBlank", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\WideButtonBlank", gszDataGlobal);
     gpCellFile_00779738 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\WideButtonBlank02", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\WideButtonBlank02", gszDataGlobal);
     gpCellFile_00779754 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\NarrowButtonBlank", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\NarrowButtonBlank", gszDataGlobal);
     gpCellFile_00779758 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\GWListBox", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\GWListBox", gszDataGlobal);
     gpCellFile_0077975C = sub_004FA9B0_LoadCellFile(szPath, 0);
     if (FOG_IsExpansion())
     {
-        wsprintfA(szPath, "%s\\ui\\CharSelect\\Realmselectbutton", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\CharSelect\\Realmselectbutton", gszDataGlobal);
         gpCellFile_0077972C = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\CharSelect\\TallButtonBlank", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\CharSelect\\TallButtonBlank", gszDataGlobal);
         gpCellFile_00779730 = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\CharSelect\\characterselectscreenEXP", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\CharSelect\\characterselectscreenEXP", gszDataGlobal);
         gpCellFile_00779734 = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\CinematicsSelectionEXP", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\CinematicsSelectionEXP", gszDataGlobal);
         gpCellFile_00779774 = sub_004FA9B0_LoadCellFile(szPath, 0);
     }
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\MediumButtonBlank", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\MediumButtonBlank", gszDataGlobal);
     gpCellFile_0077973C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\CharSelect\\ShortButtonBlank", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\CharSelect\\ShortButtonBlank", gszDataGlobal);
     gpCellFile_00779740 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\textbox2", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\textbox2", gszDataGlobal);
     gpCellFile_00779748 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\3WideButtonBlank", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\3WideButtonBlank", gszDataGlobal);
     gpCellFile_0077974C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\TermsofUseBckg", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\TermsofUseBckg", gszDataGlobal);
     gpCellFile_00779764 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\CharSelect\\charselectbckg", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\CharSelect\\charselectbckg", gszDataGlobal);
     gpCellFile_00779768 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\CharSelect\\DifficultyLevels", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\CharSelect\\DifficultyLevels", gszDataGlobal);
     gpCellFile_0077976C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\CinematicsSelection", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\CinematicsSelection", gszDataGlobal);
     gpCellFile_00779770 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\CharSelect\\charselectbox", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\CharSelect\\charselectbox", gszDataGlobal);
     gpCellFile_00779778 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\CharSelect\\charselectboxgrey", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\CharSelect\\charselectboxgrey", gszDataGlobal);
     gpCellFile_0077977C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\CharSelect\\CreateNewCharImage", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\CharSelect\\CreateNewCharImage", gszDataGlobal);
     gpCellFile_00779794 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\PopUpOK", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\PopUpOK", gszDataGlobal);
     gpCellFile_00779798 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\PopUp_340x224", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\PopUp_340x224", gszDataGlobal);
     gpCellFile_0077979C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\PopUpWide", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\PopUpWide", gszDataGlobal);
     gpCellFile_007797A0 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\PopUpLargest", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\PopUpLargest", gszDataGlobal);
     gpCellFile_007797A4 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\TileableDialog", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\TileableDialog", gszDataGlobal);
     gpCellFile_007797A8 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\PopUpOK2", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\PopUpOK2", gszDataGlobal);
     gpCellFile_007797AC = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\PopUpOKCancel", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\PopUpOKCancel", gszDataGlobal);
     gpCellFile_00779780 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\PopUpOKCancel2", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\PopUpOKCancel2", gszDataGlobal);
     gpCellFile_00779784 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\OkCancelButtonBlank", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\OkCancelButtonBlank", gszDataGlobal);
     gpCellFile_007797B0 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\CancelButtonBlank", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\CancelButtonBlank", gszDataGlobal);
     gpCellFile_007797B4 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\CharSelect\\selectchararrows", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\CharSelect\\selectchararrows", gszDataGlobal);
     gpCellFile_00779788 = sub_004FA9B0_LoadCellFile(szPath, 0);
     if (FOG_IsExpansion())
-        wsprintfA(szPath, "%s\\ui\\CharSelect\\Realmselect", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\CharSelect\\Realmselect", gszDataGlobal);
     else
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\CurRealm", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\CurRealm", gszDataGlobal);
     gpCellFile_0077978C = sub_004FA9B0_LoadCellFile(szPath, 0);
     if (FOG_IsExpansion())
-        wsprintfA(szPath, "%s\\ui\\CharSelect\\RealmSelectbuttonthin", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\CharSelect\\RealmSelectbuttonthin", gszDataGlobal);
     else
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\NarrowButtonBlank02", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\NarrowButtonBlank02", gszDataGlobal);
     gpCellFile_00779790 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\CharSelect\\password", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\CharSelect\\password", gszDataGlobal);
     gpCellFile_007797B8 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\UI\\FrontEnd\\realmbckg", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\UI\\FrontEnd\\realmbckg", gszDataGlobal);
     gpCellFile_007797C8 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    sprintf(szPath, "%s\\UI\\FRONTEND\\joingamescrollbars", szDataGlobal_006D4118);
+    sprintf(szPath, "%s\\UI\\FRONTEND\\joingamescrollbars", gszDataGlobal);
     gpCellFile_007797CC = sub_004FA9B0_LoadCellFile(szPath, 0);
     if (FOG_IsExpansion())
-        wsprintfA(szPath, "%s\\UI\\FrontEnd\\tcpipscreen", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\UI\\FrontEnd\\tcpipscreen", gszDataGlobal);
     else
-        wsprintfA(szPath, "%s\\UI\\FrontEnd\\tcpipbckg", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\UI\\FrontEnd\\tcpipbckg", gszDataGlobal);
     gpCellFile_007797D0 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\UI\\FrontEnd\\IPAddressBox", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\UI\\FrontEnd\\IPAddressBox", gszDataGlobal);
     gpCellFile_007797D4 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\UI\\FrontEnd\\downloadpatchbckg", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\UI\\FrontEnd\\downloadpatchbckg", gszDataGlobal);
     gpCellFile_007797D8 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\UI\\FrontEnd\\downloadpatchball2", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\UI\\FrontEnd\\downloadpatchball2", gszDataGlobal);
     gpCellFile_007797DC = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\UI\\FrontEnd\\EditTextBoxWide", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\UI\\FrontEnd\\EditTextBoxWide", gszDataGlobal);
     gpCellFile_00779750 = sub_004FA9B0_LoadCellFile(szPath, 0);
 }
 
@@ -992,8 +993,8 @@ int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* sz
     char szPathA[0x104];
     char szPathB[0x104];
     gbPaletteBusy_00779970 = 1;
-    wsprintfA(szPathA, gszPathFormat_006D4124, szDataGlobal_006D4118, szFile1);
-    wsprintfA(szPathB, gszPathFormat_006D4124, szDataGlobal_006D4118, szFile2);
+    wsprintfA(szPathA, gszPathFormat_006D4124, gszDataGlobal, szFile1);
+    wsprintfA(szPathB, gszPathFormat_006D4124, gszDataGlobal, szFile2);
     gbFeCharPalette_007795F0 = strcmp(szFile1, "palette\\fechar\\pal.dat") == 0;
     sub_004FB500(szPathA, szPathB);
     return 1;
@@ -1043,17 +1044,18 @@ static void MAINMENUS_BuildLocalizedVideoPath(char* szOut, const char* szFormat,
 {
     char szLang[4];
     STRTABLE_GetLanguageInfoField(szLang, 0);
-    sprintf(szOut, szFormat, gszDataLocal_006D41A8, szLang, szFile);
+// build: symbol ?gszDataLocal@* 0x006D41A8
+    sprintf(szOut, szFormat, gszDataLocal, szLang, szFile);
     if (sub_0042FCE0_ArchiveFilePresent(szOut))
         return;
     if (STRTABLE_GetLanguage())
     {
-        sprintf(szOut, szFormat, gszDataLocal_006D41A8, "ENG", szFile);
+        sprintf(szOut, szFormat, gszDataLocal, "ENG", szFile);
         sub_0042FCE0_ArchiveFilePresent(szOut);
     }
     else
     {
-        sprintf(szOut, szFormat, gszDataLocal_006D41A8, "CHI", szFile);
+        sprintf(szOut, szFormat, gszDataLocal, "CHI", szFile);
         sub_0042FCE0_ArchiveFilePresent(szOut);
     }
 }
@@ -1514,109 +1516,109 @@ void __cdecl MAINMENUS_LoadCharCreateCells()
     char szPath[0x104];
     if (gpCellFile_00779724)
         return;
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\MediumSelButtonBlank", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\MediumSelButtonBlank", gszDataGlobal);
     gpCellFile_00779744 = sub_004FA9B0_LoadCellFile(szPath, 0);
     if (FOG_IsExpansion())
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\charactercreationscreenEXP", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\charactercreationscreenEXP", gszDataGlobal);
     else
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\CharacterCreate", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\CharacterCreate", gszDataGlobal);
     gpCellFile_00779724 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\fire", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\fire", gszDataGlobal);
     gpCellFile_00779728 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\textbox", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\textbox", gszDataGlobal);
     gpCellFile_007797BC = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\clickbox", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\clickbox", gszDataGlobal);
     gpCellFile_007797C0 = sub_004FA9B0_LoadCellFile(szPath, 0);
     if (FOG_IsExpansion())
     {
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\joingameclickboxgrey", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\joingameclickboxgrey", gszDataGlobal);
         gpCellFile_007797C4 = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\assassin\\asnu1", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\assassin\\asnu1", gszDataGlobal);
         gpCellFile_007797E0 = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\assassin\\asnu2", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\assassin\\asnu2", gszDataGlobal);
         gpCellFile_007797E4 = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\assassin\\asfw", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\assassin\\asfw", gszDataGlobal);
         gpCellFile_007797E8 = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\assassin\\asnu3", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\assassin\\asnu3", gszDataGlobal);
         gpCellFile_007797EC = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\assassin\\asbw", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\assassin\\asbw", gszDataGlobal);
         gpCellFile_007797F0 = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\druid\\dznu1", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\druid\\dznu1", gszDataGlobal);
         gpCellFile_007797F4 = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\druid\\dznu2", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\druid\\dznu2", gszDataGlobal);
         gpCellFile_007797F8 = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\druid\\dzfw", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\druid\\dzfw", gszDataGlobal);
         gpCellFile_007797FC = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\druid\\dznu3", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\druid\\dznu3", gszDataGlobal);
         gpCellFile_00779800 = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\druid\\dzbw", szDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\druid\\dzbw", gszDataGlobal);
         gpCellFile_00779804 = sub_004FA9B0_LoadCellFile(szPath, 0);
     }
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\amazon\\amnu1", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\amazon\\amnu1", gszDataGlobal);
     gpCellFile_00779808 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\amazon\\amnu2", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\amazon\\amnu2", gszDataGlobal);
     gpCellFile_0077980C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\amazon\\amfw", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\amazon\\amfw", gszDataGlobal);
     gpCellFile_00779810 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\amazon\\amnu3", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\amazon\\amnu3", gszDataGlobal);
     gpCellFile_00779814 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\amazon\\ambw", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\amazon\\ambw", gszDataGlobal);
     gpCellFile_00779818 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nenu1", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nenu1", gszDataGlobal);
     gpCellFile_0077981C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nenu2", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nenu2", gszDataGlobal);
     gpCellFile_00779820 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nefw", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nefw", gszDataGlobal);
     gpCellFile_00779824 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nenu3", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nenu3", gszDataGlobal);
     gpCellFile_00779828 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nebw", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nebw", gszDataGlobal);
     gpCellFile_0077982C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\banu1", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\banu1", gszDataGlobal);
     gpCellFile_00779830 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\banu2", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\banu2", gszDataGlobal);
     gpCellFile_00779834 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\bafw", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\bafw", gszDataGlobal);
     gpCellFile_00779838 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\banu3", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\banu3", gszDataGlobal);
     gpCellFile_0077983C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\babw", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\babw", gszDataGlobal);
     gpCellFile_00779840 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sonu1", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sonu1", gszDataGlobal);
     gpCellFile_00779844 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sonu2", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sonu2", gszDataGlobal);
     gpCellFile_00779848 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sofw", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sofw", gszDataGlobal);
     gpCellFile_0077984C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sonu3", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sonu3", gszDataGlobal);
     gpCellFile_00779850 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sobw", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sobw", gszDataGlobal);
     gpCellFile_00779854 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\panu1", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\panu1", gszDataGlobal);
     gpCellFile_00779858 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\panu2", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\panu2", gszDataGlobal);
     gpCellFile_0077985C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\pafw", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\pafw", gszDataGlobal);
     gpCellFile_00779860 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\panu3", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\panu3", gszDataGlobal);
     gpCellFile_00779864 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\pabw", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\pabw", gszDataGlobal);
     gpCellFile_00779868 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sofws", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sofws", gszDataGlobal);
     gpCellFile_0077989C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sonu3s", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sonu3s", gszDataGlobal);
     gpCellFile_007798A0 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sobws", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sobws", gszDataGlobal);
     gpCellFile_007798A4 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nefws", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nefws", gszDataGlobal);
     gpCellFile_00779888 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nenu3s", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nenu3s", gszDataGlobal);
     gpCellFile_0077988C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nebws", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nebws", gszDataGlobal);
     gpCellFile_00779890 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\bafws", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\bafws", gszDataGlobal);
     gpCellFile_007798B0 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\pafws", szDataGlobal_006D4118);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\pafws", gszDataGlobal);
     gpCellFile_007798C4 = sub_004FA9B0_LoadCellFile(szPath, 0);
 }
 
@@ -1644,11 +1646,11 @@ void __cdecl MAINMENUS_PlayIntro()
         strcpy(szSize, "640x146");
     }
     STRTABLE_GetLanguageInfoField(szLanguage, 0);
-    sprintf(szPath, "%s\\video\\%s\\D2x_Intro_%s.bik", gszDataLocal_006D41A8, szLanguage, szSize);
+    sprintf(szPath, "%s\\video\\%s\\D2x_Intro_%s.bik", gszDataLocal, szLanguage, szSize);
     if (SFileOpenFileEx(0, szPath, 0, &hFile))
         SFileCloseFile(hFile);
     else
-        sprintf(szPath, "%s\\video\\%s\\D2x_Intro%s.bik", gszDataLocal_006D41A8, "ENG", szSize);
+        sprintf(szPath, "%s\\video\\%s\\D2x_Intro%s.bik", gszDataLocal, "ENG", szSize);
     sub_004F5D90_PlayVideo(szPath, nMode, 0);
     if (SRegLoadString("Diablo II", "Aux Battle.net", 0, szAddress, 0x64))
         sscanf(szAddress, "%ld.%ld.%ld.%ld", &a, &b, &c, &d);

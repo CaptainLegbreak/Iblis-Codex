@@ -43,7 +43,7 @@ D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
 void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
 void __fastcall sub_004CA8D0_NotifyUnitHint(D2UnitStrc* pOther, D2UnitStrc* pUnit); // 0x004CA8D0
 void __fastcall sub_00516980_UpdateHintTimer(D2HintTimerStrc* pTimer, D2UnitStrc* pOther); // 0x00516980
-extern D2TimedHintNodeStrc* gpTimedHintList_007C5458; // 0x007C5458
+extern D2TimedHintNodeStrc* gpClientSoundList; // 0x007C5458
 
 class UIWidget
 {
@@ -110,7 +110,7 @@ void __fastcall sub_004BA790_UpdateUnitHint(D2UnitStrc* pUnit, D2UnitStrc* pOthe
     sub_004CA8D0_NotifyUnitHint(pOther, pUnit);
     D2TimedHintNodeStrc* pNode;
     D2TimedHintEntryStrc* pEntry;
-    for (pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
+    for (pNode = gpClientSoundList; pNode; pNode = pNode->pNext)
     {
         pEntry = pNode->pEntry;
         if (pEntry->nKey == (int)pUnit)

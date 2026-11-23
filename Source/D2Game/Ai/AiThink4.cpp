@@ -1248,7 +1248,7 @@ void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 extern "C" void __cdecl sub_00517ABB(void* pMemory); // 0x00517ABB
 
-extern void* gpCelFile_007C02BC; // 0x007C02BC
+extern void* gpKeyConfigSliderCel; // 0x007C02BC
 
 void __fastcall sub_00600C60_CallFree(void* pMemory); // 0x00600C60
 
@@ -14745,10 +14745,10 @@ void __cdecl TEXT_ResetKeyConfigDefaults()
 // 0x004A51E0
 void __cdecl TEXT_FreeTextSliderCel()
 {
-    if (gpCelFile_007C02BC)
+    if (gpKeyConfigSliderCel)
     {
-        ARCHIVE_FreeClientCellFile(gpCelFile_007C02BC);
-        gpCelFile_007C02BC = 0;
+        ARCHIVE_FreeClientCellFile(gpKeyConfigSliderCel);
+        gpKeyConfigSliderCel = 0;
     }
 }
 

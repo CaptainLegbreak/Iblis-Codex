@@ -66,7 +66,7 @@ void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame);
 
 struct D2StormPhaseStrc { int nFrameLimit,nPeriod,bSpawn; };
 
-extern D2StormPhaseStrc gtStormPhase_006DB908[5]; // 0x006DB908
+extern D2StormPhaseStrc gaBaalStormPhases[5]; // 0x006DB908
 
 int __stdcall MISSILE_GetCurrentFrame(D2UnitStrc*); // 0x0064A380
 
@@ -283,8 +283,10 @@ static void __stdcall sub_004D0B90_SpawnHitBurst(int nCount, int nVelocity, int 
             memset(&tParams, 0, sizeof(tParams));
             tParams.dwFlags = 1;
             tParams.pOwner = pOwner;
-            tParams.nX = gaHitRingX_006DB540[i] + nX;
-            tParams.nY = gaHitRingY_006DB588[i] + nY;
+// build: symbol ?gaHitRingX@* 0x006DB540
+            tParams.nX = gaHitRingX[i] + nX;
+// build: symbol ?gaHitRingY@* 0x006DB588
+            tParams.nY = gaHitRingY[i] + nY;
             tParams.nSkill = nSkill;
             tParams.nSkillLevel = nLevel;
             tParams.nMissile = nRingMissile;
@@ -503,9 +505,9 @@ void __fastcall sub_004D7930_CltDoBaalStormMissile(D2UnitStrc* pMissile)
     int nPhase;
     for(nPhase=0;nPhase<4;++nPhase)
     {
-        if(nFrames>gtStormPhase_006DB908[nPhase].nFrameLimit)break;
+        if(nFrames>gaBaalStormPhases[nPhase].nFrameLimit)break;
     }
-    if(!(nFrames%gtStormPhase_006DB908[nPhase].nPeriod) && gtStormPhase_006DB908[nPhase].bSpawn)
+    if(!(nFrames%gaBaalStormPhases[nPhase].nPeriod) && gaBaalStormPhases[nPhase].bSpawn)
     {
         SEED_RollRandomNumber(&pMissile->pSeed);
         D2MissileStrc tParams;

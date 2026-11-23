@@ -122,7 +122,8 @@ void __cdecl sub_00443630_UpdateCreateButton()
                 if (nPlayers < 1 || nPlayers > 8)
                 {
                     nPlayers = D2_MIN(D2_MAX(nPlayers, 1), 8);
-                    sprintf(szText, gszFormatD_006D57BC, nPlayers);
+// build: symbol ?gszFormatD@* 0x006D57BC
+                    sprintf(szText, gszFormatD, nPlayers);
                     sub_004FFE10_SetTextA(gpMaxPlayerControl_00798C38, szText);
                 }
             }

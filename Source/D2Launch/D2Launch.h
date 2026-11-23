@@ -91,14 +91,14 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void* __stdcall FindFirstFileA(const char* szFileName, D2FindDataStrc* pFindData); // 0x006CC1CC
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount); // 0x00687330
-extern "C" const char gszDataLocal_006D41A8[]; // 0x006D41A8
+extern "C" const char gszDataLocal[]; // 0x006D41A8
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char gszFormatD_006D57BC[]; // 0x006D57BC
+extern "C" const char gszFormatD[]; // 0x006D57BC
 extern "C" const char gszPathFormat_006D4124[]; // 0x006D4124
 extern "C" const char gszSaveMask_006D41D4[]; // 0x006D41D4
 extern "C" const char gszSavePathFormat_006D4230[]; // 0x006D4230
 extern "C" const char gszStringFormat_006FFC58[]; // 0x006FFC58
-extern "C" const char szDataGlobal_006D4118[]; // 0x006D4118
+extern "C" const char gszDataGlobal[]; // 0x006D4118
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" const unsigned char gabDefault_006D4D88[]; // 0x006D4D88
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40

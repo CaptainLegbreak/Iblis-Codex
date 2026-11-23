@@ -16,7 +16,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(unsigned int nCodePage, unsigned long dwFlags, const char* szSource, int nSource, wchar_t* wszDest, int nDest); // 0x006CC29C
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
-extern int gnGlobal_00711470;                                                                               // 0x00711470
+extern int gnScreenHeight;                                                                               // 0x00711470
 
 // 0x0047B5C0
 void __cdecl sub_0047B5C0_DrawImeCandidates()
@@ -55,13 +55,13 @@ void __cdecl sub_0047B5C0_DrawImeCandidates()
             char szIndex[20];
             sprintf(szIndex, "%d: ", nIndex);
             Unicode::win2Unicode(wszIndex, szIndex, 20);
-            D2Win_10117_DrawText(wszIndex, 20, nY + gnGlobal_00711470 - 0x170, 0, 0);
+            D2Win_10117_DrawText(wszIndex, 20, nY + gnScreenHeight - 0x170, 0, 0);
 
             Unicode wszText[256];
             for (int j = 0; j < 256; j++)
                 wszText[j].wChar = 0;
             if (MultiByteToWideChar(0, 1, szCandidate, -1, (wchar_t*)wszText, 0x101))
-                D2Win_10117_DrawText(wszText, 0x1E, nY + gnGlobal_00711470 - 0x170, 0, 0);
+                D2Win_10117_DrawText(wszText, 0x1E, nY + gnScreenHeight - 0x170, 0, 0);
 
             if (nY > 0x118)
                 break;

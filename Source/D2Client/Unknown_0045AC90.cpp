@@ -9,18 +9,30 @@
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" size_t __cdecl strlen(const char* szString);
 
-extern const D2AutomapPointStrc gaAutomapCross_006D6638[13];
-extern "C" const char szAutomapFile_006D66F0[];
-extern int gdwGlobal_007113E8;
-extern int gnAutomapScale_00711254;
-extern int gdwGlobal_007A5150;
-extern int gnAutomapOffsetX_007A5198;
-extern int gnAutomapOffsetY_007A519C;
-extern unsigned char gnAutomapColors_007A51B0[];
-extern int gnGlobal_007A51C8;
-extern int gnGlobal_007A51CC;
-extern int gnGlobal_007A51D0;
-extern int gnGlobal_007A51D4;
+// build: symbol ?gaAutomapCross@* 0x006D6638
+extern const D2AutomapPointStrc gaAutomapCross[13];
+// build: symbol _gszAutomapFile 0x006D66F0
+extern "C" const char gszAutomapFile[];
+// build: symbol ?gbAutomapPartyNames@* 0x007113E8
+extern int gbAutomapPartyNames;
+// build: symbol ?gnAutomapScale@* 0x00711254
+extern int gnAutomapScale;
+// build: symbol ?gnAutomapMode@* 0x007A5150
+extern int gnAutomapMode;
+// build: symbol ?gnAutomapOffsetX@* 0x007A5198
+extern int gnAutomapOffsetX;
+// build: symbol ?gnAutomapOffsetY@* 0x007A519C
+extern int gnAutomapOffsetY;
+// build: symbol ?gabAutomapColors@* 0x007A51B0
+extern unsigned char gabAutomapColors[];
+// build: symbol ?gnAutomapClipLeft@* 0x007A51C8
+extern int gnAutomapClipLeft;
+// build: symbol ?gnAutomapClipTop@* 0x007A51CC
+extern int gnAutomapClipTop;
+// build: symbol ?gnAutomapClipRight@* 0x007A51D0
+extern int gnAutomapClipRight;
+// build: symbol ?gnAutomapClipBottom@* 0x007A51D4
+extern int gnAutomapClipBottom;
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
@@ -116,13 +128,13 @@ static int sub_00459BC0_GetAutomapUnitColor(D2UnitStrc* pUnit, unsigned char* pC
                 return 0;
             }
 
-            *pColor = gnAutomapColors_007A51B0[2];
+            *pColor = gabAutomapColors[2];
             return 1;
         }
 
         if (pUnit == sub_00463DD0_GetPlayerUnit())
         {
-            *pColor = gnAutomapColors_007A51B0[0];
+            *pColor = gabAutomapColors[0];
             return 1;
         }
 
@@ -130,12 +142,12 @@ static int sub_00459BC0_GetAutomapUnitColor(D2UnitStrc* pUnit, unsigned char* pC
             const unsigned short nPlayerRoster = CUNIT_GetPlayerPartyId(sub_00463DD0_GetPlayerUnit());
             if (nPlayerRoster != 0xFFFF && nPlayerRoster == (unsigned short)CUNIT_GetPlayerPartyId(pUnit))
             {
-                *pColor = gnAutomapColors_007A51B0[3];
+                *pColor = gabAutomapColors[3];
                 return 1;
             }
         }
 
-        *pColor = gnAutomapColors_007A51B0[1];
+        *pColor = gabAutomapColors[1];
         return 1;
 
     case 1:
@@ -164,7 +176,7 @@ static int sub_00459BC0_GetAutomapUnitColor(D2UnitStrc* pUnit, unsigned char* pC
                 }
             }
 
-            *pColor = gnAutomapColors_007A51B0[6];
+            *pColor = gabAutomapColors[6];
             return 1;
         }
 
@@ -173,17 +185,17 @@ static int sub_00459BC0_GetAutomapUnitColor(D2UnitStrc* pUnit, unsigned char* pC
         int nType = AUTOMAP_GetUnitType(pUnit);
         nClass = AUTOMAP_GetUnitClassIdR(pUnit);
         nMode = AUTOMAP_GetUnitAnimModeR(pUnit);
-        D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nMode, szAutomapFile_006D66F0, 0x92D);
+        D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nMode, gszAutomapFile, 0x92D);
         if (!nType && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && sub_004639D0_GetOwnerUnit(pUnit))
         {
             const unsigned short nPlayerRoster = CUNIT_GetPlayerPartyId(sub_00463DD0_GetPlayerUnit());
             if (nPlayerRoster != 0xFFFF && nPlayerRoster == (unsigned short)CUNIT_GetPlayerPartyId(pUnit))
             {
-                *pColor = gnAutomapColors_007A51B0[4];
+                *pColor = gabAutomapColors[4];
                 return 1;
             }
 
-            *pColor = gnAutomapColors_007A51B0[1];
+            *pColor = gabAutomapColors[1];
             return 1;
         }
 
@@ -196,18 +208,19 @@ static int sub_00459BC0_GetAutomapUnitColor(D2UnitStrc* pUnit, unsigned char* pC
         case 1:
             if (sub_00451F30_TestUnitFlag(pUnit, 0x200))
             {
-                *pColor = gnAutomapColors_007A51B0[4];
+                *pColor = gabAutomapColors[4];
                 return 1;
             }
-            *pColor = gnAutomapColors_007A51B0[4];
+            *pColor = gabAutomapColors[4];
             return 1;
 
         case 2:
-            if (!gdwGlobal_007113E4)
+// build: symbol ?gbAutomapParty@* 0x007113E4
+            if (!gbAutomapParty)
             {
                 return 0;
             }
-            *pColor = gnAutomapColors_007A51B0[5];
+            *pColor = gabAutomapColors[5];
             return 1;
         }
 
@@ -218,7 +231,7 @@ static int sub_00459BC0_GetAutomapUnitColor(D2UnitStrc* pUnit, unsigned char* pC
         switch (AUTOMAP_GetUnitClassId(pUnit))
         {
         case 0x3B:
-            *pColor = gnAutomapColors_007A51B0[8];
+            *pColor = gabAutomapColors[8];
             return 1;
 
         case 0x3C:
@@ -230,7 +243,7 @@ static int sub_00459BC0_GetAutomapUnitColor(D2UnitStrc* pUnit, unsigned char* pC
                 return 0;
             }
         }
-            *pColor = gnAutomapColors_007A51B0[8];
+            *pColor = gabAutomapColors[8];
             return 1;
 
         case 0x10B:
@@ -265,7 +278,7 @@ static void __stdcall sub_0045A760_DrawAutomapText(unsigned char nColor, const c
 
 static void __stdcall sub_0045A7F0_DrawAutomapCross(unsigned char nColor, int nX, int nY)
 {
-    if (gdwGlobal_007A5150 == 1)
+    if (gnAutomapMode == 1)
     {
         nX -= 1;
         nY += 5;
@@ -273,8 +286,8 @@ static void __stdcall sub_0045A7F0_DrawAutomapCross(unsigned char nColor, int nX
 
     for (unsigned int i = 0; i < 12; ++i)
     {
-        D2GFX_DrawLine(nX + gaAutomapCross_006D6638[i].nX * 2, nY + gaAutomapCross_006D6638[i].nY * 2,
-            nX + gaAutomapCross_006D6638[i + 1].nX * 2, nY + gaAutomapCross_006D6638[i + 1].nY * 2, nColor, 0xFF);
+        D2GFX_DrawLine(nX + gaAutomapCross[i].nX * 2, nY + gaAutomapCross[i].nY * 2,
+            nX + gaAutomapCross[i + 1].nX * 2, nY + gaAutomapCross[i + 1].nY * 2, nColor, 0xFF);
     }
 }
 
@@ -302,9 +315,9 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
 
     const int nClientX = UNITS_GetClientCoordX(pUnit);
     const int nClientY = UNITS_GetClientCoordY(pUnit);
-    const int nX = nClientX / gnAutomapScale_00711254 - gnAutomapOffsetX_007A5198 + 8;
-    const int nY = nClientY / gnAutomapScale_00711254 - gnAutomapOffsetY_007A519C - 8;
-    if (nX < gnGlobal_007A51C8 || nX > gnGlobal_007A51D0 || nY < gnGlobal_007A51CC || nY > gnGlobal_007A51D4)
+    const int nX = nClientX / gnAutomapScale - gnAutomapOffsetX + 8;
+    const int nY = nClientY / gnAutomapScale - gnAutomapOffsetY - 8;
+    if (nX < gnAutomapClipLeft || nX > gnAutomapClipRight || nY < gnAutomapClipTop || nY > gnAutomapClipBottom)
     {
         return;
     }
@@ -312,16 +325,16 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
     switch (nUnitType)
     {
     case 0:
-        if (gdwGlobal_007113E4 || nColor != gnAutomapColors_007A51B0[3])
+        if (gbAutomapParty || nColor != gabAutomapColors[3])
         {
             sub_0045A7F0_DrawAutomapCross(nColor, nX, nY);
         }
 
-        if (gdwGlobal_007113E8 && gdwGlobal_007113E4 && pUnit != sub_00463DD0_GetPlayerUnit())
+        if (gbAutomapPartyNames && gbAutomapParty && pUnit != sub_00463DD0_GetPlayerUnit())
         {
-            if (nColor == gnAutomapColors_007A51B0[3])
+            if (nColor == gabAutomapColors[3])
             {
-                if (gdwGlobal_007113E4)
+                if (gbAutomapParty)
                 {
                     sub_0045A760_DrawAutomapText(2, UNITS_GetPlayerData(pUnit)->szName, nX, nY);
                 }
@@ -336,7 +349,7 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
     case 1:
     {
         sub_0045A7F0_DrawAutomapCross(nColor, nX, nY);
-        if (!gdwGlobal_007113E8)
+        if (!gbAutomapPartyNames)
         {
             break;
         }
@@ -349,7 +362,7 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
             sub_00502EF0(nOldFont);
         }
 
-        if (!gdwGlobal_007113E8 || !gdwGlobal_007113E4)
+        if (!gbAutomapPartyNames || !gbAutomapParty)
         {
             break;
         }
@@ -358,7 +371,7 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
             int nType = AUTOMAP_GetUnitType(pUnit);
             int nClass = AUTOMAP_GetUnitClassIdR(pUnit);
             int nMode = AUTOMAP_GetUnitAnimModeR(pUnit);
-            D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nMode, szAutomapFile_006D66F0, 0xA15);
+            D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nMode, gszAutomapFile, 0xA15);
             if (nType || !STATES_CheckStateMaskOnUnit(pUnit, 0x25))
             {
                 break;
@@ -382,7 +395,7 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
     }
 
     case 2:
-        if (gdwGlobal_007113E8 && pUnit && pUnit->dwClassId == 0x10B)
+        if (gbAutomapPartyNames && pUnit && pUnit->dwClassId == 0x10B)
         {
             const int nOldFont = sub_00502EF0(6);
             const Unicode* wszText = D2LANG_GetStringFromTblIndex(0xCF3);
@@ -410,20 +423,20 @@ static void sub_0045AB60_DrawAutomapPartyMember(D2StoredUnitRecordStrc* pEntry)
 
     sub_0047A1B0_GetEntryPosition(pEntry, &nX, &nY);
     DUNGEON_GameSubtileToClientCoords(&nX, &nY);
-    nX = nX / gnAutomapScale_00711254 - gnAutomapOffsetX_007A5198 + 8;
-    nY = nY / gnAutomapScale_00711254 - gnAutomapOffsetY_007A519C - 8;
-    if (nX < gnGlobal_007A51C8 || nX > gnGlobal_007A51D0 || nY < gnGlobal_007A51CC || nY > gnGlobal_007A51D4)
+    nX = nX / gnAutomapScale - gnAutomapOffsetX + 8;
+    nY = nY / gnAutomapScale - gnAutomapOffsetY - 8;
+    if (nX < gnAutomapClipLeft || nX > gnAutomapClipRight || nY < gnAutomapClipTop || nY > gnAutomapClipBottom)
     {
         return;
     }
 
     for (unsigned int i = 0; i < 12; ++i)
     {
-        D2GFX_DrawLine(nX + gaAutomapCross_006D6638[i].nX * 2, nY + gaAutomapCross_006D6638[i].nY * 2,
-            nX + gaAutomapCross_006D6638[i + 1].nX * 2, nY + gaAutomapCross_006D6638[i + 1].nY * 2, gnAutomapColors_007A51B0[3], 0xFF);
+        D2GFX_DrawLine(nX + gaAutomapCross[i].nX * 2, nY + gaAutomapCross[i].nY * 2,
+            nX + gaAutomapCross[i + 1].nX * 2, nY + gaAutomapCross[i + 1].nY * 2, gabAutomapColors[3], 0xFF);
     }
 
-    if (gdwGlobal_007113E8)
+    if (gbAutomapPartyNames)
     {
         sub_0045A760_DrawAutomapText(2, ROSTER_GetEntryName(pEntry), nX, nY);
     }
@@ -447,7 +460,7 @@ void __cdecl sub_0045AC90_DrawAutomapUnits()
     }
 
     const unsigned short nIndex = sub_00479BC0_GetEntryIndex(pEntry);
-    if (nIndex == 0xFFFF || !gdwGlobal_007113E4)
+    if (nIndex == 0xFFFF || !gbAutomapParty)
     {
         return;
     }

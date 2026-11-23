@@ -15,10 +15,10 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);           
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);                   // 0x004B9A00
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
-Unicode gwChatText_007BB5F8[32];                                                                            // 0x007BB5F8
+Unicode gwszImeResult[32];                                                                            // 0x007BB5F8
 extern Unicode gwszChatLine_007BB638[];                                                                     // 0x007BB638
-Unicode gwChatText_007BC850[32];                                                                            // 0x007BC850
-extern int gnChatCaret_007BB5E8;                                                                            // 0x007BB5E8
+Unicode gwszImeComposition[32];                                                                            // 0x007BC850
+extern int gnChatCaret;                                                                            // 0x007BB5E8
 
 // 0x0047AA60
 void __stdcall sub_0047AA60_OnImeComposition(SMSGHANDLER_PARAMS* pMsg)
@@ -41,18 +41,18 @@ void __stdcall sub_0047AA60_OnImeComposition(SMSGHANDLER_PARAMS* pMsg)
             MultiByteToWideChar(0, 1, szComp, -1, (wchar_t*)wszText, 32);
             wszText[31].wChar = 0;
             const int nTextLength = sub_00526800(wszText);
-            if (sub_00526800(gwszChatLine_007BB638) + sub_00526800(gwChatText_007BB5F8) < 0x7F)
+            if (sub_00526800(gwszChatLine_007BB638) + sub_00526800(gwszImeResult) < 0x7F)
             {
-                sub_00526700(gwszChatLine_007BB638, gwChatText_007BB5F8);
-                gnChatCaret_007BB5E8 += sub_00526800(gwChatText_007BB5F8);
+                sub_00526700(gwszChatLine_007BB638, gwszImeResult);
+                gnChatCaret += sub_00526800(gwszImeResult);
             }
             if (sub_00526800(gwszChatLine_007BB638) + nTextLength < 0x7F)
             {
                 sub_00526700(gwszChatLine_007BB638, wszText);
-                gnChatCaret_007BB5E8 += nTextLength;
+                gnChatCaret += nTextLength;
             }
-            gwChatText_007BB5F8[0].wChar = 0;
-            gwChatText_007BC850[0].wChar = 0;
+            gwszImeResult[0].wChar = 0;
+            gwszImeComposition[0].wChar = 0;
         }
         if ((pMsg->lParam & 8) && ImmGetOpenStatus(hImc))
         {
@@ -74,13 +74,13 @@ void __stdcall sub_0047AA60_OnImeComposition(SMSGHANDLER_PARAMS* pMsg)
                         wszText[31].wChar = 0;
                     if (nCount >= 32)
                     {
-                        Unicode::strncpy(gwChatText_007BC850, wszText, 31);
-                        gwChatText_007BC850[31].wChar = 0;
+                        Unicode::strncpy(gwszImeComposition, wszText, 31);
+                        gwszImeComposition[31].wChar = 0;
                         sub_004B9A00(1, 0, 0, 0, 0);
                     }
                     else
                     {
-                        sub_005267E0(gwChatText_007BC850, wszText);
+                        sub_005267E0(gwszImeComposition, wszText);
                     }
                 }
             }

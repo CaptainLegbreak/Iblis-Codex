@@ -97,41 +97,41 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 
 void __stdcall CHAT_FreeHoverMsg(void* pMemoryPool, D2HoverTextStrc* pHoverText); // 0x006611A0
 
-extern D2MsgHandlerEntryStrc gaTextMsgHandlers_00722600[]; // 0x00722600
+extern D2MsgHandlerEntryStrc gaTextMsgHandlers[]; // 0x00722600
 
-extern D2TextIdEntryStrc gaTextIds_00722678[]; // 0x00722678
+extern D2TextIdEntryStrc gaTextIds[]; // 0x00722678
 
-extern int gnTextIdCount_00722EB4; // 0x00722EB4
+extern int gnTextIdCount; // 0x00722EB4
 
-extern D2ClientTextBoxStrc* gpTextBox_007BF1A8; // 0x007BF1A8
+extern D2ClientTextBoxStrc* gpMainTextBox; // 0x007BF1A8
 
-extern ListBoxWrapper* gpListBox_007BF1B4; // 0x007BF1B4
+extern ListBoxWrapper* gpListBox; // 0x007BF1B4
 
-extern int gnGlobal_007BF1BC; // 0x007BF1BC
+extern int gbTextBoxDone; // 0x007BF1BC
 
-extern int gnGlobal_007BF1C0; // 0x007BF1C0
+extern int gnTextActive; // 0x007BF1C0
 
-extern D2TextListStrc gtTextList_007BF1E4; // 0x007BF1E4
+extern D2TextListStrc gtMessageTextList; // 0x007BF1E4
 
-D2TextListStrc gtTextList_007BF1F0; // 0x007BF1F0
+D2TextListStrc gtTextHistory; // 0x007BF1F0
 
-extern unsigned char gnGlobal_007BF23A; // 0x007BF23A
+extern unsigned char gbTextHoverSet; // 0x007BF23A
 
-extern int gbStarted_007BF27C; // 0x007BF27C
+extern int gbTextHandlersRegistered; // 0x007BF27C
 
 D2TextNodeStrc* __fastcall TEXT_CloneStringList(D2TextNodeStrc* pSource); // 0x0049DB10
 
-int gnGlobal_007BF1C8; // 0x007BF1C8
+int gbTextBoxShown; // 0x007BF1C8
 
 int gnGlobal_007BF1E0; // 0x007BF1E0
 
-D2ClientTextDataStrc* gpTextData_007BF228; // 0x007BF228
+D2ClientTextDataStrc* gpTextData; // 0x007BF228
 
-int gnGlobal_007BF254; // 0x007BF254
+int gbTextDataOpen; // 0x007BF254
 
-D2TextCallback gpfnTextCallback_007BF258; // 0x007BF258
+D2TextCallback gpfnTextCallback; // 0x007BF258
 
-void* gpTextCallbackContext_007BF25C; // 0x007BF25C
+void* gpTextCallbackContext; // 0x007BF25C
 
 struct T00479230;
 
@@ -140,14 +140,14 @@ struct T00479230;
 
 #pragma pack(pop)
 
-extern T00479230* gpTextBox_007BF0A4;                                                                   // 0x007BF0A4
+extern T00479230* gpTextBox;                                                                   // 0x007BF0A4
 
-extern D2ClientDialogStrc* gpListDialog_007BF1B0;                                                           // 0x007BF1B0
+extern D2ClientDialogStrc* gpListDialog;                                                           // 0x007BF1B0
 
 // 0x0049DA50
 void __cdecl TEXT_ClearHoverUnit()
 {
-    gnGlobal_007BF23A = 0;
+    gbTextHoverSet = 0;
 }
 
 struct D2UnitStrc;
@@ -167,9 +167,9 @@ void __fastcall TEXT_AddToHistory(D2TextNodeStrc* pSource)
 {
     D2TextNodeStrc* pClone = TEXT_CloneStringList(pSource);
     D2TextNodeStrc* pNode;
-    if (gtTextList_007BF1F0.wCount >= 0x80)
+    if (gtTextHistory.wCount >= 0x80)
     {
-        pNode = gtTextList_007BF1F0.pFirst;
+        pNode = gtTextHistory.pFirst;
         if (!pNode)
         {
             goto link;
@@ -184,38 +184,41 @@ void __fastcall TEXT_AddToHistory(D2TextNodeStrc* pSource)
         sub_0049D490_FreeTextNode(pNode);
         if (pPrevious)
             pPrevious->pNext = 0;
-        if (gtTextList_007BF1F0.wCount >= 1)
-            gtTextList_007BF1F0.wCount--;
+        if (gtTextHistory.wCount >= 1)
+            gtTextHistory.wCount--;
     }
-    pNode = gtTextList_007BF1F0.pFirst;
+    pNode = gtTextHistory.pFirst;
 link:
     pClone->pNext = pNode;
-    gtTextList_007BF1F0.wCount++;
-    gtTextList_007BF1F0.pFirst = pClone;
+    gtTextHistory.wCount++;
+    gtTextHistory.pFirst = pClone;
 }
 
 // 0x0049E340
 void __cdecl TEXT_FillListBox()
 {
-    for (D2TextNodeStrc* pNode = gtTextList_007BF1F0.pFirst; pNode; pNode = pNode->pNext)
-        gpListBox_007BF1B4->AddTextLine(pNode->pLines[0], pNode->pLines[1], pNode->pLines[2], pNode->pLines[3],
+    for (D2TextNodeStrc* pNode = gtTextHistory.pFirst; pNode; pNode = pNode->pNext)
+        gpListBox->AddTextLine(pNode->pLines[0], pNode->pLines[1], pNode->pLines[2], pNode->pLines[3],
                                         pNode->pLines[4], pNode->pLines[5], 0, pNode->nColor, 0, 0xD);
 }
 
 // 0x0049E7E0
 void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext)
 {
-    gpfnTextCallback_007BF258 = pfnCallback;
-    gpTextCallbackContext_007BF25C = pContext;
+    gpfnTextCallback = pfnCallback;
+    gpTextCallbackContext = pContext;
 }
 
 // 0x0049E8B0
 D2UnitStrc* __cdecl TEXT_GetTextUnit()
 {
-    if (gdwGlobal_007BF20A)
-        return CUNIT_FindClientUnit(gdwGlobal_007BF202, 1);
-    if (gnGlobal_007BF1C0)
-        return CUNIT_FindClientUnit(gdwGlobal_007BF206, 2);
+// build: symbol ?gbTextFromObject@* 0x007BF20A
+    if (gbTextFromObject)
+// build: symbol ?gnTextNpcId@* 0x007BF202
+        return CUNIT_FindClientUnit(gnTextNpcId, 1);
+    if (gnTextActive)
+// build: symbol ?gnTextObjectId@* 0x007BF206
+        return CUNIT_FindClientUnit(gnTextObjectId, 2);
     return 0;
 }
 
@@ -236,7 +239,7 @@ const Unicode* __fastcall TEXT_GetTextString(unsigned short nId)
 {
     int nStart;
     int nEnd;
-    if (gaTextIds_00722678[100].wId > nId)
+    if (gaTextIds[100].wId > nId)
     {
         nStart = 0;
         nEnd = 100;
@@ -244,12 +247,12 @@ const Unicode* __fastcall TEXT_GetTextString(unsigned short nId)
     else
     {
         nStart = 100;
-        nEnd = gnTextIdCount_00722EB4;
+        nEnd = gnTextIdCount;
     }
     for (int i = nStart; i < nEnd; ++i)
     {
-        if (gaTextIds_00722678[i].wId == nId)
-            return D2LANG_GetStringFromTblIndex(gaTextIds_00722678[i].wStringId);
+        if (gaTextIds[i].wId == nId)
+            return D2LANG_GetStringFromTblIndex(gaTextIds[i].wStringId);
     }
     return D2LANG_GetStringFromTblIndex(0xE8C);
 }
@@ -262,18 +265,18 @@ void __cdecl sub_0049FF00()
 // 0x0049FF90
 void __fastcall TEXT_OpenTextData(D2UnitStrc* pUnit, D2ClientTextDataStrc* pTextData)
 {
-    gpTextData_007BF228 = pTextData;
+    gpTextData = pTextData;
     sub_00455F20(0x10, 2, 0);
     GAME_ResetMouseState();
-    if (gpTextData_007BF228->dwTag == 0x20646B62)
+    if (gpTextData->dwTag == 0x20646B62)
     {
-        gnGlobal_007BF254 = 1;
+        gbTextDataOpen = 1;
         sub_00478680_SendPacket5(0x3E, !pUnit ? -1 : pUnit->dwUnitId);
         gnGlobal_007BF1E0 = 0;
     }
     else
     {
-        gnGlobal_007BF254 = 0;
+        gbTextDataOpen = 0;
         gnGlobal_007BF1E0 = 1;
     }
 }
@@ -281,27 +284,27 @@ void __fastcall TEXT_OpenTextData(D2UnitStrc* pUnit, D2ClientTextDataStrc* pText
 // 0x004A0000
 int __cdecl TEXT_IsTextBoxOpen()
 {
-    return gpTextBox_007BF0A4 != 0;
+    return gpTextBox != 0;
 }
 
 // 0x004A0010
 void __cdecl TEXT_FreeTextLists()
 {
-    TEXT_FreeTextList(&gtTextList_007BF1E4);
-    TEXT_FreeTextList(&gtTextList_007BF1F0);
+    TEXT_FreeTextList(&gtMessageTextList);
+    TEXT_FreeTextList(&gtTextHistory);
 }
 
 // 0x004A01E0
 void __cdecl TEXT_ClearListFlags()
 {
-    for (D2TextNodeStrc* pNode = gtTextList_007BF1E4.pFirst; pNode; pNode = pNode->pNext)
+    for (D2TextNodeStrc* pNode = gtMessageTextList.pFirst; pNode; pNode = pNode->pNext)
         pNode->dwEndTick = 0;
 }
 
 // 0x004A02F0
 void __cdecl TEXT_ToggleListDialogUI()
 {
-    if (gpListDialog_007BF1B0)
+    if (gpListDialog)
     {
         sub_00455F20(0x18, 1, 0);
         sub_00455F20(0x18, 0, 0);
@@ -311,68 +314,70 @@ void __cdecl TEXT_ToggleListDialogUI()
 // 0x004A0880
 void __cdecl TEXT_CloseTextUnit()
 {
-    if (gdwGlobal_007BF20A)
-        sub_004B3D10_ReleaseTextUnit(gdwGlobal_007BF202);
+    if (gbTextFromObject)
+        sub_004B3D10_ReleaseTextUnit(gnTextNpcId);
     else
         TEXT_ResetTextBox();
     UI_StartUIVarDelay();
-    gdwGlobal_007BF20A = 0;
+    gbTextFromObject = 0;
 }
 
 // 0x004A08C0
 int __cdecl TEXT_CloseText()
 {
     int bResult = 0;
-    gnGlobal_007BF1BC = 1;
-    if (!gdwGlobal_007BF20A && gnGlobal_007BF1C0 != 1)
+    gbTextBoxDone = 1;
+    if (!gbTextFromObject && gnTextActive != 1)
     {
-        if (gnGlobal_007BF1C4 == 1)
+// build: symbol ?gbTextBoxPending@* 0x007BF1C4
+        if (gbTextBoxPending == 1)
         {
-            if (gnGlobal_007BF1C8 == 1)
+            if (gbTextBoxShown == 1)
             {
-                gnGlobal_007BF23F = 0;
+// build: symbol ?gbTextCallbackAccepted@* 0x007BF23F
+                gbTextCallbackAccepted = 0;
                 return bResult;
             }
-            D2_ASSERT(gpTextBox_007BF1A8, 0x947);
-            TEXT_FreeTextBox(gpTextBox_007BF1A8);
-            FOG_Free(gpTextBox_007BF1A8, ".\\UI\\text.cpp", 0x949, 0);
-            gpTextBox_007BF1A8 = 0;
-            gnGlobal_007BF1C4 = 0;
-            gnGlobal_007BF1C8 = 0;
+            D2_ASSERT(gpMainTextBox, 0x947);
+            TEXT_FreeTextBox(gpMainTextBox);
+            FOG_Free(gpMainTextBox, ".\\UI\\text.cpp", 0x949, 0);
+            gpMainTextBox = 0;
+            gbTextBoxPending = 0;
+            gbTextBoxShown = 0;
             bResult = 1;
         }
     }
     else
     {
-        if (gpfnTextCallback_007BF258)
+        if (gpfnTextCallback)
         {
             TEXT_ResetTextBox();
             UI_StartUIVarDelay();
-            if (gpfnTextCallback_007BF258(gpTextCallbackContext_007BF25C, 1, gnGlobal_007BF23F))
+            if (gpfnTextCallback(gpTextCallbackContext, 1, gbTextCallbackAccepted))
             {
-                gnGlobal_007BF23F = 0;
+                gbTextCallbackAccepted = 0;
                 return 1;
             }
-            if (gdwGlobal_007BF20A)
-                sub_004B3D10_ReleaseTextUnit(gdwGlobal_007BF202);
+            if (gbTextFromObject)
+                sub_004B3D10_ReleaseTextUnit(gnTextNpcId);
         }
         else
         {
-            if (gdwGlobal_007BF20A)
-                sub_004B3D10_ReleaseTextUnit(gdwGlobal_007BF202);
+            if (gbTextFromObject)
+                sub_004B3D10_ReleaseTextUnit(gnTextNpcId);
             else
                 TEXT_ResetTextBox();
             UI_StartUIVarDelay();
         }
-        gdwGlobal_007BF20A = 0;
-        if (gbStarted_007BF27C == 1)
+        gbTextFromObject = 0;
+        if (gbTextHandlersRegistered == 1)
         {
-            gbStarted_007BF27C = 0;
-            sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaTextMsgHandlers_00722600, 7);
+            gbTextHandlersRegistered = 0;
+            sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaTextMsgHandlers, 7);
         }
         bResult = 1;
     }
-    gnGlobal_007BF23F = 0;
+    gbTextCallbackAccepted = 0;
     return bResult;
 }
 

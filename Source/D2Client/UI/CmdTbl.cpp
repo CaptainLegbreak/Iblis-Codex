@@ -49,7 +49,7 @@ void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStr
 
 void __cdecl sub_0046AAE0_LoadKeyConfig(); // 0x0046AAE0
 
-extern D2HotkeyCommandStrc gtHotkeyCommands_00712698[]; // 0x00712698
+extern D2HotkeyCommandStrc gaHotkeyCommands[]; // 0x00712698
 
 extern D2HotkeyStrc gtHotkeys_007A6F90[NUM_HOTKEYS]; // 0x007A6F90
 
@@ -67,9 +67,9 @@ extern HOTKEYCOMMANDFN gpfnBoundCommand_007A6B14; // 0x007A6B14
 
 extern HOTKEYCOMMANDFN gpfnBoundCommand_007A7410; // 0x007A7410
 
-extern D2MsgHandlerEntryStrc gtHotkeyHandlers_00712944[4]; // 0x00712944
+extern D2MsgHandlerEntryStrc gaHotkeyHandlers[4]; // 0x00712944
 
-extern D2MsgHandlerEntryStrc gtHotkeyHandlers_00712974[2]; // 0x00712974
+extern D2MsgHandlerEntryStrc gaHotkeyUpHandlers[2]; // 0x00712974
 
 void __cdecl sub_00469780_SaveKeyConfig(); // 0x00469780
 
@@ -85,7 +85,7 @@ void __fastcall GAME_SetStandStillHeld(int nValue); // 0x0044BEA0
 
 void __stdcall CMDTBL_LoadKeyConfig(int bInstallDir); // 0x004698D0
 
-extern D2HotkeyStrc gtHotkeysSaved_007A6B18[NUM_HOTKEYS]; // 0x007A6B18
+extern D2HotkeyStrc gaHotkeysSaved[NUM_HOTKEYS]; // 0x007A6B18
 
 #define HOTKEY_COMMAND_LIMIT 0x38
 
@@ -106,7 +106,7 @@ struct D2KeyBindingStrc { int nAction; unsigned short nKey; char unk_06[4]; };
 
 struct D2HotkeyActionStrc { D2HotkeyCallback pfnCallback; int bAllowed; int f_8; };
 
-extern D2HotkeyActionStrc gaActions_0071269C[]; // 0x0071269C
+extern D2HotkeyActionStrc gaActions[]; // 0x0071269C
 
 extern int gnMode_007A7418; // 0x007A7418
 
@@ -156,21 +156,21 @@ void __cdecl CMDTBL_HotkeyStandStillRelease()
     GAME_SetStandStillHeld(0);
 }
 
-HOTKEYCOMMANDFN gpfnBoundCommand_007A6F8C; // 0x007A6F8C
+HOTKEYCOMMANDFN gpfnXButton2UpCommand; // 0x007A6F8C
 
-int gnGlobal_007A7418; // 0x007A7418
+int gnHotkeyMode; // 0x007A7418
 
-int gnGlobal_007A7424; // 0x007A7424
+int gbHotkeyUpHandlersSet; // 0x007A7424
 
-int gnGlobal_007A7428; // 0x007A7428
+int gbHotkeyHandlersRegistered; // 0x007A7428
 
 // 0x00469370
 void __cdecl CMDTBL_CallBoundCommand()
 {
-    if (gpfnBoundCommand_007A6F8C)
+    if (gpfnXButton2UpCommand)
     {
-        D2_ASSERT(!IsBadCodePtr((FARPROC)gpfnBoundCommand_007A6F8C), 0x375);
-        gpfnBoundCommand_007A6F8C();
+        D2_ASSERT(!IsBadCodePtr((FARPROC)gpfnXButton2UpCommand), 0x375);
+        gpfnXButton2UpCommand();
     }
 }
 
@@ -180,7 +180,7 @@ static inline int HOTKEY_CheckWheelKey(int nCommand, int nKey)
     {
     case KEY_WHEEL_UP:
     case KEY_WHEEL_DOWN:
-        if (gtHotkeyCommands_00712698[nCommand].pfnUnk0x04)
+        if (gaHotkeyCommands[nCommand].pfnUnk0x04)
         {
             return 0;
         }
@@ -199,7 +199,7 @@ void __cdecl CMDTBL_BindMouseHotkeys()
     gpfnBoundCommand_007A7414 = 0;
     gpfnBoundCommand_007A6B14 = 0;
     gpfnBoundCommand_007A7410 = 0;
-    gpfnBoundCommand_007A6F8C = 0;
+    gpfnXButton2UpCommand = 0;
     for (int i = 0; i < NUM_HOTKEYS; ++i)
     {
         if (gtHotkeys_007A6F90[i].nKey > 0xDF && gtHotkeys_007A6F90[i].nCommand < NUM_HOTKEY_COMMANDS)
@@ -209,8 +209,8 @@ void __cdecl CMDTBL_BindMouseHotkeys()
             case 0x100:
                 if (HOTKEY_CheckWheelKey(gtHotkeys_007A6F90[i].nCommand, gtHotkeys_007A6F90[i].nKey))
                 {
-                    gpfnBoundCommand_007A6B10 = gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnCommand;
-                    gpfnBoundCommand_007A740C = gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnUnk0x04;
+                    gpfnBoundCommand_007A6B10 = gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnCommand;
+                    gpfnBoundCommand_007A740C = gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnUnk0x04;
                     break;
                 }
                 gtHotkeys_007A6F90[i].nKey = 0xFFFF;
@@ -218,8 +218,8 @@ void __cdecl CMDTBL_BindMouseHotkeys()
             case 0x101:
                 if (HOTKEY_CheckWheelKey(gtHotkeys_007A6F90[i].nCommand, gtHotkeys_007A6F90[i].nKey))
                 {
-                    gpfnBoundCommand_007A7414 = gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnCommand;
-                    gpfnBoundCommand_007A6B14 = gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnUnk0x04;
+                    gpfnBoundCommand_007A7414 = gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnCommand;
+                    gpfnBoundCommand_007A6B14 = gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnUnk0x04;
                     break;
                 }
                 gtHotkeys_007A6F90[i].nKey = 0xFFFF;
@@ -227,8 +227,8 @@ void __cdecl CMDTBL_BindMouseHotkeys()
             case 0x102:
                 if (HOTKEY_CheckWheelKey(gtHotkeys_007A6F90[i].nCommand, gtHotkeys_007A6F90[i].nKey))
                 {
-                    gpfnBoundCommand_007A7410 = gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnCommand;
-                    gpfnBoundCommand_007A6F8C = gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnUnk0x04;
+                    gpfnBoundCommand_007A7410 = gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnCommand;
+                    gpfnXButton2UpCommand = gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnUnk0x04;
                     break;
                 }
                 gtHotkeys_007A6F90[i].nKey = 0xFFFF;
@@ -236,7 +236,7 @@ void __cdecl CMDTBL_BindMouseHotkeys()
             case KEY_WHEEL_UP:
                 if (HOTKEY_CheckWheelKey(gtHotkeys_007A6F90[i].nCommand, gtHotkeys_007A6F90[i].nKey))
                 {
-                    gpfnBoundCommand_007A7404 = gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnCommand;
+                    gpfnBoundCommand_007A7404 = gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnCommand;
                     break;
                 }
                 gtHotkeys_007A6F90[i].nKey = 0xFFFF;
@@ -244,7 +244,7 @@ void __cdecl CMDTBL_BindMouseHotkeys()
             case KEY_WHEEL_DOWN:
                 if (HOTKEY_CheckWheelKey(gtHotkeys_007A6F90[i].nCommand, gtHotkeys_007A6F90[i].nKey))
                 {
-                    gpfnBoundCommand_007A7408 = gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnCommand;
+                    gpfnBoundCommand_007A7408 = gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnCommand;
                     break;
                 }
                 gtHotkeys_007A6F90[i].nKey = 0xFFFF;
@@ -293,7 +293,8 @@ void __stdcall CMDTBL_LoadKeyConfig(int bInstallDir)
     D2KeyConfigFileStrc* pFile = (D2KeyConfigFileStrc*)pData;
     if (pFile->wTag == 0x5357 && pFile->wVersion == 0x25 && pFile->wSize == sizeof(D2KeyConfigFileStrc))
     {
-        memcpy(gaKeyTable_00712220, pFile->aBody, sizeof(gaKeyTable_00712220));
+// build: symbol ?gaKeyTable@* 0x00712220
+        memcpy(gaKeyTable, pFile->aBody, sizeof(gaKeyTable));
         FOG_Free(pData, ".\\UI\\CmdTbl.cpp", 0x52C, 0);
         return;
     }
@@ -314,7 +315,7 @@ void __fastcall CMDTBL_ResetKeyConfig(int bInstallDir)
     {
         gtHotkeys_007A6F90[i].nKey = HOTKEY_UNBOUND;
     }
-    memcpy(gtHotkeys_007A6F90, gaKeyTable_00712220, sizeof(gtHotkeys_007A6F90));
+    memcpy(gtHotkeys_007A6F90, gaKeyTable, sizeof(gtHotkeys_007A6F90));
     CMDTBL_BindMouseHotkeys();
 }
 
@@ -356,7 +357,7 @@ static __declspec(noinline) int sub_00469420_CheckWheelKey(int nId, unsigned sho
     {
     case KEY_WHEEL_UP:
     case KEY_WHEEL_DOWN:
-        if (gtHotkeyCommands_00712698[nId].pfnUnk0x04)
+        if (gaHotkeyCommands[nId].pfnUnk0x04)
         {
             if (pKey)
             {
@@ -389,7 +390,7 @@ int __fastcall CMDTBL_QueryKey(int nId, int nMode, int nCommand, unsigned short*
         {
             return 0;
         }
-        bError = nKey == 0x2C && gtHotkeyCommands_00712698[nId].pfnCommand;
+        bError = nKey == 0x2C && gaHotkeyCommands[nId].pfnCommand;
     }
     if (bError)
     {
@@ -433,37 +434,37 @@ void __fastcall sub_M110_Emit_00469A50(int bInstallDir)
 // 0x00469D20
 void __cdecl CMDTBL_SaveHotkeys()
 {
-    memcpy(gtHotkeysSaved_007A6B18, gtHotkeys_007A6F90, sizeof(gtHotkeys_007A6F90));
+    memcpy(gaHotkeysSaved, gtHotkeys_007A6F90, sizeof(gtHotkeys_007A6F90));
     CMDTBL_BindMouseHotkeys();
 }
 
 // 0x0046AA20
 void __fastcall CMDTBL_SetHotkeyHandlers(int bEnable, int bFlag)
 {
-    gnGlobal_007A7418 = bEnable;
+    gnHotkeyMode = bEnable;
     if (bEnable)
     {
-        if (gnGlobal_007A7428 == 0)
+        if (gbHotkeyHandlersRegistered == 0)
         {
-            gnGlobal_007A7428 = 1;
-            if (bFlag && gnGlobal_007A7424 != 0)
+            gbHotkeyHandlersRegistered = 1;
+            if (bFlag && gbHotkeyUpHandlersSet != 0)
             {
-                sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtHotkeyHandlers_00712974, 2);
-                gnGlobal_007A7424 = 0;
+                sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaHotkeyUpHandlers, 2);
+                gbHotkeyUpHandlersSet = 0;
             }
-            COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtHotkeyHandlers_00712944, 4);
+            COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaHotkeyHandlers, 4);
         }
     }
     else
     {
-        if (gnGlobal_007A7428 == 1)
+        if (gbHotkeyHandlersRegistered == 1)
         {
-            gnGlobal_007A7428 = 0;
-            sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtHotkeyHandlers_00712944, 4);
-            if (bFlag && gnGlobal_007A7424 == 0)
+            gbHotkeyHandlersRegistered = 0;
+            sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaHotkeyHandlers, 4);
+            if (bFlag && gbHotkeyUpHandlersSet == 0)
             {
-                COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtHotkeyHandlers_00712974, 2);
-                gnGlobal_007A7424 = 1;
+                COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaHotkeyUpHandlers, 2);
+                gbHotkeyUpHandlersSet = 1;
             }
         }
     }
@@ -473,11 +474,11 @@ void __fastcall CMDTBL_SetHotkeyHandlers(int bEnable, int bFlag)
 void __cdecl CMDTBL_EnableHotkeyHandlers()
 {
     sub_0046AAE0_LoadKeyConfig();
-    gnGlobal_007A7418 = 1;
-    if (gnGlobal_007A7428 == 0)
+    gnHotkeyMode = 1;
+    if (gbHotkeyHandlersRegistered == 0)
     {
-        gnGlobal_007A7428 = 1;
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtHotkeyHandlers_00712944, 4);
+        gbHotkeyHandlersRegistered = 1;
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaHotkeyHandlers, 4);
     }
 }
 
@@ -498,11 +499,11 @@ static inline unsigned short CUNIT_GetHotkeyBinding(int nA, int nB)
 // 0x0046ACB0
 void __cdecl CMDTBL_DisableHotkeyHandlers()
 {
-    gnGlobal_007A7418 = 0;
-    if (gnGlobal_007A7428 == 1)
+    gnHotkeyMode = 0;
+    if (gbHotkeyHandlersRegistered == 1)
     {
-        gnGlobal_007A7428 = 0;
-        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtHotkeyHandlers_00712944, 4);
+        gbHotkeyHandlersRegistered = 0;
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaHotkeyHandlers, 4);
     }
 }
 
@@ -525,12 +526,12 @@ void __cdecl CMDTBL_SaveAndBindHotkeys()
     CMDTBL_BindMouseHotkeys();
 }
 
-D2KeyBindingStrc gaBindings_007A6F90[114]; // 0x007A6F90
+D2KeyBindingStrc gaHotkeys[114]; // 0x007A6F90
 
 // 0x00469D50
 void __cdecl CMDTBL_RestoreHotkeys()
 {
-    memcpy(gtHotkeys_007A6F90, gtHotkeysSaved_007A6B18, sizeof(gtHotkeys_007A6F90));
+    memcpy(gtHotkeys_007A6F90, gaHotkeysSaved, sizeof(gtHotkeys_007A6F90));
     CMDTBL_BindMouseHotkeys();
 }
 
@@ -933,15 +934,15 @@ void __stdcall CMDTBL_DispatchHotkey(SMSGHANDLER_PARAMS* pMsg)
     int nKey = pMsg->wParam;
     for (int i = 0; i < 114; ++i)
     {
-        if (gaBindings_007A6F90[i].nKey != nKey)
+        if (gaHotkeys[i].nKey != nKey)
             continue;
-        int nAction = gaBindings_007A6F90[i].nAction;
-        if (nAction != 0xFFFF && nAction < 0x39 && nAction <= 0xDF && gaActions_0071269C[nAction].pfnCallback)
+        int nAction = gaHotkeys[i].nAction;
+        if (nAction != 0xFFFF && nAction < 0x39 && nAction <= 0xDF && gaActions[nAction].pfnCallback)
         {
-            if (gnMode_007A7418 == 2 && !gaActions_0071269C[gaBindings_007A6F90[i].nAction].bAllowed)
+            if (gnMode_007A7418 == 2 && !gaActions[gaHotkeys[i].nAction].bAllowed)
                 return;
-            D2_ASSERT(!IsBadCodePtr((FARPROC)gaActions_0071269C[gaBindings_007A6F90[i].nAction].pfnCallback), 0x81C);
-            gaActions_0071269C[gaBindings_007A6F90[i].nAction].pfnCallback();
+            D2_ASSERT(!IsBadCodePtr((FARPROC)gaActions[gaHotkeys[i].nAction].pfnCallback), 0x81C);
+            gaActions[gaHotkeys[i].nAction].pfnCallback();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);

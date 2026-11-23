@@ -26,7 +26,7 @@ void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame);
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX);                                      // 0x0064A710
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY);                                      // 0x0064A760
 
-extern D2UnitStrc* gpAiTargets_007A7470[];                                                                  // 0x007A7470
+extern D2UnitStrc* gapAiTargets[];                                                                  // 0x007A7470
 
 static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {

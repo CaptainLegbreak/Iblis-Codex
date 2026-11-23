@@ -17,28 +17,28 @@ void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY);          
 D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 void __fastcall sub_0046BF30_CheckThroneLevel(D2ActiveRoomStrc* pRoom);                                     // 0x0046BF30
 
-extern LEVELEVENT_Fn gpfnLevelEvents_007129D8[];                                                            // 0x007129D8
-unsigned int gdwLevelEventBits_007A7458;                                                                    // 0x007A7458
-int gnTimerEnd_007A7464;                                                                                    // 0x007A7464
+extern LEVELEVENT_Fn gpfnLevelEvents[];                                                            // 0x007129D8
+unsigned int gdwLevelEventBits;                                                                    // 0x007A7458
+int gnTimerEnd;                                                                                    // 0x007A7464
 
 // 0x0046B630
 void __fastcall sub_0046B630_FireLevelEvent(int nIndex)
 {
     D2_ASSERT(nIndex < 0x20, 0x1D9);
     D2_ASSERT(nIndex < 0x14, 0x1DA);
-    gdwLevelEventBits_007A7458 |= 1 << nIndex;
-    if (gpfnLevelEvents_007129D8[nIndex])
+    gdwLevelEventBits |= 1 << nIndex;
+    if (gpfnLevelEvents[nIndex])
     {
-        gpfnLevelEvents_007129D8[nIndex]();
+        gpfnLevelEvents[nIndex]();
     }
 }
 
 // 0x0046BFD0
 void __fastcall sub_0046BFD0_StartTimer(int nDelay)
 {
-    if (nDelay > 0 && gnTimerEnd_007A7464 == 0)
+    if (nDelay > 0 && gnTimerEnd == 0)
     {
-        gnTimerEnd_007A7464 = sub_00410A80_GetTime() + nDelay;
+        gnTimerEnd = sub_00410A80_GetTime() + nDelay;
     }
 }
 

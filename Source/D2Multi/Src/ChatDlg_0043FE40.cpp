@@ -168,9 +168,9 @@ extern int gnValue_00798CC0;                                                    
 extern char gszName_00798CD4[];                                                                             // 0x00798CD4
 extern int gnChannelLines_00798F40;                                                                         // 0x00798F40
 int gnChannelScroll_00798F44;                                                                               // 0x00798F44
-extern unsigned short gwRequestId_00798F80;                                                                 // 0x00798F80
-extern void* gpConnection_00798FB4;                                                                         // 0x00798FB4
-extern char gData_00799108[];                                                                               // 0x00799108
+extern unsigned short gwMcpReplyRequestId;                                                                 // 0x00798F80
+extern void* gpMcpConnection;                                                                         // 0x00798FB4
+extern char gabMcpReply[];                                                                               // 0x00799108
 void* ghThread_007992A4;                                                                                    // 0x007992A4
 extern void* ghConnectEvent_007992EC;                                                                       // 0x007992EC
 
@@ -519,10 +519,10 @@ void __fastcall CHATDLG_UpdateScroll(int nDelta)
 // 0x00449AD0
 void __cdecl D2MCPClientCloseMCP()
 {
-    if (gpConnection_00798FB4)
+    if (gpMcpConnection)
     {
-        sub_006BC780(gpConnection_00798FB4);
-        gpConnection_00798FB4 = 0;
+        sub_006BC780(gpMcpConnection);
+        gpMcpConnection = 0;
     }
     if (ghThread_007992A4)
     {
@@ -540,13 +540,13 @@ void __cdecl D2MCPClientCloseMCP()
 // 0x00449BD0
 unsigned short __cdecl CHATDLG_GetRequestId()
 {
-    return gwRequestId_00798F80;
+    return gwMcpReplyRequestId;
 }
 
 // 0x00449D60
 void __cdecl CHATDLG_ClearReply()
 {
-    memset(gData_00799108, 0, 0x18C);
+    memset(gabMcpReply, 0, 0x18C);
 }
 
 #include "gen/data/Source/D2Multi/Src/ChatDlg_0043FE40.inc"

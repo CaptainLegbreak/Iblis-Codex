@@ -30,8 +30,8 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x00526
 
 typedef char D2SkillsTxt_size_check[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 
-extern const int gnDirOffsetY_006DAE88[8]; // 0x006DAE88
-extern const int gnDirOffsetX_006DAEA8[8]; // 0x006DAEA8
+extern const int gaMissileAroundOffsetY[8]; // 0x006DAE88
+extern const int gaMissileAroundOffsetX[8]; // 0x006DAEA8
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
@@ -111,8 +111,8 @@ int __fastcall sub_004C9490_MissileAroundUnit(D2UnitStrc* pUnit, int nSkillId, i
     }
 
     nDirection = (SEED_RollLimitedRandomNumber(&pUnit->pSeed, 3) + (nDirection + 4) % 8 - 1) & 7;
-    const int nX = CLIENTS_GetUnitX(pUnit) + gnDirOffsetX_006DAEA8[nDirection];
-    const int nY = CLIENTS_GetUnitY(pUnit) + gnDirOffsetY_006DAE88[nDirection];
+    const int nX = CLIENTS_GetUnitX(pUnit) + gaMissileAroundOffsetX[nDirection];
+    const int nY = CLIENTS_GetUnitY(pUnit) + gaMissileAroundOffsetY[nDirection];
     const int nBonus = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCltCalc[0], nSkillId, nSkillLevel);
     if (nBonus > 0)
     {

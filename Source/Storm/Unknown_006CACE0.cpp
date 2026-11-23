@@ -1,7 +1,7 @@
 #include "Storm.h"
 
 struct D2Block006CAD10Strc;
-extern int gnThumbY_007C02CC; // 0x007C02CC
+extern int gnKeyConfigThumbY; // 0x007C02CC
 extern unsigned short gwNameSeparatorFirst_007C0C58; // 0x007C0C58
 
 struct D2Block006CAD10Strc
@@ -42,7 +42,7 @@ extern unsigned int gaTable_00841EC8[0x200]; // 0x00841EC8
 // 0x006CACE0
 void __cdecl sub_006CACE0_InitializeThumbY()
 {
-    gnThumbY_007C02CC = (gnAutomapHeight_007A521C - 420) / 2 + 47;
+    gnKeyConfigThumbY = (gnAutomapHeight_007A521C - 420) / 2 + 47;
 }
 
 unsigned short gwNameSeparatorSecond_007C0C5A; // 0x007C0C5A

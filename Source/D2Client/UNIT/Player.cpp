@@ -118,23 +118,23 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 
 extern void* gpGlobal_007A0634; // 0x007A0634
 
-extern D2ViewStrc* gpView_007A0640; // 0x007A0640
+extern D2ViewStrc* gpClientView; // 0x007A0640
 
-extern int gnGlobal_0071146C; // 0x0071146C
+extern int gnScreenWidth; // 0x0071146C
 
-extern int gnAutomapTextY_007A51BC; // 0x007A51BC
+extern int gnAutomapTextY; // 0x007A51BC
 
-extern int gdwGlobal_007A5208; // 0x007A5208
+extern int gnAutomapOriginY; // 0x007A5208
 
-extern int gdwGlobal_007A520C; // 0x007A520C
+extern int gnAutomapOriginX; // 0x007A520C
 
-extern int gdwGlobal_007A5210; // 0x007A5210
+extern int gnPanelSlideMode; // 0x007A5210
 
 extern int gnAutomapHeight_007A521C; // 0x007A521C
 
-extern int gnAutomapWidth_007A5220; // 0x007A5220
+extern int gnAutomapWidth; // 0x007A5220
 
-extern int gdwGlobal_007A5264; // 0x007A5264
+extern int gbPlayerCommandPending; // 0x007A5264
 
 struct D2ClientUnitViewStrc
 {
@@ -147,13 +147,13 @@ D2GfxLightStrc* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* a2); // 0x0064
 
 void __fastcall DLIGHTMAP_ReleaseLight(D2GfxLightStrc* pLight); // 0x004743D0
 
-extern int gnGlobal_007A5258; // 0x007A5258
+extern int gbOkCancelAccepted; // 0x007A5258
 
-extern int gnGlobal_007A525C; // 0x007A525C
+extern int gbOkCancelCancelled; // 0x007A525C
 
 typedef void (__fastcall* STATLIST_CallbackFn)(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pOther, int nLayer_StatId, int nPreviousValue, int nNewValue);
 
-int gnInTown_007A5260;                                                                                      // 0x007A5260
+int gnInTown;                                                                                      // 0x007A5260
 
 void __fastcall PLAYER_HandleStatChanged(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pOther, int nLayer_StatId, int nPreviousValue, int nNewValue); // 0x004609F0
 
@@ -197,9 +197,9 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-extern int gnStringCount_00711EF0; // 0x00711EF0
+extern int gnStringCount; // 0x00711EF0
 
-extern D2StringRefStrc gaStringRefs_00711DDC[]; // 0x00711DDC
+extern D2StringRefStrc gaStringRefs[]; // 0x00711DDC
 
 void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 
@@ -223,15 +223,15 @@ void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
 
 int __stdcall D2Common_11016(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x00645460
 
-int gnGlobal_007A5214; // 0x007A5214
+int gnPanelSlideOffsetX; // 0x007A5214
 
-int gdwGlobal_007A5238; // 0x007A5238
+int gbCinematicExpansion; // 0x007A5238
 
-int gnGlobal_007A526C; // 0x007A526C
+int gnFilterMsgState; // 0x007A526C
 
 extern void* gpDrlgAct_007A0634;                                                                            // 0x007A0634
 
-unsigned int gdwLastTick_007A5268; // 0x007A5268
+unsigned int gdwLastClampTick; // 0x007A5268
 
 void __cdecl GAME_SetClickHandled(); // 0x0044BEF0
 
@@ -497,7 +497,7 @@ int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc*, D2InventoryStrc*, int*, int
 
 void __stdcall PATH_RecacheRoomIfNeeded(D2DynamicPathStrc*); // 0x00650590
 
-extern "C" const char gszPlayerCpp_006D6A34[]; // 0x006D6A34
+extern "C" const char gszPlayerCpp[]; // 0x006D6A34
 
 static int __stdcall PLAYER_ClampTarget(D2UnitStrc* pUnit, D2PlayerCmdStrc* pCmd); // 0x004623C0
 
@@ -607,7 +607,7 @@ void __cdecl PLAYER_DrawAutomap()
     AUTOMAP_UpdateAutomapLayout();
     AUTOMAP_PaintAutomap();
     sub_0045AC90_DrawAutomapUnits();
-    gnAutomapTextY_007A51BC = 0x18;
+    gnAutomapTextY = 0x18;
     const int nAct = GAME_GetConnectionType();
     const int nPrevious = sub_00502EF0(1);
     AUTOMAP_DrawGameInfoLines();
@@ -668,32 +668,32 @@ void __fastcall PLAYER_SetPanelSlide(int nMode)
     {
     case 0:
     case 3:
-        gnGlobal_007A5214 = 0;
+        gnPanelSlideOffsetX = 0;
         break;
     case 1:
-        gnGlobal_007A5214 = -(gnGlobal_0071146C / 4);
+        gnPanelSlideOffsetX = -(gnScreenWidth / 4);
         break;
     case 2:
-        gnGlobal_007A5214 = gnGlobal_0071146C / 4;
+        gnPanelSlideOffsetX = gnScreenWidth / 4;
         break;
     }
-    gdwGlobal_007A5210 = nMode;
-    D2GFX_SetViewMatrixAdjust(gnGlobal_007A5214);
-    const int nWidth = gnAutomapWidth_007A5220;
+    gnPanelSlideMode = nMode;
+    D2GFX_SetViewMatrixAdjust(gnPanelSlideOffsetX);
+    const int nWidth = gnAutomapWidth;
     const int nQuarter = nWidth / 4;
     switch (nMode)
     {
     case 0:
-        sub_00476000_SetViewRect(gpView_007A0640, 0, 0, nWidth, gnAutomapHeight_007A521C);
+        sub_00476000_SetViewRect(gpClientView, 0, 0, nWidth, gnAutomapHeight_007A521C);
         break;
     case 1:
-        sub_00476000_SetViewRect(gpView_007A0640, -nQuarter, 0, nWidth - nQuarter, gnAutomapHeight_007A521C);
+        sub_00476000_SetViewRect(gpClientView, -nQuarter, 0, nWidth - nQuarter, gnAutomapHeight_007A521C);
         break;
     case 2:
-        sub_00476000_SetViewRect(gpView_007A0640, nQuarter, 0, nWidth + nQuarter, gnAutomapHeight_007A521C);
+        sub_00476000_SetViewRect(gpClientView, nQuarter, 0, nWidth + nQuarter, gnAutomapHeight_007A521C);
         break;
     case 3:
-        sub_00476000_SetViewRect(gpView_007A0640, 0, 0, nWidth, gnAutomapHeight_007A521C);
+        sub_00476000_SetViewRect(gpClientView, 0, 0, nWidth, gnAutomapHeight_007A521C);
         sub_0044DA70();
         break;
     }
@@ -702,13 +702,13 @@ void __fastcall PLAYER_SetPanelSlide(int nMode)
 // 0x0045AFC0
 extern "C" int __cdecl PLAYER_GetScreenOffsetX()
 {
-    return gdwGlobal_007A520C - gnGlobal_007A5214;
+    return gnAutomapOriginX - gnPanelSlideOffsetX;
 }
 
 // 0x0045AFD0
 extern "C" int __cdecl PLAYER_GetScreenOffsetY()
 {
-    return gdwGlobal_007A5208 - 8;
+    return gnAutomapOriginY - 8;
 }
 
 // 0x0045BD00
@@ -744,7 +744,7 @@ D2ItemStatCostTxt* __fastcall PLAYER_GetItemStatCostTxtRecord(int nStatId)
 // 0x00460170
 int __cdecl PLAYER_IsOkCancelDone()
 {
-    if (gnGlobal_007A5258 || gnGlobal_007A525C)
+    if (gbOkCancelAccepted || gbOkCancelCancelled)
         return 1;
     return 0;
 }
@@ -752,7 +752,7 @@ int __cdecl PLAYER_IsOkCancelDone()
 // 0x00460480
 void __fastcall PLAYER_SetCinematicExpansion(int bExpansion)
 {
-    gdwGlobal_007A5238 = bExpansion;
+    gbCinematicExpansion = bExpansion;
 }
 
 // 0x00460760
@@ -820,7 +820,7 @@ void __fastcall PLAYER_InitClientPlayer(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRo
     STATLIST_SetUnitStat(pUnit, STAT_ATTACKRATE, 100, 0);
     STATLIST_SetUnitStat(pUnit, STAT_VELOCITYPERCENT, 100, 0);
     STATLIST_SetUnitStat(pUnit, STAT_OTHER_ANIMRATE, 100, 0);
-    gnInTown_007A5260 = DUNGEON_IsRoomInTown(pRoom);
+    gnInTown = DUNGEON_IsRoomInTown(pRoom);
     UNITS_ChangeAnimMode(pUnit, 5);
     pUnit->dwFlags &= ~0x20;
     pUnit->dwFlags |= 0xE;
@@ -1006,9 +1006,9 @@ static void PLAYER_UpdateRoomState(D2UnitStrc* pUnit)
     UNITS_SetPlayerPortalFlags(pUnit, nPortalFlags);
     sub_0061AF10(gpDrlgAct_007A0634, PATH_GetNextRoom(pUnit->pDynamicPath), UNITS_GetRoom(pUnit));
     const int bInTown = DUNGEON_IsRoomInTown(pRoom) != 0;
-    if (gnInTown_007A5260 != bInTown && !bInTown)
+    if (gnInTown != bInTown && !bInTown)
         NPCMENU_RefreshNpcEntries(pUnit);
-    gnInTown_007A5260 = bInTown;
+    gnInTown = bInTown;
     sub_00473C90_SetGlobal(DUNGEON_CheckLOSDraw(pRoom));
     sub_0046BF30_CheckThroneLevel(pRoom);
 }
@@ -1096,8 +1096,8 @@ static void PLAYER_ResetPlayerState(D2UnitStrc* pUnit)
 // 0x00461070
 static void __stdcall PLAYER_RequestSkillString(D2UnitStrc* pUnit, int nIndex)
 {
-    D2_ASSERT(gnStringCount_00711EF0 > nIndex, 0x2CB);
-    const unsigned short nStringId = gaStringRefs_00711DDC[nIndex].nStringId;
+    D2_ASSERT(gnStringCount > nIndex, 0x2CB);
+    const unsigned short nStringId = gaStringRefs[nIndex].nStringId;
     if (nStringId)
         sub_004CB9C0_Request(pUnit, nStringId);
 }
@@ -2076,13 +2076,13 @@ static int __stdcall PLAYER_ClampTarget(D2UnitStrc* pUnit, D2PlayerCmdStrc* pCmd
         case 2:
         case 3:
         case 6:
-            if (dwTick - gdwLastTick_007A5268 < 7)
+            if (dwTick - gdwLastClampTick < 7)
                 return 0;
             break;
         }
     }
 
-    gdwLastTick_007A5268 = dwTick;
+    gdwLastClampTick = dwTick;
     return 1;
 }
 
@@ -2169,7 +2169,7 @@ no_target:
             if (!PLAYER_CheckSkillUse(ppSkill, &nUseState, pCmd->pPlayer))
                 return;
             D2SkillStrc* pSkill = *ppSkill;
-            if (pSkill && !SKILLS_GetSkillIdFromSkill(pSkill, gszPlayerCpp_006D6A34, 0x7AF) && nUseState == 1 && !bNoTarget)
+            if (pSkill && !SKILLS_GetSkillIdFromSkill(pSkill, gszPlayerCpp, 0x7AF) && nUseState == 1 && !bNoTarget)
             {
                 if (!PLAYER_ClampTarget(pCmd->pPlayer, pCmd))
                     return;
@@ -2293,7 +2293,7 @@ with_target:
 // 0x00462920
 void __cdecl sub_00462920_ClearValue()
 {
-    gdwGlobal_007A5264 = 0;
+    gbPlayerCommandPending = 0;
 }
 
 // 0x00462930
@@ -2302,17 +2302,17 @@ int __fastcall sub_00462930_FilterMessage(D2MsgFilterStrc* pMsg)
     const unsigned int dwFlags = pMsg->dwFlags;
     if (dwFlags & 0x10)
     {
-        gnGlobal_007A526C = 0;
+        gnFilterMsgState = 0;
         return 0;
     }
     if (dwFlags & 4)
     {
-        gnGlobal_007A526C = (pMsg->pUnit08 != 0) + 1;
+        gnFilterMsgState = (pMsg->pUnit08 != 0) + 1;
         return 1;
     }
     if (dwFlags & 8)
     {
-        if (!gnGlobal_007A526C)
+        if (!gnFilterMsgState)
         {
             return 0;
         }
@@ -2497,10 +2497,10 @@ int __fastcall sub_00462D00_PlayerCommand(int nCommand, int nX, int nY, unsigned
     if (GAME_GetUIVarState(9))
         return 0;
 
-    if (gdwGlobal_007A5264 && (nX || nY))
+    if (gbPlayerCommandPending && (nX || nY))
         return 0;
 
-    gdwGlobal_007A5264 = 1;
+    gbPlayerCommandPending = 1;
     AUTOMAP_ScreenToMap(&nX, &nY);
     D2PlayerCmdStrc tCmd = {};
     tCmd.dwFlags = 0;

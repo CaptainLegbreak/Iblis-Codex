@@ -2,7 +2,7 @@ int __stdcall D2GFX_TogglePerspective();                                        
 int __stdcall D2GFX_ToggleBlendedShadows();                                                                 // 0x004F54D0
 int __stdcall D2GFX_ToggleLowQuality();                                                                     // 0x004F54F0
 
-extern "C" int gnModeValue_00712CCC;                                                                        // 0x00712CCC
+extern "C" int gnLightmapRenderMode;                                                                        // 0x00712CCC
 int gdwGlobal_007BB38C;                                                                                     // 0x007BB38C
 extern "C" { int gnFlag_007BB3A8; }                                                                         // 0x007BB3A8
 
@@ -27,14 +27,14 @@ int __cdecl sub_004776B0_ToggleLowQuality()
 // 0x004776D0
 void __fastcall sub_004776D0_SetModeValues(int nModeValue, int nValue)
 {
-    gnModeValue_00712CCC = nModeValue;
+    gnLightmapRenderMode = nModeValue;
     gdwGlobal_007BB38C = nValue;
 }
 
 // 0x004776E0
 void __cdecl sub_004776E0_SetModeValuesOne()
 {
-    gnModeValue_00712CCC = 1;
+    gnLightmapRenderMode = 1;
     gdwGlobal_007BB38C = 1;
 }
 

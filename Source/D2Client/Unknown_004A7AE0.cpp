@@ -10,8 +10,8 @@ struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define SPELLSEL_HOTKEY_LABEL(i, key, flag) \
-    if (gnHotkeySkill_007C06C8[i] == pSkillsTxt->nSkillId && gnHotkeyOwner_007C0768[i] == nOwner \
-        && gnHotkeySkill_007C06C8[i] != -1 && gbHotkeyLeft_007C07B8[i] == flag) \
+    if (gaHotkeySkills[i] == pSkillsTxt->nSkillId && gaHotkeyOwners[i] == nOwner \
+        && gaHotkeySkills[i] != -1 && gaHotkeyLeft[i] == flag) \
     { \
         sub_004A8DF0_DrawKeyLabel(key, nX + 0x22, nY - 0x23, 4); \
     }
@@ -38,12 +38,12 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-extern int gnGlobal_007A2858; // 0x007A2858
-extern int gnGlobal_007A285C; // 0x007A285C
-extern int gnGlobal_00711470; // 0x00711470
-extern unsigned char gnTextColor_007C02F8; // 0x007C02F8
+extern int gnPanelOffsetX; // 0x007A2858
+extern int gnPanelOffsetY; // 0x007A285C
+extern int gnScreenHeight; // 0x00711470
+extern unsigned char gnTextColor; // 0x007C02F8
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-extern const D2HoverBoxStrc gaHoverBoxes_006DA430[2]; // 0x006DA430
+extern const D2HoverBoxStrc gaHoverBoxes[2]; // 0x006DA430
 void __cdecl PANEL_SetBlackColour(); // 0x00499E30
 int __cdecl sub_00466DC0(); // 0x00466DC0
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
@@ -58,9 +58,9 @@ extern "C" int __fastcall sub_00526800(const unsigned short* pText); // 0x005268
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);
 void __fastcall sub_004A8DF0_DrawKeyLabel(int nKeyId, int nX, int nY, int nColor); // 0x004A8DF0
-extern int gnHotkeySkill_007C06C8[16]; // 0x007C06C8
-extern int gnHotkeyOwner_007C0768[16]; // 0x007C0768
-extern int gbHotkeyLeft_007C07B8[16]; // 0x007C07B8
+extern int gaHotkeySkills[16]; // 0x007C06C8
+extern int gaHotkeyOwners[16]; // 0x007C0768
+extern int gaHotkeyLeft[16]; // 0x007C07B8
 
 
 struct D2DataTables { char pad[0xb8c]; D2SkillDescTxt* descs; int pad90; int descCount; D2SkillsTxt* skills; int pad9c; int skillCount; };
@@ -106,13 +106,13 @@ static void __stdcall sub_004A7AE0_DrawHoverValueBox(int nValueA, int nValueB, i
 
     int bHoverA = 0;
     int bHoverB = 0;
-    if (nX >= gnGlobal_007A2858 + 0xA2 && nX <= gnGlobal_007A2858 + 0x140
-        && nY >= gnGlobal_00711470 + gnGlobal_007A285C - 0x14E && nY <= gnGlobal_00711470 + gnGlobal_007A285C - 0x13B)
+    if (nX >= gnPanelOffsetX + 0xA2 && nX <= gnPanelOffsetX + 0x140
+        && nY >= gnScreenHeight + gnPanelOffsetY - 0x14E && nY <= gnScreenHeight + gnPanelOffsetY - 0x13B)
     {
         bHoverA = 1;
     }
-    else if (nX >= gnGlobal_007A2858 + 0xA2 && nX <= gnGlobal_007A2858 + 0x140
-        && nY >= gnGlobal_00711470 + gnGlobal_007A285C - 0x134 && nY <= gnGlobal_00711470 + gnGlobal_007A285C - 0x121)
+    else if (nX >= gnPanelOffsetX + 0xA2 && nX <= gnPanelOffsetX + 0x140
+        && nY >= gnScreenHeight + gnPanelOffsetY - 0x134 && nY <= gnScreenHeight + gnPanelOffsetY - 0x121)
     {
         bHoverB = 1;
     }
@@ -152,16 +152,16 @@ static void __stdcall sub_004A7AE0_DrawHoverValueBox(int nValueA, int nValueB, i
         nValue = 0x5F;
     }
 
-    sub_0046EFD0_DrawFramedBox(gaHoverBoxes_006DA430[nIndex].nBoxX + gnGlobal_007A2858, gaHoverBoxes_006DA430[nIndex].nBoxY + gnGlobal_007A285C + gnGlobal_00711470 - 480, 0x9B, 0x1E, gnTextColor_007C02F8, 2);
-    const int nTitleY = gaHoverBoxes_006DA430[nIndex].nTitleY + gnGlobal_007A285C + gnGlobal_00711470 - 480;
-    const int nTitleX = gaHoverBoxes_006DA430[nIndex].nTitleX + gnGlobal_007A2858;
+    sub_0046EFD0_DrawFramedBox(gaHoverBoxes[nIndex].nBoxX + gnPanelOffsetX, gaHoverBoxes[nIndex].nBoxY + gnPanelOffsetY + gnScreenHeight - 480, 0x9B, 0x1E, gnTextColor, 2);
+    const int nTitleY = gaHoverBoxes[nIndex].nTitleY + gnPanelOffsetY + gnScreenHeight - 480;
+    const int nTitleX = gaHoverBoxes[nIndex].nTitleX + gnPanelOffsetX;
     D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x103F), nTitleX, nTitleY, 0, 0);
 
     D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecordInl(sub_00466DC0());
     D2_ASSERT(pMonStatsTxtRecord, 0xEC);
 
     sub_005269D0(0x80, (Unicode*)aText, D2LANG_GetStringFromTblIndex(0x2777), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), nValue);
-    D2Win_10117_DrawText((Unicode*)aText, gaHoverBoxes_006DA430[nIndex].nTextX + gnGlobal_007A2858, gaHoverBoxes_006DA430[nIndex].nTextY + gnGlobal_007A285C + gnGlobal_00711470 - 480, 0, 0);
+    D2Win_10117_DrawText((Unicode*)aText, gaHoverBoxes[nIndex].nTextX + gnPanelOffsetX, gaHoverBoxes[nIndex].nTextY + gnPanelOffsetY + gnScreenHeight - 480, 0, 0);
 }
 
 // build: context sub_004A7AE0_Shim
@@ -171,11 +171,11 @@ void __stdcall sub_004A7AE0_Shim(int nX, int nY, int nValueA, int nValueB)
     sub_004A7AE0_DrawHoverValueBox(nValueA, nValueB, nX, nY);
 }
 
-int gnHotkeySkill_007C06C8[16]; // 0x007C06C8
+int gaHotkeySkills[16]; // 0x007C06C8
 
-int gnHotkeyOwner_007C0768[16]; // 0x007C0768
+int gaHotkeyOwners[16]; // 0x007C0768
 
-int gbHotkeyLeft_007C07B8[16]; // 0x007C07B8
+int gaHotkeyLeft[16]; // 0x007C07B8
 
 // 0x004A9260
 static void __stdcall sub_004A9260_DrawSkillCharges(int nCharges, int nX, int nY)
