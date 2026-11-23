@@ -757,6 +757,28 @@ int __fastcall SKILLS_SrvDo134_SiegeBeastStomp(D2GameStrc* pGame, D2UnitStrc* pU
     return 1;
 }
 
+void __stdcall SKILLS_SetParam4(D2SkillStrc* pSkill, int nValue); // 0x00644620
+
+// 0x005D2420
+int __fastcall SKILLS_SrvSt62_MinionSpawner(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    int nSpawnMode;
+    int nX;
+    int nY;
+    const int nSummonId = D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 1, nSkillId, nSkillLevel, &nSpawnMode, &nX, &nY);
+    SKILLS_SetParam1(pSkill, nSummonId);
+    SKILLS_SetParam2(pSkill, nX);
+    SKILLS_SetParam3(pSkill, nY);
+    SKILLS_SetParam4(pSkill, nSpawnMode);
+    return 1;
+}
+
 inline Skills* GetSkills(int skillId)
 {
     if(skillId>=0 && skillId<tables->skillCount) return &tables->skills[skillId];
@@ -1431,6 +1453,15 @@ int __fastcall SKILLS_SrvDo140_BaalTentacle(D2GameStrc* pGame, D2UnitStrc* pUnit
     }
 
     return 1;
+}
+
+int __fastcall SKILLS_SrvDo055_CorpseExplosion(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005C50B0
+
+// 0x005D2E50
+int __fastcall SKILLS_AreaEffect_BaalCorpseExplode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillLevel, int nUnused)
+{
+    UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);
+    return SKILLS_SrvDo055_CorpseExplosion(pGame, pUnit, 285, nSkillLevel);
 }
 
 static inline D2SkillsTxt* GetSkillsTxtRecord(int nSkillId)
@@ -2785,6 +2816,30 @@ int __fastcall SKILLS_SrvDo044_BladeSentinel(D2GameStrc* pGame, D2UnitStrc* pUni
     EVENT_SetEvent(pGame, pMonster, 2, pGame->dwGameFrame + 1, 0, 0);
     pMonster->dwFlags &= 0xFFFFFFF7;
     return 1;
+}
+
+// 0x005D6170
+int __fastcall SKILLS_SrvDo045_Sentry(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x40;
+    }
+
+    int nX;
+    int nY;
+    if (!D2GAME_GetXAndYFromTargetUnit_6FD14020(pGame, pUnit, &nX, &nY))
+    {
+        return 0;
+    }
+
+    return SKILLS_SummonSkillMonster(pGame, pUnit, nX, nY, pSkillsTxtRecord, nSkillId, nSkillLevel) != 0;
 }
 
 // 0x005D6200

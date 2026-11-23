@@ -2877,43 +2877,6 @@ int __fastcall SKILL_ComputePeriodicRate(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     return (pGame->dwGameFrame + nDelay - 1) / nDelay * nDelay + 1;
 }
 
-// 0x0056D2C0
-int __fastcall D2GAME_GetXAndYFromTargetUnit_6FD14020(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pX, int* pY)
-{
-    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-    if (pTarget)
-    {
-        *pX = UNITS_GetUnitXPosition(pTarget);
-        *pY = UNITS_GetUnitYPosition(pTarget);
-    }
-    else
-    {
-        D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
-        *pX = D2COMMON_10175_PathGetFirstPointX(pDynamicPath);
-        *pY = D2COMMON_10176_PathGetFirstPointY(pDynamicPath);
-    }
-
-    return *pX && *pY;
-}
-
-// 0x0056E620
-int __fastcall D2GAME_GetSummonIdFromSkill(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7)
-{
-    int nMonsterId = sub_0063EA70_GetMonsterId(pUnit, nArg2, nArg3, nArg4, nArg5, nArg6, nArg7);
-    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        return nMonsterId;
-    }
-
-    nMonsterId = AIGENERAL_GetMinionSpawnClassId(pUnit);
-    if (nMonsterId > 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        return nMonsterId;
-    }
-
-    return -1;
-}
-
 // 0x00570850
 void __fastcall PLAYERSTATS_OnPlayerLeveledUp(void* pUnused, D2UnitStrc* pUnit, int nArg)
 {

@@ -492,6 +492,19 @@ void __fastcall D2GAME_STATES_SendUnitStateUpdates_6FCC5BE0(D2UnitStrc* pUnit, D
     }
 }
 
+// 0x00571580
+void __fastcall D2GAME_STATES_SendStates_6FCC5F00(D2UnitStrc* pUnit, D2ClientStrc* pClient, int bPlayer)
+{
+    if (bPlayer)
+    {
+        D2GAME_STATES_SendUnitStates_6FCC58E0(pUnit, pClient);
+    }
+    else
+    {
+        D2GAME_STATES_SendUnitStateUpdates_6FCC5BE0(pUnit, pClient);
+    }
+}
+
 // 0x005715A0
 void __fastcall SUNITMSG_SendOverlay(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
