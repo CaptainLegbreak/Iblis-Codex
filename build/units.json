@@ -68328,6 +68328,10 @@
      "name": "?SubTileEncodeFloor@@YIXPAUD2CmpSubTileRecordStrc@@@Z"
     },
     {
+     "va": "0x0060DB60",
+     "length": 197
+    },
+    {
      "va": "0x0060DC30",
      "length": 52,
      "name": "?SubTileIteratePixels@@YIXPAUD2CmpPaletteStrc@@P6GXI@Z@Z"
@@ -68346,16 +68350,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_0060DB60.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0060DB60",
-     "length": 197
-    }
    ]
   },
   {

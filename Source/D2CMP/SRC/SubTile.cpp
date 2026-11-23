@@ -3,33 +3,53 @@
 #include "D2CmpTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 #define GetRValue(rgb) ((unsigned char)(rgb))
+
 #define GetGValue(rgb) ((unsigned char)(((unsigned short)(rgb)) >> 8))
+
 #define GetBValue(rgb) ((unsigned char)((rgb) >> 16))
 
 struct D2CmpSubTileHeaderStrc;
+
 struct D2CmpSubTileRecordStrc;
+
 struct D2CmpColorStrc;
+
 struct D2CmpTileBlockStrc;
+
 struct D2RgbKeyStrc;
+
 struct D2CmpRGBStrc;
+
 struct D2CmpPaletteStrc;
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
 int __fastcall CmpScanRun(unsigned char nValue, const unsigned char* pData, const unsigned char* pEnd, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd); // 0x0060D310
+
 int __fastcall sub_0060D3A0_ScanOtherRun(const unsigned char* pData, const unsigned char* pEnd, unsigned char nValue, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd); // 0x0060D3A0
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 typedef unsigned char (__stdcall* D2CmpMapColorFn)(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);
+
 int __fastcall FOG_Free(void*, const char*, int, int); // 0x0040B3C0
+
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int); // 0x006829C0
 
 unsigned char* __stdcall sub_0060D6F0_MapPixels(const unsigned char*, int, D2CmpColorStrc, D2CmpMapColorFn); // 0x0060D6F0
+
 void __stdcall SubTilePackFloor(D2CmpSubTileRecordStrc*, const unsigned char*); // 0x0060D9C0
+
 static void __stdcall SubTileCompressFloor(D2CmpSubTileRecordStrc* pDst, const unsigned char* pSrc);
+
 static int SubTileHasTransparentPixel(const unsigned char* pData);
+
 static void __stdcall SubTileConvertFloor24To8(D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap, D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc);
 
 struct D2RgbKeyStrc { unsigned char bytes[4]; };
@@ -37,6 +57,7 @@ struct D2RgbKeyStrc { unsigned char bytes[4]; };
 typedef char D2RgbKeyMustBeFourBytes[(sizeof(D2RgbKeyStrc) == 4) ? 1 : -1];
 
 typedef unsigned char (__stdcall* D2PaletteFn)(unsigned char, unsigned char, unsigned char);
+
 static unsigned char* __stdcall SubTileConvertPixels24To8(unsigned char* pPixels, int nBytes, D2RgbKeyStrc tKey, D2PaletteFn pConvert);
 
 struct D2CmpPaletteStrc
@@ -46,6 +67,7 @@ struct D2CmpPaletteStrc
 };
 
 void __stdcall sub_M92_EmitSinkA(D2CmpSubTileRecordStrc* pRecord);
+
 void __stdcall sub_M92_EmitSinkB(unsigned char* pData, D2CmpSubTileRecordStrc* pRecord);
 
 struct D2CmpSubTileBlockStrc
@@ -56,6 +78,10 @@ struct D2CmpSubTileBlockStrc
     int unk0x0C;
     unsigned char* pData;
 };
+
+
+
+void __fastcall sub_0060DB60_MapBlock(D2CmpTileBlockStrc* pSrc, D2CmpTileBlockStrc* pDst, D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap); // 0x0060DB60
 
 // 0x0060D430
 unsigned char* __fastcall SubTileCompress(const unsigned char* pData, unsigned int* pSize)
@@ -268,8 +294,6 @@ static int SubTileHasTransparentPixel(const unsigned char* pData)
     return 0;
 }
 
-void __fastcall sub_0060DB60_MapBlock(D2CmpTileBlockStrc* pSrc, D2CmpTileBlockStrc* pDst, D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap); // 0x0060DB60
-
 // 0x0060D840
 static void __stdcall SubTileCompressFloor(D2CmpSubTileRecordStrc* pDst, const unsigned char* pSrc)
 {
@@ -344,6 +368,37 @@ static void __stdcall SubTileCompressFloor(D2CmpSubTileRecordStrc* pDst, const u
     pDst->tHeader.nLength = (unsigned short)nSize;
     pDst->tHeader.nFlags |= 5;
     FOG_Free(ptDestBuffer, szTileCodecFile, 0x176, 0);
+}
+
+// 0x0060D9C0
+void __stdcall SubTilePackFloor(D2CmpSubTileBlockStrc* pBlock, const unsigned char* pSrc)
+{
+    unsigned char* pDst = (unsigned char*)FOG_Alloc(0x100, szSubTileFile, 0x185, 0);
+    D2_ASSERT(pDst, 0x186);
+    unsigned char* pData = pDst;
+    memset(pDst, 0, 0x100);
+    int i = 0;
+    int nOffset = 0xE;
+    int nWidth = 4;
+    for (; i < 15; i++)
+    {
+        memcpy(pDst, pSrc + nOffset, nWidth);
+        pSrc += 0x20;
+        pDst += nWidth;
+        if (i < 7)
+        {
+            nOffset -= 2;
+            nWidth += 4;
+        }
+        else
+        {
+            nOffset += 2;
+            nWidth -= 4;
+        }
+    }
+    pBlock->nValue08 = 1;
+    pBlock->nSize = 0x100;
+    pBlock->pData = pData;
 }
 
 static inline int SUBTILE_IsBlank(const unsigned char* pPixels)
@@ -436,6 +491,32 @@ void __fastcall SubTileEncodeFloor(D2CmpSubTileRecordStrc* pRecord)
     FOG_Free(pData, szTileCodecFile, 0x1DE, 0);
 }
 
+// 0x0060DB60
+void __fastcall sub_0060DB60_MapBlock(D2CmpTileBlockStrc* ptTile24, D2CmpTileBlockStrc* ptTile8, D2CmpColorStrc tColor, D2CmpMapColorFn pfnQuantize)
+{
+    D2_ASSERT(ptTile24, 0x1EC);
+    D2_ASSERT(ptTile8, 0x1ED);
+    D2_ASSERT(pfnQuantize, 0x1EE);
+    D2_ASSERT(ptTile24->nFlags & 8, 0x1EF);
+
+    for (int i = 0; i < ptTile24->nSubs; ++i)
+    {
+        D2CmpSubTileRecordStrc* pDst = &ptTile8->pSubs[i];
+        const D2CmpSubTileRecordStrc* pSrc = &ptTile24->pSubs[i];
+
+        *pDst = *pSrc;
+        pDst->ptData = 0;
+        if (pSrc->ptData)
+        {
+            SubTileConvertFloor24To8(tColor, pfnQuantize, pDst, pSrc);
+            if (pDst->tHeader.nFlags & 4)
+            {
+                ptTile8->nFlags |= 0x10;
+            }
+        }
+    }
+}
+
 // 0x0060DC30
 void __fastcall SubTileIteratePixels(D2CmpPaletteStrc* pPalette, D2CmpColorCallback pfnColor)
 {
@@ -445,35 +526,4 @@ void __fastcall SubTileIteratePixels(D2CmpPaletteStrc* pPalette, D2CmpColorCallb
         pfnColor(((pColor->b2 << 8) + pColor->b1 << 8) + pColor->b0);
         pColor++;
     }
-}
-
-// 0x0060D9C0
-void __stdcall SubTilePackFloor(D2CmpSubTileBlockStrc* pBlock, const unsigned char* pSrc)
-{
-    unsigned char* pDst = (unsigned char*)FOG_Alloc(0x100, szSubTileFile, 0x185, 0);
-    D2_ASSERT(pDst, 0x186);
-    unsigned char* pData = pDst;
-    memset(pDst, 0, 0x100);
-    int i = 0;
-    int nOffset = 0xE;
-    int nWidth = 4;
-    for (; i < 15; i++)
-    {
-        memcpy(pDst, pSrc + nOffset, nWidth);
-        pSrc += 0x20;
-        pDst += nWidth;
-        if (i < 7)
-        {
-            nOffset -= 2;
-            nWidth += 4;
-        }
-        else
-        {
-            nOffset += 2;
-            nWidth -= 4;
-        }
-    }
-    pBlock->nValue08 = 1;
-    pBlock->nSize = 0x100;
-    pBlock->pData = pData;
 }
