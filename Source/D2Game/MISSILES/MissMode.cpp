@@ -6751,16 +6751,6 @@ void __fastcall AITHINK_ExecuteMonsterAiTick(D2GameStrc* pGame, D2UnitStrc* pUni
     ((AIPARAMFN)aiTickParam.pAiControl->pAiParamFn)(pGame, pUnit, &aiTickParam);
 }
 
-// 0x005B43D0
-void __fastcall ACT4Q1_UnitIterate_CheckDistanceToIzualGhost(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2Act4Quest1Strc* pQuestDataEx = (D2Act4Quest1Strc*)pData;
-    if (sub_006416D0_UnitEdgeDistance(pUnit, pQuestDataEx->pTargetUnit) < 5)
-    {
-        pQuestDataEx->bCloseToIzualGhost = 1;
-    }
-}
-
 // 0x005B69F0
 bool __fastcall ACT4Q4_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
 {
@@ -6796,32 +6786,6 @@ bool __fastcall ACT3Intro_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpc
     {
         return true;
     }
-    return false;
-}
-
-// 0x005BAD60
-bool __fastcall ACT3Q5_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 21, 0))
-    {
-        return false;
-    }
-
-    if (nNpcId == 255)
-    {
-        if (pQuest->fState == 1)
-        {
-            return true;
-        }
-    }
-    else if (nNpcId == 245)
-    {
-        if (QUESTRECORD_GetQuestState(pQuestFlags, 21, 4) && !((D2Act3Quest5Strc*)pQuest->pQuestDataEx)->bOrbSmashed)
-        {
-            return true;
-        }
-    }
-
     return false;
 }
 

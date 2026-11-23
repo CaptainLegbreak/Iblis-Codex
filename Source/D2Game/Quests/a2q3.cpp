@@ -375,33 +375,7 @@ bool __fastcall ACT2Intro_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitSt
     return false;
 }
 
-// 0x005994F0
-bool __fastcall ACT2Q1_IsDoneOrInactive(D2GameStrc* pGame)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 8);
-    if (!pQuestData || !pQuestData->bNotIntro)
-    {
-        return true;
-    }
-    return pQuestData->fState == 5 ? true : false;
-}
-
 int __fastcall ACT2Q2_UnitIterate_DetermineHoradricScrollDropCount(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00599700
-// 0x00599BD0
-void __fastcall ACT2Q2_AddAmulets(D2QuestDataStrc* pQuestData, int nCount)
-{
-    D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pQuestData->pGame, 9);
-    if (pQuest)
-    {
-        ((D2Act2Quest2Strc*)pQuest->pQuestDataEx)->nAmulets += nCount;
-    }
-}
-
-// 0x00599BF0
-int __fastcall ACT2Q2_HasNoHoradricStaff(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    return !ITEMS_FindQuestItem(pGame, pUnit, ' tsh');
-}
 
 static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {

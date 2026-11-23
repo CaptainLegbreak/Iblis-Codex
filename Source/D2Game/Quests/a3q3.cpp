@@ -166,6 +166,47 @@ static inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStr
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }
 
+// 0x005B8B20
+int __fastcall ACT3Q3_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 19, 0) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, 19, 6) == 1)
+    {
+        return 0;
+    }
+
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 17);
+    if (!pQuestData)
+    {
+        return 0;
+    }
+
+    if (ITEMS_FindQuestItem(pGame, pUnit, ' 33g'))
+    {
+        QUESTRECORD_SetQuestState(pQuestFlags, 19, 5);
+        return 0;
+    }
+
+    if (((D2Act3Quest3Strc*)pQuestData->pQuestDataEx)->bGidbinnDropped)
+    {
+        QUESTRECORD_SetQuestState(pQuestFlags, 19, 4);
+
+        if (!QUESTRECORD_GetQuestState(pQuestFlags, 19, 3))
+        {
+            QUESTRECORD_SetQuestState(pQuestFlags, 19, 2);
+        }
+    }
+    else
+    {
+        if (pQuestData->fState == 2)
+        {
+            QUESTRECORD_SetQuestState(pQuestFlags, 19, 3);
+        }
+    }
+
+    return 0;
+}
+
 // 0x005B8BF0
 int __fastcall ACT3Q3_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {

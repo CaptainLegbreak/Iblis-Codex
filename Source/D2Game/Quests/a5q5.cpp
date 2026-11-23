@@ -1479,19 +1479,6 @@ int __fastcall OBJECTS_OperateFunction71_SummitDoor(D2ObjOperateFnStrc* pOp, int
     return 0;
 }
 
-// 0x0058D770
-int __fastcall ACT5Q6_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (!QUESTRECORD_GetQuestState(pQuestFlags, 40, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, 40, 15)
-        || QUESTRECORD_GetQuestState(pQuestFlags, 40, 13)
-        || QUESTRECORD_GetQuestState(pQuestFlags, 40, 14))
-    {
-        QUESTS_StatusCyclerEx(pGame, pUnit, 36);
-    }
-    return 0;
-}
-
 
 void __fastcall sub_Emit_0058C5C0(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
