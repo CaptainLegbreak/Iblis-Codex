@@ -124,6 +124,7 @@ D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fF
 void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
+// 0x004D84C0
 static int sub_004D84C0_IsInSequenceMode(D2UnitStrc* pUnit)
 {
     int nUnitType = UNIT_INVALID;
@@ -132,9 +133,9 @@ static int sub_004D84C0_IsInSequenceMode(D2UnitStrc* pUnit)
     switch (nUnitType)
     {
     case UNIT_MONSTER:
-        return (pUnit ? pUnit->dwAnimMode : 0) == MONMODE_SEQUENCE;
+        return (!pUnit ? 0 : pUnit->dwAnimMode) == MONMODE_SEQUENCE;
     case UNIT_PLAYER:
-        return (pUnit ? pUnit->dwAnimMode : 0) == PLRMODE_SEQUENCE;
+        return (!pUnit ? 0 : pUnit->dwAnimMode) == PLRMODE_SEQUENCE;
     }
     return 0;
 }
