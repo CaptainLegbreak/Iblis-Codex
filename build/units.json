@@ -34470,11 +34470,6 @@
      "name": "IMAGE2_Destroy"
     },
     {
-     "va": "0x00500300",
-     "length": 7,
-     "name": "ANIMIMAGE_Destroy"
-    },
-    {
      "va": "0x00505150",
      "length": 6,
      "name": "D2COMP_GetFirstCompositeUnit"
@@ -36524,6 +36519,11 @@
    "file": "Source/D2Win/D2WinAnimImage.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00500300",
+     "length": 7,
+     "name": "ANIMIMAGE_Destroy"
+    },
     {
      "va": "0x00500310",
      "length": 37,
