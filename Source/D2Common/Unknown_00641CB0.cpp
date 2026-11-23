@@ -11,7 +11,6 @@ void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc*,D2ActiveRo
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc*); // 0x00620510
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
-// build: context IsNearRoomY
 static inline int IsNearRoomY(const D2DrlgCoordsStrc* pCoords,int nY,int nRadius) {
  return nY+nRadius>=pCoords->nSubtileY || nY-nRadius<=pCoords->nSubtileHeight+pCoords->nSubtileY;
 }
@@ -25,19 +24,15 @@ static int SKILLS_IsPointNearRoom(D2ActiveRoomStrc* pRoom,int nX,int nY,int nRad
  if(nX-nRadius<=tCoords.nSubtileWidth+tCoords.nSubtileX) return IsNearRoomY(&tCoords,nY,nRadius);
  return 0;
 }
-// build: context GetX
 inline int GetX(D2UnitStrc* pUnit) {
  switch(pUnit->dwUnitType) {case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return pUnit->pStaticPath->nXPos;}
  return pUnit->pDynamicPath?PATH_GetXPosition(pUnit->pDynamicPath):0;
 }
-// build: context GetY
 inline int GetY(D2UnitStrc* pUnit) {
  switch(pUnit->dwUnitType) {case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return pUnit->pStaticPath->nYPos;}
  return pUnit->pDynamicPath?PATH_GetYPosition(pUnit->pDynamicPath):0;
 }
-// build: context D2_ABS
 inline int D2_ABS(int n) { return n < 0 ? -n : n; }
-// build: context IsTarget
 static inline int IsTarget(D2UnitStrc* pUnit) {
  switch(pUnit ? pUnit->dwUnitType : UNIT_INVALID) {
  case 0: return pUnit->dwAnimMode!=IMODE_STORED && pUnit->dwAnimMode!=17;

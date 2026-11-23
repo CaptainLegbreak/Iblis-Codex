@@ -438,7 +438,6 @@ static __forceinline void TASK_LinkList_PushFrontInline(D2LinkStrc* pList, D2Lin
     TASK_LinkList_InsertInline(pList, pLink);
 }
 
-// build: context TASK_LinkList_RemoveInline
 static inline void TASK_LinkList_RemoveInline(D2LinkStrc* pLink)
 {
     pLink->pPrev->pNext = pLink->pNext;

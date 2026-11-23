@@ -2928,7 +2928,6 @@ void __fastcall D2GAME_PACKETS_SendPacket0x96_WalkVerify_6FC3DA90(D2ClientStrc* 
     D2GAME_PACKETS_SendPacket_6FC3C710(pClient, packet, BITMANIP_GetSize(&bitBuffer));
 }
 
-// build: context sub_GetUnitType
 static inline int sub_GetUnitType(D2UnitStrc* pUnit)
 {
     int nUnitType = 6;
@@ -4173,7 +4172,6 @@ int __fastcall ERRORMANAGER_GetBitWidth(unsigned int nValue)
     return nValue;
 }
 
-// build: context Log2Ceil
 static inline int Log2Ceil(int nValue)
 {
     return nValue < 3 ? 1 : ERRORMANAGER_GetBitWidth(nValue - 1);
@@ -4210,7 +4208,6 @@ static inline int sub_00451F50(D2UnitStrc* pUnit)
     return pUnit->dwUnitId;
 }
 
-// build: context UNITS_IsMerc
 static inline int UNITS_IsMerc(D2UnitStrc* pUnit)
 {
     if (!pUnit)
@@ -4221,7 +4218,6 @@ static inline int UNITS_IsMerc(D2UnitStrc* pUnit)
     return (pUnit->dwFlags >> 9) & 1;
 }
 
-// build: context UNITS_HasStoredOwnerInfo
 static inline int UNITS_HasStoredOwnerInfo(D2UnitStrc* pUnit)
 {
     if (!pUnit)
@@ -4258,7 +4254,6 @@ static inline int CLIENTS_GetUnitYByType(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-// build: context MONSTER_GetComponents
 static inline unsigned char* MONSTER_GetComponents(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
@@ -4268,7 +4263,6 @@ static inline unsigned char* MONSTER_GetComponents(D2UnitStrc* pUnit)
     return 0;
 }
 
-// build: context SKILLS_GetItemStatCostTxtRecord
 static inline D2ItemStatCostTxt* SKILLS_GetItemStatCostTxtRecord(int nStatId)
 {
     if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)

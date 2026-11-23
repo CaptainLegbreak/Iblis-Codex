@@ -1508,7 +1508,6 @@ void __fastcall OBJECTS_SetOperatingMode(D2ObjInitFnStrc* pOp)
     UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPERATING);
 }
 
-// build: context SEED_RollLimitedRandomNumberInl
 static inline unsigned int SEED_RollLimitedRandomNumberInl(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)

@@ -3476,7 +3476,6 @@ static void __stdcall ITEMMODE_MergeStacks(D2GameStrc* pGame, D2UnitStrc* pItem1
     }
 }
 
-// build: context GetUnitType
 static inline int GetUnitType(D2UnitStrc* pUnit)
 {
     if (pUnit) return pUnit->dwUnitType;
@@ -5799,7 +5798,6 @@ int __fastcall ITEMMODE_UseBeltItem(D2GameStrc* ptGame, D2UnitStrc* hUnit, int n
     return 1;
 }
 
-// build: context ITEMMODE_GetOtherBodyLocItem
 static inline D2UnitStrc* ITEMMODE_GetOtherBodyLocItem(D2InventoryStrc* pInventory, int nBodyLoc, D2UnitStrc* pItem)
 {
     const int nOppositeBodyLoc = ITEMMODE_GetOppositeBodyLoc(nBodyLoc);

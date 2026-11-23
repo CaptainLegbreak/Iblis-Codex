@@ -192,7 +192,6 @@ void __fastcall BNNEWS_CopyNewsItem(D2Storm408ElemStrc* pDst, const D2Storm408El
         *pDst = *pSrc;
 }
 
-// build: context AddItemSize
 static inline bool AddItemSize(const D2Storm408ElemStrc* pItem, int* pnSize)
 {
     *pnSize += sizeof(unsigned int);

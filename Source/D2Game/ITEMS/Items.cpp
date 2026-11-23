@@ -846,7 +846,6 @@ static unsigned int ITEMS_HasUniqueBeenDroppedAlready_Inline(D2GameStrc* pGame, 
     return pGame->dwUniqueFlags[nUniqueItemId >> 5] & gdwBitMasks[nUniqueItemId & 0x1F];
 }
 
-// build: context ITEMS_GetUniqueItemsTxtRecord
 inline D2UniqueItemsTxt* ITEMS_GetUniqueItemsTxtRecord(int nUniqueItemId)
 {
     if (nUniqueItemId >= 0 && nUniqueItemId < sgptDataTables->nUniqueItemsTxtRecordCount)

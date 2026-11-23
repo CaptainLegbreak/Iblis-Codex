@@ -1825,7 +1825,6 @@ void __fastcall QUESTSFX_UberPrimeEvil(D2GameStrc* pGame, D2UnitStrc* pUnit)
     }
 }
 
-// build: context ValidateMonsterId
 inline int ValidateMonsterId(int nId)
 {
     if (nId < 0 || nId >= gpDataTables->nMonStatsTxtRecordCount)
@@ -3284,7 +3283,6 @@ void __fastcall AITHINK_InitializeMountedImpSkills(void* game,Unit* unit,Tick* t
     tick->control->params[1]=0;
 }
 
-// build: context AIGENERAL_GetAiControlFromUnit
 static inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnit_005E0160(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) return pUnit->pMonsterData->pAiControl;
@@ -5374,7 +5372,6 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_ZakarumPriest(D2GameStrc* pGame, D
     return 0;
 }
 
-// build: context AITHINK_IdleInline
 inline void AITHINK_IdleInline(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames)
 {
     if (!nFrames)
@@ -7150,7 +7147,6 @@ static inline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed
     return SEED_RollRandomNumber_Inline(pSeed) & (nMax - 1);
 }
 
-// build: context CLIENTS_GetUnitXInline
 static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -7188,7 +7184,6 @@ static inline int CLIENTS_GetUnitXInline_005F02C0(D2UnitStrc* pUnit)
     }
 }
 
-// build: context CLIENTS_GetUnitYInline
 static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -14167,7 +14162,6 @@ static int AI_RollPercentage_005F9490(D2UnitStrc* pUnit)
     return (unsigned int)lSeed % 100;
 }
 
-// build: context ABS_VALUE
 static inline int ABS_VALUE(int n) { return n < 0 ? -n : n; }
 
 // 0x005F9490

@@ -346,7 +346,6 @@ static void __stdcall SubTileCompressFloor(D2CmpSubTileRecordStrc* pDst, const u
     FOG_Free(ptDestBuffer, szTileCodecFile, 0x176, 0);
 }
 
-// build: context SUBTILE_IsBlank
 static inline int SUBTILE_IsBlank(const unsigned char* pPixels)
 {
     for (int i = 0; i < 0x200; ++i)

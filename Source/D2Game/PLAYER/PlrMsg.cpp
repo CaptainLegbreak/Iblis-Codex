@@ -1058,7 +1058,6 @@ void __fastcall D2GAME_UpdateAttribute_6FC822D0(D2UnitStrc* pUnit, unsigned shor
     }
 }
 
-// build: context PoisonStat_GetPerFrame
 static inline int PoisonStat_GetPerFrame(D2StatListStrc* pStatList)
 {
 	if (pStatList)

@@ -939,7 +939,6 @@ int __fastcall ITEMMODS_AssignMaxDamage(int nType, D2UnitStrc* pUnit, D2UnitStrc
     return 1;
 }
 
-// build: context SKILLS_GetSkillsTxtRecord
 static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (!(nSkillId >= 0))
@@ -2538,7 +2537,6 @@ void __stdcall D2COMMON_11292_ItemAssignProperty(int nType, D2UnitStrc* pUnit, D
     }
 }
 
-// build: context SetItemFlag
 static inline int SetItemFlag(const D2SetItemsTxt* pRecord, int nIndex)
 {
     if (!pRecord->nAddFunc)
@@ -2547,7 +2545,6 @@ static inline int SetItemFlag(const D2SetItemsTxt* pRecord, int nIndex)
     return gnSetItemStatlistFlags[nIndex];
 }
 
-// build: context SetItemState
 static inline int SetItemState(const D2SetItemsTxt* pRecord, int nIndex)
 {
     if (!pRecord->nAddFunc)

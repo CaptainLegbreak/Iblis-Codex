@@ -151,7 +151,6 @@ void __fastcall AIGENERAL_SetOwnerData(D2GameStrc* pGame, D2UnitStrc* pUnit, int
 
 void __fastcall AIGENERAL_FreeAllMinionLists(D2GameStrc* pGame, D2MinionListStrc* pMinionList); // 0x0058F350
 
-// build: context sub_GetUnitTypeOrInvalid
 static inline int sub_GetUnitTypeOrInvalid(D2UnitStrc* pUnit)
 {
     if (!pUnit)

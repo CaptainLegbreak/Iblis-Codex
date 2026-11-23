@@ -2403,7 +2403,6 @@ void __fastcall MONSTERMODE_EventEndAnimation(D2GameStrc* pGame, D2UnitStrc* pUn
     pMonModeCallbackTableRecord->pfnEnd(pGame, pUnit);
 }
 
-// build: context MONSTATS_GetRecordInline
 static inline D2MonStatsTxt* MONSTATS_GetRecordInline(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -2411,7 +2410,6 @@ static inline D2MonStatsTxt* MONSTATS_GetRecordInline(int nMonsterId)
     return 0;
 }
 
-// build: context MONSTATS_GetBaseIdInline
 static inline int MONSTATS_GetBaseIdInline(int nClassId)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = MONSTATS_GetRecordInline(nClassId);
@@ -2420,7 +2418,6 @@ static inline int MONSTATS_GetBaseIdInline(int nClassId)
     return pMonStatsTxtRecord->nBaseId;
 }
 
-// build: context MONSTERS_GetBaseIdFromUnitInline
 static inline int MONSTERS_GetBaseIdFromUnitInline(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
@@ -2428,7 +2425,6 @@ static inline int MONSTERS_GetBaseIdFromUnitInline(D2UnitStrc* pUnit)
     return -1;
 }
 
-// build: context MONSTERS_ValidateMonsterIdInline
 static inline int MONSTERS_ValidateMonsterIdInline(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)

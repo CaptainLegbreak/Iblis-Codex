@@ -363,7 +363,6 @@ void __fastcall ACT3Q6_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
     pQuestData->pCallback[2] = 0;
 }
 
-// build: context ACT3Q6_CycleStatusFromLastState
 static inline int ACT3Q6_CycleStatusFromLastState(D2QuestDataStrc* pQuestData)
 {
     int bResult = 0;

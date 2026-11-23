@@ -19,7 +19,6 @@ int SubTileHasTransparentPixel(const unsigned char* pData); // 0x0060D7E0
 
 void __stdcall SubTileCompressFloor(D2CmpSubTileRecordStrc* pDst, const unsigned char* pSrc); // 0x0060D840
 
-// build: context SUBTILE_IsBlank
 static inline int SUBTILE_IsBlank(const unsigned char* pPixels)
 {
     for (int i = 0; i < 0x200; ++i)

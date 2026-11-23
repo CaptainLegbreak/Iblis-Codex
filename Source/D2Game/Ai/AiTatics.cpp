@@ -1169,7 +1169,6 @@ int __fastcall sub_005DEFE0_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitS
     }
     return AITACTICS_MoveToTarget(pGame, pUnit, 0, MONMODE_WALK, nDestX, nDestY, 1, nFlags);
 }
-// build: context AITACTICS_GetUnitX
 static inline unsigned int AITACTICS_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -1182,7 +1181,6 @@ static inline unsigned int AITACTICS_GetUnitX(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-// build: context AITACTICS_GetUnitY
 static inline unsigned int AITACTICS_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)

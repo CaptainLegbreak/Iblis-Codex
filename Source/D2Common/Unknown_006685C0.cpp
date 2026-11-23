@@ -114,7 +114,6 @@ static char* sub_00668590_NextSetToken(char** ppString, const char* szSet)
     return szToken;
 }
 
-// build: context DATATBLS_StringToCode
 static inline int DATATBLS_StringToCode(const char* szText)
 {
     int nCode;

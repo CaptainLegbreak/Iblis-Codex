@@ -2530,7 +2530,6 @@ int __stdcall sub_00622520_Shim(D2UnitStrc* pUnit)
     return UNITS_GetCharStatsToHitFactor(pUnit);
 }
 
-// build: context UNITS_GetCharStatsTxtRecord
 static inline D2CharStatsTxt* UNITS_GetCharStatsTxtRecord(int nClassId)
 {
     if (nClassId >= 0 && nClassId < sgptDataTables->nCharStatsTxtRecordCount)
@@ -2538,7 +2537,6 @@ static inline D2CharStatsTxt* UNITS_GetCharStatsTxtRecord(int nClassId)
     return 0;
 }
 
-// build: context UNITS_GetToHitFactor
 static inline int UNITS_GetToHitFactor(D2UnitStrc* pUnit)
 {
     if (pUnit->dwUnitType != UNIT_PLAYER)
@@ -3789,7 +3787,6 @@ int __stdcall UNITS_IsCorpseUseable(D2UnitStrc* pUnit)
     return STATES_CheckStateMaskUdeadOnUnit(pUnit) == 0;
 }
 
-// build: context StopSequence_SetActionFrame
 static inline void StopSequence_SetActionFrame(D2UnitStrc* pUnit, int nFrame)
 {
     D2AnimDataRecordStrc* pAnimData = pUnit->pAnimData;

@@ -198,7 +198,6 @@ void __cdecl sub_00524740_ClearKeySchedules()
     memset(gaIdeaKeySchedules, 0, sizeof(D2IdeaKeyScheduleStrc) * 3);
 }
 
-// build: context sub_GetTerminatedLength
 static inline unsigned int sub_GetTerminatedLength(const unsigned char* pString, unsigned int nSize)
 {
     unsigned int nMax = 0x80;

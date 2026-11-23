@@ -152,19 +152,16 @@ void __fastcall PATH_GetDirectionVector(D2CoordStrc* pDirectionVector, int* pOut
 
 #include "gen/data/Source/D2Common/Unknown_0064FC60.inc"
 
-// build: context PATH_ToFP16Center
 inline unsigned int PATH_ToFP16Center(unsigned int nValue)
 {
     return (nValue << 16) + 0x8000;
 }
 
-// build: context PATH_FP16FitToCenter
 inline unsigned int PATH_FP16FitToCenter(unsigned int nValue)
 {
     return (nValue & 0xFFFF0000) + 0x8000;
 }
 
-// build: context PATH_MakeCoord
 inline D2FP32_16 PATH_MakeCoord(unsigned int nPrecisionX, unsigned int nPrecisionY)
 {
     D2FP32_16 tCoord;
