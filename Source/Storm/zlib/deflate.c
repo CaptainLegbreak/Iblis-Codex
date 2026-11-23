@@ -22,6 +22,8 @@
 #define MAX_MEM_LEVEL 9
 #define DEF_MEM_LEVEL 8
 #define Buf_size 16
+
+const char deflate_copyright[] = " deflate 1.2.8 Copyright 1995-2013 Jean-loup Gailly and Mark Adler "; // 0x006D0238
 #define Z_FILTERED 1
 #define Z_HUFFMAN_ONLY 2
 #define Z_RLE 3

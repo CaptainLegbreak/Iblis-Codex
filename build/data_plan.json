@@ -293,7 +293,7 @@
    "state": "included"
   },
   "Source/Storm/SOURCE/SSignature.cpp": {
-   "bytes": 1112,
+   "bytes": 1044,
    "definitions": 2,
    "externs": [],
    "fn_types": {},
@@ -4692,11 +4692,9 @@
    "state": "included"
   },
   "Source/Fog/Src/QServer/QServer.cpp": {
-   "bytes": 188,
+   "bytes": 180,
    "definitions": 3,
-   "externs": [
-    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
-   ],
+   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Fog/Src/QServer/QServer.inc",
    "lang": "cpp",
@@ -8958,10 +8956,10 @@
    "declared": true,
    "decorated": "_gszSEvtCpp",
    "file": "Source/Storm/SOURCE/SSignature.cpp",
-   "fill": 88,
+   "fill": 20,
    "form": "declared",
-   "fwd": "extern \"C\" const char gData_006D0224[88]; // 0x006D0224",
-   "head": "extern \"C\" const char gData_006D0224[88] = ",
+   "fwd": "extern \"C\" const char gData_006D0224[20]; // 0x006D0224",
+   "head": "extern \"C\" const char gData_006D0224[20] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -8970,13 +8968,13 @@
      "size": 1
     },
     "k": "arr",
-    "n": 88,
-    "size": 88
+    "n": 20,
+    "size": 20
    },
    "name": "gszSEvtCpp",
    "pointers": [],
    "region": "rdata",
-   "size": 88,
+   "size": 20,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x006D0224\n#pragma comment(linker, \"/alternatename:_gszSEvtCpp=_gData_006D0224\")",
@@ -155211,10 +155209,10 @@
    "declared": true,
    "decorated": null,
    "file": "Source/Fog/Src/QServer/QServer.cpp",
-   "fill": 35,
+   "fill": 33,
    "form": "declared",
    "fwd": null,
-   "head": "extern unsigned int gaMaskTable[35] = ",
+   "head": "extern unsigned int gaMaskTable[33] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -155223,22 +155221,13 @@
      "size": 4
     },
     "k": "arr",
-    "n": 35,
-    "size": 140
+    "n": 33,
+    "size": 132
    },
    "name": "gaMaskTable",
-   "pointers": [
-    [
-     132,
-     "0x006F28F8",
-     "address",
-     "gData_006F28F8",
-     0,
-     "data"
-    ]
-   ],
+   "pointers": [],
    "region": "data",
-   "size": 140,
+   "size": 132,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x0074C3F0",
