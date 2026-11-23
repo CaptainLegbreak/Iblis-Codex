@@ -2377,7 +2377,7 @@ void __fastcall sub_0040F580_InitTerminator(D2StormListStrc* pList)
 }
 
 // 0x0040F350
-void __cdecl AUTOMAP_CloseStaleLogs()
+void __cdecl LOGMANAGER_CloseStaleLogs()
 {
     char szPath[0x104];
     int bLog = 0;

@@ -1388,7 +1388,7 @@
     {
      "va": "0x0040F350",
      "length": 123,
-     "name": "AUTOMAP_CloseStaleLogs"
+     "name": "LOGMANAGER_CloseStaleLogs"
     },
     {
      "va": "0x0040F3D0",

@@ -356,7 +356,7 @@
   ["0x0040EDE0", 541, "verified"],
   ["0x0040F000", 111, "verified", "?LOGMANAGER_GetLogDirectory@@YIXPADH@Z"],
   ["0x0040F070", 723, "verified"],
-  ["0x0040F350", 123, "verified", "AUTOMAP_CloseStaleLogs"],
+  ["0x0040F350", 123, "verified", "LOGMANAGER_CloseStaleLogs"],
   ["0x0040F3D0", 153, "verified", "?LOGMANAGER_SweepLogFile@@YIXPBUD2FileTimeStrc@@PBD@Z"],
   ["0x0040F470", 123, "verified", "?EXCEPTIONS_CloseNamedLog@@YIXPBD@Z"],
   ["0x0040F4F0", 36, "verified", "sub_0040F4F0_NextLink"],
