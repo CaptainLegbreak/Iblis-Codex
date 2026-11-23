@@ -4,8 +4,10 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #297 (round j60). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 15,691 B.
+- `main`: #298 (round j61). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 15,691 B.
 - Units 963, placeholder files 562.
+- In progress: round j62 = `lane5/a3q7-dogs`, `lane4/place-c`, `lane6/cands-d`. Next: j63 = `lane2/com-interface` alone (shared header, touches lanes 3, 4 and 6).
+- **Borrowed data by lane:** [borrowed-data.md](borrowed-data.md) lists every block of the 15,691 B still copied from Game.exe, with the file that owns it and how that was decided. Each lane has a section with its leads. Take them after your current branch.
 - Rounds: the coordinator polls `lane*` branches, merges by cherry-pick (skipping commits already on main by subject), checks the data plan, units.json and data includes against main plus each lane's own moves, prechecks, runs one full verify, and ships.
 
 ## Ownership
@@ -36,6 +38,8 @@ A function belongs to the lane whose address range or file run it sits in, whate
 - **Records:** the game configuration record is `D2ConfigStrc` (lane 2 renaming), one client global `gpClientConfig` in D2Client.h; the callback table at 0x225 is one record.
 - **zlib:** units named after their zlib 1.2.8 files under `Source/Storm/zlib/` (lane 3).
 - **Id headers:** only D2StatIds.h is `#define`s; the other six stay enums until a function needs otherwise.
+- **D2ClientNotifyStrc stays a view** of D2ComInterfaceStrc for now. Don't force the merge: the inv_0048BC10/inv_0048DD90 operand order says those units' original headers differ from ours in a way we can't see yet. Lane 4 retries when those units change for other reasons.
+- **Pathfinding cluster 0x00678B10-0x0067BE00 (lane 6):** the strays filed in Skills.cpp and Drlg.cpp move out either way. To choose between one placeholder and several, test the shared data block 0x006F1798-0x006F1D9C. Split it by which functions read each part. If it divides into consecutive pieces, each read by a consecutive group of functions, make one placeholder per group: one object's data is contiguous, so a clean partition marks file boundaries. If the readers cross the whole block, make one placeholder, `Unknown_006793E0.cpp`. Either way, names stay placeholders: there's no assert and the names are d2moo.
 - **Redivivus:** not used. Nothing from it goes into the repo or to the lanes.
 
 ## Per lane
@@ -49,31 +53,44 @@ Work list, in order of value:
 3. **gnScreenHeight (0x711470):** one name. D2Client.h has `gnScreenHeight_00711470`, while 59 units declare `gnScreenHeight` privately. Make D2Client.h's the one declaration (name `gnScreenHeight`) and drop the private ones. Mind your type-count finding (dropping declarations can shift registers): keep any unit's private declaration that must stay, and say which. One branch, pushed soon after it verifies; it touches other lanes' files, so I merge it alone.
 4. **Placeholders lane 4 handed back:** Unknown_004C0440 (0x4C0550), Unknown_004C7C80, Unknown_004C97C0.
 5. **GetHitSounds (0x4CA560):** retry now that #296 changed D2Client.h, using your struct-count finding.
+6. **Borrowed data, UnitSnd.cpp:** 2,692 B in 69 blocks at 0x00727F84-0x007295E0. The gData_ pieces there are slices of one table of 48-byte records. See borrowed-data.md.
+
+Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the gnScreenHeight/gnPanelOffsetY operand order flips when D2ClientUi.h changes. Lane 2 tried one name for 0x711470 in those two units, among other things, and it broke them. Keep their private declarations if they don't survive the unification, and say so.
 
 ### Lane 2
-- `config-record-3` is in #296. The 0x225 callback-table merge is approved as your next branch.
+- `com-interface` is next, as j63, alone.
+- D2ClientNotifyStrc: keep it as a view (see Decisions). Thanks for the 60 tries; that's enough evidence to stop.
 - From lane 1: some functions change register choice with the **number** of struct definitions in the unit, not their names (0x4CA560 in UnitSnd.cpp matches with +2..+4 dummy structs, not +1 or +5..+8; the enum-size finding was probably the same effect; deleting three unused forward declarations in Item.cpp breaks 0x4C3760). Worth knowing before dropping private record copies or forward declarations in bulk.
 
 ### Lane 3
-- zlib naming approved (see Decisions). Branch from main.
+- zlib is in #297.
+- Borrowed data: 0x006D13D8, 768 B, is zlib's `_dist_code`/`_length_code` (read by deflate.c and trees.c). In zlib 1.2.8 they come from trees.h, included by trees.c. That one block is half your borrowed data.
 
 ### Lane 4
+- `place-c` is in j62.
+- Borrowed data: gszServerIP (WINMAIN.CPP) and gszMcpIP (Game_0044D080.cpp) are planned as char[16], and each is followed by 244 zero bytes copied from the image: 16 + 244 = 260. Check whether they are char[260]. More in borrowed-data.md.
 - `chat-run-2` is in #294.
 - SkillDesc.cpp and SkillDesc_004E1FF0.cpp call 0x4DF6C0 as `sub_004DF6C0`; it is `GFXUTIL_ApplySoundEnviron` now (in lane 1's sound unit). Rename the two calls.
 - Leave `sub_00436E90_AlwaysOne` and `sub_00436EA0`: they moved to lane 6's `Unknown_004370B0.cpp` in #294.
 
 ### Lane 5
+- `a3q5-orb` is in #298; `a3q7-dogs` is in j62.
+- Borrowed data: 0x006E0498, 480 B of zeros read by D2Game GAME/Game.cpp, and 0x007415F4, 408 B of strings read by Unknown_005BDE80.cpp.
 - `a5q2-run` and `a4q3-a3q6` are in #294; `a1q6-npc` (#292) and `a1q4-run` (#293) before that.
 - 0x5B9A30 and 0x5947E0: listing them is right; no forcing constructs.
 
 ### Lane 6
+- `cands-d` is in j62. CharSel.cpp taking sub_0043B830/0x43B840 from Game.cpp is fine: the run and the globals settle it.
+- Pathfinding cluster: answered in Decisions. DUNGEON_ 0x00643260-0x00643560, the D2DDraw renderer, and Items.cpp 0x006313E0: leaving them is right.
+- Borrowed data: you have the largest share, 7,361 B. 5,127 B of it is one block at 0x007420D1 between CelCmp.cpp and Unknown_006056D0.cpp: four small-int tables that no code addresses directly. See borrowed-data.md.
 - `d2win-a` and `block-c` are in #294.
 
 ### Lane 7
-- Not started.
+- Not started. 296 B of borrowed data (0x006F13F0) goes when 0x00677880 is written.
 
 ## Merge log (newest first)
 
+- #298 j61: a3q5 takes in the Compelling Orb functions (lane 5).
 - #297 j60: zlib under Source/Storm/zlib/ (lane 3), a2q4 run (lane 5), chat.cpp placements (lane 4).
 - #296 j59: D2ConfigStrc and gpClientConfig (lane 2), alone.
 - #295 j58: SkillDesc calls GFXUTIL_ApplySoundEnviron by name (lane 4).
