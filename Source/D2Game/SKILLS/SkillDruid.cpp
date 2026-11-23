@@ -3703,62 +3703,7 @@ int __fastcall SKILLS_SrvDo132_ImpFireMissile(D2GameStrc* pGame, D2UnitStrc* pUn
     return 1;
 }
 
-// 0x005DB850
-int __fastcall SKILLS_SrvDo011_ChargedStrike(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    if (pUnit)
-    {
-        pUnit->dwFlags |= UNITFLAG_SKSRVDOFUNC;
-    }
-
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-    if (!pTarget)
-    {
-        return 0;
-    }
-
-    SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
-
-    const int nMissileCount = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
-
-    const int nTargetX = UNITS_GetUnitXPositionInline(pTarget);
-    const int nTargetY = UNITS_GetUnitYPositionInline(pTarget);
-    const int nDestX = 2 * nTargetX - UNITS_GetUnitXPositionInline(pUnit);
-    const int nDestY = 2 * nTargetY - UNITS_GetUnitYPositionInline(pUnit);
-
-    const int nMissileId = SKILLS_GetProgressiveSkillMissileId(pUnit, nSkillId);
-    if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    D2MissileStrc missileParams = {};
-    missileParams.dwFlags = 0x21;
-    missileParams.pOwner = pUnit;
-    missileParams.nMissile = nMissileId;
-    missileParams.nX = nTargetX;
-    missileParams.nY = nTargetY;
-    missileParams.nTargetX = nDestX;
-    missileParams.nTargetY = nDestY;
-    missileParams.nSkill = nSkillId;
-    missileParams.nSkillLevel = nSkillLevel;
-    missileParams.pInitFunc = SKILLS_MissileInit_ChargedBolt;
-
-    for (int i = 0; i < nMissileCount; ++i)
-    {
-        missileParams.nInitArg = i;
-        MISSILES_CreateMissileFromParams(pGame, &missileParams);
-    }
-
-    return 1;
-}
-
+int __fastcall SKILLS_SrvDo011_ChargedStrike(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005DB850
 // 0x005D4DB0
 int __fastcall SKILLS_SrvDo036_ClawsOfThunder_ProgressiveFn2(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
