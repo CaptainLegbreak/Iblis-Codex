@@ -61,34 +61,6 @@ unsigned int __fastcall BNDOWNLOAD_DecryptData(unsigned char* pBuffer, unsigned 
 
 static int __cdecl sub_005232B0_DecodeAndValidate(unsigned char* pBuffer, unsigned int nSize);
 
-// 0x00520DC0
-int __fastcall sub_00520DC0_HandleStatus(D2BnReply00520DC0Strc* pReply)
-{
-    const int nStatus = pReply->nStatus;
-    gnLastStatus_0072FFA8 = nStatus;
-    switch (nStatus)
-    {
-    case 0:
-        break;
-    case 1:
-        BNMESSQUEUE_SetError(0xD);
-        break;
-    case 2:
-        BNMESSQUEUE_SetError(0xE);
-        break;
-    case 3:
-        BNMESSQUEUE_SetError(0xF);
-        break;
-    case 6:
-        BNSEND_SetErrorText(0x1B, pReply->szText);
-        break;
-    default:
-        BNMESSQUEUE_SetError(0x12);
-        break;
-    }
-    return 1;
-}
-
 // 0x00521B50
 void __cdecl sub_00521B50_ReseedLogin()
 {

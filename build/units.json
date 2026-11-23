@@ -40513,6 +40513,11 @@
      "name": "?BNDOWNLOAD_HandleLogonResponse@@YIHPBHI@Z"
     },
     {
+     "va": "0x00520DC0",
+     "length": 132,
+     "name": "?sub_00520DC0_HandleStatus@@YIHPAUD2BnReply00520DC0Strc@@@Z"
+    },
+    {
      "va": "0x00520E50",
      "length": 262
     },
@@ -42507,11 +42512,6 @@
    "file": "Source/Bnclient/Unknown_00520DC0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00520DC0",
-     "length": 132,
-     "name": "?sub_00520DC0_HandleStatus@@YIHPAUD2BnReply00520DC0Strc@@@Z"
-    },
     {
      "va": "0x00521B50",
      "length": 51,
