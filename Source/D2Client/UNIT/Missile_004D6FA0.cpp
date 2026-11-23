@@ -1,51 +1,85 @@
 #include "D2MissileIds.h"
+
 #include "D2Client.h"
+
 #include "D2GameTypes.h"
+
 #include "D2Structs.h"
+
 #include "D2Txt.h"
+
 #include "D2DataTbls.h"
+
 #include "D2Path.h"
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
+
 union D2SeedStrc;
+
 struct D2StaticPathStrc;
+
 struct D2MissileStrc;
 
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
+
 D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+
 void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg); // 0x004E2ED0
+
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
+
 int __stdcall sub_0064A780_targetValue(D2UnitStrc* pMissile); // 0x0064A780
+
 int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
+
 int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
+
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
+
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
-
-
-
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
+
 void __fastcall MISSILE_CltDoDefault(D2UnitStrc* pMissile); // 0x004CD390
+
 D2UnitStrc* __fastcall MISSILE_SpawnAtRandomUnitInRange(D2UnitStrc* pMissile, int nArg1, int nArg2, int nArg3); // 0x004CE320
+
 void __fastcall MISSILE_InitCltParamMotion(D2UnitStrc* pMissile); // 0x004CE420
+
 void __fastcall MISSILE_CltDoCommon(D2UnitStrc* pMissile); // 0x004D30C0
+
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
+
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
+
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
+
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
+
 D2UnitStrc* __fastcall CUNIT_FindServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x004639B0
+
 void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA200
+
 void __stdcall GFXUTIL_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA2A0
+
 void __stdcall sub_004DA690_ReplaceMotionFlag1With8(D2UnitStrc* pUnit); // 0x004DA690
+
 void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet); // 0x004DA6E0
+
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+
 void __stdcall PATH_SetVelocity(D2DynamicPathStrc* pDynamicPath, int nVelocity, const char* szFile, int nLine); // 0x00648690
+
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
+
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
+
 int __stdcall sub_0064A730_GetMissileTargetStatus(D2UnitStrc* pMissile); // 0x0064A730
+
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
 
 static inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
@@ -85,112 +119,6 @@ static int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
         return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-}
-
-// 0x004D1BD0
-int __fastcall sub_004D1BD0_CltHitScatter(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
-{
-    if (pUnit)
-    {
-        return 0;
-    }
-
-    D2SeedStrc* pSeed = &pMissile->pSeed;
-    SEED_InitLowSeed(pSeed, sub_0064A780_targetValue(pMissile));
-    const int nCount = MISSILE_GetTargetX(pMissile);
-    const int nX = UNITS_GetUnitXPosition(pMissile);
-    const int nY = UNITS_GetUnitYPosition(pMissile);
-    D2MissileStrc tParams;
-    memset(&tParams, 0, sizeof(tParams));
-    tParams.dwFlags = 0x21;
-    tParams.pOwner = CUNIT_GetOwnerUnit(pMissile);
-    tParams.nX = nX;
-    tParams.nY = nY;
-    tParams.nMissile = MISSILE_RADAMENTHOLYBOLT;
-    tParams.nSkill = MISSILE_GetSkill(pMissile);
-    tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
-    for (int i = 0; i < nCount; ++i)
-    {
-        unsigned __int64 lSeed = SEED_RollRandomNumber(pSeed);
-        const int nTargetX = (unsigned int)lSeed % 20 - 10 + nX;
-        lSeed = SEED_RollNextHL_Inline(pSeed, lSeed);
-        const int nTargetY = (unsigned int)lSeed % 20 - 10 + nY;
-
-        tParams.nTargetX = nTargetX;
-        tParams.nTargetY = nTargetY;
-        if (nTargetX == nX && nTargetY == nY)
-        {
-            --i;
-            continue;
-        }
-
-        D2UnitStrc* pNew = MISSILE_CreateClientMissile(&tParams);
-        if (pNew)
-        {
-            SKILLDESC_InitCappedChargedPath(pNew, nTargetX);
-        }
-    }
-
-    return 1;
-}
-
-// 0x004D3F10
-void __fastcall sub_004D3F10_ClientMissileDo(D2UnitStrc* pMissile)
-{
-    struct { int nValue1; int nLevel; D2UnitStrc* pOwner; int nRange; } tLocal;
-    D2MissilesTxt* pMissilesTxt;
-    if (pMissile && pMissile->dwClassId >= 0 && pMissile->dwClassId < sgptDataTables->nMissilesTxtRecordCount)
-    {
-        pMissilesTxt = &sgptDataTables->pMissilesTxt[pMissile->dwClassId];
-    }
-    else
-    {
-        pMissilesTxt = 0;
-    }
-    if (!pMissilesTxt || pMissilesTxt->wCltSubMissile[0] < 0)
-    {
-        MISSILE_CltDoDefault(pMissile);
-        return;
-    }
-
-    int nMin = pMissilesTxt->wCltSubMissile[0];
-    tLocal.nRange = nMin;
-    if (nMin < pMissilesTxt->wCltSubMissile[1])
-    {
-        tLocal.nRange = ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxt->wCltSubMissile[1] - nMin + 1) + nMin;
-    }
-
-    int nSkillId = MISSILE_GetSkill(pMissile);
-    D2SkillsTxt* pSkillsTxt;
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        pSkillsTxt = &sgptDataTables->pSkillsTxt[nSkillId];
-    }
-    else
-    {
-        pSkillsTxt = 0;
-    }
-    if (!pSkillsTxt)
-    {
-        MISSILE_CltDoDefault(pMissile);
-        return;
-    }
-
-    tLocal.pOwner = CUNIT_GetOwnerUnit(pMissile);
-    tLocal.nLevel = MISSILE_GetLevel(pMissile);
-    tLocal.nValue1 = SKILLS_EvaluateSkillFormula(tLocal.pOwner, pSkillsTxt->dwCalc[0], nSkillId, tLocal.nLevel);
-    int nValue2 = SKILLS_EvaluateSkillFormula(tLocal.pOwner, pSkillsTxt->dwCalc[1], nSkillId, tLocal.nLevel);
-    if (nValue2 && tLocal.nValue1 > 0)
-    {
-        D2UnitStrc* pTarget = MISSILE_SpawnAtRandomUnitInRange(pMissile, tLocal.nValue1, nValue2, tLocal.nRange);
-        if (pTarget)
-        {
-            MISSILE_InitCltParamMotion(pTarget);
-        }
-        MISSILE_CltDoCommon(pMissile);
-        return;
-    }
-    MISSILE_CltDoDefault(pMissile);
 }
 
 inline unsigned __int64 SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
