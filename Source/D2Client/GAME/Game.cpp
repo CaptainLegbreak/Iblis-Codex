@@ -2093,12 +2093,6 @@ int __cdecl GAME_GetSlotNameCount()
     return gnSlotCount;
 }
 
-// 0x00436EA0
-int __cdecl sub_00436EA0()
-{
-    return gdwGlobal_007799D8;
-}
-
 // 0x00437D00
 void* __cdecl GAME_GetPreferredRealm()
 {
