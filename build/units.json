@@ -36530,16 +36530,6 @@
      "name": "IMAGE_Create"
     },
     {
-     "va": "0x004FD860",
-     "length": 134,
-     "name": "TIMER_UpdateDefault"
-    },
-    {
-     "va": "0x004FD8F0",
-     "length": 123,
-     "name": "TIMER_UpdateRepeating"
-    },
-    {
      "va": "0x00503310",
      "length": 45,
      "name": "?D2COMP_FindCofNode@@YAPAUD2CofNodeStrc@@III@Z"
@@ -36574,6 +36564,16 @@
      "va": "0x004FD830",
      "length": 41,
      "name": "?TIMER_DisableSpaceKey@@YIXPAUD2WinTimerStrc@@@Z"
+    },
+    {
+     "va": "0x004FD860",
+     "length": 134,
+     "name": "TIMER_UpdateDefault"
+    },
+    {
+     "va": "0x004FD8F0",
+     "length": 123,
+     "name": "TIMER_UpdateRepeating"
     },
     {
      "va": "0x004FD970",

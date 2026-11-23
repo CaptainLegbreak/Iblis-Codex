@@ -1,7 +1,17 @@
 #include "D2Win.h"
+#include "D2SkillIds.h"
+#include "D2StatIds.h"
+#include "D2Win32Types.h"
+#include "D2CelContext.h"
+#include "D2CmpTypes.h"
+#include "D2ClientTypes.h"
+
 #include "D2WinTypes.h"
+
 #include "D2Unicode.h"
+
 #include "D2StormTypes.h"
+
 #include "D2WinControls.h"
 
 enum D2ControlTypes
@@ -29,11 +39,17 @@ struct D2WinTimerStrc
 };
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
+
 int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl);                                             // 0x004F9210
+
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
+
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
@@ -47,6 +63,68 @@ void __fastcall TIMER_DisableSpaceKey(D2WinTimerStrc* ptTimerData)
 {
     D2_ASSERT(ptTimerData->controlHeader.eType == D2WIN_TIMER, 0x3B);
     ptTimerData->controlHeader.pfHandleVirtualKeyInput = 0;
+}
+
+unsigned int gdwTimeoutTickCount; // 0x00841B74
+
+// 0x004FD860
+int __fastcall TIMER_UpdateDefault(D2WinControlStrc* pControl)
+{
+    D2WinTimerStrc* pTimer = (D2WinTimerStrc*)pControl;
+
+    D2_ASSERT(pTimer->controlHeader.eType == D2WIN_TIMER, 0x52);
+
+    if (!(pTimer->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pTimer->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
+    {
+        return 0;
+    }
+
+    const unsigned int dwNow = GetTickCount();
+    const unsigned int dwStart = pTimer->dwTickCount / 1000;
+    if (dwNow / 1000 - dwStart <= pTimer->nTimeout)
+    {
+        return 1;
+    }
+
+    SMSGHANDLER_PARAMS tMsg;
+    tMsg.hWnd = pTimer;
+
+    if (pTimer->controlHeader.field_34)
+    {
+        pTimer->controlHeader.field_34(&tMsg);
+    }
+
+    return 1;
+}
+
+// 0x004FD8F0
+int __fastcall TIMER_UpdateRepeating(D2WinControlStrc* pControl)
+{
+    D2WinTimerStrc* pTimer = (D2WinTimerStrc*)pControl;
+
+    D2_ASSERT(pTimer->controlHeader.eType == D2WIN_TIMER, 0x6A);
+
+    if (!(pTimer->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pTimer->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
+    {
+        return 0;
+    }
+
+    const unsigned int dwTickCount = GetTickCount();
+    if (dwTickCount < gdwTimeoutTickCount)
+    {
+        return 1;
+    }
+
+    SMSGHANDLER_PARAMS tMsg;
+    tMsg.hWnd = pTimer;
+
+    if (pTimer->controlHeader.field_34)
+    {
+        pTimer->controlHeader.field_34(&tMsg);
+    }
+
+    gdwTimeoutTickCount = dwTickCount + pTimer->nTimeout;
+    return 1;
 }
 
 // 0x004FD970
@@ -85,4 +163,3 @@ void __fastcall TIMER_SetRepeating(D2WinTimerStrc* ptTimerData)
     D2_ASSERT(ptTimerData->controlHeader.eType == D2WIN_TIMER, 0x45);
     ptTimerData->controlHeader.pfInitialize = TIMER_UpdateRepeating;
 }
-
