@@ -49,7 +49,7 @@ int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 D2GfxMotionStrc* __fastcall GFX_GetGfxMotion(D2UnitStrc* pUnit); // 0x0046F060
-void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 extern "C" const char gszBorderFramePath[]; // 0x006DA034
 extern "C" const char gszParticleSourceFile[]; // 0x006DB95C
@@ -67,8 +67,8 @@ extern int gaHotkeyLeft[16]; // 0x007C07B8
 extern int gbSkillSelectRight; // 0x007C07FC
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
-D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
-unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
+D2StoredUnitRecordStrc* __fastcall ROSTER_GetNextStoredUnit(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
+unsigned short __fastcall ROSTER_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
 extern void* gpCellFile_007BF028; // 0x007BF028
 
 int gbLeftSkillButtonDown; // 0x007BEF84
@@ -200,7 +200,7 @@ void __fastcall sub_004A9E60_AssignHotkey(int nHotkey)
         {
             if (gaHotkeySkills[nHotkey] != -1)
             {
-                sub_004786A0_SendDwords2(0x51, (nHotkey << 16) + 0xFFFF, -1);
+                MSG_SendTwoDwords(0x51, (nHotkey << 16) + 0xFFFF, -1);
             }
 
             gaHotkeySkills[nHotkey] = gtHotkeySlots_007C0300.nSkill[i];
@@ -213,7 +213,7 @@ void __fastcall sub_004A9E60_AssignHotkey(int nHotkey)
                 gaHotkeyLeft[nHotkey] = 1;
             }
             gaHotkeyOwners[nHotkey] = gtHotkeySlots_007C0300.f_2D0[i];
-            sub_004786A0_SendDwords2(0x51, (nHotkey << 16) + (gaHotkeyLeft[nHotkey] ? 0x8000 : 0) + gaHotkeySkills[nHotkey], gaHotkeyOwners[nHotkey]);
+            MSG_SendTwoDwords(0x51, (nHotkey << 16) + (gaHotkeyLeft[nHotkey] ? 0x8000 : 0) + gaHotkeySkills[nHotkey], gaHotkeyOwners[nHotkey]);
 
             for (int j = 0; j < 16; ++j)
             {
@@ -222,7 +222,7 @@ void __fastcall sub_004A9E60_AssignHotkey(int nHotkey)
                     gaHotkeySkills[j] = -1;
                     gaHotkeyLeft[j] = -1;
                     gaHotkeyOwners[j] = -1;
-                    sub_004786A0_SendDwords2(0x51, (j << 16) + 0xFFFF, -1);
+                    MSG_SendTwoDwords(0x51, (j << 16) + 0xFFFF, -1);
                 }
             }
         }
@@ -299,14 +299,14 @@ static void sub_00499F40_DrawRowSeparator(int nY)
 // 0x0049A9B0
 void __cdecl sub_0049A9B0_RefreshRosterIndices()
 {
-    D2StoredUnitRecordStrc* pEntry = sub_004795A0_GetNextEntry(0);
+    D2StoredUnitRecordStrc* pEntry = ROSTER_GetNextStoredUnit(0);
     for (int i = 0; i < 8; ++i)
         gaRosterIndex[i] = 0xFFFF;
     int nIndex = 0;
     while (pEntry)
     {
-        gaRosterIndex[nIndex] = sub_00479BC0_GetEntryIndex(pEntry);
-        pEntry = sub_004795A0_GetNextEntry(pEntry);
+        gaRosterIndex[nIndex] = ROSTER_GetEntryIndex(pEntry);
+        pEntry = ROSTER_GetNextStoredUnit(pEntry);
         ++nIndex;
     }
     int nY = 0x43;

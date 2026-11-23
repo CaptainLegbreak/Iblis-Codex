@@ -222,7 +222,7 @@ int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, uns
 
 int __stdcall SErrRegisterMessageSource(unsigned short wFacility, void* hModule, void* pReserved);     // 0x0041C2F0
 
-int __cdecl sub_0044BBA0();                                                                                 // 0x0044BBA0
+int __cdecl GAME_GetConnectFailed();                                                                                 // 0x0044BBA0
 
 void __stdcall GAME_DestroyWindowAndGfx(int nArg1, int nArg2, int nArg3);                                               // 0x0044C850
 
@@ -424,7 +424,7 @@ void __cdecl GAME_InitRooms(); // 0x0044C750
 
 void __cdecl CUNIT_ResetUnitTables(); // 0x00465AA0
 
-D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
 void __stdcall DUNGEON_AnimateTiles(D2ActiveRoomStrc* pRoom); // 0x0061AEF0
 
@@ -709,14 +709,14 @@ void __cdecl GAME_SetCharDiedFlag()
 }
 
 // 0x0044B870
-void __cdecl sub_0044B870_SetLaunchState1()
+void __cdecl GAME_SetLaunchStateOne()
 {
 // build: symbol ?gnClientLaunchState@* 0x0070EE4C
     gnClientLaunchState = 1;
 }
 
 // 0x0044B880
-void __fastcall sub_0044B880_SetValue(int nValue)
+void __fastcall GAME_SetExitApplication(int nValue)
 {
 // build: symbol ?gbExitApplication@* 0x0070EE8C
     gbExitApplication = nValue;
@@ -1001,7 +1001,7 @@ void __cdecl GAME_InitGameState()
     PALSHIFT_AllocPalShiftEntries();
     sub_00600B80();
     SKILLS_InitGfxCaches(gpMemPool, 1);
-    gbLeavingGame = sub_0044BBA0() != 0;
+    gbLeavingGame = GAME_GetConnectFailed() != 0;
     gdwUnloadCompleteTick = GetTickCount();
     gdwGameStartTick = GetTickCount();
     gpfnClientCallback = sub_0044C990;
@@ -1071,7 +1071,7 @@ void __cdecl GAME_InstallRecordHandler()
 }
 
 // 0x00451970
-void __cdecl sub_00451970()
+void __cdecl GAME_SetRecordPlaying()
 {
     gbRecordPlaying = 1;
 }
@@ -1083,7 +1083,7 @@ int __cdecl GAME_PushRegisterState()
 }
 
 // 0x00451F50
-int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit)
+int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit)
 {
     if (!pUnit)
         return -1;
@@ -1250,7 +1250,7 @@ void __cdecl GAME_TickKeepAlive()
 void __cdecl sub_00451290(); // 0x00451290
 
 // 0x0044CE40
-void __fastcall sub_0044CE40(int nValue)
+void __fastcall GAME_SetSkillDelayUntil(int nValue)
 {
     gnSkillDelayUntil = nValue;
 }
@@ -1280,7 +1280,7 @@ void __cdecl GAME_UpdateKeyState()
 }
 
 // 0x0044D510
-void __cdecl sub_0044D510()
+void __cdecl GAME_SetCinematicPlayed()
 {
     gnCinematicPlayed = 1;
 }
@@ -1292,7 +1292,7 @@ void __cdecl GAME_RequestExit()
 }
 
 // 0x0044D530
-void __fastcall sub_0044D530(int nValue)
+void __fastcall GAME_SetPlayCinematic(int nValue)
 {
     gnPlayCinematic = nValue;
 }
@@ -1323,7 +1323,7 @@ void __cdecl GAME_ResetMouseState()
 }
 
 // 0x0044DA70
-void __cdecl sub_0044DA70()
+void __cdecl GAME_ResetMouseButtons()
 {
     gbLeftButtonDown = 0;
     gbRightButtonDown = 0;
@@ -1413,10 +1413,10 @@ void __cdecl GAME_UpdateGameState()
     gdwTickCount_007A048C = GetTickCount();
     GAME_InitRooms();
     CUNIT_ResetUnitTables();
-    DUNGEON_AnimateTiles(sub_004646A0_GetPlayerRoom());
+    DUNGEON_AnimateTiles(CUNIT_GetPlayerRoom());
     sub_0046BEB0_UpdateTimers();
     GFX_PreloadTick(1);
-    if (ENVIRONMENT_UpdatePeriodOfDay(gpAct, sub_004646A0_GetPlayerRoom()))
+    if (ENVIRONMENT_UpdatePeriodOfDay(gpAct, CUNIT_GetPlayerRoom()))
         CUNIT_UpdateObjectsForPeriod();
     DRLGACTIVATE_Update(DUNGEON_GetDrlgFromAct(gpAct));
     AUTOMAP_UpdateAutomapReveal();

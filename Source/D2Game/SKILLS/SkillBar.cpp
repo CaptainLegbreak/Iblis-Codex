@@ -85,7 +85,7 @@ int __fastcall SKILLS_GetBaseWalkVelocity(D2UnitStrc* pUnit); // 0x0056E5B0
 
 D2UnitEventStrc* __fastcall SKILLS_RegisterUnitEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitEventType, int nSkillId, int nSkillLevel, int nEventFunc, int a7, int a8); // 0x0056E740
 
-D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse);
+D2StatListStrc* __fastcall SKILLS_ApplyStateEffect(D2CurseStrc* pCurse); // 0x0056E970
 
 void __fastcall SUNITMSG_QueueSkillStop(D2UnitStrc* pUnit, int nSkillId); // 0x00571B70
 
@@ -169,7 +169,7 @@ void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pPath, int nMas
 
 void __stdcall COLLISION_ResetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064EC10
 
-void __fastcall sub_005417D0_DirectDated(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nFrame, int a5, int a6); // 0x005417D0
+void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nFrame, int a5, int a6); // 0x005417D0
 
 void __fastcall SKILLS_RemoveStateAndRefreshPassives(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x0056E900
 
@@ -225,7 +225,7 @@ struct D2CharStatsTxtRun;
 
 D2MonStatsTxtRun* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 
-int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
+int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
 D2CharStatsTxtRun* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nClassId); // 0x004833E0
 
@@ -565,7 +565,7 @@ int __fastcall SKILLS_ApplyFrenzyStats(D2GameStrc* pGame, D2UnitStrc* pUnit, int
         }
 
         STATLIST_SetListExpireFrame(pStatList, nExpireFrame);
-        sub_005417D0_DirectDated(pGame, pUnit, 12, nExpireFrame, 0, 0);
+        EVENT_SetEvent(pGame, pUnit, 12, nExpireFrame, 0, 0);
         STATES_ToggleGfxStateFlag(pUnit, pSkillsTxtRecord->nAuraState, 1);
         int nValue = STATLIST_GetStatValue(pStatList, STAT_SKILL_FRENZY, 0) + 1;
         if (nValue > nSkillLevel)
@@ -727,7 +727,7 @@ int __fastcall SKILLS_SrvSt38_Whirlwind(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     curse.nState = pSkillsTxtRecord->nAuraState;
     curse.pStateRemoveCallback = SKILLS_CurseStateCallback_Whirlwind;
 
-    D2StatListStrc* pStatList = sub_0056E970(&curse);
+    D2StatListStrc* pStatList = SKILLS_ApplyStateEffect(&curse);
     if (!pStatList)
     {
         return 0;
@@ -766,8 +766,9 @@ static int SKILLS_IsDualWieldingMeleeWeapons(D2UnitStrc* pUnit)
         return 0;
     }
 
-    D2UnitStrc* pLeftHandWeapon = sub_0063C050_GetBodyLocItem(pInventory, 6);
-    D2UnitStrc* pRightHandWeapon = sub_0063C050_GetBodyLocItem(pInventory, 5);
+// build: symbol ?INVENTORY_GetCompositItem@* 0x0063C050
+    D2UnitStrc* pLeftHandWeapon = INVENTORY_GetCompositItem(pInventory, 6);
+    D2UnitStrc* pRightHandWeapon = INVENTORY_GetCompositItem(pInventory, 5);
     if (pLeftHandWeapon && ITEMSIsA(pLeftHandWeapon, 0x2E) && pRightHandWeapon && ITEMSIsA(pRightHandWeapon, 0x2E))
     {
         return 1;
@@ -1092,7 +1093,7 @@ int __fastcall SKILLS_SrvSt39_Berserk(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
     }
 
     STATLIST_SetListExpireFrame(pStatList, nFrame);
-    sub_005417D0_DirectDated(pGame, pUnit, 0xC, nFrame, 0, 0);
+    EVENT_SetEvent(pGame, pUnit, 0xC, nFrame, 0, 0);
     SKILLS_ApplyAuraStatsToStatList(pUnit, pStatList, pSkillsTxtRecord, nSkillId, nSkillLevel);
     return 1;
 }
@@ -1482,7 +1483,7 @@ static int __stdcall SKILLS_Leap(D2GameStrc* pGame, D2SkillStrc* pSkill, D2UnitS
     int nId = -1;
     if (bMonster)
     {
-        nId = sub_00463860(pUnit);
+        nId = CUNIT_GetMonsterBaseId(pUnit);
     }
 
     nBaseId = (nId < 0 || nId >= sgptDataTables->nMonStatsTxtRecordCount) ? -1 : nId;

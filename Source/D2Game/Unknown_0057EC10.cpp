@@ -127,7 +127,7 @@ unsigned short __fastcall SUNITDMG_GetResultFlags(D2GameStrc* pGame, D2UnitStrc*
 }
 
 // 0x0057ED50
-void __fastcall sub_0057ED50_SetPlayerDataField154(D2UnitStrc* pUnit, int nValue)
+void __fastcall SUNITDMG_SetPlayerDataMode(D2UnitStrc* pUnit, int nValue)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
     {

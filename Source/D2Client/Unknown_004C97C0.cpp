@@ -15,7 +15,7 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                             
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                                   // 0x0045C390
 int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                                  // 0x0045C3E0
-D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams);                          // 0x004CD540
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams);                          // 0x004CD540
 int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId);                              // 0x004F21B0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
@@ -87,7 +87,7 @@ int __fastcall sub_004C97C0_SpawnScatterMissiles(D2UnitStrc* pUnit, int nSkillId
         {
             tParams.nX = nOffsetX + nX + 2;
             tParams.nY = nOffsetY + nY + 2;
-            D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tParams);
+            D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tParams);
             if (pMissile)
             {
                 PATH_SetDirection(pMissile->pDynamicPath, SEED_RollLimitedRandomNumber(&pUnit->pSeed, 0x40));

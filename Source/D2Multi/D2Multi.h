@@ -88,9 +88,9 @@ int __cdecl CHARSEL_GetConnectStatus(); // 0x0043DC30
 int __cdecl CHARSEL_CancelGameCreate(); // 0x0043F850
 int __cdecl sub_00449B30_QueryAddress(); // 0x00449B30
 int __cdecl sub_00449B70_Receive(); // 0x00449B70
-int __cdecl sub_00449BE0(); // 0x00449BE0
+int __cdecl GAME_GetMcpGameToken(); // 0x00449BE0
 int __cdecl GAME_GetConnectError(); // 0x00449C00
-int __cdecl sub_00449E40(); // 0x00449E40
+int __cdecl GAME_IsMcpCreateQueued(); // 0x00449E40
 int __fastcall D2Win_10053(D2WinControlStrc* pTextBox, int nLine); // 0x004FBA30
 int __fastcall D2Win_10055(D2WinControlStrc* pTextBox); // 0x004FBAB0
 int __fastcall D2Win_10082(D2WinControlStrc* pEditBox); // 0x004FDD00

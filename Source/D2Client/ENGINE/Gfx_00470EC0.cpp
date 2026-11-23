@@ -243,7 +243,7 @@ struct D2GfxListNodeStrc { int nMode,nId; D2GfxNodeTargetStrc* pTarget; int unk0
 struct D2GfxDataStrc { int unk00[10]; D2GfxListNodeStrc* pList; };
 int __fastcall GAME_GetUnitClassId(D2UnitStrc*); // 0x00451F60
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int); // 0x00451FE0
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc*); // 0x004639D0
+D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc*); // 0x004639D0
 D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc*); // 0x00463E10
 int __fastcall CUNIT_IsSelectedUnit(D2UnitStrc*); // 0x00464370
 D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
@@ -332,7 +332,7 @@ static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, in
     if (pUnit->nPaletteIndex) pPalShift = D2Win_10175_GetPL2Shift(pUnit->nPaletteIndex - 1);
     D2InventoryStrc* pInventory;
     D2UnitStrc* pOwner;
-    if (IsShapeShifted(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = sub_004639D0_GetOwnerUnit(pUnit)) != 0)
+    if (IsShapeShifted(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = CUNIT_GetOwnerUnit(pUnit)) != 0)
         pInventory = pOwner->pInventory;
     else
         pInventory = pUnit->pInventory;
@@ -384,7 +384,7 @@ static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, in
         }
         else if (nComponent == 14)
         {
-            D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pUnit);
+            D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pUnit);
             if (pOwner && (pOwner->dwUnitType == UNIT_MISSILE || STATES_CheckState(pOwner, STATE_ATTACHED)))
                 sub_004DC7B0_DrawUnitByType(pOwner, dwColor, 1);
             continue;

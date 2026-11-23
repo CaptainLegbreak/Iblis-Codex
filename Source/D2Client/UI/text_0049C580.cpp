@@ -90,10 +90,10 @@ extern "C" __declspec(dllimport) int __stdcall IntersectRect(D2RectStrc* pDest, 
 extern "C" int __cdecl atoi(const char* szString);
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __cdecl sub_0045AE90();
-void __fastcall sub_0049D8E0_DrawTextList(T00479230* pTextBox, int nX, int nY);
+void __fastcall TEXT_DrawTextList(T00479230* pTextBox, int nX, int nY); // 0x0049D8E0
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 T0044CB60* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth);
-int __fastcall sub_00502EF0(int nArg);
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 int __cdecl sub_00525150();
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
@@ -126,7 +126,7 @@ struct D2TextNodeStrc
 #pragma pack(pop)
 
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
-void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
+void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 extern D2TextListStrc gtOverheadTextList; // 0x007BF1EA
@@ -143,7 +143,7 @@ extern "C" const char gszFormatSound[]; // 0x006DA194
 extern D2StringSoundStrc* gapClassStringSounds[]; // 0x00722F1C
 extern D2StringSoundStrc gaMonStringSounds[]; // 0x00723750
 
-static void __stdcall sub_004A0A00_ShowHoverText(const Unicode* wszText, D2UnitStrc* pUnit, D2HoverTextStrc* pHoverText, D2CoordStrc* pPos);
+static void __stdcall TEXT_ShowHoverText(const Unicode* wszText, D2UnitStrc* pUnit, D2HoverTextStrc* pHoverText, D2CoordStrc* pPos); // 0x004A0A00
 
 char gabNpcMenuState[1]; // 0x007C0C68
 
@@ -218,7 +218,7 @@ void __cdecl TEXT_DrawPanelFrame()
 }
 
 // 0x004A23D0
-void __cdecl sub_004A23D0_LoadPanelCels()
+void __cdecl TEXT_LoadQuestPanelCels()
 {
     char szPath[0x104];
     if (sub_00483350())
@@ -315,7 +315,7 @@ struct D2CelFileStrc;
 // build: symbol ??0Unicode@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x0049D370
-static void sub_0049D370_FreeTextLines(T0044CB60* pLine)
+static void TEXT_FreeTextLines(T0044CB60* pLine)
 {
     while (pLine)
     {
@@ -327,7 +327,7 @@ static void sub_0049D370_FreeTextLines(T0044CB60* pLine)
 }
 
 // 0x0049D3C0
-static void sub_0049D3C0_MeasureTextBox(T00479230* pBox)
+static void TEXT_MeasureTextBox(T00479230* pBox)
 {
     int nMaxWidth = 0;
     pBox->nTextTop = 0;
@@ -345,7 +345,7 @@ void __stdcall TEXT_FreeTextBox(T00479230* pTextBox)
 {
     if (pTextBox)
     {
-        sub_0049D370_FreeTextLines(pTextBox->pFirst);
+        TEXT_FreeTextLines(pTextBox->pFirst);
         FOG_Free(pTextBox, ".\\UI\\text.cpp", 0x68E, 0);
     }
 }
@@ -371,11 +371,12 @@ static int TEXT_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect)
     case 3:
         return 1;
     }
-    sub_0049D8E0_DrawTextList(pTextBox, pRect->nLeft, pRect->nTop);
+    TEXT_DrawTextList(pTextBox, pRect->nLeft, pRect->nTop);
     return 1;
 }
 
-static bool __stdcall sub_0049E070_PlaceHoverRect(int nCount, D2RectStrc* pRect)
+// build: symbol ?TEXT_PlaceHoverRect@* 0x0049E070
+static bool __stdcall TEXT_PlaceHoverRect(int nCount, D2RectStrc* pRect)
 {
     if (nCount >= 0x10)
         return false;
@@ -428,7 +429,8 @@ static bool __stdcall sub_0049E070_PlaceHoverRect(int nCount, D2RectStrc* pRect)
     return true;
 }
 
-static bool sub_0049E280_ConvertHoverText(Unicode* wszText, const char* szText, int nLangId)
+// build: symbol ?TEXT_ConvertHoverText@* 0x0049E280
+static bool TEXT_ConvertHoverText(Unicode* wszText, const char* szText, int nLangId)
 {
     if (nLangId != 7 && nLangId != 0xC && nLangId != 6 && nLangId != 9)
     {
@@ -505,17 +507,17 @@ void __fastcall TEXT_DrawUnitHoverText(D2UnitStrc* pUnit)
                 if (nLength >= 0xC8)
                     nLength = 0xC7;
                 sub_00526790(wszBuffer, wszString, nLength);
-                sub_004A0A00_ShowHoverText(wszBuffer, pUnit, pHoverText, &tPos);
+                TEXT_ShowHoverText(wszBuffer, pUnit, pHoverText, &tPos);
                 return;
             }
         }
     }
 
     Unicode wszHover[0x100];
-    if (!sub_0049E280_ConvertHoverText(wszHover, szText, CHAT_GetLangIdFromHoverMsg(pHoverText)))
+    if (!TEXT_ConvertHoverText(wszHover, szText, CHAT_GetLangIdFromHoverMsg(pHoverText)))
         return;
     wszHover[0xFF].wChar = 0;
-    sub_004A0A00_ShowHoverText(wszHover, pUnit, pHoverText, &tPos);
+    TEXT_ShowHoverText(wszHover, pUnit, pHoverText, &tPos);
 }
 
 // 0x004A0D20
@@ -565,7 +567,7 @@ void __fastcall TEXT_DrawObjectHoverText(D2UnitStrc* pUnit)
     if (nLength >= 0xC8)
         nLength = 0xC7;
     sub_00526790(wszBuffer, wszString, nLength);
-    sub_004A0A00_ShowHoverText(wszBuffer, pUnit, pHoverText, &tPos);
+    TEXT_ShowHoverText(wszBuffer, pUnit, pHoverText, &tPos);
 }
 
 // 0x0049DEE0
@@ -576,7 +578,7 @@ void __cdecl TEXT_DrawOverheadTextList()
         return;
     }
 
-    int nOldFont = sub_00502EF0(13);
+    int nOldFont = D2Win_10127_SetFont(13);
     D2TextNodeStrc* pNode = gtOverheadTextList.pFirst;
     int nX = 15;
     if (GAME_GetUIVarState(6) || GAME_GetUIVarState(0x11))
@@ -594,7 +596,7 @@ void __cdecl TEXT_DrawOverheadTextList()
             {
                 if (pNode->pLines[i])
                 {
-                    sub_0046EFD0_DrawFramedBox(nX - 5, gnScreenHeight - 25 * nBoxRow - i * 25 / 2 - 0x81,
+                    AUTOMAP_DrawFramedBox(nX - 5, gnScreenHeight - 25 * nBoxRow - i * 25 / 2 - 0x81,
                                                D2Win_10123(pNode->pLines[i], sub_00526800(pNode->pLines[i])) + 10, 0x10, 0, 1);
                     D2Win_10117_DrawText(pNode->pLines[i], nX, gnScreenHeight + 25 * nTextRow - i * 25 / 2 - 0x73, pNode->nColor, 0);
                 }
@@ -642,11 +644,11 @@ void __cdecl TEXT_DrawOverheadTextList()
         }
     }
 
-    sub_00502EF0(nOldFont);
+    D2Win_10127_SetFont(nOldFont);
 }
 
 // 0x0049F410
-static void __stdcall sub_0049F410_SetHoverText(int nLangId, const char* szText, D2UnitStrc* pUnit)
+static void __stdcall TEXT_SetHoverText(int nLangId, const char* szText, D2UnitStrc* pUnit)
 {
     if (!pUnit)
         return;
@@ -692,7 +694,7 @@ void __fastcall TEXT_SetSpeechHoverText(D2UnitStrc* pUnit, int nStringId)
             if (pTable[i].wStringId == nStringId)
             {
                 sprintf(szText, gszFormatSound, -1, -1, pTable[i].wSoundId);
-                sub_0049F410_SetHoverText(sub_00525150(), szText, pUnit);
+                TEXT_SetHoverText(sub_00525150(), szText, pUnit);
                 return;
             }
         }
@@ -704,7 +706,7 @@ void __fastcall TEXT_SetSpeechHoverText(D2UnitStrc* pUnit, int nStringId)
             if (gaMonStringSounds[i].wStringId == nStringId)
             {
                 sprintf(szText, gszFormatD, gaMonStringSounds[i].wSoundId);
-                sub_0049F410_SetHoverText(sub_00525150(), szText, pUnit);
+                TEXT_SetHoverText(sub_00525150(), szText, pUnit);
                 return;
             }
         }
@@ -712,7 +714,7 @@ void __fastcall TEXT_SetSpeechHoverText(D2UnitStrc* pUnit, int nStringId)
 }
 
 // 0x004A0A00
-static void __stdcall sub_004A0A00_ShowHoverText(const Unicode* wszText, D2UnitStrc* pUnit, D2HoverTextStrc* pHoverText, D2CoordStrc* pPos)
+static void __stdcall TEXT_ShowHoverText(const Unicode* wszText, D2UnitStrc* pUnit, D2HoverTextStrc* pHoverText, D2CoordStrc* pPos)
 {
     if (gnGameFrame > CHAT_GetTimeoutFromHoverMsg(pHoverText))
     {
@@ -721,10 +723,10 @@ static void __stdcall sub_004A0A00_ShowHoverText(const Unicode* wszText, D2UnitS
             pUnit->pHoverText = 0;
     }
 
-    const int nOldFont = sub_00502EF0(0x0D);
+    const int nOldFont = D2Win_10127_SetFont(0x0D);
     T00479230* pTextBox = (T00479230*)FOG_Alloc(sizeof(T00479230), ".\\UI\\text.cpp", 0x65D, 0);
     pTextBox->pFirst = sub_00502970_SplitText(wszText, &pTextBox->nLines, 0xB4);
-    sub_0049D3C0_MeasureTextBox(pTextBox);
+    TEXT_MeasureTextBox(pTextBox);
 
     pPos->nX -= pTextBox->nWidth >> 1;
     pPos->nY -= 0x32;
@@ -735,7 +737,7 @@ static void __stdcall sub_004A0A00_ShowHoverText(const Unicode* wszText, D2UnitS
     tRect.nLeft = pPos->nX;
     tRect.nBottom = pTextBox->nHeight + pPos->nY;
     tRect.nRight = pTextBox->nWidth + pPos->nX;
-    if (gnHoverRectCount < 0x10 && !sub_0049E070_PlaceHoverRect(gnHoverRectCount, &tRect))
+    if (gnHoverRectCount < 0x10 && !TEXT_PlaceHoverRect(gnHoverRectCount, &tRect))
     {
         TEXT_FreeTextBox(pTextBox);
         return;
@@ -744,5 +746,5 @@ static void __stdcall sub_004A0A00_ShowHoverText(const Unicode* wszText, D2UnitS
     ++gnHoverRectCount;
     TEXT_DrawTextBoxAt(pTextBox, &tRect);
     TEXT_FreeTextBox(pTextBox);
-    sub_00502EF0(nOldFont);
+    D2Win_10127_SetFont(nOldFont);
 }

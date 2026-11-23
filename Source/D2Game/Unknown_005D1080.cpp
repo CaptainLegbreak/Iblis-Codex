@@ -246,7 +246,7 @@ static int __stdcall SKILLS_CreateMissileVolley(D2GameStrc* pGame, int nCount, D
     return 1;
 }
 
-int __fastcall sub_005D1CD0_SrvDoMissileVolley(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D1CD0
+int __fastcall SKILLS_SrvDo130_VineAttack(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D1CD0
 
 #include "gen/data/Source/D2Game/Unknown_005D1080.inc"
 
@@ -338,7 +338,8 @@ static __declspec(noinline) void __stdcall sub_005D1E10_Transform(Unit* owner, i
         sub_005A4850_Effect(game, target, record->effect, 0);
 }
 
-extern "C" int __fastcall sub_005D1F70_Dispatch(Game* game, Unit* owner, int skill, int level)
+// build: symbol @SKILLS_SrvDo131_OverseerWhip@* 0x005D1F70
+extern "C" int __fastcall SKILLS_SrvDo131_OverseerWhip(Game* game, Unit* owner, int skill, int level)
 {
     SkillRecord* record = GetSkillRecord(skill);
     if (!record)

@@ -142,7 +142,8 @@ unsigned int __stdcall D2Common_11069(D2UnitStrc* pMonster, unsigned int nIndex,
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pMonster);
         if (pRoom && DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom)) == ACT_II)
         {
-            switch (MONSTERS_GetBaseIdFromMonsterId(sub_00463860(pMonster)))
+// build: symbol ?CUNIT_GetMonsterBaseId@* 0x00463860
+            switch (MONSTERS_GetBaseIdFromMonsterId(CUNIT_GetMonsterBaseId(pMonster)))
             {
             case MONSTER_SK_ARCHER1:
             {

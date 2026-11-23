@@ -25,7 +25,7 @@ void __cdecl WINDOW_HideSystemCursor(); // 0x004F5510
 
 void __cdecl WINDOW_ShowSystemCursor(); // 0x004F5540
 
-double __cdecl sub_004F6130_GetElapsedMs(); // 0x004F6130
+double __cdecl D2GFX_GetElapsedMs(); // 0x004F6130
 
 void __fastcall CMNSUBTILE_SetPaletteTables(D2PaletteTableStrc* pPaletteTables); // 0x004F8E40
 
@@ -268,9 +268,9 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern int gnChangedScaleFactor; // 0x0072DB40
 
-// build: symbol ?$S1@?1??sub_004F6130_GetElapsedMs@@YANXZ@4IA 0x007C9358
+// build: symbol ?$S1@?1??D2GFX_GetElapsedMs@@YANXZ@4IA 0x007C9358
 // 0x004F6110
-double __cdecl sub_004F6110_GetPerfFrequency()
+double __cdecl D2GFX_GetPerfFrequency()
 {
     D2LargeIntegerStrc tFrequency;
     QueryPerformanceFrequency(&tFrequency);
@@ -278,7 +278,7 @@ double __cdecl sub_004F6110_GetPerfFrequency()
 }
 
 // 0x004F6130
-double __cdecl sub_004F6130_GetElapsedMs()
+double __cdecl D2GFX_GetElapsedMs()
 {
     static D2PerfStartStrc stStart; // 0x007C9350
 
@@ -377,7 +377,7 @@ int __stdcall sub_J03_EmitScaleReaders()
 }
 
 // 0x004F6610
-void __cdecl sub_004F6610_IncreaseScaleFactor()
+void __cdecl D2GFX_IncreaseScaleFactor()
 {
     if (gnChangedScaleFactor < 0x200)
     {
@@ -390,7 +390,7 @@ void __cdecl sub_004F6610_IncreaseScaleFactor()
 }
 
 // 0x004F6640
-void __cdecl sub_004F6640_DecreaseScaleFactor()
+void __cdecl D2GFX_DecreaseScaleFactor()
 {
     if (gnChangedScaleFactor > 0x100)
     {
@@ -498,7 +498,7 @@ extern int ganSubtileRowWidth[]; // 0x0072DB84
 extern int ganSubtileRowXOffset[]; // 0x0072DB48
 
 // 0x004F6BB0
-void __fastcall sub_004F6BB0_DrawLitSubtileRows(unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep)
+void __fastcall D2GFX_DrawLitSubtileRows(unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep)
 {
     unsigned char* pRow = pDst;
     for (int i = 0; i < 15; ++i)
@@ -1215,9 +1215,9 @@ int __stdcall D2GFX_StartDraw(int bClear, unsigned char nRed, unsigned char nGre
 // 0x004F6190
 int __stdcall D2GFX_EndScene()
 {
-    static double sdLastFrame = sub_004F6130_GetElapsedMs();
+    static double sdLastFrame = D2GFX_GetElapsedMs();
 
-    const double dNow = sub_004F6130_GetElapsedMs();
+    const double dNow = D2GFX_GetElapsedMs();
     const double dElapsed = dNow - sdLastFrame;
     if (dElapsed <= 5.0)
     {
@@ -1230,7 +1230,7 @@ int __stdcall D2GFX_EndScene()
             if (nWait <= 5)
             {
                 Sleep(nWait);
-                gdFrameRemainder = gdFrameRemainder - (sub_004F6130_GetElapsedMs() - dNow - dWaitWhole);
+                gdFrameRemainder = gdFrameRemainder - (D2GFX_GetElapsedMs() - dNow - dWaitWhole);
             }
             else
             {
@@ -1243,7 +1243,7 @@ int __stdcall D2GFX_EndScene()
         }
     }
 
-    sdLastFrame = sub_004F6130_GetElapsedMs();
+    sdLastFrame = D2GFX_GetElapsedMs();
     gpGraphicsInterface->pfEndDraw();
     gpGraphicsInterface->pfBlit();
     return 1;

@@ -34,7 +34,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 
 
-D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 void __fastcall SCMD_GetRoomLight(D2ActiveRoomStrc* pRoom, int* pLight, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue, int nFlag); // 0x00474550
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
@@ -51,7 +51,7 @@ D2UnitStrc* __stdcall UNITFINDS_FindUnitInNeighboredRooms(D2ActiveRoomStrc* pRoo
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
 void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA200
 void __stdcall GFXUTIL_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA2A0
@@ -121,7 +121,7 @@ D2ClientTimedBoxStrc gtTimedBox; // 0x007A742C
 void __cdecl sub_0046AD10_UpdateTimedBox()
 {
     unsigned int nLight = 0;
-    SCMD_GetRoomLight(sub_004646A0_GetPlayerRoom(), (int*)&nLight, &gtTimedBox.nColor[0], &gtTimedBox.nColor[1], &gtTimedBox.nColor[2], 0);
+    SCMD_GetRoomLight(CUNIT_GetPlayerRoom(), (int*)&nLight, &gtTimedBox.nColor[0], &gtTimedBox.nColor[1], &gtTimedBox.nColor[2], 0);
 
     if (gtTimedBox.nTick < gtTimedBox.nFadeIn)
     {
@@ -144,7 +144,7 @@ void __cdecl sub_0046AD10_UpdateTimedBox()
     }
 
     ++gtTimedBox.nTick;
-    D2ActiveRoomStrc* pRoom = sub_004646A0_GetPlayerRoom();
+    D2ActiveRoomStrc* pRoom = CUNIT_GetPlayerRoom();
     int nLevelId = 0;
     if (pRoom)
     {
@@ -242,7 +242,7 @@ void __fastcall sub_0046B530_SpawnMissileAtObject(D2UnitStrc* pUnit)
     tMissileParams.nTargetX = CLIENTS_GetUnitXInline(pObject);
     tMissileParams.nTargetY = CLIENTS_GetUnitYInline(pObject);
     tMissileParams.nSkillLevel = 1;
-    D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
+    D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
     if (pMissile)
     {
         MISSILE_SetTargetX(pMissile, sub_00451F50(pObject));

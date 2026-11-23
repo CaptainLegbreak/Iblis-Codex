@@ -37,7 +37,7 @@ int __fastcall TASK_GetClockTime(); // 0x00564340
 
 D2LinkStrc* __fastcall TASK_LinkList_Remove(D2LinkStrc* pLink); // 0x005642E0
 
-void __stdcall sub_00564460_TASK_BalanceQueues(D2TaskStrc* pTask); // 0x00564460
+void __stdcall TASK_BalanceQueues(D2TaskStrc* pTask); // 0x00564460
 
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
@@ -262,7 +262,7 @@ static inline int TASK_GetScheduledTimeDelta(D2LinkStrc* pTaskLink, D2LinkStrc* 
 }
 
 // 0x00564460
-void __stdcall sub_00564460_TASK_BalanceQueues(D2TaskQueueStrc* pNewQueue)
+void __stdcall TASK_BalanceQueues(D2TaskQueueStrc* pNewQueue)
 {
     const unsigned int nGamesPerQueue = gnGamesCount / gnNumberOfTasksCreated;
     const unsigned int nExtraGames = gnGamesCount % gnNumberOfTasksCreated;
@@ -412,7 +412,7 @@ int __cdecl TASK_CreateQueue()
         pBalanceLink->pPrev = pBalanceLink;
         pBalanceLink->pNext = pBalanceLink;
         gtTaskSlots[nIndex] = pTask;
-        sub_00564460_TASK_BalanceQueues(pTask);
+        TASK_BalanceQueues(pTask);
     }
     LeaveCriticalSection(&gtTaskQueuesCriticalSections[nIndex]);
     LeaveCriticalSection(&gTaskSlotsCriticalSection);
@@ -445,7 +445,7 @@ static inline void TASK_LinkList_RemoveInline(D2LinkStrc* pLink)
 }
 
 // 0x00564A00
-int __fastcall sub_00564A00_QueueGame(D2TaskGameStrc* pTaskGame, int nArg, unsigned int hGame)
+int __fastcall TASK_QueueGame(D2TaskGameStrc* pTaskGame, int nArg, unsigned int hGame)
 {
     int bResult = 0;
     pTaskGame->nTime = TASK_GetClockTime();

@@ -51,7 +51,7 @@ struct D2AiCallback11ArgStrc
 
 typedef D2UnitStrc* (__fastcall* AITARGETCALLBACK)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, void*);
 
-int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
+int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
 int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
 
@@ -509,7 +509,7 @@ int __fastcall AITACTICS_RunToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc*
 
 int __fastcall AITACTICS_WalkToTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);       // 0x005DECA0
 
-int __fastcall sub_005DEFE0_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
+int __fastcall AITACTICS_WalkAwayFromTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
 
 int __fastcall D2GAME_AI_PetMove_6FCE2BA0(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, int a4, int bRun, int nVelocity, int a7); // 0x005E3EA0
 
@@ -607,7 +607,7 @@ D2MonStatsTxt* __fastcall sub_0055B7E0_GetMonStatsTxtFromUnit(D2UnitStrc* pUnit)
 
 int __fastcall AITACTICS_RunToTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit);   // 0x005DED20
 
-int __fastcall sub_005DF140_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DF140
+int __fastcall AITACTICS_RunAwayFromTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DF140
 
 D2UnitStrc* __fastcall AITHINK_TargetCallback_ShadowMaster(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005EB6D0
 
@@ -673,7 +673,7 @@ int __fastcall AIUTIL_CheckIfMonsterUsesSkill(D2UnitStrc* pUnit, int nSkillId); 
 
 D2UnitStrc* __fastcall AITACTICS_GetTargetMinion(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005DE830
 
-int __fastcall sub_005DF7D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a4, int bDeleteAiEventCallback); // 0x005DF7D0
+int __fastcall AITACTICS_WalkToTargetWithRandomPathType(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a4, int bDeleteAiEventCallback); // 0x005DF7D0
 
 D2UnitStrc* __fastcall AITHINK_TargetCallback_Overseer_Nihlathak(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005E26D0
 
@@ -1386,7 +1386,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 typedef int(__fastcall* UNITFINDTEST)(D2UnitStrc* pUnit);
 
-void __fastcall sub_005417D0_DirectDated(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int nCustomId, int nCustomParam); // 0x005417D0
+void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int nCustomId, int nCustomParam); // 0x005417D0
 
 void __fastcall AIGENERAL_SetAiControlParam(D2UnitStrc* pMonster, int nIndex, int nParamValue); // 0x0058EC00
 
@@ -1719,7 +1719,7 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_Panther(D2GameStrc* pGame, D2UnitS
         return 0;
     }
 
-    if (sub_00463860(pUnit) != sub_00463860(pTarget) || MONSTERS_IsDead(pTarget))
+    if (CUNIT_GetMonsterBaseId(pUnit) != CUNIT_GetMonsterBaseId(pTarget) || MONSTERS_IsDead(pTarget))
     {
         return 0;
     }
@@ -1961,7 +1961,7 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_HighPriest(D2GameStrc* pGame, D2Un
 }
 
 // 0x005E0490
-void __fastcall sub_005E0490_HighPriest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+void __fastcall AITHINK_Fn085_HighPriest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
     int nDistance = pAiTickParam->nTargetDistance;
     int bCombat = pAiTickParam->bCombat;
@@ -1976,7 +1976,7 @@ void __fastcall sub_005E0490_HighPriest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
                 AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
                 return;
             }
-            sub_005DEFE0_Escape(pGame, pUnit, pTarget, 6, 1);
+            AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 6, 1);
             return;
         }
         if (pMonStatsTxt->nSkill[1] >= 0 && pGame->dwGameFrame > pAiControl->dwAiParam[1]
@@ -2013,7 +2013,7 @@ void __fastcall sub_005E0490_HighPriest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
                 AITACTICS_WalkToTargetUnitWithSteps(pGame, pUnit, pTarget, 6);
                 return;
             }
-            sub_005DF7D0(pGame, pUnit, pTarget, 3, 0);
+            AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 3, 0);
             return;
         }
     }
@@ -2024,7 +2024,7 @@ void __fastcall sub_005E0490_HighPriest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
             return;
         }
         if (AI_ROLL_PERCENT(pSeed) < AI_PARAM(pGame, pMonStatsTxt, 5)) {
-            sub_005DEFE0_Escape(pGame, pUnit, pTarget, 6, 1);
+            AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 6, 1);
             pAiControl->dwAiParam[0] = 0;
             return;
         }
@@ -2234,7 +2234,7 @@ void __fastcall AITHINK_Fn089_Megademon(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
 
             if (SEED_RollPercentage_005E0C80(pSeed) < AI_GetParam(pGame, pMonStatsTxt, MEGADEMON_AI_PARAM_CIRCLE_MELEE_CHANCE_PCT))
             {
-                sub_005DF7D0(pGame, pUnit, pTarget, 3, 0);
+                AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 3, 0);
                 return;
             }
 
@@ -2319,7 +2319,7 @@ void __fastcall AITHINK_Fn095_PantherJavelin(D2GameStrc* pGame, D2UnitStrc* pUni
 
     if (nDistance < 8 && (int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, PANTHERJAVELIN_AI_PARAM_WALK_AWAY_CHANCE_PCT))
     {
-        sub_005DEFE0_Escape(pGame, pUnit, pTickTarget, 16, 1);
+        AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTickTarget, 16, 1);
         return;
     }
 
@@ -2447,7 +2447,7 @@ LSelectTarget:
         }
         else
         {
-            sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+            AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 4, 0);
         }
         return;
 
@@ -2455,7 +2455,7 @@ LSelectTarget:
         pAiControl->dwAiParam[0] = 0;
         pAiControl->dwAiParam[1] = 0;
         sub_005DE190_SetAiParam(pUnit, 0, 50, 0);
-        if (!sub_005DF7D0(pGame, pUnit, pTarget, 6, 1))
+        if (!AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 6, 1))
         {
             AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
         }
@@ -2464,7 +2464,7 @@ LSelectTarget:
     case 2:
         if (nTargetDistance > 12)
         {
-            if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) >= 20 || !sub_005DF7D0(pGame, pUnit, pTarget, 4, 1))
+            if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) >= 20 || !AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 4, 1))
             {
                 pAiControl->dwAiParam[0] = 0;
                 pAiControl->dwAiParam[1] = 0;
@@ -2474,7 +2474,7 @@ LSelectTarget:
         else
         {
             sub_005DE190_SetAiParam(pUnit, 2, 50, 0);
-            if (!sub_005DEFE0_Escape(pGame, pUnit, pTarget, 14, 1))
+            if (!AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 14, 1))
             {
                 AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pSelected);
                 pAiControl->dwAiParam[0] = 0;
@@ -2564,7 +2564,7 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_SiegeBeast(D2GameStrc* pGame, D2Un
     }
 
     const int nImp = MONSTERS_ValidateMonsterIdInline(MONSTER_IMP1);
-    if (sub_00463860(pTarget) != nImp)
+    if (CUNIT_GetMonsterBaseId(pTarget) != nImp)
     {
         return 0;
     }
@@ -2922,7 +2922,7 @@ void __fastcall AITHINK_Fn119_SuccubusWitch(D2GameStrc* pGame, D2UnitStrc* pUnit
     if (bCombat)
     {
         if (AI_ROLL_PERCENT(pSeed) >= AI_PARAM(pGame, pMonStatsTxt, SUCCUBUSWITCH_AI_PARAM_WALK_AWAY_CHANCE_PCT)
-            || !sub_005DEFE0_Escape(pGame, pUnit, pTarget, AI_PARAM(pGame, pMonStatsTxt, SUCCUBUSWITCH_AI_PARAM_COMFORT_DISTANCE), 1))
+            || !AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, AI_PARAM(pGame, pMonStatsTxt, SUCCUBUSWITCH_AI_PARAM_COMFORT_DISTANCE), 1))
         {
             if (AI_ROLL_PERCENT(pSeed) < AI_PARAM(pGame, pMonStatsTxt, SUCCUBUSWITCH_AI_PARAM_ATTACK_CHANCE_PCT))
             {
@@ -2949,7 +2949,7 @@ void __fastcall AITHINK_Fn119_SuccubusWitch(D2GameStrc* pGame, D2UnitStrc* pUnit
 
         if (nDistance >= AI_PARAM(pGame, pMonStatsTxt, SUCCUBUSWITCH_AI_PARAM_COMFORT_DISTANCE)
             || AI_ROLL_PERCENT(pSeed) >= AI_PARAM(pGame, pMonStatsTxt, SUCCUBUSWITCH_AI_PARAM_WALK_AWAY_CHANCE_PCT)
-            || !sub_005DEFE0_Escape(pGame, pUnit, pTarget, AI_PARAM(pGame, pMonStatsTxt, SUCCUBUSWITCH_AI_PARAM_COMFORT_DISTANCE), 1))
+            || !AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, AI_PARAM(pGame, pMonStatsTxt, SUCCUBUSWITCH_AI_PARAM_COMFORT_DISTANCE), 1))
         {
             if (pMonStatsTxt->nSkill[4] < 0)
             {
@@ -2967,7 +2967,7 @@ void __fastcall AITHINK_Fn119_SuccubusWitch(D2GameStrc* pGame, D2UnitStrc* pUnit
             }
             else
             {
-                if (AI_ROLL_PERCENT(pSeed) >= 50 || !sub_005DF7D0(pGame, pUnit, pTarget, 6, 1))
+                if (AI_ROLL_PERCENT(pSeed) >= 50 || !AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 6, 1))
                 {
                     AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, SUCCUBUSWITCH_AI_PARAM_STALL_DURATION));
                 }
@@ -3079,7 +3079,7 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_Overseer_Nihlathak(D2GameStrc* pGa
         return 0;
     }
 
-    if (MONSTERS_ValidateMonsterIdInline(sub_00463860(pTarget)) != MONSTER_MINION1 || MONSTERS_IsDead(pTarget) || SUNIT_AreUnitsHostile(pGame, pUnit, pTarget) || STATES_CheckState(pTarget, STATE_BLOODLUST))
+    if (MONSTERS_ValidateMonsterIdInline(CUNIT_GetMonsterBaseId(pTarget)) != MONSTER_MINION1 || MONSTERS_IsDead(pTarget) || SUNIT_AreUnitsHostile(pGame, pUnit, pTarget) || STATES_CheckState(pTarget, STATE_BLOODLUST))
     {
         return 0;
     }
@@ -3163,7 +3163,7 @@ void __fastcall AITHINK_Fn120_Overseer(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
     {
         if (nTargetDistance < AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_COMFORT_DISTANCE) - AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_COMFORT_ZONE))
         {
-            sub_005DEFE0_Escape(pGame, pUnit, pTarget, (unsigned char)AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_COMFORT_DISTANCE) - nTargetDistance, 0);
+            AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, (unsigned char)AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_COMFORT_DISTANCE) - nTargetDistance, 0);
             return;
         }
 
@@ -3175,7 +3175,7 @@ void __fastcall AITHINK_Fn120_Overseer(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
 
         if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 50)
         {
-            sub_005DF7D0(pGame, pUnit, pTarget, 5, 0);
+            AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 5, 0);
             return;
         }
 
@@ -3208,7 +3208,7 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_MinionSpawner(D2GameStrc* pGame, D
         return 0;
     }
 
-    switch (MONSTERS_ValidateMonsterIdInline(sub_00463860(pTarget)))
+    switch (MONSTERS_ValidateMonsterIdInline(CUNIT_GetMonsterBaseId(pTarget)))
     {
     case MONSTER_MINION1:
     case MONSTER_SUICIDEMINION1:
@@ -3394,7 +3394,7 @@ void __fastcall AITHINK_Fn122_Imp(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTick
             return;
         }
 
-        if (AI_ROLL_PERCENT(pSeed) < AI_PARAM(pGame, pRecords[2], 1) && sub_005DEFE0_Escape(pGame, pUnit, pTarget, 5, 1))
+        if (AI_ROLL_PERCENT(pSeed) < AI_PARAM(pGame, pRecords[2], 1) && AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 5, 1))
         {
             return;
         }
@@ -3408,7 +3408,7 @@ void __fastcall AITHINK_Fn122_Imp(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTick
 
     if (nDistance < AI_PARAM(pGame, pRecords[2], 0) && AI_ROLL_PERCENT(pSeed) < AI_PARAM(pGame, pRecords[2], 1))
     {
-        sub_005DEFE0_Escape(pGame, pUnit, pTarget, 5, 0);
+        AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 5, 0);
         return;
     }
 
@@ -3772,7 +3772,7 @@ int __fastcall AITHINK_PetMove(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStr
         if (tArg.nCounter>=1)
         {
             D2GAME_EVENTS_Delete_6FC34840(pGame,pPet,2,0);
-            if (sub_005DEFE0_Escape(pGame,pPet,pPlayer,nDistance,1)) return 1;
+            if (AITACTICS_WalkAwayFromTarget(pGame,pPet,pPlayer,nDistance,1)) return 1;
             D2GAME_EVENTS_Delete_6FC34840(pGame,pPet,2,0);
             AITACTICS_WanderToTarget(pGame,pPet,pPlayer,nDistance);
             return 1;
@@ -3787,7 +3787,7 @@ int __fastcall AITHINK_PetMove(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStr
         sub_005DE190_SetAiParam(pPet,7,0,0);
         if (D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame,pPet,pPlayer,nDistance)) return 1;
         D2GAME_EVENTS_Delete_6FC34840(pGame,pPet,2,0);
-        if (sub_005DEFE0_Escape(pGame,pPet,pPlayer,nDistance,1)) return 1;
+        if (AITACTICS_WalkAwayFromTarget(pGame,pPet,pPlayer,nDistance,1)) return 1;
         sub_005DE190_SetAiParam(pPet,0,0,40);
         AITACTICS_WalkToTargetCoordinates(pGame,pPet,nOwnerX,nOwnerY);
         return 1;
@@ -3945,7 +3945,7 @@ int __fastcall D2GAME_AI_PetMove_6FCE2BA0(D2GameStrc* pGame, D2UnitStrc* pOwner,
             PLAYERPETS_IteratePets(pGame, pOwner, AITHINK_CountNearbyPets, &args);
             if (args.nCounter >= 1) {
                 D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
-                if (sub_005DEFE0_Escape(pGame, pUnit, pOwner, nRange, 1)) return 1;
+                if (AITACTICS_WalkAwayFromTarget(pGame, pUnit, pOwner, nRange, 1)) return 1;
                 D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
                 if (AITACTICS_WanderToTarget(pGame, pUnit, pOwner, nRange)) return 1;
             }
@@ -3956,7 +3956,7 @@ int __fastcall D2GAME_AI_PetMove_6FCE2BA0(D2GameStrc* pGame, D2UnitStrc* pOwner,
         sub_005DE190_SetAiParam(pUnit, 7, 0, 0);
         if (D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame, pUnit, pOwner, nRange)) return 1;
         D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
-        if (sub_005DEFE0_Escape(pGame, pUnit, pOwner, nRange, 1)) return 1;
+        if (AITACTICS_WalkAwayFromTarget(pGame, pUnit, pOwner, nRange, 1)) return 1;
         sub_005DE190_SetAiParam(pUnit, 0, 0, 40);
         if (AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(pGame, pUnit, nLastX, nLastY)) return 1;
         break;
@@ -4088,7 +4088,7 @@ void __fastcall AITHINK_UpdateNecroPet(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
             AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
             return;
         }
-        sub_005DF7D0(pGame, pUnit, pTarget, 3, 0);
+        AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 3, 0);
         return;
     }
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
@@ -4331,7 +4331,7 @@ void __fastcall AITHINK_HirelingCombat(D2GameStrc* pGame, D2UnitStrc* pUnit, int
         {
             if (D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame, pUnit, pOwner, 4)) return;
             D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
-            if (sub_005DEFE0_Escape(pGame, pUnit, pTarget, 4, 1)) return;
+            if (AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 4, 1)) return;
         }
         else if (!bAction)
         {
@@ -4860,11 +4860,11 @@ void __fastcall AITHINK_Fn059_BloodRaven(D2GameStrc* pGame, D2UnitStrc* pUnit, D
             return;
         }
         sub_005DE190_SetAiParam(pUnit, 0, 50, 0);
-        if (sub_005DF7D0(pGame, pUnit, pTarget, 4, 1)) return;
+        if (AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 4, 1)) return;
     }
     if ((int)(Roll_005E6320(pSeed) % 100) < 30 && nDistance < 12) {
         sub_005DE190_SetAiParam(pUnit, 7, 100, 0);
-        if (sub_005DF140_Escape(pGame, pUnit, pTarget, 12 - nDistance, 0)) return;
+        if (AITACTICS_RunAwayFromTarget(pGame, pUnit, pTarget, 12 - nDistance, 0)) return;
         D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
     }
     AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
@@ -5305,7 +5305,7 @@ int __fastcall AITHINK_UnitFindCallback_Willowisp(D2UnitStrc* pUnit)
         return 0;
     }
 
-    if (MONSTERS_ValidateMonsterIdInline_005EFB80(sub_00463860(pUnit)) != 0x76)
+    if (MONSTERS_ValidateMonsterIdInline_005EFB80(CUNIT_GetMonsterBaseId(pUnit)) != 0x76)
     {
         return 0;
     }
@@ -5336,7 +5336,7 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_ZakarumPriest(D2GameStrc* pGame, D
         return 0;
     }
 
-    switch (CUNIT_ValidateMonsterId(sub_00463860(pTarget)))
+    switch (CUNIT_ValidateMonsterId(CUNIT_GetMonsterBaseId(pTarget)))
     {
     case MONSTER_ZEALOT1:
     case MONSTER_CANTOR1:
@@ -5494,7 +5494,7 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_OblivionKnight(D2GameStrc* pGame, 
         return 0;
     }
 
-    if (MONSTERS_ValidateMonsterIdInline(sub_00463860(pTarget)) != MONSTER_DOOMKNIGHT1)
+    if (MONSTERS_ValidateMonsterIdInline(CUNIT_GetMonsterBaseId(pTarget)) != MONSTER_DOOMKNIGHT1)
     {
         return 0;
     }
@@ -5546,7 +5546,7 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_FallenShaman(D2GameStrc* pGame, D2
         return 0;
     }
 
-    const int nClassId = MONSTERS_ValidateMonsterIdInline(sub_00463860(pTarget));
+    const int nClassId = MONSTERS_ValidateMonsterIdInline(CUNIT_GetMonsterBaseId(pTarget));
     if ((nClassId != MONSTER_FALLEN1 && nClassId != MONSTER_FALLENSHAMAN1)
         || STATLIST_GetUnitAlignment(pTarget) != UNIT_ALIGNMENT_EVIL
         || !UNIT_HasFlag(pTarget, UNITFLAG_TARGETABLE)
@@ -5643,7 +5643,7 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_FetishShaman(D2GameStrc* pGame, D2
         return 0;
     }
 
-    const int nClassId = CUNIT_ValidateMonsterId(sub_00463860(pTarget));
+    const int nClassId = CUNIT_ValidateMonsterId(CUNIT_GetMonsterBaseId(pTarget));
     if ((nClassId == MONSTER_FETISH1 || nClassId == MONSTER_FETISHBLOW1 && pArg->nHealCapability != 1)
         && STATLIST_GetUnitAlignment(pTarget) == UNIT_ALIGNMENT_EVIL
         && (pArg->nHealCapability >= 3 || !MONSTERUNIQUE_CheckMonTypeFlag(pTarget, MONTYPEFLAG_UNIQUE | MONTYPEFLAG_CHAMPION)))
@@ -5993,11 +5993,11 @@ void __fastcall D2GAME_AI_SpecialState11_6FCE7E80(D2GameStrc* pGame, D2UnitStrc*
         sub_005DE190_SetAiParam(pUnit, 2, nVel, 0);
         if (sub_0046C140_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, MONMODE_RUN))
         {
-            sub_005DF140_Escape(pGame, pUnit, pTarget, 30, 0);
+            AITACTICS_RunAwayFromTarget(pGame, pUnit, pTarget, 30, 0);
             return;
         }
 
-        sub_005DEFE0_Escape(pGame, pUnit, pTarget, 30, 0);
+        AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 30, 0);
         return;
     }
 
@@ -6012,11 +6012,11 @@ void __fastcall D2GAME_AI_SpecialState11_6FCE7E80(D2GameStrc* pGame, D2UnitStrc*
     int bResult;
     if (sub_0046C140_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, MONMODE_RUN))
     {
-        bResult = sub_005DF140_Escape(pGame, pUnit, pTarget, 30, 1);
+        bResult = AITACTICS_RunAwayFromTarget(pGame, pUnit, pTarget, 30, 1);
     }
     else
     {
-        bResult = sub_005DEFE0_Escape(pGame, pUnit, pTarget, 30, 1);
+        bResult = AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 30, 1);
     }
 
     if (!bResult)
@@ -6046,7 +6046,7 @@ void __fastcall AITHINK_Fn007_Brute(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
 
         if (AI_RollPercentage_005EFB80(pUnit) < AI_GetParam(pGame, pMonStatsTxt, BRUTE_AI_PARAM_ATTACK_CHANCE_PCT))
         {
-            sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+            AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 4, 0);
             return;
         }
 
@@ -6233,7 +6233,7 @@ void __fastcall AITHINK_Fn004_Bighead(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
         if (nTargetDistance < 3)
         {
             sub_005DE190_SetAiParam(pUnit, 0, 50, 0);
-            if (!sub_005DEFE0_Escape(pGame, pUnit, pTarget, 5, 1))
+            if (!AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 5, 1))
             {
                 AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 5, pTarget);
             }
@@ -6292,7 +6292,7 @@ void __fastcall AITHINK_Fn005_BloodHawk(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
         }
 
         sub_005DE190_SetAiParam(pUnit, 0, AI_GetParam(pGame, pMonStatsTxt, 3), 0);
-        if (!sub_005DEFE0_Escape(pGame, pUnit, pTarget, 4, 1))
+        if (!AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 4, 1))
         {
             AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
         }
@@ -6323,7 +6323,7 @@ void __fastcall AITHINK_Fn005_BloodHawk(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
     }
 
     sub_005DE190_SetAiParam(pUnit, 0, AI_GetParam(pGame, pMonStatsTxt, 3), 0);
-    if (!sub_005DEFE0_Escape(pGame, pUnit, pTarget, 4, 1))
+    if (!AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 4, 1))
     {
         AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
     }
@@ -6555,7 +6555,7 @@ zero_vel:
         {
             if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 33)
             {
-                sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+                AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 4, 0);
             }
 
             AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
@@ -6564,7 +6564,7 @@ zero_vel:
 
         sub_005DE190_SetAiParam(pUnit, 2, nVel, 0);
 
-        if (!sub_005DEFE0_Escape(pGame, pUnit, pTarget, 15, 1))
+        if (!AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 15, 1))
         {
             if (bCombat)
             {
@@ -6607,13 +6607,13 @@ zero_vel:
             }
 
             sub_005DE190_SetAiParam(pUnit, 2, nVel, 0);
-            sub_005DEFE0_Escape(pGame, pUnit, pTarget, 15, 0);
+            AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 15, 0);
             return;
         }
 
         if (pAiControl->dwAiParam[1] && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < 20)
         {
-            sub_005DF7D0(pGame, pUnit, pTarget, 3, 0);
+            AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 3, 0);
             pAiControl->dwAiParam[1] = 0;
             return;
         }
@@ -6634,7 +6634,7 @@ zero_vel:
 
     if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_GetParam(pGame, pMonStatsTxt, BABOON_AI_PARAM_CIRCLE_CHANCE_PCT))
     {
-        sub_005DF7D0(pGame, pUnit, pTarget, 3, 0);
+        AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 3, 0);
         pAiControl->dwAiParam[1] = 0;
     }
 
@@ -6728,7 +6728,7 @@ void __fastcall AITHINK_Fn018_PantherWoman(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
     if ((int)(AI_RollUnitSeed(pUnit) % 100) < 25)
     {
-        sub_005DF7D0(pGame, pUnit, pTarget, 3, 0);
+        AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 3, 0);
         return;
     }
 
@@ -6788,7 +6788,7 @@ void __fastcall AITHINK_Fn024_Mosquito(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
     else if (pAiControl->dwAiParam[0] == 2)
     {
         sub_005DE190_SetAiParam(pUnit, 2, 100, 0);
-        sub_005DEFE0_Escape(pGame, pUnit, pTarget, 10, 1);
+        AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 10, 1);
         pAiControl->dwAiParam[0] = 1;
         pAiControl->dwAiParam[1] = 0;
     }
@@ -6826,7 +6826,7 @@ void __fastcall AITHINK_Fn026_Arach(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
                 return;
             }
 
-            sub_005DF7D0(pGame, pUnit, pTarget, 6, 0);
+            AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 6, 0);
             return;
         }
 
@@ -6838,12 +6838,12 @@ void __fastcall AITHINK_Fn026_Arach(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
 
         if (nTargetDistance < AI_PARAM(pGame, pMonStatsTxt, 3) || AIUTIL_IsGettingHit(pUnit))
         {
-            sub_005DEFE0_Escape(pGame, pUnit, pTarget, 4, 0);
+            AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 4, 0);
             return;
         }
 
         pAiControl->dwAiParam[0] = 0;
-        sub_005DF7D0(pGame, pUnit, pTarget, 12, 0);
+        AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 12, 0);
         return;
     }
 
@@ -6863,7 +6863,7 @@ void __fastcall AITHINK_Fn026_Arach(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
 
             if (pMonStatsTxt->nSkill[0] < 0 || STATES_CheckState(pUnit, STATE_SPIDERLAY))
             {
-                sub_005DEFE0_Escape(pGame, pUnit, pTarget, 8, 0);
+                AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 8, 0);
                 return;
             }
 
@@ -6873,7 +6873,7 @@ void __fastcall AITHINK_Fn026_Arach(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
 
         if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, 1))
         {
-            sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+            AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 4, 0);
             return;
         }
 
@@ -6955,7 +6955,7 @@ void __fastcall AITHINK_Fn028_Vampire(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
             nVelocity = nVelocity <= 0 ? 0 : nVelocity;
             nVelocity = nVelocity >= 120 ? 120 : nVelocity;
             sub_005DE190_SetAiParam(pUnit, 0, nVelocity, 0);
-            if (sub_005DEFE0_Escape(pGame, pUnit, pTarget, 8, 1)) return;
+            if (AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 8, 1)) return;
         }
         if (nDistance < AI_PARAM(pGame, pStats, 2) && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pStats, 1)) {
             if (bSkill1 && pAi->dwAiParam[2] <= 0 && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pStats, 3)) {
@@ -6977,7 +6977,7 @@ void __fastcall AITHINK_Fn028_Vampire(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
     }
     if (nLife < 33) {
         pAi->dwAiParam[0] = 2;
-        if (sub_005DEFE0_Escape(pGame, pUnit, pTarget, 8, 0)) return;
+        if (AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 8, 0)) return;
     }
     if (bCombat) {
         pAi->dwAiParam[0] = 1;
@@ -7013,7 +7013,7 @@ void __fastcall AITHINK_Fn028_Vampire(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
         }
         if (nDistance > 20) { AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7); return; }
         if (nDistance < 9 && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < 50) {
-            sub_005DEFE0_Escape(pGame, pUnit, pTarget, 8, 0);
+            AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 8, 0);
             return;
         }
         if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 50) sub_6FCD0E80(pGame, pUnit, pTarget, 4, 0);
@@ -7060,7 +7060,7 @@ void __fastcall AITHINK_Fn035_CorruptArcher(D2GameStrc* pGame, D2UnitStrc* pUnit
     {
         if ((int)(AI_RollSeed(pSeed) % 100) < 50)
         {
-            sub_005DF7D0(pGame, pUnit, pTickTarget, 3, 0);
+            AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTickTarget, 3, 0);
             return;
         }
         AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_STALL_DURATION));
@@ -7076,7 +7076,7 @@ void __fastcall AITHINK_Fn035_CorruptArcher(D2GameStrc* pGame, D2UnitStrc* pUnit
     if (nDistance < 6 && (int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_RUN_CHANCE_PCT))
     {
         sub_005DE190_SetAiParam(pUnit, 0, 100, 0);
-        if (sub_005DF140_Escape(pGame, pUnit, pTarget, 12, 1))
+        if (AITACTICS_RunAwayFromTarget(pGame, pUnit, pTarget, 12, 1))
         {
             return;
         }
@@ -7314,7 +7314,7 @@ void __fastcall AITHINK_Fn037_SkeletonBow(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
         if ((int)(AI_RollUnitSeed(pUnit) % 100) < 20)
         {
-            sub_005DF7D0(pGame, pUnit, pTickTarget, 3, 0);
+            AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTickTarget, 3, 0);
             return;
         }
 
@@ -7580,7 +7580,7 @@ void __fastcall AITHINK_Fn047_FlyingScimitar(D2GameStrc* pGame, D2UnitStrc* pUni
 
         if ((int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FLYINGSCIMITAR_AI_PARAM_CIRCLE_CHANCE_PCT))
         {
-            sub_005DF7D0(pGame, pUnit, pTarget, 2, 0);
+            AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 2, 0);
             return;
         }
 
@@ -7721,7 +7721,7 @@ void __fastcall AITHINK_Fn048_ZakarumZealot(D2GameStrc* pGame, D2UnitStrc* pUnit
             if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, 0))
             {
                 sub_005DE190_SetAiParam(pUnit, 0, nVel, 0);
-                if (!sub_005DF140_Escape(pGame, pUnit, pTarget, 8, 1))
+                if (!AITACTICS_RunAwayFromTarget(pGame, pUnit, pTarget, 8, 1))
                     AITACTICS_WalkCloseToUnit(pGame, pUnit, 6);
                 return;
             }
@@ -7733,7 +7733,7 @@ void __fastcall AITHINK_Fn048_ZakarumZealot(D2GameStrc* pGame, D2UnitStrc* pUnit
         {
             pAiControl->dwAiParam[0] = 0;
             sub_005DE190_SetAiParam(pUnit, 0, nVel, 0);
-            if (sub_005DF140_Escape(pGame, pUnit, pTarget, 8, 1))
+            if (AITACTICS_RunAwayFromTarget(pGame, pUnit, pTarget, 8, 1))
                 return;
             pAiControl->dwAiParam[1] = 5;
         }
@@ -7741,7 +7741,7 @@ void __fastcall AITHINK_Fn048_ZakarumZealot(D2GameStrc* pGame, D2UnitStrc* pUnit
         {
             if (bCombat)
             {
-                sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+                AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 4, 0);
                 return;
             }
             AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
@@ -7760,7 +7760,7 @@ void __fastcall AITHINK_Fn048_ZakarumZealot(D2GameStrc* pGame, D2UnitStrc* pUnit
                 if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 80)
                     AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
                 else
-                    sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+                    AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 4, 0);
                 return;
             }
         }
@@ -7910,7 +7910,7 @@ void __fastcall AITHINK_Fn049_ZakarumPriest(D2GameStrc* pGame, D2UnitStrc* pUnit
 
     if ((int)(AI_RollSeed(pSeed) % 100) < 30)
     {
-        sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+        AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 4, 0);
     }
     else
     {
@@ -8006,7 +8006,7 @@ void __fastcall AITHINK_Fn050_Mephisto(D2GameStrc* game,D2UnitStrc* unit,D2AiTic
     case 1:
         state=0;
         AITACTICS_SetVelocity(unit,0,50,0);
-        if(sub_005DEFE0_Escape(game,unit,target,8,1)) break;
+        if(AITACTICS_WalkAwayFromTarget(game,unit,target,8,1)) break;
         if(combat) {
             AITACTICS_UseSkill(game,unit,stats->nSkillMode[2],stats->nSkill[2],target,0,0);
             break;
@@ -8042,7 +8042,7 @@ void __fastcall AITHINK_Fn050_Mephisto(D2GameStrc* game,D2UnitStrc* unit,D2AiTic
         }
         else {
             control->dwAiParam[1]=2;
-            if(!sub_005DF7D0(game,unit,target,3,1)) AITACTICS_WalkCloseToUnit(game,unit,12);
+            if(!AITACTICS_WalkToTargetWithRandomPathType(game,unit,target,3,1)) AITACTICS_WalkCloseToUnit(game,unit,12);
         }
         break;
     case 3:
@@ -8053,7 +8053,7 @@ void __fastcall AITHINK_Fn050_Mephisto(D2GameStrc* game,D2UnitStrc* unit,D2AiTic
         }
         else {
             AITACTICS_SetVelocity(unit,0,50,0);
-            if(!sub_005DF7D0(game,unit,target,3,1)) AITACTICS_WalkCloseToUnit(game,unit,12);
+            if(!AITACTICS_WalkToTargetWithRandomPathType(game,unit,target,3,1)) AITACTICS_WalkCloseToUnit(game,unit,12);
         }
         break;
     case 4:
@@ -8068,7 +8068,7 @@ void __fastcall AITHINK_Fn050_Mephisto(D2GameStrc* game,D2UnitStrc* unit,D2AiTic
     Fallback:
         state=0;
         if(AI_ROLL_PERCENT(seed)<65) {
-            if(AI_ROLL_PERCENT(seed)<65 || distance>5) sub_005DF7D0(game,unit,target,4,0);
+            if(AI_ROLL_PERCENT(seed)<65 || distance>5) AITACTICS_WalkToTargetWithRandomPathType(game,unit,target,4,0);
             else {
                 AITACTICS_SetVelocity(unit,0,0,4);
                 AITACTICS_WalkToTargetUnitWithFlags(game,unit,target,7);
@@ -8338,7 +8338,7 @@ void __fastcall AITHINK_Fn064_SkeletonMage(D2GameStrc* pGame, D2UnitStrc* pUnit,
         if (nDistance <= AI_PARAM(pGame, pMonStatsTxt, SKELETONMAGE_AI_PARAM_TOO_CLOSE_DISTANCE) && (int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, SKELETONMAGE_AI_PARAM_WALK_AWAY_CHANCE_PCT))
         {
             sub_005DE190_SetAiParam(pUnit, 0, 25, 0);
-            if (!sub_005DEFE0_Escape(pGame, pUnit, pTarget, 5, 1))
+            if (!AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 5, 1))
             {
                 AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTickTarget);
             }
@@ -8361,7 +8361,7 @@ void __fastcall AITHINK_Fn064_SkeletonMage(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
     if ((int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, SKELETONMAGE_AI_PARAM_CIRCLE_CHANCE_PCT))
     {
-        sub_005DF7D0(pGame, pUnit, pTickTarget, 4, 0);
+        AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTickTarget, 4, 0);
         return;
     }
 
@@ -8516,7 +8516,7 @@ void __fastcall AITHINK_Fn070_FingerMage(D2GameStrc* pGame, D2UnitStrc* pUnit, D
         else if (nDistance < 14)
         {
             sub_005DE190_SetAiParam(pUnit, 0, nVel, 0);
-            sub_005DEFE0_Escape(pGame, pUnit, pTarget, 14, 0);
+            AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 14, 0);
             return;
         }
 
@@ -8528,7 +8528,7 @@ void __fastcall AITHINK_Fn070_FingerMage(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     {
         pAiControl->dwAiParam[0] = 1;
         pAiControl->dwAiParam[1] = 0;
-        sub_005DEFE0_Escape(pGame, pUnit, pTarget, 9, 0);
+        AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 9, 0);
         return;
     }
 
@@ -8546,7 +8546,7 @@ void __fastcall AITHINK_Fn070_FingerMage(D2GameStrc* pGame, D2UnitStrc* pUnit, D
             return;
         }
 
-        sub_005DF7D0(pGame, pUnit, pTarget, MONMODE_ATTACK2, 0);
+        AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, MONMODE_ATTACK2, 0);
         return;
     }
 
@@ -8663,7 +8663,7 @@ void __fastcall AITHINK_Fn073_AbyssKnight(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
     if (nTargetDistance < AI_PARAM(pGame, pMonStatsTxt, ABYSSKNIGHT_AI_PARAM_ACTIVE_DISTANCE))
     {
-        sub_005DF7D0(pGame, pUnit, pTarget, 3, 0);
+        AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 3, 0);
         return;
     }
 
@@ -8713,7 +8713,7 @@ void __fastcall AITHINK_Fn074_OblivionKnight(D2GameStrc* pGame, D2UnitStrc* pUni
 
         sub_005DE190_SetAiParam(pUnit, 2, 50, 0);
 
-        if (sub_005DEFE0_Escape(pGame, pUnit, pTickTarget, 10, 1))
+        if (AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTickTarget, 10, 1))
         {
             return;
         }
@@ -8765,7 +8765,7 @@ void __fastcall AITHINK_Fn074_OblivionKnight(D2GameStrc* pGame, D2UnitStrc* pUni
 
     if ((int)((unsigned int)SEED_RollRandomNumber(pSeed) % 100) < 70)
     {
-        sub_005DF7D0(pGame, pUnit, pTickTarget, 3, 0);
+        AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTickTarget, 3, 0);
     }
     else
     {
@@ -9868,7 +9868,7 @@ void __fastcall AITHINK_Fn006_Fallen(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
                 AIGENERAL_FreeCurrentAiCommand(pGame, pUnit);
                 sub_005DE190_SetAiParam(pUnit, 0, 50, 0);
 
-                if (sub_005DEFE0_Escape(pGame, pUnit, pAiTickParam->pTarget, 12, 1))
+                if (AITACTICS_WalkAwayFromTarget(pGame, pUnit, pAiTickParam->pTarget, 12, 1))
                 {
                     if ((int)(AI_RollUnit(pUnit) % 20) < 1)
                     {
@@ -10032,7 +10032,7 @@ void __fastcall AITHINK_Fn014_QuillRat(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
             return;
         }
 
-        if (sub_005DEFE0_Escape(pGame, pUnit, pTarget, (unsigned char)AI_PARAM(pGame, pMonStatsTxt, QUILLRAT_AI_PARAM_WALK_DISTANCE), 1))
+        if (AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, (unsigned char)AI_PARAM(pGame, pMonStatsTxt, QUILLRAT_AI_PARAM_WALK_DISTANCE), 1))
         {
             return;
         }
@@ -10114,7 +10114,7 @@ void __fastcall AITHINK_Fn013_FallenShaman(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
     if ((int)(AI_RollUnit(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_MELEE_AND_CIRCLE_CHANCE_PCT))
     {
-        sub_005DF7D0(pGame, pUnit, pTarget, 3, 0);
+        AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 3, 0);
     }
     else
     {
@@ -10389,7 +10389,7 @@ void __fastcall AITHINK_Fn015_SandMaggot(D2GameStrc* pGame, D2UnitStrc* pUnit, D
 
     if (AI_RollPercentage_005F1800(pUnit) < 20)
     {
-        sub_005DF7D0(pGame, pUnit, pTarget, 6, 0);
+        AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 6, 0);
         return;
     }
 
@@ -10409,7 +10409,7 @@ void __fastcall AITHINK_Fn015_SandMaggot(D2GameStrc* pGame, D2UnitStrc* pUnit, D
         return;
     }
 
-    sub_005DF7D0(pGame, pUnit, pTarget, 6, 0);
+    AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 6, 0);
     pAiControl->dwAiParam[0] = 2;
 }
 
@@ -10465,7 +10465,7 @@ void __fastcall AITHINK_Fn017_SandLeaper(D2GameStrc* pGame, D2UnitStrc* pUnit, D
 
         if ((int)(AI_RollSeedUnit(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, SANDLEAPER_AI_PARAM_CIRCLE_CHANCE_PCT))
         {
-            sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+            AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 4, 0);
             return;
         }
 
@@ -10537,7 +10537,7 @@ void __fastcall AITHINK_Fn020_Scarab(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
 
     if (!pAiControl->dwAiParam[0])
     {
-        sub_005DF7D0(pGame, pUnit, pTarget, 0, 0);
+        AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 0, 0);
         pAiControl->dwAiParam[0] = 1;
         return;
     }
@@ -10611,7 +10611,7 @@ void __fastcall AITHINK_Fn027_ThornHulk(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
 
     if (AI_RollChanceLimited_005F4850(pGame, pUnit, pMonStatsTxt, 2))
     {
-        sub_005DF7D0(pGame, pUnit, pTarget, MONMODE_ATTACK1, 0);
+        AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, MONMODE_ATTACK1, 0);
         return;
     }
 
@@ -10731,7 +10731,7 @@ void __fastcall AITHINK_Fn029_BatDemon(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
         }
         else if (nAiState == 2)
         {
-            if (nLifePercentage < AI_GetParam(pGame, pMonStatsTxt, BATDEMON_AI_PARAM_HURT_PCT) && sub_005DEFE0_Escape(pGame, pUnit, pTarget, 15, 0))
+            if (nLifePercentage < AI_GetParam(pGame, pMonStatsTxt, BATDEMON_AI_PARAM_HURT_PCT) && AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 15, 0))
             {
                 pAiControl->dwAiParam[0] = 4;
             }
@@ -10751,7 +10751,7 @@ void __fastcall AITHINK_Fn029_BatDemon(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
         }
         else if (nAiState == 3)
         {
-            if (nLifePercentage < AI_GetParam(pGame, pMonStatsTxt, BATDEMON_AI_PARAM_HURT_PCT) && sub_005DEFE0_Escape(pGame, pUnit, pTarget, 15, 0))
+            if (nLifePercentage < AI_GetParam(pGame, pMonStatsTxt, BATDEMON_AI_PARAM_HURT_PCT) && AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 15, 0))
             {
                 pAiControl->dwAiParam[0] = 4;
             }
@@ -10765,7 +10765,7 @@ void __fastcall AITHINK_Fn029_BatDemon(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
                 pAiControl->dwAiParam[1] = 0;
             }
             else if (AIUTIL_IsGettingHit(pUnit) && AI_RollChanceLimited(pGame, pSeed, pMonStatsTxt, BATDEMON_AI_PARAM_DISENGAGE_ON_HIT_CHANCE_PCT)
-                && sub_005DEFE0_Escape(pGame, pUnit, pTarget, 12, 0))
+                && AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 12, 0))
             {
                 pAiControl->dwAiParam[0] = 2;
             }
@@ -10926,7 +10926,7 @@ void __fastcall AITHINK_Fn068_VileMother(D2GameStrc* pGame, D2UnitStrc* pUnit, D
 
     if ((int)(AI_RollSeedUnit(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, VILEMOTHER_AI_PARAM_CIRCLE_CHANCE_PCT))
     {
-        sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+        AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 4, 0);
         return;
     }
 
@@ -11061,7 +11061,7 @@ RESTORE_TARGET:
             return;
         }
     }
-    if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, 3)) sub_005DF7D0(pGame, pUnit, pTarget, 6, 0);
+    if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, 3)) AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 6, 0);
     else D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 9, 0);
     pAiControl->dwAiParam[0] = 0;
     AITACTICS_Idle(pGame, pUnit, 12);
@@ -11346,7 +11346,7 @@ void __fastcall AITHINK_Fn025_Willowisp(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
             {
                 STATLIST_SetStatIfListIsValid(pStatList, STAT_ITEM_MAGICBONUS, 50 * (pGame->nDifficulty + 1), 0);
                 STATLIST_SetListExpireFrame(pStatList, nExpireFrame);
-                sub_005417D0_DirectDated(pGame, pTarget, 12, nExpireFrame, 0, 0);
+                EVENT_SetEvent(pGame, pTarget, 12, nExpireFrame, 0, 0);
                 D2COMMON_10475_PostStatToStatList(pTarget, pStatList, 1);
             }
         }
@@ -11768,13 +11768,13 @@ void __fastcall AITHINK_Fn030_Fetish(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
                 pAi->dwAiParam[1] = 0;
             }
             if (RollPercentage(pUnitSeed) < 20)
-                sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+                AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 4, 0);
             else
                 AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
             return;
         }
         sub_005DE190_SetAiParam(pUnit, 2, 50, 0);
-        if (sub_005DEFE0_Escape(pGame, pUnit, pTarget, 14, 1))
+        if (AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 14, 1))
             return;
         pAi->dwAiParam[0] = 0;
         pAi->dwAiParam[1] = 0;
@@ -11786,7 +11786,7 @@ void __fastcall AITHINK_Fn030_Fetish(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
             pAi->dwAiParam[0] = 2;
             pAi->dwAiParam[1] = 0;
             sub_005DE190_SetAiParam(pUnit, 2, 50, 0);
-            sub_005DEFE0_Escape(pGame, pUnit, pTarget, 14, 1);
+            AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 14, 1);
             return;
         }
         if (bCombat)
@@ -12264,7 +12264,7 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_ShadowMaster(D2GameStrc* pGame, D2
     const int nType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
     if (nType == UNIT_MONSTER && STATLIST_AreUnitsAligned(pUnit, pTarget))
     {
-        const int nClassId = MONSTERS_ValidateMonsterIdInline(sub_00463860(pTarget));
+        const int nClassId = MONSTERS_ValidateMonsterIdInline(CUNIT_GetMonsterBaseId(pTarget));
         switch (nClassId)
         {
         case MONSTER_WAKEOFDESTRUCTION:
@@ -12579,7 +12579,7 @@ void __fastcall AITHINK_Fn106_143_ShadowMaster(D2GameStrc* pGame, D2UnitStrc* pU
                     return;
                 }
 
-                if (sub_005DF140_Escape(pGame, pUnit, pTarget, 8, 1))
+                if (AITACTICS_RunAwayFromTarget(pGame, pUnit, pTarget, 8, 1))
                 {
                     return;
                 }
@@ -13080,7 +13080,7 @@ void __fastcall AITHINK_Fn111_CycleOfLife(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     {
         if ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < 25)
         {
-            sub_005DEFE0_Escape(pGame, pUnit, pCombatTarget, (unsigned char)AI_PARAM(pGame, pMonStats, 3), 0);
+            AITACTICS_WalkAwayFromTarget(pGame, pUnit, pCombatTarget, (unsigned char)AI_PARAM(pGame, pMonStats, 3), 0);
             return;
         }
     }
@@ -13581,7 +13581,7 @@ void __fastcall AITHINK_Fn109_Totem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
     int nDistance;
     int bCombat;
     D2UnitStrc* pTarget = AITACTICS_FindTargetInRange(pGame, pUnit, pAiControl, &nDistance, &bCombat, 24);
-    if (bCombat && pTarget && (int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, TOTEM_AI_PARAM_WALK_AWAY_CHANCE_PCT) && sub_005DEFE0_Escape(pGame, pUnit, pTarget, 6, 1))
+    if (bCombat && pTarget && (int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, TOTEM_AI_PARAM_WALK_AWAY_CHANCE_PCT) && AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 6, 1))
     {
         return;
     }
@@ -13741,7 +13741,7 @@ LABEL_EMERGE0:
 
             if (AI_RollChance(pGame, pSeed, pMonStatsTxt, 2))
             {
-                sub_005DF7D0(pGame, pUnit, pTarget, 3, 0);
+                AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 3, 0);
                 return;
             }
 
@@ -13759,7 +13759,7 @@ LABEL_EMERGE0:
 
             if (AI_RollChance(pGame, pSeed, pMonStatsTxt, 3))
             {
-                sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+                AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 4, 0);
                 return;
             }
 
@@ -13769,7 +13769,7 @@ LABEL_EMERGE0:
 
         if (AI_RollChance(pGame, pSeed, pMonStatsTxt, 3))
         {
-            sub_005DF7D0(pGame, pUnit, pTarget, 3, 0);
+            AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 3, 0);
             return;
         }
 
@@ -14097,7 +14097,7 @@ void __fastcall AITHINK_Fn128_Nihlathak(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
     }
     if (nTargetDistance < AI_PARAM(pGame, pMonStatsTxt, 4) && AI_ROLL_PERCENT(pSeed) < 40)
     {
-        if (sub_005DEFE0_Escape(pGame, pUnit, pTarget, 5, 1))
+        if (AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 5, 1))
             return;
     }
     if (pMonStatsTxt->nSkill[2] > 0)
@@ -14546,7 +14546,7 @@ void __fastcall AITHINK_Fn065_FetishShaman(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
     if ((int)(AI_RollUnit(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FETISHSHAMAN_AI_PARAM_CIRCLE_CHANCE_PCT))
     {
-        sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+        AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 4, 0);
     }
     else
     {
@@ -14565,7 +14565,7 @@ void __fastcall AITHINK_Fn071_Regurgitator(D2GameStrc* pGame, D2UnitStrc* pUnit,
     D2AiControlStrc* pAi = pAiTickParam->pAiControl;
     if (pAi->dwAiParam[0] == 5)
     {
-        sub_005DEFE0_Escape(pGame, pUnit, pTarget, 16, 1);
+        AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 16, 1);
         pAi->dwAiParam[0] = 0;
         return;
     }
@@ -14623,7 +14623,7 @@ void __fastcall AITHINK_Fn071_Regurgitator(D2GameStrc* pGame, D2UnitStrc* pUnit,
             pAi->dwAiParam[0] = 5;
             return;
         }
-        sub_005DEFE0_Escape(pGame, pUnit, pTarget, 8, 1);
+        AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 8, 1);
         return;
     }
     D2RegurgitatorAiCallbackArgStrc args;
@@ -15172,7 +15172,7 @@ void __fastcall AITHINK_Fn137_PutridDefiler(D2GameStrc* pGame, D2UnitStrc* pUnit
 
     if (nDistance < AI_GetParamValue_005E17E0(pGame, pMonStatsTxt, 0))
     {
-        sub_005DEFE0_Escape(pGame, pUnit, pTarget, AI_GetParamValue_005E17E0(pGame, pMonStatsTxt, 1), 0);
+        AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, AI_GetParamValue_005E17E0(pGame, pMonStatsTxt, 1), 0);
         return;
     }
 

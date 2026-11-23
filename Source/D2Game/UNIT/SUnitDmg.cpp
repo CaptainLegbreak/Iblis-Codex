@@ -122,7 +122,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 
-int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
+int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 
@@ -233,7 +233,7 @@ void __fastcall D2GAME_SetSparkChest_6FCBD7C0(D2UnitStrc* pUnit, unsigned char n
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 
-D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse); // 0x0056E970
+D2StatListStrc* __fastcall SKILLS_ApplyStateEffect(D2CurseStrc* pCurse); // 0x0056E970
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
@@ -2822,8 +2822,8 @@ void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAtt
     D2CombatStrc* pCombat = pAttacker->pCombat;
     while (pCombat)
     {
-        if (pCombat->dwAttackerType == GAME_GetUnitTypeOrInvalid(pAttacker) && pCombat->dwAttackerId == sub_00451F50_GetUnitGUID(pAttacker)
-            && pCombat->dwDefenderType == GAME_GetUnitTypeOrInvalid(pDefender) && pCombat->dwDefenderId == sub_00451F50_GetUnitGUID(pDefender))
+        if (pCombat->dwAttackerType == GAME_GetUnitTypeOrInvalid(pAttacker) && pCombat->dwAttackerId == GAME_GetUnitGUID(pAttacker)
+            && pCombat->dwDefenderType == GAME_GetUnitTypeOrInvalid(pDefender) && pCombat->dwDefenderId == GAME_GetUnitGUID(pDefender))
         {
             break;
         }
@@ -2889,8 +2889,8 @@ D2DamageStrc* __fastcall SUNITDMG_GetDamageFromUnits(D2UnitStrc* pAttacker, D2Un
 
     for (D2CombatStrc* pCombat = pAttacker->pCombat; pCombat; pCombat = pCombat->pNext)
     {
-        if (pCombat->dwAttackerType == GAME_GetUnitTypeOrInvalid(pAttacker) && pCombat->dwAttackerId == sub_00451F50_GetUnitGUID(pAttacker)
-            && pCombat->dwDefenderType == GAME_GetUnitTypeOrInvalid(pDefender) && pCombat->dwDefenderId == sub_00451F50_GetUnitGUID(pDefender))
+        if (pCombat->dwAttackerType == GAME_GetUnitTypeOrInvalid(pAttacker) && pCombat->dwAttackerId == GAME_GetUnitGUID(pAttacker)
+            && pCombat->dwDefenderType == GAME_GetUnitTypeOrInvalid(pDefender) && pCombat->dwDefenderId == GAME_GetUnitGUID(pDefender))
         {
             return &pCombat->tDamage;
         }
@@ -2976,7 +2976,7 @@ static void SUNITDMG_PreventMonsterHeal(D2UnitStrc* pAttacker, D2UnitStrc* pDefe
         curse.nStat = 31;
         curse.nStatValue = 0;
         curse.nState = 52;
-        sub_0056E970(&curse);
+        SKILLS_ApplyStateEffect(&curse);
     }
 }
 
@@ -3141,7 +3141,7 @@ int __fastcall SUNITDMG_IsHitSuccessful(D2UnitStrc* pAttacker, D2UnitStrc* pDefe
 }
 
 // 0x0057ED50
-void __fastcall sub_0057ED50_SetPlayerDataField154(D2UnitStrc* pUnit, int nValue)
+void __fastcall SUNITDMG_SetPlayerDataMode(D2UnitStrc* pUnit, int nValue)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
     {
@@ -3162,7 +3162,7 @@ void __fastcall SUNITDMG_DropCorpseGold(D2GameStrc* pGame, D2UnitStrc* pPlayer, 
         {
             D2UnitStrc* pGold = pGoldPiles[i];
             D2_ASSERT(ITEMS_GetItemType(pGold) == ITEMTYPE_GOLD, 588);
-            ITEMS_SetOwnerId(pGold, sub_00451F50_GetUnitGUID(pPlayer));
+            ITEMS_SetOwnerId(pGold, GAME_GetUnitGUID(pPlayer));
         }
     }
 }
@@ -3254,7 +3254,7 @@ void __fastcall OBJMODE_ApplyShrineCurse(D2UnitStrc* pUnit, D2UnitStrc* pTarget,
     curse.nStatValue = nStatValue;
     curse.nState = nState;
     curse.pStateRemoveCallback = pStateRemoveCallback;
-    sub_0056E970(&curse);
+    SKILLS_ApplyStateEffect(&curse);
 }
 
 // 0x00582A30

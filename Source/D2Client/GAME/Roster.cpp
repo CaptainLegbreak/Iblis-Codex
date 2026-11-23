@@ -251,7 +251,7 @@ void __fastcall ROSTER_SetLifeAndLevel(int nUnitId, int nLife, unsigned short wL
 
 void __fastcall ROSTER_SetPosition(int nUnitId, int nX, int nY); // 0x0047A100
 
-int __fastcall sub_0047A150_GetPartyLife(int nUnitId);
+int __fastcall ROSTER_GetPartyLife(int nUnitId); // 0x0047A150
 
 char* __fastcall ROSTER_GetNameEx(int nUnitId); // 0x0047A1F0
 
@@ -306,7 +306,7 @@ void __cdecl ROSTER_SendLeaveParty(); // 0x00479FC0
 
 
 // 0x00479080
-int __fastcall sub_00479080_GetPetLife(int nUnitId)
+int __fastcall ROSTER_GetPetLife(int nUnitId)
 {
     for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
     {
@@ -580,7 +580,7 @@ void __cdecl ROSTER_FreeRosterLists()
 }
 
 // 0x004795A0
-D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry)
+D2StoredUnitRecordStrc* __fastcall ROSTER_GetNextStoredUnit(D2StoredUnitRecordStrc* pEntry)
 {
     if (pEntry)
         return pEntry->pNext;
@@ -949,7 +949,7 @@ D2StoredUnitRecordStrc* __fastcall ROSTER_FindRosterUnitById(int nUnitId)
 }
 
 // 0x00479BC0
-unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry)
+unsigned short __fastcall ROSTER_GetEntryIndex(D2StoredUnitRecordStrc* pEntry)
 {
     D2StoredUnitRecordStrc* pRoster = gpStoredUnits;
     int nCount = 0;
@@ -1258,7 +1258,7 @@ int __fastcall ROSTER_IsHostileRelation(int nUnitId1, int nUnitId2)
 }
 
 // 0x0047A0C0
-int __fastcall sub_0047A0C0_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord)
+int __fastcall ROSTER_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord)
 {
     if (pRecord)
     {
@@ -1302,7 +1302,7 @@ int __fastcall ROSTER_IsInPlayerParty(D2StoredUnitRecordStrc* pRecord)
 }
 
 // 0x0047A150
-int __fastcall sub_0047A150_GetPartyLife(int nUnitId)
+int __fastcall ROSTER_GetPartyLife(int nUnitId)
 {
     D2StoredUnitRecordStrc* pRec = ROSTER_FindRosterUnit(nUnitId);
     if (pRec)

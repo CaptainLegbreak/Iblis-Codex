@@ -491,7 +491,7 @@ int __stdcall ITEMS_CheckItemTypeIfThrowable(int nItemType); // 0x00628860
 
 int __stdcall ITEMS_IsSocketFiller(D2UnitStrc* pItem); // 0x0062BEB0
 
-int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc*); // 0x00451F50
+int __fastcall GAME_GetUnitGUID(D2UnitStrc*); // 0x00451F50
 
 D2UnitStrc* __fastcall ITEMS_CreateItemFromBitstream(D2GameStrc*, D2ActiveRoomStrc*, unsigned char*, unsigned int, int, D2ItemSaveStrc*, unsigned int*, unsigned int); // 0x00558CB0
 
@@ -3354,7 +3354,7 @@ D2UnitStrc* __fastcall ITEMS_Duplicate(D2GameStrc* pGame, D2UnitStrc* pItem, D2U
             nSize -= nRead;
             UNITS_ChangeAnimMode(pFiller, 4);
             int bPlaced;
-            if (!D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(pGame, pNewItem, !pFiller ? -1 : pFiller->dwUnitId, sub_00451F50_GetUnitGUID(pNewItem), &bPlaced, 0, 1, 0, 0))
+            if (!D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(pGame, pNewItem, !pFiller ? -1 : pFiller->dwUnitId, GAME_GetUnitGUID(pNewItem), &bPlaced, 0, 1, 0, 0))
             {
                 sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xDD4);
                 exit(-1);

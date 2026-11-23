@@ -87,9 +87,9 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-static D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, int* pMax, int* pCount, D2AiBaalTargetArgsStrc* pArgs, int (__fastcall* pfCull)(D2UnitStrc*, D2UnitStrc*), D2UnitStrc* pUnit);
+static D2UnitStrc* __stdcall AIBAAL_GetUberTarget(D2GameStrc* pGame, int* pMax, int* pCount, D2AiBaalTargetArgsStrc* pArgs, int (__fastcall* pfCull)(D2UnitStrc*, D2UnitStrc*), D2UnitStrc* pUnit); // 0x005FBDD0
 // 0x005FBDD0
-static D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, int* pMax, int* pCount, D2AiBaalTargetArgsStrc* pArgs, int (__fastcall* pfCull)(D2UnitStrc*, D2UnitStrc*), D2UnitStrc* pUnit)
+static D2UnitStrc* __stdcall AIBAAL_GetUberTarget(D2GameStrc* pGame, int* pMax, int* pCount, D2AiBaalTargetArgsStrc* pArgs, int (__fastcall* pfCull)(D2UnitStrc*, D2UnitStrc*), D2UnitStrc* pUnit)
 {
     D2_ASSERT(pfCull, 0x9E);
 
@@ -564,7 +564,7 @@ void __fastcall AITHINK_Fn135_BaalCrab(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
     int nMax = 0;
     int nCount = 0;
 
-    D2UnitStrc* pTarget = sub_005FBDD0(pGame, &nMax, &nCount, 0, AIBAAL_CullPotentialTargets, pUnit);
+    D2UnitStrc* pTarget = AIBAAL_GetUberTarget(pGame, &nMax, &nCount, 0, AIBAAL_CullPotentialTargets, pUnit);
     D2AiCmdStrc* pAiCmd = AIGENERAL_GetAiCommandFromParam(pUnit, 10, 0);
     if (!pAiCmd)
     {

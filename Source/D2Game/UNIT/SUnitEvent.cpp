@@ -240,7 +240,7 @@ int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMo
 
 int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc* pHireling); // 0x0063EE90
 
-D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse); // 0x0056E970
+D2StatListStrc* __fastcall SKILLS_ApplyStateEffect(D2CurseStrc* pCurse); // 0x0056E970
 
 enum D2C_Y09SkillConstants
 {
@@ -283,7 +283,7 @@ D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic)
 
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 
-int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
+int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 
@@ -311,7 +311,7 @@ typedef void (__fastcall* RemoveCallback)(D2UnitStrc*,int,D2StatListStrc*);
 
 int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc*); // 0x0044BE50
 
-int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc*); // 0x00451F50
+int __fastcall GAME_GetUnitGUID(D2UnitStrc*); // 0x00451F50
 
 int __fastcall SKILLS_SharePotionLifeWithBloodGolem(D2GameStrc*,D2UnitStrc*,int); // 0x005C6870
 
@@ -781,7 +781,7 @@ void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005
 
 int __fastcall ClientAddPlayerToGame(D2ClientStrc* ptClient, D2GameStrc* ptGame, int bLoadFromSave, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00539760
 
-void __fastcall sub_005394A0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x005394A0
+void __fastcall CLIENTS_SpawnPlayer(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x005394A0
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 

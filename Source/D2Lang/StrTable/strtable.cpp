@@ -728,7 +728,7 @@ void __stdcall STRTABLE_GetLanguageInfoField(void* pOut, int nField)
 extern "C" char* __cdecl _itoa(int nValue, char* szOut, int nRadix); // 0x00687605
 
 // 0x00525FB0
-void __stdcall sub_00525FB0_FormatInt(Unicode* pOut, int nValue, int nSize)
+void __stdcall D2LANG_FormatInt(Unicode* pOut, int nValue, int nSize)
 {
     char szBuffer[64];
     int nGroup = 0;

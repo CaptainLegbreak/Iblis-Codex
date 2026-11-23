@@ -35,7 +35,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 extern tagPOINT gtMousePosition; // 0x007D55A4
 
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 int __stdcall D2Win_10125(); // 0x00501A40
 
@@ -316,7 +316,7 @@ static void TEXTBOX_SetLineGapForFont(int nFont)
 {
     if (sub_00525150() == 7)
     {
-        const int nOldFont = sub_00502EF0(nFont);
+        const int nOldFont = D2Win_10127_SetFont(nFont);
         if (D2Win_10125() > 13)
         {
 // build: symbol ?gnTextBoxLineGap@* 0x0072DE90
@@ -326,11 +326,11 @@ static void TEXTBOX_SetLineGapForFont(int nFont)
         {
             gnTextBoxLineGap = (D2Win_10125() > 7) + 6;
         }
-        sub_00502EF0(nOldFont);
+        D2Win_10127_SetFont(nOldFont);
     }
     else if (sub_00525150() == 9)
     {
-        const int nOldFont = sub_00502EF0(nFont);
+        const int nOldFont = D2Win_10127_SetFont(nFont);
         if (D2Win_10125() > 13)
         {
             gnTextBoxLineGap = 8;
@@ -343,7 +343,7 @@ static void TEXTBOX_SetLineGapForFont(int nFont)
         {
             gnTextBoxLineGap = 3;
         }
-        sub_00502EF0(nOldFont);
+        D2Win_10127_SetFont(nOldFont);
     }
     else if (sub_00525150() == 6)
     {
@@ -854,7 +854,7 @@ int __fastcall D2Win_10051(D2WinTextBoxStrc* ptTextData, const Unicode* wszText,
         ++pText;
     }
 
-    sub_00502EF0(ptTextData->eFont);
+    D2Win_10127_SetFont(ptTextData->eFont);
 
     if (!(ptTextData->dwTextBoxFlags & 0x20))
     {
@@ -984,7 +984,7 @@ int __fastcall D2Win_10055(D2WinTextBoxStrc* ptTextData)
     D2_ASSERT(ptTextData, 0x290);
     D2_ASSERT(ptTextData->controlHeader.eType == 4, 0x291);
 
-    sub_00502EF0(ptTextData->eFont);
+    D2Win_10127_SetFont(ptTextData->eFont);
     const int nHeight = ptTextData->controlHeader.nHeight - 2 * ptTextData->unk0x44;
     TEXTBOX_SetLineGapForFont(ptTextData->eFont);
     const int nLineHeight = D2Win_10125() + ptTextData->unk0xA8;
@@ -1146,7 +1146,7 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
     }
 
     TEXTBOX_SetLineGapForFont(pTextBox->eFont);
-    sub_00502EF0(pTextBox->eFont);
+    D2Win_10127_SetFont(pTextBox->eFont);
 
     const int v51 = pTextBox->controlHeader.nImageX + pTextBox->unk0x40;
     int nY = D2Win_10125() + (pTextBox->controlHeader.nImageY - pTextBox->controlHeader.nHeight) + pTextBox->unk0x44;
@@ -1308,7 +1308,7 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
         while (pLine && v49 >= (!pLine->unk0x18 ? pTextBox->unk0xA4 : pTextBox->unk0xA0) + v8);
     }
 
-    sub_00502EF0(1);
+    D2Win_10127_SetFont(1);
     return 1;
 }
 
@@ -1327,7 +1327,7 @@ int __stdcall TEXTBOX_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
     if (pTextBox->dwTextBoxFlags & 1)
     {
         const int nY = pTextBox->controlHeader.nHeight - pTextBox->controlHeader.nImageY + gnMouseY;
-        sub_00502EF0(pTextBox->eFont);
+        D2Win_10127_SetFont(pTextBox->eFont);
         TEXTBOX_SetLineGapForFont(pTextBox->eFont);
         pTextBox->nCurrentLine = pTextBox->nLine + (nY - pTextBox->unk0x44) / (D2Win_10125() + pTextBox->unk0xA8);
         if (pTextBox->dwTextBoxFlags & 8)
@@ -1402,8 +1402,9 @@ int __fastcall D2Win_10195(D2WinTextBoxStrc* pTextBox, void(__stdcall* pfScrollC
     return sub_00508000_SetScrollCallback(pTextBox->pScrollBar, pfScrollCallback);
 }
 
-// build: context sub_004FD340_ImageDrawTiled
-static void __stdcall sub_004FD340_ImageDrawTiled(const D2CropRectStrc* pDst, const D2CropRectStrc* pSrc, D2GfxDataStrc* pGfxData)
+// build: symbol ?IMAGE_DrawTiled@* 0x004FD340
+// build: context IMAGE_DrawTiled
+static void __stdcall IMAGE_DrawTiled(const D2CropRectStrc* pDst, const D2CropRectStrc* pSrc, D2GfxDataStrc* pGfxData)
 {
     const int nSrcWidth = pSrc->nX1 - pSrc->nX0;
     const int nDstWidth = pDst->nX1 - pDst->nX0;
@@ -1485,7 +1486,7 @@ int __fastcall IMAGE_Draw(D2WinControlStrc* pControl)
             tDst.nY1 = nY[j + 1];
             tSrc.nX0 = nSrcX[i];
             tSrc.nX1 = nSrcX[i + 1];
-            sub_004FD340_ImageDrawTiled(&tDst, &tSrc, &tGfxData);
+            IMAGE_DrawTiled(&tDst, &tSrc, &tGfxData);
         }
     }
 

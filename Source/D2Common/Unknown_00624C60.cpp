@@ -269,7 +269,8 @@ static int __stdcall STATLIST_GetBaseStat(D2StatListStrc* pStatList, int nLayer_
     return nValue;
 }
 
-static int __stdcall sub_00624F60_GetTotalStat(D2StatListStrc* pStatList, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord)
+// build: symbol ?STATLIST_GetTotalStat@* 0x00624F60
+static int __stdcall STATLIST_GetTotalStat(D2StatListStrc* pStatList, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord)
 {
     D2StatListExStrc* pStatListEx = (D2StatListExStrc*)pStatList;
     D2StatStrc* pStat = sub_00624C60_FindStat((pStatList->dwFlags & STATLIST_EXTENDED) ? &pStatListEx->FullStats : &pStatList->Stats, nLayer_StatId);
@@ -301,7 +302,7 @@ static int __stdcall STATLIST_GetStatWithChildLists(D2StatListExStrc* pStatListE
         {
             if (!bDamageRelated || !(i->dwFlags & STATLIST_DYNAMIC))
             {
-                nValue += sub_00624F60_GetTotalStat(i, nLayer_StatId, 0);
+                nValue += STATLIST_GetTotalStat(i, nLayer_StatId, 0);
             }
         }
     }
@@ -478,7 +479,7 @@ static inline int STATLIST_GetTotalStatValue(D2StatListStrc* pStatList, int nSta
         return 0;
     }
 
-    return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(nStatId, nLayer), pItemStatCostTxtRecord);
+    return STATLIST_GetTotalStat(pStatList, STAT_MAKE(nStatId, nLayer), pItemStatCostTxtRecord);
 }
 
 int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit)
@@ -596,7 +597,7 @@ int __fastcall STATLIST_GetStatFromLayer(D2StatListStrc* pStatList, int nLayer_S
                     D2ItemStatCostTxt* pOpBaseRecord = PLAYER_GetItemStatCostTxtRecord(nOpBase);
                     if (pOpBaseRecord)
                     {
-                        const int nShiftedValue = sub_00624F60_GetTotalStat(pStatListEx, nOpBase << STAT_SHIFT, 0) >> pOpBaseRecord->nValShift;
+                        const int nShiftedValue = STATLIST_GetTotalStat(pStatListEx, nOpBase << STAT_SHIFT, 0) >> pOpBaseRecord->nValShift;
                         if (nShiftedValue > 0)
                         {
                             const int nRecursiveValue = STATLIST_GetStatFromLayer(pStatListEx, pItemStatCostTxtRecord->pOpStatData[i].nStat << STAT_SHIFT);
@@ -619,7 +620,7 @@ int __fastcall STATLIST_GetStatFromLayer(D2StatListStrc* pStatList, int nLayer_S
                     D2ItemStatCostTxt* pOpBaseRecord = PLAYER_GetItemStatCostTxtRecord(nOpBase);
                     if (pOpBaseRecord)
                     {
-                        const int nShiftedValue = sub_00624F60_GetTotalStat(pStatListEx, nOpBase << STAT_SHIFT, 0) >> pOpBaseRecord->nValShift;
+                        const int nShiftedValue = STATLIST_GetTotalStat(pStatListEx, nOpBase << STAT_SHIFT, 0) >> pOpBaseRecord->nValShift;
                         if (nShiftedValue > 0)
                         {
                             const int nRecursiveValue = STATLIST_GetStatFromLayer(pStatListEx, pItemStatCostTxtRecord->pOpStatData[i].nStat << STAT_SHIFT);
@@ -835,7 +836,7 @@ int __fastcall STATLIST_UpdateStatOps(D2StatListStrc* pStatList, int nLayer_Stat
             if (pStatListEx->dwOwnerType == UNIT_PLAYER || pStatListEx->dwOwnerType == UNIT_MONSTER)
             {
                 const unsigned short nOpBase = pOpStatData->nOpBase;
-                if (nOpBase != STAT_NONE && sub_00624F60_GetTotalStat(pStatListEx, nOpBase << STAT_SHIFT, 0) > 0)
+                if (nOpBase != STAT_NONE && STATLIST_GetTotalStat(pStatListEx, nOpBase << STAT_SHIFT, 0) > 0)
                 {
                     bUpdate = 0;
                 }

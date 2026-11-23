@@ -59,7 +59,7 @@ static void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2StateNodeStrc*
 int __cdecl sub_0045AE90(); // 0x0045AE90
 extern "C" int __cdecl PLAYER_GetScreenOffsetX(); // 0x0045AFC0
 extern "C" int __cdecl PLAYER_GetScreenOffsetY(); // 0x0045AFD0
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
+D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void* __fastcall GFX_GetNodeValue(D2UnitStrc* pUnit, int nMode); // 0x0046E570
 D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
@@ -88,7 +88,8 @@ D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
 
-static unsigned int sub_0046DB90_HashName(const char* szName)
+// build: symbol ?GFX_HashName@* 0x0046DB90
+static unsigned int GFX_HashName(const char* szName)
 {
     D2_ASSERT(strlen(szName) < 8, 0x79);
     const unsigned int nHash = SStrHash(szName, 1, 0);
@@ -120,7 +121,7 @@ static void __fastcall GFX_GetBaseName(const char* szPath, char* szDest)
 D2HashedFileEntryStrc* __stdcall GFX_FindHashedEntry(D2HashedFileStrc* pTable, const char* szPath); // 0x0046DC40
 
 // 0x0046DCC0
-static D2HashedFileEntryStrc* __stdcall sub_0046DCC0_LoadHashedEntry(D2HashedFileStrc* pTable, const char* szPath)
+static D2HashedFileEntryStrc* __stdcall GFX_LoadHashedEntry(D2HashedFileStrc* pTable, const char* szPath)
 {
     char szName[0x104] = { 0 };
     char* pName = szName;
@@ -139,7 +140,7 @@ static D2HashedFileEntryStrc* __stdcall sub_0046DCC0_LoadHashedEntry(D2HashedFil
         }
 
         D2_ASSERT(pEntry->pData[2] <= 0x40, 0xEC);
-        const unsigned int nBucket = sub_0046DB90_HashName(szName);
+        const unsigned int nBucket = GFX_HashName(szName);
         pEntry->pNext = pTable->pEntries[nBucket];
         pTable->pEntries[nBucket] = pEntry;
         gnCofMemoryUsed += pEntry->nSize + sizeof(D2HashedFileEntryStrc);
@@ -155,14 +156,14 @@ int __stdcall sub_M274_Emit_0046DCC0(int nMode, int nUnused)
     D2HashedFileStrc* const pTable = &gtGlobalHashedFile;
     if (!GFX_FindHashedEntry(pTable, szPath))
     {
-        if (!sub_0046DCC0_LoadHashedEntry(pTable, szPath))
+        if (!GFX_LoadHashedEntry(pTable, szPath))
             return 0;
     }
     return 3;
 }
 
 // 0x0046DF40
-static void __stdcall sub_0046DF40_RecalcStateOverlays(D2StateOwnerStrc* pOwner, D2UnitStrc* pUnit, D2StateNodeStrc* pNode)
+static void __stdcall GFX_RecalcStateOverlays(D2StateOwnerStrc* pOwner, D2UnitStrc* pUnit, D2StateNodeStrc* pNode)
 {
     const int nStateId = pNode->nStateId;
     const int bHasState = STATES_CheckState(pUnit, nStateId);
@@ -261,7 +262,7 @@ AdvanceToNextNode:
 
     if (pNode->dwType == 8)
     {
-        sub_0046DF40_RecalcStateOverlays(ptGfxInfo, pUnit, pNode);
+        GFX_RecalcStateOverlays(ptGfxInfo, pUnit, pNode);
     }
 
 // build: symbol ?gszGfxFile@* 0x006D6C1C
@@ -410,7 +411,7 @@ int __fastcall GFX_DrawUnitShadow(D2UnitStrc* pUnit)
 
     UNITS_GetShiftedFrameMetrics(pUnit, &nFrame, &nFrameCount);
 
-    if (IsShapeShifted(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = sub_004639D0_GetOwnerUnit(pUnit)) != 0)
+    if (IsShapeShifted(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = CUNIT_GetOwnerUnit(pUnit)) != 0)
         pInventory = pOwner->pInventory;
     else
         pInventory = pUnit->pInventory;

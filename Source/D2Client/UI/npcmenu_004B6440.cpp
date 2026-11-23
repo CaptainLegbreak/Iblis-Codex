@@ -65,7 +65,7 @@ void __cdecl GAME_ResetMouseState();                                            
 
 int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
 
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
@@ -83,7 +83,7 @@ void __fastcall CUNIT_ForEachMonster(UNITFN pfnCallback);                       
 
 void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg);                          // 0x004785B0
 
-void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 void __cdecl INV_ResetHover();                                                                     // 0x00487990
 
@@ -202,7 +202,8 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
 
 static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReopen);
 
-static void sub_004B1640_SetNpcInteract(D2UnitStrc* pRecord)
+// build: symbol ?NPCMENU_SetNpcInteract@* 0x004B1640
+static void NPCMENU_SetNpcInteract(D2UnitStrc* pRecord)
 {
     if (pRecord)
     {
@@ -216,7 +217,8 @@ static void sub_004B1640_SetNpcInteract(D2UnitStrc* pRecord)
     }
 }
 
-void __fastcall sub_004B1980_AddUsedString(unsigned short wStringId)
+// build: symbol ?NPCMENU_AddUsedString@* 0x004B1980
+void __fastcall NPCMENU_AddUsedString(unsigned short wStringId)
 {
     if (gtStringList.wCount < 9)
     {
@@ -225,7 +227,8 @@ void __fastcall sub_004B1980_AddUsedString(unsigned short wStringId)
     }
 }
 
-static int __stdcall sub_004B19A0_RunNpcQuestHandlers(int nNpcId, D2BitBufferStrc* pQuestFlags, D2NpcQuestHandlerStrc* pTable, int nCount)
+// build: symbol ?NPCMENU_RunNpcQuestHandlers@* 0x004B19A0
+static int __stdcall NPCMENU_RunNpcQuestHandlers(int nNpcId, D2BitBufferStrc* pQuestFlags, D2NpcQuestHandlerStrc* pTable, int nCount)
 {
     int nResult = 1;
     for (int i = 0; i < nCount; ++i)
@@ -247,7 +250,8 @@ static int __stdcall sub_004B19A0_RunNpcQuestHandlers(int nNpcId, D2BitBufferStr
     return nResult;
 }
 
-static bool sub_004B1A10_IsSpecialNpc(int nClassId)
+// build: symbol ?NPCMENU_IsSpecialNpc@* 0x004B1A10
+static bool NPCMENU_IsSpecialNpc(int nClassId)
 {
     if (nClassId == 0x92 || nClassId == 0x20F || nClassId == 0x219 || nClassId == 0x21A || nClassId == 0x21B
         || nClassId == 0x209 || nClassId == 0x10A || nClassId == 0x17A || nClassId == 0xFB || nClassId == 0x179
@@ -256,7 +260,8 @@ static bool sub_004B1A10_IsSpecialNpc(int nClassId)
     return false;
 }
 
-static int sub_004B2E30_FindNpcIndex(D2UnitStrc* pRecord)
+// build: symbol ?NPCMENU_FindNpcIndex@* 0x004B2E30
+static int NPCMENU_FindNpcIndex(D2UnitStrc* pRecord)
 {
     if (!pRecord)
         return -1;
@@ -351,7 +356,8 @@ void __fastcall NPCMENU_SetNpcMenuState(unsigned short wValue, int nValue)
     }
 }
 
-int __fastcall sub_004B6A30_NpcTextCallback(void* pContext, int nArg, int nValue)
+// build: symbol ?NPCMENU_NpcTextCallback@* 0x004B6A30
+int __fastcall NPCMENU_NpcTextCallback(void* pContext, int nArg, int nValue)
 {
     gwNpcMessageString = NPCMENU_GetFreeStringId(gwNpcGreetingString);
     if (gwNpcGreetingString == 0x251)
@@ -369,18 +375,18 @@ int __fastcall sub_004B6A30_NpcTextCallback(void* pContext, int nArg, int nValue
         {
             gwNpcLastString = gwNpcMessageString;
             sub_004A10E0_ShowNpcMessage(gbNpcInteracting ? CUNIT_FindClientUnit(gnInteractNpcId, 1) : 0, gwNpcLastString, 1);
-            sub_004B1980_AddUsedString(gwNpcLastString);
-            TEXT_SetTextCallback(sub_004B6A30_NpcTextCallback, 0);
+            NPCMENU_AddUsedString(gwNpcLastString);
+            TEXT_SetTextCallback(NPCMENU_NpcTextCallback, 0);
             gwNpcGreetingString = gwNpcLastString;
-            sub_004786A0_SendDwords2(0x31, gnInteractNpcId, gwNpcLastString);
+            MSG_SendTwoDwords(0x31, gnInteractNpcId, gwNpcLastString);
             gwNpcMessageString = NPCMENU_GetFreeStringId(gwNpcLastString);
             return 1;
         }
 
         gbNpcMessageShown = 0;
         TEXT_SetTextCallback(0, 0);
-        const int nIndex = sub_004B2E30_FindNpcIndex(gbNpcInteracting ? CUNIT_FindClientUnit(gnInteractNpcId, 1) : 0);
-        if ((!nArg || !nValue) && !sub_004B1A10_IsSpecialNpc(gnInteractNpcClassId) && nIndex >= 0 && NPCMENU_GetInteractNpc()
+        const int nIndex = NPCMENU_FindNpcIndex(gbNpcInteracting ? CUNIT_FindClientUnit(gnInteractNpcId, 1) : 0);
+        if ((!nArg || !nValue) && !NPCMENU_IsSpecialNpc(gnInteractNpcClassId) && nIndex >= 0 && NPCMENU_GetInteractNpc()
             && nIndex < gnNpcIndexCount && gaNpcIndex[nIndex].bEnabled)
         {
             gnNpcMenuState = 1;
@@ -396,7 +402,7 @@ int __fastcall sub_004B6A30_NpcTextCallback(void* pContext, int nArg, int nValue
         gnNpcMenuState = 0;
         INV_ResetHover();
         NPCMENU_EndNpcInteraction(gnInteractNpcId);
-        sub_00455F20(8, 1, 0);
+        UI_SetUIVar(8, 1, 0);
         return 0;
     }
 
@@ -426,7 +432,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
             pPlayer->pPlayerData->nArg1 = 0;
             pPlayer->pPlayerData->nArg2 = 0;
         }
-        sub_004786A0_SendDwords2(0x30, nArg, nUnitId);
+        MSG_SendTwoDwords(0x30, nArg, nUnitId);
         NPCMENU_ClearNpcInventoryAndSound(nUnitId);
         return;
     }
@@ -435,13 +441,13 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
     pUnit->dwFlags |= 2;
     QUESTRECORD_CopyBufferToRecord(gpPlayerQuestFlags, pBuffer, 0x60, 0);
     NPCMENU_ResetHandlers();
-    sub_004786A0_SendDwords2(0x2F, nUnitType, nUnitId);
+    MSG_SendTwoDwords(0x2F, nUnitType, nUnitId);
     GAME_ResetMouseState();
 
     if (gabNpcMenuState[0])
     {
         gbNpcMessageShown = 1;
-        sub_004B1640_SetNpcInteract(pUnit);
+        NPCMENU_SetNpcInteract(pUnit);
         pUnit->dwFlags &= ~2;
         return;
     }
@@ -463,7 +469,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
         gnInteractNpcId = pUnit->dwUnitId;
         gnInteractNpcClassId = pUnit->dwClassId;
         NPCMENU_EndNpcInteraction(gnInteractNpcId);
-        sub_00455F20(8, 1, 0);
+        UI_SetUIVar(8, 1, 0);
         return;
     }
 
@@ -473,12 +479,12 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
         UI_CloseUIVars(0, 0);
         gwNpcGreetingString = wString;
         sub_004A10E0_ShowNpcMessage(pUnit, wString, 1);
-        sub_004B1980_AddUsedString(wString);
+        NPCMENU_AddUsedString(wString);
         gwNpcMessageString = NPCMENU_GetFreeStringId(wString);
-        sub_004786A0_SendDwords2(0x31, pUnit->dwUnitId, wString);
+        MSG_SendTwoDwords(0x31, pUnit->dwUnitId, wString);
         gbNpcMessageShown = 1;
-        TEXT_SetTextCallback(sub_004B6A30_NpcTextCallback, 0);
-        sub_004B1640_SetNpcInteract(pUnit);
+        TEXT_SetTextCallback(NPCMENU_NpcTextCallback, 0);
+        NPCMENU_SetNpcInteract(pUnit);
     }
     else
     {
@@ -505,13 +511,13 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
             const int nClass = pUnit->dwClassId;
             if (MONSTERUNIQUE_CheckMonStatsFlag(nClass, 9))
             {
-                if (sub_004B1A10_IsSpecialNpc(nClass))
+                if (NPCMENU_IsSpecialNpc(nClass))
                 {
                     gbNpcInteracting = 1;
                     gnInteractNpcId = pUnit->dwUnitId;
                     gnInteractNpcClassId = pUnit->dwClassId;
                     NPCMENU_EndNpcInteraction(gnInteractNpcId);
-                    sub_00455F20(8, 1, 0);
+                    UI_SetUIVar(8, 1, 0);
                     return;
                 }
                 INV_ResetHover();
@@ -521,7 +527,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
             else
             {
                 NPCMENU_EndNpcInteraction(gnInteractNpcId);
-                sub_00455F20(8, 1, 0);
+                UI_SetUIVar(8, 1, 0);
             }
         }
     }
@@ -537,7 +543,7 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
         gnNpcMenuState = 0;
         INV_ResetHover();
         NPCMENU_EndNpcInteraction(gnInteractNpcId);
-        sub_00455F20(8, 1, 0);
+        UI_SetUIVar(8, 1, 0);
         return;
     }
 
@@ -569,7 +575,7 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
     pUnit->dwFlags &= ~2;
 
     const int nNpcId = pUnit->dwClassId;
-    sub_004B19A0_RunNpcQuestHandlers(nNpcId, gpPlayerQuestFlags, gaNpcHandlers, gnHandlerCount);
+    NPCMENU_RunNpcQuestHandlers(nNpcId, gpPlayerQuestFlags, gaNpcHandlers, gnHandlerCount);
 
     if (gnNpcSoundActive)
     {
@@ -608,11 +614,11 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
         break;
     }
 
-    if (!sub_00455F20(8, 0, 0))
+    if (!UI_SetUIVar(8, 0, 0))
     {
         gnNpcMenuState = 0;
         pUnit->dwFlags |= 2;
-        sub_004786A0_SendDwords2(0x30, 1, !pUnit ? -1 : pUnit->dwUnitId);
+        MSG_SendTwoDwords(0x30, 1, !pUnit ? -1 : pUnit->dwUnitId);
         gbNpcInteracting = 0;
         NPCMENU_ClearNpcInventoryAndSound(pUnit->dwUnitId);
         return;

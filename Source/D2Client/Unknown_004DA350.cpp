@@ -9,7 +9,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit);                                        // 0x004639D0
+D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit);                                        // 0x004639D0
 D2GfxMotionStrc* __fastcall GFX_GetGfxMotion(D2UnitStrc* pUnit);                                   // 0x0046F060
 void __fastcall GFX_GetUnitCelOffsets(D2UnitStrc* pUnit, int nComponent, int* pOffsetX, int* pOffsetY); // 0x004706E0
 extern "C" int __stdcall PARTICLE_GetGfxOffsetX(D2UnitStrc* pUnit);                                     // 0x004DA0B0
@@ -66,7 +66,7 @@ void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit)
     }
     else if (dwFlags & 0x10)
     {
-        D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pUnit);
+        D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pUnit);
         if (pOwner)
         {
             int nOffsetX = 0;

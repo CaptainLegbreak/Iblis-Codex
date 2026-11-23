@@ -499,7 +499,7 @@ inline D2MonStats2Txt* DATATBLS_GetMonStats2TxtRecordFromMonsterIdInl(int nMonst
     return 0;
 }
 
-static void __stdcall sub_00542E10_CompressInactiveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit) // 0x00542E10
+static void __stdcall SUNITINACTIVE_CompressInactiveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit) // 0x00542E10
 {
     if (pUnit->dwUnitType == UNIT_MONSTER)
     {
@@ -715,7 +715,7 @@ static void __stdcall SUNITINACTIVE_CompressMonsterIfNeeded(D2GameStrc* pGame, D
         pUnit->dwFlagEx |= 0x100;
         if (bCompress)
         {
-            sub_00542E10_CompressInactiveUnit(pGame, pUnit);
+            SUNITINACTIVE_CompressInactiveUnit(pGame, pUnit);
         }
         UNITROOM_UpdatePath(pUnit);
     }
@@ -723,7 +723,7 @@ static void __stdcall SUNITINACTIVE_CompressMonsterIfNeeded(D2GameStrc* pGame, D
     {
         if (bCompress)
         {
-            sub_00542E10_CompressInactiveUnit(pGame, pUnit);
+            SUNITINACTIVE_CompressInactiveUnit(pGame, pUnit);
         }
         SUNIT_RemoveUnit(pGame, pUnit);
     }
@@ -778,7 +778,7 @@ void __fastcall SUNITINACTIVE_CompressUnitIfNeeded(D2GameStrc* pGame, D2UnitStrc
 
     case 4:
     case 5:
-        sub_00542E10_CompressInactiveUnit(pGame, pUnit);
+        SUNITINACTIVE_CompressInactiveUnit(pGame, pUnit);
         break;
 
     case 0:
@@ -787,7 +787,7 @@ void __fastcall SUNITINACTIVE_CompressUnitIfNeeded(D2GameStrc* pGame, D2UnitStrc
         special:
             D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
             pUnit->dwFlagEx |= 0x100;
-            sub_00542E10_CompressInactiveUnit(pGame, pUnit);
+            SUNITINACTIVE_CompressInactiveUnit(pGame, pUnit);
             UNITROOM_UpdatePath(pUnit);
             return;
         }

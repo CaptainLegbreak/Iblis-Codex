@@ -341,7 +341,7 @@ D2UnitStrc* __fastcall ITEMS_CreateItemFromBitstream(D2GameStrc* pGame, D2Active
 
 void __fastcall sub_00564CB0_Nop(D2UnitStrc* pUnit); // 0x00564CB0
 
-int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
+int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
 int __fastcall D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSocketFillerGUID, int nItemGUID, int* bPlaced, int bRefresh, int bResetCursorItem, int bCheckMode, int a9); // 0x00562660
 
@@ -435,7 +435,7 @@ D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc*); // 0x005387C0
 
 void __fastcall SUNITMSG_SendUnitToClient(D2GameStrc*, D2UnitStrc*, D2ClientStrc*); // 0x00571F90
 
-void __fastcall sub_00569EC0_UnpackWord(unsigned int* pRaw, int* pId, int* pFlag, int* pCount);
+void __fastcall PLRSAVE2_UnpackWord(unsigned int* pRaw, int* pId, int* pFlag, int* pCount); // 0x00569EC0
 
 void __fastcall sub_005391C0_SetClientBytes(D2ClientStrc*, unsigned char, unsigned char, unsigned char); // 0x005391C0
 
@@ -548,7 +548,8 @@ D2HirelingTxt* __stdcall DATATBLS_GetHirelingTxtRecordFromIdAndLevel(int bExpans
 
 int __stdcall MONSTERS_GetHirelingExpForNextLevel(int nLevel, int nExpPerLevel); // 0x00663790
 
-int __fastcall sub_00568D80_FindTerminator(const char* szText, int nSize)
+// build: symbol ?PLRTRADE_FindTerminator@* 0x00568D80
+int __fastcall PLRTRADE_FindTerminator(const char* szText, int nSize)
 {
     const char* pStart = szText;
     const char* pEnd = szText + nSize;
@@ -582,7 +583,7 @@ int __fastcall PLRSAVE2_WriteSaveHeader(D2GameStrc* pGame, D2UnitStrc* pPlayer, 
         return 2;
     }
 
-    if (sub_00568D80_FindTerminator(szName, 16) < 1)
+    if (PLRTRADE_FindTerminator(szName, 16) < 1)
     {
         return 2;
     }
@@ -859,7 +860,8 @@ int __fastcall PLRSAVE2_WriteSkillSection(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     return 0;
 }
 
-__declspec(noinline) int __fastcall sub_005697B0(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char** ppCursor, const unsigned char* pEnd, int nArg5, int nArg6, int nArg7)
+// build: symbol ?PLRSAVE2_WriteItemSection@* 0x005697B0
+__declspec(noinline) int __fastcall PLRSAVE2_WriteItemSection(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char** ppCursor, const unsigned char* pEnd, int nArg5, int nArg6, int nArg7)
 {
     unsigned char* pCursor = *ppCursor;
     const int nWritten = PLRSAVE_WriteUnitItems(pGame, pUnit, pCursor, pEnd - pCursor, nArg5, nArg6, nArg7);
@@ -942,7 +944,7 @@ int __fastcall PLRSAVE2_WriteCorpsesSection(D2GameStrc* pGame, D2UnitStrc* pPlay
         *(D2CorpseSaveStrc*)pSection = tCorpse;
 
         pSection += 12;
-        if (sub_005697B0(pGame, pUnit, &pSection, pEnd, 0, a5, a6))
+        if (PLRSAVE2_WriteItemSection(pGame, pUnit, &pSection, pEnd, 0, a5, a6))
         {
             return 4;
         }
@@ -1063,7 +1065,7 @@ static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
 }
 
 // 0x00569F80
-static int __stdcall sub_00569F80_CreateNewbiePlayer(D2GameStrc* pGame, D2ClientStrc* pClient, D2UnitStrc** ppPlayer)
+static int __stdcall PLRSAVE2_CreateNewbiePlayer(D2GameStrc* pGame, D2ClientStrc* pClient, D2UnitStrc** ppPlayer)
 {
     sub_6FC32220(pClient);
     const int nClassId = CLIENTS_GetClassId(pClient);
@@ -1095,7 +1097,7 @@ static int __stdcall sub_00569F80_CreateNewbiePlayer(D2GameStrc* pGame, D2Client
     return 0;
 }
 
-void __fastcall sub_00569EC0_UnpackWord(unsigned int* pRaw, int* pId, int* pFlag, int* pCount)
+void __fastcall PLRSAVE2_UnpackWord(unsigned int* pRaw, int* pId, int* pFlag, int* pCount)
 {
     D2PackedWordStrc* pPacked = (D2PackedWordStrc*)pRaw;
     if (pPacked->wRaw == 0xFFFF)
@@ -1185,19 +1187,19 @@ int __fastcall PLRSAVE2_ReadSaveHeader(D2GameStrc* pGame, D2ClientStrc* pClient,
     SUNITMSG_SendUnitToClient(CLIENTS_GetGame(pClient), *ppPlayer, pClient);
     for (int i = 0; i < 16; ++i)
     {
-        sub_00569EC0_UnpackWord((unsigned int*)&pHeader->SkillKeys[i], &nSkillId, &nHand, &nOwner);
+        PLRSAVE2_UnpackWord((unsigned int*)&pHeader->SkillKeys[i], &nSkillId, &nHand, &nOwner);
         CLIENTS_SetSkillHotKey(pClient, i, nSkillId, nHand, nOwner);
     }
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(*ppPlayer);
     if (!pPlayerData)
         return 4;
-    sub_00569EC0_UnpackWord((unsigned int*)&pHeader->nLeftSkillId, &nSkillId, &nHand, &nOwner);
+    PLRSAVE2_UnpackWord((unsigned int*)&pHeader->nLeftSkillId, &nSkillId, &nHand, &nOwner);
     StoreSkillPair(&pPlayerData->nLeftSkillId, &pPlayerData->nLeftSkillFlags, nSkillId, nOwner);
-    sub_00569EC0_UnpackWord((unsigned int*)&pHeader->nRightSkillId, &nSkillId, &nHand, &nOwner);
+    PLRSAVE2_UnpackWord((unsigned int*)&pHeader->nRightSkillId, &nSkillId, &nHand, &nOwner);
     StoreSkillPair(&pPlayerData->nRightSkillId, &pPlayerData->nRightSkillFlags, nSkillId, nOwner);
-    sub_00569EC0_UnpackWord((unsigned int*)&pHeader->nSwitchLeftSkillId, &nSkillId, &nHand, &nOwner);
+    PLRSAVE2_UnpackWord((unsigned int*)&pHeader->nSwitchLeftSkillId, &nSkillId, &nHand, &nOwner);
     StoreSkillPair(&pPlayerData->nSwitchLeftSkillId, &pPlayerData->nSwitchLeftSkillFlags, nSkillId, nOwner);
-    sub_00569EC0_UnpackWord((unsigned int*)&pHeader->nSwitchRightSkillId, &nSkillId, &nHand, &nOwner);
+    PLRSAVE2_UnpackWord((unsigned int*)&pHeader->nSwitchRightSkillId, &nSkillId, &nHand, &nOwner);
     StoreSkillPair(&pPlayerData->nSwitchRightSkillId, &pPlayerData->nSwitchRightSkillFlags, nSkillId, nOwner);
     sub_005391C0_SetClientBytes(pClient, pHeader->nGuildEmblemBgColor, 0, 0);
     *ppSection = pNext;
@@ -1333,7 +1335,7 @@ int __fastcall PlayerCreate(D2GameStrc* pGame, D2ClientStrc* pClient, unsigned c
         {
             if (nErrorCode == PLRSAVE2ERROR_NEWBIE_SAVE && pSection == pSaveFileEnd)
             {
-                return sub_00569F80_CreateNewbiePlayer(pGame, pClient, ppPlayer);
+                return PLRSAVE2_CreateNewbiePlayer(pGame, pClient, ppPlayer);
             }
         }
         else
@@ -1639,7 +1641,7 @@ int __fastcall PLRSAVE2_ReadCorpses(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsi
 
         pPlayerBody->dwFlags &= 0xFFFFFFEFu;
 
-        INVENTORY_SetOwnerId(pPlayerBody->pInventory, sub_00451F50_GetUnitGUID(pPlayer));
+        INVENTORY_SetOwnerId(pPlayerBody->pInventory, GAME_GetUnitGUID(pPlayer));
 
         t.nErrorCode = 0;
         if (PLRSAVE2_ReadItemSection(pGame, pPlayerBody, &t.pData, pEnd, nVersion, 1, &t.nErrorCode))
@@ -1654,7 +1656,7 @@ int __fastcall PLRSAVE2_ReadCorpses(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsi
 
         INVENTORY_CreateCorpseForPlayer(pPlayer->pInventory, !pPlayerBody ? -1 : pPlayerBody->dwUnitId, 0, 1);
         const int nPlayerBodyId = pPlayerBody->dwUnitId;
-        D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(pGame, sub_00451F50_GetUnitGUID(pPlayer), nPlayerBodyId, 1);
+        D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(pGame, GAME_GetUnitGUID(pPlayer), nPlayerBodyId, 1);
         pDataStart = t.pData;
     }
 
@@ -1836,7 +1838,7 @@ int __fastcall PLRSAVE2_CreateItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2Uni
 
         const int nSocketableGUID = pItem->dwUnitId;
         int bPlaced;
-        if (!D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(pGame, pPlayer, nSocketableGUID, sub_00451F50_GetUnitGUID(pParentItem), &bPlaced, 0, 1, 0, 0))
+        if (!D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(pGame, pPlayer, nSocketableGUID, GAME_GetUnitGUID(pParentItem), &bPlaced, 0, 1, 0, 0))
         {
             SUNIT_RemoveUnit(pGame, pParentItem);
             return 0;

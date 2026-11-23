@@ -473,7 +473,7 @@ void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x006
 
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
 
-void __fastcall sub_005417D0_DirectDated(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam);
+void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 
 struct D2Unk00545D40Rec
 {
@@ -2034,7 +2034,7 @@ void __fastcall QUESTS_AttachLevelChainRecord(D2GameStrc* pGame, D2UnitStrc* pUn
 }
 
 // 0x00545D40
-static void __stdcall sub_00545D40_InitRecord(D2Unk00545D40Rec* pRec, int nSecond, int nFirst, unsigned char nKind)
+static void __stdcall QUESTS_InitRecord(D2Unk00545D40Rec* pRec, int nSecond, int nFirst, unsigned char nKind)
 {
     memset(pRec, 0, sizeof(D2Unk00545D40Rec));
     pRec->nFirst = nFirst;
@@ -2384,7 +2384,7 @@ int __fastcall QUESTS_SetObjectSelection(D2ObjOperateFnStrc* pOp)
         if (pObjectsTxtRecord->nMode[1])
         {
             UNITS_ChangeAnimMode(pOp->hObject, 1);
-            sub_005417D0_DirectDated(pOp->pGame, pOp->hObject, 1, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame, 0, 0);
+            EVENT_SetEvent(pOp->pGame, pOp->hObject, 1, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame, 0, 0);
         }
         else
         {
@@ -2623,7 +2623,7 @@ void __fastcall QUESTS_MapPresetSpawn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ma
 
 void __fastcall sub_K10_EmitInitRecord(D2Unk00545D40Rec* pRec, int n)
 {
-    sub_00545D40_InitRecord(pRec, n, n + 1, 2);
+    QUESTS_InitRecord(pRec, n, n + 1, 2);
 }
 
 #pragma function(memset)

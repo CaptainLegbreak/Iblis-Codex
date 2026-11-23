@@ -131,7 +131,7 @@ int __fastcall SKILLS_IsMissileTargetPositionClear(D2GameStrc* pGame, D2UnitStrc
 
 D2UnitEventStrc* __fastcall SKILLS_RegisterUnitEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitEventType, int nSkillId, int nSkillLevel, int nEventFunc, int a7, int a8); // 0x0056E740
 
-D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse); // 0x0056E970
+D2StatListStrc* __fastcall SKILLS_ApplyStateEffect(D2CurseStrc* pCurse); // 0x0056E970
 
 int __fastcall D2GAME_SKILLMANA_AuraConsume_6FD10C90(D2UnitStrc* pUnit, int nManaCost); // 0x0056C110
 
@@ -360,7 +360,7 @@ void __fastcall SKILLS_CurseStateCallback_HolyFreeze(D2UnitStrc* pUnit, int nSta
 
 int __fastcall SKILLS_AuraCallback_HolyFreeze(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);        // 0x005D07C0
 
-int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
+int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
 int __fastcall CUNIT_ValidateMonsterId(int nClassId); // 0x00463900
 
@@ -712,7 +712,7 @@ int __fastcall SKILLS_AuraCallback_BasicAura(D2AuraCallbackStrc* pAuraCallback, 
         curse.pStateRemoveCallback = (StatListRemoveFunc)pArgs->pStateRemoveCallback;
     else if (pAuraCallback->pOwner == pUnit)
         curse.pStateRemoveCallback = SKILLS_CurseStateCallback_BasicAura;
-    D2StatListStrc* pStatList = sub_0056E970(&curse);
+    D2StatListStrc* pStatList = SKILLS_ApplyStateEffect(&curse);
     if (!pStatList) return 0;
     pArgs->pStatList = pStatList;
     int* pAuraStat = pArgs->nAuraStat;
@@ -1055,7 +1055,7 @@ int __fastcall SKILLS_SrvSt31_Charge(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
             if (pUnit->dwUnitType == UNIT_PLAYER) return SKILLS_StartBasicAttack(pGame, pUnit, pTarget);
             SUNIT_SetCombatMode(pGame, pUnit, 1);
             UNITS_SetUsedSkill(pUnit, 0);
-            const int nMonsterId = CUNIT_ValidateMonsterId(sub_00463860(pUnit));
+            const int nMonsterId = CUNIT_ValidateMonsterId(CUNIT_GetMonsterBaseId(pUnit));
             const int nMode = nMonsterId != MONSTER_CLAWVIPER1 ? (nMonsterId == MONSTER_DURIEL ? 5 : 4) : 5;
             D2ModeChangeStrc modeChange;
             MONSTERMODE_GetModeChangeInfo(pUnit, nMode, &modeChange);
@@ -1154,7 +1154,7 @@ int __fastcall SKILLS_SrvDo067_Charge(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
             }
             else
             {
-                if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER || CUNIT_ValidateMonsterId(sub_00463860(pUnit)) != 436 || CUNIT_ValidateMonsterId(sub_00463860(pUnit)) != 441)
+                if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER || CUNIT_ValidateMonsterId(CUNIT_GetMonsterBaseId(pUnit)) != 436 || CUNIT_ValidateMonsterId(CUNIT_GetMonsterBaseId(pUnit)) != 441)
                 {
                     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
                     EVENT_SetEvent(pGame, pUnit, 1, pGame->dwGameFrame + 1, 0, 0);

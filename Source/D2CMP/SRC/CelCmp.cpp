@@ -3524,7 +3524,8 @@ void __stdcall CelCompressDestroy(unsigned int hCelList)
         FOG_Free(pEntry->pData, ".\\SRC\\CelCmp.cpp", 588, 0);
     }
     pList->tList.CelEntryListDeleteAll();
-    gCelListTable.sub_0052E590(pList);
+// build: symbol ?Delete@* 0x0052E590
+    gCelListTable.Delete(pList);
     gCelListTable.SyncLeaveLock(hLock);
 }
 
@@ -4003,13 +4004,13 @@ void __stdcall sub_00611640(int nUnused1)
 }
 
 // 0x00611D10
-int __cdecl sub_00611D10()
+int __cdecl DATATBLS_GetCharstatsTxtTable()
 {
     return gdwGlobal_0096C7F4;
 }
 
 // 0x00611D20
-int __cdecl sub_00611D20()
+int __cdecl DATATBLS_GetAnimData()
 {
     return gpAnimData;
 }
@@ -4048,7 +4049,7 @@ void __stdcall sub_0063EBC0(int nUnused1, int nUnused2)
 }
 
 // 0x00641500
-int __cdecl sub_00641500()
+int __cdecl DATATBLS_GetShrinesTxtRecordCount()
 {
     return gdwGlobal_0096D46C;
 }

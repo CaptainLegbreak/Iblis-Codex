@@ -11,8 +11,8 @@ void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit
 int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMaxDistance); // 0x005DE200
 int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
 int __fastcall AITACTICS_WalkToTargetWithPathType13(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nFlags); // 0x005DED40
-int __fastcall sub_005DEFE0_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
-int __fastcall sub_005DF7D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a4, int bDeleteAiEventCallback); // 0x005DF7D0
+int __fastcall AITACTICS_WalkAwayFromTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
+int __fastcall AITACTICS_WalkToTargetWithRandomPathType(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a4, int bDeleteAiEventCallback); // 0x005DF7D0
 int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc* pUnit);                                            // 0x00621F20
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
 
@@ -52,7 +52,7 @@ void __fastcall AITHINK_Fn026_Arach(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
                 return;
             }
 
-            sub_005DF7D0(pGame, pUnit, pTarget, 6, 0);
+            AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 6, 0);
             return;
         }
 
@@ -64,12 +64,12 @@ void __fastcall AITHINK_Fn026_Arach(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
 
         if (nTargetDistance < AI_PARAM(pGame, pMonStatsTxt, 3) || AIUTIL_IsGettingHit(pUnit))
         {
-            sub_005DEFE0_Escape(pGame, pUnit, pTarget, 4, 0);
+            AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 4, 0);
             return;
         }
 
         pAiControl->dwAiParam[0] = 0;
-        sub_005DF7D0(pGame, pUnit, pTarget, 12, 0);
+        AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 12, 0);
         return;
     }
 
@@ -89,7 +89,7 @@ void __fastcall AITHINK_Fn026_Arach(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
 
             if (pMonStatsTxt->nSkill[0] < 0 || STATES_CheckState(pUnit, 22))
             {
-                sub_005DEFE0_Escape(pGame, pUnit, pTarget, 8, 0);
+                AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 8, 0);
                 return;
             }
 
@@ -99,7 +99,7 @@ void __fastcall AITHINK_Fn026_Arach(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
 
         if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, 1))
         {
-            sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+            AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 4, 0);
             return;
         }
 

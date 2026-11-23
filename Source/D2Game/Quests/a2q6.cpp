@@ -1023,7 +1023,7 @@ unsigned char __fastcall ACT2Q6_IsAwaitingJerhynTalk(D2GameStrc* pGame)
 }
 
 // 0x0059D800
-unsigned char __fastcall sub_0059D800_ACT2Q6_IsNotBusy(D2GameStrc* pGame)
+unsigned char __fastcall ACT2Q6_IsNotBusy(D2GameStrc* pGame)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A2Q6_DURIEL);
     if (pQuestData && pQuestData->bNotIntro)

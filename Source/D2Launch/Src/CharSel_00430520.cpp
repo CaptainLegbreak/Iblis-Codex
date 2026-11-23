@@ -116,7 +116,7 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 
 unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
 
-int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
+int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 
 D2WinControlStrc* __fastcall MAINMENUS_CreateFromTemplate(int nTemplateId);                              // 0x0042F3A0
 
@@ -166,7 +166,7 @@ int __stdcall sub_00500810(D2WinControlStrc* pControl, int nArg);               
 
 int __stdcall D2Win_10125();                                                                                // 0x00501A40
 
-int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 
 int __stdcall sub_005041B0_Destroy(D2CelFileStrc* pCellFile, int nFlag);                                   // 0x005041B0
 
@@ -434,16 +434,16 @@ void __cdecl sub_004325B0_CreateScreen()
     pControl = MAINMENUS_CreateControl(7);
     sub_00500810(pControl, 0);
     MAINMENUS_CreateControl(8);
-    sub_0042F2E0_ReadPaletteFiles("palette\\sky\\pal.dat", "palette\\sky\\pal.pl2");
+    MAINMENUS_ReadPaletteFiles("palette\\sky\\pal.dat", "palette\\sky\\pal.pl2");
     MAINMENUS_CreateFromTemplate(0x4D);
     MAINMENUS_CreateFromTemplate(0x63);
     MAINMENUS_CreateFromTemplate(0x64);
     pControl = MAINMENUS_CreateFromTemplate(0x5F);
     sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x146B), 0, 0, 0);
     D2WinControlStrc* pList = MAINMENUS_CreateFromTemplate(0x60);
-    int nOld = sub_00502EF0(5);
+    int nOld = D2Win_10127_SetFont(5);
     int nValue = D2Win_10125();
-    sub_00502EF0(nOld);
+    D2Win_10127_SetFont(nOld);
     sub_004FC9B0_SetText(pList, D2LANG_GetStringFromTblIndex(0x146C), 0, 0, 0);
     sub_004FB740(pList, nValue / -10, 0);
     pControl = MAINMENUS_CreateFromTemplate(0x61);
@@ -562,7 +562,7 @@ void __cdecl CHARSEL_CreateCharInfoControls()
 }
 
 // 0x00437F60
-static Unicode* sub_00437F60_GetClassName(Unicode* pBuffer, int nClass)
+static Unicode* CHARSEL_GetClassName(Unicode* pBuffer, int nClass)
 {
     switch (nClass)
     {
@@ -685,7 +685,7 @@ int __cdecl CHARSEL_UpdateSelection()
 void __fastcall sub_A15_Emit_00437F60(const unsigned char* pClass)
 {
     Unicode wszText[0x40];
-    sub_00437F60_GetClassName(wszText, *pClass);
+    CHARSEL_GetClassName(wszText, *pClass);
     sub_A15_UseText(wszText);
 }
 
@@ -817,7 +817,8 @@ int __stdcall CHARSEL_ScrollDown(SMSGHANDLER_PARAMS* pMsg)
     return 1;
 }
 
-static void sub_00437CB0_SelectNamedSlot(const char* szName)
+// build: symbol ?CHARSEL_SelectNamedSlot@* 0x00437CB0
+static void CHARSEL_SelectNamedSlot(const char* szName)
 {
     if (!gbFlag_00779C6C)
         return;
@@ -972,7 +973,7 @@ int __stdcall CHARSEL_PollConnect(int nUnused)
     case 1:
         if (gbFlag_00779C6C)
             D2Win_10188(gpNameControl, -1, 4);
-        sub_00437CB0_SelectNamedSlot(gpszName);
+        CHARSEL_SelectNamedSlot(gpszName);
         MAINMENUS_ConnectToRealm(gpszName, 1);
         gnBusy = 2;
         gdwStartTick = GetTickCount();
@@ -1056,7 +1057,7 @@ void __cdecl CHARSEL_CreateBaseScreen()
     MAINMENUS_CreateControl(8);
     MAINMENUS_CreateControl(6);
     MAINMENUS_CreateControl(7);
-    sub_0042F2E0_ReadPaletteFiles(gapszSkyPalette[0], gapszSkyPalette[1]);
+    MAINMENUS_ReadPaletteFiles(gapszSkyPalette[0], gapszSkyPalette[1]);
     MAINMENUS_ConfigureLanguageLayout();
 }
 

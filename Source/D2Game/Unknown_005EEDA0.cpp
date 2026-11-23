@@ -16,7 +16,7 @@ void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit
 void __fastcall AITACTICS_Idle(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames);                         // 0x005DE0F0
 int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
 int __fastcall AITACTICS_WalkToTargetUnitWithSteps(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char bStep); // 0x005DEF80
-int __fastcall sub_005DEFE0_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
+int __fastcall AITACTICS_WalkAwayFromTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
 struct D2AiBaalTargetArgsStrc;
 #define UNIT_PLAYER 0
 
@@ -235,7 +235,7 @@ void __fastcall AITHINK_AncientBarb2SkillHandler(D2GameStrc* pGame, D2UnitStrc* 
     nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
     if (bInMeleeRange && AI_RollPercentage(pUnit) < pMonStatsTxt->wAiParam[ANCIENTBARB2_AI_PARAM_WALK_AWAY_CHANCE_PCT][pGame->nDifficulty])
     {
-        if (sub_005DEFE0_Escape(pGame, pUnit, pTarget, (unsigned char)pMonStatsTxt->wAiParam[ANCIENTBARB2_AI_PARAM_WALK_AWAY_MAX_DISTANCE][pGame->nDifficulty], 1))
+        if (AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, (unsigned char)pMonStatsTxt->wAiParam[ANCIENTBARB2_AI_PARAM_WALK_AWAY_MAX_DISTANCE][pGame->nDifficulty], 1))
         {
             AITACTICS_Idle(pGame, pUnit, 25);
             return;

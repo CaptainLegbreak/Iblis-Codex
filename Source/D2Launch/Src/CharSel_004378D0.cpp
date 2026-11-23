@@ -163,7 +163,7 @@ void __fastcall CHATDLG_ShowTimedMessage(const Unicode* pText, D2LaunchCallback 
 
 void __fastcall CHATDLG_JoinChannel(const char* szText); // 0x004411E0
 
-int __fastcall sub_004428D0_SendChatText(char* szText, int bWhisper); // 0x004428D0
+int __fastcall CHATDLG_SendChatText(char* szText, int bWhisper); // 0x004428D0
 
 int __fastcall sub_004438E0_Lookup(const char* szName, const char* szPassword, D2LaunchGameRecStrc* pRecord); // 0x004438E0
 
@@ -221,7 +221,7 @@ extern char* gpszName; // 0x00779DB0
 
 extern unsigned long gdwStartTick; // 0x00779DB4
 
-static void sub_00437CB0_SelectNamedSlot(const char* szName);
+static void CHARSEL_SelectNamedSlot(const char* szName); // 0x00437CB0
 
 D2WinControlStrc* gpButton_007799E4; // 0x007799E4
 
@@ -293,7 +293,7 @@ extern int gnTopRow;                                                            
 
 extern D2WinControlStrc* gpControl_00779DD0;                                                                // 0x00779DD0
 
-static Unicode* sub_00437F60_GetClassName(Unicode* pBuffer, int nClass);
+static Unicode* CHARSEL_GetClassName(Unicode* pBuffer, int nClass); // 0x00437F60
 
 static int CHARSEL_IsTestRealm(const Unicode* pName); // 0x00437D20
 
@@ -331,7 +331,7 @@ void __stdcall D2Win_10149(D2CompositeUnitStrc* pCompositeUnit, unsigned char nV
 
 void __stdcall D2Win_10151(D2CompositeUnitStrc* pCompositeUnit, int nFrame);                               // 0x00505260
 
-D2CompositeUnitStrc* __stdcall sub_005066C0_CreateCompositeUnit(unsigned int nUnitIndex, unsigned int nMode, unsigned char* pComponents, const unsigned char* pComponentColors); // 0x005066C0
+D2CompositeUnitStrc* __stdcall D2COMP_CreateCompositeUnit(unsigned int nUnitIndex, unsigned int nMode, unsigned char* pComponents, const unsigned char* pComponentColors); // 0x005066C0
 
 unsigned short __stdcall sub_006BBF20_ReadPackedWord(const unsigned char* pData);                           // 0x006BBF20
 
@@ -445,7 +445,7 @@ D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId);                  
 
 void __cdecl CHARSEL_DisconnectBattleNet();                                                                                // 0x0043B9A0
 
-static int sub_00437A20_FindSlotName(const char* szName);
+static int CHARSEL_FindSlotByName(const char* szName); // 0x00437A20
 
 struct D2WinTextBoxStrc;
 
@@ -547,7 +547,7 @@ int __stdcall CHARSEL_SubmitPasswordReset(int nArg)
 }
 
 // 0x00437A20
-static int sub_00437A20_FindSlotName(const char* szName)
+static int CHARSEL_FindSlotByName(const char* szName)
 {
     for (int i = 0; ; ++i)
     {
@@ -569,7 +569,7 @@ static int sub_00437A20_FindSlotName(const char* szName)
 struct D2WinControlStrc;
 
 // 0x00437CB0
-static void sub_00437CB0_SelectNamedSlot(const char* szName)
+static void CHARSEL_SelectNamedSlot(const char* szName)
 {
     if (!gbFlag_00779C6C)
         return;
@@ -618,7 +618,7 @@ int __stdcall CHARSEL_PollConnect(int nUnused)
     case 1:
         if (gbFlag_00779C6C)
             D2Win_10188(gpNameControl, -1, 4);
-        sub_00437CB0_SelectNamedSlot(gpszName);
+        CHARSEL_SelectNamedSlot(gpszName);
 // build: symbol ?MAINMENUS_ConnectToRealm@* 0x00432480
         MAINMENUS_ConnectToRealm(gpszName, 1);
         gnBusy = 2;
@@ -701,7 +701,7 @@ int __stdcall sub_M216_Emit_00437D20(const Unicode* pName, int n)
     return CHARSEL_IsTestRealm(pName) + n;
 }
 
-static Unicode* sub_00437F60_GetClassName(Unicode* pBuffer, int nClass)
+static Unicode* CHARSEL_GetClassName(Unicode* pBuffer, int nClass)
 {
     switch (nClass)
     {
@@ -836,7 +836,7 @@ void __cdecl CHARSEL_UpdateCharList()
                 }
                 D2Win_10046(gapRowControls[nRow], szName, bHardcore ? 1 : 4);
 
-                sub_00437F60_GetClassName(wszClass, pEntry->nType);
+                CHARSEL_GetClassName(wszClass, pEntry->nType);
 
                 Unicode wszText[100];
                 for (int j = 0; j < 100; ++j)
@@ -1016,7 +1016,7 @@ static int __stdcall CHARSEL_AddCharEntry(const char* szName, const char* szStat
         }
     }
 
-    pEntry->pCompositeUnit = sub_005066C0_CreateCompositeUnit(nSel, nMode, pEntry->aFlags, pEntry->aColors);
+    pEntry->pCompositeUnit = D2COMP_CreateCompositeUnit(nSel, nMode, pEntry->aFlags, pEntry->aColors);
     if (!pEntry->pCompositeUnit)
     {
         for (int j = 0; j < 16; ++j)
@@ -1026,7 +1026,7 @@ static int __stdcall CHARSEL_AddCharEntry(const char* szName, const char* szStat
         }
 
         pEntry->aFlags[1] = 1;
-        pEntry->pCompositeUnit = sub_005066C0_CreateCompositeUnit(7, 5, pEntry->aFlags, pEntry->aColors);
+        pEntry->pCompositeUnit = D2COMP_CreateCompositeUnit(7, 5, pEntry->aFlags, pEntry->aColors);
     }
 
     D2_ASSERT(pEntry->pCompositeUnit, 0x4BE);
@@ -1218,11 +1218,11 @@ BUILD_MODEL:
         if(gpCurrentCharEntry->wFlags&8) type=8+(sub_00438030_IsNotListedCode(type)!=0);
         else if(FOG_IsExpansion() || gpCurrentCharEntry->nType<5) mode=1;
     }
-    gpCurrentCharEntry->pAnim=sub_005066C0_CreateCompositeUnit(type,mode,gpCurrentCharEntry->aFlags,gpCurrentCharEntry->aColors);
+    gpCurrentCharEntry->pAnim=D2COMP_CreateCompositeUnit(type,mode,gpCurrentCharEntry->aFlags,gpCurrentCharEntry->aColors);
     if(!gpCurrentCharEntry->pAnim) {
         for(int i=0;i<16;++i) {gpCurrentCharEntry->aFlags[i]=0;gpCurrentCharEntry->aColors[i]=255;}
         gpCurrentCharEntry->aFlags[1]=1;
-        gpCurrentCharEntry->pAnim=sub_005066C0_CreateCompositeUnit(7,5,gpCurrentCharEntry->aFlags,gpCurrentCharEntry->aColors);
+        gpCurrentCharEntry->pAnim=D2COMP_CreateCompositeUnit(7,5,gpCurrentCharEntry->aFlags,gpCurrentCharEntry->aColors);
     }
     if(!gpCurrentCharEntry->pAnim) {sub_00408A60(&gszEmptyAssertText,sub_00408090(),0x619);exit(-1);}
     sub_005051A0_SetAnimField(gpCurrentCharEntry->pAnim,0);
@@ -1243,7 +1243,7 @@ BUILD_MODEL:
         D2Win_10046(gpCharNameText,text,0);
     } else D2Win_10046(gpCharNameText,gpCurrentCharEntry->szName,0);
     sub_004FB6A0_ClearText(gpCharDescriptionText);
-    sub_00437F60_GetClassName(className,gpCurrentCharEntry->nType);
+    CHARSEL_GetClassName(className,gpCurrentCharEntry->nType);
     Unicode description[100];
     Unicode level[10];
     sprintf(text,gszLevelFormat,entry->nLevel);
@@ -1577,7 +1577,7 @@ int __stdcall CHARSEL_OnChatLine(const Unicode* pText)
         sub_004FF5A0_SetEditText(gpChatEdit, 0);
         return 1;
     }
-    return sub_004428D0_SendChatText(szText, 0);
+    return CHATDLG_SendChatText(szText, 0);
 }
 
 // build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
@@ -1821,7 +1821,7 @@ int __stdcall CHARSEL_SendChatLine(int nArg)
     if (pText && sub_00526800(pText))
     {
         sub_00526F70(szText, pText, 0x100);
-        return sub_004428D0_SendChatText(szText, 0);
+        return CHATDLG_SendChatText(szText, 0);
     }
     return 1;
 }
@@ -2095,13 +2095,13 @@ int __cdecl CHARSEL_InitRealmScreen()
                 gpControl_00779D8C = MAINMENUS_CreateControl(0x6C);
                 sub_004FC9B0_SetText(MAINMENUS_CreateControl(0x6A), D2LANG_GetStringFromTblIndex(0x2B32), 4, 0, 0);
 
-                if (!SRegLoadString("Diablo II", "Preferred Realm", 0, gszPreferredRealm, 0x100) || !sub_00437A20_FindSlotName(gszPreferredRealm))
+                if (!SRegLoadString("Diablo II", "Preferred Realm", 0, gszPreferredRealm, 0x100) || !CHARSEL_FindSlotByName(gszPreferredRealm))
                 {
                     D2FuncRecordStrc* pRecord = gpFuncTable_0077ABF0->pfnGetRecord();
                     const int nIndex = pRecord->nIndex;
                     SStrCopy(gszPreferredRealm, sub_005180E0(pRecord, nIndex), 0x7FFFFFFF);
                     SRegSaveString("Diablo II", "Preferred Realm", 0, gszPreferredRealm);
-                    if (!sub_00437A20_FindSlotName(gszPreferredRealm))
+                    if (!CHARSEL_FindSlotByName(gszPreferredRealm))
                     {
                         const char* szFirst = GAME_GetSlotNameCount() > 0 ? CHARSEL_GetSlotName(0) : 0;
                         SStrCopy(gszPreferredRealm, szFirst, 0x7FFFFFFF);

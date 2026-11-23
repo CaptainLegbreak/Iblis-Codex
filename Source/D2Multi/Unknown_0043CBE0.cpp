@@ -30,7 +30,7 @@ void __fastcall CHATDLG_UpdateScroll(int nDelta); // 0x00448BD0
 void __cdecl COMCALLBACK_RefreshChatButtons(); // 0x004477A0
 int __cdecl GAME_GetWaitHandle(); // 0x00449AC0
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
-int __cdecl sub_00449C30(); // 0x00449C30
+int __cdecl GAME_IsMcpCharLogonReceived(); // 0x00449C30
 void __stdcall CHATDLG_SetCharLogonReceived(int nValue); // 0x00449C40
 extern D2WinControlStrc* gpControlMain_0077BC4C; // 0x0077BC4C
 extern D2WinControlStrc* gpChannelListBox; // 0x0077BCFC
@@ -562,7 +562,7 @@ int __stdcall sub_0043DBC0_OnWaitTick(SMSGHANDLER_PARAMS* pMsg)
 int __stdcall sub_0043DBF0_OnReceiveTick(SMSGHANDLER_PARAMS* pMsg)
 {
     sub_00449B70_Receive();
-    if (sub_00449C30() || !sub_00449B30_QueryAddress() || gnFlag_0077BD60)
+    if (GAME_IsMcpCharLogonReceived() || !sub_00449B30_QueryAddress() || gnFlag_0077BD60)
     {
         CHATDLG_SetCharLogonReceived(0);
         D2Win_StopMessageLoop();

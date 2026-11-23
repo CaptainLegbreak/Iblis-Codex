@@ -50,7 +50,7 @@ char* __fastcall DEBUG_ClearText(int nUnused, char* szText)
 }
 
 // 0x005347F0
-void __fastcall sub_005347F0_SetField0C(D2Game5347F0Strc* pRecord, int nValue)
+void __fastcall DEBUG_SetRecordValue(D2Game5347F0Strc* pRecord, int nValue)
 {
     if (pRecord)
     {

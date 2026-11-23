@@ -5,7 +5,7 @@
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags);                  // 0x00412650
 
-int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
+int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 
 D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId);                                           // 0x0042F430
 
@@ -198,7 +198,7 @@ extern int gnTopRow; // 0x00779DC8
 
 extern D2WinControlStrc* gpCharSelectText; // 0x00779DD4
 
-int __cdecl sub_0042FA30(); // 0x0042FA30
+int __cdecl GAME_GetStopMainLoop(); // 0x0042FA30
 
 void __cdecl COMCALLBACK_UpdateProgress(); // 0x0042F990
 
@@ -257,7 +257,7 @@ void __cdecl CHARSEL_CreateTcpIpScreen()
     gbGatewayFlag = 1;
     CHARSEL_DisconnectBattleNet();
     MAINMENUS_Reset();
-    sub_0042F2E0_ReadPaletteFiles("palette\\sky\\pal.dat", "palette\\sky\\pal.pl2");
+    MAINMENUS_ReadPaletteFiles("palette\\sky\\pal.dat", "palette\\sky\\pal.pl2");
     MAINMENUS_CreateControl(0x102);
     D2WinControlStrc* pControl = MAINMENUS_CreateControl(0x103);
     sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x13FD));
@@ -405,7 +405,8 @@ int __stdcall CHARSEL_OnName(SMSGHANDLER_PARAMS* pMsg)
     return 1;
 }
 
-static int sub_00437A20_FindSlotName(const char* szName)
+// build: symbol ?CHARSEL_FindSlotByName@* 0x00437A20
+static int CHARSEL_FindSlotByName(const char* szName)
 {
     int i = 0;
     char* szSlot;
@@ -431,7 +432,7 @@ void __cdecl CHARSEL_InitCharSelectScreen()
     MAINMENUS_Reset();
     BACKGROUND_SetCellFile(gpCharSelectBckgCelFile);
 // build: symbol ?gapszSkyPalette@* 0x006D3A08
-    sub_0042F2E0_ReadPaletteFiles(gapszSkyPalette[0], gapszSkyPalette[1]);
+    MAINMENUS_ReadPaletteFiles(gapszSkyPalette[0], gapszSkyPalette[1]);
 
     if (gnLaunchMode == 1)
     {
@@ -506,13 +507,13 @@ void __cdecl CHARSEL_InitCharSelectScreen()
 
         int nFound = 0;
         if (SRegLoadString("Diablo II", "Preferred Realm", 0, gszPreferredRealm, 0x100))
-            nFound = sub_00437A20_FindSlotName(gszPreferredRealm);
+            nFound = CHARSEL_FindSlotByName(gszPreferredRealm);
         if (nFound == 0)
         {
             BNGatewayAccess* pAccess = (BNGatewayAccess*)gpFuncTable_0077ABF0->pfnGetRecord();
             SStrCopy(gszPreferredRealm, pAccess->Realm(pAccess->m_nCurGateway), 0x7FFFFFFF);
             SRegSaveString("Diablo II", "Preferred Realm", 0, gszPreferredRealm);
-            nFound = sub_00437A20_FindSlotName(gszPreferredRealm);
+            nFound = CHARSEL_FindSlotByName(gszPreferredRealm);
         }
         if (nFound == 0)
         {
@@ -583,7 +584,7 @@ void __cdecl CHARSEL_SetCancelled()
 // 0x0043B850
 int __stdcall CHARSEL_OnDownloadTick(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (gpFuncTable_0077ABF0->pfnSlot4C() != 0x65 && !sub_0042FA30())
+    if (gpFuncTable_0077ABF0->pfnSlot4C() != 0x65 && !GAME_GetStopMainLoop())
     {
         COMCALLBACK_UpdateProgress();
         return 1;

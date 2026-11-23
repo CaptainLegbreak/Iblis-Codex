@@ -133,7 +133,7 @@ int __cdecl sub_00468740(); // 0x00468740
 
 D2GfxMotionStrc* __fastcall GFX_GetGfxMotion(D2UnitStrc* pUnit); // 0x0046F060
 
-void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 extern int gnTabSelection; // 0x00724CE0
 
@@ -169,7 +169,7 @@ int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
 int __stdcall ITEMS_GetQuiverType(D2UnitStrc* pItem); // 0x0062E740
 
-D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
@@ -203,15 +203,15 @@ int __cdecl sub_00468830(); // 0x00468830
 
 unsigned int __stdcall ITEMS_CheckIfBeltable(D2UnitStrc* pItem); // 0x0062BAD0
 
-int __fastcall sub_004C2240(D2UnitStrc* pItem); // 0x004C2240
+int __fastcall ITEM_IsItemActionBlocked(D2UnitStrc* pItem); // 0x004C2240
 
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
 
 void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
 
-void __fastcall sub_004C21F0_SetState36(D2UnitStrc* pItem); // 0x004C21F0
+void __fastcall ITEM_SetUninterruptableState(D2UnitStrc* pItem); // 0x004C21F0
 
-int __fastcall sub_004C1D60(D2UnitStrc* pItem); // 0x004C1D60
+int __fastcall ITEM_GetDropSound(D2UnitStrc* pItem); // 0x004C1D60
 
 int __fastcall ITEM_GetItemUseSound(D2UnitStrc* pItem); // 0x004C1E20
 
@@ -221,7 +221,7 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
-int __cdecl sub_00463DF0(); // 0x00463DF0
+int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 
 int __cdecl GAME_IsLeftClickRepeating(); // 0x0044BFE0
 
@@ -235,7 +235,7 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 void __fastcall sub_0049FF90_Close(D2UnitStrc* pItem, D2ItemsTxt* pState); // 0x0049FF90
 
-void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
+void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 
@@ -259,7 +259,7 @@ extern "C" size_t __cdecl strlen(const char* szString);
 
 int __fastcall sub_005262A0_Utf8CountChars(const char* pSrc, int nCount); // 0x005262A0
 
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
@@ -297,7 +297,7 @@ extern unsigned char gnBoxColor; // 0x007BF034
 
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
 
-void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
+void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 
@@ -309,13 +309,13 @@ void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int
 
 int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, int nArg, int nMode); // 0x00621050
 
-void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType, unsigned short nEvent); // 0x004CBDE0
+void __fastcall UNITSND_PlayEventSound(int nUnitId, unsigned char nUnitType, unsigned short nEvent); // 0x004CBDE0
 
 unsigned char gabBeltHotkey[1]; // 0x007BEFB0
 
-static void __stdcall sub_00498870_ClickBeltBox(D2InventoryStrc* pInventory, int nX, int nY);
+static void __stdcall PANEL_ClickBeltBox(D2InventoryStrc* pInventory, int nX, int nY); // 0x00498870
 
-void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int bShift);
+void __stdcall PANEL_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int bShift); // 0x00498A90
 
 static int __stdcall sub_00498A20_CheckState(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2ItemsTxt* pState);
 
@@ -395,7 +395,7 @@ struct D2StaticPathStrc;
 
 void __fastcall sub_004C21F0(D2UnitStrc* pItem);
 
-static void sub_00498930_HoverBeltBox(int nX, D2InventoryStrc* pInventory, int nY);
+static void PANEL_HoverBeltBox(int nX, D2InventoryStrc* pInventory, int nY); // 0x00498930
 
 struct D2QtyWarnStrc;
 
@@ -405,7 +405,7 @@ Unicode* __fastcall INV_PrefixColorCode(Unicode* pText, int nDigit); // 0x004521
 
 D2UnitStrc* __fastcall sub_00463DD0(); // 0x00463DD0
 
-int __cdecl sub_00489840_IsNpcState123(); // 0x00489840
+int __cdecl CUNIT_IsInvPanelTradeMode(); // 0x00489840
 
 void __fastcall INV_BuildItemName(D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x0048C060
 
@@ -472,7 +472,7 @@ void __cdecl PANEL_DrawStaminaBar(); // 0x004975B0
 
 void __cdecl PANEL_DrawMiniPanelButton(); // 0x004977C0
 
-void __cdecl sub_00499040_DrawBelt();
+void __cdecl PANEL_DrawBelt(); // 0x00499040
 
 void __cdecl PANEL_ValidateActiveSkills(); // 0x00496CF0
 
@@ -484,7 +484,7 @@ void* gpCtrlPnl7Cel; // 0x007BEF1C
 
 void* gp800CtrlPnl7Cel; // 0x007BEF74
 
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 void __fastcall sub_004A8CE0_SetValue(int); // 0x004A8CE0
 
@@ -499,11 +499,11 @@ static int gnGlobal_007BEFD4;        // 0x007BEFD4
 
 void __stdcall PANEL_BeltClickMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00499D10
 
-static void __stdcall sub_00497CF0_DrawDurabilityIcon(int nState, int bType, int nQuiverType, int nBodyLoc);
+static void __stdcall PANEL_DrawDurabilityIcon(int nState, int bType, int nQuiverType, int nBodyLoc); // 0x00497CF0
 
 void __cdecl PANEL_DrawDurabilityIcons();
 
-static int __stdcall sub_004987E0_GetBeltBoxAt(int nY, int nX);
+static int __stdcall PANEL_GetBeltBoxAt(int nY, int nX); // 0x004987E0
 
 static void PANEL_BeltHotkey(int nSlot);
 
@@ -515,13 +515,13 @@ void __cdecl PANEL_BeltHotkeyThird();
 
 void __cdecl PANEL_BeltHotkeyFourth();
 
-void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* __restrict pMsg);
+void __stdcall PANEL_BeltMouseMove(SMSGHANDLER_PARAMS* __restrict pMsg); // 0x00499BB0
 
-static void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int bShift);
+static void __stdcall PANEL_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int bShift); // 0x00498A90
 
-static void sub_00498930_HoverBeltBox(int nX, D2InventoryStrc* pInventory, int nY);
+static void PANEL_HoverBeltBox(int nX, D2InventoryStrc* pInventory, int nY); // 0x00498930
 
-void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg);
+void __stdcall PANEL_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg); // 0x00499BB0
 
 static int ORB_AbsValue(int nValue)
 {
@@ -786,7 +786,7 @@ void __cdecl PANEL_DrawStaminaBar()
     if (nWidth < 25)
         nColor = gnTextColorRed;
 
-    sub_0046EFD0_DrawFramedBox(gnScreenWidth / 2 - 0x7F, gnScreenHeight - 0x1B, nWidth, 0x12, nColor, 2);
+    AUTOMAP_DrawFramedBox(gnScreenWidth / 2 - 0x7F, gnScreenHeight - 0x1B, nWidth, 0x12, nColor, 2);
 
     const int nMouseX = sub_00468730();
     const int nMouseY = sub_00468740();
@@ -926,7 +926,7 @@ static void __stdcall PANEL_DrawBeltBoxFrame(int nBox, int nColor)
     D2UiRectStrc tRect;
 // build: symbol ?gnUiRecordIndex@* 0x00722354
     DATATBLS_GetInvRectFromBeltsTxt(gnUiRecordIndex, gnBeltUiRecordRow, &tRect, nBox);
-    sub_0046EFD0_DrawFramedBox(tRect.nLeft, tRect.nTop, 0x1D, 0x1D, gabBeltColors[nColor], 0);
+    AUTOMAP_DrawFramedBox(tRect.nLeft, tRect.nTop, 0x1D, 0x1D, gabBeltColors[nColor], 0);
 }
 
 // 0x00497920
@@ -1004,7 +1004,7 @@ void __cdecl PANEL_DrawBeltItemHoverText()
     }
 
     sub_00452170(wszText);
-    if (sub_00489840_IsNpcState123())
+    if (CUNIT_IsInvPanelTradeMode())
     {
         Unicode wszSocket[0x40] = { 0 };
         int nUnused;
@@ -1019,7 +1019,7 @@ void __cdecl PANEL_DrawBeltItemHoverText()
 }
 
 // 0x00497CF0
-static void __stdcall sub_00497CF0_DrawDurabilityIcon(int nState, int bType, int nQuiverType, int nBodyLoc)
+static void __stdcall PANEL_DrawDurabilityIcon(int nState, int bType, int nQuiverType, int nBodyLoc)
 {
     int nFrame = nState * 11;
     switch (nBodyLoc)
@@ -1184,7 +1184,7 @@ found:
         }
         else if (nBodyLoc == 4 || nBodyLoc == 5)
             continue;
-        sub_00497CF0_DrawDurabilityIcon(nState, bType, nQuiverType, nBodyLoc);
+        PANEL_DrawDurabilityIcon(nState, bType, nQuiverType, nBodyLoc);
     }
 }
 
@@ -1228,7 +1228,7 @@ void __cdecl PANEL_DrawLifeManaText()
 // 0x00498310
 void __cdecl PANEL_UpdateLevelTimer()
 {
-    D2ActiveRoomStrc* pRoom = sub_004646A0_GetPlayerRoom();
+    D2ActiveRoomStrc* pRoom = CUNIT_GetPlayerRoom();
     if (pRoom)
     {
         const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
@@ -1387,7 +1387,7 @@ extern "C" void __fastcall sub_0053B0E0_WriteVariableValue(BitStreamContext* str
 }
 
 // 0x004987E0
-static int __stdcall sub_004987E0_GetBeltBoxAt(int nY, int nX)
+static int __stdcall PANEL_GetBeltBoxAt(int nY, int nX)
 {
     D2UiRecordStrc tRecord;
     int nResult = -1;
@@ -1406,9 +1406,9 @@ static int __stdcall sub_004987E0_GetBeltBoxAt(int nY, int nX)
 }
 
 // 0x00498870
-static void __stdcall sub_00498870_ClickBeltBox(D2InventoryStrc* pInventory, int nX, int nY)
+static void __stdcall PANEL_ClickBeltBox(D2InventoryStrc* pInventory, int nX, int nY)
 {
-    const int nBox = sub_004987E0_GetBeltBoxAt(nY, nX);
+    const int nBox = PANEL_GetBeltBoxAt(nY, nX);
     if (nBox == -1)
     {
         return;
@@ -1423,35 +1423,35 @@ static void __stdcall sub_00498870_ClickBeltBox(D2InventoryStrc* pInventory, int
 
     if (pCursorItem && ITEMS_CheckIfBeltable(pCursorItem))
     {
-        const int bBusy = sub_004C2240(pCursorItem);
+        const int bBusy = ITEM_IsItemActionBlocked(pCursorItem);
         if (pBeltItem)
         {
             if (!bBusy)
             {
-                sub_004786A0_SendDwords2(0x25, pCursorItem->dwUnitId, !pBeltItem ? -1 : pBeltItem->dwUnitId);
-                sub_004C21F0_SetState36(pCursorItem);
+                MSG_SendTwoDwords(0x25, pCursorItem->dwUnitId, !pBeltItem ? -1 : pBeltItem->dwUnitId);
+                ITEM_SetUninterruptableState(pCursorItem);
             }
         }
         else if (!bBusy)
         {
-            sub_004786A0_SendDwords2(0x23, pCursorItem->dwUnitId, (unsigned short)nBox);
-            sub_004C21F0_SetState36(pCursorItem);
+            MSG_SendTwoDwords(0x23, pCursorItem->dwUnitId, (unsigned short)nBox);
+            ITEM_SetUninterruptableState(pCursorItem);
         }
-        sub_004B9A00(sub_004C1D60(pCursorItem), 0, 0, 0, 0);
+        sub_004B9A00(ITEM_GetDropSound(pCursorItem), 0, 0, 0, 0);
         return;
     }
 
-    if (pBeltItem && !pCursorItem && !sub_004C2240(pBeltItem))
+    if (pBeltItem && !pCursorItem && !ITEM_IsItemActionBlocked(pBeltItem))
     {
         sub_00478680_SendPacket5(0x24, pBeltItem->dwUnitId);
-        sub_004C21F0_SetState36(pBeltItem);
+        ITEM_SetUninterruptableState(pBeltItem);
     }
 }
 
 // 0x00498930
-static void sub_00498930_HoverBeltBox(int nX, D2InventoryStrc* pInventory, int nY)
+static void PANEL_HoverBeltBox(int nX, D2InventoryStrc* pInventory, int nY)
 {
-    const int nBox = sub_004987E0_GetBeltBoxAt(nY, nX);
+    const int nBox = PANEL_GetBeltBoxAt(nY, nX);
     if (nBox < 0)
     {
         return;
@@ -1499,7 +1499,7 @@ static void sub_00498930_HoverBeltBox(int nX, D2InventoryStrc* pInventory, int n
 }
 
 // 0x00498A90
-static void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int bShift)
+static void __stdcall PANEL_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int bShift)
 {
     if (!GAME_IsExpansion())
     {
@@ -1533,7 +1533,7 @@ static void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D
         return;
     }
 
-    if (sub_004C2240(pItem))
+    if (ITEM_IsItemActionBlocked(pItem))
     {
         return;
     }
@@ -1547,11 +1547,11 @@ static void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D
         {
             if (ITEMSIsA(pItem, 0x4C) || ITEMSIsA(pItem, 0x51) || ITEMSIsA(pItem, 0x50))
             {
-                sub_004CBDE0_PlayEventSound(nPetId, 1, 0x54);
+                UNITSND_PlayEventSound(nPetId, 1, 0x54);
             }
             else
             {
-                sub_004CBDE0_PlayEventSound(nPetId, 1, 0x55);
+                UNITSND_PlayEventSound(nPetId, 1, 0x55);
             }
             gnBeltHover = 0;
             return;
@@ -1577,7 +1577,7 @@ void __stdcall sub_A11_Emit_00498870(SMSGHANDLER_PARAMS* pMsg)
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    sub_00498870_ClickBeltBox(pPlayer->pInventory, nX, nY);
+    PANEL_ClickBeltBox(pPlayer->pInventory, nX, nY);
 }
 
 static int __stdcall sub_00498A20_CheckState(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2ItemsTxt* pState)
@@ -1592,14 +1592,14 @@ static int __stdcall sub_00498A20_CheckState(D2UnitStrc* pPlayer, D2UnitStrc* pI
     {
         return 1;
     }
-    sub_004CB9C0_Request(pPlayer, 0x14);
+    UNITSND_PlayPlayerSpeech(pPlayer, 0x14);
     return 0;
 }
 
 // 0x00498C10
 static void PANEL_BeltHotkey(int nSlot)
 {
-    if (GAME_IsExitPending() || sub_00463DF0())
+    if (GAME_IsExitPending() || CUNIT_IsPlayerDeadOrMissing())
     {
         return;
     }
@@ -1610,7 +1610,7 @@ static void PANEL_BeltHotkey(int nSlot)
     }
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    sub_00498A90_UseBeltSlot(nSlot, pPlayer, pPlayer->pInventory, GetKeyState(0x10) & 0x8000);
+    PANEL_UseBeltSlot(nSlot, pPlayer, pPlayer->pInventory, GetKeyState(0x10) & 0x8000);
 }
 
 // 0x00498C50
@@ -1735,9 +1735,9 @@ void __cdecl VIEW_InitBeltColors()
 }
 
 // 0x00499040
-void __cdecl sub_00499040_DrawBelt()
+void __cdecl PANEL_DrawBelt()
 {
-    sub_00502EF0(1);
+    D2Win_10127_SetFont(1);
     D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
     D2UnitStrc* pBelt = INVENTORY_GetItemFromBodyLoc(pInventory, 8);
     if (pBelt)
@@ -1843,7 +1843,7 @@ void __cdecl sub_00499040_DrawBelt()
             break;
         }
 
-        if (!ITEMS_CheckItemFlag(pItem, 4, 0x5D5, ".\\UI\\panel.cpp") && ITEMS_CheckIfUseable(pItem) && !sub_004C2240(pItem))
+        if (!ITEMS_CheckItemFlag(pItem, 4, 0x5D5, ".\\UI\\panel.cpp") && ITEMS_CheckIfUseable(pItem) && !ITEM_IsItemActionBlocked(pItem))
         {
             if (pItem == gpBeltItemA && gnBeltHover)
                 PANEL_DrawBeltBoxFrame(nBox, 1);
@@ -1916,10 +1916,10 @@ void __cdecl PANEL_DrawControlPanel()
     VIEW_DrawRunButton();
     PANEL_DrawStaminaBar();
     PANEL_DrawMiniPanelButton();
-    sub_00499040_DrawBelt();
+    PANEL_DrawBelt();
     PANEL_ValidateActiveSkills();
     sub_00497A40_DrawPanelText();
-    D2ActiveRoomStrc* pRoom = sub_004646A0_GetPlayerRoom();
+    D2ActiveRoomStrc* pRoom = CUNIT_GetPlayerRoom();
     if (pRoom)
     {
         const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
@@ -1941,7 +1941,7 @@ static __forceinline void CancelCursorMode()
 // 0x004996A0
 void __stdcall PANEL_BeltMouseReleaseMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    if(GAME_IsExitPending() || sub_00463DF0()) {
+    if(GAME_IsExitPending() || CUNIT_IsPlayerDeadOrMissing()) {
         pMsg->bReturn=0;
         return;
     }
@@ -1954,21 +1954,21 @@ void __stdcall PANEL_BeltMouseReleaseMsg(SMSGHANDLER_PARAMS* pMsg)
         if(gbUiRecordMode) {
             if(AUTOMAP_IsCursorOverMiniPanelButton(pMsg)) {
                 CancelCursorMode();
-                sub_00498870_ClickBeltBox(pPlayer->pInventory,x,y);
+                PANEL_ClickBeltBox(pPlayer->pInventory,x,y);
                 pMsg->bReturn=1;
                 pMsg->lResult=0;
                 sub_00420290_BreakHandlerChain(pMsg);
             }
             else if(x>=gnScreenWidth/2-8 && x<=gnScreenWidth/2+5 && y>=gnScreenHeight-39 && y<=gnScreenHeight-13) {
-                if(GAME_GetUIVarState(21)) sub_00455F20(21,1,0);
-                else sub_00455F20(21,2,0);
+                if(GAME_GetUIVarState(21)) UI_SetUIVar(21,1,0);
+                else UI_SetUIVar(21,2,0); // 0x00455F20
             }
             else if(x>=117 && x<=165 && y>=gnScreenHeight-48 && y<=gnScreenHeight) {
-                sub_00455F20(3,2,0);
+                UI_SetUIVar(3,2,0);
                 sub_004A8CE0_SetValue(1);
             }
             else if(x>=gnScreenWidth-165 && x<=gnScreenWidth-117 && y>=gnScreenHeight-48 && y<=gnScreenHeight) {
-                sub_00455F20(3,2,0);
+                UI_SetUIVar(3,2,0);
                 sub_004A8CE0_SetValue(0);
             }
             else if(x>=gnScreenWidth/2-145 && x<=gnScreenWidth/2-128 && y>=gnScreenHeight-28 && y<=gnScreenHeight-8) {
@@ -1979,26 +1979,26 @@ void __stdcall PANEL_BeltMouseReleaseMsg(SMSGHANDLER_PARAMS* pMsg)
         else if(y>gnScreenHeight-48) {
             if(x>=gnScreenWidth/2+23 && x<=gnScreenWidth/2+145 && y>=gnScreenHeight-39 && y<=gnScreenHeight-10) {
                 CancelCursorMode();
-                sub_00498870_ClickBeltBox(pPlayer->pInventory,x,y);
+                PANEL_ClickBeltBox(pPlayer->pInventory,x,y);
             }
             else if(x>=117 && x<=165 && y<=gnScreenHeight) {
                 CancelCursorMode();
-                if(GAME_GetUIVarState(3)) sub_00455F20(3,1,0);
-                else sub_00455F20(3,0,0);
+                if(GAME_GetUIVarState(3)) UI_SetUIVar(3,1,0);
+                else UI_SetUIVar(3,0,0); // 0x00455F20
                 sub_004A8CE0_SetValue(1);
             }
             else if(x>=gnScreenWidth-165 && x<=gnScreenWidth-117 && y<=gnScreenHeight) {
                 CancelCursorMode();
-                if(GAME_GetUIVarState(3)) sub_00455F20(3,1,0);
-                else sub_00455F20(3,0,0);
+                if(GAME_GetUIVarState(3)) UI_SetUIVar(3,1,0);
+                else UI_SetUIVar(3,0,0); // 0x00455F20
                 sub_004A8CE0_SetValue(0);
             }
             else if(x>=gnScreenWidth/2-145 && x<=gnScreenWidth/2-128 && y>=gnScreenHeight-28 && y<=gnScreenHeight-8) {
                 GAME_SetAlwaysRun(!GAME_GetAlwaysRun());
             }
             else if(x>=gnScreenWidth/2-8 && x<=gnScreenWidth/2+5 && y>=gnScreenHeight-39 && y<=gnScreenHeight-13) {
-                if(GAME_GetUIVarState(21)) sub_00455F20(21,1,0);
-                else sub_00455F20(21,2,0);
+                if(GAME_GetUIVarState(21)) UI_SetUIVar(21,1,0);
+                else UI_SetUIVar(21,2,0); // 0x00455F20
                 if(gbMiniPanelButtonDown) gnGlobal_007BEFD4=!gnGlobal_007BEFD4;
             }
             gbControlPanelClicked=0;
@@ -2014,7 +2014,7 @@ void __stdcall PANEL_BeltMouseReleaseMsg(SMSGHANDLER_PARAMS* pMsg)
     else {
         if((x>=117 && x<=165 && y>=gnScreenHeight-48 && y<=gnScreenHeight) ||
            (x>=gnScreenWidth-165 && x<=gnScreenWidth-117 && y>=gnScreenHeight-48 && y<=gnScreenHeight)) {
-            if(GAME_GetUIVarState(3)) sub_00455F20(3,1,0);
+            if(GAME_GetUIVarState(3)) UI_SetUIVar(3,1,0);
         }
         gbControlPanelClicked=0;
         pMsg->bReturn=0;
@@ -2024,9 +2024,9 @@ void __stdcall PANEL_BeltMouseReleaseMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00499BB0
-void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall PANEL_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (!gbPositionalSound || GAME_IsExitPending() || sub_00463DF0())
+    if (!gbPositionalSound || GAME_IsExitPending() || CUNIT_IsPlayerDeadOrMissing())
     {
         pMsg->bReturn = 0;
         return;
@@ -2049,7 +2049,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
                 pMsg->bReturn = 1;
                 pMsg->lResult = 0;
             }
-            sub_00498930_HoverBeltBox(nX, pPlayer->pInventory, nY);
+            PANEL_HoverBeltBox(nX, pPlayer->pInventory, nY);
             return;
         }
 
@@ -2079,7 +2079,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
     {
         gbUiRecordMode = 1;
         gnBeltRecordMode2 = 1;
-        sub_00498930_HoverBeltBox(nX, pPlayer->pInventory, nY);
+        PANEL_HoverBeltBox(nX, pPlayer->pInventory, nY);
     }
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
@@ -2088,7 +2088,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
 // 0x00499D10
 void __stdcall PANEL_BeltClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (GAME_IsExitPending() || sub_00463DF0())
+    if (GAME_IsExitPending() || CUNIT_IsPlayerDeadOrMissing())
     {
         pMsg->bReturn = 0;
         return;
@@ -2110,14 +2110,14 @@ void __stdcall PANEL_BeltClickMsg(SMSGHANDLER_PARAMS* pMsg)
             sub_00478680_SendPacket5(0x4C, -1);
         }
 
-        const int nBox = sub_004987E0_GetBeltBoxAt(nY, nX);
+        const int nBox = PANEL_GetBeltBoxAt(nY, nX);
         if (nBox < 0)
         {
             pMsg->bReturn = 0;
             return;
         }
 
-        sub_00498A90_UseBeltSlot(nBox, pPlayer, pPlayer->pInventory, (pMsg->wParam >> 2) & 1);
+        PANEL_UseBeltSlot(nBox, pPlayer, pPlayer->pInventory, (pMsg->wParam >> 2) & 1);
         sub_00420290_BreakHandlerChain(pMsg);
         return;
     }

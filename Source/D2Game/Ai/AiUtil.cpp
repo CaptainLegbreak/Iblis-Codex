@@ -325,7 +325,7 @@ void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2A
 
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath); // 0x00537860
 
-D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse); // 0x0056E970
+D2StatListStrc* __fastcall SKILLS_ApplyStateEffect(D2CurseStrc* pCurse); // 0x0056E970
 
 void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit); // 0x00620C10
 
@@ -1676,7 +1676,7 @@ void __fastcall AIUTIL_ApplyTerrorCurseState(D2GameStrc* pGame, D2UnitStrc* pUni
     curse.nStat = -1;
     curse.nSkill = SKILL_TERROR;
     curse.nState = STATE_TERROR;
-    sub_0056E970(&curse);
+    SKILLS_ApplyStateEffect(&curse);
 
     UNITS_SetTargetUnitForDynamicUnit(pTarget, pUnit);
 

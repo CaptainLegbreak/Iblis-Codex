@@ -198,7 +198,7 @@ D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill);
 
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 
-D2UnitStrc* __stdcall sub_0063C050_GetBodyLocItem(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063C050
+D2UnitStrc* __stdcall INVENTORY_GetCompositItem(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063C050
 
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
@@ -2630,14 +2630,14 @@ D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2)
         switch (pSkillsTxtRecord->nWeapSel)
         {
         case 1:
-            pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 6);
+            pWeapon = INVENTORY_GetCompositItem(pInventory, 6);
             break;
 
         case 2:
         {
             const int nFlags = SKILLS_GetFlags(pSkill) & 0x2000;
-            pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 5);
-            D2UnitStrc* pHandItem = sub_0063C050_GetBodyLocItem(pInventory, 6);
+            pWeapon = INVENTORY_GetCompositItem(pInventory, 5);
+            D2UnitStrc* pHandItem = INVENTORY_GetCompositItem(pInventory, 6);
             if (!pWeapon || !ITEMSIsA(pWeapon, 45) || pHandItem && ITEMSIsA(pHandItem, 45) && nFlags)
             {
                 pWeapon = pHandItem;
@@ -2660,11 +2660,11 @@ D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2)
 
             if (nFrame && (!a2 || bOther))
             {
-                pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 6);
+                pWeapon = INVENTORY_GetCompositItem(pInventory, 6);
             }
             else
             {
-                pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 5);
+                pWeapon = INVENTORY_GetCompositItem(pInventory, 5);
             }
             break;
         }
@@ -2674,10 +2674,10 @@ D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2)
             break;
 
         default:
-            pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 5);
+            pWeapon = INVENTORY_GetCompositItem(pInventory, 5);
             if (!pWeapon || !ITEMSIsA(pWeapon, 45))
             {
-                pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 6);
+                pWeapon = INVENTORY_GetCompositItem(pInventory, 6);
             }
             break;
         }
@@ -3109,7 +3109,8 @@ int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int n
         const int nType = pUnit2 ? pUnit2->dwUnitType : UNIT_INVALID;
         if (nType == UNIT_MONSTER)
         {
-            switch (MONSTERS_ValidateMonsterIdInline(sub_00463860(pUnit2)))
+// build: symbol ?CUNIT_GetMonsterBaseId@* 0x00463860
+            switch (MONSTERS_ValidateMonsterIdInline(CUNIT_GetMonsterBaseId(pUnit2)))
             {
             case MONSTER_TENTACLE1:
             case MONSTER_TENTACLEHEAD1:
@@ -3173,7 +3174,7 @@ int __stdcall UNITS_IsInMovingMode(D2UnitStrc* hUnit)
 
         case MONMODE_SKILL1:
         case MONMODE_SKILL2:
-            return MONSTERS_GetBaseIdFromMonsterId(sub_00463860(hUnit)) == MONSTER_VULTURE1;
+            return MONSTERS_GetBaseIdFromMonsterId(CUNIT_GetMonsterBaseId(hUnit)) == MONSTER_VULTURE1;
 
         default:
             return 0;

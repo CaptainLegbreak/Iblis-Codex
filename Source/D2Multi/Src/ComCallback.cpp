@@ -86,7 +86,7 @@ void __cdecl CHARSEL_CreateBaseScreen(); // 0x0043C4F0
 
 int __fastcall sub_0043DAD0_SetMainState(int bSet); // 0x0043DAD0
 
-int __fastcall sub_0043E610_PrintText(Unicode* pText, int nColor); // 0x0043E610
+int __fastcall CHATDLG_PrintText(Unicode* pText, int nColor); // 0x0043E610
 
 void __stdcall CHATDLG_RemoveTableString(Unicode* pText); // 0x00446A90
 
@@ -241,7 +241,7 @@ const Unicode* __fastcall D2Win_10077_EDITBOX_GetText(D2WinEditBoxStrc* pEditBox
 
 int __fastcall EDITBOX_SetText(D2WinEditBoxStrc* pEditBox, const Unicode* pText); // 0x004FF5A0
 
-int __fastcall sub_004428D0_SendChatText(char* szText, int bWhisper); // 0x004428D0
+int __fastcall CHATDLG_SendChatText(char* szText, int bWhisper); // 0x004428D0
 
 void __fastcall CHATDLG_ShowError(const Unicode* pText, D2LaunchCallback pfnDone); // 0x00440140
 
@@ -345,7 +345,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 
 extern "C" int __cdecl rand();                                                                              // 0x00687461
 
-int __fastcall sub_0043E630_ShowChannelText(Unicode* pText);                                                // 0x0043E630
+int __fastcall CHATDLG_ShowChannelText(Unicode* pText);                                                // 0x0043E630
 
 void __fastcall COMCALLBACK_SetNamedValue(const char* szName, const char* szValue);                        // 0x00447400
 
@@ -399,7 +399,7 @@ static void __stdcall COMCALLBACK_UpdateUser(D2MultiChannelUserStrc* pUser, cons
 
 struct D2ChannelEntryStrc;
 
-D2MultiChannelUserStrc* __stdcall sub_00449050_AddEntry(const char* szName, const unsigned char* pStat, unsigned int nFlags); // 0x00449050
+D2MultiChannelUserStrc* __stdcall COMCALLBACK_AddChannelUser(const char* szName, const unsigned char* pStat, unsigned int nFlags); // 0x00449050
 
 int __stdcall sub_005041B0_Destroy(D2CompositeStrc* pComposite, int nFlag); // 0x005041B0
 
@@ -995,7 +995,7 @@ int __stdcall COMCALLBACK_SendChatLine(int nUnused)
     }
 
     sub_00526F70(szText, wszText, sizeof(szText));
-    return sub_004428D0_SendChatText(szText, 1);
+    return CHATDLG_SendChatText(szText, 1);
 }
 
 // 0x00446950
@@ -1022,7 +1022,7 @@ int __stdcall COMCALLBACK_SendEmoteLine(int nUnused)
             {
                 gdwLastCommandTick = dwTick;
                 sprintf(szLine, "/me %s", szText);
-                sub_004428D0_SendChatText(szLine, 0);
+                CHATDLG_SendChatText(szLine, 0);
             }
         }
     }
@@ -1705,7 +1705,7 @@ static int __stdcall COMCALLBACK_AddChatLine(const char* szText, int nColor)
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
     CHATDLG_RemoveTableString(wszText);
-    sub_0043E610_PrintText(wszText, nColor);
+    CHATDLG_PrintText(wszText, nColor);
     return 1;
 }
 
@@ -1721,7 +1721,7 @@ static void __stdcall COMCALLBACK_PrintChannelLine(const char* szText, int nPref
     COMCALLBACK_PrependNumberText(wszName, nPrefix);
     COMCALLBACK_AppendNumberText(wszName, nColor);
     sub_00526700(wszName, wszText);
-    sub_0043E610_PrintText(wszName, nColor);
+    CHATDLG_PrintText(wszName, nColor);
 }
 
 static inline int CHAN_GetRank(const D2ChannelFlagsStrc* pFlags)
@@ -1928,7 +1928,7 @@ int __stdcall COMCALLBACK_PrintNormalText(int nUnused, const char* szText)
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
     CHATDLG_RemoveTableString(wszText);
-    sub_0043E610_PrintText(wszText, 0);
+    CHATDLG_PrintText(wszText, 0);
     return 1;
 }
 
@@ -2051,7 +2051,7 @@ int __stdcall COMCALLBACK_PrintInfoText(int nUnused, const char* szText)
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
     CHATDLG_RemoveTableString(wszText);
-    sub_0043E610_PrintText(wszText, 3);
+    CHATDLG_PrintText(wszText, 3);
     return 1;
 }
 
@@ -2061,7 +2061,7 @@ int __stdcall COMCALLBACK_PrintErrorText(int nUnused, const char* szText)
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
     CHATDLG_RemoveTableString(wszText);
-    sub_0043E610_PrintText(wszText, 1);
+    CHATDLG_PrintText(wszText, 1);
     return 1;
 }
 
@@ -2073,7 +2073,7 @@ int __stdcall COMCALLBACK_OnChannelFull(int nUnused, const char* szText)
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szBuffer, 0x240);
     CHATDLG_RemoveTableString(wszText);
-    sub_0043E610_PrintText(wszText, 1);
+    CHATDLG_PrintText(wszText, 1);
     return 1;
 }
 
@@ -2085,7 +2085,7 @@ int __stdcall COMCALLBACK_OnChannelRestricted(int nUnused, const char* szText)
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szBuffer, 0x240);
     CHATDLG_RemoveTableString(wszText);
-    sub_0043E610_PrintText(wszText, 1);
+    CHATDLG_PrintText(wszText, 1);
     return 1;
 }
 
@@ -2097,7 +2097,7 @@ static void COMCALLBACK_PrintEmote(const char* szName, const char* szMessage)
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
     CHATDLG_RemoveTableString(wszText);
-    sub_0043E610_PrintText(wszText, 5);
+    CHATDLG_PrintText(wszText, 5);
 }
 
 // 0x004486F0
@@ -2146,7 +2146,7 @@ static void __stdcall COMCALLBACK_PrintWhisper(const char* szSender, const char*
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
     CHATDLG_RemoveTableString(wszText);
-    sub_0043E610_PrintText(wszText, 2);
+    CHATDLG_PrintText(wszText, 2);
 }
 
 // 0x00448920
@@ -2187,7 +2187,7 @@ static void COMCALLBACK_PrintWhisperSent(const char* szName, const char* szText)
     Unicode wszLine[0x240];
     sub_00526E40_Utf8ToUnicode(wszLine, szLine, 0x240);
     CHATDLG_RemoveTableString(wszLine);
-    sub_0043E610_PrintText(wszLine, 2);
+    CHATDLG_PrintText(wszLine, 2);
 }
 
 // 0x00448AD0
@@ -2375,7 +2375,7 @@ int __stdcall COMCALLBACK_UnsquelchSelectedUser(int nUnused)
 
 
 // 0x00449050
-D2MultiChannelUserStrc* __stdcall sub_00449050_AddEntry(const char* szName, const unsigned char* pStat, unsigned int nFlags)
+D2MultiChannelUserStrc* __stdcall COMCALLBACK_AddChannelUser(const char* szName, const unsigned char* pStat, unsigned int nFlags)
 {
     D2MultiChannelUserStrc* pUser = gpChannelUsers;
     if (gpChannelUsers)
@@ -2465,7 +2465,7 @@ D2MultiChannelUserStrc* __stdcall sub_00449050_AddEntry(const char* szName, cons
 
     Unicode wszText[0x240];
     Unicode::win2Unicode(wszText, szText, 0x240);
-    sub_0043E630_ShowChannelText(wszText);
+    CHATDLG_ShowChannelText(wszText);
     CHATDLG_UpdateScroll(0);
     COMCALLBACK_RefreshChannelList();
     return pUser;
@@ -2480,13 +2480,13 @@ int __cdecl sub_M133_Emit_00447390(const char* szNameA, const char* szNameB)
 // 0x00449320
 static inline void* COMCALLBACK_AddEntry(const char* szName, const unsigned char* pStat, unsigned int nFlags)
 {
-    return sub_00449050_AddEntry(szName, pStat, nFlags);
+    return COMCALLBACK_AddChannelUser(szName, pStat, nFlags);
 }
 
 // 0x00449350
 static void COMCALLBACK_ShowUserJoined(const char* szName, const unsigned char* pStat, unsigned int nFlags)
 {
-    D2MultiChannelUserStrc* pUser = sub_00449050_AddEntry(szName, pStat, nFlags);
+    D2MultiChannelUserStrc* pUser = COMCALLBACK_AddChannelUser(szName, pStat, nFlags);
     if (!gbShowJoinLeave)
     {
         return;
@@ -2587,7 +2587,7 @@ void __stdcall COMCALLBACK_RemoveChannelUser(const char* szName)
     sprintf(szCount, "%s (%d)", gszChannelName, gnChannelUserCount);
     Unicode wszCount[0x240];
     sub_00526F20_ToUnicode(wszCount, szCount, 0x240);
-    sub_0043E630_ShowChannelText(wszCount);
+    CHATDLG_ShowChannelText(wszCount);
     CHATDLG_UpdateScroll(0);
     COMCALLBACK_RefreshChannelList();
 }
@@ -2626,7 +2626,7 @@ void __cdecl COMCALLBACK_ClearChannel()
     sprintf(szText, "%s (%d)", gszChannelName, 0);
     Unicode wszText[0x240];
     sub_00526F20_ToUnicode(wszText, szText, 0x240);
-    sub_0043E630_ShowChannelText(wszText);
+    CHATDLG_ShowChannelText(wszText);
     gnChannelScroll = 0;
     CHATDLG_UpdateScroll(0);
 }
@@ -2646,7 +2646,7 @@ int __fastcall COMCALLBACK_OnJoinChannel(int nA, int nB, int nC, const char* szC
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
     CHATDLG_RemoveTableString(wszText);
-    sub_0043E610_PrintText(wszText, 5);
+    CHATDLG_PrintText(wszText, 5);
     strcpy(gszChannelName, szChannel);
     strcpy(gpCharInfo->szRealm0x361, gszChannelName);
     if (!gpCharInfo->szRealm0x381[0])

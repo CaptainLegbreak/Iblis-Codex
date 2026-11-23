@@ -21,8 +21,9 @@ void __fastcall AITACTICS_Idle(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
 int __stdcall shim_1(void* p1, void* p2);
 
-// build: context sub_005FBDD0
-static D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pMax, int* pCount, void* pArgs, AIBAAL_CullFn pfCull)
+// build: symbol ?AIBAAL_GetUberTarget@* 0x005FBDD0
+// build: context AIBAAL_GetUberTarget
+static D2UnitStrc* __stdcall AIBAAL_GetUberTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pMax, int* pCount, void* pArgs, AIBAAL_CullFn pfCull)
 {
 
     int a = shim_1(&pGame, &pMax);
@@ -64,7 +65,7 @@ void __fastcall AITHINK_Fn140_BaalCrabClone(D2GameStrc* pGame, D2UnitStrc* pUnit
 
     int nMax = 0;
     int nCount = 0;
-    D2UnitStrc* pTarget = sub_005FBDD0(pGame, pUnit, &nMax, &nCount, 0, AIBAAL_CullPotentialTargets);
+    D2UnitStrc* pTarget = AIBAAL_GetUberTarget(pGame, pUnit, &nMax, &nCount, 0, AIBAAL_CullPotentialTargets);
 
     D2AiCmdStrc* pAiCmd = AIGENERAL_GetAiCommandFromParam(pUnit, 10, 0);
     if (!pAiCmd)

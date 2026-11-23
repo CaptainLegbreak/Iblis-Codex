@@ -19,7 +19,7 @@ int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int n
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
 unsigned short __cdecl GAME_GetClickFlags(); // 0x0044BEC0
 int __fastcall AUTOMAP_DispatchUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg); // 0x00480C10
-void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 int __fastcall ROSTER_CanLoot(int nUnitId1, int nUnitId2); // 0x0047A4F0
 void __fastcall UNITMODE_DoUnitAction(int nAction, D2UnitStrc* pPlayer, int nArg1, int nArg2, int nArg3); // 0x00481030
@@ -152,7 +152,7 @@ static void __stdcall UNITMODE_DoPlayerAction(D2UnitStrc* pPlayer, int nAction, 
             tTarget.nParam1 = nArg1;
             tTarget.nParam2 = nArg2;
             if (AUTOMAP_DispatchUnitCommand(0x18, pPlayer, &tTarget, 0))
-                sub_004786A0_SendDwords2(4, nArg1, nArg2);
+                MSG_SendTwoDwords(4, nArg1, nArg2);
             sub_SetPlayerAction(pPlayer, 0, 0, 0, 0);
         }
     }
@@ -162,7 +162,7 @@ static void __stdcall UNITMODE_DoPlayerAction(D2UnitStrc* pPlayer, int nAction, 
         tTarget.nParam1 = nArg1;
         tTarget.nParam2 = nArg2;
         if (AUTOMAP_DispatchUnitCommand(0, pPlayer, &tTarget, 0))
-            sub_004786A0_SendDwords2(2, nArg1, nArg2);
+            MSG_SendTwoDwords(2, nArg1, nArg2);
         sub_SetPlayerAction(pPlayer, 0, 0, 0, 0);
     }
     sub_SetPlayerAction(pPlayer, 1, nAction, nArg1, nArg2);

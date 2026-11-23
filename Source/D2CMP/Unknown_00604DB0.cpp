@@ -35,7 +35,8 @@ double __stdcall sub_00604DB0(T00604DB0 a,T00604DB0 b)
     return a.value[VALUE_SLOT_INDEX]>b.value[VALUE_SLOT_INDEX] ? a.value[VALUE_SLOT_INDEX] : b.value[VALUE_SLOT_INDEX];
 }
 
-double __stdcall sub_00604FE0_HueToRgb(double n1, double n2, double hue)
+// build: symbol ?PaletteHueToRgb@* 0x00604FE0
+double __stdcall PaletteHueToRgb(double n1, double n2, double hue)
 {
     if (hue > 360.0)
         hue -= 360.0;
@@ -75,9 +76,9 @@ static void sub_00605080_HslToRgb(const D2HslStrc* pHsl, D2PalRgbaStrc* pRgb)
             }
 
             const double dM1 = pHsl->f_10 + pHsl->f_10 - dM2;
-            nRed = (unsigned char)(sub_00604FE0_HueToRgb(dM1, dM2, pHsl->f_0 + 120.0) * 255.0);
-            nGreen = (unsigned char)(sub_00604FE0_HueToRgb(dM1, dM2, pHsl->f_0) * 255.0);
-            nBlue = (unsigned char)(sub_00604FE0_HueToRgb(dM1, dM2, pHsl->f_0 - 120.0) * 255.0);
+            nRed = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->f_0 + 120.0) * 255.0);
+            nGreen = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->f_0) * 255.0);
+            nBlue = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->f_0 - 120.0) * 255.0);
         }
 
         pRgb->nRed = nRed;

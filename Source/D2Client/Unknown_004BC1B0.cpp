@@ -33,7 +33,7 @@ int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 
@@ -768,7 +768,7 @@ void ListBoxImplementation::Slot01()
     tRect.nBottom = f_18070C + nRectHeight - 1;
     UI_DrawRectangleBorder(&tRect);
 
-    const int nOldFont = sub_00502EF0(nArg18);
+    const int nOldFont = D2Win_10127_SetFont(nArg18);
 
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
@@ -797,7 +797,7 @@ void ListBoxImplementation::Slot01()
             nColor = aLines[nLine].nData;
         }
 
-        sub_00502EF0(aLines[nLine].nFont != 14 ? aLines[nLine].nFont : nArg18);
+        D2Win_10127_SetFont(aLines[nLine].nFont != 14 ? aLines[nLine].nFont : nArg18);
 
         if (aLines[nLine].wszText0[0].wChar)
         {
@@ -856,7 +856,7 @@ void ListBoxImplementation::Slot01()
         }
     }
 
-    sub_00502EF0(nOldFont);
+    D2Win_10127_SetFont(nOldFont);
 }
 
 // 0x004BF430

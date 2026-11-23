@@ -163,7 +163,7 @@ struct D2ClientStrc;
 
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 
-int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc*); // 0x00451F50
+int __fastcall GAME_GetUnitGUID(D2UnitStrc*); // 0x00451F50
 
 typedef int (__stdcall* FARPROC)();
 
@@ -532,7 +532,7 @@ int __fastcall PLAYERPETS_MarkPetAlive(D2GameStrc* pGame, D2UnitStrc* pPlayer, D
         {
             for (D2PetDataStrc* pPetData = pPetList->pPetData; pPetData; pPetData = pPetData->pNext)
             {
-                if (pPetData->nUnitGUID == sub_00451F50_GetUnitGUID(pPet))
+                if (pPetData->nUnitGUID == GAME_GetUnitGUID(pPet))
                 {
                     pPetData->nFlags &= ~1;
                     D2PetArgStrc arg = {};

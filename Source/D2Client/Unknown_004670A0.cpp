@@ -75,12 +75,12 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                      
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine);              // 0x00643CE0
 int __stdcall ITEMS_IsMetalItem(int nItemId);                                                               // 0x00629CC0
-D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 void __stdcall UNITFINDS_InitializeUnitFindData(void* pMemPool, D2UnitFindDataStrc* pUnitFindData, D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize, D2UnitFindCallback pfnUnitTest, D2UnitFindArgStrc* pUnitFindArg); // 0x0065A950
 int __fastcall sub_00467470_UnitFindTest(D2UnitStrc* pUnit, void* pArg);                                    // 0x00467470
 D2UnitStrc* __stdcall D2Common_10407(D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitFindCallback pCallback, void* pArg, int nSize); // 0x00641CB0
 int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
-int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther);                           // 0x00465C60
+int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther);                           // 0x00465C60
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill);                           // 0x00644140
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
@@ -377,7 +377,8 @@ static int sub_004673C0_GetDistanceSquared(D2UnitStrc* pUnit, D2UnitStrc* pOther
     return nDY * nDY + nDX * nDX;
 }
 
-static D2UnitStrc* __stdcall sub_00467490_FindSkillTarget(D2SkillStrc* pSkill, D2UnitStrc* pUnit, int* pnX, int* pnY, D2SkillsTxt* pSkillsTxtRecord)
+// build: symbol ?SELECT_FindSkillTarget@* 0x00467490
+static D2UnitStrc* __stdcall SELECT_FindSkillTarget(D2SkillStrc* pSkill, D2UnitStrc* pUnit, int* pnX, int* pnY, D2SkillsTxt* pSkillsTxtRecord)
 {
     if (pUnit)
     {
@@ -411,7 +412,7 @@ static D2UnitStrc* __stdcall sub_00467490_FindSkillTarget(D2SkillStrc* pSkill, D
     tArg.nSize = 9;
 
     D2UnitFindDataStrc tFindData;
-    UNITFINDS_InitializeUnitFindData(0, &tFindData, sub_004646A0_GetPlayerRoom(), *pnX, *pnY, 9, pfnTest, &tArg);
+    UNITFINDS_InitializeUnitFindData(0, &tFindData, CUNIT_GetPlayerRoom(), *pnX, *pnY, 9, pfnTest, &tArg);
     tFindData.nFlags = nFlags;
     UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(&tFindData);
 
@@ -450,7 +451,7 @@ static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkill
             {
                 if (!(pSkillsTxtRecord->nFlags[2] & gdwBitMasks[4])
                     || (pTarget->dwUnitType == UNIT_MONSTER && MONSTERREGION_CheckMonStats2Flag(pTarget->dwClassId, 6))
-                    || sub_00465C60_CheckUnitPair(pUnit, pTarget))
+                    || CUNIT_IsHostileTo(pUnit, pTarget))
                 {
                     UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);
                     return pTarget;
@@ -477,7 +478,7 @@ static D2UnitStrc* __stdcall sub_004677B0_FindFreeTargetCoords(int* pnX, int* pn
         tCoord.nY = *pnY;
     }
 
-    D2ActiveRoomStrc* pRoom = sub_004646A0_GetPlayerRoom();
+    D2ActiveRoomStrc* pRoom = CUNIT_GetPlayerRoom();
     if (pRoom && COLLISION_CheckMask(pRoom, tCoord.nX, tCoord.nY, 1)
         && COLLISION_GetFreeCoordinatesWithMaxDistance(pRoom, &tCoord, 1, 1, 0, 7))
     {
@@ -531,7 +532,7 @@ skip:
     const int nFlags6 = pSkillsTxtRecord->nFlags[2];
     if (nFlags6 & gdwBitMasks[6])
     {
-        return sub_00467490_FindSkillTarget(pSkill, pUnit, pnX, pnY, pSkillsTxtRecord);
+        return SELECT_FindSkillTarget(pSkill, pUnit, pnX, pnY, pSkillsTxtRecord);
     }
 
     if (!pUnit && (nFlags6 & gdwBitMasks[5]) && bArg)

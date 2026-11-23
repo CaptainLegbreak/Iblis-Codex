@@ -289,7 +289,7 @@ struct D2GameStrc;
 
 #define MONSTATSFLAGINDEX_BOSSXFER 5
 
-int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
+int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
 int __fastcall PLAYER_GetBaseIdFromMonsterId(int nMonsterId); // 0x00463830
 
@@ -1033,7 +1033,7 @@ static void MONSTERSPAWN_SpawnMinionParty(D2UnkMonCreateStrc* pMonCreate, D2Unit
             D2UnitStrc* pMonster = MONSTERSPAWN_SpawnAtUnit(pGame, pUnit, pMonStatsTxtRecord->wMinion[nMinionIndex], 1, 4, 0x40);
             if (pMonster && (pMonStatsTxtRecord->nMonStatsFlags[0] & gdwBitMasks[MONSTATSFLAGINDEX_SETBOSS]))
             {
-                AIGENERAL_SetOwnerData(pGame, pMonster, sub_00451F50_GetUnitGUID(pUnit), 1, 0, 0);
+                AIGENERAL_SetOwnerData(pGame, pMonster, GAME_GetUnitGUID(pUnit), 1, 0, 0);
                 AIGENERAL_AllocMinionList(pGame, pUnit, pMonster);
             }
 
@@ -1253,7 +1253,7 @@ int __fastcall MONSTERSPAWN_SpawnFormation(D2GameStrc* pGame, D2ActiveRoomStrc* 
                 D2UnitStrc* pMinion = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX + pRecord->nXOffset, nY + pRecord->nYOffset, nClassId, nAnimMode, -1, 0);
                 if (pMinion)
                 {
-                    AIGENERAL_SetOwnerData(pGame, pMinion, sub_00451F50_GetUnitGUID(pOwner), GAME_GetUnitTypeOrInvalid(pOwner), 0, 0);
+                    AIGENERAL_SetOwnerData(pGame, pMinion, GAME_GetUnitGUID(pOwner), GAME_GetUnitTypeOrInvalid(pOwner), 0, 0);
                     nResult = 1;
                 }
             }

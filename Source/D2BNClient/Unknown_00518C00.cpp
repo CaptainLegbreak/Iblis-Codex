@@ -189,7 +189,8 @@ static unsigned int __stdcall sub_00518FA0_HashString(unsigned int nHashType, co
     return dwSeed1;
 }
 
-static int __stdcall sub_00519110_FindHashEntry(unsigned int dwLocale, const char* szName)
+// build: symbol ?CACHE_FindHashEntry@* 0x00519110
+static int __stdcall CACHE_FindHashEntry(unsigned int dwLocale, const char* szName)
 {
     unsigned int dwIndex = sub_00518FA0_HashString(0, szName);
     unsigned int dwNameA = sub_00518FA0_HashString(1, szName);
@@ -236,7 +237,7 @@ static void sub_H08_ClearBlockEntry(D2CacheBlockEntryStrc* pBlockTable, unsigned
 static void sub_005191D0_DeleteHashEntries(const char* szName)
 {
     int nIndex;
-    while ((nIndex = sub_00519110_FindHashEntry(0, szName)) != -1)
+    while ((nIndex = CACHE_FindHashEntry(0, szName)) != -1)
     {
         unsigned int* pBlock = &gpCacheHashTable[nIndex].dwBlockIndex;
         if (*pBlock < gpCacheHeader->f_1C)

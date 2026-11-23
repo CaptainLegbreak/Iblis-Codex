@@ -94,7 +94,7 @@ struct D2WinListInitStrc
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl); // 0x004F9210
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 int __fastcall LIST_Draw(D2WinControlStrc* pControl); // 0x00507160
 int __stdcall LIST_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg); // 0x005072F0
 int __stdcall LIST_HandleCharInput(SMSGHANDLER_PARAMS* pMsg); // 0x005073B0
@@ -223,7 +223,7 @@ D2WinListStrc* __fastcall LIST_Create(int nX, int nY, int nWidth, int nHeight, D
     pList->field_54 = -1;
     pList->field_58 = nHeight / (pList->field_44 + 2 * pList->field_48) - 1;
 
-    sub_00502EF0(*pFont);
+    D2Win_10127_SetFont(*pFont);
 
     for (D2WinListInitStrc* pEntry = pInit; pEntry->nStringId; ++pEntry)
     {
@@ -268,7 +268,7 @@ D2WinListStrc* __fastcall LIST_Create(int nX, int nY, int nWidth, int nHeight, D
         ++pList->field_50;
     }
 
-    sub_00502EF0(D2FONT_FONT16);
+    D2Win_10127_SetFont(D2FONT_FONT16);
     pList->pSelectedDataEntry = pList->pDataList;
     CONTROL_AppendToList(&pList->controlHeader);
     return pList;
@@ -292,7 +292,7 @@ void __fastcall D2Win_10137(D2WinListStrc* ptListData, const Unicode* wszText, D
 {
     D2_ASSERT(ptListData->controlHeader.eType == D2WIN_LIST, 0xA1);
 
-    sub_00502EF0(ptListData->eFont);
+    D2Win_10127_SetFont(ptListData->eFont);
 
     D2WinListDataStrc* pNewData = (D2WinListDataStrc*)FOG_Alloc(sizeof(D2WinListDataStrc), ".\\Src\\D2WinList.cpp", 0xA5, 0);
     D2_ASSERT(sub_00526800(wszText) < 256, 0xA6);
@@ -343,7 +343,7 @@ void __fastcall D2Win_10137(D2WinListStrc* ptListData, const Unicode* wszText, D
     }
 
     ++ptListData->field_50;
-    sub_00502EF0(1);
+    D2Win_10127_SetFont(1);
 
     if (a7)
     {

@@ -242,7 +242,7 @@ static void __stdcall SUNITINACTIVE_CompressInactiveMonster(D2GameStrc* pGame, D
 
 static void __stdcall SUNITINACTIVE_CompressInactiveItem(D2InactiveUnitListStrc* pList, D2GameStrc* pGame, D2InactiveItemNodeStrc** ppItemNode, D2UnitStrc* pItem); // 0x00541B10
 
-static void __stdcall sub_00542E10_CompressInactiveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00542E10
+static void __stdcall SUNITINACTIVE_CompressInactiveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00542E10
 
 static void __stdcall SUNITINACTIVE_CompressMonsterIfNeeded(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005431F0
 
@@ -1234,14 +1234,14 @@ void __fastcall SUNITINACTIVE_CompressUnitIfNeeded(D2GameStrc* pGame, D2UnitStrc
         {
             D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
             pUnit->dwFlagEx |= 0x100;
-            sub_00542E10_CompressInactiveUnit(pGame, pUnit);
+            SUNITINACTIVE_CompressInactiveUnit(pGame, pUnit);
             UNITROOM_UpdatePath(pUnit);
             return;
         }
 
         if (bCompress)
         {
-            sub_00542E10_CompressInactiveUnit(pGame, pUnit);
+            SUNITINACTIVE_CompressInactiveUnit(pGame, pUnit);
         }
         break;
 
@@ -1251,7 +1251,7 @@ void __fastcall SUNITINACTIVE_CompressUnitIfNeeded(D2GameStrc* pGame, D2UnitStrc
         {
             D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
             pUnit->dwFlagEx |= 0x100;
-            sub_00542E10_CompressInactiveUnit(pGame, pUnit);
+            SUNITINACTIVE_CompressInactiveUnit(pGame, pUnit);
             UNITROOM_UpdatePath(pUnit);
             return;
         }
@@ -1271,14 +1271,14 @@ void __fastcall SUNITINACTIVE_CompressUnitIfNeeded(D2GameStrc* pGame, D2UnitStrc
 
         if (bCompress)
         {
-            sub_00542E10_CompressInactiveUnit(pGame, pUnit);
+            SUNITINACTIVE_CompressInactiveUnit(pGame, pUnit);
         }
         break;
     }
 
     case 4:
     case 5:
-        sub_00542E10_CompressInactiveUnit(pGame, pUnit);
+        SUNITINACTIVE_CompressInactiveUnit(pGame, pUnit);
         break;
     }
 
@@ -1406,7 +1406,7 @@ objectDone:
 }
 
 // 0x00542E10
-static void __stdcall sub_00542E10_CompressInactiveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit)
+static void __stdcall SUNITINACTIVE_CompressInactiveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     if (pUnit->dwUnitType == UNIT_MONSTER)
     {
@@ -1711,7 +1711,7 @@ static void __stdcall SUNITINACTIVE_CompressMonsterIfNeeded(D2GameStrc* pGame, D
         pUnit->dwFlagEx |= 0x100;
         if (bCompress)
         {
-            sub_00542E10_CompressInactiveUnit(pGame, pUnit);
+            SUNITINACTIVE_CompressInactiveUnit(pGame, pUnit);
         }
         UNITROOM_UpdatePath(pUnit);
     }
@@ -1719,7 +1719,7 @@ static void __stdcall SUNITINACTIVE_CompressMonsterIfNeeded(D2GameStrc* pGame, D
     {
         if (bCompress)
         {
-            sub_00542E10_CompressInactiveUnit(pGame, pUnit);
+            SUNITINACTIVE_CompressInactiveUnit(pGame, pUnit);
         }
         SUNIT_RemoveUnit(pGame, pUnit);
     }

@@ -18,7 +18,7 @@ void __fastcall BNDOWNLOAD_SetKeyBit(unsigned int* pKey, unsigned int nIndex, un
 }
 
 // 0x005226D0
-void __fastcall sub_005226D0_PermuteKeyBits(int nUnused, unsigned int* pKey)
+void __fastcall BNDOWNLOAD_PermuteKeyBits(int nUnused, unsigned int* pKey)
 {
     unsigned int aCopy[4];
     aCopy[0] = pKey[0];

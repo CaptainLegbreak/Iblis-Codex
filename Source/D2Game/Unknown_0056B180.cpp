@@ -119,7 +119,8 @@ static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
     return 0;
 }
 
-static int __stdcall sub_00569F80_CreateNewbiePlayer(D2GameStrc* pGame, D2ClientStrc* pClient, D2UnitStrc** ppPlayer)
+// build: symbol ?PLRSAVE2_CreateNewbiePlayer@* 0x00569F80
+static int __stdcall PLRSAVE2_CreateNewbiePlayer(D2GameStrc* pGame, D2ClientStrc* pClient, D2UnitStrc** ppPlayer)
 {
     sub_6FC32220(pClient);
     const int nClassId = CLIENTS_GetClassId(pClient);
@@ -176,7 +177,7 @@ int __fastcall PlayerCreate(D2GameStrc* pGame, D2ClientStrc* pClient, unsigned c
         {
             if (nErrorCode == PLRSAVE2ERROR_NEWBIE_SAVE && pSection == pSaveFileEnd)
             {
-                return sub_00569F80_CreateNewbiePlayer(pGame, pClient, ppPlayer);
+                return PLRSAVE2_CreateNewbiePlayer(pGame, pClient, ppPlayer);
             }
         }
         else

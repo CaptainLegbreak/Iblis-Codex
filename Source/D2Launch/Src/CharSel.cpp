@@ -271,7 +271,7 @@ struct D2WinTextBoxStrc;
 
 struct D2WinButtonStrc;
 
-int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2);                          // 0x0042F2E0
+int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFile2);                          // 0x0042F2E0
 
 int __stdcall CHARSEL_OnScroll(SMSGHANDLER_PARAMS* pMsg);                                              // 0x00439DF0
 
@@ -346,7 +346,7 @@ Unicode::Unicode(unsigned short wValue)
 }
 
 // 0x0042FDE0
-int __stdcall sub_0042FDE0_FilterChar(void* pControl, int nUnused, const char* pChar)
+int __stdcall CHARSEL_IsRestrictedChar(void* pControl, int nUnused, const char* pChar)
 {
     char c = *pChar;
     switch (c)
@@ -369,7 +369,7 @@ int __stdcall sub_0042FDE0_FilterChar(void* pControl, int nUnused, const char* p
 }
 
 // 0x0042FE70
-int __stdcall sub_0042FE70_FilterChar(void* pControl, int nUnused, const char* pChar)
+int __stdcall CHARSEL_FilterLoginChar(void* pControl, int nUnused, const char* pChar)
 {
     char c = *pChar;
     switch (c)
@@ -420,35 +420,35 @@ bool __stdcall CHARSEL_IsLineBreak(Unicode wc)
 }
 
 // 0x00430840
-int __stdcall sub_00430840(SMSGHANDLER_PARAMS* pMsg)
+int __stdcall CHARSEL_OnHoverSorceress(SMSGHANDLER_PARAMS* pMsg)
 {
     MAINMENUS_ShowOptionDescription(pMsg->lParam, 1, 0xFAA, 0x140B);
     return 1;
 }
 
 // 0x00430870
-int __stdcall sub_00430870(SMSGHANDLER_PARAMS* pMsg)
+int __stdcall CHARSEL_OnHoverAmazon(SMSGHANDLER_PARAMS* pMsg)
 {
     MAINMENUS_ShowOptionDescription(pMsg->lParam, 0, 0xFAB, 0x1408);
     return 1;
 }
 
 // 0x00430920
-int __stdcall sub_00430920(SMSGHANDLER_PARAMS* pMsg)
+int __stdcall CHARSEL_OnHoverNecromancer(SMSGHANDLER_PARAMS* pMsg)
 {
     MAINMENUS_ShowOptionDescription(pMsg->lParam, 2, 0xFA9, 0x1409);
     return 1;
 }
 
 // 0x00430950
-int __stdcall sub_00430950(SMSGHANDLER_PARAMS* pMsg)
+int __stdcall CHARSEL_OnHoverBarbarian(SMSGHANDLER_PARAMS* pMsg)
 {
     MAINMENUS_ShowOptionDescription(pMsg->lParam, 4, 0xFA7, 0x140A);
     return 1;
 }
 
 // 0x00430980
-int __stdcall sub_00430980(SMSGHANDLER_PARAMS* pMsg)
+int __stdcall CHARSEL_OnHoverPaladin(SMSGHANDLER_PARAMS* pMsg)
 {
     MAINMENUS_ShowOptionDescription(pMsg->lParam, 3, 0xFA8, 0x140C);
     return 1;
@@ -783,7 +783,8 @@ int __stdcall CHARSEL_OnListKeyDown(SMSGHANDLER_PARAMS* pMsg)
     return 0;
 }
 
-static int sub_00437A20_FindSlotName(const char* szName)
+// build: symbol ?CHARSEL_FindSlotByName@* 0x00437A20
+static int CHARSEL_FindSlotByName(const char* szName)
 {
     int i = 0;
     char* szSlot;
@@ -854,7 +855,7 @@ void __cdecl CHARSEL_InitCharList()
 // build: symbol ?MAINMENUS_Reset@* 0x0042F480
     MAINMENUS_Reset();
 // build: symbol ?gapszSkyPalette@* 0x006D3A08
-    sub_0042F2E0_ReadPaletteFiles(gapszSkyPalette[0], gapszSkyPalette[1]);
+    MAINMENUS_ReadPaletteFiles(gapszSkyPalette[0], gapszSkyPalette[1]);
     gdwGlobal_00779DA4 = 1;
     gnCharEntryCount = 0;
     gnTopRow = 0;
@@ -1038,13 +1039,13 @@ int __cdecl CHARSEL_InitRealmScreen()
                 gpControl_00779D8C = MAINMENUS_CreateControl(0x6C);
                 sub_004FC9B0_SetText(MAINMENUS_CreateControl(0x6A), D2LANG_GetStringFromTblIndex(0x2B32), 4, 0, 0);
 
-                if (!SRegLoadString("Diablo II", "Preferred Realm", 0, gszPreferredRealm, 0x100) || !sub_00437A20_FindSlotName(gszPreferredRealm))
+                if (!SRegLoadString("Diablo II", "Preferred Realm", 0, gszPreferredRealm, 0x100) || !CHARSEL_FindSlotByName(gszPreferredRealm))
                 {
                     D2FuncRecordStrc* pRecord = gpFuncTable_0077ABF0->pfnGetRecord();
                     const int nIndex = pRecord->nIndex;
                     SStrCopy(gszPreferredRealm, sub_005180E0(pRecord, nIndex), 0x7FFFFFFF);
                     SRegSaveString("Diablo II", "Preferred Realm", 0, gszPreferredRealm);
-                    if (!sub_00437A20_FindSlotName(gszPreferredRealm))
+                    if (!CHARSEL_FindSlotByName(gszPreferredRealm))
                     {
                         const char* szFirst = GAME_GetSlotNameCount() > 0 ? CHARSEL_GetSlotName(0) : 0;
                         SStrCopy(gszPreferredRealm, szFirst, 0x7FFFFFFF);

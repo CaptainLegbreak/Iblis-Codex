@@ -2783,7 +2783,7 @@ void __fastcall PLRTRADE_RefreshTradeSnapshot(D2GameStrc* pGame, D2UnitStrc* pPl
 }
 
 // 0x00568D80
-int __fastcall sub_00568D80_FindTerminator(const char* szText, int nSize)
+int __fastcall PLRTRADE_FindTerminator(const char* szText, int nSize)
 {
     const char* pStart = szText;
     const char* pEnd = szText + nSize;

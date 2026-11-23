@@ -19,7 +19,7 @@ D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonster
 
 void __fastcall CUNIT_FreeLight(D2UnitStrc* pUnit); // 0x00464930
 
-D2GfxLightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
+D2GfxLightStrc* __fastcall DLIGHTMAP_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
 
 int __fastcall DLIGHTMAP_GetLightSize(D2GfxLightStrc* pLight); // 0x00474350
 
@@ -88,7 +88,7 @@ void __fastcall MONUNIQUE_InitUModLight(D2UnitStrc* pUnit, int nUnused, int bIni
         const int nGreen = (int)SEED_RollLocalSeed(&seed);
         const int nRed = (int)SEED_RollLocalSeed(&seed);
         pUnit->pSeed = seed;
-        pLight = sub_00474160_MakeLightEntry(pUnit, 0, 7, 0xFF, nRed, nGreen, nBlue);
+        pLight = DLIGHTMAP_MakeLightEntry(pUnit, 0, 7, 0xFF, nRed, nGreen, nBlue);
     }
     else
     {
@@ -98,7 +98,7 @@ void __fastcall MONUNIQUE_InitUModLight(D2UnitStrc* pUnit, int nUnused, int bIni
             return;
         }
 
-        pLight = sub_00474160_MakeLightEntry(pUnit, 0, 7, 0xFF, pMonStats2TxtRecord->nLight_R, pMonStats2TxtRecord->nLight_G, pMonStats2TxtRecord->nLight_B);
+        pLight = DLIGHTMAP_MakeLightEntry(pUnit, 0, 7, 0xFF, pMonStats2TxtRecord->nLight_R, pMonStats2TxtRecord->nLight_G, pMonStats2TxtRecord->nLight_B);
     }
 
     pUnit->pLight = pLight;

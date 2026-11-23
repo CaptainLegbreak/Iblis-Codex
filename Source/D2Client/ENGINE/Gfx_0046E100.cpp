@@ -174,7 +174,7 @@ struct D2MonStats2Txt
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
+D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
 D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
 void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
@@ -687,7 +687,7 @@ static int __stdcall GFX_LoadUnitLayers(int bAsync, int nMode, D2UnitStrc* pUnit
     int nResult = 1;
     D2InventoryStrc* pInventory;
     D2UnitStrc* pOwner;
-    if (IsShapeShifted(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = sub_004639D0_GetOwnerUnit(pUnit)) != 0)
+    if (IsShapeShifted(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = CUNIT_GetOwnerUnit(pUnit)) != 0)
     {
         pInventory = pOwner->pInventory;
     }
@@ -801,8 +801,9 @@ static void __stdcall GFX_PreloadMonsterMode(int bAsync, D2UnitStrc* pUnit, int 
 
 void __stdcall GFX_PreloadMonsterModes(int bAsync, D2UnitStrc* pUnit); // 0x0046FEB0
 
-// build: context sub_0046FF50_PreloadPlayerMode
-static void __stdcall sub_0046FF50_PreloadPlayerMode(int bAsync, D2UnitStrc* pUnit, int nMode)
+// build: symbol ?GFX_PreloadPlayerMode@* 0x0046FF50
+// build: context GFX_PreloadPlayerMode
+static void __stdcall GFX_PreloadPlayerMode(int bAsync, D2UnitStrc* pUnit, int nMode)
 {
     int nAnimMode;
     int nType;
@@ -854,7 +855,7 @@ static void GFX_PreloadPlayerModes(int bAsync, D2UnitStrc* pUnit)
     for (unsigned int i = 0; i < gnPlayerModeCount; ++i)
     {
 // build: symbol ?gaPlayerModes@* 0x00712AA0
-        sub_0046FF50_PreloadPlayerMode(bAsync, pUnit, gaPlayerModes[i]);
+        GFX_PreloadPlayerMode(bAsync, pUnit, gaPlayerModes[i]);
     }
 }
 
@@ -887,7 +888,7 @@ void __fastcall GFX_GetUnitCelOffsets(D2UnitStrc* pUnit, int nComponent, int* pO
 
     D2UnitStrc* pOwner;
     D2InventoryStrc* pInventory;
-    if (STATES_IsUnitShapeShiftedInl(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = sub_004639D0_GetOwnerUnit(pUnit)) != 0)
+    if (STATES_IsUnitShapeShiftedInl(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = CUNIT_GetOwnerUnit(pUnit)) != 0)
     {
         pInventory = pOwner->pInventory;
     }
@@ -938,7 +939,7 @@ int __fastcall GFX_HitTestUnitGfx(D2UnitStrc* pUnit, int nOriginX, int nOriginY,
 {
     D2UnitStrc* pOwner;
     D2InventoryStrc* pInventory;
-    if (STATES_IsUnitShapeShiftedInl(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = sub_004639D0_GetOwnerUnit(pUnit)) != 0)
+    if (STATES_IsUnitShapeShiftedInl(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = CUNIT_GetOwnerUnit(pUnit)) != 0)
     {
         pInventory = pOwner->pInventory;
     }

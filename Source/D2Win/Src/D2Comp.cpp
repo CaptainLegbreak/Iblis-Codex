@@ -213,7 +213,7 @@ Unicode* __fastcall sub_00526F20(Unicode*,const char*,int); // 0x00526F20
 
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
-int __fastcall sub_00502EF0(int); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int); // 0x00502EF0
 
 int __stdcall D2COMP_TruncateTextToWidth(Unicode*,int); // 0x00503EC0
 
@@ -500,11 +500,11 @@ void __fastcall D2COMP_DrawCompositeShadow(D2CompositeUnitStrc* pCompositeUnit);
 
 static D2CofNodeStrc* __stdcall D2COMP_GetCofNode(unsigned int nClass, const char* szPath, unsigned int nMode, unsigned int dwWeaponClass);
 
-static D2CofDataStrc* __stdcall sub_00503640_GetCofData(D2GfxInfoStrc* pGfxInfo, unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass);
+static D2CofDataStrc* __stdcall D2COMP_GetCofData(D2GfxInfoStrc* pGfxInfo, unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass); // 0x00503640
 
 void __stdcall D2Win_10145(D2CompositeUnitStrc* pCompositeUnit, unsigned int nUnitIndex, unsigned int nMode, unsigned char* pComponents, const unsigned char* pComponentColors); // 0x00504F80
 
-D2CompositeUnitStrc* __stdcall sub_005066C0_CreateCompositeUnit(unsigned int nUnitIndex, unsigned int nMode, unsigned char* pComponents, const unsigned char* pComponentColors);
+D2CompositeUnitStrc* __stdcall D2COMP_CreateCompositeUnit(unsigned int nUnitIndex, unsigned int nMode, unsigned char* pComponents, const unsigned char* pComponentColors); // 0x005066C0
 
 int __fastcall D2COMP_DrawCompositeUnit(D2CompositeUnitStrc* pCompositeUnit, int nGamma);
 
@@ -534,7 +534,7 @@ D2TxtLinkStrc* gpCompItemsLinker; // 0x0087D824
 
 static int D2COMP_ValidateAndLoadCOFForUnit(D2CompositeUnitStrc* pCompositeUnit);
 
-static int __stdcall sub_00504AF0_GetWeaponClass(unsigned int nUnitIndex, const unsigned char* pComponents);
+static int __stdcall D2COMP_GetWeaponClass(unsigned int nUnitIndex, const unsigned char* pComponents); // 0x00504AF0
 
 static void D2COMP_FixComponent(int nComponent, unsigned char* pComponent);
 
@@ -744,7 +744,7 @@ static D2CofInfoStrc* D2COMP_FindCofInfo(D2GfxInfoStrc* pGfxInfo, unsigned int n
 }
 
 // 0x00503640
-static D2CofDataStrc* __stdcall sub_00503640_GetCofData(D2GfxInfoStrc* pGfxInfo, unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
+static D2CofDataStrc* __stdcall D2COMP_GetCofData(D2GfxInfoStrc* pGfxInfo, unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
 {
     char szPath[260];
 
@@ -797,7 +797,7 @@ void __fastcall D2COMP_InitGfxData(D2CompositeUnitStrc* pCompositeUnit, D2GfxDat
     D2GfxInfoStrc* pGfxInfo = pCompositeUnit->pGfxInfo;
     D2_ASSERT(pGfxInfo, 0x502);
 
-    D2CofDataStrc* pCofData = sub_00503640_GetCofData(pGfxInfo, pCompositeUnit->nUnitIndex, pCompositeUnit->nMode, gadwWClassTokens[pCompositeUnit->nWClassTokenIndex]);
+    D2CofDataStrc* pCofData = D2COMP_GetCofData(pGfxInfo, pCompositeUnit->nUnitIndex, pCompositeUnit->nMode, gadwWClassTokens[pCompositeUnit->nWClassTokenIndex]);
     D2_ASSERT(pCofData, 0x506);
 
     const unsigned char* pLayer = (const unsigned char*)pCofData + 0x1C;
@@ -1127,7 +1127,7 @@ int __stdcall emit_selector_00503F70(unsigned int selector)
 }
 
 // 0x00504020
-int* __fastcall sub_00504020_ClearTable(int* table)
+int* __fastcall D2COMP_ClearTable(int* table)
 {
     for (int i = 0; i < 128; ++i)
         table[i] = 0;
@@ -1151,12 +1151,12 @@ static int D2COMP_ValidateAndLoadCOFForUnit(D2CompositeUnitStrc* ptCompositeUnit
     D2GfxInfoStrc* ptGfxInfo = ptCompositeUnit->pGfxInfo;
     D2_ASSERT(ptGfxInfo, 0x827);
 
-    if (!sub_00503640_GetCofData(ptGfxInfo, ptCompositeUnit->nUnitIndex, ptCompositeUnit->nMode, gadwWClassTokens[ptCompositeUnit->nWClassTokenIndex]))
+    if (!D2COMP_GetCofData(ptGfxInfo, ptCompositeUnit->nUnitIndex, ptCompositeUnit->nMode, gadwWClassTokens[ptCompositeUnit->nWClassTokenIndex]))
     {
         ptCompositeUnit->nUnitIndex = 7;
         ptCompositeUnit->nMode = 5;
         ptCompositeUnit->nWClassTokenIndex = 1;
-        D2_ASSERT(sub_00503640_GetCofData(ptGfxInfo, 7, 5, gadwWClassTokens[1]), 0x836);
+        D2_ASSERT(D2COMP_GetCofData(ptGfxInfo, 7, 5, gadwWClassTokens[1]), 0x836);
     }
 
     return 1;
@@ -1493,7 +1493,7 @@ int __stdcall D2COMP_IsItemTypeDescendant(int a1, int nItemType)
 }
 
 // 0x00504AF0
-static int __stdcall sub_00504AF0_GetWeaponClass(unsigned int nUnitIndex, const unsigned char* pComponents)
+static int __stdcall D2COMP_GetWeaponClass(unsigned int nUnitIndex, const unsigned char* pComponents)
 {
     int nRight;
     int nLeft;
@@ -1682,7 +1682,7 @@ void __stdcall D2Win_10145(D2CompositeUnitStrc* pCompositeUnit, unsigned int nUn
     }
     else
     {
-        pCompositeUnit->nWClassTokenIndex = sub_00504AF0_GetWeaponClass(nUnitIndex, pComponent);
+        pCompositeUnit->nWClassTokenIndex = D2COMP_GetWeaponClass(nUnitIndex, pComponent);
         if (!pCompositeUnit->nWClassTokenIndex)
         {
             return;
@@ -1987,7 +1987,7 @@ int __fastcall D2COMP_DrawCompositeLabel(D2CompositeUnitStrc* unit)
   sub_00526320_ToUnicode(decoration,gszGuildSuffix,256);
   sub_00526700(text,decoration);
  }
- sub_00502EF0(12);
+ D2Win_10127_SetFont(12);
  D2COMP_TruncateTextToWidth(text,120);
  int width,height;
  D2Win_10131_GetTextDimensions(text,&width,&height);
@@ -2034,7 +2034,7 @@ int __fastcall D2COMP_DrawCompositeHover(D2CompositeUnitStrc* pCompositeUnit)
     D2HoverLineStrc lines[7];
     int nCount = 0;
     int nColor = 0;
-    sub_00502EF0(1);
+    D2Win_10127_SetFont(1);
 
     if (pCompositeUnit->dwProductCode == 'D2XP')
     {
@@ -2329,7 +2329,7 @@ next:
 }
 
 // 0x005066C0
-D2CompositeUnitStrc* __stdcall sub_005066C0_CreateCompositeUnit(unsigned int nUnitIndex, unsigned int nMode, unsigned char* pComponents, const unsigned char* pComponentColors)
+D2CompositeUnitStrc* __stdcall D2COMP_CreateCompositeUnit(unsigned int nUnitIndex, unsigned int nMode, unsigned char* pComponents, const unsigned char* pComponentColors)
 {
     D2CompositeUnitStrc* ptNewUnit = (D2CompositeUnitStrc*)FOG_Alloc(sizeof(D2CompositeUnitStrc), gszD2CompSourceFile, 0xC70, 0);
     D2_ASSERT(ptNewUnit, 0xC71);
@@ -2348,7 +2348,7 @@ D2CompositeUnitStrc* __stdcall sub_005066C0_CreateCompositeUnit(unsigned int nUn
     }
     else
     {
-        ptNewUnit->nWClassTokenIndex = sub_00504AF0_GetWeaponClass(nUnitIndex, pComponent);
+        ptNewUnit->nWClassTokenIndex = D2COMP_GetWeaponClass(nUnitIndex, pComponent);
         if (!ptNewUnit->nWClassTokenIndex)
         {
             return 0;

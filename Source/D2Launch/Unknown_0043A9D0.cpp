@@ -48,7 +48,7 @@ extern "C" __declspec(dllimport) int __stdcall TerminateProcess(void* hProcess, 
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 void __cdecl COMCALLBACK_ShowProgressScreen(); // 0x0042F890
 void __cdecl sub_0042FA20(); // 0x0042FA20
-int __cdecl sub_0042FA30(); // 0x0042FA30
+int __cdecl GAME_GetStopMainLoop(); // 0x0042FA30
 int __stdcall sub_004374F0_UpdateStatusWait(int nArg); // 0x004374F0
 void __cdecl MAINMENUS_CreateStatusScreen(); // 0x00437550
 int __stdcall sub_0043B850_LogonCallback(int nArg); // 0x0043B850
@@ -254,7 +254,7 @@ int __cdecl sub_0043BF60()
         COMCALLBACK_ShowProgressScreen();
         sub_004FA590_RunLoop(sub_0043B850_LogonCallback);
 
-        if (!sub_0042FA30() && gpFuncTable_0077ABF0->pfnSlot4C() == 0x65)
+        if (!GAME_GetStopMainLoop() && gpFuncTable_0077ABF0->pfnSlot4C() == 0x65)
         {
             int nValue = 0;
             const int nResult = gpFuncTable_0077ABF0->pfnSlot48(&nValue);

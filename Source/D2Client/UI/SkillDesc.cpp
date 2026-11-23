@@ -30,11 +30,11 @@ Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource,
 
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight);             // 0x00502520
 
-int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 
-void __fastcall sub_004E9870_DrawTwoTexts(const Unicode* wszText1, const Unicode* wszText2, int nLeft, int nY, int nRight, int nColor1, int nColor2); // 0x004E9870
+void __fastcall SKILLDESC_DrawTwoTexts(const Unicode* wszText1, const Unicode* wszText2, int nLeft, int nY, int nRight, int nColor1, int nColor2); // 0x004E9870
 
 D2SkillDescTxt* __fastcall sub_004A89D0_SkillDescRec(int nSkillId);                                        // 0x004A89D0
 
@@ -100,7 +100,7 @@ extern "C" const char gszFmtRangeK[]; // 0x006DBEB8
 
 int __fastcall SKILLDESC_GetSkillParamByLevel(int nSkillId, int nSkillLevel); // 0x004E6CA0
 
-int __cdecl sub_004E6FF0_SumProgressiveBonus(); // 0x004E6FF0
+int __cdecl SKILLDESC_SumProgressiveBonus(); // 0x004E6FF0
 
 int __stdcall SKILLDESC_AddProgressiveDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor); // 0x004E7120
 
@@ -116,7 +116,7 @@ int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner,
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
-static void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin, int nMax, int nLeft, int nRight);
+static void __stdcall SKILLDESC_DrawDamageRange(int nColor, int nY, int nMin, int nMax, int nLeft, int nRight); // 0x004E96E0
 
 extern D2DataTablesStrc* gpDataTables_00744304; // 0x00744304
 
@@ -126,9 +126,9 @@ D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc*, int, int); // 0x006439B
 
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc*, D2SkillStrc*, int); // 0x006442A0
 
-int __stdcall sub_004EC140_AddElemRange(int nMin, unsigned short nString, int nMax, Unicode* wszText, int nElemType);
+int __stdcall SKILLDESC_AddElemRange(int nMin, unsigned short nString, int nMax, Unicode* wszText, int nElemType); // 0x004EC140
 
-static int __stdcall sub_004EC220_AddSkillElemDamage(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, unsigned short nString, int nSkillId, int nSkillLevel);
+static int __stdcall SKILLDESC_AddSkillElemDamage(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, unsigned short nString, int nSkillId, int nSkillLevel); // 0x004EC220
 
 static void __stdcall SKILLDESC_DrawWeaponDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, SKILLWEAPONFN pfnEvaluate, int nBonus, int nAdd, int nLeft, int nY, int nRight, int bElemDamage);
 
@@ -239,7 +239,7 @@ void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064
 
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
 
-D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
 void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
 
@@ -330,7 +330,8 @@ static void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc* pUnit, int* pMin, i
     *pMax += nMax;
 }
 
-static D2UnitStrc* sub_004E9260_MergeOtherHandWeapon(D2UnitStrc* pUnit)
+// build: symbol ?SKILLDESC_MergeOtherHandWeapon@* 0x004E9260
+static D2UnitStrc* SKILLDESC_MergeOtherHandWeapon(D2UnitStrc* pUnit)
 {
     if (!UNITS_CanDualWield(pUnit))
         return 0;
@@ -394,7 +395,8 @@ static D2UnitStrc* sub_004E9300_MergeWeaponPair(D2UnitStrc* pUnit)
     return pWeapon;
 }
 
-static int __stdcall sub_004E93A0_EvaluateForEachWeapon(int* pValue1, int* pValue2, int* pColor1, int* pValue3, int* pValue4, int* pColor2, D2SkillStrc* pSkill, SKILLWEAPONFN pfnEvaluate, int nBonus, D2UnitStrc* pUnit, int nAdd)
+// build: symbol ?SKILLDESC_EvaluateForEachWeapon@* 0x004E93A0
+static int __stdcall SKILLDESC_EvaluateForEachWeapon(int* pValue1, int* pValue2, int* pColor1, int* pValue3, int* pValue4, int* pColor2, D2SkillStrc* pSkill, SKILLWEAPONFN pfnEvaluate, int nBonus, D2UnitStrc* pUnit, int nAdd)
 {
     D2InventoryStrc* pInventory = pUnit->pInventory;
     if (!pInventory)
@@ -413,7 +415,7 @@ static int __stdcall sub_004E93A0_EvaluateForEachWeapon(int* pValue1, int* pValu
 
     if (pRight && pLeft)
     {
-        D2UnitStrc* pItem = sub_004E9260_MergeOtherHandWeapon(pUnit);
+        D2UnitStrc* pItem = SKILLDESC_MergeOtherHandWeapon(pUnit);
         if (pItem)
         {
             pfnEvaluate(pUnit, pValue3, pValue4, pColor2, nBonus, nAdd, pSkill, 0, pItem);
@@ -444,7 +446,8 @@ static int __stdcall sub_004E93A0_EvaluateForEachWeapon(int* pValue1, int* pValu
     return 1;
 }
 
-static void sub_004E8D90_AddElementalStatDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, unsigned char nType)
+// build: symbol ?SKILLDESC_AddElementalStatDamage@* 0x004E8D90
+static void SKILLDESC_AddElementalStatDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, unsigned char nType)
 {
     switch (nType)
     {
@@ -485,7 +488,7 @@ static void sub_004E8D90_AddElementalStatDamage(D2UnitStrc* pUnit, int* pMinDama
 }
 
 // 0x004E96E0
-static void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin, int nMax, int nLeft, int nRight)
+static void __stdcall SKILLDESC_DrawDamageRange(int nColor, int nY, int nMin, int nMax, int nLeft, int nRight)
 {
     if (nMin >= nMax)
     {
@@ -517,12 +520,12 @@ static void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin,
     nWidth = nWidth * 11 / 7;
     if (nWidth > nRight - nLeft)
     {
-        sub_00502EF0(6);
+        D2Win_10127_SetFont(6);
         --nY;
     }
     else
     {
-        sub_00502EF0(1);
+        D2Win_10127_SetFont(1);
     }
     TEXT_DrawCenteredText(gnPanelOffsetX + nLeft, gnScreenHeight + gnPanelOffsetY + nY - 480, gnPanelOffsetX + nRight, wszText, nColor);
 }
@@ -560,13 +563,13 @@ int __fastcall sub_H14_Emit_004EDEA0(D2UnitStrc* pUnit, Unicode* wszText, D2Skil
     switch (nLine)
     {
     case 2:
-        sub_004EC140_AddElemRange(nCalcA, nStringA, nCalcB, wszText, pSkillsTxt->nEType);
+        SKILLDESC_AddElemRange(nCalcA, nStringA, nCalcB, wszText, pSkillsTxt->nEType);
         return 1;
     case 3:
-        sub_004EC220_AddSkillElemDamage(pUnit, wszText, pSkillsTxt, 0, nSkillId, nSkillLevel);
+        SKILLDESC_AddSkillElemDamage(pUnit, wszText, pSkillsTxt, 0, nSkillId, nSkillLevel);
         return 1;
     case 4:
-        sub_004EC220_AddSkillElemDamage(pUnit, wszText, pSkillsTxt, nStringA, nSkillId, nSkillLevel);
+        SKILLDESC_AddSkillElemDamage(pUnit, wszText, pSkillsTxt, nStringA, nSkillId, nSkillLevel);
         return 1;
     case 5:
         sub_004EC280_AddMissileElemDamage(pUnit, wszText, nStringA, nMissileId, nSkillLevel);
@@ -575,7 +578,8 @@ int __fastcall sub_H14_Emit_004EDEA0(D2UnitStrc* pUnit, Unicode* wszText, D2Skil
     return 0;
 }
 
-static void __stdcall sub_004E6EA0_ApplyColdSkillBonus(int* pValue1, D2SkillsTxt* pSkillsTxt, int* pValue2)
+// build: symbol ?SKILLDESC_ApplyFireMasteryBonus@* 0x004E6EA0
+static void __stdcall SKILLDESC_ApplyFireMasteryBonus(int* pValue1, D2SkillsTxt* pSkillsTxt, int* pValue2)
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pSkillsTxt && pSkillsTxt->nEType == 1)
@@ -591,7 +595,8 @@ static void __stdcall sub_004E6EA0_ApplyColdSkillBonus(int* pValue1, D2SkillsTxt
     }
 }
 
-static void __stdcall sub_004E6F00_ApplyFireSkillBonus(int* pValue1, D2SkillsTxt* pSkillsTxt, int* pValue2)
+// build: symbol ?SKILLDESC_ApplyLightningMasteryBonus@* 0x004E6F00
+static void __stdcall SKILLDESC_ApplyLightningMasteryBonus(int* pValue1, D2SkillsTxt* pSkillsTxt, int* pValue2)
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pSkillsTxt && pSkillsTxt->nEType == 2)
@@ -631,7 +636,7 @@ static void __stdcall SKILLDESC_DrawWeaponDamage(D2UnitStrc* pUnit, D2SkillStrc*
     int nMax1 = 0;
     int nMin2 = 0;
     int nMax2 = 0;
-    sub_004E93A0_EvaluateForEachWeapon(&nMin1, &nMax1, &nColor1, &nMin2, &nMax2, &nColor2, pSkill, pfnEvaluate, nBonus, pUnit, nAdd);
+    SKILLDESC_EvaluateForEachWeapon(&nMin1, &nMax1, &nColor1, &nMin2, &nMax2, &nColor2, pSkill, pfnEvaluate, nBonus, pUnit, nAdd);
     if (nMin1 && nMax1)
     {
         nMin1 = nMin1 * nSrcDam / 128 + nElemMin;
@@ -645,13 +650,13 @@ static void __stdcall SKILLDESC_DrawWeaponDamage(D2UnitStrc* pUnit, D2SkillStrc*
 
     if (!nMin1 && !nMax1)
     {
-        sub_004E96E0_DrawDamageRange(nColor2, nY, nMin2, nMax2, nLeft, nRight);
+        SKILLDESC_DrawDamageRange(nColor2, nY, nMin2, nMax2, nLeft, nRight);
         return;
     }
 
     if (!nMin2 && !nMax2)
     {
-        sub_004E96E0_DrawDamageRange(nColor1, nY, nMin1, nMax1, nLeft, nRight);
+        SKILLDESC_DrawDamageRange(nColor1, nY, nMin1, nMax1, nLeft, nRight);
         return;
     }
 
@@ -693,7 +698,7 @@ static void __stdcall SKILLDESC_DrawWeaponDamage(D2UnitStrc* pUnit, D2SkillStrc*
         wsprintfA(szText, "%s%d-%dK", &gszEmptyAssertText, nMin2, (nMax2 + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText2, szText, 32);
-    sub_004E9870_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nColor1, nColor2);
+    SKILLDESC_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nColor1, nColor2);
 }
 
 // 0x004EA170
@@ -768,7 +773,7 @@ void __fastcall SKILLDESC_DrawOtherHandDamage(D2UnitStrc* pUnit, D2SkillStrc* pS
     int nMin = 0;
     int nMax = 0;
     int nColor = 0;
-    D2UnitStrc* pItem = sub_004E9260_MergeOtherHandWeapon(pUnit);
+    D2UnitStrc* pItem = SKILLDESC_MergeOtherHandWeapon(pUnit);
     if (!pItem)
     {
         return;
@@ -776,7 +781,7 @@ void __fastcall SKILLDESC_DrawOtherHandDamage(D2UnitStrc* pUnit, D2SkillStrc* pS
 
     SKILLDESC_ThrowDamageCallback(pUnit, &nMin, &nMax, &nColor, 0, 0, pSkill, 0, pItem);
     sub_004E9300_MergeWeaponPair(pUnit);
-    sub_004E96E0_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
+    SKILLDESC_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
 }
 
 // 0x004EB240
@@ -787,7 +792,7 @@ void __fastcall SKILLDESC_DrawSkillWeaponDamage(D2UnitStrc* pUnit, D2SkillStrc* 
 }
 
 // 0x004EC220
-static int __stdcall sub_004EC220_AddSkillElemDamage(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, unsigned short nString, int nSkillId, int nSkillLevel)
+static int __stdcall SKILLDESC_AddSkillElemDamage(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, unsigned short nString, int nSkillId, int nSkillLevel)
 {
     const int nMin = SKILLS_GetMinElemDamage(pUnit, nSkillId, nSkillLevel, 1);
     const int nMax = SKILLS_GetMaxElemDamage(pUnit, nSkillId, nSkillLevel, 1);
@@ -796,7 +801,7 @@ static int __stdcall sub_004EC220_AddSkillElemDamage(D2UnitStrc* pUnit, Unicode*
         return 0;
     }
 
-    return sub_004EC140_AddElemRange(nMin >> 8, nString, nMax >> 8, wszText, pSkillsTxt->nEType);
+    return SKILLDESC_AddElemRange(nMin >> 8, nString, nMax >> 8, wszText, pSkillsTxt->nEType);
 }
 
 // build: context ApplyRatio_Inline
@@ -834,7 +839,7 @@ void __fastcall SKILLDESC_DrawSkillWeaponLine(D2UnitStrc* pUnit, D2SkillStrc* pS
     nMax += SKILLS_GetMaxPhysDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 0) >> 8;
     nMin += SKILLS_GetMinElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) >> 8;
     nMax += SKILLS_GetMaxElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) >> 8;
-    sub_004E96E0_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
+    SKILLDESC_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
 }
 
 // 0x004EBA30
@@ -854,7 +859,7 @@ void __fastcall SKILLDESC_DrawKickDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill,
     const int nSkillId = pSkillsTxt->nSkillId;
     const int nMin = SKILLS_GetMinPhysDamage(pUnit, nSkillId, nSkillLevel, 1) >> 8;
     const int nMax = SKILLS_GetMaxPhysDamage(pUnit, nSkillId, nSkillLevel, 1) >> 8;
-    int nBonus = sub_004E6FF0_SumProgressiveBonus();
+    int nBonus = SKILLDESC_SumProgressiveBonus();
     nBonus += SKILLDESC_GetSkillParamByLevel(nSkillId, nSkillLevel);
     if (nBonus)
     {
@@ -875,7 +880,7 @@ void __fastcall SKILLDESC_DrawKickDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill,
         nKickMin += nElemMin;
         nKickMax += nElemMax;
     }
-    sub_004E96E0_DrawDamageRange(nColor, nY, nKickMin, nKickMax, nLeft, nRight);
+    SKILLDESC_DrawDamageRange(nColor, nY, nKickMin, nKickMax, nLeft, nRight);
 }
 
 // 0x004EA310
@@ -906,11 +911,12 @@ void __fastcall SKILLDESC_DrawWeaponDamageLine(D2UnitStrc* pUnit, D2SkillStrc* p
         const int nBonus = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[0], SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 0xA0C), nSkillLevel);
         const int nAdd = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[1], SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 0xA0D), nSkillLevel);
         SKILLDESC_WeaponDamageCallback(pUnit, &nMin, &nMax, &nColor, nBonus, nAdd, pSkill, 0, 0);
-        sub_004E96E0_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
+        SKILLDESC_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
     }
 }
 
-static int sub_004E6FB0_GetETypeColor(int nEType)
+// build: symbol ?SKILLDESC_GetETypeColor@* 0x004E6FB0
+static int SKILLDESC_GetETypeColor(int nEType)
 {
     switch (nEType)
     {
@@ -927,7 +933,8 @@ static int sub_004E6FB0_GetETypeColor(int nEType)
     return 0;
 }
 
-static void __stdcall sub_004E9660_AddScaledWeaponDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, D2SkillStrc* pSkill, D2UnitStrc* pItem, int nRatio)
+// build: symbol ?SKILLDESC_AddScaledWeaponDamage@* 0x004E9660
+static void __stdcall SKILLDESC_AddScaledWeaponDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, D2SkillStrc* pSkill, D2UnitStrc* pItem, int nRatio)
 {
     if (!nRatio)
         return;
@@ -955,23 +962,23 @@ void __fastcall SKILLDESC_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStr
     int nWeaponMin = 0;
     int nWeaponMax = 0;
     int nWeaponColor = 0;
-    sub_004E9660_AddScaledWeaponDamage(pUnit, &nWeaponMin, &nWeaponMax, &nWeaponColor, pSkill, 0, pSkillsTxt->nSrcDam);
-    const int nColor = sub_004E6FB0_GetETypeColor(pSkillsTxt->nEType);
+    SKILLDESC_AddScaledWeaponDamage(pUnit, &nWeaponMin, &nWeaponMax, &nWeaponColor, pSkill, 0, pSkillsTxt->nSrcDam);
+    const int nColor = SKILLDESC_GetETypeColor(pSkillsTxt->nEType);
     int nMin = SKILLS_GetMinPhysDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 0) >> 8;
     int nMax = SKILLS_GetMaxPhysDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 0) >> 8;
     nMin += SKILLS_GetMinElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) >> 8;
     nMax += SKILLS_GetMaxElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) >> 8;
-    sub_004E8D90_AddElementalStatDamage(pUnit, &nMin, &nMax, pSkillsTxt->nEType);
+    SKILLDESC_AddElementalStatDamage(pUnit, &nMin, &nMax, pSkillsTxt->nEType);
 
     if (!nWeaponMin && !nWeaponMax)
     {
-        sub_004E96E0_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
+        SKILLDESC_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
         return;
     }
 
     if (!nMin && !nMax)
     {
-        sub_004E96E0_DrawDamageRange(nWeaponColor, nY, nWeaponMin, nWeaponMax, nLeft, nRight);
+        SKILLDESC_DrawDamageRange(nWeaponColor, nY, nWeaponMin, nWeaponMax, nLeft, nRight);
         return;
     }
 
@@ -1013,7 +1020,7 @@ void __fastcall SKILLDESC_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStr
         wsprintfA(szText, gszFmtRangeK, &gszEmptyAssertText, nMin, (nMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText2, szText, 32);
-    sub_004E9870_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nWeaponColor, nColor);
+    SKILLDESC_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nWeaponColor, nColor);
 }
 
 int __stdcall SKILLDESC_AddProgressiveDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor)
@@ -1092,8 +1099,8 @@ void __fastcall SKILLDESC_DrawMasteryWeaponDamage(D2UnitStrc* pUnit, D2SkillStrc
 
     nMin = 0;
     nMax = 0;
-    nColor = sub_004E6FB0_GetETypeColor(pSkillsTxt->nEType);
-    sub_004E9660_AddScaledWeaponDamage(pUnit, &nMin, &nMax, &nColor, pSkill, 0, pSkillsTxt->nSrcDam);
+    nColor = SKILLDESC_GetETypeColor(pSkillsTxt->nEType);
+    SKILLDESC_AddScaledWeaponDamage(pUnit, &nMin, &nMax, &nColor, pSkill, 0, pSkillsTxt->nSrcDam);
 
     if (D2Common_10434(pUnit, 1))
     {
@@ -1168,7 +1175,7 @@ void __fastcall SKILLDESC_DrawMasteryWeaponDamage(D2UnitStrc* pUnit, D2SkillStrc
     {
         nColor = 3;
     }
-    sub_004E96E0_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
+    SKILLDESC_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
 }
 
 // 0x004EBD50
@@ -1201,13 +1208,13 @@ void __fastcall SKILLDESC_DrawDescWeaponAndElemDamage(D2UnitStrc* pUnit, D2Skill
 
     if (!nMin && !nMax)
     {
-        sub_004E96E0_DrawDamageRange(nElemColor, nY, nElemMin, nElemMax, nLeft, nRight);
+        SKILLDESC_DrawDamageRange(nElemColor, nY, nElemMin, nElemMax, nLeft, nRight);
         return;
     }
 
     if (!nElemMin && !nElemMax)
     {
-        sub_004E96E0_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
+        SKILLDESC_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
         return;
     }
 
@@ -1252,7 +1259,7 @@ void __fastcall SKILLDESC_DrawDescWeaponAndElemDamage(D2UnitStrc* pUnit, D2Skill
         wsprintfA(szText, gszFmtRangeK, &gszEmptyAssertText, nElemMin, (nElemMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText2, szText, 32);
-    sub_004E9870_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nColor, nElemColor);
+    SKILLDESC_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nColor, nElemColor);
 }
 
 // build: context sub_I05_GetSkillsTxtRecord
@@ -1335,7 +1342,7 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
     int nMaxPercent = STATLIST_UnitGetStatValue(pUnit, STAT_ITEM_MAXDAMAGE_PERCENT, 0);
     if (pSkillsTxt->nFlags[3 >> 3] & gdwBitMasks_006CE268[3 & 7])
     {
-        int nProgressive = sub_004E6FF0_SumProgressiveBonus();
+        int nProgressive = SKILLDESC_SumProgressiveBonus();
         if (nProgressive)
         {
             nBonus += nProgressive;
@@ -1556,7 +1563,7 @@ void __fastcall SKILLDESC_DrawWeaponStatDamage(D2UnitStrc* pUnit, D2SkillStrc* p
     }
     nMin += DATATBLS_ApplyRatio(nMin, nMastery, 100);
     nMax += DATATBLS_ApplyRatio(nMax, nMastery, 100);
-    sub_004E8D90_AddElementalStatDamage(pUnit, &nMin, &nMax, pSkillsTxt->nEType);
+    SKILLDESC_AddElementalStatDamage(pUnit, &nMin, &nMax, pSkillsTxt->nEType);
     if (nMax < nMin)
     {
         nMax = nMin;
@@ -1566,7 +1573,7 @@ void __fastcall SKILLDESC_DrawWeaponStatDamage(D2UnitStrc* pUnit, D2SkillStrc* p
     nMin = DATATBLS_ApplyRatio(nMin, nSrcDam, 0x80);
     nMax = DATATBLS_ApplyRatio(nMax, nSrcDam, 0x80);
     sub_004E72D0_GetElemDamage(pUnit, &nMin, &nMax, &nColor, pSkillsTxt, nSkillLevel);
-    sub_004E96E0_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
+    SKILLDESC_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
 }
 
 static unsigned short sub_004E6F60_GetElemDamageText(int nElemType)
@@ -1590,7 +1597,7 @@ static unsigned short sub_004E6F60_GetElemDamageText(int nElemType)
 }
 
 // 0x004EC140
-static int __stdcall sub_004EC140_AddElemRange(int nMin, unsigned short nString, int nMax, Unicode* wszText, int nElemType)
+static int __stdcall SKILLDESC_AddElemRange(int nMin, unsigned short nString, int nMax, Unicode* wszText, int nElemType)
 {
     Unicode wszNumber[32];
     char szNumber[32];
@@ -1639,13 +1646,13 @@ void __fastcall SKILLDESC_DrawWeaponAndElemDamage(D2UnitStrc* pUnit, D2SkillStrc
 
     if (!nWeaponMinOutput && !nWeaponMaxOutput)
     {
-        sub_004E96E0_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
+        SKILLDESC_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
         return;
     }
 
     if (!nMin && !nMax)
     {
-        sub_004E96E0_DrawDamageRange(nWeaponColor, nY, nWeaponMinOutput, nWeaponMaxOutput, nLeft, nRight);
+        SKILLDESC_DrawDamageRange(nWeaponColor, nY, nWeaponMinOutput, nWeaponMaxOutput, nLeft, nRight);
         return;
     }
 
@@ -1690,10 +1697,11 @@ void __fastcall SKILLDESC_DrawWeaponAndElemDamage(D2UnitStrc* pUnit, D2SkillStrc
         wsprintfA(szText, gszFmtRangeK, &gszEmptyAssertText, nMin, (nMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText2, szText, 32);
-    sub_004E9870_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nWeaponColor, nColor);
+    SKILLDESC_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nWeaponColor, nColor);
 }
 
-static int __stdcall sub_004EC540_AddElemRatePerSecond(unsigned short nString, int nMin, int nMax, Unicode* wszText)
+// build: symbol ?SKILLDESC_AddElemRatePerSecond@* 0x004EC540
+static int __stdcall SKILLDESC_AddElemRatePerSecond(unsigned short nString, int nMin, int nMax, Unicode* wszText)
 {
     Unicode wszNumber[32];
     char szNumber[32];
@@ -1720,13 +1728,13 @@ static int __stdcall sub_004EC540_AddElemRatePerSecond(unsigned short nString, i
 }
 
 // 0x004EC620
-static int __stdcall sub_004EC620_AddMissileElemRate(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nMissileId, int nSkillLevel)
+static int __stdcall SKILLDESC_AddMissileElemRate(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nMissileId, int nSkillLevel)
 {
     int nMin = MISSILE_GetMinElemDamage(0, pUnit, nMissileId, nSkillLevel) * 0x4B;
     int nMax = MISSILE_GetMaxElemDamage(0, pUnit, nMissileId, nSkillLevel) * 0x4B;
     int* const pMax = &nMax;
-    sub_004E6EA0_ApplyColdSkillBonus(&nMin, pSkillsTxt, pMax);
-    sub_004E6F00_ApplyFireSkillBonus(&nMin, pSkillsTxt, pMax);
+    SKILLDESC_ApplyFireMasteryBonus(&nMin, pSkillsTxt, pMax);
+    SKILLDESC_ApplyLightningMasteryBonus(&nMin, pSkillsTxt, pMax);
     const int nMinRate = nMin >> 8;
     const int nMaxRate = nMax >> 8;
     unsigned short nString;
@@ -1755,14 +1763,14 @@ static int __stdcall sub_004EC620_AddMissileElemRate(D2UnitStrc* pUnit, Unicode*
         break;
     }
 
-    return sub_004EC540_AddElemRatePerSecond(nString, nMinRate, nMaxRate, wszText);
+    return SKILLDESC_AddElemRatePerSecond(nString, nMinRate, nMaxRate, wszText);
 }
 
 int __fastcall sub_M346_Emit_004EDEA0(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLine, short nMissileId)
 {
     if (nLine == 7)
     {
-        sub_004EC620_AddMissileElemRate(pUnit, wszText, pSkillsTxt, nMissileId, nSkillLevel);
+        SKILLDESC_AddMissileElemRate(pUnit, wszText, pSkillsTxt, nMissileId, nSkillLevel);
         return 3;
     }
     return 5;
@@ -1832,7 +1840,7 @@ void __fastcall SKILLDESC_DrawWeaponDamageWithParam(D2UnitStrc* pUnit, D2SkillSt
     nMin += nParam * nMin / 100;
     nMax += nParam * nMax / 100;
     sub_004E89A0_GetElementalDamage(pUnit, &nMin, &nMax, &nColor, pSkill);
-    sub_004E96E0_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
+    SKILLDESC_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
 }
 
 static unsigned short sub_004E6E30_GetSkillDescAltStr(int nSkillId)
@@ -1855,8 +1863,8 @@ static void __stdcall sub_004E9940_DrawNumberCentered(int nColor, int nLeft, int
     char szText[32];
     wsprintfA(szText, gszFormatD, nValue);
     sub_00526320_ToUnicode(wszText, szText, 32);
-    if (nValue < 1000) sub_00502EF0(1);
-    else sub_00502EF0(0);
+    if (nValue < 1000) D2Win_10127_SetFont(1);
+    else D2Win_10127_SetFont(0); // 0x00502EF0
     TEXT_DrawCenteredText(gnPanelOffsetX + nLeft, gnScreenHeight + gnPanelOffsetY + nY - 480, gnPanelOffsetX + nRight, wszText, nColor);
 }
 
@@ -1870,7 +1878,7 @@ void __fastcall SKILLDESC_DrawSkillPanel(D2UnitStrc* pUnit, D2SkillStrc* pSkill,
     int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile_006DBF24, 0x1588);
     D2SkillDescTxt* pDesc = sub_004A89D0_SkillDescRec(nSkillId);
     if (!pDesc) return;
-    sub_00502EF0(6);
+    D2Win_10127_SetFont(6);
     Unicode wszName[32];
     sub_005267E0(wszName, D2LANG_GetStringFromTblIndex(sub_004E6E30_GetSkillDescAltStr(nSkillId)));
     GAME_StrToUpper(wszName);
@@ -1904,7 +1912,7 @@ void __fastcall SKILLDESC_DrawSkillPanel(D2UnitStrc* pUnit, D2SkillStrc* pSkill,
     ++nIndex;
     if (nValue1 || nValue2)
     {
-        sub_00502EF0(6);
+        D2Win_10127_SetFont(6);
         if (nSkillId)
             sub_005269D0(200, wszDescription, D2LANG_GetStringFromTblIndex(0xFDF), wszName);
         else
@@ -1929,7 +1937,7 @@ void __fastcall SKILLDESC_DrawSkillPanel(D2UnitStrc* pUnit, D2SkillStrc* pSkill,
         sub_00526320_ToUnicode(wszValue1, szValue, 32);
         wsprintfA(szValue, gszFormatD, nValue2);
         sub_00526320_ToUnicode(wszValue2, szValue, 32);
-        sub_004E9870_DrawTwoTexts(wszValue1, wszValue2, TP[nIndex].nLeft, TP[nIndex].nY, TP[nIndex].nRight, nColor1, nColor2);
+        SKILLDESC_DrawTwoTexts(wszValue1, wszValue2, TP[nIndex].nLeft, TP[nIndex].nY, TP[nIndex].nRight, nColor1, nColor2);
     }
     else if (nValue1)
         sub_004E9940_DrawNumberCentered(nColor1, TP[nIndex].nLeft, TP[nIndex].nY, TP[nIndex].nRight, nValue1);
@@ -1981,7 +1989,7 @@ static inline int CLIENTS_GetUnitY_Spray(D2UnitStrc* pUnit)
 }
 
 // 0x004F1A30
-static void __stdcall sub_004F1A30_CreateSprayMissile(D2SkillsTxt* pSkillsTxt, int nSkillId, int nSkillLevel, D2UnitStrc* pUnit)
+static void __stdcall SKILLDESC_CreateSprayMissile(D2SkillsTxt* pSkillsTxt, int nSkillId, int nSkillLevel, D2UnitStrc* pUnit)
 {
     const int nIndex = SEED_RollRandomNumber_Spray(&pUnit->pSeed) & 7;
     const int nUnitX = CLIENTS_GetUnitX_Spray(pUnit);
@@ -2031,7 +2039,7 @@ static void __stdcall sub_004F1A30_CreateSprayMissile(D2SkillsTxt* pSkillsTxt, i
     tMissile.nTargetX = nOffsetY;
     tMissile.nTargetY = -nOffsetX;
 
-    D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissile);
+    D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissile);
     if (!pMissile)
     {
         return;
@@ -2078,9 +2086,9 @@ int __fastcall sub_004F1C80_SkillCltDoSpray(D2UnitStrc* pUnit, int nSkillId, int
     const int nPasses = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwCltCalc[0], nSkill, nSkillLevel);
     for (int i = 0; i < nPasses; ++i)
     {
-        sub_004F1A30_CreateSprayMissile(pSkillsTxt, nSkill, nSkillLevel, pUnit);
-        sub_004F1A30_CreateSprayMissile(pSkillsTxt, nSkill, nSkillLevel, pUnit);
-        sub_004F1A30_CreateSprayMissile(pSkillsTxt, nSkill, nSkillLevel, pUnit);
+        SKILLDESC_CreateSprayMissile(pSkillsTxt, nSkill, nSkillLevel, pUnit);
+        SKILLDESC_CreateSprayMissile(pSkillsTxt, nSkill, nSkillLevel, pUnit);
+        SKILLDESC_CreateSprayMissile(pSkillsTxt, nSkill, nSkillLevel, pUnit);
     }
 
     return 1;
@@ -2174,7 +2182,7 @@ void __fastcall SKILLDESC_MissileScatter(D2UnitStrc* pUnit, int nSeed, int nMiss
             tMissile.nY = nY + nOffsetY;
             if (sub_00463740_FindRoomAtPoint(pRoom, tMissile.nX, tMissile.nY))
             {
-                sub_004CD540_CreateMissile(&tMissile);
+                MISSILE_CreateClientMissile(&tMissile);
             }
         }
     }

@@ -371,7 +371,7 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
 
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 int __stdcall POPUP_Destroy(); // 0x005085A0
 
@@ -582,7 +582,7 @@ void __cdecl MAINMENUS_UpdateStatus(); // 0x00436AD0
 
 int __cdecl sub_004F5D60(); // 0x004F5D60
 
-int __stdcall sub_0042FE70_FilterChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FE70
+int __stdcall CHARSEL_FilterLoginChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FE70
 
 int __stdcall MAINMENUS_FilterRestrictedChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FEF0
 
@@ -690,7 +690,7 @@ int __stdcall D2Win_10014_SetWndProc(WNDPROC wndProc)
 int __fastcall D2Win_10015()
 {
     D2Win_10115_FONT();
-    sub_00502EF0(1);
+    D2Win_10127_SetFont(1);
     LIST_LoadPentspinCellfile();
     D2Win_10157();
     gpfnWndProc = 0;
@@ -733,7 +733,7 @@ void __cdecl MAINMENUS_CreateLoginScreen()
         pControl = MAINMENUS_CreateControl(0x1F);
     D2Win_10051(pControl, D2LANG_GetStringFromTblIndex(0x2B2B), 0x0, 0x0, 0x0);
     gpAccountEdit = MAINMENUS_CreateControl(0x59);
-    sub_004FDAD0_SetKeyCallback(gpAccountEdit, sub_0042FE70_FilterChar);
+    sub_004FDAD0_SetKeyCallback(gpAccountEdit, CHARSEL_FilterLoginChar);
     sub_004FDD50_SetMaxLength(gpAccountEdit, 0x10);
     D2Win_10076(gpAccountEdit, gpLaunchRecord->szAccount);
     gpPasswordEdit = MAINMENUS_CreateControl(0x5A);
@@ -2662,7 +2662,7 @@ int __stdcall POPUP_AddLine(D2WinPopUpLineStrc* pPopUpLine)
     }
 
     pPopUp->lines[pPopUp->nLines] = *pPopUpLine;
-    sub_00502EF0(1);
+    D2Win_10127_SetFont(1);
 
     const int nTextWidth = D2Win_10121_GetTextWidth(pPopUpLine->wszText);
     pPopUp->controlHeader.nWidth = pPopUp->controlHeader.nWidth > nTextWidth ? pPopUp->controlHeader.nWidth : nTextWidth;

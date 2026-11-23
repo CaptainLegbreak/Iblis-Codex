@@ -150,7 +150,7 @@ int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __fastcall MONSTERS_GetBaseIdFromMonsterId(int nMonsterId); // 0x00463900
 int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall sub_00451F70_GetUnitMode(D2UnitStrc* pUnit); // 0x00451F70
-int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
+int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 int __fastcall sub_004638A0(int nMonsterId, int nFlag); // 0x004638A0
 int __fastcall sub_004AA8B0_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
 int __fastcall sub_0062EFB0_GetRepairCost(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nNpcId, int nMode); // 0x0062EFB0

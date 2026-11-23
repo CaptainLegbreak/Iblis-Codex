@@ -47,8 +47,8 @@ typedef int (__fastcall* D2UnitFindCallback)(D2UnitStrc* pUnit, void* pArg);
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg); // 0x004E2ED0
 int __fastcall SKILLDESC_IsVineBeastMissile(D2UnitStrc* pUnit, void* pArg); // 0x004F0F10
-int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
-D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 void __stdcall PATH_SetDirection(D2DynamicPathStrc* pPath, unsigned char nDirection); // 0x006488A0
@@ -63,8 +63,8 @@ void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 D2UnitStrc* __stdcall D2Common_10407(D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitFindCallback pCallback, void* pArg, int nSize); // 0x00641CB0
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
-int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
+D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
+int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
 void __fastcall SKILLS_ScaleFramePrecise(D2UnitStrc* pUnit, int nPercent); // 0x004C76D0
 void __fastcall SKILLS_ApplyClientSkillCalc(D2UnitStrc* pUnit, int nValue); // 0x004C7BE0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
@@ -229,7 +229,7 @@ static int __stdcall sub_004F04F0_CreateMissileFan(int nMissile, int nSkillId, i
     tMissileParams.pOwner = pUnit;
     tMissileParams.nMissile = nMissile;
     tMissileParams.pInitFunc = SKILLDESC_InitCappedChargedPath;
-    if (!sub_004C52E0_GetTargetPosition(pUnit, &tMissileParams.nX, &tMissileParams.nY))
+    if (!ITEM_GetTargetPosition(pUnit, &tMissileParams.nX, &tMissileParams.nY))
     {
         return 0;
     }
@@ -241,7 +241,7 @@ static int __stdcall sub_004F04F0_CreateMissileFan(int nMissile, int nSkillId, i
 // build: symbol ?gaFanOffsetY@* 0x006DBF70
         tMissileParams.nTargetY = gaFanOffsetY[i & 7];
         tMissileParams.nInitArg = i;
-        sub_004CD540_CreateMissile(&tMissileParams);
+        MISSILE_CreateClientMissile(&tMissileParams);
     }
     return 1;
 }
@@ -457,7 +457,7 @@ int __fastcall sub_004F0DD0_StoreTargetInfo(D2UnitStrc* pUnit, int nSkillId, int
 // 0x004F0EF0
 int __fastcall sub_004F0EF0_UpdateRiderPath(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
-    D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pUnit);
+    D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pUnit);
     if (!pOwner)
     {
         return 0;
@@ -474,7 +474,7 @@ int __fastcall sub_004F2010_CheckTarget(D2UnitStrc* pUnit, int nSkillId, int nSk
     if (pTarget && !DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)) && !DUNGEON_IsRoomInTown(UNITS_GetRoom(pTarget))
         && (unsigned int)pTarget->dwUnitType <= 1)
     {
-        return sub_00465C60_CheckUnitPair(pUnit, pTarget) != 0;
+        return CUNIT_IsHostileTo(pUnit, pTarget) != 0;
     }
 
     return 0;

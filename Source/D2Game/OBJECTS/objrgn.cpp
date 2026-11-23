@@ -41,7 +41,7 @@ extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void* __fastcall FOG_AllocPool(void* pPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId); // 0x0061DB70
-int __cdecl sub_00641500(); // 0x00641500
+int __cdecl DATATBLS_GetShrinesTxtRecordCount(); // 0x00641500
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 
@@ -75,7 +75,7 @@ inline unsigned __int64 OBJECTS_RollGameSeed(D2SeedStrc* pSeed)
 }
 
 // 0x00546C60
-unsigned int __fastcall sub_00546C60_AllocObjectControl(D2GameStrc* ptGame)
+unsigned int __fastcall OBJRGN_AllocObjectControl(D2GameStrc* ptGame)
 {
     if (!ptGame)
     {
@@ -99,7 +99,7 @@ unsigned int __fastcall sub_00546C60_AllocObjectControl(D2GameStrc* ptGame)
         pRegion->nPopulatedRooms = 0x7FFFFFFF;
         pControl->pObjectRegion[i] = pRegion;
     }
-    const int nShrines = sub_00641500();
+    const int nShrines = DATATBLS_GetShrinesTxtRecordCount();
     int nClassCounts[8] = {};
     for (int i = 0; i < nShrines; i += 1)
     {
@@ -266,7 +266,7 @@ void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem); // 0x00409C
 
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
 
-int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
+int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
 void __fastcall GAME_SendUnitRemovalToClient(D2ClientStrc* pClient, void* pUnit); // 0x0052DFB0
 
@@ -575,9 +575,9 @@ struct D2StormHashTableStrc
     D2StormListArrayStrc m_slotlistarray;
     unsigned int m_slotmask;
 
-    unsigned int sub_0052E0E0_Mask(unsigned int value);
+    unsigned int MaskHash(unsigned int value); // 0x0052E0E0
     void sub_0044FA00_InternalClear(int bWarn);                                                             // 0x0044FA00
-    void sub_0052FF20_GrowListArray();
+    void GrowListArray(); // 0x0052FF20
 };
 
 extern unsigned short gwValue_0077905C;
@@ -670,16 +670,16 @@ struct D2GameDataTableStrc
     void SyncLeaveLock(int nLockHandle);
     void Unlock(int nLockHandle);
     void Unlink(D2GameStrc* pGame);                                                                         // 0x0052E490
-    void sub_0052E590(D2GameStrc* pGame);
+    void Delete(D2GameStrc* pGame); // 0x0052E590
     void sub_0052E5B0(D2GameStrc* pGame);
     void DeleteUnlock(D2GameStrc* pGame, int nLockHandle);                                                  // 0x0052E5D0
     D2GameStrc* Ptr(unsigned int nHashValue, const D2HashKeyNoneStrc* pKey);                                // 0x0052E650
     D2GameStrc* sub_0052E6B0(unsigned int nHashValue);
-    unsigned int sub_0052E6D0_GenerateHandle();
-    int sub_00530600(unsigned int nSlot);                                                                   // 0x00530600
+    unsigned int GenerateHandle(); // 0x0052E6D0
+    int MonitorFullness(unsigned int nSlot);                                                                   // 0x00530600
     D2GameStrc* sub_00530820_New(unsigned int nHashVal, HASHKEY_NONE* pKey, int nExtraBytes, int nFlags);
-    D2GameStrc* sub_005308C0_NewHandle(unsigned int* pHandle);
-    D2GameStrc* sub_005308F0_NewLock(unsigned int* pHandle, int* pLockedHandle);
+    D2GameStrc* NewHandle(unsigned int* pHandle); // 0x005308C0
+    D2GameStrc* NewLock(unsigned int* pHandle, int* pLockedHandle); // 0x005308F0
     D2GameStrc* Lock(unsigned int nHashValue, int* pLockHandle, int bForWriting);
 
     D2GameStrc* LockInline(unsigned int nHashValue, int* pLockHandle, int bForWriting)
@@ -781,8 +781,8 @@ struct D2StormHashTable00530600Strc
     D2StormSlotArray00530600Strc m_slotlistarray;
     unsigned int m_slotmask;
 
-    void sub_0052FF20_GrowListArray();  // 0x0052FF20
-    int sub_00530600(unsigned int nSlot);
+    void GrowListArray();  // 0x0052FF20
+    int MonitorFullness(unsigned int nSlot); // 0x00530600
 };
 
 int gdwGlobal_00882D14; // 0x00882D14
@@ -991,7 +991,7 @@ void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, 
 
 void __fastcall GAME_ClientEnterAct(D2GameStrc* pGame, D2ClientStrc* pClient);                      // 0x0052C210
 
-void __fastcall sub_005394A0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY);
+void __fastcall CLIENTS_SpawnPlayer(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x005394A0
 
 int __fastcall sub_00539760(D2ClientStrc* pClient, D2GameStrc* pGame, int a3, D2ActiveRoomStrc* pRoom, int nX, int nY);
 
@@ -1494,7 +1494,7 @@ unsigned short __cdecl sub_0052C170_AllocGameId();
 
 void __fastcall GAME_ResolveGameNameConflict(D2GameStrc* pGame, const char* szGameName, unsigned int a3);                    // 0x0052F940
 
-void __fastcall sub_00536070_InitNpcControl(D2GameStrc* pGame);
+void __fastcall SUNITPROXY_InitializeNpcControl(D2GameStrc* pGame); // 0x00536070
 
 void __fastcall CLIENTS_SetGameData(D2ClientStrc* pClient);                                            // 0x005379A0
 
@@ -1508,7 +1508,7 @@ void __fastcall sub_00545D80_QuestInit(D2GameStrc* pGame);
 
 void __fastcall MONSTERREGION_InitializeForGame(D2GameStrc* pGame);                                         // 0x00547D20
 
-void __fastcall sub_00564A00_QueueGame(void* pTask, int a2, unsigned int hGame);
+void __fastcall TASK_QueueGame(void* pTask, int a2, unsigned int hGame); // 0x00564A00
 
 void __fastcall CLIENTS_SetActNo(D2ClientStrc* pClient, unsigned char nAct);                                // 0x005382E0
 
@@ -1936,7 +1936,7 @@ void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc
 
 void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x00620870
 
-void __fastcall sub_005417D0_DirectDated(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam);
+void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 
 struct D2Unk00545D40Rec
 {

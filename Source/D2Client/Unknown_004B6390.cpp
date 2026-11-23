@@ -18,7 +18,7 @@ D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType)
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg);                       // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg);                       // 0x00455F20
 void __cdecl INV_ResetHover();                                                                     // 0x00487990
 void __fastcall NPCMENU_EndNpcInteraction(int nValue);                                                                   // 0x004B3C20
 void __fastcall DIALOG_DestroyDialog(void* pRes);                                                                   // 0x004B8020
@@ -81,7 +81,7 @@ int __cdecl sub_004B6C70_OpenNpcMenu()
         INV_ResetHover();
 // build: symbol ?gnInteractNpcId@* 0x007C0D25
         NPCMENU_EndNpcInteraction(gnInteractNpcId);
-        sub_00455F20(8, 1, 0);
+        UI_SetUIVar(8, 1, 0);
         return 0;
     }
 
@@ -108,7 +108,7 @@ int __cdecl sub_004B6D10_OpenConfirm()
         gnNpcMenuState = 0;
         INV_ResetHover();
         NPCMENU_EndNpcInteraction(gnInteractNpcId);
-        sub_00455F20(8, 1, 0);
+        UI_SetUIVar(8, 1, 0);
         return 0;
     }
 

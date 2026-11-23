@@ -47,7 +47,7 @@ int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 
 D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
-int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
+int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
@@ -81,7 +81,7 @@ int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, in
 
 int __stdcall D2Common_11025(int nX1, int nY1, int nX2, int nY2, D2ActiveRoomStrc* pRoom, int nMask); // 0x00645910
 
-void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
+void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 
@@ -198,9 +198,9 @@ static int __stdcall sub_004C80D0_AdjustTargetPosition(int nSkillId, D2UnitStrc*
     D2SkillsTxt* pSkillsTxt = (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
     if (!pSkillsTxt)
         return 0;
-    if (!sub_004C52E0_GetTargetPosition((D2UnitStrc*)&pUnit, &nSkillLevel, (int*)&pX))
+    if (!ITEM_GetTargetPosition((D2UnitStrc*)&pUnit, &nSkillLevel, (int*)&pX))
         return 0;
-    return sub_004C52E0_GetTargetPosition((D2UnitStrc*)pSkillsTxt, (int*)&pY, (int*)&pUnit);
+    return ITEM_GetTargetPosition((D2UnitStrc*)pSkillsTxt, (int*)&pY, (int*)&pUnit);
 }
 
 void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
@@ -229,7 +229,7 @@ int __fastcall SKILLSBAR_SkillCltStartPosition(D2UnitStrc* pUnit, int nSkillId, 
         D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
         if (!pTarget)
         {
-            if (!sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
+            if (!ITEM_GetTargetPosition(pUnit, &nX, &nY))
                 return 0;
             SKILLS_SetParam4(pSkill, -1);
         }
@@ -251,7 +251,7 @@ int __fastcall SKILLSBAR_SkillCltStartPosition(D2UnitStrc* pUnit, int nSkillId, 
     }
     else
     {
-        if (!sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
+        if (!ITEM_GetTargetPosition(pUnit, &nX, &nY))
             return 0;
         if (!sub_004C8350_CanTargetRoom(nSkillId, pUnit, nX, nY))
             return 0;
@@ -581,7 +581,7 @@ int __fastcall SKILLSBAR_SkillCltStartLeap(D2UnitStrc* pUnit, int nSkillId, int 
             return SKILLS_RaiseTargetUnitEvent(pUnit, pTarget);
 
         if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
-            sub_004CB9C0_Request(pUnit, 0x13);
+            UNITSND_PlayPlayerSpeech(pUnit, 0x13);
 
         return 0;
     }
@@ -711,7 +711,7 @@ int __fastcall SKILLSBAR_SkillCltStartRun(D2UnitStrc* pUnit, int nSkillId, int n
 
     int nX;
     int nY;
-    if (!sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
+    if (!ITEM_GetTargetPosition(pUnit, &nX, &nY))
     {
         return 0;
     }

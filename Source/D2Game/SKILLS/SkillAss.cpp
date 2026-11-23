@@ -116,7 +116,7 @@ D2UnitStrc* __fastcall sub_6FC6A150(D2GameStrc* pGame, D2UnitStrc* pUnit, int nM
 
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 
-D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse); // 0x0056E970
+D2StatListStrc* __fastcall SKILLS_ApplyStateEffect(D2CurseStrc* pCurse); // 0x0056E970
 
 void __fastcall D2GAME_RollPhysicalDamage_6FD14EC0(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel); // 0x0056E170
 
@@ -317,7 +317,7 @@ typedef char D2MonEquipTxt_size_check[sizeof(D2MonEquipTxt) == 0x1C ? 1 : -1];
 
 typedef char D2UnitStrc_inventory_check[(int)&((D2UnitStrc*)0)->pInventory == 0x60 ? 1 : -1];
 
-D2MonEquipTxt* __fastcall sub_005D30A0_GetMonEquipTxtRecord(int nMonsterId);
+D2MonEquipTxt* __fastcall SKILLITEM_GetMonEquipTxtRecord(int nMonsterId); // 0x005D30A0
 
 unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* pItem); // 0x00628590
 
@@ -729,7 +729,7 @@ int __fastcall SKILLS_SrvDo133_Impregnate(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     curse.nStat = -1;
     curse.nState = 110;
     curse.pStateRemoveCallback = SKILLS_RemovePregnantStateAndSpawnMonster;
-    sub_0056E970(&curse);
+    SKILLS_ApplyStateEffect(&curse);
     return 1;
 }
 
@@ -2738,7 +2738,7 @@ int __fastcall SKILLS_SrvDo047_CloakOfShadows(D2GameStrc* pGame, D2UnitStrc* pUn
     curse.nState = pSkillsTxtRecord->nAuraState;
     curse.pStateRemoveCallback = SKILLS_RemoveStateAndRefreshPassives;
 
-    D2StatListStrc* pStatList = sub_0056E970(&curse);
+    D2StatListStrc* pStatList = SKILLS_ApplyStateEffect(&curse);
     if (!pStatList)
     {
         return 0;
@@ -2810,7 +2810,7 @@ int __fastcall SKILLS_AuraCallback_CloakOfShadows(D2AuraCallbackStrc* pAuraCallb
     curse.nState = pArgs->nAuraTargetState;
     curse.pStateRemoveCallback = SKILLS_CurseStateCallback_ResetAi;
 
-    D2StatListStrc* pStatList = sub_0056E970(&curse);
+    D2StatListStrc* pStatList = SKILLS_ApplyStateEffect(&curse);
     if (!pStatList)
     {
         return 0;
@@ -2919,7 +2919,7 @@ void __fastcall SKILLS_EquipMonsterFromTable(D2GameStrc* pGame, D2UnitStrc* pUni
     }
 
     const int nClassId = pPet->dwClassId;
-    D2MonEquipTxt* pRecord = sub_005D30A0_GetMonEquipTxtRecord(nClassId);
+    D2MonEquipTxt* pRecord = SKILLITEM_GetMonEquipTxtRecord(nClassId);
     if (!pRecord)
     {
         return;

@@ -95,7 +95,8 @@ void __cdecl sub_00445FF0_BuildCreateScreen()
         CHATDLG_ShowWait(D2LANG_GetStringFromTblIndex(0x1413), 0);
         return;
     }
-    if (sub_00449E40())
+// build: symbol ?GAME_IsMcpCreateQueued@* 0x00449E40
+    if (GAME_IsMcpCreateQueued())
     {
         COMCALLBACK_BuildCreateGamePanel();
         return;

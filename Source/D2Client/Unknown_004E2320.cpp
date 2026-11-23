@@ -43,7 +43,7 @@ void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 void __fastcall sub_004B9A00(int nId, D2UnitStrc* pUnit, int nArg3, int nArg4, int nArg5); // 0x004B9A00
-D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char nIndex); // 0x0063E7A0
@@ -117,12 +117,12 @@ extern int gnPanelOffsetX; // 0x007A2858
 extern int gnPanelOffsetY; // 0x007A285C
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
-void __fastcall sub_004E9870_DrawTwoTexts(const Unicode* wszText1, const Unicode* wszText2, int nLeft, int nY, int nRight, int nColor1, int nColor2); // 0x004E9870
+void __fastcall SKILLDESC_DrawTwoTexts(const Unicode* wszText1, const Unicode* wszText2, int nLeft, int nY, int nRight, int nColor1, int nColor2); // 0x004E9870
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
-int __cdecl sub_004E6FF0_SumProgressiveBonus(); // 0x004E6FF0
+int __cdecl SKILLDESC_SumProgressiveBonus(); // 0x004E6FF0
 short __stdcall ITEMS_GetStrengthBonus(D2UnitStrc* pItem); // 0x00629860
 short __stdcall ITEMS_GetDexBonus(D2UnitStrc* pItem); // 0x006298A0
 int __stdcall STATES_CheckStateMaskDamBlueOnUnit(D2UnitStrc* pUnit); // 0x0063A380
@@ -348,7 +348,8 @@ int __stdcall SKILLDESC_IsStatGroupUniform(D2UnitStrc* pUnit, D2StatListStrc* pS
     return 1;
 }
 
-static int __stdcall sub_004E4D80_BuildStatText(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int nStatId, int nLayer, int nValue, Unicode* pOut)
+// build: symbol ?SKILLDESC_BuildStatText@* 0x004E4D80
+static int __stdcall SKILLDESC_BuildStatText(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int nStatId, int nLayer, int nValue, Unicode* pOut)
 {
     pOut[0] = 0;
 
@@ -1037,7 +1038,8 @@ static int __stdcall sub_004E5A20_BuildCombinedStatText(int nStatId, Unicode* pO
     return bAppend;
 }
 
-static void __stdcall sub_004E5E90_BuildFileIndexStatText(D2UnitStrc* pUnit, Unicode* pOut, D2FileIndexTextStrc* pTable)
+// build: symbol ?SKILLDESC_BuildFileIndexStatText@* 0x004E5E90
+static void __stdcall SKILLDESC_BuildFileIndexStatText(D2UnitStrc* pUnit, Unicode* pOut, D2FileIndexTextStrc* pTable)
 {
     Unicode wszLine[128];
     Unicode wszValue[128];
@@ -1125,7 +1127,7 @@ void __fastcall sub_004E60A0_AddSetPropText(D2UnitStrc* pUnit, Unicode* pOut, in
 
     if (ITEMS_GetItemType(pUnit) == ITEMTYPE_ELIXIR)
     {
-        sub_004E5E90_BuildFileIndexStatText(pUnit, pOut, gaFileIndexText);
+        SKILLDESC_BuildFileIndexStatText(pUnit, pOut, gaFileIndexText);
         return;
     }
 
@@ -1188,7 +1190,7 @@ void __fastcall sub_004E60A0_AddSetPropText(D2UnitStrc* pUnit, Unicode* pOut, in
             if (sub_004E5A20_BuildCombinedStatText(nStatId, pOut, &tCombined))
                 continue;
 
-            if (!sub_004E4D80_BuildStatText(pUnit, pMerged, nStatId, nLayer, nValue, wszLine))
+            if (!SKILLDESC_BuildStatText(pUnit, pMerged, nStatId, nLayer, nValue, wszLine))
                 continue;
 
             switch (nStatId)
@@ -1389,7 +1391,7 @@ void __fastcall D2Win_10046(D2WinControlStrc* pTextBox, const char* szText, int 
 }
 
 // 0x004E6FB0
-static int sub_004E6FB0_GetETypeColor(int nEType)
+static int SKILLDESC_GetETypeColor(int nEType)
 {
     switch (nEType)
     {
@@ -1480,7 +1482,7 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
     int nMaxPercent = STATLIST_UnitGetStatValue(pUnit, STAT_ITEM_MAXDAMAGE_PERCENT, 0);
     if (SDPHYS_TestFlag(pSkillsTxt->nFlags, 3))
     {
-        int nProgressive = sub_004E6FF0_SumProgressiveBonus();
+        int nProgressive = SKILLDESC_SumProgressiveBonus();
         if (nProgressive)
         {
             nBonus += nProgressive;
@@ -1518,7 +1520,7 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
 }
 
 // 0x004E9660
-static void __stdcall sub_004E9660_AddScaledWeaponDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, D2SkillStrc* pSkill, D2UnitStrc* pItem, int nRatio)
+static void __stdcall SKILLDESC_AddScaledWeaponDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, D2SkillStrc* pSkill, D2UnitStrc* pItem, int nRatio)
 {
     if (!nRatio)
         return;
@@ -1532,7 +1534,7 @@ static void __stdcall sub_004E9660_AddScaledWeaponDamage(D2UnitStrc* pUnit, int*
 }
 
 // 0x004E8D90
-static void sub_004E8D90_AddElementalStatDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, unsigned char nType)
+static void SKILLDESC_AddElementalStatDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, unsigned char nType)
 {
     switch (nType)
     {
@@ -1573,7 +1575,7 @@ static void sub_004E8D90_AddElementalStatDamage(D2UnitStrc* pUnit, int* pMinDama
 }
 
 // 0x004E96E0
-static void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin, int nMax, int nLeft, int nRight)
+static void __stdcall SKILLDESC_DrawDamageRange(int nColor, int nY, int nMin, int nMax, int nLeft, int nRight)
 {
     if (nMin >= nMax)
     {
@@ -1605,12 +1607,12 @@ static void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin,
     nWidth = nWidth * 11 / 7;
     if (nWidth > nRight - nLeft)
     {
-        sub_00502EF0(6);
+        D2Win_10127_SetFont(6);
         --nY;
     }
     else
     {
-        sub_00502EF0(1);
+        D2Win_10127_SetFont(1);
     }
     TEXT_DrawCenteredText(gnPanelOffsetX + nLeft, gnScreenHeight + gnPanelOffsetY + nY - 480, gnPanelOffsetX + nRight, wszText, nColor);
 }
@@ -1631,23 +1633,23 @@ void __fastcall SKILLDESC_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStr
     int nWeaponMin = 0;
     int nWeaponMax = 0;
     int nWeaponColor = 0;
-    sub_004E9660_AddScaledWeaponDamage(pUnit, &nWeaponMin, &nWeaponMax, &nWeaponColor, pSkill, 0, pSkillsTxt->nSrcDam);
-    const int nColor = sub_004E6FB0_GetETypeColor(pSkillsTxt->nEType);
+    SKILLDESC_AddScaledWeaponDamage(pUnit, &nWeaponMin, &nWeaponMax, &nWeaponColor, pSkill, 0, pSkillsTxt->nSrcDam);
+    const int nColor = SKILLDESC_GetETypeColor(pSkillsTxt->nEType);
     int nMin = SKILLS_GetMinPhysDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 0) >> 8;
     int nMax = SKILLS_GetMaxPhysDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 0) >> 8;
     nMin += SKILLS_GetMinElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) >> 8;
     nMax += SKILLS_GetMaxElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) >> 8;
-    sub_004E8D90_AddElementalStatDamage(pUnit, &nMin, &nMax, pSkillsTxt->nEType);
+    SKILLDESC_AddElementalStatDamage(pUnit, &nMin, &nMax, pSkillsTxt->nEType);
 
     if (!nWeaponMin && !nWeaponMax)
     {
-        sub_004E96E0_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
+        SKILLDESC_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
         return;
     }
 
     if (!nMin && !nMax)
     {
-        sub_004E96E0_DrawDamageRange(nWeaponColor, nY, nWeaponMin, nWeaponMax, nLeft, nRight);
+        SKILLDESC_DrawDamageRange(nWeaponColor, nY, nWeaponMin, nWeaponMax, nLeft, nRight);
         return;
     }
 
@@ -1689,7 +1691,7 @@ void __fastcall SKILLDESC_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStr
         wsprintfA(szText, gszFmtRangeK, &gszEmptyAssertText, nMin, (nMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText2, szText, 32);
-    sub_004E9870_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nWeaponColor, nColor);
+    SKILLDESC_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nWeaponColor, nColor);
 }
 
 static int __stdcall SKILLDESC_GetAttackRatingValues(D2UnitStrc* pUnit, D2UnitStrc* pItem, int* pValue1, int* pValue2, int nLevel, D2SkillStrc* pSkill)
@@ -1749,8 +1751,8 @@ void __fastcall sub_004E9000_SkillDescAttackRatingMain(D2UnitStrc* pUnit, D2Skil
     SKILLDESC_GetAttackRatingValues(pUnit, pItem, pValue1, pValue2, nLevel, pSkill);
 }
 
-// build: symbol ?sub_004E9260_MergeOtherHandWeapon@@YAPAUD2UnitStrc@@PAU1@@Z 0x004E9260
-static D2UnitStrc* sub_004E9260_MergeOtherHandWeapon(D2UnitStrc* pUnit)
+// build: symbol ?SKILLDESC_MergeOtherHandWeapon@@YAPAUD2UnitStrc@@PAU1@@Z 0x004E9260
+static D2UnitStrc* SKILLDESC_MergeOtherHandWeapon(D2UnitStrc* pUnit)
 {
     if (!UNITS_CanDualWield(pUnit))
         return 0;
@@ -1818,7 +1820,8 @@ static D2UnitStrc* sub_004E9300_MergeWeaponPair(D2UnitStrc* pUnit)
     return pWeapon;
 }
 
-static int __stdcall sub_004E93A0_EvaluateForEachWeapon(int* pValue1, int* pValue2, int nArg3, int* pValue3, int* pValue4, int nArg6, D2SkillStrc* pSkill, SKILLWEAPONFN pfnEvaluate, int nArg9, D2UnitStrc* pUnit, int nLevel)
+// build: symbol ?SKILLDESC_EvaluateForEachWeapon@* 0x004E93A0
+static int __stdcall SKILLDESC_EvaluateForEachWeapon(int* pValue1, int* pValue2, int nArg3, int* pValue3, int* pValue4, int nArg6, D2SkillStrc* pSkill, SKILLWEAPONFN pfnEvaluate, int nArg9, D2UnitStrc* pUnit, int nLevel)
 {
     D2InventoryStrc* pInventory = pUnit->pInventory;
     if (!pInventory)
@@ -1837,7 +1840,7 @@ static int __stdcall sub_004E93A0_EvaluateForEachWeapon(int* pValue1, int* pValu
 
     if (pRight && pLeft)
     {
-        D2UnitStrc* pItem = sub_004E9260_MergeOtherHandWeapon(pUnit);
+        D2UnitStrc* pItem = SKILLDESC_MergeOtherHandWeapon(pUnit);
         if (pItem)
         {
             pfnEvaluate(pUnit, pValue3, pValue4, nArg6, nArg9, nLevel, pSkill, 0, pItem);
@@ -1870,7 +1873,7 @@ static int __stdcall sub_004E93A0_EvaluateForEachWeapon(int* pValue1, int* pValu
 
 static int __stdcall SKILLDESC_AttackRatingForEachWeapon(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int* pValue3, int* pValue4, D2SkillStrc* pSkill, int nLevel)
 {
-    return sub_004E93A0_EvaluateForEachWeapon(pValue1, pValue2, 0, pValue3, pValue4, 0, pSkill, SKILLDESC_AttackRatingCallback, 0, pUnit, nLevel);
+    return SKILLDESC_EvaluateForEachWeapon(pValue1, pValue2, 0, pValue3, pValue4, 0, pSkill, SKILLDESC_AttackRatingCallback, 0, pUnit, nLevel);
 }
 
 void __fastcall sub_P03_Emit_004E9510(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nLevel, int* pValue1, int* pValue2, int* pValue3, int* pValue4)
@@ -1881,7 +1884,7 @@ void __fastcall sub_P03_Emit_004E9510(D2UnitStrc* pUnit, D2SkillStrc* pSkill, in
         return;
     }
 
-    sub_004E93A0_EvaluateForEachWeapon(pValue1, pValue2, 0, pValue3, pValue4, 0, pSkill, SKILLDESC_AttackRatingCallback, 0, pUnit, nLevel);
+    SKILLDESC_EvaluateForEachWeapon(pValue1, pValue2, 0, pValue3, pValue4, 0, pSkill, SKILLDESC_AttackRatingCallback, 0, pUnit, nLevel);
 }
 
 // 0x004E9940
@@ -1893,11 +1896,11 @@ static void __stdcall sub_004E9940_DrawNumberCentered(int nColor, int nLeft, int
     sub_00526320_ToUnicode(wszText, szText, 32);
     if (nValue < 1000)
     {
-        sub_00502EF0(1);
+        D2Win_10127_SetFont(1);
     }
     else
     {
-        sub_00502EF0(0);
+        D2Win_10127_SetFont(0);
     }
     TEXT_DrawCenteredText(gnPanelOffsetX + nLeft, gnScreenHeight + gnPanelOffsetY + nY - 480,
                             gnPanelOffsetX + nRight, wszText, nColor);

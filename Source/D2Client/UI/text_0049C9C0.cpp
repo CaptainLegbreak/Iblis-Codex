@@ -7,12 +7,12 @@ struct D2WaypointEntryStrc { int nLevelId; unsigned char bEnabled; };
 #pragma pack(pop)
 extern "C" void* __cdecl memset(void*,int,unsigned int);
 void __cdecl TEXT_LoadWaypointPanelCels(); // 0x0049C580
-int __cdecl sub_00463DF0(); // 0x00463DF0
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
-void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
-int __fastcall sub_00502EF0(int nFontSize); // 0x00502EF0
+void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+int __fastcall D2Win_10127_SetFont(int nFontSize); // 0x00502EF0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 int __cdecl FOG_IsExpansion(); // 0x00408F20
@@ -49,16 +49,16 @@ static inline int GetWaypointPanelBottom() { return gnScreenHeight_00711470+gnOf
 void __cdecl sub_0049C9C0_DrawWaypointPanel()
 {
     TEXT_LoadWaypointPanelCels();
-    if(sub_00463DF0())
+    if(CUNIT_IsPlayerDeadOrMissing())
     {
-        sub_00455F20(20,1,0);
+        UI_SetUIVar(20,1,0);
         if(!gbSent_007BF085 && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
         {
-            sub_004786A0_SendDwords2(0x49,gnWaypointId_007BF07D,0);
+            MSG_SendTwoDwords(0x49,gnWaypointId_007BF07D,0);
             gbSent_007BF085=1;
         }
     }
-    sub_00502EF0(1);
+    D2Win_10127_SetFont(1);
     D2GfxDataStrc tGfx;
     memset(&tGfx,0,sizeof(tGfx));
     tGfx.pCellFile=gpBackground_007BF071;

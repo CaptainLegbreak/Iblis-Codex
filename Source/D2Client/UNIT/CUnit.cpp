@@ -177,7 +177,7 @@ D2GfxLightStrc* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* a2);          
 
 void __stdcall PARTICLE_FreeGfxMotion(D2UnitStrc* pUnit);                                               // 0x004DA080
 
-void __fastcall sub_004CA9C0_ReleaseUnitHints(D2UnitStrc* pUnit, int bForce);                               // 0x004CA9C0
+void __fastcall UNITSND_ReleaseUnitHints(D2UnitStrc* pUnit, int bForce);                               // 0x004CA9C0
 
 void __fastcall MONSTER_FreeClientUnit(D2UnitStrc* pUnit);                                             // 0x004AED30
 
@@ -267,7 +267,7 @@ void __fastcall GFX_FreeGfxData(D2UnitStrc* pUnit);                             
 
 int __fastcall sub_00477620_RollUnitValue(D2UnitStrc* pUnit, unsigned short nOffset); // 0x00477620
 
-D2ClientEntryStrc* __fastcall sub_00478E40_FindEntry(int nKey);                                             // 0x00478E40
+D2ClientEntryStrc* __fastcall ROSTERPETS_FindEntry(int nKey);                                             // 0x00478E40
 
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny);                   // 0x00478F20
 
@@ -445,7 +445,7 @@ int __stdcall D2Common_11020(D2UnitStrc* pUnit); // 0x00645630
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
-int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
+int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 
@@ -471,7 +471,7 @@ void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 
 int __stdcall SFileUnloadFile(void* pBuffer); // 0x00416710
 
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 extern unsigned char gabColors_007BCAD8[5]; // 0x007BCAD8
 
@@ -612,7 +612,7 @@ D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType)
 
 D2UnitStrc* __fastcall CUNIT_FindServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x004639B0
 
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
+D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
 void __fastcall CUNIT_SetTargetByGUID(D2UnitStrc* pUnit, int nUnitType, unsigned int nUnitId); // 0x004643F0
 
@@ -652,9 +652,9 @@ D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType)
 
 D2UnitStrc* __fastcall CUNIT_FindServerSideUnit(unsigned int nUnitId, int nUnitType);
 
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit);
+D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
-static int __stdcall sub_004642B0_CheckSkillSelectProc(D2UnitStrc* pPlayer, D2UnitStrc* pTarget, int nSkillId);
+static int __stdcall CUNIT_CheckSkillSelectProc(D2UnitStrc* pPlayer, D2UnitStrc* pTarget, int nSkillId); // 0x004642B0
 
 // 0x004645B0
 static int __stdcall CUNIT_CanInterruptSequence(int nUnused, D2UnitStrc* pUnit); // 0x004645B0
@@ -689,7 +689,7 @@ void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* s
 
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
@@ -741,7 +741,7 @@ D2UnitStrc* __fastcall CUNIT_CreateObjectUnit(unsigned int nUnitId, int nClassId
 
 D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg);
 
-int __stdcall sub_004642B0_CheckSkillSelectProc(D2UnitStrc* pPlayer, D2UnitStrc* pTarget, int nSkillId); // 0x004642B0
+int __stdcall CUNIT_CheckSkillSelectProc(D2UnitStrc* pPlayer, D2UnitStrc* pTarget, int nSkillId); // 0x004642B0
 
 
 int __fastcall CUNIT_IsUnitSelectable(D2UnitStrc* pUnit, int nX, int nY, int bHitTest);
@@ -783,7 +783,7 @@ void __cdecl CUNIT_ReplayRecords()
 }
 
 // 0x0045B1A0
-void __fastcall sub_0045B1A0_DrawDiamond(int nX, int nY, unsigned char nColor)
+void __fastcall CUNIT_DrawAutomapDiamond(int nX, int nY, unsigned char nColor)
 {
     tagRECT tRect;
     tRect.left = nX - gnAutomapOriginX - 0x10;
@@ -819,7 +819,7 @@ static inline int MONSTATS_GetBaseIdInline(int nClassId)
 }
 
 // 0x00463860
-int __fastcall sub_00463860(D2UnitStrc* pUnit)
+int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
         return MONSTATS_GetBaseIdInline(pUnit->dwClassId);
@@ -900,7 +900,7 @@ D2UnitStrc* __fastcall CUNIT_FindServerSideUnit(unsigned int nUnitId, int nUnitT
 }
 
 // 0x004639D0
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit)
+D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit)
 {
     D2_ASSERT(pUnit, 0x83);
     if (UNIT_HasFlagEx(pUnit, 0x400))
@@ -1175,7 +1175,7 @@ void __fastcall sub_M109_Emit_00464E20(D2UnitStrc* pUnit, int nOverlay)
 }
 
 // 0x00463DF0
-int __cdecl sub_00463DF0()
+int __cdecl CUNIT_IsPlayerDeadOrMissing()
 {
     D2UnitStrc* pPlayer = gpPlayerUnit;
     if (!pPlayer)
@@ -1341,7 +1341,7 @@ int __fastcall CUNIT_SelectProcConvertTarget(D2UnitStrc* pPlayer, D2UnitStrc* pT
     const int nType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
     if (nType != 1)
         return 0;
-    int nClass = sub_00463860(pTarget);
+    int nClass = CUNIT_GetMonsterBaseId(pTarget);
     if (nClass >= 0 && nClass < sgptDataTables->nMonStatsTxtRecordCount && nClass == 0x4E)
         return 0;
     return 1;
@@ -1380,7 +1380,7 @@ inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord_Inl(int nSkillId)
 }
 
 // 0x004642B0
-static int __stdcall sub_004642B0_CheckSkillSelectProc(D2UnitStrc* pPlayer, D2UnitStrc* pTarget, int nSkillId)
+static int __stdcall CUNIT_CheckSkillSelectProc(D2UnitStrc* pPlayer, D2UnitStrc* pTarget, int nSkillId)
 {
     D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord_Inl(nSkillId);
 // build: symbol ?gnSkillSelectProcs@* 0x00711F50
@@ -1402,10 +1402,10 @@ static int __stdcall CUNIT_CheckMonsterSkillSelect(D2UnitStrc* pUnit, D2UnitStrc
     if (nUnitType != UNIT_MONSTER)
         return 0;
 
-    if (sub_004642B0_CheckSkillSelectProc(pPlayer, pUnit, SKILLS_GetSkillIdFromSkill(UNITS_GetLeftSkill(pPlayer), ".\\UNIT\\CUnit.cpp", 1674)))
+    if (CUNIT_CheckSkillSelectProc(pPlayer, pUnit, SKILLS_GetSkillIdFromSkill(UNITS_GetLeftSkill(pPlayer), ".\\UNIT\\CUnit.cpp", 1674)))
         return 1;
 
-    return sub_004642B0_CheckSkillSelectProc(pPlayer, pUnit, SKILLS_GetSkillIdFromSkill(UNITS_GetRightSkill(pPlayer), ".\\UNIT\\CUnit.cpp", 1678)) != 0;
+    return CUNIT_CheckSkillSelectProc(pPlayer, pUnit, SKILLS_GetSkillIdFromSkill(UNITS_GetRightSkill(pPlayer), ".\\UNIT\\CUnit.cpp", 1678)) != 0;
 }
 
 // 0x00464370
@@ -1520,7 +1520,7 @@ int __fastcall CUNIT_CanUseSkill(D2UnitStrc* pUnit, int nArg)
 }
 
 // 0x004646A0
-D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom()
+D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom()
 {
     D2UnitStrc* pPlayer = gpPlayerUnit;
     if (pPlayer)
@@ -2457,7 +2457,7 @@ static void CUNIT_FreeUnit(D2UnitStrc* pUnit)
     }
 
     PARTICLE_FreeGfxMotion(pUnit);
-    sub_004CA9C0_ReleaseUnitHints(pUnit, 0);
+    UNITSND_ReleaseUnitHints(pUnit, 0);
     sub_004CC160(pUnit, -1);
 
     switch (pUnit->dwUnitType)
@@ -2469,7 +2469,7 @@ static void CUNIT_FreeUnit(D2UnitStrc* pUnit)
             pUnit->pHoverText = 0;
         }
         sub_00460D50_FreePlayerUnit(pUnit);
-        sub_004CA9C0_ReleaseUnitHints(pUnit, 1);
+        UNITSND_ReleaseUnitHints(pUnit, 1);
         break;
 
     case UNIT_MONSTER:
@@ -2479,7 +2479,7 @@ static void CUNIT_FreeUnit(D2UnitStrc* pUnit)
             pUnit->pHoverText = 0;
         }
         MONSTER_FreeClientUnit(pUnit);
-        sub_004CA9C0_ReleaseUnitHints(pUnit, 1);
+        UNITSND_ReleaseUnitHints(pUnit, 1);
         break;
 
     case UNIT_ITEM:
@@ -2496,7 +2496,7 @@ static void CUNIT_FreeUnit(D2UnitStrc* pUnit)
         }
         OBJECT_ReleaseObjectUnit(pUnit);
         UNITS_FreeStaticPath(pUnit);
-        sub_004CA9C0_ReleaseUnitHints(pUnit, 1);
+        UNITSND_ReleaseUnitHints(pUnit, 1);
         break;
 
     case UNIT_MISSILE:
@@ -2634,7 +2634,7 @@ static inline int UNITS_IsDeadOrDying(D2UnitStrc* pUnit)
 }
 
 // 0x00465C60
-int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther)
+int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther)
 {
     int nUnitType;
     int nUnitId;
@@ -3220,7 +3220,7 @@ D2UnitStrc* __fastcall CUNIT_AddClientMonster(D2UnitSpawnStrc* pSpawn, void* pAr
     pUnit = CUNIT_InsertUnit(pUnit);
     if (ROSTER_GetPetType(pUnit->dwUnitId) == 7)
     {
-        D2ClientEntryStrc* pEntry = sub_00478E40_FindEntry(pUnit->dwUnitId);
+        D2ClientEntryStrc* pEntry = ROSTERPETS_FindEntry(pUnit->dwUnitId);
         if (pEntry)
         {
             D2HirelingInfoStrc tInfo;
@@ -3532,12 +3532,12 @@ int __fastcall sub_Q03_Emit_UnitSelectRect(D2UnitStrc* pUnit, int nX)
 
 int __stdcall sub_O05_Emit_004642B0(D2UnitStrc* pPlayer, D2UnitStrc* pTarget)
 {
-    if (sub_004642B0_CheckSkillSelectProc(pPlayer, pTarget, sub_O05_EmitArg_SkillId(pPlayer)))
+    if (CUNIT_CheckSkillSelectProc(pPlayer, pTarget, sub_O05_EmitArg_SkillId(pPlayer)))
     {
         return 1;
     }
 
-    return sub_004642B0_CheckSkillSelectProc(pPlayer, pTarget, sub_O05_EmitArg_SkillId(pTarget)) != 0;
+    return CUNIT_CheckSkillSelectProc(pPlayer, pTarget, sub_O05_EmitArg_SkillId(pTarget)) != 0;
 }
 
 // 0x00483410
@@ -3584,7 +3584,7 @@ void __cdecl CUNIT_InitColorTable()
 }
 
 // 0x00489840
-int __cdecl sub_00489840_IsNpcState123()
+int __cdecl CUNIT_IsInvPanelTradeMode()
 {
     if (gnInvPanelMode == 1 || gnInvPanelMode == 2 || gnInvPanelMode == 3)
     {
@@ -3603,7 +3603,7 @@ void __fastcall sub_004898A0(int nMode)
         gnInvPanelMode = 12;
     }
 
-    sub_00455F20(5, 1, 0);
+    UI_SetUIVar(5, 1, 0);
 }
 
 // 0x004898D0
@@ -3639,7 +3639,7 @@ void __cdecl CUNIT_ClearTextPanel()
 }
 
 // 0x004B8A10
-int __cdecl sub_004B8A10()
+int __cdecl CUNIT_IsTrading()
 {
     if (gnTradeState == 1 || gnTradeState == 2)
     {

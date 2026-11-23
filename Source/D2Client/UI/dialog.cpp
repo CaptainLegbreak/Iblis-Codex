@@ -750,7 +750,7 @@ void __cdecl DIALOG_LoadDialogHotkeys()
 }
 
 // 0x004B7EB0
-D2ClientDialogStrc* __fastcall sub_004B7EB0_CreateDialog(int nArg1, int nArg2, int nArg8, int nArgC, int nArg10, int nArg14,
+D2ClientDialogStrc* __fastcall DIALOG_CreateDialog(int nArg1, int nArg2, int nArg8, int nArgC, int nArg10, int nArg14,
     int nArg18, int nArg1C, int nArg20, int nArg24, int nArg28)
 {
     sub_004545C0(0);

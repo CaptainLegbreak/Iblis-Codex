@@ -14,7 +14,7 @@ struct D2ImmunityTextStrc;
 extern Unicode gwszHoverText[]; // 0x007A2A78
 extern int gnHoverTextState; // 0x007A2C78
 int __fastcall UI_GetHoverRect(D2RectStrc* pRect); // 0x00454880
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
@@ -74,12 +74,12 @@ static void __stdcall sub_004549F0_DrawCenteredText(const Unicode* wszText, int 
     {
         return;
     }
-    const int nOldFont = sub_00502EF0(nFont);
+    const int nOldFont = D2Win_10127_SetFont(nFont);
     sub_005267E0(wszBuffer, wszText);
     const int nWidth = D2Win_10121_GetTextWidth(wszBuffer);
     const int nX = ((tRect.nLeft + tRect.nRight) >> 1) - (nWidth >> 1);
     D2Win_10117_DrawText(wszBuffer, nX, nY, nColor, 1);
-    sub_00502EF0(nOldFont);
+    D2Win_10127_SetFont(nOldFont);
 }
 
 // 0x00454A70
@@ -162,7 +162,7 @@ static void UI_BuildImmunityText(D2UnitStrc* pUnit)
 // 0x00454AD0
 void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
 {
-    const int nOld = sub_00502EF0(1);
+    const int nOld = D2Win_10127_SetFont(1);
     const int nClassId = !pUnit ? -1 : pUnit->dwClassId;
     D2MonStatsTxt* pMonStatsTxt = (nClassId >= 0 && nClassId < sgptDataTables->nMonStatsTxtRecordCount) ? &sgptDataTables->pMonStatsTxt[nClassId] : 0;
     int bDead = 0;
@@ -286,5 +286,5 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
             D2Win_10129_DrawFramedText(CUNIT_GetUnitName(pUnit), gnHoverX, gnHoverY, 0, 1);
         }
     }
-    sub_00502EF0(nOld);
+    D2Win_10127_SetFont(nOld);
 }

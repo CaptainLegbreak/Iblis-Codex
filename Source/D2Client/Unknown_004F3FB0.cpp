@@ -25,10 +25,10 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
-int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
+int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
 D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
 void __fastcall SKILLS_ScaleFramePrecise(D2UnitStrc* pUnit, int nPercent); // 0x004C76D0
-D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 int __fastcall SKILLDESC_GetSkillParamSix(int nSkillId); // 0x004F4110
 int __fastcall UNITS_GetWeaponClass(D2UnitStrc* pUnit); // 0x00623C60
 void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue); // 0x006445A0
@@ -124,7 +124,7 @@ int __fastcall sub_004F4A30_CltDoChargedMissile(D2UnitStrc* pUnit, int nSkillId,
 
     int nTargetX;
     int nTargetY;
-    if (!sub_004C52E0_GetTargetPosition(pUnit, &nTargetX, &nTargetY))
+    if (!ITEM_GetTargetPosition(pUnit, &nTargetX, &nTargetY))
     {
         return 0;
     }
@@ -151,7 +151,7 @@ int __fastcall sub_004F4A30_CltDoChargedMissile(D2UnitStrc* pUnit, int nSkillId,
     tMissileParams.nMissile = nMissileId;
     tMissileParams.nTargetX = nTargetX;
     tMissileParams.nTargetY = nTargetY;
-    sub_004CD540_CreateMissile(&tMissileParams);
+    MISSILE_CreateClientMissile(&tMissileParams);
 
     --nCharges;
     SKILLS_SetParam1(pSkill, nCharges);

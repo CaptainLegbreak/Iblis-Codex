@@ -156,7 +156,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
-static void __stdcall sub_00597CF0_SendLifeUpdate(D2UnitStrc* pUnit, D2ClientStrc* pClient);
+static void __stdcall MONSTERMSG_SendLifeUpdate(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00597CF0
 
 inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
 {
@@ -585,7 +585,7 @@ static inline int sub_F05_MsgGetUnitId(D2UnitStrc* pUnit)
 }
 
 // 0x00597C70
-static void __stdcall sub_00597C70_SendSummonerInfo(D2ClientStrc* pClient, D2UnitStrc* pUnit)
+static void __stdcall MONSTERMSG_SendSummonerInfo(D2ClientStrc* pClient, D2UnitStrc* pUnit)
 {
     if (!MONSTER_CheckSummonerFlag(pUnit, 1))
     {
@@ -652,7 +652,7 @@ void __fastcall MONSTERMSG_SendMonsterUpdates(D2GameStrc* pGame, D2UnitStrc* pUn
 
         if (sub_F05_UnitFlagBit(pUnit, 15))
         {
-            sub_00597CF0_SendLifeUpdate(pUnit, pClient);
+            MONSTERMSG_SendLifeUpdate(pUnit, pClient);
         }
     }
 
@@ -668,12 +668,12 @@ void __fastcall MONSTERMSG_SendMonsterUpdates(D2GameStrc* pGame, D2UnitStrc* pUn
 
     if (pUnit && sub_F05_UnitFlagBit(pUnit, 11))
     {
-        sub_00597C70_SendSummonerInfo(pClient, pUnit);
+        MONSTERMSG_SendSummonerInfo(pClient, pUnit);
     }
 }
 
 // 0x00597CF0
-static void __stdcall sub_00597CF0_SendLifeUpdate(D2UnitStrc* pUnit, D2ClientStrc* pClient)
+static void __stdcall MONSTERMSG_SendLifeUpdate(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
     const unsigned char nHitClass = pUnit->dwLastHitClass;
     unsigned char nHpPct = MONSTERMODE_GetHpPercent128(pUnit);

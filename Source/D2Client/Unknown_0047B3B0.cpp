@@ -119,7 +119,7 @@ extern "C" const char gszPerspective[];
 extern "C" const char gszAutoMapMode[];
 
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 extern D2EscMenuUIStateStrc gaEscMenuUIState[38]; // 0x00713058
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
@@ -141,11 +141,11 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 int __cdecl sub_00468830(); // 0x00468830
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
-int __cdecl sub_004979E0(); // 0x004979E0
+int __cdecl HIREABLES_AreBeltRowsShown(); // 0x004979E0
 int __cdecl HIREABLES_GetBeltRowCount(); // 0x004979F0
 int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
-void __cdecl sub_0044DA70(); // 0x0044DA70
+void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 extern int gbSlotClicked; // 0x007BC97C
 extern int gbSlotBarBlocked; // 0x007BC970
 extern int gdwGlobal_007BC974; // 0x007BC974
@@ -153,7 +153,7 @@ extern int gbAnyLeftPanelOpen; // 0x007BC968
 extern int gbAnyPanelOpen; // 0x007BC96C
 extern int gaSlotX[]; // 0x007BC898
 extern int gaSlotKind[]; // 0x007BC8D8
-void __fastcall sub_0044B880_SetValue(int nValue); // 0x0044B880
+void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
 void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
 void __fastcall sub_0047E200_CloseMenus(int bRestore); // 0x0047E200
 extern D2OptionHeaderStrc gtMainOptionHeader; // 0x00713044
@@ -545,7 +545,7 @@ void __fastcall sub_0047E200_CloseMenus(int bRestore)
 {
     if (GAME_GetUIVarState(9))
     {
-        sub_00455F20(9, 1, 0);
+        UI_SetUIVar(9, 1, 0);
     }
     if (bRestore)
     {
@@ -553,7 +553,7 @@ void __fastcall sub_0047E200_CloseMenus(int bRestore)
         {
             if (gaEscMenuUIState[i].nSaved)
             {
-                sub_00455F20(i, 0, 0);
+                UI_SetUIVar(i, 0, 0);
             }
         }
     }
@@ -915,44 +915,44 @@ static void sub_0047EC50_DoSlotAction(int nButton)
     {
     case 0:
         if (GAME_GetUIVarState(2))
-            sub_00455F20(2, 1, 0);
+            UI_SetUIVar(2, 1, 0);
         else
-            sub_00455F20(2, 2, 0);
+            UI_SetUIVar(2, 2, 0);
         break;
     case 1:
         if (GAME_GetUIVarState(1))
-            sub_00455F20(1, 1, 0);
+            UI_SetUIVar(1, 1, 0);
         else
-            sub_00455F20(1, 2, 0);
+            UI_SetUIVar(1, 2, 0);
         break;
     case 2:
         if (GAME_GetUIVarState(4))
-            sub_00455F20(4, 1, 0);
+            UI_SetUIVar(4, 1, 0);
         else
-            sub_00455F20(4, 2, 0);
+            UI_SetUIVar(4, 2, 0);
         break;
     case 3:
         if (GAME_GetConnectionType())
         {
             if (GAME_GetUIVarState(0x16))
-                sub_00455F20(0x16, 1, 0);
+                UI_SetUIVar(0x16, 1, 0);
             else
-                sub_00455F20(0x16, 2, 0);
+                UI_SetUIVar(0x16, 2, 0);
         }
         break;
     case 4:
         if (GAME_GetUIVarState(0xA))
-            sub_00455F20(0xA, 1, 0);
+            UI_SetUIVar(0xA, 1, 0);
         else
-            sub_00455F20(0xA, 2, 0);
+            UI_SetUIVar(0xA, 2, 0);
         break;
     case 5:
         if (GAME_GetUIVarState(0x1F))
-            sub_00455F20(0x1F, 1, 0);
+            UI_SetUIVar(0x1F, 1, 0);
         if (GAME_GetUIVarState(0x18))
-            sub_00455F20(0x18, 1, 0);
+            UI_SetUIVar(0x18, 1, 0);
         else
-            sub_00455F20(0x18, 2, 0);
+            UI_SetUIVar(0x18, 2, 0);
         break;
     case 6:
         OutputDebugStringA("Panel quest log toggle\n");
@@ -997,7 +997,7 @@ void __stdcall sub_0047ED90_SlotsClickMsg(SMSGHANDLER_PARAMS* pMsg)
         int nOffset = 0;
         for (int i = 0; i < nCount; ++i)
             gnSlotState_007BC8F8[i] = 0;
-        if (sub_004979E0() && HIREABLES_GetBeltRowCount() > 1)
+        if (HIREABLES_AreBeltRowsShown() && HIREABLES_GetBeltRowCount() > 1)
             nOffset = -0x76;
         if (gbAnyLeftPanelOpen)
             nOffset -= 0x76;
@@ -1023,7 +1023,7 @@ void __stdcall sub_0047ED90_SlotsClickMsg(SMSGHANDLER_PARAMS* pMsg)
                 }
             }
             GAME_ResetMouseState();
-            sub_0044DA70();
+            GAME_ResetMouseButtons();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
@@ -1039,7 +1039,7 @@ D2OptionHeaderStrc* gpOptionHeader; // 0x007BC93C
 // 0x0047F2A0
 void __fastcall sub_0047F2A0_ShowPage1(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_00455F20(9, 0, 0);
+    UI_SetUIVar(9, 0, 0);
     gpOptionHeader = &gtOptionsHeader;
     gpOptionEntries = gaOptionsEntries;
     gnOptionSelected = gpOptionHeader->nCount - 1;
@@ -1048,7 +1048,7 @@ void __fastcall sub_0047F2A0_ShowPage1(D2OptionEntryStrc* pEntry, SMSGHANDLER_PA
 // 0x0047F460
 void __fastcall sub_0047F460_ShowPage1Twin(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_00455F20(9, 0, 0);
+    UI_SetUIVar(9, 0, 0);
     gpOptionHeader = &gtOptionsHeader;
     gpOptionEntries = gaOptionsEntries;
     gnOptionSelected = gpOptionHeader->nCount - 1;
@@ -1057,7 +1057,7 @@ void __fastcall sub_0047F460_ShowPage1Twin(D2OptionEntryStrc* pEntry, SMSGHANDLE
 // 0x0047F2D0
 void __fastcall sub_0047F2D0_ExitGame(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_0044B880_SetValue(0);
+    GAME_SetExitApplication(0);
     SendMessageA(pMsg->hWnd, 0x10, 0, 0);
     GAME_SetCinematicExit(1);
     sub_0047E200_CloseMenus(1);
@@ -1072,7 +1072,7 @@ void __fastcall sub_0047F300_CloseMenus(D2OptionEntryStrc* pEntry, SMSGHANDLER_P
 // 0x0047F310
 void __fastcall sub_0047F310_ShowPage2(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_00455F20(9, 0, 0);
+    UI_SetUIVar(9, 0, 0);
     gpOptionHeader = &gtSoundOptionHeader;
     gpOptionEntries = gaSoundOptionEntries;
     gnOptionSelected = gpOptionHeader->nCount - 1;
@@ -1081,7 +1081,7 @@ void __fastcall sub_0047F310_ShowPage2(D2OptionEntryStrc* pEntry, SMSGHANDLER_PA
 // 0x0047F340
 void __fastcall sub_0047F340_ShowPage3(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_00455F20(9, 0, 0);
+    UI_SetUIVar(9, 0, 0);
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     if (FOG_IsExpansion())
     {
@@ -1099,7 +1099,7 @@ void __fastcall sub_0047F340_ShowPage3(D2OptionEntryStrc* pEntry, SMSGHANDLER_PA
 // 0x0047F3A0
 void __fastcall sub_0047F3A0_ShowPage4(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_00455F20(9, 0, 0);
+    UI_SetUIVar(9, 0, 0);
     if (FOG_IsExpansion())
     {
         gpOptionHeader = &gtAutomapModeOptionHeader;
@@ -1117,14 +1117,14 @@ void __fastcall sub_0047F3A0_ShowPage4(D2OptionEntryStrc* pEntry, SMSGHANDLER_PA
 void __fastcall sub_0047F400_OpenPanel(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
     if (GAME_GetUIVarState(9))
-        sub_00455F20(9, 1, 0);
-    sub_00455F20(0xB, 0, 0);
+        UI_SetUIVar(9, 1, 0);
+    UI_SetUIVar(0xB, 0, 0);
 }
 
 // 0x0047F430
 void __fastcall sub_0047F430_ShowPage0(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_00455F20(9, 0, 0);
+    UI_SetUIVar(9, 0, 0);
     gpOptionHeader = &gtMainOptionHeader;
     gpOptionEntries = gaMainOptionEntries;
     gnOptionSelected = gpOptionHeader->nCount - 1;

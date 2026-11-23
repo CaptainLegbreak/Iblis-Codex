@@ -2,8 +2,8 @@
 #include "D2StormTypes.h"
 
 void __cdecl sub_00499E30();
-void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6);
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg);
+void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
+void __fastcall UI_SetUIVar(int nUIVar, int nState, int nArg); // 0x00455F20
 extern int gnScreenWidth; // 0x0071146C
 extern int gnScreenHeight; // 0x00711470
 extern int gbHelpUiOpened;
@@ -21,14 +21,14 @@ unsigned char gnHelpShadeColor; // 0x007BEEF8
 void __cdecl sub_00494EB0()
 {
     sub_00499E30();
-    sub_0046EFD0_DrawFramedBox(0, 0, gnScreenWidth, gnScreenHeight - 0x31, gnHelpShadeColor, 1);
+    AUTOMAP_DrawFramedBox(0, 0, gnScreenWidth, gnScreenHeight - 0x31, gnHelpShadeColor, 1);
 }
 
 void __cdecl sub_00494FC0()
 {
     if (gbHelpUiOpened)
     {
-        sub_00455F20(0x15, 1, 0);
+        UI_SetUIVar(0x15, 1, 0);
         gbHelpUiOpened = 0;
     }
 }
@@ -68,8 +68,8 @@ void __stdcall sub_00495320_ButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     const int nY = sub_00468740();
     if (nX >= nLeft && nX <= nLeft + 0x23 && nY >= nBottom - 0x24 && nY <= nBottom)
     {
-        sub_00455F20(0x22, 1, 0);
-        sub_00455F20(0x21, 2, 0);
+        UI_SetUIVar(0x22, 1, 0);
+        UI_SetUIVar(0x21, 2, 0);
         gnGlobal_00722310 = 1;
         SRegSaveValue("Diablo II", "Help Menu", 1, 1);
         gbHelpButtonPressed = 0;
@@ -84,10 +84,10 @@ int gbHelpUiOpened; // 0x007BEF00
 // 0x004967A0
 void __stdcall sub_004967A0_KeyCloseHelp(SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_00455F20(0x21, 1, 0);
+    UI_SetUIVar(0x21, 1, 0);
     if (gbHelpUiOpened)
     {
-        sub_00455F20(0x15, 1, 0);
+        UI_SetUIVar(0x15, 1, 0);
         gbHelpUiOpened = 0;
     }
 }

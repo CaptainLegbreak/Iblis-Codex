@@ -33,7 +33,7 @@ int __fastcall sub_0051E340_BuildCDKeyInfoForSlot(D2CDKeyInfoStrc* pInfo, unsign
 int __fastcall BNDOWNLOAD_RunCheckRevision(unsigned int* pExeVersion, unsigned int* pExeHash, char* szText); // 0x0051E6D0
 int __cdecl BNDOWNLOAD_HasArchiveName(); // 0x0051EAA0
 int __fastcall BNMESSQUEUE_SetError(int nError); // 0x005204A0
-int __cdecl sub_00520AE0(); // 0x00520AE0
+int __cdecl BNCLIENT_GetAbortFlag(); // 0x00520AE0
 void __cdecl GRID_LockCDKeys(); // 0x005234D0
 void __cdecl GRID_UnlockCDKeys(); // 0x005239C0
 const char* __cdecl sub_00523AA0_GetExeInfo(); // 0x00523AA0
@@ -78,7 +78,7 @@ int __cdecl sub_00521DC0_SendAuthCheck()
     {
         do
         {
-            if (sub_00520AE0())
+            if (BNCLIENT_GetAbortFlag())
             {
                 return 0;
             }

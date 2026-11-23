@@ -231,13 +231,13 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x0
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
-void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
+void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
-D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
+D2StoredUnitRecordStrc* __fastcall ROSTER_GetNextStoredUnit(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
 
 extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 
-unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
+unsigned short __fastcall ROSTER_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
 
 int __fastcall sub_00479B80_GetRecordValue(D2StoredUnitRecordStrc* pEntry); // 0x00479B80
 
@@ -245,7 +245,7 @@ int __cdecl CHAT_IsNumberDisplayEnabled(); // 0x0047A980
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 void __cdecl GAME_DrawEndGameTitle(); // 0x0044D3E0
 
@@ -255,7 +255,7 @@ int __fastcall GAME_GetCenteredTextX(unsigned short nStringIndex, int nCenterX);
 
 void __cdecl CURSOR_DrawCursor(); // 0x004684C0
 
-void __fastcall sub_0044B880_SetValue(int nValue); // 0x0044B880
+void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
 
 void __stdcall D2CMPLoadProjectRecord(D2TileLibraryHeaderStrc** ppLibrary, const char* szFilePath); // 0x00600790
 
@@ -269,7 +269,7 @@ void __fastcall UI_FreeLoadingScreen(); // 0x004547B0
 
 void __fastcall MSG_SetProgress(int nValue, int nDivisor); // 0x00478130
 
-D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
@@ -427,7 +427,7 @@ int __cdecl UI_IsRecordingEnabled(); // 0x00451910
 
 void __cdecl GAME_InstallRecordHandler(); // 0x00451940
 
-void __cdecl sub_00451970(); // 0x00451970
+void __cdecl GAME_SetRecordPlaying(); // 0x00451970
 
 int __cdecl UI_IsPlaybackEnabled(); // 0x00451980
 
@@ -931,10 +931,10 @@ int __stdcall GAME_DrawEndGameScreen(int nUnused)
                 sub_004F6480(&tContext, 0x300, 0x258, -1, 5, 0);
             }
 
-            sub_00502EF0(3);
+            D2Win_10127_SetFont(3);
             GAME_DrawEndGameTitle();
             GAME_DrawEndGameCharInfo();
-            sub_00502EF0(1);
+            D2Win_10127_SetFont(1);
             memset(&tContext, 0, sizeof(tContext));
             tContext.pCellFile = s_pEndGameOkCell;
             tContext.nDirection = 0;
@@ -971,14 +971,14 @@ int __stdcall GAME_DrawEndGameScreen(int nUnused)
         ARCHIVE_FreeClientCellFile(s_pEndGameOkCell);
         s_pEndGameOkCell = 0;
     }
-    sub_0044B880_SetValue(0);
+    GAME_SetExitApplication(0);
     return 1;
 }
 
 // 0x0044F360
 int __cdecl GAME_RunGameSession()
 {
-    if(TimerExpired(&gtLoadingTimer_007A0684))sub_0044B880_SetValue(1);
+    if(TimerExpired(&gtLoadingTimer_007A0684))GAME_SetExitApplication(1);
     GetTickCount();
     gtVersionInfo.dwSize=sizeof(gtVersionInfo);
     if(GetVersionExA(&gtVersionInfo))gnVersionValid=1;
@@ -1012,7 +1012,7 @@ int __cdecl GAME_RunGameSession()
     {
         D2MessageStrc tMessage;
         while(PeekMessageA(&tMessage,0,0,0,1)){}
-        if(UI_IsPlaybackEnabled())sub_00451970();
+        if(UI_IsPlaybackEnabled())GAME_SetRecordPlaying();
         else if(UI_IsRecordingEnabled())GAME_InstallRecordHandler();
     }
     FOG_SetMemoryPoolSystemMode(0,0);
@@ -1111,8 +1111,8 @@ int __cdecl GAME_RunGameSession()
 // 0x00453BB0
 void __cdecl GAME_DrawEntryList()
 {
-    sub_0046EFD0_DrawFramedBox(0x78, 0x1E, 0x190, 0x15E, 0, 0);
-    D2StoredUnitRecordStrc* pEntry = sub_004795A0_GetNextEntry(0);
+    AUTOMAP_DrawFramedBox(0x78, 0x1E, 0x190, 0x15E, 0, 0);
+    D2StoredUnitRecordStrc* pEntry = ROSTER_GetNextStoredUnit(0);
     D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xFA4), 0x96, 0x37, 4, 0);
     int nY = 2 * gnLineHeight + 0x1E;
     while (pEntry)
@@ -1126,7 +1126,7 @@ void __cdecl GAME_DrawEntryList()
 
         Unicode wszLine[20] = {};
         const Unicode* pText;
-        if (sub_00479BC0_GetEntryIndex(pEntry) == 0xFFFF)
+        if (ROSTER_GetEntryIndex(pEntry) == 0xFFFF)
         {
             pText = D2LANG_GetStringFromTblIndex(0xFAF);
         }
@@ -1137,7 +1137,7 @@ void __cdecl GAME_DrawEntryList()
             wszNumber[0].wChar = 0;
             wszNumber[1].wChar = 0;
             wszNumber[2].wChar = 0;
-            wsprintfA(szNumber, gszFormatD, sub_00479BC0_GetEntryIndex(pEntry));
+            wsprintfA(szNumber, gszFormatD, ROSTER_GetEntryIndex(pEntry));
             sub_00526F20_ToUnicode(wszNumber, szNumber, 2);
             sub_005267E0(wszLine, D2LANG_GetStringFromTblIndex(0xFB0));
             sub_00526700(wszLine, wszNumber);
@@ -1155,7 +1155,7 @@ void __cdecl GAME_DrawEntryList()
             D2Win_10117_DrawText(wszValue, 0x82, nRowY, 4, 0);
         }
 
-        pEntry = sub_004795A0_GetNextEntry(pEntry);
+        pEntry = ROSTER_GetNextStoredUnit(pEntry);
         nY += gnLineHeight;
         if (nY > 0x145 - gnLineHeight)
         {
@@ -1192,7 +1192,7 @@ void __cdecl GAME_DrawLevelLoadingScreen()
     char szLanguage[4];
     char szAct[32];
     char szPath[0x104];
-    D2ActiveRoomStrc* pRoom = sub_004646A0_GetPlayerRoom();
+    D2ActiveRoomStrc* pRoom = CUNIT_GetPlayerRoom();
     if (!pRoom)
     {
         if (gpLoadingCell)

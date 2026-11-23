@@ -16,7 +16,7 @@ struct D2PaletteStrc
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void __fastcall CMNSUBTILE_DrawIsoBlockFlat(unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette); // 0x004F69B0
-void __fastcall sub_004F6BB0_DrawLitSubtileRows(unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep); // 0x004F6BB0
+void __fastcall D2GFX_DrawLitSubtileRows(unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep); // 0x004F6BB0
 void __fastcall sub_004F71A0_DrawLitRleRows(unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep, int nRows, int nArg); // 0x004F71A0
 void __fastcall sub_004F7580_DrawRleRowsClipped(int nX, int nY, unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette, int nRows); // 0x004F7580
 extern int gnClipBottom; // 0x007C978C
@@ -148,7 +148,7 @@ void __fastcall sub_004F8850_DrawLitBlock(D2TileLibraryBlockStrc* pBlock, unsign
     if (pBlock->nFormat & 4)
         sub_004F71A0_DrawLitRleRows(pBlock->pData, pDst, nLightX, nLightXStep, nLightY, nLightYStep, 0xF, 7);
     else
-        sub_004F6BB0_DrawLitSubtileRows(pBlock->pData, pDst, nLightX, nLightXStep, nLightY, nLightYStep);
+        D2GFX_DrawLitSubtileRows(pBlock->pData, pDst, nLightX, nLightXStep, nLightY, nLightYStep);
 }
 
 unsigned char* gpScreenBuffer; // 0x007D5448

@@ -429,7 +429,7 @@ extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned int nMilliseconds
 
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
 
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 void __cdecl sub_00466FE0(); // 0x00466FE0
 
@@ -499,7 +499,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 unsigned int __stdcall sub_00411020_ReadBits(D2BitBufferStrc* pBuffer, int nBits); // 0x00411020
 
-D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
@@ -801,7 +801,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 void __fastcall sub_00462F60(D2GSPacketSrv74Strc* pPacket); // 0x00462F60
 
-int __cdecl sub_00463DF0(); // 0x00463DF0
+int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 
 void __fastcall ROSTER_SetPortalIds(int nOwnerGUID, int nPortalGUID0, int nPortalGUID1); // 0x0047A270
 
@@ -1004,7 +1004,7 @@ void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow); // 0
 
 void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
 
-extern "C" void __cdecl sub_004AA8F0_ClearValue7C0C3C(); // 0x004AA8F0
+extern "C" void __cdecl INV_ClearSkillPointsHighlight(); // 0x004AA8F0
 
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 
@@ -1116,7 +1116,7 @@ struct D2SkillPacketStrc
 
 void __fastcall SKILLS_DoSkillPrgFunc(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel, int nX, int nY, unsigned char nMode); // 0x004C6930
 
-void __fastcall sub_004C6AC0_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel, int nX, int nY, int nMode);
+void __fastcall SKILLS_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel, int nX, int nY, int nMode); // 0x004C6AC0
 
 #pragma pack(push, 1)
 struct D2Packet18RecordStrc
@@ -1207,7 +1207,7 @@ struct D2GSPacketCoordinateStrc
 };
 #pragma pack(pop)
 
-int __fastcall sub_004CA230_Forward(void* pArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6);
+int __fastcall SKILLS_DoSkillAtPosition(void* pArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x004CA230
 
 extern "C" unsigned int __cdecl strlen(const char* szString);
 
@@ -1449,7 +1449,7 @@ struct D2GSPacketSrvA9
 };
 #pragma pack(pop)
 
-void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType, unsigned short nEvent); // 0x004CBDE0
+void __fastcall UNITSND_PlayEventSound(int nUnitId, unsigned char nUnitType, unsigned short nEvent); // 0x004CBDE0
 
 D2UnitStrc* __fastcall CUNIT_CreatePlayerUnit(unsigned int nUnitId, int nClassId, int nX, int nY, char* szName); // 0x00466200
 
@@ -1529,7 +1529,7 @@ struct D2GSPacketSrv73
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 
-D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
 void __stdcall UNITS_StoreOwnerTypeAndGUID(D2UnitStrc* pUnit, int nOwnerType, int nOwnerId); // 0x00621CC0
 
@@ -1580,7 +1580,7 @@ struct D2GSPacketSrvAE
 
 void __fastcall sub_004802E0(unsigned char* pData, int nLength); // 0x004802E0
 
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 
@@ -1854,7 +1854,7 @@ void __fastcall ITEM_HandleUseStackableItem(D2PacketRecord8Strc* pPacket); // 0x
 
 void __fastcall ITEM_SetItemFlagFromPacket(D2PacketRecord13Strc* pPacket); // 0x004C2020
 
-void __fastcall sub_004C1BF0(D2PacketRecord11Strc* pPacket); // 0x004C1BF0
+void __fastcall ITEM_RefreshUnitItemsFromRecord(D2PacketRecord11Strc* pPacket); // 0x004C1BF0
 
 void __fastcall sub_004B9210(D2PacketRecord15Strc* pPacket); // 0x004B9210
 
@@ -1878,7 +1878,7 @@ void __fastcall sub_004C51B0(D2PacketRecord6Strc* pPacket); // 0x004C51B0
 
 void __fastcall NPCMENU_OnNpcWantsInteract(D2PacketRecord6Strc* pPacket); // 0x004B3380
 
-void __cdecl sub_0044DA70(); // 0x0044DA70
+void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
 void __stdcall DUNGEON_IncreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x00619EE0
 
@@ -2049,7 +2049,7 @@ void __fastcall ITEM_HandleItemOnGround(D2GSPacketSrv9C* pPacket); // 0x004C2810
 
 void __fastcall ITEM_HandleItemToStorage(D2GSPacketSrv9C* pPacket); // 0x004C2AD0
 
-void __fastcall sub_004C2C80(D2GSPacketSrv9D* pPacket); // 0x004C2C80
+void __fastcall ITEM_HandleItemFromStorage(D2GSPacketSrv9D* pPacket); // 0x004C2C80
 
 void __fastcall ITEM_HandleEquipItem(D2GSPacketSrv9D* pPacket); // 0x004C2E90
 
@@ -2095,7 +2095,7 @@ struct D2UnitSpawnStrc { unsigned int nUnitId; int nClassId, nX, nY; D2UnitSpawn
 
 int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc*); // 0x0044BE50
 
-int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc*); // 0x00451F50
+int __fastcall GAME_GetUnitGUID(D2UnitStrc*); // 0x00451F50
 
 D2UnitStrc* __fastcall CUNIT_AddClientMonster(D2UnitSpawnStrc*, unsigned char*, unsigned char*, unsigned short, int, int); // 0x00466360
 
@@ -2473,7 +2473,7 @@ void __fastcall SCMD_HandleGameFlags(D2GSPacketSrv01* pPacket)
 // 0x0045C920
 int __cdecl SCMD_GetPlayerActNo()
 {
-    D2ActiveRoomStrc* pRoom = sub_004646A0_GetPlayerRoom();
+    D2ActiveRoomStrc* pRoom = CUNIT_GetPlayerRoom();
     if (pRoom)
         return DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
     sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x527);
@@ -2495,7 +2495,7 @@ void __fastcall SCMD_HandleLoadComplete(void* pPacket)
 {
     gbPositionalSound = 1;
     gbActUnloaded = 0;
-    D2ActiveRoomStrc* pRoom = sub_004646A0_GetPlayerRoom();
+    D2ActiveRoomStrc* pRoom = CUNIT_GetPlayerRoom();
     if (pRoom)
     {
         sub_00470B10_PreloadForceAct(DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom)));
@@ -3132,7 +3132,7 @@ void __fastcall SCMD_HandleUnitSkill(D2SkillPacketStrc* pPacket)
 
     if (pSkillsTxtRecord->nFlags[SKILLSFLAGINDEX_PROGRESSIVE >> 3] & gdwBitMasks[SKILLSFLAGINDEX_PROGRESSIVE & 7])
     {
-        sub_004C6AC0_DoSkill(pUnit, pTarget, nSkillId, nSkillLevel, nX, nY, pPacket->nMode);
+        SKILLS_DoSkill(pUnit, pTarget, nSkillId, nSkillLevel, nX, nY, pPacket->nMode);
     }
     else
     {
@@ -3310,7 +3310,7 @@ void __fastcall SCMD_HandleAssignSkill(const D2GSPacketSrv21* pPacket)
     if (pUnit)
     {
         SKILLS_AssignSkill(pUnit, wSkillId, pPacket->nSkillLevel, pPacket->bRemove, ".\\GAME\\SCmd.cpp", 2700);
-        sub_004AA8F0_ClearValue7C0C3C();
+        INV_ClearSkillPointsHighlight();
     }
 }
 
@@ -3331,7 +3331,7 @@ void __stdcall SCMD_ConfirmPopup(SMSGHANDLER_PARAMS* pMsg)
 {
     gbPopupDismissed = 1;
     gbPopupMouseDown = 0;
-    sub_0044DA70();
+    GAME_ResetMouseButtons();
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
@@ -3348,7 +3348,7 @@ void __stdcall SCMD_ConfirmOkCancelPopup(SMSGHANDLER_PARAMS* pMsg)
 {
     gbOkCancelAccepted = 1;
     gbPopupMouseDown = 0;
-    sub_0044DA70();
+    GAME_ResetMouseButtons();
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
@@ -3404,10 +3404,10 @@ void __cdecl SCMD_ShowHelpOnce()
 {
     if (GAME_IsExitPending())
         return;
-    if (sub_00463DF0())
+    if (CUNIT_IsPlayerDeadOrMissing())
         return;
 
-    sub_00455F20(0x21, 2, 0);
+    UI_SetUIVar(0x21, 2, 0);
     unsigned long dwValue;
     if (!SRegLoadValue("Diablo II", "Help Menu", 1, &dwValue) || !dwValue)
     {
@@ -3532,7 +3532,7 @@ void __fastcall SCMD_HandleTriggerSkillAtPosition(const D2GSPacketCoordinateStrc
 {
     D2UnitStrc* pUnit=CUNIT_FindClientUnit(pPacket->nUnitId,pPacket->nUnitType);
     if(pUnit)
-        sub_004CA230_Forward(pUnit,pPacket->f_6,pPacket->nArg3,pPacket->wArg4,pPacket->wArg5,pPacket->wArg6);
+        SKILLS_DoSkillAtPosition(pUnit,pPacket->f_6,pPacket->nArg3,pPacket->wArg4,pPacket->wArg5,pPacket->wArg6);
 }
 
 // 0x0045DF00
@@ -3600,7 +3600,7 @@ void __fastcall SCMD_HandleNpcTransaction(const D2PacketRecord15Strc* pPacket)
 // 0x0045E110
 void __fastcall SCMD_HandlePlaySound(const D2GSPacketSrv2C* pPacket)
 {
-    sub_004CBDE0_PlayEventSound(pPacket->dwUnitGUID, pPacket->nUnitType, pPacket->nSoundEvent);
+    UNITSND_PlayEventSound(pPacket->dwUnitGUID, pPacket->nUnitType, pPacket->nSoundEvent);
 }
 
 // 0x0045E130
@@ -3674,7 +3674,7 @@ void __fastcall SCMD_HandleRefreshItems(const D2PacketRecord11Strc* pPacket)
 void __fastcall sub_0045E2D0_Packet48(const D2PacketRecord11Strc* pPacket)
 {
     D2PacketRecord11Strc tPacket = *pPacket;
-    sub_004C1BF0(&tPacket);
+    ITEM_RefreshUnitItemsFromRecord(&tPacket);
 }
 
 // 0x0045E300
@@ -3684,7 +3684,7 @@ void __fastcall SCMD_HandleInitEnvironment(D2EnvironmentPacketStrc* pPacket)
     const int nTicks = pPacket->nTicks;
     if (gpDrlgAct_007A0634 == sub_00463DD0_GetPlayerUnit()->pDrlgAct)
     {
-        ENVIRONMENT_InitializeEnvironment(gpDrlgAct_007A0634, sub_004646A0_GetPlayerRoom(), nIndex, nTicks, pPacket->bEclipse);
+        ENVIRONMENT_InitializeEnvironment(gpDrlgAct_007A0634, CUNIT_GetPlayerRoom(), nIndex, nTicks, pPacket->bEclipse);
         CUNIT_UpdateObjectsForPeriod();
 
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
@@ -3888,7 +3888,7 @@ void __fastcall SCMD_HandleCreateMissile(const D2GSPacketSrv73* pPacket)
         tMissileParams.nTargetY = nFirstY;
     }
 
-    D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
+    D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
     if (pMissile)
     {
         UNITS_StoreOwnerTypeAndGUID(pMissile, pPacket->nUnitType, nUnitGUID);
@@ -4268,7 +4268,7 @@ void __fastcall SCMD_HandleItemActionOwned(const D2GSPacketSrv9D* pPacket)
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xFB7);
         exit(-1);
     case 5:
-        sub_004C2C80(pCopy);
+        ITEM_HandleItemFromStorage(pCopy);
         break;
     case 6:
         ITEM_HandleEquipItem(pCopy);
@@ -4390,14 +4390,14 @@ void __fastcall SCMD_HandleEndState(const D2GSPacketSrvA9* pPacket)
 // 0x0045FC60
 void __cdecl SCMD_DrawLoadingTexts()
 {
-    const int nOldFont = sub_00502EF0(1);
+    const int nOldFont = D2Win_10127_SetFont(1);
     TEXT_DrawCenteredText(gnScreenWidth / 2 - 0x84, 0xBE - gnPanelOffsetY, gnPanelOffsetX + 0x1C4, D2LANG_GetStringFromTblIndex(0x1430), 0);
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     if (FOG_IsExpansion())
         TEXT_DrawCenteredText(gnScreenWidth / 2 - 0x84, 0xCD - gnPanelOffsetY, gnPanelOffsetX + 0x1C4, D2LANG_GetStringFromTblIndex(0x5578), 0);
     else
         TEXT_DrawCenteredText(gnScreenWidth / 2 - 0x84, 0xCD - gnPanelOffsetY, gnPanelOffsetX + 0x1C4, D2LANG_GetStringFromTblIndex(0x1431), 0);
-    sub_00502EF0(nOldFont);
+    D2Win_10127_SetFont(nOldFont);
 }
 
 // 0x00460730
@@ -4584,7 +4584,7 @@ void __fastcall SCMD_HandleAssignMonster(D2PacketSpawnStrc* pPacket)
                 pStatList = STATLIST_GetStatListFromUnitStateAndFlag(pUnit, 0, 0x40);
                 if (!pStatList)
                 {
-                    pStatList = STATLIST_AllocStatList(0, 0x40, 0, GAME_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit));
+                    pStatList = STATLIST_AllocStatList(0, 0x40, 0, GAME_GetUnitTypeOrInvalid(pUnit), GAME_GetUnitGUID(pUnit));
                     STATLIST_SetState(pStatList, 0);
                     D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
                 }

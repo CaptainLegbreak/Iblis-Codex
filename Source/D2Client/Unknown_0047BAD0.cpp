@@ -96,7 +96,7 @@ extern D2OptionHeaderStrc* gpOptionHeader; // 0x007BC93C
 extern D2CelFileStrc* gpSliderDisabledCell_007BC950; // 0x007BC950
 extern D2CelFileStrc* gpSliderEnabledCell_007BC954; // 0x007BC954
 extern D2CelFileStrc* gpSliderKnob_007BC958; // 0x007BC958
-void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nStyle); // 0x0046EFD0
+void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nStyle); // 0x0046EFD0
 void __fastcall D2Win_10134_DrawCellFile(D2CelFileStrc* pCellFile, int nX, int nY, int nFrame, int nColor, int nArg6); // 0x00502680
 int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nColor, int nArg6); // 0x004F6480
 extern int gaSlotFrame[]; // 0x007BC918
@@ -341,8 +341,8 @@ void __stdcall sub_0047E260_DrawOptionSlider(D2OptionEntryStrc* pEntry, int nY, 
     int nWidth = nKnobX - nY + 12;
     const int nBoxY = nScreenY - 30;
     int nBoxX = bSmall ? (gnScreenWidth_0071146C / 2) - 144 : (gnScreenWidth_0071146C / 2) - 59;
-    sub_0046EFD0_DrawFramedBox(nBoxX, nBoxY, nWidth, 30, 0, *pbEnabled ? 1 : 2);
-    sub_0046EFD0_DrawFramedBox(nBoxX + nWidth, nBoxY, 289 - nWidth, 30, 0, *pbEnabled != 0);
+    AUTOMAP_DrawFramedBox(nBoxX, nBoxY, nWidth, 30, 0, *pbEnabled ? 1 : 2);
+    AUTOMAP_DrawFramedBox(nBoxX + nWidth, nBoxY, 289 - nWidth, 30, 0, *pbEnabled != 0);
 
     int nCellX = gnScreenWidth_0071146C / 2 + 230;
     int nFrame = 2;

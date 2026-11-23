@@ -26,7 +26,7 @@ typedef char check_scalar_width[sizeof(U32)==4?1:-1];
 extern "C" int __stdcall SKILLS_GetUseState(D2UnitStrc* unit,D2SkillStrc* skill); // 0x00647960
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 int __cdecl sub_0044DA90(); // 0x0044DA90
-int __cdecl sub_0044CE50(); // 0x0044CE50
+int __cdecl GAME_GetSkillDelayUntil(); // 0x0044CE50
 
 // 0x004D9E60
 void __fastcall sub_004D9E60_StartClientState(D2UnitStrc* pUnit, int nState)
@@ -119,7 +119,7 @@ extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit,D2SkillStrc* skill)
     if (unit == sub_00463DE0_GetPlayerUnit())
     {
         U32 first = sub_0044DA90();
-        U32 second = sub_0044CE50();
+        U32 second = GAME_GetSkillDelayUntil();
         if (first < second)
             return 8;
     }

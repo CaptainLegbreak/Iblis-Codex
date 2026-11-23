@@ -406,7 +406,7 @@ void D2StormArray408Strc::sub_0051D810_SetCount(unsigned int nCount)
 }
 
 // 0x0051D860
-int __fastcall sub_0051D860_ParseNewsInfo(const char* data)
+int __fastcall BNNEWS_ParseNewsInfo(const char* data)
 {
  unsigned count=*data;
  const char* cursor=data+5;

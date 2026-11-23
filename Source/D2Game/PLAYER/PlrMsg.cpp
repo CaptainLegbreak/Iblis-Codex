@@ -114,7 +114,7 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
 void __fastcall SCMD_SendUnitActionAtPosition(D2ClientStrc* pClient, unsigned char a2, int a3, unsigned short a4, unsigned short a5, int a6, unsigned short a7, unsigned char a8, int a9); // 0x0053D4D0
 
-void __fastcall sub_0053D530(D2ClientStrc* pClient, unsigned char a2, int a3, int nUnitType, int nUnitGUID, unsigned short a6, unsigned short a7, unsigned char a8, int a9);
+void __fastcall SCMD_SendSkillUseOnUnit(D2ClientStrc* pClient, unsigned char a2, int a3, int nUnitType, int nUnitGUID, unsigned short a6, unsigned short a7, unsigned char a8, int a9); // 0x0053D530
 
 int __fastcall CLIENTS_IsInUnitsRoom(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005387F0
 
@@ -738,7 +738,7 @@ void __fastcall CLIENTS_NotifyWarpAttempt(D2GameStrc* pGame, D2UnitStrc* pUnit);
 
 int __fastcall CLIENTS_ShouldDelayWarpAttempt(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005393F0
 
-void __fastcall sub_005417D0_DirectDated(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int nCustomId, int nCustomParam); // 0x005417D0
+void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int nCustomId, int nCustomParam); // 0x005417D0
 
 int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
 
@@ -939,7 +939,7 @@ static inline int UNITS_GetYPosition(D2UnitStrc* pUnit)
 }
 
 // 0x00548010
-void __fastcall sub_00548010_SendUnitPosition(D2UnitStrc* pUnit, D2ClientStrc* pClient, unsigned char a7)
+void __fastcall PLRMSG_SendUnitPosition(D2UnitStrc* pUnit, D2ClientStrc* pClient, unsigned char a7)
 {
     const int nY = UNITS_GetYPosition(pUnit);
     const int nX = UNITS_GetXPosition(pUnit);
@@ -961,7 +961,7 @@ void __fastcall PLRMSG_SendSkillMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Cli
 
         if (pTarget && CLIENTS_IsInUnitsRoom(pTarget, pClient))
         {
-            sub_0053D530(pClient, 0, nUnitGUID, !pTarget ? UNIT_TYPES_COUNT : pTarget->dwUnitType, !pTarget ? -1 : pTarget->dwUnitId, nSkillId, 0, nSkillLevel, 0);
+            SCMD_SendSkillUseOnUnit(pClient, 0, nUnitGUID, !pTarget ? UNIT_TYPES_COUNT : pTarget->dwUnitType, !pTarget ? -1 : pTarget->dwUnitId, nSkillId, 0, nSkillLevel, 0);
         }
         else
         {
@@ -4514,7 +4514,7 @@ static int __stdcall PLRMSG_WarpToCoords(D2GameStrc* pGame, D2UnitStrc* pUnit, i
     STATLIST_SetState(pStatList, STATE_SYNC_WARPED);
     STATLIST_SetStatRemoveCallback(pStatList, (unsigned int)sub_0054CC30_StatRemoveCallback_ToggleStateOff);
     D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
-    sub_005417D0_DirectDated(pGame, pUnit, 12, nEndFrame, 0, 0);
+    EVENT_SetEvent(pGame, pUnit, 12, nEndFrame, 0, 0);
     return 1;
 }
 

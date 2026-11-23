@@ -315,7 +315,7 @@ extern int gnAutomapHeight_007A521C; // 0x007A521C
 int __cdecl sub_0045AE90(); // 0x0045AE90
 int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 void __fastcall sub_00457640(int bForce); // 0x00457640
-D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
@@ -391,7 +391,7 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 void __fastcall ROSTER_SetCTemp(int nValue); // 0x0047AA10
 void __stdcall D2CMPSetNoCompress(int bCompress); // 0x005FE280
 void __stdcall DATATBLS_ToggleCompileTxtFlag(int bValue); // 0x006125A0
-void __fastcall sub_0044B880_SetValue(int nValue); // 0x0044B880
+void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
 
 struct D2StormLinkStrc
 {
@@ -1025,8 +1025,8 @@ void __stdcall GAME_PreloadActTiles(unsigned char nAct); // 0x0044DB60
 void __cdecl GAME_InitColors(); // 0x00452130
 void __fastcall UI_SetLoadingAct(int nValue); // 0x00454790
 void __fastcall UI_DrawLoadingScreen(int bAdvanceFrame); // 0x004565E0
-void __stdcall sub_00459150_RevealRoomCallback(D2ActiveRoomStrc* pRoom);
-void __stdcall sub_004591A0_AddTownCelsCallback(int nLevelId, int nPickedFile, int nX, int nY);
+void __stdcall AUTOMAP_RevealRoomCallback(D2ActiveRoomStrc* pRoom); // 0x00459150
+void __stdcall AUTOMAP_AddTownCelsCallback(int nLevelId, int nPickedFile, int nX, int nY); // 0x004591A0
 void __cdecl AUTOMAP_InitAutomapColors(); // 0x0045A620
 void __fastcall GFX_LoadGlobalHashedFile(unsigned char nIndex); // 0x0046F310
 void __cdecl GFX_FreeActHashedFile(); // 0x0046F440
@@ -1412,7 +1412,7 @@ int __cdecl sub_0042F6D0()
 }
 
 // 0x0042FA30
-int __cdecl sub_0042FA30()
+int __cdecl GAME_GetStopMainLoop()
 {
     return gbStopMainLoop;
 }
@@ -1431,7 +1431,7 @@ int __cdecl sub_00436EA0()
 }
 
 // 0x00437D00
-void* __cdecl sub_00437D00()
+void* __cdecl GAME_GetPreferredRealm()
 {
     return gszPreferredRealm;
 }
@@ -1467,7 +1467,7 @@ int __cdecl sub_0043F840()
 }
 
 // 0x00446CF0
-void* __cdecl sub_00446CF0()
+void* __cdecl GAME_GetChannelName()
 {
     return gszChannelName;
 }
@@ -1497,13 +1497,13 @@ int __cdecl GAME_GetWaitHandle()
 }
 
 // 0x00449BC0
-void* __cdecl sub_00449BC0()
+void* __cdecl GAME_GetMcpGameServerIP()
 {
     return gszMcpGameServerIP;
 }
 
 // 0x00449BE0
-int __cdecl sub_00449BE0()
+int __cdecl GAME_GetMcpGameToken()
 {
     return gnMcpGameToken;
 }
@@ -1515,25 +1515,25 @@ int __cdecl GAME_GetConnectError()
 }
 
 // 0x00449C10
-int __cdecl sub_00449C10()
+int __cdecl GAME_IsMcpCharCreateReceived()
 {
     return gbMcpCharCreateReceived;
 }
 
 // 0x00449C30
-int __cdecl sub_00449C30()
+int __cdecl GAME_IsMcpCharLogonReceived()
 {
     return gbMcpCharLogonReceived;
 }
 
 // 0x00449C50
-int __cdecl sub_00449C50()
+int __cdecl GAME_IsMcpCharDeleteReceived()
 {
     return gbMcpCharDeleteReceived;
 }
 
 // 0x00449C70
-int __cdecl sub_00449C70()
+int __cdecl GAME_IsMcpCharUpgradeReceived()
 {
     return gbMcpCharUpgradeReceived;
 }
@@ -1551,7 +1551,7 @@ int __cdecl sub_00449CB0()
 }
 
 // 0x00449D50
-void* __cdecl sub_00449D50()
+void* __cdecl GAME_GetMcpReply()
 {
     return gabMcpReply;
 }
@@ -1569,13 +1569,13 @@ int __cdecl sub_00449DA0()
 }
 
 // 0x00449DC0
-int __cdecl sub_00449DC0()
+int __cdecl GAME_IsMcpServerAddressReceived()
 {
     return gbMcpServerAddressReceived;
 }
 
 // 0x00449DE0
-int __cdecl sub_00449DE0()
+int __cdecl GAME_GetMcpGameHash()
 {
     return gdwMcpGameHash;
 }
@@ -1587,7 +1587,7 @@ int __cdecl GAME_GetMcpCharLevel()
 }
 
 // 0x00449E40
-int __cdecl sub_00449E40()
+int __cdecl GAME_IsMcpCreateQueued()
 {
     return gbMcpCreateQueued;
 }
@@ -1684,14 +1684,14 @@ int __cdecl GAME_GetClientInfo()
 }
 
 // 0x0044B890
-int __cdecl sub_0044B890()
+int __cdecl GAME_GetExitApplication()
 {
 // build: symbol ?gbExitApplication@* 0x0070EE8C
     return gbExitApplication;
 }
 
 // 0x0044BBA0
-int __cdecl sub_0044BBA0()
+int __cdecl GAME_GetConnectFailed()
 {
     return gbConnectFailed;
 }
@@ -1975,7 +1975,7 @@ void __fastcall GAME_SetClientState(int nState)
 // 0x0044C950
 unsigned int __cdecl GAME_GetLevelBlankScreen()
 {
-    D2ActiveRoomStrc* pRoom = sub_004646A0_GetPlayerRoom();
+    D2ActiveRoomStrc* pRoom = CUNIT_GetPlayerRoom();
     if (!pRoom)
     {
         return 0;
@@ -1997,7 +1997,7 @@ void __cdecl GAME_ResetFrameTimer()
 }
 
 // 0x0044CE50
-int __cdecl sub_0044CE50()
+int __cdecl GAME_GetSkillDelayUntil()
 {
     return gnSkillDelayUntil;
 }
@@ -2675,7 +2675,7 @@ void __fastcall WARDENCLIENT_SwapBytes(unsigned char* pA, unsigned char* pB)
 }
 
 // 0x004519A0
-void __cdecl sub_004519A0_ToggleFlags()
+void __cdecl GAME_ToggleRecordPlayback()
 {
     if (gnRecordPos)
         gnRecordPos = 0;
@@ -2770,10 +2770,10 @@ void __fastcall GAME_LoadAct(unsigned char nAct, unsigned int dwGameSeed, unsign
         DUNGEON_FreeAct(gpAct);
 
     gpAct = DUNGEON_AllocAct(nAct, dwGameSeed, 1, 0, gnClientDifficulty, 0, nTownLevelId,
-        (AUTOMAPFN)sub_00459150_RevealRoomCallback, sub_004591A0_AddTownCelsCallback);
+        (AUTOMAPFN)AUTOMAP_RevealRoomCallback, AUTOMAP_AddTownCelsCallback);
 
     if (gbEnvironmentPending && nAct == 1 && gpAct)
-        ENVIRONMENT_InitializeEnvironment(gpAct, sub_004646A0_GetPlayerRoom(), 5, 0, 1);
+        ENVIRONMENT_InitializeEnvironment(gpAct, CUNIT_GetPlayerRoom(), 5, 0, 1);
 
     gbEnvironmentPending = 0;
     UI_SetLoadingAct(nAct);
@@ -2942,7 +2942,7 @@ int __cdecl GAME_IsExpansion()
 // 0x0044DD60
 void __cdecl GAME_ExitForCinematic()
 {
-    sub_0044B880_SetValue(0);
+    GAME_SetExitApplication(0);
     gbCinematicExit = 1;
     sub_00477EE0();
     gbLeavingGame = 1;

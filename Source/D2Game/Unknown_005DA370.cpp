@@ -20,7 +20,7 @@ D2MonStatsTxtRun* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
-int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
+int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 D2CharStatsTxtRun* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nClassId); // 0x004833E0
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nSkillId); // 0x00540E60
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
@@ -175,7 +175,7 @@ static int __stdcall SKILLS_Leap(D2GameStrc* pGame, D2SkillStrc* pSkill, D2UnitS
 
     const int bMonster = sub_I16_IsMonster(pUnit);
     int nBaseId;
-    if (!bMonster || (nBaseId = sub_00463860(pUnit)) < 0 || nBaseId >= sgptDataTables->nMonStatsTxtRecordCount)
+    if (!bMonster || (nBaseId = CUNIT_GetMonsterBaseId(pUnit)) < 0 || nBaseId >= sgptDataTables->nMonStatsTxtRecordCount)
     {
         nBaseId = -1;
     }

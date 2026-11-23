@@ -96,7 +96,7 @@ extern int gnShrineHandlerCount;                                                
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
 
-void __fastcall sub_00457460(D2UnitStrc* pUnit, int nArg, int nValue);                                      // 0x00457460
+void __fastcall OBJECT_SetUnitFlag(D2UnitStrc* pUnit, int nArg, int nValue);                                      // 0x00457460
 
 void __fastcall sub_0046C320_SpawnAroundUnit(D2UnitStrc* pUnit, int nMonsterId, int nCount);               // 0x0046C320
 
@@ -112,7 +112,7 @@ void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, i
 
 void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg);                                          // 0x00470610
 
-D2GfxLightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
+D2GfxLightStrc* __fastcall DLIGHTMAP_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
 
 void __fastcall sub_00474290(D2GfxLightStrc* pLight, int nRadius);                           // 0x00474290
 
@@ -235,7 +235,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 
-D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
 char __cdecl TEXT_HasQuestPacketValue(); // 0x004A3110
 
@@ -281,7 +281,7 @@ int __fastcall OBJECT_GetAbsValue(int nValue)
 }
 
 // 0x00457460
-extern "C" __declspec(dllexport) void __fastcall sub_00457460(Obj00457460* pObj, unsigned int dwMask, int bSet) {
+extern "C" __declspec(dllexport) void __fastcall OBJECT_SetUnitFlag(Obj00457460* pObj, unsigned int dwMask, int bSet) {
     if (pObj) {
         if (bSet) {
             pObj->dwFlagsC4 |= dwMask;
@@ -391,7 +391,7 @@ static void __stdcall OBJECT_UpdateObjectLight(D2UnitStrc* pUnit, unsigned short
 
     if (!pLight)
     {
-        pLight = sub_00474160_MakeLightEntry(pUnit, 2, nDiameter >> 1, 0xFF, nRed, nGreen, nBlue);
+        pLight = DLIGHTMAP_MakeLightEntry(pUnit, 2, nDiameter >> 1, 0xFF, nRed, nGreen, nBlue);
         pUnit->pLight = pLight;
         if (!pLight)
             return;
@@ -436,7 +436,7 @@ int __fastcall OBJECT_UpdateEnvObject(D2UnitStrc* pUnit, int bNoRefresh)
                 GFX_RefreshUnitGfx(pUnit, 0);
 
             UNITS_SetAnimStartFrame(pUnit);
-            sub_00457460(pUnit, 2, pTxt->nSelectable[pUnit->dwAnimMode]);
+            OBJECT_SetUnitFlag(pUnit, 2, pTxt->nSelectable[pUnit->dwAnimMode]);
         }
         OBJECT_UpdateObjectLight(pUnit, pTxt->nLit[pUnit->dwAnimMode], pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
         return 1;
@@ -683,7 +683,7 @@ static void OBJECT_UpdateObjectFrame(D2UnitStrc* pUnit)
                     AUTOMAP_RemoveUnitOverlay(pUnit, 0, 0x47);
             }
 
-            sub_00457460(pUnit, 2, pTxt->nSelectable[pUnit->dwAnimMode]);
+            OBJECT_SetUnitFlag(pUnit, 2, pTxt->nSelectable[pUnit->dwAnimMode]);
             OBJECT_UpdateObjectLight(pUnit, pTxt->nLit[2], pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
             if (!pTxt->nHasCollision[pUnit->dwAnimMode] && pTxt->nHasCollision[1])
                 UNITS_FreeCollisionPath(pUnit);
@@ -905,7 +905,7 @@ void __fastcall OBJECT_SpawnMissileGrid(D2UnitStrc* pUnit, D2UnitStrc* pOwner, i
                 nLevel = 8;
             }
             tMissileParams.nSkillLevel = nLevel;
-            sub_004CD540_CreateMissile(&tMissileParams);
+            MISSILE_CreateClientMissile(&tMissileParams);
         }
     }
 }
@@ -938,7 +938,7 @@ void __fastcall OBJECT_SpawnExplosivePotions(D2UnitStrc* pUnit, D2UnitStrc* pOwn
             nLevel = 8;
         }
         tMissileParams.nSkillLevel = nLevel;
-        sub_004CD540_CreateMissile(&tMissileParams);
+        MISSILE_CreateClientMissile(&tMissileParams);
     }
 }
 
@@ -970,7 +970,7 @@ void __fastcall OBJECT_SpawnPoisonPotions(D2UnitStrc* pUnit, D2UnitStrc* pOwner,
             nLevel = 8;
         }
         tMissileParams.nSkillLevel = nLevel;
-        sub_004CD540_CreateMissile(&tMissileParams);
+        MISSILE_CreateClientMissile(&tMissileParams);
     }
 }
 

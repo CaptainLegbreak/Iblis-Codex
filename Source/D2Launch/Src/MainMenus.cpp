@@ -177,7 +177,7 @@ extern D2WinControlStrc* gpList_00779964; // 0x00779964
 
 void __cdecl MAINMENUS_Reset(); // 0x0042F480
 
-int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
+int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 
 D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId); // 0x0042F430
 
@@ -270,7 +270,7 @@ void __cdecl CHARSEL_SetCancelled(); // 0x0043B810
 
 void __cdecl MAINMENUS_UpdateStatus(); // 0x00436AD0
 
-int __stdcall sub_0042FE70_FilterChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FE70
+int __stdcall CHARSEL_FilterLoginChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FE70
 
 int __stdcall MAINMENUS_FilterRestrictedChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FEF0
 
@@ -302,9 +302,9 @@ extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(voi
 
 int __cdecl GAME_GetWaitHandle(); // 0x00449AC0
 
-int __cdecl sub_00449C50(); // 0x00449C50
+int __cdecl GAME_IsMcpCharDeleteReceived(); // 0x00449C50
 
-int __cdecl sub_00449C70(); // 0x00449C70
+int __cdecl GAME_IsMcpCharUpgradeReceived(); // 0x00449C70
 
 void __stdcall CHATDLG_SetCharDeleteReceived(int nValue); // 0x00449C60
 
@@ -364,7 +364,7 @@ int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsi
 
 void __fastcall sub_005009D0_SetValue(D2WinControlStrc* pControl, int nMode, unsigned short* pText, int nArg); // 0x005009D0
 
-int __stdcall sub_0042FDE0_FilterChar(void* pControl, int nUnused, const char* pChar); // 0x0042FDE0
+int __stdcall CHARSEL_IsRestrictedChar(void* pControl, int nUnused, const char* pChar); // 0x0042FDE0
 
 int __fastcall MAINMENUS_IsDoubleClick(SMSGHANDLER_PARAMS* pMsg); // 0x00431A60
 
@@ -394,11 +394,11 @@ void __cdecl CHARSEL_InitCharSelectScreen(); // 0x0043B080
 
 extern void (__cdecl* gpfnGatewayDone)(); // 0x007795BC
 
-int __cdecl sub_00449C10(); // 0x00449C10
+int __cdecl GAME_IsMcpCharCreateReceived(); // 0x00449C10
 
 void __stdcall CHATDLG_SetCharCreateReceived(int nValue); // 0x00449C20
 
-int __cdecl sub_00449C30(); // 0x00449C30
+int __cdecl GAME_IsMcpCharLogonReceived(); // 0x00449C30
 
 void __stdcall CHATDLG_SetCharLogonReceived(int nValue); // 0x00449C40
 
@@ -999,7 +999,7 @@ void __cdecl MAINMENUS_Reset()
     BACKGROUND_SetCellFile(0);
     if (gbPaletteBusy)
     {
-        sub_0042F2E0_ReadPaletteFiles(gszFeCharPalDat, "palette\\fechar\\pal.pl2");
+        MAINMENUS_ReadPaletteFiles(gszFeCharPalDat, "palette\\fechar\\pal.pl2");
         gbPaletteBusy = 0;
     }
     CHARSEL_FreeCharList();
@@ -1238,7 +1238,7 @@ int __stdcall sub_0042FE60_FilterChar(void* pControl, int nUnused, const char* p
 // 0x0042FEF0
 int __stdcall MAINMENUS_FilterRestrictedChar(void* pControl, int nUnused, const char* pChar)
 {
-    return sub_0042FDE0_FilterChar(pControl, nUnused, pChar);
+    return CHARSEL_IsRestrictedChar(pControl, nUnused, pChar);
 }
 
 // 0x0042FF00
@@ -1278,7 +1278,7 @@ void __cdecl MAINMENUS_CreateMultiplayerScreen()
 
 // build: symbol ?gpAccountEdit@* 0x0077958C
     gpAccountEdit = MAINMENUS_CreateControl(0x54);
-    sub_004FDAD0_SetKeyCallback(gpAccountEdit, sub_0042FE70_FilterChar);
+    sub_004FDAD0_SetKeyCallback(gpAccountEdit, CHARSEL_FilterLoginChar);
     sub_004FDD50_SetMaxLength(gpAccountEdit, 0x10);
     sub_004FFE10_SetTextA(gpAccountEdit, gpLaunchRecord->szAccount);
 
@@ -1323,7 +1323,7 @@ void __cdecl MAINMENUS_CreateTermsControls()
     pControl = MAINMENUS_CreateControl(7);
     ANIMIMAGE_SetIsRunning((D2WinAnimImageStrc*)pControl, 0);
     MAINMENUS_CreateControl(8);
-    sub_0042F2E0_ReadPaletteFiles("palette\\sky\\pal.dat", "palette\\sky\\pal.pl2");
+    MAINMENUS_ReadPaletteFiles("palette\\sky\\pal.dat", "palette\\sky\\pal.pl2");
 }
 
 // 0x00430400
@@ -1413,7 +1413,7 @@ void __cdecl MAINMENUS_ClearCreditsList() {
 int __stdcall MAINMENUS_CreateCreditsScreen(int nUnused)
 {
     MAINMENUS_Reset();
-    sub_0042F2E0_ReadPaletteFiles("palette\\sky\\pal.dat", "palette\\sky\\pal.pl2");
+    MAINMENUS_ReadPaletteFiles("palette\\sky\\pal.dat", "palette\\sky\\pal.pl2");
     MAINMENUS_CreateControl(0x29);
     MAINMENUS_CreateControl(0x2A);
     if (!FOG_IsExpansion())
@@ -1461,7 +1461,7 @@ void __stdcall MAINMENUS_CreateLevelScreen(int nLevel)
 {
     MAINMENUS_Reset();
     MAINMENUS_DestroyControls();
-    sub_0042F2E0_ReadPaletteFiles("palette\\sky\\pal.dat", "palette\\sky\\pal.pl2");
+    MAINMENUS_ReadPaletteFiles("palette\\sky\\pal.dat", "palette\\sky\\pal.pl2");
     MAINMENUS_CreateControl(8);
     MAINMENUS_CreateControl(0x3D);
     D2WinControlStrc* pTitle = MAINMENUS_CreateControl(0x3E);
@@ -1659,7 +1659,7 @@ int __fastcall MAINMENUS_IsDoubleClick(SMSGHANDLER_PARAMS* pMsg)
 // 0x00431D20
 int __stdcall MAINMENUS_CreateTcpIpScreen(int nArg)
 {
-    sub_0042F2E0_ReadPaletteFiles("palette\\sky\\pal.dat", "palette\\sky\\pal.pl2");
+    MAINMENUS_ReadPaletteFiles("palette\\sky\\pal.dat", "palette\\sky\\pal.pl2");
     sub_004F95C0_ControlDestroy(&gpControl_00779344);
     D2WinControlStrc* pControl = MAINMENUS_CreateFromTemplate(0x10F);
     D2Win_10033(pControl, 0);
@@ -1827,7 +1827,7 @@ void __cdecl MAINMENUS_CreateLoginScreen()
         pControl = MAINMENUS_CreateControl(0x1F);
     D2Win_10051(pControl, D2LANG_GetStringFromTblIndex(0x2B2B), 0x0, 0x0, 0x0);
     gpAccountEdit = MAINMENUS_CreateControl(0x59);
-    sub_004FDAD0_SetKeyCallback(gpAccountEdit, sub_0042FE70_FilterChar);
+    sub_004FDAD0_SetKeyCallback(gpAccountEdit, CHARSEL_FilterLoginChar);
     sub_004FDD50_SetMaxLength(gpAccountEdit, 0x10);
     sub_004FFE10_SetTextA(gpAccountEdit, gpLaunchRecord->szAccount);
     gpPasswordEdit = MAINMENUS_CreateControl(0x5A);
@@ -2009,7 +2009,7 @@ extern "C" void __cdecl MAINMENUS_ConfigureLanguageLayout()
 int __stdcall MAINMENUS_PollCharCreate(int nArg)
 {
     sub_00449B70_Receive();
-    if (sub_00449C10() || !sub_00449B30_QueryAddress() || gdwGlobal_00779974)
+    if (GAME_IsMcpCharCreateReceived() || !sub_00449B30_QueryAddress() || gdwGlobal_00779974)
     {
         CHATDLG_SetCharCreateReceived(0);
         D2Win_StopMessageLoop();
@@ -2021,7 +2021,7 @@ int __stdcall MAINMENUS_PollCharCreate(int nArg)
 int __stdcall MAINMENUS_PollCharLogon(int nArg)
 {
     sub_00449B70_Receive();
-    if (sub_00449C30() || !sub_00449B30_QueryAddress() || gdwGlobal_00779974)
+    if (GAME_IsMcpCharLogonReceived() || !sub_00449B30_QueryAddress() || gdwGlobal_00779974)
     {
         CHATDLG_SetCharLogonReceived(0);
         D2Win_StopMessageLoop();
@@ -2052,7 +2052,7 @@ int __cdecl sub_00432400_GetWaitStatus()
 int __stdcall MAINMENUS_PollCharDelete(int nArg)
 {
     sub_00449B70_Receive();
-    if (sub_00449C50() || !sub_00449B30_QueryAddress() || gdwGlobal_00779974)
+    if (GAME_IsMcpCharDeleteReceived() || !sub_00449B30_QueryAddress() || gdwGlobal_00779974)
     {
         CHATDLG_SetCharDeleteReceived(0);
         D2Win_StopMessageLoop();
@@ -2064,7 +2064,7 @@ int __stdcall MAINMENUS_PollCharDelete(int nArg)
 int __stdcall MAINMENUS_PollCharUpgrade(int nArg)
 {
     sub_00449B70_Receive();
-    if (sub_00449C70() || !sub_00449B30_QueryAddress() || gdwGlobal_00779974)
+    if (GAME_IsMcpCharUpgradeReceived() || !sub_00449B30_QueryAddress() || gdwGlobal_00779974)
     {
         CHATDLG_SetCharUpgradeReceived(0);
         D2Win_StopMessageLoop();

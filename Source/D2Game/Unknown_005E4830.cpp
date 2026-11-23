@@ -36,7 +36,7 @@ void __fastcall AITHINK_ExecuteAiFn(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, 
 D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc*, D2UnitStrc*, unsigned int*, int*); // 0x005DDC30
 int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc*, D2UnitStrc*, unsigned char); // 0x005DE200
 int __fastcall AITACTICS_WalkToTargetCoordinates(D2GameStrc*, D2UnitStrc*, int, int); // 0x005DED90
-int __fastcall sub_005DEFE0_Escape(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char, int); // 0x005DEFE0
+int __fastcall AITACTICS_WalkAwayFromTarget(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char, int); // 0x005DEFE0
 int __fastcall D2GAME_AICORE_WalkToOwner_6FCD0B60(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char); // 0x005DF530
 int __fastcall AITHINK_PetMove(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int, int, int, int); // 0x005E3930
 void __fastcall AITHINK_HirelingCombat(D2GameStrc*, D2UnitStrc*, int, D2UnitStrc*, D2UnitStrc*, D2SeedStrc*, D2AiTickParamStrc*); // 0x005E5050
@@ -172,7 +172,7 @@ static __forceinline void HIRELING_StepAside(D2GameStrc* pGame, D2UnitStrc* pOwn
     sub_005DE190_SetAiParam(pUnit, 7, 0, 0);
     if (D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame, pUnit, pOwner, nSteps)) return;
     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
-    if (sub_005DEFE0_Escape(pGame, pUnit, pOwner, nSteps, 1)) return;
+    if (AITACTICS_WalkAwayFromTarget(pGame, pUnit, pOwner, nSteps, 1)) return;
     sub_005DE190_SetAiParam(pUnit, 0, 0, 40);
     AITACTICS_WalkToTargetCoordinates(pGame, pUnit, nX, nY);
 }

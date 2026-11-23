@@ -157,7 +157,7 @@ struct Node00572DE0 { int nId; unsigned int dwUnknown04; Node00572DE0* pNext; };
 
 struct List00572DE0 { Node00572DE0* pHead; };
 
-int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
+int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
 void __fastcall SCMD_SendInteractionTarget(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitId, int a5); // 0x0053D6D0
 
@@ -985,11 +985,11 @@ void __fastcall MONSTERAI_CloseNpcInteractions(D2GameStrc* pGame, D2UnitStrc* pM
     while (pInteractInfo)
     {
         D2InteractInfoStrc* pNext = pInteractInfo->pNext;
-        SCMD_SendInteractionTarget(UnitGetClient(pInteractInfo->pUnit, ".\\MONSTER\\MonsterAI.cpp", 860), 0x62, UNIT_MONSTER, sub_00451F50_GetUnitGUID(pMonster), 0);
+        SCMD_SendInteractionTarget(UnitGetClient(pInteractInfo->pUnit, ".\\MONSTER\\MonsterAI.cpp", 860), 0x62, UNIT_MONSTER, GAME_GetUnitGUID(pMonster), 0);
 
         int nInteractType;
         int nInteractGUID;
-        if (!bClientSide || (SUNIT_GetInteractInfo(pInteractInfo->pUnit, &nInteractType, &nInteractGUID) && nInteractType == UNIT_MONSTER && nInteractGUID == sub_00451F50_GetUnitGUID(pMonster)))
+        if (!bClientSide || (SUNIT_GetInteractInfo(pInteractInfo->pUnit, &nInteractType, &nInteractGUID) && nInteractType == UNIT_MONSTER && nInteractGUID == GAME_GetUnitGUID(pMonster)))
         {
             SUNIT_ResetInteractInfo(pInteractInfo->pUnit);
         }

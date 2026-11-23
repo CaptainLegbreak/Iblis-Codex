@@ -79,7 +79,7 @@ int __fastcall MONSTER_IsSuperUniqueMonster(D2UnitStrc* pUnit); // 0x004AE3A0
 
 int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
 
-int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
+int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
@@ -113,15 +113,15 @@ extern "C" int __fastcall SKILLDESC_RandomInRange(int nMin, int nMax); // 0x004E
 
 int __fastcall sub_004E4180(int nFrame, int nOffset, int nStepLength); // 0x004E4180
 
-int __fastcall sub_004CA810_GetModeSound(D2UnitStrc* pUnit, int nMode); // 0x004CA810
+int __fastcall UNITSND_GetModeSound(D2UnitStrc* pUnit, int nMode); // 0x004CA810
 
 int __fastcall UNITSND_GetUnitFloorMaterial(D2UnitStrc* pUnit); // 0x004CADB0
 
-unsigned int __fastcall sub_004CA500_GetAnimRate(D2UnitStrc* pUnit, unsigned int nDirection); // 0x004CA500
+unsigned int __fastcall UNITSND_GetAnimRate(D2UnitStrc* pUnit, unsigned int nDirection); // 0x004CA500
 
 void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
 
-void __fastcall sub_004CAA10_PurgeUnitHints(D2UnitStrc* pUnit); // 0x004CAA10
+void __fastcall UNITSND_PurgeUnitHints(D2UnitStrc* pUnit); // 0x004CAA10
 
 int __fastcall UNITS_GetHitClass(D2UnitStrc* pUnit); // 0x00623C20
 
@@ -145,7 +145,7 @@ D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045
 
 void __fastcall TEXT_SetSpeechHoverText(D2UnitStrc* pUnit, int nStringId); // 0x004A0200
 
-void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
+void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 
 int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType); // 0x004E0590
 
@@ -163,13 +163,13 @@ unsigned int gnNeutralDelay; // 0x007C88C0
 
 void __fastcall UNITSND_PlayAttackSound(D2UnitStrc* pUnit, int nMode, int bDelay);                     // 0x004CB6A0
 
-static int sub_004CA2C0_GetUnitSndClassId(D2UnitStrc* pUnit);                                               // 0x004CA2C0
+static int UNITSND_GetUnitSndClassId(D2UnitStrc* pUnit);                                               // 0x004CA2C0
 
-static int sub_004CA320_GetUnitSndType(D2UnitStrc* pUnit);                                                  // 0x004CA320
+static int UNITSND_GetUnitSndType(D2UnitStrc* pUnit);                                                  // 0x004CA320
 
 static int UNITSND_GetUnitSndMode(D2UnitStrc* pUnit);                                                  // 0x004CA380
 
-static D2MonSoundsTxt* sub_004CA410_GetMonSoundsRecord(D2UnitStrc* pUnit);                                  // 0x004CA410
+static D2MonSoundsTxt* UNITSND_GetMonSoundsRecord(D2UnitStrc* pUnit);                                  // 0x004CA410
 
 static void UNITSND_PlayHitClassSound(D2UnitStrc* pUnit);                                              // 0x004CB860
 
@@ -201,7 +201,7 @@ static int UNITSND_GetObjectModeSound(D2UnitStrc* pUnit, int nMode); // 0x004CB3
 
 void __fastcall UNITSND_UpdateModeSound(D2UnitStrc* pUnit); // 0x004CB460
 
-static void sub_004CB950_PlayFleeSound(D2UnitStrc* pUnit);
+static void UNITSND_PlayFleeSound(D2UnitStrc* pUnit); // 0x004CB950
 
 void __fastcall UNITSND_PlayInitSound(D2UnitStrc* pUnit); // 0x004CC380
 
@@ -239,7 +239,7 @@ extern struct D2TimedHintNodeStrc;
 
 void __fastcall D2SOUND_ListAddHead(D2TimedHintNodeStrc** ppList, D2TimedHintEntryStrc* pEntry); // 0x00516950
 
-int __cdecl sub_00463DF0(); // 0x00463DF0
+int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 
 void __fastcall ITEM_ShowTimedHint(int nStringId, int nDelayA, int nDelayC, unsigned int nIndex, int nArgE, int nDelayF, int nArgG); // 0x004DCD40
 
@@ -250,7 +250,7 @@ int gnLastRequestSound;        // 0x007C88C8
 static inline D2UnitSndPlayerStrc* UNITSND_GetPlayerSoundRecord(unsigned int nClass);
 
 // 0x004CA2C0
-static int sub_004CA2C0_GetUnitSndClassId(D2UnitStrc* pUnit)
+static int UNITSND_GetUnitSndClassId(D2UnitStrc* pUnit)
 {
     int nType;
     int nClass;
@@ -270,7 +270,7 @@ static int sub_004CA2C0_GetUnitSndClassId(D2UnitStrc* pUnit)
 }
 
 // 0x004CA320
-static int sub_004CA320_GetUnitSndType(D2UnitStrc* pUnit)
+static int UNITSND_GetUnitSndType(D2UnitStrc* pUnit)
 {
     int nType;
     int nClass;
@@ -319,10 +319,10 @@ static D2UnitSndPlayerStrc* UNITSND_GetPlayerSoundRecord(unsigned int nClass)
 void __fastcall sub_004CA560_GetHitSounds(D2UnitStrc* pUnit, int nHitClass, int bParam, int* pSound1, int* pSound2)
 {
     D2_ASSERT(pUnit, 0xB82);
-    const int nType = sub_004CA320_GetUnitSndType(pUnit);
+    const int nType = UNITSND_GetUnitSndType(pUnit);
     *pSound1 = 0;
     *pSound2 = 0;
-    if (nType == 1 && MONSTERREGION_CheckMonStats2Flag(sub_004CA2C0_GetUnitSndClassId(pUnit), 0xD))
+    if (nType == 1 && MONSTERREGION_CheckMonStats2Flag(UNITSND_GetUnitSndClassId(pUnit), 0xD))
         return;
 
     switch (nHitClass & 0xF)
@@ -397,12 +397,12 @@ void __fastcall sub_004CA560_GetHitSounds(D2UnitStrc* pUnit, int nHitClass, int 
 
 
 // 0x004CA410
-static D2MonSoundsTxt* sub_004CA410_GetMonSoundsRecord(D2UnitStrc* pUnit)
+static D2MonSoundsTxt* UNITSND_GetMonSoundsRecord(D2UnitStrc* pUnit)
 {
     if (!pUnit)
         return DATATBLS_GetMonSoundsTxtRecordFromSoundId(0);
 
-    const int nClass = sub_004CA2C0_GetUnitSndClassId(pUnit);
+    const int nClass = UNITSND_GetUnitSndClassId(pUnit);
     if (nClass >= sgptDataTables->nMonStatsTxtRecordCount)
         return DATATBLS_GetMonSoundsTxtRecordFromSoundId(0);
 
@@ -441,7 +441,7 @@ int __fastcall UNITSND_GetDirectionRate(D2UnitStrc* pUnit, unsigned int nDirecti
 
 
 // 0x004CA500
-unsigned int __fastcall sub_004CA500_GetAnimRate(D2UnitStrc* pUnit, unsigned int nDirection)
+unsigned int __fastcall UNITSND_GetAnimRate(D2UnitStrc* pUnit, unsigned int nDirection)
 {
     D2_ASSERT(pUnit, 0xB6B);
     nDirection &= 0xF;
@@ -457,7 +457,7 @@ unsigned int __fastcall sub_004CA500_GetAnimRate(D2UnitStrc* pUnit, unsigned int
 
 
 // 0x004CA810
-int __fastcall sub_004CA810_GetModeSound(D2UnitStrc* pUnit, int nMode)
+int __fastcall UNITSND_GetModeSound(D2UnitStrc* pUnit, int nMode)
 {
     D2_ASSERT(pUnit, 0xC08);
     int nSound = 0;
@@ -492,7 +492,7 @@ void __fastcall UNITSND_AddUnitSfx(D2UnitStrc* pUnit, D2TimedHintEntryStrc* pEnt
 void __fastcall D2SOUND_ListRemove(D2TimedHintNodeStrc** ppList, D2TimedHintEntryStrc* pEntry); // 0x00516980
 
 // 0x004CA8D0
-void __fastcall sub_004CA8D0_NotifyUnitHint(D2UnitStrc* pUnit, D2TimedHintEntryStrc* pEntry)
+void __fastcall UNITSND_RemoveUnitHint(D2UnitStrc* pUnit, D2TimedHintEntryStrc* pEntry)
 {
     D2_ASSERT(pUnit, 0xC2C);
     D2SOUND_ListRemove((D2TimedHintNodeStrc**)&pUnit->pUnitSfxData, pEntry);
@@ -500,7 +500,7 @@ void __fastcall sub_004CA8D0_NotifyUnitHint(D2UnitStrc* pUnit, D2TimedHintEntryS
 
 
 // 0x004CA9C0
-void __fastcall sub_004CA9C0_ReleaseUnitHints(D2UnitStrc* pUnit, int bForce)
+void __fastcall UNITSND_ReleaseUnitHints(D2UnitStrc* pUnit, int bForce)
 {
     D2_ASSERT(pUnit, 0xC2C);
     D2TimedHintNodeStrc* pNode = (D2TimedHintNodeStrc*)pUnit->pUnitSfxData;
@@ -515,7 +515,7 @@ void __fastcall sub_004CA9C0_ReleaseUnitHints(D2UnitStrc* pUnit, int bForce)
 int __fastcall SOUNDHDR_GetLoopFlag(int nIndex); // 0x004818F0
 
 // 0x004CAA10
-void __fastcall sub_004CAA10_PurgeUnitHints(D2UnitStrc* pUnit)
+void __fastcall UNITSND_PurgeUnitHints(D2UnitStrc* pUnit)
 {
     D2_ASSERT(pUnit, 0xC2C);
     D2TimedHintNodeStrc* pNode = (D2TimedHintNodeStrc*)pUnit->pUnitSfxData;
@@ -530,7 +530,7 @@ void __fastcall sub_004CAA10_PurgeUnitHints(D2UnitStrc* pUnit)
 }
 
 // 0x004CAAA0
-static void __stdcall sub_004CAAA0_SetUnitSfx(D2UnitStrc* pUnit, unsigned char bUnitSfx)
+static void __stdcall UNITSND_SetUnitSfx(D2UnitStrc* pUnit, unsigned char bUnitSfx)
 {
     D2_ASSERT(pUnit, 0xC9A);
     pUnit->bUnitSfx = bUnitSfx;
@@ -538,11 +538,11 @@ static void __stdcall sub_004CAAA0_SetUnitSfx(D2UnitStrc* pUnit, unsigned char b
 
 void __fastcall sub_K06_Emitsfx70(D2UnitStrc* pUnit, unsigned char bUnitSfx)
 {
-    sub_004CAAA0_SetUnitSfx(pUnit, bUnitSfx);
+    UNITSND_SetUnitSfx(pUnit, bUnitSfx);
 }
 
 // 0x004CAAD0
-static inline int sub_004CAAD0(D2UnitStrc* unit)
+static inline int UNITSND_GetSfxMode(D2UnitStrc* unit)
 {
     if (!unit) {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xCA5);
@@ -551,10 +551,10 @@ static inline int sub_004CAAD0(D2UnitStrc* unit)
     return unit->dwSfxMode;
 }
 
-int __stdcall emit_getter_004CAAD0(D2UnitStrc* unit) { return sub_004CAAD0(unit); }
+int __stdcall emit_getter_004CAAD0(D2UnitStrc* unit) { return UNITSND_GetSfxMode(unit); }
 
 // 0x004CAB00
-static void __stdcall sub_004CAB00_SetSfxMode(D2UnitStrc* pUnit, int nSfxMode)
+static void __stdcall UNITSND_SetSfxMode(D2UnitStrc* pUnit, int nSfxMode)
 {
     D2_ASSERT(pUnit, 0xCB0);
     pUnit->dwSfxMode = nSfxMode;
@@ -562,7 +562,7 @@ static void __stdcall sub_004CAB00_SetSfxMode(D2UnitStrc* pUnit, int nSfxMode)
 
 void __fastcall sub_K06_Emitsfx74(D2UnitStrc* pUnit, int nSfxMode)
 {
-    sub_004CAB00_SetSfxMode(pUnit, nSfxMode);
+    UNITSND_SetSfxMode(pUnit, nSfxMode);
 }
 
 // 0x004CAB30
@@ -625,7 +625,7 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 }
 
 // 0x004CACA0
-static void __stdcall sub_004CACA0_SetHasActiveSound(D2UnitStrc* pUnit, int bHasActiveSound)
+static void __stdcall UNITSND_SetHasActiveSound(D2UnitStrc* pUnit, int bHasActiveSound)
 {
     D2_ASSERT(pUnit, 0xD08);
     pUnit->bHasActiveSound = bHasActiveSound;
@@ -633,11 +633,11 @@ static void __stdcall sub_004CACA0_SetHasActiveSound(D2UnitStrc* pUnit, int bHas
 
 void __fastcall sub_K06_Emitsfx88(D2UnitStrc* pUnit, int bHasActiveSound)
 {
-    sub_004CACA0_SetHasActiveSound(pUnit, bHasActiveSound);
+    UNITSND_SetHasActiveSound(pUnit, bHasActiveSound);
 }
 
 // 0x004CACE0
-static D2DrlgTileDataStrc* sub_004CACE0_FindFloorTileAt(D2ActiveRoomStrc* pRoom, int nX, int nY)
+static D2DrlgTileDataStrc* UNITSND_FindFloorTileAt(D2ActiveRoomStrc* pRoom, int nX, int nY)
 {
     D2DrlgCoordsStrc tCoords;
     DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
@@ -655,7 +655,7 @@ static D2DrlgTileDataStrc* sub_004CACE0_FindFloorTileAt(D2ActiveRoomStrc* pRoom,
 }
 
 // 0x004CAD60
-static __declspec(noinline) int sub_004CAD60_GetTileMaterial(D2DrlgTileDataStrc* pTileData)
+static __declspec(noinline) int UNITSND_GetTileMaterial(D2DrlgTileDataStrc* pTileData)
 {
     D2TileLibraryEntryStrc* pTile = pTileData->pTile;
     if (pTile)
@@ -692,14 +692,14 @@ int __fastcall UNITSND_GetUnitFloorMaterial(D2UnitStrc* pUnit)
     if (!pRoom)
         return 0;
 
-    D2DrlgTileDataStrc* pTileData = sub_004CACE0_FindFloorTileAt(pRoom, nX, nY);
+    D2DrlgTileDataStrc* pTileData = UNITSND_FindFloorTileAt(pRoom, nX, nY);
     if (!pTileData)
     {
         D2ActiveRoomStrc** ppRooms;
         DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRooms, &nRooms);
         for (int i = 0; i < nRooms; ++i)
         {
-            pTileData = sub_004CACE0_FindFloorTileAt(ppRooms[i], nX, nY);
+            pTileData = UNITSND_FindFloorTileAt(ppRooms[i], nX, nY);
             if (pTileData)
                 break;
         }
@@ -708,7 +708,7 @@ int __fastcall UNITSND_GetUnitFloorMaterial(D2UnitStrc* pUnit)
 
     if (pTileData)
     {
-        const int nMaterial = sub_004CAD60_GetTileMaterial(pTileData);
+        const int nMaterial = UNITSND_GetTileMaterial(pTileData);
         if (nMaterial)
             return nMaterial;
     }
@@ -717,7 +717,7 @@ int __fastcall UNITSND_GetUnitFloorMaterial(D2UnitStrc* pUnit)
 
 static __forceinline int UNITSND_IsMonsterWalkMode(D2UnitStrc* pUnit, int nMode)
 {
-    int nClass = sub_004CA2C0_GetUnitSndClassId(pUnit);
+    int nClass = UNITSND_GetUnitSndClassId(pUnit);
     if (nClass < 0 || nClass >= sgptDataTables->nMonStatsTxtRecordCount)
         nClass = -1;
 
@@ -734,17 +734,17 @@ static __forceinline int UNITSND_IsMonsterWalkMode(D2UnitStrc* pUnit, int nMode)
 }
 
 // 0x004CAEB0
-int __fastcall sub_004CAEB0_GetFootstepSound(D2UnitStrc* pUnit, int bLayer)
+int __fastcall UNITSND_GetFootstepSound(D2UnitStrc* pUnit, int bLayer)
 {
     int nSound = 0;
-    const int nType = sub_004CA320_GetUnitSndType(pUnit);
+    const int nType = UNITSND_GetUnitSndType(pUnit);
     if (nType == 0)
     {
-        nSound = UNITSND_GetPlayerSoundRecord(sub_004CA2C0_GetUnitSndClassId(pUnit))->nFootstep;
+        nSound = UNITSND_GetPlayerSoundRecord(UNITSND_GetUnitSndClassId(pUnit))->nFootstep;
     }
     if (nType == 1)
     {
-        D2MonSoundsTxt* pMonSoundsTxtRecord = sub_004CA410_GetMonSoundsRecord(pUnit);
+        D2MonSoundsTxt* pMonSoundsTxtRecord = UNITSND_GetMonSoundsRecord(pUnit);
         if (!pMonSoundsTxtRecord)
             return 0;
         nSound = pMonSoundsTxtRecord->dwFootstep;
@@ -782,7 +782,7 @@ void __fastcall UNITSND_UpdateFootsteps(D2UnitStrc* pUnit)
 {
     int nMode;
     int nType;
-    nType = sub_004CA320_GetUnitSndType(pUnit);
+    nType = UNITSND_GetUnitSndType(pUnit);
     nMode = UNITSND_GetUnitSndMode(pUnit);
     if (nType == 1 && !UNITSND_IsMonsterWalkMode(pUnit, nMode))
     {
@@ -801,7 +801,7 @@ void __fastcall UNITSND_UpdateFootsteps(D2UnitStrc* pUnit)
     unsigned int nChance = 100;
     if (nType == 1)
     {
-        D2MonSoundsTxt* pMonSoundsTxtRecord = sub_004CA410_GetMonSoundsRecord(pUnit);
+        D2MonSoundsTxt* pMonSoundsTxtRecord = UNITSND_GetMonSoundsRecord(pUnit);
         if (pMonSoundsTxtRecord)
         {
             nOffset = pMonSoundsTxtRecord->dwFsOff << 8;
@@ -838,7 +838,7 @@ void __fastcall UNITSND_UpdateFootsteps(D2UnitStrc* pUnit)
             bRun = 1;
     }
 
-    const int hSound = sub_004B9A00(sub_004CAEB0_GetFootstepSound(pUnit, bRun), pUnit, 0, 0, 0);
+    const int hSound = sub_004B9A00(UNITSND_GetFootstepSound(pUnit, bRun), pUnit, 0, 0, 0);
     if (hSound)
     {
         int nVolume = 0xFF;
@@ -857,18 +857,18 @@ void __fastcall UNITSND_UpdateFootsteps(D2UnitStrc* pUnit)
 
 
 // 0x004CB170
-static inline unsigned int sub_004CB170_GetNeutralSound(D2UnitStrc* pUnit)
+static inline unsigned int UNITSND_GetNeutralSound(D2UnitStrc* pUnit)
 {
-    D2MonSoundsTxt* pMonSoundsTxtRecord = sub_004CA410_GetMonSoundsRecord(pUnit);
+    D2MonSoundsTxt* pMonSoundsTxtRecord = UNITSND_GetMonSoundsRecord(pUnit);
     if (!pMonSoundsTxtRecord)
         return 0;
     return pMonSoundsTxtRecord->dwNeutral;
 }
 
 // 0x004CB180
-static inline unsigned int sub_004CB180_GetTauntSound(D2UnitStrc* pUnit)
+static inline unsigned int UNITSND_GetTauntSound(D2UnitStrc* pUnit)
 {
-    D2MonSoundsTxt* pMonSoundsTxtRecord = sub_004CA410_GetMonSoundsRecord(pUnit);
+    D2MonSoundsTxt* pMonSoundsTxtRecord = UNITSND_GetMonSoundsRecord(pUnit);
     if (!pMonSoundsTxtRecord)
         return 0;
     return pMonSoundsTxtRecord->dwTaunt;
@@ -877,17 +877,17 @@ static inline unsigned int sub_004CB180_GetTauntSound(D2UnitStrc* pUnit)
 unsigned int __fastcall sub_M110_Emit_004CB170(D2UnitStrc* pUnit, int bTaunt)
 {
     if (bTaunt)
-        return sub_004CB180_GetTauntSound(pUnit);
-    return sub_004CB170_GetNeutralSound(pUnit) + 1;
+        return UNITSND_GetTauntSound(pUnit);
+    return UNITSND_GetNeutralSound(pUnit) + 1;
 }
 
 // 0x004CB190
 void __fastcall UNITSND_ReleaseSkillSfx(D2UnitStrc* pUnit)
 {
-    if (sub_004CA320_GetUnitSndType(pUnit) != 1)
+    if (UNITSND_GetUnitSndType(pUnit) != 1)
         return;
 
-    D2MonSoundsTxt* pMonSoundsTxtRecord = sub_004CA410_GetMonSoundsRecord(pUnit);
+    D2MonSoundsTxt* pMonSoundsTxtRecord = UNITSND_GetMonSoundsRecord(pUnit);
     if (!pMonSoundsTxtRecord)
         return;
 
@@ -914,7 +914,7 @@ void __stdcall UNITSND_ReleaseNeutralSfx(D2UnitStrc* pUnit, int bArm)
     {
         D2UnitSfxNodeStrc* pNext = pNode->pNext;
         void* pEntry = pNode->pUnitSfx;
-        D2MonSoundsTxt* pMonSoundsTxtRecord = sub_004CA410_GetMonSoundsRecord(pUnit);
+        D2MonSoundsTxt* pMonSoundsTxtRecord = UNITSND_GetMonSoundsRecord(pUnit);
         const int nNeutral = !pMonSoundsTxtRecord ? 0 : pMonSoundsTxtRecord->dwNeutral;
         if (SOUNDHDR_GetGroupStart(sub_004B9CA0_GetHintIdByKey((int)pEntry)) == nNeutral)
         {
@@ -929,7 +929,7 @@ void __stdcall UNITSND_ReleaseNeutralSfx(D2UnitStrc* pUnit, int bArm)
 
 
 // 0x004CBDE0
-void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType, unsigned short nEvent)
+void __fastcall UNITSND_PlayEventSound(int nUnitId, unsigned char nUnitType, unsigned short nEvent)
 {
     D2UnitStrc* pUnit = CUNIT_FindClientUnit(nUnitId, nUnitType);
     if (!pUnit)
@@ -962,7 +962,7 @@ void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType
         return;
     }
     case 84:
-        if (sub_004CA2C0_GetUnitSndClassId(pUnit) == 0x10F)
+        if (UNITSND_GetUnitSndClassId(pUnit) == 0x10F)
         {
             sub_004B9A00(0x1207, pUnit, 0, 0, 0);
             nSpeech = 0x1207;
@@ -975,7 +975,7 @@ void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType
         TEXT_SetSpeechHoverText(pUnit, nSpeech);
         break;
     case 85:
-        if (sub_004CA2C0_GetUnitSndClassId(pUnit) == 0x10F)
+        if (UNITSND_GetUnitSndClassId(pUnit) == 0x10F)
         {
             sub_004B9A00(0x1204, pUnit, 0, 0, 0);
             nSpeech = 0x1204;
@@ -988,7 +988,7 @@ void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType
         TEXT_SetSpeechHoverText(pUnit, nSpeech);
         break;
     case 86:
-        if (sub_004CA2C0_GetUnitSndClassId(pUnit) == 0x10F)
+        if (UNITSND_GetUnitSndClassId(pUnit) == 0x10F)
         {
             sub_004B9A00(0x1205, pUnit, 0, 0, 0);
             nSpeech = 0x1205;
@@ -1001,7 +1001,7 @@ void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType
         TEXT_SetSpeechHoverText(pUnit, nSpeech);
         break;
     case 87:
-        if (sub_004CA2C0_GetUnitSndClassId(pUnit) == 0x10F)
+        if (UNITSND_GetUnitSndClassId(pUnit) == 0x10F)
         {
             sub_004B9A00(0x1206, pUnit, 0, 0, 0);
             nSpeech = 0x1206;
@@ -1014,18 +1014,18 @@ void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType
         TEXT_SetSpeechHoverText(pUnit, nSpeech);
         break;
     case 15:
-        if (sub_004CA2C0_GetUnitSndClassId(pUnit) == 0x10F)
+        if (UNITSND_GetUnitSndClassId(pUnit) == 0x10F)
             sub_004B9A00(0x10C2, pUnit, 0, 0, 0);
         return;
     case 16:
-        if (sub_004CA320_GetUnitSndType(pUnit) == 1)
+        if (UNITSND_GetUnitSndType(pUnit) == 1)
         {
-            D2MonSoundsTxt* pMonSoundsTxtRecord = sub_004CA410_GetMonSoundsRecord(pUnit);
+            D2MonSoundsTxt* pMonSoundsTxtRecord = UNITSND_GetMonSoundsRecord(pUnit);
             sub_004B9A00(!pMonSoundsTxtRecord ? 0 : pMonSoundsTxtRecord->dwTaunt, pUnit, 0, 0, 0);
         }
         return;
     case 17:
-        sub_004CB950_PlayFleeSound(pUnit);
+        UNITSND_PlayFleeSound(pUnit);
         return;
     case 18:
         sub_004B9A00(sub_004E0590_PickNpcSound(pUnit, 1), sub_00463DD0_GetPlayerUnit(), 0, 1, 0);
@@ -1047,11 +1047,11 @@ void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType
     }
 
     if (pUnit->dwUnitType == UNIT_PLAYER)
-        sub_004CB9C0_Request(pUnit, nEvent);
+        UNITSND_PlayPlayerSpeech(pUnit, nEvent);
 }
 
 // 0x004CC250
-static inline int sub_004CC250_HasSlotValue(int* pSlots, int nValue)
+static inline int UNITSND_HasSlotValue(int* pSlots, int nValue)
 {
     for (int i = 0; i < 10; i++)
     {
@@ -1070,15 +1070,15 @@ static inline int sub_004CC250_HasSlotValue(int* pSlots, int nValue)
 
 int __fastcall sub_M119_Emit_004CC250(int* pSlots, int nValue)
 {
-    return sub_004CC250_HasSlotValue(pSlots, nValue + 1);
+    return UNITSND_HasSlotValue(pSlots, nValue + 1);
 }
 
 // 0x004CC5B0
 void __fastcall UNITSND_UpdateUnitSound(D2UnitStrc* pUnit, int nMode, int bModeGiven)
 {
     int nAttackMode;
-    const int nType = sub_004CA320_GetUnitSndType(pUnit);
-    const int nClass = sub_004CA2C0_GetUnitSndClassId(pUnit);
+    const int nType = UNITSND_GetUnitSndType(pUnit);
+    const int nClass = UNITSND_GetUnitSndClassId(pUnit);
     if (!bModeGiven)
         nMode = UNITSND_GetUnitSndMode(pUnit);
 
@@ -1122,7 +1122,7 @@ void __fastcall UNITSND_UpdateUnitSound(D2UnitStrc* pUnit, int nMode, int bModeG
     }
     else if (nType == 1)
     {
-        D2MonSoundsTxt* pMonSoundsTxtRecord = sub_004CA410_GetMonSoundsRecord(pUnit);
+        D2MonSoundsTxt* pMonSoundsTxtRecord = UNITSND_GetMonSoundsRecord(pUnit);
         if (!pMonSoundsTxtRecord)
             return;
 
@@ -1164,10 +1164,10 @@ attack:
 // 0x004CB2C0
 void __stdcall UNITSND_ReleaseMonsterSfx(D2UnitStrc* pUnit)
 {
-    if (sub_004CA320_GetUnitSndType(pUnit) != 1)
+    if (UNITSND_GetUnitSndType(pUnit) != 1)
         return;
 
-    D2MonSoundsTxt* pMonSoundsTxtRecord = sub_004CA410_GetMonSoundsRecord(pUnit);
+    D2MonSoundsTxt* pMonSoundsTxtRecord = UNITSND_GetMonSoundsRecord(pUnit);
     if (!pMonSoundsTxtRecord)
         return;
 
@@ -1192,7 +1192,7 @@ void __stdcall UNITSND_ReleaseMonsterSfx(D2UnitStrc* pUnit)
 // 0x004CB380
 static int __stdcall UNITSND_GetObjectStopSound(D2UnitStrc* pUnit, int nMode, int nOldMode)
 {
-    const unsigned int nClass = sub_004CA2C0_GetUnitSndClassId(pUnit);
+    const unsigned int nClass = UNITSND_GetUnitSndClassId(pUnit);
     if (nClass < 0x23D && nMode < 8)
     {
         D2UnitSndObjectStrc* pRecord = gapUnitSndObjects[nClass];
@@ -1208,7 +1208,7 @@ static int __stdcall UNITSND_GetObjectStopSound(D2UnitStrc* pUnit, int nMode, in
 // 0x004CB3E0
 static int UNITSND_GetObjectModeSound(D2UnitStrc* pUnit, int nMode)
 {
-    const unsigned int nClass = sub_004CA2C0_GetUnitSndClassId(pUnit);
+    const unsigned int nClass = UNITSND_GetUnitSndClassId(pUnit);
     if (nClass < 0x23D && nMode < 8)
     {
         D2UnitSndObjectStrc* pRecord = gapUnitSndObjects[nClass];
@@ -1231,9 +1231,9 @@ static int UNITSND_GetObjectModeSound(D2UnitStrc* pUnit, int nMode)
 void __fastcall UNITSND_UpdateModeSound(D2UnitStrc* pUnit)
 {
     const int nMode = UNITSND_GetUnitSndMode(pUnit);
-    if (sub_004CA320_GetUnitSndType(pUnit) == 2)
+    if (UNITSND_GetUnitSndType(pUnit) == 2)
     {
-        if (sub_004CA2C0_GetUnitSndClassId(pUnit) == 0x1A && !nMode && !UNITSND_ReadAsyncSoundTick(pUnit)
+        if (UNITSND_GetUnitSndClassId(pUnit) == 0x1A && !nMode && !UNITSND_ReadAsyncSoundTick(pUnit)
             && sub_006416D0_UnitEdgeDistance(pUnit, sub_00463DD0_GetPlayerUnit()) < 0x14)
         {
             sub_004B9A00(0xE57, pUnit, 0, 0, 0);
@@ -1252,11 +1252,11 @@ void __fastcall UNITSND_UpdateModeSound(D2UnitStrc* pUnit)
         }
         else
         {
-            sub_004CAA10_PurgeUnitHints(pUnit);
+            UNITSND_PurgeUnitHints(pUnit);
         }
 
         int bForce = 0;
-        if (sub_004CA2C0_GetUnitSndClassId(pUnit) == 0x3B)
+        if (UNITSND_GetUnitSndClassId(pUnit) == 0x3B)
             bForce = 1;
 
         if (pUnit->bUnitSfx || bForce)
@@ -1271,10 +1271,10 @@ void __fastcall UNITSND_UpdateModeSound(D2UnitStrc* pUnit)
         return;
     }
 
-    if (sub_004CA320_GetUnitSndType(pUnit) != 1)
+    if (UNITSND_GetUnitSndType(pUnit) != 1)
         return;
 
-    int nClass = sub_00463860(pUnit);
+    int nClass = CUNIT_GetMonsterBaseId(pUnit);
     if (nClass < 0 || nClass >= sgptDataTables->nMonStatsTxtRecordCount)
         nClass = -1;
 
@@ -1290,11 +1290,11 @@ void __fastcall UNITSND_UpdateModeSound(D2UnitStrc* pUnit)
     if (!bNeutral)
         return;
 
-    D2MonSoundsTxt* pMonSoundsTxtRecord = sub_004CA410_GetMonSoundsRecord(pUnit);
+    D2MonSoundsTxt* pMonSoundsTxtRecord = UNITSND_GetMonSoundsRecord(pUnit);
     if (!pMonSoundsTxtRecord)
         return;
 
-    D2MonSoundsTxt* pNeutralRecord = sub_004CA410_GetMonSoundsRecord(pUnit);
+    D2MonSoundsTxt* pNeutralRecord = UNITSND_GetMonSoundsRecord(pUnit);
     const int nNeutral = !pNeutralRecord ? 0 : pNeutralRecord->dwNeutral;
     const unsigned int nTick = sub_0044DB00();
     const unsigned int nNeuTime = pMonSoundsTxtRecord->dwNeuTime;
@@ -1326,12 +1326,12 @@ void __fastcall UNITSND_UpdateModeSound(D2UnitStrc* pUnit)
 // 0x004CB6A0
 void __fastcall UNITSND_PlayAttackSound(D2UnitStrc* pUnit, int nMode, int bDelay)
 {
-    const int nType = sub_004CA320_GetUnitSndType(pUnit);
+    const int nType = UNITSND_GetUnitSndType(pUnit);
     if (nType == 0)
     {
         const int nDirection = UNITS_GetHitClass(pUnit);
         const int nSound = UNITSND_GetDirectionRate(pUnit, nDirection);
-        unsigned int nRate = sub_004CA500_GetAnimRate(pUnit, nDirection);
+        unsigned int nRate = UNITSND_GetAnimRate(pUnit, nDirection);
         if (!bDelay)
             nRate = 0;
         sub_004B9A00(nSound, pUnit, nRate, 0, 0);
@@ -1342,7 +1342,7 @@ void __fastcall UNITSND_PlayAttackSound(D2UnitStrc* pUnit, int nMode, int bDelay
     if (nType != 1)
         return;
 
-    D2MonSoundsTxt* pMonSoundsTxtRecord = sub_004CA410_GetMonSoundsRecord(pUnit);
+    D2MonSoundsTxt* pMonSoundsTxtRecord = UNITSND_GetMonSoundsRecord(pUnit);
     if (!pMonSoundsTxtRecord)
         return;
 
@@ -1417,7 +1417,7 @@ second:
 // 0x004CB860
 static void UNITSND_PlayHitClassSound(D2UnitStrc* pUnit)
 {
-    const int nSound = sub_004CA810_GetModeSound(pUnit, pUnit->dwLastHitClass);
+    const int nSound = UNITSND_GetModeSound(pUnit, pUnit->dwLastHitClass);
     sub_004B9A00(nSound, pUnit, 0, 0, 0);
     pUnit->dwSfxTicks = sub_0044DB00();
     gnSfxTick = sub_0044DB00();
@@ -1426,10 +1426,10 @@ static void UNITSND_PlayHitClassSound(D2UnitStrc* pUnit)
 // 0x004CB890
 static void UNITSND_PlaySkillSound(D2UnitStrc* pUnit, int nMode)
 {
-    if (sub_004CA320_GetUnitSndType(pUnit) != 1)
+    if (UNITSND_GetUnitSndType(pUnit) != 1)
         return;
 
-    D2MonSoundsTxt* pMonSoundsTxtRecord = sub_004CA410_GetMonSoundsRecord(pUnit);
+    D2MonSoundsTxt* pMonSoundsTxtRecord = UNITSND_GetMonSoundsRecord(pUnit);
     if (!pMonSoundsTxtRecord)
         return;
 
@@ -1465,12 +1465,12 @@ static void UNITSND_PlaySkillSound(D2UnitStrc* pUnit, int nMode)
 }
 
 // 0x004CB950
-static void sub_004CB950_PlayFleeSound(D2UnitStrc* pUnit)
+static void UNITSND_PlayFleeSound(D2UnitStrc* pUnit)
 {
-    if (sub_004CA320_GetUnitSndType(pUnit) != 1)
+    if (UNITSND_GetUnitSndType(pUnit) != 1)
         return;
 
-    D2MonSoundsTxt* pMonSoundsTxtRecord = sub_004CA410_GetMonSoundsRecord(pUnit);
+    D2MonSoundsTxt* pMonSoundsTxtRecord = UNITSND_GetMonSoundsRecord(pUnit);
     if (!pMonSoundsTxtRecord)
         return;
 
@@ -1483,7 +1483,7 @@ static void sub_004CB950_PlayFleeSound(D2UnitStrc* pUnit)
 }
 
 // 0x004CB9C0
-void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId)
+void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStringId)
 {
     D2UnitSndPlayerStrc* pRecord = UNITSND_GetPlayerSoundRecord(pUnit ? pUnit->dwClassId : -1);
     if (!pRecord)
@@ -1494,7 +1494,7 @@ void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId
     int nId = nStringId;
     int nSoundId = 0;
     D2UnitStrc* pSoundUnit = pUnit;
-    if (pUnit == sub_00463DD0_GetPlayerUnit() && sub_00463DF0())
+    if (pUnit == sub_00463DD0_GetPlayerUnit() && CUNIT_IsPlayerDeadOrMissing())
     {
         return;
     }
@@ -1705,7 +1705,7 @@ void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId
 // 0x004CC160
 __declspec(noinline) void __fastcall UNITSND_AddUnitSoundRefs(D2UnitStrc* pUnit, int nDelta)
 {
-    const int nType = sub_004CA320_GetUnitSndType(pUnit);
+    const int nType = UNITSND_GetUnitSndType(pUnit);
     D2_ASSERT(pUnit, 0xCFD);
     if (pUnit->bHasActiveSound)
     {
@@ -1720,7 +1720,7 @@ __declspec(noinline) void __fastcall UNITSND_AddUnitSoundRefs(D2UnitStrc* pUnit,
     pUnit->bHasActiveSound = nDelta > 0;
     if (nType == 1)
     {
-        D2MonSoundsTxt* pMonSoundsTxtRecord = sub_004CA410_GetMonSoundsRecord(pUnit);
+        D2MonSoundsTxt* pMonSoundsTxtRecord = UNITSND_GetMonSoundsRecord(pUnit);
         if (!pMonSoundsTxtRecord)
             return;
         SOUNDHDR_AddVariantRefs(pMonSoundsTxtRecord->dwAttack1, nDelta);
@@ -1732,7 +1732,7 @@ __declspec(noinline) void __fastcall UNITSND_AddUnitSoundRefs(D2UnitStrc* pUnit,
     }
     else if (nType == 2)
     {
-        const unsigned int nClass = sub_004CA2C0_GetUnitSndClassId(pUnit);
+        const unsigned int nClass = UNITSND_GetUnitSndClassId(pUnit);
         D2_ASSERT(nClass < 0x23D, 0x1213);
         D2UnitSndObjectStrc* pRecord = gapUnitSndObjects[nClass];
         if (pRecord)
@@ -1746,11 +1746,11 @@ __declspec(noinline) void __fastcall UNITSND_AddUnitSoundRefs(D2UnitStrc* pUnit,
 // 0x004CC380
 void __fastcall UNITSND_PlayInitSound(D2UnitStrc* pUnit)
 {
-    if (sub_004CA320_GetUnitSndType(pUnit) != 1)
+    if (UNITSND_GetUnitSndType(pUnit) != 1)
         return;
 
     const unsigned int nTick = sub_0044DB00();
-    D2MonSoundsTxt* pMonSoundsTxtRecord = sub_004CA410_GetMonSoundsRecord(pUnit);
+    D2MonSoundsTxt* pMonSoundsTxtRecord = UNITSND_GetMonSoundsRecord(pUnit);
     if (!pMonSoundsTxtRecord)
         return;
 
@@ -1772,7 +1772,7 @@ void __fastcall UNITSND_PlayInitSound(D2UnitStrc* pUnit)
 // 0x004CC410
 static void __stdcall UNITSND_PlayHitSound(D2UnitStrc* pUnit, int nMode)
 {
-    const int nType = sub_004CA320_GetUnitSndType(pUnit);
+    const int nType = UNITSND_GetUnitSndType(pUnit);
     const int nHitClass = pUnit->dwLastHitClass;
     if (nType == 1 && STATES_CheckState(pUnit, STATE_INVIS))
         return;
@@ -1798,7 +1798,7 @@ static void __stdcall UNITSND_PlayHitSound(D2UnitStrc* pUnit, int nMode)
 
     if (nType == 1)
     {
-        D2MonSoundsTxt* pMonSoundsTxtRecord = sub_004CA410_GetMonSoundsRecord(pUnit);
+        D2MonSoundsTxt* pMonSoundsTxtRecord = UNITSND_GetMonSoundsRecord(pUnit);
         if (pMonSoundsTxtRecord)
         {
             int nSound;
@@ -1827,7 +1827,7 @@ static void __stdcall UNITSND_PlayHitSound(D2UnitStrc* pUnit, int nMode)
     }
     else if (nType == 0)
     {
-        D2UnitSndPlayerStrc* pRecord = UNITSND_GetPlayerSoundRecord(sub_004CA2C0_GetUnitSndClassId(pUnit));
+        D2UnitSndPlayerStrc* pRecord = UNITSND_GetPlayerSoundRecord(UNITSND_GetUnitSndClassId(pUnit));
         if (pRecord)
         {
             int nSound;

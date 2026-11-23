@@ -201,7 +201,7 @@ int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMo
 
 int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc* pHireling); // 0x0063EE90
 
-D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse); // 0x0056E970
+D2StatListStrc* __fastcall SKILLS_ApplyStateEffect(D2CurseStrc* pCurse); // 0x0056E970
 
 enum D2C_Y09SkillConstants
 {
@@ -244,7 +244,7 @@ D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic)
 
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 
-int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
+int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 
@@ -272,7 +272,7 @@ typedef void (__fastcall* RemoveCallback)(D2UnitStrc*,int,D2StatListStrc*);
 
 int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc*); // 0x0044BE50
 
-int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc*); // 0x00451F50
+int __fastcall GAME_GetUnitGUID(D2UnitStrc*); // 0x00451F50
 
 int __fastcall SKILLS_SharePotionLifeWithBloodGolem(D2GameStrc*,D2UnitStrc*,int); // 0x005C6870
 
@@ -700,7 +700,7 @@ D2SkillPairStrc* __stdcall sub_K13_Emit_005C0D20(D2SkillPairStrc* pArray, int nI
 }
 
 // 0x005C0D40
-static int __stdcall sub_005C0D40_PercentWithMinimum(int nPercent, int nValue, int nMin)
+static int __stdcall SKILLITEM_PercentWithMinimum(int nPercent, int nValue, int nMin)
 {
     const int nResult = nValue * nPercent / 100;
     if (nResult < nMin)
@@ -712,7 +712,7 @@ static int __stdcall sub_005C0D40_PercentWithMinimum(int nPercent, int nValue, i
 
 int __stdcall sub_K13_Emit_005C0D40(int nValue, int nPercent)
 {
-    return sub_005C0D40_PercentWithMinimum(nPercent, nValue, 2);
+    return SKILLITEM_PercentWithMinimum(nPercent, nValue, 2);
 }
 
 static inline unsigned int RollSeed(D2SeedStrc* pSeed)
@@ -777,7 +777,7 @@ void __stdcall ITEMS_AssignLegacyStaffMods(D2UnitStrc* pItem, int nItemLevel, in
         D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitStateAndFlag(pItem, 0, 0x40);
         if (!pStatList)
         {
-            pStatList = STATLIST_AllocStatList(sub_004DC0B0_GetUnitMemoryPool(pItem), 0x40, 0, 4, sub_00451F50_GetUnitGUID(pItem));
+            pStatList = STATLIST_AllocStatList(sub_004DC0B0_GetUnitMemoryPool(pItem), 0x40, 0, 4, GAME_GetUnitGUID(pItem));
             D2COMMON_10475_PostStatToStatList(pItem, pStatList, 1);
         }
         if (pStatList)
@@ -786,7 +786,7 @@ void __stdcall ITEMS_AssignLegacyStaffMods(D2UnitStrc* pItem, int nItemLevel, in
 }
 
 // 0x005C19A0
-static unsigned short __stdcall sub_005C19A0_RollRareAffixOld(D2UnitStrc* pItem, int bPrefix)
+static unsigned short __stdcall SKILLITEM_RollRareAffixLegacy(D2UnitStrc* pItem, int bPrefix)
 {
     D2RareAffixIndexAndPtrStrc tAffixes[512];
 
@@ -849,7 +849,7 @@ static unsigned short __stdcall sub_005C19A0_RollRareAffixOld(D2UnitStrc* pItem,
 }
 
 // 0x005C1AB0
-static unsigned short __stdcall sub_005C1AB0_RollRareAffixNew(D2UnitStrc* pItem, int bPrefix)
+static unsigned short __stdcall SKILLITEM_RollRareAffix(D2UnitStrc* pItem, int bPrefix)
 {
     D2RareAffixIndexAndPtrStrc tAffixes[512];
 
@@ -916,10 +916,10 @@ unsigned short __fastcall ITEMS_RollTemperedItemAffix(D2UnitStrc* pItem, int bPr
 {
     if (ITEMS_GetItemFormat(pItem) >= 1u)
     {
-        return sub_005C1AB0_RollRareAffixNew(pItem, bPrefix);
+        return SKILLITEM_RollRareAffix(pItem, bPrefix);
     }
 
-    return sub_005C19A0_RollRareAffixOld(pItem, bPrefix);
+    return SKILLITEM_RollRareAffixLegacy(pItem, bPrefix);
 }
 
 static inline unsigned int sub_RareSeedRoll(D2SeedStrc* pSeed)
@@ -950,10 +950,10 @@ static inline unsigned short D2GAME_RollRareAffixInline(D2UnitStrc* pItem, int b
 {
     if (ITEMS_GetItemFormat(pItem) >= 1u)
     {
-        return sub_005C1AB0_RollRareAffixNew(pItem, bPrefix);
+        return SKILLITEM_RollRareAffix(pItem, bPrefix);
     }
 
-    return sub_005C19A0_RollRareAffixOld(pItem, bPrefix);
+    return SKILLITEM_RollRareAffixLegacy(pItem, bPrefix);
 }
 
 static __forceinline bool ITEMS_HasAffixOrGroupInline(D2UnitStrc* pItem, unsigned short nAffix, int bPrefix)
@@ -1201,7 +1201,7 @@ int __fastcall ITEMS_ApplyLowQualityForFormat(D2UnitStrc* pItem, D2ItemDropStrc*
 }
 
 // 0x005D30A0
-D2MonEquipTxt* __fastcall sub_005D30A0_GetMonEquipTxtRecord(int nMonsterId)
+D2MonEquipTxt* __fastcall SKILLITEM_GetMonEquipTxtRecord(int nMonsterId)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount) ? &sgptDataTables->pMonStatsTxt[nMonsterId] : 0;
     if (!pMonStatsTxtRecord)
@@ -1881,7 +1881,7 @@ int __fastcall SKILLS_CanImpregnateTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget
         return 0;
     }
 
-    int nBaseId = sub_00463860(pTarget);
+    int nBaseId = CUNIT_GetMonsterBaseId(pTarget);
     if (nBaseId < 0 || nBaseId >= sgptDataTables->nMonStatsTxtRecordCount)
     {
         nBaseId = -1;
@@ -2035,7 +2035,7 @@ int __fastcall SKILLITEM_EventFunc19_Slow(D2GameStrc* pGame, int nEvent, D2UnitS
     curse.nStatValue = -nSlowValue;
     curse.nState = STATE_SLOWED;
 
-    D2StatListStrc* pStatList = sub_0056E970(&curse);
+    D2StatListStrc* pStatList = SKILLS_ApplyStateEffect(&curse);
     if (!pStatList)
     {
         return 0;
@@ -2392,7 +2392,7 @@ int __fastcall SKILLITEM_EventFunc15_OpenWounds(D2GameStrc* pGame, int nEvent, D
     curse.nStat = 74;
     curse.nStatValue = -nHpRegen;
     curse.nState = 62;
-    sub_0056E970(&curse);
+    SKILLS_ApplyStateEffect(&curse);
     return 1;
 }
 
@@ -2895,7 +2895,7 @@ int __fastcall SKILLITEM_pSpell03_Potion(D2GameStrc* pGame, D2UnitStrc* pUnit, D
             const int nExpireFrame = pGame->dwGameFrame + nOldLength + nLength;
             if (!pStatList)
             {
-                pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, GAME_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit));
+                pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, GAME_GetUnitTypeOrInvalid(pUnit), GAME_GetUnitGUID(pUnit));
                 if (!pStatList) continue;
                 STATLIST_SetState(pStatList, nState);
                 STATES_ToggleState(pUnit, nState, 1);
@@ -2970,7 +2970,7 @@ int __fastcall SKILLITEM_pSpell04_ApplyPotionStats(D2GameStrc* game,D2UnitStrc* 
   }else{
    int expiry=game->dwGameFrame+remaining+duration;
    if(!list){
-    int const nUnitGUID = sub_00451F50_GetUnitGUID(unit);
+    int const nUnitGUID = GAME_GetUnitGUID(unit);
     list=STATLIST_AllocStatList(game->pMemoryPool,2,expiry,GAME_GetUnitTypeOrInvalid(unit),nUnitGUID);
     if(!list)continue;
     STATLIST_SetState(list,state);
@@ -3159,7 +3159,7 @@ int __fastcall SKILLITEM_pSpell05_RejuvPotion(D2GameStrc* pGame, D2UnitStrc* pUn
                     const int nExpireFrame = pGame->dwGameFrame + nRemainingDuration + nLength;
                     if (!pStatList)
                     {
-                        pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, GAME_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit));
+                        pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, GAME_GetUnitTypeOrInvalid(pUnit), GAME_GetUnitGUID(pUnit));
                         if (!pStatList)
                         {
                             continue;

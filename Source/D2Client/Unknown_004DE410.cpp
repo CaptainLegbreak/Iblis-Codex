@@ -106,7 +106,7 @@ int __cdecl sub_0044DB00(); // 0x0044DB00
 int __cdecl sub_0045AE90(); // 0x0045AE90
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
-D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 int __cdecl sub_00473770_IsMudLevel(); // 0x00473770
 float __cdecl sub_00473C80_GetPhaseLevel(); // 0x00473C80
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
@@ -353,7 +353,7 @@ void __thiscall D2FloorTileViewStrc::sub_004DE730_UpdateView(void* pArgument)
     nBorder = nBorderType;
     pArg = (D2FloorViewArgStrc*)pArgument;
 
-    D2ActiveRoomStrc* pRoom = sub_004646A0_GetPlayerRoom();
+    D2ActiveRoomStrc* pRoom = CUNIT_GetPlayerRoom();
     bEdges = pRoom && DATATBLS_GetLevelsTxtRecord(DUNGEON_GetLevelIdFromRoom(pRoom))->nDrawEdges && !nBorderType && D2GFX_GetResolutionMode() == 2;
 
     nMinX = 0x7FFFFFFF;
@@ -380,7 +380,7 @@ void __thiscall D2FloorTileViewStrc::sub_004DE730_UpdateView(void* pArgument)
     D2_ASSERT(pPlayer, 0x11E);
     pSeed = &pPlayer->pSeed;
 
-    pRoom = sub_004646A0_GetPlayerRoom();
+    pRoom = CUNIT_GetPlayerRoom();
     if (!pRoom)
         return;
 

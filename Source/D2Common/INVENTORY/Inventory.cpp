@@ -445,7 +445,8 @@ int __fastcall STATES_GetNumberOfStateFlags()
     return (sgptDataTables->nStatesTxtRecordCount + 31) / 32;
 }
 
-static int sub_0063A130_CheckStateMaskOnUnit(D2UnitStrc* pUnit, const unsigned int* pStateMask)
+// build: symbol ?STATES_CheckStateMaskFlagsOnUnit@* 0x0063A130
+static int STATES_CheckStateMaskFlagsOnUnit(D2UnitStrc* pUnit, const unsigned int* pStateMask)
 {
     unsigned int* pStatFlags = D2COMMON_STATES_GetStatFlags_6FDB8A90(pUnit);
     if (!pStatFlags)
@@ -467,7 +468,7 @@ static int sub_0063A130_CheckStateMaskOnUnit(D2UnitStrc* pUnit, const unsigned i
 // 0x0063A530
 int __stdcall STATES_CheckStateMaskBlueOnUnit(D2UnitStrc* pUnit)
 {
-    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_BLUE]);
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_BLUE]);
 }
 
 static inline D2ItemExtraDataStrc* INVENTORY_GetExtraDataFromItem(D2UnitStrc* pItem)
@@ -1999,7 +2000,7 @@ D2UnitStrc* __stdcall INVENTORY_GetSecondaryWeapon(D2InventoryStrc* pInventory)
 }
 
 // 0x0063C050
-D2UnitStrc* __stdcall sub_0063C050_GetBodyLocItem(D2InventoryStrc* pInventory, int nComponent)
+D2UnitStrc* __stdcall INVENTORY_GetCompositItem(D2InventoryStrc* pInventory, int nComponent)
 {
     int nInventoryGrid = INVGRID_BODYLOC;
     if (!pInventory)
@@ -2308,7 +2309,7 @@ BOOL __stdcall INVENTORY_PlaceItemInBeltSlot(D2InventoryStrc* pInventory, D2Unit
 }
 
 // 0x0063C550
-void __stdcall sub_0063C550_Return(int nUnused1, int nUnused2)
+void __stdcall D2COMMON_10267_Return(int nUnused1, int nUnused2)
 {
 }
 
@@ -3659,7 +3660,7 @@ static void __stdcall INVENTORY_FillItemComponentGfxInfo(Unit* unit, u8* firstOu
 }
 
 // 0x0063DB90
-static int __stdcall sub_0063DB90_SelectValue(int a, int b)
+static int __stdcall INVENTORY_SelectValue(int a, int b)
 {
     if (b)
         return a ? 5 : 1;
@@ -3668,7 +3669,7 @@ static int __stdcall sub_0063DB90_SelectValue(int a, int b)
 
 int __stdcall sub_K15_Emit5(int* p, int n)
 {
-    return sub_0063DB90_SelectValue(p[0], n) + sub_0063DB90_SelectValue(p[n], p[3]);
+    return INVENTORY_SelectValue(p[0], n) + INVENTORY_SelectValue(p[n], p[3]);
 }
 
 // 0x0063DBC0

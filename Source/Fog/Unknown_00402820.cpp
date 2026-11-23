@@ -372,7 +372,7 @@ int __cdecl sub_00402A80_IsDbgHelpLoaded()
 }
 
 // 0x0044BFF0
-int __cdecl sub_0044BFF0_IsSet()
+int __cdecl INV_IsRightClickConsumed()
 {
     return gbRightClickConsumed != 0;
 }

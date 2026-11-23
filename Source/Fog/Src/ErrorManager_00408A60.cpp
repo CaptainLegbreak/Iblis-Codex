@@ -214,7 +214,7 @@ static inline int Log2Ceil(int nValue)
 }
 
 // 0x004091B0
-static int sub_004091B0_GetPoolIndex(int nSize)
+static int ERRORMANAGER_GetPoolIndex(int nSize)
 {
     if (nSize <= 0x10)
     {
@@ -225,7 +225,7 @@ static int sub_004091B0_GetPoolIndex(int nSize)
 
 int __fastcall sub_M289_Emit_004091B0(int nUnused, int nSize)
 {
-    return sub_004091B0_GetPoolIndex(nSize);
+    return ERRORMANAGER_GetPoolIndex(nSize);
 }
 
 // 0x00409200

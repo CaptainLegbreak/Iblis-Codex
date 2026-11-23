@@ -80,7 +80,7 @@ void __fastcall CMNSUBTILE_DrawIsoBlockFlat(unsigned char* pSrc, unsigned char* 
 }
 
 // 0x0050B9E0
-void __cdecl sub_0050B9E0_GlideCreateDebugFont()
+void __cdecl GLIDE_CreateDebugFont()
 {
     void* hDC = CreateCompatibleDC(0);
 // build: symbol ?gszCourier@* 0x006DD52C

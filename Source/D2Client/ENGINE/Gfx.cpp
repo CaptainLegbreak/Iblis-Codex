@@ -108,7 +108,7 @@ int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 void __fastcall AUTOMAP_RemoveUnitOverlay(D2UnitStrc* pUnit, int nArg, int nValue); // 0x0046F0C0
-D2GfxLightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
+D2GfxLightStrc* __fastcall DLIGHTMAP_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
 void __fastcall sub_00474290(D2GfxLightStrc* pLight, int nRadius); // 0x00474290
 int __fastcall sub_004DBE20(D2UnitStrc* pUnit, D2OverlayStrc* pOverlay); // 0x004DBE20
 int __stdcall UNITS_GetOverlayHeight(D2UnitStrc* pUnit); // 0x006223A0
@@ -155,7 +155,7 @@ int __stdcall ITEM_GetGfxClientY(D2UnitStrc* pUnit); // 0x004DA0D0
 int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit); // 0x006203B0
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit); // 0x00620410
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
+D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
 D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
 void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
@@ -223,7 +223,7 @@ static void GFX_SyncStateOverlay(D2OverlayStrc* pOverlay, D2GfxDataStrc* pGfx)
 }
 
 // 0x0046DF40
-static void __stdcall sub_0046DF40_RecalcStateOverlays(D2StateOwnerStrc* pOwner, D2UnitStrc* pUnit, D2StateNodeStrc* pNode)
+static void __stdcall GFX_RecalcStateOverlays(D2StateOwnerStrc* pOwner, D2UnitStrc* pUnit, D2StateNodeStrc* pNode)
 {
     const int nStateId = pNode->nStateId;
     const int bHasState = STATES_CheckState(pUnit, nStateId);
@@ -286,8 +286,8 @@ static void __stdcall sub_0046DF40_RecalcStateOverlays(D2StateOwnerStrc* pOwner,
 
 void __stdcall sub_P09_Emit_0046DF40(D2StateOwnerStrc* pOwner, D2UnitStrc* pUnit, D2StateNodeStrc* pNode, D2StateNodeStrc* pOther)
 {
-    sub_0046DF40_RecalcStateOverlays(pOwner, pUnit, pNode);
-    sub_0046DF40_RecalcStateOverlays(pOwner, pUnit, pOther);
+    GFX_RecalcStateOverlays(pOwner, pUnit, pNode);
+    GFX_RecalcStateOverlays(pOwner, pUnit, pOther);
 }
 
 // 0x0046EA80
@@ -569,7 +569,7 @@ int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit)
         UNITS_GetShiftedFrameMetrics(pUnit, &nFrameNo, &nFrameCount);
         D2InventoryStrc* pInventory;
         D2UnitStrc* pOwner;
-        if (STATES_IsUnitShapeShiftedInl(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = sub_004639D0_GetOwnerUnit(pUnit)) != 0)
+        if (STATES_IsUnitShapeShiftedInl(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = CUNIT_GetOwnerUnit(pUnit)) != 0)
         {
             pInventory = pOwner->pInventory;
         }
@@ -919,7 +919,7 @@ void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nType, i
 
     if (pTxt->n74)
     {
-        pNew->pLight = sub_00474160_MakeLightEntry(pUnit, 1, pTxt->n70, 0xFF, pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
+        pNew->pLight = DLIGHTMAP_MakeLightEntry(pUnit, 1, pTxt->n70, 0xFF, pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
         if (pTxt->n74 != pTxt->n70)
             sub_00474290(pNew->pLight, pTxt->n74);
     }

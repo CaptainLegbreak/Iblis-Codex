@@ -207,7 +207,7 @@ static void __stdcall sub_00478350_SendToServer(const unsigned char* pPacket, in
 }
 
 // 0x00478590
-void __fastcall sub_00478590(char nValue)
+void __fastcall MSG_SendHeaderOnly(char nValue)
 {
     D2PacketSize1Strc tPacket;
     tPacket.nHeader = nValue;
@@ -215,7 +215,7 @@ void __fastcall sub_00478590(char nValue)
 }
 
 // 0x004786A0
-void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5)
+void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5)
 {
     D2PacketDwords9Strc tPacket;
     tPacket.nHeader = nHeader;

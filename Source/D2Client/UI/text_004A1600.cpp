@@ -100,9 +100,9 @@ struct D2HoverTextPacketStrc
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-void __fastcall sub_004A1320_OpenTextPanel(unsigned short nStringId, int bSide, int bSound);
+void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, int bSound); // 0x004A1320
 
-void __fastcall sub_004A1510_ShowTextBox(unsigned short nStringId);
+void __fastcall TEXT_ShowTextBox(unsigned short nStringId); // 0x004A1510
 
 void __stdcall CHAT_FreeHoverMsg(void* pMemoryPool, D2HoverTextStrc* pHoverText); // 0x006611A0
 
@@ -214,9 +214,9 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-int __cdecl sub_00463DF0(); // 0x00463DF0
+int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 
 int __cdecl sub_00468730(); // 0x00468730
 
@@ -224,9 +224,9 @@ int __cdecl sub_00468740(); // 0x00468740
 
 void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg); // 0x004785B0
 
-void __cdecl sub_004A23D0_LoadPanelCels(); // 0x004A23D0
+void __cdecl TEXT_LoadQuestPanelCels(); // 0x004A23D0
 
-int __stdcall sub_004A26B0_OpenPanel(int nArg); // 0x004A26B0
+int __stdcall TEXT_OpenQuestPanel(int nArg); // 0x004A26B0
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
@@ -240,7 +240,7 @@ void __fastcall D2Win_10117_DrawText(const unsigned short* wszText, int nX, int 
 
 T0044CB60* __fastcall sub_00502970_SplitText(unsigned short* pText, unsigned int* pLineCount, int nWidth); // 0x00502970
 
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
 
@@ -320,7 +320,7 @@ int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x004
 
 void __fastcall TEXT_ToggleQuestLog(int nMode); // 0x004A3FE0
 
-void __cdecl sub_0044DA70(); // 0x0044DA70
+void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
 void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext); // 0x0049E7E0
 
@@ -399,7 +399,7 @@ int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 
-static int sub_004A70C0_GetWieldedTypeStatMax(D2UnitStrc* pUnit);
+static int TEXT_GetWeaponBlock(D2UnitStrc* pUnit); // 0x004A70C0
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -411,9 +411,9 @@ int __cdecl sub_00466DC0(); // 0x00466DC0
 
 int __cdecl GAME_GetLadderFlag(); // 0x0044DCA0
 
-static int sub_004A7300_AddToHitFactor(D2UnitStrc* pUnit, int nAttackRate);
+static int TEXT_AddToHitFactor(D2UnitStrc* pUnit, int nAttackRate); // 0x004A7300
 
-static void sub_004A2220_SetQuestPage(int nPageArg);
+static void TEXT_SetQuestPage(int nPageArg); // 0x004A2220
 
 int __fastcall TEXT_TestQuestCondition(int nCondition);
 
@@ -550,7 +550,7 @@ void __fastcall TEXT_HandleNpcTextPacket(D2HoverTextPacketStrc* pPacket)
         D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->dwUnitId, 2);
         if (pPacket->nMode == 3)
         {
-            sub_004A1510_ShowTextBox(pPacket->wStringId);
+            TEXT_ShowTextBox(pPacket->wStringId);
             return;
         }
 
@@ -561,7 +561,7 @@ void __fastcall TEXT_HandleNpcTextPacket(D2HoverTextPacketStrc* pPacket)
         {
             gwTextPanelClassId = sub_00623C60(pUnit);
         }
-        sub_004A1320_OpenTextPanel(pPacket->wStringId, 0, 1);
+        WARDENCLIENT_OpenTextPanel(pPacket->wStringId, 0, 1);
     }
     else
     {
@@ -908,7 +908,7 @@ void __cdecl sub_004A34F0_DrawQuestPage(); // 0x004A34F0
 struct D2CelFileStrc;
 
 // 0x004A2220
-static void sub_004A2220_SetQuestPage(int nPageArg)
+static void TEXT_SetQuestPage(int nPageArg)
 {
     int nPage = nPageArg;
     if (nPage >= 5)
@@ -938,7 +938,7 @@ static void sub_004A2220_SetQuestPage(int nPageArg)
     gnPage = nPage;
 }
 
-void __cdecl sub_004A2300_UpdateQuestPage(); // 0x004A2300
+void __cdecl TEXT_UpdateQuestPage(); // 0x004A2300
 
 static void sub_004A2390_ResetQuestSelection()
 {
@@ -963,7 +963,8 @@ static unsigned char sub_004A2610_HitTestButtonA(int nX, int nY)
     return 0;
 }
 
-static int sub_004A2630_GetSlotAtPoint(int nX, int nY)
+// build: symbol ?TEXT_GetQuestSlotAtPoint@* 0x004A2630
+static int TEXT_GetQuestSlotAtPoint(int nX, int nY)
 {
     int nCount = gnQuestCount;
     D2_ASSERT((unsigned int)nCount <= 6, 0x738);
@@ -986,7 +987,8 @@ static unsigned char sub_004A2690_HitTestButtonB(int nX, int nY)
     return 0;
 }
 
-static int __stdcall sub_004A26F0_GetTabAtPoint(int nY, int nX)
+// build: symbol ?TEXT_GetQuestTabAtPoint@* 0x004A26F0
+static int __stdcall TEXT_GetQuestTabAtPoint(int nY, int nX)
 {
     if (nY < 0 || nY > 0x1B || nX < 0 || nX > 0x13F)
     {
@@ -1010,7 +1012,8 @@ static int __stdcall sub_004A26F0_GetTabAtPoint(int nY, int nX)
     return -1;
 }
 
-static void sub_004A27D0_OpenQuestDescription(int nSlot)
+// build: symbol ?TEXT_OpenQuestDescription@* 0x004A27D0
+static void TEXT_OpenQuestDescription(int nSlot)
 {
     int nIndex = -1;
     for (int i = 0; i < gnQuestCount; ++i)
@@ -1030,7 +1033,7 @@ static void sub_004A27D0_OpenQuestDescription(int nSlot)
     {
         return;
     }
-    sub_004A1320_OpenTextPanel(wTextId, 1, 0);
+    WARDENCLIENT_OpenTextPanel(wTextId, 1, 0);
     TEXT_SetTextCallback(TEXT_CloseQuestText, 0);
     gbQuestDescriptionOpen = 1;
 }
@@ -1047,7 +1050,7 @@ void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     {
         if (gnQuestPressedSlot != -1)
         {
-            int nSlot = sub_004A2630_GetSlotAtPoint(nX, nY);
+            int nSlot = TEXT_GetQuestSlotAtPoint(nX, nY);
             if (nSlot == gnQuestPressedSlot)
             {
 // build: symbol ?gaQuestPageSelection@* 0x007BF2BD
@@ -1059,7 +1062,7 @@ void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
         {
             if (sub_004A2610_HitTestButtonA(nX, nY) && gnQuestSelectedSlot != -1)
             {
-                sub_004A27D0_OpenQuestDescription(gnQuestSelectedSlot);
+                TEXT_OpenQuestDescription(gnQuestSelectedSlot);
             }
         }
     }
@@ -1073,7 +1076,7 @@ void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     {
         if (D2_HIWORD(pMsg->lParam) > gnScreenHeight - 0x31) return;
     }
-    sub_0044DA70();
+    GAME_ResetMouseButtons();
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
@@ -1210,20 +1213,20 @@ void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
     int nIndex;
     if (!gbQuestDescriptionOpen)
     {
-        nIndex = sub_004A26F0_GetTabAtPoint(nY, nX);
+        nIndex = TEXT_GetQuestTabAtPoint(nY, nX);
         if (nIndex != -1)
         {
             if (nIndex < 5 && nIndex != gnPage && ((FOG_IsExpansion() && GAME_IsExpansion()) || nIndex != 4))
             {
                 sub_004A2760(gnPage);
-                sub_004A2220_SetQuestPage(nIndex);
+                TEXT_SetQuestPage(nIndex);
                 TEXT_LoadQuestPage(gnPage, 1);
                 sub_004A2390_ResetQuestSelection();
             }
         }
         else
         {
-            nIndex = sub_004A2630_GetSlotAtPoint(nX, nY);
+            nIndex = TEXT_GetQuestSlotAtPoint(nX, nY);
             if (nIndex != -1 && nIndex < gnQuestCount)
             {
                 sub_004A3E40_ClickSlot_Inline(nIndex);
@@ -1361,7 +1364,7 @@ int __fastcall TEXT_IsInRightPanelButton(int nMode, int nX, int nY)
 }
 
 // 0x004A70C0
-static int sub_004A70C0_GetWieldedTypeStatMax(D2UnitStrc* pUnit)
+static int TEXT_GetWeaponBlock(D2UnitStrc* pUnit)
 {
     int i;
     if (!pUnit)
@@ -1410,7 +1413,7 @@ static int sub_004A70C0_GetWieldedTypeStatMax(D2UnitStrc* pUnit)
 
 int __fastcall sub_004A70C0_Emit(int nArg, D2UnitStrc* pUnit)
 {
-    int nValue = sub_004A70C0_GetWieldedTypeStatMax(pUnit);
+    int nValue = TEXT_GetWeaponBlock(pUnit);
     return nValue > 0 ? nValue : nArg;
 }
 
@@ -1434,7 +1437,7 @@ static inline D2CharStatsTxt* DATATBLS_GetCharStatsTxtRecord_Inl(int nClass)
     return 0;
 }
 
-static int sub_004A7300_AddToHitFactor(D2UnitStrc* pUnit, int nAttackRate)
+static int TEXT_AddToHitFactor(D2UnitStrc* pUnit, int nAttackRate)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
     {
@@ -1474,7 +1477,7 @@ int __stdcall TEXT_GetChanceToHit(int nAttackRate)
         nDefense = nDefense * 10 / 12;
     }
 
-    int nToHit = sub_004A7300_AddToHitFactor(pPlayer, nAttackRate);
+    int nToHit = TEXT_AddToHitFactor(pPlayer, nAttackRate);
     if (nDefense < 0)
     {
         nToHit -= nDefense;

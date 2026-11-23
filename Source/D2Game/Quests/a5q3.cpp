@@ -183,7 +183,7 @@ extern char gpAct5Q3NpcMessages[]; // 0x00734320
 
 void __fastcall QUESTS_ResetPlayerGUIDCount(D2QuestGUIDStrc* pQuestGUID); // 0x00545300
 
-void __fastcall sub_005417D0_DirectDated(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
+void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 
 void __fastcall ACT5Q3_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00589D20
 
@@ -751,7 +751,7 @@ void __fastcall ACT5Q3_SpawnFrozenDrehya(D2GameStrc* pGame, D2UnitStrc* pUnit)
     }
     else
     {
-        sub_005417D0_DirectDated(pQuestData->pGame, pUnit, 7, pQuestData->pGame->dwGameFrame + 25, 0, 0);
+        EVENT_SetEvent(pQuestData->pGame, pUnit, 7, pQuestData->pGame->dwGameFrame + 25, 0, 0);
     }
 }
 
@@ -767,7 +767,7 @@ void __fastcall OBJECTS_InitFunction67_DrehyaStartOutsideTown(D2ObjInitFnStrc* p
     pQuestDataEx->nDrehyaObjectOutsideTownGUID = !pOp->pObject ? -1 : pOp->pObject->dwUnitId;
     if (!pQuestDataEx->bFrozenAnyaObjectSpawned)
     {
-        sub_005417D0_DirectDated(pQuestData->pGame, pOp->pObject, 7, pQuestData->pGame->dwGameFrame + 25, 0, 0);
+        EVENT_SetEvent(pQuestData->pGame, pOp->pObject, 7, pQuestData->pGame->dwGameFrame + 25, 0, 0);
     }
 }
 

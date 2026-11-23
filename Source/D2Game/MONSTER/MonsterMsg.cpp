@@ -6,7 +6,7 @@
 struct D2MonsterModeInfo;
 
 void __fastcall SCMD_SendUnitActionAtPosition(D2ClientStrc* pClient, unsigned char a2, int a3, unsigned short a4, unsigned short a5, int a6, unsigned short a7, unsigned char a8, int a9); // 0x0053D4D0
-void __fastcall sub_0053D530(D2ClientStrc* pClient, unsigned char a2, int a3, unsigned char nUnitType, int nUnitGUID, unsigned short a6, unsigned short a7, unsigned char a8, int a9); // 0x0053D530
+void __fastcall SCMD_SendSkillUseOnUnit(D2ClientStrc* pClient, unsigned char a2, int a3, unsigned char nUnitType, int nUnitGUID, unsigned short a6, unsigned short a7, unsigned char a8, int a9); // 0x0053D530
 int __fastcall CLIENTS_IsInUnitsRoom(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005387F0
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
@@ -61,7 +61,7 @@ static void __stdcall sub_00597D70_SendUsedSkill(D2UnitStrc* pMonster, D2UnitStr
 
     if (pTarget && CLIENTS_IsInUnitsRoom(pTarget, pClient))
     {
-        sub_0053D530(pClient, 1, nUnitGUID, !pTarget ? 6 : pTarget->dwUnitType, !pTarget ? -1 : pTarget->dwUnitId, nSkillId, 0, nSkillLevel, 0);
+        SCMD_SendSkillUseOnUnit(pClient, 1, nUnitGUID, !pTarget ? 6 : pTarget->dwUnitType, !pTarget ? -1 : pTarget->dwUnitId, nSkillId, 0, nSkillLevel, 0);
     }
     else
     {
@@ -83,7 +83,7 @@ void __fastcall sub_00597D70_EmitCaller(D2GameStrc* pGame, D2UnitStrc* pMonster,
         return;
     }
 
-    sub_0053D530(pClient, 1, pMonster->dwUnitId, pTarget->dwUnitType, pTarget->dwUnitId, pMonster->dwAnimMode, 0, 0, 0);
+    SCMD_SendSkillUseOnUnit(pClient, 1, pMonster->dwUnitId, pTarget->dwUnitType, pTarget->dwUnitId, pMonster->dwAnimMode, 0, 0, 0);
 }
 
 static inline int GetUnitGUID(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwUnitId; }

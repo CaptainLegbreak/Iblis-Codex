@@ -204,7 +204,7 @@ D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIg
 
 void __fastcall sub_00538410_RemoveUnitIfNotAdjacent2(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x00538410
 
-void __fastcall sub_005394A0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x005394A0
+void __fastcall CLIENTS_SpawnPlayer(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x005394A0
 
 int __fastcall ClientAddPlayerToGame(D2ClientStrc* ptClient, D2GameStrc* ptGame, int bLoadFromSave, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00539760
 
@@ -3293,8 +3293,9 @@ D2UnitStrc* __fastcall PLAYER_GetWeaponForSkill(D2UnitStrc* pUnit)
                 case 2:
                 {
                     const int nFlag = SKILLS_GetFlags(pSkill) & 0x2000;
-                    pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 5);
-                    D2UnitStrc* pTemp = sub_0063C050_GetBodyLocItem(pInventory, 6);
+// build: symbol ?INVENTORY_GetCompositItem@* 0x0063C050
+                    pWeapon = INVENTORY_GetCompositItem(pInventory, 5);
+                    D2UnitStrc* pTemp = INVENTORY_GetCompositItem(pInventory, 6);
                     if (!pWeapon || !ITEMSIsA(pWeapon, ITEMTYPE_WEAPON) || pTemp && ITEMSIsA(pTemp, ITEMTYPE_WEAPON) && nFlag)
                     {
                         pWeapon = pTemp;
@@ -3305,11 +3306,11 @@ D2UnitStrc* __fastcall PLAYER_GetWeaponForSkill(D2UnitStrc* pUnit)
                 {
                     if (((pUnit->dwSeqFrame >> 8) % 2) != 0)
                     {
-                        pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 6);
+                        pWeapon = INVENTORY_GetCompositItem(pInventory, 6);
                     }
                     else
                     {
-                        pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 5);
+                        pWeapon = INVENTORY_GetCompositItem(pInventory, 5);
                     }
                     break;
                 }
@@ -3320,14 +3321,14 @@ D2UnitStrc* __fastcall PLAYER_GetWeaponForSkill(D2UnitStrc* pUnit)
                 }
                 case 1:
                 {
-                    pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 6);
+                    pWeapon = INVENTORY_GetCompositItem(pInventory, 6);
                     break;
                 }
                 default:
-                    pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 5);
+                    pWeapon = INVENTORY_GetCompositItem(pInventory, 5);
                     if (!pWeapon || !ITEMSIsA(pWeapon, ITEMTYPE_WEAPON))
                     {
-                        pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 6);
+                        pWeapon = INVENTORY_GetCompositItem(pInventory, 6);
                     }
                     break;
                 }
@@ -3740,7 +3741,7 @@ void __fastcall CLIENTS_RebuildPlayerWithClass(D2GameStrc* pGame, D2ClientStrc* 
     SUNIT_RemoveUnit(pGame, pPlayer);
     ClientAddPlayerToGame(pClient, pGame, 0, pRoom, nX, nY);
     D2UnitStrc* pClientPlayer = pClient->pPlayer;
-    sub_005394A0(pClient, pClientPlayer, pGame, pRoom, nX, nY);
+    CLIENTS_SpawnPlayer(pClient, pClientPlayer, pGame, pRoom, nX, nY);
 }
 
 // 0x0053A770
@@ -4295,7 +4296,7 @@ int __fastcall PLRSAVE_ReadCorpseSection(D2GameStrc* pGame, D2UnitStrc* pPlayer,
 }
 
 // 0x00533A60
-int __fastcall sub_00533A60_CalcValue(int nA, int nB)
+int __fastcall PLRSAVE_CalcValue(int nA, int nB)
 {
     return (nA + 1) * nA * nB * 3;
 }

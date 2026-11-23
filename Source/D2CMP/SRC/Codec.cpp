@@ -124,7 +124,7 @@ extern unsigned int gdwBitMasks_006CE268[];                                     
 void __stdcall sub_0060B9A0_DecodeStage1(D2DccDirStrc* pDir, D2DccCellStrc* pCells, D2CmpBitCursorStrc* pEqual, D2CmpBitCursorStrc* pMask, D2CmpBitCursorStrc* pEncoding, D2CmpBitCursorStrc* pRaw, D2CmpBitCursorStrc* pCode, D2CmpByteRunStrc* pRun, int* pnBitsUsed); // 0x0060B9A0
 
 // 0x0060BF20
-int __fastcall sub_0060BF20_LoadTileHeader(const char* szFile, D2CmpTileHeaderTargetStrc* pTarget)
+int __fastcall CodecLoadTileHeader(const char* szFile, D2CmpTileHeaderTargetStrc* pTarget)
 {
     void* hFile;
     FOG_FOpenFile(szFile, &hFile);
@@ -609,7 +609,7 @@ static inline void __stdcall sub_0060B140_BitBufferInit(int nSize, unsigned int*
 }
 
 // 0x0060BFF0
-int __fastcall sub_0060BFF0_LoadSpriteData(unsigned char* pData, void* pMemPool, int nSize, unsigned int dwFile, D2DccOutTableStrc* pTable, int nFirstDir, int nDirs, int* pnOutSize, const char* szFile)
+int __fastcall CodecDecodeDccData(unsigned char* pData, void* pMemPool, int nSize, unsigned int dwFile, D2DccOutTableStrc* pTable, int nFirstDir, int nDirs, int* pnOutSize, const char* szFile)
 {
     D2CmpBitCursorStrc tCursor;
     D2CmpBitCursorStrc tEqual;

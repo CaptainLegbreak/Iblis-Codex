@@ -79,7 +79,7 @@ void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStr
 
 void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
 
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
@@ -152,7 +152,8 @@ void __cdecl TEXT_ClearHoverUnit()
 
 struct D2UnitStrc;
 
-static void sub_0049D490_FreeTextNode(D2TextNodeStrc* pNode)
+// build: symbol ?TEXT_FreeTextNode@* 0x0049D490
+static void TEXT_FreeTextNode(D2TextNodeStrc* pNode)
 {
     for (int i = 0; i < 6; i++)
     {
@@ -181,7 +182,7 @@ void __fastcall TEXT_AddToHistory(D2TextNodeStrc* pSource)
             pPrevious = pNode;
             pNode = pNode->pNext;
         }
-        sub_0049D490_FreeTextNode(pNode);
+        TEXT_FreeTextNode(pNode);
         if (pPrevious)
             pPrevious->pNext = 0;
         if (gtTextHistory.wCount >= 1)
@@ -266,7 +267,7 @@ void __cdecl sub_0049FF00()
 void __fastcall TEXT_OpenTextData(D2UnitStrc* pUnit, D2ClientTextDataStrc* pTextData)
 {
     gpTextData = pTextData;
-    sub_00455F20(0x10, 2, 0);
+    UI_SetUIVar(0x10, 2, 0);
     GAME_ResetMouseState();
     if (gpTextData->dwTag == 0x20646B62)
     {
@@ -306,8 +307,8 @@ void __cdecl TEXT_ToggleListDialogUI()
 {
     if (gpListDialog)
     {
-        sub_00455F20(0x18, 1, 0);
-        sub_00455F20(0x18, 0, 0);
+        UI_SetUIVar(0x18, 1, 0);
+        UI_SetUIVar(0x18, 0, 0);
     }
 }
 

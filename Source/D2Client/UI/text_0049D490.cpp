@@ -81,7 +81,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 T0044CB60* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 
@@ -140,7 +140,7 @@ extern "C" int __cdecl atoi(const char* szString); // 0x00681EBB
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
 
-void __fastcall sub_0049D8E0_DrawTextList(T00479230* pTextBox, int nX, int nY); // 0x0049D8E0
+void __fastcall TEXT_DrawTextList(T00479230* pTextBox, int nX, int nY); // 0x0049D8E0
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
@@ -172,7 +172,7 @@ extern D2CoordStrc gtHoverOffset; // 0x007BF214
 
 extern int gnHoverRectCount; // 0x007BF224
 
-bool __stdcall sub_0049E070_PlaceHoverRect(int nCount, D2RectStrc* pRect);
+bool __stdcall TEXT_PlaceHoverRect(int nCount, D2RectStrc* pRect); // 0x0049E070
 
 void __fastcall TEXT_AddToHistory(D2TextNodeStrc* pSource); // 0x0049DBC0
 
@@ -256,23 +256,23 @@ struct D2CharStatsTxt;
 
 struct D2MonStatsTxt;
 
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-int __cdecl sub_00463DF0();
+int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 
-unsigned char __cdecl sub_00483350_IsCinematicBusy();
+unsigned char __cdecl INV_IsCinematicBusy(); // 0x00483350
 
-void __cdecl sub_004A2300_UpdateQuestPage();
+void __cdecl TEXT_UpdateQuestPage(); // 0x004A2300
 
-void __cdecl sub_004A23D0_LoadPanelCels();
+void __cdecl TEXT_LoadQuestPanelCels(); // 0x004A23D0
 
-int __stdcall sub_004A26B0_OpenPanel(int nArg);
+int __stdcall TEXT_OpenQuestPanel(int nArg); // 0x004A26B0
 
 int __cdecl sub_004A1760_Forward();
 
 void __stdcall sub_004A3220(int nPage, int nArg);
 
-void __fastcall sub_00478590(char nValue);
+void __fastcall MSG_SendHeaderOnly(char nValue); // 0x00478590
 
 #pragma pack(push, 2)
 
@@ -342,9 +342,9 @@ int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 void __fastcall TEXT_ToggleQuestLog(int nMode);
 
-void __cdecl sub_0044DA70(); // 0x0044DA70
+void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
-void __fastcall sub_004A1320_OpenTextPanel(unsigned short nStringId, int bSide, int bSound); // 0x004A1320
+void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, int bSound); // 0x004A1320
 
 void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext); // 0x0049E7E0
 
@@ -485,7 +485,7 @@ int __cdecl TEXT_IsMouseOnStatButton(); // 0x004A65E0
 
 void __fastcall sub_004B9A00_ChangeUiState(int, int, int, int, int); // 0x004B9A00
 
-void __stdcall sub_00467F20_MsgHandler(SMSGHANDLER_PARAMS*); // 0x00467F20
+void __stdcall ROSTERPETS_HandleButtonDown(SMSGHANDLER_PARAMS*); // 0x00467F20
 
 int __cdecl NPCMENU_IsNpcTalkActive(); // 0x004B3470
 
@@ -545,7 +545,7 @@ int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLaye
 
 extern "C" int gnFlag_007C02EC; // 0x007C02EC
 
-void __stdcall sub_00467FA0_MsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
+void __stdcall ROSTERPETS_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
 
 bool __stdcall TEXT_IsStatButtonHidden(int nArg); // 0x004A6A00
 
@@ -640,10 +640,10 @@ static int TEXT_IsOnPressedButton(int nX, int nY);
 
 void __fastcall TEXT_DrawUnitHoverText(D2UnitStrc* pUnit);
 
-bool __stdcall sub_0049E070_PlaceHoverRect(int nCount, D2RectStrc* pRect);
+bool __stdcall TEXT_PlaceHoverRect(int nCount, D2RectStrc* pRect); // 0x0049E070
 
 // 0x0049D490
-static void sub_0049D490_FreeTextNode(D2TextNodeStrc* pNode)
+static void TEXT_FreeTextNode(D2TextNodeStrc* pNode)
 {
     for (int i = 0; i < 6; i++)
     {
@@ -668,7 +668,7 @@ void __fastcall TEXT_AddToHistory(D2TextNodeStrc* pSource)
                 pPrevious = pNode;
                 pNode = pNode->pNext;
             }
-            sub_0049D490_FreeTextNode(pNode);
+            TEXT_FreeTextNode(pNode);
             if (pPrevious)
                 pPrevious->pNext = 0;
             if (gtTextHistory.wCount >= 1)
@@ -683,7 +683,7 @@ void __fastcall TEXT_AddToHistory(D2TextNodeStrc* pSource)
 
 void __fastcall sub_0049E5C0_PrintWrappedLine(const Unicode* wszText, char nColor)
 {
-    const int nOldFont = sub_00502EF0(0xD);
+    const int nOldFont = D2Win_10127_SetFont(0xD);
     D2TextNodeStrc* pNode = (D2TextNodeStrc*)FOG_Alloc(sizeof(D2TextNodeStrc), ".\\UI\\text.cpp", 0xDAD, 0);
     memset(pNode, 0, sizeof(D2TextNodeStrc));
     pNode->pNext = 0;
@@ -748,7 +748,7 @@ void __fastcall sub_0049E5C0_PrintWrappedLine(const Unicode* wszText, char nColo
     {
         D2TextNodeStrc* pFirst = gtOverheadTextList.pFirst;
         gtOverheadTextList.pFirst = pFirst->pNext;
-        sub_0049D490_FreeTextNode(pFirst);
+        TEXT_FreeTextNode(pFirst);
         gtOverheadTextList.wCount--;
     }
 
@@ -757,11 +757,12 @@ void __fastcall sub_0049E5C0_PrintWrappedLine(const Unicode* wszText, char nColo
         gpListBox->Refresh();
         sub_0049E340();
     }
-    sub_00502EF0(nOldFont);
+    D2Win_10127_SetFont(nOldFont);
     sub_004B9A00(6, 0, 0, 0, 0);
 }
 
-static void sub_0049D370_FreeTextLines(T0044CB60* pLine)
+// build: symbol ?TEXT_FreeTextLines@* 0x0049D370
+static void TEXT_FreeTextLines(T0044CB60* pLine)
 {
     while (pLine)
     {
@@ -772,7 +773,8 @@ static void sub_0049D370_FreeTextLines(T0044CB60* pLine)
     }
 }
 
-static void sub_0049D3C0_MeasureTextBox(T00479230* pBox)
+// build: symbol ?TEXT_MeasureTextBox@* 0x0049D3C0
+static void TEXT_MeasureTextBox(T00479230* pBox)
 {
     int nMaxWidth = 0;
     pBox->nTextTop = 0;
@@ -789,7 +791,7 @@ void __stdcall TEXT_FreeTextBox(T00479230* pTextBox)
 {
     if (pTextBox)
     {
-        sub_0049D370_FreeTextLines(pTextBox->pFirst);
+        TEXT_FreeTextLines(pTextBox->pFirst);
         FOG_Free(pTextBox, gszTextSourceFile, 0x68E, 0);
     }
 }
@@ -814,7 +816,7 @@ static int TEXT_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect)
     case 3:
         return 1;
     }
-    sub_0049D8E0_DrawTextList(pTextBox, pRect->nLeft, pRect->nTop);
+    TEXT_DrawTextList(pTextBox, pRect->nLeft, pRect->nTop);
     return 1;
 }
 
@@ -831,7 +833,7 @@ static __forceinline int sub_J06_IntersectsAnyHoverRect(const D2RectStrc* pRect,
 }
 
 // 0x0049E070
-static bool __stdcall sub_0049E070_PlaceHoverRect(int nCount, D2RectStrc* pRect)
+static bool __stdcall TEXT_PlaceHoverRect(int nCount, D2RectStrc* pRect)
 {
     if (nCount >= 0x10)
         return false;
@@ -883,7 +885,8 @@ static bool __stdcall sub_0049E070_PlaceHoverRect(int nCount, D2RectStrc* pRect)
     return false;
 }
 
-static bool sub_0049E280_ConvertHoverText(int nLangId, Unicode* wszText, const char* szText)
+// build: symbol ?TEXT_ConvertHoverText@* 0x0049E280
+static bool TEXT_ConvertHoverText(int nLangId, Unicode* wszText, const char* szText)
 {
     if (nLangId != 7 && nLangId != 0xC && nLangId != 6 && nLangId != 9)
     {
@@ -913,7 +916,8 @@ static bool sub_0049E280_ConvertHoverText(int nLangId, Unicode* wszText, const c
     return true;
 }
 
-static void __stdcall sub_004A0A00_ShowHoverText(const Unicode* wszText, D2UnitStrc* pUnit, D2HoverTextStrc* pHoverText, D2CoordStrc* pPos)
+// build: symbol ?TEXT_ShowHoverText@* 0x004A0A00
+static void __stdcall TEXT_ShowHoverText(const Unicode* wszText, D2UnitStrc* pUnit, D2HoverTextStrc* pHoverText, D2CoordStrc* pPos)
 {
     if (gnGameFrame > CHAT_GetTimeoutFromHoverMsg(pHoverText))
     {
@@ -922,10 +926,10 @@ static void __stdcall sub_004A0A00_ShowHoverText(const Unicode* wszText, D2UnitS
             pUnit->pHoverText = 0;
     }
 
-    const int nOldFont = sub_00502EF0(0x0D);
+    const int nOldFont = D2Win_10127_SetFont(0x0D);
     T00479230* pTextBox = (T00479230*)FOG_Alloc(sizeof(T00479230), gszTextSourceFile, 0x65D, 0);
     pTextBox->pFirst = sub_00502970_SplitText(wszText, &pTextBox->nLines, 0xB4);
-    sub_0049D3C0_MeasureTextBox(pTextBox);
+    TEXT_MeasureTextBox(pTextBox);
 
     pPos->nX -= pTextBox->nWidth >> 1;
     pPos->nY -= 0x32;
@@ -936,7 +940,7 @@ static void __stdcall sub_004A0A00_ShowHoverText(const Unicode* wszText, D2UnitS
     tRect.nLeft = pPos->nX;
     tRect.nBottom = pTextBox->nHeight + pPos->nY;
     tRect.nRight = pTextBox->nWidth + pPos->nX;
-    if (gnHoverRectCount < 0x10 && !sub_0049E070_PlaceHoverRect(gnHoverRectCount, &tRect))
+    if (gnHoverRectCount < 0x10 && !TEXT_PlaceHoverRect(gnHoverRectCount, &tRect))
     {
         TEXT_FreeTextBox(pTextBox);
         return;
@@ -945,7 +949,7 @@ static void __stdcall sub_004A0A00_ShowHoverText(const Unicode* wszText, D2UnitS
     ++gnHoverRectCount;
     TEXT_DrawTextBoxAt(pTextBox, &tRect);
     TEXT_FreeTextBox(pTextBox);
-    sub_00502EF0(nOldFont);
+    D2Win_10127_SetFont(nOldFont);
 }
 
 // 0x0049E3A0
@@ -955,7 +959,7 @@ void __fastcall TEXT_PrintChatLine(const Unicode* wszText, char nColor)
     memset(pNode, 0, sizeof(D2TextNodeStrc));
     pNode->pNext = 0;
     pNode->dwEndTick = GetTickCount() + 10000;
-    int nOldFont = sub_00502EF0(0xD);
+    int nOldFont = D2Win_10127_SetFont(0xD);
 
     int nLines;
     T0044CB60* pLine = sub_00502970_SplitText(wszText, &nLines, gnScreenWidth - 0x46);
@@ -1021,7 +1025,7 @@ void __fastcall TEXT_PrintChatLine(const Unicode* wszText, char nColor)
         D2TextNodeStrc* pOld = gtMessageTextList.pFirst;
         gtMessageTextList.pFirst = gtMessageTextList.pFirst->pNext;
         gtMessageTextList.wCount--;
-        sub_0049D490_FreeTextNode(pOld);
+        TEXT_FreeTextNode(pOld);
     }
 
     sub_004B9A00(6, 0, 0, 0, 0);
@@ -1030,7 +1034,7 @@ void __fastcall TEXT_PrintChatLine(const Unicode* wszText, char nColor)
         gpListBox->Refresh();
         sub_0049E340();
     }
-    sub_00502EF0(nOldFont);
+    D2Win_10127_SetFont(nOldFont);
 }
 
 // 0x004A0B30
@@ -1081,17 +1085,17 @@ void __fastcall TEXT_DrawUnitHoverText(D2UnitStrc* pUnit)
                 if (nLength >= 0xC8)
                     nLength = 0xC7;
                 sub_00526790(wszBuffer, wszString, nLength);
-                sub_004A0A00_ShowHoverText(wszBuffer, pUnit, pHoverText, &tPos);
+                TEXT_ShowHoverText(wszBuffer, pUnit, pHoverText, &tPos);
                 return;
             }
         }
     }
 
     Unicode wszHover[0x100];
-    if (!sub_0049E280_ConvertHoverText(CHAT_GetLangIdFromHoverMsg(pHoverText), wszHover, szText))
+    if (!TEXT_ConvertHoverText(CHAT_GetLangIdFromHoverMsg(pHoverText), wszHover, szText))
         return;
     wszHover[0xFF].wChar = 0;
-    sub_004A0A00_ShowHoverText(wszHover, pUnit, pHoverText, &tPos);
+    TEXT_ShowHoverText(wszHover, pUnit, pHoverText, &tPos);
 }
 
 // build: context TEXT_ReadLine
@@ -1189,37 +1193,37 @@ void __fastcall TEXT_ToggleQuestLog(int nMode)
 // build: symbol ?gdwQuestLogToggleTick@* 0x007C0259
         if (GetTickCount() - gdwQuestLogToggleTick < 250)
             return;
-        if (sub_00463DF0())
+        if (CUNIT_IsPlayerDeadOrMissing())
             return;
-        if (sub_00483350_IsCinematicBusy())
+        if (INV_IsCinematicBusy())
             return;
-        if (sub_00455F20(15, 0, nMode) != 1)
+        if (UI_SetUIVar(15, 0, nMode) != 1)
             return;
-        sub_004A23D0_LoadPanelCels();
+        TEXT_LoadQuestPanelCels();
         gtQuestLog = 2;
-        sub_004A2300_UpdateQuestPage();
+        TEXT_UpdateQuestPage();
 // build: symbol ?gnPage@* 0x007C0255
         sub_004A3220(gnPage, 0);
-        sub_00478590(0x40);
+        MSG_SendHeaderOnly(0x40);
         return;
     }
 
     if (gtQuestLog == 1)
     {
         gtQuestLog = 0;
-        if (sub_00483350_IsCinematicBusy())
+        if (INV_IsCinematicBusy())
             return;
-        if (sub_00455F20(15, 0, nMode) != 1)
+        if (UI_SetUIVar(15, 0, nMode) != 1)
             return;
-        sub_004A23D0_LoadPanelCels();
+        TEXT_LoadQuestPanelCels();
         gtQuestLog = 2;
-        sub_004A2300_UpdateQuestPage();
+        TEXT_UpdateQuestPage();
         sub_004A3220(gnPage, 0);
-        sub_00478590(0x40);
+        MSG_SendHeaderOnly(0x40);
         return;
     }
 
-    sub_004A26B0_OpenPanel(nMode);
+    TEXT_OpenQuestPanel(nMode);
     gdwQuestLogToggleTick = GetTickCount();
     sub_004A1760_Forward();
 }
@@ -1233,7 +1237,7 @@ void __fastcall TEXT_SetQuestRecord(const D2Record42Strc* pRecord)
     {
         if (gnState_007BF298 == 2)
         {
-            sub_004A23D0_LoadPanelCels();
+            TEXT_LoadQuestPanelCels();
         }
         sub_004A3220(gnPage_007C0255, 1);
     }
@@ -1277,7 +1281,8 @@ static unsigned char sub_004A2610_HitTestButtonA(int nX, int nY)
     return 0;
 }
 
-static int sub_004A2630_GetSlotAtPoint(int nX, int nY)
+// build: symbol ?TEXT_GetQuestSlotAtPoint@* 0x004A2630
+static int TEXT_GetQuestSlotAtPoint(int nX, int nY)
 {
     int nCount = gnQuestCount;
     D2_ASSERT((unsigned int)nCount <= 6, 0x738);
@@ -1300,7 +1305,8 @@ static unsigned char sub_004A2690_HitTestButtonB(int nX, int nY)
     return 0;
 }
 
-static void sub_004A27D0_OpenQuestDescription(int nSlot)
+// build: symbol ?TEXT_OpenQuestDescription@* 0x004A27D0
+static void TEXT_OpenQuestDescription(int nSlot)
 {
     int nIndex = -1;
     for (int i = 0; i < gnQuestCount; ++i)
@@ -1320,7 +1326,7 @@ static void sub_004A27D0_OpenQuestDescription(int nSlot)
     {
         return;
     }
-    sub_004A1320_OpenTextPanel(wTextId, 1, 0);
+    WARDENCLIENT_OpenTextPanel(wTextId, 1, 0);
     TEXT_SetTextCallback(TEXT_CloseQuestText, 0);
     gbQuestDescriptionOpen = 1;
 }
@@ -1339,7 +1345,7 @@ void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
 // build: symbol ?gnQuestPressedSlot@* 0x007BF2B5
         if (gnQuestPressedSlot != -1)
         {
-            int nSlot = sub_004A2630_GetSlotAtPoint(nX, nY);
+            int nSlot = TEXT_GetQuestSlotAtPoint(nX, nY);
             if (nSlot == gnQuestPressedSlot)
             {
 // build: symbol ?gaQuestPageSelection@* 0x007BF2BD
@@ -1352,7 +1358,7 @@ void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
         {
             if (sub_004A2610_HitTestButtonA(nX, nY) && gnQuestSelectedSlot != -1)
             {
-                sub_004A27D0_OpenQuestDescription(gnQuestSelectedSlot);
+                TEXT_OpenQuestDescription(gnQuestSelectedSlot);
             }
         }
     }
@@ -1366,7 +1372,7 @@ void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     {
         if ((int)(pMsg->lParam >> 16) > gnScreenHeight - 0x31) return;
     }
-    sub_0044DA70();
+    GAME_ResetMouseButtons();
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
@@ -1713,7 +1719,7 @@ int __fastcall TEXT_IsOnlyPressed(int nIndex)
 }
 
 // 0x004A4FA0
-static int sub_004A4FA0_GetEntryState(int nIndex, int nFlag)
+static int TEXT_GetKeyConfigEntryState(int nIndex, int nFlag)
 {
     if (nIndex == gnKeyConfigSelected && (gbKeyCaptureActive || nFlag == gnKeyConfigColumn))
     {
@@ -1760,7 +1766,7 @@ void __stdcall TEXT_OpenTextPanel(int bDraw)
         return;
     }
 
-    const int nOldMode = sub_00502EF0(5);
+    const int nOldMode = D2Win_10127_SetFont(5);
     tPiece.pCellFile = gpScroin2_007BF270;
     if (!gdwScrollTick)
     {
@@ -1812,13 +1818,13 @@ void __stdcall TEXT_OpenTextPanel(int bDraw)
         }
     }
 
-    sub_00502EF0(nOldMode);
+    D2Win_10127_SetFont(nOldMode);
 }
 
 int sub_B05_Emit_004A4FA0(int* pIndex)
 {
-    int nA = sub_004A4FA0_GetEntryState(*pIndex, 1);
-    int nB = sub_004A4FA0_GetEntryState(*pIndex, 0);
+    int nA = TEXT_GetKeyConfigEntryState(*pIndex, 1);
+    int nB = TEXT_GetKeyConfigEntryState(*pIndex, 0);
     return sub_B05_Sink(nA, nB);
 }
 
@@ -1837,7 +1843,7 @@ void __cdecl TEXT_ResetKeyConfigDefaults()
 void __cdecl TEXT_AcceptKeyConfig()
 {
     CMDTBL_SaveAndBindHotkeys();
-    sub_00455F20(11, 1, 0);
+    UI_SetUIVar(11, 1, 0);
     sub_0047E200_CloseMenus(1);
 }
 
@@ -1845,7 +1851,7 @@ void __cdecl TEXT_AcceptKeyConfig()
 void __cdecl TEXT_CancelKeyConfig()
 {
     sub_00469D50();
-    sub_00455F20(11, 1, 0);
+    UI_SetUIVar(11, 1, 0);
     WARDENCLIENT_ToggleEscMenuUIState(0, 1);
 }
 
@@ -1918,7 +1924,7 @@ void __stdcall TEXT_CancelKeyConfigMsg(SMSGHANDLER_PARAMS* message)
     if (global_00724728) {
         if (!(message->lParam & REPEAT_MASK)) {
             sub_00469D50();
-            sub_00455F20(UI_VARIABLE, 1, 0);
+            UI_SetUIVar(UI_VARIABLE, 1, 0);
             WARDENCLIENT_ToggleEscMenuUIState(0, 1);
             sub_004B9A00(1, 0, 0, 0, 0);
         }
@@ -2036,22 +2042,22 @@ void __cdecl TEXT_UpdateLevelUpButtons()
     if (GAME_GetUIVarState(6))
     {
         if (!STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0))
-            sub_00455F20(6, 1, 0);
+            UI_SetUIVar(6, 1, 0);
     }
     else
     {
         if (STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0) && !GAME_GetUIVarState(2))
-            sub_00455F20(6, 0, 0);
+            UI_SetUIVar(6, 0, 0);
     }
     if (GAME_GetUIVarState(7))
     {
         if (STATLIST_GetUnitBaseStat(pPlayer, STAT_NEWSKILLS, 0) <= 0)
-            sub_00455F20(7, 1, 0);
+            UI_SetUIVar(7, 1, 0);
     }
     else
     {
         if (STATLIST_GetUnitBaseStat(pPlayer, STAT_NEWSKILLS, 0) > 0 && !GAME_GetUIVarState(4))
-            sub_00455F20(7, 0, 0);
+            UI_SetUIVar(7, 0, 0);
     }
 }
 
@@ -2199,7 +2205,7 @@ void __stdcall TEXT_StatButtonDownMsg(SMSGHANDLER_PARAMS* message)
         {
             gnPressed_007C02E4 = 1;
             sub_004B9A00_ChangeUiState(4, 0, 0, 0, 0);
-            sub_00467F20_MsgHandler(message);
+            ROSTERPETS_HandleButtonDown(message);
             if (border == 2 && NPCMENU_IsNpcTalkActive()) return;
             message->bReturn = 1;
             message->lResult = 0;
@@ -2213,7 +2219,7 @@ void __stdcall TEXT_StatButtonDownMsg(SMSGHANDLER_PARAMS* message)
         {
             gnPressed_007C02E4 = 1;
             sub_004B9A00_ChangeUiState(4, 0, 0, 0, 0);
-            sub_00467F20_MsgHandler(message);
+            ROSTERPETS_HandleButtonDown(message);
             if (border == 2 && NPCMENU_IsNpcTalkActive()) return;
             message->bReturn = 1;
             message->lResult = 0;
@@ -2245,7 +2251,7 @@ void __stdcall TEXT_SkillButtonDownMsg(SMSGHANDLER_PARAMS* message)
         if (TEXT_IsInRightPanelButton(border, x, y))
         {
             MarkRightButtonPressed();
-            sub_00467F20_MsgHandler(message);
+            ROSTERPETS_HandleButtonDown(message);
             if (border == 1 && NPCMENU_IsNpcTalkActive()) return;
             message->bReturn = 1;
             message->lResult = 0;
@@ -2258,7 +2264,7 @@ void __stdcall TEXT_SkillButtonDownMsg(SMSGHANDLER_PARAMS* message)
         if (TEXT_IsMouseOnSkillButton())
         {
             MarkRightButtonPressed();
-            sub_00467F20_MsgHandler(message);
+            ROSTERPETS_HandleButtonDown(message);
             if (border == 1 && NPCMENU_IsNpcTalkActive()) return;
             message->bReturn = 1;
             message->lResult = 0;
@@ -2284,14 +2290,14 @@ void __stdcall TEXT_StatButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
         return;
     }
 
-    sub_00467FA0_MsgHandler(pMsg);
+    ROSTERPETS_HandleButtonUp(pMsg);
     if (D2GFX_GetResolutionMode() != 2)
     {
         if (gbStatButtonPressed && CLIENT_HitPanelButton(sub_0045AE90(), nX, nY))
         {
             gbStatButtonPressed = 0;
-            sub_00455F20(6, 1, 0);
-            sub_00455F20(2, 0, 0);
+            UI_SetUIVar(6, 1, 0);
+            UI_SetUIVar(2, 0, 0);
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
@@ -2303,7 +2309,7 @@ void __stdcall TEXT_StatButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
         if (gbStatButtonPressed && sub_004A65E0_IsInLeftButton())
         {
             gbStatButtonPressed = 0;
-            sub_00455F20(2, 0, 0);
+            UI_SetUIVar(2, 0, 0);
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
@@ -2330,14 +2336,14 @@ void __stdcall TEXT_SkillButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
         return;
     }
 
-    sub_00467FA0_MsgHandler(pMsg);
+    ROSTERPETS_HandleButtonUp(pMsg);
     if (D2GFX_GetResolutionMode() != 2)
     {
         if (gbSkillButtonPressed && CLIENT_HitRightPanelButton(sub_0045AE90(), nX, nY))
         {
             gbSkillButtonPressed = 0;
-            sub_00455F20(7, 1, 0);
-            sub_00455F20(4, 0, 0);
+            UI_SetUIVar(7, 1, 0);
+            UI_SetUIVar(4, 0, 0);
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
@@ -2349,7 +2355,7 @@ void __stdcall TEXT_SkillButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
         if (gbSkillButtonPressed && TEXT_IsMouseOnSkillButton())
         {
             gbSkillButtonPressed = 0;
-            sub_00455F20(4, 0, 0);
+            UI_SetUIVar(4, 0, 0);
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
@@ -2507,7 +2513,8 @@ void __cdecl TEXT_DrawSkillButton()
     sub_004F6480(&tContext, gnScreenWidth / 2 + 0xA3, gnScreenHeight - 8, -1, 5, 0);
 }
 
-static int sub_004A70C0_GetWieldedTypeStatMax(D2UnitStrc* pUnit)
+// build: symbol ?TEXT_GetWeaponBlock@* 0x004A70C0
+static int TEXT_GetWeaponBlock(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -2563,7 +2570,7 @@ static void TEXT_DrawBlockChanceHover(int nX, int nY, int nValue)
     int nLevel = UNITS_GetBlockRate(pPlayer, GAME_IsExpansion());
     if (nLevel <= 0)
     {
-        nLevel = sub_004A70C0_GetWieldedTypeStatMax(pPlayer);
+        nLevel = TEXT_GetWeaponBlock(pPlayer);
         if (nLevel > 0)
         {
             int nWeaponClass;
@@ -2618,7 +2625,7 @@ static inline D2CharStatsTxt* DATATBLS_GetCharStatsTxtRecord_Inl(int nClass)
 }
 
 // 0x004A7300
-static int sub_004A7300_AddToHitFactor(D2UnitStrc* pUnit, int nAttackRate)
+static int TEXT_AddToHitFactor(D2UnitStrc* pUnit, int nAttackRate)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
     {
@@ -2657,7 +2664,7 @@ int __stdcall TEXT_GetChanceToHit(int nAttackRate)
         nDefense = nDefense * 10 / 12;
     }
 
-    int nToHit = sub_004A7300_AddToHitFactor(pPlayer, nAttackRate);
+    int nToHit = TEXT_AddToHitFactor(pPlayer, nAttackRate);
     if (nDefense < 0)
     {
         nToHit -= nDefense;

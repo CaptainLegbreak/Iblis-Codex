@@ -2,7 +2,7 @@
 #include "D2Unicode.h"
 struct D2LaunchControlTemplateStrc;
 
-int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
+int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
 extern "C" const char gszFeCharPalDat[]; // 0x006D39E8
 extern "C" int __cdecl strcmp(const char* szString1, const char* szString2);
@@ -32,7 +32,7 @@ void __cdecl sub_0042F370_RestorePalette()
 {
     if (gbPaletteBusy)
     {
-        sub_0042F2E0_ReadPaletteFiles(gszFeCharPalDat, "palette\\fechar\\pal.pl2");
+        MAINMENUS_ReadPaletteFiles(gszFeCharPalDat, "palette\\fechar\\pal.pl2");
         gbPaletteBusy = 0;
     }
 }

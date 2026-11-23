@@ -34,7 +34,9 @@ int __stdcall sub_00443880_PollMcp(int nArg)
 {
     WINMAIN_PollMcpConnection();
 // build: symbol ?GAME_GetConnectError@* 0x00449C00
-    if (sub_00449E40() || sub_00449BE0() || GAME_GetConnectError() || gdwGlobal_00798CC4)
+// build: symbol ?GAME_GetMcpGameToken@* 0x00449BE0
+// build: symbol ?GAME_IsMcpCreateQueued@* 0x00449E40
+    if (GAME_IsMcpCreateQueued() || GAME_GetMcpGameToken() || GAME_GetConnectError() || gdwGlobal_00798CC4)
         D2Win_StopMessageLoop();
     return 1;
 }

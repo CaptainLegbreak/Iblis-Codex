@@ -1119,7 +1119,7 @@ D2UnitStrc* __fastcall AITACTICS_GetTargetMinion(D2GameStrc* pGame, D2UnitStrc* 
     }
 }
 // 0x005DEFE0
-int __fastcall sub_005DEFE0_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteEvent)
+int __fastcall AITACTICS_WalkAwayFromTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteEvent)
 {
     if (!pUnit || !pTarget)
     {
@@ -1194,7 +1194,7 @@ static inline unsigned int AITACTICS_GetUnitY(D2UnitStrc* pUnit)
 }
 
 // 0x005DF140
-int __fastcall sub_005DF140_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nDistance, int bDeleteEvent)
+int __fastcall AITACTICS_RunAwayFromTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nDistance, int bDeleteEvent)
 {
     unsigned int nX;
     unsigned int nY;
@@ -1295,7 +1295,7 @@ static inline unsigned int AI_RollUnitSeed(D2UnitStrc* pUnit)
 }
 
 // 0x005DF7D0
-int __fastcall sub_005DF7D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a4, int bDeleteAiEventCallback)
+int __fastcall AITACTICS_WalkToTargetWithRandomPathType(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a4, int bDeleteAiEventCallback)
 {
     int nMode = 6;
     if ((AI_RollUnitSeed(pUnit) & 0xFF) < 128)

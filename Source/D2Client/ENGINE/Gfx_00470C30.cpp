@@ -41,9 +41,9 @@ void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, i
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet);                                 // 0x00639DB0
 
-static void __stdcall sub_0046DF40_RecalcStateOverlays(D2StateOwnerStrc* pOwner, D2UnitStrc* pUnit, D2StateNodeStrc* pNode);
+static void __stdcall GFX_RecalcStateOverlays(D2StateOwnerStrc* pOwner, D2UnitStrc* pUnit, D2StateNodeStrc* pNode); // 0x0046DF40
 
-static void __stdcall sub_0046DF40_RecalcStateOverlays(D2StateOwnerStrc* pOwner, D2UnitStrc* pUnit, D2StateNodeStrc* pNode)
+static void __stdcall GFX_RecalcStateOverlays(D2StateOwnerStrc* pOwner, D2UnitStrc* pUnit, D2StateNodeStrc* pNode)
 {
     const int nStateId = pNode->nStateId;
     const int bHasState = STATES_CheckState(pUnit, nStateId);
@@ -175,7 +175,7 @@ void __fastcall sub_00470C30_UpdateStateOverlays(D2UnitStrc* pUnit)
             {
                 if (pNode->nCurrent >= 50)
                 {
-                    sub_0046DF40_RecalcStateOverlays(pOwner, pUnit, pNode);
+                    GFX_RecalcStateOverlays(pOwner, pUnit, pNode);
                 }
                 else
                 {

@@ -22,7 +22,7 @@ D2WaypointDataStrc* __stdcall WAYPOINTS_AllocWaypointData(void* pMemPool); // 0x
 extern char gbSent; // 0x007BF085
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 void __stdcall WAYPOINTS_FreeWaypointData(void* pMemPool, D2WaypointDataStrc* pData); // 0x00660FD0
 extern "C" void __cdecl sub_0049C650_CloseArchives(); // 0x0049C650
 
@@ -90,7 +90,7 @@ void __cdecl sub_0049C6C0_SendWaypointClose()
     if (!gbSent && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
     {
 // build: symbol ?gnWaypointId@* 0x007BF07D
-        sub_004786A0_SendDwords2(0x49, gnWaypointId, 0);
+        MSG_SendTwoDwords(0x49, gnWaypointId, 0);
         gbSent = 1;
     }
 }
@@ -110,7 +110,7 @@ void __cdecl sub_0049CF50_SendWaypointClose()
 {
     if (!gbSent && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
     {
-        sub_004786A0_SendDwords2(0x49, gnWaypointId, 0);
+        MSG_SendTwoDwords(0x49, gnWaypointId, 0);
         gbSent = 1;
     }
 }

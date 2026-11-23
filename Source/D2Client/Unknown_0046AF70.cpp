@@ -22,7 +22,7 @@ struct D2MonStats2Txt;
 
 
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
-D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
@@ -89,7 +89,7 @@ void __stdcall sub_0046AF70(D2ActiveRoomStrc* pRoom)
             int nX = tCoords.nSubtileX + SEED_RollLimitedRandomNumber(&pPlayer->pSeed, tCoords.nSubtileWidth);
             int nY = tCoords.nSubtileY + SEED_RollLimitedRandomNumber(&pPlayer->pSeed, tCoords.nSubtileHeight);
             tMissile.nX = nX;
-            if (!COLLISION_CheckMask(pRoom, nX, tMissile.nY = nY, 5)) { sub_004CD540_CreateMissile(&tMissile); } else { --nCount; }
+            if (!COLLISION_CheckMask(pRoom, nX, tMissile.nY = nY, 5)) { MISSILE_CreateClientMissile(&tMissile); } else { --nCount; }
             ++nCount;
         }
     }
@@ -155,7 +155,7 @@ void __fastcall sub_0046B710_SpawnMissileAtObject173(D2UnitStrc* pUnit)
     tMissileParams.nTargetX = nX;
     tMissileParams.nTargetY = nY;
     tMissileParams.nSkillLevel = 1;
-    sub_004CD540_CreateMissile(&tMissileParams);
+    MISSILE_CreateClientMissile(&tMissileParams);
 
     D2UnitStrc* pMissile = GFXUTIL_SubmitMissileRequest(pUnit, 0x14C, nX, nY, 0, 1);
     if (pMissile)

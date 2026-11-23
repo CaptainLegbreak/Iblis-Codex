@@ -89,11 +89,11 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
+void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
 void __stdcall INV_SelectItemPageTab(unsigned char nTab); // 0x00487A10
 
@@ -103,7 +103,7 @@ int __fastcall NPCMENU_GetInteractNpcId(int* pUnitId); // 0x004B3230
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 extern int gnScreenHeight; // 0x00711470
 
@@ -257,7 +257,7 @@ void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStr
 
 void __fastcall sub_00467430(void* pRect); // 0x00467430
 
-void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 void __stdcall TEXT_FreeTextList(void* pList); // 0x0049D4D0
 
@@ -531,15 +531,16 @@ extern "C" HashState gStates_00882760[];
 
 extern "C" ClassTableView* gClassTable_00744304;
 
-static bool sub_0049E280_ConvertHoverText(int nLangId, Unicode* wszText, const char* szText);
+static bool TEXT_ConvertHoverText(int nLangId, Unicode* wszText, const char* szText); // 0x0049E280
 
-static void __stdcall sub_0049F410_SetHoverText(int nLangId, const char* szText, D2UnitStrc* pUnit);
+static void __stdcall TEXT_SetHoverText(int nLangId, const char* szText, D2UnitStrc* pUnit); // 0x0049F410
 
 int __cdecl TEXT_CloseMessageLogCallback(); // 0x004A0030
 
 void __fastcall DIALOG_AddWidget(D2ClientDialogStrc* pDialog, void* pWidget, int nArg8, int nArgC); // 0x004B7C00
 
-D2ClientDialogStrc* __fastcall sub_004B7EB0_CreateDialog(int nArg1, int nArg2, int nArg8, int nArgC, int nArg10, int nArg14,
+// build: symbol ?DIALOG_CreateDialog@* 0x004B7EB0
+D2ClientDialogStrc* __fastcall DIALOG_CreateDialog(int nArg1, int nArg2, int nArg8, int nArgC, int nArg10, int nArg14,
     int nArg18, int nArg1C, int nArg20, int nArg24, int nArg28); // 0x004B7EB0
 
 void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex); // 0x004B82F0
@@ -652,7 +653,7 @@ void __cdecl TEXT_ResetNpcPanel()
 void __cdecl TEXT_LoadPopupHireling()
 {
     gnPetIconPopupState = 0;
-    sub_00455F20(0x23, 0, 0);
+    UI_SetUIVar(0x23, 0, 0);
     unsigned long dwValue = 0;
     SRegLoadValue("Diablo II", "PopupHireling", 0, &dwValue);
     if (!dwValue)
@@ -709,7 +710,7 @@ unsigned int __fastcall TEXT_CalcTextOffset(unsigned int nValue)
 }
 
 // 0x0049D8E0
-void __fastcall sub_0049D8E0_DrawTextList(D2TextListStrc* pList, int nX, int nY)
+void __fastcall TEXT_DrawTextList(D2TextListStrc* pList, int nX, int nY)
 {
     int nLines = pList->wCount > 10 ? 10 : pList->wCount;
 
@@ -725,15 +726,15 @@ void __fastcall sub_0049D8E0_DrawTextList(D2TextListStrc* pList, int nX, int nY)
         return;
     }
 
-    sub_0046EFD0_DrawFramedBox(nX, nY + 4, pList->nWidth, nHeight - 5, 0, 1);
+    AUTOMAP_DrawFramedBox(nX, nY + 4, pList->nWidth, nHeight - 5, 0, 1);
     int i = 0;
-    const int nOldFont = sub_00502EF0(13);
+    const int nOldFont = D2Win_10127_SetFont(13);
     for (; i < nLines && pNode; ++i)
     {
         D2Win_10117_DrawText(pNode->wszText, nX + 10, nY + 18 + 15 * (i - nLines + pList->wCount), 0, 0);
         pNode = pNode->pNext;
     }
-    sub_00502EF0(nOldFont);
+    D2Win_10127_SetFont(nOldFont);
 }
 
 // 0x0049DA30
@@ -847,7 +848,7 @@ void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket)
     }
 
     Unicode wszText[0x100];
-    if (!sub_0049E280_ConvertHoverText(pPacket->nLang, wszText, pPacket->szMessage))
+    if (!TEXT_ConvertHoverText(pPacket->nLang, wszText, pPacket->szMessage))
         return;
     wszText[0xFF].wChar = 0;
 
@@ -917,7 +918,7 @@ void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket)
     else if (pPacket->nMessageType == 5)
     {
         if (pUnit)
-            sub_0049F410_SetHoverText(pPacket->nLang, pPacket->szMessage, pUnit);
+            TEXT_SetHoverText(pPacket->nLang, pPacket->szMessage, pUnit);
     }
     else if (pPacket->nMessageType == 7)
     {
@@ -933,7 +934,8 @@ void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket)
     }
 }
 
-static void sub_0049D370_FreeTextLines(T0044CB60* pLine)
+// build: symbol ?TEXT_FreeTextLines@* 0x0049D370
+static void TEXT_FreeTextLines(T0044CB60* pLine)
 {
     while (pLine)
     {
@@ -944,7 +946,8 @@ static void sub_0049D370_FreeTextLines(T0044CB60* pLine)
     }
 }
 
-static void sub_0049D3C0_MeasureTextBox(T00479230* pBox)
+// build: symbol ?TEXT_MeasureTextBox@* 0x0049D3C0
+static void TEXT_MeasureTextBox(T00479230* pBox)
 {
     int nMaxWidth = 0;
     pBox->nTextTop = 0;
@@ -961,7 +964,7 @@ void __stdcall TEXT_FreeTextBox(T00479230* pTextBox)
 {
     if (pTextBox)
     {
-        sub_0049D370_FreeTextLines(pTextBox->pFirst);
+        TEXT_FreeTextLines(pTextBox->pFirst);
         FOG_Free(pTextBox, ".\\UI\\text.cpp", 0x68E, 0);
     }
 }
@@ -1043,8 +1046,8 @@ void __cdecl TEXT_ClearHint()
     ghHintSound = 0;
 }
 
-// build: context sub_0049E280_ConvertHoverText
-static bool sub_0049E280_ConvertHoverText(int nLangId, Unicode* wszText, const char* szText)
+// build: context TEXT_ConvertHoverText
+static bool TEXT_ConvertHoverText(int nLangId, Unicode* wszText, const char* szText)
 {
     if (nLangId != 7 && nLangId != 0xC && nLangId != 6 && nLangId != 9)
     {
@@ -1064,7 +1067,7 @@ static bool sub_0049E280_ConvertHoverText(int nLangId, Unicode* wszText, const c
     return true;
 }
 
-static void __stdcall sub_0049F410_SetHoverText(int nLangId, const char* szText, D2UnitStrc* pUnit)
+static void __stdcall TEXT_SetHoverText(int nLangId, const char* szText, D2UnitStrc* pUnit)
 {
     if (!pUnit)
         return;
@@ -1091,11 +1094,11 @@ T00479230* __fastcall TEXT_CreateTextBox(const Unicode* wszText, int nMode)
     if (nMode == 3)
     {
         pTextBox->pFirst = sub_00502970_SplitText(wszText, &pTextBox->nLines, 0xB4);
-        sub_0049D3C0_MeasureTextBox(pTextBox);
+        TEXT_MeasureTextBox(pTextBox);
         return pTextBox;
     }
 
-    const int nOldFont = sub_00502EF0(8);
+    const int nOldFont = D2Win_10127_SetFont(8);
     pTextBox->pFirst = TEXT_BuildTextLines(wszText, &pTextBox->nLines, &pTextBox->f_14);
     pTextBox->nWidth = 0x145;
     pTextBox->nHeight = 0x70;
@@ -1104,13 +1107,13 @@ T00479230* __fastcall TEXT_CreateTextBox(const Unicode* wszText, int nMode)
     pTextBox->nField22 = 0;
     pTextBox->nField26 = 0;
     pTextBox->nField2A = 0;
-    sub_00502EF0(nOldFont);
-    sub_0049D3C0_MeasureTextBox(pTextBox);
+    D2Win_10127_SetFont(nOldFont);
+    TEXT_MeasureTextBox(pTextBox);
     return pTextBox;
 }
 
 // 0x004A1510
-void __fastcall sub_004A1510_ShowTextBox(unsigned short nStringId)
+void __fastcall TEXT_ShowTextBox(unsigned short nStringId)
 {
     if (gpMainTextBox)
     {
@@ -1119,9 +1122,9 @@ void __fastcall sub_004A1510_ShowTextBox(unsigned short nStringId)
     }
 
     const Unicode* wszText = D2LANG_GetStringFromTblIndex(nStringId);
-    const int nOldFont = sub_00502EF0(0x0D);
+    const int nOldFont = D2Win_10127_SetFont(0x0D);
     gpMainTextBox = TEXT_CreateTextBox(wszText, 3);
-    sub_00502EF0(nOldFont);
+    D2Win_10127_SetFont(nOldFont);
     if (gpMainTextBox)
     {
         gpMainTextBox->nScroll = 1;
@@ -1191,7 +1194,7 @@ void __cdecl TEXT_ResetTextBox()
     }
     if (gbTextSound)
     {
-        sub_004786A0_SendDwords2(0x31, -1, gwTextStringId);
+        MSG_SendTwoDwords(0x31, -1, gwTextStringId);
         gbTextSound = 0;
     }
 }
@@ -1236,7 +1239,7 @@ void __stdcall TEXT_PanelClickMsg(SMSGHANDLER_PARAMS* pMsg)
     int nY = (unsigned short)((unsigned int)pMsg->lParam >> 16);
     if (nY < gnScreenHeight - 0x30 && nX < gnScreenWidth / 2)
     {
-        sub_00455F20(0x10, 2, 0);
+        UI_SetUIVar(0x10, 2, 0);
         TEXT_FreeTextPanelCels();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
@@ -1287,7 +1290,7 @@ extern "C" void __fastcall TEXT_AcceptWordPacket(const PacketWords* packet)
 // 0x004A0030
 int __cdecl TEXT_CloseMessageLogCallback()
 {
-    sub_00455F20(0x18, 1, 0);
+    UI_SetUIVar(0x18, 1, 0);
     return 1;
 }
 
@@ -1299,7 +1302,7 @@ void TEXT_OpenMessageLogDialog()
     {
         return;
     }
-    gpListDialog = sub_004B7EB0_CreateDialog(5, 0x1E, (int)TEXT_CloseMessageLogCallback, 0, 0, 0, 0,
+    gpListDialog = DIALOG_CreateDialog(5, 0x1E, (int)TEXT_CloseMessageLogCallback, 0, 0, 0, 0,
         gnScreenWidth - 0x14, gnScreenHeight - 0x82, 0, 0);
     sub_004B8370_SetField5C(gpListDialog, 1);
     sub_004B85F0_AddTextLine(gpListDialog, D2LANG_GetStringFromTblIndex(0xFC3), 0x15, 0, 4, 1, 0, 0);
@@ -1365,7 +1368,7 @@ extern "C" void __cdecl GAME_ConfigureEnvironmentOrDefer(); // 0x0044C820
 
 void __cdecl GAME_RequestExit(); // 0x0044D520
 
-void __fastcall sub_0044D530(int nValue); // 0x0044D530
+void __fastcall GAME_SetPlayCinematic(int nValue); // 0x0044D530
 
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
@@ -1475,7 +1478,7 @@ void __fastcall TEXT_HandleQuestEvent(int nArg, D2PacketRecord6Strc* pPacket)
                 sub_004B9A00(7, 0, 0, 0, 0);
                 return;
             case 36:
-                sub_0044D530(1);
+                GAME_SetPlayCinematic(1);
                 return;
             }
             return;
@@ -1546,7 +1549,7 @@ void __fastcall TEXT_HandleQuestEvent(int nArg, D2PacketRecord6Strc* pPacket)
 refresh:
     if (!gnState_007BF298)
     {
-        if (sub_00455F20(17, 0, 0) == 1)
+        if (UI_SetUIVar(17, 0, 0) == 1)
         {
             TEXT_SelectQuestPage(pPacket->nId);
             gnState_007BF298 = 1;

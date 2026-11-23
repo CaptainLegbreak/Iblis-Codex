@@ -333,7 +333,7 @@ void __cdecl PROFCORE_CloseLog();                                               
 
 int __stdcall GAME_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pRecord);                   // 0x0044B8A0
 
-void __cdecl sub_004519A0_ToggleFlags();                                                                    // 0x004519A0
+void __cdecl GAME_ToggleRecordPlayback();                                                                    // 0x004519A0
 
 void __cdecl WINMAIN_StartPlayback();                                                                  // 0x004518E0
 
@@ -457,7 +457,7 @@ int __fastcall sub_0044A870_SendPacket0B(const char* szText1, const char* szText
 
 int __fastcall sub_0044A900_SendPacket0C(const char* szText);
 
-int __fastcall sub_0044AAE0_SendSelect(const char* szName, int nB, int nC);
+int __fastcall WINMAIN_SendMcpCharRank(const char* szName, int nB, int nC); // 0x0044AAE0
 
 // 0x00449920
 int __fastcall WINMAIN_DecodeCdKey(const char* szCdKey, unsigned int* pProduct, unsigned int* pValue)
@@ -577,7 +577,7 @@ int __cdecl WINMAIN_PollMcpConnection()
 }
 
 // 0x0044A170
-static char* __stdcall sub_0044A170_AppendText(char* pDest, const char* szText, unsigned int nMax, unsigned int* pnSize)
+static char* __stdcall WINMAIN_AppendPacketString(char* pDest, const char* szText, unsigned int nMax, unsigned int* pnSize)
 {
     const unsigned int nLength = strlen(szText);
     *pnSize += nLength + 1;
@@ -610,7 +610,7 @@ int __fastcall WINMAIN_SendMcpStartup(D2LaunchThreadRecordStrc* pRecord)
     tPacket.nValue35 = pRecord->nData[15];
     tPacket.nValue39 = pRecord->nData[16];
     tPacket.nValue3D = pRecord->nData[17];
-    sub_0044A170_AppendText(tPacket.szText, (const char*)&pRecord->nData[0x12], sizeof(tPacket.szText), &nSize);
+    WINMAIN_AppendPacketString(tPacket.szText, (const char*)&pRecord->nData[0x12], sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 0x41;
     D2_ASSERT(nTotal < 0xFFFF, 0x5C);
     return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
@@ -627,7 +627,7 @@ int __fastcall WINMAIN_SendMcpCharCreate(const char* szText, int nValue, unsigne
     tPacket.f_0 = 2;
     tPacket.nValue = nValue;
     tPacket.wValue = wValue;
-    sub_0044A170_AppendText(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
+    WINMAIN_AppendPacketString(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 7;
     D2_ASSERT(nTotal < 0xFFFF, 0x7E);
     return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
@@ -640,7 +640,7 @@ int __fastcall WINMAIN_SendMcpCharLogon(const char* szText)
     CHATDLG_SetMcpResult(0);
     unsigned int nSize = 0;
     tPacket.f_0 = 7;
-    sub_0044A170_AppendText(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
+    WINMAIN_AppendPacketString(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 1;
     D2_ASSERT(nTotal < 0xFFFF, 0x9A);
     return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
@@ -659,9 +659,9 @@ int __fastcall WINMAIN_SendMcpCreateGame(D2McpCreateGameStrc* pRecord, unsigned 
     tPacket.f_0 = 3;
     tPacket.nByte09 = pRecord->nByte46;
     gwMcpRequestId = wRequestId;
-    char* pText = sub_0044A170_AppendText(tPacket.szText, pRecord->szName, sizeof(tPacket.szText), &nSize);
-    pText = sub_0044A170_AppendText(pText, pRecord->szPassword, sizeof(tPacket.szText), &nSize);
-    sub_0044A170_AppendText(pText, pRecord->szDescription, sizeof(tPacket.szText), &nSize);
+    char* pText = WINMAIN_AppendPacketString(tPacket.szText, pRecord->szName, sizeof(tPacket.szText), &nSize);
+    pText = WINMAIN_AppendPacketString(pText, pRecord->szPassword, sizeof(tPacket.szText), &nSize);
+    WINMAIN_AppendPacketString(pText, pRecord->szDescription, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 10;
     D2_ASSERT(nTotal < 0xFFFF, 0xC1);
     gnGlobal_00798FB0 = 0;
@@ -677,8 +677,8 @@ int __fastcall WINMAIN_SendMcpJoinGame(const char* szName, const char* szRealm, 
     tPacket.f_0 = 4;
     tPacket.f_1 = wRequestId;
     gwMcpRequestId = wRequestId;
-    char* pText = sub_0044A170_AppendText(tPacket.szText, szName, sizeof(tPacket.szText), &nSize);
-    sub_0044A170_AppendText(pText, szRealm, sizeof(tPacket.szText), &nSize);
+    char* pText = WINMAIN_AppendPacketString(tPacket.szText, szName, sizeof(tPacket.szText), &nSize);
+    WINMAIN_AppendPacketString(pText, szRealm, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 3;
     D2_ASSERT(nTotal < 0xFFFF, 0xE9);
     return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
@@ -694,7 +694,7 @@ void __fastcall WINMAIN_SendMcpGameListRequest(D2LaunchRequestStrc* pRequest, un
     tPacket.f_1 = wRequestId;
     tPacket.dwFlags = pRequest->dwFlags;
     gwMcpRequestId = wRequestId;
-    sub_0044A170_AppendText(tPacket.szText, (const char*)pRequest->nData, sizeof(tPacket.szText), &nSize);
+    WINMAIN_AppendPacketString(tPacket.szText, (const char*)pRequest->nData, sizeof(tPacket.szText), &nSize);
     nSize += 7;
     sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nSize);
 }
@@ -708,7 +708,7 @@ int __fastcall WINMAIN_SendMcpGameInfoRequest(char* szText, unsigned short wRequ
     tPacket.f_0 = 6;
     tPacket.f_1 = wRequestId;
     gwMcpRequestId = wRequestId;
-    sub_0044A170_AppendText(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
+    WINMAIN_AppendPacketString(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
     nSize += 3;
     return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nSize);
 }
@@ -722,7 +722,7 @@ int __fastcall sub_0044A680_SendPacket08(const char* szText, unsigned short wReq
     unsigned int nSize = 0;
     tPacket.f_0 = 8;
     tPacket.f_1 = wRequestId;
-    sub_0044A170_AppendText(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
+    WINMAIN_AppendPacketString(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 3;
     D2_ASSERT(nTotal < 0xFFFF, 0x148);
     gwMcpRequestId = wRequestId;
@@ -737,7 +737,7 @@ int __fastcall sub_0044A710_SendPacket09(const char* szText, unsigned short wReq
     unsigned int nSize = 0;
     tPacket.f_0 = 9;
     tPacket.f_1 = wRequestId;
-    sub_0044A170_AppendText(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
+    WINMAIN_AppendPacketString(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 3;
     D2_ASSERT(nTotal < 0xFFFF, 0x169);
     gwMcpRequestId = wRequestId;
@@ -773,8 +773,8 @@ int __fastcall sub_0044A870_SendPacket0B(const char* szText1, const char* szText
     CHATDLG_SetMcpResult(0);
     unsigned int nSize = 0;
     tPacket.f_0 = 0x0B;
-    char* pText = sub_0044A170_AppendText(tPacket.szText, szText1, sizeof(tPacket.szText), &nSize);
-    sub_0044A170_AppendText(pText, szText2, sizeof(tPacket.szText), &nSize);
+    char* pText = WINMAIN_AppendPacketString(tPacket.szText, szText1, sizeof(tPacket.szText), &nSize);
+    WINMAIN_AppendPacketString(pText, szText2, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 1;
     D2_ASSERT(nTotal < 0xFFFF, 0x1C2);
     return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
@@ -890,7 +890,7 @@ int __stdcall WINMAIN_RunMemoryTest(const D2CmdParamsStrc* pParams, int nUnused)
 // 0x0044B5A0
 int __stdcall WINMAIN_HandleToggleFlagsOption(const D2CmdParamsStrc* pParams, int nUnused)
 {
-    sub_004519A0_ToggleFlags();
+    GAME_ToggleRecordPlayback();
     return 1;
 }
 
@@ -1134,14 +1134,14 @@ int __fastcall sub_0044A900_SendPacket0C(const char* szText)
     CHATDLG_SetMcpResult(0);
     unsigned int nSize = 0;
     tPacket.f_0 = 0x0C;
-    sub_0044A170_AppendText(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
+    WINMAIN_AppendPacketString(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 1;
     D2_ASSERT(nTotal < 0xFFFF, 0x1DE);
     return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
 }
 
 // 0x0044AAE0
-int __fastcall sub_0044AAE0_SendSelect(const char* szName, int nB, int nC)
+int __fastcall WINMAIN_SendMcpCharRank(const char* szName, int nB, int nC)
 {
     D2McpPacket16Strc tPacket;
     CHATDLG_SetMcpResult(0);
@@ -1149,7 +1149,7 @@ int __fastcall sub_0044AAE0_SendSelect(const char* szName, int nB, int nC)
     tPacket.f_0 = 0x16;
     tPacket.nValue01 = nB;
     tPacket.nValue05 = nC;
-    sub_0044A170_AppendText(tPacket.szText, szName, sizeof(tPacket.szText), &nSize);
+    WINMAIN_AppendPacketString(tPacket.szText, szName, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 9;
     D2_ASSERT(nTotal < 0xFFFF, 0x27B);
     return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);

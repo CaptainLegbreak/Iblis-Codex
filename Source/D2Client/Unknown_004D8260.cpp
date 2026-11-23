@@ -22,8 +22,8 @@ struct D2SkillsTxt;
 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
-D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 void __fastcall MISSILE_CltDoCommon(D2UnitStrc* pMissile); // 0x004D30C0
 int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
 int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
@@ -112,7 +112,7 @@ void __fastcall sub_004D8260_CltDoMissileSpray(D2UnitStrc* pMissile)
         D2MissileStrc tParams;
         memset(&tParams, 0, sizeof(tParams));
         tParams.dwFlags = 0x21;
-        tParams.pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+        tParams.pOwner = CUNIT_GetOwnerUnit(pMissile);
         tParams.nX = nX;
         tParams.nY = nY;
         tParams.nTargetX = nX + nOffsetX;
@@ -120,7 +120,7 @@ void __fastcall sub_004D8260_CltDoMissileSpray(D2UnitStrc* pMissile)
         tParams.nSkill = MISSILE_GetSkill(pMissile);
         tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
         tParams.nMissile = MISSILE_ANCIENT_DEATH_CLOUD;
-        sub_004CD540_CreateMissile(&tParams);
+        MISSILE_CreateClientMissile(&tParams);
     }
 
     MISSILE_CltDoCommon(pMissile);

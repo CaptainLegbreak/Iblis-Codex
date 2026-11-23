@@ -18,7 +18,7 @@ int __stdcall CHATDLG_OnEditChange(void* pMsg); // 0x00440110
 void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int, int, int)); // 0x004FDAD0
 void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(void*)); // 0x004FDB00
 void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
-void* __cdecl sub_00446CF0(); // 0x00446CF0
+void* __cdecl GAME_GetChannelName(); // 0x00446CF0
 int __stdcall CONTROL_SetFocusedEditBox(D2WinControlStrc* pEditBox); // 0x004F91C0
 extern D2WinControlInitStrc gtCreateJoinBckgImageInit; // 0x0070D8D0
 extern D2WinControlInitStrc gtChannelScreenTitleInit; // 0x0070D900
@@ -125,7 +125,7 @@ void __cdecl sub_00440FC0_CreateGatewayControls()
         ++szList;
     }
 
-    sub_004FFE10_SetTextA(gpChannelNameEdit, (const char*)sub_00446CF0());
+    sub_004FFE10_SetTextA(gpChannelNameEdit, (const char*)GAME_GetChannelName());
     CONTROL_SetFocusedEditBox(gpChannelNameEdit);
     D2Win_10082(gpChannelNameEdit);
     D2Win_10053(gpChannelListBox, 0);

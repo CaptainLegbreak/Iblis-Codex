@@ -244,11 +244,11 @@ int __fastcall DATATBLS_AppendMemoryBuffer(char** ppCodes, int* pSize, int* pSiz
 
 int __fastcall DATATBLS_MapMissilesTxtKeywordToNumber(char* szKey); // 0x00661800
 
-int __fastcall sub_6FD62F20(char* szText, int* a2, int a3, int nKeywordNumber); // 0x00661880
+int __fastcall DATATBLS_MissileLinkerResolveKeyword(char* szText, int* a2, int a3, int nKeywordNumber); // 0x00661880
 
 int __stdcall DATATBLS_CompileExpression(const char* szFormulaString, char* pOutBuffer, int nOutBufferSize, int (__fastcall* pfnKeywordToNumber)(char*), int (__cdecl* pfnGetParameterCount)(), int (__fastcall* pfnLinkParse)(char*, int*, int, int)); // 0x006C1AE0
 
-static int __stdcall sub_00661A30_ClampMissileField(D2BinFieldStrc* pFields, int nMissileId, int nOffset, int nType, int nMin, int nMax);
+static int __stdcall DATATBLS_ClampMissileField(D2BinFieldStrc* pFields, int nMissileId, int nOffset, int nType, int nMin, int nMax); // 0x00661A30
 
 D2TxtLinkStrc* gpMissileCalcLinker_0096BC8C; // 0x0096BC8C
 
@@ -261,7 +261,7 @@ int __stdcall FOG_GetRowFromTxt(D2TxtLinkStrc* pLinker, const char* szText, int 
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars); // 0x00413590
 
 // 0x006617B0
-static void sub_006617B0_TextToLinkCode(const char* szText, char* szCode)
+static void DATATBLS_TextToLinkCode(const char* szText, char* szCode)
 {
     if (!szText[0])
     {
@@ -333,7 +333,7 @@ int __fastcall DATATBLS_MapMissilesTxtKeywordToNumber(char* szKey)
 }
 
 // 0x00661880
-int __fastcall sub_6FD62F20(char* szText, int* a2, int a3, int nKeywordNumber)
+int __fastcall DATATBLS_MissileLinkerResolveKeyword(char* szText, int* a2, int a3, int nKeywordNumber)
 {
     char szCode[4];
 
@@ -350,7 +350,7 @@ int __fastcall sub_6FD62F20(char* szText, int* a2, int a3, int nKeywordNumber)
                     return nRow;
                 }
 
-                sub_006617B0_TextToLinkCode(szText, szCode);
+                DATATBLS_TextToLinkCode(szText, szCode);
                 const int nIndex = FOG_GetLinkIndex(gpSkillCalcLinker_0096BC6C, *(unsigned int*)szCode, 1);
                 *a2 = 0;
                 return nIndex;
@@ -368,14 +368,14 @@ int __fastcall sub_6FD62F20(char* szText, int* a2, int a3, int nKeywordNumber)
                 }
             }
 
-            sub_006617B0_TextToLinkCode(szText, szCode);
+            DATATBLS_TextToLinkCode(szText, szCode);
             const int nIndex = FOG_GetLinkIndex(gpMissileCalcLinker_0096BC8C, *(unsigned int*)szCode, 1);
             *a2 = 0;
             return nIndex;
         }
     }
 
-    sub_006617B0_TextToLinkCode(szText, szCode);
+    DATATBLS_TextToLinkCode(szText, szCode);
     const int nIndex = FOG_GetLinkIndex(gpMissileCalcLinker_0096BC8C, *(unsigned int*)szCode, 1);
     *a2 = 0;
     return nIndex;
@@ -397,7 +397,7 @@ void __fastcall DATATBLS_MissileCalcLinker(char* pSrc, void* pRecord, int nOffse
         return;
     }
 
-    const int nBufferSize = DATATBLS_CompileExpression(pSrc, pBuffer, sizeof(pBuffer), DATATBLS_MapMissilesTxtKeywordToNumber, 0, sub_6FD62F20);
+    const int nBufferSize = DATATBLS_CompileExpression(pSrc, pBuffer, sizeof(pBuffer), DATATBLS_MapMissilesTxtKeywordToNumber, 0, DATATBLS_MissileLinkerResolveKeyword);
     if (nBufferSize <= 0)
     {
         *(int*)((char*)pRecord + nOffset) = -1;
@@ -408,7 +408,7 @@ void __fastcall DATATBLS_MissileCalcLinker(char* pSrc, void* pRecord, int nOffse
 }
 
 // 0x00661A30
-static int __stdcall sub_00661A30_ClampMissileField(D2BinFieldStrc* pFields, int nMissileId, int nOffset, int nType, int nMin, int nMax)
+static int __stdcall DATATBLS_ClampMissileField(D2BinFieldStrc* pFields, int nMissileId, int nOffset, int nType, int nMin, int nMax)
 {
     char* pRecord = (char*)DATATBLS_GetMissilesTxtRecord(nMissileId);
     int nValue = 0;
@@ -466,8 +466,8 @@ void __fastcall sub_00661A30_Shim(D2BinFieldStrc* pFields)
 {
     for (int i = 0; i < sgptDataTables->nMissilesTxtRecordCount; ++i)
     {
-        sub_00661A30_ClampMissileField(pFields, i, 0x183, 1, 0, 8);
-        sub_00661A30_ClampMissileField(pFields, i, 0x190, 2, -1, 100);
+        DATATBLS_ClampMissileField(pFields, i, 0x183, 1, 0, 8);
+        DATATBLS_ClampMissileField(pFields, i, 0x190, 2, -1, 100);
     }
 }
 

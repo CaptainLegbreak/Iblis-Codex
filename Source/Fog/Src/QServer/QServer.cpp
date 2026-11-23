@@ -651,7 +651,7 @@ int __cdecl sub_006B1C00()
 }
 
 // 0x006B20A0
-void* __cdecl sub_006B20A0()
+void* __cdecl QSERVER_GetFloorCacheSize()
 {
     return gnFloorCacheSize;
 }

@@ -134,7 +134,8 @@ void __fastcall FOG_AsyncDataHandlePriorityChanges(int bPostpone)
     }
 }
 
-void __fastcall sub_0040ABF0_HeapSiftDown(int* pHeap, int nCount, int nIndex)
+// build: symbol ?LOGMANAGER_HeapSiftDown@* 0x0040ABF0
+void __fastcall LOGMANAGER_HeapSiftDown(int* pHeap, int nCount, int nIndex)
 {
     int nValue = pHeap[nIndex];
     int nHalf = nCount / 2;
@@ -158,14 +159,14 @@ void __fastcall ASYNCDATA_HeapSort(int* pHeap, int nCount)
     for (int i = nCount / 2; i;)
     {
         --i;
-        sub_0040ABF0_HeapSiftDown(pHeap, nCount, i);
+        LOGMANAGER_HeapSiftDown(pHeap, nCount, i);
     }
     while (--nCount)
     {
         const int nTop = pHeap[0];
         pHeap[0] = pHeap[nCount];
         pHeap[nCount] = nTop;
-        sub_0040ABF0_HeapSiftDown(pHeap, nCount, 0);
+        LOGMANAGER_HeapSiftDown(pHeap, nCount, 0);
     }
 }
 

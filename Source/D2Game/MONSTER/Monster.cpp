@@ -48,7 +48,7 @@ void __fastcall MONSTERAI_FreeMonsterInteract(D2GameStrc* pGame, D2MonsterIntera
 
 void __fastcall EVENT_FreeUnitTimers(D2GameStrc* pGame, D2UnitStrc* pUnit);                                         // 0x00540EE0
 
-int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
+int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nType, int nParam); // 0x00540E60
 
@@ -162,7 +162,7 @@ void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUn
     {
         return;
     }
-    switch (GetValidMonsterClass(sub_00463860(pUnit)))
+    switch (GetValidMonsterClass(CUNIT_GetMonsterBaseId(pUnit)))
     {
     case 110:
     case 118:

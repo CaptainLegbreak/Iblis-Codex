@@ -41,12 +41,12 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);
 int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x00457490
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine);
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask);
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit);
+D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 short __fastcall CUNIT_GetPlayerPartyId(D2UnitStrc* pUnit); // 0x00465400
 int __fastcall sub_00478D90_GetUnitAlignment(unsigned int nUnitId);
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag);
 int __stdcall INVENTORY_GetOwnerId(D2InventoryStrc* pInventory);
-int __fastcall sub_00502EF0(int nArg);
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
@@ -59,9 +59,9 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);
 const Unicode* __fastcall CUNIT_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit);
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType);                    // 0x00463990
-D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry);
-unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry);
-int __fastcall sub_0047A0C0_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord);
+D2StoredUnitRecordStrc* __fastcall ROSTER_GetNextStoredUnit(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
+unsigned short __fastcall ROSTER_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
+int __fastcall ROSTER_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord); // 0x0047A0C0
 int __fastcall ROSTER_GetLevelId(D2StoredUnitRecordStrc* pEntry); // 0x0047A1E0
 void __fastcall sub_0047A1B0_GetEntryPosition(D2StoredUnitRecordStrc* pEntry, int* pX, int* pY);
 void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY);
@@ -115,7 +115,8 @@ static inline int AUTOMAP_GetUnitAnimModeR(D2UnitStrc* pUnit)
     return pUnit->dwAnimMode;
 }
 
-static int sub_00459BC0_GetAutomapUnitColor(D2UnitStrc* pUnit, unsigned char* pColor)
+// build: symbol ?AUTOMAP_GetAutomapUnitColor@* 0x00459BC0
+static int AUTOMAP_GetAutomapUnitColor(D2UnitStrc* pUnit, unsigned char* pColor)
 {
     switch (AUTOMAP_GetUnitType(pUnit))
     {
@@ -186,7 +187,7 @@ static int sub_00459BC0_GetAutomapUnitColor(D2UnitStrc* pUnit, unsigned char* pC
         nClass = AUTOMAP_GetUnitClassIdR(pUnit);
         nMode = AUTOMAP_GetUnitAnimModeR(pUnit);
         D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nMode, gszAutomapFile, 0x92D);
-        if (!nType && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && sub_004639D0_GetOwnerUnit(pUnit))
+        if (!nType && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && CUNIT_GetOwnerUnit(pUnit))
         {
             const unsigned short nPlayerRoster = CUNIT_GetPlayerPartyId(sub_00463DD0_GetPlayerUnit());
             if (nPlayerRoster != 0xFFFF && nPlayerRoster == (unsigned short)CUNIT_GetPlayerPartyId(pUnit))
@@ -256,7 +257,8 @@ static int sub_00459BC0_GetAutomapUnitColor(D2UnitStrc* pUnit, unsigned char* pC
     return 0;
 }
 
-static void __stdcall sub_0045A760_DrawAutomapText(unsigned char nColor, const char* szText, int nX, int nY)
+// build: symbol ?AUTOMAP_DrawAutomapText@* 0x0045A760
+static void __stdcall AUTOMAP_DrawAutomapText(unsigned char nColor, const char* szText, int nX, int nY)
 {
     if (!strlen(szText))
     {
@@ -268,15 +270,16 @@ static void __stdcall sub_0045A760_DrawAutomapText(unsigned char nColor, const c
         nColor = 0;
     }
 
-    const int nOldFont = sub_00502EF0(6);
+    const int nOldFont = D2Win_10127_SetFont(6);
     Unicode wszText[0x17];
     memset(wszText, 0, sizeof(wszText));
     sub_00526320_ToUnicode(wszText, szText, 0x17);
     D2Win_10117_DrawText(wszText, nX - D2Win_10121_GetTextWidth(wszText) / 2, nY - 10, nColor, 0);
-    sub_00502EF0(nOldFont);
+    D2Win_10127_SetFont(nOldFont);
 }
 
-static void __stdcall sub_0045A7F0_DrawAutomapCross(unsigned char nColor, int nX, int nY)
+// build: symbol ?AUTOMAP_DrawAutomapCross@* 0x0045A7F0
+static void __stdcall AUTOMAP_DrawAutomapCross(unsigned char nColor, int nX, int nY)
 {
     if (gnAutomapMode == 1)
     {
@@ -291,7 +294,8 @@ static void __stdcall sub_0045A7F0_DrawAutomapCross(unsigned char nColor, int nX
     }
 }
 
-static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
+// build: symbol ?AUTOMAP_DrawAutomapUnit@* 0x0045A860
+static void AUTOMAP_DrawAutomapUnit(D2UnitStrc* pUnit)
 {
     int nUnitType;
     if (!pUnit)
@@ -308,7 +312,7 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
         return;
     }
 
-    if (!sub_00459BC0_GetAutomapUnitColor(pUnit, &nColor))
+    if (!AUTOMAP_GetAutomapUnitColor(pUnit, &nColor))
     {
         return;
     }
@@ -327,7 +331,7 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
     case 0:
         if (gbAutomapParty || nColor != gabAutomapColors[3])
         {
-            sub_0045A7F0_DrawAutomapCross(nColor, nX, nY);
+            AUTOMAP_DrawAutomapCross(nColor, nX, nY);
         }
 
         if (gbAutomapPartyNames && gbAutomapParty && pUnit != sub_00463DD0_GetPlayerUnit())
@@ -336,19 +340,19 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
             {
                 if (gbAutomapParty)
                 {
-                    sub_0045A760_DrawAutomapText(2, UNITS_GetPlayerData(pUnit)->szName, nX, nY);
+                    AUTOMAP_DrawAutomapText(2, UNITS_GetPlayerData(pUnit)->szName, nX, nY);
                 }
             }
             else
             {
-                sub_0045A760_DrawAutomapText(1, UNITS_GetPlayerData(pUnit)->szName, nX, nY);
+                AUTOMAP_DrawAutomapText(1, UNITS_GetPlayerData(pUnit)->szName, nX, nY);
             }
         }
         break;
 
     case 1:
     {
-        sub_0045A7F0_DrawAutomapCross(nColor, nX, nY);
+        AUTOMAP_DrawAutomapCross(nColor, nX, nY);
         if (!gbAutomapPartyNames)
         {
             break;
@@ -356,10 +360,10 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
 
         if (MONSTERUNIQUE_CheckMonStatsFlag(AUTOMAP_GetUnitClassId(pUnit), 9))
         {
-            const int nOldFont = sub_00502EF0(6);
+            const int nOldFont = D2Win_10127_SetFont(6);
             const Unicode* wszName = CUNIT_GetUnitName(pUnit);
             D2Win_10117_DrawText(wszName, nX - D2Win_10121_GetTextWidth(wszName) / 2, nY - 10, 4, 0);
-            sub_00502EF0(nOldFont);
+            D2Win_10127_SetFont(nOldFont);
         }
 
         if (!gbAutomapPartyNames || !gbAutomapParty)
@@ -377,7 +381,7 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
                 break;
             }
 
-            D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pUnit);
+            D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pUnit);
             if (!pOwner || pOwner->dwUnitType != UNIT_PLAYER)
             {
                 break;
@@ -389,7 +393,7 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
                 break;
             }
 
-            sub_0045A760_DrawAutomapText(1, UNITS_GetPlayerData(pOwner)->szName, nX, nY);
+            AUTOMAP_DrawAutomapText(1, UNITS_GetPlayerData(pOwner)->szName, nX, nY);
         }
         break;
     }
@@ -397,20 +401,21 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
     case 2:
         if (gbAutomapPartyNames && pUnit && pUnit->dwClassId == 0x10B)
         {
-            const int nOldFont = sub_00502EF0(6);
+            const int nOldFont = D2Win_10127_SetFont(6);
             const Unicode* wszText = D2LANG_GetStringFromTblIndex(0xCF3);
             D2Win_10117_DrawText(wszText, nX - D2Win_10121_GetTextWidth(wszText) / 2, nY - 10, nColor, 0);
-            sub_00502EF0(nOldFont);
+            D2Win_10127_SetFont(nOldFont);
         }
         else
         {
-            sub_0045A7F0_DrawAutomapCross(nColor, nX, nY);
+            AUTOMAP_DrawAutomapCross(nColor, nX, nY);
         }
         break;
     }
 }
 
-static void sub_0045AB60_DrawAutomapPartyMember(D2StoredUnitRecordStrc* pEntry)
+// build: symbol ?AUTOMAP_DrawAutomapPartyMember@* 0x0045AB60
+static void AUTOMAP_DrawAutomapPartyMember(D2StoredUnitRecordStrc* pEntry)
 {
     int nX = 0;
     int nY = 0;
@@ -438,14 +443,14 @@ static void sub_0045AB60_DrawAutomapPartyMember(D2StoredUnitRecordStrc* pEntry)
 
     if (gbAutomapPartyNames)
     {
-        sub_0045A760_DrawAutomapText(2, ROSTER_GetEntryName(pEntry), nX, nY);
+        AUTOMAP_DrawAutomapText(2, ROSTER_GetEntryName(pEntry), nX, nY);
     }
 }
 
 // 0x0045AC90
 void __cdecl sub_0045AC90_DrawAutomapUnits()
 {
-    D2StoredUnitRecordStrc* pEntry = sub_004795A0_GetNextEntry(0);
+    D2StoredUnitRecordStrc* pEntry = ROSTER_GetNextStoredUnit(0);
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2ActiveRoomStrc** ppRooms = 0;
     int nRooms = 0;
@@ -455,21 +460,21 @@ void __cdecl sub_0045AC90_DrawAutomapUnits()
     {
         for (D2UnitStrc* pUnit = ppRooms[i]->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
         {
-            sub_0045A860_DrawAutomapUnit(pUnit);
+            AUTOMAP_DrawAutomapUnit(pUnit);
         }
     }
 
-    const unsigned short nIndex = sub_00479BC0_GetEntryIndex(pEntry);
+    const unsigned short nIndex = ROSTER_GetEntryIndex(pEntry);
     if (nIndex == 0xFFFF || !gbAutomapParty)
     {
         return;
     }
 
-    for (pEntry = sub_004795A0_GetNextEntry(pEntry); pEntry; pEntry = sub_004795A0_GetNextEntry(pEntry))
+    for (pEntry = ROSTER_GetNextStoredUnit(pEntry); pEntry; pEntry = ROSTER_GetNextStoredUnit(pEntry))
     {
-        if (!CUNIT_FindClientUnit(sub_0047A0C0_GetRecordUnitId(pEntry), 0) && nIndex == sub_00479BC0_GetEntryIndex(pEntry))
+        if (!CUNIT_FindClientUnit(ROSTER_GetRecordUnitId(pEntry), 0) && nIndex == ROSTER_GetEntryIndex(pEntry))
         {
-            sub_0045AB60_DrawAutomapPartyMember(pEntry);
+            AUTOMAP_DrawAutomapPartyMember(pEntry);
         }
     }
 }

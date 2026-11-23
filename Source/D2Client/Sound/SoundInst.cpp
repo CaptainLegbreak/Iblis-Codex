@@ -79,7 +79,7 @@ int __fastcall UI_GetUIVarUnchecked(int nUIVar); // 0x00453A90
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
-unsigned int __cdecl sub_00481820(); // 0x00481820
+unsigned int __cdecl DLIGHTMAP_GetSoundTick(); // 0x00481820
 
 D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 
@@ -95,7 +95,7 @@ D2ClientSoundStrc* __stdcall sub_004B9690_FindOldestEntry(int nGroup, D2UnitStrc
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nDelay, int nArg3, int nArg4); // 0x004B9A00
 
-void __fastcall sub_004CA8D0_NotifyUnitHint(D2UnitStrc* pUnit, int nHandle); // 0x004CA8D0
+void __fastcall UNITSND_RemoveUnitHint(D2UnitStrc* pUnit, int nHandle); // 0x004CA8D0
 
 void __fastcall sub_004DFC20(void* pStream); // 0x004DFC20
 
@@ -288,7 +288,7 @@ void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned
 
     if (pEntry->f_45)
     {
-        if (nGroup == pEntry->nFadeTo && sub_00481820() + nOffset + nCount >= pEntry->dwFadeEnd)
+        if (nGroup == pEntry->nFadeTo && DLIGHTMAP_GetSoundTick() + nOffset + nCount >= pEntry->dwFadeEnd)
         {
             return;
         }
@@ -311,7 +311,7 @@ void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned
         return;
     }
 
-    unsigned int nStart = sub_00481820() + nOffset;
+    unsigned int nStart = DLIGHTMAP_GetSoundTick() + nOffset;
     pEntry->dwFadeStart = nStart;
     pEntry->nFadeFrom = pEntry->f_1C;
     pEntry->nFadeTo = nGroup;
@@ -326,7 +326,7 @@ static void sub_004B94E0_FreeSound(D2ClientSoundStrc* pSound)
 
     D2SOUND_ListRemove(&gpSoundList_007C5458, pSound);
     for (D2SoundUnitNodeStrc* pNode = pSound->pUnitList; pNode; pNode = pNode->pNext)
-        sub_004CA8D0_NotifyUnitHint(pNode->pUnit, pSound->f_8);
+        UNITSND_RemoveUnitHint(pNode->pUnit, pSound->f_8);
 
     D2SOUND_ListFree(&pSound->pUnitList);
     if (pSound->nType == 1)
@@ -426,7 +426,7 @@ static inline int sub_004B9BC0_IsOnAndNotHeld(D2ClientSoundStrc* pSound)
 
 static void __cdecl sub_004B9EB0_PlayRandomSound()
 {
-    if (sub_00481820() % 3 == 0)
+    if (DLIGHTMAP_GetSoundTick() % 3 == 0)
     {
         const int nSound = SKILLDESC_RandomInRange(0xB76, 0x1230);
         sub_004B9A00(nSound, 0, 0, 0, 0);

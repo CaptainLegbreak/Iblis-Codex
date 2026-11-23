@@ -108,7 +108,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 D2UnitStrc* __fastcall sub_004C52E0(D2UnitStrc* pUnit, int* pTargetX, int* pTargetY); // 0x004C52E0
 
-D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
 #pragma pack(push, 1)
 
@@ -141,7 +141,7 @@ int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
+int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
 
 D2UnitStrc* __fastcall MISSILE_SubmitOffsetRequest(D2UnitStrc* pUnit, int nArg0, int nOffsetX, int nOffsetY, int nTargetX, int nTargetY, int nArg3, int nArg4, int nRange); // 0x004CDC30
 
@@ -212,7 +212,7 @@ extern int gnGlobal_007C88C4; // 0x007C88C4
 
 extern int gnGlobal_007C88C8; // 0x007C88C8
 
-D2GfxLightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
+D2GfxLightStrc* __fastcall DLIGHTMAP_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
 
 void __fastcall sub_00474290(D2GfxLightStrc* pLight, int nRadius); // 0x00474290
 
@@ -274,9 +274,9 @@ int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg
 
 int __fastcall UNITSND_GetDirectionRate(D2UnitStrc* pUnit, unsigned int nDirection); // 0x004CA4C0
 
-unsigned int __fastcall sub_004CA500_GetAnimRate(D2UnitStrc* pUnit, unsigned int nDirection); // 0x004CA500
+unsigned int __fastcall UNITSND_GetAnimRate(D2UnitStrc* pUnit, unsigned int nDirection); // 0x004CA500
 
-void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
+void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
@@ -386,7 +386,7 @@ unsigned short __stdcall COLLISION_CheckMaskWithSizeXY(D2ActiveRoomStrc* pRoom, 
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 
-int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
+int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
 
 D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId); // 0x0046ACE0
 
@@ -442,7 +442,7 @@ extern "C" int __stdcall sub_006492A0(int nX1, int nY1, int nX2, int nY2); // 0x
 
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 
-void __fastcall sub_004C5C40_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, AREASCANFN pfCallback, void* pArg, int bCheckType); // 0x004C5C40
+void __fastcall SKILLS_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, AREASCANFN pfCallback, void* pArg, int bCheckType); // 0x004C5C40
 
 int __fastcall SKILLS_ScanCountCallback(D2AreaScanStrc* pScan, D2UnitStrc* pUnit); // 0x004C5E20
 
@@ -494,7 +494,7 @@ int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc*,unsigned int,int,int); // 
 
 int __cdecl sub_0044DA90(); // 0x0044DA90
 
-void __fastcall sub_0044CE40(int); // 0x0044CE40
+void __fastcall GAME_SetSkillDelayUntil(int); // 0x0044CE40
 
 D2UnitStrc* __fastcall AUTOMAP_RequestAtTarget(D2UnitStrc* pUnit, int nRequest, int nArg3, int nArg4); // 0x004C5420
 
@@ -534,7 +534,7 @@ void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
 
 D2UnitStrc* __fastcall WARDENCLIENT_ScanFindUnit(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
 
-int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
+int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
 int __fastcall CUNIT_ValidateMonsterId(int nMonsterId); // 0x00463900
 
@@ -713,7 +713,7 @@ void __stdcall SKILLS_SetSpeedToTarget(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
 {
     int nTargetX;
     int nTargetY;
-    if (sub_004C52E0_GetTargetPosition(pUnit, &nTargetX, &nTargetY))
+    if (ITEM_GetTargetPosition(pUnit, &nTargetX, &nTargetY))
     {
         int nDistance = UNITS_GetDistanceToCoordinates(pUnit, nTargetX, nTargetY);
         if (nDistance < 1)
@@ -746,7 +746,7 @@ void __fastcall SKILLS_AttachMissileLight(D2UnitStrc* pUnit, int nMissileId)
     D2MissilesTxt* pMissilesTxt = DATATBLS_GetMissilesTxtRecordInline(nMissileId);
     if (pMissilesTxt->nLight)
     {
-        D2GfxLightStrc* pLight = sub_00474160_MakeLightEntry(pUnit, 1, 1, 0xFF, pMissilesTxt->nRGB[0], pMissilesTxt->nRGB[1], pMissilesTxt->nRGB[2]);
+        D2GfxLightStrc* pLight = DLIGHTMAP_MakeLightEntry(pUnit, 1, 1, 0xFF, pMissilesTxt->nRGB[0], pMissilesTxt->nRGB[1], pMissilesTxt->nRGB[2]);
         sub_00474290(pLight, pMissilesTxt->nLight);
         void* pOld = D2Common_10958(pUnit, pLight);
         if (pOld)
@@ -918,7 +918,7 @@ D2UnitStrc* __fastcall SKILLS_FireMissileAtTarget(int nMissile, D2UnitStrc* pUni
         return 0;
     }
 
-    return sub_004CD540_CreateMissile(&tMissileParams);
+    return MISSILE_CreateClientMissile(&tMissileParams);
 }
 
 // 0x004C58A0
@@ -1107,7 +1107,7 @@ int __fastcall SKILLS_CanScanUnit(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nF
             }
         }
     }
-    if (nFlags & 0x8000 && !sub_00465C60_CheckUnitPair(pUnit, pTarget))
+    if (nFlags & 0x8000 && !CUNIT_IsHostileTo(pUnit, pTarget))
     {
         return 0;
     }
@@ -1220,7 +1220,7 @@ static inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 }
 
 // 0x004C5C40
-void __fastcall sub_004C5C40_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, AREASCANFN pfCallback, void* pArg, int bCheckType)
+void __fastcall SKILLS_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, AREASCANFN pfCallback, void* pArg, int bCheckType)
 {
     if (!pUnit || !pfCallback)
     {
@@ -1299,7 +1299,7 @@ int __fastcall SKILLS_ScanCountCallback(D2AreaScanStrc* pScan, D2UnitStrc* pUnit
 int __fastcall SKILLS_ScanCount(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags)
 {
     int nResult = 0;
-    sub_004C5C40_ScanArea(pUnit, nX, nY, nRange, nFlags | 0xA783, SKILLS_ScanCountCallback, &nResult, 0);
+    SKILLS_ScanArea(pUnit, nX, nY, nRange, nFlags | 0xA783, SKILLS_ScanCountCallback, &nResult, 0);
     return nResult;
 }
 
@@ -1421,7 +1421,7 @@ int __fastcall SKILLS_ThrowWeapon(D2UnitStrc* pUnit, int nSkillId, int nArg)
     nMissile = ITEMS_GetMissileType(pItem);
     if (ITEMS_GetItemType(pItem) == ITEMTYPE_MISSILE_POTION)
     {
-        sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY);
+        ITEM_GetTargetPosition(pUnit, &nX, &nY);
         MISSILE_SubmitOffsetRequest(pUnit, nMissile, 0, 0, nX, nY, nSkillId, 1, 0);
         return 1;
     }
@@ -1443,7 +1443,7 @@ static int __stdcall SKILLS_StartClientSkill(int nOwnerGUID, int nSkillLevel, D2
     {
         int nX;
         int nY;
-        if (sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
+        if (ITEM_GetTargetPosition(pUnit, &nX, &nY))
         {
         int nCollisionMask;
         switch (pSkillsTxtRecord->nLineOfSight)
@@ -1554,7 +1554,7 @@ static int __stdcall SKILLS_StartClientSkill(int nOwnerGUID, int nSkillLevel, D2
         sub_00480C10_UnitEvent(7, pUnit, aArgs, 0);
         if (pUnit == sub_00463DD0_GetPlayerUnit())
         {
-            sub_004CB9C0_Request(pUnit, 0x18);
+            UNITSND_PlayPlayerSpeech(pUnit, 0x18);
         }
         return 0;
     }
@@ -1607,8 +1607,8 @@ static int __stdcall SKILLS_StartClientSkill(int nOwnerGUID, int nSkillLevel, D2
         if (BITARRAY_CHECK(pSkillsTxtRecord->nFlags, 13))
         {
             const int nDirection = UNITS_GetHitClass(pUnit);
-            sub_004CA500_GetAnimRate(pUnit, nDirection);
-            const int nDelay = sub_004CA500_GetAnimRate(pUnit, nDirection) - 3;
+            UNITSND_GetAnimRate(pUnit, nDirection);
+            const int nDelay = UNITSND_GetAnimRate(pUnit, nDirection) - 3;
             sub_004B9A00(nSound, pUnit, nDelay, 0, 0);
         }
         else
@@ -1623,8 +1623,8 @@ static int __stdcall SKILLS_StartClientSkill(int nOwnerGUID, int nSkillLevel, D2
         if (nSoundId)
         {
             const int nDirection = UNITS_GetHitClass(pUnit);
-            sub_004CA500_GetAnimRate(pUnit, nDirection);
-            const int nRate = sub_004CA500_GetAnimRate(pUnit, nDirection);
+            UNITSND_GetAnimRate(pUnit, nDirection);
+            const int nRate = UNITSND_GetAnimRate(pUnit, nDirection);
             sub_004B9A00(nSoundId, pUnit, nRate, 0, 0);
         }
     }
@@ -1636,8 +1636,8 @@ static int __stdcall SKILLS_StartClientSkill(int nOwnerGUID, int nSkillLevel, D2
         if (BITARRAY_CHECK(pSkillsTxtRecord->nFlags, 13))
         {
             const int nDirection = UNITS_GetHitClass(pUnit);
-            sub_004CA500_GetAnimRate(pUnit, nDirection);
-            const int nDelay = sub_004CA500_GetAnimRate(pUnit, nDirection) - 3;
+            UNITSND_GetAnimRate(pUnit, nDirection);
+            const int nDelay = UNITSND_GetAnimRate(pUnit, nDirection) - 3;
             sub_004B9A00(nClassSound, pUnit, nDelay, 0, 0);
         }
         else
@@ -1725,7 +1725,7 @@ void __fastcall ITEM_GetAdjacentPosition(D2UnitStrc* pUnit, int* pX, int* pY)
     *pY = aOffsetY[nDirection] + nY;
 }
 
-int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY)
+int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY)
 {
     int nY;
     D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
@@ -1801,7 +1801,7 @@ int __fastcall SKILLS_DoClientSkill(D2UnitStrc* unit,int skillId,int skillLevel,
  if(skill->wAuraFunc>0){
   int x=0,y=0,targetX=0,targetY=0;
   if(mode){
-   sub_004C52E0_GetTargetPosition(unit,&x,&y);
+   ITEM_GetTargetPosition(unit,&x,&y);
    if(x && y){
     targetX=x;targetY=y;
     x-=CLIENTS_GetUnitX(unit);
@@ -1840,7 +1840,7 @@ int __fastcall SKILLS_DoClientSkill(D2UnitStrc* unit,int skillId,int skillLevel,
  if(delay>0 && sub_00463DD0_GetPlayerUnit()==unit){
   if(delay>12)delay=12;
   if(skill->nAnim!=18 || !(unit->dwSeqFrame & 0xffffff00))
-   sub_0044CE40(sub_0044DA90()+delay);
+   GAME_SetSkillDelayUntil(sub_0044DA90()+delay);
  }
  return 1;
 }
@@ -1873,7 +1873,7 @@ void __fastcall SKILLS_DoSkillPrgFunc(D2UnitStrc* pUnit, D2UnitStrc* pTarget, in
     const int nOldValue = pUnit->dwInitSeed;
     int nTargetX;
     int nTargetY;
-    const int bHasTargetPos = sub_004C52E0_GetTargetPosition(pUnit, &nTargetX, &nTargetY);
+    const int bHasTargetPos = ITEM_GetTargetPosition(pUnit, &nTargetX, &nTargetY);
     D2UnitStrc* pOldTarget = CUNIT_GetPathTargetUnit(pUnit);
 
     if (pTarget)
@@ -1931,7 +1931,7 @@ void __fastcall SKILLS_DoSkillPrgFunc(D2UnitStrc* pUnit, D2UnitStrc* pTarget, in
 }
 
 // 0x004C6AC0
-void __fastcall sub_004C6AC0_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel, int nX, int nY, int nCharges)
+void __fastcall SKILLS_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel, int nX, int nY, int nCharges)
 {
     if (!pUnit)
     {
@@ -1970,7 +1970,7 @@ void __fastcall sub_004C6AC0_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int
 
     int nTargetX;
     int nTargetY;
-    const int bHasTargetPos = sub_004C52E0_GetTargetPosition(pUnit, &nTargetX, &nTargetY);
+    const int bHasTargetPos = ITEM_GetTargetPosition(pUnit, &nTargetX, &nTargetY);
     D2UnitStrc* pOldTarget = CUNIT_GetPathTargetUnit(pUnit);
 
     if (pTarget)
@@ -2012,7 +2012,7 @@ void __fastcall sub_004C6AC0_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int
             {
                 int nMissileX;
                 int nMissileY;
-                sub_004C52E0_GetTargetPosition(pUnit, &nMissileX, &nMissileY);
+                ITEM_GetTargetPosition(pUnit, &nMissileX, &nMissileY);
                 MISSILE_SubmitOffsetRequest(pUnit, pSkillsTxtRecord->wAuraFunc, 0, 0, nMissileX, nMissileY, nSkillId, nSkillLevel, 0);
             }
             else
@@ -2182,13 +2182,13 @@ static void __stdcall SKILLS_SpawnRing(D2MissileStrc* pAltParams, D2MissileStrc*
             {
                 pParams->nTargetX = gaRingTargetX[i];
                 pParams->nTargetY = gaRingTargetY[i];
-                sub_004CD540_CreateMissile(pParams);
+                MISSILE_CreateClientMissile(pParams);
             }
             else
             {
                 pAltParams->nTargetX = gaRingTargetX[i];
                 pAltParams->nTargetY = gaRingTargetY[i];
-                sub_004CD540_CreateMissile(pAltParams);
+                MISSILE_CreateClientMissile(pAltParams);
             }
         }
     }
@@ -2200,7 +2200,7 @@ static void __stdcall SKILLS_SpawnRing(D2MissileStrc* pAltParams, D2MissileStrc*
             pParams->nTargetY = gaRingTargetY[i];
             if (pParams->nMissile == MISSILE_DIABFIRE)
                 pParams->dwFlags ^= 0x4000;
-            sub_004CD540_CreateMissile(pParams);
+            MISSILE_CreateClientMissile(pParams);
         }
     }
 }
@@ -2240,7 +2240,7 @@ void __fastcall SKILLS_CreateSpiralMissiles(int nCount, D2MissileStrc* pMissileP
 
     pMissileParams->nTargetX = 14;
     pMissileParams->nTargetY = -14;
-    sub_004CD540_CreateMissile(pMissileParams);
+    MISSILE_CreateClientMissile(pMissileParams);
 
     int nRemaining = nCount - 1;
     for (int i = 0; i < 7; i++)
@@ -2254,16 +2254,16 @@ void __fastcall SKILLS_CreateSpiralMissiles(int nCount, D2MissileStrc* pMissileP
         {
             pMissileParams->nTargetX = gaSpiralInnerX[j] * gaSpiralOuterA[i];
             pMissileParams->nTargetY = gaSpiralInnerY[j] * gaSpiralOuterB[i];
-            sub_004CD540_CreateMissile(pMissileParams);
+            MISSILE_CreateClientMissile(pMissileParams);
             pMissileParams->nTargetX = gaSpiralInnerX[j] * gaSpiralOuterB[i];
             pMissileParams->nTargetY = gaSpiralInnerY[j] * gaSpiralOuterA[i];
-            sub_004CD540_CreateMissile(pMissileParams);
+            MISSILE_CreateClientMissile(pMissileParams);
             nRemaining -= 2;
         }
 
         pMissileParams->nTargetX = gaSpiralOuterX[i];
         pMissileParams->nTargetY = gaSpiralOuterY[i];
-        sub_004CD540_CreateMissile(pMissileParams);
+        MISSILE_CreateClientMissile(pMissileParams);
         nRemaining -= 1;
     }
 }
@@ -2325,7 +2325,7 @@ D2UnitStrc* __fastcall SKILLS_CreateTargetedMissile(D2UnitStrc* pUnit, int nMiss
         tMissileParams.nSkill = nSkill;
         tMissileParams.nSkillLevel = nSkillLevel;
         tMissileParams.nMissile = nMissile;
-        pResult = sub_004CD540_CreateMissile(&tMissileParams);
+        pResult = MISSILE_CreateClientMissile(&tMissileParams);
     }
     return pResult;
 }
@@ -2392,7 +2392,7 @@ void __fastcall SKILLS_SpawnMissileRing(D2UnitStrc* pUnit, D2MissileStrc* pMissi
         pMissileParams->nTargetY = pMissileParams->nY + nOffsetY;
         pMissileParams->pInitFunc = SKILLS_SetMissileDirection;
         pMissileParams->nInitArg = nDirection << 4;
-        sub_004CD540_CreateMissile(pMissileParams);
+        MISSILE_CreateClientMissile(pMissileParams);
     }
 }
 
@@ -2459,7 +2459,7 @@ int __fastcall SKILLS_ScatterRequestsAroundTarget(D2UnitStrc* pMissile, int nMis
 {
     int nTargetX;
     int nTargetY;
-    if (!sub_004C52E0_GetTargetPosition(pMissile, &nTargetX, &nTargetY))
+    if (!ITEM_GetTargetPosition(pMissile, &nTargetX, &nTargetY))
     {
         return 0;
     }
@@ -2842,9 +2842,9 @@ int __fastcall SKILLS_SpawnPairAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSk
         tMissileParams.nMissile = nMissile;
         tMissileParams.nX = tCoord.nX;
         tMissileParams.nY = tCoord.nY;
-        sub_004CD540_CreateMissile(&tMissileParams);
+        MISSILE_CreateClientMissile(&tMissileParams);
         tMissileParams.nMissile = MISSILE_CORPSEEXPLOSION;
-        sub_004CD540_CreateMissile(&tMissileParams);
+        MISSILE_CreateClientMissile(&tMissileParams);
         return 1;
     }
 
@@ -3047,7 +3047,7 @@ int __fastcall SKILLS_CltDoCharge(D2UnitStrc* pUnit, int nSkillId, int nSkillLev
             SKILLS_SetFlags(pSkill, 0);
             if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
             {
-                switch (CUNIT_ValidateMonsterId(sub_00463860(pUnit)))
+                switch (CUNIT_ValidateMonsterId(CUNIT_GetMonsterBaseId(pUnit)))
                 {
                 case 0x1B4:
                 case 0x1B9:
@@ -3114,7 +3114,7 @@ int __fastcall SKILLS_TriggerSkillOnUnit(void* pArg1, int nArg2, int nArg3, int 
 }
 
 // 0x004CA230
-int __fastcall sub_004CA230_Forward(void* pArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6)
+int __fastcall SKILLS_DoSkillAtPosition(void* pArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6)
 {
     if (pArg1 && nArg4 && nArg5)
     {
@@ -3211,7 +3211,7 @@ void __fastcall SKILLS_SpawnOffsetMissile(int nUnitId, int nUnused, D2UnitStrc* 
     tMissileParams.nSkillLevel = MISSILE_GetLevel(pMissile);
     tMissileParams.nMissile = MISSILE_HFSPIRIT1;
 
-    D2UnitStrc* pNewMissile = sub_004CD540_CreateMissile(&tMissileParams);
+    D2UnitStrc* pNewMissile = MISSILE_CreateClientMissile(&tMissileParams);
     if (pNewMissile)
     {
         sub_004DA000(pNewMissile);

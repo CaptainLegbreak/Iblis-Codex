@@ -78,7 +78,7 @@ struct D2ObjInitFnStrc {
 
 int __fastcall QUESTS_GetGlobalState(D2GameStrc*, int, int); // 0x00544760
 D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtCoordinates(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, short nFlags); // 0x005B3090
-void __fastcall sub_005417D0_DirectDated(D2GameStrc*,D2UnitStrc*,int,int,int,int); // 0x005417D0
+void __fastcall EVENT_SetEvent(D2GameStrc*,D2UnitStrc*,int,int,int,int); // 0x005417D0
 
 struct D2Act2Quest4Strc
 {
@@ -179,7 +179,7 @@ void __fastcall ACT2Q4_InitializeJerhynPalaceObject(D2QuestDataStrc* pQuestData,
         pQuestDataEx->guardY = pOp->nY;
         MONSTERSPAWN_SpawnAtCoordinates((pQuestData ? pQuestData->game : 0), pRoom, pQuestDataEx->guardX, pQuestDataEx->guardY, MONSTER_ACT2GUARD2, 1, 0);
     }
-    sub_005417D0_DirectDated(pOp->pGame, pOp->pObject, 7, pOp->pGame->dwGameFrame + 1, 0, 0);
+    EVENT_SetEvent(pOp->pGame, pOp->pObject, 7, pOp->pGame->dwGameFrame + 1, 0, 0);
     D2CoordStrc pCoord;
     pCoord.nX = pOp->nX;
     pCoord.nY = pOp->nY;

@@ -44,15 +44,15 @@ unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
-D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
 void __fastcall sub_004BA790_ReleaseUnitSfx(void* pUnitSfx, D2UnitStrc* pUnit, int bForce); // 0x004BA790
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
+int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
 D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
-int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther);
+int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
 
 enum D2C_SkillsTxtFlagIndices
 {
@@ -238,7 +238,8 @@ static inline int CLIENTS_GetUnitY_Spray(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-static void __stdcall sub_004F1A30_CreateSprayMissile(D2SkillsTxt* pSkillsTxt, int nSkillId, int nSkillLevel, D2UnitStrc* pUnit)
+// build: symbol ?SKILLDESC_CreateSprayMissile@* 0x004F1A30
+static void __stdcall SKILLDESC_CreateSprayMissile(D2SkillsTxt* pSkillsTxt, int nSkillId, int nSkillLevel, D2UnitStrc* pUnit)
 {
     const int nIndex = SEED_RollRandomNumber_Spray(&pUnit->pSeed) & 7;
     int nX = CLIENTS_GetUnitX_Spray(pUnit);
@@ -288,7 +289,7 @@ static void __stdcall sub_004F1A30_CreateSprayMissile(D2SkillsTxt* pSkillsTxt, i
     tMissile.nTargetY = -nOffsetX;
     tMissile.nSkillLevel = nSkillLevel;
 
-    D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissile);
+    D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissile);
     if (!pMissile)
     {
         return;
@@ -336,9 +337,9 @@ int __fastcall sub_004F1C80_SkillCltDoSpray(D2UnitStrc* pUnit, int nSkillId, int
     const int nPasses = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwCltCalc[0], nSkill, nSkillLevel);
     for (int i = 0; i < nPasses; ++i)
     {
-        sub_004F1A30_CreateSprayMissile(pSkillsTxt, nSkill, nSkillLevel, pUnit);
-        sub_004F1A30_CreateSprayMissile(pSkillsTxt, nSkill, nSkillLevel, pUnit);
-        sub_004F1A30_CreateSprayMissile(pSkillsTxt, nSkill, nSkillLevel, pUnit);
+        SKILLDESC_CreateSprayMissile(pSkillsTxt, nSkill, nSkillLevel, pUnit);
+        SKILLDESC_CreateSprayMissile(pSkillsTxt, nSkill, nSkillLevel, pUnit);
+        SKILLDESC_CreateSprayMissile(pSkillsTxt, nSkill, nSkillLevel, pUnit);
     }
 
     return 1;
@@ -365,7 +366,7 @@ int __fastcall sub_004F1F20_FireTwinCltMissiles(D2UnitStrc* pUnit, int nSkillId,
 
     int nX;
     int nY;
-    if (!sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
+    if (!ITEM_GetTargetPosition(pUnit, &nX, &nY))
     {
         return 0;
     }
@@ -382,13 +383,13 @@ int __fastcall sub_004F1F20_FireTwinCltMissiles(D2UnitStrc* pUnit, int nSkillId,
     if (pSkillsTxtRecord->wCltMissileA >= 0 && pSkillsTxtRecord->wCltMissileA < sgptDataTables->nMissilesTxtRecordCount)
     {
         tMissile.nMissile = pSkillsTxtRecord->wCltMissileA;
-        sub_004CD540_CreateMissile(&tMissile);
+        MISSILE_CreateClientMissile(&tMissile);
     }
 
     if (pSkillsTxtRecord->wCltMissileB >= 0 && pSkillsTxtRecord->wCltMissileB < sgptDataTables->nMissilesTxtRecordCount)
     {
         tMissile.nMissile = pSkillsTxtRecord->wCltMissileB;
-        D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissile);
+        D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissile);
         if (pMissile)
         {
             MISSILE_SetTargetX(pMissile, pUnit->dwInitSeed);
@@ -409,7 +410,7 @@ int __fastcall sub_004F2060_CheckTargetSetFlag(D2UnitStrc* pUnit, int nSkillId, 
         {
         case UNIT_PLAYER:
         case UNIT_MONSTER:
-            bOk = sub_00465C60_CheckUnitPair(pUnit, pTarget);
+            bOk = CUNIT_IsHostileTo(pUnit, pTarget);
             break;
         }
     }
@@ -516,7 +517,7 @@ static void __stdcall sub_004F2B20_CreateMissileRing(D2UnitStrc* pUnit, int nMis
         tMissileParams.nTargetX = gaMissileRingX[i];
         tMissileParams.nTargetY = gaMissileRingY[i];
         tMissileParams.nInitArg = SEED_RollRandomNumberInline(&tSeed);
-        D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
+        D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
         MISSILE_SetTargetX(pMissile, SKILLDESC_GetSkillParamTwo(nSkillId) + 1);
     }
 }
@@ -578,7 +579,7 @@ static void __stdcall sub_004F2DD0_CreateMissileRing2(D2UnitStrc* pUnit, int nMi
         tMissileParams.nTargetX = gaMissileRing2X[i];
         tMissileParams.nTargetY = gaMissileRing2Y[i];
         tMissileParams.nInitArg = SEED_RollRandomNumberInline(&tSeed);
-        D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
+        D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
         MISSILE_SetTargetX(pMissile, SKILLDESC_GetSkillParamTwo(nSkillId) + 1);
     }
 }
@@ -641,7 +642,7 @@ static void __stdcall sub_004F3290_CreateMissileBurst(D2UnitStrc* pUnit, int nX,
             tMissileParams.nTargetX = 20;
         }
 
-        D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
+        D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
         if (pMissile)
         {
             MISSILE_SetTargetX(pMissile, SEED_GetLowSeed(&tSeed));
@@ -666,7 +667,7 @@ int __fastcall sub_004F3430_CltSkillMissileBurst(D2UnitStrc* pUnit, int nSkillId
 
     int nX;
     int nY;
-    if (!sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
+    if (!ITEM_GetTargetPosition(pUnit, &nX, &nY))
     {
         return 0;
     }

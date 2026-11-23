@@ -90,7 +90,8 @@ static inline int sub_F05_MsgGetUnitId(D2UnitStrc* pUnit)
     return !pUnit ? -1 : pUnit->dwUnitId;
 }
 
-static void __stdcall sub_00597C70_SendSummonerInfo(D2ClientStrc* pClient, D2UnitStrc* pUnit)
+// build: symbol ?MONSTERMSG_SendSummonerInfo@* 0x00597C70
+static void __stdcall MONSTERMSG_SendSummonerInfo(D2ClientStrc* pClient, D2UnitStrc* pUnit)
 {
     if (!MONSTER_CheckSummonerFlag(pUnit, 1))
     {
@@ -110,7 +111,8 @@ static void __stdcall sub_00597C70_SendSummonerInfo(D2ClientStrc* pClient, D2Uni
     SCMD_SendUniqueMonsterInfo(pClient, sub_F05_MsgGetUnitId(pUnit), 1, nNameSeed, nUMods, nUMod2, nChampion);
 }
 
-static void __stdcall sub_00597CF0_SendLifeUpdate(D2UnitStrc* pUnit, D2ClientStrc* pClient)
+// build: symbol ?MONSTERMSG_SendLifeUpdate@* 0x00597CF0
+static void __stdcall MONSTERMSG_SendLifeUpdate(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
     const unsigned char nHitClass = pUnit->dwLastHitClass;
     unsigned char nHpPct = MONSTERMODE_GetHpPercent128(pUnit);
@@ -182,7 +184,7 @@ void __fastcall MONSTERMSG_SendMonsterUpdates(D2GameStrc* pGame, D2UnitStrc* pUn
 
         if (sub_F05_UnitFlagBit(pUnit, 15))
         {
-            sub_00597CF0_SendLifeUpdate(pUnit, pClient);
+            MONSTERMSG_SendLifeUpdate(pUnit, pClient);
         }
     }
 
@@ -198,7 +200,7 @@ void __fastcall MONSTERMSG_SendMonsterUpdates(D2GameStrc* pGame, D2UnitStrc* pUn
 
     if (pUnit && sub_F05_UnitFlagBit(pUnit, 11))
     {
-        sub_00597C70_SendSummonerInfo(pClient, pUnit);
+        MONSTERMSG_SendSummonerInfo(pClient, pUnit);
     }
 }
 

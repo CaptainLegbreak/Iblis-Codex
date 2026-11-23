@@ -118,7 +118,7 @@ int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x004
 
 int __cdecl ROSTER_IsAnyoneHostile(); // 0x0047A560
 
-int __cdecl sub_004B8A10(); // 0x004B8A10
+int __cdecl CUNIT_IsTrading(); // 0x004B8A10
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
@@ -136,9 +136,9 @@ int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
+D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
 void* __fastcall sub_0046E570_GetGfxEntry(D2UnitStrc* pUnit, int nMode); // 0x0046E570
 
@@ -184,7 +184,7 @@ void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
 
 T00479230* __fastcall TEXT_CreateTextBox(const Unicode* wszText, int nMode); // 0x004A05E0
 
-void __fastcall sub_004C5C40_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, AREASCANFN pfCallback, void* pArg, int bCheckType); // 0x004C5C40
+void __fastcall SKILLS_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, AREASCANFN pfCallback, void* pArg, int bCheckType); // 0x004C5C40
 
 int __fastcall SKILLS_ScanFindCallback(void* pArg, D2UnitStrc* pUnit); // 0x004C5E70
 
@@ -196,13 +196,13 @@ int __fastcall sub_004E0650_GetStringSound(unsigned short nStringId); // 0x004E0
 
 int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg); // 0x004785B0
 
-void __stdcall sub_004912A0_HandlePanelClick(SMSGHANDLER_PARAMS* pMsg); // 0x004912A0
+void __stdcall INV_HandlePanelClick(SMSGHANDLER_PARAMS* pMsg); // 0x004912A0
 
 int __stdcall HIREABLES_CanEquipHirelingItem(int nArg); // 0x004934D0
 
@@ -567,12 +567,12 @@ void __fastcall WARDENCLIENT_ToggleEscMenuUIState(int bSaveState, int nMenu)
                 }
                 if (GAME_GetUIVarState(i))
                 {
-                    sub_00455F20(i, 1, 0);
+                    UI_SetUIVar(i, 1, 0);
                 }
             }
         }
     }
-    sub_00455F20(9, 0, 0);
+    UI_SetUIVar(9, 0, 0);
     switch (nMenu)
     {
     case 0:
@@ -1023,7 +1023,7 @@ int __stdcall WARDENCLIENT_HandlePanelAreaClick(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
     if (nX >= gnGlobal_007BCAA0 && nX < gnGlobal_007BCAA4 && nY >= gnGlobal_007BCAA8 && nY <= gnGlobal_007BCAAC)
     {
-        sub_004912A0_HandlePanelClick(pMsg);
+        INV_HandlePanelClick(pMsg);
         return 1;
     }
     return 0;
@@ -1074,7 +1074,7 @@ void __cdecl WARDENCLIENT_DrawHostileIcon()
     {
         bPanel = 1;
     }
-    if (GAME_GetUIVarState(0x17) && !sub_004B8A10())
+    if (GAME_GetUIVarState(0x17) && !CUNIT_IsTrading())
     {
         return;
     }
@@ -1219,7 +1219,7 @@ void __cdecl WARDENCLIENT_BuildWaypointList()
 }
 
 // 0x004A1320
-void __fastcall sub_004A1320_OpenTextPanel(unsigned short nStringId, int bSide, int bSound)
+void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, int bSound)
 {
     if (!bSide)
     {
@@ -1272,10 +1272,10 @@ void __fastcall sub_004A1320_OpenTextPanel(unsigned short nStringId, int bSide, 
     }
 
     gbTextBoxDone = 0;
-    const int nOldFont = sub_00502EF0(8);
+    const int nOldFont = D2Win_10127_SetFont(8);
     gpTextBox = TEXT_CreateTextBox(D2LANG_GetStringFromTblIndex(nStringId), 2);
     D2_ASSERT(gpTextBox, 0x1063);
-    sub_00502EF0(nOldFont);
+    D2Win_10127_SetFont(nOldFont);
 
     *(int*)gpTextBox->nScroll = 0;
     gnTextActive = 1;
@@ -1311,7 +1311,7 @@ int __fastcall WARDENCLIENT_ScanFindUnit(D2UnitStrc* pUnit, int nX, int nY, int 
         nFlags = 0x583;
     }
 
-    sub_004C5C40_ScanArea(pUnit, nX, nY, nRange, nFlags | 0xA280, SKILLS_ScanFindCallback, &tFind, 0);
+    SKILLS_ScanArea(pUnit, nX, nY, nRange, nFlags | 0xA280, SKILLS_ScanFindCallback, &tFind, 0);
 
     int nResult = tFind.nFirst;
     if (!nResult)
@@ -1360,7 +1360,7 @@ int __fastcall WARDENCLIENT_UpdateUnitGfx(D2UnitStrc* pUnit, int nArg)
     D2InventoryStrc* pInventory;
     D2UnitStrc* pOwner;
     int bShapeshifted = pUnit ? (pUnit->dwFlagEx >> 3) & 1 : 0;
-    if (bShapeshifted && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = sub_004639D0_GetOwnerUnit(pUnit)) != 0)
+    if (bShapeshifted && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = CUNIT_GetOwnerUnit(pUnit)) != 0)
     {
         pInventory = pOwner->pInventory;
     }

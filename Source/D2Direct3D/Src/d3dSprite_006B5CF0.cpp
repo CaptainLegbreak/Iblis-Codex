@@ -28,7 +28,7 @@ int sub_006B5C80_LoadSpriteInfo(D2CelContextStrc* context, D2SpriteInfoStrc* inf
 static void sub_006B5CF0_SetTextureSize(D2SpriteInfoStrc* pInfo);
 static int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg3, int nArg4);
 void __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, unsigned int nColor, int nPaletteIndex, unsigned char nAlpha, int bPalette); // 0x006B63F0
-unsigned char sub_006B6680_SetBlendAndAlpha(int mode); // 0x006B6680
+unsigned char D3D_SetBlendAndAlpha(int mode); // 0x006B6680
 
 int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, int nArg3, unsigned char nColor); // 0x006B5D40
 
@@ -78,7 +78,7 @@ void __fastcall sub_006B6C90_DrawSpriteRows(D2CelContextStrc* pContext, int nX, 
 {
     D2SpriteInfoStrc tInfo;
 
-    unsigned char nAlpha = sub_006B6680_SetBlendAndAlpha(nBlendMode);
+    unsigned char nAlpha = D3D_SetBlendAndAlpha(nBlendMode);
     if (!sub_006B5C80_LoadSpriteInfo(pContext, &tInfo))
     {
         return;

@@ -148,7 +148,7 @@ int __fastcall MONSTER_IsUniqueMonster(D2UnitStrc* pUnit);                      
 int __fastcall MONSTER_IsMinionMonster(D2UnitStrc* pUnit);                                             // 0x004AE380
 int __fastcall MONSTER_IsSuperUniqueMonster(D2UnitStrc* pUnit);                                              // 0x004AE3A0
 int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
-int __fastcall sub_00463860(D2UnitStrc* pUnit);                                                             // 0x00463860
+int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit);                                                             // 0x00463860
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
@@ -165,11 +165,11 @@ int __cdecl sub_0044DB00(); // 0x0044DB00
 int __fastcall sub_004E40A0(int nRange);                                                                    // 0x004E40A0
 extern "C" int __fastcall SKILLDESC_RandomInRange(int nMin, int nMax); // 0x004E4100
 int __fastcall sub_004E4180(int nFrame, int nOffset, int nStepLength);                     // 0x004E4180
-int __fastcall sub_004CA810_GetModeSound(D2UnitStrc* pUnit, int nMode);                                     // 0x004CA810
+int __fastcall UNITSND_GetModeSound(D2UnitStrc* pUnit, int nMode);                                     // 0x004CA810
 int __fastcall UNITSND_GetUnitFloorMaterial(D2UnitStrc* pUnit);                                        // 0x004CADB0
-unsigned int __fastcall sub_004CA500_GetAnimRate(D2UnitStrc* pUnit, unsigned int nDirection);               // 0x004CA500
+unsigned int __fastcall UNITSND_GetAnimRate(D2UnitStrc* pUnit, unsigned int nDirection);               // 0x004CA500
 void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId);                               // 0x004CA900
-void __fastcall sub_004CAA10_PurgeUnitHints(D2UnitStrc* pUnit);                                             // 0x004CAA10
+void __fastcall UNITSND_PurgeUnitHints(D2UnitStrc* pUnit);                                             // 0x004CAA10
 int __fastcall UNITS_GetHitClass(D2UnitStrc* pUnit);                                                             // 0x00623C20
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther);                         // 0x006416D0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
@@ -181,7 +181,7 @@ int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsi
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId);         // 0x006439F0
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);                                      // 0x0045C4B0
 void __fastcall TEXT_SetSpeechHoverText(D2UnitStrc* pUnit, int nStringId);                          // 0x004A0200
-void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId);                          // 0x004CB9C0
+void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStringId);                          // 0x004CB9C0
 int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType);                                     // 0x004E0590
 void __fastcall sub_004DCE10_UpdateTimedHint(int nDelay, int nArg);                                         // 0x004DCE10
 
@@ -190,7 +190,8 @@ void __fastcall UNITSND_AddUnitSoundRefs(D2UnitStrc* pUnit, int nDelta); // 0x00
 
 #define UNIT_INVALID 6
 
-static int sub_004CA2C0_GetUnitSndClassId(D2UnitStrc* pUnit)
+// build: symbol ?UNITSND_GetUnitSndClassId@* 0x004CA2C0
+static int UNITSND_GetUnitSndClassId(D2UnitStrc* pUnit)
 {
     int nType;
     int nClass;
@@ -209,7 +210,8 @@ static int sub_004CA2C0_GetUnitSndClassId(D2UnitStrc* pUnit)
     return nClass;
 }
 
-static int sub_004CA320_GetUnitSndType(D2UnitStrc* pUnit)
+// build: symbol ?UNITSND_GetUnitSndType@* 0x004CA320
+static int UNITSND_GetUnitSndType(D2UnitStrc* pUnit)
 {
     int nType;
     int nClass;
@@ -289,12 +291,12 @@ static inline void sub_004CA560_SetHitSound2(int nHitClass, int* pSound1, int* p
 void __fastcall sub_004CA560_GetHitSounds(D2UnitStrc* pUnit, int nHitClass, int bParam, int* pSound1, int* pSound2)
 {
     D2_ASSERT(pUnit, 0xB82);
-    int nType = sub_004CA320_GetUnitSndType(pUnit);
+    int nType = UNITSND_GetUnitSndType(pUnit);
     *pSound1 = 0;
     *pSound2 = 0;
     if (nType == 1)
     {
-        if (MONSTERREGION_CheckMonStats2Flag(sub_004CA2C0_GetUnitSndClassId(pUnit), 0xD))
+        if (MONSTERREGION_CheckMonStats2Flag(UNITSND_GetUnitSndClassId(pUnit), 0xD))
             return;
     }
 

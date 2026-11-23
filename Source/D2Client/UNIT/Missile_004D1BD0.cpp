@@ -13,8 +13,8 @@ struct D2MissileStrc;
 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
-D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg); // 0x004E2ED0
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 int __stdcall sub_0064A780_targetValue(D2UnitStrc* pMissile); // 0x0064A780
@@ -103,7 +103,7 @@ int __fastcall sub_004D1BD0_CltHitScatter(D2UnitStrc* pMissile, D2UnitStrc* pUni
     D2MissileStrc tParams;
     memset(&tParams, 0, sizeof(tParams));
     tParams.dwFlags = 0x21;
-    tParams.pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+    tParams.pOwner = CUNIT_GetOwnerUnit(pMissile);
     tParams.nX = nX;
     tParams.nY = nY;
     tParams.nMissile = MISSILE_RADAMENTHOLYBOLT;
@@ -124,7 +124,7 @@ int __fastcall sub_004D1BD0_CltHitScatter(D2UnitStrc* pMissile, D2UnitStrc* pUni
             continue;
         }
 
-        D2UnitStrc* pNew = sub_004CD540_CreateMissile(&tParams);
+        D2UnitStrc* pNew = MISSILE_CreateClientMissile(&tParams);
         if (pNew)
         {
             SKILLDESC_InitCappedChargedPath(pNew, nTargetX);
@@ -176,7 +176,7 @@ void __fastcall sub_004D3F10_ClientMissileDo(D2UnitStrc* pMissile)
         return;
     }
 
-    tLocal.pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+    tLocal.pOwner = CUNIT_GetOwnerUnit(pMissile);
     tLocal.nLevel = MISSILE_GetLevel(pMissile);
     tLocal.nValue1 = SKILLS_EvaluateSkillFormula(tLocal.pOwner, pSkillsTxt->dwCalc[0], nSkillId, tLocal.nLevel);
     int nValue2 = SKILLS_EvaluateSkillFormula(tLocal.pOwner, pSkillsTxt->dwCalc[1], nSkillId, tLocal.nLevel);

@@ -51,13 +51,13 @@ struct D2RosterUnitStrc
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
-void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
+void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 int __fastcall TEXT_GetCenteredStringX(unsigned short nStringIndex, int nCenterX); // 0x0049AAA0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
-D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
-unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
+D2StoredUnitRecordStrc* __fastcall ROSTER_GetNextStoredUnit(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
+unsigned short __fastcall ROSTER_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
 extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
@@ -87,8 +87,8 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
-void __cdecl sub_0044DA70(); // 0x0044DA70
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __stdcall TEXT_IsMouseInRect(int nX, int nY, int nWidth, int nHeight); // 0x0049AA50
 void __cdecl ROSTER_SendLeaveParty(); // 0x00479FC0
@@ -134,9 +134,9 @@ static void __stdcall sub_0049AAF0_DrawTextFrame(unsigned short nAltString, unsi
         nHeight = 0xF;
     }
     if (nWidth > nAltWidth)
-        sub_0046EFD0_DrawFramedBox(gnPanelOffsetX - nWidth / 2 + nX - 5, nY - gnPanelOffsetY, nWidth + 0xA, nHeight, gnBoxColor, 2);
+        AUTOMAP_DrawFramedBox(gnPanelOffsetX - nWidth / 2 + nX - 5, nY - gnPanelOffsetY, nWidth + 0xA, nHeight, gnBoxColor, 2);
     else
-        sub_0046EFD0_DrawFramedBox(gnPanelOffsetX - nAltWidth / 2 + nX - 5, nY - gnPanelOffsetY, nAltWidth + 0xA, nHeight, gnBoxColor, 2);
+        AUTOMAP_DrawFramedBox(gnPanelOffsetX - nAltWidth / 2 + nX - 5, nY - gnPanelOffsetY, nAltWidth + 0xA, nHeight, gnBoxColor, 2);
 }
 
 void __stdcall sub_0049AF60_DrawButtonHint(unsigned short nString1, unsigned short nString2, int nCenterX, int nUnused, int nY1, int nY2, int nColor); // 0x0049AF60
@@ -206,7 +206,7 @@ static void sub_0049B030_DrawRosterTooltip(D2StoredUnitRecordStrc* pEntry)
         nColor2 = 4;
     const int nWidth1 = D2Win_10121_GetTextWidth(wszLine1) + 0xA;
     const int nWidth2 = D2Win_10121_GetTextWidth(wszLine2) + 0xA;
-    sub_0046EFD0_DrawFramedBox(gnPanelOffsetX + 0x24, 0x23 - gnPanelOffsetY, nWidth1 > nWidth2 ? nWidth1 : nWidth2, nHeight, gnBoxColor, 2);
+    AUTOMAP_DrawFramedBox(gnPanelOffsetX + 0x24, 0x23 - gnPanelOffsetY, nWidth1 > nWidth2 ? nWidth1 : nWidth2, nHeight, gnBoxColor, 2);
     D2Win_10117_DrawText(wszLine1, gnPanelOffsetX + 0x29, 0x32 - gnPanelOffsetY, nColor1, 0);
     D2Win_10117_DrawText(wszLine2, gnPanelOffsetX + 0x29, 0x41 - gnPanelOffsetY, nColor2, 0);
 }
@@ -214,10 +214,10 @@ static void sub_0049B030_DrawRosterTooltip(D2StoredUnitRecordStrc* pEntry)
 void __cdecl sub_0049B330_DrawRosterButtonHints()
 {
     D2RosterUnitStrc* pRow = gpRosterUnits;
-    D2StoredUnitRecordStrc* pFirst = sub_004795A0_GetNextEntry(0);
+    D2StoredUnitRecordStrc* pFirst = ROSTER_GetNextStoredUnit(0);
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(sub_00463DD0_GetPlayerUnit());
     int bInTown = 0;
-    D2StoredUnitRecordStrc* pEntry = sub_004795A0_GetNextEntry(pFirst);
+    D2StoredUnitRecordStrc* pEntry = ROSTER_GetNextStoredUnit(pFirst);
     gnBoxColor = D2Win_10034_MixRGB(0, 0, 0);
     if (pRoom && DUNGEON_IsRoomInTown(pRoom))
         bInTown = 1;
@@ -240,7 +240,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                 {
                     if (pRow->aButtons[k].nType == 1)
                     {
-                        if (ROSTER_GetLevel(sub_004795A0_GetNextEntry(0)) >= 9)
+                        if (ROSTER_GetLevel(ROSTER_GetNextStoredUnit(0)) >= 9)
                         {
                             if (pRow->nLevel >= 9)
                             {
@@ -359,7 +359,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
         }
         pRow = pRow->pNext;
         if (pEntry)
-            pEntry = sub_004795A0_GetNextEntry(pEntry);
+            pEntry = ROSTER_GetNextStoredUnit(pEntry);
     }
 }
 
@@ -374,9 +374,9 @@ static __forceinline int GetStringWidthInline(unsigned short nStringIndex)
 void __cdecl sub_0049ABD0_DrawRosterHoverHints()
 {
     D2RosterUnitStrc* pRow = gpRosterUnits;
-    D2StoredUnitRecordStrc* pFirst = sub_004795A0_GetNextEntry(0);
+    D2StoredUnitRecordStrc* pFirst = ROSTER_GetNextStoredUnit(0);
     gnBoxColor = D2Win_10034_MixRGB(0, 0, 0);
-    if (sub_00479BC0_GetEntryIndex(pFirst) != 0xFFFF)
+    if (ROSTER_GetEntryIndex(pFirst) != 0xFFFF)
     {
         const int nMouseX = sub_00468730();
         const int nMouseY = sub_00468740();
@@ -389,7 +389,7 @@ void __cdecl sub_0049ABD0_DrawRosterHoverHints()
             }
         }
     }
-    D2StoredUnitRecordStrc* pEntry = sub_004795A0_GetNextEntry(pFirst);
+    D2StoredUnitRecordStrc* pEntry = ROSTER_GetNextStoredUnit(pFirst);
     while (pRow)
     {
         const int nY = pRow->aButtons[0].nY;
@@ -440,7 +440,7 @@ void __cdecl sub_0049ABD0_DrawRosterHoverHints()
         }
         pRow = pRow->pNext;
         if (pEntry)
-            pEntry = sub_004795A0_GetNextEntry(pEntry);
+            pEntry = ROSTER_GetNextStoredUnit(pEntry);
     }
 }
 
@@ -504,7 +504,7 @@ static void sub_0049BAD0_SetRosterButtonState(D2StoredUnitRecordStrc* pEntry, D2
 void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
 {
     int nX = sub_00468730();
-    D2StoredUnitRecordStrc* pEntry = sub_004795A0_GetNextEntry(0);
+    D2StoredUnitRecordStrc* pEntry = ROSTER_GetNextStoredUnit(0);
     D2RosterUnitStrc* pRow = gpRosterUnits;
     gbRosterButtonDown = 0;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
@@ -514,18 +514,18 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
         int nY = sub_00468740();
         if (nX >= gnPanelOffsetX + 0x116 && nX <= gnPanelOffsetX + 0x136 && nY >= 0x185 - gnPanelOffsetY && nY <= 0x1A5 - gnPanelOffsetY)
         {
-            sub_00455F20(0x16, 1, 0);
-            sub_0044DA70();
+            UI_SetUIVar(0x16, 1, 0);
+            GAME_ResetMouseButtons();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
             return;
         }
 
-        if (TEXT_IsMouseInRect(0xE3, 0x23, 0x35, 0xB) && sub_00479BC0_GetEntryIndex(pEntry) != 0xFFFF)
+        if (TEXT_IsMouseInRect(0xE3, 0x23, 0x35, 0xB) && ROSTER_GetEntryIndex(pEntry) != 0xFFFF)
         {
             ROSTER_SendLeaveParty();
-            sub_0044DA70();
+            GAME_ResetMouseButtons();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
@@ -534,7 +534,7 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
 
         if (gbRosterMode)
         {
-            pEntry = sub_004795A0_GetNextEntry(pEntry);
+            pEntry = ROSTER_GetNextStoredUnit(pEntry);
             while (pEntry && pRow)
             {
                 for (int i = 0; i < 5; i++)
@@ -548,7 +548,7 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
                         nY = sub_00468740();
                         if (nX >= gnPanelOffsetX + nSlotX && nX <= gnPanelOffsetX + nSlotX + 0x14 && nY >= nSlotY - gnPanelOffsetY - 0x14 && nY <= nSlotY - gnPanelOffsetY)
                         {
-                            if (pSlot->nType == 1 && ROSTER_GetLevel(sub_004795A0_GetNextEntry(0)) < 9)
+                            if (pSlot->nType == 1 && ROSTER_GetLevel(ROSTER_GetNextStoredUnit(0)) < 9)
                             {
                                 pMsg->bReturn = 1;
                                 pMsg->lResult = 0;
@@ -575,7 +575,7 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
                         if (nX >= gnPanelOffsetX + nSlotX && nX <= gnPanelOffsetX + nSlotX + 0x35 && nY >= nSlotY - gnPanelOffsetY - 0x14 && nY <= nSlotY - gnPanelOffsetY)
                         {
                             sub_0049BAD0_SetRosterButtonState(pEntry, pRow, i);
-                            sub_0044DA70();
+                            GAME_ResetMouseButtons();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
@@ -584,10 +584,10 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
                     }
                 }
                 pRow = pRow->pNext;
-                pEntry = sub_004795A0_GetNextEntry(pEntry);
+                pEntry = ROSTER_GetNextStoredUnit(pEntry);
             }
             gbRosterMode = 0;
-            sub_0044DA70();
+            GAME_ResetMouseButtons();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
@@ -605,7 +605,7 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
                 }
             }
         }
-        sub_0044DA70();
+        GAME_ResetMouseButtons();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);

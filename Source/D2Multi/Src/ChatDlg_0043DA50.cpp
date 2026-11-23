@@ -350,7 +350,8 @@ int __fastcall CHATDLG_RunChat(D2LaunchCharInfoStrc* pInfo)
 // build: symbol ?CHATDLG_PostClearMessage@* 0x0043E570
             gpLaunchFuncs->pfn0xA8(sub_0043E4C0, (void (__cdecl*)())CHATDLG_PostClearMessage);
         sub_004FA590_RunLoop(CHATDLG_OnTick);
-        if (sub_00449E40())
+// build: symbol ?GAME_IsMcpCreateQueued@* 0x00449E40
+        if (GAME_IsMcpCreateQueued())
         {
             VIEW_SendMcpCancelGameCreate();
             sub_00449E50_SetValue(0);

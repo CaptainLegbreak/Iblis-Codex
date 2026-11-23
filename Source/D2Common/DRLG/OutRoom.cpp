@@ -253,10 +253,10 @@ void __fastcall DRLGOUTROOM_AllocDrlgOutdoorRoom(D2DrlgRoomStrc* pRoom)
     pRoom->pOutdoor = pOutdoor;
 }
 
-void __fastcall sub_0067D710(D2DrlgRoomStrc* pRoom); // 0x0067D710
+void __fastcall DRLGOUTROOM_InitializeDrlgOutdoorRoom(D2DrlgRoomStrc* pRoom); // 0x0067D710
 
 // 0x0067D710
-void __fastcall sub_0067D710(D2DrlgRoomStrc* pRoom)
+void __fastcall DRLGOUTROOM_InitializeDrlgOutdoorRoom(D2DrlgRoomStrc* pRoom)
 {
     DRLGROOMTILE_AllocTileGrid(pRoom);
 
@@ -326,7 +326,7 @@ void __fastcall DRLGOUTROOM_FreeDrlgOutdoorRoomData(D2DrlgRoomStrc* pRoom);
 
 void __fastcall DRLGOUTROOM_AllocDrlgOutdoorRoom(D2DrlgRoomStrc* pRoom);
 
-void __fastcall sub_0067D710(D2DrlgRoomStrc* pRoom);
+void __fastcall DRLGOUTROOM_InitializeDrlgOutdoorRoom(D2DrlgRoomStrc* pRoom); // 0x0067D710
 
 unsigned int __fastcall DRLGOUTROOM_CheckOutdoorRoomFlag(D2DrlgRoomStrc* pRoom);
 

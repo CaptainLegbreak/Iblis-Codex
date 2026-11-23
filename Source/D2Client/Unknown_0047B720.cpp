@@ -9,16 +9,16 @@ struct T0044CB60
     T0044CB60* pNext;
 };
 
-int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
+int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount);                    // 0x00526790
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                   // 0x00526F20
-void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6);  // 0x0046EFD0
+void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6);  // 0x0046EFD0
 int __cdecl GAME_IsExitPending();                                                                                 // 0x0044DA30
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 T0044CB60* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth);       // 0x00502970
 void __cdecl sub_0047B5C0_DrawImeCandidates();                                                              // 0x0047B5C0
 void __stdcall sub_0047B4F0_DrawImeText(int nX, int nY);
@@ -62,7 +62,7 @@ static void sub_0047B450_DrawBlinkingCaret(int nColor, int nY, int nX)
 // 0x0047B720
 void __cdecl sub_0047B720_DrawChatPanel()
 {
-    const int nOldFont = sub_00502EF0(13);
+    const int nOldFont = D2Win_10127_SetFont(13);
     if (gbChatInputOpen)
     {
         Unicode wszLanguage[20];
@@ -101,12 +101,12 @@ void __cdecl sub_0047B720_DrawChatPanel()
     }
 
     gnChatDrawCount += 1;
-    sub_0046EFD0_DrawFramedBox(0x7F, gnScreenHeight - 0x67, gnScreenWidth - 0xFF, 0x2F, 0, 1);
+    AUTOMAP_DrawFramedBox(0x7F, gnScreenHeight - 0x67, gnScreenWidth - 0xFF, 0x2F, 0, 1);
 
     int nWidth = 0;
     if (GAME_IsExitPending())
     {
-        sub_00455F20(5, 1, 0);
+        UI_SetUIVar(5, 1, 0);
     }
 
     int nRow = 0;
@@ -159,5 +159,5 @@ void __cdecl sub_0047B720_DrawChatPanel()
         sub_0047B450_DrawBlinkingCaret(0, 15 * nRow + gnScreenHeight - 0x58, nWidth);
     }
 
-    sub_00502EF0(nOldFont);
+    D2Win_10127_SetFont(nOldFont);
 }

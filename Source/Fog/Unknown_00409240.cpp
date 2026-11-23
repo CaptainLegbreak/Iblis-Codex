@@ -36,7 +36,8 @@ static inline int Log2Ceil(int nValue)
     return nBits;
 }
 
-static __declspec(noinline) int sub_004091B0_GetPoolIndex(int nSize)
+// build: symbol ?ERRORMANAGER_GetPoolIndex@* 0x004091B0
+static __declspec(noinline) int ERRORMANAGER_GetPoolIndex(int nSize)
 {
     if (nSize <= 0x10)
     {
@@ -232,7 +233,7 @@ void* __fastcall sub_0040A080_PoolAlloc(D2PoolSystemStrc* pSystem, int nSize, co
     {
         return ERRORMANAGER_PoolAllocLarge(pSystem, nSize, szFile, nLine);
     }
-    const int nIndex = sub_004091B0_GetPoolIndex(nSize);
+    const int nIndex = ERRORMANAGER_GetPoolIndex(nSize);
     if (nIndex >= pSystem->nPools)
     {
         return ERRORMANAGER_PoolAllocLarge(pSystem, nSize, szFile, nLine);

@@ -22,10 +22,10 @@ static inline void sub_00513380_RemapSpan(unsigned char* pDst, const unsigned ch
     }
 }
 
-static void __stdcall sub_00513380_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows);
+static void __stdcall DDRAW_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows); // 0x00513380
 
-// build: context sub_00513380_RemapRows
-static void __stdcall sub_00513380_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows)
+// build: context DDRAW_RemapRows
+static void __stdcall DDRAW_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows)
 {
     unsigned char* pSrc = gpRemapSource_008816B0;
 // build: symbol ?gnRenderWidth@* 0x007C9138
@@ -71,12 +71,12 @@ void __fastcall sub_005135F0_DDrawPlaySmacker(D2SmackRecordStrc* pRecord)
             return;
         if (!gbDDrawSmackRemapReady)
             return;
-        sub_00513380_RemapRows(hSmack->nWidth, pRecord, hSmack->nHeight);
+        DDRAW_RemapRows(hSmack->nWidth, pRecord, hSmack->nHeight);
         return;
     }
     case 'p':
         if (!gbRenderPaused)
-            sub_00513380_RemapRows(468, pRecord, 60);
+            DDRAW_RemapRows(468, pRecord, 60);
         break;
     }
 }

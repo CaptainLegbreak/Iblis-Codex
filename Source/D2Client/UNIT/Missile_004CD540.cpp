@@ -45,7 +45,7 @@ void __fastcall CUNIT_FreeLight(D2UnitStrc* pUnit);                             
 
 D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nIndex, int nX, int nY, int nUnitType, int nMode);  // 0x00466730
 
-D2GfxLightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nMode, int nRadius, unsigned char nIntensity, unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x00474160
+D2GfxLightStrc* __fastcall DLIGHTMAP_MakeLightEntry(D2UnitStrc* pUnit, int nMode, int nRadius, unsigned char nIntensity, unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x00474160
 
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);                              // 0x00483360
 
@@ -123,9 +123,9 @@ struct D2SkillsTxt;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
+D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
-D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
@@ -147,7 +147,7 @@ struct D2SpawnArgsStrc
     int nMissile;
 };
 
-static D2UnitStrc* __stdcall sub_004CE530_SpawnSubMissile(D2UnitStrc* pOwner, int nMissile, int nSpread, D2UnitStrc* pMissile);
+static D2UnitStrc* __stdcall MISSILE_SpawnSubMissile(D2UnitStrc* pOwner, int nMissile, int nSpread, D2UnitStrc* pMissile); // 0x004CE530
 
 void __fastcall sub_004B9A00_PlayOverlay(int nOverlay, D2UnitStrc* pOwner, int a3, int a4, int a5); // 0x004B9A00
 
@@ -172,7 +172,7 @@ struct D2MissileScanStateStrc
 
 typedef int (__fastcall* AREASCANFN)(void* pArg, D2UnitStrc* pUnit);
 
-void __fastcall sub_004C5C40_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, AREASCANFN pfCallback, void* pArg, int bCheckType); // 0x004C5C40
+void __fastcall SKILLS_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, AREASCANFN pfCallback, void* pArg, int bCheckType); // 0x004C5C40
 
 int __fastcall MISSILE_CreateCallbackMissile(void* pArgument, D2UnitStrc* pUnit); // 0x004CFD70
 
@@ -384,7 +384,7 @@ static void __stdcall MISSILE_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pMissil
 }
 
 // 0x004CD540
-D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams)
 {
     D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(pMissileParams->nMissile);
     if (!pMissilesTxtRecord)
@@ -638,7 +638,7 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
         if (pMissilesTxtRecord->nLight || (unsigned char)pMissileParams->nLightRadius)
         {
             CUNIT_FreeLight(pMissile);
-            pMissile->pLight = sub_00474160_MakeLightEntry(pMissile, 1, pMissilesTxtRecord->nLight, 0xFF,
+            pMissile->pLight = DLIGHTMAP_MakeLightEntry(pMissile, 1, pMissilesTxtRecord->nLight, 0xFF,
                 pMissilesTxtRecord->nRed, pMissilesTxtRecord->nGreen, pMissilesTxtRecord->nBlue);
         }
     }
@@ -740,7 +740,7 @@ void __fastcall MISSILE_SpawnRingAround(D2UnitStrc* pMissile, int nChance, int n
     D2MissileStrc tParams;
     memset(&tParams, 0, sizeof(tParams));
     tParams.dwFlags = 0x20;
-    tParams.pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+    tParams.pOwner = CUNIT_GetOwnerUnit(pMissile);
     tParams.pOrigin = pMissile;
     tParams.nSkill = sub_0064A280(pMissile);
     tParams.nSkillLevel = sub_0064A210(pMissile);
@@ -759,7 +759,7 @@ void __fastcall MISSILE_SpawnRingAround(D2UnitStrc* pMissile, int nChance, int n
         nOffsetY += nOffsetY < 0 ? -nRange : nRange;
         tParams.nTargetX = nOffsetX + nX;
         tParams.nTargetY = nOffsetY + nY;
-        sub_004CD540_CreateMissile(&tParams);
+        MISSILE_CreateClientMissile(&tParams);
     }
 }
 
@@ -776,7 +776,7 @@ D2UnitStrc* __fastcall MISSILE_SpawnAtRandomUnitInRange(D2UnitStrc* pMissile, in
         return 0;
     }
 
-    D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+    D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pMissile);
     if (!pOwner)
     {
         return 0;
@@ -811,7 +811,7 @@ D2UnitStrc* __fastcall MISSILE_SpawnAtRandomUnitInRange(D2UnitStrc* pMissile, in
         return 0;
     }
 
-    return sub_004CD540_CreateMissile(&tMissileParams);
+    return MISSILE_CreateClientMissile(&tMissileParams);
 }
 
 static inline unsigned int SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
@@ -826,11 +826,11 @@ static inline unsigned int SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
 // calling-convention shim (not game code)
 D2UnitStrc* __fastcall sub_004CE530_Shim(D2UnitStrc* pOwner, D2UnitStrc* pMissile, int nMissile)
 {
-    return sub_004CE530_SpawnSubMissile(pOwner, nMissile, 0x14, pMissile);
+    return MISSILE_SpawnSubMissile(pOwner, nMissile, 0x14, pMissile);
 }
 
 // 0x004CE530
-static D2UnitStrc* __stdcall sub_004CE530_SpawnSubMissile(D2UnitStrc* pOwner, int nMissile, int nSpread, D2UnitStrc* pMissile)
+static D2UnitStrc* __stdcall MISSILE_SpawnSubMissile(D2UnitStrc* pOwner, int nMissile, int nSpread, D2UnitStrc* pMissile)
 {
     D2MissileStrc tMissile;
     memset(&tMissile, 0, sizeof(tMissile));
@@ -851,7 +851,7 @@ static D2UnitStrc* __stdcall sub_004CE530_SpawnSubMissile(D2UnitStrc* pOwner, in
 
     const int nX = tMissile.nTargetX;
 
-    D2UnitStrc* pNew = sub_004CD540_CreateMissile(&tMissile);
+    D2UnitStrc* pNew = MISSILE_CreateClientMissile(&tMissile);
     if (pNew)
     {
         MISSILE_SetTargetX(pNew, nX);
@@ -965,7 +965,7 @@ void __fastcall MISSILE_SpawnPeriodicMissile(D2UnitStrc* pOwner, D2UnitStrc* pUn
     missile.nMissile = nMissileId;
     missile.nX = UNITS_GetXPosition(pUnit) + nOffsetX;
     missile.nY = UNITS_GetYPosition(pUnit) + nOffsetY;
-    sub_004CD540_CreateMissile(&missile);
+    MISSILE_CreateClientMissile(&missile);
 }
 
 // build: context DATATBLS_GetMissilesTxtRecordInline
@@ -986,7 +986,7 @@ void __fastcall MISSILE_CreateBurstAt(D2UnitStrc* pUnit, int nX, int nY, int nCo
     D2UnitStrc* pOwner = pUnit;
     if (!pUnit || (pUnit->dwUnitType != UNIT_PLAYER && pUnit->dwUnitType != UNIT_MONSTER))
     {
-        pOwner = sub_004639D0_GetOwnerUnit(pUnit);
+        pOwner = CUNIT_GetOwnerUnit(pUnit);
         if (!pOwner)
         {
             return;
@@ -1025,7 +1025,7 @@ void __fastcall MISSILE_CreateBurstAt(D2UnitStrc* pUnit, int nX, int nY, int nCo
                 D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
                 if (COLLISION_GetRoomBySubTileCoordinates(pRoom, tParams.nX, tParams.nY))
                 {
-                    sub_004CD540_CreateMissile(&tParams);
+                    MISSILE_CreateClientMissile(&tParams);
                 }
             }
         }
@@ -1075,7 +1075,7 @@ int __fastcall MISSILE_CreateCallbackMissile(void* pArgument, D2UnitStrc* pUnit)
     tMissileParams.nMissile = pScanArg->nSubMissile;
     tMissileParams.nTargetX = UNITS_GetXPositionForceInl(pUnit);
     tMissileParams.nTargetY = UNITS_GetYPositionForceInl(pUnit);
-    sub_004CD540_CreateMissile(&tMissileParams);
+    MISSILE_CreateClientMissile(&tMissileParams);
     return 1;
 }
 
@@ -1111,7 +1111,7 @@ void __fastcall MISSILE_CltDoSubMissileTimers(D2UnitStrc* pMissile)
         return;
     }
 
-    D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+    D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pMissile);
     if (!pOwner)
     {
         MISSILE_CltDoCommon(pMissile);
@@ -1124,7 +1124,7 @@ void __fastcall MISSILE_CltDoSubMissileTimers(D2UnitStrc* pMissile)
         int nTimer = MISSILE_GetTargetX(pMissile);
         if (nTimer <= 0)
         {
-            sub_004CE530_SpawnSubMissile(pOwner, pMissilesTxtRecord->wCltSubMissile[0], nSpread, pMissile);
+            MISSILE_SpawnSubMissile(pOwner, pMissilesTxtRecord->wCltSubMissile[0], nSpread, pMissile);
             nTimer = pMissilesTxtRecord->dwCltParam[0];
         }
 
@@ -1151,7 +1151,7 @@ void __fastcall MISSILE_CltDoSubMissileTimers(D2UnitStrc* pMissile)
                 tMissile.nTargetX = SEED_RollLimitedRandomNumber(&pMissile->pSeed, nSpread - 1) + 1;
             }
 
-            D2UnitStrc* pNew = sub_004CD540_CreateMissile(&tMissile);
+            D2UnitStrc* pNew = MISSILE_CreateClientMissile(&tMissile);
             if (pNew)
             {
                 MISSILE_SetTargetX(pNew, SEED_RollLimitedRandomNumber(&pMissile->pSeed, 5));
@@ -1169,7 +1169,7 @@ void __fastcall MISSILE_CltDoSubMissileTimers(D2UnitStrc* pMissile)
 // 0x004D3070
 void __fastcall MISSILE_CltDoOwnerStep(D2UnitStrc* pMissile)
 {
-    D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+    D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pMissile);
     if (!pOwner)
     {
         MISSILE_CltDoDefault(pMissile);
@@ -1201,7 +1201,7 @@ int __fastcall MISSILE_ScanAreaCreateMissiles(D2UnitStrc* pMissile)
         return 1;
     }
 
-    D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+    D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pMissile);
     if (!pOwner)
     {
         return 1;
@@ -1243,7 +1243,7 @@ int __fastcall MISSILE_ScanAreaCreateMissiles(D2UnitStrc* pMissile)
     tArg.nSkillLevel = nSkillLevel;
     tArg.nMaxHits = nParam;
     tArg.nSubMissile = pMissilesTxtRecord->wCltHitSubMissile[0];
-    sub_004C5C40_ScanArea(pOwner, nX, nY, nRange, nFlags, MISSILE_CreateCallbackMissile, &tArg, 1);
+    SKILLS_ScanArea(pOwner, nX, nY, nRange, nFlags, MISSILE_CreateCallbackMissile, &tArg, 1);
 
     return 1;
 }
@@ -1263,7 +1263,7 @@ static inline D2SkillsTxt* GetSkillRecord(int id) {
 }
 
 // 0x004CFFA0
-int __fastcall sub_004CFFA0_HitScanCallback(void* pArgument, D2UnitStrc* pUnit)
+int __fastcall MISSILE_HitScanCallback(void* pArgument, D2UnitStrc* pUnit)
 {
     D2MissileScanStateStrc* pState = (D2MissileScanStateStrc*)pArgument;
     D2MissileScanArgStrc* pScanArg = pState->pScanArg;
@@ -1281,7 +1281,7 @@ int __fastcall sub_004CFFA0_HitScanCallback(void* pArgument, D2UnitStrc* pUnit)
     tMissileParams.nMissile = pScanArg->nSubMissile;
     tMissileParams.nTargetX = UNITS_GetXPositionForceInl(pUnit);
     tMissileParams.nTargetY = UNITS_GetYPositionForceInl(pUnit);
-    sub_004CD540_CreateMissile(&tMissileParams);
+    MISSILE_CreateClientMissile(&tMissileParams);
     return 1;
 }
 
@@ -1311,7 +1311,7 @@ int __fastcall MISSILE_CreateMissileFan(D2UnitStrc* pOwner, D2UnitStrc* pOrigin,
     {
         tMissile.nTargetX = gaMissileFanTargetX[i];
         tMissile.nTargetY = gaMissileFanTargetY[i];
-        sub_004CD540_CreateMissile(&tMissile);
+        MISSILE_CreateClientMissile(&tMissile);
     }
 
     return 1;
@@ -1342,7 +1342,7 @@ int __fastcall MISSILE_CreateChildMissile(D2UnitStrc* unit)
 {
  D2MissilesTxt* missile=GetMissileRecord(unit ? unit->dwClassId : -1);
  if(!missile || missile->wCltHitSubMissile[0]<0)return 1;
- D2UnitStrc* owner=sub_004639D0_GetOwnerUnit(unit);
+ D2UnitStrc* owner=CUNIT_GetOwnerUnit(unit);
  if(!owner)return 1;
  int skillId=MISSILE_GetSkill(unit);
  int level=MISSILE_GetLevel(unit);
@@ -1363,7 +1363,7 @@ int __fastcall MISSILE_CreateChildMissile(D2UnitStrc* unit)
  params.nX=CLIENTS_GetUnitX(unit);
  params.nY=CLIENTS_GetUnitY(unit);
  if(range>0) {params.dwFlags=0x8001;params.nRange=range;}
- D2UnitStrc* child=sub_004CD540_CreateMissile(&params);
+ D2UnitStrc* child=MISSILE_CreateClientMissile(&params);
  if(child) PATH_SetDirection(child->pDynamicPath,PATH_GetDirection(unit->pDynamicPath));
  return 1;
 }
@@ -1371,7 +1371,7 @@ int __fastcall MISSILE_CreateChildMissile(D2UnitStrc* unit)
 // 0x004D1820
 int __fastcall MISSILE_SpawnOwnerSubMissile(D2UnitStrc* pMissile)
 {
-    D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+    D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pMissile);
     if (pOwner)
     {
         D2MissileStrc params;
@@ -1381,7 +1381,7 @@ int __fastcall MISSILE_SpawnOwnerSubMissile(D2UnitStrc* pMissile)
         params.nMissile = SUBMISSILE_ID;
         params.nSkill = MISSILE_GetSkill(pMissile);
         params.nSkillLevel = MISSILE_GetLevel(pMissile);
-        D2UnitStrc* pNew = sub_004CD540_CreateMissile(&params);
+        D2UnitStrc* pNew = MISSILE_CreateClientMissile(&params);
         if (pNew)
             MISSILE_SetTargetX(pNew, MISSILE_GetTargetX(pMissile));
     }
@@ -1408,7 +1408,7 @@ void __fastcall MISSILE_CltDoDelayedSpawn(D2UnitStrc* pMissile)
         return;
     }
 
-    D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+    D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pMissile);
     if (pOwner)
     {
         int nTimer = MISSILE_GetTargetX(pMissile);
@@ -1432,7 +1432,7 @@ void __fastcall MISSILE_CltDoDelayedSpawn(D2UnitStrc* pMissile)
                 nX = SEED_RollLimitedRandomNumber(&pMissile->pSeed, *pRange) + 1;
                 missileParams.nTargetX = nX;
             }
-            D2UnitStrc* pNewMissile = sub_004CD540_CreateMissile(&missileParams);
+            D2UnitStrc* pNewMissile = MISSILE_CreateClientMissile(&missileParams);
             if (pNewMissile)
             {
                 MISSILE_SetTargetX(pNewMissile, nX);
@@ -1467,7 +1467,7 @@ void __fastcall MISSILE_CltDoPickSubMissile(D2UnitStrc* pMissile)
         D2MissileStrc tParams;
         memset(&tParams, 0, sizeof(tParams));
         tParams.dwFlags = 0x21;
-        tParams.pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+        tParams.pOwner = CUNIT_GetOwnerUnit(pMissile);
         tParams.nX = nX;
         tParams.nY = nY;
         tParams.nTargetX = nX + nOffsetX;
@@ -1475,7 +1475,7 @@ void __fastcall MISSILE_CltDoPickSubMissile(D2UnitStrc* pMissile)
         tParams.nSkill = MISSILE_GetSkill(pMissile);
         tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
         tParams.nMissile = pMissilesTxtRecord->wCltSubMissile[0];
-        sub_004CD540_CreateMissile(&tParams);
+        MISSILE_CreateClientMissile(&tParams);
 
         MISSILE_CltDoCommon(pMissile);
     }
@@ -1496,12 +1496,12 @@ inline D2MissilesTxt* SKILLS_GetMissilesTxtRecordChecked(int nMissileId)
 }
 
 // 0x004D19D0
-static void __stdcall sub_004D19D0_SpawnRing(int nTargetUnitId, D2UnitStrc* pMissile)
+static void __stdcall MISSILE_SpawnFragmentRing(int nTargetUnitId, D2UnitStrc* pMissile)
 {
     D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(MISSILE_HFFRAGMENT1);
     int aOffsetX[14] = { -4, 2, 4, -3, -2, 3, 5, -3, -5, 5, -6, -1, 0, 6 };
     int aOffsetY[14] = { 6, 4, -4, -2, 1, 7, 0, 3, -4, -3, 4, -5, 5, -3 };
-    D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+    D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pMissile);
     if (!pOwner)
         return;
     D2MissileStrc tParams;
@@ -1519,7 +1519,7 @@ static void __stdcall sub_004D19D0_SpawnRing(int nTargetUnitId, D2UnitStrc* pMis
         tParams.nTargetX = nX;
         tParams.nTargetY = nY;
         tParams.nRange = pMissilesTxtRecord->wRange * MISSILE_GetApproxOffsetLengthInline(nX, nY) / 6;
-        D2UnitStrc* pNew = sub_004CD540_CreateMissile(&tParams);
+        D2UnitStrc* pNew = MISSILE_CreateClientMissile(&tParams);
         if (pNew)
         {
             MISSILE_SetTargetX(pNew, nTargetUnitId);
@@ -1629,7 +1629,7 @@ void __fastcall MISSILE_CltDoSpreadSpawn(D2UnitStrc* pMissile)
     int nX;
 
     const int nRemaining = sub_0064A380_GetRemainingFrames(pMissile);
-    D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+    D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pMissile);
 
     if (nRemaining == 0x96)
     {
@@ -1661,7 +1661,7 @@ void __fastcall MISSILE_CltDoSpreadSpawn(D2UnitStrc* pMissile)
                 missileParams.nSkill = nSkill;
                 missileParams.nSkillLevel = nSkillLevel;
                 missileParams.nMissile = MISSILE_HORADRICLIGHT;
-                pNew = sub_004CD540_CreateMissile(&missileParams);
+                pNew = MISSILE_CreateClientMissile(&missileParams);
                 if (pNew)
                 {
                     PATH_SetDirection(pNew->pDynamicPath, pSpread->nDirection);
@@ -1684,7 +1684,7 @@ void __fastcall MISSILE_CltDoSpreadSpawn(D2UnitStrc* pMissile)
         missileParams.nSkill = sub_0064A280_GetSkill(pMissile);
         missileParams.nSkillLevel = sub_0064A210_GetSkillLevel(pMissile);
         missileParams.nMissile = MISSILE_HORADRICLIGHTNING;
-        pNew = sub_004CD540_CreateMissile(&missileParams);
+        pNew = MISSILE_CreateClientMissile(&missileParams);
         if (pNew)
         {
             GFXUTIL_SetMotionVectorA(pNew, 0, 0, 0x46);
@@ -1709,7 +1709,7 @@ void __fastcall MISSILE_CltDoSpreadSpawn(D2UnitStrc* pMissile)
         missileParams.nSkill = sub_0064A280_GetSkill(pMissile);
         missileParams.nSkillLevel = sub_0064A210_GetSkillLevel(pMissile);
         missileParams.nMissile = MISSILE_DUST;
-        pNew = sub_004CD540_CreateMissile(&missileParams);
+        pNew = MISSILE_CreateClientMissile(&missileParams);
         if (pNew)
         {
             UNITS_SetAnimationSpeed(pNew, 0x40);
@@ -1731,7 +1731,7 @@ void __fastcall MISSILE_CltDoObjectRing(D2UnitStrc* pMissile)
     }
     if (nFrames == 10)
     {
-        sub_004D19D0_SpawnRing(nTargetUnitId, pMissile);
+        MISSILE_SpawnFragmentRing(nTargetUnitId, pMissile);
         sub_00476A80_StartTiming(nFrames - 6, nFrames + 0x46, 0x50, 0x190);
     }
     MISSILE_CltDoCommon(pMissile);

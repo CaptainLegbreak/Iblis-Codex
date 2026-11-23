@@ -199,9 +199,9 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
-D2ClientEntryStrc* __fastcall sub_00478E40_FindEntry(int nKey); // 0x00478E40
+D2ClientEntryStrc* __fastcall ROSTERPETS_FindEntry(int nKey); // 0x00478E40
 
-void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 void __fastcall sub_004785D0_SendShortShort(char nHeader, short nArg1, short nArg2); // 0x004785D0
 
@@ -217,7 +217,7 @@ void __cdecl sub_00497300(); // 0x00497300
 
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
 
@@ -306,7 +306,7 @@ D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nClassId, int nX, int nY, int n
 
 D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 
-D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
 void __fastcall ITEM_ShowTimedHint(void* pOwner, int nDelayA, int nDelayC, unsigned int nIndex, int nArgE, int nDelayF, int nArgG); // 0x004DCD40
 
@@ -660,11 +660,11 @@ unsigned char gbLifeColorsInit; // 0x007BEED3
 
 int gbDebugDrawLights; // 0x007B9564
 
-void __fastcall sub_00476BC0(D2ViewStrc* pView);
+void __fastcall VIEW_PrepareSceneLighting(D2ViewStrc* pView); // 0x00476BC0
 
 static int gnPopupX; // 0x007BEED4
 
-void __fastcall sub_00476D40_AdjustViewPos(int* pX, int* pY);
+void __fastcall VIEW_AdjustViewPos(int* pX, int* pY); // 0x00476D40
 
 static inline D2ClientListLinkStrc* ListNextLink(D2ClientListLinkStrc* pLink, int nLinkOffset)
 {
@@ -936,11 +936,11 @@ void __fastcall VIEW_SpawnRoomPresets(D2ActiveRoomStrc* pRoom)
 }
 
 // 0x00467410
-void __fastcall sub_00467410_SetEntryValue(void* pOwner, D2ClientRecordStrc* pRecord, int nValue)
+void __fastcall VIEW_SetPetEntryValue(void* pOwner, D2ClientRecordStrc* pRecord, int nValue)
 {
     if (pOwner && pRecord)
     {
-        sub_00478E40_FindEntry(pRecord->nKey)->nValue = nValue;
+        ROSTERPETS_FindEntry(pRecord->nKey)->nValue = nValue;
     }
 }
 
@@ -998,7 +998,7 @@ Obj004DCF10* __cdecl VIEW_CreateView()
 }
 
 // 0x00476BC0
-void __fastcall sub_00476BC0(D2ViewStrc* pView)
+void __fastcall VIEW_PrepareSceneLighting(D2ViewStrc* pView)
 {
     if (!pView->tRect.right && !pView->tRect.bottom)
     {
@@ -1030,7 +1030,8 @@ void __fastcall sub_00476BC0(D2ViewStrc* pView)
     if (nTick > gdwLightTick_007B9530)
     {
         gdwLightTick_007B9530 = nTick;
-        sub_00475800_RunLightPass();
+// build: symbol ?DLIGHTMAP_RunLightPass@* 0x00475800
+        DLIGHTMAP_RunLightPass();
     }
 
     MISSILE_UpdateRoomColor();
@@ -1163,7 +1164,7 @@ void __fastcall VIEW_PrepareView(D2ViewStrc* pView, int nArg)
 }
 
 // 0x004769B0
-void __cdecl sub_004769B0_Toggle()
+void __cdecl VIEW_ToggleDebugDrawLights()
 {
     gbDebugDrawLights = gbDebugDrawLights == 0;
 }
@@ -1481,7 +1482,7 @@ void __cdecl UI_ClearGlobals()
 }
 
 // 0x00476D40
-void __fastcall sub_00476D40_AdjustViewPos(int* pX, int* pY)
+void __fastcall VIEW_AdjustViewPos(int* pX, int* pY)
 {
     const unsigned int nTick = GetTickCount();
     const unsigned int nElapsed = nTick - gdwViewEffectStartTick;
@@ -1631,7 +1632,7 @@ void __fastcall VIEW_SendUnitActionPacket(int nHeader, int nUnused, int nArg1, i
         sub_004785D0_SendShortShort(nHeader, nArg1, nArg2);
         return;
     case 2: case 4: case 6: case 7: case 9: case 10: case 13: case 14: case 16: case 17:
-        sub_004786A0_SendDwords2(nHeader, nArg1, nArg2);
+        MSG_SendTwoDwords(nHeader, nArg1, nArg2);
         return;
     default:
         sub_004785D0_SendShortShort(nHeader, nArg1, nArg2);
@@ -1889,7 +1890,7 @@ void __cdecl VIEW_DrawHelpButtons()
     }
     else
     {
-        sub_00455F20(0x22, 1, 0);
+        UI_SetUIVar(0x22, 1, 0);
     }
 }
 
@@ -2032,7 +2033,7 @@ D2UnitStrc* __fastcall VIEW_SpawnDirectionalMissile(D2UnitStrc* pUnit, int nFram
         tMissileParams.pOrigin = pUnit;
         tMissileParams.nMissile = MISSILE_FOOTPRINT;
         tMissileParams.nSkillLevel = 1;
-        pMissile = sub_004CD540_CreateMissile(&tMissileParams);
+        pMissile = MISSILE_CreateClientMissile(&tMissileParams);
         if (pMissile)
         {
             pMissile->nSeqCurrentFramePrecise = nFrame << 8;
@@ -2090,7 +2091,7 @@ void __fastcall VIEW_SpawnBrDeathControl(D2UnitStrc* pUnit)
     tMissileParams.pOwner = pUnit;
     tMissileParams.pOrigin = pUnit;
     tMissileParams.nSkillLevel = 1;
-    D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
+    D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
     if (pMissile)
         MISSILE_SetTargetX(pMissile, 0x32);
 
@@ -2099,9 +2100,9 @@ void __fastcall VIEW_SpawnBrDeathControl(D2UnitStrc* pUnit)
     tMissileParams.pOwner = pUnit;
     tMissileParams.pOrigin = pUnit;
     tMissileParams.nSkillLevel = 1;
-    sub_004CD540_CreateMissile(&tMissileParams);
+    MISSILE_CreateClientMissile(&tMissileParams);
     tMissileParams.nMissile = MISSILE_BRDEATHSMOKES1;
-    sub_004CD540_CreateMissile(&tMissileParams);
+    MISSILE_CreateClientMissile(&tMissileParams);
 }
 
 // 0x0046B9A0
@@ -2113,7 +2114,7 @@ void __fastcall VIEW_SpawnMephistoDeath(D2UnitStrc* pUnit)
     tMissileParams.pOwner = pUnit;
     tMissileParams.pOrigin = pUnit;
     tMissileParams.nSkillLevel = 1;
-    D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
+    D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
     if (pMissile)
     {
         MISSILE_SetTargetX(pMissile, 0x4B);
@@ -2125,14 +2126,14 @@ void __fastcall VIEW_SpawnMephistoDeath(D2UnitStrc* pUnit)
     tMissileParams.nSkillLevel = 1;
     tMissileParams.pOrigin = pUnit;
     tMissileParams.nMissile = MISSILE_MEPHISTOHOLEDELAY;
-    sub_004CD540_CreateMissile(&tMissileParams);
+    MISSILE_CreateClientMissile(&tMissileParams);
 
     memset(&tMissileParams, 0, sizeof(tMissileParams));
     tMissileParams.nMissile = MISSILE_MEPHISTODONOTDRAW;
     tMissileParams.pOwner = pUnit;
     tMissileParams.pOrigin = pUnit;
     tMissileParams.nSkillLevel = 1;
-    sub_004CD540_CreateMissile(&tMissileParams);
+    MISSILE_CreateClientMissile(&tMissileParams);
 }
 
 // 0x0046BA50
@@ -2144,7 +2145,7 @@ void __fastcall VIEW_SpawnAndarielDeath(D2UnitStrc* pUnit)
     tMissileParams.pOwner = pUnit;
     tMissileParams.pOrigin = pUnit;
     tMissileParams.nSkillLevel = 1;
-    sub_004CD540_CreateMissile(&tMissileParams);
+    MISSILE_CreateClientMissile(&tMissileParams);
 }
 
 // 0x0046BC10
@@ -2157,7 +2158,7 @@ void __fastcall VIEW_SpawnIzualDeath(D2UnitStrc* pUnit)
     tMissileParams.pOwner = pUnit;
     tMissileParams.pOrigin = pUnit;
     tMissileParams.nSkillLevel = 1;
-    sub_004CD540_CreateMissile(&tMissileParams);
+    MISSILE_CreateClientMissile(&tMissileParams);
 }
 
 void __stdcall LIST_UnloadPentspinCellfile()

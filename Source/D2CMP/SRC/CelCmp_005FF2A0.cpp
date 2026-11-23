@@ -172,7 +172,7 @@ int __stdcall CelGameDirToFileDir(int nDirection, unsigned int nDirections)
 }
 
 // 0x00600D30
-int __stdcall sub_00600D30_CanConvertDirections(int nDirections, int nNewDirections)
+int __stdcall D2CMPSpriteCanConvertDirections(int nDirections, int nNewDirections)
 {
     if (nDirections == 4)
     {

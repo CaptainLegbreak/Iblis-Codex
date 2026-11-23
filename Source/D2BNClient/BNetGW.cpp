@@ -275,7 +275,7 @@ void BNGatewayAccess::WriteDefaultGatewayList()
 }
 
 // 0x00518390
-extern "C" __declspec(dllexport) const char* __stdcall sub_00518390(const char* pText, const char* pEnd) {
+extern "C" __declspec(dllexport) const char* __stdcall SkipToEOL(const char* pText, const char* pEnd) {
     while (pText < pEnd && *pText && *pText != '\r' && *pText != '\n') {
         pText++;
     }
@@ -283,7 +283,7 @@ extern "C" __declspec(dllexport) const char* __stdcall sub_00518390(const char* 
 }
 
 // 0x005183C0
-extern "C" __declspec(dllexport) const char* __stdcall sub_005183C0(const char* pText, const char* pEnd) {
+extern "C" __declspec(dllexport) const char* __stdcall SkipEOL(const char* pText, const char* pEnd) {
     while (pText < pEnd && *pText && (*pText == '\r' || *pText == '\n')) {
         pText++;
     }

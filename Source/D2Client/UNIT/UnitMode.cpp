@@ -76,13 +76,13 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
-void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
 
 int __fastcall SKILLS_StartSkillOnUnit(D2UnitStrc* pUnit, D2ClientSkillCmdStrc* pArgs); // 0x004C6EB0
 
-void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
+void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 
 unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* hItem); // 0x00628590
 
@@ -445,7 +445,7 @@ void __fastcall UNITMODE_UpdateUnit(D2UnitStrc* unit)
         {
             const int packetId = GetUnitId(unit);
             const int packetType = GetUnitType(unit);
-            sub_004786A0_SendDwords2(0x4B, packetType, packetId);
+            MSG_SendTwoDwords(0x4B, packetType, packetId);
             unit->dwFlags &= 0xFF7FFFFF;
             unit->dwFlagEx &= 0xFFFFFFDF;
         }
@@ -519,7 +519,7 @@ void __fastcall UNITMODE_InteractWithUnit(unsigned short nType, int nUnitId)
                     D2UnitStrc* pItem = INVENTORY_GetLeftHandWeapon(pPlayer->pInventory);
                     if (!pItem || ITEMS_GetBaseCode(pItem) != 0x20326671)
                     {
-                        sub_004CB9C0_Request(pPlayer, 0x13);
+                        UNITSND_PlayPlayerSpeech(pPlayer, 0x13);
                         return;
                     }
 
@@ -530,7 +530,7 @@ void __fastcall UNITMODE_InteractWithUnit(unsigned short nType, int nUnitId)
             {
                 if (pUnit->dwAnimMode == 0)
                 {
-                    sub_004786A0_SendDwords2(0x13, nType, nUnitId);
+                    MSG_SendTwoDwords(0x13, nType, nUnitId);
                     return;
                 }
 
@@ -539,7 +539,7 @@ void __fastcall UNITMODE_InteractWithUnit(unsigned short nType, int nUnitId)
                     D2UnitStrc* pItem = INVENTORY_GetLeftHandWeapon(pPlayer->pInventory);
                     if (!pItem || ITEMS_GetBaseCode(pItem) != 0x20686668)
                     {
-                        sub_004CB9C0_Request(pPlayer, 0x13);
+                        UNITSND_PlayPlayerSpeech(pPlayer, 0x13);
                         return;
                     }
 
@@ -576,7 +576,7 @@ void __fastcall UNITMODE_InteractWithUnit(unsigned short nType, int nUnitId)
         return;
     }
 
-    sub_004786A0_SendDwords2(0x13, nType, nUnitId);
+    MSG_SendTwoDwords(0x13, nType, nUnitId);
 }
 
 static inline D2SkillsTxt* UMODE_GetSkillsTxtRecord(int nSkillId)
@@ -770,7 +770,7 @@ static void __stdcall sub_004812E0_QueueAction(int nAction, int nType, int nId, 
         args[1] = nId;
         if (sub_00480C10_UnitEvent(0x18, pPlayer, args, 0))
         {
-            sub_004786A0_SendDwords2(4, nType, nId);
+            MSG_SendTwoDwords(4, nType, nId);
         }
     }
     else
@@ -786,7 +786,7 @@ static void __stdcall sub_004812E0_QueueAction(int nAction, int nType, int nId, 
         args[1] = nId;
         if (sub_00480C10_UnitEvent(0, pPlayer, args, 0))
         {
-            sub_004786A0_SendDwords2(2, nType, nId);
+            MSG_SendTwoDwords(2, nType, nId);
         }
     }
 
@@ -1214,7 +1214,7 @@ static void __stdcall UNITMODE_DoPlayerAction(D2UnitStrc* pPlayer, int nAction, 
             tTarget.nParam1 = nArg1;
             tTarget.nParam2 = nArg2;
             if (AUTOMAP_DispatchUnitCommand(0x18, pPlayer, &tTarget, 0))
-                sub_004786A0_SendDwords2(4, nArg1, nArg2);
+                MSG_SendTwoDwords(4, nArg1, nArg2);
             sub_SetPlayerAction(pPlayer, 0, 0, 0, 0);
         }
     }
@@ -1224,7 +1224,7 @@ static void __stdcall UNITMODE_DoPlayerAction(D2UnitStrc* pPlayer, int nAction, 
         tTarget.nParam1 = nArg1;
         tTarget.nParam2 = nArg2;
         if (AUTOMAP_DispatchUnitCommand(0, pPlayer, &tTarget, 0))
-            sub_004786A0_SendDwords2(2, nArg1, nArg2);
+            MSG_SendTwoDwords(2, nArg1, nArg2);
         sub_SetPlayerAction(pPlayer, 0, 0, 0, 0);
     }
     sub_SetPlayerAction(pPlayer, 1, nAction, nArg1, nArg2);

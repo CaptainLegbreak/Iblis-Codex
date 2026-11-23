@@ -103,7 +103,7 @@ int gdwGlobal_00779990; // 0x00779990
 
 extern "C" char* __cdecl strstr(const char* szString, const char* szSubString);                             // 0x00686900
 
-int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
+int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 
 char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 
@@ -112,7 +112,7 @@ void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* 
 unsigned int __stdcall SStrLen(const char* szString);                                                       // 0x00413750
 
 // 0x0042FB20
-void __cdecl sub_0042FB20()
+void __cdecl MAINMENUS_CreateVideoScreen()
 {
 // build: symbol ?MAINMENUS_Reset@* 0x0042F480
     MAINMENUS_Reset();
@@ -121,7 +121,7 @@ void __cdecl sub_0042FB20()
     MAINMENUS_CreateControl(3);
     MAINMENUS_CreateControl(6);
     MAINMENUS_CreateControl(7);
-    sub_0042F2E0_ReadPaletteFiles("palette\\sky\\pal.dat", "palette\\sky\\pal.pl2");
+    MAINMENUS_ReadPaletteFiles("palette\\sky\\pal.dat", "palette\\sky\\pal.pl2");
     D2WinControlStrc* pControl = MAINMENUS_CreateControl(4);
     char szTail[0x200] = { 0 };
     char szText[0x200] = { 0 };

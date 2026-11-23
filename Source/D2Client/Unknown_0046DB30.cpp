@@ -3,7 +3,7 @@
 
 
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask);                               // 0x0063A7B0
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit);                                        // 0x004639D0
+D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit);                                        // 0x004639D0
 
 inline int STATES_IsUnitShapeShiftedInline(D2UnitStrc* pUnit)
 {
@@ -20,7 +20,7 @@ D2InventoryStrc* __fastcall sub_0046DB30_GetCompInventory(D2UnitStrc* pUnit, int
     {
         if (STATES_CheckStateMaskOnUnit(pUnit, 0x25))
         {
-            D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pUnit);
+            D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pUnit);
             if (pOwner)
             {
                 if (pOut)

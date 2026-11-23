@@ -54,7 +54,8 @@ extern "C" int __cdecl sub_004549C0_IsEnabled()
     return gUiContext != 0;
 }
 
-extern "C" int __fastcall sub_0047A0C0_GetRecordUnitId(StoredRecordView* object)
+// build: symbol @ROSTER_GetRecordUnitId@* 0x0047A0C0
+extern "C" int __fastcall ROSTER_GetRecordUnitId(StoredRecordView* object)
 {
     if (object)
         return object->f_10;

@@ -86,7 +86,7 @@ void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue); // 0x006445A0
 void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 void __fastcall NPCMENU_StateRequests(D2UnitStrc* pUnit); // 0x004ADCE0
-void __fastcall sub_0044CE40(int nValue); // 0x0044CE40
+void __fastcall GAME_SetSkillDelayUntil(int nValue); // 0x0044CE40
 
 
 
@@ -102,8 +102,8 @@ D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonster
 int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
 D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 void __fastcall sub_00472C50(int nArg); // 0x00472C50
-int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
-D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 D2UnitStrc* __fastcall MISSILE_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
 void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA200
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
@@ -905,13 +905,13 @@ void __fastcall PLRSKILLS_StateCreateMissile(D2UnitStrc* pUnit, int nState)
     tMissile.nMissile = pStatesTxt->wMissile;
     tMissile.nSkill = pStatesTxt->wSkill >= 0 ? pStatesTxt->wSkill : 0;
     tMissile.nSkillLevel = 1;
-    sub_004CD540_CreateMissile(&tMissile);
+    MISSILE_CreateClientMissile(&tMissile);
 }
 
 // 0x004D97E0
 void __fastcall PLRSKILLS_StateResetValue(D2UnitStrc* pUnit, int nState)
 {
-    sub_0044CE40(0);
+    GAME_SetSkillDelayUntil(0);
 }
 
 // 0x004D9920
@@ -1195,7 +1195,7 @@ int __fastcall PLRSKILLS_SkillDoFrameOffset(D2UnitStrc* pUnit, int nSkillId, int
 
     int nX = SKILLS_GetParam1(pSkill);
     int nY = SKILLS_GetParam2(pSkill);
-    if ((!nX || !nY) && !sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
+    if ((!nX || !nY) && !ITEM_GetTargetPosition(pUnit, &nX, &nY))
     {
         return 0;
     }
@@ -1310,7 +1310,7 @@ int __fastcall PLRSKILLS_FireAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkil
         tMissileParams.nTargetY = D2COMMON_10176_PathGetFirstPointY(pUnit->pDynamicPath) - CLIENTS_GetUnitY(pUnit);
     }
 
-    D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
+    D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
     if (pMissile)
     {
         MISSILE_SetTargetX(pMissile, nSkillLevel);
@@ -1346,7 +1346,7 @@ int __fastcall PLRSKILLS_MissileAtTargetUnit(D2UnitStrc* pUnit, int nSkillId, in
         tMissileParams.nSkill = nSkillId;
         tMissileParams.nSkillLevel = nSkillLevel;
         tMissileParams.nMissile = nMissile;
-        D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
+        D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
         if (pMissile)
         {
             GFXUTIL_SetMotionVectorA(pMissile, 0, 0, 0x118);
@@ -1462,7 +1462,7 @@ int __fastcall PLRSKILLS_MotionMissiles(D2UnitStrc* pUnit, int nSkillId, int nSk
     const int nX = nC * nA;
     int nTargetX;
     int nTargetY;
-    if (!sub_004C52E0_GetTargetPosition(pUnit, &nTargetX, &nTargetY))
+    if (!ITEM_GetTargetPosition(pUnit, &nTargetX, &nTargetY))
     {
         return 0;
     }
@@ -1480,7 +1480,7 @@ int __fastcall PLRSKILLS_MotionMissiles(D2UnitStrc* pUnit, int nSkillId, int nSk
     if (nMissileA >= 0)
     {
         tMissileParams.nMissile = nMissileA;
-        D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
+        D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
         if (pMissile)
         {
             GFXUTIL_SetMotionVectorA(pMissile, nX, 0, nZ);
@@ -1492,7 +1492,7 @@ int __fastcall PLRSKILLS_MotionMissiles(D2UnitStrc* pUnit, int nSkillId, int nSk
     if (nMissileB >= 0)
     {
         tMissileParams.nMissile = nMissileB;
-        D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
+        D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
         if (pMissile)
         {
             GFXUTIL_SetMotionVectorA(pMissile, nX, 0, nZ);
@@ -1570,5 +1570,5 @@ int __fastcall PLRSKILLS_MissileByOverlay(D2UnitStrc* pUnit, int nSkillId, int n
     tMissileParams.nSkill = nSkillId;
     tMissileParams.nSkillLevel = nSkillLevel;
     tMissileParams.nMissile = nMissile;
-    return sub_004CD540_CreateMissile(&tMissileParams) != 0;
+    return MISSILE_CreateClientMissile(&tMissileParams) != 0;
 }

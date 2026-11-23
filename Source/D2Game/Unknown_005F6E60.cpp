@@ -28,11 +28,11 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit);                                         // 0x006221A0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState);            // 0x0065C310
 void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
-int __fastcall sub_005DF140_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DF140
+int __fastcall AITACTICS_RunAwayFromTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DF140
 int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMaxDistance); // 0x005DE200
 int __fastcall AIUTIL_IsGettingHit(D2UnitStrc* pUnit);                                                             // 0x005DD2B0
 unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CB30
-int __fastcall sub_005DF7D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a4, int bDeleteAiEventCallback);
+int __fastcall AITACTICS_WalkToTargetWithRandomPathType(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a4, int bDeleteAiEventCallback); // 0x005DF7D0
 int __fastcall AITACTICS_WalkToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, unsigned char nFlag); // 0x005DEC80
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames);            // 0x005DE080
@@ -110,7 +110,7 @@ void __fastcall AITHINK_Fn048_ZakarumZealot(D2GameStrc* pGame, D2UnitStrc* pUnit
             if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, 0))
             {
                 sub_005DE190_SetAiParam(pUnit, 0, nVel, 0);
-                if (!sub_005DF140_Escape(pGame, pUnit, pTarget, 8, 1))
+                if (!AITACTICS_RunAwayFromTarget(pGame, pUnit, pTarget, 8, 1))
                     AITACTICS_WalkCloseToUnit(pGame, pUnit, 6);
                 return;
             }
@@ -122,7 +122,7 @@ void __fastcall AITHINK_Fn048_ZakarumZealot(D2GameStrc* pGame, D2UnitStrc* pUnit
         {
             pAiControl->dwAiParam[0] = 0;
             sub_005DE190_SetAiParam(pUnit, 0, nVel, 0);
-            if (sub_005DF140_Escape(pGame, pUnit, pTarget, 8, 1))
+            if (AITACTICS_RunAwayFromTarget(pGame, pUnit, pTarget, 8, 1))
                 return;
             pAiControl->dwAiParam[1] = 5;
         }
@@ -130,7 +130,7 @@ void __fastcall AITHINK_Fn048_ZakarumZealot(D2GameStrc* pGame, D2UnitStrc* pUnit
         {
             if (bCombat)
             {
-                sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+                AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 4, 0);
                 return;
             }
             AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
@@ -149,7 +149,7 @@ void __fastcall AITHINK_Fn048_ZakarumZealot(D2GameStrc* pGame, D2UnitStrc* pUnit
                 if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 80)
                     AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
                 else
-                    sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+                    AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 4, 0);
                 return;
             }
         }
