@@ -12047,6 +12047,10 @@
      "name": "SKILLS_SpawnPairAtTarget"
     },
     {
+     "va": "0x004C80D0",
+     "length": 627
+    },
+    {
      "va": "0x004C8670",
      "length": 222,
      "name": "SKILLS_SetLobVelocity"
@@ -30427,30 +30431,6 @@
      "length": 107,
      "name": "?sub_004C8350_CanTargetRoom@@YGHHPAUD2UnitStrc@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004C80D0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004C80D0",
-     "length": 627
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
