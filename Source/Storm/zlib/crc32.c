@@ -1,10 +1,17 @@
-#include "Storm.h"
 // Altered from the original zlib source.
+#define ZSWAP32(q) ((((q) >> 24) & 0xff) + (((q) >> 8) & 0xff00) + \
+                    (((q) & 0xff00) << 8) + (((q) & 0xff) << 24))
+#define DOLIT4 c ^= *buf4++; \
+        c = crc_table[3][c & 0xff] ^ crc_table[2][(c >> 8) & 0xff] ^ \
+            crc_table[1][(c >> 16) & 0xff] ^ crc_table[0][c >> 24]
+#define DOLIT32 DOLIT4; DOLIT4; DOLIT4; DOLIT4; DOLIT4; DOLIT4; DOLIT4; DOLIT4
 #define DOBIG4 c ^= *++buf4; \
         c = crc_table[4][c & 0xff] ^ crc_table[5][(c >> 8) & 0xff] ^ \
             crc_table[6][(c >> 16) & 0xff] ^ crc_table[7][c >> 24]
 #define DOBIG32 DOBIG4; DOBIG4; DOBIG4; DOBIG4; DOBIG4; DOBIG4; DOBIG4; DOBIG4
 #define GF2_DIM 32
+
+extern const unsigned long crc_table[8][256]; // 0x006D17C8
 
 static unsigned long crc32_little(unsigned long crc, const unsigned char* buf, unsigned len);
 static unsigned long __stdcall crc32_big(unsigned long crc, const unsigned char* buf, unsigned len);
@@ -174,4 +181,4 @@ unsigned long __fastcall crc32_combine64(unsigned long crc1, unsigned long crc2,
     return crc32_combine_(crc1, crc2, len2);
 }
 
-#include "gen/data/Source/Storm/Unknown_0042D450.inc"
+#include "gen/data/Source/Storm/zlib/crc32.inc"
