@@ -1396,6 +1396,61 @@ int __stdcall TILE_ShadowTileDraw(D2TileLibraryEntryStrc* pTile, int nXPos, int 
     return gpGraphicsInterface->pfShadowTileDraw(pTile, nXPos, nYPos, eDrawMode, nScreenPanels);
 }
 
+// 0x004F69B0
+void __fastcall CMNSUBTILE_DrawIsoBlockFlat(unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette)
+{
+    unsigned char* pRow = pDst;
+    for (int i = 0; i < 15; ++i)
+    {
+        unsigned char* d = &pRow[ganSubtileRowXOffset[i]];
+        unsigned char* s = &pSrc[ganSubtileRowSrcOffset[i]];
+        switch (ganSubtileRowWidth[i])
+        {
+        case 32:
+            d[31] = pPalette[s[31]];
+            d[30] = pPalette[s[30]];
+            d[29] = pPalette[s[29]];
+            d[28] = pPalette[s[28]];
+        case 28:
+            d[27] = pPalette[s[27]];
+            d[26] = pPalette[s[26]];
+            d[25] = pPalette[s[25]];
+            d[24] = pPalette[s[24]];
+        case 24:
+            d[23] = pPalette[s[23]];
+            d[22] = pPalette[s[22]];
+            d[21] = pPalette[s[21]];
+            d[20] = pPalette[s[20]];
+        case 20:
+            d[19] = pPalette[s[19]];
+            d[18] = pPalette[s[18]];
+            d[17] = pPalette[s[17]];
+            d[16] = pPalette[s[16]];
+        case 16:
+            d[15] = pPalette[s[15]];
+            d[14] = pPalette[s[14]];
+            d[13] = pPalette[s[13]];
+            d[12] = pPalette[s[12]];
+        case 12:
+            d[11] = pPalette[s[11]];
+            d[10] = pPalette[s[10]];
+            d[9] = pPalette[s[9]];
+            d[8] = pPalette[s[8]];
+        case 8:
+            d[7] = pPalette[s[7]];
+            d[6] = pPalette[s[6]];
+            d[5] = pPalette[s[5]];
+            d[4] = pPalette[s[4]];
+        case 4:
+            d[3] = pPalette[s[3]];
+            d[2] = pPalette[s[2]];
+            d[1] = pPalette[s[1]];
+            d[0] = pPalette[s[0]];
+        }
+        pRow += gnScreenPitch;
+    }
+}
+
 // 0x004F6BB0
 void __fastcall D2GFX_DrawLitSubtileRows(unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep)
 {
