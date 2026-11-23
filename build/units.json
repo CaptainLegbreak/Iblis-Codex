@@ -58393,6 +58393,26 @@
      "name": "MONSTERMODE_DropTreasureForFindItem"
     },
     {
+     "va": "0x005A87B0",
+     "length": 54,
+     "name": "?MISSMODE_UnitFindCallback_CanCollideWithMonster@@YIHPAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x005A87F0",
+     "length": 82,
+     "name": "?MISSMODE_UnitFindCallback_CanCollideWithGoodAlignmentUnit@@YIHPAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x005A8850",
+     "length": 60,
+     "name": "?MISSMODE_UnitFindCallback_CanCollideWithPlayerOrMonster@@YIHPAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x005A8890",
+     "length": 66,
+     "name": "?MISSMODE_UnitFindCallback_CanMissileDestroy@@YIHPAUD2UnitStrc@@PAX@Z"
+    },
+    {
      "va": "0x005A88E0",
      "length": 42,
      "name": "MISSMODE_RollMissileHit"
@@ -59991,6 +60011,26 @@
      "name": "MONSTERMODE_EndTrappedSoulSkill"
     },
     {
+     "va": "0x005A8490",
+     "length": 87,
+     "name": "sub_6FC64480"
+    },
+    {
+     "va": "0x005A84F0",
+     "length": 41,
+     "name": "sub_6FC64510"
+    },
+    {
+     "va": "0x005A8520",
+     "length": 259,
+     "name": "?sub_6FC64CD0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A8630",
+     "length": 52,
+     "name": "?sub_6FC64E20@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x005A8670",
      "length": 192,
      "name": "?MONSTERMODE_UpdateSequence@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -60282,58 +60322,6 @@
      "va": "0x005A6080",
      "length": 82,
      "name": "?FRIENDLY_RemoveHostility@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A8490.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A8490",
-     "length": 87,
-     "name": "sub_6FC64480"
-    },
-    {
-     "va": "0x005A84F0",
-     "length": 41,
-     "name": "sub_6FC64510"
-    },
-    {
-     "va": "0x005A8520",
-     "length": 259,
-     "name": "?sub_6FC64CD0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A8630",
-     "length": 52,
-     "name": "?sub_6FC64E20@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A87B0",
-     "length": 54,
-     "name": "?MISSMODE_UnitFindCallback_CanCollideWithMonster@@YIHPAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x005A87F0",
-     "length": 82,
-     "name": "?MISSMODE_UnitFindCallback_CanCollideWithGoodAlignmentUnit@@YIHPAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x005A8850",
-     "length": 60,
-     "name": "?MISSMODE_UnitFindCallback_CanCollideWithPlayerOrMonster@@YIHPAUD2UnitStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A8890.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A8890",
-     "length": 66,
-     "name": "?MISSMODE_UnitFindCallback_CanMissileDestroy@@YIHPAUD2UnitStrc@@PAX@Z"
     }
    ]
   },
