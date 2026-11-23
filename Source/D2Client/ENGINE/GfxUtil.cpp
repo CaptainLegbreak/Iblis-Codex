@@ -863,6 +863,20 @@ void __fastcall sub_004DA620_SetMotionFlag10(D2UnitStrc* pUnit, int bSet)
     }
 }
 
+// 0x004DA6E0
+void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet)
+{
+    D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pUnit);
+    if (pMotion)
+    {
+        if (bSet)
+            pMotion->dwFlags |= 0x20;
+        else
+            pMotion->dwFlags &= ~0x20;
+    }
+}
+
+
 // 0x004DB1A0
 unsigned char __fastcall MISSILE_GetGfxEntryByte(D2UnitStrc* pUnit, int nIndex)
 {
