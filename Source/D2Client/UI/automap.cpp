@@ -3054,6 +3054,17 @@ void __fastcall AUTOMAP_ScreenToMap(int* pX, int* pY)
     *pY = nY;
 }
 
+// 0x0045B090
+void __cdecl sub_0045B090_Nop()
+{
+}
+
+// 0x0045B0A0
+void __cdecl sub_0045B0A0_Nop()
+{
+}
+
+
 // 0x0045B1E0
 void __stdcall AUTOMAP_DrawUnitTileRect(D2UnitStrc* pUnit)
 {
