@@ -1521,6 +1521,11 @@
      "name": "LOGMANAGER_DbgHelpThreadProc"
     },
     {
+     "va": "0x0040EB30",
+     "length": 1,
+     "name": "??3D2LogMessageStrc@@SAXPAX0@Z"
+    },
+    {
      "va": "0x0040EBD0",
      "length": 235,
      "name": "sub_0040EBD0_OpenDatedLogFile"
@@ -1634,9 +1639,44 @@
      "name": "??1D2LogMsgNodeStrc@@QAE@XZ"
     },
     {
+     "va": "0x0040FB50",
+     "length": 84,
+     "name": "??0D2LogMsgListStrc@@QAE@XZ"
+    },
+    {
      "va": "0x0040FCB0",
      "length": 75,
      "name": "??0D2LogMsgNodeStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0040FD40",
+     "length": 65,
+     "name": "??1D2LogMessageStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0040FD90",
+     "length": 126,
+     "name": "??1D2LogMsgListStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0040FE10",
+     "length": 75,
+     "name": "??0D2LogMessageStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0040FE60",
+     "length": 98,
+     "name": "??_GD2LogMessageStrc@@QAEPAXI@Z"
+    },
+    {
+     "va": "0x0040FED0",
+     "length": 97,
+     "name": "?sub_0040FED0_DeleteAll@D2LogMsgListStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x0040FF40",
+     "length": 138,
+     "name": "?sub_0040FF40_NewNode@D2LogMsgListStrc@@QAEPADHII@Z"
     },
     {
      "va": "0x0040FFD0",
@@ -5080,56 +5120,6 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_0040EB30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0040EB30",
-     "length": 1,
-     "name": "??3D2LogMessageStrc@@SAXPAX0@Z"
-    },
-    {
-     "va": "0x0040FB50",
-     "length": 84,
-     "name": "??0D2LogMsgListStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0040FD90",
-     "length": 126,
-     "name": "??1D2LogMsgListStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0040FE60",
-     "length": 98,
-     "name": "??_GD2LogMessageStrc@@QAEPAXI@Z"
-    },
-    {
-     "va": "0x0040FED0",
-     "length": 97,
-     "name": "?sub_0040FED0_DeleteAll@D2LogMsgListStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x0040FF40",
-     "length": 138,
-     "name": "?sub_0040FF40_NewNode@D2LogMsgListStrc@@QAEPADHII@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHa"
-   ]
-  },
-  {
    "file": "Source/Fog/Unknown_0040EB50.cpp",
    "rank": 0,
    "functions": [
@@ -5143,36 +5133,6 @@
      "length": 8,
      "name": "??1CCritSect@@QAE@XZ"
     }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_0040FD40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0040FD40",
-     "length": 65,
-     "name": "??1D2LogMessageStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0040FE10",
-     "length": 75,
-     "name": "??0D2LogMessageStrc@@QAE@XZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHa"
    ]
   },
   {
