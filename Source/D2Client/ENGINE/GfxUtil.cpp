@@ -176,7 +176,15 @@ struct T004DA110
 struct D2RosterInfoStrc
 {
     int dwUnitId;
-    unsigned int dwPartyFlags;
+    union
+    {
+        unsigned int dwPartyFlags;
+        struct
+        {
+            unsigned short wPartyFlags;
+            unsigned short wPartyFlagsHigh;
+        };
+    };
     D2RosterInfoStrc* pNext;
 };
 
@@ -1008,6 +1016,36 @@ unsigned int __fastcall GFXUTIL_TestRelationFlags(int nUnitId1, int nUnitId2, un
         }
     }
 
+    return 0;
+}
+
+struct D2ViewStrc
+{
+    char unk0x00[0x38];
+    int nField0x38;
+    char unk0x3C[0xEA60];
+    int nField0xEA9C;
+    char unk0xEAA0[8];
+    void* pCells;
+    char unk0xEAAC[4];
+    int nField0xEAB0;
+};
+
+// 0x004DC480
+unsigned short __fastcall PLAYERLIST_GetRelationFlagWord(int nUnitId1, int nUnitId2)
+{
+    D2RosterInfoStrc** ppRosterInfo = ROSTER_GetRosterInfoList(nUnitId1);
+    if (!ppRosterInfo || nUnitId1 == nUnitId2)
+    {
+        return 0;
+    }
+    for (D2RosterInfoStrc* pRosterInfo = *ppRosterInfo; pRosterInfo; pRosterInfo = pRosterInfo->pNext)
+    {
+        if (pRosterInfo->dwUnitId == nUnitId2)
+        {
+            return pRosterInfo->wPartyFlags;
+        }
+    }
     return 0;
 }
 

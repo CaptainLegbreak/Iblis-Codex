@@ -20876,6 +20876,11 @@
      "name": "GFXUTIL_TestRelationFlags"
     },
     {
+     "va": "0x004DC480",
+     "length": 56,
+     "name": "?PLAYERLIST_GetRelationFlagWord@@YIGHH@Z"
+    },
+    {
      "va": "0x004DC4C0",
      "length": 67,
      "name": "GFXUTIL_SetRelationFlags"
@@ -32113,11 +32118,6 @@
      "va": "0x004DC380",
      "length": 88,
      "name": "?PLAYERLIST_RemoveRosterInfo@@YIXHH@Z"
-    },
-    {
-     "va": "0x004DC480",
-     "length": 56,
-     "name": "?PLAYERLIST_GetRelationFlagWord@@YIGHH@Z"
     },
     {
      "va": "0x004DC510",
