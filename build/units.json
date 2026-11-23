@@ -76601,6 +76601,16 @@
      "name": "?D2Common_10846@@YGXHPAH000@Z"
     },
     {
+     "va": "0x0065C820",
+     "length": 273,
+     "name": "ITEMMODS_GetItemCharges"
+    },
+    {
+     "va": "0x0065C940",
+     "length": 236,
+     "name": "?ITEMMODS_UpdateItemWithSkillCharges@@YGHPAUD2UnitStrc@@HHH@Z"
+    },
+    {
      "va": "0x0065CA30",
      "length": 193,
      "name": "?ITEMMODS_GetByTimeAdjustment@@YGHHHHPAH00@Z"
@@ -76996,16 +77006,6 @@
      "va": "0x0065C730",
      "length": 112,
      "name": "?sub_0065C730_GetModsProperty@@YAPBUD2PropertyStrc@@HPBXHH@Z"
-    },
-    {
-     "va": "0x0065C820",
-     "length": 273,
-     "name": "ITEMMODS_GetItemCharges"
-    },
-    {
-     "va": "0x0065C940",
-     "length": 236,
-     "name": "?ITEMMODS_UpdateItemWithSkillCharges@@YGHPAUD2UnitStrc@@HHH@Z"
     }
    ]
   },
