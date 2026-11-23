@@ -18046,6 +18046,21 @@
      "name": "?GFX_RecalcStateOverlays@@YGXPAUD2StateOwnerStrc@@PAUD2UnitStrc@@PAUD2StateNodeStrc@@@Z"
     },
     {
+     "va": "0x0046E100",
+     "length": 76,
+     "name": "?GFX_HasOverlay@@YIHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x0046E1B0",
+     "length": 335,
+     "name": "GFX_DrawProgressiveStateOverlays"
+    },
+    {
+     "va": "0x0046E570",
+     "length": 42,
+     "name": "?GFX_GetNodeValue@@YIHPAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x0046EA80",
      "length": 24,
      "name": "?sub_0046EA80_ResetGfxBytes20@@YAXPAUD2UnitStrc@@@Z"
@@ -18071,9 +18086,24 @@
      "name": "?GFX_FreeOverlays@@YAXPAUD2GfxDataStrc@@@Z"
     },
     {
+     "va": "0x0046EBB0",
+     "length": 88,
+     "name": "?GFX_AllocGfxData@@YAPAUD2GfxDataStrc@@XZ"
+    },
+    {
      "va": "0x0046EC10",
      "length": 106,
      "name": "?GFX_FreeGfxData@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046EC80",
+     "length": 87,
+     "name": "?GFX_FreeGfxNodes@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046ECE0",
+     "length": 111,
+     "name": "?GFX_PruneGfxNodes@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0046ED50",
@@ -18091,9 +18121,19 @@
      "name": "?GFX_ResetGfx@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0046F020",
+     "length": 61,
+     "name": "?GFX_FillGfxEntries@@YIXPAUD2UnitStrc@@E@Z"
+    },
+    {
      "va": "0x0046F060",
      "length": 16,
      "name": "?GFX_GetGfxMotion@@YIPAUD2GfxMotionStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046F070",
+     "length": 17,
+     "name": "?GFX_SetGfxMotionFlag@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x0046F090",
@@ -18101,14 +18141,34 @@
      "name": "?sub_0046F090_IsNotMonsterOrNoFlag2@@YAHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0046F170",
+     "length": 73,
+     "name": "?GFX_RemoveOverlays@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046F1C0",
+     "length": 39,
+     "name": "?GFX_SetGfxBasePalShift@@YIXPAUD2GfxDataStrc@@H@Z"
+    },
+    {
      "va": "0x0046F1F0",
      "length": 39,
      "name": "?GFX_GetGfxBasePalShift@@YIHPAUD2GfxDataStrc@@@Z"
     },
     {
+     "va": "0x0046F220",
+     "length": 39,
+     "name": "?GFX_SetGfxPalShift@@YIXPAUD2GfxDataStrc@@H@Z"
+    },
+    {
      "va": "0x0046F250",
      "length": 39,
      "name": "?GFX_GetGfxPalShift@@YIHPAUD2GfxDataStrc@@@Z"
+    },
+    {
+     "va": "0x0046F280",
+     "length": 134,
+     "name": "?GFX_ClearGfxBytes@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x0046F360",
@@ -18146,6 +18206,20 @@
      "name": "?sub_0046F9C0_Empty@@YAXXZ"
     },
     {
+     "va": "0x0046F9D0",
+     "length": 13,
+     "name": "?GFX_GetMonGfxCache@@YIPAUD2MonGfxCacheStrc@@H@Z"
+    },
+    {
+     "va": "0x00470040",
+     "length": 43
+    },
+    {
+     "va": "0x00470200",
+     "length": 142,
+     "name": "?GFX_InitGfxTables@@YIXH@Z"
+    },
+    {
      "va": "0x00470290",
      "length": 177,
      "name": "?GFX_FreeHashedFiles@@YAXXZ"
@@ -18154,6 +18228,16 @@
      "va": "0x00470390",
      "length": 628,
      "name": "?GFX_AddUnitOverlay@@YIXPAUD2UnitStrc@@HHHHHHH@Z"
+    },
+    {
+     "va": "0x004706E0",
+     "length": 375,
+     "name": "?GFX_GetUnitCelOffsets@@YIXPAUD2UnitStrc@@HPAH1@Z"
+    },
+    {
+     "va": "0x00470860",
+     "length": 315,
+     "name": "?GFX_HitTestUnitGfx@@YIHPAUD2UnitStrc@@HHHH@Z"
     },
     {
      "va": "0x00471450",
@@ -18168,6 +18252,46 @@
      "va": "0x00471BD0",
      "length": 740,
      "name": "?GFX_DrawUnitHealthBar@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00473E50",
+     "length": 249,
+     "name": "GFX_StepWeatherPhase"
+    },
+    {
+     "va": "0x00475B80",
+     "length": 161,
+     "name": "GFX_BuildLerpTable"
+    },
+    {
+     "va": "0x00475C40",
+     "length": 219,
+     "name": "GFX_BuildLerpRowTable"
+    },
+    {
+     "va": "0x00478FA0",
+     "length": 108,
+     "name": "GFX_UpdatePetFlags"
+    },
+    {
+     "va": "0x004795F0",
+     "length": 187,
+     "name": "GFX_SortRosterByName"
+    },
+    {
+     "va": "0x0047BA80",
+     "length": 80,
+     "name": "GFX_StepChatIndex"
+    },
+    {
+     "va": "0x00480000",
+     "length": 18,
+     "name": "GFX_SendWardenPacket"
+    },
+    {
+     "va": "0x00480420",
+     "length": 112,
+     "name": "GFX_RefreshPathTarget"
     }
    ]
   },
@@ -20933,136 +21057,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/ENGINE/Gfx_0046E100.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0046E100",
-     "length": 76,
-     "name": "?GFX_HasOverlay@@YIHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x0046E1B0",
-     "length": 335,
-     "name": "GFX_DrawProgressiveStateOverlays"
-    },
-    {
-     "va": "0x0046E570",
-     "length": 42,
-     "name": "?GFX_GetNodeValue@@YIHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x0046EBB0",
-     "length": 88,
-     "name": "?GFX_AllocGfxData@@YAPAUD2GfxDataStrc@@XZ"
-    },
-    {
-     "va": "0x0046EC80",
-     "length": 87,
-     "name": "?GFX_FreeGfxNodes@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0046ECE0",
-     "length": 111,
-     "name": "?GFX_PruneGfxNodes@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0046F020",
-     "length": 61,
-     "name": "?GFX_FillGfxEntries@@YIXPAUD2UnitStrc@@E@Z"
-    },
-    {
-     "va": "0x0046F070",
-     "length": 17,
-     "name": "?GFX_SetGfxMotionFlag@@YIXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x0046F170",
-     "length": 73,
-     "name": "?GFX_RemoveOverlays@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0046F1C0",
-     "length": 39,
-     "name": "?GFX_SetGfxBasePalShift@@YIXPAUD2GfxDataStrc@@H@Z"
-    },
-    {
-     "va": "0x0046F220",
-     "length": 39,
-     "name": "?GFX_SetGfxPalShift@@YIXPAUD2GfxDataStrc@@H@Z"
-    },
-    {
-     "va": "0x0046F280",
-     "length": 134,
-     "name": "?GFX_ClearGfxBytes@@YIXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x0046F9D0",
-     "length": 13,
-     "name": "?GFX_GetMonGfxCache@@YIPAUD2MonGfxCacheStrc@@H@Z"
-    },
-    {
-     "va": "0x00470040",
-     "length": 43
-    },
-    {
-     "va": "0x00470200",
-     "length": 142,
-     "name": "?GFX_InitGfxTables@@YIXH@Z"
-    },
-    {
-     "va": "0x004706E0",
-     "length": 375,
-     "name": "?GFX_GetUnitCelOffsets@@YIXPAUD2UnitStrc@@HPAH1@Z"
-    },
-    {
-     "va": "0x00470860",
-     "length": 315,
-     "name": "?GFX_HitTestUnitGfx@@YIHPAUD2UnitStrc@@HHHH@Z"
-    },
-    {
-     "va": "0x00473E50",
-     "length": 249,
-     "name": "GFX_StepWeatherPhase"
-    },
-    {
-     "va": "0x00475B80",
-     "length": 161,
-     "name": "GFX_BuildLerpTable"
-    },
-    {
-     "va": "0x00475C40",
-     "length": 219,
-     "name": "GFX_BuildLerpRowTable"
-    },
-    {
-     "va": "0x00478FA0",
-     "length": 108,
-     "name": "GFX_UpdatePetFlags"
-    },
-    {
-     "va": "0x004795F0",
-     "length": 187,
-     "name": "GFX_SortRosterByName"
-    },
-    {
-     "va": "0x0047BA80",
-     "length": 80,
-     "name": "GFX_StepChatIndex"
-    },
-    {
-     "va": "0x00480000",
-     "length": 18,
-     "name": "GFX_SendWardenPacket"
-    },
-    {
-     "va": "0x00480420",
-     "length": 112,
-     "name": "GFX_RefreshPathTarget"
-    }
    ]
   },
   {
