@@ -5509,49 +5509,6 @@ void __fastcall MISSILE_CltDoScatterRate(D2UnitStrc* pMissile)
     MISSILE_CltDoCommon(pMissile);
 }
 
-// 0x004E2F40
-int __fastcall MISSILE_VolleyAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
-    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 0x40;
-    }
-
-    const int nCount = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
-    D2MissileStrc tMissileParams;
-    memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.dwFlags = 0x21;
-    tMissileParams.pOwner = pUnit;
-    tMissileParams.nX = CLIENTS_GetUnitX(pUnit);
-    tMissileParams.nY = CLIENTS_GetUnitY(pUnit);
-    tMissileParams.nSkillLevel = nSkillLevel;
-    tMissileParams.nSkill = nSkillId;
-    tMissileParams.nMissile = nMissile;
-    tMissileParams.pInitFunc = SKILLDESC_InitCappedChargedPath;
-    if (!ITEM_GetTargetPosition(pUnit, &tMissileParams.nTargetX, &tMissileParams.nTargetY))
-    {
-        return 0;
-    }
-
-    for (int i = 0; i < nCount; ++i)
-    {
-        tMissileParams.nInitArg = i;
-        MISSILE_CreateClientMissile(&tMissileParams);
-    }
-    return 1;
-}
 
 // 0x004E34E0
 int __fastcall MISSILE_StartMissileEffect(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)

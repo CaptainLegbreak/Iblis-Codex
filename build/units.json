@@ -31322,11 +31322,6 @@
      "name": "?MISSILE_SkillStartSpawnRing@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
-     "va": "0x004E2F40",
-     "length": 267,
-     "name": "?MISSILE_VolleyAtTarget@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
      "va": "0x004E3350",
      "length": 394,
      "name": "?MISSILE_CheckTargetInRange@@YIHPAUD2UnitStrc@@HH@Z"
@@ -33572,6 +33567,11 @@
    "file": "Source/D2Client/UI/SkillDesc.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x004E2F40",
+     "length": 267,
+     "name": "?MISSILE_VolleyAtTarget@@YIHPAUD2UnitStrc@@HH@Z"
+    },
     {
      "va": "0x004E3AB0",
      "length": 403
