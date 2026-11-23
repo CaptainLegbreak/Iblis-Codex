@@ -659,6 +659,31 @@ int __fastcall SKILLSMON_FlankTarget(D2UnitStrc* pUnit, int nSkillId, int nSkill
     return 1;
 }
 
+#define SKILL_FLAG 0x40
+
+int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId);                               // 0x004F21B0
+
+D2UnitStrc* __fastcall AUTOMAP_RequestAtTarget(D2UnitStrc* pUnit, int nArg0, int nArg3, int nArg4); // 0x004C5420
+
+// 0x004E3720
+int __fastcall sub_004E3720(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+        return 0;
+    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
+    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
+        return 0;
+    if (pUnit)
+        pUnit->dwFlags |= SKILL_FLAG;
+    const int nTarget = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
+    D2UnitStrc* pMissile = AUTOMAP_RequestAtTarget(pUnit, nMissile, nSkillId, nSkillLevel);
+    if (!pMissile)
+        return 0;
+    MISSILE_SetTargetX(pMissile, nTarget);
+    return 1;
+}
+
 // 0x004E39A0
 int __fastcall sub_004E39A0_CheckTargetRoom(D2UnitStrc* pUnit, int nSkillId, int nArg)
 {
