@@ -1658,6 +1658,12 @@ int __fastcall NPCMENU_NpcMessageCallback(void* pContext, int nArg, int nValue)
     return 1;
 }
 
+// 0x004B1970
+void __cdecl MONSTER_ResetUsedStrings()
+{
+    gtStringList.wCount = 0;
+}
+
 // 0x004B1980
 void __fastcall NPCMENU_AddUsedString(unsigned short wStringId)
 {
