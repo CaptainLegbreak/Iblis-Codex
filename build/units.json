@@ -31447,19 +31447,9 @@
      "name": "?MISSILE_CallSkillSeqDoBackward@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
-     "va": "0x004D9180",
-     "length": 210,
-     "name": "MISSILE_StateStartMissile"
-    },
-    {
      "va": "0x004D9630",
      "length": 123,
      "name": "MISSILE_StateOverlayRanges"
-    },
-    {
-     "va": "0x004D96B0",
-     "length": 142,
-     "name": "MISSILE_StateMissile"
     },
     {
      "va": "0x004D97F0",
@@ -32288,6 +32278,11 @@
      "name": "?PLRSKILLS_StateStopSkillSound@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x004D9180",
+     "length": 210,
+     "name": "MISSILE_StateStartMissile"
+    },
+    {
      "va": "0x004D9260",
      "length": 165,
      "name": "PLRSKILLS_StateClearCollision"
@@ -32331,6 +32326,11 @@
      "va": "0x004D9480",
      "length": 432,
      "name": "PLRSKILLS_StateOverlaySpread"
+    },
+    {
+     "va": "0x004D96B0",
+     "length": 142,
+     "name": "MISSILE_StateMissile"
     },
     {
      "va": "0x004D9740",
