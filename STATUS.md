@@ -42,16 +42,16 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 1059 |
+| Compilation units | 1043 |
 | … in a file with its original name, whole | 281 |
 | … pieces of an original file still split (in 36 files) | 115 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 663 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3104 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 647 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3105 |
 | Unnamed fields (`unk0x..`) in the shared headers | 714 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 43 |
-| Calling-convention shims | 111 |
-| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 551 |
-| `__declspec(noinline)` / `__forceinline` | 101 / 211 |
+| Calling-convention shims | 110 |
+| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 548 |
+| `__declspec(noinline)` / `__forceinline` | 100 / 211 |
 | Function names: blizzard / d2moo / inferred / placeholder | 460 / 5409 / 5290 / 3768 |
 
 `docs/shape.svg` draws the same per function: whole original file, file still in pieces, placeholder file, forcing construct, not reconstructed.
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 3360 functions are compiled with `/GS-` and 580 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 101 times and `__declspec(dllexport)` 170 times to keep a body out of line or emitted.
+Not listed one by one: 3351 functions are compiled with `/GS-` and 580 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 100 times and `__declspec(dllexport)` 170 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -591,8 +591,8 @@ Not listed one by one: 3360 functions are compiled with `/GS-` and 580 with `/EH
 | 0x005178E9 | sub_005178E9_Format | `D2Hell/Unknown_005178E9.cpp` | compiler option /Os |
 | 0x0051793E | sub_0051793E_FormatAndRaise | `D2Hell/Unknown_0051793E.cpp` | compiler option /O1, compiler option /Ob1 |
 | 0x005179B3 | sub_005179B3_CopyRect | `D2Hell/Unknown_005179B3.cpp` | compiler option /O1, inline assembly |
-| 0x00517A36 | sub_00517A36_CompareMemory | `D2Hell/Unknown_00517874.cpp` | compiler option /O1, inline assembly |
-| 0x00517ABB | sub_00517ABB_FindLowestSetBit | `D2Hell/Unknown_005179B3.cpp` | compiler option /O1, inline assembly |
+| 0x00517A36 | sub_00517A36_CompareMemory | `D2Hell/Unknown_005179B3.cpp` | compiler option /O1, inline assembly |
+| 0x00517ABB | sub_00517ABB_FindLowestSetBit | `D2Hell/Unknown_00517874.cpp` | compiler option /O1, inline assembly |
 | 0x00517AD6 | sub_00517AD6 | `D2Hell/Unknown_00517874.cpp` | compiler option /O1 |
 | 0x00517C30 | sub_00517C30_GetSignerOrganization | `D2Hell/Unknown_00517874.cpp` | compiler option /O1 |
 | 0x00518300 | BNETGW_LoadGatewayFile | `D2BNClient/BNetGW.cpp` | volatile read or qualifier |
@@ -707,7 +707,6 @@ Not listed one by one: 3360 functions are compiled with `/GS-` and 580 with `/EH
 | 0x005ADA80 | MISSMODE_GetPierceFlags | `D2Game/MISSILES/MissMode.cpp` | calling-convention shim |
 | 0x005AF170 | MISSMODE_SrvDo16_FrozenOrbNova | `D2Game/MISSILES/MissMode.cpp` | __assume |
 | 0x005B0FF0 | D2GAME_AICORE_MinionLeash_6FCF0D10 | `D2Game/MISSILES/MissMode.cpp` | volatile read or qualifier |
-| 0x005B1C50 | MONSTERSPAWN_EquipAncientBarbarians | `D2Game/Unknown_005B1C50.cpp` | calling-convention shim |
 | 0x005B2830 | MONSTERSPAWN_SpawnMinionParty | `D2Game/Unknown_005B24E0.cpp` | calling-convention shim, volatile read or qualifier |
 | 0x005B2A00 | D2GAME_SpawnNormalMonster | `D2Game/Unknown_005B24E0.cpp` | volatile read or qualifier |
 | 0x005BE020 | MONSTERCHOOSE_GetBossSpawnType | `D2Game/Unknown_005BE020.cpp` | compiler option /Ob1 |
@@ -863,7 +862,7 @@ Not listed one by one: 3360 functions are compiled with `/GS-` and 580 with `/EH
 | 0x006C9A76 | sub_006C9A76_ParseNumber | `D2Hell/Unknown_006C9A46.cpp` | compiler option /O1 |
 | 0x006C9AC7 | sub_006C9AC7_SkipSpaces | `D2Hell/Unknown_006C9A46.cpp` | compiler option /O1 |
 | 0x006C9ADF | sub_006C9ADF_CopyWord | `D2Hell/Unknown_006C9A46.cpp` | compiler option /O1 |
-| 0x006C9AFF | sub_006C9AFF_FindLastCharacter | `D2Hell/Unknown_006C9AFF.cpp` | compiler option /Os |
+| 0x006C9AFF | sub_006C9AFF_FindLastCharacter | `D2Hell/Unknown_006C9A46.cpp` | compiler option /O1 |
 | 0x006C9B17 | sub_006C9B17_StripFileName | `D2Hell/Unknown_006C9A46.cpp` | compiler option /O1 |
 | 0x006C9B30 | sub_006C9B30_GetFileName | `D2Hell/Unknown_006C9A46.cpp` | compiler option /O1 |
 | 0x006CA740 | EgtLogMsgQueue_0075E868 | `Storm/Unknown_006CA740.cpp` | compiler option /EHa |
@@ -871,7 +870,6 @@ Not listed one by one: 3360 functions are compiled with `/GS-` and 580 with `/EH
 | 0x006CB3E0 | sub_006CB3E0_DestroyHashTable | `D2Client/Unknown_006CB3E0.cpp` | compiler option /Ob1 |
 | 0x006CB400 | sub_006CB400_Nop | `D2Client/Unknown_006CB3E0.cpp` | compiler option /Ob1 |
 | 0x006CB401 | sub_006CB401_StaticFini_gFaultHandlerList | `D2Hell/Unknown_006CB401.cpp` | compiler option /O1, compiler option /Ob1 |
-| 0x006CB480 | sub_006CB480_DestroyBigPair | `Bnclient/Unknown_006CB480.cpp` | compiler option /Ob1 |
 | 0x006CB4C0 | sub_006CB4C0_DestroyTable | `D2CMP/Unknown_006CB4C0.cpp` | compiler option /Ob1 |
 
 ## Names
