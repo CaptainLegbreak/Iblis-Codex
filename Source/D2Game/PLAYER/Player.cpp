@@ -216,6 +216,22 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 void __fastcall CLIENTS_SetSkillHotKey(D2ClientStrc* pClient, int nHotkeyId, short nSkillId, unsigned char nHand, int nItemGUID); // 0x005390A0
 
+D2PlrIntroStrc* __fastcall PLRINTRO_Create(D2GameStrc* pGame); // 0x00572560
+
+// 0x00534800
+void __fastcall sub_00534800_CreatePlayerIntros(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    if (pPlayerData)
+    {
+        for (int i = 0; i < 3; ++i)
+        {
+            pPlayerData->pPlayerIntro[i] = PLRINTRO_Create(pGame);
+        }
+        pPlayerData->dwBoughtItemId = 0;
+    }
+}
+
 // 0x00534840
 static void PLAYER_FreePartyLifeList(D2GameStrc* pGame, D2PlayerDataStrc* pPlayerData)
 {

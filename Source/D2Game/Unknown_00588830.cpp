@@ -90,29 +90,4 @@ found:
     EVENT_SetEvent(pQuestData->pGame, pPortal, 7, pQuestData->pGame->dwGameFrame + 25, 0, 0);
 }
 
-// 0x00588F10
-int __fastcall ACT5Q3_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 0x25, 0) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, 0x25, 1) == 1)
-    {
-        return 0;
-    }
-
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x21);
-    if (!pQuestData)
-    {
-        return 0;
-    }
-
-    if (pQuestData->fState == 2)
-    {
-        QUESTRECORD_SetQuestState(pQuestFlags, 0x25, 2);
-    }
-    else if (pQuestData->fState == 3)
-    {
-        QUESTRECORD_SetQuestState(pQuestFlags, 0x25, 3);
-    }
-
-    return 0;
-}
+int __fastcall ACT5Q3_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00588F10

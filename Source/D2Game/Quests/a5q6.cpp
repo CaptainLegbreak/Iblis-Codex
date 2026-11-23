@@ -842,4 +842,60 @@ int __fastcall ACT5Q6_UnitIterate_UpdateQuestStateFlags(Game* game, Unit* unit, 
     return 0;
 }
 
+// 0x0058D940
+void __fastcall sub_0058D940_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    switch (pQuestArg->nMessageIndex)
+    {
+    case 20178:
+    {
+        D2UnitStrc* pPlayer = pQuestArg->pPlayer;
+        D2GameStrc* pGame = pQuestData->pGame;
+        D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 4);
+        break;
+    }
+    case 20177:
+    {
+        D2UnitStrc* pPlayer = pQuestArg->pPlayer;
+        D2GameStrc* pGame = pQuestData->pGame;
+        D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 5);
+        break;
+    }
+    case 20179:
+    {
+        D2UnitStrc* pPlayer = pQuestArg->pPlayer;
+        D2GameStrc* pGame = pQuestData->pGame;
+        D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 6);
+        break;
+    }
+    case 20175:
+    {
+        D2UnitStrc* pPlayer = pQuestArg->pPlayer;
+        D2GameStrc* pGame = pQuestData->pGame;
+        D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 7);
+        break;
+    }
+    case 20180:
+    {
+        D2UnitStrc* pPlayer = pQuestArg->pPlayer;
+        D2GameStrc* pGame = pQuestData->pGame;
+        D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 8);
+        break;
+    }
+    case 20176:
+    {
+        D2UnitStrc* pPlayer = pQuestArg->pPlayer;
+        D2GameStrc* pGame = pQuestData->pGame;
+        D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 9);
+        break;
+    }
+    }
+}
+
 #include "gen/data/Source/D2Game/Quests/a5q6.inc"
