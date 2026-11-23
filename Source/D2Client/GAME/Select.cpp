@@ -240,6 +240,7 @@ static int __stdcall sub_00467000_CheckWarpTileHover(D2UnitStrc* pPlayer, int nY
     return 0;
 }
 
+// 0x004670A0
 static void __stdcall sub_004670A0_AdjustCursorPerspective(int* pnX, int* pnY)
 {
     if (sub_004F51D0_IsPerspective())
@@ -393,6 +394,7 @@ static int __stdcall sub_00467250_CheckDoorSideA(D2UnitStrc* pOther, D2UnitStrc*
 }
 
 
+// 0x00467310
 static int __stdcall sub_00467310_CheckDoorSideB(D2UnitStrc* pOther, D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwAnimMode)
@@ -419,14 +421,14 @@ static int __stdcall sub_00467310_CheckDoorSideB(D2UnitStrc* pOther, D2UnitStrc*
 
     if (pObjectsTxtRecord->nSide == 1)
     {
-        if ((tOther.nY > tUnit.nY && tUnit.nY > tPlayer.nY) || (tOther.nY < tUnit.nY && tUnit.nY < tPlayer.nY))
+        if ((tOther.nY > (unsigned int)tUnit.nY && (unsigned int)tUnit.nY > tPlayer.nY) || (tOther.nY < (unsigned int)tUnit.nY && (unsigned int)tUnit.nY < tPlayer.nY))
         {
             return 1;
         }
     }
     else
     {
-        if ((tOther.nX < tUnit.nX && tUnit.nX < tPlayer.nX) || (tOther.nX > tUnit.nX && tUnit.nX > tPlayer.nX))
+        if ((tOther.nX < (unsigned int)tUnit.nX && (unsigned int)tUnit.nX < tPlayer.nX) || (tOther.nX > (unsigned int)tUnit.nX && (unsigned int)tUnit.nX > tPlayer.nX))
         {
             return 1;
         }
@@ -434,6 +436,7 @@ static int __stdcall sub_00467310_CheckDoorSideB(D2UnitStrc* pOther, D2UnitStrc*
     return 0;
 }
 
+// 0x004673C0
 static int sub_004673C0_GetDistanceSquared(D2UnitStrc* pUnit, D2UnitStrc* pOther)
 {
     const int nDX = UNITS_GetClientCoordX(pUnit) - UNITS_GetClientCoordX(pOther);
@@ -531,6 +534,7 @@ static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkill
     return 0;
 }
 
+// 0x004677B0
 static D2UnitStrc* __stdcall sub_004677B0_FindFreeTargetCoords(int* pnX, int* pnY, D2UnitStrc* pUnit)
 {
     D2CoordStrc tCoord;
@@ -557,6 +561,7 @@ static D2UnitStrc* __stdcall sub_004677B0_FindFreeTargetCoords(int* pnX, int* pn
     return pUnit;
 }
 
+// 0x00467880
 D2UnitStrc* __fastcall sub_00467880_GetSkillTarget(D2SkillStrc* pSkill, D2UnitStrc* pUnit, int* pnX, int* pnY, unsigned char nFlags, int bArg)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
@@ -613,6 +618,7 @@ skip:
 
     return pUnit;
 }
+
 
 void __cdecl sub_E01_Emit_00467AC0(D2UnitStrc* pFirst)
 {

@@ -18907,51 +18907,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004670A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004670A0",
-     "length": 131,
-     "name": "?sub_004670A0_AdjustCursorPerspective@@YGXPAH0@Z"
-    },
-    {
-     "va": "0x00467310",
-     "length": 166,
-     "name": "?sub_00467310_CheckDoorSideB@@YGHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004673C0",
-     "length": 51,
-     "name": "?sub_004673C0_GetDistanceSquared@@YAHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004677B0",
-     "length": 207,
-     "name": "?sub_004677B0_FindFreeTargetCoords@@YGPAUD2UnitStrc@@PAH0PAU1@@Z"
-    },
-    {
-     "va": "0x00467880",
-     "length": 377,
-     "name": "?sub_00467880_GetSkillTarget@@YIPAUD2UnitStrc@@PAUD2SkillStrc@@PAU1@PAH2EH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/UNIT/CUnit.cpp",
    "rank": 0,
    "functions": [
@@ -19515,6 +19470,11 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x004670A0",
+     "length": 131,
+     "name": "?sub_004670A0_AdjustCursorPerspective@@YGXPAH0@Z"
+    },
+    {
      "va": "0x00467130",
      "length": 279
     },
@@ -19524,9 +19484,29 @@
      "name": "?sub_00467250_CheckDoorSideA@@YGHPAUD2UnitStrc@@0@Z"
     },
     {
+     "va": "0x00467310",
+     "length": 166,
+     "name": "?sub_00467310_CheckDoorSideB@@YGHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x004673C0",
+     "length": 51,
+     "name": "?sub_004673C0_GetDistanceSquared@@YAHPAUD2UnitStrc@@0@Z"
+    },
+    {
      "va": "0x00467490",
      "length": 421,
      "name": "?SELECT_FindSkillTarget@@YGPAUD2UnitStrc@@PAUD2SkillStrc@@PAU1@PAH2PAUD2SkillsTxt@@@Z"
+    },
+    {
+     "va": "0x004677B0",
+     "length": 207,
+     "name": "?sub_004677B0_FindFreeTargetCoords@@YGPAUD2UnitStrc@@PAH0PAU1@@Z"
+    },
+    {
+     "va": "0x00467880",
+     "length": 377,
+     "name": "?sub_00467880_GetSkillTarget@@YIPAUD2UnitStrc@@PAUD2SkillStrc@@PAU1@PAH2EH@Z"
     }
    ],
    "flags": [
