@@ -4101,6 +4101,130 @@ int __fastcall sub_00490780(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, in
     return nResult;
 }
 
+// 0x00490BA0
+int __fastcall sub_00490BA0(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int nBodyLoc)
+{
+    int nResult = 0;
+    D2UnitStrc* pItem = INVENTORY_GetCursorItem(pInventory);
+    D2UnitStrc* pLeft = INVENTORY_GetItemFromBodyLoc(pInventory, MV(5));
+    D2UnitStrc* pRight = INVENTORY_GetItemFromBodyLoc(pInventory, MV(4));
+    if (sub_00468830() == MV(6))
+    {
+        D2UnitStrc* pCursor = CURSOR_GetCursorItem();
+        if (pCursor && pLeft && !ITEM_IsItemActionBlocked(pLeft) && INV_CheckTradeClickDelay())
+        {
+            MSG_SendTwoDwords(PACKET(0x27), !pLeft ? -1 : pLeft->dwUnitId, !pCursor ? -1 : pCursor->dwUnitId);
+            sub_004C21F0(pLeft);
+            nResult = 1;
+        }
+    }
+    else if (sub_00468830() == MV(8))
+    {
+        if (pLeft && !ITEM_IsItemActionBlocked(pLeft) && INV_CheckTradeClickDelay())
+        {
+            sub_00478680_SendPacket5(PACKET(0x4C), !pLeft ? -1 : pLeft->dwUnitId);
+            sub_004C21F0(pLeft);
+            nResult = 1;
+        }
+    }
+    switch (D2Common_10299(pPlayer, nBodyLoc, pItem, 0))
+    {
+    case 0:
+        if (pItem)
+        {
+            if (D2Common_10299(pPlayer, nBodyLoc, pItem, 1))
+            {
+                const int nClass = sub_0062C0B0_GetItemTypeClass(pItem);
+                if (nClass == MV(7) || nClass == (!pPlayer ? -1 : pPlayer->dwClassId))
+                {
+                    UNITSND_PlayPlayerSpeech(pPlayer, MV(0x14));
+                    return 1;
+                }
+            }
+            UNITSND_PlayPlayerSpeech(pPlayer, MV(0x13));
+        }
+        return 1;
+    case 1:
+        if (!ITEM_IsItemActionBlocked(pItem) && INV_CheckTradeClickDelay())
+        {
+            MSG_SendTwoDwords(PACKET(0x1A), !pItem ? -1 : pItem->dwUnitId, MV(5));
+            sub_004C21F0(pItem);
+            sub_004B9A00(ITEM_GetDropSound(pItem), 0, 0, 0, 0);
+            nResult = 1;
+        }
+        break;
+    case 2:
+        if (!ITEM_IsItemActionBlocked(pItem) && !ITEM_IsItemActionBlocked(pRight) && INV_CheckTradeClickDelay())
+        {
+            MSG_SendTwoDwords(PACKET(0x1B), !pItem ? -1 : pItem->dwUnitId, MV(5));
+            sub_004C21F0(pRight);
+            sub_004C21F0(pItem);
+            sub_004B9A00(ITEM_GetDropSound(pItem), 0, 0, 0, 0);
+            gbNpcTradeClicked = 1;
+            nResult = 1;
+        }
+        break;
+    case 3:
+        if (sub_00486B80_IsNpcStateB())
+        {
+            if (!ITEM_IsItemActionBlocked(pLeft) && INV_CheckTradeClickDelay())
+            {
+                sub_004785B0_SendPacket3(PACKET(0x1C), MV(5));
+                sub_004C21F0(pLeft);
+                gbNpcTradeClicked = 1;
+                nResult = 1;
+            }
+        }
+        else if (gnInvPanelMode < MV(0x13))
+        {
+            INV_ForwardTradeClick((int)pPlayer, (int)pLeft, 1, gnInvMouseX, gnInvMouseY, 0, 0);
+        }
+        break;
+    case 4:
+        if (gnInvPanelMode == MV(4))
+        {
+            INV_ForwardTradeClick((int)pPlayer, (int)pRight, 1, gnInvMouseX, gnInvMouseY, 0, 0);
+        }
+        else if (!ITEM_IsItemActionBlocked(pRight) && INV_CheckTradeClickDelay())
+        {
+            sub_004785B0_SendPacket3(PACKET(0x1C), MV(4));
+            sub_004C21F0(pRight);
+            gbNpcTradeClicked = 1;
+            nResult = 1;
+        }
+        break;
+    case 5:
+        if (!ITEM_IsItemActionBlocked(pLeft) && INV_CheckTradeClickDelay())
+        {
+            MSG_SendTwoDwords(PACKET(0x1D), !pItem ? -1 : pItem->dwUnitId, MV(5));
+            sub_004C21F0(pItem);
+            sub_004B9A00(ITEM_GetDropSound(pItem), 0, 0, 0, 0);
+            nResult = 1;
+        }
+        break;
+    case 7:
+        if (!ITEM_IsItemActionBlocked(pItem) && !ITEM_IsItemActionBlocked(pRight) && !ITEM_IsItemActionBlocked(pLeft) && INV_CheckTradeClickDelay())
+        {
+            MSG_SendTwoDwords(PACKET(0x1E), !pItem ? -1 : pItem->dwUnitId, MV(5));
+            sub_004C21F0(pItem);
+            sub_004C21F0(pRight);
+            sub_004C21F0(pLeft);
+            nResult = 1;
+        }
+        break;
+    case 6:
+        if (!ITEM_IsItemActionBlocked(pItem) && INV_CheckTradeClickDelay() && gnInvPanelMode != MV(0xB))
+        {
+            MSG_SendTwoDwords(PACKET(0x21), !pItem ? -1 : pItem->dwUnitId, !pLeft ? -1 : pLeft->dwUnitId);
+            sub_004C21F0(pItem);
+            sub_004B9A00(ITEM_GetDropSound(pItem), 0, 0, 0, 0);
+            nResult = 1;
+        }
+        break;
+    }
+    return nResult;
+}
+
 // 0x004912A0
 void __stdcall INV_HandlePanelClick(SMSGHANDLER_PARAMS* pMsg)
 {
