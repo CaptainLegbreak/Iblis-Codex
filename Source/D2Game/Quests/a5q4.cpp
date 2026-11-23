@@ -217,7 +217,6 @@ enum D2C_F33QuestConstants
     MONSTATSFLAGINDEX_ZOO = 22,
 };
 
-extern "C" const unsigned int gnAct1Quest2NpcIndices[]; // 0x00737180
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
