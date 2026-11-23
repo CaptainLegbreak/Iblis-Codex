@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2PathFind.h"
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
@@ -43,19 +44,6 @@ static int __stdcall PATH_RayTrace(D2PathPointStrc tStartCoord, D2PathPointStrc*
 int __fastcall sub_6FDAA720(D2PathInfoStrc* pPathInfo); // 0x00679B30
 
 typedef int BOOL;
-
-struct D2PathFoWallNodeStrc
-{
-    D2PathPointStrc tPoint;
-    short nFScore;
-    short nHeuristicDistanceToTarget;
-    short nBestDistanceFromStart;
-    unsigned short wPad;
-    D2PathFoWallNodeStrc* pBestParent;
-    D2PathFoWallNodeStrc* pChildren[8];
-    D2PathFoWallNodeStrc* pNextCachePoint;
-    D2PathFoWallNodeStrc* pNextSortedByFScore;
-};
 
 struct D2PathFoWallContextStrc
 {

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2ItemsWorld.h"
 #include "D2Records.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -42,14 +43,6 @@ struct D2BookDataTbl
 
 D2BookDataTbl* __fastcall DATATBLS_GetBookDataTables(); // 0x006374A0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
-
-struct D2ItemDropStrc
-{
-    char unk0x00[0x40];
-    unsigned int nItemIndex;
-    char unk0x44[0x3C];
-    unsigned int dwFlags2;
-};
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 int __stdcall sub_005C2740_RollLegacySetItem(D2UnitStrc* pItem); // 0x005C2740
