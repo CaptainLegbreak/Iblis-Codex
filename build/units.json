@@ -29971,16 +29971,6 @@
      "name": "ITEM_ShowTimedHint"
     },
     {
-     "va": "0x004DE630",
-     "length": 132,
-     "name": "sub_004DE630_DrawTileAt"
-    },
-    {
-     "va": "0x004DE6C0",
-     "length": 110,
-     "name": "sub_004DE6C0_DrawTileTriple"
-    },
-    {
      "va": "0x004DF630",
      "length": 131,
      "name": "ITEM_QueryCacheAddress"
@@ -31922,6 +31912,16 @@
     {
      "va": "0x004DE410",
      "length": 541
+    },
+    {
+     "va": "0x004DE630",
+     "length": 132,
+     "name": "sub_004DE630_DrawTileAt"
+    },
+    {
+     "va": "0x004DE6C0",
+     "length": 110,
+     "name": "sub_004DE6C0_DrawTileTriple"
     },
     {
      "va": "0x004DE730",
