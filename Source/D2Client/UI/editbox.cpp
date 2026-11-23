@@ -139,8 +139,8 @@ public:
     virtual int Slot11();
     virtual void sub_004BB5B0_Slot12(char* szBuffer);
     virtual void Slot13();
-    virtual void sub_004BB530_Slot14();
-    virtual void sub_004BB4D0_Slot15();
+    virtual void sub_004BB530_Slot14(const char* szText);
+    virtual void sub_004BB4D0_Slot15(int nValue);
     virtual void sub_004BB990_SetUnk18(int nValue);
     virtual void sub_004BB9A0_SetUnk24(int nValue);
     virtual void sub_004BB200_SetUnk20(int nValue);
@@ -163,7 +163,7 @@ public:
     int unk0x3A;
     int unk0x3E;
     int unk0x42;
-    int unk0x46;
+    unsigned int unk0x46;
     int unk0x4A;
     int nFont;
     void* pCellFile;
@@ -190,9 +190,9 @@ public:
     virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
     virtual int Slot11();
     virtual void sub_004BBB30_Slot12(int nValue);
-    virtual void sub_004BBB50_Slot13();
-    virtual void sub_004BBB40_Slot14();
-    virtual void sub_004BBB60_Slot15();
+    virtual void sub_004BBB50_Slot13(const char* szText);
+    virtual void sub_004BBB40_Slot14(int nValue);
+    virtual void sub_004BBB60_Slot15(char* szBuffer);
     virtual void sub_004BBB80_Forward(int nArg);
     virtual void sub_004BBB90_SetUnk24(int nValue);
     virtual void sub_004BBBA0_SetUnk20(int nValue);
@@ -205,7 +205,7 @@ public:
 class SpinnerImplementation : public UIWidget
 {
 public:
-    SpinnerImplementation(int nX, int nY, int bHorizontal, int nArg0C);
+    SpinnerImplementation(int nX, int nY, int bHorizontal, int nArg0C);                                     // 0x004BC340
     virtual ~SpinnerImplementation();
     virtual void Slot01();
     virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
@@ -236,8 +236,8 @@ public:
     int unk0x30;
     int unk0x34;
     int unk0x38;
-    void (__cdecl* pfnCallback)();
-    unsigned int unk0x40;
+    void (__cdecl* pfUnk0x3C)();
+    unsigned int nUnk0x3CCalls;
     unsigned int unk0x44;
     unsigned int unk0x48;
     int unk0x4C;
