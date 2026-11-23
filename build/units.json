@@ -1281,95 +1281,20 @@
   },
   {
    "file": "Source/Fog/Unknown_00401DF0.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x00401DF0",
      "length": 286
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc"
-   ],
-   "ltcg": true,
-   "link": [
-    "/OPT:REF",
-    "/OPT:ICF"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00401F10.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00401F10",
      "length": 434
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc"
-   ],
-   "ltcg": true,
-   "link": [
-    "/OPT:REF",
-    "/OPT:ICF"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_004020D0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x004020D0",
      "length": 253
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc"
-   ],
-   "ltcg": true,
-   "link": [
-    "/OPT:REF",
-    "/OPT:ICF"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_004021D0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x004021D0",
      "length": 164
@@ -1397,7 +1322,7 @@
   },
   {
    "file": "Source/Fog/Unknown_00402280.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x00402280",
@@ -1426,37 +1351,12 @@
   },
   {
    "file": "Source/Fog/Unknown_00402380.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x00402380",
      "length": 218
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc"
-   ],
-   "ltcg": true,
-   "link": [
-    "/OPT:REF",
-    "/OPT:ICF"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00402460.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00402460",
      "length": 204
@@ -1484,7 +1384,7 @@
   },
   {
    "file": "Source/Fog/Unknown_00402530.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x00402530",
@@ -1513,40 +1413,19 @@
   },
   {
    "file": "Source/Fog/Unknown_004025F0.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x004025F0",
      "length": 217
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc"
-   ],
-   "ltcg": true,
-   "link": [
-    "/OPT:REF",
-    "/OPT:ICF"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_004026D0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x004026D0",
      "length": 233
+    },
+    {
+     "va": "0x00402AE0",
+     "length": 106
     }
    ],
    "flags": [
@@ -2210,35 +2089,6 @@
     "/Ob2",
     "/Gd",
     "/EHa"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00402AE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00402AE0",
-     "length": 106
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc"
-   ],
-   "ltcg": true,
-   "link": [
-    "/OPT:REF",
-    "/OPT:ICF"
    ]
   },
   {
