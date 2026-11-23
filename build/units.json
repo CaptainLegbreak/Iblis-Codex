@@ -49485,9 +49485,17 @@
      "name": "?sub_0054E490_SpawnRegularPresetMonster@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@HHHH@Z"
     },
     {
+     "va": "0x0054E600",
+     "length": 1460
+    },
+    {
      "va": "0x0054EBC0",
      "length": 114,
      "name": "?sub_0054EBC0_CanPopulateRoom@@YAHPAUD2ActiveRoomStrc@@PAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x0054EC40",
+     "length": 69
     }
    ]
   },
@@ -49502,10 +49510,6 @@
     {
      "va": "0x0054DC40",
      "length": 379
-    },
-    {
-     "va": "0x0054EC40",
-     "length": 69
     }
    ],
    "flags": [
@@ -49531,30 +49535,6 @@
      "va": "0x0054DDC0",
      "length": 435
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0054E600.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0054E600",
-     "length": 1460
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
