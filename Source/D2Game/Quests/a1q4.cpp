@@ -499,46 +499,6 @@ int __fastcall ACT5Q2_FindPortal(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStr
     return 0;
 }
 
-// 0x0058F8F0
-void __fastcall ACT1Intro_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
-    int nPlayerClass = !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwClassId;
-
-    int nSpecialClass;
-    switch (nNpcId)
-    {
-    case 150:
-        nSpecialClass = 0;
-        break;
-    case 147:
-        nSpecialClass = 2;
-        break;
-    case 154:
-        nSpecialClass = 4;
-        break;
-    case 148:
-        nSpecialClass = 1;
-        break;
-    default:
-        return;
-    }
-
-    if (PLRINTRO_GetQuestIntroFlag(pQuestArg->pPlayer, pQuestArg->pGame, nNpcId))
-    {
-        return;
-    }
-
-    if (nPlayerClass == nSpecialClass)
-    {
-        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 1);
-    }
-    else
-    {
-        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 0);
-    }
-}
-
 static inline int UNITS_GetGUIDOrNone(D2UnitStrc* pUnit)
 {
     if (!pUnit)
