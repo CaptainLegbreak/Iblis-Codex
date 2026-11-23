@@ -49,59 +49,9 @@ extern void* gpUseItemConfirmDialog; // 0x007C5484
 
 static int sub_004C0450_ClickHotspots(int nX, int nY);
 
-// 0x004C0440
-int __cdecl sub_004C0440_Thunk()
-{
-    return USEITEM_ClosePanel();
-}
 
-// 0x004C04E0
-void __stdcall sub_004C04E0_OnHotspotClick(SMSGHANDLER_PARAMS* pMsg)
-{
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-    const int nX = pMsg->nXpos;
-    const int nY = pMsg->nYpos;
-    if (gnUseItemDialogState == 2)
-    {
-        if (sub_004C0450_ClickHotspots(nX, nY))
-            return;
-        if (sub_00489190(pMsg))
-            USEITEM_ClosePanel();
-        return;
-    }
-    if (ROSTERPETS_HandleRectClick(pMsg))
-        return;
-    sub_004C0450_ClickHotspots(nX, nY);
-}
 
-// 0x004C0450
-static int sub_004C0450_ClickHotspots(int nX, int nY)
-{
-    int bHit = 0;
-    int n;
-    // volatile: the volatile read keeps the original's register for the count; no plain form found
-// build: symbol ?gnHotspotCount@* 0x007278FC
-    for (int i = 0; i < (n = *(volatile int*)&gnHotspotCount); i++)
-    {
-        if (gaUseItemHotspotRects[i].bFlag0x25 && nX >= gaUseItemHotspotRects[i].nLeft && nX <= gaUseItemHotspotRects[i].nRight && nY >= gaUseItemHotspotRects[i].nTop && nY <= gaUseItemHotspotRects[i].nBottom)
-        {
-            sub_004B9A00(1, 0, 0, 0, 0);
-            if (!i)
-                sub_004BFAF0_ShowConfirmation();
-            else
-                USEITEM_ClosePanel();
-            bHit = 1;
-        }
-    }
-    for (int i = 0; i < n; i++)
-    {
-        gaUseItemHotspotRects[i].bFlag0x25 = 0;
-        gaUseItemHotspotRects[i].bFlag0x24 = 0;
-    }
-    return bHit;
-}
+static int sub_004C0450_ClickHotspots(int nX, int nY); // 0x004C0450
 
 #include "gen/data/Source/D2Client/Unknown_004C0440.inc"
 

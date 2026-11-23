@@ -29661,6 +29661,21 @@
      "name": "USEITEM_OpenPanel"
     },
     {
+     "va": "0x004C0440",
+     "length": 5,
+     "name": "?sub_004C0440_Thunk@@YAHXZ"
+    },
+    {
+     "va": "0x004C0450",
+     "length": 144,
+     "name": "?sub_004C0450_ClickHotspots@@YAHHH@Z"
+    },
+    {
+     "va": "0x004C04E0",
+     "length": 100,
+     "name": "?sub_004C04E0_OnHotspotClick@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x004C0620",
      "length": 21,
      "name": "?USEITEM_OpenNpcItemPanel@@YIXH@Z"
@@ -30367,21 +30382,6 @@
    "file": "Source/D2Client/Unknown_004C0440.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004C0440",
-     "length": 5,
-     "name": "?sub_004C0440_Thunk@@YAHXZ"
-    },
-    {
-     "va": "0x004C0450",
-     "length": 144,
-     "name": "?sub_004C0450_ClickHotspots@@YAHHH@Z"
-    },
-    {
-     "va": "0x004C04E0",
-     "length": 100,
-     "name": "?sub_004C04E0_OnHotspotClick@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
     {
      "va": "0x004C0550",
      "length": 200,

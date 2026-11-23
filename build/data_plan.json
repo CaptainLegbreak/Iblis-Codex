@@ -1807,9 +1807,7 @@
   "Source/D2Client/UI/useitem.cpp": {
    "bytes": 216,
    "definitions": 1,
-   "externs": [
-    "extern \"C\" void __cdecl sub_004C04E0_OnHotspotClick(); // 0x004C04E0"
-   ],
+   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/useitem_004BFA70.inc",
    "lang": "cpp",
