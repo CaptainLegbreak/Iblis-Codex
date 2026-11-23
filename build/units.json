@@ -47502,6 +47502,11 @@
      "name": "?CLIENTS_UnlockClientList@@YIXH@Z"
     },
     {
+     "va": "0x005377B0",
+     "length": 83,
+     "name": "?sub_005377B0_CountFlaggedClients@@YAHXZ"
+    },
+    {
      "va": "0x00537810",
      "length": 65,
      "name": "?CLIENTS_GetClientFromClientId@@YIPAUD2ClientStrc@@PAUD2GameStrc@@H@Z"
@@ -47987,6 +47992,11 @@
      "length": 1239
     },
     {
+     "va": "0x0053A280",
+     "length": 103,
+     "name": "?sub_0053A280_GetDeadTargetUnit@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ClientStrc@@@Z"
+    },
+    {
      "va": "0x0053A2F0",
      "length": 290,
      "name": "?CLIENTS_ResetClientInAct@@YIXPAUD2ClientStrc@@H@Z"
@@ -48079,36 +48089,14 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005377B0.cpp",
+   "file": "Source/D2Game/GAME/Level.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x005377B0",
-     "length": 83,
-     "name": "?sub_005377B0_CountFlaggedClients@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0053A280.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0053A280",
-     "length": 103,
-     "name": "?sub_0053A280_GetDeadTargetUnit@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ClientStrc@@@Z"
-    },
     {
      "va": "0x0053A500",
      "length": 200,
      "name": "?sub_0053A500_UpdateUnitForClient@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ClientStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0053A5D0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0053A5D0",
      "length": 76,
@@ -48118,13 +48106,7 @@
      "va": "0x0053A620",
      "length": 127,
      "name": "?LEVEL_UpdateUnitsInAdjacentRooms@@YIXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2ClientStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Level.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0053A6A0",
      "length": 69,

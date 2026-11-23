@@ -289,6 +289,29 @@ void __fastcall CLIENTS_UnlockClientList(int nClientId)
     LeaveCriticalSection(&gClientListLock);
 }
 
+// 0x005377B0
+int __cdecl sub_005377B0_CountFlaggedClients()
+{
+    int nCount = 0;
+    if (!gbClientListInitialized)
+    {
+        return 0;
+    }
+    EnterCriticalSection(&gClientListLock);
+    for (int i = 0; i < 256; ++i)
+    {
+        for (D2ClientStrc* pClient = gpClientList[i]; pClient; pClient = pClient->pServerNext)
+        {
+            if (pClient->tSaveFlags.bExpansion)
+            {
+                ++nCount;
+            }
+        }
+    }
+    LeaveCriticalSection(&gClientListLock);
+    return nCount;
+}
+
 static D2ClientStrc* __fastcall CLIENTS_GetClientFromClientListWithId(D2ClientStrc* pClientList, int nClientId)
 {
     for (D2ClientStrc* pClient = pClientList; pClient != 0; pClient = pClient->pNext)
@@ -3467,6 +3490,29 @@ void __fastcall ClientRemoveFromGame(D2GameStrc* ptGame,void* hClientId,int bTri
  }
  FOG_FreePool(pClient->pGame->pMemoryPool,pClient,szClientsCppFile,0x608,0);
  --ptGame->nClients;
+}
+
+// 0x0053A280
+D2UnitStrc* __fastcall sub_0053A280_GetDeadTargetUnit(D2GameStrc* pGame, D2ClientStrc* pClient)
+{
+    D2_ASSERT(pClient, 0x7B9);
+
+    if (!(pClient->dwFlags & 2))
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pUnit = SUNIT_GetServerUnit(pGame, pClient->nDeadTargetType, pClient->nDeadTargetGUID);
+    if (pUnit)
+    {
+        if (CLIENTS_IsInUnitsRoom(pUnit, pClient))
+        {
+            return pUnit;
+        }
+        pUnit = 0;
+    }
+    pClient->dwFlags &= ~2;
+    return pUnit;
 }
 
 // 0x0053A2F0

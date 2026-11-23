@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Drlg.h"
+#include "D2DrlgRooms.h"
 #include "D2GameClient.h"
 struct D2DrlgActStrc;
 
@@ -84,6 +85,79 @@ unsigned char __fastcall CLIENTS_GetActNo(D2ClientStrc* pClient); // 0x005382B0
 void __fastcall SUNITPROXY_UpdateNpcsOnActChange(D2GameStrc* pGame, D2UnitStrc* pUnit, int nCurrentLevelId, int nDestLevelId); // 0x00537340
 
 int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
+
+void __fastcall PLRMODE_SendPlayerUpdates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int a4); // 0x00580860
+void __fastcall OBJMODE_SendObjectUpdates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00581AD0
+void __fastcall ITEMMODE_SendUpdatedGroundItemToClient(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x0055BF30
+void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
+
+// 0x0053A500
+static void __stdcall sub_0053A500_UpdateUnitForClient(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient)
+{
+    D2_ASSERT(pUnit, 21);
+    const int nUnitType = pUnit->dwUnitType;
+    int v10 = 0;
+    const int bInitSeedSet = (pUnit->dwFlags >> 4) & 1;
+    if (bInitSeedSet)
+    {
+        if (CLIENTS_GetPlayerFromClient(pClient, 0) != pUnit)
+        {
+            if (bInitSeedSet && nUnitType == UNIT_MISSILE)
+            {
+                return;
+            }
+            SUNITMSG_SendUnitToClient(pGame, pUnit, pClient);
+            v10 = 1;
+        }
+    }
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_PLAYER:
+        PLRMODE_SendPlayerUpdates(pGame, pUnit, pClient, v10);
+        break;
+    case UNIT_MONSTER:
+        sub_6FC659E0(pGame, pUnit, pClient, v10);
+        break;
+    case UNIT_OBJECT:
+        OBJMODE_SendObjectUpdates(pGame, pUnit, pClient);
+        break;
+    case UNIT_ITEM:
+        ITEMMODE_SendUpdatedGroundItemToClient(pUnit, pClient);
+        break;
+    default:
+        break;
+    }
+}
+
+// 0x0053A5D0
+static void __stdcall sub_0053A5D0_UpdateRoomUnitsForClient(D2GameStrc* pGame, D2ActiveRoomStrc* pAdjacentRoom, D2ClientStrc* pClient)
+{
+    D2_ASSERT(pAdjacentRoom, 68);
+    D2UnitStrc* pUnit = pAdjacentRoom->pUnitUpdate;
+    while (pUnit)
+    {
+        D2UnitStrc* pNextUnit = pUnit->pChangeNextUnit;
+        sub_0053A500_UpdateUnitForClient(pGame, pUnit, pClient);
+        pUnit = pNextUnit;
+    }
+}
+
+// 0x0053A620
+void __fastcall LEVEL_UpdateUnitsInAdjacentRooms(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient)
+{
+    if (!pGame->pAct[CLIENTS_GetActNo(pClient)]->bHasPendingUnitListUpdates)
+    {
+        return;
+    }
+    D2_ASSERT(pRoom, 87);
+    D2ActiveRoomStrc** ppRoomList;
+    unsigned int nNumRooms;
+    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
+    for (unsigned int i = 0; i < nNumRooms; ++i)
+    {
+        sub_0053A5D0_UpdateRoomUnitsForClient(pGame, ppRoomList[i], pClient);
+    }
+}
 
 // 0x0053A6A0
 static void LEVEL_FixRoomUnits(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient)
