@@ -33669,31 +33669,6 @@
    ]
   },
   {
-   "file": "Source/D2Gfx/Unknown_004F5050.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004F5050",
-     "length": 228,
-     "name": "?D2GFX_Release@@YGHXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Glide/Src/glCore.cpp",
    "rank": 0,
    "functions": [
@@ -34146,6 +34121,11 @@
      "va": "0x004F5040",
      "length": 5,
      "name": "?D2GFX_ReturnFalse@@YGHHHH@Z"
+    },
+    {
+     "va": "0x004F5050",
+     "length": 228,
+     "name": "?D2GFX_Release@@YGHXZ"
     },
     {
      "va": "0x004F5160",
