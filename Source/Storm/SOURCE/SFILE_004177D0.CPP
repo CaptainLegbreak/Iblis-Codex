@@ -179,3 +179,10 @@ D2ChatStormListCStrc::D2ChatStormListCStrc()
     m_terminator.m_prevlink = &m_terminator;
     m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
 }
+
+// 0x004177A0
+char* __fastcall sub_00416860_LinkPrev(D2StormLinkStrc* pLink)
+{
+    D2StormLinkStrc* pPrev = pLink->m_prevlink->m_prevlink;
+    return (int)pPrev->m_next > 0 ? pPrev->m_next : 0;
+}

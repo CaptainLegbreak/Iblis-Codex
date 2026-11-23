@@ -263,8 +263,8 @@
    "state": "included"
   },
   "Source/Storm/SOURCE/SFILE.CPP": {
-   "bytes": 112,
-   "definitions": 8,
+   "bytes": 424,
+   "definitions": 13,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
@@ -324,17 +324,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Storm/SOURCE/SMEM.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/Storm/SOURCE/SFILE_00411A80.CPP": {
-   "bytes": 312,
-   "definitions": 5,
-   "externs": [
-    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/SOURCE/SFILE_00411A80.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -9217,7 +9206,7 @@
    "cname": "gData_007083C0",
    "declared": true,
    "decorated": "_gszStormFileRecTypeName",
-   "file": "Source/Storm/SOURCE/SFILE_00411A80.CPP",
+   "file": "Source/Storm/SOURCE/SFILE.CPP",
    "fill": 24,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007083C0_t gData_007083C0; // 0x007083C0",
@@ -9246,7 +9235,7 @@
    "cname": "gData_00708408",
    "declared": true,
    "decorated": "_gszStormAudioStreamTypeName",
-   "file": "Source/Storm/SOURCE/SFILE_00411A80.CPP",
+   "file": "Source/Storm/SOURCE/SFILE.CPP",
    "fill": 20,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_00708408[20]; // 0x00708408",
@@ -9494,7 +9483,7 @@
    "cname": "gData_006CEF78",
    "declared": true,
    "decorated": "_gabSignatureModulus_006CEF78",
-   "file": "Source/Storm/SOURCE/SFILE_00411A80.CPP",
+   "file": "Source/Storm/SOURCE/SFILE.CPP",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006CEF78[0x100]; // 0x006CEF78",
    "head": "extern \"C\" const unsigned char gData_006CEF78[0x100] = ",
@@ -9524,7 +9513,7 @@
    "cname": "gData_006CF078",
    "declared": true,
    "decorated": "_gabSignatureExponent_006CF078",
-   "file": "Source/Storm/SOURCE/SFILE_00411A80.CPP",
+   "file": "Source/Storm/SOURCE/SFILE.CPP",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006CF078[4]; // 0x006CF078",
    "head": "extern \"C\" const unsigned char gData_006CF078[4] = ",
@@ -9554,7 +9543,7 @@
    "cname": "gData_006CF07C",
    "declared": true,
    "decorated": "?gaSignatureKeys_006CF07C@@3QBUD2StormSignatureKeyStrc@@B",
-   "file": "Source/Storm/SOURCE/SFILE_00411A80.CPP",
+   "file": "Source/Storm/SOURCE/SFILE.CPP",
    "fill": 1,
    "form": "declared",
    "fwd": "extern \"C\" const D2StormSignatureKeyStrc gData_006CF07C[1]; // 0x006CF07C",
