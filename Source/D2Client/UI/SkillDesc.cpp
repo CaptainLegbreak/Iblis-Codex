@@ -5110,6 +5110,126 @@ static inline int CLIENTS_GetUnitY_Spray(D2UnitStrc* pUnit)
     return nResult;
 }
 
+int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
+
+void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg); // 0x004E2ED0
+
+struct D2RequestStrc;
+
+struct D2RequestStrc
+{
+    int nType;
+    D2UnitStrc* pUnit;
+    D2UnitStrc* pOtherUnit;
+    int unk0x0C;
+    int nArg0;
+    int nArg1;
+    int nArg2;
+    int nArg5;
+    int nArg6;
+    int nArg7;
+    int unk0x28;
+    int nArg3;
+    int nArg4;
+    int unk0x34[8];
+    void* pfCallback;
+    int nIndex;
+};
+
+D2UnitStrc* __fastcall sub_004CD540_HandleRequest(D2RequestStrc* pRequest); // 0x004CD540
+
+int __stdcall sub_006488C0_PathGetX(D2DynamicPathStrc* pPath); // 0x006488C0
+
+int __stdcall sub_00648900_PathGetY(D2DynamicPathStrc* pPath); // 0x00648900
+
+void __stdcall sub_00649030_SetPathFlag40(D2DynamicPathStrc* pPath, int bClear); // 0x00649030
+
+static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    }
+
+    return pUnit->pDynamicPath ? sub_006488C0_PathGetX(pUnit->pDynamicPath) : 0;
+}
+
+static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    }
+
+    return pUnit->pDynamicPath ? sub_00648900_PathGetY(pUnit->pDynamicPath) : 0;
+}
+
+// 0x004F16F0
+int __fastcall MISSILE_CreateMissileVolley(D2UnitStrc* pUnit, int nCount, int nArg0, int nArg3, int nArg4, int nMissileArg, int bFirst, int bClearPathFlag)
+{
+    int nTargetX;
+    int nTargetY;
+    if (!ITEM_GetTargetPosition(pUnit, &nTargetX, &nTargetY))
+    {
+        return 0;
+    }
+
+    if (bFirst)
+    {
+        --nCount;
+        D2UnitStrc* pMissile = sub_004C5420_CreateFirstMissile(pUnit, nArg0, nArg3, nArg4);
+        if (pMissile)
+        {
+            if (bClearPathFlag)
+            {
+                sub_00649030_SetPathFlag40(pMissile->pDynamicPath, 0);
+            }
+
+            sub_00621780_SetMissileArg(pMissile, nMissileArg);
+        }
+    }
+
+    D2RequestStrc tRequest;
+    memset(&tRequest, 0, sizeof(tRequest));
+    tRequest.nType = 0x21;
+    tRequest.pUnit = pUnit;
+    tRequest.nArg1 = UNITS_GetXPositionInline(pUnit);
+    tRequest.nArg2 = UNITS_GetYPositionInline(pUnit);
+    tRequest.nArg5 = nTargetX;
+    tRequest.nArg6 = nTargetY;
+    tRequest.nArg3 = nArg3;
+    tRequest.nArg4 = nArg4;
+    tRequest.nArg0 = nArg0;
+    tRequest.pfCallback = SKILLDESC_InitCappedChargedPath;
+    if (bClearPathFlag)
+    {
+        tRequest.nType |= 0x2000;
+    }
+
+    for (int i = 0; i < nCount; ++i)
+    {
+        tRequest.nIndex = i;
+        D2UnitStrc* pMissile = sub_004CD540_HandleRequest(&tRequest);
+        if (pMissile)
+        {
+            if (bClearPathFlag)
+            {
+                sub_00649030_SetPathFlag40(pMissile->pDynamicPath, 0);
+            }
+
+            sub_00621780_SetMissileArg(pMissile, nMissileArg);
+        }
+    }
+
+    return 1;
+}
+
 // 0x004F1A30
 static void __stdcall SKILLDESC_CreateSprayMissile(D2SkillsTxt* pSkillsTxt, int nSkillId, int nSkillLevel, D2UnitStrc* pUnit)
 {
