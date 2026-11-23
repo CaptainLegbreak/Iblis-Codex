@@ -22600,6 +22600,11 @@
      "name": "??1D2WardenModuleHolderAStrc@@QAE@XZ"
     },
     {
+     "va": "0x0047F950",
+     "length": 58,
+     "name": "?sub_0047F950_CheckBlockSignature@@YGHPBD0PAH0@Z"
+    },
+    {
      "va": "0x0047F990",
      "length": 132,
      "name": "?WARDENCLIENT_HashModule@@YGXPBDPAEPBEII@Z"
@@ -23550,17 +23555,6 @@
      "va": "0x0047F210",
      "length": 135,
      "name": "?sub_0047F210_IsMouseInSlots@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0047F950.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0047F950",
-     "length": 58,
-     "name": "?sub_0047F950_CheckBlockSignature@@YGHPBD0PAH0@Z"
     }
    ]
   },
