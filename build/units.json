@@ -29553,6 +29553,10 @@
      "name": "?USEITEM_ToggleUseMode@@YAXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004BFAF0",
+     "length": 200
+    },
+    {
      "va": "0x004BFC50",
      "length": 343,
      "name": "?USEITEM_ClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
@@ -30327,30 +30331,6 @@
      "length": 22,
      "name": "?sub_004BF990_GetPlayerCursorItem@@YAPAUD2UnitStrc@@XZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004BFAF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004BFAF0",
-     "length": 200
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

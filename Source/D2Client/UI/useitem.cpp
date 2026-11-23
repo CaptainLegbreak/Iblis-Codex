@@ -51,7 +51,7 @@ int gnAnvilItemId;                                                              
 
 int gnUseItemPanelMode; // 0x007C5470
 
-void* gpUseItemConfirmDialog;                                                                                    // 0x007C5484
+struct D2ClientDialogStrc* gpUseItemConfirmDialog;                                                                                  // 0x007C5484
 
 extern D2MsgHandlerEntryStrc gaUseItemHandlers[]; // 0x00727950
 
@@ -180,6 +180,43 @@ void __cdecl USEITEM_InitUseItemPanel()
         gaUseItemHotspots[i].pressed = 0;
         gaUseItemHotspots[i].hovered = 0;
     }
+}
+
+struct D2ClientDialogStrc;
+
+D2ClientDialogStrc* __fastcall DIALOG_CreateDialog(int, int, int (__cdecl*)(), int (__cdecl*)(), int, int, int, int, int, int, int); // 0x004B7EB0
+
+void __fastcall sub_004B8370_SetField5C(D2ClientDialogStrc*, int); // 0x004B8370
+
+void __fastcall NPCMENU_SendNpcAction(int); // 0x004B2370
+
+int __cdecl sub_004BF9B0(); // 0x004BF9B0
+
+void __fastcall sub_004B85F0_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nHeight, int nArg4, int nType, int nFont, int (__cdecl* pfnCallback)(), int bEnabled); // 0x004B85F0
+
+// 0x004BFAF0
+int __cdecl sub_004BFAF0_ShowConfirmation()
+{
+    if (gnUseItemDialogState == 2)
+    {
+    sub_004B9A00(2, 0, 0, 0, 0);
+    gpUseItemConfirmDialog = DIALOG_CreateDialog(0x96, 0x82, sub_004BF9B0, 0, 1, 0, 1, 0, 0, 0, 1);
+    sub_004B8370_SetField5C(gpUseItemConfirmDialog, 0);
+    sub_004B85F0_AddTextLine(gpUseItemConfirmDialog, D2LANG_GetStringFromTblIndex(0xD19), 15, 0, 0, 1, 0, 0);
+    gnUseItemDialogState = 3;
+    if (!gnUseItemPanelMode)
+    {
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        int nUnitId = !pPlayer ? -1 : pPlayer->dwUnitId;
+        sub_00478700_SendCommand(0x44, nUnitId, gnAnvilObjectId, gnAnvilItemId, 3);
+    }
+    else
+    {
+        NPCMENU_SendNpcAction(gnAnvilItemId);
+    }
+    return 1;
+    }
+    return 0;
 }
 
 // 0x004C0100
