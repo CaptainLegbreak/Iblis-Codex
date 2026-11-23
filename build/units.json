@@ -28494,6 +28494,16 @@
      "va": "0x004B65F0",
      "length": 35,
      "name": "?NPCMENU_InitTravelLutGholeinHandler@@YAHXZ"
+    },
+    {
+     "va": "0x004B6620",
+     "length": 35,
+     "name": "?NPCMENU_InitTravelKurastDocksHandler@@YAHXZ"
+    },
+    {
+     "va": "0x004B6680",
+     "length": 44,
+     "name": "?NPCMENU_InitTravelHarrogathHandler@@YAHXZ"
     }
    ],
    "flags": [
@@ -28509,22 +28519,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/npcmenu_004B6620.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004B6620",
-     "length": 35,
-     "name": "?NPCMENU_InitTravelKurastDocksHandler@@YAHXZ"
-    },
-    {
-     "va": "0x004B6680",
-     "length": 44,
-     "name": "?NPCMENU_InitTravelHarrogathHandler@@YAHXZ"
-    }
    ]
   },
   {
