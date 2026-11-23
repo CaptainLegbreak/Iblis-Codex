@@ -3509,11 +3509,6 @@ int __cdecl UI_GetHoverClassId()
     return gnHoverClassId;
 }
 
-// 0x00467400
-int __cdecl UI_HasSelectedUnit()
-{
-    return gbHasSelectedUnit;
-}
 
 // 0x00468030
 int __cdecl UI_GetCursorFrame()

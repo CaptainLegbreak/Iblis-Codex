@@ -16498,11 +16498,6 @@
      "name": "UI_GetHoverClassId"
     },
     {
-     "va": "0x00467400",
-     "length": 6,
-     "name": "UI_HasSelectedUnit"
-    },
-    {
      "va": "0x00468030",
      "length": 6,
      "name": "UI_GetCursorFrame"
@@ -19451,6 +19446,11 @@
      "va": "0x004673C0",
      "length": 51,
      "name": "?sub_004673C0_GetDistanceSquared@@YAHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x00467400",
+     "length": 6,
+     "name": "UI_HasSelectedUnit"
     },
     {
      "va": "0x00467430",
