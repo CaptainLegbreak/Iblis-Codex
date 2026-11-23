@@ -1343,6 +1343,30 @@ extern "C" __declspec(dllexport) int __fastcall sub_005A0180(Unit005A0180* pUnit
     return (unsigned short)(pData->wFlags16 & wMask) != 0;
 }
 
+// 0x005A01B0
+void __fastcall MONSTERUNIQUE_ToggleMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet)
+{
+    if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
+    {
+        return;
+    }
+
+    D2MonsterDataStrc* pMonsterData = pUnit->pMonsterData;
+    if (!pMonsterData)
+    {
+        return;
+    }
+
+    if (bSet)
+    {
+        pMonsterData->nTypeFlag |= nFlag;
+    }
+    else
+    {
+        pMonsterData->nTypeFlag &= ~nFlag;
+    }
+}
+
 // 0x005A01E0
 short __fastcall MONSTERUNIQUE_GetBossHcIdx(D2UnitStrc* pUnit)
 {
@@ -1582,6 +1606,16 @@ void __fastcall MONSTERUNIQUE_UMod6_Fast(D2UnitStrc* pUnit, int nUnused1, int nU
     }
 }
 
+// 0x005A2100
+void __fastcall MONSTERUNIQUE_InitializeUMod(D2UnitStrc* pUnit, int nUMod, int bUnique)
+{
+    UModInitFunc pCallback = gpfnUModInitFunctions[nUMod];
+    if (pCallback)
+    {
+        pCallback(pUnit, nUMod, bUnique);
+    }
+}
+
 // 0x005A21D0
 static void __stdcall MONSTERUNIQUE_ApplyElementalDamageStats(D2UnitStrc* pUnit, int nMinDamageStatId, int nMaxDamageStatId, int nLengthStatId, D2GameStrc* pGame)
 {
@@ -1704,6 +1738,15 @@ void __fastcall MONSTERUNIQUE_CastAmplifyDamage(D2GameStrc* pGame, D2UnitStrc* p
 
     const int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, SKILL_AMPLIFYDAMAGE, nSkillLevel);
     SKILLS_ApplyCurseAroundTarget(pGame, 3, pUnit, nSkillLevel, D2_MIN(D2_MAX(nRange, 1), 40), MONSTERUNIQUE_CurseCallback_ApplyAmplifyDamage);
+}
+
+// 0x005A25F0
+void __fastcall MONSTERUNIQUE_FireEnchantedModeChange(D2GameStrc* pGame, D2UnitStrc* pBoss, int nUMod, int bUnique)
+{
+    if (bUnique && (!pBoss || pBoss->dwAnimMode == MONMODE_DEATH))
+    {
+        EVENT_SetEvent(pGame, pBoss, EVENTTYPE_MONUMOD, pGame->dwGameFrame + 4, 0, 0);
+    }
 }
 
 static inline int ApplyRatio_Inline(int nValue, int nMultiplier, int nDivisor)
@@ -2495,6 +2538,24 @@ void __fastcall MONSTERUNIQUE_CreateMultishotMissiles(D2GameStrc* pGame, D2UnitS
         {
             pMonsterData->nTypeFlag &= ~0x80;
         }
+    }
+}
+
+// 0x005A37D0
+void __fastcall MONSTERUNIQUE_LightningEnchantedModeChange(D2GameStrc* pGame, D2UnitStrc* pBoss, int nUMod, int bUnique)
+{
+    if (bUnique && pBoss && pBoss->dwAnimMode == MONMODE_GETHIT)
+    {
+        EVENT_SetEvent(pGame, pBoss, EVENTTYPE_MONUMOD, pGame->dwGameFrame + 2, 0, 0);
+    }
+}
+
+// 0x005A3800
+void __fastcall MONSTERUNIQUE_ColdEnchantedModeChange(D2GameStrc* pGame, D2UnitStrc* pBoss, int nUMod, int bUnique)
+{
+    if ((bUnique || nUMod != 18) && (!pBoss || pBoss->dwAnimMode == MONMODE_DEATH))
+    {
+        EVENT_SetEvent(pGame, pBoss, EVENTTYPE_MONUMOD, pGame->dwGameFrame + 4, 0, 0);
     }
 }
 

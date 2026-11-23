@@ -58699,31 +58699,6 @@
      "name": "MISSILES_RemoveAll"
     },
     {
-     "va": "0x005A01B0",
-     "length": 43,
-     "name": "MONSTERUNIQUE_ToggleMonTypeFlag"
-    },
-    {
-     "va": "0x005A2100",
-     "length": 26,
-     "name": "MONSTERUNIQUE_InitializeUMod"
-    },
-    {
-     "va": "0x005A25F0",
-     "length": 44,
-     "name": "MONSTERUNIQUE_FireEnchantedModeChange"
-    },
-    {
-     "va": "0x005A37D0",
-     "length": 44,
-     "name": "MONSTERUNIQUE_LightningEnchantedModeChange"
-    },
-    {
-     "va": "0x005A3800",
-     "length": 50,
-     "name": "MONSTERUNIQUE_ColdEnchantedModeChange"
-    },
-    {
      "va": "0x005A54F0",
      "length": 109,
      "name": "MONSTERMODE_AddSandLeaperKnockback"
@@ -59614,6 +59589,11 @@
      "name": "@sub_005A0180@8"
     },
     {
+     "va": "0x005A01B0",
+     "length": 43,
+     "name": "MONSTERUNIQUE_ToggleMonTypeFlag"
+    },
+    {
      "va": "0x005A01E0",
      "length": 26,
      "name": "@sub_005A01E0@4"
@@ -59743,6 +59723,11 @@
      "length": 121
     },
     {
+     "va": "0x005A2100",
+     "length": 26,
+     "name": "MONSTERUNIQUE_InitializeUMod"
+    },
+    {
      "va": "0x005A2120",
      "length": 173,
      "name": "?MONSTERUNIQUE_SpawnMinions@@YGXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@PAUD2UnitStrc@@HHH@Z"
@@ -59759,6 +59744,11 @@
     {
      "va": "0x005A2530",
      "length": 179
+    },
+    {
+     "va": "0x005A25F0",
+     "length": 44,
+     "name": "MONSTERUNIQUE_FireEnchantedModeChange"
     },
     {
      "va": "0x005A2620",
@@ -59851,6 +59841,16 @@
     {
      "va": "0x005A3610",
      "length": 443
+    },
+    {
+     "va": "0x005A37D0",
+     "length": 44,
+     "name": "MONSTERUNIQUE_LightningEnchantedModeChange"
+    },
+    {
+     "va": "0x005A3800",
+     "length": 50,
+     "name": "MONSTERUNIQUE_ColdEnchantedModeChange"
     },
     {
      "va": "0x005A3840",
