@@ -20911,6 +20911,11 @@
      "name": "sub_004E0700_GetEntry"
     },
     {
+     "va": "0x004E0A40",
+     "length": 396,
+     "name": "MISSILE_SkillStartPlace"
+    },
+    {
      "va": "0x004E0C60",
      "length": 48,
      "name": "sub_004E0C60_CltDoResetActionFrame"
@@ -31300,11 +31305,6 @@
      "va": "0x004DED20",
      "length": 141,
      "name": "?MISSILE_UpdateRoomColor@@YAXXZ"
-    },
-    {
-     "va": "0x004E0A40",
-     "length": 396,
-     "name": "MISSILE_SkillStartPlace"
     },
     {
      "va": "0x004E1090",
