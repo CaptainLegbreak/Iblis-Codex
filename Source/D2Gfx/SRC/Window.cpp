@@ -1,4 +1,5 @@
 #include "D2Gfx.h"
+
 #include "D2GfxTypes.h"
 
 struct D2TileLibraryBlockStrc
@@ -20,7 +21,6 @@ struct D2TileLibraryBlockStrc
 extern int gnResolutionMode_007C8CC4; // 0x007C8CC4
 
 int __fastcall sub_004F4FF0_SetVideoMode(int nMode);
-
 
 union D2LargeIntegerStrc;
 
@@ -230,7 +230,6 @@ const char* gszWindowClass; // 0x007C9344
 const char* gszWindowTitle; // 0x007C9348
 
 struct D2TileLibraryBlockStrc;
-
 
 extern unsigned char* gpScreenBuffer; // 0x007D5448
 
@@ -1437,6 +1436,73 @@ void __fastcall D2GFX_DrawLitSubtileRows(unsigned char* pSrc, unsigned char* pDs
     }
 }
 
+// build: symbol ?ganRowOffsets@* 0x007C97A8
+#define gnRowOffsets_007C9828 (ganRowOffsets + 32)
+#define D2_ABS(x) ((x) < 0 ? -(x) : (x))
+void __fastcall CMNSUBTILE_DrawIsoBlockFlat(unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette); // 0x004F69B0
+void __fastcall sub_004F8050_DrawRleVisTile(unsigned char* pSrc, int nX, int nY, unsigned char nLight); // 0x004F8050
+extern int gdwGlobal_0072DA50; // 0x0072DA50
+unsigned char* gpScreenBuffer; // 0x007D5448
+int gnLightingOff; // 0x007D2340
+
+// 0x004F6F60
+void __fastcall sub_004F6F60_DrawRleRows(unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette, int nRows)
+{
+    unsigned char* p = pDst;
+    while (nRows)
+    {
+        int nSkip = *pSrc++;
+        int nCount = *pSrc++;
+        if (!nSkip && !nCount)
+        {
+            --nRows;
+            pDst += gnScreenPitch;
+            p = pDst;
+        }
+        else
+        {
+            p += nSkip;
+            switch (nCount)
+            {
+            case 32: p[31] = pPalette[pSrc[31]];
+            case 31: p[30] = pPalette[pSrc[30]];
+            case 30: p[29] = pPalette[pSrc[29]];
+            case 29: p[28] = pPalette[pSrc[28]];
+            case 28: p[27] = pPalette[pSrc[27]];
+            case 27: p[26] = pPalette[pSrc[26]];
+            case 26: p[25] = pPalette[pSrc[25]];
+            case 25: p[24] = pPalette[pSrc[24]];
+            case 24: p[23] = pPalette[pSrc[23]];
+            case 23: p[22] = pPalette[pSrc[22]];
+            case 22: p[21] = pPalette[pSrc[21]];
+            case 21: p[20] = pPalette[pSrc[20]];
+            case 20: p[19] = pPalette[pSrc[19]];
+            case 19: p[18] = pPalette[pSrc[18]];
+            case 18: p[17] = pPalette[pSrc[17]];
+            case 17: p[16] = pPalette[pSrc[16]];
+            case 16: p[15] = pPalette[pSrc[15]];
+            case 15: p[14] = pPalette[pSrc[14]];
+            case 14: p[13] = pPalette[pSrc[13]];
+            case 13: p[12] = pPalette[pSrc[12]];
+            case 12: p[11] = pPalette[pSrc[11]];
+            case 11: p[10] = pPalette[pSrc[10]];
+            case 10: p[9] = pPalette[pSrc[9]];
+            case 9: p[8] = pPalette[pSrc[8]];
+            case 8: p[7] = pPalette[pSrc[7]];
+            case 7: p[6] = pPalette[pSrc[6]];
+            case 6: p[5] = pPalette[pSrc[5]];
+            case 5: p[4] = pPalette[pSrc[4]];
+            case 4: p[3] = pPalette[pSrc[3]];
+            case 3: p[2] = pPalette[pSrc[2]];
+            case 2: p[1] = pPalette[pSrc[1]];
+            case 1: p[0] = pPalette[pSrc[0]];
+            }
+            p += nCount;
+            pSrc += nCount;
+        }
+    }
+}
+
 // 0x004F71A0
 void __fastcall sub_004F71A0_DrawLitRleRows(unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep, int nRows, int nShift)
 {
@@ -1843,6 +1909,75 @@ void __fastcall sub_004F7EA0_DrawVisTile(unsigned char* pSrc, int nX, int nY)
     }
 }
 
+// 0x004F8050
+void __fastcall sub_004F8050_DrawRleVisTile(unsigned char* pSrc, int nX, int nY, unsigned char nLight)
+{
+    if (nY < gnClipTop || nY >= gnClipBottom || nX < gnClipLeft || nX >= gnClipRight)
+        return;
+
+    unsigned char* pPalette = gatLightPalettes[nLight >> 3].unk0x00;
+    unsigned char* pDst = gnRowOffsets_007C9828[nY] + gpScreenBuffer + nX;
+    D2_ASSERT(gpScreenBuffer, 0x373);
+    if (nY >= gnInnerTop && nY < gnInnerBottom && nX >= gnInnerLeft && nX < gnInnerRight)
+        sub_004F6F60_DrawRleRows(pSrc, pDst, pPalette, 0x20);
+    else
+        sub_004F7580_DrawRleRowsClipped(nX, nY, pSrc, pDst, pPalette, 0x20);
+}
+
+// 0x004F8120
+void __fastcall sub_004F8120_TileDrawLit(unsigned char* pSrc, int nX, int nY, int* pLight)
+{
+    if (gnLightingOff)
+    {
+        const unsigned char nLight = *(unsigned char*)pLight;
+        if ((nLight & 0xF8) == 0xF8)
+        {
+            sub_004F7EA0_DrawVisTile(pSrc, nX, nY);
+            return;
+        }
+
+        sub_004F8050_DrawRleVisTile(pSrc, nX, nY, nLight);
+        return;
+    }
+
+    const int nLightX = pLight[0] << 5;
+    const int nLightXStep = pLight[3] - pLight[0];
+    const int nLightY = pLight[1] << 5;
+    const int nLightYStep = pLight[2] - pLight[1];
+    const int nLightDelta = pLight[1] - pLight[0];
+    const int nDiff1 = D2_ABS(nLightDelta);
+    const int nDiff2 = D2_ABS(nLightXStep);
+    const int nDiff3 = D2_ABS(nLightYStep);
+    if (!gdwGlobal_0072DA50 && nDiff3 + nDiff2 + nDiff1 >= 10)
+    {
+        if (nY < gnClipTop || nY >= gnClipBottom || nX < gnClipLeft || nX >= gnClipRight)
+        {
+            return;
+        }
+
+        D2_ASSERT(gpScreenBuffer, 958);
+        unsigned char* pDst = gnRowOffsets_007C9828[nY] + gpScreenBuffer + nX;
+        if (nY >= gnInnerTop && nY < gnInnerBottom && nX >= gnInnerLeft && nX < gnInnerRight)
+        {
+            sub_004F71A0_DrawLitRleRows(pSrc, pDst, nLightX, nLightXStep, nLightY, nLightYStep, 0x20, 8);
+        }
+        else
+        {
+            sub_004F7850_DrawLitRleRowsClipped(nX, nY, pSrc, pDst, nLightX, nLightXStep, nLightY, nLightYStep, 0x20, 8);
+        }
+
+        return;
+    }
+
+    if ((nLightX >> 8) == 0x1F)
+    {
+        sub_004F7EA0_DrawVisTile(pSrc, nX, nY);
+        return;
+    }
+
+    sub_004F8050_DrawRleVisTile(pSrc, nX, nY, *(unsigned char*)pLight);
+}
+
 // 0x004F82D0
 void __fastcall sub_004F82D0_DrawBlendVisTile(unsigned char* pSrc, int nX, int nY, unsigned char nAlpha)
 {
@@ -2075,6 +2210,16 @@ void __fastcall sub_004F84F0_TileDrawLitBlend(unsigned char* pSrc, int nX, int n
             }
         }
     }
+}
+
+// 0x004F8810
+void __fastcall sub_004F8810_DrawBlock(D2TileLibraryBlockStrc* pBlock, unsigned char* pDst, unsigned char nLight)
+{
+    unsigned char* pPalette = gatLightPalettes[nLight >> 3].unk0x00;
+    if (pBlock->nFormat & 4)
+        sub_004F6F60_DrawRleRows(pBlock->pData, pDst, pPalette, 0xF);
+    else
+        CMNSUBTILE_DrawIsoBlockFlat(pBlock->pData, pDst, pPalette);
 }
 
 // 0x004F88B0
