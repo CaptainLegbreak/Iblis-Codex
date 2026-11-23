@@ -138,3 +138,5 @@ void __fastcall PLRINTRO_Destroy(D2GameStrc* pGame, D2PlrIntroStrc* pPlayerIntro
 
     FOG_FreeServerMemory(pGame->pMemoryPool, pPlayerIntro, ".\\PLAYER\\PlrIntro.cpp", 229, 0);
 }
+
+#include "gen/data/Source/D2Game/PLAYER/PlrIntro.inc"
