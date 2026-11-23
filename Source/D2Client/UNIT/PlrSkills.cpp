@@ -124,6 +124,30 @@ D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fF
 void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
+int __fastcall ITEM_CallClientStateEvent(void* pArg1, int nArg2, int nArg3, int nArg4, unsigned int nIndex, int nArg6, int nArg7); // 0x004C7C40
+
+extern unsigned int gdwBitMasks[]; // 0x006CE268
+
+typedef void (__fastcall* CLIENTSTATEFN)(D2UnitStrc* pUnit, int nState);
+
+extern CLIENTSTATEFN gpfnClientStateSetFuncs[]; // 0x0072A690
+
+void __fastcall CUNITEVENT_RemoveCltUnitEvents(D2UnitStrc* pUnit, int nParam4, int nParam5); // 0x004DC190
+
+extern CLIENTSTATEFN gpfnClientStateRemFuncs[]; // 0x0072A710
+
+typedef char check_pointer_width[sizeof(void*)==4?1:-1];
+
+typedef char check_scalar_width[sizeof(U32)==4?1:-1];
+
+extern "C" int __stdcall SKILLS_GetUseState(D2UnitStrc* unit,D2SkillStrc* skill); // 0x00647960
+
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
+
+int __cdecl sub_0044DA90(); // 0x0044DA90
+
+int __cdecl GAME_GetSkillDelayUntil(); // 0x0044CE50
+
 // 0x004D84C0
 static int sub_004D84C0_IsInSequenceMode(D2UnitStrc* pUnit)
 {
@@ -931,6 +955,90 @@ void __fastcall MISSILE_StateMissile(D2UnitStrc* pUnit, int nState)
     MISSILE_CreateClientMissile(&missileParams);
 }
 
+// 0x004D9E60
+void __fastcall sub_004D9E60_StartClientState(D2UnitStrc* pUnit, int nState)
+{
+    if (!pUnit || nState < 0 || nState >= sgptDataTables->nStatesTxtRecordCount)
+    {
+        return;
+    }
+
+    D2StatesTxt* pStatesTxt = &sgptDataTables->pStatesTxt[nState];
+    if (!pStatesTxt)
+    {
+        return;
+    }
+
+    if (pStatesTxt->nStateFlags[4] & gdwBitMasks[7])
+    {
+        if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->dwAnimMode == MONMODE_DEAD)
+        {
+            return;
+        }
+
+        if (pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode == PLRMODE_DEAD)
+        {
+            return;
+        }
+    }
+
+    if (pStatesTxt->wSetFunc >= 0 && pStatesTxt->wSetFunc < 31 && gpfnClientStateSetFuncs[pStatesTxt->wSetFunc])
+    {
+        gpfnClientStateSetFuncs[pStatesTxt->wSetFunc](pUnit, nState);
+    }
+
+    if (pStatesTxt->wCltEvent < 0)
+    {
+        return;
+    }
+
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
+    if (!pStatList)
+    {
+        return;
+    }
+
+    const int nValue1 = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
+    const int nValue2 = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
+    ITEM_CallClientStateEvent(pUnit, pStatesTxt->wCltEvent, nValue1, nValue2, pStatesTxt->wCltEventFunc, 1, nState);
+}
+
+// 0x004D9F40
+void __fastcall sub_004D9F40_EndClientState(D2UnitStrc* pUnit, int nState)
+{
+    if (!pUnit || nState < 0 || nState >= sgptDataTables->nStatesTxtRecordCount)
+    {
+        return;
+    }
+
+    D2StatesTxt* pStatesTxt = &sgptDataTables->pStatesTxt[nState];
+    if (!pStatesTxt)
+    {
+        return;
+    }
+
+    if (pStatesTxt->wRemFunc >= 0 && pStatesTxt->wRemFunc < 30 && gpfnClientStateRemFuncs[pStatesTxt->wRemFunc])
+    {
+        gpfnClientStateRemFuncs[pStatesTxt->wRemFunc](pUnit, nState);
+    }
+
+    if (pStatesTxt->wCltEvent < 0)
+    {
+        return;
+    }
+
+    if (!STATLIST_GetStatListFromUnitAndState(pUnit, nState))
+    {
+        return;
+    }
+
+    CUNITEVENT_RemoveCltUnitEvents(pUnit, 1, nState);
+}
+
+
+
+void __fastcall PLRSKILLS_StateCreateMissile(D2UnitStrc* pUnit, int nState); // 0x004D9740
+void __fastcall PLRSKILLS_StateResetValue(D2UnitStrc* pUnit, int nState); // 0x004D97E0
 
 #include "gen/data/Source/D2Client/UNIT/PlrSkills.inc"
 

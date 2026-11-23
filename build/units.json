@@ -32180,6 +32180,16 @@
      "length": 231
     },
     {
+     "va": "0x004D9E60",
+     "length": 222,
+     "name": "sub_004D9E60_StartClientState"
+    },
+    {
+     "va": "0x004D9F40",
+     "length": 118,
+     "name": "?sub_004D9F40_EndClientState@@YIXPAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x004E0D40",
      "length": 364,
      "name": "PLRSKILLS_SkillDoFrameOffset"
@@ -32217,19 +32227,9 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004D9E60.cpp",
+   "file": "Source/D2Client/Unknown_004D9FC0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004D9E60",
-     "length": 222,
-     "name": "sub_004D9E60_StartClientState"
-    },
-    {
-     "va": "0x004D9F40",
-     "length": 118,
-     "name": "?sub_004D9F40_EndClientState@@YIXPAUD2UnitStrc@@H@Z"
-    },
     {
      "va": "0x004D9FC0",
      "length": 50,
