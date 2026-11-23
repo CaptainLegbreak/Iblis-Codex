@@ -2818,11 +2818,6 @@ int __cdecl MONSTER_GetGameQuestFlags()
     return gdwGlobal_007C0D47;
 }
 
-// 0x004B3500
-int __cdecl MONSTER_IsGambleShop()
-{
-    return gbGambleShop;
-}
 
 // 0x004B70F0
 int __cdecl sub_004B70F0()

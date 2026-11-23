@@ -2769,6 +2769,12 @@ int __cdecl NPCMENU_IsAnyDialogOpen()
     return 0;
 }
 
+// 0x004B3500
+int __cdecl MONSTER_IsGambleShop()
+{
+    return gbGambleShop;
+}
+
 // 0x004B3510
 void __fastcall NPCMENU_FlagNpcEntries(D2NpcMonListPacketStrc* pPacket)
 {
