@@ -19500,7 +19500,7 @@
    ]
   },
   {
-   "file": "Source/D2Client/UNIT/CUnit_0046C060.cpp",
+   "file": "Source/D2Client/Unknown_0046C060.cpp",
    "rank": 0,
    "flags": [
     "/nologo",
@@ -26813,7 +26813,7 @@
    ]
   },
   {
-   "file": "Source/D2Client/UNIT/Monster_004ADEA0.cpp",
+   "file": "Source/D2Client/Unknown_004ADEA0.cpp",
    "rank": 0,
    "functions": [
     {
