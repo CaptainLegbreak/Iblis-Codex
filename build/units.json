@@ -28189,71 +28189,6 @@
      "name": "sub_004B93A0_ClampFloat"
     },
     {
-     "va": "0x004B9440",
-     "length": 33,
-     "name": "?sub_004B9440_FindSoundByHandle@@YIPAUD2ClientSoundStrc@@H@Z"
-    },
-    {
-     "va": "0x004B9470",
-     "length": 42,
-     "name": "?sub_004B9470_ReleaseUnits@@YAXPAUD2ClientSoundStrc@@@Z"
-    },
-    {
-     "va": "0x004B94A0",
-     "length": 52,
-     "name": "?sub_004B94A0_StopStream@@YAXPAUD2ClientSoundStrc@@@Z"
-    },
-    {
-     "va": "0x004B9560",
-     "length": 40,
-     "name": "?sub_004B9560_HasSoundHandle@@YIHH@Z"
-    },
-    {
-     "va": "0x004B9590",
-     "length": 43,
-     "name": "?sub_004B9590@@YIHH@Z"
-    },
-    {
-     "va": "0x004B9690",
-     "length": 97,
-     "name": "sub_004B9690_FindOldestEntry"
-    },
-    {
-     "va": "0x004B9B80",
-     "length": 37,
-     "name": "sub_004B9B80_SetFields"
-    },
-    {
-     "va": "0x004B9BB0",
-     "length": 4,
-     "name": "?sub_004B9BB0_GetStreamValue@@YAHPAUD2SoundStream4B9BB0Strc@@@Z"
-    },
-    {
-     "va": "0x004B9BC0",
-     "length": 21,
-     "name": "?sub_004B9BC0_IsOnAndNotHeld@@YAHPAUD2Packed004B9BC0Strc@@@Z"
-    },
-    {
-     "va": "0x004B9BE0",
-     "length": 52,
-     "name": "?sub_004B9BE0_HasActiveHint@@YIHH@Z"
-    },
-    {
-     "va": "0x004B9CD0",
-     "length": 37,
-     "name": "?sub_004B9CD0_SetEntryByte@@YIXHE@Z"
-    },
-    {
-     "va": "0x004B9DA0",
-     "length": 100,
-     "name": "sub_004B9DA0_CompareItems"
-    },
-    {
-     "va": "0x004B9EB0",
-     "length": 49,
-     "name": "?sub_004B9EB0_PlayRandomSound@@YAXXZ"
-    },
-    {
      "va": "0x004BABC0",
      "length": 26,
      "name": "?sub_004BABC0_ToggleHints@@YAXXZ"
@@ -28322,11 +28257,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x004B93F0",
-     "length": 77,
-     "name": "?sub_004B93F0_AllocHintEntry@@YAPAUD2TimedHintEntryStrc@@XZ"
-    },
-    {
      "va": "0x004B95C0",
      "length": 68,
      "name": "?sub_004B95C0_IsHintPlaying@@YIHH@Z"
@@ -28370,14 +28300,49 @@
    "rank": 1,
    "functions": [
     {
+     "va": "0x004B93F0",
+     "length": 77,
+     "name": "?sub_004B93F0_AllocHintEntry@@YAPAUD2TimedHintEntryStrc@@XZ"
+    },
+    {
+     "va": "0x004B9440",
+     "length": 33,
+     "name": "?sub_004B9440_FindSoundByHandle@@YIPAUD2ClientSoundStrc@@H@Z"
+    },
+    {
+     "va": "0x004B9470",
+     "length": 42,
+     "name": "?sub_004B9470_ReleaseUnits@@YAXPAUD2ClientSoundStrc@@@Z"
+    },
+    {
+     "va": "0x004B94A0",
+     "length": 52,
+     "name": "?sub_004B94A0_StopStream@@YAXPAUD2ClientSoundStrc@@@Z"
+    },
+    {
      "va": "0x004B94E0",
      "length": 116,
      "name": "?sub_004B94E0_FreeSound@@YAXPAUD2ClientSoundStrc@@@Z"
     },
     {
+     "va": "0x004B9560",
+     "length": 40,
+     "name": "?sub_004B9560_HasSoundHandle@@YIHH@Z"
+    },
+    {
+     "va": "0x004B9590",
+     "length": 43,
+     "name": "?sub_004B9590@@YIHH@Z"
+    },
+    {
      "va": "0x004B9610",
      "length": 37,
      "name": "?sub_004B9610@@YIPAXH@Z"
+    },
+    {
+     "va": "0x004B9690",
+     "length": 97,
+     "name": "sub_004B9690_FindOldestEntry"
     },
     {
      "va": "0x004B9700",
@@ -28419,6 +28384,26 @@
      "name": "?sub_004B9B20@@YIHH@Z"
     },
     {
+     "va": "0x004B9B80",
+     "length": 37,
+     "name": "sub_004B9B80_SetFields"
+    },
+    {
+     "va": "0x004B9BB0",
+     "length": 4,
+     "name": "?sub_004B9BB0_GetStreamValue@@YAHPAUD2SoundStream4B9BB0Strc@@@Z"
+    },
+    {
+     "va": "0x004B9BC0",
+     "length": 21,
+     "name": "?sub_004B9BC0_IsOnAndNotHeld@@YAHPAUD2Packed004B9BC0Strc@@@Z"
+    },
+    {
+     "va": "0x004B9BE0",
+     "length": 52,
+     "name": "?sub_004B9BE0_HasActiveHint@@YIHH@Z"
+    },
+    {
      "va": "0x004B9C20",
      "length": 56,
      "name": "?sub_004B9C20_IsSpeechPlaying@@YAHXZ"
@@ -28432,6 +28417,11 @@
      "va": "0x004B9CA0",
      "length": 37,
      "name": "?sub_004B9CA0_GetHintIdByKey@@YIHH@Z"
+    },
+    {
+     "va": "0x004B9CD0",
+     "length": 37,
+     "name": "?sub_004B9CD0_SetEntryByte@@YIXHE@Z"
     },
     {
      "va": "0x004B9D00",
@@ -28449,6 +28439,11 @@
      "name": "?sub_004B9D50_GetPosition@@YIHH@Z"
     },
     {
+     "va": "0x004B9DA0",
+     "length": 100,
+     "name": "sub_004B9DA0_CompareItems"
+    },
+    {
      "va": "0x004B9E10",
      "length": 116,
      "name": "MONSTER_IsNearPlayer"
@@ -28457,6 +28452,11 @@
      "va": "0x004B9E90",
      "length": 18,
      "name": "?sub_004B9E90_HasUnitSound@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004B9EB0",
+     "length": 49,
+     "name": "?sub_004B9EB0_PlayRandomSound@@YAXXZ"
     },
     {
      "va": "0x004B9EF0",

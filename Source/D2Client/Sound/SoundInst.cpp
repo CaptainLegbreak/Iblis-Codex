@@ -93,8 +93,6 @@ float __fastcall sub_004B93A0_ClampFloat(float fValue, float fMin, float fMax); 
 
 D2ClientSoundStrc* __stdcall sub_004B9690_FindOldestEntry(int nGroup, D2UnitStrc* pUnit, D2ClientSoundStrc* pExclude); // 0x004B9690
 
-int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nDelay, int nArg3, int nArg4); // 0x004B9A00
-
 void __fastcall UNITSND_RemoveUnitHint(D2UnitStrc* pUnit, int nHandle); // 0x004CA8D0
 
 void __fastcall sub_004DFC20(void* pStream); // 0x004DFC20
@@ -133,6 +131,90 @@ unsigned int gdwLastVolumeTick;        // 0x007C5464
 
 extern int gbAmbientSound_007C5468; // 0x007C5468
 
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
+
+D2ClientSoundStrc gaHintEntries[200];                                                           // 0x007C0ED0
+
+// 0x004B93F0
+D2ClientSoundStrc* __cdecl sub_004B93F0_AllocHintEntry()
+{
+    for (int i = 0; i < 200; ++i)
+    {
+        D2ClientSoundStrc* pEntry = &gaHintEntries[i];
+        if (!pEntry->bActive)
+        {
+            memset(pEntry, 0, sizeof(D2ClientSoundStrc));
+            pEntry->bActive = 1;
+            D2SOUND_ListAddHead(&gpSoundList_007C5458, pEntry);
+            gnSoundSerial += 1;
+            pEntry->f_8 = gnSoundSerial;
+            return pEntry;
+        }
+    }
+
+    return 0;
+}
+
+// 0x004B9440
+D2ClientSoundStrc* __fastcall sub_004B9440_FindSoundByHandle(int nHandle)
+{
+    if (nHandle)
+    {
+        for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
+        {
+            D2ClientSoundStrc* pSound = pNode->pSound;
+            if (pSound->f_8 == nHandle)
+            {
+                return pSound;
+            }
+        }
+    }
+    return 0;
+}
+
+// 0x004B9470
+static inline void sub_004B9470_ReleaseUnits(D2ClientSoundStrc* pSound)
+{
+    for (D2SoundUnitNodeStrc* pNode = pSound->pUnitList; pNode; pNode = pNode->pNext)
+    {
+        UNITSND_RemoveUnitHint(pNode->pUnit, pSound->f_8);
+    }
+    D2SOUND_ListFree(&pSound->pUnitList);
+}
+
+// 0x004B94A0
+static inline void sub_004B94A0_StopStream(D2ClientSoundStrc* pSound)
+{
+    if (pSound->nType == 1)
+    {
+        sub_004DF7B0(pSound->pStream);
+    }
+    D2_ASSERT(!pSound->pStream, 0x93);
+}
+
+// 0x004B9560
+int __fastcall sub_004B9560_HasSoundHandle(int nHandle)
+{
+    return sub_004B9440_FindSoundByHandle(nHandle) != 0;
+}
+
+// 0x004B9590
+int __fastcall sub_004B9590(int nKey)
+{
+    if (nKey)
+    {
+        for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
+        {
+            D2ClientSoundStrc* pEntry = pNode->pSound;
+            if (pEntry->f_8 == nKey)
+            {
+                return pEntry->nType == 1;
+            }
+        }
+    }
+    return 0;
+}
+
 // 0x004B9610
 void* __fastcall sub_004B9610(int nHintId)
 {
@@ -145,6 +227,27 @@ void* __fastcall sub_004B9610(int nHintId)
         }
     }
     return 0;
+}
+
+// 0x004B9690
+D2ClientSoundStrc* __stdcall sub_004B9690_FindOldestEntry(int nGroup, D2UnitStrc* pUnit, D2ClientSoundStrc* pExclude)
+{
+    D2ClientSoundStrc* pOldest = 0;
+    D2SoundNodeStrc* pNode = gpSoundList_007C5458;
+    if (gpSoundList_007C5458)
+    {
+        for (; pNode; pNode = pNode->pNext)
+        {
+            D2ClientSoundStrc* pEntry = pNode->pSound;
+            if (SOUNDHDR_GetSoundRecord(pEntry->nSoundId)->nGroupStart == nGroup && pEntry != pExclude && pEntry->nType == 1
+                && (!pUnit || sub_005169D0_ListHasKey(pEntry->pUnitList, pUnit)) && (!pOldest || pEntry->f_34 < pOldest->f_34))
+            {
+                pOldest = pEntry;
+            }
+        }
+    }
+
+    return pOldest;
 }
 
 // 0x004B9760
@@ -345,6 +448,44 @@ int __fastcall sub_004B9B20(int nKey)
     return 0;
 }
 
+// 0x004B9B80
+void __fastcall sub_004B9B80_SetFields(D2ClientSoundStrc* pSound, int nValue, int nBase, int nOffset)
+{
+    pSound->nFadeFrom = pSound->f_1C;
+    pSound->nFadeTo = nValue;
+    pSound->dwFadeStart = nBase;
+    pSound->dwFadeEnd = nBase + nOffset;
+    pSound->f_45 = 1;
+}
+
+// 0x004B9BB0
+static inline int sub_004B9BB0_GetStreamValue(D2ClientSoundStrc* pSound)
+{
+    return pSound->f_45;
+}
+
+// 0x004B9BE0
+int __fastcall sub_004B9BE0_HasActiveHint(int nKey)
+{
+    if (nKey)
+    {
+        for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
+        {
+            D2ClientSoundStrc* pEntry = pNode->pSound;
+            if (pEntry->f_8 == nKey)
+            {
+                D2SoundUnitNodeStrc* pList = pEntry->pUnitList;
+                if (pList && pList->pNext)
+                {
+                    return 1;
+                }
+                break;
+            }
+        }
+    }
+    return 0;
+}
+
 // 0x004B9C20
 int __cdecl sub_004B9C20_IsSpeechPlaying()
 {
@@ -393,6 +534,24 @@ int __fastcall sub_004B9CA0_GetHintIdByKey(int nKey)
 extern "C" int gnSoundFlag_007C545C; // 0x007C545C
 
 extern "C" void __cdecl sub_004E4280(); // 0x004E4280
+
+// 0x004B9CD0
+void __fastcall sub_004B9CD0_SetEntryByte(int nId, unsigned char nValue)
+{
+    if (!nId)
+    {
+        return;
+    }
+    for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
+    {
+        D2ClientSoundStrc* pEntry = pNode->pSound;
+        if (pEntry->f_8 == nId)
+        {
+            pEntry->nPriority = nValue;
+            return;
+        }
+    }
+}
 
 // 0x004B9D00
 extern "C" void __cdecl sub_004B9D00_ResetSoundState()
@@ -457,6 +616,49 @@ struct D2Vector3FStrc
     float fY;
     float fZ;
 };
+
+// 0x004B9DA0
+int __fastcall sub_004B9DA0_CompareItems(D2ClientSoundStrc* pA, D2ClientSoundStrc* pB, int bCompareFloat,
+                                         int bCompareValue)
+{
+    if (pA->nPriority > pB->nPriority)
+    {
+        return 1;
+    }
+
+    if (pA->nPriority < pB->nPriority)
+    {
+        return 0;
+    }
+
+    if (bCompareFloat)
+    {
+        if (pA->fDistance < pB->fDistance)
+        {
+            return 1;
+        }
+
+        if (pA->fDistance > pB->fDistance)
+        {
+            return 0;
+        }
+    }
+
+    if (bCompareValue)
+    {
+        if (pA->f_34 > pB->f_34)
+        {
+            return 1;
+        }
+
+        if (pA->f_34 < pB->f_34)
+        {
+            return 0;
+        }
+    }
+
+    return pA > pB;
+}
 
 // 0x004B9E10
 int __fastcall MONSTER_IsNearPlayer(D2UnitStrc* pUnit)
@@ -592,19 +794,35 @@ void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned
     pEntry->f_45 = 1;
 }
 
-
+// 0x004B9BC0
 static inline int sub_004B9BC0_IsOnAndNotHeld(D2ClientSoundStrc* pSound)
 {
     return pSound->f_45 && !pSound->nFadeTo;
 }
 
-static void __cdecl sub_004B9EB0_PlayRandomSound()
+// 0x004B9EB0
+void __cdecl sub_004B9EB0_PlayRandomSound()
 {
     if (DLIGHTMAP_GetSoundTick() % 3 == 0)
     {
         const int nSound = SKILLDESC_RandomInRange(0xB76, 0x1230);
-        sub_004B9A00(nSound, 0, 0, 0, 0);
+        sub_004B9A00_PlaySound(nSound, 0, 0, 0, 0);
     }
+}
+
+void __fastcall sub_M112_Emit_004B9470(D2ClientSoundStrc* pSound)
+{
+    sub_004B9470_ReleaseUnits(pSound);
+}
+
+void __fastcall sub_M112_Emit_004B94A0(D2ClientSoundStrc* pSound)
+{
+    sub_004B94A0_StopStream(pSound);
+}
+
+int __fastcall sub_M112_Emit_004B9BB0(D2ClientSoundStrc* pSound)
+{
+    return sub_004B9BB0_GetStreamValue(pSound);
 }
 
 static int sub_004BA020_SortsBefore(D2ClientSoundStrc* pSound1, D2ClientSoundStrc* pSound2)
