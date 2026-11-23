@@ -36026,14 +36026,50 @@
      "name": "D2GFX_DrawLitSubtileRows"
     },
     {
+     "va": "0x004F71A0",
+     "length": 980
+    },
+    {
+     "va": "0x004F7580",
+     "length": 716
+    },
+    {
+     "va": "0x004F7850",
+     "length": 1136
+    },
+    {
      "va": "0x004F7CC0",
      "length": 212,
      "name": "_CMNSUBTILE_BuildGouraudCache"
     },
     {
+     "va": "0x004F7DA0",
+     "length": 194
+    },
+    {
      "va": "0x004F7E70",
      "length": 33,
      "name": "?CMNSUBTILE_BuildLineOffsets@@YAXXZ"
+    },
+    {
+     "va": "0x004F7EA0",
+     "length": 420
+    },
+    {
+     "va": "0x004F82D0",
+     "length": 532
+    },
+    {
+     "va": "0x004F84F0",
+     "length": 796
+    },
+    {
+     "va": "0x004F88B0",
+     "length": 307
+    },
+    {
+     "va": "0x004F89F0",
+     "length": 394
     },
     {
      "va": "0x004F8E40",
@@ -36135,62 +36171,6 @@
      "length": 104,
      "name": "?sub_004F8EA0@@YAXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Unknown_004F71A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004F71A0",
-     "length": 980
-    },
-    {
-     "va": "0x004F7580",
-     "length": 716
-    },
-    {
-     "va": "0x004F7850",
-     "length": 1136
-    },
-    {
-     "va": "0x004F7DA0",
-     "length": 194
-    },
-    {
-     "va": "0x004F7EA0",
-     "length": 420
-    },
-    {
-     "va": "0x004F82D0",
-     "length": 532
-    },
-    {
-     "va": "0x004F84F0",
-     "length": 796
-    },
-    {
-     "va": "0x004F88B0",
-     "length": 307
-    },
-    {
-     "va": "0x004F89F0",
-     "length": 394
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

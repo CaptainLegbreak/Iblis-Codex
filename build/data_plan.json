@@ -2455,11 +2455,8 @@
    "bytes": 188,
    "definitions": 7,
    "externs": [
-    "extern \"C\" void __cdecl sub_004F7EA0_DrawVisTile(); // 0x004F7EA0",
     "extern \"C\" void __cdecl sub_004F8050_DrawRleVisTile(); // 0x004F8050",
     "extern \"C\" void __cdecl sub_004F8120_TileDrawLit(); // 0x004F8120",
-    "extern \"C\" void __cdecl sub_004F82D0_DrawBlendVisTile(); // 0x004F82D0",
-    "extern \"C\" void __cdecl sub_004F84F0_TileDrawLitBlend(); // 0x004F84F0",
     "extern \"C\" void __cdecl sub_004F8B80(); // 0x004F8B80",
     "extern \"C\" void __cdecl sub_004F8DE0(); // 0x004F8DE0"
    ],
