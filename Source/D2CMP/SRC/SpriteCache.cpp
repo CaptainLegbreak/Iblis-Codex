@@ -27,8 +27,6 @@
         if ((char)((dw) >> 8) != 0x20) { *q++ = (char)((dw) >> 8); \
             if ((char)((dw) >> 16) != 0x20) { *q++ = (char)((dw) >> 16); } } }
 
-struct D2UnitStrc;
-
 struct D2SpriteCacheNodeStrc;
 
 struct D2TileLibraryHeaderStrc;
@@ -80,8 +78,6 @@ struct D2CmpDC6CelStrc;
 struct D2CmpSpriteEntryStrc;
 
 struct D2CmpDC6FrameStrc;
-
-int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc* pUnit); // 0x00621F20
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
@@ -407,49 +403,6 @@ static void __stdcall D2CMPSpriteInitFrames(D2CmpSpriteFileStrc* pFile, D2CmpSpr
 static int __stdcall D2CMPSpriteLoadDc6Entry(D2CmpSpriteFileStrc* pFile, int nArg2, int nArg3, const char* szName, D2CmpSpriteContextStrc* pContext); // 0x005FFE90
 
 static void __stdcall D2CMPSpriteLoadConvertedEntry(int nDirection, unsigned int nFrames, char* szName, int bDC6, D2CmpSpriteContextStrc* pContext, D2CmpSpriteFileStrc* pFile, char* szPath); // 0x006000B0
-
-// 0x005B72A0
-void __stdcall sub_005B72A0(int nUnused1)
-{
-}
-
-// 0x005B8740
-void __stdcall sub_005B8740(int nUnused1)
-{
-}
-
-// 0x005C2FE0
-int __cdecl sub_005C2FE0()
-{
-    return 43;
-}
-
-// 0x005DD280
-int __fastcall sub_005DD280(D2UnitStrc* pArg)
-{
-    return UNITS_GetCurrentLifePercentage(pArg);
-}
-
-// 0x005E5270
-int __stdcall sub_005E5270(int nUnused1, int nUnused2)
-{
-    return 0;
-}
-
-// 0x005EDC40
-void __stdcall sub_005EDC40(int nUnused1)
-{
-}
-
-// 0x005EE5C0
-void __stdcall sub_005EE5C0(int nUnused1)
-{
-}
-
-// 0x005EF310
-void __stdcall sub_005EF310(int nUnused1)
-{
-}
 
 // 0x005FE000
 void __fastcall D2CMPTileCacheSetFreeCallback(void* pfnCallback)

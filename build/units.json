@@ -3753,11 +3753,6 @@
      "name": "MAINMENUS_OnRealmListClick"
     },
     {
-     "va": "0x00440CA0",
-     "length": 110,
-     "name": "MAINMENUS_RequestProfile"
-    },
-    {
      "va": "0x004431B0",
      "length": 112,
      "name": "MAINMENUS_LoadMaxPlayers"
@@ -9712,11 +9707,6 @@
      "name": "?CHARSEL_ResetChatControls@@YAXXZ"
     },
     {
-     "va": "0x0043E660",
-     "length": 87,
-     "name": "?CHARSEL_UpdateOkEnabled@@YAXXZ"
-    },
-    {
      "va": "0x0043EA20",
      "length": 71,
      "name": "?CHARSEL_DestroyPopupControls@@YAXXZ"
@@ -9755,11 +9745,6 @@
      "va": "0x004429A0",
      "length": 205,
      "name": "?CHARSEL_OnChatLine@@YGHPBUUnicode@@@Z"
-    },
-    {
-     "va": "0x00442C20",
-     "length": 422,
-     "name": "?CHARSEL_FillGameListControl@@YAXXZ"
     },
     {
      "va": "0x00443360",
@@ -9805,11 +9790,6 @@
      "va": "0x00443F80",
      "length": 160,
      "name": "?CHARSEL_SubmitProfile@@YGHH@Z"
-    },
-    {
-     "va": "0x00445020",
-     "length": 126,
-     "name": "CHARSEL_RequestGameList"
     },
     {
      "va": "0x00446890",
@@ -12349,6 +12329,11 @@
      "name": "?CHATDLG_ShowChannelText@@YIHPAUUnicode@@@Z"
     },
     {
+     "va": "0x0043E660",
+     "length": 87,
+     "name": "?CHARSEL_UpdateOkEnabled@@YAXXZ"
+    },
+    {
      "va": "0x0043E6C0",
      "length": 23,
      "name": "?CHATDLG_OnCancel@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
@@ -12637,6 +12622,11 @@
      "name": "?CHATDLG_ShowExpansionHardcoreLadder@@YGHH@Z"
     },
     {
+     "va": "0x00440CA0",
+     "length": 110,
+     "name": "MAINMENUS_RequestProfile"
+    },
+    {
      "va": "0x00440D10",
      "length": 152,
      "name": "?CHATDLG_StorePlayerName@@YIXHHPBD@Z"
@@ -12718,6 +12708,11 @@
      "va": "0x00442B90",
      "length": 136,
      "name": "?CHATDLG_HandleGameListReply@@YIXPAUD2LaunchReplyStrc@@@Z"
+    },
+    {
+     "va": "0x00442C20",
+     "length": 422,
+     "name": "?CHARSEL_FillGameListControl@@YAXXZ"
     },
     {
      "va": "0x00442DD0",
@@ -13284,6 +13279,11 @@
     {
      "va": "0x00444E70",
      "length": 421
+    },
+    {
+     "va": "0x00445020",
+     "length": 126,
+     "name": "CHARSEL_RequestGameList"
     },
     {
      "va": "0x004450A0",
@@ -37348,11 +37348,6 @@
      "name": "DDRAW_FloorTileDraw"
     },
     {
-     "va": "0x00513330",
-     "length": 67,
-     "name": "?DDRAW_CloseSmacker@@YIXPAUD2SmackRecordStrc@@@Z"
-    },
-    {
      "va": "0x005136F0",
      "length": 238,
      "name": "DDRAW_DrawVideoFrame"
@@ -38414,6 +38409,11 @@
    "file": "Source/D2DDraw/Src/ddSmack.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00513330",
+     "length": 67,
+     "name": "?DDRAW_CloseSmacker@@YIXPAUD2SmackRecordStrc@@@Z"
+    },
     {
      "va": "0x00513380",
      "length": 113
@@ -41505,6 +41505,11 @@
      "name": "sub_0052BF30"
     },
     {
+     "va": "0x0052BF40",
+     "length": 3,
+     "name": "?sub_0052BF40_Stub@@YGXHHHH@Z"
+    },
+    {
      "va": "0x0052BF50",
      "length": 3,
      "name": "sub_0052BF50"
@@ -44070,11 +44075,6 @@
      "va": "0x0052BEF0",
      "length": 1,
      "name": "?GAME_DefaultGetGameServerInfo@@YAXXZ"
-    },
-    {
-     "va": "0x0052BF40",
-     "length": 3,
-     "name": "?sub_0052BF40_Stub@@YGXHHHH@Z"
     },
     {
      "va": "0x0052BFB0",
@@ -58621,46 +58621,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x005B72A0",
-     "length": 3,
-     "name": "sub_005B72A0"
-    },
-    {
-     "va": "0x005B8740",
-     "length": 3,
-     "name": "sub_005B8740"
-    },
-    {
-     "va": "0x005C2FE0",
-     "length": 6,
-     "name": "sub_005C2FE0"
-    },
-    {
-     "va": "0x005DD280",
-     "length": 7,
-     "name": "sub_005DD280"
-    },
-    {
-     "va": "0x005E5270",
-     "length": 5,
-     "name": "sub_005E5270"
-    },
-    {
-     "va": "0x005EDC40",
-     "length": 3,
-     "name": "sub_005EDC40"
-    },
-    {
-     "va": "0x005EE5C0",
-     "length": 3,
-     "name": "sub_005EE5C0"
-    },
-    {
-     "va": "0x005EF310",
-     "length": 3,
-     "name": "sub_005EF310"
-    },
-    {
      "va": "0x005FE000",
      "length": 7,
      "name": "?D2CMPTileCacheSetFreeCallback@@YIXPAX@Z"
@@ -59091,6 +59051,11 @@
      "length": 531
     },
     {
+     "va": "0x005E5270",
+     "length": 5,
+     "name": "sub_005E5270"
+    },
+    {
      "va": "0x005E5280",
      "length": 76,
      "name": "AITHINK_FetishShamanClearInfernoAndResetAi"
@@ -59487,6 +59452,11 @@
      "name": "AITHINK_SetSecondaryAiParams"
     },
     {
+     "va": "0x005EDC40",
+     "length": 3,
+     "name": "sub_005EDC40"
+    },
+    {
      "va": "0x005EDF70",
      "length": 202,
      "name": "AITHINK_FindDeadMonsterBehind"
@@ -59494,6 +59464,11 @@
     {
      "va": "0x005EE3C0",
      "length": 511
+    },
+    {
+     "va": "0x005EE5C0",
+     "length": 3,
+     "name": "sub_005EE5C0"
     },
     {
      "va": "0x005EE5D0",
@@ -59526,6 +59501,11 @@
      "va": "0x005EF210",
      "length": 249,
      "name": "AITHINK_BaalThroneSpawnMinions"
+    },
+    {
+     "va": "0x005EF310",
+     "length": 3,
+     "name": "sub_005EF310"
     },
     {
      "va": "0x005EF5E0",
@@ -60791,6 +60771,11 @@
      "name": "?OBJECTS_InitFunction50_HratliEnd@@YIXPAUD2ObjInitFnStrc@@@Z"
     },
     {
+     "va": "0x005B72A0",
+     "length": 3,
+     "name": "sub_005B72A0"
+    },
+    {
      "va": "0x005B72B0",
      "length": 88,
      "name": "ACT3Q1_ActiveFilterCallback"
@@ -60976,6 +60961,11 @@
      "va": "0x005B86E0",
      "length": 83,
      "name": "?ACT3Q2_UpdateKhalimItemCounts@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005B8740",
+     "length": 3,
+     "name": "sub_005B8740"
     },
     {
      "va": "0x005B8750",
@@ -61963,6 +61953,11 @@
      "va": "0x005C2FB0",
      "length": 34,
      "name": "?ITEMS_ApplyLowQualityForFormat@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
+    },
+    {
+     "va": "0x005C2FE0",
+     "length": 6,
+     "name": "sub_005C2FE0"
     },
     {
      "va": "0x005C2FF0",
@@ -63925,6 +63920,11 @@
     {
      "va": "0x005DD250",
      "length": 40
+    },
+    {
+     "va": "0x005DD280",
+     "length": 7,
+     "name": "sub_005DD280"
     },
     {
      "va": "0x005DD290",
