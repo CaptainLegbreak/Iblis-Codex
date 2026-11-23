@@ -513,6 +513,7 @@
    "bytes": 15432,
    "definitions": 64,
    "externs": [
+    "extern \"C\" void __cdecl MAINMENUS_OnConnectCancel(); // 0x00436CD0",
     "extern \"C\" void __cdecl sub_004371B0_OnLoginScreen(); // 0x004371B0",
     "extern \"C\" void __cdecl sub_004371C0_OnEmailScreen(); // 0x004371C0",
     "extern \"C\" void __cdecl sub_004371D0_OnShowLogin(); // 0x004371D0",
