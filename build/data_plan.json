@@ -3663,7 +3663,7 @@
   },
   "Source/D2Game/MONSTER/MonsterUnique.cpp": {
    "bytes": 484,
-   "definitions": 7,
+   "definitions": 6,
    "externs": [
     "extern \"C\" void __cdecl PARTYSCREEN_InvitationCancelled(); // 0x005A5B30",
     "extern \"C\" void __cdecl PARTYSCREEN_PlayerLeftParty(); // 0x005A5D20",
@@ -5312,6 +5312,27 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a2q8.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/PLAYER/PartyScreen.cpp": {
+   "bytes": 484,
+   "definitions": 1,
+   "externs": [
+    "extern \"C\" void __cdecl PARTYSCREEN_InvitationCancelled(); // 0x005A5B30",
+    "extern \"C\" void __cdecl PARTYSCREEN_PlayerLeftParty(); // 0x005A5D20",
+    "extern \"C\" void __cdecl PARTYSCREEN_ReceivedInvitation(); // 0x005A5BE0",
+    "extern \"C\" void __cdecl PARTYSCREEN_ToggleHostile(); // 0x005A5E50",
+    "extern \"C\" void __cdecl PARTYSCREEN_ToggleIgnore(); // 0x005A5840",
+    "extern \"C\" void __cdecl PARTYSCREEN_ToggleLootability(); // 0x005A57B0",
+    "extern \"C\" void __cdecl PARTYSCREEN_ToggleSquelch(); // 0x005A58A0",
+    "extern \"C\" void __cdecl PARTYSCREEN_AcceptInvitation(); // 0x005A5A30",
+    "extern \"C\" void __cdecl MONSTERUNIQUE_UMod26_Teleport(); // 0x005A1600",
+    "extern \"C\" void __cdecl MONSTERUNIQUE_UMod38_Possessed(); // 0x005A1230",
+    "extern \"C\" void __cdecl sub_005A1280_UModChampion(); // 0x005A1280"
+   ],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/PLAYER/PartyScreen.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -107010,7 +107031,7 @@
    "cname": "gData_006E2218",
    "declared": true,
    "decorated": "?gpfnPartyCommands@@3PAP6IXPAUD2GameStrc@@PAUD2UnitStrc@@1HPAH@ZA",
-   "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
+   "file": "Source/D2Game/PLAYER/PartyScreen.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const PartyCommandFunc gData_006E2218[10]; // 0x006E2218",
    "head": "extern \"C\" const PartyCommandFunc gData_006E2218[10] = ",
