@@ -62066,16 +62066,6 @@
      "name": "?SKILLITEM_GetMonEquipTxtRecord@@YIPAUD2MonEquipTxt@@H@Z"
     },
     {
-     "va": "0x005FD0F0",
-     "length": 269,
-     "name": "?AIBAAL_SpawnUberBaalMinion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005FD200",
-     "length": 3,
-     "name": "AITHINK_Fn145_UberBaal"
-    },
-    {
      "va": "0x005FD350",
      "length": 285
     },
@@ -64163,57 +64153,25 @@
      "va": "0x005FCF30",
      "length": 168,
      "name": "AIBAAL_RunSpecialAiState"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005FCFE0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x005FCFE0",
      "length": 258
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005FD210.cpp",
-   "rank": 1,
-   "functions": [
+    },
+    {
+     "va": "0x005FD0F0",
+     "length": 269,
+     "name": "?AIBAAL_SpawnUberBaalMinion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005FD200",
+     "length": 3,
+     "name": "AITHINK_Fn145_UberBaal"
+    },
     {
      "va": "0x005FD210",
      "length": 310
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
