@@ -1604,52 +1604,6 @@ int __fastcall PLRSKILLS_FireAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkil
     return pMissilesTxtRecord ? 1 : 0;
 }
 
-// 0x004E3C50
-int __fastcall PLRSKILLS_MissileAtTargetUnit(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    const int nMissile = pSkillsTxtRecord->wCltMissileA;
-    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
-    if (pTarget && pUnit)
-    {
-        D2MissileStrc tMissileParams;
-        memset(&tMissileParams, 0, sizeof(tMissileParams));
-        tMissileParams.pOwner = pUnit;
-        tMissileParams.dwFlags = 1;
-        tMissileParams.nX = CLIENTS_GetUnitX(pTarget);
-        tMissileParams.nY = CLIENTS_GetUnitY(pTarget);
-        tMissileParams.nSkill = nSkillId;
-        tMissileParams.nSkillLevel = nSkillLevel;
-        tMissileParams.nMissile = nMissile;
-        D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
-        if (pMissile)
-        {
-            GFXUTIL_SetMotionVectorA(pMissile, 0, 0, 0x118);
-            GFXUTIL_SetMotionVectorB(pMissile, 0, 0, -0x28, 1);
-        }
-
-        sub_00472C50(0);
-        const short nOverlay = pSkillsTxtRecord->wPrgOverlay;
-        if (nOverlay > 0)
-        {
-            GFX_AddUnitOverlay(pTarget, nOverlay, 2, 0, 0, 0, 0, 0);
-        }
-
-        return 1;
-    }
-
-    return 0;
-}
 
 
 // 0x004F1D80
