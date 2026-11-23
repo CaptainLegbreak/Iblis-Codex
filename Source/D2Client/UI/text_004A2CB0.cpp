@@ -1,13 +1,12 @@
 #include "D2MonsterIds.h"
 #include "D2Client.h"
 #include "D2Primitives.h"
+#include "D2Unicode.h"
 
 struct D2PacketRecord6Strc;
 struct D2QuestTableStrc;
 struct D2UiEntry10Strc;
 struct D2QuestUiFlagsStrc;
-
-typedef unsigned short Unicode;
 
 typedef void (__fastcall* UNITFN)(D2UnitStrc* pUnit);
 
