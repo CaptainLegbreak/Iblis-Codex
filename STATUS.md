@@ -46,8 +46,8 @@ How far the sources are from reading like the original source tree. Byte matchin
 | … in a file with its original name, whole | 281 |
 | … pieces of an original file still split (in 36 files) | 115 |
 | … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 637 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3108 |
-| Unnamed fields (`unk0x..`) in the shared headers | 714 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3107 |
+| Unnamed fields (`unk0x..`) in the shared headers | 713 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 43 |
 | Calling-convention shims | 110 |
 | Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 548 |
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 3367 functions are compiled with `/GS-` and 580 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 100 times and `__declspec(dllexport)` 170 times to keep a body out of line or emitted.
+Not listed one by one: 3365 functions are compiled with `/GS-` and 580 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 100 times and `__declspec(dllexport)` 170 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
