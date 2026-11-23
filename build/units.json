@@ -74660,34 +74660,14 @@
      "name": "SKILLS_InitSkillList"
     },
     {
-     "va": "0x00648300",
-     "length": 107,
-     "name": "PATH_GetClientCoordsVelocity"
-    },
-    {
      "va": "0x00648390",
      "length": 5,
      "name": "?sub_00648390_AlwaysZero@@YGHHH@Z"
     },
     {
-     "va": "0x006484E0",
-     "length": 160,
-     "name": "PATH_GetCollisionPatternFromMonStats2Txt"
-    },
-    {
      "va": "0x00648640",
      "length": 66,
      "name": "D2COMMON_10193_PATH_AdjustDirection"
-    },
-    {
-     "va": "0x006486F0",
-     "length": 16,
-     "name": "PATH_GetMaxVelocity"
-    },
-    {
-     "va": "0x00648720",
-     "length": 16,
-     "name": "PATH_GetAcceleration"
     },
     {
      "va": "0x00648770",
@@ -74881,6 +74861,11 @@
      "length": 475
     },
     {
+     "va": "0x00648300",
+     "length": 107,
+     "name": "PATH_GetClientCoordsVelocity"
+    },
+    {
      "va": "0x00648370",
      "length": 1,
      "name": "?sub_00648370_Nop@@YAXXZ"
@@ -74921,6 +74906,11 @@
      "name": "?PATH_GetMonsterMoveTestMask@@YAHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x006484E0",
+     "length": 160,
+     "name": "PATH_GetCollisionPatternFromMonStats2Txt"
+    },
+    {
      "va": "0x00648580",
      "length": 109,
      "name": "?D2Common_11281_CollisionPatternFromSize@@YGHPAUD2UnitStrc@@H@Z"
@@ -74946,9 +74936,19 @@
      "name": "_PATH_SetMaxVelocity@8"
     },
     {
+     "va": "0x006486F0",
+     "length": 16,
+     "name": "PATH_GetMaxVelocity"
+    },
+    {
      "va": "0x00648700",
      "length": 19,
      "name": "_PATH_SetAcceleration@8"
+    },
+    {
+     "va": "0x00648720",
+     "length": 16,
+     "name": "PATH_GetAcceleration"
     },
     {
      "va": "0x00648730",
