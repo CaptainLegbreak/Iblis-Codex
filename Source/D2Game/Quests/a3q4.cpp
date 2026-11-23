@@ -508,7 +508,7 @@ void __fastcall ACT3Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
     {
         pQuestData->bNotIntro = 0;
         pQuestDataEx->unk0x01 = 0;
-        pQuestDataEx->unk0x0C = 0;
+        pQuestDataEx->bJadeFigurineDropPending = 0;
         return;
     }
 
@@ -518,14 +518,14 @@ void __fastcall ACT3Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
     {
         pQuestData->bNotIntro = 0;
         pQuestDataEx->unk0x01 = 0;
-        pQuestDataEx->unk0x0C = 0;
+        pQuestDataEx->bJadeFigurineDropPending = 0;
         return;
     }
 
     if (pGoldenBird)
     {
         pQuestDataEx->unk0x01 = 0;
-        pQuestDataEx->unk0x0C = 0;
+        pQuestDataEx->bJadeFigurineDropPending = 0;
         if (QUESTRECORD_GetQuestState(pQuestFlags, 20, 4))
         {
             pQuestData->fState = 3;
@@ -540,7 +540,7 @@ void __fastcall ACT3Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
     else if (pJadeFigurine)
     {
         pQuestDataEx->unk0x01 = 0;
-        pQuestDataEx->unk0x0C = 0;
+        pQuestDataEx->bJadeFigurineDropPending = 0;
         if (QUESTRECORD_GetQuestState(pQuestFlags, 20, 2))
         {
             pQuestData->fState = 2;

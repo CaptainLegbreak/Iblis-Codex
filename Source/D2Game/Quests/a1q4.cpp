@@ -2230,7 +2230,7 @@ void __fastcall ACT1Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
         pQuestDataEx->bDecipheredScrollAcquired = 1;
         pQuestDataEx->bActivateCairnStones = 1;
         pQuestDataEx->bScrollAcquired = 1;
-        pQuestDataEx->unk0x58 = 1;
+        pQuestDataEx->nInifussTreeObjectMode = 1;
     }
     else if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q4, QFLAG_LEAVETOWN) == 1)
     {
@@ -2261,14 +2261,14 @@ void __fastcall ACT1Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
         pQuestData->fLastState = 3;
         pQuestDataEx->bDecipheredScrollAcquired = 1;
         pQuestDataEx->bScrollAcquired = 1;
-        pQuestDataEx->unk0x58 = 1;
+        pQuestDataEx->nInifussTreeObjectMode = 1;
     }
     else if (pBarkScroll)
     {
         pQuestDataEx->bScrollAcquired = 1;
         pQuestData->fState = 4;
         pQuestData->fLastState = 2;
-        pQuestDataEx->unk0x58 = 1;
+        pQuestDataEx->nInifussTreeObjectMode = 1;
     }
 }
 
