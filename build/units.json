@@ -2990,6 +2990,11 @@
      "length": 1102
     },
     {
+     "va": "0x004359D0",
+     "length": 753,
+     "name": "?sub_004359D0_RunFrontEnd@@YIHPAUD2LaunchRecordStrc@@@Z"
+    },
+    {
      "va": "0x00435CD0",
      "length": 56,
      "name": "?MAINMENUS_OnSinglePlayer@@YGHH@Z"
@@ -11368,17 +11373,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_004359D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004359D0",
-     "length": 753,
-     "name": "?sub_004359D0_RunFrontEnd@@YIHPAUD2LaunchRecordStrc@@@Z"
-    }
    ]
   },
   {
