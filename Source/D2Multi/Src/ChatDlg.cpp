@@ -1,4 +1,8 @@
 #include "D2Multi.h"
+#include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2Drlg.h"
+#include "D2LevelTxt.h"
 
 #include "D2StormTypes.h"
 
@@ -1733,6 +1737,25 @@ int __fastcall sub_M110_Emit_0043E180(unsigned int nTime, _FILETIME* pFileTime)
     return 1;
 }
 
+void __fastcall CONTROL_SetEnabled(D2WinControlStrc* pControl, int nFlags);                     // 0x004F96F0
+D2WinControlStrc* gpChannelOkButton; // 0x0077BCEC
+
+// 0x0043E660
+void __cdecl CHARSEL_UpdateOkEnabled()
+{
+    char szText[0x20];
+
+    const Unicode* pText = sub_004FDD90_GetEditText(gpEdit_0077BCF4);
+    int bEnable = 0;
+    if (pText)
+    {
+        sub_00526F70(szText, pText, 0x1F);
+        if (strlen(szText) >= 1)
+            bEnable = 1;
+    }
+    CONTROL_SetEnabled(gpChannelOkButton, bEnable);
+}
+
 // 0x0043E6C0
 int __stdcall CHATDLG_OnCancel(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -2988,37 +3011,59 @@ int __stdcall CHATDLG_OpenAdUrl(int nUnused)
 }
 
 struct D2LaunchGameEntryStrc;
+
 struct D2LaunchGameListStrc;
+
 void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
+
 void* __cdecl GAME_GetChannelName(); // 0x00446CF0
+
 extern D2WinControlInitStrc gtCreateJoinBckgImageInit; // 0x0070D8D0
+
 extern D2WinControlInitStrc gtChannelScreenTitleInit; // 0x0070D900
+
 extern D2WinControlInitStrc gtControlInit_0070D930; // 0x0070D930
+
 extern D2WinControlInitStrc gtControlInit_0070D960; // 0x0070D960
+
 extern D2WinControlInitStrc gtChannelNameEditInit; // 0x0070D990
+
 extern D2WinControlInitStrc gtChannelListInit; // 0x0070D9F0
+
 extern D2WinControlInitStrc gtChannelOkButtonInit; // 0x0070DA20
+
 extern D2WinControlInitStrc gtControlInit_0070E110; // 0x0070E110
+
 extern D2WinControlStrc* gpControl_0077BCEC; // 0x0077BCEC
+
 struct D2LaunchGameEntryStrc
 {
     int nAddress;
     char unk0x04[0x10];
     char szName[1];
 };
+
 struct D2LaunchGameListStrc
 {
     int nCount;
     char unk0x04[0x0C];
     D2LaunchGameEntryStrc tFirst;
 };
+
 D2WinControlStrc* gpCreateJoinBckgImage; // 0x0077BCDC
+
 D2WinControlStrc* gpChannelScreenTitle; // 0x0077BCE0
+
 D2WinControlStrc* gpControl_0077BCE4; // 0x0077BCE4
+
 D2WinControlStrc* gpControl_0077BCE8; // 0x0077BCE8
+
 D2WinControlStrc* gpControl_0077BCF0; // 0x0077BCF0
+
 D2WinControlStrc* gpChannelNameEdit; // 0x0077BCF4
+
 D2WinControlStrc* gpChannelListBox; // 0x0077BCFC
+
 // build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // calling-convention shim (not game code)
@@ -3032,6 +3077,7 @@ int __fastcall sub_00442180_Shim(char* szText)
         return 1;
     return 0;
 }
+
 // build: context sub_004438E0_HasProgress
 static inline int sub_004438E0_HasProgress(unsigned short wFlags, unsigned int nClassic, unsigned int nExpansion)
 {
@@ -3039,6 +3085,7 @@ static inline int sub_004438E0_HasProgress(unsigned short wFlags, unsigned int n
         return (wFlags & 0x1F00u) >= nExpansion;
     return (wFlags & 0x1F00u) >= nClassic;
 }
+
 int __fastcall sub_004438E0_Lookup(const char* szName, const char* szPassword, D2LaunchGameRecStrc* pRecord); // 0x004438E0
 
 // 0x00440FC0
