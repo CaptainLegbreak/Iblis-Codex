@@ -69655,16 +69655,6 @@
      "name": "?DATATBLS_FreeAutomap@@YIXXZ"
     },
     {
-     "va": "0x00644140",
-     "length": 10,
-     "name": "?SKILLS_GetSkillsTxtRecordFromSkill@@YIPAUD2SkillsTxt@@PAUD2SkillStrc@@@Z"
-    },
-    {
-     "va": "0x006446A0",
-     "length": 23,
-     "name": "?SKILLS_GetFlags@@YGHPAUD2SkillStrc@@@Z"
-    },
-    {
      "va": "0x00673FF0",
      "length": 65,
      "name": "?DATATBLS_GetVisFlagToLevel@@YIHPAUD2DrlgLevelStrc@@0@Z"
@@ -74155,6 +74145,11 @@
      "name": "?D2Common_SKILLMANA_CheckStartStat_6FDB1400@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
     },
     {
+     "va": "0x00644140",
+     "length": 10,
+     "name": "?SKILLS_GetSkillsTxtRecordFromSkill@@YIPAUD2SkillsTxt@@PAUD2SkillStrc@@@Z"
+    },
+    {
      "va": "0x00644150",
      "length": 34,
      "name": "SKILLS_GetShrineSkillLevelBonus"
@@ -74252,6 +74247,11 @@
      "va": "0x00644660",
      "length": 51,
      "name": "SKILLS_SetFlags"
+    },
+    {
+     "va": "0x006446A0",
+     "length": 23,
+     "name": "?SKILLS_GetFlags@@YGHPAUD2SkillStrc@@@Z"
     },
     {
      "va": "0x006446C0",
