@@ -1423,7 +1423,6 @@ extern void* gpHint_007BF24B; // 0x007BF24B
 
 extern PANELCLOSEFN gpfnClose_007BF258; // 0x007BF258
 
-
 void __fastcall sub_00467430_SetSelectionRect(void* pRect); // 0x00467430
 
 void __fastcall NPCMENU_CancelNpcAndFlag(void* pHint); // 0x004B3D10
@@ -1592,7 +1591,6 @@ void __cdecl sub_004A34F0_DrawQuestPage(); // 0x004A34F0
 
 void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg);
 
-
 int __stdcall TEXT_GetChanceToHit(int nAttackRate);
 
 struct D2PacketRecord6Strc;
@@ -1635,6 +1633,19 @@ extern D2QuestTableStrc gaQuestTable[]; // 0x00723F30
 extern D2UiEntry10Strc gaQuestLookup[41]; // 0x00723F38
 
 extern D2QuestUiFlagsStrc gtQuestUiFlags_007BF2B3; // 0x007BF2B3
+
+#pragma pack(push, 2)
+
+#pragma pack(pop)
+
+Unicode* __fastcall strncpy(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
+
+#pragma pack(push, 2)
+
+#pragma pack(pop)
+
+static void TEXT_FreeTextNode(D2TextNodeStrc* pNode); // 0x0049D490
+
 
 static inline int sub_F08_ListTop()
 {
@@ -2623,6 +2634,53 @@ static bool TEXT_IsLanguageCompatible(int nLangId)
     return true;
 }
 
+int __fastcall sub_T49_Emit_0049E250(int nLangId)
+{
+    return TEXT_IsLanguageCompatible(nLangId);
+}
+
+static inline int sub_F02_IntersectsAnyHoverRect(const D2RectStrc* pRect, int nCount)
+{
+    for (int i = 0; i < nCount; ++i)
+    {
+        D2RectStrc tOverlap;
+        if (IntersectRect(&tOverlap, &gaHoverRects[i], pRect))
+            return 1;
+    }
+    return 0;
+}
+
+// 0x0049E280
+static bool TEXT_ConvertHoverText(int nLangId, Unicode* wszText, const char* szText)
+{
+    if (nLangId != 7 && nLangId != 0xC && nLangId != 6 && nLangId != 9)
+    {
+        sub_00526F20_ToUnicode(wszText, szText, 0x100);
+        return true;
+    }
+
+    MultiByteToWideChar(0, 1, szText, 0x100, wszText, 0x100);
+    const int nCurrentLangId = STRTABLE_GetLanguage();
+    if (nCurrentLangId == nLangId)
+        return true;
+    if (nCurrentLangId == 7)
+    {
+        if (nLangId == 0xC)
+            return true;
+    }
+    else if (nCurrentLangId == 0xC && nLangId == 7)
+    {
+        return true;
+    }
+
+    for (; wszText->wChar; ++wszText)
+    {
+        if (wszText->wChar >= 0x80)
+            return false;
+    }
+    return true;
+}
+
 // 0x0049E300
 void __cdecl TEXT_FreeMainTextBox()
 {
@@ -2722,6 +2780,90 @@ void __fastcall TEXT_PrintChatLine(const Unicode* wszText, char nColor)
         sub_0049E340();
     }
     D2Win_10127_SetFont(nOldFont);
+}
+
+// 0x0049E5C0
+void __fastcall TEXT_PrintPartyText(const Unicode* wszText, char nColor)
+{
+    const int nOldFont = D2Win_10127_SetFont(0xD);
+    D2TextNodeStrc* pNode = (D2TextNodeStrc*)FOG_Alloc(sizeof(D2TextNodeStrc), ".\\UI\\text.cpp", 0xDAD, 0);
+    memset(pNode, 0, 0x24);
+    pNode->pNext = 0;
+    pNode->dwEndTick = GetTickCount() + 10000;
+
+    int nCount = sub_00526800(wszText);
+    const int nTotal = nCount;
+    int nStart = 0;
+    pNode->nLines = 0;
+    for (;;)
+    {
+        while (nCount > 0 && D2Win_10123(&wszText[nStart], nCount) > gnScreenWidth - 0x46)
+            nCount--;
+
+        if (nStart + nCount != nTotal)
+        {
+            while (nCount > 0 && !sub_00526D30_IsLineBreak(&wszText[nStart], nCount + 1))
+                nCount--;
+        }
+
+        if (!nCount)
+            break;
+
+        const Unicode* pSource = &wszText[nStart];
+        int aLine[0x100];
+        sub_005263E0((char*)aLine, pSource, nCount);
+        if (pNode->nLines >= 6)
+            break;
+
+        const int nSize = nCount * 2 + 2;
+        pNode->pLines[pNode->nLines] = (Unicode*)FOG_Alloc(nSize, ".\\UI\\text.cpp", 0xDD7, 0);
+        memset(pNode->pLines[pNode->nLines], 0, nSize);
+        strncpy(pNode->pLines[pNode->nLines], pSource, nCount);
+        pNode->nLines++;
+        nStart = nCount;
+        nCount = nTotal - nCount;
+    }
+    pNode->nColor = (unsigned char)nColor;
+
+    if (gtOverheadTextList.pFirst)
+    {
+        D2TextNodeStrc* pLast = gtOverheadTextList.pFirst;
+        unsigned short nNodes = 0;
+        D2TextNodeStrc** ppNext = &pLast->pNext;
+        if (*ppNext)
+        {
+            do
+            {
+                pLast = *ppNext;
+                ppNext = &pLast->pNext;
+                nNodes++;
+            } while (*ppNext);
+        }
+        D2_ASSERT(nNodes == gtOverheadTextList.wCount - 1, 0xDF1);
+        pLast->pNext = pNode;
+    }
+    else
+    {
+        gtOverheadTextList.pFirst = pNode;
+    }
+    gtOverheadTextList.wCount++;
+    TEXT_AddToHistory(pNode);
+
+    if (gtOverheadTextList.wCount > 2)
+    {
+        D2TextNodeStrc* pFirst = gtOverheadTextList.pFirst;
+        gtOverheadTextList.pFirst = gtOverheadTextList.pFirst->pNext;
+        TEXT_FreeTextNode(pFirst);
+        gtOverheadTextList.wCount--;
+    }
+
+    if (GAME_GetUIVarState(0x18) && gpListBox)
+    {
+        gpListBox->Refresh();
+        sub_0049E340();
+    }
+    D2Win_10127_SetFont(nOldFont);
+    sub_004B9A00(6, 0, 0, 0, 0);
 }
 
 // 0x0049E7F0
@@ -3528,27 +3670,6 @@ T0044CB60* __stdcall TEXT_BuildTextLines(const unsigned short* wszText, int* pLi
         pLast = pLine;
     }
     return pFirst;
-}
-
-// build: context TEXT_ConvertHoverText
-static bool TEXT_ConvertHoverText(int nLangId, Unicode* wszText, const char* szText)
-{
-    if (nLangId != 7 && nLangId != 0xC && nLangId != 6 && nLangId != 9)
-    {
-        Unicode::win2Unicode(wszText, szText, 0x100);
-        return true;
-    }
-
-    MultiByteToWideChar(0, 1, szText, 0x100, wszText, 0x100);
-    if (TEXT_IsLanguageCompatible(nLangId))
-        return true;
-
-    for (; wszText->wChar; ++wszText)
-    {
-        if (wszText->wChar >= 0x80)
-            return false;
-    }
-    return true;
 }
 
 // 0x004A05E0
