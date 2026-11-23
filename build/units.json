@@ -74834,11 +74834,6 @@
      "va": "0x00648020",
      "length": 38,
      "name": "?sub_00648020_GetTablePair@@YGXHHPAH0@Z"
-    },
-    {
-     "va": "0x00648050",
-     "length": 205,
-     "name": "?PATH_FindValidTargetCoordsByMovingOrthogonally@@YAXPAUD2PathInfoStrc@@@Z"
     }
    ]
   },
@@ -74846,6 +74841,11 @@
    "file": "Source/D2Common/PATH/Path.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00648050",
+     "length": 205,
+     "name": "?PATH_FindValidTargetCoordsByMovingOrthogonally@@YAXPAUD2PathInfoStrc@@@Z"
+    },
     {
      "va": "0x00648120",
      "length": 475
