@@ -188,17 +188,17 @@ int __fastcall EXCEPTIONS_GetAppPath(char* szPath, unsigned int nSize); // 0x004
 
 D2ModuleInfoStrc* __stdcall EXCEPTIONS_GetModuleListToolhelp(unsigned long dwPid); // 0x0040B690
 
-extern int (__stdcall* gpfnImageHlpSymCleanup)(void* hProcess); // 0x0075CFDC
+int (__stdcall* gpfnImageHlpSymCleanup)(void* hProcess); // 0x0075CFDC
 
-extern unsigned long (__stdcall* gpfnImageHlpSymGetOptions)(); // 0x0075CFF0
+unsigned long (__stdcall* gpfnImageHlpSymGetOptions)(); // 0x0075CFF0
 
-extern int (__stdcall* gpfnImageHlpSymInitialize)(void* hProcess, const char* szSearchPath, int bInvadeProcess); // 0x0075CFF8
+int (__stdcall* gpfnImageHlpSymInitialize)(void* hProcess, const char* szSearchPath, int bInvadeProcess); // 0x0075CFF8
 
-extern unsigned long (__stdcall* gpfnSymLoadModule)(void* hProcess, void* hFile, const char* szImageName, const char* szModuleName, unsigned long dwBase, unsigned long dwSize); // 0x0075CFFC
+unsigned long (__stdcall* gpfnSymLoadModule)(void* hProcess, void* hFile, const char* szImageName, const char* szModuleName, unsigned long dwBase, unsigned long dwSize); // 0x0075CFFC
 
-extern unsigned long (__stdcall* gpfnImageHlpSymSetOptions)(unsigned long dwOptions); // 0x0075D004
+unsigned long (__stdcall* gpfnImageHlpSymSetOptions)(unsigned long dwOptions); // 0x0075D004
 
-extern int gbImageHlpLoaded; // 0x0075D014
+int gbImageHlpLoaded; // 0x0075D014
 
 void __stdcall sub_H13_EmitUse(const char* szText, unsigned long nValue1, unsigned long nValue2, unsigned long nValue3);
 
@@ -397,15 +397,15 @@ int __fastcall EXCEPTIONS_ReleaseSymbols(int all); // 0x0040C720
 
 int (__stdcall* gpfnSymGetLineFromAddr)(void* hProcess, unsigned long dwAddress, unsigned long* pdwDisplacement, D2ImageHlpLineStrc* pLine); // 0x0075CFE4
 
-extern void* gpfnSymFunctionTableAccess; // 0x0075CFE0
+void* gpfnSymFunctionTableAccess; // 0x0075CFE0
 
-extern void* gpfnSymGetModuleBase; // 0x0075CFE8
+void* gpfnSymGetModuleBase; // 0x0075CFE8
 
-extern SymGetModuleInfoFn gpfnSymGetModuleInfo; // 0x0075CFEC
+SymGetModuleInfoFn gpfnSymGetModuleInfo; // 0x0075CFEC
 
-extern SymGetSymFromAddrFn gpfnSymGetSymFromAddr; // 0x0075CFF4
+SymGetSymFromAddrFn gpfnSymGetSymFromAddr; // 0x0075CFF4
 
-extern StackWalkFn gpfnStackWalk; // 0x0075D008
+StackWalkFn gpfnStackWalk; // 0x0075D008
 
 extern unsigned int gnStackWalkDepth; // 0x0075D018
 
@@ -561,6 +561,71 @@ void __cdecl FOG_10082_Noop()
 char gszImageHlpSymSearchPath[4096]; // 0x0075BFB8
 
 int gbSymQuiet; // 0x0075CFB8
+
+void* ghImageHlp; // 0x0075CFD8
+
+void* gpfnSymUnloadModule; // 0x0075D000
+
+void* gpfnUnDecorateSymbolName; // 0x0075D00C
+
+void* gpfnImageHlpMiniDumpWriteDump; // 0x0075D010
+
+extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
+
+extern "C" __declspec(dllimport) int __stdcall FreeLibrary(void* hLibModule);
+
+extern "C" __declspec(dllimport) void* __stdcall GetCurrentThread();
+
+extern "C" __declspec(dllimport) int __stdcall GetThreadContext(void* hThread, D2ThreadContextStrc* pContext);
+
+extern "C" __declspec(dllimport) int __stdcall DuplicateHandle(void* hSourceProcess, void* hSource, void* hTargetProcess, void** phTarget, unsigned long dwAccess, int bInherit, unsigned long dwOptions);
+
+struct D2ExceptionPointersStrc
+{
+    void* pExceptionRecord;
+    D2ThreadContextStrc* pContextRecord;
+};
+
+typedef void (__cdecl* D2SETranslatorFn)(unsigned int, D2ExceptionPointersStrc*);
+
+extern "C" D2SETranslatorFn __cdecl _set_se_translator(D2SETranslatorFn pfnTranslator); // 0x00684AF3
+
+void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
+
+void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle, unsigned long dwAddress, unsigned int nSize, int nArg5, int nArg6, int nArg7); // 0x00410040
+
+int __fastcall QuickStackWalk(const char* szPrefix, void* hThread, D2ThreadContextStrc* pContext); // 0x0040C7A0
+
+int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext); // 0x0040CC10
+
+void __cdecl EXCEPTIONS_SETranslator(unsigned int nCode, D2ExceptionPointersStrc* pExceptionInfo); // 0x0040D540
+
+// 0x0040B500
+int __cdecl sub_0040B500_UnloadImageHlp()
+{
+    gbImageHlpLoaded = 0;
+    if (ghImageHlp)
+    {
+        FreeLibrary(ghImageHlp);
+        ghImageHlp = 0;
+    }
+    DeleteCriticalSection(&gtImageHlpLock);
+    return 1;
+}
+
+// 0x0040B540
+void __fastcall EXCEPTIONS_DumpThreadStackAndCode(void* hThread)
+{
+    D2ThreadContextStrc tContext;
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.ContextFlags = 0x10007;
+    GetThreadContext(hThread, &tContext);
+// build: symbol ?MAINMENUS_LogWritePrefixed@* 0x00410740
+    MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "Stack bytes:\n");
+    LOGMANAGER_LogMemoryDump("ERR", &gszEmptyAssertText, tContext.Esp, 0x1000, 0, 1, 0);
+    MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "Code bytes:\n");
+    LOGMANAGER_LogMemoryDump("ERR", &gszEmptyAssertText, tContext.Eip, 0x20, 0, 1, 0);
+}
 
 // 0x0040B600
 static int __stdcall EXCEPTIONS_GetLineFromAddrRetry(void* hProcess, unsigned long dwAddress, unsigned long* pdwDisplacement, D2ImageHlpLineStrc* pLine)
@@ -1559,6 +1624,107 @@ int __fastcall EXCEPTIONS_ReadCrashDump(char* pBuffer, unsigned int* pnSize)
     return 1;
 }
 
+
+// 0x0040D530
+int __cdecl sub_0040D530_Call0040C720()
+{
+    return EXCEPTIONS_ReleaseSymbols(1);
+}
+
+// 0x0040D540
+void __cdecl EXCEPTIONS_SETranslator(unsigned int nCode, D2ExceptionPointersStrc* pExceptionInfo)
+{
+    if (!gbImageHlpLoaded)
+    {
+        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "ExceptionHandler: imagehlp.dll not loaded");
+        return;
+    }
+    void* hThread;
+    DuplicateHandle(GetCurrentProcess(), GetCurrentThread(), GetCurrentProcess(), &hThread, 0, 0, 2);
+    sShowStack(hThread, pExceptionInfo->pContextRecord);
+    CloseHandle(hThread);
+}
+
+// 0x0040D5B0
+int __cdecl sub_0040D5B0_LoadImageHlp()
+{
+    if (gbImageHlpLoaded)
+    {
+        return 1;
+    }
+    InitializeCriticalSection(&gtImageHlpLock);
+    _set_se_translator(EXCEPTIONS_SETranslator);
+    ghImageHlp = LoadLibraryA(".\\dbghelp.dll");
+    if (!ghImageHlp)
+    {
+        ghImageHlp = LoadLibraryA("dbghelp.dll");
+        if (!ghImageHlp)
+        {
+            ghImageHlp = LoadLibraryA("imagehlp.dll");
+            if (!ghImageHlp)
+            {
+                sub_00410610_WriteLogLine("Missing imagehlp.dll.  Can't generate better stack crawls!");
+                return 0;
+            }
+        }
+    }
+    gpfnImageHlpSymCleanup = (int (__stdcall*)(void*))GetProcAddress(ghImageHlp, "SymCleanup");
+    gpfnSymFunctionTableAccess = GetProcAddress(ghImageHlp, "SymFunctionTableAccess");
+    gpfnSymGetLineFromAddr = (int (__stdcall*)(void*, unsigned long, unsigned long*, D2ImageHlpLineStrc*))GetProcAddress(ghImageHlp, "SymGetLineFromAddr");
+    gpfnSymGetModuleBase = GetProcAddress(ghImageHlp, "SymGetModuleBase");
+    gpfnSymGetModuleInfo = (SymGetModuleInfoFn)GetProcAddress(ghImageHlp, "SymGetModuleInfo");
+    gpfnImageHlpSymGetOptions = (unsigned long (__stdcall*)())GetProcAddress(ghImageHlp, "SymGetOptions");
+    gpfnSymGetSymFromAddr = (SymGetSymFromAddrFn)GetProcAddress(ghImageHlp, "SymGetSymFromAddr");
+    gpfnImageHlpSymInitialize = (int (__stdcall*)(void*, const char*, int))GetProcAddress(ghImageHlp, "SymInitialize");
+    gpfnImageHlpSymSetOptions = (unsigned long (__stdcall*)(unsigned long))GetProcAddress(ghImageHlp, "SymSetOptions");
+    gpfnSymLoadModule = (unsigned long (__stdcall*)(void*, void*, const char*, const char*, unsigned long, unsigned long))GetProcAddress(ghImageHlp, "SymLoadModule");
+    gpfnSymUnloadModule = GetProcAddress(ghImageHlp, "SymUnloadModule");
+    gpfnStackWalk = (StackWalkFn)GetProcAddress(ghImageHlp, "StackWalk");
+    gpfnUnDecorateSymbolName = GetProcAddress(ghImageHlp, "UnDecorateSymbolName");
+// build: symbol ?gszMiniDumpWriteDump@* 0x006FFB94
+    gpfnImageHlpMiniDumpWriteDump = GetProcAddress(ghImageHlp, gszMiniDumpWriteDump);
+    if (gpfnImageHlpSymCleanup && gpfnSymFunctionTableAccess && gpfnSymGetModuleBase
+        && gpfnSymGetModuleInfo && gpfnImageHlpSymGetOptions && gpfnSymGetSymFromAddr
+        && gpfnImageHlpSymInitialize && gpfnImageHlpSymSetOptions && gpfnStackWalk
+        && gpfnUnDecorateSymbolName && gpfnSymLoadModule && gpfnSymUnloadModule)
+    {
+        gbImageHlpLoaded = 1;
+        sub_00410610_WriteLogLine("imagehlp.dll loaded for better stack crawls.");
+        return 1;
+    }
+    sub_00410610_WriteLogLine("Missing functions in imagehlp.dll.  Can't generate better stack crawls!");
+    return 0;
+}
+
+// 0x0040D7D0
+void __fastcall sub_0040D7D0_WalkCurrentStack(const char* szPrefix)
+{
+    void* hThread;
+    {
+        D2ThreadContextStrc tContext;
+        unsigned long dwEip;
+        unsigned long dwEsp;
+        unsigned long dwEbp;
+
+        memset(&tContext, 0, sizeof(tContext));
+        tContext.ContextFlags = 0x10007;
+        __asm
+        {
+            call next
+        next:
+            pop dwEip
+            push esp
+            pop dwEsp
+            push ebp
+            pop dwEbp
+        }
+        tContext.Eip = dwEip;
+        tContext.Esp = dwEsp;
+        tContext.Ebp = dwEbp;
+        hThread = GetCurrentThread();
+        QuickStackWalk(szPrefix, hThread, &tContext);
+    }
+}
 
 // 0x0040EB90
 unsigned int __fastcall EXCEPTIONS_GetLogFilePaths(char** apszFiles, unsigned int nCount)
