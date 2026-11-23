@@ -37452,11 +37452,6 @@
      "name": "?LIST_LoadPentspinCellfile@@YGXXZ"
     },
     {
-     "va": "0x005073B0",
-     "length": 100,
-     "name": "LIST_HandleCharInput"
-    },
-    {
      "va": "0x00507420",
      "length": 438,
      "name": "LIST_HandleVirtualKeyInput"
@@ -37540,6 +37535,11 @@
      "va": "0x005072F0",
      "length": 183,
      "name": "LIST_HandleMouseDown"
+    },
+    {
+     "va": "0x005073B0",
+     "length": 100,
+     "name": "LIST_HandleCharInput"
     },
     {
      "va": "0x005075E0",
