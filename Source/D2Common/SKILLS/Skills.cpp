@@ -1,18 +1,38 @@
 #include "D2ItemTypes.h"
+#include "D2DrlgMaps.h"
+#include "D2DrlgTiles.h"
+#include "D2TxtTables.h"
+#include "D2LevelIds.h"
+#include "D2Unicode.h"
+
 #include "D2StateIds.h"
+
 #include "D2SkillIds.h"
+
 #include "D2StatIds.h"
+
 #include "D2Common.h"
+
 #include "D2Structs.h"
+
 #include "D2DataTbls.h"
+
 #include "D2Records.h"
+
 #include "D2Skills.h"
+
 #include "D2LevelTxt.h"
+
 #include "D2Drlg.h"
+
 #include "D2Path.h"
+
 #include "D2Txt.h"
+
 #include "D2PlayerModes.h"
+
 #include "D2MonModes.h"
+
 #include "D2PathFind.h"
 
 #define LVLSUB_UNUSED_INVALID -1
@@ -77,11 +97,9 @@ struct D2UnkOutdoorStrc;
 
 struct D2PathBoundsContextStrc;
 
-
 struct D2PathFoWallContextStrc;
 
 struct D2SkillCalcStrc;
-
 
 struct D2MonStatsTxt;
 
@@ -193,7 +211,6 @@ struct D2PathBoundsContextStrc
     D2PathPointStrc tMax;
 };
 
-
 struct D2PathFoWallContextStrc
 {
     D2PathFoWallNodeStrc* aPendingCache[128];
@@ -250,7 +267,6 @@ struct D2SkillCalcStrc
     int nSkillId;
     int nSkillLevel;
 };
-
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
@@ -1553,6 +1569,17 @@ static BOOL D2Common_SKILLMANA_CheckStartStat_6FDB1400(D2UnitStrc* pUnit, D2Skil
     return FALSE;
 }
 
+// 0x00644140
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill)
+{
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    return pSkill->pSkillsTxt;
+}
+
 // 0x00644150
 int __stdcall SKILLS_GetShrineSkillLevelBonus(D2UnitStrc* pUnit)
 {
@@ -1810,6 +1837,17 @@ static inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord_ForceInl(int nSkillId)
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
         return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+
+    return 0;
+}
+
+// 0x006446A0
+int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill)
+{
+    if (pSkill)
+    {
+        return pSkill->dwFlags;
     }
 
     return 0;
