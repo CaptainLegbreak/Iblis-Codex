@@ -77318,6 +77318,10 @@
      "name": "MONSTERS_GetHirelingResurrectionCost"
     },
     {
+     "va": "0x006637F0",
+     "length": 537
+    },
+    {
      "va": "0x00663A10",
      "length": 16,
      "name": "?sub_00663A10_GetSetBonusCount@@YAHI@Z"
@@ -77333,10 +77337,6 @@
    "file": "Source/D2Common/Unknown_006637F0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x006637F0",
-     "length": 537
-    },
     {
      "va": "0x00663A20",
      "length": 282,
