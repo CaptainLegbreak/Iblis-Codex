@@ -44327,7 +44327,13 @@
      "va": "0x00528C60",
      "length": 42,
      "name": "?sub_00528C60_ComputeServerProof@D2BigPairStrc@@QAEXPAUD2BigServerRecordStrc@@@Z"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/SRP/SHA.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x00528C90",
      "length": 4798
@@ -44338,27 +44344,15 @@
      "name": "@sub_00529F50@4"
     },
     {
-     "va": "0x0052A040",
-     "length": 216,
-     "name": "sub_0052A040_Sha1Final"
-    }
-   ]
-  },
-  {
-   "file": "Source/SRP/Unknown_00529F80.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x00529F80",
      "length": 182,
      "name": "?sub_00529F80_SHA1Update@@YIXPAUD2Sha1ContextStrc@@PAEI@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/SRP/SHA.cpp",
-   "rank": 0,
-   "functions": [
+    },
+    {
+     "va": "0x0052A040",
+     "length": 216,
+     "name": "sub_0052A040_Sha1Final"
+    },
     {
      "va": "0x0052A120",
      "length": 282,

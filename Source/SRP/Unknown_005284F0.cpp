@@ -191,7 +191,6 @@ int D2BigPairStrc::sub_00528AC0_VerifyClientProof(D2BigServerRecordStrc* pRecord
     return memcmp(pRecord->abClientProof, pClientProof, sizeof(pRecord->abClientProof)) == 0;
 }
 
-// 0x00528C90
 static void sub_00528C90_SHA1Transform(unsigned long state[5], unsigned char buffer[64])
 {
     unsigned long a, b, c, d, e;
@@ -250,38 +249,6 @@ void __fastcall sub_00529F80_SHA1Update(T0041D340* context, unsigned char* data,
     }
     else i = 0;
     memcpy(&context->buffer[j], &data[i], len - i);
-}
-
-// 0x00529F50
-extern "C" __declspec(dllexport) void __fastcall sub_00529F50(Context00529F50* pContext) {
-    pContext->dwH0 = 0x67452301;
-    pContext->dwH1 = 0xEFCDAB89;
-    pContext->dwH2 = 0x98BADCFE;
-    pContext->dwH3 = 0x10325476;
-    pContext->dwH4 = 0xC3D2E1F0;
-    pContext->dwCountLow = pContext->dwCountHigh = 0;
-}
-
-// 0x0052A040
-void __fastcall sub_0052A040_Sha1Final(unsigned char* pDigest, D2SrpSha1ContextStrc* pContext)
-{
-    unsigned int i;
-    unsigned char abFinalCount[8];
-
-    for (i = 0; i < 8; i++)
-    {
-        abFinalCount[i] = (unsigned char)((pContext->aCount[(i >= 4 ? 0 : 1)] >> ((3 - (i & 3)) * 8)) & 255);
-    }
-    sub_00529F80_Sha1Update(pContext, gabSha1Pad80, 1);
-    while ((pContext->aCount[0] & 504) != 448)
-    {
-        sub_00529F80_Sha1Update(pContext, gabSha1Pad00, 1);
-    }
-    sub_00529F80_Sha1Update(pContext, abFinalCount, 8);
-    for (i = 0; i < 20; i++)
-    {
-        pDigest[i] = (unsigned char)((pContext->aState[i >> 2] >> ((3 - (i & 3)) * 8)) & 255);
-    }
 }
 
 #include "gen/data/Source/SRP/Unknown_005284F0.inc"
