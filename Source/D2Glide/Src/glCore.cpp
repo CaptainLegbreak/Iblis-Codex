@@ -433,12 +433,6 @@ int __cdecl D2GFX_CheckLowQuality()
     return gdwGlobal_0072DA50;
 }
 
-// 0x004F65E0
-int __cdecl SCALE_GetFactor()
-{
-    return gnScaleFactor;
-}
-
 // 0x004F9200
 int __cdecl CONTROL_GetFocusedEditBox()
 {
