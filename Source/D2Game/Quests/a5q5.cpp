@@ -314,6 +314,34 @@ static bool ACT5Q5_RemoveAncientMonster(D2GameStrc* pGame, int nAncientMonsterGU
     return true;
 }
 
+// 0x0058BF40
+int __stdcall ACT5Q5_ActivateAncientStatues(D2QuestDataStrc* pQuestData, D2Act5Quest5Strc* pQuestDataEx)
+{
+    D2UnitStrc* pUnit[3];
+    for (int i = 0; i < 3; ++i)
+    {
+        pUnit[i] = SUNIT_GetServerUnit(pQuestData->pGame, UNIT_OBJECT, pQuestDataEx->nAncientStatueGUID[i]);
+        if (!pUnit[i])
+        {
+            return 0;
+        }
+
+        DUNGEON_ToggleHasPortalFlag(UNITS_GetRoom(pUnit[i]), 0);
+    }
+
+    for (int k = 0; k < 3; ++k)
+    {
+        UNITS_ChangeAnimMode(pUnit[k], OBJMODE_SPECIAL1);
+        UNITS_FreeCollisionPath(pUnit[k]);
+        EVENT_SetEvent(pQuestData->pGame, pUnit[k], EVENTTYPE_QUESTFN, pQuestData->pGame->dwGameFrame + 20, 0, 0);
+        pQuestDataEx->nAncientStatueObjectMode[k] = OBJMODE_SPECIAL1;
+    }
+
+    pQuestDataEx->nAncientsSpawned = 0;
+    pQuestDataEx->nAncientsAlive = 0;
+    return 1;
+}
+
 // 0x0058C000
 static void __stdcall ACT5Q5_DeactivateAncientMonsters(D2GameStrc* pGame, D2QuestDataStrc* pQuestData, D2Act5Quest5Strc* pQuestDataEx)
 {
@@ -530,6 +558,22 @@ void __fastcall ACT5Q5_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
             }
         }
     }
+}
+
+// 0x0058CCF0
+bool __fastcall ACT5Q5_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    if (nNpcId != MONSTER_QUAL_KEHK || pQuest->fState != 1)
+    {
+        return false;
+    }
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuest->eFilter, QFLAG_REWARDGRANTED))
+    {
+        return false;
+    }
+
+    return true;
 }
 
 // 0x0058C210
@@ -1394,25 +1438,6 @@ int __fastcall ACT5Q6_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
         QUESTS_StatusCyclerEx(pGame, pUnit, 36);
     }
     return 0;
-}
-
-// 0x0058D870
-void __fastcall ACT5Q6_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    D2Act5Quest6Strc* pQuestDataEx = (D2Act5Quest6Strc*)pQuestData->pQuestDataEx;
-    if (pQuestArg->pTarget && (unsigned short)pQuestArg->pTarget->dwClassId == 0x209 && !pQuestDataEx->bLastPortalOpened)
-    {
-        SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, pQuestArg->pPlayer, ACT5Q6_UnitIterate_CreateLastPortal);
-        pQuestDataEx->bLastPortalOpened = 1;
-    }
-}
-
-// 0x0058DCF0
-void __fastcall ACT5Q6_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    QUESTS_FastRemovePlayerGUID(&pQuestData->tPlayerGUIDs, UNITS_GetUnitId(pQuestArg->pPlayer));
-    D2Act5Quest6Strc* pQuestDataEx = (D2Act5Quest6Strc*)pQuestData->pQuestDataEx;
-    QUESTS_FastRemovePlayerGUID(&pQuestDataEx->tPlayerGUIDs, UNITS_GetUnitId(pQuestArg->pPlayer));
 }
 
 // 0x0058DD90

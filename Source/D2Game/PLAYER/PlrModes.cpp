@@ -659,6 +659,20 @@ int __fastcall PLRMODE_CanInterruptCurrentMode(D2GameStrc* pGame, D2UnitStrc* pU
     return 0;
 }
 
+// 0x0057F020
+void __fastcall PLRMODE_StartXY_Neutral(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nMode, int nX, int nY)
+{
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
+    if (pRoom)
+    {
+        nMode = DUNGEON_IsRoomInTown(pRoom) != 0 ? PLRMODE_TOWNNEUTRAL : PLRMODE_NEUTRAL;
+    }
+
+    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pPlayer);
+    SUNIT_SetCombatMode(pGame, pPlayer, nMode);
+    UNITS_SetUsedSkill(pPlayer, 0);
+}
+
 // 0x0057F070
 int __fastcall PLRMODE_ModeCheck_Death(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nSkillId, int nSkillLevel)
 {
@@ -1290,6 +1304,18 @@ void __fastcall PLRMODE_StartXY_Dead(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
     sub_6FCBC4D0(pUnit);
     PLRMODE_FinalizeDeath(pGame, pUnit);
     D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pUnit);
+}
+
+// 0x0057FDC0
+void __fastcall PLRMODE_StartXY_Block(D2GameStrc* pGame, D2UnitStrc* hPlayer, int nMode, int nX, int nY)
+{
+    D2_ASSERT(hPlayer, 1095);
+
+    SUNIT_SetCombatMode(pGame, hPlayer, nMode);
+    sub_6FCBC4D0(hPlayer);
+    UNITS_SetUsedSkill(hPlayer, 0);
+    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, hPlayer);
+    sub_6FCBCE70(pGame, hPlayer);
 }
 
 // 0x0057FE20
@@ -2174,33 +2200,5 @@ void __fastcall PLRMODE_StartID_Death(D2GameStrc* pGame, D2UnitStrc* pDefender, 
 #define HOVER_FLAG 0x100
 
 #define HOVER_EVENT 6
-
-// 0x005A7F00
-void __fastcall MONSTERMODE_EventFreeHoverText(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4)
-{
-    if (!pUnit)
-    {
-        return;
-    }
-
-    D2HoverTextStrc* pHoverText = pUnit->pHoverText;
-    if (!pHoverText)
-    {
-        return;
-    }
-
-    const unsigned int nTimeout = CHAT_GetTimeoutFromHoverMsg(pHoverText);
-    if (nTimeout <= pGame->dwGameFrame)
-    {
-        CHAT_FreeHoverMsg(pGame->pMemoryPool, pHoverText);
-        pUnit->pHoverText = 0;
-        UNITROOM_RefreshUnit(pUnit);
-        pUnit->dwFlags |= UNITFLAG_HASTXTMSG;
-    }
-    else
-    {
-        EVENT_SetEvent(pGame, pUnit, HOVER_EVENT, nTimeout, 0, 0);
-    }
-}
 
 #include "gen/data/Source/D2Game/PLAYER/PlrModes.inc"

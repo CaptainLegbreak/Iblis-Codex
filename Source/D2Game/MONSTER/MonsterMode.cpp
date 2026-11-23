@@ -1481,6 +1481,38 @@ void __fastcall MONSTERMODE_EventUpdateStatListExpirations(D2GameStrc* pGame, D2
     STATLIST_UpdateStatListsExpiration(pUnit, pGame->dwGameFrame);
 }
 
+#define UNITFLAG_HASTXTMSG 0x00000100
+
+#define HOVER_EVENT 6
+
+// 0x005A7F00
+void __fastcall MONSTERMODE_EventFreeHoverText(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4)
+{
+    if (!pUnit)
+    {
+        return;
+    }
+
+    D2HoverTextStrc* pHoverText = pUnit->pHoverText;
+    if (!pHoverText)
+    {
+        return;
+    }
+
+    const unsigned int nTimeout = CHAT_GetTimeoutFromHoverMsg(pHoverText);
+    if (nTimeout <= pGame->dwGameFrame)
+    {
+        CHAT_FreeHoverMsg(pGame->pMemoryPool, pHoverText);
+        pUnit->pHoverText = 0;
+        UNITROOM_RefreshUnit(pUnit);
+        pUnit->dwFlags |= UNITFLAG_HASTXTMSG;
+    }
+    else
+    {
+        EVENT_SetEvent(pGame, pUnit, HOVER_EVENT, nTimeout, 0, 0);
+    }
+}
+
 // 0x005A7F70
 void __fastcall MONSTERMODE_EventClearTargetOverride(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4)
 {

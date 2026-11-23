@@ -496,6 +496,25 @@ void __fastcall ACT1Q2_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
     SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT1Q2_UnitIterate_UpdateQuestStateFlags);
 }
 
+// 0x00591080
+bool __fastcall ACT1Q2_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    if (nNpcId == MONSTER_KASHYA && QUESTRECORD_GetQuestState(pQuestFlags, pQuest->eFilter, QFLAG_REWARDGRANTED) != 1)
+    {
+        if (pQuest->fState == 1 && !QUESTRECORD_GetQuestState(pQuestFlags, pQuest->eFilter, QFLAG_REWARDPENDING))
+        {
+            return true;
+        }
+
+        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuest->eFilter, QFLAG_REWARDPENDING) == 1)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 // 0x005910F0
 bool __fastcall ACT1Q2_SeqCallback(D2QuestDataStrc* pQuestData)
 {

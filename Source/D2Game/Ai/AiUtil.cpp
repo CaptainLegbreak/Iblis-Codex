@@ -553,6 +553,37 @@ D2UnitStrc* __fastcall AIUTIL_TargetCallback_FindMonsterInDeathMode(D2GameStrc* 
     return (unsigned int)AIUTIL_GetDistanceToCoordinates_FullUnitSize(pTarget, pUnit) < pArg->nMaxDistance ? pTarget : 0;
 }
 
+// 0x005DC920
+int __fastcall AIUTIL_GetThreat(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_PLAYER:
+        return 14;
+
+    case UNIT_MONSTER:
+    {
+        const int nClassId = pUnit->dwClassId;
+        D2MonStatsTxt* pMonStatsTxtRecord = (nClassId >= 0 && nClassId < sgptDataTables->nMonStatsTxtRecordCount) ? &sgptDataTables->pMonStatsTxt[nClassId] : 0;
+        if (pMonStatsTxtRecord)
+        {
+            return pMonStatsTxtRecord->nThreat;
+        }
+        break;
+    }
+
+    default:
+        break;
+    }
+
+    return 0;
+}
+
 // 0x005DC970
 static int __stdcall AIUTIL_CanSelectHostileTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
@@ -1684,21 +1715,6 @@ void __fastcall AIUTIL_ApplyTerrorCurseState(D2GameStrc* pGame, D2UnitStrc* pUni
     AITHINK_ExecuteAiFn(pGame, pTarget, pAiControl, AISPECIALSTATE_TERROR);
     D2GAME_EVENTS_Delete_6FC34840(pGame, pTarget, EVENTTYPE_AITHINK, 0);
     EVENT_SetEvent(pGame, pTarget, EVENTTYPE_AITHINK, pGame->dwGameFrame + 1, 0, 0);
-}
-
-// 0x005E6800
-bool __fastcall AITHINK_InitHomeCommand(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pAiTickParam)
-{
-    D2AiCmdStrc* pAiCmd = AIGENERAL_SetCurrentAiCommand(pGame, pUnit, 10, 0);
-    if (pAiCmd && !pAiCmd->nCmdParam[1] && !pAiCmd->nCmdParam[2])
-    {
-        pAiCmd->nCmdParam[1] = CLIENTS_GetUnitX(pUnit);
-        pAiCmd->nCmdParam[2] = CLIENTS_GetUnitY(pUnit);
-        AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
-        return true;
-    }
-
-    return false;
 }
 
 // 0x005E6DE0

@@ -1140,6 +1140,29 @@ void __fastcall D2GAME_NPC_BuildHirelingList_6FCC6FF0(D2GameStrc* pGame, D2Clien
     }
 }
 
+#define NPC_LEVEL_COUNT 5
+
+// 0x00576890
+int __fastcall SUNITNPC_CapStoreItemLevel(D2GameStrc* pGame, D2UnitStrc* pNpc, int nLevel)
+{
+    if (pGame->nDifficulty == DIFFMODE_NORMAL)
+    {
+        int nUnused;
+        D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromUnit(pGame, pNpc, &nUnused);
+        if (pNpcRecord)
+        {
+            const int npcLevels[NPC_LEVEL_COUNT] = { 12, 20, 28, 36, 45 };
+            if (pNpcRecord->nAct < NPC_LEVEL_COUNT)
+            {
+                const int nCap = npcLevels[pNpcRecord->nAct];
+                return nCap < nLevel ? nCap : nLevel;
+            }
+        }
+    }
+
+    return nLevel;
+}
+
 // 0x00576900
 int __fastcall SUNITNPC_RollStoreItemQuality(D2SeedStrc* pSeed, unsigned int dwCode, int nItemLevel)
 {
@@ -1376,6 +1399,37 @@ void __fastcall SUNITNPC_DecreaseSkillQuantity(D2UnitStrc* unit, int skillId, in
     if (!unit) { id = -1; type = 6; }
     else { id = unit->dwUnitId; type = unit->dwUnitType; }
     D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(UnitGetClient(unit, gszNpcSourceFile, 0x40b), (unsigned char)type, id, skillId, quantity);
+}
+
+// 0x00576ED0
+bool __fastcall SUNITNPC_IsPermanentStoreItem(D2GameStrc* pGame, D2UnitStrc* pNpc, D2UnitStrc* pItem)
+{
+    int nUnused;
+    D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromUnit(pGame, pNpc, &nUnused);
+    if (!pNpcRecord)
+    {
+        return false;
+    }
+
+    const int nCode = ITEMS_GetBaseCode(pItem);
+    if (pGame->nDifficulty > DIFFMODE_NORMAL)
+    {
+
+        if (nCode == 0x20347068 || nCode == 0x20357068 || nCode == 0x2034706D || nCode == 0x2035706D)
+        {
+            return true;
+        }
+    }
+
+    for (int i = 0; i < pNpcRecord->nPermStoreItems; ++i)
+    {
+        if (nCode == pNpcRecord->pPermStoreItems[i])
+        {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 // 0x00576F40

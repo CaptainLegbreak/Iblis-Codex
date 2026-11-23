@@ -1378,46 +1378,6 @@ void __fastcall ACT2Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
     }
 }
 
-// 0x0059D720
-int __fastcall ACT2Q6_GetTombArcaneThingObjectId(D2QuestDataStrc* pQuestData)
-{
-    const int nTombStaffLevel = DUNGEON_GetHoradricStaffTombLevelId(pQuestData->pGame->pAct[1]);
-    if (nTombStaffLevel)
-    {
-        D2Act2Quest6Strc* pQuestDataEx = (D2Act2Quest6Strc*)pQuestData->pQuestDataEx;
-        const int nTombOffset = nTombStaffLevel - LEVEL_TALRASHASTOMB1;
-        if (!pQuestDataEx->bObjectIdsInitialized)
-        {
-            pQuestDataEx->bObjectIdsInitialized = 1;
-
-            int i = 0;
-            int j = 0;
-            for (int k = 0; k < 7; ++k)
-            {
-                if (j == nTombOffset)
-                {
-                    ++j;
-                }
-                else if (j < 7 && i < 6)
-                {
-                    pQuestDataEx->nArcaneThingObjectIds[i] = gnArcaneThingObjectIds[j];
-                    ++i;
-                    ++j;
-                }
-            }
-        }
-
-        if (pQuestDataEx->nArcaneThings == 6)
-        {
-            pQuestDataEx->nArcaneThings = 0;
-        }
-
-        return pQuestDataEx->nArcaneThingObjectIds[pQuestDataEx->nArcaneThings++];
-    }
-
-    return 307;
-}
-
 // 0x0059F380
 void __fastcall ACT2Q4_InitializeJerhynStartObject(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp)
 {

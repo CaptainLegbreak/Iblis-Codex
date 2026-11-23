@@ -450,6 +450,30 @@ void __fastcall PLAYERPETS_PlayerIterate_UpdateClient(D2GameStrc* pGame, D2UnitS
     }
 }
 
+// 0x005749B0
+void __fastcall PLAYERPETS_UpdatePetInfo(D2UnitStrc* pUnit, int nPetType, int nUnitGUID, D2PetInfoStrc* pPetInfo)
+{
+    D2PlayerPetStrc* pPlayerPets = UNITS_GetPlayerData(pUnit)->pPlayerPets;
+    if (!pPlayerPets || nPetType < 0 || nPetType >= sgptDataTables->nPetTypeTxtRecordCount)
+    {
+        return;
+    }
+
+    D2PetListStrc* pPetList = &pPlayerPets->pPetList[nPetType];
+    if (!pPetList)
+    {
+        return;
+    }
+
+    for (D2PetDataStrc* pPetData = pPetList->pPetData; pPetData; pPetData = pPetData->pNext)
+    {
+        if (pPetData->nUnitGUID == nUnitGUID)
+        {
+            pPetData->petInfo = *pPetInfo;
+        }
+    }
+}
+
 // 0x00574BD0
 D2PetInfoStrc* __fastcall PLAYERPETS_GetPetInfoFromPetGUID(D2UnitStrc* pUnit, int nUnitGUID)
 {

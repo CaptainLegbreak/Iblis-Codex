@@ -358,6 +358,82 @@ int __fastcall ACT2Q1_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStr
     return 0;
 }
 
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+typedef void(__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
+
+void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPartyId, PartyCallbackFunction pCallback, void* pArgs); // 0x00540510
+
+short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
+
+void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
+
+// 0x00598E20
+int __fastcall ACT2Q1_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
+    {
+        return 0;
+    }
+
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 8);
+    D2_ASSERT(pQuestData, 390);
+
+    D2Act2Quest1Strc* pQuestDataEx = (D2Act2Quest1Strc*)pQuestData->pQuestDataEx;
+    int bInRange = 0;
+    if (pRoom == pQuestDataEx->pRoom)
+    {
+        bInRange = 1;
+    }
+    else
+    {
+        D2ActiveRoomStrc* pUnitRoom = UNITS_GetRoom(pUnit);
+        D2_ASSERT(pUnitRoom, 405);
+
+        D2ActiveRoomStrc** ppRoomList;
+        unsigned int nNumRooms;
+        DUNGEON_GetAdjacentRoomsListFromRoom(pUnitRoom, &ppRoomList, &nNumRooms);
+        for (unsigned int i = 0; i < nNumRooms; ++i)
+        {
+            if (ppRoomList[i] == pQuestDataEx->pRoom)
+            {
+                bInRange = 1;
+                break;
+            }
+        }
+    }
+
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0))
+    {
+        return 0;
+    }
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 1))
+    {
+        return 0;
+    }
+
+    if (!bInRange)
+    {
+        return 0;
+    }
+
+    QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 13);
+    QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 1);
+    QUESTRECORD_SetQuestState(pQuestFlags, 9, 5);
+    QUESTS_UpdatePlayerFlags(pQuestData->pGame, pUnit);
+
+    const unsigned short nPartyId = SUNIT_GetPartyId(pUnit);
+    if (nPartyId != 0xFFFF)
+    {
+        PARTY_IteratePartyMembers(pGame, nPartyId, ACT2Q1_UnitIterate_SetPrimaryGoalDone, 0);
+    }
+
+    return 0;
+}
+
 // 0x00598F70
 bool __fastcall ACT2Q1_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQuestData)
 {
@@ -507,6 +583,11 @@ void __fastcall ACT2Q1_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 
     QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q1.cpp", 551);
     SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT2Q1_UnitIterate_UpdateQuestStateFlags);
+}
+
+// 0x005991B0
+void __stdcall ACT2Q1_OnRadamentCreated(int nUnused1)
+{
 }
 
 // 0x005991C0

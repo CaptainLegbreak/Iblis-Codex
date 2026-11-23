@@ -2907,46 +2907,6 @@ D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromUnit(D2GameStrc* pGame, D
     return SUNITPROXY_GetNpcRecordFromClassId(pGame, !pNpc ? -1 : pNpc->dwClassId, pIndex);
 }
 
-// 0x00536820
-void __fastcall SUNITPROXY_CountPlayersInLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg)
-{
-    D2UnitProxyArgStrc* pUnitProxyArg = (D2UnitProxyArgStrc*)pArg;
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (pRoom && pUnitProxyArg->nLevelId == DUNGEON_GetLevelIdFromRoom(pRoom))
-    {
-        ++pUnitProxyArg->nCounter;
-    }
-}
-
-// 0x00536B20
-D2InventoryStrc* __fastcall SUNITPROXY_GetNpcInventory(D2GameStrc* pGame, int nNpc)
-{
-    int nUnused;
-    return SUNITPROXY_GetNpcRecordFromClassId(pGame, nNpc, &nUnused)->pInventory;
-}
-
-// 0x00536C50
-D2InventoryStrc* __fastcall SUNITPROXY_GetGambleInventory(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc)
-{
-    int nUnused;
-    D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromClassId(pGame, !pNpc ? -1 : pNpc->dwClassId, &nUnused);
-    if (!pNpcRecord || !pNpcRecord->bGambleInit)
-    {
-        return 0;
-    }
-
-    const int nPlayerGUID = !pPlayer ? -1 : pPlayer->dwUnitId;
-    for (D2NpcGambleStrc* pGamble = pNpcRecord->pGamble; pGamble; pGamble = pGamble->pNext)
-    {
-        if (pGamble->dwGUID == nPlayerGUID)
-        {
-            return pGamble->pInventory;
-        }
-    }
-
-    return 0;
-}
-
 // 0x005384E0
 void __fastcall CLIENTS_RemoveUnitIfNotAdjacent(D2ClientStrc* pClient, D2UnitStrc* pUnit)
 {
@@ -2979,28 +2939,6 @@ void __fastcall CLIENTS_RemoveUnitIfNotAdjacent(D2ClientStrc* pClient, D2UnitStr
 
 void __fastcall LEVEL_SynchronizeDayNightCycleWithClient(D2GameStrc* pGame, D2ClientStrc* pClient); // 0x0053ABE0
 void __fastcall LEVEL_UpdateQueuedUnitsInAllActs(D2GameStrc* pGame); // 0x0053B000
-
-// 0x0053DE20
-void __fastcall SCMD_BroadcastPlayerRelationship(D2GameStrc* pGame, int dwPlayerId1, int dwPlayerId2, short wRelationState)
-{
-    D2GSPacketSrv8C packet8C;
-    packet8C.nHeader = 0x8C;
-    packet8C.dwPlayerGUID1 = dwPlayerId1;
-    packet8C.dwPlayerGUID2 = dwPlayerId2;
-    packet8C.nFlags = wRelationState;
-    SUNIT_IterateLivingPlayers(pGame, SCMD_SendPlayerRelationshipCallback, &packet8C);
-}
-
-// 0x0053DF80
-void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(D2GameStrc* pGame, int nUnitId, int nCorpseId, unsigned char bAssign)
-{
-    D2GSPacketSrv8E packet8E;
-    packet8E.nHeader = 0x8E;
-    packet8E.dwPlayerGUID = nUnitId;
-    packet8E.dwCorpseGUID = nCorpseId;
-    packet8E.nType = bAssign;
-    SUNIT_IterateLivingPlayers(pGame, SCMD_SendCorpseAssignCallback, &packet8E);
-}
 
 // 0x005404C0
 void __fastcall PARTY_AddLivingMemberLevelCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs)
@@ -3089,38 +3027,7 @@ char* __fastcall sub_004167F0_LinkNext(D2StormLinkStrc* pLink)
     return (int)pLink->m_next > 0 ? pLink->m_next : 0;
 }
 
-// 0x00548180
-void __fastcall PLRMSG_SendWalkMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int nAnimMode)
-{
-    if (pUnit != CLIENTS_GetPlayerFromClient(pClient, 0))
-    {
-        D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-        if (pTarget && CLIENTS_IsInUnitsRoom(pTarget, pClient))
-        {
-            const int nTargetGUID = pTarget->dwUnitId;
-            const int nTargetType = pTarget->dwUnitType;
-            const int nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
-            D2GAME_PACKETS_SendPacket0x10_6FC3C9A0(pClient, 0x10, 0, nUnitGUID, (unsigned char)gaUnitModeMessages[nAnimMode].field_8, nTargetType, nTargetGUID, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
-        }
-        else
-        {
-            D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-            int nY;
-            if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > UNIT_MISSILE && pUnit->dwUnitType <= UNIT_TILE))
-                nY = pUnit->pStaticPath->tGameCoords.nY;
-            else
-                nY = pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-            int nX;
-            if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > UNIT_MISSILE && pUnit->dwUnitType <= UNIT_TILE))
-                nX = pUnit->pStaticPath->tGameCoords.nX;
-            else
-                nX = pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-            const int nUnitId = pUnit->dwUnitId;
-            D2GAME_PACKETS_SendPacket0x0F_6FC3CA00(pClient, 0x0F, 0, nUnitId, (unsigned char)gaUnitModeMessages[nAnimMode].field_4, D2COMMON_10175_PathGetFirstPointX(pPath), D2COMMON_10176_PathGetFirstPointY(pPath), 0, nX, nY);
-        }
-    }
-}
-
+void __fastcall PLRMSG_SendWalkMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int nAnimMode); // 0x00548180
 // 0x00549FA0
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x0B_6FC83EE0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
