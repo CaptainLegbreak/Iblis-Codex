@@ -27905,10 +27905,6 @@
     {
      "va": "0x004B8100",
      "length": 488
-    },
-    {
-     "va": "0x004B9A00",
-     "length": 277
     }
    ],
    "flags": [
@@ -28277,21 +28273,6 @@
      "va": "0x004B8410",
      "length": 358,
      "name": "?sub_004B8410_LayoutDialog@@YIXPAUD2ClientDialogStrc@@@Z"
-    },
-    {
-     "va": "0x004B9760",
-     "length": 106,
-     "name": "?sub_004B9760_FindGroupSound@@YGPAUD2ClientSoundStrc@@PAU1@H@Z"
-    },
-    {
-     "va": "0x004B97D0",
-     "length": 177,
-     "name": "?sub_004B97D0_GetSoundOffset@@YGXPAUD2UnitStrc@@HPAUD2SoundVecStrc@@@Z"
-    },
-    {
-     "va": "0x004B9890",
-     "length": 86,
-     "name": "?sub_004B9890_GetSoundPan@@YGMPAUD2UnitStrc@@H@Z"
     }
    ]
   },
@@ -28404,6 +28385,21 @@
      "name": "?sub_004B9700_FindUnitSound@@YGPAUD2ClientSoundStrc@@PAU1@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004B9760",
+     "length": 106,
+     "name": "?sub_004B9760_FindGroupSound@@YGPAUD2ClientSoundStrc@@PAU1@H@Z"
+    },
+    {
+     "va": "0x004B97D0",
+     "length": 177,
+     "name": "?sub_004B97D0_GetSoundOffset@@YGXPAUD2UnitStrc@@HPAUD2SoundVecStrc@@@Z"
+    },
+    {
+     "va": "0x004B9890",
+     "length": 86,
+     "name": "?sub_004B9890_GetSoundPan@@YGMPAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x004B98F0",
      "length": 164,
      "name": "?sub_004B98F0_SetSoundPosition@@YAXPAUD2ClientSoundStrc@@PAUD2SoundVecStrc@@@Z"
@@ -28412,6 +28408,10 @@
      "va": "0x004B99A0",
      "length": 85,
      "name": "?sub_004B99A0_MoveSound@@YIXHHHH@Z"
+    },
+    {
+     "va": "0x004B9A00",
+     "length": 277
     },
     {
      "va": "0x004B9B20",

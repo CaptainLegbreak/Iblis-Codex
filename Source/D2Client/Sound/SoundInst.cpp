@@ -147,6 +147,22 @@ void* __fastcall sub_004B9610(int nHintId)
     return 0;
 }
 
+// 0x004B9760
+static D2ClientSoundStrc* __stdcall sub_004B9760_FindGroupSound(D2ClientSoundStrc* pExclude, int nSoundId)
+{
+    D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(nSoundId);
+    for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
+    {
+        D2ClientSoundStrc* pSound = pNode->pSound;
+        if (SOUNDHDR_GetGroupStart(pSound->nSoundId) == pTxt->nGroupStart && pSound != pExclude && !pSound->bLocked)
+        {
+            if (pTxt->nCompound < 0 || DLIGHTMAP_GetSoundTick() - pSound->f_34 <= pTxt->nCompound)
+                return pSound;
+        }
+    }
+    return NULL;
+}
+
 // 0x004B98F0
 static void sub_004B98F0_SetSoundPosition(D2ClientSoundStrc* pSound, D2SoundVecStrc* pPos)
 {
@@ -177,6 +193,139 @@ void __fastcall sub_004B99A0_MoveSound(int nHandle, int nX, int nY, int nZ)
             return;
         }
     }
+}
+
+struct D2DialogWidget;
+
+struct D2DialogWidgetNodeStrc;
+
+struct D2DialogWidget
+{
+    virtual void Unk0();
+    virtual void Draw();
+};
+
+struct D2DialogWidgetNodeStrc
+{
+    D2DialogWidget* f_0;
+    D2DialogWidgetNodeStrc* pNext;
+};
+
+// 0x004B97D0
+static void __stdcall sub_004B97D0_GetSoundOffset(D2UnitStrc* pUnit, int nSoundId, D2SoundVecStrc* pPos)
+{
+    D2CoordStrc tPlayer;
+    D2CoordStrc tUnit;
+    int nX;
+    int nY;
+
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    UNITS_GetClientCoords(pPlayer, &tPlayer);
+    UNITS_GetClientCoords(pUnit, &tUnit);
+    if (nSoundId == 0xA27)
+    {
+        const double dSlope = -2.0;
+        const float fPX = (float)tPlayer.nX;
+        const float fPY = (float)tPlayer.nY;
+        const float fT = (dSlope * fPX + fPY - tUnit.nX * 0.5 - tUnit.nY) / -2.5;
+        nX = (int)fT;
+        const float fY = dSlope * fPX - dSlope * fT + fPY;
+        nY = (int)fY;
+    }
+    else
+    {
+        nY = tUnit.nY;
+        nX = tUnit.nX;
+    }
+
+    pPos->fX = (float)(nX - tPlayer.nX);
+    pPos->fZ = 640.0f;
+    pPos->fY = (float)(nY - tPlayer.nY) * 2.0f;
+}
+
+// 0x004B9890
+static float __stdcall sub_004B9890_GetSoundPan(D2UnitStrc* pUnit, int nSoundId)
+{
+    D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(nSoundId);
+    if (pTxt)
+    {
+        if (pTxt->nFalloff == 4)
+            return 0.0f;
+
+        if (pTxt->nGroupStart == 0xCA)
+        {
+            T00481920* pEnviron = sub_00481920_GetSoundEnvironTxtRecord(sub_004817A0_GetPlayerSoundEnviron());
+            if (pEnviron && pEnviron->bFlag)
+                return 0.5f;
+
+            return 0.0f;
+        }
+    }
+
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (UNITS_TestCollisionWithUnit(pPlayer, pUnit, 2))
+        return 0.5f;
+
+    return 0.0f;
+}
+
+// 0x004B9A00
+int __fastcall sub_004B9A00_PlaySound(int nSoundId, D2UnitStrc* pUnit, int nDelay, int nArg3, int nArg4)
+{
+    if (!gbClientSoundReady)
+        return 0;
+
+    if (nSoundId <= 0)
+        return 0;
+
+    D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(nSoundId);
+    int nTick = DLIGHTMAP_GetSoundTick();
+    if (!pTxt->nVolume)
+        return 0;
+
+    D2ClientSoundStrc* pSound = NULL;
+    if (pTxt->nCompound)
+        pSound = sub_004B9760_FindGroupSound(NULL, nSoundId);
+
+    if (!pSound)
+    {
+        pSound = sub_004B93F0_AllocHintEntry();
+        if (!pSound)
+            return 0;
+
+        pSound->nArg3 = nArg3;
+        pSound->nSoundId = nSoundId;
+        pSound->f_34 = nTick + nDelay;
+        pSound->nArg4 = nArg4;
+        pSound->f_1C = 0xFF;
+        pSound->nPriority = pTxt->nPriority;
+
+        D2SoundVecStrc tPos;
+        if (pUnit)
+        {
+            sub_004B97D0_GetSoundOffset(pUnit, nSoundId, &tPos);
+            sub_004B98F0_SetSoundPosition(pSound, &tPos);
+            pSound->fPan = sub_004B9890_GetSoundPan(pUnit, nSoundId);
+        }
+        else
+        {
+            tPos.fX = 0.0f;
+            tPos.fY = 0.0f;
+            tPos.fZ = 320.0f;
+            sub_004B98F0_SetSoundPosition(pSound, &tPos);
+        }
+    }
+
+    if (pUnit == sub_00463DD0_GetPlayerUnit())
+        pSound->nPriority += 0x50;
+
+    if (pUnit)
+    {
+        D2SOUND_ListAddHead(&pSound->pUnitList, pUnit);
+        sub_004CA8A0_AddUnitSound(pUnit, pSound->f_8);
+    }
+
+    return pSound->f_8;
 }
 
 // 0x004B9B20
@@ -441,62 +590,6 @@ void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned
     pEntry->nFadeTo = nGroup;
     pEntry->dwFadeEnd = nStart + nCount;
     pEntry->f_45 = 1;
-}
-
-static void __stdcall sub_004B97D0_GetSoundOffset(D2UnitStrc* pUnit, int nSoundId, D2SoundVecStrc* pPos)
-{
-    D2CoordStrc tPlayer;
-    D2CoordStrc tUnit;
-    int nX;
-    int nY;
-
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    UNITS_GetClientCoords(pPlayer, &tPlayer);
-    UNITS_GetClientCoords(pUnit, &tUnit);
-    if (nSoundId == 0xA27)
-    {
-        const double dSlope = -2.0;
-        const float fPX = (float)tPlayer.nX;
-        const float fPY = (float)tPlayer.nY;
-        const float fT = (dSlope * fPX + fPY - tUnit.nX * 0.5 - tUnit.nY) / -2.5;
-        nX = (int)fT;
-        const float fY = dSlope * fPX - dSlope * fT + fPY;
-        nY = (int)fY;
-    }
-    else
-    {
-        nY = tUnit.nY;
-        nX = tUnit.nX;
-    }
-
-    pPos->fX = (float)(nX - tPlayer.nX);
-    pPos->fZ = 640.0f;
-    pPos->fY = (float)(nY - tPlayer.nY) * 2.0f;
-}
-
-static float __stdcall sub_004B9890_GetSoundPan(D2UnitStrc* pUnit, int nSoundId)
-{
-    D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(nSoundId);
-    if (pTxt)
-    {
-        if (pTxt->nFalloff == 4)
-            return 0.0f;
-
-        if (pTxt->nGroupStart == 0xCA)
-        {
-            T00481920* pEnviron = sub_00481920_GetSoundEnvironTxtRecord(sub_004817A0_GetPlayerSoundEnviron());
-            if (pEnviron && pEnviron->bFlag)
-                return 0.5f;
-
-            return 0.0f;
-        }
-    }
-
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (UNITS_TestCollisionWithUnit(pPlayer, pUnit, 2))
-        return 0.5f;
-
-    return 0.0f;
 }
 
 
