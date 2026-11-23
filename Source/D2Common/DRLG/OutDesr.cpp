@@ -1,8 +1,13 @@
 #include "D2LevelIds.h"
+
 #include "D2DrlgTiles.h"
+
 #include "D2TxtItems.h"
+
 #include "D2DrlgMaps.h"
+
 #include "D2DrlgRooms.h"
+
 #include "D2ItemModes.h"
 
 #include "D2Structs.h"
@@ -366,6 +371,39 @@ void __fastcall DRLGOUTDESR_InitAct2OutdoorLevel(D2DrlgLevelStrc* pLevel)
     default:
         return;
     }
+}
+
+// build: symbol ?DRLGOUTWILD_FindBridgeInColumn@@YGXPAUD2DrlgLevelStrc@@HPAH1@Z 0x0067FB90
+static void __stdcall DRLGOUTWILD_FindBridgeInColumn(D2DrlgLevelStrc* pLevel, int nX, int* pX, int* pY)
+{
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
+    for (int nY = 1; nY < pOutdoors->nGridWidth - 1; ++nY)
+    {
+        const int nEntry = DRLGGRID_GetGridEntry(&pOutdoors->pGrid[0], nX, nY);
+        const unsigned int nPacked = DRLGGRID_GetGridEntry(&pOutdoors->pGrid[2], nX, nY);
+        const int nPickedFile = (nPacked >> 16) & 0xF;
+        if (nEntry == 28 && nPickedFile == 1)
+        {
+            *pX = nX;
+            *pY = nY;
+            return;
+        }
+    }
+
+    *pX = -1;
+    *pY = -1;
+}
+
+// 0x0067FC20
+void __fastcall DRLGOUTWILD_GetBridgeCoords(D2DrlgLevelStrc* pLevel, int* pX, int* pY)
+{
+    DRLGOUTWILD_FindBridgeInColumn(pLevel, pLevel->pOutdoors->nGridWidth / 2 - 1, pX, pY);
+}
+
+// 0x0067FC50
+void __fastcall sub_0067FC50(D2DrlgLevelStrc* pLevel, int* pX, int* pY)
+{
+    DRLGOUTWILD_FindBridgeInColumn(pLevel, pLevel->pOutdoors->nGridWidth - 2, pX, pY);
 }
 
 // 0x0067FC70
