@@ -20721,6 +20721,11 @@
      "name": "?GFXUTIL_ConvertItemMode@@YIXPAUD2UnitStrc@@PAH@Z"
     },
     {
+     "va": "0x004DAAB0",
+     "length": 138,
+     "name": "MISSILE_GetArmorComponents"
+    },
+    {
      "va": "0x004DAB40",
      "length": 117,
      "name": "GFXUTIL_IsCelOnScreen"
@@ -31320,11 +31325,6 @@
      "va": "0x004D8400",
      "length": 191,
      "name": "?sub_004D8400_CltDoRotateTarget@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004DAAB0",
-     "length": 138,
-     "name": "MISSILE_GetArmorComponents"
     },
     {
      "va": "0x004DED20",

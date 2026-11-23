@@ -4914,34 +4914,6 @@ void __fastcall MISSILE_CltDoEruption(D2UnitStrc* pMissile)
     MISSILE_CltDoCommon(pMissile);
 }
 
-// 0x004DAAB0
-void __fastcall MISSILE_GetArmorComponents(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int bSkip, unsigned char* pComponents)
-{
-    if (!pInventory)
-    {
-        return;
-    }
-
-    D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, 3);
-    if (!bSkip && ITEMS_CanBeEquipped(pItem))
-    {
-        D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(UNITS_GetClassIdInline(pItem));
-        if (!pItemsTxtRecord)
-        {
-            return;
-        }
-
-        pComponents[0] = pItemsTxtRecord->nArmorComp[0];
-        pComponents[1] = pItemsTxtRecord->nArmorComp[1];
-        pComponents[2] = pItemsTxtRecord->nArmorComp[2];
-        pComponents[3] = pItemsTxtRecord->nArmorComp[3];
-        pComponents[4] = pItemsTxtRecord->nArmorComp[4];
-        pComponents[5] = pItemsTxtRecord->nArmorComp[5];
-        return;
-    }
-
-    memset(pComponents, 0, 6);
-}
 
 
 

@@ -885,6 +885,46 @@ void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet)
 }
 
 
+D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
+
+static int UNITS_GetClassIdInline(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return -1;
+    }
+    return pUnit->dwClassId;
+}
+
+// 0x004DAAB0
+void __fastcall MISSILE_GetArmorComponents(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int bSkip, unsigned char* pComponents)
+{
+    if (!pInventory)
+    {
+        return;
+    }
+
+    D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, 3);
+    if (!bSkip && ITEMS_CanBeEquipped(pItem))
+    {
+        D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(UNITS_GetClassIdInline(pItem));
+        if (!pItemsTxtRecord)
+        {
+            return;
+        }
+
+        pComponents[0] = pItemsTxtRecord->nArmorComp[0];
+        pComponents[1] = pItemsTxtRecord->nArmorComp[1];
+        pComponents[2] = pItemsTxtRecord->nArmorComp[2];
+        pComponents[3] = pItemsTxtRecord->nArmorComp[3];
+        pComponents[4] = pItemsTxtRecord->nArmorComp[4];
+        pComponents[5] = pItemsTxtRecord->nArmorComp[5];
+        return;
+    }
+
+    memset(pComponents, 0, 6);
+}
+
 // 0x004DB1A0
 unsigned char __fastcall MISSILE_GetGfxEntryByte(D2UnitStrc* pUnit, int nIndex)
 {
@@ -1507,15 +1547,6 @@ int __fastcall GFXUTIL_GetCofLayerOverrideTransLvl(unsigned char* pData, int nCo
         }
     }
     return nResult;
-}
-
-static int UNITS_GetClassIdInline(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        return -1;
-    }
-    return pUnit->dwClassId;
 }
 
 inline int STATES_IsUnitShapeShiftedInline(D2UnitStrc* pUnit)
