@@ -619,6 +619,17 @@ void __fastcall ACT2Q1_OnRadamentActivated(D2GameStrc* pGame, D2UnitStrc* pUnit)
     SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT2Q1_UnitIterate_UpdateQuestStateFlags);
 }
 
+// 0x005994F0
+bool __fastcall ACT2Q1_IsDoneOrInactive(D2GameStrc* pGame)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 8);
+    if (!pQuestData || !pQuestData->bNotIntro)
+    {
+        return true;
+    }
+    return pQuestData->fState == 5 ? true : false;
+}
+
 // 0x00599130
 void __fastcall ACT2Q1_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {

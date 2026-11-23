@@ -558,6 +558,22 @@ void __fastcall ACT2Q2_Callback05_ItemDropped(D2QuestDataStrc* pQuestData, D2Que
     }
 }
 
+// 0x00599BD0
+void __fastcall ACT2Q2_AddAmulets(D2QuestDataStrc* pQuestData, int nCount)
+{
+    D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pQuestData->pGame, 9);
+    if (pQuest)
+    {
+        ((D2Act2Quest2Strc*)pQuest->pQuestDataEx)->nAmulets += nCount;
+    }
+}
+
+// 0x00599BF0
+int __fastcall ACT2Q2_HasNoHoradricStaff(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    return !ITEMS_FindQuestItem(pGame, pUnit, ' tsh');
+}
+
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
 
 void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005455B0

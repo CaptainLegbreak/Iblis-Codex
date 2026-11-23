@@ -1382,6 +1382,48 @@ void __fastcall ACT4Q1_OnIzualActivated(D2GameStrc* pGame)
     }
 }
 
+int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+
+// 0x005B43D0
+void __fastcall ACT4Q1_UnitIterate_CheckDistanceToIzualGhost(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2Act4Quest1Strc* pQuestDataEx = (D2Act4Quest1Strc*)pData;
+    if (sub_006416D0_UnitEdgeDistance(pUnit, pQuestDataEx->pTargetUnit) < 5)
+    {
+        pQuestDataEx->bCloseToIzualGhost = 1;
+    }
+}
+
+typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
+
+void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg); // 0x005538D0
+
+// 0x005B43F0
+int __fastcall ACT4Q1_IsAnyPlayerInRangeOfIzualGhost(D2GameStrc* pGame, D2UnitStrc* pTargetUnit)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 22);
+    if (pQuestData)
+    {
+        D2Act4Quest1Strc* pQuestDataEx = (D2Act4Quest1Strc*)pQuestData->pQuestDataEx;
+        if (pQuestDataEx->bIzualGhostActivated)
+        {
+            pQuestDataEx->bCloseToIzualGhost = 0;
+            pQuestDataEx->pTargetUnit = pTargetUnit;
+            SUNIT_IterateLivingPlayers(pGame, ACT4Q1_UnitIterate_CheckDistanceToIzualGhost, pQuestDataEx);
+
+            return !pQuestDataEx->bCloseToIzualGhost;
+        }
+    }
+
+    return 0;
+}
+
+// 0x005B4440
+void __fastcall ACT4Q1_AttachCompletionSoundToPlayers(D2GameStrc* pGame)
+{
+    SUNIT_IterateUnitsOfType(pGame, 0, 0, ACT4Q1_UnitIterate_AttachCompletionSound);
+}
+
 void __fastcall ACT4Q3_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005B62D0
 void __fastcall ACT4Q3_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005B65D0
 
@@ -1432,110 +1474,6 @@ int __fastcall OBJECTS_OperateFunction28_LamEsenTome(D2ObjOperateFnStrc* pOp, in
                 pQuestData->nStatusFlags = 0;
                 QUESTS_UnitIterate(pQuestData, 1, 0, ACT3Q1_UnitIterate_StatusCyclerEx, false);
             }
-        }
-    }
-
-    return 0;
-}
-
-// 0x005B8B20
-int __fastcall ACT3Q3_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 19, 0) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, 19, 6) == 1)
-    {
-        return 0;
-    }
-
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 17);
-    if (!pQuestData)
-    {
-        return 0;
-    }
-
-    if (ITEMS_FindQuestItem(pGame, pUnit, ' 33g'))
-    {
-        QUESTRECORD_SetQuestState(pQuestFlags, 19, 5);
-        return 0;
-    }
-
-    if (((D2Act3Quest3Strc*)pQuestData->pQuestDataEx)->bGidbinnDropped)
-    {
-        QUESTRECORD_SetQuestState(pQuestFlags, 19, 4);
-
-        if (!QUESTRECORD_GetQuestState(pQuestFlags, 19, 3))
-        {
-            QUESTRECORD_SetQuestState(pQuestFlags, 19, 2);
-        }
-    }
-    else
-    {
-        if (pQuestData->fState == 2)
-        {
-            QUESTRECORD_SetQuestState(pQuestFlags, 19, 3);
-        }
-    }
-
-    return 0;
-}
-
-// 0x005BD0D0
-int __fastcall ACT3Q7_GetWandererCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2CoordStrc* pCoord)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 28);
-    if (pQuestData)
-    {
-        D2Act3Quest7Strc* pQuestDataEx = (D2Act3Quest7Strc*)pQuestData->pQuestDataEx;
-        if (pQuestDataEx->bDarkWandererInitialized)
-        {
-            *pCoord = *(D2CoordStrc*)&pQuestDataEx->nDarkWandererX;
-
-            if (pQuestDataEx->bWandererCoordsCalculated)
-            {
-                return 1;
-            }
-
-            pCoord->nY += -20;
-            pQuestDataEx->bWandererCoordsCalculated = 1;
-
-            if (!UNITS_TestCollisionByCoordinates(pUnit, pCoord->nX, pCoord->nY, 0x3C01))
-            {
-                *(D2CoordStrc*)&pQuestDataEx->nDarkWandererX = *pCoord;
-                return 1;
-            }
-
-            pCoord->nY += 9;
-            if (!UNITS_TestCollisionByCoordinates(pUnit, pCoord->nX, pCoord->nY, 0x3C01))
-            {
-                *(D2CoordStrc*)&pQuestDataEx->nDarkWandererX = *pCoord;
-                return 1;
-            }
-
-            pCoord->nX += 2;
-            if (!UNITS_TestCollisionByCoordinates(pUnit, pCoord->nX, pCoord->nY, 0x3C01))
-            {
-                *(D2CoordStrc*)&pQuestDataEx->nDarkWandererX = *pCoord;
-                return 1;
-            }
-
-            pCoord->nX += -4;
-            if (!UNITS_TestCollisionByCoordinates(pUnit, pCoord->nX, pCoord->nY, 0x3C01))
-            {
-                *(D2CoordStrc*)&pQuestDataEx->nDarkWandererX = *pCoord;
-                return 1;
-            }
-
-            *pCoord = *(D2CoordStrc*)&pQuestDataEx->nDarkWandererX;
-            pCoord->nY += -8;
-            if (!UNITS_TestCollisionByCoordinates(pUnit, pCoord->nX, pCoord->nY, 0x3C01))
-            {
-                *(D2CoordStrc*)&pQuestDataEx->nDarkWandererX = *pCoord;
-                return 1;
-            }
-
-            pCoord->nY += 5;
-            *(D2CoordStrc*)&pQuestDataEx->nDarkWandererX = *pCoord;
-            return 1;
         }
     }
 

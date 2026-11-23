@@ -221,32 +221,6 @@ void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc* pGame, D2UnitStrc* pUnit); 
 
 void __stdcall ACT4Q2_ActivateHarrogathWaypoint(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x005B4FF0
 
-// 0x005B43F0
-int __fastcall ACT4Q1_IsAnyPlayerInRangeOfIzualGhost(D2GameStrc* pGame, D2UnitStrc* pTargetUnit)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 22);
-    if (pQuestData)
-    {
-        D2Act4Quest1Strc* pQuestDataEx = (D2Act4Quest1Strc*)pQuestData->pQuestDataEx;
-        if (pQuestDataEx->bIzualGhostActivated)
-        {
-            pQuestDataEx->bCloseToIzualGhost = 0;
-            pQuestDataEx->pTargetUnit = pTargetUnit;
-            SUNIT_IterateLivingPlayers(pGame, ACT4Q1_UnitIterate_CheckDistanceToIzualGhost, pQuestDataEx);
-
-            return !pQuestDataEx->bCloseToIzualGhost;
-        }
-    }
-
-    return 0;
-}
-
-// 0x005B4440
-void __fastcall ACT4Q1_AttachCompletionSoundToPlayers(D2GameStrc* pGame)
-{
-    SUNIT_IterateUnitsOfType(pGame, 0, 0, ACT4Q1_UnitIterate_AttachCompletionSound);
-}
-
 // 0x005B4450
 bool __fastcall ACT4Q2_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
 {
@@ -1442,60 +1416,6 @@ int __fastcall OBJECTS_OperateFunction56_DiabloSeal(D2ObjOperateFnStrc* pOp, int
     pQuestDataEx->pSealCoords[2].nX += 32;
     pQuestDataEx->pSealCoords[2].nY += 16;
     ACT4Q2_SpawnSealObject(pOp, pCoord, 5);
-    return 0;
-}
-
-// 0x005BAD20
-int __fastcall ACT3Q4_GoldenBirdBroughtToAlkor(D2GameStrc* pGame)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 18);
-    if (pQuestData && ((D2Act3Quest4Strc*)pQuestData->pQuestDataEx)->bGoldenBirdBroughtToAlkor)
-    {
-        return 1;
-    }
-
-    return 0;
-}
-
-// 0x005BAD40
-void __fastcall ACT3Q4_ResetAlkor(D2GameStrc* pGame)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 18);
-
-    if (pQuestData)
-    {
-        ((D2Act3Quest4Strc*)pQuestData->pQuestDataEx)->bGoldenBirdBroughtToAlkor = 0;
-    }
-}
-
-// 0x005BBF80
-bool __fastcall ACT3Q5_IsOrbNotSmashed(D2GameStrc* pGame)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 19);
-    if (pQuestData)
-    {
-        return ((D2Act3Quest5Strc*)pQuestData->pQuestDataEx)->bOrbSmashed == 0;
-    }
-
-    return true;
-}
-
-// 0x005BBFA0
-int __fastcall ACT3Q5_IsDuranceOfHateClosed(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 19);
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-
-    if (pRoom && DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_DURANCEOFHATELEV2)
-    {
-        return 0;
-    }
-
-    if (pQuestData)
-    {
-        return ((D2Act3Quest5Strc*)pQuestData->pQuestDataEx)->bOrbSmashed == 0;
-    }
-
     return 0;
 }
 

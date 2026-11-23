@@ -53876,11 +53876,6 @@
      "name": "?ACT5Intro_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
-     "va": "0x00588880",
-     "length": 75,
-     "name": "?ACT5Q2_UpdateWussieCounters@@YIXPAUD2GameStrc@@HPAUD2UnitStrc@@@Z"
-    },
-    {
      "va": "0x00588D60",
      "length": 100,
      "name": "?ACT5Q2_FindPortal@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAPAU2@@Z"
@@ -54083,6 +54078,21 @@
      "name": "?OBJECTS_InitFunction54_CainStartPosition@@YIXPAUD2ObjInitFnStrc@@@Z"
     },
     {
+     "va": "0x00594140",
+     "length": 289,
+     "name": "?ACT1Q4_CreateCowPortal@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00594270",
+     "length": 3,
+     "name": "ACT1Q4_CreateUberRunPortal"
+    },
+    {
+     "va": "0x00594280",
+     "length": 3,
+     "name": "ACT1Q4_CreateUberFinalePortal"
+    },
+    {
      "va": "0x00596CA0",
      "length": 208,
      "name": "?ACT1Q4_UpdateObjects@@YGXDDPAUD2QuestDataStrc@@@Z"
@@ -54276,11 +54286,6 @@
      "length": 81
     },
     {
-     "va": "0x00587A90",
-     "length": 109,
-     "name": "?ACT5Q2_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
      "va": "0x00587F60",
      "length": 96,
      "name": "?ACT5Q2_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -54294,16 +54299,6 @@
      "va": "0x00588DD0",
      "length": 64,
      "name": "?ACT5Q2_OnWussieActivated@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
-    {
-     "va": "0x0058AD80",
-     "length": 134,
-     "name": "ACT5Q3_ChangeDrehyaMapAI"
-    },
-    {
-     "va": "0x0058AE10",
-     "length": 134,
-     "name": "ACT5Q3_ChangeNihlathakMapAI"
     }
    ]
   },
@@ -54311,6 +54306,11 @@
    "file": "Source/D2Game/Quests/a5q2.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00587A90",
+     "length": 109,
+     "name": "?ACT5Q2_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
     {
      "va": "0x00587B00",
      "length": 555,
@@ -54397,6 +54397,11 @@
      "va": "0x00588830",
      "length": 65,
      "name": "?ACT5Q2_CheckWussieCounters@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00588880",
+     "length": 75,
+     "name": "?ACT5Q2_UpdateWussieCounters@@YIXPAUD2GameStrc@@HPAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -54674,6 +54679,16 @@
      "va": "0x0058ABC0",
      "length": 448,
      "name": "OBJECTS_OperateFunction67_FrozenAnya"
+    },
+    {
+     "va": "0x0058AD80",
+     "length": 134,
+     "name": "ACT5Q3_ChangeDrehyaMapAI"
+    },
+    {
+     "va": "0x0058AE10",
+     "length": 134,
+     "name": "ACT5Q3_ChangeNihlathakMapAI"
     },
     {
      "va": "0x0058EAC0",
@@ -55091,11 +55106,6 @@
      "va": "0x0058D6A0",
      "length": 194,
      "name": "?OBJECTS_OperateFunction71_SummitDoor@@YIHPAUD2ObjOperateFnStrc@@H@Z"
-    },
-    {
-     "va": "0x0058D770",
-     "length": 96,
-     "name": "?ACT5Q6_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     }
    ]
   },
@@ -55103,6 +55113,11 @@
    "file": "Source/D2Game/Quests/a5q6.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x0058D770",
+     "length": 96,
+     "name": "?ACT5Q6_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
     {
      "va": "0x0058D7D0",
      "length": 149
@@ -55984,21 +55999,6 @@
      "name": "ACT2Intro_StatusFilterCallback"
     },
     {
-     "va": "0x005994F0",
-     "length": 31,
-     "name": "?ACT2Q1_IsDoneOrInactive@@YI_NPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x00599BD0",
-     "length": 28,
-     "name": "?ACT2Q2_AddAmulets@@YIXPAUD2QuestDataStrc@@H@Z"
-    },
-    {
-     "va": "0x00599BF0",
-     "length": 18,
-     "name": "?ACT2Q2_HasNoHoradricStaff@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
      "va": "0x00599C10",
      "length": 220,
      "name": "?OBJECTS_OperateFunction40_HoradricScrollChest@@YIHPAUD2ObjOperateFnStrc@@H@Z"
@@ -56181,22 +56181,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00594270.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00594270",
-     "length": 3,
-     "name": "ACT1Q4_CreateUberRunPortal"
-    },
-    {
-     "va": "0x00594280",
-     "length": 3,
-     "name": "ACT1Q4_CreateUberFinalePortal"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Quests/a1q5.cpp",
    "rank": 0,
    "functions": [
@@ -56204,11 +56188,6 @@
      "va": "0x00594020",
      "length": 57,
      "name": "?OBJECTS_InitFunction13_InvisibleObject@@YIXPAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x00594140",
-     "length": 289,
-     "name": "?ACT1Q4_CreateCowPortal@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00594290",
@@ -56909,6 +56888,11 @@
      "va": "0x00599420",
      "length": 196,
      "name": "ACT2Q1_OnRadamentActivated"
+    },
+    {
+     "va": "0x005994F0",
+     "length": 31,
+     "name": "?ACT2Q1_IsDoneOrInactive@@YI_NPAUD2GameStrc@@@Z"
     }
    ]
   },
@@ -56983,6 +56967,16 @@
      "va": "0x00599B30",
      "length": 157,
      "name": "?ACT2Q2_Callback05_ItemDropped@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00599BD0",
+     "length": 28,
+     "name": "?ACT2Q2_AddAmulets@@YIXPAUD2QuestDataStrc@@H@Z"
+    },
+    {
+     "va": "0x00599BF0",
+     "length": 18,
+     "name": "?ACT2Q2_HasNoHoradricStaff@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0059E5C0",
@@ -58154,11 +58148,6 @@
      "name": "?AITHINK_ExecuteMonsterAiTick@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
-     "va": "0x005B43D0",
-     "length": 31,
-     "name": "ACT4Q1_UnitIterate_CheckDistanceToIzualGhost"
-    },
-    {
      "va": "0x005B69F0",
      "length": 115,
      "name": "ACT4Q4_ActiveFilterCallback"
@@ -58172,11 +58161,6 @@
      "va": "0x005B6E30",
      "length": 39,
      "name": "ACT3Intro_ActiveFilterCallback"
-    },
-    {
-     "va": "0x005BAD60",
-     "length": 91,
-     "name": "ACT3Q5_ActiveFilterCallback"
     },
     {
      "va": "0x005D7E10",
@@ -61098,14 +61082,19 @@
      "name": "?ACT4Q1_OnIzualActivated@@YIXPAUD2GameStrc@@@Z"
     },
     {
-     "va": "0x005B8B20",
-     "length": 204,
-     "name": "ACT3Q3_UnitIterate_UpdateQuestStateFlags"
+     "va": "0x005B43D0",
+     "length": 31,
+     "name": "ACT4Q1_UnitIterate_CheckDistanceToIzualGhost"
     },
     {
-     "va": "0x005BD0D0",
-     "length": 286,
-     "name": "ACT3Q7_GetWandererCoordinates"
+     "va": "0x005B43F0",
+     "length": 68,
+     "name": "?ACT4Q1_IsAnyPlayerInRangeOfIzualGhost@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005B4440",
+     "length": 15,
+     "name": "?ACT4Q1_AttachCompletionSoundToPlayers@@YIXPAUD2GameStrc@@@Z"
     }
    ]
   },
@@ -61123,16 +61112,6 @@
    "file": "Source/D2Game/Quests/a4q2.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x005B43F0",
-     "length": 68,
-     "name": "?ACT4Q1_IsAnyPlayerInRangeOfIzualGhost@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005B4440",
-     "length": 15,
-     "name": "?ACT4Q1_AttachCompletionSoundToPlayers@@YIXPAUD2GameStrc@@@Z"
-    },
     {
      "va": "0x005B4450",
      "length": 217,
@@ -61321,26 +61300,6 @@
      "va": "0x005B6C10",
      "length": 73,
      "name": "?OBJECTS_OperateFunction56_DiabloSeal@@YIHPAUD2ObjOperateFnStrc@@H@Z"
-    },
-    {
-     "va": "0x005BAD20",
-     "length": 31,
-     "name": "?ACT3Q4_GoldenBirdBroughtToAlkor@@YIHPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x005BAD40",
-     "length": 21,
-     "name": "?ACT3Q4_ResetAlkor@@YIXPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x005BBF80",
-     "length": 31,
-     "name": "?ACT3Q5_IsOrbNotSmashed@@YI_NPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x005BBFA0",
-     "length": 62,
-     "name": "?ACT3Q5_IsDuranceOfHateClosed@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005BCFD0",
@@ -61786,6 +61745,11 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x005B8B20",
+     "length": 204,
+     "name": "ACT3Q3_UnitIterate_UpdateQuestStateFlags"
+    },
+    {
      "va": "0x005B8BF0",
      "length": 96,
      "name": "?ACT3Q3_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -62031,6 +61995,16 @@
      "va": "0x005BACF0",
      "length": 35,
      "name": "?ACT3Q4_CheckGoldenBirdBoss@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005BAD20",
+     "length": 31,
+     "name": "?ACT3Q4_GoldenBirdBroughtToAlkor@@YIHPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x005BAD40",
+     "length": 21,
+     "name": "?ACT3Q4_ResetAlkor@@YIXPAUD2GameStrc@@@Z"
     }
    ]
   },
@@ -62038,6 +62012,11 @@
    "file": "Source/D2Game/Quests/a3q5.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x005BAD60",
+     "length": 91,
+     "name": "ACT3Q5_ActiveFilterCallback"
+    },
     {
      "va": "0x005BADC0",
      "length": 96,
@@ -62135,6 +62114,16 @@
      "va": "0x005BBEB0",
      "length": 208,
      "name": "?ACT3Q5_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x005BBF80",
+     "length": 31,
+     "name": "?ACT3Q5_IsOrbNotSmashed@@YI_NPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x005BBFA0",
+     "length": 62,
+     "name": "?ACT3Q5_IsDuranceOfHateClosed@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -62286,11 +62275,6 @@
      "name": "?ACT3Q7_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
     },
     {
-     "va": "0x005BD0C0",
-     "length": 5,
-     "name": "?ACT3Q7_ActiveFilterCallback@@YI_NPAUD2QuestDataStrc@@HPAUD2UnitStrc@@PAUD2BitBufferStrc@@1@Z"
-    },
-    {
      "va": "0x005BDB10",
      "length": 1,
      "name": "?sub_005BDB10_Return@@YAXXZ"
@@ -62301,6 +62285,16 @@
    "file": "Source/D2Game/Quests/a3q7.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x005BD0C0",
+     "length": 5,
+     "name": "?ACT3Q7_ActiveFilterCallback@@YI_NPAUD2QuestDataStrc@@HPAUD2UnitStrc@@PAUD2BitBufferStrc@@1@Z"
+    },
+    {
+     "va": "0x005BD0D0",
+     "length": 286,
+     "name": "ACT3Q7_GetWandererCoordinates"
+    },
     {
      "va": "0x005BD1F0",
      "length": 98,

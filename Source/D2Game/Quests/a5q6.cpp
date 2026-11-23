@@ -777,6 +777,21 @@ void __fastcall ACT5Q6_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
     }
 }
 
+void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsigned char id); // 0x00544190
+
+// 0x0058D770
+int __fastcall ACT5Q6_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, 40, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, 40, 15)
+        || QUESTRECORD_GetQuestState(pQuestFlags, 40, 13)
+        || QUESTRECORD_GetQuestState(pQuestFlags, 40, 14))
+    {
+        QUESTS_StatusCyclerEx(pGame, pUnit, 36);
+    }
+    return 0;
+}
+
 // 0x0058D7D0
 int __fastcall ACT5Q6_UnitIterate_CreateLastPortal(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {

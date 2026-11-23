@@ -260,44 +260,6 @@ inline D2BitBufferStrc* QUESTS_GetPlayerQuestFlags_Inline(D2GameStrc* pGame, D2U
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }
 
-// 0x00594140
-int __fastcall ACT1Q4_CreateCowPortal(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2ActiveRoomStrc* pRoom;
-    if (QUESTS_GetGlobalState(pGame, QUESTSTATEFLAG_A1Q4, QFLAG_CUSTOM7)
-        || QUESTRECORD_GetQuestState(QUESTS_GetPlayerQuestFlags_Inline(pGame, pUnit), QUESTSTATEFLAG_A1Q4, QFLAG_CUSTOM6))
-    {
-        goto fail;
-    }
-
-    if (!((!pGame->bExpansion && QUESTRECORD_GetQuestState(QUESTS_GetPlayerQuestFlags_Inline(pGame, pUnit), QUESTSTATEFLAG_A4Q2, QFLAG_REWARDGRANTED))
-        || (pGame->bExpansion && QUESTRECORD_GetQuestState(QUESTS_GetPlayerQuestFlags_Inline(pGame, pUnit), QUESTSTATEFLAG_A5Q6, QFLAG_REWARDGRANTED))))
-    {
-        goto fail;
-    }
-
-    pRoom = UNITS_GetRoom(pUnit);
-    if (!pRoom || DUNGEON_GetLevelIdFromRoom(pRoom) != LEVEL_ROGUEENCAMPMENT)
-    {
-fail:
-        SUNIT_AttachSound(pUnit, 20, pUnit);
-        return 0;
-    }
-
-    D2CoordStrc pCoord;
-    D2ActiveRoomStrc* pFreeRoom = 0;
-    UNITS_GetCoords(pUnit, &pCoord);
-    QUESTS_GetFreePosition(pRoom, &pCoord, 3, 0x400, &pFreeRoom, 4, 100);
-    if (pFreeRoom && D2GAME_CreatePortalObject_6FD13DF0(pGame, pUnit, pFreeRoom, pCoord.nX, pCoord.nY, LEVEL_MOOMOOFARM, 0, OBJECT_PERMANENT_TOWN_PORTAL, 0))
-    {
-        QUESTS_SetGlobalState(pGame, QUESTSTATEFLAG_A1Q4, QFLAG_CUSTOM7);
-        return 1;
-    }
-
-    SUNIT_AttachSound(pUnit, 20, pUnit);
-    return 0;
-}
-
 // 0x00594290
 void __fastcall OBJECTS_InitFunction61_CainPortal(D2ObjInitFnStrc* pOp)
 {
