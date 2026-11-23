@@ -66,7 +66,7 @@ static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -139,8 +139,8 @@ static void __stdcall sub_004D0B90_SpawnHitBurst(int nCount, int nVelocity, int 
         const int nSpread = 2 * nCount;
         for (int i = 0; i < nCount; ++i)
         {
-            const int nTargetX = SEED_RollLimitedRandomNumber(&pMissile->pSeed, 2 * nSpread + 1) - nSpread + nX;
-            const int nTargetY = SEED_RollLimitedRandomNumber(&pMissile->pSeed, 2 * nSpread + 1) - nSpread + nY;
+            const int nTargetX = SEED_RollLimitedRandomNumberInline(&pMissile->pSeed, 2 * nSpread + 1) - nSpread + nX;
+            const int nTargetY = SEED_RollLimitedRandomNumberInline(&pMissile->pSeed, 2 * nSpread + 1) - nSpread + nY;
             if (UNITS_GetDistanceToCoordinates(pMissile, nTargetX, nTargetY) > 3)
             {
                 tParams.nTargetX = nTargetX;
@@ -408,11 +408,11 @@ int __fastcall MISSILE_CltDoEightWaySpawn(D2UnitStrc* pMissile)
         if (pNew)
         {
             int nFrames = sub_0064A300(pNew);
-            nFrames -= SEED_RollLimitedRandomNumber(&pMissile->pSeed, nFrames / 2);
+            nFrames -= SEED_RollLimitedRandomNumberInline(&pMissile->pSeed, nFrames / 2);
             MISSILE_SetTotalFrames(pNew, nFrames);
             D2DynamicPathStrc* pPath = pNew->pDynamicPath;
 // build: symbol ?gszMissileSourceFile@* 0x006DAEF4
-            PATH_SetVelocity(pPath, SEED_RollLimitedRandomNumber(&pMissile->pSeed, PATH_GetVelocity(pPath)), gszMissileSourceFile, 0x1A6B);
+            PATH_SetVelocity(pPath, SEED_RollLimitedRandomNumberInline(&pMissile->pSeed, PATH_GetVelocity(pPath)), gszMissileSourceFile, 0x1A6B);
             SKILLS_SetBallistic(pNew, 0x1E, nFrames);
         }
     }
