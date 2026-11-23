@@ -7,7 +7,6 @@ struct D2HintTimerStrc;
 struct D2TimedHintEntryStrc;
 struct D2TimedHintNodeStrc;
 class UIWidget;
-class ButtonImplementation;
 
 #pragma pack(push, 1)
 
@@ -65,32 +64,6 @@ public:
     int unk0x04;
 };
 
-class ButtonImplementation : public UIWidget
-{
-public:
-    virtual ~ButtonImplementation();
-    virtual void Slot01();
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
-    virtual int Slot11();
-    virtual void sub_004BAC60_SetUnk24(int nValue);
-
-    int nX;
-    int nY;
-    char unk0x10[0x08];
-    int nHeight;
-    int nWidth;
-    int f_20;
-    int unk0x24;
-};
-
 // 0x004BA760
 static __declspec(noinline) void sub_004BA760_RefreshHint(D2TimedHintEntryStrc* pEntry)
 {
@@ -129,14 +102,8 @@ void __fastcall sub_004BA790_UpdateUnitHint(D2UnitStrc* pUnit, D2UnitStrc* pOthe
 }
 
 // build: symbol ??1UIWidget@@UAE@XZ 0x004BE080
-// build: symbol ??_7ButtonImplementation@@6B@ 0x006DA6F4
 // build: symbol ??_7UIWidget@@6B@ 0x006DA6C0
 // 0x004BABE0
 UIWidget::UIWidget()
-{
-}
-
-// 0x004BABF0
-ButtonImplementation::~ButtonImplementation()
 {
 }

@@ -25,7 +25,6 @@ struct D2CinematicPacketStrc;
 struct D2UnkFieldsStrc;
 struct D2UnkSortItemStrc;
 class UIWidget;
-class ButtonImplementation;
 struct D2HintRecordStrc;
 struct D2TimedHintEntryStrc;
 struct D2TimedHintNodeStrc;
@@ -241,17 +240,6 @@ public:
     virtual int Slot11() = 0;
 
     int unk0x04;
-};
-
-class ButtonImplementation : public UIWidget
-{
-public:
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
-    virtual void sub_004BAC60_SetUnk24(int nValue);
-
-    char unk0x08[0x1C];
-    int unk0x24;
-    int (__cdecl* pfnCallback)();
 };
 
 struct D2HintRecordStrc
@@ -1084,23 +1072,6 @@ int __fastcall sub_004B9DA0_CompareItems(D2UnkSortItemStrc* pA, D2UnkSortItemStr
     }
 
     return pA > pB;
-}
-
-// 0x004BAC60
-void ButtonImplementation::sub_004BAC60_SetUnk24(int nValue)
-{
-    unk0x24 = nValue;
-}
-
-// 0x004BAD40
-int ButtonImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (unk0x24 && !(pMsg->lParam & 0x40000000) && pMsg->wParam == 0x0D)
-    {
-        return pfnCallback();
-    }
-
-    return 0;
 }
 
 D2TimedHintNodeStrc* gpClientSoundList; // 0x007C5458

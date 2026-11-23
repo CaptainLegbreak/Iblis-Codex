@@ -281,6 +281,12 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 extern D2ButtonStringStrc gaButtonStrings[]; // 0x007275A8
 
+// build: symbol ??1ButtonImplementation@@UAE@XZ 0x004BABF0
+// 0x004BABF0
+ButtonImplementation::~ButtonImplementation()
+{
+}
+
 // 0x004BAC00
 int ButtonImplementation::HitTestButton(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -291,6 +297,19 @@ int ButtonImplementation::HitTestButton(SMSGHANDLER_PARAMS* pMsg)
         return 0;
     }
     return 1;
+}
+
+// build: symbol ?Slot11@ButtonImplementation@@UAEHXZ 0x004BAC50
+// 0x004BAC50
+int ButtonImplementation::Slot11()
+{
+    return 0;
+}
+
+// 0x004BAC60
+void ButtonImplementation::sub_004BAC60_SetUnk24(int nValue)
+{
+    unk0x24 = nValue;
 }
 
 // build: symbol ?MsgSlot03@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAC70
@@ -324,9 +343,6 @@ int ButtonImplementation::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
     return 0;
 }
 
-ButtonImplementation::~ButtonImplementation()
-{
-}
 
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
@@ -369,6 +385,60 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);    
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel);                                                                   // 0x00478A00
 
 struct SMSGHANDLER_PARAMS;
+
+// build: symbol ?MsgSlot06@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAD40
+// 0x004BAD40
+int ButtonImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (unk0x24 && !(pMsg->lParam & 0x40000000) && pMsg->wParam == 0x0D)
+    {
+        return pfnCallback();
+    }
+
+    return 0;
+}
+
+// build: symbol ?MsgSlot05@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAD70
+// 0x004BAD70
+int ButtonImplementation::MsgSlot05(SMSGHANDLER_PARAMS* pMsg)
+{
+    return 0;
+}
+
+// build: symbol ?MsgSlot07@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAD80
+// 0x004BAD80
+int ButtonImplementation::MsgSlot07(SMSGHANDLER_PARAMS* pMsg)
+{
+    return 0;
+}
+
+// build: symbol ?MsgSlot08@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAD90
+// 0x004BAD90
+int ButtonImplementation::MsgSlot08(SMSGHANDLER_PARAMS* pMsg)
+{
+    return 0;
+}
+
+// build: symbol ?MsgSlot09@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BADA0
+// 0x004BADA0
+int ButtonImplementation::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
+{
+    return 0;
+}
+
+// build: symbol ?MsgSlot10@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BADB0
+// 0x004BADB0
+int ButtonImplementation::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
+{
+    return 0;
+}
+
+// build: symbol ?MsgSlot02@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BADC0
+// 0x004BADC0
+int ButtonImplementation::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
+{
+    return 0;
+}
 
 // build: symbol ??1UIWidget@@UAE@XZ 0x004BE080
 // build: symbol ??_7ButtonWrapper@@6B@ 0x006DA72C

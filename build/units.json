@@ -27597,11 +27597,6 @@
      "name": "MONSTER_IsNearPlayer"
     },
     {
-     "va": "0x004BAC50",
-     "length": 3,
-     "name": "sub_004BAC50"
-    },
-    {
      "va": "0x004BB5D0",
      "length": 3,
      "name": "sub_004BB5D0"
@@ -29373,16 +29368,6 @@
      "name": "?sub_004BABC0_ToggleHints@@YAXXZ"
     },
     {
-     "va": "0x004BAC60",
-     "length": 13,
-     "name": "sub_004BAC60_SetUnk24"
-    },
-    {
-     "va": "0x004BAD40",
-     "length": 42,
-     "name": "MsgSlot06"
-    },
-    {
      "va": "0x004BE060",
      "length": 26,
      "name": "?sub_004BE060@@YAXXZ"
@@ -29526,11 +29511,6 @@
      "va": "0x004BABE0",
      "length": 9,
      "name": "??0UIWidget@@QAE@XZ"
-    },
-    {
-     "va": "0x004BABF0",
-     "length": 11,
-     "name": "??1ButtonImplementation@@UAE@XZ"
     }
    ]
   },
@@ -29636,9 +29616,24 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x004BABF0",
+     "length": 11,
+     "name": "??1ButtonImplementation@@UAE@XZ"
+    },
+    {
      "va": "0x004BAC00",
      "length": 66,
      "name": "HitTestButton"
+    },
+    {
+     "va": "0x004BAC50",
+     "length": 3,
+     "name": "?Slot11@ButtonImplementation@@UAEHXZ"
+    },
+    {
+     "va": "0x004BAC60",
+     "length": 13,
+     "name": "?sub_004BAC60_SetUnk24@ButtonImplementation@@UAEXH@Z"
     },
     {
      "va": "0x004BAC70",
@@ -29649,6 +29644,41 @@
      "va": "0x004BACD0",
      "length": 99,
      "name": "MsgSlot04"
+    },
+    {
+     "va": "0x004BAD40",
+     "length": 42,
+     "name": "?MsgSlot06@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004BAD70",
+     "length": 5,
+     "name": "?MsgSlot05@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004BAD80",
+     "length": 5,
+     "name": "?MsgSlot07@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004BAD90",
+     "length": 5,
+     "name": "?MsgSlot08@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004BADA0",
+     "length": 5,
+     "name": "?MsgSlot09@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004BADB0",
+     "length": 5,
+     "name": "?MsgSlot10@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004BADC0",
+     "length": 5,
+     "name": "?MsgSlot02@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BADD0",
@@ -30124,72 +30154,6 @@
     "/Gd",
     "/EHsc",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004BAD70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BAD70",
-     "length": 5,
-     "name": "?SKILLS_Return0@@YGHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004BAD80.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BAD80",
-     "length": 5,
-     "name": "?SKILLS_Return0@@YGHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004BAD90.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BAD90",
-     "length": 5,
-     "name": "?SKILLS_Return0@@YGHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004BADA0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BADA0",
-     "length": 5,
-     "name": "?SKILLS_Return0@@YGHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004BADB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BADB0",
-     "length": 5,
-     "name": "?SKILLS_Return0@@YGHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004BADC0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BADC0",
-     "length": 5,
-     "name": "?SKILLS_Return0@@YGHH@Z"
-    }
    ]
   },
   {
