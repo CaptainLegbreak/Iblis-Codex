@@ -2759,7 +2759,7 @@
   },
   "Source/D2Game/ITEMS/ItemMode.cpp": {
    "bytes": 712,
-   "definitions": 5,
+   "definitions": 6,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/ITEMS/ItemMode.inc",
@@ -5157,7 +5157,7 @@
   },
   "Source/D2Game/GAME/Clients.cpp": {
    "bytes": 120,
-   "definitions": 2,
+   "definitions": 1,
    "externs": [
     "extern \"C\" void __cdecl OBJMODE_UpdateTrapProximity(); // 0x00581700",
     "extern \"C\" void __cdecl OBJMODE_UpdateTrappedSoul(); // 0x00585CE0",
@@ -93403,7 +93403,7 @@
    "cname": "gData_006E117C",
    "declared": true,
    "decorated": "?gpfnItemEventFunctions@@3PAP6IXPAUD2GameStrc@@PAUD2UnitStrc@@@ZA",
-   "file": "Source/D2Game/GAME/Clients.cpp",
+   "file": "Source/D2Game/ITEMS/ItemMode.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const EventCallbackFunction gData_006E117C[15]; // 0x006E117C",
    "head": "extern \"C\" const EventCallbackFunction gData_006E117C[15] = ",
@@ -93423,8 +93423,8 @@
     [
      12,
      "0x00562D30",
-     "queue_function",
-     "sub_00562D30",
+     "names.json",
+     "ITEMMODE_ReplenishItem",
      0,
      "func"
     ],
