@@ -244,7 +244,6 @@ struct R00601DC0
     bool sub_00601DC0_IsOpen();
 };
 
-void __stdcall sub_M127_EmitSink(D2UnitStrc* pUnit);
 
 void __fastcall OBJECTS_FreeTimerArg(D2GameStrc* pGame, D2TimerArgStrc* pTimerArg); // 0x0054F580
 
@@ -1063,16 +1062,6 @@ void __fastcall OBJECTS_PopulateObject(D2GameStrc* pGame, D2ActiveRoomStrc* pRoo
         D2_ASSERT(!IsBadCodePtr((FARPROC)sgPopulateTable[pObjectsTxtRecord->nPopulateFn]), 0xC80);
 // build: symbol ?gnObjectPopulateDensity@* 0x00731BBD
         sgPopulateTable[pObjectsTxtRecord->nPopulateFn](pGame, pRoom, gnObjectPopulateDensity, nObjectId, 100);
-    }
-}
-
-// 0x00552DE0
-static inline void SUNIT_AssignUnitId(D2UnitStrc* pUnit, int nValue)
-{
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 2;
-        pUnit->dwUnitId = nValue;
     }
 }
 
@@ -2647,12 +2636,6 @@ D2UnitStrc* __fastcall OBJECTS_SpawnArcaneSymbol(D2GameStrc* pGame, D2ActiveRoom
     D2_ASSERT(hRoom, 391);
 
     return SUNIT_AllocUnitData(UNIT_OBJECT, nObjectId, nX, nY, pGame, hRoom, 1, 0, 0);
-}
-
-void __fastcall sub_M127_Emit_00552DE0(D2UnitStrc* pUnit, int nValue)
-{
-    SUNIT_AssignUnitId(pUnit, nValue);
-    sub_M127_EmitSink(pUnit);
 }
 
 // 0x00552A00

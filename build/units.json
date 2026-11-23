@@ -45581,11 +45581,6 @@
      "length": 514
     },
     {
-     "va": "0x00552DE0",
-     "length": 15,
-     "name": "?SUNIT_AssignUnitId@@YAXPAUD2UnitStrc@@H@Z"
-    },
-    {
      "va": "0x00555CD0",
      "length": 34,
      "name": "OBJECTS_AppendPair"
@@ -45645,11 +45640,6 @@
      "va": "0x00568D70",
      "length": 12,
      "name": "?PLRSAVE2_GetHighestClassSkillCount@@YAHXZ"
-    },
-    {
-     "va": "0x00576320",
-     "length": 7,
-     "name": "?SUNITNPC_GetItemStorePage@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005B0BC0",
@@ -50153,6 +50143,11 @@
      "name": "SUNIT_GetNextUnitFromList"
     },
     {
+     "va": "0x00552DE0",
+     "length": 15,
+     "name": "?SUNIT_AssignUnitId@@YAXPAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x00552DF0",
      "length": 148,
      "name": "?SUNIT_InitSeed@@YIXPAUD2UnitStrc@@PAUD2SeedStrc@@@Z"
@@ -52520,6 +52515,11 @@
      "name": "?SUNITNPC_SetItemTradeFlags@@YIXPAUD2UnitStrc@@00HH@Z"
     },
     {
+     "va": "0x00576320",
+     "length": 7,
+     "name": "?SUNITNPC_GetItemStorePage@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x00576330",
      "length": 798
     },
@@ -53074,6 +53074,11 @@
      "name": "?SUNITDMG_AddMonTypeDamagePercent@@YGXPAUD2UnitStrc@@PAUD2DamageStrc@@0@Z"
     },
     {
+     "va": "0x0057B7A0",
+     "length": 46,
+     "name": "?SUNITDMG_ApplyDamageTargetAc@@YAXPAUD2UnitStrc@@0@Z"
+    },
+    {
      "va": "0x0057B7D0",
      "length": 1524
     },
@@ -53336,11 +53341,6 @@
    "file": "Source/D2Game/SKILLS/SkillNec.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0057B7A0",
-     "length": 46,
-     "name": "?SUNITDMG_ApplyDamageTargetAc@@YAXPAUD2UnitStrc@@0@Z"
-    },
     {
      "va": "0x005C3070",
      "length": 47,

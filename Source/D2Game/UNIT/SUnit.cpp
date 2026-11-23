@@ -632,6 +632,24 @@ D2UnitStrc* __fastcall SUNIT_GetNextUnitFromList(D2UnitStrc* ptUnit)
     return ptUnit->pListNext;
 }
 
+// 0x00552DE0
+static inline void SUNIT_AssignUnitId(D2UnitStrc* pUnit, int nValue)
+{
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 2;
+        pUnit->dwUnitId = nValue;
+    }
+}
+
+void __stdcall sub_M127_EmitSink(D2UnitStrc* pUnit);
+
+void __fastcall sub_M127_Emit_00552DE0(D2UnitStrc* pUnit, int nValue)
+{
+    SUNIT_AssignUnitId(pUnit, nValue);
+    sub_M127_EmitSink(pUnit);
+}
+
 inline unsigned __int64 ITEMS_RollRandomNumberInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;

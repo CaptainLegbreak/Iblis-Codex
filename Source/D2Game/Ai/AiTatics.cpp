@@ -47,7 +47,6 @@ int __fastcall MISSMODE_HandleMissileCollision(D2GameStrc* pGame, D2UnitStrc* pM
 
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
 
-int __stdcall sub_0062E880(D2UnitStrc* pItem); // 0x0062E880
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x00681CE0
 
@@ -187,17 +186,7 @@ int __cdecl PLRSAVE2_GetHighestClassSkillCount()
     return sgptDataTables->nHighestClassSkillCount;
 }
 
-// 0x00576320
-static inline int SUNITNPC_GetItemStorePage(D2UnitStrc* pItem)
-{
-    return sub_0062E880(pItem);
-}
-
-int __stdcall sub_M114_Emit_00576320(D2UnitStrc* pItem)
-{
-    return SUNITNPC_GetItemStorePage(pItem) + 1;
-}
-
+int SUNITNPC_GetItemStorePage(D2UnitStrc* pItem); // 0x00576320
 // 0x005B0BC0
 int __fastcall MISSMODE_SrvDo01_BasicMissile(D2GameStrc* pGame, D2UnitStrc* pMissile)
 {
