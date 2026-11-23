@@ -20607,6 +20607,10 @@
      "name": "GFXUTIL_GetMotionFirstParam"
     },
     {
+     "va": "0x004DA350",
+     "length": 596
+    },
+    {
      "va": "0x004DA620",
      "length": 26,
      "name": "?sub_004DA620_SetMotionFlag10@@YIXPAUD2UnitStrc@@H@Z"
@@ -32132,30 +32136,6 @@
      "length": 44,
      "name": "?PARTICLE_SetOverlayCelName@@YIXPAUD2UnitStrc@@PAUD2CelContextStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004DA350.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004DA350",
-     "length": 596
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
