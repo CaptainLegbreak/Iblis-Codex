@@ -12068,11 +12068,6 @@
      "name": "SKILLS_InitMissileUnit"
     },
     {
-     "va": "0x004CECC0",
-     "length": 91,
-     "name": "SKILLS_DispatchSubMissileSpawn"
-    },
-    {
      "va": "0x004D16C0",
      "length": 352,
      "name": "SKILLS_SpawnOffsetMissile"
@@ -30406,6 +30401,11 @@
     {
      "va": "0x004CEA00",
      "length": 690
+    },
+    {
+     "va": "0x004CECC0",
+     "length": 91,
+     "name": "SKILLS_DispatchSubMissileSpawn"
     },
     {
      "va": "0x004CED20",

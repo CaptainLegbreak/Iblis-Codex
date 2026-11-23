@@ -212,7 +212,7 @@ void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064
 
 void __fastcall MISSILE_SpawnPeriodicMissile(D2UnitStrc* pOwner, D2UnitStrc* pMissile, int nMissile, int nFrame, int nCount); // 0x004CE850
 
-void __fastcall sub_004CECC0(D2UnitStrc* pOwner, D2UnitStrc* pMissile, int nMissile, int nFrame); // 0x004CECC0
+void __fastcall MISSILE_DispatchSubMissileSpawn(D2UnitStrc* pOwner, D2UnitStrc* pMissile, int nMissile, int nFrame); // 0x004CECC0
 
 void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 
@@ -4975,7 +4975,7 @@ void __fastcall MISSILE_CltDoSubMissiles(D2UnitStrc* pMissile)
 
     if (pMissilesTxt->wCltSubMissile[2] > 0 && (unsigned int)(nFrame - 0x74) <= 0xC6)
     {
-        sub_004CECC0(pOwner, pMissile, pMissilesTxt->wCltSubMissile[2], nFrame);
+        MISSILE_DispatchSubMissileSpawn(pOwner, pMissile, pMissilesTxt->wCltSubMissile[2], nFrame);
     }
 
     MISSILE_CltDoCommon(pMissile);
@@ -6296,6 +6296,22 @@ void __fastcall sub_004CEA00_SpawnMissileInRadius(D2UnitStrc* pOwner, D2UnitStrc
             }
             return;
         }
+    }
+}
+
+// 0x004CECC0
+void __fastcall MISSILE_DispatchSubMissileSpawn(D2UnitStrc* pOwner, D2UnitStrc* pMissile, int nMissile, int nFrame)
+{
+    if ((unsigned int)(nFrame - 0xC9) <= 0x17)
+    {
+        sub_004CEA00_SpawnMissileInRadius(pOwner, pMissile, nMissile, 6);
+        sub_004CEA00_SpawnMissileInRadius(pOwner, pMissile, nMissile, 6);
+        return;
+    }
+
+    if (!(nFrame % 4))
+    {
+        sub_004CEA00_SpawnMissileInRadius(pOwner, pMissile, nMissile, 0x14);
     }
 }
 
