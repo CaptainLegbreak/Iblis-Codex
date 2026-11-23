@@ -68595,11 +68595,6 @@
      "va": "0x00640E90",
      "length": 72,
      "name": "DATATBLS_GetObjectsTxtRecord"
-    },
-    {
-     "va": "0x0065FD20",
-     "length": 65,
-     "name": "ITEMMODS_PropertyFunc23"
     }
    ]
   },
@@ -76977,6 +76972,11 @@
      "va": "0x0065FC90",
      "length": 135,
      "name": "?ITEMMODS_PropertyFunc13@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HFHHHH0@Z"
+    },
+    {
+     "va": "0x0065FD20",
+     "length": 65,
+     "name": "ITEMMODS_PropertyFunc23"
     },
     {
      "va": "0x0065FD70",
