@@ -15,17 +15,17 @@ struct D2StormListStrc
 void sub_0051775A_FreeFaultHandlerList(); // 0x0051775A
 
 extern D2StormListStrc gFaultHandlerList_0072FA14; // 0x0072FA14
-extern D2CriticalSectionStrc gErrorHandlerLock_00881818; // 0x00881818
-extern int gbFaultHandlerListInitialized_00881830; // 0x00881830
+extern D2CriticalSectionStrc gtErrorHandlerLock; // 0x00881818
+extern int gbFaultHandlerListInitialized; // 0x00881830
 
 // 0x00517788
 __forceinline void sub_00517788_InitFaultHandlerList()
 {
-    if (!gbFaultHandlerListInitialized_00881830)
+    if (!gbFaultHandlerListInitialized)
     {
-        InitializeCriticalSection(&gErrorHandlerLock_00881818);
+        InitializeCriticalSection(&gtErrorHandlerLock);
         atexit(sub_0051775A_FreeFaultHandlerList);
-        gbFaultHandlerListInitialized_00881830 = 1;
+        gbFaultHandlerListInitialized = 1;
     }
 }
 
@@ -33,8 +33,8 @@ __forceinline void sub_00517788_InitFaultHandlerList()
 void __fastcall sub_005177B2_SetLoadStringFn(void* pfnLoadString)
 {
     sub_00517788_InitFaultHandlerList();
-    EnterCriticalSection(&gErrorHandlerLock_00881818);
+    EnterCriticalSection(&gtErrorHandlerLock);
     char* pNode = gFaultHandlerList_0072FA14.sub_00517669_NewNode(1, 0, 0);
     *(void**)(pNode + 8) = pfnLoadString;
-    LeaveCriticalSection(&gErrorHandlerLock_00881818);
+    LeaveCriticalSection(&gtErrorHandlerLock);
 }

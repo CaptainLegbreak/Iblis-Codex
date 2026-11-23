@@ -313,7 +313,7 @@ extern "C" unsigned long __readfsdword(unsigned long nOffset);
 
 extern "C" __declspec(dllimport) void* __stdcall GetModuleHandleW(const wchar_t* wszModuleName);            // 0x006CC2DC
 
-extern void* gahPsapiModules_00992B20[0x400]; // 0x00992B20
+extern void* gahPsapiModules[0x400]; // 0x00992B20
 
 // build: context sub_00404C60_EnumModulesPsapi
 bool __stdcall sub_00404C60_EnumModulesPsapi(void* pContext)
@@ -331,16 +331,16 @@ bool __stdcall sub_00404C60_EnumModulesPsapi(void* pContext)
     if (pfnEnumProcessModules && pfnGetModuleInformation && pfnGetModuleBaseNameW)
     {
         unsigned long cbNeeded;
-        if (pfnEnumProcessModules(hProcess, gahPsapiModules_00992B20, sizeof(gahPsapiModules_00992B20), &cbNeeded))
+        if (pfnEnumProcessModules(hProcess, gahPsapiModules, sizeof(gahPsapiModules), &cbNeeded))
         {
             const unsigned int nCount = cbNeeded / sizeof(void*);
             for (unsigned int i = 0; i < nCount; ++i)
             {
                 D2PsapiModuleInfoStrc tInfo;
-                if (pfnGetModuleInformation(hProcess, gahPsapiModules_00992B20[i], &tInfo, 0xC))
+                if (pfnGetModuleInformation(hProcess, gahPsapiModules[i], &tInfo, 0xC))
                 {
                     __declspec(align(8)) wchar_t wszName[0x104];
-                    if (!pfnGetModuleBaseNameW(hProcess, gahPsapiModules_00992B20[i], wszName, 0x104))
+                    if (!pfnGetModuleBaseNameW(hProcess, gahPsapiModules[i], wszName, 0x104))
                     {
                         wszName[0] = 0;
                     }

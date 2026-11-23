@@ -91,23 +91,23 @@ void __fastcall sub_0040F070_WriteDumpMessage(D2LogMessageStrc* pMessage);      
 void __cdecl AUTOMAP_CloseStaleLogs();                                                                 // 0x0040F350
 void __cdecl LOGMANAGER_SweepOldLogFiles();                                                               // 0x0040F970
 
-extern int gnLogQueued_0075D140;                                                                            // 0x0075D140
-extern int gnLogQueuedBytes_0075D144;                                                                       // 0x0075D144
-extern D2CriticalSectionStrc gtLogQueueLock_0075E838;                                                       // 0x0075E838
-extern D2CriticalSectionStrc gtLogLock_0075E850;                                                            // 0x0075E850
+extern int gnLogQueued;                                                                            // 0x0075D140
+extern int gnLogQueuedBytes;                                                                       // 0x0075D144
+extern D2CriticalSectionStrc gtLogQueueLock;                                                       // 0x0075E838
+extern D2CriticalSectionStrc gtLogLock;                                                            // 0x0075E850
 extern D2LogMsgListStrc gtLogMsgQueue_0075E868;                                                             // 0x0075E868
 
 static __forceinline D2LogMessageStrc* sub_DequeueMessage()
 {
-    EnterCriticalSection(&gtLogQueueLock_0075E838);
+    EnterCriticalSection(&gtLogQueueLock);
     D2LogMessageStrc* pMessage = gtLogMsgQueue_0075E868.Head();
     if (pMessage)
     {
         ((D2LogMessageStrc*)gtLogMsgQueue_0075E868.m_terminator.m_next)->Unlink();
-        --gnLogQueued_0075D140;
-        gnLogQueuedBytes_0075D144 -= pMessage->nSize;
+        --gnLogQueued;
+        gnLogQueuedBytes -= pMessage->nSize;
     }
-    LeaveCriticalSection(&gtLogQueueLock_0075E838);
+    LeaveCriticalSection(&gtLogQueueLock);
     return pMessage;
 }
 
@@ -119,7 +119,8 @@ next:
     {
         D2LogMessageStrc* pMessage = sub_DequeueMessage();
 
-        if (gbLogThreadStop_0075E830)
+// build: symbol ?gbLogThreadStop@* 0x0075E830
+        if (gbLogThreadStop)
         {
             if (!dwStopTime)
                 dwStopTime = GetTickCount();
@@ -134,7 +135,7 @@ next:
         }
         else
         {
-            EnterCriticalSection(&gtLogLock_0075E850);
+            EnterCriticalSection(&gtLogLock);
             switch (pMessage->nType)
             {
             case 1:
@@ -144,17 +145,17 @@ next:
                 sub_0040F070_WriteDumpMessage(pMessage);
                 break;
             }
-            LeaveCriticalSection(&gtLogLock_0075E850);
+            LeaveCriticalSection(&gtLogLock);
             delete pMessage;
         }
 
-        if (!gbLogThreadStop_0075E830)
+        if (!gbLogThreadStop)
         {
             Sleep(dwSleep);
-            EnterCriticalSection(&gtLogLock_0075E850);
+            EnterCriticalSection(&gtLogLock);
             AUTOMAP_CloseStaleLogs();
             LOGMANAGER_SweepOldLogFiles();
-            LeaveCriticalSection(&gtLogLock_0075E850);
+            LeaveCriticalSection(&gtLogLock);
         }
     }
     goto next;

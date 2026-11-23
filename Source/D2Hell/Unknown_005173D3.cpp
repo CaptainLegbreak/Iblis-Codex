@@ -48,7 +48,7 @@ extern "C" int gB27_007BCBF0;
 extern "C" int gB27_007BF298;
 extern "C" unsigned char gB27_007C025F;
 extern "C" unsigned int gB27_007C0265;
-extern "C" { B27RecordHandler gB27_00881834; } // 0x00881834
+extern "C" { B27RecordHandler gpfnRecordHandler; } // 0x00881834
 extern "C" unsigned int gB27_00883D70;
 
 extern "C" int __cdecl sub_00489840_ModeInGroup()
@@ -114,8 +114,8 @@ extern "C" void __cdecl sub_004B2250_InitializeControls()
 // 0x005173D3
 extern "C" B27RecordHandler __fastcall sub_005173D3_ExchangeRecordHandler(B27RecordHandler handler)
 {
-    B27RecordHandler previous = gB27_00881834;
-    gB27_00881834 = handler;
+    B27RecordHandler previous = gpfnRecordHandler;
+    gpfnRecordHandler = handler;
     return previous;
 }
 

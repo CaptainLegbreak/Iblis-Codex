@@ -1,7 +1,7 @@
 #pragma once
 
 
-extern int gnScreenWidth_007C9138; // 0x007C9138
+extern int gnRenderWidth; // 0x007C9138
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
@@ -19,8 +19,8 @@ extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft,
 extern "C" __declspec(dllimport) void* __stdcall CreateDIBSection(void* hDC, const D2BitmapInfoStrc* pbmi, unsigned int usage, void** ppvBits, void* hSection, unsigned int offset); // 0x006CC0CC
 extern D2GfxBufferFuncsStrc* gpBufferFuncs_007C914C; // 0x007C914C
 extern D2TileDrawFunctionsStrc* gpTileDrawFunctions_007C914C; // 0x007C914C
-extern int gaSelectorValues_0074C5A0[]; // 0x0074C5A0
-extern int gbRenderPaused_007C9144; // 0x007C9144
+extern int gaSelectorValues[]; // 0x0074C5A0
+extern int gbRenderPaused; // 0x007C9144
 extern int gbSurfaceActive_007C9140; // 0x007C9140
 extern int gnBufferHeight_007C913C; // 0x007C913C
 extern int gnBufferWidth_007C9138; // 0x007C9138

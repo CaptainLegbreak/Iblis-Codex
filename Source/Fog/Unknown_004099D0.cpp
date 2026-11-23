@@ -6,7 +6,7 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC214
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                          // 0x006829C0
 
-extern D2PoolDirectoryStrc gtPoolManager_0074F0E8;                                                                  // 0x0074F0E8
+extern D2PoolDirectoryStrc gtPoolManager;                                                                  // 0x0074F0E8
 void* __fastcall sub_0040A080_PoolAlloc(D2PoolSystemStrc* pSystem, int nSize, const char* szFile, int nLine); // 0x0040A080
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837

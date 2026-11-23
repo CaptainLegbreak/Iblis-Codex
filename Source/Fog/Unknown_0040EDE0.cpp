@@ -16,12 +16,12 @@ _iobuf* __fastcall sub_0040EBD0_OpenDatedLogFile(const char* szName, D2SystemTim
 void __fastcall sub_0040ECC0_LogWriteHeader(_iobuf* pFile, const D2SystemTimeStrc* pTime);                 // 0x0040ECC0
 void __fastcall sub_0040ED40_LogWriteStartup(_iobuf* pFile);                                                // 0x0040ED40
 
-char gaszLogNames_0075D148[20][0x10];                                                                       // 0x0075D148
-extern int ganLogNewFile_0075D298[20];                                                                      // 0x0075D298
-unsigned long gadwLogWriteTick_0075D2F0[20];                                                                // 0x0075D2F0
-extern char gaszLogFilePaths_0075D340[20][0x104];                                                           // 0x0075D340
-_iobuf* gapLogFiles_0075E790[20];                                                                           // 0x0075E790
-unsigned long gadwLogOpenTick_0075E7E0[20];                                                                 // 0x0075E7E0
+char gaszLogNames[20][0x10];                                                                       // 0x0075D148
+extern int ganLogNewFile[20];                                                                      // 0x0075D298
+unsigned long gadwLogWriteTick[20];                                                                // 0x0075D2F0
+extern char gaszLogFilePaths[20][0x104];                                                           // 0x0075D340
+_iobuf* gapLogFiles[20];                                                                           // 0x0075E790
+unsigned long gadwLogOpenTick[20];                                                                 // 0x0075E7E0
 
 // 0x0040EDE0
 _iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot)
@@ -37,10 +37,10 @@ _iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot)
     nOldest = 1;
     for (; i < 20; ++i)
     {
-        if (!strcmp(gaszLogNames_0075D148[i], szName))
+        if (!strcmp(gaszLogNames[i], szName))
         {
             nSlot = i;
-            pFile = gapLogFiles_0075E790[i];
+            pFile = gapLogFiles[i];
             if (pFile)
             {
                 goto done;
@@ -48,25 +48,25 @@ _iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot)
             break;
         }
 
-        if (!gaszLogNames_0075D148[i][0])
+        if (!gaszLogNames[i][0])
         {
             if (nEmpty < 0)
             {
                 nEmpty = i;
             }
         }
-        else if (!gapLogFiles_0075E790[i])
+        else if (!gapLogFiles[i])
         {
             if (nFree < 0)
             {
                 nFree = i;
             }
-            else if (dwTick - gadwLogWriteTick_0075D2F0[i] > gadwLogWriteTick_0075D2F0[nFree])
+            else if (dwTick - gadwLogWriteTick[i] > gadwLogWriteTick[nFree])
             {
                 nFree = i;
             }
         }
-        else if (dwTick - gadwLogWriteTick_0075D2F0[i] > dwTick - gadwLogWriteTick_0075D2F0[nOldest])
+        else if (dwTick - gadwLogWriteTick[i] > dwTick - gadwLogWriteTick[nOldest])
         {
             nOldest = i;
         }
@@ -85,10 +85,10 @@ _iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot)
                 nOldest = nFree;
             }
 
-            if (gapLogFiles_0075E790[nOldest])
+            if (gapLogFiles[nOldest])
             {
-                fclose(gapLogFiles_0075E790[nOldest]);
-                gapLogFiles_0075E790[nOldest] = 0;
+                fclose(gapLogFiles[nOldest]);
+                gapLogFiles[nOldest] = 0;
             }
 
             nSlot = nOldest;
@@ -97,18 +97,18 @@ _iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot)
 
     {
         D2_ASSERT(SStrLen(szName) < 16, 0x34C);
-        strcpy(gaszLogNames_0075D148[nSlot], szName);
+        strcpy(gaszLogNames[nSlot], szName);
 
         D2SystemTimeStrc tTime;
         int bNew;
-        _iobuf* pNewFile = sub_0040EBD0_OpenDatedLogFile(szName, &tTime, "a", &bNew, gaszLogFilePaths_0075D340[nSlot], 0x104);
-        gapLogFiles_0075E790[nSlot] = pNewFile;
-        gadwLogOpenTick_0075E7E0[nSlot] = dwTick;
-        gadwLogWriteTick_0075D2F0[nSlot] = dwTick;
-        if (ganLogNewFile_0075D298[nSlot] && pNewFile)
+        _iobuf* pNewFile = sub_0040EBD0_OpenDatedLogFile(szName, &tTime, "a", &bNew, gaszLogFilePaths[nSlot], 0x104);
+        gapLogFiles[nSlot] = pNewFile;
+        gadwLogOpenTick[nSlot] = dwTick;
+        gadwLogWriteTick[nSlot] = dwTick;
+        if (ganLogNewFile[nSlot] && pNewFile)
         {
             sub_0040ED40_LogWriteStartup(pNewFile);
-            ganLogNewFile_0075D298[nSlot] = 0;
+            ganLogNewFile[nSlot] = 0;
         }
         else if (bNew)
         {
@@ -116,7 +116,7 @@ _iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot)
         }
     }
 
-    pFile = gapLogFiles_0075E790[nSlot];
+    pFile = gapLogFiles[nSlot];
 
 done:
     if (pFile && pnSlot)

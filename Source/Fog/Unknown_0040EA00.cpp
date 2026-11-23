@@ -16,7 +16,7 @@ struct T004013C0
     unsigned short wProcessorLevel;
     unsigned short wProcessorRevision;
 };
-T004013C0 gtSystemInfo_0074D8A0;                                                                            // 0x0074D8A0
+T004013C0 gtSystemInfo;                                                                            // 0x0074D8A0
 
 // 0x0040E300
 static void __stdcall sub_0040E300(char* szBuf, int nVendor, int nFamily, unsigned int nModel, int nBrand, int nType)
@@ -201,7 +201,8 @@ void __cdecl sub_0040EA00_WriteProcessorReport()
         int nModel = (dwSignature >> 4) & 0xF;
         int nBrand = sub_0040E980_GetCpuBrand() & 0xFF;
         sub_0040E300(szName, nVendor, nFamily, nModel, nBrand, nType);
-        sub_00410610_WriteLogLine("Vendor:  %s", gaszCpuVendorNames_00708004[nVendor]);
+// build: symbol ?gaszCpuVendorNames@* 0x00708004
+        sub_00410610_WriteLogLine("Vendor:  %s", gaszCpuVendorNames[nVendor]);
         sub_00410610_WriteLogLine("Version: %s (Type %X, Family %X, Model %X, Stepping %X, Brand %X)", szName, nType, nFamily, nModel, dwSignature & 0xF, nBrand);
         sub_00410610_WriteLogLine("Speed: Approx. %d MHz", ERRORMANAGER_MeasureCpuMHz());
         break;

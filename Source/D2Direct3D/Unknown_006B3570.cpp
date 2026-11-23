@@ -25,13 +25,13 @@ struct D2GammaControlStrc { D2GammaControlVTableStrc* pVTable; };
 extern const unsigned int gnGammaMask_006CE278; // 0x006CE278
 extern unsigned int gnCapabilities_0096F3A8; // 0x0096F3A8
 extern int gnGammaScale_0074C020; // 0x0074C020
-extern D2GammaControlStrc* gpGammaControl_00970E74; // 0x00970E74
+extern D2GammaControlStrc* gpGammaControl; // 0x00970E74
 void __fastcall sub_006BE190_BuildGammaTable(int nGamma, void* pTable, double dScale, int nStride, int nEntries, int nMask); // 0x006BE190
 void __fastcall sub_006B20E0_DDrawLogError(const char* szMessage, int nResult); // 0x006B20E0
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nBytes);
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-extern int gnScreenHeight_007C913C; // 0x007C913C
+extern int gnRenderHeight; // 0x007C913C
 extern D2DDSurfaceStrc* gpSurface_00970E6C; // 0x00970E6C
 
 struct D2DDPixelFormat006B3730Strc
@@ -68,9 +68,9 @@ struct D2ComObject006B3730Strc
     D2ComObjectVtbl006B3730Strc* lpVtbl;
 };
 
-extern D2ComObject006B3730Strc* gpDirectDraw_00970E60; // 0x00970E60
+extern D2ComObject006B3730Strc* gpDirectDraw4; // 0x00970E60
 extern D2DDPixelFormat006B3730Strc gtWantedFormat_0074C024; // 0x0074C024
-extern const unsigned char gIidTexture_006FF478[16]; // 0x006FF478
+extern const unsigned char gabIidTexture[16]; // 0x006FF478
 
 struct D2SurfaceVtableStrc
 {
@@ -103,7 +103,7 @@ struct D2VideoKeyStrc { unsigned int words[5]; unsigned short tail; };
 
 #pragma pack(pop)
 
-extern const D2VideoKeyStrc gVideoKey_006DD634; // 0x006DD634
+extern const D2VideoKeyStrc gtVideoKey; // 0x006DD634
 
 
 
@@ -123,7 +123,7 @@ void __cdecl sub_006B3800_Flush()
         sub_006B20E0_DDrawLogError("Failed to lock render surface for clear", nResult);
         return;
     }
-    int nHeight = gnScreenHeight_007C913C;
+    int nHeight = gnRenderHeight;
     int nPitch = desc.lPitch;
     char* pPixels = (char*)desc.lpSurface;
     while (nHeight)
@@ -200,44 +200,45 @@ void __fastcall sub_006B39B0_ShowD3DError(const char* text,long result)
     sub_00410610_WriteLogLine("***** Direct3D error: %s - %s (0x%x)",text,name,result);
 }
 
-int gbConfigured_00970EB8; // 0x00970EB8
+int gbConfigured; // 0x00970EB8
 
-int gbSeen_00970EBC; // 0x00970EBC
+int gbSeen; // 0x00970EBC
 
-char gszDevice_0096F3BC[264]; // 0x0096F3BC
+char gszDeviceName[264]; // 0x0096F3BC
 
-unsigned long gnFlags_0096F3A8; // 0x0096F3A8
+unsigned long gdwRenderFlags; // 0x0096F3A8
 
-unsigned int gGuid_0096F3AC[4]; // 0x0096F3AC
+unsigned int gtDeviceGuid[4]; // 0x0096F3AC
 
 // 0x006B4E80
 int __fastcall sub_006B4E80_LoadVideoConfiguration(void* window) {
 // build: symbol ?FOG_GetSystemInfo@* 0x00407360
     T004013C0* info=FOG_GetSystemInfo();
-    if (!info) { sub_00408A60(gszEmpty_006CC837,sub_00408090(),1032); exit(-1); }
+// build: symbol ?gszEmptyString@* 0x006CC837
+    if (!info) { sub_00408A60(gszEmptyString,sub_00408090(),1032); exit(-1); }
     if (info->mode==1) return 0;
-    D2VideoKeyStrc key=gVideoKey_006DD634;
-    if (gbSeen_00970EBC && !gbConfigured_00970EB8) {
+    D2VideoKeyStrc key=gtVideoKey;
+    if (gbSeen && !gbConfigured) {
         sub_006B4C90_ShowVideoConfiguration(window);
-        gbConfigured_00970EB8=1;
+        gbConfigured=1;
     }
-    gbSeen_00970EBC=1;
+    gbSeen=1;
     for (;;) {
-        if (!SRegLoadString((const char*)&key,"DeviceName",0,gszDevice_0096F3BC,256)) {
-            if (gbConfigured_00970EB8) return 0;
+        if (!SRegLoadString((const char*)&key,"DeviceName",0,gszDeviceName,256)) {
+            if (gbConfigured) return 0;
             int result=sub_006B4C90_ShowVideoConfiguration(window);
-            gbConfigured_00970EB8=1;
+            gbConfigured=1;
             if (result!=2) return 0;
-        } else if (!SRegLoadValue((const char*)&key,"dwFlags",0,&gnFlags_0096F3A8)) {
-            if (gbConfigured_00970EB8) return 0;
+        } else if (!SRegLoadValue((const char*)&key,"dwFlags",0,&gdwRenderFlags)) {
+            if (gbConfigured) return 0;
             int result=sub_006B4C90_ShowVideoConfiguration(window);
-            gbConfigured_00970EB8=1;
+            gbConfigured=1;
             if (result!=2) return 0;
         } else break;
     }
-    if (!(gnFlags_0096F3A8 & gdwBitMasks_006CE268[0])) {
+    if (!(gdwRenderFlags & gdwBitMasks_006CE268[0])) {
         unsigned int length=16;
-        if (!SRegLoadData((const char*)&key,"GUID",0,gGuid_0096F3AC,16,&length) || length!=16) return 0;
+        if (!SRegLoadData((const char*)&key,"GUID",0,gtDeviceGuid,16,&length) || length!=16) return 0;
     }
     return 1;
 }

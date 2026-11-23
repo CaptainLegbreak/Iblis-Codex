@@ -124,9 +124,9 @@ struct D2CelDataHashStrc
     T00604AE0* pBuckets[0x200];
 };
 
-long gnTileLockRefCount_008F03E4; // 0x008F03E4
+long gnTileLockRefCount; // 0x008F03E4
 
-char gTileLock_008F03CC[0x18]; // 0x008F03CC
+char gtCodecLock[0x18]; // 0x008F03CC
 
 // 0x0060AB80
 unsigned int __fastcall GfxHashGetDirectionKey(D2CmpGfxKeyStrc* pKey, unsigned int* pDivisor, D2CmpGfxCelStrc* pCel)
@@ -299,15 +299,15 @@ T00604AE0* __fastcall CelDataHashFind(D2CelDataHashStrc* pHash, const char* szNa
 // 0x0060CD30
 void __cdecl CodecInitLock()
 {
-    if (InterlockedIncrement(&gnTileLockRefCount_008F03E4) == 1)
-        InitializeCriticalSection(gTileLock_008F03CC);
+    if (InterlockedIncrement(&gnTileLockRefCount) == 1)
+        InitializeCriticalSection(gtCodecLock);
 }
 
 // 0x0060CD50
 void __cdecl CodecReleaseLock()
 {
-    if (InterlockedDecrement(&gnTileLockRefCount_008F03E4) == 0)
-        DeleteCriticalSection(gTileLock_008F03CC);
+    if (InterlockedDecrement(&gnTileLockRefCount) == 0)
+        DeleteCriticalSection(gtCodecLock);
 }
 
 // 0x0060A9D0

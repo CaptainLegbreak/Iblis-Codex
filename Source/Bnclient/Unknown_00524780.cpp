@@ -11,7 +11,7 @@ struct D2IdeaKeyScheduleStrc
 void __fastcall sub_00524360_ExpandKey(const D2IdeaUserKeyStrc* pUserKey, D2IdeaKeyScheduleStrc* pSchedule); // 0x00524360
 void __fastcall sub_005243E0_InvertKey(const unsigned short* pEK, unsigned short* pDK);                    // 0x005243E0
 
-D2IdeaKeyScheduleStrc gaIdeaKeySchedules_00882878[3];                                                      // 0x00882878
+D2IdeaKeyScheduleStrc gaIdeaKeySchedules[3];                                                      // 0x00882878
 
 // 0x00524780
 void __fastcall sub_00524780_SetKey(int nIndex, int bEncrypt, const D2IdeaUserKeyStrc* pUserKey)
@@ -19,12 +19,12 @@ void __fastcall sub_00524780_SetKey(int nIndex, int bEncrypt, const D2IdeaUserKe
     D2IdeaUserKeyStrc tUserKey = *pUserKey;
     if (bEncrypt)
     {
-        sub_00524360_ExpandKey(&tUserKey, &gaIdeaKeySchedules_00882878[nIndex]);
+        sub_00524360_ExpandKey(&tUserKey, &gaIdeaKeySchedules[nIndex]);
     }
     else
     {
         D2IdeaKeyScheduleStrc tTemp;
         sub_00524360_ExpandKey(&tUserKey, &tTemp);
-        sub_005243E0_InvertKey(tTemp.aKey, gaIdeaKeySchedules_00882878[nIndex].aKey);
+        sub_005243E0_InvertKey(tTemp.aKey, gaIdeaKeySchedules[nIndex].aKey);
     }
 }

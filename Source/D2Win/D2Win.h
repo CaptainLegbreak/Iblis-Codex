@@ -21,11 +21,11 @@ extern "C" __declspec(dllimport) long __stdcall DispatchMessageA(const tagMSG* p
 extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey); // 0x006CC45C
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount); // 0x00687330
-extern "C" const char gszCharsDir_006DCC34[]; // 0x006DCC34
-extern "C" const char gszCofPathFormat_006D6C94[]; // 0x006D6C94
+extern "C" const char gszCharsDir[]; // 0x006DCC34
+extern "C" const char gszCofPathFormat[]; // 0x006D6C94
 extern "C" const char gszD2CompSourceFile[]; // 0x006DCC20
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char gszMonstersDir_006D6CAC[]; // 0x006D6CAC
+extern "C" const char gszMonstersDir[]; // 0x006D6CAC
 extern "C" const char gszDataGlobal[]; // 0x006D4118
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" int __cdecl isspace(int c); // 0x00687006
@@ -35,32 +35,32 @@ extern "C" unsigned int __security_cookie; // 0x00749DE0
 extern "C" void __fastcall __security_check_cookie(unsigned int nCookie); // 0x00681A48
 extern D2ArchiveHandleStrc* gpD2XVideoMPQ; // 0x007D562C
 extern D2GraphicsInterfaceStrc* gpGraphicsInterface; // 0x007C8CC0
-extern int dword_6F8BDE18; // 0x0072DC3C
-extern int dword_6F8BDF78; // 0x0072DDD4
-extern int gbRenderPaused_007C9144; // 0x007C9144
-extern int gnCurrentFont_0072DFFC; // 0x0072DFFC
-extern int gnDDrawGammaScale_0072F7C8; // 0x0072F7C8
-extern int gnDDrawGamma_0072F7CC; // 0x0072F7CC
+extern int gbDrawCursor; // 0x0072DC3C
+extern int gbRunMessageLoop; // 0x0072DDD4
+extern int gbRenderPaused; // 0x007C9144
+extern int gnCurrentFont; // 0x0072DFFC
+extern int gnDDrawGammaScale; // 0x0072F7C8
+extern int gnDDrawGamma; // 0x0072F7CC
 extern int gnResolutionMode_007C8CC4; // 0x007C8CC4
-extern int gnRowOffsets_007C97A8[732]; // 0x007C97A8
-extern int gnScreenWidth_007C9138; // 0x007C9138
-extern int gnSubtileRowSrcOffset_0072DBC0[]; // 0x0072DBC0
-extern int gnSubtileRowWidth_0072DB84[]; // 0x0072DB84
-extern int gnSubtileRowXOffset_0072DB48[]; // 0x0072DB48
-extern int gnTextBoxLineGap_0072DE90; // 0x0072DE90
+extern int ganRowOffsets[732]; // 0x007C97A8
+extern int gnRenderWidth; // 0x007C9138
+extern int ganSubtileRowSrcOffset[]; // 0x0072DBC0
+extern int ganSubtileRowWidth[]; // 0x0072DB84
+extern int ganSubtileRowXOffset[]; // 0x0072DB48
+extern int gnTextBoxLineGap; // 0x0072DE90
 extern int gnWinCallbackDepth_007D55C4; // 0x007D55C4
-extern unsigned char gaDirectionIndex_006DCA60[][64]; // 0x006DCA60
+extern unsigned char gaDirectionIndex[][64]; // 0x006DCA60
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
-extern unsigned int gdwComponentTokens_0072E108[]; // 0x0072E108
+extern unsigned int gadwComponentTokens[]; // 0x0072E108
 extern unsigned int gdwInvBitMasks[]; // 0x006CE2E8
-extern unsigned int gdwModeTokens_0072E0B8[]; // 0x0072E0B8
-extern unsigned int gdwUnitTokens_0072E050[]; // 0x0072E050
-extern unsigned int gdwWClassTokens_0072E15C[]; // 0x0072E15C
-extern unsigned int gnModeTokens_0072E0B4; // 0x0072E0B4
-extern unsigned int gnUnitTokens_0072E04C; // 0x0072E04C
-extern unsigned int gnWClassTokens_0072E198; // 0x0072E198
-extern void (__stdcall* gpfGlideTexDownloadMipMap_0087EAB8)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EAB8
-extern void (__stdcall* gpfGlideTexSource_0087EB98)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EB98
+extern unsigned int gadwModeTokens[]; // 0x0072E0B8
+extern unsigned int gadwUnitTokens[]; // 0x0072E050
+extern unsigned int gadwWClassTokens[]; // 0x0072E15C
+extern unsigned int gnModeTokens; // 0x0072E0B4
+extern unsigned int gnUnitTokens; // 0x0072E04C
+extern unsigned int gnWClassTokens; // 0x0072E198
+extern void (__stdcall* gpfnGrTexDownloadMipMap)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EAB8
+extern void (__stdcall* gpfnGrTexSource)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EB98
 int __cdecl sub_00406D20(); // 0x00406D20
 int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl CONTROL_GetFocusedEditBox(); // 0x004F9200

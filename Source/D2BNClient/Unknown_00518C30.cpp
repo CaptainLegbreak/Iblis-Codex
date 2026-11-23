@@ -5,7 +5,7 @@ struct D2BnLogStrc;
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC218
-extern D2CriticalSectionStrc gBnLogLock_00881860; // 0x00881860
+extern D2CriticalSectionStrc gtBnLogLock; // 0x00881860
 
 struct D2BnLogStrc
 {
@@ -39,7 +39,7 @@ static D2BnLogStrc& sub_00518C30_GetLog()
 int __cdecl BNDOWNLOAD_ConfigureLog(int nMode, int nValue)
 {
     int nResult = 0;
-    EnterCriticalSection(&gBnLogLock_00881860);
+    EnterCriticalSection(&gtBnLogLock);
     if (nMode == 1)
     {
         SLogClose(sub_00518C30_GetLog().hLog);
@@ -50,7 +50,7 @@ int __cdecl BNDOWNLOAD_ConfigureLog(int nMode, int nValue)
     {
         sub_00420120_LogAdjust(sub_00518C30_GetLog().hLog, nValue);
     }
-    LeaveCriticalSection(&gBnLogLock_00881860);
+    LeaveCriticalSection(&gtBnLogLock);
     return nResult;
 }
 

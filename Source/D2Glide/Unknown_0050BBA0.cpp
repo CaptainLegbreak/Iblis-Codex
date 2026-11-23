@@ -6,25 +6,25 @@ struct D2GfxLightStrc;
 struct D2GlideVtxStrc;
 
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const char* szFormat, char* args); // 0x006CC4AC
-extern void (__stdcall* gpfGlideTexSource_0087EB98)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EB98
-extern void (__stdcall* gpfGlideDrawVertexArrayContiguous_0087EAC4)(int nMode, int nCount, void* pVertices, int nStride); // 0x0087EAC4
-extern D2GlideSpriteVertexStrc gaGlideDebugFontVertices_00880258[4]; // 0x00880258
-extern int gaGlideDebugFontTexAddr_008800D8[96]; // 0x008800D8
-extern D2GrTexInfoStrc gGlideDebugFontTexInfo_0072F2B4; // 0x0072F2B4
+extern void (__stdcall* gpfnGrTexSource)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EB98
+extern void (__stdcall* gpfnGrDrawVertexArrayContiguous)(int nMode, int nCount, void* pVertices, int nStride); // 0x0087EAC4
+extern D2GlideSpriteVertexStrc gaGlideDebugFontVertices[4]; // 0x00880258
+extern int gaGlideDebugFontTexAddr[96]; // 0x008800D8
+extern D2GrTexInfoStrc gtGlideDebugFontTexInfo; // 0x0072F2B4
 void __fastcall GLIDE_SetColorCombineMode(int nState); // 0x005094B0
 void __fastcall GLIDE_SetAlphaBlendMode(int nMode); // 0x00509500
 void __fastcall GLIDE_SetTextureFilterMode(int nMode); // 0x005095D0
 void __fastcall GLIDE_SetTextureCombineMode(int nTmu); // 0x00509460
-extern void (__stdcall* gpfGlideColorCombine_0087EB2C)(int nFunction, int nFactor, int nLocal, int nOther, int bInvert); // 0x0087EB2C
-extern void (__stdcall* gpfGlideMask_0087EB8C)(int bEnable); // 0x0087EB8C
-extern void (__stdcall* gpfGlideConstantColor_0087EFA0)(unsigned int dwColor); // 0x0087EFA0
-extern D2GlideDebugCellStrc** gppGlideDebugBuffer_00880454; // 0x00880454
+extern void (__stdcall* gpfnGrColorCombine)(int nFunction, int nFactor, int nLocal, int nOther, int bInvert); // 0x0087EB2C
+extern void (__stdcall* gpfnGrChromakeyMode)(int bEnable); // 0x0087EB8C
+extern void (__stdcall* gpfnGrConstantColorValue)(unsigned int dwColor); // 0x0087EFA0
+extern D2GlideDebugCellStrc** gppGlideDebugBuffer; // 0x00880454
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-extern int gnScreenWidth_007C9138; // 0x007C9138
-extern D2GlideSpriteVertexStrc gaGlideTileGrid_00880458[15]; // 0x00880458
-extern D2GlideSpriteVertexStrc gaGlideTileQuad_00880600[4]; // 0x00880600
-extern void (__stdcall* gpfGlideDrawVertexArray_0087EB18)(int nMode, int nCount, void** ppVertices); // 0x0087EB18
+extern int gnRenderWidth; // 0x007C9138
+extern D2GlideSpriteVertexStrc gaGlideTileGrid[15]; // 0x00880458
+extern D2GlideSpriteVertexStrc gaGlideTileQuad[4]; // 0x00880600
+extern void (__stdcall* gpfnGrDrawVertexArray)(int nMode, int nCount, void** ppVertices); // 0x0087EB18
 void __fastcall GLIDE_SetVertexColor(D2GlideSpriteVertexStrc* pVertex, unsigned int dwColor); // 0x0050DC30
 int __cdecl GLIDE_IsPerspective(); // 0x0050DD30
 void __fastcall GLIDE_PerspectiveTransform(int nX, int nY, int nZ, int* pScreenX, int* pScreenY); // 0x0050DD60
@@ -32,11 +32,11 @@ void __fastcall GLIDE_PerspectiveTransform(int nX, int nY, int nZ, int* pScreenX
 struct D2GlideVtxStrc { float x; float y; float z; float oow; float sow; float tow; unsigned int color; };
 
 extern D2GlideVtxStrc gaGlideVertices_00880678[36]; // 0x00880678
-extern D2GlideVtxStrc* gaGlideStrips_00880A68[60]; // 0x00880A68
+extern D2GlideVtxStrc* gapGlideTileStrips[60]; // 0x00880A68
 
-int gaGlideDebugFontCharWidths_008802C8[96]; // 0x008802C8
+int gaGlideDebugFontCharWidths[96]; // 0x008802C8
 
-int gnGlideDebugFontTmu_00880450; // 0x00880450
+int gnGlideDebugFontTmu; // 0x00880450
 
 // 0x0050BBA0
 static int __stdcall sub_0050BBA0_GlideDebugDrawChar(char ch, int nX, int nY)
@@ -45,28 +45,28 @@ static int __stdcall sub_0050BBA0_GlideDebugDrawChar(char ch, int nX, int nY)
         return 0;
 
     if (nX < 0)
-        return gaGlideDebugFontCharWidths_008802C8[ch];
+        return gaGlideDebugFontCharWidths[ch];
 
     if ((unsigned char)(ch - 0x20) <= 0x5F)
     {
         const int nRight = nX + 8;
         const int nBottom = nY + 16;
-        gaGlideDebugFontVertices_00880258[0].x = (float)nX;
-        gaGlideDebugFontVertices_00880258[0].y = (float)nY;
-        gaGlideDebugFontVertices_00880258[1].x = (float)nX;
-        gaGlideDebugFontVertices_00880258[1].y = (float)nBottom;
-        gaGlideDebugFontVertices_00880258[2].x = (float)nRight;
-        gaGlideDebugFontVertices_00880258[2].y = (float)nBottom;
-        gaGlideDebugFontVertices_00880258[3].x = (float)nRight;
-        gaGlideDebugFontVertices_00880258[3].y = (float)nY;
+        gaGlideDebugFontVertices[0].x = (float)nX;
+        gaGlideDebugFontVertices[0].y = (float)nY;
+        gaGlideDebugFontVertices[1].x = (float)nX;
+        gaGlideDebugFontVertices[1].y = (float)nBottom;
+        gaGlideDebugFontVertices[2].x = (float)nRight;
+        gaGlideDebugFontVertices[2].y = (float)nBottom;
+        gaGlideDebugFontVertices[3].x = (float)nRight;
+        gaGlideDebugFontVertices[3].y = (float)nY;
 
         ch -= 0x20;
-        gpfGlideTexSource_0087EB98(gnGlideDebugFontTmu_00880450, gaGlideDebugFontTexAddr_008800D8[ch], 3, &gGlideDebugFontTexInfo_0072F2B4);
-        gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, gaGlideDebugFontVertices_00880258, sizeof(D2GlideSpriteVertexStrc));
-        return gaGlideDebugFontCharWidths_008802C8[ch];
+        gpfnGrTexSource(gnGlideDebugFontTmu, gaGlideDebugFontTexAddr[ch], 3, &gtGlideDebugFontTexInfo);
+        gpfnGrDrawVertexArrayContiguous(5, 4, gaGlideDebugFontVertices, sizeof(D2GlideSpriteVertexStrc));
+        return gaGlideDebugFontCharWidths[ch];
     }
 
-    return gaGlideDebugFontCharWidths_008802C8[0];
+    return gaGlideDebugFontCharWidths[0];
 }
 
 // 0x0050BC90
@@ -79,7 +79,7 @@ void __fastcall sub_0050BC90_GlideDebugPrintf(int nX, int nY, const char* szForm
     GLIDE_SetColorCombineMode(1);
     GLIDE_SetAlphaBlendMode(1);
     GLIDE_SetTextureFilterMode(1);
-    GLIDE_SetTextureCombineMode(gnGlideDebugFontTmu_00880450);
+    GLIDE_SetTextureCombineMode(gnGlideDebugFontTmu);
 
     for (int i = 0; i < nLength; ++i)
     {
@@ -95,34 +95,39 @@ void __fastcall sub_0050BC90_GlideDebugPrintf(int nX, int nY, const char* szForm
 // 0x0050BD30
 static void sub_0050BD30_GlideDrawPointCross(unsigned int dwColor, int nX, int nY)
 {
-    gpfGlideConstantColor_0087EFA0(dwColor);
+    gpfnGrConstantColorValue(dwColor);
     for (int i = 0; i < 8; ++i)
     {
         D2GlideSpriteVertexStrc tVertex;
-        tVertex.x = (float)(gaGlideCrossOffsetX_0072F2C8[i] + nX);
-        tVertex.y = (float)(gaGlideCrossOffsetY_0072F2E8[i] + nY);
-        gpfGlideDrawPoint_0087EAA0(&tVertex);
+// build: symbol ?gaGlideCrossOffsetX@* 0x0072F2C8
+        tVertex.x = (float)(gaGlideCrossOffsetX[i] + nX);
+// build: symbol ?gaGlideCrossOffsetY@* 0x0072F2E8
+        tVertex.y = (float)(gaGlideCrossOffsetY[i] + nY);
+// build: symbol ?gpfnGrDrawPoint@* 0x0087EAA0
+        gpfnGrDrawPoint(&tVertex);
     }
 }
 
 void sub_0050BD80_GlideDebugDrawLights()
 {
-    gpfGlideColorCombine_0087EB2C(1, 0, 1, 2, 0);
-    gpfGlideMask_0087EB8C(0);
+    gpfnGrColorCombine(1, 0, 1, 2, 0);
+    gpfnGrChromakeyMode(0);
     for (int j = 0; j < 32; ++j)
     {
         for (int i = 0; i < 32; ++i)
-            sub_0050BD30_GlideDrawPointCross(gaGlideLightPalette_0072F308[gaGlideDebugLight_0087F0D0[j * 32 + i]], (0x113 - j + i) * 2, (j + i + 50) * 2);
+// build: symbol ?gaGlideLightPalette@* 0x0072F308
+// build: symbol ?gaGlideDebugLight@* 0x0087F0D0
+            sub_0050BD30_GlideDrawPointCross(gaGlideLightPalette[gaGlideDebugLight[j * 32 + i]], (0x113 - j + i) * 2, (j + i + 50) * 2);
     }
-    gpfGlideColorCombine_0087EB2C(3, 1, 0, 1, 0);
-    gpfGlideMask_0087EB8C(1);
+    gpfnGrColorCombine(3, 1, 0, 1, 0);
+    gpfnGrChromakeyMode(1);
 }
 
 // 0x0050BE20
 void __cdecl sub_0050BE20_GlideDebugRefresh()
 {
-    gpfGlideColorCombine_0087EB2C(1, 0, 1, 2, 0);
-    gpfGlideMask_0087EB8C(0);
+    gpfnGrColorCombine(1, 0, 1, 2, 0);
+    gpfnGrChromakeyMode(0);
     for (int j = 0; j < 48; ++j)
     {
         for (int i = 0; i < 48; ++i)
@@ -138,15 +143,15 @@ void __cdecl sub_0050BE20_GlideDebugRefresh()
             }
             else
             {
-                const D2GlideDebugCellStrc* pCell = &gppGlideDebugBuffer_00880454[j][i];
+                const D2GlideDebugCellStrc* pCell = &gppGlideDebugBuffer[j][i];
                 const unsigned int nAlpha = pCell->nAlpha;
                 dwColor = ((pCell->nRed * nAlpha / 256 * 256 + pCell->nGreen * nAlpha / 256) * 256 + pCell->nBlue * nAlpha / 256) * 256;
                 sub_0050BD30_GlideDrawPointCross(dwColor, nX, nY);
             }
         }
     }
-    gpfGlideColorCombine_0087EB2C(3, 1, 0, 1, 0);
-    gpfGlideMask_0087EB8C(1);
+    gpfnGrColorCombine(3, 1, 0, 1, 0);
+    gpfnGrChromakeyMode(1);
 }
 
 // 0x0050C690
@@ -155,9 +160,10 @@ static void __stdcall sub_0050C690_GlideGetDrawRect(int bPerspective, tagRECT* p
     D2_ASSERT(pRect, 0x54);
 
     pRect->left = 0;
-    pRect->right = gnScreenWidth_007C9138;
+    pRect->right = gnRenderWidth;
     pRect->top = 0;
-    pRect->bottom = gnScreenHeight_007C913C - 0x2F;
+// build: symbol ?gnRenderHeight@* 0x007C913C
+    pRect->bottom = gnRenderHeight - 0x2F;
 
     if (!bPerspective)
     {
@@ -165,18 +171,18 @@ static void __stdcall sub_0050C690_GlideGetDrawRect(int bPerspective, tagRECT* p
         pRect->bottom += 0x20;
         if (nScreenPanels == 1)
         {
-            pRect->right += -(gnScreenWidth_007C9138 / 2);
+            pRect->right += -(gnRenderWidth / 2);
         }
         else if (nScreenPanels == 2)
         {
-            pRect->left = gnScreenWidth_007C9138 / 2 - 0x20;
+            pRect->left = gnRenderWidth / 2 - 0x20;
         }
     }
     else
     {
         D2_ASSERT(pOffset, 0x68);
 
-        const int nQuarter = gnScreenWidth_007C9138 / 4;
+        const int nQuarter = gnRenderWidth / 4;
         if (nScreenPanels == 1)
         {
             *pOffset = -nQuarter;
@@ -216,22 +222,22 @@ int __fastcall sub_0050CA00_GlideShadowTileDrawPerspective(D2TileLibraryEntryStr
         int nScreenY;
 
         GLIDE_PerspectiveTransform(nX0, nY0, 0, &nScreenX, &nScreenY);
-        gaGlideTileGrid_00880458[0].x = (float)nScreenX;
-        gaGlideTileGrid_00880458[0].y = (float)nScreenY;
+        gaGlideTileGrid[0].x = (float)nScreenX;
+        gaGlideTileGrid[0].y = (float)nScreenY;
         GLIDE_PerspectiveTransform(nPosX + nWorldX + 0x20000, nPosY + nWorldY + 0x20000, 0, &nScreenX, &nScreenY);
-        gaGlideTileGrid_00880458[12].x = (float)nScreenX;
-        gaGlideTileGrid_00880458[12].y = (float)nScreenY;
+        gaGlideTileGrid[12].x = (float)nScreenX;
+        gaGlideTileGrid[12].y = (float)nScreenY;
         GLIDE_PerspectiveTransform(nPosX + nWorldX + 0x30000, nPosY + nWorldY + 0x10000, 0, &nScreenX, &nScreenY);
-        gaGlideTileGrid_00880458[14].x = (float)nScreenX;
-        gaGlideTileGrid_00880458[14].y = (float)nScreenY;
+        gaGlideTileGrid[14].x = (float)nScreenX;
+        gaGlideTileGrid[14].y = (float)nScreenY;
         GLIDE_PerspectiveTransform(nPosX + nWorldX + 0x10000, nPosY + nWorldY - 0x10000, 0, &nScreenX, &nScreenY);
-        gaGlideTileGrid_00880458[2].x = (float)nScreenX;
-        gaGlideTileGrid_00880458[2].y = (float)nScreenY;
+        gaGlideTileGrid[2].x = (float)nScreenX;
+        gaGlideTileGrid[2].y = (float)nScreenY;
 
-        if (GLIDE_VERTEX_IN_RECT(gaGlideTileGrid_00880458[0], tRect)
-            || GLIDE_VERTEX_IN_RECT(gaGlideTileGrid_00880458[12], tRect)
-            || GLIDE_VERTEX_IN_RECT(gaGlideTileGrid_00880458[14], tRect)
-            || GLIDE_VERTEX_IN_RECT(gaGlideTileGrid_00880458[2], tRect))
+        if (GLIDE_VERTEX_IN_RECT(gaGlideTileGrid[0], tRect)
+            || GLIDE_VERTEX_IN_RECT(gaGlideTileGrid[12], tRect)
+            || GLIDE_VERTEX_IN_RECT(gaGlideTileGrid[14], tRect)
+            || GLIDE_VERTEX_IN_RECT(gaGlideTileGrid[2], tRect))
         {
             sub_0050FBD0_GlideBindTileTexture(&pTile->pBlocks[i]);
 
@@ -242,7 +248,7 @@ int __fastcall sub_0050CA00_GlideShadowTileDrawPerspective(D2TileLibraryEntryStr
             {
                 for (int nGridCol = 0; nGridCol < 3; ++nGridCol)
                 {
-                    D2GlideSpriteVertexStrc* pVertex = &gaGlideTileGrid_00880458[nGridRow * 3 + nGridCol];
+                    D2GlideSpriteVertexStrc* pVertex = &gaGlideTileGrid[nGridRow * 3 + nGridCol];
                     GLIDE_PerspectiveTransform(nRowX + nGridCol * 0x8000, nRowY - nGridCol * 0x8000, 0, &nScreenX, &nScreenY);
                     pVertex->y = (float)nScreenY;
                     pVertex->x = (float)nScreenX + fOffset;
@@ -253,8 +259,10 @@ int __fastcall sub_0050CA00_GlideShadowTileDrawPerspective(D2TileLibraryEntryStr
                 nRowY += 0x8000;
             }
 
-            gpfGlideDrawVertexArray_0087EB18(4, 10, gapGlideTileStripA_0072F350);
-            gpfGlideDrawVertexArray_0087EB18(4, 10, gapGlideTileStripB_0072F378);
+// build: symbol ?gapGlideTileStripA@* 0x0072F350
+            gpfnGrDrawVertexArray(4, 10, gapGlideTileStripA);
+// build: symbol ?gapGlideTileStripB@* 0x0072F378
+            gpfnGrDrawVertexArray(4, 10, gapGlideTileStripB);
             nResult = 1;
         }
     }
@@ -288,19 +296,19 @@ static int __stdcall sub_0050CDD0_GlideTileDrawFlat(D2TileLibraryEntryStrc* pTil
             const float fY1 = (float)nY1;
             const float fY0 = (float)nY;
             const float fX1 = (float)nX1;
-            gaGlideTileQuad_00880600[0].x = fX0;
-            gaGlideTileQuad_00880600[0].y = fY1;
-            gaGlideTileQuad_00880600[1].x = fX0;
-            gaGlideTileQuad_00880600[1].y = fY0;
-            gaGlideTileQuad_00880600[2].x = fX1;
-            gaGlideTileQuad_00880600[2].y = fY0;
-            gaGlideTileQuad_00880600[3].x = fX1;
-            gaGlideTileQuad_00880600[3].y = fY1;
-            GLIDE_SetVertexColor(&gaGlideTileQuad_00880600[0], dwColor0);
-            GLIDE_SetVertexColor(&gaGlideTileQuad_00880600[1], dwColor0);
-            GLIDE_SetVertexColor(&gaGlideTileQuad_00880600[2], dwColor1);
-            GLIDE_SetVertexColor(&gaGlideTileQuad_00880600[3], dwColor1);
-            gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, gaGlideTileQuad_00880600, sizeof(D2GlideSpriteVertexStrc));
+            gaGlideTileQuad[0].x = fX0;
+            gaGlideTileQuad[0].y = fY1;
+            gaGlideTileQuad[1].x = fX0;
+            gaGlideTileQuad[1].y = fY0;
+            gaGlideTileQuad[2].x = fX1;
+            gaGlideTileQuad[2].y = fY0;
+            gaGlideTileQuad[3].x = fX1;
+            gaGlideTileQuad[3].y = fY1;
+            GLIDE_SetVertexColor(&gaGlideTileQuad[0], dwColor0);
+            GLIDE_SetVertexColor(&gaGlideTileQuad[1], dwColor0);
+            GLIDE_SetVertexColor(&gaGlideTileQuad[2], dwColor1);
+            GLIDE_SetVertexColor(&gaGlideTileQuad[3], dwColor1);
+            gpfnGrDrawVertexArrayContiguous(5, 4, gaGlideTileQuad, sizeof(D2GlideSpriteVertexStrc));
         }
     }
 
@@ -326,8 +334,9 @@ static int __stdcall sub_0050CF70_GlideTileDrawPerspective(D2TileLibraryEntryStr
         const int nHeight = pBlock->nPosY;
         D2_ASSERT(nCol >= 0 && nCol <= 4, 0x1BC);
 
-        const int* pCorner0 = gaGlideWallCorner_0072F3A0[nType][nCol];
-        const int* pCorner1 = gaGlideWallCorner_0072F3A0[nType][nCol + 1];
+// build: symbol ?gaGlideWallCorner@* 0x0072F3A0
+        const int* pCorner0 = gaGlideWallCorner[nType][nCol];
+        const int* pCorner1 = gaGlideWallCorner[nType][nCol + 1];
         const int nX0 = pCorner0[0] + nPosX;
         const int nZ0 = pCorner0[2] - nHeight;
         const int nY0 = pCorner0[1] + nPosY;
@@ -338,22 +347,22 @@ static int __stdcall sub_0050CF70_GlideTileDrawPerspective(D2TileLibraryEntryStr
         int nScreenY;
 
         GLIDE_PerspectiveTransform(nX0, nY0, nZ0, &nScreenX, &nScreenY);
-        gaGlideTileGrid_00880458[0].x = (float)nScreenX;
-        gaGlideTileGrid_00880458[0].y = (float)nScreenY;
+        gaGlideTileGrid[0].x = (float)nScreenX;
+        gaGlideTileGrid[0].y = (float)nScreenY;
         GLIDE_PerspectiveTransform(nX0, nY0, nZ0 - 0x20, &nScreenX, &nScreenY);
-        gaGlideTileGrid_00880458[12].x = (float)nScreenX;
-        gaGlideTileGrid_00880458[12].y = (float)nScreenY;
+        gaGlideTileGrid[12].x = (float)nScreenX;
+        gaGlideTileGrid[12].y = (float)nScreenY;
         GLIDE_PerspectiveTransform(nX1, nY1, nZ1 - 0x20, &nScreenX, &nScreenY);
-        gaGlideTileGrid_00880458[14].x = (float)nScreenX;
-        gaGlideTileGrid_00880458[14].y = (float)nScreenY;
+        gaGlideTileGrid[14].x = (float)nScreenX;
+        gaGlideTileGrid[14].y = (float)nScreenY;
         GLIDE_PerspectiveTransform(nX1, nY1, nZ1, &nScreenX, &nScreenY);
-        gaGlideTileGrid_00880458[2].x = (float)nScreenX;
-        gaGlideTileGrid_00880458[2].y = (float)nScreenY;
+        gaGlideTileGrid[2].x = (float)nScreenX;
+        gaGlideTileGrid[2].y = (float)nScreenY;
 
-        if (GLIDE_VERTEX_IN_RECT(gaGlideTileGrid_00880458[0], tRect)
-            || GLIDE_VERTEX_IN_RECT(gaGlideTileGrid_00880458[12], tRect)
-            || GLIDE_VERTEX_IN_RECT(gaGlideTileGrid_00880458[14], tRect)
-            || GLIDE_VERTEX_IN_RECT(gaGlideTileGrid_00880458[2], tRect))
+        if (GLIDE_VERTEX_IN_RECT(gaGlideTileGrid[0], tRect)
+            || GLIDE_VERTEX_IN_RECT(gaGlideTileGrid[12], tRect)
+            || GLIDE_VERTEX_IN_RECT(gaGlideTileGrid[14], tRect)
+            || GLIDE_VERTEX_IN_RECT(gaGlideTileGrid[2], tRect))
         {
             const int nMidX = (nX0 + nX1) >> 1;
             const int nMidY = (nY0 + nY1) >> 1;
@@ -377,26 +386,26 @@ static int __stdcall sub_0050CF70_GlideTileDrawPerspective(D2TileLibraryEntryStr
                 if (nGridRow != 0 && nGridRow != 4)
                 {
                     GLIDE_PerspectiveTransform(nX0, nY0, nZ0 - nDepth, &nScreenX, &nScreenY);
-                    gaGlideTileGrid_00880458[nGridRow * 3].x = (float)nScreenX;
-                    gaGlideTileGrid_00880458[nGridRow * 3].y = (float)nScreenY;
+                    gaGlideTileGrid[nGridRow * 3].x = (float)nScreenX;
+                    gaGlideTileGrid[nGridRow * 3].y = (float)nScreenY;
                     GLIDE_PerspectiveTransform(nX1, nY1, nZ1 - nDepth, &nScreenX, &nScreenY);
-                    gaGlideTileGrid_00880458[nGridRow * 3 + 2].x = (float)nScreenX;
-                    gaGlideTileGrid_00880458[nGridRow * 3 + 2].y = (float)nScreenY;
+                    gaGlideTileGrid[nGridRow * 3 + 2].x = (float)nScreenX;
+                    gaGlideTileGrid[nGridRow * 3 + 2].y = (float)nScreenY;
                 }
 
                 GLIDE_PerspectiveTransform(nMidX, nMidY, nMidZ - nDepth, &nScreenX, &nScreenY);
-                gaGlideTileGrid_00880458[nGridRow * 3 + 1].x = (float)nScreenX;
-                gaGlideTileGrid_00880458[nGridRow * 3 + 1].y = (float)nScreenY;
+                gaGlideTileGrid[nGridRow * 3 + 1].x = (float)nScreenX;
+                gaGlideTileGrid[nGridRow * 3 + 1].y = (float)nScreenY;
                 for (int nGridCol = 0; nGridCol < 3; ++nGridCol)
                 {
-                    D2GlideSpriteVertexStrc* pVertex = &gaGlideTileGrid_00880458[nGridRow * 3 + nGridCol];
+                    D2GlideSpriteVertexStrc* pVertex = &gaGlideTileGrid[nGridRow * 3 + nGridCol];
                     pVertex->x = pVertex->x + fOffset;
                     GLIDE_SetVertexColor(pVertex, aColors[nGridCol]);
                 }
             }
 
-            gpfGlideDrawVertexArray_0087EB18(4, 10, gapGlideTileStripA_0072F350);
-            gpfGlideDrawVertexArray_0087EB18(4, 10, gapGlideTileStripB_0072F378);
+            gpfnGrDrawVertexArray(4, 10, gapGlideTileStripA);
+            gpfnGrDrawVertexArray(4, 10, gapGlideTileStripB);
             nResult = 1;
         }
     }
@@ -418,7 +427,7 @@ static int __stdcall sub_0050D410_GlideTileDrawAlpha(int nPosX, int nPosY, D2Gfx
         else
         {
             GLIDE_SetAlphaBlendMode(4);
-            gpfGlideConstantColor_0087EFA0(nAlpha);
+            gpfnGrConstantColorValue(nAlpha);
         }
 
         GLIDE_SetTextureFilterMode(1);
@@ -509,8 +518,8 @@ void __cdecl sub_0050D540_GlideInitD()
     {
         for (int nCol = 0; nCol < 6; ++nCol)
         {
-            gaGlideStrips_00880A68[12 * nRow + 2 * nCol] = &gaGlideVertices_00880678[6 * nRow + nCol];
-            D2GlideVtxStrc** ppBottom = &gaGlideStrips_00880A68[12 * nRow + 2 * nCol + 1];
+            gapGlideTileStrips[12 * nRow + 2 * nCol] = &gaGlideVertices_00880678[6 * nRow + nCol];
+            D2GlideVtxStrc** ppBottom = &gapGlideTileStrips[12 * nRow + 2 * nCol + 1];
             *ppBottom = &gaGlideVertices_00880678[6 * nRow + nCol + 6];
         }
     }

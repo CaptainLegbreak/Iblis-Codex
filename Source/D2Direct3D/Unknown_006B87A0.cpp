@@ -11,13 +11,13 @@ struct D2GraphicsVTableStrc
 };
 struct D2GraphicsDeviceStrc { D2GraphicsVTableStrc* pVTable; };
 
-extern int gnScreenWidth_007C9138; // 0x007C9138
-extern int gnScreenHeight_007C913C; // 0x007C913C
+extern int gnRenderWidth; // 0x007C9138
+extern int gnRenderHeight; // 0x007C913C
 extern D2GraphicsDeviceStrc* gpDevice_00970E78; // 0x00970E78
 extern D2TLVertexStrc gVertex0_00971630; // 0x00971630
-extern D2TLVertexStrc gVertex1_00971650; // 0x00971650
-extern D2TLVertexStrc gVertex2_00971670; // 0x00971670
-extern D2TLVertexStrc gVertex3_00971690; // 0x00971690
+extern D2TLVertexStrc gtVertex1; // 0x00971650
+extern D2TLVertexStrc gtVertex2; // 0x00971670
+extern D2TLVertexStrc gtVertex3; // 0x00971690
 void __fastcall D3D_BindTileTexture(D2GlideTileStrc* pTile); // 0x006BBA00
 void __fastcall sub_006B9780_SetColor(D2TLVertexStrc* pVertex, unsigned int nPacked, unsigned char nAlpha); // 0x006B9780
 
@@ -32,22 +32,22 @@ static int __stdcall sub_006B87A0_DrawNoPerspective(D2TileLibraryEntryStrc*,int,
 static int __stdcall sub_006B87A0_DrawNoPerspective(D2TileLibraryEntryStrc* pTile, int nX, int nY, const unsigned int* pLight, int nPanels, unsigned char nAlpha)
 {
     int nDrawn = 0;
-    int n = gnScreenWidth_007C9138;
+    int n = gnRenderWidth;
     D2RectStrc tRect;
     tRect.nLeft = 0;
     tRect.nTop = 0;
     tRect.nRight = n;
-    tRect.nBottom = gnScreenHeight_007C913C - 47;
+    tRect.nBottom = gnRenderHeight - 47;
     tRect.nLeft -= 32;
     tRect.nBottom += 32;
 
     switch (nPanels)
     {
     case 1:
-        tRect.nRight -= gnScreenWidth_007C9138 / 2;
+        tRect.nRight -= gnRenderWidth / 2;
         break;
     case 2:
-        tRect.nLeft += gnScreenWidth_007C9138 / 2;
+        tRect.nLeft += gnRenderWidth / 2;
         break;
     }
 
@@ -68,16 +68,16 @@ static int __stdcall sub_006B87A0_DrawNoPerspective(D2TileLibraryEntryStrc* pTil
             D3D_BindTileTexture(&pTile->pBlocks[n]);
             gVertex0_00971630.fX = (float)x;
             gVertex0_00971630.fY = (float)nTop;
-            gVertex1_00971650.fX = (float)x;
-            gVertex1_00971650.fY = (float)y;
-            gVertex2_00971670.fX = (float)nRight;
-            gVertex2_00971670.fY = (float)y;
-            gVertex3_00971690.fX = (float)nRight;
-            gVertex3_00971690.fY = (float)nTop;
+            gtVertex1.fX = (float)x;
+            gtVertex1.fY = (float)y;
+            gtVertex2.fX = (float)nRight;
+            gtVertex2.fY = (float)y;
+            gtVertex3.fX = (float)nRight;
+            gtVertex3.fY = (float)nTop;
             sub_006B9780_SetColor(&gVertex0_00971630, nLeftLight, nAlpha);
-            sub_006B9780_SetColor(&gVertex1_00971650, nLeftLight, nAlpha);
-            sub_006B9780_SetColor(&gVertex2_00971670, nRightLight, nAlpha);
-            sub_006B9780_SetColor(&gVertex3_00971690, nRightLight, nAlpha);
+            sub_006B9780_SetColor(&gtVertex1, nLeftLight, nAlpha);
+            sub_006B9780_SetColor(&gtVertex2, nRightLight, nAlpha);
+            sub_006B9780_SetColor(&gtVertex3, nRightLight, nAlpha);
             gpDevice_00970E78->pVTable->DrawPrimitive(gpDevice_00970E78, 6, 0x1C4, &gVertex0_00971630, 4, 28);
         }
     }

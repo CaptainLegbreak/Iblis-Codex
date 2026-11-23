@@ -4,9 +4,9 @@ struct D2BitBufferStrc;
 
 
 extern const unsigned int gdwBitMasks_006CE368[9]; // 0x006CE368
-extern const unsigned char gnOffsetMasks_006CE38C[9]; // 0x006CE38C
+extern const unsigned char gabOffsetMasks[9]; // 0x006CE38C
 extern "C" int __cdecl tolower(int nChar); // 0x0068523E
-extern unsigned short gwStringCrcTable_00708140[256]; // 0x00708140
+extern unsigned short gawStringCrcTable[256]; // 0x00708140
 
 // 0x00410F60
 unsigned int __stdcall sub_00410F60_ReadBits(D2BitBufferStrc* pBuffer, int nBits)
@@ -39,7 +39,7 @@ unsigned int __stdcall sub_00410F60_ReadBits(D2BitBufferStrc* pBuffer, int nBits
             }
             const int nPosBits = pBuffer->nPosBits;
 
-            dwValue += (gdwBitMasks_006CE368[i] & ((unsigned char)(*pBuffer->pBuffer & gnOffsetMasks_006CE38C[nPosBits]) >> nPosBits)) << dw;
+            dwValue += (gdwBitMasks_006CE368[i] & ((unsigned char)(*pBuffer->pBuffer & gabOffsetMasks[nPosBits]) >> nPosBits)) << dw;
             dwBitsLeft -= i;
             dw += i;
             pBuffer->nPosBits += i;
@@ -66,7 +66,7 @@ unsigned short __stdcall FOG_ComputeStringCRC16(const char* szString)
     char c;
     while ((c = (char)tolower((unsigned char)*szString++)) != 0)
     {
-        wCrc = (wCrc >> 2) ^ gwStringCrcTable_00708140[(c ^ wCrc) & 0xFF];
+        wCrc = (wCrc >> 2) ^ gawStringCrcTable[(c ^ wCrc) & 0xFF];
     }
     return wCrc;
 }

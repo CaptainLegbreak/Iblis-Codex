@@ -1924,7 +1924,8 @@ int D2CommonIgnoreListStrc::IGNORELIST_AppendLineToFile(const char* szLine)
     int bResult = 0;
     char szBuffer[0x100];
     SStrCopy(szBuffer, szLine, sizeof(szBuffer));
-    SStrPack(szBuffer, gszNewline_006FFCB0, sizeof(szBuffer));
+// build: symbol ?gszNewline@* 0x006FFCB0
+    SStrPack(szBuffer, gszNewline, sizeof(szBuffer));
     m_pFile = fopen(szFileName, "at+");
     if (m_pFile)
     {

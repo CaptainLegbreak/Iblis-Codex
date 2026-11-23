@@ -2,10 +2,13 @@ typedef char check_int_width[(sizeof(int) == 4) ? 1 : -1];
 typedef char check_long_width[(sizeof(long) == 4) ? 1 : -1];
 typedef char check_uchar_width[(sizeof(unsigned char) == 1) ? 1 : -1];
 
-extern "C" long gnPendingCount_00881D5C;
+// build: symbol _gnPendingCount 0x00881D5C
+extern "C" long gnPendingCount;
 extern "C" int gnFlag_00882528;
-extern "C" int gnSlotArrayA_00882128[94];
-extern "C" int gnSlotArrayB_008822A8[94];
+// build: symbol _ganSlotArrayA 0x00882128
+extern "C" int ganSlotArrayA[94];
+// build: symbol _ganSlotArrayB 0x008822A8
+extern "C" int ganSlotArrayB[94];
 extern "C" int gnValue_00882744;
 extern "C" int gnValue_0088274C;
 extern "C" int gnValue_0088CB0C; // 0x0088CB0C

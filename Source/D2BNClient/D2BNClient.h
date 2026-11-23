@@ -30,10 +30,10 @@ extern "C" __declspec(dllimport) void* __stdcall LoadLibraryA(const char* szLibF
 extern "C" char* __cdecl strtok(char* szText, const char* szDelim); // 0x0068264F
 extern "C" char* __stdcall inet_ntoa(D2InAddrStrc tAddress); // 0x006B013E
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char szConfiguration_006DEC7C[]; // 0x006DEC7C
-extern "C" const char szDiabloGateways_006DEC8C[]; // 0x006DEC8C
-extern "C" const char szOverrideGateways_006DECAC[]; // 0x006DECAC
-extern "C" const char szWritingDefaultGateways_006DED24[]; // 0x006DED24
+extern "C" const char gszConfiguration[]; // 0x006DEC7C
+extern "C" const char gszDiabloGateways[]; // 0x006DEC8C
+extern "C" const char gszOverrideGateways[]; // 0x006DECAC
+extern "C" const char gszWritingDefaultGateways[]; // 0x006DED24
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" int __cdecl _strnicmp(const char* szString1, const char* szString2, unsigned int nCount); // 0x00686040
 extern "C" int __cdecl _vsnprintf(char* szDest, unsigned int nCount, const char* szFormat, char* pArgs); // 0x00682F22
@@ -42,12 +42,12 @@ extern "C" int __cdecl toupper(int nChar); // 0x00685385
 extern "C" int __stdcall WSAGetLastError(); // 0x006B0168
 extern "C" unsigned int __security_cookie; // 0x00749DE0
 extern "C" unsigned long __stdcall inet_addr(const char* szAddress); // 0x006B0150
-extern D2BnMessageStrc* gpMessageHead_00882020; // 0x00882020
-extern D2BnMessageStrc* gpMessageTail_00882024; // 0x00882024
-extern char gszEmptyStateText_00881F80[]; // 0x00881F80
+extern D2BnMessageStrc* gpMessageHead; // 0x00882020
+extern D2BnMessageStrc* gpMessageTail; // 0x00882024
+extern char gszEmptyStateText[]; // 0x00881F80
 extern const char* gpszNewsName_0072FF80; // 0x0072FF80
 extern int gnCacheValue_00881890; // 0x00881890
-extern unsigned int gdwCacheCrcTable_0072FB80[]; // 0x0072FB80
+extern unsigned int gadwCacheCrcTable[]; // 0x0072FB80
 void __cdecl SLogWrite(void* hLog, const char* szFormat, ...); // 0x00420190
 int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl sub_0051A570_GetMode(); // 0x0051A570
@@ -84,7 +84,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 #define CACHE_CRC32(dwCrc, pBytes, nCount) \
     dwCrc = 0xFFFFFFFF; \
     for (; nCount; --nCount, ++pBytes) \
-        dwCrc = (dwCrc >> 8) ^ gdwCacheCrcTable_0072FB80[(*pBytes ^ dwCrc) & 0xFF]; \
+        dwCrc = (dwCrc >> 8) ^ gadwCacheCrcTable[(*pBytes ^ dwCrc) & 0xFF]; \
     dwCrc = ~dwCrc
 #include "SValidate.h"
 

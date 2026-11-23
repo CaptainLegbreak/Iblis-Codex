@@ -103,19 +103,19 @@ int __fastcall sub_0060BDB0_EncodeFrame(D2DccFrameStrc* pFrame, D2Dc6FrameStrc* 
 
 extern D2CriticalSectionStrc gtCodecLock_008F03CC;                                                          // 0x008F03CC
 
-extern unsigned char gabDccPixels_008F03E8[];                                                               // 0x008F03E8
+extern unsigned char gabDccPixels[];                                                               // 0x008F03E8
 
-extern unsigned char gabDccRunBuffer_0090D8A8[];                                                            // 0x0090D8A8
+extern unsigned char gabDccRunBuffer[];                                                            // 0x0090D8A8
 
-extern D2DccCellStrc gtDccCells_0094D8A8[5625];                                                             // 0x0094D8A8
+extern D2DccCellStrc gatDccCells[5625];                                                             // 0x0094D8A8
 
-extern D2DccFrameStrc gtDccFrames_00969020[];                                                               // 0x00969020
+extern D2DccFrameStrc gatDccFrames[];                                                               // 0x00969020
 
-extern const int gnDccFieldWidths_006E5F70[16];                                                             // 0x006E5F70
+extern const int ganDccFieldWidths[16];                                                             // 0x006E5F70
 
-extern const unsigned int gdwDccSignBits_006E5FB0[32];                                                      // 0x006E5FB0
+extern const unsigned int gadwDccSignBits[32];                                                      // 0x006E5FB0
 
-extern const unsigned int gdwDccSignExtend_006E60B8[33];                                                    // 0x006E60B8
+extern const unsigned int gadwDccSignExtend[33];                                                    // 0x006E60B8
 
 extern "C" const unsigned int gData_006E6030[33]; // 0x006E6030
 
@@ -223,9 +223,9 @@ static unsigned int __stdcall sub_0060B200_ReadBits(int nNumBits, D2CmpBitCursor
 static inline int DccReadSigned(int nCount, D2CmpBitCursorStrc* pCursor)
 {
     int nValue = sub_0060B200_ReadBits(nCount, pCursor);
-    if (nCount && (nValue & gdwDccSignBits_006E5FB0[nCount - 1]))
+    if (nCount && (nValue & gadwDccSignBits[nCount - 1]))
     {
-        nValue |= gdwDccSignExtend_006E60B8[nCount];
+        nValue |= gadwDccSignExtend[nCount];
     }
     return nValue;
 }
@@ -650,7 +650,7 @@ int __fastcall sub_0060BFF0_LoadSpriteData(unsigned char* pData, void* pMemPool,
         DccReadBits(&tCursor, 32);
         const int nFlags = DccReadBits(&tCursor, 2);
         const unsigned int nWidths = DccReadBits(&tCursor, 28);
-        D2DccFrameStrc* pFramesEnd = &gtDccFrames_00969020[tHeader.nFrames];
+        D2DccFrameStrc* pFramesEnd = &gatDccFrames[tHeader.nFrames];
         const int nVar0Bits = nWidths & 0xF;
         const int nWidthBits = (nWidths >> 4) & 0xF;
         const int nHeightBits = (nWidths >> 8) & 0xF;
@@ -661,17 +661,17 @@ int __fastcall sub_0060BFF0_LoadSpriteData(unsigned char* pData, void* pMemPool,
 
         int nOptSum = 0;
         D2DccFrameStrc* pFrame;
-        for (pFrame = gtDccFrames_00969020; pFrame < pFramesEnd; ++pFrame)
+        for (pFrame = gatDccFrames; pFrame < pFramesEnd; ++pFrame)
         {
-            pFrame->nVar0 = sub_0060B200_ReadBits(gnDccFieldWidths_006E5F70[nVar0Bits], &tCursor);
-            pFrame->nWidth = sub_0060B200_ReadBits(gnDccFieldWidths_006E5F70[nWidthBits], &tCursor);
-            pFrame->nHeight = sub_0060B200_ReadBits(gnDccFieldWidths_006E5F70[nHeightBits], &tCursor);
-            pFrame->nXOffset = DccReadSigned(gnDccFieldWidths_006E5F70[nXBits], &tCursor);
-            pFrame->nYOffset = DccReadSigned(gnDccFieldWidths_006E5F70[nYBits], &tCursor);
-            const int nOpt = sub_0060B200_ReadBits(gnDccFieldWidths_006E5F70[nOptBits], &tCursor);
+            pFrame->nVar0 = sub_0060B200_ReadBits(ganDccFieldWidths[nVar0Bits], &tCursor);
+            pFrame->nWidth = sub_0060B200_ReadBits(ganDccFieldWidths[nWidthBits], &tCursor);
+            pFrame->nHeight = sub_0060B200_ReadBits(ganDccFieldWidths[nHeightBits], &tCursor);
+            pFrame->nXOffset = DccReadSigned(ganDccFieldWidths[nXBits], &tCursor);
+            pFrame->nYOffset = DccReadSigned(ganDccFieldWidths[nYBits], &tCursor);
+            const int nOpt = sub_0060B200_ReadBits(ganDccFieldWidths[nOptBits], &tCursor);
             pFrame->nOptBytes = nOpt;
             pFrame->pOptData = 0;
-            pFrame->nCodedBytes = sub_0060B200_ReadBits(gnDccFieldWidths_006E5F70[nCodedBits], &tCursor);
+            pFrame->nCodedBytes = sub_0060B200_ReadBits(ganDccFieldWidths[nCodedBits], &tCursor);
             pFrame->nCellsX = 0;
             pFrame->nCellsY = 0;
             pFrame->bBottomUp = DccReadBits(&tCursor, 1);
@@ -682,7 +682,7 @@ int __fastcall sub_0060BFF0_LoadSpriteData(unsigned char* pData, void* pMemPool,
         {
             tCursor.AlignToByte();
             unsigned char* pOpt = tCursor.GetBytePtr();
-            for (D2DccFrameStrc* pOptFrame = gtDccFrames_00969020; pOptFrame < pFramesEnd; ++pOptFrame)
+            for (D2DccFrameStrc* pOptFrame = gatDccFrames; pOptFrame < pFramesEnd; ++pOptFrame)
             {
                 if (pOptFrame->nOptBytes)
                 {
@@ -693,9 +693,9 @@ int __fastcall sub_0060BFF0_LoadSpriteData(unsigned char* pData, void* pMemPool,
             tCursor.AdvanceBits(nOptSum * 8);
         }
 
-        sub_0060B530_DccInitDir(&tHeader, gtDccFrames_00969020, &tDir, nDir);
+        sub_0060B530_DccInitDir(&tHeader, gatDccFrames, &tDir, nDir);
         sub_0060B4B0_DccCountCells(&tDir);
-        memset(gtDccCells_0094D8A8, 0, tDir.nCellsTotal * sizeof(D2DccCellStrc));
+        memset(gatDccCells, 0, tDir.nCellsTotal * sizeof(D2DccCellStrc));
 
         int nEqualSize = 0;
         int nEncodingSize = 0;
@@ -733,10 +733,10 @@ int __fastcall sub_0060BFF0_LoadSpriteData(unsigned char* pData, void* pMemPool,
 
         {
             int nBitsUsed = 0;
-            tRun.pData = gabDccRunBuffer_0090D8A8;
+            tRun.pData = gabDccRunBuffer;
             tRun.nCount = 0;
             tEqual1 = tEqual;
-            sub_0060B9A0_DecodeStage1(&tDir, gtDccCells_0094D8A8, nEqualSize ? &tEqual1 : 0, &tMask, nEncodingSize ? &tEncoding : 0, nRawSize ? &tRaw : 0, &tCode, &tRun, &nBitsUsed);
+            sub_0060B9A0_DecodeStage1(&tDir, gatDccCells, nEqualSize ? &tEqual1 : 0, &tMask, nEncodingSize ? &tEncoding : 0, nRawSize ? &tRaw : 0, &tCode, &tRun, &nBitsUsed);
             tCursor.AdvanceBits(nBitsUsed);
         }
 
@@ -745,11 +745,11 @@ int __fastcall sub_0060BFF0_LoadSpriteData(unsigned char* pData, void* pMemPool,
             tRun.pData[k] = tInverse.ab[tRun.pData[k]];
         }
 
-        for (D2DccFrameStrc* pPosFrame = gtDccFrames_00969020; pPosFrame < pFramesEnd; ++pPosFrame)
+        for (D2DccFrameStrc* pPosFrame = gatDccFrames; pPosFrame < pFramesEnd; ++pPosFrame)
         {
             const int nX = pPosFrame->nXOffset - tDir.nMinX;
             const int nY = pPosFrame->nYOffset - (pPosFrame->bBottomUp ? 0 : pPosFrame->nHeight) - tDir.nMinY;
-            pPosFrame->nCellsX = (int)&gabDccPixels_008F03E8[nY * tDir.nBoxWidth + nX];
+            pPosFrame->nCellsX = (int)&gabDccPixels[nY * tDir.nBoxWidth + nX];
             pPosFrame->nCellsY = tDir.nBoxWidth;
         }
 
@@ -758,7 +758,7 @@ int __fastcall sub_0060BFF0_LoadSpriteData(unsigned char* pData, void* pMemPool,
             if (sub_0060B480_DccFirstCell(&tDir, &tIt))
             {
                 int nPrevFrame = 0;
-                memset(gtDccCells_0094D8A8, 0, sizeof(gtDccCells_0094D8A8));
+                memset(gatDccCells, 0, sizeof(gatDccCells));
                 D2CmpBitCursorStrc* pEqual = nEqualSize ? &tEqual : 0;
                 int bMore;
                 do
@@ -769,13 +769,13 @@ int __fastcall sub_0060BFF0_LoadSpriteData(unsigned char* pData, void* pMemPool,
                     tCell.nPitch = tIt.nCellsY;
                     tCell.nWidth = tIt.nStepX;
                     tCell.nHeight = tIt.nStepY;
-                    sub_0060B7B0_DecodeCell(&tCursor, pEqual, &tCell, &pRun, &gtDccCells_0094D8A8[tIt.nCell]);
-                    gtDccCells_0094D8A8[tIt.nCell] = tCell;
+                    sub_0060B7B0_DecodeCell(&tCursor, pEqual, &tCell, &pRun, &gatDccCells[tIt.nCell]);
+                    gatDccCells[tIt.nCell] = tCell;
 
                     bMore = sub_0060B2B0_DccNextCell(&tDir, &tIt);
                     if (tIt.nFrame != nPrevFrame)
                     {
-                        D2DccFrameStrc* pDone = &gtDccFrames_00969020[nPrevFrame];
+                        D2DccFrameStrc* pDone = &gatDccFrames[nPrevFrame];
                         D2Dc6FrameStrc* pHeader = (D2Dc6FrameStrc*)pOut;
                         pHeader->nFlip = pDone->nVar0;
                         pHeader->nWidth = pDone->nWidth;

@@ -47,7 +47,7 @@ struct D2GfxDataStrc;
 struct D2HirelingIconRecordStrc;
 struct D2PanelLabelStrc;
 
-extern void* ghDbgHelp_0098A680; // 0x0098A680
+extern void* ghDbgHelp; // 0x0098A680
 extern int gbRightClickConsumed; // 0x007A0670
 extern int gbPopupDismissed; // 0x007A5254
 

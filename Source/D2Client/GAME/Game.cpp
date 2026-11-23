@@ -130,12 +130,12 @@ struct D2WardenModuleHolderBStrc;
 struct D2GameStrc;
 struct D2AutomapRecordStrc;
 
-extern int gdwGlobal_0077932C; // 0x0077932C
+extern int gbStopMainLoop; // 0x0077932C
 extern int gdwGlobal_007799D8; // 0x007799D8
-extern char gData_00779A40[]; // 0x00779A40
+extern char gszPreferredRealm[]; // 0x00779A40
 extern int gdwGlobal_0077AC04; // 0x0077AC04
 extern int gdwGlobal_0077BBF8; // 0x0077BBF8
-extern char gData_00798D30[]; // 0x00798D30
+extern char gszChannelName[]; // 0x00798D30
 extern int gdwGlobal_007992A4; // 0x007992A4
 extern char gszMcpGameServerIP[]; // 0x007992CC
 extern int gnMcpGameToken; // 0x00798FB0
@@ -1410,13 +1410,14 @@ int __cdecl sub_0042F6D0()
 // 0x0042FA30
 int __cdecl sub_0042FA30()
 {
-    return gdwGlobal_0077932C;
+    return gbStopMainLoop;
 }
 
 // 0x00430B40
 int __cdecl GAME_GetSlotNameCount()
 {
-    return gdwGlobal_0077998C;
+// build: symbol ?gnSlotCount@* 0x0077998C
+    return gnSlotCount;
 }
 
 // 0x00436EA0
@@ -1428,7 +1429,7 @@ int __cdecl sub_00436EA0()
 // 0x00437D00
 void* __cdecl sub_00437D00()
 {
-    return gData_00779A40;
+    return gszPreferredRealm;
 }
 
 // 0x00437D10
@@ -1464,7 +1465,7 @@ int __cdecl sub_0043F840()
 // 0x00446CF0
 void* __cdecl sub_00446CF0()
 {
-    return gData_00798D30;
+    return gszChannelName;
 }
 
 // 0x004473F0

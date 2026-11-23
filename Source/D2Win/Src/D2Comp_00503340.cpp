@@ -97,18 +97,18 @@ void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsig
 int __fastcall D2Win_10143(D2CompositeUnitStrc* pCompositeUnit, int nMode); // 0x005042F0
 void __stdcall D2COMP_InitCompItems(); // 0x00506000
 extern unsigned int gdwBitMasks[]; // 0x006CE268
-extern D2CompItemStrc gaCompItems_0072E1E0[]; // 0x0072E1E0
-extern int gnItems_0087D834; // 0x0087D834
-extern D2CompItemStrc gaItems_0087D838[]; // 0x0087D838
-extern int gaItemWeaponClass_0087E430[]; // 0x0087E430
-extern D2CompositeUnitStrc* gpCompositeUnitList_0087E838; // 0x0087E838
-extern unsigned int gdwNextFrameTick_0087E840; // 0x0087E840
-extern D2CelFileStrc* ghSquelchCelFile_0087E844; // 0x0087E844
-extern int gnSquelchCelFileFrameCount_0087E848; // 0x0087E848
-extern int gnSquelchCelFileFrame_0087E84C; // 0x0087E84C
-extern D2CelFileStrc* ghSelectedCelFile_0087E850; // 0x0087E850
-extern int gnSelectedCelFileFrameCount_0087E854; // 0x0087E854
-extern int gnSelectedCelFileFrame_0087E858; // 0x0087E858
+extern D2CompItemStrc gaCompItems[]; // 0x0072E1E0
+extern int gnItems; // 0x0087D834
+extern D2CompItemStrc gaItems[]; // 0x0087D838
+extern int gaItemWeaponClass[]; // 0x0087E430
+extern D2CompositeUnitStrc* gpCompositeUnitList; // 0x0087E838
+extern unsigned int gdwNextFrameTick; // 0x0087E840
+extern D2CelFileStrc* ghSquelchCelFile; // 0x0087E844
+extern int gnSquelchCelFileFrameCount; // 0x0087E848
+extern int gnSquelchCelFileFrame; // 0x0087E84C
+extern D2CelFileStrc* ghSelectedCelFile; // 0x0087E850
+extern int gnSelectedCelFileFrameCount; // 0x0087E854
+extern int gnSelectedCelFileFrame; // 0x0087E858
 
 struct D2HoverLineStrc
 {
@@ -145,13 +145,13 @@ typedef char check_size_itemstxt[(sizeof(D2ItemsTxt) == 0x1A8) ? 1 : -1];
 void* __stdcall D2COMP_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pBinField, int* pRecordCount,
     int nRecordSize); // 0x00504430
 void __fastcall D2COMP_LoadItems(void* hArchive); // 0x00504570
-extern int gaWClassTokens_0072EF30[]; // 0x0072EF30
-extern D2CompPairStrc gaCompPairs_0072EF68[]; // 0x0072EF68
-extern unsigned int gnCompPairs_0072EFD0; // 0x0072EFD0
+extern int gaWClassTokens[]; // 0x0072EF30
+extern D2CompPairStrc gaCompPairs[]; // 0x0072EF68
+extern unsigned int gnCompPairs; // 0x0072EFD0
 extern int gnItemsTxtRecordCount_008426EC; // 0x008426EC
-extern D2ItemsTxt* gpItemsTxt_008426F0; // 0x008426F0
+extern D2ItemsTxt* gpCompItemsTxt; // 0x008426F0
 
-static D2CofNodeStrc* gpCofNodeList_0087E83C; // 0x0087E83C
+static D2CofNodeStrc* gpCofNodeList; // 0x0087E83C
 
 // build: symbol ?D2COMP_CopyTokenPadded@* 0x005031D0
 static void D2COMP_CopyTokenPadded(char* pDst, const char* pSrc)
@@ -195,7 +195,7 @@ static __declspec(noinline) D2CofDataStrc* __stdcall D2COMP_LoadCofFile(const ch
 // 0x00503340
 static D2CofNodeStrc* __stdcall D2COMP_GetCofNode(unsigned int nClass, const char* szPath, unsigned int nMode, unsigned int dwWeaponClass)
 {
-    for (D2CofNodeStrc* pNode = gpCofNodeList_0087E83C; pNode; pNode = pNode->pNext)
+    for (D2CofNodeStrc* pNode = gpCofNodeList; pNode; pNode = pNode->pNext)
     {
         if (pNode->nMode == nMode && pNode->nClass == nClass && pNode->dwWeaponClass == dwWeaponClass)
         {
@@ -208,7 +208,7 @@ static D2CofNodeStrc* __stdcall D2COMP_GetCofNode(unsigned int nClass, const cha
     memset(pNode, 0, sizeof(D2CofNodeStrc));
     pNode->nMode = nMode;
     pNode->nClass = nClass;
-    D2CofNodeStrc* pHead = gpCofNodeList_0087E83C;
+    D2CofNodeStrc* pHead = gpCofNodeList;
     ++pNode->nRefCount;
     pNode->dwWeaponClass = dwWeaponClass;
     pNode->pNext = pHead;
@@ -217,7 +217,7 @@ static D2CofNodeStrc* __stdcall D2COMP_GetCofNode(unsigned int nClass, const cha
     {
         pHead->pPrev = pNode;
     }
-    gpCofNodeList_0087E83C = pNode;
+    gpCofNodeList = pNode;
     pNode->pCofData = D2COMP_LoadCofFile(szPath, &pNode->dwCofSize);
     D2_ASSERT(pNode->pCofData, 0x446);
     return pNode;
@@ -227,13 +227,16 @@ static D2CofNodeStrc* __stdcall D2COMP_GetCofNode(unsigned int nClass, const cha
 static void __stdcall D2COMP_BuildCofPath(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass, char* szPath)
 {
     D2_ASSERT(nClass < 25, 0x488);
-    D2_ASSERT(nMode < gnModeTokens_0072E0B4, 0x489);
+// build: symbol ?gnModeTokens@* 0x0072E0B4
+    D2_ASSERT(nMode < gnModeTokens, 0x489);
 
     char szWeaponClass[4];
     char szUnit[4];
     char szMode[4];
-    const unsigned int dwUnit = gdwUnitTokens_0072E050[nClass];
-    const unsigned int dwMode = gdwModeTokens_0072E0B8[nMode];
+// build: symbol ?gadwUnitTokens@* 0x0072E050
+    const unsigned int dwUnit = gadwUnitTokens[nClass];
+// build: symbol ?gadwModeTokens@* 0x0072E0B8
+    const unsigned int dwMode = gadwModeTokens[nMode];
     const char* pWeaponClass = (const char*)&dwWeaponClass;
     szWeaponClass[0] = TOKEN_CHAR(pWeaponClass[0]);
     szWeaponClass[1] = TOKEN_CHAR(pWeaponClass[1]);
@@ -321,9 +324,11 @@ void __fastcall D2COMP_InitGfxData(D2CompositeUnitStrc* pCompositeUnit, D2GfxDat
     pGfxData->nUnitIndex = pCompositeUnit->nUnitIndex;
     pGfxData->nMode = pCompositeUnit->nMode;
     const int nComponent = pGfxData->nComponent;
-    pGfxData->dwComponentToken = gdwComponentTokens_0072E108[nComponent];
-    pGfxData->dwWClassToken = gdwWClassTokens_0072E15C[pCompositeUnit->nWClassTokenIndex];
-    pGfxData->dwUnitToken = gdwUnitTokens_0072E050[pCompositeUnit->nUnitIndex];
+// build: symbol ?gadwComponentTokens@* 0x0072E108
+    pGfxData->dwComponentToken = gadwComponentTokens[nComponent];
+// build: symbol ?gadwWClassTokens@* 0x0072E15C
+    pGfxData->dwWClassToken = gadwWClassTokens[pCompositeUnit->nWClassTokenIndex];
+    pGfxData->dwUnitToken = gadwUnitTokens[pCompositeUnit->nUnitIndex];
     pGfxData->dwArmorType = 0x2074696C;
     if (pCompositeUnit->dwArmorType[nComponent])
     {
@@ -333,7 +338,7 @@ void __fastcall D2COMP_InitGfxData(D2CompositeUnitStrc* pCompositeUnit, D2GfxDat
     D2GfxInfoStrc* pGfxInfo = pCompositeUnit->pGfxInfo;
     D2_ASSERT(pGfxInfo, 0x502);
 
-    D2CofDataStrc* pCofData = sub_00503640_GetCofData(pGfxInfo, pCompositeUnit->nUnitIndex, pCompositeUnit->nMode, gdwWClassTokens_0072E15C[pCompositeUnit->nWClassTokenIndex]);
+    D2CofDataStrc* pCofData = sub_00503640_GetCofData(pGfxInfo, pCompositeUnit->nUnitIndex, pCompositeUnit->nMode, gadwWClassTokens[pCompositeUnit->nWClassTokenIndex]);
     D2_ASSERT(pCofData, 0x506);
 
     const unsigned char* pLayer = (const unsigned char*)pCofData + 0x1C;
@@ -343,7 +348,7 @@ void __fastcall D2COMP_InitGfxData(D2CompositeUnitStrc* pCompositeUnit, D2GfxDat
         if (pLayer[0] == nComponent)
         {
             pGfxData->nUnitType = pGfxData->nUnitIndex >= 7;
-            pGfxData->dwModeToken = gdwModeTokens_0072E0B8[pGfxData->nMode];
+            pGfxData->dwModeToken = gadwModeTokens[pGfxData->nMode];
             D2_ASSERT(pGfxData->dwArmorType, 0x51F);
             unsigned int dwHitClass = 0;
             D2COMP_CopyTokenPadded((char*)&dwHitClass, (const char*)pLayer + 5);

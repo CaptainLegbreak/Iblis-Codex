@@ -36,7 +36,7 @@ int __fastcall BNDOWNLOAD_SetCheckRevisionValue(const char* szValue);           
 
 void __fastcall BNDOWNLOAD_RequestDownload(int nType, int nSubType, unsigned int nArg1, unsigned int nArg2, const D2FileTimeStrc* pFileTime, const char* szFile, const char* szLink); // 0x0051F910
 
-extern "C" const char szConfiguration_006DEC7C[];                                                           // 0x006DEC7C
+extern "C" const char gszConfiguration[];                                                           // 0x006DEC7C
 
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 
@@ -76,10 +76,10 @@ int __fastcall BNDOWNLOAD_HandleClientId(const D2BnClientIdReplyStrc* pData, uns
     unsigned int nRegistrationAuthority = pData->dwRegistrationAuthority;
     unsigned int nClientId = pData->dwClientId;
     unsigned int nClientToken = pData->f_C;
-    SRegSaveValue(szConfiguration_006DEC7C, "Registration Version", 2, nRegistrationVersion);
-    SRegSaveValue(szConfiguration_006DEC7C, "Registration Authority", 2, nRegistrationAuthority);
-    SRegSaveValue(szConfiguration_006DEC7C, "Client ID", 2, nClientId);
-    SRegSaveValue(szConfiguration_006DEC7C, "Client Token", 2, nClientToken);
+    SRegSaveValue(gszConfiguration, "Registration Version", 2, nRegistrationVersion);
+    SRegSaveValue(gszConfiguration, "Registration Authority", 2, nRegistrationAuthority);
+    SRegSaveValue(gszConfiguration, "Client ID", 2, nClientId);
+    SRegSaveValue(gszConfiguration, "Client Token", 2, nClientToken);
     BNDOWNLOAD_ConfigureLog(2, 4);
     BNDOWNLOAD_LogPrintf("client acknowledged");
     BNDOWNLOAD_ConfigureLog(2, -4);

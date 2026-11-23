@@ -320,7 +320,7 @@ extern int gbInitHandlersResult;                                                
 
 extern D2InitHandlerFn gpfnInitHandlers[52];                                                       // 0x0070F488
 
-extern unsigned short gwToUpperTable_00730578[0x100];                                                       // 0x00730578
+extern unsigned short gawToUpperTable[0x100];                                                       // 0x00730578
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
@@ -382,7 +382,7 @@ void* ghLngModule;                                                              
 
 char gszLngPath[0x104];                                                                            // 0x007A0710
 
-extern D2RecordHandlerFn gpfnPrevHandler_007A2764;                                                          // 0x007A2764
+extern D2RecordHandlerFn gpfnPrevHandler;                                                          // 0x007A2764
 
 extern int gbRecordHandlerInstalled;                                                                              // 0x007A2780
 
@@ -1067,7 +1067,7 @@ int __cdecl GAME_LoadLngModule()
 void __cdecl GAME_InstallRecordHandler()
 {
     gbRecordHandlerInstalled = 1;
-    gpfnPrevHandler_007A2764 = sub_005173D3_SetRecordHandler(CHARSEL_RecordHandler);
+    gpfnPrevHandler = sub_005173D3_SetRecordHandler(CHARSEL_RecordHandler);
 }
 
 // 0x00451970
@@ -1136,7 +1136,7 @@ void __fastcall GAME_StrToUpper(Unicode* pText)
     for (int i = 0; i < nLength; i++)
     {
         const unsigned short wChar = pText[i].wChar;
-        pText[i].wChar = wChar >= 0x100 ? wChar : gwToUpperTable_00730578[wChar];
+        pText[i].wChar = wChar >= 0x100 ? wChar : gawToUpperTable[wChar];
     }
 }
 

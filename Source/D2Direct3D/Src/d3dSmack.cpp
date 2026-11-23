@@ -2,17 +2,17 @@
 #include "D2DDrawTypes.h"
 #include "D2Win32Types.h"
 
-#define gnHandle_00989760 (gVideoVertices_00989750[0].dwColor)
+#define gnHandle_00989760 (gatVideoVertices[0].dwColor)
 
-#define gnHandle_00989780 (gVideoVertices_00989750[1].dwColor)
+#define gnHandle_00989780 (gatVideoVertices[1].dwColor)
 
-#define gnHandle_009897A0 (gVideoVertices_00989750[2].dwColor)
+#define gnHandle_009897A0 (gatVideoVertices[2].dwColor)
 
-#define gnHandle_009897C0 (gVideoVertices_00989750[3].dwColor)
+#define gnHandle_009897C0 (gatVideoVertices[3].dwColor)
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-D2TLVertexStrc gVideoVertices_00989750[4]; // 0x00989750
+D2TLVertexStrc gatVideoVertices[4]; // 0x00989750
 
 extern void* gpBuffer_009897D0; // 0x009897D0
 
@@ -36,7 +36,7 @@ extern D2D3DObjStrc* gapObjectsD4_009897D4[2]; // 0x009897D4
 
 extern D2D3DObjStrc* gapObjectsDC_009897DC[2]; // 0x009897DC
 
-extern D2D3DObjStrc* gapObjectsE4_009897E4[2]; // 0x009897E4
+extern D2D3DObjStrc* gapSmackTextures[2]; // 0x009897E4
 
 extern D2D3DObjStrc* gapObjectsEC_009897EC[2]; // 0x009897EC
 
@@ -60,9 +60,9 @@ void __fastcall D3D_SetTextureFilterMode(int nMode); // 0x006B2030
 
 static void __stdcall D3D_CopySmackBlock(unsigned short* pSource, unsigned short* pDest, int nDestPitch); // 0x006B9EB0
 
-extern "C" const char gszUnlockFailed_006FC284[]; // 0x006FC284
+extern "C" const char gszFailedToUnlockMemorySurface[]; // 0x006FC284
 
-extern "C" const char gszLockFailed_006FC2A4[]; // 0x006FC2A4
+extern "C" const char gszFailedToLockMemorySurface[]; // 0x006FC2A4
 
 void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
 
@@ -82,11 +82,11 @@ int __stdcall SBmpDecodeImage(int nMode, void* pData, int nSize, tagPALETTEENTRY
 
 void __cdecl D3D_UploadSmackFrameBuffer(); // 0x006B9F00
 
-extern "C" const char szD3DSmackFile_006FC358[]; // 0x006FC358
+extern "C" const char gszD3DSmackFile[]; // 0x006FC358
 
 extern unsigned short* gpD3DSmackBuffer_009897D0; // 0x009897D0
 
-extern "C" void* gAllocation_009897D0; // 0x009897D0
+extern "C" void* gpSmackFrameBuffer; // 0x009897D0
 
 // 0x006B9A10
 void __cdecl D3D_SmackInit()
@@ -127,7 +127,7 @@ void __cdecl D3D_ReleaseSmackSurfaces()
         RELEASE(gapObjectsDC_009897DC[i]);
         RELEASE(gapObjectsD4_009897D4[i]);
         RELEASE(gapObjectsEC_009897EC[i]);
-        RELEASE(gapObjectsE4_009897E4[i]);
+        RELEASE(gapSmackTextures[i]);
     }
 }
 
@@ -143,30 +143,31 @@ void __fastcall D3D_CloseSmacker(D2SmackRecordStrc* pRecord)
 
 D2D3DTextureStrc* gpValue_009897DC; // 0x009897DC
 
-D2D3DTextureStrc* gpValue_009897E0; // 0x009897E0
+D2D3DTextureStrc* gpSmackSourceTexture; // 0x009897E0
 
 void* gpTarget_009897E4; // 0x009897E4
 
-void* gpTarget_009897E8; // 0x009897E8
+void* gpTarget; // 0x009897E8
 
 D2D3DTextureStrc* gpObject_009897EC; // 0x009897EC
 
-D2D3DTextureStrc* gpObject_009897F0; // 0x009897F0
+D2D3DTextureStrc* gpSmackTexture; // 0x009897F0
 
 // 0x006B9BD0
 void __cdecl D3D_UploadSmackTextures()
 {
     if (gpBuffer_009897D4)
     {
-        if (gnRenderFlags_0096F3A8 & gnRenderFlag_006CE290)
+// build: symbol ?gnRenderFlag@* 0x006CE290
+        if (gnRenderFlags_0096F3A8 & gnRenderFlag)
         {
             sub_006B38A0_Copy(gpTarget_009897E4, gpBuffer_009897D4, 0x40);
-            sub_006B38A0_Copy(gpTarget_009897E8, gpBuffer_009897D8, 0x40);
+            sub_006B38A0_Copy(gpTarget, gpBuffer_009897D8, 0x40);
         }
         else
         {
             gpObject_009897EC->lpVtbl->Load(gpObject_009897EC, gpValue_009897DC);
-            gpObject_009897F0->lpVtbl->Load(gpObject_009897F0, gpValue_009897E0);
+            gpSmackTexture->lpVtbl->Load(gpSmackTexture, gpSmackSourceTexture);
         }
     }
 }
@@ -182,62 +183,62 @@ static void __stdcall D3D_DrawSmackFrame(D2SmackRecordStrc* video, int width, in
 
     int x = video->nX;
     int right = x + 256;
-    gVideoVertices_00989750[0].fX = (float)x;
-    gVideoVertices_00989750[0].fY = (float)top;
-    gVideoVertices_00989750[0].fZ = 0.5f;
-    gVideoVertices_00989750[0].fRhw = 1.0f;
-    gVideoVertices_00989750[0].fU = 0.0f;
-    gVideoVertices_00989750[0].fV = 0.0f;
-    gVideoVertices_00989750[1].fX = (float)x;
-    gVideoVertices_00989750[1].fY = (float)bottom;
-    gVideoVertices_00989750[1].fZ = 0.5f;
-    gVideoVertices_00989750[1].fRhw = 1.0f;
-    gVideoVertices_00989750[1].fU = 0.0f;
-    gVideoVertices_00989750[1].fV = 1.0f;
-    gVideoVertices_00989750[2].fX = (float)right;
-    gVideoVertices_00989750[2].fY = (float)bottom;
-    gVideoVertices_00989750[2].fZ = 0.5f;
-    gVideoVertices_00989750[2].fRhw = 1.0f;
-    gVideoVertices_00989750[2].fU = 1.0f;
-    gVideoVertices_00989750[2].fV = 1.0f;
-    gVideoVertices_00989750[3].fX = (float)right;
-    gVideoVertices_00989750[3].fY = (float)top;
-    gVideoVertices_00989750[3].fZ = 0.5f;
-    gVideoVertices_00989750[3].fRhw = 1.0f;
-    gVideoVertices_00989750[3].fU = 1.0f;
-    gVideoVertices_00989750[3].fV = 0.0f;
+    gatVideoVertices[0].fX = (float)x;
+    gatVideoVertices[0].fY = (float)top;
+    gatVideoVertices[0].fZ = 0.5f;
+    gatVideoVertices[0].fRhw = 1.0f;
+    gatVideoVertices[0].fU = 0.0f;
+    gatVideoVertices[0].fV = 0.0f;
+    gatVideoVertices[1].fX = (float)x;
+    gatVideoVertices[1].fY = (float)bottom;
+    gatVideoVertices[1].fZ = 0.5f;
+    gatVideoVertices[1].fRhw = 1.0f;
+    gatVideoVertices[1].fU = 0.0f;
+    gatVideoVertices[1].fV = 1.0f;
+    gatVideoVertices[2].fX = (float)right;
+    gatVideoVertices[2].fY = (float)bottom;
+    gatVideoVertices[2].fZ = 0.5f;
+    gatVideoVertices[2].fRhw = 1.0f;
+    gatVideoVertices[2].fU = 1.0f;
+    gatVideoVertices[2].fV = 1.0f;
+    gatVideoVertices[3].fX = (float)right;
+    gatVideoVertices[3].fY = (float)top;
+    gatVideoVertices[3].fZ = 0.5f;
+    gatVideoVertices[3].fRhw = 1.0f;
+    gatVideoVertices[3].fU = 1.0f;
+    gatVideoVertices[3].fV = 0.0f;
     gpDevice_00970E78->lpVtbl->SetTexture(gpDevice_00970E78, 0, gpArray_009897EC[0]);
-    gpDevice_00970E78->lpVtbl->DrawPrimitive(gpDevice_00970E78, 6, 0x1C4, gVideoVertices_00989750, 4, 0x1C);
+    gpDevice_00970E78->lpVtbl->DrawPrimitive(gpDevice_00970E78, 6, 0x1C4, gatVideoVertices, 4, 0x1C);
 
     x += 256;
     right = x + width - 256;
     const float u = (float)((width - 256) * (1.0 / 256.0));
-    gVideoVertices_00989750[0].fX = (float)x;
-    gVideoVertices_00989750[0].fY = (float)top;
-    gVideoVertices_00989750[0].fZ = 0.5f;
-    gVideoVertices_00989750[0].fRhw = 1.0f;
-    gVideoVertices_00989750[0].fU = 0.0f;
-    gVideoVertices_00989750[0].fV = 0.0f;
-    gVideoVertices_00989750[1].fX = (float)x;
-    gVideoVertices_00989750[1].fY = (float)bottom;
-    gVideoVertices_00989750[1].fZ = 0.5f;
-    gVideoVertices_00989750[1].fRhw = 1.0f;
-    gVideoVertices_00989750[1].fU = 0.0f;
-    gVideoVertices_00989750[1].fV = 1.0f;
-    gVideoVertices_00989750[2].fX = (float)right;
-    gVideoVertices_00989750[2].fY = (float)bottom;
-    gVideoVertices_00989750[2].fZ = 0.5f;
-    gVideoVertices_00989750[2].fRhw = 1.0f;
-    gVideoVertices_00989750[2].fU = u;
-    gVideoVertices_00989750[2].fV = 1.0f;
-    gVideoVertices_00989750[3].fX = (float)right;
-    gVideoVertices_00989750[3].fY = (float)top;
-    gVideoVertices_00989750[3].fZ = 0.5f;
-    gVideoVertices_00989750[3].fRhw = 1.0f;
-    gVideoVertices_00989750[3].fU = u;
-    gVideoVertices_00989750[3].fV = 0.0f;
+    gatVideoVertices[0].fX = (float)x;
+    gatVideoVertices[0].fY = (float)top;
+    gatVideoVertices[0].fZ = 0.5f;
+    gatVideoVertices[0].fRhw = 1.0f;
+    gatVideoVertices[0].fU = 0.0f;
+    gatVideoVertices[0].fV = 0.0f;
+    gatVideoVertices[1].fX = (float)x;
+    gatVideoVertices[1].fY = (float)bottom;
+    gatVideoVertices[1].fZ = 0.5f;
+    gatVideoVertices[1].fRhw = 1.0f;
+    gatVideoVertices[1].fU = 0.0f;
+    gatVideoVertices[1].fV = 1.0f;
+    gatVideoVertices[2].fX = (float)right;
+    gatVideoVertices[2].fY = (float)bottom;
+    gatVideoVertices[2].fZ = 0.5f;
+    gatVideoVertices[2].fRhw = 1.0f;
+    gatVideoVertices[2].fU = u;
+    gatVideoVertices[2].fV = 1.0f;
+    gatVideoVertices[3].fX = (float)right;
+    gatVideoVertices[3].fY = (float)top;
+    gatVideoVertices[3].fZ = 0.5f;
+    gatVideoVertices[3].fRhw = 1.0f;
+    gatVideoVertices[3].fU = u;
+    gatVideoVertices[3].fV = 0.0f;
     gpDevice_00970E78->lpVtbl->SetTexture(gpDevice_00970E78, 0, gpArray_009897EC[1]);
-    gpDevice_00970E78->lpVtbl->DrawPrimitive(gpDevice_00970E78, 6, 0x1C4, gVideoVertices_00989750, 4, 0x1C);
+    gpDevice_00970E78->lpVtbl->DrawPrimitive(gpDevice_00970E78, 6, 0x1C4, gatVideoVertices, 4, 0x1C);
 }
 
 // 0x006BA390
@@ -260,17 +261,18 @@ void __fastcall D3D_PlaySmacker(D2SmackRecordStrc* video)
                         D3D_CloseSmacker(video);
                     else
                         SmackNextFrame(smack);
-                    if (gbRenderPaused_007C9144)
+// build: symbol ?gbRenderPaused@* 0x007C9144
+                    if (gbRenderPaused)
                         return;
                     D3D_UploadSmackTextures();
                 }
-                if (!gbRenderPaused_007C9144)
+                if (!gbRenderPaused)
                     D3D_DrawSmackFrame(video, smack->nWidth, smack->nHeight);
             }
         }
         break;
     case 'p':
-        if (!gbRenderPaused_007C9144)
+        if (!gbRenderPaused)
             D3D_DrawSmackFrame(video, 468, 60);
         break;
     }
@@ -301,9 +303,9 @@ void __fastcall sub_006B9EB0_Shim(unsigned short* pSource, unsigned short* pDest
 
 unsigned char* gpFrameBuffer_009897D0; // 0x009897D0
 
-D2DDSurfaceStrc* gpMemSurfaceA_009897D4; // 0x009897D4
+D2DDSurfaceStrc* gapSmackSurfaces; // 0x009897D4
 
-D2DDSurfaceStrc* gpMemSurfaceB_009897D8; // 0x009897D8
+D2DDSurfaceStrc* gpMemSurfaceB; // 0x009897D8
 
 static void __stdcall sub_006B9EB0_CopyWithAlpha(const unsigned short* pSrc, unsigned char* pDst, int nPitch)
 {
@@ -323,46 +325,46 @@ static void __stdcall sub_006B9EB0_CopyWithAlpha(const unsigned short* pSrc, uns
 void __cdecl D3D_UploadSmackFrameBuffer()
 {
     D2DDSurfaceDesc2Strc tDesc = { sizeof(D2DDSurfaceDesc2Strc) };
-    if (!gpMemSurfaceA_009897D4)
+    if (!gapSmackSurfaces)
     {
         return;
     }
 
-    long hResult = gpMemSurfaceA_009897D4->lpVtbl->Lock(gpMemSurfaceA_009897D4, 0, &tDesc, 0x21, 0);
+    long hResult = gapSmackSurfaces->lpVtbl->Lock(gapSmackSurfaces, 0, &tDesc, 0x21, 0);
     if (hResult)
     {
-        sub_006B20E0_DDrawLogError(gszLockFailed_006FC2A4, hResult);
+        sub_006B20E0_DDrawLogError(gszFailedToLockMemorySurface, hResult);
     }
     sub_006B9EB0_CopyWithAlpha((const unsigned short*)gpFrameBuffer_009897D0, (unsigned char*)tDesc.lpSurface, tDesc.lPitch);
-    hResult = gpMemSurfaceA_009897D4->lpVtbl->Unlock(gpMemSurfaceA_009897D4, 0);
+    hResult = gapSmackSurfaces->lpVtbl->Unlock(gapSmackSurfaces, 0);
     if (hResult)
     {
-        sub_006B20E0_DDrawLogError(gszUnlockFailed_006FC284, hResult);
+        sub_006B20E0_DDrawLogError(gszFailedToUnlockMemorySurface, hResult);
     }
 
-    if (!gpMemSurfaceB_009897D8)
+    if (!gpMemSurfaceB)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x1DB);
         exit(-1);
     }
 
-    hResult = gpMemSurfaceB_009897D8->lpVtbl->Lock(gpMemSurfaceB_009897D8, 0, &tDesc, 0x21, 0);
+    hResult = gpMemSurfaceB->lpVtbl->Lock(gpMemSurfaceB, 0, &tDesc, 0x21, 0);
     if (hResult)
     {
-        sub_006B20E0_DDrawLogError(gszLockFailed_006FC2A4, hResult);
+        sub_006B20E0_DDrawLogError(gszFailedToLockMemorySurface, hResult);
     }
     sub_006B9EB0_CopyWithAlpha((const unsigned short*)(gpFrameBuffer_009897D0 + 0x200), (unsigned char*)tDesc.lpSurface, tDesc.lPitch);
-    hResult = gpMemSurfaceB_009897D8->lpVtbl->Unlock(gpMemSurfaceB_009897D8, 0);
+    hResult = gpMemSurfaceB->lpVtbl->Unlock(gpMemSurfaceB, 0);
     if (hResult)
     {
-        sub_006B20E0_DDrawLogError(gszUnlockFailed_006FC284, hResult);
+        sub_006B20E0_DDrawLogError(gszFailedToUnlockMemorySurface, hResult);
     }
 }
 
 // 0x006BA010
 void __fastcall D3D_DecodeSmacker(const char* szFile, D2SmackRecordStrc* pSmack, unsigned char nType)
 {
-    if (!gbRenderPaused_007C9144)
+    if (!gbRenderPaused)
     {
         D2_ASSERT(gpD3DSmackBuffer_009897D0, 0x94);
         memset(gpD3DSmackBuffer_009897D0, 0, 0x10000);
@@ -401,7 +403,7 @@ void __fastcall D3D_DecodeSmacker(const char* szFile, D2SmackRecordStrc* pSmack,
         int nHeight;
         int nDepth;
         const int bDecoded = SBmpDecodeImage(2, pBuffer, nSize, aPalette, aPixels[0], 0x6DB0, &nWidth, &nHeight, &nDepth);
-        SMemFree(pBuffer, szD3DSmackFile_006FC358, 0xDA, 0);
+        SMemFree(pBuffer, gszD3DSmackFile, 0xDA, 0);
         if (!bDecoded || nWidth != 468 || nHeight != 60 || nDepth != 8)
         {
             break;
@@ -417,7 +419,7 @@ void __fastcall D3D_DecodeSmacker(const char* szFile, D2SmackRecordStrc* pSmack,
             }
         }
 
-        if (!gbRenderPaused_007C9144)
+        if (!gbRenderPaused)
         {
             D3D_UploadSmackFrameBuffer();
             D3D_UploadSmackTextures();
@@ -439,9 +441,9 @@ void __fastcall D3D_DecodeSmacker(const char* szFile, D2SmackRecordStrc* pSmack,
 // 0x006B9B00
 extern "C" void __cdecl D3D_SmackFree()
 {
-    if (gAllocation_009897D0)
+    if (gpSmackFrameBuffer)
     {
-        FOG_Free(gAllocation_009897D0, ".\\Src\\d3dSmack.cpp", 0x5E, 0);
-        gAllocation_009897D0 = 0;
+        FOG_Free(gpSmackFrameBuffer, ".\\Src\\d3dSmack.cpp", 0x5E, 0);
+        gpSmackFrameBuffer = 0;
     }
 }

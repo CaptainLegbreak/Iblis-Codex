@@ -11,11 +11,11 @@ void __fastcall GLIDE_FloorCacheTouch(D2GlideFloorCacheStrc* pCache, int nIndex)
 void __fastcall GLIDE_FloorCacheEvict(D2GlideFloorCacheStrc* pCache); // 0x0050F6D0
 short __fastcall GLIDE_FloorCacheAdd(D2GlideFloorCacheStrc* pCache); // 0x0050F820
 void __stdcall sub_0050F980_DecodeTileBlocks(D2TileLibraryEntryStrc* pTile, unsigned char* pDst); // 0x0050F980
-extern D2GrTexInfoStrc gGlideFloorTexInfo_0072F6BC; // 0x0072F6BC
-extern void (__stdcall* gpfGlideTexDownloadMipMap_0087EAB8)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EAB8
-extern void (__stdcall* gpfGlideTexSource_0087EB98)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EB98
-extern int gnGlideTileTmu_00880BF8; // 0x00880BF8
-extern unsigned char* gpGlideFloorDecodeBuffer_00880C00; // 0x00880C00
+extern D2GrTexInfoStrc gtGlideFloorTexInfo; // 0x0072F6BC
+extern void (__stdcall* gpfnGrTexDownloadMipMap)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EAB8
+extern void (__stdcall* gpfnGrTexSource)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EB98
+extern int gnGlideTileTmu; // 0x00880BF8
+extern unsigned char* gpGlideFloorDecodeBuffer; // 0x00880C00
 
 int gdwGlobal_0087EFB8; // 0x0087EFB8
 
@@ -283,7 +283,7 @@ int __fastcall GLIDE_TexCacheAdd(D2GlideTexCacheStrc* pList)
     return nId;
 }
 
-D2GlideFloorCacheStrc gGlideFloorCache_0087EB68; // 0x0087EB68
+D2GlideFloorCacheStrc gtGlideFloorCache; // 0x0087EB68
 
 // 0x0050ECB0
 void __fastcall GLIDE_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bFlush)
@@ -312,22 +312,22 @@ int __fastcall GLIDE_BindFloorTexture(D2TileLibraryEntryStrc* pTile)
         int nTexAddress;
         if (pTile->nCacheIndex == 0)
         {
-            sub_0050F980_DecodeTileBlocks(pTile, gpGlideFloorDecodeBuffer_00880C00);
-            pTile->nCacheIndex = GLIDE_FloorCacheAdd(&gGlideFloorCache_0087EB68);
+            sub_0050F980_DecodeTileBlocks(pTile, gpGlideFloorDecodeBuffer);
+            pTile->nCacheIndex = GLIDE_FloorCacheAdd(&gtGlideFloorCache);
             const int nEntry = pTile->nCacheIndex - 1;
             D2_ASSERT(nEntry >= 0, 0xE5);
-            D2_ASSERT(nEntry < gGlideFloorCache_0087EB68.nCount, 0xE6);
-            gGlideFloorCache_0087EB68.pEntries[pTile->nCacheIndex - 1].pTile = pTile;
-            nTexAddress = gGlideFloorCache_0087EB68.pEntries[pTile->nCacheIndex - 1].nAddress;
-            gpfGlideTexDownloadMipMap_0087EAB8(gnGlideTileTmu_00880BF8, nTexAddress, 3, &gGlideFloorTexInfo_0072F6BC);
+            D2_ASSERT(nEntry < gtGlideFloorCache.nCount, 0xE6);
+            gtGlideFloorCache.pEntries[pTile->nCacheIndex - 1].pTile = pTile;
+            nTexAddress = gtGlideFloorCache.pEntries[pTile->nCacheIndex - 1].nAddress;
+            gpfnGrTexDownloadMipMap(gnGlideTileTmu, nTexAddress, 3, &gtGlideFloorTexInfo);
         }
         else
         {
-            GLIDE_FloorCacheTouch(&gGlideFloorCache_0087EB68, pTile->nCacheIndex);
-            nTexAddress = gGlideFloorCache_0087EB68.pEntries[pTile->nCacheIndex - 1].nAddress;
+            GLIDE_FloorCacheTouch(&gtGlideFloorCache, pTile->nCacheIndex);
+            nTexAddress = gtGlideFloorCache.pEntries[pTile->nCacheIndex - 1].nAddress;
         }
-        gpfGlideTexSource_0087EB98(gnGlideTileTmu_00880BF8, nTexAddress, 3, &gGlideFloorTexInfo_0072F6BC);
-        GLIDE_SetTextureCombineMode(gnGlideTileTmu_00880BF8);
+        gpfnGrTexSource(gnGlideTileTmu, nTexAddress, 3, &gtGlideFloorTexInfo);
+        GLIDE_SetTextureCombineMode(gnGlideTileTmu);
         bResult = 1;
     }
     return bResult;

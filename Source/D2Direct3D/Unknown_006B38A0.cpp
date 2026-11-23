@@ -3,8 +3,8 @@
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                          // 0x006829C0
 void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
-extern "C" const char gszFailedToLockDest_006FB130[];                                                       // 0x006FB130
-extern "C" const char gszFailedToLockSource_006FB14C[];                                                     // 0x006FB14C
+extern "C" const char gszFailedToLockDest[];                                                       // 0x006FB130
+extern "C" const char gszFailedToLockSource[];                                                     // 0x006FB14C
 
 // 0x006B38A0
 void __fastcall sub_006B38A0_Copy(D2DDSurfaceStrc* pDst, D2DDSurfaceStrc* pSrc, unsigned int nRows)
@@ -17,7 +17,7 @@ void __fastcall sub_006B38A0_Copy(D2DDSurfaceStrc* pDst, D2DDSurfaceStrc* pSrc, 
     long hResult = pSrc->lpVtbl->Lock(pSrc, 0, &tSrcDesc, 0x21, 0);
     if (hResult)
     {
-        sub_006B20E0_DDrawLogError(gszFailedToLockSource_006FB14C, hResult);
+        sub_006B20E0_DDrawLogError(gszFailedToLockSource, hResult);
     }
     else
     {
@@ -26,7 +26,7 @@ void __fastcall sub_006B38A0_Copy(D2DDSurfaceStrc* pDst, D2DDSurfaceStrc* pSrc, 
         hResult = pDst->lpVtbl->Lock(pDst, 0, &tDstDesc, 0x21, 0);
         if (hResult)
         {
-            sub_006B20E0_DDrawLogError(gszFailedToLockDest_006FB130, hResult);
+            sub_006B20E0_DDrawLogError(gszFailedToLockDest, hResult);
         }
         else
         {

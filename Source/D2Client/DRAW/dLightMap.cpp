@@ -247,9 +247,9 @@ void __cdecl CHARSEL_ScanGridCollision();                                       
 
 int __cdecl DLIGHTMAP_GetIndicatorLevel();                                                               // 0x00475780
 
-extern int gnGlobal_007B0A54;                                                                               // 0x007B0A54
+extern int gnCellOriginX;                                                                               // 0x007B0A54
 
-extern int gnGlobal_007B0A58;                                                                               // 0x007B0A58
+extern int gnCellOriginY;                                                                               // 0x007B0A58
 
 int gnLightCount;                                                                                  // 0x007B5674
 
@@ -983,7 +983,7 @@ void __stdcall sub_E4F1_Emit_00474D70(int nLevel, D2R01LightStrc* pLight)
 
 static inline unsigned char sub_K01_GetGridCellByte(int nX, int nY)
 {
-    const int nGridX = (nX >> 3) - gnGlobal_007B0A54;
+    const int nGridX = (nX >> 3) - gnCellOriginX;
     if (nGridX < 0)
     {
         return 1;
@@ -993,7 +993,7 @@ static inline unsigned char sub_K01_GetGridCellByte(int nX, int nY)
         return 1;
     }
 
-    const int nGridY = (nY >> 3) - gnGlobal_007B0A58;
+    const int nGridY = (nY >> 3) - gnCellOriginY;
     if (nGridY < 0)
     {
         return 1;
@@ -1105,13 +1105,13 @@ static void DLIGHTMAP_AddMaskedAreaLight(D2R01LightStrc* pLight)
     const int nStartY = pLight->nY - (pLight->nY & 7) - pLight->nRadius;
     const int nSpan = (pLight->nRadius * 2) >> 3;
     int nCell = nStartX >> 3;
-    if (nCell > gnCellLimitX || nCell + nSpan + 1 < gnGlobal_007B0A54)
+    if (nCell > gnCellLimitX || nCell + nSpan + 1 < gnCellOriginX)
     {
         return;
     }
 
     nCell = nStartY >> 3;
-    if (nCell > gnCellLimitY || nCell + nSpan + 1 < gnGlobal_007B0A58)
+    if (nCell > gnCellLimitY || nCell + nSpan + 1 < gnCellOriginY)
     {
         return;
     }
@@ -1523,10 +1523,10 @@ void __cdecl sub_00475800_RunLightPass()
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nX = CLIENTS_GetUnitXInline(pPlayer);
     const int nY = CLIENTS_GetUnitYInline(pPlayer);
-    gnGlobal_007B0A54 = nX - 0x18;
-    gnGlobal_007B0A58 = nY - 0x18;
-    gnCellLimitX = gnGlobal_007B0A54 + 0x30;
-    gnCellLimitY = gnGlobal_007B0A58 + 0x30;
+    gnCellOriginX = nX - 0x18;
+    gnCellOriginY = nY - 0x18;
+    gnCellLimitX = gnCellOriginX + 0x30;
+    gnCellLimitY = gnCellOriginY + 0x30;
     DLIGHTMAP_UpdateLightGrid(0);
     CHARSEL_ScanGridCollision();
     const int nLevel = DLIGHTMAP_GetIndicatorLevel();

@@ -6,9 +6,9 @@ struct D2CelStrc;
 
 extern D2PaletteTableStrc* gpGlideState_007C9150; // 0x007C9150
 extern D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
-extern D2VertexBufferStrc* gpVertexBuffer_00970F3C; // 0x00970F3C
-extern int gnVertexIndex_00970F40; // 0x00970F40
-extern int gnScale_00989748; // 0x00989748
+extern D2VertexBufferStrc* gpVertexBuffer; // 0x00970F3C
+extern int gnVertexBufferPos; // 0x00970F40
+extern int gnPerspectiveScale; // 0x00989748
 
 int __stdcall sub_006001F0(D2CelContextStrc* context, int a2, int a3); // 0x006001F0
 void __cdecl sub_00410610_WriteLogLine(const char* format, ...); // 0x00410610
@@ -108,12 +108,12 @@ void __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, 
     tRect.nWidth = pSprite->nTexWidth;
     tRect.nHeight = pSprite->nTexHeight;
     tRect.nY = pSprite->nOffsetY - tRect.nHeight;
-    if (bPerspective && gnScale_00989748 != 256)
+    if (bPerspective && gnPerspectiveScale != 256)
     {
-        tRect.nX = gnScale_00989748 * tRect.nX / 256;
-        tRect.nY = gnScale_00989748 * tRect.nY / 256;
-        tRect.nWidth = gnScale_00989748 * tRect.nWidth / 256;
-        tRect.nHeight = gnScale_00989748 * tRect.nHeight / 256;
+        tRect.nX = gnPerspectiveScale * tRect.nX / 256;
+        tRect.nY = gnPerspectiveScale * tRect.nY / 256;
+        tRect.nWidth = gnPerspectiveScale * tRect.nWidth / 256;
+        tRect.nHeight = gnPerspectiveScale * tRect.nHeight / 256;
     }
 
     int nLeft = tRect.nX + nX;
@@ -124,12 +124,12 @@ void __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, 
     float fY1 = (float)(nTop + tRect.nHeight);
 
     D2TLVertexStrc* pVertices;
-    if (gpVertexBuffer_00970F3C->lpVtbl->Lock(gpVertexBuffer_00970F3C, 0x21, (void**)&pVertices, 0))
+    if (gpVertexBuffer->lpVtbl->Lock(gpVertexBuffer, 0x21, (void**)&pVertices, 0))
     {
         return;
     }
 
-    pVertices += gnVertexIndex_00970F40;
+    pVertices += gnVertexBufferPos;
     if (!nPaletteIndex && !bPalette)
     {
         sub_006B9780_SetColor(pVertices, nColor, nAlpha);
@@ -171,12 +171,12 @@ void __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, 
     pVertices[3].fU = fU1;
     pVertices[3].fV = fV0;
 
-    gpVertexBuffer_00970F3C->lpVtbl->Unlock(gpVertexBuffer_00970F3C);
-    gpDevice_00970E78->lpVtbl->DrawPrimitiveVB(gpDevice_00970E78, 6, gpVertexBuffer_00970F3C, gnVertexIndex_00970F40, 4, 0x1C);
-    gnVertexIndex_00970F40 += 4;
-    if (gnVertexIndex_00970F40 > 43)
+    gpVertexBuffer->lpVtbl->Unlock(gpVertexBuffer);
+    gpDevice_00970E78->lpVtbl->DrawPrimitiveVB(gpDevice_00970E78, 6, gpVertexBuffer, gnVertexBufferPos, 4, 0x1C);
+    gnVertexBufferPos += 4;
+    if (gnVertexBufferPos > 43)
     {
-        gnVertexIndex_00970F40 = 0;
+        gnVertexBufferPos = 0;
     }
 }
 

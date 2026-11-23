@@ -10,7 +10,8 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-#define gnMouseY_007D55A8 (gMousePosition_6F8FE234.y)
+// build: symbol ?gnMouseY@* 0x007D55A8
+#define gnMouseY (gtMousePosition.y)
 
 struct D2CelFileStrc;
 
@@ -32,7 +33,7 @@ void __fastcall CONTROL_SetVisible(D2WinControlStrc* pControl, int bSet); // 0x0
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-extern tagPOINT gMousePosition_6F8FE234; // 0x007D55A4
+extern tagPOINT gtMousePosition; // 0x007D55A4
 
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 
@@ -69,7 +70,7 @@ struct D2WinControl004FBB30Strc
     int nSelected60;
 };
 
-int gdwGlobal_00841B70; // 0x00841B70
+int gbTextBoxSmallGap; // 0x00841B70
 
 tagPALETTEENTRY gaPalette_0081E668[256]; // 0x0081E668
 
@@ -143,7 +144,7 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x00526
 
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
-extern D2FontCacheStrc gFontCache_00841DA8[]; // 0x00841DA8
+extern D2FontCacheStrc gatFontCache[]; // 0x00841DA8
 
 void __fastcall TEXT_BuildItemPropTextB(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4); // 0x004E6720
 
@@ -165,9 +166,9 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nGemId); // 0x006372C0
 
-extern tagPALETTEENTRY gRGBAPalette_0081E668[]; // 0x0081E668
+extern tagPALETTEENTRY gatRGBAPalette[]; // 0x0081E668
 
-extern "C" const char szD2WinTextBoxCpp_006DC840[]; // 0x006DC840
+extern "C" const char gszD2WinTextBoxCpp[]; // 0x006DC840
 
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 
@@ -306,7 +307,7 @@ int __fastcall D2Win_10177(unsigned char nAct)
     sprintf(szDatFilename, "%s\\palette\\act%d\\%s", gszDataGlobal, nActNo, "pal.dat");
     sprintf(szPL2Filename, "%s\\palette\\act%d\\%s", gszDataGlobal, nActNo, "pal.pl2");
     const int nResult = sub_004FB1E0_LoadPaletteFiles(szDatFilename, szPL2Filename);
-    D2GFX_SetPalette(gRGBAPalette_0081E668);
+    D2GFX_SetPalette(gatRGBAPalette);
     return nResult;
 }
 
@@ -318,11 +319,12 @@ static void TEXTBOX_SetLineGapForFont(int nFont)
         const int nOldFont = sub_00502EF0(nFont);
         if (D2Win_10125() > 13)
         {
-            gnTextBoxLineGap_0072DE90 = 8;
+// build: symbol ?gnTextBoxLineGap@* 0x0072DE90
+            gnTextBoxLineGap = 8;
         }
         else
         {
-            gnTextBoxLineGap_0072DE90 = (D2Win_10125() > 7) + 6;
+            gnTextBoxLineGap = (D2Win_10125() > 7) + 6;
         }
         sub_00502EF0(nOldFont);
     }
@@ -331,29 +333,29 @@ static void TEXTBOX_SetLineGapForFont(int nFont)
         const int nOldFont = sub_00502EF0(nFont);
         if (D2Win_10125() > 13)
         {
-            gnTextBoxLineGap_0072DE90 = 8;
+            gnTextBoxLineGap = 8;
         }
         else
         {
-            gnTextBoxLineGap_0072DE90 = (D2Win_10125() > 7) + 6;
+            gnTextBoxLineGap = (D2Win_10125() > 7) + 6;
         }
-        if (gdwGlobal_00841B70)
+        if (gbTextBoxSmallGap)
         {
-            gnTextBoxLineGap_0072DE90 = 3;
+            gnTextBoxLineGap = 3;
         }
         sub_00502EF0(nOldFont);
     }
     else if (sub_00525150() == 6)
     {
-        gnTextBoxLineGap_0072DE90 = gdwGlobal_00841B70 != 0 ? 0 : 4;
+        gnTextBoxLineGap = gbTextBoxSmallGap != 0 ? 0 : 4;
     }
     else if (sub_00525150() == 10)
     {
-        gnTextBoxLineGap_0072DE90 = gdwGlobal_00841B70 != 0 ? 0 : 4;
+        gnTextBoxLineGap = gbTextBoxSmallGap != 0 ? 0 : 4;
     }
     else
     {
-        gnTextBoxLineGap_0072DE90 = 4;
+        gnTextBoxLineGap = 4;
     }
 }
 
@@ -474,7 +476,8 @@ D2CharStrc* __fastcall FONT_FindCharInfo(unsigned short wChar)
 {
     int nIterations = 0;
     int nMin = 0;
-    D2FontCacheStrc* pFontCache = &gFontCache_00841DA8[gnCurrentFont_0072DFFC];
+// build: symbol ?gnCurrentFont@* 0x0072DFFC
+    D2FontCacheStrc* pFontCache = &gatFontCache[gnCurrentFont];
     int nMax = pFontCache->pFontInfo[1]->nCharCount - 1;
     if (nMax >= 0)
     {
@@ -529,7 +532,7 @@ int __fastcall TEXTBOX_AddWrappedText(D2WinTextBoxStrc* pTextBox, const Unicode*
         nMaxWidth -= D2Win_10121_GetTextWidth(wszSpaces);
     }
 
-    Unicode* pBuffer = (Unicode*)SMemAlloc(0x800, szD2WinTextBoxCpp_006DC840, 0x497, 0);
+    Unicode* pBuffer = (Unicode*)SMemAlloc(0x800, gszD2WinTextBoxCpp, 0x497, 0);
     Unicode* pText = pBuffer;
     sub_005267E0(pText, wszText);
 
@@ -557,19 +560,19 @@ int __fastcall TEXTBOX_AddWrappedText(D2WinTextBoxStrc* pTextBox, const Unicode*
         ++nSplit;
     }
 
-    Unicode* pFirst = (Unicode*)SMemAlloc(0x800, szD2WinTextBoxCpp_006DC840, 0x4B7, 0);
-    pText = (Unicode*)SMemAlloc(0x800, szD2WinTextBoxCpp_006DC840, 0x4B8, 0);
+    Unicode* pFirst = (Unicode*)SMemAlloc(0x800, gszD2WinTextBoxCpp, 0x4B7, 0);
+    pText = (Unicode*)SMemAlloc(0x800, gszD2WinTextBoxCpp, 0x4B8, 0);
     sub_00526790(pFirst, pBuffer, nSplit);
     pFirst[nSplit].wChar = 0;
     sub_00526790(pText, pChar, nLength - nSplit);
     pText[nLength - nSplit].wChar = 0;
-    SMemFree(pBuffer, szD2WinTextBoxCpp_006DC840, 0x4BF, 0);
+    SMemFree(pBuffer, gszD2WinTextBoxCpp, 0x4BF, 0);
 
     D2Win_10051(pTextBox, pFirst, nColor, 1, nIndent);
     D2Win_10051(pTextBox, pText, nColor, 0, nIndent == 1 ? 2 : nIndent);
 
-    SMemFree(pFirst, szD2WinTextBoxCpp_006DC840, 0x4C4, 0);
-    SMemFree(pText, szD2WinTextBoxCpp_006DC840, 0x4C5, 0);
+    SMemFree(pFirst, gszD2WinTextBoxCpp, 0x4C4, 0);
+    SMemFree(pText, gszD2WinTextBoxCpp, 0x4C5, 0);
     return 1;
 }
 
@@ -797,7 +800,7 @@ D2WinTextBoxStrc* __fastcall D2Win_10042_TEXTBOX_Create(int nX, int nY, int nWid
     }
 
     TEXTBOX_SetLineGapForFont(pTextBox->eFont);
-    pTextBox->unk0xA8 = gnTextBoxLineGap_0072DE90;
+    pTextBox->unk0xA8 = gnTextBoxLineGap;
 
     if (dwTextBoxFlags & 4)
     {
@@ -868,10 +871,10 @@ int __fastcall D2Win_10051(D2WinTextBoxStrc* ptTextData, const Unicode* wszText,
             return TEXTBOX_AddWrappedText(ptTextData, pText, nColor, nIndent);
     }
 
-    D2WinTextBoxLineStrc* pLine = (D2WinTextBoxLineStrc*)FOG_Alloc(sizeof(D2WinTextBoxLineStrc), szD2WinTextBoxCpp_006DC840, 0x15D, 0);
+    D2WinTextBoxLineStrc* pLine = (D2WinTextBoxLineStrc*)FOG_Alloc(sizeof(D2WinTextBoxLineStrc), gszD2WinTextBoxCpp, 0x15D, 0);
     if (nIndent == 2)
     {
-        pLine->pColumns[0] = (Unicode*)FOG_Alloc(sizeof(Unicode) * (sub_00526800(pText) + 6), szD2WinTextBoxCpp_006DC840, 0x161, 0);
+        pLine->pColumns[0] = (Unicode*)FOG_Alloc(sizeof(Unicode) * (sub_00526800(pText) + 6), gszD2WinTextBoxCpp, 0x161, 0);
         pLine->pColumns[0][4].wChar = 0x20;
         pLine->pColumns[0][3].wChar = pLine->pColumns[0][4].wChar;
         pLine->pColumns[0][2].wChar = pLine->pColumns[0][3].wChar;
@@ -881,7 +884,7 @@ int __fastcall D2Win_10051(D2WinTextBoxStrc* ptTextData, const Unicode* wszText,
     }
     else
     {
-        pLine->pColumns[0] = (Unicode*)FOG_Alloc(sizeof(Unicode) * (sub_00526800(pText) + 1), szD2WinTextBoxCpp_006DC840, 0x167, 0);
+        pLine->pColumns[0] = (Unicode*)FOG_Alloc(sizeof(Unicode) * (sub_00526800(pText) + 1), gszD2WinTextBoxCpp, 0x167, 0);
         sub_005267E0(pLine->pColumns[0], pText);
     }
 
@@ -1323,7 +1326,7 @@ int __stdcall TEXTBOX_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 
     if (pTextBox->dwTextBoxFlags & 1)
     {
-        const int nY = pTextBox->controlHeader.nHeight - pTextBox->controlHeader.nImageY + gnMouseY_007D55A8;
+        const int nY = pTextBox->controlHeader.nHeight - pTextBox->controlHeader.nImageY + gnMouseY;
         sub_00502EF0(pTextBox->eFont);
         TEXTBOX_SetLineGapForFont(pTextBox->eFont);
         pTextBox->nCurrentLine = pTextBox->nLine + (nY - pTextBox->unk0x44) / (D2Win_10125() + pTextBox->unk0xA8);

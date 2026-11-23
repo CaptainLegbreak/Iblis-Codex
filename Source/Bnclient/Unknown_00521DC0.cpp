@@ -62,7 +62,7 @@ void __fastcall sub_00524760_CipherBlock(int nIndex, const unsigned short* pIn, 
 void __cdecl sub_00524740_ClearKeySchedules(); // 0x00524740
 void __cdecl sub_005241A0_ClearHashContexts(); // 0x005241A0
 
-unsigned int gdwClientToken_00882530; // 0x00882530
+unsigned int gdwBnClientToken; // 0x00882530
 
 // 0x00521DC0
 int __cdecl sub_00521DC0_SendAuthCheck()
@@ -71,8 +71,8 @@ int __cdecl sub_00521DC0_SendAuthCheck()
     memset(&tPacket, 0, sizeof(tPacket));
 
     const long nTime = _time32(0);
-    gdwClientToken_00882530 += GetTickCount() + nTime;
-    tPacket.f_0 = gdwClientToken_00882530;
+    gdwBnClientToken += GetTickCount() + nTime;
+    tPacket.f_0 = gdwBnClientToken;
 
     if (!BNDOWNLOAD_HasArchiveName())
     {
@@ -103,8 +103,8 @@ int __cdecl sub_00521DC0_SendAuthCheck()
     {
         pString = &tPacket.szData[SStrCopy(tPacket.szData, szText, 0x200) + 1];
         tPacket.nKeys = 2;
-        sub_0051E340_BuildCDKeyInfoForSlot(&tPacket.pKeys[0], gdwClientToken_00882530, 0);
-        sub_0051E340_BuildCDKeyInfoForSlot(&tPacket.pKeys[1], gdwClientToken_00882530, 1);
+        sub_0051E340_BuildCDKeyInfoForSlot(&tPacket.pKeys[0], gdwBnClientToken, 0);
+        sub_0051E340_BuildCDKeyInfoForSlot(&tPacket.pKeys[1], gdwBnClientToken, 1);
         SStrCopy(pString, sub_00523AA0_GetExeInfo(), &tPacket.szData[0x200] - pString);
     }
     else
@@ -112,7 +112,7 @@ int __cdecl sub_00521DC0_SendAuthCheck()
         char* pData = (char*)&tPacket.pKeys[1];
         pString = &pData[SStrCopy(pData, szText, 0x200) + 1];
         tPacket.nKeys = 1;
-        sub_0051E340_BuildCDKeyInfoForSlot(&tPacket.pKeys[0], gdwClientToken_00882530, 0);
+        sub_0051E340_BuildCDKeyInfoForSlot(&tPacket.pKeys[0], gdwBnClientToken, 0);
         SStrCopy(pString, sub_00523AA0_GetExeInfo(), &pData[0x200] - pString);
     }
 

@@ -9,7 +9,7 @@ struct D2CodecBitReaderStrc
 extern unsigned int gaCodecBitWidthTable_006E5F70[48]; // 0x006E5F70
 extern unsigned int gaCodecSignExtendTable_006E60B8[32]; // 0x006E60B8
 
-extern unsigned int gaCodecBitMask_006E6030[33]; // 0x006E6030
+extern unsigned int gadwDccBitMasks[33]; // 0x006E6030
 
 static unsigned int __stdcall sub_0060B200_ReadBits(int nNumBits, D2CodecBitReaderStrc* pBitState);
 
@@ -23,7 +23,7 @@ static unsigned int __stdcall sub_0060B200_ReadBits(int nNumBits, D2CodecBitRead
     unsigned int nBits;
     if (nNumBits <= nRemain)
     {
-        nBits = gaCodecBitMask_006E6030[nNumBits] & (*pBitState->pCurWord >> pBitState->nBitOffset);
+        nBits = gadwDccBitMasks[nNumBits] & (*pBitState->pCurWord >> pBitState->nBitOffset);
         pBitState->nBitOffset += nNumBits;
         if (pBitState->nBitOffset == 32)
         {
@@ -33,9 +33,9 @@ static unsigned int __stdcall sub_0060B200_ReadBits(int nNumBits, D2CodecBitRead
     }
     else
     {
-        nBits = gaCodecBitMask_006E6030[nRemain] & (*pBitState->pCurWord++ >> pBitState->nBitOffset);
+        nBits = gadwDccBitMasks[nRemain] & (*pBitState->pCurWord++ >> pBitState->nBitOffset);
         pBitState->nBitOffset = nNumBits - nRemain;
-        nBits |= (gaCodecBitMask_006E6030[pBitState->nBitOffset] & *pBitState->pCurWord) << nRemain;
+        nBits |= (gadwDccBitMasks[pBitState->nBitOffset] & *pBitState->pCurWord) << nRemain;
     }
     return nBits;
 }

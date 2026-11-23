@@ -20,24 +20,24 @@ void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (_
 void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
 void* __cdecl sub_00446CF0(); // 0x00446CF0
 int __stdcall CONTROL_SetFocusedEditBox(D2WinControlStrc* pEditBox); // 0x004F91C0
-extern D2WinControlInitStrc gtControlInit_0070D8D0; // 0x0070D8D0
-extern D2WinControlInitStrc gtControlInit_0070D900; // 0x0070D900
+extern D2WinControlInitStrc gtCreateJoinBckgImageInit; // 0x0070D8D0
+extern D2WinControlInitStrc gtChannelScreenTitleInit; // 0x0070D900
 extern D2WinControlInitStrc gtControlInit_0070D930; // 0x0070D930
 extern D2WinControlInitStrc gtControlInit_0070D960; // 0x0070D960
-extern D2WinControlInitStrc gtControlInit_0070D990; // 0x0070D990
-extern D2WinControlInitStrc gtControlInit_0070D9F0; // 0x0070D9F0
-extern D2WinControlInitStrc gtControlInit_0070DA20; // 0x0070DA20
+extern D2WinControlInitStrc gtChannelNameEditInit; // 0x0070D990
+extern D2WinControlInitStrc gtChannelListInit; // 0x0070D9F0
+extern D2WinControlInitStrc gtChannelOkButtonInit; // 0x0070DA20
 extern D2WinControlInitStrc gtControlInit_0070E110; // 0x0070E110
-extern D2LaunchFuncsStrc* gpLaunchFuncs_0077B09C; // 0x0077B09C
-extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8; // 0x0077BBD8
+extern D2LaunchFuncsStrc* gpLaunchFuncs; // 0x0077B09C
+extern D2LaunchCharInfoStrc* gpCharInfo; // 0x0077BBD8
 extern D2WinControlStrc* gpControl_0077BCEC; // 0x0077BCEC
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" size_t __cdecl strlen(const char* szString);
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
 void __fastcall CHATDLG_ShowError(const Unicode* pText, D2LaunchCallback pfnDone); // 0x00440140
-extern D2WinControlStrc* gpChatTextBox_0077BD8C; // 0x0077BD8C
-extern char gszLastWhisperer_0077B0D0[]; // 0x0077B0D0
+extern D2WinControlStrc* gpChatTextBox; // 0x0077BD8C
+extern char gszLastWhisperer[]; // 0x0077B0D0
 static int __stdcall CHATDLG_CompareCommand(const char* szText, const char* szCommand); // 0x0043E6E0
 
 struct D2LaunchGameEntryStrc
@@ -57,9 +57,9 @@ struct D2LaunchGameListStrc
 const char* __fastcall CHATDLG_SkipString(const char* szText); // 0x00442AE0
 int __fastcall CHATDLG_IsCharOverLimit(const char* pChar); // 0x00442B20
 
-D2WinControlStrc* gpControl_0077BCDC; // 0x0077BCDC
+D2WinControlStrc* gpCreateJoinBckgImage; // 0x0077BCDC
 
-D2WinControlStrc* gpControl_0077BCE0; // 0x0077BCE0
+D2WinControlStrc* gpChannelScreenTitle; // 0x0077BCE0
 
 D2WinControlStrc* gpControl_0077BCE4; // 0x0077BCE4
 
@@ -67,19 +67,19 @@ D2WinControlStrc* gpControl_0077BCE8; // 0x0077BCE8
 
 D2WinControlStrc* gpControl_0077BCF0; // 0x0077BCF0
 
-D2WinControlStrc* gpEditBox_0077BCF4; // 0x0077BCF4
+D2WinControlStrc* gpChannelNameEdit; // 0x0077BCF4
 
-D2WinControlStrc* gpControl_0077BCFC; // 0x0077BCFC
+D2WinControlStrc* gpChannelListBox; // 0x0077BCFC
 
 int CHATDLG_ReplyCommand(const char* szText, const char* szCommand); // 0x00442180
 
 // 0x00440FC0
 void __cdecl sub_00440FC0_CreateGatewayControls()
 {
-    gpControl_0077BCDC = CONTROL_Create(&gtControlInit_0070D8D0);
+    gpCreateJoinBckgImage = CONTROL_Create(&gtCreateJoinBckgImageInit);
 
-    gpControl_0077BCE0 = CONTROL_Create(&gtControlInit_0070D900);
-    D2Win_10044(gpControl_0077BCE0, D2LANG_GetStringFromTblIndex(0x148D));
+    gpChannelScreenTitle = CONTROL_Create(&gtChannelScreenTitleInit);
+    D2Win_10044(gpChannelScreenTitle, D2LANG_GetStringFromTblIndex(0x148D));
 
     gpControl_0077BCE4 = CONTROL_Create(&gtControlInit_0070D930);
     D2Win_10044(gpControl_0077BCE4, D2LANG_GetStringFromTblIndex(0x148E));
@@ -87,35 +87,35 @@ void __cdecl sub_00440FC0_CreateGatewayControls()
     gpControl_0077BCE8 = CONTROL_Create(&gtControlInit_0070D960);
     D2Win_10044(gpControl_0077BCE8, D2LANG_GetStringFromTblIndex(0x148F));
 
-    gpControl_0077BCEC = CONTROL_Create(&gtControlInit_0070DA20);
+    gpControl_0077BCEC = CONTROL_Create(&gtChannelOkButtonInit);
 
     gpControl_0077BCF0 = CONTROL_Create(&gtControlInit_0070E110);
     sub_004FA450_SetActive(gpControl_0077BCF0);
 
-    gpEditBox_0077BCF4 = CONTROL_Create(&gtControlInit_0070D990);
-    sub_004FDD50_SetMaxLength(gpEditBox_0077BCF4, 0x20);
-    sub_004FDAD0_SetKeyCallback(gpEditBox_0077BCF4, sub_0043DBA0_ClearSelection);
-    sub_004FDB00_SetEnterCallback(gpEditBox_0077BCF4, CHATDLG_OnEditChange);
+    gpChannelNameEdit = CONTROL_Create(&gtChannelNameEditInit);
+    sub_004FDD50_SetMaxLength(gpChannelNameEdit, 0x20);
+    sub_004FDAD0_SetKeyCallback(gpChannelNameEdit, sub_0043DBA0_ClearSelection);
+    sub_004FDB00_SetEnterCallback(gpChannelNameEdit, CHATDLG_OnEditChange);
 
-    gpControl_0077BCFC = CONTROL_Create(&gtControlInit_0070D9F0);
+    gpChannelListBox = CONTROL_Create(&gtChannelListInit);
 
-    const char* szList = gpLaunchFuncs_0077B09C->pfn0x20(gpCharInfo_0077BBD8->wFlags[0] & 0x20);
+    const char* szList = gpLaunchFuncs->pfn0x20(gpCharInfo->wFlags[0] & 0x20);
 
-    if (gpCharInfo_0077BBD8->szRealm0x381[0])
+    if (gpCharInfo->szRealm0x381[0])
     {
-        D2Win_10045(gpControl_0077BCFC, gpCharInfo_0077BBD8->szRealm0x381);
+        D2Win_10045(gpChannelListBox, gpCharInfo->szRealm0x381);
     }
 
-    if (gpCharInfo_0077BBD8->szRealm0x361[0] && strcmp(gpCharInfo_0077BBD8->szRealm0x381, gpCharInfo_0077BBD8->szRealm0x361))
+    if (gpCharInfo->szRealm0x361[0] && strcmp(gpCharInfo->szRealm0x381, gpCharInfo->szRealm0x361))
     {
-        D2Win_10045(gpControl_0077BCFC, gpCharInfo_0077BBD8->szRealm0x361);
+        D2Win_10045(gpChannelListBox, gpCharInfo->szRealm0x361);
     }
 
     while (*szList)
     {
-        if (!gpCharInfo_0077BBD8->szRealm0x361[0] || strcmp(szList, gpCharInfo_0077BBD8->szRealm0x361))
+        if (!gpCharInfo->szRealm0x361[0] || strcmp(szList, gpCharInfo->szRealm0x361))
         {
-            D2Win_10045(gpControl_0077BCFC, szList);
+            D2Win_10045(gpChannelListBox, szList);
         }
 
         while (*szList)
@@ -125,10 +125,10 @@ void __cdecl sub_00440FC0_CreateGatewayControls()
         ++szList;
     }
 
-    sub_004FFE10_SetTextA(gpEditBox_0077BCF4, (const char*)sub_00446CF0());
-    CONTROL_SetFocusedEditBox(gpEditBox_0077BCF4);
-    D2Win_10082(gpEditBox_0077BCF4);
-    D2Win_10053(gpControl_0077BCFC, 0);
+    sub_004FFE10_SetTextA(gpChannelNameEdit, (const char*)sub_00446CF0());
+    CONTROL_SetFocusedEditBox(gpChannelNameEdit);
+    D2Win_10082(gpChannelNameEdit);
+    D2Win_10053(gpChannelListBox, 0);
 // build: symbol ?CHARSEL_UpdateOkEnabled@* 0x0043E660
     CHARSEL_UpdateOkEnabled();
 }
@@ -177,9 +177,11 @@ static __forceinline int CONSOLE_FindSecondTokenInline(const char* szText, char*
 // calling-convention shim (not game code)
 int __fastcall sub_00442180_Shim(char* szText)
 {
-    if (CHATDLG_ReplyCommand(szText, gszCmdR_006D56D4))
+// build: symbol ?gszCmdR@* 0x006D56D4
+    if (CHATDLG_ReplyCommand(szText, gszCmdR))
         return 1;
-    if (CHATDLG_ReplyCommand(szText, gszCmdReply_006D56CC))
+// build: symbol ?gszCmdReply@* 0x006D56CC
+    if (CHATDLG_ReplyCommand(szText, gszCmdReply))
         return 1;
     return 0;
 }
@@ -197,25 +199,25 @@ int __fastcall sub_004438E0_Lookup(const char* szName, const char* szPassword, D
 {
     int nFilterA = 0;
     int nFilterB = 0;
-    if ((*(unsigned short*)gpCharInfo_0077BBD8->wFlags) & 4)
+    if ((*(unsigned short*)gpCharInfo->wFlags) & 4)
     {
         nFilterA = 4;
         nFilterB = 4;
     }
-    if ((*(unsigned short*)gpCharInfo_0077BBD8->wFlags) & 0x20)
+    if ((*(unsigned short*)gpCharInfo->wFlags) & 0x20)
     {
         nFilterA |= 8;
         nFilterB |= 8;
     }
-    if (!sub_004438E0_HasProgress(*(unsigned short*)gpCharInfo_0077BBD8->wFlags, 0x800, 0xA00))
+    if (!sub_004438E0_HasProgress(*(unsigned short*)gpCharInfo->wFlags, 0x800, 0xA00))
     {
-        if (sub_004438E0_HasProgress(*(unsigned short*)gpCharInfo_0077BBD8->wFlags, 0x400, 0x500))
+        if (sub_004438E0_HasProgress(*(unsigned short*)gpCharInfo->wFlags, 0x400, 0x500))
             nFilterB |= 2;
         else
             nFilterB |= 3;
     }
 
-    const char* p = (const char*)gpLaunchFuncs_0077B09C->pfQueryGames(szName, szPassword, nFilterA, nFilterB);
+    const char* p = (const char*)gpLaunchFuncs->pfQueryGames(szName, szPassword, nFilterA, nFilterB);
     if (p)
     {
         const int nCount = *(const int*)p;

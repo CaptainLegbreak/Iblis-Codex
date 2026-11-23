@@ -16,11 +16,11 @@ struct D2PaletteStrc
     };
 };
 
-int gnScreenPitch_007D544C; // 0x007D544C
+int gnScreenPitch; // 0x007D544C
 
-unsigned char gLightCube_007CA320[32][32][32]; // 0x007CA320
+unsigned char gabLightCube[32][32][32]; // 0x007CA320
 
-D2PaletteStrc gLightPalettes_007D2348[49]; // 0x007D2348
+D2PaletteStrc gatLightPalettes[49]; // 0x007D2348
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
@@ -29,43 +29,43 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
 
-extern unsigned char* gpScreenBuffer_007D5448; // 0x007D5448
+extern unsigned char* gpScreenBuffer; // 0x007D5448
 
-unsigned char** gppBlendTables_007D5578; // 0x007D5578
+unsigned char** gpPaletteTables; // 0x007D5578
 
 void __fastcall sub_004F7580_DrawRleRowsClipped(int nX, int nY, unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette, int nRows); // 0x004F7580
 
-static int gnInnerBlockTop_007C9780; // 0x007C9780
+static int gnInnerBlockTop; // 0x007C9780
 
-int gnInnerRight_007C9784; // 0x007C9784
+int gnInnerRight; // 0x007C9784
 
-int gnClipBottom_007C978C; // 0x007C978C
+int gnClipBottom; // 0x007C978C
 
-int gnInnerBottom_007C9790; // 0x007C9790
+int gnInnerBottom; // 0x007C9790
 
-int gnClipLeft_007C9794; // 0x007C9794
+int gnClipLeft; // 0x007C9794
 
-static int gnInnerBlockBottom_007C979C; // 0x007C979C
+static int gnInnerBlockBottom; // 0x007C979C
 
-static int gnRowClipBottom_007C97A0; // 0x007C97A0
+static int gnRowClipBottom; // 0x007C97A0
 
-static int gnInnerBlockLeft_007C97A4; // 0x007C97A4
+static int gnInnerBlockLeft; // 0x007C97A4
 
-static int gnColClipLeft_007CA318; // 0x007CA318
+static int gnColClipLeft; // 0x007CA318
 
-int gnInnerTop_007CA31C; // 0x007CA31C
+int gnInnerTop; // 0x007CA31C
 
-static int gnInnerBlockRight_007D2320; // 0x007D2320
+static int gnInnerBlockRight; // 0x007D2320
 
-int gnClipRight_007D2324; // 0x007D2324
+int gnClipRight; // 0x007D2324
 
-int gnInnerLeft_007D2328; // 0x007D2328
+int gnInnerLeft; // 0x007D2328
 
-int gnClipTop_007D232C; // 0x007D232C
+int gnClipTop; // 0x007D232C
 
-static int gnRowClipTop_007D2334; // 0x007D2334
+static int gnRowClipTop; // 0x007D2334
 
-static int gnColClipRight_007D233C; // 0x007D233C
+static int gnColClipRight; // 0x007D233C
 
 void __fastcall sub_004F7850_DrawLitRleRowsClipped(int nX, int nY, unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep, int nRows, int nArg); // 0x004F7850
 
@@ -84,53 +84,53 @@ void __fastcall sub_004F7DA0_SetPanelCoords(int nWidth, int nHeight);
 void __fastcall sub_004F71A0_DrawLitRleRows(unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep, int nRows, int nShift)
 {
     unsigned char* pRow = pDst;
-    unsigned char* pLight = gLightCube_007CA320[nLightX >> nShift][nLightY >> nShift];
+    unsigned char* pLight = gabLightCube[nLightX >> nShift][nLightY >> nShift];
     while (nRows) {
         int nSkip = *pSrc++;
         int nLength = *pSrc++;
         if (!nSkip && !nLength) {
             nLightX += nLightXStep;
             nLightY += nLightYStep;
-            pDst += gnScreenPitch_007D544C;
+            pDst += gnScreenPitch;
             --nRows;
             pRow = pDst;
-            pLight = gLightCube_007CA320[nLightX >> nShift][nLightY >> nShift];
+            pLight = gabLightCube[nLightX >> nShift][nLightY >> nShift];
         } else {
             pRow += nSkip;
             pLight += nSkip;
             switch (nLength) {
-            case 32: pRow[31] = gLightPalettes_007D2348[pLight[31]].colors[pSrc[31]];
-            case 31: pRow[30] = gLightPalettes_007D2348[pLight[30]].colors[pSrc[30]];
-            case 30: pRow[29] = gLightPalettes_007D2348[pLight[29]].colors[pSrc[29]];
-            case 29: pRow[28] = gLightPalettes_007D2348[pLight[28]].colors[pSrc[28]];
-            case 28: pRow[27] = gLightPalettes_007D2348[pLight[27]].colors[pSrc[27]];
-            case 27: pRow[26] = gLightPalettes_007D2348[pLight[26]].colors[pSrc[26]];
-            case 26: pRow[25] = gLightPalettes_007D2348[pLight[25]].colors[pSrc[25]];
-            case 25: pRow[24] = gLightPalettes_007D2348[pLight[24]].colors[pSrc[24]];
-            case 24: pRow[23] = gLightPalettes_007D2348[pLight[23]].colors[pSrc[23]];
-            case 23: pRow[22] = gLightPalettes_007D2348[pLight[22]].colors[pSrc[22]];
-            case 22: pRow[21] = gLightPalettes_007D2348[pLight[21]].colors[pSrc[21]];
-            case 21: pRow[20] = gLightPalettes_007D2348[pLight[20]].colors[pSrc[20]];
-            case 20: pRow[19] = gLightPalettes_007D2348[pLight[19]].colors[pSrc[19]];
-            case 19: pRow[18] = gLightPalettes_007D2348[pLight[18]].colors[pSrc[18]];
-            case 18: pRow[17] = gLightPalettes_007D2348[pLight[17]].colors[pSrc[17]];
-            case 17: pRow[16] = gLightPalettes_007D2348[pLight[16]].colors[pSrc[16]];
-            case 16: pRow[15] = gLightPalettes_007D2348[pLight[15]].colors[pSrc[15]];
-            case 15: pRow[14] = gLightPalettes_007D2348[pLight[14]].colors[pSrc[14]];
-            case 14: pRow[13] = gLightPalettes_007D2348[pLight[13]].colors[pSrc[13]];
-            case 13: pRow[12] = gLightPalettes_007D2348[pLight[12]].colors[pSrc[12]];
-            case 12: pRow[11] = gLightPalettes_007D2348[pLight[11]].colors[pSrc[11]];
-            case 11: pRow[10] = gLightPalettes_007D2348[pLight[10]].colors[pSrc[10]];
-            case 10: pRow[9] = gLightPalettes_007D2348[pLight[9]].colors[pSrc[9]];
-            case 9: pRow[8] = gLightPalettes_007D2348[pLight[8]].colors[pSrc[8]];
-            case 8: pRow[7] = gLightPalettes_007D2348[pLight[7]].colors[pSrc[7]];
-            case 7: pRow[6] = gLightPalettes_007D2348[pLight[6]].colors[pSrc[6]];
-            case 6: pRow[5] = gLightPalettes_007D2348[pLight[5]].colors[pSrc[5]];
-            case 5: pRow[4] = gLightPalettes_007D2348[pLight[4]].colors[pSrc[4]];
-            case 4: pRow[3] = gLightPalettes_007D2348[pLight[3]].colors[pSrc[3]];
-            case 3: pRow[2] = gLightPalettes_007D2348[pLight[2]].colors[pSrc[2]];
-            case 2: pRow[1] = gLightPalettes_007D2348[pLight[1]].colors[pSrc[1]];
-            case 1: pRow[0] = gLightPalettes_007D2348[pLight[0]].colors[pSrc[0]];
+            case 32: pRow[31] = gatLightPalettes[pLight[31]].colors[pSrc[31]];
+            case 31: pRow[30] = gatLightPalettes[pLight[30]].colors[pSrc[30]];
+            case 30: pRow[29] = gatLightPalettes[pLight[29]].colors[pSrc[29]];
+            case 29: pRow[28] = gatLightPalettes[pLight[28]].colors[pSrc[28]];
+            case 28: pRow[27] = gatLightPalettes[pLight[27]].colors[pSrc[27]];
+            case 27: pRow[26] = gatLightPalettes[pLight[26]].colors[pSrc[26]];
+            case 26: pRow[25] = gatLightPalettes[pLight[25]].colors[pSrc[25]];
+            case 25: pRow[24] = gatLightPalettes[pLight[24]].colors[pSrc[24]];
+            case 24: pRow[23] = gatLightPalettes[pLight[23]].colors[pSrc[23]];
+            case 23: pRow[22] = gatLightPalettes[pLight[22]].colors[pSrc[22]];
+            case 22: pRow[21] = gatLightPalettes[pLight[21]].colors[pSrc[21]];
+            case 21: pRow[20] = gatLightPalettes[pLight[20]].colors[pSrc[20]];
+            case 20: pRow[19] = gatLightPalettes[pLight[19]].colors[pSrc[19]];
+            case 19: pRow[18] = gatLightPalettes[pLight[18]].colors[pSrc[18]];
+            case 18: pRow[17] = gatLightPalettes[pLight[17]].colors[pSrc[17]];
+            case 17: pRow[16] = gatLightPalettes[pLight[16]].colors[pSrc[16]];
+            case 16: pRow[15] = gatLightPalettes[pLight[15]].colors[pSrc[15]];
+            case 15: pRow[14] = gatLightPalettes[pLight[14]].colors[pSrc[14]];
+            case 14: pRow[13] = gatLightPalettes[pLight[13]].colors[pSrc[13]];
+            case 13: pRow[12] = gatLightPalettes[pLight[12]].colors[pSrc[12]];
+            case 12: pRow[11] = gatLightPalettes[pLight[11]].colors[pSrc[11]];
+            case 11: pRow[10] = gatLightPalettes[pLight[10]].colors[pSrc[10]];
+            case 10: pRow[9] = gatLightPalettes[pLight[9]].colors[pSrc[9]];
+            case 9: pRow[8] = gatLightPalettes[pLight[8]].colors[pSrc[8]];
+            case 8: pRow[7] = gatLightPalettes[pLight[7]].colors[pSrc[7]];
+            case 7: pRow[6] = gatLightPalettes[pLight[6]].colors[pSrc[6]];
+            case 6: pRow[5] = gatLightPalettes[pLight[5]].colors[pSrc[5]];
+            case 5: pRow[4] = gatLightPalettes[pLight[4]].colors[pSrc[4]];
+            case 4: pRow[3] = gatLightPalettes[pLight[3]].colors[pSrc[3]];
+            case 3: pRow[2] = gatLightPalettes[pLight[2]].colors[pSrc[2]];
+            case 2: pRow[1] = gatLightPalettes[pLight[1]].colors[pSrc[1]];
+            case 1: pRow[0] = gatLightPalettes[pLight[0]].colors[pSrc[0]];
             }
             pRow += nLength;
             pSrc += nLength;
@@ -155,25 +155,25 @@ void __fastcall sub_004F7580_DrawRleRowsClipped(int nX, int nY, unsigned char* p
         {
             ++i;
             ++nLeft;
-            pDst += gnScreenPitch_007D544C;
+            pDst += gnScreenPitch;
             p = pDst;
         }
         else
         {
-            if (nLeft >= gnRowClipBottom_007C97A0)
+            if (nLeft >= gnRowClipBottom)
             {
                 return;
             }
 
             p += nSkip;
-            if (nLeft >= gnRowClipTop_007D2334)
+            if (nLeft >= gnRowClipTop)
             {
                 unsigned char* pNextSrc = pSrc + nCount;
                 unsigned char* pNext = p + nCount;
                 const int nPos = p - pDst + nX;
-                int nStart = gnColClipLeft_007CA318 + (-nPos);
+                int nStart = gnColClipLeft + (-nPos);
                 nStart = nStart > 0 ? nStart : 0;
-                int nEnd = gnColClipRight_007D233C + (-nPos);
+                int nEnd = gnColClipRight + (-nPos);
                 nEnd = nEnd > 0 ? nEnd : 0;
                 nEnd = nEnd < nCount ? nEnd : nCount;
                 const int nLength = nEnd - nStart;
@@ -235,7 +235,7 @@ void __fastcall sub_004F7580_DrawRleRowsClipped(int nX, int nY, unsigned char* p
 void __fastcall sub_004F7850_DrawLitRleRowsClipped(int nX, int nY, unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep, int nRows, int nShift)
 {
     unsigned char* pRow = pDst;
-    unsigned char* pLight = gLightCube_007CA320[nLightX >> nShift][nLightY >> nShift];
+    unsigned char* pLight = gabLightCube[nLightX >> nShift][nLightY >> nShift];
     int nRow = 0;
     if (nRows > 0)
     {
@@ -247,25 +247,25 @@ void __fastcall sub_004F7850_DrawLitRleRowsClipped(int nX, int nY, unsigned char
             if (!nSkip && !nLength)
             {
                 ++nRow; ++nCurrentY;
-                pDst += gnScreenPitch_007D544C;
+                pDst += gnScreenPitch;
                 pRow = pDst;
                 nLightX += nLightXStep;
                 nLightY += nLightYStep;
-                pLight = gLightCube_007CA320[nLightX >> nShift][nLightY >> nShift];
+                pLight = gabLightCube[nLightX >> nShift][nLightY >> nShift];
             }
             else
             {
-                if (nCurrentY >= gnRowClipBottom_007C97A0) return;
+                if (nCurrentY >= gnRowClipBottom) return;
                 pRow += nSkip;
                 pLight += nSkip;
-                if (nCurrentY >= gnRowClipTop_007D2334)
+                if (nCurrentY >= gnRowClipTop)
                 {
                     unsigned char* pSrcEnd = pSrc + nLength;
                     unsigned char* pDstEnd = pRow + nLength;
                     const int nPosX = pRow - pDst + nX;
-                    int nStart = gnColClipLeft_007CA318 + (-nPosX);
+                    int nStart = gnColClipLeft + (-nPosX);
                     nStart = nStart > 0 ? nStart : 0;
-                    int nEnd = gnColClipRight_007D233C + (-nPosX);
+                    int nEnd = gnColClipRight + (-nPosX);
                     nEnd = nEnd > 0 ? nEnd : 0;
                     if (nEnd >= nLength) nEnd = nLength;
                     int nVisible = nEnd - nStart;
@@ -275,38 +275,38 @@ void __fastcall sub_004F7850_DrawLitRleRowsClipped(int nX, int nY, unsigned char
                         pSrc += nStart;
                         switch(nVisible)
                         {
-                        case 32: pRow[31] = gLightPalettes_007D2348[pLight[31]].remap[pSrc[31]];
-                        case 31: pRow[30] = gLightPalettes_007D2348[pLight[30]].remap[pSrc[30]];
-                        case 30: pRow[29] = gLightPalettes_007D2348[pLight[29]].remap[pSrc[29]];
-                        case 29: pRow[28] = gLightPalettes_007D2348[pLight[28]].remap[pSrc[28]];
-                        case 28: pRow[27] = gLightPalettes_007D2348[pLight[27]].remap[pSrc[27]];
-                        case 27: pRow[26] = gLightPalettes_007D2348[pLight[26]].remap[pSrc[26]];
-                        case 26: pRow[25] = gLightPalettes_007D2348[pLight[25]].remap[pSrc[25]];
-                        case 25: pRow[24] = gLightPalettes_007D2348[pLight[24]].remap[pSrc[24]];
-                        case 24: pRow[23] = gLightPalettes_007D2348[pLight[23]].remap[pSrc[23]];
-                        case 23: pRow[22] = gLightPalettes_007D2348[pLight[22]].remap[pSrc[22]];
-                        case 22: pRow[21] = gLightPalettes_007D2348[pLight[21]].remap[pSrc[21]];
-                        case 21: pRow[20] = gLightPalettes_007D2348[pLight[20]].remap[pSrc[20]];
-                        case 20: pRow[19] = gLightPalettes_007D2348[pLight[19]].remap[pSrc[19]];
-                        case 19: pRow[18] = gLightPalettes_007D2348[pLight[18]].remap[pSrc[18]];
-                        case 18: pRow[17] = gLightPalettes_007D2348[pLight[17]].remap[pSrc[17]];
-                        case 17: pRow[16] = gLightPalettes_007D2348[pLight[16]].remap[pSrc[16]];
-                        case 16: pRow[15] = gLightPalettes_007D2348[pLight[15]].remap[pSrc[15]];
-                        case 15: pRow[14] = gLightPalettes_007D2348[pLight[14]].remap[pSrc[14]];
-                        case 14: pRow[13] = gLightPalettes_007D2348[pLight[13]].remap[pSrc[13]];
-                        case 13: pRow[12] = gLightPalettes_007D2348[pLight[12]].remap[pSrc[12]];
-                        case 12: pRow[11] = gLightPalettes_007D2348[pLight[11]].remap[pSrc[11]];
-                        case 11: pRow[10] = gLightPalettes_007D2348[pLight[10]].remap[pSrc[10]];
-                        case 10: pRow[9] = gLightPalettes_007D2348[pLight[9]].remap[pSrc[9]];
-                        case 9: pRow[8] = gLightPalettes_007D2348[pLight[8]].remap[pSrc[8]];
-                        case 8: pRow[7] = gLightPalettes_007D2348[pLight[7]].remap[pSrc[7]];
-                        case 7: pRow[6] = gLightPalettes_007D2348[pLight[6]].remap[pSrc[6]];
-                        case 6: pRow[5] = gLightPalettes_007D2348[pLight[5]].remap[pSrc[5]];
-                        case 5: pRow[4] = gLightPalettes_007D2348[pLight[4]].remap[pSrc[4]];
-                        case 4: pRow[3] = gLightPalettes_007D2348[pLight[3]].remap[pSrc[3]];
-                        case 3: pRow[2] = gLightPalettes_007D2348[pLight[2]].remap[pSrc[2]];
-                        case 2: pRow[1] = gLightPalettes_007D2348[pLight[1]].remap[pSrc[1]];
-                        case 1: pRow[0] = gLightPalettes_007D2348[pLight[0]].remap[pSrc[0]];
+                        case 32: pRow[31] = gatLightPalettes[pLight[31]].remap[pSrc[31]];
+                        case 31: pRow[30] = gatLightPalettes[pLight[30]].remap[pSrc[30]];
+                        case 30: pRow[29] = gatLightPalettes[pLight[29]].remap[pSrc[29]];
+                        case 29: pRow[28] = gatLightPalettes[pLight[28]].remap[pSrc[28]];
+                        case 28: pRow[27] = gatLightPalettes[pLight[27]].remap[pSrc[27]];
+                        case 27: pRow[26] = gatLightPalettes[pLight[26]].remap[pSrc[26]];
+                        case 26: pRow[25] = gatLightPalettes[pLight[25]].remap[pSrc[25]];
+                        case 25: pRow[24] = gatLightPalettes[pLight[24]].remap[pSrc[24]];
+                        case 24: pRow[23] = gatLightPalettes[pLight[23]].remap[pSrc[23]];
+                        case 23: pRow[22] = gatLightPalettes[pLight[22]].remap[pSrc[22]];
+                        case 22: pRow[21] = gatLightPalettes[pLight[21]].remap[pSrc[21]];
+                        case 21: pRow[20] = gatLightPalettes[pLight[20]].remap[pSrc[20]];
+                        case 20: pRow[19] = gatLightPalettes[pLight[19]].remap[pSrc[19]];
+                        case 19: pRow[18] = gatLightPalettes[pLight[18]].remap[pSrc[18]];
+                        case 18: pRow[17] = gatLightPalettes[pLight[17]].remap[pSrc[17]];
+                        case 17: pRow[16] = gatLightPalettes[pLight[16]].remap[pSrc[16]];
+                        case 16: pRow[15] = gatLightPalettes[pLight[15]].remap[pSrc[15]];
+                        case 15: pRow[14] = gatLightPalettes[pLight[14]].remap[pSrc[14]];
+                        case 14: pRow[13] = gatLightPalettes[pLight[13]].remap[pSrc[13]];
+                        case 13: pRow[12] = gatLightPalettes[pLight[12]].remap[pSrc[12]];
+                        case 12: pRow[11] = gatLightPalettes[pLight[11]].remap[pSrc[11]];
+                        case 11: pRow[10] = gatLightPalettes[pLight[10]].remap[pSrc[10]];
+                        case 10: pRow[9] = gatLightPalettes[pLight[9]].remap[pSrc[9]];
+                        case 9: pRow[8] = gatLightPalettes[pLight[8]].remap[pSrc[8]];
+                        case 8: pRow[7] = gatLightPalettes[pLight[7]].remap[pSrc[7]];
+                        case 7: pRow[6] = gatLightPalettes[pLight[6]].remap[pSrc[6]];
+                        case 6: pRow[5] = gatLightPalettes[pLight[5]].remap[pSrc[5]];
+                        case 5: pRow[4] = gatLightPalettes[pLight[4]].remap[pSrc[4]];
+                        case 4: pRow[3] = gatLightPalettes[pLight[3]].remap[pSrc[3]];
+                        case 3: pRow[2] = gatLightPalettes[pLight[2]].remap[pSrc[2]];
+                        case 2: pRow[1] = gatLightPalettes[pLight[1]].remap[pSrc[1]];
+                        case 1: pRow[0] = gatLightPalettes[pLight[0]].remap[pSrc[0]];
                         }
                     }
                     pSrc = pSrcEnd;
@@ -339,37 +339,38 @@ void __fastcall sub_004F7DA0_SetPanelCoords(int nWidth, int nHeight)
         nLeft = nWidth / 2;
     }
     gnScreen_7D2338 = nBottom;
-    gnInnerBlockLeft_007C97A4 = nLeft;
-    gnInnerLeft_007D2328 = nLeft;
-    gnColClipLeft_007CA318 = nLeft;
+    gnInnerBlockLeft = nLeft;
+    gnInnerLeft = nLeft;
+    gnColClipLeft = nLeft;
     gnScreen_7D2330 = -0x10;
     gnScreen_7C9788 = nLeft - 0x20;
-    gnInnerBlockBottom_007C979C = nBottom - 0x10;
+    gnInnerBlockBottom = nBottom - 0x10;
     gnScreen_7C9798 = nRight;
-    gnInnerBlockTop_007C9780 = 0;
-    gnInnerBlockRight_007D2320 = nRight - 0x20;
-    gnClipTop_007D232C = -0x20;
-    gnClipRight_007D2324 = nRight;
-    gnClipBottom_007C978C = nBottom;
-    gnInnerTop_007CA31C = 0;
-    gnClipLeft_007C9794 = nLeft - 0x20;
-    gnInnerBottom_007C9790 = nBottom - 0x20;
-    gnInnerRight_007C9784 = nRight - 0x20;
-    gnRowClipTop_007D2334 = 0;
-    gnColClipRight_007D233C = nRight;
-    gnRowClipBottom_007C97A0 = nBottom;
+    gnInnerBlockTop = 0;
+    gnInnerBlockRight = nRight - 0x20;
+    gnClipTop = -0x20;
+    gnClipRight = nRight;
+    gnClipBottom = nBottom;
+    gnInnerTop = 0;
+    gnClipLeft = nLeft - 0x20;
+    gnInnerBottom = nBottom - 0x20;
+    gnInnerRight = nRight - 0x20;
+    gnRowClipTop = 0;
+    gnColClipRight = nRight;
+    gnRowClipBottom = nBottom;
 }
 
 // 0x004F7EA0
 void __fastcall sub_004F7EA0_DrawVisTile(unsigned char* pSrc, int nX, int nY)
 {
-    if (nY < gnClipTop_007D232C || nY >= gnClipBottom_007C978C || nX < gnClipLeft_007C9794 || nX >= gnClipRight_007D2324)
+    if (nY < gnClipTop || nY >= gnClipBottom || nX < gnClipLeft || nX >= gnClipRight)
         return;
 
-    D2_ASSERT(gpScreenBuffer_007D5448, 0x2F4);
-    unsigned char* pDst = gnRowOffsets_007C97A8[nY + 32] + gpScreenBuffer_007D5448 + nX;
+    D2_ASSERT(gpScreenBuffer, 0x2F4);
+// build: symbol ?ganRowOffsets@* 0x007C97A8
+    unsigned char* pDst = ganRowOffsets[nY + 32] + gpScreenBuffer + nX;
     unsigned char* p = pDst;
-    if (nY >= gnInnerTop_007CA31C && nY < gnInnerBottom_007C9790 && nX >= gnInnerLeft_007D2328 && nX < gnInnerRight_007C9784)
+    if (nY >= gnInnerTop && nY < gnInnerBottom && nX >= gnInnerLeft && nX < gnInnerRight)
     {
         int nRows = 0x20;
         while (nRows)
@@ -379,7 +380,7 @@ void __fastcall sub_004F7EA0_DrawVisTile(unsigned char* pSrc, int nX, int nY)
             if (!nSkip && !nCount)
             {
                 --nRows;
-                pDst += gnScreenPitch_007D544C;
+                pDst += gnScreenPitch;
                 p = pDst;
             }
             else
@@ -403,21 +404,21 @@ void __fastcall sub_004F7EA0_DrawVisTile(unsigned char* pSrc, int nX, int nY)
             {
                 ++nRow;
                 ++nRowY;
-                pDst += gnScreenPitch_007D544C;
+                pDst += gnScreenPitch;
                 p = pDst;
             }
             else
             {
-                if (nRowY >= gnRowClipBottom_007C97A0)
+                if (nRowY >= gnRowClipBottom)
                     return;
 
                 p += nSkip;
-                if (nRowY >= gnRowClipTop_007D2334)
+                if (nRowY >= gnRowClipTop)
                 {
                     const int nPosX = p - pDst + nX;
-                    int nLeft = gnColClipLeft_007CA318 + (-nPosX);
+                    int nLeft = gnColClipLeft + (-nPosX);
                     nLeft = D2_MAX(nLeft, 0);
-                    int nRight = gnColClipRight_007D233C + (-nPosX);
+                    int nRight = gnColClipRight + (-nPosX);
                     nRight = D2_MAX(nRight, 0);
                     if (nRight >= nCount)
                         nRight = nCount;
@@ -445,21 +446,21 @@ void __fastcall sub_004F82D0_DrawBlendVisTile(unsigned char* pSrc, int nX, int n
     unsigned char* p;
     unsigned char* pBlend;
     if (nAlpha >= 0xC0)
-        pBlend = gppBlendTables_007D5578[0];
+        pBlend = gpPaletteTables[0];
     else if (nAlpha >= 0x80)
-        pBlend = gppBlendTables_007D5578[1];
+        pBlend = gpPaletteTables[1];
     else if (nAlpha >= 0x40)
-        pBlend = gppBlendTables_007D5578[2];
+        pBlend = gpPaletteTables[2];
     else
         return;
 
-    if (nY < gnClipTop_007D232C || nY >= gnClipBottom_007C978C || nX < gnClipLeft_007C9794 || nX >= gnClipRight_007D2324)
+    if (nY < gnClipTop || nY >= gnClipBottom || nX < gnClipLeft || nX >= gnClipRight)
         return;
 
-    D2_ASSERT(gpScreenBuffer_007D5448, 0x3F8);
-    pDst = gnRowOffsets_007C97A8[nY + 32] + gpScreenBuffer_007D5448 + nX;
+    D2_ASSERT(gpScreenBuffer, 0x3F8);
+    pDst = ganRowOffsets[nY + 32] + gpScreenBuffer + nX;
     p = pDst;
-    if (nY >= gnInnerTop_007CA31C && nY < gnInnerBottom_007C9790 && nX >= gnInnerLeft_007D2328 && nX < gnInnerRight_007C9784)
+    if (nY >= gnInnerTop && nY < gnInnerBottom && nX >= gnInnerLeft && nX < gnInnerRight)
     {
         int nRows = 0x20;
         while (nRows)
@@ -469,7 +470,7 @@ void __fastcall sub_004F82D0_DrawBlendVisTile(unsigned char* pSrc, int nX, int n
             if (!nSkip && !nCount)
             {
                 --nRows;
-                pDst += gnScreenPitch_007D544C;
+                pDst += gnScreenPitch;
                 p = pDst;
             }
             else
@@ -496,16 +497,16 @@ void __fastcall sub_004F82D0_DrawBlendVisTile(unsigned char* pSrc, int nX, int n
             {
                 ++nRow;
                 ++nRowY;
-                pDst += gnScreenPitch_007D544C;
+                pDst += gnScreenPitch;
                 p = pDst;
             }
             else
             {
-                if (nRowY >= gnRowClipBottom_007C97A0)
+                if (nRowY >= gnRowClipBottom)
                     return;
 
                 p += nSkip;
-                if (nRowY >= gnRowClipTop_007D2334)
+                if (nRowY >= gnRowClipTop)
                 {
                     unsigned char* pNextSrc = pSrc + nCount;
                     int nPosX = p - pDst + nX;
@@ -513,9 +514,9 @@ void __fastcall sub_004F82D0_DrawBlendVisTile(unsigned char* pSrc, int nX, int n
                     // stands for the original's register use in this draw loop (blend table kept in a stack slot); without it, plain forms reassign registers from the top of the function
                     __assume(nPosX != 0x80000000);
                     nPosX = -nPosX;
-                    int nLeft = gnColClipLeft_007CA318 + nPosX;
+                    int nLeft = gnColClipLeft + nPosX;
                     nLeft = nLeft > 0 ? nLeft : 0;
-                    int nRight = gnColClipRight_007D233C + nPosX;
+                    int nRight = gnColClipRight + nPosX;
                     nRight = nRight > 0 ? nRight : 0;
                     if (nRight >= nCount)
                         nRight = nCount;
@@ -551,11 +552,11 @@ void __fastcall sub_004F84F0_TileDrawLitBlend(unsigned char* pSrc, int nX, int n
 {
     unsigned char* pBlend;
     if (nAlpha >= 0xC0)
-        pBlend = gppBlendTables_007D5578[0];
+        pBlend = gpPaletteTables[0];
     else if (nAlpha >= 0x80)
-        pBlend = gppBlendTables_007D5578[1];
+        pBlend = gpPaletteTables[1];
     else if (nAlpha >= 0x40)
-        pBlend = gppBlendTables_007D5578[2];
+        pBlend = gpPaletteTables[2];
     else
         return;
 
@@ -564,15 +565,15 @@ void __fastcall sub_004F84F0_TileDrawLitBlend(unsigned char* pSrc, int nX, int n
     int nLightY = pLight[1] << 5;
     const int nLightYStep = pLight[2] - pLight[1];
 
-    if (nY < gnClipTop_007D232C || nY >= gnClipBottom_007C978C || nX < gnClipLeft_007C9794 || nX >= gnClipRight_007D2324)
+    if (nY < gnClipTop || nY >= gnClipBottom || nX < gnClipLeft || nX >= gnClipRight)
         return;
 
-    unsigned char* pBuffer = gpScreenBuffer_007D5448;
+    unsigned char* pBuffer = gpScreenBuffer;
     D2_ASSERT(pBuffer, 0x48B);
-    unsigned char* pDst = gnRowOffsets_007C97A8[nY + 32] + pBuffer + nX;
+    unsigned char* pDst = ganRowOffsets[nY + 32] + pBuffer + nX;
     unsigned char* p = pDst;
-    unsigned char* pRamp = gLightCube_007CA320[nLightX >> 8][nLightY >> 8];
-    if (nY >= gnInnerTop_007CA31C && nY < gnInnerBottom_007C9790 && nX >= gnInnerLeft_007D2328 && nX < gnInnerRight_007C9784)
+    unsigned char* pRamp = gabLightCube[nLightX >> 8][nLightY >> 8];
+    if (nY >= gnInnerTop && nY < gnInnerBottom && nX >= gnInnerLeft && nX < gnInnerRight)
     {
         int nRows = 0x20;
         while (nRows)
@@ -582,11 +583,11 @@ void __fastcall sub_004F84F0_TileDrawLitBlend(unsigned char* pSrc, int nX, int n
             if (!nSkip && !nCount)
             {
                 --nRows;
-                pDst += gnScreenPitch_007D544C;
+                pDst += gnScreenPitch;
                 p = pDst;
                 nLightX += nLightXStep;
                 nLightY += nLightYStep;
-                pRamp = gLightCube_007CA320[nLightX >> 8][nLightY >> 8];
+                pRamp = gabLightCube[nLightX >> 8][nLightY >> 8];
             }
             else
             {
@@ -595,7 +596,7 @@ void __fastcall sub_004F84F0_TileDrawLitBlend(unsigned char* pSrc, int nX, int n
                 unsigned char* pEnd = pSrc + nCount;
                 while (pSrc < pEnd)
                 {
-                    const unsigned char nLit = gLightPalettes_007D2348[*pRamp].unk0x00[*pSrc];
+                    const unsigned char nLit = gatLightPalettes[*pRamp].unk0x00[*pSrc];
                     ++pSrc;
                     *p = pBlend[(nLit << 8) + *p];
                     ++pRamp;
@@ -616,28 +617,28 @@ void __fastcall sub_004F84F0_TileDrawLitBlend(unsigned char* pSrc, int nX, int n
             {
                 ++nRow;
                 ++nRowY;
-                pDst += gnScreenPitch_007D544C;
+                pDst += gnScreenPitch;
                 p = pDst;
                 nLightX += nLightXStep;
                 nLightY += nLightYStep;
-                pRamp = gLightCube_007CA320[nLightX >> 8][nLightY >> 8];
+                pRamp = gabLightCube[nLightX >> 8][nLightY >> 8];
             }
             else
             {
-                if (nRowY >= gnRowClipBottom_007C97A0)
+                if (nRowY >= gnRowClipBottom)
                     return;
 
                 p += nSkip;
                 pRamp += nSkip;
-                if (nRowY >= gnRowClipTop_007D2334)
+                if (nRowY >= gnRowClipTop)
                 {
                     unsigned char* pNextSrc = pSrc + nCount;
                     unsigned char* pNextDst = p + nCount;
                     unsigned char* pNextRamp = pRamp + nCount;
                     const int nPosX = p - pDst + nX;
-                    int nLeft = gnColClipLeft_007CA318 + (-nPosX);
+                    int nLeft = gnColClipLeft + (-nPosX);
                     nLeft = nLeft > 0 ? nLeft : 0;
-                    int nRight = gnColClipRight_007D233C + (-nPosX);
+                    int nRight = gnColClipRight + (-nPosX);
                     nRight = nRight > 0 ? nRight : 0;
                     if (nRight >= nCount)
                         nRight = nCount;
@@ -649,7 +650,7 @@ void __fastcall sub_004F84F0_TileDrawLitBlend(unsigned char* pSrc, int nX, int n
                         p += nLeft;
                         while (pSrc < pEnd)
                         {
-                            const unsigned char nLit = gLightPalettes_007D2348[*pRamp].unk0x00[*pSrc];
+                            const unsigned char nLit = gatLightPalettes[*pRamp].unk0x00[*pSrc];
                             ++pSrc;
                             *p = pBlend[(nLit << 8) + *p];
                             ++pRamp;
@@ -675,25 +676,28 @@ void __fastcall sub_004F84F0_TileDrawLitBlend(unsigned char* pSrc, int nX, int n
 // 0x004F88B0
 void __fastcall sub_004F88B0_DrawBlockClipped(D2TileLibraryBlockStrc* pBlock, int nX, int nY, unsigned char* pDst, unsigned char nLight)
 {
-    unsigned char* pPalette = gLightPalettes_007D2348[nLight >> 3].unk0x00;
+    unsigned char* pPalette = gatLightPalettes[nLight >> 3].unk0x00;
     if (pBlock->nFormat & 4)
     {
         sub_004F7580_DrawRleRowsClipped(nX, nY, pBlock->pData, pDst, pPalette, 0xF);
         return;
     }
 
-    const int nStartRow = D2_MAX(gnRowClipTop_007D2334 - nY, 0);
-    const int nEndRow = D2_MIN(gnRowClipBottom_007C97A0 - nY, 15);
-    unsigned char* pRow = pDst + gnScreenPitch_007D544C * nStartRow;
+    const int nStartRow = D2_MAX(gnRowClipTop - nY, 0);
+    const int nEndRow = D2_MIN(gnRowClipBottom - nY, 15);
+    unsigned char* pRow = pDst + gnScreenPitch * nStartRow;
     for (int i = nStartRow; i < nEndRow; ++i)
     {
-        const int nNegX = -(nX + gnSubtileRowXOffset_0072DB48[i]);
-        unsigned char* d = pRow + gnSubtileRowXOffset_0072DB48[i];
-        unsigned char* s = pBlock->pData + gnSubtileRowSrcOffset_0072DBC0[i];
-        const int nSkipValue = D2_MAX(gnColClipLeft_007CA318 + nNegX, 0);
-        const int nClipRight = gnColClipRight_007D233C;
+// build: symbol ?ganSubtileRowXOffset@* 0x0072DB48
+        const int nNegX = -(nX + ganSubtileRowXOffset[i]);
+        unsigned char* d = pRow + ganSubtileRowXOffset[i];
+// build: symbol ?ganSubtileRowSrcOffset@* 0x0072DBC0
+        unsigned char* s = pBlock->pData + ganSubtileRowSrcOffset[i];
+        const int nSkipValue = D2_MAX(gnColClipLeft + nNegX, 0);
+        const int nClipRight = gnColClipRight;
         const int nRight = nNegX + nClipRight;
-        const int nWidth = gnSubtileRowWidth_0072DB84[i];
+// build: symbol ?ganSubtileRowWidth@* 0x0072DB84
+        const int nWidth = ganSubtileRowWidth[i];
         int nSkip;
         nSkip = nSkipValue;
         int nCount = D2_MAX(nRight, 0);
@@ -708,7 +712,7 @@ void __fastcall sub_004F88B0_DrawBlockClipped(D2TileLibraryBlockStrc* pBlock, in
             }
         }
 
-        pRow += gnScreenPitch_007D544C;
+        pRow += gnScreenPitch;
     }
 }
 
@@ -733,17 +737,17 @@ void __fastcall sub_004F89F0_DrawLitBlockClipped(D2TileLibraryBlockStrc* pBlock,
         return;
     }
 
-    const int nStartRow = D2_MAX(gnRowClipTop_007D2334 - nY, 0);
-    const int nEndRow = D2_MIN(gnRowClipBottom_007C97A0 - nY, 15);
-    unsigned char* pRow = pDst + gnScreenPitch_007D544C * nStartRow;
+    const int nStartRow = D2_MAX(gnRowClipTop - nY, 0);
+    const int nEndRow = D2_MIN(gnRowClipBottom - nY, 15);
+    unsigned char* pRow = pDst + gnScreenPitch * nStartRow;
     for (int i = nStartRow; i < nEndRow; ++i)
     {
-        const int nNegX = -(nX + gnSubtileRowXOffset_0072DB48[i]);
-        unsigned char* pLevels = (unsigned char*)gLightCube_007CA320 + 32 * ((nLightY >> 7) + 32 * (nLightX >> 7)) + gnSubtileRowXOffset_0072DB48[i];
-        unsigned char* d = pRow + gnSubtileRowXOffset_0072DB48[i];
-        unsigned char* s = pBlock->pData + gnSubtileRowSrcOffset_0072DBC0[i];
+        const int nNegX = -(nX + ganSubtileRowXOffset[i]);
+        unsigned char* pLevels = (unsigned char*)gabLightCube + 32 * ((nLightY >> 7) + 32 * (nLightX >> 7)) + ganSubtileRowXOffset[i];
+        unsigned char* d = pRow + ganSubtileRowXOffset[i];
+        unsigned char* s = pBlock->pData + ganSubtileRowSrcOffset[i];
         int nSkip;
-        int nCount = ClipRowSpan(&nSkip, gnSubtileRowWidth_0072DB84[i], gnColClipRight_007D233C + nNegX, D2_MAX(gnColClipLeft_007CA318 + nNegX, 0));
+        int nCount = ClipRowSpan(&nSkip, ganSubtileRowWidth[i], gnColClipRight + nNegX, D2_MAX(gnColClipLeft + nNegX, 0));
         if (nCount > 0)
         {
             s += nSkip;
@@ -752,13 +756,13 @@ void __fastcall sub_004F89F0_DrawLitBlockClipped(D2TileLibraryBlockStrc* pBlock,
                 unsigned char* pEnd = s + nCount;
                 while (s < pEnd)
                 {
-                    *d = gLightPalettes_007D2348[*pLevels].unk0x00[*s];
+                    *d = gatLightPalettes[*pLevels].unk0x00[*s];
                     ++s, ++d, ++pLevels;
                 }
             }
         }
 
-        pRow += gnScreenPitch_007D544C;
+        pRow += gnScreenPitch;
         nLightX += nLightXStep;
         nLightY += nLightYStep;
     }

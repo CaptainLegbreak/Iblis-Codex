@@ -73,7 +73,8 @@ int __fastcall D3D_SubtileCacheInit(D2SubtilePoolStrc* pPool, unsigned int nBase
 	pPool->nCapacity = pPool->nCapacity < 0x800 ? pPool->nCapacity : 0x800;
 
 	int nSize = pPool->nCapacity * sizeof(D2SubtilePoolEntryStrc);
-	pPool->pEntries = (D2SubtilePoolEntryStrc*)FOG_Alloc(nSize, gszSubtilePoolSourceFile_006FC3A8, 45, 0);
+// build: symbol ?gszSubtilePoolSourceFile@* 0x006FC3A8
+	pPool->pEntries = (D2SubtilePoolEntryStrc*)FOG_Alloc(nSize, gszSubtilePoolSourceFile, 45, 0);
 	D2_ASSERT(pPool->pEntries, 46);
 	memset(pPool->pEntries, 0, nSize);
 
@@ -434,7 +435,7 @@ void __fastcall D3D_SubtileCacheDestroy(D2SubtilePoolStrc* pPool, int bReleaseAl
 
 	if (pPool->pEntries)
 	{
-		FOG_Free(pPool->pEntries, gszSubtilePoolSourceFile_006FC3A8, 130, 0);
+		FOG_Free(pPool->pEntries, gszSubtilePoolSourceFile, 130, 0);
 		pPool->pEntries = 0;
 	}
 

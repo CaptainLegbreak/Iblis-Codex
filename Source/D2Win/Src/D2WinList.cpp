@@ -102,7 +102,7 @@ int __stdcall LIST_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg); // 0x0050742
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
-extern int gnListFontHeight_006DD024[]; // 0x006DD024
+extern int ganListFontHeight[]; // 0x006DD024
 
 int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl);                                           // 0x004F9310
 
@@ -215,8 +215,8 @@ D2WinListStrc* __fastcall LIST_Create(int nX, int nY, int nWidth, int nHeight, D
     pList->field_5C = 0;
     pList->pDataList = 0;
     pList->eFont = *pFont;
-    pList->field_44 = gnListFontHeight_006DD024[pList->eFont];
-    pList->field_48 = gnListFontHeight_006DD024[pList->eFont] >> 2;
+    pList->field_44 = ganListFontHeight[pList->eFont];
+    pList->field_48 = ganListFontHeight[pList->eFont] >> 2;
     pList->nWidestEntry = 0;
     pList->field_4C = 0;
     pList->field_50 = 0;

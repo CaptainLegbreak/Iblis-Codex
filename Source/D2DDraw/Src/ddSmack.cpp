@@ -9,11 +9,11 @@ extern "C" __declspec(dllimport) void __stdcall SmackNextFrame(D2SmackStrc* hSma
 
 void __fastcall DDRAW_CloseSmacker(D2SmackRecordStrc* pRecord);                                      // 0x00513330
 
-unsigned char gabRemapTable_008815B0[256];                                                                  // 0x008815B0
+unsigned char gabDDrawSmackRemap[256];                                                                  // 0x008815B0
 
 extern unsigned char* gpRemapSource_008816B0;                                                               // 0x008816B0
 
-int gbRemapValid_008816B4;                                                                                  // 0x008816B4
+int gbDDrawSmackRemapReady;                                                                                  // 0x008816B4
 
 extern unsigned char gabGamePalette_007C8CC8[];                                                             // 0x007C8CC8
 
@@ -31,20 +31,20 @@ int __stdcall SFileLoadFileEx(void* hMpq, const char* szFileName, void** ppBuffe
 
 int __stdcall SBmpDecodeImage(int nMode, void* pData, int nSize, tagPALETTEENTRY* pPalette, unsigned char* pDest, int nDestSize, int* pWidth, int* pHeight, int* pDepth); // 0x006C6A80
 
-extern tagPALETTEENTRY gaDDrawPalette_007C8CC8[256];                                                     // 0x007C8CC8
+extern tagPALETTEENTRY gatGamePalette[256];                                                     // 0x007C8CC8
 
 extern unsigned char gaDDrawSmackRemap_008815B0[256];                                                       // 0x008815B0
 
 extern int gbDDrawSmackRemapReady_008816B4;                                                                 // 0x008816B4
 
-static void* gpDDrawSmackBuffer_008816B0; // 0x008816B0
+static void* gpDDrawSmackBuffer; // 0x008816B0
 
 static inline void sub_00513380_RemapSpan(unsigned char* pDst, const unsigned char* pSrc, int nCount)
 {
     while (nCount)
     {
         --nCount;
-        *pDst++ = gabRemapTable_008815B0[*pSrc++];
+        *pDst++ = gabDDrawSmackRemap[*pSrc++];
     }
 }
 
@@ -54,13 +54,14 @@ static void __stdcall sub_00513380_RemapRows(int nWidth, D2SmackRecordStrc* pRec
     if (!gpRemapSource_008816B0)
         return;
     unsigned char* pSrc = gpRemapSource_008816B0;
-    unsigned char* pDst = (pRect->nY - nRows) * gnScreenWidth_007C9138 + pRect->nX + gpScreenBuffer_007C9154;
+// build: symbol ?gnRenderWidth@* 0x007C9138
+    unsigned char* pDst = (pRect->nY - nRows) * gnRenderWidth + pRect->nX + gpScreenBuffer_007C9154;
     unsigned int nLeft = nRows;
     while (nLeft)
     {
         --nLeft;
         sub_00513380_RemapSpan(pDst, pSrc, nWidth);
-        pDst += gnScreenWidth_007C9138;
+        pDst += gnRenderWidth;
         pSrc += nWidth;
     }
 }
@@ -82,9 +83,9 @@ void __fastcall sub_005135F0_DDrawPlaySmacker(D2SmackRecordStrc* pRecord)
             {
                 for (int i = 0; i < 256; ++i)
                 {
-                    gabRemapTable_008815B0[i] = GetClosestColor(gabGamePalette_007C8CC8, 256, hSmack->aPalette[i].nRed, hSmack->aPalette[i].nGreen, hSmack->aPalette[i].nBlue);
+                    gabDDrawSmackRemap[i] = GetClosestColor(gabGamePalette_007C8CC8, 256, hSmack->aPalette[i].nRed, hSmack->aPalette[i].nGreen, hSmack->aPalette[i].nBlue);
                 }
-                gbRemapValid_008816B4 = 1;
+                gbDDrawSmackRemapReady = 1;
             }
             SmackDoFrame(hSmack);
             if (hSmack->nFrameNum == hSmack->nFrames)
@@ -92,15 +93,16 @@ void __fastcall sub_005135F0_DDrawPlaySmacker(D2SmackRecordStrc* pRecord)
             else
                 SmackNextFrame(hSmack);
         }
-        if (gbRenderPaused_007C9144)
+// build: symbol ?gbRenderPaused@* 0x007C9144
+        if (gbRenderPaused)
             return;
-        if (!gbRemapValid_008816B4)
+        if (!gbDDrawSmackRemapReady)
             return;
         sub_00513380_RemapRows(hSmack->nWidth, pRecord, hSmack->nHeight);
         return;
     }
     case 'p':
-        if (!gbRenderPaused_007C9144)
+        if (!gbRenderPaused)
             sub_00513380_RemapRows(468, pRecord, 60);
         break;
     }
@@ -109,10 +111,11 @@ void __fastcall sub_005135F0_DDrawPlaySmacker(D2SmackRecordStrc* pRecord)
 // 0x00513330
 void __fastcall DDRAW_CloseSmacker(D2SmackRecordStrc* pRecord)
 {
-    if (gpDDrawSmackBuffer_008816B0)
+    if (gpDDrawSmackBuffer)
     {
-        FOG_Free(gpDDrawSmackBuffer_008816B0, szDDSmackFile_006DE20C, 0xF0, 0);
-        gpDDrawSmackBuffer_008816B0 = 0;
+// build: symbol ?gszDDSmackFile@* 0x006DE20C
+        FOG_Free(gpDDrawSmackBuffer, gszDDSmackFile, 0xF0, 0);
+        gpDDrawSmackBuffer = 0;
     }
     if (pRecord->nType == 's' && pRecord->hSmack)
     {
@@ -139,8 +142,8 @@ void __fastcall DDRAW_DecodeSmacker(const char* szFile, D2SmackRecordStrc* pReco
         {
             break;
         }
-        unsigned char* pBuffer = (unsigned char*)FOG_Alloc(pSmack->nWidth * pSmack->nHeight, szDDSmackFile_006DE20C, 0x42, 0);
-        gpDDrawSmackBuffer_008816B0 = pBuffer;
+        unsigned char* pBuffer = (unsigned char*)FOG_Alloc(pSmack->nWidth * pSmack->nHeight, gszDDSmackFile, 0x42, 0);
+        gpDDrawSmackBuffer = pBuffer;
         memset(pBuffer, 0, pSmack->nWidth * pSmack->nHeight);
         SmackToBuffer(pRecord->hSmack, 0, 0, pSmack->nWidth, pSmack->nHeight, pBuffer, 0);
         gbDDrawSmackRemapReady_008816B4 = 0;
@@ -149,8 +152,8 @@ void __fastcall DDRAW_DecodeSmacker(const char* szFile, D2SmackRecordStrc* pReco
 
     case 'p':
     {
-        gpDDrawSmackBuffer_008816B0 = (unsigned char*)FOG_Alloc(0x6DB0, szDDSmackFile_006DE20C, 0x53, 0);
-        memset(gpDDrawSmackBuffer_008816B0, 0, 0x6DB0);
+        gpDDrawSmackBuffer = (unsigned char*)FOG_Alloc(0x6DB0, gszDDSmackFile, 0x53, 0);
+        memset(gpDDrawSmackBuffer, 0, 0x6DB0);
         void* pData = 0;
         int nSize = 0;
         if (!SFileLoadFileEx(0, szFile, &pData, &nSize, 0, 3, 0) || !pData)
@@ -162,8 +165,8 @@ void __fastcall DDRAW_DecodeSmacker(const char* szFile, D2SmackRecordStrc* pReco
         int nHeight;
         int nDepth;
         int nWidth;
-        const int bDecoded = SBmpDecodeImage(2, pData, nSize, aPalette, (unsigned char*)gpDDrawSmackBuffer_008816B0, 0x6DB0, &nWidth, &nHeight, &nDepth);
-        SMemFree(pData, szDDSmackFile_006DE20C, 0x78, 0);
+        const int bDecoded = SBmpDecodeImage(2, pData, nSize, aPalette, (unsigned char*)gpDDrawSmackBuffer, 0x6DB0, &nWidth, &nHeight, &nDepth);
+        SMemFree(pData, gszDDSmackFile, 0x78, 0);
         if (!bDecoded || nWidth != 0x1D4 || nHeight != 0x3C || nDepth != 8)
         {
             break;
@@ -171,7 +174,7 @@ void __fastcall DDRAW_DecodeSmacker(const char* szFile, D2SmackRecordStrc* pReco
 
         for (int i = 0; i < 256; ++i)
         {
-            gaDDrawSmackRemap_008815B0[i] = GetClosestColor((const unsigned char*)gaDDrawPalette_007C8CC8, 256, aPalette[i].peRed, aPalette[i].peGreen, aPalette[i].peBlue);
+            gaDDrawSmackRemap_008815B0[i] = GetClosestColor((const unsigned char*)gatGamePalette, 256, aPalette[i].peRed, aPalette[i].peGreen, aPalette[i].peBlue);
         }
         return;
     }

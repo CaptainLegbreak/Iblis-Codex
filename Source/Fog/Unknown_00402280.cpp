@@ -4,19 +4,19 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);       // 0x006CC214
 extern "C" int __cdecl strncpy_s(char* szDest, unsigned int nDestSize, const char* szSource, unsigned int nCount); // 0x006859D2
 typedef int (__stdcall* SymSetSearchPathFn)(void* hProcess, const char* szSearchPath);
-extern void* ghProcess_0074C6F0;                                                                            // 0x0074C6F0
-extern void* ghDbgHelp_0098A680;                                                                            // 0x0098A680
-extern SymSetSearchPathFn gpfnSymSetSearchPath_0098A690;                                                    // 0x0098A690
-extern bool gbSymInitialized_0098A6B0;                                                                      // 0x0098A6B0
-extern D2CriticalSectionStrc gtSymbolLock_0098A6F0;                                                         // 0x0098A6F0
-extern char gszSymSearchPath_0098A708[];                                                                    // 0x0098A708
+extern void* ghProcess;                                                                            // 0x0074C6F0
+extern void* ghDbgHelp;                                                                            // 0x0098A680
+extern SymSetSearchPathFn gpfnSymSetSearchPath;                                                    // 0x0098A690
+extern bool gbSymInitialized;                                                                      // 0x0098A6B0
+extern D2CriticalSectionStrc gtSymbolLock;                                                         // 0x0098A6F0
+extern char gszSymSearchPath[];                                                                    // 0x0098A708
 bool __cdecl sub_00401B00_LoadDbgHelp();                                                                    // 0x00401B00
 bool __cdecl sub_00401CB0_InitSymbols();                                                                    // 0x00401CB0
 
 // 0x00401A60
 void __cdecl sub_00401A60_UnlockSymbols()
 {
-    LeaveCriticalSection(&gtSymbolLock_0098A6F0);
+    LeaveCriticalSection(&gtSymbolLock);
 }
 
 // build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
@@ -28,12 +28,12 @@ void __cdecl sub_00401A60_UnlockSymbols()
 int __fastcall sub_00402280_SetSearchPath(const char* szSearchPath)
 {
     D2SymbolLockGuardStrc tGuard;
-    strncpy_s(gszSymSearchPath_0098A708, 0x8000, szSearchPath, (unsigned int)-1);
-    if (!gbSymInitialized_0098A6B0)
+    strncpy_s(gszSymSearchPath, 0x8000, szSearchPath, (unsigned int)-1);
+    if (!gbSymInitialized)
         return 1;
-    if ((ghDbgHelp_0098A680 || sub_00401B00_LoadDbgHelp())
-        && (gbSymInitialized_0098A6B0 || sub_00401CB0_InitSymbols())
-        && gpfnSymSetSearchPath_0098A690)
-        return gpfnSymSetSearchPath_0098A690(ghProcess_0074C6F0, szSearchPath);
+    if ((ghDbgHelp || sub_00401B00_LoadDbgHelp())
+        && (gbSymInitialized || sub_00401CB0_InitSymbols())
+        && gpfnSymSetSearchPath)
+        return gpfnSymSetSearchPath(ghProcess, szSearchPath);
     return 0;
 }

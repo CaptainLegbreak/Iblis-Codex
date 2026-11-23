@@ -2,14 +2,14 @@
 #include "D2MultiTypes.h"
 
 int gdwGlobal_00798CC4;                                                                                     // 0x00798CC4
-D2WinControlStrc* gpControl_00798C4C;                                                                       // 0x00798C4C
-D2WinControlStrc* gpControl_00798C50;                                                                       // 0x00798C50
-D2WinControlStrc* gpControl_00798C54;                                                                       // 0x00798C54
-int gnDiffSelect_00798CD0;                                                                                  // 0x00798CD0
-extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8;                                                           // 0x0077BBD8
-char gszName_00798CD4[16];                                                                                  // 0x00798CD4
-int gnPendingValueA_00798CE4;                                                                               // 0x00798CE4
-int gnPendingValueB_00798CE8;                                                                               // 0x00798CE8
+D2WinControlStrc* gpNormalRadio;                                                                       // 0x00798C4C
+D2WinControlStrc* gpNightmareRadio;                                                                       // 0x00798C50
+D2WinControlStrc* gpHellRadio;                                                                       // 0x00798C54
+int gnDiffSelect;                                                                                  // 0x00798CD0
+extern D2LaunchCharInfoStrc* gpCharInfo;                                                           // 0x0077BBD8
+char gszPendingEntryName[16];                                                                                  // 0x00798CD4
+int gnPendingValueA;                                                                               // 0x00798CE4
+int gnPendingValueB;                                                                               // 0x00798CE8
 int __fastcall D2Win_StopMessageLoop();                                                            // 0x004F9190
 int __cdecl WINMAIN_PollMcpConnection();                                                               // 0x00449B70
 int __cdecl CHATDLG_ResetControls();                                                                   // 0x0043EBA0
@@ -52,33 +52,33 @@ int __stdcall sub_004438C0_OnCancel(int nArg)
 // 0x00443C20
 int __stdcall sub_00443C20_SelectNormal(int nArg)
 {
-    BUTTON_SetIsPressed(gpControl_00798C4C, 1);
-    BUTTON_SetIsPressed(gpControl_00798C50, 0);
-    BUTTON_SetIsPressed(gpControl_00798C54, 0);
-    gnDiffSelect_00798CD0 = 0;
-    gpCharInfo_0077BBD8->nByte210 = 0;
+    BUTTON_SetIsPressed(gpNormalRadio, 1);
+    BUTTON_SetIsPressed(gpNightmareRadio, 0);
+    BUTTON_SetIsPressed(gpHellRadio, 0);
+    gnDiffSelect = 0;
+    gpCharInfo->nByte210 = 0;
     return 1;
 }
 
 // 0x00443C70
 int __stdcall sub_00443C70_SelectNightmare(int nArg)
 {
-    BUTTON_SetIsPressed(gpControl_00798C4C, 0);
-    BUTTON_SetIsPressed(gpControl_00798C50, 1);
-    BUTTON_SetIsPressed(gpControl_00798C54, 0);
-    gpCharInfo_0077BBD8->nByte210 = 1;
-    gnDiffSelect_00798CD0 = 1;
+    BUTTON_SetIsPressed(gpNormalRadio, 0);
+    BUTTON_SetIsPressed(gpNightmareRadio, 1);
+    BUTTON_SetIsPressed(gpHellRadio, 0);
+    gpCharInfo->nByte210 = 1;
+    gnDiffSelect = 1;
     return 1;
 }
 
 // 0x00443CC0
 int __stdcall sub_00443CC0_SelectHell(int nArg)
 {
-    BUTTON_SetIsPressed(gpControl_00798C4C, 0);
-    BUTTON_SetIsPressed(gpControl_00798C50, 0);
-    BUTTON_SetIsPressed(gpControl_00798C54, 1);
-    gnDiffSelect_00798CD0 = 2;
-    gpCharInfo_0077BBD8->nByte210 = 2;
+    BUTTON_SetIsPressed(gpNormalRadio, 0);
+    BUTTON_SetIsPressed(gpNightmareRadio, 0);
+    BUTTON_SetIsPressed(gpHellRadio, 1);
+    gnDiffSelect = 2;
+    gpCharInfo->nByte210 = 2;
     return 1;
 }
 
@@ -86,21 +86,21 @@ int __stdcall sub_00443CC0_SelectHell(int nArg)
 int __stdcall sub_00443EF0_OnSelect(int nArg)
 {
     CHATDLG_DestroyProfileControls();
-    if (gnPendingValueB_00798CE8)
+    if (gnPendingValueB)
     {
-        if (gnPendingValueA_00798CE4)
+        if (gnPendingValueA)
             CHATDLG_OpenExpansionHardcoreLadder();
         else
             CHATDLG_OpenExpansionLadder();
     }
     else
     {
-        if (gnPendingValueA_00798CE4)
+        if (gnPendingValueA)
             CHATDLG_OpenHardcoreLadder();
         else
             CHATDLG_OpenStandardLadder();
     }
-    CHATDLG_SelectEntry(gszName_00798CD4, gnPendingValueA_00798CE4, gnPendingValueB_00798CE8);
+    CHATDLG_SelectEntry(gszPendingEntryName, gnPendingValueA, gnPendingValueB);
     return 1;
 }
 

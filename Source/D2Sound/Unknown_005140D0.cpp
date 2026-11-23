@@ -72,48 +72,48 @@ void __fastcall D2SOUND_SetMasterVolume(int nVolume); // 0x00515CE0
 void __cdecl D2SOUND_StartSoundThread(); // 0x00516510
 void __fastcall D2SOUND_InitWaveFormat(D2WaveFormatStrc* pFormat, int nChannels); // 0x00516720
 extern D2DSPropertySet* gpPropertySet_008816D8; // 0x008816D8
-extern D2DSCaps gDSCaps_008816E0; // 0x008816E0
-extern D2CriticalSectionStrc gSoundLock_0088174C; // 0x0088174C
+extern D2DSCaps gtDSCaps; // 0x008816E0
+extern D2CriticalSectionStrc gtSoundLock; // 0x0088174C
 extern int gbUseEax_00881770; // 0x00881770
 extern int gbSoundInit_00881784; // 0x00881784
-extern const D2DSGuid gIID_IDirectSound3DBuffer_006DE3D0; // 0x006DE3D0
-extern const D2DSGuid gIID_IKsPropertySet_006DE410; // 0x006DE410
+extern const D2DSGuid gtIidDirectSound3DBuffer; // 0x006DE3D0
+extern const D2DSGuid gtIidKsPropertySet; // 0x006DE410
 extern const D2DSGuid gDSPROPSETID_EAX20_ListenerProperties_006DE460; // 0x006DE460
 extern const D2DSGuid gDSPROPSETID_EAX_ReverbProperties_006DE480; // 0x006DE480
 int __fastcall D2SOUND_IsSoundStreaming(D2SoundStrc* pSound); // 0x00515C30
 void __fastcall D2SOUND_StopSound(D2SoundStrc* pSound); // 0x00515EE0
-extern D2SoundStrc* gpSoundChannel_00881794; // 0x00881794
-extern int gnChannelValue_00881798; // 0x00881798
+extern D2SoundStrc* gpSoundChannel; // 0x00881794
+extern int gnChannelValue; // 0x00881798
 
-int gnChannelArg_008816DC; // 0x008816DC
+int gnChannelArg; // 0x008816DC
 
-D2DSUnknown* gp3DBuffer_00881740; // 0x00881740
+D2DSUnknown* gp3DBuffer; // 0x00881740
 
-D2DSBuffer* gpEaxBuffer_00881744; // 0x00881744
+D2DSBuffer* gpEaxBuffer; // 0x00881744
 
-D2DSBuffer* gpSoundObject_00881748; // 0x00881748
+D2DSBuffer* gpSoundObject; // 0x00881748
 
-D2DSDirectSound* gpDirectSound_00881768; // 0x00881768
+D2DSDirectSound* gpDirectSound; // 0x00881768
 
-int gb3DSound_0088176C; // 0x0088176C
+int gb3DSound; // 0x0088176C
 
-int gnEaxVersion_00881774; // 0x00881774
+int gnEaxVersion; // 0x00881774
 
-int gbSoundLockInit_0088177C; // 0x0088177C
+int gbSoundLockInit; // 0x0088177C
 
 // 0x005140D0
 void __cdecl sub_005140D0_InitDirectSound()
 {
-    if (gb3DSound_0088176C && gbSoundInit_00881784)
+    if (gb3DSound && gbSoundInit_00881784)
     {
         return;
     }
 
-    D2_ASSERT(!gbSoundLockInit_0088177C, 0x53);
-    InitializeCriticalSection(&gSoundLock_0088174C);
-    gbSoundLockInit_0088177C = 1;
+    D2_ASSERT(!gbSoundLockInit, 0x53);
+    InitializeCriticalSection(&gtSoundLock);
+    gbSoundLockInit = 1;
 
-    long hResult = DirectSoundCreate(0, &gpDirectSound_00881768, 0);
+    long hResult = DirectSoundCreate(0, &gpDirectSound, 0);
     if (hResult < 0)
     {
         sub_00410610_WriteLogLine("DirectSound error: %s returned on DirectSoundCreate", D2SOUND_GetDirectSoundErrorString(hResult));
@@ -121,7 +121,7 @@ void __cdecl sub_005140D0_InitDirectSound()
         return;
     }
 
-    hResult = gpDirectSound_00881768->SetCooperativeLevel(WINDOW_GetWindow(), 2);
+    hResult = gpDirectSound->SetCooperativeLevel(WINDOW_GetWindow(), 2);
     if (hResult < 0)
     {
         sub_00410610_WriteLogLine("DirectSound error: %s returned on SetCooperativeLevel", D2SOUND_GetDirectSoundErrorString(hResult));
@@ -133,13 +133,13 @@ void __cdecl sub_005140D0_InitDirectSound()
     memset(&tDesc, 0, sizeof(tDesc));
     tDesc.dwSize = 0x14;
     tDesc.dwFlags = 1;
-    if (gb3DSound_0088176C)
+    if (gb3DSound)
     {
         tDesc.dwFlags = 0x11;
     }
     tDesc.dwBufferBytes = 0;
     tDesc.lpwfxFormat = 0;
-    hResult = gpDirectSound_00881768->CreateSoundBuffer(&tDesc, &gpSoundObject_00881748, 0);
+    hResult = gpDirectSound->CreateSoundBuffer(&tDesc, &gpSoundObject, 0);
     if (hResult < 0)
     {
         sub_00410610_WriteLogLine("........DirectSound progress: %s returned on failed CreateSoundBuffer", D2SOUND_GetDirectSoundErrorString(hResult));
@@ -147,8 +147,8 @@ void __cdecl sub_005140D0_InitDirectSound()
         return;
     }
 
-    gDSCaps_008816E0.dwSize = 0x60;
-    hResult = gpDirectSound_00881768->GetCaps(&gDSCaps_008816E0);
+    gtDSCaps.dwSize = 0x60;
+    hResult = gpDirectSound->GetCaps(&gtDSCaps);
     if (hResult < 0)
     {
         sub_00410610_WriteLogLine("........DirectSound progress: %s returned on failed GetCaps", D2SOUND_GetDirectSoundErrorString(hResult));
@@ -156,9 +156,9 @@ void __cdecl sub_005140D0_InitDirectSound()
         return;
     }
 
-    if (gb3DSound_0088176C && gDSCaps_008816E0.dwMaxHw3DAllBuffers < 0x10)
+    if (gb3DSound && gtDSCaps.dwMaxHw3DAllBuffers < 0x10)
     {
-        sub_00410610_WriteLogLine("........DirectSound progress: %d buffers available is less than min needed %d buffers for 3d sound", gDSCaps_008816E0.dwMaxHw3DAllBuffers, 0x10);
+        sub_00410610_WriteLogLine("........DirectSound progress: %d buffers available is less than min needed %d buffers for 3d sound", gtDSCaps.dwMaxHw3DAllBuffers, 0x10);
         D2SOUND_CloseSoundSystem();
         return;
     }
@@ -171,16 +171,16 @@ void __cdecl sub_005140D0_InitDirectSound()
     tFormat.wBitsPerSample = 0x10;
     tFormat.nBlockAlign = 4;
     tFormat.nAvgBytesPerSec = 0x15888;
-    hResult = gpSoundObject_00881748->SetFormat(&tFormat);
+    hResult = gpSoundObject->SetFormat(&tFormat);
     if (hResult < 0)
     {
         sub_00410610_WriteLogLine("........DirectSound progress: %s returned on failed SetFormat", D2SOUND_GetDirectSoundErrorString(hResult));
-        gpSoundObject_00881748->Release();
+        gpSoundObject->Release();
         D2SOUND_CloseSoundSystem();
         return;
     }
 
-    gnEaxVersion_00881774 = 0;
+    gnEaxVersion = 0;
     if (gbUseEax_00881770)
     {
         D2WaveFormatStrc tEaxFormat;
@@ -192,39 +192,39 @@ void __cdecl sub_005140D0_InitDirectSound()
         tEaxDesc.dwFlags = 0x12;
         tEaxDesc.lpwfxFormat = &tEaxFormat;
         unsigned long nSupport;
-        if (!gnEaxVersion_00881774)
+        if (!gnEaxVersion)
         {
-            if (gpDirectSound_00881768->CreateSoundBuffer(&tEaxDesc, &gpEaxBuffer_00881744, 0) >= 0
-                && gpEaxBuffer_00881744->QueryInterface(gIID_IDirectSound3DBuffer_006DE3D0, (void**)&gp3DBuffer_00881740) >= 0
-                && gp3DBuffer_00881740->QueryInterface(gIID_IKsPropertySet_006DE410, (void**)&gpPropertySet_008816D8) >= 0
+            if (gpDirectSound->CreateSoundBuffer(&tEaxDesc, &gpEaxBuffer, 0) >= 0
+                && gpEaxBuffer->QueryInterface(gtIidDirectSound3DBuffer, (void**)&gp3DBuffer) >= 0
+                && gp3DBuffer->QueryInterface(gtIidKsPropertySet, (void**)&gpPropertySet_008816D8) >= 0
                 && gpPropertySet_008816D8->QuerySupport(gDSPROPSETID_EAX20_ListenerProperties_006DE460, 1, &nSupport) >= 0
                 && (nSupport & 3) == 3
                 && sub_00513BC0_SetEaxRoomOff(2))
             {
-                gnEaxVersion_00881774 = 2;
+                gnEaxVersion = 2;
             }
             else
             {
                 D2SOUND_ReleaseSoundObjects();
             }
         }
-        if (!gnEaxVersion_00881774)
+        if (!gnEaxVersion)
         {
-            if (gpDirectSound_00881768->CreateSoundBuffer(&tEaxDesc, &gpEaxBuffer_00881744, 0) >= 0
-                && gpEaxBuffer_00881744->QueryInterface(gIID_IDirectSound3DBuffer_006DE3D0, (void**)&gp3DBuffer_00881740) >= 0
-                && gp3DBuffer_00881740->QueryInterface(gIID_IKsPropertySet_006DE410, (void**)&gpPropertySet_008816D8) >= 0
+            if (gpDirectSound->CreateSoundBuffer(&tEaxDesc, &gpEaxBuffer, 0) >= 0
+                && gpEaxBuffer->QueryInterface(gtIidDirectSound3DBuffer, (void**)&gp3DBuffer) >= 0
+                && gp3DBuffer->QueryInterface(gtIidKsPropertySet, (void**)&gpPropertySet_008816D8) >= 0
                 && gpPropertySet_008816D8->QuerySupport(gDSPROPSETID_EAX_ReverbProperties_006DE480, 0, &nSupport) >= 0
                 && (nSupport & 3) == 3
                 && sub_00513BC0_SetEaxRoomOff(1))
             {
-                gnEaxVersion_00881774 = 1;
+                gnEaxVersion = 1;
             }
             else
             {
                 D2SOUND_ReleaseSoundObjects();
             }
         }
-        if (!gnEaxVersion_00881774)
+        if (!gnEaxVersion)
         {
             sub_00410610_WriteLogLine("........DirectSound progress: Unsupported EAX or EAX emulation");
             D2SOUND_CloseSoundSystem();
@@ -235,11 +235,11 @@ void __cdecl sub_005140D0_InitDirectSound()
     D2DSBufferCaps tCaps;
     memset(&tCaps, 0, sizeof(tCaps));
     tCaps.dwSize = 0x14;
-    gpSoundObject_00881748->GetCaps(&tCaps);
-    D2SOUND_ClearSoundBuffer(gpSoundObject_00881748, 0, tCaps.dwBufferBytes);
-    gpSoundObject_00881748->Play(0, 0, 1);
+    gpSoundObject->GetCaps(&tCaps);
+    D2SOUND_ClearSoundBuffer(gpSoundObject, 0, tCaps.dwBufferBytes);
+    gpSoundObject->Play(0, 0, 1);
     D2SOUND_StartSoundThread();
-    D2SOUND_CreateStreamChannel(gnChannelArg_008816DC);
+    D2SOUND_CreateStreamChannel(gnChannelArg);
     D2SOUND_LoadRegistrySettings();
     D2SOUND_SetMasterVolume(0xFF);
     gnSoundState_00881764 = 1;
@@ -250,10 +250,10 @@ void __cdecl sub_005140D0_InitDirectSound()
 // 0x00514930
 void __cdecl sub_00514930_StopChannel()
 {
-    if (gpSoundChannel_00881794)
+    if (gpSoundChannel)
     {
-        gnChannelValue_00881798 = 0;
-        if (D2SOUND_IsSoundStreaming(gpSoundChannel_00881794))
-            D2SOUND_StopSound(gpSoundChannel_00881794);
+        gnChannelValue = 0;
+        if (D2SOUND_IsSoundStreaming(gpSoundChannel))
+            D2SOUND_StopSound(gpSoundChannel);
     }
 }

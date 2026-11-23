@@ -8,12 +8,12 @@ struct sub_006CB4C0_Table
 
 void __fastcall sub_00604640(sub_006CB4C0_Table* pTable); // 0x00604640
 
-sub_006CB4C0_Table data_008E8CC0;        // 0x008E8CC0
+sub_006CB4C0_Table gtCelListTable;        // 0x008E8CC0
 extern CRITICAL_SECTION data_008E8D10; // 0x008E8D10
 
 // 0x006CB4C0
 void __cdecl sub_006CB4C0_DestroyTable()
 {
     DeleteCriticalSection(&data_008E8D10);
-    sub_00604640(&data_008E8CC0);
+    sub_00604640(&gtCelListTable);
 }

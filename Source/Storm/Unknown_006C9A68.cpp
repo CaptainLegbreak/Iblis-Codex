@@ -42,7 +42,7 @@ extern void* gpListHead_007088F0; // 0x007088F0
 void __cdecl sub_006CB380_DestroyList(); // 0x006CB380
 extern unsigned char gCriticalSection_0077930C[]; // 0x0077930C
 void __cdecl sub_006CB370_DeleteCriticalSection(); // 0x006CB370
-extern unsigned short gwszRealmNames_00779DF0[7 * 0x100]; // 0x00779DF0
+extern unsigned short gwszRealmNames[7 * 0x100]; // 0x00779DF0
 unsigned int __stdcall SStrHash(const char* text, unsigned int flags, unsigned int hashSeed); // 0x00413CE0
 extern const char* gpszDefaultCaption_0070EE50; // 0x0070EE50
 extern const char* gpszHelpCaption; // 0x007A0454
@@ -234,7 +234,7 @@ void __cdecl sub_006CA940_ClearRealmNames()
 {
     for (int n = 0; n < 7 * 0x100; ++n)
     {
-        gwszRealmNames_00779DF0[n] = 0;
+        gwszRealmNames[n] = 0;
     }
 }
 

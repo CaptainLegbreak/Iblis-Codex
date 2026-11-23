@@ -19,7 +19,7 @@ struct D2DDrawDeviceStrc
 
 extern "C" __declspec(dllimport) long __stdcall RegCreateKeyExA(void* hKey, const char* szSubKey, unsigned long nReserved, char* szClass, unsigned long nOptions, unsigned long samDesired, void* pSecurity, void** phkResult, unsigned long* pDisposition); // 0x006CC004
 extern "C" __declspec(dllimport) long __stdcall RegCloseKey(void* hKey); // 0x006CC030
-extern D2DDrawDeviceStrc gaDDrawDevices_0096F4E0[]; // 0x0096F4E0
+extern D2DDrawDeviceStrc gaDDrawDevices[]; // 0x0096F4E0
 
 class CRegKeyInline
 {
@@ -88,9 +88,9 @@ void __fastcall sub_006BB3E0_Free(D2Object006BB3E0Strc* pObject, int bFree); // 
 extern int gdwGlobal_00970E8C; // 0x00970E8C
 extern D2Object006BADC0Strc gObject_0096FC80; // 0x0096FC80
 extern D2Object006BB3E0Strc gObject_0096FC9C; // 0x0096FC9C
-extern D2Cache006BA830Strc gCache_00970EC8; // 0x00970EC8
-extern D2Cache006BA830Strc gCache_00970EE4; // 0x00970EE4
-extern D2Cache006BA830Strc gCache_00970F00; // 0x00970F00
+extern D2Cache006BA830Strc gtTextureCache1; // 0x00970EC8
+extern D2Cache006BA830Strc gtTextureCache2; // 0x00970EE4
+extern D2Cache006BA830Strc gtTextureCache3; // 0x00970F00
 void __cdecl D3D_ReleaseResources(); // 0x006B3320
 extern void* ghDDrawWindow_007C9140; // 0x007C9140
 
@@ -144,13 +144,13 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
 void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
-extern int gbVideoUp_00970E40; // 0x00970E40
-extern int gnVideoState_00970E44; // 0x00970E44
-extern D2ComObject006B3420Strc* gpDirectDraw_00970E60; // 0x00970E60
+extern int gbVideoUp; // 0x00970E40
+extern int gnVideoState; // 0x00970E44
+extern D2ComObject006B3420Strc* gpDirectDraw4; // 0x00970E60
 extern D2ComObject006B3420Strc* gpPrimary_00970E68; // 0x00970E68
 extern const unsigned int gdwBitMask7_006CE284; // 0x006CE284
-extern const unsigned int gdwBitMask8_006CE288; // 0x006CE288
-extern int gnScreenHeight_007C913C; // 0x007C913C
+extern const unsigned int gdwBitMask8; // 0x006CE288
+extern int gnRenderHeight; // 0x007C913C
 
 // 0x006B2F60
 void __fastcall sub_006B2F60_SaveVideoConfig(int nRender, int nDevice)
@@ -166,9 +166,9 @@ void __fastcall sub_006B2F60_SaveVideoConfig(int nRender, int nDevice)
     if (tKey.Create((void*)0x80000001, "SOFTWARE\\Blizzard Entertainment\\Diablo II\\VideoConfig") == 0)
     {
         tKey.SetDWORDValue("Render", nRender);
-        tKey.SetStringValue((const char*)aDeviceName, gaDDrawDevices_0096F4E0[nDevice].szName);
-        tKey.SetDWORDValue((const char*)aFlags, gaDDrawDevices_0096F4E0[nDevice].dwFlags);
-        tKey.SetBinaryValue((const char*)aGuid, gaDDrawDevices_0096F4E0[nDevice].guid, 0x10);
+        tKey.SetStringValue((const char*)aDeviceName, gaDDrawDevices[nDevice].szName);
+        tKey.SetDWORDValue((const char*)aFlags, gaDDrawDevices[nDevice].dwFlags);
+        tKey.SetBinaryValue((const char*)aGuid, gaDDrawDevices[nDevice].guid, 0x10);
     }
 }
 
@@ -186,9 +186,9 @@ void __cdecl sub_006B32B0_ReleaseRenderer()
         D3D_ReleaseSmackSurfaces();
     }
 
-    sub_006BA830_FreeCache(&gCache_00970EC8, 1);
-    sub_006BA830_FreeCache(&gCache_00970EE4, 1);
-    sub_006BA830_FreeCache(&gCache_00970F00, 1);
+    sub_006BA830_FreeCache(&gtTextureCache1, 1);
+    sub_006BA830_FreeCache(&gtTextureCache2, 1);
+    sub_006BA830_FreeCache(&gtTextureCache3, 1);
     D3D_ReleaseSprites();
 }
 

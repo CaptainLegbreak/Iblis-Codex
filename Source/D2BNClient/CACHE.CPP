@@ -21,7 +21,7 @@ void __cdecl CACHE_FreeCache(); // 0x00519300
 
 int __cdecl CACHE_LoadCache(); // 0x005193E0
 
-static void* ghCacheFile_0072FB78; // 0x0072FB78
+static void* ghCacheFile; // 0x0072FB78
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 
@@ -29,7 +29,7 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
-D2CriticalSectionStrc gCacheLock_00881894;                                                                  // 0x00881894
+D2CriticalSectionStrc gtCacheLock;                                                                  // 0x00881894
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -98,34 +98,34 @@ struct D2CacheRecordStrc
     char szName[0x104];
 };
 
-extern unsigned int gdwCacheCrcTable_0072FB80[];                                                            // 0x0072FB80
+extern unsigned int gadwCacheCrcTable[];                                                            // 0x0072FB80
 
-static D2CacheHeaderStrc* gpCacheHeader_00881880; // 0x00881880
+static D2CacheHeaderStrc* gpCacheHeader; // 0x00881880
 
-static D2CacheBlockEntryStrc* gpCacheBlockTable_00881884; // 0x00881884
+static D2CacheBlockEntryStrc* gpCacheBlockTable; // 0x00881884
 
-static unsigned int* gpCacheCryptTable_00881888; // 0x00881888
+static unsigned int* gpCacheCryptTable; // 0x00881888
 
-static D2CacheHashEntryStrc* gpCacheHashTable_0088188C; // 0x0088188C
+static D2CacheHashEntryStrc* gpCacheHashTable; // 0x0088188C
 
-int gbCacheLoaded_00881890; // 0x00881890
+int gbCacheLoaded; // 0x00881890
 
-extern unsigned __int64 gqwCacheFileTime_008818AC; // 0x008818AC
+extern unsigned __int64 gqwCacheFileTime; // 0x008818AC
 
-extern unsigned long gdwCacheTimeTick_008818B4; // 0x008818B4
+extern unsigned long gdwCacheTimeTick; // 0x008818B4
 
-extern unsigned int gnCacheTimeSeconds_008818B8; // 0x008818B8
+extern unsigned int gnCacheTimeSeconds; // 0x008818B8
 
-extern const char gszCacheFile_006DEE70[]; // 0x006DEE70
+extern const char gszCacheFile[]; // 0x006DEE70
 
-extern const char gszCorruptFile_006DEEC0[]; // 0x006DEEC0
+extern const char gszCorruptFile[]; // 0x006DEEC0
 
-extern const char gszCorruptCache_006DEF00[]; // 0x006DEF00
+extern const char gszCorruptCache[]; // 0x006DEF00
 
 #define CACHE_CRC32(dwCrc, pBytes, nCount) \
     dwCrc = 0xFFFFFFFF; \
     for (; nCount; --nCount, ++pBytes) \
-        dwCrc = (dwCrc >> 8) ^ gdwCacheCrcTable_0072FB80[(*pBytes ^ dwCrc) & 0xFF]; \
+        dwCrc = (dwCrc >> 8) ^ gadwCacheCrcTable[(*pBytes ^ dwCrc) & 0xFF]; \
     dwCrc = ~dwCrc
 
 
@@ -174,7 +174,7 @@ static void sub_00518E60_DecryptBlock(unsigned int* pData, unsigned int nLength,
     nLength >>= 2;
     while (nLength-- != 0)
     {
-        dwSeed += gpCacheCryptTable_00881888[0x400 + (dwKey & 0xFF)];
+        dwSeed += gpCacheCryptTable[0x400 + (dwKey & 0xFF)];
         *pData ^= dwKey + dwSeed;
         unsigned int ch = *pData++;
         dwSeed = ch + dwSeed + (dwSeed << 5) + 3;
@@ -189,7 +189,7 @@ static void sub_00518EC0_EncryptBlock(unsigned int* pData, unsigned int nLength,
     unsigned int nCount = nLength >> 2;
     if (nCount != 0)
     {
-        const unsigned int* pTable = gpCacheCryptTable_00881888;
+        const unsigned int* pTable = gpCacheCryptTable;
         do
         {
             --nCount;
@@ -206,16 +206,16 @@ static void sub_00518EC0_EncryptBlock(unsigned int* pData, unsigned int nLength,
 // build: context sub_00518F30_GetCacheFileTime
 static D2FileTimeStrc* sub_00518F30_GetCacheFileTime(unsigned int nSeconds)
 {
-    if (nSeconds != gnCacheTimeSeconds_008818B8 || GetTickCount() != gdwCacheTimeTick_008818B4)
+    if (nSeconds != gnCacheTimeSeconds || GetTickCount() != gdwCacheTimeTick)
     {
         D2SystemTimeStrc tSystemTime;
         GetSystemTime(&tSystemTime);
-        SystemTimeToFileTime(&tSystemTime, &gqwCacheFileTime_008818AC);
-        gqwCacheFileTime_008818AC += (unsigned __int64)nSeconds * 10000000;
-        gnCacheTimeSeconds_008818B8 = nSeconds;
-        gdwCacheTimeTick_008818B4 = GetTickCount();
+        SystemTimeToFileTime(&tSystemTime, &gqwCacheFileTime);
+        gqwCacheFileTime += (unsigned __int64)nSeconds * 10000000;
+        gnCacheTimeSeconds = nSeconds;
+        gdwCacheTimeTick = GetTickCount();
     }
-    return (D2FileTimeStrc*)&gqwCacheFileTime_008818AC;
+    return (D2FileTimeStrc*)&gqwCacheFileTime;
 }
 
 // build: context sub_00518FA0_HashString
@@ -226,7 +226,7 @@ static unsigned int __stdcall sub_00518FA0_HashString(unsigned int nHashType, co
     while (szString && *szString)
     {
         char ch = (char)toupper(*szString++);
-        dwSeed1 = gpCacheCryptTable_00881888[(nHashType << 8) + ch] ^ (dwSeed1 + dwSeed2);
+        dwSeed1 = gpCacheCryptTable[(nHashType << 8) + ch] ^ (dwSeed1 + dwSeed2);
         dwSeed2 = ch + dwSeed1 + dwSeed2 + (dwSeed2 << 5) + 3;
     }
     return dwSeed1;
@@ -238,9 +238,9 @@ static int __stdcall sub_00519110_FindHashEntry(const char* szName, unsigned int
     unsigned int dwHash = sub_00518FA0_HashString(0, szName);
     unsigned int dwNameA = sub_00518FA0_HashString(1, szName);
     unsigned int dwNameB = sub_00518FA0_HashString(2, szName);
-    unsigned int nSize = gpCacheHeader_00881880->nHashTableSize;
+    unsigned int nSize = gpCacheHeader->nHashTableSize;
     unsigned int dwIndex = dwHash & (nSize - 1);
-    D2CacheHashEntryStrc* pTable = gpCacheHashTable_0088188C;
+    D2CacheHashEntryStrc* pTable = gpCacheHashTable;
     unsigned int dwStart = dwIndex;
     int nFallback = -1;
 
@@ -276,10 +276,10 @@ static void sub_005191D0_DeleteHashEntries(const char* szName)
     int nIndex;
     while ((nIndex = sub_00519110_FindHashEntry(szName, 0)) != -1)
     {
-        unsigned int* pBlock = &gpCacheHashTable_0088188C[nIndex].dwBlockIndex;
-        if (*pBlock < gpCacheHeader_00881880->nBlockTableSize)
+        unsigned int* pBlock = &gpCacheHashTable[nIndex].dwBlockIndex;
+        if (*pBlock < gpCacheHeader->nBlockTableSize)
         {
-            sub_H08_ClearBlockEntry(gpCacheBlockTable_00881884, *pBlock);
+            sub_H08_ClearBlockEntry(gpCacheBlockTable, *pBlock);
         }
         *pBlock = (unsigned int)-2;
     }
@@ -301,10 +301,10 @@ void __cdecl CACHE_DeleteCacheFile()
 {
     char szPath[260];
 
-    if (ghCacheFile_0072FB78 != (void*)-1)
+    if (ghCacheFile != (void*)-1)
     {
-        CloseHandle(ghCacheFile_0072FB78);
-        ghCacheFile_0072FB78 = (void*)-1;
+        CloseHandle(ghCacheFile);
+        ghCacheFile = (void*)-1;
     }
 
     szPath[0] = 0;
@@ -315,34 +315,34 @@ void __cdecl CACHE_DeleteCacheFile()
 // 0x00519300
 void __cdecl CACHE_FreeCache()
 {
-    EnterCriticalSection(&gCacheLock_00881894);
-    gbCacheLoaded_00881890 = 0;
-    if (gpCacheBlockTable_00881884)
+    EnterCriticalSection(&gtCacheLock);
+    gbCacheLoaded = 0;
+    if (gpCacheBlockTable)
     {
-        SMemFree(gpCacheBlockTable_00881884, ".\\CACHE.CPP", 0x155, 0);
-        gpCacheBlockTable_00881884 = 0;
+        SMemFree(gpCacheBlockTable, ".\\CACHE.CPP", 0x155, 0);
+        gpCacheBlockTable = 0;
     }
-    if (gpCacheHashTable_0088188C)
+    if (gpCacheHashTable)
     {
-        SMemFree(gpCacheHashTable_0088188C, ".\\CACHE.CPP", 0x159, 0);
-        gpCacheHashTable_0088188C = 0;
+        SMemFree(gpCacheHashTable, ".\\CACHE.CPP", 0x159, 0);
+        gpCacheHashTable = 0;
     }
-    if (gpCacheHeader_00881880)
+    if (gpCacheHeader)
     {
-        SMemFree(gpCacheHeader_00881880, ".\\CACHE.CPP", 0x15D, 0);
-        gpCacheHeader_00881880 = 0;
+        SMemFree(gpCacheHeader, ".\\CACHE.CPP", 0x15D, 0);
+        gpCacheHeader = 0;
     }
-    if (ghCacheFile_0072FB78 != (void*)-1)
+    if (ghCacheFile != (void*)-1)
     {
-        CloseHandle(ghCacheFile_0072FB78);
-        ghCacheFile_0072FB78 = (void*)-1;
+        CloseHandle(ghCacheFile);
+        ghCacheFile = (void*)-1;
     }
-    if (gpCacheCryptTable_00881888)
+    if (gpCacheCryptTable)
     {
-        SMemFree(gpCacheCryptTable_00881888, ".\\CACHE.CPP", 0x165, 0);
-        gpCacheCryptTable_00881888 = 0;
+        SMemFree(gpCacheCryptTable, ".\\CACHE.CPP", 0x165, 0);
+        gpCacheCryptTable = 0;
     }
-    LeaveCriticalSection(&gCacheLock_00881894);
+    LeaveCriticalSection(&gtCacheLock);
 }
 
 // 0x005193C0
@@ -365,26 +365,26 @@ int __cdecl CACHE_LoadCache()
     unsigned long nHeaderRead;
     D2CacheHeaderStrc* pHeader;
 
-    EnterCriticalSection(&gCacheLock_00881894);
-    if (gbCacheLoaded_00881890)
+    EnterCriticalSection(&gtCacheLock);
+    if (gbCacheLoaded)
     {
         CACHE_FreeCache();
     }
 
     szPath[0] = 0;
     CACHE_GetCacheFilePath(szPath);
-    ghCacheFile_0072FB78 = CreateFileA(szPath, 0xC0000000, 0, 0, 4, 0x80, 0);
-    if (ghCacheFile_0072FB78 == (void*)-1)
+    ghCacheFile = CreateFileA(szPath, 0xC0000000, 0, 0, 4, 0x80, 0);
+    if (ghCacheFile == (void*)-1)
     {
         CACHE_FreeCache();
-        LeaveCriticalSection(&gCacheLock_00881894);
+        LeaveCriticalSection(&gtCacheLock);
         return 0;
     }
 
-    gpCacheCryptTable_00881888 = (unsigned int*)SMemAlloc(0x1400, ".\\CACHE.CPP", 0x193, 0);
+    gpCacheCryptTable = (unsigned int*)SMemAlloc(0x1400, ".\\CACHE.CPP", 0x193, 0);
     sub_00519000_InitCryptTable();
-    gpCacheHeader_00881880 = (D2CacheHeaderStrc*)SMemAlloc(sizeof(D2CacheHeaderStrc), ".\\CACHE.CPP", 0x197, 8);
-    nFileSize = GetFileSize(ghCacheFile_0072FB78, 0);
+    gpCacheHeader = (D2CacheHeaderStrc*)SMemAlloc(sizeof(D2CacheHeaderStrc), ".\\CACHE.CPP", 0x197, 8);
+    nFileSize = GetFileSize(ghCacheFile, 0);
     if (nFileSize && nFileSize <= 0xA00000)
     {
         int nError;
@@ -397,29 +397,29 @@ int __cdecl CACHE_LoadCache()
             goto error;
         }
 
-        ReadFile(ghCacheFile_0072FB78, gpCacheHeader_00881880, sizeof(D2CacheHeaderStrc), &nHeaderRead, 0);
+        ReadFile(ghCacheFile, gpCacheHeader, sizeof(D2CacheHeaderStrc), &nHeaderRead, 0);
         if (nHeaderRead < sizeof(D2CacheHeaderStrc))
         {
             nError = 2;
             goto error;
         }
 
-        if (gpCacheHeader_00881880->dwMagic == 0x1A324E42)
+        if (gpCacheHeader->dwMagic == 0x1A324E42)
         {
             goto create;
         }
 
-        if (gpCacheHeader_00881880->dwMagic != 0x1A334E42)
+        if (gpCacheHeader->dwMagic != 0x1A334E42)
         {
             nError = 3;
             goto error;
         }
 
-        dwHeaderCrc = gpCacheHeader_00881880->dwHeaderCrc;
+        dwHeaderCrc = gpCacheHeader->dwHeaderCrc;
         {
             unsigned int nCount = sizeof(D2CacheHeaderStrc);
-            gpCacheHeader_00881880->dwHeaderCrc = 0;
-            const unsigned char* pBytes = (const unsigned char*)gpCacheHeader_00881880;
+            gpCacheHeader->dwHeaderCrc = 0;
+            const unsigned char* pBytes = (const unsigned char*)gpCacheHeader;
             unsigned int dwCrc;
             CACHE_CRC32(dwCrc, pBytes, nCount);
             if (dwHeaderCrc != dwCrc)
@@ -428,77 +428,77 @@ int __cdecl CACHE_LoadCache()
                 goto error;
             }
         }
-        gpCacheHeader_00881880->dwHeaderCrc = dwHeaderCrc;
+        gpCacheHeader->dwHeaderCrc = dwHeaderCrc;
 
-        if (!gpCacheHeader_00881880->dwHashOffset || !gpCacheHeader_00881880->nHashTableSize)
+        if (!gpCacheHeader->dwHashOffset || !gpCacheHeader->nHashTableSize)
         {
             nError = 5;
             goto error;
         }
 
-        if (!gpCacheHeader_00881880->dwBlockOffset || !gpCacheHeader_00881880->nBlockTableSize)
+        if (!gpCacheHeader->dwBlockOffset || !gpCacheHeader->nBlockTableSize)
         {
             nError = 6;
             goto error;
         }
 
-        nHashSize = gpCacheHeader_00881880->nHashTableSize;
+        nHashSize = gpCacheHeader->nHashTableSize;
         if (nHashSize < 0x400)
         {
             nHashSize = 0x400;
         }
         nHashSize *= sizeof(D2CacheHashEntryStrc);
-        if (gpCacheHeader_00881880->dwHashOffset + nHashSize > nFileSize)
+        if (gpCacheHeader->dwHashOffset + nHashSize > nFileSize)
         {
             nError = 7;
             goto error;
         }
 
-        gpCacheHashTable_0088188C = (D2CacheHashEntryStrc*)SMemAlloc(nHashSize, ".\\CACHE.CPP", 0x1CC, 8);
-        SetFilePointer(ghCacheFile_0072FB78, gpCacheHeader_00881880->dwHashOffset, 0, 0);
-        ReadFile(ghCacheFile_0072FB78, gpCacheHashTable_0088188C, nHashSize, &nTableRead, 0);
+        gpCacheHashTable = (D2CacheHashEntryStrc*)SMemAlloc(nHashSize, ".\\CACHE.CPP", 0x1CC, 8);
+        SetFilePointer(ghCacheFile, gpCacheHeader->dwHashOffset, 0, 0);
+        ReadFile(ghCacheFile, gpCacheHashTable, nHashSize, &nTableRead, 0);
         if (nTableRead != nHashSize)
         {
             nError = 8;
             goto error;
         }
 
-        if (gpCacheHeader_00881880->dwHashCrc != sub_00518DE0_Crc32(gpCacheHashTable_0088188C, nHashSize))
+        if (gpCacheHeader->dwHashCrc != sub_00518DE0_Crc32(gpCacheHashTable, nHashSize))
         {
             nError = 9;
             goto error;
         }
 
-        sub_00518E60_DecryptBlock((unsigned int*)gpCacheHashTable_0088188C, nHashSize, sub_00518FA0_HashString(3, "(hash table)"));
+        sub_00518E60_DecryptBlock((unsigned int*)gpCacheHashTable, nHashSize, sub_00518FA0_HashString(3, "(hash table)"));
 
-        nBlockSize = gpCacheHeader_00881880->nBlockTableSize;
+        nBlockSize = gpCacheHeader->nBlockTableSize;
         if (nBlockSize < 0x400)
         {
             nBlockSize = 0x400;
         }
         nBlockSize *= sizeof(D2CacheBlockEntryStrc);
-        if (gpCacheHeader_00881880->dwBlockOffset + nBlockSize > nFileSize)
+        if (gpCacheHeader->dwBlockOffset + nBlockSize > nFileSize)
         {
             nError = 10;
             goto error;
         }
 
-        gpCacheBlockTable_00881884 = (D2CacheBlockEntryStrc*)SMemAlloc(nBlockSize, ".\\CACHE.CPP", 0x1E2, 8);
-        SetFilePointer(ghCacheFile_0072FB78, gpCacheHeader_00881880->dwBlockOffset, 0, 0);
-        ReadFile(ghCacheFile_0072FB78, gpCacheBlockTable_00881884, nBlockSize, &nTableRead, 0);
+        gpCacheBlockTable = (D2CacheBlockEntryStrc*)SMemAlloc(nBlockSize, ".\\CACHE.CPP", 0x1E2, 8);
+        SetFilePointer(ghCacheFile, gpCacheHeader->dwBlockOffset, 0, 0);
+        ReadFile(ghCacheFile, gpCacheBlockTable, nBlockSize, &nTableRead, 0);
         if (nTableRead != nBlockSize)
         {
             nError = 11;
             goto error;
         }
 
-        if (gpCacheHeader_00881880->dwBlockCrc != sub_00518DE0_Crc32(gpCacheBlockTable_00881884, nBlockSize))
+        if (gpCacheHeader->dwBlockCrc != sub_00518DE0_Crc32(gpCacheBlockTable, nBlockSize))
         {
             nError = 12;
             goto error;
         }
 
-        sub_00518E60_DecryptBlock((unsigned int*)gpCacheBlockTable_00881884, nBlockSize, sub_00518FA0_HashString(3, "(block table)"));
+        sub_00518E60_DecryptBlock((unsigned int*)gpCacheBlockTable, nBlockSize, sub_00518FA0_HashString(3, "(block table)"));
         goto loaded;
 
 error:
@@ -506,46 +506,46 @@ error:
     }
 
 create:
-    if (!gbCacheLoaded_00881890)
+    if (!gbCacheLoaded)
     {
-        if (gpCacheHashTable_0088188C)
+        if (gpCacheHashTable)
         {
-            SMemFree(gpCacheHashTable_0088188C, ".\\CACHE.CPP", 0x1FC, 0);
+            SMemFree(gpCacheHashTable, ".\\CACHE.CPP", 0x1FC, 0);
         }
-        if (gpCacheBlockTable_00881884)
+        if (gpCacheBlockTable)
         {
-            SMemFree(gpCacheBlockTable_00881884, ".\\CACHE.CPP", 0x1FE, 0);
+            SMemFree(gpCacheBlockTable, ".\\CACHE.CPP", 0x1FE, 0);
         }
         CACHE_DeleteCacheFile();
-        ghCacheFile_0072FB78 = CreateFileA(szPath, 0xC0000000, 0, 0, 4, 0x80, 0);
-        if (ghCacheFile_0072FB78 == (void*)-1)
+        ghCacheFile = CreateFileA(szPath, 0xC0000000, 0, 0, 4, 0x80, 0);
+        if (ghCacheFile == (void*)-1)
         {
             CACHE_FreeCache();
-            LeaveCriticalSection(&gCacheLock_00881894);
+            LeaveCriticalSection(&gtCacheLock);
             return 0;
         }
 
-        pHeader = gpCacheHeader_00881880;
+        pHeader = gpCacheHeader;
         memset(pHeader, 0, sizeof(D2CacheHeaderStrc));
         pHeader->dwMagic = 0x1A334E42;
         pHeader->dwHeaderSize = sizeof(D2CacheHeaderStrc);
-        gpCacheHashTable_0088188C = (D2CacheHashEntryStrc*)SMemAlloc(0x400 * sizeof(D2CacheHashEntryStrc), ".\\CACHE.CPP", 0x21C, 8);
-        gpCacheHeader_00881880->dwHashOffset = sizeof(D2CacheHeaderStrc);
-        gpCacheHeader_00881880->nHashTableSize = 0x400;
-        gpCacheHeader_00881880->dwFileSize = gpCacheHeader_00881880->dwFileSize > sizeof(D2CacheHeaderStrc) + 0x400 * sizeof(D2CacheHashEntryStrc) ? gpCacheHeader_00881880->dwFileSize : sizeof(D2CacheHeaderStrc) + 0x400 * sizeof(D2CacheHashEntryStrc);
+        gpCacheHashTable = (D2CacheHashEntryStrc*)SMemAlloc(0x400 * sizeof(D2CacheHashEntryStrc), ".\\CACHE.CPP", 0x21C, 8);
+        gpCacheHeader->dwHashOffset = sizeof(D2CacheHeaderStrc);
+        gpCacheHeader->nHashTableSize = 0x400;
+        gpCacheHeader->dwFileSize = gpCacheHeader->dwFileSize > sizeof(D2CacheHeaderStrc) + 0x400 * sizeof(D2CacheHashEntryStrc) ? gpCacheHeader->dwFileSize : sizeof(D2CacheHeaderStrc) + 0x400 * sizeof(D2CacheHashEntryStrc);
         for (int i = 0; i < 0x400; ++i)
         {
-            gpCacheHashTable_0088188C[i].dwBlockIndex = (unsigned int)-1;
+            gpCacheHashTable[i].dwBlockIndex = (unsigned int)-1;
         }
 
-        gpCacheBlockTable_00881884 = (D2CacheBlockEntryStrc*)SMemAlloc(0x400 * sizeof(D2CacheBlockEntryStrc), ".\\CACHE.CPP", 0x229, 8);
-        gpCacheHeader_00881880->dwBlockOffset = sizeof(D2CacheHeaderStrc) + 0x400 * sizeof(D2CacheHashEntryStrc);
-        gpCacheHeader_00881880->dwFileSize = gpCacheHeader_00881880->dwFileSize > sizeof(D2CacheHeaderStrc) + 0x400 * (sizeof(D2CacheHashEntryStrc) + sizeof(D2CacheBlockEntryStrc)) ? gpCacheHeader_00881880->dwFileSize : sizeof(D2CacheHeaderStrc) + 0x400 * (sizeof(D2CacheHashEntryStrc) + sizeof(D2CacheBlockEntryStrc));
+        gpCacheBlockTable = (D2CacheBlockEntryStrc*)SMemAlloc(0x400 * sizeof(D2CacheBlockEntryStrc), ".\\CACHE.CPP", 0x229, 8);
+        gpCacheHeader->dwBlockOffset = sizeof(D2CacheHeaderStrc) + 0x400 * sizeof(D2CacheHashEntryStrc);
+        gpCacheHeader->dwFileSize = gpCacheHeader->dwFileSize > sizeof(D2CacheHeaderStrc) + 0x400 * (sizeof(D2CacheHashEntryStrc) + sizeof(D2CacheBlockEntryStrc)) ? gpCacheHeader->dwFileSize : sizeof(D2CacheHeaderStrc) + 0x400 * (sizeof(D2CacheHashEntryStrc) + sizeof(D2CacheBlockEntryStrc));
 loaded:
-        gbCacheLoaded_00881890 = 1;
+        gbCacheLoaded = 1;
     }
 
-    LeaveCriticalSection(&gCacheLock_00881894);
+    LeaveCriticalSection(&gtCacheLock);
     return 1;
 }
 
@@ -556,7 +556,7 @@ void __cdecl CACHE_ResetCache()
 {
     char szPath[260];
 
-    if (gbCacheLoaded_00881890)
+    if (gbCacheLoaded)
     {
         CACHE_FreeCache();
         CACHE_DeleteCacheFile();
@@ -573,12 +573,12 @@ static __forceinline int sub_00519920_ReadEntry(const char* szName,D2FileTimeStr
  D2CacheRecordStrc header;
  unsigned long count; D2FileTimeStrc* tCreated;
  memset(&header,0,sizeof(header));
- if(gpCacheBlockTable_00881884[block].dwFlags&0xC0000000) {
- SetFilePointer(ghCacheFile_0072FB78,gpCacheBlockTable_00881884[block].dwOffset,0,0);
- ReadFile(ghCacheFile_0072FB78,&header,4,&count,0);
+ if(gpCacheBlockTable[block].dwFlags&0xC0000000) {
+ SetFilePointer(ghCacheFile,gpCacheBlockTable[block].dwOffset,0,0);
+ ReadFile(ghCacheFile,&header,4,&count,0);
  if(count!=4){*pArchiveError=2;return 0;}
  if(header.dwSize!=sizeof(header)){*pArchiveError=3;return 0;}
- ReadFile(ghCacheFile_0072FB78,(char*)&header+4,sizeof(header)-4,&count,0);
+ ReadFile(ghCacheFile,(char*)&header+4,sizeof(header)-4,&count,0);
  if(count!=sizeof(header)-4){*pArchiveError=4;return 0;}
  unsigned int stored=header.dwCrc;header.dwCrc=0;
  unsigned int crc=sub_00518DE0_Crc32(&header,sizeof(header));
@@ -587,20 +587,20 @@ static __forceinline int sub_00519920_ReadEntry(const char* szName,D2FileTimeStr
  if(_stricmp(szName,header.szName)){*pFileError=2;return 0;}
  tCreated=(D2FileTimeStrc*)sub_00518F30_GetCacheFileTime(0);
  if(CompareFileTime(tCreated,&header.tExpiry)>0){*pFileError=3;return 0;}
- if(gpCacheBlockTable_00881884[block].dwDataSize>0x1000000){*pArchiveError=5;return 0;}
+ if(gpCacheBlockTable[block].dwDataSize>0x1000000){*pArchiveError=5;return 0;}
  if(time)*time=header.tFileTime;
  header.tLastAccess=*(D2FileTimeStrc*)sub_00518F30_GetCacheFileTime(0);
- SetFilePointer(ghCacheFile_0072FB78,gpCacheBlockTable_00881884[block].dwOffset,0,0);
+ SetFilePointer(ghCacheFile,gpCacheBlockTable[block].dwOffset,0,0);
  header.dwCrc=0;
  header.dwCrc=sub_00518DE0_Crc32(&header,sizeof(header));
  {unsigned int writeSize=header.dwSize;if(writeSize>sizeof(header))writeSize=sizeof(header);
  unsigned long written;
- WriteFile(ghCacheFile_0072FB78,&header,writeSize,&written,0);
+ WriteFile(ghCacheFile,&header,writeSize,&written,0);
  if(written!=writeSize){*pArchiveError=6;return 0;}}
- *data=sub_00413020_Alloc(gpCacheBlockTable_00881884[block].dwDataSize,gszCacheFile_006DEE70,0x2B5,0);
- SetFilePointer(ghCacheFile_0072FB78,gpCacheBlockTable_00881884[block].dwOffset+header.dwSize,0,0);
- ReadFile(ghCacheFile_0072FB78,*data,gpCacheBlockTable_00881884[block].dwDataSize,(unsigned long*)size,0);
- if(*size!=gpCacheBlockTable_00881884[block].dwDataSize){*pArchiveError=7;return 0;}
+ *data=sub_00413020_Alloc(gpCacheBlockTable[block].dwDataSize,gszCacheFile,0x2B5,0);
+ SetFilePointer(ghCacheFile,gpCacheBlockTable[block].dwOffset+header.dwSize,0,0);
+ ReadFile(ghCacheFile,*data,gpCacheBlockTable[block].dwDataSize,(unsigned long*)size,0);
+ if(*size!=gpCacheBlockTable[block].dwDataSize){*pArchiveError=7;return 0;}
  if(header.dwDataCrc!=sub_00518DE0_Crc32(*data,*size)){*pFileError=4;return 0;}
  return 1;
 }
@@ -608,18 +608,18 @@ static __forceinline int sub_00519920_ReadEntry(const char* szName,D2FileTimeStr
 // 0x00519920
 int __fastcall CACHE_LoadCachedFile(const char* szName,D2FileTimeStrc* time,void** data,unsigned int* size) {
  if(time){memset(time,0,sizeof(*time));} if(data)*data=0;if(size)*size=0;
- if(!szName||!*szName||!data||!size||!gbCacheLoaded_00881890)return 0;
+ if(!szName||!*szName||!data||!size||!gbCacheLoaded)return 0;
  int archiveError=0,fileError=0;
- EnterCriticalSection(&gCacheLock_00881894);
+ EnterCriticalSection(&gtCacheLock);
  int index=sub_00519110_FindHashEntry(szName,0);
- if(index==-1){LeaveCriticalSection(&gCacheLock_00881894);return 0;}
- unsigned int block=gpCacheHashTable_0088188C[index].dwBlockIndex;
- if(block>=gpCacheHeader_00881880->nBlockTableSize) archiveError=1;
+ if(index==-1){LeaveCriticalSection(&gtCacheLock);return 0;}
+ unsigned int block=gpCacheHashTable[index].dwBlockIndex;
+ if(block>=gpCacheHeader->nBlockTableSize) archiveError=1;
  else if(sub_00519920_ReadEntry(szName,time,data,size,block,&archiveError,&fileError)) goto unlock;
- if(archiveError){BNDOWNLOAD_LogPrintf(gszCorruptCache_006DEF00,archiveError);CACHE_ResetCache();}
- else {BNDOWNLOAD_LogPrintf(gszCorruptFile_006DEEC0,szName,fileError);sub_005191D0_DeleteHashEntries(szName);}
- if(*data){SMemFree(*data,gszCacheFile_006DEE70,0x2DE,0);*data=0;}*size=0;
-unlock: LeaveCriticalSection(&gCacheLock_00881894);return !fileError&&!archiveError;
+ if(archiveError){BNDOWNLOAD_LogPrintf(gszCorruptCache,archiveError);CACHE_ResetCache();}
+ else {BNDOWNLOAD_LogPrintf(gszCorruptFile,szName,fileError);sub_005191D0_DeleteHashEntries(szName);}
+ if(*data){SMemFree(*data,gszCacheFile,0x2DE,0);*data=0;}*size=0;
+unlock: LeaveCriticalSection(&gtCacheLock);return !fileError&&!archiveError;
 }
 
 // 0x00519DB0
@@ -628,45 +628,45 @@ int __fastcall CACHE_WriteCachedFile(const char* szName, const void* pData, unsi
     D2CacheRecordStrc tRecord;
     D2CacheRecordStrc tOld;
 
-    if (!szName || !*szName || !pData || !nSize || !pFileTime || !nSeconds2 || !gbCacheLoaded_00881890 || nSize > 0x1000000)
+    if (!szName || !*szName || !pData || !nSize || !pFileTime || !nSeconds2 || !gbCacheLoaded || nSize > 0x1000000)
     {
         return 0;
     }
 
     int nError = 0;
-    EnterCriticalSection(&gCacheLock_00881894);
+    EnterCriticalSection(&gtCacheLock);
     sub_005191D0_DeleteHashEntries(szName);
 
     const unsigned int nNeeded = nSize + 0x144;
     unsigned int nBlock = 0;
-    while (nBlock < gpCacheHeader_00881880->nBlockTableSize)
+    while (nBlock < gpCacheHeader->nBlockTableSize)
     {
-        if (!gpCacheBlockTable_00881884[nBlock].dwFlags && gpCacheBlockTable_00881884[nBlock].dwSize >= nNeeded)
+        if (!gpCacheBlockTable[nBlock].dwFlags && gpCacheBlockTable[nBlock].dwSize >= nNeeded)
         {
             break;
         }
         ++nBlock;
     }
 
-    if (nBlock >= gpCacheHeader_00881880->nBlockTableSize)
+    if (nBlock >= gpCacheHeader->nBlockTableSize)
     {
-        for (nBlock = 0; nBlock < gpCacheHeader_00881880->nBlockTableSize; ++nBlock)
+        for (nBlock = 0; nBlock < gpCacheHeader->nBlockTableSize; ++nBlock)
         {
-            if (gpCacheBlockTable_00881884[nBlock].dwSize < nNeeded)
+            if (gpCacheBlockTable[nBlock].dwSize < nNeeded)
             {
                 continue;
             }
 
             unsigned long nCount;
-            SetFilePointer(ghCacheFile_0072FB78, gpCacheBlockTable_00881884[nBlock].dwOffset, 0, 0);
+            SetFilePointer(ghCacheFile, gpCacheBlockTable[nBlock].dwOffset, 0, 0);
             memset(&tOld, 0, sizeof(tOld));
-            ReadFile(ghCacheFile_0072FB78, &tOld, 4, &nCount, 0);
+            ReadFile(ghCacheFile, &tOld, 4, &nCount, 0);
             if (nCount != 4 || tOld.dwSize != 0x144)
             {
                 break;
             }
 
-            ReadFile(ghCacheFile_0072FB78, &tOld.unk0x04, 0x140, &nCount, 0);
+            ReadFile(ghCacheFile, &tOld.unk0x04, 0x140, &nCount, 0);
             if (nCount != 0x140)
             {
                 break;
@@ -679,14 +679,14 @@ int __fastcall CACHE_WriteCachedFile(const char* szName, const void* pData, unsi
         }
     }
 
-    D2CacheHeaderStrc* pHeader = gpCacheHeader_00881880;
+    D2CacheHeaderStrc* pHeader = gpCacheHeader;
     if (nBlock < pHeader->nBlockTableSize)
     {
         for (unsigned int i = 0; i < pHeader->nHashTableSize; ++i)
         {
-            if (gpCacheHashTable_0088188C[i].dwBlockIndex == nBlock)
+            if (gpCacheHashTable[i].dwBlockIndex == nBlock)
             {
-                gpCacheHashTable_0088188C[i].dwBlockIndex = (unsigned int)-2;
+                gpCacheHashTable[i].dwBlockIndex = (unsigned int)-2;
             }
         }
     }
@@ -698,8 +698,8 @@ int __fastcall CACHE_WriteCachedFile(const char* szName, const void* pData, unsi
             goto Fail;
         }
 
-        gpCacheBlockTable_00881884[nBlock].dwOffset = pHeader->dwFileSize;
-        gpCacheBlockTable_00881884[nBlock].dwSize = nNeeded;
+        gpCacheBlockTable[nBlock].dwOffset = pHeader->dwFileSize;
+        gpCacheBlockTable[nBlock].dwSize = nNeeded;
         pHeader->dwFileSize += nNeeded;
         pHeader->nBlockTableSize = nBlock + 1;
     }
@@ -708,13 +708,13 @@ int __fastcall CACHE_WriteCachedFile(const char* szName, const void* pData, unsi
         const unsigned int dwIndex = sub_00518FA0_HashString(0, szName);
         const unsigned int dwNameA = sub_00518FA0_HashString(1, szName);
         const unsigned int dwNameB = sub_00518FA0_HashString(2, szName);
-        unsigned int nSlot = dwIndex & (gpCacheHeader_00881880->nHashTableSize - 1);
+        unsigned int nSlot = dwIndex & (gpCacheHeader->nHashTableSize - 1);
         const unsigned int nStart = nSlot;
-        D2CacheHashEntryStrc* pTable = gpCacheHashTable_0088188C;
+        D2CacheHashEntryStrc* pTable = gpCacheHashTable;
         unsigned int dwEntryBlock = pTable[nSlot].dwBlockIndex;
         while (dwEntryBlock != (unsigned int)-1 && dwEntryBlock != (unsigned int)-2)
         {
-            nSlot = (nSlot + 1) & (gpCacheHeader_00881880->nHashTableSize - 1);
+            nSlot = (nSlot + 1) & (gpCacheHeader->nHashTableSize - 1);
             if (nSlot == nStart)
             {
                 break;
@@ -737,8 +737,8 @@ int __fastcall CACHE_WriteCachedFile(const char* szName, const void* pData, unsi
 
     {
     unsigned long nCount;
-    gpCacheBlockTable_00881884[nBlock].dwDataSize = nSize;
-    gpCacheBlockTable_00881884[nBlock].dwFlags = 0xC0000000;
+    gpCacheBlockTable[nBlock].dwDataSize = nSize;
+    gpCacheBlockTable[nBlock].dwFlags = 0xC0000000;
 
     memset(&tRecord, 0, sizeof(tRecord));
     tRecord.dwSize = 0x144;
@@ -767,15 +767,15 @@ int __fastcall CACHE_WriteCachedFile(const char* szName, const void* pData, unsi
         tRecord.dwCrc = dwCrc;
     }
 
-    SetFilePointer(ghCacheFile_0072FB78, gpCacheBlockTable_00881884[nBlock].dwOffset, 0, 0);
-    WriteFile(ghCacheFile_0072FB78, &tRecord, sizeof(tRecord), &nCount, 0);
+    SetFilePointer(ghCacheFile, gpCacheBlockTable[nBlock].dwOffset, 0, 0);
+    WriteFile(ghCacheFile, &tRecord, sizeof(tRecord), &nCount, 0);
     if (nCount != sizeof(tRecord))
     {
         nError = 0xD;
         goto Fail;
     }
 
-    WriteFile(ghCacheFile_0072FB78, pData, nSize, &nCount, 0);
+    WriteFile(ghCacheFile, pData, nSize, &nCount, 0);
     if (nCount != nSize)
     {
         nError = 0xE;
@@ -783,13 +783,13 @@ int __fastcall CACHE_WriteCachedFile(const char* szName, const void* pData, unsi
     }
 
     {
-        unsigned int nHashCount = gpCacheHeader_00881880->nHashTableSize;
+        unsigned int nHashCount = gpCacheHeader->nHashTableSize;
         if (nHashCount < 0x400)
         {
             nHashCount = 0x400;
         }
         const unsigned int nHashBytes = nHashCount << 4;
-        unsigned int nBlockCount = gpCacheHeader_00881880->nBlockTableSize;
+        unsigned int nBlockCount = gpCacheHeader->nBlockTableSize;
         if (nBlockCount < 0x400)
         {
             nBlockCount = 0x400;
@@ -797,11 +797,11 @@ int __fastcall CACHE_WriteCachedFile(const char* szName, const void* pData, unsi
         const unsigned int nBlockBytes = nBlockCount << 4;
 
         unsigned int* pBuffer = (unsigned int*)SMemAlloc(nHashBytes > nBlockBytes ? nHashBytes : nBlockBytes, ".\\CACHE.CPP", 0x391, 0);
-        SetFilePointer(ghCacheFile_0072FB78, gpCacheHeader_00881880->dwHashOffset, 0, 0);
-        memcpy(pBuffer, gpCacheHashTable_0088188C, nHashBytes);
+        SetFilePointer(ghCacheFile, gpCacheHeader->dwHashOffset, 0, 0);
+        memcpy(pBuffer, gpCacheHashTable, nHashBytes);
         sub_00518EC0_EncryptBlock(pBuffer, nHashBytes, sub_00518FA0_HashString(3, "(hash table)"));
-        gpCacheHeader_00881880->dwHashCrc = sub_00518DE0_Crc32(pBuffer, nHashBytes);
-        WriteFile(ghCacheFile_0072FB78, pBuffer, nHashBytes, &nCount, 0);
+        gpCacheHeader->dwHashCrc = sub_00518DE0_Crc32(pBuffer, nHashBytes);
+        WriteFile(ghCacheFile, pBuffer, nHashBytes, &nCount, 0);
         if (nCount != nHashBytes)
         {
             SMemFree(pBuffer, ".\\CACHE.CPP", 0x39D, 0);
@@ -809,11 +809,11 @@ int __fastcall CACHE_WriteCachedFile(const char* szName, const void* pData, unsi
             goto Fail;
         }
 
-        SetFilePointer(ghCacheFile_0072FB78, gpCacheHeader_00881880->dwBlockOffset, 0, 0);
-        memcpy(pBuffer, gpCacheBlockTable_00881884, nBlockBytes);
+        SetFilePointer(ghCacheFile, gpCacheHeader->dwBlockOffset, 0, 0);
+        memcpy(pBuffer, gpCacheBlockTable, nBlockBytes);
         sub_00518EC0_EncryptBlock(pBuffer, nBlockBytes, sub_00518FA0_HashString(3, "(block table)"));
-        gpCacheHeader_00881880->dwBlockCrc = sub_00518DE0_Crc32(pBuffer, nBlockBytes);
-        WriteFile(ghCacheFile_0072FB78, pBuffer, nBlockBytes, &nCount, 0);
+        gpCacheHeader->dwBlockCrc = sub_00518DE0_Crc32(pBuffer, nBlockBytes);
+        WriteFile(ghCacheFile, pBuffer, nBlockBytes, &nCount, 0);
         SMemFree(pBuffer, ".\\CACHE.CPP", 0x3AB, 0);
         if (nCount != nBlockBytes)
         {
@@ -823,7 +823,7 @@ int __fastcall CACHE_WriteCachedFile(const char* szName, const void* pData, unsi
     }
 
     {
-        D2CacheHeaderStrc* pCacheHeader = gpCacheHeader_00881880;
+        D2CacheHeaderStrc* pCacheHeader = gpCacheHeader;
         pCacheHeader->dwHeaderCrc = 0;
         unsigned int nLeft = sizeof(D2CacheHeaderStrc);
         const unsigned char* pBytes = (const unsigned char*)pCacheHeader;
@@ -832,8 +832,8 @@ int __fastcall CACHE_WriteCachedFile(const char* szName, const void* pData, unsi
         pCacheHeader->dwHeaderCrc = dwCrc;
     }
 
-    SetFilePointer(ghCacheFile_0072FB78, 0, 0, 0);
-    WriteFile(ghCacheFile_0072FB78, gpCacheHeader_00881880, sizeof(D2CacheHeaderStrc), &nCount, 0);
+    SetFilePointer(ghCacheFile, 0, 0, 0);
+    WriteFile(ghCacheFile, gpCacheHeader, sizeof(D2CacheHeaderStrc), &nCount, 0);
     if (nCount != sizeof(D2CacheHeaderStrc))
     {
         nError = 0x11;
@@ -847,7 +847,7 @@ Fail:
     CACHE_ResetCache();
 
 Done:
-    LeaveCriticalSection(&gCacheLock_00881894);
+    LeaveCriticalSection(&gtCacheLock);
     return nError == 0;
 }
 

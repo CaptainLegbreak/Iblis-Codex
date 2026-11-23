@@ -2224,15 +2224,15 @@ extern char gData_00882028[]; // 0x00882028
 
 extern int gdwGlobal_00882528; // 0x00882528
 
-extern int gdwGlobal_0072FFA8; // 0x0072FFA8
+extern int gnLastStatus; // 0x0072FFA8
 
-extern char gData_00882428[]; // 0x00882428
+extern char gszReplyText[]; // 0x00882428
 
-extern int gdwGlobal_008822A4; // 0x008822A4
+extern int gnCreateAccountResult; // 0x008822A4
 
-extern int gdwGlobal_008822A0; // 0x008822A0
+extern int gnChangePasswordResult; // 0x008822A0
 
-extern int gdwGlobal_00882538; // 0x00882538
+extern int gnLoginRetryCount; // 0x00882538
 
 extern int gdwGlobal_00730190; // 0x00730190
 
@@ -2377,7 +2377,8 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);
 // build: symbol _gszD2NetSourceFile 0x006E0488
 extern "C" const char gszD2NetSourceFile[];
 
-extern int gnConnectionMode_00882D10;
+// build: symbol ?gnConnectionMode@* 0x00882D10
+extern int gnConnectionMode;
 
 typedef void(__fastcall* UnitDescriptionFunction)(char* szDescription, int nClassId);
 

@@ -14,40 +14,43 @@ struct T0041D340
 };
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
-extern D2CriticalSectionStrc gMessageLock_00882004; // 0x00882004
-extern int gnSlotArrayB_008822A8[94]; // 0x008822A8
+extern D2CriticalSectionStrc gtMessageLock; // 0x00882004
+extern int ganSlotArrayB[94]; // 0x008822A8
 
-void* gpBnStateArg_00882000; // 0x00882000
+void* gpBnStateArg; // 0x00882000
 
-D2CriticalSectionStrc gMessageLock_00882004; // 0x00882004
+D2CriticalSectionStrc gtMessageLock; // 0x00882004
 
-int gnBnState_0088201C; // 0x0088201C
+int gnBnState; // 0x0088201C
 
 // 0x005201E0
 void __cdecl sub_005201E0_InitMessageQueue()
 {
-    gpMessageHead_00882020 = 0;
-    gpMessageTail_00882024 = 0;
-    gnBnState_0088201C = 0;
-    InitializeCriticalSection(&gMessageLock_00882004);
+// build: symbol ?gpMessageHead@* 0x00882020
+    gpMessageHead = 0;
+// build: symbol ?gpMessageTail@* 0x00882024
+    gpMessageTail = 0;
+    gnBnState = 0;
+    InitializeCriticalSection(&gtMessageLock);
 }
 
 // 0x005205F0
 int __fastcall sub_005205F0_GetState(D2BnStateStrc* pState)
 {
-    EnterCriticalSection(&gMessageLock_00882004);
-    pState->nState = gnBnState_0088201C;
-    pState->pArg = gpBnStateArg_00882000;
-    if (gnBnState_0088201C == 0x1B)
-        pState->pArg = gszEmptyStateText_00881F80;
-    LeaveCriticalSection(&gMessageLock_00882004);
+    EnterCriticalSection(&gtMessageLock);
+    pState->nState = gnBnState;
+    pState->pArg = gpBnStateArg;
+    if (gnBnState == 0x1B)
+// build: symbol ?gszEmptyStateText@* 0x00881F80
+        pState->pArg = gszEmptyStateText;
+    LeaveCriticalSection(&gtMessageLock);
     return 1;
 }
 
 // 0x00520200
 void __cdecl sub_00520200_DeleteQueueLock()
 {
-    DeleteCriticalSection(&gMessageLock_00882004);
+    DeleteCriticalSection(&gtMessageLock);
 }
 
 // 0x00520680
@@ -90,7 +93,7 @@ static inline int sub_00520A80_CheckStringBlock(const char* pBuffer, unsigned in
 // 0x00520C30
 void __fastcall sub_00520C30_SetSlot(unsigned char nIndex, int nValue)
 {
-    gnSlotArrayB_008822A8[nIndex] = nValue;
+    ganSlotArrayB[nIndex] = nValue;
 }
 
 int __fastcall sub_M119_Emit_00520A80(int nPos, int nCount, int nSize)

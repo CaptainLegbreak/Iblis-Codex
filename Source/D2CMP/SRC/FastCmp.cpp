@@ -44,15 +44,15 @@ void __fastcall sub_005179A4_FreeVirtualMemory(void* pMemory); // 0x005179A4
 
 void __stdcall sub_006059B0_BuildAdditiveTable(unsigned char* pData); // 0x006059B0
 
-extern unsigned int gdwSwappedColor_008E9D38; // 0x008E9D38
+extern unsigned int gdwSwappedColor; // 0x008E9D38
 
-extern int gnGlobal_008E9028; // 0x008E9028
+extern int gbPaletteTestBackground; // 0x008E9028
 
 extern int gnGlobal_008E9D3C; // 0x008E9D3C
 
-extern unsigned char gaTable_008E9830[0x100]; // 0x008E9830
+extern unsigned char gabPaletteMask[0x100]; // 0x008E9830
 
-extern int gbTableSet_008E9D40; // 0x008E9D40
+extern int gbTableSet; // 0x008E9D40
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
@@ -101,11 +101,11 @@ extern "C" void __cdecl _chkstk(); // 0x006831B0
 
 extern "C" void __cdecl _ftol2_sse(); // 0x00682FD0
 
-int gnRemapStart_008E9D48[80]; // 0x008E9D48
+int ganRemapStart[80]; // 0x008E9D48
 
-int gnRemapEnd_008E9E88[80]; // 0x008E9E88
+int ganRemapEnd[80]; // 0x008E9E88
 
-int gnRemapOffsets_008E9FC8[80 * 80]; // 0x008E9FC8
+int ganRemapOffsets[80 * 80]; // 0x008E9FC8
 
 struct D2CelStrc { unsigned int flags,width,height; unsigned char unknown0C[0x14]; unsigned char pixels[1]; };
 
@@ -185,7 +185,7 @@ extern "C" const char gszEmptyAssertText;                                       
 
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 
-int gdwGlobal_008F03C8; // 0x008F03C8
+int gnGenericRle; // 0x008F03C8
 
 static void __stdcall CelEncodeRle(const unsigned char* pSrc, unsigned int nWidth, unsigned int nHeight, unsigned int dwFlags, unsigned char** ppOut, unsigned int* pnSize);
 
@@ -244,13 +244,13 @@ void __stdcall PaletteSetTransparency(unsigned int nColor)
     unsigned char nLow = (unsigned char)nColor;
     unsigned char nMid = (unsigned char)(nColor >> 8);
     unsigned char nHigh = (unsigned char)(nColor >> 16);
-    gdwSwappedColor_008E9D38 = (((nLow << 8) | nMid) << 8) | nHigh;
+    gdwSwappedColor = (((nLow << 8) | nMid) << 8) | nHigh;
 }
 
 // 0x006056C0
 void __stdcall PaletteTestBackground(int nValue)
 {
-    gnGlobal_008E9028 = nValue;
+    gbPaletteTestBackground = nValue;
 }
 
 // 0x00605840
@@ -262,8 +262,8 @@ void __stdcall PaletteFixBlack(int nValue)
 // 0x00605850
 void __stdcall PaletteSetMask(const unsigned char* pTable)
 {
-    memcpy(gaTable_008E9830, pTable, 0x100);
-    gbTableSet_008E9D40 = 1;
+    memcpy(gabPaletteMask, pTable, 0x100);
+    gbTableSet = 1;
 }
 
 // 0x00605A90
@@ -1294,7 +1294,7 @@ void __cdecl sub_00413740_Nop()
 // 0x00608520
 int __cdecl D2CMPToggleCelDrawMode()
 {
-    return gdwGlobal_008F03C8 = (gdwGlobal_008F03C8 == 0);
+    return gnGenericRle = (gnGenericRle == 0);
 }
 
 // 0x00608540
@@ -1531,15 +1531,15 @@ void __fastcall CmpBuildLensRemap(int nPitch)
                 const int nClampX = D2_MIN(nSrcX, 79);
                 int nSrcY = ((nDY <= 0) - 1) & nDY;
                 nSrcY = D2_MIN(nSrcY, 79);
-                gnRemapOffsets_008E9FC8[y * 80 + x] = (nSrcY - y) * nPitch - x + nClampX;
+                ganRemapOffsets[y * 80 + x] = (nSrcY - y) * nPitch - x + nClampX;
             }
         }
     }
 
     for (int y = 0; y < 80; ++y)
     {
-        gnRemapStart_008E9D48[y] = 0;
-        gnRemapEnd_008E9E88[y] = 0;
+        ganRemapStart[y] = 0;
+        ganRemapEnd[y] = 0;
 
         int x;
         for (x = 0; x < 80; ++x)
@@ -1550,10 +1550,10 @@ void __fastcall CmpBuildLensRemap(int nPitch)
 
         if (x < 80)
         {
-            gnRemapStart_008E9D48[y] = x;
+            ganRemapStart[y] = x;
             while (aInside[x][y])
                 ++x;
-            gnRemapEnd_008E9E88[y] = x;
+            ganRemapEnd[y] = x;
         }
     }
 }
@@ -1565,17 +1565,17 @@ void __stdcall CmpDoLensEffect(unsigned char* pBuffer, int nPitch)
     int nBase = 0;
     for (int y = 0; y < 40; y++)
     {
-        int nIndex = gnRemapStart_008E9D48[y] + nBase;
-        unsigned char* p = pRow + gnRemapStart_008E9D48[y];
-        unsigned char* pEnd = pRow + (gnRemapEnd_008E9E88[y] < 41 ? gnRemapEnd_008E9E88[y] : 41);
+        int nIndex = ganRemapStart[y] + nBase;
+        unsigned char* p = pRow + ganRemapStart[y];
+        unsigned char* pEnd = pRow + (ganRemapEnd[y] < 41 ? ganRemapEnd[y] : 41);
         for (; p < pEnd; p++, nIndex++)
-            *p = p[gnRemapOffsets_008E9FC8[nIndex]];
+            *p = p[ganRemapOffsets[nIndex]];
 
-        nIndex = gnRemapEnd_008E9E88[y] + nBase;
-        p = pRow + gnRemapEnd_008E9E88[y];
-        pEnd = pRow + (gnRemapStart_008E9D48[y] >= 40 ? gnRemapStart_008E9D48[y] : 40);
+        nIndex = ganRemapEnd[y] + nBase;
+        p = pRow + ganRemapEnd[y];
+        pEnd = pRow + (ganRemapStart[y] >= 40 ? ganRemapStart[y] : 40);
         for (; p > pEnd; p--, nIndex--)
-            *p = p[gnRemapOffsets_008E9FC8[nIndex]];
+            *p = p[ganRemapOffsets[nIndex]];
 
         nBase += 80;
         pRow += nPitch;
@@ -1585,17 +1585,17 @@ void __stdcall CmpDoLensEffect(unsigned char* pBuffer, int nPitch)
     nBase = 79 * 80;
     for (int y = 79; y >= 40; y--)
     {
-        int nIndex = gnRemapStart_008E9D48[y] + nBase;
-        unsigned char* p = pRow + gnRemapStart_008E9D48[y];
-        unsigned char* pEnd = pRow + (gnRemapEnd_008E9E88[y] < 41 ? gnRemapEnd_008E9E88[y] : 41);
+        int nIndex = ganRemapStart[y] + nBase;
+        unsigned char* p = pRow + ganRemapStart[y];
+        unsigned char* pEnd = pRow + (ganRemapEnd[y] < 41 ? ganRemapEnd[y] : 41);
         for (; p < pEnd; p++, nIndex++)
-            *p = p[gnRemapOffsets_008E9FC8[nIndex]];
+            *p = p[ganRemapOffsets[nIndex]];
 
-        nIndex = gnRemapEnd_008E9E88[y] + nBase;
-        p = pRow + gnRemapEnd_008E9E88[y];
-        pEnd = pRow + (gnRemapStart_008E9D48[y] >= 40 ? gnRemapStart_008E9D48[y] : 40);
+        nIndex = ganRemapEnd[y] + nBase;
+        p = pRow + ganRemapEnd[y];
+        pEnd = pRow + (ganRemapStart[y] >= 40 ? ganRemapStart[y] : 40);
         for (; p > pEnd; p--, nIndex--)
-            *p = p[gnRemapOffsets_008E9FC8[nIndex]];
+            *p = p[ganRemapOffsets[nIndex]];
 
         nBase -= 80;
         pRow -= nPitch;

@@ -106,23 +106,23 @@ extern "C" char* __cdecl strrchr(const char* szString, int nChar);              
 bool __cdecl sub_00401B00_LoadDbgHelp();                                                                    // 0x00401B00
 bool __cdecl sub_00401CB0_InitSymbols();                                                                    // 0x00401CB0
 
-extern void* ghProcess_0074C6F0;                                                                            // 0x0074C6F0
-extern void* ghDbgHelp_0098A680;                                                                            // 0x0098A680
-extern SymGetModuleInfo64Fn gpfnSymGetModuleInfo64_0098A684;                                                // 0x0098A684
+extern void* ghProcess;                                                                            // 0x0074C6F0
+extern void* ghDbgHelp;                                                                            // 0x0098A680
+extern SymGetModuleInfo64Fn gpfnSymGetModuleInfo64;                                                // 0x0098A684
 
 extern SymGetModuleInfo64Fn gpfnSymGetModuleInfo64B_0098A684; // 0x0098A684
-extern SymGetSymFromAddr64Fn gpfnSymGetSymFromAddr64_0098A68C;                                              // 0x0098A68C
-extern bool gbSymInitialized_0098A6B0;                                                                      // 0x0098A6B0
-extern SymGetLineFromAddr64Fn gpfnSymGetLineFromAddr64_0098A6E8;                                            // 0x0098A6E8
-extern D2CriticalSectionStrc gtSymbolLock_0098A6F0;                                                         // 0x0098A6F0
+extern SymGetSymFromAddr64Fn gpfnSymGetSymFromAddr64;                                              // 0x0098A68C
+extern bool gbSymInitialized;                                                                      // 0x0098A6B0
+extern SymGetLineFromAddr64Fn gpfnSymGetLineFromAddr64;                                            // 0x0098A6E8
+extern D2CriticalSectionStrc gtSymbolLock;                                                         // 0x0098A6F0
 
 extern D2CriticalSectionStrc gtSymbolLockB_0098A6F0; // 0x0098A6F0
 
 static inline bool sub_EnsureSymbolEngine()
 {
-    if (!ghDbgHelp_0098A680 && !sub_00401B00_LoadDbgHelp())
+    if (!ghDbgHelp && !sub_00401B00_LoadDbgHelp())
         return false;
-    if (!gbSymInitialized_0098A6B0 && !sub_00401CB0_InitSymbols())
+    if (!gbSymInitialized && !sub_00401CB0_InitSymbols())
         return false;
     return true;
 }
@@ -134,7 +134,7 @@ static bool __stdcall sub_004020D0_GetLineFromAddr(unsigned long dwAddress, char
 // 0x00401A60
 void __cdecl sub_00401A60_UnlockSymbols()
 {
-    LeaveCriticalSection(&gtSymbolLock_0098A6F0);
+    LeaveCriticalSection(&gtSymbolLock);
 }
 
 // build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
@@ -149,15 +149,15 @@ static bool __stdcall sub_00401DF0_GetModuleFromAddr(unsigned long dwAddress, ch
     *pdwBase = 0;
     D2SymbolLockGuardStrc tLock;
 
-    if ((ghDbgHelp_0098A680 || sub_00401B00_LoadDbgHelp()) && (gbSymInitialized_0098A6B0 || sub_00401CB0_InitSymbols()))
+    if ((ghDbgHelp || sub_00401B00_LoadDbgHelp()) && (gbSymInitialized || sub_00401CB0_InitSymbols()))
     {
-        SymGetModuleInfo64Fn pfnGetModuleInfo = gpfnSymGetModuleInfo64_0098A684;
+        SymGetModuleInfo64Fn pfnGetModuleInfo = gpfnSymGetModuleInfo64;
         if (pfnGetModuleInfo)
         {
             D2ImagehlpModule64Strc tInfo;
             memset(&tInfo, 0, sizeof(tInfo));
             tInfo.SizeOfStruct = sizeof(D2ImagehlpModule64Strc);
-            if (gpfnSymGetModuleInfo64_0098A684(ghProcess_0074C6F0, dwAddress, &tInfo))
+            if (gpfnSymGetModuleInfo64(ghProcess, dwAddress, &tInfo))
             {
                 if (GetModuleHandleA(tInfo.LoadedImageName))
                     *pdwBase = (unsigned long)tInfo.BaseOfImage;
@@ -176,9 +176,9 @@ static bool __stdcall sub_00401F10_GetSymbolFromAddr(char* szName, unsigned long
     *pdwDisplacement = 0;
     D2SymbolLockGuardStrc tLock(&gtSymbolLockB_0098A6F0);
 
-    if ((ghDbgHelp_0098A680 || sub_00401B00_LoadDbgHelp()) && (gbSymInitialized_0098A6B0 || sub_00401CB0_InitSymbols()))
+    if ((ghDbgHelp || sub_00401B00_LoadDbgHelp()) && (gbSymInitialized || sub_00401CB0_InitSymbols()))
     {
-        if (gpfnSymGetSymFromAddr64_0098A68C)
+        if (gpfnSymGetSymFromAddr64)
         {
             D2SymbolBufferStrc tBuffer;
             memset(&tBuffer, 0, sizeof(tBuffer));
@@ -187,14 +187,14 @@ static bool __stdcall sub_00401F10_GetSymbolFromAddr(char* szName, unsigned long
             tBuffer.tSymbol.MaxNameLength = 0x400;
             unsigned __int64 qwDisplacement = 0;
 
-            if (gpfnSymGetSymFromAddr64_0098A68C(ghProcess_0074C6F0, dwAddress, &qwDisplacement, &tBuffer.tSymbol))
+            if (gpfnSymGetSymFromAddr64(ghProcess, dwAddress, &qwDisplacement, &tBuffer.tSymbol))
             {
-                if (gpfnSymGetModuleInfo64_0098A684)
+                if (gpfnSymGetModuleInfo64)
                 {
                     D2ImagehlpModule64Strc tModule;
                     memset(&tModule, 0, sizeof(tModule));
                     tModule.SizeOfStruct = sizeof(D2ImagehlpModule64Strc);
-                    if (gpfnSymGetModuleInfo64B_0098A684(ghProcess_0074C6F0, dwAddress, &tModule)
+                    if (gpfnSymGetModuleInfo64B_0098A684(ghProcess, dwAddress, &tModule)
                         && tModule.SymType != 0 && tModule.SymType != 4 && tModule.SymType != 5)
                     {
                         strncpy_s(szName, 0x200, tBuffer.tSymbol.Name, (unsigned int)-1);
@@ -218,13 +218,13 @@ static bool __stdcall sub_004020D0_GetLineFromAddr(unsigned long dwAddress, char
 
     if (sub_EnsureSymbolEngine())
     {
-        SymGetLineFromAddr64Fn pfnGetLine = gpfnSymGetLineFromAddr64_0098A6E8;
+        SymGetLineFromAddr64Fn pfnGetLine = gpfnSymGetLineFromAddr64;
         if (pfnGetLine)
         {
             D2ImagehlpLine64Strc tLine;
             memset(&tLine, 0, sizeof(tLine));
             tLine.SizeOfStruct = sizeof(D2ImagehlpLine64Strc);
-            if (pfnGetLine(ghProcess_0074C6F0, dwAddress, &dwDisplacement, &tLine))
+            if (pfnGetLine(ghProcess, dwAddress, &dwDisplacement, &tLine))
             {
                 strncpy_s(szFile, 0x100, tLine.FileName, (unsigned int)-1);
                 *pLineNumber = tLine.LineNumber;
@@ -280,7 +280,7 @@ extern "C" int __cdecl _snprintf_s(char* szBuffer, unsigned int nSizeOfBuffer, u
 extern "C" unsigned int __cdecl strlen(const char* szString);
 typedef void (__fastcall* D2CrashPrintFn)(void* pContext, const char* szText);
 extern unsigned long gdwMainThreadId_00992B1C;                                                              // 0x00992B1C
-extern "C" const char gszNewline_006FFCB0[];                                                                // 0x006FFCB0
+extern "C" const char gszNewline[];                                                                // 0x006FFCB0
 
 extern const char gszArgsFormat[]; // 0x006FFC14
 extern const char gszUnresolvedFormat[]; // 0x006FFC24
@@ -344,7 +344,7 @@ void __fastcall sub_00403100_PrintFrames(unsigned long dwThreadId, D2StackFrameS
         {
             nLength += _snprintf_s(szLine + nLength, 0x400 - nLength, (unsigned int)-1, " [Stack Base: 0x%p Used Space: %llu/%llu bytes]", dwStackTop, (unsigned __int64)(dwStackTop - dwStackPointer), (unsigned __int64)dwStackSize);
         }
-        _snprintf_s(szLine + nLength, 0x400 - nLength, (unsigned int)-1, gszNewline_006FFCB0);
+        _snprintf_s(szLine + nLength, 0x400 - nLength, (unsigned int)-1, gszNewline);
         pfnPrint(pContext, szLine);
     }
 

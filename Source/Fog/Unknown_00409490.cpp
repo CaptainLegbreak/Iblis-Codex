@@ -10,7 +10,7 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) int __stdcall VirtualFree(void* pAddress, size_t nSize, unsigned long dwFreeType); // 0x006CC220
 extern "C" void* __cdecl realloc(void* pMemory, size_t nSize); // 0x00683BA5
 
-extern D2PoolDirectoryStrc gtPoolManager_0074F0E8; // 0x0074F0E8
+extern D2PoolDirectoryStrc gtPoolManager; // 0x0074F0E8
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09

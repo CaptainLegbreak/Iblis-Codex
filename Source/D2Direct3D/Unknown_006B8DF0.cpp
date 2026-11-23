@@ -8,10 +8,10 @@ struct D2Point3Strc { int x,y,z; };
 struct D2WallEdgeStrc { D2Point3Strc a,b; };
 extern int gnWidth_007C9138; // 0x007C9138
 extern int gnHeight_007C913C; // 0x007C913C
-extern int gaGeometry_0074C100[10][6][3]; // 0x0074C100
-extern D2TLVertexStrc gaGrid_00971450[15]; // 0x00971450
-extern D2TLVertexStrc gaQuad_00971630[4]; // 0x00971630
-extern unsigned short gaIndices_0074C0D0[22]; // 0x0074C0D0
+extern int gaGeometry[10][6][3]; // 0x0074C100
+extern D2TLVertexStrc gaGrid[15]; // 0x00971450
+extern D2TLVertexStrc gatQuad[4]; // 0x00971630
+extern unsigned short gaIndices[22]; // 0x0074C0D0
 extern D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
 extern const char gszAssert_006CC837[]; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -94,32 +94,32 @@ static int __stdcall sub_006B8950_Lit(int nScreenPanels, D2TileStrc* pTile, int 
         const int nHeight = pTile->blocks[i].y;
         D2ASSERT(nCol >= 0 && nCol <= 4, 0x21B);
 
-        const int nX0 = gaGeometry_0074C100[nType][nCol][0] + nPosX;
-        const int nY0 = gaGeometry_0074C100[nType][nCol][1] + nPosY;
-        const int nZ0 = gaGeometry_0074C100[nType][nCol][2] - nHeight;
-        const int nX1 = gaGeometry_0074C100[nType][nCol + 1][0] + nPosX;
-        const int nY1 = gaGeometry_0074C100[nType][nCol + 1][1] + nPosY;
-        const int nZ1 = gaGeometry_0074C100[nType][nCol + 1][2] - nHeight;
+        const int nX0 = gaGeometry[nType][nCol][0] + nPosX;
+        const int nY0 = gaGeometry[nType][nCol][1] + nPosY;
+        const int nZ0 = gaGeometry[nType][nCol][2] - nHeight;
+        const int nX1 = gaGeometry[nType][nCol + 1][0] + nPosX;
+        const int nY1 = gaGeometry[nType][nCol + 1][1] + nPosY;
+        const int nZ1 = gaGeometry[nType][nCol + 1][2] - nHeight;
         int nScreenX;
         int nScreenY;
 
         sub_006B9860_Project(nX0, nY0, nZ0, &nScreenX, &nScreenY);
-        gaGrid_00971450[0].fX = (float)nScreenX;
-        gaGrid_00971450[0].fY = (float)nScreenY;
+        gaGrid[0].fX = (float)nScreenX;
+        gaGrid[0].fY = (float)nScreenY;
         sub_006B9860_Project(nX0, nY0, nZ0 - 0x20, &nScreenX, &nScreenY);
-        gaGrid_00971450[12].fX = (float)nScreenX;
-        gaGrid_00971450[12].fY = (float)nScreenY;
+        gaGrid[12].fX = (float)nScreenX;
+        gaGrid[12].fY = (float)nScreenY;
         sub_006B9860_Project(nX1, nY1, nZ1 - 0x20, &nScreenX, &nScreenY);
-        gaGrid_00971450[14].fX = (float)nScreenX;
-        gaGrid_00971450[14].fY = (float)nScreenY;
+        gaGrid[14].fX = (float)nScreenX;
+        gaGrid[14].fY = (float)nScreenY;
         sub_006B9860_Project(nX1, nY1, nZ1, &nScreenX, &nScreenY);
-        gaGrid_00971450[2].fX = (float)nScreenX;
-        gaGrid_00971450[2].fY = (float)nScreenY;
+        gaGrid[2].fX = (float)nScreenX;
+        gaGrid[2].fY = (float)nScreenY;
 
-        if (D3D_VERTEX_IN_RECT(gaGrid_00971450[0], tRect)
-            || D3D_VERTEX_IN_RECT(gaGrid_00971450[12], tRect)
-            || D3D_VERTEX_IN_RECT(gaGrid_00971450[14], tRect)
-            || D3D_VERTEX_IN_RECT(gaGrid_00971450[2], tRect))
+        if (D3D_VERTEX_IN_RECT(gaGrid[0], tRect)
+            || D3D_VERTEX_IN_RECT(gaGrid[12], tRect)
+            || D3D_VERTEX_IN_RECT(gaGrid[14], tRect)
+            || D3D_VERTEX_IN_RECT(gaGrid[2], tRect))
         {
             const int nMidX = (nX0 + nX1) >> 1;
             const int nMidY = (nY0 + nY1) >> 1;
@@ -140,25 +140,25 @@ static int __stdcall sub_006B8950_Lit(int nScreenPanels, D2TileStrc* pTile, int 
                 if (nGridRow != 0 && nGridRow != 4)
                 {
                     sub_006B9860_Project(nX0, nY0, nZ0 - nDepth, &nScreenX, &nScreenY);
-                    gaGrid_00971450[nGridRow * 3].fX = (float)nScreenX;
-                    gaGrid_00971450[nGridRow * 3].fY = (float)nScreenY;
+                    gaGrid[nGridRow * 3].fX = (float)nScreenX;
+                    gaGrid[nGridRow * 3].fY = (float)nScreenY;
                     sub_006B9860_Project(nX1, nY1, nZ1 - nDepth, &nScreenX, &nScreenY);
-                    gaGrid_00971450[nGridRow * 3 + 2].fX = (float)nScreenX;
-                    gaGrid_00971450[nGridRow * 3 + 2].fY = (float)nScreenY;
+                    gaGrid[nGridRow * 3 + 2].fX = (float)nScreenX;
+                    gaGrid[nGridRow * 3 + 2].fY = (float)nScreenY;
                 }
 
                 sub_006B9860_Project(nMidX, nMidY, nMidZ - nDepth, &nScreenX, &nScreenY);
-                gaGrid_00971450[nGridRow * 3 + 1].fX = (float)nScreenX;
-                gaGrid_00971450[nGridRow * 3 + 1].fY = (float)nScreenY;
+                gaGrid[nGridRow * 3 + 1].fX = (float)nScreenX;
+                gaGrid[nGridRow * 3 + 1].fY = (float)nScreenY;
                 for (int nGridCol = 0; nGridCol < 3; ++nGridCol)
                 {
-                    D2TLVertexStrc* pVertex = &gaGrid_00971450[nGridRow * 3 + nGridCol];
+                    D2TLVertexStrc* pVertex = &gaGrid[nGridRow * 3 + nGridCol];
                     pVertex->fX = pVertex->fX + (float)nOffset;
                     sub_006B9780_SetColor(pVertex, aColors[nGridCol], nAlpha);
                 }
             }
 
-            gpDevice_00970E78->lpVtbl->DrawIndexedPrimitive(gpDevice_00970E78, 5, 0x1c4, gaGrid_00971450, 15, gaIndices_0074C0D0, 22, 0x1c);
+            gpDevice_00970E78->lpVtbl->DrawIndexedPrimitive(gpDevice_00970E78, 5, 0x1c4, gaGrid, 15, gaIndices, 22, 0x1c);
             nResult = 1;
         }
     }

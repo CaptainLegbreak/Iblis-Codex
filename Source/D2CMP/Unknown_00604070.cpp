@@ -316,7 +316,7 @@ struct D2StormListEStrc
     void CelChunkListDeleteAll();                                                                          // 0x00603B60
 };
 
-extern "C" const int gTSHashTableReuseCelListVtable_006E5DFC[]; // 0x006E5DFC
+extern "C" const int gapfnTSHashTableReuseCelListVtable[]; // 0x006E5DFC
 
 struct D2GameHashTableReuseStrc : D2GameHashTableStrc
 {
@@ -504,7 +504,7 @@ D2Storm408ElemStrc* D2StormArray408Strc::sub_0051D7A0_New()
 // 0x00604640
 void __fastcall sub_00604640_DestroyReuseTable(D2GameHashTableReuseStrc* pTable)
 {
-    pTable->f_0 = gTSHashTableReuseCelListVtable_006E5DFC;
+    pTable->f_0 = gapfnTSHashTableReuseCelListVtable;
     pTable->m_chunkList.CelChunkListDeleteAll();
     pTable->m_reuseList.CelReuseListDeleteAll();
     pTable->m_chunkList.~D2StormListEStrc();

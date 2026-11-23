@@ -38,15 +38,15 @@ void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, unsig
 void __stdcall TEXTURE_CelDrawEx(D2CelContextStrc* pContext, int nX, int nY, int nSkipLines, int nDrawLines, int nDrawMode); // 0x004F64E0
 D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
 int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
-extern int gnCurrentFont_0072DFFC; // 0x0072DFFC
-extern D2FontCacheStrc* gpFontCache_00841D88; // 0x00841D88
-extern D2CelFileStrc* ghMonsterIndicators_00841DA4; // 0x00841DA4
+extern int gnCurrentFont; // 0x0072DFFC
+extern D2FontCacheStrc* gpFontCache; // 0x00841D88
+extern D2CelFileStrc* ghMonsterIndicators; // 0x00841DA4
 extern wchar_t gwszMonsterCode_008426DC[2]; // 0x008426DC
 
 typedef D2CharStrc* (__fastcall* D2GetCharInfoFn)(unsigned short wChar);
 
-extern D2GetCharInfoFn gpfGetCharInfo_00841DA0; // 0x00841DA0
-extern D2FontCacheStrc gFontCache_00841DA8[]; // 0x00841DA8
+extern D2GetCharInfoFn gpfnGetCharInfo; // 0x00841DA0
+extern D2FontCacheStrc gatFontCache[]; // 0x00841DA8
 extern wchar_t gwszColorCode_008426E0[2]; // 0x008426E0
 
 struct D2SplittedTextStrc
@@ -105,19 +105,19 @@ void __fastcall sub_00501DF0_DrawClippedFontText(const Unicode* pText, int nX, i
                     ++nCount;
                     ++pScan;
                     const unsigned short wMarker = pMarker->wChar;
-                    D2CharStrc* pChar = gpfGetCharInfo_00841DA0(wMarker);
-                    tContext.pCellFile = ghMonsterIndicators_00841DA4;
+                    D2CharStrc* pChar = gpfnGetCharInfo(wMarker);
+                    tContext.pCellFile = ghMonsterIndicators;
                     tContext.nFrame = pChar->nImageIndex;
                     TEXTURE_CelDraw(&tContext, nX, nY, -1, 5, 0);
-                    nY += 16 * gFontCache_00841DA8[gnCurrentFont_0072DFFC].pFontInfo[1]->nHeight / 10;
+                    nY += 16 * gatFontCache[gnCurrentFont].pFontInfo[1]->nHeight / 10;
                 }
             }
             else if (c.wChar != '\n')
             {
-                D2CharStrc* pChar = gpfGetCharInfo_00841DA0(c.wChar);
+                D2CharStrc* pChar = gpfnGetCharInfo(c.wChar);
                 if (nDisplayType != 6)
                 {
-                    tContext.pCellFile = gpFontCache_00841D88->pCellFile;
+                    tContext.pCellFile = gpFontCache->pCellFile;
                     tContext.nFrame = pChar->nImageIndex;
                     const int nHeight = CelGetHeight(CelGetHandle(&tContext));
                     if (nSkipLines + nDrawLines <= nHeight)
@@ -130,7 +130,7 @@ void __fastcall sub_00501DF0_DrawClippedFontText(const Unicode* pText, int nX, i
             else
             {
                 nX = nStartX;
-                nY += -16 * gFontCache_00841DA8[gnCurrentFont_0072DFFC].pFontInfo[1]->nHeight / 10;
+                nY += -16 * gatFontCache[gnCurrentFont].pFontInfo[1]->nHeight / 10;
             }
         }
         while (nCount < nLength);
@@ -147,7 +147,7 @@ void __fastcall sub_00501FE0_DrawTickerText(const Unicode* wszText, int nX, int 
 
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpFontCache_00841D88->pCellFile;
+    tContext.pCellFile = gpFontCache->pCellFile;
     tContext.nDirection = 0;
 
     if (nLength <= 0)
@@ -195,7 +195,7 @@ void __fastcall sub_00501FE0_DrawTickerText(const Unicode* wszText, int nX, int 
             {
                 --nCount;
                 --pText;
-                D2CharStrc* pChar = gpfGetCharInfo_00841DA0(c.wChar);
+                D2CharStrc* pChar = gpfnGetCharInfo(c.wChar);
                 tContext.nFrame = pChar->nImageIndex;
                 if (nX > nStartX)
                 {
@@ -206,7 +206,7 @@ void __fastcall sub_00501FE0_DrawTickerText(const Unicode* wszText, int nX, int 
         }
         else if (c.wChar != '\n')
         {
-            D2CharStrc* pChar = gpfGetCharInfo_00841DA0(c.wChar);
+            D2CharStrc* pChar = gpfnGetCharInfo(c.wChar);
             tContext.nFrame = pChar->nImageIndex;
             if (nX > nStartX)
             {
@@ -217,7 +217,7 @@ void __fastcall sub_00501FE0_DrawTickerText(const Unicode* wszText, int nX, int 
         else
         {
             nX = nStartX;
-            nY += -16 * gFontCache_00841DA8[gnCurrentFont_0072DFFC].pFontInfo[1]->nHeight / 10;
+            nY += -16 * gatFontCache[gnCurrentFont].pFontInfo[1]->nHeight / 10;
         }
     }
     while (nCount < nLength);

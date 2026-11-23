@@ -18,26 +18,26 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 int __fastcall sub_005264F0_Compare(const Unicode* pString1, const Unicode* pString2); // 0x005264F0
 
-int gnStatusDots_007799B4; // 0x007799B4
+int gnStatusDots; // 0x007799B4
 
 // 0x004374F0
 int __stdcall sub_004374F0_UpdateStatusWait(int nArg)
 {
 // build: symbol ?MAINMENUS_UpdateStatus@* 0x00436AD0
     MAINMENUS_UpdateStatus();
-    if (!gnStatusDots_007799B4)
+    if (!gnStatusDots)
     {
 // build: symbol ?CHARSEL_ClearCancelled@* 0x0043B820
         CHARSEL_ClearCancelled();
-        gnStatusDots_007799B4 = (int)gpFuncTable_0077ABF0->pfnSlot04();
-        if (!gnStatusDots_007799B4)
+        gnStatusDots = (int)gpFuncTable_0077ABF0->pfnSlot04();
+        if (!gnStatusDots)
         {
             D2Win_StopMessageLoop();
             return 1;
         }
     }
 
-    if (WaitForSingleObject((void*)gnStatusDots_007799B4, 0) == 0)
+    if (WaitForSingleObject((void*)gnStatusDots, 0) == 0)
     {
         D2Win_StopMessageLoop();
     }
@@ -51,7 +51,7 @@ int __stdcall sub_004374F0_UpdateStatusWait(int nArg)
     return 1;
 }
 
-D2WinControlStrc* gpPasswordOk_007799A4; // 0x007799A4
+D2WinControlStrc* gpPasswordOk; // 0x007799A4
 
 // build: symbol ??0Unicode@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
@@ -66,12 +66,16 @@ int __stdcall sub_00437730_ChangePassword(int bOk)
         sub_004370C0();
         return 1;
     }
-    if (!sub_004F9710_TestFlag(gpPasswordOk_007799A4))
+    if (!sub_004F9710_TestFlag(gpPasswordOk))
         return 1;
-    const Unicode* pName = sub_004FDD90_GetEditText(gpPasswordEdit_007799BC);
-    const Unicode* pOld = sub_004FDD90_GetEditText(gpPasswordEdit_007799C0);
-    const Unicode* pNew = sub_004FDD90_GetEditText(gpPasswordEdit_007799C8);
-    if (!sub_005264F0_Compare(pNew, sub_004FDD90_GetEditText(gpPasswordEdit_007799C4)))
+// build: symbol ?gpChangePwAccountEdit@* 0x007799BC
+    const Unicode* pName = sub_004FDD90_GetEditText(gpChangePwAccountEdit);
+// build: symbol ?gpOldPasswordEdit@* 0x007799C0
+    const Unicode* pOld = sub_004FDD90_GetEditText(gpOldPasswordEdit);
+// build: symbol ?gpNewPasswordEdit@* 0x007799C8
+    const Unicode* pNew = sub_004FDD90_GetEditText(gpNewPasswordEdit);
+// build: symbol ?gpNewPasswordConfirmEdit@* 0x007799C4
+    if (!sub_005264F0_Compare(pNew, sub_004FDD90_GetEditText(gpNewPasswordConfirmEdit)))
     {
         if (sub_005264F0_Compare(pOld, pNew))
         {

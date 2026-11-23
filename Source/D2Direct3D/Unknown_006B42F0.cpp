@@ -92,48 +92,48 @@ extern const DWORD gFlag_006CE284; // 0x006CE284
 extern const DWORD gFlag_006CE288; // 0x006CE288
 extern const DWORD gFlag_006CE28C; // 0x006CE28C
 extern const DWORD gFlag_006CE2E8; // 0x006CE2E8
-extern const char gsz_006FB8A4[]; // 0x006FB8A4
-extern const char gsz_006FB8D4[]; // 0x006FB8D4
-extern const char gsz_006FB908[]; // 0x006FB908
-extern const char gsz_006FB928[]; // 0x006FB928
-extern const char gsz_006FB950[]; // 0x006FB950
-extern const char gsz_006FB98C[]; // 0x006FB98C
-extern const char gsz_006FB9A8[]; // 0x006FB9A8
-extern const char gsz_006FB9C4[]; // 0x006FB9C4
-extern const char gsz_006FB9F4[]; // 0x006FB9F4
-extern const char gsz_006FBA1C[]; // 0x006FBA1C
-extern const char gsz_006FBA48[]; // 0x006FBA48
-extern const char gsz_006FBA74[]; // 0x006FBA74
-extern const char gsz_006FBAA4[]; // 0x006FBAA4
-extern const char gsz_006FBAD8[]; // 0x006FBAD8
-extern const char gsz_006FBB00[]; // 0x006FBB00
-extern const char gsz_006FBB30[]; // 0x006FBB30
-extern const char gsz_006FBB50[]; // 0x006FBB50
-extern const char gsz_006FBB6C[]; // 0x006FBB6C
-extern const char gsz_006FBBA0[]; // 0x006FBBA0
-extern const char gsz_006FBBC8[]; // 0x006FBBC8
-extern const char gsz_006FBBF4[]; // 0x006FBBF4
-extern const char gsz_006FBC14[]; // 0x006FBC14
-extern const char gsz_006FBC44[]; // 0x006FBC44
-extern const char gsz_006FBC64[]; // 0x006FBC64
-extern const char gsz_006FBC88[]; // 0x006FBC88
-extern const char gsz_006FBCA8[]; // 0x006FBCA8
-extern const char gsz_006FBCC0[]; // 0x006FBCC0
-extern const char gsz_006FBCE4[]; // 0x006FBCE4
-extern const char gsz_006FBD08[]; // 0x006FBD08
-extern const char gsz_006FBD24[]; // 0x006FBD24
-extern const char gsz_006FBD5C[]; // 0x006FBD5C
-extern const char gsz_006FBD9C[]; // 0x006FBD9C
-extern const char gsz_006FBDBC[]; // 0x006FBDBC
-extern const char gsz_006FBDDC[]; // 0x006FBDDC
-extern const char gsz_006FBE08[]; // 0x006FBE08
-extern const char gsz_006FBE28[]; // 0x006FBE28
-extern const char gsz_006FBE44[]; // 0x006FBE44
-extern const char gsz_006FBE60[]; // 0x006FBE60
-extern const char gsz_006FBE88[]; // 0x006FBE88
-extern const char gsz_006FBEA8[]; // 0x006FBEA8
-extern const char gsz_006FBED8[]; // 0x006FBED8
-extern const char gsz_006FBEFC[]; // 0x006FBEFC
+extern const char gszEnumD3DCleanupFailed[]; // 0x006FB8A4
+extern const char gszEnumD3DCaughtFailure[]; // 0x006FB8D4
+extern const char gszNoTriangleSupport[]; // 0x006FB908
+extern const char gszPassedRequirements[]; // 0x006FB928
+extern const char gszNoTextureFormats[]; // 0x006FB950
+extern const char gszSupports1555Textures[]; // 0x006FB98C
+extern const char gszEnumTextureFormatsFailed[]; // 0x006FB9A8
+extern const char gszNoAgpTexturing[]; // 0x006FB9C4
+extern const char gszAgpMemoryFormat[]; // 0x006FB9F4
+extern const char gszAgpMemoryFailed[]; // 0x006FBA1C
+extern const char gszLocalMemoryFormat[]; // 0x006FBA48
+extern const char gszLocalMemoryFailed[]; // 0x006FBA74
+extern const char gszTextureMemoryFormat[]; // 0x006FBAA4
+extern const char gszTextureMemoryFailed[]; // 0x006FBAD8
+extern const char gszVideoMemoryFormat[]; // 0x006FBB00
+extern const char gszNoMipmapping[]; // 0x006FBB30
+extern const char gszRequiresSquareTextures[]; // 0x006FBB50
+extern const char gszNoPerspectiveTextures[]; // 0x006FBB6C
+extern const char gszSupportsNonPow2Textures[]; // 0x006FBBA0
+extern const char gszNoVideoMemoryTextures[]; // 0x006FBBC8
+extern const char gszGetD3DDeviceCapsFailed[]; // 0x006FBBF4
+extern const char gszNoHardware3D[]; // 0x006FBC14
+extern const char gszSupportsGammaCalibration[]; // 0x006FBC44
+extern const char gszNoGammaControl[]; // 0x006FBC64
+extern const char gszNo3DSupport[]; // 0x006FBC88
+extern const char gszGetDD4CapsFailed[]; // 0x006FBCA8
+extern const char gszGetBackbufferFailed[]; // 0x006FBCC0
+extern const char gszCreatePrimarySurfaceFailed[]; // 0x006FBCE4
+extern const char gszSetDisplayModeCall[]; // 0x006FBD08
+extern const char gszNoGameDisplayMode[]; // 0x006FBD24
+extern const char gszNoUIDisplayMode[]; // 0x006FBD5C
+extern const char gszSupports24BitCutscenes[]; // 0x006FBD9C
+extern const char gszSupports32BitCutscenes[]; // 0x006FBDBC
+extern const char gszNoValidDisplayModes[]; // 0x006FBDDC
+extern const char gszEnumDisplayModesCall[]; // 0x006FBE08
+extern const char gszSetCooperativeLevelFailed[]; // 0x006FBE28
+extern const char gszGetD3DInterfaceFailed[]; // 0x006FBE44
+extern const char gszVendorDeviceIdFormat[]; // 0x006FBE60
+extern const char gszCheckingCapabilitiesFormat[]; // 0x006FBE88
+extern const char gszEnumGetDirectDraw4Failed[]; // 0x006FBEA8
+extern const char gszEnumDirectDrawCreateFailed[]; // 0x006FBED8
+extern const char gszMaxDisplayCountFormat[]; // 0x006FBEFC
 
 extern "C" char* __cdecl strcpy(char*, const char*);
 #pragma intrinsic(strcpy)
@@ -152,33 +152,33 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
  try {
   FOG_GetSystemInfo();
   int index=gnDisplayCount;
-  if(index>=2) { sub_00410610_WriteLogLine(gsz_006FBEFC,index,2); return 0; }
+  if(index>=2) { sub_00410610_WriteLogLine(gszMaxDisplayCountFormat,index,2); return 0; }
   D2RendererInfoStrc* display=&gaDisplays[index];
   memset(display,0,0x134);
   if(!guid) display->flags|=gFlag_006CE268;
   else { display->flags&=gFlag_006CE2E8; display->guid=*guid; }
   HRESULT hr=sub_006B1350_DirectDrawCreate(guid,&dd,0);
-  if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBED8,hr); goto Cleanup; }
+  if(hr) { sub_006B20E0_DDrawLogError(gszEnumDirectDrawCreateFailed,hr); goto Cleanup; }
   hr=dd->vtbl->QueryInterface(dd,&gIIDDirectDraw4,(void**)&gpDirectDraw4);
-  if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBEA8,hr); goto Cleanup; }
+  if(hr) { sub_006B20E0_DDrawLogError(gszEnumGetDirectDraw4Failed,hr); goto Cleanup; }
   dd->vtbl->Release(dd); dd=0;
 
   DDDEVICEIDENTIFIER aIdentifier[2];
   DDDEVICEIDENTIFIER& identifier=aIdentifier[0];
   hr=gpDirectDraw4->vtbl->GetDeviceIdentifier(gpDirectDraw4,&identifier,0);
   if(!hr) sub_00687330_Strncpy(display->description,identifier.description,256); else sub_00687330_Strncpy(display->description,name,256);
-  sub_00410610_WriteLogLine(gsz_006FBE88,display->description);
+  sub_00410610_WriteLogLine(gszCheckingCapabilitiesFormat,display->description);
   if(!hr) {
    display->vendor=identifier.vendor; display->device=identifier.device;
-   sub_00410610_WriteLogLine(gsz_006FBE60,display->vendor,display->device);
+   sub_00410610_WriteLogLine(gszVendorDeviceIdFormat,display->vendor,display->device);
   }
   hr=gpDirectDraw4->vtbl->QueryInterface(gpDirectDraw4,&gIIDDirect3D3,(void**)&gpDirect3D3);
-  if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBE44,hr); goto Cleanup; }
+  if(hr) { sub_006B20E0_DDrawLogError(gszGetD3DInterfaceFailed,hr); goto Cleanup; }
   hr=gpDirectDraw4->vtbl->SetCooperativeLevel(gpDirectDraw4,ghEnumerationWindow,0x11);
-  if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBE28,hr); goto Cleanup; }
+  if(hr) { sub_006B20E0_DDrawLogError(gszSetCooperativeLevelFailed,hr); goto Cleanup; }
   hr=gpDirectDraw4->vtbl->EnumDisplayModes(gpDirectDraw4,0,0,display,sub_006B3FD0);
-  if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBE08,hr); goto Cleanup; }
-  if(!display->modeCount) { sub_00410610_WriteLogLine(gsz_006FBDDC); goto Cleanup; }
+  if(hr) { sub_006B20E0_DDrawLogError(gszEnumDisplayModesCall,hr); goto Cleanup; }
+  if(!display->modeCount) { sub_00410610_WriteLogLine(gszNoValidDisplayModes); goto Cleanup; }
   int hasUI=0,hasGame=0,has32=0,has24=0;
   int invalid=0;
   for(int i=0;i<display->modeCount;++i) {
@@ -187,63 +187,63 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
    if(display->modes[i].flags&gFlag_006CE268) hasUI=1;
    if(display->modes[i].flags&gdwBitMask1) hasGame=1;
   }
-  if(has32) { sub_00410610_WriteLogLine(gsz_006FBDBC); display->flags|=gFlag_006CE284; }
-  if(has24) { sub_00410610_WriteLogLine(gsz_006FBD9C); display->flags|=gFlag_006CE288; }
-  if(!hasUI) { sub_00410610_WriteLogLine(gsz_006FBD5C); invalid=1; }
-  if(!hasGame) { sub_00410610_WriteLogLine(gsz_006FBD24); goto Cleanup; }
+  if(has32) { sub_00410610_WriteLogLine(gszSupports32BitCutscenes); display->flags|=gFlag_006CE284; }
+  if(has24) { sub_00410610_WriteLogLine(gszSupports24BitCutscenes); display->flags|=gFlag_006CE288; }
+  if(!hasUI) { sub_00410610_WriteLogLine(gszNoUIDisplayMode); invalid=1; }
+  if(!hasGame) { sub_00410610_WriteLogLine(gszNoGameDisplayMode); goto Cleanup; }
   if(invalid) goto Cleanup;
   D2DisplayModeStrc* mode=&display->modes[display->modeCount-1];
   hr=gpDirectDraw4->vtbl->SetDisplayMode(gpDirectDraw4,mode->width,mode->height,mode->bpp,mode->refresh,0);
-  if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBD08,hr); goto Cleanup; }
+  if(hr) { sub_006B20E0_DDrawLogError(gszSetDisplayModeCall,hr); goto Cleanup; }
   DDSURFACEDESC2 surface={sizeof(surface)};
   surface.flags=0x21;surface.caps.caps=0x6218;surface.backCount=1;
   hr=gpDirectDraw4->vtbl->CreateSurface(gpDirectDraw4,&surface,&primary,0);
-  if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBCE4,hr); goto Cleanup; }
+  if(hr) { sub_006B20E0_DDrawLogError(gszCreatePrimarySurfaceFailed,hr); goto Cleanup; }
   DDSCAPS2 attachCaps;memset(&attachCaps,0,sizeof(attachCaps));attachCaps.caps=4;
   hr=primary->vtbl->GetAttachedSurface(primary,&attachCaps,&back);
-  if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBCC0,hr); goto Cleanup; }
+  if(hr) { sub_006B20E0_DDrawLogError(gszGetBackbufferFailed,hr); goto Cleanup; }
   hr=gpDirectDraw4->vtbl->GetCaps(gpDirectDraw4,&caps,0);
-  if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBCA8,hr); goto Cleanup; }
-  if(!(caps.caps&1)) { sub_00410610_WriteLogLine(gsz_006FBC88); goto Cleanup; }
+  if(hr) { sub_006B20E0_DDrawLogError(gszGetDD4CapsFailed,hr); goto Cleanup; }
+  if(!(caps.caps&1)) { sub_00410610_WriteLogLine(gszNo3DSupport); goto Cleanup; }
   if(caps.caps2&0x20000) display->flags|=gFlag_006CE278;
-  else sub_00410610_WriteLogLine(gsz_006FBC64);
-  if(caps.caps2&0x100000) { display->flags|=gFlag_006CE27C; sub_00410610_WriteLogLine(gsz_006FBC44); }
+  else sub_00410610_WriteLogLine(gszNoGammaControl);
+  if(caps.caps2&0x100000) { display->flags|=gFlag_006CE27C; sub_00410610_WriteLogLine(gszSupportsGammaCalibration); }
   gpDirect3D3->vtbl->CreateDevice(gpDirect3D3,&gIIDHardwareDevice,back,&device,0);
-  if(!device) { sub_00410610_WriteLogLine(gsz_006FBC14); goto Cleanup; }
+  if(!device) { sub_00410610_WriteLogLine(gszNoHardware3D); goto Cleanup; }
   D3DDEVICEDESC hardware,software;
   hardware.size=sizeof(hardware);software.size=sizeof(software);
   hr=device->vtbl->GetCaps(device,&hardware,&software);
-  if(hr) { sub_006B39B0_ShowD3DError(gsz_006FBBF4,hr); goto Cleanup; }
-  if(!(hardware.devCaps&0x200)) { sub_00410610_WriteLogLine(gsz_006FBBC8); goto Cleanup; }
-  if(hardware.textureCaps&0x100) sub_00410610_WriteLogLine(gsz_006FBBA0);
+  if(hr) { sub_006B39B0_ShowD3DError(gszGetD3DDeviceCapsFailed,hr); goto Cleanup; }
+  if(!(hardware.devCaps&0x200)) { sub_00410610_WriteLogLine(gszNoVideoMemoryTextures); goto Cleanup; }
+  if(hardware.textureCaps&0x100) sub_00410610_WriteLogLine(gszSupportsNonPow2Textures);
   if(hardware.flags&0x40) {
-  if(!(hardware.textureCaps&1)) sub_00410610_WriteLogLine(gsz_006FBB6C);
-  if(hardware.textureCaps&0x20) { sub_00410610_WriteLogLine(gsz_006FBB50); display->flags|=gFlag_006CE270; goto Cleanup; }
+  if(!(hardware.textureCaps&1)) sub_00410610_WriteLogLine(gszNoPerspectiveTextures);
+  if(hardware.textureCaps&0x20) { sub_00410610_WriteLogLine(gszRequiresSquareTextures); display->flags|=gFlag_006CE270; goto Cleanup; }
   if(hardware.textureFilterCaps&0x20) display->flags|=gdwBitMask3;
-  else sub_00410610_WriteLogLine(gsz_006FBB30);
+  else sub_00410610_WriteLogLine(gszNoMipmapping);
   display->videoTotal=caps.videoTotal;display->videoFree=caps.videoFree;
-  sub_00410610_WriteLogLine(gsz_006FBB00,display->videoTotal/1048576.0f,display->videoFree/1048576.0f);
+  sub_00410610_WriteLogLine(gszVideoMemoryFormat,display->videoTotal/1048576.0f,display->videoFree/1048576.0f);
   DDSCAPS2 memoryCaps;memset(&memoryCaps,0,sizeof(memoryCaps));memoryCaps.caps=0x5000;
   hr=gpDirectDraw4->vtbl->GetAvailableVidMem(gpDirectDraw4,&memoryCaps,&display->textureTotal,&display->textureFree);
-  if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBAD8,hr); goto Cleanup; }
-  sub_00410610_WriteLogLine(gsz_006FBAA4,display->textureTotal/1048576.0f,display->textureFree/1048576.0f);
+  if(hr) { sub_006B20E0_DDrawLogError(gszTextureMemoryFailed,hr); goto Cleanup; }
+  sub_00410610_WriteLogLine(gszTextureMemoryFormat,display->textureTotal/1048576.0f,display->textureFree/1048576.0f);
   memset(&memoryCaps,0,sizeof(memoryCaps));memoryCaps.caps=0x10005000;
   hr=gpDirectDraw4->vtbl->GetAvailableVidMem(gpDirectDraw4,&memoryCaps,&display->localTotal,&display->localFree);
-  if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBA74,hr); goto Cleanup; }
-  sub_00410610_WriteLogLine(gsz_006FBA48,display->localTotal/1048576.0f,display->localFree/1048576.0f);
+  if(hr) { sub_006B20E0_DDrawLogError(gszLocalMemoryFailed,hr); goto Cleanup; }
+  sub_00410610_WriteLogLine(gszLocalMemoryFormat,display->localTotal/1048576.0f,display->localFree/1048576.0f);
   if((caps.caps2&0x200)&&(hardware.devCaps&0x1000)) {
    display->flags|=gdwBitMask1;
    memset(&memoryCaps,0,sizeof(memoryCaps));memoryCaps.caps=0x20005000;
    hr=gpDirectDraw4->vtbl->GetAvailableVidMem(gpDirectDraw4,&memoryCaps,&display->agpTotal,&display->agpFree);
-   if(hr) sub_006B20E0_DDrawLogError(gsz_006FBA1C,hr);
-   else sub_00410610_WriteLogLine(gsz_006FB9F4,display->agpTotal/1048576.0f,display->agpFree/1048576.0f);
-  } else sub_00410610_WriteLogLine(gsz_006FB9C4);
+   if(hr) sub_006B20E0_DDrawLogError(gszAgpMemoryFailed,hr);
+   else sub_00410610_WriteLogLine(gszAgpMemoryFormat,display->agpTotal/1048576.0f,display->agpFree/1048576.0f);
+  } else sub_00410610_WriteLogLine(gszNoAgpTexturing);
   hr=device->vtbl->EnumTextureFormats(device,sub_006B1B60_EnumTextureFormat,display);
-  if(hr) { sub_006B39B0_ShowD3DError(gsz_006FB9A8,hr); goto Cleanup; }
+  if(hr) { sub_006B39B0_ShowD3DError(gszEnumTextureFormatsFailed,hr); goto Cleanup; }
 
   int textures=0;
-  if(display->flags&gFlag_006CE28C) { sub_00410610_WriteLogLine(gsz_006FB98C); textures=1; }
-  if(!textures) { sub_00410610_WriteLogLine(gsz_006FB950); goto Cleanup; }
+  if(display->flags&gFlag_006CE28C) { sub_00410610_WriteLogLine(gszSupports1555Textures); textures=1; }
+  if(!textures) { sub_00410610_WriteLogLine(gszNoTextureFormats); goto Cleanup; }
   if(gnDisplayCount==0) {
    gPrimarySelection.flags=display->flags;gPrimarySelection.guid=display->guid;
    gPrimarySelection.vendor=display->vendor;gPrimarySelection.device=display->device;
@@ -255,11 +255,11 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
    strcpy(gSecondarySelection.description,display->description);
    gSecondarySelection.renderer=2;gnSecondaryRenderer=2;
   }
-  ++gnDisplayCount;sub_00410610_WriteLogLine(gsz_006FB928);
+  ++gnDisplayCount;sub_00410610_WriteLogLine(gszPassedRequirements);
 
-  } else sub_00410610_WriteLogLine(gsz_006FB908);
+  } else sub_00410610_WriteLogLine(gszNoTriangleSupport);
  } catch(...) {
-  sub_00410610_WriteLogLine(gsz_006FB8D4);
+  sub_00410610_WriteLogLine(gszEnumD3DCaughtFailure);
   if(!gnDisplayCount) gPrimarySelection.renderer=0;
   else if(gnDisplayCount==1) gSecondarySelection.renderer=0;
  }
@@ -270,7 +270,7 @@ Cleanup:
   if(primary) { primary->vtbl->Release(primary);primary=0; }
   if(gpDirect3D3) { gpDirect3D3->vtbl->Release(gpDirect3D3);gpDirect3D3=0; }
   if(gpDirectDraw4) { gpDirectDraw4->vtbl->Release(gpDirectDraw4);gpDirectDraw4=0; }
- } catch(...) { sub_00410610_WriteLogLine(gsz_006FB8A4); }
+ } catch(...) { sub_00410610_WriteLogLine(gszEnumD3DCleanupFailed); }
  return 1;
 }
 

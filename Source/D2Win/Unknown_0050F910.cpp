@@ -13,10 +13,10 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 void __fastcall GLIDE_SetTextureCombineMode(int nTmu); // 0x00509460
 void __fastcall sub_0050F0F0_TileCacheTouch(D2GlideTileCacheStrc* pCache, int nIndex); // 0x0050F0F0
 short __fastcall sub_0050F2B0_TileCacheAdd(D2GlideTileCacheStrc* pCache); // 0x0050F2B0
-extern D2GrTexInfoStrc gGlideTileTexInfo_0072F6A8; // 0x0072F6A8
-extern D2GlideTileCacheStrc gGlideTileCache_0087EB48; // 0x0087EB48
-extern int gnGlideTileTmu_00880BF8; // 0x00880BF8
-extern unsigned char* gpGlideTileDecodeBuffer_00880BFC; // 0x00880BFC
+extern D2GrTexInfoStrc gtGlideTileTexInfo; // 0x0072F6A8
+extern D2GlideTileCacheStrc gtGlideTileCache; // 0x0087EB48
+extern int gnGlideTileTmu; // 0x00880BF8
+extern unsigned char* gpGlideTileDecodeBuffer; // 0x00880BFC
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern "C" __declspec(dllimport) D2BinkStrc* __stdcall BinkOpen(void* hFile, unsigned int nFlags); // 0x006CC5B8
@@ -29,16 +29,16 @@ int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigne
 void __cdecl GLIDE_DrawVideoFrame(); // 0x0050FD10
 void __cdecl DDRAW_DrawVideoFrame(); // 0x005136F0
 void __fastcall D2SOUND_SetMasterVolume(int nVolume); // 0x00515CE0
-extern int gnScreenHeight_007C913C; // 0x007C913C
-extern unsigned int gnGlideBinkY_00880C04; // 0x00880C04
-extern unsigned int gnGlideBinkFlags_00880C14; // 0x00880C14
-extern D2DDrawSurfaceStrc* gpDDrawSurface_00881278; // 0x00881278
-extern unsigned int gnDDrawBinkY_008816B8; // 0x008816B8
-extern unsigned int gnDDrawBinkFlags_008816C8; // 0x008816C8
+extern int gnRenderHeight; // 0x007C913C
+extern unsigned int gnGlideBinkY; // 0x00880C04
+extern unsigned int gnGlideBinkFlags; // 0x00880C14
+extern D2DDrawSurfaceStrc* gpDDrawPrimarySurface; // 0x00881278
+extern unsigned int gnDDrawBinkY; // 0x008816B8
+extern unsigned int gnDDrawBinkFlags; // 0x008816C8
 
 void __fastcall sub_00510160_DDrawSetPalette(tagPALETTEENTRY* pPalette); // 0x00510160
 extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
-extern tagPALETTEENTRY gaDDrawSavedPalette_00880D40[256]; // 0x00880D40
+extern tagPALETTEENTRY gaDDrawSavedPalette[256]; // 0x00880D40
 
 // 0x0050F910
 static void sub_0050F910_DecodeTileRuns(const unsigned char* pData, unsigned char* pDst)
@@ -71,9 +71,9 @@ static void sub_0050F910_DecodeTileRuns(const unsigned char* pData, unsigned cha
     while (nRows);
 }
 
-D2GlideTileCacheStrc gGlideTileCache_0087EB48; // 0x0087EB48
+D2GlideTileCacheStrc gtGlideTileCache; // 0x0087EB48
 
-int gnGlideTileTmu_00880BF8; // 0x00880BF8
+int gnGlideTileTmu; // 0x00880BF8
 
 // 0x0050FBD0
 void __fastcall sub_0050FBD0_GlideBindTileTexture(D2GlideTileStrc* pTile)
@@ -83,60 +83,63 @@ void __fastcall sub_0050FBD0_GlideBindTileTexture(D2GlideTileStrc* pTile)
     int nTexAddress;
     if (pTile->nCacheIndex == 0)
     {
-        sub_0050F910_DecodeTileRuns(pTile->pData, gpGlideTileDecodeBuffer_00880BFC);
-        pTile->nCacheIndex = sub_0050F2B0_TileCacheAdd(&gGlideTileCache_0087EB48);
+        sub_0050F910_DecodeTileRuns(pTile->pData, gpGlideTileDecodeBuffer);
+        pTile->nCacheIndex = sub_0050F2B0_TileCacheAdd(&gtGlideTileCache);
         const int nEntry = pTile->nCacheIndex - 1;
         D2_ASSERT(nEntry >= 0, 0x112);
-        D2_ASSERT(nEntry < gGlideTileCache_0087EB48.nCount, 0x113);
-        gGlideTileCache_0087EB48.pEntries[pTile->nCacheIndex - 1].pTile = pTile;
-        nTexAddress = gGlideTileCache_0087EB48.pEntries[pTile->nCacheIndex - 1].nAddress;
-        gpfGlideTexDownloadMipMap_0087EAB8(gnGlideTileTmu_00880BF8, nTexAddress, 3, &gGlideTileTexInfo_0072F6A8);
+        D2_ASSERT(nEntry < gtGlideTileCache.nCount, 0x113);
+        gtGlideTileCache.pEntries[pTile->nCacheIndex - 1].pTile = pTile;
+        nTexAddress = gtGlideTileCache.pEntries[pTile->nCacheIndex - 1].nAddress;
+// build: symbol ?gpfnGrTexDownloadMipMap@* 0x0087EAB8
+        gpfnGrTexDownloadMipMap(gnGlideTileTmu, nTexAddress, 3, &gtGlideTileTexInfo);
     }
     else
     {
-        sub_0050F0F0_TileCacheTouch(&gGlideTileCache_0087EB48, pTile->nCacheIndex);
-        nTexAddress = gGlideTileCache_0087EB48.pEntries[pTile->nCacheIndex - 1].nAddress;
+        sub_0050F0F0_TileCacheTouch(&gtGlideTileCache, pTile->nCacheIndex);
+        nTexAddress = gtGlideTileCache.pEntries[pTile->nCacheIndex - 1].nAddress;
     }
 
-    gpfGlideTexSource_0087EB98(gnGlideTileTmu_00880BF8, nTexAddress, 3, &gGlideTileTexInfo_0072F6A8);
-    GLIDE_SetTextureCombineMode(gnGlideTileTmu_00880BF8);
+// build: symbol ?gpfnGrTexSource@* 0x0087EB98
+    gpfnGrTexSource(gnGlideTileTmu, nTexAddress, 3, &gtGlideTileTexInfo);
+    GLIDE_SetTextureCombineMode(gnGlideTileTmu);
 }
 
 #include "gen/data/Source/D2Win/Unknown_0050F910.inc"
 
-unsigned int gnGlideBinkX_00880C08; // 0x00880C08
+unsigned int gnGlideBinkX; // 0x00880C08
 
-D2BinkStrc* gpGlideBink_00880C0C; // 0x00880C0C
+D2BinkStrc* gpGlideBink; // 0x00880C0C
 
-int gbGlideBinkDone_00880C18; // 0x00880C18
+int gbGlideBinkDone; // 0x00880C18
 
-unsigned long gdwGlideBinkAbortTick_00880C1C; // 0x00880C1C
+unsigned long gdwGlideBinkAbortTick; // 0x00880C1C
 
-unsigned int gnDDrawBinkX_008816BC; // 0x008816BC
+unsigned int gnDDrawBinkX; // 0x008816BC
 
-D2BinkStrc* gpDDrawBink_008816C0; // 0x008816C0
+D2BinkStrc* gpDDrawBink; // 0x008816C0
 
-int gbDDrawBinkDone_008816CC; // 0x008816CC
+int gbDDrawBinkDone; // 0x008816CC
 
-int gbDDrawBinkQuit_008816D0; // 0x008816D0
+int gbDDrawBinkQuit; // 0x008816D0
 
-unsigned long gdwDDrawBinkAbortTick_008816D4; // 0x008816D4
+unsigned long gdwDDrawBinkAbortTick; // 0x008816D4
 
 // 0x0050FDF0
 void __fastcall sub_0050FDF0_GlidePlayVideoFile(const char* szFile, int nMode, void (__cdecl* pfCallback)())
 {
     int bAbort = 0;
-    gbGlideBinkDone_00880C18 = 0;
-    if (gpGlideBink_00880C0C)
+    gbGlideBinkDone = 0;
+    if (gpGlideBink)
     {
         return;
     }
-    if (gbRenderPaused_007C9144)
+// build: symbol ?gbRenderPaused@* 0x007C9144
+    if (gbRenderPaused)
     {
         return;
     }
 
-    gnGlideBinkFlags_00880C14 = 2;
+    gnGlideBinkFlags = 2;
     BinkSetSoundSystem(BinkOpenDirectSound, 0);
     int nScope = 4;
     if (sub_00406D20())
@@ -165,34 +168,35 @@ void __fastcall sub_0050FDF0_GlidePlayVideoFile(const char* szFile, int nMode, v
         nFlags = 0x40800000;
         break;
     }
-    gpGlideBink_00880C0C = BinkOpen(hFile, nFlags);
-    if (!gpGlideBink_00880C0C)
+    gpGlideBink = BinkOpen(hFile, nFlags);
+    if (!gpGlideBink)
     {
         CloseHandle(hFile);
 LABEL_FAIL:
-        if (gpGlideBink_00880C0C)
+        if (gpGlideBink)
         {
-            BinkClose(gpGlideBink_00880C0C);
-            gpGlideBink_00880C0C = 0;
+            BinkClose(gpGlideBink);
+            gpGlideBink = 0;
         }
         return;
     }
 
-    gnGlideBinkX_00880C08 = (gnScreenWidth_007C9138 - gpGlideBink_00880C0C->nWidth) >> 1;
-    if (gnGlideBinkX_00880C08 & 3)
+// build: symbol ?gnRenderWidth@* 0x007C9138
+    gnGlideBinkX = (gnRenderWidth - gpGlideBink->nWidth) >> 1;
+    if (gnGlideBinkX & 3)
     {
-        gnGlideBinkX_00880C08 = (gnGlideBinkX_00880C08 | 3) + 1;
+        gnGlideBinkX = (gnGlideBinkX | 3) + 1;
     }
-    gnGlideBinkY_00880C04 = (gnScreenHeight_007C913C - gpGlideBink_00880C0C->nHeight) >> 1;
+    gnGlideBinkY = (gnRenderHeight - gpGlideBink->nHeight) >> 1;
     {
         const unsigned long dwEnd = GetTickCount() + 500;
         for (;;)
         {
-            if (gbGlideBinkDone_00880C18 && GetTickCount() >= dwEnd)
+            if (gbGlideBinkDone && GetTickCount() >= dwEnd)
             {
                 break;
             }
-            if (gbRenderPaused_007C9144)
+            if (gbRenderPaused)
             {
                 break;
             }
@@ -211,20 +215,20 @@ LABEL_FAIL:
                 switch (tMsg.message)
                 {
                 case 0x12:
-                    gbGlideBinkDone_00880C18 = 1;
+                    gbGlideBinkDone = 1;
                     break;
                 case 0x102:
                 case 0x201:
                 case 0x204:
                 case 0x207:
                     bAbort = 1;
-                    gdwGlideBinkAbortTick_00880C1C = GetTickCount();
+                    gdwGlideBinkAbortTick = GetTickCount();
                     break;
                 }
                 TranslateMessage(&tMsg);
                 DispatchMessageA(&tMsg);
             }
-            else if (!BinkWait(gpGlideBink_00880C0C))
+            else if (!BinkWait(gpGlideBink))
             {
                 GLIDE_DrawVideoFrame();
             }
@@ -235,13 +239,13 @@ LABEL_FAIL:
         }
     }
 
-    if (gpGlideBink_00880C0C)
+    if (gpGlideBink)
     {
         D2SOUND_SetMasterVolume(0);
-        BinkClose(gpGlideBink_00880C0C);
+        BinkClose(gpGlideBink);
         CloseHandle(hFile);
         D2SOUND_SetMasterVolume(0xFF);
-        gpGlideBink_00880C0C = 0;
+        gpGlideBink = 0;
     }
 }
 
@@ -249,17 +253,17 @@ LABEL_FAIL:
 void __fastcall sub_005137E0_PlayBinkMovie(const char* szFile, int nMode, void (__cdecl* pfCallback)())
 {
     int bAbort = 0;
-    gbDDrawBinkDone_008816CC = 0;
-    if (gpDDrawBink_008816C0)
+    gbDDrawBinkDone = 0;
+    if (gpDDrawBink)
     {
         return;
     }
-    if (gbRenderPaused_007C9144)
+    if (gbRenderPaused)
     {
         return;
     }
 
-    gnDDrawBinkFlags_008816C8 = BinkDDSurfaceType(gpDDrawSurface_00881278);
+    gnDDrawBinkFlags = BinkDDSurfaceType(gpDDrawPrimarySurface);
     BinkSetSoundSystem(BinkOpenDirectSound, 0);
     int nScope = 4;
     if (sub_00406D20())
@@ -288,34 +292,34 @@ void __fastcall sub_005137E0_PlayBinkMovie(const char* szFile, int nMode, void (
         nFlags = 0x40800000;
         break;
     }
-    gpDDrawBink_008816C0 = BinkOpen(hFile, nFlags);
-    if (!gpDDrawBink_008816C0)
+    gpDDrawBink = BinkOpen(hFile, nFlags);
+    if (!gpDDrawBink)
     {
         CloseHandle(hFile);
 LABEL_FAIL:
-        if (gpDDrawBink_008816C0)
+        if (gpDDrawBink)
         {
-            BinkClose(gpDDrawBink_008816C0);
-            gpDDrawBink_008816C0 = 0;
+            BinkClose(gpDDrawBink);
+            gpDDrawBink = 0;
         }
         return;
     }
 
-    gnDDrawBinkX_008816BC = (gnScreenWidth_007C9138 - gpDDrawBink_008816C0->nWidth) >> 1;
-    if (gnDDrawBinkX_008816BC & 3)
+    gnDDrawBinkX = (gnRenderWidth - gpDDrawBink->nWidth) >> 1;
+    if (gnDDrawBinkX & 3)
     {
-        gnDDrawBinkX_008816BC = (gnDDrawBinkX_008816BC | 3) + 1;
+        gnDDrawBinkX = (gnDDrawBinkX | 3) + 1;
     }
-    gnDDrawBinkY_008816B8 = (gnScreenHeight_007C913C - gpDDrawBink_008816C0->nHeight) >> 1;
+    gnDDrawBinkY = (gnRenderHeight - gpDDrawBink->nHeight) >> 1;
     {
         const unsigned long dwEnd = GetTickCount() + 500;
         for (;;)
         {
-            if (gbDDrawBinkDone_008816CC && GetTickCount() >= dwEnd)
+            if (gbDDrawBinkDone && GetTickCount() >= dwEnd)
             {
                 break;
             }
-            if (gbRenderPaused_007C9144)
+            if (gbRenderPaused)
             {
                 break;
             }
@@ -334,21 +338,21 @@ LABEL_FAIL:
                 switch (tMsg.message)
                 {
                 case 0x12:
-                    gbDDrawBinkDone_008816CC = 1;
-                    gbDDrawBinkQuit_008816D0 = 1;
+                    gbDDrawBinkDone = 1;
+                    gbDDrawBinkQuit = 1;
                     break;
                 case 0x102:
                 case 0x201:
                 case 0x204:
                 case 0x207:
                     bAbort = 1;
-                    gdwDDrawBinkAbortTick_008816D4 = GetTickCount();
+                    gdwDDrawBinkAbortTick = GetTickCount();
                     break;
                 }
                 TranslateMessage(&tMsg);
                 DispatchMessageA(&tMsg);
             }
-            else if (!BinkWait(gpDDrawBink_008816C0))
+            else if (!BinkWait(gpDDrawBink))
             {
                 DDRAW_DrawVideoFrame();
             }
@@ -359,15 +363,15 @@ LABEL_FAIL:
         }
     }
 
-    if (gpDDrawBink_008816C0)
+    if (gpDDrawBink)
     {
         D2SOUND_SetMasterVolume(0);
-        BinkClose(gpDDrawBink_008816C0);
+        BinkClose(gpDDrawBink);
         CloseHandle(hFile);
         D2SOUND_SetMasterVolume(0xFF);
-        gpDDrawBink_008816C0 = 0;
+        gpDDrawBink = 0;
     }
-    if (gbDDrawBinkQuit_008816D0)
+    if (gbDDrawBinkQuit)
     {
         exit(-1);
     }
@@ -403,27 +407,28 @@ void __fastcall sub_00510360_DDrawNop()
 {
 }
 
-D2PaletteTableStrc gtDDrawPaletteView_00880C20; // 0x00880C20
+D2PaletteTableStrc gtDDrawPaletteView; // 0x00880C20
 
 // 0x00510150
 void __fastcall sub_00510150_DDrawGetScreenSize(int* pWidth, int* pHeight)
 {
-    *pWidth = gnScreenWidth_007C9138;
-    *pHeight = gnScreenHeight_007C913C;
+    *pWidth = gnRenderWidth;
+    *pHeight = gnRenderHeight;
 }
 
 // 0x005102D0
 void __fastcall sub_005102D0_DDrawSetPaletteView(D2PaletteTableStrc* pSource)
 {
-    gtDDrawPaletteView_00880C20 = *pSource;
-    gpGfxPaletteView_007C9150 = &gtDDrawPaletteView_00880C20;
+    gtDDrawPaletteView = *pSource;
+    gpGfxPaletteView_007C9150 = &gtDDrawPaletteView;
 }
 
 // 0x00510300
 void __fastcall sub_00510300_DDrawSetGamma(int nGamma)
 {
-    gnDDrawGamma_0072F7CC = nGamma;
-    sub_00510160_DDrawSetPalette(gaDDrawSavedPalette_00880D40);
+// build: symbol ?gnDDrawGamma@* 0x0072F7CC
+    gnDDrawGamma = nGamma;
+    sub_00510160_DDrawSetPalette(gaDDrawSavedPalette);
 }
 
 // 0x00510390
@@ -432,7 +437,8 @@ int __fastcall sub_00510390_DDrawSetOption(int nOption, int nValue)
     switch (nOption)
     {
     case 11:
-        gnDDrawGammaScale_0072F7C8 = nValue;
+// build: symbol ?gnDDrawGammaScale@* 0x0072F7C8
+        gnDDrawGammaScale = nValue;
         return 1;
     }
     return 0;

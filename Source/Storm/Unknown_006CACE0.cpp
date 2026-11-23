@@ -33,10 +33,10 @@ extern int gnValue_007C0E84; // 0x007C0E84
 void __cdecl sub_006CB400_Nop(); // 0x006CB400
 int __cdecl sub_00683824_RegisterExit(void (__cdecl* callback)()); // 0x00683824
 extern const char* gszDefaultClass_0072DAA0; // 0x0072DAA0
-extern const char* gszWindowClassName_007C9158; // 0x007C9158
+extern const char* gszWindowClassName; // 0x007C9158
 extern const char* gszDefaultWindow_0072DB3C; // 0x0072DB3C
-extern const char* gszWindowClass_007C9344; // 0x007C9344
-extern const char* gszWindowTitle_007C9348; // 0x007C9348
+extern const char* gszWindowClass; // 0x007C9344
+extern const char* gszWindowTitle; // 0x007C9348
 extern unsigned int gaTable_00841EC8[0x200]; // 0x00841EC8
 
 // 0x006CACE0
@@ -115,7 +115,7 @@ void __cdecl sub_006CADE0_RegisterCleanup()
 // 0x006CADF0
 void __cdecl sub_006CADF0_InitializeWindowText()
 {
-    gszWindowClassName_007C9158 = gszDefaultClass_0072DAA0;
+    gszWindowClassName = gszDefaultClass_0072DAA0;
 }
 
 #include "gen/data/Source/Storm/Unknown_006CACE0.inc"
@@ -123,13 +123,13 @@ void __cdecl sub_006CADF0_InitializeWindowText()
 // 0x006CAE00
 void __cdecl sub_006CAE00_InitializeWindowText()
 {
-    gszWindowClass_007C9344 = gszDefaultWindow_0072DB3C;
+    gszWindowClass = gszDefaultWindow_0072DB3C;
 }
 
 // 0x006CAE10
 void __cdecl sub_006CAE10_InitializeWindowText()
 {
-    gszWindowTitle_007C9348 = gszDefaultWindow_0072DB3C;
+    gszWindowTitle = gszDefaultWindow_0072DB3C;
 }
 
 // 0x006CAE20

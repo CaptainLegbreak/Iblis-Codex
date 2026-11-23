@@ -4,7 +4,7 @@ struct D2LaunchControlTemplateStrc;
 
 int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
-extern "C" const char gszPalFeCharDat_006D39E8[]; // 0x006D39E8
+extern "C" const char gszFeCharPalDat[]; // 0x006D39E8
 extern "C" int __cdecl strcmp(const char* szString1, const char* szString2);
 const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
 void __cdecl MAINMENUS_SetDone(); // 0x0042F6C0
@@ -15,25 +15,25 @@ D2WinControlStrc* __stdcall CONTROL_Create(D2LaunchControlTemplateStrc* pTemplat
 void __stdcall D2Win_10029(int a1); // 0x004FA410
 void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-extern D2LaunchControlTemplateStrc gtControlTemplates_00708D10[]; // 0x00708D10
-extern int gdwGlobal_0077932C; // 0x0077932C
-extern D2WinControlStrc* gapControlsB_00779350[0x40]; // 0x00779350
-extern D2WinControlStrc* gapControlsA_00779450[0x40]; // 0x00779450
-extern void (__cdecl* gpfnGatewayDone_007795BC)(); // 0x007795BC
-extern int gbFeCharPalette_007795F0; // 0x007795F0
-extern int gnControlCountA_00779948; // 0x00779948
-extern int gbPaletteBusy_00779970; // 0x00779970
+extern D2LaunchControlTemplateStrc gatControlTemplates[]; // 0x00708D10
+extern int gbStopMainLoop; // 0x0077932C
+extern D2WinControlStrc* gapControlsB[0x40]; // 0x00779350
+extern D2WinControlStrc* gapControlsA[0x40]; // 0x00779450
+extern void (__cdecl* gpfnGatewayDone)(); // 0x007795BC
+extern int gbFeCharPalette; // 0x007795F0
+extern int gnControlCountA; // 0x00779948
+extern int gbPaletteBusy; // 0x00779970
 extern int gdwGlobal_00779974; // 0x00779974
 
-int gbPaletteBusy_00779970; // 0x00779970
+int gbPaletteBusy; // 0x00779970
 
 // 0x0042F370
 void __cdecl sub_0042F370_RestorePalette()
 {
-    if (gbPaletteBusy_00779970)
+    if (gbPaletteBusy)
     {
-        sub_0042F2E0_ReadPaletteFiles(gszPalFeCharDat_006D39E8, "palette\\fechar\\pal.pl2");
-        gbPaletteBusy_00779970 = 0;
+        sub_0042F2E0_ReadPaletteFiles(gszFeCharPalDat, "palette\\fechar\\pal.pl2");
+        gbPaletteBusy = 0;
     }
 }
 
@@ -51,11 +51,11 @@ D2WinControlStrc* gpControl_007795A0; // 0x007795A0
 
 D2WinControlStrc* gpControl_007795A4; // 0x007795A4
 
-int gnControlCountB_00779944; // 0x00779944
+int gnControlCountB; // 0x00779944
 
 
 
-extern int gbGatewayFlag_00779954; // 0x00779954
+extern int gbGatewayFlag; // 0x00779954
 
 int gnValue_00779980; // 0x00779980
 
@@ -63,7 +63,7 @@ int gnValue_00779980; // 0x00779980
 void __cdecl sub_0042F800()
 {
     MAINMENUS_DestroyControls();
-    gbGatewayFlag_00779954 = 1;
+    gbGatewayFlag = 1;
     gdwGlobal_00779974 = 0;
 // build: symbol ?MAINMENUS_CreateFromTemplate@* 0x0042F3A0
     D2WinControlStrc* pControlA = MAINMENUS_CreateFromTemplate(0xDE);
@@ -80,7 +80,7 @@ void __cdecl sub_0042F800()
 // 0x0042FA20
 void __cdecl sub_0042FA20()
 {
-    gdwGlobal_0077932C = 0;
+    gbStopMainLoop = 0;
 }
 
 // 0x0042FF10

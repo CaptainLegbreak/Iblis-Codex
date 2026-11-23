@@ -172,7 +172,7 @@ struct D2WinImageClickRectStrc
     int (__stdcall* pCallback)(SMSGHANDLER_PARAMS* pMsg);
 };
 
-extern D2CofNodeStrc* gpCofNodeList_0087E83C; // 0x0087E83C
+extern D2CofNodeStrc* gpCofNodeList; // 0x0087E83C
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
@@ -390,7 +390,7 @@ int __fastcall TIMER_UpdateRepeating(D2WinControlStrc* pControl)
 // 0x00503310
 static inline D2CofNodeStrc* D2COMP_FindCofNode(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
 {
-    for (D2CofNodeStrc* pNode = gpCofNodeList_0087E83C; pNode; pNode = pNode->pNext)
+    for (D2CofNodeStrc* pNode = gpCofNodeList; pNode; pNode = pNode->pNext)
     {
         if (pNode->nMode == nMode && pNode->nClass == nClass && pNode->dwWeaponClass == dwWeaponClass)
         {

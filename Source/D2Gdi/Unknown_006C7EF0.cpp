@@ -38,7 +38,7 @@ int __fastcall sub_006C7EF0_ConvertPalette(unsigned char* buffer)
     return 1;
 }
 
-D2RgbQuad006C8110Strc gaColors_00989C40[256]; // 0x00989C40
+D2RgbQuad006C8110Strc gatGdiColors[256]; // 0x00989C40
 
 // 0x006C8110
 unsigned char __fastcall sub_006C8110_FindNearestColor(int nRed, int nBlue, int nGreen)
@@ -47,15 +47,15 @@ unsigned char __fastcall sub_006C8110_FindNearestColor(int nRed, int nBlue, int 
     int nBest = 10000;
     for (int i = 1; i < 256; ++i)
     {
-        int nDiff = gaColors_00989C40[i].rgbRed - nRed;
+        int nDiff = gatGdiColors[i].rgbRed - nRed;
         if (nDiff < 0)
             nDiff = -nDiff;
         const int nRedDiff = nDiff;
-        nDiff = gaColors_00989C40[i].rgbGreen - nGreen;
+        nDiff = gatGdiColors[i].rgbGreen - nGreen;
         if (nDiff < 0)
             nDiff = -nDiff;
         const int nGreenDiff = nDiff;
-        nDiff = gaColors_00989C40[i].rgbBlue - nBlue;
+        nDiff = gatGdiColors[i].rgbBlue - nBlue;
         if (nDiff < 0)
             nDiff = -nDiff;
         nDiff += nGreenDiff;

@@ -51,7 +51,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __cdecl sub_00517ABB_FindLowestSetBit(unsigned int dwMask); // 0x00517ABB
 extern D2CmpPoolStrc gCmpPool; // 0x0088CAE0
-extern void* gpfnTileFreeCallback_0088CB1C; // 0x0088CB1C
+extern void* gpfnTileFreeCallback; // 0x0088CB1C
 
 extern D2SpriteCacheStrc gCmpTileCache; // 0x0089DB60
 D2SpriteCacheNodeStrc* __fastcall D2CMPSpriteCacheEvict(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode, int bLocked); // 0x005FF4A0
@@ -105,7 +105,7 @@ struct D2CelEntryStrc : D2StormNodeStrc
 // 0x005FE000
 void __fastcall D2CMPTileCacheSetFreeCallback(void* pfnCallback)
 {
-    gpfnTileFreeCallback_0088CB1C = pfnCallback;
+    gpfnTileFreeCallback = pfnCallback;
 }
 
 // 0x005FE070
@@ -167,7 +167,8 @@ void __cdecl D2CMPSpriteFreeAsyncLoads()
 // 0x00600C90
 int __stdcall CelGameDirToFileDir(int nDirection, unsigned int nDirections)
 {
-    return gaDirectionIndex64_006E45A0[sub_00517ABB_FindLowestSetBit(nDirections)][nDirection];
+// build: symbol ?gaDirectionIndex64@* 0x006E45A0
+    return gaDirectionIndex64[sub_00517ABB_FindLowestSetBit(nDirections)][nDirection];
 }
 
 // 0x00600D30

@@ -28,25 +28,25 @@ extern "C" char* __cdecl _itoa(int nValue, char* szOut, int nRadix); // 0x006876
 extern "C" char* __cdecl strchr(const char* szString, int nChar); // 0x00687740
 extern "C" char* __cdecl strrchr(const char* szString, int nChar); // 0x00682990
 extern "C" char* __cdecl strtok(char* szText, const char* szDelim); // 0x0068264F
-extern "C" const char gszCmdD2Notify_006D56C0[]; // 0x006D56C0
-extern "C" const char gszCmdDefaultChannel_006D5640[]; // 0x006D5640
-extern "C" const char gszCmdHomeChannel_006D5654[]; // 0x006D5654
-extern "C" const char gszCmdHomeSpace_006D5638[]; // 0x006D5638
-extern "C" const char gszCmdHome_006D5630[]; // 0x006D5630
-extern "C" const char gszCmdR_006D56D4[]; // 0x006D56D4
-extern "C" const char gszCmdReply_006D56CC[]; // 0x006D56CC
+extern "C" const char gszCmdD2Notify[]; // 0x006D56C0
+extern "C" const char gszCmdDefaultChannel[]; // 0x006D5640
+extern "C" const char gszCmdHomeChannel[]; // 0x006D5654
+extern "C" const char gszCmdHomeSpace[]; // 0x006D5638
+extern "C" const char gszCmdHome[]; // 0x006D5630
+extern "C" const char gszCmdR[]; // 0x006D56D4
+extern "C" const char gszCmdReply[]; // 0x006D56CC
 extern "C" const char gszCmdSquelch[]; // 0x006D5698
 extern "C" const char gszCmdUnsquelch[]; // 0x006D5680
-extern "C" const char gszCommandSpace_006D5618[]; // 0x006D5618
-extern "C" const char gszCorrectUsage_006D55F8[]; // 0x006D55F8
-extern "C" const char gszDefaultChannel_006D5504[]; // 0x006D5504
-extern "C" const char gszDiablo2_006CC8B8[]; // 0x006CC8B8
+extern "C" const char gszCommandSpace[]; // 0x006D5618
+extern "C" const char gszCorrectUsage[]; // 0x006D55F8
+extern "C" const char gszDefaultChannel[]; // 0x006D5504
+extern "C" const char gszDiabloII[]; // 0x006CC8B8
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char gszFormatD[]; // 0x006D57BC
-extern "C" const char gszNobodyToReply_006D561C[]; // 0x006D561C
-extern "C" const char gszReplyFormat_006D55EC[]; // 0x006D55EC
-extern "C" const char gszSpace_006FFC44[]; // 0x006FFC44
-extern "C" const char szStar_006D5830[]; // 0x006D5830
+extern "C" const char gszNobodyToReply[]; // 0x006D561C
+extern "C" const char gszReplyFormat[]; // 0x006D55EC
+extern "C" const char gszSpace[]; // 0x006FFC44
+extern "C" const char gszStar[]; // 0x006D5830
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 extern "C" int __cdecl tolower(int nChar); // 0x0068523E
@@ -55,7 +55,7 @@ extern "C" void __cdecl srand(unsigned int nSeed); // 0x00687454
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
 extern D2CelFileStrc* gpChatBackground_0077BC04; // 0x0077BC04
 extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
-extern D2LaunchCharEntryStrc* gpCharList_00779DBC; // 0x00779DBC
+extern D2LaunchCharEntryStrc* gpCharList; // 0x00779DBC
 extern D2LaunchCharSelectStrc* gpCharSelect_007795D4; // 0x007795D4
 extern D2WinControlStrc* gpControl_00798BC4; // 0x00798BC4
 extern D2WinControlStrc* gpControl_00798BCC; // 0x00798BCC
@@ -64,24 +64,24 @@ extern D2WinControlStrc* gpControl_00798BF4; // 0x00798BF4
 extern D2WinControlStrc* gpControl_00798C28; // 0x00798C28
 extern D2WinControlStrc* gpControl_00798C48; // 0x00798C48
 extern D2WinControlStrc* gpEdit_0077BCF4; // 0x0077BCF4
-extern D2WinControlStrc* gpGameList_00798BC0; // 0x00798BC0
+extern D2WinControlStrc* gpGameList; // 0x00798BC0
 extern D2WinControlStrc* gpGameText_00798BC4; // 0x00798BC4
 extern D2WinControlStrc* gpMaxPlayerControl_00798C38; // 0x00798C38
 extern char gnSelectModeB_0070CD63; // 0x0070CD63
-extern char gszValue_0070EBD0[]; // 0x0070EBD0
-extern char gszValue_0070EBD4[]; // 0x0070EBD4
+extern char gszLevelDiffText[]; // 0x0070EBD0
+extern char gszMaxPlayersText[]; // 0x0070EBD4
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
-extern int gbBusy_00779DA0; // 0x00779DA0
+extern int gbCharSelBusy; // 0x00779DA0
 extern int gbFlag_0077ADA4; // 0x0077ADA4
-extern int gnGameCount_00798CC8; // 0x00798CC8
-extern int gnHistoryIndex_0070CD74; // 0x0070CD74
-extern int gnLastSelection_0070EBDC; // 0x0070EBDC
-extern int gnSelectFlag_0070CD6C; // 0x0070CD6C
+extern int gnLastGameCount; // 0x00798CC8
+extern int gnHistoryIndex; // 0x0070CD74
+extern int gnGameListLastSelection; // 0x0070EBDC
+extern int gnSelectFlag; // 0x0070CD6C
 extern int gnSelectIdA_0070CD7C; // 0x0070CD7C
-extern int gnSelectIdB_0070CD80; // 0x0070CD80
-extern int gnSelectedLine_0070EC1C; // 0x0070EC1C
+extern int gnSelectIdB; // 0x0070CD80
+extern int gnSelectedLine; // 0x0070EC1C
 extern int gnValue_00798CCC; // 0x00798CCC
-extern unsigned short gwRequestId_0070CD60; // 0x0070CD60
+extern unsigned short gwRequestId; // 0x0070CD60
 int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl GAME_IsLaunchExpansion(); // 0x0043DB10
 int __cdecl CHARSEL_GetConnectStatus(); // 0x0043DC30

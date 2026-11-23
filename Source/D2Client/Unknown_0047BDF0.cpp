@@ -129,7 +129,8 @@ int __cdecl sub_0047BDF0_HandleBnetChatMessage()
 // build: symbol ?gszNameAccountFormat@* 0x006D72C0
                 sprintf(szFormatted, gszNameAccountFormat, szName, sub_0047BD60_GetAccountPart(szSender));
             else
-                sprintf(szFormatted, gszStringFormat_006FFC58, szName);
+// build: symbol ?gszStringFormat@* 0x006FFC58
+                sprintf(szFormatted, gszStringFormat, szName);
             sub_00526E40_Utf8ToUnicode(wszLine, szFormatted, 0x154);
             sub_00526E40_Utf8ToUnicode(wszText, szText, 0x154);
             wszLine[0x153].wChar = 0;

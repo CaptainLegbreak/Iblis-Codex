@@ -5,7 +5,7 @@ struct D2CelStrc;
 struct D2DDrawClipRectStrc;
 struct D2DDrawCelClipStrc;
 
-extern int gnDDrawOriginX_0088129C; // 0x0088129C
+extern int gnDDrawClipLeft; // 0x0088129C
 int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
 int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
@@ -33,24 +33,24 @@ int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);
 void __stdcall CelDrawEx(D2CmpCelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nClipTop, int nClipRows, int nArg13); // 0x00601650
 int __fastcall DDRAW_GetDrawModePalette(int nIndex, int* pType); // 0x00511D70
 
-extern D2PaletteTableStrc* gpDDrawCaps_007C9150; // 0x007C9150
-extern int gnDDrawModeWidth_008812A0; // 0x008812A0
+extern D2PaletteTableStrc* gpGfxPaletteView; // 0x007C9150
+extern int gnDDrawClipRight; // 0x008812A0
 void __stdcall CmpDoLensEffect(unsigned char* pBuffer, int nPitch); // 0x00608C00
 
-int gnDDrawModeWidth_008812A0; // 0x008812A0
+int gnDDrawClipRight; // 0x008812A0
 
 // 0x00511DF0
 void __fastcall sub_00511DF0_DDrawSetMode(int nResolutionMode)
 {
     if (nResolutionMode == 0)
     {
-        gnDDrawOriginX_0088129C = 0;
-        gnDDrawModeWidth_008812A0 = 640;
+        gnDDrawClipLeft = 0;
+        gnDDrawClipRight = 640;
     }
     else
     {
-        gnDDrawOriginX_0088129C = 0;
-        gnDDrawModeWidth_008812A0 = 800;
+        gnDDrawClipLeft = 0;
+        gnDDrawClipRight = 800;
     }
 }
 
@@ -67,10 +67,12 @@ static int __stdcall sub_00511E10_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY
     }
 
     nX += CelGetOffsetX(pCel);
-    if (nX < gnScreenWidth_007C9138 && nWidth + nX >= 0)
+// build: symbol ?gnRenderWidth@* 0x007C9138
+    if (nX < gnRenderWidth && nWidth + nX >= 0)
     {
         nY += CelGetOffsetY(pCel);
-        if (nY >= 0 && nY - nHeight < gnScreenHeight_007C913C)
+// build: symbol ?gnRenderHeight@* 0x007C913C
+        if (nY >= 0 && nY - nHeight < gnRenderHeight)
             return 0;
     }
 
@@ -90,14 +92,14 @@ static int __fastcall sub_00511E80_ClipCel(D2CelStrc* pCel, int nY, int nX, D2DD
     int nHeight = CelGetHeight(pCel);
 
     const int nLeft = D2_MAX(pClip->nLeft, 0);
-    const int nRight = D2_MIN(pClip->nRight, gnScreenWidth_007C9138);
+    const int nRight = D2_MIN(pClip->nRight, gnRenderWidth);
     if (nLeft <= nRight)
     {
         nX += CelGetOffsetX(pCel);
         if (nX < nRight && nWidth + nX >= nLeft)
         {
             const int nTop = D2_MAX(pClip->nTop, 0);
-            const int nBottom = D2_MIN(pClip->nBottom, gnScreenHeight_007C913C);
+            const int nBottom = D2_MIN(pClip->nBottom, gnRenderHeight);
             if (nTop <= nBottom)
             {
                 nY += CelGetOffsetY(pCel);
@@ -137,7 +139,7 @@ void __fastcall sub_M366_Emit_00512250(D2CelContextStrc* pContext, int nX, int n
         return;
     const int nCaps = DDRAW_GetDrawModePalette(nDrawMode, (int*)&pClip);
     CelDrawEx((D2CmpCelContextStrc*)pContext, nX, nY, tOut.nLeft, tOut.nRight, gpScreenBuffer_007C9154,
-        gnScreenHeight_007C913C, gnScreenWidth_007C9138, 0, nCaps, tOut.f_8, tOut.nRows, 0);
+        gnRenderHeight, gnRenderWidth, 0, nCaps, tOut.f_8, tOut.nRows, 0);
 }
 
 // 0x00511FB0
@@ -154,19 +156,19 @@ int __fastcall sub_00511FB0_DrawImage(void* pData, int nX, int nY, unsigned int 
     unsigned char* pGammaTable = 0;
     const int nCaps = DDRAW_GetDrawModePalette(nDrawMode, (int*)&dwGamma);
     if (nGamma != 0xFF)
-        pGammaTable = gpDDrawCaps_007C9150->pShadowLightGammaPalettes[nGamma >> 3];
+        pGammaTable = gpGfxPaletteView->pShadowLightGammaPalettes[nGamma >> 3];
     if (nDrawMode == 7)
-        pGammaTable = gpDDrawCaps_007C9150->pRemap;
+        pGammaTable = gpGfxPaletteView->pRemap;
 
-    CelDraw((D2CmpCelContextStrc*)pContext, nX, nY, gnDDrawOriginX_0088129C, gnDDrawModeWidth_008812A0,
-        gpScreenBuffer_007C9154, gnScreenHeight_007C913C, gnScreenWidth_007C9138, (int)pGammaTable, nCaps, (int)pPalette);
+    CelDraw((D2CmpCelContextStrc*)pContext, nX, nY, gnDDrawClipLeft, gnDDrawClipRight,
+        gpScreenBuffer_007C9154, gnRenderHeight, gnRenderWidth, (int)pGammaTable, nCaps, (int)pPalette);
     return 1;
 }
 
 // 0x005123B0
 void __fastcall sub_005123B0_DDrawDebugFillBackBuffer(int nX, int nY)
 {
-    D2_ASSERT(nX > 0 && nX < gnScreenWidth_007C9138 - 0x50, 0x186);
-    D2_ASSERT(nY > 0 && nY < gnScreenHeight_007C913C - 0x50, 0x187);
-    CmpDoLensEffect(gpScreenBuffer_007C9154 + gnScreenWidth_007C9138 * nY + nX, gnScreenWidth_007C9138);
+    D2_ASSERT(nX > 0 && nX < gnRenderWidth - 0x50, 0x186);
+    D2_ASSERT(nY > 0 && nY < gnRenderHeight - 0x50, 0x187);
+    CmpDoLensEffect(gpScreenBuffer_007C9154 + gnRenderWidth * nY + nX, gnRenderWidth);
 }

@@ -68,16 +68,16 @@ struct D2DisplayContextStrc { unsigned int reserved[0x13c/4]; D2DisplayModeStrc 
 extern D2DrawStrc* gpDraw_00970E60; // 0x00970E60
 extern D2D3DStrc* gpD3D_00970E64; // 0x00970E64
 extern void* ghWindow_00970E84; // 0x00970E84
-extern unsigned int gnWidths_0074C000[2]; // 0x0074C000
-extern unsigned int gnHeights_0074C010[2]; // 0x0074C010
-extern const unsigned int gHalGuid_006FF518[4]; // 0x006FF518
-extern const char gszTooMany_006FB86C[]; // 0x006FB86C
-extern const char gszCoop_006FB83C[]; // 0x006FB83C
-extern const char gszDisplay_006FB810[]; // 0x006FB810
-extern const char gszPrimary_006FB7DC[]; // 0x006FB7DC
-extern const char gszAttached_006FB7AC[]; // 0x006FB7AC
-extern const char gszDevice_006FB77C[]; // 0x006FB77C
-extern const char gszCutscene_006DE0F4[]; // 0x006DE0F4
+extern unsigned int ganWidths[2]; // 0x0074C000
+extern unsigned int ganHeights[2]; // 0x0074C010
+extern const unsigned int gadwHalGuid[4]; // 0x006FF518
+extern const char gszTooMany[]; // 0x006FB86C
+extern const char gszCoop[]; // 0x006FB83C
+extern const char gszSetDisplayModeFailed[]; // 0x006FB810
+extern const char gszPrimary[]; // 0x006FB7DC
+extern const char gszAttached[]; // 0x006FB7AC
+extern const char gszCreateHalDeviceFailed[]; // 0x006FB77C
+extern const char gszCutscene[]; // 0x006DE0F4
 void __cdecl sub_00410610_WriteLogLine(const char*,...); // 0x00410610
 void __fastcall sub_006B39B0_ShowD3DError(const char*,long); // 0x006B39B0
 extern "C" void* __cdecl memset(void*,int,unsigned int); // 0x00681EF0
@@ -94,7 +94,7 @@ int __stdcall sub_006B3FD0_EnumerateDisplayMode(D2SurfaceDescStrc* mode,D2Displa
     if(!context) goto done;
     if(!mode || mode->size!=0x7c) return 0;
     if(context->count>=32) {
-        sub_00410610_WriteLogLine(gszTooMany_006FB86C,context->count,32);
+        sub_00410610_WriteLogLine(gszTooMany,context->count,32);
         if(device) { device->Release(); device=0; }
         if(attached) attached=0;
         if(primary) primary->Release();
@@ -102,27 +102,27 @@ int __stdcall sub_006B3FD0_EnumerateDisplayMode(D2SurfaceDescStrc* mode,D2Displa
     }
     if(mode->bits==32 && mode->width==640 && mode->height==480) flags=gdwBitMasks_006CE268[2];
     else if(mode->bits==24 && mode->width==640 && mode->height==480) flags=gdwBitMasks_006CE268[3];
-    if(mode->bits==32 && mode->width==gnWidths_0074C000[0] && mode->height==gnHeights_0074C010[0]) flags|=gdwBitMasks_006CE268[1];
-    if(mode->bits==32 && mode->width==gnWidths_0074C000[1] && mode->height==gnHeights_0074C010[1]) flags|=gdwBitMasks_006CE268[0];
+    if(mode->bits==32 && mode->width==ganWidths[0] && mode->height==ganHeights[0]) flags|=gdwBitMasks_006CE268[1];
+    if(mode->bits==32 && mode->width==ganWidths[1] && mode->height==ganHeights[1]) flags|=gdwBitMasks_006CE268[0];
     if(!flags) goto done;
     result=gpDraw_00970E60->SetCooperativeLevel(ghWindow_00970E84,0x11);
-    if(result && result!=(long)0x88760245) { sub_006B20E0(gszCoop_006FB83C,result); goto cleanup; }
+    if(result && result!=(long)0x88760245) { sub_006B20E0(gszCoop,result); goto cleanup; }
     result=gpDraw_00970E60->SetDisplayMode(mode->width,mode->height,mode->bits,mode->refresh,0);
-    if(result) { sub_006B20E0(gszDisplay_006FB810,result); goto cleanup; }
+    if(result) { sub_006B20E0(gszSetDisplayModeFailed,result); goto cleanup; }
     if(!(flags&gdwBitMasks_006CE268[0]) && !(flags&gdwBitMasks_006CE268[1])) {
         desc.size=sizeof(desc); memset(&desc.flags,0,sizeof(desc)-4); desc.flags=1; desc.caps=0x4200;
         result=gpDraw_00970E60->CreateSurface(&desc,&primary,0);
-        if(result) { sub_006B20E0(gszCutscene_006DE0F4,result); goto cleanup; }
+        if(result) { sub_006B20E0(gszCutscene,result); goto cleanup; }
     }
     else {
         desc.size=sizeof(desc); memset(&desc.flags,0,sizeof(desc)-4); desc.flags=0x21; desc.caps=0x6218; desc.backBuffers=1;
         result=gpDraw_00970E60->CreateSurface(&desc,&primary,0);
-        if(result) { sub_006B20E0(gszPrimary_006FB7DC,result); goto cleanup; }
+        if(result) { sub_006B20E0(gszPrimary,result); goto cleanup; }
         memset(&caps,0,sizeof(caps)); caps.caps=4;
         result=primary->GetAttachedSurface(&caps,&attached);
-        if(result) { sub_006B20E0(gszAttached_006FB7AC,result); goto cleanup; }
-        gpD3D_00970E64->CreateDevice(gHalGuid_006FF518,attached,&device,0);
-        if(!device) { sub_006B39B0_ShowD3DError(gszDevice_006FB77C,0); goto cleanup; }
+        if(result) { sub_006B20E0(gszAttached,result); goto cleanup; }
+        gpD3D_00970E64->CreateDevice(gadwHalGuid,attached,&device,0);
+        if(!device) { sub_006B39B0_ShowD3DError(gszCreateHalDeviceFailed,0); goto cleanup; }
     }
     {
         D2DisplayModeStrc* out=&context->modes[context->count];

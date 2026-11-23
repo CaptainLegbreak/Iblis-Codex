@@ -18,21 +18,22 @@ struct D2BnReply00520DC0Strc
 };
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-extern const unsigned char gabSrpData1_00730164[]; // 0x00730164
-extern int gnSrpSize1_00730168; // 0x00730168
-extern const unsigned char gabSrpData2_0073016C[]; // 0x0073016C
-extern int gnSrpSize2_0073018C; // 0x0073018C
-extern D2BigPairStrc gtBigPair_0088273C; // 0x0088273C
+extern const unsigned char gabSrpData1[]; // 0x00730164
+extern int gnSrpSize1; // 0x00730168
+extern const unsigned char gabSrpData2[]; // 0x0073016C
+extern int gnSrpSize2; // 0x0073018C
+extern D2BigPairStrc gtBigPair; // 0x0088273C
 extern "C" long __cdecl _time32(long* pTime);
 extern "C" int __cdecl tolower(int nChar);
-extern const char gacCDKeyMap_006DF238[];
+// build: symbol ?gacCDKeyMap@* 0x006DF238
+extern const char gacCDKeyMap[];
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-extern D2BnHashCtxStrc gaBnHashCtx_00882760[]; // 0x00882760
-extern D2IdeaKeyScheduleStrc gaIdeaKeySchedules_00882878[]; // 0x00882878
+extern D2BnHashCtxStrc gatBnHashCtx[]; // 0x00882760
+extern D2IdeaKeyScheduleStrc gaIdeaKeySchedules[]; // 0x00882878
 void __fastcall BNDOWNLOAD_FillRandomBytes(unsigned char* pBuffer, int nSize); // 0x00522BC0
 unsigned int __fastcall BNDOWNLOAD_DecryptData(unsigned char* pBuffer, unsigned int nSize, unsigned char* pKey); // 0x00522E10
 static int __cdecl sub_005232B0_DecodeAndValidate(unsigned char* pBuffer, unsigned int nSize);
@@ -68,14 +69,14 @@ int __fastcall sub_00520DC0_HandleStatus(D2BnReply00520DC0Strc* pReply)
 // 0x00521B50
 void __cdecl sub_00521B50_ReseedLogin()
 {
-    gtBigPair_0088273C.sub_005285A0_Init(gnSrpSize1_00730168, gabSrpData1_00730164, gnSrpSize2_0073018C, gabSrpData2_0073016C);
-    gtBigPair_0088273C.sub_00528620_InitRandom(GetTickCount());
+    gtBigPair.sub_005285A0_Init(gnSrpSize1, gabSrpData1, gnSrpSize2, gabSrpData2);
+    gtBigPair.sub_00528620_InitRandom(GetTickCount());
 }
 
 // 0x00521B90
 void __cdecl sub_00521B90_ClearSrpState()
 {
-    gtBigPair_0088273C.sub_00528630_Release();
+    gtBigPair.sub_00528630_Release();
 }
 
 #include "gen/data/Source/Bnclient/Unknown_00520DC0.inc"
@@ -106,7 +107,7 @@ static int sub_0051DD20_HexToNibble(char cChar)
 
 static int sub_0051DD40_MapKeyChar(unsigned char cChar)
 {
-    return gacCDKeyMap_006DF238[cChar];
+    return gacCDKeyMap[cChar];
 }
 
 long __stdcall sub_M106_Emit_0051DC70(long* pTime)
@@ -145,7 +146,7 @@ void __fastcall sub_005241C0_GetDigest(int nIndex, unsigned int* pDigest)
     if (pDigest)
     {
         for (int i = 0; i < 5; ++i)
-            pDigest[i] = gaBnHashCtx_00882760[nIndex].aState[i];
+            pDigest[i] = gatBnHashCtx[nIndex].aState[i];
     }
 }
 
@@ -194,7 +195,7 @@ void __fastcall sub_00524360_ExpandKey(const D2IdeaUserKeyStrc* pUserKey, D2Idea
 // 0x00524740
 void __cdecl sub_00524740_ClearKeySchedules()
 {
-    memset(gaIdeaKeySchedules_00882878, 0, sizeof(D2IdeaKeyScheduleStrc) * 3);
+    memset(gaIdeaKeySchedules, 0, sizeof(D2IdeaKeyScheduleStrc) * 3);
 }
 
 // build: context sub_GetTerminatedLength

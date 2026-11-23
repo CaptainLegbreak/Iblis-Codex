@@ -30,7 +30,7 @@ typedef int (__fastcall* D2NET_PacketCallback)(int, int, int, int);
 
 typedef int (__fastcall* D2NET_ReadPacketCallback)(QServer*, D2PacketBufferStrc*, int);
 
-int gnLocalClientGameGuid_6FC0B26C;                                                                         // 0x00882D0C
+int gnLocalClientGameGuid;                                                                         // 0x00882D0C
 
 QServer* __stdcall QSInit(int a1, int a2, int a3, int a4, D2NET_PacketCallback a5, D2NET_PacketCallback a6, D2NET_PacketCallback a7, D2NET_ReadPacketCallback a8); // 0x006BF760
 
@@ -138,7 +138,7 @@ int __stdcall SERVER_SetClientGameGUID(int nClientId, int dwGameGuid)
         return FOG_10172(gpServer, nClientId, dwGameGuid);
     }
 
-    gnLocalClientGameGuid_6FC0B26C = dwGameGuid;
+    gnLocalClientGameGuid = dwGameGuid;
 
     return dwGameGuid;
 }
@@ -151,7 +151,7 @@ int __stdcall SERVER_GetClientGameGUID(int nClientId)
         return FOG_10173(gpServer, nClientId);
     }
 
-    return gnLocalClientGameGuid_6FC0B26C;
+    return gnLocalClientGameGuid;
 }
 
 // 0x0052B640

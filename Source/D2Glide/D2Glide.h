@@ -25,33 +25,33 @@ extern "C" __declspec(dllimport) unsigned long __stdcall SetTextColor(void* hdc,
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC218
 extern "C" __declspec(dllimport) void* __stdcall CreateFontA(int cHeight, int cWidth, int cEscapement, int cOrientation, int cWeight, unsigned long bItalic, unsigned long bUnderline, unsigned long bStrikeOut, unsigned long iCharSet, unsigned long iOutPrecision, unsigned long iClipPrecision, unsigned long iQuality, unsigned long iPitchAndFamily, const char* pszFaceName); // 0x006CC0E0
 extern "C" __declspec(dllimport) void* __stdcall SelectObject(void* hdc, void* h); // 0x006CC09C
-extern "C" const char gszCourier_006DD52C[]; // 0x006DD52C
+extern "C" const char gszCourier[]; // 0x006DD52C
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
-extern D2CriticalSectionStrc* gpRenderCriticalSection_007C9134; // 0x007C9134
-extern D2DDrawSurfaceStrc* gpDDrawSurface_00881278; // 0x00881278
+extern D2CriticalSectionStrc* gpRenderCriticalSection; // 0x007C9134
+extern D2DDrawSurfaceStrc* gpDDrawPrimarySurface; // 0x00881278
 extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 extern D2TileDrawFunctionsStrc* gpTileDrawFunctions_007C914C; // 0x007C914C
-extern const char gszEmpty_006CC837[]; // 0x006CC837
-extern int (__stdcall* gpfGlideLfbLock_0087EADC)(int nType, int nBuffer, int nWriteMode, int nOrigin, int bPixelPipeline, D2GrLfbInfoStrc* pInfo); // 0x0087EADC
-extern int (__stdcall* gpfGlideLfbUnlock_0087EAD8)(int nType, int nBuffer); // 0x0087EAD8
-extern int gaGlideAspectLodTall_0072F258[4]; // 0x0072F258
-extern int gaGlideAspectLodWide_0072F268[4]; // 0x0072F268
-extern int gaGlideCrossOffsetX_0072F2C8[8]; // 0x0072F2C8
-extern int gaGlideCrossOffsetY_0072F2E8[8]; // 0x0072F2E8
-extern int gaGlideWallCorner_0072F3A0[10][6][3]; // 0x0072F3A0
+extern const char gszEmptyString[]; // 0x006CC837
+extern int (__stdcall* gpfnGrLfbLock)(int nType, int nBuffer, int nWriteMode, int nOrigin, int bPixelPipeline, D2GrLfbInfoStrc* pInfo); // 0x0087EADC
+extern int (__stdcall* gpfnGrLfbUnlock)(int nType, int nBuffer); // 0x0087EAD8
+extern int gaGlideAspectLodTall[4]; // 0x0072F258
+extern int gaGlideAspectLodWide[4]; // 0x0072F268
+extern int gaGlideCrossOffsetX[8]; // 0x0072F2C8
+extern int gaGlideCrossOffsetY[8]; // 0x0072F2E8
+extern int gaGlideWallCorner[10][6][3]; // 0x0072F3A0
 extern int gbGlidePaletteTable_0087EFC8; // 0x0087EFC8
 extern int gbSurfaceActive_007C9140; // 0x007C9140
 extern int gnRenderHeight_007C913C; // 0x007C913C
 extern int gnRenderWidth_007C9138; // 0x007C9138
-extern int gnScreenHeight_007C913C; // 0x007C913C
-extern unsigned int gaGlideDebugLight_0087F0D0[0x400]; // 0x0087F0D0
-extern unsigned int gaGlideLightPalette_0072F308[]; // 0x0072F308
-extern void (__stdcall* gpfGlideDrawPoint_0087EAA0)(const D2GlideSpriteVertexStrc* pVertex); // 0x0087EAA0
-extern void* gapGlideTileStripA_0072F350[10]; // 0x0072F350
-extern void* gapGlideTileStripB_0072F378[10]; // 0x0072F378
+extern int gnRenderHeight; // 0x007C913C
+extern unsigned int gaGlideDebugLight[0x400]; // 0x0087F0D0
+extern unsigned int gaGlideLightPalette[]; // 0x0072F308
+extern void (__stdcall* gpfnGrDrawPoint)(const D2GlideSpriteVertexStrc* pVertex); // 0x0087EAA0
+extern void* gapGlideTileStripA[10]; // 0x0072F350
+extern void* gapGlideTileStripB[10]; // 0x0072F378
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int a2, int a3); // 0x005FDEA0

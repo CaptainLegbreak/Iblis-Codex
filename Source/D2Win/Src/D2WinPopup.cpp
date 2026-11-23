@@ -29,9 +29,9 @@ struct D2WinPopUpStrc
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-extern tagPOINT gMousePosition_6F8FE234;                                                                    // 0x007D55A4
+extern tagPOINT gtMousePosition;                                                                    // 0x007D55A4
 
-D2WinPopUpStrc* gpPopUp_0087E974;                                                                           // 0x0087E974
+D2WinPopUpStrc* gpPopUp;                                                                           // 0x0087E974
 
 int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl);                                           // 0x004F9310
 
@@ -55,8 +55,8 @@ int __fastcall POPUP_UpdateHoveredLine(D2WinControlStrc* pControl)
 
     pPopUp->nCurrentLine = -1;
 
-    const int nX = gMousePosition_6F8FE234.x - pPopUp->controlHeader.nImageX;
-    const int nY = pPopUp->controlHeader.nHeight - pPopUp->controlHeader.nImageY + gMousePosition_6F8FE234.y;
+    const int nX = gtMousePosition.x - pPopUp->controlHeader.nImageX;
+    const int nY = pPopUp->controlHeader.nHeight - pPopUp->controlHeader.nImageY + gtMousePosition.y;
 
     if (nX >= 0 && nX <= pPopUp->controlHeader.nWidth && nY >= 0 && nY <= pPopUp->controlHeader.nHeight)
     {
@@ -70,10 +70,10 @@ int __fastcall POPUP_UpdateHoveredLine(D2WinControlStrc* pControl)
 int __stdcall POPUP_Destroy()
 {
     int nResult = 0;
-    if (gpPopUp_0087E974)
+    if (gpPopUp)
     {
-        nResult = CONTROL_RemoveFromList(&gpPopUp_0087E974->controlHeader);
-        gpPopUp_0087E974 = 0;
+        nResult = CONTROL_RemoveFromList(&gpPopUp->controlHeader);
+        gpPopUp = 0;
     }
     return nResult;
 }
@@ -81,7 +81,7 @@ int __stdcall POPUP_Destroy()
 // 0x005085C0
 int __stdcall POPUP_IsActive()
 {
-    D2WinPopUpStrc* pPopUp = gpPopUp_0087E974;
+    D2WinPopUpStrc* pPopUp = gpPopUp;
     if (!pPopUp)
         return 0;
     D2_ASSERT(pPopUp->controlHeader.eType == D2WIN_POPUP, 0x62);
@@ -93,7 +93,7 @@ int __stdcall POPUP_IsActive()
 // 0x005086A0
 int __stdcall POPUP_HandleMouseButtonInput(SMSGHANDLER_PARAMS* pMsg)
 {
-    D2WinPopUpStrc* pPopUp = gpPopUp_0087E974;
+    D2WinPopUpStrc* pPopUp = gpPopUp;
     D2_ASSERT(pPopUp->controlHeader.eType == D2WIN_POPUP, 0x90);
     if (!(pPopUp->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pPopUp->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
         return 0;
@@ -110,10 +110,10 @@ int __stdcall POPUP_HandleMouseButtonInput(SMSGHANDLER_PARAMS* pMsg)
 // 0x005088C0
 void __stdcall POPUP_Create()
 {
-    if (gpPopUp_0087E974)
+    if (gpPopUp)
     {
-        CONTROL_RemoveFromList(&gpPopUp_0087E974->controlHeader);
-        gpPopUp_0087E974 = 0;
+        CONTROL_RemoveFromList(&gpPopUp->controlHeader);
+        gpPopUp = 0;
     }
     D2WinPopUpStrc* pPopUp = (D2WinPopUpStrc*)FOG_Alloc(sizeof(D2WinPopUpStrc), ".\\Src\\D2WinPopup.cpp", 0x29, 0);
     memset(pPopUp, 0, sizeof(D2WinPopUpStrc));
@@ -121,8 +121,8 @@ void __stdcall POPUP_Create()
     pPopUp->controlHeader.dwFlags |= gdwBitMasks_006CE268[0];
     pPopUp->controlHeader.dwFlags |= gdwBitMasks_006CE268[2];
     pPopUp->controlHeader.dwFlags |= gdwBitMasks_006CE268[3];
-    pPopUp->controlHeader.nImageX = gMousePosition_6F8FE234.x;
-    pPopUp->controlHeader.nImageY = gMousePosition_6F8FE234.y;
+    pPopUp->controlHeader.nImageX = gtMousePosition.x;
+    pPopUp->controlHeader.nImageY = gtMousePosition.y;
     pPopUp->controlHeader.pfDraw = POPUP_Draw;
     pPopUp->controlHeader.pfInitialize = POPUP_UpdateHoveredLine;
     pPopUp->controlHeader.pNext = 0;
@@ -133,5 +133,5 @@ void __stdcall POPUP_Create()
     pPopUp->controlHeader.field_34 = 0;
     pPopUp->nCurrentLine = -1;
     CONTROL_AppendToList(&pPopUp->controlHeader);
-    gpPopUp_0087E974 = pPopUp;
+    gpPopUp = pPopUp;
 }

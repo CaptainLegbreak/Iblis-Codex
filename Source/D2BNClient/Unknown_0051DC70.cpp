@@ -10,7 +10,7 @@ struct D2AuthCheck1Strc;
 
 extern "C" long __cdecl _time32(long* pTime); // 0x006850E6
 extern "C" int __cdecl tolower(int nChar); // 0x0068523E
-extern const char gacCDKeyMap_006DF238[]; // 0x006DF238
+extern const char gacCDKeyMap[]; // 0x006DF238
 extern "C" unsigned long __cdecl strtoul(const char* szString, char** ppEnd, int nRadix); // 0x006867B2
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
@@ -69,7 +69,7 @@ int __fastcall sub_0051DDD0_DecodeCDKey16(int* pProduct, int* pValue1, const cha
 int __cdecl BNCLIENT_GetExeHash(); // 0x00523A00
 const char* __cdecl sub_00523AA0_GetExeInfo(); // 0x00523AA0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-extern unsigned int gdwClientToken_00881C48; // 0x00881C48
+extern unsigned int gdwClientToken; // 0x00881C48
 void __cdecl GRID_LockCDKeys(); // 0x005234D0
 int __stdcall sub_0051E0B0_SendAuthCheck(); // 0x0051E0B0
 void __cdecl GRID_UnlockCDKeys(); // 0x005239C0
@@ -103,7 +103,7 @@ static int sub_0051DD20_HexToNibble(char cChar)
 // 0x0051DD40
 static int sub_0051DD40_MapKeyChar(unsigned char cChar)
 {
-    return gacCDKeyMap_006DF238[cChar];
+    return gacCDKeyMap[cChar];
 }
 
 long __stdcall sub_M106_Emit_0051DC70(long* pTime)
@@ -155,7 +155,7 @@ static void sub_0051DD50_DecodeKeyPairs(char* szKey, unsigned int* pValue)
     *pValue = 0;
     for (int i = 0; i < 16; i += 2, nBit <<= 1)
     {
-        unsigned int nPair = gacCDKeyMap_006DF238[(unsigned char)szKey[i]] * 24 + gacCDKeyMap_006DF238[(unsigned char)szKey[i + 1]];
+        unsigned int nPair = gacCDKeyMap[(unsigned char)szKey[i]] * 24 + gacCDKeyMap[(unsigned char)szKey[i + 1]];
         if (nPair >= 0x100)
         {
             nPair -= 0x100;
@@ -295,7 +295,7 @@ static int __stdcall sub_0051DFC0_BuildCDKeyInfo(D2CDKeyInfoStrc* pInfo, const c
     return 0;
 }
 
-unsigned int gdwClientToken_00881C48; // 0x00881C48
+unsigned int gdwClientToken; // 0x00881C48
 
 // 0x0051E0B0
 int __stdcall sub_0051E0B0_SendAuthCheck()
@@ -304,17 +304,17 @@ int __stdcall sub_0051E0B0_SendAuthCheck()
     const char* szKey0 = sub_00523AB0_GetCDKey(0);
     const char* szKey1 = sub_00523AB0_GetCDKey(1);
     const unsigned int dwExeHash = BNCLIENT_GetExeHash();
-    gdwClientToken_00881C48 += _time32(0);
-    gdwClientToken_00881C48 += GetTickCount();
+    gdwClientToken += _time32(0);
+    gdwClientToken += GetTickCount();
     if (sub_0051BEC0_IsExpansion())
     {
         D2AuthCheck2Strc tPacket;
-        if (!sub_0051DFC0_BuildCDKeyInfo(&tPacket.aKeys[0], szKey0, gdwClientToken_00881C48, BNCLIENT_GetServerToken()))
+        if (!sub_0051DFC0_BuildCDKeyInfo(&tPacket.aKeys[0], szKey0, gdwClientToken, BNCLIENT_GetServerToken()))
             return 0;
-        if (!sub_0051DFC0_BuildCDKeyInfo(&tPacket.aKeys[1], szKey1, gdwClientToken_00881C48, BNCLIENT_GetServerToken()))
+        if (!sub_0051DFC0_BuildCDKeyInfo(&tPacket.aKeys[1], szKey1, gdwClientToken, BNCLIENT_GetServerToken()))
             return 0;
 
-        tPacket.f_0 = gdwClientToken_00881C48;
+        tPacket.f_0 = gdwClientToken;
         tPacket.nKeys = 2;
         tPacket.f_8 = dwExeHash;
         if (BNSEND_SendPacket(0x42, &tPacket, SStrCopy(tPacket.f_54, szExeInfo, 0x100) + 0x55) < 0)
@@ -323,10 +323,10 @@ int __stdcall sub_0051E0B0_SendAuthCheck()
     else
     {
         D2AuthCheck1Strc tPacket;
-        tPacket.f_0 = gdwClientToken_00881C48;
+        tPacket.f_0 = gdwClientToken;
         tPacket.nKeys = 1;
         tPacket.f_8 = dwExeHash;
-        if (!sub_0051DFC0_BuildCDKeyInfo(&tPacket.aKeys[0], szKey0, gdwClientToken_00881C48, BNCLIENT_GetServerToken()))
+        if (!sub_0051DFC0_BuildCDKeyInfo(&tPacket.aKeys[0], szKey0, gdwClientToken, BNCLIENT_GetServerToken()))
             return 0;
 
         if (BNSEND_SendPacket(0x42, &tPacket, SStrCopy(tPacket.f_30, szExeInfo, 0x100) + 0x31) < 0)

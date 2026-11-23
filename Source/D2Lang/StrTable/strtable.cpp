@@ -17,11 +17,11 @@ D2ArchiveHandleStrc* __fastcall sub_00517332_LoadMpqFile(const char* szFileName,
 
 void __fastcall ARCHIVE_UnloadMPQFile(D2ArchiveHandleStrc* pMPQHandle); // 0x005173AC
 
-extern "C" const char gszExpansionMpq_006CD3A0[]; // 0x006CD3A0
+extern "C" const char gszExpansionMpq[]; // 0x006CD3A0
 
-extern "C" const char szPatchD2Mpq_006DC728[]; // 0x006DC728
+extern "C" const char gszPatchD2Mpq[]; // 0x006DC728
 
-extern "C" const char szD2DataMpq_006DC770[]; // 0x006DC770
+extern "C" const char gszD2DataMpq[]; // 0x006DC770
 
 struct D2StrCacheNodeStrc
 {
@@ -55,7 +55,8 @@ struct Unicode
     Unicode toUpper() const
     {
         Unicode tResult;
-        tResult.wChar = wChar < 0x100 ? gwToUpperTable_00730578[wChar] : wChar;
+// build: symbol ?gawToUpperTable@* 0x00730578
+        tResult.wChar = wChar < 0x100 ? gawToUpperTable[wChar] : wChar;
         return tResult;
     }
     static int __fastcall compare(Unicode lhs, Unicode rhs);
@@ -66,9 +67,9 @@ Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource,
 
 int __fastcall sub_00527D50_GetCodePageCharCount(const char* szSource, int nLength); // 0x00527D50
 
-extern const unsigned short gaCrc16Table_007301D8[256]; // 0x007301D8
+extern const unsigned short gawCrc16Table[256]; // 0x007301D8
 
-extern "C" const char szNotTranslated_00730520[]; // 0x00730520
+extern "C" const char gszNotTranslated[]; // 0x00730520
 
 struct D2LanguageInfoStrc
 {
@@ -84,9 +85,9 @@ extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2); /
 
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 
-extern D2LanguageInfoStrc gaLanguageInfo_007303D8[13]; // 0x007303D8
+extern D2LanguageInfoStrc gaLanguageInfo[13]; // 0x007303D8
 
-void* ghArchive_008829DC; // 0x008829DC
+void* ghD2DataMpq; // 0x008829DC
 
 unsigned int __stdcall STRTABLE_HashKey(const char* szKey, unsigned int nTableSize); // 0x005249E0
 
@@ -104,7 +105,7 @@ extern "C" const char szM15EmitFormat[];
 
 extern "C" char* __cdecl _i64toa(__int64 nValue, char* szOut, int nRadix); // 0x006876D7
 
-extern Unicode gawszUnitSuffix_00730510[4][2]; // 0x00730510
+extern Unicode gawszUnitSuffix[4][2]; // 0x00730510
 
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource); // 0x005267E0
 
@@ -118,9 +119,9 @@ extern "C" char* __cdecl _ui64toa(unsigned __int64 nValue, char* szOut, int nRad
 
 static unsigned short __stdcall STRTABLE_FindKey(void** ppSlots, const char* szKey, void** ppOut, D2TblHeaderStrc* pTable); // 0x00524C60
 
-void* ghArchive_008829E0; // 0x008829E0
+void* ghPatchD2Mpq; // 0x008829E0
 
-void* ghArchive_008829E4; // 0x008829E4
+void* ghExpansionMpq; // 0x008829E4
 
 extern unsigned short gwCrc16Table_007301D8[0x100];                                                         // 0x007301D8
 
@@ -134,57 +135,57 @@ int __fastcall UNISYS_LoadSysMap(void* hArchive, const char* szPath);           
 
 static D2TblHeaderStrc* sghStringTable;                                                             // 0x008829B4
 
-static Unicode** gpStringIndex_008829B8;                                                                    // 0x008829B8
+static Unicode** gppStringIndex;                                                                    // 0x008829B8
 
-static Unicode** gpPatchStringIndex_008829BC;                                                               // 0x008829BC
+static Unicode** gppPatchStringIndex;                                                               // 0x008829BC
 
-static Unicode** gpExpansionStringIndex_008829C0;                                                           // 0x008829C0
+static Unicode** gppExpansionStringIndex;                                                           // 0x008829C0
 
-static Unicode* gpStringData_008829C4;                                                                      // 0x008829C4
+static Unicode* gpStringData;                                                                      // 0x008829C4
 
-static Unicode* gpPatchStringData_008829C8;                                                                 // 0x008829C8
+static Unicode* gpPatchStringData;                                                                 // 0x008829C8
 
-static Unicode* gpExpansionStringData_008829CC;                                                             // 0x008829CC
+static Unicode* gpExpansionStringData;                                                             // 0x008829CC
 
 static D2TblHeaderStrc* sghPatchStringTable;                                                        // 0x008829D0
 
 static D2TblHeaderStrc* sghExpansionStringTable;                                                    // 0x008829D4
 
-static int gnStringTableRefs_008829D8;                                                                      // 0x008829D8
+static int gnStringTableRefs;                                                                      // 0x008829D8
 
 struct Unicode;
 
-char gszLanguage_008829F8[256]; // 0x008829F8
+char gszLanguage[256]; // 0x008829F8
 
-static D2StrCacheNodeStrc* s_pStringCache_008829B0; // 0x008829B0
+static D2StrCacheNodeStrc* gpStringCache; // 0x008829B0
 
-int gnTableLanguage_008829EC; // 0x008829EC
+int gnTableLanguage; // 0x008829EC
 
-bool gbTableLanguageInitialized_008829F0; // 0x008829F0
+bool gbTableLanguageInitialized; // 0x008829F0
 
-wchar_t gwszEmptyString_008829E8[2]; // 0x008829E8
+wchar_t gwszEmptyString[2]; // 0x008829E8
 
 // 0x00524810
 int __cdecl STRTABLE_OpenArchives()
 {
-    D2_ASSERT(!ghArchive_008829DC, 0x8A);
-    ghArchive_008829DC = sub_00517332_LoadMpqFile(szD2DataMpq_006DC770, 0, 0, 1000);
-    if (!ghArchive_008829DC)
+    D2_ASSERT(!ghD2DataMpq, 0x8A);
+    ghD2DataMpq = sub_00517332_LoadMpqFile(gszD2DataMpq, 0, 0, 1000);
+    if (!ghD2DataMpq)
         return 0;
-    ghArchive_008829E0 = sub_00517332_LoadMpqFile(szPatchD2Mpq_006DC728, 0, 0, 1000);
-    if (!ghArchive_008829E0)
+    ghPatchD2Mpq = sub_00517332_LoadMpqFile(gszPatchD2Mpq, 0, 0, 1000);
+    if (!ghPatchD2Mpq)
     {
-        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghArchive_008829DC);
-        ghArchive_008829DC = 0;
+        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghD2DataMpq);
+        ghD2DataMpq = 0;
         return 0;
     }
-    ghArchive_008829E4 = sub_00517332_LoadMpqFile(gszExpansionMpq_006CD3A0, 0, 0, 1000);
-    if (!ghArchive_008829E4)
+    ghExpansionMpq = sub_00517332_LoadMpqFile(gszExpansionMpq, 0, 0, 1000);
+    if (!ghExpansionMpq)
     {
-        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghArchive_008829DC);
-        ghArchive_008829DC = 0;
-        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghArchive_008829E0);
-        ghArchive_008829E0 = 0;
+        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghD2DataMpq);
+        ghD2DataMpq = 0;
+        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghPatchD2Mpq);
+        ghPatchD2Mpq = 0;
         return 0;
     }
     return 1;
@@ -193,20 +194,20 @@ int __cdecl STRTABLE_OpenArchives()
 // 0x005248E0
 void __cdecl STRTABLE_CloseArchives()
 {
-    if (ghArchive_008829DC)
+    if (ghD2DataMpq)
     {
-        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghArchive_008829DC);
-        ghArchive_008829DC = 0;
+        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghD2DataMpq);
+        ghD2DataMpq = 0;
     }
-    if (ghArchive_008829E0)
+    if (ghPatchD2Mpq)
     {
-        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghArchive_008829E0);
-        ghArchive_008829E0 = 0;
+        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghPatchD2Mpq);
+        ghPatchD2Mpq = 0;
     }
-    if (ghArchive_008829E4)
+    if (ghExpansionMpq)
     {
-        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghArchive_008829E4);
-        ghArchive_008829E4 = 0;
+        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghExpansionMpq);
+        ghExpansionMpq = 0;
     }
 }
 
@@ -264,38 +265,38 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex)
         }
         else
         {
-            const Unicode* pText = sub_00524930(sghExpansionStringTable, gpExpansionStringIndex_008829C0, nIndex - 0x4E20);
+            const Unicode* pText = sub_00524930(sghExpansionStringTable, gppExpansionStringIndex, nIndex - 0x4E20);
             if (pText)
                 return pText;
         }
     }
     if (sghPatchStringTable && nIndex >= 0x2710)
     {
-        const Unicode* pText = sub_00524930(sghPatchStringTable, gpPatchStringIndex_008829BC, nIndex - 0x2710);
+        const Unicode* pText = sub_00524930(sghPatchStringTable, gppPatchStringIndex, nIndex - 0x2710);
         if (pText)
             return pText;
     }
     D2_ASSERT(sghStringTable, 0x246);
-    return sub_00524930(sghStringTable, gpStringIndex_008829B8, nIndex);
+    return sub_00524930(sghStringTable, gppStringIndex, nIndex);
 }
 
 // 0x00524AC0
 wchar_t* __fastcall STRTABLE_GetUntranslatedString(const char* szKey)
 {
-    for (D2StrCacheNodeStrc* pNode = s_pStringCache_008829B0; pNode; pNode = pNode->pNext)
+    for (D2StrCacheNodeStrc* pNode = gpStringCache; pNode; pNode = pNode->pNext)
     {
         if (!strcmp(szKey, pNode->szKey))
             return pNode->pText;
     }
     D2StrCacheNodeStrc* pNode = (D2StrCacheNodeStrc*)FOG_Alloc(sizeof(D2StrCacheNodeStrc), ".\\StrTable\\strtable.cpp", 0x259, 0);
-    pNode->pNext = s_pStringCache_008829B0;
-    s_pStringCache_008829B0 = pNode;
+    pNode->pNext = gpStringCache;
+    gpStringCache = pNode;
     pNode->szKey = (char*)FOG_Alloc(strlen(szKey) + 1, ".\\StrTable\\strtable.cpp", 0x264, 0);
     strcpy(pNode->szKey, szKey);
-    const int nLength = strlen(szKey) + strlen(szNotTranslated_00730520);
+    const int nLength = strlen(szKey) + strlen(gszNotTranslated);
     char* szText = (char*)FOG_Alloc(nLength + 1, ".\\StrTable\\strtable.cpp", 0x26C, 0);
     strcpy(szText, szKey);
-    strcat(szText, szNotTranslated_00730520);
+    strcat(szText, gszNotTranslated);
     const int nChars = sub_00527D50_GetCodePageCharCount(szText, nLength);
     pNode->pText = (wchar_t*)FOG_Alloc(nChars * 2 + 2, ".\\StrTable\\strtable.cpp", 0x271, 0);
     sub_00526320_ToUnicode((Unicode*)pNode->pText, szText, nChars);
@@ -333,19 +334,19 @@ unsigned short __stdcall sub_00524D30_FindString(const char* szKey, const wchar_
     D2_ASSERT(szKey, 0x2C0);
     if (!*szKey)
     {
-        *ppText = gwszEmptyString_008829E8;
+        *ppText = gwszEmptyString;
         return 0;
     }
-    unsigned short nIndex = STRTABLE_FindKey((void**)gpPatchStringIndex_008829BC, szKey, (void**)ppText, sghPatchStringTable);
+    unsigned short nIndex = STRTABLE_FindKey((void**)gppPatchStringIndex, szKey, (void**)ppText, sghPatchStringTable);
     if (nIndex != 0xFFFF)
         return nIndex + 10000;
     if (sghExpansionStringTable)
     {
-        nIndex = STRTABLE_FindKey((void**)gpExpansionStringIndex_008829C0, szKey, (void**)ppText, sghExpansionStringTable);
+        nIndex = STRTABLE_FindKey((void**)gppExpansionStringIndex, szKey, (void**)ppText, sghExpansionStringTable);
         if (nIndex != 0xFFFF)
             return nIndex + 20000;
     }
-    nIndex = STRTABLE_FindKey((void**)gpStringIndex_008829B8, szKey, (void**)ppText, sghStringTable);
+    nIndex = STRTABLE_FindKey((void**)gppStringIndex, szKey, (void**)ppText, sghStringTable);
     if (nIndex == 0xFFFF)
     {
         *ppText = STRTABLE_GetUntranslatedString(szKey);
@@ -365,40 +366,40 @@ const wchar_t* __fastcall D2LANG_GetStringByReferenceString(const char* szKey)
 // 0x00524E40
 void __cdecl STRTABLE_UnloadStringTables()
 {
-    if (sghStringTable && --gnStringTableRefs_008829D8 == 0)
+    if (sghStringTable && --gnStringTableRefs == 0)
     {
-        if (gpStringIndex_008829B8)
+        if (gppStringIndex)
         {
-            FOG_Free(gpStringData_008829C4, ".\\StrTable\\strtable.cpp", 0x329, 0);
-            gpStringData_008829C4 = 0;
-            FOG_Free(gpStringIndex_008829B8, ".\\StrTable\\strtable.cpp", 0x32E, 0);
-            gpStringIndex_008829B8 = 0;
+            FOG_Free(gpStringData, ".\\StrTable\\strtable.cpp", 0x329, 0);
+            gpStringData = 0;
+            FOG_Free(gppStringIndex, ".\\StrTable\\strtable.cpp", 0x32E, 0);
+            gppStringIndex = 0;
         }
         FOG_Free(sghStringTable, ".\\StrTable\\strtable.cpp", 0x121, 0);
         sghStringTable = 0;
 
-        if (gpPatchStringIndex_008829BC)
+        if (gppPatchStringIndex)
         {
-            FOG_Free(gpPatchStringIndex_008829BC, ".\\StrTable\\strtable.cpp", 0x33C, 0);
-            gpPatchStringIndex_008829BC = 0;
+            FOG_Free(gppPatchStringIndex, ".\\StrTable\\strtable.cpp", 0x33C, 0);
+            gppPatchStringIndex = 0;
         }
-        if (gpPatchStringData_008829C8)
+        if (gpPatchStringData)
         {
-            FOG_Free(gpPatchStringData_008829C8, ".\\StrTable\\strtable.cpp", 0x341, 0);
-            gpPatchStringData_008829C8 = 0;
+            FOG_Free(gpPatchStringData, ".\\StrTable\\strtable.cpp", 0x341, 0);
+            gpPatchStringData = 0;
         }
         FOG_Free(sghPatchStringTable, ".\\StrTable\\strtable.cpp", 0x121, 0);
         sghPatchStringTable = 0;
 
-        if (gpExpansionStringIndex_008829C0)
+        if (gppExpansionStringIndex)
         {
-            FOG_Free(gpExpansionStringIndex_008829C0, ".\\StrTable\\strtable.cpp", 0x34A, 0);
-            gpExpansionStringIndex_008829C0 = 0;
+            FOG_Free(gppExpansionStringIndex, ".\\StrTable\\strtable.cpp", 0x34A, 0);
+            gppExpansionStringIndex = 0;
         }
-        if (gpExpansionStringData_008829CC)
+        if (gpExpansionStringData)
         {
-            FOG_Free(gpExpansionStringData_008829CC, ".\\StrTable\\strtable.cpp", 0x34F, 0);
-            gpExpansionStringData_008829CC = 0;
+            FOG_Free(gpExpansionStringData, ".\\StrTable\\strtable.cpp", 0x34F, 0);
+            gpExpansionStringData = 0;
         }
         if (sghExpansionStringTable)
         {
@@ -406,7 +407,7 @@ void __cdecl STRTABLE_UnloadStringTables()
             sghExpansionStringTable = 0;
         }
 
-        D2StrCacheNodeStrc* pNode = s_pStringCache_008829B0;
+        D2StrCacheNodeStrc* pNode = gpStringCache;
         while (pNode)
         {
             D2StrCacheNodeStrc* pNext = pNode->pNext;
@@ -415,7 +416,7 @@ void __cdecl STRTABLE_UnloadStringTables()
             FOG_Free(pNode, ".\\StrTable\\strtable.cpp", 0x379, 0);
             pNode = pNext;
         }
-        s_pStringCache_008829B0 = 0;
+        gpStringCache = 0;
         sub_00527720_FreeCodePageTables();
     }
 }
@@ -444,7 +445,7 @@ void __stdcall CRC16_CalculateChecksum(unsigned short* crc16_checksum_out, const
     D2_ASSERT(start_index < end_index, 0x3EA);
     *crc16_checksum_out = 0xFFFF;
     for (unsigned int i = start_index; i < end_index; ++i)
-        *crc16_checksum_out = (*crc16_checksum_out << 8) ^ gaCrc16Table_007301D8[(*crc16_checksum_out >> 8) ^ data[i]];
+        *crc16_checksum_out = (*crc16_checksum_out << 8) ^ gawCrc16Table[(*crc16_checksum_out >> 8) ^ data[i]];
 }
 
 // 0x00525090
@@ -452,13 +453,13 @@ void __fastcall STRTABLE_ConvertLanguageNameToCode(char* szLanguage)
 {
     for (int i = 0; i < 13; ++i)
     {
-        if (!_stricmp(szLanguage, gaLanguageInfo_007303D8[i].szName))
+        if (!_stricmp(szLanguage, gaLanguageInfo[i].szName))
         {
-            strcpy(szLanguage, gaLanguageInfo_007303D8[i].szCode);
+            strcpy(szLanguage, gaLanguageInfo[i].szCode);
             return;
         }
     }
-    strcpy(szLanguage, gaLanguageInfo_007303D8[0].szCode);
+    strcpy(szLanguage, gaLanguageInfo[0].szCode);
 }
 
 // 0x00525100
@@ -466,8 +467,8 @@ int __fastcall STRTABLE_GetLanguageIdFromName(const char* szLanguage)
 {
     for (int i = 0; i < 13; ++i)
     {
-        if (!_stricmp(szLanguage, gaLanguageInfo_007303D8[i].szName))
-            return gaLanguageInfo_007303D8[i].f_14;
+        if (!_stricmp(szLanguage, gaLanguageInfo[i].szName))
+            return gaLanguageInfo[i].f_14;
     }
     return 0;
 }
@@ -475,19 +476,19 @@ int __fastcall STRTABLE_GetLanguageIdFromName(const char* szLanguage)
 // 0x00525150
 int __cdecl STRTABLE_GetLanguage()
 {
-    if (!gbTableLanguageInitialized_008829F0)
+    if (!gbTableLanguageInitialized)
     {
-        gbTableLanguageInitialized_008829F0 = true;
-        unsigned char* pBuffer = (unsigned char*)ARCHIVE_AllocateBufferAndReadFile(ghArchive_008829DC, "data\\local\\use", 0, ".\\StrTable\\strtable.cpp", 0x44B);
+        gbTableLanguageInitialized = true;
+        unsigned char* pBuffer = (unsigned char*)ARCHIVE_AllocateBufferAndReadFile(ghD2DataMpq, "data\\local\\use", 0, ".\\StrTable\\strtable.cpp", 0x44B);
         if (pBuffer)
         {
-            gnTableLanguage_008829EC = *pBuffer;
+            gnTableLanguage = *pBuffer;
             FOG_Free(pBuffer, ".\\StrTable\\strtable.cpp", 0x450, 0);
         }
-        if (gnTableLanguage_008829EC >= 14)
-            gnTableLanguage_008829EC = 0;
+        if (gnTableLanguage >= 14)
+            gnTableLanguage = 0;
     }
-    return gnTableLanguage_008829EC;
+    return gnTableLanguage;
 }
 
 // 0x005251C0
@@ -498,10 +499,10 @@ int __cdecl STRTABLE_GetSystemLanguage()
     {
         unsigned long nType;
         unsigned long nLength;
-        if (!RegQueryValueExA(hKey, "sLanguage", 0, &nType, (unsigned char*)gszLanguage_008829F8, &nLength) && strlen(gszLanguage_008829F8) && strlen(gszLanguage_008829F8) < 4)
+        if (!RegQueryValueExA(hKey, "sLanguage", 0, &nType, (unsigned char*)gszLanguage, &nLength) && strlen(gszLanguage) && strlen(gszLanguage) < 4)
         {
             RegCloseKey(hKey);
-            return STRTABLE_GetLanguageIdFromName(gszLanguage_008829F8);
+            return STRTABLE_GetLanguageIdFromName(gszLanguage);
         }
     }
     return 0;
@@ -525,7 +526,7 @@ static inline const Unicode* D2LANG_GetStringFromTblIndex_Inline(unsigned short 
         }
         else
         {
-            const Unicode* pText = sub_00524930(sghExpansionStringTable, gpExpansionStringIndex_008829C0, nIndex - 0x4E20);
+            const Unicode* pText = sub_00524930(sghExpansionStringTable, gppExpansionStringIndex, nIndex - 0x4E20);
             if (pText)
             {
                 return pText;
@@ -534,14 +535,14 @@ static inline const Unicode* D2LANG_GetStringFromTblIndex_Inline(unsigned short 
     }
     if (sghPatchStringTable && nIndex >= 0x2710)
     {
-        const Unicode* pText = sub_00524930(sghPatchStringTable, gpPatchStringIndex_008829BC, nIndex - 0x2710);
+        const Unicode* pText = sub_00524930(sghPatchStringTable, gppPatchStringIndex, nIndex - 0x2710);
         if (pText)
         {
             return pText;
         }
     }
     D2_ASSERT(sghStringTable, 0x246);
-    return sub_00524930(sghStringTable, gpStringIndex_008829B8, nIndex);
+    return sub_00524930(sghStringTable, gppStringIndex, nIndex);
 }
 
 // 0x005259C0
@@ -560,7 +561,7 @@ int __fastcall STRTABLE_LoadStringTables(void* pMemPool, const char* szLanguage,
 
     if (sghStringTable)
     {
-        ++gnStringTableRefs_008829D8;
+        ++gnStringTableRefs;
         return 1;
     }
 
@@ -581,7 +582,7 @@ int __fastcall STRTABLE_LoadStringTables(void* pMemPool, const char* szLanguage,
         strcpy(szCodePage, "LATIN");
 
     sprintf(szMapPath, "data\\local\\font\\%s\\default.map", szCodePage);
-    UNISYS_LoadSysMap(ghArchive_008829DC, szMapPath);
+    UNISYS_LoadSysMap(ghD2DataMpq, szMapPath);
 
     strncpy(szFormat, "data\\local\\lng\\%s\\string.tbl", 0x103);
     sprintf(szPath, szFormat, szLang);
@@ -593,9 +594,9 @@ int __fastcall STRTABLE_LoadStringTables(void* pMemPool, const char* szLanguage,
     D2TblHeaderStrc* pLoaded = sghStringTable;
 
     pIndex = (Unicode**)FOG_Alloc(pTbl->nHashTableSize * sizeof(Unicode*), ".\\StrTable\\strtable.cpp", 0x18F, 0);
-    gpStringIndex_008829B8 = pIndex;
+    gppStringIndex = pIndex;
     memset(pIndex, 0, pTbl->nHashTableSize * sizeof(Unicode*));
-    ++gnStringTableRefs_008829D8;
+    ++gnStringTableRefs;
 
     pNodes = (D2TblNodeStrc*)((char*)sghStringTable + sizeof(D2TblHeaderStrc) + pLoaded->nNumElements * sizeof(unsigned short));
     nTotal = 0;
@@ -605,14 +606,14 @@ int __fastcall STRTABLE_LoadStringTables(void* pMemPool, const char* szLanguage,
         nTotal += sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
     }
 
-    gpStringData_008829C4 = (Unicode*)FOG_Alloc(nTotal * sizeof(Unicode), ".\\StrTable\\strtable.cpp", 0x1A9, 0);
-    pText = gpStringData_008829C4;
+    gpStringData = (Unicode*)FOG_Alloc(nTotal * sizeof(Unicode), ".\\StrTable\\strtable.cpp", 0x1A9, 0);
+    pText = gpStringData;
     for (i = 0; i < pTbl->nHashTableSize; i++)
     {
-        gpStringIndex_008829B8[i] = pText;
+        gppStringIndex[i] = pText;
         const char* szText = (char*)sghStringTable + pNodes[i].dwKeyOffset;
         const int nCount = sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
-        sub_00526320_ToUnicode(gpStringIndex_008829B8[i], szText, nCount);
+        sub_00526320_ToUnicode(gppStringIndex[i], szText, nCount);
         pText += nCount;
     }
 
@@ -624,7 +625,7 @@ int __fastcall STRTABLE_LoadStringTables(void* pMemPool, const char* szLanguage,
     pTbl = sghPatchStringTable;
 
     pIndex = (Unicode**)FOG_Alloc(pTbl->nHashTableSize * sizeof(Unicode*), ".\\StrTable\\strtable.cpp", 0x1C5, 0);
-    gpPatchStringIndex_008829BC = pIndex;
+    gppPatchStringIndex = pIndex;
     memset(pIndex, 0, pTbl->nHashTableSize * sizeof(Unicode*));
 
     pTbl = sghPatchStringTable;
@@ -636,14 +637,14 @@ int __fastcall STRTABLE_LoadStringTables(void* pMemPool, const char* szLanguage,
         nTotal += sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
     }
 
-    gpPatchStringData_008829C8 = (Unicode*)FOG_Alloc(nTotal * sizeof(Unicode), ".\\StrTable\\strtable.cpp", 0x1DC, 0);
-    pText = gpPatchStringData_008829C8;
+    gpPatchStringData = (Unicode*)FOG_Alloc(nTotal * sizeof(Unicode), ".\\StrTable\\strtable.cpp", 0x1DC, 0);
+    pText = gpPatchStringData;
     for (i = 0; i < pTbl->nHashTableSize; i++)
     {
-        gpPatchStringIndex_008829BC[i] = pText;
+        gppPatchStringIndex[i] = pText;
         const char* szText = (char*)sghPatchStringTable + pNodes[i].dwKeyOffset;
         const int nCount = sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
-        sub_00526320_ToUnicode(gpPatchStringIndex_008829BC[i], szText, nCount);
+        sub_00526320_ToUnicode(gppPatchStringIndex[i], szText, nCount);
         pText += nCount;
     }
 
@@ -657,7 +658,7 @@ int __fastcall STRTABLE_LoadStringTables(void* pMemPool, const char* szLanguage,
         pTbl = sghExpansionStringTable;
 
         pIndex = (Unicode**)FOG_Alloc(pTbl->nHashTableSize * sizeof(Unicode*), ".\\StrTable\\strtable.cpp", 0x1F8, 0);
-        gpExpansionStringIndex_008829C0 = pIndex;
+        gppExpansionStringIndex = pIndex;
         memset(pIndex, 0, pTbl->nHashTableSize * sizeof(Unicode*));
 
         pTbl = sghExpansionStringTable;
@@ -669,14 +670,14 @@ int __fastcall STRTABLE_LoadStringTables(void* pMemPool, const char* szLanguage,
             nTotal += sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
         }
 
-        gpExpansionStringData_008829CC = (Unicode*)FOG_Alloc(nTotal * sizeof(Unicode), ".\\StrTable\\strtable.cpp", 0x20F, 0);
-        pText = gpExpansionStringData_008829CC;
+        gpExpansionStringData = (Unicode*)FOG_Alloc(nTotal * sizeof(Unicode), ".\\StrTable\\strtable.cpp", 0x20F, 0);
+        pText = gpExpansionStringData;
         for (i = 0; i < pTbl->nHashTableSize; i++)
         {
-            gpExpansionStringIndex_008829C0[i] = pText;
+            gppExpansionStringIndex[i] = pText;
             const char* szText = (char*)sghExpansionStringTable + pNodes[i].dwKeyOffset;
             const int nCount = sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
-            sub_00526320_ToUnicode(gpExpansionStringIndex_008829C0[i], szText, nCount);
+            sub_00526320_ToUnicode(gppExpansionStringIndex[i], szText, nCount);
             pText += nCount;
         }
     }
@@ -689,14 +690,14 @@ int __fastcall STRTABLE_LoadStringTables(void* pMemPool, const char* szLanguage,
 void __stdcall STRTABLE_GetLanguageInfoField(void* pOut, int nField)
 {
     const int nLanguageId = sub_00525150();
-    D2_ASSERT(gaLanguageInfo_007303D8[0].f_14 == 0, 0x490);
+    D2_ASSERT(gaLanguageInfo[0].f_14 == 0, 0x490);
 
     int nIndex = 0;
     if (nLanguageId < 14)
     {
         for (nIndex = 0; nIndex < 13; ++nIndex)
         {
-            if (gaLanguageInfo_007303D8[nIndex].f_14 == nLanguageId)
+            if (gaLanguageInfo[nIndex].f_14 == nLanguageId)
             {
                 break;
             }
@@ -710,16 +711,16 @@ void __stdcall STRTABLE_GetLanguageInfoField(void* pOut, int nField)
     switch (nField)
     {
     case 1:
-        strcpy((char*)pOut, gaLanguageInfo_007303D8[nIndex].szAltCode);
+        strcpy((char*)pOut, gaLanguageInfo[nIndex].szAltCode);
         break;
     case 2:
-        strcpy((char*)pOut, gaLanguageInfo_007303D8[nIndex].szRegion);
+        strcpy((char*)pOut, gaLanguageInfo[nIndex].szRegion);
         break;
     case 3:
-        *(int*)pOut = gaLanguageInfo_007303D8[nIndex].nFourCC;
+        *(int*)pOut = gaLanguageInfo[nIndex].nFourCC;
         break;
     default:
-        strcpy((char*)pOut, gaLanguageInfo_007303D8[nIndex].szCode);
+        strcpy((char*)pOut, gaLanguageInfo[nIndex].szCode);
         break;
     }
 }
@@ -789,7 +790,8 @@ void __stdcall STR_GroupUintDigits(Unicode* pOut, unsigned int nValue, int nSize
     Unicode wszStar[2];
     wszStar[0].wChar = 0;
     wszStar[1].wChar = 0;
-    sub_00526320_ToUnicode(wszStar, szStar_006D5830, 2);
+// build: symbol ?gszStar@* 0x006D5830
+    sub_00526320_ToUnicode(wszStar, gszStar, 2);
     sub_005267E0(pOut, wszStar);
 }
 
@@ -837,7 +839,7 @@ void __stdcall STR_GroupInt64Digits(Unicode* pOut, __int64 nValue, int nSize)
     Unicode wszStar[2];
     wszStar[0].wChar = 0;
     wszStar[1].wChar = 0;
-    sub_00526320_ToUnicode(wszStar, szStar_006D5830, 2);
+    sub_00526320_ToUnicode(wszStar, gszStar, 2);
     sub_005267E0(pOut, wszStar);
 }
 
@@ -872,16 +874,16 @@ void __stdcall STR_GroupUint64DigitsWithSuffix(Unicode* pOut, unsigned __int64 n
                 pOut[nPos].wChar = 0;
                 break;
             case 1:
-                pOut[nPos].wChar = gawszUnitSuffix_00730510[0][0].wChar;
+                pOut[nPos].wChar = gawszUnitSuffix[0][0].wChar;
                 break;
             case 2:
-                pOut[nPos].wChar = gawszUnitSuffix_00730510[1][0].wChar;
+                pOut[nPos].wChar = gawszUnitSuffix[1][0].wChar;
                 break;
             case 3:
-                pOut[nPos].wChar = gawszUnitSuffix_00730510[2][0].wChar;
+                pOut[nPos].wChar = gawszUnitSuffix[2][0].wChar;
                 break;
             case 4:
-                pOut[nPos].wChar = gawszUnitSuffix_00730510[3][0].wChar;
+                pOut[nPos].wChar = gawszUnitSuffix[3][0].wChar;
                 break;
             }
             while (nLength)
@@ -908,7 +910,7 @@ void __stdcall STR_GroupUint64DigitsWithSuffix(Unicode* pOut, unsigned __int64 n
         Unicode wszStar[2];
         wszStar[0].wChar = 0;
         wszStar[1].wChar = 0;
-        sub_00526320_ToUnicode(wszStar, szStar_006D5830, 2);
+        sub_00526320_ToUnicode(wszStar, gszStar, 2);
         sub_005267E0(pOut, wszStar);
     }
 }
@@ -921,41 +923,41 @@ void __cdecl STRTABLE_InitUnitSuffixes()
     sub_00526F70(szBuffer, D2LANG_GetStringFromTblIndex_Inline(0x14D0), 5);
     if (strlen(szBuffer) > 1)
     {
-        gawszUnitSuffix_00730510[0][0].wChar = 'K';
+        gawszUnitSuffix[0][0].wChar = 'K';
     }
     else
     {
-        gawszUnitSuffix_00730510[0][0].wChar = szBuffer[0];
+        gawszUnitSuffix[0][0].wChar = szBuffer[0];
     }
 
     sub_00526F70(szBuffer, D2LANG_GetStringFromTblIndex_Inline(0x14D1), 5);
     if (strlen(szBuffer) > 1)
     {
-        gawszUnitSuffix_00730510[1][0].wChar = 'M';
+        gawszUnitSuffix[1][0].wChar = 'M';
     }
     else
     {
-        gawszUnitSuffix_00730510[1][0].wChar = szBuffer[0];
+        gawszUnitSuffix[1][0].wChar = szBuffer[0];
     }
 
     sub_00526F70(szBuffer, D2LANG_GetStringFromTblIndex_Inline(0x14D2), 5);
     if (strlen(szBuffer) > 1)
     {
-        gawszUnitSuffix_00730510[2][0].wChar = 'B';
+        gawszUnitSuffix[2][0].wChar = 'B';
     }
     else
     {
-        gawszUnitSuffix_00730510[2][0].wChar = szBuffer[0];
+        gawszUnitSuffix[2][0].wChar = szBuffer[0];
     }
 
     sub_00526F70(szBuffer, D2LANG_GetStringFromTblIndex_Inline(0x14D3), 5);
     if (strlen(szBuffer) > 1)
     {
-        gawszUnitSuffix_00730510[3][0].wChar = 'T';
+        gawszUnitSuffix[3][0].wChar = 'T';
     }
     else
     {
-        gawszUnitSuffix_00730510[3][0].wChar = szBuffer[0];
+        gawszUnitSuffix[3][0].wChar = szBuffer[0];
     }
 }
 
@@ -984,7 +986,7 @@ Unicode* __fastcall Unicode::strncat(Unicode* dest, const Unicode* src, int coun
 // 0x00525920
 static D2TblHeaderStrc* STRTABLE_LoadTblFile(const char* szPath)
 {
-    D2TblHeaderStrc* pHeader = (D2TblHeaderStrc*)sub_00517079(ghArchive_008829DC, szPath, 0, ".\\StrTable\\strtable.cpp", 0xC0);
+    D2TblHeaderStrc* pHeader = (D2TblHeaderStrc*)sub_00517079(ghD2DataMpq, szPath, 0, ".\\StrTable\\strtable.cpp", 0xC0);
 
     unsigned short nCRC;
     CRC16_CalculateChecksum(&nCRC, (const unsigned char*)pHeader, pHeader->dwIndexStart, pHeader->dwFileSize);

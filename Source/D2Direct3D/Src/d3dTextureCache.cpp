@@ -85,13 +85,15 @@ int __fastcall sub_006BA920_AllocOrEvict(D2TexPoolStrc* pPool);
 // 0x006BA420
 int __fastcall sub_006BA420_Init(D2TexPoolStrc* pPool, int nBase, int nLimit, int nWidth, int nHeight)
 {
-	int nUnit = gnBytesPerPixel_00970E80 * nWidth * nHeight;
+// build: symbol ?gnBytesPerPixel@* 0x00970E80
+	int nUnit = gnBytesPerPixel * nWidth * nHeight;
 
 	pPool->nCapacity = (nLimit - nBase) / nUnit;
 	pPool->nCapacity = pPool->nCapacity < 0x400 ? pPool->nCapacity : 0x400;
 
 	int nSize = pPool->nCapacity * sizeof(D2TexPoolEntryStrc);
-	pPool->pEntries = (D2TexPoolEntryStrc*)FOG_Alloc(nSize, gszTexPoolSourceFile_006FC36C, 55, 0);
+// build: symbol ?gszTexPoolSourceFile@* 0x006FC36C
+	pPool->pEntries = (D2TexPoolEntryStrc*)FOG_Alloc(nSize, gszTexPoolSourceFile, 55, 0);
 	memset(pPool->pEntries, 0, nSize);
 
 	for (int i = 0; i <= pPool->nCapacity - 1; ++i)
@@ -417,7 +419,7 @@ void __fastcall sub_006BA830_Destroy(D2TexPoolStrc* pPool, int bReleaseAll)
 
 	if (pPool->pEntries)
 	{
-		FOG_Free(pPool->pEntries, gszTexPoolSourceFile_006FC36C, 148, 0);
+		FOG_Free(pPool->pEntries, gszTexPoolSourceFile, 148, 0);
 		pPool->pEntries = 0;
 	}
 

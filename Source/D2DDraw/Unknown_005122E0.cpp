@@ -26,10 +26,12 @@ static int __stdcall sub_00511E10_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY
     }
 
     nX += CelGetOffsetX(pCel);
-    if (nX < gnScreenWidth_007C9138 && nWidth + nX >= 0)
+// build: symbol ?gnRenderWidth@* 0x007C9138
+    if (nX < gnRenderWidth && nWidth + nX >= 0)
     {
         nY += CelGetOffsetY(pCel);
-        if (nY >= 0 && nY - nHeight < gnScreenHeight_007C913C)
+// build: symbol ?gnRenderHeight@* 0x007C913C
+        if (nY >= 0 && nY - nHeight < gnRenderHeight)
             return 0;
     }
 
@@ -48,5 +50,5 @@ void __fastcall sub_005122E0_DrawShadow(D2CmpCelContextStrc* pContext, int nX, i
     int nTable = 0;
     if (DDRAW_GetBlendedShadows())
         nTable = *gpShadowTable_007C9150;
-    CelDrawShadow(pContext, nX, nY, gnClipLeft_0088129C, gnClipRight_008812A0, gpSurface_007C9154, gnScreenHeight_007C913C, gnScreenWidth_007C9138, nTable, 0);
+    CelDrawShadow(pContext, nX, nY, gnClipLeft_0088129C, gnClipRight_008812A0, gpSurface_007C9154, gnRenderHeight, gnRenderWidth, nTable, 0);
 }

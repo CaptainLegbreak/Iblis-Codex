@@ -17,17 +17,20 @@ static unsigned int sub_0060B200(int nBits, D2CmpBitCursorStrc* pCursor);
 static unsigned int sub_0060B200(int nBits, D2CmpBitCursorStrc* pCursor); // 0x0060B200
 static void __fastcall sub_0060B7B0_DecodeCell(D2CmpBitCursorStrc* pPixelCodes, D2CmpBitCursorStrc* pEqualCells, D2CmpCellBufStrc* pPrev, unsigned char** ppValues, D2CmpCellBufStrc* pCell);
 
-extern const int gnDccFieldWidths_006E5F70[16];
-extern const unsigned int gdwDccSignBits_006E5FB0[32];
-extern const unsigned int gdwDccSignExtend_006E60B8[33];
+// build: symbol ?ganDccFieldWidths@* 0x006E5F70
+extern const int ganDccFieldWidths[16];
+// build: symbol ?gadwDccSignBits@* 0x006E5FB0
+extern const unsigned int gadwDccSignBits[32];
+// build: symbol ?gadwDccSignExtend@* 0x006E60B8
+extern const unsigned int gadwDccSignExtend[33];
 
 int __fastcall sub_Emit_0060B280(int nIndex, D2CmpBitCursorStrc* pCursor, int bSigned)
 {
-    const int nBits = gnDccFieldWidths_006E5F70[nIndex];
+    const int nBits = ganDccFieldWidths[nIndex];
     unsigned int nValue = sub_0060B200(nBits, pCursor);
-    if (nBits && bSigned && (nValue & gdwDccSignBits_006E5FB0[nBits - 1]))
+    if (nBits && bSigned && (nValue & gadwDccSignBits[nBits - 1]))
     {
-        nValue |= gdwDccSignExtend_006E60B8[nBits];
+        nValue |= gadwDccSignExtend[nBits];
     }
     return nValue;
 }

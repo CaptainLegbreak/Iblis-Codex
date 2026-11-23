@@ -7,9 +7,9 @@ struct D2CoordPairStrc;
 struct D2TileLightStrc;
 
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const char* szFormat, char* args); // 0x006CC4AC
-extern int gaDDrawDebugFontGlyphOffsets_008812A8[96]; // 0x008812A8
-extern unsigned char* gpDDrawDebugFontGlyphs_008815AC; // 0x008815AC
-extern int gaDDrawDebugFontCharWidths_00881428[96]; // 0x00881428
+extern int gaDDrawDebugFontGlyphOffsets[96]; // 0x008812A8
+extern unsigned char* gpDDrawDebugFontGlyphs; // 0x008815AC
+extern int gaDDrawDebugFontCharWidths[96]; // 0x00881428
 
 struct D2CoordPairStrc
 {
@@ -18,7 +18,7 @@ struct D2CoordPairStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
-extern D2DDrawSurfaceStrc* gpDDrawSurface_00881280; // 0x00881280
+extern D2DDrawSurfaceStrc* gpDDrawOffscreenSurface; // 0x00881280
 
 struct D2TileLightStrc
 {
@@ -27,7 +27,7 @@ struct D2TileLightStrc
 
 int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int a2, int a3); // 0x005FDEA0
 
-int gaDDrawDebugFontCharWidths_00881428[96]; // 0x00881428
+int gaDDrawDebugFontCharWidths[96]; // 0x00881428
 
 // 0x005125E0
 static int __stdcall sub_005125E0_SoftDebugDrawChar(int nY, int nX, char ch)
@@ -36,13 +36,14 @@ static int __stdcall sub_005125E0_SoftDebugDrawChar(int nY, int nX, char ch)
         return 0;
 
     if (nX < 0)
-        return gaDDrawDebugFontCharWidths_00881428[ch];
+        return gaDDrawDebugFontCharWidths[ch];
 
     const unsigned char n = ch - 0x20;
     if (n <= 0x5F)
     {
-        const unsigned char* pBits = gpDDrawDebugFontGlyphs_008815AC + gaDDrawDebugFontGlyphOffsets_008812A8[(char)n];
-        unsigned char* pDst = gpScreenBuffer_007C9154 + gnScreenWidth_007C9138 * nY + nX;
+        const unsigned char* pBits = gpDDrawDebugFontGlyphs + gaDDrawDebugFontGlyphOffsets[(char)n];
+// build: symbol ?gnRenderWidth@* 0x007C9138
+        unsigned char* pDst = gpScreenBuffer_007C9154 + gnRenderWidth * nY + nX;
         for (int nRow = 16; nRow; --nRow)
         {
             for (int nCol = 8; nCol; --nCol)
@@ -51,12 +52,12 @@ static int __stdcall sub_005125E0_SoftDebugDrawChar(int nY, int nX, char ch)
                     *pDst = 0xFF;
                 ++pDst;
             }
-            pDst += gnScreenWidth_007C9138 - 8;
+            pDst += gnRenderWidth - 8;
         }
-        return gaDDrawDebugFontCharWidths_00881428[(char)n];
+        return gaDDrawDebugFontCharWidths[(char)n];
     }
 
-    return gaDDrawDebugFontCharWidths_00881428[0];
+    return gaDDrawDebugFontCharWidths[0];
 }
 
 // 0x00512680
@@ -100,7 +101,8 @@ void __fastcall sub_00512A50_DrawLine(D2CoordPairStrc* pFrom, D2CoordPairStrc* p
     int nY = nStartY;
     int i = 0;
 
-    while (!(nY >= 0 && nY < gnScreenHeight_007C913C && nX >= 0 && nX < gnScreenWidth_007C9138))
+// build: symbol ?gnRenderHeight@* 0x007C913C
+    while (!(nY >= 0 && nY < gnRenderHeight && nX >= 0 && nX < gnRenderWidth))
     {
         nFracX += nStepX;
         if (nFracX >= 0x10000 || nFracX <= -0x10000)
@@ -123,7 +125,7 @@ void __fastcall sub_00512A50_DrawLine(D2CoordPairStrc* pFrom, D2CoordPairStrc* p
         ++i;
     }
 
-    unsigned char* pPixel = gpScreenBuffer_007C9154 + nY * gnScreenWidth_007C9138 + nX;
+    unsigned char* pPixel = gpScreenBuffer_007C9154 + nY * gnRenderWidth + nX;
     *pPixel = nColor;
 
     for (++i; i < nLength; ++i)
@@ -137,7 +139,7 @@ void __fastcall sub_00512A50_DrawLine(D2CoordPairStrc* pFrom, D2CoordPairStrc* p
             nFracX -= nStep * 0x10000;
         }
 
-        if (nX < 0 || nX >= gnScreenWidth_007C9138)
+        if (nX < 0 || nX >= gnRenderWidth)
             return;
 
         nFracY += nStepY;
@@ -145,11 +147,11 @@ void __fastcall sub_00512A50_DrawLine(D2CoordPairStrc* pFrom, D2CoordPairStrc* p
         {
             const int nStep = nFracY / 0x10000;
             nY += nStep;
-            pPixel += nStep * gnScreenWidth_007C9138;
+            pPixel += nStep * gnRenderWidth;
             nFracY -= nStep * 0x10000;
         }
 
-        if (nY < 0 || nY >= gnScreenHeight_007C913C)
+        if (nY < 0 || nY >= gnRenderHeight)
             return;
 
         *pPixel = nColor;
@@ -162,20 +164,20 @@ void __fastcall sub_00512ED0_ClearScreen(int bPartial)
     D2DDBltFxStrc tBltFx = { sizeof(D2DDBltFxStrc) };
     tBltFx.dwFillColor = 0;
 
-    if (gpDDrawSurface_00881280)
+    if (gpDDrawOffscreenSurface)
     {
-        long nResult = gpDDrawSurface_00881280->lpVtbl->Blt(gpDDrawSurface_00881280, 0, 0, 0, 0x400, &tBltFx);
+        long nResult = gpDDrawOffscreenSurface->lpVtbl->Blt(gpDDrawOffscreenSurface, 0, 0, 0, 0x400, &tBltFx);
         if (nResult)
         {
             if (nResult == 0x887601AE)
             {
                 if (bPartial)
                 {
-                    memset(gpScreenBuffer_007C9154, 0, gnScreenWidth_007C9138 * (gnScreenHeight_007C913C - 47));
+                    memset(gpScreenBuffer_007C9154, 0, gnRenderWidth * (gnRenderHeight - 47));
                 }
                 else
                 {
-                    memset(gpScreenBuffer_007C9154, 0, gnScreenWidth_007C9138 * gnScreenHeight_007C913C);
+                    memset(gpScreenBuffer_007C9154, 0, gnRenderWidth * gnRenderHeight);
                 }
             }
             else
@@ -193,15 +195,15 @@ int __fastcall sub_005130A0_DrawLitTile(D2TileLibraryEntryStrc* pTile, int nX, i
     if (D2CMPTileValidate(pTile, 1, 0))
     {
         int nLeft = -32;
-        int nRight = gnScreenWidth_007C9138;
-        const int nBottom = gnScreenHeight_007C913C + 32;
+        int nRight = gnRenderWidth;
+        const int nBottom = gnRenderHeight + 32;
         switch (nHalf)
         {
         case 1:
-            nRight -= gnScreenWidth_007C9138 / 2;
+            nRight -= gnRenderWidth / 2;
             break;
         case 2:
-            nLeft = gnScreenWidth_007C9138 / 2 - 32;
+            nLeft = gnRenderWidth / 2 - 32;
             break;
         }
 
@@ -234,15 +236,15 @@ int __fastcall sub_005131B0_DrawTile(D2TileLibraryEntryStrc* pTile, int nX, int 
     if (D2CMPTileValidate(pTile, 1, 0))
     {
         int nLeft = -32;
-        int nRight = gnScreenWidth_007C9138;
-        const int nBottom = gnScreenHeight_007C913C + 32;
+        int nRight = gnRenderWidth;
+        const int nBottom = gnRenderHeight + 32;
         switch (nHalf)
         {
         case 1:
-            nRight -= gnScreenWidth_007C9138 / 2;
+            nRight -= gnRenderWidth / 2;
             break;
         case 2:
-            nLeft = gnScreenWidth_007C9138 / 2 - 32;
+            nLeft = gnRenderWidth / 2 - 32;
             break;
         }
 

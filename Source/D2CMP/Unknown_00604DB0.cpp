@@ -11,10 +11,10 @@ struct T00604DB0 { double value[1]; };
 enum { VALUE_SLOT_INDEX = 0 };
 
 unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
-extern int gnSquareTable_008E9034[511]; // 0x008E9034
+extern int ganSquareTable[511]; // 0x008E9034
 extern "C" __declspec(dllimport) unsigned long __stdcall SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x006CC1AC
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-extern unsigned char gaPcxPalette_008E9938[256 * 4]; // 0x008E9938
+extern unsigned char gaPcxPalette[256 * 4]; // 0x008E9938
 
 struct D2PcxRgbStrc
 {
@@ -171,7 +171,8 @@ int __fastcall sub_00605340_LoadPcxPalette(const char* szFileName)
     {
         OutputDebugStringA("Unable to open ");
         OutputDebugStringA(szFileName);
-        OutputDebugStringA(gszNewline_006FFCB0);
+// build: symbol ?gszNewline@* 0x006FFCB0
+        OutputDebugStringA(gszNewline);
         return 0;
     }
 
@@ -199,9 +200,9 @@ int __fastcall sub_00605340_LoadPcxPalette(const char* szFileName)
 
     for (unsigned int i = 0; i < 256; ++i)
     {
-        gaPcxPalette_008E9938[i * 4 + 0] = palette.aColors[i].nR;
-        gaPcxPalette_008E9938[i * 4 + 1] = palette.aColors[i].nG;
-        gaPcxPalette_008E9938[i * 4 + 2] = palette.aColors[i].nB;
+        gaPcxPalette[i * 4 + 0] = palette.aColors[i].nR;
+        gaPcxPalette[i * 4 + 1] = palette.aColors[i].nG;
+        gaPcxPalette[i * 4 + 2] = palette.aColors[i].nB;
     }
 
     CloseHandle(hFile);

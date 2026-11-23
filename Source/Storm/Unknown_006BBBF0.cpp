@@ -19,7 +19,7 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall BinkNextFrame(D2BinkStrc* pBink); // 0x006CC5BC
 extern "C" __declspec(dllimport) int __stdcall BinkCopyToBuffer(D2BinkStrc* pBink, void* pDest, int nDestPitch, unsigned int nDestHeight, unsigned int nDestX, unsigned int nDestY, unsigned int nFlags); // 0x006CC5C0
 extern "C" __declspec(dllimport) int __stdcall BinkDoFrame(D2BinkStrc* pBink); // 0x006CC5C4
-extern D2CriticalSectionStrc* gpRenderCriticalSection_007C9134; // 0x007C9134
+extern D2CriticalSectionStrc* gpRenderCriticalSection; // 0x007C9134
 extern D2DDSurfaceStrc* gpSurface_00970E68; // 0x00970E68
 extern unsigned int gnBinkX_00989C0C; // 0x00989C0C
 extern D2BinkStrc* gpBink_00989C10; // 0x00989C10
@@ -41,7 +41,7 @@ int __cdecl sub_00406D20(); // 0x00406D20
 int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigned int dwFlags, void** phFile); // 0x004192F0
 void __cdecl sub_006BBBF0_RenderVideoFrame(); // 0x006BBBF0
 void __fastcall D2SOUND_SetMasterVolume(int nVolume); // 0x00515CE0
-extern int gnScreenHeight_007C913C; // 0x007C913C
+extern int gnRenderHeight; // 0x007C913C
 extern unsigned int gnBinkY_00989C08; // 0x00989C08
 extern unsigned int gnBinkFlags_00989C18; // 0x00989C18
 
@@ -89,14 +89,14 @@ void __cdecl sub_006BBBF0_RenderVideoFrame()
         return;
     D2DDSurfaceDesc2Strc ddsd = { sizeof(D2DDSurfaceDesc2Strc) };
     BinkDoFrame(gpBink_00989C10);
-    D2_ASSERT(gpRenderCriticalSection_007C9134, 0x3D);
-    EnterCriticalSection(gpRenderCriticalSection_007C9134);
+    D2_ASSERT(gpRenderCriticalSection, 0x3D);
+    EnterCriticalSection(gpRenderCriticalSection);
     if (gpSurface_00970E68->lpVtbl->Lock(gpSurface_00970E68, 0, &ddsd, 0x21, 0) == 0)
     {
         BinkCopyToBuffer(gpBink_00989C10, ddsd.lpSurface, ddsd.lPitch, gpBink_00989C10->nHeight, gnBinkX_00989C0C, gnBinkY_00989C08, gnBinkFlags_00989C18);
         gpSurface_00970E68->lpVtbl->Unlock(gpSurface_00970E68, 0);
     }
-    LeaveCriticalSection(gpRenderCriticalSection_007C9134);
+    LeaveCriticalSection(gpRenderCriticalSection);
     if (gpBink_00989C10->nFrameNum == gpBink_00989C10->nFrames)
     {
         gbBinkDone_00989C1C = 1;
@@ -124,7 +124,8 @@ void __fastcall sub_006BBCE0_Run(const char* szFile, int nMode, void (__cdecl* p
     {
         return;
     }
-    if (gbRenderPaused_007C9144)
+// build: symbol ?gbRenderPaused@* 0x007C9144
+    if (gbRenderPaused)
     {
         return;
     }
@@ -171,12 +172,13 @@ LABEL_FAIL:
         return;
     }
 
-    gnBinkX_00989C0C = (gnScreenWidth_007C9138 - gpBink_00989C10->nWidth) >> 1;
+// build: symbol ?gnRenderWidth@* 0x007C9138
+    gnBinkX_00989C0C = (gnRenderWidth - gpBink_00989C10->nWidth) >> 1;
     if (gnBinkX_00989C0C & 3)
     {
         gnBinkX_00989C0C = (gnBinkX_00989C0C | 3) + 1;
     }
-    gnBinkY_00989C08 = (gnScreenHeight_007C913C - gpBink_00989C10->nHeight) >> 1;
+    gnBinkY_00989C08 = (gnRenderHeight - gpBink_00989C10->nHeight) >> 1;
     {
         const unsigned long dwEnd = GetTickCount() + 500;
         for (;;)
@@ -185,7 +187,7 @@ LABEL_FAIL:
             {
                 break;
             }
-            if (gbRenderPaused_007C9144)
+            if (gbRenderPaused)
             {
                 break;
             }

@@ -7,17 +7,18 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* pText, const char* pFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-extern int gnScreenHeight_007C913C; // 0x007C913C
+extern int gnRenderHeight; // 0x007C913C
 
 void __fastcall sub_006C90E0_GdiUtilFilledRect(tagRECT* pRect, unsigned char nColor); // 0x006C90E0
 void __stdcall sub_006C9220_ClearBuffer(int bPartial); // 0x006C9220
 
-int gnScreenHeight_007C913C; // 0x007C913C
+int gnRenderHeight; // 0x007C913C
 
 static void __fastcall GDI_PutPixel(int nX, int nY, unsigned char nColor)
 {
-    if (nX >= 0 && nX < gnScreenWidth_007C9138 && nY >= 0 && nY < gnScreenHeight_007C913C)
-        gpScreenBuffer_007C9154[gnScreenWidth_007C9138 * nY + nX] = nColor;
+// build: symbol ?gnRenderWidth@* 0x007C9138
+    if (nX >= 0 && nX < gnRenderWidth && nY >= 0 && nY < gnRenderHeight)
+        gpScreenBuffer_007C9154[gnRenderWidth * nY + nX] = nColor;
 }
 
 // 0x006C8C80
@@ -96,7 +97,7 @@ void __fastcall sub_006C90E0_FillRect(tagRECT* pRect, int nColor)
         return;
     }
 
-    if (pRect->left >= gnScreenWidth_007C9138)
+    if (pRect->left >= gnRenderWidth)
     {
         return;
     }
@@ -106,7 +107,7 @@ void __fastcall sub_006C90E0_FillRect(tagRECT* pRect, int nColor)
         return;
     }
 
-    if (pRect->top >= gnScreenHeight_007C913C)
+    if (pRect->top >= gnRenderHeight)
     {
         return;
     }
@@ -116,9 +117,9 @@ void __fastcall sub_006C90E0_FillRect(tagRECT* pRect, int nColor)
         pRect->left = 0;
     }
 
-    if (pRect->right >= gnScreenWidth_007C9138)
+    if (pRect->right >= gnRenderWidth)
     {
-        pRect->right = gnScreenWidth_007C9138 - 1;
+        pRect->right = gnRenderWidth - 1;
     }
 
     if (pRect->top < 0)
@@ -126,9 +127,9 @@ void __fastcall sub_006C90E0_FillRect(tagRECT* pRect, int nColor)
         pRect->top = 0;
     }
 
-    if (pRect->bottom >= gnScreenHeight_007C913C)
+    if (pRect->bottom >= gnRenderHeight)
     {
-        pRect->bottom = gnScreenHeight_007C913C - 1;
+        pRect->bottom = gnRenderHeight - 1;
     }
 
     unsigned int nWidth = pRect->right - pRect->left;
@@ -144,7 +145,7 @@ void __fastcall sub_006C90E0_FillRect(tagRECT* pRect, int nColor)
         return;
     }
 
-    unsigned char* pDst = &gpScreenBuffer_007C9154[pRect->top * gnScreenWidth_007C9138 + pRect->left];
+    unsigned char* pDst = &gpScreenBuffer_007C9154[pRect->top * gnRenderWidth + pRect->left];
     while (nHeight--)
     {
         if (nWidth > 0)
@@ -152,7 +153,7 @@ void __fastcall sub_006C90E0_FillRect(tagRECT* pRect, int nColor)
             memset(pDst, nColor, nWidth);
         }
 
-        pDst += gnScreenWidth_007C9138;
+        pDst += gnRenderWidth;
     }
 }
 
@@ -173,11 +174,11 @@ void __stdcall sub_006C9220_ClearBuffer(int bPartial)
 {
     if (bPartial)
     {
-        memset(gpBuffer_007C9154, 0, gnStride_007C9138 * (gnScreenHeight_007C913C - 47));
+        memset(gpBuffer_007C9154, 0, gnStride_007C9138 * (gnRenderHeight - 47));
     }
     else
     {
-        memset(gpBuffer_007C9154, 0, gnStride_007C9138 * gnScreenHeight_007C913C);
+        memset(gpBuffer_007C9154, 0, gnStride_007C9138 * gnRenderHeight);
     }
 }
 

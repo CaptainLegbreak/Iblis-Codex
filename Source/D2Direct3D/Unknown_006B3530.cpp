@@ -9,7 +9,8 @@ extern const unsigned int gnRenderFlag_006CE288; // 0x006CE288
 // 0x006B3530
 int __cdecl sub_006B3530_BeginCutScene()
 {
-    if (gbRenderPaused_007C9144)
+// build: symbol ?gbRenderPaused@* 0x007C9144
+    if (gbRenderPaused)
     {
         return 0;
     }

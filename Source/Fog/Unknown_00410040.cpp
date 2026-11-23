@@ -35,8 +35,8 @@ extern "C" int __cdecl _vsnprintf(char* szDest, size_t nCount, const char* szFor
 extern "C" int __cdecl _snprintf(char* szDest, size_t nCount, const char* szFormat, ...); // 0x006831DB
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
-extern "C" const char gszLogFormatError_006CE22C[]; // 0x006CE22C
-extern int gbLogInitialized_0075D2EC; // 0x0075D2EC
+extern "C" const char gszLogFormatError[]; // 0x006CE22C
+extern int gbLogInitialized; // 0x0075D2EC
 extern D2LogMsgListStrc gtLogMsgQueue_0075E868; // 0x0075E868
 extern "C" __declspec(dllimport) int __stdcall IsBadReadPtr(const void* pAddress, unsigned int nSize); // 0x006CC238
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nSize); // 0x006829C0
@@ -50,9 +50,9 @@ struct D2LogMemoryInfoStrc
     int bArg7;
 };
 
-extern D2CriticalSectionStrc gtLogQueueLock_0075E838; // 0x0075E838
-extern int gnLogQueued_0075D140; // 0x0075D140
-extern int gnLogQueuedBytes_0075D144; // 0x0075D144
+extern D2CriticalSectionStrc gtLogQueueLock; // 0x0075E838
+extern int gnLogQueued; // 0x0075D140
+extern int gnLogQueuedBytes; // 0x0075D144
 
 struct T00410610
 {
@@ -68,27 +68,29 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 
 void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, const char* szFormat, va_list args); // 0x00410340
 extern int gnBitMasks_006CE268[8]; // 0x006CE268
 extern int gnBitClearMasks_006CE2E8[8]; // 0x006CE2E8
-extern int gnByteTable_006CE398[256]; // 0x006CE398
-extern int gnLowBitTable_006CE798[256]; // 0x006CE798
-extern char gszLowerTable_006CEB98[256]; // 0x006CEB98
+extern int ganByteTable[256]; // 0x006CE398
+extern int ganLowBitTable[256]; // 0x006CE798
+extern char gszLowerTable[256]; // 0x006CEB98
 extern T00410610 gaRecords_0075E8A8[]; // 0x0075E8A8
 extern unsigned int gnRecordCount_007768A4; // 0x007768A4
 extern int gnTickAtReset_007768A0; // 0x007768A0
 extern "C" long __cdecl _time32(long* pTime);
 extern "C" int __cdecl tolower(int nChar);
-extern const char gacCDKeyMap_006DF238[];
+// build: symbol ?gacCDKeyMap@* 0x006DF238
+extern const char gacCDKeyMap[];
 
-D2CriticalSectionStrc gtLogQueueLock_0075E838; // 0x0075E838
+D2CriticalSectionStrc gtLogQueueLock; // 0x0075E838
 
-int gnLogQueued_0075D140; // 0x0075D140
+int gnLogQueued; // 0x0075D140
 
-int gnLogQueuedBytes_0075D144; // 0x0075D144
+int gnLogQueuedBytes; // 0x0075D144
 
 
 // 0x00410340
 void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, const char* szFormat, va_list args)
 {
-    if (gbLogThreadStop_0075E830 || !gbLogInitialized_0075D2EC)
+// build: symbol ?gbLogThreadStop@* 0x0075E830
+    if (gbLogThreadStop || !gbLogInitialized)
     {
         return;
     }
@@ -106,15 +108,16 @@ void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, co
 
     if (nArg3 == 1)
     {
-        SStrPack(szBuffer, gszNewline_006FFCB0, sizeof(szBuffer));
+// build: symbol ?gszNewline@* 0x006FFCB0
+        SStrPack(szBuffer, gszNewline, sizeof(szBuffer));
     }
 
     unsigned int nExtraBytes = SStrLen(szPrefix) + 1;
     nExtraBytes += SStrLen(szBuffer) + 1;
 
-    EnterCriticalSection(&gtLogQueueLock_0075E838);
+    EnterCriticalSection(&gtLogQueueLock);
     D2LogMessageStrc* pMessage = (D2LogMessageStrc*)gtLogMsgQueue_0075E868.sub_0040FF40_NewNode(0, nExtraBytes, 0);
-    LeaveCriticalSection(&gtLogQueueLock_0075E838);
+    LeaveCriticalSection(&gtLogQueueLock);
 
     pMessage->nSize = nExtraBytes + 0x24;
     pMessage->nType = 1;
@@ -126,7 +129,7 @@ void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, co
     pText += SStrLen(pText) + 1;
     SStrCopy(pText, szBuffer, nExtraBytes);
 
-    EnterCriticalSection(&gtLogQueueLock_0075E838);
+    EnterCriticalSection(&gtLogQueueLock);
     D2StormLinkStrc* pLink = &pMessage->f_0;
     if (pLink->m_prevlink)
     {
@@ -140,9 +143,9 @@ void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, co
     pLink->m_next = pPrev->m_next;
     pPrev->m_next = (char*)pMessage;
     gtLogMsgQueue_0075E868.m_terminator.m_prevlink = pLink;
-    ++gnLogQueued_0075D140;
-    gnLogQueuedBytes_0075D144 += pMessage->nSize;
-    LeaveCriticalSection(&gtLogQueueLock_0075E838);
+    ++gnLogQueued;
+    gnLogQueuedBytes += pMessage->nSize;
+    LeaveCriticalSection(&gtLogQueueLock);
 }
 
 // 0x00410610
@@ -203,7 +206,7 @@ int __stdcall sub_00411170_SumByteTable(unsigned char* pData, int nSize)
     int nTotal = 0;
     for (unsigned char* pEnd = pData + nSize; pData < pEnd; ++pData)
     {
-        nTotal += gnByteTable_006CE398[*pData];
+        nTotal += ganByteTable[*pData];
     }
     return nTotal;
 }
@@ -214,10 +217,10 @@ int __stdcall sub_004111A0_GetLowestSetBit(unsigned int nValue)
     if (nValue)
     {
         unsigned char* pBytes = (unsigned char*)&nValue;
-        if (pBytes[0] > 0) return gnLowBitTable_006CE798[pBytes[0]];
-        if (pBytes[1] > 0) return gnLowBitTable_006CE798[pBytes[1]] + 8;
-        if (pBytes[2] > 0) return gnLowBitTable_006CE798[pBytes[2]] + 16;
-        if (pBytes[3] > 0) return gnLowBitTable_006CE798[pBytes[3]] + 24;
+        if (pBytes[0] > 0) return ganLowBitTable[pBytes[0]];
+        if (pBytes[1] > 0) return ganLowBitTable[pBytes[1]] + 8;
+        if (pBytes[2] > 0) return ganLowBitTable[pBytes[2]] + 16;
+        if (pBytes[3] > 0) return ganLowBitTable[pBytes[3]] + 24;
     }
     return -1;
 }
@@ -229,7 +232,7 @@ void __fastcall sub_004113C0(char* szString, int nLength)
 {
     for (char* pEnd = szString + nLength; *szString && szString < pEnd; ++szString)
     {
-        *szString = gszLowerTable_006CEB98[*szString];
+        *szString = gszLowerTable[*szString];
     }
 }
 
@@ -260,7 +263,7 @@ static int sub_0051DD20_HexToNibble(char cChar)
 
 static int sub_0051DD40_MapKeyChar(unsigned char cChar)
 {
-    return gacCDKeyMap_006DF238[cChar];
+    return gacCDKeyMap[cChar];
 }
 
 long __stdcall sub_M106_Emit_0051DC70(long* pTime)

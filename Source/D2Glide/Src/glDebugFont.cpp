@@ -6,23 +6,23 @@ extern "C" __declspec(dllimport) void* __stdcall CreateCompatibleDC(void* hdc); 
 
 extern "C" __declspec(dllimport) void* __stdcall CreateCompatibleBitmap(void* hdc, int cx, int cy); // 0x006CC0E4
 
-extern int gnSubtileRowXOffset_0072DB48[]; // 0x0072DB48
+extern int ganSubtileRowXOffset[]; // 0x0072DB48
 
-extern int gnSubtileRowWidth_0072DB84[]; // 0x0072DB84
+extern int ganSubtileRowWidth[]; // 0x0072DB84
 
-extern int gnSubtileRowSrcOffset_0072DBC0[]; // 0x0072DBC0
+extern int ganSubtileRowSrcOffset[]; // 0x0072DBC0
 
-extern unsigned long gdwGlideDebugFontTextColor_0072F2B0; // 0x0072F2B0
+extern unsigned long gdwGlideDebugFontTextColor; // 0x0072F2B0
 
-extern int gnScreenPitch_007D544C; // 0x007D544C
+extern int gnScreenPitch; // 0x007D544C
 
-extern int gaGlideDebugFontCharWidths_008802C8[96]; // 0x008802C8
+extern int gaGlideDebugFontCharWidths[96]; // 0x008802C8
 
-extern unsigned char* gpGlideDebugFontGlyphs_0088044C; // 0x0088044C
+extern unsigned char* gpGlideDebugFontGlyphs; // 0x0088044C
 
-unsigned long gdwGlideDebugFontBkColor_00880448; // 0x00880448
+unsigned long gdwGlideDebugFontBkColor; // 0x00880448
 
-unsigned char* gpGlideDebugFontGlyphs_0088044C; // 0x0088044C
+unsigned char* gpGlideDebugFontGlyphs; // 0x0088044C
 
 // 0x004F69B0
 void __fastcall CMNSUBTILE_DrawIsoBlockFlat(unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette)
@@ -30,9 +30,9 @@ void __fastcall CMNSUBTILE_DrawIsoBlockFlat(unsigned char* pSrc, unsigned char* 
     unsigned char* pRow = pDst;
     for (int i = 0; i < 15; ++i)
     {
-        unsigned char* d = &pRow[gnSubtileRowXOffset_0072DB48[i]];
-        unsigned char* s = &pSrc[gnSubtileRowSrcOffset_0072DBC0[i]];
-        switch (gnSubtileRowWidth_0072DB84[i])
+        unsigned char* d = &pRow[ganSubtileRowXOffset[i]];
+        unsigned char* s = &pSrc[ganSubtileRowSrcOffset[i]];
+        switch (ganSubtileRowWidth[i])
         {
         case 32:
             d[31] = pPalette[s[31]];
@@ -75,7 +75,7 @@ void __fastcall CMNSUBTILE_DrawIsoBlockFlat(unsigned char* pSrc, unsigned char* 
             d[1] = pPalette[s[1]];
             d[0] = pPalette[s[0]];
         }
-        pRow += gnScreenPitch_007D544C;
+        pRow += gnScreenPitch;
     }
 }
 
@@ -83,34 +83,35 @@ void __fastcall CMNSUBTILE_DrawIsoBlockFlat(unsigned char* pSrc, unsigned char* 
 void __cdecl sub_0050B9E0_GlideCreateDebugFont()
 {
     void* hDC = CreateCompatibleDC(0);
-    void* hFont = CreateFontA(10, 0, 0, 0, 400, 0, 0, 0, 0, 0, 0, 0, 1, gszCourier_006DD52C);
+// build: symbol ?gszCourier@* 0x006DD52C
+    void* hFont = CreateFontA(10, 0, 0, 0, 400, 0, 0, 0, 0, 0, 0, 0, 1, gszCourier);
     void* hBitmap = CreateCompatibleBitmap(hDC, 8, 16);
     SelectObject(hDC, hFont);
     SelectObject(hDC, hBitmap);
-    SetTextColor(hDC, gdwGlideDebugFontTextColor_0072F2B0);
-    SetBkColor(hDC, gdwGlideDebugFontBkColor_00880448);
+    SetTextColor(hDC, gdwGlideDebugFontTextColor);
+    SetBkColor(hDC, gdwGlideDebugFontBkColor);
     SetBkMode(hDC, 2);
     tagRECT rect;
     SetRect(&rect, 0, 0, 8, 16);
-    D2_ASSERT(!gpGlideDebugFontGlyphs_0088044C, 0x98);
-    gpGlideDebugFontGlyphs_0088044C = (unsigned char*)FOG_Alloc(0x3000, ".\\Src\\glDebugFont.cpp", 0x99, 0);
+    D2_ASSERT(!gpGlideDebugFontGlyphs, 0x98);
+    gpGlideDebugFontGlyphs = (unsigned char*)FOG_Alloc(0x3000, ".\\Src\\glDebugFont.cpp", 0x99, 0);
     for (int nGlyph = 0; nGlyph < 96; ++nGlyph)
     {
-        unsigned char* pMask = &gpGlideDebugFontGlyphs_0088044C[nGlyph * 0x80];
+        unsigned char* pMask = &gpGlideDebugFontGlyphs[nGlyph * 0x80];
         char cChar = nGlyph + 0x20;
         DrawTextA(hDC, &cChar, 1, &rect, 0);
         for (int y = 0; y < 16; ++y)
         {
             for (int x = 0; x < 8; ++x)
             {
-                if (GetPixel(hDC, x, y) == gdwGlideDebugFontTextColor_0072F2B0)
+                if (GetPixel(hDC, x, y) == gdwGlideDebugFontTextColor)
                     *pMask++ = 0xFF;
                 else
                     *pMask++ = 0;
             }
         }
     }
-    GetCharWidthA(hDC, 0x20, 0x7F, gaGlideDebugFontCharWidths_008802C8);
+    GetCharWidthA(hDC, 0x20, 0x7F, gaGlideDebugFontCharWidths);
     DeleteObject(hBitmap);
     DeleteObject(hFont);
     DeleteDC(hDC);
@@ -119,10 +120,10 @@ void __cdecl sub_0050B9E0_GlideCreateDebugFont()
 // 0x0050BB70
 void __cdecl GLIDE_FreeDebugFont()
 {
-    if (gpGlideDebugFontGlyphs_0088044C)
+    if (gpGlideDebugFontGlyphs)
     {
-        FOG_Free(gpGlideDebugFontGlyphs_0088044C, ".\\Src\\glDebugFont.cpp", 0xFB, 0);
-        gpGlideDebugFontGlyphs_0088044C = 0;
+        FOG_Free(gpGlideDebugFontGlyphs, ".\\Src\\glDebugFont.cpp", 0xFB, 0);
+        gpGlideDebugFontGlyphs = 0;
     }
 }
 
@@ -144,15 +145,15 @@ struct D2GlideDebugGlyphStrc
 
 typedef void (__stdcall* GlideTexDownloadMipMapFn)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo);
 
-extern GlideTexDownloadMipMapFn gpfGlideTexDownloadMipMap_0087EAB8;                 // 0x0087EAB8
+extern GlideTexDownloadMipMapFn gpfnGrTexDownloadMipMap;                 // 0x0087EAB8
 
-extern D2GrTexInfoStrc gGlideDebugFontTexInfo_0072F2B4;                             // 0x0072F2B4
+extern D2GrTexInfoStrc gtGlideDebugFontTexInfo;                             // 0x0072F2B4
 
-int gaGlideDebugFontTexAddr_008800D8[96];                                           // 0x008800D8
+int gaGlideDebugFontTexAddr[96];                                           // 0x008800D8
 
-D2GlideFontVertexStrc gaGlideDebugFontVertices_00880258[4];                         // 0x00880258
+D2GlideFontVertexStrc gaGlideDebugFontVertices[4];                         // 0x00880258
 
-static int gnGlideDebugFontTmu_00880450;                                            // 0x00880450
+static int gnGlideDebugFontTmu;                                            // 0x00880450
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);       // 0x0040B380
 
@@ -177,42 +178,42 @@ int __fastcall GLIDE_DownloadDebugFont(int nStartAddress, int nAlignment)
     nStartAddress = GlideAlignAddress(nStartAddress, nAlignment);
 
     unsigned char* pBuffer = (unsigned char*)FOG_Alloc(0x80, ".\\Src\\glDebugFont.cpp", 0x62, 0);
-    gGlideDebugFontTexInfo_0072F2B4.pData = pBuffer;
+    gtGlideDebugFontTexInfo.pData = pBuffer;
 
     for (int nGlyph = 0; nGlyph < 96; ++nGlyph)
     {
-        gaGlideDebugFontTexAddr_008800D8[nGlyph] = nStartAddress;
-        memcpy(pBuffer, &gpGlideDebugFontGlyphs_0088044C[nGlyph * 0x80], 0x80);
-        gpfGlideTexDownloadMipMap_0087EAB8(gnGlideDebugFontTmu_00880450, gaGlideDebugFontTexAddr_008800D8[nGlyph], 3, &gGlideDebugFontTexInfo_0072F2B4);
+        gaGlideDebugFontTexAddr[nGlyph] = nStartAddress;
+        memcpy(pBuffer, &gpGlideDebugFontGlyphs[nGlyph * 0x80], 0x80);
+        gpfnGrTexDownloadMipMap(gnGlideDebugFontTmu, gaGlideDebugFontTexAddr[nGlyph], 3, &gtGlideDebugFontTexInfo);
         nStartAddress += nStride;
     }
 
     FOG_Free(pBuffer, ".\\Src\\glDebugFont.cpp", 0x70, 0);
 
-    gaGlideDebugFontVertices_00880258[0].x = 0.0f;
-    gaGlideDebugFontVertices_00880258[0].y = 0.0f;
-    gaGlideDebugFontVertices_00880258[0].nColor = -1;
-    gaGlideDebugFontVertices_00880258[0].oow = 1.0f;
-    gaGlideDebugFontVertices_00880258[1].oow = 1.0f;
-    gaGlideDebugFontVertices_00880258[1].nColor = -1;
-    gaGlideDebugFontVertices_00880258[0].sow = 0.0f;
-    gaGlideDebugFontVertices_00880258[0].tow = 0.0f;
-    gaGlideDebugFontVertices_00880258[1].x = 0.0f;
-    gaGlideDebugFontVertices_00880258[1].y = 0.0f;
-    gaGlideDebugFontVertices_00880258[1].sow = 0.0f;
-    gaGlideDebugFontVertices_00880258[1].tow = 256.0f;
-    gaGlideDebugFontVertices_00880258[2].x = 0.0f;
-    gaGlideDebugFontVertices_00880258[2].y = 0.0f;
-    gaGlideDebugFontVertices_00880258[2].nColor = -1;
-    gaGlideDebugFontVertices_00880258[2].oow = 1.0f;
-    gaGlideDebugFontVertices_00880258[2].sow = 128.0f;
-    gaGlideDebugFontVertices_00880258[3].sow = 128.0f;
-    gaGlideDebugFontVertices_00880258[2].tow = 256.0f;
-    gaGlideDebugFontVertices_00880258[3].x = 0.0f;
-    gaGlideDebugFontVertices_00880258[3].y = 0.0f;
-    gaGlideDebugFontVertices_00880258[3].nColor = -1;
-    gaGlideDebugFontVertices_00880258[3].tow = 0.0f;
-    gaGlideDebugFontVertices_00880258[3].oow = 1.0f;
+    gaGlideDebugFontVertices[0].x = 0.0f;
+    gaGlideDebugFontVertices[0].y = 0.0f;
+    gaGlideDebugFontVertices[0].nColor = -1;
+    gaGlideDebugFontVertices[0].oow = 1.0f;
+    gaGlideDebugFontVertices[1].oow = 1.0f;
+    gaGlideDebugFontVertices[1].nColor = -1;
+    gaGlideDebugFontVertices[0].sow = 0.0f;
+    gaGlideDebugFontVertices[0].tow = 0.0f;
+    gaGlideDebugFontVertices[1].x = 0.0f;
+    gaGlideDebugFontVertices[1].y = 0.0f;
+    gaGlideDebugFontVertices[1].sow = 0.0f;
+    gaGlideDebugFontVertices[1].tow = 256.0f;
+    gaGlideDebugFontVertices[2].x = 0.0f;
+    gaGlideDebugFontVertices[2].y = 0.0f;
+    gaGlideDebugFontVertices[2].nColor = -1;
+    gaGlideDebugFontVertices[2].oow = 1.0f;
+    gaGlideDebugFontVertices[2].sow = 128.0f;
+    gaGlideDebugFontVertices[3].sow = 128.0f;
+    gaGlideDebugFontVertices[2].tow = 256.0f;
+    gaGlideDebugFontVertices[3].x = 0.0f;
+    gaGlideDebugFontVertices[3].y = 0.0f;
+    gaGlideDebugFontVertices[3].nColor = -1;
+    gaGlideDebugFontVertices[3].tow = 0.0f;
+    gaGlideDebugFontVertices[3].oow = 1.0f;
 
     return nTotal;
 }

@@ -105,7 +105,8 @@ void __fastcall GAME_SetAlwaysRun(int bAlwaysRun); // 0x0044BE80
 int __cdecl AUTOMAP_GetAutomapFade(); // 0x004576C0
 int __cdecl UI_GetAutomapMode(); // 0x0045A710
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
-extern "C" const char gszDiablo2_006CC8B8[];
+// build: symbol _gszDiabloII 0x006CC8B8
+extern "C" const char gszDiabloII[];
 // build: symbol _gszResolution 0x006CC8AC
 extern "C" const char gszResolution[];
 // build: symbol _gszAutoMapFade 0x006D66A0

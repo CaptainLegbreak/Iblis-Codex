@@ -168,13 +168,13 @@ int __fastcall BNMESSQUEUE_SetError(int nError); // 0x005204A0
 
 extern "C" const char szEmpty_006DEF80[]; // 0x006DEF80
 
-extern long volatile gnConnected_00881BF0; // 0x00881BF0
+extern long volatile gnConnected; // 0x00881BF0
 
-extern long volatile gnReceiveThreads_00881BF4; // 0x00881BF4
+extern long volatile gnReceiveThreads; // 0x00881BF4
 
-extern int gbReady_00881BF8; // 0x00881BF8
+extern int gbReady; // 0x00881BF8
 
-extern long volatile gnDnsDone_00881BFC; // 0x00881BFC
+extern long volatile gnDnsDone; // 0x00881BFC
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
@@ -186,9 +186,9 @@ int __stdcall SUniConvertUTF16to8(char* pDest, unsigned int nDestSize, const uns
 
 int __stdcall SUniConvertWinToUTF16(unsigned short* pDst, const char* szSrc, unsigned int nCount); // 0x006C7960
 
-void* gnChannelList_008818C8;                                                                               // 0x008818C8
+void* gpChannelList;                                                                               // 0x008818C8
 
-char* gpAdUrlReply_008818DC; // 0x008818DC
+char* gpAdUrlReply; // 0x008818DC
 
 void __stdcall SMemCopy(void*, const void*, unsigned int); // 0x0041D2A0
 
@@ -288,7 +288,7 @@ extern D2TextHeaderStrc* gpTextHeader; // 0x007BF250
 
 extern int gnTradeState; // 0x007C0E7C
 
-extern unsigned char* gpDDrawDebugFontGlyphs_008815AC; // 0x008815AC
+extern unsigned char* gpDDrawDebugFontGlyphs; // 0x008815AC
 
 void* gpReply_008818D0;                                                                                     // 0x008818D0
 
@@ -319,9 +319,9 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 
 int gdwGlobal_008818BC; // 0x008818BC
 
-D2BnSizedReplyStrc* gpSizedReply_008818D4;                                                                  // 0x008818D4
+D2BnSizedReplyStrc* gpSizedReply;                                                                  // 0x008818D4
 
-extern int gbDnsPending_008818E0; // 0x008818E0
+extern int gbDnsPending; // 0x008818E0
 
 struct D2Storm408ElemStrc
 {
@@ -392,25 +392,25 @@ int __fastcall QSERVER_CheckClientMask(void* pServer, int nClientId); // 0x006BF
 
 extern "C" const char gszNewsItemTypeName_0072FF8C[]; // 0x0072FF8C
 
-extern int gbNewsActive_00881C24; // 0x00881C24
+extern int gbNewsActive; // 0x00881C24
 
-extern int (__fastcall* gpfnNewsMessage_00881C28)(unsigned int nStamp, const char* szText); // 0x00881C28
+extern int (__fastcall* gpfnNewsMessage)(unsigned int nStamp, const char* szText); // 0x00881C28
 
-extern int (__cdecl* gpfnNewsRefresh_00881C2C)(); // 0x00881C2C
+extern int (__cdecl* gpfnNewsRefresh)(); // 0x00881C2C
 
-extern D2StormArray408Strc gtNewsItems_00881C30; // 0x00881C30
+extern D2StormArray408Strc gtNewsItems; // 0x00881C30
 
-extern unsigned int gnNewsFirstIndex_00881C40; // 0x00881C40
+extern unsigned int gnNewsFirstIndex; // 0x00881C40
 
-extern unsigned int gnNewsNewest_00881C44; // 0x00881C44
+extern unsigned int gnNewsNewest; // 0x00881C44
 
-unsigned char gabNewVerifier_00882640[0x40];                                                                // 0x00882640
+unsigned char gabNewVerifier[0x40];                                                                // 0x00882640
 
-D2BigLoginRecordStrc gtLoginRecord_00882680;                                                                // 0x00882680
+D2BigLoginRecordStrc gtLoginRecord;                                                                // 0x00882680
 
-D2BigPairStrc gtBigPair_0088273C;                                                                           // 0x0088273C
+D2BigPairStrc gtBigPair;                                                                           // 0x0088273C
 
-extern void* gpGlobal_00882D08; // 0x00882D08
+extern void* gpServer; // 0x00882D08
 
 struct D2BnKeyValuePacketStrc
 {
@@ -431,9 +431,9 @@ struct D2BnReadUserDataReplyStrc
     char aData[1];
 };
 
-void* gpReply_008818CC;                                                                                     // 0x008818CC
+void* gpReply40;                                                                                     // 0x008818CC
 
-unsigned int gnVersion_0088252C; // 0x0088252C
+unsigned int gnVersion; // 0x0088252C
 
 struct D2BnHashInputStrc;
 
@@ -528,7 +528,7 @@ extern "C" void __fastcall __security_check_cookie(unsigned int); // 0x00681A48
 
 extern "C" unsigned short __stdcall ntohs(unsigned short nValue);                                           // 0x006B019E
 
-static void* gpReply_008818D8;                                                                                    // 0x008818D8
+static void* gpReadUserDataReply;                                                                                    // 0x008818D8
 
 class BNGatewayAccess
 {
@@ -599,13 +599,13 @@ void __cdecl GRID_UnlockCDKeys();                                               
 
 void __stdcall STRTABLE_GetLanguageInfoField(void* pOut, int nField);                                                 // 0x00525260
 
-extern "C" const char gszKernel32_006CD6E4[];                                                               // 0x006CD6E4
+extern "C" const char gszKernel32[];                                                               // 0x006CD6E4
 
-extern BNGatewayAccess gBnGatewayAccess_00881838;                                                           // 0x00881838
+extern BNGatewayAccess gtBnGatewayAccess;                                                           // 0x00881838
 
-extern int gdwGlobal_00882538;                                                                              // 0x00882538
+extern int gnLoginRetryCount;                                                                              // 0x00882538
 
-extern char gszAccountName_00882540[0x100];                                                                 // 0x00882540
+extern char gszAccountName[0x100];                                                                 // 0x00882540
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
@@ -625,7 +625,7 @@ extern "C" void __cdecl srand(unsigned int nSeed); // 0x00687454
 
 extern "C" int __cdecl rand(); // 0x00687461
 
-extern "C" const char gszSemicolon_006CDA54[]; // 0x006CDA54
+extern "C" const char gszSemicolon[]; // 0x006CDA54
 
 int __fastcall BNMESSQUEUE_QueueText(int nId, const char* szText); // 0x005202F0
 
@@ -654,9 +654,9 @@ typedef int (__fastcall* D2BnPacketHandler)(const void* pData, int nSize);
 
 int __fastcall FOG_SOCKET_Send(FSafeSock* pSafeSock, char* pBuffer, int nBufferLength); // 0x0040DCC0
 
-extern D2BnPacketHandler gpfPacketHandlers_0072FFB0[]; // 0x0072FFB0
+extern D2BnPacketHandler gapfnPacketHandlers[]; // 0x0072FFB0
 
-extern int gnSlotArrayA_00882128[94]; // 0x00882128
+extern int ganSlotArrayA[94]; // 0x00882128
 
 extern "C" char* __cdecl strchr(const char* s, int c); // 0x00687740
 
@@ -664,9 +664,9 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 
-extern D2CriticalSectionStrc gMessageLock_00882004; // 0x00882004
+extern D2CriticalSectionStrc gtMessageLock; // 0x00882004
 
-extern int gnBnState_0088201C; // 0x0088201C
+extern int gnBnState; // 0x0088201C
 
 int __fastcall FOG_SOCKET_WSAStartup(); // 0x0040D890
 
@@ -678,25 +678,25 @@ int __stdcall sFastestConnect(char* szServerList); // 0x0051CA90
 
 int __fastcall BNMESSQUEUE_SetState(int nState); // 0x00520520
 
-int gnClientToken_008818C4; // 0x008818C4
+int gnClientToken; // 0x008818C4
 
 unsigned long __stdcall sub_0051C7E0_ReceiveThread(void* pParameter); // 0x0051C7E0
 
 int gdwGlobal_00881C04; // 0x00881C04
 
-unsigned long gnDnsAddr_00881C08; // 0x00881C08
+unsigned long gnDnsAddr; // 0x00881C08
 
-char* gapDnsAddrList_00881C0C[2]; // 0x00881C0C
+char* gapDnsAddrList[2]; // 0x00881C0C
 
-D2HostentStrc gDnsHostent_00881C14; // 0x00881C14
+D2HostentStrc gtDnsHostent; // 0x00881C14
 
 char gData_00882028[256]; // 0x00882028
 
-char gszBnetHost_008818E8[0x100]; // 0x008818E8
+char gszBnetHost[0x100]; // 0x008818E8
 
-char gszBnetAddress_008819E8[0x100]; // 0x008819E8
+char gszBnetAddress[0x100]; // 0x008819E8
 
-long volatile gnSendBusy_00881C00; // 0x00881C00
+long volatile gnSendBusy; // 0x00881C00
 
 // build: symbol ?CUNIT_MarkUnitDead@* 0x00464810
 void __fastcall CUNIT_MarkUnitDead(D2UnitStrc* pUnit)
@@ -916,10 +916,10 @@ int __cdecl sub_004B8A10()
 // build: symbol ?DDRAW_FreeDebugFont@* 0x005125B0
 void __cdecl DDRAW_FreeDebugFont()
 {
-    if (gpDDrawDebugFontGlyphs_008815AC)
+    if (gpDDrawDebugFontGlyphs)
     {
-        FOG_Free(gpDDrawDebugFontGlyphs_008815AC, ".\\Src\\ddDebugFont.cpp", 0x5D, 0);
-        gpDDrawDebugFontGlyphs_008815AC = 0;
+        FOG_Free(gpDDrawDebugFontGlyphs, ".\\Src\\ddDebugFont.cpp", 0x5D, 0);
+        gpDDrawDebugFontGlyphs = 0;
     }
 }
 
@@ -927,10 +927,11 @@ void __cdecl DDRAW_FreeDebugFont()
 int __cdecl BNSEND_SendClientId()
 {
     D2BnRegistrationPacketStrc tPacket;
-    SRegLoadValue(szConfiguration_006DEC7C, "Registration Version", 2, &tPacket.nRegistrationVersion);
-    SRegLoadValue(szConfiguration_006DEC7C, "Registration Authority", 2, &tPacket.nRegistrationAuthority);
-    SRegLoadValue(szConfiguration_006DEC7C, "Client ID", 2, &tPacket.nClientId);
-    SRegLoadValue(szConfiguration_006DEC7C, "Client Token", 2, &tPacket.f_10);
+// build: symbol ?gszConfiguration@* 0x006DEC7C
+    SRegLoadValue(gszConfiguration, "Registration Version", 2, &tPacket.nRegistrationVersion);
+    SRegLoadValue(gszConfiguration, "Registration Authority", 2, &tPacket.nRegistrationAuthority);
+    SRegLoadValue(gszConfiguration, "Client ID", 2, &tPacket.nClientId);
+    SRegLoadValue(gszConfiguration, "Client Token", 2, &tPacket.f_10);
     tPacket.nLead = 1;
     tPacket.szText[1] = tPacket.szText[0] = 0;
     BNSEND_SendPacket(0x1E, &tPacket, 0x16);
@@ -1070,20 +1071,20 @@ int __cdecl BNSEND_SendStartVersioning()
 // 0x0051AB30
 void __fastcall BNSEND_SetAdUrlReply(const void* pData, unsigned int nSize)
 {
-    if (gpAdUrlReply_008818DC)
-        SMemFree(gpAdUrlReply_008818DC, ".\\BnSend.cpp", 0x188, 0);
-    gpAdUrlReply_008818DC = (char*)SMemAlloc(nSize, ".\\BnSend.cpp", 0x189, 0);
-    memcpy(gpAdUrlReply_008818DC, pData, nSize);
+    if (gpAdUrlReply)
+        SMemFree(gpAdUrlReply, ".\\BnSend.cpp", 0x188, 0);
+    gpAdUrlReply = (char*)SMemAlloc(nSize, ".\\BnSend.cpp", 0x189, 0);
+    memcpy(gpAdUrlReply, pData, nSize);
 }
 
 // 0x0051AB80
 void __cdecl BNSEND_FreeRealmList()
 {
-    if (gpReply_008818CC)
+    if (gpReply40)
     {
-        FOG_Free(gpReply_008818CC, ".\\BnSend.cpp", 410, 0);
+        FOG_Free(gpReply40, ".\\BnSend.cpp", 410, 0);
     }
-    gpReply_008818CC = 0;
+    gpReply40 = 0;
 }
 
 // 0x0051ABB0
@@ -1096,12 +1097,12 @@ char* __fastcall BNSEND_QueryAdUrl(int nAdId)
     }
 
     BNDOWNLOAD_WaitForReply(0x41);
-    if (!gpAdUrlReply_008818DC)
+    if (!gpAdUrlReply)
     {
         return 0;
     }
 
-    return gpAdUrlReply_008818DC + 4;
+    return gpAdUrlReply + 4;
 }
 
 // 0x0051ABF0
@@ -1113,17 +1114,17 @@ void* __cdecl BNSEND_QueryRealms()
         return 0;
     }
     BNDOWNLOAD_WaitForReply(0x40);
-    return gpReply_008818CC;
+    return gpReply40;
 }
 
 // 0x0051AC20
 void __cdecl BNSEND_FreeChannelList()
 {
-    if (gnChannelList_008818C8)
+    if (gpChannelList)
     {
-        FOG_Free((void*)gnChannelList_008818C8, ".\\BnSend.cpp", 0x1EF, 0);
+        FOG_Free((void*)gpChannelList, ".\\BnSend.cpp", 0x1EF, 0);
     }
-    gnChannelList_008818C8 = 0;
+    gpChannelList = 0;
 }
 
 // 0x0051AC50
@@ -1138,7 +1139,7 @@ int __fastcall BNSEND_GetChannelList(int bNoExpansion)
     sub_00520C00_ClearReply(0x0B);
     BNSEND_SendPacket(0x0B, &nFlags, 4);
     BNDOWNLOAD_WaitForReply(0x0B);
-    return (int)gnChannelList_008818C8;
+    return (int)gpChannelList;
 }
 
 // 0x0051ACA0
@@ -1242,7 +1243,7 @@ int __cdecl BNSEND_CheckAd()
     D2BnCheckAdPacketStrc tPacket;
     tPacket.dwPlatform = 0x49583836;
     tPacket.dwProduct = sub_0051BEC0_IsExpansion() ? 0x44325850 : 0x44324456;
-    tPacket.dwVersion = gnVersion_0088252C;
+    tPacket.dwVersion = gnVersion;
     tPacket.nTime = _time32(0);
     BNSEND_SendPacket(0x15, &tPacket, sizeof(tPacket));
     return 1;
@@ -1254,7 +1255,7 @@ int __cdecl BNSEND_SendDisplayAd()
     D2BnVersionPacketStrc tPacket;
     tPacket.dwPlatform = 0x49583836;
     tPacket.dwProduct = sub_0051BEC0_IsExpansion() ? 0x44325850 : 0x44324456;
-    tPacket.dwVersion = gnVersion_0088252C;
+    tPacket.dwVersion = gnVersion;
     tPacket.szText[1] = tPacket.szText[0] = 0;
     BNSEND_SendPacket(0x21, &tPacket, 0x0E);
     return 1;
@@ -1373,25 +1374,25 @@ int __fastcall BNSEND_SendNotifyJoin(const char* szGameName, const char* szPassw
 // 0x0051B3B0
 void __cdecl BNSEND_FreeRealmLogonReply()
 {
-    if (gpSizedReply_008818D4)
+    if (gpSizedReply)
     {
-        FOG_Free(gpSizedReply_008818D4, ".\\BnSend.cpp", 0x3B2, 0);
+        FOG_Free(gpSizedReply, ".\\BnSend.cpp", 0x3B2, 0);
     }
-    gpSizedReply_008818D4 = 0;
+    gpSizedReply = 0;
 }
 
 // 0x0051B3E0
 void __fastcall BNSEND_SetRealmLogonReply(const void* pData, unsigned int nSize)
 {
-    if (gpSizedReply_008818D4)
-        FOG_Free(gpSizedReply_008818D4, ".\\BnSend.cpp", 0x3B2, 0);
-    gpSizedReply_008818D4 = 0;
-    gpSizedReply_008818D4 = (D2BnSizedReplyStrc*)FOG_Alloc(nSize + 4, ".\\BnSend.cpp", 0x3BB, 0);
-    gpSizedReply_008818D4->nSize = nSize;
-    memcpy(gpSizedReply_008818D4->abData, pData, nSize);
+    if (gpSizedReply)
+        FOG_Free(gpSizedReply, ".\\BnSend.cpp", 0x3B2, 0);
+    gpSizedReply = 0;
+    gpSizedReply = (D2BnSizedReplyStrc*)FOG_Alloc(nSize + 4, ".\\BnSend.cpp", 0x3BB, 0);
+    gpSizedReply->nSize = nSize;
+    memcpy(gpSizedReply->abData, pData, nSize);
     if (nSize != 8 && nSize >= 0x48)
     {
-        unsigned int* pValue = &gpSizedReply_008818D4->nValue;
+        unsigned int* pValue = &gpSizedReply->nValue;
         *pValue = ntohs(*pValue);
     }
 }
@@ -1405,13 +1406,13 @@ D2BnSizedReplyStrc* __fastcall BNSEND_LogonRealm(const char* szRealmName, const 
     }
 
     D2BnAuthHashStrc tHash;
-    gnClientToken_008818C4 += 1;
-    tHash.f_0 = gnClientToken_008818C4;
+    gnClientToken += 1;
+    tHash.f_0 = gnClientToken;
     tHash.f_4 = gdwGlobal_008818BC;
     sub_005209D0_HashData(tHash.abPasswordHash, szRealmPassword, strlen(szRealmPassword));
 
     D2BnLogonRealmPacketStrc tPacket;
-    tPacket.f_0 = gnClientToken_008818C4;
+    tPacket.f_0 = gnClientToken;
     sub_005209D0_HashData(tPacket.abProof, &tHash, 0x1C);
     const int nLength = SStrCopy(tPacket.szRealmName, szRealmName, 0x100) + 1;
 
@@ -1422,7 +1423,7 @@ D2BnSizedReplyStrc* __fastcall BNSEND_LogonRealm(const char* szRealmName, const 
     }
 
     BNDOWNLOAD_WaitForReply(0x3E);
-    return gpSizedReply_008818D4;
+    return gpSizedReply;
 }
 
 // 0x0051B540
@@ -1501,10 +1502,10 @@ int __fastcall BNSEND_SendWriteUserData(const char* szName, unsigned int nCount,
 // 0x0051B820
 void __fastcall BNSEND_SetReadUserDataReply(const void* pData, unsigned int nSize)
 {
-    if (gpReply_008818D8)
-        FOG_Free(gpReply_008818D8, ".\\BnSend.cpp", 0x4EC, 0);
-    gpReply_008818D8 = FOG_Alloc(nSize, ".\\BnSend.cpp", 0x4ED, 0);
-    memcpy(gpReply_008818D8, pData, nSize);
+    if (gpReadUserDataReply)
+        FOG_Free(gpReadUserDataReply, ".\\BnSend.cpp", 0x4EC, 0);
+    gpReadUserDataReply = FOG_Alloc(nSize, ".\\BnSend.cpp", 0x4ED, 0);
+    memcpy(gpReadUserDataReply, pData, nSize);
 }
 
 // 0x0051B870
@@ -1535,7 +1536,7 @@ int __fastcall BNSEND_GetReadUserDataReply(unsigned int nKeys, unsigned int nCoo
     if (!BNDOWNLOAD_IsReplyReceived(0x26))
         return 0;
 
-    D2BnReadUserDataReplyStrc* pReply = (D2BnReadUserDataReplyStrc*)gpReply_008818D8;
+    D2BnReadUserDataReplyStrc* pReply = (D2BnReadUserDataReplyStrc*)gpReadUserDataReply;
     if (!pReply || pReply->nAccounts != 1 || pReply->nKeys != nKeys || pReply->nCookie != nCookie)
         return 0;
 
@@ -1623,21 +1624,21 @@ int __cdecl BNSEND_SendCrashDump()
 // 0x0051BD60
 void __fastcall BNSEND_SetRealmList(const void* pData, unsigned int nSize)
 {
-    if (gpReply_008818CC)
-        FOG_Free(gpReply_008818CC, ".\\BnSend.cpp", 0x19A, 0);
-    gpReply_008818CC = 0;
-    gpReply_008818CC = FOG_Alloc(nSize, ".\\BnSend.cpp", 0x16B, 0);
-    memcpy(gpReply_008818CC, pData, nSize);
+    if (gpReply40)
+        FOG_Free(gpReply40, ".\\BnSend.cpp", 0x19A, 0);
+    gpReply40 = 0;
+    gpReply40 = FOG_Alloc(nSize, ".\\BnSend.cpp", 0x16B, 0);
+    memcpy(gpReply40, pData, nSize);
 }
 
 // 0x0051BDC0
 void __fastcall BNSEND_SetChannelList(const void* pData, unsigned int nSize)
 {
-    if (gnChannelList_008818C8)
-        FOG_Free(gnChannelList_008818C8, ".\\BnSend.cpp", 0x1EF, 0);
-    gnChannelList_008818C8 = 0;
-    gnChannelList_008818C8 = FOG_Alloc(nSize, ".\\BnSend.cpp", 0x1E6, 0);
-    memcpy(gnChannelList_008818C8, pData, nSize);
+    if (gpChannelList)
+        FOG_Free(gpChannelList, ".\\BnSend.cpp", 0x1EF, 0);
+    gpChannelList = 0;
+    gpChannelList = FOG_Alloc(nSize, ".\\BnSend.cpp", 0x1E6, 0);
+    memcpy(gpChannelList, pData, nSize);
 }
 
 // 0x0051BE20
@@ -1653,19 +1654,19 @@ void __fastcall BNSEND_SetGamesList(const void* pData, unsigned int nSize)
 // 0x0051BEA0
 long __cdecl BNSEND_IsConnected()
 {
-    return InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
+    return InterlockedCompareExchange(&gnConnected, 0, 0);
 }
 
 // 0x0051BEB0
 static long BNSEND_ExchangeConnected(long nComparand, long nExchange)
 {
-    return InterlockedCompareExchange(&gnConnected_00881BF0, nExchange, nComparand);
+    return InterlockedCompareExchange(&gnConnected, nExchange, nComparand);
 }
 
 // 0x0051BED0
 void __fastcall BNSEND_SetDnsPending(int bPending)
 {
-    gbDnsPending_008818E0 = bPending;
+    gbDnsPending = bPending;
     Sleep(10);
 }
 
@@ -1689,11 +1690,11 @@ unsigned long __stdcall BNSEND_ResolveHostThread(void* pArguments)
             BNDOWNLOAD_LogPrintf("ERROR GetServersList: inet_addr failed to convert IP (%d)", WSAGetLastError());
             return 0;
         }
-        gDnsHostent_00881C14.h_addr_list = gapDnsAddrList_00881C0C;
-        gapDnsAddrList_00881C0C[0] = (char*)&gnDnsAddr_00881C08;
-        gapDnsAddrList_00881C0C[1] = 0;
-        pHost = &gDnsHostent_00881C14;
-        gnDnsAddr_00881C08 = nAddr;
+        gtDnsHostent.h_addr_list = gapDnsAddrList;
+        gapDnsAddrList[0] = (char*)&gnDnsAddr;
+        gapDnsAddrList[1] = 0;
+        pHost = &gtDnsHostent;
+        gnDnsAddr = nAddr;
     }
     else
     {
@@ -1733,7 +1734,7 @@ unsigned long __stdcall BNSEND_ResolveHostThread(void* pArguments)
     for (char** pp = pHost->h_addr_list; *pp; ++pp)
     {
         p += SStrCopy(p, inet_ntoa(*(D2InAddrStrc*)*pp), 0x7FFFFFFF);
-        p += SStrCopy(p, gszSemicolon_006CDA54, 0x7FFFFFFF);
+        p += SStrCopy(p, gszSemicolon, 0x7FFFFFFF);
     }
     if (p > szOut)
         p[-1] = 0;
@@ -1749,8 +1750,8 @@ int __cdecl BNSEND_RequestBnServerIni()
 // 0x0051C180
 BNGatewayAccess* __cdecl BNSEND_GetGatewayAccess()
 {
-    gBnGatewayAccess_00881838.Load();
-    return &gBnGatewayAccess_00881838;
+    gtBnGatewayAccess.Load();
+    return &gtBnGatewayAccess;
 }
 
 // 0x0051C190
@@ -1758,8 +1759,8 @@ void __fastcall BNSEND_GetServerAddress(char* szText, int nSize)
 {
     char szBuffer[0x100];
     *szText = 0;
-    gBnGatewayAccess_00881838.Load();
-    SStrCopy(szText, gBnGatewayAccess_00881838.DNS(gBnGatewayAccess_00881838.m_nCurGateway), nSize);
+    gtBnGatewayAccess.Load();
+    SStrCopy(szText, gtBnGatewayAccess.DNS(gtBnGatewayAccess.m_nCurGateway), nSize);
     if (SRegLoadString("Diablo II", "BNETIP", 0, szBuffer, 0x100))
         SStrCopy(szText, szBuffer, nSize);
 }
@@ -1768,7 +1769,7 @@ void __fastcall BNSEND_GetServerAddress(char* szText, int nSize)
 void __fastcall BNSEND_GetDnsPending(int* pState)
 {
     D2_ASSERT(pState, 0x280);
-    *pState = gbDnsPending_008818E0;
+    *pState = gbDnsPending;
 }
 
 // 0x0051C240
@@ -1873,8 +1874,8 @@ int __fastcall BNSEND_SendPacket(unsigned char nId, const void* pData, unsigned 
     tHeader.f_0 = 0xFF;
     tHeader.nId = nId;
     tHeader.nLength = (unsigned short)(nSize + 4);
-    FSafeSock* pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
-    if (!pSafeSock || InterlockedCompareExchange(&gnDnsDone_00881BFC, 0, 0))
+    FSafeSock* pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected, 0, 0);
+    if (!pSafeSock || InterlockedCompareExchange(&gnDnsDone, 0, 0))
     {
         sub_00520AD0_SetDisconnected();
         return 0;
@@ -1929,24 +1930,24 @@ void __fastcall BNSEND_SetEmailRequested(int nValue)
 unsigned long __cdecl BattleConnectFastest(void* pParameter)
 {
     sub_0051A480_DebugLog("BattleConnectFastest()");
-    if (InterlockedIncrement(&gnSendBusy_00881C00) > 1)
+    if (InterlockedIncrement(&gnSendBusy) > 1)
     {
-        InterlockedDecrement(&gnSendBusy_00881C00);
+        InterlockedDecrement(&gnSendBusy);
         return 0;
     }
 
     BNDOWNLOAD_SetStatus(0x66);
-    BNSEND_GetServerAddress(gszBnetHost_008818E8, 0x100);
-    sub_0051A480_DebugLog("   connect to: %s", gszBnetHost_008818E8);
+    BNSEND_GetServerAddress(gszBnetHost, 0x100);
+    sub_0051A480_DebugLog("   connect to: %s", gszBnetHost);
     sub_00518C70_LogIndent(2, 4);
-    BNDOWNLOAD_LogPrintf("querying gateway %s", gszBnetHost_008818E8);
-    gszBnetAddress_008819E8[0] = 0;
+    BNDOWNLOAD_LogPrintf("querying gateway %s", gszBnetHost);
+    gszBnetAddress[0] = 0;
     if (FOG_SOCKET_WSAStartup())
-        BNDOWNLOAD_ResolveHost(gszBnetAddress_008819E8, gszBnetHost_008818E8);
+        BNDOWNLOAD_ResolveHost(gszBnetAddress, gszBnetHost);
 
-    if (!gszBnetAddress_008819E8[0])
+    if (!gszBnetAddress[0])
     {
-        InterlockedDecrement(&gnSendBusy_00881C00);
+        InterlockedDecrement(&gnSendBusy);
         BNMESSQUEUE_SetState(0xC);
         sub_0051A480_DebugLog("   failed to get server list");
         sub_00518C70_LogIndent(2, -4);
@@ -1954,12 +1955,12 @@ unsigned long __cdecl BattleConnectFastest(void* pParameter)
     }
 
     BNMESSQUEUE_SetState(0);
-    sFastestConnect(gszBnetAddress_008819E8);
+    sFastestConnect(gszBnetAddress);
     sub_00518C70_LogIndent(2, -4);
-    if (!InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0) && !InterlockedCompareExchange(&gnDnsDone_00881BFC, 0, 0))
+    if (!InterlockedCompareExchange(&gnConnected, 0, 0) && !InterlockedCompareExchange(&gnDnsDone, 0, 0))
         BNMESSQUEUE_SetState(0xC);
 
-    InterlockedDecrement(&gnSendBusy_00881C00);
+    InterlockedDecrement(&gnSendBusy);
     return 1;
 }
 
@@ -1968,15 +1969,15 @@ void* __cdecl BNSEND_OpenBNetConnection()
 {
     unsigned long nThreadId;
     BNDOWNLOAD_LogPrintf("Connecting to Battle.net...");
-    if (InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0))
+    if (InterlockedCompareExchange(&gnConnected, 0, 0))
     {
         sub_0051A480_DebugLog("   already connected");
         return 0;
     }
     if (!sub_0051C470_CloseBNetConnection())
         return 0;
-    InterlockedExchange(&gnDnsDone_00881BFC, 0);
-    gbDnsPending_008818E0 = 0;
+    InterlockedExchange(&gnDnsDone, 0);
+    gbDnsPending = 0;
     Sleep(10);
     CACHE_LoadCache();
     BNDOWNLOAD_ResetReplies();
@@ -1988,19 +1989,19 @@ void* __cdecl BNSEND_OpenBNetConnection()
 // 0x0051DBF0
 int __fastcall BNSEND_LoadBNetNews(int (__fastcall* pfnMessage)(unsigned int nStamp, const char* szText), int (__cdecl* pfnRefresh)())
 {
-    gbNewsActive_00881C24 = 1;
-    gpfnNewsMessage_00881C28 = pfnMessage;
-    gpfnNewsRefresh_00881C2C = pfnRefresh;
-    if (gtNewsItems_00881C30.f_8)
-        SMemFree(gtNewsItems_00881C30.f_8, gszNewsItemTypeName_0072FF8C, -2, 0);
-    gtNewsItems_00881C30.f_0 = 0;
-    gtNewsItems_00881C30.f_4 = 0;
-    gtNewsItems_00881C30.f_8 = 0;
-    gnNewsNewest_00881C44 = 0;
-    gnNewsFirstIndex_00881C40 = 0;
+    gbNewsActive = 1;
+    gpfnNewsMessage = pfnMessage;
+    gpfnNewsRefresh = pfnRefresh;
+    if (gtNewsItems.f_8)
+        SMemFree(gtNewsItems.f_8, gszNewsItemTypeName_0072FF8C, -2, 0);
+    gtNewsItems.f_0 = 0;
+    gtNewsItems.f_4 = 0;
+    gtNewsItems.f_8 = 0;
+    gnNewsNewest = 0;
+    gnNewsFirstIndex = 0;
     if (BNNEWS_LoadNews())
         BNNEWS_ReportNews();
-    unsigned int nStamp = gnNewsNewest_00881C44;
+    unsigned int nStamp = gnNewsNewest;
     BNSEND_SendPacket(0x46, &nStamp, sizeof(nStamp));
     return 1;
 }
@@ -2066,13 +2067,14 @@ int __fastcall BNSEND_GetPatchResult(int* pResult)
 // 0x005204D0
 int __fastcall BNSEND_SetErrorText(int nError, const char* szText)
 {
-    EnterCriticalSection(&gMessageLock_00882004);
-    if (!gnBnState_0088201C)
+    EnterCriticalSection(&gtMessageLock);
+    if (!gnBnState)
     {
-        gnBnState_0088201C = nError;
-        SStrCopy(gszEmptyStateText_00881F80, szText, 0x80);
+        gnBnState = nError;
+// build: symbol ?gszEmptyStateText@* 0x00881F80
+        SStrCopy(gszEmptyStateText, szText, 0x80);
     }
-    LeaveCriticalSection(&gMessageLock_00882004);
+    LeaveCriticalSection(&gtMessageLock);
     return 1;
 }
 
@@ -2089,16 +2091,16 @@ int __fastcall BNSEND_DispatchPacket(unsigned char nId, const void* pData, int n
     int nResult = 0;
     if (nId < 0x5E)
     {
-        if (gpfPacketHandlers_0072FFB0[nId])
-            nResult = gpfPacketHandlers_0072FFB0[nId](pData, nSize);
-        gnSlotArrayA_00882128[nId] = 1;
+        if (gapfnPacketHandlers[nId])
+            nResult = gapfnPacketHandlers[nId](pData, nSize);
+        ganSlotArrayA[nId] = 1;
     }
     return nResult;
 }
 
 static unsigned int GetUILanguageId()
 {
-    void* hKernel = LoadLibraryA(gszKernel32_006CD6E4);
+    void* hKernel = LoadLibraryA(gszKernel32);
     if (hKernel)
     {
         unsigned short (__stdcall* pfnGetUILanguage)() = (unsigned short (__stdcall*)())GetProcAddress(hKernel, "GetSystemDefaultUILanguage");
@@ -2155,15 +2157,15 @@ int __fastcall BNSEND_SendAccountLogon(const char* szName, const char* szPasswor
     D2BnLogonPacketStrc tPacket;
     char szPasswordUpper[0x100];
     char szNameUpper[0x100];
-    gdwGlobal_00882538 = 0;
-    SStrCopy(gszAccountName_00882540, szName, 0x100);
-    sub_0041D300_ZeroMemory(&gtLoginRecord_00882680, sizeof(gtLoginRecord_00882680));
+    gnLoginRetryCount = 0;
+    SStrCopy(gszAccountName, szName, 0x100);
+    sub_0041D300_ZeroMemory(&gtLoginRecord, sizeof(gtLoginRecord));
     SStrCopy(szNameUpper, szName, 0x100);
     SStrUpper(szNameUpper);
     SStrCopy(szPasswordUpper, szPassword, 0x100);
     SStrUpper(szPasswordUpper);
-    gtBigPair_0088273C.sub_005286D0_InitLogin(&gtLoginRecord_00882680, szNameUpper, szPasswordUpper);
-    sub_0041D2A0_MemCopy(tPacket.abPublic, gtLoginRecord_00882680.abPublic, sizeof(tPacket.abPublic));
+    gtBigPair.sub_005286D0_InitLogin(&gtLoginRecord, szNameUpper, szPasswordUpper);
+    sub_0041D2A0_MemCopy(tPacket.abPublic, gtLoginRecord.abPublic, sizeof(tPacket.abPublic));
     unsigned int nLength = SStrCopy(tPacket.szName, szName, 0x100);
     BNSEND_SendPacket(0x53, &tPacket, nLength + 0x21);
     return 1;
@@ -2173,11 +2175,11 @@ int __fastcall BNSEND_SendAccountLogon(const char* szName, const char* szPasswor
 int __fastcall BNSEND_SendAccountLogonProof(const unsigned char* pSalt, const unsigned char* pServerPublic)
 {
     unsigned char abProof[0x14];
-    const int bResult = gtBigPair_0088273C.sub_00528760_ComputeLoginProof(&gtLoginRecord_00882680, pSalt, pServerPublic);
-    sub_0041D300_ZeroMemory(gtLoginRecord_00882680.szPassword, sizeof(gtLoginRecord_00882680.szPassword));
+    const int bResult = gtBigPair.sub_00528760_ComputeLoginProof(&gtLoginRecord, pSalt, pServerPublic);
+    sub_0041D300_ZeroMemory(gtLoginRecord.szPassword, sizeof(gtLoginRecord.szPassword));
     if (bResult)
     {
-        sub_0041D2A0_MemCopy(abProof, gtLoginRecord_00882680.abProof, sizeof(abProof));
+        sub_0041D2A0_MemCopy(abProof, gtLoginRecord.abProof, sizeof(abProof));
         BNSEND_SendPacket(0x54, abProof, sizeof(abProof));
         return 1;
     }
@@ -2194,7 +2196,7 @@ int __fastcall BNSEND_SendAccountCreate(const char* szName, const char* szPasswo
     SStrUpper(szNameUpper);
     SStrCopy(szPasswordUpper, szPassword, 0x100);
     SStrUpper(szPasswordUpper);
-    gtBigPair_0088273C.sub_00528660_MakeVerifier(szNameUpper, szPasswordUpper, tPacket.abSalt, tPacket.abVerifier);
+    gtBigPair.sub_00528660_MakeVerifier(szNameUpper, szPasswordUpper, tPacket.abSalt, tPacket.abVerifier);
     unsigned int nLength = SStrCopy(tPacket.szName, szName, 0x7FFFFFFF);
     BNSEND_SendPacket(0x52, &tPacket, nLength + 0x41);
     return 1;
@@ -2207,17 +2209,17 @@ int __fastcall BNSEND_SendAccountChange(const char* szAccountName, const char* s
     char szOldUpper[0x100];
     char szNewUpper[0x100];
     char szAccountUpper[0x100];
-    gdwGlobal_00882538 = 0;
-    sub_0041D300_ZeroMemory(&gtLoginRecord_00882680, sizeof(gtLoginRecord_00882680));
+    gnLoginRetryCount = 0;
+    sub_0041D300_ZeroMemory(&gtLoginRecord, sizeof(gtLoginRecord));
     SStrCopy(szAccountUpper, szAccountName, 0x100);
     SStrUpper(szAccountUpper);
     SStrCopy(szOldUpper, szOldPassword, 0x100);
     SStrUpper(szOldUpper);
     SStrCopy(szNewUpper, szNewPassword, 0x100);
     SStrUpper(szNewUpper);
-    gtBigPair_0088273C.sub_00528660_MakeVerifier(szAccountUpper, szNewUpper, gabNewVerifier_00882640, &gabNewVerifier_00882640[0x20]);
-    gtBigPair_0088273C.sub_005286D0_InitLogin(&gtLoginRecord_00882680, szAccountUpper, szOldUpper);
-    sub_0041D2A0_MemCopy(tPacket.abPublic, gtLoginRecord_00882680.abPublic, sizeof(tPacket.abPublic));
+    gtBigPair.sub_00528660_MakeVerifier(szAccountUpper, szNewUpper, gabNewVerifier, &gabNewVerifier[0x20]);
+    gtBigPair.sub_005286D0_InitLogin(&gtLoginRecord, szAccountUpper, szOldUpper);
+    sub_0041D2A0_MemCopy(tPacket.abPublic, gtLoginRecord.abPublic, sizeof(tPacket.abPublic));
     unsigned int nLength = SStrCopy(tPacket.szName, szAccountName, 0x100);
     BNSEND_SendPacket(0x55, &tPacket, nLength + 0x21);
     return 0;
@@ -2227,13 +2229,13 @@ int __fastcall BNSEND_SendAccountChange(const char* szAccountName, const char* s
 int __fastcall BNSEND_SendAccountChangeProof(const unsigned char* pSalt, const unsigned char* pServerPublic)
 {
     D2BnChangeProofStrc tPacket;
-    const int bResult = gtBigPair_0088273C.sub_00528760_ComputeLoginProof(&gtLoginRecord_00882680, pSalt, pServerPublic);
-    sub_0041D300_ZeroMemory(gtLoginRecord_00882680.szPassword, sizeof(gtLoginRecord_00882680.szPassword));
+    const int bResult = gtBigPair.sub_00528760_ComputeLoginProof(&gtLoginRecord, pSalt, pServerPublic);
+    sub_0041D300_ZeroMemory(gtLoginRecord.szPassword, sizeof(gtLoginRecord.szPassword));
     if (bResult)
     {
-        sub_0041D2A0_MemCopy(tPacket.abProof, gtLoginRecord_00882680.abProof, sizeof(tPacket.abProof));
-        sub_0041D2A0_MemCopy(tPacket.abVerifier, gabNewVerifier_00882640, sizeof(tPacket.abVerifier));
-        sub_0041D300_ZeroMemory(gabNewVerifier_00882640, sizeof(gabNewVerifier_00882640));
+        sub_0041D2A0_MemCopy(tPacket.abProof, gtLoginRecord.abProof, sizeof(tPacket.abProof));
+        sub_0041D2A0_MemCopy(tPacket.abVerifier, gabNewVerifier, sizeof(tPacket.abVerifier));
+        sub_0041D300_ZeroMemory(gabNewVerifier, sizeof(gabNewVerifier));
         BNSEND_SendPacket(0x56, &tPacket, sizeof(tPacket));
         return 1;
     }
@@ -2248,12 +2250,12 @@ int __fastcall BNSEND_SendAccountUpgradeProof(unsigned int nServerToken)
     char szPassword[0x100];
     tInput.nTick = GetTickCount();
     tInput.f_4 = nServerToken;
-    CharLowerBuffA(szPassword, SStrCopy(szPassword, gtLoginRecord_00882680.szPassword, 0x100));
+    CharLowerBuffA(szPassword, SStrCopy(szPassword, gtLoginRecord.szPassword, 0x100));
     sub_005209D0_HashData(tInput.abDigest, szPassword, SStrLen(szPassword));
     tPacket.nTick = tInput.nTick;
     sub_005209D0_HashData(tPacket.abProof, &tInput, sizeof(tInput));
-    sub_0041D2A0_MemCopy(tPacket.abVerifier, gabNewVerifier_00882640, sizeof(tPacket.abVerifier));
-    sub_0041D300_ZeroMemory(gabNewVerifier_00882640, sizeof(gabNewVerifier_00882640));
+    sub_0041D2A0_MemCopy(tPacket.abVerifier, gabNewVerifier, sizeof(tPacket.abVerifier));
+    sub_0041D300_ZeroMemory(gabNewVerifier, sizeof(gabNewVerifier));
     BNSEND_SendPacket(0x58, &tPacket, sizeof(tPacket));
     return 0;
 }
@@ -2261,13 +2263,13 @@ int __fastcall BNSEND_SendAccountUpgradeProof(unsigned int nServerToken)
 // 0x005224C0
 int __fastcall BNSEND_CheckServerProof(const unsigned char* pServerProof)
 {
-    return gtBigPair_0088273C.sub_00528890_CompareServerProof(&gtLoginRecord_00882680, pServerProof);
+    return gtBigPair.sub_00528890_CompareServerProof(&gtLoginRecord, pServerProof);
 }
 
 // 0x005224F0
 void __cdecl BNSEND_ClearPassword()
 {
-    sub_0041D300_ZeroMemory(gtLoginRecord_00882680.szPassword, sizeof(gtLoginRecord_00882680.szPassword));
+    sub_0041D300_ZeroMemory(gtLoginRecord.szPassword, sizeof(gtLoginRecord.szPassword));
 }
 
 // 0x00528890
@@ -2313,7 +2315,7 @@ int __fastcall SERVER_ValidateClientPacket(D2PacketBufferStrc* pPacketBuffer, in
             }
             else
             {
-                if (!QSERVER_CheckClientMask(gpGlobal_00882D08, nClientId))
+                if (!QSERVER_CheckClientMask(gpServer, nClientId))
                     return 4;
                 *pType = 2;
             }

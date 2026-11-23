@@ -1,7 +1,7 @@
 #include "D2StormLink.h"
 void* __stdcall SMemAlloc(unsigned int,const char*,int,unsigned int);
 int __stdcall SMemFree(void*,const char*,int,unsigned int);  // 0x00412650
-extern const char gszRecordType_0072F9FC[];  // 0x0072F9FC
+extern const char gszRecordType[];  // 0x0072F9FC
 struct D2StormRecordStrc {
  D2StormLinkStrc tLink;
  int unk0x08;
@@ -20,6 +20,6 @@ struct D2StormListStrc {
 char* D2StormListStrc::sub_0051772A_DeleteNode(char* node) {
  char* next=sub_005175CB_Next(node);
  ((D2StormRecordStrc*)node)->sub_005176B4_Release(0);
- SMemFree(node,gszRecordType_0072F9FC,-2,0);
+ SMemFree(node,gszRecordType,-2,0);
  return next;
 }

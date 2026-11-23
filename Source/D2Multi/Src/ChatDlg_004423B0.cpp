@@ -31,18 +31,18 @@ int __fastcall CHATDLG_PrintMessage(const Unicode* pText, int nColor); // 0x0043
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);               // 0x005269D0
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
 
-extern char gaszHistory_0077B1D8[10][0x100];                                                                // 0x0077B1D8
-extern int gnHistoryCount_0077BD50;                                                                         // 0x0077BD50
-extern int gbShowJoinLeave_0077BD54;                                                                        // 0x0077BD54
-extern D2WinControlStrc* gpChatTextBox_0077BD8C;                                                            // 0x0077BD8C
-extern char gszLastWhisperer_0077B0D0[];                                                                    // 0x0077B0D0
-extern D2LaunchFuncsStrc* gpLaunchFuncs_0077B09C;                                                           // 0x0077B09C
-extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8;                                                           // 0x0077BBD8
-extern "C" const char gszCmdIgnorePersist_006D56B0[];                                                       // 0x006D56B0
-extern "C" const char gszCmdIgnore_006D56A4[];                                                              // 0x006D56A4
-extern "C" const char gszCmdUnignore_006D568C[];                                                            // 0x006D568C
-extern "C" const char gszCmdFilter_006D5674[];                                                              // 0x006D5674
-extern "C" const char gszCmdUnfilter_006D5664[];                                                            // 0x006D5664
+extern char gaszHistory[10][0x100];                                                                // 0x0077B1D8
+extern int gnHistoryCount;                                                                         // 0x0077BD50
+extern int gbShowJoinLeave;                                                                        // 0x0077BD54
+extern D2WinControlStrc* gpChatTextBox;                                                            // 0x0077BD8C
+extern char gszLastWhisperer[];                                                                    // 0x0077B0D0
+extern D2LaunchFuncsStrc* gpLaunchFuncs;                                                           // 0x0077B09C
+extern D2LaunchCharInfoStrc* gpCharInfo;                                                           // 0x0077BBD8
+extern "C" const char gszCmdIgnorePersist[];                                                       // 0x006D56B0
+extern "C" const char gszCmdIgnore[];                                                              // 0x006D56A4
+extern "C" const char gszCmdUnignore[];                                                            // 0x006D568C
+extern "C" const char gszCmdFilter[];                                                              // 0x006D5674
+extern "C" const char gszCmdUnfilter[];                                                            // 0x006D5664
 
 // 0x0043E6E0
 static int __stdcall CHATDLG_CompareCommand(const char* szText, const char* szCommand)
@@ -73,16 +73,16 @@ static int CHATDLG_NotifyCommand(const char* szText, const char* szCommand)
         {
             char szMessage[0x100];
             unsigned short wszMessage[0x100];
-            gbShowJoinLeave_0077BD54 = !gbShowJoinLeave_0077BD54;
+            gbShowJoinLeave = !gbShowJoinLeave;
             for (int i = 0; i < 0x100; ++i)
                 wszMessage[i] = 0;
-            if (gbShowJoinLeave_0077BD54)
+            if (gbShowJoinLeave)
                 strcpy(szMessage, "Player entering/leaving notifications are enabled.");
             else
                 strcpy(szMessage, "Player entering/leaving notifications are disabled.");
             sub_00526320_ToUnicode((Unicode*)wszMessage, szMessage, 0x200);
-            if (gpChatTextBox_0077BD8C)
-                sub_004FC9B0_SetText(gpChatTextBox_0077BD8C, (Unicode*)wszMessage, 3, 0, 1);
+            if (gpChatTextBox)
+                sub_004FC9B0_SetText(gpChatTextBox, (Unicode*)wszMessage, 3, 0, 1);
         }
         return 1;
     }
@@ -92,10 +92,10 @@ static int CHATDLG_NotifyCommand(const char* szText, const char* szCommand)
 // 0x0043F510
 static void CHATDLG_PushHistory(const char* szText)
 {
-    memmove(gaszHistory_0077B1D8[1], gaszHistory_0077B1D8[0], 0x900);
-    strcpy(gaszHistory_0077B1D8[0], szText);
-    if (++gnHistoryCount_0077BD50 >= 10)
-        gnHistoryCount_0077BD50 = 10;
+    memmove(gaszHistory[1], gaszHistory[0], 0x900);
+    strcpy(gaszHistory[0], szText);
+    if (++gnHistoryCount >= 10)
+        gnHistoryCount = 10;
 }
 
 // 0x0043F870
@@ -139,37 +139,41 @@ static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand)
         if (szText[nLength] == ' ' || !szText[nLength])
         {
             char szMessage[260];
-            if (!strlen(gszLastWhisperer_0077B0D0))
+            if (!strlen(gszLastWhisperer))
             {
                 Unicode wszMessage[0x100] = {};
-                sprintf(szMessage, gszNobodyToReply_006D561C);
+// build: symbol ?gszNobodyToReply@* 0x006D561C
+                sprintf(szMessage, gszNobodyToReply);
                 sub_00526320_ToUnicode(wszMessage, szMessage, 0x100);
-                if (gpChatTextBox_0077BD8C)
-                    sub_004FC9B0_SetText(gpChatTextBox_0077BD8C, wszMessage, 1, 0, 1);
+                if (gpChatTextBox)
+                    sub_004FC9B0_SetText(gpChatTextBox, wszMessage, 1, 0, 1);
                 return 1;
             }
 
             char szPrefix[0x100];
-            sprintf(szPrefix, gszCommandSpace_006D5618, szCommand);
+// build: symbol ?gszCommandSpace@* 0x006D5618
+            sprintf(szPrefix, gszCommandSpace, szCommand);
             char szCopy[0x100];
             const char* pMessage;
             if (!CONSOLE_FindSecondTokenInline(szText, szCopy, &pMessage))
             {
                 Unicode wszMessage[0x100];
-                sprintf(szMessage, gszCorrectUsage_006D55F8, szCommand);
+// build: symbol ?gszCorrectUsage@* 0x006D55F8
+                sprintf(szMessage, gszCorrectUsage, szCommand);
                 sub_00526320_ToUnicode(wszMessage, szMessage, 0x100);
-                if (gpChatTextBox_0077BD8C)
-                    sub_004FC9B0_SetText(gpChatTextBox_0077BD8C, wszMessage, 1, 0, 1);
+                if (gpChatTextBox)
+                    sub_004FC9B0_SetText(gpChatTextBox, wszMessage, 1, 0, 1);
                 return 1;
             }
-            if (!gpLaunchFuncs_0077B09C->pfn0x68())
+            if (!gpLaunchFuncs->pfn0x68())
             {
                 CHATDLG_ShowError(D2LANG_GetStringFromTblIndex(0x14E7), sub_0043E6C0_OnError);
                 return 1;
             }
 
-            sprintf(szMessage, gszReplyFormat_006D55EC, gszLastWhisperer_0077B0D0, pMessage);
-            gpLaunchFuncs_0077B09C->pfn0x14(szMessage);
+// build: symbol ?gszReplyFormat@* 0x006D55EC
+            sprintf(szMessage, gszReplyFormat, gszLastWhisperer, pMessage);
+            gpLaunchFuncs->pfn0x14(szMessage);
             return 1;
         }
     }
@@ -180,16 +184,19 @@ static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand)
 void __fastcall sub_004423B0_RunCommand(char* szText)
 {
     CHATDLG_PushHistory(szText);
-    if (CHATDLG_ReplyCommand(szText, gszCmdR_006D56D4))
+// build: symbol ?gszCmdR@* 0x006D56D4
+    if (CHATDLG_ReplyCommand(szText, gszCmdR))
         return;
 
-    if (CHATDLG_ReplyCommand(szText, gszCmdReply_006D56CC))
+// build: symbol ?gszCmdReply@* 0x006D56CC
+    if (CHATDLG_ReplyCommand(szText, gszCmdReply))
         return;
 
-    if (CHATDLG_NotifyCommand(szText, gszCmdD2Notify_006D56C0))
+// build: symbol ?gszCmdD2Notify@* 0x006D56C0
+    if (CHATDLG_NotifyCommand(szText, gszCmdD2Notify))
         return;
 
-    if (!CHATDLG_CompareCommand(szText, gszCmdIgnorePersist_006D56B0))
+    if (!CHATDLG_CompareCommand(szText, gszCmdIgnorePersist))
     {
         sub_00611560_GetSquelchList()->SetPersist(!sub_00611560_GetSquelchList()->GetPersist());
         if (sub_00611560_GetSquelchList()->GetPersist())
@@ -200,14 +207,14 @@ void __fastcall sub_004423B0_RunCommand(char* szText)
     }
 
 // build: symbol ?gszCmdSquelch@* 0x006D5698
-    if (!CHATDLG_CompareCommand(szText, gszCmdIgnore_006D56A4) || !CHATDLG_CompareCommand(szText, gszCmdSquelch))
+    if (!CHATDLG_CompareCommand(szText, gszCmdIgnore) || !CHATDLG_CompareCommand(szText, gszCmdSquelch))
     {
         Unicode wszFormat[0x208];
         Unicode wszMessage[0x208];
         Unicode wszName[0x22];
         char szName[0x11];
         CHATDLG_GetArgument(0x11, szText, szName);
-        if (!SStrCmpI(&szName[1], gpCharInfo_0077BBD8->szText0x8D, 0x7FFFFFFF))
+        if (!SStrCmpI(&szName[1], gpCharInfo->szText0x8D, 0x7FFFFFFF))
             return;
 
         sub_00526320_ToUnicode(wszName, szName, 0x22);
@@ -221,7 +228,7 @@ void __fastcall sub_004423B0_RunCommand(char* szText)
     }
 
 // build: symbol ?gszCmdUnsquelch@* 0x006D5680
-    if (!CHATDLG_CompareCommand(szText, gszCmdUnignore_006D568C) || !CHATDLG_CompareCommand(szText, gszCmdUnsquelch))
+    if (!CHATDLG_CompareCommand(szText, gszCmdUnignore) || !CHATDLG_CompareCommand(szText, gszCmdUnsquelch))
     {
         Unicode wszFormat[0x208];
         Unicode wszMessage[0x208];
@@ -238,7 +245,7 @@ void __fastcall sub_004423B0_RunCommand(char* szText)
         return;
     }
 
-    if (!CHATDLG_CompareCommand(szText, gszCmdFilter_006D5674))
+    if (!CHATDLG_CompareCommand(szText, gszCmdFilter))
     {
         char szFilter[0x104];
         CHATDLG_GetArgument(0x104, szText, szFilter);
@@ -249,7 +256,7 @@ void __fastcall sub_004423B0_RunCommand(char* szText)
         return;
     }
 
-    if (!CHATDLG_CompareCommand(szText, gszCmdUnfilter_006D5664))
+    if (!CHATDLG_CompareCommand(szText, gszCmdUnfilter))
     {
         char szFilter[0x104];
         CHATDLG_GetArgument(0x104, szText, szFilter);
@@ -260,27 +267,33 @@ void __fastcall sub_004423B0_RunCommand(char* szText)
         return;
     }
 
-    if (!CHATDLG_CompareCommand(szText, gszCmdHomeChannel_006D5654) || !CHATDLG_CompareCommand(szText, gszCmdDefaultChannel_006D5640) || !CHATDLG_CompareCommand(szText, gszCmdHomeSpace_006D5638))
+// build: symbol ?gszCmdHomeSpace@* 0x006D5638
+// build: symbol ?gszCmdDefaultChannel@* 0x006D5640
+// build: symbol ?gszCmdHomeChannel@* 0x006D5654
+    if (!CHATDLG_CompareCommand(szText, gszCmdHomeChannel) || !CHATDLG_CompareCommand(szText, gszCmdDefaultChannel) || !CHATDLG_CompareCommand(szText, gszCmdHomeSpace))
     {
         char szChannel[0x20];
         CHATDLG_GetArgument(0x20, szText, szChannel);
-        SRegSaveString(gszDiablo2_006CC8B8, gszDefaultChannel_006D5504, 0, szChannel);
+// build: symbol ?gszDiabloII@* 0x006CC8B8
+// build: symbol ?gszDefaultChannel@* 0x006D5504
+        SRegSaveString(gszDiabloII, gszDefaultChannel, 0, szChannel);
         return;
     }
 
-    if (!CHATDLG_CompareCommand(szText, gszCmdHome_006D5630))
+// build: symbol ?gszCmdHome@* 0x006D5630
+    if (!CHATDLG_CompareCommand(szText, gszCmdHome))
     {
         char szChannel[0x20];
-        if (SRegLoadString(gszDiablo2_006CC8B8, gszDefaultChannel_006D5504, 0, szChannel, 0x20))
+        if (SRegLoadString(gszDiabloII, gszDefaultChannel, 0, szChannel, 0x20))
             CHATDLG_JoinChannel(szChannel);
         return;
     }
 
-    if (!gpLaunchFuncs_0077B09C->pfn0x68())
+    if (!gpLaunchFuncs->pfn0x68())
     {
         CHATDLG_ShowError(D2LANG_GetStringFromTblIndex(0x14E7), sub_0043E6C0_OnError);
         return;
     }
 
-    gpLaunchFuncs_0077B09C->pfn0x14(szText);
+    gpLaunchFuncs->pfn0x14(szText);
 }

@@ -59,23 +59,23 @@ void __cdecl MAINMENUS_UpdateEmailOk(); // 0x00436EB0
 void __fastcall AUTOMAP_InitCharSaveHeader(char* szName, char nClass, char* pData, int nFlags); // 0x0043C540
 int __fastcall sub_0043C6B0_WriteSaveHeader(const char* szName); // 0x0043C6B0
 void __cdecl MAINMENUS_CreateRealmCharacter(); // 0x00435E10
-extern int gnLaunchMode_007795EC; // 0x007795EC
+extern int gnLaunchMode; // 0x007795EC
 void __cdecl MAINMENUS_SetDone(); // 0x0042F6C0
-extern int gbGatewayFlag_00779954; // 0x00779954
-extern void (__cdecl* gpfnGatewayDone_007795BC)(); // 0x007795BC
-extern D2WinControlStrc* gpStatusText_007799A8; // 0x007799A8
-extern D2WinControlStrc* gpCounterText_007799AC; // 0x007799AC
+extern int gbGatewayFlag; // 0x00779954
+extern void (__cdecl* gpfnGatewayDone)(); // 0x007795BC
+extern D2WinControlStrc* gpStatusText; // 0x007799A8
+extern D2WinControlStrc* gpCounterText; // 0x007799AC
 
-int gnListPos_0077996C; // 0x0077996C
+int gnListPos; // 0x0077996C
 
-void* gpfnArchiveLoader2_007798DC; // 0x007798DC
+void* gpfnArchiveLoader2; // 0x007798DC
 
-int gnLoaderFlag_007798E0; // 0x007798E0
+int gnLoaderFlag; // 0x007798E0
 
 // 0x004341F0
 int __stdcall MAINMENUS_CheckCreditsEnd(int nArg)
 {
-    if (gnListPos_0077996C <= sub_004FB950_GetFirstVisible(gpList_00779964) + 10)
+    if (gnListPos <= sub_004FB950_GetFirstVisible(gpList_00779964) + 10)
         sub_004336C0();
     return 1;
 }
@@ -96,8 +96,8 @@ int __cdecl MAINMENUS_PromptPlayDisc()
     sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x1431), 0, 0, 0);
     gnFlag_007798D0 = 0;
     gnFlag_007798D4 = 0;
-    gpfnArchiveLoader2_007798DC = (void*)ARCHIVE_LoadExpansionArchives;
-    gnLoaderFlag_007798E0 = 0;
+    gpfnArchiveLoader2 = (void*)ARCHIVE_LoadExpansionArchives;
+    gnLoaderFlag = 0;
     sub_004FA590_RunLoop(MAINMENUS_LoopCallback);
     MAINMENUS_DestroyControls();
     return gnFlag_007798D4;
@@ -109,8 +109,8 @@ int __cdecl MAINMENUS_PromptExpansionDisc()
     CHARSEL_CreateExpansionDiscPopup(1);
     gnFlag_007798D0 = 0;
     gnFlag_007798D4 = 0;
-    gpfnArchiveLoader2_007798DC = (void*)ARCHIVE_LoadExpansionArchives;
-    gnLoaderFlag_007798E0 = 0;
+    gpfnArchiveLoader2 = (void*)ARCHIVE_LoadExpansionArchives;
+    gnLoaderFlag = 0;
     sub_004FA590_RunLoop(MAINMENUS_LoopCallback);
     MAINMENUS_DestroyControls();
     return gnFlag_007798D4;
@@ -171,7 +171,7 @@ int __stdcall sub_00434DC0_Leave(int nArg)
     return 1;
 }
 
-D2WinControlStrc* gpControl_00779590; // 0x00779590
+D2WinControlStrc* gpGatewayList; // 0x00779590
 
 // build: symbol ?Name@BNGatewayAccess@@QAGPBDH@Z 0x005180A0
 // 0x00434600
@@ -183,24 +183,24 @@ int __stdcall MAINMENUS_CreateGatewayScreen(int nUnused)
     MAINMENUS_CreateControl(0x47);
     D2Win_10044(MAINMENUS_CreateControl(0x48), D2LANG_GetStringFromTblIndex(0x2B2F));
     D2Win_10044(MAINMENUS_CreateControl(0x49), D2LANG_GetStringFromTblIndex(0x2B30));
-    gpControl_00779590 = MAINMENUS_CreateControl(0x4A);
+    gpGatewayList = MAINMENUS_CreateControl(0x4A);
     MAINMENUS_CreateControl(0x4B);
     MAINMENUS_CreateControl(0x4C);
     BNGatewayAccess* pGateways = (BNGatewayAccess*)gpFuncTable_0077ABF0->pfnGetRecord();
     int nCur = pGateways->m_nCurGateway;
     for (int i = 1; i <= pGateways->m_nNumGateways; ++i)
     {
-        sub_004FCF80_SetTextA(gpControl_00779590, pGateways->Name(i));
+        sub_004FCF80_SetTextA(gpGatewayList, pGateways->Name(i));
     }
-    int nFirst = sub_004FB950_GetFirstVisible(gpControl_00779590);
-    int nVisible = D2Win_10055(gpControl_00779590);
+    int nFirst = sub_004FB950_GetFirstVisible(gpGatewayList);
+    int nVisible = D2Win_10055(gpGatewayList);
     int nLine = nCur - 1;
     if (nLine < nFirst || nLine - nFirst > nVisible)
     {
-        D2Win_10053(gpControl_00779590, nLine);
+        D2Win_10053(gpGatewayList, nLine);
         nLine = 0;
     }
-    sub_004FB9D0_Select(gpControl_00779590, nLine);
+    sub_004FB9D0_Select(gpGatewayList, nLine);
     MAINMENUS_ShowCurrentGateway();
     return 1;
 }
@@ -216,7 +216,8 @@ int __stdcall MAINMENUS_BackToLogin(int nArg)
 // 0x00435230
 void __cdecl MAINMENUS_PlayIntroVideos()
 {
-    D2_ASSERT(!gpLaunchRecord_007795D4->bIntroPlayed, 0x8D4);
+// build: symbol ?gpLaunchRecord@* 0x007795D4
+    D2_ASSERT(!gpLaunchRecord->bIntroPlayed, 0x8D4);
     D2Win_10029(0);
     MAINMENUS_Reset();
     MAINMENUS_FlushInput();
@@ -253,19 +254,19 @@ void __cdecl MAINMENUS_PlayIntroVideos()
     sub_0042FB20();
 }
 
-int gnLaunchState_007795E8; // 0x007795E8
+int gnLaunchState; // 0x007795E8
 
-int gdwGlobal_007795F4; // 0x007795F4
+int gbConnectCancelled; // 0x007795F4
 
 int gdwGlobal_007799D8; // 0x007799D8
 
 // 0x00436280
 int __stdcall MAINMENUS_ConnectOk(int nArg)
 {
-    gdwGlobal_007795F4 = 0;
-    if (!sub_0043C180_Connect(gpLaunchRecord_007795D4, 1, 0))
+    gbConnectCancelled = 0;
+    if (!sub_0043C180_Connect(gpLaunchRecord, 1, 0))
     {
-        if (gdwGlobal_007795F4)
+        if (gbConnectCancelled)
         {
             MAINMENUS_ShowLoginScreen();
             return 1;
@@ -273,7 +274,7 @@ int __stdcall MAINMENUS_ConnectOk(int nArg)
     }
     else
     {
-        SRegSaveString("Diablo II", "Last BNet", 0, gpLaunchRecord_007795D4->szAccount);
+        SRegSaveString("Diablo II", "Last BNet", 0, gpLaunchRecord->szAccount);
 // build: symbol ?MAINMENUS_HasSaveFiles@* 0x00430BC0
         if (MAINMENUS_HasSaveFiles())
         {
@@ -290,53 +291,53 @@ int __stdcall MAINMENUS_ConnectOk(int nArg)
 // 0x00436360
 int __stdcall MAINMENUS_SubmitCharacter(int nArg)
 {
-    if (gpLaunchRecord_007795D4->nClass == 6 || gpLaunchRecord_007795D4->nClass == 5)
-        *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF |= 0x20;
-    if (gnLaunchMode_007795EC == 3)
+    if (gpLaunchRecord->nClass == 6 || gpLaunchRecord->nClass == 5)
+        *(unsigned short*)gpLaunchRecord->aFlags1EF |= 0x20;
+    if (gnLaunchMode == 3)
     {
         D2MCPClientCloseMCP();
         sub_0043C6A0(0);
-        AUTOMAP_InitCharSaveHeader(gpLaunchRecord_007795D4->szCharName, gpLaunchRecord_007795D4->nClass, gpLaunchRecord_007795D4->aDataED, *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
-        sub_0043C6B0_WriteSaveHeader(gpLaunchRecord_007795D4->szCharName);
-        gpLaunchRecord_007795D4->nByte35E = 4;
-        gnLaunchState_007795E8 = 3;
-        *(int*)gpLaunchRecord_007795D4->aState209 = 0x804;
-        gpLaunchRecord_007795D4->nByte22D = 0;
-        gpLaunchRecord_007795D4->nByteD5 = 0;
+        AUTOMAP_InitCharSaveHeader(gpLaunchRecord->szCharName, gpLaunchRecord->nClass, gpLaunchRecord->aDataED, *(unsigned short*)gpLaunchRecord->aFlags1EF);
+        sub_0043C6B0_WriteSaveHeader(gpLaunchRecord->szCharName);
+        gpLaunchRecord->nByte35E = 4;
+        gnLaunchState = 3;
+        *(int*)gpLaunchRecord->aState209 = 0x804;
+        gpLaunchRecord->nByte22D = 0;
+        gpLaunchRecord->nByteD5 = 0;
         D2Win_StopMessageLoop();
         return 1;
     }
-    if (gnLaunchMode_007795EC == 0)
+    if (gnLaunchMode == 0)
     {
-        AUTOMAP_InitCharSaveHeader(gpLaunchRecord_007795D4->szCharName, gpLaunchRecord_007795D4->nClass, gpLaunchRecord_007795D4->aDataED, *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
-        sub_0043C6B0_WriteSaveHeader(gpLaunchRecord_007795D4->szCharName);
-        gpLaunchRecord_007795D4->nByte35E = 1;
-        *(int*)gpLaunchRecord_007795D4->aState19 = 0;
-        *(int*)gpLaunchRecord_007795D4->aState209 = 4;
-        if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 4)
-            *(int*)gpLaunchRecord_007795D4->aState209 = 0x804;
-        if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 0x20)
-            *(int*)gpLaunchRecord_007795D4->aState209 |= 0x100000;
-        gnLaunchState_007795E8 = 1;
+        AUTOMAP_InitCharSaveHeader(gpLaunchRecord->szCharName, gpLaunchRecord->nClass, gpLaunchRecord->aDataED, *(unsigned short*)gpLaunchRecord->aFlags1EF);
+        sub_0043C6B0_WriteSaveHeader(gpLaunchRecord->szCharName);
+        gpLaunchRecord->nByte35E = 1;
+        *(int*)gpLaunchRecord->aState19 = 0;
+        *(int*)gpLaunchRecord->aState209 = 4;
+        if (*(unsigned short*)gpLaunchRecord->aFlags1EF & 4)
+            *(int*)gpLaunchRecord->aState209 = 0x804;
+        if (*(unsigned short*)gpLaunchRecord->aFlags1EF & 0x20)
+            *(int*)gpLaunchRecord->aState209 |= 0x100000;
+        gnLaunchState = 1;
         D2Win_StopMessageLoop();
         return 1;
     }
-    if (gnLaunchMode_007795EC == 2)
+    if (gnLaunchMode == 2)
     {
         sub_0043C6A0(0);
-        AUTOMAP_InitCharSaveHeader(gpLaunchRecord_007795D4->szCharName, gpLaunchRecord_007795D4->nClass, gpLaunchRecord_007795D4->aDataED, *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
-        sub_0043C6B0_WriteSaveHeader(gpLaunchRecord_007795D4->szCharName);
-        gpLaunchRecord_007795D4->nByte35E = 3;
-        gnLaunchState_007795E8 = 1;
-        *(int*)gpLaunchRecord_007795D4->aState209 = 4;
-        if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 4)
-            *(int*)gpLaunchRecord_007795D4->aState209 = 0x804;
-        if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 0x20)
-            *(int*)gpLaunchRecord_007795D4->aState209 |= 0x100000;
+        AUTOMAP_InitCharSaveHeader(gpLaunchRecord->szCharName, gpLaunchRecord->nClass, gpLaunchRecord->aDataED, *(unsigned short*)gpLaunchRecord->aFlags1EF);
+        sub_0043C6B0_WriteSaveHeader(gpLaunchRecord->szCharName);
+        gpLaunchRecord->nByte35E = 3;
+        gnLaunchState = 1;
+        *(int*)gpLaunchRecord->aState209 = 4;
+        if (*(unsigned short*)gpLaunchRecord->aFlags1EF & 4)
+            *(int*)gpLaunchRecord->aState209 = 0x804;
+        if (*(unsigned short*)gpLaunchRecord->aFlags1EF & 0x20)
+            *(int*)gpLaunchRecord->aState209 |= 0x100000;
         D2Win_StopMessageLoop();
         return 1;
     }
-    if (gnLaunchMode_007795EC == 1)
+    if (gnLaunchMode == 1)
         MAINMENUS_CreateRealmCharacter();
     return 1;
 }
@@ -405,7 +406,7 @@ int __stdcall MAINMENUS_OnEditChange(int nArg)
 // 0x00436320
 int __stdcall MAINMENUS_GatewayOk(int nUnused)
 {
-    gbGatewayFlag_00779954 = 1;
+    gbGatewayFlag = 1;
     MAINMENUS_ShowLoginScreen();
     return 1;
 }
@@ -413,7 +414,7 @@ int __stdcall MAINMENUS_GatewayOk(int nUnused)
 // 0x00436340
 int __stdcall MAINMENUS_GatewayBack(int nUnused)
 {
-    gpfnGatewayDone_007795BC = MAINMENUS_SetDone;
+    gpfnGatewayDone = MAINMENUS_SetDone;
     MAINMENUS_DestroyControls();
     MAINMENUS_ShowLoginScreen();
     return 1;
@@ -422,6 +423,6 @@ int __stdcall MAINMENUS_GatewayBack(int nUnused)
 // 0x00436AC0
 void __cdecl MAINMENUS_ClearStatusTexts()
 {
-    gpStatusText_007799A8 = 0;
-    gpCounterText_007799AC = 0;
+    gpStatusText = 0;
+    gpCounterText = 0;
 }

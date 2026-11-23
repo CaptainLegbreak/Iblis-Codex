@@ -159,17 +159,17 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 
 void __stdcall sub_006BBF40_PutPackedWord(unsigned char* pStream, unsigned short nValue); // 0x006BBF40
 
-extern _iobuf* gapLogFiles_0075E790[20]; // 0x0075E790
+extern _iobuf* gapLogFiles[20]; // 0x0075E790
 
-extern unsigned long gadwLogOpenTick_0075E7E0[20]; // 0x0075E7E0
+extern unsigned long gadwLogOpenTick[20]; // 0x0075E7E0
 
-extern unsigned long gadwLogWriteTick_0075D2F0[20]; // 0x0075D2F0
+extern unsigned long gadwLogWriteTick[20]; // 0x0075D2F0
 
 extern D2FogBlockStrc* gapFreeBlocks_007768B8[0x100]; // 0x007768B8
 
 extern D2CriticalSectionStrc gaFreeBlockLocks_00776CC0[0x100]; // 0x00776CC0
 
-extern D2CharSaveHeaderStrc gtCharSaveHeader_0077AC10; // 0x0077AC10
+extern D2CharSaveHeaderStrc gtCharSaveHeader; // 0x0077AC10
 
 extern D2CharSaveIdStrc gtCharSaveId; // 0x0070CCC8
 
@@ -939,30 +939,30 @@ double __fastcall AUTOMAP_PowInt(double x, int nExp)
 // 0x0043C540
 void __fastcall AUTOMAP_InitCharSaveHeader(const char* szName, unsigned char nClass, unsigned char* pStream, unsigned short wFlags)
 {
-    memset(&gtCharSaveHeader_0077AC10, 0, 0x14F);
-    gtCharSaveHeader_0077AC10.dwMagic = 0xAA55AA55;
-    gtCharSaveHeader_0077AC10.dwVersion = 0x60;
-    SStrCopy(gtCharSaveHeader_0077AC10.szName, szName, 0x7FFFFFFF);
-    gtCharSaveHeader_0077AC10.nClass = nClass;
-    gtCharSaveHeader_0077AC10.nUnk0x2B = 1;
-    gtCharSaveHeader_0077AC10.dwFlags = wFlags | 1;
-    gtCharSaveHeader_0077AC10.nCreateTime = _time32(0);
-    gtCharSaveHeader_0077AC10.nSaveTime = gtCharSaveHeader_0077AC10.nCreateTime;
-    gtCharSaveHeader_0077AC10.dwSize = 0x14F;
-    gtCharSaveHeader_0077AC10.nUnk0x29 = 0x10;
-    gtCharSaveHeader_0077AC10.nUnk0x2A = 0x1E;
+    memset(&gtCharSaveHeader, 0, 0x14F);
+    gtCharSaveHeader.dwMagic = 0xAA55AA55;
+    gtCharSaveHeader.dwVersion = 0x60;
+    SStrCopy(gtCharSaveHeader.szName, szName, 0x7FFFFFFF);
+    gtCharSaveHeader.nClass = nClass;
+    gtCharSaveHeader.nUnk0x2B = 1;
+    gtCharSaveHeader.dwFlags = wFlags | 1;
+    gtCharSaveHeader.nCreateTime = _time32(0);
+    gtCharSaveHeader.nSaveTime = gtCharSaveHeader.nCreateTime;
+    gtCharSaveHeader.dwSize = 0x14F;
+    gtCharSaveHeader.nUnk0x29 = 0x10;
+    gtCharSaveHeader.nUnk0x2A = 0x1E;
     if (nClass == 6 || nClass == 5)
-        gtCharSaveHeader_0077AC10.dwFlags |= 0x20;
+        gtCharSaveHeader.dwFlags |= 0x20;
     sub_006BBF40_PutPackedWord(pStream, 0xE);
     pStream += 2;
-    gtCharSaveHeader_0077AC10.tId = gtCharSaveId;
+    gtCharSaveHeader.tId = gtCharSaveId;
     for (int i = 0; i < 11; ++i)
         *pStream++ = gtCharSaveId.f_0[i];
     *pStream++ = nClass + 1;
-    memset(gtCharSaveHeader_0077AC10.anUnk0x98, 0xFF, sizeof(gtCharSaveHeader_0077AC10.anUnk0x98));
+    memset(gtCharSaveHeader.anUnk0x98, 0xFF, sizeof(gtCharSaveHeader.anUnk0x98));
     memset(pStream, -1, 11);
     pStream += 11;
-    const unsigned short wSavedFlags = (unsigned short)gtCharSaveHeader_0077AC10.dwFlags;
+    const unsigned short wSavedFlags = (unsigned short)gtCharSaveHeader.dwFlags;
     *pStream++ = 1;
     sub_006BBF40_PutPackedWord(pStream, wSavedFlags);
     pStream += 2;
@@ -2528,7 +2528,8 @@ void __cdecl AUTOMAP_DrawGameInfoLines()
     }
     else
     {
-        sprintf(szText, gszStringFormat_006FFC58, szFirst);
+// build: symbol ?gszStringFormat@* 0x006FFC58
+        sprintf(szText, gszStringFormat, szFirst);
         sub_00526320_ToUnicode(wszName, szText, 25);
         sub_005267E0(wszLine, D2LANG_GetStringFromTblIndex(0x1055));
         sub_00526700(wszLine, wszName);
@@ -2538,7 +2539,7 @@ void __cdecl AUTOMAP_DrawGameInfoLines()
     const char* szThird = GAME_GetGameDescription();
     if (!szThird)
         return;
-    sprintf(szText, gszStringFormat_006FFC58, szThird);
+    sprintf(szText, gszStringFormat, szThird);
     sub_00526320_ToUnicode(wszName, szText, 25);
     sub_005267E0(wszLine, D2LANG_GetStringFromTblIndex(0x1056));
     sub_00526700(wszLine, wszName);

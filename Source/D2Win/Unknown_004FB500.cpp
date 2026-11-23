@@ -1,7 +1,7 @@
 #include "D2Win.h"
 
 extern "C" const char gszPathFormat_006D4124[];                                                             // 0x006D4124
-extern "C" const char szPalDat_006DC7FC[];                                                                  // 0x006DC7FC
+extern "C" const char gszPalDat[];                                                                  // 0x006DC7FC
 
 int __stdcall sub_004FB1E0_LoadPaletteFiles(const char* szDatFileName, const char* szPL2FileName);           // 0x004FB1E0
 void __fastcall D2COMP_InitEmblemColorTables();                                                                // 0x005055D0
@@ -14,7 +14,7 @@ int __stdcall D2Win_10028(const char* pszPalDatFilename, const char* pszPalPL2Fi
         char szPalDatFilename[260];
         char szPalPL2Filename[260];
 // build: symbol ?gszDataGlobal@* 0x006D4118
-        wsprintfA(szPalDatFilename, gszPathFormat_006D4124, gszDataGlobal, szPalDat_006DC7FC);
+        wsprintfA(szPalDatFilename, gszPathFormat_006D4124, gszDataGlobal, gszPalDat);
         wsprintfA(szPalPL2Filename, gszPathFormat_006D4124, gszDataGlobal, "palette\\act1\\pal.pl2");
         sub_004FB1E0_LoadPaletteFiles(szPalDatFilename, szPalPL2Filename);
     }

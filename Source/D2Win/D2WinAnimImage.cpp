@@ -47,7 +47,7 @@ static int ANIMIMAGE_UpdateState(D2WinAnimImageStrc* pAnimImage); // 0x00500480
 
 int __stdcall CelGetHeight(D2CelStrc* pCel);                                                                // 0x006018F0
 
-extern tagPOINT gMousePosition_6F8FE234;                                                                    // 0x007D55A4
+extern tagPOINT gtMousePosition;                                                                    // 0x007D55A4
 
 int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl);                                             // 0x004F9210
 
@@ -339,8 +339,8 @@ int __fastcall ANIMIMAGE_ShouldMouseInputBeHandled(D2WinControlStrc* pControl)
     D2WinAnimImageStrc* pAnimImage = (D2WinAnimImageStrc*)pControl;
     D2_ASSERT(pAnimImage->controlHeader.eType == 2, 0x73);
 
-    int nY = gMousePosition_6F8FE234.y;
-    int nX = gMousePosition_6F8FE234.x;
+    int nY = gtMousePosition.y;
+    int nX = gtMousePosition.x;
 
     D2CelFileStrc* pCellFile = 0;
     D2CelFileStrc** ppCellFile = pAnimImage->pAnimatedImageDescriptor[pAnimImage->nAnimType].ppCellFile1;

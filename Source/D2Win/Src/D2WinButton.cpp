@@ -19,7 +19,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 
-extern tagPOINT gMousePosition_6F8FE234;                                                                    // 0x007D55A4
+extern tagPOINT gtMousePosition;                                                                    // 0x007D55A4
 
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 
@@ -135,7 +135,7 @@ int __fastcall BUTTON_Draw(D2WinButtonStrc* pButton)
             }
             else
             {
-                pButton->bIsCallbackPending = BUTTON_IsPointInside(pButton, gMousePosition_6F8FE234.x, gMousePosition_6F8FE234.y);
+                pButton->bIsCallbackPending = BUTTON_IsPointInside(pButton, gtMousePosition.x, gtMousePosition.y);
             }
         }
 
@@ -229,8 +229,8 @@ int __fastcall BUTTON_Draw(D2WinButtonStrc* pButton)
         {
             const int nImageX = pButton->controlHeader.nImageX;
             const int nImageY = pButton->controlHeader.nImageY;
-            pButton->isButtonHovered = gMousePosition_6F8FE234.x >= nImageX && gMousePosition_6F8FE234.y >= nImageY - pButton->controlHeader.nHeight
-                && gMousePosition_6F8FE234.x < nImageX + pButton->controlHeader.nWidth && gMousePosition_6F8FE234.y < nImageY;
+            pButton->isButtonHovered = gtMousePosition.x >= nImageX && gtMousePosition.y >= nImageY - pButton->controlHeader.nHeight
+                && gtMousePosition.x < nImageX + pButton->controlHeader.nWidth && gtMousePosition.y < nImageY;
         }
 
         SMSGHANDLER_PARAMS tMsg;

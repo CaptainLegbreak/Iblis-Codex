@@ -123,15 +123,15 @@ extern char gData_00882028[]; // 0x00882028
 
 extern int gdwGlobal_00882528; // 0x00882528
 
-extern int gdwGlobal_0072FFA8; // 0x0072FFA8
+extern int gnLastStatus; // 0x0072FFA8
 
-extern char gData_00882428[]; // 0x00882428
+extern char gszReplyText[]; // 0x00882428
 
-extern int gdwGlobal_008822A4; // 0x008822A4
+extern int gnCreateAccountResult; // 0x008822A4
 
-extern int gdwGlobal_008822A0; // 0x008822A0
+extern int gnChangePasswordResult; // 0x008822A0
 
-extern int gdwGlobal_00882538; // 0x00882538
+extern int gnLoginRetryCount; // 0x00882538
 
 extern int gdwGlobal_00730190; // 0x00730190
 
@@ -346,7 +346,8 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);
 // build: symbol _gszD2NetSourceFile 0x006E0488
 extern "C" const char gszD2NetSourceFile[];
 
-extern int gnConnectionMode_00882D10;
+// build: symbol ?gnConnectionMode@* 0x00882D10
+extern int gnConnectionMode;
 
 int gbD2ServerCallbackFunctionsInitialized;                                                        // 0x00883D54
 
@@ -1470,25 +1471,25 @@ int __cdecl sub_00520AE0()
 // 0x00520AF0
 int __cdecl sub_00520AF0()
 {
-    return gdwGlobal_0072FFA8;
+    return gnLastStatus;
 }
 
 // 0x00520B00
 void* __cdecl sub_00520B00()
 {
-    return gData_00882428;
+    return gszReplyText;
 }
 
 // 0x00520B10
 int __cdecl BNCLIENT_GetCreateAccountResult()
 {
-    return gdwGlobal_008822A4;
+    return gnCreateAccountResult;
 }
 
 // 0x00520B20
 int __cdecl BNCLIENT_GetChangePasswordResult()
 {
-    return gdwGlobal_008822A0;
+    return gnChangePasswordResult;
 }
 
 // 0x00520C40
@@ -1506,7 +1507,7 @@ int __cdecl sub_005210E0()
 // 0x005224E0
 int __cdecl sub_005224E0()
 {
-    return gdwGlobal_00882538;
+    return gnLoginRetryCount;
 }
 
 // 0x00523A00
@@ -2693,7 +2694,7 @@ char* __fastcall PLRSAVE_BytesToHexString(char* szOut, const unsigned char* pDat
 // build: symbol ?NET_IsSimulatedLagConnection@* 0x0052B800
 int __fastcall NET_IsSimulatedLagConnection()
 {
-    return gnConnectionMode_00882D10 == 2;
+    return gnConnectionMode == 2;
 }
 
 int __fastcall NET_DequeueFirstPacketFromList(D2CriticalSectionStrc* pCriticalSection, D2NetPacketRecStrc** ppPacketList, unsigned char* pBuffer, unsigned int nBufferSize)
@@ -2703,7 +2704,7 @@ int __fastcall NET_DequeueFirstPacketFromList(D2CriticalSectionStrc* pCriticalSe
     EnterCriticalSection(pCriticalSection);
 
     D2NetPacketRecStrc* pPacket = *ppPacketList;
-    if (pPacket && (gnConnectionMode_00882D10 != 2 || GetTickCount() - pPacket->dwTickCount >= 500))
+    if (pPacket && (gnConnectionMode != 2 || GetTickCount() - pPacket->dwTickCount >= 500))
     {
         memcpy(pBuffer, pPacket, nBufferSize < MAX_MSG_SIZE ? nBufferSize : MAX_MSG_SIZE);
         nResult = pPacket->nPacketSize;

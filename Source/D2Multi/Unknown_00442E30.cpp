@@ -18,9 +18,9 @@ char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount);
 void __fastcall sub_004FF5A0_SetEditText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FF5A0
 int __stdcall CHARSEL_JoinByName(int nArg); // 0x004439F0
 void __fastcall CHATDLG_SetPendingText(const char* szText, unsigned short wRequestId); // 0x00442DD0
-extern D2LaunchGameRecStrc gaNewGames_0077BDC8[]; // 0x0077BDC8
-extern D2WinControlStrc* gpJoinName_00798BD4; // 0x00798BD4
-extern unsigned long gdwLastClickTick_00798CEC; // 0x00798CEC
+extern D2LaunchGameRecStrc gaNewGames[]; // 0x0077BDC8
+extern D2WinControlStrc* gpJoinName; // 0x00798BD4
+extern unsigned long gdwGameListLastClickTick; // 0x00798CEC
 
 struct D2GameDetailsStrc
 {
@@ -46,7 +46,7 @@ static void sub_00442E30_ShowGameInfo(int nIndex)
     if (!gpGameText_00798BC4)
         return;
 
-    D2LaunchGameRecStrc* pGame = &gaNewGames_0077BDC8[nIndex];
+    D2LaunchGameRecStrc* pGame = &gaNewGames[nIndex];
     sub_004FB6A0_ClearText(gpGameText_00798BC4);
     if (strlen(&pGame->szName[0x10]))
     {
@@ -56,41 +56,44 @@ static void sub_00442E30_ShowGameInfo(int nIndex)
     D2Win_10053(gpGameText_00798BC4, 0);
     if (pGame->szName)
     {
-        sub_004FFE10_SetTextA(gpJoinName_00798BD4, pGame->szName);
+        sub_004FFE10_SetTextA(gpJoinName, pGame->szName);
         CONTROL_SetFocusedEditBox(0);
     }
 }
 
 int __stdcall sub_004450D0_OnGameListEvent(SMSGHANDLER_PARAMS* pMsg)
 {
-    const int nSelection = sub_004FB990_GetSelection(gpGameList_00798BC0);
+// build: symbol ?gpGameList@* 0x00798BC0
+    const int nSelection = sub_004FB990_GetSelection(gpGameList);
     sub_004FB6A0_ClearText(gpGameText_00798BC4);
     if (nSelection != -1)
     {
         if (pMsg->uMessage == 0x201)
         {
             const unsigned long dwTick = GetTickCount();
-            if (nSelection == gnLastSelection_0070EBDC && dwTick - gdwLastClickTick_00798CEC <= 500)
+// build: symbol ?gnGameListLastSelection@* 0x0070EBDC
+            if (nSelection == gnGameListLastSelection && dwTick - gdwGameListLastClickTick <= 500)
             {
                 CHARSEL_JoinByName(0);
                 return 0;
             }
-            gnLastSelection_0070EBDC = nSelection;
-            gdwLastClickTick_00798CEC = dwTick;
+            gnGameListLastSelection = nSelection;
+            gdwGameListLastClickTick = dwTick;
         }
 
         if (sub_00449B30_QueryAddress())
         {
-            const Unicode* pText = sub_004FBB30_GetText(gpGameList_00798BC0);
+            const Unicode* pText = sub_004FBB30_GetText(gpGameList);
             if (pText)
             {
                 char szText[0x100];
                 sub_00526F70(szText, pText, 0x100);
-                while (++gwRequestId_0070CD60 == 0)
+// build: symbol ?gwRequestId@* 0x0070CD60
+                while (++gwRequestId == 0)
                 {
                 }
-                CHATDLG_SetPendingText(szText, gwRequestId_0070CD60);
-                sub_004FF5A0_SetEditText(gpJoinName_00798BD4, pText);
+                CHATDLG_SetPendingText(szText, gwRequestId);
+                sub_004FF5A0_SetEditText(gpJoinName, pText);
                 CONTROL_SetFocusedEditBox(0);
             }
         }
@@ -102,21 +105,21 @@ int __stdcall sub_004450D0_OnGameListEvent(SMSGHANDLER_PARAMS* pMsg)
     return 0;
 }
 
-D2WinControlStrc* gpGameInfoText_00798BC4; // 0x00798BC4
+D2WinControlStrc* gpGameInfoText; // 0x00798BC4
 
 // 0x00442EB0
 void __fastcall sub_00442EB0_ShowGameDetails(D2GameDetailsStrc* pDetails)
 {
     char szLine[0x100];
 
-    if (!gpGameInfoText_00798BC4)
+    if (!gpGameInfoText)
         return;
 
-    sub_004FB6A0_ClearText(gpGameInfoText_00798BC4);
+    sub_004FB6A0_ClearText(gpGameInfoText);
     if (strlen(pDetails->szDescription))
     {
-        sub_004FCF80_SetTextA(gpGameInfoText_00798BC4, pDetails->szDescription);
-        sub_004FCF80_SetTextA(gpGameInfoText_00798BC4, gszEmptyString_006CC837);
+        sub_004FCF80_SetTextA(gpGameInfoText, pDetails->szDescription);
+        sub_004FCF80_SetTextA(gpGameInfoText, gszEmptyString_006CC837);
     }
 
     unsigned int nSecondsPerHour = 3600;
@@ -125,7 +128,7 @@ void __fastcall sub_00442EB0_ShowGameDetails(D2GameDetailsStrc* pDetails)
     unsigned int nHours = dwElapsed / nSecondsPerHour;
     unsigned int nRest = dwElapsed % nSecondsPerHour;
     sprintf(szLine, "Elapsed Time: %d:%02d:%02d", nHours, nRest / 60, dwElapsed % nSecondsPerMinute);
-    sub_004FCF80_SetTextA(gpGameInfoText_00798BC4, szLine);
+    sub_004FCF80_SetTextA(gpGameInfoText, szLine);
 
     unsigned char nLevelDiff = pDetails->nLevelDiff;
     if (nLevelDiff < 100)
@@ -146,59 +149,59 @@ void __fastcall sub_00442EB0_ShowGameDetails(D2GameDetailsStrc* pDetails)
         {
             sprintf(szLine, "Level %d", pDetails->nLevel);
         }
-        sub_004FCF80_SetTextA(gpGameInfoText_00798BC4, szLine);
+        sub_004FCF80_SetTextA(gpGameInfoText, szLine);
     }
 
     if (pDetails->nMaxPlayers > 0 && pDetails->nMaxPlayers < 8)
     {
         sprintf(szLine, "Up to %d Players", pDetails->nMaxPlayers);
-        sub_004FCF80_SetTextA(gpGameInfoText_00798BC4, szLine);
+        sub_004FCF80_SetTextA(gpGameInfoText, szLine);
     }
 
-    sub_004FCF80_SetTextA(gpGameInfoText_00798BC4, gszEmptyString_006CC837);
+    sub_004FCF80_SetTextA(gpGameInfoText, gszEmptyString_006CC837);
 
     for (int i = 0; i < pDetails->nPlayers; ++i)
     {
         if (pDetails->szNames[i][0])
         {
-            sub_004FCF80_SetTextA(gpGameInfoText_00798BC4, pDetails->szNames[i]);
+            sub_004FCF80_SetTextA(gpGameInfoText, pDetails->szNames[i]);
             switch (pDetails->wClass[i])
             {
             case 0:
                 sprintf(szLine, "Level %d Amazon", pDetails->wLevel[i]);
-                D2Win_10046(gpGameInfoText_00798BC4, szLine, 5);
+                D2Win_10046(gpGameInfoText, szLine, 5);
                 break;
             case 1:
                 sprintf(szLine, "Level %d Sorceress", pDetails->wLevel[i]);
-                D2Win_10046(gpGameInfoText_00798BC4, szLine, 5);
+                D2Win_10046(gpGameInfoText, szLine, 5);
                 break;
             case 2:
                 sprintf(szLine, "Level %d Necromancer", pDetails->wLevel[i]);
-                D2Win_10046(gpGameInfoText_00798BC4, szLine, 5);
+                D2Win_10046(gpGameInfoText, szLine, 5);
                 break;
             case 3:
                 sprintf(szLine, "Level %d Paladin", pDetails->wLevel[i]);
-                D2Win_10046(gpGameInfoText_00798BC4, szLine, 5);
+                D2Win_10046(gpGameInfoText, szLine, 5);
                 break;
             case 4:
                 sprintf(szLine, "Level %d Barbarian", pDetails->wLevel[i]);
-                D2Win_10046(gpGameInfoText_00798BC4, szLine, 5);
+                D2Win_10046(gpGameInfoText, szLine, 5);
                 break;
             case 5:
                 sprintf(szLine, "Level %d Druid", pDetails->wLevel[i]);
-                D2Win_10046(gpGameInfoText_00798BC4, szLine, 5);
+                D2Win_10046(gpGameInfoText, szLine, 5);
                 break;
             case 6:
                 sprintf(szLine, "Level %d Assassin", pDetails->wLevel[i]);
-                D2Win_10046(gpGameInfoText_00798BC4, szLine, 5);
+                D2Win_10046(gpGameInfoText, szLine, 5);
                 break;
             default:
                 sprintf(szLine, "Level %d", pDetails->wLevel[i]);
-                D2Win_10046(gpGameInfoText_00798BC4, szLine, 5);
+                D2Win_10046(gpGameInfoText, szLine, 5);
                 break;
             }
         }
     }
 
-    D2Win_10053(gpGameInfoText_00798BC4, 0);
+    D2Win_10053(gpGameInfoText, 0);
 }

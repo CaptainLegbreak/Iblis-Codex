@@ -41,7 +41,7 @@ bool __stdcall ERRORMANAGER_CreateDirectoryUtf8(const char* szPath);            
 
 _iobuf* __stdcall ERRORMANAGER_OpenFileForWriteUtf8(const char* szPath);                                    // 0x004043C0
 
-char gszLogDirectory_00992708[0x400];                                                                       // 0x00992708
+char gszLogDirectory[0x400];                                                                       // 0x00992708
 
 namespace crashy
 {
@@ -288,17 +288,17 @@ int __fastcall FOG_GetInstallPath(char* szPath, unsigned int nSize); // 0x00406B
 
 void __stdcall D2ServerServiceMain(unsigned long dwArgc, char** argv); // 0x004065E0
 
-extern "C" const char gszInternalCheckHost_006FF994[]; // 0x006FF994
+extern "C" const char gszInternalCheckHost[]; // 0x006FF994
 
-extern "C" const D2GuidStrc gtKnownFolderId_006CCA6C; // 0x006CCA6C
+extern "C" const D2GuidStrc gtKnownFolderId; // 0x006CCA6C
 
-extern const double gdDaysPerYear_006CCC08; // 0x006CCC08
+extern const double gdDaysPerYear; // 0x006CCC08
 
-extern const double gdDaysPerMonth_006CCC10; // 0x006CCC10
+extern const double gdDaysPerMonth; // 0x006CCC10
 
-extern char gszServiceName_007065DC[]; // 0x007065DC
+extern char gszServiceName[]; // 0x007065DC
 
-extern D2ModeEntryStrc gaModeTable_00706554[]; // 0x00706554
+extern D2ModeEntryStrc gaModeTable[]; // 0x00706554
 
 extern int gnMode_0074C704; // 0x0074C704
 
@@ -314,7 +314,7 @@ struct D2StormArray408Strc;
 
 int __stdcall SFileSetBasePath(const char* szPath); // 0x004164B0
 
-extern int gdwGlobal_008F03C8; // 0x008F03C8
+extern int gnGenericRle; // 0x008F03C8
 
 int __stdcall sub_00419980(const char* szFileName, void** phFile); // 0x00419980
 
@@ -388,21 +388,21 @@ const char* __fastcall ERRORMANAGER_StripSourcePath(const char* szFile); // 0x00
 
 void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410660
 
-extern int gdwGlobal_0074F0C8; // 0x0074F0C8
+extern int gbWritingCrashReport; // 0x0074F0C8
 
-D2ModeIfaceStrc* gpModeIface_0074C700; // 0x0074C700
+D2ModeIfaceStrc* gpModeIface; // 0x0074C700
 
-int gbD2ServerStopEvent_0074C720; // 0x0074C720
+int gbRunningAsService; // 0x0074C720
 
 char szSRegReadBuf[260]; // 0x0074C728
 
-unsigned long gdwTotalPhys_0074D898; // 0x0074D898
+unsigned long gdwTotalPhys; // 0x0074D898
 
 #define OUTPUT_SIZE 0x80
 
-extern int gdwGlobal_00992B1C;  // 0x00992B1C
+extern int gdwMainThreadId;  // 0x00992B1C
 
-extern "C" const char gszMainThread_006FF988[];  // 0x006FF988
+extern "C" const char gszMainThread[];  // 0x006FF988
 
 extern "C" int __cdecl strncpy_s(char*,unsigned int,const char*,unsigned int);  // 0x006859D2
 
@@ -422,13 +422,13 @@ void __cdecl sub_004107A0_DeleteTimeLock();                                     
 
 void __cdecl sub_0040FFD0_ShutdownLogSystem();                                                              // 0x0040FFD0
 
-extern "C" const char gszStringFormat_006FFC58[];                                                           // 0x006FFC58
+extern "C" const char gszStringFormat[];                                                           // 0x006FFC58
 
 D2CriticalSectionStrc gtLock_0074C830;                                                                      // 0x0074C830
 
 D2CriticalSectionStrc gtLock_0074D848;                                                                      // 0x0074D848
 
-int gbErrorMgrInit_0074F0D0;                                                                                // 0x0074F0D0
+int gbErrorMgrInit;                                                                                // 0x0074F0D0
 
 extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(unsigned int nCodePage, unsigned long dwFlags, const char* szSource, int nSource, wchar_t* wszDest, int nDest); // 0x006CC29C
 
@@ -464,13 +464,13 @@ int __stdcall sub_00525150();                                                   
 
 int __stdcall STRTABLE_GetSystemLanguage();                                                                   // 0x005251C0
 
-extern D2InspectorInfoStrc gtInspectorInfo_0074D868;                                                       // 0x0074D868
+extern D2InspectorInfoStrc gtInspectorInfo;                                                       // 0x0074D868
 
-char gszProcessPath_0074E8C8[2048];                                                                         // 0x0074E8C8
+char gszProcessPath[2048];                                                                         // 0x0074E8C8
 
-extern const char* const gaszLanguageNames_00706618[];                                                      // 0x00706618
+extern const char* const gaszLanguageNames[];                                                      // 0x00706618
 
-extern "C" const char gszUnknownUpper_006CCED8[];                                                           // 0x006CCED8
+extern "C" const char gszUnknownUpper[];                                                           // 0x006CCED8
 
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 
@@ -514,21 +514,21 @@ void __fastcall ERRORMANAGER_ReportPrint(void* pContext, const char* szText);   
 
 bool __fastcall sub_00401790_SubmitReport(const char* szText, D2CrashSubmitInfoStrc* pInfo);                // 0x00401790
 
-extern long volatile gnReportBusy_007076B8;                                                                 // 0x007076B8
+extern long volatile gnReportBusy;                                                                 // 0x007076B8
 
-extern "C" const char gszCrashFile_006CD1C0[];                                                              // 0x006CD1C0
+extern "C" const char gszCrashFile[];                                                              // 0x006CD1C0
 
-extern "C" const char gszFmtSummary_006CD1E8[];                                                             // 0x006CD1E8
+extern "C" const char gszFmtSummary[];                                                             // 0x006CD1E8
 
-extern "C" const char gszFmtLineNumber_006CD1CC[];                                                          // 0x006CD1CC
+extern "C" const char gszFmtLineNumber[];                                                          // 0x006CD1CC
 
-extern "C" const char gszAssertionBegin_006CD170[];                                                         // 0x006CD170
+extern "C" const char gszAssertionBegin[];                                                         // 0x006CD170
 
-extern "C" const char gszAssertionEnd_006CD158[];                                                           // 0x006CD158
+extern "C" const char gszAssertionEnd[];                                                           // 0x006CD158
 
-extern "C" const char gszRegisters_006CD14C[];                                                              // 0x006CD14C
+extern "C" const char gszRegisters[];                                                              // 0x006CD14C
 
-extern "C" const char gszThreads_006CD140[];                                                                // 0x006CD140
+extern "C" const char gszThreads[];                                                                // 0x006CD140
 
 struct D2StackFrameStrc;
 
@@ -556,25 +556,25 @@ void __fastcall ERRORMANAGER_TerminateCurrentProcess(unsigned int nCode); // 0x0
 bool __fastcall sub_00402820_WriteMiniDump(const char* szPath,const char* szComment,void* pExceptionPointers,unsigned long dwThreadId); // 0x00402820
 
 
-extern const char gszCrashSummary_006CD1A8[]; // 0x006CD1A8
+extern const char gszCrashSummary[]; // 0x006CD1A8
 
-extern const char gszCrashDetail_006CD1A0[]; // 0x006CD1A0
+extern const char gszCrashDetail[]; // 0x006CD1A0
 
-extern const char gszCrashNewline_006CD188[]; // 0x006CD188
+extern const char gszCrashNewline[]; // 0x006CD188
 
-extern const char gszModules_006CD124[]; // 0x006CD124
+extern const char gszModules[]; // 0x006CD124
 
-extern const char gszMore1_006CD108[]; // 0x006CD108
+extern const char gszMore1[]; // 0x006CD108
 
-extern const char gszMore2_006CD0F0[]; // 0x006CD0F0
+extern const char gszMore2[]; // 0x006CD0F0
 
-extern const char gszMore3_006CD0D4[]; // 0x006CD0D4
+extern const char gszMore3[]; // 0x006CD0D4
 
-extern const char gszMore4_006CD0C4[]; // 0x006CD0C4
+extern const char gszMore4[]; // 0x006CD0C4
 
-extern const char gszMinidump_006CD0B4[]; // 0x006CD0B4
+extern const char gszMinidump[]; // 0x006CD0B4
 
-extern const char gszMore5_006CD09C[]; // 0x006CD09C
+extern const char gszMore5[]; // 0x006CD09C
 
 // 0x00401000
 static int __cdecl ERRORMANAGER_ConvertLocalTime(tm* pTm, const __int64* pTime)
@@ -599,18 +599,18 @@ bool crashy::Report::OpenReport(const char* szFileName)
     __int64 nTime = _time64(0);
     tm tTime;
     _localtime64_s(&tTime, &nTime);
-    if (!gszLogDirectory_00992708[0])
+    if (!gszLogDirectory[0])
     {
-        if (!ERRORMANAGER_GetTempPathUtf8(gszLogDirectory_00992708))
+        if (!ERRORMANAGER_GetTempPathUtf8(gszLogDirectory))
         {
             return false;
         }
-        if (!ERRORMANAGER_AppendPathSeparator(gszLogDirectory_00992708))
+        if (!ERRORMANAGER_AppendPathSeparator(gszLogDirectory))
         {
             return false;
         }
     }
-    if ((size_t)(ERRORMANAGER_FormatText(m_szText408, 0x400, "%s/%04d-%02d-%02d %02d.%02d.%02d", gszLogDirectory_00992708, tTime.tm_year + 0x76C, tTime.tm_mon + 1, tTime.tm_mday, tTime.tm_hour, tTime.tm_min, tTime.tm_sec) + 1) > 0x400)
+    if ((size_t)(ERRORMANAGER_FormatText(m_szText408, 0x400, "%s/%04d-%02d-%02d %02d.%02d.%02d", gszLogDirectory, tTime.tm_year + 0x76C, tTime.tm_mon + 1, tTime.tm_mday, tTime.tm_hour, tTime.tm_min, tTime.tm_sec) + 1) > 0x400)
     {
         return false;
     }
@@ -709,7 +709,7 @@ static unsigned char __stdcall ERRORMANAGER_GetThreadStack(unsigned long* pStack
 
 // 0x00401640
 static bool __stdcall ERRORMANAGER_GetThreadName(int threadId,char* output) {
- if(gdwGlobal_00992B1C==threadId) strncpy_s(output,OUTPUT_SIZE,gszMainThread_006FF988,(unsigned int)-1);
+ if(gdwMainThreadId==threadId) strncpy_s(output,OUTPUT_SIZE,gszMainThread,(unsigned int)-1);
  else output[0]=0;
  return true;
 }
@@ -721,7 +721,7 @@ bool __fastcall EmitThreadName(int threadId,char* output) {
 // 0x00401680
 int __cdecl ERRORMANAGER_GetMainThreadId()
 {
-    return gdwGlobal_00992B1C;
+    return gdwMainThreadId;
 }
 
 int D2ThreadContextStrc::sub_00405060_CaptureFrames(unsigned long dwThreadId, D2StackFrameStrc* pFrames, int nSkipFrames)
@@ -824,7 +824,7 @@ bool __cdecl ERRORMANAGER_IsInternalCheckLoopback()
         return false;
     }
     bool bResult = false;
-    D2HostentStrc* pHost = gethostbyname(gszInternalCheckHost_006FF994);
+    D2HostentStrc* pHost = gethostbyname(gszInternalCheckHost);
     if (pHost && pHost->h_addrtype == 2 && *(unsigned long*)pHost->h_addr_list[0] == 0x0100007F)
     {
         bResult = true;
@@ -1136,11 +1136,11 @@ int __stdcall ERRORMANAGER_RunModeInterface(int nArg)
     {
         return 0;
     }
-    D2_ASSERT(gaModeTable_00706554[gnMode_0074C704].pfnCreate, 307);
-    D2_ASSERT(gaModeTable_00706554[gnMode_0074C704].pfnRelease, 308);
-    gpModeIface_0074C700 = gaModeTable_00706554[gnMode_0074C704].pfnCreate(gpModeContext_0074C718);
-    const int nResult = gpModeIface_0074C700->pfnRun(nArg);
-    gaModeTable_00706554[gnMode_0074C704].pfnRelease();
+    D2_ASSERT(gaModeTable[gnMode_0074C704].pfnCreate, 307);
+    D2_ASSERT(gaModeTable[gnMode_0074C704].pfnRelease, 308);
+    gpModeIface = gaModeTable[gnMode_0074C704].pfnCreate(gpModeContext_0074C718);
+    const int nResult = gpModeIface->pfnRun(nArg);
+    gaModeTable[gnMode_0074C704].pfnRelease();
     return nResult;
 }
 
@@ -1170,7 +1170,7 @@ void __fastcall SaveCmdLine(const char** argv)
     }
     bUseCmdLine = 0;
     SRegSaveValue("Diablo II", "UseCmdLine", 0, 0);
-    if (gbD2ServerStopEvent_0074C720)
+    if (gbRunningAsService)
     {
         SRegLoadString("Diablo II", "SvcCmdLine", 0, szSRegReadBuf, 0x400);
         *argv = szSRegReadBuf;
@@ -1207,7 +1207,7 @@ void __cdecl MoveBetaSettingsToRelease()
     }
     char szPath[0x104] = { 0 };
     FOG_GetInstallPath(szPath, 0x104);
-    if (gbD2ServerStopEvent_0074C720)
+    if (gbRunningAsService)
     {
         SetCurrentDirectoryA(szPath);
     }
@@ -1264,7 +1264,7 @@ int __cdecl ERRORMANAGER_StartServiceDispatcher()
         void* hManager = OpenSCManagerA(0, 0, 0xF003F);
         if (hManager)
         {
-            void* hService = OpenServiceA(hManager, gszServiceName_007065DC, 0xF01FF);
+            void* hService = OpenServiceA(hManager, gszServiceName, 0xF01FF);
             if (hService)
             {
                 CloseServiceHandle(hService);
@@ -1273,7 +1273,7 @@ int __cdecl ERRORMANAGER_StartServiceDispatcher()
             if (hService)
             {
                 D2ServiceTableEntryStrc aTable[] = {
-                    { gszServiceName_007065DC, D2ServerServiceMain },
+                    { gszServiceName, D2ServerServiceMain },
                     { 0, 0 }
                 };
                 return StartServiceCtrlDispatcherA(aTable) != 0;
@@ -1299,7 +1299,7 @@ bool __stdcall ERRORMANAGER_GetKnownFolderPathA(char* szPath, int nSize)
         return false;
     }
     wchar_t* wszPath;
-    if (pfnGet(&gtKnownFolderId_006CCA6C, 0x8000, 0, &wszPath) < 0)
+    if (pfnGet(&gtKnownFolderId, 0x8000, 0, &wszPath) < 0)
     {
         return false;
     }
@@ -1311,7 +1311,7 @@ bool __stdcall ERRORMANAGER_GetKnownFolderPathA(char* szPath, int nSize)
 
 int __cdecl D2CMPToggleCelDrawMode()
 {
-    return gdwGlobal_008F03C8 = (gdwGlobal_008F03C8 == 0);
+    return gnGenericRle = (gnGenericRle == 0);
 }
 
 // 0x004076B0
@@ -1354,7 +1354,7 @@ void __cdecl ERRORMANAGER_LogSystemInfo()
 
     sub_00410610_WriteLogLine("%s running under %s (Version %.3f)", "Diablo II", szOs, gfOsVersion);
     sub_0040EA00_WriteProcessorReport();
-    sub_00410610_WriteLogLine("Total Physical Memory: %.2fMB", (float)gdwTotalPhys_0074D898 / 1048576.0);
+    sub_00410610_WriteLogLine("Total Physical Memory: %.2fMB", (float)gdwTotalPhys / 1048576.0);
 
     if (EXCEPTIONS_GetAppPath(szPath, sizeof(szPath)))
     {
@@ -1384,7 +1384,7 @@ void __cdecl ERRORMANAGER_ForceCrash()
 // 0x00407980
 void __fastcall ERRORMANAGER_ReportPrint(void* pContext, const char* szText)
 {
-    ((crashy::Report*)pContext)->sub_00401380(gszStringFormat_006FFC58, szText);
+    ((crashy::Report*)pContext)->sub_00401380(gszStringFormat, szText);
 }
 
 // 0x00407990
@@ -1416,7 +1416,7 @@ unsigned long __fastcall ERRORMANAGER_FindParentProcessId(unsigned long dwProces
 // 0x00407F20
 void __cdecl ERRORMANAGER_ExitHandler()
 {
-    if (gbErrorMgrInit_0074F0D0)
+    if (gbErrorMgrInit)
     {
         FOG_AsyncDataDestroy();
         FOG_DestroyMemoryPoolSystem(0);
@@ -1424,7 +1424,7 @@ void __cdecl ERRORMANAGER_ExitHandler()
         LOGMANAGER_CloseLogFilesNow();
         sub_004107A0_DeleteTimeLock();
         sub_0040FFD0_ShutdownLogSystem();
-        gbErrorMgrInit_0074F0D0 = 0;
+        gbErrorMgrInit = 0;
         DeleteCriticalSection(&gtLock_0074C830);
         DeleteCriticalSection(&gtLock_0074D848);
     }
@@ -1492,22 +1492,22 @@ static void __stdcall ERRORMANAGER_LogPrefixedText(const char* szPrefix, const c
 int __fastcall ERRORMANAGER_CrashHandler(D2CrashInputStrc* pInput)
 {
     D2ThreadContextStrc* pThread = pInput->pException->pContext;
-    const long nBusy = InterlockedIncrement(&gnReportBusy_007076B8);
+    const long nBusy = InterlockedIncrement(&gnReportBusy);
     if (nBusy == 0)
     {
-        gdwGlobal_0074F0C8 = 1;
+        gbWritingCrashReport = 1;
         crashy::Report report;
-        if (!report.OpenReport(gszCrashFile_006CD1C0))
+        if (!report.OpenReport(gszCrashFile))
         {
-            gdwGlobal_0074F0C8 = 0;
+            gbWritingCrashReport = 0;
         }
         else
         {
             report.WriteInspectorHeader();
-            report.sub_00401380(gszCrashSummary_006CD1A8,pInput->szSummary);
-            if (pInput->szDetail[0]) report.sub_00401380(gszCrashDetail_006CD1A0,pInput->szDetail);
-            report.sub_00401380(gszCrashNewline_006CD188);
-            report.sub_00401380(gszAssertionBegin_006CD170);
+            report.sub_00401380(gszCrashSummary,pInput->szSummary);
+            if (pInput->szDetail[0]) report.sub_00401380(gszCrashDetail,pInput->szDetail);
+            report.sub_00401380(gszCrashNewline);
+            report.sub_00401380(gszAssertionBegin);
             int nSkip = 0;
             if (!pThread && !pInput->pFrames)
             {
@@ -1518,30 +1518,30 @@ int __fastcall ERRORMANAGER_CrashHandler(D2CrashInputStrc* pInput)
                 sub_00403100_PrintFrames(pInput->dwThreadId,pInput->pFrames,pInput->nFrames,ERRORMANAGER_ReportPrint,&report,0,1);
             else
                 ERRORMANAGER_DumpThread(pInput->dwThreadId,pThread,ERRORMANAGER_ReportPrint,&report,0,1,nSkip);
-            report.sub_00401380(gszAssertionEnd_006CD158);
-            report.sub_00401380(gszRegisters_006CD14C);
+            report.sub_00401380(gszAssertionEnd);
+            report.sub_00401380(gszRegisters);
             sub_004032F0_DumpRegisters(pInput->dwThreadId,ERRORMANAGER_ReportPrint,&report);
-            report.sub_00401380(gszThreads_006CD140);
+            report.sub_00401380(gszThreads);
             ERRORMANAGER_DumpOtherThreads(ERRORMANAGER_ReportPrint,&report,pInput->dwThreadId);
-            report.sub_00401380(gszModules_006CD124);
+            report.sub_00401380(gszModules);
             sub_00402EE0_DumpModules(ERRORMANAGER_ReportPrint,&report);
-            report.sub_00401380(gszMore1_006CD108);
-            report.sub_00401380(gszMore2_006CD0F0);
-            report.sub_00401380(gszMore3_006CD0D4);
+            report.sub_00401380(gszMore1);
+            report.sub_00401380(gszMore2);
+            report.sub_00401380(gszMore3);
             if (pInput->pFrames)
                 sub_00403100_PrintFrames(pInput->dwThreadId,pInput->pFrames,pInput->nFrames,ERRORMANAGER_ReportPrint,&report,0,0);
             else
                 ERRORMANAGER_DumpThread(pInput->dwThreadId,pThread,ERRORMANAGER_ReportPrint,&report,0,0,nSkip);
-            report.sub_00401380(gszMore4_006CD0C4);
-            SStrCopy(gszProcessPath_0074E8C8,report.m_szText408,0x800);
-            SStrPack(gszProcessPath_0074E8C8,gszMinidump_006CD0B4,0x800);
-            if (sub_00402820_WriteMiniDump(gszProcessPath_0074E8C8,&gszEmptyAssertText,pInput->pException,0))
-                report.sub_00401220_AddFile(gszProcessPath_0074E8C8,false);
-            report.sub_00401380(gszMore5_006CD09C);
+            report.sub_00401380(gszMore4);
+            SStrCopy(gszProcessPath,report.m_szText408,0x800);
+            SStrPack(gszProcessPath,gszMinidump,0x800);
+            if (sub_00402820_WriteMiniDump(gszProcessPath,&gszEmptyAssertText,pInput->pException,0))
+                report.sub_00401220_AddFile(gszProcessPath,false);
+            report.sub_00401380(gszMore5);
             report.sub_004011F0_Close();
             D2CrashSubmitInfoStrc info;
             memset(&info,0,sizeof(info));
-            info.szName=gtInspectorInfo_0074D868.szUnused04;
+            info.szName=gtInspectorInfo.szUnused04;
             for (int i=0;i<report.m_nLineCount;++i)
             {
                 if (i < sizeof(info.apszLines)/sizeof(info.apszLines[0]))
@@ -1551,9 +1551,9 @@ int __fastcall ERRORMANAGER_CrashHandler(D2CrashInputStrc* pInput)
                 }
             }
             sub_00401790_SubmitReport(report.m_szText08,&info);
-            gdwGlobal_0074F0C8=0;
+            gbWritingCrashReport=0;
         }
-        InterlockedDecrement(&gnReportBusy_007076B8);
+        InterlockedDecrement(&gnReportBusy);
         ERRORMANAGER_TerminateCurrentProcess(-1);
     }
     return 2;
@@ -1624,16 +1624,16 @@ bool crashy::Report::WriteInspectorHeader()
         return false;
     }
 
-    sub_00401380("<Application>%s\n", gtInspectorInfo_0074D868.szApplication);
-    sub_00401380("<Inspector.ProjectId>%d\n", gtInspectorInfo_0074D868.f_0);
-    sub_00401380("<Inspector.Module>%s\n", gtInspectorInfo_0074D868.szModule);
-    sub_00401380("<Inspector.Milestone>%s\n", gtInspectorInfo_0074D868.szMilestone);
-    sub_00401380("<Inspector.BuildNumber>%s\n", gtInspectorInfo_0074D868.szBuildNumber);
-    sub_00401380("<Inspector.Platform>%s\n", gtInspectorInfo_0074D868.f_18);
+    sub_00401380("<Application>%s\n", gtInspectorInfo.szApplication);
+    sub_00401380("<Inspector.ProjectId>%d\n", gtInspectorInfo.f_0);
+    sub_00401380("<Inspector.Module>%s\n", gtInspectorInfo.szModule);
+    sub_00401380("<Inspector.Milestone>%s\n", gtInspectorInfo.szMilestone);
+    sub_00401380("<Inspector.BuildNumber>%s\n", gtInspectorInfo.szBuildNumber);
+    sub_00401380("<Inspector.Platform>%s\n", gtInspectorInfo.f_18);
     sub_00401380("<Inspector.IssueType>%s\n", "Exception");
     sub_00401380("<Inspector.Priority>%s\n", "1 - Critical");
-    sub_00401380("<Inspector.PrimaryAssignment>%s\n", gtInspectorInfo_0074D868.szPrimaryAssignment);
-    sub_00401380("<Inspector.Assignments>%s\n", gtInspectorInfo_0074D868.szAssignments);
+    sub_00401380("<Inspector.PrimaryAssignment>%s\n", gtInspectorInfo.szPrimaryAssignment);
+    sub_00401380("<Inspector.Assignments>%s\n", gtInspectorInfo.szAssignments);
 
     int bIsAdmin = 0;
     D2SidAuthorityStrc tNtAuthority = { { 0, 0, 0, 0, 0, 5 } };
@@ -1644,31 +1644,31 @@ bool crashy::Report::WriteInspectorHeader()
         sub_00401380("<Process.UserIsAdmin> %s\n", bIsAdmin ? "TRUE" : "FALSE");
         FreeSid(pSid);
     }
-    sub_00401380("<Process.Elevated> %s\n", gszUnknownUpper_006CCED8);
+    sub_00401380("<Process.Elevated> %s\n", gszUnknownUpper);
 
     unsigned long dwProcessId = GetCurrentProcessId();
-    bool bFound = ERRORMANAGER_GetProcessImageName(dwProcessId, gszProcessPath_0074E8C8, 0x800);
-    sub_00401380("<Process.Path> %s\n", bFound ? gszProcessPath_0074E8C8 : "Unknown");
-    const char* szSlash = strrchr(gszProcessPath_0074E8C8, '\\');
+    bool bFound = ERRORMANAGER_GetProcessImageName(dwProcessId, gszProcessPath, 0x800);
+    sub_00401380("<Process.Path> %s\n", bFound ? gszProcessPath : "Unknown");
+    const char* szSlash = strrchr(gszProcessPath, '\\');
     const char* szName = szSlash ? szSlash + 1 : 0;
     sub_00401380("<Process.Name> %s\n", (szName && bFound) ? szName : "Unknown");
 
     unsigned long dwParentId = ERRORMANAGER_FindParentProcessId(dwProcessId);
-    bFound = ERRORMANAGER_GetProcessImageName(dwParentId, gszProcessPath_0074E8C8, 0x800);
-    sub_00401380("<Process.ParentProcessPath> %s\n", bFound ? gszProcessPath_0074E8C8 : "Unknown");
-    szSlash = strrchr(gszProcessPath_0074E8C8, '\\');
+    bFound = ERRORMANAGER_GetProcessImageName(dwParentId, gszProcessPath, 0x800);
+    sub_00401380("<Process.ParentProcessPath> %s\n", bFound ? gszProcessPath : "Unknown");
+    szSlash = strrchr(gszProcessPath, '\\');
     szName = szSlash ? szSlash + 1 : 0;
     sub_00401380("<Process.ParentProcessName> %s\n", (szName && bFound) ? szName : "Unknown");
 
     unsigned long dwGrandParentId = ERRORMANAGER_FindParentProcessId(dwParentId);
-    bFound = ERRORMANAGER_GetProcessImageName(dwGrandParentId, gszProcessPath_0074E8C8, 0x800);
-    sub_00401380("<Process.GrandParentProcessPath> %s\n", bFound ? gszProcessPath_0074E8C8 : "Unknown");
-    szSlash = strrchr(gszProcessPath_0074E8C8, '\\');
+    bFound = ERRORMANAGER_GetProcessImageName(dwGrandParentId, gszProcessPath, 0x800);
+    sub_00401380("<Process.GrandParentProcessPath> %s\n", bFound ? gszProcessPath : "Unknown");
+    szSlash = strrchr(gszProcessPath, '\\');
     szName = szSlash ? szSlash + 1 : 0;
     sub_00401380("<Process.GrandParentProcessName> %s\n", (szName && bFound) ? szName : "Unknown");
 
-    sub_00401380("<Locale.Game> %s\n", gaszLanguageNames_00706618[sub_00525150()]);
-    sub_00401380("<Locale.System> %s\n", gaszLanguageNames_00706618[STRTABLE_GetSystemLanguage()]);
+    sub_00401380("<Locale.Game> %s\n", gaszLanguageNames[sub_00525150()]);
+    sub_00401380("<Locale.System> %s\n", gaszLanguageNames[STRTABLE_GetSystemLanguage()]);
     sub_00401380("<Game.Type> %s\n", "Client");
     sub_00401380("<Game.Build> %s\n", "79b7ae8fe1e97d05d57ebdc4b65bf012d38c797e");
 
@@ -1946,7 +1946,7 @@ int __fastcall ERRORMANAGER_GetJulianDay(int nYear, int nMonth, int nDay)
         --nJulYear;
         nJulMonth = nMonth + 13;
     }
-    int nJul = (int)(floor(gdDaysPerYear_006CCC08 * nJulYear) + floor(gdDaysPerMonth_006CCC10 * nJulMonth) + nDay + 1720995.0);
+    int nJul = (int)(floor(gdDaysPerYear * nJulYear) + floor(gdDaysPerMonth * nJulMonth) + nDay + 1720995.0);
     if (nDay + 31 * (nMonth + 12 * nYear) >= 588829)
     {
         const int nAdjust = (int)(0.01 * nJulYear);
@@ -1989,7 +1989,7 @@ void __stdcall sub_K01_Emit_00407FC0(const char* szPrefix, const char* szText, i
 // 0x004088C0
 int __fastcall ERRORMANAGER_ReportNestedError(const char* szFile, int nLine, const char* szMessage)
 {
-    if (gdwGlobal_0074F0C8)
+    if (gbWritingCrashReport)
     {
         sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "\n***** ENCOUNTERED ERROR DURING ERROR HANDLING!!!\n%s,%d\n%s\n*****", ERRORMANAGER_StripSourcePath(szFile), nLine, szMessage);
         return 1;

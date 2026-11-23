@@ -31,8 +31,8 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax);                     // 0x004135D0
-extern "C" const char gszUnknownUpper_006CCED8[];                                                           // 0x006CCED8
-char gszResolvedHostIP_0075D040[256];                                                                       // 0x0075D040
+extern "C" const char gszUnknownUpper[];                                                           // 0x006CCED8
+char gszResolvedHostIP[256];                                                                       // 0x0075D040
 
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 
@@ -55,7 +55,7 @@ FSafeSock* __fastcall FOG_SOCKET_ConnectEx(char* szHostAddress, int nPortNumber,
     }
     else
     {
-        SStrCopy(pSafeSock->szName, gszUnknownUpper_006CCED8, sizeof(pSafeSock->szName));
+        SStrCopy(pSafeSock->szName, gszUnknownUpper, sizeof(pSafeSock->szName));
     }
     InitializeCriticalSection(&pSafeSock->tCriticalSection);
 
@@ -119,13 +119,13 @@ FSafeSock* __fastcall FOG_SOCKET_ConnectEx(char* szHostAddress, int nPortNumber,
         pSafeSock->bConnecting = 0;
     }
 
-    if (!gszResolvedHostIP_0075D040[0] || !inet_addr(gszResolvedHostIP_0075D040))
+    if (!gszResolvedHostIP[0] || !inet_addr(gszResolvedHostIP))
     {
         D2SockAddrInStrc tLocal;
         int nLength = sizeof(tLocal);
         if (getsockname(nSocket, &tLocal, &nLength) != -1)
         {
-            strcpy(gszResolvedHostIP_0075D040, inet_ntoa(tLocal.sin_addr));
+            strcpy(gszResolvedHostIP, inet_ntoa(tLocal.sin_addr));
         }
     }
 

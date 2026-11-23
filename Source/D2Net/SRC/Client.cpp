@@ -9,7 +9,7 @@ struct D2CriticalSectionStrc;
 unsigned long __stdcall CLIENT_ConnectToHost(void* szIpAddress); // 0x0052A680
 int __fastcall NET_IsLocalConnection(); // 0x0052B7E0
 extern D2CriticalSectionStrc gCriticalSection; // 0x00882CE8
-extern int gbConnected_00882D04; // 0x00882D04
+extern int gbConnected; // 0x00882D04
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
 int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
@@ -25,7 +25,7 @@ struct D2PacketBufferStrc
 extern D2PacketBufferStrc* gpPacketBuffer; // 0x00882B34
 extern D2NetPacketRecStrc* gpSystemPacketList; // 0x00882CDC
 extern D2NetPacketRecStrc* gpGamePacketList; // 0x00882CE4
-extern int gdwGlobal_00882D00; // 0x00882D00
+extern int gbConnectFinished; // 0x00882D00
 int __fastcall NET_DequeueFirstPacketFromList(D2CriticalSectionStrc* pCriticalSection, D2NetPacketRecStrc** ppPacketList, unsigned char* pBuffer, unsigned int nBufferSize); // 0x0052B820
 int __fastcall SERVER_EnqueueLocalClientPacket(const unsigned char* pBuffer, unsigned short nSize); // 0x0052B690
 extern "C" int __stdcall send(unsigned int nSocket, const char* pBuffer, int nLength, int nFlags); // 0x006B017A
@@ -83,7 +83,7 @@ void __fastcall CLIENT_SetConnected(int bConnected)
     if (!NET_IsLocalConnection())
     {
         EnterCriticalSection(&gCriticalSection);
-        gbConnected_00882D04 = bConnected;
+        gbConnected = bConnected;
         LeaveCriticalSection(&gCriticalSection);
     }
 }
@@ -98,7 +98,7 @@ void __stdcall sub_M118_Emit_0052A730(int nArg, const char* szIpAddress)
     CLIENT_StartConnectThread(szIpAddress);
 }
 
-void* ghReceiveThread_00882CD8; // 0x00882CD8
+void* ghReceiveThread; // 0x00882CD8
 
 // 0x0052A640
 int __cdecl CLIENT_IsConnected()
@@ -114,7 +114,7 @@ int __cdecl CLIENT_IsConnected()
     }
 
     EnterCriticalSection(&gCriticalSection);
-    const int bConnected = gbConnected_00882D04;
+    const int bConnected = gbConnected;
     LeaveCriticalSection(&gCriticalSection);
 
     return bConnected;
@@ -129,7 +129,7 @@ QServer* gpServer; // 0x00882D08
 // 0x0052A680
 unsigned long __stdcall CLIENT_ConnectToHost(void* szIpAddress)
 {
-    gdwGlobal_00882D00 = 0;
+    gbConnectFinished = 0;
     WSAStartup(0x101, &gWSAData);
     gClientSocket = socket(2, 1, 0);
     if (gClientSocket == -1)
@@ -158,7 +158,7 @@ unsigned long __stdcall CLIENT_ReceiveThreadProc(void* pArg)
 
     for (;;)
     {
-        if (gdwGlobal_00882D00)
+        if (gbConnectFinished)
         {
             OutputDebugStringA("Client thread close #2\n");
             return 0;
@@ -181,13 +181,13 @@ unsigned long __stdcall CLIENT_ReceiveThreadProc(void* pArg)
                 if (!NET_IsLocalConnection())
                 {
                     EnterCriticalSection(&gCriticalSection);
-                    gbConnected_00882D04 = 0;
+                    gbConnected = 0;
                     LeaveCriticalSection(&gCriticalSection);
                 }
             }
             else if (__WSAFDIsSet(gClientSocket, &tRead))
             {
-                if (gdwGlobal_00882D00)
+                if (gbConnectFinished)
                 {
                     OutputDebugStringA("Client thread close #3\n");
                     return 0;
@@ -247,7 +247,7 @@ unsigned long __stdcall CLIENT_ReceiveThreadProc(void* pArg)
                     if (!NET_IsLocalConnection())
                     {
                         EnterCriticalSection(&gCriticalSection);
-                        gbConnected_00882D04 = 0;
+                        gbConnected = 0;
                         LeaveCriticalSection(&gCriticalSection);
                     }
                     OutputDebugStringA("Client thread close #5\n");
@@ -259,7 +259,7 @@ unsigned long __stdcall CLIENT_ReceiveThreadProc(void* pArg)
                     if (!NET_IsLocalConnection())
                     {
                         EnterCriticalSection(&gCriticalSection);
-                        gbConnected_00882D04 = 0;
+                        gbConnected = 0;
                         LeaveCriticalSection(&gCriticalSection);
                     }
                     OutputDebugStringA("Client thread close #6\n");
@@ -290,7 +290,7 @@ static int CLIENT_SendToSocket(const unsigned char* pBuffer, int nSize)
     if (!NET_IsLocalConnection())
     {
         EnterCriticalSection(&gCriticalSection);
-        gbConnected_00882D04 = 0;
+        gbConnected = 0;
         LeaveCriticalSection(&gCriticalSection);
     }
     return 0;
@@ -324,11 +324,11 @@ void __cdecl CLIENT_Release()
     }
 
     gpPacketBuffer = 0;
-    gdwGlobal_00882D00 = 1;
+    gbConnectFinished = 1;
 
     LeaveCriticalSection(&gCriticalSection);
 
-    WaitForSingleObject(ghReceiveThread_00882CD8, 6000);
+    WaitForSingleObject(ghReceiveThread, 6000);
 
     NET_FreePacketList(&gCriticalSection, &gpSystemPacketList);
     NET_FreePacketList(&gCriticalSection, &gpGamePacketList);
@@ -364,9 +364,9 @@ D2PacketBufferStrc* gpPacketBuffer; // 0x00882B34
 
 D2CriticalSectionStrc gCriticalSection; // 0x00882CE8
 
-int gdwGlobal_00882D00; // 0x00882D00
+int gbConnectFinished; // 0x00882D00
 
-int gbConnected_00882D04; // 0x00882D04
+int gbConnected; // 0x00882D04
 
 // 0x0052A8D0
 int __stdcall CLIENT_ParseReceiveBuffer()
@@ -472,7 +472,7 @@ void __cdecl CLIENT_ClearConnected()
     if (!NET_IsLocalConnection())
     {
         EnterCriticalSection(&gCriticalSection);
-        gbConnected_00882D04 = 0;
+        gbConnected = 0;
         LeaveCriticalSection(&gCriticalSection);
     }
 }

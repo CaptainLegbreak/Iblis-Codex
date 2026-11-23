@@ -25,9 +25,9 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedCompareExchange(long 
 int __fastcall BNSEND_SendPacket(unsigned char nId, const void* pData, unsigned int nSize); // 0x0051C5C0
 int __fastcall sub_0051C760_SplitPackets(unsigned char* pBuffer, int nLength); // 0x0051C760
 extern "C" unsigned int __cdecl strlen(const char* szString);
-extern long volatile gnConnected_00881BF0; // 0x00881BF0
-extern int gbReady_00881BF8; // 0x00881BF8
-extern unsigned int gnVersion_0088252C; // 0x0088252C
+extern long volatile gnConnected; // 0x00881BF0
+extern int gbReady; // 0x00881BF8
+extern unsigned int gnVersion; // 0x0088252C
 
 struct D2BnServerEntryStrc
 {
@@ -52,32 +52,32 @@ int __fastcall sub_005205F0_GetState(D2BnStateStrc* pState); // 0x005205F0
 extern "C" int __fastcall BNDOWNLOAD_GetReplyValue(unsigned char nSlot); // 0x00520C20
 int __stdcall BNSEND_SendAuthInfo(); // 0x00521BF0
 int __cdecl sub_00521DC0_SendAuthCheck();
-extern long volatile gnDnsDone_00881BFC; // 0x00881BFC
+extern long volatile gnDnsDone; // 0x00881BFC
 
-long volatile gnReceiveThreads_00881BF4; // 0x00881BF4
+long volatile gnReceiveThreads; // 0x00881BF4
 
-long volatile gnDnsDone_00881BFC; // 0x00881BFC
+long volatile gnDnsDone; // 0x00881BFC
 
 // 0x0051C7E0
 unsigned long __stdcall sub_0051C7E0_ReceiveThread(void* pParameter)
 {
     char aBuffer[0x2000 + 1];
     int nResult = 1;
-    if (InterlockedIncrement(&gnReceiveThreads_00881BF4) > 1)
+    if (InterlockedIncrement(&gnReceiveThreads) > 1)
     {
-        InterlockedDecrement(&gnReceiveThreads_00881BF4);
+        InterlockedDecrement(&gnReceiveThreads);
         return 1;
     }
-    while (!InterlockedCompareExchange(&gnDnsDone_00881BFC, 0, 0) && !gbReady_00881BF8)
+    while (!InterlockedCompareExchange(&gnDnsDone, 0, 0) && !gbReady)
         Sleep(10);
     unsigned long dwLastTick = GetTickCount();
     int nUsed = 0;
-    FSafeSock* pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
-    while (pSafeSock && !pSafeSock->bStopping && !InterlockedCompareExchange(&gnDnsDone_00881BFC, 0, 0))
+    FSafeSock* pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected, 0, 0);
+    while (pSafeSock && !pSafeSock->bStopping && !InterlockedCompareExchange(&gnDnsDone, 0, 0))
     {
         const int bReady = FOG_SOCKET_Select(pSafeSock);
-        pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
-        if (!pSafeSock || pSafeSock->bStopping || InterlockedCompareExchange(&gnDnsDone_00881BFC, 0, 0))
+        pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected, 0, 0);
+        if (!pSafeSock || pSafeSock->bStopping || InterlockedCompareExchange(&gnDnsDone, 0, 0))
             break;
         if (bReady)
         {
@@ -96,24 +96,24 @@ unsigned long __stdcall sub_0051C7E0_ReceiveThread(void* pParameter)
             BNSEND_SendPacket(0, 0, 0);
             dwLastTick = dwTick;
         }
-        pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
+        pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected, 0, 0);
     }
-    InterlockedDecrement(&gnReceiveThreads_00881BF4);
+    InterlockedDecrement(&gnReceiveThreads);
     return nResult;
 }
 
-int gbDnsPending_008818E0; // 0x008818E0
+int gbDnsPending; // 0x008818E0
 
-long volatile gnConnected_00881BF0; // 0x00881BF0
+long volatile gnConnected; // 0x00881BF0
 
-int gbReady_00881BF8; // 0x00881BF8
+int gbReady; // 0x00881BF8
 
 // build: symbol ?BNDOWNLOAD_IsReady@* 0x0051CA30
 int __cdecl BNDOWNLOAD_IsReady()
 {
     D2BnStateStrc tState;
     sub_005205F0_GetState(&tState);
-    if (!sub_00520AE0() && tState.nState == 0 && InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0))
+    if (!sub_00520AE0() && tState.nState == 0 && InterlockedCompareExchange(&gnConnected, 0, 0))
         return 1;
     return 0;
 }
@@ -129,8 +129,8 @@ int __stdcall sFastestConnect(char* szServerList)
     if (!szServerList)
         return 1;
 
-    gbReady_00881BF8 = 0;
-    gbDnsPending_008818E0 = 2;
+    gbReady = 0;
+    gbDnsPending = 2;
     Sleep(10);
     BNDOWNLOAD_LogPrintf("searching for the fastest server");
 
@@ -141,13 +141,13 @@ int __stdcall sFastestConnect(char* szServerList)
     tTimeout.tv_sec = 1;
     tTimeout.tv_usec = 0;
     int nRetries = 0;
-    FSafeSock* pConnected = (FSafeSock*)InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
+    FSafeSock* pConnected = (FSafeSock*)InterlockedCompareExchange(&gnConnected, 0, 0);
     if (!pConnected)
     {
         D2BnServerEntryStrc* pEntry = aServers;
         do
         {
-        if (InterlockedCompareExchange(&gnDnsDone_00881BFC, 0, 0))
+        if (InterlockedCompareExchange(&gnDnsDone, 0, 0))
             break;
 
         if (GetTickCount() - dwLastTick >= 5000)
@@ -213,7 +213,7 @@ int __stdcall sFastestConnect(char* szServerList)
             {
                 if (aServers[i].pSafeSock && __WSAFDIsSet(aServers[i].pSafeSock->nSocket, &tWrite))
                 {
-                    if (!InterlockedCompareExchange(&gnConnected_00881BF0, (long)aServers[i].pSafeSock, 0))
+                    if (!InterlockedCompareExchange(&gnConnected, (long)aServers[i].pSafeSock, 0))
                     {
                         pConnected = aServers[i].pSafeSock;
                         pConnected->bConnected = 1;
@@ -226,7 +226,7 @@ int __stdcall sFastestConnect(char* szServerList)
             if (pConnected)
                 break;
         }
-        } while (!(pConnected = (FSafeSock*)InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0)));
+        } while (!(pConnected = (FSafeSock*)InterlockedCompareExchange(&gnConnected, 0, 0)));
     }
 
     for (int i = 0; i < nServers; ++i)
@@ -244,7 +244,7 @@ int __stdcall sFastestConnect(char* szServerList)
         return 0;
     }
 
-    gbReady_00881BF8 = 1;
+    gbReady = 1;
     if (!BNDOWNLOAD_IsReady())
     {
         sub_0051A480_DebugLog("  Error, not connected.");
@@ -253,11 +253,11 @@ int __stdcall sFastestConnect(char* szServerList)
 
     int nLength = 16;
     D2SockAddrInStrc tAddress;
-    FSafeSock* pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
+    FSafeSock* pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected, 0, 0);
     if (pSafeSock && FOG_SOCKET_GetPeerName(pSafeSock, &tAddress, &nLength))
         BNDOWNLOAD_LogPrintf("Connected to server %s", inet_ntoa(tAddress.sin_addr));
 
-    gbDnsPending_008818E0 = 3;
+    gbDnsPending = 3;
     Sleep(10);
     BNDOWNLOAD_LogPrintf("accessing accounts");
     FOG_SOCKET_SetBlockingMode(pConnected, 0);
@@ -274,7 +274,7 @@ int __stdcall sFastestConnect(char* szServerList)
     if (!BNDOWNLOAD_WaitForReply(0x50) && !BNDOWNLOAD_IsReady())
     {
         FOG_SOCKET_Destroy(pConnected);
-        InterlockedCompareExchange(&gnConnected_00881BF0, 0, (long)pConnected);
+        InterlockedCompareExchange(&gnConnected, 0, (long)pConnected);
         return 0;
     }
 
@@ -284,7 +284,7 @@ int __stdcall sFastestConnect(char* szServerList)
         return 1;
     }
 
-    gbDnsPending_008818E0 = 4;
+    gbDnsPending = 4;
     Sleep(10);
     BNDOWNLOAD_LogPrintf("Checking for the latest version");
     BNDOWNLOAD_SetStatus(0x66);

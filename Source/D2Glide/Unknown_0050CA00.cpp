@@ -13,15 +13,15 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 #define GLIDE_VERTEX_IN_RECT(v, r) ((v).x >= (r).left && (v).x < (r).right && (v).y >= (r).top && (v).y < (r).bottom)
 
-extern int gnScreenWidth_007C9138;                                                                          // 0x007C9138
-extern int gnScreenHeight_007C913C;                                                                         // 0x007C913C
-extern int gaGlideWallCorner_0072F3A0[10][6][3];                                                          // 0x0072F3A0
-extern void* gapGlideTileStripA_0072F350[10];                                                            // 0x0072F350
-extern void* gapGlideTileStripB_0072F378[10];                                                            // 0x0072F378
-extern D2GlideSpriteVertexStrc gaGlideTileGrid_00880458[15];                                                 // 0x00880458
-extern D2GlideSpriteVertexStrc gaGlideTileQuad_00880600[4];                                                  // 0x00880600
+extern int gnRenderWidth;                                                                          // 0x007C9138
+extern int gnRenderHeight;                                                                         // 0x007C913C
+extern int gaGlideWallCorner[10][6][3];                                                          // 0x0072F3A0
+extern void* gapGlideTileStripA[10];                                                            // 0x0072F350
+extern void* gapGlideTileStripB[10];                                                            // 0x0072F378
+extern D2GlideSpriteVertexStrc gaGlideTileGrid[15];                                                 // 0x00880458
+extern D2GlideSpriteVertexStrc gaGlideTileQuad[4];                                                  // 0x00880600
 typedef void (__stdcall* GlideDrawVertexArrayFn)(int nMode, int nCount, void** ppVertices);
-extern GlideDrawVertexArrayFn gpfGlideDrawVertexArray_0087EB18;                                             // 0x0087EB18
+extern GlideDrawVertexArrayFn gpfnGrDrawVertexArray;                                             // 0x0087EB18
 
 void __fastcall GLIDE_SetColorCombineMode(int nState);                                                      // 0x005094B0
 void __fastcall GLIDE_SetAlphaBlendMode(int nMode);                                                     // 0x00509500
@@ -42,9 +42,9 @@ static void __stdcall sub_0050C690_GlideGetDrawRect(int bPerspective, tagRECT* p
     D2_ASSERT(pRect, 0x54);
 
     pRect->left = 0;
-    pRect->right = gnScreenWidth_007C9138;
+    pRect->right = gnRenderWidth;
     pRect->top = 0;
-    pRect->bottom = gnScreenHeight_007C913C - 0x2F;
+    pRect->bottom = gnRenderHeight - 0x2F;
 
     if (!bPerspective)
     {
@@ -52,18 +52,18 @@ static void __stdcall sub_0050C690_GlideGetDrawRect(int bPerspective, tagRECT* p
         pRect->bottom += 0x20;
         if (nScreenPanels == 1)
         {
-            pRect->right += -(gnScreenWidth_007C9138 / 2);
+            pRect->right += -(gnRenderWidth / 2);
         }
         else if (nScreenPanels == 2)
         {
-            pRect->left = gnScreenWidth_007C9138 / 2 - 0x20;
+            pRect->left = gnRenderWidth / 2 - 0x20;
         }
     }
     else
     {
         D2_ASSERT(pOffset, 0x68);
 
-        const int nQuarter = gnScreenWidth_007C9138 / 4;
+        const int nQuarter = gnRenderWidth / 4;
         if (nScreenPanels == 1)
         {
             *pOffset = -nQuarter;
@@ -105,25 +105,25 @@ int __fastcall sub_0050CA00_GlideShadowTileDrawPerspective(D2TileLibraryEntryStr
         int nScreenY;
 
         GLIDE_PerspectiveTransform(nX0, nY0, 0, &nScreenX, &nScreenY);
-        gaGlideTileGrid_00880458[0].x = (float)nScreenX;
-        gaGlideTileGrid_00880458[0].y = (float)nScreenY;
+        gaGlideTileGrid[0].x = (float)nScreenX;
+        gaGlideTileGrid[0].y = (float)nScreenY;
         GLIDE_PerspectiveTransform(nPosX + nWorldX + 0x20000, nPosY + nWorldY + 0x20000, 0, &nScreenX, &nScreenY);
-        gaGlideTileGrid_00880458[12].x = (float)nScreenX;
-        gaGlideTileGrid_00880458[12].y = (float)nScreenY;
+        gaGlideTileGrid[12].x = (float)nScreenX;
+        gaGlideTileGrid[12].y = (float)nScreenY;
         GLIDE_PerspectiveTransform(nPosX + nWorldX + 0x30000, nPosY + nWorldY + 0x10000, 0, &nScreenX, &nScreenY);
-        gaGlideTileGrid_00880458[14].x = (float)nScreenX;
-        gaGlideTileGrid_00880458[14].y = (float)nScreenY;
+        gaGlideTileGrid[14].x = (float)nScreenX;
+        gaGlideTileGrid[14].y = (float)nScreenY;
         GLIDE_PerspectiveTransform(nPosX + nWorldX + 0x10000, nPosY + nWorldY - 0x10000, 0, &nScreenX, &nScreenY);
-        gaGlideTileGrid_00880458[2].x = (float)nScreenX;
-        gaGlideTileGrid_00880458[2].y = (float)nScreenY;
+        gaGlideTileGrid[2].x = (float)nScreenX;
+        gaGlideTileGrid[2].y = (float)nScreenY;
 
-        if (GLIDE_VERTEX_IN_RECT(gaGlideTileGrid_00880458[0], tRect))
+        if (GLIDE_VERTEX_IN_RECT(gaGlideTileGrid[0], tRect))
         {
 DrawVisibleTile:
             sub_0050FBD0_GlideBindTileTexture(&pTile->pBlocks[i]);
 
             const float fOffset = (float)nOffset;
-            D2GlideSpriteVertexStrc* pVertex = gaGlideTileGrid_00880458;
+            D2GlideSpriteVertexStrc* pVertex = gaGlideTileGrid;
             int nStartY = nY0;
             int nStartX = nX0;
             do
@@ -145,15 +145,15 @@ DrawVisibleTile:
 
                 nStartX += 0x8000;
                 nStartY += 0x8000;
-            } while ((int)pVertex < (int)(gaGlideTileGrid_00880458 + 15));
+            } while ((int)pVertex < (int)(gaGlideTileGrid + 15));
 
-            gpfGlideDrawVertexArray_0087EB18(4, 10, gapGlideTileStripA_0072F350);
-            gpfGlideDrawVertexArray_0087EB18(4, 10, gapGlideTileStripB_0072F378);
+            gpfnGrDrawVertexArray(4, 10, gapGlideTileStripA);
+            gpfnGrDrawVertexArray(4, 10, gapGlideTileStripB);
             nResult = 1;
         }
-        else if (GLIDE_VERTEX_IN_RECT(gaGlideTileGrid_00880458[12], tRect)
-            || GLIDE_VERTEX_IN_RECT(gaGlideTileGrid_00880458[14], tRect)
-            || GLIDE_VERTEX_IN_RECT(gaGlideTileGrid_00880458[2], tRect))
+        else if (GLIDE_VERTEX_IN_RECT(gaGlideTileGrid[12], tRect)
+            || GLIDE_VERTEX_IN_RECT(gaGlideTileGrid[14], tRect)
+            || GLIDE_VERTEX_IN_RECT(gaGlideTileGrid[2], tRect))
         {
             goto DrawVisibleTile;
         }

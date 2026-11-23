@@ -2,7 +2,7 @@
 // D2Lang: the 16-bit game text character and its string routines.
 
 extern "C" int __cdecl isspace(int c); // 0x00687006
-extern unsigned short gwToUpperTable_00730578[0x100]; // 0x00730578
+extern unsigned short gawToUpperTable[0x100]; // 0x00730578
 
 struct Unicode
 {
@@ -37,7 +37,7 @@ struct Unicode
         return wChar == 0xFF;
     }
     int ToDigit() const { return wChar - '0'; }
-    Unicode toUpper() const { return Unicode(wChar < 0x100 ? gwToUpperTable_00730578[wChar] : wChar); }
+    Unicode toUpper() const { return Unicode(wChar < 0x100 ? gawToUpperTable[wChar] : wChar); }
     int isAlpha() const;
     int isLeftToRight() const; // 0x00526D00
     Direction directionality(); // 0x00526FB0
