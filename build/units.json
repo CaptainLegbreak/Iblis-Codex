@@ -29762,6 +29762,11 @@
      "name": "sub_004BB200_SetUnk20"
     },
     {
+     "va": "0x004BB210",
+     "length": 704,
+     "name": "?Slot01@EditBoxImplementation@@UAEXXZ"
+    },
+    {
      "va": "0x004BB4D0",
      "length": 93,
      "name": "?sub_004BB4D0_Slot15@EditBoxImplementation@@UAEXH@Z"
@@ -30101,31 +30106,6 @@
      "length": 5,
      "name": "?SKILLS_Return0@@YGHH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/editbox_004BB210.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BB210",
-     "length": 704,
-     "name": "?Slot01@EditBoxImplementation@@UAEXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

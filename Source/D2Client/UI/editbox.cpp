@@ -560,6 +560,118 @@ extern "C" int __cdecl atoi(const char* szString);                              
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 
+struct T0044CB60
+{
+    Unicode* pText;
+    T0044CB60* pNext;
+};
+
+void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6);
+
+T0044CB60* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth);
+
+Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
+
+// build: symbol ?Slot01@EditBoxImplementation@@UAEXXZ 0x004BB210
+// 0x004BB210
+void EditBoxImplementation::Slot01()
+{
+    ++unk0x46;
+    if (unk0x56)
+    {
+        sub_0046EFD0_DrawFramedBox(nTextX - 10, nTextY - 0x10, nTextWidth, 0x12, 0, 2);
+    }
+    sub_00502EF0(nFont);
+
+    Unicode wszBuffer[200];
+    Unicode wszCursor[2];
+    char szCursor[2];
+    szCursor[1] = 0;
+    szCursor[0] = '_';
+    Unicode::win2Unicode(wszCursor, szCursor, 2);
+
+    if ((unk0x4A && unk0x46 % 20 == 0) || (!unk0x4A && unk0x46 % 10 == 0))
+    {
+        unk0x4A = !unk0x4A;
+    }
+
+    if (nHeight == 1)
+    {
+        int nStart = 0;
+        if (D2Win_10121_GetTextWidth(pText) > nTextWidth)
+        {
+            const int nLength = sub_00526800(pText);
+            for (nStart = 0; nStart < nLength; ++nStart)
+            {
+                if (D2Win_10121_GetTextWidth(&pText[nStart]) <= nTextWidth)
+                {
+                    break;
+                }
+            }
+        }
+
+        D2Win_10117_DrawText(&pText[nStart], nTextX, nTextY, 0, 0);
+        if (unk0x36 < nMaxLength && unk0x4A && unk0x36 <= unk0x3A)
+        {
+            if (sub_00526800(&pText[nStart]))
+            {
+                sub_005267E0(pTextCopy, pText);
+                pTextCopy[unk0x36] = 0;
+                D2Win_10117_DrawText(wszCursor, D2Win_10121_GetTextWidth(pTextCopy) + nTextX, nTextY, 0, 0);
+            }
+            else
+            {
+                D2Win_10117_DrawText(wszCursor, nTextX, nTextY, 0, 0);
+            }
+        }
+        return;
+    }
+
+    int nLines;
+    T0044CB60* pLine = sub_00502970_SplitText(pText, &nLines, nTextWidth);
+    int nLine = 0;
+    int nChars = 0;
+    int bDone = 0;
+    while (pLine)
+    {
+        D2Win_10117_DrawText(pLine->pText, nTextX, nTextY + 20 * nLine, 0, 0);
+        const int nLength = sub_00526800(pLine->pText);
+        T0044CB60* pNext = pLine->pNext;
+        nChars += nLength;
+        ++nLine;
+        if (unk0x36 < nMaxLength && unk0x4A && nChars >= unk0x36 && !bDone)
+        {
+            bDone = 1;
+            int nColumn = unk0x36 - nChars + nLength;
+            if (nColumn < 0)
+            {
+                nColumn = 0;
+            }
+            if (sub_00526800(pLine->pText))
+            {
+                if (sub_00526800(pLine->pText) > 199)
+                {
+                    return;
+                }
+                sub_005267E0(wszBuffer, pLine->pText);
+                wszBuffer[nColumn] = 0;
+                D2Win_10117_DrawText(wszCursor, D2Win_10121_GetTextWidth(wszBuffer) + nTextX, nTextY + 20 * (nLine - 1), 0, 0);
+            }
+            else
+            {
+                D2Win_10117_DrawText(wszCursor, nTextX, nTextY + 20 * (nLine - 1), 0, 0);
+            }
+        }
+        FOG_Free(pLine->pText, ".\\UI\\editbox.cpp", 0x103, 0);
+        FOG_Free(pLine, ".\\UI\\editbox.cpp", 0x104, 0);
+        pLine = pNext;
+    }
+    if (!nLine && unk0x4A)
+    {
+        D2Win_10117_DrawText(wszCursor, nTextX, nTextY, 0, 0);
+    }
+}
+
 // 0x004BB4D0
 void EditBoxImplementation::sub_004BB4D0_Slot15(int nValue)
 {
