@@ -3508,14 +3508,6 @@ int __stdcall CHARSEL_SendChatLine(int nArg)
 
 
 
-// 0x00458CD0
-void __stdcall CHARSEL_SetAutomapContext(void* pContext)
-{
-    AUTOMAP_SaveAutomapLayer();
-    AUTOMAP_ResetAutomapCells();
-    gpAutomapContext = pContext;
-    AUTOMAP_LoadAutomapLayer();
-}
 
 
 
