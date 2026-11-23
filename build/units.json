@@ -82203,16 +82203,6 @@
    ]
   },
   {
-   "file": "Source/D2Direct3D/Unknown_006B3FD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B3FD0",
-     "length": 795
-    }
-   ]
-  },
-  {
    "file": "Source/D2Direct3D/Unknown_006B42F0.cpp",
    "rank": 1,
    "functions": [
@@ -82428,6 +82418,10 @@
     {
      "va": "0x006B38A0",
      "length": 267
+    },
+    {
+     "va": "0x006B3FD0",
+     "length": 795
     },
     {
      "va": "0x006B4FD0",
