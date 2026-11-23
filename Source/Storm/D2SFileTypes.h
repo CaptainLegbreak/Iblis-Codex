@@ -278,7 +278,8 @@ struct D2StormStreamListStrc
 
     AUDIOSTREAM* Head()
     {
-        return (AUDIOSTREAM*)m_terminator.Next();
+        AUDIOSTREAM* pHead = (AUDIOSTREAM*)m_terminator.Next();
+        return pHead;
     }
     D2StormLinkStrc* Link(AUDIOSTREAM* pNode)
     {

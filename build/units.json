@@ -4416,6 +4416,10 @@
      "name": "sub_00419B90_DeleteNode"
     },
     {
+     "va": "0x00419C00",
+     "length": 813
+    },
+    {
      "va": "0x00419F30",
      "length": 232
     },
@@ -6135,30 +6139,6 @@
     "/Ob1",
     "/Gd",
     "/EHsc"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_00419C00.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00419C00",
-     "length": 813
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

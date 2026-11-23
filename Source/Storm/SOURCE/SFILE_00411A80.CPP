@@ -1498,7 +1498,7 @@ int __stdcall SFileDdaGetPos(void* hFile, unsigned int* pnPlayed, unsigned int* 
     if (sub_00415950_GetFileRec(hFile, &pRec))
     {
         AUDIOSTREAM* pStream;
-        for (pStream = gDdaList_00708384.Head(); pStream; pStream = (AUDIOSTREAM*)pStream->tLink.Next())
+        for (pStream = (AUDIOSTREAM*)gDdaList_00708384.m_terminator.Next(); pStream; pStream = (AUDIOSTREAM*)pStream->tLink.Next())
         {
             if (pStream->pFile == pRec)
                 break;
