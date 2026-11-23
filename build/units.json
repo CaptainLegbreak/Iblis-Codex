@@ -49318,6 +49318,21 @@
     {
      "va": "0x0054EC40",
      "length": 69
+    },
+    {
+     "va": "0x0054EF50",
+     "length": 151,
+     "name": "?sub_0054EF50_SpawnWandering@@YGXPAUD2MonsterRegionStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2LevelsTxt@@@Z"
+    },
+    {
+     "va": "0x0054EFF0",
+     "length": 106,
+     "name": "?sub_0054EFF0_CheckWandering@@YGXPAUD2GameStrc@@HPAUD2LevelsTxt@@PAUD2ActiveRoomStrc@@@Z"
+    },
+    {
+     "va": "0x0054F060",
+     "length": 106,
+     "name": "?MONSTERREGION_TrySpawnWanderingMonster@@YIXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@@Z"
     }
    ]
   },
@@ -49343,27 +49358,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0054EF50.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0054EF50",
-     "length": 151,
-     "name": "?sub_0054EF50_SpawnWandering@@YGXPAUD2MonsterRegionStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2LevelsTxt@@@Z"
-    },
-    {
-     "va": "0x0054EFF0",
-     "length": 106,
-     "name": "?sub_0054EFF0_CheckWandering@@YGXPAUD2GameStrc@@HPAUD2LevelsTxt@@PAUD2ActiveRoomStrc@@@Z"
-    },
-    {
-     "va": "0x0054F060",
-     "length": 106,
-     "name": "?MONSTERREGION_TrySpawnWanderingMonster@@YIXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@@Z"
-    }
    ]
   },
   {
