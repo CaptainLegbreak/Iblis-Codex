@@ -43761,6 +43761,11 @@
      "name": "CLIENT_ReadPacketFromBuffer"
     },
     {
+     "va": "0x0052AFE0",
+     "length": 99,
+     "name": "?CLIENT_GetLocalIpAddressString@@YGXPAD@Z"
+    },
+    {
      "va": "0x0052B1F0",
      "length": 23,
      "name": "SERVER_WaitForSingleObject"
@@ -43784,17 +43789,6 @@
      "va": "0x0052B490",
      "length": 30,
      "name": "sub_0052B490_ObjectCall_6BED90"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Net/Unknown_0052AFE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052AFE0",
-     "length": 99,
-     "name": "?CLIENT_GetLocalIpAddressString@@YGXPAD@Z"
     }
    ]
   },
