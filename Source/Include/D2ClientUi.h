@@ -128,7 +128,7 @@ struct D2ClientDialogStrc
     int nHeight; // 0x38
     int unk0x3C[2]; // 0x3C
     int nHover; // 0x44
-    int unk0x48; // 0x48
+    int nPressedItem; // 0x48
     int nEnabled; // 0x4C
     int nLines; // 0x50
     unsigned int nState; // 0x54

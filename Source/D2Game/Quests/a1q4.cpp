@@ -669,7 +669,7 @@ void __fastcall ACT1Q4_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestDataEx->nDecipheredScrollGUID = 0;
     pQuestDataEx->bInifussTreeInitialized = 0;
     pQuestDataEx->bTimerActive = 0;
-    pQuestDataEx->unk0x58 = 0;
+    pQuestDataEx->nInifussTreeObjectMode = 0;
     pQuestDataEx->nCainGibbetObjectMode = 0;
     pQuestDataEx->bCompleted = 0;
     pQuestDataEx->bCairnStonesActive[0] = 0;
@@ -1087,7 +1087,7 @@ static void ACT1Q4_ResetInifussTree(D2QuestDataStrc* pQuestData)
         pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 1, 0, ACT1Q4_UnitIterate_StatusCyclerEx, true);
         QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q4.cpp", 0x397);
-        pQuestDataEx->unk0x58 = 0;
+        pQuestDataEx->nInifussTreeObjectMode = 0;
         SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT1Q4_UnitIterate_UpdateQuestStateFlags);
     }
     else
@@ -1095,7 +1095,7 @@ static void ACT1Q4_ResetInifussTree(D2QuestDataStrc* pQuestData)
         pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 1, 0, ACT1Q4_UnitIterate_StatusCyclerEx, true);
         QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q4.cpp", 0x39F);
-        pQuestDataEx->unk0x58 = 0;
+        pQuestDataEx->nInifussTreeObjectMode = 0;
     }
 }
 
@@ -1613,7 +1613,7 @@ int __fastcall OBJECTS_OperateFunction12_InifussTree(D2ObjOperateFnStrc* pOp, in
         pQuestDataEx->unk0x4B = 1;
         const int nScrollGUID = (pItem ? pItem->dwUnitId : -1);
         pQuestDataEx->nDecipheredScrollGUID = nScrollGUID;
-        pQuestDataEx->unk0x58 = 1;
+        pQuestDataEx->nInifussTreeObjectMode = 1;
         pQuestDataEx->bScrollAcquired = 1;
         ++pQuestDataEx->nScrollsInGame;
         UNITS_ChangeAnimMode(pOp->hObject, 1);
@@ -1727,9 +1727,9 @@ void __fastcall OBJECTS_InitFunction09_InifussTree(D2ObjInitFnStrc* pOp)
         pQuestDataEx->bInifussTreeInitialized = 1;
         if (!pQuestData->bNotIntro || pQuestDataEx->bCompleted)
         {
-            pQuestDataEx->unk0x58 = 1;
+            pQuestDataEx->nInifussTreeObjectMode = 1;
         }
-        UNITS_ChangeAnimMode(pOp->pObject, pQuestDataEx->unk0x58);
+        UNITS_ChangeAnimMode(pOp->pObject, pQuestDataEx->nInifussTreeObjectMode);
     }
     else
     {
@@ -2157,11 +2157,11 @@ void __fastcall ACT1Q4_StartCainRemoval(D2GameStrc* pGame)
     if (pQuestData)
     {
         D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuestData->pQuestDataEx;
-        if (!pQuestDataEx->unk0x65)
+        if (!pQuestDataEx->bCainRemovalStarted)
         {
             ACT1Q4_UpdateObjects(1, 0, pQuestData);
             QUESTS_StateDebug(pQuestData, 6, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q4.cpp", 0x351);
-            pQuestDataEx->unk0x65 = 1;
+            pQuestDataEx->bCainRemovalStarted = 1;
         }
     }
     else
@@ -2235,7 +2235,7 @@ void __fastcall ACT1Q4_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
             QUESTS_UnitIterate(pQuestData, 5, pQuestArg->pPlayer, ACT1Q4_UnitIterate_StatusCyclerEx, 1);
             QUESTS_SetGlobalState(pQuestData->pGame, 4, 13);
             SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT1Q4_UnitIterate_AddPlayerGUIDs);
-            pQuestDataEx->unk0x58 = 1;
+            pQuestDataEx->nInifussTreeObjectMode = 1;
         }
     }
 }

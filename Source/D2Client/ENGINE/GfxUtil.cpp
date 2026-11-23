@@ -1286,7 +1286,7 @@ int __fastcall GFXUTIL_UnitSupportsMode(D2UnitStrc* pUnit, int nMode)
     case UNIT_MONSTER:
     {
         D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(nClassId);
-        if (pMonStats2TxtRecord && (pMonStats2TxtRecord->unk0xE8[nMode >> 3] & gdwBitMasks[nMode & 7]))
+        if (pMonStats2TxtRecord && (pMonStats2TxtRecord->nComponentFlags[nMode >> 3] & gdwBitMasks[nMode & 7]))
         {
             return 1;
         }

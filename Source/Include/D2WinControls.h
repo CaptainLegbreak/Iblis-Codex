@@ -25,8 +25,8 @@ struct D2WinSmackStrc;
 struct D2WinTextBoxLineStrc
 {
     Unicode* pColumns[5]; // 0x00
-    int unk0x14; // 0x14
-    char unk0x18; // 0x18
+    int nColor; // 0x14
+    char bWrappedSegment; // 0x18
     char unk0x19; // 0x19
     char unk0x1A; // 0x1A
     char unk0x1B; // 0x1B
@@ -36,8 +36,8 @@ struct D2WinTextBoxLineStrc
 struct D2WinTextBoxStrc
 {
     D2WinControlStrc controlHeader; // 0x00
-    int unk0x40; // 0x40
-    int unk0x44; // 0x44
+    int nTextInsetX; // 0x40
+    int nTextInsetY; // 0x44
     D2WinTextBoxLineStrc* pFirstLine; // 0x48
     D2WinTextBoxLineStrc* pLastLine; // 0x4C
     D2WinTextBoxLineStrc* pCurrentLine; // 0x50
@@ -46,15 +46,15 @@ struct D2WinTextBoxStrc
     unsigned int dwTextBoxFlags; // 0x5C
     int nCurrentLine; // 0x60
     int nNumColumns; // 0x64
-    int unk0x68[5]; // 0x68
-    int unk0x7C[5]; // 0x7C
+    int nColumnOffsets[5]; // 0x68
+    int nColumnAlignFlags[5]; // 0x7C
     D2WinScrollBarStrc* pScrollBar; // 0x90
     int eFont; // 0x94
     int unk0x98; // 0x98
-    int unk0x9C; // 0x9C
-    int unk0xA0; // 0xA0
-    int unk0xA4; // 0xA4
-    int unk0xA8; // 0xA8
+    int nScrollOffset; // 0x9C
+    int nWrappedLineGap; // 0xA0
+    int nLineGap; // 0xA4
+    int nLineSpacing; // 0xA8
 };
 
 struct D2WinEditBoxStrc

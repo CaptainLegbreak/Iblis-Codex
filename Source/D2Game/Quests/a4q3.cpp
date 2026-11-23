@@ -343,7 +343,7 @@ int __fastcall OBJECTS_OperateFunction49_HellForge(D2ObjOperateFnStrc* operation
     QUESTRECORD_SetQuestState(flags,27,13);
     QUESTRECORD_SetQuestState(flags,27,1);
     QUESTRECORD_ResetIntermediateStateFlags(flags,quest->eFilter);
-    data->bRewardPending=1;data->unk0x03=1;data->nRewardState=4;data->nPlayersInAct=1;
+    data->bRewardPending=1;data->bRewardDropsPending=1;data->nRewardState=4;data->nPlayersInAct=1;
     unsigned short party=SUNIT_GetPartyId(operation->hPlayer);
     if(party!=0xffff)PARTY_IteratePartyMembers(operation->pGame,party,ACT4Q3_UnitIterate_SetPrimaryGoalDone,0);
     QUESTS_StateDebug(quest,4,"d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q3.cpp",293);

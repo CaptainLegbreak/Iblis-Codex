@@ -38,7 +38,7 @@ void __fastcall sub_005B6710_DropHellforgeReward(D2QuestDataStrc* pQuestData, D2
 {
     D2Act4Quest3Strc* pQuestDataEx = (D2Act4Quest3Strc*)pQuestData->pQuestDataEx;
     if (pQuestDataEx->bRewardPending) UNITS_ChangeAnimMode(pUnit, 4);
-    if (pQuestDataEx->unk0x03)
+    if (pQuestDataEx->bRewardDropsPending)
     {
         int nItemLevel = 50;
         int nDropped = 0;
@@ -58,7 +58,7 @@ void __fastcall sub_005B6710_DropHellforgeReward(D2QuestDataStrc* pQuestData, D2
         --pQuestDataEx->nRewardState;
         if (pQuestDataEx->nRewardState <= 0)
         {
-            pQuestDataEx->unk0x03 = 0;
+            pQuestDataEx->bRewardDropsPending = 0;
             if (pQuestData->pGame->bExpansion)
             {
                 unsigned int* pCodes = gnHellforgeRunesNormal;

@@ -124,13 +124,13 @@ struct D2Act1Quest4Strc
     unsigned char bCainInTownSpawnPending; // 0x52
     unsigned char bAkaraIntroActivated; // 0x53
     int nCainGibbetObjectMode; // 0x54
-    int unk0x58; // 0x58
+    int nInifussTreeObjectMode; // 0x58
     unsigned char bCairnStonesActive[5]; // 0x5C
     unsigned char bCainRemovedFromTristram; // 0x61
     unsigned char bCainNotCreated; // 0x62
     unsigned char bQuestCompleteBefore; // 0x63
     unsigned char bAkaraActivatedForScroll; // 0x64
-    unsigned char unk0x65; // 0x65
+    unsigned char bCainRemovalStarted; // 0x65
     unsigned char bPortalFromTristramToTownSpawned; // 0x66
     unsigned char bCainPortalCoordsInitialized; // 0x67
     int nCainMonsterInTownGUID; // 0x68
@@ -209,7 +209,7 @@ struct D2Act2Quest1Strc
     unsigned short unk0x02; // 0x02
     D2ActiveRoomStrc* pRoom; // 0x04
     unsigned char bAtmaActivated; // 0x08
-    unsigned char unk0x09; // 0x09
+    unsigned char bRadamentStatusIterated; // 0x09
     unsigned char bStatusTimerStarted; // 0x0A
     unsigned char unk0x0B; // 0x0B
     int nSkillBookDropCount; // 0x0C
@@ -263,16 +263,16 @@ struct D2Act2Quest4Strc
     unsigned char bJerhynStartInitialized; // 0x0C
     unsigned char bJerhynPalaceInitialized; // 0x0D
     unsigned char bPalaceOpen; // 0x0E
-    unsigned char unk0x0F; // 0x0F
-    unsigned char unk0x10; // 0x10
+    unsigned char bJerhynTeleportedToPalace; // 0x0F
+    unsigned char bGuardMoveStarted; // 0x10
     unsigned char bHaremBlockerInitialized; // 0x11
     unsigned short unk0x12; // 0x12
-    unsigned char unk0x14; // 0x14
+    unsigned char bJerhynInPalace; // 0x14
     unsigned char bJerhynCoordinatesStored; // 0x15
     unsigned char bPortalToCanyonOpen; // 0x16
     unsigned char unk0x17; // 0x17
-    unsigned char unk0x18; // 0x18
-    unsigned char unk0x19; // 0x19
+    unsigned char bGuardAtPost; // 0x18
+    unsigned char bGuardSteppedAside; // 0x19
     unsigned char bPlayerCloseToHaremBlocker; // 0x1A
     unsigned char unk0x1B; // 0x1B
     int nPlayerCloseToHaremBlockerGUID; // 0x1C
@@ -291,11 +291,11 @@ struct D2Act2Quest4Strc
 struct D2Act2Quest5Strc
 {
     unsigned char bSummonerKilled; // 0x00
-    unsigned char unk0x01; // 0x01
+    unsigned char bSummonerActivated; // 0x01
     unsigned short unk0x02; // 0x02
     D2ActiveRoomStrc* pRoom; // 0x04
     unsigned char bStatusTimerStarted; // 0x08
-    unsigned char unk0x09; // 0x09
+    unsigned char bCompletionSoundAttached; // 0x09
     unsigned short unk0x0A; // 0x0A
 };
 
@@ -439,15 +439,15 @@ struct D2Act3Quest3Strc
 struct D2Act3Quest4Strc
 {
     unsigned char bGoldenBirdBroughtToAlkor; // 0x00
-    unsigned char unk0x01; // 0x01
-    unsigned char unk0x02; // 0x02
+    unsigned char bWaitingForBoss; // 0x01
+    unsigned char bBossAssigned; // 0x02
     unsigned char unk0x03; // 0x03
     int nBossGUID; // 0x04
     unsigned char bTalkedToAlkor; // 0x08
     unsigned char bTalkedToCainOnce; // 0x09
     unsigned char bTalkedToCainTwice; // 0x0A
     unsigned char bTalkedToMeshif; // 0x0B
-    unsigned char unk0x0C; // 0x0C
+    unsigned char bJadeFigurineDropPending; // 0x0C
     unsigned char unk0x0D; // 0x0D
     unsigned short unk0x0E; // 0x0E
     int nGoldenBirdsInGame; // 0x10
@@ -544,7 +544,7 @@ struct D2Act4Quest2Strc
     unsigned char bTalkedToTyrael; // 0x00
     unsigned char bTimerCreated; // 0x01
     unsigned char bNeedToSpawnDiablo; // 0x02
-    unsigned char unk0x03; // 0x03
+    unsigned char bEndGameTimerActive; // 0x03
     unsigned char bNeedToEndGame; // 0x04
     unsigned char bNeedToWarpPlayers; // 0x05
     unsigned char bDiabloStartPointInitialized; // 0x06
@@ -563,7 +563,7 @@ struct D2Act4Quest2Strc
     D2CoordStrc pSealCoords[3]; // 0x24
     D2ActiveRoomStrc* pRoom; // 0x3C
     int nLastLastPortalObjectMode; // 0x40
-    unsigned char unk0x44; // 0x44
+    unsigned char bSpawnPortalToAct5Pending; // 0x44
     unsigned char bPortalToAct5Spawned; // 0x45
     unsigned short unk0x46; // 0x46
     int nBossesKilled; // 0x48
@@ -573,7 +573,7 @@ struct D2Act4Quest3Strc
 {
     unsigned short nHellforgeMode; // 0x00
     unsigned char bCainActivated; // 0x02
-    unsigned char unk0x03; // 0x03
+    unsigned char bRewardDropsPending; // 0x03
     unsigned char bRewardPending; // 0x04
     unsigned char unk0x05; // 0x05
     unsigned short unk0x06; // 0x06

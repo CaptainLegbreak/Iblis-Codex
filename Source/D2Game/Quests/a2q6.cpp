@@ -355,12 +355,12 @@ int __fastcall ACT2Q4_IsGuardMoving(D2GameStrc* pGame, D2UnitStrc* pUnit)
     }
 
     D2Act2Quest4Strc* pQuestDataEx = (D2Act2Quest4Strc*)pQuestData->pQuestDataEx;
-    if (pQuestDataEx->unk0x0F != 1 || pQuestDataEx->unk0x10)
+    if (pQuestDataEx->bJerhynTeleportedToPalace != 1 || pQuestDataEx->bGuardMoveStarted)
     {
         return 0;
     }
 
-    pQuestDataEx->unk0x10 = 1;
+    pQuestDataEx->bGuardMoveStarted = 1;
     return 1;
 }
 
@@ -371,7 +371,7 @@ int __fastcall ACT2Q4_HasGuardMovedToEndPosition(D2GameStrc* pGame)
     if (pQuestData)
     {
         D2Act2Quest4Strc* pQuestDataEx = (D2Act2Quest4Strc*)pQuestData->pQuestDataEx;
-        if (!pQuestDataEx->unk0x18 && !pQuestDataEx->unk0x19)
+        if (!pQuestDataEx->bGuardAtPost && !pQuestDataEx->bGuardSteppedAside)
         {
             return pQuestDataEx->nHaremBlockerObjectMode == 2;
         }
@@ -392,13 +392,13 @@ int __fastcall ACT2Q4_GetGuardCoordinates(D2GameStrc* pGame, D2CoordStrc* pCoord
     }
 
     D2Act2Quest4Strc* pQuestDataEx = (D2Act2Quest4Strc*)pQuestData->pQuestDataEx;
-    if (pQuestDataEx->unk0x18)
+    if (pQuestDataEx->bGuardAtPost)
     {
         *pCoord = pQuestDataEx->pGuardCoords;
         return 1;
     }
 
-    if (pQuestDataEx->unk0x19)
+    if (pQuestDataEx->bGuardSteppedAside)
     {
         *pCoord = pQuestDataEx->pGuardCoords;
         pCoord->nY -= 4;

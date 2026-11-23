@@ -289,7 +289,7 @@ static void ACT4Q2_SpawnPortalToHarrogath(D2QuestArgStrc* pQuestArg, D2Act4Quest
         return;
     }
 
-    pQuestDataEx->unk0x44 = 0;
+    pQuestDataEx->bSpawnPortalToAct5Pending = 0;
     pQuestDataEx->bPortalToAct5Spawned = 1;
     pPortal->dwFlags |= 0x3000000;
 }
@@ -397,12 +397,12 @@ bool __fastcall ACT4Q2_SpawnDiablo(D2GameStrc* pGame, D2QuestDataStrc* pQuestDat
         return true;
     }
 
-    if (pQuestDataEx->unk0x03)
+    if (pQuestDataEx->bEndGameTimerActive)
     {
         if (pQuestDataEx->bNeedToEndGame && pQuestDataEx->dwTickCount + 95000 < GetTickCount())
         {
             pQuestDataEx->bTimerCreated = 0;
-            pQuestDataEx->unk0x03 = 0;
+            pQuestDataEx->bEndGameTimerActive = 0;
             pQuestDataEx->bNeedToEndGame = 0;
             if (pQuestData->pGame->bExpansion)
                 return true;
@@ -586,7 +586,7 @@ void __fastcall ACT4Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
         pQuestDataEx->bTalkedToTyrael = 0;
     }
 
-    if (pQuestData->pGame->bExpansion && pQuestDataEx->unk0x44 && !pQuestDataEx->bPortalToAct5Spawned)
+    if (pQuestData->pGame->bExpansion && pQuestDataEx->bSpawnPortalToAct5Pending && !pQuestDataEx->bPortalToAct5Spawned)
     {
         ACT4Q2_SpawnPortalToHarrogath(pQuestArg, pQuestDataEx);
     }
@@ -698,7 +698,7 @@ void __fastcall ACT4Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
 
         pQuestDataEx->dwTickCount = 0;
         pQuestDataEx->bNeedToSpawnDiablo = 1;
-        pQuestDataEx->unk0x03 = 0;
+        pQuestDataEx->bEndGameTimerActive = 0;
         pQuestDataEx->bTimerCreated = 1;
         QUESTS_CreateTimer(pQuestData, ACT4Q2_SpawnDiablo, 1);
         return;
@@ -722,7 +722,7 @@ void __fastcall ACT4Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
         if (!((D2Act4Quest2Strc*)pQuestData->pQuestDataEx)->bTimerCreated)
         {
             ((D2Act4Quest2Strc*)pQuestData->pQuestDataEx)->bNeedToSpawnDiablo = 0;
-            ((D2Act4Quest2Strc*)pQuestData->pQuestDataEx)->unk0x03 = 1;
+            ((D2Act4Quest2Strc*)pQuestData->pQuestDataEx)->bEndGameTimerActive = 1;
             ((D2Act4Quest2Strc*)pQuestData->pQuestDataEx)->bNeedToEndGame = 1;
             ((D2Act4Quest2Strc*)pQuestData->pQuestDataEx)->bNeedToWarpPlayers = 1;
             ((D2Act4Quest2Strc*)pQuestData->pQuestDataEx)->bClientsSaved = 0;
@@ -898,7 +898,7 @@ void __fastcall OBJECTS_InitFunction55_DiabloStartPoint(D2ObjInitFnStrc* pOp)
 
     pQuestDataEx->dwTickCount = 0;
     pQuestDataEx->bNeedToSpawnDiablo = 1;
-    pQuestDataEx->unk0x03 = 0;
+    pQuestDataEx->bEndGameTimerActive = 0;
     pQuestDataEx->bTimerCreated = 1;
     QUESTS_CreateTimer(pQuestData, (QUESTUPDATE)ACT4Q2_SpawnDiablo, 1);
 }
@@ -968,7 +968,7 @@ int __fastcall OBJECTS_OperateFunction52_DiabloSeal(D2ObjOperateFnStrc* pOp)
 
         pQuestDataEx->dwTickCount = 0;
         pQuestDataEx->bNeedToSpawnDiablo = 1;
-        pQuestDataEx->unk0x03 = 0;
+        pQuestDataEx->bEndGameTimerActive = 0;
         pQuestDataEx->bTimerCreated = 1;
         QUESTS_CreateTimer(pQuestData, ACT4Q2_SpawnDiablo, 1);
     }

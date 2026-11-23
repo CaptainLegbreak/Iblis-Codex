@@ -73,7 +73,7 @@ struct D2MonGfxCacheStrc
 
 struct D2HashedFileStrc
 {
-    int unk0x00; // 0x00
+    int bLoaded; // 0x00
     unsigned char* pData; // 0x04
     unsigned int nSize; // 0x08
     D2HashedFileEntryStrc* pEntries[512]; // 0x0C

@@ -88,7 +88,7 @@ struct D2LaunchCharInfoStrc
     char szRealm0x361[32]; // 0x361
     char szRealm0x381[32]; // 0x381
     char szText0x3A1[16]; // 0x3A1
-    unsigned char unk0x3B1; // 0x3B1
+    unsigned char nComponentColors; // 0x3B1
     unsigned short unk0x3B2; // 0x3B2
     int unk0x3B4[3]; // 0x3B4
     unsigned char unk0x3C0; // 0x3C0
@@ -141,10 +141,10 @@ struct D2WinControlInitStrc
     int nY; // 0x08
     int nWidth; // 0x0C
     int nHeight; // 0x10
-    int unk0x14; // 0x14
+    int nArg; // 0x14
     int nStringId; // 0x18
     void* ppCellFile; // 0x1C
-    int unk0x20[4]; // 0x20
+    int anArgs[4]; // 0x20
 };
 
 #pragma pack(push, 1)

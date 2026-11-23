@@ -53,7 +53,7 @@ struct D2ObjectRegionStrc
     unsigned char nAct; // 0x00
     unsigned char unk0x01; // 0x01
     unsigned short unk0x02; // 0x02
-    int unk0x04; // 0x04
+    int nProcessedRooms; // 0x04
     int nPopulatedRooms; // 0x08
     int unk0x0C; // 0x0C
     int nHealingShrines; // 0x10
@@ -100,7 +100,7 @@ struct D2ServerCallbackFunctions
     void* unk0x24; // 0x24
     FnUpdateCharacterLadder pfUpdateCharacterLadder; // 0x28
     void* unk0x2C; // 0x2C
-    void* unk0x30; // 0x30
+    void* pfGetGameServerInfo; // 0x30
     int (__stdcall* pfGetValue)(); // 0x34
     RealmUpdateCallback pfUpdate; // 0x38
     FnLoadComplete pfLoadComplete; // 0x3C

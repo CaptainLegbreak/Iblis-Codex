@@ -125,7 +125,7 @@ struct D2CmpTileBlockStrc
     unsigned short unk0x44; // 0x44
     unsigned char nFlags; // 0x46
     unsigned char unk0x47; // 0x47
-    int unk0x48; // 0x48
+    int nSubsOffset; // 0x48
     int nSubBytes; // 0x4C
     int nSubs; // 0x50
     D2CmpSubTileRecordStrc* pSubs; // 0x54
@@ -150,7 +150,7 @@ struct D2CmpSpriteEntryStrc
     unsigned char nFramesPerDirection; // 0x24
     unsigned char unk0x25; // 0x25
     unsigned short unk0x26; // 0x26
-    int unk0x28; // 0x28
+    int bFramesInitialized; // 0x28
     int aOffsets[33]; // 0x2C
     AsyncData* pAsync; // 0xB0
     D2SpriteCacheNodeStrc* pHolder; // 0xB4
@@ -158,7 +158,7 @@ struct D2CmpSpriteEntryStrc
 
 struct D2CmpDC6FrameStrc
 {
-    int unk0x00; // 0x00
+    int nFlip; // 0x00
     unsigned int nWidth; // 0x04
     unsigned int nHeight; // 0x08
     int nOffsetX; // 0x0C

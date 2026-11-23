@@ -782,7 +782,7 @@ static void __stdcall D2CMPSpriteInitFrames(D2CmpSpriteFileStrc* pFile, D2CmpSpr
     D2_ASSERT(pContext, 0x50D);
     D2_ASSERT(pEntry, 0x50E);
     D2_ASSERT(!(pFile->dwFlags & 1), 0x50F);
-    D2_ASSERT(!pEntry->unk0x28, 0x512);
+    D2_ASSERT(!pEntry->bFramesInitialized, 0x512);
 
     const int nSize = pEntry->nFrames * pEntry->nFramesPerDirection * sizeof(D2CmpDC6CelStrc);
     D2CmpDC6CelStrc* pCels = (D2CmpDC6CelStrc*)FOG_AllocPool(gCmpTileCache.pMemPool, nSize, ".\\SRC\\SpriteCache.cpp", 0x517, 0);
@@ -796,7 +796,7 @@ static void __stdcall D2CMPSpriteInitFrames(D2CmpSpriteFileStrc* pFile, D2CmpSpr
     for (unsigned int i = 0; i < (unsigned int)(pEntry->nFrames * pEntry->nFramesPerDirection); ++i, nOffset += pFrame->nLength + pFrame->nOffsetY_14 + 0x23)
     {
         pFrame = (D2CmpDC6FrameStrc*)(pData + nOffset);
-        if (pFrame->unk0x00 != 0 || pFrame->nWidth > 0x100 || pFrame->nHeight > 0x100)
+        if (pFrame->nFlip != 0 || pFrame->nWidth > 0x100 || pFrame->nHeight > 0x100)
         {
             D2CMPSpriteBuildName(pContext, szName);
             D2CMPSpriteBuildPath(szName, pContext, szPath);
@@ -806,7 +806,7 @@ static void __stdcall D2CMPSpriteInitFrames(D2CmpSpriteFileStrc* pFile, D2CmpSpr
         pFrame->pCel = &pCels[i];
     }
 
-    pEntry->unk0x28 = 1;
+    pEntry->bFramesInitialized = 1;
 }
 
 // 0x005FEE00
@@ -1301,7 +1301,7 @@ static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContext
     for (int i = 0; i <= nFrame; ++i)
     {
         pFrame = (D2CmpDC6FrameStrc*)((char*)pData + nOffset);
-        if (pFrame->unk0x00 != 0)
+        if (pFrame->nFlip != 0)
             return 0;
         if (pFrame->nWidth > 0x100)
             return 0;
@@ -1369,7 +1369,7 @@ static int __stdcall D2CMPSpriteLoadDc6Entry(D2CmpSpriteFileStrc* pFile, int nAr
         return 0;
     }
 
-    if (!pEntry->unk0x28)
+    if (!pEntry->bFramesInitialized)
         D2CMPSpriteInitFrames(pFile, pContext, pEntry);
 
     pContext->pFrame = sub_005FEC50_GetCachedDC6Frame(pContext, pEntry);

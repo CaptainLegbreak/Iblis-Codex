@@ -242,7 +242,7 @@ static int __stdcall DIALOG_UpdateHoverItem(SMSGHANDLER_PARAMS* pMsg, D2ClientDi
     const int nOld = pDialog->nHover;
     const int nItem = DIALOG_FindDialogItem(pDialog, pMsg);
     pDialog->nHover = nItem;
-    pDialog->unk0x48 = nItem;
+    pDialog->nPressedItem = nItem;
     if (nItem == nOld || nItem == -1)
         return 0;
     sub_004B9A00(1, 0, 0, 0, 0);
@@ -301,7 +301,7 @@ void __stdcall DIALOG_LButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     if (pDialog->dwTick + 0x50 > GetTickCount())
         return;
     const int nItem = DIALOG_FindDialogItem(pDialog, pMsg);
-    if (pDialog->unk0x48 == nItem && nItem >= 0 && nItem < pDialog->nLines)
+    if (pDialog->nPressedItem == nItem && nItem >= 0 && nItem < pDialog->nLines)
     {
         int (__cdecl* pfnCallback)() = pDialog->pLines[pDialog->nHover].pfnCallback;
         if (pfnCallback && pfnCallback())
@@ -699,7 +699,7 @@ D2ClientDialogStrc* __fastcall DIALOG_CreateDialogFromFile(int nArg1, int nArg2,
     pDialog->bCountEnabled = 0;
     pDialog->dwTick = GetTickCount();
     pDialog->unk0x18 = nArg14;
-    pDialog->unk0x48 = -1;
+    pDialog->nPressedItem = -1;
     pDialog->bActive = 0;
     pDialog->nState = 0;
     pDialog->bDrawCel = 1;
@@ -789,7 +789,7 @@ D2ClientDialogStrc* __fastcall DIALOG_CreateDialog(int nArg1, int nArg2, int nAr
     pDialog->bDrawCel = 0;
     pDialog->pCelFile = 0;
     pDialog->nHeight = nArg20;
-    pDialog->unk0x48 = -1;
+    pDialog->nPressedItem = -1;
     pDialog->unk0x18 = nArg10;
     pDialog->bKeepKeys = nArg28;
     gbDialogHandlersRegistered = 1;
