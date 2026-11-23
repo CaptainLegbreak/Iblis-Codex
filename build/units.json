@@ -30825,14 +30825,39 @@
      "name": "?MISSILE_CheckLevelSpeech@@YAXXZ"
     },
     {
+     "va": "0x004CC790",
+     "length": 37,
+     "name": "?sub_004CC790_RollRange@@YIHPAUD2SeedStrc@@HH@Z"
+    },
+    {
+     "va": "0x004CC7C0",
+     "length": 57,
+     "name": "?sub_004CC7C0_GetSkillMissileRange@@YIHHH@Z"
+    },
+    {
+     "va": "0x004CC800",
+     "length": 104,
+     "name": "?sub_004CC800_CheckDistanceAndLineOfSight@@YGHHHHPAUD2ActiveRoomStrc@@HH@Z"
+    },
+    {
      "va": "0x004CC870",
      "length": 151,
      "name": "?MISSILE_InitFromOwner@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x004CC910",
+     "length": 52,
+     "name": "?sub_004CC910_GetSpawnDelay@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004CC950",
      "length": 72,
      "name": "?MISSILE_GetSubMissileCount@@YAHPAUD2MissilesTxt@@H@Z"
+    },
+    {
+     "va": "0x004CC9A0",
+     "length": 86,
+     "name": "?sub_004CC9A0_CltHitProgOverlay@@YIHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x004CCA00",
@@ -30850,6 +30875,16 @@
      "name": "?MISSILE_UpdateGuidedMissile@@YIHPAUD2UnitStrc@@0@Z"
     },
     {
+     "va": "0x004CCCA0",
+     "length": 25,
+     "name": "?sub_004CCCA0_CltHitFlagOwner@@YIHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x004CCCC0",
+     "length": 84,
+     "name": "?MISSMODE_CatapultChargedBall_LightningTrailingJavelin_SubmissileInitFunc@@YIXPAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x004CCD20",
      "length": 279,
      "name": "?MISSILE_CltHitSpiral@@YIHPAUD2UnitStrc@@0@Z"
@@ -30858,6 +30893,16 @@
      "va": "0x004CCE40",
      "length": 189,
      "name": "MISSILE_CltHitSpiralGrid"
+    },
+    {
+     "va": "0x004CCF00",
+     "length": 18,
+     "name": "?sub_004CCF00_CltHitClearGlobals@@YIHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x004CCF20",
+     "length": 7,
+     "name": "?sub_004CCF20_SetValue@@YIXH@Z"
     },
     {
      "va": "0x004CD170",
@@ -32014,57 +32059,6 @@
     {
      "va": "0x004CC5B0",
      "length": 466
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004CC790.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004CC790",
-     "length": 37,
-     "name": "?sub_004CC790_RollRange@@YIHPAUD2SeedStrc@@HH@Z"
-    },
-    {
-     "va": "0x004CC7C0",
-     "length": 57,
-     "name": "?sub_004CC7C0_GetSkillMissileRange@@YIHHH@Z"
-    },
-    {
-     "va": "0x004CC800",
-     "length": 104,
-     "name": "?sub_004CC800_CheckDistanceAndLineOfSight@@YGHHHHPAUD2ActiveRoomStrc@@HH@Z"
-    },
-    {
-     "va": "0x004CC910",
-     "length": 52,
-     "name": "?sub_004CC910_GetSpawnDelay@@YAHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004CC9A0",
-     "length": 86,
-     "name": "?sub_004CC9A0_CltHitProgOverlay@@YIHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004CCCA0",
-     "length": 25,
-     "name": "?sub_004CCCA0_CltHitFlagOwner@@YIHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004CCCC0",
-     "length": 84,
-     "name": "?MISSMODE_CatapultChargedBall_LightningTrailingJavelin_SubmissileInitFunc@@YIXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004CCF00",
-     "length": 18,
-     "name": "?sub_004CCF00_CltHitClearGlobals@@YIHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004CCF20",
-     "length": 7,
-     "name": "?sub_004CCF20_SetValue@@YIXH@Z"
     }
    ]
   },
