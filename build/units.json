@@ -34813,9 +34813,63 @@
    ]
   },
   {
+   "file": "Source/D2Client/UI/SkillDesc_004EA450.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004EA450",
+     "length": 80
+    },
+    {
+     "va": "0x004EB390",
+     "length": 197
+    },
+    {
+     "va": "0x004EC740",
+     "length": 152,
+     "name": "?SKILLDESC_AddSkillElemRateByType@@YGHPAUUnicode@@PAUD2SkillsTxt@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004ECCF0",
+     "length": 596
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
    "file": "Source/D2Client/UI/SkillDesc.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x004E42E0",
+     "length": 855
+    },
+    {
+     "va": "0x004E4D80",
+     "length": 3216
+    },
+    {
+     "va": "0x004E5E90",
+     "length": 527
+    },
+    {
+     "va": "0x004E93A0",
+     "length": 311,
+     "name": "?SKILLDESC_EvaluateForEachWeapon@@YGHPAH0H00HPAUD2SkillStrc@@P6IHPAUD2UnitStrc@@00HHH1H2@ZH2H@Z"
+    },
     {
      "va": "0x004E96E0",
      "length": 400,
@@ -34825,6 +34879,11 @@
      "va": "0x004E99F0",
      "length": 808,
      "name": "?SKILLDESC_DrawWeaponDamage@@YGXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HP6IH0PAH33HH1H0@ZHHHHHH@Z"
+    },
+    {
+     "va": "0x004E9D20",
+     "length": 747,
+     "name": "?SKILLDESC_DrawWeaponAndSkillDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
     },
     {
      "va": "0x004EA170",
@@ -34915,85 +34974,6 @@
     {
      "va": "0x004F2BE0",
      "length": 494
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/SkillDesc_004E9D20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004E42E0",
-     "length": 855
-    },
-    {
-     "va": "0x004E4D80",
-     "length": 3216
-    },
-    {
-     "va": "0x004E5E90",
-     "length": 527
-    },
-    {
-     "va": "0x004E93A0",
-     "length": 311,
-     "name": "?SKILLDESC_EvaluateForEachWeapon@@YGHPAH0H00HPAUD2SkillStrc@@P6IHPAUD2UnitStrc@@00HHH1H2@ZH2H@Z"
-    },
-    {
-     "va": "0x004E9D20",
-     "length": 747,
-     "name": "?SKILLDESC_DrawWeaponAndSkillDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/SkillDesc_004EA450.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004EA450",
-     "length": 80
-    },
-    {
-     "va": "0x004EB390",
-     "length": 197
-    },
-    {
-     "va": "0x004EC740",
-     "length": 152,
-     "name": "?SKILLDESC_AddSkillElemRateByType@@YGHPAUUnicode@@PAUD2SkillsTxt@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004ECCF0",
-     "length": 596
     }
    ],
    "flags": [
