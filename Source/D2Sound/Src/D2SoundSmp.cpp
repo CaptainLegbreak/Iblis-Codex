@@ -1,8 +1,8 @@
 #include "D2Sound.h"
+
 #include "D2SoundTypes.h"
 
 static D2SoundChannelEntryStrc* sub_N19_GetChannelEntry(int nIndex);
-
 
 #define DSBSTATUS_BUFFERLOST 0x00000002
 
@@ -281,7 +281,6 @@ extern "C" void* __cdecl memcpy(void*,const void*,unsigned int); // 0x006829C0
 
 extern "C" const char gszD2SoundSmpFile[];                                                          // 0x006DEAEC
 
-
 extern "C" __declspec(dllimport) int __stdcall IsIconic(void* hWnd); // 0x006CC50C
 
 extern int gbIconic; // 0x00881814
@@ -368,7 +367,6 @@ static int __stdcall sub_005153C0_CreateSoundBuffer(unsigned int nFlags, D2Sound
     pSound->nLoopStart = -1;
     return 1;
 }
-
 
 static const unsigned char* __stdcall D2SOUND_FindRiffChunk(const unsigned char* pData, unsigned int* pnSize, unsigned int nChunkId, unsigned int* pnChunkSize);
 
@@ -502,6 +500,24 @@ const char* __fastcall D2SOUND_GetDirectSoundErrorString(long hResult)
         return "DS_OK";
     }
     return 0;
+}
+
+// 0x00514710
+static D2SoundChannelEntryStrc* sub_00514710_GetChannelEntry(int nIndex)
+{
+    if (!gbChannelTableInit)
+    {
+        gbChannelTableInit = 1;
+// build: symbol ?D2SOUND_IsExpansion@* 0x00513AE0
+        gnChannelTableSel = D2SOUND_IsExpansion();
+    }
+// build: symbol ?gnChannelCountA@* 0x0072F874
+// build: symbol ?gnChannelCountB@* 0x0072F8F8
+    D2_ASSERT(gnChannelCountA == gnChannelCountB, 0x52);
+    D2_ASSERT(nIndex < gnChannelCountA, 0x53);
+    if (gnChannelTableSel)
+        return &gaChannelTableB[nIndex];
+    return &gaChannelTableA[nIndex];
 }
 
 // 0x00514780
