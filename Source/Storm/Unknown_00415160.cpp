@@ -33,13 +33,6 @@ struct D2StormQuadStrc {
  D2StormQuadStrc& __thiscall sub_00415160_Copy(const D2StormQuadStrc& source);
 };
 
-// 0x00414360
-extern "C" void __cdecl sub_00414360_CallThenSetFlag()
-{
-    sub_004142A0_InitPowTable();
-    gnFlag_007788DC = 1;
-}
-
 extern "C" void __cdecl sub_004F8DC0_InitLookupTable(); // 0x004F8DC0
 
 extern "C" void __cdecl sub_004B9D00_ResetSoundState(); // 0x004B9D00
@@ -48,7 +41,7 @@ extern "C" int __cdecl GAME_ShutdownIfActive(); // 0x0044BB80
 
 
 
-#include "gen/data/Source/Storm/Unknown_00414360.inc"
+#include "gen/data/Source/Storm/Unknown_00415160.inc"
 
 
 

@@ -504,6 +504,15 @@ int __fastcall SSignatureVerifyStream_Finish(D2StormHashBufferStrc* pBuffer, con
     return bResult;
 }
 
+// 0x0041D7D0
+int __fastcall SSignatureVerify(const void* pData, int nSize, const void* pExponent, unsigned int nSignSize, const void* pModulus, int nModulusSize)
+{
+    D2StormHashBufferStrc* pBuffer;
+    SSignatureVerifyStream_Begin(&pBuffer, nSignSize, nModulusSize);
+    sub_0041D420_HashBuffered(pBuffer, (const char*)pData, nSize);
+    return SSignatureVerifyStream_Finish(pBuffer, pExponent, pModulus);
+}
+
 // 0x0041D810
 void __fastcall CrcBuffer(const unsigned char* pData, unsigned int nSize, unsigned int* pCrc, unsigned char nFlags)
 {

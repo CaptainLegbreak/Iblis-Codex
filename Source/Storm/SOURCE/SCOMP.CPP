@@ -1,6 +1,7 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
 #include "D2StormLink.h"
+#include "SValidate.h"
 
 struct D2StormHashBufferStrc;
 
@@ -797,11 +798,168 @@ static void __stdcall sub_0041E510_FreeWorkBuffer(int bShared, void* pBuffer)
     LeaveCriticalSection(&gtWorkBufferLock_00779214);
 }
 
-int __stdcall sub_M01_Emit_0041E440(unsigned int nSize)
+#define OVERLAP(a, b, n) ((a) + (n) > (b) && (b) + (n) > (a))
+
+typedef void (__fastcall* PFNSCOMPCOMPRESS)(void* pOut, unsigned int* pcbOut, void* pIn, unsigned int cbIn, int* pnCmpType, int nCmpLevel);
+typedef void (__fastcall* PFNSCOMPDECOMPRESS)(void* pOut, unsigned int* pcbOut, void* pIn, unsigned int cbIn, int nExtra);
+
+struct D2SCompCompStrc
 {
-    int bShared;
-    void* pBuffer = s_AllocDecompressBuffer(nSize, &bShared);
-    sub_0041E510_FreeWorkBuffer(bShared, pBuffer);
+    unsigned int dwMask;
+    PFNSCOMPCOMPRESS pfnCompress;
+};
+
+struct D2SCompDecompStrc
+{
+    unsigned int dwMask;
+    PFNSCOMPDECOMPRESS pfnDecompress;
+};
+
+void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
+void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
+void __fastcall HuffmanCompress(void* pvOutBuffer, int* pcbOutBuffer, void* pvInBuffer, int cbInBuffer, int* pCmpType, int nCmpLevel); // 0x0041F980
+void __fastcall HuffmanDecompress(void* pOut, unsigned int* pcbOut, void* pIn, unsigned int cbIn, int nExtra); // 0x0041F9E0
+
+// build: symbol _gtCompTable_006CFE9C 0x006CFE9C
+#include "gen/data/Source/Storm/SOURCE/SCOMP.static/gtCompTable_006CFE9C.inc"
+
+// build: symbol _gtDecompTable_006CFEC4 0x006CFEC4
+#include "gen/data/Source/Storm/SOURCE/SCOMP.static/gtDecompTable_006CFEC4.inc"
+
+// 0x0041E570
+int __stdcall SCompCompress(unsigned char* pDest, unsigned int* pdwDestSize, unsigned char* pSrc, unsigned int dwSrcSize, unsigned int dwMask, int nCmpType, int nCmpLevel)
+{
+    VALIDATEBEGIN;
+    VALIDATE(pDest);
+    VALIDATE(pdwDestSize);
+    VALIDATE(*pdwDestSize >= dwSrcSize);
+    VALIDATE(pSrc);
+    if (!nValid)
+    {
+        sub_0041C340_SetLastError(0x57);
+        return 0;
+    }
+
+    unsigned int nCount = 0;
+    unsigned int dwUnknown = dwMask;
+    for (int i = 0; i < 5; ++i)
+    {
+        if (dwMask & gtCompTable_006CFE9C[i].dwMask)
+            ++nCount;
+        dwUnknown &= ~gtCompTable_006CFE9C[i].dwMask;
+    }
+    if (dwUnknown)
+        return 0;
+
+    int bShared = 0;
+    unsigned char* pWork = 0;
+    if (nCount >= 2 || (OVERLAP(pDest, pSrc, dwSrcSize) && nCount))
+        pWork = (unsigned char*)s_AllocDecompressBuffer(dwSrcSize, &bShared);
+
+    unsigned char* pIn = pSrc;
+    unsigned int cbIn = dwSrcSize;
+    for (int i = 0; i < 5; ++i)
+    {
+        if (gtCompTable_006CFE9C[i].dwMask & dwMask)
+        {
+            --nCount;
+            unsigned char* pOut = (nCount & 1) ? pWork : pDest + 1;
+            if (OVERLAP(pOut, pIn, cbIn))
+                pOut = OVERLAP(pOut, pWork, cbIn) ? pDest + 1 : pWork;
+            unsigned int cbOut = cbIn - 1;
+            gtCompTable_006CFE9C[i].pfnCompress(pOut, &cbOut, pIn, cbIn, &nCmpType, nCmpLevel);
+            if (cbOut + 1 < cbIn)
+            {
+                pIn = pOut;
+                cbIn = cbOut;
+            }
+            else
+            {
+                dwMask &= ~gtCompTable_006CFE9C[i].dwMask;
+            }
+        }
+    }
+
+    if (pIn != pDest)
+    {
+        if (pIn == pDest + 1)
+        {
+            *pDest = (unsigned char)dwMask;
+            ++cbIn;
+        }
+        else if (dwMask)
+        {
+            SMemCopy(pDest + 1, pIn, cbIn);
+            *pDest = (unsigned char)dwMask;
+            ++cbIn;
+        }
+        else
+        {
+            SMemCopy(pDest, pIn, cbIn);
+        }
+    }
+    *pdwDestSize = cbIn;
+    sub_0041E510_FreeWorkBuffer(bShared, pWork);
+    return 1;
+}
+
+// 0x0041E720
+int __stdcall SCompDecompress(void* pDest, unsigned int* pdwDestSize, unsigned char* pSrc, unsigned int dwSrcSize, int nExtra)
+{
+    unsigned int dwDestSize = *pdwDestSize;
+    VALIDATEBEGIN;
+    VALIDATE(pDest);
+    VALIDATE(dwDestSize >= dwSrcSize);
+    VALIDATE(pSrc);
+    VALIDATE(dwSrcSize >= sizeof(unsigned char));
+    VALIDATEEND;
+
+    if (dwSrcSize == dwDestSize)
+    {
+        if (pDest != pSrc)
+            SMemCopy(pDest, pSrc, dwSrcSize);
+        return 1;
+    }
+
+    unsigned int dwTypes = *pSrc++;
+    dwSrcSize--;
+    unsigned int nCount = 0;
+    unsigned int dwUnknown = dwTypes;
+    for (int i = 4; i >= 0; --i)
+    {
+        if (dwTypes & gtDecompTable_006CFEC4[i].dwMask)
+            ++nCount;
+        dwUnknown &= ~gtDecompTable_006CFEC4[i].dwMask;
+    }
+    if (dwUnknown)
+        return 0;
+
+    int bShared = 0;
+    unsigned char* pWork = 0;
+    if (nCount >= 2 || (OVERLAP((unsigned char*)pDest, pSrc, dwSrcSize) && nCount))
+        pWork = (unsigned char*)s_AllocDecompressBuffer(dwDestSize, &bShared);
+
+    unsigned char* pIn = pSrc;
+    unsigned int cbIn = dwSrcSize;
+    for (int i = 4; i >= 0; --i)
+    {
+        if (dwTypes & gtDecompTable_006CFEC4[i].dwMask)
+        {
+            --nCount;
+            unsigned char* pOut = (nCount & 1) ? pWork : (unsigned char*)pDest;
+            if (OVERLAP(pOut, pIn, cbIn))
+                pOut = OVERLAP(pOut, pWork, cbIn) ? (unsigned char*)pDest : pWork;
+            unsigned int cbOut = dwDestSize;
+            gtDecompTable_006CFEC4[i].pfnDecompress(pOut, &cbOut, pIn, cbIn, nExtra);
+            cbIn = cbOut;
+            pIn = pOut;
+        }
+    }
+
+    if (pIn != pDest)
+        SMemCopy(pDest, pIn, cbIn);
+    *pdwDestSize = cbIn;
+    sub_0041E510_FreeWorkBuffer(bShared, pWork);
     return 1;
 }
 
