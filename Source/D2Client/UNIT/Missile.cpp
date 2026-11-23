@@ -618,6 +618,14 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     }
 }
 
+inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+{
+    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
 // 0x004C95E0
 int __fastcall MISSILE_SkillStartAtTargetPos(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -1259,14 +1267,6 @@ void __fastcall MISSILE_SpawnFollowUp(D2UnitStrc* pMissile, int nMissile, int nR
     tParams.nSkillLevel = nLevel;
     tParams.nLoops = 2 * nLevel - 2;
     sub_004CD540_CreateMissile(&tParams);
-}
-
-inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
-{
-    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
-    return (unsigned int)lSeed;
 }
 
 // 0x004CE420
