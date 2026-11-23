@@ -1027,6 +1027,20 @@ int __cdecl UI_IsRecordingEnabled()
     return gbPlaybackRequested;
 }
 
+typedef void (__stdcall* D2RecordHandlerFn)(int nArg1, int nArg2, int nArg3);
+
+void __cdecl RECORD_WriteRecordFile(); // 0x00451620
+
+D2RecordHandlerFn gpfnPrevHandler; // 0x007A2764
+
+// 0x00451920
+void __stdcall CHARSEL_RecordHandler(int nArg1, int nArg2, int nArg3)
+{
+    RECORD_WriteRecordFile();
+    if (gpfnPrevHandler)
+        gpfnPrevHandler(nArg1, nArg2, nArg3);
+}
+
 // 0x00451960
 int __cdecl UI_IsRecordHandlerInstalled()
 {
