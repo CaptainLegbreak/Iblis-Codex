@@ -2692,14 +2692,6 @@ enum D2C_MonStatsTxtFlagIndices
 typedef unsigned char (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuest);
 
 
-typedef void (__fastcall* PlrMsgFunc)(D2GameStrc*, D2UnitStrc*, D2ClientStrc*, int);
-
-struct D2UnkPlrMsgStrc
-{
-    PlrMsgFunc field_0;
-    int field_4;
-    int field_8;
-};
 
 extern "C" const char gszQuestsSourceFile[]; // 0x006E0BE4
 
