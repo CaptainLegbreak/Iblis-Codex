@@ -1,16 +1,23 @@
 #include "D2Direct3D.h"
+
 #include "D2CelContext.h"
+
 #include "D2D3DTypes.h"
 
 struct D2Direct3D006B7110Strc;
+
 struct D2VertexBufferDescStrc;
+
 struct D2Direct3DVtbl006B7110Strc;
+
 struct D2CelFileStrc;
 
 void __fastcall D3D_SetAlphaBlendMode(int mode); // 0x006B1F40
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 struct D2VertexBufferDescStrc
@@ -35,31 +42,53 @@ struct D2Direct3D006B7110Strc
 typedef void (__fastcall* PixelDataFreeCallback)(void* pData);
 
 void __stdcall CelSetHardwareFreeCallback(PixelDataFreeCallback pfnCallback); // 0x00601A30
+
 int __fastcall sub_006B3730_CreateSurface(void** ppSurface, void** ppTexture, int nWidth, int nHeight); // 0x006B3730
+
 void __fastcall sub_006B39B0_ShowD3DError(const char* szText, long nResult); // 0x006B39B0
+
 void __fastcall sub_006B5BB0_FreePixelData(void* pData); // 0x006B5BB0
+
 extern D2Direct3D006B7110Strc* gpDirect3D_00970E64; // 0x00970E64
+
 extern void* gpSpriteBuffer; // 0x00970F34
+
 extern void* gpSpriteOutlineBuffer; // 0x00970F38
+
 extern void* gpVertexBuffer; // 0x00970F3C
+
 extern int gnVertexCount_00970F40; // 0x00970F40
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
 extern D2D3DObjStrc* gapSpriteTextures[3]; // 0x00970F1C
+
 extern D2D3DObjStrc* gapSpriteSurfaces[3]; // 0x00970F28
+
 extern D2D3DObjStrc* gpSpriteObject_00970F3C; // 0x00970F3C
 
 int __stdcall sub_006001F0_Prepare(D2CelContextStrc* pContext, int a2, int a3); // 0x006001F0
+
 int __stdcall sub_006018C0_CelGetWidth(D2CelStrc* pCel); // 0x006018C0
+
 int __stdcall sub_006018F0_CelGetHeight(D2CelStrc* pCel); // 0x006018F0
+
 int __stdcall sub_00601920_CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
+
 int __stdcall sub_00601950_CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
+
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
+
 int __stdcall shim_7(D2CelStrc* pCel, int nWidth, int nHeight, int nMode, int* pArg1, int* pArg2);
+
 int __stdcall shim_6(int nOffsetX, int nOffsetY, int nTextureWidth, int* pX, int* pY, int* pArg3, int* pArg4, int* pArg5, int* pArg6);
+
 static int __stdcall sub_006B5C80_LoadCelInfo(D2CelContextStrc* pContext, D2SpriteInfoStrc* pInfo);
+
 static void __stdcall sub_006B5CF0_SetTextureSize(D2SpriteInfoStrc* pInfo);
+
 static __declspec(noinline) int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg1, int nArg2);
+
 static __declspec(noinline) int __stdcall sub_006B63F0_DrawTexture(D2SpriteInfoStrc* pInfo, int nX, int nY, int nArg3, int nArg4, int nArg5, int nArg6);
 
 void* gpSpriteBuffer; // 0x00970F34
@@ -99,6 +128,27 @@ void __cdecl D3D_ReleaseSprites()
         {
             gapSpriteSurfaces[i]->lpVtbl->Release(gapSpriteSurfaces[i]);
             gapSpriteSurfaces[i] = 0;
+        }
+    }
+}
+
+struct D2ResourceEntryStrc { int value0; int value4; int rest[6]; };
+struct D2ResourceGroupStrc { D2ResourceEntryStrc* entries; int rest[6]; };
+struct D2ResourcePairStrc { int group; int entry; };
+struct D2ResourceSetStrc { D2ResourcePairStrc pairs[5]; };
+extern D2ResourceGroupStrc gaResourceGroups[]; // 0x00970EE0
+
+// 0x006B5BB0
+void __fastcall sub_006B5BB0_ClearResourceEntries(D2ResourceSetStrc* set)
+{
+    for (int i = 0; i < 5; ++i)
+    {
+        int group = set->pairs[i].group - 1;
+        if (group >= 0)
+        {
+            int entry = set->pairs[i].entry - 1;
+            if (entry >= 0)
+                gaResourceGroups[group].entries[entry].value4 = 0;
         }
     }
 }
