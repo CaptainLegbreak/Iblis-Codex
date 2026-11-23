@@ -6088,6 +6088,11 @@
      "name": "?SStrToInt64@@YG_JPBD@Z"
     },
     {
+     "va": "0x004144B0",
+     "length": 15,
+     "name": "_sub_004144B0_EnsureInit"
+    },
+    {
      "va": "0x004144C0",
      "length": 547
     },
@@ -6151,17 +6156,6 @@
      "va": "0x004150E0",
      "length": 83,
      "name": "?SRegSaveValue@@YGHPBD0IK@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_004144B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004144B0",
-     "length": 15,
-     "name": "_sub_004144B0_EnsureInit"
     }
    ]
   },

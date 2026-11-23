@@ -675,7 +675,9 @@ inline T StormPowInt(T x, int nExp)
     }
 }
 
-static inline void sub_004144B0_EnsureInit()
+
+// 0x004144B0
+extern "C" inline void __cdecl sub_004144B0_EnsureInit()
 {
     if (!gnFlag_007788DC)
         sub_00414360_CallThenSetFlag();
@@ -929,3 +931,5 @@ unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsig
     }
     return nValid ? nResult : 0;
 }
+
+
