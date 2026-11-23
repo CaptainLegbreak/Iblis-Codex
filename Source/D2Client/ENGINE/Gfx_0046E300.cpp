@@ -2,19 +2,13 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2TxtTables.h"
+#include "D2ClientTypes.h"
+#include "D2CelContext.h"
 
-struct D2OverlayStrc;
+struct D2UnitOverlayStrc;
 
-struct D2GfxDataStrc
-{
-    int unk0x00[5];
-    int nOverlayId;
-    int unk0x18[5];
-    D2OverlayStrc* f_2C;
-    int unk0x30[6];
-};
 
-struct D2OverlayStrc
+struct D2UnitOverlayStrc
 {
     int dwType;
     int nOverlay;
@@ -29,7 +23,7 @@ struct D2OverlayStrc
     int unk0x38;
     int f3C;
     char unk0x40[0x64];
-    D2OverlayStrc* pNext;
+    D2UnitOverlayStrc* pNext;
 };
 
 
@@ -55,7 +49,7 @@ int __stdcall ITEM_GetGfxClientY(D2UnitStrc* pUnit);                            
 int __stdcall ITEM_GetGfxClientZ(D2UnitStrc* pUnit);                                          // 0x004DA0F0
 int __fastcall GFXUTIL_InitUnitCelContext(D2CelContextStrc* pCel, D2UnitStrc* pUnit, int a3, int nDirection, int nFrame, int* pOut, unsigned char a7, int a8); // 0x004DBB50
 int __stdcall D2GFX_CheckPerspective();                                                                     // 0x004F51D0
-void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nX, int nY, unsigned int nColor, int nDrawMode, unsigned char* pPalette); // 0x004F6480
+void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nX, int nY, unsigned int nColor, int nDrawMode, unsigned char* pPalette); // 0x004F6480
 void __stdcall SCALE_AdjustPerspectivePosition(int nX, int nY, int nBias, int* pX, int* pY);               // 0x004F6760
 int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit);                                                       // 0x006203B0
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit);                                                       // 0x00620410
@@ -70,7 +64,7 @@ void __stdcall GFX_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int nColor, int 
     D2_ASSERT(pGfx, 625);
 
     const int bPerspective = D2GFX_CheckPerspective();
-    D2OverlayStrc* pOverlay = pGfx->f_2C;
+    D2UnitOverlayStrc* pOverlay = pGfx->pOverlays;
     if (!pOverlay)
     {
         return;
@@ -143,10 +137,10 @@ void __stdcall GFX_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int nColor, int 
             }
             D2_ASSERT(pOverlayTxtRecord, 721);
 
-            D2GfxDataStrc tCel;
+            D2CelContextStrc tCel;
             memset(&tCel, 0, sizeof(tCel));
-            tCel.nOverlayId = nOverlayId;
-            if (!GFXUTIL_InitUnitCelContext((D2CelContextStrc*)&tCel, 0, 0, UNITS_GetDirection(pUnit), nFrame, &nX, 1, -1))
+            tCel.nOverlay = nOverlayId;
+            if (!GFXUTIL_InitUnitCelContext(&tCel, 0, 0, UNITS_GetDirection(pUnit), nFrame, &nX, 1, -1))
             {
                 return;
             }

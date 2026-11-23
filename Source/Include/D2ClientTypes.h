@@ -17,26 +17,12 @@ struct D2GfxNodeTargetStrc;
 
 struct D2GfxDataStrc
 {
-    int nFrame; // 0x00
-    unsigned char unk0x04; // 0x04
-    unsigned char nComponent; // 0x05
-    unsigned short unk0x06; // 0x06
-    int nUnitType; // 0x08
-    int nUnitIndex; // 0x0C
-    unsigned int nMode; // 0x10
-    int nOverlayId; // 0x14
-    unsigned int dwUnitToken; // 0x18
-    unsigned int dwComponentToken; // 0x1C
-    unsigned int dwArmorType; // 0x20
-    unsigned int dwModeToken; // 0x24
+    unsigned char aEntries[20][2]; // 0x00 (two bytes per component; the first is its value)
     D2GfxListNodeStrc* pList; // 0x28
     D2UnitOverlayStrc* pOverlays; // 0x2C
     D2GfxMotionStrc* pMotion; // 0x30
-    D2CelFileStrc* pCellFile; // 0x34
-    int nDrawFlag; // 0x38
-    D2CelStrc* pCel; // 0x3C
-    int nDirection; // 0x40
-    unsigned int dwFlags; // 0x44
+    int nBasePalShift; // 0x34
+    int nPalShift; // 0x38
 };
 
 struct D2InvRectStrc
@@ -64,7 +50,7 @@ struct D2GfxNodeTargetStrc
     }; // 0x14
 };
 
-D2_CHECK_SIZE(D2GfxDataStrc, 0x48);
+D2_CHECK_SIZE(D2GfxDataStrc, 0x3C);
 D2_CHECK_SIZE(D2InvRectStrc, 0x10);
 D2_CHECK_SIZE(D2MsgHandlerEntryStrc, 0xC);
 D2_CHECK_SIZE(D2GfxNodeTargetStrc, 0x18);

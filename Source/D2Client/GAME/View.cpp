@@ -538,7 +538,7 @@ extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType);                               // 0x004788B0
 
-void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
+void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
 extern int gbLeavingGame;                                                                               // 0x007A0620
 
@@ -1392,7 +1392,7 @@ static void VIEW_DrawSummitBackdrop(D2UnitStrc* pPlayer)
         gpCloudCel = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
 
-    D2GfxDataStrc tGfxData = {};
+    D2CelContextStrc tGfxData = {};
     if (gpSummitCel)
     {
         tGfxData.pCellFile = gpSummitCel;

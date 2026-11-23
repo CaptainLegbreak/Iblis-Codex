@@ -98,7 +98,7 @@ struct D2WinImageStrc;
 
 struct D2CropRectStrc;
 
-struct D2GfxDataStrc;
+struct D2CelContextStrc;
 
 struct D2CharStrc;
 
@@ -148,7 +148,7 @@ enum DrawMode
     DRAWMODE_NORMAL = 5,
 };
 
-void __stdcall TEXTURE_CelDrawClipped(D2GfxDataStrc* pData, int nXPos, int nYPos, void* pCropRect, int eDrawMode); // 0x004F6510
+void __stdcall TEXTURE_CelDrawClipped(D2CelContextStrc* pData, int nXPos, int nYPos, void* pCropRect, int eDrawMode); // 0x004F6510
 
 int __fastcall D2Win_10058_0(D2WinControlStrc* pControl, const Unicode* pText, int a3, int nColumn); // 0x004FB790
 
@@ -222,7 +222,7 @@ void __fastcall sub_004FB6A0_ClearText(D2WinControlStrc* pControl);             
 
 void __fastcall SCROLLBAR_Destroy(void* pArg);                                                                   // 0x00507EE0
 
-void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
+void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
 void __fastcall FONT_DrawTextWithBackground(const Unicode* wszText, int nX, int nY, int nWidth, int nColor, int eDrawMode, int nTextColor); // 0x005025C0
 
@@ -804,7 +804,7 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
     D2CelFileStrc* pCellFile = pTextBox->controlHeader.pCellFile;
     if (pCellFile)
     {
-        D2GfxDataStrc tGfxData;
+        D2CelContextStrc tGfxData;
         memset(&tGfxData, 0, sizeof(tGfxData));
         tGfxData.pCellFile = pCellFile;
         tGfxData.nDirection = 0;
@@ -1608,7 +1608,7 @@ void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText)
 
 // build: symbol ?IMAGE_DrawTiled@* 0x004FD340
 // build: context IMAGE_DrawTiled
-static void __stdcall IMAGE_DrawTiled(const D2CropRectStrc* pDst, const D2CropRectStrc* pSrc, D2GfxDataStrc* pGfxData)
+static void __stdcall IMAGE_DrawTiled(const D2CropRectStrc* pDst, const D2CropRectStrc* pSrc, D2CelContextStrc* pGfxData)
 {
     const int nSrcWidth = pSrc->nX1 - pSrc->nX0;
     const int nDstWidth = pDst->nX1 - pDst->nX0;

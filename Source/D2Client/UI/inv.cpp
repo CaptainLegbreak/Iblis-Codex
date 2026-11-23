@@ -658,7 +658,7 @@ int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner,
 
 int __stdcall sub_0064B2A0(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B2A0
 
-void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
+void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
@@ -5156,7 +5156,7 @@ void __cdecl INV_ClearClickPos()
 void __fastcall INV_DrawGold(int nType)
 {
     int nOldFont = D2Win_10127_SetFont(1);
-    D2GfxDataStrc tData = {};
+    D2CelContextStrc tData = {};
     tData.nDirection = 0;
 
     int nGold;
@@ -6856,7 +6856,7 @@ static void INV_DrawMercStats(D2UnitStrc* pUnit)
 // 0x0048B0A0
 void __stdcall INV_DrawMercEmptyBodyLocs(D2UnitStrc* pUnit)
 {
-    D2GfxDataStrc tGfx;
+    D2CelContextStrc tGfx;
     memset(&tGfx, 0, sizeof(tGfx));
 
     D2InventoryStrc* pInventory = pUnit->pInventory;

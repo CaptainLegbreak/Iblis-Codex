@@ -18,6 +18,7 @@
 #include "D2DrlgMaps.h"
 #include "D2StateIds.h"
 #include "D2UnitData.h"
+#include "D2CelContext.h"
 
 #define OFFSET(T, M) ((unsigned int)&(((T*)0)->M))
 
@@ -856,7 +857,7 @@ struct D2CropRectStrc
 
 static int __cdecl AUTOMAP_GetAutomapFade();                                                                          // 0x004576C0
 
-void __stdcall TEXTURE_CelDrawClipped(D2GfxDataStrc* pData, int nXPos, int nYPos, void* pCropRect, int eDrawMode); // 0x004F6510
+void __stdcall TEXTURE_CelDrawClipped(D2CelContextStrc* pData, int nXPos, int nYPos, void* pCropRect, int eDrawMode); // 0x004F6510
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit);                                         // 0x006221A0
 
@@ -2119,7 +2120,7 @@ void __fastcall AUTOMAP_DrawAutomapCells(D2AutomapCellStrc* pCell, D2AutomapDraw
     if (nY >= pInfo->nTop && nY <= pInfo->nBottom && nX >= pInfo->nLeft && nX <= pInfo->nRight)
     {
         int nDrawMode = 5;
-        D2GfxDataStrc tData;
+        D2CelContextStrc tData;
         memset(&tData, 0, sizeof(tData));
         tData.nFrame = pCell->nCellNo;
         tData.pCellFile = pInfo->pCelFile;

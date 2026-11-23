@@ -203,7 +203,7 @@ enum DrawMode
     DRAWMODE_NORMAL = 5,
 };
 
-void __stdcall TEXTURE_CelDrawClipped(D2GfxDataStrc* pData, int nXPos, int nYPos, void* pCropRect, int eDrawMode); // 0x004F6510
+void __stdcall TEXTURE_CelDrawClipped(D2CelContextStrc* pData, int nXPos, int nYPos, void* pCropRect, int eDrawMode); // 0x004F6510
 
 int __fastcall D2Win_10058_0(D2WinControlStrc* pControl, const Unicode* pText, int a3, int nColumn);         // 0x004FB790
 
@@ -288,7 +288,7 @@ int __fastcall D2Win_10058(D2WinControlStrc* pControl, const Unicode* pText, int
 }
 
 // 0x004FD340
-static void __stdcall IMAGE_DrawTiled(const D2CropRectStrc* pDst, const D2CropRectStrc* pSrc, D2GfxDataStrc* pGfxData)
+static void __stdcall IMAGE_DrawTiled(const D2CropRectStrc* pDst, const D2CropRectStrc* pSrc, D2CelContextStrc* pGfxData)
 {
     const int nSrcWidth = pSrc->nX1 - pSrc->nX0;
     const int nDstWidth = pDst->nX1 - pDst->nX0;
@@ -344,7 +344,7 @@ int __fastcall IMAGE_Draw(D2WinControlStrc* pControl)
 
     const int nBorderX = pImage->field_4C;
     const int nBorderY = pImage->field_50;
-    D2GfxDataStrc tGfxData;
+    D2CelContextStrc tGfxData;
     memset(&tGfxData, 0, sizeof(tGfxData));
     tGfxData.pCellFile = pImage->controlHeader.pCellFile;
     tGfxData.nDirection = 0;
