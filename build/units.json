@@ -69096,11 +69096,6 @@
      "name": "D2Common_10095"
     },
     {
-     "va": "0x0061B390",
-     "length": 245,
-     "name": "DRLGACTIVATE_RoomExPropagateSetStatus"
-    },
-    {
      "va": "0x00627B70",
      "length": 51,
      "name": "?DUNGEON_ItemCalcGetRandomNumberInRange@@YIHHHHPAX@Z"
@@ -69200,6 +69195,11 @@
      "va": "0x0061B360",
      "length": 43,
      "name": "?DRLGACTIVATE_SetStatusIfUnreferenced@@YAXPAUD2DrlgRoomStrc@@H@Z"
+    },
+    {
+     "va": "0x0061B390",
+     "length": 245,
+     "name": "DRLGACTIVATE_RoomExPropagateSetStatus"
     },
     {
      "va": "0x0061B490",

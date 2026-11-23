@@ -1,7 +1,20 @@
 #include "D2LevelIds.h"
+#include "D2Win32Base.h"
+#include "D2StormLink.h"
+#include "D2CmpCache.h"
+#include "D2Unicode.h"
+#include "D2DrlgTiles.h"
+#include "D2Path.h"
+#include "D2Win32Types.h"
+#include "D2Skills.h"
+#include "D2TxtTables.h"
+
 #include "D2Common.h"
+
 #include "D2Drlg.h"
+
 #include "D2Structs.h"
+
 #include "D2DrlgRooms.h"
 
 struct D2DrlgStrc;
@@ -302,6 +315,55 @@ static bool RoomExHasRefCount(D2DrlgRoomStrc* pDrlgRoom, int nMaxStatus)
         }
     }
     return false;
+}
+
+struct D2CommonLevelNodeStrc
+{
+    char unk0x00[0x8];
+    D2CommonLevelNodeStrc** ppChildren;
+    unsigned short wLevelCounts[16];
+    int nChildren;
+    char unk0x30[0x14];
+    unsigned char nMaxLevel;
+};
+typedef void (__fastcall* LEVELNODEFN)(D2CommonLevelNodeStrc* pNode);
+extern const LEVELNODEFN gpfnRoomExSetStatus[]; // 0x00744384
+void __fastcall sub_0066C370_OnChildlessNode(void* pContext, D2CommonLevelNodeStrc* pNode); // 0x0066C370
+static inline int sub_F45_IsFirstAtLevel(D2CommonLevelNodeStrc* pNode, int nLevel)
+{
+    for (int i = 0; i <= nLevel; ++i)
+    {
+        if (pNode->wLevelCounts[i])
+            return 0;
+    }
+    return 1;
+}
+static inline void sub_F45_VisitChild(D2CommonLevelNodeStrc* pChild, int nLevel)
+{
+    if (pChild->nMaxLevel >= nLevel && sub_F45_IsFirstAtLevel(pChild, nLevel))
+        gpfnRoomExSetStatus[nLevel](pChild);
+    ++pChild->wLevelCounts[nLevel];
+}
+
+// 0x0061B390
+void __fastcall DRLGACTIVATE_RoomExPropagateSetStatus(void* pContext, D2CommonLevelNodeStrc* pNode, unsigned char nLevel)
+{
+    if (!pNode->nChildren)
+        sub_0066C370_OnChildlessNode(pContext, pNode);
+    if (nLevel < 3)
+    {
+        for (int i = 0; i < pNode->nChildren; ++i)
+        {
+            D2CommonLevelNodeStrc* pChild = pNode->ppChildren[i];
+            DRLGACTIVATE_RoomExPropagateSetStatus(pContext, pChild, nLevel + 1);
+            sub_F45_VisitChild(pChild, nLevel);
+        }
+    }
+    else
+    {
+        for (int i = 0; i < pNode->nChildren; ++i)
+            sub_F45_VisitChild(pNode->ppChildren[i], nLevel);
+    }
 }
 
 // 0x0061B490
