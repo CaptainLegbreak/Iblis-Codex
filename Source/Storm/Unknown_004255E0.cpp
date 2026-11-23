@@ -1,21 +1,3 @@
-// build: context MakeLarge
-// build: context ExtractLowPart
-// build: context ExtractLowPartSx
-// build: context D2StormArrayAStrc::RoundUp
-// build: context D2StormArrayAStrc::Reserve
-// build: context D2StormArrayAStrc::SetCount
-// build: context D2StormArrayAStrc::GrowToFit
-// build: context D2StormArrayAStrc::CalcChunkSizeInline
-// build: context D2StormArrayAStrc::GrowToFitInline
-// build: context BigBuffer::Count
-// build: context BigBuffer::IsUsed
-// build: context BigBuffer::operator[]
-// build: context BigBuffer::SetCount
-// build: context BigBuffer::CopyFrom
-// build: context BigBuffer::operator=
-// build: context BigBuffer::Ref
-// build: context BigBuffer::At
-// build: context BigBuffer::SetStart
 
 inline void* operator new(unsigned int, void* pWhere) throw()
 {
@@ -224,29 +206,8 @@ static void __stdcall sub_00422300_Add(BigBuffer& a, const BigBuffer& b, const B
     a.SetCount(i);
 }
 
-// 0x004225C0
-static void __stdcall sub_004225C0_DivUInt(unsigned int* pRemainder, const BigBuffer& b, unsigned __int64 c, BigBuffer& a)
-{
-    a.m_array.SetCount((int)a.m_start - (int)b.m_start + b.m_array.f_4);
-    unsigned __int64 nData = 0;
-    unsigned int i = b.Count();
-    while (i)
-    {
-        --i;
-        nData = nData * 0x100000000ui64 + b[i];
-        a[i] = (unsigned int)(nData / c);
-        nData %= c;
-    }
-    a.sub_00422140_Trim();
-    *pRemainder = (unsigned int)nData;
-}
-
-// 0x00422780
-static int IsZero(BigBuffer& a)
-{
-    a.sub_00422140_Trim();
-    return a.Count() == 0;
-}
+void __stdcall sub_004225C0_DivUInt(unsigned int* pRemainder, const BigBuffer& b, unsigned __int64 c, BigBuffer& a); // 0x004225C0
+int IsZero(BigBuffer& a); // 0x00422780
 
 // 0x004227A0
 static void __stdcall sub_004227A0_MulUInt(BigBuffer& a, const BigBuffer& b, unsigned __int64 c)
@@ -261,19 +222,8 @@ static void __stdcall sub_004227A0_MulUInt(BigBuffer& a, const BigBuffer& b, uns
     a.SetCount(i);
 }
 
-// 0x00422C60
-static void SetOne(BigBuffer& a)
-{
-    a.SetCount(1);
-    a.GrowToFit(0);
-    a.m_array.f_8[a.m_start] = 1;
-}
-
-// 0x00422CC0
-static void SetZero(BigBuffer& a)
-{
-    a.SetCount(0);
-}
+void SetOne(BigBuffer& a); // 0x00422C60
+void SetZero(BigBuffer& a); // 0x00422CC0
 
 // 0x00422D00
 static void __stdcall Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift)
@@ -298,22 +248,7 @@ static void __stdcall Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift)
     a.sub_00422140_Trim();
 }
 
-// 0x00422E70
-static void __stdcall Shr(BigBuffer& a, const BigBuffer& b, unsigned int nShift)
-{
-    unsigned int nWords = nShift / 32;
-    unsigned int nBits = nShift % 32;
-    unsigned int i = 0;
-    for (; b.IsUsed(i + nWords); i++)
-    {
-        unsigned int nValue = b[i + nWords] >> nBits;
-        if (nBits)
-            nValue += b[i + nWords + 1] << (32 - nBits);
-        a[i] = nValue;
-    }
-    a.SetCount(i);
-}
-
+void __stdcall Shr(BigBuffer& a, const BigBuffer& b, unsigned int nShift); // 0x00422E70
 // 0x00423100
 static void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
 {
@@ -465,13 +400,7 @@ static void __stdcall sub_00422FC0_SubUInt(const BigBuffer* pSrc, BigBuffer* pDs
     pDst->m_array.f_4 = nEnd;
 }
 
-// 0x00423540
-static void __stdcall FromUnsigned(BigBuffer& a, unsigned int nValue)
-{
-    a[0u] = nValue;
-    a.SetCount(1);
-}
-
+void __stdcall FromUnsigned(BigBuffer& a, unsigned int nValue); // 0x00423540
 // 0x00424180
 static void __stdcall Gcd(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack)
 {
@@ -505,55 +434,7 @@ static void __stdcall sub_004245F0_MulMod(BigBuffer& a, BigBuffer& b, BigBuffer&
     tStack.nUsed--;
 }
 
-// 0x00425150
-static void __stdcall PowMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack)
-{
-    c.sub_00422140_Trim();
-    if (!c.Count())
-    {
-        SetOne(a);
-        return;
-    }
-    BigBuffer& tQuot = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tSquare = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tCube = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tWork = (&a == &b || &a == &c || &a == &d) ? tStack.f_0[tStack.nUsed++] : a;
-    sub_004245F0_MulMod(tSquare, b, b, d, tStack);
-    sub_004245F0_MulMod(tCube, tSquare, b, d, tStack);
-    BigBuffer* aPowers[3] = { &b, &tSquare, &tCube };
-    SetOne(tWork);
-    const BigBuffer& tExp = c;
-    for (unsigned int i = c.Count(); i; i--)
-    {
-        unsigned int nDigit = tExp[i - 1];
-        unsigned int nBits = 32;
-        if (i == c.Count())
-        {
-            while (!(nDigit & 0xC0000000))
-            {
-                nDigit <<= 2;
-                nBits -= 2;
-            }
-        }
-        for (; nBits; nBits -= 2)
-        {
-            sub_00424B00_BigSquare(&tWork, &tWork, &tStack);
-            Div(tQuot, tWork, tWork, d, tStack);
-            sub_00424B00_BigSquare(&tWork, &tWork, &tStack);
-            Div(tQuot, tWork, tWork, d, tStack);
-            if (nDigit >> 30)
-                sub_004245F0_MulMod(tWork, tWork, *aPowers[(nDigit >> 30) - 1], d, tStack);
-            nDigit <<= 2;
-        }
-    }
-    if (&tWork != &a)
-    {
-        a.CopyFrom(tWork);
-        tStack.nUsed--;
-    }
-    tStack.nUsed -= 3;
-}
-
+void __stdcall PowMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack); // 0x00425150
 // 0x00425350
 static int __stdcall IsPrime(BigStack* pStack, BigBuffer& a)
 {
@@ -691,35 +572,7 @@ void __stdcall SBigFindPrime(D2StormBigStrc* pResult, unsigned int nBits, D2Stor
     FindPrime(nBits, pRandom->tPrimary, pExponent->tPrimary, &pResult->tStack, pResult->tPrimary);
 }
 
-// 0x00424FB0
-static void __stdcall InvMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack)
-{
-    BigBuffer& tPrev = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tNum = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tDen = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tQuot = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tRem = tStack.f_0[tStack.nUsed++];
-    tNum.CopyFrom(b);
-    tDen.CopyFrom(c);
-    SetOne(a);
-    SetZero(tPrev);
-    int nSign = 1;
-    while (!IsZero(tDen))
-    {
-        Div(tQuot, tRem, tNum, tDen, tStack);
-        sub_004242C0_BigOp(&tQuot, &tQuot, &tPrev, &tStack);
-        sub_00422300_Add(tQuot, a, tQuot);
-        a.CopyFrom(tPrev);
-        tPrev.CopyFrom(tQuot);
-        tNum.CopyFrom(tDen);
-        tDen.CopyFrom(tRem);
-        nSign = -nSign;
-    }
-    if (nSign < 0)
-        sub_00423100_Sub(a, c, a);
-    tStack.nUsed -= 5;
-}
-
+void __stdcall InvMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack); // 0x00424FB0
 // 0x00425310
 void __stdcall SBigInvMod(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {

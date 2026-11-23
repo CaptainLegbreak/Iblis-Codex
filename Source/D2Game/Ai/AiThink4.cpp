@@ -15185,10 +15185,5 @@ void __fastcall AITHINK_Fn137_PutridDefiler(D2GameStrc* pGame, D2UnitStrc* pUnit
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 25);
 }
 
-// build: context ?SKILLS_GetSkillsTxtRecord@@YAPAUD2SkillsTxt@@H@Z
-// build: context ?SKILLS_GetMissilesTxtRecord@@YAPAUD2MissilesTxt@@H@Z
-// build: context ?GetAuraStateStatList@@YAPAUD2StatListStrc@@PAUD2UnitStrc@@PAUD2SkillsTxt@@@Z
-// build: context ?AI_ClampChance@@YAHH@Z
-
 
 #include "gen/data/Source/D2Game/Ai/AiThink4.inc"

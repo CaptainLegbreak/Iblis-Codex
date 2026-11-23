@@ -514,6 +514,3 @@ void __stdcall MISSILE_CalculateDamageData(Damage* pMissileDamageData, Unit* pOw
         sub_0064AA60_ScaleElements(pMissileDamageData, originDamage);
     }
 }
-
-// build: context ?RollPercent@@YAIPAUUnit@@@Z
-// build: context ?DATATBLS_GetMissilesTxtRecord@@YAPAUMissileRecord@@H@Z

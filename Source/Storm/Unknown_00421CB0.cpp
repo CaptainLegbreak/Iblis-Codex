@@ -119,23 +119,8 @@ unsigned int D2StormArrayBStrc::sub_004219D0_AddOne(const unsigned char* pData)
     return sub_004218B0_Add(1, pData);
 }
 
-// 0x00421BD0
-static void EncodeDataBytes(unsigned int nValue, D2StormArrayBStrc* pArray)
-{
-    while (nValue)
-    {
-        *pArray->New() = (unsigned char)(nValue % 255);
-        nValue /= 255;
-    }
-    *pArray->New() = 0xFF;
-}
-
-// 0x004235F0
-static void ToBinary(D2StormArrayBStrc* pOut, BigBuffer* pIn)
-{
-    pOut->f_4 = 0;
-    sub_00421CB0_AppendDigits(pOut, pIn);
-}
+void EncodeDataBytes(unsigned int nValue, D2StormArrayBStrc* pArray); // 0x00421BD0
+void ToBinary(D2StormArrayBStrc* pOut, BigBuffer* pIn); // 0x004235F0
 
 // 0x00423770
 static void ToStream(D2StormArrayBStrc* pOut, BigBuffer* pIn)
@@ -202,10 +187,3 @@ void __stdcall SBigToStreamPtr(D2StormBigStrc* pBig, unsigned char** ppData, uns
     *ppData = pBig->tBuffer.f_8;
     *pSize = pBig->tBuffer.f_4;
 }
-
-// build: context ?RoundUp@D2StormArrayBStrc@@QAEIII@Z
-// build: context ?InlineReserve@D2StormArrayBStrc@@QAEXIH@Z
-// build: context ?New@D2StormArrayBStrc@@QAEPAEXZ
-// build: context ?Count@D2StormArrayAStrc@@QBEIXZ
-// build: context ?Count@BigBuffer@@QBEIXZ
-// build: context ??ABigBuffer@@QBEII@Z

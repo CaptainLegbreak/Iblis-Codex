@@ -2,9 +2,6 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 struct D2DifficultyLevelsTxt;
-// build: context MonStats
-// build: context RollLimited
-// build: context Roll
 
 struct D2MonRegDataStrc { short id; unsigned char rarity; char pad03[0x31]; };
 struct D2MonsterRegionStrc {

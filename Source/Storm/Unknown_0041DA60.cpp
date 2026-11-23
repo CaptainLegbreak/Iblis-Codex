@@ -4,27 +4,7 @@ struct D2AdpcmHeaderStrc;
 
 extern "C" int __cdecl abs(int);
 
-// 0x0041DA30
-static void sub_0041DA30_GetCompressionLevel(unsigned int nCmpLevel, unsigned char* pnLevel, int* pCmpType)
-{
-    switch (nCmpLevel)
-    {
-    case 1:
-    case 2:
-        *pnLevel = 4;
-        *pCmpType = 6;
-        break;
-    case 3:
-        *pnLevel = 6;
-        *pCmpType = 8;
-        break;
-    default:
-        *pnLevel = 5;
-        *pCmpType = 7;
-        break;
-    }
-}
-
+void sub_0041DA30_GetCompressionLevel(unsigned int nCmpLevel, unsigned char* pnLevel, int* pCmpType); // 0x0041DA30
 // 0x0041DA60
 static int __stdcall ImaAdpcmCompress(int nOutSize, const short* pIn, int nInSize, unsigned int nChannels, unsigned char nLevel, unsigned char* pOut)
 {

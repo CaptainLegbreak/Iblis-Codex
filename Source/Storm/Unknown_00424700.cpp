@@ -1,27 +1,4 @@
 #include "D2StormTypes.h"
-// build: context MakeLarge
-// build: context ExtractLowPart
-// build: context ExtractLowPartSx
-// build: context D2StormArrayAStrc::RoundUp
-// build: context D2StormArrayAStrc::Reserve
-// build: context D2StormArrayAStrc::SetCount
-// build: context D2StormArrayAStrc::GrowToFit
-// build: context D2StormArrayAStrc::CalcChunkSizeInline
-// build: context D2StormArrayAStrc::ReserveInline
-// build: context D2StormArrayAStrc::SetCountInline
-// build: context D2StormArrayAStrc::GrowToFitInline
-// build: context BigBuffer::Count
-// build: context BigBuffer::IsUsed
-// build: context BigBuffer::SetCount
-// build: context BigBuffer::SetCountInline
-// build: context BigBuffer::CopyFrom
-// build: context BigBuffer::Ref
-// build: context BigBuffer::At
-// build: context BigBuffer::SetStart
-// build: context BigStack::Alloc
-// build: context BigStack::Free
-// build: context BigStack::MakeDistinct
-// build: context BigStack::UnmakeDistinct
 
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 
@@ -252,22 +229,7 @@ static void __stdcall sub_00422300_Add(BigBuffer& a, const BigBuffer& b, const B
     a.SetCount(i);
 }
 
-// 0x004225C0
-static void __stdcall sub_004225C0_DivUInt(unsigned int* pRemainder, const BigBuffer& b, unsigned __int64 c, BigBuffer& a)
-{
-    a.m_array.SetCount((int)a.m_start - (int)b.m_start + b.m_array.f_4);
-    unsigned __int64 nData = 0;
-    unsigned int i = b.Count();
-    while (i)
-    {
-        --i;
-        nData = nData * 0x100000000ui64 + b[i];
-        a[i] = (unsigned int)(nData / c);
-        nData %= c;
-    }
-    a.sub_00422140_Trim();
-    *pRemainder = (unsigned int)nData;
-}
+void __stdcall sub_004225C0_DivUInt(unsigned int* pRemainder, const BigBuffer& b, unsigned __int64 c, BigBuffer& a); // 0x004225C0
 
 // 0x004227A0
 static void __stdcall sub_004227A0_MulUInt(BigBuffer& a, const BigBuffer& b, unsigned __int64 c)
@@ -282,11 +244,7 @@ static void __stdcall sub_004227A0_MulUInt(BigBuffer& a, const BigBuffer& b, uns
     a.SetCount(i);
 }
 
-// 0x00422CC0
-static void SetZero(BigBuffer& a)
-{
-    a.SetCount(0);
-}
+void SetZero(BigBuffer& a); // 0x00422CC0
 
 // 0x00422D00
 static void __stdcall Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift)
@@ -325,20 +283,7 @@ static void __stdcall Shr(BigBuffer& a, const BigBuffer& b, unsigned int nShift)
     a.SetCount(i);
 }
 
-static void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffer& c); // 0x00423100
-
-// build: context sub_00423100_Sub
-static void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
-{
-    unsigned __int64 nBorrow = 0;
-    unsigned int i = 0;
-    for (; b.IsUsed(i) || c.IsUsed(i); i++)
-    {
-        nBorrow += (unsigned __int64)b[i] - c[i];
-        a[i] = ExtractLowPartSx(nBorrow);
-    }
-    a.SetCount(i);
-}
+void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffer& c); // 0x00423100
 
 // 0x00423DC0
 static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack)
@@ -461,8 +406,5 @@ void __stdcall Rand(BigBuffer* pResult, BigBuffer* pModulus, BigBuffer* pSeed, B
     }
     pStack->nUsed -= 2;
 }
-
-// build: context ??ABigBuffer@@QBEII@Z
-// build: context ??ABigBuffer@@QAEAAII@Z
 
 #include "gen/data/Source/Storm/Unknown_00424700.inc"
