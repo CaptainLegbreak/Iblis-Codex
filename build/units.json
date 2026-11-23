@@ -31518,6 +31518,15 @@
      "name": "?MISSILE_CltDoEruption@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004D8260",
+     "length": 416
+    },
+    {
+     "va": "0x004D8400",
+     "length": 191,
+     "name": "?sub_004D8400_CltDoRotateTarget@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004D8650",
      "length": 5,
      "name": "?MISSILE_CallSkillSeqDoBackward@@YIXPAUD2UnitStrc@@H@Z"
@@ -32116,21 +32125,6 @@
      "va": "0x004CD380",
      "length": 12,
      "name": "?sub_004CD380_StatRemoveCallback_ToggleStateOff@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004D8260.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004D8260",
-     "length": 416
-    },
-    {
-     "va": "0x004D8400",
-     "length": 191,
-     "name": "?sub_004D8400_CltDoRotateTarget@@YIXPAUD2UnitStrc@@@Z"
     }
    ]
   },

@@ -853,7 +853,7 @@ void __stdcall PATH_SetMaxVelocity(D2DynamicPathStrc* pDynamicPath, int nMaxVelo
 
 void __stdcall PATH_SetAcceleration(D2DynamicPathStrc* pDynamicPath, int nAcceleration); // 0x00648700
 
-void __stdcall PATH_SetTargetPos(D2DynamicPathStrc* pDynamicPath, int nX, int nY); // 0x00648AD0
+void __stdcall PATH_SetTargetPos(D2DynamicPathStrc* pDynamicPath, unsigned short nX, unsigned short nY); // 0x00648AD0
 
 void __stdcall sub_00648B90_SetPathTarget(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pTargetUnit); // 0x00648B90
 
@@ -904,6 +904,14 @@ static inline int SKILLS_GetLevelBasedParam(int nSkillId, int nLevel)
 
     return (nLevel - 1) * pSkillsTxtRecord->dwParam[3] + pSkillsTxtRecord->dwParam[2];
 }
+
+#define UNIT_PLAYER 0
+
+#define UNIT_MONSTER 1
+
+int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
+
+void __fastcall SKILLS_RotateUnitDirection(D2UnitStrc* pUnit, int nArg, int bForward); // 0x004C9060
 
 // 0x004C95E0
 int __fastcall MISSILE_SkillStartAtTargetPos(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
@@ -8166,6 +8174,56 @@ int __fastcall sub_004CF9B0_CltHitRingSubMissiles(D2UnitStrc* pMissile, D2UnitSt
 
     return 1;
 }
+
+// 0x004D8260
+void __fastcall sub_004D8260_CltDoMissileSpray(D2UnitStrc* pMissile)
+{
+    const int nFrames = sub_0064A3B0_GetElapsedFrames(pMissile);
+    if (nFrames - nFrames / 3 * 3 == 0)
+    {
+        D2SeedStrc* pSeed = &pMissile->pSeed;
+        D2SeedStrc tSeed;
+        const int nOffsetX = SEED_RollFromInline(pSeed, &tSeed) % 20 - 10;
+        const unsigned int nRoll = SEED_RollLowInline(&tSeed);
+        pSeed->nHighSeed = tSeed.nHighSeed;
+        pSeed->nLowSeed = tSeed.nLowSeed;
+        const int nOffsetY = nRoll % 20 - 10;
+        const int nX = UNITS_GetUnitXPosition(pMissile) + (SEED_RollRandomNumber(&pMissile->pSeed) & 1) - 1;
+        const int nY = UNITS_GetUnitYPosition(pMissile) + (SEED_RollRandomNumber(&pMissile->pSeed) & 1) - 1;
+
+        D2MissileStrc tParams;
+        memset(&tParams, 0, sizeof(tParams));
+        tParams.dwFlags = 0x21;
+        tParams.pOwner = CUNIT_GetOwnerUnit(pMissile);
+        tParams.nX = nX;
+        tParams.nY = nY;
+        tParams.nTargetX = nX + nOffsetX;
+        tParams.nTargetY = nY + nOffsetY;
+        tParams.nSkill = MISSILE_GetSkill(pMissile);
+        tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
+        tParams.nMissile = MISSILE_ANCIENT_DEATH_CLOUD;
+        MISSILE_CreateClientMissile(&tParams);
+    }
+
+    MISSILE_CltDoCommon(pMissile);
+}
+
+// 0x004D8400
+void __fastcall sub_004D8400_CltDoRotateTarget(D2UnitStrc* pMissile)
+{
+    if (!(sub_0064A3B0(pMissile) % 2))
+    {
+        D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
+        int nX = UNITS_GetUnitXPosition(pMissile);
+        int nY = UNITS_GetUnitYPosition(pMissile);
+        int nDX = nX - sub_0064A730_GetMissileTargetStatus(pMissile);
+        int nDY = nY - sub_0064A780_targetValue(pMissile);
+        PATH_SetTargetPos(pPath, nX + nDY, nY - nDX);
+        D2Common_10142(pPath, pMissile, 0);
+    }
+    MISSILE_CltDoCommon(pMissile);
+}
+
 
 
 
