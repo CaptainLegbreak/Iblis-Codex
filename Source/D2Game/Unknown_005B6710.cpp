@@ -33,7 +33,6 @@ static inline unsigned int RollSeed(D2SeedStrc* pSeed)
     return (unsigned int)seed;
 }
 
-#include "gen/data/Source/D2Game/Unknown_005B6710.inc"
 struct D2ItemDropStrc;
 struct D2UnitStrc;
 
