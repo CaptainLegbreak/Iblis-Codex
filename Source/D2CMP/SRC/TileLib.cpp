@@ -147,31 +147,6 @@ void __fastcall CelIterateRgbPixels(D2CmpRGBImageStrc* pImage, D2CmpColorCallbac
     }
 }
 
-// 0x0060D510
-D2CmpSubTileRecordStrc* __fastcall SubTileCreateRecord(const void* pSrc, int bRaw)
-{
-    void* pData;
-    int nSize;
-    if (bRaw)
-    {
-        pData = FOG_Alloc(0xC00, szSubTileFile, 0x66, 0);
-        memcpy(pData, pSrc, 0xC00);
-        nSize = 0xC00;
-    }
-    else
-    {
-        int nLength;
-        pData = sub_0060D430_Compress(pSrc, &nLength);
-        nSize = nLength;
-    }
-    D2CmpSubTileRecordStrc* pRecord = (D2CmpSubTileRecordStrc*)FOG_Alloc(sizeof(D2CmpSubTileRecordStrc), szSubTileFile, 0x6E, 0);
-    memset(pRecord, 0, sizeof(D2CmpSubTileRecordStrc));
-    D2_ASSERT(nSize > 0xFFFF, 0x70);
-    pRecord->ptData = (unsigned char*)pData;
-    pRecord->nLength = (unsigned short)nSize;
-    return pRecord;
-}
-
 // 0x00604B60
 int __stdcall TileGetType(D2TileLibraryEntryStrc* hTile) { D2_ASSERT(hTile, 121); return hTile->nOrientation; }
 

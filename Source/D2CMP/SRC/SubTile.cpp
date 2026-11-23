@@ -120,6 +120,31 @@ unsigned char* __fastcall SubTileCompress(const unsigned char* pData, unsigned i
     return pBuffer;
 }
 
+// 0x0060D510
+D2CmpSubTileRecordStrc* __fastcall SubTileCreateRecord(const void* pSrc, int bRaw)
+{
+    void* pData;
+    int nSize;
+    if (bRaw)
+    {
+        pData = FOG_Alloc(0xC00, szSubTileFile, 0x66, 0);
+        memcpy(pData, pSrc, 0xC00);
+        nSize = 0xC00;
+    }
+    else
+    {
+        int nLength;
+        pData = sub_0060D430_Compress(pSrc, &nLength);
+        nSize = nLength;
+    }
+    D2CmpSubTileRecordStrc* pRecord = (D2CmpSubTileRecordStrc*)FOG_Alloc(sizeof(D2CmpSubTileRecordStrc), szSubTileFile, 0x6E, 0);
+    memset(pRecord, 0, sizeof(D2CmpSubTileRecordStrc));
+    D2_ASSERT(nSize > 0xFFFF, 0x70);
+    pRecord->ptData = (unsigned char*)pData;
+    pRecord->nLength = (unsigned short)nSize;
+    return pRecord;
+}
+
 // 0x0060D5B0
 void __fastcall SubTileConvert24To8(D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc, D2CmpColorStrc bColor, D2CmpMapColorFn pfnMapColor)
 {
