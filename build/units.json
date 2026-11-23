@@ -31360,6 +31360,10 @@
      "name": "?MISSILE_CltDoMissile@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004D2D70",
+     "length": 762
+    },
+    {
      "va": "0x004D30C0",
      "length": 797,
      "name": "?MISSILE_CltDoCommon@@YIXPAUD2UnitStrc@@@Z"
@@ -32344,30 +32348,6 @@
     {
      "va": "0x004D6FA0",
      "length": 789
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Missile_004D2D70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004D2D70",
-     "length": 762
     }
    ],
    "flags": [
