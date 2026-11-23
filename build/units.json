@@ -26712,11 +26712,6 @@
      "name": "?sub_004B15F0@Unicode@@QBE?AU1@XZ"
     },
     {
-     "va": "0x004B1670",
-     "length": 6,
-     "name": "MONSTER_GetUseItemMode"
-    },
-    {
      "va": "0x004B17D0",
      "length": 6,
      "name": "?MONSTER_SetNpcMenuState@@YAXH@Z"
@@ -27419,6 +27414,11 @@
      "va": "0x004B1640",
      "length": 44,
      "name": "?NPCMENU_SetNpcInteract@@YAXPAUD2NpcRecordStrc@@@Z"
+    },
+    {
+     "va": "0x004B1670",
+     "length": 6,
+     "name": "MONSTER_GetUseItemMode"
     },
     {
      "va": "0x004B1680",
