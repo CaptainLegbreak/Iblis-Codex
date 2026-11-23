@@ -1,14 +1,29 @@
 #include "D2ItemTypes.h"
+#include "D2Path.h"
+#include "D2Skills.h"
+#include "D2TxtTables.h"
+#include "D2Unicode.h"
+
 #include "D2StateIds.h"
+
 #include "D2StatIds.h"
+
 #include "D2Common.h"
+
 #include "D2Structs.h"
+
 #include "D2DataTbls.h"
+
 #include "D2Txt.h"
+
 #include "D2Records.h"
+
 #include "D2TxtItems.h"
+
 #include "D2LevelTxt.h"
+
 #include "D2GameRecords.h"
+
 #include "D2ItemsWorld.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
@@ -144,7 +159,6 @@ extern "C" void _ReadWriteBarrier(void);
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateOrFlag(D2UnitStrc* pUnit, int nState, int nFlag);          // 0x00625790
 
 static D2StatListStrc* __stdcall ITEMMODS_GetOrCreateStatList(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nState, int fFilter);
-
 
 struct D2PropertiesTxt;
 
@@ -1614,7 +1628,6 @@ int __fastcall ITEMMODS_AddPropertyToItemStatList(D2UnitStrc* pItem, int fStatLi
     return nValue;
 }
 
-
 // 0x0065EB30
 int __fastcall ITEMMODS_PropertyFunc01(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
 {
@@ -2414,6 +2427,21 @@ int __fastcall ITEMMODS_PropertyFunc13(int nType, D2UnitStrc* pUnit, D2UnitStrc*
         }
 
         return nResult;
+    }
+
+    return 0;
+}
+
+int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem); // 0x00629930
+int __stdcall ITEMS_IsEthereal(D2UnitStrc* pItem); // 0x0062A8D0
+
+// 0x0065FD20
+int __fastcall ITEMMODS_PropertyFunc23(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+{
+    if (pProperty && pItem && pItem->dwUnitType == UNIT_ITEM && !ITEMS_IsEthereal(pItem) && ITEMS_HasDurability(pItem))
+    {
+        ITEMMODS_ApplyEthereality(pItem);
+        return 1;
     }
 
     return 0;
