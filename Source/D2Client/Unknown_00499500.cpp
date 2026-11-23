@@ -124,47 +124,6 @@ void __cdecl sub_00499E50_DrawPanelQuad()
     sub_004F6480(&tContext, gnPanelOffsetX + 256, gnScreenHeight + gnPanelOffsetY - 48, -1, 5, 0);
 }
 
-// 0x004A9E60
-void __fastcall sub_004A9E60_AssignHotkey(int nHotkey)
-{
-    for (int i = 0; i < 60; ++i)
-    {
-        const int nY = gtHotkeySlots_007C0300.nY[i];
-        const int nX = gtHotkeySlots_007C0300.nX[i];
-        const int nMouseX = sub_00468730();
-        const int nMouseY = sub_00468740();
-        if (nMouseX >= nX && nMouseX <= nX + 48 && nMouseY >= nY - 48 && nMouseY <= nY)
-        {
-            if (gaHotkeySkills[nHotkey] != -1)
-            {
-                MSG_SendTwoDwords(0x51, (nHotkey << 16) + 0xFFFF, -1);
-            }
-
-            gaHotkeySkills[nHotkey] = gtHotkeySlots_007C0300.nSkill[i];
-            if (!gbSkillSelectRight)
-            {
-                gaHotkeyLeft[nHotkey] = 0;
-            }
-            else
-            {
-                gaHotkeyLeft[nHotkey] = 1;
-            }
-            gaHotkeyOwners[nHotkey] = gtHotkeySlots_007C0300.f_2D0[i];
-            MSG_SendTwoDwords(0x51, (nHotkey << 16) + (gaHotkeyLeft[nHotkey] ? 0x8000 : 0) + gaHotkeySkills[nHotkey], gaHotkeyOwners[nHotkey]);
-
-            for (int j = 0; j < 16; ++j)
-            {
-                if (gaHotkeySkills[nHotkey] == gaHotkeySkills[j] && gaHotkeyOwners[nHotkey] == gaHotkeyOwners[j] && nHotkey != j)
-                {
-                    gaHotkeySkills[j] = -1;
-                    gaHotkeyLeft[j] = -1;
-                    gaHotkeyOwners[j] = -1;
-                    MSG_SendTwoDwords(0x51, (j << 16) + 0xFFFF, -1);
-                }
-            }
-        }
-    }
-}
 
 // 0x004AAAE0
 void __stdcall sub_004AAAE0_DrawPagedPanel(void* pCellFile, int nPage)
