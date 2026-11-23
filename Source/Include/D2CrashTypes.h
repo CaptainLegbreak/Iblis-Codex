@@ -40,7 +40,7 @@ struct D2CrashModuleStrc
     unsigned long nTimeStamp; // 0x208
     D2CrashGuidStrc tGuid; // 0x20C
     unsigned long nAge; // 0x21C
-    unsigned long nUnknown220; // 0x220
+    unsigned long nTimeDateStamp; // 0x220
     unsigned long nVersion; // 0x224
 };
 

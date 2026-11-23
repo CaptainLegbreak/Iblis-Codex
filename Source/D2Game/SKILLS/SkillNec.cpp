@@ -897,7 +897,7 @@ static inline int AiSpecialStateFromAuraState(int nAuraState)
 // 0x005C35C0
 int __fastcall SKILLS_AuraCallback_ApplyCurse(D2UnitStrc* pUnit, D2UnkNecSkillStrc* pArgs)
 {
-    if (pArgs->unk0x08)
+    if (pArgs->bResetAi)
     {
         const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
         if (nType != UNIT_MONSTER)
@@ -940,7 +940,7 @@ int __fastcall SKILLS_AuraCallback_ApplyCurse(D2UnitStrc* pUnit, D2UnkNecSkillSt
     curse.nStat = pArgs->nAuraStat[0];
     curse.nStatValue = nValue;
     curse.nState = pArgs->nAuraTargetState;
-    curse.pStateRemoveCallback = pArgs->unk0x08 ? SKILLS_CurseStateCallback_ResetAi : 0;
+    curse.pStateRemoveCallback = pArgs->bResetAi ? SKILLS_CurseStateCallback_ResetAi : 0;
 
     D2StatListStrc* pStatList = SKILLS_ApplyStateEffect(&curse);
     if (!pStatList)
@@ -948,7 +948,7 @@ int __fastcall SKILLS_AuraCallback_ApplyCurse(D2UnitStrc* pUnit, D2UnkNecSkillSt
         return 0;
     }
 
-    if (pArgs->unk0x08)
+    if (pArgs->bResetAi)
     {
         SKILLS_ExecuteCurseTargetAi(pArgs->pGame, pArgs->pUnit, pUnit, pArgs->nSkillId, pArgs->nSkillLevel);
     }
@@ -1041,7 +1041,7 @@ int __fastcall SKILLS_SrvDo030_Curse(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
     D2UnkNecSkillStrc args = {};
     args.pGame = pGame;
     args.pUnit = pUnit;
-    args.unk0x08 = bIsDimVisionOrTerrorCurse;
+    args.bResetAi = bIsDimVisionOrTerrorCurse;
     args.nSkillId = nSkillId;
     args.nSkillLevel = nSkillLevel;
     args.nDuration = nLength;
@@ -1109,7 +1109,7 @@ void __fastcall SKILLS_ApplyDimVisionToTarget(D2GameStrc* pGame, D2UnitStrc* pUn
         args.nDuration = nLength;
         args.pGame = pGame;
         args.pUnit = pUnit;
-        args.unk0x08 = 1;
+        args.bResetAi = 1;
         args.nSkillId = SKILL_DIMVISION;
         args.nSkillLevel = nSkillLevel;
         args.bUpdateAnimRate = 0;

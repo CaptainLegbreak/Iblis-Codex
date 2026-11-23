@@ -68,7 +68,7 @@ struct D2CrashModuleStrc
     unsigned long nTimeStamp;
     D2CrashGuidStrc tGuid;
     unsigned long nAge;
-    unsigned long nUnknown220;
+    unsigned long nTimeDateStamp;
     unsigned long nVersion;
     D2CrashModuleStrc();
 };
@@ -338,7 +338,7 @@ D2CrashModuleStrc::D2CrashModuleStrc()
     tGuid.Data4[0] = 0;
     tGuid.Data4[1] = 0;
     nAge = 0;
-    nUnknown220 = 0;
+    nTimeDateStamp = 0;
     nVersion = 0;
     szName[0] = 0;
     szPath[0] = 0;
@@ -420,7 +420,7 @@ static D2CrashModuleListStrc* sub_00402FE0_InitModuleList(D2CrashModuleListStrc*
         pModule->f_0 = 0; pModule->nSize = 0; pModule->nTimeStamp = 0;
         D2CrashGuidStrc* const pGuid = &pModule->tGuid;
         pGuid->Data1 = 0; pGuid->Data2 = 0; pGuid->Data3 = 0; pGuid->Data4[0] = 0; pGuid->Data4[1] = 0;
-        pModule->nAge = 0; pModule->nUnknown220 = 0; pModule->nVersion = 0; pModule->szName[0] = 0; pModule->szPath[0] = 0;
+        pModule->nAge = 0; pModule->nTimeDateStamp = 0; pModule->nVersion = 0; pModule->szName[0] = 0; pModule->szPath[0] = 0;
         ++pModule;
     }
     while (--nLeft >= 0);
@@ -899,7 +899,7 @@ static bool __stdcall sub_004049A0_ReadImageInfo(D2CrashModuleStrc* pModule, con
         return false;
     }
     pModule->nSize = pNt->OptionalHeader.SizeOfImage;
-    pModule->nUnknown220 = pNt->FileHeader.TimeDateStamp;
+    pModule->nTimeDateStamp = pNt->FileHeader.TimeDateStamp;
     if (pImage->e_res2[2] == 0xB74F && pImage->e_res2[3] == 0x2D98)
     {
         pModule->nVersion = (pImage->e_res2[1] << 16) + pImage->e_res2[0];
@@ -929,7 +929,7 @@ bool D2ModuleStrc::sub_00404AB0_VisitModule(void* pContext, const wchar_t* wszNa
     tModule.nTimeStamp = 0;
     memset(&tModule.tGuid, 0, sizeof(tModule.tGuid));
     tModule.nAge = 0;
-    tModule.nUnknown220 = 0;
+    tModule.nTimeDateStamp = 0;
     tModule.nVersion = 0;
     tModule.szName[0] = 0;
     tModule.szPath[0] = 0;

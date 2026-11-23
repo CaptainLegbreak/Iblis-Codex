@@ -162,7 +162,7 @@ static bool __stdcall sub_004049A0_ReadImageInfo(D2CrashModuleStrc* pModule, con
         return false;
     }
     pModule->nSize = pNt->OptionalHeader.SizeOfImage;
-    pModule->nUnknown220 = pNt->FileHeader.TimeDateStamp;
+    pModule->nTimeDateStamp = pNt->FileHeader.TimeDateStamp;
     if (pImage->e_res2[2] == 0xB74F && pImage->e_res2[3] == 0x2D98)
     {
         pModule->nVersion = (pImage->e_res2[1] << 16) + pImage->e_res2[0];
@@ -192,7 +192,7 @@ bool D2ModuleStrc::sub_00404AB0_VisitModule(void* pContext, const wchar_t* wszNa
     tModule.nTimeStamp = 0;
     memset(&tModule.tGuid, 0, sizeof(tModule.tGuid));
     tModule.nAge = 0;
-    tModule.nUnknown220 = 0;
+    tModule.nTimeDateStamp = 0;
     tModule.nVersion = 0;
     tModule.szName[0] = 0;
     tModule.szPath[0] = 0;
