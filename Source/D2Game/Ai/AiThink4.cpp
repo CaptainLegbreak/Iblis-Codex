@@ -8663,6 +8663,50 @@ void __fastcall AITHINK_Fn070_FingerMage(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
 }
 
+enum
+{
+    UNITFLAG_ISMERC = 0x00000200,
+    MONSTATS2FLAGINDEX_SOFT = 12,
+};
+
+// 0x005FA690
+D2UnitStrc* __fastcall AITHINK_TargetCallback_Regurgitator(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
+{
+    D2RegurgitatorAiCallbackArgStrc* pArg = (D2RegurgitatorAiCallbackArgStrc*)pCallbackArg;
+
+    if (pUnit == pTarget)
+    {
+        return 0;
+    }
+
+    const int nType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
+    if (nType != UNIT_MONSTER || UNIT_HasFlag(pTarget, UNITFLAG_ISMERC) || !UNIT_HasFlag(pTarget, UNITFLAG_TARGETABLE))
+    {
+        return 0;
+    }
+
+    if (!MONSTERS_IsDead(pTarget) || STATES_CheckStateMaskUdeadOnUnit(pTarget) || STATLIST_GetUnitAlignment(pTarget) != UNIT_ALIGNMENT_EVIL)
+    {
+        return 0;
+    }
+
+// build: symbol ?MONSTERREGION_CheckMonStats2Flag@* 0x004638A0
+    if (!MONSTERREGION_CheckMonStats2Flag(pTarget->dwClassId, MONSTATS2FLAGINDEX_SOFT))
+    {
+        return 0;
+    }
+
+    const int nDistance = AITHINK_GetSquaredDistance(pUnit, pTarget);
+    if (nDistance > pArg->nDistance)
+    {
+        return 0;
+    }
+
+    pArg->pTarget = pTarget;
+    pArg->nDistance = nDistance;
+    return 0;
+}
+
 // 0x005FAA90
 void __fastcall AITHINK_Fn072_DoomKnight(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
@@ -12588,6 +12632,73 @@ void __fastcall AITHINK_InitializeShadowMasterAttackSkills(D2GameStrc* pGame, D2
 
     SKILLS_SetLeftActiveSkill(pUnit, SKILL_ATTACK, -1);
     SKILLS_SetRightActiveSkill(pUnit, SKILL_ATTACK, -1);
+}
+
+enum D2C_J07AiConstants
+{
+    MONTYPEFLAG_UNIQUE_CHAMPION = 0xE,
+    MONSTATSFLAGINDEX_BYTE1_BIT0 = 0,
+    MONSTATSFLAGINDEX_BYTE1_BIT7 = 7,
+};
+
+int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMonster); // 0x0063E9F0
+
+// 0x005EB650
+int __fastcall AITHINK_IsTargetKillableByShadowMaster(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+{
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    if (pUnit == pTarget)
+    {
+        return 0;
+    }
+
+    const int nType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
+    if (nType != UNIT_MONSTER)
+    {
+        return 0;
+    }
+
+    if (SUNIT_IsDead(pTarget))
+    {
+        return 0;
+    }
+
+    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pTarget->dwClassId);
+    if (!pMonStatsTxtRecord)
+    {
+        return 0;
+    }
+
+    if (pMonStatsTxtRecord->nMonStatsFlags[1] & gdwBitMasks[MONSTATSFLAGINDEX_BYTE1_BIT0])
+    {
+        return 0;
+    }
+
+    if (!(pMonStatsTxtRecord->nMonStatsFlags[1] & gdwBitMasks[MONSTATSFLAGINDEX_BYTE1_BIT7]))
+    {
+        return 0;
+    }
+
+    if (pTarget->dwUnitType == UNIT_PLAYER)
+    {
+        return 1;
+    }
+
+    if (MONSTERS_IsBoss(0, pTarget))
+    {
+        return 1;
+    }
+
+    if (MONSTERS_IsPrimeEvil(pTarget))
+    {
+        return 1;
+    }
+
+    return MONSTERUNIQUE_CheckMonTypeFlag(pTarget, MONTYPEFLAG_UNIQUE_CHAMPION) != 0;
 }
 
 // 0x005EB6D0

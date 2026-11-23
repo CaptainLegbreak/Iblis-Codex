@@ -1774,64 +1774,6 @@ bool __fastcall AITHINK_MapAiAction_WalkToPosition(D2GameStrc* pGame, D2UnitStrc
     return bResult;
 }
 
-// 0x005EB650
-int __fastcall AITHINK_IsTargetKillableByShadowMaster(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
-{
-    if (!pTarget)
-    {
-        return 0;
-    }
-
-    if (pUnit == pTarget)
-    {
-        return 0;
-    }
-
-    const int nType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
-    if (nType != UNIT_MONSTER)
-    {
-        return 0;
-    }
-
-    if (SUNIT_IsDead(pTarget))
-    {
-        return 0;
-    }
-
-    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pTarget->dwClassId);
-    if (!pMonStatsTxtRecord)
-    {
-        return 0;
-    }
-
-    if (pMonStatsTxtRecord->nMonStatsFlags[1] & gdwBitMasks[MONSTATSFLAGINDEX_BYTE1_BIT0])
-    {
-        return 0;
-    }
-
-    if (!(pMonStatsTxtRecord->nMonStatsFlags[1] & gdwBitMasks[MONSTATSFLAGINDEX_BYTE1_BIT7]))
-    {
-        return 0;
-    }
-
-    if (pTarget->dwUnitType == UNIT_PLAYER)
-    {
-        return 1;
-    }
-
-    if (MONSTERS_IsBoss(0, pTarget))
-    {
-        return 1;
-    }
-
-    if (MONSTERS_IsPrimeEvil(pTarget))
-    {
-        return 1;
-    }
-
-    return MONSTERUNIQUE_CheckMonTypeFlag(pTarget, MONTYPEFLAG_UNIQUE_CHAMPION) != 0;
-}
-
 // 0x005F2EB0
 void __fastcall AITHINK_RemoveGroundCollision(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {

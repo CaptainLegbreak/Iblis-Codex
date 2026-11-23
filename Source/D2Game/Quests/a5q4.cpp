@@ -1123,25 +1123,6 @@ int __fastcall ACT1Q2_UnitIterate_SetRewardPending(D2GameStrc* pGame, D2UnitStrc
     return 0;
 }
 
-// 0x00591C30
-bool __fastcall ACT1Q3_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    if (nNpcId == MONSTER_CHARSI && QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q3, QFLAG_REWARDGRANTED) != 1)
-    {
-        if (pQuest->fState == 1 && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q3, QFLAG_REWARDPENDING))
-        {
-            return true;
-        }
-
-        if (STATLIST_GetUnitBaseStat(pPlayer, STAT_LEVEL, 0) >= 8 && ITEMS_FindQuestItem(SUNIT_GetGameFromUnit(pPlayer), pPlayer, ' mdh'))
-        {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 // 0x00592D50
 bool __fastcall ACT1Q4_OpenPortalToTristram(D2GameStrc* pGame, D2QuestDataStrc* pQuestData)
 {

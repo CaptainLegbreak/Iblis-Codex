@@ -1141,42 +1141,4 @@ int __fastcall MONSTEREVAL_GetDifficultyScaledBonus(D2GameStrc* pGame, int nCoun
     return 8 * nCount - 16;
 }
 
-// 0x005FA690
-D2UnitStrc* __fastcall AITHINK_TargetCallback_Regurgitator(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
-{
-    D2RegurgitatorAiCallbackArgStrc* pArg = (D2RegurgitatorAiCallbackArgStrc*)pCallbackArg;
-
-    if (pUnit == pTarget)
-    {
-        return 0;
-    }
-
-    const int nType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
-    if (nType != UNIT_MONSTER || UNIT_HasFlag(pTarget, UNITFLAG_ISMERC) || !UNIT_HasFlag(pTarget, UNITFLAG_TARGETABLE))
-    {
-        return 0;
-    }
-
-    if (!MONSTERS_IsDead(pTarget) || STATES_CheckStateMaskUdeadOnUnit(pTarget) || STATLIST_GetUnitAlignment(pTarget) != UNIT_ALIGNMENT_EVIL)
-    {
-        return 0;
-    }
-
-// build: symbol ?MONSTERREGION_CheckMonStats2Flag@* 0x004638A0
-    if (!MONSTERREGION_CheckMonStats2Flag(pTarget->dwClassId, MONSTATS2FLAGINDEX_SOFT))
-    {
-        return 0;
-    }
-
-    const int nDistance = AITHINK_GetSquaredDistance(pUnit, pTarget);
-    if (nDistance > pArg->nDistance)
-    {
-        return 0;
-    }
-
-    pArg->pTarget = pTarget;
-    pArg->nDistance = nDistance;
-    return 0;
-}
-
 #include "gen/data/Source/D2Game/UNIT/sunitproxy.inc"

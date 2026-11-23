@@ -672,6 +672,77 @@ bool __fastcall ACT2Q4_SeqCallback(D2QuestDataStrc* pQuestData)
     return true;
 }
 
+enum D2C_P08QuestConstants
+{
+    QUESTSTATEFLAG_A2Q3 = 11,
+    QFLAG_CUSTOM1 = 5,
+};
+
+D2UnitStrc* __fastcall ITEMS_FindQuestItem(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int dwItemCode); // 0x00558110
+
+// 0x0059B530
+void __fastcall ACT2Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2GameStrc* pGame = pQuestArg->pGame;
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
+    D2Act2Quest4Strc* pQuestDataEx = (D2Act2Quest4Strc*)pQuestData->pQuestDataEx;
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q3, QFLAG_REWARDGRANTED))
+    {
+        pQuestDataEx->bPalaceOpen = 1;
+        pQuestDataEx->nHaremBlockerObjectMode = 2;
+    }
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q4, QFLAG_REWARDGRANTED) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q4, QFLAG_REWARDPENDING) == 1)
+    {
+        QUESTS_SetGlobalState(pQuestData->pGame, QUESTSTATEFLAG_A2Q4, QFLAG_PRIMARYGOALDONE);
+        pQuestDataEx->bPalaceOpen = 1;
+        pQuestDataEx->nHaremBlockerObjectMode = 2;
+        return;
+    }
+
+    if (ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, 0x20747368))
+    {
+        pQuestData->fLastState = 1;
+        pQuestData->fState = 1;
+    }
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q4, QFLAG_CUSTOM1) == 1)
+    {
+        pQuestData->fLastState = 4;
+        pQuestData->fState = 4;
+        pQuestDataEx->bPalaceOpen = 1;
+        pQuestDataEx->nHaremBlockerObjectMode = 2;
+    }
+    else if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q4, QFLAG_ENTERAREA) == 1)
+    {
+        pQuestData->fLastState = 3;
+        pQuestData->fState = 4;
+        pQuestDataEx->bPalaceOpen = 1;
+        pQuestDataEx->nHaremBlockerObjectMode = 2;
+    }
+    else if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q4, QFLAG_LEAVETOWN) == 1)
+    {
+        pQuestData->fLastState = 3;
+        pQuestData->fState = 3;
+        pQuestDataEx->bPalaceOpen = 1;
+        pQuestDataEx->nHaremBlockerObjectMode = 2;
+    }
+    else if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q4, QFLAG_STARTED) == 1)
+    {
+        pQuestData->fLastState = 2;
+        pQuestData->fState = 2;
+        pQuestDataEx->bPalaceOpen = 1;
+        pQuestDataEx->nHaremBlockerObjectMode = 2;
+    }
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_REWARDGRANTED) == 1)
+    {
+        pQuestDataEx->bPalaceOpen = 1;
+        pQuestDataEx->nHaremBlockerObjectMode = 2;
+    }
+}
+
 // 0x0059B660
 void __fastcall ACT2Q4_OpenPalaceOrCycle(D2GameStrc* pGame)
 {
@@ -904,21 +975,7 @@ void __fastcall OBJECTS_InitFunction29_ArcaneSanctuaryPortal(D2ObjInitFnStrc* pO
     }
 }
 
-// 0x0059BCB0
-int __fastcall ACT2Q5_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-
-    if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q5, QFLAG_REWARDGRANTED) && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q5, QFLAG_COMPLETEDBEFORE)
-        || QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q5, QFLAG_PRIMARYGOALDONE)
-        || QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q5, QFLAG_COMPLETEDNOW))
-    {
-        QUESTS_StatusCyclerEx(pGame, pUnit, QUEST_A2Q5_SUMMONER);
-    }
-
-    return 0;
-}
-
+int __fastcall ACT2Q5_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059BCB0
 // 0x0059BF80
 int __fastcall ACT2Q5_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {

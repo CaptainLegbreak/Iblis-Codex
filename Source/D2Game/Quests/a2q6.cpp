@@ -11,6 +11,7 @@
 #include "D2GameTypes.h"
 #include "D2Txt.h"
 #include "D2Packets.h"
+#include "D2ObjectIds.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -1071,6 +1072,90 @@ unsigned char __fastcall ACT2Q6_IsTombOpen(D2QuestArgStrc* pQuestArg)
         return ((D2Act2Quest6Strc*)pQuestData->pQuestDataEx)->bDurielLairTombOpen;
     }
     return 1;
+}
+
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
+
+D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
+
+enum D2C_Q05QuestConstants
+{
+    EVENTTYPE_ENDANIM = 1,
+};
+
+void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bSet); // 0x0061AED0
+
+// 0x0059D870
+bool __fastcall ACT2Q6_Timer_UpdateObjects(D2GameStrc* pGame, D2QuestDataStrc* pQuestData)
+{
+    int nObjects = 0;
+    D2Act2Quest6Strc* pQuestDataEx = (D2Act2Quest6Strc*)pQuestData->pQuestDataEx;
+    if (pQuestDataEx->bObjectsNeedUpdate == 1)
+    {
+        if (pQuestDataEx->bUnusedObjectInitialized)
+        {
+            D2UnitStrc* pUnusedObject = SUNIT_GetServerUnit(pGame, UNIT_OBJECT, pQuestDataEx->nUnusedObjectGUID);
+            if (pUnusedObject)
+            {
+                nObjects = 1;
+                if (!pUnusedObject->dwAnimMode)
+                {
+                    if (pQuestDataEx->bDurielLairPortalNeedsToOpen)
+                    {
+                        UNITS_ChangeAnimMode(pUnusedObject, OBJMODE_OPENED);
+                    }
+                    else
+                    {
+                        UNITS_ChangeAnimMode(pUnusedObject, OBJMODE_OPERATING);
+                        const int nClassId = pUnusedObject->dwClassId;
+                        D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nClassId);
+                        EVENT_SetEvent(pQuestData->pGame, pUnusedObject, EVENTTYPE_ENDANIM, pQuestData->pGame->dwGameFrame + (pObjectsTxtRecord->dwFrameCnt[1] >> 8), 0, 0);
+                    }
+                }
+            }
+        }
+
+        if (pQuestDataEx->bHoradricOrificeInitialized)
+        {
+            D2UnitStrc* pHoradricOrifice = SUNIT_GetServerUnit(pGame, UNIT_OBJECT, pQuestDataEx->nHoradricOrificeGUID);
+            if (pHoradricOrifice)
+            {
+                const int nX = CLIENTS_GetUnitX(pHoradricOrifice) - 13;
+                const int nY = CLIENTS_GetUnitY(pHoradricOrifice) + 3;
+
+                D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pHoradricOrifice), nX, nY);
+                if (pRoom)
+                {
+                    D2UnitStrc* pDurielLairPortal = SUNIT_AllocUnitData(UNIT_OBJECT, OBJECT_PORTAL_TO_DURIELS_LAIR, nX, nY, pGame, pRoom, 1, 1, 0);
+                    if (pDurielLairPortal)
+                    {
+                        ++nObjects;
+                        if (pQuestDataEx->bDurielLairPortalNeedsToOpen)
+                        {
+                            UNITS_ChangeAnimMode(pDurielLairPortal, OBJMODE_OPENED);
+                        }
+                        else
+                        {
+                            UNITS_ChangeAnimMode(pDurielLairPortal, OBJMODE_OPERATING);
+                            DUNGEON_ToggleHasPortalFlag(UNITS_GetRoom(pHoradricOrifice), 1);
+                            DUNGEON_ToggleHasPortalFlag(pRoom, 1);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (!nObjects)
+        {
+            return false;
+        }
+
+        pQuestDataEx->bDurielLairTombOpen = 1;
+        pQuestDataEx->bObjectsNeedUpdate = 0;
+    }
+
+    pQuestDataEx->bTimerActive = 0;
+    return true;
 }
 
 // 0x0059D9D0

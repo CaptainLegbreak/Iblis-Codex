@@ -3780,6 +3780,44 @@ int __fastcall ITEMMODE_SwapCursorAndBeltItem(D2GameStrc* ptGame, D2UnitStrc* pU
     D2_ASSERT(0, 0x12D8);
 }
 
+// 0x0055ED30
+void __fastcall ITEMMODE_RemoveInventoryItemFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* hItem)
+{
+    if (hItem)
+    {
+        hItem->dwFlags &= ~UNITFLAG_TARGETABLE;
+    }
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    D2UnitStrc* hRemove = INVENTORY_RemoveItemFromInventory(pInventory, hItem);
+    D2_ASSERT(hRemove, 4841);
+    D2_ASSERT(hItem == hRemove, 4842);
+
+    int nX;
+    switch (hItem->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        nX = hItem->pStaticPath->tGameCoords.nX;
+        break;
+
+    default:
+        if (hItem->pDynamicPath)
+        {
+            nX = PATH_GetXPosition(hItem->pDynamicPath);
+        }
+        else
+        {
+            nX = 0;
+        }
+        break;
+    }
+
+    D2COMMON_10267_Return(pInventory, nX);
+    ITEMS_RemoveFromAllPlayers(pGame, hItem);
+}
+
 // 0x0055EEA0
 int __fastcall D2GAME_RemoveItemIfOnCursor_6FC49760(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem)
 {
