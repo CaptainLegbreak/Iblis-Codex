@@ -3606,18 +3606,6 @@ void __fastcall CUNIT_SetDialogState(int nState)
     }
 }
 
-// 0x004A1730
-void __cdecl CUNIT_ClearTextPanel()
-{
-    TEXT_ResetTextBox();
-// build: symbol ?gbTextPanelOpen@* 0x007BF1FA
-    gbTextPanelOpen = 0;
-    if (gpTextHeader)
-    {
-        TEXT_FreeTextHeader(gpTextHeader);
-        gpTextHeader = 0;
-    }
-}
 
 // 0x004B8A10
 int __cdecl CUNIT_IsTrading()
