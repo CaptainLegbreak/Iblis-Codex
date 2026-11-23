@@ -155,7 +155,7 @@ D2AiCmdStrc* __fastcall AIGENERAL_SetCurrentAiCommand(D2GameStrc* pGame, D2UnitS
 
 bool __fastcall AITHINK_InitHomeCommand(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pAiTickParam); // 0x005E6800
 
-int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY); // 0x005DC5C0
+unsigned int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY); // 0x005DC5C0
 
 void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
 
@@ -5235,6 +5235,28 @@ bool __fastcall AITHINK_ExecuteNpcAiCommands(D2GameStrc* pGame, D2UnitStrc* pUni
         return 0;
     }
 
+}
+
+// 0x005E6DE0
+bool __fastcall AITHINK_MapAiAction_WalkToPosition(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam, D2MapAIPathPositionStrc* pPosition)
+{
+    bool bResult = false;
+    if (pUnit && pPosition && pPosition->nX && pPosition->nY && AIUTIL_GetDistanceToCoordinates(pUnit, pPosition->nX, pPosition->nY) > 0)
+    {
+        sub_005DE190_SetAiParam(pUnit, 7, 0, 0);
+        AITACTICS_WalkToTargetCoordinatesNoSteps(pGame, pUnit, pPosition->nX, pPosition->nY);
+        D2AiCmdStrc* pAiCmd = AIGENERAL_SetCurrentAiCommand(pGame, pUnit, 4, 0);
+        if (pAiCmd)
+        {
+            pAiCmd->nCmdParam[1] = pPosition->nX;
+            pAiCmd->nCmdParam[2] = pPosition->nY;
+            pAiCmd->nCmdParam[3] = 12;
+            pAiCmd->nCmdParam[4] = 10;
+        }
+        bResult = true;
+    }
+
+    return bResult;
 }
 
 #define CMD_ID 4

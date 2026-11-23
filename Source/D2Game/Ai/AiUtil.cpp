@@ -1752,28 +1752,6 @@ void __fastcall AIUTIL_ApplyTerrorCurseState(D2GameStrc* pGame, D2UnitStrc* pUni
     EVENT_SetEvent(pGame, pTarget, EVENTTYPE_AITHINK, pGame->dwGameFrame + 1, 0, 0);
 }
 
-// 0x005E6DE0
-bool __fastcall AITHINK_MapAiAction_WalkToPosition(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam, D2MapAIPathPositionStrc* pPosition)
-{
-    bool bResult = false;
-    if (pUnit && pPosition && pPosition->nX && pPosition->nY && AIUTIL_GetDistanceToCoordinates(pUnit, pPosition->nX, pPosition->nY) > 0)
-    {
-        sub_005DE190_SetAiParam(pUnit, 7, 0, 0);
-        AITACTICS_WalkToTargetCoordinatesNoSteps(pGame, pUnit, pPosition->nX, pPosition->nY);
-        D2AiCmdStrc* pAiCmd = AIGENERAL_SetCurrentAiCommand(pGame, pUnit, 4, 0);
-        if (pAiCmd)
-        {
-            pAiCmd->nCmdParam[1] = pPosition->nX;
-            pAiCmd->nCmdParam[2] = pPosition->nY;
-            pAiCmd->nCmdParam[3] = 12;
-            pAiCmd->nCmdParam[4] = 10;
-        }
-        bResult = true;
-    }
-
-    return bResult;
-}
-
 // 0x005F2EB0
 void __fastcall AITHINK_RemoveGroundCollision(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
