@@ -77,7 +77,21 @@ void __fastcall SCMD_ReadGridCell(int nX, int nY, unsigned char* pValue0, unsign
 int __stdcall TILE_TileDrawTrans(D2TileLibraryEntryStrc* pTile, int nXPos, int nYPos, D2GfxLightStrc* pLight, int nScreenPanels, unsigned char nAlpha); // 0x004F6950
 int __stdcall TILE_TileDrawLit(D2TileLibraryEntryStrc* pTile, int nXPos, int nYPos, D2GfxLightStrc* pLight, int nScreenPanels); // 0x004F6920
 
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+extern void* gpGlobal_007A0634; // 0x007A0634
+void __stdcall sub_0061C0B0(void* pAct, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0061C0B0
+int __stdcall sub_0061C0E0(void* pAct); // 0x0061C0E0
+
 D2Obj007C8A28Strc gObj_007C8A28; // 0x007C8A28
+
+unsigned char gnRoomColorBlue; // 0x007C8A6C
+
+unsigned char gnRoomColorGreen; // 0x007C8A6D
+
+unsigned char gnRoomColorIntensity; // 0x007C8A6E
+
+unsigned char gnRoomColorRed; // 0x007C8A6F
 
 D2SlotStrc gaSlots[16]; // 0x007C8A78
 
@@ -85,6 +99,38 @@ D2SlotStrc gaSlots[16]; // 0x007C8A78
 void __fastcall sub_004DED10(void* pArg)
 {
     gObj_007C8A28.sub_004DE730(pArg);
+}
+
+// 0x004DED20
+void __cdecl MISSILE_UpdateRoomColor()
+{
+    sub_0061C0B0(gpGlobal_007A0634, &gnRoomColorRed, &gnRoomColorGreen, &gnRoomColorBlue);
+    gnRoomColorIntensity = sub_0061C0E0(gpGlobal_007A0634);
+
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (!pPlayer)
+    {
+        return;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
+    if (!pRoom)
+    {
+        return;
+    }
+
+    unsigned char nIntensity;
+    unsigned char nRed;
+    unsigned char nGreen;
+    unsigned char nBlue;
+    sub_00619D70(pRoom, &nIntensity, &nRed, &nGreen, &nBlue);
+    if (nRed || nGreen || nBlue)
+    {
+        gnRoomColorIntensity = nIntensity;
+        gnRoomColorRed = nRed;
+        gnRoomColorGreen = nGreen;
+        gnRoomColorBlue = nBlue;
+    }
 }
 
 // 0x004DF7B0

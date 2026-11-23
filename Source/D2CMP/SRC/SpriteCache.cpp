@@ -408,11 +408,6 @@ static int __stdcall D2CMPSpriteLoadDc6Entry(D2CmpSpriteFileStrc* pFile, int nAr
 
 static void __stdcall D2CMPSpriteLoadConvertedEntry(int nDirection, unsigned int nFrames, char* szName, int bDC6, D2CmpSpriteContextStrc* pContext, D2CmpSpriteFileStrc* pFile, char* szPath); // 0x006000B0
 
-// 0x005B0CC0
-void __stdcall sub_005B0CC0(int nUnused1)
-{
-}
-
 // 0x005B72A0
 void __stdcall sub_005B72A0(int nUnused1)
 {
