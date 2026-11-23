@@ -867,6 +867,7 @@ void __fastcall sub_004839D0_Shim(D2InventoryGridInfoStrc* pGrid, int nX, int nY
     sub_004839D0_DrawGridCells(pGrid, nY, 0, nHeight, nWidth, nX);
 }
 
+// 0x00483A70
 static void sub_00483A70_DrawSlotFrame(D2InvCompGridStrc* pCompGrid, int nColor)
 {
     if (nColor == 2)

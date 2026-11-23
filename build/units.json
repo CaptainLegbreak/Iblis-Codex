@@ -24376,30 +24376,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00483A70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00483A70",
-     "length": 64
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_00483AB0.cpp",
    "rank": 0,
    "functions": [
@@ -24638,6 +24614,10 @@
     {
      "va": "0x004839D0",
      "length": 159
+    },
+    {
+     "va": "0x00483A70",
+     "length": 64
     },
     {
      "va": "0x004844A0",
