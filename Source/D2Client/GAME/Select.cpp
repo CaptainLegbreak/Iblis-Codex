@@ -30,7 +30,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 extern D2ViewStrc* gpClientView;                                                                         // 0x007A0640
 static int gbHoverLocked;                                                                              // 0x007A6A98
-int gbHasSelectedUnit;                                                                              // 0x007A6A94
+static int gbHasSelectedUnit;                                                                              // 0x007A6A94
 static int gnSelectedUnitType;                                                                     // 0x007A6A8C
 static unsigned int gnSelectedUnitId;                                                              // 0x007A6A78
 extern int gnScreenWidth;                                                                               // 0x0071146C
