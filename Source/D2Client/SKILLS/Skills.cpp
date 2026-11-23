@@ -3156,6 +3156,12 @@ int __fastcall SKILLS_DoSkillAtPosition(void* pArg1, int nArg2, int nArg3, int n
     return 0;
 }
 
+// 0x004CA270
+int __cdecl sub_004CA270_GetLevelsTxtRecordCount()
+{
+    return sgptDataTables->nLevelsTxtRecordCount;
+}
+
 // 0x004CA280
 void __cdecl SKILLS_ResetLevelSpeech()
 {
