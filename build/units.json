@@ -617,6 +617,51 @@
      "name": "FOG_DecompressPacket"
     },
     {
+     "va": "0x0040B330",
+     "length": 27,
+     "name": "sub_0040B330_Cos"
+    },
+    {
+     "va": "0x0040B350",
+     "length": 22,
+     "name": "sub_0040B350_Sin"
+    },
+    {
+     "va": "0x0040B370",
+     "length": 7,
+     "name": "sub_0040B370_SetUsePools"
+    },
+    {
+     "va": "0x0040B380",
+     "length": 54,
+     "name": "FOG_Alloc"
+    },
+    {
+     "va": "0x0040B3C0",
+     "length": 33,
+     "name": "FOG_Free"
+    },
+    {
+     "va": "0x0040B3F0",
+     "length": 58,
+     "name": "FOG_Realloc"
+    },
+    {
+     "va": "0x0040B430",
+     "length": 65,
+     "name": "FOG_AllocPool"
+    },
+    {
+     "va": "0x0040B480",
+     "length": 48,
+     "name": "FOG_FreePool"
+    },
+    {
+     "va": "0x0040B4B0",
+     "length": 69,
+     "name": "FOG_ReallocPool"
+    },
+    {
      "va": "0x0040E870",
      "length": 226,
      "name": "ERRORMANAGER_MeasureCpuMHz"
@@ -3590,57 +3635,6 @@
      "va": "0x00411320",
      "length": 154,
      "name": "sub_00411320_CapitalizeWords"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_0040B330.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0040B330",
-     "length": 27,
-     "name": "sub_0040B330_Cos"
-    },
-    {
-     "va": "0x0040B350",
-     "length": 22,
-     "name": "sub_0040B350_Sin"
-    },
-    {
-     "va": "0x0040B370",
-     "length": 7,
-     "name": "sub_0040B370_SetUsePools"
-    },
-    {
-     "va": "0x0040B380",
-     "length": 54,
-     "name": "FOG_Alloc"
-    },
-    {
-     "va": "0x0040B3C0",
-     "length": 33,
-     "name": "FOG_Free"
-    },
-    {
-     "va": "0x0040B3F0",
-     "length": 58,
-     "name": "FOG_Realloc"
-    },
-    {
-     "va": "0x0040B430",
-     "length": 65,
-     "name": "FOG_AllocPool"
-    },
-    {
-     "va": "0x0040B480",
-     "length": 48,
-     "name": "FOG_FreePool"
-    },
-    {
-     "va": "0x0040B4B0",
-     "length": 69,
-     "name": "FOG_ReallocPool"
     }
    ]
   },
