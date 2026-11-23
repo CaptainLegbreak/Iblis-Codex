@@ -3738,8 +3738,8 @@
    "state": "included"
   },
   "Source/D2Game/PLAYER/PlrModes.cpp": {
-   "bytes": 220,
-   "definitions": 2,
+   "bytes": 440,
+   "definitions": 3,
    "externs": [
     "extern \"C\" void __cdecl SKILLS_EventCallback_ActiveState(); // 0x0056D790",
     "extern \"C\" void __cdecl SKILLS_EventCallback_PeriodicSkillAura(); // 0x0056FCB0",
@@ -3749,35 +3749,19 @@
     "extern \"C\" void __cdecl sub_00580B70(); // 0x00580B70",
     "extern \"C\" void __cdecl sub_00580BE0(); // 0x00580BE0",
     "extern \"C\" void __cdecl sub_00581020(); // 0x00581020",
-    "extern \"C\" void __cdecl sub_005811D0_CheckPlayerMode(); // 0x005811D0",
     "extern \"C\" void __cdecl PlayerTradeUpdate(); // 0x005689D0",
     "extern \"C\" void __cdecl PLRMODE_StartID_AttackCastThrowKickSpecialSequence(); // 0x0057FEF0",
     "extern \"C\" void __cdecl PLRMODE_StartID_Death(); // 0x00580EC0",
-    "extern \"C\" void __cdecl PLRMODE_StartID_WalkRunKnockback(); // 0x0057F190",
     "extern \"C\" void __cdecl PLRMODE_StartXY_AttackCastThrowKickSpecialSequence(); // 0x0057FE90",
     "extern \"C\" void __cdecl PLRMODE_StartXY_Block(); // 0x0057FDC0",
     "extern \"C\" void __cdecl PLRMODE_StartXY_GetHit(); // 0x0057FE30",
-    "extern \"C\" void __cdecl PLRMODE_StartXY_WalkRunKnockback(); // 0x0057F1F0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/PLAYER/PlrModes.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Unknown_005811D0.cpp": {
-   "bytes": 220,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" void __cdecl PLRMODE_StartID_AttackCastThrowKickSpecialSequence(); // 0x0057FEF0",
-    "extern \"C\" void __cdecl PLRMODE_StartID_WalkRunKnockback(); // 0x0057F190",
+    "extern \"C\" void __cdecl PLRMODE_StartXY_WalkRunKnockback(); // 0x0057F1F0",
     "extern \"C\" void __cdecl sub_0057F070(); // 0x0057F070",
-    "extern \"C\" void __cdecl PLRMODE_ModeCheck_Neutral(); // 0x0057F080",
-    "extern \"C\" void __cdecl PLRMODE_ModeCheck_GetHit(); // 0x0057FE20",
     "extern \"C\" void __cdecl sub_00580460(); // 0x00580460",
     "extern \"C\" void __cdecl sub_00580C20(); // 0x00580C20"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005811D0.inc",
+   "include": "gen/data/Source/D2Game/PLAYER/PlrModes.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -102339,7 +102323,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005811D0.cpp",
+   "file": "Source/D2Game/PLAYER/PlrModes.cpp",
    "fill": 55,
    "form": "declared",
    "fwd": null,
