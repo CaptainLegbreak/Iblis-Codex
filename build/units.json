@@ -11540,11 +11540,6 @@
      "name": "?COMCALLBACK_IsValidKeyText@@YIHPBD@Z"
     },
     {
-     "va": "0x0044CCA0",
-     "length": 52,
-     "name": "COMCALLBACK_CountLevelThresholds"
-    },
-    {
      "va": "0x004512C0",
      "length": 97,
      "name": "COMCALLBACK_LoadLngString"
@@ -15321,6 +15316,11 @@
      "va": "0x0044CB60",
      "length": 308,
      "name": "?GAME_DrawLoadingText@@YAXXZ"
+    },
+    {
+     "va": "0x0044CCA0",
+     "length": 52,
+     "name": "COMCALLBACK_CountLevelThresholds"
     },
     {
      "va": "0x0044CDB0",
