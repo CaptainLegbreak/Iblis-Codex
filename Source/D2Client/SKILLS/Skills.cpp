@@ -530,12 +530,6 @@ int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
 int __fastcall CUNIT_ValidateMonsterId(int nMonsterId); // 0x00463900
 
-// 0x00436E90
-int __stdcall sub_00436E90_AlwaysOne(int nArg)
-{
-    return 1;
-}
-
 bool R0052E0F0::sub_0052E0F0_IsOpen()
 {
     return m_pFile != 0;
