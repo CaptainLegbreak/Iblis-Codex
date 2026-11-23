@@ -26752,11 +26752,6 @@
      "name": "MONSTER_GetGameQuestFlags"
     },
     {
-     "va": "0x004B3500",
-     "length": 6,
-     "name": "MONSTER_IsGambleShop"
-    },
-    {
      "va": "0x004B70F0",
      "length": 6,
      "name": "sub_004B70F0"
@@ -27675,6 +27670,11 @@
      "va": "0x004B34A0",
      "length": 81,
      "name": "?NPCMENU_IsAnyDialogOpen@@YAHXZ"
+    },
+    {
+     "va": "0x004B3500",
+     "length": 6,
+     "name": "MONSTER_IsGambleShop"
     },
     {
      "va": "0x004B3510",
