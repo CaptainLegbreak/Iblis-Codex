@@ -1678,11 +1678,6 @@
      "name": "LOGMANAGER_LogWritePrefixed"
     },
     {
-     "va": "0x00410C40",
-     "length": 173,
-     "name": "LOGMANAGER_OrBits"
-    },
-    {
      "va": "0x00417780",
      "length": 16,
      "name": "??0sub_00417780@@QAE@XZ"
@@ -3718,22 +3713,6 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_0040EBD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00410CF0",
-     "length": 147,
-     "name": "sub_00410CF0_NotBits"
-    },
-    {
-     "va": "0x00411320",
-     "length": 154,
-     "name": "sub_00411320_CapitalizeWords"
-    }
-   ]
-  },
-  {
    "file": "Source/Fog/Src/AsyncData.cpp",
    "rank": 0,
    "functions": [
@@ -4022,11 +4001,6 @@
      "va": "0x0040FC60",
      "length": 66,
      "name": "sub_0040FC60_UnlinkNode"
-    },
-    {
-     "va": "0x00411210",
-     "length": 99,
-     "name": "sub_00411210_InitTimer"
     },
     {
      "va": "0x00413F30",
@@ -5176,7 +5150,31 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_00410040.cpp",
+   "file": "Source/Fog/Unknown_004101C0.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x004101C0",
+     "length": 378
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHa"
+   ]
+  },
+  {
+   "file": "Source/Fog/Unknown_00410790.cpp",
    "rank": 0,
    "functions": [
     {
@@ -5205,6 +5203,75 @@
      "name": "sub_00410B50"
     },
     {
+     "va": "0x00410B70",
+     "length": 32,
+     "name": "?sub_00410B70@@YGXPAUBitBuffer@@H@Z"
+    },
+    {
+     "va": "0x00410B90",
+     "length": 173,
+     "name": "?sub_00410B90@@YGXPBE0PAEH@Z"
+    },
+    {
+     "va": "0x00410C40",
+     "length": 173,
+     "name": "BITMANIP_OrBits"
+    },
+    {
+     "va": "0x00410CF0",
+     "length": 147,
+     "name": "sub_00410CF0_NotBits"
+    },
+    {
+     "va": "0x00410D90",
+     "length": 173,
+     "name": "sub_00410D90_XorBits"
+    },
+    {
+     "va": "0x00410E40",
+     "length": 73,
+     "name": "BITMANIP_Initialize"
+    },
+    {
+     "va": "0x00410E90",
+     "length": 22,
+     "name": "_sub_00410E90@4"
+    },
+    {
+     "va": "0x00410EB0",
+     "length": 173,
+     "name": "BITMANIP_Write"
+    },
+    {
+     "va": "0x00410F60",
+     "length": 180
+    },
+    {
+     "va": "0x00411020",
+     "length": 9,
+     "name": "sub_00411020_ReadBits"
+    },
+    {
+     "va": "0x00411030",
+     "length": 57,
+     "name": "BITMANIP_ReadSigned"
+    },
+    {
+     "va": "0x00411070",
+     "length": 49,
+     "name": "BITMANIP_GoToNextByte"
+    },
+    {
+     "va": "0x004110B0",
+     "length": 31,
+     "name": "sub_004110B0_WriteCode"
+    },
+    {
+     "va": "0x004110D0",
+     "length": 92,
+     "name": "sub_004110D0_ReadTreeCode"
+    },
+    {
      "va": "0x00411130",
      "length": 50,
      "name": "FOG_ComputeChecksum"
@@ -5220,34 +5287,43 @@
      "name": "sub_004111A0_GetLowestSetBit"
     },
     {
+     "va": "0x00411210",
+     "length": 99,
+     "name": "sub_00411210_InitTimer"
+    },
+    {
+     "va": "0x00411280",
+     "length": 42,
+     "name": "sub_00411280_ResetRecords"
+    },
+    {
+     "va": "0x004112B0",
+     "length": 6,
+     "name": "?sub_004112B0_GetTickCount@@YAKXZ"
+    },
+    {
+     "va": "0x004112C0",
+     "length": 83
+    },
+    {
+     "va": "0x00411320",
+     "length": 154,
+     "name": "sub_00411320_CapitalizeWords"
+    },
+    {
      "va": "0x004113C0",
      "length": 32,
      "name": "sub_004113C0"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_004101C0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
-     "va": "0x004101C0",
-     "length": 378
+     "va": "0x004113E0",
+     "length": 341,
+     "name": "?sub_004113E0_EscapeString@@YIPADPADPBDHD@Z"
+    },
+    {
+     "va": "0x00411540",
+     "length": 221
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHa"
    ]
   },
   {
@@ -5287,120 +5363,6 @@
      "va": "0x00410A80",
      "length": 132,
      "name": "?FOG_GetSyncTime@@YAJXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00410B70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00410B70",
-     "length": 32,
-     "name": "?sub_00410B70@@YGXPAUBitBuffer@@H@Z"
-    },
-    {
-     "va": "0x00410B90",
-     "length": 173,
-     "name": "?sub_00410B90@@YGXPBE0PAEH@Z"
-    },
-    {
-     "va": "0x00410D90",
-     "length": 173,
-     "name": "sub_00410D90_XorBits"
-    },
-    {
-     "va": "0x00410E40",
-     "length": 73,
-     "name": "BITMANIP_Initialize"
-    },
-    {
-     "va": "0x00410E90",
-     "length": 22,
-     "name": "_sub_00410E90@4"
-    },
-    {
-     "va": "0x00410EB0",
-     "length": 173,
-     "name": "BITMANIP_Write"
-    },
-    {
-     "va": "0x00411020",
-     "length": 9,
-     "name": "sub_00411020_ReadBits"
-    },
-    {
-     "va": "0x00411030",
-     "length": 57,
-     "name": "BITMANIP_ReadSigned"
-    },
-    {
-     "va": "0x00411070",
-     "length": 49,
-     "name": "BITMANIP_GoToNextByte"
-    },
-    {
-     "va": "0x004110B0",
-     "length": 31,
-     "name": "sub_004110B0_WriteCode"
-    },
-    {
-     "va": "0x004110D0",
-     "length": 92,
-     "name": "sub_004110D0_ReadTreeCode"
-    },
-    {
-     "va": "0x00411280",
-     "length": 42,
-     "name": "sub_00411280_ResetRecords"
-    },
-    {
-     "va": "0x004113E0",
-     "length": 341,
-     "name": "?sub_004113E0_EscapeString@@YIPADPADPBDHD@Z"
-    },
-    {
-     "va": "0x00411540",
-     "length": 221
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00410F60.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00410F60",
-     "length": 180
-    },
-    {
-     "va": "0x004112C0",
-     "length": 83
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_004112B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004112B0",
-     "length": 6,
-     "name": "?sub_004112B0_GetTickCount@@YAKXZ"
     }
    ]
   },

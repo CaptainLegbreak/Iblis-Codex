@@ -405,7 +405,7 @@ address,name,source,alias
 0x00410B50,sub_00410B50,placeholder,
 0x00410B70,sub_00410B70,placeholder,
 0x00410B90,sub_00410B90,placeholder,
-0x00410C40,LOGMANAGER_OrBits,inferred,
+0x00410C40,BITMANIP_OrBits,inferred,
 0x00410CF0,sub_00410CF0_NotBits,placeholder,
 0x00410D90,sub_00410D90_XorBits,placeholder,
 0x00410E40,BITMANIP_Initialize,d2moo,
