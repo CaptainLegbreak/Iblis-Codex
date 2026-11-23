@@ -744,6 +744,10 @@
      "va": "0x00413740",
      "length": 1,
      "name": "?sub_00413740_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x006CA6F0",
+     "length": 12
     }
    ],
    "flags": [
@@ -6280,6 +6284,10 @@
      "va": "0x0041C0C0",
      "length": 12,
      "name": "??0D2StormInit0041C0C0Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x006CA890",
+     "length": 5
     }
    ]
   },
@@ -82453,10 +82461,6 @@
      "length": 37
     },
     {
-     "va": "0x006CA6F0",
-     "length": 12
-    },
-    {
      "va": "0x006CA700",
      "length": 23
     },
@@ -82586,16 +82590,6 @@
      "va": "0x006CAC10",
      "length": 21,
      "name": "?sub_006CAC10_InitializeHorizontalPosition@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006CA890.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006CA890",
-     "length": 5
     }
    ]
   },
