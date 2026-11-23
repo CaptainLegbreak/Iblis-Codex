@@ -57402,7 +57402,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00599510.cpp",
+   "file": "Source/D2Game/Quests/a2q2.cpp",
    "rank": 0,
    "functions": [
     {
@@ -57426,17 +57426,6 @@
      "name": "?ACT2Q2_ActiveFilterCallback@@YI_NPAUD2QuestDataStrc@@HPAUD2UnitStrc@@PAUD2BitBufferStrc@@1@Z"
     },
     {
-     "va": "0x00599910",
-     "length": 237,
-     "name": "?ACT2Q2_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a2q2.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x00599750",
      "length": 98,
      "name": "?ACT2Q2_UnitIterate_DetermineStaffDropCount@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -57450,6 +57439,11 @@
      "va": "0x005997F0",
      "length": 280,
      "name": "ACT2Q2_Callback11_ScrollMessage"
+    },
+    {
+     "va": "0x00599910",
+     "length": 237,
+     "name": "?ACT2Q2_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
      "va": "0x00599A00",
