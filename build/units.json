@@ -79342,6 +79342,11 @@
      "length": 456
     },
     {
+     "va": "0x00676DD0",
+     "length": 222,
+     "name": "sub_00676DD0_LinkAct1Wilderness"
+    },
+    {
      "va": "0x00676EB0",
      "length": 154,
      "name": "sub_6FD82130"
@@ -79540,17 +79545,6 @@
     "/Gd",
     "/GS-",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00676DD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00676DD0",
-     "length": 222,
-     "name": "sub_00676DD0_LinkAct1Wilderness"
-    }
    ]
   },
   {
