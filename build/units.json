@@ -43143,16 +43143,6 @@
      "name": "SUNITPROXY_GetNpcRecordFromUnit"
     },
     {
-     "va": "0x00536F80",
-     "length": 408,
-     "name": "SUNITPROXY_FillGlobalItemCache"
-    },
-    {
-     "va": "0x005384E0",
-     "length": 162,
-     "name": "CLIENTS_RemoveUnitIfNotAdjacent"
-    },
-    {
      "va": "0x005404C0",
      "length": 36,
      "name": "PARTY_AddLivingMemberLevelCallback"
@@ -45990,11 +45980,6 @@
      "name": "PLAYER_CloseInteraction"
     },
     {
-     "va": "0x005352C0",
-     "length": 226,
-     "name": "PLAYER_PlaceCorpse"
-    },
-    {
      "va": "0x00535B10",
      "length": 59,
      "name": "?PLAYER_HasHostilePlayer@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -46196,6 +46181,11 @@
      "name": "?PLAYER_CloseInteraction@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005352C0",
+     "length": 226,
+     "name": "PLAYER_PlaceCorpse"
+    },
+    {
      "va": "0x005353B0",
      "length": 60,
      "name": "?PLAYER_SetUniqueIdInPlayerData@@YIXPAUD2UnitStrc@@H@Z"
@@ -46345,6 +46335,11 @@
      "va": "0x00536D50",
      "length": 558,
      "name": "?SUNITPROXY_FillIGlobaltemCacheRecordForNpc@@YGXH@Z"
+    },
+    {
+     "va": "0x00536F80",
+     "length": 408,
+     "name": "SUNITPROXY_FillGlobalItemCache"
     },
     {
      "va": "0x00537120",
@@ -46534,6 +46529,11 @@
      "va": "0x00538410",
      "length": 194,
      "name": "?CLIENTS_SendUnitIfOutsideAdjacentRooms@@YIXPAUClient@@PAUUnit@@@Z"
+    },
+    {
+     "va": "0x005384E0",
+     "length": 162,
+     "name": "CLIENTS_RemoveUnitIfNotAdjacent"
     },
     {
      "va": "0x00538590",
@@ -46911,11 +46911,6 @@
      "va": "0x00541830",
      "length": 38,
      "name": "SKILLS_SetMonsterComponent"
-    },
-    {
-     "va": "0x00547080",
-     "length": 228,
-     "name": "?OBJRGN_PrintObjectPlacementStats@@YIXPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x00547400",
@@ -49043,6 +49038,11 @@
      "va": "0x00546FF0",
      "length": 140,
      "name": "?OBJRGN_BroadcastServerText@D2GameStrc@@QAEXPBD@Z"
+    },
+    {
+     "va": "0x00547080",
+     "length": 228,
+     "name": "?OBJRGN_PrintObjectPlacementStats@@YIXPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x00547170",
@@ -51323,11 +51323,6 @@
      "name": "SUNITNPC_FindInventoryItemByClassId"
     },
     {
-     "va": "0x00580460",
-     "length": 160,
-     "name": "PLRMODE_UpdateSkill"
-    },
-    {
      "va": "0x0058A730",
      "length": 153,
      "name": "ACT5Q3_UpdateDrehyaPortalMode"
@@ -53594,6 +53589,11 @@
      "va": "0x00580380",
      "length": 209,
      "name": "PLRMODE_BreakDepletedWeapons"
+    },
+    {
+     "va": "0x00580460",
+     "length": 160,
+     "name": "PLRMODE_UpdateSkill"
     },
     {
      "va": "0x00580500",
@@ -56579,11 +56579,6 @@
      "name": "?ACT2Q3_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
     },
     {
-     "va": "0x005B5EE0",
-     "length": 82,
-     "name": "?ACT4Q3_ActiveFilterCallback@@YI_NPAUD2QuestDataStrc@@HPAUD2UnitStrc@@PAUD2BitBufferStrc@@1@Z"
-    },
-    {
      "va": "0x005BD4A0",
      "length": 84,
      "name": "?ACT3Q7_CreateVileDogSpawnTimer@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -58656,11 +58651,6 @@
      "va": "0x005DC530",
      "length": 144,
      "name": "AIUTIL_GetDistanceToCoordinates_NoUnitSize"
-    },
-    {
-     "va": "0x005DCD50",
-     "length": 65,
-     "name": "AIUTIL_TargetCallback_FindClosestClosedDoor"
     }
    ]
   },
@@ -61192,11 +61182,6 @@
      "va": "0x005FBA60",
      "length": 148,
      "name": "?AITHINK_Fn087_TrapMelee@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005FC830",
-     "length": 33,
-     "name": "AIBAAL_CountLivingMinions"
     }
    ]
   },
@@ -61847,6 +61832,11 @@
     {
      "va": "0x005B5C10",
      "length": 705
+    },
+    {
+     "va": "0x005B5EE0",
+     "length": 82,
+     "name": "?ACT4Q3_ActiveFilterCallback@@YI_NPAUD2QuestDataStrc@@HPAUD2UnitStrc@@PAUD2BitBufferStrc@@1@Z"
     },
     {
      "va": "0x005B5F40",
@@ -65042,6 +65032,11 @@
      "name": "?AIUTIL_TargetCallback_SelectHighThreatTargetWithClearApproach@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
     },
     {
+     "va": "0x005DCD50",
+     "length": 65,
+     "name": "AIUTIL_TargetCallback_FindClosestClosedDoor"
+    },
+    {
      "va": "0x005DCDA0",
      "length": 104,
      "name": "?AIUTIL_TargetCallback_CountDeadMinions@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
@@ -65389,6 +65384,11 @@
     {
      "va": "0x005FC630",
      "length": 498
+    },
+    {
+     "va": "0x005FC830",
+     "length": 33,
+     "name": "AIBAAL_CountLivingMinions"
     },
     {
      "va": "0x005FC860",

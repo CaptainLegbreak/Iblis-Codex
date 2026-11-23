@@ -7096,27 +7096,6 @@ int __fastcall AIUTIL_GetDistanceToCoordinates_NoUnitSize(D2UnitStrc* pUnit, int
     }
 }
 
-// 0x005DCD50
-D2UnitStrc* __fastcall AIUTIL_TargetCallback_FindClosestClosedDoor(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
-{
-    D2DoorObjectAiCallbackArgStrc* pArg = (D2DoorObjectAiCallbackArgStrc*)pCallbackArg;
-
-    if (!pTarget || pTarget->dwUnitType != UNIT_OBJECT || !UnitIsDoor(pTarget) || pTarget->dwAnimMode != OBJMODE_NEUTRAL)
-    {
-        return 0;
-    }
-
-    const int nDistance = AITHINK_GetSquaredDistance(pTarget, pUnit);
-    if (nDistance >= pArg->nDistance)
-    {
-        return 0;
-    }
-
-    pArg->pDoor = pTarget;
-    pArg->nDistance = nDistance;
-    return 0;
-}
-
 // build: context sub_005ADA80_Shim
 
 // calling-convention shim (not game code)

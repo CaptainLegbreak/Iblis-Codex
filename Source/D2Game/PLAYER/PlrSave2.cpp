@@ -2140,34 +2140,6 @@ D2UnitStrc* __fastcall SUNITNPC_FindInventoryItemByClassId(D2UnitStrc* pUnit, in
     return 0;
 }
 
-// 0x00580460
-int __fastcall PLRMODE_UpdateSkill(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nSkillId, int nSkillLevel)
-{
-    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pPlayer);
-    if (!pSkill)
-    {
-        return 2;
-    }
-
-    UNITS_SetAnimationFrame(pPlayer, nSkillLevel);
-
-    const int nSkillFlags = SKILLS_GetFlags(pSkill);
-    if (nSkillFlags & 1 && (SUNIT_ValidateTargetUnit(pGame, pPlayer), SUNIT_UpdateUnitPath(pGame, pPlayer) == 2))
-    {
-        SKILLS_SetFlags(pSkill, nSkillFlags | 2);
-    }
-    else
-    {
-        if (pPlayer && UNIT_HasFlag(pPlayer, UNITFLAG_SKSRVDOFUNC) || nSkillId != SKILL_KICK && nSkillId != SKILL_THROW)
-        {
-            return (SUNIT_IsDead(pPlayer) != 0) + 1;
-        }
-    }
-
-    SKILLS_ExecuteUsedSkill(pGame, pPlayer);
-    return (SUNIT_IsDead(pPlayer) != 0) + 1;
-}
-
 // 0x0058A730
 void __fastcall ACT5Q3_UpdateDrehyaPortalMode(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
 {

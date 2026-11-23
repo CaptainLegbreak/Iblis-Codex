@@ -5690,18 +5690,6 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_FetishShaman(D2GameStrc* pGame, D2
     return 0;
 }
 
-// 0x005FC830
-void __fastcall AIBAAL_CountLivingMinions(D2UnitStrc* pUnit, void* ppUnitArg, void* pCounterArg)
-{
-    D2UnitStrc** ppUnit = (D2UnitStrc**)ppUnitArg;
-    int* pCounter = (int*)pCounterArg;
-
-    if (pUnit != *ppUnit && pUnit && pUnit->dwAnimMode != MONMODE_DEATH && pUnit->dwAnimMode != MONMODE_DEAD)
-    {
-        ++*pCounter;
-    }
-}
-
 // 0x005E7080
 bool __fastcall AITHINK_ExecuteMapAiAction(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {

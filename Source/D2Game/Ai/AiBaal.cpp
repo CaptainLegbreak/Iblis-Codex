@@ -13,6 +13,7 @@
 #include "D2Path.h"
 #include "D2GameAux.h"
 #include "D2PlayerModes.h"
+#include "D2MonModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -912,6 +913,18 @@ static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc* pGame, D2UnitStrc* pUn
     if (bNotCollidingWithWall)
         return AIBAAL_RollRandomAiParamForNonCollidingUnit(pGame, pAiControl, pUnit, pTarget, nCount, bInMediumRange, bInFarRange, bInCloseRange, nMax);
     return AIBAAL_RollRangedAiParam(pGame, pTarget, nCount, bInMediumRange, bInFarRange, pUnit);
+}
+
+// 0x005FC830
+void __fastcall AIBAAL_CountLivingMinions(D2UnitStrc* pUnit, void* ppUnitArg, void* pCounterArg)
+{
+    D2UnitStrc** ppUnit = (D2UnitStrc**)ppUnitArg;
+    int* pCounter = (int*)pCounterArg;
+
+    if (pUnit != *ppUnit && pUnit && pUnit->dwAnimMode != MONMODE_DEATH && pUnit->dwAnimMode != MONMODE_DEAD)
+    {
+        ++*pCounter;
+    }
 }
 
 static inline int UnitX(D2UnitStrc* u) {

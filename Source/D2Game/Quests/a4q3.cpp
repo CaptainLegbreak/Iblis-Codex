@@ -6,6 +6,7 @@
 #include "D2QuestData.h"
 #include "D2GameObjs.h"
 #include "D2Txt.h"
+#include "D2MonsterIds.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -362,6 +363,20 @@ int __fastcall OBJECTS_OperateFunction49_HellForge(D2ObjOperateFnStrc* operation
 playSound:
  SUNIT_AttachSound(operation->hPlayer,19,operation->hPlayer);
  return 0;
+}
+
+// 0x005B5EE0
+bool __fastcall ACT4Q3_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    const int nId = nNpcId;
+    if (nId == MONSTER_CAIN4 && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A4Q3, QFLAG_REWARDGRANTED)
+        && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A4Q3, QFLAG_REWARDPENDING)
+        && pQuest->bNotIntro && pQuest->fState == 1 && !((D2Act4Quest3Strc*)pQuest->pQuestDataEx)->bSoulstoneAcquired)
+    {
+        return true;
+    }
+
+    return false;
 }
 
 // 0x005B6050
