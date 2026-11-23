@@ -42,11 +42,11 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 966 |
-| … in a file with its original name, whole | 281 |
+| Compilation units | 963 |
+| … in a file with its original name, whole | 287 |
 | … pieces of an original file still split (in 36 files) | 114 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 571 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3046 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 562 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3045 |
 | Unnamed fields (`unk0x..`) in the shared headers | 660 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 43 |
 | Calling-convention shims | 114 |
@@ -387,90 +387,90 @@ Not listed one by one: 3511 functions are compiled with `/GS-` and 581 with `/EH
 | 0x00426D80 | ~sub_00426D80 | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x00426DC0 | sub_00426DC0_NewNode | `Storm/Unknown_00426910.cpp` | compiler option /Ob2 |
 | 0x00426E80 | SEvtBreakHandlerChain | `Storm/Unknown_00426900.cpp` | compiler option /Ob2 |
-| 0x00427160 | deflateResetKeep | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x00427200 | deflateSetHeader | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x00427220 | deflatePending | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x00427260 | deflatePrime | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x004272F0 | deflateTune | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x00427330 | deflateBound | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x00427420 | putShortMSB | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x00427450 | flush_pending | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x004274A0 | deflateEnd | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x00427560 | deflateCopy | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x00427700 | read_buf | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x00427770 | lm_init | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x00427800 | longest_match | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x00427980 | fill_window | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x00427BB0 | deflate_stored | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x00427DD0 | deflate_fast | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x00428150 | deflate_slow | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x004285F0 | deflate_rle | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x00428900 | deflate_huff | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x00428AB0 | deflateSetDictionary | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x00428C40 | deflateReset | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x00428C60 | deflate | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x004294C0 | deflateInit2_ | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x00429700 | deflateParams | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x004297F0 | deflateInit_ | `Storm/Unknown_00427160.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x00429810 | inflateResetKeep | `Storm/Unknown_00429810.cpp` | compiler option /Ob2 |
-| 0x00429880 | inflateReset | `Storm/Unknown_00429810.cpp` | compiler option /Ob2 |
-| 0x004298B0 | inflateReset2 | `Storm/Unknown_00429810.cpp` | compiler option /Ob2 |
-| 0x00429950 | inflateInit2_ | `Storm/Unknown_00429810.cpp` | compiler option /Ob2 |
-| 0x00429A10 | inflateInit_ | `Storm/Unknown_00429810.cpp` | compiler option /Ob2 |
-| 0x00429A30 | inflatePrime | `Storm/Unknown_00429810.cpp` | compiler option /Ob2 |
-| 0x00429AA0 | fixedtables | `Storm/Unknown_00429810.cpp` | compiler option /Ob2 |
-| 0x00429AC0 | updatewindow | `Storm/Unknown_00429810.cpp` | compiler option /Ob2 |
-| 0x00429BB0 | inflate | `Storm/Unknown_00429810.cpp` | compiler option /Ob2 |
-| 0x0042B170 | inflateEnd | `Storm/Unknown_00429810.cpp` | compiler option /Ob2 |
-| 0x0042B1B0 | inflateGetDictionary | `Storm/Unknown_00429810.cpp` | compiler option /Ob2 |
-| 0x0042B220 | inflateSetDictionary | `Storm/Unknown_00429810.cpp` | compiler option /Ob2 |
-| 0x0042B2D0 | inflateGetHeader | `Storm/Unknown_00429810.cpp` | compiler option /Ob2 |
-| 0x0042B300 | syncsearch | `Storm/Unknown_00429810.cpp` | compiler option /Ob2 |
-| 0x0042B360 | inflateSync | `Storm/Unknown_00429810.cpp` | compiler option /Ob2 |
-| 0x0042B460 | inflateSyncPoint | `Storm/Unknown_00429810.cpp` | compiler option /Ob2 |
-| 0x0042B490 | inflateCopy | `Storm/Unknown_00429810.cpp` | compiler option /Ob2 |
-| 0x0042B5E0 | inflateUndermine | `Storm/Unknown_00429810.cpp` | compiler option /Ob2 |
-| 0x0042B610 | inflateMark | `Storm/Unknown_00429810.cpp` | compiler option /Ob2 |
-| 0x0042B660 | adler32 | `Storm/Unknown_0042B660.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042B8E0 | adler32_combine_ | `Storm/Unknown_0042B660.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042B990 | adler32_combine | `Storm/Unknown_0042B660.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042B9B0 | adler32_combine64 | `Storm/Unknown_0042B660.cpp` | compiler option /Ob2, compiler option /TC |
+| 0x00427160 | deflateResetKeep | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x00427200 | deflateSetHeader | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x00427220 | deflatePending | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x00427260 | deflatePrime | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x004272F0 | deflateTune | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x00427330 | deflateBound | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x00427420 | putShortMSB | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x00427450 | flush_pending | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x004274A0 | deflateEnd | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x00427560 | deflateCopy | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x00427700 | read_buf | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x00427770 | lm_init | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x00427800 | longest_match | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x00427980 | fill_window | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x00427BB0 | deflate_stored | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x00427DD0 | deflate_fast | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x00428150 | deflate_slow | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x004285F0 | deflate_rle | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x00428900 | deflate_huff | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x00428AB0 | deflateSetDictionary | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x00428C40 | deflateReset | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x00428C60 | deflate | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x004294C0 | deflateInit2_ | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x00429700 | deflateParams | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x004297F0 | deflateInit_ | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
+| 0x00429810 | inflateResetKeep | `Storm/zlib/inflate.c` | compiler option /Ob2 |
+| 0x00429880 | inflateReset | `Storm/zlib/inflate.c` | compiler option /Ob2 |
+| 0x004298B0 | inflateReset2 | `Storm/zlib/inflate.c` | compiler option /Ob2 |
+| 0x00429950 | inflateInit2_ | `Storm/zlib/inflate.c` | compiler option /Ob2 |
+| 0x00429A10 | inflateInit_ | `Storm/zlib/inflate.c` | compiler option /Ob2 |
+| 0x00429A30 | inflatePrime | `Storm/zlib/inflate.c` | compiler option /Ob2 |
+| 0x00429AA0 | fixedtables | `Storm/zlib/inflate.c` | compiler option /Ob2 |
+| 0x00429AC0 | updatewindow | `Storm/zlib/inflate.c` | compiler option /Ob2 |
+| 0x00429BB0 | inflate | `Storm/zlib/inflate.c` | compiler option /Ob2 |
+| 0x0042B170 | inflateEnd | `Storm/zlib/inflate.c` | compiler option /Ob2 |
+| 0x0042B1B0 | inflateGetDictionary | `Storm/zlib/inflate.c` | compiler option /Ob2 |
+| 0x0042B220 | inflateSetDictionary | `Storm/zlib/inflate.c` | compiler option /Ob2 |
+| 0x0042B2D0 | inflateGetHeader | `Storm/zlib/inflate.c` | compiler option /Ob2 |
+| 0x0042B300 | syncsearch | `Storm/zlib/inflate.c` | compiler option /Ob2 |
+| 0x0042B360 | inflateSync | `Storm/zlib/inflate.c` | compiler option /Ob2 |
+| 0x0042B460 | inflateSyncPoint | `Storm/zlib/inflate.c` | compiler option /Ob2 |
+| 0x0042B490 | inflateCopy | `Storm/zlib/inflate.c` | compiler option /Ob2 |
+| 0x0042B5E0 | inflateUndermine | `Storm/zlib/inflate.c` | compiler option /Ob2 |
+| 0x0042B610 | inflateMark | `Storm/zlib/inflate.c` | compiler option /Ob2 |
+| 0x0042B660 | adler32 | `Storm/zlib/adler32.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042B8E0 | adler32_combine_ | `Storm/zlib/adler32.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042B990 | adler32_combine | `Storm/zlib/adler32.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042B9B0 | adler32_combine64 | `Storm/zlib/adler32.c` | compiler option /Ob2, compiler option /TC |
 | 0x0042B9D0 | sub_0042B9D0_Nop | `Storm/Unknown_00426900.cpp` | compiler option /Ob2 |
-| 0x0042B9E0 | init_block | `Storm/Unknown_0042B9E0.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042BA50 | pqdownheap | `Storm/Unknown_0042B9E0.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042BB30 | gen_bitlen | `Storm/Unknown_0042B9E0.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042BD30 | scan_tree | `Storm/Unknown_0042B9E0.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042BE10 | send_tree | `Storm/Unknown_0042B9E0.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042C390 | send_all_trees | `Storm/Unknown_0042B9E0.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042C600 | ?_tr_tally@@YIHPAUdeflate_state@@II@Z | `Storm/Unknown_0042B9E0.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042C6A0 | compress_block | `Storm/Unknown_0042B9E0.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042CAB0 | detect_data_type | `Storm/Unknown_0042B9E0.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042CB20 | bi_reverse | `Storm/Unknown_0042B9E0.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042CB40 | bi_flush | `Storm/Unknown_0042B9E0.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042CBC0 | bi_windup | `Storm/Unknown_0042B9E0.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042CC40 | copy_block | `Storm/Unknown_0042B9E0.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042CCD0 | _tr_init | `Storm/Unknown_0042B9E0.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042CD30 | gen_codes | `Storm/Unknown_0042B9E0.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042CDD0 | build_tree | `Storm/Unknown_0042B9E0.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042CFD0 | build_bl_tree | `Storm/Unknown_0042B9E0.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042D0A0 | _tr_stored_block | `Storm/Unknown_0042B9E0.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042D150 | _tr_flush_bits | `Storm/Unknown_0042B9E0.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042D160 | _tr_align | `Storm/Unknown_0042B9E0.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042D250 | _tr_flush_block | `Storm/Unknown_0042B9E0.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042D450 | sub_0042D450 | `Storm/Unknown_0042D450.cpp` | compiler option /Ob2 |
-| 0x0042D460 | crc32_little | `Storm/Unknown_0042D450.cpp` | compiler option /Ob2 |
-| 0x0042D700 | crc32_big | `Storm/Unknown_0042D450.cpp` | compiler option /Ob2 |
-| 0x0042D9F0 | gf2_matrix_times | `Storm/Unknown_0042D450.cpp` | compiler option /Ob2 |
-| 0x0042DA10 | gf2_matrix_square | `Storm/Unknown_0042D450.cpp` | compiler option /Ob2 |
-| 0x0042DA50 | crc32_combine_ | `Storm/Unknown_0042D450.cpp` | compiler option /Ob2 |
-| 0x0042DBC0 | crc32_combine | `Storm/Unknown_0042D450.cpp` | compiler option /Ob2 |
-| 0x0042DBE0 | crc32_combine64 | `Storm/Unknown_0042D450.cpp` | compiler option /Ob2 |
-| 0x0042DC00 | crc32 | `Storm/Unknown_0042D450.cpp` | compiler option /Ob2 |
-| 0x0042DC30 | sub_0042DC30 | `Storm/Unknown_0042DC30.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042DC40 | sub_0042DC40 | `Storm/Unknown_0042DC30.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042DC50 | zError | `Storm/Unknown_0042DC30.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042DC70 | zcalloc | `Storm/Unknown_0042DC30.cpp` | compiler option /Ob2, compiler option /TC |
-| 0x0042DC90 | zcfree | `Storm/Unknown_0042DC30.cpp` | compiler option /Ob2, compiler option /TC |
+| 0x0042B9E0 | init_block | `Storm/zlib/trees.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042BA50 | pqdownheap | `Storm/zlib/trees.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042BB30 | gen_bitlen | `Storm/zlib/trees.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042BD30 | scan_tree | `Storm/zlib/trees.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042BE10 | send_tree | `Storm/zlib/trees.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042C390 | send_all_trees | `Storm/zlib/trees.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042C600 | ?_tr_tally@@YIHPAUdeflate_state@@II@Z | `Storm/zlib/trees.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042C6A0 | compress_block | `Storm/zlib/trees.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042CAB0 | detect_data_type | `Storm/zlib/trees.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042CB20 | bi_reverse | `Storm/zlib/trees.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042CB40 | bi_flush | `Storm/zlib/trees.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042CBC0 | bi_windup | `Storm/zlib/trees.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042CC40 | copy_block | `Storm/zlib/trees.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042CCD0 | _tr_init | `Storm/zlib/trees.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042CD30 | gen_codes | `Storm/zlib/trees.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042CDD0 | build_tree | `Storm/zlib/trees.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042CFD0 | build_bl_tree | `Storm/zlib/trees.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042D0A0 | _tr_stored_block | `Storm/zlib/trees.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042D150 | _tr_flush_bits | `Storm/zlib/trees.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042D160 | _tr_align | `Storm/zlib/trees.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042D250 | _tr_flush_block | `Storm/zlib/trees.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042D450 | sub_0042D450 | `Storm/zlib/crc32.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042D460 | crc32_little | `Storm/zlib/crc32.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042D700 | crc32_big | `Storm/zlib/crc32.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042D9F0 | gf2_matrix_times | `Storm/zlib/crc32.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042DA10 | gf2_matrix_square | `Storm/zlib/crc32.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042DA50 | crc32_combine_ | `Storm/zlib/crc32.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042DBC0 | crc32_combine | `Storm/zlib/crc32.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042DBE0 | crc32_combine64 | `Storm/zlib/crc32.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042DC00 | crc32 | `Storm/zlib/crc32.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042DC30 | sub_0042DC30 | `Storm/zlib/zutil.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042DC40 | sub_0042DC40 | `Storm/zlib/zutil.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042DC50 | zError | `Storm/zlib/zutil.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042DC70 | zcalloc | `Storm/zlib/zutil.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042DC90 | zcfree | `Storm/zlib/zutil.c` | compiler option /Ob2, compiler option /TC |
 | 0x0042E590 | sub_0042E590_SetOwner | `Storm/Unknown_00426900.cpp` | compiler option /Ob2 |
 | 0x00446D30 | COMCALLBACK_GetUserRank | `D2Multi/Src/ComCallback.cpp` | calling-convention shim |
 | 0x00450390 | sub_00450390_NewNode | `Storm/Unknown_00426910.cpp` | compiler option /Ob2 |
