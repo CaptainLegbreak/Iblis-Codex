@@ -84366,6 +84366,14 @@
     {
      "va": "0x006C84B0",
      "length": 232
+    },
+    {
+     "va": "0x006C86A0",
+     "length": 171
+    },
+    {
+     "va": "0x006C87E0",
+     "length": 188
     }
    ],
    "flags": [
@@ -84518,34 +84526,6 @@
      "length": 67,
      "name": "?sub_006C8C00_DrawAlpha@@YIXHHHHHE@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C86A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C86A0",
-     "length": 171
-    },
-    {
-     "va": "0x006C87E0",
-     "length": 188
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
