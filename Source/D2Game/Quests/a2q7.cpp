@@ -153,6 +153,11 @@ RollMessage:
     QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, MONSTER_ACT2GUARD4, SEED_RollRandomNumber_Inline(&pQuestArg->pPlayer->pSeed) % 3 + 2);
 }
 
+// 0x0059E2A0
+void __fastcall ACT2Q7_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+}
+
 #define QUESTSTATEFLAG_A1Q1 1
 
 #define QUESTSTATEFLAG_A2Q4 12
