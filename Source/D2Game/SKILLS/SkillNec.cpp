@@ -637,6 +637,39 @@ int __fastcall SKILLS_SrvSt17_Poison_CorpseExplosion(D2GameStrc* pGame, D2UnitSt
     return D2COMMON_11021(pTarget);
 }
 
+int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
+
+// 0x005C31F0
+int __fastcall SKILLS_IsValidAttractTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+{
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    if (STATLIST_GetUnitAlignment(pTarget) != 0)
+    {
+        return 0;
+    }
+
+    if (!SKILLS_CanSwitchAi(pTarget, 19))
+    {
+        return 0;
+    }
+
+    if (SUNIT_IsDead(pTarget))
+    {
+        return 0;
+    }
+
+    if (DUNGEON_IsRoomInTown(UNITS_GetRoom(pTarget)))
+    {
+        return 0;
+    }
+
+    return SUNIT_AreUnitsHostile(pGame, pUnit, pTarget) != 0;
+}
+
 // 0x005C3260
 int __fastcall SKILLS_SrvSt18_Attract(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -748,6 +781,37 @@ int __fastcall SKILLS_SrvSt21_Revive(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
         return 0;
     }
     return sub_005C3300_CanReviveTarget(pTarget);
+}
+
+void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int nAiSpecialState); // 0x005B0E00
+
+void __fastcall SKILLS_RemoveStateAndRefreshPassives(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x0056E900
+
+inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit)
+{
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
+    {
+        return pUnit->pMonsterData->pAiControl;
+    }
+
+    return 0;
+}
+
+// 0x005C3370
+void __fastcall SKILLS_CurseStateCallback_ResetAi(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
+{
+    if (pUnit)
+    {
+        SUNITEVENT_Unregister(SUNIT_GetGameFromUnit(pUnit), pUnit, 1, nState);
+
+        const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+        if (nType == 1)
+        {
+            AITHINK_ExecuteAiFn(SUNIT_GetGameFromUnit(pUnit), pUnit, AIGENERAL_GetAiControlFromUnit(pUnit), 0);
+        }
+
+        SKILLS_RemoveStateAndRefreshPassives(pUnit, nState, pStatList);
+    }
 }
 
 // 0x005C33D0
@@ -1186,6 +1250,33 @@ int __fastcall SKILLS_SrvDo059_Attract(D2GameStrc* pGame, D2UnitStrc* pUnit, int
     curse.pStateRemoveCallback = SKILLS_CurseStateCallback_EndAttract;
     SKILLS_ApplyStateEffect(&curse);
     return 1;
+}
+
+// 0x005C3D50
+int __fastcall SKILLS_IsValidTerrorTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+{
+    const int nType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
+    if (nType != 1)
+    {
+        return 0;
+    }
+
+    if (STATLIST_GetUnitAlignment(pTarget) != 0)
+    {
+        return 0;
+    }
+
+    if (!SUNIT_AreUnitsHostile(pGame, pUnit, pTarget))
+    {
+        return 0;
+    }
+
+    if (SUNIT_IsDead(pTarget))
+    {
+        return 0;
+    }
+
+    return SKILLS_CanSwitchAi(pTarget, 11) != 0;
 }
 
 // 0x005C3B30

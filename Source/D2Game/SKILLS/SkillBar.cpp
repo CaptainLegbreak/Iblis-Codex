@@ -458,6 +458,41 @@ int __fastcall SKILLS_SrvDo070_DoubleSwing(D2GameStrc* pGame, D2UnitStrc* pUnit,
     return 1;
 }
 
+int __fastcall SKILLS_CanSwitchAi(D2UnitStrc* pUnit, int nAiSpecialState); // 0x0056E2F0
+
+void __fastcall AIGENERAL_GetOwnerData(D2UnitStrc* pUnit, int* pOwnerGUID, int* pOwnerType); // 0x0058F090
+
+// 0x005D8510
+int __fastcall SKILLS_Callback_FindTargetForTaunt(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nType != 1)
+    {
+        return 0;
+    }
+
+    if (!SKILLS_CanSwitchAi(pUnit, 12))
+    {
+        return 0;
+    }
+
+    if (SUNIT_IsDead(pUnit))
+    {
+        return 0;
+    }
+
+    int nOwnerGUID;
+    int nOwnerType;
+    AIGENERAL_GetOwnerData(pUnit, &nOwnerGUID, &nOwnerType);
+
+    if (nOwnerGUID != -1 && nOwnerType == 0)
+    {
+        return 0;
+    }
+
+    return 1;
+}
+
 void __fastcall AITHINK_SetAiControlParams(D2AiControlStrc* pAiControl, int nParam0, int nParam1, int nParam2); // 0x005B0D70
 void __fastcall AIUTIL_SetOwnerGUIDAndType(D2UnitStrc* pUnit, D2UnitStrc* pOwner);                          // 0x005DD330
 int __fastcall SKILLS_AuraCallback_ApplyCurse(D2UnitStrc* pUnit, D2UnkNecSkillStrc* pArgs); // 0x005C35C0

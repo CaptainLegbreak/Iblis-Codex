@@ -2404,6 +2404,12 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x0A_ShiftLeftSkillOnUnitHold_6FC83D40(D
     return 0;
 }
 
+// 0x00549FA0
+int __fastcall D2GAME_PACKETCALLBACK_Rcv0x0B_6FC83EE0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
+{
+    return nSize != 1 ? 3 : 0;
+}
+
 // 0x00549FC0
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x0C_RightSkill_6FC83EF0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
@@ -2821,6 +2827,24 @@ void __fastcall PLRMSG_BroadcastEventMessage(D2GameStrc* pGame, D2GSPacketSrv5A*
     }
     if (i < 16)
         GAME_ForEachIngameClient(pGame, j_D2GAME_SendPacket0x5A_6FC3DEC0, pPacket);
+}
+
+// 0x0054AA90
+int __fastcall D2GAME_PACKETCALLBACK_Rcv0x13_InteractWithEntity_6FC84D70(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
+{
+    if (nSize != 9)
+    {
+        return 3;
+    }
+
+    const unsigned int nUnitType = *(unsigned int*)((char*)pPacket + 1);
+    const int nUnitGUID = *(int*)((char*)pPacket + 5);
+    if (nUnitType >= 6)
+    {
+        return 2;
+    }
+
+    return PLRMSG_InteractWithUnit(pUnit, nUnitType, nUnitGUID, 0, pGame);
 }
 
 // 0x0054AAD0
@@ -3635,6 +3659,12 @@ void __fastcall D2GAME_PlayerChangeAct_6FC867C0(D2GameStrc* pGame, D2UnitStrc* p
     }
 }
 
+// 0x0054B920
+int __stdcall D2GAME_PACKETCALLBACK_Rcv0x2E_Ignored(int nUnused1, int nUnused2)
+{
+    return 0;
+}
+
 // 0x0054B930
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x2F_InitEntityChat_6FC868C0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
@@ -3728,15 +3758,36 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x35_Repair_6FC86B70(D2GameStrc* pGame, 
     return 0;
 }
 
-// 0x0054BBD0
-int __fastcall D2GAME_PACKETCALLBACK_Rcv0x36_HireMerc_6FC86BD0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
+void __fastcall D2GAME_NPC_IdentifyAllItems_6FCC9C90(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nNpcGUID); // 0x00578460
+
+// 0x0054BBA0
+int __fastcall D2GAME_PACKETCALLBACK_Rcv0x34_IdentifyItemsWithNpc_6FC86BA0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
-    if (nSize != 9)
+    if (nSize != 5)
     {
         return 3;
     }
 
-    D2GAME_NPC_HireMerc_6FCC9540(pGame, pUnit, *(int*)((char*)pPacket + 1), *(unsigned short*)((char*)pPacket + 5));
+    D2GAME_NPC_IdentifyAllItems_6FCC9C90(pGame, pUnit, *(int*)((char*)pPacket + 1));
+    return 0;
+}
+
+void __fastcall D2GAME_NPC_ResurrectMerc_6FCC9350(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nNpcUnitId); // 0x00579C00
+
+// 0x0054BC00
+int __fastcall D2GAME_PACKETCALLBACK_Rcv0x62_ResurrectMerc_6FC86C00(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
+{
+    if (!pGame->bExpansion)
+    {
+        return 3;
+    }
+
+    if (nSize != 5)
+    {
+        return 3;
+    }
+
+    D2GAME_NPC_ResurrectMerc_6FCC9350(pGame, pUnit, *(int*)((char*)pPacket + 1));
     return 0;
 }
 
@@ -4219,6 +4270,25 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x47_MoveMerc_6FC87CE0(D2GameStrc* pGame
     return 0;
 }
 
+void __fastcall PLAYER_ResetBusyState(D2UnitStrc* pUnit); // 0x005350B0
+
+// 0x0054C590
+int __fastcall D2GAME_PACKETCALLBACK_Rcv0x48_TurnOffBusyState_6FC87E20(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
+{
+    if (nSize != 1)
+    {
+        return 3;
+    }
+
+    if (!UNITS_GetPlayerData(pUnit)->bBusy)
+    {
+        return 2;
+    }
+
+    PLAYER_ResetBusyState(pUnit);
+    return 0;
+}
+
 // 0x0054C5D0
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x49_TakeOrCloseWp_6FC87E60(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char* pPacket, int nSize)
 {
@@ -4251,6 +4321,26 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x49_TakeOrCloseWp_6FC87E60(D2GameStrc* 
     }
 
     OBJMODE_TravelViaWaypoint(pGame, pUnit, nWaypointGUID, nLevelId);
+    return 0;
+}
+
+void __fastcall PLRINTRO_MaskNpcIntroFlag(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nNpcId); // 0x005724C0
+
+// 0x0054C690
+int __fastcall D2GAME_PACKETCALLBACK_Rcv0x4D_PlayNpcMessage_6FC880A0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
+{
+    if (nSize != 3)
+    {
+        return 3;
+    }
+
+    const int nMonsterId = *(unsigned short*)((char*)pPacket + 1);
+    if (nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return 2;
+    }
+
+    PLRINTRO_MaskNpcIntroFlag(pGame, pUnit, nMonsterId);
     return 0;
 }
 
@@ -4403,6 +4493,22 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x53_TurnStaminaOn_6FC88340(D2GameStrc* 
         {
             UNITS_ChangeAnimMode(pUnit, PLRMODE_RUN);
         }
+    }
+
+    return 0;
+}
+
+// 0x0054C990
+int __fastcall D2GAME_PACKETCALLBACK_Rcv0x54_TurnStaminaOff_6FC88380(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
+{
+    if (nSize != 1)
+    {
+        return 3;
+    }
+
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode == PLRMODE_RUN)
+    {
+        UNITS_ChangeAnimMode(pUnit, PLRMODE_WALK);
     }
 
     return 0;
@@ -5037,6 +5143,12 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x63_ShiftLeftClickItemToBelt_6FC88F80(D
         UNITS_RefreshInventory(pUnit, 1);
     }
 
+    return 0;
+}
+
+// 0x0054D740
+int __stdcall D2GAME_PACKETCALLBACK_Rcv0x66_Ignored(int nUnused1, int nUnused2)
+{
     return 0;
 }
 
