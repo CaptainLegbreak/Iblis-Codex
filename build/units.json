@@ -736,6 +736,56 @@
      "name": "ERRORMANAGER_RaiseErrorReport"
     },
     {
+     "va": "0x00408A30",
+     "length": 42,
+     "name": "FOG_DisplayAssert"
+    },
+    {
+     "va": "0x00408A90",
+     "length": 42,
+     "name": "FOG_DisplayWarning"
+    },
+    {
+     "va": "0x00408AC0",
+     "length": 43,
+     "name": "ERRORMANAGER_DisplayDeadlock"
+    },
+    {
+     "va": "0x00408AF0",
+     "length": 44,
+     "name": "FOG_DisplayError"
+    },
+    {
+     "va": "0x00408B20",
+     "length": 445,
+     "name": "?ERRORMANAGER_ShowErrorBox@@YIXHPBDH0PAD@Z"
+    },
+    {
+     "va": "0x00408F20",
+     "length": 219,
+     "name": "?FOG_IsExpansion@@YAHXZ"
+    },
+    {
+     "va": "0x00409000",
+     "length": 32,
+     "name": "?ERRORMANAGER_GetBitWidth@@YIHI@Z"
+    },
+    {
+     "va": "0x004091B0",
+     "length": 69,
+     "name": "?ERRORMANAGER_GetPoolIndex@@YAHH@Z"
+    },
+    {
+     "va": "0x00409200",
+     "length": 21,
+     "name": "?ERRORMANAGER_GetPoolBlockSize@@YAHH@Z"
+    },
+    {
+     "va": "0x004095D0",
+     "length": 1,
+     "name": "?sub_004095D0_Nop@@YAXXZ"
+    },
+    {
      "va": "0x00409770",
      "length": 158,
      "name": "ERRORMANAGER_PoolAllocLarge"
@@ -744,6 +794,16 @@
      "va": "0x00409810",
      "length": 153,
      "name": "ERRORMANAGER_PoolFreeLarge"
+    },
+    {
+     "va": "0x004099C0",
+     "length": 10,
+     "name": "?ERRORMANAGER_GetPoolSystem@@YAPAUD2PoolSystemStrc@@PAU1@@Z"
+    },
+    {
+     "va": "0x00409C70",
+     "length": 1,
+     "name": "?sub_00409C70_Nop@@YAXXZ"
     },
     {
      "va": "0x0040B1B0",
@@ -804,6 +864,36 @@
      "va": "0x0040E870",
      "length": 226,
      "name": "ERRORMANAGER_MeasureCpuMHz"
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHa"
+   ]
+  },
+  {
+   "file": "Source/Fog/Src/ErrorManager_00408A60.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00408A60",
+     "length": 42,
+     "name": "_sub_00408A60"
+    },
+    {
+     "va": "0x00408CE0",
+     "length": 571,
+     "name": "?FOG_InitErrorMgr@@YIXPBD0H@Z"
     }
    ],
    "flags": [
@@ -3373,96 +3463,6 @@
      "length": 154,
      "name": "sub_00411320_CapitalizeWords"
     }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/ErrorManager_00408A60.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00408A30",
-     "length": 42,
-     "name": "FOG_DisplayAssert"
-    },
-    {
-     "va": "0x00408A60",
-     "length": 42,
-     "name": "_sub_00408A60"
-    },
-    {
-     "va": "0x00408A90",
-     "length": 42,
-     "name": "FOG_DisplayWarning"
-    },
-    {
-     "va": "0x00408AC0",
-     "length": 43,
-     "name": "ERRORMANAGER_DisplayDeadlock"
-    },
-    {
-     "va": "0x00408AF0",
-     "length": 44,
-     "name": "FOG_DisplayError"
-    },
-    {
-     "va": "0x00408B20",
-     "length": 445,
-     "name": "?ERRORMANAGER_ShowErrorBox@@YIXHPBDH0PAD@Z"
-    },
-    {
-     "va": "0x00408CE0",
-     "length": 571,
-     "name": "?FOG_InitErrorMgr@@YIXPBD0H@Z"
-    },
-    {
-     "va": "0x00408F20",
-     "length": 219,
-     "name": "?FOG_IsExpansion@@YAHXZ"
-    },
-    {
-     "va": "0x00409000",
-     "length": 32,
-     "name": "?ERRORMANAGER_GetBitWidth@@YIHI@Z"
-    },
-    {
-     "va": "0x004091B0",
-     "length": 69,
-     "name": "?ERRORMANAGER_GetPoolIndex@@YAHH@Z"
-    },
-    {
-     "va": "0x00409200",
-     "length": 21,
-     "name": "?ERRORMANAGER_GetPoolBlockSize@@YAHH@Z"
-    },
-    {
-     "va": "0x004095D0",
-     "length": 1,
-     "name": "?sub_004095D0_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x004099C0",
-     "length": 10,
-     "name": "?ERRORMANAGER_GetPoolSystem@@YAPAUD2PoolSystemStrc@@PAU1@@Z"
-    },
-    {
-     "va": "0x00409C70",
-     "length": 1,
-     "name": "?sub_00409C70_Nop@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHa"
    ]
   },
   {
