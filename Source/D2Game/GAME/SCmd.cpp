@@ -647,7 +647,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x68_6FC3CA90(D2ClientStrc* pClient, un
     int nVelocity = STATLIST_UnitGetStatValue(pMonster, STAT_VELOCITYPERCENT, 0);
     nVelocity = D2_MIN(D2_MAX(nVelocity, -32768), 32767);
     packet68.nVelocity = nVelocity;
-    packet68.unk0x14 = PATH_GetMaxDistance(pPath);
+    packet68.nMaxDistance = PATH_GetMaxDistance(pPath);
     D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet68, sizeof(packet68));
 }
 
@@ -691,7 +691,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x67_6FC3CBC0(D2ClientStrc* pClient, un
     int nVelocity = STATLIST_UnitGetStatValue(pMonster, STAT_VELOCITYPERCENT, 0);
     nVelocity = D2_MIN(D2_MAX(nVelocity, -32768), 32767);
     packet67.nVelocity = nVelocity;
-    packet67.unk0x0F = PATH_GetMaxDistance(pPath);
+    packet67.nMaxDistance = PATH_GetMaxDistance(pPath);
     D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet67, sizeof(packet67));
 }
 
@@ -726,7 +726,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x68_6FC3CCB0(D2ClientStrc* pClient, un
     int nVelocity = STATLIST_UnitGetStatValue(pMonster, STAT_VELOCITYPERCENT, 0);
     nVelocity = D2_MIN(D2_MAX(nVelocity, -32768), 32767);
     packet68.nVelocity = nVelocity;
-    packet68.unk0x14 = a8;
+    packet68.nMaxDistance = a8;
     D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet68, sizeof(packet68));
 }
 
@@ -771,7 +771,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x67_6FC3CDE0(D2ClientStrc* pClient, un
     int nVelocity = STATLIST_UnitGetStatValue(pMonster, STAT_VELOCITYPERCENT, 0);
     nVelocity = D2_MIN(D2_MAX(nVelocity, -32768), 32767);
     packet67.nVelocity = nVelocity;
-    packet67.unk0x0F = a8;
+    packet67.nMaxDistance = a8;
     D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet67, sizeof(packet67));
 }
 
@@ -847,10 +847,10 @@ void __fastcall D2GAME_PACKETS_SendPacket0x6D_6FC3D080(D2ClientStrc* pClient, un
     D2GSPacketSrv6D packet6D = {};
 
     packet6D.nHeader = 0x6D;
-    packet6D.unk0x01 = dwUnitId;
-    packet6D.unk0x05 = nX;
-    packet6D.unk0x07 = nY;
-    packet6D.unk0x09 = nUnitLife;
+    packet6D.nUnitGUID = dwUnitId;
+    packet6D.nX = nX;
+    packet6D.nY = nY;
+    packet6D.nLife = nUnitLife;
 
     D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet6D, sizeof(packet6D));
 }
@@ -1449,10 +1449,10 @@ void __fastcall D2GAME_PACKETS_SendPacket0x7A_6FC3E100(D2ClientStrc* pClient, ch
 
     packet7A.nHeader = 0x7A;
     packet7A.unk0x01 = a2;
-    packet7A.unk0x02 = nPetType;
-    packet7A.unk0x03 = nPetClass;
-    packet7A.unk0x09 = nPetGUID;
-    packet7A.unk0x05 = nUnitGUID;
+    packet7A.nPetType = nPetType;
+    packet7A.nPetClass = nPetClass;
+    packet7A.nPetGUID = nPetGUID;
+    packet7A.nUnitGUID = nUnitGUID;
 
     D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet7A, sizeof(packet7A));
 }
@@ -1463,12 +1463,12 @@ void __fastcall D2GAME_PACKETS_SendPacket0x81_6FC3E160(D2ClientStrc* pClient, ch
     D2GSPacketSrv81 packet81 = {};
 
     packet81.nHeader = 0x81;
-    packet81.unk0x01 = nPetType;
-    packet81.unk0x08 = nPetGUID;
-    packet81.unk0x04 = nUnitGUID;
-    packet81.unk0x02 = nPetClass;
-    packet81.unk0x0C = nSeed;
-    packet81.unk0x10 = nName;
+    packet81.nPetType = nPetType;
+    packet81.nPetGUID = nPetGUID;
+    packet81.nUnitGUID = nUnitGUID;
+    packet81.nPetClass = nPetClass;
+    packet81.nSeed = nSeed;
+    packet81.nName = nName;
 
     D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet81, sizeof(packet81));
 }
@@ -2364,7 +2364,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x11_6FC3F4A0(D2ClientStrc* pClient, in
     packet11.nHeader = 0x11;
     packet11.nUnitType = nUnitType;
     packet11.dwUnitGUID = nUnitGUID;
-    packet11.unk0x06 = nOverlay;
+    packet11.wOverlay = nOverlay;
 
     D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet11, sizeof(packet11));
 }
