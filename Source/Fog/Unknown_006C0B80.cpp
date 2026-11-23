@@ -6,7 +6,6 @@ union FOGASTNodeStrc;
 struct D2CalcCallbackInfoStrc;
 struct FOGExpressionParserContextStrc;
 struct D2CriticalSectionStrc;
-struct D2LockedListStrc;
 
 struct D2ValueBufferStrc { int values[64]; int count; };
 
@@ -90,16 +89,6 @@ static const char* __stdcall DATATABLS_ParseExpressionToken(FOGExpressionParserC
 FOGASTNodeStrc* __stdcall DATATBLS_Evaluate_HandleNewOp(FOGASTNodeStrc* pASTBufferPos, FOGASTNodeStrc* pASTBufferStart, int nASTBufferSize, FOGExpressionParserContextStrc* pContext, unsigned char nNewASTType, CalcGetFunctionParameterCount_t pfnGetFunctionParametersCount, int nTokenAssociatedValue); // 0x006C18A0
 
 #include "D2SysTypes.h"
-
-extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pCriticalSection);
-
-struct D2LockedListStrc
-{
-    int nCount00;
-    D2CriticalSectionStrc tLock;
-    int nValue1C;
-    int nValue20;
-};
 
 // 0x006C0B80
 static inline void sub_006C0B80_AppendValue(D2ValueBufferStrc* buffer, int value)
@@ -484,13 +473,4 @@ int __stdcall DATATBLS_CompileExpression(const char* szFormulaString, FOGASTNode
 Error:
     pOutASTBuffer->nType = 0;
     return 0;
-}
-
-// 0x006C1F60
-void __fastcall sub_006C1F60_InitLockedList(D2LockedListStrc* pList)
-{
-    pList->nValue1C = 0;
-    pList->nValue20 = 0;
-    pList->nCount00 = 0;
-    InitializeCriticalSection(&pList->tLock);
 }
