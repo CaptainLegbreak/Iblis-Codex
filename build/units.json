@@ -10665,6 +10665,11 @@
      "name": "?0D2StormListAStrc"
     },
     {
+     "va": "0x0044F820",
+     "length": 106,
+     "name": "??1D2SGameDataStrc@@QAE@XZ"
+    },
+    {
      "va": "0x0044F890",
      "length": 72,
      "name": "sub_0044F890_sub_006C4290"
@@ -15527,11 +15532,6 @@
    "file": "Source/D2Client/GAME/Game_0044F8E0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0044F820",
-     "length": 106,
-     "name": "??1D2SGameDataStrc@@QAE@XZ"
-    },
     {
      "va": "0x0044F8E0",
      "length": 66,
@@ -25267,17 +25267,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/text_004BE080.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BE080",
-     "length": 7,
-     "name": "??1UIWidget@@UAE@XZ"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/inv_00491D20.cpp",
    "rank": 1,
    "functions": [
@@ -30449,6 +30438,11 @@
      "va": "0x004BC450",
      "length": 43,
      "name": "?_GSpinnerImplementation"
+    },
+    {
+     "va": "0x004BE080",
+     "length": 7,
+     "name": "??1UIWidget@@UAE@XZ"
     },
     {
      "va": "0x004BE810",
@@ -43747,6 +43741,11 @@
      "name": "sub_0052BFA0"
     },
     {
+     "va": "0x0052C030",
+     "length": 48,
+     "name": "?GAME_Shutdown@@YGHXZ"
+    },
+    {
      "va": "0x0052C060",
      "length": 55,
      "name": "?GAME_GetGameGUIDFromGameId@@YIHG@Z"
@@ -46569,17 +46568,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_0052C030.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052C030",
-     "length": 48,
-     "name": "?GAME_Shutdown@@YGHXZ"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/GAME/Game_0052C170.cpp",
    "rank": 1,
    "functions": [
@@ -47275,17 +47263,15 @@
     {
      "va": "0x005DF530",
      "length": 326
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00530F40.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
-     "va": "0x00530F40",
-     "length": 255,
-     "name": "?PLRSAVE_CreateItemFromSavedData@@YAPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2SavedItemStrc@@@Z"
+     "va": "0x005DF7D0",
+     "length": 114
+    },
+    {
+     "va": "0x005DF850",
+     "length": 308,
+     "name": "?AITACTICS_UseSkillInRange@@YIXPAUD2UnitStrc@@HHE@Z"
     }
    ]
   },
@@ -47293,6 +47279,11 @@
    "file": "Source/D2Game/PLAYER/PlrSave.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00530F40",
+     "length": 255,
+     "name": "?PLRSAVE_CreateItemFromSavedData@@YAPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2SavedItemStrc@@@Z"
+    },
     {
      "va": "0x00531040",
      "length": 452
@@ -49597,20 +49588,14 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_0053F470.cpp",
+   "file": "Source/D2Game/GAME/Arena.cpp",
    "rank": 0,
    "functions": [
     {
      "va": "0x0053F470",
      "length": 57,
      "name": "?sub_0053F470_ArenaHasFlag@@YGHPAUD2GameStrc@@I@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Arena.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0053F4B0",
      "length": 67,
@@ -56128,11 +56113,6 @@
      "name": "ACT5Q3_GetDrehyaPortalCoordinates"
     },
     {
-     "va": "0x0058ABC0",
-     "length": 448,
-     "name": "OBJECTS_OperateFunction67_FrozenAnya"
-    },
-    {
      "va": "0x0058AD80",
      "length": 134,
      "name": "ACT5Q3_ChangeDrehyaMapAI"
@@ -56504,6 +56484,11 @@
      "name": "?ACT5Q3_SpawnDrehyaIcedMonsterOutsideTown@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
     },
     {
+     "va": "0x0058ABC0",
+     "length": 448,
+     "name": "OBJECTS_OperateFunction67_FrozenAnya"
+    },
+    {
      "va": "0x0058BC00",
      "length": 49,
      "name": "?ACT5Q4_SetRewardGranted@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -56702,11 +56687,6 @@
      "name": "ACT1Q2_UnitIterate_SetRewardPending"
     },
     {
-     "va": "0x00591AC0",
-     "length": 367,
-     "name": "OBJECTS_OperateFunction21_HoradrimMalus"
-    },
-    {
      "va": "0x00591C30",
      "length": 112,
      "name": "ACT1Q3_ActiveFilterCallback"
@@ -56725,11 +56705,6 @@
      "va": "0x00594450",
      "length": 87,
      "name": "ACT1Q4_GetCainPortalOutsideTownCoordinates"
-    },
-    {
-     "va": "0x00595160",
-     "length": 218,
-     "name": "ACT1Q5_UpdateCountessQuestState"
     }
    ]
   },
@@ -57582,6 +57557,11 @@
      "name": "?ACT1Q3_Callback06_MalusRemoved@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
+     "va": "0x00591AC0",
+     "length": 367,
+     "name": "OBJECTS_OperateFunction21_HoradrimMalus"
+    },
+    {
      "va": "0x00591CA0",
      "length": 47
     },
@@ -57805,16 +57785,6 @@
      "name": "ACT2Q1_Callback00_NpcActivate"
     },
     {
-     "va": "0x00599020",
-     "length": 272,
-     "name": "ACT2Q1_Callback08_MonsterKilled"
-    },
-    {
-     "va": "0x00599420",
-     "length": 196,
-     "name": "ACT2Q1_OnRadamentActivated"
-    },
-    {
      "va": "0x005997F0",
      "length": 280,
      "name": "ACT2Q2_Callback11_ScrollMessage"
@@ -57828,11 +57798,6 @@
      "va": "0x0059B530",
      "length": 297,
      "name": "ACT2Q4_Callback13_PlayerStartedGame"
-    },
-    {
-     "va": "0x0059D1C0",
-     "length": 313,
-     "name": "ACT2Q6_Callback03_ChangedLevel"
     },
     {
      "va": "0x0059D720",
@@ -58217,6 +58182,11 @@
      "name": "?ACT1Q5_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
+     "va": "0x00595160",
+     "length": 218,
+     "name": "ACT1Q5_UpdateCountessQuestState"
+    },
+    {
      "va": "0x00595240",
      "length": 113,
      "name": "?ACT1Q5_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
@@ -58368,6 +58338,11 @@
     {
      "va": "0x0059D050",
      "length": 359
+    },
+    {
+     "va": "0x0059D1C0",
+     "length": 313,
+     "name": "ACT2Q6_Callback03_ChangedLevel"
     },
     {
      "va": "0x0059D450",
@@ -58733,6 +58708,11 @@
      "name": "?ACT2Q1_UnitIterate_DetermineSkillBookDropCount@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x00599020",
+     "length": 272,
+     "name": "ACT2Q1_Callback08_MonsterKilled"
+    },
+    {
      "va": "0x00599130",
      "length": 124,
      "name": "?ACT2Q1_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
@@ -58751,6 +58731,11 @@
      "va": "0x00599340",
      "length": 210,
      "name": "?ACT2Q1_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x00599420",
+     "length": 196,
+     "name": "ACT2Q1_OnRadamentActivated"
     }
    ]
   },
@@ -59303,11 +59288,6 @@
      "va": "0x005A01B0",
      "length": 43,
      "name": "MONSTERUNIQUE_ToggleMonTypeFlag"
-    },
-    {
-     "va": "0x005A1600",
-     "length": 72,
-     "name": "MONSTERUNIQUE_UMod26_Teleport"
     },
     {
      "va": "0x005A2100",
@@ -60064,16 +60044,6 @@
      "name": "?AITHINK_ExecuteMonsterAiTick@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
-     "va": "0x005B23C0",
-     "length": 204,
-     "name": "MONSTERSPAWN_SpawnAtUnit"
-    },
-    {
-     "va": "0x005B2F70",
-     "length": 207,
-     "name": "MONSTERSPAWN_SpawnAtUnitInCoordList"
-    },
-    {
      "va": "0x005B3750",
      "length": 40,
      "name": "ACT4Q0_ActiveFilterCallback"
@@ -60185,8 +60155,43 @@
      "name": "MISSILES_Initialize"
     },
     {
+     "va": "0x005A0280",
+     "length": 91,
+     "name": "?sub_005A0280_GetChampionUMod@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A02E0",
+     "length": 58,
+     "name": "?sub_005A02E0_AddUMod@@YGXHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A0320",
+     "length": 94,
+     "name": "?sub_005A0320_MarkUnique@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A0500",
+     "length": 249,
+     "name": "?sub_005A0500_RollChampionUMod@@YAHPAUD2UnitStrc@@PAUD2GameStrc@@@Z"
+    },
+    {
      "va": "0x005A0760",
      "length": 451
+    },
+    {
+     "va": "0x005A09E0",
+     "length": 457,
+     "name": "?MONSTERUNIQUE_SpawnUniqueMonster@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@HHHHH@Z"
+    },
+    {
+     "va": "0x005A0BB0",
+     "length": 69,
+     "name": "?sub_005A0BB0_GetMinionId@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A0C00",
+     "length": 220,
+     "name": "?sub_005A0C00_SpawnMinionGroup@@YGXPAUD2GameStrc@@PAUD2RoomCoordListStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005A11F0",
@@ -60196,6 +60201,11 @@
     {
      "va": "0x005A1370",
      "length": 642
+    },
+    {
+     "va": "0x005A1600",
+     "length": 72,
+     "name": "MONSTERUNIQUE_UMod26_Teleport"
     },
     {
      "va": "0x005A1650",
@@ -60208,6 +60218,11 @@
     {
      "va": "0x005A1910",
      "length": 121
+    },
+    {
+     "va": "0x005A2120",
+     "length": 173,
+     "name": "?MONSTERUNIQUE_SpawnMinions@@YGXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@PAUD2UnitStrc@@HHH@Z"
     },
     {
      "va": "0x005A21D0",
@@ -60230,6 +60245,11 @@
      "va": "0x005A2840",
      "length": 199,
      "name": "MONSTERUNIQUE_CastCorpseExplode2"
+    },
+    {
+     "va": "0x005A2910",
+     "length": 134,
+     "name": "MONSTERUNIQUE_CastNova"
     },
     {
      "va": "0x005A29A0",
@@ -60330,13 +60350,32 @@
      "name": "?MONSTERUNIQUE_SetTrapDamage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005A3E70",
+     "length": 119,
+     "name": "MONSTERUNIQUE_SuicideModeChange"
+    },
+    {
      "va": "0x005A3EF0",
      "length": 773,
      "name": "?MONSTERUNIQUE_CastSuicideExplodeMissile@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005A43E0",
+     "length": 90,
+     "name": "?MONSTERUNIQUE_SpawnUniqueGroup@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@HHGGH@Z"
+    },
+    {
      "va": "0x005A4440",
      "length": 663
+    },
+    {
+     "va": "0x005A4850",
+     "length": 105,
+     "name": "?D2GAME_BOSSES_AssignUMod_6FC6FF10@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005A4940",
+     "length": 109
     },
     {
      "va": "0x005A6000",
@@ -60522,67 +60561,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005A0280.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A0280",
-     "length": 91,
-     "name": "?sub_005A0280_GetChampionUMod@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A02E0",
-     "length": 58,
-     "name": "?sub_005A02E0_AddUMod@@YGXHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A0320",
-     "length": 94,
-     "name": "?sub_005A0320_MarkUnique@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A0500",
-     "length": 249,
-     "name": "?sub_005A0500_RollChampionUMod@@YAHPAUD2UnitStrc@@PAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x005A09E0",
-     "length": 457,
-     "name": "?MONSTERUNIQUE_SpawnUniqueMonster@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@HHHHH@Z"
-    },
-    {
-     "va": "0x005A0BB0",
-     "length": 69,
-     "name": "?sub_005A0BB0_GetMinionId@@YAHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A0C00",
-     "length": 220,
-     "name": "?sub_005A0C00_SpawnMinionGroup@@YGXPAUD2GameStrc@@PAUD2RoomCoordListStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005A2120",
-     "length": 173,
-     "name": "?MONSTERUNIQUE_SpawnMinions@@YGXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@PAUD2UnitStrc@@HHH@Z"
-    },
-    {
-     "va": "0x005A43E0",
-     "length": 90,
-     "name": "?MONSTERUNIQUE_SpawnUniqueGroup@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@HHGGH@Z"
-    },
-    {
-     "va": "0x005A4850",
-     "length": 105,
-     "name": "?D2GAME_BOSSES_AssignUMod_6FC6FF10@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005A48C0",
-     "length": 120,
-     "name": "?MONSTERUNIQUE_PromoteToChampion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@E@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_005A0380.cpp",
    "rank": 1,
    "functions": [
@@ -60683,16 +60661,6 @@
      "va": "0x005A1F90",
      "length": 362,
      "name": "MONSTERUNIQUE_UMod25_ManaSteal"
-    },
-    {
-     "va": "0x005A2910",
-     "length": 134,
-     "name": "MONSTERUNIQUE_CastNova"
-    },
-    {
-     "va": "0x005A3E70",
-     "length": 119,
-     "name": "MONSTERUNIQUE_SuicideModeChange"
     },
     {
      "va": "0x005A5650",
@@ -61149,19 +61117,14 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005A4940.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A4940",
-     "length": 109
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
    "rank": 1,
    "functions": [
+    {
+     "va": "0x005A48C0",
+     "length": 120,
+     "name": "?MONSTERUNIQUE_PromoteToChampion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@E@Z"
+    },
     {
      "va": "0x005A49B0",
      "length": 1325
@@ -62810,21 +62773,6 @@
     {
      "va": "0x005B1C00",
      "length": 65
-    },
-    {
-     "va": "0x005B1CF0",
-     "length": 1202,
-     "name": "?MONSTERSPAWN_SetupBossMods@@YAXPAUD2MonsterSpawnParamsStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005B21B0",
-     "length": 513,
-     "name": "?MONSTERSPAWN_SetupNormalMods@@YAXPAUD2UnkMonCreateStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005B2490",
-     "length": 74,
-     "name": "sub_6FC6A150"
     }
    ]
   },
@@ -62853,9 +62801,29 @@
    ]
   },
   {
-   "file": "Source/D2Game/Quests/a4q1.cpp",
+   "file": "Source/D2Game/Unknown_005B24E0.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x005B1CF0",
+     "length": 1202,
+     "name": "?MONSTERSPAWN_SetupBossMods@@YAXPAUD2MonsterSpawnParamsStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005B21B0",
+     "length": 513,
+     "name": "?MONSTERSPAWN_SetupNormalMods@@YAXPAUD2UnkMonCreateStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005B23C0",
+     "length": 204,
+     "name": "MONSTERSPAWN_SpawnAtUnit"
+    },
+    {
+     "va": "0x005B2490",
+     "length": 74,
+     "name": "sub_6FC6A150"
+    },
     {
      "va": "0x005B24E0",
      "length": 135,
@@ -62873,6 +62841,15 @@
     {
      "va": "0x005B2A00",
      "length": 1300
+    },
+    {
+     "va": "0x005B2F20",
+     "length": 74
+    },
+    {
+     "va": "0x005B2F70",
+     "length": 207,
+     "name": "MONSTERSPAWN_SpawnAtUnitInCoordList"
     },
     {
      "va": "0x005B3040",
@@ -62910,7 +62887,13 @@
     {
      "va": "0x005B3570",
      "length": 291
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Quests/a4q1.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x005B36A0",
      "length": 48,
@@ -63112,16 +63095,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Quests/a4q1_005B2F20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005B2F20",
-     "length": 74
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Quests/a4q2.cpp",
    "rank": 0,
    "functions": [
@@ -63273,6 +63246,31 @@
      "va": "0x005B6930",
      "length": 1,
      "name": "?ACT4Q3_OnSoulstonesDropped@@YIXPAUD2GameStrc@@H@Z"
+    },
+    {
+     "va": "0x005B69E0",
+     "length": 5,
+     "name": "?ACT3Q7_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
+    },
+    {
+     "va": "0x005B6AD0",
+     "length": 146,
+     "name": "?sub_005B6AD0_ACT4Q2_SpawnSealObject@@YAXPAUD2ObjOperateFnStrc@@PAUD2CoordStrc@@H@Z"
+    },
+    {
+     "va": "0x005B6B70",
+     "length": 73,
+     "name": "?OBJECTS_OperateFunction54_DiabloSeal@@YIHPAUD2ObjOperateFnStrc@@H@Z"
+    },
+    {
+     "va": "0x005B6BC0",
+     "length": 73,
+     "name": "?OBJECTS_OperateFunction55_DiabloSeal@@YIHPAUD2ObjOperateFnStrc@@H@Z"
+    },
+    {
+     "va": "0x005B6C10",
+     "length": 73,
+     "name": "?OBJECTS_OperateFunction56_DiabloSeal@@YIHPAUD2ObjOperateFnStrc@@H@Z"
     },
     {
      "va": "0x005B86E0",
@@ -63456,37 +63454,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005B69E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005B69E0",
-     "length": 5,
-     "name": "?ACT3Q7_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
-    },
-    {
-     "va": "0x005B6AD0",
-     "length": 146,
-     "name": "?sub_005B6AD0_ACT4Q2_SpawnSealObject@@YAXPAUD2ObjOperateFnStrc@@PAUD2CoordStrc@@H@Z"
-    },
-    {
-     "va": "0x005B6B70",
-     "length": 73,
-     "name": "?OBJECTS_OperateFunction54_DiabloSeal@@YIHPAUD2ObjOperateFnStrc@@H@Z"
-    },
-    {
-     "va": "0x005B6BC0",
-     "length": 73,
-     "name": "?OBJECTS_OperateFunction55_DiabloSeal@@YIHPAUD2ObjOperateFnStrc@@H@Z"
-    },
-    {
-     "va": "0x005B6C10",
-     "length": 73,
-     "name": "?OBJECTS_OperateFunction56_DiabloSeal@@YIHPAUD2ObjOperateFnStrc@@H@Z"
-    }
    ]
   },
   {
@@ -64758,6 +64725,11 @@
     {
      "va": "0x005FD350",
      "length": 285
+    },
+    {
+     "va": "0x005FD850",
+     "length": 359,
+     "name": "?SKILLITEM_FindTargetPosition@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005FD9C0",
@@ -66158,16 +66130,6 @@
      "name": "SKILLS_SrvSt37_Zeal_Fury_BloodLordFrenzy"
     },
     {
-     "va": "0x005DB150",
-     "length": 101,
-     "name": "SKILLS_AuraCallback_InnerSight_SlowMissiles"
-    },
-    {
-     "va": "0x005DB1C0",
-     "length": 261,
-     "name": "SKILLS_SrvDo006_InnerSight_SlowMissiles"
-    },
-    {
      "va": "0x005DB6D0",
      "length": 380,
      "name": "SKILLS_SrvDo010_GuidedArrow_BoneSpirit"
@@ -66464,6 +66426,16 @@
      "name": "?SKILLS_SrvSt10_LightningStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005DB150",
+     "length": 101,
+     "name": "SKILLS_AuraCallback_InnerSight_SlowMissiles"
+    },
+    {
+     "va": "0x005DB1C0",
+     "length": 261,
+     "name": "SKILLS_SrvDo006_InnerSight_SlowMissiles"
+    },
+    {
      "va": "0x005DB2D0",
      "length": 315,
      "name": "SKILLS_SrvDo007_Jab"
@@ -66748,15 +66720,6 @@
      "va": "0x005DF680",
      "length": 335,
      "name": "?AITACTICS_RunCloseToTargetUnit@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1E@Z"
-    },
-    {
-     "va": "0x005DF7D0",
-     "length": 114
-    },
-    {
-     "va": "0x005DF850",
-     "length": 308,
-     "name": "?AITACTICS_UseSkillInRange@@YIXPAUD2UnitStrc@@HHE@Z"
     }
    ]
   },
@@ -67099,17 +67062,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005FD850.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005FD850",
-     "length": 359,
-     "name": "?SKILLITEM_FindTargetPosition@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
    ]
   },
   {

@@ -5,6 +5,7 @@
 #include "D2ClientGame.h"
 #include "D2Unicode.h"
 #include "D2ClientUi.h"
+#include "D2ClientSound.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SoundUnitNodeStrc;
@@ -14,7 +15,6 @@ struct D2DialogWidget;
 struct D2DialogWidgetNodeStrc;
 struct D2DialogLineStrc;
 struct D2SoundVecStrc;
-struct D2SoundsTxtStrc;
 struct T00481920;
 struct D2SoundNodeStrc;
 
@@ -63,19 +63,6 @@ struct D2ClientSoundStrc
     char unk0x41[0x18];
 };
 
-struct D2SoundsTxtStrc
-{
-    char unk0x00[0x3C];
-    unsigned char bEnabled;
-    char unk0x3D[8];
-    short nTimeout;
-    int nKind;
-    char unk0x4B[3];
-    unsigned char f_4E;
-    char unk0x4F[0x11];
-    int nGroup;
-};
-
 #pragma pack(pop)
 struct T00481920
 {
@@ -87,7 +74,7 @@ extern D2SoundNodeStrc* gpSoundList_007C5458; // 0x007C5458
 extern int gbClientSoundReady; // 0x007C545C
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl sub_00481820(); // 0x00481820
-D2SoundsTxtStrc* __fastcall sub_00481860(int nId); // 0x00481860
+D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 int __fastcall SOUNDHDR_GetGroupStart(int nId); // 0x00481890
 T00481920* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
 float __fastcall sub_004B93A0_ClampFloat(float fValue, float fMin, float fMax); // 0x004B93A0
@@ -175,13 +162,13 @@ void __fastcall sub_004B8100_DrawDialog(D2ClientDialogStrc* pDialog)
 
 static D2ClientSoundStrc* __stdcall sub_004B9760_FindGroupSound(D2ClientSoundStrc* pExclude, int nSoundId)
 {
-    D2SoundsTxtStrc* pTxt = sub_00481860(nSoundId);
+    D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(nSoundId);
     for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
         D2ClientSoundStrc* pSound = pNode->pSound;
-        if (SOUNDHDR_GetGroupStart(pSound->nSoundId) == pTxt->nGroup && pSound != pExclude && !pSound->bLocked)
+        if (SOUNDHDR_GetGroupStart(pSound->nSoundId) == pTxt->nGroupStart && pSound != pExclude && !pSound->bLocked)
         {
-            if (pTxt->nTimeout < 0 || sub_00481820() - pSound->f_34 <= pTxt->nTimeout)
+            if (pTxt->nCompound < 0 || sub_00481820() - pSound->f_34 <= pTxt->nCompound)
                 return pSound;
         }
     }
@@ -222,13 +209,13 @@ static void __stdcall sub_004B97D0_GetSoundOffset(D2UnitStrc* pUnit, int nSoundI
 
 static float __stdcall sub_004B9890_GetSoundPan(D2UnitStrc* pUnit, int nSoundId)
 {
-    D2SoundsTxtStrc* pTxt = sub_00481860(nSoundId);
+    D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(nSoundId);
     if (pTxt)
     {
-        if (pTxt->nKind == 4)
+        if (pTxt->nFalloff == 4)
             return 0.0f;
 
-        if (pTxt->nGroup == 0xCA)
+        if (pTxt->nGroupStart == 0xCA)
         {
             T00481920* pEnviron = sub_00481920_GetSoundEnvironTxtRecord(sub_004817A0_GetPlayerSoundEnviron());
             if (pEnviron && pEnviron->bFlag)
@@ -264,13 +251,13 @@ int __fastcall sub_004B9A00_PlaySound(int nSoundId, D2UnitStrc* pUnit, int nDela
     if (nSoundId <= 0)
         return 0;
 
-    D2SoundsTxtStrc* pTxt = sub_00481860(nSoundId);
+    D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(nSoundId);
     int nTick = sub_00481820();
-    if (!pTxt->bEnabled)
+    if (!pTxt->nVolume)
         return 0;
 
     D2ClientSoundStrc* pSound = NULL;
-    if (pTxt->nTimeout)
+    if (pTxt->nCompound)
         pSound = sub_004B9760_FindGroupSound(NULL, nSoundId);
 
     if (!pSound)
@@ -284,7 +271,7 @@ int __fastcall sub_004B9A00_PlaySound(int nSoundId, D2UnitStrc* pUnit, int nDela
         pSound->f_34 = nTick + nDelay;
         pSound->nArg4 = nArg4;
         pSound->f_1C = 0xFF;
-        pSound->nPriority = pTxt->f_4E;
+        pSound->nPriority = pTxt->nPriority;
 
         D2SoundVecStrc tPos;
         if (pUnit)

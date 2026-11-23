@@ -392,6 +392,99 @@ int __fastcall ACT2Q1_UnitIterate_DetermineSkillBookDropCount(D2GameStrc* pGame,
     return 0;
 }
 
+#define QUEST_A2Q1_RADAMENT 8
+#define ITEMQUAL_NORMAL 2
+D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
+typedef bool(__fastcall* QUESTUPDATE)(D2GameStrc*, D2QuestDataStrc*);
+void __fastcall QUESTS_DebugOutput(D2GameStrc* pGame, const char* szMessage, const char* szFile, int nLine); // 0x00544070
+void __fastcall QUESTS_CreateTimer(D2QuestDataStrc* pQuest, QUESTUPDATE pfnCallback, int nTicks); // 0x00543F10
+int __fastcall ACT2Q1_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00598E20
+struct D2ItemDropStrc;
+
+// 0x00599020
+void __fastcall ACT2Q1_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    if (!pQuestData->bNotIntro)
+    {
+        return;
+    }
+
+    QUESTS_DebugOutput(pQuestData->pGame, "killed radament for quest", "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q1.cpp", 495);
+    QUESTS_StateDebug(pQuestData, 4, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q1.cpp", 496);
+    QUESTS_SetGlobalState(pQuestArg->pGame, pQuestData->eFilter, QFLAG_PRIMARYGOALDONE);
+
+    D2Act2Quest1Strc* pQuestDataEx = (D2Act2Quest1Strc*)pQuestData->pQuestDataEx;
+    pQuestData->pCallback[2] = 0;
+    pQuestDataEx->bRadamentKilled = 1;
+    pQuestDataEx->pRoom = UNITS_GetRoom(pQuestArg->pTarget);
+    SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT2Q1_UnitIterate_SetPrimaryGoalDoneForPartyMembers);
+    SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT2Q1_UnitIterate_SetCompletionFlag);
+    pQuestDataEx->nSkillBookDropCount = 0;
+    SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT2Q1_UnitIterate_DetermineSkillBookDropCount);
+
+    if (!pQuestDataEx->bStatusTimerStarted)
+    {
+        pQuestDataEx->bStatusTimerStarted = 1;
+        QUESTS_CreateTimer(pQuestData, ACT2Q1_Timer_StatusCycler, 12);
+    }
+
+    if (!pQuestDataEx->nSkillBookDropCount)
+    {
+        return;
+    }
+
+    pQuestArg->pTarget->dwDropItemCode = ' ssa';
+    for (int i = 0; i < pQuestDataEx->nSkillBookDropCount; ++i)
+    {
+        int nItemLevel;
+        D2GAME_DropItemAtUnit_6FC4FEC0(pQuestData->pGame, pQuestArg->pTarget, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 0);
+    }
+}
+
+// 0x00599420
+void __fastcall ACT2Q1_OnRadamentActivated(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A2Q1_RADAMENT);
+    if (!pQuestData || pQuestData->bNotIntro != 1 || (pQuestData->fState >= 3u && pQuestData->fLastState >= 2u))
+    {
+        return;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (DUNGEON_GetLevelIdFromRoom(pRoom) != LEVEL_SEWERSLEV3)
+    {
+        return;
+    }
+
+    pQuestData->pCallback[2] = 0;
+
+    bool bStepped = false;
+    if (pQuestData->fState < 3)
+    {
+        bStepped = true;
+        QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q1.cpp", 708);
+    }
+
+    if (pQuestData->fLastState < 2)
+    {
+        D2Act2Quest1Strc* pQuestDataEx = (D2Act2Quest1Strc*)pQuestData->pQuestDataEx;
+        pQuestData->dwFlags &= 0xFFFFFF00;
+
+        bool bIterate = false;
+        if (!pQuestDataEx->unk0x09)
+        {
+            pQuestDataEx->unk0x09 = 1;
+            bIterate = true;
+        }
+        QUESTS_UnitIterate(pQuestData, 2, 0, ACT2Q1_UnitIterate_StatusCyclerEx, bIterate);
+    }
+    else if (!bStepped)
+    {
+        return;
+    }
+    SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT2Q1_UnitIterate_UpdateQuestStateFlags);
+}
+
 // 0x00599130
 void __fastcall ACT2Q1_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {

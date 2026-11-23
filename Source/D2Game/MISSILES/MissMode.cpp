@@ -4181,18 +4181,6 @@ void __fastcall MISSMODE_SrvDmg06_MarkTargetNoTreasureClass(D2GameStrc* pGame, D
     }
 }
 
-// 0x005A1600
-void __fastcall MONSTERUNIQUE_UMod26_Teleport(D2UnitStrc* pUnit, int nUMod, int bUnique)
-{
-    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nUnitType == UNIT_MONSTER && bUnique)
-    {
-        D2GAME_SetSkills_6FD14C60(pUnit, SKILL_MONTELEPORT, 1, 1);
-        SKILLS_SetSkillMode(SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, SKILL_MONTELEPORT), 4);
-        AIUTIL_ToggleAiControlFlag0x20(pUnit, 1);
-    }
-}
-
 // 0x005A2100
 void __fastcall MONSTERUNIQUE_InitializeUMod(D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
@@ -6749,40 +6737,6 @@ void __fastcall AITHINK_ExecuteMonsterAiTick(D2GameStrc* pGame, D2UnitStrc* pUni
     }
     D2_ASSERT(!IsBadCodePtr((int (__stdcall*)())aiTickParam.pAiControl->pAiParamFn), 0x39E);
     ((AIPARAMFN)aiTickParam.pAiControl->pAiParamFn)(pGame, pUnit, &aiTickParam);
-}
-
-// 0x005B23C0
-D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags)
-{
-    D2UnkMonCreateStrc monCreate;
-    monCreate.nUnitGUID = 0;
-    monCreate.nMonsterId = nMonsterId;
-    monCreate.nAnimMode = nAnimMode;
-    monCreate.pRoom = UNITS_GetRoom(pUnit);
-    monCreate.nMaxSearchRings = a5;
-    monCreate.nFlags = nFlags;
-    monCreate.pGame = pGame;
-    monCreate.pRoomCoordList = 0;
-    monCreate.nX = CLIENTS_GetUnitX_Local(pUnit);
-    monCreate.nY = CLIENTS_GetUnitY_Local(pUnit);
-    return D2GAME_SpawnNormalMonster_6FC68E30(&monCreate);
-}
-
-// 0x005B2F70
-D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnitInCoordList(D2GameStrc* pGame, D2RoomCoordListStrc* pRoomCoordList, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a6, short nFlags)
-{
-    D2UnkMonCreateStrc monCreate;
-    monCreate.nUnitGUID = 0;
-    monCreate.nMonsterId = nMonsterId;
-    monCreate.nAnimMode = nAnimMode;
-    monCreate.pRoom = UNITS_GetRoom(pUnit);
-    monCreate.nMaxSearchRings = a6;
-    monCreate.nFlags = nFlags;
-    monCreate.pGame = pGame;
-    monCreate.pRoomCoordList = pRoomCoordList;
-    monCreate.nX = CLIENTS_GetUnitX_Local(pUnit);
-    monCreate.nY = CLIENTS_GetUnitY_Local(pUnit);
-    return D2GAME_SpawnNormalMonster_6FC68E30(&monCreate);
 }
 
 // 0x005B3750

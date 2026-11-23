@@ -1147,6 +1147,108 @@ void __fastcall ACT4Q3_OnSoulstonesDropped(D2GameStrc* pGame, int nSoulStonesDro
 {
 }
 
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
+
+void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bSet); // 0x0061AED0
+
+// 0x005B69E0
+bool __fastcall ACT3Q7_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus)
+{
+    return false;
+}
+
+static int GetAnimMode(D2UnitStrc* pUnit)
+{
+    return pUnit ? pUnit->dwAnimMode : 0;
+}
+
+// 0x005B6AD0
+static void sub_005B6AD0_ACT4Q2_SpawnSealObject(D2ObjOperateFnStrc* pOp, D2CoordStrc* pCoord, int nSeal)
+{
+    D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pOp->hObject), pCoord->nX, pCoord->nY);
+    if (!pRoom)
+    {
+        return;
+    }
+
+    D2ActiveRoomStrc* pNewRoom = 0;
+    QUESTS_GetFreePosition(pRoom, pCoord, 3, 0x3F11, &pNewRoom, nSeal == 1 ? 13 : (nSeal == 3 ? 14 : 15), 100);
+    if (pNewRoom && SUNIT_AllocUnitData(2, 131, pCoord->nX, pCoord->nY, pOp->pGame, pNewRoom, 1, 0, 0))
+    {
+        DUNGEON_ToggleHasPortalFlag(pNewRoom, 0);
+        OBJECTS_OperateFunction52_DiabloSeal(pOp);
+    }
+}
+
+// 0x005B6B70
+int __fastcall OBJECTS_OperateFunction54_DiabloSeal(D2ObjOperateFnStrc* pOp, int nOperate)
+{
+    if (GetAnimMode(pOp->hObject) != 0)
+    {
+        return 0;
+    }
+
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, 23);
+    if (!pQuestData)
+    {
+        return 0;
+    }
+
+    D2Act4Quest2Strc* pQuestDataEx = (D2Act4Quest2Strc*)pQuestData->pQuestDataEx;
+    D2CoordStrc* pCoord = &pQuestDataEx->pSealCoords[0];
+    UNITS_GetCoords(pOp->hObject, pCoord);
+    pQuestDataEx->pSealCoords[0].nX -= 12;
+    pQuestDataEx->pSealCoords[0].nY -= 52;
+    sub_005B6AD0_ACT4Q2_SpawnSealObject(pOp, pCoord, 1);
+    return 0;
+}
+
+// 0x005B6BC0
+int __fastcall OBJECTS_OperateFunction55_DiabloSeal(D2ObjOperateFnStrc* pOp, int nOperate)
+{
+    if (GetAnimMode(pOp->hObject) != 0)
+    {
+        return 0;
+    }
+
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, 23);
+    if (!pQuestData)
+    {
+        return 0;
+    }
+
+    D2Act4Quest2Strc* pQuestDataEx = (D2Act4Quest2Strc*)pQuestData->pQuestDataEx;
+    D2CoordStrc* pCoord = &pQuestDataEx->pSealCoords[1];
+    UNITS_GetCoords(pOp->hObject, pCoord);
+    pQuestDataEx->pSealCoords[1].nX -= 39;
+    pQuestDataEx->pSealCoords[1].nY += 33;
+    sub_005B6AD0_ACT4Q2_SpawnSealObject(pOp, pCoord, 3);
+    return 0;
+}
+
+// 0x005B6C10
+int __fastcall OBJECTS_OperateFunction56_DiabloSeal(D2ObjOperateFnStrc* pOp, int nOperate)
+{
+    if (GetAnimMode(pOp->hObject) != 0)
+    {
+        return 0;
+    }
+
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, 23);
+    if (!pQuestData)
+    {
+        return 0;
+    }
+
+    D2Act4Quest2Strc* pQuestDataEx = (D2Act4Quest2Strc*)pQuestData->pQuestDataEx;
+    D2CoordStrc* pCoord = &pQuestDataEx->pSealCoords[2];
+    UNITS_GetCoords(pOp->hObject, pCoord);
+    pQuestDataEx->pSealCoords[2].nX += 32;
+    pQuestDataEx->pSealCoords[2].nY += 16;
+    sub_005B6AD0_ACT4Q2_SpawnSealObject(pOp, pCoord, 5);
+    return 0;
+}
+
 // 0x005B86E0
 void __fastcall ACT3Q2_UpdateKhalimItemCounts(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {

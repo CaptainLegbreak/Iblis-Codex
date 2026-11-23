@@ -1296,64 +1296,6 @@ bool __fastcall ACT5Q3_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId,
     return false;
 }
 
-// 0x0058ABC0
-int __fastcall OBJECTS_OperateFunction67_FrozenAnya(D2ObjOperateFnStrc* pOp, int nOperate)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A5Q3_PRISONOFICE);
-    if (!pQuestData)
-    {
-        return 0;
-    }
-
-    D2Act5Quest3Strc* pQuestDataEx = (D2Act5Quest3Strc*)pQuestData->pQuestDataEx;
-
-    if (!ITEMS_FindQuestItem(pOp->pGame, pOp->hPlayer, ITEMCODE_DEFROST_POTION))
-    {
-        QUESTS_SendScrollMessage(pOp->hPlayer, pOp->hObject, 20131);
-
-        if (pQuestData->fLastState == 1)
-        {
-            pQuestData->nStatusFlags = 0;
-            QUESTS_UnitIterate(pQuestData, 3, 0, ACT5Q3_UnitIterate_StatusCyclerEx, 1);
-        }
-
-        return 0;
-    }
-
-    D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pOp->pGame, pOp->hPlayer);
-    if (!QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDGRANTED)
-        && !QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDPENDING)
-        && ITEMS_FindQuestItem(pOp->pGame, pOp->hPlayer, ITEMCODE_DEFROST_POTION))
-    {
-        --pQuestDataEx->nDefrostPotionsInGame;
-        QUESTS_DeleteItem(pOp->pGame, pOp->hPlayer, ITEMCODE_DEFROST_POTION);
-        QUESTS_StateDebug(pQuestData, 5, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q3.cpp", 2001);
-
-        pQuestDataEx->unk0x84[0] = 1;
-        QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q3, QFLAG_PRIMARYGOALDONE);
-        QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q3, QFLAG_REWARDPENDING);
-
-        pQuestData->nStatusFlags = 0;
-        QUESTS_UnitIterate(pQuestData, 5, 0, ACT5Q3_UnitIterate_StatusCyclerEx, 1);
-        QUESTS_TriggerFX(pQuestData->pGame, 16);
-
-        SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->hPlayer, ACT5Q3_UnitIterate_SetPrimaryGoalDoneForPartyMembers);
-        SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->hPlayer, ACT5Q3_UnitIterate_SetCompletionFlag);
-
-        if (!pQuestDataEx->bTimerActive)
-        {
-            pQuestDataEx->bTimerActive = 1;
-            pQuestDataEx->pDrehyaObjectOutsideTownCoords.nX = CLIENTS_GetUnitX(pOp->hObject);
-            pQuestDataEx->pDrehyaObjectOutsideTownCoords.nY = CLIENTS_GetUnitY(pOp->hObject);
-
-            QUESTS_CreateTimer(pQuestData, ACT5Q3_SpawnDrehyaIcedMonsterOutsideTown, 1);
-            DUNGEON_ToggleHasPortalFlag(UNITS_GetRoom(pOp->hObject), 0);
-        }
-    }
-
-    return 0;
-}
-
 // 0x0058AD80
 void __fastcall ACT5Q3_ChangeDrehyaMapAI(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MapAIStrc* pMapAi)
 {

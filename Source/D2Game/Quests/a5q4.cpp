@@ -1037,71 +1037,6 @@ int __fastcall ACT1Q2_UnitIterate_SetRewardPending(D2GameStrc* pGame, D2UnitStrc
     return 0;
 }
 
-// 0x00591AC0
-int __fastcall OBJECTS_OperateFunction21_HoradrimMalus(D2ObjOperateFnStrc* pOp, int nOperate)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A1Q3_MALUS);
-    if (!pQuestData)
-    {
-        return 0;
-    }
-
-    const int nAnimMode = !pOp->hObject ? 0 : pOp->hObject->dwAnimMode;
-    if (!pQuestData->bNotIntro)
-    {
-        UNITS_ChangeAnimMode(pOp->hObject, OBJMODE_OPENED);
-        SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
-        return 0;
-    }
-
-    if (!nAnimMode)
-    {
-        D2UnitStrc* pPlayer = pOp->hPlayer;
-        D2GameStrc* pGame = pOp->pGame;
-        D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-        if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q3, QFLAG_REWARDGRANTED) == 1)
-        {
-            return 0;
-        }
-
-        if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q3, QFLAG_REWARDPENDING) == 1)
-        {
-            return 0;
-        }
-
-        if (STATLIST_GetUnitBaseStat(pOp->hPlayer, STAT_LEVEL, 0) < 8)
-        {
-            SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
-            return 0;
-        }
-
-        int nItemLevel;
-        pOp->hObject->dwDropItemCode = ' mdh';
-        if (D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 0))
-        {
-            UNITS_ChangeAnimMode(pOp->hObject, OBJMODE_OPENED);
-            D2Act1Quest3Strc* pQuestDataEx = (D2Act1Quest3Strc*)pQuestData->pQuestDataEx;
-            pQuestDataEx->bMalusInitialized = 1;
-            pQuestDataEx->nMalusObjectMode = OBJMODE_OPENED;
-            pQuestDataEx->nMalusGUID = !pOp->hObject ? -1 : pOp->hObject->dwUnitId;
-            ++pQuestDataEx->nMalusItemsInGame;
-            if (pQuestData->fState != 4)
-            {
-                QUESTS_StateDebug(pQuestData, 4, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q3.cpp", 706);
-                SUNIT_IterateUnitsOfType(pQuestData->pGame, UNIT_PLAYER, 0, ACT1Q3_UnitIterate_UpdateQuestStateFlags);
-            }
-
-            if (pQuestData->fLastState != 1)
-            {
-                pQuestData->nStatusFlags = 0;
-                QUESTS_UnitIterate(pQuestData, 1, 0, ACT1Q3_UnitIterate_StatusCyclerEx, 0);
-            }
-        }
-    }
-
-    return 0;
-}
-
 // 0x00591C30
 bool __fastcall ACT1Q3_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
 {
@@ -1211,56 +1146,6 @@ int __fastcall ACT1Q4_GetCainPortalOutsideTownCoordinates(D2GameStrc* pGame, D2U
     }
 
     return 1;
-}
-
-// 0x00595160
-void __fastcall ACT1Q5_UpdateCountessQuestState(D2GameStrc* pGame, D2UnitStrc* pUnit, int bPending)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A1Q5_COUNTESS);
-    if (!pQuestData)
-    {
-        return;
-    }
-
-    if (!pQuestData->bNotIntro)
-    {
-        return;
-    }
-
-    if (pQuestData->fState >= 4)
-    {
-        return;
-    }
-
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDGRANTED) == 1)
-    {
-        return;
-    }
-
-    if (bPending)
-    {
-        if (pQuestData->fState == 2 || pQuestData->fState == 3)
-        {
-            QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDPENDING);
-        }
-        return;
-    }
-
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDPENDING) != 1)
-    {
-        return;
-    }
-
-    if (pQuestData->fState == 3)
-    {
-        return;
-    }
-
-    QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q5.cpp", 705);
-    pQuestData->nStatusFlags = 0;
-    QUESTS_UnitIterate(pQuestData, 1, 0, ACT1Q5_UnitIterate_StatusCyclerEx, true);
-    SUNIT_IterateUnitsOfType(pGame, UNIT_PLAYER, 0, ACT1Q5_UnitIterate_UpdateQuestStateFlags);
 }
 
 struct D2ActiveRoomStrc;

@@ -1262,6 +1262,83 @@ int __fastcall sub_005DF140_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitS
     }
     return AITACTICS_MoveToTarget(pGame, pUnit, 0, MONMODE_RUN, nX, nY, 1, nFlags);
 }
+D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
+
+static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    }
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    }
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+static inline unsigned int AI_RollUnitSeed(D2UnitStrc* pUnit)
+{
+    const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
+    pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
+    pUnit->pSeed.nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+// 0x005DF7D0
+int __fastcall sub_005DF7D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a4, int bDeleteAiEventCallback)
+{
+    int nMode = 6;
+    if ((AI_RollUnitSeed(pUnit) & 0xFF) < 128)
+    {
+        nMode = 5;
+    }
+
+    sub_005DE190_SetAiParam(pUnit, nMode, 0, a4);
+    int nFlags;
+    if (bDeleteAiEventCallback)
+        nFlags = 4;
+    else
+        nFlags = 0;
+    return AITACTICS_MoveToTarget(pGame, pUnit, pTarget, 2, 0, 0, 1, nFlags);
+}
+
+static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0)
+    {
+        return 0;
+    }
+
+    if ((nMax - 1) & nMax)
+    {
+        return (unsigned int)SEED_RollRandomNumber(pSeed) % nMax;
+    }
+
+    return (unsigned int)SEED_RollRandomNumber(pSeed) & (nMax - 1);
+}
+
+// 0x005DF850
+void __fastcall AITACTICS_UseSkillInRange(D2UnitStrc* pUnit, int nRange, int nSkillId, unsigned char nMode)
+{
+    const int nX = CLIENTS_GetUnitXInline(pUnit) + SEED_RollLimitedRandomNumber(&pUnit->pSeed, 2 * nRange) - nRange;
+    const int nY = CLIENTS_GetUnitYInline(pUnit) + SEED_RollLimitedRandomNumber(&pUnit->pSeed, 2 * nRange) - nRange;
+
+    AITACTICS_UseSkill(SUNIT_GetGameFromUnit(pUnit), pUnit, nMode, nSkillId, 0, nX, nY);
+}
+
+
 
 
 

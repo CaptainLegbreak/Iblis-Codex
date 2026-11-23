@@ -595,6 +595,64 @@ static inline int RollLimitedInline(D2SeedStrc* pSeed, int nMax)
     return RollRandomInline(pSeed) & (nMax - 1);
 }
 
+#define MONTYPEFLAG_CHAMPION 4
+
+#define MONSTERUNIQUE_UMOD_COUNT 9
+
+struct D2MonsterRegionStrc;
+
+struct D2SuperUniquesTxt;
+
+int __stdcall sub_O05_EmitArg_AddUMod(D2UnitStrc* pUnit, int nValue);
+
+static inline D2MonUModTxt* sub_M433_GetMonUModTxtRecord(int nUMod)
+{
+    if (nUMod >= sgptDataTables->nMonUModTxtRecordCount)
+    {
+        return 0;
+    }
+    return &sgptDataTables->pMonUModTxt[nUMod];
+}
+
+// 0x005A0280
+int __fastcall sub_005A0280_GetChampionUMod(D2UnitStrc* pUnit)
+{
+    const unsigned int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    D2MonsterDataStrc* pMonsterData = (nUnitType == UNIT_MONSTER) ? pUnit->pMonsterData : 0;
+    if (!pMonsterData)
+    {
+        return 0;
+    }
+
+    if (!(pMonsterData->nTypeFlag & MONTYPEFLAG_CHAMPION))
+    {
+        return 0;
+    }
+
+    for (int i = 0; i < MONSTERUNIQUE_UMOD_COUNT; ++i)
+    {
+        if (!pMonsterData->nMonUmod[i])
+        {
+            return 0;
+        }
+
+        D2MonUModTxt* pMonUModTxtRecord = sub_M433_GetMonUModTxtRecord(pMonsterData->nMonUmod[i]);
+        if (!pMonUModTxtRecord)
+        {
+            return 0;
+        }
+
+        if (pMonUModTxtRecord->nChampion)
+        {
+            return pMonsterData->nMonUmod[i];
+        }
+    }
+
+    return 0;
+}
+
+void __fastcall sub_005A4940_PromoteToUnique(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A4940
+
 // 0x005A02E0
 static void __stdcall sub_005A02E0_AddUMod(int nUMod, D2UnitStrc* pUnit)
 {
@@ -1074,6 +1132,21 @@ short __fastcall MONSTERUNIQUE_GetBossHcIdx(D2UnitStrc* pUnit)
     return pMonsterData->wBossHcIdx;
 }
 
+D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
+void __fastcall AIUTIL_ToggleAiControlFlag0x20(D2UnitStrc* pUnit, int bSet); // 0x005DD250
+
+// 0x005A1600
+void __fastcall MONSTERUNIQUE_UMod26_Teleport(D2UnitStrc* pUnit, int nUMod, int bUnique)
+{
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nUnitType == UNIT_MONSTER && bUnique)
+    {
+        D2GAME_SetSkills_6FD14C60(pUnit, SKILL_MONTELEPORT, 1, 1);
+        SKILLS_SetSkillMode(SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, SKILL_MONTELEPORT), 4);
+        AIUTIL_ToggleAiControlFlag0x20(pUnit, 1);
+    }
+}
+
 // 0x005A1650
 void __fastcall MONSTERUNIQUE_UMod30_AuraEnchanted(D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
@@ -1467,6 +1540,61 @@ void __fastcall MONSTERUNIQUE_CastCorpseExplode(D2GameStrc* pGame, D2UnitStrc* p
     damage.dwPhysDamage = nRoll << 6;
     damage.dwFireDamage = nRoll << 6;
     SUNITDMG_SetMissileDamageFlagsForNearbyUnits(pGame, pMissile, nX, nY, pGame->nDifficulty + 4, &damage, 0, 0, 0, 0x581);
+}
+
+int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus);                    // 0x006442A0
+int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc* pUnit);                                            // 0x00621F20
+
+// 0x005A2910
+void __fastcall MONSTERUNIQUE_CastNova(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
+{
+    if (!bUnique)
+    {
+        return;
+    }
+
+    int nSkillLevel = 1;
+    D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
+    if (pOwner)
+    {
+        D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pOwner, SKILL_SHADOWWARRIOR);
+        if (pSkill)
+        {
+            nSkillLevel = SKILLS_GetSkillLevel(pOwner, pSkill, 1) / 2 + 1;
+        }
+    }
+
+    nSkillLevel = D2_MIN(D2_MAX(nSkillLevel, 1), 15);
+    if (UNITS_GetCurrentLifePercentage(pUnit) > 10)
+    {
+        nSkillLevel = 1;
+    }
+
+    SKILLS_CreateMissileRing(pGame, pUnit, pUnit, MISSILE_NOVA, 0, nSkillLevel, DATATBLS_GetMissileVelocityFromMissilesTxt(MISSILE_NOVA, 0));
+}
+
+// 0x005A3E70
+void __fastcall MONSTERUNIQUE_SuicideModeChange(D2GameStrc* pGame, D2UnitStrc* pBoss, int nUMod, int bUnique)
+{
+    if (pBoss)
+    {
+        const int nMode = pBoss->dwAnimMode;
+        if (nMode == MONMODE_GETHIT)
+        {
+            D2ModeChangeStrc modeChange;
+            MONSTERMODE_GetModeChangeInfo(pBoss, MONMODE_DEATH, &modeChange);
+            D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+            EVENT_SetEvent(pGame, pBoss, EVENTTYPE_MONUMOD, pGame->dwGameFrame + 4, 0, 0);
+            return;
+        }
+
+        if (nMode != MONMODE_DEATH && nMode != MONMODE_DEAD)
+        {
+            return;
+        }
+    }
+
+    EVENT_SetEvent(pGame, pBoss, EVENTTYPE_MONUMOD, pGame->dwGameFrame + 4, 0, 0);
 }
 
 // 0x005A2C20
@@ -2712,6 +2840,29 @@ static inline void PromoteSetTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType == 1 && pUnit->pMonsterData)
         pUnit->pMonsterData->nTypeFlag |= nFlag;
+}
+
+// 0x005A4940
+void __fastcall sub_005A4940_PromoteToUnique(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nUnitType != 1)
+    {
+        return;
+    }
+
+    unsigned char* pUMods = PromoteGetUMods(pUnit);
+    if (!pUMods)
+    {
+        return;
+    }
+
+    PromoteSetTypeFlag(pUnit, 1);
+    sub_005A0320_MarkUnique(pGame, pUnit);
+    MONSTERUNIQUE_AssignRandomUMods(pGame, pUnit, 1);
+    MONSTERUNIQUE_SpawnMinions(pGame, UNITS_GetRoom(pUnit), 0, pUnit, 0, 0, 0);
+    pUnit->dwFlags |= 0x800;
+    MONSTER_ToggleSummonerFlag(pUnit, 1, 1);
 }
 
 void __fastcall MONSTERUNIQUE_ApplyElementalDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)

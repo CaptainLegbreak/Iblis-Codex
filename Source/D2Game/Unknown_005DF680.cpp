@@ -115,24 +115,6 @@ static inline unsigned int AI_RollUnitSeed(D2UnitStrc* pUnit)
     return (unsigned int)lSeed;
 }
 
-// 0x005DF7D0
-int __fastcall sub_005DF7D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a4, int bDeleteAiEventCallback)
-{
-    int nMode = 6;
-    if ((AI_RollUnitSeed(pUnit) & 0xFF) < 128)
-    {
-        nMode = 5;
-    }
-
-    sub_005DE190_SetAiParam(pUnit, nMode, 0, a4);
-    int nFlags;
-    if (bDeleteAiEventCallback)
-        nFlags = 4;
-    else
-        nFlags = 0;
-    return AITACTICS_MoveToTarget(pGame, pUnit, pTarget, 2, 0, 0, 1, nFlags);
-}
-
 static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
@@ -154,13 +136,4 @@ static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int n
     }
 
     return SEED_RollRandomNumber(pSeed) & (nMax - 1);
-}
-
-// 0x005DF850
-void __fastcall AITACTICS_UseSkillInRange(D2UnitStrc* pUnit, int nRange, int nSkillId, unsigned char nMode)
-{
-    const int nX = CLIENTS_GetUnitXInline(pUnit) + SEED_RollLimitedRandomNumber(&pUnit->pSeed, 2 * nRange) - nRange;
-    const int nY = CLIENTS_GetUnitYInline(pUnit) + SEED_RollLimitedRandomNumber(&pUnit->pSeed, 2 * nRange) - nRange;
-
-    AITACTICS_UseSkill(SUNIT_GetGameFromUnit(pUnit), pUnit, nMode, nSkillId, 0, nX, nY);
 }

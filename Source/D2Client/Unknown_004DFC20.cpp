@@ -4,10 +4,10 @@
 #include "D2GameTypes.h"
 #include "D2ClientUi.h"
 #include "D2Txt.h"
+#include "D2ClientSound.h"
 
 struct D2SoundPosStrc;
 struct D2SlotObjectStrc;
-struct D2SoundRecordStrc;
 struct D2SlotStrc;
 struct D2SkillsTxt;
 struct D2MissilesTxt;
@@ -24,21 +24,12 @@ struct D2SlotObjectStrc
     float fAttenuation;
 };
 
-struct D2SoundRecordStrc
-{
-    char unk0x00[0x3C];
-    unsigned char nVolume;
-    char unk0x3D[0x15];
-    unsigned char bNoEnvVolume;
-    unsigned char bMusic;
-};
-
 extern "C" int __cdecl memcmp(const void* pA, const void* pB, unsigned int nSize);
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-D2SoundRecordStrc* __fastcall sub_00481860(int nId); // 0x00481860
+D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 float __fastcall SOUNDHDR_GetFalloffVolume(int nIndex); // 0x004825B0
 float __fastcall SOUNDHDR_GetFalloffRange(int nIndex); // 0x00482610
 float __stdcall GFXUTIL_VectorLength(float fX, float fY); // 0x004E4130
@@ -75,12 +66,12 @@ void __fastcall sub_004DFC20_UpdateSoundSlot(D2SlotStrc* pSlot)
     D2SlotObjectStrc* const pObject = pSlot->pObject;
 
     const D2SoundPosStrc* pPos = &pObject->tPos;
-    D2SoundRecordStrc* pRecord = sub_00481860(pObject->nSoundId);
+    D2SoundsTxt* pRecord = SOUNDHDR_GetSoundRecord(pObject->nSoundId);
     float fMin = SOUNDHDR_GetFalloffVolume(pObject->nSoundId);
     float fMax = SOUNDHDR_GetFalloffRange(pObject->nSoundId);
 
     int nVolume = pObject->nVolume;
-    if (pRecord->bMusic)
+    if (pRecord->bMusicVol)
         nVolume = D2SOUND_GetMusicVolumeOption() * nVolume / 100;
     nVolume = D2SOUND_GetMasterVolumeOption() * nVolume / 100;
 
@@ -91,7 +82,7 @@ void __fastcall sub_004DFC20_UpdateSoundSlot(D2SlotStrc* pSlot)
             nVolume = gnSfxVolume_00727564 * nVolume / 100;
     }
 
-    if (gnEnvVolume_00727568 != 100 && !pRecord->bNoEnvVolume)
+    if (gnEnvVolume_00727568 != 100 && !pRecord->bSolo)
         nVolume = gnEnvVolume_00727568 * nVolume / 100;
 
     if (gbSoundSystemInit)

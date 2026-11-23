@@ -1,10 +1,10 @@
 #include "D2Client.h"
 #include "D2DrlgMaps.h"
 #include "D2ClientUi.h"
+#include "D2ClientSound.h"
 
 struct D2SlotObjectStrc;
 struct D2SlotStrc;
-struct D2HintCursorStrc;
 struct D2Obj007C8A28Strc;
 struct D2TileLibraryEntryStrc;
 struct D2GfxLightStrc;
@@ -35,7 +35,7 @@ struct D2Obj007C8A28Strc
 };
 
 extern int gbSoundSystemInit; // 0x007C8C78
-D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
+D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 int __fastcall sub_00515710(D2SoundStrc* pSound); // 0x00515710
 int __fastcall D2SOUND_IsSoundBufferPlaying(D2SoundStrc* pSound); // 0x00515740
 int __fastcall sub_00515C30(D2SoundStrc* pSound); // 0x00515C30
@@ -135,7 +135,7 @@ void __cdecl sub_004DF890()
     for (int i = 0; i < 16; ++i)
     {
         D2SlotStrc* pSlot = &gaSlots[i];
-        if (pSlot->pObject && !sub_00481860(pSlot->pObject->f_4)->bFlag3E && !sub_00515710(pSlot->pSound))
+        if (pSlot->pObject && !SOUNDHDR_GetSoundRecord(pSlot->pObject->f_4)->nLoop && !sub_00515710(pSlot->pSound))
         {
             if (sub_00515C30(pSlot->pSound))
             {

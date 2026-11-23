@@ -457,6 +457,124 @@ void __fastcall ACT2Q4_SetPortalMode(D2GameStrc* pGame, int nLevelId)
     }
 }
 
+enum D2C_P08QuestConstants
+{
+    ACT_II = 1,
+    MONSTER_AKARA = 148,
+    MONSTER_KASHYA = 150,
+    MONSTER_WARRIV1 = 155,
+    MONSTER_CAIN6 = 244,
+    MONSTER_CAIN5 = 265,
+    QUEST_A1Q4_CAIN = 4,
+    QUEST_A1Q5_COUNTESS = 5,
+    QUESTSTATEFLAG_A1Q4 = 4,
+    QUESTSTATEFLAG_A1Q5 = 5,
+    QUESTSTATEFLAG_A1Q6 = 6,
+    QUESTSTATEFLAG_A2Q2 = 10,
+    QUESTSTATEFLAG_A2Q3 = 11,
+    QUESTSTATEFLAG_A2Q4 = 12,
+    QUESTSTATEFLAG_A4Q2 = 26,
+    QUESTSTATEFLAG_A5Q6 = 40,
+    QFLAG_REWARDGRANTED = 0,
+    QFLAG_REWARDPENDING = 1,
+    QFLAG_STARTED = 2,
+    QFLAG_LEAVETOWN = 3,
+    QFLAG_ENTERAREA = 4,
+    QFLAG_CUSTOM1 = 5,
+    QFLAG_CUSTOM2 = 6,
+    QFLAG_CUSTOM6 = 10,
+    QFLAG_PRIMARYGOALDONE = 13,
+    EVENTTYPE_QUESTFN = 7,
+};
+
+void __fastcall QUESTS_QuickRemovePlayerGUID(D2QuestDataStrc* pQuest, D2QuestArgStrc* pQuestArg); // 0x00545310
+int __fastcall ACT2Q6_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnused); // 0x0059C6C0
+
+// 0x0059D1C0
+void __fastcall ACT2Q6_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    const int nNewLevel = pQuestArg->nNewLevel;
+    if (nNewLevel < LEVEL_LUTGHOLEIN || nNewLevel >= LEVEL_KURASTDOCKTOWN)
+    {
+        return;
+    }
+
+    if (pQuestArg->nOldLevel == LEVEL_LUTGHOLEIN)
+    {
+        QUESTS_QuickRemovePlayerGUID(pQuestData, pQuestArg);
+    }
+
+    if (!pQuestData->bNotIntro)
+    {
+        return;
+    }
+
+    D2Act2Quest6Strc* pQuestDataEx = (D2Act2Quest6Strc*)pQuestData->pQuestDataEx;
+    if (!pQuestDataEx->bDurielKilled)
+    {
+        if (!pQuestDataEx->nStaffTombLevelId)
+        {
+            pQuestDataEx->nStaffTombLevelId = DUNGEON_GetHoradricStaffTombLevelId(pQuestArg->pGame->pAct[ACT_II]);
+        }
+
+        const int nTombLevelId = pQuestDataEx->nStaffTombLevelId;
+        if (!nTombLevelId)
+        {
+            return;
+        }
+
+        if (nNewLevel == nTombLevelId)
+        {
+            if (pQuestData->fState == 2)
+            {
+                return;
+            }
+
+            QUESTS_StateDebug(pQuestData, 2, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp", 881);
+            if (pQuestData->fLastState <= 1)
+            {
+                pQuestData->dwFlags &= 0xFFFFFF00;
+                QUESTS_UnitIterate(pQuestData, 2, 0, ACT2Q6_UnitIterate_StatusCyclerEx, 0);
+            }
+
+            ACT2Q6_UnitIterate_UpdateQuestStateFlags(pQuestArg->pGame, pQuestArg->pPlayer, 0);
+            return;
+        }
+
+        if (nNewLevel == LEVEL_CANYONOFTHEMAGI)
+        {
+            if (!pQuestData->fState)
+            {
+                QUESTS_StateDebug(pQuestData, 2, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp", 897);
+                ACT2Q6_UnitIterate_UpdateQuestStateFlags(pQuestArg->pGame, pQuestArg->pPlayer, 0);
+            }
+
+            if (!pQuestData->fLastState)
+            {
+                pQuestData->dwFlags &= 0xFFFFFF00;
+                QUESTS_UnitIterate(pQuestData, 1, 0, ACT2Q6_UnitIterate_StatusCyclerEx, 1);
+            }
+
+            return;
+        }
+    }
+
+    if (nNewLevel != LEVEL_DURIELSLAIR || pQuestData->fState > 1)
+    {
+        return;
+    }
+
+    QUESTS_StateDebug(pQuestData, 2, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp", 912);
+    if (pQuestData->fLastState > 1)
+    {
+        return;
+    }
+
+    pQuestData->dwFlags &= 0xFFFFFF00;
+    QUESTS_UnitIterate(pQuestData, 2, 0, ACT2Q6_UnitIterate_StatusCyclerEx, 0);
+    ACT2Q6_UnitIterate_UpdateQuestStateFlags(pQuestArg->pGame, pQuestArg->pPlayer, 0);
+}
+
 // 0x0059D5B0
 void __fastcall ACT2Q6_InitQuestData(Quest* quest)
 {

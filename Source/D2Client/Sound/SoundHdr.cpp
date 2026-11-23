@@ -1,13 +1,12 @@
 #include "D2Client.h"
 #include "D2Records.h"
+#include "D2ClientSound.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2BinFileStrc;
 
 struct D2BinFieldStrc;
-
-struct D2SoundsTxtStrc;
 
 struct D2SoundEnvironTxtStrc;
 
@@ -19,7 +18,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-int __fastcall ITEM_QueryCacheAddress(D2SoundsTxtStrc* pEntry); // 0x004DF630
+int __fastcall ITEM_QueryCacheAddress(D2SoundsTxt* pEntry); // 0x004DF630
 
 void __fastcall SOUNDHDR_TouchCacheEntry(int nIndex); // 0x00482860
 
@@ -40,40 +39,6 @@ extern int gdwSoundTick; // 0x007BC9BC
 unsigned int gnCacheMax; // 0x007BC9CC
 
 unsigned int gdwCacheUsed; // 0x007BC9D0
-
-#pragma pack(push, 1)
-
-struct D2SoundsTxtStrc
-{
-    char szFilename[60]; // 0x00
-    unsigned char nVolume; // 0x3C
-    unsigned char nGroupSize; // 0x3D
-    unsigned char nLoop; // 0x3E
-    unsigned char nFadeIn; // 0x3F
-    unsigned char nFadeOut; // 0x40
-    unsigned char bDeferInst; // 0x41
-    unsigned char bStopInst; // 0x42
-    unsigned short nDuration; // 0x43
-    unsigned short nCompound; // 0x45
-    int nFalloff; // 0x47
-    unsigned char bReverb; // 0x4B
-    char bCache; // 0x4C
-    unsigned char unk0x4D[7]; // 0x4D
-    int nBlock[3]; // 0x54
-    int nGroupStart; // 0x60
-    int anRecent[2]; // 0x64
-    void* pData; // 0x6C
-    unsigned int nSize; // 0x70
-    unsigned char unk0x74[8]; // 0x74
-    int dwLastUse; // 0x7C
-    unsigned char nBlocks; // 0x80
-    char bFailed; // 0x81
-    T00481720* pAsync; // 0x82
-    int nState; // 0x86
-    unsigned int nRefCount; // 0x8A
-};
-
-#pragma pack(pop)
 
 struct D2SoundEnvironTxtStrc
 {
@@ -145,7 +110,6 @@ typedef char NodeNext[(OFFSET(PlayerNode, next) == 8) ? 1 : -1];
 
 extern const char gPlayerListFile[];
 
-
 extern int gTextY;
 
 extern int gTextRight;
@@ -172,7 +136,7 @@ static int gnClientSoundsTxtRecordCount; // 0x007BC9A4
 
 int* gpSongTable; // 0x007BC99C
 
-static D2SoundsTxtStrc* sgptSoundHeaderTable; // 0x007BC9A0
+static D2SoundsTxt* sgptSoundHeaderTable; // 0x007BC9A0
 
 D2SoundEnvironTxtStrc* sgptSoundEnvironTable; // 0x007BC9A8
 
@@ -183,7 +147,7 @@ static int gnSongMax; // 0x007BC9B4
 static int gnSongMin; // 0x007BC9B0
 
 // 0x00481720
-static void SOUNDHDR_FinishCacheLoad(D2SoundsTxtStrc* pEntry)
+static void SOUNDHDR_FinishCacheLoad(D2SoundsTxt* pEntry)
 {
     D2_ASSERT(pEntry->nState == 1, 0x40);
     pEntry->pData = sub_0040A9E0(pEntry->pAsync);
@@ -194,7 +158,7 @@ static void SOUNDHDR_FinishCacheLoad(D2SoundsTxtStrc* pEntry)
 }
 
 // 0x00481860
-D2SoundsTxtStrc* __fastcall SOUNDHDR_GetSoundRecord(int nIndex)
+D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nIndex)
 {
     if (sgptSoundHeaderTable && nIndex >= 0 && nIndex < gnClientSoundsTxtRecordCount)
         return &sgptSoundHeaderTable[nIndex];
@@ -292,10 +256,10 @@ void __cdecl SOUNDHDR_LoadSoundTables()
     void* pData = sub_00517079(D2Win_GetArchive(), szPath, &nSize, ".\\Sound\\SoundHdr.cpp", 0x101);
     D2BinFileStrc* pBinFile = FOG_CreateBinFile(pData, nSize);
     gnClientSoundsTxtRecordCount = FOG_GetRecordCountFromBinFile(pBinFile);
-    D2SoundsTxtStrc* pSounds = (D2SoundsTxtStrc*)FOG_Alloc(gnClientSoundsTxtRecordCount * sizeof(D2SoundsTxtStrc), ".\\Sound\\SoundHdr.cpp", 0x106, 0);
+    D2SoundsTxt* pSounds = (D2SoundsTxt*)FOG_Alloc(gnClientSoundsTxtRecordCount * sizeof(D2SoundsTxt), ".\\Sound\\SoundHdr.cpp", 0x106, 0);
     sgptSoundHeaderTable = pSounds;
-    memset(pSounds, 0, gnClientSoundsTxtRecordCount * sizeof(D2SoundsTxtStrc));
-    FOG_10207(pBinFile, pTbl2, pSounds, gnClientSoundsTxtRecordCount, sizeof(D2SoundsTxtStrc));
+    memset(pSounds, 0, gnClientSoundsTxtRecordCount * sizeof(D2SoundsTxt));
+    FOG_10207(pBinFile, pTbl2, pSounds, gnClientSoundsTxtRecordCount, sizeof(D2SoundsTxt));
     FOG_FreeBinFile(pBinFile);
 
     wsprintfA(szPath, "%s\\soundenviron.txt", "DATA\\GLOBAL\\EXCEL");
@@ -312,7 +276,7 @@ void __cdecl SOUNDHDR_LoadSoundTables()
     int nGroupSize = 1;
     for (int i = 1; i < gnClientSoundsTxtRecordCount; ++i)
     {
-        D2SoundsTxtStrc* pSound = &sgptSoundHeaderTable[i];
+        D2SoundsTxt* pSound = &sgptSoundHeaderTable[i];
         if (nGroupStart && i >= nGroupStart && i < nGroupSize + nGroupStart)
             pSound->nGroupStart = nGroupStart;
         else
@@ -383,7 +347,7 @@ void __cdecl SOUNDHDR_ReleaseSoundTables()
 // 0x00482710
 void __fastcall SOUNDHDR_GetSoundPath(int nIndex, char* szPath)
 {
-    D2SoundsTxtStrc* pEntry = SOUNDHDR_GetSoundRecord(nIndex);
+    D2SoundsTxt* pEntry = SOUNDHDR_GetSoundRecord(nIndex);
     if (nIndex >= 0xB76 && nIndex <= 0xB76 + 0x6BA)
         strcpy(szPath, "DATA\\LOCAL");
     else
@@ -434,14 +398,14 @@ void __fastcall SOUNDHDR_AddVariantRefs(int nIndex, int nDelta)
 {
     if (!nIndex)
         return;
-    D2SoundsTxtStrc* pEntry = SOUNDHDR_GetSoundRecord(nIndex);
+    D2SoundsTxt* pEntry = SOUNDHDR_GetSoundRecord(nIndex);
     if (!pEntry)
         return;
     if (!pEntry->nRefCount && nDelta == -1)
         return;
     for (int i = pEntry->nGroupStart; i < pEntry->nGroupStart + pEntry->nGroupSize; i++)
     {
-        D2SoundsTxtStrc* pVariant = SOUNDHDR_GetSoundRecord(i);
+        D2SoundsTxt* pVariant = SOUNDHDR_GetSoundRecord(i);
         D2_ASSERT(pVariant->nRefCount > 0 || nDelta != -1, 0x1DC);
         pVariant->nRefCount += nDelta;
     }
@@ -452,7 +416,7 @@ void __fastcall SOUNDHDR_ClearVariantRefs(int nIndex)
 {
     if (!nIndex)
         return;
-    D2SoundsTxtStrc* pEntry = SOUNDHDR_GetSoundRecord(nIndex);
+    D2SoundsTxt* pEntry = SOUNDHDR_GetSoundRecord(nIndex);
     if (!pEntry)
         return;
     for (int i = pEntry->nGroupStart; i < pEntry->nGroupStart + pEntry->nGroupSize; i++)
@@ -462,7 +426,7 @@ void __fastcall SOUNDHDR_ClearVariantRefs(int nIndex)
 // 0x004823E0
 void __fastcall SOUNDHDR_ReleaseCacheEntry(int nIndex)
 {
-    D2SoundsTxtStrc* pEntry = SOUNDHDR_GetSoundRecord(nIndex);
+    D2SoundsTxt* pEntry = SOUNDHDR_GetSoundRecord(nIndex);
     if (!pEntry->nState)
         return;
     if (SoundChannelFind(nIndex))
@@ -528,7 +492,7 @@ int __fastcall SOUNDHDR_PickVariant(int nIndex)
 {
     if (!sgptSoundHeaderTable)
         return nIndex;
-    D2SoundsTxtStrc* pEntry = SOUNDHDR_GetSoundRecord(nIndex);
+    D2SoundsTxt* pEntry = SOUNDHDR_GetSoundRecord(nIndex);
     const unsigned char nVariants = pEntry->nGroupSize;
     if (nVariants <= 1)
         return nIndex;
@@ -576,7 +540,7 @@ void __cdecl sub_00481850()
 // 0x00482970
 void __fastcall SOUNDHDR_LoadCacheEntry(int nIndex, int bDirect, int nArg)
 {
-    D2SoundsTxtStrc* pEntry;
+    D2SoundsTxt* pEntry;
     if (sgptSoundHeaderTable && nIndex >= 0 && nIndex < gnClientSoundsTxtRecordCount)
         pEntry = &sgptSoundHeaderTable[nIndex];
     else
@@ -657,7 +621,7 @@ void __fastcall SOUNDHDR_UpdateCache(unsigned int nTick)
 
     for (int i = 1; i <= 0xB75; i++)
     {
-        D2SoundsTxtStrc* pEntry = &sgptSoundHeaderTable[i];
+        D2SoundsTxt* pEntry = &sgptSoundHeaderTable[i];
         if (!pEntry->nState && (pEntry->nRefCount || pEntry->bCache))
         {
             if (!bForce)

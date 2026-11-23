@@ -1,4 +1,4 @@
-#include "gen/data/Source/D2Game/Unknown_0052C030.inc"
+#include "gen/data/Source/D2Game/GAME/Game_0052C170.inc"
 #include "D2GameTypes.h"
 
 struct _RTL_CRITICAL_SECTION;

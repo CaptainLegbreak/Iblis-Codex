@@ -498,6 +498,62 @@ static int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
+struct D2CurseStrc;
+struct D2AuraCallbackStrc;
+
+struct D2SrvDo06Strc
+{
+    int nSkillId;
+    int nSkillLevel;
+    int nDuration;
+    int nAuraTargetState;
+    int nAuraStatId;
+    int nAuraStatCalcValue;
+};
+
+D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse); // 0x0056E970
+void __fastcall SKILLS_IterateAuraTargets(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter, int (__fastcall* pCallback)(D2AuraCallbackStrc*, D2UnitStrc*), void* pArgs, int a9, const char* szFile, int nLine); // 0x0056B7E0
+
+// 0x005DB150
+int __fastcall SKILLS_AuraCallback_InnerSight_SlowMissiles(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit)
+{
+    D2SrvDo06Strc* pArgs = (D2SrvDo06Strc*)pAuraCallback->pArgs;
+
+    D2CurseStrc curse = {};
+    curse.pUnit = pAuraCallback->pOwner;
+    curse.pTarget = pUnit;
+    curse.nSkill = pArgs->nSkillId;
+    curse.nSkillLevel = pArgs->nSkillLevel;
+    curse.nDuration = pArgs->nDuration;
+    curse.nStat = pArgs->nAuraStatId;
+    curse.nStatValue = pArgs->nAuraStatCalcValue;
+    curse.nState = pArgs->nAuraTargetState;
+    sub_0056E970(&curse);
+    return 1;
+}
+
+// 0x005DB1C0
+int __fastcall SKILLS_SrvDo006_InnerSight_SlowMissiles(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord || pSkillsTxtRecord->wAuraTargetState < 0 || pSkillsTxtRecord->wAuraTargetState >= sgptDataTables->nStatesTxtRecordCount || pSkillsTxtRecord->wAuraStat[0] < 0 || pSkillsTxtRecord->wAuraStat[0] >= sgptDataTables->nItemStatCostTxtRecordCount)
+    {
+        return 0;
+    }
+
+    D2SrvDo06Strc args;
+    args.nSkillId = nSkillId;
+    args.nSkillLevel = nSkillLevel;
+    args.nDuration = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraLenCalc, nSkillId, nSkillLevel);
+    args.nAuraTargetState = pSkillsTxtRecord->wAuraTargetState;
+    args.nAuraStatId = pSkillsTxtRecord->wAuraStat[0];
+    args.nAuraStatCalcValue = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraStatCalc[0], nSkillId, nSkillLevel);
+
+    const int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
+    SKILLS_IterateAuraTargets(pGame, pUnit, 0, 0, nRange, pSkillsTxtRecord->dwAuraFilter, SKILLS_AuraCallback_InnerSight_SlowMissiles, &args, 1, ".\\SKILLS\\SkillAma.cpp", 527);
+    return 1;
+}
+
 // 0x005DB2D0
 int __fastcall SKILLS_SrvDo007_Jab(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {

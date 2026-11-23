@@ -13,9 +13,7 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags)
 class UIWidget
 {
 public:
-    virtual ~UIWidget()
-    {
-    }
+    virtual ~UIWidget();
 
     static void operator delete(void* pMemory)
     {
@@ -27,6 +25,11 @@ public:
 };
 
 // build: symbol ??_7UIWidget@@6B@ 0x006DA6C0
+// 0x004BE080
+UIWidget::~UIWidget()
+{
+}
+
 // build: symbol ??_GListBoxImplementation@@UAEPAXI@Z 0x004BF8C0
 // build: symbol ??_GListBoxWrapper@@UAEPAXI@Z 0x004BED10
 // build: symbol ??_GSpinnerImplementation@@UAEPAXI@Z 0x004BC450

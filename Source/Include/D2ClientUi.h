@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2ClientTypes.h"
 #include "D2Unicode.h"
+#include "D2ClientSound.h"
 
 struct D2BnetChatPacketStrc;
 struct D2DialogWidgetNodeStrc;
@@ -17,7 +18,6 @@ struct SMSGHANDLER_PARAMS;
 struct D2ClientNotifyStrc;
 struct D2AutomapCellStrc;
 struct D2InvCompGridStrc;
-struct D2HintCursorStrc;
 struct D2TextListStrc;
 struct D2OptionHeaderStrc;
 struct D2OptionEntryStrc;
@@ -57,20 +57,6 @@ struct D2InvCompGridStrc
     unsigned char nWidth; // 0x10
     unsigned char nHeight; // 0x11
     unsigned short unk0x12; // 0x12
-};
-
-struct D2HintCursorStrc
-{
-    int unk0x00[15]; // 0x00
-    unsigned short unk0x3C; // 0x3C
-    unsigned char bFlag3E; // 0x3E
-    unsigned char nRefreshCountAll; // 0x3F
-    unsigned char nRefreshCount; // 0x40
-    unsigned char unk0x41; // 0x41
-    unsigned short unk0x42; // 0x42
-    int unk0x44[3]; // 0x44
-    int aValues[4]; // 0x50
-    int nOwnerId; // 0x60
 };
 
 struct D2TextListStrc
@@ -199,7 +185,6 @@ D2_CHECK_SIZE(D2SoundPosStrc, 0xC);
 D2_CHECK_SIZE(D2ClientNotifyStrc, 0x94);
 D2_CHECK_SIZE(D2AutomapCellStrc, 0x14);
 D2_CHECK_SIZE(D2InvCompGridStrc, 0x14);
-D2_CHECK_SIZE(D2HintCursorStrc, 0x64);
 D2_CHECK_SIZE(D2TextListStrc, 0x14);
 D2_CHECK_SIZE(D2OptionHeaderStrc, 0x14);
 D2_CHECK_SIZE(D2OptionEntryStrc, 0x550);
