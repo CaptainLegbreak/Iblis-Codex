@@ -341,6 +341,52 @@ void __fastcall PLAYER_Destroy(D2GameStrc* pGame, D2UnitStrc* pPlayer)
     EVENT_FreeUnitTimers(pGame, pPlayer);
 }
 
+D2UnitStrc* __fastcall SUNIT_GetNextUnitFromList(D2UnitStrc* pUnit); // 0x00552DB0
+
+// 0x00534A50
+void __fastcall PLAYER_RemoveAllPlayers(D2GameStrc* pGame)
+{
+    for (int i = 0; i < 128; ++i)
+    {
+        D2UnitStrc* pPlayer = pGame->pUnitList[UNIT_PLAYER][i];
+        while (pPlayer)
+        {
+            D2UnitStrc* pCurrent = pPlayer;
+            pPlayer = SUNIT_GetNextUnitFromList(pPlayer);
+            SUNIT_RemoveUnit(pGame, pCurrent);
+        }
+    }
+}
+
+D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
+
+void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit); // 0x00620C10
+
+// 0x00534AB0
+void __fastcall PLAYER_ClearTargetIfMatch(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+{
+    if (pTarget == SUNIT_GetTargetUnit(pGame, pUnit))
+    {
+        UNITS_SetTargetUnitForDynamicUnit(pUnit, 0);
+    }
+}
+
+#define EVENTTYPE_DELAYEDPORTAL 11
+
+void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
+
+void __fastcall PLRMODE_ChangeModeToCoords(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill, int nMode, int nX, int nY, int a7); // 0x005809D0
+
+#define EVENTTYPE_STATREGEN 3
+
+// 0x00534AD0
+void __fastcall PLAYER_InitializePosition(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY)
+{
+    PLRMODE_ChangeModeToCoords(pGame, pUnit, 0, PLRMODE_NEUTRAL, nX, nY, 1);
+    EVENT_SetEvent(pGame, pUnit, EVENTTYPE_STATREGEN, pGame->dwGameFrame + 1, 0, 0);
+    EVENT_SetEvent(pGame, pUnit, EVENTTYPE_DELAYEDPORTAL, pGame->dwGameFrame + 250, 0, 0);
+}
+
 inline int M08_UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -482,6 +528,110 @@ void __fastcall PLAYER_CreateStartItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D
             }
         }
     }
+}
+
+void __fastcall PLAYER_CreateStartItemsFromCharStatsTxt(D2UnitStrc* pPlayer, D2GameStrc* pGame, unsigned char nAct); // 0x00534F10
+
+static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
+{
+    if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pCharStatsTxt[nClass];
+    }
+
+    return 0;
+}
+
+// 0x00534F10
+void __fastcall PLAYER_CreateStartItemsFromCharStatsTxt(D2UnitStrc* pPlayer, D2GameStrc* pGame, void* pUnused)
+{
+    if (!pPlayer)
+    {
+        return;
+    }
+
+    D2CharStatsTxt* pCharStatsTxtRecord = PLRSAVE2_GetCharStatsTxtRecord(pPlayer->dwClassId);
+    if (!pCharStatsTxtRecord)
+    {
+        return;
+    }
+
+    for (int i = 0; i < 10; ++i)
+    {
+        PLAYER_CreateStartItem(pGame, pPlayer, pCharStatsTxtRecord, i, &pCharStatsTxtRecord->pItems[i]);
+    }
+}
+
+D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath); // 0x00537860
+
+D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
+
+D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
+
+D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
+
+void __fastcall D2GAME_SendP0x9D_ItemAction_Equip_6FC3EA50(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlags); // 0x0053D090
+
+void __fastcall D2GAME_SendP0x9C_ItemAction_PutInContainer_6FC3E980(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlags); // 0x0053ED50
+
+void __fastcall D2GAME_SendP0x9C_ItemAction_PutInBelt_6FC3EB90(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlags); // 0x0053EE70
+
+// 0x00534F80
+void __fastcall PLAYER_SynchronizeItemsToClient(D2UnitStrc* pUnit, D2ClientStrc* pClient)
+{
+    D2_ASSERT(pUnit->pInventory, 391);
+
+    for (D2UnitStrc* pItem = INVENTORY_GetFirstItem(pUnit->pInventory); pItem; pItem = INVENTORY_GetNextItem(pItem))
+    {
+        D2UnitStrc* pCheckedItem = INVENTORY_UnitIsItem(pItem);
+        if (INVENTORY_GetItemNodePage(pItem) == 3)
+        {
+            D2GAME_SendP0x9D_ItemAction_Equip_6FC3EA50(pClient, pUnit, pCheckedItem, 0);
+        }
+        else if (pUnit == CLIENTS_GetPlayerFromClient(pClient, 0) && INVENTORY_GetItemNodePage(pItem) == 1)
+        {
+            D2GAME_SendP0x9C_ItemAction_PutInContainer_6FC3E980(pClient, pUnit, pCheckedItem, 0);
+        }
+        else if (pUnit == CLIENTS_GetPlayerFromClient(pClient, 0) && INVENTORY_GetItemNodePage(pItem) == 2)
+        {
+            D2GAME_SendP0x9C_ItemAction_PutInBelt_6FC3EB90(pClient, pUnit, pCheckedItem, 0);
+        }
+    }
+}
+
+D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
+
+// 0x00535060
+int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit)
+{
+    if (!pUnit || pUnit->dwUnitType != UNIT_PLAYER)
+    {
+        return 0;
+    }
+
+    int nUnitType;
+    int nUnitGUID;
+    if (SUNIT_GetInteractInfo(pUnit, &nUnitType, &nUnitGUID))
+    {
+        return 1;
+    }
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    if (INVENTORY_GetCursorItem(pInventory))
+    {
+        return 1;
+    }
+
+    return UNITS_GetPlayerData(pUnit)->bBusy;
+}
+
+// 0x005350B0
+void __fastcall PLAYER_ResetBusyState(D2UnitStrc* pUnit)
+{
+    D2PlayerDataStrc* ptPlayerInfo = UNITS_GetPlayerData(pUnit);
+    D2_ASSERT(ptPlayerInfo->bBusy != 0, 0x1C7);
+
+    ptPlayerInfo->bBusy = 0;
 }
 
 int __fastcall sub_K10_EmitPlaceStartItemInBelt(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem)

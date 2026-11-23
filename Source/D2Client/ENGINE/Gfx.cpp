@@ -501,6 +501,44 @@ static inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
     return 0;
 }
 
+inline int STATES_IsUnitShapeShiftedInline(D2UnitStrc* pUnit)
+{
+    int bResult = 0;
+    if (pUnit)
+        bResult = (pUnit->dwFlagEx >> 3) & 1;
+    return bResult;
+}
+
+// 0x0046DB30
+D2InventoryStrc* __fastcall sub_0046DB30_GetCompInventory(D2UnitStrc* pUnit, int* pOut)
+{
+    if (STATES_IsUnitShapeShiftedInline(pUnit))
+    {
+        if (STATES_CheckStateMaskOnUnit(pUnit, 0x25))
+        {
+            D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pUnit);
+            if (pOwner)
+            {
+                if (pOut)
+                    *pOut = 1;
+                return pOwner->pInventory;
+            }
+
+            if (pOut)
+                *pOut = 0;
+            return pUnit->pInventory;
+        }
+
+        if (pOut)
+            *pOut = 0;
+        return pUnit->pInventory;
+    }
+
+    if (pOut)
+        *pOut = 0;
+    return pUnit->pInventory;
+}
+
 // 0x0046DEF0
 static void GFX_SyncStateOverlay(D2UnitOverlayStrc* pOverlay, D2GfxDataStrc* pGfx)
 {

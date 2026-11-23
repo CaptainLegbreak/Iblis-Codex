@@ -499,46 +499,6 @@ int __fastcall ACT5Q2_FindPortal(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStr
     return 0;
 }
 
-// 0x0058F8F0
-void __fastcall ACT1Intro_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
-    int nPlayerClass = !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwClassId;
-
-    int nSpecialClass;
-    switch (nNpcId)
-    {
-    case 150:
-        nSpecialClass = 0;
-        break;
-    case 147:
-        nSpecialClass = 2;
-        break;
-    case 154:
-        nSpecialClass = 4;
-        break;
-    case 148:
-        nSpecialClass = 1;
-        break;
-    default:
-        return;
-    }
-
-    if (PLRINTRO_GetQuestIntroFlag(pQuestArg->pPlayer, pQuestArg->pGame, nNpcId))
-    {
-        return;
-    }
-
-    if (nPlayerClass == nSpecialClass)
-    {
-        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 1);
-    }
-    else
-    {
-        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 0);
-    }
-}
-
 static inline int UNITS_GetGUIDOrNone(D2UnitStrc* pUnit)
 {
     if (!pUnit)
@@ -1775,6 +1735,59 @@ int __fastcall ACT1Q4_UnitIterate_SetCustom6Flag(D2GameStrc* pGame, D2UnitStrc* 
     return 0;
 }
 
+void __fastcall D2Game_10034_Return(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg, int nValue); // 0x00545990
+
+inline D2BitBufferStrc* QUESTS_GetPlayerQuestFlags_Inline(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+    return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+}
+
+enum D2C_a1q4_00593E70Constants
+{
+    QFLAG_CUSTOM6 = 10,
+    QUESTSTATEFLAG_A4Q2 = 26,
+    QUESTSTATEFLAG_A5Q6 = 40,
+};
+
+// 0x00593E70
+void __fastcall ACT1Q4_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    int nItemLevel;
+    if (pQuestArg->pPlayer)
+    {
+        if (QUESTRECORD_GetQuestState(QUESTS_GetPlayerQuestFlags_Inline(pQuestArg->pGame, pQuestArg->pPlayer), QUESTSTATEFLAG_A1Q4, QFLAG_CUSTOM6))
+        {
+            return;
+        }
+
+        D2GameStrc* pGame = pQuestArg->pGame;
+        if (pGame->bExpansion)
+        {
+            if (!QUESTRECORD_GetQuestState(QUESTS_GetPlayerQuestFlags_Inline(pGame, pQuestArg->pPlayer), QUESTSTATEFLAG_A5Q6, QFLAG_REWARDGRANTED))
+            {
+                return;
+            }
+        }
+        else
+        {
+            if (!QUESTRECORD_GetQuestState(QUESTS_GetPlayerQuestFlags_Inline(pGame, pQuestArg->pPlayer), QUESTSTATEFLAG_A4Q2, QFLAG_REWARDGRANTED))
+            {
+                return;
+            }
+        }
+
+        QUESTRECORD_SetQuestState(QUESTS_GetPlayerQuestFlags_Inline(pQuestArg->pGame, pQuestArg->pPlayer), QUESTSTATEFLAG_A1Q4, QFLAG_CUSTOM6);
+    }
+
+    SUNIT_IterateUnitsOfType(pQuestArg->pGame, UNIT_PLAYER, pQuestArg->pTarget, ACT1Q4_UnitIterate_SetCustom6Flag);
+    D2Game_10034_Return(pQuestData, pQuestArg, 64);
+    pQuestArg->pTarget->dwDropItemCode = 0x20737076;
+    for (int i = 0; i < 8; ++i)
+    {
+        D2GAME_DropItemAtUnit_6FC4FEC0(pQuestArg->pGame, pQuestArg->pTarget, 0, &nItemLevel, 0, -1, 0);
+    }
+}
+
 // 0x00593FC0
 void __fastcall OBJECTS_InitFunction09_InifussTree(D2ObjInitFnStrc* pOp)
 {
@@ -1795,6 +1808,18 @@ void __fastcall OBJECTS_InitFunction09_InifussTree(D2ObjInitFnStrc* pOp)
         {
             UNITS_ChangeAnimMode(pOp->pObject, 2);
         }
+    }
+}
+
+// 0x00594060
+void __fastcall ACT1Q4_InitCainGibbet(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp)
+{
+    if (pQuestData)
+    {
+        D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuestData->pQuestDataEx;
+        UNITS_ChangeAnimMode(pOp->pObject, pQuestDataEx->nCainGibbetObjectMode);
+        pQuestDataEx->bCageModeChanged = 1;
+        pQuestDataEx->nCainGibbetGUID = !pOp->pObject ? -1 : pOp->pObject->dwUnitId;
     }
 }
 

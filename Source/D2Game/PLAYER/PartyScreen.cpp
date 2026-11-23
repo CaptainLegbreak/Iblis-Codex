@@ -148,6 +148,36 @@ void __fastcall PARTYSCREEN_ToggleLootability(D2GameStrc* pGame, D2UnitStrc* pPl
     UnitGetClient(pPlayer2, ".\\PLAYER\\PartyScreen.cpp", 101)->PARTYSCREEN_SendEventUpdateToClient(!pPlayer1 ? -1 : pPlayer1->dwUnitId, nType);
 }
 
+// 0x005A5840
+void __fastcall PARTYSCREEN_ToggleIgnore(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int nParam, int* pFailure)
+{
+    PLAYERLIST_AllocPlayerList(pGame, pPlayer1, pPlayer2);
+    PLAYERLIST_AllocPlayerList(pGame, pPlayer2, pPlayer1);
+
+    if (PLAYERLIST_CheckFlag(pPlayer1, pPlayer2, 2) != nParam)
+    {
+        PLAYERLIST_ToggleFlag(pGame, pPlayer1, pPlayer2, 2, nParam);
+    }
+
+    SCMD_Send0x75_PartyRosterUpdate(pPlayer1, pPlayer2);
+    SCMD_Send0x75_PartyRosterUpdate(pPlayer2, pPlayer1);
+}
+
+// 0x005A58A0
+void __fastcall PARTYSCREEN_ToggleSquelch(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int nParam, int* pFailure)
+{
+    PLAYERLIST_AllocPlayerList(pGame, pPlayer1, pPlayer2);
+    PLAYERLIST_AllocPlayerList(pGame, pPlayer2, pPlayer1);
+
+    if (PLAYERLIST_CheckFlag(pPlayer1, pPlayer2, 4) != nParam)
+    {
+        PLAYERLIST_ToggleFlag(pGame, pPlayer1, pPlayer2, 4, nParam);
+    }
+
+    SCMD_Send0x75_PartyRosterUpdate(pPlayer1, pPlayer2);
+    SCMD_Send0x75_PartyRosterUpdate(pPlayer2, pPlayer1);
+}
+
 // 0x005A5690
 void D2ClientStrc::PARTYSCREEN_SendEventUpdateToClient(int nUnitGUID, unsigned char nType)
 {

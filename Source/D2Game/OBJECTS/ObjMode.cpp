@@ -3107,6 +3107,17 @@ int __fastcall OBJECTS_OperateFunction48_TrappedSoul(D2ObjOperateFnStrc* pOp, in
     return 0;
 }
 
+typedef void (__fastcall* EventCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit);
+
+extern EventCallbackFunction gpfnObjectEventFunctions[15]; // 0x006E19B0
+
+// 0x00586AD0
+void __fastcall D2GAME_OBJMODE_InvokeEventFunction_6FC75250(D2GameStrc* pGame, D2UnitStrc* pObject, int eEventType)
+{
+    D2_ASSERT(!IsBadCodePtr((FARPROC)gpfnObjectEventFunctions[eEventType]), 576);
+    gpfnObjectEventFunctions[eEventType](pGame, pObject);
+}
+
 // 0x00584870
 int __fastcall OBJECTS_OperateFunction15_Portal(D2ObjOperateFnStrc* pOp)
 {

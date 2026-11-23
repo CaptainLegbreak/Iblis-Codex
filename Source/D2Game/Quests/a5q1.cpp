@@ -1037,25 +1037,6 @@ int __fastcall ACT5Q2_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStr
     return 0;
 }
 
-// 0x00587FC0
-int __fastcall ACT5Q2_GetWussieGroupIndex(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
-{
-    D2Act5Quest2Strc* pQuestDataEx = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
-    const int nGUID = !pUnit ? -1 : pUnit->dwUnitId;
-    for (int i = 0; i < 3; ++i)
-    {
-        for (int j = 0; j < 5; ++j)
-        {
-            if (nGUID == pQuestDataEx->nWussieGUIDs[i][j])
-            {
-                return i;
-            }
-        }
-    }
-
-    return -1;
-}
-
 // 0x00588C50
 int __fastcall ACT5Q2_GetBarbsToBeRescued(D2QuestDataStrc* pQuestData)
 {
@@ -1096,128 +1077,6 @@ void __fastcall ACT5Q2_OnWussieActivated(D2GameStrc* pGame, D2UnitStrc* pUnit, D
 
     pQuestData->nStatusFlags = 0;
     QUESTS_UnitIterate(pQuestData, 5, 0, ACT5Q2_UnitIterate_StatusCyclerEx, 1);
-}
-
-// 0x005890B0
-int __fastcall ACT5Q3_RemoveDrehyaIced(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    if (!pUnit || pUnit->dwClassId != MONSTER_DREHYAICED)
-    {
-        return 0;
-    }
-
-    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    D2MonsterInteractStrc* pMonInteract = nType == UNIT_MONSTER && pUnit->pMonsterData ? pUnit->pMonsterData->pMonInteract : 0;
-
-    if (MONSTERAI_HasInteractUnit(pMonInteract))
-    {
-        MONSTERAI_CloseNpcInteractions(pGame, pUnit, ACT5Q3_SendPacket0x5DToClient, 0);
-        return 1;
-    }
-
-    D2ModeChangeStrc modeChange;
-    MONSTERMODE_GetModeChangeInfo(pUnit, MONMODE_DEAD, &modeChange);
-    D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
-
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A5Q3_PRISONOFICE);
-    if (pQuestData)
-    {
-        ((D2Act5Quest3Strc*)pQuestData->pQuestDataEx)->bDrehyaIcedRemoved = 1;
-    }
-
-    return 1;
-}
-
-// 0x00589FF0
-void __fastcall ACT5Q3_UpdateResistances(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
-{
-    D2StatListStrc* pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 0, 0, !pUnit ? UNIT_INVALID : pUnit->dwUnitType, !pUnit ? -1 : pUnit->dwUnitId);
-    if (!pStatList)
-    {
-        return;
-    }
-
-    D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
-
-    STATLIST_SetStat(pStatList, STAT_FIRERESIST, nValue, 0);
-    STATLIST_SetStat(pStatList, STAT_LIGHTRESIST, nValue, 0);
-    STATLIST_SetStat(pStatList, STAT_COLDRESIST, nValue, 0);
-    STATLIST_SetStat(pStatList, STAT_POISONRESIST, nValue, 0);
-
-    D2GAME_UpdateAttribute_6FC822D0(pUnit, STAT_FIRERESIST, nValue, pUnit);
-    D2GAME_UpdateAttribute_6FC822D0(pUnit, STAT_LIGHTRESIST, nValue, pUnit);
-    D2GAME_UpdateAttribute_6FC822D0(pUnit, STAT_COLDRESIST, nValue, pUnit);
-    D2GAME_UpdateAttribute_6FC822D0(pUnit, STAT_POISONRESIST, nValue, pUnit);
-}
-
-// 0x00589160
-bool __fastcall ACT5Q3_SeqCallback(D2QuestDataStrc* pQuestData)
-{
-    if (pQuestData->fState < 5 && pQuestData->bNotIntro)
-    {
-        if (!pQuestData->fState)
-        {
-            pQuestData->fState = 1;
-        }
-        return true;
-    }
-
-    D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pQuestData->pGame, pQuestData->nSeqId);
-    if (pQuest)
-    {
-        D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter), 331);
-        return pQuest->pfSeqFilter(pQuest);
-    }
-
-    return false;
-}
-
-// 0x00589F10
-bool __fastcall ACT5Q3_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    if (nNpcId == MONSTER_MALAH)
-    {
-        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuest->eFilter, QFLAG_REWARDPENDING) && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q3, QFLAG_CUSTOM4))
-        {
-            return true;
-        }
-
-        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuest->eFilter, QFLAG_REWARDGRANTED) || QUESTRECORD_GetQuestState(pQuestFlags, pQuest->eFilter, QFLAG_REWARDPENDING))
-        {
-            return false;
-        }
-
-        if (pQuest->fState == 1)
-        {
-            return true;
-        }
-
-        if (pQuest->fState == 4 && ((D2Act5Quest3Strc*)pQuest->pQuestDataEx)->nDefrostPotionsInGame == 0)
-        {
-            return true;
-        }
-    }
-    else if (nNpcId == MONSTER_DREHYAICED)
-    {
-        if (pQuest->bNotIntro && pQuest->fState < 5 && !ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ITEMCODE_DEFROST_POTION))
-        {
-            return true;
-        }
-    }
-    else if (nNpcId == MONSTER_DREHYA)
-    {
-        if (!QUESTRECORD_GetQuestState(pQuestFlags, pQuest->eFilter, QFLAG_REWARDPENDING))
-        {
-            return false;
-        }
-
-        if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q3, QFLAG_CUSTOM5) == 0)
-        {
-            return true;
-        }
-    }
-
-    return false;
 }
 
 // 0x0058AD80
@@ -1271,24 +1130,6 @@ void __fastcall ACT5Q3_ChangeNihlathakMapAI(D2GameStrc* pGame, D2UnitStrc* pUnit
         DRLGPRESET_ChangeMapAI(&pQuestDataEx->pNilathakMapAI, AIGENERAL_GetMapAiFromUnit(pNihlathak));
         pQuestDataEx->bNilathakMapAIChanged = 1;
     }
-}
-
-// 0x0058F9B0
-bool __fastcall ACT1Intro_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus)
-{
-    *pStatus = 0;
-    return false;
-}
-
-// 0x0058FB50
-bool __fastcall ACT1Q0_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    if (nNpcId == MONSTER_WARRIV1 && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q0, QFLAG_REWARDGRANTED))
-    {
-        return true;
-    }
-
-    return false;
 }
 
 void __fastcall ACT4Q3_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)

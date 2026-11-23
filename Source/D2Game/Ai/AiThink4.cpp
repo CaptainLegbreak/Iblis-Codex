@@ -4020,6 +4020,103 @@ static inline int UNITS_TestIgnoreTargetFlag(D2UnitStrc* pUnit)
     return bResult;
 }
 
+// 0x005E4830
+void __fastcall AITHINK_MeleePet(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
+    if (!pOwner)
+    {
+        if (pAiControl->dwAiParam[2])
+        {
+            D2UnitStrc* pOldOwner = SUNIT_GetServerUnit(pGame, 0, pAiControl->dwAiParam[2]);
+            if (pOldOwner)
+            {
+                D2GAME_AI_PetMove_6FCE2BA0(pGame, pOldOwner, pUnit, 3, 0, 0, 0);
+                return;
+            }
+        }
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+        return;
+    }
+    pAiControl->dwAiParam[2] = pOwner->dwUnitId;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    const int nOwnerDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pUnit, pOwner);
+    if (nOwnerDistance > 50)
+    {
+        D2GAME_AI_PetMove_6FCE2BA0(pGame, pOwner, pUnit, 3, 0, 0, 0);
+        return;
+    }
+    int nVelocity;
+    if (pMonStatsTxt->nVelocity > 0)
+    {
+        nVelocity = 100 * pMonStatsTxt->nRun / pMonStatsTxt->nVelocity - 100;
+        if (nVelocity >= 100)
+            nVelocity = 100;
+    }
+    else
+        nVelocity = 100;
+    if (nOwnerDistance > 28)
+    {
+        D2GAME_AI_PetMove_6FCE2BA0(pGame, pOwner, pUnit, 0, 0, nVelocity, 0);
+        return;
+    }
+    int nOwnerTargetDistance;
+    int bOwnerCombat;
+    D2UnitStrc* pOwnerTarget = sub_6FCF2110(pGame, pOwner, pAiControl, &nOwnerTargetDistance, &bOwnerCombat);
+    if (pOwnerTarget && UNITS_TestIgnoreTargetFlag(pOwnerTarget))
+        pOwnerTarget = 0;
+    int nTargetDistance;
+    int bCombat;
+    D2UnitStrc* pTarget = AITACTICS_FindTargetInRange(pGame, pUnit, pAiControl, &nTargetDistance, &bCombat, 24);
+    if (!pTarget || nTargetDistance > 6)
+    {
+        pTarget = 0;
+        if (pOwnerTarget)
+        {
+            nTargetDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pUnit, pOwnerTarget);
+            if (nTargetDistance < 36)
+                pTarget = pOwnerTarget;
+        }
+    }
+    if (!AIUTIL_HasClearApproachToTarget(pUnit, pTarget))
+        pTarget = 0;
+    int nResult;
+    if ((int)(AI_RollUnitSeed(pUnit) % 100) < 15)
+        nResult = AITHINK_TryPetFollowOwner(pGame, pUnit, pTarget, pOwner, bCombat, pAiTickParam, 1, 8);
+    else
+        nResult = AITHINK_TryPetFollowOwner(pGame, pUnit, pTarget, pOwner, bCombat, pAiTickParam, 0, 7);
+    if (nResult)
+        return;
+    if (pTarget && DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
+    {
+        AITACTICS_WanderToTarget(pGame, pUnit, pOwner, 4);
+        return;
+    }
+    if (!pTarget)
+    {
+        AITACTICS_WanderToTarget(pGame, pUnit, pOwner, 4);
+        return;
+    }
+    if (!DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
+    {
+        if (bCombat)
+        {
+            if ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < 80)
+            {
+                AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
+                return;
+            }
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+            return;
+        }
+        sub_005DE190_SetAiParam(pUnit, 0, 0, 12);
+        AITACTICS_WalkToTargetWithPathType13(pGame, pUnit, pTarget, 7);
+        return;
+    }
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
+}
+
 // 0x005E4AC0
 void __fastcall AITHINK_UpdateNecroPet(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
@@ -11301,6 +11398,54 @@ void __fastcall AITHINK_Fn022_GreaterMummy(D2GameStrc* pGame,D2UnitStrc* pUnit,D
   AITACTICS_IdleInNeutralMode(pGame,pUnit,6);
 }
 
+void __stdcall COLLISION_ResetMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask);          // 0x0064CBE0
+
+void __stdcall PATH_SetMoveTestCollisionMask(D2DynamicPathStrc* pDynamicPath, int nMask);                   // 0x00648CE0
+
+// 0x005F2EB0
+void __fastcall AITHINK_RemoveGroundCollision(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        pUnit->dwFlags &= 0xFFFFFFF1;
+    }
+
+    COLLISION_ResetMask(UNITS_GetRoom(pUnit), CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit), 0x1000);
+    COLLISION_ResetMask(UNITS_GetRoom(pUnit), CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit), 0x100);
+    sub_00649190_SetPathMode(pUnit, 5);
+    PATH_SetMoveTestCollisionMask(pUnit->pDynamicPath, 0);
+    AITACTICS_Idle(pGame, pUnit, 12);
+}
+
+void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064EA90
+
+int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit);                                              // 0x00649180
+
+// 0x005F2FC0
+int __fastcall AITHINK_TryRestoreGroundCollision(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0xE;
+    }
+
+    if (PATH_GetUnitCollisionPattern(pUnit) != 1)
+    {
+        if (!SUNIT_TeleportUnit(pGame, pUnit, UNITS_GetRoom(pUnit), CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit), 0, 0))
+        {
+            return 0;
+        }
+
+        COLLISION_SetMaskWithPattern(UNITS_GetRoom(pUnit), CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit), 1, 0x100);
+        sub_00649190_SetPathMode(pUnit, 1);
+        PATH_SetMoveTestCollisionMask(pUnit->pDynamicPath, 0x3C01);
+        AITACTICS_Idle(pGame, pUnit, 12);
+        return 1;
+    }
+
+    return 0;
+}
+
 // 0x005FA010
 void __fastcall AITHINK_Fn068_VileMother(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
@@ -15510,6 +15655,60 @@ void __fastcall AITHINK_Fn076_EvilHole(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
     }
 
     AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, 0, 0, 0);
+}
+
+static inline void AITHINK_DieInline(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        pUnit->dwFlags |= UNITFLAG_NOTC;
+    }
+    AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, MONMODE_DEATH, 0, 0);
+}
+
+enum D2C_AiThink4_005FB5B0Constants
+{
+    TRAPMISSILE_AI_PARAM_DELAY = 2,
+    TRAPMISSILE_AI_PARAM_DISTANCE = 0,
+    TRAPMISSILE_AI_PARAM_NUM_TO_SHOOT = 1,
+};
+
+// 0x005FB5B0
+void __fastcall AITHINK_Fn077_TrapMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    const int nTargetDistance = pAiTickParam->nTargetDistance;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+
+    if (!pTarget)
+    {
+        AITHINK_DieInline(pGame, pUnit);
+        return;
+    }
+
+    if (nTargetDistance > pMonStatsTxt->wAiParam[TRAPMISSILE_AI_PARAM_DISTANCE][pGame->nDifficulty])
+    {
+        AITHINK_DieInline(pGame, pUnit);
+        return;
+    }
+
+    if (pAiControl->dwAiParam[0] >= pMonStatsTxt->wAiParam[TRAPMISSILE_AI_PARAM_NUM_TO_SHOOT][pGame->nDifficulty])
+    {
+        AITHINK_DieInline(pGame, pUnit);
+        return;
+    }
+
+    if (!pAiControl->dwAiParam[1])
+    {
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+        pAiControl->dwAiParam[0] += 1;
+        pAiControl->dwAiParam[1] = 1;
+        return;
+    }
+
+    pAiControl->dwAiParam[1] = 0;
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStatsTxt->wAiParam[TRAPMISSILE_AI_PARAM_DELAY][pGame->nDifficulty]);
 }
 
 // 0x005EF620

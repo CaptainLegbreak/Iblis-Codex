@@ -2184,12 +2184,6 @@ void __fastcall D2GAME_SendP0x9C_ItemAction_AddOrRemoveFromShop_6FC3F260(D2Clien
     }
 }
 
-// 0x0054B920
-int __stdcall D2GAME_PACKETCALLBACK_Rcv0x2E_Ignored(int nUnused1, int nUnused2)
-{
-    return 0;
-}
-
 // 0x0054C360
 int __stdcall D2GAME_PACKETCALLBACK_Rcv0x42_Ignored(int nUnused1, int nUnused2)
 {
@@ -2200,28 +2194,6 @@ int __stdcall D2GAME_PACKETCALLBACK_Rcv0x42_Ignored(int nUnused1, int nUnused2)
 int __stdcall D2GAME_PACKETCALLBACK_Rcv0x43_Ignored(int nUnused1, int nUnused2)
 {
     return 0;
-}
-
-// 0x0054D740
-int __stdcall D2GAME_PACKETCALLBACK_Rcv0x66_Ignored(int nUnused1, int nUnused2)
-{
-    return 0;
-}
-
-// 0x0055D930
-void __stdcall sub_0055D930(int nUnused1)
-{
-}
-
-// 0x0055E9A0
-int __stdcall sub_0055E9A0(int nUnused1, int nUnused2)
-{
-    return 0;
-}
-
-// 0x0055F4F0
-void __stdcall sub_0055F4F0(int nUnused1)
-{
 }
 
 // 0x00568DB0
@@ -2238,16 +2210,6 @@ int __cdecl sub_00570680()
 
 // 0x00570690
 void __stdcall sub_00570690(int nUnused1)
-{
-}
-
-// 0x0059B6C0
-void __stdcall ACT2Q4_OnJerhynSpawned(int nUnused1, int nUnused2)
-{
-}
-
-// 0x0059B6D0
-void __stdcall ACT2Q4_OnPalaceGuardSpawned(int nUnused1, int nUnused2)
 {
 }
 

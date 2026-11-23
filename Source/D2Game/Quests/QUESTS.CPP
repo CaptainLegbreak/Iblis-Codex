@@ -3196,110 +3196,12 @@ static inline int sub_00623C60(D2UnitStrc* pUnit)
     return pUnit->dwClassId;
 }
 
-// 0x00547BC0
-D2MonRegDataStrc* __fastcall MONSTERREGION_GetMonsterComponentData(D2MonsterRegionStrc** ppMonsterRegion, D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit)
-{
-    const short nClassId = sub_00623C60(pUnit);
-
-    switch (MONSTERREGION_SanitizeMonsterId(nClassId))
-    {
-    case 195:
-    case 196:
-    case 294:
-    case 296:
-        return 0;
-    default:
-        break;
-    }
-
-    D2MonsterRegionStrc* pMonsterRegion = MONSTERREGION_GetMonsterRegionFromLevelId(ppMonsterRegion, DUNGEON_GetLevelIdFromRoom(pRoom));
-    if (!pMonsterRegion)
-    {
-        return 0;
-    }
-
-    D2MonRegDataStrc* pMonsterRegionData = pMonsterRegion->pMonData;
-    int nCounter = 0;
-    while (nCounter < pMonsterRegion->nSpawnCount)
-    {
-        if ((unsigned short)pMonsterRegionData->nMonHcIdx == (unsigned short)nClassId)
-        {
-            return pMonsterRegionData;
-        }
-
-        ++pMonsterRegionData;
-        ++nCounter;
-    }
-
-    if (nCounter >= 13)
-    {
-        return 0;
-    }
-
-    D2MonStats2Txt* pMonStats2TxtRecord = MONSTERREGION_GetMonStats2TxtRecord(nClassId);
-    if (pMonStats2TxtRecord && pMonStats2TxtRecord->unk0xEC > 2u)
-    {
-        pMonsterRegionData->nMonHcIdx = nClassId;
-        ++pMonsterRegion->nSpawnCount;
-        MONSTERCHOOSE_GenerateComponentVariants(&pUnit->pSeed, pMonsterRegionData, 3);
-    }
-
-    return pMonsterRegionData;
-}
-
 inline unsigned __int64 ITEMS_RollRandomNumberInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
     pSeed->nLowSeed = (unsigned int)lSeed;
     return lSeed;
-}
-
-// 0x005490E0
-int __fastcall PLRMSG_CheckCursorItem(D2GameStrc* pGame, int nUnused, D2UnitStrc* pUnit, int nItemGUID)
-{
-    D2_ASSERT(pGame, 1123);
-
-    D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, nItemGUID);
-    if (pItem && pItem->dwAnimMode == IMODE_ONCURSOR && INVENTORY_GetCursorItem(pUnit->pInventory) == pItem)
-    {
-        return 0;
-    }
-
-    return 1;
-}
-
-// 0x00549150
-int __fastcall PLRMSG_CheckStoredItem(D2GameStrc* pGame, int nUnused, D2UnitStrc* pUnit, int nItemGUID)
-{
-    D2_ASSERT(pGame, 1146);
-
-    D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, nItemGUID);
-    if (pItem && pItem->dwAnimMode == IMODE_STORED && INVENTORY_CompareWithItemsParentInventory(pUnit->pInventory, pItem))
-    {
-        return 0;
-    }
-
-    return 1;
-}
-
-// 0x005491B0
-int __fastcall PLRMSG_CheckStoredOrEquippedItem(D2GameStrc* pGame, int nUnused, D2UnitStrc* pUnit, int nItemGUID)
-{
-    D2_ASSERT(pGame, 1169);
-
-    D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, nItemGUID);
-    if (!pItem)
-    {
-        return 1;
-    }
-
-    if (pItem->dwAnimMode != IMODE_STORED && pItem->dwAnimMode != IMODE_EQUIP)
-    {
-        return 1;
-    }
-
-    return !INVENTORY_CompareWithItemsParentInventory(pUnit->pInventory, pItem);
 }
 
 #include "gen/data/Source/D2Game/Quests/QUESTS.inc"

@@ -562,6 +562,37 @@ static inline float GetEnvironVolume_Inline()
     return sub_00473C40() ? sub_00473C80() : 0.0f;
 }
 
+#define MINIMUM(a,b) (((a) < (b)) ? (a) : (b))
+
+#define MASK_DECREMENT 1
+
+static inline int Absolute(int nValue)
+{
+    return nValue < 0 ? -nValue : nValue;
+}
+
+// 0x004E4180
+int __fastcall sub_004E4180(int nFrame, int nOffset, int nStepLength)
+{
+    int nFrameMod;
+    int nOffsetMod;
+    const int nMask = nStepLength - MASK_DECREMENT;
+    if (!(nStepLength & nMask))
+    {
+        nFrameMod = nFrame & nMask;
+        nOffsetMod = nOffset & nMask;
+    }
+    else
+    {
+        nFrameMod = nFrame % nStepLength;
+        nOffsetMod = nOffset % nStepLength;
+    }
+    const int nDirect = Absolute(nOffsetMod - nFrameMod);
+    const int nForward = Absolute(nOffsetMod - nFrameMod - nStepLength);
+    const int nBackward = Absolute(nFrameMod - nOffsetMod - nStepLength);
+    return MINIMUM(MINIMUM(nDirect, nForward), nBackward);
+}
+
 // 0x004E42E0
 void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
 {
@@ -1943,6 +1974,65 @@ static int SKILLDESC_FormatIntOrDecimal(Unicode* wszText, int bPrefixSign, int n
     if (nFraction)
         return SKILLDESC_FormatSignedDecimal(wszText, bPrefixSign, nValue, nFraction);
     return SKILLDESC_FormatSignedInt(wszText, bPrefixSign, nValue);
+}
+
+static void __stdcall sub_004E74A0_FormatDamageRange(int bPrefixSign, Unicode* wszText, int bUseFormat, int nMinDamage, int nMaxDamage);
+
+// 0x004E74A0
+static void __stdcall sub_004E74A0_FormatDamageRange(int bPrefixSign, Unicode* wszText, int bUseFormat, int nMinDamage, int nMaxDamage)
+{
+    char szText[32];
+    if (bUseFormat && (nMinDamage >= 10000 || nMaxDamage >= 10000))
+    {
+        if (!(nMinDamage < 10000))
+// build: symbol ?gszPlus@* 0x006DBEC4
+            wsprintfA(szText, "%s%dK-%dK", bPrefixSign ? gszPlus : &gszEmptyAssertText, (nMinDamage + 500) / 1000, (nMaxDamage + 500) / 1000);
+        else
+            wsprintfA(szText, "%s%d-%dK", bPrefixSign ? gszPlus : &gszEmptyAssertText, nMinDamage, (nMaxDamage + 500) / 1000);
+    }
+    else if (bPrefixSign)
+        wsprintfA(szText, "+%d-%d", nMinDamage, nMaxDamage);
+    else
+        wsprintfA(szText, gszFmtRange, nMinDamage, nMaxDamage);
+    sub_00526320_ToUnicode(wszText, szText, 32);
+}
+
+// 0x004E75B0
+static int sub_004E75B0_FormatValueOrRange(Unicode* wszText, int bPrefixSign, int nMin, int nMax)
+{
+    if (nMin == nMax)
+    {
+        char szText[32];
+        if (bPrefixSign && nMin >= 0)
+            wsprintfA(szText, "+%d", nMin);
+        else
+            wsprintfA(szText, szFmtD_006D57BC, nMin);
+        sub_00526320_ToUnicode(wszText, szText, 32);
+        return 1;
+    }
+    sub_004E74A0_FormatDamageRange(bPrefixSign, wszText, 1, nMin, nMax);
+    return 1;
+}
+
+extern "C" int __stdcall sub_Z13_EmitA(Unicode* p, int a, int b, int c)
+{
+    return sub_004E75B0_FormatValueOrRange(p, a, b, c);
+}
+
+// 0x004E7610
+static void __stdcall sub_004E7610_FormatDecimalRange(Unicode* wszText, int bPrefixSign, int nMin, int nMinFrac, int nMax, int nMaxFrac)
+{
+    char szText[32];
+    if (bPrefixSign)
+        wsprintfA(szText, "+%d.%d-%d.%d", nMin, nMinFrac, nMax, nMaxFrac);
+    else
+        wsprintfA(szText, "%d.%d-%d.%d", nMin, nMinFrac, nMax, nMaxFrac);
+    sub_00526320_ToUnicode(wszText, szText, 32);
+}
+
+extern "C" void __stdcall sub_K07_EmitB(Unicode* p, int b, int a1, int a2, int a3, int a4)
+{
+    sub_004E7610_FormatDecimalRange(p, b, a1, a2, a3, a4);
 }
 
 // 0x004E7650
@@ -5392,6 +5482,72 @@ int __fastcall sub_D06_Emit_004EDEA0(D2UnitStrc* pUnit, Unicode* wszText, D2Skil
         return 1;
     }
     return 0;
+}
+
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
+
+int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
+
+D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+
+D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
+
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+
+    return 0;
+}
+
+// 0x004F4D90
+int __fastcall sub_004F4D90_MissileAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
+    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    const int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
+    D2UnitStrc* pDestination = sub_004C5EB0_FindDestination(pUnit, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget), nRange, 3, !pTarget ? -1 : pTarget->dwUnitId, 0);
+    if (!pDestination)
+    {
+        return 0;
+    }
+
+    const int nTargetX = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel);
+    D2MissileStrc tMissileParams;
+    memset(&tMissileParams, 0, sizeof(tMissileParams));
+    tMissileParams.dwFlags = 0x20;
+    tMissileParams.pOwner = pUnit;
+    tMissileParams.pOrigin = pTarget;
+    tMissileParams.nSkill = nSkillId;
+    tMissileParams.nSkillLevel = nSkillLevel;
+    tMissileParams.nMissile = nMissile;
+    tMissileParams.nTargetX = CLIENTS_GetUnitX(pDestination);
+    tMissileParams.nTargetY = CLIENTS_GetUnitY(pDestination);
+    D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
+    if (pMissile)
+    {
+        MISSILE_SetTargetX(pMissile, nTargetX);
+    }
+
+    return 1;
 }
 
 #include "gen/data/Source/D2Client/UI/SkillDesc.inc"

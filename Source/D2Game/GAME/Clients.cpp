@@ -3587,14 +3587,6 @@ int __fastcall PARTY_SumLivingPartyLevelsInSameLevel(D2GameStrc* pGame, D2UnitSt
     return nLevelSum;
 }
 
-// 0x005408E0
-int __fastcall PARTY_GetLivingPartyMemberCountInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    int nLivingPartyMembers = 0;
-    PARTY_IteratePartyMembersInSameLevel(pGame, pUnit, PARTY_CountLivingUnits, &nLivingPartyMembers);
-    return nLivingPartyMembers;
-}
-
 // 0x00541830
 void __fastcall SKILLS_SetMonsterComponent(D2UnitStrc* pUnit, unsigned char nComponent, unsigned char nValue)
 {
@@ -3616,20 +3608,6 @@ void __fastcall OBJRGN_SetWellCoordinates(D2GameStrc* pGame, int nLevelId, int n
     pObjectRegion->wellCoordinates[pObjectRegion->nWells].nX = nX;
     pObjectRegion->wellCoordinates[pObjectRegion->nWells].nY = nY;
     ++pObjectRegion->nWells;
-}
-
-// 0x00562DA0
-void __fastcall D2GAME_Items_EventsHandler_6FC4A460(D2GameStrc* pGame, D2UnitStrc* pUnit, int eEventType)
-{
-    D2_ASSERT(!IsBadCodePtr((FARPROC)gpfnItemEventFunctions[eEventType]), 5610);
-    gpfnItemEventFunctions[eEventType](pGame, pUnit);
-}
-
-// 0x00586AD0
-void __fastcall D2GAME_OBJMODE_InvokeEventFunction_6FC75250(D2GameStrc* pGame, D2UnitStrc* pObject, int eEventType)
-{
-    D2_ASSERT(!IsBadCodePtr((FARPROC)gpfnObjectEventFunctions[eEventType]), 576);
-    gpfnObjectEventFunctions[eEventType](pGame, pObject);
 }
 
 // 0x005B7230
