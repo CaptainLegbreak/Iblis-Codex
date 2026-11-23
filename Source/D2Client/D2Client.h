@@ -839,7 +839,7 @@ void __fastcall sub_004CC160(D2UnitStrc* pUnit, int nValue); // 0x004CC160
 void __fastcall sub_004CC5B0_RequestMode(D2UnitStrc* pUnit, int nMode, int nArg); // 0x004CC5B0
 void __fastcall sub_004CC870_SubMissileCallback(D2UnitStrc* pMissile); // 0x004CC870
 void __fastcall sub_004CED20(D2UnitStrc* pMissile, int nMissile); // 0x004CED20
-void __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitStrc* pTarget, int bArg); // 0x004D2D70
+D2UnitStrc* __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitStrc* pTarget, int bArg); // 0x004D2D70
 void __fastcall sub_004DA620(D2UnitStrc* pUnit, int nArg); // 0x004DA620
 void __fastcall sub_004DB1C0_SetGfxByte(D2UnitStrc* pUnit, int nIndex, unsigned char nValue); // 0x004DB1C0
 void __fastcall sub_004DC7B0(D2CellPosStrc* pPos, unsigned int nColor, int nArg); // 0x004DC7B0
