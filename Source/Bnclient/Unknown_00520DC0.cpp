@@ -1,14 +1,21 @@
 #include "Bnclient.h"
 
 struct D2BigPowModStrc;
+
 struct D2BnReply00520DC0Strc;
+
 struct D2BigPairStrc;
+
 struct D2BnHashCtxStrc;
+
 struct D2IdeaUserKeyStrc;
+
 struct D2IdeaKeyScheduleStrc;
 
 extern int gnLastStatus_0072FFA8; // 0x0072FFA8
+
 int __fastcall BNMESSQUEUE_SetError(int nError); // 0x005204A0
+
 int __fastcall BNSEND_SetErrorText(int nError, const char* szText); // 0x005204D0
 
 struct D2BnReply00520DC0Strc
@@ -18,24 +25,40 @@ struct D2BnReply00520DC0Strc
 };
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
+
 extern const unsigned char gabSrpData1[]; // 0x00730164
+
 extern int gnSrpSize1; // 0x00730168
+
 extern const unsigned char gabSrpData2[]; // 0x0073016C
+
 extern int gnSrpSize2; // 0x0073018C
+
 extern D2BigPairStrc gtBigPair; // 0x0088273C
+
 extern "C" long __cdecl _time32(long* pTime);
+
 extern "C" int __cdecl tolower(int nChar);
+
 // build: symbol ?gacCDKeyMap@* 0x006DF238
 extern const char gacCDKeyMap[];
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 extern D2BnHashCtxStrc gatBnHashCtx[]; // 0x00882760
+
 extern D2IdeaKeyScheduleStrc gaIdeaKeySchedules[]; // 0x00882878
+
 void __fastcall BNDOWNLOAD_FillRandomBytes(unsigned char* pBuffer, int nSize); // 0x00522BC0
+
 unsigned int __fastcall BNDOWNLOAD_DecryptData(unsigned char* pBuffer, unsigned int nSize, unsigned char* pKey); // 0x00522E10
+
 static int __cdecl sub_005232B0_DecodeAndValidate(unsigned char* pBuffer, unsigned int nSize);
 
 // 0x00520DC0
@@ -80,6 +103,7 @@ void __cdecl sub_00521B90_ClearSrpState()
 }
 
 #include "gen/data/Source/Bnclient/Unknown_00520DC0.inc"
+
 #include "D2BnCryptTypes.h"
 
 // 0x00522BB0
@@ -138,16 +162,6 @@ char* __fastcall sub_00523020_GetAlignedData(char* pBuffer)
     if (nMisalign)
         pBuffer += 0x40 - nMisalign;
     return pBuffer + 8;
-}
-
-// 0x005241C0
-void __fastcall sub_005241C0_GetDigest(int nIndex, unsigned int* pDigest)
-{
-    if (pDigest)
-    {
-        for (int i = 0; i < 5; ++i)
-            pDigest[i] = gatBnHashCtx[nIndex].aState[i];
-    }
 }
 
 // 0x005242F0

@@ -1,9 +1,15 @@
 #include "D2Net.h"
+
 #include "D2GameServer.h"
+
 struct D2NetPacketRecStrc;
+
 struct D2NetLockStrc;
+
 struct D2Net52BE10Strc;
+
 struct D2ServerCallbackFunctions;
+
 extern int gnConnectionMode; // 0x00882D10
 
 struct D2NetLockStrc
@@ -23,10 +29,15 @@ struct D2Net52BE10Strc
 typedef const char* (__stdcall* FnLoadComplete)();
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
+
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
+
 extern char gszEmptyLoadComplete[]; // 0x006E0498
+
 extern int gnGamesGUIDs[1024]; // 0x00882D38
+
 extern D2ServerCallbackFunctions* gpD2EventCallbackTable; // 0x00883D50
+
 extern int gbD2ServerCallbackFunctionsInitialized; // 0x00883D54
 
 // 0x0052B7E0
@@ -201,11 +212,4 @@ int __fastcall NET_FreePacketList(D2CriticalSectionStrc* pCriticalSection, D2Net
 int __fastcall NET_IsSimulatedLagConnection()
 {
     return gnConnectionMode == 2;
-}
-
-// 0x0052B690
-int __fastcall SERVER_EnqueueLocalClientPacket(const unsigned char* pBuffer, unsigned short nSize)
-{
-    D2_ASSERT(nSize <= MAX_MSG_SIZE, 0x217);
-    return FOG_10175(gpServer, pBuffer, nSize, 0) != 0;
 }

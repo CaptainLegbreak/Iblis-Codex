@@ -1,6 +1,9 @@
 #include "D2Common.h"
+
 #include "D2Win32Base.h"
+
 #include "D2StormLink.h"
+
 #include "D2CmpCache.h"
 
 #include "D2Structs.h"
@@ -1553,27 +1556,6 @@ static inline void sub_F45_VisitChild(D2CommonLevelNodeStrc* pChild, int nLevel)
     ++pChild->wLevelCounts[nLevel];
 }
 
-// 0x0061B390
-void __fastcall DRLGACTIVATE_RoomExPropagateSetStatus(void* pContext, D2CommonLevelNodeStrc* pNode, unsigned char nLevel)
-{
-    if (!pNode->nChildren)
-        sub_0066C370_OnChildlessNode(pContext, pNode);
-    if (nLevel < 3)
-    {
-        for (int i = 0; i < pNode->nChildren; ++i)
-        {
-            D2CommonLevelNodeStrc* pChild = pNode->ppChildren[i];
-            DRLGACTIVATE_RoomExPropagateSetStatus(pContext, pChild, nLevel + 1);
-            sub_F45_VisitChild(pChild, nLevel);
-        }
-    }
-    else
-    {
-        for (int i = 0; i < pNode->nChildren; ++i)
-            sub_F45_VisitChild(pNode->ppChildren[i], nLevel);
-    }
-}
-
 // 0x00627B70
 int __fastcall DUNGEON_ItemCalcGetRandomNumberInRange(int nMin, int nMax, int nUnused, void* pUserData)
 {
@@ -1604,21 +1586,6 @@ int __fastcall DUNGEON_SkillCalcGetRandomNumberInRange(int nMin, int nMax, int n
         return nMin;
     }
     return nMin + ITEMS_RollLimitedRandomNumber(pSeed, nMax - nMin + 1);
-}
-
-// 0x0064B720
-int __fastcall MISSILE_GetRandomNumberInRange(int nMin, int nMax, int nUnused, void* pUserData)
-{
-    D2UnitStrc* pMissile = (D2UnitStrc*)pUserData;
-    if (!pMissile)
-    {
-        return 0;
-    }
-    if (nMin >= nMax)
-    {
-        return nMin;
-    }
-    return nMin + ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, nMax - nMin + 1);
 }
 
 // 0x00653ED0
@@ -1673,35 +1640,6 @@ const Unicode* __fastcall DATATBLS_RollRandomUniqueAppellationString(D2UnitStrc*
         }
     }
     return &gwszDataTablesDefault;
-}
-
-// 0x0065E9E0
-int __fastcall ITEMMODS_RollRandomValueInRange(D2UnitStrc* pItem, int nMin, int nMax)
-{
-    if (nMax == nMin)
-    {
-        return nMin;
-    }
-    if (nMax < nMin)
-    {
-        const int nTemp = nMax;
-        nMax = nMin;
-        nMin = nTemp;
-    }
-    if (pItem && pItem->dwUnitType == UNIT_ITEM)
-    {
-        D2SeedStrc* pSeed = ITEMS_GetItemSeed(pItem);
-        if (nMin >= nMax)
-        {
-            return nMin;
-        }
-        return nMin + ITEMS_RollLimitedRandomNumber(pSeed, nMax - nMin + 1);
-    }
-    if (nMin >= nMax)
-    {
-        return nMin;
-    }
-    return nMin + ITEMS_RollLimitedRandomNumber(&pItem->pSeed, nMax - nMin + 1);
 }
 
 // 0x0061AFA0

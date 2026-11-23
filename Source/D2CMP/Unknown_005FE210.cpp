@@ -1,15 +1,21 @@
 #include "D2CMP.h"
+
 #include "D2CmpTypes.h"
 
 struct Config;
+
 struct D2CmpSpriteContextStrc;
+
 struct D2CmpDC6HeaderStrc;
+
 struct D2CmpDC6CacheEntryStrc;
+
 struct D2CmpDC6FrameStrc;
 
 typedef char* va_list;
 
 extern "C" int __cdecl vsprintf(char*,const char*,va_list);
+
 extern "C" char* __cdecl strcat(char*,const char*);
 
 struct Config { int enabled; const char* compressed; const char* standard; };
@@ -19,6 +25,7 @@ extern Config extensions; // 0x00741EFC
 enum { DISABLED = 0 };
 
 void* __fastcall sub_0040A9E0(AsyncData* pAsync); // 0x0040A9E0
+
 int __stdcall CelGameDirToFileDir(int nDirection, unsigned int nDirections); // 0x00600C90
 
 struct D2CmpDC6CacheEntryStrc
@@ -26,14 +33,6 @@ struct D2CmpDC6CacheEntryStrc
     char unk0x00[0x20];
     D2CmpDC6HeaderStrc tHeader;
 };
-
-// 0x005FE210
-void __stdcall D2CMPBuildFileName(char* output,int allowCompressed,const char* format,va_list args)
-{
-    vsprintf(output,format,args);
-    const char* suffix=(allowCompressed!=DISABLED && extensions.enabled!=DISABLED)?extensions.compressed:extensions.standard;
-    strcat(output,suffix);
-}
 
 // 0x005FEB80
 static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader)

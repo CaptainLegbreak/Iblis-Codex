@@ -1,11 +1,19 @@
 #include "D2Win.h"
+
 #include "D2Win32Types.h"
+
 #include "D2CelContext.h"
+
 #include "D2WinTypes.h"
+
 #include "D2StormTypes.h"
+
 #include "D2WinControls.h"
+
 #include "D2Unicode.h"
+
 #include "D2GfxTypes.h"
+
 #include "D2MultiTypes.h"
 
 typedef long (__stdcall* WNDPROC)(void* hWnd, unsigned int uMsg, unsigned int wParam, long lParam);
@@ -742,7 +750,6 @@ struct D2ConfigStrc { char unk00[0x211]; int (__cdecl* expansion)(); };
 #pragma pack(pop)
 
 void __cdecl ARCHIVE_UnloadExpansionArchives(); // 0x004FAD70
-
 
 extern void* ghXMusicMpq; // 0x007D5604
 
@@ -2627,112 +2634,6 @@ int __fastcall D2Win_10188(D2WinTextBoxStrc* pTextBox, int nLineNum, int a3)
     return 1;
 }
 
-// 0x004FC3F0
-int __stdcall TEXTBOX_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg)
-{
-    D2WinTextBoxStrc* pTextBox = (D2WinTextBoxStrc*)pMsg->hWnd;
-
-    D2_ASSERT(pTextBox, 0x501);
-    D2_ASSERT(pTextBox->controlHeader.eType == D2WIN_TEXTBOX, 0x502);
-
-    if (!(pTextBox->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pTextBox->controlHeader.dwFlags & gdwBitMasks_006CE268[0])
-// build: symbol ?CONTROL_GetFocusedEditBox@* 0x004F9200
-        || pTextBox->nNumLines < 1 || pTextBox->nCurrentLine == -1 || CONTROL_GetFocusedEditBox())
-    {
-        return 0;
-    }
-
-    const int nNumLines = pTextBox->nNumLines;
-    int nLine = pTextBox->nLine;
-    int nCurrentLine = pTextBox->nCurrentLine;
-    const int nVisibleLines = D2Win_10055((D2WinTextBoxStrc*)pMsg->hWnd);
-
-    switch (pMsg->wParam)
-    {
-    case 0x21:
-        if (nCurrentLine > nLine)
-        {
-            nCurrentLine = nLine;
-        }
-        else if (nLine > 0)
-        {
-            nLine = D2WIN_MAX(nLine - nVisibleLines + 1, 0);
-            nCurrentLine = nLine;
-        }
-        break;
-
-    case 0x22:
-    {
-        const int nLastVisible = nVisibleLines + nLine - 1;
-        if (nCurrentLine < nLastVisible)
-        {
-            nCurrentLine = D2WIN_MIN(nLastVisible, nNumLines - 1);
-        }
-        else if (nLine < nNumLines - nVisibleLines)
-        {
-            nLine = D2WIN_MIN(nLastVisible, nNumLines - nVisibleLines);
-            nCurrentLine = D2WIN_MIN(nVisibleLines + nLine - 1, nNumLines - 1);
-        }
-        break;
-    }
-
-    case 0x26:
-        if (nCurrentLine > 0)
-        {
-            --nCurrentLine;
-            if (nCurrentLine < nLine)
-            {
-                nLine = nCurrentLine;
-            }
-            else if (nCurrentLine > nVisibleLines + nLine - 1)
-            {
-                nLine = nCurrentLine - nVisibleLines + 1;
-            }
-        }
-        break;
-
-    case 0x28:
-        if (nCurrentLine < nNumLines - 1)
-        {
-            ++nCurrentLine;
-            if (nCurrentLine < nLine)
-            {
-                nLine = nCurrentLine;
-            }
-            else if (nCurrentLine > nVisibleLines + nLine - 1)
-            {
-                nLine = nCurrentLine - nVisibleLines + 1;
-            }
-        }
-        break;
-
-    case 0x24:
-        nCurrentLine = 0;
-        nLine = 0;
-        break;
-
-    case 0x23:
-        nCurrentLine = nNumLines - 1;
-        nLine = nNumLines - nVisibleLines;
-        break;
-    }
-
-    const int bHasChanged = nCurrentLine != pTextBox->nCurrentLine;
-    pTextBox->nCurrentLine = nCurrentLine;
-
-    if (nNumLines > nVisibleLines && nLine != pTextBox->nLine)
-    {
-        D2Win_10053((D2WinTextBoxStrc*)pMsg->hWnd, nLine);
-    }
-
-    if (bHasChanged && pTextBox->controlHeader.field_34)
-    {
-        pTextBox->controlHeader.field_34(pMsg);
-    }
-
-    return 0;
-}
-
 // 0x004FD5D0
 int __stdcall IMAGE2_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -2796,80 +2697,7 @@ void __stdcall D2COMP_AddHoverTextLine(const Unicode* wszText, D2HoverLineStrc* 
     ++*pCount;
 }
 
-// 0x00507A10
-int __stdcall ACCOUNTLIST_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
-{
-    D2WinAccountListStrc* pAccountList = (D2WinAccountListStrc*)pMsg->hWnd;
-
-    D2_ASSERT(pAccountList->controlHeader.eType == D2WIN_ACCOUNTLIST, 0x10D);
-
-    if (!(pAccountList->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pAccountList->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
-    {
-        return 0;
-    }
-
-    if (!pAccountList->pDataList)
-    {
-        return 0;
-    }
-
-    const int nIndex = (gtMousePosition.x - pAccountList->controlHeader.nImageX) / 120
-        + 6 * ((pAccountList->controlHeader.nHeight - pAccountList->controlHeader.nImageY + gtMousePosition.y + 4) / 20);
-    D2WinAccountListDataStrc* pData = pAccountList->pDataList;
-    for (int nCounter = 0; pData; ++nCounter)
-    {
-        if (nCounter == nIndex)
-        {
-            pAccountList->pSelectedDataEntry = pData;
-            return 1;
-        }
-        pData = pData->pNext;
-    }
-
-    pAccountList->pSelectedDataEntry = 0;
-    return 1;
-}
-
-// 0x00508030
-int __fastcall SCROLLBAR_HandleMouseWheel(SMSGHANDLER_PARAMS* pMsg, D2WinScrollBarStrc* ptScrollbarData, int a3)
-{
-    D2_ASSERT(ptScrollbarData->controlHeader.eType == D2WIN_SCROLLBAR, 0x99);
-
-    if (!ptScrollbarData->bIsStepIndicatorDragged)
-    {
-        if (a3 > 0)
-        {
-            --ptScrollbarData->nCurrentStep;
-            ptScrollbarData->bIsUpperArrowPressed = 1;
-        }
-        else if (a3 < 0)
-        {
-            ++ptScrollbarData->nCurrentStep;
-            ptScrollbarData->bIsLowerArrowPressed = 1;
-        }
-
-        if (ptScrollbarData->nCurrentStep < 0)
-        {
-            ptScrollbarData->nCurrentStep = 0;
-        }
-        else if (ptScrollbarData->nCurrentStep > ptScrollbarData->nMaxSteps)
-        {
-            ptScrollbarData->nCurrentStep = ptScrollbarData->nMaxSteps;
-        }
-
-        if (ptScrollbarData->pTextBox)
-        {
-            D2Win_10053(ptScrollbarData->pTextBox, ptScrollbarData->nCurrentStep);
-        }
-
-        if (ptScrollbarData->field_5C)
-        {
-            ptScrollbarData->field_5C(pMsg);
-        }
-    }
-
-    return 0;
-}
+int __fastcall SCROLLBAR_HandleMouseWheel(SMSGHANDLER_PARAMS* pMsg, D2WinScrollBarStrc* ptScrollbarData, int a3); // 0x00508030
 
 // 0x00508610
 int __stdcall POPUP_AddLine(D2WinPopUpLineStrc* pPopUpLine)

@@ -1,14 +1,25 @@
 #include "D2Common.h"
+
 #include "D2DataTbls.h"
+
 #include "D2Path.h"
+
 #include "D2Drlg.h"
+
 #include "D2DrlgMaps.h"
+
 #include "D2DrlgTiles.h"
+
 #include "D2LevelTxt.h"
+
 #include "D2Records.h"
+
 #include "D2Skills.h"
+
 #include "D2TxtTables.h"
+
 #include "D2LevelIds.h"
+
 #include "D2Unicode.h"
 
 #pragma intrinsic(strcpy)
@@ -321,7 +332,6 @@ extern D2EnvironmentCycleStrc gEclipseEnvironmentCycle[]; // 0x00744480
 
 static void ENVIRONMENT_UpdateLightIntensity(D2DrlgEnvironmentStrc* pEnvironment, int nLevelId, int nAct); // 0x0061BB80
 
-
 enum
 {
     TXTFIELD_NONE = 0,
@@ -333,7 +343,6 @@ enum
 };
 
 const wchar_t* __fastcall D2LANG_GetStringByReferenceString(const char* szKey); // 0x00524E20
-
 
 // 0x0061DB70
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId)
@@ -1373,28 +1382,6 @@ void __fastcall DATATBLS_FreeAutomap()
     }
 
     gpAutomapRecords = 0;
-}
-
-// 0x00644140
-D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill)
-{
-    if (!pSkill)
-    {
-        return 0;
-    }
-
-    return pSkill->pSkillsTxt;
-}
-
-// 0x006446A0
-int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill)
-{
-    if (pSkill)
-    {
-        return pSkill->dwFlags;
-    }
-
-    return 0;
 }
 
 // 0x00673FF0

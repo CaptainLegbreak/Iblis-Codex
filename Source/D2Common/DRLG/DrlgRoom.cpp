@@ -1,10 +1,17 @@
 #include "D2LevelIds.h"
+
 #include "D2Common.h"
+
 #include "D2Drlg.h"
+
 #include "D2DrlgMaps.h"
+
 #include "D2TxtTables.h"
+
 #include "D2Structs.h"
+
 #include "D2ItemsWorld.h"
+
 #include "D2DrlgTiles.h"
 
 struct D2DrlgVertexStrc;
@@ -921,35 +928,6 @@ void __fastcall DRLGROOM_InitNearRooms(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom
     DRLGROOM_FlagIfNearTown(pDrlgRoom);
 }
 
-// 0x0066F240
-void __fastcall DRLGROOMTILE_LoadDT1FilesForRoom(D2DrlgRoomStrc* pDrlgRoom)
-{
-    D2LvlTypesTxt* pLvlTypesTxtRecord = DATATBLS_GetLevelTypesTxtRecord(pDrlgRoom->ptDrlgLevel->nLevelType);
-
-    unsigned int dwDT1Mask = pDrlgRoom->dwDT1Mask;
-    for (unsigned int nFileIndex = 0; dwDT1Mask && nFileIndex < 32; dwDT1Mask >>= 1, ++nFileIndex)
-    {
-        if (dwDT1Mask & 1)
-        {
-            TileLibraryAddProject(&pDrlgRoom->pTiles, pLvlTypesTxtRecord->szFile[nFileIndex]);
-        }
-    }
-
-    char szPath[260] = { 0 };
-
-// build: symbol ?gszDataGlobal@* 0x006D4118
-    wsprintfA(szPath, "%s\\Tiles\\Act1\\Outdoors\\Blank.dt1", gszDataGlobal);
-    TileLibraryAddProject(&pDrlgRoom->pTiles, szPath);
-
-    wsprintfA(szPath, "%s\\Tiles\\Act1\\Barracks\\InvisWal.dt1", gszDataGlobal);
-    TileLibraryAddProject(&pDrlgRoom->pTiles, szPath);
-
-    wsprintfA(szPath, "%s\\Tiles\\Act1\\Barracks\\Warp.dt1", gszDataGlobal);
-    TileLibraryAddProject(&pDrlgRoom->pTiles, szPath);
-
-    pDrlgRoom->dwFlags |= 0x1000000;
-}
-
 // 0x00670630
 void __fastcall DRLGTILESUB_FreeDrlgFile(D2LvlSubTxt* pLvlSubTxtRecord)
 {
@@ -1187,4 +1165,3 @@ D2DrlgStrc* __fastcall DRLGROOM_GetDrlgFromRoomEx(D2DrlgRoomStrc* pRoom)
 
     return pRoom->ptDrlgLevel->pDrlg;
 }
-
