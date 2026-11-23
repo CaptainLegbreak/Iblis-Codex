@@ -2413,6 +2413,32 @@ void __cdecl INV_LoadUiRecords()
     }
 }
 
+struct D2MsgRecordStrc
+{
+    int nTick;
+    unsigned int uMessage;
+    unsigned int wParam;
+    int lParam;
+};
+
+struct D2MsgRecordChunkStrc
+{
+    D2MsgRecordStrc tRecords[500];
+    int nCount;
+    int nIndex;
+    D2MsgRecordChunkStrc* pNext;
+};
+
+// 0x00483960
+void __cdecl CUNIT_InitColorTable()
+{
+    gabColors_007BCAD8[0] = D2Win_10034_MixRGB(0x80, 0, 0);
+    gabColors_007BCAD8[1] = D2Win_10034_MixRGB(0, 0x80, 0);
+    gabColors_007BCAD8[2] = D2Win_10034_MixRGB(0, 0, 0x80);
+    gabColors_007BCAD8[3] = D2Win_10034_MixRGB(0x80, 0x80, 0);
+    gabColors_007BCAD8[4] = D2Win_10034_MixRGB(0x80, 0x40, 0x40);
+}
+
 // 0x004839D0
 static void __stdcall INV_DrawGridCells(D2InventoryGridInfoStrc* pGrid, int nX, int nY, unsigned char nWidth, unsigned char nHeight, int nColor)
 {
