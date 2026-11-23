@@ -77858,6 +77858,11 @@
      "name": "DRLGOUTDOORS_GetBorderLevelPrestId"
     },
     {
+     "va": "0x00675600",
+     "length": 103,
+     "name": "sub_00675600_LookupTable"
+    },
+    {
      "va": "0x006757E0",
      "length": 110,
      "name": "?DRLGOUTDOORS_GetBorderLookupId@@YIHPAUD2DrlgLevelStrc@@_N@Z"
@@ -77872,11 +77877,6 @@
    "file": "Source/D2Common/Unknown_00675600.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00675600",
-     "length": 103,
-     "name": "sub_00675600_LookupTable"
-    },
     {
      "va": "0x00675670",
      "length": 255,

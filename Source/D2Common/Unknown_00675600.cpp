@@ -165,43 +165,9 @@ unsigned short __stdcall COLLISION_CheckMaskWithSize(D2ActiveRoomStrc* pRoom, in
 
 void __fastcall sub_00678E30(D2PathRayStrc* pRay); // 0x00678E30
 
-// 0x00675600
-int __fastcall sub_00675600_LookupTable(int nA, int nB, int nC, int nD, int nE)
-{
-    if (nA < 0)
-    {
-        nA -= 2;
-    }
-    else if (nA > 0)
-    {
-        nA += 2;
-    }
-
-    if (nC < 0)
-    {
-        nC -= 2;
-    }
-    else if (nC > 0)
-    {
-        nC += 2;
-    }
-
 // build: symbol ?gaBorderIndicesByDelta@* 0x006F1088
-    const int nRow = gaBorderIndicesByDelta[nA + 9 * (nC + nD) + nB];
-    if (nRow == -1)
-    {
-        return 0;
-    }
-
-    if (nE >= 4)
-    {
 // build: symbol ?gaBarricadeCliffBorderIds@* 0x006F06F0
-        return gaBarricadeCliffBorderIds[nRow - 1][nE - 4];
-    }
-
 // build: symbol ?gaBorderLevelPrestIds@* 0x006F0630
-    return gaBorderLevelPrestIds[nRow - 1][nE];
-}
 
 // 0x00675670
 void __fastcall DRLGOUTPLACE_SetBlankBorderGridCells(D2DrlgLevelStrc* pLevel)
