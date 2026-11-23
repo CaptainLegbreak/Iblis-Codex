@@ -37176,6 +37176,10 @@
      "va": "0x0050DD60",
      "length": 176,
      "name": "GLIDE_PerspectiveTransform"
+    },
+    {
+     "va": "0x0050DE10",
+     "length": 236
     }
    ]
   },
@@ -37198,30 +37202,6 @@
      "length": 28,
      "name": "sub_00512410_ForwardToDrawImage"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Unknown_0050DE10.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0050DE10",
-     "length": 236
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
