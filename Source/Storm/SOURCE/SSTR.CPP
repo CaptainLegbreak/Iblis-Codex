@@ -962,3 +962,10 @@ void __cdecl sub_004142A0_InitPowTable()
         }
     }
 }
+
+// 0x00414360
+extern "C" void __cdecl sub_00414360_CallThenSetFlag()
+{
+    sub_004142A0_InitPowTable();
+    gnFlag_007788DC = 1;
+}

@@ -5957,14 +5957,9 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00414360.cpp",
+   "file": "Source/Storm/Unknown_00415160.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00414360",
-     "length": 16,
-     "name": "_sub_00414360_CallThenSetFlag"
-    },
     {
      "va": "0x00415160",
      "length": 34,
@@ -6118,6 +6113,11 @@
      "va": "0x00414310",
      "length": 79,
      "name": "?SStrDup@@YGPADPBD@Z"
+    },
+    {
+     "va": "0x00414360",
+     "length": 16,
+     "name": "_sub_00414360_CallThenSetFlag"
     },
     {
      "va": "0x00414370",
