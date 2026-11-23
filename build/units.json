@@ -13333,6 +13333,10 @@
      "name": "?WINMAIN_SendMcpCharRank@@YIHPBDHH@Z"
     },
     {
+     "va": "0x0044AB70",
+     "length": 6
+    },
+    {
      "va": "0x0044AF30",
      "length": 139,
      "name": "?WINMAIN_HandleMcpServerAddress@@YIHPAUD2McpPacket10Strc@@H@Z"
@@ -13877,30 +13881,6 @@
      "length": 399,
      "name": "?VIEW_DrawUnitClickCross@@YIXPAUD2UnitStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0044AB70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0044AB70",
-     "length": 6
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
