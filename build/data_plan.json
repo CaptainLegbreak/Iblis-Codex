@@ -2196,15 +2196,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/UI/editbox_004BBBB0.cpp": {
-   "bytes": 8,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UI/editbox_004BBBB0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Client/UNIT/Item.cpp": {
    "bytes": 354,
    "definitions": 9,
@@ -6098,6 +6089,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Unknown_005B24E0.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/UI/editbox.cpp": {
+   "bytes": 8,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/UI/editbox_004BBBB0.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -61167,7 +61167,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/editbox_004BBBB0.cpp",
+   "file": "Source/D2Client/UI/editbox.cpp",
    "fill": 2,
    "form": "declared",
    "fwd": null,

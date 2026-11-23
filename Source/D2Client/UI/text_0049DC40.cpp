@@ -25,8 +25,6 @@ struct D2TextListStrc;
 
 struct D2NamePacketStrc;
 
-struct ListBoxImplementation;
-
 struct D2GSPacketSrv5A;
 
 struct D2MonStatsTxt;
@@ -61,15 +59,6 @@ struct D2NamePacketStrc
     unsigned char nHeader;
     char szName[16];
     unsigned char nValue[4];
-};
-
-struct ListBoxImplementation
-{
-    void* f_0;
-    char unk0x000004[0x18070C];
-    int nTextWidth;
-
-    void DrawClippedText(const Unicode* wszSource, int nX, int nY, int nColor);
 };
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
@@ -1427,24 +1416,6 @@ void __fastcall TEXT_SetNameFromPacket(D2NamePacketStrc* pPacket)
     szName[15] = 0;
     sub_00526F20_ToUnicode(gwszName_007C0E84, szName, 16);
     gnTradePartnerUnitId = *(int*)pPacket->nValue;
-}
-
-// 0x004BE410
-void ListBoxImplementation::DrawClippedText(const Unicode* wszSource, int nX, int nY, int nColor)
-{
-    Unicode wszText[1024];
-    sub_005267E0(wszText, wszSource);
-    if (D2Win_10123(wszText, sub_00526800(wszText)) < nTextWidth - 0x32)
-    {
-        D2Win_10117_DrawText(wszText, nX, nY, nColor, 0);
-        return;
-    }
-
-    while (D2Win_10123(wszText, sub_00526800(wszText)) > nTextWidth - 0x32)
-    {
-        wszText[sub_00526800(wszText) - 1].wChar = 0;
-    }
-    D2Win_10117_DrawText(wszText, nX, nY, nColor, 0);
 }
 
 // 0x004E48B0
