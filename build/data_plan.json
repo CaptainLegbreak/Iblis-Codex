@@ -2105,13 +2105,7 @@
    "bytes": 7855,
    "definitions": 103,
    "externs": [
-    "extern \"C\" void __cdecl NPCMENU_OpenTradeShop(); // 0x004B42B0",
-    "extern \"C\" void __cdecl sub_004B5260_NpcMenuAction28b(); // 0x004B5260",
-    "extern \"C\" void __cdecl NPCMENU_TravelToRogueEncampment(); // 0x004B52C0",
     "extern \"C\" void __cdecl sub_004B6C70_OpenNpcMenu(); // 0x004B6C70",
-    "extern \"C\" void __cdecl NPCMENU_InitImbueHandler(); // 0x004B3700",
-    "extern \"C\" void __cdecl NPCMENU_InitSocketHandler(); // 0x004B3730",
-    "extern \"C\" void __cdecl NPCMENU_InitPersonalizeHandler(); // 0x004B3760",
     "extern \"C\" void __cdecl sub_004B6650_InitHandler(); // 0x004B6650",
     "extern \"C\" void __cdecl sub_004B6DA0_InitHandler(); // 0x004B6DA0"
    ],

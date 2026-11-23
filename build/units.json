@@ -28049,6 +28049,36 @@
      "name": "NPCMENU_StateStartEffect"
     },
     {
+     "va": "0x004AD5F0",
+     "length": 233,
+     "name": "?NPCMENU_StateDurielDeath@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AD6E0",
+     "length": 420,
+     "name": "?NPCMENU_StateMissileBurst@@YGXHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004AD890",
+     "length": 73,
+     "name": "?NPCMENU_StateBurstOnFrame@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AD8E0",
+     "length": 50,
+     "name": "?NPCMENU_StateBurst@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AD920",
+     "length": 73,
+     "name": "?NPCMENU_StateBurstNeutral@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AD970",
+     "length": 426,
+     "name": "?NPCMENU_StateMissileSplit@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x004ADB20",
      "length": 152,
      "name": "NPCMENU_StateOverlayAtPath"
@@ -28057,6 +28087,21 @@
      "va": "0x004ADBC0",
      "length": 283,
      "name": "NPCMENU_StateMonOverlay"
+    },
+    {
+     "va": "0x004ADCE0",
+     "length": 151,
+     "name": "?NPCMENU_StateRequests@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004ADD80",
+     "length": 8,
+     "name": "?NPCMENU_StateRequestsCallback@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AE080",
+     "length": 29,
+     "name": "@NPCMENU_GetMonsterTypeFlags@8"
     },
     {
      "va": "0x004B1240",
@@ -28263,6 +28308,16 @@
      "name": "?NPCMENU_FindNpcIndex@@YAHPAUD2NpcRecordStrc@@@Z"
     },
     {
+     "va": "0x004B2E70",
+     "length": 140,
+     "name": "?NPCMENU_MenuBack@@YAHXZ"
+    },
+    {
+     "va": "0x004B2F00",
+     "length": 67,
+     "name": "?NPCMENU_MenuClose@@YAHXZ"
+    },
+    {
      "va": "0x004B2F50",
      "length": 736
     },
@@ -28296,6 +28351,11 @@
      "name": "?NPCMENU_ReloadHirelingPopup@@YIXG@Z"
     },
     {
+     "va": "0x004B3360",
+     "length": 27,
+     "name": "?NPCMENU_CheckObjectFound@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004B3380",
      "length": 237,
      "name": "?NPCMENU_OnNpcWantsInteract@@YIXPAUD2PacketRecord6Strc@@@Z"
@@ -28321,9 +28381,34 @@
      "name": "??0D2ClientValueBlockStrc@@QAE@XZ"
     },
     {
+     "va": "0x004B35B0",
+     "length": 87,
+     "name": "?NPCMENU_OpenItemServicePanel@@YAHXZ"
+    },
+    {
      "va": "0x004B3610",
      "length": 68,
      "name": "?NPCMENU_CloseTradeDialog@@YAXXZ"
+    },
+    {
+     "va": "0x004B3660",
+     "length": 151,
+     "name": "?NPCMENU_HireMercHandler@@YAHXZ"
+    },
+    {
+     "va": "0x004B3700",
+     "length": 35,
+     "name": "?NPCMENU_InitImbueHandler@@YAHXZ"
+    },
+    {
+     "va": "0x004B3730",
+     "length": 35,
+     "name": "?NPCMENU_InitSocketHandler@@YAHXZ"
+    },
+    {
+     "va": "0x004B3760",
+     "length": 35,
+     "name": "?NPCMENU_InitPersonalizeHandler@@YAHXZ"
     },
     {
      "va": "0x004B3790",
@@ -28334,6 +28419,11 @@
      "va": "0x004B3830",
      "length": 57,
      "name": "@NPCMENU_ClearNpcInventoryAndSound@4"
+    },
+    {
+     "va": "0x004B3C00",
+     "length": 32,
+     "name": "?sub_004B3C00@@YIXH@Z"
     },
     {
      "va": "0x004B3C20",
@@ -28381,14 +28471,78 @@
      "name": "?sub_004B3FE0@@YAXXZ"
     },
     {
+     "va": "0x004B4010",
+     "length": 84,
+     "name": "?NPCMENU_CloseSubMenuDialog@@YAHXZ"
+    },
+    {
      "va": "0x004B4070",
      "length": 84,
      "name": "?NPCMENU_CloseConfirmDialog@@YAHXZ"
     },
     {
+     "va": "0x004B40D0",
+     "length": 228,
+     "name": "?NPCMENU_ShowNpcMessage@@YGXDH@Z"
+    },
+    {
+     "va": "0x004B41C0",
+     "length": 21,
+     "name": "?NPCMENU_NextNpcMessage@@YAHXZ"
+    },
+    {
+     "va": "0x004B41E0",
+     "length": 176,
+     "name": "?NPCMENU_GreetNpcMessage@@YAHXZ"
+    },
+    {
+     "va": "0x004B4290",
+     "length": 28,
+     "name": "?NPCMENU_ConfirmNpcAction@@YAHXZ"
+    },
+    {
+     "va": "0x004B42B0",
+     "length": 197,
+     "name": "?NPCMENU_OpenTradeShop@@YAHXZ"
+    },
+    {
      "va": "0x004B4380",
      "length": 580,
      "name": "?NPCMENU_UpdateNpcInteract@@YAXXZ"
+    },
+    {
+     "va": "0x004B45D0",
+     "length": 72,
+     "name": "?sub_004B45D0_NpcMenuCancel@@YAHXZ"
+    },
+    {
+     "va": "0x004B4620",
+     "length": 72,
+     "name": "?sub_004B4620_NpcMenuCancelB@@YAHXZ"
+    },
+    {
+     "va": "0x004B4670",
+     "length": 93,
+     "name": "?sub_004B4670_NpcMenuCancelText@@YAHXZ"
+    },
+    {
+     "va": "0x004B46D0",
+     "length": 93,
+     "name": "?sub_004B46D0_NpcMenuCancelTextB@@YAHXZ"
+    },
+    {
+     "va": "0x004B4730",
+     "length": 253,
+     "name": "?NPCMENU_NpcMenuTalk@@YAHXZ"
+    },
+    {
+     "va": "0x004B4830",
+     "length": 1210
+    },
+    {
+     "va": "0x004B4CF0",
+     "length": 177,
+     "name": "?NPCMENU_NpcMenuReturn@@YAHXZ"
     },
     {
      "va": "0x004B4DB0",
@@ -28398,6 +28552,31 @@
     {
      "va": "0x004B4FD0",
      "length": 366
+    },
+    {
+     "va": "0x004B5140",
+     "length": 89,
+     "name": "?sub_004B5140_NpcMenuAction28@@YAHXZ"
+    },
+    {
+     "va": "0x004B51A0",
+     "length": 89,
+     "name": "?NPCMENU_TravelToKurastDocks@@YAHXZ"
+    },
+    {
+     "va": "0x004B5200",
+     "length": 89,
+     "name": "?NPCMENU_TravelToHarrogath@@YAHXZ"
+    },
+    {
+     "va": "0x004B5260",
+     "length": 89,
+     "name": "?sub_004B5260_NpcMenuAction28b@@YAHXZ"
+    },
+    {
+     "va": "0x004B52C0",
+     "length": 89,
+     "name": "?NPCMENU_TravelToRogueEncampment@@YAHXZ"
     },
     {
      "va": "0x004B5320",
@@ -28496,205 +28675,6 @@
     {
      "va": "0x004B5640",
      "length": 452
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/npcmenu_004B4830.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004AD5F0",
-     "length": 233,
-     "name": "?NPCMENU_StateDurielDeath@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AD6E0",
-     "length": 420,
-     "name": "?NPCMENU_StateMissileBurst@@YGXHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004AD890",
-     "length": 73,
-     "name": "?NPCMENU_StateBurstOnFrame@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AD8E0",
-     "length": 50,
-     "name": "?NPCMENU_StateBurst@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AD920",
-     "length": 73,
-     "name": "?NPCMENU_StateBurstNeutral@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AD970",
-     "length": 426,
-     "name": "?NPCMENU_StateMissileSplit@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004ADCE0",
-     "length": 151,
-     "name": "?NPCMENU_StateRequests@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004ADD80",
-     "length": 8,
-     "name": "?NPCMENU_StateRequestsCallback@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AE080",
-     "length": 29,
-     "name": "@NPCMENU_GetMonsterTypeFlags@8"
-    },
-    {
-     "va": "0x004B2E70",
-     "length": 140,
-     "name": "?NPCMENU_MenuBack@@YAHXZ"
-    },
-    {
-     "va": "0x004B2F00",
-     "length": 67,
-     "name": "?NPCMENU_MenuClose@@YAHXZ"
-    },
-    {
-     "va": "0x004B3360",
-     "length": 27,
-     "name": "?NPCMENU_CheckObjectFound@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004B35B0",
-     "length": 87,
-     "name": "?NPCMENU_OpenItemServicePanel@@YAHXZ"
-    },
-    {
-     "va": "0x004B3660",
-     "length": 151,
-     "name": "?NPCMENU_HireMercHandler@@YAHXZ"
-    },
-    {
-     "va": "0x004B3700",
-     "length": 35,
-     "name": "?NPCMENU_InitImbueHandler@@YAHXZ"
-    },
-    {
-     "va": "0x004B3730",
-     "length": 35,
-     "name": "?NPCMENU_InitSocketHandler@@YAHXZ"
-    },
-    {
-     "va": "0x004B3760",
-     "length": 35,
-     "name": "?NPCMENU_InitPersonalizeHandler@@YAHXZ"
-    },
-    {
-     "va": "0x004B3C00",
-     "length": 32,
-     "name": "?sub_004B3C00@@YIXH@Z"
-    },
-    {
-     "va": "0x004B4010",
-     "length": 84,
-     "name": "?NPCMENU_CloseSubMenuDialog@@YAHXZ"
-    },
-    {
-     "va": "0x004B40D0",
-     "length": 228,
-     "name": "?NPCMENU_ShowNpcMessage@@YGXDH@Z"
-    },
-    {
-     "va": "0x004B41C0",
-     "length": 21,
-     "name": "?NPCMENU_NextNpcMessage@@YAHXZ"
-    },
-    {
-     "va": "0x004B41E0",
-     "length": 176,
-     "name": "?NPCMENU_GreetNpcMessage@@YAHXZ"
-    },
-    {
-     "va": "0x004B4290",
-     "length": 28,
-     "name": "?NPCMENU_ConfirmNpcAction@@YAHXZ"
-    },
-    {
-     "va": "0x004B42B0",
-     "length": 197,
-     "name": "?NPCMENU_OpenTradeShop@@YAHXZ"
-    },
-    {
-     "va": "0x004B45D0",
-     "length": 72,
-     "name": "?sub_004B45D0_NpcMenuCancel@@YAHXZ"
-    },
-    {
-     "va": "0x004B4620",
-     "length": 72,
-     "name": "?sub_004B4620_NpcMenuCancelB@@YAHXZ"
-    },
-    {
-     "va": "0x004B4670",
-     "length": 93,
-     "name": "?sub_004B4670_NpcMenuCancelText@@YAHXZ"
-    },
-    {
-     "va": "0x004B46D0",
-     "length": 93,
-     "name": "?sub_004B46D0_NpcMenuCancelTextB@@YAHXZ"
-    },
-    {
-     "va": "0x004B4730",
-     "length": 253,
-     "name": "?NPCMENU_NpcMenuTalk@@YAHXZ"
-    },
-    {
-     "va": "0x004B4830",
-     "length": 1210
-    },
-    {
-     "va": "0x004B4CF0",
-     "length": 177,
-     "name": "?NPCMENU_NpcMenuReturn@@YAHXZ"
-    },
-    {
-     "va": "0x004B5140",
-     "length": 89,
-     "name": "?sub_004B5140_NpcMenuAction28@@YAHXZ"
-    },
-    {
-     "va": "0x004B51A0",
-     "length": 89,
-     "name": "?NPCMENU_TravelToKurastDocks@@YAHXZ"
-    },
-    {
-     "va": "0x004B5200",
-     "length": 89,
-     "name": "?NPCMENU_TravelToHarrogath@@YAHXZ"
-    },
-    {
-     "va": "0x004B5260",
-     "length": 89,
-     "name": "?sub_004B5260_NpcMenuAction28b@@YAHXZ"
-    },
-    {
-     "va": "0x004B52C0",
-     "length": 89,
-     "name": "?NPCMENU_TravelToRogueEncampment@@YAHXZ"
     }
    ],
    "flags": [
