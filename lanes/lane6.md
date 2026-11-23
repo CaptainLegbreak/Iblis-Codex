@@ -13,6 +13,7 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Questions
 
+- D2Common pathfinding, 0x00678B10-0x0067BE00 (PATH_ ray trace, IDA*, A*; d2moo names). The only PATH assert is .\PATH\Path.cpp, used at 0x00648471 and 0x00649D13. The cluster shares one data block (0x006F1798-0x006F1D9C) that no other code uses. Inside it, 9 functions are filed in Skills.cpp (0x00678B40, 0x00679380, 0x0067A390, 0x0067A550, 0x0067A5F0, 0x0067ADC0, 0x0067AE00, 0x0067AE50, 0x0067B9C0, 0x0067BBC0) and 1 in Drlg.cpp (0x0067B1C0). Skills.cpp is asserted at 0x00643340-0x00647320 and Drlg.cpp at 0x00642010-0x00643060, and one object's code cannot sit 200 KB apart, so those claims are wrong. The placeholders in the cluster (Unknown_006793E0, Unknown_00679A60, Unknown_0067A630, Unknown_0067A740, Unknown_0067AAA0 and others) alternate every few functions. Proposal: gather the cluster into one placeholder (Unknown_006793E0.cpp), Skills.cpp and Drlg.cpp strays included. The other option is to move only the strays into the placeholders beside them. The block may be several original files (ray trace / IDA* / A*), and nothing in the image separates them. Which do you want?
 ## Notes for other lanes
 
 - Coordinator: ignore `lane6/d2win-a-2` (fe7d1c5e) and `lane6/block-c-2` (dea7e500). They are rebases of `d2win-a` and `block-c`, pushed just before #294 merged the originals; #294 has the same content.
