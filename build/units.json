@@ -13490,6 +13490,16 @@
      "va": "0x00449E70",
      "length": 317,
      "name": "MCPCONNECT_SetPacket"
+    },
+    {
+     "va": "0x00449FB0",
+     "length": 185,
+     "name": "sub_00449FB0_WaitConnect"
+    },
+    {
+     "va": "0x0044A070",
+     "length": 190,
+     "name": "sub_0044A070_ConnectThread"
     }
    ]
   },
@@ -13812,22 +13822,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2MCPClient/Unknown_00449FB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00449FB0",
-     "length": 185,
-     "name": "sub_00449FB0_WaitConnect"
-    },
-    {
-     "va": "0x0044A070",
-     "length": 190,
-     "name": "sub_0044A070_ConnectThread"
-    }
    ]
   },
   {
