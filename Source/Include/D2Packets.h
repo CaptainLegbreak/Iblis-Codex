@@ -149,10 +149,10 @@ struct D2GSPacketSrv6C
 struct D2GSPacketSrv6D
 {
     unsigned char nHeader; // 0x00
-    unsigned int unk0x01; // 0x01
-    unsigned short unk0x05; // 0x05
-    unsigned short unk0x07; // 0x07
-    unsigned char unk0x09; // 0x09
+    unsigned int nUnitGUID; // 0x01
+    unsigned short nX; // 0x05
+    unsigned short nY; // 0x07
+    unsigned char nLife; // 0x09
 };
 
 struct D2GSPacketSrv67
@@ -166,7 +166,7 @@ struct D2GSPacketSrv67
     char unk0x0B; // 0x0B
     unsigned char nPathType; // 0x0C
     short nVelocity; // 0x0D
-    char unk0x0F; // 0x0F
+    char nMaxDistance; // 0x0F
 };
 
 struct D2GSPacketSrv68
@@ -182,7 +182,7 @@ struct D2GSPacketSrv68
     char unk0x10; // 0x10
     unsigned char nPathType; // 0x11
     short nVelocity; // 0x12
-    char unk0x14; // 0x14
+    char nMaxDistance; // 0x14
 };
 
 struct D2GSPacketSrv9E
@@ -500,21 +500,21 @@ struct D2GSPacketSrv7A
 {
     unsigned char nHeader; // 0x00
     unsigned char unk0x01; // 0x01
-    unsigned char unk0x02; // 0x02
-    unsigned short unk0x03; // 0x03
-    unsigned int unk0x05; // 0x05
-    unsigned int unk0x09; // 0x09
+    unsigned char nPetType; // 0x02
+    unsigned short nPetClass; // 0x03
+    unsigned int nUnitGUID; // 0x05
+    unsigned int nPetGUID; // 0x09
 };
 
 struct D2GSPacketSrv81
 {
     unsigned char nHeader; // 0x00
-    unsigned char unk0x01; // 0x01
-    unsigned short unk0x02; // 0x02
-    unsigned int unk0x04; // 0x04
-    unsigned int unk0x08; // 0x08
-    unsigned int unk0x0C; // 0x0C
-    unsigned int unk0x10; // 0x10
+    unsigned char nPetType; // 0x01
+    unsigned short nPetClass; // 0x02
+    unsigned int nUnitGUID; // 0x04
+    unsigned int nPetGUID; // 0x08
+    unsigned int nSeed; // 0x0C
+    unsigned int nName; // 0x10
 };
 
 struct D2GSPacketSrv53
@@ -714,7 +714,7 @@ struct D2GSPacketSrv11
     unsigned char nHeader; // 0x00
     unsigned char nUnitType; // 0x01
     int dwUnitGUID; // 0x02
-    unsigned short unk0x06; // 0x06
+    unsigned short wOverlay; // 0x06
 };
 
 struct D2GSPacketSrv58
