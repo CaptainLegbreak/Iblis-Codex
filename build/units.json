@@ -19929,6 +19929,16 @@
      "name": "?CMDTBL_BindMouseHotkeys@@YAXXZ"
     },
     {
+     "va": "0x00469650",
+     "length": 296,
+     "name": "?sub_00469650_OpenKeyFile@@YAPAXKK@Z"
+    },
+    {
+     "va": "0x00469780",
+     "length": 328,
+     "name": "?sub_00469780_SaveKeyConfig@@YAXXZ"
+    },
+    {
      "va": "0x004698D0",
      "length": 373,
      "name": "?CMDTBL_LoadKeyConfig@@YGXH@Z"
@@ -19986,6 +19996,11 @@
      "name": "?CMDTBL_SetHotkeyHandlers@@YIXHH@Z"
     },
     {
+     "va": "0x0046AAE0",
+     "length": 400,
+     "name": "?sub_0046AAE0_LoadKeyConfig@@YAXXZ"
+    },
+    {
      "va": "0x0046AC70",
      "length": 49,
      "name": "?CMDTBL_EnableHotkeyHandlers@@YAXXZ"
@@ -20006,41 +20021,6 @@
      "length": 44,
      "name": "?sub_00469420_CheckWheelKey@@YAHHGPAG@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00469650.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00469650",
-     "length": 296,
-     "name": "?sub_00469650_OpenKeyFile@@YAPAXKK@Z"
-    },
-    {
-     "va": "0x00469780",
-     "length": 328,
-     "name": "?sub_00469780_SaveKeyConfig@@YAXXZ"
-    },
-    {
-     "va": "0x0046AAE0",
-     "length": 400,
-     "name": "?sub_0046AAE0_LoadKeyConfig@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
