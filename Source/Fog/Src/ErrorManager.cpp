@@ -1600,11 +1600,7 @@ int __fastcall ERRORMANAGER_GetBitWidth(unsigned int nValue)
 
 static inline int Log2Ceil(int nValue)
 {
-    if (nValue < 3)
-    {
-        return 1;
-    }
-    return ERRORMANAGER_GetBitWidth(nValue - 1);
+    return nValue < 3 ? 1 : ERRORMANAGER_GetBitWidth(nValue - 1);
 }
 
 // 0x004091B0
@@ -2209,6 +2205,143 @@ int __cdecl sub_0040A040_GetPoolSystemCount(D2PoolSystemStrc* pSystem)
     int nCount = pSystem->nCount;
     LeaveCriticalSection(&pSystem->tLock);
     return nCount;
+}
+
+extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC1FC
+extern "C" __declspec(dllimport) void __stdcall RaiseException(unsigned long dwCode, unsigned long dwFlags, unsigned long nArgs, const unsigned long* pArgs); // 0x006CC224
+
+// 0x00409DD0
+int __cdecl sub_00409DD0_InitPoolSystem(D2PoolSystemStrc** ppPoolSystem, const char* szName, int nSize, int nUnused)
+{
+    if (!ppPoolSystem)
+    {
+        memset(&gtPoolManager, 0, sizeof(gtPoolManager));
+        InitializeCriticalSection(&gtPoolManager.tLock);
+        gtPoolManager.bInit = 1;
+    }
+    EnterCriticalSection(&gtPoolManager.tLock);
+    D2PoolSystemStrc* pSystem;
+    if (gtPoolManager.nFreeCount)
+    {
+        --gtPoolManager.nFreeCount;
+        pSystem = &gtPoolManager.aSystems[gtPoolManager.anFreeIndex[gtPoolManager.nFreeCount]];
+    }
+    else
+    {
+        if (gtPoolManager.nUsed >= 8)
+        {
+            LeaveCriticalSection(&gtPoolManager.tLock);
+            MAINMENUS_LogPoolError("Insufficient pre-allocated pool systems");
+            RaiseException(0xE0000001, 0, 0, 0);
+            return 0;
+        }
+        pSystem = &gtPoolManager.aSystems[gtPoolManager.nUsed];
+        ++gtPoolManager.nUsed;
+    }
+    LeaveCriticalSection(&gtPoolManager.tLock);
+
+    memset(pSystem, 0, sizeof(*pSystem));
+    if (ppPoolSystem)
+    {
+        *ppPoolSystem = pSystem;
+    }
+    D2CriticalSectionStrc* pLock = &pSystem->tLock;
+    InitializeCriticalSection(pLock);
+    EnterCriticalSection(pLock);
+    if (szName)
+    {
+        SStrCopy(pSystem->szName, szName, sizeof(pSystem->szName));
+        pSystem->szName[sizeof(pSystem->szName) - 1] = 0;
+    }
+
+    int nValue = ERRORMANAGER_GetPoolIndex(nSize);
+    const int nPools = nValue + 1;
+    D2_ASSERT(nPools <= 40, 0x866);
+    pSystem->nPools = nPools;
+    pSystem->pRecords = 0;
+    for (int i = 0; i < nPools; ++i)
+    {
+        InitializeCriticalSection(&pSystem->aPools[i].tLock);
+        int nBlockSize;
+        if (i == 0)
+        {
+            nBlockSize = 0x10;
+        }
+        else
+        {
+            nBlockSize = 1 << (i + 4);
+        }
+        pSystem->aPools[i].nBlockSize = nBlockSize;
+        if (nBlockSize > 1000000 || (nBlockSize << 8) >= 0x40000)
+        {
+            nValue = 0x80000 / nBlockSize;
+        }
+        else
+        {
+            nValue = 0x100;
+            if ((nBlockSize << 8) < 0x10000)
+            {
+                nValue = 0x10000 / nBlockSize;
+            }
+        }
+        pSystem->aPools[i].nBlocksPerChunk = nValue;
+        pSystem->aPools[i].nChunkSize = nBlockSize * nValue;
+    }
+    memset(pSystem->apLargeBlocks, 0, sizeof(pSystem->apLargeBlocks));
+    LeaveCriticalSection(pLock);
+    return 0;
+}
+
+// 0x00409C80
+void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem)
+{
+    if (!gtPoolManager.bInit)
+    {
+        return;
+    }
+    if (!pSystem)
+    {
+        pSystem = &gtPoolManager.aSystems[0];
+    }
+    if (!pSystem->nPools)
+    {
+        return;
+    }
+    for (int i = 0; i < pSystem->nPools; i++)
+    {
+        D2MemPoolRecStrc* pPool = &pSystem->aPools[i];
+        D2MemPoolBlockStrc* pBlock = pPool->pFirstBlock;
+        while (pBlock)
+        {
+            D2MemPoolBlockStrc* pNext = pBlock->pNext;
+            VirtualFree(pBlock->pMemory, 0, 0x8000);
+            free(pBlock);
+            pBlock = pNext;
+        }
+        DeleteCriticalSection(&pPool->tLock);
+    }
+    free(pSystem->pRecords);
+    for (int j = 0; j < 1023; j++)
+    {
+        int* pEntry = pSystem->apLargeBlocks[j];
+        while (pEntry)
+        {
+            int* pNext = (int*)*pEntry;
+            free(pEntry);
+            pEntry = pNext;
+        }
+    }
+    DeleteCriticalSection(&pSystem->tLock);
+    memset(pSystem, 0, sizeof(D2PoolSystemStrc));
+    EnterCriticalSection(&gtPoolManager.tLock);
+    gtPoolManager.anFreeIndex[gtPoolManager.nFreeCount] = ((unsigned int)pSystem - (unsigned int)&gtPoolManager.aSystems[0]) / sizeof(D2PoolSystemStrc);
+    gtPoolManager.nFreeCount++;
+    LeaveCriticalSection(&gtPoolManager.tLock);
+    if (pSystem == &gtPoolManager.aSystems[0])
+    {
+        gtPoolManager.bInit = 0;
+        DeleteCriticalSection(&gtPoolManager.tLock);
+    }
 }
 
 #include "gen/data/Source/Fog/Src/ErrorManager.inc"
