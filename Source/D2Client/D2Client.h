@@ -2059,11 +2059,13 @@ struct D2WallCtxStrc
     int nHeight;
 };
 
+#pragma pack(push, 1)
 struct D2WaypointMenuEntryStrc
 {
-    char nLevelId[4];
+    int nLevelId;
     char bEnabled;
 };
+#pragma pack(pop)
 
 struct D2WaypointRowRectStrc
 {
