@@ -1982,65 +1982,6 @@ struct D2ItemDropStrc;
 
 struct D2UnitStrc;
 
-// 0x005BB980
-int __fastcall OBJECTS_OperateFunction53_CompellingOrb(D2ObjOperateFnStrc* pOp, int nOperate)
-{
-    if (!pOp->hObject || pOp->hObject->dwAnimMode == OBJMODE_NEUTRAL)
-    {
-        D2UnitStrc* pItem = INVENTORY_GetLeftHandWeapon(pOp->hPlayer->pInventory);
-        if (!pItem || ITEMS_GetBaseCode(pItem) != ' 2fq')
-        {
-            SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
-        }
-        else
-        {
-            D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, 19);
-            D2Act3Quest5Strc* pQuestDataEx = (D2Act3Quest5Strc*)pQuestData->pQuestDataEx;
-
-            pQuestDataEx->nHits += 1;
-            if (pQuestDataEx->nHits >= 2)
-            {
-                D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pOp->pGame, pOp->hPlayer);
-                QUESTRECORD_SetQuestState(pQuestFlags, 18, 0);
-                pQuestFlags = PLAYER_GetQuestFlags(pOp->pGame, pOp->hPlayer);
-                QUESTRECORD_SetQuestState(pQuestFlags, 18, 13);
-
-                QUESTS_DeleteItem(pOp->pGame, pOp->hPlayer, ' 2fq');
-
-                pQuestFlags = PLAYER_GetQuestFlags(pOp->pGame, pOp->hPlayer);
-                if (QUESTRECORD_GetQuestState(pQuestFlags, 21, 4) && !QUESTRECORD_GetQuestState(sub_00543520(pOp->pGame, pOp->hPlayer), 21, 0))
-                {
-                    QUESTRECORD_SetQuestState(sub_00543520(pOp->pGame, pOp->hPlayer), 21, 0);
-                }
-
-                D2UnitStrc* pCompellingOrb = SUNIT_GetServerUnit(pOp->pGame, 1, pQuestDataEx->nCompellingOrbGUID);
-                if (pCompellingOrb)
-                {
-                    AITACTICS_ChangeModeAndTargetCoordinates(pOp->pGame, pCompellingOrb, 0, 0, 0);
-                    QUESTSFX_SpawnCompellingOrbMissile(pOp->pGame, pCompellingOrb);
-                }
-
-                UNITS_ChangeAnimMode(pOp->hObject, 1);
-                D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(!pOp->hObject ? -1 : pOp->hObject->dwClassId);
-                EVENT_SetEvent(pOp->pGame, pOp->hObject, 1, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame, 0, 0);
-                pQuestDataEx->bOrbSmashed = 1;
-
-                QUESTS_TriggerFX(pQuestData->pGame, 10);
-                D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter), 851);
-                pQuestData->pfSeqFilter(pQuestData);
-
-                const unsigned short nPartyId = SUNIT_GetPartyId(pOp->hPlayer);
-                if (nPartyId != 0xFFFF)
-                {
-                    PARTY_IteratePartyMembers(pOp->pGame, nPartyId, ACT3Q5_UnitIterate_DeleteKhalimItems, 0);
-                }
-            }
-        }
-    }
-
-    return 0;
-}
-
 // 0x005940E0
 void __fastcall OBJECTS_InitFunction54_CainStartPosition(D2ObjInitFnStrc* pOp)
 {

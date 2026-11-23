@@ -53179,11 +53179,6 @@
      "va": "0x005B6D30",
      "length": 237,
      "name": "?ACT3Intro_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005BB980",
-     "length": 492,
-     "name": "?OBJECTS_OperateFunction53_CompellingOrb@@YIHPAUD2ObjOperateFnStrc@@H@Z"
     }
    ]
   },
@@ -60978,6 +60973,21 @@
      "name": "?ACT3Q5_UnitIterate_DeleteKhalimItems@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x005BB980",
+     "length": 492,
+     "name": "?OBJECTS_OperateFunction53_CompellingOrb@@YIHPAUD2ObjOperateFnStrc@@H@Z"
+    },
+    {
+     "va": "0x005BBB70",
+     "length": 37,
+     "name": "?OBJECTS_InitFunction53_StairsR@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x005BBBA0",
+     "length": 96,
+     "name": "?OBJECTS_InitFunction60_CompellingOrb@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
      "va": "0x005BBC00",
      "length": 533,
      "name": "?ACT3Q5_Callback08_MonsterKilled@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
@@ -61001,22 +61011,6 @@
      "va": "0x005BBFA0",
      "length": 62,
      "name": "?ACT3Q5_IsDuranceOfHateClosed@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005BBB70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005BBB70",
-     "length": 37,
-     "name": "?OBJECTS_InitFunction53_StairsR@@YIXPAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x005BBBA0",
-     "length": 96,
-     "name": "?OBJECTS_InitFunction60_CompellingOrb@@YIXPAUD2ObjInitFnStrc@@@Z"
     }
    ]
   },

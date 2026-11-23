@@ -7,6 +7,9 @@
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
 #include "D2LevelIds.h"
+#include "D2MonsterIds.h"
+#include "D2GameObjs.h"
+#include "D2ObjModes.h"
 
 struct D2UnitStrc;
 
@@ -252,7 +255,7 @@ int __fastcall ACT3Q5_UnitIterate_UpdateQuestStateAfterMonsterKill(D2GameStrc* p
             if(ppRoomList[i]==pMonsterRoom){bInRange=1;break;}
         }
     }
-    pFlags=PLAYER_GetQuestFlags(pGame,pUnit);
+    pFlags=UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
     if(bInRange){
         if(QUESTRECORD_GetQuestState(pFlags,OTHER_QUEST_FLAG,0)) QUESTRECORD_SetQuestState(pFlags,QUEST_FLAG,0);
         else QUESTRECORD_SetQuestState(pFlags,QUEST_FLAG,4);
@@ -753,6 +756,121 @@ void __fastcall ACT3Q5_UnitIterate_DeleteKhalimItems(D2GameStrc* pGame, D2UnitSt
     {
         QUESTRECORD_SetQuestState(pQuestFlags, 21, 0);
     }
+}
+
+struct D2ObjOperateFnStrc;
+
+D2BitBufferStrc* __fastcall sub_00543520(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00543520
+
+void __fastcall QUESTS_TriggerFX(D2GameStrc* pGame, unsigned char a2); // 0x00545760
+
+int __fastcall AITACTICS_ChangeModeAndTargetCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, int nX, int nY); // 0x005DDFC0
+
+void __fastcall QUESTSFX_SpawnCompellingOrbMissile(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005DFEE0
+
+unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* hItem); // 0x00628590
+
+D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
+
+D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
+
+void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
+
+int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
+
+// 0x005BB980
+int __fastcall OBJECTS_OperateFunction53_CompellingOrb(D2ObjOperateFnStrc* pOp, int nOperate)
+{
+    if (!pOp->hObject || pOp->hObject->dwAnimMode == OBJMODE_NEUTRAL)
+    {
+        D2UnitStrc* pItem = INVENTORY_GetLeftHandWeapon(pOp->hPlayer->pInventory);
+        if (!pItem || ITEMS_GetBaseCode(pItem) != ' 2fq')
+        {
+            SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
+        }
+        else
+        {
+            D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, 19);
+            D2Act3Quest5Strc* pQuestDataEx = (D2Act3Quest5Strc*)pQuestData->pQuestDataEx;
+
+            pQuestDataEx->nHits += 1;
+            if (pQuestDataEx->nHits >= 2)
+            {
+                D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pOp->pGame, pOp->hPlayer);
+                QUESTRECORD_SetQuestState(pQuestFlags, 18, 0);
+                pQuestFlags = PLAYER_GetQuestFlags(pOp->pGame, pOp->hPlayer);
+                QUESTRECORD_SetQuestState(pQuestFlags, 18, 13);
+
+                QUESTS_DeleteItem(pOp->pGame, pOp->hPlayer, ' 2fq');
+
+                pQuestFlags = PLAYER_GetQuestFlags(pOp->pGame, pOp->hPlayer);
+                if (QUESTRECORD_GetQuestState(pQuestFlags, 21, 4) && !QUESTRECORD_GetQuestState(sub_00543520(pOp->pGame, pOp->hPlayer), 21, 0))
+                {
+                    QUESTRECORD_SetQuestState(sub_00543520(pOp->pGame, pOp->hPlayer), 21, 0);
+                }
+
+                D2UnitStrc* pCompellingOrb = SUNIT_GetServerUnit(pOp->pGame, 1, pQuestDataEx->nCompellingOrbGUID);
+                if (pCompellingOrb)
+                {
+                    AITACTICS_ChangeModeAndTargetCoordinates(pOp->pGame, pCompellingOrb, 0, 0, 0);
+                    QUESTSFX_SpawnCompellingOrbMissile(pOp->pGame, pCompellingOrb);
+                }
+
+                UNITS_ChangeAnimMode(pOp->hObject, 1);
+                D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(!pOp->hObject ? -1 : pOp->hObject->dwClassId);
+                EVENT_SetEvent(pOp->pGame, pOp->hObject, 1, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame, 0, 0);
+                pQuestDataEx->bOrbSmashed = 1;
+
+                QUESTS_TriggerFX(pQuestData->pGame, 10);
+                D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter), 851);
+                pQuestData->pfSeqFilter(pQuestData);
+
+                const unsigned short nPartyId = SUNIT_GetPartyId(pOp->hPlayer);
+                if (nPartyId != 0xFFFF)
+                {
+                    PARTY_IteratePartyMembers(pOp->pGame, nPartyId, ACT3Q5_UnitIterate_DeleteKhalimItems, 0);
+                }
+            }
+        }
+    }
+
+    return 0;
+}
+
+int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
+
+// 0x005BBB70
+void __fastcall OBJECTS_InitFunction53_StairsR(D2ObjInitFnStrc* pOp)
+{
+    if (((D2Act3Quest5Strc*)QUESTS_GetQuestData(pOp->pGame, 19)->pQuestDataEx)->bOrbSmashed)
+    {
+        UNITS_ChangeAnimMode(pOp->pObject, 2);
+    }
+}
+
+// 0x005BBBA0
+void __fastcall OBJECTS_InitFunction60_CompellingOrb(D2ObjInitFnStrc* pOp)
+{
+    D2Act3Quest5Strc* pQuestDataEx = (D2Act3Quest5Strc*)QUESTS_GetQuestData(pOp->pGame, 19)->pQuestDataEx;
+    if (pQuestDataEx->bOrbSmashed)
+    {
+        UNITS_ChangeAnimMode(pOp->pObject, 2);
+    }
+
+    if (pQuestDataEx->bCompellingOrbSpawned)
+    {
+        return;
+    }
+
+    D2UnitStrc* pCompellingOrb = sub_6FC6A090(pOp->pGame, pOp->pRoom, pOp->nX, pOp->nY, MONSTER_COMPELLINGORB, 1, 0);
+    if (!pCompellingOrb)
+    {
+        return;
+    }
+
+    pCompellingOrb->dwFlags |= 0x20000;
+    pQuestDataEx->nCompellingOrbGUID = pCompellingOrb->dwUnitId;
+    pQuestDataEx->bCompellingOrbSpawned = 1;
 }
 
 // 0x005BBC00
