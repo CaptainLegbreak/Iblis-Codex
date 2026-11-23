@@ -626,6 +626,22 @@ inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
+static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0)
+    {
+        return 0;
+    }
+
+    if ((nMax - 1) & nMax)
+    {
+        return SEED_RollRandomNumber(pSeed) % nMax;
+    }
+
+    return SEED_RollRandomNumber(pSeed) & (nMax - 1);
+}
+
+
 // 0x004C95E0
 int __fastcall MISSILE_SkillStartAtTargetPos(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -1217,6 +1233,332 @@ void __fastcall MISSILE_CltDoMissile(D2UnitStrc* pMissile)
         gpfnCltDoFuncs[nCltDoFunc](pMissile);
 }
 
+#define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
+
+#define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
+
+int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
+
+extern "C" int __stdcall sub_0064A300(D2UnitStrc* pUnit); // 0x0064A300
+
+void __fastcall DLIGHTMAP_ResetLightSize(D2GfxLightStrc* pLight, int nSize); // 0x004742D0
+
+void* __fastcall ROSTER_GetLinkFirst(D2UnitStrc* pUnit); // 0x004CA990
+
+// 0x004D0B90
+static void __stdcall sub_004D0B90_SpawnHitBurst(int nCount, int nVelocity, int nGate, int nRingMissile, D2UnitStrc* pMissile)
+{
+    D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+    if (!pOwner)
+        return;
+    const int nSkill = MISSILE_GetSkill(pMissile);
+    const int nLevel = MISSILE_GetLevel(pMissile);
+    const int nX = UNITS_GetUnitXPosition(pMissile);
+    const int nY = UNITS_GetUnitYPosition(pMissile);
+    D2MissileStrc tParams;
+    if (nGate >= 0)
+    {
+        memset(&tParams, 0, sizeof(tParams));
+        tParams.dwFlags = 0x524;
+        tParams.pOwner = pOwner;
+        tParams.pOrigin = pMissile;
+        tParams.nMissile = MISSILE_MOLTENBOULDER_FLYINGROCKS;
+        tParams.nVelocity = nVelocity;
+        tParams.nSkill = nSkill;
+        tParams.nSkillLevel = nLevel;
+        const int nSpread = 2 * nCount;
+        for (int i = 0; i < nCount; ++i)
+        {
+            const int nTargetX = SEED_RollLimitedRandomNumberInline(&pMissile->pSeed, 2 * nSpread + 1) - nSpread + nX;
+            const int nTargetY = SEED_RollLimitedRandomNumberInline(&pMissile->pSeed, 2 * nSpread + 1) - nSpread + nY;
+            if (UNITS_GetDistanceToCoordinates(pMissile, nTargetX, nTargetY) > 3)
+            {
+                tParams.nTargetX = nTargetX;
+                tParams.nTargetY = nTargetY;
+                sub_004CD540_CreateMissile(&tParams);
+            }
+        }
+    }
+    if (nRingMissile >= 0)
+    {
+        for (int i = 0; i < 18; ++i)
+        {
+            memset(&tParams, 0, sizeof(tParams));
+            tParams.dwFlags = 1;
+            tParams.pOwner = pOwner;
+// build: symbol ?gaHitRingX@* 0x006DB540
+            tParams.nX = gaHitRingX[i] + nX;
+// build: symbol ?gaHitRingY@* 0x006DB588
+            tParams.nY = gaHitRingY[i] + nY;
+            tParams.nSkill = nSkill;
+            tParams.nSkillLevel = nLevel;
+            tParams.nMissile = nRingMissile;
+            sub_004CD540_CreateMissile(&tParams);
+        }
+    }
+}
+
+int __fastcall sub_004D0DB0_CltHitBurst(D2UnitStrc* pMissile, D2UnitStrc* pHitUnit)
+{
+    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(pMissile ? pMissile->dwClassId : -1);
+    if (pMissilesTxtRecord)
+        sub_004D0B90_SpawnHitBurst(pMissilesTxtRecord->dwCltHitPar[0], pMissilesTxtRecord->dwCltHitPar[1], pMissilesTxtRecord->wCltHitSubMissile[0], pMissilesTxtRecord->wCltHitSubMissile[1], pMissile);
+    return 1;
+}
+
+int __fastcall sub_004D0E00_CltHitBurstSub(D2UnitStrc* pMissile, D2UnitStrc* pHitUnit)
+{
+    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(pMissile ? pMissile->dwClassId : -1);
+    if (!pMissilesTxtRecord)
+        return 1;
+    if (pHitUnit)
+    {
+        if (pHitUnit->dwUnitType != UNIT_MONSTER)
+            return 0;
+        if (!MONSTERREGION_CheckMonStats2Flag(pHitUnit->dwClassId, 0xB))
+            return 0;
+    }
+    if (pMissilesTxtRecord->wCltHitSubMissile[0] >= 0)
+        GFXUTIL_SubmitMissileRequest(sub_004639D0_GetOwnerUnit(pMissile), pMissilesTxtRecord->wCltHitSubMissile[0], CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile), MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
+    sub_004D0B90_SpawnHitBurst(pMissilesTxtRecord->dwCltHitPar[0], pMissilesTxtRecord->dwCltHitPar[1], pMissilesTxtRecord->wCltHitSubMissile[1], pMissilesTxtRecord->wCltHitSubMissile[2], pMissile);
+    return 1;
+}
+
+// 0x004D2190
+static void __stdcall MISSILE_SpawnRandomBolt(D2UnitStrc* pOwner, D2UnitStrc* pMissile)
+{
+    int aOffsetX[4] = { 1, 0, -1, 0 };
+    int aOffsetY[4] = { 0, 1, 0, -1 };
+
+    const unsigned int nZ = SEED_RollRandomNumber(&pMissile->pSeed) % 125;
+    const int nDirection = SEED_RollRandomNumber(&pMissile->pSeed) & 3;
+    const int nUnitX = UNITS_GetUnitXPosition(pMissile);
+    const int nUnitY = UNITS_GetUnitYPosition(pMissile);
+    const int nX = nUnitX + aOffsetX[nDirection];
+    const int nY = nUnitY + aOffsetY[nDirection];
+    const int nDiffY = nY - nUnitY;
+    const int nDiffX = nX - nUnitX;
+
+    int nMissile;
+    switch (SEED_RollRandomNumber(&pMissile->pSeed) % 30)
+    {
+    case 0:
+        nMissile = MISSILE_NEHLITHAKDEBRIS1;
+        break;
+    case 1:
+        nMissile = MISSILE_NEHLITHAKDEBRIS2;
+        break;
+    case 2:
+        nMissile = MISSILE_NEHLITHAKDEBRIS3;
+        break;
+    case 3:
+        nMissile = MISSILE_NEHLITHAKDEBRIS4;
+        break;
+    default:
+        nMissile = MISSILE_NEHLITHAKSWOOSH;
+        break;
+    }
+
+    D2MissileStrc tParams;
+    memset(&tParams, 0, sizeof(tParams));
+    tParams.dwFlags = 3;
+    tParams.pOwner = pOwner;
+    tParams.nMissile = nMissile;
+    tParams.nX = nX;
+    tParams.nY = nY;
+    tParams.nSkill = MISSILE_GetSkill(pMissile);
+    tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
+    tParams.nTargetX = nDiffY;
+    tParams.nTargetY = -nDiffX;
+
+    D2UnitStrc* pNewMissile = sub_004CD540_CreateMissile(&tParams);
+    if (pNewMissile)
+    {
+        GFXUTIL_SetMotionVectorA(pNewMissile, 0, 0, nZ);
+        MISSILE_SetTargetX(pNewMissile, UNITS_GetUnitXPosition(pMissile));
+        MISSILE_SetTargetY(pNewMissile, UNITS_GetUnitYPosition(pMissile));
+    }
+}
+
+// 0x004D2400
+static void __stdcall MISSILE_SpawnRandomShard(D2UnitStrc* pOwner, D2UnitStrc* pMissile)
+{
+    D2MissileStrc tParams;
+    memset(&tParams, 0, sizeof(tParams));
+    tParams.pOwner = pOwner;
+
+    int nTargetX = 20 - SEED_RollRandomNumber(&pMissile->pSeed) % 40;
+    tParams.dwFlags = 2;
+    tParams.pOrigin = pMissile;
+    tParams.nTargetX = nTargetX;
+    const int nTargetY = 20 - SEED_RollRandomNumber(&pMissile->pSeed) % 40;
+    tParams.nTargetY = nTargetY;
+    tParams.nMissile = MISSILE_BRDEATHLIGHTNINGBOLT;
+    tParams.nSkill = MISSILE_GetSkill(pMissile);
+    tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
+
+    if (!nTargetX && !nTargetY)
+    {
+        nTargetX = SEED_RollRandomNumber(&pMissile->pSeed) % 19 + 1;
+        tParams.nTargetX = nTargetX;
+    }
+
+    D2UnitStrc* pNewMissile = sub_004CD540_CreateMissile(&tParams);
+    if (pNewMissile)
+    {
+        MISSILE_SetTargetX(pNewMissile, nTargetX);
+        MISSILE_SetTargetY(pNewMissile, nTargetY);
+        GFXUTIL_SetMotionVectorA(pNewMissile, 0, 0, -10);
+    }
+}
+
+// 0x004D2520
+static void __stdcall sub_004D2520_SpawnBaalBolt(int nX, int nY, D2UnitStrc* pMissile)
+{
+    if (COLLISION_CheckMaskWithSize(UNITS_GetRoom(pMissile), nX, nY, 3, 1))
+    {
+        return;
+    }
+
+    D2MissileStrc tParams;
+    memset(&tParams, 0, sizeof(tParams));
+    tParams.dwFlags = 0x2001;
+    tParams.pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+    tParams.nMissile = SEED_RollRandomNumber(&pMissile->pSeed) % 3 + 0x27B;
+    tParams.nSkill = MISSILE_GetSkill(pMissile);
+    tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
+    tParams.nX = nX;
+    tParams.nY = nY;
+
+    D2UnitStrc* pNewMissile = sub_004CD540_CreateMissile(&tParams);
+    if (pNewMissile)
+    {
+        GFXUTIL_SetMotionVectorA(pNewMissile, 0, 0, 0xFA);
+        GFXUTIL_SetMotionVectorB(pNewMissile, 0, 0, -10, 1);
+        MISSILE_SetTotalFrames(pNewMissile, 0x19);
+        MISSILE_SetCurrentFrame(pNewMissile, 0x19);
+        sub_0064A690_SetMissileAnimSpeed(pNewMissile, 0x80);
+    }
+}
+
+void __fastcall sub_004D2610_CltDoBaalStorm(D2UnitStrc* pMissile)
+{
+    D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+    int bInRange = 0;
+    if (pOwner)
+    {
+        const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pOwner));
+        if (nLevelId >= 0x83)
+        {
+            if (nLevelId <= 0x84)
+            {
+                bInRange = 1;
+            }
+        }
+    }
+
+    if (!bInRange)
+    {
+        MISSILE_CltDoDefault(pMissile);
+        return;
+    }
+
+    D2Common_10235_PATH_UpdateRiderPath(pMissile, pOwner);
+    UNITS_UpdateFrame(pMissile);
+
+    if (!MISSILE_GetTargetX(pMissile) || !(SEED_RollRandomNumber(&pMissile->pSeed) & 0x3F))
+    {
+        sub_00476A80_StartTiming(6, 2000, 3000, 2000);
+        MISSILE_SetTargetX(pMissile, 1);
+    }
+
+    if (!(SEED_RollRandomNumber(&pMissile->pSeed) % 10))
+    {
+        const unsigned int nRollX = SEED_RollRandomNumber(&pMissile->pSeed);
+        const unsigned int nRollY = SEED_RollRandomNumber(&pMissile->pSeed);
+        const int nX = UNITS_GetUnitXPosition(pMissile) + nRollX % 60 - 30;
+        const int nY = UNITS_GetUnitYPosition(pMissile) + nRollY % 60 - 30;
+        sub_004D2520_SpawnBaalBolt(nX, nY, pMissile);
+    }
+}
+
+// 0x004D2760
+int __fastcall MISSILE_CltDoEightWaySpawn(D2UnitStrc* pMissile)
+{
+    const int nXOffsets[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
+    const int nYOffsets[] = { 1, 1, 0, -1, -1, -1, 0, 1 };
+
+    const int nX = UNITS_GetUnitXPosition(pMissile);
+    const int nY = UNITS_GetUnitYPosition(pMissile);
+    MISSILE_SubmitOwnerRequest(pMissile, 0x58, 0, 0, sub_0064A280(pMissile), sub_0064A210(pMissile));
+
+    for (int i = 0; i < 8; ++i)
+    {
+        const int nPosX = nXOffsets[i] + nX;
+        const int nPosY = nYOffsets[i] + nY;
+        D2UnitStrc* pChild = MISSILE_SubmitOwnerRequest(pMissile, 0x59, 0, 0, sub_0064A280(pMissile), sub_0064A210(pMissile));
+        if (pChild)
+        {
+            D2Common_10216(pChild->pDynamicPath, nPosX, nPosY, 0);
+        }
+
+        D2UnitStrc* pNew = MISSILE_SubmitOwnerRequest(pMissile, 0x1A1, nPosX, nPosY, sub_0064A280(pMissile), sub_0064A210(pMissile));
+        if (pNew)
+        {
+            int nFrames = sub_0064A300(pNew);
+            nFrames -= SEED_RollLimitedRandomNumberInline(&pMissile->pSeed, nFrames / 2);
+            MISSILE_SetTotalFrames(pNew, nFrames);
+            D2DynamicPathStrc* pPath = pNew->pDynamicPath;
+// build: symbol ?gszMissileSourceFile@* 0x006DAEF4
+            PATH_SetVelocity(pPath, SEED_RollLimitedRandomNumberInline(&pMissile->pSeed, PATH_GetVelocity(pPath)), gszMissileSourceFile, 0x1A6B);
+            SKILLS_SetBallistic(pNew, 0x1E, nFrames);
+        }
+    }
+
+    return 1;
+}
+
+// 0x004D2990
+static void __stdcall MISSILE_SpawnAtFreeSpot(D2UnitStrc* pOwner, int nX, int nY, D2UnitStrc* pMissile)
+{
+    int bRetry = 1;
+    int nTries = 0;
+    if (!pMissile || !pOwner)
+        return;
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pMissile);
+    if (!pRoom)
+        return;
+    while (bRetry && nTries < 4)
+    {
+        const int nOffsetX = 17 - SEED_RollRandomNumber(&pMissile->pSeed) % 34;
+        const int nOffsetY = 17 - SEED_RollRandomNumber(&pMissile->pSeed) % 34;
+        if (nOffsetX < -1 || nOffsetX > 1 || nOffsetY < -1)
+        {
+            if (!COLLISION_CheckMask(pRoom, nX + nOffsetX, nY + nOffsetY, 4))
+            {
+                nX += nOffsetX;
+                nY += nOffsetY;
+                bRetry = 0;
+            }
+        }
+        ++nTries;
+    }
+    if (bRetry)
+        return;
+    D2MissileStrc tParams;
+    memset(&tParams, 0, sizeof(tParams));
+    tParams.dwFlags = 1;
+    tParams.pOwner = pOwner;
+    tParams.nSkill = MISSILE_GetSkill(pMissile);
+    tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
+    tParams.nX = nX;
+    tParams.nMissile = MISSILE_ANYASTEAMVENT;
+    tParams.nY = nY;
+    sub_004CD540_CreateMissile(&tParams);
+    tParams.nMissile = MISSILE_ANYASTEAM;
+    sub_004CD540_CreateMissile(&tParams);
+}
+
 // 0x004D33E0
 void __fastcall MISSILE_CltDoOnScreen(D2UnitStrc* pMissile)
 {
@@ -1614,6 +1956,215 @@ D2UnitStrc* __fastcall MISSILE_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, 
     tRequest.nArg4 = nArg4;
     tRequest.nArg0 = nArg0;
     return sub_004CD540_HandleRequest(&tRequest);
+}
+
+// 0x004D39C0
+void __fastcall MISSILE_CltDoLightGrow(D2UnitStrc* pMissile)
+{
+    D2MissilesTxt* pMissilesTxtRecord = MISSILE_GetMissilesTxtRecordFromUnit(pMissile);
+    if (!pMissilesTxtRecord)
+    {
+        MISSILE_CltDoDefault(pMissile);
+        return;
+    }
+
+    if (pMissilesTxtRecord->wCltSubMissile[0] < 0)
+    {
+        MISSILE_CltDoDefault(pMissile);
+        return;
+    }
+
+    const int nSkillId = MISSILE_GetSkill(pMissile);
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        MISSILE_CltDoDefault(pMissile);
+        return;
+    }
+
+    const int nParam0 = pMissilesTxtRecord->dwCltParam[0] < 1 ? 1 : pMissilesTxtRecord->dwCltParam[0];
+    const int nParam1 = pMissilesTxtRecord->dwCltParam[1] < 1 ? 1 : pMissilesTxtRecord->dwCltParam[1];
+    const int nVelocityZ = nParam1 * nParam0;
+    const int nParam2 = pMissilesTxtRecord->dwCltParam[2] < 1 ? 1 : pMissilesTxtRecord->dwCltParam[2];
+    const int nVelocityX = nParam2 * nParam0;
+
+    int nSteps = SKILLS_EvaluateSkillFormula(sub_004639D0_GetOwnerUnit(pMissile), pSkillsTxtRecord->dwCalc[0], nSkillId, MISSILE_GetLevel(pMissile));
+    nSteps = D2_MIN(D2_MAX(nSteps, 1), 0x3C);
+
+    const int nInterval = 0x3C / nSteps;
+    D2GfxLightStrc* pLight = pMissile->pLight;
+    const int nLightSize = pLight ? DLIGHTMAP_GetLightSize(pLight) : 0;
+    const int nFrames = sub_0064A3B0_GetElapsedFrames(pMissile);
+    if (!((nFrames + 1) % nInterval) && nLightSize < nSteps && pLight)
+        DLIGHTMAP_ResetLightSize(pLight, nLightSize + 1);
+
+    if (!nFrames)
+    {
+        D2MissileStrc tParams;
+        memset(&tParams, 0, sizeof(tParams));
+        tParams.dwFlags = 1;
+        tParams.pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+        tParams.nX = CLIENTS_GetUnitX(pMissile);
+        tParams.nY = CLIENTS_GetUnitY(pMissile);
+        tParams.nMissile = pMissilesTxtRecord->wCltSubMissile[0];
+        tParams.nSkill = MISSILE_GetSkill(pMissile);
+        tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
+        D2UnitStrc* pSubMissile = sub_004CD540_CreateMissile(&tParams);
+        if (pSubMissile)
+        {
+            GFXUTIL_SetMotionVectorA(pSubMissile, -nVelocityX, 0, nVelocityZ);
+            GFXUTIL_SetMotionVectorB(pSubMissile, nParam2, 0, -nParam1, 1);
+        }
+
+        if (pMissilesTxtRecord->wCltSubMissile[1] > 0)
+        {
+            tParams.nMissile = pMissilesTxtRecord->wCltSubMissile[1];
+            pSubMissile = sub_004CD540_CreateMissile(&tParams);
+            if (pSubMissile)
+            {
+                GFXUTIL_SetMotionVectorA(pSubMissile, -nVelocityX, 0, nVelocityZ);
+                GFXUTIL_SetMotionVectorB(pSubMissile, nParam2, 0, -nParam1, 1);
+            }
+        }
+    }
+
+    if (nFrames == nParam0 - 2)
+    {
+        void* pHint = ROSTER_GetLinkFirst(pMissile);
+        if (pHint)
+            sub_004BA790_ReleaseUnitSfx(pHint, pMissile, 1);
+
+        if (pMissilesTxtRecord->wProgSound > 0)
+            sub_004B9A00(pMissilesTxtRecord->wProgSound, pMissile, 0, 0, 0);
+    }
+
+    MISSILE_CltDoCommon(pMissile);
+}
+
+// 0x004D49F0
+void __fastcall MISSILE_CltDoWeave(D2UnitStrc* pMissile)
+{
+    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(pMissile ? pMissile->dwClassId : -1);
+    if (!pMissilesTxtRecord)
+    {
+        MISSILE_CltDoDefault(pMissile);
+        return;
+    }
+
+    D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+    if (pOwner)
+    {
+        if (pMissilesTxtRecord->wCltSubMissile[0] >= 0 && PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
+        {
+            D2MissileStrc tParams;
+            memset(&tParams, 0, sizeof(tParams));
+            tParams.pOwner = pOwner;
+            tParams.pOrigin = pMissile;
+            tParams.nSkill = MISSILE_GetSkill(pMissile);
+            tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
+            tParams.nMissile = pMissilesTxtRecord->wCltSubMissile[0];
+            tParams.pInitFunc = (MissileInitFunc)sub_004CC870_SubMissileCallback;
+            tParams.nInitArg = (int)pMissile;
+            D2UnitStrc* pNew = sub_004CD540_CreateMissile(&tParams);
+            if (pNew)
+                GFXUTIL_SetMotionVectorA(pNew, 0, 0, GFXUTIL_GetMotionAZ(pMissile));
+        }
+
+        int nPeriod = pMissilesTxtRecord->dwCltParam[0];
+        if (nPeriod < 1)
+            nPeriod = 1;
+        if (!(sub_0064A3B0_GetElapsedFrames(pMissile) % nPeriod))
+        {
+            const int nA = MISSILE_GetTargetX(pMissile);
+            const int nB = MISSILE_GetTargetY(pMissile);
+            int nOffsetX;
+            int nOffsetY;
+            if (SEED_RollRandomNumber(&pMissile->pSeed) & 1)
+            {
+                nOffsetX = nA - nB;
+                nOffsetY = nB + nA;
+            }
+            else
+            {
+                nOffsetX = nB + nA;
+                nOffsetY = nB - nA;
+            }
+            nOffsetX = 3 * nOffsetX / 4;
+            nOffsetY = 3 * nOffsetY / 4;
+            if (nOffsetX || nOffsetY)
+            {
+                D2COMMON_10170_PathSetTargetPos(pMissile->pDynamicPath, CLIENTS_GetUnitX(pMissile) + nOffsetX, CLIENTS_GetUnitY(pMissile) + nOffsetY);
+                D2Common_10142(pMissile->pDynamicPath, pMissile, 0);
+            }
+            MISSILE_SetTargetX(pMissile, nOffsetX);
+            MISSILE_SetTargetY(pMissile, nOffsetY);
+        }
+    }
+
+    MISSILE_CltDoCommon(pMissile);
+}
+
+// 0x004D5090
+void __fastcall MISSILE_CltDoTurn(D2UnitStrc* pMissile)
+{
+    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(pMissile ? pMissile->dwClassId : -1);
+    if (!pMissilesTxtRecord)
+    {
+        MISSILE_CltDoDefault(pMissile);
+        return;
+    }
+
+    D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+    if (pOwner)
+    {
+        if (pMissilesTxtRecord->wCltSubMissile[0] > 0 && PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
+        {
+            D2MissileStrc tParams;
+            memset(&tParams, 0, sizeof(tParams));
+            tParams.pOwner = pOwner;
+            tParams.pOrigin = pMissile;
+            tParams.nSkill = MISSILE_GetSkill(pMissile);
+            tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
+            tParams.nMissile = pMissilesTxtRecord->wCltSubMissile[0];
+            sub_004CD540_CreateMissile(&tParams);
+        }
+
+        int nPeriod = pMissilesTxtRecord->dwCltParam[0];
+        if (nPeriod < 1)
+            nPeriod = 1;
+        if (!(sub_0064A3B0_GetElapsedFrames(pMissile) % nPeriod))
+        {
+            const int nA = MISSILE_GetTargetX(pMissile);
+            const int nB = MISSILE_GetTargetY(pMissile);
+            int nOffsetX;
+            int nOffsetY;
+            switch (SEED_RollRandomNumber(&pMissile->pSeed) & 3)
+            {
+            case 0:
+                nOffsetX = nA - nB;
+                nOffsetY = nB + nA;
+                nOffsetX = 3 * nOffsetX / 4;
+                nOffsetY = 3 * nOffsetY / 4;
+                break;
+            case 2:
+                nOffsetX = nB + nA;
+                nOffsetY = nB - nA;
+                nOffsetX = 3 * nOffsetX / 4;
+                nOffsetY = 3 * nOffsetY / 4;
+                break;
+            default:
+                nOffsetX = nA;
+                nOffsetY = nB;
+                break;
+            }
+            D2COMMON_10170_PathSetTargetPos(pMissile->pDynamicPath, CLIENTS_GetUnitX(pMissile) + nOffsetX, CLIENTS_GetUnitY(pMissile) + nOffsetY);
+            D2Common_10142(pMissile->pDynamicPath, pMissile, 0);
+            MISSILE_SetTargetX(pMissile, nOffsetX);
+            MISSILE_SetTargetY(pMissile, nOffsetY);
+        }
+    }
+
+    MISSILE_CltDoCommon(pMissile);
 }
 
 // 0x004D5C10
@@ -2204,21 +2755,6 @@ void __fastcall MISSILE_CltDoCopySubMissile(D2UnitStrc* pMissile)
     }
 
     MISSILE_CltDoCommon(pMissile);
-}
-
-static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
-{
-    if (nMax <= 0)
-    {
-        return 0;
-    }
-
-    if ((nMax - 1) & nMax)
-    {
-        return SEED_RollRandomNumber(pSeed) % nMax;
-    }
-
-    return SEED_RollRandomNumber(pSeed) & (nMax - 1);
 }
 
 // 0x004D46D0
@@ -3108,6 +3644,30 @@ static void __stdcall MISSILE_SpawnBehindOwner(int nMissileId, D2UnitStrc* pOwne
     sub_004DA350_UpdateMotion(pNew);
 }
 
+// 0x004D72C0
+void __fastcall MISSILE_CltDoPeriodicSpawn(D2UnitStrc* pMissile)
+{
+    if (!(sub_0064A380_GetRemainingFrames(pMissile) % 4))
+    {
+        D2MissileStrc tParams;
+        memset(&tParams, 0, sizeof(tParams));
+        tParams.dwFlags = 0x2521;
+        tParams.pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+        tParams.nMissile = MISSILE_QUEENDEATHGLOB;
+        tParams.nSkill = MISSILE_GetSkill(pMissile);
+        tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
+        const int nX = UNITS_GetUnitXPosition(pMissile);
+        tParams.nX = nX;
+        const int nY = UNITS_GetUnitYPosition(pMissile);
+        tParams.nY = nY;
+        tParams.nTargetX = nX - SEED_RollRandomNumber(&pMissile->pSeed) % 12;
+        tParams.nTargetY = SEED_RollRandomNumber(&pMissile->pSeed) % 13 + nY - 6;
+        sub_004CD540_CreateMissile(&tParams);
+    }
+
+    MISSILE_CltDoCommon(pMissile);
+}
+
 // 0x004D7690
 void __fastcall MISSILE_CltDoOwnerSpawner(D2UnitStrc* pMissile)
 {
@@ -3127,6 +3687,35 @@ void __fastcall MISSILE_CltDoOwnerSpawner(D2UnitStrc* pMissile)
         nValue = MISSILE_GetFrameDelay(sub_0064A3B0_GetElapsedFrames(pMissile));
     }
     MISSILE_SetTargetX(pMissile, nValue - 1);
+    MISSILE_CltDoCommon(pMissile);
+}
+
+// 0x004D7710
+void __fastcall MISSILE_CltDoSpawner(D2UnitStrc* pMissile)
+{
+    D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+    const int nFrames = sub_0064A3B0_GetElapsedFrames(pMissile);
+    if (pOwner)
+    {
+        MISSILE_SpawnRandomBolt(pOwner, pMissile);
+        MISSILE_SpawnRandomBolt(pOwner, pMissile);
+
+        if (nFrames > 60 && !(nFrames % 20))
+        {
+            MISSILE_SpawnRandomShard(pOwner, pMissile);
+        }
+
+        if (nFrames == 25)
+        {
+            int nY = UNITS_GetUnitYPosition(pMissile);
+            int nX = UNITS_GetUnitXPosition(pMissile);
+            GFXUTIL_SubmitMissileRequest(pOwner, 0x26A, nX + 2, nY + 2, MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
+            nY = UNITS_GetUnitYPosition(pMissile);
+            nX = UNITS_GetUnitXPosition(pMissile);
+            GFXUTIL_SubmitMissileRequest(pOwner, 0x269, nX + 2, nY + 2, MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
+        }
+    }
+
     MISSILE_CltDoCommon(pMissile);
 }
 
@@ -3192,6 +3781,63 @@ void __fastcall MISSILE_CltDoStateTarget(D2UnitStrc* pMissile)
         }
     }
 
+    MISSILE_CltDoCommon(pMissile);
+}
+
+// 0x004D8000
+void __fastcall MISSILE_CltDoEruption(D2UnitStrc* pMissile)
+{
+    D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+    const int nFrame = sub_0064A3B0_GetElapsedFrames(pMissile);
+    const int nX = UNITS_GetUnitXPosition(pMissile);
+    const int nY = UNITS_GetUnitYPosition(pMissile);
+    if (nFrame < 110)
+    {
+        int nCount;
+        if (!nFrame)
+        {
+            GFXUTIL_SubmitMissileRequest(pOwner, 0x214, nX, nY, MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
+            nCount = nFrame + 8;
+        }
+        else if (nFrame < 50)
+        {
+            nCount = 8;
+        }
+        else
+        {
+            nCount = nFrame < 80 ? 5 : 1;
+        }
+        for (int i = 0; i < nCount; ++i)
+        {
+            const int nLevel = MISSILE_GetLevel(pMissile);
+            const int nSkill = MISSILE_GetSkill(pMissile);
+            if (pOwner)
+            {
+                D2MissileStrc tParams;
+                memset(&tParams, 0, sizeof(tParams));
+                tParams.pOwner = pOwner;
+                tParams.dwFlags = 1;
+                tParams.nX = nX + 2;
+                tParams.nY = nY + 2;
+                tParams.nSkill = nSkill;
+                tParams.nSkillLevel = nLevel;
+                tParams.nMissile = MISSILE_ANYASTEAM1;
+                D2UnitStrc* pNew = sub_004CD540_CreateMissile(&tParams);
+                if (pNew)
+                {
+                    const unsigned int nRoll1 = SEED_RollRandomNumber(&pMissile->pSeed);
+                    const unsigned int nRoll2 = SEED_RollRandomNumber(&pMissile->pSeed);
+                    const unsigned int nRoll3 = SEED_RollRandomNumber(&pMissile->pSeed);
+                    GFXUTIL_SetMotionVectorA(pNew, 50 - nRoll1 % 100, 50 - nRoll2 % 100, 0);
+                    GFXUTIL_SetMotionVectorB(pNew, 0, 0, (nRoll3 & 7) + 2, 1);
+                }
+            }
+        }
+    }
+    if (nFrame == 5)
+        sub_00476A80_StartTiming(nFrame - 2, 0x258, 0xFA0, 0xBB8);
+    if (nFrame < 200 && !(nFrame % 7))
+        MISSILE_SpawnAtFreeSpot(pOwner, nX, nY, pMissile);
     MISSILE_CltDoCommon(pMissile);
 }
 

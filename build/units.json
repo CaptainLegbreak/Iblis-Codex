@@ -31669,6 +31669,11 @@
      "name": "MISSILE_CltHitBurst"
     },
     {
+     "va": "0x004D0B90",
+     "length": 538,
+     "name": "?sub_004D0B90_SpawnHitBurst@@YGXHHHHPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004D0EB0",
      "length": 309,
      "name": "MISSILE_CltHitLob"
@@ -31734,6 +31739,31 @@
      "name": "?MISSILE_SpawnBehindOwner@@YGXHPAUD2UnitStrc@@0@Z"
     },
     {
+     "va": "0x004D2190",
+     "length": 616,
+     "name": "?MISSILE_SpawnRandomBolt@@YGXPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x004D2400",
+     "length": 288,
+     "name": "?MISSILE_SpawnRandomShard@@YGXPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x004D2520",
+     "length": 228,
+     "name": "?sub_004D2520_SpawnBaalBolt@@YGXHHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004D2760",
+     "length": 556,
+     "name": "?MISSILE_CltDoEightWaySpawn@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004D2990",
+     "length": 350,
+     "name": "?MISSILE_SpawnAtFreeSpot@@YGXPAUD2UnitStrc@@HH0@Z"
+    },
+    {
      "va": "0x004D2AF0",
      "length": 288
     },
@@ -31776,6 +31806,10 @@
      "va": "0x004D38D0",
      "length": 228,
      "name": "MISSILE_CltDoTimedSubMissile"
+    },
+    {
+     "va": "0x004D39C0",
+     "length": 633
     },
     {
      "va": "0x004D3C40",
@@ -31828,6 +31862,11 @@
      "name": "MISSILE_CltDoRing"
     },
     {
+     "va": "0x004D49F0",
+     "length": 387,
+     "name": "?MISSILE_CltDoWeave@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004D4B80",
      "length": 33,
      "name": "?MISSILE_CltDoFrameFloor@@YIXPAUD2UnitStrc@@@Z"
@@ -31835,6 +31874,11 @@
     {
      "va": "0x004D4BB0",
      "length": 516
+    },
+    {
+     "va": "0x004D5090",
+     "length": 362,
+     "name": "?MISSILE_CltDoTurn@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004D5200",
@@ -31919,6 +31963,11 @@
      "name": "?MISSILE_CltDoRateJitterSpawn@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004D72C0",
+     "length": 308,
+     "name": "?MISSILE_CltDoPeriodicSpawn@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004D7400",
      "length": 646
     },
@@ -31928,8 +31977,18 @@
      "name": "?MISSILE_CltDoOwnerSpawner@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004D7710",
+     "length": 363,
+     "name": "?MISSILE_CltDoSpawner@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004D7E00",
      "length": 435
+    },
+    {
+     "va": "0x004D8000",
+     "length": 594,
+     "name": "?MISSILE_CltDoEruption@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004D9180",
@@ -32794,71 +32853,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Missile_004D0B90.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004D0B90",
-     "length": 538,
-     "name": "?sub_004D0B90_SpawnHitBurst@@YGXHHHHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004D2190",
-     "length": 616,
-     "name": "?MISSILE_SpawnRandomBolt@@YGXPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004D2400",
-     "length": 288,
-     "name": "?MISSILE_SpawnRandomShard@@YGXPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004D2520",
-     "length": 228,
-     "name": "?sub_004D2520_SpawnBaalBolt@@YGXHHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004D2760",
-     "length": 556,
-     "name": "?MISSILE_CltDoEightWaySpawn@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004D2990",
-     "length": 350,
-     "name": "?MISSILE_SpawnAtFreeSpot@@YGXPAUD2UnitStrc@@HH0@Z"
-    },
-    {
-     "va": "0x004D39C0",
-     "length": 633
-    },
-    {
-     "va": "0x004D49F0",
-     "length": 387,
-     "name": "?MISSILE_CltDoWeave@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004D5090",
-     "length": 362,
-     "name": "?MISSILE_CltDoTurn@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004D72C0",
-     "length": 308,
-     "name": "?MISSILE_CltDoPeriodicSpawn@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004D7710",
-     "length": 363,
-     "name": "?MISSILE_CltDoSpawner@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004D8000",
-     "length": 594,
-     "name": "?MISSILE_CltDoEruption@@YIXPAUD2UnitStrc@@@Z"
-    }
    ]
   },
   {
