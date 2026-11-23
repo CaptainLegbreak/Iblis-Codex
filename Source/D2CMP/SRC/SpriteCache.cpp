@@ -756,7 +756,7 @@ static inline int SpriteCache_CopyName(char* szDst, const char* szSrc)
 }
 
 
-static __forceinline int SpriteCache_BuildDccOrDc6Path(char* szOut, const char* szDir, const char* szName, D2CmpSpriteContextStrc* pContext, int bAllowDcc)
+static inline int SpriteCache_BuildDccOrDc6Path(char* szOut, const char* szDir, const char* szName, D2CmpSpriteContextStrc* pContext, int bAllowDcc)
 {
     if (bAllowDcc)
     {

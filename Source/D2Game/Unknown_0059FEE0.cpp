@@ -148,7 +148,7 @@ struct Unit005A0200 {
 };
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 
-__forceinline D2MissilesTxt* GetMissilesTxtRecord(int nId)
+inline D2MissilesTxt* GetMissilesTxtRecord(int nId)
 {
     if (nId >= 0 && nId < sgptDataTables->nMissilesTxtRecordCount)
         return &sgptDataTables->pMissilesTxt[nId];

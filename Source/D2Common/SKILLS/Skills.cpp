@@ -448,7 +448,7 @@ int __fastcall UNITS_GetWeaponClass(D2UnitStrc* pUnit); // 0x00623C60
 
 static int __fastcall SKILLS_CalculateMasteryBonus(D2UnitStrc* pUnit, int nElemType, int nSrcDamage); // 0x00644C90
 
-__forceinline int SKILLS_EvaluateSkillFormulaInl(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel);
+inline int SKILLS_EvaluateSkillFormulaInl(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel);
 
 typedef int BOOL;
 
