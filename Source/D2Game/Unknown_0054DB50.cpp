@@ -208,33 +208,4 @@ static inline D2MonStatsTxt* GetMonStatsRecord(D2DataTablesStrc* pDataTables, in
     return pRecord;
 }
 
-// 0x0054EC40
-int __fastcall sub_0054EC40_IsSpecialBaseMonster(int nClassId)
-{
-    D2DataTablesStrc* pDataTables = sgptDataTables;
-    if (nClassId < 0)
-    {
-        goto fail;
-    }
-
-    D2MonStatsTxt* pRecord = GetMonStatsRecord(pDataTables, nClassId);
-    if (pRecord)
-    {
-        nClassId = pRecord->nBaseId;
-    }
-
-    if (nClassId < 0)
-    {
-        goto fail;
-    }
-    if (nClassId >= sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        goto fail;
-    }
-    if (nClassId == 19 || nClassId == 91)
-    {
-        return 1;
-    }
-fail:
-    return 0;
-}
+int __fastcall sub_0054EC40_IsSpecialBaseMonster(int nClassId); // 0x0054EC40
