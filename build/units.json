@@ -32434,6 +32434,31 @@
      "name": "?WALL2_FreeViewCells@@YIXPAUD2ViewStrc@@@Z"
     },
     {
+     "va": "0x004DCF70",
+     "length": 41,
+     "name": "?sub_004DCF70_Inside@@YAHPAUContext@@HH@Z"
+    },
+    {
+     "va": "0x004DCFA0",
+     "length": 191,
+     "name": "?sub_004DCFA0_AddUnit@@YAXPAUCell@@PAUContext@@PAUUnit@@@Z"
+    },
+    {
+     "va": "0x004DD060",
+     "length": 279,
+     "name": "?sub_004DD060_Occludes@@YGHPAURoom@@PAUTile@@@Z"
+    },
+    {
+     "va": "0x004DD600",
+     "length": 214,
+     "name": "?sub_004DD600_AddSpecial@@YGXPAUCell@@PAUContext@@PAUUnit@@@Z"
+    },
+    {
+     "va": "0x004DD6E0",
+     "length": 210,
+     "name": "?sub_004DD6E0_AddOverlay@@YGXPAUCell@@PAUContext@@PAUUnit@@@Z"
+    },
+    {
      "va": "0x004DD7C0",
      "length": 944
     },
@@ -32475,37 +32500,6 @@
      "va": "0x004DE730",
      "length": 819,
      "name": "?sub_004DE730_UpdateView@D2FloorTileViewStrc@@QAEXPAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004DCF70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004DCF70",
-     "length": 41,
-     "name": "?sub_004DCF70_Inside@@YAHPAUContext@@HH@Z"
-    },
-    {
-     "va": "0x004DCFA0",
-     "length": 191,
-     "name": "?sub_004DCFA0_AddUnit@@YAXPAUCell@@PAUContext@@PAUUnit@@@Z"
-    },
-    {
-     "va": "0x004DD060",
-     "length": 279,
-     "name": "?sub_004DD060_Occludes@@YGHPAURoom@@PAUTile@@@Z"
-    },
-    {
-     "va": "0x004DD600",
-     "length": 214,
-     "name": "?sub_004DD600_AddSpecial@@YGXPAUCell@@PAUContext@@PAUUnit@@@Z"
-    },
-    {
-     "va": "0x004DD6E0",
-     "length": 210,
-     "name": "?sub_004DD6E0_AddOverlay@@YGXPAUCell@@PAUContext@@PAUUnit@@@Z"
     }
    ]
   },

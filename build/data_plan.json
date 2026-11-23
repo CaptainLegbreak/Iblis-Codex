@@ -1935,15 +1935,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_004DCF70.cpp": {
-   "bytes": 132,
-   "definitions": 3,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004DCF70.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Client/Unknown_004DED10.cpp": {
    "bytes": 1060,
    "definitions": 4,
@@ -5411,6 +5402,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/MONSTER/Monster.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/GAME/Wall2.cpp": {
+   "bytes": 132,
+   "definitions": 3,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/GAME/Wall2.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -73788,7 +73788,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004DCF70.cpp",
+   "file": "Source/D2Client/GAME/Wall2.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern s32 gVar_0072A968_Mode = ",
@@ -73813,7 +73813,7 @@
    "cname": "gData_0072A96C",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004DCF70.cpp",
+   "file": "Source/D2Client/GAME/Wall2.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0072A96C_t gData_0072A96C; // 0x0072A96C",
    "head": "extern \"C\" struct d2data_0072A96C_t gData_0072A96C = ",
@@ -74071,7 +74071,7 @@
    "cname": "gData_006CE274",
    "declared": true,
    "decorated": "?gVar_006CE274_Flags@@3IA",
-   "file": "Source/D2Client/Unknown_004DCF70.cpp",
+   "file": "Source/D2Client/GAME/Wall2.cpp",
    "form": "declared_owner",
    "fwd": "extern \"C\" const u32 gData_006CE274; // 0x006CE274",
    "head": "extern \"C\" const u32 gData_006CE274 = ",
