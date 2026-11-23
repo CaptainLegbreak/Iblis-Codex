@@ -4168,13 +4168,7 @@ void __fastcall PLRSAVE2_InitPlayerFromClient(D2GameStrc* pGame, D2UnitStrc* pPl
     *(int*)pPlayerData->unk0x54 = 0;
 }
 
-// 0x005738D0
-void __fastcall MONSTER_DeleteEvents(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_STATREGEN, 0);
-}
-
+void __fastcall MONSTER_DeleteEvents(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005738D0
 int __fastcall sub_J07_Emit_00560020(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
     return ITEMMODE_PickupStackable(pGame, pUnit, pItem);

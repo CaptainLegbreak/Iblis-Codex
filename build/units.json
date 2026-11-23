@@ -45220,11 +45220,6 @@
      "name": "PLRSAVE2_InitPlayerFromClient"
     },
     {
-     "va": "0x005738D0",
-     "length": 31,
-     "name": "MONSTER_DeleteEvents"
-    },
-    {
      "va": "0x005776E0",
      "length": 18,
      "name": "sub_005776E0"
@@ -46528,11 +46523,6 @@
      "va": "0x00569D80",
      "length": 317,
      "name": "PLRSAVE2_CheckPlayerFlags"
-    },
-    {
-     "va": "0x00573640",
-     "length": 81,
-     "name": "MONSTER_RemoveAll"
     },
     {
      "va": "0x0058B4A0",
@@ -52376,11 +52366,6 @@
      "length": 916
     },
     {
-     "va": "0x00573750",
-     "length": 42,
-     "name": "MONSTER_ClearTargetIfMatches"
-    },
-    {
      "va": "0x005749B0",
      "length": 98,
      "name": "PLAYERPETS_UpdatePetInfo"
@@ -52618,7 +52603,13 @@
      "va": "0x00573470",
      "length": 70,
      "name": "sub_00573470"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/MONSTER/Monster.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x005734C0",
      "length": 20,
@@ -52650,6 +52641,35 @@
      "name": "@sub_00573570@12"
     },
     {
+     "va": "0x005735A0",
+     "length": 146,
+     "name": "MONSTER_SetVelocityAndPosition"
+    },
+    {
+     "va": "0x00573640",
+     "length": 81,
+     "name": "MONSTER_RemoveAll"
+    },
+    {
+     "va": "0x005736A0",
+     "length": 165,
+     "name": "?MONSTER_Free@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00573750",
+     "length": 42,
+     "name": "MONSTER_ClearTargetIfMatches"
+    },
+    {
+     "va": "0x00573780",
+     "length": 322
+    },
+    {
+     "va": "0x005738D0",
+     "length": 31,
+     "name": "MONSTER_DeleteEvents"
+    },
+    {
      "va": "0x005738F0",
      "length": 20,
      "name": "MONSTER_GetHpBonus"
@@ -52658,26 +52678,6 @@
      "va": "0x00573910",
      "length": 23,
      "name": "MONSTER_GetExperienceBonus"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/Monster.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005735A0",
-     "length": 146,
-     "name": "MONSTER_SetVelocityAndPosition"
-    },
-    {
-     "va": "0x005736A0",
-     "length": 165,
-     "name": "?MONSTER_Free@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00573780",
-     "length": 322
     },
     {
      "va": "0x00573930",

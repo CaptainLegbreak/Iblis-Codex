@@ -3485,15 +3485,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_00573470.cpp": {
-   "bytes": 72,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_00573470.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/UNIT/SUnitDmg.cpp": {
    "bytes": 808,
    "definitions": 7,
@@ -5680,6 +5671,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/SkillSor.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/MONSTER/Monster.cpp": {
+   "bytes": 72,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/MONSTER/Monster.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -100968,7 +100968,7 @@
    "cname": "gData_006E1590",
    "declared": true,
    "decorated": "?gnHpBonusTable@@3QBHB",
-   "file": "Source/D2Game/Unknown_00573470.cpp",
+   "file": "Source/D2Game/MONSTER/Monster.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E1590[9]; // 0x006E1590",
    "head": "extern \"C\" const int gData_006E1590[9] = ",
@@ -100998,7 +100998,7 @@
    "cname": "gData_006E15B4",
    "declared": true,
    "decorated": "?gnExperienceBonusTable@@3QBHB",
-   "file": "Source/D2Game/Unknown_00573470.cpp",
+   "file": "Source/D2Game/MONSTER/Monster.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E15B4[9]; // 0x006E15B4",
    "head": "extern \"C\" const int gData_006E15B4[9] = ",
