@@ -1583,7 +1583,6 @@ int __fastcall CLIENTS_GetNameById(int nClientId, char* szName)
     return nResult;
 }
 
-#include "gen/data/Source/D2Game/GAME/Clients.inc"
 
 
 #define STAT_GOLD 14
