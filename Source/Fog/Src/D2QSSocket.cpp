@@ -81,6 +81,26 @@ void __fastcall sub_006C1F80(void* pQueue); // 0x006C1F80
 
 static void sub_006BC2C0_SetClosing(sub_006BC780_Strc* pThis);
 
+typedef struct _RTL_CRITICAL_SECTION CRITICAL_SECTION;
+
+struct sub_006BC2C0_Conn
+{
+    char unk_00[0x0C];
+    char cs[0x18];
+    int bActive;
+    int unk_28;
+    int bClosing;
+};
+
+struct sub_006BC2C0_Strc
+{
+    char unk_000[0x110];
+    sub_006BC2C0_Conn* pConn;
+    char unk_114[0x10];
+    int bClosing;
+};
+
+
 // 0x006BC290
 void __stdcall sub_006BC290_SetValues(sub_006BC290_Strc* pThis, int nA, int nB, int nC)
 {
@@ -89,17 +109,6 @@ void __stdcall sub_006BC290_SetValues(sub_006BC290_Strc* pThis, int nA, int nB, 
         pThis->nValue118 = nA;
         pThis->nValue11C = nB;
         pThis->nValue120 = nC;
-    }
-}
-
-static void sub_006BC2C0_SetClosing(sub_006BC780_Strc* pThis)
-{
-    if (pThis && pThis->pConn && pThis->pConn->bActive)
-    {
-        pThis->bClosing = 1;
-        EnterCriticalSection((CRITICAL_SECTION*)pThis->pConn->cs);
-        pThis->pConn->bClosing = 1;
-        LeaveCriticalSection((CRITICAL_SECTION*)pThis->pConn->cs);
     }
 }
 
@@ -216,3 +225,16 @@ void __stdcall sub_006BC680_Signal(sub_006BC780_Strc* pThis)
     if (pThis)
         sub_006BC2C0_SetClosing(pThis);
 }
+
+// 0x006BC2C0
+static void sub_006BC2C0_SetClosing(sub_006BC780_Strc* pThis)
+{
+    if (pThis && pThis->pConn && pThis->pConn->bActive)
+    {
+        pThis->bClosing = 1;
+        EnterCriticalSection((CRITICAL_SECTION*)pThis->pConn->cs);
+        pThis->pConn->bClosing = 1;
+        LeaveCriticalSection((CRITICAL_SECTION*)pThis->pConn->cs);
+    }
+}
+
