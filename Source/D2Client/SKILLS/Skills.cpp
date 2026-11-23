@@ -2960,6 +2960,37 @@ int __fastcall SKILLS_GetFirstSkillParam(int nSkillId)
     return pSkillsTxt->dwParam[0];
 }
 
+int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
+
+void __stdcall sub_0064A710(D2UnitStrc*,int); // 0x0064A710
+
+void __stdcall sub_0064A760(D2UnitStrc*,int); // 0x0064A760
+
+// 0x004C96D0
+int __fastcall sub_004C96D0(D2UnitStrc* pUnit,int nSkillId,int nSkillLevel)
+{
+ if(!SKILLS_GetSkillsTxtRecord(nSkillId)) return 0;
+ const int nMissile=SKILLDESC_GetCltMissileId(pUnit,nSkillId);
+ if(nMissile<0 || nMissile>=sgptDataTables->nMissilesTxtRecordCount) return 0;
+ if(pUnit) pUnit->dwFlags|=0x40;
+ D2UnitStrc* pTarget=CUNIT_GetPathTargetUnit(pUnit);
+ if(!pTarget) return 0;
+ D2MissileStrc params;
+ memset(&params,0,sizeof(params));
+ params.dwFlags=1;
+ params.pOwner=pUnit;
+ params.nX=CLIENTS_GetUnitX(pTarget);
+ params.nY=CLIENTS_GetUnitY(pTarget);
+ params.nSkill=nSkillId;
+ params.nSkillLevel=nSkillLevel;
+ params.nMissile=nMissile;
+ D2UnitStrc* pMissile=MISSILE_CreateClientMissile(&params);
+ if(!pMissile) return 0;
+ sub_0064A710(pMissile,!pTarget ? 6 : pTarget->dwUnitType);
+ sub_0064A760(pMissile,!pTarget ? -1 : pTarget->dwUnitId);
+ return 1;
+}
+
 // 0x004C9D70
 int __fastcall SKILLS_FindEventFrame(D2UnitStrc* pUnit)
 {
