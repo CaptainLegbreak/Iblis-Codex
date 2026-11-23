@@ -1,4 +1,5 @@
 #include "D2Common.h"
+
 #include "D2TxtItems.h"
 
 #include "D2LevelTxt.h"
@@ -238,10 +239,15 @@ static __forceinline int sub_00668A90_ParseItemName(D2CubeInputItemStrc* pInput,
 }
 
 extern "C" unsigned int __cdecl strcspn(const char* szString, const char* szSet);                          // 0x00688990
+
 extern "C" int __cdecl atoi(const char* szString);                                                          // 0x00681EBB
+
 extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2);                              // 0x006841E9
+
 #pragma intrinsic(strlen, strcmp)
+
 int __stdcall FOG_GetRowFromTxt(void* pLinker, const char* szText, int nColumn);                            // 0x006BD3C0
+
 static __forceinline int DATATBLS_CubeInputFindUniqueOrSet(D2CubeInputItem* pCubeInput, char* szInput, int* pBaseItemId)
 {
     int nLinkId = -1;
@@ -282,12 +288,8 @@ static __forceinline int DATATBLS_CubeInputFindUniqueOrSet(D2CubeInputItem* pCub
     pCubeInput->wItem = *pBaseItemId;
     return 1;
 }
+
 static int __stdcall sub_00668600_CubeMainInputParser(D2CubeInputItem* pCubeInput, char* szInput);
-void __fastcall sub_00669080_CubeInputLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn)
-{
-    if (pRecord && pSrc && *pSrc)
-        sub_00668600_CubeMainInputParser((D2CubeInputItem*)((char*)pRecord + 0x14 + 8 * nOffset), pSrc);
-}
 
 // 0x00668600
 static int __stdcall sub_00668600_CubeMainInputParser(D2CubeInputItem* pCubeInput, char* szInput)
@@ -626,6 +628,13 @@ static int __stdcall sub_00668A90_ParseCubeInput(D2CubeInputItemStrc* pInput, ch
     }
 
     return 1;
+}
+
+// 0x00669080
+void __fastcall sub_00669080_CubeInputLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn)
+{
+    if (pRecord && pSrc && *pSrc)
+        sub_00668600_CubeMainInputParser((D2CubeInputItem*)((char*)pRecord + 0x14 + 8 * nOffset), pSrc);
 }
 
 // 0x006690B0

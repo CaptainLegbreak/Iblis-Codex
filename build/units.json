@@ -77583,32 +77583,12 @@
      "length": 1510
     },
     {
-     "va": "0x006690B0",
-     "length": 38
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00669080.cpp",
-   "rank": 1,
-   "functions": [
-    {
      "va": "0x00669080",
      "length": 35
+    },
+    {
+     "va": "0x006690B0",
+     "length": 38
     }
    ],
    "flags": [
