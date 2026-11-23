@@ -32030,11 +32030,6 @@
      "name": "PLRSKILLS_MissileAtTargetUnit"
     },
     {
-     "va": "0x004E9040",
-     "length": 285,
-     "name": "PLRSKILLS_DescAttackRating"
-    },
-    {
      "va": "0x004F1D80",
      "length": 408,
      "name": "PLRSKILLS_MotionMissiles"
@@ -33791,6 +33786,11 @@
      "va": "0x004E8FE0",
      "length": 32,
      "name": "?SKILLDESC_AttackRatingCallback@@YIHPAUD2UnitStrc@@PAH1HHHPAUD2SkillStrc@@H0@Z"
+    },
+    {
+     "va": "0x004E9040",
+     "length": 285,
+     "name": "PLRSKILLS_DescAttackRating"
     },
     {
      "va": "0x004E9260",
