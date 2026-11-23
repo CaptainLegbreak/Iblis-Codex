@@ -4379,7 +4379,7 @@
   },
   "Source/D2Common/DUNGEON/Dungeon.cpp": {
    "bytes": 36,
-   "definitions": 2,
+   "definitions": 1,
    "externs": [
     "extern \"C\" void __cdecl DRLGACTIVATE_RoomExSetStatus_ClientInRoom(); // 0x0061B2C0",
     "extern \"C\" void __cdecl DRLGACTIVATE_RoomExSetStatus_ClientInSight(); // 0x0061B2D0",
@@ -4393,7 +4393,7 @@
   },
   "Source/D2Common/DRLG/DrlgActivate.cpp": {
    "bytes": 80,
-   "definitions": 2,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/DrlgActivate_0061B170.inc",
@@ -120788,7 +120788,7 @@
    "cname": "gData_00744384",
    "declared": true,
    "decorated": "?gpfnRoomExSetStatus@@3QBQ6IXPAUD2CommonLevelNodeStrc@@@ZB",
-   "file": "Source/D2Common/DUNGEON/Dungeon.cpp",
+   "file": "Source/D2Common/DRLG/DrlgActivate.cpp",
    "fill": 4,
    "form": "declared",
    "fwd": "extern \"C\" const LEVELNODEFN gData_00744384[4]; // 0x00744384",
