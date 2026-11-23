@@ -2264,20 +2264,20 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/UnitSnd.cpp": {
-   "bytes": 5764,
-   "definitions": 125,
+   "bytes": 5876,
+   "definitions": 126,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/UnitSnd.inc",
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_004CA410.cpp": {
-   "bytes": 116,
-   "definitions": 2,
+  "Source/D2Client/Unknown_004CC790.cpp": {
+   "bytes": 4,
+   "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004CA410.inc",
+   "include": "gen/data/Source/D2Client/Unknown_004CC790.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -71219,7 +71219,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004CA410.cpp",
+   "file": "Source/D2Client/UNIT/UnitSnd.cpp",
    "fill": 14,
    "form": "declared",
    "fwd": null,
@@ -71271,7 +71271,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004CA410.cpp",
+   "file": "Source/D2Client/Unknown_004CC790.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gbMissileLights = ",

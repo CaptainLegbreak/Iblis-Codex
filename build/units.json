@@ -32362,14 +32362,59 @@
      "name": "?UNITSND_GetPlayerSoundRecord@@YAPAUD2UnitSndPlayerStrc@@I@Z"
     },
     {
+     "va": "0x004CA410",
+     "length": 161,
+     "name": "?sub_004CA410_GetMonSoundsRecord@@YAPAUD2MonSoundsTxt@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004CA4C0",
      "length": 58,
      "name": "?UNITSND_GetDirectionRate@@YIHPAUD2UnitStrc@@I@Z"
     },
     {
+     "va": "0x004CA500",
+     "length": 83,
+     "name": "?sub_004CA500_GetAnimRate@@YIIPAUD2UnitStrc@@I@Z"
+    },
+    {
+     "va": "0x004CA810",
+     "length": 95,
+     "name": "?sub_004CA810_GetModeSound@@YIHPAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x004CA8A0",
      "length": 43,
      "name": "?UNITSND_AddUnitSfx@@YIXPAUD2UnitStrc@@PAUD2TimedHintEntryStrc@@@Z"
+    },
+    {
+     "va": "0x004CA8D0",
+     "length": 43,
+     "name": "?sub_004CA8D0_NotifyUnitHint@@YIXPAUD2UnitStrc@@PAUD2TimedHintEntryStrc@@@Z"
+    },
+    {
+     "va": "0x004CA9C0",
+     "length": 72,
+     "name": "?sub_004CA9C0_ReleaseUnitHints@@YIXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004CAA10",
+     "length": 92,
+     "name": "?sub_004CAA10_PurgeUnitHints@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004CAAA0",
+     "length": 48,
+     "name": "?sub_004CAAA0_SetUnitSfx@@YGXPAUD2UnitStrc@@E@Z"
+    },
+    {
+     "va": "0x004CAAD0",
+     "length": 39,
+     "name": "?sub_004CAAD0@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004CAB00",
+     "length": 48,
+     "name": "?sub_004CAB00_SetSfxMode@@YGXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x004CAB30",
@@ -32397,12 +32442,42 @@
      "name": "?UNITSND_WriteStepSoundTick@@YGXPAUD2UnitStrc@@I@Z"
     },
     {
+     "va": "0x004CACA0",
+     "length": 51,
+     "name": "?sub_004CACA0_SetHasActiveSound@@YGXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004CACE0",
+     "length": 116,
+     "name": "?sub_004CACE0_FindFloorTileAt@@YAPAUD2DrlgTileDataStrc@@PAUD2ActiveRoomStrc@@HH@Z"
+    },
+    {
+     "va": "0x004CAD60",
+     "length": 77,
+     "name": "?sub_004CAD60_GetTileMaterial@@YAHPAUD2DrlgTileDataStrc@@@Z"
+    },
+    {
      "va": "0x004CADB0",
      "length": 248
     },
     {
+     "va": "0x004CAEB0",
+     "length": 176,
+     "name": "?sub_004CAEB0_GetFootstepSound@@YIHPAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x004CAF60",
      "length": 522
+    },
+    {
+     "va": "0x004CB170",
+     "length": 14,
+     "name": "?sub_004CB170_GetNeutralSound@@YAIPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004CB180",
+     "length": 14,
+     "name": "?sub_004CB180_GetTauntSound@@YAIPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004CB190",
@@ -32458,9 +32533,19 @@
      "length": 1052
     },
     {
+     "va": "0x004CBDE0",
+     "length": 892,
+     "name": "?sub_004CBDE0_PlayEventSound@@YIXHEG@Z"
+    },
+    {
      "va": "0x004CC160",
      "length": 230,
      "name": "?UNITSND_AddUnitSoundRefs@@YIXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004CC250",
+     "length": 30,
+     "name": "?sub_004CC250_HasSlotValue@@YAHPAHH@Z"
     },
     {
      "va": "0x004CC380",
@@ -32479,94 +32564,9 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004CA410.cpp",
+   "file": "Source/D2Client/Unknown_004CC790.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004CA410",
-     "length": 161,
-     "name": "?sub_004CA410_GetMonSoundsRecord@@YAPAUD2MonSoundsTxt@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004CA500",
-     "length": 83,
-     "name": "?sub_004CA500_GetAnimRate@@YIIPAUD2UnitStrc@@I@Z"
-    },
-    {
-     "va": "0x004CA810",
-     "length": 95,
-     "name": "?sub_004CA810_GetModeSound@@YIHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004CA8D0",
-     "length": 43,
-     "name": "?sub_004CA8D0_NotifyUnitHint@@YIXPAUD2UnitStrc@@PAUD2TimedHintEntryStrc@@@Z"
-    },
-    {
-     "va": "0x004CA9C0",
-     "length": 72,
-     "name": "?sub_004CA9C0_ReleaseUnitHints@@YIXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004CAA10",
-     "length": 92,
-     "name": "?sub_004CAA10_PurgeUnitHints@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004CAAA0",
-     "length": 48,
-     "name": "?sub_004CAAA0_SetUnitSfx@@YGXPAUD2UnitStrc@@E@Z"
-    },
-    {
-     "va": "0x004CAAD0",
-     "length": 39,
-     "name": "?sub_004CAAD0@@YAHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004CAB00",
-     "length": 48,
-     "name": "?sub_004CAB00_SetSfxMode@@YGXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004CACA0",
-     "length": 51,
-     "name": "?sub_004CACA0_SetHasActiveSound@@YGXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004CACE0",
-     "length": 116,
-     "name": "?sub_004CACE0_FindFloorTileAt@@YAPAUD2DrlgTileDataStrc@@PAUD2ActiveRoomStrc@@HH@Z"
-    },
-    {
-     "va": "0x004CAD60",
-     "length": 77,
-     "name": "?sub_004CAD60_GetTileMaterial@@YAHPAUD2DrlgTileDataStrc@@@Z"
-    },
-    {
-     "va": "0x004CAEB0",
-     "length": 176,
-     "name": "?sub_004CAEB0_GetFootstepSound@@YIHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004CB170",
-     "length": 14,
-     "name": "?sub_004CB170_GetNeutralSound@@YAIPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004CB180",
-     "length": 14,
-     "name": "?sub_004CB180_GetTauntSound@@YAIPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004CBDE0",
-     "length": 892,
-     "name": "?sub_004CBDE0_PlayEventSound@@YIXHEG@Z"
-    },
-    {
-     "va": "0x004CC250",
-     "length": 30,
-     "name": "?sub_004CC250_HasSlotValue@@YAHPAHH@Z"
-    },
     {
      "va": "0x004CC790",
      "length": 37,
