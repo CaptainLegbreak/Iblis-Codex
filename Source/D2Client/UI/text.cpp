@@ -244,8 +244,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
-void __fastcall sub_00467430(void* pRect); // 0x00467430
-
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 void __stdcall TEXT_FreeTextList(void* pList); // 0x0049D4D0
@@ -836,8 +834,6 @@ extern char gbGlobal_007C025F; // 0x007C025F
 
 extern char gbGlobal_007C0260; // 0x007C0260
 
-extern int gnAutomapHeight_007A521C; // 0x007A521C
-
 static int gnKeyConfigEntryCount; // 0x007C0274
 
 int __cdecl TEXT_GetMaxFirstEntry(); // 0x004A44C0
@@ -942,19 +938,13 @@ int __fastcall TEXT_IsInPanelButton(int, int, int); // 0x004A6580
 
 int __cdecl TEXT_IsMouseOnStatButton(); // 0x004A65E0
 
-void __fastcall sub_004B9A00_ChangeUiState(int, int, int, int, int); // 0x004B9A00
-
 void __stdcall ROSTERPETS_HandleButtonDown(SMSGHANDLER_PARAMS*); // 0x00467F20
 
 int __cdecl NPCMENU_IsNpcTalkActive(); // 0x004B3470
 
-extern int gnPressed_007C02E4; // 0x007C02E4
-
 int __fastcall TEXT_IsInRightPanelButton(int, int, int); // 0x004A6630
 
 int __cdecl TEXT_IsMouseOnSkillButton(); // 0x004A6690
-
-extern int gnPressed_007C02E8; // 0x007C02E8
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 
@@ -1007,8 +997,6 @@ void __stdcall ROSTERPETS_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA
 bool __stdcall TEXT_IsStatButtonHidden(int nArg); // 0x004A6A00
 
 bool __stdcall TEXT_IsSkillButtonHidden(int nArg); // 0x004A6D50
-
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 
@@ -1182,8 +1170,6 @@ extern void* gpWaypointBackgroundCel; // 0x007BF071
 extern void* gpWaypointActTabsCel; // 0x007BF075
 
 extern void* gpWaypointIconCel; // 0x007BF079
-
-extern int gnGlobal_007C02AC; // 0x007C02AC
 
 extern void* gpGlobal_007C0D43; // 0x007C0D43
 
@@ -1388,19 +1374,7 @@ struct D2KeyConfigButtonStrc;
 
 #pragma pack(pop)
 
-int __fastcall sub_00501820_GetTextWidth(const wchar_t* wszText); // 0x00501820
-
-const wchar_t* __fastcall sub_00524A30_GetString(unsigned short wStringId); // 0x00524A30
-
 int gnAutomapHeight; // 0x007A521C
-
-extern int gnSliderRows_007C0274; // 0x007C0274
-
-extern int gnSliderOffset_007C0278; // 0x007C0278
-
-extern int gnSliderScale_007C02AC; // 0x007C02AC
-
-extern int gnSliderPos_007C02CC; // 0x007C02CC
 
 #pragma pack(push, 2)
 
@@ -1423,8 +1397,6 @@ extern D2KeyConfigButtonStrc gaButtons_007246D8[3]; // 0x007246D8
 
 extern unsigned int gdwMessageTick_007C02C8; // 0x007C02C8
 
-int gbRedraw_007C0280; // 0x007C0280
-
 int gnKeyConfigPressedButton; // 0x007C02B4
 
 int gnMessage; // 0x007C02C4
@@ -1441,8 +1413,6 @@ static int TEXT_GetKeyConfigEntryState(int nIndex, int nFlag);
 
 typedef int(__fastcall* PANELCLOSEFN)(void* pArg, int a2, int a3);
 
-extern int gnPanelOpen_007BF1BC; // 0x007BF1BC
-
 extern int gnPending_007BF1C4; // 0x007BF1C4
 
 extern void* gpHint_007BF202; // 0x007BF202
@@ -1452,10 +1422,6 @@ extern int gbHintActive_007BF20A; // 0x007BF20A
 extern void* gpHint_007BF24B; // 0x007BF24B
 
 extern PANELCLOSEFN gpfnClose_007BF258; // 0x007BF258
-
-extern void* gpCloseArg_007BF25C; // 0x007BF25C
-
-extern int gbHandlers_007BF27C; // 0x007BF27C
 
 
 void __fastcall sub_00467430_SetSelectionRect(void* pRect); // 0x00467430
@@ -1538,8 +1504,6 @@ void __stdcall TEXT_LoadQuestPage(int nPage, int bReset); // 0x004A3220
 static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg); // 0x004A1950
 
 void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg); // 0x004785B0
-
-void __fastcall sub_00502280_SetPopUpText(const unsigned short* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
 
@@ -1674,7 +1638,7 @@ extern D2QuestUiFlagsStrc gtQuestUiFlags_007BF2B3; // 0x007BF2B3
 
 static inline int sub_F08_ListTop()
 {
-    return (gnAutomapHeight_007A521C - 0x1A4) / 2;
+    return (gnAutomapHeight - 0x1A4) / 2;
 }
 
 static inline int sub_KEYCFG_Rows()
@@ -1714,7 +1678,7 @@ static inline int sub_F08_LinesBottom()
 
 static inline int sub_I18_ListTop()
 {
-    return (gnAutomapHeight_007A521C - 0x1A4) / 2;
+    return (gnAutomapHeight - 0x1A4) / 2;
 }
 
 static inline int sub_I18_TrackTop()
@@ -3176,7 +3140,7 @@ void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket)
 // 0x0049F960
 void __cdecl TEXT_ResetTextBox()
 {
-    sub_00467430(0);
+    sub_00467430_SetSelectionRect(0);
     if (gpTextBox)
     {
         TEXT_FreeTextBox(gpTextBox);
@@ -3222,16 +3186,16 @@ void __cdecl TEXT_DrawPanelFrame()
     tContext.pCellFile = pCelFile;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
-    sub_004F6480(&tContext, gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0x6D, -1, 5, 0);
+    TEXTURE_CelDraw(&tContext, gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0x6D, -1, 5, 0);
     tContext.nFrame = 1;
-    sub_004F6480(&tContext, gnPanelOffsetX + 0x100, gnScreenHeight + gnPanelOffsetY - 0x6D, -1, 5, 0);
+    TEXTURE_CelDraw(&tContext, gnPanelOffsetX + 0x100, gnScreenHeight + gnPanelOffsetY - 0x6D, -1, 5, 0);
     tContext.nFrame = 2;
-    sub_004F6480(&tContext, gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0x31, -1, 5, 0);
+    TEXTURE_CelDraw(&tContext, gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0x31, -1, 5, 0);
     tContext.nFrame = 3;
-    sub_004F6480(&tContext, gnPanelOffsetX + 0x100, gnScreenHeight + gnPanelOffsetY - 0x31, -1, 5, 0);
+    TEXTURE_CelDraw(&tContext, gnPanelOffsetX + 0x100, gnScreenHeight + gnPanelOffsetY - 0x31, -1, 5, 0);
     tContext.pCellFile = sub_00454600();
     tContext.nFrame = 10;
-    sub_004F6480(&tContext, gnPanelOffsetX + 0x115, gnScreenHeight + gnPanelOffsetY - 0x3D, -1, 5, 0);
+    TEXTURE_CelDraw(&tContext, gnPanelOffsetX + 0x115, gnScreenHeight + gnPanelOffsetY - 0x3D, -1, 5, 0);
 }
 
 // 0x0049FBA0
@@ -3642,7 +3606,7 @@ void __cdecl TEXT_FreeTextResources()
         gpListBox = 0;
     }
     TEXT_FreeTextPanelCels();
-    sub_00467430(0);
+    sub_00467430_SetSelectionRect(0);
     TEXT_FreeTextList(&gtMessageTextList);
     TEXT_FreeTextList(&gtOverheadTextList);
     TEXT_FreeTextList(&gtTextHistory);
@@ -3665,7 +3629,7 @@ static int __stdcall TEXT_AdvanceTextBox(int bIgnore, T00479230* pTextBox)
         gpHint_007BF24B = 0;
         if (sub_0049D5A0_UpdateTextBox(pTextBox))
         {
-            gnPanelOpen_007BF1BC = 1;
+            gbTextBoxDone = 1;
             if (!gbHintActive_007BF20A && gpTextBox)
             {
                 TEXT_FreeTextBox(gpTextBox);
@@ -3676,7 +3640,7 @@ static int __stdcall TEXT_AdvanceTextBox(int bIgnore, T00479230* pTextBox)
             TEXT_ResetTextBox();
             if (gpfnClose_007BF258)
             {
-                return gpfnClose_007BF258(gpCloseArg_007BF25C, 0, 0);
+                return gpfnClose_007BF258(gpTextCallbackContext, 0, 0);
             }
 
             if (gnPending_007BF1C4 == 1)
@@ -3691,9 +3655,9 @@ static int __stdcall TEXT_AdvanceTextBox(int bIgnore, T00479230* pTextBox)
             UI_StartUIVarDelay();
             gbHintActive_007BF20A = 0;
             sub_00467430_SetSelectionRect(0);
-            if (gbHandlers_007BF27C == 1)
+            if (gbTextHandlersRegistered == 1)
             {
-                gbHandlers_007BF27C = 0;
+                gbTextHandlersRegistered = 0;
                 AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaTextMsgHandlers, 7);
             }
 
@@ -3857,10 +3821,10 @@ static int __cdecl sub_0049D5A0_UpdateTextBox(T00479230* pTextBox)
 {
     int nA = WINDOW_GetWindow();
     int nB = WINDOW_GetWindow();
-    sub_00467430((void*)nA);
-    sub_00467430((void*)nB);
-    sub_00467430((void*)nA);
-    sub_00467430((void*)nB);
+    sub_00467430_SetSelectionRect((void*)nA);
+    sub_00467430_SetSelectionRect((void*)nB);
+    sub_00467430_SetSelectionRect((void*)nA);
+    sub_00467430_SetSelectionRect((void*)nB);
     pTextBox->nScroll = 1;
     return *(char*)pTextBox;
 }
@@ -3995,7 +3959,7 @@ int __stdcall sub_004A0770_Shim()
     T00479230* pTextBox = gpTextBox;
     if (pTextBox && (pTextBox->nScroll == 1 || pTextBox->nScroll == 0))
     {
-        return TEXT_AdvanceTextBox(gnPanelOpen_007BF1BC, pTextBox);
+        return TEXT_AdvanceTextBox(gbTextBoxDone, pTextBox);
     }
 
     return 0;
@@ -5255,7 +5219,7 @@ static int TEXT_GetKeyConfigLineAt(int nY)
     int nLine = 0;
     if (nIndex < nCount)
     {
-        int nLineY = (gnAutomapHeight_007A521C - 0x1A4) / 2 + 0x3A;
+        int nLineY = (gnAutomapHeight - 0x1A4) / 2 + 0x3A;
         do
         {
             if (nLine >= 0x0F)
@@ -5311,7 +5275,7 @@ static int TEXT_IsInKeyConfigList(int nX, int nY)
     const int nRight = nHalf + (gnScreenWidth - nHalf * 2 - 0x31) / 3 * 3 + 0x12;
     if (nX >= nLeft && nX <= nRight)
     {
-        const int nTop = (gnAutomapHeight_007A521C - 0x1A4) / 2;
+        const int nTop = (gnAutomapHeight - 0x1A4) / 2;
         if (nY >= nTop + 0x28 && nY <= nTop + 0x136)
             return 1;
     }
@@ -5472,7 +5436,7 @@ void __cdecl TEXT_LayoutSlider()
     const int nOldFont = sub_00502EF0_SetFont(13);
     for (unsigned int i = 0; i < 3; ++i)
     {
-        const int nWidth = sub_00501820_GetTextWidth(sub_00524A30_GetString(gaKeyConfigButtons[i].nStringId));
+        const int nWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(gaKeyConfigButtons[i].nStringId));
         const int nThird = (sub_F08_PanelRight() - sub_F08_PanelLeft()) / (sizeof(gaKeyConfigButtons) / sizeof(gaKeyConfigButtons[0]));
         gaKeyConfigButtons[i].nLeft = nThird * i + sub_F08_PanelLeft() + nThird / 2 - nWidth / 2 - 10;
         gaKeyConfigButtons[i].nRight = nThird * i + sub_F08_PanelLeft() + nThird / 2 + nWidth / 2 + 10;
@@ -5481,7 +5445,7 @@ void __cdecl TEXT_LayoutSlider()
     }
     sub_00502EF0_SetFont(nOldFont);
 
-    gnSliderPos_007C02CC = sub_F08_TrackSpan() * gnSliderScale_007C02AC / TEXT_GetMaxFirstEntry() + sub_F08_TrackTop();
+    gnKeyConfigThumbY = sub_F08_TrackSpan() * gnKeyConfigFirstVisible / TEXT_GetMaxFirstEntry() + sub_F08_TrackTop();
 }
 
 // 0x004A5190
@@ -5492,7 +5456,7 @@ void __cdecl TEXT_InitTextSlider()
     sprintf(szPath, "%s\\UI\\Menu\\TextSlid", gszDataGlobal);
     gpKeyConfigSliderCel = ARCHIVE_LoadClientCellFile(szPath, 0);
     sub_004A5060();
-    gnGlobal_007C02AC = 0;
+    gnKeyConfigFirstVisible = 0;
     gnKeyConfigSelected = 0;
 }
 
@@ -5537,7 +5501,7 @@ void __cdecl TEXT_DrawKeyConfigPanel()
     const int nMouseX = sub_00468730();
     const int nMouseY = sub_00468740();
     TEXT_InitKeyConfigEntries();
-    if (gnLastMouseX != nMouseX || gnLastMouseY != nMouseY || gbRedraw_007C0280)
+    if (gnLastMouseX != nMouseX || gnLastMouseY != nMouseY || gbRedraw)
     {
         gnLastMouseX = nMouseX;
         gnLastMouseY = nMouseY;
@@ -5561,10 +5525,10 @@ void __cdecl TEXT_DrawKeyConfigPanel()
     D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF53), KEYCFG_X + 0x12 + 2 * ((gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3), KEYCFG_Y + 0x1E, 4, 0);
 
     int i = 0;
-    while (i < sub_KEYCFG_VisibleLines() && i < gnSliderRows_007C0274)
+    while (i < sub_KEYCFG_VisibleLines() && i < gnKeyConfigEntryCount)
     {
         int nY = i * 0x12 + KEYCFG_Y + 0x22;
-        int nIndex = gnSliderScale_007C02AC + i;
+        int nIndex = gnKeyConfigFirstVisible + i;
         int bVisible;
         if (gbKeyCaptureActive && nIndex == gnKeyConfigSelected && (gnBlink & 0xF) <= 4)
             bVisible = 0;
@@ -5602,23 +5566,23 @@ void __cdecl TEXT_DrawKeyConfigPanel()
     tCel.pCellFile = gpKeyConfigSliderCel;
     tCel.nFrame = 13;
     for (int j = 0; j < sub_KEYCFG_TrackCels(); ++j)
-        sub_004F6480(&tCel, sub_KEYCFG_PanelRight() - 0x1F, KEYCFG_Y + 0x3B + j * 0x0C, -1, 5, 0);
+        TEXTURE_CelDraw(&tCel, sub_KEYCFG_PanelRight() - 0x1F, KEYCFG_Y + 0x3B + j * 0x0C, -1, 5, 0);
 
     tCel.nFrame = 14;
-    for (int k = 0; k < gnSliderOffset_007C0278; ++k)
-        sub_004F6480(&tCel, sub_KEYCFG_PanelRight() - 0x20, gnSliderPos_007C02CC + 0x0C + k * 0x0C, -1, 5, 0);
+    for (int k = 0; k < gnKeyConfigThumbScale; ++k)
+        TEXTURE_CelDraw(&tCel, sub_KEYCFG_PanelRight() - 0x20, gnKeyConfigThumbY + 0x0C + k * 0x0C, -1, 5, 0);
 
     if (gbUpPressed_007C028C && sub_KEYCFG_IsOnUpArrow(nMouseX, nMouseY))
         tCel.nFrame = 9;
     else
         tCel.nFrame = 11;
-    sub_004F6480(&tCel, sub_KEYCFG_PanelRight() - 0x1F, KEYCFG_Y + 0x2F, -1, 5, 0);
+    TEXTURE_CelDraw(&tCel, sub_KEYCFG_PanelRight() - 0x1F, KEYCFG_Y + 0x2F, -1, 5, 0);
 
     if (gbDownPressed_007C0290 && sub_KEYCFG_IsOnDownArrow(nMouseX, nMouseY))
         tCel.nFrame = 8;
     else
         tCel.nFrame = 10;
-    sub_004F6480(&tCel, sub_KEYCFG_PanelRight() - 0x1F, KEYCFG_Y + ((KEYCFG_Y + 0x171) - KEYCFG_Y) - 0x40, -1, 5, 0);
+    TEXTURE_CelDraw(&tCel, sub_KEYCFG_PanelRight() - 0x1F, KEYCFG_Y + ((KEYCFG_Y + 0x171) - KEYCFG_Y) - 0x40, -1, 5, 0);
 
     for (unsigned int m = 0; m < 3; ++m)
     {
@@ -5969,8 +5933,8 @@ void __stdcall TEXT_StatButtonDownMsg(SMSGHANDLER_PARAMS* message)
     {
         if (TEXT_IsInPanelButton(border, x, y))
         {
-            gnPressed_007C02E4 = 1;
-            sub_004B9A00_ChangeUiState(4, 0, 0, 0, 0);
+            gbStatButtonPressed = 1;
+            sub_004B9A00(4, 0, 0, 0, 0);
             ROSTERPETS_HandleButtonDown(message);
             if (border == 2 && NPCMENU_IsNpcTalkActive()) return;
             message->bReturn = 1;
@@ -5983,8 +5947,8 @@ void __stdcall TEXT_StatButtonDownMsg(SMSGHANDLER_PARAMS* message)
     {
         if (TEXT_IsMouseOnStatButton())
         {
-            gnPressed_007C02E4 = 1;
-            sub_004B9A00_ChangeUiState(4, 0, 0, 0, 0);
+            gbStatButtonPressed = 1;
+            sub_004B9A00(4, 0, 0, 0, 0);
             ROSTERPETS_HandleButtonDown(message);
             if (border == 2 && NPCMENU_IsNpcTalkActive()) return;
             message->bReturn = 1;
@@ -5998,7 +5962,7 @@ void __stdcall TEXT_StatButtonDownMsg(SMSGHANDLER_PARAMS* message)
 
 static inline void MarkRightButtonPressed()
 {
-    gnPressed_007C02E8 = 1;
+    gbSkillButtonPressed = 1;
     const int nClickSound = 4;
     sub_004B9A00(nClickSound, 0, 0, 0, 0);
 }
@@ -6173,7 +6137,7 @@ void __cdecl TEXT_DrawStatButton()
     if (D2GFX_GetResolutionMode() != 2)
     {
         D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF92), nCelWidth / 2 - nTextWidth / 2 + nX + 1, gnScreenHeight - 0x8E, 0, 0);
-        sub_004F6480(&tContext, nX, gnScreenHeight - 0x69, -1, 5, 0);
+        TEXTURE_CelDraw(&tContext, nX, gnScreenHeight - 0x69, -1, 5, 0);
     }
 
     memset(&tContext, 0, sizeof(tContext));
@@ -6197,13 +6161,13 @@ void __cdecl TEXT_DrawStatButton()
     D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF92));
     if (D2GFX_GetResolutionMode() != 2)
     {
-        sub_004F6480(&tContext, nX + 3, gnScreenHeight - 0x6D, -1, 5, 0);
+        TEXTURE_CelDraw(&tContext, nX + 3, gnScreenHeight - 0x6D, -1, 5, 0);
         return;
     }
 
     if (sub_004A65E0_IsInLeftButton() && !GAME_GetUIVarState(9))
         D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF92), gnScreenWidth / 2 - 0xB3, gnScreenHeight - 0x32, 0, 1);
-    sub_004F6480(&tContext, gnScreenWidth / 2 - 0xC2, gnScreenHeight - 8, -1, 5, 0);
+    TEXTURE_CelDraw(&tContext, gnScreenWidth / 2 - 0xC2, gnScreenHeight - 8, -1, 5, 0);
 }
 
 // 0x004A6D50
@@ -6246,7 +6210,7 @@ void __cdecl TEXT_DrawSkillButton()
     if (D2GFX_GetResolutionMode() != 2)
     {
         D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF93), nCelWidth / 2 - nTextWidth / 2 + nX + 1, gnScreenHeight - 0x8E, 0, 0);
-        sub_004F6480(&tContext, nX, gnScreenHeight - 0x69, -1, 5, 0);
+        TEXTURE_CelDraw(&tContext, nX, gnScreenHeight - 0x69, -1, 5, 0);
     }
 
     memset(&tContext, 0, sizeof(tContext));
@@ -6270,13 +6234,13 @@ void __cdecl TEXT_DrawSkillButton()
     D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF93));
     if (D2GFX_GetResolutionMode() != 2)
     {
-        sub_004F6480(&tContext, nX + 3, gnScreenHeight - 0x6D, -1, 5, 0);
+        TEXTURE_CelDraw(&tContext, nX + 3, gnScreenHeight - 0x6D, -1, 5, 0);
         return;
     }
 
     if (sub_004A6690_IsInRightButton() && !GAME_GetUIVarState(9))
         D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF93), gnScreenWidth / 2 + 0xB2, gnScreenHeight - 0x32, 0, 1);
-    sub_004F6480(&tContext, gnScreenWidth / 2 + 0xA3, gnScreenHeight - 8, -1, 5, 0);
+    TEXTURE_CelDraw(&tContext, gnScreenWidth / 2 + 0xA3, gnScreenHeight - 8, -1, 5, 0);
 }
 
 // 0x004A70C0
