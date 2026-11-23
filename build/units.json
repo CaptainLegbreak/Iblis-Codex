@@ -35127,6 +35127,11 @@
      "name": "TILE_ShadowTileDraw"
     },
     {
+     "va": "0x004F69B0",
+     "length": 509,
+     "name": "CMNSUBTILE_DrawIsoBlockFlat"
+    },
+    {
      "va": "0x004F6BB0",
      "length": 937,
      "name": "D2GFX_DrawLitSubtileRows"
@@ -35222,11 +35227,6 @@
    "file": "Source/D2Glide/Src/glDebugFont.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004F69B0",
-     "length": 509,
-     "name": "CMNSUBTILE_DrawIsoBlockFlat"
-    },
     {
      "va": "0x0050B860",
      "length": 371
