@@ -4,20 +4,21 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane2/config-record-3 ad384c0b 581->581 D2ConfigStrc: the configuration record (was D2LaunchRecordStrc) with its field names, one client global `gpClientConfig` at 0x7A0438 in D2Client.h, private copies dropped, GAME_GetClientNotify declared once in D2Client.h; VERIFIED 85ec161326338788b4045cec50278ad7d468a41b
-  - Based on main #294 (a337ecd8), not stacked. Replaces `lane2/config-record` and `lane2/config-record-2`; drop both.
-  - Outside lane 2: renames in D2Client units (lanes 1 and 4), D2Launch/D2Multi/D2Win (lane 6) and Storm Unknown_00405710 (lane 3). Field and global renames only, plus dropped private record copies.
-  - Precheck: all 228 includers of D2Client.h, D2MultiTypes.h and D2Launch.h plus the changed units build equal.
+- lane2/com-interface 5ba0cf48 581->581 D2ComInterfaceStrc: one record for the 0x225 interface table (D2Launch's D2FuncTable_0077ABF0Strc, MainMenus_00431AF0's private D2FuncTable, the private copies in Storm Unknown_00404F40 and Game_0044E5A0), in its own header D2ComInterface.h; D2ConfigStrc::pComInterface takes that type; VERIFIED 864dca04b8728bdfeefb473f17bf66c847764da6
+  - Based on main #297 (34ce356b), not stacked.
+  - Outside lane 2: type renames in D2Launch, D2Multi and D2Win units (lane 6). Private copies are dropped in Storm Unknown_00404F40 (lane 3), which now reads the shared D2ConfigStrc, and in Game_0044E5A0 (lane 4). MainMenus_00431AF0 uses `gpFuncTable_0077ABF0` instead of its second name `gpFuncTable` for 0x0077ABF0.
+  - Precheck: all includers of D2MultiTypes.h, D2Launch.h and D2Multi.h plus the changed units build equal.
 
 ## Questions
 
+- The client's D2ClientNotifyStrc (D2ClientUi.h, used by GAME_GetClientNotify and its callers) is the same table, but I left it as a separate view. Any change to D2ClientUi.h flips gnScreenHeight/gnPanelOffsetY operand order in inv_0048BC10 and inv_0048DD90 (lane 4). Nothing natural I tried fixed it, about 60 combinations: where the include goes, how the gaps are written, where the declarations sit in D2Client.h, and using one name for 0x711470 in those units. Main's D2ClientUi.h keeps them equal. Should it stay a view until those units change for other reasons, or do you want the merge forced some other way?
+
 ## Notes for other lanes
 
-- All lanes: the 0x7A0438 client global is `gpClientConfig` (type `D2ConfigStrc*`, declared in D2Client.h). Don't declare it privately. `GAME_GetClientNotify` is in D2Client.h too.
+- Lanes 1 and 4: the 0x225 table, and the pointer the client keeps at 0x007A05F4, is D2ComInterfaceStrc (D2ComInterface.h). 0xC4 is `pfnClose`. D2ClientNotifyStrc is a temporary view of the same table.
 - Lane 1: 0x711470 has two names, `gnScreenHeight_00711470` in D2Client.h and `gnScreenHeight` declared privately in about 60 units. Left alone; your header.
 
 ## Left in place (and why)
 
-- The 0x225 callback table still has several views: D2FuncTable_0077ABF0Strc (D2MultiTypes.h), D2ClientNotifyStrc (D2ClientUi.h), D2ComInterfaceStrc (private in Storm Unknown_00404F40), and D2FuncTable (private in MainMenus_00431AF0, gpFuncTable 0x77ABF0). Their fields don't overlap, so they can merge into one record. That's my next branch, per the decision that the table is one record. Until then, D2ConfigStrc+0x225 has one member type and GAME_GetClientNotify converts it.
-- Storm Unknown_00404F40 keeps its private D2ConfigStrc copy until the table merge, because it reads 0x225 as the third view.
-- D2Launch's `gpLaunchRecord` (0x7795D4) and D2Multi's `gpCharInfo` are their modules' own pointers to the record. They aren't aliases of 0x7A0438.
+- D2ClientNotifyStrc in D2ClientUi.h (see Questions). GAME_GetClientNotify still converts `gpClientConfig->pComInterface` to it.
+- D2Launch's `gpLaunchRecord` (0x7795D4) and D2Multi's `gpCharInfo` are their modules' own pointers to the config record. They aren't aliases of 0x7A0438.
