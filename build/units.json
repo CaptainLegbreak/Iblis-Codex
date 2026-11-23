@@ -12513,10 +12513,6 @@
      "name": "?CHATDLG_NotifyCommand@@YAHPBD0@Z"
     },
     {
-     "va": "0x0043E860",
-     "length": 155
-    },
-    {
      "va": "0x0043E9D0",
      "length": 80,
      "name": "?CHATDLG_CreateControl@@YAPAUD2WinControlStrc@@H@Z"
@@ -12656,11 +12652,6 @@
      "name": "?CHATDLG_OnToggleButton@@YGHH@Z"
     },
     {
-     "va": "0x0043F720",
-     "length": 13,
-     "name": "?CHATDLG_OnProfileClose@@YGHH@Z"
-    },
-    {
      "va": "0x0043F800",
      "length": 57,
      "name": "?CHATDLG_FreeNameList@@YAXXZ"
@@ -12755,10 +12746,6 @@
      "name": "?CHATDLG_OnResetCallback@@YGHH@Z"
     },
     {
-     "va": "0x004403F0",
-     "length": 766
-    },
-    {
      "va": "0x004406F0",
      "length": 437,
      "name": "?CHATDLG_CreateClassScreen@@YAXXZ"
@@ -12814,6 +12801,11 @@
      "name": "?OOGUTIL_OpenBrowserWithURL@@YGHH@Z"
     },
     {
+     "va": "0x004411E0",
+     "length": 82,
+     "name": "?CHATDLG_JoinChannel@@YIXPBD@Z"
+    },
+    {
      "va": "0x004413E0",
      "length": 222,
      "name": "CHATDLG_EnableConnection"
@@ -12824,9 +12816,9 @@
      "name": "?sub_004414C0_UpdateEnable@@YAXXZ"
     },
     {
-     "va": "0x00441500",
-     "length": 1409,
-     "name": "?JoinOrCreateGame@@YGHH@Z"
+     "va": "0x00441A90",
+     "length": 223,
+     "name": "?CHATDLG_ConnectRealm@@YAHXZ"
     },
     {
      "va": "0x00442150",
@@ -12858,14 +12850,29 @@
      "name": "?CHATDLG_SendChat@@YGHH@Z"
     },
     {
-     "va": "0x004428D0",
-     "length": 207,
-     "name": "?CHATDLG_SendChatText@@YIHPADH@Z"
+     "va": "0x00442AE0",
+     "length": 52,
+     "name": "?CHATDLG_SkipString@@YIPBDPBD@Z"
     },
     {
      "va": "0x00442B20",
      "length": 108,
      "name": "CHATDLG_IsCharOverLimit"
+    },
+    {
+     "va": "0x00442B90",
+     "length": 136,
+     "name": "?CHATDLG_HandleGameListReply@@YIXPAUD2LaunchReplyStrc@@@Z"
+    },
+    {
+     "va": "0x00442DD0",
+     "length": 33,
+     "name": "?CHATDLG_SetPendingText@@YIXPBDG@Z"
+    },
+    {
+     "va": "0x00442E00",
+     "length": 44,
+     "name": "?CHATDLG_SendPendingText@@YAXXZ"
     },
     {
      "va": "0x00442E30",
@@ -12875,6 +12882,16 @@
     {
      "va": "0x00442EB0",
      "length": 636
+    },
+    {
+     "va": "0x00443130",
+     "length": 122,
+     "name": "?CHATDLG_DestroyJoinControls@@YAXXZ"
+    },
+    {
+     "va": "0x00443220",
+     "length": 316,
+     "name": "?CHATDLG_DestroyCreateControls@@YAXXZ"
     },
     {
      "va": "0x00443600",
@@ -12887,9 +12904,34 @@
      "name": "CHATDLG_CheckStartAdvResult"
     },
     {
+     "va": "0x00443D50",
+     "length": 190,
+     "name": "?CHATDLG_CreateProfileControls@@YAXXZ"
+    },
+    {
+     "va": "0x00443E10",
+     "length": 221,
+     "name": "?CHATDLG_DestroyProfileControls@@YAXXZ"
+    },
+    {
      "va": "0x00443EF0",
      "length": 88,
      "name": "?sub_00443EF0_OnSelect@@YGHH@Z"
+    },
+    {
+     "va": "0x00443F50",
+     "length": 17,
+     "name": "?CHATDLG_CopyName@@YIXPAD@Z"
+    },
+    {
+     "va": "0x00444E20",
+     "length": 67,
+     "name": "?CHATDLG_DestroyGameListControls@@YAHXZ"
+    },
+    {
+     "va": "0x00445550",
+     "length": 324,
+     "name": "?CHATDLG_OnLevelRestrictToggle@@YGHH@Z"
     },
     {
      "va": "0x00446810",
@@ -12897,9 +12939,24 @@
      "name": "CHATDLG_StrChr"
     },
     {
+     "va": "0x00446820",
+     "length": 27,
+     "name": "?CHATDLG_SkipNamePrefix@@YIPBDPBD@Z"
+    },
+    {
+     "va": "0x00446840",
+     "length": 62,
+     "name": "?CHATDLG_CopyNamePrefix@@YIXPBDPAD@Z"
+    },
+    {
      "va": "0x00446A90",
      "length": 152,
      "name": "CHATDLG_RemoveTableString"
+    },
+    {
+     "va": "0x00448BD0",
+     "length": 157,
+     "name": "?CHATDLG_UpdateScroll@@YIXH@Z"
     },
     {
      "va": "0x00449330",
@@ -12910,6 +12967,16 @@
      "va": "0x004497F0",
      "length": 65,
      "name": "CHATDLG_MixChar"
+    },
+    {
+     "va": "0x00449AD0",
+     "length": 92,
+     "name": "?D2MCPClientCloseMCP@@YAXXZ"
+    },
+    {
+     "va": "0x00449BD0",
+     "length": 7,
+     "name": "?CHATDLG_GetRequestId@@YAGXZ"
     },
     {
      "va": "0x00449BF0",
@@ -12957,6 +13024,11 @@
      "name": "CHATDLG_SetMcpTexts"
     },
     {
+     "va": "0x00449D60",
+     "length": 21,
+     "name": "?CHATDLG_ClearReply@@YAXXZ"
+    },
+    {
      "va": "0x00449D90",
      "length": 15,
      "name": "sub_00449D90_SetValue"
@@ -12999,6 +13071,17 @@
    ]
   },
   {
+   "file": "Source/D2Multi/Src/ChatDlg_0043FE40.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0043FE40",
+     "length": 349,
+     "name": "?CHATDLG_SetupLogin@@YIHPAUD2LaunchLoginStrc@@PBD@Z"
+    }
+   ]
+  },
+  {
    "file": "Source/D2Multi/Src/ChatDlg_00441B70.cpp",
    "rank": 0,
    "functions": [
@@ -13008,9 +13091,32 @@
      "name": "?CHATDLG_CreateChatCellFile@@YAXPAUD2LaunchCharInfoStrc@@@Z"
     },
     {
+     "va": "0x0043E860",
+     "length": 155
+    },
+    {
+     "va": "0x0043F720",
+     "length": 13,
+     "name": "?CHATDLG_OnProfileClose@@YGHH@Z"
+    },
+    {
+     "va": "0x004403F0",
+     "length": 766
+    },
+    {
+     "va": "0x00441500",
+     "length": 1409,
+     "name": "?JoinOrCreateGame@@YGHH@Z"
+    },
+    {
      "va": "0x00441B70",
      "length": 1489,
      "name": "?CHATDLG_RunChat@@YIHPAUD2LaunchCharInfoStrc@@@Z"
+    },
+    {
+     "va": "0x004428D0",
+     "length": 207,
+     "name": "?CHATDLG_SendChatText@@YIHPADH@Z"
     },
     {
      "va": "0x00447700",
@@ -13141,112 +13247,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ChatDlg_0043FE40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043FE40",
-     "length": 349,
-     "name": "?CHATDLG_SetupLogin@@YIHPAUD2LaunchLoginStrc@@PBD@Z"
-    },
-    {
-     "va": "0x004411E0",
-     "length": 82,
-     "name": "?CHATDLG_JoinChannel@@YIXPBD@Z"
-    },
-    {
-     "va": "0x00441A90",
-     "length": 223,
-     "name": "?CHATDLG_ConnectRealm@@YAHXZ"
-    },
-    {
-     "va": "0x00442AE0",
-     "length": 52,
-     "name": "?CHATDLG_SkipString@@YIPBDPBD@Z"
-    },
-    {
-     "va": "0x00442B90",
-     "length": 136,
-     "name": "?CHATDLG_HandleGameListReply@@YIXPAUD2LaunchReplyStrc@@@Z"
-    },
-    {
-     "va": "0x00442DD0",
-     "length": 33,
-     "name": "?CHATDLG_SetPendingText@@YIXPBDG@Z"
-    },
-    {
-     "va": "0x00442E00",
-     "length": 44,
-     "name": "?CHATDLG_SendPendingText@@YAXXZ"
-    },
-    {
-     "va": "0x00443130",
-     "length": 122,
-     "name": "?CHATDLG_DestroyJoinControls@@YAXXZ"
-    },
-    {
-     "va": "0x00443220",
-     "length": 316,
-     "name": "?CHATDLG_DestroyCreateControls@@YAXXZ"
-    },
-    {
-     "va": "0x00443D50",
-     "length": 190,
-     "name": "?CHATDLG_CreateProfileControls@@YAXXZ"
-    },
-    {
-     "va": "0x00443E10",
-     "length": 221,
-     "name": "?CHATDLG_DestroyProfileControls@@YAXXZ"
-    },
-    {
-     "va": "0x00443F50",
-     "length": 17,
-     "name": "?CHATDLG_CopyName@@YIXPAD@Z"
-    },
-    {
-     "va": "0x00444E20",
-     "length": 67,
-     "name": "?CHATDLG_DestroyGameListControls@@YAHXZ"
-    },
-    {
-     "va": "0x00445550",
-     "length": 324,
-     "name": "?CHATDLG_OnLevelRestrictToggle@@YGHH@Z"
-    },
-    {
-     "va": "0x00446820",
-     "length": 27,
-     "name": "?CHATDLG_SkipNamePrefix@@YIPBDPBD@Z"
-    },
-    {
-     "va": "0x00446840",
-     "length": 62,
-     "name": "?CHATDLG_CopyNamePrefix@@YIXPBDPAD@Z"
-    },
-    {
-     "va": "0x00448BD0",
-     "length": 157,
-     "name": "?CHATDLG_UpdateScroll@@YIXH@Z"
-    },
-    {
-     "va": "0x00449AD0",
-     "length": 92,
-     "name": "?D2MCPClientCloseMCP@@YAXXZ"
-    },
-    {
-     "va": "0x00449BD0",
-     "length": 7,
-     "name": "?CHATDLG_GetRequestId@@YAGXZ"
-    },
-    {
-     "va": "0x00449D60",
-     "length": 21,
-     "name": "?CHATDLG_ClearReply@@YAXXZ"
-    }
    ]
   },
   {

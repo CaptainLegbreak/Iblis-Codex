@@ -816,8 +816,8 @@
    "state": "included"
   },
   "Source/D2Multi/Src/ChatDlg.cpp": {
-   "bytes": 1300,
-   "definitions": 43,
+   "bytes": 1544,
+   "definitions": 49,
    "externs": [
     "extern \"C\" void __cdecl CHARSEL_SendChatLine(); // 0x00446890",
     "extern \"C\" void __cdecl COMCALLBACK_SendChatLine(); // 0x004468F0",
@@ -826,7 +826,8 @@
     "extern \"C\" void __cdecl COMCALLBACK_SquelchSelectedUser(); // 0x00448E30",
     "extern \"C\" void __cdecl COMCALLBACK_UnsquelchSelectedUser(); // 0x00448F60",
     "extern \"C\" char gData_0070CD84[]; // 0x0070CD84",
-    "extern \"C\" void __cdecl CHARSEL_OnChatLine(); // 0x004429A0"
+    "extern \"C\" void __cdecl CHARSEL_OnChatLine(); // 0x004429A0",
+    "extern \"C\" char gData_0070CD9C[]; // 0x0070CD9C"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Multi/Src/ChatDlg_0043C6B0.inc",
@@ -862,18 +863,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Multi/Unknown_0043DD00.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Multi/Src/ChatDlg_0043FE40.cpp": {
-   "bytes": 244,
-   "definitions": 6,
-   "externs": [
-    "extern \"C\" char gData_0070CD94[]; // 0x0070CD94",
-    "extern \"C\" char gData_0070CD9C[]; // 0x0070CD9C"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Multi/Src/ChatDlg_0043FE40.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -23554,7 +23543,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Multi/Src/ChatDlg_0043FE40.cpp",
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2WinControlInitStrc gtControlInit_0070E860 = ",
@@ -23708,7 +23697,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Multi/Src/ChatDlg_0043FE40.cpp",
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2WinControlInitStrc gtControlInit_0070E890 = ",
@@ -23862,7 +23851,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Multi/Src/ChatDlg_0043FE40.cpp",
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2WinControlInitStrc gtControlInit_0070E8C0 = ",
@@ -24016,7 +24005,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Multi/Src/ChatDlg_0043FE40.cpp",
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2WinControlInitStrc gtControlInit_0070E8F0 = ",
@@ -24170,7 +24159,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Multi/Src/ChatDlg_0043FE40.cpp",
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2WinControlInitStrc gtControlInit_0070E9B0 = ",
@@ -24324,7 +24313,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Multi/Src/ChatDlg_0043FE40.cpp",
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnPendingId = ",
