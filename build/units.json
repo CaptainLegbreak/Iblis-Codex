@@ -84322,6 +84322,10 @@
     {
      "va": "0x006C81E0",
      "length": 93
+    },
+    {
+     "va": "0x006C84B0",
+     "length": 232
     }
    ],
    "flags": [
@@ -84473,16 +84477,6 @@
      "va": "0x006C8C00",
      "length": 67,
      "name": "?sub_006C8C00_DrawAlpha@@YIXHHHHHE@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C84B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C84B0",
-     "length": 232
     }
    ]
   },
