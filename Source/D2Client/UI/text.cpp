@@ -6859,6 +6859,58 @@ void __stdcall sub_004A7720_OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
 }
 
 
+extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey);
+
+// 0x004A78C0
+void __stdcall sub_004A78C0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
+{
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
+    ROSTERPETS_HandleButtonUp(pMsg);
+    gbStatScreenButtonDown = 0;
+    if (nX >= gnPanelOffsetX + 0x80 && nX <= gnPanelOffsetX + 0xA0 && nY >= gnScreenHeight + gnPanelOffsetY - 0x5C && nY <= gnScreenHeight + gnPanelOffsetY - 0x3C)
+    {
+        UI_SetUIVar(2, 1, 0);
+        return;
+    }
+    if (nX >= gnPanelOffsetX && nX <= gnScreenWidth / 2 - 1 && nY >= gnPanelOffsetY && nY <= gnScreenHeight + gnPanelOffsetY - 0x31)
+    {
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        if (STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0))
+        {
+            const int nScreenH = gnScreenHeight;
+            for (int i = 0; i < 4; ++i)
+            {
+                gaStatButtons[i].bActive = 0;
+                if (nY > gaStatButtons[i].nY + gnPanelOffsetY + nScreenH - 0x1F6 && nY < gaStatButtons[i].nY + gnPanelOffsetY + nScreenH - 0x1E0 && nX > gaStatButtons[i].nX + gnPanelOffsetX && nX < gaStatButtons[i].nX + gnPanelOffsetX + 0x28)
+                {
+                    int nCount = STATLIST_UnitGetStatValue(pPlayer, STAT_STATPTS, 0);
+                    if (GetKeyState(0x10) >= 0)
+                        nCount = 1;
+                    else if (!nCount)
+                        break;
+                    do
+                    {
+                        const int nStack = nCount < 0x20 ? nCount : 0x20;
+                        nCount -= nStack;
+                        sub_004785B0_SendPacket3(0x3A, ((unsigned char)(nStack - 1) << 8) | gaStatButtons[i].wCode);
+                    }
+                    while (nCount);
+                    break;
+                }
+            }
+        }
+        GAME_ResetMouseButtons();
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_00420290_BreakHandlerChain(pMsg);
+        return;
+    }
+    if (!sub_004A76C0_ClaimLeftPanelClick(pMsg))
+        pMsg->bReturn = 0;
+}
+
+
 // 0x004A7A90
 void __cdecl TEXT_SetGoldDialogFlag()
 {
