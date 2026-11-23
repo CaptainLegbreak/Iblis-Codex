@@ -294,59 +294,6 @@ int __fastcall ACT2Q2_UnitIterate_DetermineStaffDropCount(D2GameStrc* pGame, D2U
 
 static inline void ACT2Q3_EndTaintedSun(D2QuestDataStrc* pQuestData, D2GameStrc* pGame);
 
-// 0x00594360
-int __fastcall ACT1Q4_GetCainPortalInTownCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2CoordStrc* pCoord)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A1Q4_CAIN);
-    if (pQuestData && pQuestData->bNotIntro)
-    {
-        D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuestData->pQuestDataEx;
-        if (pQuestDataEx->bCainPortalInTownSpawned && !pQuestDataEx->bChangePortalInTownToSpecialMode)
-        {
-            pCoord->nX = pQuestDataEx->pCainPortalInTownCoords.nX;
-            pCoord->nY = pQuestDataEx->pCainPortalInTownCoords.nY;
-            return 1;
-        }
-    }
-
-    return 0;
-}
-
-// 0x00594630
-void __fastcall ACT1Q4_DropWirtsBodyGold(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
-{
-    D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuestData->pQuestDataEx;
-    if (!pQuestDataEx->bWirtsBodyInitialized)
-    {
-        pQuestDataEx->bWirtsBodyInitialized = 1;
-        pQuestDataEx->nGoldPilesToDropFromWirtsBody = OBJECTS_RollRandomNumber(QUESTS_GetGlobalSeed(pQuestData->pGame), 10, 20);
-        pUnit->dwDropItemCode = ' dlg';
-    }
-
-    if (pQuestDataEx->nGoldPilesToDropFromWirtsBody)
-    {
-        int nItemLevel = 0;
-        if (D2GAME_DropItemAtUnit_6FC4FEC0(pQuestData->pGame, pUnit, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 0))
-        {
-            --pQuestDataEx->nGoldPilesToDropFromWirtsBody;
-            if (pQuestDataEx->nGoldPilesToDropFromWirtsBody > 0)
-            {
-                EVENT_SetEvent(pQuestData->pGame, pUnit, EVENTTYPE_QUESTFN, pQuestData->pGame->dwGameFrame + 10, 0, 0);
-            }
-        }
-    }
-}
-
-// 0x005946D0
-void __fastcall sub_005946D0_SetA1Q4Unk0xB0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A1Q4_CAIN);
-    if (pQuestData)
-    {
-        ((D2Act1Quest4Strc*)pQuestData->pQuestDataEx)->unk0xB0 = nValue;
-    }
-}
-
 // 0x00596BC0
 bool __fastcall ACT1Q7_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
 {

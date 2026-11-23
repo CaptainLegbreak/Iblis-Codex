@@ -1074,29 +1074,6 @@ bool __fastcall ACT1Q4_OpenPortalToTristram(D2GameStrc* pGame, D2QuestDataStrc* 
     return true;
 }
 
-// 0x00594450
-int __fastcall ACT1Q4_GetCainPortalOutsideTownCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2CoordStrc* pCoord)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A1Q4_CAIN);
-    if (!pQuestData)
-    {
-        return 0;
-    }
-
-    D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuestData->pQuestDataEx;
-    if (!pQuestDataEx->bCainPortalOutsideTownSpawned)
-    {
-        UNITS_GetCoords(pUnit, pCoord);
-    }
-    else
-    {
-        pCoord->nX = pQuestDataEx->pCainPortalOutsideTownCoords.nX;
-        pCoord->nY = pQuestDataEx->pCainPortalOutsideTownCoords.nY;
-    }
-
-    return 1;
-}
-
 struct D2ActiveRoomStrc;
 
 struct D2ItemDropStrc;

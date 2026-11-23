@@ -158,33 +158,7 @@ void __cdecl CHARSEL_CreateTcpIpScreen()
     gpControl_00779588 = MAINMENUS_CreateControl(0x105);
     sub_0042FF20_ShowLocalAddress();
 }
-// 0x00436D50
-void __cdecl CHARSEL_CreateConnectScreen()
-{
-    gdwGlobal_007799D8 = 0;
-    CHARSEL_CreateBaseScreen();
-    D2WinControlStrc* pControl = MAINMENUS_CreateControl(0x122);
-    sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B55), 0, 0, 0);
-    pControl = MAINMENUS_CreateControl(0x123);
-    sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B56), 0, 0, 0);
-    MAINMENUS_CreateControl(0x120);
-    pControl = MAINMENUS_CreateControl(0x124);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B57));
-    gpEdit_007799CC = MAINMENUS_CreateControl(0x126);
-    sub_004FDB00_SetEnterCallback(gpEdit_007799CC, MAINMENUS_OnTwoEditChange);
-    MAINMENUS_CreateControl(0x121);
-    pControl = MAINMENUS_CreateControl(0x125);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B58));
-    gpEdit_007799D0 = MAINMENUS_CreateControl(0x127);
-    sub_004FDB00_SetEnterCallback(gpEdit_007799D0, MAINMENUS_OnTwoEditChange);
-    gpControl_007799D4 = MAINMENUS_CreateControl(0x128);
-    MAINMENUS_CreateControl(0x129);
-    MAINMENUS_CreateControl(0x12A);
-    CONTROL_SetFocusedEditBox(gpEdit_007799CC);
-    sub_004FDDD0_LinkTab(gpEdit_007799CC, gpEdit_007799D0);
-    sub_004FDDD0_LinkTab(gpEdit_007799D0, gpEdit_007799CC);
-    MAINMENUS_UpdateTwoEditOk();
-}
+
 void __cdecl CHARSEL_FreeCache(); // 0x00437B90
 void __cdecl CHARSEL_UpdateButtons(); // 0x0043A730
 void __cdecl CHARSEL_ResetRealmScreen(); // 0x0043A7E0

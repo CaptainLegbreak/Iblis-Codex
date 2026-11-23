@@ -42,15 +42,15 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 983 |
+| Compilation units | 976 |
 | … in a file with its original name, whole | 281 |
-| … pieces of an original file still split (in 36 files) | 115 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 587 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3048 |
+| … pieces of an original file still split (in 36 files) | 114 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 581 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3057 |
 | Unnamed fields (`unk0x..`) in the shared headers | 663 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 43 |
-| Calling-convention shims | 108 |
-| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 526 |
+| Calling-convention shims | 114 |
+| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 580 |
 | `__declspec(noinline)` / `__forceinline` | 99 / 211 |
 | Function names: blizzard / d2moo / inferred / placeholder | 460 / 5409 / 5292 / 3766 |
 
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 3395 functions are compiled with `/GS-` and 581 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 99 times and `__declspec(dllexport)` 170 times to keep a body out of line or emitted.
+Not listed one by one: 3396 functions are compiled with `/GS-` and 581 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 99 times and `__declspec(dllexport)` 170 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -98,18 +98,18 @@ Not listed one by one: 3395 functions are compiled with `/GS-` and 581 with `/EH
 | 0x00401A40 | ERRORMANAGER_LockSymbols | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00401A70 | ERRORMANAGER_SetMiniDumpThreadName | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00401DF0 | sub_00401DF0_GetModuleFromAddr | `Fog/Unknown_00401DF0.cpp` | calling-convention shim, link-time code generation (/GL /LTCG) |
-| 0x00401F10 | sub_00401F10_GetSymbolFromAddr | `Fog/Unknown_00401F10.cpp` | calling-convention shim, link-time code generation (/GL /LTCG) |
-| 0x004020D0 | sub_004020D0_GetLineFromAddr | `Fog/Unknown_004020D0.cpp` | calling-convention shim, link-time code generation (/GL /LTCG) |
-| 0x004021D0 | sub_004021D0_EnumerateModules | `Fog/Unknown_004021D0.cpp` | link-time code generation (/GL /LTCG) |
+| 0x00401F10 | sub_00401F10_GetSymbolFromAddr | `Fog/Unknown_00401DF0.cpp` | calling-convention shim, link-time code generation (/GL /LTCG) |
+| 0x004020D0 | sub_004020D0_GetLineFromAddr | `Fog/Unknown_00401DF0.cpp` | calling-convention shim, link-time code generation (/GL /LTCG) |
+| 0x004021D0 | sub_004021D0_EnumerateModules | `Fog/Unknown_00401DF0.cpp` | link-time code generation (/GL /LTCG) |
 | 0x00402280 | sub_00402280_SetSearchPath | `Fog/Unknown_00402280.cpp` | link-time code generation (/GL /LTCG) |
 | 0x00402380 | sub_00402380_FindFileInPath | `Fog/Unknown_00402380.cpp` | link-time code generation (/GL /LTCG) |
-| 0x00402460 | sub_00402460_LoadModule | `Fog/Unknown_00402460.cpp` | calling-convention shim, link-time code generation (/GL /LTCG) |
+| 0x00402460 | sub_00402460_LoadModule | `Fog/Unknown_00402380.cpp` | calling-convention shim, link-time code generation (/GL /LTCG) |
 | 0x00402530 | sub_00402530_UnloadModule | `Fog/Unknown_00402530.cpp` | link-time code generation (/GL /LTCG) |
 | 0x004025F0 | sub_004025F0_StackWalk | `Fog/Unknown_004025F0.cpp` | link-time code generation (/GL /LTCG) |
-| 0x004026D0 | sub_004026D0_WriteMiniDump | `Fog/Unknown_004026D0.cpp` | link-time code generation (/GL /LTCG) |
+| 0x004026D0 | sub_004026D0_WriteMiniDump | `Fog/Unknown_004025F0.cpp` | link-time code generation (/GL /LTCG) |
 | 0x004027C0 | LOGMANAGER_DbgHelpThreadProc | `Fog/Src/LogManager.cpp` | compiler option /EHa, volatile read or qualifier |
 | 0x00402A90 | sub_00402A90_GetDbgHelpModuleRange | `Fog/Unknown_00402820.cpp` | volatile read or qualifier |
-| 0x00402AE0 | sub_00402AE0_ShutdownSymbols | `Fog/Unknown_00402AE0.cpp` | link-time code generation (/GL /LTCG) |
+| 0x00402AE0 | sub_00402AE0_ShutdownSymbols | `Fog/Unknown_004025F0.cpp` | link-time code generation (/GL /LTCG) |
 | 0x00402C10 | ERRORMANAGER_CompareUInt | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00402D60 | sub_00402D60_FormatStackFrame | `Fog/Unknown_00402D60.cpp` | calling-convention shim, link-time code generation (/GL /LTCG) |
 | 0x00403040 | ??_H@YGXPAXIHP6EPAX0@Z@Z | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |

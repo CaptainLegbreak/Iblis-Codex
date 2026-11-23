@@ -1281,95 +1281,20 @@
   },
   {
    "file": "Source/Fog/Unknown_00401DF0.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x00401DF0",
      "length": 286
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc"
-   ],
-   "ltcg": true,
-   "link": [
-    "/OPT:REF",
-    "/OPT:ICF"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00401F10.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00401F10",
      "length": 434
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc"
-   ],
-   "ltcg": true,
-   "link": [
-    "/OPT:REF",
-    "/OPT:ICF"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_004020D0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x004020D0",
      "length": 253
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc"
-   ],
-   "ltcg": true,
-   "link": [
-    "/OPT:REF",
-    "/OPT:ICF"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_004021D0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x004021D0",
      "length": 164
@@ -1397,7 +1322,7 @@
   },
   {
    "file": "Source/Fog/Unknown_00402280.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x00402280",
@@ -1426,37 +1351,12 @@
   },
   {
    "file": "Source/Fog/Unknown_00402380.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x00402380",
      "length": 218
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc"
-   ],
-   "ltcg": true,
-   "link": [
-    "/OPT:REF",
-    "/OPT:ICF"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00402460.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00402460",
      "length": 204
@@ -1484,7 +1384,7 @@
   },
   {
    "file": "Source/Fog/Unknown_00402530.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x00402530",
@@ -1513,40 +1413,19 @@
   },
   {
    "file": "Source/Fog/Unknown_004025F0.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x004025F0",
      "length": 217
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc"
-   ],
-   "ltcg": true,
-   "link": [
-    "/OPT:REF",
-    "/OPT:ICF"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_004026D0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x004026D0",
      "length": 233
+    },
+    {
+     "va": "0x00402AE0",
+     "length": 106
     }
    ],
    "flags": [
@@ -2210,35 +2089,6 @@
     "/Ob2",
     "/Gd",
     "/EHa"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00402AE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00402AE0",
-     "length": 106
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc"
-   ],
-   "ltcg": true,
-   "link": [
-    "/OPT:REF",
-    "/OPT:ICF"
    ]
   },
   {
@@ -3719,50 +3569,6 @@
      "name": "?MAINMENUS_OnCharCreateOk@@YGHH@Z"
     },
     {
-     "va": "0x00436AC0",
-     "length": 13,
-     "name": "?MAINMENUS_ClearStatusTexts@@YAXXZ"
-    },
-    {
-     "va": "0x00436AD0",
-     "length": 316,
-     "name": "?MAINMENUS_UpdateStatus@@YAXXZ"
-    },
-    {
-     "va": "0x00436C10",
-     "length": 93,
-     "name": "?MAINMENUS_CheckAtAndDot@@YAHPBD@Z"
-    },
-    {
-     "va": "0x00436C70",
-     "length": 31,
-     "name": "?MAINMENUS_DeclineEmail@@YGHH@Z"
-    },
-    {
-     "va": "0x00436CD0",
-     "length": 23,
-     "name": "?MAINMENUS_OnConnectCancel@@YGHH@Z"
-    },
-    {
-     "va": "0x00436CF0",
-     "length": 75
-    },
-    {
-     "va": "0x00436D40",
-     "length": 13,
-     "name": "?MAINMENUS_OnTwoEditChange@@YGHH@Z"
-    },
-    {
-     "va": "0x00436EB0",
-     "length": 99,
-     "name": "?MAINMENUS_UpdateEmailOk@@YAXXZ"
-    },
-    {
-     "va": "0x00436F20",
-     "length": 13,
-     "name": "?MAINMENUS_OnEditChange@@YGHH@Z"
-    },
-    {
      "va": "0x0043B4C0",
      "length": 82,
      "name": "MAINMENUS_OnRealmListClick"
@@ -3776,31 +3582,6 @@
      "va": "0x00443C10",
      "length": 8,
      "name": "?sub_00443C10_AlwaysOne@@YGHH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Src/MainMenus_00436C90.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00436C90",
-     "length": 51,
-     "name": "?MAINMENUS_AskEmailRegistration@@YGHH@Z"
     }
    ],
    "flags": [
@@ -9833,11 +9614,6 @@
      "name": "?CHARSEL_CreateTcpIpScreen@@YAXXZ"
     },
     {
-     "va": "0x00436D50",
-     "length": 312,
-     "name": "?CHARSEL_CreateConnectScreen@@YAXXZ"
-    },
-    {
      "va": "0x0043AD10",
      "length": 155,
      "name": "?CHARSEL_RequestCharList@@YAXPAD@Z"
@@ -11977,6 +11753,60 @@
    "file": "Source/D2Launch/Unknown_004370B0.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00436AC0",
+     "length": 13,
+     "name": "?MAINMENUS_ClearStatusTexts@@YAXXZ"
+    },
+    {
+     "va": "0x00436AD0",
+     "length": 316,
+     "name": "?MAINMENUS_UpdateStatus@@YAXXZ"
+    },
+    {
+     "va": "0x00436C10",
+     "length": 93,
+     "name": "?MAINMENUS_CheckAtAndDot@@YAHPBD@Z"
+    },
+    {
+     "va": "0x00436C70",
+     "length": 31,
+     "name": "?MAINMENUS_DeclineEmail@@YGHH@Z"
+    },
+    {
+     "va": "0x00436C90",
+     "length": 51,
+     "name": "?MAINMENUS_AskEmailRegistration@@YGHH@Z"
+    },
+    {
+     "va": "0x00436CD0",
+     "length": 23,
+     "name": "?MAINMENUS_OnConnectCancel@@YGHH@Z"
+    },
+    {
+     "va": "0x00436CF0",
+     "length": 75
+    },
+    {
+     "va": "0x00436D40",
+     "length": 13,
+     "name": "?MAINMENUS_OnTwoEditChange@@YGHH@Z"
+    },
+    {
+     "va": "0x00436D50",
+     "length": 312,
+     "name": "?CHARSEL_CreateConnectScreen@@YAXXZ"
+    },
+    {
+     "va": "0x00436EB0",
+     "length": 99,
+     "name": "?MAINMENUS_UpdateEmailOk@@YAXXZ"
+    },
+    {
+     "va": "0x00436F20",
+     "length": 13,
+     "name": "?MAINMENUS_OnEditChange@@YGHH@Z"
+    },
     {
      "va": "0x00436F30",
      "length": 384,
@@ -53353,6 +53183,11 @@
      "name": "?OBJECTS_InitFunction09_InifussTree@@YIXPAUD2ObjInitFnStrc@@@Z"
     },
     {
+     "va": "0x00594020",
+     "length": 57,
+     "name": "?OBJECTS_InitFunction13_InvisibleObject@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
      "va": "0x00594060",
      "length": 53,
      "name": "?ACT1Q4_InitCainGibbet@@YIXPAUD2QuestDataStrc@@PAUD2ObjInitFnStrc@@@Z"
@@ -53381,6 +53216,61 @@
      "va": "0x00594280",
      "length": 3,
      "name": "ACT1Q4_CreateUberFinalePortal"
+    },
+    {
+     "va": "0x00594290",
+     "length": 42,
+     "name": "?OBJECTS_InitFunction61_CainPortal@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x005942C0",
+     "length": 151,
+     "name": "?ACT1Q4_UpdatePortalInTown@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00594360",
+     "length": 79,
+     "name": "ACT1Q4_GetCainPortalInTownCoordinates"
+    },
+    {
+     "va": "0x005943B0",
+     "length": 155,
+     "name": "?ACT1Q4_SpawnCainPortalOutsideTown@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00594450",
+     "length": 87,
+     "name": "ACT1Q4_GetCainPortalOutsideTownCoordinates"
+    },
+    {
+     "va": "0x005944B0",
+     "length": 58,
+     "name": "?ACT1Q4_UpdateCainPortalCoordinates@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005944F0",
+     "length": 242,
+     "name": "ACT1Q4_SpawnCainPortalOutsideTown"
+    },
+    {
+     "va": "0x005945F0",
+     "length": 25,
+     "name": "?ACT1Q4_OnCainInTownActivated@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00594610",
+     "length": 32,
+     "name": "?ACT1Q4_IsCainInTristramDeactivated@@YIHPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x00594630",
+     "length": 159,
+     "name": "?ACT1Q4_DropWirtsBodyGold@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005946D0",
+     "length": 33,
+     "name": "sub_005946D0_SetA1Q4Unk0xB0"
     },
     {
      "va": "0x00596CA0",
@@ -54136,11 +54026,6 @@
      "va": "0x00592D50",
      "length": 203,
      "name": "ACT1Q4_OpenPortalToTristram"
-    },
-    {
-     "va": "0x00594450",
-     "length": 87,
-     "name": "ACT1Q4_GetCainPortalOutsideTownCoordinates"
     }
    ]
   },
@@ -55090,11 +54975,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x005944F0",
-     "length": 242,
-     "name": "ACT1Q4_SpawnCainPortalOutsideTown"
-    },
-    {
      "va": "0x00595A50",
      "length": 193,
      "name": "OBJECTS_InitFunction47_CountessChest"
@@ -55229,21 +55109,6 @@
    "file": "Source/D2Game/Quests/a2q3.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00594360",
-     "length": 79,
-     "name": "ACT1Q4_GetCainPortalInTownCoordinates"
-    },
-    {
-     "va": "0x00594630",
-     "length": 159,
-     "name": "?ACT1Q4_DropWirtsBodyGold@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005946D0",
-     "length": 33,
-     "name": "sub_005946D0_SetA1Q4Unk0xB0"
-    },
     {
      "va": "0x00596BC0",
      "length": 128,
@@ -55441,31 +55306,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00594020",
-     "length": 57,
-     "name": "?OBJECTS_InitFunction13_InvisibleObject@@YIXPAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x00594290",
-     "length": 42,
-     "name": "?OBJECTS_InitFunction61_CainPortal@@YIXPAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x005942C0",
-     "length": 151,
-     "name": "?ACT1Q4_UpdatePortalInTown@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005943B0",
-     "length": 155,
-     "name": "?ACT1Q4_SpawnCainPortalOutsideTown@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005944B0",
-     "length": 58,
-     "name": "?ACT1Q4_UpdateCainPortalCoordinates@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
      "va": "0x00594700",
      "length": 60,
      "name": "?ACT1Q5_AddUnitGUID@@YGXPAUD2Act1Quest5Strc@@HH@Z"
@@ -55606,16 +55446,6 @@
    "file": "Source/D2Game/Quests/a2q6.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x005945F0",
-     "length": 25,
-     "name": "?ACT1Q4_OnCainInTownActivated@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00594610",
-     "length": 32,
-     "name": "?ACT1Q4_IsCainInTristramDeactivated@@YIHPAUD2GameStrc@@@Z"
-    },
     {
      "va": "0x0059C3C0",
      "length": 652

@@ -130,7 +130,80 @@ int __stdcall MAINMENUS_OnEditChange(int nArg); // 0x00436F20
 
 int gnStatusDots; // 0x007799B4
 
-// build: symbol ?MAINMENUS_CheckAtAndDot@* 0x00436C10
+void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
+
+extern D2WinControlStrc* gpEdit_007799CC; // 0x007799CC
+
+extern D2WinControlStrc* gpEdit_007799D0; // 0x007799D0
+
+extern D2WinControlStrc* gpControl_007799D4; // 0x007799D4
+
+void __cdecl MAINMENUS_UpdateTwoEditOk(); // 0x00436CF0
+
+void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
+
+const Unicode* __fastcall D2Win_10077_EDITBOX_GetText(D2WinControlStrc*); // 0x004FDD90
+
+extern "C" const char gszEmptyAssertText; // 0x006CC837
+
+extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
+
+int gdwGlobal_007799D8; // 0x007799D8
+
+void __fastcall MAINMENUS_ShowMessageBox(const Unicode* pTitle, const Unicode* pMessage, int nButton1StringId, int nButton2StringId, D2LaunchCallback pfnButton1, D2LaunchCallback pfnButton2, int bFlag1, int bFlag2); // 0x0042F540
+
+// 0x00436AC0
+void __cdecl MAINMENUS_ClearStatusTexts()
+{
+    gpStatusText = 0;
+    gpCounterText = 0;
+}
+
+// 0x00436AD0
+void __cdecl MAINMENUS_UpdateStatus()
+{
+    char szText[0x100];
+    int nState;
+    if (!gpStatusText)
+        return;
+    gpFuncTable_0077ABF0->pfnSlot80(&nState);
+    switch (nState)
+    {
+    case 0:
+        gnStatusStringId = 0x1433;
+        break;
+    case 1:
+        gnStatusStringId = 0x1434;
+        break;
+    case 2:
+        gnStatusStringId = 0x1435;
+        break;
+    case 3:
+        gnStatusStringId = 0x1436;
+        break;
+    case 4:
+        gnStatusStringId = 0x1437;
+        break;
+    case 5:
+        gnStatusStringId = 0x1438;
+        break;
+    case 6:
+        gnStatusStringId = 0x1439;
+        break;
+    default:
+        gnStatusStringId = -1;
+        break;
+    }
+    sub_004FB6A0_ClearText(gpStatusText);
+    if (gnStatusStringId >= 0)
+        sub_004FC9B0_SetText(gpStatusText, D2LANG_GetStringFromTblIndex(gnStatusStringId), 0, 0, 0);
+    const unsigned long nCounter = (GetTickCount() - gdwStatusStart) / 250 % 20 + 1;
+    sprintf(szText, "%.*s", nCounter, "....................");
+    sub_004FB6A0_ClearText(gpCounterText);
+    D2Win_10045(gpCounterText, szText);
+}
+
+// 0x00436C10
 static int MAINMENUS_CheckAtAndDot(const char* szText)
 {
     if (!szText)
@@ -144,6 +217,95 @@ static int MAINMENUS_CheckAtAndDot(const char* szText)
             bValid = 1;
     }
     return bValid;
+}
+
+// 0x00436C70
+int __stdcall MAINMENUS_DeclineEmail(int nArg)
+{
+    gpFuncTable_0077ABF0->pfnSlotB8((char*)&gszEmptyAssertText);
+    D2Win_StopMessageLoop();
+    return 1;
+}
+
+// 0x00436C90
+int __stdcall MAINMENUS_AskEmailRegistration(int nArg)
+{
+    MAINMENUS_ShowMessageBox(0, D2LANG_GetStringFromTblIndex(0x2B5E), 0x2B61, 0x13EF, MAINMENUS_DeclineEmail, sub_004334D0_CloseBox, 0, 1);
+    return 1;
+}
+
+// 0x00436CD0
+int __stdcall MAINMENUS_OnConnectCancel(int nArg)
+{
+    gdwGlobal_007799D8 = 1;
+    D2Win_StopMessageLoop();
+    return 1;
+}
+
+// 0x00436CF0
+void __cdecl MAINMENUS_UpdateTwoEditOk()
+{
+ const Unicode* pText1=D2Win_10077_EDITBOX_GetText(gpEdit_007799CC);
+ const Unicode* pText2=D2Win_10077_EDITBOX_GetText(gpEdit_007799D0);
+ int bOk=sub_00526800(pText1)>0;
+ bOk|=sub_00526800(pText2)>0;
+ CONTROL_SetEnabled(gpControl_007799D4,bOk);
+}
+
+// 0x00436D40
+int __stdcall MAINMENUS_OnTwoEditChange(int nArg)
+{
+    MAINMENUS_UpdateTwoEditOk();
+    return 1;
+}
+
+// 0x00436D50
+void __cdecl CHARSEL_CreateConnectScreen()
+{
+    gdwGlobal_007799D8 = 0;
+    CHARSEL_CreateBaseScreen();
+    D2WinControlStrc* pControl = MAINMENUS_CreateControl(0x122);
+    sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B55), 0, 0, 0);
+    pControl = MAINMENUS_CreateControl(0x123);
+    sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B56), 0, 0, 0);
+    MAINMENUS_CreateControl(0x120);
+    pControl = MAINMENUS_CreateControl(0x124);
+    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B57));
+    gpEdit_007799CC = MAINMENUS_CreateControl(0x126);
+    sub_004FDB00_SetEnterCallback(gpEdit_007799CC, MAINMENUS_OnTwoEditChange);
+    MAINMENUS_CreateControl(0x121);
+    pControl = MAINMENUS_CreateControl(0x125);
+    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B58));
+    gpEdit_007799D0 = MAINMENUS_CreateControl(0x127);
+    sub_004FDB00_SetEnterCallback(gpEdit_007799D0, MAINMENUS_OnTwoEditChange);
+    gpControl_007799D4 = MAINMENUS_CreateControl(0x128);
+    MAINMENUS_CreateControl(0x129);
+    MAINMENUS_CreateControl(0x12A);
+    CONTROL_SetFocusedEditBox(gpEdit_007799CC);
+    sub_004FDDD0_LinkTab(gpEdit_007799CC, gpEdit_007799D0);
+    sub_004FDDD0_LinkTab(gpEdit_007799D0, gpEdit_007799CC);
+    MAINMENUS_UpdateTwoEditOk();
+}
+
+// 0x00436EB0
+void __cdecl MAINMENUS_UpdateEmailOk()
+{
+    char szText[0x100];
+    int bOk = sub_00526800(sub_004FDD90_GetEditText(gpEdit_007799DC)) > 0;
+    if (bOk)
+    {
+        const Unicode* pText = sub_004FDD90_GetEditText(gpEdit_007799E0);
+        sub_005263E0(szText, pText, 0x100);
+        bOk = MAINMENUS_CheckAtAndDot(szText);
+    }
+    CONTROL_SetEnabled(gpButton_007799E4, bOk);
+}
+
+// 0x00436F20
+int __stdcall MAINMENUS_OnEditChange(int nArg)
+{
+    MAINMENUS_UpdateEmailOk();
+    return 1;
 }
 
 // 0x00436F30
@@ -379,8 +541,6 @@ void __cdecl MAINMENUS_CreateStatusScreen()
 }
 
 int __fastcall sub_005264F0_Compare(const Unicode* pString1, const Unicode* pString2); // 0x005264F0
-
-void __fastcall MAINMENUS_ShowMessageBox(const Unicode* pTitle, const Unicode* pMessage, int nButton1StringId, int nButton2StringId, D2LaunchCallback pfnButton1, D2LaunchCallback pfnButton2, int bFlag1, int bFlag2); // 0x0042F540
 
 // 0x00437620
 int __stdcall MAINMENUS_ConfirmText(int nArg)
