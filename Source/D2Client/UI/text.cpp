@@ -4159,6 +4159,39 @@ static inline int sub_004A1950_GetActNumber(const D2QuestTextsStrc* pTexts)
     return 0;
 }
 
+struct D2MsgRecordStrc
+{
+    int nTick;
+    unsigned int uMessage;
+    unsigned int wParam;
+    int lParam;
+};
+
+struct D2MsgRecordChunkStrc
+{
+    D2MsgRecordStrc tRecords[500];
+    int nCount;
+    int nIndex;
+    D2MsgRecordChunkStrc* pNext;
+};
+
+struct D2SetsTxt;
+
+struct D2SetsTxt { char unk0x000[0x128]; };
+
+// 0x004A1730
+void __cdecl CUNIT_ClearTextPanel()
+{
+    TEXT_ResetTextBox();
+// build: symbol ?gbTextPanelOpen@* 0x007BF1FA
+    gbTextPanelOpen = 0;
+    if (gpTextHeader)
+    {
+        TEXT_FreeTextHeader(gpTextHeader);
+        gpTextHeader = 0;
+    }
+}
+
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x004A1950
 static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg)
@@ -6663,6 +6696,68 @@ int __stdcall TEXT_GetChanceToHit(int nAttackRate)
         return 95;
     }
     return nChance;
+}
+
+#define STAT_ARMORCLASS_VS_HTH 33
+
+// 0x004A74A0
+int __cdecl MONSTER_GetPlayerDefensePercent()
+{
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    int nPercent = 100;
+    int nDefense = UNITS_GetDefense(pPlayer);
+    nDefense += STATLIST_UnitGetStatValue(pPlayer, STAT_ARMORCLASS_VS_HTH, 0);
+    const int nDifficulty = GAME_GetDifficulty();
+    D2_ASSERT(nDifficulty < 3, 470);
+
+    const int nMonsterId = UI_GetHoverClassId();
+    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord_Inl(nMonsterId);
+    if (!pMonStatsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2MonStatsInitStrc monStatsInit;
+    memset(&monStatsInit, 0, sizeof(monStatsInit));
+    DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, GAME_GetLadderFlag(), nDifficulty, pMonStatsTxtRecord->nLevel[nDifficulty], 8, &monStatsInit);
+    int nToHit = monStatsInit.nTH;
+    if (!nToHit)
+    {
+        memset(&monStatsInit, 0, sizeof(monStatsInit));
+        DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, GAME_GetLadderFlag(), nDifficulty, pMonStatsTxtRecord->nLevel[nDifficulty], 0x10, &monStatsInit);
+        nToHit = monStatsInit.nTH;
+        if (!nToHit)
+        {
+            memset(&monStatsInit, 0, sizeof(monStatsInit));
+            DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, GAME_GetLadderFlag(), nDifficulty, pMonStatsTxtRecord->nLevel[nDifficulty], 0x20, &monStatsInit);
+            nToHit = monStatsInit.nTH;
+        }
+    }
+
+    if (pMonStatsTxtRecord->nAlign != 1 && !GAME_IsExpansion() && GAME_GetDifficulty())
+    {
+        nToHit = nToHit * 10 / 15;
+    }
+
+    if (nDefense < 0)
+    {
+        nToHit -= nDefense;
+        nDefense = 0;
+    }
+
+    if (nToHit < 0)
+    {
+        nDefense -= nToHit;
+        nToHit = 0;
+    }
+
+    if (nToHit || nDefense)
+    {
+        nPercent = nToHit * 100 / (nToHit + nDefense);
+    }
+
+    const int nLevel = pMonStatsTxtRecord->nLevel[nDifficulty];
+    return 2 * nLevel * nPercent / (STATLIST_UnitGetStatValue(pPlayer, STAT_LEVEL, 0) + nLevel);
 }
 
 // 0x004A7660

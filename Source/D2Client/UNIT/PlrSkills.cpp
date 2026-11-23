@@ -1514,63 +1514,6 @@ D2StatListStrc* __fastcall PLRSKILLS_SetStateStat(D2UnitStrc* pUnit, D2StatListS
     return pStatList;
 }
 
-// 0x004E0D40
-int __fastcall PLRSKILLS_SkillDoFrameOffset(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    int nMissile = pSkillsTxtRecord->wCltMissileA;
-    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
-    if (!pSkill)
-    {
-        return 0;
-    }
-
-    int nX = SKILLS_GetParam1(pSkill);
-    int nY = SKILLS_GetParam2(pSkill);
-    if ((!nX || !nY) && !ITEM_GetTargetPosition(pUnit, &nX, &nY))
-    {
-        return 0;
-    }
-
-    unsigned char nDirection = (unsigned char)UNITS_GetDirectionToCoords(pUnit, nX, nY);
-    unsigned char nIndex = INVENTORY_GetEightWayDirection(nDirection) & 7;
-    nX = CLIENTS_GetUnitX(pUnit);
-    nY = CLIENTS_GetUnitY(pUnit);
-
-    int nOffsetX;
-    int nOffsetY;
-    INVENTORY_GetDirectionDelta(gabBaseDirections[nIndex], &nOffsetX, &nOffsetY);
-    nX += nOffsetX;
-    nY += nOffsetY;
-
-    int nFrame;
-    int nFrameCount;
-    UNITS_GetShiftedFrameMetrics(pUnit, &nFrame, &nFrameCount);
-    nFrame -= 4;
-    int nClamp = nFrame > 0 ? nFrame : 0;
-    nFrame = nClamp < 8 ? nClamp : 8;
-
-    unsigned char nDir = gabFrameDirections[nIndex][nFrame];
-    if (nDir != 99)
-    {
-        INVENTORY_GetDirectionDelta(nDir, &nOffsetX, &nOffsetY);
-        nX += nOffsetX;
-        nY += nOffsetY;
-    }
-
-    MISSILE_SubmitOwnerRequest(pUnit, nMissile, nX, nY, nSkillId, nSkillLevel);
-    return 1;
-}
 
 // 0x004E0FD0
 int __fastcall PLRSKILLS_SkillStartMarkTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
@@ -1708,65 +1651,6 @@ int __fastcall PLRSKILLS_MissileAtTargetUnit(D2UnitStrc* pUnit, int nSkillId, in
     return 0;
 }
 
-// 0x004E9040
-void __fastcall PLRSKILLS_DescAttackRating(D2UnitStrc* pUnit, void* pArg, D2SkillsTxt* pSkillsTxtRecord, int nSkillLevel, int* pValue, int* pColor, int nArg5, int nArg6)
-{
-    D2UnitStrc* pWeapon = 0;
-    if (pUnit->pInventory)
-    {
-        pWeapon = INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
-    }
-
-    *pValue = 0;
-    *pColor = 0;
-    if (!pArg)
-    {
-        return;
-    }
-
-    if (pWeapon)
-    {
-        int bStatNotDynamic = 0;
-        D2UnitStrc* pOwner = STATLIST_GetOwner(pWeapon, &bStatNotDynamic);
-        STATLIST_MergeStatLists(pUnit, pWeapon, 0);
-        *pValue = UNITS_GetAttackRate(pUnit);
-        if (pOwner)
-        {
-            STATLIST_MergeStatLists(pUnit, pWeapon, bStatNotDynamic);
-        }
-        else
-        {
-            STATLIST_ExpireUnitStatlist(pUnit, pWeapon);
-        }
-    }
-    else
-    {
-        *pValue = UNITS_GetAttackRate(pUnit);
-    }
-
-    int nToHit = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_TOHIT_PERCENT, 0);
-    nToHit += SKILLS_GetToHitFactor(pUnit, pSkillsTxtRecord->nSkillId, nSkillLevel);
-    if (pSkillsTxtRecord->nFlags[0] & gnBitMasks_006CE268[3])
-    {
-        const int nBonus = STATLIST_UnitGetStatValue(pUnit, STAT_PROGRESSIVE_TOHIT, 0);
-        if (nBonus)
-        {
-            nToHit += nBonus;
-            *pColor = 3;
-        }
-    }
-
-    *pValue += *pValue * nToHit / 100;
-    if (STATES_CheckStateMaskAttBlueOnUnit(pUnit))
-    {
-        *pColor = 3;
-    }
-
-    if (STATES_CheckStateMaskAttRedOnUnit(pUnit))
-    {
-        *pColor = 1;
-    }
-}
 
 // 0x004F1D80
 int __fastcall PLRSKILLS_MotionMissiles(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)

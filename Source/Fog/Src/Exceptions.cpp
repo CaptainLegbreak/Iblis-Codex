@@ -507,7 +507,7 @@ extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const ch
 
 unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 
-void __cdecl MAINMENUS_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410740
+void __cdecl LOGMANAGER_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410740
 
 char* __fastcall sub_004113E0_EscapeString(char* szDst, const char* szSrc, int nSize, char cQuote); // 0x004113E0
 
@@ -620,10 +620,10 @@ void __fastcall EXCEPTIONS_DumpThreadStackAndCode(void* hThread)
     memset(&tContext, 0, sizeof(tContext));
     tContext.ContextFlags = 0x10007;
     GetThreadContext(hThread, &tContext);
-// build: symbol ?MAINMENUS_LogWritePrefixed@* 0x00410740
-    MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "Stack bytes:\n");
+// build: symbol ?LOGMANAGER_LogWritePrefixed@* 0x00410740
+    LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, "Stack bytes:\n");
     LOGMANAGER_LogMemoryDump("ERR", &gszEmptyAssertText, tContext.Esp, 0x1000, 0, 1, 0);
-    MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "Code bytes:\n");
+    LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, "Code bytes:\n");
     LOGMANAGER_LogMemoryDump("ERR", &gszEmptyAssertText, tContext.Eip, 0x20, 0, 1, 0);
 }
 
@@ -921,7 +921,7 @@ void __fastcall EXCEPTIONS_DumpAnnotatedStack(void* hProcess, D2ThreadContextStr
         D2ModuleInfoStrc* pModule = EXCEPTIONS_FindModuleByAddress(dwEip, pModules);
         const char* szSymbol = gpfnSymGetSymFromAddr(hProcess, dwEip, &dwDisplacement, &tSymbol.tSymbol) ? tSymbol.tSymbol.szName : "unknown";
         const char* szModule = pModule ? pModule->szName : "unknown";
-        MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszStackEipLine, dwEip, szModule, szSymbol, dwDisplacement);
+        LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, gszStackEipLine, dwEip, szModule, szSymbol, dwDisplacement);
     }
 
     int nLines = 0;
@@ -930,7 +930,7 @@ void __fastcall EXCEPTIONS_DumpAnnotatedStack(void* hProcess, D2ThreadContextStr
     {
         if (nLines >= 400)
             break;
-        MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "              %08X:", pStack);
+        LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, "              %08X:", pStack);
         int nCount = nRemaining < 16 ? nRemaining : 16;
         szLine[0] = 0;
         int bFound = 0;
@@ -965,7 +965,7 @@ void __fastcall EXCEPTIONS_DumpAnnotatedStack(void* hProcess, D2ThreadContextStr
             szLine[j++] = (c & 0x7F) < 0x20 ? '.' : c;
         }
         szLine[nLen + i] = 0;
-        MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszLogLineFormat, szLine);
+        LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, gszLogLineFormat, szLine);
 
         if (bFound)
         {
@@ -975,9 +975,9 @@ void __fastcall EXCEPTIONS_DumpAnnotatedStack(void* hProcess, D2ThreadContextStr
             unsigned long dwValueDisplacement;
             const char* szName = gpfnSymGetSymFromAddr(hProcess, dwValue, &dwValueDisplacement, &tSymbol.tSymbol) ? tSymbol.tSymbol.szName : "unknown";
             if (!_stricmp(szName, "`string'") && !dwValueDisplacement)
-                MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszStackStringLine, dwValue, pValueModule->szName, szName, sub_004113E0_EscapeString(szEscaped, (const char*)dwValue, 0x50, 0));
+                LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, gszStackStringLine, dwValue, pValueModule->szName, szName, sub_004113E0_EscapeString(szEscaped, (const char*)dwValue, 0x50, 0));
             else
-                MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszStackSymbolLine, dwValue, pValueModule->szName, szName, dwValueDisplacement);
+                LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, gszStackSymbolLine, dwValue, pValueModule->szName, szName, dwValueDisplacement);
             nLines += 3;
         }
 
@@ -1451,13 +1451,13 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
         tModule.dwSizeOfStruct = 0x23C;
         if (gpfnSymGetModuleInfo(hProcess, tFrame.tAddrPC.dwOffset, &tModule))
         {
-            MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "%s!", tModule.szModuleName);
+            LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, "%s!", tModule.szModuleName);
         }
 
-        MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "%s+%04X ", szSymbol, dwSymDisplacement);
+        LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, "%s+%04X ", szSymbol, dwSymDisplacement);
         if (pSymbol->dwFlags & 3)
         {
-            MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "[omap] ");
+            LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, "[omap] ");
         }
 
         if (tFrame.pFuncTableEntry)
@@ -1468,26 +1468,26 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
             case 0:
                 if (pFpo->fHasSEH)
                 {
-                    MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "(FPO: [SEH])");
+                    LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, "(FPO: [SEH])");
                 }
                 else
                 {
-                    MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, " (FPO:");
+                    LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, " (FPO:");
                     if (pFpo->fUseBP)
                     {
-                        MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, " [EBP 0x%08x]", tFrame.dwReserved[0]);
+                        LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, " [EBP 0x%08x]", tFrame.dwReserved[0]);
                     }
 
-                    MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, " [%d, %d, %d])", pFpo->wParams, pFpo->dwLocals, pFpo->cbRegs);
+                    LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, " [%d, %d, %d])", pFpo->wParams, pFpo->dwLocals, pFpo->cbRegs);
                 }
                 break;
 
             case 3:
-                MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "(FPO: Non-FPO [%d, %d, %d])", pFpo->wParams, pFpo->dwLocals, pFpo->cbRegs);
+                LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, "(FPO: Non-FPO [%d, %d, %d])", pFpo->wParams, pFpo->dwLocals, pFpo->cbRegs);
                 break;
 
             default:
-                MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "(UNKNOWN FPO TYPE)");
+                LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, "(UNKNOWN FPO TYPE)");
                 break;
             }
         }
@@ -1503,11 +1503,11 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
             }
 
 // build: symbol ?gszSpace@* 0x006FFC44
-            MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "%*s %s, %d", nPad, gszSpace, szFile, tLine.dwLineNumber);
+            LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, "%*s %s, %d", nPad, gszSpace, szFile, tLine.dwLineNumber);
         }
 
 // build: symbol ?gszNewline@* 0x006FFCB0
-        MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszNewline);
+        LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, gszNewline);
     }
 
     sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "%d frames dumped", nFrames);

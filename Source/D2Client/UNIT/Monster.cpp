@@ -598,65 +598,6 @@ static inline D2MonStatsTxt* sub_n5b_GetMonStatsTxtRecord(int nMonsterId);
 static inline D2MonStats2Txt* sub_n5b_GetMonStats2TxtRecord(int nMonsterId);
 static __forceinline void sub_b1_WalkTo(D2UnitStrc* pUnit, D2MonCommandStrc* pCommand, int nMode);
 
-// 0x004A74A0
-int __cdecl MONSTER_GetPlayerDefensePercent()
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    int nPercent = 100;
-    int nDefense = UNITS_GetDefense(pPlayer);
-    nDefense += STATLIST_UnitGetStatValue(pPlayer, STAT_ARMORCLASS_VS_HTH, 0);
-    const int nDifficulty = GAME_GetDifficulty();
-    D2_ASSERT(nDifficulty < 3, 470);
-
-    const int nMonsterId = UI_GetHoverClassId();
-    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord_Inl(nMonsterId);
-    if (!pMonStatsTxtRecord)
-    {
-        return 0;
-    }
-
-    D2MonStatsInitStrc monStatsInit;
-    memset(&monStatsInit, 0, sizeof(monStatsInit));
-    DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, GAME_GetLadderFlag(), nDifficulty, pMonStatsTxtRecord->nLevel[nDifficulty], 8, &monStatsInit);
-    int nToHit = monStatsInit.nTH;
-    if (!nToHit)
-    {
-        memset(&monStatsInit, 0, sizeof(monStatsInit));
-        DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, GAME_GetLadderFlag(), nDifficulty, pMonStatsTxtRecord->nLevel[nDifficulty], 0x10, &monStatsInit);
-        nToHit = monStatsInit.nTH;
-        if (!nToHit)
-        {
-            memset(&monStatsInit, 0, sizeof(monStatsInit));
-            DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, GAME_GetLadderFlag(), nDifficulty, pMonStatsTxtRecord->nLevel[nDifficulty], 0x20, &monStatsInit);
-            nToHit = monStatsInit.nTH;
-        }
-    }
-
-    if (pMonStatsTxtRecord->nAlign != 1 && !GAME_IsExpansion() && GAME_GetDifficulty())
-    {
-        nToHit = nToHit * 10 / 15;
-    }
-
-    if (nDefense < 0)
-    {
-        nToHit -= nDefense;
-        nDefense = 0;
-    }
-
-    if (nToHit < 0)
-    {
-        nDefense -= nToHit;
-        nToHit = 0;
-    }
-
-    if (nToHit || nDefense)
-    {
-        nPercent = nToHit * 100 / (nToHit + nDefense);
-    }
-
-    const int nLevel = pMonStatsTxtRecord->nLevel[nDifficulty];
-    return 2 * nLevel * nPercent / (STATLIST_UnitGetStatValue(pPlayer, STAT_LEVEL, 0) + nLevel);
-}
 
 static D2MonsterDataStrc* CLIENT_GetMonsterData(D2UnitStrc* pUnit)
 {
@@ -2814,12 +2755,6 @@ Unicode Unicode::sub_004B15F0() const
     return Unicode(wChar < CASE_BOUND ? gaCaseTable[wChar] : wChar);
 }
 
-// 0x004B1670
-int __cdecl MONSTER_GetUseItemMode()
-{
-// build: symbol ?gnInteractNpcClassId@* 0x007C0D2D
-    return gnInteractNpcClassId;
-}
 
 // 0x004B17D0
 static inline void MONSTER_SetNpcMenuState(int nState)
@@ -2853,11 +2788,6 @@ static inline bool MONSTER_IsStringUnused(unsigned short wString)
     return true;
 }
 
-// 0x004B1970
-void __cdecl MONSTER_ResetUsedStrings()
-{
-    gtStringList.wCount = 0;
-}
 
 // 0x004B1D50
 void __cdecl MONSTER_CloseNpcResource()
@@ -2875,11 +2805,6 @@ int __cdecl sub_004B1DC0()
     return 0;
 }
 
-// 0x004B2010
-int __cdecl sub_004B2010()
-{
-    return 0;
-}
 
 // 0x004B32D0
 int __cdecl MONSTER_GetQuestFlags()
@@ -2893,11 +2818,6 @@ int __cdecl MONSTER_GetGameQuestFlags()
     return gdwGlobal_007C0D47;
 }
 
-// 0x004B3500
-int __cdecl MONSTER_IsGambleShop()
-{
-    return gbGambleShop;
-}
 
 // 0x004B70F0
 int __cdecl sub_004B70F0()
@@ -2929,30 +2849,7 @@ int __cdecl MONSTER_GetPrimaryTradeGold()
     return gdwPrimaryTradeGold;
 }
 
-// 0x004B9E10
-int __fastcall MONSTER_IsNearPlayer(D2UnitStrc* pUnit)
-{
-    D2Vector3FStrc tDelta;
-    D2CoordStrc tPlayerCoords;
-    D2CoordStrc tUnitCoords;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    UNITS_GetClientCoords(pPlayer, &tPlayerCoords);
-    UNITS_GetClientCoords(pUnit, &tUnitCoords);
-    tDelta.fX = tUnitCoords.nX - tPlayerCoords.nX;
-    tDelta.fY = (tUnitCoords.nY - tPlayerCoords.nY) * 2.0f;
-    if (GFXUTIL_VectorLengthSquared(tDelta.fX, tDelta.fY) <= 490000.0)
-    {
-        return 1;
-    }
 
-    return 0;
-}
-
-// 0x004BB5D0
-int __cdecl sub_004BB5D0()
-{
-    return 0;
-}
 
 // 0x004BF9B0
 int __cdecl sub_004BF9B0()

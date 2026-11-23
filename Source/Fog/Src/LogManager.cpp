@@ -1993,6 +1993,28 @@ void __cdecl LOGMANAGER_LogWritePrefixedNoNewline(const char* szPrefix, const ch
     sub_00410340_LogV(szPrefix, 1, 0, szFormat, args);
 }
 
+// 0x00410700
+void __cdecl LOGMANAGER_LogWrite(const char* szFormat, ...)
+{
+    D2_ASSERT(szFormat, 354);
+    va_list args;
+    va_start(args, szFormat);
+    sub_00410340_LogV(&gszEmptyAssertText, 0, 0, szFormat, args);
+}
+
+// 0x00410740
+void __cdecl LOGMANAGER_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...)
+{
+    D2_ASSERT(szFormat, 371);
+    if (!szPrefix)
+    {
+        szPrefix = &gszEmptyAssertText;
+    }
+    va_list args;
+    va_start(args, szFormat);
+    sub_00410340_LogV(szPrefix, 0, 0, szFormat, args);
+}
+
 // 0x0040F720
 void __fastcall LOGMANAGER_WriteMessage(D2LogMessageStrc* pMessage)
 {

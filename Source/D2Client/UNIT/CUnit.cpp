@@ -3573,26 +3573,7 @@ D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nIndex)
     return 0;
 }
 
-// 0x00483960
-void __cdecl CUNIT_InitColorTable()
-{
-    gabColors_007BCAD8[0] = D2Win_10034_MixRGB(0x80, 0, 0);
-    gabColors_007BCAD8[1] = D2Win_10034_MixRGB(0, 0x80, 0);
-    gabColors_007BCAD8[2] = D2Win_10034_MixRGB(0, 0, 0x80);
-    gabColors_007BCAD8[3] = D2Win_10034_MixRGB(0x80, 0x80, 0);
-    gabColors_007BCAD8[4] = D2Win_10034_MixRGB(0x80, 0x40, 0x40);
-}
 
-// 0x00489840
-int __cdecl CUNIT_IsInvPanelTradeMode()
-{
-    if (gnInvPanelMode == 1 || gnInvPanelMode == 2 || gnInvPanelMode == 3)
-    {
-        return 1;
-    }
-
-    return 0;
-}
 
 // 0x004898A0
 void __fastcall sub_004898A0(int nMode)
@@ -3625,18 +3606,6 @@ void __fastcall CUNIT_SetDialogState(int nState)
     }
 }
 
-// 0x004A1730
-void __cdecl CUNIT_ClearTextPanel()
-{
-    TEXT_ResetTextBox();
-// build: symbol ?gbTextPanelOpen@* 0x007BF1FA
-    gbTextPanelOpen = 0;
-    if (gpTextHeader)
-    {
-        TEXT_FreeTextHeader(gpTextHeader);
-        gpTextHeader = 0;
-    }
-}
 
 // 0x004B8A10
 int __cdecl CUNIT_IsTrading()

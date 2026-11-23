@@ -937,59 +937,6 @@ static inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecordInline(int nSkillId)
     return 0;
 }
 
-// 0x004C95E0
-int __fastcall MISSILE_SkillStartAtTargetPos(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    if (!SKILLS_GetSkillsTxtRecord(nSkillId))
-    {
-        return 0;
-    }
-
-    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
-    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 0x40;
-    }
-
-    int nX;
-    int nY;
-    if (!ITEM_GetTargetPosition(pUnit, &nX, &nY))
-    {
-        return 0;
-    }
-
-    D2MissileStrc tMissileParams;
-    memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.dwFlags = 0x20;
-    tMissileParams.pOwner = pUnit;
-    tMissileParams.pOrigin = pUnit;
-    tMissileParams.nTargetX = nX;
-    tMissileParams.nTargetY = nY;
-    tMissileParams.nSkill = nSkillId;
-    tMissileParams.nSkillLevel = nSkillLevel;
-    tMissileParams.nMissile = nMissile;
-
-    D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
-    if (!pMissile)
-    {
-        return 0;
-    }
-
-    D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
-    if (!pPath)
-    {
-        return 0;
-    }
-
-    PATH_SetType(pPath, 0xE);
-    D2Common_10142(pPath, pMissile, 0);
-    return 1;
-}
 
 inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecordStd(int nSkillId)
 {
@@ -4899,21 +4846,7 @@ void __fastcall MISSILE_GetArmorComponents(D2UnitStrc* pUnit, D2InventoryStrc* p
     memset(pComponents, 0, 6);
 }
 
-// 0x004DB1A0
-unsigned char __fastcall MISSILE_GetGfxEntryByte(D2UnitStrc* pUnit, int nIndex)
-{
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
-    if (!pGfxData)
-        return 0;
-    const D2GfxEntryStrc* pEntries = (const D2GfxEntryStrc*)pGfxData;
-    return pEntries[nIndex].nValue;
-}
 
-// 0x004DBFE0
-void __cdecl MISSILE_StartFadeTimer()
-{
-    gdwFadeTick = GetTickCount() + 500;
-}
 
 // 0x004DED20
 void __cdecl MISSILE_UpdateRoomColor()
@@ -6172,65 +6105,6 @@ void __fastcall sub_M130_Emit_004CD290(D2UnitStrc* pMissile)
     MISSILE_ApplyAnimSpeedSteps(pMissile, sub_0064A3B0_GetElapsedFrames(pMissile));
 }
 
-// 0x004F16F0
-int __fastcall MISSILE_CreateMissileVolley(D2UnitStrc* pUnit, int nCount, int nArg0, int nArg3, int nArg4, int nMissileArg, int bFirst, int bClearPathFlag)
-{
-    int nTargetX;
-    int nTargetY;
-    if (!ITEM_GetTargetPosition(pUnit, &nTargetX, &nTargetY))
-    {
-        return 0;
-    }
-
-    if (bFirst)
-    {
-        --nCount;
-        D2UnitStrc* pMissile = sub_004C5420_CreateFirstMissile(pUnit, nArg0, nArg3, nArg4);
-        if (pMissile)
-        {
-            if (bClearPathFlag)
-            {
-                sub_00649030_SetPathFlag40(pMissile->pDynamicPath, 0);
-            }
-
-            sub_00621780_SetMissileArg(pMissile, nMissileArg);
-        }
-    }
-
-    D2RequestStrc tRequest;
-    memset(&tRequest, 0, sizeof(tRequest));
-    tRequest.nType = 0x21;
-    tRequest.pUnit = pUnit;
-    tRequest.nArg1 = UNITS_GetXPositionInline(pUnit);
-    tRequest.nArg2 = UNITS_GetYPositionInline(pUnit);
-    tRequest.nArg5 = nTargetX;
-    tRequest.nArg6 = nTargetY;
-    tRequest.nArg3 = nArg3;
-    tRequest.nArg4 = nArg4;
-    tRequest.nArg0 = nArg0;
-    tRequest.pfCallback = SKILLDESC_InitCappedChargedPath;
-    if (bClearPathFlag)
-    {
-        tRequest.nType |= 0x2000;
-    }
-
-    for (int i = 0; i < nCount; ++i)
-    {
-        tRequest.nIndex = i;
-        D2UnitStrc* pMissile = sub_004CD540_HandleRequest(&tRequest);
-        if (pMissile)
-        {
-            if (bClearPathFlag)
-            {
-                sub_00649030_SetPathFlag40(pMissile->pDynamicPath, 0);
-            }
-
-            sub_00621780_SetMissileArg(pMissile, nMissileArg);
-        }
-    }
-
-    return 1;
-}
 
 // 0x004CDDB0
 void __fastcall sub_004CDDB0(D2UnitStrc* pUnit, const int* pMissiles, int nMissiles, int nRange, int nOffset, int nChance)

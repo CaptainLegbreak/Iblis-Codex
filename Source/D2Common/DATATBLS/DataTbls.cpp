@@ -7,6 +7,7 @@
 #include "D2Skills.h"
 #include "D2TxtTables.h"
 #include "D2Unicode.h"
+#include "D2DataTbls.h"
 
 struct D2SkillListStrc;
 
@@ -122,97 +123,9 @@ extern D2TxtLinkStrc* gpMissileCalcLinker_0096BC8C; // 0x0096BC8C
 
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, unsigned int dwCode, int bLogError); // 0x006BD130
 
-struct D2DataTablesStrc
-{
-    void* pPlayerClassTxt;
-    D2TxtLinkStrc* pPlayerClassLinker;
-    void* pBodyLocsTxt;
-    D2TxtLinkStrc* pBodyLocsLinker;
-    void* pStorePageTxt;
-    D2TxtLinkStrc* pStorePageLinker;
-    void* pElemTypesTxt;
-    D2TxtLinkStrc* pElemTypesLinker;
-    void* pHitClassTxt;
-    D2TxtLinkStrc* pHitClassLinker;
-    void* pMonModeTxtStub;
-    D2TxtLinkStrc* pMonModeLinker;
-    void* pPlrModeTxtStub;
-    D2TxtLinkStrc* pPlrModeLinker;
-    void* pSkillCalcTxt;
-    D2TxtLinkStrc* pSkillCalcLinker;
-    char unk0x040[0x018];
-    void* pMissileCalcTxt;
-    D2TxtLinkStrc* pMissileCalcLinker;
-    char unk0x060[0x00C];
-    void* pSkillCode;
-    D2TxtLinkStrc* iSkillCode;
-    void* pEventsTxt;
-    D2TxtLinkStrc* pEventsLinker;
-    void* pCompCodeTxt;
-    D2TxtLinkStrc* pCompCodeLinker;
-    int nCompCodeTxtRecordCount;
-    void* pMonAiTxt;
-    D2TxtLinkStrc* pMonAiLinker;
-    int nMonAiTxtRecordCount;
-    char unk0x094[0x020];
-    void* pHireDescTxt;
-    D2TxtLinkStrc* pHireDescLinker;
-    D2StatesTxt* pStatesTxt;
-    D2TxtLinkStrc* pStatesLinker;
-    int nStatesTxtRecordCount;
-    unsigned int* pStateMasks;
-    unsigned int* fStateMasks[40];
-    short* pProgressiveStates;
-    short nProgressiveStates;
-    char unk0x172[0x002];
-    short* pCurseStates;
-    short nCurseStates;
-    char unk0x17A[0x002];
-    short* pTransformStates;
-    short nTransformStates;
-    char unk0x182[0x002];
-    short* pActionStates;
-    short nActionStates;
-    char unk0x18A[0x002];
-    short* pColourStates;
-    short nColourStates;
-    char unk0x192[0x002];
-    char unk0x194[0x004];
-    D2TxtLinkStrc* pSoundsLinker;
-    unsigned char unk_19C[0x814];
-    void* pColorsTxt;
-    D2TxtLinkStrc* pColorsLinker;
-    char unk0x9B8[0x0E4];
-    void* pMonPlaceTxt;
-    D2TxtLinkStrc* pMonPlaceLinker;
-    int nMonPlaceTxtRecordCount;
-    unsigned char unk_AA8[0xC0];
-    D2TxtLinkStrc* pMissilesLinker;
-    unsigned char unk_B6C[0x2C];
-    D2SkillsTxt* pSkillsTxt;
-    unsigned char unk_B9C[0x4];
-    int nSkillsTxtRecordCount;
-    unsigned char unk_BA4[0x14];
-    D2TxtLinkStrc* pOverlayLinker;
-    char unk0xBBC[0x014];
-    D2TxtLinkStrc* pItemStatCostLinker;
-    char unk0xBD4[0x020];
-    D2TxtLinkStrc* pItemTypesLinker;
-    unsigned char unk_BF8[0x7C];
-    void* pAnimData;
-    char unk0xC78[0x00C];
-    int bCompileTxt;
-};
-
 struct D2DifficultyLevelsTxt
 {
     char unk0x00[0x58];
-};
-
-struct D2RuneDataTbl
-{
-    int nRunesTxtRecordCount;
-    D2RunesTxt* pRunesTxt;
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -1463,10 +1376,10 @@ static void DATATBLS_LoadSomeTxts(void* hArchive)
 
         D2BinFieldStrc pSkillCodeTbl[] =
         {
-            { "skill", 17, 0, 0, &gD2DataTables.iSkillCode },
+            { "skill", 17, 0, 0, &gD2DataTables.unk0x70 },
             { gszTxtField_end, 0, 0, 0, 0 },
         };
-        gD2DataTables.iSkillCode = FOG_AllocLinker(".\\DATATBLS\\DataTbls.cpp", 291);
+        gD2DataTables.unk0x70 = FOG_AllocLinker(".\\DATATBLS\\DataTbls.cpp", 291);
         gD2DataTables.pSkillCode = DATATBLS_CompileTxt(hArchive, "skills", pSkillCodeTbl, &nRecordCount, 2);
 
         D2BinFieldStrc pEventsTbl[] =
@@ -1795,7 +1708,7 @@ void __fastcall DATATBLS_LoadStatesTxt(void* hArchive)
         { "setfunc", TXTFIELD_WORD, 0, 26, 0 },
         { "remfunc", TXTFIELD_WORD, 0, 28, 0 },
         { "missile", TXTFIELD_NAMETOWORD, 0, 58, &gD2DataTables.pMissilesLinker },
-        { "skill", TXTFIELD_NAMETOWORD, 0, 56, &gD2DataTables.iSkillCode },
+        { "skill", TXTFIELD_NAMETOWORD, 0, 56, &gD2DataTables.unk0x70 },
         { "colorpri", TXTFIELD_BYTE, 0, 32, 0 },
         { "colorshift", TXTFIELD_BYTE, 0, 33, 0 },
         { "light-r", TXTFIELD_BYTE, 0, 34, 0 },

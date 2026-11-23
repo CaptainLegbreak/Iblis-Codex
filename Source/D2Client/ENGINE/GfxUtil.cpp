@@ -13,6 +13,7 @@
 #include "D2Records.h"
 #include "D2CelContext.h"
 #include "D2ItemsWorld.h"
+#include "D2MonModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -730,6 +731,121 @@ int __stdcall GFXUTIL_GetMotionAY(D2UnitStrc* pUnit)
     return 0;
 }
 
+void __fastcall GFX_GetUnitCelOffsets(D2UnitStrc* pUnit, int nComponent, int* pOffsetX, int* pOffsetY); // 0x004706E0
+
+extern "C" int __stdcall PARTICLE_GetGfxOffsetX(D2UnitStrc* pUnit);                                     // 0x004DA0B0
+
+void __stdcall DUNGEON_GameToClientCoords(int* pX, int* pY);                                                // 0x00643290
+
+// 0x004DA350
+void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit)
+{
+    D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pUnit);
+    if (!pMotion || pMotion->dwFlags & 1)
+    {
+        return;
+    }
+
+    pMotion->tA.nX += pMotion->tB.nX;
+    pMotion->tB.nX += pMotion->tD.nX;
+    pMotion->tA.nY += pMotion->tB.nY;
+    pMotion->tB.nY += pMotion->tD.nY;
+    pMotion->tA.nZ += pMotion->tB.nZ;
+    pMotion->tB.nZ += pMotion->tD.nZ;
+    int* pX = &pMotion->tA.nX;
+    int* pY = &pMotion->tA.nY;
+
+    if (pMotion->dwFlags & 2)
+    {
+        if (pMotion->nFrames)
+        {
+            --pMotion->nFrames;
+        }
+        else
+        {
+            pMotion->dwFlags |= 1;
+            pMotion->tA.nX = 0;
+            pMotion->tA.nY = 0;
+        }
+    }
+
+    unsigned int dwFlags = pMotion->dwFlags;
+    if (dwFlags & 4)
+    {
+        if ((pMotion->tA.nZ >> 11) <= pMotion->tC.nZ)
+        {
+            pMotion->tB.nZ = pMotion->nParam1 * pMotion->tB.nZ / -100;
+            pMotion->tA.nZ = pMotion->tC.nZ;
+            if (pMotion->nParam0)
+            {
+                --pMotion->nParam0;
+            }
+            else
+            {
+                pMotion->dwFlags = dwFlags | 1;
+            }
+        }
+    }
+    else if (dwFlags & 0x10)
+    {
+        D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pUnit);
+        if (pOwner)
+        {
+            int nOffsetX = 0;
+            int nOffsetY = 0;
+            int nComponent = 8;
+            switch (!pUnit ? 6 : pUnit->dwUnitType)
+            {
+            case UNIT_MISSILE:
+                D2_ASSERT(pOwner->dwUnitType == UNIT_MONSTER, 425);
+                if (!pOwner->dwAnimMode || pOwner->dwAnimMode == MONMODE_DEAD)
+                {
+                    return;
+                }
+            case UNIT_MONSTER:
+                nComponent = 14;
+                break;
+            }
+
+            GFX_GetUnitCelOffsets(pOwner, nComponent, &nOffsetX, &nOffsetY);
+            pMotion->nClientX = nOffsetX;
+            pMotion->nClientZ = nOffsetY;
+            if (pUnit && pUnit->dwUnitType == UNIT_MISSILE)
+            {
+                pMotion->nClientZ += 10;
+            }
+            pMotion->nClientX += PARTICLE_GetGfxOffsetX(pOwner);
+            pMotion->nClientZ += sub_004DA0F0_GetUnitGfxOffsetZ(pOwner);
+            pMotion->tA.nX = pMotion->nClientX;
+            pMotion->tA.nY = pMotion->nClientY;
+            DUNGEON_ClientToGameSubtileCoords(pX, pY);
+            pMotion->tA.nZ = -(pMotion->nClientZ << 11);
+        }
+    }
+    else if (!(dwFlags & 0x20) && (pMotion->tA.nX >> 11) <= pMotion->tC.nX && (pMotion->tA.nY >> 11) <= pMotion->tC.nY && (pMotion->tA.nZ >> 11) <= pMotion->tC.nZ)
+    {
+        pMotion->tA.nX = pMotion->tC.nX << 11;
+        pMotion->tA.nY = pMotion->tC.nY << 11;
+        pMotion->tA.nZ = pMotion->tC.nZ << 11;
+        pMotion->dwFlags = dwFlags | 1;
+    }
+    else if ((dwFlags & 0x20) && (pMotion->tA.nX >> 11) >= pMotion->tC.nX && (pMotion->tA.nY >> 11) >= pMotion->tC.nY && (pMotion->tA.nZ >> 11) >= pMotion->tC.nZ)
+    {
+        pMotion->tA.nX = pMotion->tC.nX << 11;
+        pMotion->tA.nY = pMotion->tC.nY << 11;
+        pMotion->tA.nZ = pMotion->tC.nZ << 11;
+        pMotion->dwFlags = dwFlags | 1;
+    }
+
+    if (!(pMotion->dwFlags & 0x10))
+    {
+        pMotion->nClientX = pMotion->tA.nX >> 11;
+        pMotion->nClientY = pMotion->tA.nY >> 11;
+        DUNGEON_GameToClientCoords(&pMotion->nClientX, &pMotion->nClientY);
+        pMotion->nClientZ = -(pMotion->tA.nZ >> 11);
+    }
+}
+
 // 0x004DA620
 void __fastcall sub_004DA620_SetMotionFlag10(D2UnitStrc* pUnit, int bSet)
 {
@@ -741,6 +857,16 @@ void __fastcall sub_004DA620_SetMotionFlag10(D2UnitStrc* pUnit, int bSet)
         else
             pMotion->dwFlags &= ~0x10;
     }
+}
+
+// 0x004DB1A0
+unsigned char __fastcall MISSILE_GetGfxEntryByte(D2UnitStrc* pUnit, int nIndex)
+{
+    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
+    if (!pGfxData)
+        return 0;
+    const D2GfxEntryStrc* pEntries = (const D2GfxEntryStrc*)pGfxData;
+    return pEntries[nIndex].nValue;
 }
 
 // 0x004DBEA0
@@ -780,6 +906,12 @@ int __fastcall GFXUTIL_HitTestUnitCel(D2UnitStrc* pUnit, int nX, int nY)
         }
     }
     return 0;
+}
+
+// 0x004DBFE0
+void __cdecl MISSILE_StartFadeTimer()
+{
+    gdwFadeTick = GetTickCount() + 500;
 }
 
 // 0x004DC000
@@ -983,6 +1115,88 @@ int __fastcall sub_004E0C60_CltDoResetActionFrame(D2UnitStrc* pUnit, int nSkillI
         pUnit->dwSeqSpeed = 0;
     }
 
+    return 1;
+}
+
+extern const unsigned char gabFrameDirections[8][9]; // 0x006DBA08
+
+extern const unsigned char gabBaseDirections[8]; // 0x006DBA50
+
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
+
+int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
+
+int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
+
+D2UnitStrc* __fastcall MISSILE_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
+
+unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char nIndex); // 0x0063E7A0
+
+inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+
+    return 0;
+}
+
+// 0x004E0D40
+int __fastcall PLRSKILLS_SkillDoFrameOffset(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    int nMissile = pSkillsTxtRecord->wCltMissileA;
+    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    int nX = SKILLS_GetParam1(pSkill);
+    int nY = SKILLS_GetParam2(pSkill);
+    if ((!nX || !nY) && !ITEM_GetTargetPosition(pUnit, &nX, &nY))
+    {
+        return 0;
+    }
+
+    unsigned char nDirection = (unsigned char)UNITS_GetDirectionToCoords(pUnit, nX, nY);
+    unsigned char nIndex = INVENTORY_GetEightWayDirection(nDirection) & 7;
+    nX = CLIENTS_GetUnitX(pUnit);
+    nY = CLIENTS_GetUnitY(pUnit);
+
+    int nOffsetX;
+    int nOffsetY;
+    INVENTORY_GetDirectionDelta(gabBaseDirections[nIndex], &nOffsetX, &nOffsetY);
+    nX += nOffsetX;
+    nY += nOffsetY;
+
+    int nFrame;
+    int nFrameCount;
+    UNITS_GetShiftedFrameMetrics(pUnit, &nFrame, &nFrameCount);
+    nFrame -= 4;
+    int nClamp = nFrame > 0 ? nFrame : 0;
+    nFrame = nClamp < 8 ? nClamp : 8;
+
+    unsigned char nDir = gabFrameDirections[nIndex][nFrame];
+    if (nDir != 99)
+    {
+        INVENTORY_GetDirectionDelta(nDir, &nOffsetX, &nOffsetY);
+        nX += nOffsetX;
+        nY += nOffsetY;
+    }
+
+    MISSILE_SubmitOwnerRequest(pUnit, nMissile, nX, nY, nSkillId, nSkillLevel);
     return 1;
 }
 

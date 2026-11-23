@@ -240,6 +240,34 @@ int __fastcall sub_004B9D50_GetPosition(int nKey)
     return 0;
 }
 
+struct D2Vector3FStrc;
+
+struct D2Vector3FStrc
+{
+    float fX;
+    float fY;
+    float fZ;
+};
+
+// 0x004B9E10
+int __fastcall MONSTER_IsNearPlayer(D2UnitStrc* pUnit)
+{
+    D2Vector3FStrc tDelta;
+    D2CoordStrc tPlayerCoords;
+    D2CoordStrc tUnitCoords;
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    UNITS_GetClientCoords(pPlayer, &tPlayerCoords);
+    UNITS_GetClientCoords(pUnit, &tUnitCoords);
+    tDelta.fX = tUnitCoords.nX - tPlayerCoords.nX;
+    tDelta.fY = (tUnitCoords.nY - tPlayerCoords.nY) * 2.0f;
+    if (GFXUTIL_VectorLengthSquared(tDelta.fX, tDelta.fY) <= 490000.0)
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
 // 0x004B9EF0
 void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount)
 {

@@ -380,7 +380,7 @@ extern float gfOsVersion; // 0x0074D894
 
 void __cdecl LOGMANAGER_LogWritePrefixedNoNewline(const char* szPrefix, const char* szFormat, ...); // 0x004106B0
 
-void __cdecl MAINMENUS_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410740
+void __cdecl LOGMANAGER_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410740
 
 extern "C" const char gszPercentS_006FFC58[]; // 0x006FFC58
 
@@ -948,7 +948,7 @@ int __cdecl sub_0040D5B0_LoadImageHlp(); // 0x0040D5B0
 
 void __cdecl EXCEPTIONS_InitLogSystem(); // 0x00410540
 
-int __cdecl sub_00410960_IsPlatformNT(); // 0x00410960
+int __cdecl SYSTEM_IsPlatformNT(); // 0x00410960
 
 void __cdecl SYSTEM_InitTimeBase(); // 0x004109D0
 
@@ -1349,7 +1349,7 @@ void __fastcall FOG_InitErrorMgr(const char* szProgramName, const char* szVersio
     {
         SStrCopy(gszVersion, szVersion, 0x1000);
     }
-    gbIsPlatformNT = sub_00410960_IsPlatformNT();
+    gbIsPlatformNT = SYSTEM_IsPlatformNT();
     InitializeCriticalSection(&gtLock_0074C830);
     InitializeCriticalSection(&gtLock_0074D848);
     gbErrorMgrInit = 1;

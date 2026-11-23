@@ -1,18 +1,45 @@
 #include "D2Win.h"
+
+#include "D2Win32Types.h"
+
+#include "D2Records.h"
+
+#include "D2CmpTypes.h"
+
+#include "D2ItemTypes.h"
+
+#include "D2Txt.h"
+
+#include "D2StormTypes.h"
+
+#include "D2TxtTables.h"
+
 #include "D2WinTypes.h"
+
 #include "D2WinControls.h"
+
 #include "D2Unicode.h"
+
 #include "D2WinControls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 struct D2WinControlStrc;
+
 struct D2UnitStrc;
+
 struct Unicode;
+
 struct D2WinListDataStrc;
+
 struct D2WinListStrc;
+
 struct D2WinAccountListDataStrc;
+
 struct D2WinAccountListStrc;
+
 struct D2ViewStrc;
+
 struct D2WinListInitStrc;
 
 enum D2ControlTypes
@@ -43,6 +70,7 @@ struct D2WinListDataStrc
 };
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 struct D2ViewStrc
@@ -51,30 +79,55 @@ struct D2ViewStrc
     int nPosX;
     int nPosY;
 };
+
 extern unsigned char gabBeltHotkey[]; // 0x007BEFB0
+
 extern int gnBeltBox; // 0x0072235C
+
 extern int gnBeltRectX; // 0x00722360
+
 extern int gnBeltRectY; // 0x00722364
+
 extern int gnBeltHover; // 0x007BEF94
+
 extern D2UnitStrc* gpBeltItemA; // 0x007BEFA8
+
 extern int gpBeltItemB; // 0x007BEFAC
+
 extern int gnPetIconPopupState; // 0x007BEECC
+
 extern unsigned char gnLifeColorHigh; // 0x007BEED0
+
 extern unsigned char gnLifeColorMid; // 0x007BEED1
+
 extern unsigned char gnLifeColorLow; // 0x007BEED2
+
 extern unsigned char gbLifeColorsInit; // 0x007BEED3
+
 extern unsigned char gnTextColorRed; // 0x007BEFBA
+
 extern unsigned char gabBeltColors[4]; // 0x007BEF6C
+
 extern int gnHoverTopX; // 0x00721E3C
+
 extern int gnHoverTopY; // 0x00721E40
+
 extern int gnHoverBottomX; // 0x00721E44
+
 extern int gnHoverBottomY; // 0x00721E48
+
 extern int gnHoverCellX; // 0x00721E4C
+
 extern int gnHoverCellY; // 0x00721E50
+
 extern int gbHoverInGrid; // 0x007BCBE4
+
 extern int gbHoverInBodyLoc; // 0x007BCBE8
+
 extern int gnInvPanelMode; // 0x007BCBF0
+
 extern D2UnitStrc* gpHoverItem; // 0x007BCBF4
+
 extern int gpLastHoverItem; // 0x007BCBF8
 
 enum D2FontTypes
@@ -92,16 +145,27 @@ struct D2WinListInitStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl); // 0x004F9210
+
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
+
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
+
 int __fastcall LIST_Draw(D2WinControlStrc* pControl); // 0x00507160
+
 int __stdcall LIST_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg); // 0x005072F0
+
 int __stdcall LIST_HandleCharInput(SMSGHANDLER_PARAMS* pMsg); // 0x005073B0
+
 int __stdcall LIST_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg); // 0x00507420
+
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
+
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
+
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+
 extern int ganListFontHeight[]; // 0x006DD024
 
 int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl);                                           // 0x004F9310
@@ -161,6 +225,48 @@ int __fastcall D2Win_10141(D2WinListStrc* ptListData)
     return ptListData->field_50;
 }
 
+extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
+
+extern tagPOINT gtMousePosition; // 0x007D55A4
+
+unsigned long gdwListLastClickTick; // 0x0087E970
+
+// 0x005072F0
+int __stdcall LIST_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
+{
+    D2WinListStrc* pList = (D2WinListStrc*)pMsg->hWnd;
+    D2_ASSERT(pList->controlHeader.eType == D2WIN_LIST, 0x154);
+    const int nX = gtMousePosition.x;
+    const int nY = gtMousePosition.y;
+    const unsigned long dwTickCount = GetTickCount();
+    for (D2WinListDataStrc* pData = pList->pDataList; pData; pData = pData->pNext)
+    {
+        if (nX > pData->field_208 && nX < pData->field_20C && nY > pData->field_210 && nY < pData->field_214)
+        {
+            if (pData != pList->pSelectedDataEntry || dwTickCount - gdwListLastClickTick >= 300)
+                pList->pSelectedDataEntry = pData;
+            else if (pData->field_204)
+                return pData->field_204(pMsg);
+        }
+    }
+    gdwListLastClickTick = dwTickCount;
+    if (pList->controlHeader.field_34)
+        return pList->controlHeader.field_34(pMsg);
+    return 0;
+}
+
+// 0x005073B0
+int __stdcall LIST_HandleCharInput(SMSGHANDLER_PARAMS* pMsg)
+{
+    D2WinListStrc* pList = (D2WinListStrc*)pMsg->hWnd;
+    D2_ASSERT(pList->controlHeader.eType == D2WIN_LIST, 0x179);
+    for (D2WinListDataStrc* pData = pList->pDataList; pData; pData = pData->pNext)
+    {
+        if (pData->field_218 == (char)pMsg->wParam && pData->field_204)
+            return pData->field_204(pMsg);
+    }
+    return 0;
+}
 
 // 0x005079C0
 int __fastcall ACCOUNTLIST_GetTextFromSelectedEntry(D2WinAccountListStrc* ptListData, char* szBuffer)

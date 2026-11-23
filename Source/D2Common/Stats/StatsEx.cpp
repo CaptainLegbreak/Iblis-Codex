@@ -1,5 +1,15 @@
 #include "D2StateIds.h"
 
+#include "D2Path.h"
+
+#include "D2Records.h"
+
+#include "D2TxtItems.h"
+
+#include "D2TxtTables.h"
+
+#include "D2Unicode.h"
+
 #include "D2Common.h"
 
 #include "D2Structs.h"
@@ -784,6 +794,29 @@ int __stdcall STATLIST_GetBaseStatValueByLayer(D2StatListStrc* pStatList, int nS
     return STATLIST_GetBaseStatValue(pStatList, nStatId, nLayer);
 }
 
+// 0x006254F0
+int __stdcall STATLIST_GetTotalStatValueStub(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
+{
+    return STATLIST_GetTotalStatValue(pStatList, nStatId, nLayer);
+}
+
+// 0x00625500
+int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer)
+{
+    return STATLIST_GetTotalStatValue(pUnit->pStatListEx, nStatId, nLayer);
+}
+
+// 0x00625520
+int __stdcall STATLIST_GetStatBonus(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
+{
+    if (!pStatList)
+    {
+        return 0;
+    }
+
+    return STATLIST_GetTotalStatValue(pStatList, nStatId, nLayer) - STATLIST_GetBaseStatValue(pStatList, nStatId, nLayer);
+}
+
 // 0x006255A0
 int __stdcall STATLIST_GetStatValueWithPercent(D2StatListStrc* pStatList, int nStatId, int nPercentStatId, int bAddBonus)
 {
@@ -1156,6 +1189,12 @@ int __stdcall D2COMMON_10530_D2CheckStatlistFlagDMGRed(D2UnitStrc* pUnit)
     }
 
     return (pStatListEx->dwFlags & STATLIST_UNK_0x100) != 0;
+}
+
+// 0x00625A50
+int __stdcall STATLIST_GetTotalStatValue_Layer0(D2StatListStrc* pStatListEx, int nStatId)
+{
+    return STATLIST_GetTotalStatValue(pStatListEx, nStatId, 0);
 }
 
 // 0x00625A70
@@ -1578,10 +1617,22 @@ extern "C" __declspec(dllexport) void __stdcall STATLIST_SetListExpireFrame(Obj0
     }
 }
 
+// 0x006260D0
+void __stdcall STATLIST_SetSkillId(D2StatListStrc* pStatList, int nSkillId)
+{
+    pStatList->dwSkillNo = nSkillId;
+}
+
 // 0x006260E0
 D2SkillStrc* __stdcall STATLIST_GetSkillId(D2StatListStrc* pStatList)
 {
     return pStatList->pSkill;
+}
+
+// 0x006260F0
+void __stdcall STATLIST_SetSkillLevel(D2StatListStrc* pStatList, int nSkillLevel)
+{
+    pStatList->dwSLvl = nSkillLevel;
 }
 
 // 0x00626100

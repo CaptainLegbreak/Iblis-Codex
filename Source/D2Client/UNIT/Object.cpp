@@ -291,33 +291,8 @@ extern "C" __declspec(dllexport) void __fastcall OBJECT_SetUnitFlag(Obj00457460*
     }
 }
 
-// 0x00457750
-int __fastcall OBJECT_SaveAutomapCenters(int nValue)
-{
-    SRegSaveValue("Diablo II", "AutoMap Centers", 0, nValue);
-// build: symbol ?gbAutomapCenter@* 0x007113E0
-    gbAutomapCenter = nValue;
-    return nValue;
-}
 
-// 0x00457780
-int __fastcall OBJECT_SaveAutomapLeft(int nValue)
-{
-    SRegSaveValue("Diablo II", "AutoMap Left", 0, nValue);
-    gbAutomapLeftPrev = nValue;
-    gbAutomapLeftSaved = nValue;
-    gbAutomapLeft = nValue;
-    return nValue;
-}
 
-// 0x004577C0
-int __fastcall OBJECT_SaveAutomapParty(int nValue)
-{
-    SRegSaveValue("Diablo II", "AutoMap Party", 0, nValue);
-// build: symbol ?gbAutomapParty@* 0x007113E4
-    gbAutomapParty = nValue;
-    return nValue;
-}
 
 // 0x004577F0
 int __fastcall OBJECT_SaveAutomapPartyNames(int nValue)

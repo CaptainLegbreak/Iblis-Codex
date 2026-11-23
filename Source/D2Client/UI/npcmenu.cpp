@@ -1009,6 +1009,137 @@ void __fastcall NPCMENU_StateOverlayCross(D2UnitStrc* pUnit, int nState, int bFl
     sub_004B9A00(0x99A, pUnit, 0, 0, 0);
 }
 
+void __fastcall sub_0046B3C0_UnitRequest25A(D2UnitStrc* pUnit);                                             // 0x0046B3C0
+
+void __fastcall sub_0046B530_SpawnMissileAtObject(D2UnitStrc* pUnit);                                       // 0x0046B530
+
+void __fastcall VIEW_SpawnBrDeathControl(D2UnitStrc* pUnit);                                           // 0x0046B680
+
+void __fastcall sub_0046B710_SpawnMissileAtObject173(D2UnitStrc* pUnit);                                                            // 0x0046B710
+
+void __fastcall sub_0046B850_SpawnMissileAtObject182(D2UnitStrc* pUnit);                                                            // 0x0046B850
+
+void __fastcall VIEW_SpawnMephistoDeath(D2UnitStrc* pUnit);                                          // 0x0046B9A0
+
+void __fastcall VIEW_SpawnAndarielDeath(D2UnitStrc* pUnit);                                               // 0x0046BA50
+
+void __fastcall sub_0046BA90_PlayerRequestAtUnit15B(D2UnitStrc* pUnit);                                     // 0x0046BA90
+
+void __fastcall sub_0046BB10_PlayerRequestAtUnit161(D2UnitStrc* pUnit);                                     // 0x0046BB10
+
+void __fastcall sub_0046BB90_PlayerRequestAtUnit16B(D2UnitStrc* pUnit);                                     // 0x0046BB90
+
+void __fastcall VIEW_SpawnIzualDeath(D2UnitStrc* pUnit);                                             // 0x0046BC10
+
+int __fastcall UI_SetTimerUnitId(D2UnitStrc* pUnit);                                              // 0x0046BC70
+
+void __fastcall sub_0046BC90_RequestAtMonster220(D2UnitStrc* pUnit);                                        // 0x0046BC90
+
+// 0x004AD2F0
+void __fastcall MONUNIQUE_HandleUnitClassEvent(D2UnitStrc* pUnit, int nUnused, int nUnused2)
+{
+    if (!pUnit)
+    {
+        return;
+    }
+
+    switch ((unsigned int)pUnit->dwClassId)
+    {
+    case 0x9C:
+        if (pUnit->dwAnimMode == 0)
+        {
+            VIEW_SpawnAndarielDeath(pUnit);
+        }
+        break;
+
+    case 0x2D:
+        if (pUnit->dwAnimMode == 0)
+        {
+            sub_0046B710_SpawnMissileAtObject173(pUnit);
+        }
+        break;
+
+    case 0xE5:
+        if (pUnit->dwAnimMode == 0)
+        {
+            sub_0046BA90_PlayerRequestAtUnit15B(pUnit);
+        }
+        break;
+
+    case 0xD3:
+        if (pUnit->dwAnimMode == 0)
+        {
+            sub_0046BB90_PlayerRequestAtUnit16B(pUnit);
+        }
+        break;
+
+    case 0xF2:
+        if (pUnit->dwAnimMode == 0)
+        {
+            VIEW_SpawnMephistoDeath(pUnit);
+        }
+        break;
+
+    case 0xF3:
+        if (pUnit->dwAnimMode == 0)
+        {
+            UI_SetTimerUnitId(pUnit);
+        }
+        break;
+
+    case 0x100:
+        if (pUnit->dwAnimMode == 0)
+        {
+            VIEW_SpawnIzualDeath(pUnit);
+        }
+        break;
+
+    case 0x16E:
+        if (pUnit->dwAnimMode == 0)
+        {
+            sub_0046B850_SpawnMissileAtObject182(pUnit);
+        }
+        break;
+
+    case 0x11C:
+        if (pUnit->dwAnimMode == 0x0E)
+        {
+            sub_0046BB10_PlayerRequestAtUnit161(pUnit);
+        }
+        break;
+
+    case 0x10B:
+        if (pUnit->dwAnimMode == 0)
+        {
+            VIEW_SpawnBrDeathControl(pUnit);
+        }
+        break;
+
+    case 0x1DF:
+        if (pUnit->dwAnimMode == 0)
+        {
+            sub_0046B3C0_UnitRequest25A(pUnit);
+        }
+        break;
+
+    case 0x220:
+        if (pUnit->dwAnimMode == 0)
+        {
+            sub_0046BC90_RequestAtMonster220(pUnit);
+        }
+        break;
+
+    case 0x21C:
+    case 0x21D:
+    case 0x21E:
+        if (pUnit->dwAnimMode == 0)
+        {
+            sub_0046B530_SpawnMissileAtObject(pUnit);
+        }
+        break;
+    }
+}
+
 // 0x004AD510
 void __fastcall NPCMENU_StateStartEffect(D2UnitStrc* pUnit, int nState, int bFlag)
 {
@@ -1417,6 +1548,13 @@ static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int n
     return SEED_RollRandomNumber(pSeed) & (nMax - 1);
 }
 
+// 0x004B1670
+int __cdecl MONSTER_GetUseItemMode()
+{
+// build: symbol ?gnInteractNpcClassId@* 0x007C0D2D
+    return gnInteractNpcClassId;
+}
+
 // 0x004B1680
 void __stdcall sub_004B1680(D2NpcEntryStrc* pEntry)
 {
@@ -1518,6 +1656,12 @@ int __fastcall NPCMENU_NpcMessageCallback(void* pContext, int nArg, int nValue)
     TEXT_SetTextCallback(0, pContext);
     sub_004B5BC0_SelectNpcEntry();
     return 1;
+}
+
+// 0x004B1970
+void __cdecl MONSTER_ResetUsedStrings()
+{
+    gtStringList.wCount = 0;
 }
 
 // 0x004B1980
@@ -1769,6 +1913,12 @@ static int NPCMENU_ItemNeedsRepair(D2UnitStrc* pItem)
     int bHasChargedSkills;
     if (ITEMS_HasUsedCharges(pItem, &bHasChargedSkills) && !bHasChargedSkills)
         return 1;
+    return 0;
+}
+
+// 0x004B2010
+int __cdecl sub_004B2010()
+{
     return 0;
 }
 
@@ -2617,6 +2767,12 @@ int __cdecl NPCMENU_IsAnyDialogOpen()
     }
 
     return 0;
+}
+
+// 0x004B3500
+int __cdecl MONSTER_IsGambleShop()
+{
+    return gbGambleShop;
 }
 
 // 0x004B3510

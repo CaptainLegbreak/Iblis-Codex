@@ -1401,6 +1401,56 @@ int __stdcall sub_004C6020_AlwaysOne(int nArg)
     return 1;
 }
 
+struct D2CellNodeStrc;
+
+struct D2SlotObjectStrc;
+
+struct D2GridCellStrc;
+
+void __fastcall sub_004E4050_Nothing(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x004E4050
+
+int __stdcall D2COMMON_11039_CheckWeaponIsMissileBased(D2UnitStrc* pUnit, int* pValue); // 0x00645F00
+
+struct D2GridCellStrc
+{
+    int unk0x00[4];
+    D2CellNodeStrc* pNodes;
+    int f_14;
+    int unk0x18[3];
+};
+
+struct D2SlotObjectStrc
+{
+    char unk0x00[0x04];
+    int f_4;
+    char unk0x08[0x2C];
+    unsigned int nKey;
+};
+
+// 0x004C6030
+int __fastcall ITEM_UseBowOrCallTarget(D2UnitStrc* pUnit, int nArg2, int nArg3)
+{
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x40;
+    }
+
+    if (COMPOSIT_IsWeaponBowOrXBow(pUnit))
+    {
+        const int nValue = D2COMMON_11039_CheckWeaponIsMissileBased(pUnit, &nArg3);
+        if (nValue != -1)
+        {
+            AUTOMAP_RequestAtTarget(pUnit, nValue, nArg2, nArg3);
+        }
+    }
+    else
+    {
+        sub_004E4050_Nothing(pUnit, CUNIT_GetPathTargetUnit(pUnit));
+    }
+
+    return 1;
+}
+
 // 0x004C60A0
 int __fastcall SKILLS_ThrowWeapon(D2UnitStrc* pUnit, int nSkillId, int nArg)
 {
@@ -2628,6 +2678,25 @@ void __fastcall SKILLS_ApplyClientSkillCalc(D2UnitStrc* pUnit, int nValue)
     }
 }
 
+extern void* gpfnClientStateEvents[2]; // 0x00727DB4
+
+int __fastcall sub_004DC110(void* pArg1, int nArg2, int nArg3, int nArg4, void* pfnCallback, int nArg6, int nArg7); // 0x004DC110
+
+// 0x004C7C40
+int __fastcall ITEM_CallClientStateEvent(void* pArg1, int nArg2, int nArg3, int nArg4, unsigned int nIndex, int nArg6, int nArg7)
+{
+    if (nIndex <= 1)
+    {
+        void* pfnCallback = gpfnClientStateEvents[nIndex];
+        if (pfnCallback)
+        {
+            return sub_004DC110(pArg1, nArg2, nArg3, nArg4, pfnCallback, nArg6, nArg7);
+        }
+    }
+
+    return 0;
+}
+
 // 0x004C7C90
 int __fastcall sub_004C7C90_TestTarget11018(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -2655,6 +2724,29 @@ int __fastcall SKILLS_BurstTargetCorpse(D2UnitStrc* pUnit, int nSkillId, int nSk
     }
 
     sub_004AF890(pTarget, 5, 0);
+    return 1;
+}
+
+inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+
+    return 0;
+}
+
+// 0x004C7CF0
+int __fastcall ITEM_EvaluateClientSkillCalc(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    SKILLS_ApplyClientSkillCalc(pUnit, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCltCalc[0], nSkillId, nSkillLevel));
     return 1;
 }
 
@@ -2853,6 +2945,109 @@ int __fastcall SKILLS_SpawnPairAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSk
     return 0;
 }
 
+int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
+
+int __stdcall D2Common_11025(int nX1, int nY1, int nX2, int nY2, D2ActiveRoomStrc* pRoom, int nMask); // 0x00645910
+
+int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit); // 0x00649180
+
+int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
+
+inline int UNITS_GetXInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+inline int UNITS_GetYInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+// 0x004C80D0
+static int __stdcall sub_004C80D0_AdjustTargetPosition(int nSkillId, D2UnitStrc* pUnit, int nSkillLevel, int* pX, int* pY)
+{
+    D2SkillsTxt* pSkillsTxt = (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
+    if (!pSkillsTxt)
+        return 0;
+
+    const int nUnitX = UNITS_GetXInline(pUnit);
+    const int nUnitY = UNITS_GetYInline(pUnit);
+    const int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwAuraRangeCalc, nSkillId, nSkillLevel);
+    int nDistance = sub_006417F0_GetDistanceToXY(pUnit, *pX, *pY);
+    if (nDistance <= 1)
+        nDistance = 1;
+    if (nDistance > nRange)
+    {
+        const int nDeltaX = *pX - nUnitX;
+        const int nDeltaY = *pY - nUnitY;
+        *pX = nUnitX + nDeltaX * nRange / nDistance;
+        *pY = nUnitY + nDeltaY * nRange / nDistance;
+    }
+
+    nSkillLevel = *pY - nUnitY;
+    nSkillLevel = D2_MIN(D2_MAX(nSkillLevel, -2), 2);
+    int nOffsetY = nUnitX - *pX;
+    nOffsetY = D2_MIN(D2_MAX(nOffsetY, -2), 2);
+
+    D2CoordStrc tCoord;
+    tCoord.nX = *pX;
+    tCoord.nY = *pY;
+    int nTries = 3;
+    while (nTries)
+    {
+        D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), tCoord.nX, tCoord.nY);
+        pRoom = COLLISION_GetFreeCoordinates(pRoom, &tCoord, UNITS_GetUnitSizeX(pUnit), 0x1C09, 1);
+        const int nAdjustedX = tCoord.nX;
+        const int nAdjustedY = tCoord.nY;
+        if (pRoom
+            && !COLLISION_CheckAnyCollisionWithPattern(pRoom, nAdjustedX, nAdjustedY, PATH_GetUnitCollisionPattern(pUnit), 0x1C09)
+            && D2Common_11025(nUnitX, nUnitY, nAdjustedX, nAdjustedY, pRoom, 0x804)
+            && sub_006417F0_GetDistanceToXY(pUnit, nAdjustedX, nAdjustedY) <= nRange)
+        {
+            *pX = nAdjustedX;
+            *pY = nAdjustedY;
+            return 1;
+        }
+
+        --nTries;
+        if (nTries == 2)
+        {
+            tCoord.nX = *pX + nSkillLevel;
+            tCoord.nY = *pY + nOffsetY;
+        }
+        else if (nTries == 1)
+        {
+            tCoord.nX = *pX - nSkillLevel;
+            tCoord.nY = *pY - nOffsetY;
+        }
+    }
+
+    if (pUnit->dwUnitType == UNIT_PLAYER)
+        UNITSND_PlayPlayerSpeech(pUnit, 19);
+    return 0;
+}
+
+int __fastcall sub_004C80D0_EmitTargetPosition(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int* pX, int* pY)
+{
+    return sub_004C80D0_AdjustTargetPosition(nSkillId, pUnit, nSkillLevel, pX, pY);
+}
+
 // 0x004C8670
 void __fastcall SKILLS_SetLobVelocity(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
@@ -2966,6 +3161,64 @@ void __stdcall sub_0064A710(D2UnitStrc*,int); // 0x0064A710
 
 void __stdcall sub_0064A760(D2UnitStrc*,int); // 0x0064A760
 
+void __stdcall PATH_SetType(D2DynamicPathStrc* pPath, int nType); // 0x00648CF0
+
+int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
+
+// 0x004C95E0
+int __fastcall MISSILE_SkillStartAtTargetPos(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    if (!SKILLS_GetSkillsTxtRecord(nSkillId))
+    {
+        return 0;
+    }
+
+    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
+    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x40;
+    }
+
+    int nX;
+    int nY;
+    if (!ITEM_GetTargetPosition(pUnit, &nX, &nY))
+    {
+        return 0;
+    }
+
+    D2MissileStrc tMissileParams;
+    memset(&tMissileParams, 0, sizeof(tMissileParams));
+    tMissileParams.dwFlags = 0x20;
+    tMissileParams.pOwner = pUnit;
+    tMissileParams.pOrigin = pUnit;
+    tMissileParams.nTargetX = nX;
+    tMissileParams.nTargetY = nY;
+    tMissileParams.nSkill = nSkillId;
+    tMissileParams.nSkillLevel = nSkillLevel;
+    tMissileParams.nMissile = nMissile;
+
+    D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
+    if (!pMissile)
+    {
+        return 0;
+    }
+
+    D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
+    if (!pPath)
+    {
+        return 0;
+    }
+
+    PATH_SetType(pPath, 0xE);
+    D2Common_10142(pPath, pMissile, 0);
+    return 1;
+}
+
 // 0x004C96D0
 int __fastcall sub_004C96D0(D2UnitStrc* pUnit,int nSkillId,int nSkillLevel)
 {
@@ -2989,6 +3242,14 @@ int __fastcall sub_004C96D0(D2UnitStrc* pUnit,int nSkillId,int nSkillLevel)
  sub_0064A710(pMissile,!pTarget ? 6 : pTarget->dwUnitType);
  sub_0064A760(pMissile,!pTarget ? -1 : pTarget->dwUnitId);
  return 1;
+}
+
+unsigned int gdwNextTick; // 0x007C78B0
+
+// 0x004C9D50
+static inline D2UnitStrc* sub_004C9D50_FindDestinationById(D2UnitStrc* pUnit, int nUnitId)
+{
+    return sub_004C5EB0_FindDestination(pUnit, 0, 0, 3, 3, nUnitId, 0);
 }
 
 // 0x004C9D70
@@ -3136,6 +3397,23 @@ void __fastcall SKILLS_EndCharge(D2UnitStrc* pUnit, int nSkillId)
     STATES_ToggleState(pUnit, 0x36, 0);
 }
 
+// 0x004CA030
+int __fastcall sub_004CA030_TickEvent(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    const unsigned int nTick = sub_0044DA90();
+    if (nTick > gdwNextTick)
+    {
+        gdwNextTick = nTick + 5;
+        sub_004AF890(pUnit, 1, 0);
+    }
+    return 1;
+}
+
+D2UnitStrc* __fastcall sub_M109_Emit_004C9D50(D2UnitStrc* pUnit, int nUnitId)
+{
+    return sub_004C9D50_FindDestinationById(pUnit, nUnitId + 1);
+}
+
 // 0x004CA200
 int __fastcall SKILLS_TriggerSkillOnUnit(void* pArg1, int nArg2, int nArg3, int nArg4, int nArg5)
 {
@@ -3154,6 +3432,12 @@ int __fastcall SKILLS_DoSkillAtPosition(void* pArg1, int nArg2, int nArg3, int n
         return MISSILE_DoSkillWithTempTarget(pArg1, nArg2, nArg3, 0, nArg4, nArg5, nArg6);
     }
     return 0;
+}
+
+// 0x004CA270
+int __cdecl sub_004CA270_GetLevelsTxtRecordCount()
+{
+    return sgptDataTables->nLevelsTxtRecordCount;
 }
 
 // 0x004CA280

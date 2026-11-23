@@ -132,7 +132,7 @@ struct D2DataTablesStrc
     short* pActionStates; // 0x184
     short nActionStates; // 0x188
     unsigned char unk0x18A[0x2]; // 0x18A
-    unsigned short* pColourStates; // 0x18C
+    short* pColourStates; // 0x18C
     short nColourStates; // 0x190
     unsigned char unk0x192[0x6]; // 0x192
     D2TxtLinkStrc* pSoundsLinker; // 0x198
