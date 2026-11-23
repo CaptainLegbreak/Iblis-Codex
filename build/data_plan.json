@@ -236,18 +236,9 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Fog/Unknown_0040EB30.cpp": {
-   "bytes": 28,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Fog/Unknown_0040EB30.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/Fog/Src/LogManager.cpp": {
-   "bytes": 56,
-   "definitions": 5,
+   "bytes": 84,
+   "definitions": 6,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Fog/Src/LogManager_0040F070.inc",
@@ -8116,7 +8107,7 @@
    "cname": "gData_00708124",
    "declared": true,
    "decorated": "_gszLogMessageTypeName",
-   "file": "Source/Fog/Unknown_0040EB30.cpp",
+   "file": "Source/Fog/Src/LogManager.cpp",
    "fill": 28,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_00708124[28]; // 0x00708124",
