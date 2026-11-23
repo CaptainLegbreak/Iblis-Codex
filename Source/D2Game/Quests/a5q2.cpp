@@ -6,6 +6,7 @@
 #include "D2GameTypes.h"
 #include "D2UnitData.h"
 #include "D2QuestData.h"
+#include "D2Packets.h"
 
 #define QFLAG_REWARDGRANTED 0
 
@@ -39,7 +40,6 @@ struct D2QuestGUIDStrc;
 
 struct D2Act5Quest2Strc;
 
-struct D2GSPacketSrv5D;
 
 struct D2Act1Quest1Strc;
 
@@ -57,14 +57,6 @@ struct D2ActiveRoomStrc;
 
 typedef int (__stdcall* FARPROC)();
 
-struct D2GSPacketSrv5D
-{
-    unsigned char nHeader;
-    unsigned char nQuestId;
-    unsigned char nFlags;
-    unsigned char nState;
-    unsigned short field_4;
-};
 
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
@@ -204,7 +196,6 @@ struct D2ActiveRoomUnitsStrc
 };
 
 typedef int (__fastcall* QUESTUNITITERATEFN)(D2GameStrc*, D2UnitStrc*, void*);
-
 
 
 static inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)

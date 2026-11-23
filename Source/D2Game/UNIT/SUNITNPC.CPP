@@ -17,6 +17,7 @@
 #include "D2Constants.h"
 #include "D2ItemsWorld.h"
 #include "D2TxtTables.h"
+#include "D2Packets.h"
 
 struct D2ClientStrc;
 
@@ -70,7 +71,6 @@ struct D2NpcRecordStrc;
 
 union D2SeedStrc;
 
-struct D2GSPacketSrv50;
 
 struct D2NpcVendorChainStrc;
 
@@ -266,18 +266,6 @@ void __fastcall D2GAME_STORES_FillGamble_6FCCA9F0(D2GameStrc* pGame, D2UnitStrc*
 
 void __fastcall D2GAME_NPC_HealPlayer_6FCCB080(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pNpc); // 0x00578D30
 
-#pragma pack(push, 1)
-
-struct D2GSPacketSrv50
-{
-    unsigned char nHeader;
-    unsigned short nType;
-    unsigned short nMercName;
-    unsigned char unk0x05[0x0B];
-};
-
-#pragma pack(pop)
-
 D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromClassId(D2GameStrc* pGame, int nNpcClassId, int* pIndex); // 0x00535EA0
 
 void __fastcall SUNITNPC_RefreshHirelingRoster(D2GameStrc* pGame, int nVendorId, D2NpcRecordStrc* pNpcRecord); // 0x00577010
@@ -391,17 +379,6 @@ void __fastcall MONSTERAI_SendMercStats(D2GameStrc* game,D2UnitStrc* player,int 
 
 int __fastcall SUNITNPC_GetHirelingNamesAndClass(D2GameStrc* pGame, int nHirelingId, int* pNameFirst, int* pNameLast, int* pClass); // 0x00575FF0
 
-#pragma pack(push, 1)
-
-struct D2GSPacketSrv4E
-{
-    unsigned char nHeader;
-    unsigned short wName;
-    int nHirelingId;
-};
-
-#pragma pack(pop)
-
 void __fastcall D2GAME_PACKETS_SendHeaderOnlyPacket(D2ClientStrc* pClient, unsigned char nHeader);          // 0x0053B320
 
 D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc* pClient);                                              // 0x005387C0
@@ -446,7 +423,6 @@ struct D2MonsterDataStrc;
 
 struct D2MonStatsTxt;
 
-struct D2GSPacketSrv58;
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
@@ -457,17 +433,6 @@ int __stdcall ITEMS_CheckBitField1Flag1(int nItemId); // 0x00629C80
 D2UnitStrc* __fastcall D2GAME_NPC_GenerateStoreItem_6FCC6A60(D2UnitStrc* pNpc, unsigned int dwCode, D2GameStrc* pGame, int bVendorItem, int nQuality, int nItemLevel, int nPlayerLevel); // 0x00576330
 
 int __fastcall SUNITNPC_RollStoreItemQuality(D2SeedStrc* pSeed, unsigned int dwCode, int nItemLevel);
-
-#pragma pack(push, 1)
-
-struct D2GSPacketSrv58
-{
-    unsigned char nHeader;
-    int nUnitId;
-    unsigned char nAction;
-};
-
-#pragma pack(pop)
 
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
@@ -1168,8 +1133,8 @@ void __fastcall D2GAME_NPC_BuildHirelingList_6FCC6FF0(D2GameStrc* pGame, D2Clien
         {
             D2GSPacketSrv4E packet;
             packet.nHeader = 0x4E;
-            packet.wName = pMercData[i].nMercName;
-            packet.nHirelingId = pMercData[i].dwSeed;
+            packet.nMercName = pMercData[i].nMercName;
+            packet.nSeed = pMercData[i].dwSeed;
             D2GAME_SendPacket0x4E_6FC3F410(pClient, &packet);
         }
     }
@@ -2625,8 +2590,8 @@ void __fastcall D2GAME_NPC_AssignMercenary(D2GameStrc* pGame, D2UnitStrc* pPlaye
         {
             D2GSPacketSrv50 packet50;
             packet50.nHeader = 0x50;
-            packet50.nType = 2;
-            packet50.nMercName = pMercData[nIdx].nMercName;
+            packet50.nQuestId = 2;
+            packet50.nParams[0] = pMercData[nIdx].nMercName;
             pMercData[nIdx].bHired = 1;
             D2GAME_SendPacket0x50_6FC3F440(UnitGetClient(pPlayer, gszNpcSourceFile, 0xFC7), &packet50);
 

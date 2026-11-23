@@ -32,6 +32,7 @@
 #include "D2Unicode.h"
 #include "D2StormLink.h"
 #include "D2InactiveUnits.h"
+#include "D2Packets.h"
 
 #pragma intrinsic(strcpy)
 
@@ -2168,7 +2169,6 @@ struct D2MonsterRegionStrc;
 
 struct D2SGameDataStrc;
 
-struct D2GSPacketClt6B;
 
 struct D2NetPacketRecStrc;
 
@@ -2206,7 +2206,6 @@ struct D2GameDataTableStrc;
 
 union D2LargeIntegerUnion;
 
-struct D2GSPacketSrv5A;
 
 struct D2StormHashNodeStrc;
 
@@ -2306,15 +2305,6 @@ int __fastcall CCMD_IsStringZeroTerminated(const char* pData, int nDataSize); //
 
 void __fastcall D2GAME_PACKETS_SendGameLeft(int nClientId); // 0x0053B220
 
-struct D2GSPacketSrv5A
-{
-    unsigned char nHeader;
-    unsigned char nType;
-    unsigned char nColor;
-    unsigned char abParam[4];
-    unsigned char nParam;
-    char szText[32];
-};
 
 extern "C" size_t __cdecl strlen(const char* szString);
 
@@ -2332,13 +2322,6 @@ void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc* pUnit, int nSkillId, int n
 
 unsigned int __fastcall CLIENT_IsGameOwner(D2ClientStrc* pClient); // 0x00539030
 
-struct D2GSPacketClt6B
-{
-    unsigned char nHeader;
-    unsigned char nSize;
-    unsigned int dwTotalSize;
-    unsigned char saveData[8192];
-};
 
 typedef int (__fastcall* D2NET_Unk_Callback)(int, int, int, int);
 
@@ -2851,21 +2834,6 @@ void __fastcall D2GAME_PACKETS_SendHeaderOnlyPacket(D2ClientStrc* pClient, unsig
 
 void __fastcall D2GAME_PACKETS_SendPacket0x01_6FC3C7C0(D2ClientStrc* pClient, char nHeader, D2GameStrc* pGame); // 0x0053B340
 
-struct D2GSPacketClt66
-{
-    unsigned char nHeader;
-    char szGameName[16];
-    unsigned char nGameType;
-    unsigned char nPlayerClass;
-    unsigned char nTemplate;
-    unsigned char nDifficulty;
-    char szClientName[16];
-    unsigned char abArena[2];
-    unsigned char abGameFlags[4];
-    unsigned char unk0x2B;
-    unsigned char unk0x2C;
-    unsigned char nLocale;
-};
 
 extern int gbCheckHeartbeat;                                                                       // 0x00730FFC
 
@@ -3061,7 +3029,6 @@ struct D2QuestInfoStrc;
 
 struct D2ObjectRoomCoordStrc;
 
-struct D2GSPacketSrv53;
 
 struct D2ObjInitFnStrc;
 
@@ -3069,9 +3036,6 @@ struct D2UnkPlrMsgStrc;
 
 struct D2ArenaStrc;
 
-struct D2GSPacketSrv8C;
-
-struct D2GSPacketSrv8E;
 
 enum D2C_MonStatsTxtFlagIndices
 {
@@ -3107,19 +3071,6 @@ struct D2ObjectRoomCoordStrc
     D2ObjectRoomCoordStrc* pNext;
 };
 
-struct D2GSPacketSrv53
-{
-    unsigned char nHeader;
-    unsigned char nCycleIndex;
-    unsigned char nCycleIndex1;
-    unsigned char nCycleIndex2;
-    unsigned char nCycleIndex3;
-    unsigned char nTicks;
-    unsigned char nTicks1;
-    unsigned char nTicks2;
-    unsigned char nTicks3;
-    unsigned char nEclipse;
-};
 
 typedef void (__fastcall* PlrMsgFunc)(D2GameStrc*, D2UnitStrc*, D2ClientStrc*, int);
 
@@ -3158,34 +3109,6 @@ int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath)
 
 void __stdcall QUESTRECORD_FreeRecord(void* pMemPool, D2BitBufferStrc* pQuestRecord); // 0x0065C490
 
-struct D2GSPacketSrv8C
-{
-    unsigned char nHeader;
-    unsigned char dwPlayerGUID1;
-    unsigned char dwPlayerGUID1_1;
-    unsigned char dwPlayerGUID1_2;
-    unsigned char dwPlayerGUID1_3;
-    unsigned char dwPlayerGUID2;
-    unsigned char dwPlayerGUID2_1;
-    unsigned char dwPlayerGUID2_2;
-    unsigned char dwPlayerGUID2_3;
-    unsigned char nFlags;
-    unsigned char nFlags1;
-};
-
-struct D2GSPacketSrv8E
-{
-    unsigned char nHeader;
-    unsigned char nType;
-    unsigned char dwPlayerGUID;
-    unsigned char dwPlayerGUID1;
-    unsigned char dwPlayerGUID2;
-    unsigned char dwPlayerGUID3;
-    unsigned char dwCorpseGUID;
-    unsigned char dwCorpseGUID1;
-    unsigned char dwCorpseGUID2;
-    unsigned char dwCorpseGUID3;
-};
 
 extern int gnVirtualPlayerCount; // 0x00883D70
 

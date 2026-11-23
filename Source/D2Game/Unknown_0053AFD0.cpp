@@ -6,7 +6,6 @@
 #include "D2UnitData.h"
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MonsterDataStrc;
-struct D2GSPacketSrvB1;
 
 void __fastcall MONSTER_RemoveAll(D2GameStrc* pGame); // 0x00573640
 void __fastcall OBJECTS_RemoveAll(D2GameStrc* pGame); // 0x00552A40
@@ -21,17 +20,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits); // 0x00410EB0
 int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
-
-#pragma pack(push, 1)
-struct D2GSPacketSrvB1
-{
-    unsigned char nHeader;
-    char szGameName[48];
-    unsigned short nClientCount;
-    unsigned short nGameId;
-};
-
-#pragma pack(pop)
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 

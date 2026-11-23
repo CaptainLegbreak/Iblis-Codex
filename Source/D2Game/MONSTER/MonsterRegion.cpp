@@ -17,6 +17,7 @@
 #include "D2LevelTxt.h"
 #include "D2ObjModes.h"
 #include "D2ItemModes.h"
+#include "D2Packets.h"
 
 struct D2DifficultyLevelsTxt;
 
@@ -138,7 +139,6 @@ struct D2ItemsTxt;
 
 struct D2ObjectRoomCoordStrc;
 
-struct D2GSPacketSrv29;
 
 struct D2PackedGuidStrc;
 
@@ -146,7 +146,6 @@ struct D2MessageStrc;
 
 struct D2GSPacketSrv27;
 
-struct D2GSPacketSrv5D;
 
 struct D2UnkPlrMsgStrc;
 
@@ -154,9 +153,6 @@ struct D2QuestGUIDStrc;
 
 struct D2QuestInitTableStrc;
 
-struct D2GSPacketSrv5E;
-
-struct D2GSPacketSrv89;
 
 struct D2GSPacketSrv91;
 
@@ -254,11 +250,6 @@ struct D2ObjectRoomCoordStrc
     D2ObjectRoomCoordStrc* pNext;
 };
 
-struct D2GSPacketSrv29
-{
-    unsigned char nHeader;
-    unsigned char pData[96];
-};
 
 #pragma pack(push, 1)
 
@@ -272,14 +263,6 @@ struct D2GSPacketSrv27
 
 #pragma pack(pop)
 
-struct D2GSPacketSrv5D
-{
-    unsigned char nHeader;
-    unsigned char nQuestId;
-    unsigned char nFlags;
-    unsigned char nState;
-    unsigned short field_4;
-};
 
 typedef void (__fastcall* PlrMsgFunc)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int nAnimMode);
 
@@ -400,17 +383,6 @@ extern "C" const char gszObjRgnSourceFile[]; // 0x006E0C40
 
 extern "C" const char gszPlrMsgSourceFile[]; // 0x006E1050
 
-struct D2GSPacketSrv5E
-{
-    unsigned char nHeader;
-    unsigned char unk0x001[37];
-};
-
-struct D2GSPacketSrv89
-{
-    unsigned char nHeader;
-    unsigned char nEvent;
-};
 
 void __fastcall D2GAME_PACKETS_SendPacket0x5E(D2ClientStrc* pClient, D2GSPacketSrv5E* pPacket); // 0x0053D830
 
@@ -543,11 +515,6 @@ struct D2QuestDataStrc;
 
 #define LINE_STATUS_FILTER 0x4CB
 
-struct D2GSPacketSrv8A;
-
-struct D2GSPacketSrv52;
-
-struct D2GSPacketSrv50;
 
 typedef bool(__fastcall* QUESTSTATUSFILTER)(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus);
 
@@ -563,17 +530,6 @@ void __fastcall ACT2Q5_OnSummonerCreated(D2GameStrc* pGame, D2QuestDataStrc* pQu
 
 int __fastcall ACT1Q6_IsAndarielKilled(D2QuestDataStrc* pQuestData); // 0x005968C0
 
-#pragma pack(push, 1)
-
-struct D2GSPacketSrv8A
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    int dwUnitGUID;
-};
-
-#pragma pack(pop)
-
 unsigned char __fastcall CLIENTS_GetActNo(D2ClientStrc* pClient); // 0x005382B0
 
 void __fastcall D2GAME_SendPacket0x8A_6FC3FA60(D2ClientStrc* pClient, D2GSPacketSrv8A* pPacket); // 0x0053DFF0
@@ -584,26 +540,6 @@ D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 
-#pragma pack(push, 1)
-
-struct D2GSPacketSrv52
-{
-    unsigned char nHeader;
-    unsigned char pQuestList[MAX_QUEST_STATUS];
-};
-
-struct D2GSPacketSrv50
-{
-    unsigned char nHeader;
-    unsigned short nQuestId;
-    unsigned short nMonstersToBeKilled;
-    unsigned short nStaffTombLevelOffset;
-    unsigned short nBarbsToBeRescued;
-    unsigned char unk0x09[6];
-};
-
-#pragma pack(pop)
-
 void __fastcall D2GAME_SendPacket0x50_6FC3F440(D2ClientStrc* pClient, D2GSPacketSrv50* pPacket); // 0x0053D7E0
 
 void __fastcall D2GAME_SendPacket0x52(D2ClientStrc* pClient, D2GSPacketSrv52* pPacket); // 0x0053D840
@@ -613,10 +549,6 @@ void __fastcall QUESTS_RefreshStatus(D2QuestDataStrc* pQuest, unsigned char* pQu
 int __fastcall ACT5Q2_GetBarbsToBeRescued(D2QuestDataStrc* pQuestData); // 0x00588C50
 
 unsigned short __fastcall ACT1Q1_GetMonstersToBeKilled(D2QuestDataStrc* pQuestData); // 0x005901E0
-
-#pragma pack(push, 1)
-
-#pragma pack(pop)
 
 void __fastcall D2GAME_PACKETS_SendPacket0x61(D2ClientStrc* pClient, unsigned char nValue); // 0x0053D940
 
@@ -631,10 +563,6 @@ D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc* pClient); // 0x005387C0
 void __stdcall TEXT_CreateMessageListFromTextHeader(D2TextHeaderStrc* pTextHeader, D2MessageListStrc* pMessageList); // 0x00661480
 
 static void __stdcall QUESTS_StatusCycler(bool bForceActive, D2QuestArgStrc* pArgs);
-
-#pragma pack(push, 1)
-
-#pragma pack(pop)
 
 static void __stdcall QUESTS_EventCallback(bool bCheckActive, unsigned char bCheckAct, D2QuestArgStrc* pArgs);
 

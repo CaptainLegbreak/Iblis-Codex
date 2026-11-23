@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Packets.h"
 struct D2GameStrc;
 
 struct D2PartyScreenCallbackStrc;
@@ -52,15 +53,6 @@ void __fastcall PARTYSCREEN_PartyIterate_PlayerLeftParty(D2GameStrc* pGame, D2Un
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 
 #pragma pack(push, 1)
-struct D2GSPacketSrv5A
-{
-    unsigned char nHeader;
-    unsigned char nType;
-    unsigned char nColor;
-    int nUnitGUID;
-    unsigned char nEvent;
-    char szText[32];
-};
 
 void __fastcall D2GAME_PACKETS_SendPacket0x5A_6FC3DEC0(D2ClientStrc* pClient, D2GSPacketSrv5A* pPacket); // 0x0053C850
 
@@ -162,11 +154,11 @@ void D2ClientStrc::PARTYSCREEN_SendEventUpdateToClient(int nUnitGUID, unsigned c
     const unsigned char nEvent = *(unsigned char volatile*)&nType; // volatile only reproduces the original reading nType at entry, before the packet is cleared
     D2GSPacketSrv5A packet;
     memset(&packet, 0, sizeof(packet));
-    packet.nUnitGUID = nUnitGUID;
+    packet.dwParam = nUnitGUID;
     packet.nHeader = 0x5A;
     packet.nType = 7;
     packet.nColor = 3;
-    packet.nEvent = nEvent;
+    packet.nParam = nEvent;
     switch (nEvent)
     {
     case 1:
