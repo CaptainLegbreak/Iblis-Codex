@@ -3335,6 +3335,17 @@ int __cdecl UI_GetAutomapCenters()
     return gbAutomapCenter;
 }
 
+int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
+
+// 0x00457750
+int __fastcall OBJECT_SaveAutomapCenters(int nValue)
+{
+    SRegSaveValue("Diablo II", "AutoMap Centers", 0, nValue);
+// build: symbol ?gbAutomapCenter@* 0x007113E0
+    gbAutomapCenter = nValue;
+    return nValue;
+}
+
 // 0x00457770
 int __cdecl UI_GetAutomapLeft()
 {
