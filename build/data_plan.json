@@ -2850,7 +2850,7 @@
   },
   "Source/D2Game/PLAYER/PlrSave.cpp": {
    "bytes": 120,
-   "definitions": 1,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/PLAYER/PlrSave.inc",
@@ -5112,7 +5112,7 @@
   },
   "Source/D2Game/Ai/AiTatics.cpp": {
    "bytes": 184,
-   "definitions": 2,
+   "definitions": 1,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Ai/AiTatics.inc",
@@ -91788,7 +91788,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Ai/AiTatics.cpp",
+   "file": "Source/D2Game/PLAYER/PlrSave.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gbWriteSaveFile = ",
