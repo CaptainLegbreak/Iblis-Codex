@@ -2948,12 +2948,6 @@ int __fastcall MONSTER_IsNearPlayer(D2UnitStrc* pUnit)
     return 0;
 }
 
-// 0x004BAC50
-int __cdecl sub_004BAC50()
-{
-    return 0;
-}
-
 // 0x004BB5D0
 int __cdecl sub_004BB5D0()
 {
