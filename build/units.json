@@ -26778,11 +26778,6 @@
      "name": "sub_004BF9B0"
     },
     {
-     "va": "0x004C2530",
-     "length": 3,
-     "name": "sub_004C2530"
-    },
-    {
      "va": "0x004CCF30",
      "length": 6,
      "name": "sub_004CCF30"
@@ -30076,6 +30071,11 @@
      "va": "0x004C23E0",
      "length": 333,
      "name": "?ITEM_RemoveEquippedItems@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004C2530",
+     "length": 3,
+     "name": "sub_004C2530"
     },
     {
      "va": "0x004C2540",
