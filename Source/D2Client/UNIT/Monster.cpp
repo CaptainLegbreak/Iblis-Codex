@@ -298,8 +298,6 @@ extern int gdwPrimaryTradeGold; // 0x007C0E68
 
 extern int gdwGlobal_0072A348; // 0x0072A348
 
-extern int gbSoundSystemInit; // 0x007C8C78
-
 extern char gData_0072AE40[]; // 0x0072AE40
 
 extern char gData_0072AF18[]; // 0x0072AF18
@@ -2861,18 +2859,6 @@ int __cdecl sub_004BF9B0()
 int __cdecl sub_004CCF30()
 {
     return gdwGlobal_0072A348;
-}
-
-// 0x004DF870
-int __cdecl sub_004DF870()
-{
-    return gbSoundSystemInit;
-}
-
-// 0x004DF880
-int __cdecl sub_004DF880()
-{
-    return gbSoundSystemInit;
 }
 
 // 0x004E0680

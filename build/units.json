@@ -26816,16 +26816,6 @@
      "name": "sub_004CCF30"
     },
     {
-     "va": "0x004DF870",
-     "length": 6,
-     "name": "sub_004DF870"
-    },
-    {
-     "va": "0x004DF880",
-     "length": 6,
-     "name": "sub_004DF880"
-    },
-    {
      "va": "0x004E0680",
      "length": 6,
      "name": "MONSTER_GetNpcSpeechAudio"
@@ -30329,11 +30319,6 @@
      "va": "0x004DF630",
      "length": 131,
      "name": "ITEM_QueryCacheAddress"
-    },
-    {
-     "va": "0x004DF9D0",
-     "length": 98,
-     "name": "SoundChannelFind"
     }
    ]
   },
@@ -32416,9 +32401,24 @@
      "name": "?sub_004DF800@@YAXXZ"
     },
     {
+     "va": "0x004DF870",
+     "length": 6,
+     "name": "sub_004DF870"
+    },
+    {
+     "va": "0x004DF880",
+     "length": 6,
+     "name": "sub_004DF880"
+    },
+    {
      "va": "0x004DF890",
      "length": 102,
      "name": "?sub_004DF890@@YAXXZ"
+    },
+    {
+     "va": "0x004DF9D0",
+     "length": 98,
+     "name": "SoundChannelFind"
     },
     {
      "va": "0x004DFA40",
