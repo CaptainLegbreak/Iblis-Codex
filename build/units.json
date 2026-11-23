@@ -70515,6 +70515,11 @@
      "name": "?DRLGACTIVATE_RoomExStatusUnlink@@YAXPAUD2DrlgRoomStrc@@@Z"
     },
     {
+     "va": "0x0061B210",
+     "length": 121,
+     "name": "?DRLGACTIVATE_ForceRoomExStatusImpl@@YAXPAUD2DrlgRoomStrc@@E@Z"
+    },
+    {
      "va": "0x0061B290",
      "length": 10,
      "name": "?DRLGACTIVATE_ForceRoomExStatus_ClientInRoom@@YAXPAUD2DrlgRoomStrc@@@Z"
@@ -70688,17 +70693,6 @@
      "va": "0x0061BB60",
      "length": 25,
      "name": "?DRLGACTIVATE_ApplyArreatSummitLightColor@@YGXPAUD2ColorRecordStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0061B210.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0061B210",
-     "length": 121,
-     "name": "?DRLGACTIVATE_ForceRoomExStatusImpl@@YAXPAUD2DrlgRoomStrc@@E@Z"
     }
    ]
   },
