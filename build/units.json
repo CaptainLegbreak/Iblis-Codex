@@ -29836,6 +29836,10 @@
      "name": "?USEITEM_OpenNpcItemPanel@@YIXH@Z"
     },
     {
+     "va": "0x004C0CE0",
+     "length": 19
+    },
+    {
      "va": "0x004C0D00",
      "length": 27,
      "name": "?USEITEM_LeaveGame@@YAXXZ"
@@ -30606,16 +30610,6 @@
      "va": "0x004C0550",
      "length": 200,
      "name": "?sub_004C0550@@YIXPAUD2PacketRecord7Strc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004C0CE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004C0CE0",
-     "length": 19
     }
    ]
   },
