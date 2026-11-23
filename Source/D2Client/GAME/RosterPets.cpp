@@ -377,6 +377,89 @@ void __fastcall ROSTERPETS_DropPetEntry(int nKey)
     }
 }
 
+#define PETTYPE_FLAG_PARTY 4
+
+struct D2PetTypeTxt;
+
+D2StoredUnitRecordStrc* __fastcall ROSTER_FindRosterUnitById(int nUnitId); // 0x00479BB0
+
+unsigned short __fastcall ROSTER_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
+
+extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+
+extern unsigned int gdwBitMasks[]; // 0x006CE268
+
+inline D2PetTypeTxt* PETTXT_GetRecordInl(int nPetType)
+{
+    if (nPetType >= 0 && nPetType < sgptDataTables->nPetTypeTxtRecordCount)
+    {
+        return &sgptDataTables->pPetTypeTxt[nPetType];
+    }
+    return 0;
+}
+
+// 0x00478D10
+int __fastcall sub_00478D10_GetPetOwnerRelation(int nUnitId)
+{
+    for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
+    {
+        if (pPet->dwUnitId == nUnitId)
+        {
+            D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+            const int nPlayerId = !pPlayer ? -1 : pPlayer->dwUnitId;
+            if (pPet->dwOwnerId == nPlayerId)
+            {
+                return 1;
+            }
+
+            const unsigned short nPartyId = ROSTER_GetEntryIndex(ROSTER_FindRosterUnitById(nPlayerId));
+            if (nPartyId == 0xFFFF || nPartyId != ROSTER_GetEntryIndex(ROSTER_FindRosterUnitById(pPet->dwOwnerId)))
+            {
+                break;
+            }
+            return 2;
+        }
+    }
+    return 0;
+}
+
+// 0x00478D90
+int __fastcall sub_00478D90_GetPetRelation(int nUnitId)
+{
+    for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
+    {
+        if (pPet->dwUnitId == nUnitId)
+        {
+            D2PetTypeTxt* pPetTypeTxtRecord = PETTXT_GetRecordInl(pPet->nType);
+            if (!pPetTypeTxtRecord)
+            {
+                return 3;
+            }
+
+            if (!(pPetTypeTxtRecord->nPetFlags[PETTYPE_FLAG_PARTY >> 3] & gdwBitMasks[PETTYPE_FLAG_PARTY & 7]))
+            {
+                return 3;
+            }
+
+            D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+            const int nPlayerId = !pPlayer ? -1 : pPlayer->dwUnitId;
+            if (pPet->dwOwnerId == nPlayerId)
+            {
+                return 1;
+            }
+
+            const unsigned short nPartyId = ROSTER_GetEntryIndex(ROSTER_FindRosterUnitById(nPlayerId));
+            if (nPartyId == 0xFFFF || nPartyId != ROSTER_GetEntryIndex(ROSTER_FindRosterUnitById(pPet->dwOwnerId)))
+            {
+                break;
+            }
+            return 2;
+        }
+    }
+    return 0;
+}
+
+
 // 0x00478E40
 D2ClientEntryStrc* __fastcall ROSTERPETS_FindEntry(int nKey)
 {
