@@ -19508,11 +19508,6 @@
      "name": "?CUNIT_SetDialogState@@YIXH@Z"
     },
     {
-     "va": "0x004A1730",
-     "length": 41,
-     "name": "?CUNIT_ClearTextPanel@@YAXXZ"
-    },
-    {
      "va": "0x004B8A10",
      "length": 24,
      "name": "?CUNIT_IsTrading@@YAHXZ"
@@ -24656,6 +24651,11 @@
      "va": "0x004A1600",
      "length": 289,
      "name": "?TEXT_HandleNpcTextPacket@@YIXPAUD2HoverTextPacketStrc@@@Z"
+    },
+    {
+     "va": "0x004A1730",
+     "length": 41,
+     "name": "?CUNIT_ClearTextPanel@@YAXXZ"
     },
     {
      "va": "0x004A1950",

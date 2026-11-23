@@ -4159,6 +4159,39 @@ static inline int sub_004A1950_GetActNumber(const D2QuestTextsStrc* pTexts)
     return 0;
 }
 
+struct D2MsgRecordStrc
+{
+    int nTick;
+    unsigned int uMessage;
+    unsigned int wParam;
+    int lParam;
+};
+
+struct D2MsgRecordChunkStrc
+{
+    D2MsgRecordStrc tRecords[500];
+    int nCount;
+    int nIndex;
+    D2MsgRecordChunkStrc* pNext;
+};
+
+struct D2SetsTxt;
+
+struct D2SetsTxt { char unk0x000[0x128]; };
+
+// 0x004A1730
+void __cdecl CUNIT_ClearTextPanel()
+{
+    TEXT_ResetTextBox();
+// build: symbol ?gbTextPanelOpen@* 0x007BF1FA
+    gbTextPanelOpen = 0;
+    if (gpTextHeader)
+    {
+        TEXT_FreeTextHeader(gpTextHeader);
+        gpTextHeader = 0;
+    }
+}
+
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x004A1950
 static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg)
