@@ -83,7 +83,6 @@ struct PairStrc_0045BA70
 
 void __stdcall sub_00625960(void* pArg); // 0x00625960
 
-extern int gbHasSelectedUnit; // 0x007A6A94
 
 
 extern int gdwGlobal_007A6AB0; // 0x007A6AB0
