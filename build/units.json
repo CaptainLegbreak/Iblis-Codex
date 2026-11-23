@@ -62484,11 +62484,6 @@
      "va": "0x005BACF0",
      "length": 35,
      "name": "?ACT3Q4_CheckGoldenBirdBoss@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005BADC0",
-     "length": 96,
-     "name": "?ACT3Q5_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     }
    ]
   },
@@ -62496,6 +62491,11 @@
    "file": "Source/D2Game/Quests/a3q5.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x005BADC0",
+     "length": 96,
+     "name": "?ACT3Q5_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
     {
      "va": "0x005BAE20",
      "length": 333,
