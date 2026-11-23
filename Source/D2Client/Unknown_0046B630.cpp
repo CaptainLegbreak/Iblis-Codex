@@ -21,17 +21,6 @@ extern LEVELEVENT_Fn gpfnLevelEvents[];                                         
 unsigned int gdwLevelEventBits;                                                                    // 0x007A7458
 int gnTimerEnd;                                                                                    // 0x007A7464
 
-// 0x0046B630
-void __fastcall sub_0046B630_FireLevelEvent(int nIndex)
-{
-    D2_ASSERT(nIndex < 0x20, 0x1D9);
-    D2_ASSERT(nIndex < 0x14, 0x1DA);
-    gdwLevelEventBits |= 1 << nIndex;
-    if (gpfnLevelEvents[nIndex])
-    {
-        gpfnLevelEvents[nIndex]();
-    }
-}
 
 // 0x0046BFD0
 void __fastcall sub_0046BFD0_StartTimer(int nDelay)
