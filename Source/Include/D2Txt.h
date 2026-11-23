@@ -563,7 +563,7 @@ struct D2SkillsTxt
     short nITypeA[3]; // 0x18
     short nITypeB[3]; // 0x1E
     short nETypeA[2]; // 0x24
-    unsigned char unk0x28[0x4]; // 0x28
+    short nETypeB[2]; // 0x28
     short wSrvStartFunc; // 0x2C
     short wSrvDoFunc; // 0x2E
     short wProgFunc[3]; // 0x30

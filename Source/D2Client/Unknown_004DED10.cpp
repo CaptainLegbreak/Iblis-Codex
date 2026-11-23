@@ -175,6 +175,18 @@ void __cdecl sub_004DF800()
     D2SOUND_SetMasterVolume(0xFF);
 }
 
+// 0x004DF870
+int __cdecl sub_004DF870()
+{
+    return gbSoundSystemInit;
+}
+
+// 0x004DF880
+int __cdecl sub_004DF880()
+{
+    return gbSoundSystemInit;
+}
+
 // 0x004DF890
 void __cdecl sub_004DF890()
 {
@@ -196,6 +208,30 @@ void __cdecl sub_004DF890()
             }
         }
     }
+}
+
+// 0x004DF9D0
+D2SlotStrc* __fastcall SoundChannelFind(int nOwner)
+{
+    if (!gbSoundSystemInit)
+    {
+        return 0;
+    }
+
+    D2SlotStrc* pBest = 0;
+    for (int i = 0; i < 16; i++)
+    {
+        D2SlotStrc* pSlot = &gaSlots[i];
+        if (sub_00515710(pSlot->pSound) && pSlot->pObject && pSlot->pObject->f_4 == nOwner)
+        {
+            if (!pBest || pSlot->pObject->nKey < pBest->pObject->nKey)
+            {
+                pBest = pSlot;
+            }
+        }
+    }
+
+    return pBest;
 }
 
 // 0x004DFA40
