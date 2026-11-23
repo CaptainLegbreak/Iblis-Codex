@@ -34450,11 +34450,6 @@
      "name": "D2GFX_CheckLowQuality"
     },
     {
-     "va": "0x004F9200",
-     "length": 6,
-     "name": "CONTROL_GetFocusedEditBox"
-    },
-    {
      "va": "0x004F97D0",
      "length": 6,
      "name": "D2Win_IsCtrlKeyDown"
@@ -35564,6 +35559,11 @@
      "va": "0x004F91C0",
      "length": 59,
      "name": "CONTROL_SetFocusedEditBox"
+    },
+    {
+     "va": "0x004F9200",
+     "length": 6,
+     "name": "CONTROL_GetFocusedEditBox"
     },
     {
      "va": "0x004F9210",

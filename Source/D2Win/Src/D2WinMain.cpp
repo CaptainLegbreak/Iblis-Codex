@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2GameTypes.h"
 
 #include "D2Win32Types.h"
 
@@ -1100,6 +1101,14 @@ int __stdcall CONTROL_SetFocusedEditBox(D2WinEditBoxStrc* pEditBox)
 
     gpNextFocusedEditBox = pEditBox;
     return 1;
+}
+
+extern int gdwGlobal_007D55CC; // 0x007D55CC
+
+// 0x004F9200
+int __cdecl CONTROL_GetFocusedEditBox()
+{
+    return gdwGlobal_007D55CC;
 }
 
 // 0x004F9210
