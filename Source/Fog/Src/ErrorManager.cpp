@@ -495,7 +495,6 @@ extern "C" __declspec(dllimport) int __stdcall VirtualFree(void* pAddress, size_
 
 extern "C" void* __cdecl realloc(void* pMemory, size_t nSize); // 0x00683BA5
 
-
 // build: context sub_00406BA0_GetModuleDirectoryAndSave
 
 struct D2DbgHelpRequestStrc
@@ -1921,6 +1920,19 @@ void* __fastcall sub_0040A1F0_PoolRealloc(D2PoolSystemStrc* pPool, void* pMemory
     LeaveCriticalSection(&pBlockPool->tLock);
     D2_ASSERT(0, 0x6A0);
     return 0;
+}
+
+// 0x00409220
+int __fastcall sub_00409220_FindZeroBit(unsigned int dwMask)
+{
+    __asm
+    {
+        mov ebx, dwMask
+        not ebx
+        bsf eax, ebx
+        mov dwMask, eax
+    }
+    return dwMask;
 }
 
 #include "gen/data/Source/Fog/Src/ErrorManager.inc"

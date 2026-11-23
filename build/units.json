@@ -781,6 +781,10 @@
      "name": "?ERRORMANAGER_GetPoolBlockSize@@YAHH@Z"
     },
     {
+     "va": "0x00409220",
+     "length": 27
+    },
+    {
      "va": "0x00409490",
      "length": 313,
      "name": "?sub_00409490_RemoveBlockRecord@@YGXPAUD2PoolSystemStrc@@PAUD2PoolBlockStrc@@@Z"
@@ -3488,30 +3492,6 @@
      "length": 154,
      "name": "sub_00411320_CapitalizeWords"
     }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00409220.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00409220",
-     "length": 27
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
