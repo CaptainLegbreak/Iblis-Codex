@@ -1179,15 +1179,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_00466DC0.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_00466DC0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Client/Unknown_00467640.cpp": {
    "bytes": 276,
    "definitions": 2,
@@ -5243,8 +5234,8 @@
    "state": "included"
   },
   "Source/D2Client/GAME/Select.cpp": {
-   "bytes": 92,
-   "definitions": 3,
+   "bytes": 96,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/GAME/Select.inc",
@@ -40821,7 +40812,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_00466DC0.cpp",
+   "file": "Source/D2Client/GAME/Select.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnHoverMonClassId = ",

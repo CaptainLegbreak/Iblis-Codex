@@ -18883,42 +18883,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00466DC0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00466DC0",
-     "length": 6,
-     "name": "?sub_00466DC0@@YAHXZ"
-    },
-    {
-     "va": "0x00466FE0",
-     "length": 13,
-     "name": "?sub_00466FE0@@YAXXZ"
-    },
-    {
-     "va": "0x00466FF0",
-     "length": 11,
-     "name": "?sub_00466FF0@@YAXXZ"
-    },
-    {
-     "va": "0x00467430",
-     "length": 59,
-     "name": "?sub_00467430_SetSelectionRect@@YIXPBUD2SelectionRectStrc@@@Z"
-    },
-    {
-     "va": "0x00467470",
-     "length": 31,
-     "name": "?sub_00467470_UnitFindTest@@YIHPAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00467A00",
-     "length": 16,
-     "name": "?sub_00467A00@@YAXXZ"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/UNIT/CUnit.cpp",
    "rank": 0,
    "functions": [
@@ -19482,8 +19446,23 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00466DC0",
+     "length": 6,
+     "name": "?sub_00466DC0@@YAHXZ"
+    },
+    {
      "va": "0x00466DE0",
      "length": 508
+    },
+    {
+     "va": "0x00466FE0",
+     "length": 13,
+     "name": "?sub_00466FE0@@YAXXZ"
+    },
+    {
+     "va": "0x00466FF0",
+     "length": 11,
+     "name": "?sub_00466FF0@@YAXXZ"
     },
     {
      "va": "0x00467000",
@@ -19514,6 +19493,16 @@
      "name": "?sub_004673C0_GetDistanceSquared@@YAHPAUD2UnitStrc@@0@Z"
     },
     {
+     "va": "0x00467430",
+     "length": 59,
+     "name": "?sub_00467430_SetSelectionRect@@YIXPBUD2SelectionRectStrc@@@Z"
+    },
+    {
+     "va": "0x00467470",
+     "length": 31,
+     "name": "?sub_00467470_UnitFindTest@@YIHPAUD2UnitStrc@@PAX@Z"
+    },
+    {
      "va": "0x00467490",
      "length": 421,
      "name": "?SELECT_FindSkillTarget@@YGPAUD2UnitStrc@@PAUD2SkillStrc@@PAU1@PAH2PAUD2SkillsTxt@@@Z"
@@ -19531,6 +19520,11 @@
      "va": "0x00467880",
      "length": 377,
      "name": "?sub_00467880_GetSkillTarget@@YIPAUD2UnitStrc@@PAUD2SkillStrc@@PAU1@PAH2EH@Z"
+    },
+    {
+     "va": "0x00467A00",
+     "length": 16,
+     "name": "?sub_00467A00@@YAXXZ"
     }
    ],
    "flags": [
