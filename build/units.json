@@ -52930,21 +52930,6 @@
      "length": 916
     },
     {
-     "va": "0x00572360",
-     "length": 92,
-     "name": "PLRINTRO_SetQuestIntroFlag"
-    },
-    {
-     "va": "0x005723C0",
-     "length": 92,
-     "name": "PLRINTRO_GetQuestIntroFlag"
-    },
-    {
-     "va": "0x005724C0",
-     "length": 94,
-     "name": "PLRINTRO_MaskNpcIntroFlag"
-    },
-    {
      "va": "0x00573750",
      "length": 42,
      "name": "MONSTER_ClearTargetIfMatches"
@@ -52997,20 +52982,24 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00572330.cpp",
+   "file": "Source/D2Game/PLAYER/PlrIntro.cpp",
    "rank": 0,
    "functions": [
     {
      "va": "0x00572330",
      "length": 43,
      "name": "?sub_00572330_GetNpcIndex@@YIHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrIntro.cpp",
-   "rank": 0,
-   "functions": [
+    },
+    {
+     "va": "0x00572360",
+     "length": 92,
+     "name": "PLRINTRO_SetQuestIntroFlag"
+    },
+    {
+     "va": "0x005723C0",
+     "length": 92,
+     "name": "PLRINTRO_GetQuestIntroFlag"
+    },
     {
      "va": "0x00572420",
      "length": 69,
@@ -53020,6 +53009,11 @@
      "va": "0x00572470",
      "length": 69,
      "name": "?PLRINTRO_GetNpcIntroFlag@@YIHPAUD2PlrIntroStrc@@H@Z"
+    },
+    {
+     "va": "0x005724C0",
+     "length": 94,
+     "name": "PLRINTRO_MaskNpcIntroFlag"
     },
     {
      "va": "0x00572520",
