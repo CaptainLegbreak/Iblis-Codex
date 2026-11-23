@@ -3238,7 +3238,6 @@
    "bytes": 444,
    "definitions": 10,
    "externs": [
-    "extern \"C\" void __cdecl sub_0052BF80_ZeroBlock8(); // 0x0052BF80",
     "extern \"C\" void __cdecl sub_00548090(); // 0x00548090",
     "extern \"C\" void __cdecl sub_005482A0(); // 0x005482A0",
     "extern \"C\" void __cdecl sub_00548350(); // 0x00548350",
@@ -3248,7 +3247,8 @@
    "fn_types": {},
    "include": "gen/data/Source/D2Game/GAME/Game.inc",
    "lang": "cpp",
-   "state": "included"
+   "state": "included",
+   "static_definitions": 1
   },
   "Source/D2BNClient/BnDownload.cpp": {
    "bytes": 740,
@@ -3339,16 +3339,6 @@
    "include": "gen/data/Source/D2Net/Unknown_0052B920.inc",
    "lang": "cpp",
    "state": "included"
-  },
-  "Source/D2Game/Unknown_0052C280.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": null,
-   "lang": "cpp",
-   "state": "included",
-   "static_definitions": 1
   },
   "Source/D2Game/OBJECTS/Objects.cpp": {
    "bytes": 786,
@@ -91974,35 +91964,6 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "externs": [],
-   "file": "Source/D2Game/Unknown_0052C280.cpp",
-   "fn_types": {},
-   "form": "declared",
-   "fwd": null,
-   "head": "static int gnInitSeed = ",
-   "include": "gen/data/Source/D2Game/Unknown_0052C280/gnInitSeed.inc",
-   "linkage": "static",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnInitSeed",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": ";                                                                        // 0x00731004",
-   "type": "int",
-   "va": "0x00731004"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
    "file": "Source/D2Game/GAME/Game.cpp",
    "form": "declared",
    "fwd": null,
@@ -92549,7 +92510,7 @@
    "file": "Source/D2Game/GAME/Game.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern int gnInitSeed = ",
+   "head": "static int gnInitSeed = ",
    "model": {
     "k": "prim",
     "kind": "s",
@@ -92562,9 +92523,13 @@
    "size": 4,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x00731004",
+   "tail": ";                                                                        // 0x00731004",
    "type": "int",
-   "va": "0x00731004"
+   "va": "0x00731004",
+   "linkage": "static",
+   "include": "gen/data/Source/D2Game/GAME/Game/gnInitSeed.inc",
+   "externs": [],
+   "fn_types": {}
   },
   {
    "alias": false,

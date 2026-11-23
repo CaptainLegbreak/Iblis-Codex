@@ -1473,6 +1473,14 @@ int __cdecl sub_0052BF70()
     return 0;
 }
 
+void __stdcall SMemZero(void* pDest, unsigned int nSize);                                                   // 0x0041D300
+
+// 0x0052BF80
+void __fastcall sub_0052BF80_ZeroBlock8(void* pData)
+{
+    SMemZero(pData, 8);
+}
+
 // 0x0052BF90
 void* __cdecl sub_0052BF90()
 {
@@ -1574,10 +1582,12 @@ static __declspec(noinline) void GAME_SendGameInit(D2GameStrc* pGame, D2ClientSt
     CLIENTS_SetClientState(pClient, 1);
 }
 
+// build: symbol ?gnInitSeed@* 0x00731004
+#include "gen/data/Source/D2Game/GAME/Game/gnInitSeed.inc"
+
 // 0x0052C320
 void __stdcall GAME_SetInitSeed(int nInitSeed)
 {
-// build: symbol ?gnInitSeed@* 0x00731004
     gnInitSeed = nInitSeed;
 }
 
@@ -4535,7 +4545,7 @@ inline unsigned __int64 sub_I08_RollGameSeed(D2SeedStrc* pSeed)
     return lSeed;
 }
 
-// build: context sub_0052C280_InitGameSeed
+// 0x0052C280
 static void sub_0052C280_InitGameSeed(D2GameStrc* pGame)
 {
     if (gnInitSeed == -1)
