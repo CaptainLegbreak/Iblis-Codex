@@ -29950,6 +29950,21 @@
      "length": 5,
      "name": "?SKILLS_Return0@@YGHH@Z"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHsc",
+    "/GS-"
    ]
   },
   {
