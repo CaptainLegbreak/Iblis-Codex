@@ -198,7 +198,6 @@ int __fastcall FOG_FGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x004
 
 int __fastcall FOG_FSetFilePointer(void* hFile, long nOffset, long* pnOffsetHigh, int nMethod); // 0x00406940
 
-void* __fastcall sub_0040A080_PoolAlloc(void* pPool, int nSize, const char* szFile, int nLine); // 0x0040A080
 
 AsyncDataEventSlot* __cdecl ASYNCDATA_GetEventSlot(); // 0x0040A550
 
@@ -501,7 +500,6 @@ extern "C" unsigned char _BitScanReverse(unsigned long* pIndex, unsigned long nM
 
 extern "C" unsigned char _BitScanForward(unsigned long* pIndex, unsigned long nMask);
 
-
 void* __fastcall ERRORMANAGER_PoolAllocLarge(D2PoolSystemStrc* pSystem, int nSize, const char* szFile, int nLine); // 0x00409770
 
 extern const unsigned int gadwLowBitMasks[]; // 0x006CD490
@@ -509,6 +507,14 @@ extern const unsigned int gadwLowBitMasks[]; // 0x006CD490
 int __fastcall sub_00409220_FindZeroBit(unsigned int nWord); // 0x00409220
 
 static int ERRORMANAGER_GetPoolIndex(int nSize);
+
+void* __fastcall sub_0040A080_PoolAlloc(D2PoolSystemStrc* pSystem, int nSize, const char* szFile, int nLine); // 0x0040A080
+
+static D2MemPoolBlockStrc* __stdcall sub_004099D0_FindBlock(void* pMemory, D2PoolSystemStrc* pSystem);
+
+static void sub_00409A60_MoveBlockToFront(D2MemPoolRecStrc* pPool, D2MemPoolBlockStrc* pBlock);
+
+void __fastcall sub_00409AB0_PoolFree(D2PoolSystemStrc* pSystem, void** ppMemory, const char* szFile, int nLine);
 
 // build: context sub_00406BA0_GetModuleDirectoryAndSave
 
@@ -1882,60 +1888,7 @@ void __fastcall sub_00409AB0_PoolFree(D2PoolSystemStrc* pSystem, void** ppMemory
     sub_00409810_FreeLarge(pSystem, *ppMemory, szFile, nLine);
 }
 
-void* __fastcall sub_0040A1F0_PoolRealloc(D2PoolSystemStrc* pPool, void* pMemory, int nSize, const char* szFile, int nLine)
-{
-    D2PoolSystemStrc* pSystem = pPool;
-    if (!pSystem)
-    {
-        pSystem = &gtDefaultPoolSystem_0074F104;
-    }
-    if (!pMemory)
-    {
-        void* pNew = sub_0040A080_PoolAlloc(pPool, nSize, szFile, nLine);
-        D2_ASSERT(pNew, 0x62D);
-        return pNew;
-    }
-    D2MemPoolBlockStrc* pBlock = sub_004099D0_FindBlock(pMemory, pSystem);
-    if (!pBlock)
-    {
-        void* pNew = sub_004098B0_ReallocLarge(pSystem, pMemory, nSize, szFile, nLine);
-        D2_ASSERT(pNew, 0x635);
-        return pNew;
-    }
-    if (pMemory < pBlock->pMemory)
-    {
-        void* pNew = sub_004098B0_ReallocLarge(pSystem, pMemory, nSize, szFile, nLine);
-        D2_ASSERT(pNew, 0x63C);
-        return pNew;
-    }
-    D2MemPoolRecStrc* pBlockPool = pBlock->pPool;
-    const int nIndex = ((char*)pMemory - (char*)pBlock->pMemory) / pBlockPool->nBlockSize;
-    if (nIndex >= pBlockPool->nBlocksPerChunk)
-    {
-        void* pNew = sub_004098B0_ReallocLarge(pSystem, pMemory, nSize, szFile, nLine);
-        D2_ASSERT(pNew, 0x648);
-        return pNew;
-    }
-    EnterCriticalSection(&pBlockPool->tLock);
-    if (pBlock->pUsedBits[nIndex >> 5] & gdwBitMasks[nIndex & 31])
-    {
-        const int nElementSize = pBlockPool->nBlockSize;
-        if (nSize <= nElementSize)
-        {
-            LeaveCriticalSection(&pBlockPool->tLock);
-            return pMemory;
-        }
-        LeaveCriticalSection(&pBlockPool->tLock);
-        void* pNew = sub_0040A080_PoolAlloc(pPool, nSize, szFile, nLine);
-        D2_ASSERT(pNew, 0x68B);
-        memcpy(pNew, pMemory, nElementSize);
-        sub_00409AB0_PoolFree(pPool, &pMemory, szFile, nLine);
-        return pNew;
-    }
-    LeaveCriticalSection(&pBlockPool->tLock);
-    D2_ASSERT(0, 0x6A0);
-    return 0;
-}
+void* __fastcall sub_0040A1F0_PoolRealloc(D2PoolSystemStrc* pPool, void* pMemory, int nSize, const char* szFile, int nLine);
 
 // 0x00409220
 int __fastcall sub_00409220_FindZeroBit(unsigned int dwMask)
@@ -2168,6 +2121,66 @@ void* __fastcall sub_0040A080_PoolAlloc(D2PoolSystemStrc* pSystem, int nSize, co
     void* pResult = (char*)pBlock->pMemory + pPool->nBlockSize * nSlot;
     LeaveCriticalSection(&pPool->tLock);
     return pResult;
+}
+
+// 0x0040A1F0
+void* __fastcall sub_0040A1F0_PoolRealloc(D2PoolSystemStrc* pPool, void* pMemory, int nSize, const char* szFile, int nLine)
+{
+    D2PoolSystemStrc* pSystem = pPool;
+    if (!pSystem)
+    {
+        pSystem = &gtDefaultPoolSystem_0074F104;
+    }
+    if (!pMemory)
+    {
+        void* pNew = sub_0040A080_PoolAlloc(pPool, nSize, szFile, nLine);
+        D2_ASSERT(pNew, 0x62D);
+        return pNew;
+    }
+    D2MemPoolBlockStrc* pBlock = sub_004099D0_FindBlock(pMemory, pSystem);
+    if (!pBlock)
+    {
+        void* pNew = sub_004098B0_ReallocLarge(pSystem, pMemory, nSize, szFile, nLine);
+        D2_ASSERT(pNew, 0x635);
+        return pNew;
+    }
+    if (pMemory < pBlock->pMemory)
+    {
+        void* pNew = sub_004098B0_ReallocLarge(pSystem, pMemory, nSize, szFile, nLine);
+        D2_ASSERT(pNew, 0x63C);
+        return pNew;
+    }
+    D2MemPoolRecStrc* pBlockPool = pBlock->pPool;
+    const int nIndex = ((char*)pMemory - (char*)pBlock->pMemory) / pBlockPool->nBlockSize;
+    if (nIndex >= pBlockPool->nBlocksPerChunk)
+    {
+        void* pNew = sub_004098B0_ReallocLarge(pSystem, pMemory, nSize, szFile, nLine);
+        D2_ASSERT(pNew, 0x648);
+        return pNew;
+    }
+    EnterCriticalSection(&pBlockPool->tLock);
+    if (pBlock->pUsedBits[nIndex >> 5] & gdwBitMasks[nIndex & 31])
+    {
+        void* pResult;
+        const int nElementSize = pBlockPool->nBlockSize;
+        if (nElementSize >= nSize)
+        {
+            pResult = pMemory;
+            LeaveCriticalSection(&pBlockPool->tLock);
+        }
+        else
+        {
+            LeaveCriticalSection(&pBlockPool->tLock);
+            pResult = sub_0040A080_PoolAlloc(pPool, nSize, szFile, nLine);
+            D2_ASSERT(pResult, 0x68B);
+            memcpy(pResult, pMemory, nElementSize);
+            sub_00409AB0_PoolFree(pPool, &pMemory, szFile, nLine);
+        }
+        return pResult;
+    }
+    LeaveCriticalSection(&pBlockPool->tLock);
+    D2_ASSERT(0, 0x6A0);
+    return 0;
 }
 
 #include "gen/data/Source/Fog/Src/ErrorManager.inc"
