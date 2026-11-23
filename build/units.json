@@ -16366,6 +16366,10 @@
      "name": "SCMD_StripColorCodes"
     },
     {
+     "va": "0x004523A0",
+     "length": 297
+    },
+    {
      "va": "0x004524D0",
      "length": 59,
      "name": "SCMD_SetPopUpText"
@@ -17316,30 +17320,6 @@
      "va": "0x00452270",
      "length": 144,
      "name": "?sub_00452270_AppendDigitText@@YIPAUUnicode@@PAU1@H@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004523A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004523A0",
-     "length": 297
     }
    ],
    "flags": [
