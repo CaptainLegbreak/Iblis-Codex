@@ -1565,7 +1565,7 @@ void __cdecl WARDENCLIENT_BuildWaypointList()
 
     for (int i = 0; i < 9; ++i)
     {
-        *(int*)gaWaypointEntries[i].nLevelId = 0;
+        gaWaypointEntries[i].nLevelId = 0;
         gaWaypointEntries[i].bEnabled = 0;
     }
 
@@ -1605,7 +1605,7 @@ void __cdecl WARDENCLIENT_BuildWaypointList()
             int nLevelId;
             if (WAYPOINTS_GetLevelIdFromWaypointNo(wWaypoint, &nLevelId))
             {
-                *(int*)gaWaypointEntries[gnWaypointCount].nLevelId = nLevelId;
+                gaWaypointEntries[gnWaypointCount].nLevelId = nLevelId;
                 if (nCurrentLevelId == nLevelId)
                 {
                     gaWaypointEntries[gnWaypointCount].bEnabled = 0;
@@ -1623,7 +1623,7 @@ void __cdecl WARDENCLIENT_BuildWaypointList()
             int nLevelId;
             if (WAYPOINTS_GetLevelIdFromWaypointNo(wWaypoint, &nLevelId))
             {
-                *(int*)gaWaypointEntries[gnWaypointCount].nLevelId = nLevelId;
+                gaWaypointEntries[gnWaypointCount].nLevelId = nLevelId;
                 gaWaypointEntries[gnWaypointCount].bEnabled = 0;
                 ++gnWaypointCount;
             }

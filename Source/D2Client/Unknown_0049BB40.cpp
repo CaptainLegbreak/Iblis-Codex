@@ -332,7 +332,7 @@ void __stdcall sub_0049D010_WaypointMouseUp(SMSGHANDLER_PARAMS* pMsg)
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
-            MSG_SendTwoDwords(0x49, gnWaypointId, *(int*)gaWaypointEntries[gnWaypointSelected].nLevelId);
+            MSG_SendTwoDwords(0x49, gnWaypointId, gaWaypointEntries[gnWaypointSelected].nLevelId);
             gbSent = 1;
             sub_0049C6C0_SendWaypointClose();
             gbWaypointClosePressed = false;
