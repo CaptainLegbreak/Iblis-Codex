@@ -706,9 +706,29 @@
      "name": "FOG_ReallocPool"
     },
     {
+     "va": "0x0040E250",
+     "length": 172,
+     "name": "?sub_0040E250_GetCpuVendor@@YAHXZ"
+    },
+    {
      "va": "0x0040E870",
      "length": 226,
      "name": "ERRORMANAGER_MeasureCpuMHz"
+    },
+    {
+     "va": "0x0040E960",
+     "length": 23,
+     "name": "?sub_0040E960_GetCpuSignature@@YAIXZ"
+    },
+    {
+     "va": "0x0040E980",
+     "length": 83,
+     "name": "?sub_0040E980_GetCpuidEbxIfBrandIndexed@@YAIXZ"
+    },
+    {
+     "va": "0x0040E9E0",
+     "length": 26,
+     "name": "?sub_0040E9E0_GetCpuidEdx@@YIII@Z"
     },
     {
      "va": "0x00413740",
@@ -3887,11 +3907,6 @@
      "name": "?DecodeCpuModelName@@YGXPADHHIHH@Z"
     },
     {
-     "va": "0x0040E9E0",
-     "length": 26,
-     "name": "?sub_0040E9E0_GetCpuidEdx@@YIII@Z"
-    },
-    {
      "va": "0x0040EB40",
      "length": 4,
      "name": "?sub_0040EB40_GetMessageData@@YIPADPAUD2LogMessageStrc@@@Z"
@@ -3915,27 +3930,6 @@
      "va": "0x004107A0",
      "length": 12,
      "name": "?sub_004107A0_DeleteTimeLock@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_0040E250.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0040E250",
-     "length": 172,
-     "name": "?sub_0040E250_GetCpuVendor@@YAHXZ"
-    },
-    {
-     "va": "0x0040E960",
-     "length": 23,
-     "name": "?sub_0040E960_GetCpuSignature@@YAIXZ"
-    },
-    {
-     "va": "0x0040E980",
-     "length": 83,
-     "name": "?sub_0040E980_GetCpuidEbxIfBrandIndexed@@YAIXZ"
     }
    ]
   },
