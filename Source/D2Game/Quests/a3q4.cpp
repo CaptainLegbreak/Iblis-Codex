@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -135,9 +136,13 @@ static int __stdcall ACT3Q4_UpdatePartyQuestState(D2GameStrc* pGame, D2UnitStrc*
 
 #define QFLAG_REWARDGRANTED 0
 
+#define QFLAG_REWARDPENDING 1
+
 #define QFLAG_STARTED 2
 
 #define QFLAG_LEAVETOWN 3
+
+#define QFLAG_ENTERAREA 4
 
 struct D2Act3Quest3Strc;
 
@@ -149,73 +154,17 @@ void __fastcall ACT3Q4_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
 
 D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
 
-struct Bits;
-
-struct Player;
-
-struct QuestEx;
-
-struct Args;
-
 struct D2QuestDataExStrc;
 
-struct Game
-{
-    char pad0[0x6D];
-    unsigned char difficulty;
-};
+int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc* pQuest, int dwGUID); // 0x005452C0
 
-struct Unit
-{
-    int type,classId;
-    void* pool;
-    int id;
-};
-
-struct Player
-{
-    char pad0[0x10];
-    Bits* quests[3];
-};
-
-struct QuestEx
-{
-    unsigned char birdBrought;
-};
-
-struct Quest
-{
-    char pad0[0x18];
-    QuestEx* ex;
-};
-
-struct Args
-{
-    Game* game;
-    int event;
-    Unit* target;
-    Unit* player;
-    int unknown;
-    Text* text;
-};
-
-Player* __stdcall sub_006221A0(Unit*); // 0x006221A0
-
-int __stdcall sub_0065C310(Bits*,int,int); // 0x0065C310
-
-int __fastcall QUESTS_CheckPlayerGUID(Quest*,int); // 0x005452C0
-
-Unit* __fastcall sub_00558110(Game*,Unit*,unsigned); // 0x00558110
-
-enum { QUEST_ID = 20 };
+void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeaderStrc* pTextControl, int nNPCID, int nIndex); // 0x00543790
 
 struct D2QuestDataExStrc
 {
     unsigned char unk_00[0x18];
     int nState18;
 };
-
-inline Bits* GetFlags(Unit* player,Game* game) { return sub_006221A0(player)->quests[game->difficulty]; }
 
 static inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
@@ -281,33 +230,66 @@ int __fastcall ACT3Q4_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
 }
 
 // 0x005B9ED0
-void __fastcall ACT3Q4_Callback00_NpcActivate(Quest* quest,Args* args)
+void __fastcall ACT3Q4_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
-    Game* game=args->game;
-    Bits* flags=GetFlags(args->player,game);
-    int reward=sub_0065C310(flags,QUEST_ID,0);
-    int npc=!args->target ? -1 : args->target->classId;
-    if(reward==1) {
-        if(QUESTS_CheckPlayerGUID(quest,!args->player ? -1 : args->player->id)) sub_00543790(quest,args->text,npc,6);
+    D2GameStrc* pGame = pQuestArg->pGame;
+    D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pGame, pQuestArg->pPlayer);
+    int bRewardGranted = QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q4, QFLAG_REWARDGRANTED);
+    int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
+    if (bRewardGranted == 1)
+    {
+        if (QUESTS_CheckPlayerGUID(pQuestData, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId))
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 6);
         return;
     }
-    if(npc==254 && quest->ex->birdBrought==1) return;
-    if(sub_0065C310(flags,QUEST_ID,1)) { sub_00543790(quest,args->text,npc,5); return; }
-    if(sub_00558110(args->game,args->player,0x20343367)) {
-        if(npc==245) {
-            if(!sub_0065C310(flags,QUEST_ID,4)) { sub_00543790(quest,args->text,npc,3); return; }
-        } else if(npc==254) {
-            if(!sub_0065C310(flags,QUEST_ID,1) && !sub_0065C310(flags,QUEST_ID,0)) sub_00543790(quest,args->text,npc,2);
+
+    if (nNpcId == MONSTER_ALKOR && ((D2Act3Quest4Strc*)pQuestData->pQuestDataEx)->bGoldenBirdBroughtToAlkor == 1)
+        return;
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q4, QFLAG_REWARDPENDING))
+    {
+        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 5);
+        return;
+    }
+
+    if (ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, ' 43g'))
+    {
+        if (nNpcId == MONSTER_CAIN3)
+        {
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q4, QFLAG_ENTERAREA))
+            {
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 3);
+                return;
+            }
+        }
+        else if (nNpcId == MONSTER_ALKOR)
+        {
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q4, QFLAG_REWARDPENDING) && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q4, QFLAG_REWARDGRANTED))
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 2);
             return;
         }
-        sub_00543790(quest,args->text,npc,2);
+
+        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 2);
         return;
     }
-    if(sub_00558110(args->game,args->player,0x2034336A)) {
-        if(!sub_0065C310(flags,QUEST_ID,2)) {
-            if(npc==245 || npc==252) { sub_00543790(quest,args->text,npc,0); return; }
-        } else if(npc==245 || npc==252) { sub_00543790(quest,args->text,npc,7); return; }
-        sub_00543790(quest,args->text,npc,1);
+
+    if (ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, ' 43j'))
+    {
+        if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q4, QFLAG_STARTED))
+        {
+            if (nNpcId == MONSTER_CAIN3 || nNpcId == MONSTER_ASHEARA)
+            {
+                QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 0);
+                return;
+            }
+        }
+        else if (nNpcId == MONSTER_CAIN3 || nNpcId == MONSTER_ASHEARA)
+        {
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 7);
+            return;
+        }
+
+        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 1);
     }
 }
 
