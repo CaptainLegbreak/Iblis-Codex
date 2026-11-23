@@ -24821,6 +24821,11 @@
      "name": "?PANEL_BeltClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x00499DE0",
+     "length": 37,
+     "name": "?sub_00499DE0_FindRoster@@YIPAUD2RosterUnitStrc@@H@Z"
+    },
+    {
      "va": "0x00499E10",
      "length": 20,
      "name": "?PANEL_SetRedColour@@YAXXZ"
@@ -24903,17 +24908,6 @@
      "va": "0x004AB530",
      "length": 188,
      "name": "sub_004AB530_DrawTabCel"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00499DE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00499DE0",
-     "length": 37,
-     "name": "?sub_00499DE0_FindRoster@@YIPAUD2RosterUnitStrc@@H@Z"
     }
    ]
   },
