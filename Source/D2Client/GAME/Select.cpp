@@ -786,3 +786,28 @@ void __cdecl sub_00467A00()
     gnHoverClassId = 0x13;
 }
 
+
+// 0x00467A70
+void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        if (sub_00466870(pUnit, 0, 0, 0))
+        {
+            gbHoverLocked = 0;
+            sub_00466DE0_SetHoverUnit(pUnit);
+            gbHoverLocked = 1;
+        }
+        else
+        {
+            gbHoverLocked = 0;
+            gbHasSelectedUnit = 0;
+        }
+    }
+    else
+    {
+        gbHasSelectedUnit = 0;
+        gbHoverLocked = 1;
+    }
+}
+
