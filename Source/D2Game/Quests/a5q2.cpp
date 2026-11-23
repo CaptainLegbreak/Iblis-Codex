@@ -396,6 +396,7 @@ void __fastcall ACT5Q2_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, 
     QUESTRECORD_ClearQuestState(pQuestFlags, 36, 4);
 }
 
+// 0x00587FC0
 int __fastcall ACT5Q2_GetWussieGroupIndex(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
 {
     D2Act5Quest2Strc* pQuestDataEx = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
