@@ -2550,38 +2550,7 @@ void __fastcall D2GAME_SetStatOrResetGold_6FC7CA70(D2UnitStrc* pUnit, int nStat,
     STATLIST_SetUnitStat(pUnit, nStat, nValue, 0);
 }
 
-// 0x00531D60
-void __fastcall PLRSAVE_ByteToHex(char* szOut, unsigned char nByte)
-{
-    char szHex[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
-    szOut[0] = szHex[nByte >> 4];
-    szOut[1] = szHex[nByte & 0xF];
-}
-
-// 0x00531DE0
-char* __fastcall PLRSAVE_BytesToHexString(char* szOut, const unsigned char* pData, int nLength)
-{
-    if (nLength <= 0)
-    {
-        return 0;
-    }
-
-    *szOut = '0';
-    ++szOut;
-    *szOut = 'x';
-    ++szOut;
-    do
-    {
-        PLRSAVE_ByteToHex(szOut, *pData);
-        szOut += 2;
-        ++pData;
-        --nLength;
-    }
-    while (nLength);
-
-    *szOut = 0;
-    return szOut;
-}
+void __fastcall PLRSAVE_ByteToHex(char* szOut, unsigned char nByte); // 0x00531D60
 
 // build: symbol ?NET_IsSimulatedLagConnection@* 0x0052B800
 int __fastcall NET_IsSimulatedLagConnection()
@@ -2739,59 +2708,6 @@ int __stdcall SrvRecvDatabaseCharacter(int nClientId, const unsigned char* pSave
     return nTotalSize;
 }
 
-// 0x00532E70
-void __stdcall PLRSAVE_SetSkillIfLevelSet(int a1, int a2, unsigned char a3)
-{
-    if (a3)
-    {
-        sub_0056DEB0(a1, a2, a3, 1);
-    }
-}
-
-// 0x00532E90
-int __fastcall PLRSAVE_ReadLegacySkills(D2GameStrc* pGame, D2ClientStrc* pClient, D2UnitStrc* pUnit, unsigned char* pSection, int a5, int a6, int* pSkillCount)
-{
-    *pSkillCount = 0;
-
-    if (*(unsigned short*)pSection != 0x6669)
-        return 5;
-
-    const unsigned char* pData = pSection + 2;
-    const int nClassId = CLIENTS_GetClassId(pClient);
-    for (int i = 0; i < SKILLS_GetPlayerSkillCount(nClassId); ++i)
-    {
-        const int nSkillId = SKILLS_GetClassSkillId(nClassId, i);
-        if (pData[i])
-        {
-            D2GAME_SetSkills_6FD14C60(pUnit, nSkillId, pData[i], 1);
-        }
-    }
-
-    SCMD_SendSkillList(pClient, pUnit);
-
-    const int nCount = SKILLS_GetPlayerSkillCount(nClassId) + 2;
-    sub_6FD14C30(pUnit);
-    *pSkillCount = nCount;
-    return 0;
-}
-
-// 0x00534AB0
-void __fastcall PLAYER_ClearTargetIfMatch(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
-{
-    if (pTarget == SUNIT_GetTargetUnit(pGame, pUnit))
-    {
-        UNITS_SetTargetUnitForDynamicUnit(pUnit, 0);
-    }
-}
-
-// 0x00534AD0
-void __fastcall PLAYER_InitializePosition(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY)
-{
-    PLRMODE_ChangeModeToCoords(pGame, pUnit, 0, PLRMODE_NEUTRAL, nX, nY, 1);
-    EVENT_SetEvent(pGame, pUnit, EVENTTYPE_STATREGEN, pGame->dwGameFrame + 1, 0, 0);
-    EVENT_SetEvent(pGame, pUnit, EVENTTYPE_DELAYEDPORTAL, pGame->dwGameFrame + 250, 0, 0);
-}
-
 void __fastcall PLAYER_CountPlayersInLevelCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg); // 0x005356F0
 
 void __fastcall PLAYER_CountLivingPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pLivingPlayers); // 0x00535760
@@ -2829,22 +2745,6 @@ D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromUnit(D2GameStrc* pGame, D
 void __fastcall LEVEL_SynchronizeDayNightCycleWithClient(D2GameStrc* pGame, D2ClientStrc* pClient); // 0x0053ABE0
 void __fastcall LEVEL_UpdateQueuedUnitsInAllActs(D2GameStrc* pGame); // 0x0053B000
 
-// 0x005404C0
-void __fastcall PARTY_AddLivingMemberLevelCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs)
-{
-    if (!SUNIT_IsDead(pUnit))
-        *(int*)pArgs += STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
-}
-
-// 0x005404F0
-void __fastcall PARTY_CountLivingUnits(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pLivingUnits)
-{
-    if (pUnit && !SUNIT_IsDead(pUnit))
-    {
-        ++*((int*)pLivingUnits);
-    }
-}
-
 void __stdcall sub_00646010_Empty(int nUnused1, int nUnused2, int nUnused3)
 {
 }
@@ -2859,33 +2759,6 @@ void __stdcall sub_006460D0_Empty(int nUnused1, int nUnused2, int nUnused3)
 
 void __stdcall sub_006460E0_Empty(int nUnused)
 {
-}
-
-// 0x00547210
-void __fastcall OBJECTS_InitFunction17_Waypoint(D2ObjInitFnStrc* pOp)
-{
-    D2ObjectControlStrc* pObjectControl = pOp->pGame->pObjectControl;
-    D2ObjectRoomCoordStrc* pObjectRoomCoord = pObjectControl->pObjectRoomCoord;
-    while (pObjectRoomCoord)
-    {
-        if (pObjectRoomCoord->pRoom == pOp->pRoom
-            || (pOp->pRoom && pObjectRoomCoord->nX >= pOp->pRoom->tCoords.nSubtileX && pObjectRoomCoord->nX < pOp->pRoom->tCoords.nSubtileX + pOp->pRoom->tCoords.nSubtileWidth
-                && pObjectRoomCoord->nY >= pOp->pRoom->tCoords.nSubtileY && pObjectRoomCoord->nY < pOp->pRoom->tCoords.nSubtileY + pOp->pRoom->tCoords.nSubtileHeight))
-        {
-            if (!pOp->pObject || pOp->pObject->dwAnimMode == OBJMODE_NEUTRAL)
-            {
-                UNITS_ChangeAnimMode(pOp->pObject, 1);
-                D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(!pOp->pObject ? -1 : pOp->pObject->dwClassId);
-                EVENT_SetEvent(pOp->pGame, pOp->pObject, 1, pOp->pGame->dwGameFrame + (pObjectsTxtRecord->dwFrameCnt[1] >> 8), 0, 0);
-            }
-            FOG_FreeServerMemory(pOp->pGame->pMemoryPool, pObjectRoomCoord, ".\\OBJECTS\\objrgn.cpp", 0x19B, 0);
-            pObjectControl->pObjectRoomCoord = 0;
-            return;
-        }
-        pObjectRoomCoord = pObjectRoomCoord->pNext;
-    }
-    if (DUNGEON_IsRoomInTown(pOp->pRoom))
-        UNITS_ChangeAnimMode(pOp->pObject, 2);
 }
 
 unsigned short __stdcall SFileGetLocale()
@@ -4469,21 +4342,6 @@ void __fastcall sSrvSendGameInit(int nClientId, char* szGameName, unsigned char 
     D2_ASSERT(!gpD2EventCallbackTable || !gpD2EventCallbackTable->pfGetDatabaseCharacter, 1378);
 
     D2GAME_PACKETS_SendHeaderOnlyPacket(pClient, 2);
-}
-
-// 0x00534A50
-void __fastcall PLAYER_RemoveAllPlayers(D2GameStrc* pGame)
-{
-    for (int i = 0; i < 128; ++i)
-    {
-        D2UnitStrc* pPlayer = pGame->pUnitList[UNIT_PLAYER][i];
-        while (pPlayer)
-        {
-            D2UnitStrc* pCurrent = pPlayer;
-            pPlayer = SUNIT_GetNextUnitFromList(pPlayer);
-            SUNIT_RemoveUnit(pGame, pCurrent);
-        }
-    }
 }
 
 // 0x0054BC00

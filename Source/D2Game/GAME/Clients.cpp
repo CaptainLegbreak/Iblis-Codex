@@ -3587,14 +3587,6 @@ int __fastcall PARTY_SumLivingPartyLevelsInSameLevel(D2GameStrc* pGame, D2UnitSt
     return nLevelSum;
 }
 
-// 0x005408E0
-int __fastcall PARTY_GetLivingPartyMemberCountInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    int nLivingPartyMembers = 0;
-    PARTY_IteratePartyMembersInSameLevel(pGame, pUnit, PARTY_CountLivingUnits, &nLivingPartyMembers);
-    return nLivingPartyMembers;
-}
-
 // 0x00541830
 void __fastcall SKILLS_SetMonsterComponent(D2UnitStrc* pUnit, unsigned char nComponent, unsigned char nValue)
 {

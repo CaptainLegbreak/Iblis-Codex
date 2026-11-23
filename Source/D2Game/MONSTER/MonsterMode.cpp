@@ -592,46 +592,6 @@ static inline int UNITS_GetYPosition_Static(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-// 0x005A1080
-void __fastcall MONSTERUNIQUE_UMod36_Ghostly(D2UnitStrc* pUnit, int nUMod, int bUnique)
-{
-    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nType != UNIT_MONSTER)
-    {
-        return;
-    }
-
-    D2GameStrc* pGame = SUNIT_GetGameFromUnit(pUnit);
-    if (!pGame || !bUnique)
-    {
-        return;
-    }
-
-    D2MonsterDataStrc* pMonsterData = MONSTER_GetMonsterData_Inline(pUnit);
-    if (pMonsterData)
-    {
-        pMonsterData->nTypeFlag |= 0x40;
-    }
-
-    STATLIST_SetUnitStat(pUnit, STAT_DAMAGERESIST, 80, 0);
-    sub_005A0E80_ApplyMonsterPenalty(pUnit, nUMod, bUnique);
-
-    bUnique = D2_MIN(D2_MAX(pGame->nDifficulty, 0), 2);
-    const int nGameType = pGame->nGameType || pGame->dwGameType;
-    const int nStatLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
-    D2MonLvlTxt* pMonLvlTxtRecord = sub_005A0000_GetMonLvlTxtRecord(D2_MIN(D2_MAX(nStatLevel, 1), sgptDataTables->nMonLvlTxtRecordCount - 1));
-    if (!pMonLvlTxtRecord)
-    {
-        return;
-    }
-
-    const int nDamage = pMonLvlTxtRecord->nValues[MONLVL_DM + nGameType][bUnique];
-    const int nMaxDamage = sub_005A00F0_GetMonUModConstant(bUnique + 25) * nDamage / 100;
-    STATLIST_AddUnitStat(pUnit, STAT_COLDMINDAM, sub_005A00F0_GetMonUModConstant(bUnique + 22) * nDamage / 100, 0);
-    STATLIST_AddUnitStat(pUnit, STAT_COLDMAXDAM, nMaxDamage, 0);
-    STATLIST_AddUnitStat(pUnit, STAT_COLDLENGTH, 150, 0);
-}
-
 // 0x005A1990
 void __fastcall MONSTERUNIQUE_UMod9_FireEnchanted(D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
@@ -717,51 +677,6 @@ void __fastcall MONSTERUNIQUE_UMod17_LightningEnchanted(D2UnitStrc* pUnit, int n
 
     STATLIST_AddUnitStat(pUnit, STAT_LIGHTMINDAM, nMinDamage, 0);
     STATLIST_AddUnitStat(pUnit, STAT_LIGHTMAXDAM, nMaxDamage, 0);
-    MONSTERUNIQUE_UMod8_Resistant(pUnit, nUMod, bUnique);
-}
-
-// 0x005A1C70
-void __fastcall MONSTERUNIQUE_UMod18_ColdEnchanted(D2UnitStrc* pUnit, int nUMod, int bUnique)
-{
-    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nType != UNIT_MONSTER)
-    {
-        return;
-    }
-
-    D2GameStrc* pGame = SUNIT_GetGameFromUnit(pUnit);
-    if (!pGame)
-    {
-        return;
-    }
-
-    const int nDifficulty = D2_MIN(D2_MAX(pGame->nDifficulty, 0), 2);
-    const int nGameType = pGame->nGameType || pGame->dwGameType;
-    int nLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
-    nLevel = D2_MIN(D2_MAX(nLevel, 1), sgptDataTables->nMonLvlTxtRecordCount - 1);
-    D2MonLvlTxt* pMonLvlTxtRecord = DATATBLS_GetMonLvlTxtRecord_Inline(nLevel);
-    if (!pMonLvlTxtRecord)
-    {
-        return;
-    }
-
-    const int nDamage = pMonLvlTxtRecord->nValues[MONLVL_DM + nGameType][nDifficulty];
-    int nMinDamage;
-    int nMaxDamage;
-    if (bUnique)
-    {
-        nMinDamage = sub_005A00F0_GetMonUModConstant(nDifficulty + 28) * nDamage / 100;
-        nMaxDamage = sub_005A00F0_GetMonUModConstant(nDifficulty + 31) * nDamage / 100;
-    }
-    else
-    {
-        nMinDamage = sub_005A00F0_GetMonUModConstant(nDifficulty + 16) * nDamage / 100;
-        nMaxDamage = sub_005A00F0_GetMonUModConstant(nDifficulty + 19) * nDamage / 100;
-    }
-
-    STATLIST_AddUnitStat(pUnit, STAT_COLDMINDAM, nMinDamage, 0);
-    STATLIST_AddUnitStat(pUnit, STAT_COLDMAXDAM, nMaxDamage, 0);
-    STATLIST_AddUnitStat(pUnit, STAT_COLDLENGTH, 5 * nLevel + 100, 0);
     MONSTERUNIQUE_UMod8_Resistant(pUnit, nUMod, bUnique);
 }
 
