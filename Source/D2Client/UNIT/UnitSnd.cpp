@@ -340,44 +340,31 @@ static D2UnitSndPlayerStrc* UNITSND_GetPlayerSoundRecord(unsigned int nClass)
     return gapUnitSndPlayers[nClass];
 }
 
+// 0x004CA560
 void __fastcall sub_004CA560_GetHitSounds(D2UnitStrc* pUnit, int nHitClass, int bParam, int* pSound1, int* pSound2)
 {
     D2_ASSERT(pUnit, 0xB82);
-    const int nType = UNITSND_GetUnitSndType(pUnit);
+    int nType = UNITSND_GetUnitSndType(pUnit);
     *pSound1 = 0;
     *pSound2 = 0;
-    if (nType == 1 && MONSTERREGION_CheckMonStats2Flag(UNITSND_GetUnitSndClassId(pUnit), 0xD))
-        return;
-
-    switch (nHitClass & 0xF)
+    if (nType == 1)
     {
-    case 1:
-        *pSound1 = 0x141;
-        break;
-    case 8:
-    case 9:
-        *pSound1 = 0x149;
-        break;
-    case 6:
-    case 7:
-        *pSound1 = 0x14F;
-        break;
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-        *pSound1 = 0x155;
-        break;
-    case 10:
-    case 11:
-        *pSound1 = 0x15B;
-        break;
-    case 12:
-        *pSound1 = 0x145;
-        break;
+        if (MONSTERREGION_CheckMonStats2Flag(UNITSND_GetUnitSndClassId(pUnit), 0xD))
+            return;
     }
 
-    switch (nHitClass & 0xF0)
+    const int nHitClassHigh = nHitClass & 0xF0;
+    switch (nHitClass & 0xF)
+    {
+    case 1: *pSound1 = 0x141; break;
+    case 8: case 9: *pSound1 = 0x149; break;
+    case 6: case 7: *pSound1 = 0x14F; break;
+    case 2: case 3: case 4: case 5: *pSound1 = 0x155; break;
+    case 10: case 11: *pSound1 = 0x15B; break;
+    case 12: *pSound1 = 0x145; break;
+    }
+
+    switch (nHitClassHigh)
     {
     case 0x20:
         *pSound2 = *pSound1 ? 0x164 : 0x161;
@@ -418,7 +405,6 @@ void __fastcall sub_004CA560_GetHitSounds(D2UnitStrc* pUnit, int nHitClass, int 
         break;
     }
 }
-
 
 // 0x004CA410
 static D2MonSoundsTxt* UNITSND_GetMonSoundsRecord(D2UnitStrc* pUnit)
