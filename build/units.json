@@ -12032,6 +12032,11 @@
      "name": "?SKILLS_BurstTargetCorpse@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x004C7CF0",
+     "length": 84,
+     "name": "ITEM_EvaluateClientSkillCalc"
+    },
+    {
      "va": "0x004C7D50",
      "length": 186,
      "name": "?SKILLS_LeapToTarget@@YIHPAUD2UnitStrc@@HH@Z"
@@ -30269,11 +30274,6 @@
      "va": "0x004C52E0",
      "length": 162,
      "name": "ITEM_GetTargetPosition"
-    },
-    {
-     "va": "0x004C7CF0",
-     "length": 84,
-     "name": "ITEM_EvaluateClientSkillCalc"
     },
     {
      "va": "0x004DA0D0",
