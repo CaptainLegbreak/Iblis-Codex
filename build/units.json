@@ -36050,11 +36050,6 @@
      "name": "D2COMP_AddHoverTextLine"
     },
     {
-     "va": "0x00508030",
-     "length": 143,
-     "name": "SCROLLBAR_HandleMouseWheel"
-    },
-    {
      "va": "0x00508610",
      "length": 139,
      "name": "POPUP_AddLine"
@@ -37649,6 +37644,11 @@
      "va": "0x00508000",
      "length": 45,
      "name": "@SCROLLBAR_SetScrollCallback@8"
+    },
+    {
+     "va": "0x00508030",
+     "length": 143,
+     "name": "SCROLLBAR_HandleMouseWheel"
     },
     {
      "va": "0x005080F0",
