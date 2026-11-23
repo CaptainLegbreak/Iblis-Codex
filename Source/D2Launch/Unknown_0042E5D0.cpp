@@ -176,12 +176,6 @@ int __stdcall BNGatewayAccess::CurGateway()
     return m_nCurGateway;
 }
 
-// 0x0042E6C0
-int __cdecl sub_0042E6C0_GetGatewayFlag()
-{
-    return gbGatewayFlag;
-}
-
 D2CelFileStrc* gpCellFile_00779700; // 0x00779700
 
 D2CelFileStrc* gpCharacterCreateCelFile; // 0x00779724

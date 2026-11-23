@@ -1553,6 +1553,12 @@ void __cdecl MAINMENUS_SetGatewayFlag()
     gbGatewayFlag = 1;
 }
 
+// 0x0042E6C0
+int __cdecl sub_0042E6C0_GetGatewayFlag()
+{
+    return gbGatewayFlag;
+}
+
 // 0x0042E6D0
 void __cdecl MAINMENUS_LoadFrontEndCells()
 {
