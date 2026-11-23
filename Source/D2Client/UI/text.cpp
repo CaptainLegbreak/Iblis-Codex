@@ -2038,6 +2038,40 @@ int __fastcall sub_0049D300_GetFieldA4(D2TextFieldA4Strc* pRecord)
 
 struct D2BitBufferStrc;
 
+void __stdcall sub_L04_EmitUse(const Unicode* pText);
+
+// 0x0049D310
+static void __stdcall sub_0049D310_CopyTextLine(Unicode* pDest, int nMax, const Unicode** ppSrc)
+{
+    int i = 0;
+    memset(pDest, 0, nMax * sizeof(Unicode));
+    for (; i < nMax; ++i)
+    {
+        if ((*ppSrc)->wChar == 0x0A)
+            break;
+        pDest[i].wChar = (*ppSrc)->wChar;
+        ++*ppSrc;
+    }
+    if (i < nMax)
+    {
+        const Unicode* pNext = *ppSrc;
+        if (pNext->wChar == 0x0A)
+            *ppSrc = pNext + 1;
+    }
+}
+
+// build: context sub_L04_EmitCopyTextLine
+void __stdcall sub_L04_EmitCopyTextLine(const Unicode* pText)
+{
+    const Unicode* p = pText;
+    while (p->wChar)
+    {
+        Unicode wszLine[0x20];
+        sub_0049D310_CopyTextLine(wszLine, 0x20, &p);
+        sub_L04_EmitUse(wszLine);
+    }
+}
+
 // build: symbol ??0Unicode@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x0049D370

@@ -23660,6 +23660,11 @@
      "name": "?sub_0049D300_GetFieldA4@@YIHPAUD2TextFieldA4Strc@@@Z"
     },
     {
+     "va": "0x0049D310",
+     "length": 87,
+     "name": "?sub_0049D310_CopyTextLine@@YGXPAUUnicode@@HPAPBU1@@Z"
+    },
+    {
      "va": "0x0049D370",
      "length": 58,
      "name": "?TEXT_FreeTextLines@@YAXPAUD2TextLineStrc@@@Z"
@@ -25519,17 +25524,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0049D310.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0049D310",
-     "length": 87,
-     "name": "?sub_0049D310_CopyTextLine@@YGXPAUUnicode@@HPAPBU1@@Z"
-    }
    ]
   },
   {
