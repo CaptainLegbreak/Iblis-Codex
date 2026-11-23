@@ -1981,6 +1981,14 @@
      "va": "0x00426D80",
      "length": 50,
      "name": "??1sub_00426D80@@QAE@XZ"
+    },
+    {
+     "va": "0x006CA740",
+     "length": 101
+    },
+    {
+     "va": "0x006CB090",
+     "length": 10
     }
    ],
    "flags": [
@@ -83578,30 +83586,6 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006CA740.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006CA740",
-     "length": 101
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/EHa"
-   ]
-  },
-  {
    "file": "Source/Storm/Unknown_006CA890.cpp",
    "rank": 1,
    "functions": [
@@ -83906,16 +83890,6 @@
     {
      "va": "0x006CAFC0",
      "length": 70
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006CB090.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006CB090",
-     "length": 10
     }
    ]
   },
