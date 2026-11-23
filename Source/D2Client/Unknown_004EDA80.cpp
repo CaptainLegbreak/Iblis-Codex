@@ -78,48 +78,6 @@ void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); /
 void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame); // 0x0064A330
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 
-// 0x004EDA80
-int __fastcall sub_004EDA80_CallSkillDescFunc(D2UnitStrc* pUnit, int bLeft)
-{
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    D2SkillStrc* pSkill;
-    if (bLeft)
-    {
-        pSkill = UNITS_GetLeftSkill(pUnit);
-    }
-    else
-    {
-        pSkill = UNITS_GetRightSkill(pUnit);
-    }
-
-    D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
-    if (!pSkillsTxt)
-    {
-        return 0;
-    }
-
-    D2SkillDescTxt* pSkillDescTxt = sub_004A89D0_SkillDescRec(pSkillsTxt->nSkillId);
-    if (!pSkillDescTxt)
-    {
-        return 0;
-    }
-
-    int nValue1 = 0;
-    int nValue2;
-    int nValue3 = 0;
-    int nValue4;
-    if (pSkillDescTxt->wDescFunc < 72 && gpfnSkillDescFuncs[pSkillDescTxt->wDescFunc])
-    {
-        const int nLevel = SKILLS_GetSkillLevel(pUnit, pSkill, 1);
-        gpfnSkillDescFuncs[pSkillDescTxt->wDescFunc](pUnit, pSkill, pSkillsTxt, nLevel, &nValue1, &nValue2, &nValue3, &nValue4);
-    }
-
-    return nValue1;
-}
 
 #include "gen/data/Source/D2Client/Unknown_004EDA80.inc"
 struct D2UnitStrc;
@@ -467,60 +425,9 @@ int __fastcall sub_004F0EF0_UpdateRiderPath(D2UnitStrc* pUnit, int nSkillId, int
     return 1;
 }
 
-// 0x004F2010
-int __fastcall sub_004F2010_CheckTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
-    if (pTarget && !DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)) && !DUNGEON_IsRoomInTown(UNITS_GetRoom(pTarget))
-        && (unsigned int)pTarget->dwUnitType <= 1)
-    {
-        return CUNIT_IsHostileTo(pUnit, pTarget) != 0;
-    }
 
-    return 0;
-}
 
-// 0x004F2160
-int __fastcall sub_004F2160_DecrementParam(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
-    if (!pSkill)
-    {
-        return 0;
-    }
 
-    if (!CUNIT_GetPathTargetUnit(pUnit))
-    {
-        return 0;
-    }
-
-    const int nParam = SKILLS_GetParam1(pSkill) - 1;
-    if (nParam > 0)
-    {
-        SKILLS_SetParam1(pSkill, nParam);
-        SKILLS_ScaleFramePrecise(pUnit, 100);
-    }
-
-    return 1;
-}
-
-// 0x004F23E0
-int __fastcall sub_004F23E0_AuraStateOff(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (pSkillsTxtRecord && pSkillsTxtRecord->nAuraState >= 0 && pSkillsTxtRecord->nAuraState < sgptDataTables->nStatesTxtRecordCount)
-    {
-        return !STATES_CheckState(pUnit, pSkillsTxtRecord->nAuraState);
-    }
-
-    return 0;
-}
-
-// 0x004F2440
-void __fastcall sub_004F2440_ClearState(D2UnitStrc* pUnit, int nState, int nSkillLevel)
-{
-    STATES_ToggleState(pUnit, nState, 0);
-}
 
 // 0x004F26D0
 int __fastcall sub_004F26D0_ApplyCltCalc(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
@@ -530,42 +437,4 @@ int __fastcall sub_004F26D0_ApplyCltCalc(D2UnitStrc* pUnit, int nSkillId, int nS
     return 1;
 }
 
-// 0x004F2870
-int __fastcall sub_004F2870_TargetIsPlayerOrMonster(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
-    if (!pTarget)
-    {
-        return 0;
-    }
 
-    if (pTarget->dwUnitType == UNIT_MONSTER || pTarget->dwUnitType == UNIT_PLAYER)
-    {
-        return 1;
-    }
-
-    return 0;
-}
-
-// 0x004F2AC0
-void __fastcall sub_004F2AC0_MissileInit(D2UnitStrc* pMissile, int nSeed)
-{
-    if (!pMissile)
-    {
-        return;
-    }
-
-    int nFrames = MISSILE_GetTotalFrames(pMissile);
-    if (nFrames >= 0x4E)
-    {
-        nFrames = 0x4D;
-        MISSILE_SetTotalFrames(pMissile, nFrames);
-        MISSILE_SetCurrentFrame(pMissile, nFrames);
-    }
-
-    D2DynamicPathStrc* pDynamicPath = pMissile->pDynamicPath;
-    SEED_InitLowSeed(&pMissile->pSeed, nSeed);
-    PATH_SetType(pDynamicPath, 10);
-    PATH_SetNewDistance(pDynamicPath, nFrames);
-    D2Common_10142(pDynamicPath, pMissile, 0);
-}
