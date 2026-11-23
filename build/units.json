@@ -18378,6 +18378,15 @@
      "name": "?ROSTERPETS_DropPetEntry@@YIXH@Z"
     },
     {
+     "va": "0x00478D10",
+     "length": 113
+    },
+    {
+     "va": "0x00478D90",
+     "length": 173,
+     "name": "?sub_00478D90_GetPetRelation@@YIHH@Z"
+    },
+    {
      "va": "0x00478E40",
      "length": 35,
      "name": "?ROSTERPETS_FindEntry@@YIPAUD2ClientEntryStrc@@H@Z"
@@ -21833,15 +21842,6 @@
    "file": "Source/D2Client/Unknown_00478D10.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00478D10",
-     "length": 113
-    },
-    {
-     "va": "0x00478D90",
-     "length": 173,
-     "name": "?sub_00478D90_GetPetRelation@@YIHH@Z"
-    },
     {
      "va": "0x00478E70",
      "length": 101,
