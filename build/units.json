@@ -65599,11 +65599,6 @@
      "name": "DATATBLS_GetShrinesTxtRecordCount"
     },
     {
-     "va": "0x00663740",
-     "length": 3,
-     "name": "sub_00663740"
-    },
-    {
      "va": "0x0066A210",
      "length": 3,
      "name": "sub_0066A210"
@@ -76936,6 +76931,11 @@
      "va": "0x00663720",
      "length": 30,
      "name": "MONSTERS_GetHirelingDescString"
+    },
+    {
+     "va": "0x00663740",
+     "length": 3,
+     "name": "sub_00663740"
     },
     {
      "va": "0x00663750",
