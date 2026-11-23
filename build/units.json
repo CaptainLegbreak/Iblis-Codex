@@ -40981,6 +40981,16 @@
      "name": "sub_0052BFA0"
     },
     {
+     "va": "0x0052BFB0",
+     "length": 3,
+     "name": "?sub_0052BFB0_Stub@@YGXHHHH@Z"
+    },
+    {
+     "va": "0x0052BFC0",
+     "length": 25,
+     "name": "?GAME_GetLoadCompleteString@@YIPBDXZ"
+    },
+    {
      "va": "0x0052C030",
      "length": 48,
      "name": "?GAME_Shutdown@@YGHXZ"
@@ -43511,16 +43521,6 @@
      "va": "0x0052BED0",
      "length": 3,
      "name": "?GAME_DefaultUpdateCharacterLadder@@YGXHHHHH@Z"
-    },
-    {
-     "va": "0x0052BFB0",
-     "length": 3,
-     "name": "?sub_0052BFB0_Stub@@YGXHHHH@Z"
-    },
-    {
-     "va": "0x0052BFC0",
-     "length": 25,
-     "name": "?GAME_GetLoadCompleteString@@YIPBDXZ"
     },
     {
      "va": "0x0052BFE0",

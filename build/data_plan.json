@@ -2449,8 +2449,8 @@
    "state": "included"
   },
   "Source/D2Game/GAME/Game.cpp": {
-   "bytes": 444,
-   "definitions": 9,
+   "bytes": 924,
+   "definitions": 12,
    "externs": [
     "extern \"C\" void __cdecl sub_00548090(); // 0x00548090",
     "extern \"C\" void __cdecl sub_005482A0(); // 0x005482A0",
@@ -157321,6 +157321,96 @@
    "tail": "; // 0x0074C020",
    "type": "int",
    "va": "0x0074C020"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Game/GAME/Game.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern const char gszEmptyLoadComplete[184] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 184,
+    "size": 184
+   },
+   "name": "gszEmptyLoadComplete",
+   "pointers": [],
+   "region": "rdata",
+   "size": 184,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E0498",
+   "type": "char",
+   "va": "0x006E0498"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Game/GAME/Game.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern const char gData_006E0550[24] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 24,
+    "size": 24
+   },
+   "name": "gData_006E0550",
+   "pointers": [],
+   "region": "rdata",
+   "size": 24,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E0550",
+   "type": "char",
+   "va": "0x006E0550"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Game/GAME/Game.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern const char gData_006E0568[272] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 272,
+    "size": 272
+   },
+   "name": "gData_006E0568",
+   "pointers": [],
+   "region": "rdata",
+   "size": 272,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E0568",
+   "type": "char",
+   "va": "0x006E0568"
   }
  ]
 }

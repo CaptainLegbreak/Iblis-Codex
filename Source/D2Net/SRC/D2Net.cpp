@@ -153,21 +153,6 @@ void __stdcall GAME_DefaultUpdateCharacterLadder(int a1, int a2, int a3, int a4,
 {
 }
 
-// 0x0052BFB0
-void __stdcall sub_0052BFB0_Stub(int a1, int a2, int a3, int a4)
-{
-}
-
-// 0x0052BFC0
-const char* __fastcall GAME_GetLoadCompleteString()
-{
-    if (!gbD2ServerCallbackFunctionsInitialized)
-    {
-        return gszEmptyLoadComplete;
-    }
-    return gpD2EventCallbackTable->pfLoadComplete();
-}
-
 // 0x0052BFE0
 int __fastcall GAME_GetGamesCount()
 {
