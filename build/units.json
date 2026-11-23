@@ -13730,6 +13730,11 @@
      "name": "VIEW_StartTimedBox"
     },
     {
+     "va": "0x0046B630",
+     "length": 75,
+     "name": "?sub_0046B630_FireLevelEvent@@YIXH@Z"
+    },
+    {
      "va": "0x0046B680",
      "length": 129,
      "name": "?VIEW_SpawnBrDeathControl@@YIXPAUD2UnitStrc@@@Z"
@@ -20097,11 +20102,6 @@
    "file": "Source/D2Client/Unknown_0046B630.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0046B630",
-     "length": 75,
-     "name": "?sub_0046B630_FireLevelEvent@@YIXH@Z"
-    },
     {
      "va": "0x0046BFD0",
      "length": 30,
