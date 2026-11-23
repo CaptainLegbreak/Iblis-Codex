@@ -43939,11 +43939,6 @@
      "name": "OBJECTS_CompareDescending"
     },
     {
-     "va": "0x00569EC0",
-     "length": 81,
-     "name": "PLRSAVE2_UnpackWord"
-    },
-    {
      "va": "0x0056CD50",
      "length": 66,
      "name": "SKILL_ComputePeriodicRate"
@@ -49681,6 +49676,11 @@
      "va": "0x00569D80",
      "length": 317,
      "name": "PLRSAVE2_CheckPlayerFlags"
+    },
+    {
+     "va": "0x00569EC0",
+     "length": 81,
+     "name": "PLRSAVE2_UnpackWord"
     },
     {
      "va": "0x00569F20",

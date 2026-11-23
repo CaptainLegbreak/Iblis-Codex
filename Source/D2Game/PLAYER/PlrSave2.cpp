@@ -1321,6 +1321,7 @@ static int __stdcall PLRSAVE2_CreateNewbiePlayer(D2GameStrc* pGame, D2ClientStrc
     return 0;
 }
 
+// 0x00569EC0
 void __fastcall PLRSAVE2_UnpackWord(unsigned int* pRaw, int* pId, int* pFlag, int* pCount)
 {
     D2PackedWordStrc* pPacked = (D2PackedWordStrc*)pRaw;
