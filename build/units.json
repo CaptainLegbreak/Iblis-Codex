@@ -24284,6 +24284,11 @@
      "name": "?TEXT_SplitAtNewline@@YIHPAUUnicode@@PAPAU1@@Z"
     },
     {
+     "va": "0x004A7720",
+     "length": 411,
+     "name": "?sub_004A7720_OnLButtonDown@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x004A7A90",
      "length": 11,
      "name": "?TEXT_SetGoldDialogFlag@@YAXXZ"
@@ -26226,17 +26231,6 @@
      "va": "0x004AC690",
      "length": 155,
      "name": "?sub_004AC690_DrawSkillPanel@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004A7720.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004A7720",
-     "length": 411,
-     "name": "?sub_004A7720_OnLButtonDown@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     }
    ]
   },
