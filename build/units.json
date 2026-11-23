@@ -72322,6 +72322,11 @@
      "name": "DATATBLS_GetObjGroupTxtRecord"
     },
     {
+     "va": "0x00641320",
+     "length": 386,
+     "name": "DATATBLS_LoadShrinesTxt"
+    },
+    {
      "va": "0x006414B0",
      "length": 72,
      "name": "DATATBLS_GetShrinesTxtRecord"
@@ -72332,8 +72337,26 @@
      "name": "UNITS_IsInRange"
     },
     {
+     "va": "0x00641930",
+     "length": 104,
+     "name": "?SKILLS_IsPointNearRoom@@YAHPAUD2ActiveRoomStrc@@HHH@Z"
+    },
+    {
+     "va": "0x006419A0",
+     "length": 80
+    },
+    {
+     "va": "0x006419F0",
+     "length": 692
+    },
+    {
      "va": "0x00641CB0",
      "length": 620
+    },
+    {
+     "va": "0x00641F20",
+     "length": 55,
+     "name": "sub_00641F20_SetPlayerModeState"
     },
     {
      "va": "0x00641F60",
@@ -72568,11 +72591,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00641320",
-     "length": 386,
-     "name": "DATATBLS_LoadShrinesTxt"
-    },
-    {
      "va": "0x00641530",
      "length": 416,
      "name": "?sub_00641530@@YGHPAUD2UnitStrc@@0@Z"
@@ -72584,24 +72602,6 @@
     {
      "va": "0x006417F0",
      "length": 158
-    },
-    {
-     "va": "0x00641930",
-     "length": 104,
-     "name": "?SKILLS_IsPointNearRoom@@YAHPAUD2ActiveRoomStrc@@HHH@Z"
-    },
-    {
-     "va": "0x006419A0",
-     "length": 80
-    },
-    {
-     "va": "0x006419F0",
-     "length": 692
-    },
-    {
-     "va": "0x00641F20",
-     "length": 55,
-     "name": "sub_00641F20_SetPlayerModeState"
     },
     {
      "va": "0x006432C0",
