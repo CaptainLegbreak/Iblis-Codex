@@ -31639,6 +31639,10 @@
     {
      "va": "0x004D66E0",
      "length": 305
+    },
+    {
+     "va": "0x004D6FA0",
+     "length": 789
     }
    ],
    "flags": [
@@ -32113,30 +32117,6 @@
      "length": 12,
      "name": "?sub_004CD380_StatRemoveCallback_ToggleStateOff@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Missile_004D6FA0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004D6FA0",
-     "length": 789
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
