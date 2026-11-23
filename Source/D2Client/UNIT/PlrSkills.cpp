@@ -8,6 +8,7 @@
 #include "D2LevelTxt.h"
 #include "D2PlayerModes.h"
 #include "D2MonModes.h"
+#include "D2Path.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -147,6 +148,25 @@ D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 int __cdecl sub_0044DA90(); // 0x0044DA90
 
 int __cdecl GAME_GetSkillDelayUntil(); // 0x0044CE50
+
+void __fastcall SCMD_SetLightColorBytes(D2GfxLightStrc* pLight, unsigned char nValue0, unsigned char nValue1, unsigned char nValue2); // 0x00474390
+
+int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
+int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
+void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x00648820
+
+struct D2UnitEventArgsStrc
+{
+    int nX;
+    int nY;
+    int nArg2;
+    int nArg3;
+    int nArg4;
+    int nArg5;
+    int nArg6;
+};
+
+int __fastcall sub_00480C10_DispatchUnitEvent(int nEvent, D2UnitStrc* pUnit, D2UnitEventArgsStrc* pArgs, int nArg); // 0x00480C10
 
 // 0x004D84C0
 static int sub_004D84C0_IsInSequenceMode(D2UnitStrc* pUnit)
@@ -1039,6 +1059,158 @@ void __fastcall sub_004D9F40_EndClientState(D2UnitStrc* pUnit, int nState)
 
 void __fastcall PLRSKILLS_StateCreateMissile(D2UnitStrc* pUnit, int nState); // 0x004D9740
 void __fastcall PLRSKILLS_StateResetValue(D2UnitStrc* pUnit, int nState); // 0x004D97E0
+
+// 0x004D8650
+void __fastcall MISSILE_CallSkillSeqDoBackward(D2UnitStrc* pUnit, int nArg)
+{
+    PLRSKILLS_SkillSeqDoBackward(pUnit, nArg);
+}
+
+// 0x004D9630
+void __fastcall MISSILE_StateOverlayRanges(D2UnitStrc* pUnit, int nState)
+{
+    D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(nState);
+    if (!pStatesTxtRecord)
+    {
+        return;
+    }
+
+    int nEnd = pStatesTxtRecord->wOverlay[1];
+    int nStart = pStatesTxtRecord->wOverlay[0];
+    if (nStart >= 0)
+    {
+        for (int i = nStart; i <= nEnd; ++i)
+        {
+            AUTOMAP_RemoveUnitOverlay(pUnit, 0, i);
+        }
+    }
+
+    nStart = pStatesTxtRecord->wOverlay[2];
+    nEnd = pStatesTxtRecord->wOverlay[3];
+    if (nStart >= 0)
+    {
+        for (int i = nStart; i <= nEnd; ++i)
+        {
+            AUTOMAP_RemoveUnitOverlay(pUnit, 0, i);
+        }
+    }
+}
+
+// 0x004D97F0
+void __stdcall MISSILE_UpdateStateColor(D2UnitStrc* pUnit)
+{
+    int nBestState = -1;
+    unsigned char nBestPri = 0;
+    for (int i = 0; i < sgptDataTables->nStatesTxtRecordCount; ++i)
+    {
+        D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(i);
+        if (pStatesTxtRecord && STATES_CheckState(pUnit, i) && pStatesTxtRecord->nColorPri > nBestPri)
+        {
+            nBestState = i;
+            nBestPri = pStatesTxtRecord->nColorPri;
+        }
+    }
+
+    if (nBestState > 0)
+    {
+        D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(nBestState);
+        if (!pStatesTxtRecord)
+        {
+            return;
+        }
+
+// build: symbol ?D2GFX_IsHardwareRenderMode@* 0x004F51C0
+        if (pStatesTxtRecord->nColorShift == 0x68 && pUnit == sub_00463DD0_GetPlayerUnit() && D2GFX_IsHardwareRenderMode())
+        {
+            pUnit->nPaletteIndex = 0;
+        }
+        else
+        {
+            pUnit->nPaletteIndex = pStatesTxtRecord->nColorShift;
+        }
+
+        if (pUnit == sub_00463DD0_GetPlayerUnit() && pUnit->pLight)
+        {
+            SCMD_SetLightColorBytes(pUnit->pLight, pStatesTxtRecord->nLightRGB[0], pStatesTxtRecord->nLightRGB[1], pStatesTxtRecord->nLightRGB[2]);
+        }
+    }
+    else
+    {
+        pUnit->nPaletteIndex = 0;
+        if (pUnit == sub_00463DD0_GetPlayerUnit() && pUnit->pLight)
+        {
+            SCMD_SetLightColorBytes(pUnit->pLight, 0xFF, 0xFF, 0xFF);
+        }
+    }
+}
+
+// 0x004D9160
+void __fastcall sub_004D9160(D2UnitStrc* pArg)
+{
+    SKILLS_RefreshPassiveSkills(pArg);
+}
+
+// 0x004D9170
+void __fastcall sub_004D9170(D2UnitStrc* pArg)
+{
+    SKILLS_RefreshPassiveSkills(pArg);
+}
+
+// 0x004D93B0
+void __fastcall ITEM_SendPositionEvent(D2UnitStrc* pUnit)
+{
+    D2UnitEventArgsStrc tArgs = {};
+
+    int nX;
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        nX = pUnit->pStaticPath->tGameCoords.nX;
+        break;
+
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            nX = PATH_GetXPosition(pUnit->pDynamicPath);
+        }
+        else
+        {
+            nX = 0;
+        }
+        break;
+    }
+    tArgs.nX = nX;
+
+    int nY;
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        nY = pUnit->pStaticPath->tGameCoords.nY;
+        break;
+
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            nY = PATH_GetYPosition(pUnit->pDynamicPath);
+        }
+        else
+        {
+            nY = 0;
+        }
+        break;
+    }
+    tArgs.nY = nY;
+
+    sub_00480C10_DispatchUnitEvent(0x19, pUnit, &tArgs, 0);
+    D2COMMON_10160_PathUpdateDirection(pUnit->pDynamicPath, 0);
+}
+
+
+
 
 #include "gen/data/Source/D2Client/UNIT/PlrSkills.inc"
 

@@ -2972,18 +2972,6 @@ int __cdecl sub_004CCF30()
     return gdwGlobal_0072A348;
 }
 
-// 0x004D9160
-void __fastcall sub_004D9160(D2UnitStrc* pArg)
-{
-    SKILLS_RefreshPassiveSkills(pArg);
-}
-
-// 0x004D9170
-void __fastcall sub_004D9170(D2UnitStrc* pArg)
-{
-    SKILLS_RefreshPassiveSkills(pArg);
-}
-
 // 0x004DF870
 int __cdecl sub_004DF870()
 {

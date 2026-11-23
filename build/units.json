@@ -27018,16 +27018,6 @@
      "name": "sub_004CCF30"
     },
     {
-     "va": "0x004D9160",
-     "length": 7,
-     "name": "sub_004D9160"
-    },
-    {
-     "va": "0x004D9170",
-     "length": 7,
-     "name": "sub_004D9170"
-    },
-    {
      "va": "0x004DF870",
      "length": 6,
      "name": "sub_004DF870"
@@ -30517,11 +30507,6 @@
      "name": "ITEM_EvaluateClientSkillCalc"
     },
     {
-     "va": "0x004D93B0",
-     "length": 156,
-     "name": "ITEM_SendPositionEvent"
-    },
-    {
      "va": "0x004DA0D0",
      "length": 28,
      "name": "ITEM_GetGfxClientY"
@@ -31572,21 +31557,6 @@
      "name": "?sub_004D8400_CltDoRotateTarget@@YIXPAUD2UnitStrc@@@Z"
     },
     {
-     "va": "0x004D8650",
-     "length": 5,
-     "name": "?MISSILE_CallSkillSeqDoBackward@@YIXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004D9630",
-     "length": 123,
-     "name": "MISSILE_StateOverlayRanges"
-    },
-    {
-     "va": "0x004D97F0",
-     "length": 295,
-     "name": "?MISSILE_UpdateStateColor@@YGXPAUD2UnitStrc@@@Z"
-    },
-    {
      "va": "0x004DA6E0",
      "length": 26,
      "name": "?MISSILE_SetMotionFlagMask@@YIXPAUD2UnitStrc@@H@Z"
@@ -32147,6 +32117,11 @@
      "name": "?PLRSKILLS_SkillSeqDoBackward@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x004D8650",
+     "length": 5,
+     "name": "?MISSILE_CallSkillSeqDoBackward@@YIXPAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x004D8660",
      "length": 51,
      "name": "?PLRSKILLS_OverlayVariants@@YGXPAUD2UnitStrc@@H@Z"
@@ -32226,6 +32201,16 @@
      "name": "?PLRSKILLS_StateStopSkillSound@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x004D9160",
+     "length": 7,
+     "name": "sub_004D9160"
+    },
+    {
+     "va": "0x004D9170",
+     "length": 7,
+     "name": "sub_004D9170"
+    },
+    {
      "va": "0x004D9180",
      "length": 210,
      "name": "MISSILE_StateStartMissile"
@@ -32266,6 +32251,11 @@
      "name": "?PLRSKILLS_StateEndRequests@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x004D93B0",
+     "length": 156,
+     "name": "ITEM_SendPositionEvent"
+    },
+    {
      "va": "0x004D9450",
      "length": 35,
      "name": "?PLRSKILLS_StateSetMode@@YIXPAUD2UnitStrc@@H@Z"
@@ -32274,6 +32264,11 @@
      "va": "0x004D9480",
      "length": 432,
      "name": "PLRSKILLS_StateOverlaySpread"
+    },
+    {
+     "va": "0x004D9630",
+     "length": 123,
+     "name": "MISSILE_StateOverlayRanges"
     },
     {
      "va": "0x004D96B0",
@@ -32289,6 +32284,11 @@
      "va": "0x004D97E0",
      "length": 7,
      "name": "?PLRSKILLS_StateResetValue@@YIXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004D97F0",
+     "length": 295,
+     "name": "?MISSILE_UpdateStateColor@@YGXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004D9920",

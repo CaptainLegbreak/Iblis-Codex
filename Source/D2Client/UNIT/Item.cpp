@@ -4082,59 +4082,6 @@ int __fastcall ITEM_EvaluateClientSkillCalc(D2UnitStrc* pUnit, int nSkillId, int
     return 1;
 }
 
-// 0x004D93B0
-void __fastcall ITEM_SendPositionEvent(D2UnitStrc* pUnit)
-{
-    D2UnitEventArgsStrc tArgs = {};
-
-    int nX;
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        nX = pUnit->pStaticPath->tGameCoords.nX;
-        break;
-
-    default:
-        if (pUnit->pDynamicPath)
-        {
-            nX = PATH_GetXPosition(pUnit->pDynamicPath);
-        }
-        else
-        {
-            nX = 0;
-        }
-        break;
-    }
-    tArgs.nX = nX;
-
-    int nY;
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        nY = pUnit->pStaticPath->tGameCoords.nY;
-        break;
-
-    default:
-        if (pUnit->pDynamicPath)
-        {
-            nY = PATH_GetYPosition(pUnit->pDynamicPath);
-        }
-        else
-        {
-            nY = 0;
-        }
-        break;
-    }
-    tArgs.nY = nY;
-
-    sub_00480C10_DispatchUnitEvent(0x19, pUnit, &tArgs, 0);
-    D2COMMON_10160_PathUpdateDirection(pUnit->pDynamicPath, 0);
-}
-
 // 0x004DA0D0
 int __stdcall ITEM_GetGfxClientY(D2UnitStrc* pUnit)
 {

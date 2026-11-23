@@ -4908,12 +4908,6 @@ void __fastcall MISSILE_CltDoEruption(D2UnitStrc* pMissile)
     MISSILE_CltDoCommon(pMissile);
 }
 
-// 0x004D8650
-void __fastcall MISSILE_CallSkillSeqDoBackward(D2UnitStrc* pUnit, int nArg)
-{
-    PLRSKILLS_SkillSeqDoBackward(pUnit, nArg);
-}
-
 // 0x004DA6E0
 void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet)
 {
@@ -5711,36 +5705,6 @@ void __fastcall MISSILE_CltDoScatterRate(D2UnitStrc* pMissile)
     MISSILE_CltDoCommon(pMissile);
 }
 
-// 0x004D9630
-void __fastcall MISSILE_StateOverlayRanges(D2UnitStrc* pUnit, int nState)
-{
-    D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(nState);
-    if (!pStatesTxtRecord)
-    {
-        return;
-    }
-
-    int nEnd = pStatesTxtRecord->wOverlay[1];
-    int nStart = pStatesTxtRecord->wOverlay[0];
-    if (nStart >= 0)
-    {
-        for (int i = nStart; i <= nEnd; ++i)
-        {
-            AUTOMAP_RemoveUnitOverlay(pUnit, 0, i);
-        }
-    }
-
-    nStart = pStatesTxtRecord->wOverlay[2];
-    nEnd = pStatesTxtRecord->wOverlay[3];
-    if (nStart >= 0)
-    {
-        for (int i = nStart; i <= nEnd; ++i)
-        {
-            AUTOMAP_RemoveUnitOverlay(pUnit, 0, i);
-        }
-    }
-}
-
 // 0x004E2F40
 int __fastcall MISSILE_VolleyAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -5869,54 +5833,6 @@ int __fastcall MISSILE_CltHitFollowUp(D2UnitStrc* pMissile, D2UnitStrc* pHitUnit
     }
 
     return 1;
-}
-
-// 0x004D97F0
-void __stdcall MISSILE_UpdateStateColor(D2UnitStrc* pUnit)
-{
-    int nBestState = -1;
-    unsigned char nBestPri = 0;
-    for (int i = 0; i < sgptDataTables->nStatesTxtRecordCount; ++i)
-    {
-        D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(i);
-        if (pStatesTxtRecord && STATES_CheckState(pUnit, i) && pStatesTxtRecord->nColorPri > nBestPri)
-        {
-            nBestState = i;
-            nBestPri = pStatesTxtRecord->nColorPri;
-        }
-    }
-
-    if (nBestState > 0)
-    {
-        D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(nBestState);
-        if (!pStatesTxtRecord)
-        {
-            return;
-        }
-
-// build: symbol ?D2GFX_IsHardwareRenderMode@* 0x004F51C0
-        if (pStatesTxtRecord->nColorShift == 0x68 && pUnit == sub_00463DD0_GetPlayerUnit() && D2GFX_IsHardwareRenderMode())
-        {
-            pUnit->nPaletteIndex = 0;
-        }
-        else
-        {
-            pUnit->nPaletteIndex = pStatesTxtRecord->nColorShift;
-        }
-
-        if (pUnit == sub_00463DD0_GetPlayerUnit() && pUnit->pLight)
-        {
-            SCMD_SetLightColorBytes(pUnit->pLight, pStatesTxtRecord->nLightRGB[0], pStatesTxtRecord->nLightRGB[1], pStatesTxtRecord->nLightRGB[2]);
-        }
-    }
-    else
-    {
-        pUnit->nPaletteIndex = 0;
-        if (pUnit == sub_00463DD0_GetPlayerUnit() && pUnit->pLight)
-        {
-            SCMD_SetLightColorBytes(pUnit->pLight, 0xFF, 0xFF, 0xFF);
-        }
-    }
 }
 
 // 0x004D1D70
