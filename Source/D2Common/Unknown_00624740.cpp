@@ -20,14 +20,6 @@ extern unsigned int gdwInvBitMasks[];
 D2StatesTxt* __fastcall DATATBLS_GetStatesTxtRecord(int nStateId);
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask);
 
-// 0x00624740
-void __stdcall sub_00624740_FormatLocalTime(char* szBuffer, size_t nSize)
-{
-    D2SystemTimeStrc tTime;
-    GetLocalTime(&tTime);
-    SStrPrintf(szBuffer, nSize, "%02u:%02u:%02u.%03u\t", tTime.wHour, tTime.wMinute, tTime.wSecond, tTime.wMilliseconds);
-}
-
 static inline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecord(int nStatId)
 {
     if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)

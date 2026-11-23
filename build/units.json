@@ -71314,6 +71314,11 @@
      "name": "?LOG_CloseLogFile@@YAXPAU_iobuf@@@Z"
     },
     {
+     "va": "0x00624740",
+     "length": 63,
+     "name": "sub_00624740_FormatLocalTime"
+    },
+    {
      "va": "0x00624780",
      "length": 300,
      "name": "?StoreLogging@@YGXPAU_iobuf@@HHHHPBDH1PAD@Z"
@@ -71354,11 +71359,6 @@
    "file": "Source/D2Common/Unknown_00624740.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00624740",
-     "length": 63,
-     "name": "sub_00624740_FormatLocalTime"
-    },
     {
      "va": "0x00624B90",
      "length": 53,
