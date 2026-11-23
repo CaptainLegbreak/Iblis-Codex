@@ -85,7 +85,6 @@ struct D2ItemsTxt;
 
 struct D2LevelsTxt;
 
-struct D2ObjectRoomCoordStrc;
 
 struct D2MonsterRegionStrc;
 
@@ -202,14 +201,6 @@ struct D2QuestTimerStrc
     unsigned int dwTicks;
     unsigned int dwTimeout;
     D2QuestTimerStrc* pNext;
-};
-
-struct D2ObjectRoomCoordStrc
-{
-    D2ActiveRoomStrc* pRoom;
-    int nX;
-    int nY;
-    D2ObjectRoomCoordStrc* pNext;
 };
 
 

@@ -145,12 +145,6 @@ struct D2SGameDataStrc;
 struct D2ServerCallbackFunctions;
 
 
-struct D2NetPacketRecStrc;
-
-struct D2NetLockStrc;
-
-struct D2Net52BE10Strc;
-
 struct D2UnitDescriptionListStrc;
 
 struct Unicode;
@@ -163,19 +157,9 @@ struct D2StormLinkStrc;
 
 struct D2StormListAStrc;
 
-struct D2StormChunkListStrc;
 
 struct D2StormListArrayStrc;
 
-struct D2StormHashTableStrc;
-
-struct D2StormListStrc;
-
-struct D2Storm4167B0Strc;
-
-struct D2Storm4168F0Strc;
-
-struct D2Storm416A90Strc;
 
 struct D2HashKeyNoneStrc;
 
@@ -198,9 +182,6 @@ struct D2ObjectsTxt;
 
 struct D2DataTablesStrc;
 
-struct D2StormHashNodeStrc;
-
-struct D2StormHashTable0052E650Strc;
 
 struct D2FileTimeStrc;
 
@@ -210,7 +191,6 @@ struct D2StormSlotList00530600Strc;
 
 struct D2StormSlotArray00530600Strc;
 
-struct D2StormHashTable00530600Strc;
 
 extern char gData_00882028[]; // 0x00882028
 
@@ -377,27 +357,6 @@ void __fastcall CLIENTS_Initialize(); // 0x005376C0
 
 int __fastcall CLIENTS_AttachSaveFile(int nClientId, const void* pSaveData, int nSize, int nTotalSize, int bUnlockCharacter, int a6, int a7); // 0x00538CE0
 
-struct D2NetPacketRecStrc
-{
-    unsigned char data[MAX_MSG_SIZE];
-    int nPacketSize;
-    unsigned long dwTickCount;
-    D2NetPacketRecStrc* pNext;
-};
-
-struct D2NetLockStrc
-{
-    D2CriticalSectionStrc tLock;
-
-    void Lock(int nUnused);
-    void Unlock(int nUnused);
-};
-
-struct D2Net52BE10Strc
-{
-    char unk0x00[0xD0];
-    char aData[4];
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
@@ -511,13 +470,6 @@ struct D2StormListAStrc
     }
 };
 
-struct D2StormChunkListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    void sub_00450580_DeleteAll();                                                                          // 0x00450580
-};
 
 struct D2StormListArrayStrc
 {
@@ -529,52 +481,9 @@ struct D2StormListArrayStrc
     void sub_00450110_SetCount(unsigned int nCount);                                                        // 0x00450110
 };
 
-struct D2StormHashTableStrc
-{
-    virtual void InternalDelete(D2SGameDataStrc* pNode);
-    virtual D2SGameDataStrc* InternalNew(D2StormListAStrc* pList, unsigned int nExtraBytes, unsigned int nFlags);
-    virtual ~D2StormHashTableStrc();
-    virtual void Destroy();
-    D2StormListAStrc m_fulllist;
-    unsigned int m_fullnessIndicator;
-    D2StormListArrayStrc m_slotlistarray;
-    unsigned int m_slotmask;
-
-    unsigned int MaskHash(unsigned int value); // 0x0052E0E0
-    void sub_0044FA00_InternalClear(int bWarn);                                                             // 0x0044FA00
-    void GrowListArray(); // 0x0052FF20
-};
 
 extern unsigned short gwValue_0077905C;
 
-struct D2StormListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-};
-
-struct D2Storm4167B0Strc
-{
-    D2StormLinkStrc f_0;
-
-    ~D2Storm4167B0Strc();
-};
-
-struct D2Storm4168F0Strc
-{
-    D2StormLinkStrc f_0;
-
-    ~D2Storm4168F0Strc();
-};
-
-struct D2Storm416A90Strc
-{
-    char pad00[0x14C];
-    int n14C;
-    int n150;
-};
-
-struct D2GameListStrc;
 
 struct D2GameHashLinkStrc
 {
@@ -684,23 +593,6 @@ void __fastcall SrvEndGame(int clientId, int flag); // 0x005303D0
 
 extern "C" void _ReadWriteBarrier(void);
 
-struct D2StormHashNodeStrc
-{
-    unsigned int m_hashval;
-    D2StormLinkStrc m_linktoslot;
-    D2StormLinkStrc f_C;
-};
-
-struct D2StormHashTable0052E650Strc
-{
-    void* m_vtable;
-    D2StormListAStrc m_fulllist;
-    unsigned int m_fullnessIndicator;
-    D2StormListArrayStrc m_slotlistarray;
-    unsigned int m_slotmask;
-
-    char* sub_0052E650_Ptr(unsigned int nHashVal, int nKey);
-};
 
 int __fastcall D2GAME_SAVE_WriteFile_6FC8A500(D2GameStrc* pGame, D2UnitStrc* pPlayer, const char* szName, unsigned int dwArg); // 0x00532400
 
@@ -738,52 +630,9 @@ struct D2StormSlotArray00530600Strc
 
 };
 
-struct D2StormHashTable00530600Strc
-{
-    void* m_vtable;
-    D2StormSlotList00530600Strc m_fulllist;
-    unsigned int m_fullnessIndicator;
-    D2StormSlotArray00530600Strc m_slotlistarray;
-    unsigned int m_slotmask;
-
-    void GrowListArray();  // 0x0052FF20
-    int MonitorFullness(unsigned int nSlot); // 0x00530600
-};
 
 int gdwGlobal_00882D14; // 0x00882D14
 
-struct D2GameInfoStrc
-{
-    int nGameId;
-    unsigned int nInitSeed;
-    int nClients;
-    int nPlayers;
-    int nMonsters;
-    int nObjects;
-    int nItems;
-    int nMissiles;
-    int nUniqueItems;
-    int nNPCs;
-    unsigned int dwLastUsedUnitGUID[6];
-    int nPathTowardPct;
-    int nPathClockPct;
-    int nPathCounterPct;
-    int nPathAStarPct;
-    int nPathFoWallPct;
-    int nPathTotalCalls;
-    int nFrames;
-    int nTime;
-    int nFrameRate;
-    char szGameName[16];
-    char szGamePassword[16];
-    char szGameDescription[32];
-    unsigned char nArenaTemplate;
-    unsigned char nMaxLevelDifference;
-    unsigned char nMaxPlayers;
-    unsigned char padding0xA7;
-    unsigned int nArenaFlags;
-    void* pMemoryPool;
-};
 
 #define PATHTYPE_ASTAR 1
 
@@ -831,35 +680,12 @@ struct D2UnitInfoStrc
 
 void __fastcall SUNIT_FillUnitInfo(D2UnitStrc* pUnit, D2UnitInfoStrc* pUnitInfo);                           // 0x00553F30
 
-struct D2GameNodeStrc
-{
-    ~D2GameNodeStrc();                                                                                      // 0x0044F820
-};
 
 static inline D2GameStrc* GAMELINK_Next(D2GameLinkStrc* pLink)
 {
     return (int)pLink->pNext <= 0 ? 0 : pLink->pNext;
 }
 
-struct D2GameListStrc
-{
-    int nLinkOffset;
-    D2GameLinkStrc tTerminator;
-
-    D2GameLinkStrc* InlineLink(D2GameStrc* pGame)
-    {
-        return pGame ? (D2GameLinkStrc*)((char*)pGame + nLinkOffset) : &tTerminator;
-    }
-
-    D2GameStrc* InlineNext(D2GameStrc* pGame)
-    {
-        return GAMELINK_Next(InlineLink(pGame));
-    }
-
-    D2GameStrc* RawNext(D2GameStrc* pGame);
-    D2GameStrc* Next(D2GameStrc* pGame);
-    D2GameStrc* DeleteNode(D2GameStrc* pGame);
-};
 
 struct D2MessageThreadArgsStrc
 {
@@ -964,11 +790,6 @@ struct Request {
  int client; unsigned char unused,command;
 };
 
-struct ShortResponse
-{
-    unsigned char command;
-    char payload[15];
-};
 
 struct Array8
 {
@@ -1019,7 +840,6 @@ void __fastcall sub_0054A9B0(D2GameStrc*,const char*,unsigned char);  // 0x0054A
 
 enum { MODE_MASK = 15 };
 
-struct D2GameStatisticsStrc;
 
 struct D2UnitInfoStrc;
 
@@ -1067,13 +887,6 @@ int __stdcall D2Common_10073(D2ActiveRoomStrc* pRoom); // 0x0061A460
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
-struct D2GameStatisticsStrc
-{
-    int nGamesCount;
-    int nActiveMonsters;
-    int nInactiveMonsters;
-    int nPlayersCount;
-};
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
@@ -1148,17 +961,14 @@ struct D2UnkPlrMsgStrc;
 
 struct D2PlayerDataStrc;
 
-struct D2NpcEventStrc;
 
 struct D2NpcGambleStrc;
 
 struct D2NpcRecordStrc;
 
-struct D2NpcControlStrc;
 
 struct D2ArenaStrc;
 
-struct D2RosterIterateStrc;
 
 struct D2UnitProxyArgStrc;
 
@@ -1258,27 +1068,6 @@ int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath)
 
 void __stdcall QUESTRECORD_FreeRecord(void* pMemPool, D2BitBufferStrc* pQuestRecord); // 0x0065C490
 
-struct D2NpcEventStrc
-{
-    D2UnitStrc* pUnit;
-    int field_4;
-    int field_8;
-    int field_C;
-    D2NpcEventStrc* pNext;
-};
-
-struct D2NpcControlStrc
-{
-    int nArraySize;
-    D2NpcRecordStrc* pFirstRecord;
-};
-
-struct D2RosterIterateStrc
-{
-    int bFlag;
-    D2UnitStrc* pUnit;
-};
-
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 
@@ -1337,19 +1126,6 @@ void __fastcall PLRMSG_SendWalkMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Clie
 #define CLIENTS_MAX_UPDATES 55u
 
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
-
-#pragma pack(push, 1)
-
-struct D2SavePartPacketStrc
-{
-    unsigned char nHeader;
-    unsigned char nPartDataSize;
-    unsigned char bFirstPart;
-    int nSaveHeaderSize;
-    unsigned char aData[0x100];
-};
-
-#pragma pack(pop)
 
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds);                       // 0x006CC258
 
@@ -1555,13 +1331,11 @@ void D2GameStrc::OBJRGN_BroadcastServerText(const char* szText)
 
 #define UNITFLAG_TARGETABLE 0x00000002
 
-struct D2QuestChainStrc;
 
 struct D2SuperUniquesTxt;
 
 struct D2NPCMessageStrc;
 
-struct D2NPCMessageTableStrc;
 
 struct D2LevelsTxt;
 
@@ -1580,19 +1354,9 @@ struct D2QuestInitTableStrc;
 
 struct D2GSPacketSrv91;
 
-struct Obj00545290;
-
-struct Obj005452C0;
 
 struct D2ObjOperateFnStrc;
 
-struct D2Unk00545D40Rec;
-
-struct D2QuestChainStrc
-{
-    D2QuestDataStrc* pQuestData;
-    D2QuestChainStrc* pNext;
-};
 
 void __fastcall ACT2Q4_InitializeJerhynStartObject(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp); // 0x0059F380
 
@@ -1610,11 +1374,6 @@ struct D2NPCMessageStrc
     int nMenu;
 };
 
-struct D2NPCMessageTableStrc
-{
-    D2NPCMessageStrc pMessages[16];
-    int nMessages;
-};
 
 void __stdcall TEXT_AddNodeToTextList(D2TextHeaderStrc* pTextHeader, short nStringId, int nMenu); // 0x006612F0
 
@@ -1783,18 +1542,6 @@ int __fastcall PLRINTRO_GetNpcIntroFlag(D2PlrIntroStrc* pPlayerIntro, int nNpcId
 
 void __fastcall D2GAME_PACKETS_SendPacket0x91(D2ClientStrc* pClient, D2GSPacketSrv91* pPacket); // 0x0053E060
 
-struct Obj00545290
-{
-    unsigned int dwValues[32];
-    unsigned short wCount80;
-};
-
-struct Obj005452C0
-{
-    unsigned char bUnknown00[0x1C];
-    unsigned int dwValues1C[32];
-    unsigned short wCount9C;
-};
 
 void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
 
@@ -1814,18 +1561,6 @@ void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x006
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 
-struct D2Unk00545D40Rec
-{
-    int nFirst;
-    int nSecond;
-    unsigned char nKind;
-    unsigned char bActive;
-    unsigned char b0A;
-    unsigned char b0B;
-    char unk0x0C[0x90];
-    unsigned short w9C;
-    char unk0x9E[0x5A];
-};
 
 void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005455B0
 

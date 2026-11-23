@@ -115,7 +115,6 @@ void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* 
 
 #define UNITFLAG_TARGETABLE 0x00000002
 
-struct D2QuestChainStrc;
 
 struct D2QuestInfoStrc;
 
@@ -129,15 +128,12 @@ struct D2ObjInitFnStrc;
 
 struct D2NPCMessageStrc;
 
-struct D2NPCMessageTableStrc;
 
 struct D2StaticPathStrc;
 
 struct D2QuestTimerStrc;
 
 struct D2ItemsTxt;
-
-struct D2ObjectRoomCoordStrc;
 
 
 struct D2PackedGuidStrc;
@@ -164,13 +160,6 @@ struct D2DrlgCoordsStrc;
 
 struct D2ObjOperateFnStrc;
 
-struct D2Unk00545D40Rec;
-
-struct D2QuestChainStrc
-{
-    D2QuestDataStrc* pQuestData;
-    D2QuestChainStrc* pNext;
-};
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 
@@ -205,11 +194,6 @@ struct D2NPCMessageStrc
     int nMenu;
 };
 
-struct D2NPCMessageTableStrc
-{
-    D2NPCMessageStrc pMessages[16];
-    int nMessages;
-};
 
 void __stdcall TEXT_AddNodeToTextList(D2TextHeaderStrc* pTextHeader, short nStringId, int nMenu); // 0x006612F0
 
@@ -240,14 +224,6 @@ struct D2QuestTimerStrc
     unsigned int dwTicks;
     unsigned int dwTimeout;
     D2QuestTimerStrc* pNext;
-};
-
-struct D2ObjectRoomCoordStrc
-{
-    D2ActiveRoomStrc* pRoom;
-    int nX;
-    int nY;
-    D2ObjectRoomCoordStrc* pNext;
 };
 
 
@@ -470,18 +446,6 @@ D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 
-struct D2Unk00545D40Rec
-{
-    int nFirst;
-    int nSecond;
-    unsigned char nKind;
-    unsigned char bActive;
-    unsigned char b0A;
-    unsigned char b0B;
-    char unk0x0C[0x90];
-    unsigned short w9C;
-    char unk0x9E[0x5A];
-};
 
 void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005455B0
 

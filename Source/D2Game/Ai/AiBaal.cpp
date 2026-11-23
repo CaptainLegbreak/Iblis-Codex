@@ -24,7 +24,6 @@ struct D2MonStatsTxt;
 
 struct D2MonsterDataStrc;
 
-struct D2AiTableStrc;
 
 union D2SeedStrc;
 
@@ -51,13 +50,6 @@ int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile
 
 int __fastcall AIUTIL_HasClearMissilePath(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005DD290
 
-struct D2AiTableStrc
-{
-    int unk0x00;
-    void* unk0x04;
-    void* pAiParamFn;
-    void* unk0x0C;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 

@@ -1,11 +1,6 @@
 #include "D2TxtItems.h"
 struct D2ItemsTxt;
 
-struct D2CubeMainTxtStrc
-{
-    char unk0x00[0x0C];
-    D2CubeInputItem pInputItem[7];
-};
 
 struct D2UniqueItemsTxtStrc
 {

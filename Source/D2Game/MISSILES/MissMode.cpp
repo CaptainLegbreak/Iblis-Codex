@@ -6488,16 +6488,9 @@ static inline unsigned int AI_RollUnitSeed(D2UnitStrc* pUnit)
 
 struct D2LevelsTxt;
 
-struct D2PantherAiCallbackArgStrc;
 
 struct D2AiCallback11ArgStrc;
 
-
-struct D2PantherAiCallbackArgStrc
-{
-    D2UnitStrc* pTarget;
-    int nDistance;
-};
 
 struct D2AiCallback11ArgStrc
 {

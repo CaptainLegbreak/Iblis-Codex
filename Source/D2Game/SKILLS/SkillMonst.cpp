@@ -145,7 +145,6 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId);
 inline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId);
 
 
-
 #define UNIT_TYPES 6
 
 #define COLLIDE_MASK_PLAYER_PATH 0x1C09
@@ -494,8 +493,6 @@ int __stdcall D2Common_11026(int nX, int nY, D2UnitStrc* pUnit, int nMask); // 0
 unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CB30
 
 
-
-
 enum D2C_Z09SkillConstants
 {
     UNITFLAG_TARGETFLAGS = 0x0E,
@@ -550,16 +547,6 @@ void __fastcall SKILLS_SetElementalDurationFromSkill(D2UnitStrc* pUnit, D2Damage
 
 void __fastcall SUNITDMG_FillDamageValues(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage, int a5, unsigned char nSrcDam); // 0x0057B7D0
 
-struct D2Do142ArgsStrc
-{
-    D2DamageStrc* pDamage;
-    int nToHit;
-    unsigned short wResultFlags;
-    unsigned short unk0x0A;
-    unsigned int dwHitFlags;
-    unsigned char nSrcDam;
-    unsigned char unk0x11[3];
-};
 
 struct D2UnkNecSkillStrc
 {
@@ -684,30 +671,6 @@ struct Unit
     Seed seed;
 };
 
-struct AuraRequest
-{
-    Unit* owner;
-    Unit* target;
-    int skill;
-    int level;
-    int duration;
-    int stat;
-    int amount;
-    int state;
-    void* callback;
-};
-
-struct ModeRequest
-{
-    int mode;
-    Unit* target;
-    U32 field08;
-    U32 field0C;
-    U32 field10;
-    U32 f_14;
-    U32 f_18;
-    U32 field1C;
-};
 
 extern "C" int __stdcall sub_00646CA0_Evaluate(Unit*, U32, int, int); // 0x00646CA0
 

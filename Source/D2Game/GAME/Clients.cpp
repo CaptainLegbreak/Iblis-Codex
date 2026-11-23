@@ -544,17 +544,9 @@ struct D2ItemCacheStrc;
 
 struct D2UnitProxyStrc;
 
-struct M08EmitRecStrc;
 
 struct D2NpcGambleStrc;
 
-struct D2NpcVendorChainStrc;
-
-struct D2NpcEventStrc;
-
-struct D2NpcControlStrc;
-
-struct D2NpcTradeStrc;
 
 struct Pad40_00536B40;
 
@@ -570,7 +562,6 @@ struct D2EventTimerQueueStrc;
 
 struct D2QuestGUIDStrc;
 
-struct D2RegurgitatorAiCallbackArgStrc;
 
 D2UnitProxyStrc gaUnitProxyItemCache[17]; // 0x00883D78
 
@@ -578,48 +569,6 @@ void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, in
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
-struct M08EmitRecStrc
-{
-    int nKind;
-    char bFlagA;
-    char bFlagB;
-    char unk0x06[2];
-    D2UnitProxyStrc tProxy;
-};
-
-struct D2NpcVendorChainStrc
-{
-    int dwGUID;
-    int unk0x04;
-    D2NpcVendorChainStrc* pNext;
-};
-
-struct D2NpcEventStrc
-{
-    D2UnitStrc* pUnit;
-    int field_4;
-    int field_8;
-    int field_C;
-    D2NpcEventStrc* pNext;
-};
-
-struct D2NpcTradeStrc
-{
-    unsigned char bVendorInit;
-    unsigned char unk0x01;
-    unsigned char unk0x02;
-    unsigned char bTrader;
-    int unk0x04;
-    unsigned int dwTick;
-};
-
-struct D2NpcControlStrc
-{
-    int nArraySize;
-    D2NpcRecordStrc* pFirstRecord;
-    D2SeedStrc pSeed;
-    int nNpcCount;
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
@@ -717,19 +666,9 @@ struct Obj00536B40 {
     unsigned int dwValue1D24;
 };
 
-struct D2ItemDataTbl
-{
-    int nItemsTxtRecordCount;
-    D2ItemsTxt* pItemsTxt;
-};
 
 unsigned char gbUnitProxyItemCacheInitialized[17]; // 0x00883E88
 
-struct D2RegurgitatorAiCallbackArgStrc
-{
-    D2UnitStrc* pTarget;
-    int nDistance;
-};
 
 enum
 {
@@ -896,19 +835,6 @@ int __fastcall DATATBLS_GetClassFromCharTemplateTxtRecord(int nTemplate, int nLe
 
 typedef int (__fastcall* D2UnitEventCallbackFunction)(D2GameStrc* pGame, int nUnitEvent, D2UnitStrc* pUnit, D2UnitStrc* pEventSourceUnit, D2DamageStrc* pDamage, int nGUID1, int nGUID2);
 
-struct D2UnitEventStrc
-{
-    unsigned char nUnitEvent;
-    unsigned char unk0x01;
-    unsigned short nFlags;
-    unsigned int nEventGroup;
-    int unk0x08;
-    int nGUID1;
-    int nGUID2;
-    D2UnitEventCallbackFunction pCallback;
-    D2UnitEventStrc* pPrevious;
-    D2UnitEventStrc* pNext;
-};
 
 struct D2AiParamStrc
 {
@@ -1716,7 +1642,6 @@ struct D2PartyStrc;
 
 struct D2PartyControlStrc;
 
-struct D2CorpseSaveStrc;
 
 struct D2LargeIntegerStrc;
 
@@ -1732,13 +1657,9 @@ struct D2Act5Quest4Strc;
 
 struct D2StatesTxt;
 
-struct D2PlrIntroSaveStrc;
-
-struct D2RosterIterateStrc;
 
 struct D2SavedItemStrc;
 
-struct D2ItemKeyStrc;
 
 struct D2DrlgActStrc;
 
@@ -1814,12 +1735,6 @@ D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill);
 
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 
-struct D2CorpseSaveStrc
-{
-    unsigned int unk0x00;
-    int nX;
-    int nY;
-};
 
 __declspec(noalias) int __fastcall PLRSAVE2_CreateSaveFile(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pData, unsigned int* pSize, unsigned int nMaxSize, int a6, int a7); // 0x00569AD0
 
@@ -1913,19 +1828,6 @@ int __fastcall D2GAME_SAVE_CalculateChecksum_6FC8A140(D2SaveHeaderStrc* pSaveHea
 
 void __fastcall CLIENTS_CopySaveDataToClient(D2ClientStrc* pClient, const void* pData, unsigned int nSize); // 0x00538E60
 
-struct D2PlrIntroSaveStrc
-{
-    unsigned short nHeader;
-    unsigned short nLength;
-    unsigned char unk0x04[NUM_DIFFICULTIES][8];
-    unsigned char unk0x1C[NUM_DIFFICULTIES][8];
-};
-
-struct D2RosterIterateStrc
-{
-    int bFlag;
-    D2UnitStrc* pUnit;
-};
 
 void __fastcall PLAYER_CheckHostilityCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs); // 0x00535AF0
 
@@ -1965,14 +1867,6 @@ struct D2SavedItemStrc
     unsigned int nItemCode;
 };
 
-struct D2ItemKeyStrc
-{
-    unsigned int nCode;
-    int nIndex;
-    int nLevel;
-    unsigned int nSeed;
-    unsigned int nItemSeed;
-};
 
 D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc* pGame, D2ItemDropStrc* pItemDrop, int bUseSeed); // 0x00558D90
 
@@ -2050,15 +1944,6 @@ int __stdcall DATATBLS_MapOldItemIndexToCurrent(int nItemId); // 0x006335A0
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
-struct D2QuestSaveSectionStrc;
-
-struct D2QuestSaveSectionStrc
-{
-    unsigned int dwHeaderMagic;
-    unsigned int dwVersion;
-    unsigned short nSize;
-    unsigned char pQuestRecord[3][96];
-};
 
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc*); // 0x00625D10
 
@@ -2170,12 +2055,6 @@ struct D2MonsterRegionStrc;
 struct D2SGameDataStrc;
 
 
-struct D2NetPacketRecStrc;
-
-struct D2NetLockStrc;
-
-struct D2Net52BE10Strc;
-
 struct D2UnitDescriptionListStrc;
 
 struct Unicode;
@@ -2186,19 +2065,9 @@ struct D2StormLinkStrc;
 
 struct D2StormListAStrc;
 
-struct D2StormChunkListStrc;
 
 struct D2StormListArrayStrc;
 
-struct D2StormHashTableStrc;
-
-struct D2StormListStrc;
-
-struct D2Storm4167B0Strc;
-
-struct D2Storm4168F0Strc;
-
-struct D2Storm416A90Strc;
 
 struct D2HashKeyNoneStrc;
 
@@ -2207,17 +2076,12 @@ struct D2GameDataTableStrc;
 union D2LargeIntegerUnion;
 
 
-struct D2StormHashNodeStrc;
-
-struct D2StormHashTable0052E650Strc;
-
 struct D2StormSlotLink00530600Strc;
 
 struct D2StormSlotList00530600Strc;
 
 struct D2StormSlotArray00530600Strc;
 
-struct D2StormHashTable00530600Strc;
 
 extern char gData_00882028[]; // 0x00882028
 
@@ -2333,27 +2197,6 @@ int __stdcall GAME_AbortClientById(int nClientId, int a2, int a3); // 0x005300F0
 
 void __fastcall SUNITPROXY_FillGlobalItemCache(); // 0x00536F80
 
-struct D2NetPacketRecStrc
-{
-    unsigned char data[MAX_MSG_SIZE];
-    int nPacketSize;
-    unsigned long dwTickCount;
-    D2NetPacketRecStrc* pNext;
-};
-
-struct D2NetLockStrc
-{
-    D2CriticalSectionStrc tLock;
-
-    void Lock(int nUnused);
-    void Unlock(int nUnused);
-};
-
-struct D2Net52BE10Strc
-{
-    char unk0x00[0xD0];
-    char aData[4];
-};
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);
 
@@ -2455,13 +2298,6 @@ struct D2StormListAStrc
     }
 };
 
-struct D2StormChunkListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    void sub_00450580_DeleteAll();                                                                          // 0x00450580
-};
 
 struct D2StormListArrayStrc
 {
@@ -2473,52 +2309,9 @@ struct D2StormListArrayStrc
     void sub_00450110_SetCount(unsigned int nCount);                                                        // 0x00450110
 };
 
-struct D2StormHashTableStrc
-{
-    virtual void InternalDelete(D2SGameDataStrc* pNode);
-    virtual D2SGameDataStrc* InternalNew(D2StormListAStrc* pList, unsigned int nExtraBytes, unsigned int nFlags);
-    virtual ~D2StormHashTableStrc();
-    virtual void Destroy();
-    D2StormListAStrc m_fulllist;
-    unsigned int m_fullnessIndicator;
-    D2StormListArrayStrc m_slotlistarray;
-    unsigned int m_slotmask;
-
-    unsigned int MaskHash(unsigned int value); // 0x0052E0E0
-    void sub_0044FA00_InternalClear(int bWarn);                                                             // 0x0044FA00
-    void GrowListArray(); // 0x0052FF20
-};
 
 extern unsigned short gwValue_0077905C;
 
-struct D2StormListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-};
-
-struct D2Storm4167B0Strc
-{
-    D2StormLinkStrc f_0;
-
-    ~D2Storm4167B0Strc();
-};
-
-struct D2Storm4168F0Strc
-{
-    D2StormLinkStrc f_0;
-
-    ~D2Storm4168F0Strc();
-};
-
-struct D2Storm416A90Strc
-{
-    char pad00[0x14C];
-    int n14C;
-    int n150;
-};
-
-struct D2GameListStrc;
 
 struct D2GameHashLinkStrc
 {
@@ -2624,23 +2417,6 @@ void __fastcall SrvEndGame(int clientId, int flag); // 0x005303D0
 
 extern "C" void _ReadWriteBarrier(void);
 
-struct D2StormHashNodeStrc
-{
-    unsigned int m_hashval;
-    D2StormLinkStrc m_linktoslot;
-    D2StormLinkStrc f_C;
-};
-
-struct D2StormHashTable0052E650Strc
-{
-    void* m_vtable;
-    D2StormListAStrc m_fulllist;
-    unsigned int m_fullnessIndicator;
-    D2StormListArrayStrc m_slotlistarray;
-    unsigned int m_slotmask;
-
-    char* sub_0052E650_Ptr(unsigned int nHashVal, int nKey);
-};
 
 int __fastcall D2GAME_SAVE_WriteFile_6FC8A500(D2GameStrc* pGame, D2UnitStrc* pPlayer, const char* szName, unsigned int dwArg); // 0x00532400
 
@@ -2672,52 +2448,9 @@ struct D2StormSlotArray00530600Strc
 
 };
 
-struct D2StormHashTable00530600Strc
-{
-    void* m_vtable;
-    D2StormSlotList00530600Strc m_fulllist;
-    unsigned int m_fullnessIndicator;
-    D2StormSlotArray00530600Strc m_slotlistarray;
-    unsigned int m_slotmask;
-
-    void GrowListArray();  // 0x0052FF20
-    int MonitorFullness(unsigned int nSlot); // 0x00530600
-};
 
 int gdwGlobal_00882D14; // 0x00882D14
 
-struct D2GameInfoStrc
-{
-    int nGameId;
-    unsigned int nInitSeed;
-    int nClients;
-    int nPlayers;
-    int nMonsters;
-    int nObjects;
-    int nItems;
-    int nMissiles;
-    int nUniqueItems;
-    int nNPCs;
-    unsigned int dwLastUsedUnitGUID[6];
-    int nPathTowardPct;
-    int nPathClockPct;
-    int nPathCounterPct;
-    int nPathAStarPct;
-    int nPathFoWallPct;
-    int nPathTotalCalls;
-    int nFrames;
-    int nTime;
-    int nFrameRate;
-    char szGameName[16];
-    char szGamePassword[16];
-    char szGameDescription[32];
-    unsigned char nArenaTemplate;
-    unsigned char nMaxLevelDifference;
-    unsigned char nMaxPlayers;
-    unsigned char padding0xA7;
-    unsigned int nArenaFlags;
-    void* pMemoryPool;
-};
 
 #define PATHTYPE_ASTAR 1
 
@@ -2763,35 +2496,12 @@ struct D2UnitInfoStrc
 
 void __fastcall SUNIT_FillUnitInfo(D2UnitStrc* pUnit, D2UnitInfoStrc* pUnitInfo);                           // 0x00553F30
 
-struct D2GameNodeStrc
-{
-    ~D2GameNodeStrc();                                                                                      // 0x0044F820
-};
 
 static inline D2GameStrc* GAMELINK_Next(D2GameLinkStrc* pLink)
 {
     return (int)pLink->pNext <= 0 ? 0 : pLink->pNext;
 }
 
-struct D2GameListStrc
-{
-    int nLinkOffset;
-    D2GameLinkStrc tTerminator;
-
-    D2GameLinkStrc* InlineLink(D2GameStrc* pGame)
-    {
-        return pGame ? (D2GameLinkStrc*)((char*)pGame + nLinkOffset) : &tTerminator;
-    }
-
-    D2GameStrc* InlineNext(D2GameStrc* pGame)
-    {
-        return GAMELINK_Next(InlineLink(pGame));
-    }
-
-    D2GameStrc* RawNext(D2GameStrc* pGame);
-    D2GameStrc* Next(D2GameStrc* pGame);
-    D2GameStrc* DeleteNode(D2GameStrc* pGame);
-};
 
 struct D2MessageThreadArgsStrc
 {
@@ -2876,11 +2586,6 @@ struct Request {
  int client; unsigned char unused,command;
 };
 
-struct ShortResponse
-{
-    unsigned char command;
-    char payload[15];
-};
 
 struct Array8
 {
@@ -2929,7 +2634,6 @@ void __fastcall sub_0054A9B0(D2GameStrc*,const char*,unsigned char);  // 0x0054A
 
 enum { MODE_MASK = 15 };
 
-struct D2GameStatisticsStrc;
 
 struct D2UnitInfoStrc;
 
@@ -2973,13 +2677,6 @@ void __fastcall PLAYERLIST_InitializePlayerRelations(D2GameStrc* pGame, D2UnitSt
 
 int __stdcall D2Common_10073(D2ActiveRoomStrc* pRoom); // 0x0061A460
 
-struct D2GameStatisticsStrc
-{
-    int nGamesCount;
-    int nActiveMonsters;
-    int nInactiveMonsters;
-    int nPlayersCount;
-};
 
 extern "C" const char gszGameSourceFile; // 0x006D5D1C
 
@@ -3025,10 +2722,6 @@ struct D2InactiveUnitListStrc;
 
 struct D2QuestTimerStrc;
 
-struct D2QuestInfoStrc;
-
-struct D2ObjectRoomCoordStrc;
-
 
 struct D2ObjInitFnStrc;
 
@@ -3051,24 +2744,6 @@ struct D2QuestTimerStrc
     unsigned int dwTicks;
     unsigned int dwTimeout;
     D2QuestTimerStrc* pNext;
-};
-
-struct D2QuestInfoStrc
-{
-    D2QuestDataStrc* pLastQuest;
-    int bExecuting;
-    int bPickedSet;
-    D2BitBufferStrc* pQuestFlags;
-    D2QuestTimerStrc* pTimer;
-    unsigned int dwTick;
-};
-
-struct D2ObjectRoomCoordStrc
-{
-    D2ActiveRoomStrc* pRoom;
-    int nX;
-    int nY;
-    D2ObjectRoomCoordStrc* pNext;
 };
 
 
@@ -3146,14 +2821,6 @@ void __fastcall PLRMSG_SendWalkMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Clie
 
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
-struct D2SavePartPacketStrc
-{
-    unsigned char nHeader;
-    unsigned char nPartDataSize;
-    unsigned char bFirstPart;
-    int nSaveHeaderSize;
-    unsigned char aData[0x100];
-};
 
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds);                       // 0x006CC258
 

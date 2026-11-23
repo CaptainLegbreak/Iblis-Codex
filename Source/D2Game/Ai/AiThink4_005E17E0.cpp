@@ -20,11 +20,6 @@ enum D2C_P11AiConstants
     MONSTATSFLAGINDEX_INTERACT = 9,
 };
 
-struct D2MinionSpawnerAiCallbackArgStrc
-{
-    int nMinions;
-    int unk0x04[9];
-};
 
 typedef D2UnitStrc* (__fastcall* AIUTIL_TargetCallback)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg);
 
