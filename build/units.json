@@ -31123,6 +31123,10 @@
      "length": 508
     },
     {
+     "va": "0x004CEA00",
+     "length": 690
+    },
+    {
      "va": "0x004CED20",
      "length": 61,
      "name": "?MISSILE_SubmitWithDirection@@YIXPAUD2UnitStrc@@H@Z"
@@ -31234,6 +31238,14 @@
      "va": "0x004D0B90",
      "length": 538,
      "name": "?MISSILE_SpawnHitBurst@@YGXHHHHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004D0DB0",
+     "length": 74
+    },
+    {
+     "va": "0x004D0E00",
+     "length": 176
     },
     {
      "va": "0x004D0EB0",
@@ -31538,6 +31550,10 @@
      "name": "MISSILE_CltDoOwnerSubMissile"
     },
     {
+     "va": "0x004D6130",
+     "length": 379
+    },
+    {
      "va": "0x004D62B0",
      "length": 299,
      "name": "MISSILE_CltDoOwnerTarget"
@@ -31598,6 +31614,10 @@
      "va": "0x004D7710",
      "length": 363,
      "name": "?MISSILE_CltDoSpawner@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004D7930",
+     "length": 1230
     },
     {
      "va": "0x004D7E00",
@@ -32300,46 +32320,6 @@
     {
      "va": "0x004D7880",
      "length": 167
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Missile_004CEA00.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004CEA00",
-     "length": 690
-    },
-    {
-     "va": "0x004D0DB0",
-     "length": 74
-    },
-    {
-     "va": "0x004D0E00",
-     "length": 176
-    },
-    {
-     "va": "0x004D6130",
-     "length": 379
-    },
-    {
-     "va": "0x004D7930",
-     "length": 1230
     }
    ],
    "flags": [

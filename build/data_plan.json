@@ -2076,8 +2076,8 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/Missile.cpp": {
-   "bytes": 3584,
-   "definitions": 46,
+   "bytes": 3644,
+   "definitions": 47,
    "externs": [
     "extern \"C\" void __cdecl sub_004D2610(); // 0x004D2610",
     "extern \"C\" void __cdecl sub_004D3F10_ClientMissileDo(); // 0x004D3F10",
@@ -2184,15 +2184,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/Missile_004D2D70.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/UNIT/Missile_004CEA00.cpp": {
-   "bytes": 60,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UNIT/Missile_004D7930.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -72784,7 +72775,7 @@
    "cname": "gData_006DB908",
    "declared": true,
    "decorated": "?gaBaalStormPhases@@3PAUD2StormPhaseStrc@@A",
-   "file": "Source/D2Client/UNIT/Missile_004CEA00.cpp",
+   "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const D2StormPhaseStrc gData_006DB908[5]; // 0x006DB908",
    "head": "extern \"C\" const D2StormPhaseStrc gData_006DB908[5] = ",
