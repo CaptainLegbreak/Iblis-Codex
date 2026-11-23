@@ -26497,11 +26497,6 @@
      "name": "sub_004BF9B0"
     },
     {
-     "va": "0x004E0680",
-     "length": 6,
-     "name": "MONSTER_GetNpcSpeechAudio"
-    },
-    {
      "va": "0x004E4040",
      "length": 3,
      "name": "sub_004E4040"
@@ -32369,6 +32364,11 @@
      "va": "0x004E0650",
      "length": 38,
      "name": "?sub_004E0650_GetStringSound@@YIHG@Z"
+    },
+    {
+     "va": "0x004E0680",
+     "length": 6,
+     "name": "MONSTER_GetNpcSpeechAudio"
     },
     {
      "va": "0x004E0690",

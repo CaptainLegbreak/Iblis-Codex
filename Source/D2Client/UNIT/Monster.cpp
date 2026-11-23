@@ -296,12 +296,6 @@ extern int gdwSecondaryTradeGold; // 0x007C0E78
 
 extern int gdwPrimaryTradeGold; // 0x007C0E68
 
-extern char gData_0072AE40[]; // 0x0072AE40
-
-extern char gData_0072AF18[]; // 0x0072AF18
-
-extern char gData_0072B008[]; // 0x0072B008
-
 struct D2ClientStringListStrc
 {
     unsigned short awStrings[10];
@@ -2851,13 +2845,6 @@ int __cdecl MONSTER_GetPrimaryTradeGold()
 int __cdecl sub_004BF9B0()
 {
     return 0;
-}
-
-// 0x004E0680
-int __cdecl MONSTER_GetNpcSpeechAudio()
-{
-// build: symbol ?gbNpcSpeechAudio@* 0x0072AE24
-    return gbNpcSpeechAudio;
 }
 
 // 0x004E4040
