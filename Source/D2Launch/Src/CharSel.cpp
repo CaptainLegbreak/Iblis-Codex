@@ -1367,12 +1367,6 @@ void __cdecl sub_004325B0_CreateScreen()
     sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B77), 0, 0, 0);
 }
 
-// 0x00433450
-void __fastcall CHARSEL_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone)
-{
-    MAINMENUS_ShowMessage(pText, pfnDone, 1);
-}
-
 // 0x00434700
 int __stdcall CHARSEL_OnRealmSelected(SMSGHANDLER_PARAMS* pMsg)
 {

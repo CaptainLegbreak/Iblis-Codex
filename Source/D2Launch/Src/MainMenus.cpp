@@ -3411,6 +3411,12 @@ void __fastcall MAINMENUS_ShowMessageNoArg(const Unicode* pText, D2LaunchDoneFn 
     MAINMENUS_ShowMessage(pText, pfnDone, 0);
 }
 
+// 0x00433450
+void __fastcall CHARSEL_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone)
+{
+    MAINMENUS_ShowMessage(pText, pfnDone, 1);
+}
+
 // 0x004334D0
 int __stdcall MAINMENUS_OnCloseBox(int nArg)
 {
@@ -4594,11 +4600,6 @@ int __stdcall MAINMENUS_OnTcpIpHost(int nArg)
     return 1;
 }
 
-static inline void __fastcall ShowText(const Unicode* pText, void (__cdecl* pfnDone)())
-{
-    MAINMENUS_ShowMessage(pText, pfnDone, 1);
-}
-
 // 0x00435E00
 int __stdcall CHARSEL_Back(int nArg)
 {
@@ -4655,7 +4656,7 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
                     sub_00526320_ToUnicode(wszName, szName, 100);
                     sub_00526700(wszText, wszName);
                     sub_00526700(wszText, wszTail);
-                    ShowText(wszText, sub_00435580);
+                    CHARSEL_ShowText(wszText, sub_00435580);
                     return;
                 }
 
@@ -4664,7 +4665,7 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
                 Unicode wszName[256];
                 sub_00526F20_ToUnicode(wszName, gpLaunchRecord->szCharName, 256);
                 sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0x2B33), wszName);
-                ShowText(wszText, sub_00435580);
+                CHARSEL_ShowText(wszText, sub_00435580);
                 return;
             }
 
@@ -4690,7 +4691,7 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
     case 10:
     case 11:
     case 12:
-        ShowText(D2LANG_GetStringFromTblIndex(0x145D), sub_00435580);
+        CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x145D), sub_00435580);
         return;
 
     case 71:
@@ -4702,7 +4703,7 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
         break;
     }
 
-    ShowText(D2LANG_GetStringFromTblIndex(nString), MAINMENUS_ReturnToCharSelect);
+    CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(nString), MAINMENUS_ReturnToCharSelect);
 }
 
 // 0x004361B0
