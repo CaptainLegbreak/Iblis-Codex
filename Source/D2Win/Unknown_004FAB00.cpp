@@ -149,12 +149,6 @@ void __fastcall D2Win_10176(int bTimed)
     }
 }
 
-// 0x004FB590
-void __fastcall sub_004FB590(int nValue)
-{
-    gbTextBoxSmallGap = nValue;
-}
-
 // 0x004FAC80
 void* __stdcall D2Win_GetArchive()
 {

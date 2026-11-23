@@ -224,6 +224,87 @@ extern "C" const char gszPalDat[];                                              
 
 void __fastcall D2COMP_InitEmblemColorTables();                                                                // 0x005055D0
 
+struct D2Palette256Strc;
+
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
+
+extern "C" __declspec(dllimport) int __stdcall MessageBoxA(void* hWnd, const char* szText, const char* szCaption, unsigned int nType); // 0x006CC464
+
+D2ArchiveHandleStrc* __fastcall sub_00517332_LoadMpqFile(const char* szFileName, void* hFile, void* pfShowMessage, int nPriority); // 0x00517332
+
+void __fastcall ARCHIVE_UnloadMPQFile(D2ArchiveHandleStrc* pMPQHandle); // 0x005173AC
+
+extern "C" const char gszExpansionMpq[]; // 0x006CD3A0
+
+extern "C" const char gszPatchD2Mpq[]; // 0x006DC728
+
+extern "C" const char gszD2SfxMpq[]; // 0x006DC764
+
+extern "C" const char gszD2DataMpq[]; // 0x006DC770
+
+extern D2ArchiveHandleStrc* gpD2CharMPQ; // 0x007D5610
+
+extern D2ArchiveHandleStrc* gpD2XTalkMPQ; // 0x007D5618
+
+extern D2ArchiveHandleStrc* gpD2MusicMPQ; // 0x007D5628
+
+struct D2Palette256Strc
+{
+    unsigned char data[0x100];
+};
+
+extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
+
+extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
+
+extern int gbPaletteFlash; // 0x0072DE50
+
+extern D2Palette256Strc gatShadowsLightGammaPalette[49]; // 0x0081EA68
+
+int __cdecl sub_004FAB00_ShowInsertExpansionDisc(); // 0x004FAB00
+
+int __cdecl sub_004FAB30_ShowInsertPlayDisc(); // 0x004FAB30
+
+int __cdecl sub_004FAB60_ShowInsertDisc(); // 0x004FAB60
+
+extern D2ArchiveHandleStrc* gpD2XMusicMPQ; // 0x007D5604
+
+extern D2ArchiveHandleStrc* gpD2SfxMPQ; // 0x007D5608
+
+extern D2ArchiveHandleStrc* gpD2DeltaMPQ; // 0x007D560C
+
+extern D2ArchiveHandleStrc* gpD2VideoMPQ; // 0x007D5614
+
+extern D2ArchiveHandleStrc* gpD2DataMPQ; // 0x007D561C
+
+extern D2ArchiveHandleStrc* gpD2kfixupMPQ; // 0x007D5620
+
+extern D2ArchiveHandleStrc* gpD2SpeechMPQ; // 0x007D5624
+
+extern D2ArchiveHandleStrc* gpD2PatchMPQ; // 0x007D5630
+
+extern D2ArchiveHandleStrc* gpD2ExpMPQ; // 0x007D5634
+
+int __cdecl ARCHIVE_LoadArchives(); // 0x004FAB90
+
+void __fastcall sub_004FB1C0_CopyRowTable(unsigned char (*pRows)[0x100]); // 0x004FB1C0
+
+extern int gnPaletteFlashCount; // 0x007D5638
+
+extern unsigned char gabStatesPalette[128][0x100]; // 0x007D6468
+
+extern int gbPaletteFlashWaiting; // 0x00841B68
+
+extern unsigned long gdwPaletteFlashTick; // 0x00841B6C
+
+unsigned char* __fastcall D2Win_10175_GetPL2Shift(int nIndex); // 0x004FB0C0
+
+void __stdcall D2Win_10179(); // 0x004FB0D0
+
+void __fastcall D2Win_10176(int bTimed); // 0x004FB130
+
+void* __stdcall D2Win_GetArchive(); // 0x004FAC80
+
 // 0x004FB1B0
 void __cdecl PALETTE_ApplyScreenPalette()
 {
@@ -336,6 +417,12 @@ int __stdcall D2Win_10028(const char* pszPalDatFilename, const char* pszPalPL2Fi
 
     D2COMP_InitEmblemColorTables();
     return 1;
+}
+
+// 0x004FB590
+void __fastcall sub_004FB590(int nValue)
+{
+    gbTextBoxSmallGap = nValue;
 }
 
 // 0x004FB5A0

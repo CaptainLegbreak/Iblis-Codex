@@ -36764,11 +36764,6 @@
      "va": "0x004FB1C0",
      "length": 20,
      "name": "?sub_004FB1C0_CopyRowTable@@YIXPAY0BAA@E@Z"
-    },
-    {
-     "va": "0x004FB590",
-     "length": 7,
-     "name": "?sub_004FB590@@YIXH@Z"
     }
    ]
   },
@@ -36813,6 +36808,30 @@
    ]
   },
   {
+   "file": "Source/D2Win/Src/D2WinPalette.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x004FB1E0",
+     "length": 665
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
    "file": "Source/D2Win/Src/D2WinTextBox.cpp",
    "rank": 0,
    "flags": [
@@ -36844,6 +36863,11 @@
      "va": "0x004FB500",
      "length": 136,
      "name": "?D2Win_10028@@YGHPBD0@Z"
+    },
+    {
+     "va": "0x004FB590",
+     "length": 7,
+     "name": "?sub_004FB590@@YIXH@Z"
     },
     {
      "va": "0x004FB5A0",
@@ -37051,30 +37075,6 @@
      "length": 151,
      "name": "FONT_FindCharInfo"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinPalette.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004FB1E0",
-     "length": 665
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
