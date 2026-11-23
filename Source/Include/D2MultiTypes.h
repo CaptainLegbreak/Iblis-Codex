@@ -15,7 +15,8 @@ struct Unicode;
 struct SMSGHANDLER_PARAMS;
 struct D2LaunchFuncsStrc;
 struct D2WinControlInitStrc;
-struct D2LaunchRecordStrc;
+struct D2ConfigStrc;
+struct D2ClientNotifyStrc;
 struct D2FuncTable_0077ABF0Strc;
 struct D2CompositeStrc;
 struct D2MultiChannelUserStrc;
@@ -69,25 +70,35 @@ struct D2WinControlInitStrc
 };
 
 #pragma pack(push, 1)
-struct D2LaunchRecordStrc
+struct D2ConfigStrc
 {
-    int unk0x00[6]; // 0x00
-    unsigned char unk0x18; // 0x18
-    union
-    {
-        char aState19[4]; // 0x19
-        int nState19;
-    };
-    unsigned short wValue; // 0x1D
-    char szText0x1F[24]; // 0x1F
-    char szText0x37[0x4E]; // 0x37
-    unsigned char nFlag085; // 0x85
-    unsigned char nFlag086; // 0x86
-    unsigned char nFlag087; // 0x87
-    unsigned char nFlag088; // 0x88
-    unsigned char nFlag089; // 0x89
-    unsigned char nFlag08A; // 0x8A
-    unsigned char nFlag08B; // 0x8B
+    int bIsExpansion; // 0x00
+    int unk0x04; // 0x04
+    unsigned char bWindow; // 0x08
+    unsigned char bNoFixedAspect; // 0x09
+    unsigned char b3DFX; // 0x0A
+    unsigned char bOpenGL; // 0x0B
+    unsigned char bRave; // 0x0C
+    unsigned char bD3D; // 0x0D
+    unsigned char bPerspective; // 0x0E
+    unsigned char bQuality; // 0x0F
+    int dwGamma; // 0x10
+    unsigned char bVSync; // 0x14
+    int dwFramerate; // 0x15
+    int dwGameType; // 0x19
+    unsigned short wJoinID; // 0x1D
+    char szGameName[24]; // 0x1F
+    char szServerIP[24]; // 0x37
+    char szBattleNetIP[24]; // 0x4F
+    char szMCPIP[24]; // 0x67
+    unsigned char unk0x7F[6]; // 0x7F
+    unsigned char bAmazon; // 0x85
+    unsigned char bPaladin; // 0x86
+    unsigned char bSorceress; // 0x87
+    unsigned char bNecromancer; // 0x88
+    unsigned char bBarbarian; // 0x89
+    unsigned char bDruid; // 0x8A
+    unsigned char bAssassin; // 0x8B
     unsigned char unk0x8C; // 0x8C
     char szAccount[24]; // 0x8D
     union
@@ -98,7 +109,7 @@ struct D2LaunchRecordStrc
             unsigned char unk0x1A5; // 0x1A5
             unsigned short unk0x1A6; // 0x1A6
             int unk0x1A8[17]; // 0x1A8
-            unsigned short unk0x1EC; // 0x1EC
+            unsigned char unk0x1EC; // 0x1EC
         };
         struct
         {
@@ -106,23 +117,17 @@ struct D2LaunchRecordStrc
             union
             {
                 char szCharName[24]; // 0xBD
-                char szGameName[24];
+                char szJoinGameName[24];
             };
             union
             {
-                char szDataD5[0x119]; // 0xD5
-                struct
-                {
-                    union
-                    {
-                        char nByteD5; // 0xD5
-                        char szGamePassword[24];
-                    };
-                    char aDataED[0x101]; // 0xED
-                };
+                char szRealm[24]; // 0xD5
+                char szGamePassword[24];
             };
+            char aDataED[0x100]; // 0xED
         };
     };
+    unsigned char nCTemp; // 0x1ED
     union
     {
         char nMode; // 0x1EE
@@ -135,8 +140,12 @@ struct D2LaunchRecordStrc
     };
     unsigned char unk0x1F1; // 0x1F1
     unsigned short unk0x1F2; // 0x1F2
-    int unk0x1F4[4]; // 0x1F4
-    unsigned char unk0x204[3]; // 0x204
+    unsigned char unk0x1F4[11]; // 0x1F4
+    int dwAct; // 0x1FF
+    unsigned char bNoPreload; // 0x203
+    unsigned char bDirect; // 0x204
+    unsigned char bLowEnd; // 0x205
+    unsigned char bNoCompress; // 0x206
     unsigned char aWord207[2]; // 0x207
     union
     {
@@ -148,15 +157,25 @@ struct D2LaunchRecordStrc
     unsigned char unk0x20E; // 0x20E
     unsigned char unk0x20F; // 0x20F
     char nByte210; // 0x210
-    unsigned char unk0x211; // 0x211
-    unsigned short unk0x212; // 0x212
-    int unk0x214[3]; // 0x214
-    unsigned short unk0x220; // 0x220
+    int (__cdecl* pfnAllowExpansion)(); // 0x211
+    unsigned char bTxt; // 0x215
+    unsigned char bLog; // 0x216
+    unsigned char bMsgLog; // 0x217
+    unsigned char bSafeMode; // 0x218
+    char bFlag219; // 0x219
+    int dwSeed; // 0x21A
+    unsigned char unk0x21E[2]; // 0x21E
+    unsigned char bNoSound; // 0x220
+    unsigned char unk0x221; // 0x221
     unsigned char unk0x222; // 0x222
     char bFlag223; // 0x223
-    unsigned char nSoundArg; // 0x224
-    D2FuncTable_0077ABF0Strc* pFuncTable; // 0x225
-    char nValue0x229[4]; // 0x229
+    unsigned char bSoundBackground; // 0x224
+    union
+    {
+        D2FuncTable_0077ABF0Strc* pComInterface; // 0x225
+        D2ClientNotifyStrc* pNotify;
+    };
+    int dwGameHash; // 0x229
     union
     {
         struct
@@ -204,7 +223,7 @@ struct D2LaunchRecordStrc
 
 struct D2FuncTable_0077ABF0Strc
 {
-    int (__fastcall* pfnInit)(D2LaunchRecordStrc*); // 0x00
+    int (__fastcall* pfnInit)(D2ConfigStrc*); // 0x00
     void* (__fastcall* pfnSlot04)(void); // 0x04
     void (__fastcall* pfnSlot08)(char*, char*); // 0x08
     int (__fastcall* pfnSlot0C)(void); // 0x0C
@@ -293,5 +312,5 @@ D2_CHECK_SIZE(D2MultiChannelUserStrc, 0xB4);
 D2_CHECK_SIZE(D2LaunchGameRecStrc, 0x3B);
 D2_CHECK_SIZE(D2LaunchFuncsStrc, 0xB0);
 D2_CHECK_SIZE(D2WinControlInitStrc, 0x30);
-D2_CHECK_SIZE(D2LaunchRecordStrc, 0x3CD);
+D2_CHECK_SIZE(D2ConfigStrc, 0x3CD);
 D2_CHECK_SIZE(D2FuncTable_0077ABF0Strc, 0xC4);

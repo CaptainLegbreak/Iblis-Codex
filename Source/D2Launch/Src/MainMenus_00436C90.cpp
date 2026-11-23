@@ -29,7 +29,7 @@ int __fastcall sub_00526800(const Unicode* pString);                            
 extern D2WinControlStrc* gpOkButton_00779330; // 0x00779330
 extern D2WinControlStrc* gpControl_007795AC; // 0x007795AC
 extern int gbConnectResult;                                                                            // 0x0077959C
-extern D2LaunchRecordStrc* gpLaunchRecord; // 0x007795D4
+extern D2ConfigStrc* gpLaunchRecord; // 0x007795D4
 extern int gbFeCharPalette; // 0x007795F0
 extern char gszLastTcpIpAddress[];                                                                          // 0x007795F8
 extern D2WinControlStrc* gpAddressEdit;                                                            // 0x00779958
@@ -141,7 +141,7 @@ extern D2CelFileStrc* gpBaFwSCelFile;                                           
 extern D2CelFileStrc* gpPaFwSCelFile;                                                                 // 0x007798C4
 struct D2ConfigStrc;
 struct D2FileTimeStrc;
-struct D2LaunchRecordStrc;
+struct D2ConfigStrc;
 struct D2LaunchSlotStrc;
 struct D2MenuListStrc;
 void __fastcall MAINMENUS_ShowMessage(const Unicode* pText, D2LaunchDoneFn pfnDone, int nArg); // 0x00433380
@@ -307,7 +307,7 @@ extern int gnSlotCount; // 0x0077998C
 struct Unicode;
 int __stdcall MAINMENUS_PollCharLogon(int nArg); // 0x00432FE0
 int __cdecl sub_0043BF60(); // 0x0043BF60
-int __fastcall sub_0043C180_Connect(D2LaunchRecordStrc* pRecord, int bFlag, int nMode); // 0x0043C180
+int __fastcall sub_0043C180_Connect(D2ConfigStrc* pRecord, int bFlag, int nMode); // 0x0043C180
 int __cdecl sub_00449B30_QueryAddress(); // 0x00449B30
 int __cdecl GAME_GetConnectError(); // 0x00449C00
 int __stdcall CHATDLG_RequestCharLogon(const char* szName); // 0x00449E10
@@ -499,41 +499,41 @@ void __cdecl MAINMENUS_UpdateTwoEditOk(); // 0x00436CF0
 static void MAINMENUS_SetModeFlags(char nMode)
 {
     gpLaunchRecord->nMode = nMode;
-    gpLaunchRecord->nFlag085 = 0;
-    gpLaunchRecord->nFlag089 = 0;
-    gpLaunchRecord->nFlag088 = 0;
-    gpLaunchRecord->nFlag086 = 0;
-    gpLaunchRecord->nFlag087 = 0;
-    gpLaunchRecord->nFlag08A = 0;
-    gpLaunchRecord->nFlag08B = 0;
+    gpLaunchRecord->bAmazon = 0;
+    gpLaunchRecord->bBarbarian = 0;
+    gpLaunchRecord->bNecromancer = 0;
+    gpLaunchRecord->bPaladin = 0;
+    gpLaunchRecord->bSorceress = 0;
+    gpLaunchRecord->bDruid = 0;
+    gpLaunchRecord->bAssassin = 0;
 
     if (nMode == 0)
     {
-        gpLaunchRecord->nFlag085 = 1;
+        gpLaunchRecord->bAmazon = 1;
     }
     else if (nMode == 4)
     {
-        gpLaunchRecord->nFlag089 = 1;
+        gpLaunchRecord->bBarbarian = 1;
     }
     else if (nMode == 2)
     {
-        gpLaunchRecord->nFlag088 = 1;
+        gpLaunchRecord->bNecromancer = 1;
     }
     else if (nMode == 3)
     {
-        gpLaunchRecord->nFlag086 = 1;
+        gpLaunchRecord->bPaladin = 1;
     }
     else if (nMode == 1)
     {
-        gpLaunchRecord->nFlag087 = 1;
+        gpLaunchRecord->bSorceress = 1;
     }
     else if (nMode == 5)
     {
-        gpLaunchRecord->nFlag08A = 1;
+        gpLaunchRecord->bDruid = 1;
     }
     else if (nMode == 6)
     {
-        gpLaunchRecord->nFlag08B = 1;
+        gpLaunchRecord->bAssassin = 1;
     }
 }
 int __stdcall MAINMENUS_JoinTcpIp(int nUnused); // 0x00434790

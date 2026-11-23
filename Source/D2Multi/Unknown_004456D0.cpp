@@ -40,7 +40,7 @@ extern "C" const char gszMaxPlayer[]; // 0x006D57C0
 extern "C" const char gszLvlRest[]; // 0x006D57CC
 extern "C" const char gszDiffLevel[]; // 0x006D57DC
 extern D2LaunchFuncsStrc* gpLaunchFuncs; // 0x0077B09C
-extern D2LaunchRecordStrc* gpCharInfo; // 0x0077BBD8
+extern D2ConfigStrc* gpCharInfo; // 0x0077BBD8
 extern D2WinControlStrc* gpCreateButton; // 0x00798C28
 extern D2WinControlStrc* gpCreateName; // 0x00798C2C
 extern D2WinControlStrc* gpCreatePassword_00798C30; // 0x00798C30

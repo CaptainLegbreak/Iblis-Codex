@@ -541,7 +541,7 @@ extern int gnMouseY; // 0x007D55A8
 
 unsigned long gdwLastScreenshotTick; // 0x007D5600
 
-struct D2LaunchRecordStrc;
+struct D2ConfigStrc;
 
 struct D2FuncTable_0077ABF0Strc;
 
@@ -607,7 +607,7 @@ void __cdecl MAINMENUS_UpdatePasswordOk(); // 0x004371E0
 
 extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
 
-extern D2LaunchRecordStrc* gpLaunchRecord; // 0x007795D4
+extern D2ConfigStrc* gpLaunchRecord; // 0x007795D4
 
 extern D2WinControlStrc* gpPasswordEdit; // 0x00779334
 
@@ -745,11 +745,6 @@ extern "C" const char gszD2CharMpq[]; // 0x006DC77C
 
 typedef int (__cdecl* DiscCallback)();
 
-#pragma pack(push, 1)
-
-struct D2ConfigStrc { char unk00[0x211]; int (__cdecl* expansion)(); };
-
-#pragma pack(pop)
 
 void __cdecl ARCHIVE_UnloadExpansionArchives(); // 0x004FAD70
 
@@ -2528,7 +2523,7 @@ int __fastcall ARCHIVE_LoadExpansionArchives(DiscCallback play,DiscCallback expa
     ghXVideoMpq=0;
     int bOk;
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
-    if (!(FOG_IsExpansion() && (!config || config->expansion()))) {
+    if (!(FOG_IsExpansion() && (!config || config->pfnAllowExpansion()))) {
         ghCharMpq=sub_00517332_LoadMpqFile("d2char.mpq",file,play,1000);
         ghMusicMpq=sub_00517332_LoadMpqFile("d2music.mpq",file,play,1000);
         ghXMusicMpq=0;

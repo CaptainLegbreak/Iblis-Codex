@@ -48,7 +48,7 @@ struct Unicode;
 
 struct D2FuncTable_0077ABF0Strc;
 
-struct D2LaunchRecordStrc;
+struct D2ConfigStrc;
 
 struct D2FuncRecordStrc;
 
@@ -483,7 +483,7 @@ extern int gnSelectionA;                                                        
 
 extern D2WinControlStrc* gpGatewayList;                                                                // 0x00779590
 
-extern D2LaunchRecordStrc* gpLaunchRecord;                                                         // 0x007795D4
+extern D2ConfigStrc* gpLaunchRecord;                                                         // 0x007795D4
 
 D2WinControlStrc* gpList_0077995C;                                                                          // 0x0077995C
 
@@ -3026,13 +3026,13 @@ int __stdcall CHARSEL_OnName(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0043B7A0
-int __fastcall CHARSEL_InitFuncTable(D2LaunchRecordStrc* pRecord)
+int __fastcall CHARSEL_InitFuncTable(D2ConfigStrc* pRecord)
 {
-    if (!pRecord->pFuncTable)
+    if (!pRecord->pComInterface)
     {
         gpFuncTable_0077ABF0 = sub_00518C00();
         D2_ASSERT(gpFuncTable_0077ABF0, 0x94);
-        pRecord->pFuncTable = gpFuncTable_0077ABF0;
+        pRecord->pComInterface = gpFuncTable_0077ABF0;
         gpFuncTable_0077ABF0->pfnInit(pRecord);
     }
     return 1;

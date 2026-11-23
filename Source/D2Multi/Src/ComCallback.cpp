@@ -18,7 +18,7 @@ struct Unicode;
 
 struct D2LaunchNameNodeStrc;
 
-struct D2LaunchRecordStrc;
+struct D2ConfigStrc;
 
 struct D2MultiChannelUserStrc;
 
@@ -200,7 +200,7 @@ extern D2WinControlStrc* gpJoinScreenButton; // 0x0077B078
 
 D2WinControlStrc* gpControlC_0077B07C;                                                                      // 0x0077B07C
 
-extern D2LaunchRecordStrc* gpCharInfo; // 0x0077BBD8
+extern D2ConfigStrc* gpCharInfo; // 0x0077BBD8
 
 extern D2WinControlStrc* gpProfileViewBckg; // 0x00798C64
 

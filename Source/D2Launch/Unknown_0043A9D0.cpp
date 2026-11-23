@@ -77,7 +77,7 @@ static __declspec(noinline) void sub_0043BF40_ReportStatus(int nCode, int nArg)
 }
 
 // 0x0043C180
-int __fastcall sub_0043C180_Connect(D2LaunchRecordStrc* pRecord, int bFlag, int nMode)
+int __fastcall sub_0043C180_Connect(D2ConfigStrc* pRecord, int bFlag, int nMode)
 {
     D2StatusStrc tStatus;
 

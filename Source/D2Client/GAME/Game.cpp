@@ -22,7 +22,6 @@ struct D2McpPacket06Strc;
 
 struct D2McpInfoStrc;
 
-struct D2ClientCharRecordStrc;
 
 struct D2ClientNotifyStrc;
 
@@ -280,7 +279,6 @@ extern int gdwMcpGameHash; // 0x00798F88
 
 extern int gdwGlobal_007992F4; // 0x007992F4
 
-extern int gdwGlobal_007A0438; // 0x007A0438
 
 extern int gbConnectFailed; // 0x007A0460
 
@@ -384,37 +382,6 @@ struct D2McpInfoStrc
     char aNames[16][0x10];
 };
 
-#pragma pack(push, 1)
-
-struct D2ClientCharRecordStrc
-{
-    char unk0x00[0x19];
-    char aState[4];
-    char unk0x1D[2];
-    union
-    {
-        char szName[0x1D0];
-        struct
-        {
-            char szText0x1F[0x18];
-            char szText0x37[0x1B8];
-        };
-    };
-    union
-    {
-        unsigned char aFlags[2];
-        unsigned short wValue;
-    };
-    char unk0x1F1[0x1F];
-    unsigned char nKind;
-    char unk0x211[0x14];
-    D2ClientNotifyStrc* pNotify;
-    char unk0x229[0x1C];
-    char szText245[0x18];
-    char szText25D[0x10];
-};
-
-#pragma pack(pop)
 
 D2ClientNotifyStrc* __cdecl GAME_GetClientNotify(); // 0x0044B7B0
 
@@ -424,7 +391,7 @@ void* __stdcall sub_0052FC20(int nArg); // 0x0052FC20
 
 extern unsigned short gwMcpRequestId; // 0x00798F8C
 
-D2ClientCharRecordStrc* gpCharRecord; // 0x007A0438
+D2ConfigStrc* gpConfig; // 0x007A0438
 
 extern int gnQServerThreshold; // 0x0070F560
 
@@ -534,60 +501,6 @@ extern int gnGlobal_007A0608; // 0x007A0608
 
 void __fastcall ROSTER_SetPrimaryClientFlag(int bClear); // 0x0047A9B0
 
-#pragma pack(push, 1)
-
-struct D2ConfigStrc
-{
-    char unk0x000[0x08];
-    unsigned char bWindow;
-    unsigned char bNoFixedAspect;
-    unsigned char b3DFX;
-    unsigned char bOpenGL;
-    unsigned char bRave;
-    unsigned char bD3D;
-    unsigned char bPerspective;
-    unsigned char bQuality;
-    int dwGamma;
-    unsigned char bVSync;
-    int dwFramerate;
-    int dwGameType;
-    unsigned short wJoinID;
-    char szGameName[0x18];
-    char szServerIP[0x18];
-    char szBattleNetIP[0x18];
-    char szMCPIP[0x18];
-    char unk0x07F[6];
-    char bAmazon;
-    char bPaladin;
-    char bSorceress;
-    char bNecromancer;
-    char bBarbarian;
-    char bDruid;
-    char bAssassin;
-    char unk0x08C[0x0BD - 0x08C];
-    char szName[0x18];
-    char szRealm[0x18];
-    char unk0x0ED[0x1ED - 0x0ED];
-    unsigned char nCTemp;
-    char unk0x1EE[0x1FF - 0x1EE];
-    int dwAct;
-    unsigned char bNoPreload;
-    unsigned char bDirect;
-    unsigned char bLowEnd;
-    unsigned char bNoCompress;
-    char unk0x207[0x215 - 0x207];
-    unsigned char bTxt;
-    unsigned char bLog;
-    unsigned char bMsgLog;
-    unsigned char bSafeMode;
-    char bFlag219;
-    int dwSeed;
-    char unk0x21E[0x225 - 0x21E];
-    void* pComInterface;
-    int dwValue229;
-};
-
-#pragma pack(pop)
 
 extern char gszRealm_007A0500[]; // 0x007A0500
 
@@ -2376,9 +2289,9 @@ void __cdecl GAME_RaiseGameWindow()
 }
 
 // 0x0044B7A0
-int __cdecl GAME_GetClientInfo()
+D2ConfigStrc* __cdecl GAME_GetClientInfo()
 {
-    return gdwGlobal_007A0438;
+    return gpConfig;
 }
 
 D2ClientNotifyStrc* __cdecl GAME_GetClientNotify(); // 0x0044B7B0
@@ -2386,37 +2299,37 @@ D2ClientNotifyStrc* __cdecl GAME_GetClientNotify(); // 0x0044B7B0
 // 0x0044B7C0
 const char* __cdecl GAME_GetGameName()
 {
-    if (gpCharRecord && strlen(gpCharRecord->szText0x1F) >= 1)
-        return gpCharRecord->szText0x1F;
+    if (gpConfig && strlen(gpConfig->szGameName) >= 1)
+        return gpConfig->szGameName;
     return 0;
 }
 
 // 0x0044B7F0
 const char* __cdecl GAME_GetGameDescription()
 {
-    if (gpCharRecord && strlen(gpCharRecord->szText245) >= 1)
-        return gpCharRecord->szText245;
+    if (gpConfig && strlen(gpConfig->szText0x245) >= 1)
+        return gpConfig->szText0x245;
     return 0;
 }
 
 // 0x0044B820
 const char* __cdecl GAME_GetGamePassword()
 {
-    if (gpCharRecord && strlen(gpCharRecord->szText0x37) >= 1)
-        return gpCharRecord->szText0x37;
+    if (gpConfig && strlen(gpConfig->szServerIP) >= 1)
+        return gpConfig->szServerIP;
     return 0;
 }
 
 // 0x0044B850
 int __cdecl GAME_IsHardcore()
 {
-    return gpCharRecord->aFlags[0] & 4;
+    return gpConfig->aFlags1EF[0] & 4;
 }
 
 // 0x0044B860
 void __cdecl GAME_SetCharDiedFlag()
 {
-    *(unsigned short*)gpCharRecord->aFlags |= 8;
+    gpConfig->wFlags1EF |= 8;
 }
 
 // 0x0044B870
@@ -3058,7 +2971,7 @@ void __cdecl GAME_TickKeepAlive()
     {
         sub_00477DD0();
         gdwLastPingTick = dwNow;
-        if (gpClientInfo_007A0438->wFlags1EF & 4)
+        if (gpConfig->wFlags1EF & 4)
             gdwNextTick_007A049C = dwNow + 5000;
         else
             gdwNextTick_007A049C = dwNow + 5000;
@@ -3154,16 +3067,16 @@ unsigned long __stdcall GAME_RunQServerThread(void* pArg)
                     else if (nLevel < gnQServerThreshold)
                     {
                         int nFlags = 0;
-                        if (gpCharRecord->nKind == 1)
+                        if (gpConfig->nByte210 == 1)
                             nFlags = 1;
-                        if (gpCharRecord->nKind == 2)
+                        if (gpConfig->nByte210 == 2)
                             nFlags |= 2;
-                        const unsigned short wFlags = *(unsigned short*)gpCharRecord->aFlags;
+                        const unsigned short wFlags = gpConfig->wFlags1EF;
                         if (wFlags & 4)
                             nFlags |= 4;
                         if (wFlags & 0x20)
                             nFlags |= 8;
-                        pNotify->pfnCharUpdate(gpCharRecord->szName, gpCharRecord->szText245, gpCharRecord->szText25D, nFlags);
+                        pNotify->pfnCharUpdate(gpConfig->szGameName, gpConfig->szText0x245, gpConfig->szText0x25D, nFlags);
                     }
                     nLast = nLevel;
                 }
@@ -3980,7 +3893,7 @@ void __cdecl GAME_ResetBetaScreen()
 void __cdecl GAME_SetDifficultyFlags()
 {
     gnDifficultyDirty = 1;
-    gpClientInfo_007A0438->wFlags1EF = ((gnClientDifficulty + 1) << 10) | (gpClientInfo_007A0438->wFlags1EF & 0xE0FF);
+    gpConfig->wFlags1EF = ((gnClientDifficulty + 1) << 10) | (gpConfig->wFlags1EF & 0xE0FF);
 }
 
 sub_00601BF0::~sub_00601BF0()

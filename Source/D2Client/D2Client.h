@@ -13,12 +13,11 @@ struct D2CellPosStrc;
 struct D2ChatMessageStrc;
 struct D2ClientDialogStrc;
 struct D2ClientInfoStrc;
-struct D2LaunchRecordStrc;
+struct D2ConfigStrc;
 struct D2ClientListEntryStrc;
 struct D2ClientServiceStrc;
 struct D2ClientSoundStrc;
 struct D2CommonIgnoreListStrc;
-struct D2ConfigStrc;
 struct D2CoordStrc;
 struct D2DataTablesStrc;
 struct D2DrlgActStrc;
@@ -33,7 +32,6 @@ struct D2HirelingInitStrc;
 struct D2HoverTextStrc;
 struct D2InventoryStrc;
 struct D2ItemsTxt;
-struct D2LaunchRecordStrc;
 struct D2LevelDefBin;
 struct D2LevelsTxt;
 struct D2MonAnimRecStrc;
@@ -202,10 +200,10 @@ extern D2ClientDialogStrc* gpNpcMessageDialog; // 0x007C0D6F
 extern D2ClientDialogStrc* gpNpcConfirmDialog; // 0x007C0D73
 extern D2ClientDialogStrc* gpNpcHireDialog; // 0x007C0D77
 extern D2ClientDialogStrc* gpNpcGreetingDialog; // 0x007C0D7B
-extern D2LaunchRecordStrc* gpClientInfo_007A0438; // 0x007A0438
+extern D2ConfigStrc* gpConfig; // 0x007A0438
 extern D2ClientListEntryStrc* gpListEntries; // 0x00724264
 extern D2DataTablesStrc* sgptDataTable; // 0x00744304
-extern D2LaunchRecordStrc* gpLaunchRecord; // 0x007795D4
+extern D2ConfigStrc* gpLaunchRecord; // 0x007795D4
 extern D2MsgRecordChunkStrc* gpMsgRecordChunk_0070F7A0; // 0x0070F7A0
 extern D2NpcEntryStrc* gpNpcEntry; // 0x007C0C7D
 extern D2NpcTradeObjStrc* gpNpcTradeObj; // 0x007C0D83

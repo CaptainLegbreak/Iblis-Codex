@@ -3,6 +3,7 @@
 #include "D2ClientTypes.h"
 #include "D2Unicode.h"
 #include "D2LevelTxt.h"
+#include "D2MultiTypes.h"
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
@@ -34,60 +35,8 @@ struct D2BetaScreenStrc;
 
 struct Unicode;
 
-struct D2ClientConfigStrc;
 
 #pragma pack(push, 1)
-
-struct D2ConfigStrc
-{
-    char unk0x000[0x08];
-    unsigned char bWindow;
-    unsigned char bNoFixedAspect;
-    unsigned char b3DFX;
-    unsigned char bOpenGL;
-    unsigned char bRave;
-    unsigned char bD3D;
-    unsigned char bPerspective;
-    unsigned char bQuality;
-    int dwGamma;
-    unsigned char bVSync;
-    int dwFramerate;
-    int dwGameType;
-    unsigned short wJoinID;
-    char szGameName[0x18];
-    char szServerIP[0x18];
-    char szBattleNetIP[0x18];
-    char szMCPIP[0x18];
-    char unk0x07F[6];
-    char bAmazon;
-    char bPaladin;
-    char bSorceress;
-    char bNecromancer;
-    char bBarbarian;
-    char bDruid;
-    char bAssassin;
-    char unk0x08C[0x0BD - 0x08C];
-    char szName[0x18];
-    char szRealm[0x18];
-    char unk0x0ED[0x1ED - 0x0ED];
-    unsigned char nCTemp;
-    char unk0x1EE[0x1FF - 0x1EE];
-    int dwAct;
-    unsigned char bNoPreload;
-    unsigned char bDirect;
-    unsigned char bLowEnd;
-    unsigned char bNoCompress;
-    char unk0x207[0x215 - 0x207];
-    unsigned char bTxt;
-    unsigned char bLog;
-    unsigned char bMsgLog;
-    unsigned char bSafeMode;
-    char bFlag219;
-    int dwSeed;
-    char unk0x21E[0x225 - 0x21E];
-    void* pComInterface;
-    int dwValue229;
-};
 
 struct D2BetaScreenStrc
 {
@@ -171,12 +120,6 @@ extern "C" unsigned int __cdecl strlen(const char* s);
 
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount); // 0x00687330
 
-struct D2ClientConfigStrc
-{
-    char unk0x000[0x1EF];
-    unsigned char nFlags1EF;
-};
-
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(_RTL_CRITICAL_SECTION* pCriticalSection); // 0x006CC218
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(_RTL_CRITICAL_SECTION* pCriticalSection); // 0x006CC214
@@ -235,7 +178,6 @@ int __stdcall GAME_UpdateGamesProgress(int nArg); // 0x0052FC20
 
 extern unsigned int gdwFrameTime; // 0x0070EF1C
 
-extern D2ClientConfigStrc* gpConfig_007A0438; // 0x007A0438
 
 extern _RTL_CRITICAL_SECTION gCriticalSection_007A0468; // 0x007A0468
 
@@ -295,7 +237,6 @@ struct D2ActInfoStrc;
 
 struct D2RectStrc;
 
-struct D2ClientCharRecordStrc;
 
 struct D2PongDataStrc;
 
@@ -410,35 +351,6 @@ struct T0044CB60
 #pragma pack(push, 1)
 
 struct D2ClientNotifyStrc;
-#pragma pack(push, 1)
-struct D2ClientCharRecordStrc
-{
-    char unk0x00[0x19];
-    char aState[4];
-    char unk0x1D[2];
-    union
-    {
-        char szName[0x1D0];
-        struct
-        {
-            char szText0x1F[0x18];
-            char szText0x37[0x1B8];
-        };
-    };
-    union
-    {
-        unsigned char aFlags[2];
-        unsigned short wValue;
-    };
-    char unk0x1F1[0x1F];
-    unsigned char nKind;
-    char unk0x211[0x14];
-    D2ClientNotifyStrc* pNotify;
-    char unk0x229[0x1C];
-    char szText245[0x18];
-    char szText25D[0x10];
-};
-#pragma pack(pop)
 
 #pragma pack(pop)
 
@@ -450,7 +362,6 @@ extern unsigned short gawLoadingStrings[]; // 0x0070F384
 
 int gnLoadingIndex; // 0x007A05D4
 
-extern D2ClientCharRecordStrc* gpCharRecord; // 0x007A0438
 
 extern int gnAutomapWidth; // 0x007A5220
 
@@ -659,7 +570,7 @@ void __cdecl GAME_DrawLoadingText()
     D2GFX_ClearScreen(0);
     D2Win_10127_SetFont(3);
     const Unicode* pText = D2LANG_GetStringFromTblIndex(gawLoadingStrings[gnLoadingIndex]);
-    if (gpCharRecord->aFlags[0] & 0x20)
+    if (gpConfig->aFlags1EF[0] & 0x20)
     {
         if (gnLoadingIndex == 0x14)
         {
@@ -912,7 +823,7 @@ void __fastcall GAME_ApplyConfigGame(D2ConfigStrc* pConfig)
     SStrCopy(gszGameName, pConfig->szGameName, 0x7FFFFFFF);
     gdwGlobal_007A0610 = pConfig->dwGameType;
     gwJoinId = pConfig->wJoinID;
-    gnServerHash = pConfig->dwValue229;
+    gnServerHash = pConfig->dwGameHash;
 }
 
 // 0x0044D650
@@ -945,16 +856,16 @@ void __fastcall GAME_ApplyConfigClass(D2ConfigStrc* pConfig)
 // 0x0044D890
 void __fastcall GAME_ApplyConfigName(D2ConfigStrc* pConfig)
 {
-    if (strcmp(pConfig->szName, "0"))
+    if (strcmp(pConfig->szCharName, "0"))
     {
-        int nLength = strlen(pConfig->szName);
+        int nLength = strlen(pConfig->szCharName);
         memset(gszClientCharName, 0, 0x10);
         ++nLength;
         if (nLength > 0x10)
         {
             nLength = 0x10;
         }
-        strncpy(gszClientCharName, pConfig->szName, nLength);
+        strncpy(gszClientCharName, pConfig->szCharName, nLength);
     }
 }
 
@@ -1360,7 +1271,7 @@ int __stdcall GAME_RunGameFrame(int nUnused)
     {
         sub_00477DD0();
         gdwLastCheck_007A04A0 = dwNow;
-        if (gpConfig_007A0438->nFlags1EF & 4)
+        if (gpConfig->aFlags1EF[0] & 4)
         {
             gdwNextKeepAliveTick = dwNow + 5000;
         }

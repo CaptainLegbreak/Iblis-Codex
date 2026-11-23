@@ -1488,7 +1488,6 @@ extern "C" const char gszRes640x292[]; // 0x006D421C
 
 extern int gnAuxLevelEntries; // 0x00721D94
 
-extern D2ConfigStrc* gpConfig_007A0438; // 0x007A0438
 
 char gbCinematicPlaying; // 0x007BC9D5
 
@@ -2264,7 +2263,7 @@ lMissing:
     }
 
     sub_004FAD70();
-    ARCHIVE_LoadExpansionArchives(sub_00460500_RunPopup, sub_004605A0_RunPopup, 0, gpConfig_007A0438);
+    ARCHIVE_LoadExpansionArchives(sub_00460500_RunPopup, sub_004605A0_RunPopup, 0, gpConfig);
     gbCinematicBusy = 0;
 }
 

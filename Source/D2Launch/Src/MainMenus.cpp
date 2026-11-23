@@ -38,7 +38,7 @@ struct D2WinMsgStrc;
 
 struct D2CoordPairStrc;
 
-struct D2LaunchRecordStrc;
+struct D2ConfigStrc;
 
 struct D2CriticalSectionStrc;
 
@@ -258,7 +258,7 @@ extern D2WinControlStrc* gpEdit_007799D0; // 0x007799D0
 
 extern D2WinControlStrc* gpControl_007799D4; // 0x007799D4
 
-D2LaunchRecordStrc* gpLaunchRecord; // 0x007795D4
+D2ConfigStrc* gpLaunchRecord; // 0x007795D4
 
 void __cdecl D2SOUND_FadeOutWaves(); // 0x00515020
 
@@ -440,7 +440,7 @@ unsigned int __stdcall SStrHashHT(const char* szPath);                          
 
 int __fastcall sub_00526590_Compare(const Unicode* pString1, const Unicode* pString2);                      // 0x00526590
 
-int __fastcall sub_0043C180_Connect(D2LaunchRecordStrc* pRecord, int bFlag, int nMode);                    // 0x0043C180
+int __fastcall sub_0043C180_Connect(D2ConfigStrc* pRecord, int bFlag, int nMode);                    // 0x0043C180
 
 int __cdecl MAINMENUS_HasSaveFiles();                                                                    // 0x00430BC0
 
@@ -1399,7 +1399,7 @@ void __stdcall sub_00430BB0_LoopCallback(unsigned long nArg);                   
 
 void __cdecl MAINMENUS_PlayIntroVideos();                                                                // 0x00435230
 
-int __fastcall CHARSEL_InitFuncTable(D2LaunchRecordStrc* pRecord);                                     // 0x0043B7A0
+int __fastcall CHARSEL_InitFuncTable(D2ConfigStrc* pRecord);                                     // 0x0043B7A0
 
 int __stdcall WINDOW_CenterWindow(int nResolution);                                                   // 0x004F5BC0
 
@@ -2908,41 +2908,41 @@ int __stdcall MAINMENUS_PollConnection(int nArg)
 static void MAINMENUS_SetModeFlags(char nMode)
 {
     gpLaunchRecord->nMode = nMode;
-    gpLaunchRecord->nFlag085 = 0;
-    gpLaunchRecord->nFlag089 = 0;
-    gpLaunchRecord->nFlag088 = 0;
-    gpLaunchRecord->nFlag086 = 0;
-    gpLaunchRecord->nFlag087 = 0;
-    gpLaunchRecord->nFlag08A = 0;
-    gpLaunchRecord->nFlag08B = 0;
+    gpLaunchRecord->bAmazon = 0;
+    gpLaunchRecord->bBarbarian = 0;
+    gpLaunchRecord->bNecromancer = 0;
+    gpLaunchRecord->bPaladin = 0;
+    gpLaunchRecord->bSorceress = 0;
+    gpLaunchRecord->bDruid = 0;
+    gpLaunchRecord->bAssassin = 0;
 
     if (nMode == 0)
     {
-        gpLaunchRecord->nFlag085 = 1;
+        gpLaunchRecord->bAmazon = 1;
     }
     else if (nMode == 4)
     {
-        gpLaunchRecord->nFlag089 = 1;
+        gpLaunchRecord->bBarbarian = 1;
     }
     else if (nMode == 2)
     {
-        gpLaunchRecord->nFlag088 = 1;
+        gpLaunchRecord->bNecromancer = 1;
     }
     else if (nMode == 3)
     {
-        gpLaunchRecord->nFlag086 = 1;
+        gpLaunchRecord->bPaladin = 1;
     }
     else if (nMode == 1)
     {
-        gpLaunchRecord->nFlag087 = 1;
+        gpLaunchRecord->bSorceress = 1;
     }
     else if (nMode == 5)
     {
-        gpLaunchRecord->nFlag08A = 1;
+        gpLaunchRecord->bDruid = 1;
     }
     else if (nMode == 6)
     {
-        gpLaunchRecord->nFlag08B = 1;
+        gpLaunchRecord->bAssassin = 1;
     }
 }
 
@@ -3498,7 +3498,7 @@ void __cdecl MAINMENUS_ShowMainMenu()
     D2WinControlStrc* pFirst;
     D2WinControlStrc* pSecond;
     CHARSEL_DisconnectBattleNet();
-    gpLaunchRecord->szText0x37[0] = 0;
+    gpLaunchRecord->szServerIP[0] = 0;
     CHARSEL_CreateBaseScreen();
     if (FOG_IsExpansion())
     {
@@ -3808,7 +3808,7 @@ int __stdcall MAINMENUS_JoinTcpIp(int nUnused)
             return 1;
         }
     }
-    strcpy(gpLaunchRecord->szText0x37, szText);
+    strcpy(gpLaunchRecord->szServerIP, szText);
     MAINMENUS_ShowConnectingPopup();
     sub_004FA590_RunLoop(sub_00431D10);
     gbConnectResult = 0;
@@ -3831,8 +3831,8 @@ int __stdcall MAINMENUS_JoinTcpIp(int nUnused)
     if (!gdwGlobal_00779974)
     {
         gnLaunchMode = 2;
-        *(int*)gpLaunchRecord->aState19 = 9;
-        gpLaunchRecord->wValue = 1;
+        gpLaunchRecord->dwGameType = 9;
+        gpLaunchRecord->wJoinID = 1;
         sub_00515020();
         MAINMENUS_Reset();
         CHARSEL_InitCharSelectScreen();
@@ -3844,7 +3844,7 @@ int __stdcall MAINMENUS_JoinTcpIp(int nUnused)
 int __fastcall MAINMENUS_JoinGame(const char* szGameName, unsigned short wFlags, char nMode, const char* szPassword)
 {
     int bPassword = szPassword[0] != 0;
-    strcpy(gpLaunchRecord->szGameName, szGameName);
+    strcpy(gpLaunchRecord->szJoinGameName, szGameName);
     strcpy(gpLaunchRecord->szGamePassword, szPassword);
     gpLaunchRecord->wFlags1EF = wFlags;
     MAINMENUS_SetModeFlags(nMode);
@@ -3865,7 +3865,7 @@ int __fastcall MAINMENUS_JoinGame(const char* szGameName, unsigned short wFlags,
     {
         gpLaunchRecord->nByte35E = 1;
         gnLaunchState = 1;
-        gpLaunchRecord->nState19 = 0;
+        gpLaunchRecord->dwGameType = 0;
         gpLaunchRecord->dwFlags209 = 4;
         if (wFlags & 4)
             gpLaunchRecord->dwFlags209 = 0x804;
@@ -3924,7 +3924,7 @@ int __fastcall MAINMENUS_JoinGame(const char* szGameName, unsigned short wFlags,
                 return 1;
             }
 
-            CHATDLG_RequestCharLogon(gpLaunchRecord->szGameName);
+            CHATDLG_RequestCharLogon(gpLaunchRecord->szJoinGameName);
             MAINMENUS_ShowConnectingPopup();
             sub_004FA590_RunLoop(MAINMENUS_PollCharLogon);
             int nState = GAME_GetConnectError();
@@ -3940,7 +3940,7 @@ int __fastcall MAINMENUS_JoinGame(const char* szGameName, unsigned short wFlags,
             {
                 Unicode wszText[256];
                 Unicode wszName[256];
-                sub_00526F20_ToUnicode(wszName, gpLaunchRecord->szGameName, 256);
+                sub_00526F20_ToUnicode(wszName, gpLaunchRecord->szJoinGameName, 256);
                 D2MCPClientCloseMCP();
                 sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0x2B89), wszName);
                 MAINMENUS_DestroyControls();
@@ -4414,7 +4414,7 @@ void __cdecl MAINMENUS_CreateCharCreateScreen()
 }
 
 // 0x004359D0
-int __fastcall sub_004359D0_RunFrontEnd(D2LaunchRecordStrc* pRecord)
+int __fastcall sub_004359D0_RunFrontEnd(D2ConfigStrc* pRecord)
 {
 // build: symbol ?gpLaunchRecord@* 0x007795D4
     gpLaunchRecord = pRecord;
@@ -4425,10 +4425,10 @@ int __fastcall sub_004359D0_RunFrontEnd(D2LaunchRecordStrc* pRecord)
     CURSOR_SetCellFile(gpCursorOHandCelFile);
     gpLaunchRecord->szRealm0x361[0] = 0;
     gpLaunchRecord->szRealm0x381[0] = 0;
-    gpLaunchRecord->szText0x1F[0] = 0;
+    gpLaunchRecord->szGameName[0] = 0;
     gpLaunchRecord->szText0x245[0] = 0;
     if (gnLaunchMode != 2)
-        gpLaunchRecord->szText0x37[0] = 0;
+        gpLaunchRecord->szServerIP[0] = 0;
     D2SOUND_InitWaveSlots();
     D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\button.wav");
     D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\amazon select.wav");
@@ -4448,7 +4448,7 @@ int __fastcall sub_004359D0_RunFrontEnd(D2LaunchRecordStrc* pRecord)
         D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\assassin select.wav");
         D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\assassin deselect.wav");
     }
-    gpFuncTable_0077ABF0 = pRecord->pFuncTable;
+    gpFuncTable_0077ABF0 = pRecord->pComInterface;
     const char nStartMode = gpLaunchRecord->nStartMode;
     if (nStartMode == 2)
     {
@@ -4578,8 +4578,8 @@ int __stdcall MAINMENUS_OnRealmDoubleClick(SMSGHANDLER_PARAMS* pMsg)
 // 0x00435D80
 int __stdcall MAINMENUS_OnTcpIpHost(int nArg)
 {
-    gpLaunchRecord->nState19 = 8;
-    strcpy(gpLaunchRecord->szText0x37, FOG_GetHostIPAddress());
+    gpLaunchRecord->dwGameType = 8;
+    strcpy(gpLaunchRecord->szServerIP, FOG_GetHostIPAddress());
     gnLaunchMode = 2;
     gpLaunchRecord->nValue209 = 4;
     if (!MAINMENUS_HasSaveFiles())
@@ -4669,7 +4669,7 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
             }
 
             sub_0043C6A0(1);
-            SStrCopy(gpLaunchRecord->szDataD5, GAME_GetPreferredRealm(), 0x7FFFFFFF);
+            SStrCopy(gpLaunchRecord->szRealm, GAME_GetPreferredRealm(), 0x7FFFFFFF);
             gpLaunchRecord->wFlags1EF |= 2;
             gpLaunchRecord->nByte35E = 2;
             gnLaunchState = 3;
@@ -4811,7 +4811,7 @@ int __stdcall MAINMENUS_SubmitCharacter(int nArg)
         gnLaunchState = 3;
         *(int*)gpLaunchRecord->aState209 = 0x804;
         gpLaunchRecord->nByte22D = 0;
-        gpLaunchRecord->nByteD5 = 0;
+        gpLaunchRecord->szRealm[0] = 0;
         D2Win_StopMessageLoop();
         return 1;
     }
@@ -4820,7 +4820,7 @@ int __stdcall MAINMENUS_SubmitCharacter(int nArg)
         AUTOMAP_InitCharSaveHeader(gpLaunchRecord->szCharName, gpLaunchRecord->nClass, gpLaunchRecord->aDataED, gpLaunchRecord->wFlags1EF);
         CHATDLG_WriteSaveHeader(gpLaunchRecord->szCharName);
         gpLaunchRecord->nByte35E = 1;
-        *(int*)gpLaunchRecord->aState19 = 0;
+        gpLaunchRecord->dwGameType = 0;
         *(int*)gpLaunchRecord->aState209 = 4;
         if (gpLaunchRecord->wFlags1EF & 4)
             *(int*)gpLaunchRecord->aState209 = 0x804;
@@ -4886,7 +4886,7 @@ void __cdecl MAINMENUS_CreateCharacter()
         AUTOMAP_InitCharSaveHeader((gpLaunchRecord->szPassword + 0x18), gpLaunchRecord->nMode, (gpLaunchRecord->szPassword + 0x48), gpLaunchRecord->wFlags1EF);
         sub_0043C6B0((gpLaunchRecord->szPassword + 0x18));
         gpLaunchRecord->nByte35E = 1;
-        *(int*)gpLaunchRecord->aState19 = 0;
+        gpLaunchRecord->dwGameType = 0;
         gnLaunchState = 1;
         *(int*)gpLaunchRecord->aState209 = 4;
         if (gpLaunchRecord->wFlags1EF & 4)

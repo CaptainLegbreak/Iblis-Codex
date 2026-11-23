@@ -6,7 +6,7 @@
 
 struct Unicode;
 
-struct D2LaunchRecordStrc;
+struct D2ConfigStrc;
 
 struct D2LaunchFuncsStrc;
 
@@ -54,7 +54,7 @@ extern D2WinControlInitStrc gtControlInit_0070E110; // 0x0070E110
 
 extern D2LaunchFuncsStrc* gpLaunchFuncs; // 0x0077B09C
 
-extern D2LaunchRecordStrc* gpCharInfo; // 0x0077BBD8
+extern D2ConfigStrc* gpCharInfo; // 0x0077BBD8
 
 extern D2WinControlStrc* gpControl_0077BCEC; // 0x0077BCEC
 
