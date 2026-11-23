@@ -79504,6 +79504,10 @@
      "name": "?PATH_Knockback_Client@@YIHPAUD2PathInfoStrc@@@Z"
     },
     {
+     "va": "0x0067A000",
+     "length": 317
+    },
+    {
      "va": "0x0067A140",
      "length": 244
     },
@@ -79562,10 +79566,6 @@
    "file": "Source/D2Common/Unknown_0067A000.cpp",
    "rank": 1,
    "functions": [
-    {
-     "va": "0x0067A000",
-     "length": 317
-    },
     {
      "va": "0x0067B850",
      "length": 353
