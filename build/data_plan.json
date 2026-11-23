@@ -512,6 +512,10 @@
    "bytes": 15432,
    "definitions": 64,
    "externs": [
+    "extern \"C\" void __cdecl sub_004371B0_OnLoginScreen(); // 0x004371B0",
+    "extern \"C\" void __cdecl sub_004371C0_OnEmailScreen(); // 0x004371C0",
+    "extern \"C\" void __cdecl sub_004371D0_OnShowLogin(); // 0x004371D0",
+    "extern \"C\" void __cdecl sub_004374E0_OnInfoScreen(); // 0x004374E0",
     "extern \"C\" void __cdecl sub_00437710_OnInfoScreen(); // 0x00437710",
     "extern \"C\" void __cdecl sub_00437720_OnPasswordScreen(); // 0x00437720",
     "extern \"C\" void __cdecl sub_00437730_ChangePassword(); // 0x00437730",

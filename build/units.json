@@ -3499,64 +3499,6 @@
      "name": "?MAINMENUS_OnEditChange@@YGHH@Z"
     },
     {
-     "va": "0x00436F30",
-     "length": 384,
-     "name": "?MAINMENUS_CreateEmailScreen@@YAXXZ"
-    },
-    {
-     "va": "0x004370B0",
-     "length": 13
-    },
-    {
-     "va": "0x004370C0",
-     "length": 231,
-     "name": "?MAINMENUS_CreateInfoScreen@@YAXXZ"
-    },
-    {
-     "va": "0x004371B0",
-     "length": 13,
-     "name": "?sub_004371B0_OnLoginScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x004371C0",
-     "length": 13,
-     "name": "?sub_004371C0_OnEmailScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x004371D0",
-     "length": 13,
-     "name": "?sub_004371D0_OnShowLogin@@YGHH@Z"
-    },
-    {
-     "va": "0x004371E0",
-     "length": 192,
-     "name": "?MAINMENUS_UpdatePasswordOk@@YAXXZ"
-    },
-    {
-     "va": "0x004372A0",
-     "length": 13,
-     "name": "?sub_004372A0_OnEnter@@YGHH@Z"
-    },
-    {
-     "va": "0x004372B0",
-     "length": 554,
-     "name": "?MAINMENUS_CreatePasswordScreen@@YAXXZ"
-    },
-    {
-     "va": "0x004374E0",
-     "length": 13,
-     "name": "?sub_004374E0_OnInfoScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x004374F0",
-     "length": 89
-    },
-    {
-     "va": "0x00437550",
-     "length": 200,
-     "name": "?MAINMENUS_CreateStatusScreen@@YAXXZ"
-    },
-    {
      "va": "0x0043B4C0",
      "length": 82,
      "name": "MAINMENUS_OnRealmListClick"
@@ -3595,11 +3537,6 @@
      "va": "0x00436C90",
      "length": 51,
      "name": "?MAINMENUS_AskEmailRegistration@@YGHH@Z"
-    },
-    {
-     "va": "0x00437620",
-     "length": 229,
-     "name": "?MAINMENUS_ConfirmText@@YGHH@Z"
     }
    ],
    "flags": [
@@ -9912,11 +9849,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x004378D0",
-     "length": 233,
-     "name": "?CHARSEL_SubmitPasswordReset@@YGHH@Z"
-    },
-    {
      "va": "0x00437A20",
      "length": 55
     },
@@ -12139,6 +12071,69 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00436F30",
+     "length": 384,
+     "name": "?MAINMENUS_CreateEmailScreen@@YAXXZ"
+    },
+    {
+     "va": "0x004370B0",
+     "length": 13
+    },
+    {
+     "va": "0x004370C0",
+     "length": 231,
+     "name": "?MAINMENUS_CreateInfoScreen@@YAXXZ"
+    },
+    {
+     "va": "0x004371B0",
+     "length": 13,
+     "name": "?sub_004371B0_OnLoginScreen@@YGHH@Z"
+    },
+    {
+     "va": "0x004371C0",
+     "length": 13,
+     "name": "?sub_004371C0_OnEmailScreen@@YGHH@Z"
+    },
+    {
+     "va": "0x004371D0",
+     "length": 13,
+     "name": "?sub_004371D0_OnShowLogin@@YGHH@Z"
+    },
+    {
+     "va": "0x004371E0",
+     "length": 192,
+     "name": "?MAINMENUS_UpdatePasswordOk@@YAXXZ"
+    },
+    {
+     "va": "0x004372A0",
+     "length": 13,
+     "name": "?sub_004372A0_OnEnter@@YGHH@Z"
+    },
+    {
+     "va": "0x004372B0",
+     "length": 554,
+     "name": "?MAINMENUS_CreatePasswordScreen@@YAXXZ"
+    },
+    {
+     "va": "0x004374E0",
+     "length": 13,
+     "name": "?sub_004374E0_OnInfoScreen@@YGHH@Z"
+    },
+    {
+     "va": "0x004374F0",
+     "length": 89
+    },
+    {
+     "va": "0x00437550",
+     "length": 200,
+     "name": "?MAINMENUS_CreateStatusScreen@@YAXXZ"
+    },
+    {
+     "va": "0x00437620",
+     "length": 229,
+     "name": "?MAINMENUS_ConfirmText@@YGHH@Z"
+    },
+    {
      "va": "0x00437710",
      "length": 13,
      "name": "?sub_00437710_OnInfoScreen@@YGHH@Z"
@@ -12147,17 +12142,16 @@
      "va": "0x00437720",
      "length": 13,
      "name": "?sub_00437720_OnPasswordScreen@@YGHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_004374F0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00437730",
      "length": 413,
      "name": "?sub_00437730_ChangePassword@@YGHH@Z"
+    },
+    {
+     "va": "0x004378D0",
+     "length": 233,
+     "name": "?CHARSEL_SubmitPasswordReset@@YGHH@Z"
     }
    ],
    "flags": [
