@@ -765,13 +765,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 
 struct AiControl { char unknown00[0x14]; int param[3]; };
 
-struct D2AiBaalTargetArgsStrc
-{
-    char unk0x00[0x0C];
-    int nX;
-    int nY;
-};
-
 struct D2ArenaUnitStrc
 {
     int nScore;

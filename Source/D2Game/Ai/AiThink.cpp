@@ -153,8 +153,6 @@ void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCo
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-struct D2AiBaalTargetArgsStrc;
-
 #define PATHTYPE_TOWARD 2
 
 static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)

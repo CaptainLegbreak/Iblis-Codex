@@ -1206,13 +1206,11 @@ Skill* __fastcall sub_006439B0(Unit*,int,int); // 0x006439B0
 
 #define AI_GetParamValue(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 
-struct D2AiBaalTargetArgsStrc;
-
 struct D2TargetNodeStrc;
 
 int __fastcall ACT5Q5_IsNotActivatable(D2GameStrc* pGame); // 0x0058CF90
 
-int __fastcall AIBAAL_GetTargetScore(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiBaalTargetArgsStrc* pArgs); // 0x005E8530
+int __fastcall AIBAAL_GetTargetScore(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiCmdStrc* pArgs); // 0x005E8530
 
 extern "C" void __stdcall sub_00648B90_SetPathTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pTarget); // 0x00648B90
 
@@ -9768,12 +9766,12 @@ void __fastcall AITHINK_ResetAiAndPreserveHomeCommand(D2GameStrc* pGame, D2UnitS
 }
 
 // 0x005E8530
-int __fastcall AIBAAL_GetTargetScore(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiBaalTargetArgsStrc* pArgs)
+int __fastcall AIBAAL_GetTargetScore(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiCmdStrc* pArgs)
 {
     const int bInMeleeRange = UNITS_IsInMeleeRange(pUnit, pTarget, 0);
 
     int nDistanceWeight = 0;
-    if (pArgs && AIUTIL_GetDistanceToCoordinates_HalfUnitSize(pUnit, pArgs->nX, pArgs->nY) > 85 && AIUTIL_GetDistanceToCoordinates_HalfUnitSize(pTarget, pArgs->nX, pArgs->nY) < 85)
+    if (pArgs && AIUTIL_GetDistanceToCoordinates_HalfUnitSize(pUnit, pArgs->nCmdParam[1], pArgs->nCmdParam[2]) > 85 && AIUTIL_GetDistanceToCoordinates_HalfUnitSize(pTarget, pArgs->nCmdParam[1], pArgs->nCmdParam[2]) < 85)
     {
         nDistanceWeight = 100;
     }
@@ -9853,7 +9851,7 @@ int __fastcall AIBAAL_GetTargetScore(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Uni
 }
 
 // 0x005E8810
-int __fastcall AITHINK_RollDiabloAction(D2AiControlStrc* pAi,D2UnitStrc* pUnit,D2UnitStrc* pTarget,unsigned int nDistance,int nTargets,D2AiBaalTargetArgsStrc* pInfo)
+int __fastcall AITHINK_RollDiabloAction(D2AiControlStrc* pAi,D2UnitStrc* pUnit,D2UnitStrc* pTarget,unsigned int nDistance,int nTargets,D2AiCmdStrc* pInfo)
 {
     if(pAi->dwAiParam[0]) return pAi->dwAiParam[0];
     if(!pTarget)
@@ -9869,7 +9867,7 @@ int __fastcall AITHINK_RollDiabloAction(D2AiControlStrc* pAi,D2UnitStrc* pUnit,D
     {
         pPortal=SUNIT_GetServerUnit(pGame,2,PLAYER_GetUniqueIdFromPlayerData(pTarget));
         if(pPortal && DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pPortal))==LEVEL_CHAOSSANCTUM)
-            if(sub_006417F0_GetDistance(pPortal,pInfo->nX,pInfo->nY)<85)bPortal=1;
+            if(sub_006417F0_GetDistance(pPortal,pInfo->nCmdParam[1],pInfo->nCmdParam[2])<85)bPortal=1;
     }
     int bDangerousSkill=0;
     D2SkillStrc* pSkill=UNITS_GetLeftSkill(pTarget);
@@ -9892,7 +9890,7 @@ int __fastcall AITHINK_RollDiabloAction(D2AiControlStrc* pAi,D2UnitStrc* pUnit,D
     int bFar=0;
     if(pInfo)
     {
-        int nDist=sub_005DC480_GetDistance(pTarget,pInfo->nX,pInfo->nY);
+        int nDist=sub_005DC480_GetDistance(pTarget,pInfo->nCmdParam[1],pInfo->nCmdParam[2]);
         if(nDist>85)bFar=1;
         if(nDist>105)bVeryFar=1;
     }
@@ -9985,7 +9983,7 @@ int __fastcall AITHINK_CullPotentialTargetsForDiablo(D2UnitStrc* pUnit, D2UnitSt
 }
 
 // 0x005E9750
-int __fastcall AITHINK_RollUberDiabloAction(D2AiControlStrc* pAi,D2UnitStrc* pUnit,D2UnitStrc* pTarget,unsigned int nDistance,int nTargets,D2AiBaalTargetArgsStrc* pInfo)
+int __fastcall AITHINK_RollUberDiabloAction(D2AiControlStrc* pAi,D2UnitStrc* pUnit,D2UnitStrc* pTarget,unsigned int nDistance,int nTargets,D2AiCmdStrc* pInfo)
 {
     if(pAi->dwAiParam[0]) return pAi->dwAiParam[0];
     if(!pTarget)
@@ -10001,7 +9999,7 @@ int __fastcall AITHINK_RollUberDiabloAction(D2AiControlStrc* pAi,D2UnitStrc* pUn
     {
         pPortal=SUNIT_GetServerUnit(pGame,2,PLAYER_GetUniqueIdFromPlayerData(pTarget));
         if(pPortal && DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pPortal))==LEVEL_CHAOSSANCTUM)
-            if(sub_006417F0_GetDistance(pPortal,pInfo->nX,pInfo->nY)<85)bPortal=1;
+            if(sub_006417F0_GetDistance(pPortal,pInfo->nCmdParam[1],pInfo->nCmdParam[2])<85)bPortal=1;
     }
     int bDangerousSkill=0;
     D2SkillStrc* pSkill=UNITS_GetLeftSkill(pTarget);
@@ -14961,7 +14959,7 @@ void __fastcall AITHINK_Fn063_GargoyleTrap(D2GameStrc* pGame, D2UnitStrc* pUnit,
 }
 
 // 0x005E8F20
-D2UnitStrc* __fastcall AIBAAL_GetTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pMax, int* pCount, D2AiBaalTargetArgsStrc* pArgs, int (__fastcall* pfCull)(D2UnitStrc*, D2UnitStrc*))
+D2UnitStrc* __fastcall AIBAAL_GetTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pMax, int* pCount, D2AiCmdStrc* pArgs, int (__fastcall* pfCull)(D2UnitStrc*, D2UnitStrc*))
 {
     D2_ASSERT(pfCull, 890);
 
@@ -15107,7 +15105,7 @@ void __fastcall AITHINK_Fn051_Diablo(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
     {
         int nMax;
         int nCount;
-        pTarget = AIBAAL_GetTarget(pGame, pUnit, &nMax, &nCount, (D2AiBaalTargetArgsStrc*)pCmd, AITHINK_CullPotentialTargetsForDiablo);
+        pTarget = AIBAAL_GetTarget(pGame, pUnit, &nMax, &nCount, pCmd, AITHINK_CullPotentialTargetsForDiablo);
         pAi = pTick->pAiControl;
         nAction = sub_005E8810_SelectAction(pAi, pUnit, pTarget, nMax, nCount, pCmd);
     }
