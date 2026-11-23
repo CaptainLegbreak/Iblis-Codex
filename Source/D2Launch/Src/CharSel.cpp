@@ -3197,22 +3197,6 @@ void __cdecl CHARSEL_ResetChatControls()
     }
 }
 
-// 0x0043E660
-void __cdecl CHARSEL_UpdateOkEnabled()
-{
-    char szText[0x20];
-
-    const Unicode* pText = sub_004FDD90_GetEditText(gpEdit_0077BCF4);
-    int bEnable = 0;
-    if (pText)
-    {
-        sub_00526F70(szText, pText, 0x1F);
-        if (strlen(szText) >= 1)
-            bEnable = 1;
-    }
-    CONTROL_SetEnabled(gpChannelOkButton, bEnable);
-}
-
 // 0x0043EA20
 void __cdecl CHARSEL_DestroyPopupControls()
 {

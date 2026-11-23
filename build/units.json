@@ -9712,11 +9712,6 @@
      "name": "?CHARSEL_ResetChatControls@@YAXXZ"
     },
     {
-     "va": "0x0043E660",
-     "length": 87,
-     "name": "?CHARSEL_UpdateOkEnabled@@YAXXZ"
-    },
-    {
      "va": "0x0043EA20",
      "length": 71,
      "name": "?CHARSEL_DestroyPopupControls@@YAXXZ"
@@ -12347,6 +12342,11 @@
      "va": "0x0043E630",
      "length": 44,
      "name": "?CHATDLG_ShowChannelText@@YIHPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x0043E660",
+     "length": 87,
+     "name": "?CHARSEL_UpdateOkEnabled@@YAXXZ"
     },
     {
      "va": "0x0043E6C0",
