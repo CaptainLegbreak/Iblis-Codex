@@ -14437,6 +14437,25 @@
      "name": "INV_ProcessWardenRequest"
     },
     {
+     "va": "0x00480780",
+     "length": 57,
+     "name": "INV_SetPathTargetUnit"
+    },
+    {
+     "va": "0x004824A0",
+     "length": 259,
+     "name": "INV_FreeCacheEntries"
+    },
+    {
+     "va": "0x00482C20",
+     "length": 74,
+     "name": "?INV_TickSound@@YAXXZ"
+    },
+    {
+     "va": "0x00482C70",
+     "length": 43
+    },
+    {
      "va": "0x00482CA0",
      "length": 348,
      "name": "?INV_UpdateAuxBattleNetAddress@@YIXH@Z"
@@ -14447,14 +14466,86 @@
      "name": "_INV_StopCinematic"
     },
     {
+     "va": "0x00483310",
+     "length": 37,
+     "name": "?INV_ResetCinematicFlags@@YAXXZ"
+    },
+    {
      "va": "0x00483340",
      "length": 8,
      "name": "_INV_ChainCinematic"
     },
     {
+     "va": "0x00483350",
+     "length": 6,
+     "name": "?INV_IsCinematicBusy@@YAEXZ"
+    },
+    {
+     "va": "0x004834A0",
+     "length": 58,
+     "name": "?INV_SkipBracketTag@@YIPBUUnicode@@PBU1@@Z"
+    },
+    {
+     "va": "0x00483AE0",
+     "length": 41,
+     "name": "?INV_IsInTradeOtherGrid@@YAHHH@Z"
+    },
+    {
+     "va": "0x00483B10",
+     "length": 41,
+     "name": "?INV_IsInTradeGrid@@YAHHH@Z"
+    },
+    {
+     "va": "0x00483B40",
+     "length": 82,
+     "name": "?sub_00483B40_IsInRect@@YAHHH@Z"
+    },
+    {
+     "va": "0x00483BA0",
+     "length": 74,
+     "name": "?sub_00483BA0_IsInRect@@YAHHH@Z"
+    },
+    {
+     "va": "0x00483BF0",
+     "length": 41,
+     "name": "?sub_00483BF0_IsInRect@@YAHHH@Z"
+    },
+    {
+     "va": "0x00483C20",
+     "length": 37,
+     "name": "?INV_IsInSidePanelRect@@YAHHH@Z"
+    },
+    {
+     "va": "0x00483C50",
+     "length": 442
+    },
+    {
+     "va": "0x00483E10",
+     "length": 38,
+     "name": "?INV_IsNpcStateIdle@@YAHXZ"
+    },
+    {
+     "va": "0x00483E40",
+     "length": 316
+    },
+    {
+     "va": "0x00483FF0",
+     "length": 1000
+    },
+    {
      "va": "0x00484A70",
      "length": 152,
      "name": "?INV_GetClassNameText@@YAPBUUnicode@@I@Z"
+    },
+    {
+     "va": "0x00484C90",
+     "length": 156,
+     "name": "?INV_FormatEarName@@YAHPAUUnicode@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00484D30",
+     "length": 120,
+     "name": "?INV_FormatEarNameTo@@YGHPAUUnicode@@PBU1@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00485240",
@@ -14466,9 +14557,19 @@
      "length": 1992
     },
     {
+     "va": "0x00486370",
+     "length": 601,
+     "name": "?INV_AppendItemFormulaText@@YGXPAUD2UnitStrc@@PAUD2ItemFormulaRecordStrc@@PAUUnicode@@@Z"
+    },
+    {
      "va": "0x00486640",
      "length": 42,
      "name": "?INV_AppendStringLine@@YAXPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x00486670",
+     "length": 255,
+     "name": "?INV_AppendSocketedGemLetters@@YGXPAUUnicode@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004868B0",
@@ -14506,6 +14607,10 @@
      "name": "?sub_00486B80_IsNpcStateB@@YAHXZ"
     },
     {
+     "va": "0x00486BD0",
+     "length": 318
+    },
+    {
      "va": "0x00486D10",
      "length": 82,
      "name": "?INV_CheckTradeClickDelay@@YAHXZ"
@@ -14534,6 +14639,11 @@
      "va": "0x00487990",
      "length": 56,
      "name": "?INV_ResetHover@@YAXXZ"
+    },
+    {
+     "va": "0x00487A10",
+     "length": 288,
+     "name": "INV_SelectItemPageTab"
     },
     {
      "va": "0x00487B30",
@@ -14611,6 +14721,10 @@
      "name": "?INV_ClearButton@@YAXH@Z"
     },
     {
+     "va": "0x00487ED0",
+     "length": 531
+    },
+    {
      "va": "0x004880F0",
      "length": 13,
      "name": "?INV_ClearClickPos@@YAXXZ"
@@ -14630,14 +14744,29 @@
      "name": "?INV_CanUseCursor@@YAHXZ"
     },
     {
+     "va": "0x00488910",
+     "length": 189,
+     "name": "INV_ResetShopCursorMsg"
+    },
+    {
      "va": "0x00488DF0",
      "length": 30,
      "name": "INV_ConsumeMsg"
     },
     {
+     "va": "0x00488E70",
+     "length": 75,
+     "name": "INV_OpenChatKeyMsg"
+    },
+    {
      "va": "0x00488EC0",
      "length": 76,
      "name": "INV_ShopKeyMsg"
+    },
+    {
+     "va": "0x00489060",
+     "length": 78,
+     "name": "INV_InvRectClickMsg"
     },
     {
      "va": "0x00489190",
@@ -14734,6 +14863,11 @@
      "name": "?INV_SendTransmute@@YAXXZ"
     },
     {
+     "va": "0x0048A0F0",
+     "length": 152,
+     "name": "INV_CubeMouseMoveMsg"
+    },
+    {
      "va": "0x0048A3B0",
      "length": 39,
      "name": "INV_CubeBlockMsg"
@@ -14823,6 +14957,10 @@
      "name": "?INV_DrawPanelLabels@@YAXXZ"
     },
     {
+     "va": "0x0048B0A0",
+     "length": 493
+    },
+    {
      "va": "0x0048B290",
      "length": 338,
      "name": "?INV_CanMercEquipItem@@YGHPAUD2UnitStrc@@0PAH@Z"
@@ -14851,6 +14989,11 @@
      "va": "0x0048BBE0",
      "length": 39,
      "name": "INV_OpenRecipeScroll"
+    },
+    {
+     "va": "0x0048BD80",
+     "length": 105,
+     "name": "INV_CloseRecipeScrollClickMsg"
     },
     {
      "va": "0x0048BE00",
@@ -14934,6 +15077,16 @@
      "name": "?INV_DrawKeyBindingPopup@@YAXXZ"
     },
     {
+     "va": "0x00497C50",
+     "length": 157,
+     "name": "INV_DrawWarningIcon"
+    },
+    {
+     "va": "0x00498A20",
+     "length": 98,
+     "name": "sub_00498A20_CheckState"
+    },
+    {
      "va": "0x004A17D0",
      "length": 151,
      "name": "sub_004A17D0"
@@ -14977,6 +15130,31 @@
     "/Ob2",
     "/Gd",
     "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/UI/inv_004894D0.cpp",
+   "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
+   "functions": [
+    {
+     "va": "0x004894D0",
+     "length": 169,
+     "name": "INV_TradeMouseMoveMsg"
+    }
    ]
   },
   {
@@ -23855,184 +24033,6 @@
      "length": 41,
      "name": "?sub_00483AB0_IsInInvRect@@YIHHH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/inv_00483E40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00480780",
-     "length": 57,
-     "name": "INV_SetPathTargetUnit"
-    },
-    {
-     "va": "0x004824A0",
-     "length": 259,
-     "name": "INV_FreeCacheEntries"
-    },
-    {
-     "va": "0x00482C20",
-     "length": 74,
-     "name": "?INV_TickSound@@YAXXZ"
-    },
-    {
-     "va": "0x00482C70",
-     "length": 43
-    },
-    {
-     "va": "0x00483310",
-     "length": 37,
-     "name": "?INV_ResetCinematicFlags@@YAXXZ"
-    },
-    {
-     "va": "0x00483350",
-     "length": 6,
-     "name": "?INV_IsCinematicBusy@@YAEXZ"
-    },
-    {
-     "va": "0x004834A0",
-     "length": 58,
-     "name": "?INV_SkipBracketTag@@YIPBUUnicode@@PBU1@@Z"
-    },
-    {
-     "va": "0x00483AE0",
-     "length": 41,
-     "name": "?INV_IsInTradeOtherGrid@@YAHHH@Z"
-    },
-    {
-     "va": "0x00483B10",
-     "length": 41,
-     "name": "?INV_IsInTradeGrid@@YAHHH@Z"
-    },
-    {
-     "va": "0x00483B40",
-     "length": 82,
-     "name": "?sub_00483B40_IsInRect@@YAHHH@Z"
-    },
-    {
-     "va": "0x00483BA0",
-     "length": 74,
-     "name": "?sub_00483BA0_IsInRect@@YAHHH@Z"
-    },
-    {
-     "va": "0x00483BF0",
-     "length": 41,
-     "name": "?sub_00483BF0_IsInRect@@YAHHH@Z"
-    },
-    {
-     "va": "0x00483C20",
-     "length": 37,
-     "name": "?INV_IsInSidePanelRect@@YAHHH@Z"
-    },
-    {
-     "va": "0x00483C50",
-     "length": 442
-    },
-    {
-     "va": "0x00483E10",
-     "length": 38,
-     "name": "?INV_IsNpcStateIdle@@YAHXZ"
-    },
-    {
-     "va": "0x00483E40",
-     "length": 316
-    },
-    {
-     "va": "0x00483FF0",
-     "length": 1000
-    },
-    {
-     "va": "0x00484C90",
-     "length": 156,
-     "name": "?INV_FormatEarName@@YAHPAUUnicode@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00484D30",
-     "length": 120,
-     "name": "?INV_FormatEarNameTo@@YGHPAUUnicode@@PBU1@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00486370",
-     "length": 601,
-     "name": "?INV_AppendItemFormulaText@@YGXPAUD2UnitStrc@@PAUD2ItemFormulaRecordStrc@@PAUUnicode@@@Z"
-    },
-    {
-     "va": "0x00486670",
-     "length": 255,
-     "name": "?INV_AppendSocketedGemLetters@@YGXPAUUnicode@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00486BD0",
-     "length": 318
-    },
-    {
-     "va": "0x00487A10",
-     "length": 288,
-     "name": "INV_SelectItemPageTab"
-    },
-    {
-     "va": "0x00487ED0",
-     "length": 531
-    },
-    {
-     "va": "0x00488910",
-     "length": 189,
-     "name": "INV_ResetShopCursorMsg"
-    },
-    {
-     "va": "0x00488E70",
-     "length": 75,
-     "name": "INV_OpenChatKeyMsg"
-    },
-    {
-     "va": "0x00489060",
-     "length": 78,
-     "name": "INV_InvRectClickMsg"
-    },
-    {
-     "va": "0x004894D0",
-     "length": 169,
-     "name": "INV_TradeMouseMoveMsg"
-    },
-    {
-     "va": "0x0048A0F0",
-     "length": 152,
-     "name": "INV_CubeMouseMoveMsg"
-    },
-    {
-     "va": "0x0048B0A0",
-     "length": 493
-    },
-    {
-     "va": "0x0048BD80",
-     "length": 105,
-     "name": "INV_CloseRecipeScrollClickMsg"
-    },
-    {
-     "va": "0x00497C50",
-     "length": 157,
-     "name": "INV_DrawWarningIcon"
-    },
-    {
-     "va": "0x00498A20",
-     "length": 98,
-     "name": "sub_00498A20_CheckState"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
