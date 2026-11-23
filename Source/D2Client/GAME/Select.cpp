@@ -126,6 +126,32 @@ static inline unsigned int UNITS_GetUnitIdInline(D2UnitStrc* pUnit)
     return pUnit->dwUnitId;
 }
 
+struct D2SelectionRectStrc;
+
+struct D2SelectionRectStrc
+{
+    int nLeft;
+    int nTop;
+    int nRight;
+    int nBottom;
+};
+
+static inline int UNITS_GetClassIdInline(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return -1;
+    }
+    return pUnit->dwClassId;
+}
+
+// 0x00466DC0
+int __cdecl sub_00466DC0()
+{
+// build: symbol ?gnHoverMonClassId@* 0x00711F90
+    return gnHoverMonClassId;
+}
+
 // 0x00466DE0
 static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
 {
@@ -236,6 +262,19 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
         }
         break;
     }
+}
+
+// 0x00466FE0
+void __cdecl sub_00466FE0()
+{
+    gbHoverLocked = 0;
+    gbHasSelectedUnit = 0;
+}
+
+// 0x00466FF0
+void __cdecl sub_00466FF0()
+{
+    gbHoverLocked = 0;
 }
 
 // 0x00467000
@@ -474,6 +513,34 @@ static int sub_004673C0_GetDistanceSquared(D2UnitStrc* pUnit, D2UnitStrc* pOther
     return nDY * nDY + nDX * nDX;
 }
 
+// 0x00467430
+void __fastcall sub_00467430_SetSelectionRect(const D2SelectionRectStrc* pRect)
+{
+    if (pRect)
+    {
+        gnSelectionLeft = pRect->nLeft;
+        gnSelectionTop = pRect->nTop;
+        gnSelectionRight = pRect->nRight;
+        gnSelectionBottom = pRect->nBottom;
+        gbSelectionRectValid = 1;
+    }
+    else
+    {
+        gbSelectionRectValid = 0;
+    }
+}
+
+// 0x00467470
+int __fastcall sub_00467470_UnitFindTest(D2UnitStrc* pUnit, void* pArg)
+{
+    if (pUnit && pUnit->dwUnitType == UNIT_ITEM
+        && ITEMS_IsMetalItem(UNITS_GetClassIdInline(pUnit)))
+    {
+        return 1;
+    }
+    return 0;
+}
+
 // 0x00467490
 static D2UnitStrc* __stdcall SELECT_FindSkillTarget(D2SkillStrc* pSkill, D2UnitStrc* pUnit, int* pnX, int* pnY, D2SkillsTxt* pSkillsTxtRecord)
 {
@@ -710,3 +777,12 @@ void __cdecl sub_E01_Emit_00467AC0(D2UnitStrc* pFirst)
     }
     sub_00466DE0_SetHoverUnit(pBest);
 }
+
+// 0x00467A00
+void __cdecl sub_00467A00()
+{
+    gnHoverMonClassId = 0x13;
+// build: symbol ?gnHoverClassId@* 0x00711F94
+    gnHoverClassId = 0x13;
+}
+
