@@ -46376,11 +46376,6 @@
      "va": "0x0053B1A0",
      "length": 11,
      "name": "?sub_0053B1A0_SendToClient@@YAXHPAXH@Z"
-    },
-    {
-     "va": "0x0053B210",
-     "length": 8,
-     "name": "?PLRMODE_ModeCheck_Death@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -46392,6 +46387,11 @@
      "va": "0x0053B1B0",
      "length": 81,
      "name": "?D2GAME_PACKETS_SendGameListEntry@@YIHHFFPBD@Z"
+    },
+    {
+     "va": "0x0053B210",
+     "length": 8,
+     "name": "?PLRMODE_ModeCheck_Death@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x0053B220",
