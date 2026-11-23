@@ -202,6 +202,7 @@ void __stdcall TASK_InitializeClock()
     gbHasHighResolutionClock = QueryPerformanceFrequency(&gPerformanceFrequency);
 }
 
+// 0x00564340
 int __fastcall TASK_GetClockTime()
 {
     if (gbHasHighResolutionClock)

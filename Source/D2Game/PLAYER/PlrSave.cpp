@@ -3592,19 +3592,6 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x54_TurnStaminaOff_6FC88380(D2GameStrc*
 
 void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* ptGame, SUNIT_IterateFn pfIterate, void* pArg); // 0x005538D0
 
-// 0x00564340
-int __fastcall TASK_GetClockTime()
-{
-    if (gbHasHighResolutionClock)
-    {
-        D2LargeIntegerStrc nQPC;
-        QueryPerformanceCounter(&nQPC);
-        return 1000 * nQPC.QuadPart / gPerformanceFrequency.QuadPart;
-    }
-
-    return GetTickCount();
-}
-
 // 0x00569D80
 int __fastcall PLRSAVE2_CheckPlayerFlags(D2GameStrc* pGame, unsigned short nFlags, D2ClientStrc* pClient)
 {

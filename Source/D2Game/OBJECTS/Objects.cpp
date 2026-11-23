@@ -343,8 +343,6 @@ D2UnitStrc* __stdcall OBJECTS_CreateObject(D2GameStrc* pGame, int nClassId, int 
 
 #define D2_PAIR_CAPACITY 0x3FF
 
-#define D2S_ERROR_WRITE 3
-
 #define D2S_ERROR_READ_SIZE 0x14
 
 struct D2StaticPathStrc;
@@ -451,8 +449,6 @@ D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);
 int __stdcall SUNIT_GetInteractInfo(D2UnitStrc* pUnit, int* pUnitType, int* pUnitGUID); // 0x00554100
 
 void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00557FD0
-
-int __fastcall PLRSAVE_WriteUnitItems(void* pArg1, void* pArg2, unsigned char* pBuffer, int nBufferSize, int nArg5, int nArg6, int nArg7); // 0x00531BB0
 
 void __fastcall D2GAME_PACKETS_SendPacketSize06_6FC3C850(D2ClientStrc* pClient, unsigned char nHeader, int dwUnitType, int dwUnitId); // 0x0053B3D0
 
@@ -2864,20 +2860,6 @@ int __cdecl OBJECTS_CompareDescending(const unsigned int* pValue1, const unsigne
     }
 
     return nValue1 != nValue2;
-}
-
-// 0x005697B0
-int __fastcall PLRSAVE2_WriteItemSection(void* pArg1, void* pArg2, unsigned char** ppCursor, unsigned char* pEnd, int nArg5, int nArg6, int nArg7)
-{
-    unsigned char* pCursor = *ppCursor;
-    const int nWritten = PLRSAVE_WriteUnitItems(pArg1, pArg2, pCursor, pEnd - pCursor, nArg5, nArg6, nArg7);
-    if (nWritten < 0)
-    {
-        return D2S_ERROR_WRITE;
-    }
-
-    *ppCursor = pCursor + nWritten;
-    return 0;
 }
 
 // 0x00569EC0
