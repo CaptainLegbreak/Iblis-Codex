@@ -3844,6 +3844,63 @@ static D2UnitStrc* __stdcall ITEMS_CreateDropAtUnit(D2GameStrc* pGame, int nQual
     return D2GAME_CreateItemEx_6FC4ED80(pGame, &tItemDrop, 0);
 }
 
+struct D2BooksTxt;
+
+struct D2BookDataTbl;
+
+struct D2BookDataTbl
+{
+    int nBooksTxtRecordCount;
+    D2BooksTxt* pBooksTxt;
+};
+
+D2BookDataTbl* __fastcall DATATBLS_GetBookDataTables(); // 0x006374A0
+
+// 0x005C2540
+int __fastcall ITEMS_FindBookRecordIndex(D2UnitStrc* pItem, int bScroll)
+{
+    D2BookDataTbl* pBookDataTbl = DATATBLS_GetBookDataTables();
+    D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
+    if (!pBookDataTbl)
+    {
+        return -1;
+    }
+
+    if (!pItemsTxtRecord)
+    {
+        return pBookDataTbl->nBooksTxtRecordCount;
+    }
+
+    if (!pBookDataTbl->pBooksTxt)
+    {
+        return pBookDataTbl->nBooksTxtRecordCount;
+    }
+
+    int nIndex = -1;
+    for (int i = 0; i < pBookDataTbl->nBooksTxtRecordCount; ++i)
+    {
+        if (bScroll)
+        {
+            if (pItemsTxtRecord->dwCode == pBookDataTbl->pBooksTxt[i].dwScrollSpellCode)
+            {
+                nIndex = i;
+                break;
+            }
+        }
+        else if (pItemsTxtRecord->dwCode == pBookDataTbl->pBooksTxt[i].dwBookSpellCode)
+        {
+            nIndex = i;
+            break;
+        }
+    }
+
+    if (nIndex < 0)
+    {
+        nIndex = pBookDataTbl->nBooksTxtRecordCount;
+    }
+    return nIndex;
+}
+
 // 0x00558A10
 int __fastcall ITEMS_GetGroundRemovalTime(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {

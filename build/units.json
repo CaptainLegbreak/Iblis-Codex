@@ -50279,6 +50279,10 @@
      "va": "0x0055A550",
      "length": 374,
      "name": "?ITEMS_CreateDropAtUnit@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HHHHPAU1@@Z"
+    },
+    {
+     "va": "0x005C2540",
+     "length": 127
     }
    ]
   },
@@ -62875,10 +62879,6 @@
     {
      "va": "0x005C0F90",
      "length": 706
-    },
-    {
-     "va": "0x005C2540",
-     "length": 127
     }
    ]
   },
