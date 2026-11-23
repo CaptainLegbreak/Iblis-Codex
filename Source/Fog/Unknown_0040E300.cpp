@@ -320,19 +320,6 @@ void __cdecl sub_0040EA00_WriteProcessorReport()
     }
 }
 
-// 0x0040E9E0
-unsigned int __fastcall sub_0040E9E0_GetCpuidEdx(unsigned int nFunction)
-{
-    unsigned int nEdx;
-    __asm
-    {
-        mov eax, nFunction
-        cpuid
-        mov nEdx, edx
-    }
-    return nEdx;
-}
-
 // 0x0040EB40
 char* __fastcall sub_0040EB40_GetMessageData(D2LogMessageStrc* pMessage)
 {
