@@ -4402,6 +4402,10 @@
      "name": "sub_00419630_NewNode"
     },
     {
+     "va": "0x00419790",
+     "length": 315
+    },
+    {
      "va": "0x00419A50",
      "length": 43,
      "name": "?_GAUDIOSTREAM"
@@ -4437,6 +4441,20 @@
      "va": "0x0041A880",
      "length": 67,
      "name": "?sub_0041A880_StartThread@@YAXXZ"
+    },
+    {
+     "va": "0x0041A8F0",
+     "length": 63,
+     "name": "?MarkRequestPriority@@YAXHPAX@Z"
+    },
+    {
+     "va": "0x0041AA80",
+     "length": 71,
+     "name": "?SFilePrioritizeRequest@@YGXPAXH@Z"
+    },
+    {
+     "va": "0x0041AAD0",
+     "length": 1165
     },
     {
      "va": "0x0041AF60",
@@ -6085,30 +6103,6 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00419790.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00419790",
-     "length": 315
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/Storm/Unknown_004199A0.cpp",
    "rank": 0,
    "functions": [
@@ -6201,46 +6195,6 @@
      "length": 231,
      "name": "?sub_0041A990_DdaClose@@YGHPAX@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_0041A8F0.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0041A8F0",
-     "length": 63,
-     "name": "?MarkRequestPriority@@YAXHPAX@Z"
-    },
-    {
-     "va": "0x0041AA80",
-     "length": 71,
-     "name": "?SFilePrioritizeRequest@@YGXPAXH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_0041AAD0.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0041AAD0",
-     "length": 1165
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

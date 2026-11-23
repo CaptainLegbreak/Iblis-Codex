@@ -187,8 +187,8 @@ struct FILEREC
         void* pBuffer0x138;                     // 0x138
         unsigned char* pBuffer;
     };
-    int n13C;                                   // 0x13C
-    int n140;                                   // 0x140
+    unsigned int nCachePos;                     // 0x13C
+    unsigned int nCacheSize;                    // 0x140
     union
     {
         int nRequests;                          // 0x144
@@ -322,6 +322,46 @@ struct REQUEST
         tLink.m_next = 0;
     }
     static void operator delete(void* pMemory);
+};
+
+// The list of pending read requests.
+struct D2StormRequestListStrc
+{
+    int m_linkoffset;
+    D2StormLinkStrc m_terminator;
+
+    REQUEST* Head()
+    {
+        REQUEST* pHead = (REQUEST*)m_terminator.Next();
+        return pHead;
+    }
+    D2StormLinkStrc* Link(char* pNode)
+    {
+        return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
+    }
+    void LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode)
+    {
+        D2StormLinkStrc* pLink = Link(pNode);
+        pLink->Unlink();
+        D2StormLinkStrc* pExistingLink = Link(pExistingNode);
+        switch (nLinkType)
+        {
+        case 1:
+            pLink->m_prevlink = pExistingLink;
+            pLink->m_next = pExistingLink->m_next;
+            pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
+            pExistingLink->m_next = pNode;
+            break;
+        default:
+            D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
+            pLink->m_prevlink = pPrevLink;
+            pLink->m_next = pPrevLink->m_next;
+            pPrevLink->m_next = pNode;
+            pExistingLink->m_prevlink = pLink;
+            break;
+        }
+    }
+    inline REQUEST* NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
 };
 
 // The list of open archives.
