@@ -1,18 +1,30 @@
 #include "D2Common.h"
-#include "D2Structs.h"
-#include "D2Path.h"
-#include "D2Structs.h"
-#include "D2DrlgPresets.h"
-#include "D2PathFind.h"
-#define D2_ABS(x) ((x) < 0 ? -(x) : (x))
-struct D2CoordStrc;
-struct D2StaticPathStrc;
-struct D2CollisionTestStrc;
-struct D2PathInfoStrc;
-union D2FP32_16;
-struct D2PathFoWallContextStrc;
-struct D2PathMovStrc;
 
+#include "D2Structs.h"
+
+#include "D2Path.h"
+
+#include "D2Structs.h"
+
+#include "D2DrlgPresets.h"
+
+#include "D2PathFind.h"
+
+#define D2_ABS(x) ((x) < 0 ? -(x) : (x))
+
+struct D2CoordStrc;
+
+struct D2StaticPathStrc;
+
+struct D2CollisionTestStrc;
+
+struct D2PathInfoStrc;
+
+union D2FP32_16;
+
+struct D2PathFoWallContextStrc;
+
+struct D2PathMovStrc;
 
 struct D2CollisionTestStrc
 {
@@ -21,28 +33,41 @@ struct D2CollisionTestStrc
     unsigned int nCollisionMask;
 };
 
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
+
 int __fastcall PATH_ComputeVelocityAndDirectionVectorsToNextPoint(D2DynamicPathStrc* pPath, int bNormalizeDirectionIfSamePos, int bForceDirectionNormalization); // 0x0064FE40
+
 void __fastcall PATH_GetDirections_6FDAB790(int* pTestDir, D2PathPointStrc pPoint1, D2PathPointStrc pPoint2); // 0x00678D70
+
 int __stdcall PATH_GetTableHeuristic(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2); // 0x00679380
+
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
+
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
+
 extern const D2CoordStrc gatDirectionToOffset[8]; // 0x006F1798
+
 static int __stdcall PATH_RayTrace(D2PathPointStrc tStartCoord, D2PathPointStrc* pPathDestination, D2DynamicPathStrc* pDynamicPath); // 0x00679720
+
 int __fastcall sub_6FDAA720(D2PathInfoStrc* pPathInfo); // 0x00679B30
+
 int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo); // 0x00679C80
+
 int __fastcall PATH_AStar_ComputePath(D2PathInfoStrc* pPathInfo); // 0x0067B850
 
 void __fastcall sub_6FDAB810(int* a1, int* a2); // 0x00678F00
+
 void __fastcall PATH_GetScaledDirectionVector(int nVelocity, D2CoordStrc* pDirectionVector, D2PathPointStrc tPoint1, D2PathPointStrc tPoint2); // 0x0067A390
 
 typedef int BOOL;
-
 
 struct D2PathFoWallContextStrc
 {
@@ -57,12 +82,19 @@ struct D2PathFoWallContextStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
+
 extern const int gaIdaStar_PointCacheHashMaskX[]; // 0x006F1998
+
 extern const int gaIdaStar_PointCacheHashMaskY[]; // 0x006F1B98
+
 int __stdcall PATH_AStar_Heuristic(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2); // 0x0067ADC0
+
 D2PathFoWallNodeStrc* __stdcall PATH_AStar_GetNodeFromPendingCache(D2PathFoWallContextStrc* pContext, D2PathPointStrc tPathPoint); // 0x0067AE00
+
 D2PathFoWallNodeStrc* __stdcall PATH_AStar_FindPointInVisitedCache(D2PathFoWallContextStrc* pContext, D2PathPointStrc tPathPoint); // 0x0067AE50
+
 D2PathFoWallNodeStrc* __fastcall PATH_AStar_AllocNewNode(D2PathFoWallContextStrc* pContext); // 0x0067B1C0
 
 struct D2PathMovStrc
@@ -80,6 +112,7 @@ struct D2PathMovStrc
 };
 
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
+
 extern const D2CoordStrc gnDirectionsToAdjacentCellOffsets[16]; // 0x006F1D98
 
 inline const int& PATH_MaxRef(const int& a, const int& b)
@@ -529,45 +562,6 @@ int __fastcall PATH_Knockback_Client(D2PathInfoStrc* pPathInfo)
     return 1;
 }
 
-int __fastcall PATH_Knockback_Server(D2PathInfoStrc* pPathInfo)
-{
-    D2DynamicPathStrc* pDynamicPath = pPathInfo->pDynamicPath;
-    const int nHalfDist = (pDynamicPath->nDist >> 1) + 1;
-    D2PathPointStrc tFinalCoords;
-    if (pDynamicPath->hTarget)
-    {
-        tFinalCoords = pPathInfo->tStartCoord;
-
-        const int nTargetUnitX = UNITS_GetXPositionInline(pDynamicPath->hTarget);
-        const int nTargetUnitY = UNITS_GetYPositionInline(pDynamicPath->hTarget);
-        int nDeltaX = pPathInfo->tStartCoord.X - nTargetUnitX;
-        int nDeltaY = pPathInfo->tStartCoord.Y - nTargetUnitY;
-        if (const int nMax = PATH_MaxRef(nDeltaX < 0 ? -nDeltaX : nDeltaX, nDeltaY < 0 ? -nDeltaY : nDeltaY))
-        {
-            nDeltaX = (nDeltaX * nHalfDist) / nMax;
-            nDeltaY = (nDeltaY * nHalfDist) / nMax;
-        }
-        tFinalCoords.X += nDeltaX;
-        tFinalCoords.Y += nDeltaY;
-    }
-    else
-    {
-        tFinalCoords = pPathInfo->tTargetCoord;
-    }
-
-    pDynamicPath->PathPoints[0] = tFinalCoords;
-    PATH_RayTrace(pPathInfo->tStartCoord, &tFinalCoords, pDynamicPath);
-    D2COMMON_10170_PathSetTargetPos(pDynamicPath, tFinalCoords.X, tFinalCoords.Y);
-    if (tFinalCoords.X == pPathInfo->tStartCoord.X && tFinalCoords.Y == pPathInfo->tStartCoord.Y)
-    {
-        return 0;
-    }
-
-    pDynamicPath->PathPoints[0] = tFinalCoords;
-    pDynamicPath->dwPathPoints = 1;
-    return pDynamicPath->dwPathPoints;
-}
-
 // 0x00679E50
 int __fastcall sub_6FDAB0B0(D2PathInfoStrc* pPathInfo)
 {
@@ -641,6 +635,56 @@ int __fastcall PATH_Straight_Compute(D2PathInfoStrc* pPathInfo)
         }
     }
     return nPathPoints;
+}
+
+#define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
+static inline int PATH_ScaleDelta(int nScale, int nDelta, int nMax)
+{
+    int nResult = nScale;
+    nResult *= nDelta;
+    return nResult / nMax;
+}
+
+// 0x0067A000
+int __fastcall PATH_Knockback_Server(D2PathInfoStrc* pPathInfo)
+{
+    D2DynamicPathStrc* pDynamicPath = pPathInfo->pDynamicPath;
+    int nDeltaX = 0;
+    int nDeltaY = 0;
+    const int nHalfDist = (pDynamicPath->nDist >> 1) + 1;
+    D2PathPointStrc tFinalCoords;
+    if ((pDynamicPath ? pDynamicPath->hTarget : 0))
+    {
+        tFinalCoords = pPathInfo->tStartCoord;
+
+        const int nTargetUnitX = UNITS_GetXPositionInline((pDynamicPath ? pDynamicPath->hTarget : 0));
+        const int nTargetUnitY = UNITS_GetYPositionInline((pDynamicPath ? pDynamicPath->hTarget : 0));
+        nDeltaX = pPathInfo->tStartCoord.X - nTargetUnitX;
+        nDeltaY = pPathInfo->tStartCoord.Y - nTargetUnitY;
+        if (const int nMax = D2_MAX(D2_ABS(nDeltaX), D2_ABS(nDeltaY)))
+        {
+            nDeltaX = PATH_ScaleDelta(nHalfDist, nDeltaX, nMax);
+            nDeltaY = PATH_ScaleDelta(nHalfDist, nDeltaY, nMax);
+        }
+        tFinalCoords.X += nDeltaX;
+        tFinalCoords.Y += nDeltaY;
+    }
+    else
+    {
+        tFinalCoords = pPathInfo->tTargetCoord;
+    }
+
+    pDynamicPath->PathPoints[0] = tFinalCoords;
+    PATH_RayTrace(pPathInfo->tStartCoord, &tFinalCoords, pDynamicPath);
+    D2COMMON_10170_PathSetTargetPos(pDynamicPath, tFinalCoords.X, tFinalCoords.Y);
+    if (tFinalCoords.X == pPathInfo->tStartCoord.X && tFinalCoords.Y == pPathInfo->tStartCoord.Y)
+    {
+        return 0;
+    }
+
+    pDynamicPath->PathPoints[0] = tFinalCoords;
+    pDynamicPath->dwPathPoints = 1;
+    return pDynamicPath->dwPathPoints;
 }
 
 // 0x0067A140
@@ -789,6 +833,7 @@ const int* __stdcall sub_M125_Emit_0067A5D0(int nUnused1, int nUnused2, int nBas
 }
 
 #include "gen/data/Source/D2Common/Unknown_00679A60.inc"
+
 struct D2DynamicPathStrc;
 
 static inline int PATH_AStar_HeuristicInline(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
