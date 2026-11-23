@@ -116,7 +116,7 @@ struct D2DataTablesStrc
     void* pHireDescTxt; // 0xB4
     D2TxtLinkStrc* pHireDescLinker; // 0xB8
     D2StatesTxt* pStatesTxt; // 0xBC
-    void* pStatesLinker; // 0xC0
+    D2TxtLinkStrc* pStatesLinker; // 0xC0
     int nStatesTxtRecordCount; // 0xC4
     unsigned int* pStateMasks; // 0xC8
     unsigned int* fStateMasks[40]; // 0xCC
@@ -142,13 +142,13 @@ struct D2DataTablesStrc
     D2TxtLinkStrc* pTreasureClassExLinker; // 0x9B8
     unsigned char unk0x9BC[0xBC]; // 0x9BC
     D2MonStatsTxt* pMonStatsTxt; // 0xA78
-    void* pMonStatsLinker; // 0xA7C
+    D2TxtLinkStrc* pMonStatsLinker; // 0xA7C
     int nMonStatsTxtRecordCount; // 0xA80
     void* pMonSoundsTxt; // 0xA84
     D2TxtLinkStrc* pMonSoundsLinker; // 0xA88
     int nMonSoundsTxtRecordCount; // 0xA8C
     D2MonStats2Txt* pMonStats2Txt; // 0xA90
-    void* pMonStats2Linker; // 0xA94
+    D2TxtLinkStrc* pMonStats2Linker; // 0xA94
     int nMonStats2TxtRecordCount; // 0xA98
     void* pMonPlaceTxt; // 0xA9C
     D2TxtLinkStrc* pMonPlaceLinker; // 0xAA0
@@ -159,16 +159,16 @@ struct D2DataTablesStrc
     int nSuperUniquesTxtRecordCount; // 0xADC
     unsigned short nSuperUniqueIds[66]; // 0xAE0
     D2MissilesTxt* pMissilesTxt; // 0xB64
-    void* pMissilesLinker; // 0xB68
+    D2TxtLinkStrc* pMissilesLinker; // 0xB68
     int nMissilesTxtRecordCount; // 0xB6C
     D2MonLvlTxt* pMonLvlTxt; // 0xB70
     int nMonLvlTxtRecordCount; // 0xB74
     unsigned char unk0xB78[0x14]; // 0xB78
     D2SkillDescTxt* pSkillDescTxt; // 0xB8C
-    void* pSkillDescLinker; // 0xB90
+    D2TxtLinkStrc* pSkillDescLinker; // 0xB90
     int nSkillDescTxtRecordCount; // 0xB94
     D2SkillsTxt* pSkillsTxt; // 0xB98
-    void* pSkillsLinker; // 0xB9C
+    D2TxtLinkStrc* pSkillsLinker; // 0xB9C
     int nSkillsTxtRecordCount; // 0xBA0
     int* nClassSkillCount; // 0xBA4
     int nHighestClassSkillCount; // 0xBA8
@@ -181,14 +181,14 @@ struct D2DataTablesStrc
     D2CharStatsTxt* pCharStatsTxt; // 0xBC4
     int nCharStatsTxtRecordCount; // 0xBC8
     D2ItemStatCostTxt* pItemStatCostTxt; // 0xBCC
-    void* pItemStatCostLinker; // 0xBD0
+    D2TxtLinkStrc* pItemStatCostLinker; // 0xBD0
     int nItemStatCostTxtRecordCount; // 0xBD4
     short* pStatsWithDescFunc; // 0xBD8
     int nStatsWithDescFunc; // 0xBDC
     D2MonEquipTxt* pMonEquipTxt; // 0xBE0
     int nMonEquipTxtRecordCount; // 0xBE4
     D2PetTypeTxt* pPetTypeTxt; // 0xBE8
-    void* pPetTypeLinker; // 0xBEC
+    D2TxtLinkStrc* pPetTypeLinker; // 0xBEC
     int nPetTypeTxtRecordCount; // 0xBF0
     D2TxtLinkStrc* pItemTypesLinker; // 0xBF4
     D2ItemTypesTxt* pItemTypesTxt; // 0xBF8
