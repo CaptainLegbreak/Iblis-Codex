@@ -14604,6 +14604,11 @@
      "name": "?sub_00490BA0@@YIHPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
     },
     {
+     "va": "0x00490FC0",
+     "length": 732,
+     "name": "?sub_00490FC0@@YIHPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
+    },
+    {
      "va": "0x004912A0",
      "length": 1311
     },
@@ -24569,17 +24574,6 @@
     {
      "va": "0x004929F0",
      "length": 451
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00490FC0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00490FC0",
-     "length": 732,
-     "name": "?sub_00490FC0@@YIHPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
     }
    ]
   },
