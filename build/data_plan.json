@@ -3302,18 +3302,9 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_0058D9F0.cpp": {
-   "bytes": 24,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_0058D9F0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/Quests/a5q6.cpp": {
    "bytes": 1764,
-   "definitions": 1,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a5q6_0058E390.inc",
@@ -104901,10 +104892,10 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_0058D9F0.cpp",
+   "file": "Source/D2Game/Quests/a5q6.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern unsigned stateIndices[4] = ",
+   "head": "extern unsigned int gnA5Q6NpcActivateIndices[4] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -104916,7 +104907,7 @@
     "n": 4,
     "size": 16
    },
-   "name": "stateIndices",
+   "name": "gnA5Q6NpcActivateIndices",
    "pointers": [],
    "region": "data",
    "size": 16,
@@ -104931,7 +104922,7 @@
    "cname": "gData_00735EF4",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_0058D9F0.cpp",
+   "file": "Source/D2Game/Quests/a5q6.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00735EF4_t gData_00735EF4; // 0x00735EF4",
    "head": "extern \"C\" struct d2data_00735EF4_t gData_00735EF4 = ",
