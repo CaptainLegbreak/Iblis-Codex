@@ -862,58 +862,6 @@ void __fastcall MONSTERUNIQUE_UMod25_ManaSteal(D2UnitStrc* pUnit, int nUMod, int
     MONSTERUNIQUE_UMod8_Resistant(pUnit, nUMod, bUnique);
 }
 
-// 0x005A2910
-void __fastcall MONSTERUNIQUE_CastNova(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
-{
-    if (!bUnique)
-    {
-        return;
-    }
-
-    int nSkillLevel = 1;
-    D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
-    if (pOwner)
-    {
-        D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pOwner, SKILL_SHADOWWARRIOR);
-        if (pSkill)
-        {
-            nSkillLevel = SKILLS_GetSkillLevel(pOwner, pSkill, 1) / 2 + 1;
-        }
-    }
-
-    nSkillLevel = D2_MIN(D2_MAX(nSkillLevel, 1), 15);
-    if (UNITS_GetCurrentLifePercentage(pUnit) > 10)
-    {
-        nSkillLevel = 1;
-    }
-
-    SKILLS_CreateMissileRing(pGame, pUnit, pUnit, MISSILE_NOVA, 0, nSkillLevel, DATATBLS_GetMissileVelocityFromMissilesTxt(MISSILE_NOVA, 0));
-}
-
-// 0x005A3E70
-void __fastcall MONSTERUNIQUE_SuicideModeChange(D2GameStrc* pGame, D2UnitStrc* pBoss, int nUMod, int bUnique)
-{
-    if (pBoss)
-    {
-        const int nMode = pBoss->dwAnimMode;
-        if (nMode == MONMODE_GETHIT)
-        {
-            D2ModeChangeStrc modeChange;
-            MONSTERMODE_GetModeChangeInfo(pBoss, MONMODE_DEATH, &modeChange);
-            D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
-            EVENT_SetEvent(pGame, pBoss, EVENTTYPE_MONUMOD, pGame->dwGameFrame + 4, 0, 0);
-            return;
-        }
-
-        if (nMode != MONMODE_DEATH && nMode != MONMODE_DEAD)
-        {
-            return;
-        }
-    }
-
-    EVENT_SetEvent(pGame, pBoss, EVENTTYPE_MONUMOD, pGame->dwGameFrame + 4, 0, 0);
-}
-
 // 0x005A5650
 unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc* pUnit)
 {

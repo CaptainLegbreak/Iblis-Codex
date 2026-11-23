@@ -59290,11 +59290,6 @@
      "name": "MONSTERUNIQUE_ToggleMonTypeFlag"
     },
     {
-     "va": "0x005A1600",
-     "length": 72,
-     "name": "MONSTERUNIQUE_UMod26_Teleport"
-    },
-    {
      "va": "0x005A2100",
      "length": 26,
      "name": "MONSTERUNIQUE_InitializeUMod"
@@ -60208,6 +60203,11 @@
      "length": 642
     },
     {
+     "va": "0x005A1600",
+     "length": 72,
+     "name": "MONSTERUNIQUE_UMod26_Teleport"
+    },
+    {
      "va": "0x005A1650",
      "length": 389
     },
@@ -60245,6 +60245,11 @@
      "va": "0x005A2840",
      "length": 199,
      "name": "MONSTERUNIQUE_CastCorpseExplode2"
+    },
+    {
+     "va": "0x005A2910",
+     "length": 134,
+     "name": "MONSTERUNIQUE_CastNova"
     },
     {
      "va": "0x005A29A0",
@@ -60343,6 +60348,11 @@
      "va": "0x005A3B50",
      "length": 464,
      "name": "?MONSTERUNIQUE_SetTrapDamage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005A3E70",
+     "length": 119,
+     "name": "MONSTERUNIQUE_SuicideModeChange"
     },
     {
      "va": "0x005A3EF0",
@@ -60651,16 +60661,6 @@
      "va": "0x005A1F90",
      "length": 362,
      "name": "MONSTERUNIQUE_UMod25_ManaSteal"
-    },
-    {
-     "va": "0x005A2910",
-     "length": 134,
-     "name": "MONSTERUNIQUE_CastNova"
-    },
-    {
-     "va": "0x005A3E70",
-     "length": 119,
-     "name": "MONSTERUNIQUE_SuicideModeChange"
     },
     {
      "va": "0x005A5650",
