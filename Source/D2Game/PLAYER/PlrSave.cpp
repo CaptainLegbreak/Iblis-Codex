@@ -3843,67 +3843,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x54_TurnStaminaOff_6FC88380(D2GameStrc*
     return 0;
 }
 
-// 0x005531E0
-void __fastcall SUNIT_UpdateClientIfRoomInvalid(D2UnitStrc* pUnit, D2ClientStrc* pClient)
-{
-    if (UNITS_IsCurrentRoomInvalid(pUnit))
-    {
-        int bFlag = 0;
-        if (pUnit)
-        {
-            bFlag = (pUnit->dwFlags >> 4) & 1;
-        }
-
-        if (!bFlag)
-        {
-            sub_00538410_RemoveUnitIfNotAdjacent2(pClient, pUnit);
-        }
-    }
-}
-
-// 0x005538D0
-void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* ptGame, SUNIT_IterateFn pfIterate, void* pArg)
-{
-    D2UnitStrc** ppSlot = ptGame->pUnitList[0];
-    SUNIT_IterateFn pfCallback = pfIterate;
-    D2_ASSERT(ptGame && pfCallback, 2022);
-
-    for (int i = 0; i < 128; ++i, ++ppSlot)
-    {
-        for (D2UnitStrc* ptUnit = *ppSlot; ptUnit; ptUnit = ptUnit->pListNext)
-        {
-            if (!STATES_CheckState(ptUnit, STATE_PLAYERBODY))
-            {
-                pfCallback(ptGame, ptUnit, pArg);
-            }
-
-            D2_ASSERT(ptUnit, 222);
-        }
-    }
-}
-
-// 0x00554120
-void __stdcall SUNIT_SetInteractInfo(D2UnitStrc* pUnit, int nInteractUnitType, int nInteractUnitGUID)
-{
-    if (pUnit->nInteract)
-    {
-        if (pUnit->dwUnitType == UNIT_PLAYER)
-        {
-            D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
-            if (pPlayerData)
-            {
-                char szMessage[80];
-                sprintf(szMessage, "Player %s attempted to operate while busy\n", pPlayerData->szName);
-            }
-        }
-    }
-    else
-    {
-        pUnit->dwInteractGUID = nInteractUnitGUID;
-        pUnit->dwInteractType = nInteractUnitType;
-        pUnit->nInteract = 1;
-    }
-}
+void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* ptGame, SUNIT_IterateFn pfIterate, void* pArg); // 0x005538D0
 
 // 0x00564340
 int __fastcall TASK_GetClockTime()

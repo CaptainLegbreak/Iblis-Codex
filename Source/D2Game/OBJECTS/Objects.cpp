@@ -439,7 +439,6 @@ enum D2C_ElemTypes
     ELEMTYPE_FREEZE = 12,
 };
 
-extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
 extern "C" __declspec(dllimport) void __stdcall GetLocalTime(D2SystemTimeStrc* lpSystemTime); // 0x006CC1D4
 
@@ -598,17 +597,6 @@ static int __stdcall OBJECTS_GetShrineId(Game* game,U32 level,Room* room,unsigne
 void __fastcall OBJECTS_InitFunction01_Shrine(InitContext* context);
 
 static void __cdecl OBJECTS_ApplySubclassClassId(Unit* unit);
-
-struct Data00552D60 { unsigned char bUnknown00[0x50]; unsigned int dwValue50; };
-
-struct Unit00552D60 {
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int f_10;
-    Data00552D60* pData;
-};
 
 void __stdcall DUNGEON_GetRoomCoordinates_Local(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords);
 
@@ -2795,41 +2783,6 @@ Unit* __fastcall OBJECTS_PopulateFn2_WaypointShrine(Game* game,Room* room,int un
     return N0;
 }
 
-// 0x00552D60
-extern "C" __declspec(dllexport) void __fastcall SUNIT_SetMonsterVision(Unit00552D60* pUnit, unsigned int dwValue) {
-    if (pUnit && pUnit->nType == 1 && pUnit->pData) {
-        pUnit->pData->dwValue50 = dwValue;
-    }
-}
-
-// 0x00552D80
-void __fastcall SUNIT_SetListNext(D2UnitStrc* pUnit, D2UnitStrc* pNext)
-{
-    D2_ASSERT(pUnit, 211);
-    pUnit->pListNext = pNext;
-}
-
-// 0x005545C0
-D2ActiveRoomStrc* __fastcall SUNIT_GetValidNextRoom(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
-    D2ActiveRoomStrc* pNextRoom = PATH_GetNextRoom(pDynamicPath);
-    const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit));
-    if (nLevelId)
-    {
-        for (D2ActiveRoomStrc* pRoom = DUNGEON_GetRoomFromAct(pGame->pAct[DRLG_GetActNoFromLevelId(nLevelId)]); pRoom; pRoom = pRoom->pRoomNext)
-        {
-            if (pRoom == pNextRoom)
-            {
-                return pNextRoom;
-            }
-        }
-    }
-
-    PATH_ClearNextRoom(pDynamicPath);
-    return 0;
-}
-
 // 0x00555CD0
 void __fastcall OBJECTS_AppendPair(int* pCount, D2UnkPairStrc* pPairs, int nSecond, int nFirst)
 {
@@ -2890,78 +2843,7 @@ int __fastcall ITEMS_IsInPlayersInventory(D2UnitStrc* pUnit, D2UnitStrc* pItem, 
     return 0;
 }
 
-// 0x0055B260
-void __fastcall PLAYERLIST_ToggleFlag(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, unsigned int nFlags, int bSet)
-{
-    D2PlayerListStrc* pPlayerList = PLAYERLIST_FindPlayerList(pPlayer1, pPlayer2);
-    if (pPlayer1 == pPlayer2 || !pPlayerList)
-    {
-        return;
-    }
 
-    if (bSet)
-    {
-        pPlayerList->dwFlags |= nFlags;
-    }
-    else
-    {
-        pPlayerList->dwFlags &= ~nFlags;
-    }
-
-    SCMD_BroadcastPlayerRelationship(pGame, !pPlayer1 ? -1 : pPlayer1->dwUnitId, !pPlayer2 ? -1 : pPlayer2->dwUnitId, pPlayerList->dwFlags);
-}
-
-// 0x0055B300
-int __fastcall PLAYERLIST_CheckFlag(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, unsigned int nFlags)
-{
-    D2PlayerListStrc* pPlayerList = PLAYERLIST_FindPlayerList(pPlayer1, pPlayer2);
-    if (pPlayer1 == pPlayer2 || !pPlayerList)
-    {
-        return 0;
-    }
-
-    return pPlayerList->dwFlags & nFlags;
-}
-
-// 0x0055B3A0
-void __fastcall PLAYERLIST_SetPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int a3)
-{
-    D2PlayerListStrc* pPlayerList = PLAYERLIST_FindPlayerList(pPlayer1, pPlayer2);
-    if (pPlayer1 == pPlayer2 || !pPlayerList)
-    {
-        return;
-    }
-
-    pPlayerList->field_C = a3;
-}
-
-// 0x0055B4C0
-void __fastcall PLAYERLIST_BroadcastFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2)
-{
-    D2PlayerListStrc* pPlayerList = PLAYERLIST_FindPlayerList(pPlayer1, pPlayer2);
-    if (!pPlayerList)
-    {
-        return;
-    }
-
-    SCMD_BroadcastPlayerRelationship(pGame, !pPlayer1 ? -1 : pPlayer1->dwUnitId, !pPlayer2 ? -1 : pPlayer2->dwUnitId, pPlayerList->dwFlags);
-}
-
-// 0x0055B720
-void __fastcall PLAYERLIST_SetHostileDelay(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int a3)
-{
-    D2PlayerListStrc* pPlayerList = PLAYERLIST_FindPlayerList(pPlayer1, pPlayer2);
-    if (pPlayerList)
-    {
-        pPlayerList->field_8 = a3;
-    }
-
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer1);
-    if (pPlayerData)
-    {
-        pPlayerData->dwHostileDelay = GetTickCount();
-    }
-}
 
 // 0x0055CA00
 int __fastcall OBJECTS_MatchFieldPair(D2UnkFieldPairStrc* pRecord1, D2UnkFieldPairStrc* pRecord2, int nValue1, int nValue2)

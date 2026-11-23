@@ -1000,17 +1000,6 @@ void __fastcall QUESTS_ResetPlayerGUIDCount(D2QuestGUIDStrc* pGUIDs)
     pGUIDs->nPlayerCount = 0;
 }
 
-// 0x00553980
-D2EventTimerStrc* __fastcall SUNIT_GetTimerFromUnit(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    return pUnit->pTimer;
-}
-
 // 0x005A4F20
 int __fastcall MONSTEREVAL_GetDifficultyScaledBonus(D2GameStrc* pGame, int nCount)
 {
