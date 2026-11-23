@@ -126,19 +126,7 @@ inline unsigned int ExtractLowPartSx(unsigned __int64& nValue)
     return nLow;
 }
 
-// 0x00422300
-static void __stdcall sub_00422300_Add(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
-{
-    unsigned __int64 nCarry = 0;
-    unsigned int i = 0;
-    for (; nCarry || b.IsUsed(i) || c.IsUsed(i); i++)
-    {
-        nCarry += (unsigned __int64)b[i] + c[i];
-        a[i] = ExtractLowPart(nCarry);
-    }
-    a.SetCount(i);
-}
-
+void __stdcall sub_00422300_Add(BigBuffer& a, const BigBuffer& b, const BigBuffer& c); // 0x00422300
 // 0x004225C0
 static void __stdcall sub_004225C0_DivUInt(unsigned int* pRemainder, const BigBuffer& b, unsigned __int64 c, BigBuffer& a)
 {
@@ -176,19 +164,8 @@ static void __stdcall sub_004227A0_MulUInt(BigBuffer& a, const BigBuffer& b, uns
     a.SetCount(i);
 }
 
-// 0x00422C60
-static void SetOne(BigBuffer& a)
-{
-    a.SetCount(1);
-    a.GrowToFit(0);
-    a.m_array.f_8[a.m_start] = 1;
-}
-
-// 0x00422CC0
-static void SetZero(BigBuffer& a)
-{
-    a.SetCount(0);
-}
+void SetOne(BigBuffer& a); // 0x00422C60
+void SetZero(BigBuffer& a); // 0x00422CC0
 
 static void __stdcall Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift); // 0x00422D00
 
@@ -231,20 +208,7 @@ static void __stdcall Shr(BigBuffer& a, const BigBuffer& b, unsigned int nShift)
     a.SetCount(i);
 }
 
-static void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffer& c); // 0x00423100
-
-// build: context sub_00423100_Sub
-static void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
-{
-    unsigned __int64 nBorrow = 0;
-    unsigned int i = 0;
-    for (; b.IsUsed(i) || c.IsUsed(i); i++)
-    {
-        nBorrow += (unsigned __int64)b[i] - c[i];
-        a[i] = ExtractLowPartSx(nBorrow);
-    }
-    a.SetCount(i);
-}
+void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffer& c); // 0x00423100
 
 static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack); // 0x00423DC0
 
@@ -302,19 +266,7 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
     tStack.nUsed -= 3;
 }
 
-// 0x004221F0
-static void __stdcall sub_004221F0_AddUInt(BigBuffer& a, const BigBuffer& b, unsigned int c)
-{
-    unsigned __int64 nCarry = c;
-    unsigned int i = 0;
-    for (; nCarry || b.IsUsed(i); i++)
-    {
-        nCarry += b[i];
-        a[i] = ExtractLowPart(nCarry);
-    }
-    a.SetCount(i);
-}
-
+void __stdcall sub_004221F0_AddUInt(BigBuffer& a, const BigBuffer& b, unsigned int c); // 0x004221F0
 // 0x00422750
 static int IsOne(BigBuffer& a)
 {
@@ -323,16 +275,7 @@ static int IsOne(BigBuffer& a)
     return tRead.Count() == 1 && tRead[0] == 1;
 }
 
-// 0x00422B00
-static void __stdcall Set2Exp(BigBuffer& a, unsigned int nExponent)
-{
-    unsigned int i = 0;
-    for (; i < nExponent / 32; i++)
-        a[i] = 0;
-    a[i] = 1 << (nExponent % 32);
-    a.SetCount(i + 1);
-}
-
+void __stdcall Set2Exp(BigBuffer& a, unsigned int nExponent); // 0x00422B00
 // 0x00422FC0
 static void __stdcall sub_00422FC0_SubUInt(const BigBuffer* pSrc, BigBuffer* pDst, unsigned int nValue)
 {
@@ -393,31 +336,7 @@ static void __stdcall FromUnsigned(BigBuffer& a, unsigned int nValue)
     a.SetCount(1);
 }
 
-static void __stdcall Gcd(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack); // 0x00424180
-
-// build: context Gcd
-static void __stdcall Gcd(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack) // 0x00424180
-{
-    BigBuffer& tRem = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tNext = tStack.f_0[tStack.nUsed++];
-    if (sub_004212F0_Compare(&b, &c) > 0)
-    {
-        a = b;
-        tNext = c;
-    }
-    else
-    {
-        a = c;
-        tNext = b;
-    }
-    while (!IsZero(tNext))
-    {
-        Div(a, tRem, a, tNext, tStack);
-        a = tNext;
-        tNext = tRem;
-    }
-    tStack.nUsed -= 2;
-}
+void __stdcall Gcd(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack); // 0x00424180
 
 // 0x004245F0
 static void __stdcall sub_004245F0_MulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack)
@@ -558,45 +477,8 @@ static int __stdcall IsPrime(BigStack* pStack, BigBuffer& a)
     return bPrime;
 }
 
-// 0x00421440
-static int sub_00421440_IsEven(const BigBuffer& a)
-{
-    return !a.Count() || !(a[0] & 1);
-}
-
-static void __stdcall FindPrime(unsigned int nBits, BigBuffer& b, BigBuffer& c, BigStack* pStack, BigBuffer& a); // 0x004255E0
-// 0x004255E0
-static void __stdcall FindPrime(unsigned int nBits, BigBuffer& b, BigBuffer& c, BigStack* pStack, BigBuffer& a)
-{
-    BigBuffer& tLow = pStack->f_0[pStack->nUsed++];
-    BigBuffer& tHigh = pStack->f_0[pStack->nUsed++];
-    BigBuffer& tWork = pStack->f_0[pStack->nUsed++];
-    Set2Exp(tLow, nBits - 2);
-    Set2Exp(tHigh, nBits - 1);
-    sub_00422300_Add(tHigh, tHigh, tLow);
-    Div(tWork, a, b, tLow, *pStack);
-    sub_00422300_Add(a, a, tHigh);
-    if (sub_00421440_IsEven(a))
-        sub_004221F0_AddUInt(a, a, 1);
-    sub_00422300_Add(tHigh, tHigh, tLow);
-    sub_00422FC0_SubUInt(&tHigh, &tHigh, 2);
-    for (;;)
-    {
-        if (IsPrime(pStack, a))
-        {
-            if (IsOne(c))
-                break;
-            sub_00422FC0_SubUInt(&a, &tWork, 1);
-            Gcd(tWork, tWork, c, *pStack);
-            if (IsOne(tWork))
-                break;
-        }
-        sub_004221F0_AddUInt(a, a, 2);
-        if (sub_004212F0_Compare(&a, &tHigh) > 0)
-            sub_00423100_Sub(a, a, tLow);
-    }
-    pStack->nUsed -= 3;
-}
+int sub_00421440_IsEven(const BigBuffer& a); // 0x00421440
+void __stdcall FindPrime(unsigned int nBits, BigBuffer& b, BigBuffer& c, BigStack* pStack, BigBuffer& a); // 0x004255E0
 
 // 0x00425330
 void __stdcall SBigPowMod(D2StormBigStrc* pResult, D2StormBigStrc* pBase, D2StormBigStrc* pExponent, D2StormBigStrc* pModulus)

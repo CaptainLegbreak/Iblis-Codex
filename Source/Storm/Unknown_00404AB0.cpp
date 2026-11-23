@@ -61,36 +61,11 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);
 
 BOOLEAN __stdcall AUTOMAP_IsDebugDirectorySizeValid(unsigned int nValue);
 static bool __stdcall sub_004049A0_ReadImageInfo(D2CrashModuleStrc* pModule, const D2ImageDosHeaderStrc* pImage); // 0x004049A0
-static bool sub_00404F80_ReadNb10(D2CrashModuleStrc* pModule, const D2CvNb10Strc* pCv);
-static bool sub_00404FF0_ReadRsds(const D2CvRsdsStrc* pCv, D2CrashModuleStrc* pModule);
+bool sub_00404F80_ReadNb10(D2CrashModuleStrc* pModule, const D2CvNb10Strc* pCv); // 0x00404F80
+bool sub_00404FF0_ReadRsds(const D2CvRsdsStrc* pCv, D2CrashModuleStrc* pModule); // 0x00404FF0
 
-// 0x00404730
-static int sub_00404730_GetImageKind(const D2ImageOptionalHeaderStrc* pHeader)
-{
-    if (pHeader->Magic == 0x10B)
-    {
-        return 1;
-    }
-    if (pHeader->Magic == 0x20B)
-    {
-        return 2;
-    }
-    return 0;
-}
-
-// 0x00404760
-static bool sub_00404760_IsDosHeaderValid(const D2ImageDosHeaderStrc* pImage)
-{
-    if (IsBadReadPtr(pImage, 0x40))
-    {
-        return false;
-    }
-    if (pImage->e_magic != 0x5A4D)
-    {
-        return false;
-    }
-    return true;
-}
+int sub_00404730_GetImageKind(const D2ImageOptionalHeaderStrc* pHeader); // 0x00404730
+bool sub_00404760_IsDosHeaderValid(const D2ImageDosHeaderStrc* pImage); // 0x00404760
 
 // 0x00404780
 static inline bool sub_00404780_IsNtHeaderValid(const D2ImageNtHeadersStrc* pNt)
@@ -230,40 +205,6 @@ static bool __stdcall sub_00404AB0_VisitModule(void* pContext, const D2ImageDosH
     return pList->nCount < 0x100 ? true : false;
 }
 
-// 0x00404F80
-static bool sub_00404F80_ReadNb10(D2CrashModuleStrc* pModule, const D2CvNb10Strc* pCv)
-{
-    if (IsBadReadPtr(pCv, 0x14))
-    {
-        return false;
-    }
-    if (IsBadStringPtrA(pCv->szPdbName, 0x104))
-    {
-        return false;
-    }
-    strncpy_s(pModule->szPath, sizeof(pModule->szPath), pCv->szPdbName, -1);
-    pModule->nAge = pCv->dwAge;
-    sub_00404860_SetNb10Info(pModule, pCv);
-    return true;
-}
-
-// 0x00404FF0
-static bool sub_00404FF0_ReadRsds(const D2CvRsdsStrc* pCv, D2CrashModuleStrc* pModule)
-{
-    if (IsBadReadPtr(pCv, 0x1C))
-    {
-        return false;
-    }
-    if (IsBadStringPtrA(pCv->szPdbName, 0x104))
-    {
-        return false;
-    }
-    strncpy_s(pModule->szPath, sizeof(pModule->szPath), pCv->szPdbName, -1);
-    pModule->nAge = pCv->dwAge;
-    sub_00404890_CopyRsdsGuid(pModule, pCv);
-    return true;
-}
-
 struct D2UnicodeStringStrc
 {
     unsigned short Length;
@@ -359,12 +300,6 @@ bool __stdcall sub_00404C60_EnumModulesPsapi(void* pContext)
 }
 
 bool sub_00404DC0_EnumModulesToolhelp(void* pContext); // 0x00404DC0
-
-// build: context D2_NtCurrentTeb
-inline D2TebStrc* D2_NtCurrentTeb()
-{
-    return (D2TebStrc*)__readfsdword(0x18);
-}
 
 bool __fastcall ERRORMANAGER_EnumLoadedModules(void* pContext); // 0x00404E60
 

@@ -94,13 +94,7 @@ static void EncodeDataBytes(unsigned int nValue, D2StormArrayBStrc* pArray)
     *pArray->New() = 0xFF;
 }
 
-// 0x004235F0
-static void ToBinary(D2StormArrayBStrc* pOut, BigBuffer* pIn)
-{
-    pOut->f_4 = 0;
-    sub_00421CB0_AppendDigits(pOut, pIn);
-}
-
+void ToBinary(D2StormArrayBStrc* pOut, BigBuffer* pIn); // 0x004235F0
 // 0x00423770
 static void ToStream(D2StormArrayBStrc* pOut, BigBuffer* pIn)
 {

@@ -195,24 +195,7 @@ static int sub_00415950_GetFileRec(void* hFile, FILEREC** ppRec)
     return 1;
 }
 
-// 0x00415760
-static unsigned int sub_00415760_UpdatePlayed(AUDIOSTREAM* pStream)
-{
-    unsigned long nPlay = 0;
-    unsigned long nWrite = 0;
-    if (pStream->pBuffer->GetCurrentPosition(&nPlay, &nWrite) < 0)
-        return -1;
-    unsigned int nWritten = pStream->writecursor;
-    int nAhead = nWritten % pStream->soundbuffersize - nPlay;
-    if (nAhead <= 0)
-        nAhead += pStream->soundbuffersize;
-    unsigned int nPlayed = nWritten - nAhead;
-    if (nPlayed >= pStream->nSize)
-        nPlayed = pStream->nSize;
-    pStream->nPlayed = nPlayed;
-    return nPlay;
-}
-
+unsigned int sub_00415760_UpdatePlayed(AUDIOSTREAM* pStream); // 0x00415760
 // 0x00418140
 int __stdcall SFileDdaGetPos(void* hFile, unsigned int* pnPlayed, unsigned int* pnSize)
 {

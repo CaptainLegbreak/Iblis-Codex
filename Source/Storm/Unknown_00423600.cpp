@@ -185,19 +185,7 @@ inline unsigned int ExtractLowPartSx(unsigned __int64& nValue)
     return nLow;
 }
 
-// 0x004221F0
-static void __stdcall sub_004221F0_AddUInt(BigBuffer& a, const BigBuffer& b, unsigned int c)
-{
-    unsigned __int64 nCarry = c;
-    unsigned int i = 0;
-    for (; nCarry || b.IsUsed(i); i++)
-    {
-        nCarry += b[i];
-        a[i] = ExtractLowPart(nCarry);
-    }
-    a.SetCount(i);
-}
-
+void __stdcall sub_004221F0_AddUInt(BigBuffer& a, const BigBuffer& b, unsigned int c); // 0x004221F0
 // 0x00422570
 static int __stdcall sub_00422570_CompareUInt(BigBuffer& a, unsigned int b)
 {
@@ -227,76 +215,18 @@ static void __stdcall sub_004225C0_DivUInt(BigBuffer& a, unsigned int* pRemainde
     *pRemainder = (unsigned int)nData;
 }
 
-// 0x00422750
-static int IsOne(BigBuffer& a)
-{
-    a.sub_00422140_Trim();
-    const BigBuffer& tRead = a;
-    return tRead.Count() == 1 && tRead[0] == 1;
-}
+int IsOne(BigBuffer& a); // 0x00422750
+int IsZero(BigBuffer& a); // 0x00422780
 
-// 0x00422780
-static int IsZero(BigBuffer& a)
-{
-    a.sub_00422140_Trim();
-    return a.Count() == 0;
-}
+void __stdcall sub_004227A0_MulUInt(BigBuffer& a, const BigBuffer& b, unsigned __int64 c); // 0x004227A0
+void __stdcall Set2Exp(BigBuffer& a, unsigned int nExponent); // 0x00422B00
 
-// 0x004227A0
-static void __stdcall sub_004227A0_MulUInt(BigBuffer& a, const BigBuffer& b, unsigned __int64 c)
-{
-    unsigned __int64 nCarry = 0;
-    unsigned int i = 0;
-    for (; nCarry || b.IsUsed(i); i++)
-    {
-        nCarry += b[i] * c;
-        a[i] = ExtractLowPart(nCarry);
-    }
-    a.SetCount(i);
-}
-
-// 0x00422B00
-static void __stdcall Set2Exp(BigBuffer& a, unsigned int nExponent)
-{
-    unsigned int i = 0;
-    for (; i < nExponent / 32; i++)
-        a[i] = 0;
-    a[i] = 1 << (nExponent % 32);
-    a.SetCount(i + 1);
-}
-
-// 0x00422C60
-static void SetOne(BigBuffer& a)
-{
-    a.SetCount(1);
-    a.GrowToFit(0);
-    a.m_array.f_8[a.m_start] = 1;
-}
-
-// 0x00422CC0
-static void SetZero(BigBuffer& a)
-{
-    a.SetCount(0);
-}
+void SetOne(BigBuffer& a); // 0x00422C60
+void SetZero(BigBuffer& a); // 0x00422CC0
 
 void __stdcall Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift); // 0x00422D00
 
-// 0x00422E70
-static void __stdcall Shr(BigBuffer& a, const BigBuffer& b, unsigned int nShift)
-{
-    unsigned int nWords = nShift / 32;
-    unsigned int nBits = nShift % 32;
-    unsigned int i = 0;
-    for (; b.IsUsed(i + nWords); i++)
-    {
-        unsigned int nValue = b[i + nWords] >> nBits;
-        if (nBits)
-            nValue += b[i + nWords + 1] << (32 - nBits);
-        a[i] = nValue;
-    }
-    a.SetCount(i);
-}
-
+void __stdcall Shr(BigBuffer& a, const BigBuffer& b, unsigned int nShift); // 0x00422E70
 static void __stdcall sub_00422FC0_SubUInt(BigBuffer& a, const BigBuffer& b, unsigned int c)
 {
     unsigned __int64 nBorrow = ~(unsigned __int64)c + 1;
@@ -321,24 +251,8 @@ static void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const B
     a.SetCount(i);
 }
 
-// 0x004234B0
-static void FromStr(BigBuffer& a, const char* szString)
-{
-    SetZero(a);
-    while (*szString)
-    {
-        sub_004227A0_MulUInt(a, a, 10);
-        sub_004221F0_AddUInt(a, a, *szString - '0');
-        szString++;
-    }
-}
-
-// 0x00423540
-static void __stdcall FromUnsigned(BigBuffer& a, unsigned int nValue)
-{
-    a[0u] = nValue;
-    a.SetCount(1);
-}
+void FromStr(BigBuffer& a, const char* szString); // 0x004234B0
+void __stdcall FromUnsigned(BigBuffer& a, unsigned int nValue); // 0x00423540
 
 // 0x00423600
 
@@ -541,15 +455,7 @@ static void __stdcall Gcd(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tS
     tStack.nUsed -= 2;
 }
 
-// 0x004245F0
-static void __stdcall sub_004245F0_MulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack)
-{
-    BigBuffer& tProduct = tStack.f_0[tStack.nUsed++];
-    sub_004242C0_BigOp(&tProduct, &b, &c, &tStack);
-    Div(tProduct, a, tProduct, d, tStack);
-    tStack.nUsed--;
-}
-
+void __stdcall sub_004245F0_MulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack); // 0x004245F0
 // 0x00424E70
 void __stdcall SBigDiv(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {

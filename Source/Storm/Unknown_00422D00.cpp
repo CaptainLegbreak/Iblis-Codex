@@ -86,124 +86,16 @@ unsigned int __stdcall sub_004213B0_FindLastSetBit(BigBuffer* pQueue);          
 int __stdcall sub_004212F0_Compare(BigBuffer* pLeft, BigBuffer* pRight);                      // 0x004212F0
 int __stdcall sub_004242C0_BigOp(BigBuffer* pResult, BigBuffer* pA, BigBuffer* pB, BigStack* pStack); // 0x004242C0
 
-// build: context MakeLarge
-inline unsigned __int64 MakeLarge(const unsigned int& nLow, const unsigned int& nHigh)
-{
-    return (unsigned __int64)nHigh * 0x100000000ui64 + nLow;
-}
+void __stdcall sub_004221F0_AddUInt(BigBuffer& a, const BigBuffer& b, unsigned int c); // 0x004221F0
 
-// build: context ExtractLowPart
-inline unsigned int ExtractLowPart(unsigned __int64& nValue)
-{
-    unsigned int nLow = (unsigned int)nValue;
-    nValue >>= 32;
-    return nLow;
-}
+int IsOne(BigBuffer& a); // 0x00422750
+int IsZero(BigBuffer& a); // 0x00422780
 
-// build: context ExtractLowPartSx
-inline unsigned int ExtractLowPartSx(unsigned __int64& nValue)
-{
-    unsigned int nLow = (unsigned int)nValue;
-    nValue >>= 32;
-    if (nValue >= 0x80000000)
-        nValue |= 0xFFFFFFFF00000000ui64;
-    return nLow;
-}
+void __stdcall sub_004227A0_MulUInt(BigBuffer& a, const BigBuffer& b, unsigned __int64 c); // 0x004227A0
+void __stdcall Set2Exp(BigBuffer& a, unsigned int nExponent); // 0x00422B00
 
-// 0x004221F0
-static void __stdcall sub_004221F0_AddUInt(BigBuffer& a, const BigBuffer& b, unsigned int c)
-{
-    unsigned __int64 nCarry = c;
-    unsigned int i = 0;
-    for (; nCarry || b.IsUsed(i); i++)
-    {
-        nCarry += b[i];
-        a[i] = ExtractLowPart(nCarry);
-    }
-    a.SetCount(i);
-}
-
-// 0x00422570
-static int __stdcall sub_00422570_CompareUInt(BigBuffer& a, unsigned int b)
-{
-    a.sub_00422140_Trim();
-    if (a.Count() > 1)
-        return 1;
-    const BigBuffer& tRead = a;
-    unsigned int nDigit = tRead[0];
-    if (nDigit)
-        return nDigit > b ? 1 : -1;
-    return 0;
-}
-
-// 0x004225C0
-static void __stdcall sub_004225C0_DivUInt(unsigned int* pRemainder, const BigBuffer& b, unsigned __int64 c, BigBuffer& a)
-{
-    a.m_array.SetCount((int)a.m_start - (int)b.m_start + b.m_array.f_4);
-    unsigned __int64 nData = 0;
-    unsigned int i = b.Count();
-    while (i)
-    {
-        --i;
-        nData = nData * 0x100000000ui64 + b[i];
-        a[i] = (unsigned int)(nData / c);
-        nData %= c;
-    }
-    a.sub_00422140_Trim();
-    *pRemainder = (unsigned int)nData;
-}
-
-// 0x00422750
-static int IsOne(BigBuffer& a)
-{
-    a.sub_00422140_Trim();
-    const BigBuffer& tRead = a;
-    return tRead.Count() == 1 && tRead[0] == 1;
-}
-
-// 0x00422780
-static int IsZero(BigBuffer& a)
-{
-    a.sub_00422140_Trim();
-    return a.Count() == 0;
-}
-
-// 0x004227A0
-static void __stdcall sub_004227A0_MulUInt(BigBuffer& a, const BigBuffer& b, unsigned __int64 c)
-{
-    unsigned __int64 nCarry = 0;
-    unsigned int i = 0;
-    for (; nCarry || b.IsUsed(i); i++)
-    {
-        nCarry += b[i] * c;
-        a[i] = ExtractLowPart(nCarry);
-    }
-    a.SetCount(i);
-}
-
-// 0x00422B00
-static void __stdcall Set2Exp(BigBuffer& a, unsigned int nExponent)
-{
-    unsigned int i = 0;
-    for (; i < nExponent / 32; i++)
-        a[i] = 0;
-    a[i] = 1 << (nExponent % 32);
-    a.SetCount(i + 1);
-}
-
-// 0x00422C60
-static void SetOne(BigBuffer& a)
-{
-    a.SetCount(1);
-    a.GrowToFit(0);
-    a.m_array.f_8[a.m_start] = 1;
-}
-
-// 0x00422CC0
-static void SetZero(BigBuffer& a)
-{
-    a.SetCount(0);
-}
+void SetOne(BigBuffer& a); // 0x00422C60
+void SetZero(BigBuffer& a); // 0x00422CC0
 
 // 0x00422D00
 static void __stdcall Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift)
@@ -226,44 +118,13 @@ static void __stdcall Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift)
     a.sub_00422140_Trim();
 }
 
-// 0x00422E70
-static void __stdcall Shr(BigBuffer& a, const BigBuffer& b, unsigned int nShift)
-{
-    unsigned int nWords = nShift / 32;
-    unsigned int nBits = nShift % 32;
-    unsigned int i = 0;
-    for (; b.IsUsed(i + nWords); i++)
-    {
-        unsigned int nValue = b[i + nWords] >> nBits;
-        if (nBits)
-            nValue += b[i + nWords + 1] << (32 - nBits);
-        a[i] = nValue;
-    }
-    a.SetCount(i);
-}
-
+void __stdcall Shr(BigBuffer& a, const BigBuffer& b, unsigned int nShift); // 0x00422E70
 void __stdcall sub_00422FC0_SubUInt(BigBuffer& a, const BigBuffer& b, unsigned int c); // 0x00422FC0
 
 void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffer& c); // 0x00423100
 
-// 0x004234B0
-static void FromStr(BigBuffer& a, const char* szString)
-{
-    SetZero(a);
-    while (*szString)
-    {
-        sub_004227A0_MulUInt(a, a, 10);
-        sub_004221F0_AddUInt(a, a, *szString - '0');
-        szString++;
-    }
-}
-
-// 0x00423540
-static void __stdcall FromUnsigned(BigBuffer& a, unsigned int nValue)
-{
-    a[0u] = nValue;
-    a.SetCount(1);
-}
+void FromStr(BigBuffer& a, const char* szString); // 0x004234B0
+void __stdcall FromUnsigned(BigBuffer& a, unsigned int nValue); // 0x00423540
 
 void __stdcall ToStr(const BigBuffer& tNumber, D2StormArrayBStrc& tOutput, BigStack& tStack); // 0x00423600
 
@@ -367,15 +228,7 @@ void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigSt
 
 void __stdcall Gcd(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack); // 0x00424180
 
-// 0x004245F0
-static void __stdcall sub_004245F0_MulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack)
-{
-    BigBuffer& tProduct = tStack.f_0[tStack.nUsed++];
-    sub_004242C0_BigOp(&tProduct, &b, &c, &tStack);
-    Div(tProduct, a, tProduct, d, tStack);
-    tStack.nUsed--;
-}
-
+void __stdcall sub_004245F0_MulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack); // 0x004245F0
 // 0x00424E70
 void __stdcall SBigDiv(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
