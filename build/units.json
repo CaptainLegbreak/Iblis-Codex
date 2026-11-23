@@ -49425,6 +49425,10 @@
      "name": "?sub_0054DAC0_GetSpawnBounds@@YGXPAUD2ActiveRoomStrc@@PAHPAUD2SpawnAreaStrc@@111@Z"
     },
     {
+     "va": "0x0054DDC0",
+     "length": 435
+    },
+    {
      "va": "0x0054DF80",
      "length": 269,
      "name": "?sub_0054DF80_SpawnGroupInCoordList@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@EEH@Z"
@@ -49505,16 +49509,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0054DDC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0054DDC0",
-     "length": 435
-    }
    ]
   },
   {
