@@ -6,12 +6,12 @@
 #include "D2ClientTypes.h"
 #include "D2CelContext.h"
 #include "D2LevelTxt.h"
+#include "D2MultiTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2PoolSystemStrc;
 
-struct D2ClientCharRecordStrc;
 
 struct D2StormLinkStrc;
 
@@ -39,37 +39,6 @@ typedef long (__stdcall* WNDPROC)(void* hWnd, unsigned int uMsg, unsigned int wP
 
 struct D2ClientNotifyStrc;
 
-#pragma pack(push, 1)
-
-struct D2ClientCharRecordStrc
-{
-    char unk0x00[0x19];
-    char aState[4];
-    char unk0x1D[2];
-    union
-    {
-        char szName[0x1D0];
-        struct
-        {
-            char szText0x1F[0x18];
-            char szText0x37[0x1B8];
-        };
-    };
-    union
-    {
-        unsigned char aFlags[2];
-        unsigned short wValue;
-    };
-    char unk0x1F1[0x1F];
-    unsigned char nKind;
-    char unk0x211[0x14];
-    D2ClientNotifyStrc* pNotify;
-    char unk0x229[0x1C];
-    char szText245[0x18];
-    char szText25D[0x10];
-};
-
-#pragma pack(pop)
 
 void __cdecl FOG_SetMemoryPoolSystemMode(D2PoolSystemStrc* pSystem, int bFreePoolAlloc); // 0x00409FF0
 
@@ -95,7 +64,7 @@ void __cdecl PROFCORE_WriteProfileCounters(); // 0x006116B0
 
 extern "C" int __cdecl GAME_ShutdownIfActive(); // 0x0044BB80
 
-extern D2ClientCharRecordStrc* gpCharRecord; // 0x007A0438
+extern D2LaunchRecordStrc* gpCharRecord; // 0x007A0438
 
 extern int (__cdecl* gpfnLaunchStates[])(); // 0x0070EE54
 
@@ -315,25 +284,6 @@ struct D2VersionInfoStrc { unsigned long dwSize; char unknown04[144]; };
 
 struct D2ComInterfaceStrc { char unknown00[0xC4]; void (__stdcall* Close)(); };
 
-#pragma pack(push, 1)
-
-struct D2ClientInfoStrc
-{
-    char unk0x00[0x1EF];
-    union
-    {
-        unsigned short wFlags;
-        struct
-        {
-            unsigned char lowFlags;
-            unsigned char progress;
-        };
-    };
-    char unk0x1F1[0x33];
-    unsigned char nSoundArg;
-};
-
-#pragma pack(pop)
 
 typedef int (__stdcall* D2IdleHandler)(int);
 
@@ -499,9 +449,6 @@ struct D2SaveHeaderStrc
 
 #pragma pack(push, 1)
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
 
 #pragma pack(pop)
 
@@ -512,7 +459,7 @@ unsigned char* gpSaveBuffer; // 0x007A5224
 unsigned int gnSaveBufferSize; // 0x007A5228
 
 // 0x0044B8A0
-int __stdcall GAME_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pRecord)
+int __stdcall GAME_LauncherRun(void* hInstance, D2LaunchRecordStrc* pRecord)
 {
     gpCharRecord = pRecord;
     sub_00409B80(0);
@@ -531,7 +478,7 @@ int __stdcall GAME_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pRecord)
     int nLanguage;
 // build: symbol ?STRTABLE_GetLanguageInfoField@* 0x00525260
     STRTABLE_GetLanguageInfoField(&nLanguage, 0);
-    sub_00619300(sub_004FAC80(0), *(int*)pRecord->aState == 6);
+    sub_00619300(sub_004FAC80(0), pRecord->nState19 == 6);
 // build: symbol ?gnClientLaunchState@* 0x0070EE4C
     gnClientLaunchState = 3;
 // build: symbol ?gbExitApplication@* 0x0070EE8C
@@ -555,7 +502,7 @@ int __stdcall GAME_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pRecord)
     }
     else
     {
-        switch (*(int*)pRecord->aState)
+        switch (pRecord->nState19)
         {
         case 0:
         case 8:
@@ -801,7 +748,7 @@ void __cdecl GAME_SaveCharFile()
         {
             return;
         }
-        gpCharRecord->wValue = *(unsigned short*)(pBuffer + 0x18);
+        gpCharRecord->wFlags1EF = *(unsigned short*)(pBuffer + 0x18);
     }
     else
     {
@@ -809,7 +756,7 @@ void __cdecl GAME_SaveCharFile()
         {
             return;
         }
-        gpCharRecord->wValue = *(unsigned short*)(pBuffer + 0x24);
+        gpCharRecord->wFlags1EF = *(unsigned short*)(pBuffer + 0x24);
     }
 
     FOG_GetSavePath(szDir, 0x400);
@@ -1055,8 +1002,8 @@ int __cdecl GAME_RunGameSession()
     if(gnCinematicPlayed_007A062C)
     {
         int nDifficulty=gnClientDifficulty;
-        int nProgress=gpClientInfo_007A0438->progress&31;
-        D2ClientInfoStrc* pClientInfo=gpClientInfo_007A0438;
+        int nProgress=gpClientInfo_007A0438->aFlags1EF[1]&31;
+        D2LaunchRecordStrc* pClientInfo=gpClientInfo_007A0438;
         switch(nDifficulty)
         {
         case 0:
@@ -1067,7 +1014,7 @@ int __cdecl GAME_RunGameSession()
             if(nProgress==12)bEndGame=0;
             break;
         }
-        pClientInfo->wFlags=((nDifficulty<<10)+0x500)|(pClientInfo->wFlags&0xE0FF);
+        pClientInfo->wFlags1EF=((nDifficulty<<10)+0x500)|(pClientInfo->wFlags1EF&0xE0FF);
         if(bEndGame)
         {
             sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gaGameMouseHandlers,10);

@@ -11,6 +11,7 @@
 #include "D2StormTypes.h"
 #include "D2Win32Types.h"
 #include "D2ItemsWorld.h"
+#include "D2MultiTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -567,12 +568,6 @@ struct D2ChatMessageStrc
     D2ChatTextStrc tText;
 };
 
-struct D2ClientInfoStrc
-{
-    char unk0x00[0x8D];
-    char szName[0x10];
-};
-
 class D2SquelchListStrc
 {
 public:
@@ -810,7 +805,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
             Unicode wszName[0x22];
             char szName[0x11];
             sub_0047C3F0_CopyCommandArgs(szName, pText, sizeof(szName));
-            if (SStrCmpI(&szName[1], gpClientInfo_007A0438->szName, 0x7FFFFFFF))
+            if (SStrCmpI(&szName[1], gpClientInfo_007A0438->szAccount, 0x7FFFFFFF))
             {
                 sub_00526320_ToUnicode(wszLine, gszBattleNetPrefix, 0x208);
                 sub_00526320_ToUnicode(wszName, szName, 0x22);

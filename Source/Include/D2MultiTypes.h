@@ -243,7 +243,7 @@ struct D2LaunchRecordStrc
     unsigned short unk0x220; // 0x220
     unsigned char unk0x222; // 0x222
     char bFlag223; // 0x223
-    unsigned char unk0x224; // 0x224
+    unsigned char nSoundArg; // 0x224
     D2FuncTable_0077ABF0Strc* pFuncTable; // 0x225
     unsigned char unk0x229; // 0x229
     unsigned short unk0x22A; // 0x22A
