@@ -389,7 +389,7 @@ void __fastcall sub_006BBCE0_Run(int a, int b, int c); // 0x006BBCE0
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 
-extern D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
+D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
 
 int __cdecl D3D_Close(); // 0x006B5550
 
@@ -429,11 +429,11 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 
 void __fastcall sub_006B55E0_InitializeWindow(int, int); // 0x006B55E0
 
-extern int gnState_00970E54; // 0x00970E54
+int gnState_00970E54; // 0x00970E54
 
 int gnFilterMode; // 0x00970E5C
 
-extern int gnState_00970E58; // 0x00970E58
+int gnState_00970E58; // 0x00970E58
 
 void __fastcall sub_006B7F70_ClearTarget(int); // 0x006B7F70
 
@@ -473,6 +473,14 @@ extern int gbVideoUp; // 0x00970E40
 extern int gnVideoState; // 0x00970E44
 
 extern D2ComObjectStrc* gpPrimarySurface; // 0x00970E68
+
+typedef long (__stdcall* D2DDFlipFn)(D2ComObjectStrc* pThis, D2ComObjectStrc* pTarget, unsigned long dwFlags);
+
+extern int gdwGlobal_007B57E4; // 0x007B57E4
+
+extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
+
+D2PaletteTableStrc gPaletteView_0096F280; // 0x0096F280
 
 extern D2ComObjectStrc* gpRenderSurface; // 0x00970E6C
 
@@ -691,6 +699,35 @@ extern int gnRenderHeight; // 0x007C913C
 
 void __fastcall sub_006B2F60_SaveVideoConfig(int nRender, int nDevice); // 0x006B2F60
 
+// 0x006B1C10
+void __fastcall sub_006B1C10_SetGlobal(int nValue)
+{
+    gdwGlobal_007B57E4 = nValue;
+}
+
+// 0x006B1C20
+unsigned int __cdecl sub_006B1C20_GetMaskedFlags()
+{
+    return gnDeviceFlags_0096F3A8 & gnGammaMask_006CE278;
+}
+
+// 0x006B1C30
+int __cdecl sub_006B1C30_SetMode()
+{
+    if (gpConfig_007C9148->bVSync)
+        ((D2DDFlipFn)gpPrimarySurface->lpVtbl[11])(gpPrimarySurface, 0, 1);
+    else
+        ((D2DDFlipFn)gpPrimarySurface->lpVtbl[11])(gpPrimarySurface, 0, 9);
+    return 1;
+}
+
+// 0x006B1C60
+void __fastcall sub_006B1C60_GetScreenSize(int* pWidth, int* pHeight)
+{
+    *pWidth = gnRenderWidth;
+    *pHeight = gnRenderHeight;
+}
+
 // 0x006B1C70
 void __fastcall D3D_SetPalette(tagPALETTEENTRY* pPalette)
 {
@@ -714,6 +751,30 @@ void __fastcall D3D_SetPalette(tagPALETTEENTRY* pPalette)
             gadwColors[i] = 0;
             gawColors16[i] = 0;
         }
+    }
+}
+
+// 0x006B1D50
+unsigned int __fastcall sub_006B1D50_GetColor(unsigned int nIndex)
+{
+    return gadwColors[nIndex];
+}
+
+// 0x006B1D60
+void __fastcall sub_006B1D60_SetPaletteView(const D2PaletteTableStrc* pSource)
+{
+    gPaletteView_0096F280 = *pSource;
+    gpGfxPaletteView_007C9150 = &gPaletteView_0096F280;
+}
+
+// 0x006B1D80
+void __fastcall sub_006B1D80_CopyRows(char* pSrc, char* pDst, int nBytes, int nRows, int nDstPitch, int nUnused)
+{
+    for (int i = 0; i < nRows; ++i)
+    {
+        memcpy(pDst, pSrc, nBytes);
+        pSrc += nBytes;
+        pDst += nDstPitch;
     }
 }
 
@@ -1406,6 +1467,15 @@ int __fastcall D3D_Init(int nArg1, int nArg2)
     D3D_SmackInit();
     gpCriticalSection_007C9134 = (D2CriticalSectionStrc*)FOG_Alloc(0x18, gszD3DCoreFile, 0x6EA, 0);
     InitializeCriticalSection(gpCriticalSection_007C9134);
+    return 1;
+}
+
+// 0x006B20C0
+int __fastcall sub_006B20C0_SetOption(int nId, int nValue)
+{
+    if (nId != 11)
+        return 0;
+    gnGammaScale_0074C020 = nValue;
     return 1;
 }
 

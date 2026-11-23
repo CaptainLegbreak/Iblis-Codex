@@ -82056,51 +82056,6 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006B1C10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006B1C10",
-     "length": 7,
-     "name": "?sub_006B1C10_SetGlobal@@YIXH@Z"
-    },
-    {
-     "va": "0x006B1C20",
-     "length": 12,
-     "name": "?sub_006B1C20_GetMaskedFlags@@YAIXZ"
-    },
-    {
-     "va": "0x006B1C30",
-     "length": 47,
-     "name": "?sub_006B1C30_SetMode@@YAHXZ"
-    },
-    {
-     "va": "0x006B1C60",
-     "length": 16,
-     "name": "?sub_006B1C60_GetScreenSize@@YIXPAH0@Z"
-    },
-    {
-     "va": "0x006B1D50",
-     "length": 8,
-     "name": "?sub_006B1D50_GetColor@@YIII@Z"
-    },
-    {
-     "va": "0x006B1D60",
-     "length": 29,
-     "name": "?sub_006B1D60_SetPaletteView@@YIXPBUD2GfxPaletteViewStrc@@@Z"
-    },
-    {
-     "va": "0x006B1D80",
-     "length": 52
-    },
-    {
-     "va": "0x006B20C0",
-     "length": 20,
-     "name": "?sub_006B20C0_SetOption@@YIHHH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Direct3D/Unknown_006B2F30.cpp",
    "rank": 1,
    "functions": [
@@ -82404,8 +82359,42 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x006B1C10",
+     "length": 7,
+     "name": "?sub_006B1C10_SetGlobal@@YIXH@Z"
+    },
+    {
+     "va": "0x006B1C20",
+     "length": 12,
+     "name": "?sub_006B1C20_GetMaskedFlags@@YAIXZ"
+    },
+    {
+     "va": "0x006B1C30",
+     "length": 47,
+     "name": "?sub_006B1C30_SetMode@@YAHXZ"
+    },
+    {
+     "va": "0x006B1C60",
+     "length": 16,
+     "name": "?sub_006B1C60_GetScreenSize@@YIXPAH0@Z"
+    },
+    {
      "va": "0x006B1C70",
      "length": 216
+    },
+    {
+     "va": "0x006B1D50",
+     "length": 8,
+     "name": "?sub_006B1D50_GetColor@@YIII@Z"
+    },
+    {
+     "va": "0x006B1D60",
+     "length": 29,
+     "name": "?sub_006B1D60_SetPaletteView@@YIXPBUD2GfxPaletteViewStrc@@@Z"
+    },
+    {
+     "va": "0x006B1D80",
+     "length": 52
     },
     {
      "va": "0x006B1DC0",
@@ -82428,6 +82417,11 @@
      "va": "0x006B2030",
      "length": 106,
      "name": "?D3D_SetTextureFilterMode@@YIXH@Z"
+    },
+    {
+     "va": "0x006B20C0",
+     "length": 20,
+     "name": "?sub_006B20C0_SetOption@@YIHHH@Z"
     },
     {
      "va": "0x006B20E0",
