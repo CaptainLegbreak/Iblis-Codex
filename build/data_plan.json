@@ -3442,7 +3442,7 @@
   },
   "Source/D2Game/Quests/a2q1.cpp": {
    "bytes": 2944,
-   "definitions": 3,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a2q1.inc",
@@ -5309,6 +5309,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/MISSILES/Missiles.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/Quests/a2q0.cpp": {
+   "bytes": 2944,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/Quests/a2q0.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -105984,7 +105993,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a2q1.cpp",
+   "file": "Source/D2Game/Quests/a2q0.cpp",
    "fill": 592,
    "form": "declared",
    "fwd": null,
