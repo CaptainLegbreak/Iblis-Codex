@@ -571,6 +571,99 @@ static inline int Absolute(int nValue)
     return nValue < 0 ? -nValue : nValue;
 }
 
+static inline D2SkillDescTxt* SKILLTREE_GetSkillDescTxtRecord(int nSkillDesc)
+{
+    if (nSkillDesc >= 0 && nSkillDesc < sgptDataTables->nSkillDescTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillDescTxt[nSkillDesc];
+    }
+    return 0;
+}
+
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
+
+int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
+
+// 0x004E3AB0
+void __fastcall sub_004E3AB0_CreateStateSkillMissile(D2UnitStrc* pUnit)
+{
+    if (!pUnit->pDynamicPath || !PATH_HasEnteredNewSubtile(pUnit->pDynamicPath))
+    {
+        return;
+    }
+
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_BLAZE);
+    if (!pStatList)
+    {
+        return;
+    }
+
+    const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
+    int nSkillLevel = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
+    if (nSkillId <= 0 || nSkillId >= sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return;
+    }
+
+    if (nSkillLevel < 0)
+    {
+        nSkillLevel = 1;
+    }
+
+    D2SkillsTxt* pSkillsTxt = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxt)
+    {
+        return;
+    }
+
+    const int nCltMissile = pSkillsTxt->wCltMissileA;
+    if (nCltMissile < 0 || nCltMissile >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return;
+    }
+
+    if (DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
+    {
+        return;
+    }
+
+    const int nX = CLIENTS_GetUnitX(pUnit);
+    const int nY = CLIENTS_GetUnitY(pUnit);
+
+    D2MissileStrc tMissile;
+    memset(&tMissile, 0, sizeof(tMissile));
+    tMissile.dwFlags = 0x21;
+    tMissile.pOwner = pUnit;
+    tMissile.nX = nX;
+    tMissile.nY = nY;
+    tMissile.nSkill = nSkillId;
+    tMissile.nSkillLevel = nSkillLevel;
+    tMissile.nMissile = pSkillsTxt->wCltMissileA;
+
+    if (pSkillsTxt->wCltMissileB >= 0)
+    {
+        if (pSkillsTxt->wCltMissileC >= 0)
+        {
+            switch (SEED_RollLimitedRandomNumber(&pUnit->pSeed, 3))
+            {
+            case 0:
+                tMissile.nMissile = pSkillsTxt->wCltMissileB;
+                break;
+
+            case 1:
+                tMissile.nMissile = pSkillsTxt->wCltMissileC;
+                break;
+            }
+        }
+        else if (!SEED_RollLimitedRandomNumber(&pUnit->pSeed, 2))
+        {
+            tMissile.nMissile = pSkillsTxt->wCltMissileB;
+        }
+    }
+
+    MISSILE_CreateClientMissile(&tMissile);
+}
+
 // 0x004E4180
 int __fastcall sub_004E4180(int nFrame, int nOffset, int nStepLength)
 {
@@ -1790,6 +1883,33 @@ static D2SkillDescTxt* sub_H14_GetSkillDescTxtRecord(int nSkillDesc)
         return &sgptDataTables->pSkillDescTxt[nSkillDesc];
     return 0;
 }
+
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+
+    return 0;
+}
+
+// 0x004E6CE0
+unsigned short __fastcall sub_004E6CE0_GetStringId(int skillId, int stringIndex)
+{
+    D2SkillsTxt* skill = SKILLS_GetSkillsTxtRecord(skillId);
+    D2SkillDescTxt* description = 0;
+    if (skill)
+    {
+        description = SKILLTREE_GetSkillDescTxtRecord(skill->wSkillDesc);
+    }
+    if (!description)
+    {
+        return static_cast<unsigned short>(0x1506);
+    }
+    return (&description->wStrName)[stringIndex];
+}
+
 
 // 0x004E6DE0
 static unsigned short SKILLDESC_GetSkillDescStrLong(int nSkillId)
@@ -5571,16 +5691,6 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
 D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
-
-static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        return &sgptDataTables->pSkillsTxt[nSkillId];
-    }
-
-    return 0;
-}
 
 // 0x004F4D90
 int __fastcall sub_004F4D90_MissileAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
