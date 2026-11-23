@@ -1,7 +1,12 @@
 #include "D2Multi.h"
+#include "D2FogTypes.h"
+
 #include "D2Structs.h"
+
 #include "D2DataTbls.h"
+
 #include "D2Drlg.h"
+
 #include "D2LevelTxt.h"
 
 #include "D2StormTypes.h"
@@ -1738,6 +1743,7 @@ int __fastcall sub_M110_Emit_0043E180(unsigned int nTime, _FILETIME* pFileTime)
 }
 
 void __fastcall CONTROL_SetEnabled(D2WinControlStrc* pControl, int nFlags);                     // 0x004F96F0
+
 D2WinControlStrc* gpChannelOkButton; // 0x0077BCEC
 
 // 0x0043E660
@@ -2910,6 +2916,25 @@ int __stdcall CHATDLG_ShowExpansionHardcoreLadder(int nArg)
     gnSelectModeA = 0x13;
     gnSelectIdA_0070CD7C = 0;
     return 1;
+}
+
+void __cdecl CHARSEL_DestroyPopupControls(); // 0x0043EA20
+int gbFlag_0077ADA4; // 0x0077ADA4
+D2LaunchRecord3Strc gtRecord_0077B0A8; // 0x0077B0A8
+
+// 0x00440CA0
+int __fastcall MAINMENUS_RequestProfile(int nA, int nB, int nC, int nD)
+{
+    gtRecord_0077B0A8.nValue0 = nB;
+    gtRecord_0077B0A8.nValue1 = nC;
+    gtRecord_0077B0A8.f_8 = nD;
+// build: symbol ?gpLaunchFuncs@* 0x0077B09C
+    gpLaunchFuncs->pfn0x78(nA, 3, 1, &gKey_0070CD54);
+    gbFlag_0077ADA4 = 0;
+    CHATDLG_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), CHATDLG_SetUserDataFlag);
+    sub_004FA590_RunLoop(CHATDLG_GetUserDataReply);
+    CHARSEL_DestroyPopupControls();
+    return gbFlag_0077ADA4 == 0;
 }
 
 // 0x00440D10
