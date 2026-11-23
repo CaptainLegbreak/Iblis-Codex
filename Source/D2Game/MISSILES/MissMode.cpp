@@ -697,7 +697,6 @@ struct D2AiTableStrc
     int a, b, c, d;
 };
 
-extern const D2AiTableStrc gaAiTable[148]; // 0x0073CA18
 
 struct D2AiStateStrc
 {
