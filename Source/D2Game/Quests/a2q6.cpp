@@ -13,6 +13,8 @@
 #include "D2Packets.h"
 #include "D2ObjectIds.h"
 #include "D2MonsterIds.h"
+#include "D2DataTbls.h"
+#include "D2MissileIds.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -1383,6 +1385,110 @@ int __fastcall OBJECTS_OperateFunction25_StaffOrifice(D2ObjOperateFnStrc* pOp, i
     }
 
     return 0;
+}
+
+struct D2MissilesTxt;
+
+extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+
+int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
+
+int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
+
+inline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
+{
+    D2MissilesTxt* pRecord;
+    if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        pRecord = 0;
+    }
+    else
+    {
+        pRecord = &sgptDataTables->pMissilesTxt[nMissileId];
+    }
+    return pRecord;
+}
+
+inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nX;
+
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            return PATH_GetXPosition(pUnit->pDynamicPath);
+        }
+        return 0;
+    }
+}
+
+inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nY;
+
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            return PATH_GetYPosition(pUnit->pDynamicPath);
+        }
+        return 0;
+    }
+}
+
+// 0x0059DD80
+void __fastcall ACT2Q6_DeleteAllHoradricItemsAndOpenTomb(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pObject)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    QUESTRECORD_SetQuestState(pQuestFlags, 10, 0);
+    pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    QUESTRECORD_SetQuestState(pQuestFlags, 10, 13);
+
+    QUESTS_DeleteItem(pGame, pUnit, ' tsh');
+    QUESTS_DeleteItem(pGame, pUnit, ' piv');
+    QUESTS_DeleteItem(pGame, pUnit, ' fsm');
+
+    const unsigned short nPartyId = SUNIT_GetPartyId(pUnit);
+    if (nPartyId != 0xFFFF)
+    {
+        PARTY_IteratePartyMembers(pGame, nPartyId, ACT2Q6_UnitIterate_DeleteHoradricItems, 0);
+    }
+
+    QUESTS_TriggerFX(pGame, 3);
+
+    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(MISSILE_HORADRICSTAFF);
+    const int nTicks = (pMissilesTxtRecord->wRange - 75) / 20;
+
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 13);
+    D2Act2Quest6Strc* pQuestDataEx = (D2Act2Quest6Strc*)pQuestData->pQuestDataEx;
+    pQuestDataEx->bObjectsNeedUpdate = 1;
+    pQuestDataEx->bStaffItemsRemoved = 1;
+    if (!pQuestDataEx->bTimerActive)
+    {
+        QUESTS_CreateTimer(pQuestData, ACT2Q6_Timer_UpdateObjects, nTicks);
+        pQuestDataEx->bTimerActive = 1;
+    }
+
+    UNITS_ChangeAnimMode(pObject, 1);
+
+    D2ActiveRoomStrc* hRoomObject = UNITS_GetRoom(pObject);
+    D2_ASSERT(hRoomObject, 1670);
+
+    D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(hRoomObject, UNITS_GetUnitXPosition(pObject) - 13, UNITS_GetUnitYPosition(pObject) + 3);
+    DUNGEON_ToggleHasPortalFlag(hRoomObject, 0);
+    if (pRoom)
+    {
+        DUNGEON_ToggleHasPortalFlag(pRoom, 0);
+    }
 }
 
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
