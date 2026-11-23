@@ -2029,6 +2029,38 @@ int __stdcall sub_00447730(int nUnused1, int nUnused2)
     return 0;
 }
 
+// build: symbol ?COMCALLBACK_NibbleToHex@* 0x00449840
+unsigned int __fastcall COMCALLBACK_NibbleToHex(unsigned int nValue)
+{
+    unsigned int nResult = nValue & 0xF;
+    if (nResult >= 10)
+        nResult += 0x37;
+    else
+        nResult += 0x30;
+    return nResult;
+}
+
+// 0x00449890
+void __fastcall sub_00449890_CdKeyChecksum(char* szKey, unsigned int* pChecksum)
+{
+    unsigned int nBit = 1;
+    *pChecksum = 0;
+    for (int i = 0; i < 16; i += 2, nBit <<= 1)
+    {
+// build: symbol ?gabCdKeyMap@* 0x006D59F0
+        unsigned int nValue = (char)gabCdKeyMap[(unsigned char)szKey[i]] * 3;
+        nValue = (char)gabCdKeyMap[(unsigned char)szKey[i + 1]] + nValue * 8;
+        if (nValue >= 0x100)
+        {
+            nValue -= 0x100;
+            *pChecksum |= nBit;
+        }
+        szKey[i] = (char)COMCALLBACK_NibbleToHex(nValue >> 4);
+        szKey[i + 1] = (char)COMCALLBACK_NibbleToHex(nValue);
+    }
+}
+
+
 // 0x00449AC0
 int __cdecl GAME_GetWaitHandle()
 {

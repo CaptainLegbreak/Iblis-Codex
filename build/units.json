@@ -9855,6 +9855,11 @@
      "name": "sub_00447730"
     },
     {
+     "va": "0x00449890",
+     "length": 129,
+     "name": "?sub_00449890_CdKeyChecksum@@YIXPADPAI@Z"
+    },
+    {
      "va": "0x00449AC0",
      "length": 6,
      "name": "GAME_GetWaitHandle"
@@ -13312,11 +13317,6 @@
    "file": "Source/D2Client/Unknown_00449890.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00449890",
-     "length": 129,
-     "name": "?sub_00449890_CdKeyChecksum@@YIXPADPAI@Z"
-    },
     {
      "va": "0x00449B30",
      "length": 50,
