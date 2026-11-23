@@ -84042,6 +84042,11 @@
      "name": "?GDI_Close@@YAHXZ"
     },
     {
+     "va": "0x006C7AF0",
+     "length": 1,
+     "name": "?sub_006C7AF0_Nop@@YAXXZ"
+    },
+    {
      "va": "0x006C7B00",
      "length": 262
     },
@@ -84126,17 +84131,6 @@
     "/Gd",
     "/GS-",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C7AF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006C7AF0",
-     "length": 1,
-     "name": "?sub_006C7AF0_Nop@@YAXXZ"
-    }
    ]
   },
   {
