@@ -785,6 +785,16 @@
      "length": 27
     },
     {
+     "va": "0x00409240",
+     "length": 296,
+     "name": "?sub_00409240_FindFreeSlot@@YAHHPBI@Z"
+    },
+    {
+     "va": "0x00409370",
+     "length": 281,
+     "name": "?sub_00409370_InsertBlockRecord@@YGXPAUD2PoolBlockStrc@@PAUD2PoolSystemStrc@@@Z"
+    },
+    {
      "va": "0x00409490",
      "length": 313,
      "name": "?sub_00409490_RemoveBlockRecord@@YGXPAUD2PoolSystemStrc@@PAUD2PoolBlockStrc@@@Z"
@@ -793,6 +803,16 @@
      "va": "0x004095D0",
      "length": 1,
      "name": "?sub_004095D0_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x004095E0",
+     "length": 284,
+     "name": "?sub_004095E0_NewBlock@@YGPAUD2PoolBlockStrc@@PAUD2PoolStrc@@PAUD2PoolSystemStrc@@@Z"
+    },
+    {
+     "va": "0x00409700",
+     "length": 110,
+     "name": "?sub_00409700_GetFreeSlot@@YGHPAPAUD2PoolBlockStrc@@PAUD2PoolStrc@@PAUD2PoolSystemStrc@@@Z"
     },
     {
      "va": "0x00409770",
@@ -833,6 +853,11 @@
      "va": "0x00409C70",
      "length": 1,
      "name": "?sub_00409C70_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x0040A080",
+     "length": 358,
+     "name": "?sub_0040A080_PoolAlloc@@YIPAXPAUD2PoolSystemStrc@@HPBDH@Z"
     },
     {
      "va": "0x0040B1B0",
@@ -3491,37 +3516,6 @@
      "va": "0x00411320",
      "length": 154,
      "name": "sub_00411320_CapitalizeWords"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00409240.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00409240",
-     "length": 296,
-     "name": "?sub_00409240_FindFreeSlot@@YAHHPBI@Z"
-    },
-    {
-     "va": "0x00409370",
-     "length": 281,
-     "name": "?sub_00409370_InsertBlockRecord@@YGXPAUD2PoolBlockStrc@@PAUD2PoolSystemStrc@@@Z"
-    },
-    {
-     "va": "0x004095E0",
-     "length": 284,
-     "name": "?sub_004095E0_NewBlock@@YGPAUD2PoolBlockStrc@@PAUD2PoolStrc@@PAUD2PoolSystemStrc@@@Z"
-    },
-    {
-     "va": "0x00409700",
-     "length": 110,
-     "name": "?sub_00409700_GetFreeSlot@@YGHPAPAUD2PoolBlockStrc@@PAUD2PoolStrc@@PAUD2PoolSystemStrc@@@Z"
-    },
-    {
-     "va": "0x0040A080",
-     "length": 358,
-     "name": "?sub_0040A080_PoolAlloc@@YIPAXPAUD2PoolSystemStrc@@HPBDH@Z"
     }
    ]
   },
