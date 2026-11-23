@@ -1,7 +1,11 @@
 #include "D2Common.h"
+
 #include "D2Structs.h"
+
 #include "D2Path.h"
+
 #include "D2Drlg.h"
+
 #include "D2DrlgMaps.h"
 
 struct D2CoordStrc;
@@ -309,6 +313,29 @@ void __fastcall DRLGGRID_AlterFlagsAlongVertexEdge(D2DrlgGridStrc* pGrid, D2Drlg
     if (bAlterNextVertex)
     {
         DRLGGRID_AlterGridFlag(pGrid, pVertex->pNext->nPosX, pVertex->pNext->nPosY, nFlag, eOperation);
+    }
+}
+
+typedef void (__fastcall* DRLGGRID_FlagOperation)(int* pFlag, int nFlag);
+extern DRLGGRID_FlagOperation gpfnDrlgGridFlagOperations[6]; // 0x00749BAC
+
+// 0x0067C890
+void __fastcall sub_0067C890(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, int nFlag)
+{
+    D2DrlgVertexStrc* pCurrent = pVertex;
+    if (pVertex)
+    {
+        do
+        {
+            const int nX = pCurrent->nPosX;
+            const int nY = pCurrent->nPosY;
+            pCurrent = pCurrent->pNext;
+            if (DRLGGRID_IsPointInsideGridArea(pGrid, nX, nY))
+            {
+                DRLGGRID_AlterGridFlag(pGrid, nX, nY, nFlag, 0);
+            }
+        }
+        while (pCurrent);
     }
 }
 
