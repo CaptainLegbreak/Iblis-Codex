@@ -68281,26 +68281,6 @@
      "va": "0x00613E60",
      "length": 48,
      "name": "DATATBLS_GetExpRatio"
-    },
-    {
-     "va": "0x00619B10",
-     "length": 68,
-     "name": "DUNGEON_FindRoomByTileCoordinates"
-    },
-    {
-     "va": "0x00619D00",
-     "length": 105,
-     "name": "DUNGEON_GetSubtileRect"
-    },
-    {
-     "va": "0x00619F20",
-     "length": 58,
-     "name": "DUNGEON_DecreaseAlliedCountOfRoom"
-    },
-    {
-     "va": "0x0061A1D0",
-     "length": 29,
-     "name": "DUNGEON_GetWarpDestinationLevel"
     }
    ]
   },
@@ -68711,6 +68691,11 @@
      "length": 177
     },
     {
+     "va": "0x00619B10",
+     "length": 68,
+     "name": "DUNGEON_FindRoomByTileCoordinates"
+    },
+    {
      "va": "0x00619B60",
      "length": 111,
      "name": "DUNGEON_GetAdjacentRoomByTileCoordinates"
@@ -68724,6 +68709,11 @@
      "va": "0x00619C40",
      "length": 186,
      "name": "D2Common_10052"
+    },
+    {
+     "va": "0x00619D00",
+     "length": 105,
+     "name": "DUNGEON_GetSubtileRect"
     },
     {
      "va": "0x00619D70",
@@ -68759,6 +68749,11 @@
      "va": "0x00619F00",
      "length": 21,
      "name": "DUNGEON_GetAlliedCountFromRoom"
+    },
+    {
+     "va": "0x00619F20",
+     "length": 58,
+     "name": "DUNGEON_DecreaseAlliedCountOfRoom"
     },
     {
      "va": "0x00619F60",
@@ -68814,6 +68809,11 @@
      "va": "0x0061A1B0",
      "length": 26,
      "name": "DUNGEON_GetLevelIdFromRoom"
+    },
+    {
+     "va": "0x0061A1D0",
+     "length": 29,
+     "name": "DUNGEON_GetWarpDestinationLevel"
     },
     {
      "va": "0x0061A1F0",
