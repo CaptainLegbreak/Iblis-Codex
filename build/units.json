@@ -9747,11 +9747,6 @@
      "name": "?CHARSEL_OnChatLine@@YGHPBUUnicode@@@Z"
     },
     {
-     "va": "0x00442C20",
-     "length": 422,
-     "name": "?CHARSEL_FillGameListControl@@YAXXZ"
-    },
-    {
      "va": "0x00443360",
      "length": 45,
      "name": "?CHARSEL_GetMaxPlayers@@YAHXZ"
@@ -12718,6 +12713,11 @@
      "va": "0x00442B90",
      "length": 136,
      "name": "?CHATDLG_HandleGameListReply@@YIXPAUD2LaunchReplyStrc@@@Z"
+    },
+    {
+     "va": "0x00442C20",
+     "length": 422,
+     "name": "?CHARSEL_FillGameListControl@@YAXXZ"
     },
     {
      "va": "0x00442DD0",
