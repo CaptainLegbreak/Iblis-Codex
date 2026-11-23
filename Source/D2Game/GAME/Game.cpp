@@ -1627,17 +1627,17 @@ void __fastcall CLIENTS_Release();                                              
 
 void __fastcall SUNITPROXY_ClearGlobalItemCache();                                                          // 0x00537120
 
-extern unsigned short gwGameId_6FD2CA04;                                                                    // 0x00731000
+extern unsigned short gwGameId;                                                                    // 0x00731000
 
 // 0x0052C030
 int __stdcall GAME_Shutdown()
 {
     CLIENTS_Release();
-    DeleteCriticalSection(&gCriticalSection_6FD45800);
+    DeleteCriticalSection(&gGameListLock);
     SUNITPROXY_ClearGlobalItemCache();
-    gwGameId_6FD2CA04 = 1;
-    gpGameDataTbl_6FD45818 = 0;
-    gnAct_6FD45824 = 0;
+    gwGameId = 1;
+    gpGameDataTbl = 0;
+    gnAct = 0;
     return 1;
 }
 
