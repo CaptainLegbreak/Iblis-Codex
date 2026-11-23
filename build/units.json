@@ -24371,6 +24371,11 @@
      "name": "?HIREABLES_FreeHelpCels@@YAXXZ"
     },
     {
+     "va": "0x00494FC0",
+     "length": 35,
+     "name": "?sub_00494FC0@@YAXXZ"
+    },
+    {
      "va": "0x00495030",
      "length": 323,
      "name": "?sub_00495030_DrawKeyHelp@@YAXXZ"
@@ -24577,11 +24582,6 @@
      "va": "0x00494EB0",
      "length": 42,
      "name": "?sub_00494EB0@@YAXXZ"
-    },
-    {
-     "va": "0x00494FC0",
-     "length": 35,
-     "name": "?sub_00494FC0@@YAXXZ"
     }
    ]
   },
