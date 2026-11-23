@@ -1219,6 +1219,38 @@ static void __stdcall DLIGHTMAP_UpdateLight(int nLevel, D2R01LightStrc* pLight)
     DLIGHTMAP_AddAreaLight(pLight, nLevel);
 }
 
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
+
+struct D2ChatMessageStrc
+{
+    char* szText;
+    int nColor;
+    int bClear;
+    D2ChatMessageStrc* pNext;
+};
+
+// 0x004756D0
+void __cdecl CHARSEL_ScanGridCollision()
+{
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (!pPlayer)
+        return;
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
+    if (!pRoom)
+        return;
+    for (int nY = 0; nY < 0x30; ++nY)
+    {
+        for (int nX = 0; nX < 0x30; ++nX)
+        {
+            pRoom = sub_00463740_FindRoomAtPoint(pRoom, gnCellOriginX + nX, gnCellOriginY + nY);
+            if (!pRoom)
+                pRoom = UNITS_GetRoom(pPlayer);
+            if (COLLISION_CheckMask(pRoom, gnCellOriginX + nX, gnCellOriginY + nY, 0x22))
+                gtGridCells_007B0E68[nY * 0x30 + nX].nFlag = 1;
+        }
+    }
+}
+
 // 0x00475B20
 void __cdecl DLIGHTMAP_DebugDrawLights()
 {
