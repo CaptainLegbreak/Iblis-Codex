@@ -2335,6 +2335,12 @@ D2SGameDataStrc::~D2SGameDataStrc()
 {
 }
 
+// 0x0044FD50
+void __fastcall sub_0044FD50_DestroyGameData(D2SGameDataStrc* pData)
+{
+    pData->~D2SGameDataStrc();
+}
+
 // 0x00451F20
 void __cdecl GAME_RegisterWindowHandlers()
 {

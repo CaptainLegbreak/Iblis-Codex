@@ -10784,6 +10784,10 @@
      "name": "?0D2StormListBStrc"
     },
     {
+     "va": "0x0044FD50",
+     "length": 5
+    },
+    {
      "va": "0x004519A0",
      "length": 31,
      "name": "?GAME_ToggleRecordPlayback@@YAXXZ"
@@ -15533,16 +15537,6 @@
      "va": "0x0044FFF0",
      "length": 59,
      "name": "??1D2StormGameHashChunkStrc@@QAE@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0044FD50.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0044FD50",
-     "length": 5
     }
    ]
   },
