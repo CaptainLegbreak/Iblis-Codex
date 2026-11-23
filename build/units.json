@@ -6612,6 +6612,10 @@
      "name": "SSignatureVerifyStream_Finish"
     },
     {
+     "va": "0x0041D7D0",
+     "length": 57
+    },
+    {
      "va": "0x0041D810",
      "length": 99,
      "name": "CrcBuffer"
@@ -7069,30 +7073,6 @@
     "/Ob1",
     "/Gd",
     "/EHsc"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_0041D7D0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0041D7D0",
-     "length": 57
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
