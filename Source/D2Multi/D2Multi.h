@@ -6,7 +6,7 @@ class D2SquelchListStrc;
 struct D2CelFileStrc;
 struct D2CompositeStrc;
 struct D2CriticalSectionStrc;
-struct D2FuncTable_0077ABF0Strc;
+struct D2ComInterfaceStrc;
 struct D2LaunchCharEntryStrc;
 struct D2LaunchCharSelectStrc;
 struct D2WinControlInitStrc;
@@ -54,7 +54,7 @@ extern "C" int __cdecl toupper(int nChar); // 0x00685385
 extern "C" void __cdecl srand(unsigned int nSeed); // 0x00687454
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
 extern D2CelFileStrc* gpChatBackground_0077BC04; // 0x0077BC04
-extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
+extern D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
 extern D2LaunchCharEntryStrc* gpCharList; // 0x00779DBC
 extern D2LaunchCharSelectStrc* gpCharSelect_007795D4; // 0x007795D4
 extern D2WinControlStrc* gpControl_00798BC4; // 0x00798BC4

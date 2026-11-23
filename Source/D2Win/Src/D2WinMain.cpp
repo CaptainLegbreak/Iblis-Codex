@@ -533,7 +533,7 @@ unsigned long gdwLastScreenshotTick; // 0x007D5600
 
 struct D2ConfigStrc;
 
-struct D2FuncTable_0077ABF0Strc;
+struct D2ComInterfaceStrc;
 
 typedef void (__cdecl* D2LaunchDoneFn)();
 
@@ -595,7 +595,7 @@ void __cdecl MAINMENUS_UpdateEmailOk(); // 0x00436EB0
 
 void __cdecl MAINMENUS_UpdatePasswordOk(); // 0x004371E0
 
-extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
+extern D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
 
 extern D2ConfigStrc* gpLaunchRecord; // 0x007795D4
 
