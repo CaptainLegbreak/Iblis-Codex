@@ -29,18 +29,18 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 extern D2ViewStrc* gpClientView;                                                                         // 0x007A0640
-extern int gbHoverLocked;                                                                              // 0x007A6A98
-extern int gbHasSelectedUnit;                                                                              // 0x007A6A94
-extern int gnSelectedUnitType;                                                                     // 0x007A6A8C
+static int gbHoverLocked;                                                                              // 0x007A6A98
+int gbHasSelectedUnit;                                                                              // 0x007A6A94
+static int gnSelectedUnitType;                                                                     // 0x007A6A8C
 static unsigned int gnSelectedUnitId;                                                              // 0x007A6A78
 extern int gnScreenWidth;                                                                               // 0x0071146C
 extern int gnScreenHeight;                                                                               // 0x00711470
-extern int gbSelectionRectValid;                                                                   // 0x007A6A9C
-extern int gnSelectionLeft;                                                                        // 0x007A6A7C
-extern int gnSelectionRight;                                                                       // 0x007A6A84
-extern int gnSelectionTop;                                                                         // 0x007A6A80
-extern int gnSelectionBottom;                                                                      // 0x007A6A88
-extern int gbWarpTileHovered;                                                                              // 0x007A6AA0
+int gbSelectionRectValid;                                                                   // 0x007A6A9C
+int gnSelectionLeft;                                                                        // 0x007A6A7C
+int gnSelectionRight;                                                                       // 0x007A6A84
+int gnSelectionTop;                                                                         // 0x007A6A80
+int gnSelectionBottom;                                                                      // 0x007A6A88
+static int gbWarpTileHovered;                                                                              // 0x007A6AA0
 
 int __cdecl TEXT_IsTextBoxOpen();                                                                                 // 0x004A0000
 D2UnitStrc* __cdecl TEXT_GetTextUnit();                                                             // 0x0049E8B0
