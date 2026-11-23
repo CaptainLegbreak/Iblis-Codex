@@ -1,27 +1,20 @@
 #include "D2Client.h"
-#include "D2Constants.h"
-#include "D2Structs.h"
-#include "D2Path.h"
-#include "D2Structs.h"
-#include "D2DataTbls.h"
-#include "D2GameTypes.h"
-#include "D2ClientUi.h"
-#include "D2Txt.h"
 
-struct D2CellNodeStrc;
-struct D2CellGridViewStrc;
-struct D2SlotObjectStrc;
-struct D2SlotStrc;
-struct S;
-struct D2MissilesTxt;
-struct D2StringSoundStrc;
-struct D2ClientModuleListStrc;
-struct D2StaticPathStrc;
-union D2SeedStrc;
-struct D2SkillsTxt;
-struct D2MissileStrc;
-struct D2MonStatsTxt;
-struct D2MonStats2Txt;
+#include "D2Constants.h"
+
+#include "D2Structs.h"
+
+#include "D2Path.h"
+
+#include "D2Structs.h"
+
+#include "D2DataTbls.h"
+
+#include "D2GameTypes.h"
+
+#include "D2ClientUi.h"
+
+#include "D2Txt.h"
 
 struct D2GridCellStrc
 {
@@ -47,42 +40,29 @@ struct D2CellGridViewStrc
 };
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
+
 void __fastcall SCMD_ReadGridCell(int nA, int nB, unsigned char* pByte0, unsigned char* pByte1, unsigned char* pByte2, unsigned char* pByte3); // 0x00475AA0
+
 void __stdcall sub_004DEF80_DrawCellTiles(D2GridCellStrc* pCell, int nArg, D2CellGridViewStrc* pView); // 0x004DEF80
 
-struct D2SlotObjectStrc
-{
-    char unk0x00[0x2C];
-    int nField0x2C;
-    int nField0x30;
-};
-
-struct S { int pad; int type; };
-
-extern int gbSoundSystemInit; // 0x007C8C78
-void __cdecl sub_004DFA60(); // 0x004DFA60
-extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile* pAddend); // 0x006CC208
-extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* pAddend); // 0x006CC204
-int __fastcall sub_004E0000_SetSoundMode(int nMode); // 0x004E0000
-void __fastcall D2SOUND_FadeOutMasterVolume(int nTime); // 0x00515F50
-
-struct D2StringSoundStrc
-{
-    int f_0;
-    unsigned short nStringId;
-    char unk0x06[0x02];
-};
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-extern D2StringSoundStrc gaStringSounds[]; // 0x0072B0E0
+
 extern int gnEnvironLevelId; // 0x007C8C7C
+
 extern int gnEnvironSoundHandle; // 0x007C8C80
+
 extern int gnWeatherSoundHandle; // 0x007C8C84
+
 extern int gnEnvironSoundId; // 0x007C8C88
+
 extern int gnWeatherSoundId; // 0x007C8C8C
+
 extern int gnEnvironAmbientId; // 0x007C8C90
+
 extern int gnAmbientDelay; // 0x007C8C94
+
 extern int gnAmbientTick; // 0x007C8C98
+
 void __fastcall sub_004BA840(int nHandle); // 0x004BA840
 
 struct D2ClientModuleListStrc
@@ -91,37 +71,52 @@ struct D2ClientModuleListStrc
     void* pUnknown04;
     int nModuleCount;
 };
+
 extern "C" __declspec(dllimport) int __stdcall VirtualFree(void* pAddress, unsigned int nSize, unsigned int nFreeType); // 0x006CC220
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
+
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
+
 D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
-void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance); // 0x00648E70
+
 void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nPathType); // 0x00648CF0
+
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
+
 int __stdcall PATH_GetNumberOfPathPoints(D2DynamicPathStrc* pDynamicPath); // 0x00648780
+
 void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
+
 void __stdcall SKILLS_SetParam1(D2SkillStrc*, int); // 0x00644560
+
 void __stdcall sub_006445A0(D2SkillStrc*, int); // 0x006445A0
 
 enum { SUCCESS_VALUE = 1 };
 
-typedef void (__fastcall* MissileInitFunc)(D2UnitStrc*, int);
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
-void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); // 0x0064A2B0
-void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame); // 0x0064A330
-D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
-int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
-void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4); // 0x00649EF0
-void __fastcall sub_004E1970_SetInfernoFrames(D2SkillsTxt* pSkillsTxtRecord, D2UnitStrc* pUnit); // 0x004E1970
-extern const int gaMissileVelocityPair[]; // 0x006DBAA0
-extern const int gaMissileVelocityCharged[]; // 0x006DBB38
 
-int gbSoundSystemInit; // 0x007C8C78
+int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
+
+void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); // 0x0064A2B0
+
+void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame); // 0x0064A330
+
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+
+int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
+
+void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4); // 0x00649EF0
+
+void __fastcall sub_004E1970_SetInfernoFrames(D2SkillsTxt* pSkillsTxtRecord, D2UnitStrc* pUnit); // 0x004E1970
+
+extern const int gaMissileVelocityPair[]; // 0x006DBAA0
+
+extern const int gaMissileVelocityCharged[]; // 0x006DBB38
 
 // 0x004DF4B0
 static inline void sub_004DF4B0_DrawCellNode(D2CellGridViewStrc* pView, D2CellNodeStrc* pNode, int nArg)
@@ -142,11 +137,6 @@ static inline void sub_004DF4B0_DrawCellNode(D2CellGridViewStrc* pView, D2CellNo
     {
         sub_00471620(pNode->pPos);
     }
-}
-
-void __stdcall sub_M114_Emit_004DF4B0(D2CellGridViewStrc* pView, D2CellNodeStrc* pNode, int nArg)
-{
-    sub_004DF4B0_DrawCellNode(pView, pNode, nArg);
 }
 
 // 0x004DF510
@@ -183,58 +173,6 @@ void __thiscall D2CellGridViewStrc::sub_004DF510_DrawCellNodes()
     }
 }
 
-// 0x004DF790
-void __fastcall sub_004DF790_ReleaseSlotObject(D2SlotStrc* pSlot)
-{
-    if (pSlot->pObject)
-    {
-        pSlot->pObject->nField0x30 = 2;
-        pSlot->pObject->nField0x2C = 0;
-        pSlot->pObject = 0;
-    }
-}
-
-// 0x004DF900
-unsigned int __fastcall sub_004DF900_GetSlotSampleCount(D2SlotStrc* pSlot)
-{
-// build: symbol ?D2SOUND_GetStreamPosition@* 0x005159B0
-    return D2SOUND_GetStreamPosition(pSlot->pSound);
-}
-
-// 0x004DF910
-int __cdecl sub_004DF910_GetSoundMode()
-{
-    return sub_00514C90_GetSoundMode();
-}
-
-// 0x004DF940
-int __cdecl sub_004DF940()
-{
-    if (!gbSoundSystemInit)
-    {
-        return 0;
-    }
-// build: symbol ?D2SOUND_IsPositionalSoundEnabled@* 0x00513B60
-    return D2SOUND_IsPositionalSoundEnabled();
-}
-
-// 0x004DF960
-int __cdecl sub_004DF960()
-{
-    if (!gbSoundSystemInit)
-    {
-        return 0;
-    }
-    return sub_00513B70_IsSoundEnvironEnabled();
-}
-
-// 0x004DF770
-static bool __fastcall sub_004DF770(S* p, char unused, int x) { return p->type == x; }
-
-// build: context sub_004DF770_Shim
-// calling-convention shim (not game code)
-void sub_004DF770_Shim(S* p, int x) { (void)sub_004DF770(p, 0, x); }
-
 // 0x00405A50
 void __cdecl sub_00405A50_Nop()
 {
@@ -250,108 +188,9 @@ void __cdecl ITEMS_Nop()
 {
 }
 
-// 0x004DF920
-void __cdecl sub_004DF920_Nop()
-{
-}
-
-// 0x004DF930
-void __cdecl sub_004DF930_Nop()
-{
-}
-
 // 0x00587830
 void __cdecl OBJECTS_InitFunction70_Unused()
 {
-}
-
-// 0x004DF980
-int __cdecl sub_004DF980_IsSoundMode1Or2()
-{
-    if (!gbSoundSystemInit)
-    {
-        return 0;
-    }
-
-    const int nMode = sub_00514C90_GetSoundMode();
-    if (nMode == 1 || nMode == 2)
-    {
-        return 1;
-    }
-
-    return 0;
-}
-
-// 0x004DF9B0
-int __cdecl sub_004DF9B0_IsSoundMode2()
-{
-    if (!gbSoundSystemInit)
-    {
-        return 0;
-    }
-
-    return sub_00514C90_GetSoundMode() == 2;
-}
-
-// 0x004E0690
-void __fastcall sub_004E0690_SetSoundTableFlag(int nValue)
-{
-// build: symbol ?gbNpcSpeechAudio@* 0x0072AE24
-    gbNpcSpeechAudio = nValue;
-}
-
-// 0x004E00C0
-void __cdecl sub_004E00C0_CloseSoundChannels()
-{
-    sub_004DFA60();
-}
-
-long gnSoundModeSwitchLock; // 0x007C8A74
-
-// 0x004E00D0
-int __cdecl sub_004E00D0_ToggleSoundMode01()
-{
-    if (!gbSoundSystemInit || gnSoundModeSwitchLock)
-        return 0;
-
-    InterlockedIncrement(&gnSoundModeSwitchLock);
-// build: symbol ?D2SOUND_GetSoundMixerOption@* 0x00514C90
-    const int nOld = D2SOUND_GetSoundMixerOption();
-    int nNew;
-    if (nOld == 0)
-        nNew = 1;
-    else
-        nNew = 0;
-    D2SOUND_FadeOutMasterVolume(0xB4);
-    const int nResult = sub_004E0000_SetSoundMode(nNew);
-    if (!nResult)
-        sub_004E0000_SetSoundMode(nOld);
-// build: symbol ?D2SOUND_SetMasterVolume@* 0x00515CE0
-    D2SOUND_SetMasterVolume(0xFF);
-    InterlockedDecrement(&gnSoundModeSwitchLock);
-    return nResult;
-}
-
-// 0x004E0140
-int __cdecl sub_004E0140_ToggleSoundMode12()
-{
-    if (!gbSoundSystemInit || gnSoundModeSwitchLock)
-        return 0;
-
-    InterlockedIncrement(&gnSoundModeSwitchLock);
-    const int nOld = D2SOUND_GetSoundMixerOption();
-    int nNew;
-    if (nOld == 2)
-        nNew = 1;
-    else
-        nNew = 2;
-    D2SOUND_FadeOutMasterVolume(0xB4);
-    const int nResult = sub_004E0000_SetSoundMode(nNew);
-    if (!nResult)
-        sub_004E0000_SetSoundMode(nOld);
-    D2SOUND_SetMasterVolume(0xFF);
-    InterlockedDecrement(&gnSoundModeSwitchLock);
-    return nResult;
 }
 
 static inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord_Inline(int nMissileId)
@@ -359,28 +198,6 @@ static inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord_Inline(int nMissileId
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
     {
         return &sgptDataTables->pMissilesTxt[nMissileId];
-    }
-
-    return 0;
-}
-
-// 0x004E0650
-int __fastcall sub_004E0650_GetStringSound(unsigned short nStringId)
-{
-    if (gbNpcSpeechAudio)
-    {
-        for (D2StringSoundStrc* pEntry = gaStringSounds; pEntry; ++pEntry)
-        {
-            if (!pEntry->f_0)
-            {
-                break;
-            }
-
-            if (pEntry->nStringId == nStringId)
-            {
-                return pEntry->f_0;
-            }
-        }
     }
 
     return 0;
@@ -433,7 +250,6 @@ extern "C" void __cdecl sub_004E4280()
 }
 
 #include "gen/data/Source/D2Client/Unknown_004DF4B0.inc"
-struct D2UnitStrc;
 
 // 0x004E06A0
 void __fastcall sub_004E06A0_FreeModules(D2ClientModuleListStrc* pList)
