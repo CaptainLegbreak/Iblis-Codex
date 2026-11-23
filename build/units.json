@@ -14517,6 +14517,11 @@
      "length": 64
     },
     {
+     "va": "0x00483AB0",
+     "length": 41,
+     "name": "?sub_00483AB0_IsInInvRect@@YIHHH@Z"
+    },
+    {
      "va": "0x00483AE0",
      "length": 41,
      "name": "?INV_IsInTradeOtherGrid@@YAHHH@Z"
@@ -24284,17 +24289,6 @@
      "va": "0x00481920",
      "length": 33,
      "name": "?sub_00481920_GetSoundEnvironTxtRecord@@YIPAUD2SoundEnvironTxt@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00483AB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00483AB0",
-     "length": 41,
-     "name": "?sub_00483AB0_IsInInvRect@@YIHHH@Z"
     }
    ]
   },
