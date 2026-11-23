@@ -3166,15 +3166,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/UNIT/SUnitMsg.cpp": {
-   "bytes": 588,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/UNIT/SUnitMsg.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/UNIT/SUnitDmg.cpp": {
    "bytes": 808,
    "definitions": 7,
@@ -5310,6 +5301,15 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/PLAYER/PartyScreen.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/PLAYER/PlrIntro.cpp": {
+   "bytes": 588,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/PLAYER/PlrIntro.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -99903,7 +99903,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/UNIT/SUnitMsg.cpp",
+   "file": "Source/D2Game/PLAYER/PlrIntro.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnPlrIntroNpcIndexMapCount = ",
@@ -99928,7 +99928,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/UNIT/SUnitMsg.cpp",
+   "file": "Source/D2Game/PLAYER/PlrIntro.cpp",
    "fill": 73,
    "form": "declared",
    "fwd": null,
