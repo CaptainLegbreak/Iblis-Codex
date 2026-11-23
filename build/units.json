@@ -83573,6 +83573,11 @@
      "length": 199
     },
     {
+     "va": "0x006BCC10",
+     "length": 117,
+     "name": "?sub_006BCC10_GetEntry@@YIPAGPAUD2HandleTable006BCC10Strc@@H@Z"
+    },
+    {
      "va": "0x006BCC90",
      "length": 41
     },
@@ -83587,14 +83592,9 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_006BCC10.cpp",
+   "file": "Source/Fog/Unknown_006BCD50.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x006BCC10",
-     "length": 117,
-     "name": "?sub_006BCC10_GetEntry@@YIPAGPAUD2HandleTable006BCC10Strc@@H@Z"
-    },
     {
      "va": "0x006BCD50",
      "length": 75

@@ -148,3 +148,23 @@ void __fastcall DATAARRAYS_FreeEntry(D2DataArrayStrc* pTable, int nHandle)
     }
     --pTable->nUsed;
 }
+
+// 0x006BCC10
+unsigned short* __fastcall sub_006BCC10_GetEntry(D2DataArrayStrc* pTable, int nHandle)
+{
+    unsigned short* pResult = 0;
+    if (nHandle != -1)
+    {
+        const short nIndex = (short)(nHandle >> 16);
+        D2_ASSERT(nIndex >= 0 && nIndex < pTable->nCount, 0xDB);
+        D2_ASSERT(pTable->bInitialized, 0xDE);
+        unsigned short* pEntry = (unsigned short*)(pTable->pEntries + pTable->nStride * nIndex);
+        const unsigned short nTag = (unsigned short)nHandle;
+        if (*pEntry && (!nTag || *pEntry == nTag))
+        {
+            pResult = pEntry;
+        }
+    }
+    return pResult;
+}
+
