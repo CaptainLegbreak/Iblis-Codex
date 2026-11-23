@@ -607,6 +607,30 @@
      "name": "?sub_0040A1F0_PoolRealloc@@YIPAXPAUD2PoolSystemStrc@@PAXHPBDH@Z"
     },
     {
+     "va": "0x0040ADB0",
+     "length": 774
+    },
+    {
+     "va": "0x0040B0C0",
+     "length": 73,
+     "name": "?FOG_10218@@YAXXZ"
+    },
+    {
+     "va": "0x0040B110",
+     "length": 1,
+     "name": "?sub_0040B110_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x0040B120",
+     "length": 1,
+     "name": "?sub_0040B120_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x0040B130",
+     "length": 123,
+     "name": "?FOG_10222@@YIXPBEI@Z"
+    },
+    {
      "va": "0x0040B1B0",
      "length": 167,
      "name": "FOG_CompressPacket"
@@ -3721,42 +3745,6 @@
      "va": "0x0040ADA0",
      "length": 1,
      "name": "?sub_0040ADA0_Nop@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_0040ADB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0040ADB0",
-     "length": 774
-    },
-    {
-     "va": "0x0040B110",
-     "length": 1,
-     "name": "?sub_0040B110_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x0040B120",
-     "length": 1,
-     "name": "?sub_0040B120_Nop@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_0040B0C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0040B0C0",
-     "length": 73,
-     "name": "?FOG_10218@@YAXXZ"
-    },
-    {
-     "va": "0x0040B130",
-     "length": 123,
-     "name": "?FOG_10222@@YIXPBEI@Z"
     }
    ]
   },

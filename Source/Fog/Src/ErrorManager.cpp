@@ -2815,6 +2815,160 @@ void __fastcall ERRORMANAGER_PoolFreeLarge(D2PoolSystemStrc* pSystem, int* pBloc
 
 void __cdecl ERRORMANAGER_ForceCrash(); // 0x00407970
 
+typedef unsigned char Byte;
+
+extern Byte gnSymbolCodes_0075B6A0[256]; // 0x0075B6A0
+extern Byte* gpDecodeTable_0075AFA0[256]; // 0x0075AFA0
+extern Byte gabDecodeStorage[768]; // 0x0075B3A0
+
+static inline int IsValidCodeLength(Byte length)
+{
+    if (length <= 0)
+        return 0;
+    if (length >= 16)
+        return 0;
+    return 1;
+}
+
+// 0x0040ADB0
+int __fastcall FOG_10219(Byte* lengths)
+{
+    int counts[16];
+    Byte sortedSymbols[256];
+    Byte sortedLengths[256];
+    int i;
+    for (i = 0; i < 16; ++i)
+        counts[i] = 0;
+    i = 0;
+    for (; i < 256; ++i)
+    {
+        if (!IsValidCodeLength(lengths[i]))
+            return 0;
+        ++counts[lengths[i]];
+    }
+    for (int length = 15; length > 0; --length)
+    {
+        int count = counts[length];
+        counts[length] = counts[0];
+        counts[0] += count;
+    }
+    i = 0;
+    for (; i < 256; ++i)
+        sortedSymbols[counts[lengths[i]]++] = (Byte)i;
+    i = 0;
+    for (; i < 256; ++i)
+    {
+        sortedLengths[i] = lengths[sortedSymbols[i]];
+        gabHuffmanCodeLength[i] = lengths[i];
+    }
+    gnSymbolCodes_0075B6A0[sortedSymbols[0]] = 0;
+    for (i = 1; i < 256; ++i)
+        gnSymbolCodes_0075B6A0[sortedSymbols[i]] =
+            (Byte)((gnSymbolCodes_0075B6A0[sortedSymbols[i - 1]] + 1) >> (sortedLengths[i - 1] - sortedLengths[i]));
+    Byte* storage = gabDecodeStorage;
+    for (i = 255; i >= 0; --i)
+    {
+        Byte length = sortedLengths[i];
+        if (length <= 8)
+        {
+            Byte symbol = sortedSymbols[i];
+            int prefix = gnSymbolCodes_0075B6A0[symbol] << (8 - length);
+            int count = 1u << (8 - length);
+            Byte** ppEntry = &gpDecodeTable_0075AFA0[prefix];
+            *ppEntry = storage;
+            storage[0] = 0;
+            (*ppEntry)[1] = symbol;
+            storage += 2;
+            for (int j = 0; j < count; ++j)
+                gpDecodeTable_0075AFA0[prefix + j] = *ppEntry;
+        }
+        else
+        {
+            Byte* pSymbol = &sortedSymbols[i];
+            unsigned int code = gnSymbolCodes_0075B6A0[*pSymbol];
+            unsigned int prefix = code >> ((Byte)(length - 8));
+            if ((code & ((1 << (length - 8)) - 1)) == 0)
+            {
+                int count = 1 << (length - 8);
+                gpDecodeTable_0075AFA0[prefix] = storage;
+                *storage++ = ((Byte)(length - 8));
+                int j = 0;
+                int n = 0;
+                while (j < count)
+                {
+                    int repeat = 1 << (length - sortedLengths[i + j]);
+                    if (repeat)
+                    {
+                        Byte value = pSymbol[n];
+                        storage += repeat;
+                        do
+                        {
+                            gpDecodeTable_0075AFA0[prefix][j + 1] = value;
+                            ++j;
+                        } while (--repeat);
+                    }
+                    ++n;
+                }
+            }
+        }
+    }
+    return 1;
+}
+
+unsigned __int64 gaqHuffmanByteCounts[256];                                                        // 0x0075B7A0
+unsigned __int64 gqHuffmanBytesIn;                                                                 // 0x0075BFA0
+unsigned __int64 gqHuffmanBytesOut;                                                                // 0x0075BFA8
+unsigned __int64 gqHuffmanHeaders;                                                                 // 0x0075BFB0
+
+static inline void AddTotal(unsigned __int64* pTotal, unsigned __int64 nValue)
+{
+    *pTotal += nValue;
+}
+
+// 0x0040B0C0
+void __cdecl FOG_10218()
+{
+    for (int i = 0; i < 256; i++)
+        gaqHuffmanByteCounts[i] = 0;
+    gqHuffmanBytesIn = 0;
+    gqHuffmanBytesOut = 0;
+    gqHuffmanHeaders = 0;
+    FOG_10219(gabHuffmanCodeLength);
+}
+
+// 0x0040B110
+void __cdecl sub_0040B110_Nop()
+{
+}
+
+// 0x0040B120
+void __cdecl sub_0040B120_Nop()
+{
+}
+
+// 0x0040B130
+void __fastcall FOG_10222(const unsigned char* pData, unsigned int nSize)
+{
+    unsigned int i = 0;
+    unsigned int nBits = 0;
+    for (; i < nSize; i++)
+    {
+        const unsigned char nByte = pData[i];
+        ++gaqHuffmanByteCounts[nByte];
+        nBits += gabHuffmanCodeLength[nByte];
+    }
+    unsigned int nHeader = 1;
+    unsigned int nBytes = ((nBits + 7) >> 3) + nHeader;
+    if (nBytes >= 0xF0)
+    {
+        nBytes += nHeader;
+        nHeader = 2;
+    }
+    AddTotal(&gqHuffmanBytesIn, nSize);
+    AddTotal(&gqHuffmanBytesOut, nBytes);
+    AddTotal(&gqHuffmanHeaders, nHeader);
+}
+
 // 0x0040B1B0
 int __fastcall FOG_CompressPacket(unsigned char* pOut, int nOutSize, const unsigned char* pIn, int nInSize)
 {
