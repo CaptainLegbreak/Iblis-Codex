@@ -720,6 +720,75 @@ int __fastcall SKILLS_SrvDo014_LightningStrike(D2GameStrc* game,D2UnitStrc* unit
     return 1;
 }
 
+int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit);                                               // 0x00625D10
+
+int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);                              // 0x00483360
+
+void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A4850
+
+void __stdcall UNITS_SetOverlay(D2UnitStrc* pUnit, int nOverlay, int nUnused);                              // 0x00621E40
+
+// 0x005DC000
+int __fastcall sub_005DC000_SrvDoSummonPet(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    int nSpawnMode;
+    const int nSummonId = D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
+    if (nSummonId < 0)
+    {
+        return 0;
+    }
+
+    unsigned char nPetType = pSkillsTxtRecord->nPetType;
+    if (nPetType >= sgptDataTables->nPetTypeTxtRecordCount)
+    {
+        nPetType = 0;
+    }
+
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x40;
+    }
+
+    D2SummonArgStrc summonArg = {};
+    summonArg.nHcIdx = nSummonId;
+    summonArg.nAiSpecialState = 0;
+    summonArg.pOwner = pUnit;
+    summonArg.nMonMode = nSpawnMode;
+    summonArg.nPetType = nPetType;
+    summonArg.nPetMax = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwPetMax, nSkillId, nSkillLevel);
+
+    D2UnitStrc* pPet = D2GAME_SummonPet_6FD14430(pGame, &summonArg);
+    if (!pPet)
+    {
+        return 0;
+    }
+
+    UNITS_StoreOwner(pPet, pUnit);
+
+    int nHp = STATLIST_GetMaxLifeFromUnit(pUnit);
+    nHp = DATATBLS_ApplyRatio(nHp, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[2], nSkillId, nSkillLevel), 100);
+    STATLIST_SetUnitStat(pPet, STAT_HITPOINTS, nHp, 0);
+    STATLIST_SetUnitStat(pPet, STAT_MAXHP, nHp, 0);
+    const int nLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
+    STATLIST_SetUnitStat(pPet, STAT_LEVEL, nLevel, 0);
+
+    D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10(pGame, pUnit, pPet, 0, nSkillLevel);
+    D2GAME_SetSummonPassiveStats_6FD0C530(pGame, pUnit, pPet, nSkillId, nSkillLevel, 0);
+
+    const int nDuration = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel);
+    EVENT_SetEvent(pGame, pPet, 7, pGame->dwGameFrame + nDuration, 0, 0);
+    D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pPet, 21, 0);
+    UNITS_SetOverlay(pPet, 171, 0);
+    D2GAME_UpdateSummonAI_6FC401F0(pGame, pPet, 0, pUnit->dwNodeIndex);
+    return 1;
+}
+
 // 0x005DC1E0
 int __fastcall SKILLS_SrvDo016_Valkyrie(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {

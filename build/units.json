@@ -64801,11 +64801,6 @@
      "va": "0x005CDFB0",
      "length": 249,
      "name": "?sub_005CDFB0@@YIHPAUGame@@PAUUnit@@HH@Z"
-    },
-    {
-     "va": "0x005CE2B0",
-     "length": 576,
-     "name": "?SKILLS_SrvDo112_MonCurseCast@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -64952,6 +64947,11 @@
      "va": "0x005CE1B0",
      "length": 254,
      "name": "?SKILLS_SrvDo110_Hireable_RogueMissile@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005CE2B0",
+     "length": 576,
+     "name": "?SKILLS_SrvDo112_MonCurseCast@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005CE4F0",
@@ -65783,6 +65783,10 @@
      "name": "?SKILLS_SrvDo014_LightningStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005DC000",
+     "length": 471
+    },
+    {
      "va": "0x005DC1E0",
      "length": 379,
      "name": "SKILLS_SrvDo016_Valkyrie"
@@ -65826,16 +65830,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005DC000.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005DC000",
-     "length": 471
-    }
    ]
   },
   {
