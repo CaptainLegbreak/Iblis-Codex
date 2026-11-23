@@ -120,6 +120,12 @@ public:
     ButtonImplementation* pImpl;
 };
 
+// 0x004BB5D0
+int __cdecl sub_004BB5D0()
+{
+    return 0;
+}
+
 // 0x004BBD50
 class EditBoxImplementation : public UIWidget
 {
