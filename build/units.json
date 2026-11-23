@@ -494,6 +494,11 @@
      "name": "?ERRORMANAGER_GetBitWidth@@YIHI@Z"
     },
     {
+     "va": "0x00409020",
+     "length": 386,
+     "name": "ERRORMANAGER_LogPoolError"
+    },
+    {
      "va": "0x004091B0",
      "length": 69,
      "name": "?ERRORMANAGER_GetPoolIndex@@YAHH@Z"
@@ -546,6 +551,11 @@
      "va": "0x00409810",
      "length": 153,
      "name": "ERRORMANAGER_PoolFreeLarge"
+    },
+    {
+     "va": "0x004098B0",
+     "length": 270,
+     "name": "ERRORMANAGER_PoolReallocLarge"
     },
     {
      "va": "0x004099C0",
@@ -2684,11 +2694,6 @@
      "name": "MAINMENUS_InitStorm"
     },
     {
-     "va": "0x004098B0",
-     "length": 270,
-     "name": "MAINMENUS_PoolReallocLarge"
-    },
-    {
      "va": "0x00410700",
      "length": 62,
      "name": "MAINMENUS_LogWrite"
@@ -3543,22 +3548,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Src/MainMenus_00409020.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00409020",
-     "length": 386,
-     "name": "MAINMENUS_LogPoolError"
-    },
-    {
-     "va": "0x004107F0",
-     "length": 308,
-     "name": "MAINMENUS_GetSaveDiskFreeSpace"
-    }
    ]
   },
   {
@@ -5286,6 +5275,11 @@
    "file": "Source/Fog/Src/System/system.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x004107F0",
+     "length": 308,
+     "name": "SYSTEM_GetSaveDiskFreeSpace"
+    },
     {
      "va": "0x004109D0",
      "length": 163,

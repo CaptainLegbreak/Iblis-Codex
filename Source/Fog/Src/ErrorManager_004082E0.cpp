@@ -876,7 +876,7 @@ extern "C" int __stdcall getpeername(unsigned int nSocket, void* pAddress, int* 
 extern "C" int __stdcall ioctlsocket(unsigned int nSocket, long nCommand, unsigned long* pArgument);       // 0x006B015C
 
 
-void __cdecl MAINMENUS_LogPoolError(const char* szFormat, ...);                                          // 0x00409020
+void __cdecl ERRORMANAGER_LogPoolError(const char* szFormat, ...);                                          // 0x00409020
 
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);            // 0x0040B480
 

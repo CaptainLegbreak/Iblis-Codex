@@ -4,7 +4,7 @@
 #include "D2Unicode.h"
 #include "D2MultiTypes.h"
 
-void __cdecl MAINMENUS_LogPoolError(const char* szFormat, ...); // 0x00409020
+void __cdecl ERRORMANAGER_LogPoolError(const char* szFormat, ...); // 0x00409020
 
 int __stdcall MAINMENUS_AskEmailRegistration(int nArg); // 0x00436C90
 
@@ -1474,45 +1474,6 @@ void __fastcall MAINMENUS_InitStorm(int nDirectFlags, int nValue)
     int bEnable = 1;
     StormGetOption(1, &bEnable, 4);
     StormGetOption(3, &bEnable, 4);
-}
-
-// 0x004098B0
-void* __fastcall MAINMENUS_PoolReallocLarge(D2PoolSystemStrc* pSystem, int* pBlock, int nSize, const char* szFile, int nLine)
-{
-    pBlock -= 1;
-    const int nBucket = (int)pBlock % 1023;
-    int* pPrevious = 0;
-    EnterCriticalSection(&pSystem->tLock);
-    int* pCurrent = pSystem->apLargeBlocks[nBucket];
-    while (pCurrent)
-    {
-        if (pCurrent == pBlock)
-        {
-            if (!pPrevious)
-            {
-                pSystem->apLargeBlocks[nBucket] = (int*)*pCurrent;
-            }
-            else
-            {
-                *pPrevious = *pCurrent;
-            }
-            int* pNewBlock = (int*)realloc(pBlock, nSize + 4);
-            if (!pNewBlock)
-            {
-                MAINMENUS_LogPoolError("Unable to allocate free block of %s", nSize);
-                D2_ASSERT(pNewBlock, 1057);
-            }
-            const int nNewBucket = (int)pNewBlock % 1023;
-            *pNewBlock = (int)pSystem->apLargeBlocks[nNewBucket];
-            pSystem->apLargeBlocks[nNewBucket] = pNewBlock;
-            LeaveCriticalSection(&pSystem->tLock);
-            return pNewBlock + 1;
-        }
-        pPrevious = pCurrent;
-        pCurrent = (int*)*pCurrent;
-    }
-    LeaveCriticalSection(&pSystem->tLock);
-    return 0;
 }
 
 // 0x00410700
