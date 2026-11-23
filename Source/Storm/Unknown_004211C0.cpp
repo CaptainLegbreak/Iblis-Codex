@@ -49,7 +49,6 @@ struct D2StormArrayBStrc
     void sub_00421630_Reserve(unsigned int nCount, int bRound);
     unsigned int sub_004218B0_Add(unsigned int nCount, const unsigned char* pData);                         // 0x004218B0
     void sub_004219F0_Set(unsigned int nCount, const unsigned char* pData);                                 // 0x004219F0
-    // build: context D2StormArrayBStrc::Reserve
     void Reserve(unsigned int nCount)
     {
         nCount += f_4;
@@ -59,7 +58,6 @@ struct D2StormArrayBStrc
             sub_004211C0_ReallocData(RoundUp(nCount, nChunk));
         }
     }
-    // build: context D2StormArrayBStrc::Push
     void Push(unsigned char nByte)
     {
         Reserve(1);

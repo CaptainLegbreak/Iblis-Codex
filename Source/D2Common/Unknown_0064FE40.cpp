@@ -4,13 +4,11 @@
 #pragma pack(pop)
 extern const D2CoordStrc gtZeroVector_006EB7D4; // 0x006EB7D4
 void __fastcall PATH_SetNewDirection(D2DynamicPathStrc*,unsigned char); // 0x006485F0
-// build: context PATH_ToFP16Center
 static inline unsigned int PATH_ToFP16Center(unsigned short nValue)
 {
     return (nValue << 16) + 0x8000;
 }
 
-// build: context PATH_FromFP16
 static inline unsigned short PATH_FromFP16(unsigned int nValue)
 {
     return (nValue >> 16) & 0xFFFF;

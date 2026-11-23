@@ -37,13 +37,11 @@ int __fastcall ERRORMANAGER_GetBitWidth(unsigned int nValue)
     return nValue;
 }
 
-// build: context Log2Ceil
 static inline int Log2Ceil(int nValue)
 {
     return nValue < 3 ? 1 : ERRORMANAGER_GetBitWidth(nValue - 1);
 }
 
-// build: context GetPoolIndex
 static inline int GetPoolIndex(int nSize)
 {
     if (nSize <= 0x10)

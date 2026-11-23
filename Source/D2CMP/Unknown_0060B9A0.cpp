@@ -123,13 +123,11 @@ static inline int sub_0060B480_DccFirstCell(D2DccDirStrc* pDir, D2DccIterStrc* p
 
 extern unsigned int gdwBitMasks_006CE268[];                                                                 // 0x006CE268
 
-// build: context DccTestBit
 static inline int DccTestBit(const unsigned int* pBits, int nBit)
 {
     return pBits[nBit >> 5] & gdwBitMasks_006CE268[nBit & 0x1F];
 }
 
-// build: context DccGetBitPos
 static inline int DccGetBitPos(D2CmpBitCursorStrc* pCursor)
 {
     return (int)(pCursor->pData - pCursor->pStart) * 32 + pCursor->nBitPos;

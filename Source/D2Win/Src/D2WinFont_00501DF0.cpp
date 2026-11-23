@@ -223,7 +223,6 @@ void __fastcall sub_00501FE0_DrawTickerText(const Unicode* wszText, int nX, int 
     while (nCount < nLength);
 }
 
-// build: context AllocSplitTextLine_Inline
 static inline D2SplittedTextStrc* AllocSplitTextLine_Inline(const Unicode* wszText, int nLength, int bSkipSpace)
 {
     D2SplittedTextStrc* pSplitText = (D2SplittedTextStrc*)FOG_Alloc(sizeof(D2SplittedTextStrc), gszD2WinFontSourceFile, 0x588, 0);

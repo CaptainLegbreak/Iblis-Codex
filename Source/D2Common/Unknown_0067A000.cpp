@@ -862,7 +862,6 @@ int __stdcall PATH_GetAdjacentPointDirection(D2PathPointStrc tPoint1, D2PathPoin
     return gaPathDeltaTable[3 * (tPoint2.Y - tPoint1.Y) + (tPoint2.X - tPoint1.X)];
 }
 
-// build: context PATH_TestNewTargetPoint
 static inline int PATH_TestNewTargetPoint(D2PathMovStrc* pMov, D2ActiveRoomStrc* pRoom, int nCollisionPattern, int nCollisionMask)
 {
     pMov->tTargetCoord.X = (unsigned short)(gnDirectionsToAdjacentCellOffsets[pMov->nDirectionIndex].nX + pMov->tCurrentCoord.X);
@@ -906,7 +905,6 @@ static void __stdcall PATH_ReplaceSubpathPoints(D2PathPointStrc* pPoints, int* p
     *pSubPathStartIdx = nLastReplacedPointIdx + 1;
 }
 
-// build: context PATH_GetSquaredDistance
 static inline int PATH_GetSquaredDistance(D2PathPointStrc tPoint, D2PathPointStrc tTarget)
 {
     const int nDX = tPoint.X - tTarget.X;

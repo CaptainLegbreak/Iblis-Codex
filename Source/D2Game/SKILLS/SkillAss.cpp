@@ -2426,7 +2426,6 @@ static inline unsigned __int64 SEED_RollRandomNumberInline64(D2SeedStrc* pSeed)
     return lSeed;
 }
 
-// build: context SEED_RollLimitedRandomNumberInline
 static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
@@ -3129,7 +3128,6 @@ int __fastcall SKILLS_SrvDo049_ShadowWarrior_Master(D2GameStrc* pGame, D2UnitStr
     return 1;
 }
 
-// build: context GetSkillParam3ById_Inline
 static inline int GetSkillParam3ById_Inline(int nSkillId)
 {
     D2SkillsTxt* pSkillsTxtRecord = GetSkillsTxtRecord_Inline(nSkillId);

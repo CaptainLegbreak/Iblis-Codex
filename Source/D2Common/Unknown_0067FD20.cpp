@@ -9,7 +9,6 @@ struct D2OutdoorColumnFilesStrc
 };
 extern D2OutdoorColumnFilesStrc gaPresetPairs[]; // 0x006F2680
 
-// build: context SEED_RollRandomNumber_Inline
 static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
@@ -18,7 +17,6 @@ static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-// build: context SEED_RollLimitedRandomNumber_Inline
 static inline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)

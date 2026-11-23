@@ -2233,7 +2233,6 @@ static int __stdcall OBJMODE_ApplyObeliskPowerUp(D2GameStrc* pGame, unsigned cha
     return 0;
 }
 
-// build: context OBJECTS_IsNeutralExplodingBarrel
 static inline int OBJECTS_IsNeutralExplodingBarrel(D2UnitStrc* pUnit)
 {
     return pUnit && pUnit->dwClassId == OBJECT_EXPLODINGBARREL && pUnit->dwAnimMode == OBJMODE_NEUTRAL;
@@ -2626,13 +2625,10 @@ D2UnitStrc* __fastcall OBJMODE_DropFromChestTCWithQuality(D2ObjOperateFnStrc* pO
     return ppDroppableItems[0];
 }
 
-// build: context UNIT_GetId
 static inline int UNIT_GetId(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwUnitId; }
 
-// build: context UNIT_GetType
 static inline int UNIT_GetType(D2UnitStrc* pUnit) { return !pUnit ? 6 : pUnit->dwUnitType; }
 
-// build: context UNIT_GetClass
 static inline int UNIT_GetClass(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwClassId; }
 
 // 0x00586410

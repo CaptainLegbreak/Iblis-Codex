@@ -8,7 +8,6 @@ extern Byte gnSymbolCodes_0075B6A0[256]; // 0x0075B6A0
 extern Byte* gpDecodeTable_0075AFA0[256]; // 0x0075AFA0
 extern Byte gabDecodeStorage[768]; // 0x0075B3A0
 
-// build: context IsValidCodeLength
 static inline int IsValidCodeLength(Byte length)
 {
     if (length <= 0)

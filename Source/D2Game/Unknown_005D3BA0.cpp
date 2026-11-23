@@ -21,7 +21,6 @@ D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);          
 void __stdcall SKILLS_ApplyProgressiveLeech(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage); // 0x005D3790
 void __stdcall SKILLS_ApplyProgressiveElementalDamage(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage); // 0x005D3880
 
-// build: context SKILLS_GetSkillsTxtRecord
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -31,7 +30,6 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-// build: context SKILLS_GetProgressiveState
 inline int SKILLS_GetProgressiveState(int nIndex)
 {
     return sgptDataTables->pProgressiveStates[nIndex];

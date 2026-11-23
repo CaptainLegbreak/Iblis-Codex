@@ -17,7 +17,6 @@ void __stdcall ITEMS_SetFileIndex(D2UnitStrc*, unsigned int); // 0x00629DF0
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc*, unsigned int, int); // 0x006280D0
 void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0
 
-// build: context SEED_RollRandomNumberInline
 static inline unsigned __int64 SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
@@ -26,7 +25,6 @@ static inline unsigned __int64 SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
     return lSeed;
 }
 
-// build: context SEED_RollLimitedRandomNumberInline
 static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0) return 0;

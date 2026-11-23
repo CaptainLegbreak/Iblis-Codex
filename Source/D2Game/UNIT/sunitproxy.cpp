@@ -332,7 +332,6 @@ static D2MonStatsTxt* SUNITPROXY_GetMonStatsTxtRecordInline(int nMonsterId)
     return 0;
 }
 
-// build: context RollSeed
 static inline unsigned int RollSeed(D2SeedStrc* pSeed)
 {
     unsigned __int64 nSeed = (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5 + pSeed->nHighSeed;

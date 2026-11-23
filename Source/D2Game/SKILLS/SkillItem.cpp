@@ -1320,7 +1320,6 @@ int __fastcall SKILLITEM_EventFunc06_AttackerTakesDamage(D2GameStrc* pGame, int 
     return 1;
 }
 
-// build: context GetItemStatCost
 static inline D2ItemStatCostTxt* GetItemStatCost(int nStat)
 {
     if (nStat >= 0 && nStat < sgptDataTables->nItemStatCostTxtRecordCount)
@@ -1386,7 +1385,6 @@ int __fastcall SKILLITEM_EventFunc11_ApplyFireDamage(D2GameStrc* pGame, int nEve
     return 1;
 }
 
-// build: context SKILLS_GetItemStatCostTxtRecord
 static inline D2ItemStatCostTxt* SKILLS_GetItemStatCostTxtRecord(int nStatId)
 {
     if (nStatId < 0)

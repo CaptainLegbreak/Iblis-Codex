@@ -167,7 +167,6 @@ int __fastcall sub_0060BF20_LoadTileHeader(const char* szFile, D2CmpTileHeaderTa
     return 1;
 }
 
-// build: context DccReadBits
 static inline unsigned int DccReadBits(D2CmpBitCursorStrc* pCursor, int nCount)
 {
     unsigned int nValue;
@@ -219,7 +218,6 @@ static unsigned int __stdcall sub_0060B200_ReadBits(int nNumBits, D2CmpBitCursor
     return nBits;
 }
 
-// build: context DccReadSigned
 static inline int DccReadSigned(int nCount, D2CmpBitCursorStrc* pCursor)
 {
     int nValue = sub_0060B200_ReadBits(nCount, pCursor);
@@ -462,7 +460,6 @@ static void __fastcall sub_0060B640_BuildColorMaps(D2CmpByteMapStrc* pForward, c
     sub_0060B5F0_BuildColorMaps(pInverse, abFlags, pForward);
 }
 
-// build: context DccTestBit
 static inline int DccTestBit(const unsigned int* pBits, int nBit)
 {
     return pBits[nBit >> 5] & gdwBitMasks_006CE268[nBit & 0x1F];
@@ -590,13 +587,11 @@ void __stdcall sub_0060B9A0_DecodeStage1(D2DccDirStrc* pDir, D2DccCellStrc* pCel
     pRun->nCount = (int)(pData - pRun->pData);
 }
 
-// build: context DccGetFile
 static inline const D2DccFileStrc* DccGetFile(unsigned int dwFile)
 {
     return (const D2DccFileStrc*)dwFile;
 }
 
-// build: context DccCopyHeader
 static inline void DccCopyHeader(D2DccHeaderStrc* pHeader, const D2DccFileStrc* pFile)
 {
     pHeader->n04 = pFile->n04;

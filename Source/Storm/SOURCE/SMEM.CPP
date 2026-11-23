@@ -68,7 +68,6 @@ extern "C" const char szSMemFindNextBlock_006CED04[]; // 0x006CED04
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 extern "C" const char szSMemFindNextHeap_006CED18[]; // 0x006CED18
 extern "C" const char szSMemAlloc_006CEDCC[]; // 0x006CEDCC
-// build: context SMemGetBlockHeader
 static inline D2SMemBlockStrc* SMemGetBlockHeader(void* pMemory)
 {
     if (!pMemory)
@@ -78,7 +77,6 @@ static inline D2SMemBlockStrc* SMemGetBlockHeader(void* pMemory)
         pBlock = ((D2SMemBlockStrc**)pBlock)[-1];
     return pBlock;
 }
-// build: context SMemGetBlockData
 static inline void* SMemGetBlockData(D2SMemBlockStrc* pBlock)
 {
     if (!pBlock)

@@ -78,13 +78,11 @@ static inline SkillRecord* GetSkillRecord(int skill)
     return &sgptDataTables->skills[skill];
 }
 
-// build: context GetUnitType
 static inline int GetUnitType(Unit* unit)
 {
     return unit ? unit->type : 6;
 }
 
-// build: context SkillChanceSucceeds
 static inline int SkillChanceSucceeds(Unit* owner, SkillRecord* record, int skill, int level)
 {
     int chance = SKILLS_EvaluateSkillFormula(owner, record->chance, skill, level);

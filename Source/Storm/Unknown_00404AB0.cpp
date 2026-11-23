@@ -150,7 +150,6 @@ static bool __stdcall sub_004049A0_ReadImageInfo(D2CrashModuleStrc* pModule, con
     return true;
 }
 
-// build: context CrashModule_ToUtf8
 static inline void CrashModule_ToUtf8(D2CrashModuleStrc* pModule, const wchar_t* wszSource, int nSourceLength)
 {
     const int nLength = WideCharToMultiByte(0xFDE9, 0, wszSource, nSourceLength, pModule->szName, sizeof(pModule->szName), 0, 0);

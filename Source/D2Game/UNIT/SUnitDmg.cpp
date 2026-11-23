@@ -1804,7 +1804,6 @@ void __fastcall SUNITDMG_CalculateTotalDamage(Game* game,Unit* attacker,Unit* de
     if(c.attackerFlag) FIELD(damage,76)+=FIELD(damage,56);
 }
 
-// build: context SUNITDMG_GetMonStatsTxtRecordFromUnit
 static inline D2MonStatsTxt* SUNITDMG_GetMonStatsTxtRecordFromUnit(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)

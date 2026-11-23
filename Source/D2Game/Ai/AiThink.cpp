@@ -722,7 +722,6 @@ int __fastcall AITHINK_AreUnitsInSameLevel(D2UnitStrc* pUnit, D2UnitStrc* pTarge
     return DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit)) == DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pTarget));
 }
 
-// build: context BAALTHRONE_GetSuperUniqueClass
 static inline int BAALTHRONE_GetSuperUniqueClass(int nSuperUnique)
 {
     D2SuperUniquesTxt* pSuperUnique = DATATBLS_GetSuperUniquesTxtRecord(nSuperUnique);

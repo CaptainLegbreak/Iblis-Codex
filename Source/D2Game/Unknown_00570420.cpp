@@ -330,7 +330,6 @@ static inline D2StatesTxt* SKILLS_GetStatesTxtRecord(int id) { if (id < 0 || id 
 
 static inline D2ItemStatCostTxt* SKILLS_GetItemStatCostTxtRecord(int id) { if (id < 0 || id >= sgptDataTables->nItemStatCostTxtRecordCount) return 0; return &sgptDataTables->pItemStatCostTxt[id]; }
 
-// build: context sub_GetUnitTypeOrInvalid
 static inline int sub_GetUnitTypeOrInvalid(D2UnitStrc* pUnit) { if (!pUnit) return UNIT_INVALID; return pUnit->dwUnitType; }
 
 // 0x00570E30

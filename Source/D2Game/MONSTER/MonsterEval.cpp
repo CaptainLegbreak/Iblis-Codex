@@ -404,13 +404,11 @@ void __stdcall STATLIST_RemoveAllStats(D2StatListStrc* pStatList); // 0x00627340
 int __fastcall sub_00451F60_GetClassId(D2UnitStrc* pUnit); // 0x00451F60
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 
-// build: context MONSTEREVAL_GetUnitType
 static inline int MONSTEREVAL_GetUnitType(D2UnitStrc* pUnit)
 {
     return !pUnit ? 6 : pUnit->dwUnitType;
 }
 
-// build: context MONSTEREVAL_GetMonStatsTxt
 static inline D2MonStatsTxt* MONSTEREVAL_GetMonStatsTxt(D2UnitStrc* pUnit)
 {
     if (pUnit && MONSTEREVAL_GetUnitType(pUnit) == 1 && pUnit->pMonsterData)

@@ -1379,7 +1379,6 @@ void __fastcall SKILLS_SetSummonResistance(Unit* unit,Unit* pet)
     sub_00627150(list,45,resist,0);
 }
 
-// build: context MONSTERUNIQUE_GetMonsterDataInl
 inline D2MonsterDataStrc* MONSTERUNIQUE_GetMonsterDataInl(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
@@ -1389,7 +1388,6 @@ inline D2MonsterDataStrc* MONSTERUNIQUE_GetMonsterDataInl(D2UnitStrc* pUnit)
     return 0;
 }
 
-// build: context MONSTERS_SetComponentInl
 inline void MONSTERS_SetComponentInl(D2UnitStrc* pUnit, int nComponent, unsigned char nValue)
 {
     D2MonsterDataStrc* pMonsterData = MONSTERUNIQUE_GetMonsterDataInl(pUnit);

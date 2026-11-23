@@ -84,7 +84,6 @@ struct D2StormBigStrc
     char unk0x14[0x154];
 };
 
-// build: context ExtractLowPartSx
 inline unsigned int ExtractLowPartSx(unsigned __int64& nValue)
 {
     unsigned int nLow = (unsigned int)nValue;

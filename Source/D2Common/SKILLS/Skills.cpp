@@ -722,7 +722,6 @@ void __stdcall DUNGEON_ClientSubileDrawPositionToGameCoords(int nX, int nY, int*
     }
 }
 
-// build: context UNITS_GetMonStats2TxtRecordFromMonsterId_Inl
 inline D2MonStats2Txt* UNITS_GetMonStats2TxtRecordFromMonsterId_Inl(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -4470,7 +4469,6 @@ int __stdcall SKILLS_GetMaxPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkil
     }
 }
 
-// build: context SKILLS_GetSkillForceInl
 static inline D2SkillStrc* SKILLS_GetSkillForceInl(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID)
 {
     D2SkillStrc* pSkill;

@@ -60,7 +60,6 @@ static inline bool sub_00404780_IsNtHeaderValid(const D2ImageNtHeadersStrc* pNt)
     }
     return true;
 }
-// build: context GetDebugDirectoryEntry
 static inline bool GetDebugDirectoryEntry(const D2ImageDataDirStrc* pDir, unsigned long* pRva, unsigned long* pSize)
 {
     const D2ImageDataDirStrc tDir = *pDir;

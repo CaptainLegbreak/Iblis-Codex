@@ -308,7 +308,6 @@ static inline D2DrlgTileDataStrc* sub_B04_InitFloorTileDataInline(D2DrlgRoomStrc
     return pTileData;
 }
 
-// build: context SEED_RollRandomNumberInline
 inline unsigned __int64 SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;

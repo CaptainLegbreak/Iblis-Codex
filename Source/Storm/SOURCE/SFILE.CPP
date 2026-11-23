@@ -197,6 +197,7 @@ void __cdecl sub_0041A880_StartThread(); // 0x0041A880
 void __cdecl sub_00419C00_PumpStreams();
 int __stdcall SFileCloseFile(void* pArg); // 0x004198D0
 int __stdcall SFileCloseArchive(void* hMpq); // 0x00419A80
+static int __stdcall ReadAdditionalAttributes(ARCHIVEREC* pArchive, D2StormBlockStrc* pBlockTable, unsigned int nCount);
 int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, int nSearchScope, void** phFile); // 0x004192F0
 int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned int dwFlags, void** phMpq);
 int __stdcall SFileAuthenticateArchiveEx(void* hArchive, unsigned int* pnResult, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00415BB0
@@ -493,6 +494,8 @@ inline T StormPowInt(T x, int nExp)
             return nExp < 0 ? T(1) / z : z;
     }
 }
+
+extern "C" __declspec(dllimport) unsigned long __stdcall GetFileSize(void* hFile, unsigned long* pdwFileSizeHigh); // 0x006CC2F0
 
 // 0x0040EB20
 int __cdecl sub_0040EB20_ReturnSecond(int, int nValue)
@@ -883,18 +886,19 @@ static D2StormBlockStrc* sub_004155B0_GetBlockEntry(ARCHIVEREC* pArchive, int nH
     return &pArchive->pBlockTable[pArchive->pHashTable[nHashIndex].nBlockIndex];
 }
 
+// 0x004155D0
 static int __stdcall sub_004155D0_FindHashEntry(unsigned short wLocale, unsigned char nPlatform, ARCHIVEREC* pArchive, const char* szName)
 {
     const unsigned int nHash = sub_00415330_HashString(0, szName);
     const unsigned int nName1 = sub_00415330_HashString(1, szName);
     const unsigned int nName2 = sub_00415330_HashString(2, szName);
-    const unsigned int nMask = pArchive->pHeader->nHashEntries - 1;
-    unsigned int nIndex = nMask & nHash;
-    D2StormHashEntryStrc* pEntry = &pArchive->pHashTable[nIndex];
+    const unsigned int nEntries = pArchive->pHeader->nHashEntries;
+    unsigned int nIndex = (nEntries - 1) & nHash;
     const unsigned int nStart = nIndex;
     int nBest = -1;
-    while (pEntry->nBlockIndex != -1)
+    while (pArchive->pHashTable[nIndex].nBlockIndex != -1)
     {
+        D2StormHashEntryStrc* pEntry = &pArchive->pHashTable[nIndex];
         if (pEntry->nName1 == nName1 && pEntry->nName2 == nName2 && pEntry->nBlockIndex != -2)
         {
             if (pEntry->wLocale == wLocale && pEntry->nPlatform == nPlatform)
@@ -902,10 +906,9 @@ static int __stdcall sub_004155D0_FindHashEntry(unsigned short wLocale, unsigned
             if ((!pEntry->wLocale || pEntry->wLocale == wLocale) && (!pEntry->nPlatform || pEntry->nPlatform == nPlatform))
                 nBest = nIndex;
         }
-        nIndex = (nIndex + 1) & nMask;
+        nIndex = (nIndex + 1) & (nEntries - 1);
         if (nIndex == nStart)
             break;
-        pEntry = &pArchive->pHashTable[nIndex];
     }
     return nBest;
 }
@@ -1011,12 +1014,13 @@ static unsigned int sub_00416FB0_LoadBlock(unsigned int nOffset, FILEREC* pFile)
     return pFile->archive->nCachedSize;
 }
 
+// 0x00417040
 static unsigned int __stdcall InternalReadUnaligned(unsigned char* pBuffer, unsigned int nSize, FILEREC* pFile, unsigned int nPosition)
 {
     const unsigned int nFileSize = pFile->pBlock->nFileSize;
     if (nFileSize <= nPosition)
         return 0;
-    nSize = nSize < nFileSize - nPosition ? nSize : nFileSize - nPosition;
+    nSize = D2_MIN(nSize, nFileSize - nPosition);
     if (pFile->bCrc && !nPosition)
     {
         CrcBuffer(0, 0, &pFile->nCrc, 1);
@@ -1029,9 +1033,7 @@ static unsigned int __stdcall InternalReadUnaligned(unsigned char* pBuffer, unsi
         if (pFile->bCrc && pFile->nCrcState != 1 && pFile->nCrcPos != nPosition)
             pFile->nCrcState = 1;
         nHead = sub_00416FB0_LoadBlock(~(pFile->archive->sectorsize - 1) & nPosition, pFile);
-        unsigned int nCopy = nSize;
-        if (nCopy >= pFile->archive->sectorsize - ((pFile->archive->sectorsize - 1) & nPosition))
-            nCopy = pFile->archive->sectorsize - ((pFile->archive->sectorsize - 1) & nPosition);
+        const unsigned int nCopy = D2_MIN(nSize, pFile->archive->sectorsize - ((pFile->archive->sectorsize - 1) & nPosition));
         SMemCopy(pBuffer, pFile->archive->pBlockBuffer + ((pFile->archive->sectorsize - 1) & nPosition), nCopy);
         if (pFile->bCrc && pFile->nCrcState == 2)
         {
@@ -1452,7 +1454,7 @@ int __fastcall s_OpenArchive(ARCHIVEREC* pArchive, unsigned int nFlags, int bKee
     }
     *phArchive = pArchive;
     LeaveCriticalSection(&gBasePathLock_00779068);
-    pArchive->ReadAdditionalAttributes(pArchive->pBlockTable, pArchive->pHeader->nBlockEntries);
+    ReadAdditionalAttributes(pArchive, pArchive->pBlockTable, pArchive->pHeader->nBlockEntries);
     EnterCriticalSection(&gBasePathLock_00779068);
     return 1;
 }
@@ -3098,7 +3100,6 @@ struct D2WaveChunkHeaderStrc
 #define INVALID_SET_FILE_POINTER (-1)
 
 int __stdcall SFileReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped);       // 0x0041B050
-void __stdcall sub_A02_EmitUse(unsigned int nValue);
 
 // 0x0041B210
 static int sub_0041B210_FindWaveChunk(void* hFile, unsigned int dwTag, unsigned int* pChunk)
@@ -3123,22 +3124,200 @@ static int sub_0041B210_FindWaveChunk(void* hFile, unsigned int dwTag, unsigned 
     return 0;
 }
 
-int __stdcall sub_A02_EmitFindChunk(void* hFile)
+// 0x00416370
+int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pdwFileSizeHigh)
 {
-    unsigned int aChunk[2];
-    aChunk[0] = 0;
-    aChunk[1] = 0;
-    if (!sub_0041B210_FindWaveChunk(hFile, 0x20746D66, aChunk))
+    if (pdwFileSizeHigh)
     {
-        return 0;
+        *pdwFileSizeHigh = 0;
     }
 
-    sub_A02_EmitUse(aChunk[0]);
-    if (!sub_0041B210_FindWaveChunk(hFile, 0x61746164, aChunk))
+    EnterCriticalSection(&gBasePathLock_00779068);
+
+    FILEREC* pRec;
+    if (!sub_00415950_GetFileRec(hFile, &pRec))
     {
-        return 0;
+        LeaveCriticalSection(&gBasePathLock_00779068);
+        return -1;
     }
 
-    sub_A02_EmitUse(aChunk[1]);
-    return 1;
+    if (pRec->hFile != (void*)-1)
+    {
+        LeaveCriticalSection(&gBasePathLock_00779068);
+        return GetFileSize(pRec->hFile, (unsigned long*)pdwFileSizeHigh);
+    }
+
+    const int nFileSize = pRec->pBlock->nFileSize;
+    LeaveCriticalSection(&gBasePathLock_00779068);
+    return nFileSize;
+}
+
+// 0x0041B0B0
+static int __stdcall ReadAdditionalAttributes(ARCHIVEREC* pArchive, D2StormBlockStrc* pBlockTable, unsigned int nCount)
+{
+    int bResult = 0;
+    void* hFile;
+    if (SFileOpenFileEx(pArchive, "(attributes)", 0, &hFile))
+    {
+        unsigned int nSize = sub_00416370_StormGetFileSize(hFile, 0);
+        unsigned char* pData = (unsigned char*)SMemAlloc(nSize, gszSFileCpp_006CF084, 1411, 0);
+        if (SFileReadFile(hFile, pData, nSize, 0, 0))
+        {
+            unsigned int nExpected = 8;
+            if (nSize >= nExpected)
+            {
+                unsigned int dwFlags = ((unsigned int*)pData)[1];
+                unsigned char* pCursor = pData + 8;
+                unsigned int bChecksum = dwFlags & 1;
+                if (dwFlags & 1)
+                    nExpected += nCount * 4;
+                unsigned int bTime = dwFlags & 2;
+                if (bTime)
+                    nExpected += nCount * 8;
+                unsigned int bDigest = dwFlags & 4;
+                if (bDigest)
+                    nExpected += nCount * 16;
+                if (nSize == nExpected)
+                {
+                    if (bChecksum)
+                    {
+                        for (unsigned int i = 0; i < nCount; ++i, pCursor += 4)
+                            pBlockTable[i].nCrc = *(unsigned int*)pCursor;
+                    }
+                    if (bTime)
+                    {
+                        for (unsigned int i = 0; i < nCount; ++i, pCursor += 8)
+                            pBlockTable[i].tFileTime = *(D2FileTimeStrc*)pCursor;
+                    }
+                    if (bDigest)
+                    {
+                        for (unsigned int i = 0; i < nCount; ++i, pCursor += 16)
+                        {
+                            unsigned int* pDigest = pBlockTable[i].unk0x1C;
+                            const unsigned int* pSource = (const unsigned int*)pCursor;
+                            pDigest[0] = pSource[0];
+                            pDigest[1] = pSource[1];
+                            pDigest[2] = pSource[2];
+                            pDigest[3] = pSource[3];
+                        }
+                    }
+                    bResult = 1;
+                }
+            }
+        }
+        if (pData)
+            SMemFree(pData, gszSFileCpp_006CF084, 1450, 0);
+        SFileCloseFile(hFile);
+    }
+    return bResult;
+}
+
+#pragma pack(push, 1)
+struct D2WaveFormatStrc { unsigned short format, channels; unsigned int samplesPerSec, avgBytesPerSec; unsigned short blockAlign, bitsPerSample, extraSize; };
+struct D2WaveHeaderStrc { unsigned int tag, size, type, dataOffset, flags; };
+struct D2WaveBaseFormatStrc { unsigned short format, channels; unsigned int samplesPerSec, avgBytesPerSec; unsigned short blockAlign, bitsPerSample; };
+#pragma pack(pop)
+struct D2SoundBufferDescStrc { unsigned int size, flags, bufferBytes, reserved; D2WaveFormatStrc* pFormat; };
+struct D2DirectSoundStrc {
+    virtual long __stdcall QueryInterface() = 0;
+    virtual unsigned long __stdcall AddRef() = 0;
+    virtual unsigned long __stdcall Release() = 0;
+    virtual long __stdcall CreateSoundBuffer(D2SoundBufferDescStrc*, D2StormSoundBufferStrc**, void*) = 0;
+};
+extern D2DirectSoundStrc* gpDirectSound_00778F20; // 0x00778F20
+extern unsigned int gnBlock_007790A0; // 0x007790A0
+int __stdcall sub_0041A990_DdaClose(void*); // 0x0041A990
+
+// 0x0041B280
+int __stdcall SFileDdaBeginEx(void* hFile, unsigned int nBufferSize, unsigned int nFlags, unsigned int nOffset, int nVolume, int nPan, D2StormSoundBufferStrc* pBuffer)
+{
+    VALIDATEBEGIN;
+    VALIDATE(nBufferSize);
+    VALIDATEEND;
+    if (!gpDirectSound_00778F20) { sub_0041C340_SetLastError(0x85100071); return 0; }
+    FILEREC* pFile;
+    EnterCriticalSection(&gBasePathLock_00779068);
+    if (!sub_00415950_GetFileRec(hFile, &pFile)) { LeaveCriticalSection(&gBasePathLock_00779068); return 0; }
+    if (pFile->bDdaActive) sub_0041A990_DdaClose(hFile);
+    if (!((gnStormDirectFlags_00779058 | nFlags) & 1) && (pFile->nKind != -1 || !pFile->archive)) {
+        sub_0041C340_SetLastError(0x8510006f);
+        LeaveCriticalSection(&gBasePathLock_00779068);
+        return 0;
+    }
+    if (!gnBlock_007790A0) gnBlock_007790A0 = 0x4000;
+    gnStreamChunk_00779038 = gnBlock_007790A0;
+    if (!gpStreamBuffer_00779050) gpStreamBuffer_00779050 = (unsigned char*)SMemAlloc(gnStreamChunk_00779038, gszSFileCpp_006CF084, 0xc5d, 0);
+    if (pFile->archive) {
+        if (pFile->archive->nKind == 0 || pFile->archive->nKind == 1) pFile->archive->nKind = 2;
+    }
+    LeaveCriticalSection(&gBasePathLock_00779068);
+    unsigned int remainder = (gnStreamChunk_00779038 - 1) & nBufferSize;
+    if (remainder) nBufferSize += gnStreamChunk_00779038 - remainder;
+    if (nBufferSize < 2 * gnStreamChunk_00779038) nBufferSize = 2 * gnStreamChunk_00779038;
+    SFileSetFilePointer(hFile, 0, 0, 0);
+    D2WaveHeaderStrc riff;
+    if (!SFileReadFileEx2(hFile, &riff, 12, 0, 0, 0, 0) || riff.tag != 0x46464952 || riff.type != 0x45564157) goto invalid;
+    {
+        unsigned int chunk[2] = {0, 0};
+        if (!sub_0041B210_FindWaveChunk(hFile, 0x20746d66, chunk) || chunk[0] < 16) goto invalid;
+        D2WaveFormatStrc format;
+        {
+            D2WaveBaseFormatStrc rawFormat;
+            unsigned int formatSize = chunk[0];
+            if (!SFileReadFileEx2(hFile, &rawFormat, 16, 0, 0, 0, 0) || SFileSetFilePointer(hFile, formatSize - 16, 0, 1) == -1) goto invalid;
+            format.format = rawFormat.format;
+            format.channels = rawFormat.channels;
+            format.samplesPerSec = rawFormat.samplesPerSec;
+            format.avgBytesPerSec = rawFormat.avgBytesPerSec;
+            format.blockAlign = rawFormat.blockAlign;
+            format.bitsPerSample = rawFormat.bitsPerSample;
+            format.extraSize = 0;
+            if (!sub_0041B210_FindWaveChunk(hFile, 0x61746164, chunk)) goto invalid;
+        }
+        if (nOffset) nOffset %= chunk[0];
+        unsigned int offset = nOffset;
+        int ownsBuffer = pBuffer == 0;
+        if (ownsBuffer) {
+            D2SoundBufferDescStrc desc;
+            SMemZero(&desc, sizeof(desc));
+            desc.size = 20;
+            desc.flags = 0x80;
+            if (nFlags & 0x20) desc.flags = 0xa0;
+            if (nFlags & 0x40) desc.flags |= 0x40;
+            desc.bufferBytes = nBufferSize;
+            desc.pFormat = &format;
+            gpDirectSound_00778F20->CreateSoundBuffer(&desc, &pBuffer, 0);
+            if (!pBuffer) return 0;
+        }
+        if (nVolume && nVolume != 0x7fffffff) pBuffer->SetVolume(nVolume);
+        if (nPan && nPan != 0x7fffffff) pBuffer->SetPan(nPan);
+        EnterCriticalSection(&gBasePathLock_00779068);
+        AUDIOSTREAM* node = gDdaList_00708384.sub_00419700_NewNode(2, 0, 0);
+        node->pFile = pFile;
+        node->soundbuffersize = nBufferSize;
+        node->unk0x10 = format.avgBytesPerSec;
+        node->bRestart = (nFlags >> 18) & 1;
+        node->waveheadersize = chunk[1];
+        node->nSize = chunk[0];
+        node->nVolume = nVolume;
+        node->nPan = nPan;
+        node->fillstatus = 0;
+        node->nOffset = offset;
+        node->nPlayed = offset;
+        node->writecursor = offset;
+        node->pBuffer = pBuffer;
+        node->unk0x44 = ownsBuffer;
+        node->nFill = format.bitsPerSample == 8 ? 0x80 : 0;
+        node->nRefs = 1;
+        ++pFile->nRefCount;
+        pBuffer->SetCurrentPosition(0);
+        pFile->bDdaActive = 1;
+        LeaveCriticalSection(&gBasePathLock_00779068);
+        sub_0041A880_StartThread();
+        SetEvent(ghStormEvent_00779054);
+        return 1;
+    }
+invalid:
+    sub_0041C340_SetLastError(0xd);
+    return 0;
 }

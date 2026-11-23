@@ -27,7 +27,6 @@ extern const unsigned int gadwDccSignBits[32];                                  
 extern const unsigned int gadwDccSignExtend[33];                                                    // 0x006E60B8
 extern "C" const unsigned int gData_006E6030[33]; // 0x006E6030
 
-// build: context DccReadBits
 static inline unsigned int DccReadBits(D2CmpBitCursorStrc* pCursor, int nCount)
 {
     unsigned int nValue;
@@ -53,7 +52,6 @@ static inline unsigned int DccReadBits(D2CmpBitCursorStrc* pCursor, int nCount)
 }
 
 unsigned int __stdcall sub_0060B200(int nNumBits, D2CmpBitCursorStrc* pBitState); // 0x0060B200
-// build: context DccReadSigned
 static inline int DccReadSigned(int nCount, D2CmpBitCursorStrc* pCursor)
 {
     int nValue = sub_0060B200(nCount, pCursor);
@@ -136,7 +134,6 @@ void __fastcall sub_0060B640_BuildColorMaps(D2CmpByteMapStrc* pForward, const un
 void __stdcall sub_0060B9A0_DecodeStage1(D2DccDirStrc* pDir, D2DccCellStrc* pCells, D2CmpBitCursorStrc* pEqual, D2CmpBitCursorStrc* pMask, D2CmpBitCursorStrc* pEncoding, D2CmpBitCursorStrc* pRaw, D2CmpBitCursorStrc* pCode, D2CmpByteRunStrc* pRun, int* pnBitsUsed); // 0x0060B9A0
 
 
-// build: context DccCopyHeader
 static inline void DccCopyHeader(D2DccHeaderStrc* pHeader, const D2DccFileStrc* pFile)
 {
     pHeader->n04 = pFile->n04;

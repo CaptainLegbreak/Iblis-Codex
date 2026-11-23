@@ -64,7 +64,6 @@ static void* gpClhFileData; // 0x00882750
 
 unsigned int gnKeyFile3Size; // 0x00882754
 
-// build: context sub_GetTerminatedLength
 static inline unsigned int sub_GetTerminatedLength(const unsigned char* pString, unsigned int nSize)
 {
     unsigned int nMax = 0x80;

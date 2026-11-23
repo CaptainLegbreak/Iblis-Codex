@@ -161,7 +161,6 @@ int __stdcall SEvtPushState(unsigned int nType, unsigned int nSubType)
     return bResult;
 }
 
-// build: context CalcTableSize
 static inline unsigned int CalcTableSize(unsigned int nCount)
 {
     unsigned int nSize = 1;

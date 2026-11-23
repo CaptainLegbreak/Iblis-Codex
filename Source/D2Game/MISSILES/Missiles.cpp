@@ -125,7 +125,6 @@ static inline unsigned int MISSILES_RollPierceSeed_Inline(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-// build: context GetUnitType
 static inline int GetUnitType(D2UnitStrc* pUnit)
 {
     return !pUnit ? 6 : pUnit->dwUnitType;

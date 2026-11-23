@@ -3640,7 +3640,6 @@ void __fastcall SUNITPROXY_OnClientRemovedFromGame(D2GameStrc* pGame, D2UnitStrc
     SUNITPROXY_UpdateVendorInventory(pGame, nAct, unitProxyArg.nCounter == 0);
 }
 
-// build: context SUNITPROXY_GetVendorState
 static inline D2NpcVendorStateStrc* SUNITPROXY_GetVendorState(D2NpcRecordStrc* pNpcRecord)
 {
     return (D2NpcVendorStateStrc*)&pNpcRecord->bVendorInit;

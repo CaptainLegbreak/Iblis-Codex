@@ -233,7 +233,6 @@ int __fastcall sub_6FDAA720(D2PathInfoStrc* pPathInfo)
     return nbPathPoints;
 }
 
-// build: context PATH_ToFP16Center
 inline unsigned int PATH_ToFP16Center(unsigned short value)
 {
     return (value << 16) + (1 << 15);
@@ -388,7 +387,6 @@ int __fastcall sub_0067A4A0_TestPathPoints(D2PathInfoStrc* pPathInfo)
     return 1;
 }
 
-// build: context UNITS_GetXPositionInline
 inline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -401,7 +399,6 @@ inline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-// build: context UNITS_GetYPositionInline
 inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -576,7 +573,6 @@ int __fastcall PATH_Knockback_Client(D2PathInfoStrc* pPathInfo)
     return 1;
 }
 
-// build: context PATH_ScaleDelta
 static inline int PATH_ScaleDelta(int nScale, int nDelta, int nMax)
 {
     int nResult = nScale;

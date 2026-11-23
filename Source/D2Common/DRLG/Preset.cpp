@@ -1756,7 +1756,6 @@ void __fastcall DRLGPRESET_FreeDrlgFile(D2DrlgFileStrc** ppDrlgFile)
     }
 }
 
-// build: context DRLGPRESET_GetFileCount
 static inline int DRLGPRESET_GetFileCount(D2LvlPrestTxt* pLvlPrestTxtRecord)
 {
 	return pLvlPrestTxtRecord->dwFiles;
