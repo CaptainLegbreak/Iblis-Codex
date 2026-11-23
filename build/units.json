@@ -1526,6 +1526,10 @@
      "name": "sub_0040EBD0_OpenDatedLogFile"
     },
     {
+     "va": "0x0040EDE0",
+     "length": 541
+    },
+    {
      "va": "0x0040F000",
      "length": 111,
      "name": "?LOGMANAGER_GetLogDirectory@@YIXPADH@Z"
@@ -5139,30 +5143,6 @@
      "length": 8,
      "name": "??1CCritSect@@QAE@XZ"
     }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_0040EDE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0040EDE0",
-     "length": 541
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

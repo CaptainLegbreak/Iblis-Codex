@@ -1128,7 +1128,7 @@ extern int ganLogNewFile[20]; // 0x0075D298
 
 extern char gaszLogFilePaths[20][0x104]; // 0x0075D340
 
-extern unsigned long gadwLogOpenTick[20]; // 0x0075E7E0
+unsigned long gadwLogOpenTick[20]; // 0x0075E7E0
 
 extern "C" const char gszLogTimeStampFormat[]; // 0x006CE1DC
 
@@ -2232,6 +2232,13 @@ void __cdecl LOGMANAGER_SweepOldLogFiles()
 // 0x0040F590
 extern "C" void* __fastcall sub_0040F590(void* value) { return value; }
 
+char gaszLogNames[20][0x10]; // 0x0075D148
+
+unsigned long gadwLogWriteTick[20]; // 0x0075D2F0
+
+_iobuf* gapLogFiles[20]; // 0x0075E790
+
+// 0x0040EDE0
 _iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot)
 {
     const unsigned long dwTick = GetTickCount();
