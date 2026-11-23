@@ -14461,6 +14461,20 @@
      "name": "?INV_UpdateAuxBattleNetAddress@@YIXH@Z"
     },
     {
+     "va": "0x00482E00",
+     "length": 44,
+     "name": "?INV_ArchiveFilePresent@@YAHPBD@Z"
+    },
+    {
+     "va": "0x00482E30",
+     "length": 180,
+     "name": "?INV_BuildLocalizedVideoPath@@YAXPADPBD1@Z"
+    },
+    {
+     "va": "0x00482EF0",
+     "length": 1033
+    },
+    {
      "va": "0x00483300",
      "length": 8,
      "name": "_INV_StopCinematic"
@@ -14484,6 +14498,23 @@
      "va": "0x004834A0",
      "length": 58,
      "name": "?INV_SkipBracketTag@@YIPBUUnicode@@PBU1@@Z"
+    },
+    {
+     "va": "0x004834E0",
+     "length": 204
+    },
+    {
+     "va": "0x004835B0",
+     "length": 941,
+     "name": "?INV_LoadUiRecords@@YAXXZ"
+    },
+    {
+     "va": "0x004839D0",
+     "length": 159
+    },
+    {
+     "va": "0x00483A70",
+     "length": 64
     },
     {
      "va": "0x00483AE0",
@@ -14543,9 +14574,22 @@
      "name": "?INV_CanSocketInto@@YAHPAUD2UnitStrc@@0@Z"
     },
     {
+     "va": "0x004844A0",
+     "length": 245
+    },
+    {
+     "va": "0x004845A0",
+     "length": 1232
+    },
+    {
      "va": "0x00484A70",
      "length": 152,
      "name": "?INV_GetClassNameText@@YAPBUUnicode@@I@Z"
+    },
+    {
+     "va": "0x00484B10",
+     "length": 377,
+     "name": "?INV_AppendEtherealSocketed@@YGXPAUD2UnitStrc@@PAUUnicode@@@Z"
     },
     {
      "va": "0x00484C90",
@@ -14558,6 +14602,31 @@
      "name": "?INV_FormatEarNameTo@@YGHPAUUnicode@@PBU1@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00484DB0",
+     "length": 210,
+     "name": "?INV_AppendQuantity@@YGXPAUD2ItemsTxt@@PAUD2UnitStrc@@PAUUnicode@@@Z"
+    },
+    {
+     "va": "0x00484E90",
+     "length": 340,
+     "name": "?INV_AppendDurability@@YGXPAUD2UnitStrc@@PAUUnicode@@@Z"
+    },
+    {
+     "va": "0x00484FF0",
+     "length": 165,
+     "name": "?INV_AppendLabeledNumber@@YGXHPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004850A0",
+     "length": 194,
+     "name": "?INV_AppendReqStr@@YGXPAUD2ItemsTxt@@HPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x00485170",
+     "length": 194,
+     "name": "?INV_AppendReqDex@@YGXPAUD2ItemsTxt@@HPAUUnicode@@@Z"
+    },
+    {
      "va": "0x00485240",
      "length": 460,
      "name": "?INV_GetItemDamageRange@@YGXPAUD2UnitStrc@@0HHPAH11@Z"
@@ -14567,9 +14636,29 @@
      "length": 1992
     },
     {
+     "va": "0x00485BE0",
+     "length": 341,
+     "name": "?INV_AppendBlockChance@@YGXPAUUnicode@@PAUD2ItemsTxt@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00485D40",
+     "length": 414,
+     "name": "?INV_AppendThrowDamage@@YGXPAUD2UnitStrc@@PAUD2ItemsTxt@@PAUUnicode@@@Z"
+    },
+    {
      "va": "0x00485EE0",
      "length": 544,
      "name": "?INV_AppendDefense@@YGXPAUD2UnitStrc@@0PAUUnicode@@@Z"
+    },
+    {
+     "va": "0x00486100",
+     "length": 194,
+     "name": "?INV_AppendStackQuantity@@YGXPAUD2UnitStrc@@PAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004861D0",
+     "length": 406,
+     "name": "?INV_AppendAttackSpeed@@YGXPAUUnicode@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00486370",
@@ -15085,6 +15174,10 @@
      "name": "?INV_DrawPanelLabels@@YAXXZ"
     },
     {
+     "va": "0x0048A990",
+     "length": 1796
+    },
+    {
      "va": "0x0048B0A0",
      "length": 493
     },
@@ -15152,6 +15245,10 @@
      "length": 475
     },
     {
+     "va": "0x0048D1D0",
+     "length": 2465
+    },
+    {
      "va": "0x0048DB80",
      "length": 515,
      "name": "?INV_DrawTransmogrifyTooltip@@YAXXZ"
@@ -15178,6 +15275,10 @@
     {
      "va": "0x004912A0",
      "length": 1311
+    },
+    {
+     "va": "0x00491AD0",
+     "length": 577
     },
     {
      "va": "0x00492770",
@@ -24195,127 +24296,6 @@
      "length": 41,
      "name": "?sub_00483AB0_IsInInvRect@@YIHHH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/inv_004844A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00482E00",
-     "length": 44,
-     "name": "?INV_ArchiveFilePresent@@YAHPBD@Z"
-    },
-    {
-     "va": "0x00482E30",
-     "length": 180,
-     "name": "?INV_BuildLocalizedVideoPath@@YAXPADPBD1@Z"
-    },
-    {
-     "va": "0x00482EF0",
-     "length": 1033
-    },
-    {
-     "va": "0x004834E0",
-     "length": 204
-    },
-    {
-     "va": "0x004835B0",
-     "length": 941,
-     "name": "?INV_LoadUiRecords@@YAXXZ"
-    },
-    {
-     "va": "0x004839D0",
-     "length": 159
-    },
-    {
-     "va": "0x00483A70",
-     "length": 64
-    },
-    {
-     "va": "0x004844A0",
-     "length": 245
-    },
-    {
-     "va": "0x004845A0",
-     "length": 1232
-    },
-    {
-     "va": "0x00484B10",
-     "length": 377,
-     "name": "?INV_AppendEtherealSocketed@@YGXPAUD2UnitStrc@@PAUUnicode@@@Z"
-    },
-    {
-     "va": "0x00484DB0",
-     "length": 210,
-     "name": "?INV_AppendQuantity@@YGXPAUD2ItemsTxt@@PAUD2UnitStrc@@PAUUnicode@@@Z"
-    },
-    {
-     "va": "0x00484E90",
-     "length": 340,
-     "name": "?INV_AppendDurability@@YGXPAUD2UnitStrc@@PAUUnicode@@@Z"
-    },
-    {
-     "va": "0x00484FF0",
-     "length": 165,
-     "name": "?INV_AppendLabeledNumber@@YGXHPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004850A0",
-     "length": 194,
-     "name": "?INV_AppendReqStr@@YGXPAUD2ItemsTxt@@HPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x00485170",
-     "length": 194,
-     "name": "?INV_AppendReqDex@@YGXPAUD2ItemsTxt@@HPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x00485BE0",
-     "length": 341,
-     "name": "?INV_AppendBlockChance@@YGXPAUUnicode@@PAUD2ItemsTxt@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00485D40",
-     "length": 414,
-     "name": "?INV_AppendThrowDamage@@YGXPAUD2UnitStrc@@PAUD2ItemsTxt@@PAUUnicode@@@Z"
-    },
-    {
-     "va": "0x00486100",
-     "length": 194,
-     "name": "?INV_AppendStackQuantity@@YGXPAUD2UnitStrc@@PAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004861D0",
-     "length": 406,
-     "name": "?INV_AppendAttackSpeed@@YGXPAUUnicode@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0048A990",
-     "length": 1796
-    },
-    {
-     "va": "0x0048D1D0",
-     "length": 2465
-    },
-    {
-     "va": "0x00491AD0",
-     "length": 577
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
