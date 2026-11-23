@@ -43,6 +43,7 @@
 #include "D2GameRecords.h"
 
 #include "D2ItemsWorld.h"
+#include "D2SetsTxt.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -257,14 +258,6 @@ struct D2GradeModsStrc
 {
     char pad0x00[0xC];
     D2PropertyStrc pProperties[12];
-};
-
-struct D2SetsTxt
-{
-    char pad0x00[0x0C];
-    int nSetItems;
-    D2PropertyStrc pBoni2[8];
-    D2PropertyStrc pFBoni[8];
 };
 
 typedef int (__fastcall* ITEMMODS_PROPERTYFN)(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatlist, D2UnitStrc* a9);

@@ -4211,8 +4211,6 @@ struct D2MsgRecordChunkStrc
 
 struct D2SetsTxt;
 
-struct D2SetsTxt { char unk0x000[0x128]; };
-
 // 0x004A1730
 void __cdecl CUNIT_ClearTextPanel()
 {
