@@ -826,21 +826,6 @@ D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, 
 
 D2UnitStrc* __fastcall AITACTICS_FindTargetOrIdle(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, int*, int*); // 0x005DE9D0
 
-// 0x0059F840
-void __fastcall MISSILES_RemoveAll(D2GameStrc* pGame)
-{
-    for (int i = 0; i < 128; ++i)
-    {
-        D2UnitStrc* pUnit = pGame->pUnitList[4][i];
-        while (pUnit)
-        {
-            D2UnitStrc* pCurrent = pUnit;
-            pUnit = SUNIT_GetNextUnitFromList(pUnit);
-            SUNIT_RemoveUnit(pGame, pCurrent);
-        }
-    }
-}
-
 void __fastcall MONSTERUNIQUE_ToggleMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet); // 0x005A01B0
 static D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
 {

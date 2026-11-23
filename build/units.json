@@ -57185,11 +57185,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0059F840",
-     "length": 89,
-     "name": "MISSILES_RemoveAll"
-    },
-    {
      "va": "0x005A54F0",
      "length": 109,
      "name": "MONSTERMODE_AddSandLeaperKnockback"
@@ -57955,11 +57950,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0059F8A0",
-     "length": 62,
-     "name": "MISSILES_Initialize"
-    },
-    {
      "va": "0x005A0030",
      "length": 12,
      "name": "?sub_005A0030_GetMonLvlTxtRecordCount@@YIHXZ"
@@ -58427,37 +58417,27 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_0059F940.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0059F940",
-     "length": 232
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Game/MISSILES/Missiles.cpp",
    "rank": 0,
    "functions": [
     {
+     "va": "0x0059F840",
+     "length": 89,
+     "name": "MISSILES_RemoveAll"
+    },
+    {
+     "va": "0x0059F8A0",
+     "length": 62,
+     "name": "MISSILES_Initialize"
+    },
+    {
      "va": "0x0059F8E0",
      "length": 30,
      "name": "?MISSILES_Free@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0059F940",
+     "length": 232
     },
     {
      "va": "0x0059FA30",
