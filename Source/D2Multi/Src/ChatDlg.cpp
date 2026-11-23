@@ -1178,6 +1178,7 @@ static int __stdcall sub_0043E860_FindHashedWord(char* szText, unsigned int nHas
     return 0;
 }
 
+// 0x004428D0
 int __fastcall sub_004428D0_SendChatText(char* szText, int bWhisper)
 {
     const int bCommand = szText[0] == '/';

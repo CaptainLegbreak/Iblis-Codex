@@ -84,32 +84,7 @@ static const unsigned char* __stdcall sub_00681540(unsigned char nDirection, uns
     return gPathTurns[(unsigned char)(nDirection - nBase) & 3];
 }
 
-// 0x00681560
-static T00681490* __stdcall sub_00681560(T00681490* pNode, T00681490** ppStart)
-{
-    if (pNode->nTried < 4)
-    {
-        ++pNode->pTurn;
-        pNode->nDirection = (*pNode->pTurn + pNode->nDirection) & 3;
-    }
-    ++pNode->nTried;
-
-    while (pNode->nTried == 3)
-    {
-        if (pNode == *ppStart)
-        {
-            return 0;
-        }
-
-        pNode = pNode->pParent;
-        ++pNode->pTurn;
-        pNode->nDirection = (*pNode->pTurn + pNode->nDirection) & 3;
-        ++pNode->nTried;
-    }
-
-    return pNode;
-}
-
+T00681490* __stdcall sub_00681560(T00681490* pNode, T00681490** ppStart); // 0x00681560
 // 0x006815C0
 static int __stdcall sub_006815C0(D2DrlgVertexStrc* pGoal, int nX, int nY, D2DrlgLevelStrc* pLevel, T00681490* pNode)
 {

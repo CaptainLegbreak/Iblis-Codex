@@ -38,7 +38,7 @@ void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* 
 void __fastcall CHATDLG_ShowError(const Unicode* pText, D2LaunchCallback pfnDone); // 0x00440140
 extern D2WinControlStrc* gpChatTextBox; // 0x0077BD8C
 extern char gszLastWhisperer[]; // 0x0077B0D0
-static int __stdcall CHATDLG_CompareCommand(const char* szText, const char* szCommand); // 0x0043E6E0
+int __stdcall CHATDLG_CompareCommand(const char* szText, const char* szCommand); // 0x0043E6E0
 
 struct D2LaunchGameEntryStrc
 {
@@ -134,43 +134,6 @@ void __cdecl sub_00440FC0_CreateGatewayControls()
 }
 
 #include "gen/data/Source/D2Multi/Unknown_00440FC0.inc"
-
-// 0x0043E6E0
-static int __stdcall CHATDLG_CompareCommand(const char* szText, const char* szCommand)
-{
-    if (strlen(szText) < strlen(szCommand))
-        return -1;
-
-    unsigned int nLength = strlen(szCommand);
-    while (nLength--)
-    {
-        const int nDiff = toupper(*szText) - toupper(*szCommand);
-        if (nDiff)
-            return nDiff > 0 ? 1 : -1;
-        ++szText;
-        ++szCommand;
-    }
-    return 0;
-}
-
-// build: context CONSOLE_FindSecondTokenInline
-static __forceinline int CONSOLE_FindSecondTokenInline(const char* szText, char* szCopy, const char** ppArg)
-{
-    strcpy(szCopy, szText);
-    char szDelim[2] = " ";
-    char* pToken = strtok(szCopy, szDelim);
-    int nCount = 0;
-    while (pToken)
-    {
-        if (++nCount == 2)
-        {
-            *ppArg = szText + (pToken - szCopy);
-            return 1;
-        }
-        pToken = strtok(0, szDelim);
-    }
-    return 0;
-}
 
 // build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040

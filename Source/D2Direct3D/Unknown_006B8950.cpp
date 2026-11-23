@@ -80,34 +80,8 @@ static void __stdcall sub_006B7FD0_Viewport(int nSide, D2RectStrc* pRect, int* p
         break;
     }
 }
-static int __stdcall sub_006B87A0_Flat(D2TileStrc*,int,int,U32*,int,U8);
-static int __stdcall sub_006B87A0_Flat(D2TileStrc*,int,int,U32*,int,U8); // 0x006B87A0
+int __stdcall sub_006B87A0_Flat(D2TileStrc*,int,int,U32*,int,U8); // 0x006B87A0
 
-// build: context sub_006B87A0_Flat
-static int __stdcall sub_006B87A0_Flat(D2TileStrc* tile,int x,int y,U32* light,int panels,U8 alpha)
-{
- int result=0; D2RectStrc r;
- sub_006B7FD0_Viewport(panels,&r,0,0);
- y+=32;
- for(int i=0;i<tile->count;++i) {
-  int bx=tile->blocks[i].x, right=x+bx, bottom=y+tile->blocks[i].y;
-  if(right>=r.left && right<r.right && bottom>=r.top && bottom<r.bottom) {
-   U32 leftColor=light[bx>>5],rightColor=light[(bx>>5)+1];
-   int top=bottom-32,end=right+32; result=1;
-   sub_006BBA00_BindTile(&tile->blocks[i]);
-   gatQuad[0].x=(float)right;gatQuad[0].y=(float)top;
-   gatQuad[1].x=(float)right;gatQuad[1].y=(float)bottom;
-   gatQuad[2].x=(float)end;gatQuad[2].y=(float)bottom;
-   gatQuad[3].x=(float)end;gatQuad[3].y=(float)top;
-   sub_006B9780_SetColor(&gatQuad[0],leftColor,alpha);
-   sub_006B9780_SetColor(&gatQuad[1],leftColor,alpha);
-   sub_006B9780_SetColor(&gatQuad[2],rightColor,alpha);
-   sub_006B9780_SetColor(&gatQuad[3],rightColor,alpha);
-   gpDevice_00970E78->vtbl->DrawPrimitive(gpDevice_00970E78,6,0x1c4,gatQuad,4,0x1c);
-  }
- }
- return result;
-}
 static int __stdcall sub_006B8950_Lit(int,D2TileStrc*,int,int,U32*,U8);
 static int __stdcall sub_006B8950_Lit(int,D2TileStrc*,int,int,U32*,U8); // 0x006B8950
 // 0x006B8950

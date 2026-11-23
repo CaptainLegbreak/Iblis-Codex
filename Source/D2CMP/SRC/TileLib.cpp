@@ -89,6 +89,48 @@ struct D2TileLibraryEntryStrc
     int unk0x58;
 };
 
+struct D2TileLibraryHeaderStrc;
+void __stdcall D2CMPLoadProjectRecord(D2TileLibraryHeaderStrc** ppLibrary, const char* szFilePath); // 0x00600790
+
+// 0x00604A40
+void __stdcall TileLibraryAddProject(D2TileLibraryHeaderStrc** ptTileLibrary, const char* szFilePath)
+{
+    D2_ASSERT(ptTileLibrary, 0x1C);
+    D2_ASSERT(szFilePath, 0x1D);
+    int i;
+    for (i = 0; i < 32; ++i)
+    {
+        if (!ptTileLibrary[i])
+        {
+            D2CMPLoadProjectRecord(&ptTileLibrary[i], szFilePath);
+            break;
+        }
+    }
+    D2_ASSERT(i < 32, 0x2A);
+}
+
+int __stdcall sub_00600760_GetValue(void* pData); // 0x00600760
+
+// 0x00604AA0
+void __stdcall TileLibraryReleaseProject(int* pSlots, char* pEntry)
+{
+    if (pEntry)
+    {
+        int nValue = sub_00600760_GetValue(pEntry + 8);
+        if (nValue)
+        {
+            for (int i = 0; i < 0x20; i++)
+            {
+                if (pSlots[i] == nValue)
+                {
+                    pSlots[i] = 0;
+                    return;
+                }
+            }
+        }
+    }
+}
+
 // 0x0060A390
 void __stdcall TileProjectNormalizeHeaders(D2CmpTileLibraryStrc* pLibrary, D2CmpTileLibraryStrc** ppLibrary, const char* szName)
 {
@@ -145,31 +187,6 @@ void __fastcall CelIterateRgbPixels(D2CmpRGBImageStrc* pImage, D2CmpColorCallbac
         if (nColor != nPacked)
             pfnColor(nColor);
     }
-}
-
-// 0x0060D510
-D2CmpSubTileRecordStrc* __fastcall SubTileCreateRecord(const void* pSrc, int bRaw)
-{
-    void* pData;
-    int nSize;
-    if (bRaw)
-    {
-        pData = FOG_Alloc(0xC00, szSubTileFile, 0x66, 0);
-        memcpy(pData, pSrc, 0xC00);
-        nSize = 0xC00;
-    }
-    else
-    {
-        int nLength;
-        pData = sub_0060D430_Compress(pSrc, &nLength);
-        nSize = nLength;
-    }
-    D2CmpSubTileRecordStrc* pRecord = (D2CmpSubTileRecordStrc*)FOG_Alloc(sizeof(D2CmpSubTileRecordStrc), szSubTileFile, 0x6E, 0);
-    memset(pRecord, 0, sizeof(D2CmpSubTileRecordStrc));
-    D2_ASSERT(nSize > 0xFFFF, 0x70);
-    pRecord->ptData = (unsigned char*)pData;
-    pRecord->nLength = (unsigned short)nSize;
-    return pRecord;
 }
 
 // 0x00604B60

@@ -67,52 +67,7 @@ static void __stdcall sub_0050C690_GlideGetDrawRect(int bPerspective, int nScree
 }
 static void __stdcall sub_0050C690_GlideGetDrawRect(int bPerspective, int nScreenPanels, tagRECT* pRect, int* pOffset); // 0x0050C690
 
-// build: context sub_0050CDD0_GlideTileDrawFlat
-static int __stdcall sub_0050CDD0_GlideTileDrawFlat(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels)
-{
-    int nResult = 0;
-    tagRECT tRect;
-    sub_0050C690_GlideGetDrawRect(0, nScreenPanels, &tRect, 0);
-
-    nPosY += 0x20;
-    for (int i = 0; i < pTile->nBlocks; ++i)
-    {
-        D2GlideTileStrc* pBlock = &pTile->pBlocks[i];
-        const int nX = nPosX + pBlock->nPosX;
-        const int nY = pBlock->nPosY + nPosY;
-        if (nX >= tRect.left && nX < tRect.right && nY >= tRect.top && nY < tRect.bottom)
-        {
-            const int nCol = pBlock->nPosX >> 5;
-            const unsigned int dwColor0 = pLight->aColor[nCol];
-            const unsigned int dwColor1 = pLight->aColor[nCol + 1];
-            const int nY1 = nY - 0x20;
-            const int nX1 = nX + 0x20;
-            nResult = 1;
-            sub_0050FBD0_GlideBindTileTexture(&pTile->pBlocks[i]);
-
-            const float fX0 = (float)nX;
-            const float fY1 = (float)nY1;
-            const float fY0 = (float)nY;
-            const float fX1 = (float)nX1;
-            gaGlideTileQuad[0].x = fX0;
-            gaGlideTileQuad[0].y = fY1;
-            gaGlideTileQuad[1].x = fX0;
-            gaGlideTileQuad[1].y = fY0;
-            gaGlideTileQuad[2].x = fX1;
-            gaGlideTileQuad[2].y = fY0;
-            gaGlideTileQuad[3].x = fX1;
-            gaGlideTileQuad[3].y = fY1;
-            GLIDE_SetVertexColor(&gaGlideTileQuad[0], dwColor0);
-            GLIDE_SetVertexColor(&gaGlideTileQuad[1], dwColor0);
-            GLIDE_SetVertexColor(&gaGlideTileQuad[2], dwColor1);
-            GLIDE_SetVertexColor(&gaGlideTileQuad[3], dwColor1);
-            gpfnGrDrawVertexArrayContiguous(5, 4, gaGlideTileQuad, sizeof(D2GlideSpriteVertexStrc));
-        }
-    }
-
-    return nResult;
-}
-static int __stdcall sub_0050CDD0_GlideTileDrawFlat(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels); // 0x0050CDD0
+int __stdcall sub_0050CDD0_GlideTileDrawFlat(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels); // 0x0050CDD0
 // 0x0050CF70
 static int __stdcall sub_0050CF70_GlideTileDrawPerspective(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels)
 {

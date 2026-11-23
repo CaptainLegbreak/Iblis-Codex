@@ -210,7 +210,7 @@ D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDiff
 
 #define MONALIGN_EVIL 0
 
-__declspec(noinline) int __fastcall MONSTER_GetHpBonus(int nPlayerCount); // 0x005738F0
+int __fastcall MONSTER_GetHpBonus(int nPlayerCount); // 0x005738F0
 
 // build: context MONSTER_GetHpBonus
 __declspec(noinline) int __fastcall MONSTER_GetHpBonus(int nPlayerCount)
@@ -223,7 +223,7 @@ __declspec(noinline) int __fastcall MONSTER_GetHpBonus(int nPlayerCount)
     return (nPlayerCount - HP_BONUS_BASE) * HP_BONUS_STEP;
 }
 
-__declspec(noinline) int __fastcall MONSTER_GetExperienceBonus(int nPlayerCount); // 0x00573910
+int __fastcall MONSTER_GetExperienceBonus(int nPlayerCount); // 0x00573910
 
 // build: context MONSTER_GetExperienceBonus
 __declspec(noinline) int __fastcall MONSTER_GetExperienceBonus(int nPlayerCount)

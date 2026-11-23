@@ -227,43 +227,7 @@ static void ENVIRONMENT_UpdateLightIntensity(D2DrlgEnvironmentStrc* pEnvironment
     }
 }
 
-// 0x0061BCE0
-static void __stdcall ENVIRONMENT_UpdateLightColor(int nAct, D2DrlgEnvironmentStrc* pEnvironment)
-{
-    const int nCycleIndex = pEnvironment->nCycleIndex;
-    int nNextCycleIndex = nCycleIndex + 1;
-    if (nNextCycleIndex == NUM_ENVIRONMENT_CYCLES)
-    {
-        nNextCycleIndex = 0;
-    }
-
-    const D2EnvironmentCycleStrc* pCurrEnvironmentCycle;
-    const D2EnvironmentCycleStrc* pNextEnvironmentCycle;
-    if (nAct == ACT_IV)
-    {
-        pCurrEnvironmentCycle = &gAct4EnvironmentCycle[nCycleIndex];
-        pNextEnvironmentCycle = &gAct4EnvironmentCycle[nNextCycleIndex];
-    }
-    else if (!pEnvironment->bEclipse)
-    {
-        pCurrEnvironmentCycle = &gNormalEnvironmentCycle[nCycleIndex];
-        pNextEnvironmentCycle = &gNormalEnvironmentCycle[nNextCycleIndex];
-    }
-    else
-    {
-        pCurrEnvironmentCycle = &gEclipseEnvironmentCycle[nCycleIndex];
-        pNextEnvironmentCycle = &gEclipseEnvironmentCycle[nNextCycleIndex];
-    }
-
-    const int nCurrTicks = pEnvironment->nTimeRate * pCurrEnvironmentCycle->nTicksBegin;
-    const double dLerpRatio = (double)(pEnvironment->nTicks - nCurrTicks) / (double)(pEnvironment->nTimeRate * pNextEnvironmentCycle->nTicksBegin - nCurrTicks);
-    const int nGreen = (int)((pNextEnvironmentCycle->nGreen - pCurrEnvironmentCycle->nGreen) * dLerpRatio + 0.5);
-    const int nBlue = (int)((pNextEnvironmentCycle->nBlue - pCurrEnvironmentCycle->nBlue) * dLerpRatio + 0.5);
-    pEnvironment->nRed = pCurrEnvironmentCycle->nRed + (unsigned char)((pNextEnvironmentCycle->nRed - pCurrEnvironmentCycle->nRed) * dLerpRatio + 0.5);
-    pEnvironment->nGreen = pCurrEnvironmentCycle->nGreen + nGreen;
-    pEnvironment->nBlue = pCurrEnvironmentCycle->nBlue + nBlue;
-}
-
+void __stdcall ENVIRONMENT_UpdateLightColor(int nAct, D2DrlgEnvironmentStrc* pEnvironment); // 0x0061BCE0
 static void ENVIRONMENT_SetCycleState(D2DrlgEnvironmentStrc* pEnvironment)
 {
     const D2EnvironmentCycleStrc* pEnvironmentCycle = !pEnvironment->bEclipse ? &gNormalEnvironmentCycle[pEnvironment->nCycleIndex] : &gEclipseEnvironmentCycle[pEnvironment->nCycleIndex];

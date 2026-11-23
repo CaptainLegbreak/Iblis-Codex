@@ -7,8 +7,8 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);
 
 BOOLEAN __stdcall AUTOMAP_IsDebugDirectorySizeValid(unsigned int nValue);
 static bool __stdcall sub_004049A0_ReadImageInfo(D2CrashModuleStrc* pModule, const D2ImageDosHeaderStrc* pImage);
-static bool sub_00404F80_ReadNb10(D2CrashModuleStrc* pModule, const D2CvNb10Strc* pCv);
-static bool sub_00404FF0_ReadRsds(const D2CvRsdsStrc* pCv, D2CrashModuleStrc* pModule);
+bool sub_00404F80_ReadNb10(D2CrashModuleStrc* pModule, const D2CvNb10Strc* pCv); // 0x00404F80
+bool sub_00404FF0_ReadRsds(const D2CvRsdsStrc* pCv, D2CrashModuleStrc* pModule); // 0x00404FF0
 
 static int sub_00404730_GetImageKind(const D2ImageOptionalHeaderStrc* pHeader)
 {
@@ -230,38 +230,4 @@ bool D2ModuleStrc::sub_00404AB0_VisitModule(void* pContext, const wchar_t* wszNa
     pList->aModules[pList->nCount] = tModule;
     ++pList->nCount;
     return pList->nCount < 0x100;
-}
-
-// build: context sub_00404F80_ReadNb10
-static bool sub_00404F80_ReadNb10(D2CrashModuleStrc* pModule, const D2CvNb10Strc* pCv)
-{
-    if (IsBadReadPtr(pCv, 0x14))
-    {
-        return false;
-    }
-    if (IsBadStringPtrA(pCv->szPdbName, 0x104))
-    {
-        return false;
-    }
-    strncpy_s(pModule->szPath, sizeof(pModule->szPath), pCv->szPdbName, -1);
-    pModule->nAge = pCv->dwAge;
-    sub_00404860_SetNb10Info(pModule, pCv);
-    return true;
-}
-
-// build: context sub_00404FF0_ReadRsds
-static bool sub_00404FF0_ReadRsds(const D2CvRsdsStrc* pCv, D2CrashModuleStrc* pModule)
-{
-    if (IsBadReadPtr(pCv, 0x1C))
-    {
-        return false;
-    }
-    if (IsBadStringPtrA(pCv->szPdbName, 0x104))
-    {
-        return false;
-    }
-    strncpy_s(pModule->szPath, sizeof(pModule->szPath), pCv->szPdbName, -1);
-    pModule->nAge = pCv->dwAge;
-    sub_00404890_CopyRsdsGuid(pModule, pCv);
-    return true;
 }

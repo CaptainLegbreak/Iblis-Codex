@@ -123,30 +123,7 @@ void __stdcall DRLGTILESUB_ReplaceSubPreset(int nX, int nY, D2UnkOutdoorStrc* pO
     }
 }
 
-static void __stdcall sub_0066FA10(void* pMemPool, int nX, int nY, D2UnkOutdoorStrc2* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord); // 0x0066FA10
-
-// build: context sub_0066FA10
-static void __stdcall sub_0066FA10(void* pMemPool, int nX, int nY, D2UnkOutdoorStrc2* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord)
-{
-    int nSubX = nX;
-    int nSubY = nY;
-    int nMinX = pSubstGroup->tBox.nPosX;
-    int nMinY = pSubstGroup->tBox.nPosY;
-    int nSizeX = pSubstGroup->tBox.nWidth;
-    int nSizeY = pSubstGroup->tBox.nHeight;
-
-    DUNGEON_GameTileToSubtileCoords(&nSubX, &nSubY);
-    DUNGEON_GameTileToSubtileCoords(&nMinX, &nMinY);
-    DUNGEON_GameTileToSubtileCoords(&nSizeX, &nSizeY);
-
-    for (D2PresetUnitStrc* pPresetUnit = pLvlSubTxtRecord->pDrlgFile->pPresetUnit; pPresetUnit; pPresetUnit = pPresetUnit->pNext)
-    {
-        if (pPresetUnit->nXpos > nMinX && pPresetUnit->nYpos > nMinY && pPresetUnit->nXpos < nMinX + nSizeX && pPresetUnit->nYpos < nMinY + nSizeY)
-        {
-            DRLGROOM_AllocPresetUnit(pOutdoor->pDrlgRoom, pMemPool, pPresetUnit->nUnitType, pPresetUnit->nIndex, pPresetUnit->nMode, nSubX + pPresetUnit->nXpos - nMinX, nSubY + pPresetUnit->nYpos - nMinY);
-        }
-    }
-}
+void __stdcall sub_0066FA10(void* pMemPool, int nX, int nY, D2UnkOutdoorStrc2* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord); // 0x0066FA10
 
 void __stdcall sub_0066FAD0(void* pMemPool, int nX, int nY, D2UnkOutdoorStrc2* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord, int nOffset)
 {

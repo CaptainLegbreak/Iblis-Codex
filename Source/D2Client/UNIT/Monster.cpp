@@ -360,7 +360,6 @@ static inline void MONSTER_SetNpcMenuValue(unsigned short wValue); // 0x004B17F0
 
 static inline bool MONSTER_IsStringUnused(unsigned short wString); // 0x004B1800
 
-static inline int MONSTER_IsItemIdentified(D2UnitStrc* pItem); // 0x004B1F60
 
 typedef void (__fastcall* UMODCALLBACK)(void* pTarget, int nUMod, int bUnique);
 
@@ -1687,7 +1686,7 @@ void __fastcall sub_M103_Emit_004B1000(D2UnitStrc* pItem, int nArg)
 {
     if (MONSTER_IsStringUnused((unsigned short)nArg))
     {
-        sub_M103_EmitSink(MONSTER_IsItemIdentified(pItem));
+        sub_M103_EmitSink(1);
     }
     MONSTER_SetNpcMenuState(nArg);
     MONSTER_SetNpcMenuUnit(pItem);
@@ -2874,12 +2873,6 @@ void __cdecl MONSTER_CloseNpcResource()
 int __cdecl sub_004B1DC0()
 {
     return 0;
-}
-
-// 0x004B1F60
-static inline int MONSTER_IsItemIdentified(D2UnitStrc* pItem)
-{
-    return ITEMS_CheckItemFlag(pItem, 0x10, 2457, ".\\UI\\npcmenu.cpp");
 }
 
 // 0x004B2010

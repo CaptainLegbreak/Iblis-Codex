@@ -194,28 +194,7 @@ static void __stdcall sub_006772C0_InitLevelLinks(D2DrlgLinkStrc* pDrlgLink, LIN
     }
 }
 
-// 0x006775C0
-static void __stdcall sub_006775C0_SetOverlapWarps(int nStartId, int nEndId, D2DrlgStrc* pDrlg)
-{
-    for (int i = nStartId; i <= nEndId; ++i)
-    {
-        D2DrlgLevelStrc* pLevel = DRLG_GetLevel(pDrlg, i);
-        D2DrlgWarpStrc* pDrlgWarp = DRLG_GetDrlgWarpFromLevelId(pDrlg, i);
-
-        for (int j = nStartId; j <= nEndId; ++j)
-        {
-            if (i != j)
-            {
-                D2DrlgLevelStrc* pOtherLevel = DRLG_GetLevel(pDrlg, j);
-                if (DRLG_CheckOverlappingWithOrthogonalMargin(&pLevel->pLevelCoords, &pOtherLevel->pLevelCoords, -1))
-                {
-                    DRLG_SetWarpId(pDrlgWarp, j, -1, -1);
-                }
-            }
-        }
-    }
-}
-
+void __stdcall sub_006775C0_SetOverlapWarps(int nStartId, int nEndId, D2DrlgStrc* pDrlg); // 0x006775C0
 static inline void sub_00677640_AddOrthToLevel(D2DrlgLevelStrc* pLevel, int nLevelId)
 {
     D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
@@ -224,29 +203,7 @@ static inline void sub_00677640_AddOrthToLevel(D2DrlgLevelStrc* pLevel, int nLev
     DRLGROOM_AddOrth(&pOutdoors->pRoomData, pWarpLevel, nDirection, pWarpLevel->nDrlgType == DRLGTYPE_PRESET);
 }
 
-// 0x00677680
-static void __stdcall sub_00677680_AddLevelOrths(D2DrlgStrc* pDrlg, int nEndId, int nStartId)
-{
-    for (int i = nStartId; i <= nEndId; ++i)
-    {
-        D2DrlgLevelStrc* pLevel = DRLG_GetLevel(pDrlg, i);
-
-        if (pLevel->nDrlgType == DRLGTYPE_OUTDOOR)
-        {
-            int* pVisArray = DRLGROOM_GetVisArrayFromLevelId(pDrlg, i);
-            int* pWarpIdArray = DRLGWARP_GetWarpIdArrayFromLevelId(pDrlg, i);
-
-            for (int j = 0; j < 8; ++j)
-            {
-                if (pVisArray[j] && pWarpIdArray[j] == -1)
-                {
-                    sub_00677640_AddOrthToLevel(pLevel, pVisArray[j]);
-                }
-            }
-        }
-    }
-}
-
+void __stdcall sub_00677680_AddLevelOrths(D2DrlgStrc* pDrlg, int nEndId, int nStartId); // 0x00677680
 static void sub_00677750_CreateAct1LevelConnections(D2DrlgStrc* pDrlg);
 static void sub_00677790_CreateAct2LevelConnections(D2DrlgStrc* pDrlg);
 static __declspec(noinline) void sub_006789B0_CreateAct3LevelConnections(D2DrlgStrc* pDrlg);

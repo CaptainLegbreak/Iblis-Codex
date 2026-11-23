@@ -64,26 +64,7 @@ static inline unsigned int SEED_RollRandomNumber_Wild(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-// 0x0067FC70
-static int DRLGOUTWILD_TestSpawnRiver(int nX, D2DrlgLevelStrc* pLevel)
-{
-    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
-    for (int nY = 0; nY < pOutdoors->nGridHeight; ++nY)
-    {
-        if (DRLGGRID_GetGridEntry(&pOutdoors->pGrid[2], nX, nY) & 2)
-        {
-            return 0;
-        }
-
-        if (DRLGGRID_GetGridEntry(&pOutdoors->pGrid[2], nX + 1, nY) & 2)
-        {
-            return 0;
-        }
-    }
-
-    return 1;
-}
-
+int DRLGOUTWILD_TestSpawnRiver(int nX, D2DrlgLevelStrc* pLevel); // 0x0067FC70
 // 0x0067FFB0
 static inline int sub_0067FFB0_IsRectAdjacent(D2DrlgOutRectStrc* pRect, D2DrlgOutRectStrc* pOther)
 {
@@ -206,154 +187,10 @@ static void sub_00680070_MarkVertexDirections(D2DrlgLevelStrc* pLevel)
     while (!bBreak && pVertex != pOutdoors->pVertex);
 }
 
-// 0x006803D0
-static void DRLGOUTWILD_SpawnTownTransitionsAndCaves(D2DrlgLevelStrc* pLevel)
-{
-    if (pLevel->eLevelId == LEVEL_MOOMOOFARM)
-    {
-        return;
-    }
+void DRLGOUTWILD_SpawnTownTransitionsAndCaves(D2DrlgLevelStrc* pLevel); // 0x006803D0
+void __stdcall DRLGOUTWILD_SpawnCottage(int bExtraCottage, int nLvlPrestId, D2DrlgLevelStrc* pLevel); // 0x006804E0
 
-    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
-    if (pOutdoors->dwFlags & 0x10)
-    {
-        const int nX = pOutdoors->nGridWidth / 2 - 1;
-        if (DRLGOUTWILD_TestSpawnRiver(nX, pLevel))
-        {
-            sub_0067FE90_PlaceColumns(pLevel, nX);
-        }
-    }
-
-    if (pOutdoors->dwFlags & 0x80)
-    {
-        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 0, 0, 3, 1, 0);
-    }
-
-    if (pOutdoors->dwFlags & 0x100)
-    {
-        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, pOutdoors->nGridWidth - 7, 0, 3, 2, 0);
-    }
-
-    if (pOutdoors->dwFlags & 0x200)
-    {
-        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 0, 1, 2, 1, 0);
-    }
-
-    if (pOutdoors->dwFlags & 0x400)
-    {
-        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 0, pOutdoors->nGridHeight - 6, 2, 1, 0);
-    }
-
-    if (!(pOutdoors->dwFlags & 0x40))
-    {
-        int bAdded = 0;
-        if (pLevel->eLevelId == LEVEL_BLOODMOOR)
-        {
-            D2DrlgCoordStrc* pCoords = &DRLG_GetLevel(pLevel->pDrlg, LEVEL_ROGUEENCAMPMENT)->pLevelCoords;
-            bAdded = DRLGOUTDOORS_SpawnPresetFarAway(pLevel, pCoords, 0x34, -1, 1, 15);
-        }
-        else
-        {
-            bAdded = DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x33, -1, 1, 15);
-        }
-
-        D2_ASSERT(bAdded, 0x1E5);
-        pOutdoors->dwFlags |= 0x40;
-    }
-}
-
-// 0x006804E0
-static void __stdcall DRLGOUTWILD_SpawnCottage(int bExtraCottage, int nLvlPrestId, D2DrlgLevelStrc* pLevel)
-{
-    if (SEED_RollRandomNumber_Wild(&pLevel->pSeed) & 3)
-    {
-        DRLGOUTDOORS_SpawnRandomOutdoorDS1(pLevel, nLvlPrestId, -1);
-
-        if (bExtraCottage && (SEED_RollRandomNumber_Wild(&pLevel->pSeed) & 1))
-        {
-            DRLGOUTDOORS_SpawnRandomOutdoorDS1(pLevel, 0x31, -1);
-        }
-    }
-    else
-    {
-        DRLGOUTDOORS_SpawnRandomOutdoorDS1(pLevel, nLvlPrestId, -1);
-        DRLGOUTDOORS_SpawnRandomOutdoorDS1(pLevel, nLvlPrestId, -1);
-    }
-}
-
-// 0x00680580
-static void DRLGOUTWILD_SpawnSpecialPresets(D2DrlgLevelStrc* pLevel)
-{
-    switch (pLevel->eLevelId)
-    {
-    case LEVEL_BLOODMOOR:
-        DRLGOUTDOORS_SpawnRandomOutdoorDS1(pLevel, 0x2E, -1);
-        DRLGOUTWILD_SpawnCottage(0, 0x2F, pLevel);
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1D, -1, 0, 15);
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1E, -1, 0, 15);
-        return;
-
-    case LEVEL_COLDPLAINS:
-        DRLGOUTWILD_SpawnCottage(1, 0x30, pLevel);
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x2C, -1, 0, 15);
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1D, -1, 0, 15);
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1E, -1, 0, 15);
-        return;
-
-    case LEVEL_STONYFIELD:
-        DRLGOUTDOORS_SpawnRandomOutdoorDS1(pLevel, 0xA0, -1);
-        DRLGOUTDOORS_SpawnRandomOutdoorDS1(pLevel, 0x2D, -1);
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0xA2, -1, 0, 15);
-        DRLGOUTWILD_SpawnCottage(1, 0x2F, pLevel);
-        DRLGOUTWILD_SpawnCottage(0, 0x2A, pLevel);
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1F, -1, 0, 15);
-        return;
-
-    case LEVEL_DARKWOOD:
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0xA1, -1, 0, 15);
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x29, -1, 0, 15);
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x28, -1, 0, 15);
-        DRLGOUTWILD_SpawnCottage(1, 0x30, pLevel);
-        DRLGOUTWILD_SpawnCottage(0, 0x2B, pLevel);
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1D, -1, 0, 15);
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1E, -1, 0, 15);
-        return;
-
-    case LEVEL_BLACKMARSH:
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0xA3, -1, 0, 15);
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x26, -1, 0, 15);
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x27, -1, 0, 15);
-        DRLGOUTWILD_SpawnCottage(1, 0x2F, pLevel);
-        DRLGOUTWILD_SpawnCottage(0, 0x2A, pLevel);
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1D, -1, 0, 15);
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1E, -1, 0, 15);
-        return;
-
-    case LEVEL_TAMOEHIGHLAND:
-        DRLGOUTWILD_SpawnCottage(1, 0x30, pLevel);
-        DRLGOUTWILD_SpawnCottage(0, 0x2B, pLevel);
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1F, -1, 0, 15);
-        return;
-
-    case LEVEL_BURIALGROUNDS:
-        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 1, 1, 0x6C, -1, 0);
-        return;
-
-    case LEVEL_MOOMOOFARM:
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x32, -1, 0, 15);
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x2E, -1, 0, 15);
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1F, -1, 0, 15);
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x26, -1, 0, 15);
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x27, -1, 0, 15);
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1D, -1, 0, 15);
-        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1E, -1, 0, 15);
-        return;
-
-    default:
-        return;
-    }
-}
-
+void DRLGOUTWILD_SpawnSpecialPresets(D2DrlgLevelStrc* pLevel); // 0x00680580
 // 0x006807F0
 void __fastcall DRLGOUTWILD_InitAct1OutdoorLevel(D2DrlgLevelStrc* pLevel)
 {

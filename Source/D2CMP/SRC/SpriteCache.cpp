@@ -756,7 +756,7 @@ static inline int SpriteCache_CopyName(char* szDst, const char* szSrc)
 }
 
 
-static __forceinline int SpriteCache_BuildDccOrDc6Path(char* szOut, const char* szDir, const char* szName, D2CmpSpriteContextStrc* pContext, int bAllowDcc)
+static inline int SpriteCache_BuildDccOrDc6Path(char* szOut, const char* szDir, const char* szName, D2CmpSpriteContextStrc* pContext, int bAllowDcc)
 {
     if (bAllowDcc)
     {
@@ -1973,47 +1973,6 @@ void __stdcall CelFileIteratePixels(D2CelFileStrc* pCelFile, int nArg)
     }
 }
 
-// 0x006011F0
-int __stdcall CelFileSerialize(D2CelFileStrc* pCelFile, D2CelFileStrc** ppNewCelFile, unsigned int* pnSize)
-{
-    const unsigned int nCels = pCelFile->nCelsPerDirection * pCelFile->nDirections;
-    unsigned int nSize = nCels * sizeof(D2CelStrc*) + 0x18;
-    for (unsigned int i = 0; i < nCels; i++)
-    {
-        nSize += pCelFile->pCels[i]->nLength + pCelFile->pCels[i]->nDataSize + 0x23;
-    }
-    D2CelFileStrc* pNewCelFile = (D2CelFileStrc*)FOG_Alloc(nSize, ".\\SRC\\CelCmp.cpp", 0x345, 0);
-    *pNewCelFile = *pCelFile;
-    pNewCelFile->dwFlags = pNewCelFile->dwFlags & ~2 | 1;
-    char* pData = (char*)&pNewCelFile->pCels[nCels];
-    D2CelBlockStrc* pBlockToFree = 0;
-    for (unsigned int i = 0; i < nCels; i++)
-    {
-        D2CelStrc* pNewCel = (D2CelStrc*)pData;
-        const unsigned int nCelSize = pCelFile->pCels[i]->nLength + 0x23;
-        pNewCelFile->pCels[i] = (D2CelStrc*)(pData - (char*)pNewCelFile);
-        memcpy(pData, pCelFile->pCels[i], nCelSize);
-        pData += nCelSize;
-        if (pCelFile->pCels[i]->pBlockPixelData && pCelFile->pCels[i]->pBlockPixelData->pPixels)
-        {
-            memcpy(pData, pCelFile->pCels[i]->pBlockPixelData->pPixels, pCelFile->pCels[i]->nDataSize);
-            if (!i)
-            {
-                pBlockToFree = pCelFile->pCels[0]->pBlockPixelData;
-            }
-        }
-        pNewCel->pBlockPixelData = (D2CelBlockStrc*)(pData - (char*)pNewCelFile);
-        pData += pCelFile->pCels[i]->nDataSize;
-    }
-    if (pBlockToFree)
-    {
-        FOG_Free(pBlockToFree, ".\\SRC\\CelCmp.cpp", 0x375, 0);
-    }
-    *ppNewCelFile = pNewCelFile;
-    *pnSize = nSize;
-    return 1;
-}
-
 // 0x00601450
 void __stdcall CelFileTransform(D2CelFileStrc* pCelFile, int nArg)
 {
@@ -2145,23 +2104,6 @@ int __stdcall CelGetOffsetY(D2CelStrc* pCel)
     D2_ASSERT(pCel, 0x5A5);
 
     return pCel->nYOffset;
-}
-
-// 0x00604A40
-void __stdcall TileLibraryAddProject(D2TileLibraryHeaderStrc** ptTileLibrary, const char* szFilePath)
-{
-    D2_ASSERT(ptTileLibrary, 0x1C);
-    D2_ASSERT(szFilePath, 0x1D);
-    int i;
-    for (i = 0; i < 32; ++i)
-    {
-        if (!ptTileLibrary[i])
-        {
-            D2CMPLoadProjectRecord(&ptTileLibrary[i], szFilePath);
-            break;
-        }
-    }
-    D2_ASSERT(i < 32, 0x2A);
 }
 
 const char* __fastcall CelSkipRleLines(const char* pData, int nLines)

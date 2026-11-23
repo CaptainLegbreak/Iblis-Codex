@@ -388,12 +388,6 @@ int __fastcall sub_0067A4A0_TestPathPoints(D2PathInfoStrc* pPathInfo)
     return 1;
 }
 
-// build: context PATH_MaxRef
-inline const int& PATH_MaxRef(const int& a, const int& b)
-{
-    return a > b ? a : b;
-}
-
 // build: context UNITS_GetXPositionInline
 inline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 {
@@ -418,12 +412,6 @@ inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
         return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-}
-
-// build: context PATH_TestCollision
-static inline int PATH_TestCollision(const D2CollisionTestStrc* pTest, int nX, int nY)
-{
-    return COLLISION_CheckAnyCollisionWithPattern(pTest->pRoom, nX, nY, pTest->nCollisionPattern, pTest->nCollisionMask);
 }
 
 // 0x00679720
@@ -559,37 +547,7 @@ static int __stdcall PATH_RayTrace(D2PathPointStrc tStartCoord, D2PathPointStrc*
     return 1;
 }
 
-// 0x00679A60
-static int PATH_CheckCollisionsToNextPosition(D2DynamicPathStrc* pDynamicPath, D2PathPointStrc* pGameCoord)
-{
-    D2PathPointStrc tPoint;
-
-    D2_ASSERT(((pDynamicPath->pUnit && pDynamicPath->pUnit->dwUnitType == UNIT_PLAYER) || (pDynamicPath->pUnit && pDynamicPath->pUnit->dwUnitType == UNIT_MONSTER)) != 0, 324);
-    D2_ASSERT(pDynamicPath->eType != 4, 325);
-    D2_ASSERT(pGameCoord->X != 0, 326);
-    D2_ASSERT(pGameCoord->Y != 0, 327);
-
-    if (!pDynamicPath->dwVelocity)
-    {
-        pGameCoord->X = pDynamicPath->wPosX;
-        pGameCoord->Y = pDynamicPath->wPosY;
-        return 0;
-    }
-
-    PATH_ComputeVelocityAndDirectionVectorsToNextPoint(pDynamicPath, 1, 1);
-
-    if (!pDynamicPath->dwVelocity)
-    {
-        pGameCoord->X = pDynamicPath->wPosX;
-        pGameCoord->Y = pDynamicPath->wPosY;
-        return 0;
-    }
-
-    tPoint.X = pDynamicPath->wPosX;
-    tPoint.Y = pDynamicPath->wPosY;
-    return PATH_RayTrace(tPoint, pGameCoord, pDynamicPath);
-}
-
+int PATH_CheckCollisionsToNextPosition(D2DynamicPathStrc* pDynamicPath, D2PathPointStrc* pGameCoord); // 0x00679A60
 // 0x00679F70
 int __fastcall PATH_Leap_6FDAB1E0(D2PathInfoStrc* pPathInfo)
 {
@@ -1084,17 +1042,7 @@ static int PATH_FindNonCollidingTargetPoint(D2PathInfoStrc* pInfo, D2PathMovStrc
     return !PATH_TestNewTargetPoint(pMov, pRoom, nCollisionPattern, nCollisionMask);
 }
 
-// 0x0067BD80
-static void __stdcall PATH_ReplaceSubpathPoints(D2PathPointStrc* pPoints, int* pSubPathStartIdx, int nSubPathLastIdx, int* nMaxIndex, D2PathMovStrc* pMov)
-{
-    const int nPointsDiff = (*pSubPathStartIdx - nSubPathLastIdx) + (pMov->nPoints - 1);
-    const int nLastReplacedPointIdx = nSubPathLastIdx + nPointsDiff;
-    memmove(&pPoints[nLastReplacedPointIdx + 1], &pPoints[nSubPathLastIdx + 1], (*nMaxIndex - nSubPathLastIdx - 1) * sizeof(D2PathPointStrc));
-    memcpy(&pPoints[*pSubPathStartIdx], &pMov->pPoints[0], pMov->nPoints * sizeof(D2PathPointStrc));
-    *nMaxIndex += nPointsDiff;
-    *pSubPathStartIdx = nLastReplacedPointIdx + 1;
-}
-
+void __stdcall PATH_ReplaceSubpathPoints(D2PathPointStrc* pPoints, int* pSubPathStartIdx, int nSubPathLastIdx, int* nMaxIndex, D2PathMovStrc* pMov); // 0x0067BD80
 int __fastcall PATH_FindSubpathWithoutObstacles(D2PathInfoStrc* pInfo, D2PathPointStrc tSubPathStart, D2PathPointStrc* pPathPoints, int* pSubPathStartIdx, int* nMaxIndex, int nMaxLength, int nMajorDirection)
 {
     D2PathMovStrc tCache1 = { 0, 0, { 0, 0 }, { 0, 0 }, 0, gnPreviousDirection1, gnNextDirection1, 0, 0, 0 };

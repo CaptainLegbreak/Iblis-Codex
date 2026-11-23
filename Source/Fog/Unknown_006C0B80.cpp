@@ -87,7 +87,7 @@ extern "C" int __cdecl isdigit(int); // 0x00686F0F
 extern "C" int __cdecl isspace(int); // 0x00687006
 extern "C" int __cdecl isalnum(int); // 0x006870FB
 static const char* __stdcall DATATABLS_ParseExpressionToken(FOGExpressionParserContextStrc* pCalc, const char* szExpression, FOGCalcExpressionParserTokenType* pOutTokenType, int* pTokenAssociatedValue, CalcGetKeyWordToNumber_t pfnFunctionNameToId, CalcGetLinkerIndex_t pfnLinkParse);
-static FOGASTNodeStrc* __stdcall DATATBLS_Evaluate_HandleNewOp(FOGASTNodeStrc* pASTBufferPos, FOGASTNodeStrc* pASTBufferStart, int nASTBufferSize, FOGExpressionParserContextStrc* pContext, unsigned char nNewASTType, CalcGetFunctionParameterCount_t pfnGetFunctionParametersCount, int nTokenAssociatedValue);
+FOGASTNodeStrc* __stdcall DATATBLS_Evaluate_HandleNewOp(FOGASTNodeStrc* pASTBufferPos, FOGASTNodeStrc* pASTBufferStart, int nASTBufferSize, FOGExpressionParserContextStrc* pContext, unsigned char nNewASTType, CalcGetFunctionParameterCount_t pfnGetFunctionParametersCount, int nTokenAssociatedValue); // 0x006C18A0
 
 #include "D2SysTypes.h"
 
@@ -241,186 +241,11 @@ static const char* __stdcall DATATABLS_ParseExpressionToken(FOGExpressionParserC
 }
 
 
-// 0x006C1820
-static int __stdcall sub_006C1820_GetOperandCount(
-    unsigned char nToken, CalcGetFunctionParameterCount_t pfnGetOperandCount, int nFunctionId)
-{
-    switch (nToken)
-    {
-    case 22:
-        return 3;
-    case 10:
-    case 11:
-    case 12:
-    case 13:
-    case 14:
-    case 15:
-    case 16:
-    case 17:
-    case 18:
-    case 19:
-    case 20:
-        return 2;
-    case 21:
-        return 1;
-    case 1:
-        if (pfnGetOperandCount)
-            return pfnGetOperandCount(nFunctionId);
-        return 2;
-    default:
-        return 0;
-    }
-}
-
+int __stdcall sub_006C1820_GetOperandCount( unsigned char nToken, CalcGetFunctionParameterCount_t pfnGetOperandCount, int nFunctionId); // 0x006C1820
 int DATATABLS_CheckPrecendence(unsigned char nPreviousCalcType, unsigned char nNewCalcType); // 0x006C1800
 
-// 0x006C18A0
-static FOGASTNodeStrc* __stdcall DATATBLS_Evaluate_HandleNewOp(FOGASTNodeStrc* pASTBufferPos, FOGASTNodeStrc* pASTBufferStart, int nASTBufferSize, FOGExpressionParserContextStrc* pContext, unsigned char nNewASTType, CalcGetFunctionParameterCount_t pfnGetFunctionParametersCount, int nTokenAssociatedValue)
-{
-    while (pContext->nPendingOps > 0)
-    {
-        const unsigned char nPreviousASTType = pContext->tPendingOperationsASTs[pContext->nPendingOps - 1];
-        if (!DATATABLS_CheckPrecendence(nPreviousASTType, nNewASTType))
-        {
-            break;
-        }
-
-        const int nParams = sub_006C1820_GetOperandCount(nPreviousASTType, pfnGetFunctionParametersCount, nTokenAssociatedValue);
-        if (pContext->nPendingParameters < nParams)
-        {
-            pASTBufferStart->nType = 0;
-            return 0;
-        }
-        if (pASTBufferPos - pASTBufferStart >= nASTBufferSize)
-        {
-            pASTBufferStart->nType = 0;
-            return 0;
-        }
-
-        pASTBufferPos->nType = nPreviousASTType;
-        pContext->nPendingOps--;
-        pContext->nPendingParameters += 1 - nParams;
-        pASTBufferPos++;
-    }
-
-    if (nNewASTType != 23 && nNewASTType != 3)
-    {
-        if (nNewASTType)
-        {
-            if (pContext->nPendingOps >= 64)
-            {
-                pASTBufferStart->nType = 0;
-                return 0;
-            }
-            pContext->tPendingOperationsASTs[pContext->nPendingOps] = nNewASTType;
-            pContext->tLinkerIndex[pContext->nPendingOps] = nTokenAssociatedValue;
-            pContext->nPendingOps++;
-        }
-    }
-
-    if (!nNewASTType)
-    {
-        if (pASTBufferPos == pASTBufferStart)
-        {
-            return 0;
-        }
-        if (pASTBufferPos - pASTBufferStart >= nASTBufferSize)
-        {
-            pASTBufferStart->nType = 0;
-            return 0;
-        }
-        pASTBufferPos->nType = 0;
-        pASTBufferPos++;
-    }
-
-    return pASTBufferPos;
-}
-
-// 0x006C19C0
-static FOGASTNodeStrc* __stdcall DATATBLS_ExpressionBuffer_PushRawConstant(FOGASTNodeStrc* pExpressionBufferPos, FOGASTNodeStrc* pExpressionBufferStart, int szBufferSize, FOGExpressionParserContextStrc* pCalc, int32_t nValue)
-{
-    if (nValue >= -128 && nValue <= 127)
-    {
-        if (pExpressionBufferPos - pExpressionBufferStart >= szBufferSize)
-        {
-            pExpressionBufferStart->nType = AST_None;
-            return 0;
-        }
-        pExpressionBufferPos->nType = AST_Raw_Int8;
-        ++pExpressionBufferPos;
-        pExpressionBufferPos->nRawValue = nValue;
-        ++pExpressionBufferPos;
-    }
-    else if (nValue >= -32768 && nValue <= 32767)
-    {
-        if (pExpressionBufferPos - pExpressionBufferStart + 3 >= szBufferSize)
-        {
-            pExpressionBufferStart->nType = AST_None;
-            return 0;
-        }
-        pExpressionBufferPos->nType = AST_Raw_Int16;
-        ++pExpressionBufferPos;
-        *(short*)pExpressionBufferPos = nValue;
-        pExpressionBufferPos += 2;
-    }
-    else
-    {
-        if (pExpressionBufferPos - pExpressionBufferStart + 5 >= szBufferSize)
-        {
-            pExpressionBufferStart->nType = AST_None;
-            return 0;
-        }
-        pExpressionBufferPos->nType = AST_Raw_Int32;
-        ++pExpressionBufferPos;
-        *(int*)pExpressionBufferPos = nValue;
-        pExpressionBufferPos += 4;
-    }
-    ++pCalc->nPendingParameters;
-    return pExpressionBufferPos;
-}
-
-// 0x006C1A50
-static FOGASTNodeStrc* __stdcall DATATBLS_ExpressionBuffer_PushCallbackConstant(FOGASTNodeStrc* pExpressionBufferPos, FOGASTNodeStrc* pExpressionBufferStart, int szBufferSize, FOGExpressionParserContextStrc* pCalc, int32_t nValue)
-{
-    if (nValue >= -128 && nValue <= 127)
-    {
-        if (pExpressionBufferPos - pExpressionBufferStart >= szBufferSize)
-        {
-            pExpressionBufferStart->nType = AST_None;
-            return 0;
-        }
-        pExpressionBufferPos->nType = AST_Callback_Param_UInt8;
-        ++pExpressionBufferPos;
-        pExpressionBufferPos->nRawValue = nValue;
-        ++pExpressionBufferPos;
-    }
-    else if (nValue >= -32768 && nValue <= 32767)
-    {
-        if (pExpressionBufferPos - pExpressionBufferStart + 3 >= szBufferSize)
-        {
-            pExpressionBufferStart->nType = AST_None;
-            return 0;
-        }
-        pExpressionBufferPos->nType = AST_Callback_Param_UInt16;
-        ++pExpressionBufferPos;
-        *(short*)pExpressionBufferPos = nValue;
-        pExpressionBufferPos += 2;
-    }
-    else
-    {
-        if (pExpressionBufferPos - pExpressionBufferStart + 5 >= szBufferSize)
-        {
-            pExpressionBufferStart->nType = AST_None;
-            return 0;
-        }
-        pExpressionBufferPos->nType = AST_Callback_Param_UInt32;
-        ++pExpressionBufferPos;
-        *(int*)pExpressionBufferPos = nValue;
-        pExpressionBufferPos += 4;
-    }
-    ++pCalc->nPendingParameters;
-    return pExpressionBufferPos;
-}
+FOGASTNodeStrc* __stdcall DATATBLS_ExpressionBuffer_PushRawConstant(FOGASTNodeStrc* pExpressionBufferPos, FOGASTNodeStrc* pExpressionBufferStart, int szBufferSize, FOGExpressionParserContextStrc* pCalc, int32_t nValue); // 0x006C19C0
+FOGASTNodeStrc* __stdcall DATATBLS_ExpressionBuffer_PushCallbackConstant(FOGASTNodeStrc* pExpressionBufferPos, FOGASTNodeStrc* pExpressionBufferStart, int szBufferSize, FOGExpressionParserContextStrc* pCalc, int32_t nValue); // 0x006C1A50
 
 // 0x006C1AE0
 int __stdcall DATATBLS_CompileExpression(const char* szFormulaString, FOGASTNodeStrc* pOutASTBuffer, int nOutASTBufferSize, CalcGetKeyWordToNumber_t pfnFunctionNameToId, CalcGetFunctionParameterCount_t pfnGetFunctionParameterCount, CalcGetLinkerIndex_t pfnLinkParse)

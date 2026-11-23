@@ -46,94 +46,7 @@ inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
-static int __stdcall AIBAAL_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiBaalTargetArgsStrc* pArgs);
-
-// 0x005FBB00
-static int __stdcall AIBAAL_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiBaalTargetArgsStrc* pArgs)
-{
-    const int bInMeleeRange = UNITS_IsInMeleeRange(pUnit, pTarget, 0);
-
-    int nDistanceWeight = 0;
-    if (pArgs && AIUTIL_GetDistanceToCoordinates_HalfUnitSize(pUnit, pArgs->nX, pArgs->nY) > 75 && AIUTIL_GetDistanceToCoordinates_HalfUnitSize(pTarget, pArgs->nX, pArgs->nY) < 75)
-    {
-        nDistanceWeight = 100;
-    }
-
-    const int nDamageResist = STATLIST_UnitGetStatValue(pTarget, STAT_DAMAGERESIST, 0);
-    const int nFireResist = STATLIST_UnitGetStatValue(pTarget, STAT_FIRERESIST, 0);
-    const int nLightningResist = STATLIST_UnitGetStatValue(pTarget, STAT_LIGHTRESIST, 0);
-    const int nMagicResist = STATLIST_UnitGetStatValue(pTarget, STAT_MAGICRESIST, 0);
-    const int nColdResist = STATLIST_UnitGetStatValue(pTarget, STAT_COLDRESIST, 0);
-    const int nResistWeight = (nFireResist + nColdResist + nLightningResist + 4 * (nDamageResist + 2 * nMagicResist)) / 15;
-
-    const int nMaxDamage = STATLIST_UnitGetStatValue(pTarget, STAT_MAXDAMAGE, 0);
-    const int nFireMaxDamage = STATLIST_UnitGetStatValue(pTarget, STAT_FIREMAXDAM, 0);
-    const int nLightningMaxDamage = STATLIST_UnitGetStatValue(pTarget, STAT_LIGHTMAXDAM, 0);
-    const int nMagicMaxDamage = STATLIST_UnitGetStatValue(pTarget, STAT_MAGICMAXDAM, 0);
-    const int nColdMaxDamage = STATLIST_UnitGetStatValue(pTarget, STAT_COLDMAXDAM, 0);
-    const int nPoisonMaxDamage = STATLIST_UnitGetStatValue(pTarget, STAT_POISONMAXDAM, 0) >> 8;
-    const int nDamageWeight = (nMaxDamage + nFireMaxDamage + nLightningMaxDamage + nMagicMaxDamage + nColdMaxDamage + nPoisonMaxDamage) / 2;
-
-    const int nColdStateWeight = STATES_CheckState(pTarget, STATE_COLD) ? 100 : 0;
-    const int nLifePercentageWeight = UNITS_GetCurrentLifePercentage(pTarget) < 20 ? 100 : 0;
-
-    int nLeftSkillLevel;
-    int nRightSkillLevel;
-    int nLeftSkillAttackRank;
-    int nRightSkillAttackRank;
-    nLeftSkillLevel = 0;
-    nRightSkillLevel = 0;
-    nLeftSkillAttackRank = 0;
-    nRightSkillAttackRank = 0;
-
-    D2SkillStrc* pLeftSkill = UNITS_GetLeftSkill(pTarget);
-    if (pLeftSkill)
-    {
-        nLeftSkillLevel = SKILLS_GetSkillLevel(pTarget, pLeftSkill, 1);
-        nLeftSkillAttackRank = SKILLS_GetSkillsTxtRecord(SKILLS_GetSkillIdFromSkill(pLeftSkill, ".\\Ai\\AiBaal.cpp", 0x75))->nAttackRank;
-    }
-
-    D2SkillStrc* pRightSkill = UNITS_GetRightSkill(pTarget);
-    if (pRightSkill)
-    {
-        nRightSkillLevel = SKILLS_GetSkillLevel(pTarget, pRightSkill, 1);
-        nRightSkillAttackRank = SKILLS_GetSkillsTxtRecord(SKILLS_GetSkillIdFromSkill(pRightSkill, ".\\Ai\\AiBaal.cpp", 0x7B))->nAttackRank;
-    }
-
-    const int nAttackRankWeight = (nLeftSkillLevel * nLeftSkillAttackRank + nRightSkillLevel * nRightSkillAttackRank) / 4;
-
-    int nCollisionRangeWeight = 0;
-    if (bInMeleeRange)
-    {
-        nCollisionRangeWeight = 100;
-    }
-    else if (AIUTIL_HasClearMissilePath(pUnit, pTarget))
-    {
-        nCollisionRangeWeight = 75;
-    }
-
-    if (pTarget && pTarget->dwUnitType == UNIT_MONSTER)
-    {
-        D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecord(pTarget->dwClassId);
-        if (!pMonStatsTxtRecord)
-        {
-            return 0;
-        }
-
-        if (pMonStatsTxtRecord->nThreat <= 1)
-        {
-            return 0;
-        }
-    }
-
-    int nTotalScore = (nResistWeight + 5 * (nCollisionRangeWeight + nDistanceWeight) + 2 * (nDamageWeight + nAttackRankWeight + 2 * nColdStateWeight) + 3 * nLifePercentageWeight) / 22;
-    if (!nTotalScore)
-    {
-        nTotalScore = 1;
-    }
-
-    return nTotalScore;
-}
+int __stdcall AIBAAL_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiBaalTargetArgsStrc* pArgs); // 0x005FBB00
 
 #define PATHTYPE_TOWARD 2
 
@@ -359,78 +272,14 @@ static inline int AIBAAL_GetRandomArrayIndex_M282Inline(int* pArray, int nArrayS
     return nDefaultValue;
 }
 
-static int AIBAAL_IsDangerousSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
-
-// 0x005FC070
-static int AIBAAL_IsDangerousSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
-{
-    if (!pSkill)
-    {
-        return 0;
-    }
-
-// build: symbol ?gszAiBaalSourceFile@* 0x006E3580
-    const int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, gszAiBaalSourceFile, 0x131);
-    if (nSkillId == SKILL_BLIZZARD || nSkillId == SKILL_METEOR)
-    {
-        return 1;
-    }
-
-    if (nSkillId == SKILL_FIREWALL)
-    {
-        if (SKILLS_GetSkillLevel(pUnit, pSkill, 1) > 3)
-        {
-            return 1;
-        }
-    }
-    else if (nSkillId == SKILL_IMMOLATIONARROW)
-    {
-        if (SKILLS_GetSkillLevel(pUnit, pSkill, 1) > 7)
-        {
-            return 1;
-        }
-    }
-
-    return 0;
-}
+int AIBAAL_IsDangerousSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x005FC070
 
 static inline int AIBAAL_GetSkillId_Inline(D2SkillStrc* pSkill)
 {
     return SKILLS_GetSkillIdFromSkill(pSkill, gszAiBaalSourceFile, 0x131);
 }
 
-static int AI_CheckSpecialSkillsOnPrimeEvil(D2UnitStrc* pUnit);
-
-// 0x005FC0C0
-static int AI_CheckSpecialSkillsOnPrimeEvil(D2UnitStrc* pUnit)
-{
-    D2SkillStrc* pSkill = UNITS_GetRightSkill(pUnit);
-    if (pSkill)
-    {
-        const int nSkillId = AIBAAL_GetSkillId_Inline(pSkill);
-        if (nSkillId == SKILL_BLIZZARD || nSkillId == SKILL_METEOR)
-        {
-            return 1;
-        }
-
-        if (nSkillId == SKILL_FIREWALL)
-        {
-            if (SKILLS_GetSkillLevel(pUnit, pSkill, 1) > 3)
-            {
-                return 1;
-            }
-        }
-        else if (nSkillId == SKILL_IMMOLATIONARROW)
-        {
-            if (SKILLS_GetSkillLevel(pUnit, pSkill, 1) > 7)
-            {
-                return 1;
-            }
-        }
-    }
-
-    return AIBAAL_IsDangerousSkill(pUnit, UNITS_GetLeftSkill(pUnit));
-}
+int AI_CheckSpecialSkillsOnPrimeEvil(D2UnitStrc* pUnit); // 0x005FC0C0
 
 static int __stdcall AIBAAL_RollRandomAiParamForNonCollidingUnit(D2GameStrc* pGame, D2AiControlStrc* pAiControl, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nCount, int bInMediumRange, int bInFarRange, int bInCloseRange, int nMax); // 0x005FC450
 

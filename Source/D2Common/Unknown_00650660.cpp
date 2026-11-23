@@ -279,40 +279,7 @@ static BOOL __stdcall sub_00650150_TraceSteps(int nDeltaX, int nDeltaY, D2FP32_1
     return FALSE;
 }
 
-static void sub_6FD5CEB0(int nBaseVelocity, D2DynamicPathStrc* pPath);
-// 0x006502D0
-static void sub_6FD5CEB0(int nBaseVelocity, D2DynamicPathStrc* pPath)
-{
-    if (nBaseVelocity <= 0)
-    {
-        nBaseVelocity = 0x400;
-    }
-
-    if (int nAcceleration = pPath->dwAcceleration)
-    {
-        pPath->dwAccelerationsCounter++;
-        if (pPath->dwAccelerationsCounter >= 5)
-        {
-            pPath->dwVelocity = nAcceleration + pPath->dwVelocity;
-            const int nMaxVelocity = pPath->dwMaxVelocity;
-            if (pPath->dwVelocity > nMaxVelocity)
-            {
-                pPath->dwVelocity = nMaxVelocity;
-                pPath->dwAcceleration = 0;
-            }
-            else if (pPath->dwVelocity < 0)
-            {
-                pPath->dwVelocity = 0;
-            }
-
-            pPath->dwAccelerationsCounter = 0;
-        }
-    }
-
-    const int nVelocityMagnitude = (nBaseVelocity * pPath->dwVelocity) >> 6;
-    pPath->tVelocityVector.nX = (nVelocityMagnitude * pPath->tDirectionVector.nX) >> 12;
-    pPath->tVelocityVector.nY = (nVelocityMagnitude * pPath->tDirectionVector.nY) >> 12;
-}
+void sub_6FD5CEB0(int nBaseVelocity, D2DynamicPathStrc* pPath); // 0x006502D0
 
 static BOOL sub_6FD5DB70(D2DynamicPathStrc* pPath)
 {
@@ -516,63 +483,7 @@ BOOL __stdcall D2Common_10226(D2UnitStrc* pUnit, int nBaseVelocity)
     return FALSE;
 }
 
-static BOOL __stdcall sub_6FDAD5E0(D2ActiveRoomStrc* pDestRoom, D2PathPointStrc tDest, D2DynamicPathStrc* pPath); // 0x00650910
-
-// build: context sub_6FDAD5E0
-static BOOL __stdcall sub_6FDAD5E0(D2ActiveRoomStrc* pDestRoom, D2PathPointStrc tDest, D2DynamicPathStrc* pPath)
-{
-    D2UnitStrc* pUnit = pPath->pUnit;
-    if (pUnit && pUnit->dwUnitType == UNIT_MISSILE)
-    {
-        if (PATH_IsZeroPoint(tDest))
-        {
-            COLLISION_ResetMaskWithSize(pPath->pRoom, pPath->tGameCoords.wPosX, pPath->tGameCoords.wPosY, pPath->dwUnitSize, pPath->nFootprintCollisionMask);
-            pPath->nCollidedWithMask = 0;
-        }
-        else
-        {
-            D2PathPointStrc tPathPos;
-            tPathPos.X = pPath->tGameCoords.wPosX;
-            tPathPos.Y = pPath->tGameCoords.wPosY;
-            if (tPathPos.X == tDest.X && tPathPos.Y == tDest.Y)
-            {
-                pPath->dwFlags &= 0xFFFFFFF7;
-            }
-            else
-            {
-                pPath->dwFlags |= 8;
-            }
-
-            pPath->nCollidedWithMask = COLLISION_ForceTeleportUnitCollisionMaskAndGetCollision(pPath->pRoom, tPathPos.X, tPathPos.Y, pDestRoom, tDest.X, tDest.Y, pPath->dwUnitSize, pPath->nFootprintCollisionMask, pPath->nMoveTestCollisionMask);
-            pPath->nSavedStepsCount = 1;
-            pPath->SavedSteps[0] = tDest;
-        }
-    }
-    else
-    {
-        D2PathPointStrc tPathPos;
-        tPathPos.X = pPath->tGameCoords.wPosX;
-        tPathPos.Y = pPath->tGameCoords.wPosY;
-        if (!tDest.X && !tDest.Y)
-        {
-            COLLISION_ResetMaskWithPattern(pPath->pRoom, tPathPos.X, tPathPos.Y, pPath->dwCollisionPattern, pPath->nFootprintCollisionMask);
-        }
-        else
-        {
-            COLLISION_SetUnitCollisionMask(pPath->pRoom, tPathPos.X, tPathPos.Y, pDestRoom, tDest.X, tDest.Y, pPath->dwCollisionPattern, pPath->nFootprintCollisionMask);
-        }
-    }
-
-    if (pPath->pRoom != pDestRoom)
-    {
-        pPath->dwFlags |= 1;
-    }
-
-    PATH_RecacheRoomAtCoordIfNeeded(PATH_MakeCoord(PATH_ToFP16Center(tDest.X), PATH_ToFP16Center(tDest.Y)), pDestRoom, pPath);
-    D2_ASSERT((!tDest.X && !tDest.Y) || sub_00463740_FindRoomAtPoint(pDestRoom, tDest.X, tDest.Y), 0x489);
-    PATH_ResetMovement(pPath);
-    return 1;
-}
+BOOL __stdcall sub_6FDAD5E0(D2ActiveRoomStrc* pDestRoom, D2PathPointStrc tDest, D2DynamicPathStrc* pPath); // 0x00650910
 
 static BOOL __stdcall D2Common_10231_Impl(D2ActiveRoomStrc* pRoomDest, D2PathPointStrc tDest, D2DynamicPathStrc* pPath); // 0x00650AA0
 

@@ -189,26 +189,6 @@ int gnGenericRle; // 0x008F03C8
 
 static void __stdcall CelEncodeRle(const unsigned char* pSrc, unsigned int nWidth, unsigned int nHeight, unsigned int dwFlags, unsigned char** ppOut, unsigned int* pnSize);
 
-// 0x00604AA0
-void __stdcall TileLibraryReleaseProject(int* pSlots, char* pEntry)
-{
-    if (pEntry)
-    {
-        int nValue = sub_00600760_GetValue(pEntry + 8);
-        if (nValue)
-        {
-            for (int i = 0; i < 0x20; i++)
-            {
-                if (pSlots[i] == nValue)
-                {
-                    pSlots[i] = 0;
-                    return;
-                }
-            }
-        }
-    }
-}
-
 // 0x00604DD0
 double __stdcall PaletteMinComponent(double a, double b)
 {
@@ -1720,30 +1700,6 @@ D2CmpTileStrc* __stdcall TileListAddTile(D2CmpTileListStrc* ptList, short nValue
     pTile->nType = 2;
     pTile->tInfo = *pInfo;
     return pTile;
-}
-
-// 0x0060AEB0
-void __fastcall CelDataHashFreeEntry(D2CelDataHashStrc* pHash, T00604AE0* pEntry, void* pMemPool)
-{
-    if (pHash->pBuckets[pEntry->nKey] == pEntry)
-        pHash->pBuckets[pEntry->nKey] = pEntry->pNext;
-    FOG_FreePool(pMemPool, pEntry, ".\\SRC\\CelDataHash.cpp", 0x3A, 0);
-}
-
-// 0x0060AF00
-void __fastcall CelDataHashFreeAll(void* pMemPool, D2CelDataHashStrc* pHash)
-{
-    for (unsigned int i = 0; i < 0x200; i++)
-    {
-        T00604AE0* pEntry = pHash->pBuckets[i];
-        while (pEntry)
-        {
-            T00604AE0* pNext = pEntry->pNext;
-            CelDataHashFreeEntry(pHash, pEntry, pMemPool);
-            pEntry = pNext;
-        }
-        D2_ASSERT(!pHash->nCheck[i], 0x5B);
-    }
 }
 
 // 0x0060B1A0

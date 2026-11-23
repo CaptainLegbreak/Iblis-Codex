@@ -638,7 +638,7 @@ int __fastcall D2GAME_PlaceItem_6FC44410(const char* szFile, int nLine, D2GameSt
 
 static void ITEMMODE_GetWeapons(D2UnitStrc* pUnit, D2UnitStrc** ppMainWeapon, D2UnitStrc** ppRightHandWeapon); // 0x0055C470
 
-static __declspec(noinline) int ITEMMODE_IsSkillUsable(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x0055C4D0
+static int ITEMMODE_IsSkillUsable(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x0055C4D0
 
 static void ITEMMODE_RestoreSkill(D2UnitStrc* pUnit, D2SkillStrc* pCurrentSkill, int bLeft); // 0x0055C4F0
 

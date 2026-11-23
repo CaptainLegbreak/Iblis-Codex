@@ -50,7 +50,7 @@ extern void* gpfnMissileCalcFunctions[]; // 0x00745828
 extern int gnMissileCalcFunctionCount; // 0x00745848
 int __fastcall MISSILE_GetCalcParamValue(int nParamId, void* pUserData); // 0x0064B6E0
 
-__forceinline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline(int nMissileId)
+inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
     {

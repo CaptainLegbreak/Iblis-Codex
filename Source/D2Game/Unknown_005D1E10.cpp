@@ -84,14 +84,6 @@ static inline int GetUnitType(Unit* unit)
     return unit ? unit->type : 6;
 }
 
-// build: context GetAiState
-static inline AiState* GetAiState(Unit* unit)
-{
-    if (GetUnitType(unit) == 1 && unit->monster)
-        return unit->monster->ai;
-    return 0;
-}
-
 // build: context SkillChanceSucceeds
 static inline int SkillChanceSucceeds(Unit* owner, SkillRecord* record, int skill, int level)
 {
@@ -99,26 +91,7 @@ static inline int SkillChanceSucceeds(Unit* owner, SkillRecord* record, int skil
     return SEED_RollLimitedRandomNumber(&owner->seed, 100) < chance;
 }
 
-// 0x005D1D70
-static void __stdcall SKILLS_ApplyAuraStateToTarget(Unit* owner, Unit* target, int level, int skill)
-{
-    SkillRecord* record = GetSkillRecord(skill);
-    if (!record)
-        return;
-    AuraRequest request;
-    memset(&request, 0, sizeof(request));
-    request.owner = owner;
-    request.target = target;
-    request.skill = skill;
-    request.level = level;
-    request.duration = SKILLS_EvaluateSkillFormula(owner, record->calc, skill, level);
-    request.stat = -1;
-    request.state = record->state;
-    T005C40D0* list = sub_0056E970_Apply(&request);
-    if (list)
-        SKILLS_ApplyAuraStatsToStatList(owner, list, record, skill, level);
-}
-
+void __stdcall SKILLS_ApplyAuraStateToTarget(Unit* owner, Unit* target, int level, int skill); // 0x005D1D70
 // 0x005D1E10
 static void __stdcall sub_005D1E10_Transform(Unit* owner, int level, int skill, Game* game, Unit* target)
 {

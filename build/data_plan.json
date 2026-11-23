@@ -1239,9 +1239,13 @@
    "state": "included"
   },
   "Source/D2Client/UI/inv.cpp": {
-   "bytes": 732,
-   "definitions": 4,
-   "externs": [],
+   "bytes": 780,
+   "definitions": 5,
+   "externs": [
+    "extern \"C\" void __cdecl sub_00490780(); // 0x00490780",
+    "extern \"C\" void __cdecl sub_00490BA0(); // 0x00490BA0",
+    "extern \"C\" void __cdecl sub_00490FC0(); // 0x00490FC0"
+   ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/inv.inc",
    "lang": "cpp",
@@ -1892,19 +1896,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/UI/inv_0048C060.cpp": {
-   "bytes": 48,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" void __cdecl sub_00490780(); // 0x00490780",
-    "extern \"C\" void __cdecl sub_00490BA0(); // 0x00490BA0",
-    "extern \"C\" void __cdecl sub_00490FC0(); // 0x00490FC0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004912A0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Client/UI/text.cpp": {
    "bytes": 84,
    "definitions": 1,
@@ -2273,20 +2264,20 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/UnitSnd.cpp": {
-   "bytes": 5764,
-   "definitions": 125,
+   "bytes": 5876,
+   "definitions": 126,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/UnitSnd.inc",
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_004CA410.cpp": {
-   "bytes": 116,
-   "definitions": 2,
+  "Source/D2Client/Unknown_004CC790.cpp": {
+   "bytes": 4,
+   "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004CA410.inc",
+   "include": "gen/data/Source/D2Client/Unknown_004CC790.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -2888,8 +2879,8 @@
    "state": "included"
   },
   "Source/D2Gfx/SRC/Window.cpp": {
-   "bytes": 180,
-   "definitions": 5,
+   "bytes": 188,
+   "definitions": 7,
    "externs": [
     "extern \"C\" void __cdecl sub_004F7EA0_DrawVisTile(); // 0x004F7EA0",
     "extern \"C\" void __cdecl sub_004F8050_DrawRleVisTile(); // 0x004F8050",
@@ -2902,7 +2893,8 @@
    "fn_types": {},
    "include": "gen/data/Source/D2Gfx/SRC/Window.inc",
    "lang": "cpp",
-   "state": "included"
+   "state": "included",
+   "static_definitions": 2
   },
   "Source/D2Win/Unknown_004F5190.cpp": {
    "bytes": 4,
@@ -2912,16 +2904,6 @@
    "include": "gen/data/Source/D2Win/Unknown_004F5190.inc",
    "lang": "cpp",
    "state": "included"
-  },
-  "Source/D2Win/Unknown_004F6110.cpp": {
-   "bytes": 8,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": null,
-   "lang": "cpp",
-   "state": "included",
-   "static_definitions": 2
   },
   "Source/D2Win/Unknown_004F6F60.cpp": {
    "bytes": 64,
@@ -50658,7 +50640,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/inv_0048C060.cpp",
+   "file": "Source/D2Client/UI/inv.cpp",
    "fill": 12,
    "form": "declared",
    "fwd": null,
@@ -71237,7 +71219,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004CA410.cpp",
+   "file": "Source/D2Client/UNIT/UnitSnd.cpp",
    "fill": 14,
    "form": "declared",
    "fwd": null,
@@ -71289,7 +71271,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004CA410.cpp",
+   "file": "Source/D2Client/Unknown_004CC790.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gbMissileLights = ",
@@ -80728,12 +80710,12 @@
    "declared": true,
    "decorated": null,
    "externs": [],
-   "file": "Source/D2Win/Unknown_004F6110.cpp",
+   "file": "Source/D2Gfx/SRC/Window.cpp",
    "fn_types": {},
    "form": "declared",
    "fwd": null,
    "head": "static int gnChangedScaleFactor = ",
-   "include": "gen/data/Source/D2Win/Unknown_004F6110/gnChangedScaleFactor.inc",
+   "include": "gen/data/Source/D2Gfx/SRC/Window/gnChangedScaleFactor.inc",
    "linkage": "static",
    "model": {
     "k": "prim",
@@ -80757,12 +80739,12 @@
    "declared": true,
    "decorated": null,
    "externs": [],
-   "file": "Source/D2Win/Unknown_004F6110.cpp",
+   "file": "Source/D2Gfx/SRC/Window.cpp",
    "fn_types": {},
    "form": "declared",
    "fwd": null,
-   "head": "static int gnScaleFactor_0072DB44 = ",
-   "include": "gen/data/Source/D2Win/Unknown_004F6110/gnScaleFactor_0072DB44.inc",
+   "head": "static int gnScaleFactor = ",
+   "include": "gen/data/Source/D2Gfx/SRC/Window/gnScaleFactor.inc",
    "linkage": "static",
    "model": {
     "k": "prim",
@@ -80770,7 +80752,7 @@
     "name": "int",
     "size": 4
    },
-   "name": "gnScaleFactor_0072DB44",
+   "name": "gnScaleFactor",
    "pointers": [],
    "region": "data",
    "size": 4,

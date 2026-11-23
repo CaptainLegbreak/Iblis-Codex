@@ -98,64 +98,6 @@ static void DRLGOUTDESR_PlaceCliffs(D2DrlgLevelStrc* pLevel)
     }
 }
 
-// 0x0067F630
-static void DRLGOUTDESR_PlaceBorders(D2DrlgLevelStrc* pLevel)
-{
-    DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 2, 0x16C);
-    DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 1, 0x16C);
-    DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 3, 0x16C);
-}
-
-// 0x0067F6F0
-static void DRLGOUTDESR_PlaceRockyWasteVariants(D2DrlgLevelStrc* pLevel)
-{
-    const int nLevelPrestIds[] = { 0x18B, 0x19B, 0x191, 0x192, 0x18F, 0x18E, 0x193 };
-    DRLGOUTDESR_PlacePresetVariants(nLevelPrestIds, 7, 0, pLevel);
-}
-
-// 0x0067F740
-static void DRLGOUTDESR_PlaceDryHillsVariants(D2DrlgLevelStrc* pLevel)
-{
-    const int nLevelPrestIds1[] = { 0x18B, 0x19B, 0x190, 0x18E };
-    const int nLevelPrestIds2[] = { 0x194, 0x195, 0x196, 0x197 };
-    DRLGOUTDESR_PlacePresetVariants(nLevelPrestIds1, 4, 0, pLevel);
-    DRLGOUTDESR_PlacePresetVariants(nLevelPrestIds2, 4, 1, pLevel);
-}
-
-// 0x0067F7A0
-static void DRLGOUTDESR_PlaceFarOasisVariants(D2DrlgLevelStrc* pLevel)
-{
-    const int nLevelPrestIds[] = { 0x18C, 0x18D };
-    DRLGOUTDESR_PlacePresetVariants(nLevelPrestIds, 2, 0, pLevel);
-}
-
-// 0x0067F7D0
-static void DRLGOUTDESR_PlaceFillsInFarOasis(D2DrlgLevelStrc* pLevel)
-{
-    const int nLevelPrestIds1[4] = { 0x19B, 0x18F, 0x18E, 0x193 };
-    const int nLevelPrestIds2[1] = { 0x18B };
-    DRLGOUTDESR_PlacePresetVariants(nLevelPrestIds1, 4, 0, pLevel);
-    DRLGOUTDESR_PlacePresetVariants(nLevelPrestIds2, 1, 1, pLevel);
-    DRLGOUTDESR_PlacePresetVariants(nLevelPrestIds2, 1, 1, pLevel);
-}
-
-// 0x0067F830
-static void DRLGOUTDESR_PlaceRuinsInLostCity(D2DrlgLevelStrc* pLevel)
-{
-    const int nLevelPrestIds[4] = { 0x19D, 0x198, 0x199, 0x19A };
-    DRLGOUTDESR_PlacePresetVariants(nLevelPrestIds, 4, 0, pLevel);
-}
-
-// 0x0067F870
-static void DRLGOUTDESR_PlaceFillsInLostCity(D2DrlgLevelStrc* pLevel)
-{
-    const int nLevelPrestIds1[5] = { 0x18B, 0x190, 0x18E, 0x194, 0x195 };
-    const int nLevelPrestIds2[1] = { 0x19B };
-    DRLGOUTDESR_PlacePresetVariants(nLevelPrestIds1, 5, 0, pLevel);
-    DRLGOUTDESR_PlacePresetVariants(nLevelPrestIds2, 1, 1, pLevel);
-    DRLGOUTDESR_PlacePresetVariants(nLevelPrestIds2, 1, 1, pLevel);
-}
-
 static void DRLGOUTDESR_PlaceTombEntriesInCanyon(D2DrlgLevelStrc* pLevel)
 {
     for (int i = 0; i < 9; ++i)
@@ -164,15 +106,6 @@ static void DRLGOUTDESR_PlaceTombEntriesInCanyon(D2DrlgLevelStrc* pLevel)
     }
 
     DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 4, 4, 0x18A, -1, 0);
-}
-
-// 0x0067F920
-static void DRLGOUTDESR_PlaceFillsInCanyon(D2DrlgLevelStrc* pLevel)
-{
-    const int nLevelPrestIds1[5] = { 0x191, 0x192, 0x196, 0x197, 0x193 };
-    const int nLevelPrestIds2[2] = { 0x188, 0x189 };
-    DRLGOUTDESR_PlacePresetVariants(nLevelPrestIds1, 5, 0, pLevel);
-    DRLGOUTDESR_PlacePresetVariants(nLevelPrestIds2, 2, 1, pLevel);
 }
 
 void __fastcall DRLGOUTDESR_InitAct2OutdoorLevel(D2DrlgLevelStrc* pLevel); // 0x0067F980
@@ -328,62 +261,7 @@ void __stdcall sub_00680200_SpawnRiverAndCliffCaves(D2DrlgLevelStrc* pLevel)
     }
 }
 
-// 0x006803D0
-static void DRLGOUTWILD_SpawnTownTransitionsAndCaves(D2DrlgLevelStrc* pLevel)
-{
-    if (pLevel->eLevelId == LEVEL_MOOMOOFARM)
-    {
-        return;
-    }
-
-    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
-    if (pOutdoors->dwFlags & 0x10)
-    {
-        const int nX = pOutdoors->nGridWidth / 2 - 1;
-        if (DRLGOUTWILD_TestSpawnRiver(nX, pLevel))
-        {
-            sub_0067FE90_PlaceColumns(pLevel, nX);
-        }
-    }
-
-    if (pOutdoors->dwFlags & 0x80)
-    {
-        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 0, 0, 3, 1, 0);
-    }
-
-    if (pOutdoors->dwFlags & 0x100)
-    {
-        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, pOutdoors->nGridWidth - 7, 0, 3, 2, 0);
-    }
-
-    if (pOutdoors->dwFlags & 0x200)
-    {
-        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 0, 1, 2, 1, 0);
-    }
-
-    if (pOutdoors->dwFlags & 0x400)
-    {
-        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 0, pOutdoors->nGridHeight - 6, 2, 1, 0);
-    }
-
-    if (!(pOutdoors->dwFlags & 0x40))
-    {
-        int bAdded = 0;
-        if (pLevel->eLevelId == LEVEL_BLOODMOOR)
-        {
-            D2DrlgCoordStrc* pCoords = &DRLG_GetLevel(pLevel->pDrlg, LEVEL_ROGUEENCAMPMENT)->pLevelCoords;
-            bAdded = DRLGOUTDOORS_SpawnPresetFarAway(pLevel, pCoords, 0x34, -1, 1, 15);
-        }
-        else
-        {
-            bAdded = DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x33, -1, 1, 15);
-        }
-
-        D2_ASSERT(bAdded, 0x1E5);
-        pOutdoors->dwFlags |= 0x40;
-    }
-}
-
+void DRLGOUTWILD_SpawnTownTransitionsAndCaves(D2DrlgLevelStrc* pLevel); // 0x006803D0
 void __fastcall sub_A14_Emit_006803D0(D2DrlgLevelStrc* pLevel)
 {
     DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 2, 4);

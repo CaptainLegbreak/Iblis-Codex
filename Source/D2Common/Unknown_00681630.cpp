@@ -51,24 +51,6 @@ static T00681490* sub_00681490(D2DrlgPathSearchStrc* pSearch)
     return pNode;
 }
 
-// 0x006814E0
-static int __stdcall sub_006814E0(int nX1, int nY1, int nX2, int nY2)
-{
-    int nDiffX = nX1 - nX2;
-    if (nDiffX < 0)
-    {
-        nDiffX = -nDiffX;
-    }
-    int nDiffY = nY1 - nY2;
-    if (nDiffY < 0)
-    {
-        nDiffY = -nDiffY;
-    }
-    int nMin = nDiffX < nDiffY ? nDiffX : nDiffY;
-    int nMax = nDiffX > nDiffY ? nDiffX : nDiffY;
-    return nMin + 2 * nMax;
-}
-
 // 0x00681510
 static int __stdcall sub_00681510(T00681490* pNode, int nX, int nY)
 {

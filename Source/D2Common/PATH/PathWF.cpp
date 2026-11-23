@@ -38,31 +38,7 @@ static inline int PATH_TestNewTargetPoint(D2PathMovStrc* pMov, D2ActiveRoomStrc*
     return COLLISION_CheckAnyCollisionWithPattern(pRoom, pMov->tTargetCoord.X, pMov->tTargetCoord.Y, nCollisionPattern, nCollisionMask);
 }
 
-// 0x0067BBF0
-static int PATH_FindNonCollidingTargetPoint(D2PathInfoStrc* pInfo, D2PathMovStrc* pMov)
-{
-    D2ActiveRoomStrc* pRoom = pInfo->pStartRoom;
-    const int nCollisionPattern = pInfo->nCollisionPattern;
-    const int nCollisionMask = pInfo->nCollisionMask;
-    D2_ASSERT(((pInfo->pDynamicPath->pUnit && pInfo->pDynamicPath->pUnit->dwUnitType == UNIT_PLAYER) || (pInfo->pDynamicPath->pUnit && pInfo->pDynamicPath->pUnit->dwUnitType == UNIT_MONSTER)) != 0, 290);
-
-    pMov->bReachedDeadEnd = 0;
-    if (!PATH_TestNewTargetPoint(pMov, pRoom, nCollisionPattern, nCollisionMask))
-        return 1;
-
-    pMov->nDirectionIndex = pMov->pNextDirection[pMov->nDirectionIndex];
-    if (!PATH_TestNewTargetPoint(pMov, pRoom, nCollisionPattern, nCollisionMask))
-        return 1;
-
-    pMov->nDirectionIndex = pMov->pNextDirection[pMov->nDirectionIndex];
-    if (!PATH_TestNewTargetPoint(pMov, pRoom, nCollisionPattern, nCollisionMask))
-        return 1;
-
-    pMov->bReachedDeadEnd = 1;
-    pMov->nDirectionIndex = pMov->pNextDirection[pMov->nDirectionIndex];
-    return !PATH_TestNewTargetPoint(pMov, pRoom, nCollisionPattern, nCollisionMask);
-}
-
+int PATH_FindNonCollidingTargetPoint(D2PathInfoStrc* pInfo, D2PathMovStrc* pMov); // 0x0067BBF0
 // 0x0067BD80
 static void __stdcall PATH_ReplaceSubpathPoints(D2PathPointStrc* pPoints, int* pSubPathStartIdx, int nSubPathLastIdx, int* nMaxIndex, D2PathMovStrc* pMov)
 {

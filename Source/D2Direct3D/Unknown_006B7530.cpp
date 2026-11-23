@@ -107,7 +107,7 @@ extern int gnD3DOriginX; // 0x00981740
 extern int gnOriginY; // 0x00981744
 extern int gnPerspectiveScale; // 0x00989748
 
-static __forceinline unsigned int PackGridColor(const D2GridPointStrc& point,unsigned char nAlpha);
+static inline unsigned int PackGridColor(const D2GridPointStrc& point,unsigned char nAlpha);
 
 // 0x006B7530
 static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY, char nChar)

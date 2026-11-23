@@ -11079,31 +11079,6 @@
    ]
   },
   {
-   "file": "Source/D2Launch/Unknown_0042FB20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0042FB20",
-     "length": 433,
-     "name": "?sub_0042FB20@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Launch/Unknown_0042FCE0.cpp",
    "rank": 0,
    "functions": [
@@ -11455,6 +11430,11 @@
    "file": "Source/D2Launch/Src/MainMenus_00431AF0.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x0042FB20",
+     "length": 433,
+     "name": "?sub_0042FB20@@YAXXZ"
+    },
     {
      "va": "0x00431AF0",
      "length": 311,
@@ -12679,6 +12659,11 @@
      "name": "?CHATDLG_SendChatBuffer@@YAHXZ"
     },
     {
+     "va": "0x004428D0",
+     "length": 207,
+     "name": "?sub_004428D0_SendChatText@@YIHPADH@Z"
+    },
+    {
      "va": "0x00442B20",
      "length": 108,
      "name": "CHATDLG_IsCharOverLimit"
@@ -13274,11 +13259,6 @@
      "name": "?sub_004414C0_UpdateEnable@@YAXXZ"
     },
     {
-     "va": "0x004428D0",
-     "length": 207,
-     "name": "?sub_004428D0_SendChatText@@YIHPADH@Z"
-    },
-    {
      "va": "0x00442A70",
      "length": 15,
      "name": "?sub_00442A70_SetFlagBits12@@YIXPAIH@Z"
@@ -13510,6 +13490,16 @@
      "va": "0x00449E70",
      "length": 317,
      "name": "MCPCONNECT_SetPacket"
+    },
+    {
+     "va": "0x00449FB0",
+     "length": 185,
+     "name": "sub_00449FB0_WaitConnect"
+    },
+    {
+     "va": "0x0044A070",
+     "length": 190,
+     "name": "sub_0044A070_ConnectThread"
     }
    ]
   },
@@ -13832,22 +13822,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2MCPClient/Unknown_00449FB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00449FB0",
-     "length": 185,
-     "name": "sub_00449FB0_WaitConnect"
-    },
-    {
-     "va": "0x0044A070",
-     "length": 190,
-     "name": "sub_0044A070_ConnectThread"
-    }
    ]
   },
   {
@@ -14907,6 +14881,32 @@
      "va": "0x0048BE00",
      "length": 119,
      "name": "?INV_CutBracketToken@@YIXPAUUnicode@@PBU1@@Z"
+    },
+    {
+     "va": "0x0048C060",
+     "length": 3648
+    },
+    {
+     "va": "0x0048CEA0",
+     "length": 333,
+     "name": "?INV_AppendShopPriceText@@YGXPBUUnicode@@PAU1@@Z"
+    },
+    {
+     "va": "0x0048CFF0",
+     "length": 475
+    },
+    {
+     "va": "0x0048DB80",
+     "length": 515,
+     "name": "?INV_DrawTransmogrifyTooltip@@YAXXZ"
+    },
+    {
+     "va": "0x0048FFE0",
+     "length": 1945
+    },
+    {
+     "va": "0x004912A0",
+     "length": 1311
     },
     {
      "va": "0x00492770",
@@ -24402,30 +24402,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00483A70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00483A70",
-     "length": 64
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_00483AB0.cpp",
    "rank": 0,
    "functions": [
@@ -24666,6 +24642,10 @@
      "length": 159
     },
     {
+     "va": "0x00483A70",
+     "length": 64
+    },
+    {
      "va": "0x004844A0",
      "length": 245
     },
@@ -24896,52 +24876,6 @@
     {
      "va": "0x0048BC10",
      "length": 361
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/inv_0048C060.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0048C060",
-     "length": 3648
-    },
-    {
-     "va": "0x0048CEA0",
-     "length": 333,
-     "name": "?INV_AppendShopPriceText@@YGXPBUUnicode@@PAU1@@Z"
-    },
-    {
-     "va": "0x0048CFF0",
-     "length": 475
-    },
-    {
-     "va": "0x0048DB80",
-     "length": 515,
-     "name": "?INV_DrawTransmogrifyTooltip@@YAXXZ"
-    },
-    {
-     "va": "0x0048FFE0",
-     "length": 1945
-    },
-    {
-     "va": "0x004912A0",
-     "length": 1311
     }
    ],
    "flags": [
@@ -27718,11 +27652,6 @@
      "name": "sub_004B1DC0"
     },
     {
-     "va": "0x004B1F60",
-     "length": 19,
-     "name": "?MONSTER_IsItemIdentified@@YAHPAUD2UnitStrc@@@Z"
-    },
-    {
      "va": "0x004B2010",
      "length": 3,
      "name": "sub_004B2010"
@@ -28725,6 +28654,11 @@
      "va": "0x004B1C80",
      "length": 205,
      "name": "?sub_004B1C80_GetNpcDialogPos@@YAHPAUD2CoordStrc@@@Z"
+    },
+    {
+     "va": "0x004B1F60",
+     "length": 19,
+     "name": "?MONSTER_IsItemIdentified@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004B2650",
@@ -32428,14 +32362,59 @@
      "name": "?UNITSND_GetPlayerSoundRecord@@YAPAUD2UnitSndPlayerStrc@@I@Z"
     },
     {
+     "va": "0x004CA410",
+     "length": 161,
+     "name": "?sub_004CA410_GetMonSoundsRecord@@YAPAUD2MonSoundsTxt@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004CA4C0",
      "length": 58,
      "name": "?UNITSND_GetDirectionRate@@YIHPAUD2UnitStrc@@I@Z"
     },
     {
+     "va": "0x004CA500",
+     "length": 83,
+     "name": "?sub_004CA500_GetAnimRate@@YIIPAUD2UnitStrc@@I@Z"
+    },
+    {
+     "va": "0x004CA810",
+     "length": 95,
+     "name": "?sub_004CA810_GetModeSound@@YIHPAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x004CA8A0",
      "length": 43,
      "name": "?UNITSND_AddUnitSfx@@YIXPAUD2UnitStrc@@PAUD2TimedHintEntryStrc@@@Z"
+    },
+    {
+     "va": "0x004CA8D0",
+     "length": 43,
+     "name": "?sub_004CA8D0_NotifyUnitHint@@YIXPAUD2UnitStrc@@PAUD2TimedHintEntryStrc@@@Z"
+    },
+    {
+     "va": "0x004CA9C0",
+     "length": 72,
+     "name": "?sub_004CA9C0_ReleaseUnitHints@@YIXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004CAA10",
+     "length": 92,
+     "name": "?sub_004CAA10_PurgeUnitHints@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004CAAA0",
+     "length": 48,
+     "name": "?sub_004CAAA0_SetUnitSfx@@YGXPAUD2UnitStrc@@E@Z"
+    },
+    {
+     "va": "0x004CAAD0",
+     "length": 39,
+     "name": "?sub_004CAAD0@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004CAB00",
+     "length": 48,
+     "name": "?sub_004CAB00_SetSfxMode@@YGXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x004CAB30",
@@ -32463,12 +32442,42 @@
      "name": "?UNITSND_WriteStepSoundTick@@YGXPAUD2UnitStrc@@I@Z"
     },
     {
+     "va": "0x004CACA0",
+     "length": 51,
+     "name": "?sub_004CACA0_SetHasActiveSound@@YGXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004CACE0",
+     "length": 116,
+     "name": "?sub_004CACE0_FindFloorTileAt@@YAPAUD2DrlgTileDataStrc@@PAUD2ActiveRoomStrc@@HH@Z"
+    },
+    {
+     "va": "0x004CAD60",
+     "length": 77,
+     "name": "?sub_004CAD60_GetTileMaterial@@YAHPAUD2DrlgTileDataStrc@@@Z"
+    },
+    {
      "va": "0x004CADB0",
      "length": 248
     },
     {
+     "va": "0x004CAEB0",
+     "length": 176,
+     "name": "?sub_004CAEB0_GetFootstepSound@@YIHPAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x004CAF60",
      "length": 522
+    },
+    {
+     "va": "0x004CB170",
+     "length": 14,
+     "name": "?sub_004CB170_GetNeutralSound@@YAIPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004CB180",
+     "length": 14,
+     "name": "?sub_004CB180_GetTauntSound@@YAIPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004CB190",
@@ -32524,9 +32533,19 @@
      "length": 1052
     },
     {
+     "va": "0x004CBDE0",
+     "length": 892,
+     "name": "?sub_004CBDE0_PlayEventSound@@YIXHEG@Z"
+    },
+    {
      "va": "0x004CC160",
      "length": 230,
      "name": "?UNITSND_AddUnitSoundRefs@@YIXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004CC250",
+     "length": 30,
+     "name": "?sub_004CC250_HasSlotValue@@YAHPAHH@Z"
     },
     {
      "va": "0x004CC380",
@@ -32545,94 +32564,9 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004CA410.cpp",
+   "file": "Source/D2Client/Unknown_004CC790.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004CA410",
-     "length": 161,
-     "name": "?sub_004CA410_GetMonSoundsRecord@@YAPAUD2MonSoundsTxt@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004CA500",
-     "length": 83,
-     "name": "?sub_004CA500_GetAnimRate@@YIIPAUD2UnitStrc@@I@Z"
-    },
-    {
-     "va": "0x004CA810",
-     "length": 95,
-     "name": "?sub_004CA810_GetModeSound@@YIHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004CA8D0",
-     "length": 43,
-     "name": "?sub_004CA8D0_NotifyUnitHint@@YIXPAUD2UnitStrc@@PAUD2TimedHintEntryStrc@@@Z"
-    },
-    {
-     "va": "0x004CA9C0",
-     "length": 72,
-     "name": "?sub_004CA9C0_ReleaseUnitHints@@YIXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004CAA10",
-     "length": 92,
-     "name": "?sub_004CAA10_PurgeUnitHints@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004CAAA0",
-     "length": 48,
-     "name": "?sub_004CAAA0_SetUnitSfx@@YGXPAUD2UnitStrc@@E@Z"
-    },
-    {
-     "va": "0x004CAAD0",
-     "length": 39,
-     "name": "?sub_004CAAD0@@YAHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004CAB00",
-     "length": 48,
-     "name": "?sub_004CAB00_SetSfxMode@@YGXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004CACA0",
-     "length": 51,
-     "name": "?sub_004CACA0_SetHasActiveSound@@YGXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004CACE0",
-     "length": 116,
-     "name": "?sub_004CACE0_FindFloorTileAt@@YAPAUD2DrlgTileDataStrc@@PAUD2ActiveRoomStrc@@HH@Z"
-    },
-    {
-     "va": "0x004CAD60",
-     "length": 77,
-     "name": "?sub_004CAD60_GetTileMaterial@@YAHPAUD2DrlgTileDataStrc@@@Z"
-    },
-    {
-     "va": "0x004CAEB0",
-     "length": 176,
-     "name": "?sub_004CAEB0_GetFootstepSound@@YIHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004CB170",
-     "length": 14,
-     "name": "?sub_004CB170_GetNeutralSound@@YAIPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004CB180",
-     "length": 14,
-     "name": "?sub_004CB180_GetTauntSound@@YAIPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004CBDE0",
-     "length": 892,
-     "name": "?sub_004CBDE0_PlayEventSound@@YIXHEG@Z"
-    },
-    {
-     "va": "0x004CC250",
-     "length": 30,
-     "name": "?sub_004CC250_HasSlotValue@@YAHPAHH@Z"
-    },
     {
      "va": "0x004CC790",
      "length": 37,
@@ -36706,142 +36640,6 @@
    ]
   },
   {
-   "file": "Source/D2Win/Unknown_004F6110.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004F6110",
-     "length": 23,
-     "name": "sub_004F6110_GetPerfFrequency"
-    },
-    {
-     "va": "0x004F6130",
-     "length": 96,
-     "name": "sub_004F6130_GetElapsedMs"
-    },
-    {
-     "va": "0x004F6430",
-     "length": 27,
-     "name": "D2GFX_SetAmbientColor"
-    },
-    {
-     "va": "0x004F6450",
-     "length": 46,
-     "name": "TEXTURE_CelFlatSpriteDraw"
-    },
-    {
-     "va": "0x004F6480",
-     "length": 42,
-     "name": "TEXTURE_CelDraw"
-    },
-    {
-     "va": "0x004F64B0",
-     "length": 42,
-     "name": "TEXTURE_CelDrawColor"
-    },
-    {
-     "va": "0x004F64E0",
-     "length": 46,
-     "name": "TEXTURE_CelDrawEx"
-    },
-    {
-     "va": "0x004F6510",
-     "length": 38,
-     "name": "TEXTURE_CelDrawClipped"
-    },
-    {
-     "va": "0x004F6540",
-     "length": 33,
-     "name": "TEXTURE_CelDrawShadow"
-    },
-    {
-     "va": "0x004F6570",
-     "length": 34,
-     "name": "TEXTURE_CelDrawHilight"
-    },
-    {
-     "va": "0x004F65A0",
-     "length": 26,
-     "name": "TEXTURE_DebugFillBackBuffer"
-    },
-    {
-     "va": "0x004F65C0",
-     "length": 22,
-     "name": "?SCALE_UpdateFactor@@YGXXZ"
-    },
-    {
-     "va": "0x004F65F0",
-     "length": 21,
-     "name": "?SCALE_SetDefaultFactor@@YGXXZ"
-    },
-    {
-     "va": "0x004F6610",
-     "length": 38,
-     "name": "?sub_004F6610_IncreaseScaleFactor@@YAXXZ"
-    },
-    {
-     "va": "0x004F6640",
-     "length": 38,
-     "name": "?sub_004F6640_DecreaseScaleFactor@@YAXXZ"
-    },
-    {
-     "va": "0x004F6670",
-     "length": 101,
-     "name": "?SCALE_SetPerspectiveScale@@YGXHH@Z"
-    },
-    {
-     "va": "0x004F66E0",
-     "length": 124,
-     "name": "SCALE_CheckPerspectivePosition"
-    },
-    {
-     "va": "0x004F6760",
-     "length": 91,
-     "name": "SCALE_AdjustPerspectivePosition"
-    },
-    {
-     "va": "0x004F67C0",
-     "length": 109,
-     "name": "SCALE_ScalePerspectivePosition"
-    },
-    {
-     "va": "0x004F6890",
-     "length": 32,
-     "name": "D2GFX_OutputString"
-    },
-    {
-     "va": "0x004F68B0",
-     "length": 34,
-     "name": "D2GFX_DebugDraw"
-    },
-    {
-     "va": "0x004F68E0",
-     "length": 51,
-     "name": "D2GFX_FloorTileDraw"
-    },
-    {
-     "va": "0x004F6920",
-     "length": 38,
-     "name": "TILE_TileDrawLit"
-    },
-    {
-     "va": "0x004F6950",
-     "length": 42,
-     "name": "TILE_TileDrawTrans"
-    },
-    {
-     "va": "0x004F6980",
-     "length": 38,
-     "name": "TILE_ShadowTileDraw"
-    },
-    {
-     "va": "0x004F6BB0",
-     "length": 937,
-     "name": "sub_004F6BB0_DrawLitSubtileRows"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Gfx/SRC/Window.cpp",
    "rank": 0,
    "functions": [
@@ -37080,6 +36878,16 @@
      "name": "D2GFX_StartDraw"
     },
     {
+     "va": "0x004F6110",
+     "length": 23,
+     "name": "sub_004F6110_GetPerfFrequency"
+    },
+    {
+     "va": "0x004F6130",
+     "length": 96,
+     "name": "sub_004F6130_GetElapsedMs"
+    },
+    {
      "va": "0x004F6190",
      "length": 190,
      "name": "D2GFX_EndScene"
@@ -37145,9 +36953,129 @@
      "name": "D2GFX_SetPaletteTables"
     },
     {
+     "va": "0x004F6430",
+     "length": 27,
+     "name": "D2GFX_SetAmbientColor"
+    },
+    {
+     "va": "0x004F6450",
+     "length": 46,
+     "name": "TEXTURE_CelFlatSpriteDraw"
+    },
+    {
+     "va": "0x004F6480",
+     "length": 42,
+     "name": "TEXTURE_CelDraw"
+    },
+    {
+     "va": "0x004F64B0",
+     "length": 42,
+     "name": "TEXTURE_CelDrawColor"
+    },
+    {
+     "va": "0x004F64E0",
+     "length": 46,
+     "name": "TEXTURE_CelDrawEx"
+    },
+    {
+     "va": "0x004F6510",
+     "length": 38,
+     "name": "TEXTURE_CelDrawClipped"
+    },
+    {
+     "va": "0x004F6540",
+     "length": 33,
+     "name": "TEXTURE_CelDrawShadow"
+    },
+    {
+     "va": "0x004F6570",
+     "length": 34,
+     "name": "TEXTURE_CelDrawHilight"
+    },
+    {
+     "va": "0x004F65A0",
+     "length": 26,
+     "name": "TEXTURE_DebugFillBackBuffer"
+    },
+    {
+     "va": "0x004F65C0",
+     "length": 22,
+     "name": "?SCALE_UpdateFactor@@YGXXZ"
+    },
+    {
+     "va": "0x004F65F0",
+     "length": 21,
+     "name": "?SCALE_SetDefaultFactor@@YGXXZ"
+    },
+    {
+     "va": "0x004F6610",
+     "length": 38,
+     "name": "?sub_004F6610_IncreaseScaleFactor@@YAXXZ"
+    },
+    {
+     "va": "0x004F6640",
+     "length": 38,
+     "name": "?sub_004F6640_DecreaseScaleFactor@@YAXXZ"
+    },
+    {
+     "va": "0x004F6670",
+     "length": 101,
+     "name": "?SCALE_SetPerspectiveScale@@YGXHH@Z"
+    },
+    {
+     "va": "0x004F66E0",
+     "length": 124,
+     "name": "SCALE_CheckPerspectivePosition"
+    },
+    {
+     "va": "0x004F6760",
+     "length": 91,
+     "name": "SCALE_AdjustPerspectivePosition"
+    },
+    {
+     "va": "0x004F67C0",
+     "length": 109,
+     "name": "SCALE_ScalePerspectivePosition"
+    },
+    {
      "va": "0x004F6830",
      "length": 82,
      "name": "?SCALE_SetDefaultFactorPerspectiveFactor@@YGXXZ"
+    },
+    {
+     "va": "0x004F6890",
+     "length": 32,
+     "name": "D2GFX_OutputString"
+    },
+    {
+     "va": "0x004F68B0",
+     "length": 34,
+     "name": "D2GFX_DebugDraw"
+    },
+    {
+     "va": "0x004F68E0",
+     "length": 51,
+     "name": "D2GFX_FloorTileDraw"
+    },
+    {
+     "va": "0x004F6920",
+     "length": 38,
+     "name": "TILE_TileDrawLit"
+    },
+    {
+     "va": "0x004F6950",
+     "length": 42,
+     "name": "TILE_TileDrawTrans"
+    },
+    {
+     "va": "0x004F6980",
+     "length": 38,
+     "name": "TILE_ShadowTileDraw"
+    },
+    {
+     "va": "0x004F6BB0",
+     "length": 937,
+     "name": "sub_004F6BB0_DrawLitSubtileRows"
     },
     {
      "va": "0x004F7CC0",
@@ -44935,6 +44863,11 @@
      "length": 1519
     },
     {
+     "va": "0x00525FB0",
+     "length": 331,
+     "name": "sub_00525FB0_FormatInt"
+    },
+    {
      "va": "0x00527090",
      "length": 258,
      "name": "sub_00527090_ContainsChar"
@@ -44945,11 +44878,6 @@
    "file": "Source/D2Lang/Unknown_00525FB0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00525FB0",
-     "length": 331,
-     "name": "sub_00525FB0_FormatInt"
-    },
     {
      "va": "0x005263E0",
      "length": 78,
@@ -61597,11 +61525,6 @@
      "name": "CelFileIteratePixels"
     },
     {
-     "va": "0x006011F0",
-     "length": 325,
-     "name": "CelFileSerialize"
-    },
-    {
      "va": "0x00601450",
      "length": 105,
      "name": "CelFileTransform"
@@ -61615,11 +61538,6 @@
      "va": "0x00601810",
      "length": 44,
      "name": "CelValidateContext"
-    },
-    {
-     "va": "0x00604A40",
-     "length": 94,
-     "name": "TileLibraryAddProject"
     }
    ]
   },
@@ -67166,6 +67084,11 @@
      "length": 456
     },
     {
+     "va": "0x006011F0",
+     "length": 325,
+     "name": "CelFileSerialize"
+    },
+    {
      "va": "0x00601340",
      "length": 199,
      "name": "?CelFileNormalize@@YGXPAUD2CelFileStrc@@PAPAU1@PBDHHH@Z"
@@ -68617,11 +68540,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00604AA0",
-     "length": 60,
-     "name": "TileLibraryReleaseProject"
-    },
-    {
      "va": "0x00604DD0",
      "length": 30,
      "name": "PaletteMinComponent"
@@ -68771,16 +68689,6 @@
      "name": "TileListAddTile"
     },
     {
-     "va": "0x0060AEB0",
-     "length": 47,
-     "name": "CelDataHashFreeEntry"
-    },
-    {
-     "va": "0x0060AF00",
-     "length": 131,
-     "name": "CelDataHashFreeAll"
-    },
-    {
      "va": "0x0060B1A0",
      "length": 37,
      "name": "CodecSkipBits"
@@ -68806,6 +68714,16 @@
    "file": "Source/D2CMP/SRC/TileLib.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00604A40",
+     "length": 94,
+     "name": "TileLibraryAddProject"
+    },
+    {
+     "va": "0x00604AA0",
+     "length": 60,
+     "name": "TileLibraryReleaseProject"
+    },
     {
      "va": "0x00604AE0",
      "length": 120,
@@ -68900,11 +68818,6 @@
      "va": "0x0060D110",
      "length": 126,
      "name": "CelIterateRgbPixels"
-    },
-    {
-     "va": "0x0060D510",
-     "length": 148,
-     "name": "SubTileCreateRecord"
     }
    ]
   },
@@ -68912,6 +68825,26 @@
    "file": "Source/D2CMP/SRC/CelDataHash.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x0060AEB0",
+     "length": 47,
+     "name": "CelDataHashFreeEntry"
+    },
+    {
+     "va": "0x0060AEE0",
+     "length": 17,
+     "name": "?CelDataHashInit@@YIXPAUD2CmpBlockTableAStrc@@@Z"
+    },
+    {
+     "va": "0x0060AF00",
+     "length": 131,
+     "name": "CelDataHashFreeAll"
+    },
+    {
+     "va": "0x0060AF90",
+     "length": 123,
+     "name": "?CelDataHashFind@@YIPAUD2CelDataHashEntryStrc@@PAUD2CelDataHashStrc@@PBD@Z"
+    },
     {
      "va": "0x0060B010",
      "length": 145,
@@ -69177,16 +69110,6 @@
      "va": "0x0060ADC0",
      "length": 181,
      "name": "?GfxHashAdd@@YIPAUD2CmpGfxHashEntryStrc@@PAXPAUD2CmpGfxHashStrc@@HPAUD2CmpGfxKeyStrc@@0@Z"
-    },
-    {
-     "va": "0x0060AEE0",
-     "length": 17,
-     "name": "?CelDataHashInit@@YIXPAUD2CmpBlockTableAStrc@@@Z"
-    },
-    {
-     "va": "0x0060AF90",
-     "length": 123,
-     "name": "?CelDataHashFind@@YIPAUD2CelDataHashEntryStrc@@PAUD2CelDataHashStrc@@PBD@Z"
     },
     {
      "va": "0x0060CD30",
@@ -69470,6 +69393,11 @@
     {
      "va": "0x0060D430",
      "length": 223
+    },
+    {
+     "va": "0x0060D510",
+     "length": 148,
+     "name": "SubTileCreateRecord"
     },
     {
      "va": "0x0060D5B0",
