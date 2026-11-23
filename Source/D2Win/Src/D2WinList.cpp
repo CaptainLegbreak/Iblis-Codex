@@ -270,13 +270,6 @@ int __stdcall LIST_HandleCharInput(SMSGHANDLER_PARAMS* pMsg)
 
 D2CelFileStrc* sghPentagram; // 0x0087E96C
 
-// 0x004760C0
-void __fastcall VIEW_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY)
-{
-    *pX = pView->nPosX;
-    *pY = pView->nPosY;
-}
-
 // 0x005075E0
 D2WinListStrc* __fastcall LIST_Create(int nX, int nY, int nWidth, int nHeight, D2WinListInitStrc* pInit, int* pFont)
 {
@@ -452,93 +445,6 @@ void __stdcall LIST_UnloadPentspinCellfile()
 {
     sub_004FAAE0_FreeCellFile(sghPentagram);
     sghPentagram = 0;
-}
-
-// 0x00498D50
-void __fastcall VIEW_SetBeltSlotValue(int nX, int nArg)
-{
-    if ((unsigned int)nX < 4)
-        gabBeltHotkey[nX] = (unsigned char)nArg;
-}
-
-// 0x00498D60
-void __cdecl VIEW_ResetBeltHover()
-{
-    gnBeltBox = -1;
-    gnBeltRectX = -1;
-    gnBeltRectY = -1;
-    gnBeltHover = 0;
-    gpBeltItemA = 0;
-    gpBeltItemB = 0;
-}
-
-// 0x00492C10
-int __cdecl VIEW_IsPetIconVisible()
-{
-    return gnPetIconPopupState != 2;
-}
-
-// 0x00492F40
-void __fastcall VIEW_InitLifeColors(int nMode)
-{
-    if (!nMode)
-    {
-        if (gbLifeColorsInit)
-            return;
-        gbLifeColorsInit = 1;
-    }
-
-    gnLifeColorHigh = D2Win_10034_MixRGB(0, 0x80, 0);
-    gnLifeColorMid = D2Win_10034_MixRGB(0xC0, 0xC0, 0);
-    gnLifeColorLow = D2Win_10034_MixRGB(0xFF, 0, 0);
-}
-
-// 0x00492F90
-void __cdecl VIEW_ResetLifeColors()
-{
-    gbLifeColorsInit = 0;
-}
-
-// 0x00497250
-void __cdecl VIEW_InitTextColorRed()
-{
-    gnTextColorRed = D2Win_10034_MixRGB(0xFF, 0, 0);
-}
-
-// 0x004972B0
-void __cdecl VIEW_InitBeltColors()
-{
-    gabBeltColors[0] = D2Win_10034_MixRGB(0x80, 0, 0);
-    gabBeltColors[1] = D2Win_10034_MixRGB(0, 0x80, 0);
-    gabBeltColors[2] = D2Win_10034_MixRGB(0, 0, 0x80);
-    gabBeltColors[3] = D2Win_10034_MixRGB(0x80, 0x80, 0);
-}
-
-// 0x004879D0
-void __fastcall VIEW_ResetSelectionForUnit(D2UnitStrc* pUnit)
-{
-    if (gpHoverItem == pUnit)
-    {
-        gnHoverTopX = -1;
-        gnHoverTopY = -1;
-        gnHoverBottomX = -1;
-        gnHoverBottomY = -1;
-        gnHoverCellX = -1;
-        gnHoverCellY = -1;
-        gbHoverInGrid = 0;
-        gbHoverInBodyLoc = 0;
-        gpHoverItem = 0;
-        gpLastHoverItem = 0;
-    }
-}
-
-// 0x00487CA0
-int __cdecl VIEW_SetNpcMenuMode()
-{
-    if (gnInvPanelMode == 6)
-        return 0;
-    gnInvPanelMode = 6;
-    return 1;
 }
 
 #include "gen/data/Source/D2Win/Src/D2WinList.inc"
