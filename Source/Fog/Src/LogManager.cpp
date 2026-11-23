@@ -1095,7 +1095,9 @@ int gnLogQueuedBytes; // 0x0075D144
 
 int gnLogQueued; // 0x0075D140
 
-extern D2LogMsgListStrc gtLogMsgQueue_0075E868; // 0x0075E868
+// build: symbol ??__EgtLogMsgQueue_0075E868@@YAXXZ 0x006CA740
+// build: symbol ??__FgtLogMsgQueue_0075E868@@YAXXZ 0x006CB090
+D2LogMsgListStrc gtLogMsgQueue_0075E868; // 0x0075E868
 
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nSize); // 0x006829C0
 
