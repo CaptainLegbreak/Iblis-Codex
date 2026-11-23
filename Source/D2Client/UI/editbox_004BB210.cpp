@@ -257,8 +257,8 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 T0044CB60* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth);
 int __fastcall sub_00502EF0(int nFontSize);
-extern "C" unsigned short* __fastcall sub_005267E0(unsigned short* pDst, const unsigned short* pSrc);     // 0x005267E0
-extern "C" int __fastcall sub_00526800(const unsigned short* pText);                                      // 0x00526800
+Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
+int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
 // 0x004BB210
 void EditBoxImplementation::Slot01()
@@ -287,7 +287,7 @@ void EditBoxImplementation::Slot01()
         int nStart = 0;
         if (D2Win_10121_GetTextWidth(pText) > nTextWidth)
         {
-            const int nLength = sub_00526800((const unsigned short*)pText);
+            const int nLength = sub_00526800(pText);
             for (nStart = 0; nStart < nLength; ++nStart)
             {
                 if (D2Win_10121_GetTextWidth(&pText[nStart]) <= nTextWidth)
@@ -300,9 +300,9 @@ void EditBoxImplementation::Slot01()
         D2Win_10117_DrawText(&pText[nStart], nTextX, nTextY, 0, 0);
         if (unk0x36 < nMaxLength && unk0x4A && unk0x36 <= unk0x3A)
         {
-            if (sub_00526800((const unsigned short*)&pText[nStart]))
+            if (sub_00526800(&pText[nStart]))
             {
-                sub_005267E0((unsigned short*)pTextCopy, (const unsigned short*)pText);
+                sub_005267E0(pTextCopy, pText);
                 pTextCopy[unk0x36] = 0;
                 D2Win_10117_DrawText(wszCursor, D2Win_10121_GetTextWidth(pTextCopy) + nTextX, nTextY, 0, 0);
             }
@@ -322,7 +322,7 @@ void EditBoxImplementation::Slot01()
     while (pLine)
     {
         D2Win_10117_DrawText(pLine->pText, nTextX, nTextY + 20 * nLine, 0, 0);
-        const int nLength = sub_00526800((const unsigned short*)pLine->pText);
+        const int nLength = sub_00526800(pLine->pText);
         T0044CB60* pNext = pLine->pNext;
         nChars += nLength;
         ++nLine;
@@ -334,13 +334,13 @@ void EditBoxImplementation::Slot01()
             {
                 nColumn = 0;
             }
-            if (sub_00526800((const unsigned short*)pLine->pText))
+            if (sub_00526800(pLine->pText))
             {
-                if (sub_00526800((const unsigned short*)pLine->pText) > 199)
+                if (sub_00526800(pLine->pText) > 199)
                 {
                     return;
                 }
-                sub_005267E0((unsigned short*)wszBuffer, (const unsigned short*)pLine->pText);
+                sub_005267E0(wszBuffer, pLine->pText);
                 wszBuffer[nColumn] = 0;
                 D2Win_10117_DrawText(wszCursor, D2Win_10121_GetTextWidth(wszBuffer) + nTextX, nTextY + 20 * (nLine - 1), 0, 0);
             }
