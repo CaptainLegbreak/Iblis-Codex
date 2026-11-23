@@ -503,13 +503,13 @@ extern D2TextHeaderStrc* gpTextHeader; // 0x007BF250
 
 extern int gnTradeState; // 0x007C0E7C
 
-extern unsigned char* gpDDrawDebugFontGlyphs_008815AC; // 0x008815AC
+extern unsigned char* gpDDrawDebugFontGlyphs; // 0x008815AC
 
 extern void* gpReply_008818D0; // 0x008818D0
 
-extern "C" void* gpCDKeyHandle_00882744; // 0x00882744
+extern "C" void* gpGidFileData; // 0x00882744
 
-extern "C" void* gpCDKeyHandle_00882750; // 0x00882750
+extern "C" void* gpClhFileData; // 0x00882750
 
 const Unicode* __fastcall sub_00463810_GetMonsterName(D2UnitStrc* pUnit); // 0x00463810
 
@@ -3652,10 +3652,10 @@ int __cdecl sub_004B8A10()
 // build: symbol ?DDRAW_FreeDebugFont@* 0x005125B0
 void __cdecl DDRAW_FreeDebugFont()
 {
-    if (gpDDrawDebugFontGlyphs_008815AC)
+    if (gpDDrawDebugFontGlyphs)
     {
-        FOG_Free(gpDDrawDebugFontGlyphs_008815AC, ".\\Src\\ddDebugFont.cpp", 0x5D, 0);
-        gpDDrawDebugFontGlyphs_008815AC = 0;
+        FOG_Free(gpDDrawDebugFontGlyphs, ".\\Src\\ddDebugFont.cpp", 0x5D, 0);
+        gpDDrawDebugFontGlyphs = 0;
     }
 }
 
@@ -3673,16 +3673,16 @@ void __cdecl BNSEND_FreeGamesList()
 // build: symbol ?GRID_UnlockCDKeys@* 0x005239C0
 void __cdecl GRID_UnlockCDKeys()
 {
-    if (gpCDKeyHandle_00882744)
+    if (gpGidFileData)
     {
-        SFileUnloadFile(gpCDKeyHandle_00882744);
-        gpCDKeyHandle_00882744 = 0;
+        SFileUnloadFile(gpGidFileData);
+        gpGidFileData = 0;
     }
 
-    if (gpCDKeyHandle_00882750)
+    if (gpClhFileData)
     {
-        SFileUnloadFile(gpCDKeyHandle_00882750);
-        gpCDKeyHandle_00882750 = 0;
+        SFileUnloadFile(gpClhFileData);
+        gpClhFileData = 0;
     }
 }
 

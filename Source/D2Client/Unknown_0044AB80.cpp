@@ -66,7 +66,7 @@ void __stdcall sub_00449D90_SetValue(int nValue);                               
 void __stdcall sub_00449DB0_SetValue(int nValue);                                                           // 0x00449DB0
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
 
-extern void* ghConnectEvent_007992EC;                                                                       // 0x007992EC
+extern void* ghConnectEvent;                                                                       // 0x007992EC
 unsigned short gwMcpRequestId;                                                                     // 0x00798F8C
 unsigned short gwMcpReplyRequestId;                                                                        // 0x00798F80
 int gnMcpGameToken;                                                                                     // 0x00798FB0
@@ -80,7 +80,7 @@ int __fastcall sub_0044AB80_McpIncoming1B(D2McpPacketValueStrc* pPacket, int nSi
 {
 // build: symbol ?CHATDLG_SetMcpResult@* 0x00449BF0
     CHATDLG_SetMcpResult(pPacket->nValue);
-    SetEvent(ghConnectEvent_007992EC);
+    SetEvent(ghConnectEvent);
     return 1;
 }
 

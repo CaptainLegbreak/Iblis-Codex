@@ -284,7 +284,8 @@ static inline int DATATABLS_CheckPrecendence(unsigned char nPreviousCalcType, un
     }
     else
     {
-        return gaASTOperatorPrecedence_006FC874[nPreviousCalcType] >= nNewCalcType;
+// build: symbol ?gaASTOperatorPrecedence@* 0x006FC874
+        return gaASTOperatorPrecedence[nPreviousCalcType] >= nNewCalcType;
     }
 }
 

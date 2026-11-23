@@ -24,8 +24,9 @@ void __fastcall sub_00449890_CdKeyChecksum(char* szKey, unsigned int* pChecksum)
     *pChecksum = 0;
     for (int i = 0; i < 16; i += 2, nBit <<= 1)
     {
-        unsigned int nValue = (char)gnCdKeyMap_006D59F0[(unsigned char)szKey[i]] * 3;
-        nValue = (char)gnCdKeyMap_006D59F0[(unsigned char)szKey[i + 1]] + nValue * 8;
+// build: symbol ?gabCdKeyMap@* 0x006D59F0
+        unsigned int nValue = (char)gabCdKeyMap[(unsigned char)szKey[i]] * 3;
+        nValue = (char)gabCdKeyMap[(unsigned char)szKey[i + 1]] + nValue * 8;
         if (nValue >= 0x100)
         {
             nValue -= 0x100;

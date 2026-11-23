@@ -44,9 +44,9 @@ extern "C" __declspec(dllimport) int __stdcall StretchBlt(void* hDest, int nX, i
 extern "C" __declspec(dllimport) int __stdcall GdiFlush();
 extern "C" __declspec(dllimport) int __stdcall DeleteDC(void* hDC);
 void* __stdcall WINDOW_GetWindow(); // 0x004F59A0
-extern int gnScreenHeight_007C913C; // 0x007C913C
+extern int gnRenderHeight; // 0x007C913C
 extern D2RgbQuadStrc gaPalette_00989C40[256]; // 0x00989C40
-extern void* ghPalette_0098A160; // 0x0098A160
+extern void* ghPalette; // 0x0098A160
 
 struct D2RgbQuad006C7FA0Strc
 {
@@ -58,7 +58,7 @@ struct D2RgbQuad006C7FA0Strc
 
 extern "C" __declspec(dllimport) unsigned int __stdcall SetPaletteEntries(void* hPalette, unsigned int nStart, unsigned int nEntries, const D2PaletteEntry006C7C10Strc* pEntries);
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
-extern D2RgbQuad006C7FA0Strc gaColors_00989C40[256]; // 0x00989C40
+extern D2RgbQuad006C7FA0Strc gatGdiColors[256]; // 0x00989C40
 extern D2PaletteEntry006C7C10Strc gaPalette_007C8CC8[256]; // 0x007C8CC8
 
 extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
@@ -82,42 +82,43 @@ int __fastcall sub_006C7D80_LockAndSend(void* pObject, char nKey, int a, int b)
 }
 
 
-void* ghWindow_007C9140; // 0x007C9140
+void* ghRenderWindow; // 0x007C9140
 
 // 0x006C7E30
 int __cdecl sub_006C7E30_BlitWindow()
 {
-    void* hDC = GetDC(ghWindow_007C9140);
+    void* hDC = GetDC(ghRenderWindow);
     void* hMemoryDC = CreateCompatibleDC(hDC);
     SelectObject(hMemoryDC, ghObject_0098A164);
     SetDIBColorTable(hMemoryDC, 0, 256, gaPalette_00989C40);
-    SelectPalette(hDC, ghPalette_0098A160, 0);
+    SelectPalette(hDC, ghPalette, 0);
     RealizePalette(hDC);
     tagRECT tRect;
     GetClientRect(WINDOW_GetWindow(), &tRect);
     StretchBlt(hDC, 0, 0, tRect.right - tRect.left, tRect.bottom - tRect.top,
-        hMemoryDC, 0, 0, gnScreenWidth_007C9138, gnScreenHeight_007C913C, 0xCC0020);
+// build: symbol ?gnRenderWidth@* 0x007C9138
+        hMemoryDC, 0, 0, gnRenderWidth, gnRenderHeight, 0xCC0020);
     GdiFlush();
     DeleteDC(hMemoryDC);
-    ReleaseDC(ghWindow_007C9140, hDC);
+    ReleaseDC(ghRenderWindow, hDC);
     return 1;
 }
 
 // 0x006C7F90
 void __fastcall sub_006C7F90_GetScreenSize(int* width, int* height)
 {
-    *width = gnScreenWidth_007C9138;
-    *height = gnScreenHeight_007C913C;
+    *width = gnRenderWidth;
+    *height = gnRenderHeight;
 }
 
 
-D2PaletteTableStrc gPaletteView_0098A040; // 0x0098A040
+D2PaletteTableStrc gtPaletteView; // 0x0098A040
 
 // 0x006C8000
 void __fastcall sub_006C8000_SetPaletteView(const D2PaletteTableStrc* source)
 {
-    gPaletteView_0098A040 = *source;
-    gpGfxPaletteView_007C9150 = &gPaletteView_0098A040;
+    gtPaletteView = *source;
+    gpGfxPaletteView_007C9150 = &gtPaletteView;
 }
 
 // 0x006C8030

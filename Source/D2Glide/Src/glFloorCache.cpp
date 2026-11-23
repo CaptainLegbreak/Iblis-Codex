@@ -5,8 +5,8 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern int gdwGlobal_0087EFB8; // 0x0087EFB8
 
-extern D2GlideTileCacheStrc gGlideTileCache_0087EB48; // 0x0087EB48
-extern D2GlideFloorCacheStrc gGlideFloorCache_0087EB68; // 0x0087EB68
+extern D2GlideTileCacheStrc gtGlideTileCache; // 0x0087EB48
+extern D2GlideFloorCacheStrc gtGlideFloorCache; // 0x0087EB68
 void __fastcall sub_0050F1B0_TileCacheRelease(D2GlideTileCacheStrc* pCache, int nIndex);
 D2GlideFloorCacheEntryStrc* __fastcall sub_0050F570_FloorCacheUnlink(D2GlideFloorCacheStrc* pCache, int nIndex);
 void __fastcall sub_0050F750_FloorCacheRemove(D2GlideFloorCacheStrc* pCache, int nIndex);
@@ -235,14 +235,14 @@ void __fastcall GLIDE_ReleaseTileCache(D2TileLibraryEntryStrc* pTile)
 {
     if (pTile->nCacheIndex > 0)
     {
-        sub_0050F750_FloorCacheRemove(&gGlideFloorCache_0087EB68, (short)(pTile->nCacheIndex - 1));
+        sub_0050F750_FloorCacheRemove(&gtGlideFloorCache, (short)(pTile->nCacheIndex - 1));
     }
 
     for (int i = 0; i < pTile->nBlocks; ++i)
     {
         if (pTile->pBlocks[i].nCacheIndex > 0)
         {
-            sub_0050F1B0_TileCacheRelease(&gGlideTileCache_0087EB48, (short)(pTile->pBlocks[i].nCacheIndex - 1));
+            sub_0050F1B0_TileCacheRelease(&gtGlideTileCache, (short)(pTile->pBlocks[i].nCacheIndex - 1));
         }
     }
 }

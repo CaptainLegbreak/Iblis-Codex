@@ -2,9 +2,9 @@
 #include "D2Lang.h"
 
 
-extern unsigned short gnCharMapCount_00882B20;                                                              // 0x00882B20
-unsigned char gnLeadByteRangeCount_00882B22;                                                                // 0x00882B22
-extern D2LangCharMapEntryStrc* gpCharMap_00882B24;                                                          // 0x00882B24
+extern unsigned short gnCharMapCount;                                                              // 0x00882B20
+unsigned char gnLeadByteRangeCount;                                                                // 0x00882B22
+extern D2LangCharMapEntryStrc* gpCharMap;                                                          // 0x00882B24
 extern "C" unsigned int __cdecl strlen(const char* szString);
 
 // 0x005276E0
@@ -14,9 +14,10 @@ static int sub_005276E0_IsLeadByte(unsigned char nByte)
     {
         return 0;
     }
-    for (int i = 0; i < gnLeadByteRangeCount_00882B22; ++i)
+    for (int i = 0; i < gnLeadByteRangeCount; ++i)
     {
-        if (gpLeadByteRanges_00882B28[i].nLow <= nByte && nByte <= gpLeadByteRanges_00882B28[i].nHigh)
+// build: symbol ?gpLeadByteRanges@* 0x00882B28
+        if (gpLeadByteRanges[i].nLow <= nByte && nByte <= gpLeadByteRanges[i].nHigh)
         {
             return 0;
         }
@@ -29,23 +30,24 @@ static int sub_005276E0_IsLeadByte(unsigned char nByte)
 static __forceinline int sub_00527A50_FindIndex(const D2LangCharMapEntryStrc* pMap, unsigned short wChar)
 {
     int nLow = 0;
-    int nHigh = gnCharMapCount_00882B20 - 1;
-    if (wChar < pMap[gpCharMapIndex_00882B2C[0]].wValue)
+    int nHigh = gnCharMapCount - 1;
+// build: symbol ?gpCharMapIndex@* 0x00882B2C
+    if (wChar < pMap[gpCharMapIndex[0]].wValue)
         return -1;
-    if (wChar > pMap[gpCharMapIndex_00882B2C[nHigh]].wValue)
+    if (wChar > pMap[gpCharMapIndex[nHigh]].wValue)
         return -1;
-    if (wChar == pMap[gpCharMapIndex_00882B2C[nHigh]].wValue)
+    if (wChar == pMap[gpCharMapIndex[nHigh]].wValue)
         return nHigh;
     int nMid = nHigh >> 1;
     do
     {
-        if (wChar < pMap[gpCharMapIndex_00882B2C[nMid]].wValue)
+        if (wChar < pMap[gpCharMapIndex[nMid]].wValue)
             nHigh = nMid;
         else
             nLow = nMid;
         nMid = (nHigh + nLow) >> 1;
     } while (nHigh - nLow > 1);
-    if (pMap[gpCharMapIndex_00882B2C[nMid]].wValue != wChar)
+    if (pMap[gpCharMapIndex[nMid]].wValue != wChar)
         return -1;
     return nMid;
 }
@@ -55,10 +57,10 @@ static int sub_00527A50_MapCodePageChar(unsigned short wChar)
 {
     if (wChar < 0x20)
         return wChar;
-    const int nIndex = sub_00527A50_FindIndex(gpCharMap_00882B24, wChar);
+    const int nIndex = sub_00527A50_FindIndex(gpCharMap, wChar);
     if (nIndex < 0)
         return -1;
-    return gpCharMap_00882B24[gpCharMapIndex_00882B2C[nIndex]].f_2;
+    return gpCharMap[gpCharMapIndex[nIndex]].f_2;
 }
 
 // 0x00527B00
@@ -70,7 +72,7 @@ static int sub_00527B00_MapUnicodeChar(unsigned short wChar)
     }
     D2LangCharMapEntryStrc tKey;
     tKey.f_2 = wChar;
-    const D2LangCharMapEntryStrc* pEntry = (const D2LangCharMapEntryStrc*)bsearch(&tKey, gpCharMap_00882B24, gnCharMapCount_00882B20, sizeof(D2LangCharMapEntryStrc), sub_00527AE0_CompareKey);
+    const D2LangCharMapEntryStrc* pEntry = (const D2LangCharMapEntryStrc*)bsearch(&tKey, gpCharMap, gnCharMapCount, sizeof(D2LangCharMapEntryStrc), sub_00527AE0_CompareKey);
     if (!pEntry)
     {
         return -1;
@@ -81,7 +83,7 @@ static int sub_00527B00_MapUnicodeChar(unsigned short wChar)
 // 0x00527B50
 Unicode* __fastcall sub_00527B50_CodePageToUnicode(Unicode* pDest, const char* szSrc, int nCount)
 {
-    if (!gpCharMapIndex_00882B2C)
+    if (!gpCharMapIndex)
     {
         return sub_00526F20_ToUnicode(pDest, szSrc, nCount);
     }
@@ -129,7 +131,7 @@ terminate:
 // 0x00527D50
 int __fastcall sub_00527D50_GetCodePageCharCount(const char* szSrc, int nCount)
 {
-    if (!gpCharMapIndex_00882B2C)
+    if (!gpCharMapIndex)
     {
         return strlen(szSrc);
     }

@@ -62,7 +62,7 @@ struct D2ConnectionTableStrc;
 
 extern int gdwGlobal_00970E50; // 0x00970E50
 
-extern char gData_007C90C8[]; // 0x007C90C8
+extern char gnFloorCacheSize[]; // 0x007C90C8
 
 extern int gdwGlobal_00970E8C; // 0x00970E8C
 
@@ -123,7 +123,7 @@ void __cdecl sub_00410660_LogWritePrefixed(const char* szChannel, const char* sz
 
 extern const char gszHackChannel_006FC4A8[]; // 0x006FC4A8
 
-extern const char gszHackListSizeFormat_006FC4B0[]; // 0x006FC4B0
+extern const char gszHackListSizeFormat[]; // 0x006FC4B0
 
 extern unsigned long gdwLastLogTick_00989C34; // 0x00989C34
 
@@ -329,9 +329,9 @@ int __fastcall sub_006C3360_Startup(QServer* pServer, int nPort); // 0x006C3360
 
 int __fastcall sub_006C3B50_StartServer(QServer* pServer, int nPort); // 0x006C3B50
 
-extern "C" const char gszQServerTag_006FC47C[]; // 0x006FC47C
+extern "C" const char gszQServerTag[]; // 0x006FC47C
 
-extern "C" const char gszQServerAllocated_006FC548[]; // 0x006FC548
+extern "C" const char gszQServerAllocated[]; // 0x006FC548
 
 void __stdcall QSERVER_LogHackListSize(int nSize); // 0x006BE6C0
 
@@ -433,15 +433,15 @@ const char* __stdcall sub_006B013E_FormatAddress(unsigned int nAddress); // 0x00
 
 void __stdcall QSERVER_BanClient(int nClient, const char* szFile, int nLine); // 0x006C0770
 
-extern const char gszHack_006FC4A8[]; // 0x006FC4A8
+extern const char gszHack[]; // 0x006FC4A8
 
-static int gnLockCount_0074C3E0; // 0x0074C3E0
+static int gnLockCount; // 0x0074C3E0
 
-static int gnGlobal_0074C3E4; // 0x0074C3E4
+static int gnQServerClientCapacity; // 0x0074C3E4
 
-static int gnGlobal_0074C3E8; // 0x0074C3E8
+static int gnQServerSlotCount; // 0x0074C3E8
 
-static int gnGlobal_0074C3EC; // 0x0074C3EC
+static int gnQServerBucketCount; // 0x0074C3EC
 
 static int gnGlobal_00989C28; // 0x00989C28
 
@@ -508,7 +508,7 @@ struct D2HackListStrc
     void __thiscall ExpireEntries(); // 0x006BE700
 };
 
-extern unsigned long gdwLastHackListLog_00989C34; // 0x00989C34
+extern unsigned long gdwLastHackListLog; // 0x00989C34
 
 struct D2HackNode006BE890Strc
 {
@@ -532,7 +532,7 @@ static int __cdecl QSERVER_IncrementPerIpConnCount(D2QueueServerStrc* pServer, D
 
 static int QSERVER_DecrementPerIpConnCount(D2QueueServerStrc* pTable, unsigned int* pKey); // 0x006BF1F0
 
-extern unsigned int gaMaskTable_0074C3F0[]; // 0x0074C3F0
+extern unsigned int gaMaskTable[]; // 0x0074C3F0
 
 struct D2MaskKeyStrc
 {
@@ -653,7 +653,7 @@ int __cdecl sub_006B1C00()
 // 0x006B20A0
 void* __cdecl sub_006B20A0()
 {
-    return gData_007C90C8;
+    return gnFloorCacheSize;
 }
 
 // 0x006B20B0
@@ -681,10 +681,10 @@ void __stdcall sub_006BC850(int nUnused1)
 // build: symbol ?FOG_SetServerConfig@* 0x006BE310
 void __stdcall FOG_SetServerConfig(D2QServerConfigStrc* pConfig)
 {
-    gnLockCount_0074C3E0 = pConfig->nClientCapacity;
-    gnGlobal_0074C3E4 = pConfig->nClientCapacity - 1;
-    gnGlobal_0074C3E8 = pConfig->nValue04;
-    gnGlobal_0074C3EC = pConfig->nValue08;
+    gnLockCount = pConfig->nClientCapacity;
+    gnQServerClientCapacity = pConfig->nClientCapacity - 1;
+    gnQServerSlotCount = pConfig->nValue04;
+    gnQServerBucketCount = pConfig->nValue08;
     gnGlobal_00989C28 = pConfig->nValue0C;
 }
 
@@ -830,7 +830,7 @@ void __stdcall QSERVER_LogHackListSize(int nSize)
     const unsigned long dwNow = GetTickCount();
     if (dwNow - gdwLastLogTick_00989C34 > 2000)
     {
-        sub_00410660_LogWritePrefixed(gszHackChannel_006FC4A8, gszHackListSizeFormat_006FC4B0, nSize);
+        sub_00410660_LogWritePrefixed(gszHackChannel_006FC4A8, gszHackListSizeFormat, nSize);
         gdwLastLogTick_00989C34 = dwNow;
     }
 }
@@ -954,10 +954,10 @@ void __fastcall QSERVER_UnlistIP(D2Server006BE890Strc* pServer, const char* szFi
 
     int nSize = pServer->nHackListSize;
     unsigned long dwTick = GetTickCount();
-    if (dwTick - gdwLastHackListLog_00989C34 > 2000)
+    if (dwTick - gdwLastHackListLog > 2000)
     {
         sub_00410660_LogWritePrefixed("HACK", "[HACKLIST]  Hacklist size is %d", nSize);
-        gdwLastHackListLog_00989C34 = dwTick;
+        gdwLastHackListLog = dwTick;
     }
 }
 
@@ -1585,7 +1585,7 @@ int __thiscall D2MaskPairListStrc::HasMaskedKey(unsigned int nMask)
     for (int i = 0; i < n; ++i)
     {
         const D2MaskKeyStrc tKey = aPairs[i].tKey;
-        if ((gaMaskTable_0074C3F0[aPairs[i].nMaskIndex] & nMask) == tKey.nValue)
+        if ((gaMaskTable[aPairs[i].nMaskIndex] & nMask) == tKey.nValue)
             return 1;
     }
     return 0;
@@ -1620,30 +1620,31 @@ void __cdecl sub_006BF750_Nop()
 QServer* __stdcall QSInit(int nState, int nSlots, int nPort, int bDisableNt, D2NET_ValidatePacketCallback pfCallback1, D2NET_ClientCallback pfCallback2, D2NET_PacketCallback pfCallback3, D2NET_ReadPacketCallback pfReadPacket)
 {
     D2WSADataStrc tWsaData;
-    QServer* pServer = (QServer*)FOG_Alloc(sizeof(QServer), gszQServerFile_006FC460, 148, 0);
+// build: symbol ?gszQServerCppFile@* 0x006FC460
+    QServer* pServer = (QServer*)FOG_Alloc(sizeof(QServer), gszQServerCppFile, 148, 0);
     memset(pServer, 0, sizeof(QServer));
-    pServer->nClientCapacity = gnLockCount_0074C3E0;
-    pServer->nValue00C = gnGlobal_0074C3E4;
-    pServer->nValue010 = gnGlobal_0074C3E8;
+    pServer->nClientCapacity = gnLockCount;
+    pServer->nValue00C = gnQServerClientCapacity;
+    pServer->nValue010 = gnQServerSlotCount;
     pServer->nValueC18 = gnGlobal_00989C28;
-    pServer->nClientSlotCount = gnLockCount_0074C3E0;
-    pServer->ppClientSlots = (D2QClientStrc**)FOG_Alloc(gnLockCount_0074C3E0 * sizeof(D2QClientStrc*), gszQServerFile_006FC460, 159, 0);
-    memset(pServer->ppClientSlots, 0, gnLockCount_0074C3E0 * sizeof(D2QClientStrc*));
-    pServer->pLocks = (D2CriticalSectionStrc*)FOG_Alloc(gnLockCount_0074C3E0 * sizeof(D2CriticalSectionStrc), gszQServerFile_006FC460, 162, 0);
-    memset(pServer->pLocks, 0, gnLockCount_0074C3E0 * sizeof(D2CriticalSectionStrc));
-    for (int i = 0; i < gnLockCount_0074C3E0; ++i)
+    pServer->nClientSlotCount = gnLockCount;
+    pServer->ppClientSlots = (D2QClientStrc**)FOG_Alloc(gnLockCount * sizeof(D2QClientStrc*), gszQServerCppFile, 159, 0);
+    memset(pServer->ppClientSlots, 0, gnLockCount * sizeof(D2QClientStrc*));
+    pServer->pLocks = (D2CriticalSectionStrc*)FOG_Alloc(gnLockCount * sizeof(D2CriticalSectionStrc), gszQServerCppFile, 162, 0);
+    memset(pServer->pLocks, 0, gnLockCount * sizeof(D2CriticalSectionStrc));
+    for (int i = 0; i < gnLockCount; ++i)
         InitializeCriticalSection(&pServer->pLocks[i]);
-    pServer->nSlotCount024 = gnLockCount_0074C3E0;
-    pServer->ppSlots020 = (void**)FOG_Alloc(gnLockCount_0074C3E0 * sizeof(void*), gszQServerFile_006FC460, 169, 0);
-    memset(pServer->ppSlots020, 0, gnLockCount_0074C3E0 * sizeof(void*));
+    pServer->nSlotCount024 = gnLockCount;
+    pServer->ppSlots020 = (void**)FOG_Alloc(gnLockCount * sizeof(void*), gszQServerCppFile, 169, 0);
+    memset(pServer->ppSlots020, 0, gnLockCount * sizeof(void*));
     InitializeCriticalSection(&pServer->tLock028);
-    pServer->nSlotCount044 = gnGlobal_0074C3E8;
-    pServer->ppSlots040 = (void**)FOG_Alloc(gnGlobal_0074C3E8 * sizeof(void*), gszQServerFile_006FC460, 175, 0);
-    memset(pServer->ppSlots040, 0, gnGlobal_0074C3E8 * sizeof(void*));
-    pServer->nBuckets = gnGlobal_0074C3EC;
-    pServer->ppBuckets = (D2QServerNodeStrc**)FOG_Alloc(gnGlobal_0074C3EC * sizeof(D2QServerNodeStrc*), gszQServerFile_006FC460, 180, 0);
-    memset(pServer->ppBuckets, 0, gnGlobal_0074C3EC * sizeof(D2QServerNodeStrc*));
-    sub_006BE300_Log(gszQServerTag_006FC47C, gszQServerAllocated_006FC548, pServer);
+    pServer->nSlotCount044 = gnQServerSlotCount;
+    pServer->ppSlots040 = (void**)FOG_Alloc(gnQServerSlotCount * sizeof(void*), gszQServerCppFile, 175, 0);
+    memset(pServer->ppSlots040, 0, gnQServerSlotCount * sizeof(void*));
+    pServer->nBuckets = gnQServerBucketCount;
+    pServer->ppBuckets = (D2QServerNodeStrc**)FOG_Alloc(gnQServerBucketCount * sizeof(D2QServerNodeStrc*), gszQServerCppFile, 180, 0);
+    memset(pServer->ppBuckets, 0, gnQServerBucketCount * sizeof(D2QServerNodeStrc*));
+    sub_006BE300_Log(gszQServerTag, gszQServerAllocated, pServer);
     pServer->nValue880 = 0;
     pServer->pChain84C = 0;
     pServer->pChain850 = 0;
@@ -1660,10 +1661,10 @@ QServer* __stdcall QSInit(int nState, int nSlots, int nPort, int bDisableNt, D2N
     pServer->aSockets[1] = -1;
     pServer->aSockets[2] = -1;
     pServer->aSockets[3] = -1;
-    pServer->ppSlots870 = (void**)FOG_Alloc(nSlots * sizeof(void*), gszQServerFile_006FC460, 218, 0);
+    pServer->ppSlots870 = (void**)FOG_Alloc(nSlots * sizeof(void*), gszQServerCppFile, 218, 0);
     for (int i = 0; i < nSlots; ++i)
         pServer->ppSlots870[i] = 0;
-    pServer->ppSlots874 = (void**)FOG_Alloc(nSlots * sizeof(void*), gszQServerFile_006FC460, 222, 0);
+    pServer->ppSlots874 = (void**)FOG_Alloc(nSlots * sizeof(void*), gszQServerCppFile, 222, 0);
     for (int i = 0; i < nSlots; ++i)
         pServer->ppSlots874[i] = 0;
     pServer->nSlotCount87C = nSlots;
@@ -2043,7 +2044,7 @@ static void sub_006BF320_FreeChain(D2QueueServerStrc* pServer)
     while (pNode)
     {
         D2QServerNodeStrc* pNext = pNode->pNext;
-        FOG_Free(pNode, gszQServerFile_006FC460, 0x9B0, 0);
+        FOG_Free(pNode, gszQServerCppFile, 0x9B0, 0);
         pNode = pNext;
     }
     pServer->pHead = 0;
@@ -2060,7 +2061,7 @@ static void sub_006BF0F0_FreeBuckets(D2QueueServerStrc* pServer)
         while (pNode)
         {
             D2QServerNodeStrc* pNext = pNode->pNext;
-            FOG_Free(pNode, gszQServerFile_006FC460, 0x8BE, 0);
+            FOG_Free(pNode, gszQServerCppFile, 0x8BE, 0);
             pNode = pNext;
         }
         pServer->ppRecords[i] = 0;
@@ -2107,30 +2108,30 @@ int __stdcall FOG_10152(D2QueueServerStrc* pServer, int a2, int a3)
     while (pServer->pFreeClients)
     {
         D2QClientStrc* pNext = pServer->pFreeClients->pNextQueued;
-        FOG_Free(pServer->pFreeClients, gszQServerFile_006FC460, 0x183, 0);
+        FOG_Free(pServer->pFreeClients, gszQServerCppFile, 0x183, 0);
         pServer->pFreeClients = pNext;
     }
 
     while (pServer->pFreeRecords)
     {
         D2QServerNodeStrc* pNext = pServer->pFreeRecords->pNext;
-        FOG_Free(pServer->pFreeRecords, gszQServerFile_006FC460, 0x189, 0);
+        FOG_Free(pServer->pFreeRecords, gszQServerCppFile, 0x189, 0);
         pServer->pFreeRecords = pNext;
     }
 
-    FOG_Free(pServer->ppMsgHeads, gszQServerFile_006FC460, 0x18D, 0);
-    FOG_Free(pServer->ppMsgTails, gszQServerFile_006FC460, 0x18E, 0);
-    FOG_Free(pServer->ppIpCounts, gszQServerFile_006FC460, 0x192, 0);
-    FOG_Free(pServer->ppRecords, gszQServerFile_006FC460, 0x193, 0);
-    FOG_Free(pServer->ppAddressBuckets, gszQServerFile_006FC460, 0x195, 0);
+    FOG_Free(pServer->ppMsgHeads, gszQServerCppFile, 0x18D, 0);
+    FOG_Free(pServer->ppMsgTails, gszQServerCppFile, 0x18E, 0);
+    FOG_Free(pServer->ppIpCounts, gszQServerCppFile, 0x192, 0);
+    FOG_Free(pServer->ppRecords, gszQServerCppFile, 0x193, 0);
+    FOG_Free(pServer->ppAddressBuckets, gszQServerCppFile, 0x195, 0);
     DeleteCriticalSection(&pServer->tAddressLock);
-    FOG_Free(pServer->ppClients, gszQServerFile_006FC460, 0x198, 0);
+    FOG_Free(pServer->ppClients, gszQServerCppFile, 0x198, 0);
 
-    for (int i = 0; i < gnLockCount_0074C3E0; ++i)
+    for (int i = 0; i < gnLockCount; ++i)
         DeleteCriticalSection(&pServer->pLocks[i]);
 
-    FOG_Free(pServer->pLocks, gszQServerFile_006FC460, 0x19C, 0);
-    FOG_Free(pServer, gszQServerFile_006FC460, 0x19F, 0);
+    FOG_Free(pServer->pLocks, gszQServerCppFile, 0x19C, 0);
+    FOG_Free(pServer, gszQServerCppFile, 0x19F, 0);
     return 1;
 }
 
@@ -2307,7 +2308,7 @@ int __fastcall QSERVER_BanAddress(D2QueueServerStrc* pServer, unsigned int* pAdd
     LeaveCriticalSection(&pServer->tAddressLock);
     if (pNode && !pServer->sub_006BF660_CheckAddress(pNode->nAddress))
     {
-        sub_00410660_LogWritePrefixed(gszHack_006FC4A8, "[HACKLIST]  Client %d at %s banned via QSBanByAddr()", pNode->iId, sub_006B013E_FormatAddress(*pAddress));
+        sub_00410660_LogWritePrefixed(gszHack, "[HACKLIST]  Client %d at %s banned via QSBanByAddr()", pNode->iId, sub_006B013E_FormatAddress(*pAddress));
         QSERVER_BanClient(pNode->iId, gszServerFile_006FC460, 0x584);
     }
     return 1;
@@ -2325,14 +2326,14 @@ void __fastcall QSERVER_ProcessReceived(D2QueueServerStrc* server, D2QClientStrc
         switch (result) {
         case 2:
             if (server->bEnabled && !QSERVER_AccountTraffic(server, charge, client)) {
-                sub_00410660_LogWritePrefixed(gszHack_006FC4A8, "[HACKLIST]  User at %s banned due to sQSSpamCheck in QSrvProcessMsg", sub_006B013E_InetNtoa(client->nAddress));
+                sub_00410660_LogWritePrefixed(gszHack, "[HACKLIST]  User at %s banned due to sQSSpamCheck in QSrvProcessMsg", sub_006B013E_InetNtoa(client->nAddress));
                 QSERVER_BanClient(server, client->iId, gszFile_006FC460, 0x649);
                 return;
             }
             break;
         case 3: return;
         case 4:
-            sub_00410660_LogWritePrefixed(gszHack_006FC4A8, "[HACKLIST]  User at %s banned due to PACKET_INVALID in QSrvProcessMsg", sub_006B013E_InetNtoa(client->nAddress));
+            sub_00410660_LogWritePrefixed(gszHack, "[HACKLIST]  User at %s banned due to PACKET_INVALID in QSrvProcessMsg", sub_006B013E_InetNtoa(client->nAddress));
             QSERVER_BanClient(server, client->iId, gszFile_006FC460, 0x635);
             return;
         }

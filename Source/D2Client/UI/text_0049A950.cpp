@@ -531,7 +531,8 @@ extern "C" unsigned char gB27_007C025F; // 0x007C025F
 
 extern "C" unsigned int gB27_007C0265; // 0x007C0265
 
-extern "C" B27RecordHandler gB27_00881834;
+// build: symbol _gpfnRecordHandler 0x00881834
+extern "C" B27RecordHandler gpfnRecordHandler;
 
 extern "C" unsigned int gB27_00883D70;
 

@@ -67,30 +67,30 @@ int __fastcall sub_004428D0_SendChatText(char* szText, int bWhisper); // 0x00442
 void __cdecl CHATDLG_DestroyJoinControls();                                                                          // 0x00443130
 int __fastcall sub_004438E0_Lookup(const char* szName, const char* szPassword, D2LaunchGameRecStrc* pRecord); // 0x004438E0
 void __cdecl CHATDLG_DestroyProfileControls();                                                                                // 0x00443E10
-extern int gnSelected_0070CC00;                                                                             // 0x0070CC00
+extern int gnSelected;                                                                             // 0x0070CC00
 extern D2WinControlStrc* gpEdit_007799DC;                                                                   // 0x007799DC
 extern D2WinControlStrc* gpEdit_007799E0;                                                                   // 0x007799E0
 extern D2WinControlStrc* gpButton_007799E4;                                                                 // 0x007799E4
 extern D2WinControlStrc* gpControl_00779C80;                                                                // 0x00779C80
 extern int gbFlag_00779DD8;                                                                                 // 0x00779DD8
 extern int gnCounter_00779DDC;                                                                              // 0x00779DDC
-extern D2LaunchFuncsStrc* gpLaunchFuncs_0077B09C;                                                           // 0x0077B09C
-extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8;                                                           // 0x0077BBD8
-extern D2WinControlStrc* gpButton_0077BCEC;                                                                 // 0x0077BCEC
-extern D2WinControlStrc* gpChatEdit_0077BD94;                                                               // 0x0077BD94
-extern D2LaunchGameRecStrc gaNewGames_0077BDC8[];                                                           // 0x0077BDC8
-extern D2LaunchGameRecStrc gaGames_0078A440[];                                                              // 0x0078A440
-extern D2WinControlStrc* gpJoinButton_00798BCC;                                                             // 0x00798BCC
-extern D2WinControlStrc* gpJoinName_00798BD4;                                                               // 0x00798BD4
+extern D2LaunchFuncsStrc* gpLaunchFuncs;                                                           // 0x0077B09C
+extern D2LaunchCharInfoStrc* gpCharInfo;                                                           // 0x0077BBD8
+extern D2WinControlStrc* gpChannelOkButton;                                                                 // 0x0077BCEC
+extern D2WinControlStrc* gpChatEdit;                                                               // 0x0077BD94
+extern D2LaunchGameRecStrc gaNewGames[];                                                           // 0x0077BDC8
+extern D2LaunchGameRecStrc gaGames[];                                                              // 0x0078A440
+extern D2WinControlStrc* gpJoinButton;                                                             // 0x00798BCC
+extern D2WinControlStrc* gpJoinName;                                                               // 0x00798BD4
 extern D2WinControlStrc* gpJoinPassword_00798BD8;                                                           // 0x00798BD8
-D2WinControlStrc* gpCreateButton_00798C28;                                                                  // 0x00798C28
-extern D2WinControlStrc* gpCreateName_00798C2C;                                                             // 0x00798C2C
+D2WinControlStrc* gpCreateButton;                                                                  // 0x00798C28
+extern D2WinControlStrc* gpCreateName;                                                             // 0x00798C2C
 extern D2WinControlStrc* gpEditBox_00798C3C;                                                                // 0x00798C3C
-extern D2WinControlStrc* gpButton_00798C40;                                                                 // 0x00798C40
-extern D2WinControlStrc* gpSubmitEditA_00798C80;                                                            // 0x00798C80
-extern D2WinControlStrc* gpSubmitEditB_00798C84;                                                            // 0x00798C84
-extern D2WinControlStrc* gpSubmitEditC_00798C88;                                                            // 0x00798C88
-extern int gnSubmitMode_00798CAC;                                                                           // 0x00798CAC
+extern D2WinControlStrc* gpLevelDiffCheck;                                                                 // 0x00798C40
+extern D2WinControlStrc* gpSubmitEditA;                                                            // 0x00798C80
+extern D2WinControlStrc* gpSubmitEditB;                                                            // 0x00798C84
+extern D2WinControlStrc* gpSubmitEditC;                                                            // 0x00798C88
+extern int gnSubmitMode;                                                                           // 0x00798CAC
 
 // 0x00443630
 void __cdecl sub_00443630_UpdateCreateButton()
@@ -100,7 +100,7 @@ void __cdecl sub_00443630_UpdateCreateButton()
     int bPlayers = 0;
     int bLevel = 0;
 
-    const Unicode* pText = sub_004FDD90_GetEditText(gpCreateName_00798C2C);
+    const Unicode* pText = sub_004FDD90_GetEditText(gpCreateName);
     if (pText)
     {
         sub_00526F70(szText, pText, 0x10);
@@ -129,7 +129,7 @@ void __cdecl sub_00443630_UpdateCreateButton()
             }
         }
 
-        if (sub_00500960_IsPressed(gpButton_00798C40))
+        if (sub_00500960_IsPressed(gpLevelDiffCheck))
         {
             pText = sub_004FDD90_GetEditText(gpEditBox_00798C3C);
             sub_00526F70(szText, pText, 3);
@@ -149,7 +149,7 @@ void __cdecl sub_00443630_UpdateCreateButton()
 
     if (bName && bPlayers && bLevel)
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
-        CONTROL_SetEnabled(gpCreateButton_00798C28, 1);
+        CONTROL_SetEnabled(gpCreateButton, 1);
     else
-        CONTROL_SetEnabled(gpCreateButton_00798C28, 0);
+        CONTROL_SetEnabled(gpCreateButton, 0);
 }

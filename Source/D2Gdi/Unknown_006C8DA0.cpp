@@ -19,7 +19,7 @@ struct D2TileLightStrc
 };
 
 int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int a2, int a3); // 0x005FDEA0
-extern int gnScreenHeight_007C913C; // 0x007C913C
+extern int gnRenderHeight; // 0x007C913C
 
 // 0x006C8DA0
 void __fastcall sub_006C8DA0_DrawLine(D2CoordPairStrc* pFrom, D2CoordPairStrc* pTo, unsigned char nColor)
@@ -107,15 +107,16 @@ int __fastcall sub_006C93A0_DrawLitTile(D2TileLibraryEntryStrc* pTile, int nX, i
     if (D2CMPTileValidate(pTile, 1, 0))
     {
         int nLeft = -32;
-        int nRight = gnScreenWidth_007C9138;
-        const int nBottom = gnScreenHeight_007C913C + 32;
+// build: symbol ?gnRenderWidth@* 0x007C9138
+        int nRight = gnRenderWidth;
+        const int nBottom = gnRenderHeight + 32;
         switch (nHalf)
         {
         case 1:
-            nRight -= gnScreenWidth_007C9138 / 2;
+            nRight -= gnRenderWidth / 2;
             break;
         case 2:
-            nLeft = gnScreenWidth_007C9138 / 2 - 32;
+            nLeft = gnRenderWidth / 2 - 32;
             break;
         }
 
@@ -148,15 +149,15 @@ int __fastcall sub_006C94B0_DrawTile(D2TileLibraryEntryStrc* pTile, int nX, int 
     if (D2CMPTileValidate(pTile, 1, 0))
     {
         int nLeft = -32;
-        int nRight = gnScreenWidth_007C9138;
-        const int nBottom = gnScreenHeight_007C913C + 32;
+        int nRight = gnRenderWidth;
+        const int nBottom = gnRenderHeight + 32;
         switch (nHalf)
         {
         case 1:
-            nRight -= gnScreenWidth_007C9138 / 2;
+            nRight -= gnRenderWidth / 2;
             break;
         case 2:
-            nLeft = gnScreenWidth_007C9138 / 2 - 32;
+            nLeft = gnRenderWidth / 2 - 32;
             break;
         }
 

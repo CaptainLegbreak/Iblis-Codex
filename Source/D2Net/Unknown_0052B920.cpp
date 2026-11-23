@@ -7,9 +7,9 @@ struct D2PacketBufferStrc
 };
 
 
-extern int gnServerPacketSizeTable_00730AE8[]; // 0x00730AE8
+extern int ganServerPacketSizeTable[]; // 0x00730AE8
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
-extern int gnClientPacketSizes_00730DC0[]; // 0x00730DC0
+extern int ganClientPacketSizes[]; // 0x00730DC0
 
 // 0x0052B920
 int __fastcall SERVER_GetServerPacketSize(D2PacketBufferStrc* pBuffer, int nBufferSize, int* pSize)
@@ -25,7 +25,7 @@ int __fastcall SERVER_GetServerPacketSize(D2PacketBufferStrc* pBuffer, int nBuff
         return 0;
     }
 
-    *pSize = gnServerPacketSizeTable_00730AE8[nHeader];
+    *pSize = ganServerPacketSizeTable[nHeader];
     if (*pSize == 0)
     {
         return 0;
@@ -216,7 +216,7 @@ int __fastcall SERVER_GetClientPacketSize(unsigned char* pBuffer, unsigned int n
         return 0;
     }
 
-    *pSize = gnClientPacketSizes_00730DC0[nHeader];
+    *pSize = ganClientPacketSizes[nHeader];
     if (!*pSize)
     {
         return 0;

@@ -37,14 +37,14 @@ void __cdecl SYSTEM_InitTimeBase(); // 0x004109D0
 void __cdecl sub_00411210_InitTimer(); // 0x00411210
 void __fastcall sub_0041C0E0_SetCallback(void* pfnHandler); // 0x0041C0E0
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
-extern unsigned int gdwInvBitMasks_006CE2E8[]; // 0x006CE2E8
+extern unsigned int gdwInvBitMasks[]; // 0x006CE2E8
 extern D2CriticalSectionStrc gtLock_0074C830; // 0x0074C830
 extern D2CriticalSectionStrc gtLock_0074D848; // 0x0074D848
-extern int gbErrorMgrInit_0074F0D0; // 0x0074F0D0
+extern int gbErrorMgrInit; // 0x0074F0D0
 int __fastcall FOG_GetInstallPath(char* szPath, unsigned int nSize); // 0x00406BA0
-extern "C" const char gszExpansionMpq_006CD3A0[]; // 0x006CD3A0
+extern "C" const char gszExpansionMpq[]; // 0x006CD3A0
 
-extern D2PoolDirectoryStrc gtPoolManager_0074F0E8; // 0x0074F0E8
+extern D2PoolDirectoryStrc gtPoolManager; // 0x0074F0E8
 
 // 0x00408A60
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine)
@@ -64,14 +64,16 @@ void __fastcall ERRORMANAGER_ShowErrorBox(int nType, const char* szFile, int nLi
     if (szFile)
     {
         SStrPrintf(szMessage, 0x1000, "--------  FILE: %s    LINE: %d  --------\n\n", ERRORMANAGER_StripSourcePath(szFile), nLine);
-        LOGMANAGER_LogWritePrefixedNoNewline(&gszEmptyAssertText, gszStringFormat_006FFC58, szMessage);
+// build: symbol ?gszStringFormat@* 0x006FFC58
+        LOGMANAGER_LogWritePrefixedNoNewline(&gszEmptyAssertText, gszStringFormat, szMessage);
     }
     FOG_ASSERT(szFormat, 0x8DE);
     _vsnprintf(szMessage, 0x1000, szFormat, args);
     szMessage[0xFFF] = 0;
     if (szFile)
     {
-        SStrPrintf(szText, 0x1000, "%s\nLocation : %s, line #%d\nExpression : %s", gaszErrorTypeNames_00706654[nType], ERRORMANAGER_StripSourcePath(szFile), nLine, szMessage);
+// build: symbol ?gaszErrorTypeNames@* 0x00706654
+        SStrPrintf(szText, 0x1000, "%s\nLocation : %s, line #%d\nExpression : %s", gaszErrorTypeNames[nType], ERRORMANAGER_StripSourcePath(szFile), nLine, szMessage);
     }
     else
     {
@@ -81,26 +83,26 @@ void __fastcall ERRORMANAGER_ShowErrorBox(int nType, const char* szFile, int nLi
     strcpy(szBoxText, szText);
     strcat(szText, "\n");
 // build: symbol ?MAINMENUS_LogWritePrefixed@* 0x00410740
-    MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszStringFormat_006FFC58, szText);
+    MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszStringFormat, szText);
     LOGMANAGER_CloseLogFiles();
     MessageBoxA(0, szBoxText, szCaption, 0x30);
 }
 
-char gszVersion_0074C848[4096]; // 0x0074C848
+char gszVersion[4096]; // 0x0074C848
 
-D2InspectorInfoStrc gtInspectorInfo_0074D868; // 0x0074D868
+D2InspectorInfoStrc gtInspectorInfo; // 0x0074D868
 
-char gszInspectorVersion_0074D8C8[4096]; // 0x0074D8C8
+char gszInspectorVersion[4096]; // 0x0074D8C8
 
-int gnValue_0074F0CC; // 0x0074F0CC
+int gbIsPlatformNT; // 0x0074F0CC
 
-unsigned long gdwRegValue_0074F0E0; // 0x0074F0E0
+unsigned long gdwRegValue; // 0x0074F0E0
 
 // 0x00408CE0
 void __fastcall FOG_InitErrorMgr(const char* szProgramName, const char* szVersion, int bLogToFile)
 {
     char szPath[0x1000];
-    if (gbErrorMgrInit_0074F0D0)
+    if (gbErrorMgrInit)
     {
         if (bLogToFile)
         {
@@ -114,35 +116,35 @@ void __fastcall FOG_InitErrorMgr(const char* szProgramName, const char* szVersio
     {
         ERRORMANAGER_SetReportText(szPath);
     }
-    gtInspectorInfo_0074D868.f_0 = 0x108;
-    gtInspectorInfo_0074D868.szUnused04 = "Diablo II";
-    gtInspectorInfo_0074D868.szApplication = "Diablo II";
-    gtInspectorInfo_0074D868.szModule = "Diablo II";
-    sprintf(gszInspectorVersion_0074D8C8, "D2 %i.%i%c", 1, 14, 'd');
-    gtInspectorInfo_0074D868.szMilestone = gszInspectorVersion_0074D8C8;
-    gtInspectorInfo_0074D868.szBuildNumber = "77";
-    gtInspectorInfo_0074D868.f_18 = "Windows";
-    gtInspectorInfo_0074D868.szPrimaryAssignment = ".ClassicErrorReporter";
-    gtInspectorInfo_0074D868.szAssignments = ".ClassicErrorReporter";
+    gtInspectorInfo.f_0 = 0x108;
+    gtInspectorInfo.szUnused04 = "Diablo II";
+    gtInspectorInfo.szApplication = "Diablo II";
+    gtInspectorInfo.szModule = "Diablo II";
+    sprintf(gszInspectorVersion, "D2 %i.%i%c", 1, 14, 'd');
+    gtInspectorInfo.szMilestone = gszInspectorVersion;
+    gtInspectorInfo.szBuildNumber = "77";
+    gtInspectorInfo.f_18 = "Windows";
+    gtInspectorInfo.szPrimaryAssignment = ".ClassicErrorReporter";
+    gtInspectorInfo.szAssignments = ".ClassicErrorReporter";
     if (szVersion)
     {
-        SStrCopy(gszVersion_0074C848, szVersion, 0x1000);
+        SStrCopy(gszVersion, szVersion, 0x1000);
     }
-    gnValue_0074F0CC = sub_00410960_IsPlatformNT();
+    gbIsPlatformNT = sub_00410960_IsPlatformNT();
     InitializeCriticalSection(&gtLock_0074C830);
     InitializeCriticalSection(&gtLock_0074D848);
-    gbErrorMgrInit_0074F0D0 = 1;
+    gbErrorMgrInit = 1;
     SYSTEM_InitTimeBase();
     unsigned long dwValue = 0;
     SRegLoadValue("Diablo II", "TraceUnfreedMemory", 0, &dwValue);
-    gdwRegValue_0074F0E0 = dwValue;
+    gdwRegValue = dwValue;
     sub_00409DD0_InitPoolSystem(0, "Global Pool System", 0x40000, 0x8000);
     sub_00411210_InitTimer();
     for (int i = 0; i < 0x20; ++i)
     {
         const unsigned int nMask = 1 << i;
         FOG_ASSERT(gdwBitMasks_006CE268[i] == nMask, 0x576);
-        FOG_ASSERT(gdwInvBitMasks_006CE2E8[i] == ~nMask, 0x577);
+        FOG_ASSERT(gdwInvBitMasks[i] == ~nMask, 0x577);
     }
     AUTOMAP_CaptureSystemInfo();
     EXCEPTIONS_InitLogSystem();
@@ -156,9 +158,9 @@ void __fastcall FOG_InitErrorMgr(const char* szProgramName, const char* szVersio
     sub_0041C0E0_SetCallback(ERRORMANAGER_ShowErrorReport);
 }
 
-static int s_bExpansionChecked_0074F0DC; // 0x0074F0DC
+static int gbExpansionChecked; // 0x0074F0DC
 
-static int s_bExpansionMpq_0074F0D8; // 0x0074F0D8
+static int gbExpansionMpq; // 0x0074F0D8
 
 static int FOG_FileExists(const char* szFile)
 {
@@ -168,22 +170,22 @@ static int FOG_FileExists(const char* szFile)
 // 0x00408F20
 int __cdecl FOG_IsExpansion()
 {
-    if (!s_bExpansionChecked_0074F0DC)
+    if (!gbExpansionChecked)
     {
         char szPath[0x104];
-        s_bExpansionChecked_0074F0DC = 1;
+        gbExpansionChecked = 1;
         FOG_GetInstallPath(szPath, 0x104);
-        SStrPack(szPath, gszExpansionMpq_006CD3A0, 0x104);
+        SStrPack(szPath, gszExpansionMpq, 0x104);
         int bExists = FOG_FileExists(szPath);
         if (!bExists)
         {
-            SStrCopy(szPath, gszExpansionMpq_006CD3A0, 0x104);
+            SStrCopy(szPath, gszExpansionMpq, 0x104);
             bExists = FOG_FileExists(szPath);
         }
         if (bExists)
-            s_bExpansionMpq_0074F0D8 = 1;
+            gbExpansionMpq = 1;
     }
-    return s_bExpansionMpq_0074F0D8;
+    return gbExpansionMpq;
 }
 
 // 0x00409000

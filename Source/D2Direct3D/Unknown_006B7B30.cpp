@@ -12,9 +12,11 @@ void __fastcall D3D_SetTextureFilterMode(int mode); // 0x006B2030
 void __fastcall sub_006B7B30_DrawLine(int x1,int y1,int x2,int y2,unsigned char index,unsigned char alpha)
 {
  if(x2<0 && x1<0) return;
- if(x2>=gnScreenWidth_007C9138 && x1>=gnScreenWidth_007C9138) return;
+// build: symbol ?gnRenderWidth@* 0x007C9138
+ if(x2>=gnRenderWidth && x1>=gnRenderWidth) return;
  if(y2<0 && y1<0) return;
- if(y2>=gnScreenHeight_007C913C && y1>=gnScreenHeight_007C913C) return;
+// build: symbol ?gnRenderHeight@* 0x007C913C
+ if(y2>=gnRenderHeight && y1>=gnRenderHeight) return;
  unsigned int color=sub_006B1D50_GetColor(index);
  D3D_SetColorCombineMode(2);
  if(alpha==255) D3D_SetAlphaBlendMode(1);

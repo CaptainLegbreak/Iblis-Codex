@@ -75,7 +75,7 @@ extern "C" const char gszPathJoinFormat_006CE200[]; // 0x006CE200
 extern "C" const char gszSEvtCpp[]; // 0x006D0224
 extern "C" const char gszSLogNewline_006CFF08[]; // 0x006CFF08
 extern "C" const char gszSignatureName_006CF18C[]; // 0x006CF18C
-extern "C" const char gszSpace_006FFC44[]; // 0x006FFC44
+extern "C" const char gszSpace[]; // 0x006FFC44
 extern "C" const char gszStormAudioStreamTypeName[]; // 0x00708408
 extern "C" const char gszUncPrefix_006CF098[]; // 0x006CF098
 extern "C" int __cdecl _snprintf_s(char* szBuffer, unsigned int nSizeOfBuffer, unsigned int nCount, const char* szFormat, ...); // 0x006824CB
@@ -90,7 +90,7 @@ extern "C" int gnFlag_007788DC; // 0x007788DC
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
 extern "C" void* __stdcall CreateToolhelp32Snapshot(unsigned long dwFlags, unsigned long dwProcessId); // 0x006B1446
 extern ARCHIVEREC* gpArchiveHead_0070835C; // 0x0070835C
-extern bool gbSymInitialized_0098A6B0; // 0x0098A6B0
+extern bool gbSymInitialized; // 0x0098A6B0
 extern char gszTypeNameArchiveRec_00708398[]; // 0x00708398
 extern char gszTypeNameChar_0070888C[]; // 0x0070888C
 extern char gszTypeNameCmdDef_0074C47C[]; // 0x0074C47C
@@ -100,7 +100,7 @@ extern char gszTypeNameUChar_00708880[]; // 0x00708880
 extern char gszTypeNameUInt_00708874[]; // 0x00708874
 extern char gszTypeNameWndRec_00708850[]; // 0x00708850
 extern char* gpEventHead_00708380; // 0x00708380
-extern const char gszEmpty_006CC837[]; // 0x006CC837
+extern const char gszEmptyString[]; // 0x006CC837
 extern const char gszSBmpSource[]; // 0x006FCC58
 extern const char gszTypeBreakCmd_007088D8[]; // 0x007088D8
 extern const char* const z_errmsg[10]; // 0x006D3848
@@ -112,11 +112,11 @@ extern const unsigned short gWideTable_006FCFC0[]; // 0x006FCFC0
 extern const unsigned short gWideTable_006FD1C0[]; // 0x006FD1C0
 extern const unsigned short gawTranslateTable_006FCFC0[]; // 0x006FCFC0
 extern int gbAlignReads_007790A4; // 0x007790A4
-extern int gbRenderPaused_007C9144; // 0x007C9144
+extern int gbRenderPaused; // 0x007C9144
 extern int gbSurfaceActive_007C9140; // 0x007C9140
 extern int gnAutomapHeight_007A521C; // 0x007A521C
 extern int gnScreenWidth_0071146C; // 0x0071146C
-extern int gnScreenWidth_007C9138; // 0x007C9138
+extern int gnRenderWidth; // 0x007C9138
 extern int gnValueA_0070834C; // 0x0070834C
 extern int gnValue_00708350; // 0x00708350
 extern long gnErrorLockUsers_0070841C; // 0x0070841C
@@ -128,8 +128,8 @@ extern unsigned int gnReadRate_0077904C; // 0x0077904C
 extern unsigned int gnReadUnit_00708348; // 0x00708348
 extern unsigned int gnRenderFlags_0096F3A8; // 0x0096F3A8
 extern unsigned short gwLocale_0077905C; // 0x0077905C
-extern void* ghDbgHelp_0098A680; // 0x0098A680
-extern void* ghProcess_0074C6F0; // 0x0074C6F0
+extern void* ghDbgHelp; // 0x0098A680
+extern void* ghProcess; // 0x0074C6F0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __fastcall deflate(z_stream* strm, int flush); // 0x00428C60
 int __fastcall FOG_CreatePathHierarchy(const char* szPath); // 0x00406A10

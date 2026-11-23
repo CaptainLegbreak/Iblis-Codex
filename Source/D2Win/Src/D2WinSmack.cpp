@@ -8,7 +8,7 @@ struct D2WinControlStrc;
 
 struct D2WinSmackStrc;
 
-int gbSmackKeepFile_0087E968; // 0x0087E968
+int gbSmackKeepFile; // 0x0087E968
 
 enum D2WinControlTypes
 {
@@ -44,12 +44,12 @@ int __stdcall SMACK_DeleteFile(D2WinSmackStrc* pSmack);                         
 // 0x00506A80
 void __stdcall D2Win_10184()
 {
-    gbSmackKeepFile_0087E968 = 1;
+    gbSmackKeepFile = 1;
 }
 
-char gszSmackFileName_0087E860[260]; // 0x0087E860
+char gszSmackFileName[260]; // 0x0087E860
 
-unsigned char gnSmackVersion_0087E964; // 0x0087E964
+unsigned char gnSmackVersion; // 0x0087E964
 
 // 0x00506A90
 int __fastcall SMACK_Draw(D2WinControlStrc* pControl)
@@ -63,14 +63,14 @@ int __fastcall SMACK_Draw(D2WinControlStrc* pControl)
         return 0;
     }
 
-    if (gbSmackKeepFile_0087E968)
+    if (gbSmackKeepFile)
     {
-        if (gszSmackFileName_0087E860[0])
+        if (gszSmackFileName[0])
         {
-            SMACK_Decode(pSmack, gszSmackFileName_0087E860, gnSmackVersion_0087E964);
+            SMACK_Decode(pSmack, gszSmackFileName, gnSmackVersion);
         }
 
-        gbSmackKeepFile_0087E968 = 0;
+        gbSmackKeepFile = 0;
     }
 
     WINDOW_PlaySmacker(&pSmack->field_140);

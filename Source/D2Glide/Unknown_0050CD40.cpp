@@ -9,7 +9,7 @@ int __cdecl sub_0050BF40_GlideGetBlendedShadows();                              
 int __fastcall sub_0050C890_GlideTileDrawShaded(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, unsigned char nShade, int nScreenPanels); // 0x0050C890
 int __fastcall sub_0050CA00_GlideShadowTileDrawPerspective(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, int eDrawMode, int nScreenPanels); // 0x0050CA00
 int __cdecl GLIDE_IsPerspective();                                                               // 0x0050DD30
-extern void (__stdcall* gpfGlideConstantColor_0087EFA0)(unsigned int dwColor);                              // 0x0087EFA0
+extern void (__stdcall* gpfnGrConstantColorValue)(unsigned int dwColor);                              // 0x0087EFA0
 
 // 0x0050CD40
 int __fastcall sub_0050CD40_GlideShadowTileDraw(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, int eDrawMode, int nScreenPanels)
@@ -21,7 +21,7 @@ int __fastcall sub_0050CD40_GlideShadowTileDraw(D2TileLibraryEntryStrc* pTile, i
         if (sub_0050BF40_GlideGetBlendedShadows())
         {
             GLIDE_SetAlphaBlendMode(4);
-            gpfGlideConstantColor_0087EFA0(0xC0);
+            gpfnGrConstantColorValue(0xC0);
         }
         else
         {

@@ -13,16 +13,18 @@ int __fastcall sub_00512F90_DrawWallTile(D2TileLibraryEntryStrc* pTile, int nPos
     if (D2CMPTileValidate(pTile, 1, 0))
     {
         int nMinX = -32;
-        int nMaxX = gnScreenWidth_007C9138;
-        int nMaxY = gnScreenHeight_007C913C + 32;
+// build: symbol ?gnRenderWidth@* 0x007C9138
+        int nMaxX = gnRenderWidth;
+// build: symbol ?gnRenderHeight@* 0x007C913C
+        int nMaxY = gnRenderHeight + 32;
 
         switch (nScreenPanels)
         {
         case 1:
-            nMaxX -= gnScreenWidth_007C9138 / 2;
+            nMaxX -= gnRenderWidth / 2;
             break;
         case 2:
-            nMinX = gnScreenWidth_007C9138 / 2 - 32;
+            nMinX = gnRenderWidth / 2 - 32;
             break;
         }
 

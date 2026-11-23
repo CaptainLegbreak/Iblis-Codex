@@ -117,17 +117,17 @@ extern "C" const char gszFailedToUnlockMemorySurface_006FC284[]; // 0x006FC284
 
 extern "C" const char gszFailedToLockMemorySurface_006FC2A4[]; // 0x006FC2A4
 
-extern const unsigned int gnRenderFlag_006CE290; // 0x006CE290
+extern const unsigned int gnRenderFlag; // 0x006CE290
 
 extern D2D3DDeviceStrc* gpD3DDevice_00970E78; // 0x00970E78
 
 extern D2D3DTextureStrc* gpMemoryTexture_00989C04; // 0x00989C04
 
-D2ComPtr006BB640Strc* gpSurface_00989BF8; // 0x00989BF8
+D2ComPtr006BB640Strc* gpMemorySurface; // 0x00989BF8
 
-D2ComPtr006BB640Strc* gpTexture_00989BFC; // 0x00989BFC
+D2ComPtr006BB640Strc* gpMemoryTexture; // 0x00989BFC
 
-D2ComPtr006BB640Strc* gpTexture_00989C04; // 0x00989C04
+D2ComPtr006BB640Strc* gpMemoryTexture32; // 0x00989C04
 
 extern D2CacheListStrc gBlockCache_0096FC80; // 0x0096FC80
 
@@ -153,11 +153,11 @@ void __fastcall D3D_FloorCacheDestroy(D2FloorPoolStrc* pPool, int bReleaseAll); 
 
 static int D3D_FloorCacheAlloc(D2FloorPoolStrc* pPool); // 0x006BB270
 
-D2CacheListStrc gTexCache_0096FC80; // 0x0096FC80
+D2CacheListStrc gtSubtileCache; // 0x0096FC80
 
-unsigned char gabTileBuffer_009897F8[0x400]; // 0x009897F8
+unsigned char gabTileBuffer[0x400]; // 0x009897F8
 
-D2DDSurfaceStrc* gpMemorySurface_00989C00; // 0x00989C00
+D2DDSurfaceStrc* gpMemorySurface32; // 0x00989C00
 
 int __fastcall sub_006B3730_CreateSurface(void** ppSurface, void** ppTexture, int nWidth, int nHeight); // 0x006B3730
 
@@ -165,11 +165,11 @@ extern int gnWidth_0096F4DC; // 0x0096F4DC
 
 int __fastcall sub_006B58A0_CreateTexture(D2D3DObjStrc** ppTexture, D2D3DObjStrc** ppSurface, int nWidth, int nHeight); // 0x006B58A0
 
-extern int gnGlobal_0096F4DC; // 0x0096F4DC
+extern int gnFloorTextureWidth; // 0x0096F4DC
 
-extern int gnGlobal_009702B8; // 0x009702B8
+extern int gnFloorTextureHeight; // 0x009702B8
 
-extern const char gszFloorPoolSourceFile_006FC3E4[]; // 0x006FC3E4
+extern const char gszFloorPoolSourceFile[]; // 0x006FC3E4
 
 struct D2TileBlockStrc {
  short x,y;
@@ -193,7 +193,7 @@ int __fastcall D3D_FloorCacheInit(D2FloorPoolStrc* pPool, unsigned int nBase, un
 	pPool->nCapacity = pPool->nCapacity < 0x400 ? pPool->nCapacity : 0x400;
 
 	int nSize = pPool->nCapacity * sizeof(D2FloorPoolEntryStrc);
-	pPool->pEntries = (D2FloorPoolEntryStrc*)FOG_Alloc(nSize, gszFloorPoolSourceFile_006FC3E4, 45, 0);
+	pPool->pEntries = (D2FloorPoolEntryStrc*)FOG_Alloc(nSize, gszFloorPoolSourceFile, 45, 0);
 	D2_ASSERT(pPool->pEntries, 46);
 	memset(pPool->pEntries, 0, nSize);
 
@@ -210,7 +210,7 @@ int __fastcall D3D_FloorCacheInit(D2FloorPoolStrc* pPool, unsigned int nBase, un
 			pEntry->pPrev = &pPool->pEntries[i - 1];
 		}
 
-		if (!sub_006B58A0_CreateTexture(&pEntry->pTexture, &pEntry->pSurface, gnGlobal_0096F4DC, gnGlobal_009702B8))
+		if (!sub_006B58A0_CreateTexture(&pEntry->pTexture, &pEntry->pSurface, gnFloorTextureWidth, gnFloorTextureHeight))
 		{
 			if (pEntry->pPrev)
 			{
@@ -483,7 +483,7 @@ void __fastcall D3D_FloorCacheDestroy(D2FloorPoolStrc* pPool, int bReleaseAll)
 
 	if (pPool->pEntries)
 	{
-		FOG_Free(pPool->pEntries, gszFloorPoolSourceFile_006FC3E4, 131, 0);
+		FOG_Free(pPool->pEntries, gszFloorPoolSourceFile, 131, 0);
 		pPool->pEntries = 0;
 	}
 
@@ -505,16 +505,16 @@ int __fastcall D3D_FloorCacheAdd(D2FloorPoolStrc* pPool)
 // 0x006BB5E0
 void __cdecl D3D_CreateTileSurfaces()
 {
-    D2_ASSERT(sub_006B3730_CreateSurface((void**)&gpSurface_00989BF8, (void**)&gpTexture_00989BFC, gnWidth_0096F4DC, gnHeight_009702B8), 0x27);
-    D2_ASSERT(sub_006B3730_CreateSurface((void**)&gpSurface_00989C00, (void**)&gpTexture_00989C04, 0x20, 0x20), 0x2A);
+    D2_ASSERT(sub_006B3730_CreateSurface((void**)&gpMemorySurface, (void**)&gpMemoryTexture, gnWidth_0096F4DC, gnHeight_009702B8), 0x27);
+    D2_ASSERT(sub_006B3730_CreateSurface((void**)&gpSurface_00989C00, (void**)&gpMemoryTexture32, 0x20, 0x20), 0x2A);
 }
 
 // 0x006BB640
 void __cdecl D3D_ReleaseTileSurfaces()
 {
-    RELEASE(gpTexture_00989BFC);
-    RELEASE(gpSurface_00989BF8);
-    RELEASE(gpTexture_00989C04);
+    RELEASE(gpMemoryTexture);
+    RELEASE(gpMemorySurface);
+    RELEASE(gpMemoryTexture32);
     RELEASE(gpSurface_00989C00);
 }
 
@@ -608,17 +608,17 @@ void __fastcall D3D_BindTileTexture(D2CacheBindingStrc* pTile)
 
     if (!pTile->wSlot)
     {
-        D3D_DecodeTileBlock(pTile->pData, gabTileBuffer_009897F8);
-        pTile->wSlot = D3D_SubtileCacheAdd(&gTexCache_0096FC80);
+        D3D_DecodeTileBlock(pTile->pData, gabTileBuffer);
+        pTile->wSlot = D3D_SubtileCacheAdd(&gtSubtileCache);
         const int nIndex = pTile->wSlot - 1;
         D2_ASSERT(nIndex >= 0, 0x1FC);
-        D2_ASSERT(nIndex < gTexCache_0096FC80.capacity, 0x1FD);
+        D2_ASSERT(nIndex < gtSubtileCache.capacity, 0x1FD);
 
-        D2CacheNodeStrc* pNode = &gTexCache_0096FC80.pNodes[pTile->wSlot - 1];
+        D2CacheNodeStrc* pNode = &gtSubtileCache.pNodes[pTile->wSlot - 1];
         pNode->binding = pTile;
 
         D2DDSurfaceDesc2Strc tDesc = { sizeof(D2DDSurfaceDesc2Strc) };
-        long hResult = gpMemorySurface_00989C00->lpVtbl->Lock(gpMemorySurface_00989C00, 0, &tDesc, 0x21, 0);
+        long hResult = gpMemorySurface32->lpVtbl->Lock(gpMemorySurface32, 0, &tDesc, 0x21, 0);
         if (hResult)
         {
             sub_006B20E0_DDrawLogError(gszFailedToLockMemorySurface_006FC2A4, hResult);
@@ -626,17 +626,17 @@ void __fastcall D3D_BindTileTexture(D2CacheBindingStrc* pTile)
 
         D2_ASSERT(tDesc.dwFlags & 8, 0x20B);
 
-        D3D_BlitIndexedToHighColor(gabTileBuffer_009897F8, (unsigned short*)tDesc.lpSurface, 0x20, 0x20, tDesc.lPitch >> 1, 0x20);
+        D3D_BlitIndexedToHighColor(gabTileBuffer, (unsigned short*)tDesc.lpSurface, 0x20, 0x20, tDesc.lPitch >> 1, 0x20);
 
-        hResult = gpMemorySurface_00989C00->lpVtbl->Unlock(gpMemorySurface_00989C00, 0);
+        hResult = gpMemorySurface32->lpVtbl->Unlock(gpMemorySurface32, 0);
         if (hResult)
         {
             sub_006B20E0_DDrawLogError(gszFailedToUnlockMemorySurface_006FC284, hResult);
         }
 
-        if (gnRenderFlags_0096F3A8 & gnRenderFlag_006CE290)
+        if (gnRenderFlags_0096F3A8 & gnRenderFlag)
         {
-            sub_006B38A0_Copy(pNode->pSurface, gpMemorySurface_00989C00, 0x20);
+            sub_006B38A0_Copy(pNode->pSurface, gpMemorySurface32, 0x20);
         }
         else
         {
@@ -647,8 +647,8 @@ void __fastcall D3D_BindTileTexture(D2CacheBindingStrc* pTile)
     }
     else
     {
-        D2CacheNodeStrc* pNode = &gTexCache_0096FC80.pNodes[pTile->wSlot - 1];
-        sub_006BACB0_TouchCacheNode(&gTexCache_0096FC80, pTile->wSlot);
+        D2CacheNodeStrc* pNode = &gtSubtileCache.pNodes[pTile->wSlot - 1];
+        sub_006BACB0_TouchCacheNode(&gtSubtileCache, pTile->wSlot);
         gpD3DDevice_00970E78->lpVtbl->SetTexture(gpD3DDevice_00970E78, 0, pNode->pTexture);
     }
 }

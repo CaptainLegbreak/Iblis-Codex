@@ -7,7 +7,7 @@ struct D2MultiChannelUserStrc;
 struct Unicode;
 struct Character;
 
-extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8; // 0x0077BBD8
+extern D2LaunchCharInfoStrc* gpCharInfo; // 0x0077BBD8
 void __stdcall CHATDLG_EnableConnection(int bEnable); // 0x004413E0
 
 unsigned int __stdcall SStrHashHT(const char* szPath); // 0x00414150
@@ -18,7 +18,7 @@ const char* __fastcall CHATDLG_SkipNamePrefix(const char* szName); // 0x00446820
 void __fastcall CHATDLG_ShowMessage(const Unicode* pTitle, const Unicode* pText); // 0x0043EA70
 int __stdcall MAINMENUS_FindCdKeyInText(const char* szText); // 0x0043E900
 int __cdecl CHATDLG_SendChatBuffer(); // 0x00442810
-extern D2MultiChannelUserStrc* gpSelectedChannelUser_00798F48; // 0x00798F48
+extern D2MultiChannelUserStrc* gpSelectedChannelUser; // 0x00798F48
 
 struct Character { signed char value; };
 
@@ -27,13 +27,13 @@ enum { FIRST_PRINTABLE = 32, AFTER_PRINTABLE = 128 };
 // 0x004414C0
 void __cdecl sub_004414C0_UpdateEnable()
 {
-    if (((*(unsigned short*)gpCharInfo_0077BBD8->wFlags) & 8) && ((*(unsigned short*)gpCharInfo_0077BBD8->wFlags) & 4))
+    if (((*(unsigned short*)gpCharInfo->wFlags) & 8) && ((*(unsigned short*)gpCharInfo->wFlags) & 4))
     {
         return;
     }
 
     int bEnable = 0;
-    if (gpCharInfo_0077BBD8->nByte22D && !sub_00449B30_QueryAddress())
+    if (gpCharInfo->nByte22D && !sub_00449B30_QueryAddress())
     {
         bEnable = 1;
     }
@@ -41,7 +41,7 @@ void __cdecl sub_004414C0_UpdateEnable()
     CHATDLG_EnableConnection(bEnable);
 }
 
-char gszChatBuffer_0077AE40[0x200]; // 0x0077AE40
+char gszChatBuffer[0x200]; // 0x0077AE40
 
 static int __stdcall sub_0043E860_FindHashedWord(unsigned int nHash, int nLength, char* szText)
 {
@@ -72,23 +72,23 @@ static int __stdcall sub_0043E860_FindHashedWord(unsigned int nHash, int nLength
 int __fastcall sub_004428D0_SendChatText(char* szText, int bWhisper)
 {
     const int bCommand = szText[0] == '/';
-    SMemZero(gszChatBuffer_0077AE40, sizeof(gszChatBuffer_0077AE40));
-    if (bWhisper && !bCommand && gpSelectedChannelUser_00798F48)
-        sprintf(gszChatBuffer_0077AE40, "/whisper *%s %s", CHATDLG_SkipNamePrefix(gpSelectedChannelUser_00798F48->szName), szText);
+    SMemZero(gszChatBuffer, sizeof(gszChatBuffer));
+    if (bWhisper && !bCommand && gpSelectedChannelUser)
+        sprintf(gszChatBuffer, "/whisper *%s %s", CHATDLG_SkipNamePrefix(gpSelectedChannelUser->szName), szText);
     else
-        strcpy(gszChatBuffer_0077AE40, szText);
+        strcpy(gszChatBuffer, szText);
 
-    if (sub_0043E860_FindHashedWord(gpCharInfo_0077BBD8->nWordHash, gpCharInfo_0077BBD8->nWordLength, szText))
+    if (sub_0043E860_FindHashedWord(gpCharInfo->nWordHash, gpCharInfo->nWordLength, szText))
     {
         CHATDLG_ShowMessage(D2LANG_GetStringFromTblIndex(0x2B37), D2LANG_GetStringFromTblIndex(0x2B38));
-        gszChatBuffer_0077AE40[0] = 0;
+        gszChatBuffer[0] = 0;
         return 0;
     }
 
     if (MAINMENUS_FindCdKeyInText(szText))
     {
         CHATDLG_ShowMessage(D2LANG_GetStringFromTblIndex(0x2B7A), D2LANG_GetStringFromTblIndex(0x2B7B));
-        gszChatBuffer_0077AE40[0] = 0;
+        gszChatBuffer[0] = 0;
         return 0;
     }
 

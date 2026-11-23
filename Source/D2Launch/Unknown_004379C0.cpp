@@ -1,6 +1,7 @@
 extern "C" long __cdecl _time32(long* pTime);
 extern "C" int __cdecl tolower(int nChar);
-extern const char gacCDKeyMap_006DF238[];
+// build: symbol ?gacCDKeyMap@* 0x006DF238
+extern const char gacCDKeyMap[];
 
 // 0x004379C0
 // build: symbol ?BNDOWNLOAD_GetTime@* 0x00521B40
@@ -27,7 +28,7 @@ static int sub_0051DD20_HexToNibble(char cChar)
 
 static int sub_0051DD40_MapKeyChar(unsigned char cChar)
 {
-    return gacCDKeyMap_006DF238[cChar];
+    return gacCDKeyMap[cChar];
 }
 
 long __stdcall sub_M106_Emit_0051DC70(long* pTime)

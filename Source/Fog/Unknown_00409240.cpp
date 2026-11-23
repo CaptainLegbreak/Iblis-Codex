@@ -14,8 +14,8 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 extern "C" void* __cdecl realloc(void* pMemory, size_t nSize); // 0x00683BA5
 extern "C" void* __cdecl malloc(unsigned int nSize); // 0x00683EFD
 void* __fastcall ERRORMANAGER_PoolAllocLarge(D2PoolSystemStrc* pSystem, int nSize, const char* szFile, int nLine); // 0x00409770
-extern const unsigned int gdwLowBitMasks_006CD490[]; // 0x006CD490
-extern D2PoolDirectoryStrc gtPoolManager_0074F0E8; // 0x0074F0E8
+extern const unsigned int gadwLowBitMasks[]; // 0x006CD490
+extern D2PoolDirectoryStrc gtPoolManager; // 0x0074F0E8
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -98,7 +98,7 @@ static int sub_00409240_FindFreeSlot(int nCount, const unsigned int* pBits)
         nBase += 0x100;
     }
     const int nRest = nCount & 0x1F;
-    if (nRest && pBits[nWords] != gdwLowBitMasks_006CD490[nRest])
+    if (nRest && pBits[nWords] != gadwLowBitMasks[nRest])
     {
         return sub_00409220_FindZeroBit(pBits[nWords]) + nBase + nWords * 32;
     }
@@ -224,7 +224,7 @@ void* __fastcall sub_0040A080_PoolAlloc(D2PoolSystemStrc* pSystem, int nSize, co
     {
         pSystem = &gtDefaultPoolSystem_0074F104;
     }
-    if (!gtPoolManager_0074F0E8.bInit)
+    if (!gtPoolManager.bInit)
     {
         sub_00409DD0_InitPoolSystem(0, "Global Pool System", 0x40000, 0x8000);
     }

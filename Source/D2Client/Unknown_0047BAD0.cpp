@@ -139,7 +139,8 @@ int __stdcall sub_0047BAD0_ParseChatCommand(const char** ppText, char* pCode, ch
         pText += nNameLen;
         if (gaChatCommands[i].bArgument)
         {
-            SStrTokenize(&pText, szToken, 0x100, gszSpace_006FFC44, 0);
+// build: symbol ?gszSpace@* 0x006FFC44
+            SStrTokenize(&pText, szToken, 0x100, gszSpace, 0);
             if (!strlen(pText))
                 return 0;
             if (strlen(szToken) >= 0x32)
@@ -219,7 +220,8 @@ int __cdecl sub_0047BDF0_HandleBnetChatMessage()
 // build: symbol ?gszNameAccountFormat@* 0x006D72C0
                 sprintf(szFormatted, gszNameAccountFormat, szName, sub_0047BD60_GetAccountPart(tPacket.szName));
             else
-                sprintf(szFormatted, gszStringFormat_006FFC58, szName);
+// build: symbol ?gszStringFormat@* 0x006FFC58
+                sprintf(szFormatted, gszStringFormat, szName);
             sub_00526E40_Utf8ToUnicode(wszLine, szFormatted, 0x154);
             sub_00526E40_Utf8ToUnicode(wszText, szText, 0x154);
             wszLine[0x153].wChar = 0;

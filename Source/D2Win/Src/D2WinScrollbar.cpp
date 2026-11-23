@@ -25,7 +25,7 @@ typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern unsigned int gdwBitMasks[]; // 0x006CE268
-extern tagPOINT gMousePosition_6F8FE234; // 0x007D55A4
+extern tagPOINT gtMousePosition; // 0x007D55A4
 int __fastcall D2Win_10053(D2WinTextBoxStrc* pTextBox, int nLine); // 0x004FBA30
 
 extern "C" void* __cdecl memset(void* destination, int value, unsigned int size); // 0x00681EF0
@@ -55,7 +55,7 @@ int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl); // 0x004F9210
 int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl); // 0x004F9310
 int __fastcall POPUP_UpdateHoveredLine(D2WinControlStrc* pControl); // 0x00508710
 int __fastcall POPUP_Draw(D2WinControlStrc* pControl); // 0x005087A0
-extern D2WinPopUpStrc* gpPopUp_0087E974; // 0x0087E974
+extern D2WinPopUpStrc* gpPopUp; // 0x0087E974
 
 // 0x00508000
 extern "C" int __fastcall SCROLLBAR_SetScrollCallback(D2WinScrollBarStrc* pScrollBar, D2WinMsgHandler pfHandler)
@@ -150,8 +150,8 @@ int __stdcall SCROLLBAR_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
         return 1;
     }
 
-    const int nX = gMousePosition_6F8FE234.x - ptScrollbarData->controlHeader.nImageX;
-    const int nY = ptScrollbarData->controlHeader.nHeight - ptScrollbarData->controlHeader.nImageY + gMousePosition_6F8FE234.y;
+    const int nX = gtMousePosition.x - ptScrollbarData->controlHeader.nImageX;
+    const int nY = ptScrollbarData->controlHeader.nHeight - ptScrollbarData->controlHeader.nImageY + gtMousePosition.y;
     if (nX < 0 || nX > ptScrollbarData->controlHeader.nWidth)
     {
         return 0;

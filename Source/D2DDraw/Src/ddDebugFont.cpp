@@ -48,10 +48,10 @@ extern int gpLastHoverItem;                                                     
 extern int gbTextPanelOpen;                                                                               // 0x007BF1FA
 extern D2TextHeaderStrc* gpTextHeader;                                                             // 0x007BF250
 extern int gnTradeState;                                                                               // 0x007C0E7C
-unsigned char* gpDDrawDebugFontGlyphs_008815AC;                                                             // 0x008815AC
+unsigned char* gpDDrawDebugFontGlyphs;                                                             // 0x008815AC
 extern void* gpReply_008818D0;                                                                              // 0x008818D0
-extern "C" void* gpCDKeyHandle_00882744;                                                                    // 0x00882744
-extern "C" void* gpCDKeyHandle_00882750;                                                                    // 0x00882750
+extern "C" void* gpGidFileData;                                                                    // 0x00882744
+extern "C" void* gpClhFileData;                                                                    // 0x00882750
 
 extern "C" __declspec(dllimport) void* __stdcall CreateBitmap(int nWidth, int nHeight, unsigned int nPlanes, unsigned int nBitCount, const void* lpBits); // 0x006CC090
 
@@ -71,15 +71,15 @@ extern "C" __declspec(dllimport) int __stdcall SetBkMode(void* hdc, int mode); /
 
 extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft, int yTop, int xRight, int yBottom); // 0x006CC498
 
-extern int gaDDrawDebugFontCharWidths_00881428[96]; // 0x00881428
+extern int gaDDrawDebugFontCharWidths[96]; // 0x00881428
 
-int gaDDrawDebugFontGlyphOffsets_008812A8[96]; // 0x008812A8
+int gaDDrawDebugFontGlyphOffsets[96]; // 0x008812A8
 
-unsigned long gdwDDrawDebugFontBkColor_008815A8; // 0x008815A8
+unsigned long gdwDDrawDebugFontBkColor; // 0x008815A8
 
-extern unsigned long gdwDDrawDebugFontTextColor_0072F7F0; // 0x0072F7F0
+extern unsigned long gdwDDrawDebugFontTextColor; // 0x0072F7F0
 
-extern "C" const char gszCourier_006DD52C[]; // 0x006DD52C
+extern "C" const char gszCourier[]; // 0x006DD52C
 
 extern "C" __declspec(dllimport) void* __stdcall CreateFontA(int cHeight, int cWidth, int cEscapement, int cOrientation, int cWeight, unsigned long bItalic, unsigned long bUnderline, unsigned long bStrikeOut, unsigned long iCharSet, unsigned long iOutPrecision, unsigned long iClipPrecision, unsigned long iQuality, unsigned long iPitchAndFamily, const char* pszFaceName); // 0x006CC0E0
 
@@ -310,10 +310,10 @@ int __cdecl sub_004B8A10()
 // 0x005125B0
 void __cdecl DDRAW_FreeDebugFont()
 {
-    if (gpDDrawDebugFontGlyphs_008815AC)
+    if (gpDDrawDebugFontGlyphs)
     {
-        FOG_Free(gpDDrawDebugFontGlyphs_008815AC, ".\\Src\\ddDebugFont.cpp", 0x5D, 0);
-        gpDDrawDebugFontGlyphs_008815AC = 0;
+        FOG_Free(gpDDrawDebugFontGlyphs, ".\\Src\\ddDebugFont.cpp", 0x5D, 0);
+        gpDDrawDebugFontGlyphs = 0;
     }
 }
 
@@ -331,16 +331,16 @@ void __cdecl BNSEND_FreeGamesList()
 // 0x005239C0
 void __cdecl GRID_UnlockCDKeys()
 {
-    if (gpCDKeyHandle_00882744)
+    if (gpGidFileData)
     {
-        SFileUnloadFile(gpCDKeyHandle_00882744);
-        gpCDKeyHandle_00882744 = 0;
+        SFileUnloadFile(gpGidFileData);
+        gpGidFileData = 0;
     }
 
-    if (gpCDKeyHandle_00882750)
+    if (gpClhFileData)
     {
-        SFileUnloadFile(gpCDKeyHandle_00882750);
-        gpCDKeyHandle_00882750 = 0;
+        SFileUnloadFile(gpClhFileData);
+        gpClhFileData = 0;
     }
 }
 
@@ -348,17 +348,17 @@ void __cdecl GRID_UnlockCDKeys()
 void __cdecl DDRAW_CreateDebugFont()
 {
     void* hDC = CreateDCA("DISPLAY", 0, 0, 0);
-    void* hFont = CreateFontA(10, 0, 0, 0, 400, 0, 0, 0, 0, 0, 0, 0, 1, gszCourier_006DD52C);
+    void* hFont = CreateFontA(10, 0, 0, 0, 400, 0, 0, 0, 0, 0, 0, 0, 1, gszCourier);
     void* hBitmap = CreateBitmap(8, 16, 1, 8, 0);
     SelectObject(hDC, hFont);
     SelectObject(hDC, hBitmap);
-    SetTextColor(hDC, gdwDDrawDebugFontTextColor_0072F7F0);
-    SetBkColor(hDC, gdwDDrawDebugFontBkColor_008815A8);
+    SetTextColor(hDC, gdwDDrawDebugFontTextColor);
+    SetBkColor(hDC, gdwDDrawDebugFontBkColor);
     SetBkMode(hDC, 2);
     tagRECT rect;
     SetRect(&rect, 0, 0, 8, 16);
-    gpDDrawDebugFontGlyphs_008815AC = (unsigned char*)FOG_Alloc(0x3000, ".\\Src\\ddDebugFont.cpp", 0x3A, 0);
-    unsigned char* pMask = gpDDrawDebugFontGlyphs_008815AC;
+    gpDDrawDebugFontGlyphs = (unsigned char*)FOG_Alloc(0x3000, ".\\Src\\ddDebugFont.cpp", 0x3A, 0);
+    unsigned char* pMask = gpDDrawDebugFontGlyphs;
     int nOffset = 0;
     for (int nChar = 0x20; nChar <= 0x7F; ++nChar)
     {
@@ -368,16 +368,16 @@ void __cdecl DDRAW_CreateDebugFont()
         {
             for (int x = 0; x < 8; ++x)
             {
-                if (GetPixel(hDC, x, y) == gdwDDrawDebugFontTextColor_0072F7F0)
+                if (GetPixel(hDC, x, y) == gdwDDrawDebugFontTextColor)
                     *pMask++ = 0xFF;
                 else
                     *pMask++ = 0;
             }
         }
-        gaDDrawDebugFontGlyphOffsets_008812A8[nChar - 0x20] = nOffset;
+        gaDDrawDebugFontGlyphOffsets[nChar - 0x20] = nOffset;
         nOffset += 0x80;
     }
-    GetCharWidthA(hDC, 0x20, 0x7F, gaDDrawDebugFontCharWidths_00881428);
+    GetCharWidthA(hDC, 0x20, 0x7F, gaDDrawDebugFontCharWidths);
     DeleteObject(hBitmap);
     DeleteObject(hFont);
     DeleteDC(hDC);

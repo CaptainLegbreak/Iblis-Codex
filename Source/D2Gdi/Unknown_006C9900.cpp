@@ -8,7 +8,7 @@ unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned 
 void __fastcall sub_006C9640_GdiCloseSmacker(D2SmackRecordStrc* pRecord);                                      // 0x006C9640
 extern unsigned char gabRemapTable_0098A178[256];                                                           // 0x0098A178
 extern unsigned char* gpRemapSource_0098A278;                                                               // 0x0098A278
-int gbRemapValid_0098A27C;                                                                                  // 0x0098A27C
+int gbRemapValid;                                                                                  // 0x0098A27C
 extern unsigned char gabGamePalette_007C8CC8[];                                                             // 0x007C8CC8
 
 static inline void sub_006C9690_RemapSpan(unsigned char* pDst, const unsigned char* pSrc, int nCount)
@@ -26,11 +26,12 @@ static void __stdcall sub_006C9690_RemapRows(int nWidth, D2SmackRecordStrc* pRec
 static void __stdcall sub_006C9690_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows)
 {
     unsigned char* pSrc = gpRemapSource_0098A278;
-    unsigned char* pDst = (pRect->nY - nRows) * gnScreenWidth_007C9138 + pRect->nX + gpScreenBuffer_007C9154;
+// build: symbol ?gnRenderWidth@* 0x007C9138
+    unsigned char* pDst = (pRect->nY - nRows) * gnRenderWidth + pRect->nX + gpScreenBuffer_007C9154;
     for (unsigned int y = 0; y < nRows; ++y)
     {
         sub_006C9690_RemapSpan(pDst, pSrc, nWidth);
-        pDst += gnScreenWidth_007C9138;
+        pDst += gnRenderWidth;
         pSrc += nWidth;
     }
 }
@@ -55,7 +56,7 @@ void __fastcall sub_006C9900_GdiPlaySmacker(D2SmackRecordStrc* pRecord)
                 {
                     gabRemapTable_0098A178[i] = GetClosestColor(gabGamePalette_007C8CC8, 256, hSmack->aPalette[i].nRed, hSmack->aPalette[i].nGreen, hSmack->aPalette[i].nBlue);
                 }
-                gbRemapValid_0098A27C = 1;
+                gbRemapValid = 1;
             }
             SmackDoFrame(hSmack);
             if (hSmack->nFrameNum == hSmack->nFrames)
@@ -63,15 +64,16 @@ void __fastcall sub_006C9900_GdiPlaySmacker(D2SmackRecordStrc* pRecord)
             else
                 SmackNextFrame(hSmack);
         }
-        if (gbRenderPaused_007C9144)
+// build: symbol ?gbRenderPaused@* 0x007C9144
+        if (gbRenderPaused)
             return;
-        if (!gbRemapValid_0098A27C)
+        if (!gbRemapValid)
             return;
         sub_006C9690_RemapRows(hSmack->nWidth, pRecord, hSmack->nHeight);
         return;
     }
     case 'p':
-        if (!gbRenderPaused_007C9144)
+        if (!gbRenderPaused)
             sub_006C9690_RemapRows(468, pRecord, 60);
         break;
     }

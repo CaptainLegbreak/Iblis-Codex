@@ -49,7 +49,7 @@ int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsi
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
 int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
-extern int gbD2ServerStopEvent_0074C720; // 0x0074C720
+extern int gbRunningAsService; // 0x0074C720
 extern char szSRegReadBuf[]; // 0x0074C728
 
 static int sub_004055D0_IsCmdSeparator_Inl(char c)
@@ -191,7 +191,7 @@ void __fastcall SaveCmdLine(const char** argv)
     }
     bUseCmdLine = 0;
     SRegSaveValue("Diablo II", "UseCmdLine", 0, 0);
-    if (gbD2ServerStopEvent_0074C720)
+    if (gbRunningAsService)
     {
         SRegLoadString("Diablo II", "SvcCmdLine", 0, szSRegReadBuf, 0x400);
         *argv = szSRegReadBuf;

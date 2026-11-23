@@ -11,7 +11,7 @@ struct D2VxdHeaderStrc;
 struct D2DosHeaderStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-extern "C" const char szD2SoundUtilFile_006DEB68[]; // 0x006DEB68
+extern "C" const char gszD2SoundUtilFile[]; // 0x006DEB68
 
 struct T00516950
 {
@@ -69,7 +69,7 @@ struct D2DosHeaderStrc
 // 0x00516950
 void __fastcall D2SOUND_ListAddHead(T00516950** ppList, void* pData)
 {
-    T00516950* pNode = (T00516950*)FOG_Alloc(sizeof(T00516950), szD2SoundUtilFile_006DEB68, 0xD5, 0);
+    T00516950* pNode = (T00516950*)FOG_Alloc(sizeof(T00516950), gszD2SoundUtilFile, 0xD5, 0);
     memset(pNode, 0, sizeof(T00516950));
     T00516950* pHead = *ppList;
     pNode->pData = pData;
@@ -272,10 +272,10 @@ int __fastcall D2SOUND_GetVxdFileVersion(const char* szPath, unsigned int* pMajo
     if (!nSize)
         return 0;
 
-    void* pBuffer = FOG_Alloc(nSize, szD2SoundUtilFile_006DEB68, 0x21C, 0);
+    void* pBuffer = FOG_Alloc(nSize, gszD2SoundUtilFile, 0x21C, 0);
     if (!D2SOUND_GetVxdVersionInfo(szPath, nSize, pBuffer))
     {
-        FOG_Free(pBuffer, szD2SoundUtilFile_006DEB68, 0x221, 0);
+        FOG_Free(pBuffer, gszD2SoundUtilFile, 0x221, 0);
         return 0;
     }
 
@@ -283,7 +283,7 @@ int __fastcall D2SOUND_GetVxdFileVersion(const char* szPath, unsigned int* pMajo
     unsigned int nInfoLen;
     if (!VerQueryValueA(pBuffer, "\\", (void**)&pInfo, &nInfoLen))
     {
-        FOG_Free(pBuffer, szD2SoundUtilFile_006DEB68, 0x229, 0);
+        FOG_Free(pBuffer, gszD2SoundUtilFile, 0x229, 0);
         return 0;
     }
 

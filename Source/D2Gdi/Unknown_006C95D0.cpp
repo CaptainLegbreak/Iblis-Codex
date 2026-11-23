@@ -17,10 +17,11 @@ void __fastcall sub_006C95D0_DrawShifted(void* a, void* b, int nX, int nY, int n
         switch (nMode)
         {
         case 1:
-            nX -= gnScreenWidth_007C9138 / 4;
+// build: symbol ?gnRenderWidth@* 0x007C9138
+            nX -= gnRenderWidth / 4;
             break;
         case 2:
-            nX += gnScreenWidth_007C9138 / 4;
+            nX += gnRenderWidth / 4;
             break;
         }
         gpDrawTable_007C914C->pfDraw(a, nX, nY, b);

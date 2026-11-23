@@ -46,14 +46,14 @@ extern "C" __declspec(dllimport) void* __stdcall CreatePalette(const D2LogPalett
 extern "C" __declspec(dllimport) int __stdcall DeleteObject(void* ho);
 extern D2PaletteEntry006C7C10Strc gaPalette_007C8CC8[256]; // 0x007C8CC8
 
-void* gpBufferBits_007C9154; // 0x007C9154
+void* gpSurfaceBits; // 0x007C9154
 
-void* ghBufferBitmap_0098A164; // 0x0098A164
+void* ghBufferBitmap; // 0x0098A164
 
 // 0x006C7B00
 static void GDI_CreateBackBuffer(int nResolution)
 {
-    D2_ASSERT(!gpBufferBits_007C9154, 111);
+    D2_ASSERT(!gpSurfaceBits, 111);
 
     int nWidth;
     int nHeight;
@@ -88,13 +88,13 @@ static void GDI_CreateBackBuffer(int nResolution)
     tBitmapInfo.biCompression = 0;
 
     void* hDC = GetDC(0);
-    ghBufferBitmap_0098A164 = CreateDIBSection(hDC, &tBitmapInfo, 0, &gpBufferBits_007C9154, 0, 0);
+    ghBufferBitmap = CreateDIBSection(hDC, &tBitmapInfo, 0, &gpSurfaceBits, 0, 0);
     ReleaseDC(0, hDC);
 
-    gpBufferFuncs_007C914C->pfnSetBuffer(gpBufferBits_007C9154, gnBufferWidth_007C9138, gnBufferHeight_007C913C, 0);
+    gpBufferFuncs_007C914C->pfnSetBuffer(gpSurfaceBits, gnBufferWidth_007C9138, gnBufferHeight_007C913C, 0);
 }
 
-void* ghPalette_0098A160; // 0x0098A160
+void* ghPalette; // 0x0098A160
 
 // 0x006C7C10
 int __fastcall GDI_CreateSurface(int nValue, int nArg)
@@ -106,7 +106,7 @@ int __fastcall GDI_CreateSurface(int nValue, int nArg)
     tLogPalette.palVersion = 0x300;
     tLogPalette.palNumEntries = 0x100;
     memset(tLogPalette.palPalEntry, 0, sizeof(tLogPalette.palPalEntry));
-    ghPalette_0098A160 = CreatePalette(&tLogPalette);
+    ghPalette = CreatePalette(&tLogPalette);
     sub_006C8930_Init();
     sub_006C82D0_Apply(nArg);
     return 1;
@@ -126,14 +126,14 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern int gnValue_007C9144;                                                                                        // 0x007C9144
 extern "C" __declspec(dllimport) unsigned int __stdcall SetPaletteEntries(void* hPalette, unsigned int nStart, unsigned int nEntries, const D2PaletteEntry006C7C10Strc* pEntries);
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
-extern D2RgbQuad006C7FA0Strc gaColors_00989C40[256];                                                                // 0x00989C40
+extern D2RgbQuad006C7FA0Strc gatGdiColors[256];                                                                // 0x00989C40
 
 // 0x006C7CF0
 int __cdecl GDI_CloseSurface()
 {
     sub_006C8960_DeleteGraphicObject();
-    DeleteObject(ghBufferBitmap_0098A164);
-    gpBufferBits_007C9154 = 0;
+    DeleteObject(ghBufferBitmap);
+    gpSurfaceBits = 0;
     gpBufferFuncs_007C914C->pfnSetBuffer(0, 0, 0, 0);
     return 1;
 }
@@ -160,19 +160,19 @@ void __fastcall GDI_SetPalette(D2PaletteEntry006C7C10Strc* pEntries)
 {
     for (int i = 0; i < 256; ++i)
     {
-        gaColors_00989C40[i].rgbRed = pEntries[i].peRed;
-        gaColors_00989C40[i].rgbGreen = pEntries[i].peGreen;
-        gaColors_00989C40[i].rgbBlue = pEntries[i].peBlue;
+        gatGdiColors[i].rgbRed = pEntries[i].peRed;
+        gatGdiColors[i].rgbGreen = pEntries[i].peGreen;
+        gatGdiColors[i].rgbBlue = pEntries[i].peBlue;
     }
-    SetPaletteEntries(ghPalette_0098A160, 0, 256, pEntries);
+    SetPaletteEntries(ghPalette, 0, 256, pEntries);
     memcpy(gaPalette_007C8CC8, pEntries, sizeof(gaPalette_007C8CC8));
 }
 
 // 0x006C80B0
 int __fastcall GDI_ChangeRes(int nUnused, int nMode)
 {
-    DeleteObject(ghBufferBitmap_0098A164);
-    gpBufferBits_007C9154 = 0;
+    DeleteObject(ghBufferBitmap);
+    gpSurfaceBits = 0;
     gpBufferFuncs_007C914C->pfnSetBuffer(0, 0, 0, 0);
     GDI_CreateBackBuffer(nMode);
     sub_006C82D0_Apply(nMode);

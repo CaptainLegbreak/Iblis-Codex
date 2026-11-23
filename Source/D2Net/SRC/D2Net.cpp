@@ -4,7 +4,7 @@ struct D2NetPacketRecStrc;
 struct D2NetLockStrc;
 struct D2Net52BE10Strc;
 struct D2ServerCallbackFunctions;
-extern int gnConnectionMode_00882D10; // 0x00882D10
+extern int gnConnectionMode; // 0x00882D10
 
 struct D2NetLockStrc
 {
@@ -32,17 +32,17 @@ extern int gbD2ServerCallbackFunctionsInitialized; // 0x00883D54
 // 0x0052B7E0
 int __fastcall NET_IsLocalConnection()
 {
-    if (gnConnectionMode_00882D10 == 1)
+    if (gnConnectionMode == 1)
     {
         return 1;
     }
-    return gnConnectionMode_00882D10 == 2;
+    return gnConnectionMode == 2;
 }
 
 // 0x0052B810
 void __fastcall NET_SetConnectionMode(int nConnectionMode)
 {
-    gnConnectionMode_00882D10 = nConnectionMode;
+    gnConnectionMode = nConnectionMode;
 }
 
 // 0x0052B820
@@ -53,7 +53,7 @@ int __fastcall NET_DequeueFirstPacketFromList(D2CriticalSectionStrc* pCriticalSe
     EnterCriticalSection(pCriticalSection);
 
     D2NetPacketRecStrc* pPacket = *ppPacketList;
-    if (pPacket && (gnConnectionMode_00882D10 != 2 || GetTickCount() - pPacket->dwTickCount >= 500))
+    if (pPacket && (gnConnectionMode != 2 || GetTickCount() - pPacket->dwTickCount >= 500))
     {
         memcpy(pBuffer, pPacket, nBufferSize < MAX_MSG_SIZE ? nBufferSize : MAX_MSG_SIZE);
         nResult = pPacket->nPacketSize;
@@ -74,7 +74,7 @@ void __cdecl sub_0052B8F0_Nop()
 {
 }
 
-int gnConnectionMode_00882D10; // 0x00882D10
+int gnConnectionMode; // 0x00882D10
 
 // 0x0052B900
 void __cdecl sub_0052B900_Nop()
@@ -200,7 +200,7 @@ int __fastcall NET_FreePacketList(D2CriticalSectionStrc* pCriticalSection, D2Net
 // 0x0052B800
 int __fastcall NET_IsSimulatedLagConnection()
 {
-    return gnConnectionMode_00882D10 == 2;
+    return gnConnectionMode == 2;
 }
 
 // 0x0052B690

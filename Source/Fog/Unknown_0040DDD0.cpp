@@ -37,7 +37,7 @@ extern "C" char* __stdcall inet_ntoa(D2InAddrStrc tAddress); // 0x006B013E
 extern "C" int __stdcall WSACleanup(); // 0x006B0138
 extern "C" int __stdcall WSAGetLastError(); // 0x006B0168
 int __fastcall FOG_SOCKET_WSAStartup(); // 0x0040D890
-extern char gszResolvedHostIP_0075D040[]; // 0x0075D040
+extern char gszResolvedHostIP[]; // 0x0075D040
 
 struct D2LogMsgListStrc
 {
@@ -51,13 +51,13 @@ extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2Critical
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 FSafeSock* __fastcall FOG_SOCKET_ConnectEx(char* szHostAddress, int nPortNumber, unsigned long (__stdcall* pThreadProc)(void* pParam), void* lpParameter, const char* szName, int bNonBlocking); // 0x0040D8E0
-extern int gnLogQueued_0075D140; // 0x0075D140
-extern int gnLogQueuedBytes_0075D144; // 0x0075D144
-extern int gbLogInitialized_0075D2EC; // 0x0075D2EC
-extern unsigned long gnLogThreadId_0075E834; // 0x0075E834
-extern D2CriticalSectionStrc gtLogQueueLock_0075E838; // 0x0075E838
+extern int gnLogQueued; // 0x0075D140
+extern int gnLogQueuedBytes; // 0x0075D144
+extern int gbLogInitialized; // 0x0075D2EC
+extern unsigned long gnLogThreadId; // 0x0075E834
+extern D2CriticalSectionStrc gtLogQueueLock; // 0x0075E838
 extern D2LogMsgListStrc gtLogMsgQueue_0075E868; // 0x0075E868
-extern D2CriticalSectionStrc gTimeLock_0075E880; // 0x0075E880
+extern D2CriticalSectionStrc gtTimeLock; // 0x0075E880
 
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
 int __cdecl ERRORMANAGER_MeasureCpuMHz(); // 0x0040E870
@@ -76,12 +76,12 @@ struct T004013C0
     unsigned short wProcessorRevision;
 };
 
-extern T004013C0 gtSystemInfo_0074D8A0; // 0x0074D8A0
-extern "C" const char gszIntel386_006CE074[]; // 0x006CE074
-extern "C" const char gszIntel486_006CE080[]; // 0x006CE080
-extern "C" const char gszCpuSpeedFormat_006CE08C[]; // 0x006CE08C
-extern "C" const char gszCpuVersionFormat_006CE0A8[]; // 0x006CE0A8
-extern "C" const char gszCpuVendorFormat_006CE0EC[]; // 0x006CE0EC
+extern T004013C0 gtSystemInfo; // 0x0074D8A0
+extern "C" const char gszIntel386[]; // 0x006CE074
+extern "C" const char gszIntel486[]; // 0x006CE080
+extern "C" const char gszCpuSpeedFormat[]; // 0x006CE08C
+extern "C" const char gszCpuVersionFormat[]; // 0x006CE0A8
+extern "C" const char gszCpuVendorFormat[]; // 0x006CE0EC
 
 struct D2LogMsgNodeStrc
 {
@@ -148,17 +148,17 @@ const char* __fastcall FOG_ResolveHostIPAddress(const char* szHostName)
         }
         bStarted = 1;
     }
-    strcpy(gszResolvedHostIP_0075D040, inet_ntoa(*(D2InAddrStrc*)pHost->h_addr_list[0]));
+    strcpy(gszResolvedHostIP, inet_ntoa(*(D2InAddrStrc*)pHost->h_addr_list[0]));
     if (bStarted)
     {
         WSACleanup();
     }
-    return gszResolvedHostIP_0075D040;
+    return gszResolvedHostIP;
 }
 
-void* ghLogThread_0075D2E8; // 0x0075D2E8
+void* ghLogThread; // 0x0075D2E8
 
-int gbLogThreadStop_0075E830; // 0x0075E830
+int gbLogThreadStop; // 0x0075E830
 
 // 0x0040E230
 FSafeSock* __fastcall FOG_SOCKET_Connect(char* szHostAddress, int nPortNumber, unsigned long (__stdcall* pThreadProc)(void* pParam), void* lpParameter, const char* szName)
@@ -169,24 +169,24 @@ FSafeSock* __fastcall FOG_SOCKET_Connect(char* szHostAddress, int nPortNumber, u
 // 0x0040FFD0
 void __cdecl sub_0040FFD0_ShutdownLogSystem()
 {
-    gbLogThreadStop_0075E830 = 1;
-    WaitForSingleObject(ghLogThread_0075D2E8, 30000);
-    CloseHandle(ghLogThread_0075D2E8);
-    EnterCriticalSection(&gtLogQueueLock_0075E838);
+    gbLogThreadStop = 1;
+    WaitForSingleObject(ghLogThread, 30000);
+    CloseHandle(ghLogThread);
+    EnterCriticalSection(&gtLogQueueLock);
     gtLogMsgQueue_0075E868.sub_0040FED0_DeleteAll();
-    gnLogQueued_0075D140 = 0;
-    gnLogQueuedBytes_0075D144 = 0;
-    ghLogThread_0075D2E8 = 0;
-    gnLogThreadId_0075E834 = 0;
-    gbLogInitialized_0075D2EC = 0;
-    gbLogThreadStop_0075E830 = 0;
-    LeaveCriticalSection(&gtLogQueueLock_0075E838);
+    gnLogQueued = 0;
+    gnLogQueuedBytes = 0;
+    ghLogThread = 0;
+    gnLogThreadId = 0;
+    gbLogInitialized = 0;
+    gbLogThreadStop = 0;
+    LeaveCriticalSection(&gtLogQueueLock);
 }
 
 // 0x004107A0
 void __cdecl sub_004107A0_DeleteTimeLock()
 {
-    DeleteCriticalSection(&gTimeLock_0075E880);
+    DeleteCriticalSection(&gtTimeLock);
 }
 
 // 0x0040E300
@@ -354,10 +354,10 @@ void __cdecl sub_0040EA00_WriteProcessorReport()
     switch (gwProcessorLevel_0074D8C0)
     {
     case 3:
-        sub_00410610_WriteLogLine(gszIntel386_006CE074);
+        sub_00410610_WriteLogLine(gszIntel386);
         break;
     case 4:
-        sub_00410610_WriteLogLine(gszIntel486_006CE080);
+        sub_00410610_WriteLogLine(gszIntel486);
         break;
     default:
     {
@@ -368,9 +368,10 @@ void __cdecl sub_0040EA00_WriteProcessorReport()
         const int nFamily = (nSignature >> 8) & 0xF;
         const int nBrand = sub_0040E980_GetCpuBrand() & 0xFF;
         sub_0040E300(szName, nVendor, nFamily, nModel, nBrand, nType);
-        sub_00410610_WriteLogLine(gszCpuVendorFormat_006CE0EC, gaszCpuVendorNames_00708004[nVendor]);
-        sub_00410610_WriteLogLine(gszCpuVersionFormat_006CE0A8, szName, nType, nFamily, nModel, nSignature & 0xF, nBrand);
-        sub_00410610_WriteLogLine(gszCpuSpeedFormat_006CE08C, ERRORMANAGER_MeasureCpuMHz());
+// build: symbol ?gaszCpuVendorNames@* 0x00708004
+        sub_00410610_WriteLogLine(gszCpuVendorFormat, gaszCpuVendorNames[nVendor]);
+        sub_00410610_WriteLogLine(gszCpuVersionFormat, szName, nType, nFamily, nModel, nSignature & 0xF, nBrand);
+        sub_00410610_WriteLogLine(gszCpuSpeedFormat, ERRORMANAGER_MeasureCpuMHz());
         break;
     }
     }

@@ -5,7 +5,7 @@ struct D2BnHashCtxStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-extern D2BnHashCtxStrc gaBnHashCtx_00882760[]; // 0x00882760
+extern D2BnHashCtxStrc gatBnHashCtx[]; // 0x00882760
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 void __stdcall sub_00523AF0_HashTransform(D2BnHashCtxStrc* pCtx); // 0x00523AF0
 
@@ -20,13 +20,13 @@ static inline D2IdeaUInt16 IdeaMul(D2IdeaUInt16 a, D2IdeaUInt16 b);
 // 0x005241A0
 void __cdecl sub_005241A0_ClearHashContexts()
 {
-    memset(gaBnHashCtx_00882760, 0, sizeof(D2BnHashCtxStrc) * 3);
+    memset(gatBnHashCtx, 0, sizeof(D2BnHashCtxStrc) * 3);
 }
 
 // 0x00524200
 void __fastcall sub_00524200_HashBlock(int nIndex, const void* pBlock, unsigned int* pDigest)
 {
-    D2BnHashCtxStrc* pCtx = &gaBnHashCtx_00882760[nIndex];
+    D2BnHashCtxStrc* pCtx = &gatBnHashCtx[nIndex];
     const int nOld = pCtx->nBitCountLo;
     const int nNew = nOld + 0x200;
     if (nNew < nOld)
@@ -37,14 +37,14 @@ void __fastcall sub_00524200_HashBlock(int nIndex, const void* pBlock, unsigned 
     if (pDigest)
     {
         for (int i = 0; i < 5; ++i)
-            pDigest[i] = gaBnHashCtx_00882760[nIndex].aState[i];
+            pDigest[i] = gatBnHashCtx[nIndex].aState[i];
     }
 }
 
 // 0x00524280
 void __fastcall sub_00524280_InitHashContext(int nIndex)
 {
-    D2BnHashCtxStrc* pCtx = &gaBnHashCtx_00882760[nIndex];
+    D2BnHashCtxStrc* pCtx = &gatBnHashCtx[nIndex];
     pCtx->aState[0] = 0x67452301;
     pCtx->aState[1] = 0xEFCDAB89;
     pCtx->aState[2] = 0x98BADCFE;

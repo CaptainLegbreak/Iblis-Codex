@@ -12,18 +12,18 @@ extern "C" int __cdecl strncpy_s(char* szDest, unsigned int nDestSize, const cha
 bool __cdecl sub_00401B00_LoadDbgHelp();                                                                    // 0x00401B00
 bool __cdecl sub_00401CB0_InitSymbols();                                                                    // 0x00401CB0
 
-extern void* ghProcess_0074C6F0;                                                                            // 0x0074C6F0
-extern void* ghDbgHelp_0098A680;                                                                            // 0x0098A680
-extern SymGetModuleInfo64Fn gpfnSymGetModuleInfo64_0098A684;                                                // 0x0098A684
-extern bool gbSymInitialized_0098A6B0;                                                                      // 0x0098A6B0
-extern D2CriticalSectionStrc gtSymbolLock_0098A6F0;                                                         // 0x0098A6F0
+extern void* ghProcess;                                                                            // 0x0074C6F0
+extern void* ghDbgHelp;                                                                            // 0x0098A680
+extern SymGetModuleInfo64Fn gpfnSymGetModuleInfo64;                                                // 0x0098A684
+extern bool gbSymInitialized;                                                                      // 0x0098A6B0
+extern D2CriticalSectionStrc gtSymbolLock;                                                         // 0x0098A6F0
 
 static bool __stdcall sub_00401DF0_GetModuleFromAddr(unsigned long dwAddress, unsigned long* pdwBase, char* szModule);
 
 // 0x00401A60
 void __cdecl sub_00401A60_UnlockSymbols()
 {
-    LeaveCriticalSection(&gtSymbolLock_0098A6F0);
+    LeaveCriticalSection(&gtSymbolLock);
 }
 
 // build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
@@ -38,15 +38,15 @@ static bool __stdcall sub_00401DF0_GetModuleFromAddr(unsigned long dwAddress, un
     *pdwBase = 0;
     D2SymbolLockGuardStrc tLock;
 
-    if ((ghDbgHelp_0098A680 || sub_00401B00_LoadDbgHelp()) && (gbSymInitialized_0098A6B0 || sub_00401CB0_InitSymbols()))
+    if ((ghDbgHelp || sub_00401B00_LoadDbgHelp()) && (gbSymInitialized || sub_00401CB0_InitSymbols()))
     {
-        SymGetModuleInfo64Fn pfnGetModuleInfo = gpfnSymGetModuleInfo64_0098A684;
+        SymGetModuleInfo64Fn pfnGetModuleInfo = gpfnSymGetModuleInfo64;
         if (pfnGetModuleInfo)
         {
             D2ImagehlpModule64Strc tInfo;
             memset(&tInfo, 0, sizeof(tInfo));
             tInfo.SizeOfStruct = sizeof(D2ImagehlpModule64Strc);
-            if (pfnGetModuleInfo(ghProcess_0074C6F0, dwAddress, &tInfo))
+            if (pfnGetModuleInfo(ghProcess, dwAddress, &tInfo))
             {
                 if (GetModuleHandleA(tInfo.LoadedImageName))
                     *pdwBase = (unsigned long)tInfo.BaseOfImage;

@@ -7,9 +7,9 @@ extern "C" __declspec(dllimport) void __stdcall SmackNextFrame(D2SmackStrc* hSma
 unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
 void __fastcall DDRAW_CloseSmacker(D2SmackRecordStrc* pRecord);                                      // 0x00513330
 extern unsigned char* gpScreenBuffer_007C9154;                                                              // 0x007C9154
-unsigned char gabRemapTable_008815B0[256];                                                                  // 0x008815B0
+unsigned char gabDDrawSmackRemap[256];                                                                  // 0x008815B0
 extern unsigned char* gpRemapSource_008816B0;                                                               // 0x008816B0
-int gbRemapValid_008816B4;                                                                                  // 0x008816B4
+int gbDDrawSmackRemapReady;                                                                                  // 0x008816B4
 extern unsigned char gabGamePalette_007C8CC8[];                                                             // 0x007C8CC8
 extern int gbSurfaceActive_007C9140;                                                                        // 0x007C9140
 
@@ -17,7 +17,7 @@ static inline void sub_00513380_RemapSpan(unsigned char* pDst, const unsigned ch
 {
     while (nCount)
     {
-        *pDst++ = gabRemapTable_008815B0[*pSrc++];
+        *pDst++ = gabDDrawSmackRemap[*pSrc++];
         --nCount;
     }
 }
@@ -28,11 +28,12 @@ static void __stdcall sub_00513380_RemapRows(int nWidth, D2SmackRecordStrc* pRec
 static void __stdcall sub_00513380_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows)
 {
     unsigned char* pSrc = gpRemapSource_008816B0;
-    unsigned char* pDst = (pRect->nY - nRows) * gnScreenWidth_007C9138 + pRect->nX + gpScreenBuffer_007C9154;
+// build: symbol ?gnRenderWidth@* 0x007C9138
+    unsigned char* pDst = (pRect->nY - nRows) * gnRenderWidth + pRect->nX + gpScreenBuffer_007C9154;
     for (unsigned int y = 0; y < nRows; ++y)
     {
         sub_00513380_RemapSpan(pDst, pSrc, nWidth);
-        pDst += gnScreenWidth_007C9138;
+        pDst += gnRenderWidth;
         pSrc += nWidth;
     }
 }
@@ -55,9 +56,9 @@ void __fastcall sub_005135F0_DDrawPlaySmacker(D2SmackRecordStrc* pRecord)
             {
                 for (int i = 0; i < 256; ++i)
                 {
-                    gabRemapTable_008815B0[i] = GetClosestColor(gabGamePalette_007C8CC8, 256, hSmack->aPalette[i].nRed, hSmack->aPalette[i].nGreen, hSmack->aPalette[i].nBlue);
+                    gabDDrawSmackRemap[i] = GetClosestColor(gabGamePalette_007C8CC8, 256, hSmack->aPalette[i].nRed, hSmack->aPalette[i].nGreen, hSmack->aPalette[i].nBlue);
                 }
-                gbRemapValid_008816B4 = 1;
+                gbDDrawSmackRemapReady = 1;
             }
             SmackDoFrame(hSmack);
             if (hSmack->nFrameNum == hSmack->nFrames)
@@ -65,15 +66,16 @@ void __fastcall sub_005135F0_DDrawPlaySmacker(D2SmackRecordStrc* pRecord)
             else
                 SmackNextFrame(hSmack);
         }
-        if (gbRenderPaused_007C9144)
+// build: symbol ?gbRenderPaused@* 0x007C9144
+        if (gbRenderPaused)
             return;
-        if (!gbRemapValid_008816B4)
+        if (!gbDDrawSmackRemapReady)
             return;
         sub_00513380_RemapRows(hSmack->nWidth, pRecord, hSmack->nHeight);
         return;
     }
     case 'p':
-        if (!gbRenderPaused_007C9144)
+        if (!gbRenderPaused)
             sub_00513380_RemapRows(468, pRecord, 60);
         break;
     }

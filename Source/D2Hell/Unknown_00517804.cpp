@@ -19,16 +19,16 @@ struct D2MessageList {
  D2MessageNode* Head(){return m_terminator.Next();}
 };
 struct D2MessageLock {D2CriticalSectionStrc lock;int enabled;};
-extern D2MessageList gMessages_0072FA14;  // 0x0072FA14
+extern D2MessageList gtMessages;  // 0x0072FA14
 extern D2MessageLock gMessageLock_00881818;  // 0x00881818
-extern "C" const char gFallback_006DEBCC[];  // 0x006DEBCC
+extern "C" const char gszFaultError[];  // 0x006DEBCC
 unsigned int __stdcall SStrCopy(char*,const char*,unsigned int);  // 0x004135D0
 // 0x00517804
 void __fastcall sub_00517804_GetMessage(unsigned int id,char* dest,unsigned int size) {
  if(gMessageLock_00881818.enabled) {
   EnterCriticalSection(&gMessageLock_00881818.lock);
-  D2MessageNode* p=gMessages_0072FA14.Head();
-  for(; (int)p>0; p=gMessages_0072FA14.Link((char*)p)->m_next) {
+  D2MessageNode* p=gtMessages.Head();
+  for(; (int)p>0; p=gtMessages.Link((char*)p)->m_next) {
    if(p->callback(id,dest,size)) {
     LeaveCriticalSection(&gMessageLock_00881818.lock);
     return;
@@ -36,7 +36,7 @@ void __fastcall sub_00517804_GetMessage(unsigned int id,char* dest,unsigned int 
   }
   LeaveCriticalSection(&gMessageLock_00881818.lock);
  }
- SStrCopy(dest,gFallback_006DEBCC,size);
+ SStrCopy(dest,gszFaultError,size);
 }
 
 #include "gen/data/Source/D2Hell/Unknown_00517804.inc"

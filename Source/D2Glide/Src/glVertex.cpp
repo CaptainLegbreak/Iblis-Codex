@@ -1,8 +1,8 @@
 #include "D2Glide.h"
 
 struct D2GlideSettingsStrc;
-extern unsigned char* gpBlendTable_00880B5C; // 0x00880B5C
-extern int* gpnPerspectiveTable_00880B6C; // 0x00880B6C
+extern unsigned char* gpBlendTable; // 0x00880B5C
+extern int* gpnPerspectiveTable; // 0x00880B6C
 
 struct D2GlideSettingsStrc
 {
@@ -10,52 +10,52 @@ struct D2GlideSettingsStrc
     int bPerspectiveCapable;
 };
 extern unsigned char* sgbSmack8BitBuffer; // 0x00880BF0
-extern D2GlideSettingsStrc* gpGfxSettings_007C9148; // 0x007C9148
+extern D2GlideSettingsStrc* gpGfxSettings; // 0x007C9148
 
 extern unsigned char* gpMulTable_00880B5C; // 0x00880B5C
 
 // 0x0050DB20
 void __cdecl GLIDE_AllocBlendTable()
 {
-    gpBlendTable_00880B5C = (unsigned char*)FOG_Alloc(0x10000, ".\\Src\\glVertex.cpp", 0x17, 0);
+    gpBlendTable = (unsigned char*)FOG_Alloc(0x10000, ".\\Src\\glVertex.cpp", 0x17, 0);
 }
 
 
-unsigned char* gpBlendTable_00880B5C; // 0x00880B5C
+unsigned char* gpBlendTable; // 0x00880B5C
 
-int* gpnPerspectiveTable_00880B6C; // 0x00880B6C
+int* gpnPerspectiveTable; // 0x00880B6C
 
-unsigned char* gpGlideSmackBufferB_00880B70; // 0x00880B70
+unsigned char* gpGlideSmackBufferB; // 0x00880B70
 
-unsigned char* gpGlideSmackBufferC_00880B74; // 0x00880B74
+unsigned char* gpGlideSmackBufferC; // 0x00880B74
 
-unsigned char gnGlideAmbient_00880B58; // 0x00880B58
+unsigned char gbGlideAmbientGreen; // 0x00880B58
 
-unsigned char gnGlideAmbient_00880B59; // 0x00880B59
+unsigned char gbGlideAmbientBlue; // 0x00880B59
 
-unsigned char gnGlideAmbient_00880B5A; // 0x00880B5A
+unsigned char gbGlideAmbientRed; // 0x00880B5A
 
 // 0x0050DB40
 void __cdecl GLIDE_FreeBlendTable()
 {
-    if (gpBlendTable_00880B5C)
+    if (gpBlendTable)
     {
-        FOG_Free(gpBlendTable_00880B5C, ".\\Src\\glVertex.cpp", 30, 0);
-        gpBlendTable_00880B5C = 0;
+        FOG_Free(gpBlendTable, ".\\Src\\glVertex.cpp", 30, 0);
+        gpBlendTable = 0;
     }
 }
 
 // 0x0050DBE0
 void __fastcall GLIDE_SetVertexAmbientColor(D2GlideSpriteVertexStrc* pVertex, unsigned char nIntensity)
 {
-    const unsigned char* pRow = &gpBlendTable_00880B5C[nIntensity << 8];
-    pVertex->dwColor = 0xFF000000 | (pRow[gnGlideAmbient_00880B5A] << 16) | (pRow[gnGlideAmbient_00880B58] << 8) | pRow[gnGlideAmbient_00880B59];
+    const unsigned char* pRow = &gpBlendTable[nIntensity << 8];
+    pVertex->dwColor = 0xFF000000 | (pRow[gbGlideAmbientRed] << 16) | (pRow[gbGlideAmbientGreen] << 8) | pRow[gbGlideAmbientBlue];
 }
 
 // 0x0050DC30
 void __fastcall GLIDE_SetVertexColor(D2GlideSpriteVertexStrc* pVertex, unsigned int dwColor)
 {
-    const unsigned char* pRow = &gpBlendTable_00880B5C[(unsigned char)dwColor << 8];
+    const unsigned char* pRow = &gpBlendTable[(unsigned char)dwColor << 8];
     pVertex->dwColor = (((-1 << 8 | pRow[(unsigned char)(dwColor >> 8)]) << 8 | pRow[(unsigned char)(dwColor >> 16)]) << 8) | pRow[dwColor >> 24];
 }
 
@@ -63,9 +63,9 @@ void __fastcall GLIDE_SetVertexColor(D2GlideSpriteVertexStrc* pVertex, unsigned 
 // 0x0050DD30
 int __cdecl GLIDE_IsPerspective()
 {
-    if (gpGfxSettings_007C9148->bPerspectiveCapable)
+    if (gpGfxSettings->bPerspectiveCapable)
     {
-        return gpGfxSettings_007C9148->bPerspectiveEnabled;
+        return gpGfxSettings->bPerspectiveEnabled;
     }
 
     return 0;

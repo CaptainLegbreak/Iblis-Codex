@@ -4,18 +4,18 @@ struct D2GfxSettingsStrc;
 
 extern "C" __declspec(dllimport) int __stdcall UnregisterClassA(const char* lpClassName, void* hInstance);   // 0x006CC4C8
 extern "C" __declspec(dllimport) int __stdcall MessageBoxA(void* hWnd, const char* lpText, const char* lpCaption, unsigned int uType); // 0x006CC464
-void* ghInstance_007C8CA8;                                                                                  // 0x007C8CA8
-const char* gszWindowClassName_007C9158;                                                                    // 0x007C9158
-int gbNoWindowCreated_007C9338;                                                                             // 0x007C9338
+void* ghInstance;                                                                                  // 0x007C8CA8
+const char* gszWindowClassName;                                                                    // 0x007C9158
+int gbNoWindowCreated;                                                                             // 0x007C9338
 extern int gnDisplayType;                                                                                   // 0x007C8CB0
 
 // 0x004F5050
 int __stdcall D2GFX_Release()
 {
     gpGraphicsInterface->pfClose();
-    UnregisterClassA(gszWindowClassName_007C9158, ghInstance_007C8CA8);
+    UnregisterClassA(gszWindowClassName, ghInstance);
 
-    if (gbNoWindowCreated_007C9338 != 0)
+    if (gbNoWindowCreated != 0)
     {
         char szCaption[256];
         char szText[256];

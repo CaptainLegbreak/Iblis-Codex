@@ -49,7 +49,7 @@ D2WinControlStrc* gpControl_007795E0;                                           
 
 D2WinControlStrc* gpControl_007795E4;                                                                       // 0x007795E4
 
-extern int gbGatewayFlag_00779954;                                                                          // 0x00779954
+extern int gbGatewayFlag;                                                                          // 0x00779954
 
 D2WinControlStrc* gpEdit_007799CC;                                                                          // 0x007799CC
 
@@ -59,11 +59,11 @@ D2WinControlStrc* gpControl_007799D4;                                           
 
 extern int gdwGlobal_007799D8;                                                                              // 0x007799D8
 
-extern D2CharSelCacheStrc* gpCharSelCache_00779DE8;                                                         // 0x00779DE8
+extern D2CharSelCacheStrc* gpCharSelCache;                                                         // 0x00779DE8
 
 extern D2WinControlStrc* gpControlMain_0077BC4C;                                                            // 0x0077BC4C
 
-extern D2WinControlStrc* gpList_0077BD00;                                                                   // 0x0077BD00
+extern D2WinControlStrc* gbSelectActive;                                                                   // 0x0077BD00
 
 D2WinControlStrc* gpControl_0077BD90;                                                                       // 0x0077BD90
 
@@ -95,27 +95,27 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 
 void __cdecl CHARSEL_CreateCharListControls(); // 0x0043A800
 
-extern int gnSelected_0070CC00; // 0x0070CC00
+extern int gnSelected; // 0x0070CC00
 
-extern int gnSelectionA_0070CC04; // 0x0070CC04
+extern int gnSelectionA; // 0x0070CC04
 
 extern D2WinControlStrc* gpControl_007799F8; // 0x007799F8
 
-D2WinControlStrc* gpControl_00779A1C; // 0x00779A1C
+D2WinControlStrc* gpScrollUpButton; // 0x00779A1C
 
-char gData_00779A40[256]; // 0x00779A40
+char gszPreferredRealm[256]; // 0x00779A40
 
-D2WinControlStrc* gpControl_00779B64; // 0x00779B64
+D2WinControlStrc* gpScrollDownButton; // 0x00779B64
 
-extern char gszName_00779C88[]; // 0x00779C88
+extern char gszEnteredName[]; // 0x00779C88
 
-extern int gdwGlobal_00779DC4; // 0x00779DC4
+extern int gnCharEntryCount; // 0x00779DC4
 
 void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
 
 void __cdecl CHARSEL_UpdateButtons(); // 0x0043A730
 
-extern int gnLaunchMode_007795EC; // 0x007795EC
+extern int gnLaunchMode; // 0x007795EC
 
 extern int gbFlag_00779C6C; // 0x00779C6C
 
@@ -145,9 +145,9 @@ extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
 
 int gdwGlobal_00779DB8; // 0x00779DB8
 
-extern int gnState_00779DAC; // 0x00779DAC
+extern int gnBusy; // 0x00779DAC
 
-extern char* gpszName_00779DB0; // 0x00779DB0
+extern char* gpszName; // 0x00779DB0
 
 extern int gbFlag_00779DD8; // 0x00779DD8
 
@@ -190,13 +190,13 @@ void __fastcall TIMER_SetRepeating(D2WinTimerStrc* pTimer); // 0x004FDA50
 
 void __fastcall BUTTON_SetCoordinates(D2WinButtonStrc* pButton, int nX, int nY, int nWidth, int nHeight); // 0x00500A70
 
-extern D2CelFileStrc* gpCellFile_00779768; // 0x00779768
+extern D2CelFileStrc* gpCharSelectBckgCelFile; // 0x00779768
 
 D2WinControlStrc* gpControl_00779D8C; // 0x00779D8C
 
-extern int gnTopRow_00779DC8; // 0x00779DC8
+extern int gnTopRow; // 0x00779DC8
 
-extern D2WinControlStrc* gpCharSelectText_00779DD4; // 0x00779DD4
+extern D2WinControlStrc* gpCharSelectText; // 0x00779DD4
 
 int __cdecl sub_0042FA30(); // 0x0042FA30
 
@@ -228,7 +228,7 @@ int __fastcall D2Win_10192(D2WinTextBoxStrc* ptTextData); // 0x004FC620
 
 int __fastcall D2Win_10193(D2WinTextBoxStrc* ptTextData, int nCurrentStep); // 0x004FC660
 
-extern void** gppSlots_00779988; // 0x00779988
+extern void** gppSlots; // 0x00779988
 
 extern D2WinControlStrc* gpControl_00779C84; // 0x00779C84
 
@@ -236,11 +236,12 @@ extern "C" long __cdecl _time32(long* pTime);
 
 extern "C" int __cdecl tolower(int nChar);
 
-extern const char gacCDKeyMap_006DF238[];
+// build: symbol ?gacCDKeyMap@* 0x006DF238
+extern const char gacCDKeyMap[];
 
-D2WinControlStrc* gpControl_007799F0; // 0x007799F0
+D2WinControlStrc* gpCharDescriptionText; // 0x007799F0
 
-void* gapRowControls_00779A20[1]; // 0x00779A20
+void* gapRowControls[1]; // 0x00779A20
 
 D2WinControlStrc* gpControl_00779C70; // 0x00779C70
 
@@ -253,7 +254,7 @@ D2WinControlStrc* gpControl_00779DD0; // 0x00779DD0
 // 0x0042FFE0
 void __cdecl CHARSEL_CreateTcpIpScreen()
 {
-    gbGatewayFlag_00779954 = 1;
+    gbGatewayFlag = 1;
     CHARSEL_DisconnectBattleNet();
     MAINMENUS_Reset();
     sub_0042F2E0_ReadPaletteFiles("palette\\sky\\pal.dat", "palette\\sky\\pal.pl2");
@@ -309,7 +310,7 @@ void __cdecl CHARSEL_CreateConnectScreen()
 // 0x00437B90
 void __cdecl CHARSEL_FreeCache()
 {
-    D2CharSelCacheStrc* pEntry = gpCharSelCache_00779DE8;
+    D2CharSelCacheStrc* pEntry = gpCharSelCache;
     while (pEntry)
     {
         D2CharSelCacheStrc* pNext = pEntry->pNext;
@@ -317,32 +318,32 @@ void __cdecl CHARSEL_FreeCache()
         SMemFree(pEntry, ".\\Src\\CharSel.cpp", 0x10D, 0);
         pEntry = pNext;
     }
-    gpCharSelCache_00779DE8 = 0;
+    gpCharSelCache = 0;
     MAINMENUS_FreeSlots();
 }
 
 // 0x0043A730
 void __cdecl CHARSEL_UpdateButtons()
 {
-    CONTROL_SetEnabled(gpControl_007799F4, (gdwGlobal_00779DC4 > 0 && gnSelected_0070CC00 > gnSelectionA_0070CC04) ? 1 : 0);
-    CONTROL_SetEnabled(gpControl_00779C68, gdwGlobal_00779DC4 > 0);
+    CONTROL_SetEnabled(gpControl_007799F4, (gnCharEntryCount > 0 && gnSelected > gnSelectionA) ? 1 : 0);
+    CONTROL_SetEnabled(gpControl_00779C68, gnCharEntryCount > 0);
     CONTROL_SetEnabled(gpControl_007799F8, 1);
-    CONTROL_SetEnabled(gpControl_00779A1C, 1);
-    CONTROL_SetEnabled(gpControl_00779B64, 1);
+    CONTROL_SetEnabled(gpScrollUpButton, 1);
+    CONTROL_SetEnabled(gpScrollDownButton, 1);
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     if (FOG_IsExpansion())
     {
         CONTROL_SetEnabled(gpControl_00779C80, 1);
         CONTROL_SetEnabled(gpControl_00779D90, gdwGlobal_00779DB8 == 0);
     }
-    gnSelected_0070CC00 = 0;
+    gnSelected = 0;
     CHARSEL_Redraw();
 }
 
 // 0x0043A7E0
 void __cdecl CHARSEL_ResetRealmScreen()
 {
-    if (gnLaunchMode_007795EC == 1)
+    if (gnLaunchMode == 1)
     {
         MAINMENUS_DestroyControls();
         CHARSEL_UpdateButtons();
@@ -353,14 +354,14 @@ void __cdecl CHARSEL_ResetRealmScreen()
 // 0x0043A9A0
 int __stdcall CHARSEL_CopyName(int nArg)
 {
-    SStrCopy(gszName_00779C88, gData_00779A40, 0x7FFFFFFF);
+    SStrCopy(gszEnteredName, gszPreferredRealm, 0x7FFFFFFF);
     CHARSEL_CreateCharListControls();
     return 1;
 }
 
 static inline void* CharSelCache_FindData(unsigned int dwHash, int nTick)
 {
-    for (D2CharSelCacheStrc* pEntry = gpCharSelCache_00779DE8; pEntry; pEntry = pEntry->pNext)
+    for (D2CharSelCacheStrc* pEntry = gpCharSelCache; pEntry; pEntry = pEntry->pNext)
     {
         if (pEntry->dwHash == dwHash && nTick <= (int)pEntry->dwExpireTick)
             return pEntry->pData;
@@ -384,8 +385,8 @@ static void CHARSEL_RequestCharList(char* szName)
             CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
             return;
         }
-        gnState_00779DAC = 1;
-        gpszName_00779DB0 = szName;
+        gnBusy = 1;
+        gpszName = szName;
         return;
     }
     CHARSEL_HandleCharList(szName, (int)pData, 0);
@@ -394,8 +395,8 @@ static void CHARSEL_RequestCharList(char* szName)
 // 0x0043B490
 int __stdcall CHARSEL_OnName(SMSGHANDLER_PARAMS* pMsg)
 {
-    CHARSEL_UseName(gData_00779A40);
-    if (gnLaunchMode_007795EC == 1)
+    CHARSEL_UseName(gszPreferredRealm);
+    if (gnLaunchMode == 1)
     {
         MAINMENUS_DestroyControls();
         CHARSEL_UpdateButtons();
@@ -428,10 +429,11 @@ void __cdecl CHARSEL_InitCharSelectScreen()
     }
 
     MAINMENUS_Reset();
-    BACKGROUND_SetCellFile(gpCellFile_00779768);
-    sub_0042F2E0_ReadPaletteFiles(gapszSkyPalette_006D3A08[0], gapszSkyPalette_006D3A08[1]);
+    BACKGROUND_SetCellFile(gpCharSelectBckgCelFile);
+// build: symbol ?gapszSkyPalette@* 0x006D3A08
+    sub_0042F2E0_ReadPaletteFiles(gapszSkyPalette[0], gapszSkyPalette[1]);
 
-    if (gnLaunchMode_007795EC == 1)
+    if (gnLaunchMode == 1)
     {
         sub_00434060();
         const int nCount = GAME_GetSlotNameCount();
@@ -453,87 +455,90 @@ void __cdecl CHARSEL_InitCharSelectScreen()
     }
 
     gdwGlobal_00779DA4 = 1;
-    gdwGlobal_00779DC4 = 0;
-    gnTopRow_00779DC8 = 0;
-    gnSelected_0070CC00 = 0;
+    gnCharEntryCount = 0;
+    gnTopRow = 0;
+    gnSelected = 0;
     gbFlag_00779C6C = 0;
-    gpCharSelectText_00779DD4 = 0;
+    gpCharSelectText = 0;
     gpControl_00779DD0 = 0;
-    gnState_00779DAC = 0;
+    gnBusy = 0;
 
     D2WinTimerStrc* pTimer = (D2WinTimerStrc*)MAINMENUS_CreateControl(0x7A);
     TIMER_DisableSpaceKey(pTimer);
     TIMER_SetRepeating(pTimer);
-    gpLaunchRecord_007795D4->nByte210 = 0;
+// build: symbol ?gpLaunchRecord@* 0x007795D4
+    gpLaunchRecord->nByte210 = 0;
 
     gpControl_007799F8 = MAINMENUS_CreateControl(0x7C);
     gpControl_007799F4 = MAINMENUS_CreateControl(0x7D);
     CONTROL_SetEnabled(gpControl_007799F4, 0);
     gpControl_00779C68 = MAINMENUS_CreateControl(0x7E);
-    gpControl_00779A1C = MAINMENUS_CreateControl(0x99);
-    gpControl_00779B64 = MAINMENUS_CreateControl(0x9A);
-    CONTROL_SetVisible(gpControl_00779A1C, 0);
-    CONTROL_SetVisible(gpControl_00779B64, 0);
-    gpControl_00779B60 = MAINMENUS_CreateControl(0x9B);
-    gpControl_007799F0 = MAINMENUS_CreateControl(0x9D);
+    gpScrollUpButton = MAINMENUS_CreateControl(0x99);
+    gpScrollDownButton = MAINMENUS_CreateControl(0x9A);
+    CONTROL_SetVisible(gpScrollUpButton, 0);
+    CONTROL_SetVisible(gpScrollDownButton, 0);
+// build: symbol ?gpCharNameText@* 0x00779B60
+    gpCharNameText = MAINMENUS_CreateControl(0x9B);
+    gpCharDescriptionText = MAINMENUS_CreateControl(0x9D);
     gpControl_00779C70 = MAINMENUS_CreateControl(0x9E);
     gpControl_00779D90 = MAINMENUS_CreateControl(0x9F);
-    memset(gapRowControls_00779A20, 0, 0x20);
+    memset(gapRowControls, 0, 0x20);
 
-    if (gnLaunchMode_007795EC == 1)
+    if (gnLaunchMode == 1)
     {
-        gnVisibleRows_0070CC0C = 4;
-        for (int i = 0; i < gnVisibleRows_0070CC0C; ++i)
+// build: symbol ?gnVisibleRows@* 0x0070CC0C
+        gnVisibleRows = 4;
+        for (int i = 0; i < gnVisibleRows; ++i)
         {
             sub_004FB590(1);
-            gapRowControls_00779A20[i] = MAINMENUS_CreateControl(i + 0x80);
+            gapRowControls[i] = MAINMENUS_CreateControl(i + 0x80);
             sub_004FB590(0);
             ganRowValues_007799FC[i] = 0xF6 + 0x5D * i;
         }
 
         gpControl_00779DD0 = MAINMENUS_CreateControl(0x98);
-        gpCharSelectText_00779DD4 = MAINMENUS_CreateControl(0x79);
-        BUTTON_SetCoordinates((D2WinButtonStrc*)gpControl_00779A1C, 0x27A, 0x8F, 0x1D, 0x14);
+        gpCharSelectText = MAINMENUS_CreateControl(0x79);
+        BUTTON_SetCoordinates((D2WinButtonStrc*)gpScrollUpButton, 0x27A, 0x8F, 0x1D, 0x14);
         MAINMENUS_CreateControl(0x65);
         gpControl_00779D98 = MAINMENUS_CreateControl(0x67);
         gpControl_00779D8C = MAINMENUS_CreateControl(0x68);
         D2Win_10051(MAINMENUS_CreateControl(0x66), D2LANG_GetStringFromTblIndex(0x2B32), 4, 0, 0);
 
         int nFound = 0;
-        if (SRegLoadString("Diablo II", "Preferred Realm", 0, gData_00779A40, 0x100))
-            nFound = sub_00437A20_FindSlotName(gData_00779A40);
+        if (SRegLoadString("Diablo II", "Preferred Realm", 0, gszPreferredRealm, 0x100))
+            nFound = sub_00437A20_FindSlotName(gszPreferredRealm);
         if (nFound == 0)
         {
             BNGatewayAccess* pAccess = (BNGatewayAccess*)gpFuncTable_0077ABF0->pfnGetRecord();
-            SStrCopy(gData_00779A40, pAccess->Realm(pAccess->m_nCurGateway), 0x7FFFFFFF);
-            SRegSaveString("Diablo II", "Preferred Realm", 0, gData_00779A40);
-            nFound = sub_00437A20_FindSlotName(gData_00779A40);
+            SStrCopy(gszPreferredRealm, pAccess->Realm(pAccess->m_nCurGateway), 0x7FFFFFFF);
+            SRegSaveString("Diablo II", "Preferred Realm", 0, gszPreferredRealm);
+            nFound = sub_00437A20_FindSlotName(gszPreferredRealm);
         }
         if (nFound == 0)
         {
             const char* szFirst = GAME_GetSlotNameCount() > 0 ? CHARSEL_GetSlotName(0) : 0;
-            SStrCopy(gData_00779A40, szFirst, 0x7FFFFFFF);
-            SRegSaveString("Diablo II", "Preferred Realm", 0, gData_00779A40);
+            SStrCopy(gszPreferredRealm, szFirst, 0x7FFFFFFF);
+            SRegSaveString("Diablo II", "Preferred Realm", 0, gszPreferredRealm);
         }
     }
     else
     {
-        gnVisibleRows_0070CC0C = 5;
-        for (int i = 0; i < gnVisibleRows_0070CC0C; ++i)
+        gnVisibleRows = 5;
+        for (int i = 0; i < gnVisibleRows; ++i)
         {
             sub_004FB590(1);
-            gapRowControls_00779A20[i] = MAINMENUS_CreateControl(i + 0x7F);
+            gapRowControls[i] = MAINMENUS_CreateControl(i + 0x7F);
             sub_004FB590(0);
             ganRowValues_007799FC[i] = 0x99 + 0x5D * i;
         }
-        BUTTON_SetCoordinates((D2WinButtonStrc*)gpControl_00779A1C, 0x27A, 0x32, 0x1D, 0x14);
+        BUTTON_SetCoordinates((D2WinButtonStrc*)gpScrollUpButton, 0x27A, 0x32, 0x1D, 0x14);
     }
 
     gpControl_00779D94 = MAINMENUS_CreateControl(0x96);
     gpControl_00779C78 = MAINMENUS_CreateControl(0x97);
     CONTROL_SetVisible(gpControl_00779C78, 0);
     CONTROL_SetEnabled(gpControl_007799F8, 0);
-    CHARSEL_UseName(gData_00779A40);
+    CHARSEL_UseName(gszPreferredRealm);
 // build: symbol ?D2SOUND_GetOptionsMusicOption@* 0x00514D80
     if (D2SOUND_GetOptionsMusicOption())
 // build: symbol ?D2SOUND_10034@* 0x005148F0
@@ -545,13 +550,13 @@ void __cdecl CHARSEL_InitCharSelectScreen()
 void __fastcall CHARSEL_UseName(char* szName)
 {
     gbFlag_00779DD8 = 0;
-    if (gnLaunchMode_007795EC == 1)
+    if (gnLaunchMode == 1)
     {
         D2Win_10047((D2WinTextBoxStrc*)gpControl_00779D8C);
         D2Win_10046(gpControl_00779D8C, szName, 0);
         CHARSEL_RequestCharList(szName);
     }
-    else if (gnLaunchMode_007795EC == 0 || gnLaunchMode_007795EC == 3 || gnLaunchMode_007795EC == 2)
+    else if (gnLaunchMode == 0 || gnLaunchMode == 3 || gnLaunchMode == 2)
     {
         CHARSEL_FreeCharList();
         if (!FOG_IsExpansion())
@@ -642,13 +647,14 @@ void __cdecl CHARSEL_ResetLaunchState()
     CHARSEL_DestroyPopupControls();
 // build: symbol ?CHATDLG_DestroyProfileControls@* 0x00443E10
     CHATDLG_DestroyProfileControls();
-    gpList_0077BD00 = 0;
+    gbSelectActive = 0;
     sub_004F95C0_ControlDestroy(&gpWaitText_0077BD9C);
     sub_004F95C0_ControlDestroy(&gpControl_0077BD90);
     if (gdwGlobal_00798CC0 == 1)
         CHATDLG_DestroyGameListControls();
-    if (gnLaunchMode_0077BBE4 == 3)
-        gnLaunchMode_0077BBE4 = 0;
+// build: symbol ?gnChatLaunchMode@* 0x0077BBE4
+    if (gnChatLaunchMode == 3)
+        gnChatLaunchMode = 0;
     if (gpControlMain_0077BC4C)
         sub_004F9740_ControlSetState(gpControlMain_0077BC4C, 1);
 }
@@ -671,7 +677,7 @@ static int sub_0051DD20_HexToNibble(char cChar)
 
 static int sub_0051DD40_MapKeyChar(unsigned char cChar)
 {
-    return gacCDKeyMap_006DF238[cChar];
+    return gacCDKeyMap[cChar];
 }
 
 long __stdcall sub_M106_Emit_0051DC70(long* pTime)

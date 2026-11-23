@@ -263,10 +263,11 @@ void __stdcall SLogDump(void* hLog, const void* pData, unsigned long nSize)
             }
             else
             {
-                pLog->nUsed += SStrCopy(pLog->szBuffer + pLog->nUsed, c ? gszDot_006CCAD8 : gszSpace_006FFC44, 0x7FFFFFFF);
+// build: symbol ?gszSpace@* 0x006FFC44
+                pLog->nUsed += SStrCopy(pLog->szBuffer + pLog->nUsed, c ? gszDot_006CCAD8 : gszSpace, 0x7FFFFFFF);
             }
             if ((i & 7) == 3)
-                pLog->nUsed += SStrCopy(pLog->szBuffer + pLog->nUsed, gszSpace_006FFC44, 0x7FFFFFFF);
+                pLog->nUsed += SStrCopy(pLog->szBuffer + pLog->nUsed, gszSpace, 0x7FFFFFFF);
         }
         sub_0041FB80_AppendNewline(pLog);
     }

@@ -17,7 +17,7 @@ struct IndexStrip;
 struct D2GridPointStrc;
 struct D2RendererSettingsStrc;
 
-extern D2TLVertexStrc gaVertices_00970F48[4]; // 0x00970F48
+extern D2TLVertexStrc gaVertices[4]; // 0x00970F48
 static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY, char nChar);
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -97,15 +97,15 @@ struct D2RendererSettingsStrc { int unknown00,unknown04; int bFlat; };
 
 extern D2RendererSettingsStrc* gpRendererSettings_007C9148; // 0x007C9148
 extern D2VertexBufferStrc* gpGridBuffer_00971734; // 0x00971734
-extern unsigned short gaFlatIndices_0074C3D0[4]; // 0x0074C3D0
-extern unsigned short gaGridIndices_009716B0[65]; // 0x009716B0
-extern unsigned char gaPaletteRows_00971740[256][256]; // 0x00971740
+extern unsigned short gaFlatIndices[4]; // 0x0074C3D0
+extern unsigned short gaGridIndices[65]; // 0x009716B0
+extern unsigned char gabMultiplyTable[256][256]; // 0x00971740
 int __fastcall sub_006BB870_BindTileTexture(D2TileLibraryEntryStrc* pTile); // 0x006BB870
 void __fastcall D3D_SetColorCombineMode(int nState); // 0x006B1EA0
 void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere,int hResult); // 0x006B20E0
-extern int gnOriginX_00981740; // 0x00981740
-extern int gnOriginY_00981744; // 0x00981744
-extern int gnScale_00989748; // 0x00989748
+extern int gnD3DOriginX; // 0x00981740
+extern int gnOriginY; // 0x00981744
+extern int gnPerspectiveScale; // 0x00989748
 
 static __forceinline unsigned int PackGridColor(const D2GridPointStrc& point,unsigned char nAlpha);
 
@@ -126,18 +126,18 @@ static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY, char nChar)
     {
         const int nRight = nX + 8;
         const int nBottom = nY + 16;
-        gaVertices_00970F48[0].fX = (float)nX;
-        gaVertices_00970F48[0].fY = (float)nY;
-        gaVertices_00970F48[1].fX = (float)nX;
-        gaVertices_00970F48[1].fY = (float)nBottom;
-        gaVertices_00970F48[2].fX = (float)nRight;
-        gaVertices_00970F48[2].fY = (float)nBottom;
-        gaVertices_00970F48[3].fX = (float)nRight;
-        gaVertices_00970F48[3].fY = (float)nY;
+        gaVertices[0].fX = (float)nX;
+        gaVertices[0].fY = (float)nY;
+        gaVertices[1].fX = (float)nX;
+        gaVertices[1].fY = (float)nBottom;
+        gaVertices[2].fX = (float)nRight;
+        gaVertices[2].fY = (float)nBottom;
+        gaVertices[3].fX = (float)nRight;
+        gaVertices[3].fY = (float)nY;
 
         nChar -= 0x20;
         gpD3DDevice_00970E78->lpVtbl->SetTexture(gpD3DDevice_00970E78, 0, gapGlyphTextures_009712D0[nChar]);
-        gpD3DDevice_00970E78->lpVtbl->DrawPrimitive(gpD3DDevice_00970E78, 6, 0x1C4, gaVertices_00970F48, 4, 0x1C);
+        gpD3DDevice_00970E78->lpVtbl->DrawPrimitive(gpD3DDevice_00970E78, 6, 0x1C4, gaVertices, 4, 0x1C);
         return gaGlyphWidths_00970FC8[nChar];
     }
 
@@ -160,9 +160,11 @@ static void __stdcall sub_006B7FD0_GetPanelRect(D2RectStrc* pRect, int nSide, in
     D2_ASSERT(pRect, 0x53);
 
     pRect->nLeft = 0;
-    pRect->nRight = gnScreenWidth_007C9138;
+// build: symbol ?gnRenderWidth@* 0x007C9138
+    pRect->nRight = gnRenderWidth;
     pRect->nTop = 0;
-    pRect->nBottom = gnScreenHeight_007C913C - 47;
+// build: symbol ?gnRenderHeight@* 0x007C913C
+    pRect->nBottom = gnRenderHeight - 47;
 
     if (!bFlag)
     {
@@ -171,10 +173,10 @@ static void __stdcall sub_006B7FD0_GetPanelRect(D2RectStrc* pRect, int nSide, in
         switch (nSide)
         {
         case 1:
-            pRect->nRight += -(gnScreenWidth_007C9138 / 2);
+            pRect->nRight += -(gnRenderWidth / 2);
             break;
         case 2:
-            pRect->nLeft = gnScreenWidth_007C9138 / 2 - 32;
+            pRect->nLeft = gnRenderWidth / 2 - 32;
             break;
         }
         return;
@@ -182,7 +184,7 @@ static void __stdcall sub_006B7FD0_GetPanelRect(D2RectStrc* pRect, int nSide, in
 
     D2_ASSERT(pOffset, 0x69);
 
-    const int nShift = gnScreenWidth_007C9138 / 4;
+    const int nShift = gnRenderWidth / 4;
     switch (nSide)
     {
     case 1:
@@ -211,8 +213,8 @@ int __fastcall sub_006B8220_DrawTileParts(D2TileContextStrc* pTile, int nX, int 
     tagRECT tRect;
     tRect.left = 0;
     tRect.top = 0;
-    tRect.right = gnScreenWidth_007C9138;
-    tRect.bottom = gnScreenHeight_007C913C - 47;
+    tRect.right = gnRenderWidth;
+    tRect.bottom = gnRenderHeight - 47;
     tRect.left -= 32;
     tRect.bottom += 32;
 
@@ -220,10 +222,10 @@ int __fastcall sub_006B8220_DrawTileParts(D2TileContextStrc* pTile, int nX, int 
     switch (nViewMode)
     {
     case 1:
-        tRect.right -= gnScreenWidth_007C9138 / 2;
+        tRect.right -= gnRenderWidth / 2;
         break;
     case 2:
-        tRect.left += gnScreenWidth_007C9138 / 2;
+        tRect.left += gnRenderWidth / 2;
         break;
     }
 
@@ -453,7 +455,7 @@ void __cdecl sub_006B8F10()
 
 static __forceinline unsigned int PackGridColor(const D2GridPointStrc& point,unsigned char nAlpha)
 {
-    const unsigned char* pRow=gaPaletteRows_00971740[point.nScale];
+    const unsigned char* pRow=gabMultiplyTable[point.nScale];
     return (((((unsigned int)nAlpha<<8)|pRow[point.nRed])<<8)|pRow[point.nGreen])<<8|pRow[point.nBlue];
 }
 
@@ -481,7 +483,7 @@ void __fastcall sub_006B9170_DrawGrid(D2TileLibraryEntryStrc* pTexture,D2GridPoi
         WRITE_CORNER(30)
         nResult=gpGridBuffer_00971734->lpVtbl->Unlock(gpGridBuffer_00971734);
         if(nResult) { sub_006B20E0_DDrawLogError(gUnlockFailure,nResult);return; }
-        gpDevice_00970E78->lpVtbl->DrawIndexedPrimitiveVB(gpDevice_00970E78,6,gpGridBuffer_00971734,gaFlatIndices_0074C3D0,4,0x1c);
+        gpDevice_00970E78->lpVtbl->DrawIndexedPrimitiveVB(gpDevice_00970E78,6,gpGridBuffer_00971734,gaFlatIndices,4,0x1c);
     }
     else
     {
@@ -498,37 +500,37 @@ void __fastcall sub_006B9170_DrawGrid(D2TileLibraryEntryStrc* pTexture,D2GridPoi
         }
         nResult=gpGridBuffer_00971734->lpVtbl->Unlock(gpGridBuffer_00971734);
         if(nResult) { sub_006B20E0_DDrawLogError(gUnlockFailure,nResult);return; }
-        gpDevice_00970E78->lpVtbl->DrawIndexedPrimitiveVB(gpDevice_00970E78,5,gpGridBuffer_00971734,gaGridIndices_009716B0,65,0x1c);
+        gpDevice_00970E78->lpVtbl->DrawIndexedPrimitiveVB(gpDevice_00970E78,5,gpGridBuffer_00971734,gaGridIndices,65,0x1c);
     }
     }
     }
 }
 
-int gnTrigTable_00981748[0x2000]; // 0x00981748
+int ganPerspectiveTable[0x2000]; // 0x00981748
 
 // 0x006B9910
 void __fastcall sub_006B9910_ProjectPoint(int nX, int nY, int nUnused, int* pScreenX, int* pScreenY, int bAlternate)
 {
-    int nA = ((nX - gnOriginX_00981740) * 24) >> 16;
-    int nB = ((nY - gnOriginY_00981744) * 24) >> 16;
+    int nA = ((nX - gnD3DOriginX) * 24) >> 16;
+    int nB = ((nY - gnOriginY) * 24) >> 16;
     int nSum = (nB + nA) * 724;
     int nDepth = (nSum * -512) >> 10;
     int nAngle = (nSum * 886) >> 20;
-    int nCos = gnTrigTable_00981748[(nAngle - 0x1000) & 0x1FFF];
+    int nCos = ganPerspectiveTable[(nAngle - 0x1000) & 0x1FFF];
 
     int nHeight = (nDepth * nCos) >> 20;
-    *pScreenX = (((nB - nA) * nCos * 724) >> 20) + gnScreenWidth_007C9138 / 2;
+    *pScreenX = (((nB - nA) * nCos * 724) >> 20) + gnRenderWidth / 2;
 
-    *pScreenY = gnScreenHeight_007C913C / 2 + nHeight - 16;
+    *pScreenY = gnRenderHeight / 2 + nHeight - 16;
 
-    int nValue = nHeight - (((nDepth + 0x37400) * gnTrigTable_00981748[(nAngle - 0xF80) & 0x1FFF]) >> 20);
+    int nValue = nHeight - (((nDepth + 0x37400) * ganPerspectiveTable[(nAngle - 0xF80) & 0x1FFF]) >> 20);
 
     if (bAlternate)
     {
-        gnScale_00989748 = (nValue * 0x4CC) >> 10;
+        gnPerspectiveScale = (nValue * 0x4CC) >> 10;
     }
     else
     {
-        gnScale_00989748 = (nValue * 0x466) >> 10;
+        gnPerspectiveScale = (nValue * 0x466) >> 10;
     }
 }

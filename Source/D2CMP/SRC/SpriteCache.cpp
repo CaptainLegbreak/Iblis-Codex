@@ -95,7 +95,7 @@ int __cdecl sub_00517ABB_FindLowestSetBit(unsigned int dwMask); // 0x00517ABB
 
 extern D2CmpPoolStrc gCmpPool; // 0x0088CAE0
 
-extern void* gpfnTileFreeCallback_0088CB1C; // 0x0088CB1C
+extern void* gpfnTileFreeCallback; // 0x0088CB1C
 
 D2SpriteCacheStrc gCmpTileCache;                                                                            // 0x0089DB60
 
@@ -230,23 +230,31 @@ int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxCha
 
 void* __fastcall FOG_AsyncDataGetBuffer(AsyncData* pAsync); // 0x0040A9E0
 
-extern "C" const char gszFmtDcc4_006E3618[];
+// build: symbol _gszFmtDcc4 0x006E3618
+extern "C" const char gszFmtDcc4[];
 
-extern "C" const char gszFmtDc64_006E3608[];
+// build: symbol _gszFmtDc64 0x006E3608
+extern "C" const char gszFmtDc64[];
 
-extern "C" const char gszOverlaysDir_006E35F0[];
+// build: symbol _gszOverlaysDir 0x006E35F0
+extern "C" const char gszOverlaysDir[];
 
-extern "C" const char gszFmtDc62_006E35E4[];
+// build: symbol _gszFmtDc62 0x006E35E4
+extern "C" const char gszFmtDc62[];
 
-extern "C" const char gszFmtItemsDc6_006E35D4[]; // 0x006E35D4
+extern "C" const char gszFmtItemsDc6[]; // 0x006E35D4
 
-extern "C" const char gszMissilesDir_006E35BC[];
+// build: symbol _gszMissilesDir 0x006E35BC
+extern "C" const char gszMissilesDir[];
 
-extern "C" const char gszFmtDcc2_006E35B0[];
+// build: symbol _gszFmtDcc2 0x006E35B0
+extern "C" const char gszFmtDcc2[];
 
-extern "C" const char gszObjectsDir_006E3628[];
+// build: symbol _gszObjectsDir 0x006E3628
+extern "C" const char gszObjectsDir[];
 
-extern "C" const char gszNoCompressName_006E363C[];
+// build: symbol _gszNoCompressName 0x006E363C
+extern "C" const char gszNoCompressName[];
 
 extern "C" const char gszDataGlobal[]; // 0x006D4118
 
@@ -281,9 +289,9 @@ void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, in
 
 extern int gbCmpCompressedDataMode;                                                                         // 0x00741EFC
 
-extern "C" const char gszMonstersDir_006D6CAC[];                                                            // 0x006D6CAC
+extern "C" const char gszMonstersDir[];                                                            // 0x006D6CAC
 
-extern "C" const char gszCharsDir_006DCC34[];                                                               // 0x006DCC34
+extern "C" const char gszCharsDir[];                                                               // 0x006DCC34
 
 extern "C" const char gszSpriteCacheSourceFile[];                                                           // 0x006E364C
 
@@ -314,7 +322,7 @@ int __stdcall sub_00600D30_CanConvertDirections(int nDirections, int nNewDirecti
 
 void* __fastcall GfxHashFind(D2CmpBlockTableBStrc* pHash, D2CmpSpriteContextStrc* pContext, int* pDirection, unsigned int* pFrames, D2CmpSpriteFileStrc* pFile); // 0x0060ACE0
 
-extern int gbCmpDisableConvert_0089DB58;                                                                    // 0x0089DB58
+extern int gbCmpDisableConvert;                                                                    // 0x0089DB58
 
 static int __stdcall D2CMPSpriteReadFramesAsync(D2CmpSpriteFileStrc* pFile, int nDirection, const char* szName, int nFrames, D2CmpSpriteEntryStrc* pEntry, D2CmpSpriteContextStrc* pContext);
 
@@ -338,11 +346,11 @@ struct HashTable { int unused; };
 struct SpriteCache { int unused; };
 
 
-extern HashTable gHash_0088DB58; // 0x0088DB58
+extern HashTable gtHash; // 0x0088DB58
 
 extern SpriteCache gCache_0089DB60; // 0x0089DB60
 
-extern int gWarn_008ADBB0; // 0x008ADBB0
+extern int gnWarn; // 0x008ADBB0
 
 extern int __fastcall FOG_AsyncDataTestLoaded(AsyncData*); // 0x0040A7F0
 
@@ -354,11 +362,11 @@ int __stdcall CelConvertDir(unsigned int nDirection, unsigned int nDirections, i
 
 #define SPRITE_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-extern HashTable gFileHash_0088CB20; // 0x0088CB20
+extern HashTable gtFileHash; // 0x0088CB20
 
-extern SpriteCache gFileCache_0088DB20; // 0x0088DB20
+extern SpriteCache gtFileCache; // 0x0088DB20
 
-extern unsigned int gaFileOffsets_0089DBB0[]; // 0x0089DBB0
+extern unsigned int gaFileOffsets[]; // 0x0089DBB0
 
 HashNode* __fastcall CelDataHashFind(HashTable*, const char*); // 0x0060AF90
 
@@ -454,7 +462,7 @@ void __stdcall sub_005EF310(int nUnused1)
 // 0x005FE000
 void __fastcall D2CMPTileCacheSetFreeCallback(void* pfnCallback)
 {
-    gpfnTileFreeCallback_0088CB1C = pfnCallback;
+    gpfnTileFreeCallback = pfnCallback;
 }
 
 // 0x005FE070
@@ -535,10 +543,10 @@ static int __stdcall sub_005FE610_BuildGfxPath(const char* szName, D2CmpSpriteCo
 
             if (pContext->dwFlags & 2)
             {
-                wsprintfA(szOut, gszFmtItemsDc6_006E35D4, "DATA\\GLOBAL", szName);
+                wsprintfA(szOut, gszFmtItemsDc6, "DATA\\GLOBAL", szName);
                 return 1;
             }
-            wsprintfA(szOut, gszFmtItemsDc6_006E35D4, "DATA\\GLOBAL", szName);
+            wsprintfA(szOut, gszFmtItemsDc6, "DATA\\GLOBAL", szName);
             return 1;
         }
         if (nMode == 3)
@@ -754,14 +762,14 @@ static __forceinline int SpriteCache_BuildDccOrDc6Path(char* szOut, const char* 
     {
         if (gbCmpCompressedDataMode)
         {
-            wsprintfA(szOut, gszFmtDcc2_006E35B0, szDir, szName);
+            wsprintfA(szOut, gszFmtDcc2, szDir, szName);
             pContext->dwGfxFlags |= 1;
             return 1;
         }
-        wsprintfA(szOut, gszFmtDc62_006E35E4, szDir, szName);
+        wsprintfA(szOut, gszFmtDc62, szDir, szName);
         return 1;
     }
-    wsprintfA(szOut, gszFmtDc62_006E35E4, szDir, szName);
+    wsprintfA(szOut, gszFmtDc62, szDir, szName);
     return 1;
 }
 
@@ -1680,7 +1688,7 @@ static __forceinline int SpriteCache_ShouldConvert(D2CmpSpriteContextStrc* pCont
     if (!(pContext->nType == 6 && (pContext->dwFlags & 2)))
     {
         if (!pContext->nType
-            && (!(pContext->dwFlags & 8) || !pContext->nMode || pContext->nMode == 0x11 || gbCmpDisableConvert_0089DB58))
+            && (!(pContext->dwFlags & 8) || !pContext->nMode || pContext->nMode == 0x11 || gbCmpDisableConvert))
         {
             bConvert = 0;
         }
@@ -1701,19 +1709,19 @@ static SpriteFile* __stdcall sub_005FE990_LoadSpriteFile(D2CmpSpriteContextStrc*
     *path = 0;
     if (!sub_005FE2B0_BuildGfxName(context, name))
         return 0;
-    HashNode* node = CelDataHashFind(&gFileHash_0088CB20, name);
+    HashNode* node = CelDataHashFind(&gtFileHash, name);
     if (node)
     {
-        LRUCacheTouch(&gFileCache_0088DB20, node->link);
+        LRUCacheTouch(&gtFileCache, node->link);
         file = *(SpriteFile**)node->link;
     }
     else
     {
         if (!sub_005FE610_BuildGfxPath(name, context, path))
             return 0;
-        node = CelDataHashAdd((void*)gFileCache_0088DB20.unused, &gFileHash_0088CB20, 0, name);
+        node = CelDataHashAdd((void*)gtFileCache.unused, &gtFileHash, 0, name);
         SPRITE_ASSERT(node, 0x413);
-        node->link = LRUCacheAlloc(&gFileCache_0088DB20, 0xC0, node);
+        node->link = LRUCacheAlloc(&gtFileCache, 0xC0, node);
         SPRITE_ASSERT(node->link, 0x418);
         file = *(SpriteFile**)node->link;
         memset(file, 0, 0xC0);
@@ -1740,13 +1748,13 @@ static SpriteFile* __stdcall sub_005FE990_LoadSpriteFile(D2CmpSpriteContextStrc*
                 unsigned int dwTotalCels = file->frames * file->directions;
                 SPRITE_ASSERT(dwTotalCels < 0x4000, 0x444);
                 unsigned int nBytes = dwTotalCels * 4;
-                FOG_FReadFile(path, gaFileOffsets_0089DBB0, nBytes, 0, 0, 0, 0);
+                FOG_FReadFile(path, gaFileOffsets, nBytes, 0, 0, 0, 0);
                 FOG_FCloseFile(path);
                 SPRITE_ASSERT(file->directions < 0x21, 0x449);
                 for (unsigned int i = 0; i < file->directions; ++i)
                 {
                     unsigned int nIndex = i * file->frames;
-                    file->offsets[i] = gaFileOffsets_0089DBB0[nIndex];
+                    file->offsets[i] = gaFileOffsets[nIndex];
                 }
                 file->offsets[file->directions] = fileSize;
             }
@@ -1861,8 +1869,8 @@ int __stdcall D2CMPSpriteValidate(D2CmpSpriteContextStrc* context, int async, in
         context->pFrame = sub_005FEC50_GetCachedDC6Frame(context, entry);
         if (!context->pFrame)
         {
-            if (!gWarn_008ADBB0)
-                gWarn_008ADBB0 = 1;
+            if (!gnWarn)
+                gnWarn = 1;
             return 0;
         }
         if (!loaded && !index && count > 1)
@@ -1901,7 +1909,7 @@ int __stdcall D2CMPSpriteRequest(D2CmpSpriteContextStrc* context)
         return 0;
     unsigned int index = 0;
     unsigned int count = 0;
-    HashNode* node = (HashNode*)GfxHashFind((D2CmpBlockTableBStrc*)&gHash_0088DB58, context, (int*)&index, &count, (D2CmpSpriteFileStrc*)file);
+    HashNode* node = (HashNode*)GfxHashFind((D2CmpBlockTableBStrc*)&gtHash, context, (int*)&index, &count, (D2CmpSpriteFileStrc*)file);
     if (node)
     {
         if (*(unsigned char*)&node->entry->nFlags & 1)
@@ -1920,7 +1928,7 @@ int __stdcall D2CMPSpriteRequest(D2CmpSpriteContextStrc* context)
         else
             direction = 1;
         context->nDirection = direction;
-        SPRITE_ASSERT((HashNode*)GfxHashFind((D2CmpBlockTableBStrc*)&gHash_0088DB58, context, (int*)&index, &count, (D2CmpSpriteFileStrc*)file), 0x7AB);
+        SPRITE_ASSERT((HashNode*)GfxHashFind((D2CmpBlockTableBStrc*)&gtHash, context, (int*)&index, &count, (D2CmpSpriteFileStrc*)file), 0x7AB);
         SPRITE_ASSERT(!index, 0x7AC);
     }
     if (!path[0] && !sub_005FE610_BuildGfxPath(name, context, path))
@@ -1930,7 +1938,8 @@ int __stdcall D2CMPSpriteRequest(D2CmpSpriteContextStrc* context)
 
 int __stdcall CelGameDirToFileDir(int nDirection, unsigned int nDirections)
 {
-    return gaDirectionIndex64_006E45A0[sub_00517ABB_FindLowestSetBit(nDirections)][nDirection];
+// build: symbol ?gaDirectionIndex64@* 0x006E45A0
+    return gaDirectionIndex64[sub_00517ABB_FindLowestSetBit(nDirections)][nDirection];
 }
 
 // 0x00600D60

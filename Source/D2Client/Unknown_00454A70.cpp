@@ -170,7 +170,8 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
     unsigned short wszText[0x800];
     for (int i = 0; i < 0x800; i++)
         wszText[i] = 0;
-    if (!(gdwMask_006CE26C & pMonStatsTxt->nMonStatsFlags[1]) && (gdwTitleMaskB_006CE284 & pMonStatsTxt->nMonStatsFlags[1]) && pMonStatsTxt->wNameStr)
+// build: symbol ?gdwBitMask7@* 0x006CE284
+    if (!(gdwMask_006CE26C & pMonStatsTxt->nMonStatsFlags[1]) && (gdwBitMask7 & pMonStatsTxt->nMonStatsFlags[1]) && pMonStatsTxt->wNameStr)
     {
         pMonStats2Txt = UNITS_GetMonStats2TxtRecordFromMonsterId(!pUnit ? -1 : pUnit->dwClassId);
         if (pMonStats2Txt)

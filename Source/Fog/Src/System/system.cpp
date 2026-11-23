@@ -15,8 +15,8 @@ extern "C" __declspec(dllimport) int __stdcall SetThreadPriority(void* hThread, 
 extern "C" long __cdecl _time32(long* pTime);                                                               // 0x006850E6
 void __fastcall sub_004107B0_AtomicStore64(void* pDest, const void* pSource);                               // 0x004107B0
 void __fastcall sub_004107D0_Read64Locked(void* pDest, const void* pSource);                                // 0x004107D0
-D2CriticalSectionStrc gTimeLock_0075E880;                                                                   // 0x0075E880
-D2TimeStampStrc gtTimeBase_0075E878;                                                                        // 0x0075E878
+D2CriticalSectionStrc gtTimeLock;                                                                   // 0x0075E880
+D2TimeStampStrc gtTimeBase;                                                                        // 0x0075E878
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -26,7 +26,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 // 0x004109D0
 void __cdecl SYSTEM_InitTimeBase()
 {
-    InitializeCriticalSection(&gTimeLock_0075E880);
+    InitializeCriticalSection(&gtTimeLock);
     __int64 nShared = 0;
     __int64 nTest = 666;
     __int64 nRead = -1;
@@ -36,7 +36,7 @@ void __cdecl SYSTEM_InitTimeBase()
     D2TimeStampStrc tNow;
     tNow.nTime = _time32(0);
     tNow.nTick = GetTickCount();
-    sub_004107B0_AtomicStore64(&gtTimeBase_0075E878, &tNow);
+    sub_004107B0_AtomicStore64(&gtTimeBase, &tNow);
 }
 
 // 0x00410A80
@@ -44,7 +44,7 @@ long __cdecl FOG_GetSyncTime()
 {
     const unsigned long nTick = GetTickCount();
     D2TimeStampStrc tBase;
-    sub_004107D0_Read64Locked(&tBase, &gtTimeBase_0075E878);
+    sub_004107D0_Read64Locked(&tBase, &gtTimeBase);
     if (nTick - tBase.nTick > 30000)
     {
         const int nPriority = GetThreadPriority(GetCurrentThread());
@@ -55,7 +55,7 @@ long __cdecl FOG_GetSyncTime()
         D2TimeStampStrc tNow;
         tNow.nTime = _time32(0);
         tNow.nTick = GetTickCount();
-        sub_004107B0_AtomicStore64(&gtTimeBase_0075E878, &tNow);
+        sub_004107B0_AtomicStore64(&gtTimeBase, &tNow);
     }
     return (nTick - tBase.nTick) / 1000 + tBase.nTime;
 }

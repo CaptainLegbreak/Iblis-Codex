@@ -4919,8 +4919,10 @@ out:
 // 0x00475AA0
 void __fastcall SCMD_ReadGridCell(int nX, int nY, unsigned char* pValue0, unsigned char* pValue1, unsigned char* pValue2, unsigned char* pValue3)
 {
-    int nCellX = (nX >> 3) - gnGlobal_007B0A54;
-    int nCellY = (nY >> 3) - gnGlobal_007B0A58;
+// build: symbol ?gnCellOriginX@* 0x007B0A54
+    int nCellX = (nX >> 3) - gnCellOriginX;
+// build: symbol ?gnCellOriginY@* 0x007B0A58
+    int nCellY = (nY >> 3) - gnCellOriginY;
 
     if (nCellX < 0)
     {

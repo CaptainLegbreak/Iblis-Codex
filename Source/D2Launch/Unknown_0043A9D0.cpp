@@ -18,12 +18,12 @@ struct D2ListMsgStrc
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 int __stdcall COMCALLBACK_OnCharSelectOk(D2ListMsgStrc* pMsg); // 0x00439840
 int __cdecl CHARSEL_Redraw(); // 0x00439210
-extern int gnSelected_0070CC00; // 0x0070CC00
-extern void* gapRowControls_00779A20[]; // 0x00779A20
-extern void* gapRowControlsX_00779B40[]; // 0x00779B40
+extern int gnSelected; // 0x0070CC00
+extern void* gapRowControls[]; // 0x00779A20
+extern void* gapRowControlsX[]; // 0x00779B40
 extern int gbFlag_00779C6C; // 0x00779C6C
-extern int gdwGlobal_00779DC4; // 0x00779DC4
-extern int gnTopRow_00779DC8; // 0x00779DC8
+extern int gnCharEntryCount; // 0x00779DC4
+extern int gnTopRow; // 0x00779DC8
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -54,8 +54,8 @@ void __cdecl MAINMENUS_CreateStatusScreen(); // 0x00437550
 int __stdcall sub_0043B850_LogonCallback(int nArg); // 0x0043B850
 int __stdcall D2Win_CloseSpriteCache(); // 0x004F9030
 void __stdcall sub_00517ED0(int nValue); // 0x00517ED0
-extern int gnLaunchMode_007795EC; // 0x007795EC
-extern int gdwGlobal_007795F4; // 0x007795F4
+extern int gnLaunchMode; // 0x007795EC
+extern int gbConnectCancelled; // 0x007795F4
 extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
 extern int gdwGlobal_0077AC04; // 0x0077AC04
 extern int gbBattleNetConnected; // 0x0077AC08
@@ -143,7 +143,8 @@ int __fastcall sub_0043C180_Connect(D2LaunchRecordStrc* pRecord, int bFlag, int 
     }
     else if (nMode && !tStatus.nCode)
     {
-        gpFuncTable_0077ABF0->pfnSlot9C(pRecord->szAccount, gszOldPassword_00779550, pRecord->szPassword);
+// build: symbol ?gszOldPassword@* 0x00779550
+        gpFuncTable_0077ABF0->pfnSlot9C(pRecord->szAccount, gszOldPassword, pRecord->szPassword);
         sub_004FA590_RunLoop(sub_0043B940);
         if (gdwGlobal_0077AC04)
         {
@@ -209,7 +210,7 @@ int __fastcall sub_0043C180_Connect(D2LaunchRecordStrc* pRecord, int bFlag, int 
     return 0;
 }
 
-static int s_bConnecting_0077AC0C; // 0x0077AC0C
+static int gbConnecting; // 0x0077AC0C
 
 // 0x0043BF60
 int __cdecl sub_0043BF60()
@@ -219,8 +220,8 @@ int __cdecl sub_0043BF60()
         return 0;
     }
 
-    D2_ASSERT(!s_bConnecting_0077AC0C, 296);
-    s_bConnecting_0077AC0C = 1;
+    D2_ASSERT(!gbConnecting, 296);
+    gbConnecting = 1;
     gdwGlobal_00779DA4 = 1;
     sub_0042FA20();
     OutputDebugStringA("------------------\nConnect to Battle.net\n------------------\n");
@@ -229,7 +230,7 @@ int __cdecl sub_0043BF60()
     if (!gpFuncTable_0077ABF0->pfnSlot10Result())
     {
         D2StatusStrc tStatus;
-        s_bConnecting_0077AC0C = 0;
+        gbConnecting = 0;
         tStatus.nCode = 0;
         tStatus.nArg = 0;
         return CHARSEL_HandleStatus(&tStatus);
@@ -241,10 +242,10 @@ int __cdecl sub_0043BF60()
 
     if (gdwGlobal_0077AC04)
     {
-        gdwGlobal_007795F4 = 1;
+        gbConnectCancelled = 1;
         sub_0042F880_DestroyControls();
         gpFuncTable_0077ABF0->pfnSlot10Result();
-        s_bConnecting_0077AC0C = 0;
+        gbConnecting = 0;
         return 0;
     }
 
@@ -260,7 +261,7 @@ int __cdecl sub_0043BF60()
             if (nValue)
             {
                 int bSkipToOpen = 0;
-                if (gnLaunchMode_007795EC == 3)
+                if (gnLaunchMode == 3)
                 {
                     bSkipToOpen = 1;
                 }
@@ -268,7 +269,7 @@ int __cdecl sub_0043BF60()
                 SRegSaveValue("Diablo II", "Skip To Open", 0, bSkipToOpen);
                 D2Win_CloseSpriteCache();
                 gpFuncTable_0077ABF0->pfnSlot10Result();
-                s_bConnecting_0077AC0C = 0;
+                gbConnecting = 0;
                 sub_00517ED0(gpFuncTable_0077ABF0->pfnSlot98());
                 TerminateProcess(GetCurrentProcess(), 0);
                 return 0;
@@ -277,7 +278,7 @@ int __cdecl sub_0043BF60()
             if (!nResult)
             {
                 D2StatusStrc tStatus;
-                s_bConnecting_0077AC0C = 0;
+                gbConnecting = 0;
                 tStatus.nCode = 0x12;
                 tStatus.nArg = 0;
                 return CHARSEL_HandleStatus(&tStatus);
@@ -286,7 +287,7 @@ int __cdecl sub_0043BF60()
         else
         {
             gpFuncTable_0077ABF0->pfnSlot10Result();
-            s_bConnecting_0077AC0C = 0;
+            gbConnecting = 0;
             sub_004336C0();
             return 0;
         }
@@ -295,7 +296,7 @@ int __cdecl sub_0043BF60()
     sub_0042F880_DestroyControls();
     D2StatusStrc tResult;
     gpFuncTable_0077ABF0->pfnSlot28(&tResult);
-    s_bConnecting_0077AC0C = 0;
+    gbConnecting = 0;
     if (tResult.nCode)
     {
         return CHARSEL_HandleStatus(&tResult);

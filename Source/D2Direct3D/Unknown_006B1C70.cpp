@@ -1,11 +1,11 @@
 #include "D2Win32Types.h"
 
-extern unsigned short gwColors16_0096FA80[256]; // 0x0096FA80
+extern unsigned short gawColors16[256]; // 0x0096FA80
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
-unsigned short gwColors16_0096FA80[256]; // 0x0096FA80
+unsigned short gawColors16[256]; // 0x0096FA80
 
-unsigned int gdwColors_009702C0[256]; // 0x009702C0
+unsigned int gadwColors[256]; // 0x009702C0
 
 
 

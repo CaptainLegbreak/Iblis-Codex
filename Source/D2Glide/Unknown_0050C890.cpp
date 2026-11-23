@@ -1,12 +1,12 @@
 #include "D2Glide.h"
 #include "D2DrlgMaps.h"
 
-extern int gnScreenWidth_007C9138; // 0x007C9138
-extern D2GlideSpriteVertexStrc gaGlideTileQuad_00880600[4]; // 0x00880600
+extern int gnRenderWidth; // 0x007C9138
+extern D2GlideSpriteVertexStrc gaGlideTileQuad[4]; // 0x00880600
 
 typedef void (__stdcall* GLIDEDRAWVERTEXARRAYCONTIGUOUS)(int nMode, int nCount, void* pVertices, int nStride);
 
-extern GLIDEDRAWVERTEXARRAYCONTIGUOUS gpfGlideDrawVertexArrayContiguous_0087EAC4; // 0x0087EAC4
+extern GLIDEDRAWVERTEXARRAYCONTIGUOUS gpfnGrDrawVertexArrayContiguous; // 0x0087EAC4
 void __fastcall GLIDE_SetVertexAmbientColor(D2GlideSpriteVertexStrc* pVertex, unsigned char nIntensity); // 0x0050DBE0
 
 struct D2TileVertexStrc
@@ -24,12 +24,12 @@ int __fastcall GLIDE_BindFloorTexture(void* pTile); // 0x0050FAD0
 void __fastcall GLIDE_SetColorCombineMode(int nState); // 0x005094B0
 void __fastcall GLIDE_SetAlphaBlendMode(int nMode); // 0x00509500
 void __fastcall GLIDE_SetTextureFilterMode(int nMode); // 0x005095D0
-extern GlideConstantColorFn gpfGlideConstantColor_0087EFA0; // 0x0087EFA0
-extern GlideDrawVertexArrayFn gpfGlideDrawVertexArray_0087EB18; // 0x0087EB18
-extern unsigned char* gpBlendTable_00880B5C; // 0x00880B5C
-extern D2GfxSettingsStrc* gpGfxSettings_007C9148; // 0x007C9148
-extern D2GlideSpriteVertexStrc gaGlideTileVertices_00880678[36]; // 0x00880678
-extern void* gapGlideTileFan_0072F670[4]; // 0x0072F670
+extern GlideConstantColorFn gpfnGrConstantColorValue; // 0x0087EFA0
+extern GlideDrawVertexArrayFn gpfnGrDrawVertexArray; // 0x0087EB18
+extern unsigned char* gpBlendTable; // 0x00880B5C
+extern D2GfxSettingsStrc* gpGfxSettings; // 0x007C9148
+extern D2GlideSpriteVertexStrc gatGlideTileVertices[36]; // 0x00880678
+extern void* gapGlideTileFan[4]; // 0x0072F670
 extern void* gapGlideTileStrips_00880A68[5][12]; // 0x00880A68
 
 // 0x0050C890
@@ -38,19 +38,20 @@ int __fastcall sub_0050C890_GlideTileDrawShaded(D2TileLibraryEntryStrc* pTile, i
     tagRECT tRect;
     tRect.left = 0;
     tRect.top = 0;
-    tRect.right = gnScreenWidth_007C9138;
-    tRect.bottom = gnScreenHeight_007C913C - 47;
+    tRect.right = gnRenderWidth;
+// build: symbol ?gnRenderHeight@* 0x007C913C
+    tRect.bottom = gnRenderHeight - 47;
     tRect.left -= 32;
     tRect.bottom += 32;
 
     int bDrawn = 0;
     if (nScreenPanels == 1)
     {
-        tRect.right += -(gnScreenWidth_007C9138 / 2);
+        tRect.right += -(gnRenderWidth / 2);
     }
     else if (nScreenPanels == 2)
     {
-        tRect.left = gnScreenWidth_007C9138 / 2 - 32;
+        tRect.left = gnRenderWidth / 2 - 32;
     }
 
     nPosY += 32;
@@ -64,19 +65,19 @@ int __fastcall sub_0050C890_GlideTileDrawShaded(D2TileLibraryEntryStrc* pTile, i
             bDrawn = 1;
             int nRight = nLeft + 32;
             sub_0050FBD0_GlideBindTileTexture(&pTile->pBlocks[i]);
-            gaGlideTileQuad_00880600[0].x = (float)nLeft;
-            gaGlideTileQuad_00880600[0].y = (float)nTop;
-            gaGlideTileQuad_00880600[1].x = (float)nLeft;
-            gaGlideTileQuad_00880600[1].y = (float)nBottom;
-            gaGlideTileQuad_00880600[2].x = (float)nRight;
-            gaGlideTileQuad_00880600[2].y = (float)nBottom;
-            gaGlideTileQuad_00880600[3].x = (float)nRight;
-            gaGlideTileQuad_00880600[3].y = (float)nTop;
-            GLIDE_SetVertexAmbientColor(gaGlideTileQuad_00880600, nShade);
-            gaGlideTileQuad_00880600[1].dwColor = gaGlideTileQuad_00880600[0].dwColor;
-            gaGlideTileQuad_00880600[2].dwColor = gaGlideTileQuad_00880600[0].dwColor;
-            gaGlideTileQuad_00880600[3].dwColor = gaGlideTileQuad_00880600[0].dwColor;
-            gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, gaGlideTileQuad_00880600, sizeof(D2GlideSpriteVertexStrc));
+            gaGlideTileQuad[0].x = (float)nLeft;
+            gaGlideTileQuad[0].y = (float)nTop;
+            gaGlideTileQuad[1].x = (float)nLeft;
+            gaGlideTileQuad[1].y = (float)nBottom;
+            gaGlideTileQuad[2].x = (float)nRight;
+            gaGlideTileQuad[2].y = (float)nBottom;
+            gaGlideTileQuad[3].x = (float)nRight;
+            gaGlideTileQuad[3].y = (float)nTop;
+            GLIDE_SetVertexAmbientColor(gaGlideTileQuad, nShade);
+            gaGlideTileQuad[1].dwColor = gaGlideTileQuad[0].dwColor;
+            gaGlideTileQuad[2].dwColor = gaGlideTileQuad[0].dwColor;
+            gaGlideTileQuad[3].dwColor = gaGlideTileQuad[0].dwColor;
+            gpfnGrDrawVertexArrayContiguous(5, 4, gaGlideTileQuad, sizeof(D2GlideSpriteVertexStrc));
         }
     }
 
@@ -85,7 +86,7 @@ int __fastcall sub_0050C890_GlideTileDrawShaded(D2TileLibraryEntryStrc* pTile, i
 
 static __forceinline void GLIDE_SetTileVertex(const D2TileVertexStrc* pSource, D2GlideSpriteVertexStrc* pVertex)
 {
-    const unsigned char* pRow = &gpBlendTable_00880B5C[pSource->aColor[0] << 8];
+    const unsigned char* pRow = &gpBlendTable[pSource->aColor[0] << 8];
     pVertex->dwColor = (((-1 << 8 | pRow[pSource->aColor[1]]) << 8 | pRow[pSource->aColor[2]]) << 8) | pRow[pSource->aColor[3]];
     pVertex->x = (float)pSource->nX;
     pVertex->y = (float)pSource->nY;
@@ -105,30 +106,30 @@ void __fastcall sub_0050D6A0_GlideDrawFloorTile(void* pTile, const D2TileVertexS
     else
     {
         GLIDE_SetAlphaBlendMode(4);
-        gpfGlideConstantColor_0087EFA0(nAlpha);
+        gpfnGrConstantColorValue(nAlpha);
     }
     if (bDepth)
         GLIDE_SetTextureFilterMode(2);
     else
         GLIDE_SetTextureFilterMode(1);
 
-    if (gpGfxSettings_007C9148->bLowQuality)
+    if (gpGfxSettings->bLowQuality)
     {
-        GLIDE_SetTileVertex(&pVertices[0], &gaGlideTileVertices_00880678[0]);
-        GLIDE_SetTileVertex(&pVertices[5], &gaGlideTileVertices_00880678[5]);
-        GLIDE_SetTileVertex(&pVertices[35], &gaGlideTileVertices_00880678[35]);
-        GLIDE_SetTileVertex(&pVertices[30], &gaGlideTileVertices_00880678[30]);
-        gpfGlideDrawVertexArray_0087EB18(5, 4, gapGlideTileFan_0072F670);
+        GLIDE_SetTileVertex(&pVertices[0], &gatGlideTileVertices[0]);
+        GLIDE_SetTileVertex(&pVertices[5], &gatGlideTileVertices[5]);
+        GLIDE_SetTileVertex(&pVertices[35], &gatGlideTileVertices[35]);
+        GLIDE_SetTileVertex(&pVertices[30], &gatGlideTileVertices[30]);
+        gpfnGrDrawVertexArray(5, 4, gapGlideTileFan);
         return;
     }
 
     const D2TileVertexStrc* pSrc = pVertices;
-    D2GlideSpriteVertexStrc* pDst = gaGlideTileVertices_00880678;
+    D2GlideSpriteVertexStrc* pDst = gatGlideTileVertices;
     for (unsigned int i = 0; i < 36; i++, pSrc++, pDst++)
         GLIDE_SetTileVertex(pSrc, pDst);
 
     for (int i = 0; i < 5; i++)
-        gpfGlideDrawVertexArray_0087EB18(4, 12, gapGlideTileStrips_00880A68[i]);
+        gpfnGrDrawVertexArray(4, 12, gapGlideTileStrips_00880A68[i]);
 }
 
 #include "gen/data/Source/D2Glide/Unknown_0050C890.inc"

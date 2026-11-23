@@ -7,26 +7,26 @@ extern "C" __declspec(dllimport) void* __stdcall LoadLibraryW(const wchar_t* szF
 extern "C" __declspec(dllimport) void* __stdcall GetProcAddress(void* hModule, const char* szProcName);     // 0x006CC148
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);                                  // 0x006CC134
 
-extern "C" const char gszMiniDumpWriteDump_006FFB94[];                                                      // 0x006FFB94
+extern "C" const char gszMiniDumpWriteDump[];                                                      // 0x006FFB94
 
-extern void* ghDbgHelp_0098A680;                                                                            // 0x0098A680
-extern void* gpfnEnumerateLoadedModules64_0098A6A4;                                                         // 0x0098A6A4
-extern void* gpfnStackWalk64_0098A6A0;                                                                      // 0x0098A6A0
-extern void* gpfnSymFunctionTableAccess64_0098A698;                                                         // 0x0098A698
-extern void* gpfnSymGetLineFromAddr64_0098A6E8;                                                             // 0x0098A6E8
-extern void* gpfnSymGetModuleBase64_0098A69C;                                                               // 0x0098A69C
-extern void* gpfnSymGetModuleInfo64_0098A684;                                                               // 0x0098A684
-extern void* gpfnSymGetOptions_0098A6AC;                                                                    // 0x0098A6AC
-extern void* gpfnSymGetSymFromAddr64_0098A68C;                                                              // 0x0098A68C
-extern void* gpfnSymInitialize_0098A6A8;                                                                    // 0x0098A6A8
-extern void* gpfnSymCleanup_0098A6B8;                                                                       // 0x0098A6B8
-extern void* gpfnSymSetOptions_0098A6B4;                                                                    // 0x0098A6B4
-extern void* gpfnSymEnumerateModules64_0098A688;                                                            // 0x0098A688
-extern void* gpfnSymSetSearchPath_0098A690;                                                                 // 0x0098A690
-extern void* gpfnSymFindFileInPath_0098A6EC;                                                                // 0x0098A6EC
-extern void* gpfnSymLoadModule64_0098A6DC;                                                                  // 0x0098A6DC
-extern void* gpfnSymUnloadModule64_0098A694;                                                                // 0x0098A694
-extern void* gpfnMiniDumpWriteDump_0098A6E0;                                                                // 0x0098A6E0
+extern void* ghDbgHelp;                                                                            // 0x0098A680
+extern void* gpfnEnumerateLoadedModules64;                                                         // 0x0098A6A4
+extern void* gpfnStackWalk64;                                                                      // 0x0098A6A0
+extern void* gpfnSymFunctionTableAccess64;                                                         // 0x0098A698
+extern void* gpfnSymGetLineFromAddr64;                                                             // 0x0098A6E8
+extern void* gpfnSymGetModuleBase64;                                                               // 0x0098A69C
+extern void* gpfnSymGetModuleInfo64;                                                               // 0x0098A684
+extern void* gpfnSymGetOptions;                                                                    // 0x0098A6AC
+extern void* gpfnSymGetSymFromAddr64;                                                              // 0x0098A68C
+extern void* gpfnSymInitialize;                                                                    // 0x0098A6A8
+extern void* gpfnSymCleanup;                                                                       // 0x0098A6B8
+extern void* gpfnSymSetOptions;                                                                    // 0x0098A6B4
+extern void* gpfnSymEnumerateModules64;                                                            // 0x0098A688
+extern void* gpfnSymSetSearchPath;                                                                 // 0x0098A690
+extern void* gpfnSymFindFileInPath;                                                                // 0x0098A6EC
+extern void* gpfnSymLoadModule64;                                                                  // 0x0098A6DC
+extern void* gpfnSymUnloadModule64;                                                                // 0x0098A694
+extern void* gpfnMiniDumpWriteDump;                                                                // 0x0098A6E0
 
 namespace crashy
 {

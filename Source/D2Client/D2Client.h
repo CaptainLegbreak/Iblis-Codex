@@ -141,20 +141,20 @@ extern "C" const char gszAsyncLoadFailed[]; // 0x006D6CC8
 extern "C" const char gszBattleNetPrefix[]; // 0x006D72B0
 extern "C" const char gszCmdSquelch[]; // 0x006D5698
 extern "C" const char gszCmdUnsquelch[]; // 0x006D5680
-extern "C" const char gszCofPathFormat_006D6C94[]; // 0x006D6C94
+extern "C" const char gszCofPathFormat[]; // 0x006D6C94
 extern "C" const char gszDataLocal[]; // 0x006D41A8
 extern "C" const char gszEmptyAssertText_006CC837; // 0x006CC837
 extern "C" const char gszFormat2u[]; // 0x006DA0CC
 extern "C" const char gszGfxFile[]; // 0x006D6C1C
 extern "C" const char gszMissileSourceFile[]; // 0x006DAEF4
 extern "C" const char gszMonsterSourceFile[]; // 0x006DA5C8
-extern "C" const char gszMonstersDir_006D6CAC[]; // 0x006D6CAC
+extern "C" const char gszMonstersDir[]; // 0x006D6CAC
 extern "C" const char gszNameAccountFormat[]; // 0x006D72C0
 extern "C" const char gszNew[]; // 0x006CC82C
 extern "C" const char gszSkillsBarSourceFile[]; // 0x006DAE58
-extern "C" const char gszSpace_006FFC44[]; // 0x006FFC44
+extern "C" const char gszSpace[]; // 0x006FFC44
 extern "C" const char gszTokenSeparator[]; // 0x00712FFC
-extern "C" const char gszStringFormat_006FFC58[]; // 0x006FFC58
+extern "C" const char gszStringFormat[]; // 0x006FFC58
 extern "C" const char gszTypeNameAllocRec[]; // 0x00711480
 extern "C" const char gszUnitSndSourceFile[]; // 0x006DAEE0
 extern "C" const char gszDataGlobal[]; // 0x006D4118
@@ -174,7 +174,7 @@ extern "C" const char gszQuote[]; // 0x006D9BF4
 extern "C" const char gszSkillDescFile[]; // 0x006DBF24
 extern "C" const char gszSkillsEMonCpp[]; // 0x006DBF90
 extern "C" const char gszUnitModeFile[]; // 0x006D8E84
-extern "C" const char* const gapszSkyPalette_006D3A08[2]; // 0x006D3A08
+extern "C" const char* const gapszSkyPalette[2]; // 0x006D3A08
 extern "C" const unsigned char gabBuiltinModuleKey[]; // 0x006D8768
 extern "C" const unsigned char gabBuiltinModuleRc4Key[]; // 0x006D8778
 extern "C" const unsigned char gabBuiltinModule[]; // 0x006D74B0
@@ -204,7 +204,7 @@ extern D2ClientDialogStrc* gpNpcGreetingDialog; // 0x007C0D7B
 extern D2ClientInfoStrc* gpClientInfo_007A0438; // 0x007A0438
 extern D2ClientListEntryStrc* gpListEntries; // 0x00724264
 extern D2DataTablesStrc* sgptDataTable; // 0x00744304
-extern D2LaunchRecordStrc* gpLaunchRecord_007795D4; // 0x007795D4
+extern D2LaunchRecordStrc* gpLaunchRecord; // 0x007795D4
 extern D2MsgRecordChunkStrc* gpMsgRecordChunk_0070F7A0; // 0x0070F7A0
 extern D2NpcEntryStrc* gpNpcEntry; // 0x007C0C7D
 extern D2NpcTradeObjStrc* gpNpcTradeObj; // 0x007C0D83
@@ -214,26 +214,26 @@ extern D2UnitStrc* gpEventUnit_007C0C5C; // 0x007C0C5C
 extern D2UnitStrc* gpOwnerSource_007BCBF4; // 0x007BCBF4
 extern D2WaypointDataStrc* gpWaypointData; // 0x007BF081
 extern D2WinControlStrc* gpControl_007799F4; // 0x007799F4
-extern D2WinControlStrc* gpControl_00779B60; // 0x00779B60
+extern D2WinControlStrc* gpCharNameText; // 0x00779B60
 extern D2WinControlStrc* gpControl_00779C68; // 0x00779C68
 extern D2WinControlStrc* gpControl_00779C80; // 0x00779C80
 extern D2WinControlStrc* gpControl_00779D90; // 0x00779D90
 extern D2WinControlStrc* gpControl_00779D94; // 0x00779D94
-extern D2WinControlStrc* gpEdit_007795A8; // 0x007795A8
+extern D2WinControlStrc* gpCreatePasswordConfirmEdit; // 0x007795A8
 extern D2WinControlStrc* gpEdit_007799CC; // 0x007799CC
 extern D2WinControlStrc* gpEdit_007799D0; // 0x007799D0
-extern D2WinControlStrc* gpPasswordEdit_007799BC; // 0x007799BC
-extern D2WinControlStrc* gpPasswordEdit_007799C0; // 0x007799C0
-extern D2WinControlStrc* gpPasswordEdit_007799C4; // 0x007799C4
-extern D2WinControlStrc* gpPasswordEdit_007799C8; // 0x007799C8
+extern D2WinControlStrc* gpChangePwAccountEdit; // 0x007799BC
+extern D2WinControlStrc* gpOldPasswordEdit; // 0x007799C0
+extern D2WinControlStrc* gpNewPasswordConfirmEdit; // 0x007799C4
+extern D2WinControlStrc* gpNewPasswordEdit; // 0x007799C8
 extern Unit* __stdcall sub_00619EA0_Units(Room*); // 0x00619EA0
 extern char gbQuestSlotDown; // 0x007BF2B1
 extern char gbTradeClickPending; // 0x007C0DE0
 extern char gszBattleNetIP[]; // 0x0070F028
-extern char gszOldPassword_00779550[]; // 0x00779550
+extern char gszOldPassword[]; // 0x00779550
 extern const char gszCUnitFile[]; // 0x006D6A48
 extern const char gszDataGlobal_006D4118[]; // 0x006D4118
-extern const char gszEmpty_006CC837[]; // 0x006CC837
+extern const char gszEmptyString[]; // 0x006CC837
 extern const char gszFormatInt_006D57BC[]; // 0x006D57BC
 extern const char gszHoverTimeFormat[]; // 0x006D6AD4
 extern const char gszSkillSelFile[]; // 0x006D6AE0
@@ -251,9 +251,9 @@ extern const int gaAdjacentDirOffsets[]; // 0x006D6B34
 extern const int gaDirectionDX[]; // 0x006D6B14
 extern const int gaDirectionDY[]; // 0x006D6AF4
 extern const int gaUnitTypes[6]; // 0x006D6ABC
-extern const unsigned char gnCdKeyMap_006D59F0[256]; // 0x006D59F0
+extern const unsigned char gabCdKeyMap[256]; // 0x006D59F0
 extern const unsigned int gdwMask_006CE26C; // 0x006CE26C
-extern const unsigned int gdwTitleMaskB_006CE284; // 0x006CE284
+extern const unsigned int gdwBitMask7; // 0x006CE284
 extern const unsigned short gawPeriodOfDayStr[]; // 0x006DBD88
 extern float gfPhaseLevel; // 0x007A89A0
 extern int (__cdecl* gpfnGlobal_00726F91)(); // 0x00726F91
@@ -287,7 +287,7 @@ extern int gdwClientFlags; // 0x00712EFC
 extern int gnCTemp; // 0x00712F00
 extern int gbNpcSpeechAudio; // 0x0072AE24
 extern int gdwGlobal_00779974; // 0x00779974
-extern int gdwGlobal_0077998C; // 0x0077998C
+extern int gnSlotCount; // 0x0077998C
 extern int gdwGlobal_00779DA4; // 0x00779DA4
 extern int gdwGlobal_007A0494; // 0x007A0494
 extern int gdwGlobal_007A04AC; // 0x007A04AC
@@ -354,8 +354,8 @@ extern int gnHotspotCount; // 0x007278FC
 extern int gnWindAngleMax; // 0x007A8998
 extern int gnWindAngleMin; // 0x007A89D8
 extern int gnGlobal_007A89E0; // 0x007A89E0
-extern int gnGlobal_007B0A54; // 0x007B0A54
-extern int gnGlobal_007B0A58; // 0x007B0A58
+extern int gnCellOriginX; // 0x007B0A54
+extern int gnCellOriginY; // 0x007B0A58
 extern int gnWaypointId; // 0x007BF07D
 extern int gbTextBoxPending; // 0x007BF1C4
 extern int gbTextPanelOpen; // 0x007BF1FA
@@ -401,7 +401,7 @@ extern int gnTimerUnitId; // 0x007129D4
 extern int gnUIVarCount; // 0x0070F9CC
 extern int gnUiRecordIndex; // 0x00722354
 extern int gbMissileLights; // 0x0072A348
-extern int gnVisibleRows_0070CC0C; // 0x0070CC0C
+extern int gnVisibleRows; // 0x0070CC0C
 extern int gnWardenIfaceValue; // 0x00721C94
 extern int gnWaypointActCount; // 0x007224E4
 extern int gnWaypointAct; // 0x007BF086

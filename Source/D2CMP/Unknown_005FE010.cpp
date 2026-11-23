@@ -52,8 +52,8 @@ struct D2CelDataViewStrc
 extern D2CmpPoolStrc gCmpPool;                                                                              // 0x0088CAE0
 extern "C" { int gnValue_0088CB0C; }                                                                        // 0x0088CB0C
 extern "C" { int gnValue_0088CB10; }                                                                        // 0x0088CB10
-static int gnCmpPoolArg_0088CB18;                                                                           // 0x0088CB18
-void (__fastcall* gpfnCmpFreeCallback_0089DB5C)(int nKeyA, int nKeyC, int nKeyB);                           // 0x0089DB5C
+static int gnCmpPoolArg;                                                                           // 0x0088CB18
+void (__fastcall* gpfnCmpFreeCallback)(int nKeyA, int nKeyC, int nKeyB);                           // 0x0089DB5C
 extern D2SpriteCacheStrc gCmpTileCache;                                                                     // 0x0089DB60
 extern D2CmpPoolStrc gCmpTilePool;                                                                          // 0x0088DB20
 D2CmpBlockTableAStrc gCmpBlockTableA;                                                                       // 0x0088CB20
@@ -64,7 +64,7 @@ void __fastcall CelDataHashRemove(void* pMemPool, D2CelDataHashStrc* pHash, T006
 // 0x005FE010
 void __stdcall D2CMPGetTileCacheHits(int* pnArg, int* pnCountB, int* pnCountA, int* pnHitPercent)
 {
-    *pnArg = gnCmpPoolArg_0088CB18;
+    *pnArg = gnCmpPoolArg;
     *pnCountA = gnValue_0088CB10;
     *pnCountB = gnValue_0088CB0C;
     if (gCmpPool.nTotal)
@@ -81,11 +81,11 @@ void __stdcall D2CMPGetTileCacheHits(int* pnArg, int* pnCountB, int* pnCountA, i
 void __fastcall sub_005FE170_SpriteCacheFreeCallback(void* pNode)
 {
     D2SpriteFreeNodeStrc* pFreeNode = (D2SpriteFreeNodeStrc*)pNode;
-    if (gpfnCmpFreeCallback_0089DB5C)
+    if (gpfnCmpFreeCallback)
     {
         D2SpriteKeyStrc* pKey = pFreeNode->pKey;
         D2_ASSERT(pKey, 0xB5);
-        gpfnCmpFreeCallback_0089DB5C(pKey->nKeyA, pKey->nKeyC, pKey->nKeyB);
+        gpfnCmpFreeCallback(pKey->nKeyA, pKey->nKeyC, pKey->nKeyB);
     }
     GfxHashRemove(gCmpTileCache.pMemPool, (D2CmpGfxHashStrc*)&gCmpBlockTableB, (D2CmpGfxHashEntryStrc*)pNode);
 }

@@ -33,7 +33,7 @@ struct D2LogMsgLinkStrc
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);                  // 0x00412650
 
-extern "C" const char gszLogMessageTypeName_00708124[];                                                     // 0x00708124
+extern "C" const char gszLogMessageTypeName[];                                                     // 0x00708124
 
 inline void* operator new(unsigned int, void* pWhere) throw()
 {
@@ -99,14 +99,14 @@ void D2LogMsgListStrc::sub_0040FED0_DeleteAll()
     while (D2LogMessageStrc* pNode = (D2LogMessageStrc*)m_terminator.Next())
     {
         pNode->~D2LogMessageStrc();
-        SMemFree(pNode, gszLogMessageTypeName_00708124, -2, 0);
+        SMemFree(pNode, gszLogMessageTypeName, -2, 0);
     }
 }
 
 // 0x0040FF40
 char* D2LogMsgListStrc::sub_0040FF40_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
 {
-    void* pMemory = SMemAlloc(sizeof(D2LogMessageStrc) + nExtraBytes, gszLogMessageTypeName_00708124, -2, nFlags | 8);
+    void* pMemory = SMemAlloc(sizeof(D2LogMessageStrc) + nExtraBytes, gszLogMessageTypeName, -2, nFlags | 8);
     D2LogMessageStrc* pNode = new (pMemory) D2LogMessageStrc;
     if (nLinkType)
         sub_0040FBB0_LinkNode((char*)pNode, nLinkType, 0);

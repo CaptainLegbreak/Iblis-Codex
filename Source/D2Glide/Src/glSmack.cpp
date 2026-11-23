@@ -9,21 +9,21 @@ extern "C" __declspec(dllimport) void __stdcall SmackClose(void* hSmack); // 0x0
 
 D2GlideFloorCacheEntryStrc* __fastcall sub_0050F570_FloorCacheUnlink(D2GlideFloorCacheStrc* pCache, int nIndex); // 0x0050F570
 
-extern D2GrTexInfoStrc gGlideTileTexInfo_0072F6A8; // 0x0072F6A8
+extern D2GrTexInfoStrc gtGlideTileTexInfo; // 0x0072F6A8
 
-extern D2GrTexInfoStrc gGlideFloorTexInfo_0072F6BC; // 0x0072F6BC
+extern D2GrTexInfoStrc gtGlideFloorTexInfo; // 0x0072F6BC
 
-extern unsigned char* gpGlideSmackBufferB_00880B70; // 0x00880B70
+extern unsigned char* gpGlideSmackBufferB; // 0x00880B70
 
-extern unsigned char* gpGlideSmackBufferC_00880B74; // 0x00880B74
+extern unsigned char* gpGlideSmackBufferC; // 0x00880B74
 
-D2GlideSpriteVertexStrc gaGlideSmackVertices_00880B78[4];                                                         // 0x00880B78
+D2GlideSpriteVertexStrc gaGlideSmackVertices[4];                                                         // 0x00880B78
 
 unsigned char* sgbSmack8BitBuffer; // 0x00880BF0
 
-extern unsigned char* gpGlideTileDecodeBuffer_00880BFC; // 0x00880BFC
+extern unsigned char* gpGlideTileDecodeBuffer; // 0x00880BFC
 
-extern unsigned char* gpGlideFloorDecodeBuffer_00880C00; // 0x00880C00
+extern unsigned char* gpGlideFloorDecodeBuffer; // 0x00880C00
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -41,7 +41,7 @@ void __cdecl GLIDE_UploadSmackTextures(); // 0x0050E330
 
 int __stdcall SBmpDecodeImage(int nMode, void* pData, int nSize, tagPALETTEENTRY* pPalette, unsigned char* pDest, int nDestSize, int* pWidth, int* pHeight, int* pDepth); // 0x006C6A80
 
-extern int gbRenderPaused_007C9144; // 0x007C9144
+extern int gbRenderPaused; // 0x007C9144
 
 extern "C" __declspec(dllimport) int __stdcall SmackWait(D2SmackStrc* hSmack);                             // 0x006CC5F8
 
@@ -59,31 +59,31 @@ void __fastcall GLIDE_SetTextureCombineMode(int nTmu);                          
 
 void __fastcall GLIDE_CloseSmacker(D2SmackRecordStrc* pRecord);                                  // 0x0050E040
 
-extern void (__stdcall* gpfGlideMask_0087EB8C)(int bEnable);                                                // 0x0087EB8C
+extern void (__stdcall* gpfnGrChromakeyMode)(int bEnable);                                                // 0x0087EB8C
 
-void (__stdcall* gpfGlideTexSource_0087EB98)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo);        // 0x0087EB98
+void (__stdcall* gpfnGrTexSource)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo);        // 0x0087EB98
 
-extern void (__stdcall* gpfGlideDrawVertexArrayContiguous_0087EAC4)(int nMode, int nCount, void* pVertices, int nStride); // 0x0087EAC4
+extern void (__stdcall* gpfnGrDrawVertexArrayContiguous)(int nMode, int nCount, void* pVertices, int nStride); // 0x0087EAC4
 
-int gnGlideSmackTmu_00880BF4;                                                                               // 0x00880BF4
+int gnGlideSmackTmu;                                                                               // 0x00880BF4
 
-extern int gnGlideSmackTexAddrA_00880BE8;                                                                   // 0x00880BE8
+extern int gnGlideSmackTexAddrA;                                                                   // 0x00880BE8
 
-extern int gnGlideSmackTexAddrB_00880BEC;                                                                   // 0x00880BEC
+extern int gnGlideSmackTexAddrB;                                                                   // 0x00880BEC
 
-extern D2GrTexInfoStrc gGlideSmackTexInfoA_0072F680;                                                        // 0x0072F680
+extern D2GrTexInfoStrc gtGlideSmackTexInfoA;                                                        // 0x0072F680
 
-extern D2GrTexInfoStrc gGlideSmackTexInfoB_0072F694;                                                        // 0x0072F694
+extern D2GrTexInfoStrc gtGlideSmackTexInfoB;                                                        // 0x0072F694
 
 // 0x0050DF10
 void __cdecl GLIDE_SmackInit()
 {
-    gaGlideSmackVertices_00880B78[0].dwColor = 0xFFFFFFFF;
-    gaGlideSmackVertices_00880B78[1].dwColor = 0xFFFFFFFF;
-    gaGlideSmackVertices_00880B78[2].dwColor = 0xFFFFFFFF;
-    gaGlideSmackVertices_00880B78[3].dwColor = 0xFFFFFFFF;
-    gpGlideSmackBufferB_00880B70 = (unsigned char*)FOG_Alloc(0x8000, ".\\Src\\glSmack.cpp", 0x47, 0);
-    gpGlideSmackBufferC_00880B74 = (unsigned char*)FOG_Alloc(0x8000, ".\\Src\\glSmack.cpp", 0x48, 0);
+    gaGlideSmackVertices[0].dwColor = 0xFFFFFFFF;
+    gaGlideSmackVertices[1].dwColor = 0xFFFFFFFF;
+    gaGlideSmackVertices[2].dwColor = 0xFFFFFFFF;
+    gaGlideSmackVertices[3].dwColor = 0xFFFFFFFF;
+    gpGlideSmackBufferB = (unsigned char*)FOG_Alloc(0x8000, ".\\Src\\glSmack.cpp", 0x47, 0);
+    gpGlideSmackBufferC = (unsigned char*)FOG_Alloc(0x8000, ".\\Src\\glSmack.cpp", 0x48, 0);
     sgbSmack8BitBuffer = (unsigned char*)FOG_Alloc(0x8000, ".\\Src\\glSmack.cpp", 0x49, 0);
 }
 
@@ -189,8 +189,8 @@ static unsigned short PackRgb565(int red, int green, int blue)
 void __fastcall GLIDE_SetSmackPalette(D2RgbColorStrc* colors)
 {
  const unsigned char* source=sgbSmack8BitBuffer;
- unsigned short* left=(unsigned short*)gpGlideSmackBufferB_00880B70;
- unsigned short* right=(unsigned short*)gpGlideSmackBufferC_00880B74;
+ unsigned short* left=(unsigned short*)gpGlideSmackBufferB;
+ unsigned short* right=(unsigned short*)gpGlideSmackBufferC;
  for(int y=0;y<64;++y){
   for(int x=0;x<256;++x){
    const int nLeftIndex=source[x];
@@ -208,64 +208,64 @@ static void __stdcall GLIDE_DrawSmackFrame(int nHeight, D2SmackRecordStrc* pReco
     GLIDE_SetColorCombineMode(1);
     GLIDE_SetAlphaBlendMode(1);
     GLIDE_SetTextureFilterMode(2);
-    GLIDE_SetTextureCombineMode(gnGlideSmackTmu_00880BF4);
-    gpfGlideMask_0087EB8C(0);
+    GLIDE_SetTextureCombineMode(gnGlideSmackTmu);
+    gpfnGrChromakeyMode(0);
     int nTop = pRecord->nY - nHeight;
     int nY = pRecord->nY;
-    gpfGlideTexSource_0087EB98(gnGlideSmackTmu_00880BF4, gnGlideSmackTexAddrA_00880BE8, 3, &gGlideSmackTexInfoA_0072F680);
+    gpfnGrTexSource(gnGlideSmackTmu, gnGlideSmackTexAddrA, 3, &gtGlideSmackTexInfoA);
     int nX = pRecord->nX;
     int nRight = nX + 0x100;
     int nTexWidth = 0x100;
     if (nWidth <= 0x100)
         nTexWidth = nWidth;
-    gaGlideSmackVertices_00880B78[0].x = (float)nX;
-    gaGlideSmackVertices_00880B78[0].y = (float)nTop;
-    gaGlideSmackVertices_00880B78[0].oow = 1.0f;
-    gaGlideSmackVertices_00880B78[0].sow = 0.0f;
-    gaGlideSmackVertices_00880B78[0].tow = 0.0f;
-    gaGlideSmackVertices_00880B78[1].x = (float)nX;
-    gaGlideSmackVertices_00880B78[1].y = (float)nY;
-    gaGlideSmackVertices_00880B78[1].oow = 1.0f;
-    gaGlideSmackVertices_00880B78[1].sow = 0.0f;
-    gaGlideSmackVertices_00880B78[1].tow = (float)nHeight;
-    gaGlideSmackVertices_00880B78[2].x = (float)nRight;
-    gaGlideSmackVertices_00880B78[2].y = (float)nY;
-    gaGlideSmackVertices_00880B78[2].oow = 1.0f;
-    gaGlideSmackVertices_00880B78[2].sow = (float)nTexWidth;
-    gaGlideSmackVertices_00880B78[2].tow = (float)nHeight;
-    gaGlideSmackVertices_00880B78[3].x = (float)nRight;
-    gaGlideSmackVertices_00880B78[3].y = (float)nTop;
-    gaGlideSmackVertices_00880B78[3].oow = 1.0f;
-    gaGlideSmackVertices_00880B78[3].sow = (float)nTexWidth;
-    gaGlideSmackVertices_00880B78[3].tow = 0.0f;
-    gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, gaGlideSmackVertices_00880B78, sizeof(D2GlideSpriteVertexStrc));
+    gaGlideSmackVertices[0].x = (float)nX;
+    gaGlideSmackVertices[0].y = (float)nTop;
+    gaGlideSmackVertices[0].oow = 1.0f;
+    gaGlideSmackVertices[0].sow = 0.0f;
+    gaGlideSmackVertices[0].tow = 0.0f;
+    gaGlideSmackVertices[1].x = (float)nX;
+    gaGlideSmackVertices[1].y = (float)nY;
+    gaGlideSmackVertices[1].oow = 1.0f;
+    gaGlideSmackVertices[1].sow = 0.0f;
+    gaGlideSmackVertices[1].tow = (float)nHeight;
+    gaGlideSmackVertices[2].x = (float)nRight;
+    gaGlideSmackVertices[2].y = (float)nY;
+    gaGlideSmackVertices[2].oow = 1.0f;
+    gaGlideSmackVertices[2].sow = (float)nTexWidth;
+    gaGlideSmackVertices[2].tow = (float)nHeight;
+    gaGlideSmackVertices[3].x = (float)nRight;
+    gaGlideSmackVertices[3].y = (float)nTop;
+    gaGlideSmackVertices[3].oow = 1.0f;
+    gaGlideSmackVertices[3].sow = (float)nTexWidth;
+    gaGlideSmackVertices[3].tow = 0.0f;
+    gpfnGrDrawVertexArrayContiguous(5, 4, gaGlideSmackVertices, sizeof(D2GlideSpriteVertexStrc));
 
-    gpfGlideTexSource_0087EB98(gnGlideSmackTmu_00880BF4, gnGlideSmackTexAddrB_00880BEC, 3, &gGlideSmackTexInfoB_0072F694);
+    gpfnGrTexSource(gnGlideSmackTmu, gnGlideSmackTexAddrB, 3, &gtGlideSmackTexInfoB);
     nX = nRight;
     nRight = nX + nWidth - 0x100;
     nTexWidth = nWidth - 0x100;
-    gaGlideSmackVertices_00880B78[0].x = (float)nX;
-    gaGlideSmackVertices_00880B78[0].y = (float)nTop;
-    gaGlideSmackVertices_00880B78[0].oow = 1.0f;
-    gaGlideSmackVertices_00880B78[0].sow = 0.0f;
-    gaGlideSmackVertices_00880B78[0].tow = 0.0f;
-    gaGlideSmackVertices_00880B78[1].x = (float)nX;
-    gaGlideSmackVertices_00880B78[1].y = (float)nY;
-    gaGlideSmackVertices_00880B78[1].oow = 1.0f;
-    gaGlideSmackVertices_00880B78[1].sow = 0.0f;
-    gaGlideSmackVertices_00880B78[1].tow = (float)nHeight;
-    gaGlideSmackVertices_00880B78[2].x = (float)nRight;
-    gaGlideSmackVertices_00880B78[2].y = (float)nY;
-    gaGlideSmackVertices_00880B78[2].oow = 1.0f;
-    gaGlideSmackVertices_00880B78[2].sow = (float)nTexWidth;
-    gaGlideSmackVertices_00880B78[2].tow = (float)nHeight;
-    gaGlideSmackVertices_00880B78[3].x = (float)nRight;
-    gaGlideSmackVertices_00880B78[3].y = (float)nTop;
-    gaGlideSmackVertices_00880B78[3].oow = 1.0f;
-    gaGlideSmackVertices_00880B78[3].sow = (float)nTexWidth;
-    gaGlideSmackVertices_00880B78[3].tow = 0.0f;
-    gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, gaGlideSmackVertices_00880B78, sizeof(D2GlideSpriteVertexStrc));
-    gpfGlideMask_0087EB8C(1);
+    gaGlideSmackVertices[0].x = (float)nX;
+    gaGlideSmackVertices[0].y = (float)nTop;
+    gaGlideSmackVertices[0].oow = 1.0f;
+    gaGlideSmackVertices[0].sow = 0.0f;
+    gaGlideSmackVertices[0].tow = 0.0f;
+    gaGlideSmackVertices[1].x = (float)nX;
+    gaGlideSmackVertices[1].y = (float)nY;
+    gaGlideSmackVertices[1].oow = 1.0f;
+    gaGlideSmackVertices[1].sow = 0.0f;
+    gaGlideSmackVertices[1].tow = (float)nHeight;
+    gaGlideSmackVertices[2].x = (float)nRight;
+    gaGlideSmackVertices[2].y = (float)nY;
+    gaGlideSmackVertices[2].oow = 1.0f;
+    gaGlideSmackVertices[2].sow = (float)nTexWidth;
+    gaGlideSmackVertices[2].tow = (float)nHeight;
+    gaGlideSmackVertices[3].x = (float)nRight;
+    gaGlideSmackVertices[3].y = (float)nTop;
+    gaGlideSmackVertices[3].oow = 1.0f;
+    gaGlideSmackVertices[3].sow = (float)nTexWidth;
+    gaGlideSmackVertices[3].tow = 0.0f;
+    gpfnGrDrawVertexArrayContiguous(5, 4, gaGlideSmackVertices, sizeof(D2GlideSpriteVertexStrc));
+    gpfnGrChromakeyMode(1);
 }
 
 // 0x0050E5D0
@@ -273,9 +273,9 @@ void __fastcall GLIDE_DecodeSmacker(const char* szFile, D2SmackRecordStrc* pSmac
 {
     D2_ASSERT(sgbSmack8BitBuffer, 142);
     memset(sgbSmack8BitBuffer, 0, 0x8000);
-    memset(gpGlideSmackBufferB_00880B70, 0, 0x8000);
-    memset(gpGlideSmackBufferC_00880B74, 0, 0x8000);
-    if (!gbRenderPaused_007C9144)
+    memset(gpGlideSmackBufferB, 0, 0x8000);
+    memset(gpGlideSmackBufferC, 0, 0x8000);
+    if (!gbRenderPaused)
     {
         GLIDE_UploadSmackTextures();
     }
@@ -365,17 +365,17 @@ void __fastcall GLIDE_PlaySmacker(D2SmackRecordStrc* pRecord)
                 GLIDE_CloseSmacker(pRecord);
             else
                 SmackNextFrame(hSmack);
-            if (gbRenderPaused_007C9144)
+            if (gbRenderPaused)
                 return;
             GLIDE_SetSmackPalette(hSmack->aPalette);
             GLIDE_UploadSmackTextures();
         }
-        if (gbRenderPaused_007C9144)
+        if (gbRenderPaused)
             return;
         GLIDE_DrawSmackFrame(hSmack->nHeight, pRecord, hSmack->nWidth);
     }
     case 'p':
-        if (!gbRenderPaused_007C9144)
+        if (!gbRenderPaused)
             GLIDE_DrawSmackFrame(60, pRecord, 468);
         break;
     }
@@ -543,15 +543,15 @@ void __fastcall sub_0050F750_FloorCacheRemove(D2GlideFloorCacheStrc* pCache, int
 // 0x0050DF70
 void __cdecl GLIDE_SmackFree()
 {
-    if (gpGlideSmackBufferB_00880B70)
+    if (gpGlideSmackBufferB)
     {
-        FOG_Free(gpGlideSmackBufferB_00880B70, ".\\Src\\glSmack.cpp", 86, 0);
-        gpGlideSmackBufferB_00880B70 = 0;
+        FOG_Free(gpGlideSmackBufferB, ".\\Src\\glSmack.cpp", 86, 0);
+        gpGlideSmackBufferB = 0;
     }
-    if (gpGlideSmackBufferC_00880B74)
+    if (gpGlideSmackBufferC)
     {
-        FOG_Free(gpGlideSmackBufferC_00880B74, ".\\Src\\glSmack.cpp", 91, 0);
-        gpGlideSmackBufferC_00880B74 = 0;
+        FOG_Free(gpGlideSmackBufferC, ".\\Src\\glSmack.cpp", 91, 0);
+        gpGlideSmackBufferC = 0;
     }
     if (sgbSmack8BitBuffer)
     {

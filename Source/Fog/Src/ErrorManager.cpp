@@ -79,17 +79,17 @@ void __fastcall LOGMANAGER_SetLogPrefix(const char* szName); // 0x0040F5A0
 
 void __cdecl LOGMANAGER_CloseLogFilesNow(); // 0x0040F8A0
 
-extern bool gbMiniDumpEnabled_0098A6B1; // 0x0098A6B1
+extern bool gbMiniDumpEnabled; // 0x0098A6B1
 
-extern D2CriticalSectionStrc gtSymbolLock_0098A6F0; // 0x0098A6F0
+extern D2CriticalSectionStrc gtSymbolLock; // 0x0098A6F0
 
-extern D2CriticalSectionStrc gtDbgHelpRequestLock_0098A6C4; // 0x0098A6C4
+extern D2CriticalSectionStrc gtDbgHelpRequestLock; // 0x0098A6C4
 
-extern void* ghDbgHelp_0098A680; // 0x0098A680
+extern void* ghDbgHelp; // 0x0098A680
 
-extern void* gpDbgHelpRequest_0098A6E4; // 0x0098A6E4
+extern void* gpMiniDumpRequest; // 0x0098A6E4
 
-extern void* gpfnCrashHandler_00992B10; // 0x00992B10
+extern void* gpfnCrashHandler; // 0x00992B10
 
 extern T004013C0 gtSystemInfo_0074D88C; // 0x0074D88C
 
@@ -241,19 +241,19 @@ void __fastcall ERRORMANAGER_ReportPrint(void* pContext, const char* szText); //
 
 bool __fastcall sub_00401790_SubmitReport(const char* szText, D2CrashSubmitInfoStrc* pInfo); // 0x00401790
 
-extern long volatile gnReportBusy_007076BC; // 0x007076BC
+extern long volatile gnCrashReportBusy; // 0x007076BC
 
-extern D2InspectorInfoStrc gtInspectorInfo_0074D868; // 0x0074D868
+extern D2InspectorInfoStrc gtInspectorInfo; // 0x0074D868
 
 bool __fastcall ERRORMANAGER_ShowErrorReport(const char* szSummary, const char* szUnused, const char** ppszFiles, int nFiles, unsigned int nLine, bool bFlag); // 0x00408660
 
-char gszTextBuffer_0098A280[0x400]; // 0x0098A280
+char gszTextBuffer[0x400]; // 0x0098A280
 
-void* gpCrashContext_00992B14; // 0x00992B14
+void* gpCrashContext; // 0x00992B14
 
-D2ExceptionFilterFn gpfnPreviousFilter_00992B18; // 0x00992B18
+D2ExceptionFilterFn gpfnPreviousFilter; // 0x00992B18
 
-int gnSourcePrefixLength_0074F0D4; // 0x0074F0D4
+int gnSourcePrefixLength; // 0x0074F0D4
 
 typedef unsigned int size_t;
 
@@ -394,7 +394,7 @@ void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szF
 
 unsigned __int64 __cdecl AUTOMAP_ReadTimeStampCounter(); // 0x0040E850
 
-extern "C" const char gszNewline_006FFCB0[];                                                                // 0x006FFCB0
+extern "C" const char gszNewline[];                                                                // 0x006FFCB0
 
 extern D2CmdArgStrc gaCmdArguments[58];                                                                     // 0x00705040
 
@@ -404,13 +404,13 @@ void* ghD2ServerServiceStatus;                                                  
 
 extern int gbD2ServerStopEvent;                                                                             // 0x007065C0
 
-extern unsigned char gabHuffmanCodeLength_007076C0[256];                                                    // 0x007076C0
+extern unsigned char gabHuffmanCodeLength[256];                                                    // 0x007076C0
 
-unsigned char gabHuffmanCode_0075B6A0[256];                                                                 // 0x0075B6A0
+unsigned char gabHuffmanCode[256];                                                                 // 0x0075B6A0
 
-const unsigned char* gapHuffmanDecode_0075AFA0[256];                                                        // 0x0075AFA0
+const unsigned char* gapHuffmanDecode[256];                                                        // 0x0075AFA0
 
-extern unsigned int gadwHuffmanMask_007077C0[32];                                                           // 0x007077C0
+extern unsigned int gadwHuffmanMask[32];                                                           // 0x007077C0
 
 // build: context sub_00406BA0_GetModuleDirectoryAndSave
 
@@ -429,7 +429,7 @@ extern "C" D2HostentStrc* __stdcall gethostbyname(const char* szName);          
 
 extern "C" int __stdcall gethostname(char* szName, int nNameLength);                                        // 0x006B0198
 
-extern char gszResolvedHostIP_0075D040[];                                                                   // 0x0075D040
+extern char gszResolvedHostIP[];                                                                   // 0x0075D040
 
 extern "C" unsigned short __stdcall htons(unsigned short nValue);                                           // 0x006B0156
 
@@ -474,7 +474,7 @@ unsigned long __cdecl ERRORMANAGER_GetCurrentThreadId()
 // 0x00401740
 void __fastcall ERRORMANAGER_SetReportText(const char* szText)
 {
-    char* pDest = gszTextBuffer_0098A280;
+    char* pDest = gszTextBuffer;
     const char* pSource = szText;
     size_t nLeft = 0x400;
     if (nLeft != 0 && --nLeft != 0)
@@ -497,7 +497,7 @@ void __fastcall ERRORMANAGER_SetReportText(const char* szText)
     }
     if ((size_t)(pSource - szText - 1) >= 0x400)
     {
-        gszTextBuffer_0098A280[0] = 0;
+        gszTextBuffer[0] = 0;
     }
 }
 
@@ -510,7 +510,7 @@ char* __cdecl strrchr(char* szString, int nChar)
 // 0x00401A40
 void* __stdcall ERRORMANAGER_LockSymbols(void* pArg)
 {
-    EnterCriticalSection(&gtSymbolLock_0098A6F0);
+    EnterCriticalSection(&gtSymbolLock);
     return pArg;
 }
 
@@ -548,7 +548,7 @@ void __fastcall ERRORMANAGER_DumpOtherThreads(D2CrashPrintFn pfnPrint, void* pCo
             if (tEntry.th32OwnerProcessID == dwProcessId && tEntry.th32ThreadID != dwSkipThreadId)
             {
                 ERRORMANAGER_DumpThread(tEntry.th32ThreadID, 0, pfnPrint, pContext, 1, 1, 0);
-                pfnPrint(pContext, gszNewline_006FFCB0);
+                pfnPrint(pContext, gszNewline);
             }
         }
         while (Thread32Next(hSnapshot, &tEntry));
@@ -561,19 +561,19 @@ bool __fastcall sub_00402820_WriteMiniDump(const char* szPath, const char* szCom
 // 0x00403F60
 void __fastcall ERRORMANAGER_SetCrashHandler(void* pfnHandler, void* pContext, int nUnused)
 {
-    gpfnCrashHandler_00992B10 = pfnHandler;
-    gpCrashContext_00992B14 = pContext;
+    gpfnCrashHandler = pfnHandler;
+    gpCrashContext = pContext;
     if (!pfnHandler)
     {
-        if (gpfnPreviousFilter_00992B18)
+        if (gpfnPreviousFilter)
         {
-            SetUnhandledExceptionFilter(gpfnPreviousFilter_00992B18);
-            gpfnPreviousFilter_00992B18 = 0;
+            SetUnhandledExceptionFilter(gpfnPreviousFilter);
+            gpfnPreviousFilter = 0;
         }
     }
     else
     {
-        gpfnPreviousFilter_00992B18 = SetUnhandledExceptionFilter(sub_00403E90_UnhandledExceptionFilter);
+        gpfnPreviousFilter = SetUnhandledExceptionFilter(sub_00403E90_UnhandledExceptionFilter);
     }
 }
 
@@ -920,8 +920,8 @@ int __fastcall FOG_CompressPacket(unsigned char* pOut, int nOutSize, const unsig
         const unsigned char c = *pIn;
         nInSize--;
         pIn++;
-        int nBits = gabHuffmanCodeLength_007076C0[c];
-        const unsigned int nCode = gabHuffmanCode_0075B6A0[c];
+        int nBits = gabHuffmanCodeLength[c];
+        const unsigned int nCode = gabHuffmanCode[c];
         while (nBits >= nFree)
         {
             nBits -= nFree;
@@ -965,10 +965,10 @@ int __fastcall FOG_DecompressPacket(unsigned char* pOut, int nOutSize, const uns
             nInSize--;
             pIn++;
         }
-        const unsigned char* pEntry = gapHuffmanDecode_0075AFA0[nWindow >> 24];
+        const unsigned char* pEntry = gapHuffmanDecode[nWindow >> 24];
         const unsigned int nLookup = pEntry[0];
-        const unsigned char c = pEntry[((nWindow >> (24 - nLookup)) & gadwHuffmanMask_007077C0[nLookup]) + 1];
-        const int nLength = gabHuffmanCodeLength_007076C0[c];
+        const unsigned char c = pEntry[((nWindow >> (24 - nLookup)) & gadwHuffmanMask[nLookup]) + 1];
+        const int nLength = gabHuffmanCodeLength[c];
         nEmpty += nLength;
         if (nEmpty > 32)
         {
@@ -1022,9 +1022,10 @@ const char* __fastcall FOG_GetHostIPAddress()
             closesocket(nSocket);
         }
     }
-    sprintf(gszResolvedHostIP_0075D040, gszStringFormat_006FFC58, inet_ntoa(tLocal.sin_addr));
+// build: symbol ?gszStringFormat@* 0x006FFC58
+    sprintf(gszResolvedHostIP, gszStringFormat, inet_ntoa(tLocal.sin_addr));
     WSACleanup();
-    return gszResolvedHostIP_0075D040;
+    return gszResolvedHostIP;
 }
 
 // 0x00406960
@@ -1084,7 +1085,7 @@ public:
 };
 }
 
-int gdwGlobal_0074F0C8; // 0x0074F0C8
+int gbWritingCrashReport; // 0x0074F0C8
 
 // 0x00408900
 void __cdecl ERRORMANAGER_RaiseErrorReport(int nType, const char* szFile, int nLine, const char* szFormat, ...)
@@ -1100,12 +1101,12 @@ void __cdecl ERRORMANAGER_RaiseErrorReport(int nType, const char* szFile, int nL
     {
         return;
     }
-    gdwGlobal_0074F0C8 = 1;
+    gbWritingCrashReport = 1;
     if (!szFormat)
     {
         szFormat = "<no reason given>";
     }
-    MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszStringFormat_006FFC58, "---finished error callback---\n");
+    MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszStringFormat, "---finished error callback---\n");
     LOGMANAGER_CloseLogFiles();
     int bFatal = nErrorType == 5 || nErrorType == 6 || nErrorType == 2;
     if (!sub_004013A0_IsDebuggerAttached())
@@ -1113,30 +1114,31 @@ void __cdecl ERRORMANAGER_RaiseErrorReport(int nType, const char* szFile, int nL
         va_list args;
         va_start(args, szFormat);
         SStrPrintf(szMessage, sizeof(szMessage), szFormat, args);
-        SStrPrintf(szText, sizeof(szText), "[%s] (%s) failed at %s(%i)", gaszErrorTypeNames_00706654[nErrorType], szMessage, ERRORMANAGER_StripSourcePath(szFile), nLine);
+// build: symbol ?gaszErrorTypeNames@* 0x00706654
+        SStrPrintf(szText, sizeof(szText), "[%s] (%s) failed at %s(%i)", gaszErrorTypeNames[nErrorType], szMessage, ERRORMANAGER_StripSourcePath(szFile), nLine);
         ERRORMANAGER_ShowErrorReport(szText, szMessage, 0, 0, nLine, 0);
     }
     if (!bFatal)
     {
-        gdwGlobal_0074F0C8 = 0;
+        gbWritingCrashReport = 0;
     }
 }
 
 // 0x00408000
 const char* __fastcall ERRORMANAGER_StripSourcePath(const char* szFile)
 {
-    if (gnSourcePrefixLength_0074F0D4 == 0)
+    if (gnSourcePrefixLength == 0)
     {
         const int nLength = SStrLen(".\\Src\\ErrorManager.cpp");
-        gnSourcePrefixLength_0074F0D4 = nLength - SStrLen("Fog\\Src\\ErrorManager.cpp");
-        if (gnSourcePrefixLength_0074F0D4 < 0)
+        gnSourcePrefixLength = nLength - SStrLen("Fog\\Src\\ErrorManager.cpp");
+        if (gnSourcePrefixLength < 0)
         {
-            gnSourcePrefixLength_0074F0D4 = 0;
+            gnSourcePrefixLength = 0;
         }
     }
-    if (SStrLen(szFile) > (unsigned int)gnSourcePrefixLength_0074F0D4)
+    if (SStrLen(szFile) > (unsigned int)gnSourcePrefixLength)
     {
-        return szFile + gnSourcePrefixLength_0074F0D4;
+        return szFile + gnSourcePrefixLength;
     }
     return szFile;
 }
@@ -1145,19 +1147,19 @@ const char* __fastcall ERRORMANAGER_StripSourcePath(const char* szFile)
 bool __fastcall ERRORMANAGER_ShowErrorReport(const char* szSummary, const char* szUnused, const char** ppszFiles, int nFiles, unsigned int nLine, bool bFlag)
 {
     crashy::Report tReport;
-    const long nBusy = InterlockedIncrement(&gnReportBusy_007076BC);
+    const long nBusy = InterlockedIncrement(&gnCrashReportBusy);
     if (nBusy != 0)
     {
-        gdwGlobal_0074F0C8 = 0;
-        InterlockedDecrement(&gnReportBusy_007076BC);
+        gbWritingCrashReport = 0;
+        InterlockedDecrement(&gnCrashReportBusy);
         return false;
     }
 
-    gdwGlobal_0074F0C8 = 1;
+    gbWritingCrashReport = 1;
     if (!tReport.OpenReport("Crash.txt"))
     {
-        gdwGlobal_0074F0C8 = 0;
-        InterlockedDecrement(&gnReportBusy_007076BC);
+        gbWritingCrashReport = 0;
+        InterlockedDecrement(&gnCrashReportBusy);
         return false;
     }
 
@@ -1185,7 +1187,7 @@ bool __fastcall ERRORMANAGER_ShowErrorReport(const char* szSummary, const char* 
 
     D2CrashSubmitInfoStrc tInfo;
     memset(&tInfo, 0, sizeof(tInfo));
-    tInfo.szName = gtInspectorInfo_0074D868.szUnused04;
+    tInfo.szName = gtInspectorInfo.szUnused04;
     if (bFlag)
     {
         tInfo.dwFlags |= 1;
@@ -1200,8 +1202,8 @@ bool __fastcall ERRORMANAGER_ShowErrorReport(const char* szSummary, const char* 
     }
 
     const bool bResult = sub_00401790_SubmitReport(tReport.m_szText08, &tInfo);
-    gdwGlobal_0074F0C8 = 0;
-    InterlockedDecrement(&gnReportBusy_007076BC);
+    gbWritingCrashReport = 0;
+    InterlockedDecrement(&gnCrashReportBusy);
     return bResult;
 }
 

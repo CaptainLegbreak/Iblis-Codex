@@ -15,7 +15,7 @@ extern "C" int __cdecl rand(); // 0x00687461
 extern "C" unsigned int __security_cookie; // 0x00749DE0
 extern "C" void __cdecl srand(unsigned int nSeed); // 0x00687454
 extern "C" void* __cdecl bsearch(const void* pKey, const void* pBase, unsigned int nCount, unsigned int nSize, int (__cdecl* pfCompare)(const void*, const void*)); // 0x006881B1
-extern D2LangByteRangeStrc* gpLeadByteRanges_00882B28; // 0x00882B28
+extern D2LangByteRangeStrc* gpLeadByteRanges; // 0x00882B28
 int __cdecl BNSEND_SendCrashDump(); // 0x0051BCF0
 int __cdecl sub_00527AE0_CompareKey(const void* pLeft, const void* pRight); // 0x00527AE0
 int __fastcall BNSEND_SendPacket(unsigned char nId, const void* pData, unsigned int nSize); // 0x0051C5C0

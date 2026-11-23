@@ -1150,7 +1150,7 @@ struct D2CelEntryStrc : D2StormNodeStrc
 
 typedef void (__fastcall* CelFileBuildFn)(D2StormEntry38Strc* pList, D2CelFileStrc* pCelFile);
 
-extern CelFileBuildFn gpfnCelFileBuilders_006E3680[]; // 0x006E3680
+extern CelFileBuildFn gapfnCelFileBuilders[]; // 0x006E3680
 
 void __fastcall sub_0060D190_BuildCelFileWithData(D2StormEntry38Strc* pList, D2CelFileStrc* pCelFile); // 0x0060D190
 
@@ -1398,7 +1398,7 @@ struct D2Storm603F70Strc
 
 int gdwGlobal_0096C7F4; // 0x0096C7F4
 
-int gdwGlobal_0096C8A4; // 0x0096C8A4
+int gpAnimData; // 0x0096C8A4
 
 int gdwGlobal_0096D46C; // 0x0096D46C
 
@@ -1817,7 +1817,7 @@ int __stdcall OBJECTS_SpawnNothing(int nArg)
 
 typedef void(__fastcall* PixelDataFreeCallback)(void* pData);
 
-static PixelDataFreeCallback gpfnPixelDataFree_008E8CB8; // 0x008E8CB8
+static PixelDataFreeCallback gpfnPixelDataFree; // 0x008E8CB8
 
 typedef int (__stdcall* D2FarProcFn)();
 
@@ -1841,7 +1841,7 @@ struct D2TileLibraryStrc
 
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
-D2TileFreeCallbackFn gpfnTileFreeCallback_0088CB1C; // 0x0088CB1C
+D2TileFreeCallbackFn gpfnTileFreeCallback; // 0x0088CB1C
 
 int __fastcall ARCHIVE_SetFilePointer(void* unused, void* file, long nOffset, long* pnOffsetHigh, int nMethod); // 0x00516F14
 
@@ -2125,10 +2125,10 @@ D2StormSlotArrayStrc::~D2StormSlotArrayStrc() throw()
 void __fastcall D2CMPTileCacheReleaseTile(void* pEntry)
 {
     D2CmpTileStrc* pTile = ((D2CmpPoolEntryStrc*)pEntry)->pTile;
-    if (gpfnTileFreeCallback_0088CB1C)
+    if (gpfnTileFreeCallback)
     {
-        D2_ASSERT(!IsBadCodePtr((D2FarProcFn)gpfnTileFreeCallback_0088CB1C), 0xB4);
-        gpfnTileFreeCallback_0088CB1C(pTile);
+        D2_ASSERT(!IsBadCodePtr((D2FarProcFn)gpfnTileFreeCallback), 0xB4);
+        gpfnTileFreeCallback(pTile);
     }
 
     pTile->nCount = 0;
@@ -2244,9 +2244,9 @@ int __stdcall CelFileFreeHardware(D2CelFileStrc* ptFile)
     {
         if (ptFile->pCels[i] && ptFile->pCels[i]->pBlockPixelData)
         {
-            if (gpfnPixelDataFree_008E8CB8)
+            if (gpfnPixelDataFree)
             {
-                gpfnPixelDataFree_008E8CB8(ptFile->pCels[i]->pBlockPixelData);
+                gpfnPixelDataFree(ptFile->pCels[i]->pBlockPixelData);
             }
             ptFile->pCels[i]->pBlockPixelData = 0;
         }
@@ -2264,7 +2264,8 @@ D2CelStrc* __stdcall CelGetHandle(D2CmpCelContextStrc* pCelContext)
     D2CelFileStrc* pCelFile = (D2CelFileStrc*)pCelContext->pCelFile;
     const unsigned int nDirection = pCelContext->nDirection;
     const unsigned int nDirections = pCelFile->nDirectionCount;
-    const int nIndex = gaDirectionIndex64_006E45A0[sub_00517ABB_BitScanForward1(nDirections)][nDirection];
+// build: symbol ?gaDirectionIndex64@* 0x006E45A0
+    const int nIndex = gaDirectionIndex64[sub_00517ABB_BitScanForward1(nDirections)][nDirection];
     return pCelFile->pCels[nIndex * pCelFile->nFrames + pCelContext->nFrame];
 }
 
@@ -3517,7 +3518,7 @@ unsigned int __stdcall CelCompressCreateCelFile(unsigned int hCelList, D2CelFile
     }
     else
     {
-        gpfnCelFileBuilders_006E3680[pList->nType](pList, pCelFile);
+        gapfnCelFileBuilders[pList->nType](pList, pCelFile);
     }
 
     gCelListTable.SyncLeaveLock(hLock);
@@ -3970,7 +3971,7 @@ int __cdecl sub_00611D10()
 // 0x00611D20
 int __cdecl sub_00611D20()
 {
-    return gdwGlobal_0096C8A4;
+    return gpAnimData;
 }
 
 // 0x00624710
@@ -4337,7 +4338,7 @@ void __fastcall D2CMPSpriteCacheResize(D2CmpCacheStrc* pCache, D2CmpCacheNodeStr
 
 void __stdcall sub_F43_EmitPixelDataFreeWriter(PixelDataFreeCallback pfnCallback)
 {
-    gpfnPixelDataFree_008E8CB8 = pfnCallback;
+    gpfnPixelDataFree = pfnCallback;
 }
 
 // 0x005FE120

@@ -36,19 +36,19 @@ const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl); 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
-extern "C" const char gszMaxPlayer_006D57C0[]; // 0x006D57C0
-extern "C" const char gszLvlRest_006D57CC[]; // 0x006D57CC
-extern "C" const char gszDiffLevel_006D57DC[]; // 0x006D57DC
-extern D2LaunchFuncsStrc* gpLaunchFuncs_0077B09C; // 0x0077B09C
-extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8; // 0x0077BBD8
-extern D2WinControlStrc* gpCreateButton_00798C28; // 0x00798C28
-extern D2WinControlStrc* gpCreateName_00798C2C; // 0x00798C2C
+extern "C" const char gszMaxPlayer[]; // 0x006D57C0
+extern "C" const char gszLvlRest[]; // 0x006D57CC
+extern "C" const char gszDiffLevel[]; // 0x006D57DC
+extern D2LaunchFuncsStrc* gpLaunchFuncs; // 0x0077B09C
+extern D2LaunchCharInfoStrc* gpCharInfo; // 0x0077BBD8
+extern D2WinControlStrc* gpCreateButton; // 0x00798C28
+extern D2WinControlStrc* gpCreateName; // 0x00798C2C
 extern D2WinControlStrc* gpCreatePassword_00798C30; // 0x00798C30
 extern D2WinControlStrc* gpCreateDesc_00798C34; // 0x00798C34
 extern D2WinControlStrc* gpEditBox_00798C3C; // 0x00798C3C
-extern D2WinControlStrc* gpButton_00798C40; // 0x00798C40
+extern D2WinControlStrc* gpLevelDiffCheck; // 0x00798C40
 extern int gdwGlobal_00798CC4; // 0x00798CC4
-extern int gnDiffSelect_00798CD0; // 0x00798CD0
+extern int gnDiffSelect; // 0x00798CD0
 
 // 0x004456D0
 int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
@@ -61,10 +61,10 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
     const Unicode* pPassword;
     const Unicode* pDesc;
 
-    if (!sub_004F9710_TestFlag(gpCreateButton_00798C28))
+    if (!sub_004F9710_TestFlag(gpCreateButton))
         return 0;
 
-    pName = sub_004FDD90_GetEditText(gpCreateName_00798C2C);
+    pName = sub_004FDD90_GetEditText(gpCreateName);
     if (pName)
     {
         sub_00526F70(szName, pName, 0xFF);
@@ -77,7 +77,7 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
         {
             const Unicode* pMaxPlayers = sub_004FDD90_GetEditText(gpMaxPlayerControl_00798C38);
             tLogin.nValue0x44 = 1;
-            if (sub_00500960_IsPressed(gpButton_00798C40))
+            if (sub_00500960_IsPressed(gpLevelDiffCheck))
             {
                 const Unicode* pLevel = sub_004FDD90_GetEditText(gpEditBox_00798C3C);
                 sub_00526F70(szNumber, pLevel, 3);
@@ -97,41 +97,41 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
         tLogin.nValue0x40 = 0;
         sub_00411320_CapitalizeWords(tLogin.szText0x00);
         sub_00411320_CapitalizeWords(tLogin.szText0x10);
-        tLogin.nValue0x40 = tLogin.nValue0x40 & 0xFFFF8FFF | (gnDiffSelect_00798CD0 << 12);
+        tLogin.nValue0x40 = tLogin.nValue0x40 & 0xFFFF8FFF | (gnDiffSelect << 12);
 
         if (strlen(tLogin.szText0x00) < 1)
             return 0;
 
         if (!sub_00449B30_QueryAddress())
         {
-            int bExpansion = (*(unsigned short*)gpCharInfo_0077BBD8->wFlags) & 4;
-            int bLadder = (*(unsigned short*)gpCharInfo_0077BBD8->wFlags) & 0x20;
+            int bExpansion = (*(unsigned short*)gpCharInfo->wFlags) & 4;
+            int bLadder = (*(unsigned short*)gpCharInfo->wFlags) & 0x20;
             if (bExpansion)
-                gpCharInfo_0077BBD8->dwFlags |= 0x800;
+                gpCharInfo->dwFlags |= 0x800;
             if (bLadder)
-                gpCharInfo_0077BBD8->dwFlags |= 0x100000;
+                gpCharInfo->dwFlags |= 0x100000;
 
-            szDesc[0] = (bExpansion ? 3 : 0) + gnDiffSelect_00798CD0 + '1';
+            szDesc[0] = (bExpansion ? 3 : 0) + gnDiffSelect + '1';
             SStrCopy(&szDesc[1], tLogin.szText0x20, 0x7FFFFFFF);
 
             int nFlags = 0;
-            if (gpCharInfo_0077BBD8->nByte210 == 1)
+            if (gpCharInfo->nByte210 == 1)
                 nFlags = 1;
-            if (gpCharInfo_0077BBD8->nByte210 == 2)
+            if (gpCharInfo->nByte210 == 2)
                 nFlags |= 2;
-            if ((*(unsigned short*)gpCharInfo_0077BBD8->wFlags) & 4)
+            if ((*(unsigned short*)gpCharInfo->wFlags) & 4)
                 nFlags |= 4;
-            if ((*(unsigned short*)gpCharInfo_0077BBD8->wFlags) & 0x20)
+            if ((*(unsigned short*)gpCharInfo->wFlags) & 0x20)
                 nFlags |= 8;
 
-            gpLaunchFuncs_0077B09C->pfn0x34(tLogin.szText0x00, tLogin.szText0x10, szDesc, nFlags);
+            gpLaunchFuncs->pfn0x34(tLogin.szText0x00, tLogin.szText0x10, szDesc, nFlags);
             CHATDLG_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), 0);
             sub_004FA590_RunLoop(CHATDLG_CheckStartAdvResult);
 // build: symbol ?CHARSEL_DestroyPopupControls@* 0x0043EA20
             CHARSEL_DestroyPopupControls();
 
             D2LaunchResultStrc tResult;
-            gpLaunchFuncs_0077B09C->pfn0x8C((int*)&tResult);
+            gpLaunchFuncs->pfn0x8C((int*)&tResult);
             if (!tResult.nResult)
             {
                 CHATDLG_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x1412), 0);
@@ -143,17 +143,18 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
             char szValue[5];
             const Unicode* pValue = sub_004FDD90_GetEditText(gpMaxPlayerControl_00798C38);
             sub_005263E0(szValue, pValue, 5);
-            SRegSaveValue(gszDiablo2_006CC8B8, gszMaxPlayer_006D57C0, 0, atoi(szValue));
-            SRegSaveValue(gszDiablo2_006CC8B8, gszDiffLevel_006D57DC, 0, gnDiffSelect_00798CD0);
-            if (!sub_00500960_IsPressed(gpButton_00798C40))
+// build: symbol ?gszDiabloII@* 0x006CC8B8
+            SRegSaveValue(gszDiabloII, gszMaxPlayer, 0, atoi(szValue));
+            SRegSaveValue(gszDiabloII, gszDiffLevel, 0, gnDiffSelect);
+            if (!sub_00500960_IsPressed(gpLevelDiffCheck))
             {
-                SRegSaveValue(gszDiablo2_006CC8B8, gszLvlRest_006D57CC, 0, 666);
+                SRegSaveValue(gszDiabloII, gszLvlRest, 0, 666);
             }
             else
             {
                 pValue = sub_004FDD90_GetEditText(gpEditBox_00798C3C);
                 sub_005263E0(szValue, pValue, 5);
-                SRegSaveValue(gszDiablo2_006CC8B8, gszLvlRest_006D57CC, 0, atoi(szValue));
+                SRegSaveValue(gszDiabloII, gszLvlRest, 0, atoi(szValue));
             }
         }
 

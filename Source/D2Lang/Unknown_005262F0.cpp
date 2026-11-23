@@ -7,14 +7,14 @@ struct Unicode
     Unicode(const Unicode& other) : wChar(other.wChar) {}
 };
 
-extern D2UtfConvertSpecStrc gaUtf8ConvertTable_007309B8[7]; // 0x007309B8
+extern D2UtfConvertSpecStrc gaUtf8ConvertTable[7]; // 0x007309B8
 
 // 0x00526190
 static int __stdcall sub_00526190_UnicodeCharToUtf8(char* pDest, Unicode ch)
 {
     const int nCode = ch.wChar;
     int n = 0;
-    for (const D2UtfConvertSpecStrc* pSpec = gaUtf8ConvertTable_007309B8; pSpec->nMask; ++pSpec)
+    for (const D2UtfConvertSpecStrc* pSpec = gaUtf8ConvertTable; pSpec->nMask; ++pSpec)
     {
         ++n;
         if (nCode <= pSpec->nLast)

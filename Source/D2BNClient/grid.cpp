@@ -33,7 +33,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 int __cdecl sub_0051BEC0_IsExpansion(); // 0x0051BEC0
 
-extern const char gszGrid_006E0200[]; // 0x006E0200
+extern const char gszGrid[]; // 0x006E0200
 
 extern int gdwGlobal_00730190; // 0x00730190
 
@@ -52,17 +52,17 @@ extern "C" unsigned int __security_cookie; // 0x00749DE0
 
 extern "C" void __fastcall __security_check_cookie(unsigned int cookie); // 0x00681A48
 
-unsigned int gnSize_00882740; // 0x00882740
+unsigned int gnGidFileSize; // 0x00882740
 
-static void* gpCDKeyHandle_00882744; // 0x00882744
+static void* gpGidFileData; // 0x00882744
 
-unsigned int gnSize_00882748; // 0x00882748
+unsigned int gnClhFileSize; // 0x00882748
 
-void* gpHandle_0088274C; // 0x0088274C
+void* gpKeyFile3Data; // 0x0088274C
 
-static void* gpCDKeyHandle_00882750; // 0x00882750
+static void* gpClhFileData; // 0x00882750
 
-unsigned int gnSize_00882754; // 0x00882754
+unsigned int gnKeyFile3Size; // 0x00882754
 
 // build: context sub_GetTerminatedLength
 static inline unsigned int sub_GetTerminatedLength(const unsigned char* pString, unsigned int nSize)
@@ -123,24 +123,24 @@ static void __cdecl GRID_CopyDecodedKeys(Byte** first, Byte** second)
 {
     if (first)
     {
-        Byte* allocated = (Byte*)sub_00413020_Allocate(gnSize_00882740, gszGrid_006E0200, 0x199, 0);
+        Byte* allocated = (Byte*)sub_00413020_Allocate(gnGidFileSize, gszGrid, 0x199, 0);
         *first = allocated;
-        sub_006829C0_CopyBuffer(allocated, gpCDKeyHandle_00882744, gnSize_00882740);
+        sub_006829C0_CopyBuffer(allocated, gpGidFileData, gnGidFileSize);
     }
     if (second)
     {
-        Byte* allocated = (Byte*)sub_00413020_Allocate(gnSize_00882748, gszGrid_006E0200, 0x19e, 0);
+        Byte* allocated = (Byte*)sub_00413020_Allocate(gnClhFileSize, gszGrid, 0x19e, 0);
         *second = allocated;
-        sub_006829C0_CopyBuffer(allocated, gpCDKeyHandle_00882750, gnSize_00882748);
+        sub_006829C0_CopyBuffer(allocated, gpClhFileData, gnClhFileSize);
     }
-    if (first && !sub_005232B0_DecodeAndValidate(*first, gnSize_00882740))
+    if (first && !sub_005232B0_DecodeAndValidate(*first, gnGidFileSize))
     {
-        SMemFree(*first, gszGrid_006E0200, 0x1a6, 0);
+        SMemFree(*first, gszGrid, 0x1a6, 0);
         *first = 0;
     }
-    if (second && !sub_005232B0_DecodeAndValidate(*second, gnSize_00882748))
+    if (second && !sub_005232B0_DecodeAndValidate(*second, gnClhFileSize))
     {
-        SMemFree(*second, gszGrid_006E0200, 0x1aa, 0);
+        SMemFree(*second, gszGrid, 0x1aa, 0);
         *second = 0;
     }
 }
@@ -195,15 +195,15 @@ void __cdecl GRID_LockCDKeys()
     char szPath[260];
     int i;
 
-    if (gpCDKeyHandle_00882744 || gpCDKeyHandle_00882750)
+    if (gpGidFileData || gpClhFileData)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x213);
         exit(-1);
     }
 
     sprintf(szPath, "%s\\%s.gid", "font", "font");
-    gpCDKeyHandle_00882744 = GRID_LoadKeyFile(szPath, &gnSize_00882740);
-    if (!gpCDKeyHandle_00882744)
+    gpGidFileData = GRID_LoadKeyFile(szPath, &gnGidFileSize);
+    if (!gpGidFileData)
     {
         char szKey[] = "vwaxdnirosucflbgt\\.";
         char aIndex[] = { 4, 2, 16, 2, 17, 15, 13, 8, 14, 2, 13, 17, 9, 12, 3, 17, 11, 10, 7, 9, 8, 7, 17, 1, 2, 0, 6, 5, 4, 3, 18, 1, 2, 0, 19 };
@@ -214,12 +214,12 @@ void __cdecl GRID_LockCDKeys()
         }
         szPath[i] = 0;
 
-        gpCDKeyHandle_00882744 = GRID_LoadKeyFile(szPath, &gnSize_00882740);
+        gpGidFileData = GRID_LoadKeyFile(szPath, &gnGidFileSize);
     }
 
     sprintf(szPath, "%s\\%s.clh", "font", "font");
-    gpCDKeyHandle_00882750 = GRID_LoadKeyFile(szPath, &gnSize_00882748);
-    if (!gpCDKeyHandle_00882750)
+    gpClhFileData = GRID_LoadKeyFile(szPath, &gnClhFileSize);
+    if (!gpClhFileData)
     {
         char szKey[] = "vwaxdnirosucflbgt\\.";
         char aIndex[] = { 4, 2, 16, 2, 17, 15, 13, 8, 14, 2, 13, 17, 9, 12, 3, 17, 11, 10, 7, 9, 8, 7, 17, 11, 10, 7, 6, 5, 4, 3, 18, 1, 2, 0, 19 };
@@ -230,7 +230,7 @@ void __cdecl GRID_LockCDKeys()
         }
         szPath[i] = 0;
 
-        gpCDKeyHandle_00882750 = GRID_LoadKeyFile(szPath, &gnSize_00882748);
+        gpClhFileData = GRID_LoadKeyFile(szPath, &gnClhFileSize);
     }
 
     if (sub_0051BEC0_IsExpansion())
@@ -244,7 +244,7 @@ void __cdecl GRID_LockCDKeys()
         }
         szPath[i] = 0;
 
-        gpHandle_0088274C = GRID_LoadKeyFile(szPath, &gnSize_00882754);
+        gpKeyFile3Data = GRID_LoadKeyFile(szPath, &gnKeyFile3Size);
     }
 
     gdwGlobal_00730190 = 0;
@@ -263,25 +263,25 @@ void __cdecl GRID_LockCDKeys()
 // 0x005239C0
 void __cdecl GRID_UnlockCDKeys()
 {
-    if (gpCDKeyHandle_00882744)
+    if (gpGidFileData)
     {
-        SFileUnloadFile(gpCDKeyHandle_00882744);
-        gpCDKeyHandle_00882744 = 0;
+        SFileUnloadFile(gpGidFileData);
+        gpGidFileData = 0;
     }
 
-    if (gpCDKeyHandle_00882750)
+    if (gpClhFileData)
     {
-        SFileUnloadFile(gpCDKeyHandle_00882750);
-        gpCDKeyHandle_00882750 = 0;
+        SFileUnloadFile(gpClhFileData);
+        gpClhFileData = 0;
     }
 }
 
 // 0x00523A10
 unsigned int __cdecl GRID_HashCDKey()
 {
-    char* szKey = (char*)SMemAlloc(gnSize_00882740, ".\\grid.cpp", 0x199, 0);
-    memcpy(szKey, gpCDKeyHandle_00882744, gnSize_00882740);
-    if (!sub_005232B0_DecodeAndValidate((unsigned char*)szKey, gnSize_00882740))
+    char* szKey = (char*)SMemAlloc(gnGidFileSize, ".\\grid.cpp", 0x199, 0);
+    memcpy(szKey, gpGidFileData, gnGidFileSize);
+    if (!sub_005232B0_DecodeAndValidate((unsigned char*)szKey, gnGidFileSize))
     {
         SMemFree(szKey, ".\\grid.cpp", 0x1A6, 0);
         szKey = 0;
@@ -298,7 +298,7 @@ unsigned int __cdecl GRID_HashCDKey()
 // 0x00523AB0
 const char* __fastcall sub_00523AB0_GetCDKey(int nSlot)
 {
-    return nSlot ? (const char*)gpHandle_0088274C : (const char*)gpCDKeyHandle_00882744;
+    return nSlot ? (const char*)gpKeyFile3Data : (const char*)gpGidFileData;
 }
 
 // 0x00523AC0

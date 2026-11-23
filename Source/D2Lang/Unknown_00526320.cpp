@@ -2,7 +2,7 @@
 #include "D2Unicode.h"
 extern "C" unsigned int __cdecl strlen(const char* sz);
 
-extern D2UtfConvertSpecStrc gaUtf8ConvertTable_007309B8[7];                                                 // 0x007309B8
+extern D2UtfConvertSpecStrc gaUtf8ConvertTable[7];                                                 // 0x007309B8
 
 // 0x00526100
 static int __stdcall sub_00526100_Utf8ToUnicodeChar(Unicode* pDest, int nCount, const char* pSrc)
@@ -13,7 +13,7 @@ static int __stdcall sub_00526100_Utf8ToUnicodeChar(Unicode* pDest, int nCount, 
 
     const unsigned short c = (unsigned char)*pSrc;
     int nCode = (short)c;
-    for (const D2UtfConvertSpecStrc* pSpec = gaUtf8ConvertTable_007309B8; pSpec->nMask; ++pSpec)
+    for (const D2UtfConvertSpecStrc* pSpec = gaUtf8ConvertTable; pSpec->nMask; ++pSpec)
     {
         const short nLead = pSpec->nMask & c;
         ++n;

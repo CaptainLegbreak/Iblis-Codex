@@ -28,26 +28,27 @@ void __fastcall D2SOUND_PreloadWave(const char* szFile);                        
 int __cdecl D2SOUND_IsAnyWavePlaying();                                                                // 0x00514FB0
 void __cdecl sub_00515070();                                                                                // 0x00515070
 
-extern D2CelFileStrc* gpCellFile_0077971C;                                                                  // 0x0077971C
-extern int gnLaunchState_007795E8;                                                                          // 0x007795E8
-int gnLaunchMode_007795EC;                                                                                  // 0x007795EC
+extern D2CelFileStrc* gpCursorOHandCelFile;                                                                  // 0x0077971C
+extern int gnLaunchState;                                                                          // 0x007795E8
+int gnLaunchMode;                                                                                  // 0x007795EC
 extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0;                                                      // 0x0077ABF0
 
 // 0x004359D0
 int __fastcall sub_004359D0_RunFrontEnd(D2LaunchRecordStrc* pRecord)
 {
-    gpLaunchRecord_007795D4 = pRecord;
+// build: symbol ?gpLaunchRecord@* 0x007795D4
+    gpLaunchRecord = pRecord;
     D2Win_10015();
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     D2_ASSERT(sub_005259C0(sub_004FAC80(FOG_IsExpansion()), 0), 0x125A);
     sub_0042E6D0_LoadFrontEndCells();
-    CURSOR_SetCellFile(gpCellFile_0077971C);
-    gpLaunchRecord_007795D4->nByte361 = 0;
-    gpLaunchRecord_007795D4->nByte381 = 0;
-    gpLaunchRecord_007795D4->nByte1F = 0;
-    gpLaunchRecord_007795D4->nByte245 = 0;
-    if (gnLaunchMode_007795EC != 2)
-        gpLaunchRecord_007795D4->nByte37 = 0;
+    CURSOR_SetCellFile(gpCursorOHandCelFile);
+    gpLaunchRecord->nByte361 = 0;
+    gpLaunchRecord->nByte381 = 0;
+    gpLaunchRecord->nByte1F = 0;
+    gpLaunchRecord->nByte245 = 0;
+    if (gnLaunchMode != 2)
+        gpLaunchRecord->nByte37 = 0;
     D2SOUND_InitWaveSlots();
     D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\button.wav");
     D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\amazon select.wav");
@@ -68,18 +69,18 @@ int __fastcall sub_004359D0_RunFrontEnd(D2LaunchRecordStrc* pRecord)
         D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\assassin deselect.wav");
     }
     gpFuncTable_0077ABF0 = pRecord->pFuncTable;
-    const char nStartMode = gpLaunchRecord_007795D4->nStartMode;
+    const char nStartMode = gpLaunchRecord->nStartMode;
     if (nStartMode == 2)
     {
         if (gpFuncTable_0077ABF0->pfnSlot68())
         {
-            gnLaunchMode_007795EC = 1;
+            gnLaunchMode = 1;
             sub_004F90A0(1);
             sub_0043B080();
         }
         else
         {
-            gnLaunchMode_007795EC = 1;
+            gnLaunchMode = 1;
             sub_004F90A0(1);
             MAINMENUS_ShowLoginScreen();
         }
@@ -88,52 +89,52 @@ int __fastcall sub_004359D0_RunFrontEnd(D2LaunchRecordStrc* pRecord)
     {
         if (gpFuncTable_0077ABF0->pfnSlot68())
         {
-            gnLaunchMode_007795EC = 3;
+            gnLaunchMode = 3;
             sub_004F90A0(1);
             sub_0043B080();
         }
         else
         {
-            gnLaunchMode_007795EC = 3;
+            gnLaunchMode = 3;
             sub_004F90A0(1);
             MAINMENUS_ShowLoginScreen();
         }
     }
     else if (nStartMode == 3)
     {
-        CHARSEL_InitFuncTable(gpLaunchRecord_007795D4);
-        gnLaunchMode_007795EC = 2;
+        CHARSEL_InitFuncTable(gpLaunchRecord);
+        gnLaunchMode = 2;
         sub_004F90A0(1);
 // build: symbol ?CHARSEL_CreateTcpIpScreen@* 0x0042FFE0
         CHARSEL_CreateTcpIpScreen();
     }
     else
     {
-        CHARSEL_InitFuncTable(gpLaunchRecord_007795D4);
-        if (gpLaunchRecord_007795D4->bRegistryMode)
+        CHARSEL_InitFuncTable(gpLaunchRecord);
+        if (gpLaunchRecord->bRegistryMode)
         {
             unsigned long nValue = 0;
             SRegLoadValue("Diablo II", "Skip To Open", 0, &nValue);
-            gpLaunchRecord_007795D4->bRegistryMode = 0;
-            gpLaunchRecord_007795D4->bIntroPlayed = 1;
+            gpLaunchRecord->bRegistryMode = 0;
+            gpLaunchRecord->bIntroPlayed = 1;
             sub_004F90A0(1);
             WINDOW_CenterWindow(1);
-            gnLaunchMode_007795EC = nValue ? 3 : 1;
+            gnLaunchMode = nValue ? 3 : 1;
             MAINMENUS_ShowLoginScreen();
         }
         else
         {
-            if (!gpLaunchRecord_007795D4->bIntroPlayed)
+            if (!gpLaunchRecord->bIntroPlayed)
             {
-                gnLaunchMode_007795EC = 0;
+                gnLaunchMode = 0;
                 sub_004F90A0(1);
                 WINDOW_CenterWindow(1);
                 MAINMENUS_PlayIntroVideos();
-                gpLaunchRecord_007795D4->bIntroPlayed = 1;
+                gpLaunchRecord->bIntroPlayed = 1;
             }
             else
             {
-                gnLaunchMode_007795EC = 0;
+                gnLaunchMode = 0;
                 sub_004F90A0(1);
                 sub_004336C0();
             }
@@ -149,7 +150,7 @@ int __fastcall sub_004359D0_RunFrontEnd(D2LaunchRecordStrc* pRecord)
     MAINMENUS_Reset();
     MAINMENUS_FreeFrontEndCells();
     sub_00524E40();
-    memset(gpLaunchRecord_007795D4->adwSecret, 0, sizeof(gpLaunchRecord_007795D4->adwSecret));
+    memset(gpLaunchRecord->adwSecret, 0, sizeof(gpLaunchRecord->adwSecret));
     sub_004FA550();
-    return gnLaunchState_007795E8;
+    return gnLaunchState;
 }

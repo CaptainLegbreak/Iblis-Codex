@@ -33,17 +33,17 @@ extern const D2GuidStrc gIidDirectSound3DBuffer_006DE3D0;                       
 
 extern const D2GuidStrc gIidKsPropertySet_006DE410;                                                         // 0x006DE410
 
-extern const D2GuidStrc gEaxBuffer20PropertySet_006DE470;                                                   // 0x006DE470
+extern const D2GuidStrc gtEaxBuffer20PropertySet;                                                   // 0x006DE470
 
-extern const D2GuidStrc gEaxBuffer10PropertySet_006DE490;                                                   // 0x006DE490
+extern const D2GuidStrc gtEaxBuffer10PropertySet;                                                   // 0x006DE490
 
-extern "C" const char szD2SoundSmpFile_006DEAEC[];                                                          // 0x006DEAEC
+extern "C" const char gszD2SoundSmpFile[];                                                          // 0x006DEAEC
 
-extern D2CriticalSectionStrc gSoundLock_0088174C;                                                           // 0x0088174C
+extern D2CriticalSectionStrc gtSoundLock;                                                           // 0x0088174C
 
-extern int gbSoundGlobalFocus_00881804;                                                                     // 0x00881804
+extern int gbSoundGlobalFocus;                                                                     // 0x00881804
 
-extern D2SoundNodeStrc* gpSoundList_00881808;                                                               // 0x00881808
+extern D2SoundNodeStrc* gpSoundList;                                                               // 0x00881808
 
 struct D2DSoundBufferStrc;
 
@@ -55,9 +55,9 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 extern "C" __declspec(dllimport) int __stdcall IsIconic(void* hWnd); // 0x006CC50C
 
-extern void* ghSoundEvent_0088180C; // 0x0088180C
+extern void* ghSoundEvent; // 0x0088180C
 
-extern int gbIconic_00881814; // 0x00881814
+extern int gbIconic; // 0x00881814
 
 extern "C" void* __cdecl sub_004F59A0_GetHwnd(); // 0x004F59A0
 
@@ -77,7 +77,7 @@ int __fastcall D2SOUND_RestoreLostBuffer(D2SoundStrc* pSound); // 0x00515FD0
 
 extern "C" double __cdecl sqrt(double x); // 0x006879C0
 
-extern const float gfMaxSoundDistance_006DEB10; // 0x006DEB10
+extern const float gfMaxSoundDistance; // 0x006DEB10
 
 // 0x005153C0
 static int __stdcall sub_005153C0_CreateSoundBuffer(unsigned int nFlags, D2SoundStrc* pSound)
@@ -89,7 +89,7 @@ static int __stdcall sub_005153C0_CreateSoundBuffer(unsigned int nFlags, D2Sound
     D2DSBufferDescStrc tDesc;
     memset(&tDesc, 0, sizeof(tDesc));
     tDesc.dwSize = 0x14;
-    tDesc.dwFlags = gbSoundGlobalFocus_00881804 ? 0x80A0 : 0xA0;
+    tDesc.dwFlags = gbSoundGlobalFocus ? 0x80A0 : 0xA0;
     if (nFlags & 2)
         tDesc.dwFlags |= 0x14;
     else
@@ -122,7 +122,7 @@ static int __stdcall sub_005153C0_CreateSoundBuffer(unsigned int nFlags, D2Sound
 // build: symbol ?D2SOUND_GetEaxVersion@* 0x00513B90
         if (D2SOUND_GetEaxVersion() == 1)
         {
-            if (pSound->pPropertySet->QuerySupport(gEaxBuffer10PropertySet_006DE490, 1, &dwSupport) < 0 || (dwSupport & 3) != 3)
+            if (pSound->pPropertySet->QuerySupport(gtEaxBuffer10PropertySet, 1, &dwSupport) < 0 || (dwSupport & 3) != 3)
             {
                 pSound->pPropertySet->Release();
                 pSound->pBuffer->Release();
@@ -131,7 +131,7 @@ static int __stdcall sub_005153C0_CreateSoundBuffer(unsigned int nFlags, D2Sound
         }
         else
         {
-            if (pSound->pPropertySet->QuerySupport(gEaxBuffer20PropertySet_006DE470, 1, &dwSupport) < 0 || (dwSupport & 3) != 3)
+            if (pSound->pPropertySet->QuerySupport(gtEaxBuffer20PropertySet, 1, &dwSupport) < 0 || (dwSupport & 3) != 3)
             {
                 pSound->pPropertySet->Release();
                 pSound->pBuffer->Release();
@@ -150,24 +150,24 @@ static int __stdcall sub_005153C0_CreateSoundBuffer(unsigned int nFlags, D2Sound
 // build: symbol ?D2SOUND_CreateSound@* 0x00515530
 D2SoundStrc* __fastcall D2SOUND_CreateSound(unsigned int nFlags, int nValue)
 {
-    gbSoundGlobalFocus_00881804 = nValue;
+    gbSoundGlobalFocus = nValue;
 // build: symbol ?D2SOUND_IsPositionalSoundEnabled@* 0x00513B60
     if ((nFlags & 2) && !D2SOUND_IsPositionalSoundEnabled())
         return 0;
     if ((nFlags & 2) && (nFlags & 1))
         return 0;
 
-    D2SoundStrc* pSound = (D2SoundStrc*)FOG_Alloc(0x60, szD2SoundSmpFile_006DEAEC, 0x1D9, 0);
+    D2SoundStrc* pSound = (D2SoundStrc*)FOG_Alloc(0x60, gszD2SoundSmpFile, 0x1D9, 0);
     memset(pSound, 0, 0x60);
     if (!sub_005153C0_CreateSoundBuffer(nFlags, pSound))
     {
-        FOG_Free(pSound, szD2SoundSmpFile_006DEAEC, 0x1E0, 0);
+        FOG_Free(pSound, gszD2SoundSmpFile, 0x1E0, 0);
         return 0;
     }
 
-    EnterCriticalSection(&gSoundLock_0088174C);
-    D2SOUND_ListAddHead(&gpSoundList_00881808, pSound);
-    LeaveCriticalSection(&gSoundLock_0088174C);
+    EnterCriticalSection(&gtSoundLock);
+    D2SOUND_ListAddHead(&gpSoundList, pSound);
+    LeaveCriticalSection(&gtSoundLock);
     return pSound;
 }
 
@@ -197,11 +197,11 @@ static void D2SOUND_ReleaseSoundBuffers(D2SoundStrc* pSound)
 void __fastcall D2SOUND_DestroySound(D2SoundStrc* pSound)
 {
     D2_ASSERT(pSound, 0x211);
-    EnterCriticalSection(&gSoundLock_0088174C);
+    EnterCriticalSection(&gtSoundLock);
     D2SOUND_ReleaseSoundBuffers(pSound);
-    D2SOUND_ListRemove(&gpSoundList_00881808, pSound);
-    LeaveCriticalSection(&gSoundLock_0088174C);
-    FOG_Free(pSound, szD2SoundSmpFile_006DEAEC, 0x21D, 0);
+    D2SOUND_ListRemove(&gpSoundList, pSound);
+    LeaveCriticalSection(&gtSoundLock);
+    FOG_Free(pSound, gszD2SoundSmpFile, 0x21D, 0);
 }
 
 // build: symbol ?D2SOUND_ResetSound@* 0x00516140
@@ -210,7 +210,7 @@ void __fastcall D2SOUND_ResetSound(D2SoundStrc* pSound)
     D2_ASSERT(pSound && pSound->pBuffer, 0x226);
     D2_ASSERT(!pSound->hStream, 0x227);
 
-    EnterCriticalSection(&gSoundLock_0088174C);
+    EnterCriticalSection(&gtSoundLock);
     if (sub_00513BB0())
     {
         pSound->pData = 0;
@@ -240,20 +240,20 @@ void __fastcall D2SOUND_ResetSound(D2SoundStrc* pSound)
         pSound->pBuffer->SetPan(0);
     D2SOUND_SetSoundAttenuation(pSound, 0.0f);
     D2SOUND_SetSoundVolume(pSound, 0xFF);
-    LeaveCriticalSection(&gSoundLock_0088174C);
+    LeaveCriticalSection(&gtSoundLock);
 }
 
 static inline void sub_00515EE0_StopSoundInline(D2SoundStrc* pSound)
 {
     D2_ASSERT(pSound->pBuffer, 658);
-    EnterCriticalSection(&gSoundLock_0088174C);
+    EnterCriticalSection(&gtSoundLock);
     if (pSound->hStream)
     {
         D2SOUND_CloseSoundStream(pSound);
     }
     pSound->pBuffer->Stop();
     pSound->bStreaming = 0;
-    LeaveCriticalSection(&gSoundLock_0088174C);
+    LeaveCriticalSection(&gtSoundLock);
 }
 
 static inline void sub_AdvancePlayPositionInline(D2SoundStrc* pSound, unsigned long dwPlay, unsigned long nMask)
@@ -271,24 +271,24 @@ static inline void sub_AdvancePlayPositionInline(D2SoundStrc* pSound, unsigned l
 unsigned long __stdcall sub_00516250_SoundThread(void* pParameter)
 {
     unsigned long dwPlay;
-    while (WaitForSingleObject(ghSoundEvent_0088180C, 50) == 0x102)
+    while (WaitForSingleObject(ghSoundEvent, 50) == 0x102)
     {
-        EnterCriticalSection(&gSoundLock_0088174C);
+        EnterCriticalSection(&gtSoundLock);
 
-        const int bWasIconic = gbIconic_00881814;
-        gbIconic_00881814 = IsIconic(sub_004F59A0_GetHwnd());
+        const int bWasIconic = gbIconic;
+        gbIconic = IsIconic(sub_004F59A0_GetHwnd());
 
         if (D2SOUND_GetStreamChannelValue() && !D2SOUND_IsStreamChannelPlaying())
         {
             sub_00514990_PickRandomChannel();
         }
 
-        for (D2SoundNodeStrc* pNode = gpSoundList_00881808; pNode; pNode = pNode->pNext)
+        for (D2SoundNodeStrc* pNode = gpSoundList; pNode; pNode = pNode->pNext)
         {
             D2SoundStrc* pSound = pNode->pSound;
             D2SOUND_RestoreLostBuffer(pSound);
 
-            if (gbIconic_00881814 != bWasIconic)
+            if (gbIconic != bWasIconic)
             {
                 D2SOUND_SetSoundVolume(pSound, pSound->nVolume);
             }
@@ -363,7 +363,7 @@ unsigned long __stdcall sub_00516250_SoundThread(void* pParameter)
             }
         }
 
-        LeaveCriticalSection(&gSoundLock_0088174C);
+        LeaveCriticalSection(&gtSoundLock);
     }
 
     return 0;
@@ -465,7 +465,7 @@ static float SOUND_GetDistance(float fX, float fY, float fZ)
 static __forceinline float SOUND_GetAttenuation(float fDistance)
 {
     if (fDistance > 100.0)
-        fDistance = gfMaxSoundDistance_006DEB10;
+        fDistance = gfMaxSoundDistance;
 
     if (fDistance < 2.0f)
         return 0.0f;

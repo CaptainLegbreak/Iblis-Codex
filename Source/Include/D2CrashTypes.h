@@ -20,7 +20,8 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);
 
 // The lock that serialises every dbghelp call.
-extern D2CriticalSectionStrc gtSymbolLock_0098A6F0;
+// build: symbol ?gtSymbolLock@* 0x0098A6F0
+extern D2CriticalSectionStrc gtSymbolLock;
 
 struct D2CrashGuidStrc
 {
@@ -125,9 +126,9 @@ struct D2SymbolInfoStrc
 // Holds the dbghelp lock for its scope.
 struct D2SymbolLockGuardStrc
 {
-    D2SymbolLockGuardStrc() { EnterCriticalSection(&gtSymbolLock_0098A6F0); }
+    D2SymbolLockGuardStrc() { EnterCriticalSection(&gtSymbolLock); }
     explicit D2SymbolLockGuardStrc(D2CriticalSectionStrc* pLock) { EnterCriticalSection(pLock); }
-    ~D2SymbolLockGuardStrc() { LeaveCriticalSection(&gtSymbolLock_0098A6F0); }
+    ~D2SymbolLockGuardStrc() { LeaveCriticalSection(&gtSymbolLock); }
 };
 
 D2_CHECK_SIZE(D2CrashGuidStrc, 0x10);

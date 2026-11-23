@@ -1,7 +1,7 @@
 #include "D2Direct3D.h"
 #include "D2DDrawTypes.h"
 
-#define ASSERT(expr,line) if (!(expr)) { sub_00408A60(gszEmpty_006CC837,sub_00408090(),line); exit(-1); }
+#define ASSERT(expr,line) if (!(expr)) { sub_00408A60(gszEmptyString,sub_00408090(),line); exit(-1); }
 #define MIN(a,b) ((a)<(b)?(a):(b))
 #define MAX(a,b) ((a)>(b)?(a):(b))
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -35,7 +35,7 @@ struct D2Unknown006B7250Strc
     D2Unknown006B7250VtblStrc* pVtbl;
 };
 
-extern D2Unknown006B7250Strc* gpTextures_00971150[0x60]; // 0x00971150
+extern D2Unknown006B7250Strc* gapGlyphSurfaces[0x60]; // 0x00971150
 
 extern "C" __declspec(dllimport) void* __stdcall CreateCompatibleDC(void* hDC);
 extern "C" __declspec(dllimport) void* __stdcall CreateFontA(int cHeight, int cWidth, int cEscapement, int cOrientation, int cWeight, unsigned long bItalic, unsigned long bUnderline, unsigned long bStrikeOut, unsigned long iCharSet, unsigned long iOutPrecision, unsigned long iClipPrecision, unsigned long iQuality, unsigned long iPitchAndFamily, const char* pszFaceName);
@@ -55,7 +55,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern unsigned int gdwBitMasks[]; // 0x006CE268
-extern unsigned long gdwFontTextColor_0074C0CC; // 0x0074C0CC
+extern unsigned long gdwFontTextColor; // 0x0074C0CC
 extern unsigned int gdwRenderFlags_0096F3A8; // 0x0096F3A8
 extern void* gapFontGlyphA_00971150[]; // 0x00971150
 extern D2D3DTextureStrc* gapFontGlyphB_009712D0[]; // 0x009712D0
@@ -72,7 +72,7 @@ void __fastcall sub_006B20E0_DDrawLogError(const char*, int); // 0x006B20E0
 
 void __cdecl sub_006B72A0_CreateFontTextures(); // 0x006B72A0
 
-extern D2GfxSettingsStrc* gpGfxSettings_007C9148; // 0x007C9148
+extern D2GfxSettingsStrc* gpGfxSettings; // 0x007C9148
 
 struct D2DeviceVtbl006B77B0Strc
 {
@@ -90,7 +90,7 @@ void __fastcall D3D_SetAlphaBlendMode(int nBlend); // 0x006B1F40
 void __fastcall D3D_SetTextureFilterMode(int nMode); // 0x006B2030
 
 void __fastcall sub_006B7B30_DrawLine(int x1,int y1,int x2,int y2,unsigned char index,unsigned char alpha); // 0x006B7B30
-extern const char gszEmpty_006CC837[]; // 0x006CC837
+extern const char gszEmptyString[]; // 0x006CC837
 
 struct D2D3DRect006B7F70Strc
 {
@@ -133,39 +133,39 @@ struct D2Object006B9730Strc
     unsigned int dwColor10;
 };
 
-extern unsigned char gnColorComponent_0097173A; // 0x0097173A
-extern unsigned char gnColorComponent_00971738; // 0x00971738
-extern unsigned char gnColorComponent_00971739; // 0x00971739
-extern unsigned char gaPaletteRows_00971740[][256]; // 0x00971740
+extern unsigned char gbD3DColorRed; // 0x0097173A
+extern unsigned char gbD3DColorGreen; // 0x00971738
+extern unsigned char gbD3DColorBlue; // 0x00971739
+extern unsigned char gabMultiplyTable[][256]; // 0x00971740
 extern int gaScaleTable_00981748[0x2000]; // 0x00981748
 extern int gnScaleTableReady_00989748; // 0x00989748
-extern int gnOriginX_00981740; // 0x00981740
-extern int gnOriginY_00981744; // 0x00981744
+extern int gnD3DOriginX; // 0x00981740
+extern int gnOriginY; // 0x00981744
 extern int gnPerspective_00981748[]; // 0x00981748
 
-D2Unknown006B7250Strc* gpSurfaces_009712D0[0x60]; // 0x009712D0
+D2Unknown006B7250Strc* gapGlyphTextures[0x60]; // 0x009712D0
 
 // 0x006B7250
 void __cdecl sub_006B7250_ReleaseAll()
 {
     for (int i = 0; i < 0x60; ++i)
     {
-        if (gpSurfaces_009712D0[i])
+        if (gapGlyphTextures[i])
         {
-            gpSurfaces_009712D0[i]->pVtbl->pfnRelease(gpSurfaces_009712D0[i]);
-            gpSurfaces_009712D0[i] = 0;
+            gapGlyphTextures[i]->pVtbl->pfnRelease(gapGlyphTextures[i]);
+            gapGlyphTextures[i] = 0;
         }
-        if (gpTextures_00971150[i])
+        if (gapGlyphSurfaces[i])
         {
-            gpTextures_00971150[i]->pVtbl->pfnRelease(gpTextures_00971150[i]);
-            gpTextures_00971150[i] = 0;
+            gapGlyphSurfaces[i]->pVtbl->pfnRelease(gapGlyphSurfaces[i]);
+            gapGlyphSurfaces[i] = 0;
         }
     }
 }
 
-unsigned long gdwFontBkColor_00971148; // 0x00971148
+unsigned long gdwFontBkColor; // 0x00971148
 
-int gaFontCharWidths_00970FC8[96]; // 0x00970FC8
+int ganGlyphWidths[96]; // 0x00970FC8
 
 // 0x006B72A0
 void __cdecl sub_006B72A0_CreateFontTextures()
@@ -175,8 +175,8 @@ void __cdecl sub_006B72A0_CreateFontTextures()
     void* hBitmap = CreateCompatibleBitmap(hDC, 8, 16);
     SelectObject(hDC, hFont);
     SelectObject(hDC, hBitmap);
-    SetTextColor(hDC, gdwFontTextColor_0074C0CC);
-    SetBkColor(hDC, gdwFontBkColor_00971148);
+    SetTextColor(hDC, gdwFontTextColor);
+    SetBkColor(hDC, gdwFontBkColor);
     SetBkMode(hDC, 2);
 
     D2RectStrc tRect;
@@ -203,7 +203,7 @@ void __cdecl sub_006B72A0_CreateFontTextures()
         {
             for (int nX = 0; nX < 8; ++nX)
             {
-                if (GetPixel(hDC, nX, nY) == gdwFontTextColor_0074C0CC)
+                if (GetPixel(hDC, nX, nY) == gdwFontTextColor)
                 {
                     *pPixel++ = 0xFFFF;
                 }
@@ -233,7 +233,7 @@ void __cdecl sub_006B72A0_CreateFontTextures()
 
     pTexture->lpVtbl->Release(pTexture);
     pSurface->lpVtbl->Release(pSurface);
-    GetCharWidthA(hDC, 0x20, 0x7F, gaFontCharWidths_00970FC8);
+    GetCharWidthA(hDC, 0x20, 0x7F, ganGlyphWidths);
     DeleteObject(hBitmap);
     DeleteObject(hFont);
     DeleteDC(hDC);
@@ -258,47 +258,47 @@ void __fastcall sub_006B74F0_SetPalette(void* pPalette)
  } while ((int)p < (int)(gaSurfaces_00971150 + 96));
 }
 
-D2TLVertexStrc gaVertices_00970F48[4]; // 0x00970F48
+D2TLVertexStrc gaVertices[4]; // 0x00970F48
 
 // 0x006B76D0
 char* __fastcall sub_006B76D0_InitVertices(char* pObject)
 {
     sub_006B72A0_CreateFontTextures();
-    gaVertices_00970F48[0].fX = 0.0f;
-    gaVertices_00970F48[0].fY = 0.0f;
-    gaVertices_00970F48[0].fZ = 0.5f;
-    gaVertices_00970F48[0].fRhw = 1.0f;
-    gaVertices_00970F48[0].dwColor = 0xFFFFFFFF;
-    gaVertices_00970F48[1].dwColor = 0xFFFFFFFF;
-    gaVertices_00970F48[2].dwColor = 0xFFFFFFFF;
-    gaVertices_00970F48[3].dwColor = 0xFFFFFFFF;
-    gaVertices_00970F48[1].fRhw = 1.0f;
-    gaVertices_00970F48[1].fV = 1.0f;
-    gaVertices_00970F48[2].fRhw = 1.0f;
-    gaVertices_00970F48[2].fU = 1.0f;
-    gaVertices_00970F48[2].fV = 1.0f;
-    gaVertices_00970F48[3].fRhw = 1.0f;
-    gaVertices_00970F48[3].fU = 1.0f;
-    gaVertices_00970F48[0].fU = 0.0f;
-    gaVertices_00970F48[0].fV = 0.0f;
-    gaVertices_00970F48[1].fX = 0.0f;
-    gaVertices_00970F48[1].fY = 0.0f;
-    gaVertices_00970F48[1].fU = 0.0f;
-    gaVertices_00970F48[2].fX = 0.0f;
-    gaVertices_00970F48[2].fY = 0.0f;
-    gaVertices_00970F48[3].fX = 0.0f;
-    gaVertices_00970F48[3].fY = 0.0f;
-    gaVertices_00970F48[3].fV = 0.0f;
-    gaVertices_00970F48[1].fZ = 0.5f;
-    gaVertices_00970F48[2].fZ = 0.5f;
-    gaVertices_00970F48[3].fZ = 0.5f;
+    gaVertices[0].fX = 0.0f;
+    gaVertices[0].fY = 0.0f;
+    gaVertices[0].fZ = 0.5f;
+    gaVertices[0].fRhw = 1.0f;
+    gaVertices[0].dwColor = 0xFFFFFFFF;
+    gaVertices[1].dwColor = 0xFFFFFFFF;
+    gaVertices[2].dwColor = 0xFFFFFFFF;
+    gaVertices[3].dwColor = 0xFFFFFFFF;
+    gaVertices[1].fRhw = 1.0f;
+    gaVertices[1].fV = 1.0f;
+    gaVertices[2].fRhw = 1.0f;
+    gaVertices[2].fU = 1.0f;
+    gaVertices[2].fV = 1.0f;
+    gaVertices[3].fRhw = 1.0f;
+    gaVertices[3].fU = 1.0f;
+    gaVertices[0].fU = 0.0f;
+    gaVertices[0].fV = 0.0f;
+    gaVertices[1].fX = 0.0f;
+    gaVertices[1].fY = 0.0f;
+    gaVertices[1].fU = 0.0f;
+    gaVertices[2].fX = 0.0f;
+    gaVertices[2].fY = 0.0f;
+    gaVertices[3].fX = 0.0f;
+    gaVertices[3].fY = 0.0f;
+    gaVertices[3].fV = 0.0f;
+    gaVertices[1].fZ = 0.5f;
+    gaVertices[2].fZ = 0.5f;
+    gaVertices[3].fZ = 0.5f;
     return pObject + 0x6000;
 }
 
 // 0x006B77A0
 int __cdecl sub_006B77A0_GetBlendedShadows()
 {
-    return gpGfxSettings_007C9148->bBlendedShadows;
+    return gpGfxSettings->bBlendedShadows;
 }
 
 static inline int sub_006B77B0_Clip(int nValue, int nSize)
@@ -310,13 +310,15 @@ static inline int sub_006B77B0_Clip(int nValue, int nSize)
 // 0x006B77B0
 void __fastcall sub_006B77B0_Call(int nX1, int nY1, int nX2, int nY2, unsigned char nColor, int nMode)
 {
-    nX1 = sub_006B77B0_Clip(nX1, gnScreenWidth_007C9138);
-    nX2 = sub_006B77B0_Clip(nX2, gnScreenWidth_007C9138);
+// build: symbol ?gnRenderWidth@* 0x007C9138
+    nX1 = sub_006B77B0_Clip(nX1, gnRenderWidth);
+    nX2 = sub_006B77B0_Clip(nX2, gnRenderWidth);
     if (nX1 == nX2)
         return;
 
-    nY1 = sub_006B77B0_Clip(nY1, gnScreenHeight_007C913C);
-    nY2 = sub_006B77B0_Clip(nY2, gnScreenHeight_007C913C);
+// build: symbol ?gnRenderHeight@* 0x007C913C
+    nY1 = sub_006B77B0_Clip(nY1, gnRenderHeight);
+    nY2 = sub_006B77B0_Clip(nY2, gnRenderHeight);
     if (nY2 == nY1)
         return;
 
@@ -399,7 +401,7 @@ void __fastcall sub_006B7C90_DrawDiamond(D2RectStrc* pRect, int nColor)
     int nMidY = nTop + (nHeight >> 1);
     int nRight = nLeft + nWidth;
     int nBottom = nTop + nHeight;
-    if (nRight < 0 || nLeft > gnScreenWidth_007C9138 || nBottom < 0 || nTop > gnScreenHeight_007C913C)
+    if (nRight < 0 || nLeft > gnRenderWidth || nBottom < 0 || nTop > gnRenderHeight)
     {
         return;
     }
@@ -430,7 +432,8 @@ void __fastcall sub_006B7D80_DrawRectangle(D2RectStrc* rect,int color) {
 // 0x006B7F70
 void __cdecl sub_006B7F70_ClearTarget()
 {
-    if (gnRenderFlags_0096F3A8 & gnRenderFlag_006CE290)
+// build: symbol ?gnRenderFlag@* 0x006CE290
+    if (gnRenderFlags_0096F3A8 & gnRenderFlag)
     {
         sub_006B3800_Flush();
         return;
@@ -474,14 +477,14 @@ void __cdecl sub_006B80A0_InitializeDrawingGeometry()
  }
 }
 
-D2ResourceInterface* gpResource_00971734; // 0x00971734
+D2ResourceInterface* gpGridBuffer; // 0x00971734
 
 // 0x006B9150
 void __cdecl sub_006B9150_ReleaseResource()
 {
-    if (gpResource_00971734) {
-        gpResource_00971734->Release();
-        gpResource_00971734 = 0;
+    if (gpGridBuffer) {
+        gpGridBuffer->Release();
+        gpGridBuffer = 0;
     }
 }
 
@@ -499,31 +502,31 @@ void __cdecl sub_006B96C0_BuildScaleTable()
     }
 }
 
-unsigned char gnColorComponent_0097173A; // 0x0097173A
+unsigned char gbD3DColorRed; // 0x0097173A
 
-unsigned char gnColorComponent_00971738; // 0x00971738
+unsigned char gbD3DColorGreen; // 0x00971738
 
-unsigned char gnColorComponent_00971739; // 0x00971739
+unsigned char gbD3DColorBlue; // 0x00971739
 
 // 0x006B9710
 void __fastcall sub_006B9710_SetColorComponents(unsigned char first, unsigned char second, unsigned char third)
 {
-    gnColorComponent_0097173A = first;
-    gnColorComponent_00971738 = second;
-    gnColorComponent_00971739 = third;
+    gbD3DColorRed = first;
+    gbD3DColorGreen = second;
+    gbD3DColorBlue = third;
 }
 
 // 0x006B9730
 void __fastcall sub_006B9730_SetColor(D2Object006B9730Strc* pObject, unsigned char nIndex, unsigned char nAlpha)
 {
-    const unsigned char* pRow = gaPaletteRows_00971740[nIndex];
-    pObject->dwColor10 = ((((unsigned int)nAlpha << 8 | pRow[gnColorComponent_0097173A]) << 8 | pRow[gnColorComponent_00971738]) << 8) | pRow[gnColorComponent_00971739];
+    const unsigned char* pRow = gabMultiplyTable[nIndex];
+    pObject->dwColor10 = ((((unsigned int)nAlpha << 8 | pRow[gbD3DColorRed]) << 8 | pRow[gbD3DColorGreen]) << 8) | pRow[gbD3DColorBlue];
 }
 
 // 0x006B9780
 void __fastcall sub_006B9780_SetColor(D2Object006B9730Strc* pObject, unsigned int nPacked, unsigned char nAlpha)
 {
-    const unsigned char* pRow = gaPaletteRows_00971740[(unsigned char)nPacked];
+    const unsigned char* pRow = gabMultiplyTable[(unsigned char)nPacked];
     pObject->dwColor10 = ((((unsigned int)nAlpha << 8 | pRow[(unsigned char)(nPacked >> 8)]) << 8 | pRow[(unsigned char)(nPacked >> 16)]) << 8) | pRow[nPacked >> 24];
 }
 
@@ -542,32 +545,32 @@ void __cdecl sub_006B97D0_BuildScaleTable()
 // 0x006B9830
 int __cdecl sub_006B9830_GetPerspective()
 {
-    if (gpGfxSettings_007C9148->bPerspectiveCapable)
-        return gpGfxSettings_007C9148->bPerspectiveEnabled;
+    if (gpGfxSettings->bPerspectiveCapable)
+        return gpGfxSettings->bPerspectiveEnabled;
     return 0;
 }
 
 // 0x006B9850
 void __fastcall sub_006B9850_SetOrigin(int x, int y)
 {
-    gnOriginX_00981740 = x;
-    gnOriginY_00981744 = y;
+    gnD3DOriginX = x;
+    gnOriginY = y;
 }
 
-int gnOriginX_00981740; // 0x00981740
+int gnD3DOriginX; // 0x00981740
 
-int gnOriginY_00981744; // 0x00981744
+int gnOriginY; // 0x00981744
 
 // 0x006B9860
 void __fastcall sub_006B9860_Project(int x, int y, int z, int* outX, int* outY)
 {
-    int nA = ((x - gnOriginX_00981740) * 24) >> 16;
-    int nB = ((y - gnOriginY_00981744) * 24) >> 16;
+    int nA = ((x - gnD3DOriginX) * 24) >> 16;
+    int nB = ((y - gnOriginY) * 24) >> 16;
     int nZ = z * 1228;
     int nSum = (nB + nA) * 724;
     int nScale = gnPerspective_00981748[(((nSum * 886 + nZ * 512) >> 20) - 4096) & 8191];
-    *outX = (((nB - nA) * nScale * 724) >> 20) + gnScreenWidth_007C9138 / 2;
-    *outY = ((((nZ * 886 - nSum * 512) >> 10) * nScale) >> 20) + gnScreenHeight_007C913C / 2 - 32;
+    *outX = (((nB - nA) * nScale * 724) >> 20) + gnRenderWidth / 2;
+    *outY = ((((nZ * 886 - nSum * 512) >> 10) * nScale) >> 20) + gnRenderHeight / 2 - 32;
 }
 
 // 0x006B9A00

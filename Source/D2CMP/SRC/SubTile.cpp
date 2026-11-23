@@ -72,7 +72,8 @@ unsigned char* __fastcall SubTileCompress(const unsigned char* pData, unsigned i
     unsigned int i;
     unsigned int nSize;
 
-    pBuffer = (unsigned char*)FOG_Alloc(0xC20, gszSubTileFile_006E61F8, 0x1C, 0);
+// build: symbol ?gszSubTileFile@* 0x006E61F8
+    pBuffer = (unsigned char*)FOG_Alloc(0xC20, gszSubTileFile, 0x1C, 0);
     pOut = pBuffer;
     nRow = 0;
     pNextRow = pData + 32;
@@ -166,7 +167,7 @@ void __stdcall sub_0060DA80_Shim(D2CmpTileBlockStrc* pDstBlock, const D2CmpTileB
 static unsigned char* __stdcall SubTileConvertPixels24To8(unsigned char* pPixels, int nBytes, D2RgbKeyStrc tKey, D2PaletteFn pConvert)
 {
     const int nCount = nBytes / 3;
-    unsigned char* pResult = (unsigned char*)FOG_Alloc(nCount, gszSubTileFile_006E61F8, 0xD8, 0);
+    unsigned char* pResult = (unsigned char*)FOG_Alloc(nCount, gszSubTileFile, 0xD8, 0);
     unsigned char* pBase = pResult;
     D2_ASSERT(pResult, 0xD9);
     memset(pResult, 0, nCount);

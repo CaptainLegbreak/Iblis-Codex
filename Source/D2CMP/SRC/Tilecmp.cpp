@@ -32,13 +32,13 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 
 unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
 
-extern const unsigned char gaDirection8To4_006E5DA0[]; // 0x006E5DA0
+extern const unsigned char gaDirection8To4[]; // 0x006E5DA0
 
-extern const unsigned char gaDirection16To8_006E5DA8[]; // 0x006E5DA8
+extern const unsigned char gaDirection16To8[]; // 0x006E5DA8
 
-extern const unsigned char gaDirection8To4Alt_006E5DB8[]; // 0x006E5DB8
+extern const unsigned char gaDirection8To4Alt[]; // 0x006E5DB8
 
-extern const unsigned char gaDirection16To8Alt_006E5DC0[]; // 0x006E5DC0
+extern const unsigned char gaDirection16To8Alt[]; // 0x006E5DC0
 
 struct D2TileRecordStrc
 {
@@ -72,7 +72,7 @@ D2TileListHeaderStrc* __cdecl TileAllocSubTile(); // 0x006094B0
 
 void __fastcall sub_005179B3_ConvertCelPixels(void* pDst, void* pSrc, int nRows, unsigned int nSrcSize, unsigned int nWidth, int nRows2);
 
-extern D2CmpSubTilePosStrc gSubTilePositions_00743500[25]; // 0x00743500
+extern D2CmpSubTilePosStrc gatSubTilePositions[25]; // 0x00743500
 
 struct D2Block0060A050Strc;
 
@@ -135,9 +135,9 @@ int __stdcall CelConvertDir(unsigned int nDirection, unsigned int nDirections, i
         {
             if (bAlt)
             {
-                return gaDirection8To4Alt_006E5DB8[nDirection];
+                return gaDirection8To4Alt[nDirection];
             }
-            return gaDirection8To4_006E5DA0[nDirection];
+            return gaDirection8To4[nDirection];
         }
     }
     else if (nDirections == 16)
@@ -146,9 +146,9 @@ int __stdcall CelConvertDir(unsigned int nDirection, unsigned int nDirections, i
         {
             if (bAlt)
             {
-                return gaDirection16To8Alt_006E5DC0[nDirection];
+                return gaDirection16To8Alt[nDirection];
             }
-            return gaDirection16To8_006E5DA8[nDirection];
+            return gaDirection16To8[nDirection];
         }
     }
 
@@ -384,7 +384,7 @@ static void TileSplitFloorTile(D2CmpTileStrc* pTile, const unsigned char* pPixel
     {
         D2CmpTileNodeStrc tSub;
         memset(&tSub, 0, sizeof(tSub));
-        TileExtractFloorSubTile(&tSub, pPixels, pTile->tColor, gSubTilePositions_00743500[i].nX, gSubTilePositions_00743500[i].nY);
+        TileExtractFloorSubTile(&tSub, pPixels, pTile->tColor, gatSubTilePositions[i].nX, gatSubTilePositions[i].nY);
         tSub.nGridX = i % 5;
         tSub.nGridY = i / 5;
         if (tSub.nFormat & 1)
@@ -395,8 +395,8 @@ static void TileSplitFloorTile(D2CmpTileStrc* pTile, const unsigned char* pPixel
             pNode->pNext = pTile->pNodes;
             pTile->nCount++;
             pTile->pNodes = pNode;
-            pNode->nX = gSubTilePositions_00743500[i].nX;
-            pNode->nY = gSubTilePositions_00743500[i].nY;
+            pNode->nX = gatSubTilePositions[i].nX;
+            pNode->nY = gatSubTilePositions[i].nY;
         }
     }
 }

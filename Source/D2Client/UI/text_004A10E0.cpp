@@ -131,7 +131,8 @@ void __fastcall sub_004A10E0_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nM
         gpTextBox = TEXT_CreateTextBox(D2LANG_GetStringFromTblIndex(nMessage), 2);
         if (!gpTextBox)
         {
-            sub_00408A60(gszEmpty_006CC837, sub_00408090(), 0x1024);
+// build: symbol ?gszEmptyString@* 0x006CC837
+            sub_00408A60(gszEmptyString, sub_00408090(), 0x1024);
             exit(-1);
         }
         sub_00502EF0(nPreviousFont);

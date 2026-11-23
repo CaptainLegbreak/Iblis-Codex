@@ -42,15 +42,15 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) unsigned long __stdcall GetCurrentProcessId(); // 0x006CC1EC
 extern "C" unsigned int __cdecl strlen(const char* szString);
 
-extern D2MiniDumpWriteDumpFn gpfnMiniDumpWriteDump_0098A6E0; // 0x0098A6E0
+extern D2MiniDumpWriteDumpFn gpfnMiniDumpWriteDump; // 0x0098A6E0
 extern D2MiniDumpRequestStrc* gpMiniDumpRequest_0098A6E4; // 0x0098A6E4
-extern D2CriticalSectionStrc gtSymbolLock_0098A6F0; // 0x0098A6F0
-extern void* ghProcess_0074C6F0; // 0x0074C6F0
+extern D2CriticalSectionStrc gtSymbolLock; // 0x0098A6F0
+extern void* ghProcess; // 0x0074C6F0
 
 // 0x00401A60
 void __cdecl sub_00401A60_UnlockSymbols()
 {
-    LeaveCriticalSection(&gtSymbolLock_0098A6F0);
+    LeaveCriticalSection(&gtSymbolLock);
 }
 
 // build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
@@ -83,13 +83,13 @@ void __cdecl sub_004026D0_WriteMiniDump()
     tStreamInfo.pUserStreamArray = &tStream;
 
     D2SymbolLockGuardStrc tLock;
-    if (!gpfnMiniDumpWriteDump_0098A6E0)
+    if (!gpfnMiniDumpWriteDump)
     {
         pRequest->bResult = false;
     }
     else
     {
-        pRequest->bResult = gpfnMiniDumpWriteDump_0098A6E0(ghProcess_0074C6F0, GetCurrentProcessId(), pRequest->hFile, 0x40,
+        pRequest->bResult = gpfnMiniDumpWriteDump(ghProcess, GetCurrentProcessId(), pRequest->hFile, 0x40,
             pInfo->pExceptionPointers ? &tExceptionInfo : 0, &tStreamInfo, 0) != 0;
     }
 }

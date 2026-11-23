@@ -6,7 +6,7 @@ extern "C" void __fastcall __security_check_cookie(unsigned int nCookie); // 0x0
 extern Byte gnCodeLengths_007076C0[256]; // 0x007076C0
 extern Byte gnSymbolCodes_0075B6A0[256]; // 0x0075B6A0
 extern Byte* gpDecodeTable_0075AFA0[256]; // 0x0075AFA0
-extern Byte gnDecodeStorage_0075B3A0[768]; // 0x0075B3A0
+extern Byte gabDecodeStorage[768]; // 0x0075B3A0
 
 // build: context IsValidCodeLength
 static inline int IsValidCodeLength(Byte length)
@@ -53,7 +53,7 @@ int __fastcall FOG_10219(Byte* lengths)
     for (i = 1; i < 256; ++i)
         gnSymbolCodes_0075B6A0[sortedSymbols[i]] =
             (Byte)((gnSymbolCodes_0075B6A0[sortedSymbols[i - 1]] + 1) >> (sortedLengths[i - 1] - sortedLengths[i]));
-    Byte* storage = gnDecodeStorage_0075B3A0;
+    Byte* storage = gabDecodeStorage;
     for (i = 255; i >= 0; --i)
     {
         Byte length = sortedLengths[i];

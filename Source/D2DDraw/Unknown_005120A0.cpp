@@ -9,9 +9,9 @@ int __stdcall CelGetHeight(D2CelStrc* pCel);                                    
 int __stdcall CelGetOffsetX(D2CelStrc* pCel);                                                               // 0x00601920
 int __stdcall CelGetOffsetY(D2CelStrc* pCel);                                                               // 0x00601950
 int __fastcall DDRAW_GetDrawModePalette(int nIndex, int* pType);                                           // 0x00511D70
-extern D2PaletteTableStrc* gpDDrawCaps_007C9150;                                                               // 0x007C9150
-int gnDDrawOriginX_0088129C;                                                                                // 0x0088129C
-extern int gnDDrawModeWidth_008812A0;                                                                       // 0x008812A0
+extern D2PaletteTableStrc* gpGfxPaletteView;                                                               // 0x007C9150
+int gnDDrawClipLeft;                                                                                // 0x0088129C
+extern int gnDDrawClipRight;                                                                       // 0x008812A0
 
 static int __stdcall sub_00511E10_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY, int bCenter)
 {
@@ -25,10 +25,12 @@ static int __stdcall sub_00511E10_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY
     }
 
     nX += CelGetOffsetX(pCel);
-    if (nX < gnScreenWidth_007C9138 && nWidth + nX >= 0)
+// build: symbol ?gnRenderWidth@* 0x007C9138
+    if (nX < gnRenderWidth && nWidth + nX >= 0)
     {
         nY += CelGetOffsetY(pCel);
-        if (nY >= 0 && nY - nHeight < gnScreenHeight_007C913C)
+// build: symbol ?gnRenderHeight@* 0x007C913C
+        if (nY >= 0 && nY - nHeight < gnRenderHeight)
             return 0;
     }
 
@@ -52,14 +54,14 @@ int __fastcall sub_005120A0_DrawImagePalette(void* pData, int nX, int nY, unsign
         const int nCaps = DDRAW_GetDrawModePalette(nDrawMode, &nType);
         const int nGamma = (unsigned char)dwGamma;
         if (nGamma != 0xFF)
-            pGammaTable = gpDDrawCaps_007C9150->pShadowLightGammaPalettes[nGamma >> 3];
+            pGammaTable = gpGfxPaletteView->pShadowLightGammaPalettes[nGamma >> 3];
         if (nDrawMode == 7)
-            pGammaTable = gpDDrawCaps_007C9150->pRemap;
+            pGammaTable = gpGfxPaletteView->pRemap;
         if (nPalette)
-            pPaletteTable = gpDDrawCaps_007C9150->pStandardShiftPalettes[nPalette];
+            pPaletteTable = gpGfxPaletteView->pStandardShiftPalettes[nPalette];
 
-        CelDraw((D2CmpCelContextStrc*)pContext, nX, nY, gnDDrawOriginX_0088129C, gnDDrawModeWidth_008812A0,
-            gpScreenBuffer_007C9154, gnScreenHeight_007C913C, gnScreenWidth_007C9138, (int)pGammaTable, nCaps, (int)pPaletteTable);
+        CelDraw((D2CmpCelContextStrc*)pContext, nX, nY, gnDDrawClipLeft, gnDDrawClipRight,
+            gpScreenBuffer_007C9154, gnRenderHeight, gnRenderWidth, (int)pGammaTable, nCaps, (int)pPaletteTable);
     }
     return 1;
 }

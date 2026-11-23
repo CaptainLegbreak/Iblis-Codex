@@ -11,10 +11,10 @@ unsigned long __stdcall CLIENT_ReceiveThreadProc(void* pParameter);             
 
 extern int gClientSocket;                                                                                   // 0x00730AE0
 extern unsigned long gdwThreadId;                                                                           // 0x00882B30
-extern void* ghReceiveThread_00882CD8;                                                                      // 0x00882CD8
+extern void* ghReceiveThread;                                                                      // 0x00882CD8
 extern void* ghClientConnectToHostThreadHandle;                                                             // 0x00882CE0
 extern D2CriticalSectionStrc gCriticalSection;                                                              // 0x00882CE8
-extern int gbConnected_00882D04;                                                                            // 0x00882D04
+extern int gbConnected;                                                                            // 0x00882D04
 
 // 0x0052B050
 int __cdecl CLIENT_GetConnectionStatus()
@@ -31,12 +31,12 @@ int __cdecl CLIENT_GetConnectionStatus()
             if (!NET_IsLocalConnection())
             {
                 EnterCriticalSection(&gCriticalSection);
-                gbConnected_00882D04 = 1;
+                gbConnected = 1;
                 LeaveCriticalSection(&gCriticalSection);
             }
 
-            ghReceiveThread_00882CD8 = CreateThread(0, 0, CLIENT_ReceiveThreadProc, 0, 0, &gdwThreadId);
-            SetThreadPriority(ghReceiveThread_00882CD8, 1);
+            ghReceiveThread = CreateThread(0, 0, CLIENT_ReceiveThreadProc, 0, 0, &gdwThreadId);
+            SetThreadPriority(ghReceiveThread, 1);
             return 2;
         }
         return 0;

@@ -34,15 +34,15 @@ extern "C" __declspec(dllimport) void* __stdcall LoadLibraryA(const char* szLibF
 extern "C" _iobuf* __cdecl fopen(const char* szFileName, const char* szMode); // 0x0068239A
 extern "C" char* __cdecl strrchr(const char* szString, int nChar); // 0x00682990
 extern "C" const char gszExceptionsCppFile_006CD628[]; // 0x006CD628
-extern "C" const char gszMiniDumpWriteDump_006FFB94[]; // 0x006FFB94
-extern "C" const char gszNewline_006FFCB0[]; // 0x006FFCB0
-extern "C" const char gszQServerFile_006FC460[]; // 0x006FC460
-extern "C" const char gszQServerNTFile_006FC8A0[]; // 0x006FC8A0
-extern "C" const char gszSpace_006FFC44[]; // 0x006FFC44
-extern "C" const char gszStringFormat_006FFC58[]; // 0x006FFC58
-extern "C" const char gszUnknown_006CD5FC[]; // 0x006CD5FC
+extern "C" const char gszMiniDumpWriteDump[]; // 0x006FFB94
+extern "C" const char gszNewline[]; // 0x006FFCB0
+extern "C" const char gszQServerCppFile[]; // 0x006FC460
+extern "C" const char gszQServerNTFile[]; // 0x006FC8A0
+extern "C" const char gszSpace[]; // 0x006FFC44
+extern "C" const char gszStringFormat[]; // 0x006FFC58
+extern "C" const char gszUnknown[]; // 0x006CD5FC
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" const unsigned char gaASTOperatorPrecedence_006FC874[]; // 0x006FC874
+extern "C" const unsigned char gaASTOperatorPrecedence[]; // 0x006FC874
 extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2); // 0x006841E9
 extern "C" int __cdecl fclose(_iobuf* pFile); // 0x00681FDC
 extern "C" int __cdecl fprintf(_iobuf* pFile, const char* szFormat, ...); // 0x00684C94
@@ -57,19 +57,19 @@ extern "C" unsigned long __stdcall inet_addr(const char* szAddress); // 0x006B01
 extern "C" void __cdecl free(void* pMemory); // 0x00683FC0
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
 extern "C" void* __stdcall CreateToolhelp32Snapshot(unsigned long dwFlags, unsigned long dwProcessId); // 0x006B1446
-extern _iobuf* gapLogFiles_0075E790[20]; // 0x0075E790
-extern char gaszLogNames_0075D148[20][0x10]; // 0x0075D148
-extern char gszLogPrefix_00708018[]; // 0x00708018
+extern _iobuf* gapLogFiles[20]; // 0x0075E790
+extern char gaszLogNames[20][0x10]; // 0x0075D148
+extern char gszLogPrefix[]; // 0x00708018
 extern const char gszQServerNT_006FC8A0[]; // 0x006FC8A0
 extern const char gszServerFile_006FC460[]; // 0x006FC460
-extern const char* gaszErrorTypeNames_00706654[]; // 0x00706654
-extern int gbLogThreadStop_0075E830; // 0x0075E830
-extern int gdwGlobal_0074F0C8; // 0x0074F0C8
+extern const char* gaszErrorTypeNames[]; // 0x00706654
+extern int gbLogThreadStop; // 0x0075E830
+extern int gbWritingCrashReport; // 0x0074F0C8
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern unsigned int gdwInvBitMasks[]; // 0x006CE2E8
-extern unsigned long gadwLogWriteTick_0075D2F0[20]; // 0x0075D2F0
-extern void* ghDbgHelpDoneEvent_0098A6BC; // 0x0098A6BC
-extern void* ghDbgHelpWorkEvent_0098A6C0; // 0x0098A6C0
+extern unsigned long gadwLogWriteTick[20]; // 0x0075D2F0
+extern void* ghDbgHelpDoneEvent; // 0x0098A6BC
+extern void* ghDbgHelpWorkEvent; // 0x0098A6C0
 int __fastcall FOG_SOCKET_WSACleanup(); // 0x0040D8D0
 int __fastcall sub_006BFFA0_CheckReconnects(D2QueueServerStrc* pServer, unsigned int* pAddress); // 0x006BFFA0
 int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned int nBufferSize); // 0x00414E50
@@ -101,7 +101,8 @@ void* __fastcall sub_004098B0_ReallocLarge(D2PoolSystemStrc* pSystem, void* pMem
 #define QS_IS_WRITE(f) (((f) & 3) == 2)
 #define S_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText_006CC837, sub_00408090(), line); exit(-1); }
 #define _INTSIZEOF(n) ((sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1))
-#define gtDefaultPoolSystem_0074F104 (gtPoolManager_0074F0E8.aSystems[0])
+// build: symbol ?gtPoolManager@* 0x0074F0E8
+#define gtDefaultPoolSystem_0074F104 (gtPoolManager.aSystems[0])
 #define va_start(ap, v) (ap = (va_list)&v + _INTSIZEOF(v))
 
 typedef char* va_list;
@@ -274,17 +275,18 @@ extern "C" __declspec(dllimport) int __stdcall FindClose(void* hFindFile); // 0x
 extern "C" __declspec(dllimport) int __stdcall GetComputerNameA(char* szBuffer, unsigned long* pnSize); // 0x006CC1D8
 extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError(); // 0x006CC1B4
 extern "C" __declspec(dllimport) void __stdcall GetLocalTime(D2SystemTimeStrc* pSystemTime); // 0x006CC1D4
-extern bool gbSymInitialized_0098A6B0; // 0x0098A6B0
-extern const char* gaszCpuVendorNames_00708004[]; // 0x00708004
-extern void* ghDbgHelp_0098A680; // 0x0098A680
-extern void* ghProcess_0074C6F0; // 0x0074C6F0
+extern bool gbSymInitialized; // 0x0098A6B0
+extern const char* gaszCpuVendorNames[]; // 0x00708004
+extern void* ghDbgHelp; // 0x0098A680
+extern void* ghProcess; // 0x0074C6F0
 int __cdecl sub_0040E250_GetCpuVendor(); // 0x0040E250
 int __fastcall FOG_CreatePathHierarchy(const char* szPath); // 0x00406A10
 unsigned int __cdecl sub_0040E960_GetCpuSignature(); // 0x0040E960
 unsigned int __cdecl sub_0040E980_GetCpuBrand(); // 0x0040E980
 extern "C" int __cdecl _snprintf_s(char* szBuffer, unsigned int nSizeOfBuffer, unsigned int nCount, const char* szFormat, ...); // 0x006824CB
 unsigned long __stdcall SFileSetFilePointer(void* hFile, long lDistanceToMove, long* plDistanceToMoveHigh, unsigned long dwMoveMethod); // 0x004165A0
-#define gwProcessorLevel_0074D8C0 (gtSystemInfo_0074D8A0.wProcessorLevel)
+// build: symbol ?gtSystemInfo@* 0x0074D8A0
+#define gwProcessorLevel_0074D8C0 (gtSystemInfo.wProcessorLevel)
 typedef int (__stdcall* SymCleanupFn)(void* hProcess);
 
 struct D2Storm408ElemStrc

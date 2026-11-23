@@ -63,7 +63,7 @@ D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId); // 0x0061DB70
 
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster); // 0x0063EA40
 
-#define ASSERT(expr,line) if (!(expr)) { sub_00408A60(gszEmpty_006CC837,sub_00408090(),line); exit(-1); }
+#define ASSERT(expr,line) if (!(expr)) { sub_00408A60(gszEmptyString,sub_00408090(),line); exit(-1); }
 
 #define AI_PARAM(n) (pMonStatsTxt->wAiParam[n][pGame->nDifficulty])
 
@@ -119,7 +119,7 @@ struct D2AiTableStrc
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-extern const char gszEmpty_006CC837[]; // 0x006CC837
+extern const char gszEmptyString[]; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 

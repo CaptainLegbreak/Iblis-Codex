@@ -14,7 +14,7 @@ extern "C" void* __cdecl memset(void*, int, unsigned int);
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 void __fastcall sub_006C1F60_InitLockedList(void* pList); // 0x006C1F60
-extern const char gszSocketFile_006FC418[]; // 0x006FC418
+extern const char gszSocketFile[]; // 0x006FC418
 extern const char gszUnknown_006CCED8[]; // 0x006CCED8
 
 struct T006BC290
@@ -75,7 +75,7 @@ T006BC290* __stdcall sub_006BC6A0_AllocSocketRecord(const char* szName, int nVal
 {
     D2_ASSERT(szName, 0x242);
     D2_ASSERT(strlen(szName) < 0x103, 0x243);
-    T006BC290* pRecord = (T006BC290*)FOG_Alloc(sizeof(T006BC290), gszSocketFile_006FC418, 0x245, 0);
+    T006BC290* pRecord = (T006BC290*)FOG_Alloc(sizeof(T006BC290), gszSocketFile, 0x245, 0);
     if (pRecord)
     {
         memset(pRecord, 0, sizeof(T006BC290));

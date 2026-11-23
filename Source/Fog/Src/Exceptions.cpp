@@ -159,11 +159,11 @@ unsigned long __stdcall sub_004101C0_LogThreadProc(void* pParam); // 0x004101C0
 
 extern D2SystemTimeStrc gLogStartTime_0075D288; // 0x0075D288
 
-extern void* ghLogThread_0075D2E8; // 0x0075D2E8
+extern void* ghLogThread; // 0x0075D2E8
 
-extern D2CriticalSectionStrc gtLogQueueLock_0075E838; // 0x0075E838
+extern D2CriticalSectionStrc gtLogQueueLock; // 0x0075E838
 
-extern D2CriticalSectionStrc gtLogLock_0075E850; // 0x0075E850
+extern D2CriticalSectionStrc gtLogLock; // 0x0075E850
 
 struct D2ModuleInfoStrc
 {
@@ -188,17 +188,17 @@ int __fastcall EXCEPTIONS_GetAppPath(char* szPath, unsigned int nSize); // 0x004
 
 D2ModuleInfoStrc* __stdcall EXCEPTIONS_GetModuleListToolhelp(unsigned long dwPid); // 0x0040B690
 
-extern int (__stdcall* gpfnSymCleanup_0075CFDC)(void* hProcess); // 0x0075CFDC
+extern int (__stdcall* gpfnImageHlpSymCleanup)(void* hProcess); // 0x0075CFDC
 
-extern unsigned long (__stdcall* gpfnSymGetOptions_0075CFF0)(); // 0x0075CFF0
+extern unsigned long (__stdcall* gpfnImageHlpSymGetOptions)(); // 0x0075CFF0
 
-extern int (__stdcall* gpfnSymInitialize_0075CFF8)(void* hProcess, const char* szSearchPath, int bInvadeProcess); // 0x0075CFF8
+extern int (__stdcall* gpfnImageHlpSymInitialize)(void* hProcess, const char* szSearchPath, int bInvadeProcess); // 0x0075CFF8
 
-extern unsigned long (__stdcall* gpfnSymLoadModule_0075CFFC)(void* hProcess, void* hFile, const char* szImageName, const char* szModuleName, unsigned long dwBase, unsigned long dwSize); // 0x0075CFFC
+extern unsigned long (__stdcall* gpfnSymLoadModule)(void* hProcess, void* hFile, const char* szImageName, const char* szModuleName, unsigned long dwBase, unsigned long dwSize); // 0x0075CFFC
 
-extern unsigned long (__stdcall* gpfnSymSetOptions_0075D004)(unsigned long dwOptions); // 0x0075D004
+extern unsigned long (__stdcall* gpfnImageHlpSymSetOptions)(unsigned long dwOptions); // 0x0075D004
 
-extern int gbImageHlpLoaded_0075D014; // 0x0075D014
+extern int gbImageHlpLoaded; // 0x0075D014
 
 void __stdcall sub_H13_EmitUse(const char* szText, unsigned long nValue1, unsigned long nValue2, unsigned long nValue3);
 
@@ -315,17 +315,20 @@ extern "C" List08* gList_007BB5C8;
 
 extern "C" ListCD* gList_007BF014;
 
-extern "C" void* gAllocation_009897D0; // 0x009897D0
+extern "C" void* gpSmackFrameBuffer; // 0x009897D0
 
-extern "C" const char gSource_006CD628[]; // 0x006CD628
+extern "C" const char gszExceptionsCppFile[]; // 0x006CD628
 
-extern "C" const char gSource_006D5460[];
+// build: symbol _gszChatDlgFile 0x006D5460
+extern "C" const char gszChatDlgFile[];
 
 extern "C" const char gSource_006D7268[];
 
-extern "C" const char gSource_006DA04C[];
+// build: symbol _gszPartyFile 0x006DA04C
+extern "C" const char gszPartyFile[];
 
-extern "C" const char gSource_006E1560[];
+// build: symbol _gszMonsterAIFile 0x006E1560
+extern "C" const char gszMonsterAIFile[];
 
 struct D2ImageHlpAddressStrc
 {
@@ -392,19 +395,19 @@ int __cdecl s_DoSymInitialize(); // 0x0040C620
 
 int __fastcall EXCEPTIONS_ReleaseSymbols(int all); // 0x0040C720
 
-int (__stdcall* gpfnSymGetLineFromAddr_0075CFE4)(void* hProcess, unsigned long dwAddress, unsigned long* pdwDisplacement, D2ImageHlpLineStrc* pLine); // 0x0075CFE4
+int (__stdcall* gpfnSymGetLineFromAddr)(void* hProcess, unsigned long dwAddress, unsigned long* pdwDisplacement, D2ImageHlpLineStrc* pLine); // 0x0075CFE4
 
-extern void* gpfnSymFunctionTableAccess_0075CFE0; // 0x0075CFE0
+extern void* gpfnSymFunctionTableAccess; // 0x0075CFE0
 
-extern void* gpfnSymGetModuleBase_0075CFE8; // 0x0075CFE8
+extern void* gpfnSymGetModuleBase; // 0x0075CFE8
 
-extern SymGetModuleInfoFn gpfnSymGetModuleInfo_0075CFEC; // 0x0075CFEC
+extern SymGetModuleInfoFn gpfnSymGetModuleInfo; // 0x0075CFEC
 
-extern SymGetSymFromAddrFn gpfnSymGetSymFromAddr_0075CFF4; // 0x0075CFF4
+extern SymGetSymFromAddrFn gpfnSymGetSymFromAddr; // 0x0075CFF4
 
-extern StackWalkFn gpfnStackWalk_0075D008; // 0x0075D008
+extern StackWalkFn gpfnStackWalk; // 0x0075D008
 
-extern unsigned int gnStackWalkDepth_0075D018; // 0x0075D018
+extern unsigned int gnStackWalkDepth; // 0x0075D018
 
 struct T0040D1C0
 {
@@ -441,23 +444,23 @@ int __stdcall SMemCmp(void* pLocation1, void* pLocation2, unsigned int nSize); /
 
 extern "C" const char gszReadBinary_006CDC90[]; // 0x006CDC90
 
-D2CriticalSectionStrc gtImageHlpLock_0075CFBC; // 0x0075CFBC
+D2CriticalSectionStrc gtImageHlpLock; // 0x0075CFBC
 
-int gnSymInitCount_0075CFD4; // 0x0075CFD4
+int gnSymInitCount; // 0x0075CFD4
 
 static void __stdcall EXCEPTIONS_GetLogicalAddress(char* szModule, unsigned long* pnSection, unsigned long* pnOffset, void* pAddress, unsigned int nSize); // 0x0040C520
 
-char gszAddressText_0075D020[32]; // 0x0075D020
+char gszAddressText[32]; // 0x0075D020
 
-int ganLogNewFile_0075D298[20]; // 0x0075D298
+int ganLogNewFile[20]; // 0x0075D298
 
-int gbLogInitialized_0075D2EC; // 0x0075D2EC
+int gbLogInitialized; // 0x0075D2EC
 
-char gaszLogFilePaths_0075D340[20][0x104]; // 0x0075D340
+char gaszLogFilePaths[20][0x104]; // 0x0075D340
 
-unsigned long gnLogThreadId_0075E834; // 0x0075E834
+unsigned long gnLogThreadId; // 0x0075E834
 
-int gnLogQueueCount_0075E870; // 0x0075E870
+int gnLogQueueCount; // 0x0075E870
 
 struct D2ToolhelpModuleEntryStrc;
 
@@ -511,13 +514,13 @@ char* __fastcall sub_004113E0_EscapeString(char* szDst, const char* szSrc, int n
 
 D2ModuleInfoStrc* __fastcall EXCEPTIONS_FindModuleByAddress(unsigned long dwAddress, D2ModuleInfoStrc* pList); // 0x0040BCB0
 
-extern const char gszStackEipLine_006CD938[]; // 0x006CD938
+extern const char gszStackEipLine[]; // 0x006CD938
 
-extern const char gszStackRowEnd_006CD90C[]; // 0x006CD90C
+extern const char gszLogLineFormat[]; // 0x006CD90C
 
-extern const char gszStackStringLine_006CD8C8[]; // 0x006CD8C8
+extern const char gszStackStringLine[]; // 0x006CD8C8
 
-extern const char gszStackSymbolLine_006CD890[]; // 0x006CD890
+extern const char gszStackSymbolLine[]; // 0x006CD890
 
 extern const char gszStackPad_006FFC44[]; // 0x006FFC44
 
@@ -556,20 +559,20 @@ void __cdecl FOG_10082_Noop()
 {
 }
 
-char gszSymSearchPath_0075BFB8[4096]; // 0x0075BFB8
+char gszImageHlpSymSearchPath[4096]; // 0x0075BFB8
 
-int gbSymQuiet_0075CFB8; // 0x0075CFB8
+int gbSymQuiet; // 0x0075CFB8
 
 // 0x0040B600
 static int __stdcall EXCEPTIONS_GetLineFromAddrRetry(void* hProcess, unsigned long dwAddress, unsigned long* pdwDisplacement, D2ImageHlpLineStrc* pLine)
 {
-    if (!gpfnSymGetLineFromAddr_0075CFE4)
+    if (!gpfnSymGetLineFromAddr)
     {
         return 0;
     }
 
     unsigned long nBack = 0;
-    while (!gpfnSymGetLineFromAddr_0075CFE4(hProcess, dwAddress - nBack, pdwDisplacement, pLine))
+    while (!gpfnSymGetLineFromAddr(hProcess, dwAddress - nBack, pdwDisplacement, pLine))
     {
         if (++nBack == 100)
         {
@@ -610,7 +613,7 @@ extern "C" void __fastcall EXCEPTIONS_FreeModuleList(D2ModuleInfoStrc* pList)
     while (pList)
     {
         D2ModuleInfoStrc* pNext = pList->pNext;
-        FOG_Free(pList, gSource_006CD628, 0x1F7, 0);
+        FOG_Free(pList, gszExceptionsCppFile, 0x1F7, 0);
         pList = pNext;
     }
 }
@@ -852,9 +855,9 @@ void __fastcall EXCEPTIONS_DumpAnnotatedStack(void* hProcess, D2ThreadContextStr
         unsigned long dwDisplacement;
         unsigned long dwEip = pContext->Eip;
         D2ModuleInfoStrc* pModule = EXCEPTIONS_FindModuleByAddress(dwEip, pModules);
-        const char* szSymbol = gpfnSymGetSymFromAddr_0075CFF4(hProcess, dwEip, &dwDisplacement, &tSymbol.tSymbol) ? tSymbol.tSymbol.szName : "unknown";
+        const char* szSymbol = gpfnSymGetSymFromAddr(hProcess, dwEip, &dwDisplacement, &tSymbol.tSymbol) ? tSymbol.tSymbol.szName : "unknown";
         const char* szModule = pModule ? pModule->szName : "unknown";
-        MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszStackEipLine_006CD938, dwEip, szModule, szSymbol, dwDisplacement);
+        MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszStackEipLine, dwEip, szModule, szSymbol, dwDisplacement);
     }
 
     int nLines = 0;
@@ -898,7 +901,7 @@ void __fastcall EXCEPTIONS_DumpAnnotatedStack(void* hProcess, D2ThreadContextStr
             szLine[j++] = (c & 0x7F) < 0x20 ? '.' : c;
         }
         szLine[nLen + i] = 0;
-        MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszStackRowEnd_006CD90C, szLine);
+        MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszLogLineFormat, szLine);
 
         if (bFound)
         {
@@ -906,11 +909,11 @@ void __fastcall EXCEPTIONS_DumpAnnotatedStack(void* hProcess, D2ThreadContextStr
             D2ModuleInfoStrc* pValueModule = EXCEPTIONS_FindModuleByAddress(dwValue, pModules);
             D2_ASSERT(pValueModule, 0x3A5);
             unsigned long dwValueDisplacement;
-            const char* szName = gpfnSymGetSymFromAddr_0075CFF4(hProcess, dwValue, &dwValueDisplacement, &tSymbol.tSymbol) ? tSymbol.tSymbol.szName : "unknown";
+            const char* szName = gpfnSymGetSymFromAddr(hProcess, dwValue, &dwValueDisplacement, &tSymbol.tSymbol) ? tSymbol.tSymbol.szName : "unknown";
             if (!_stricmp(szName, "`string'") && !dwValueDisplacement)
-                MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszStackStringLine_006CD8C8, dwValue, pValueModule->szName, szName, sub_004113E0_EscapeString(szEscaped, (const char*)dwValue, 0x50, 0));
+                MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszStackStringLine, dwValue, pValueModule->szName, szName, sub_004113E0_EscapeString(szEscaped, (const char*)dwValue, 0x50, 0));
             else
-                MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszStackSymbolLine_006CD890, dwValue, pValueModule->szName, szName, dwValueDisplacement);
+                MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszStackSymbolLine, dwValue, pValueModule->szName, szName, dwValueDisplacement);
             nLines += 3;
         }
 
@@ -936,8 +939,8 @@ static D2ModuleInfoStrc* __stdcall EXCEPTIONS_LoadModuleSymbols(unsigned long dw
         D2ModuleInfoStrc* pNext = pModule->pNext;
         strcpy(szImageName, pModule->szPath);
         strcpy(szModuleName, pModule->szName);
-        const unsigned long dwLoaded = gpfnSymLoadModule_0075CFFC(hProcess, 0, szImageName, szModuleName, pModule->dwBase, pModule->dwSize);
-        if (!gbSymQuiet_0075CFB8)
+        const unsigned long dwLoaded = gpfnSymLoadModule(hProcess, 0, szImageName, szModuleName, pModule->dwBase, pModule->dwSize);
+        if (!gbSymQuiet)
         {
             if (!dwLoaded)
             {
@@ -1046,7 +1049,8 @@ static void __stdcall EXCEPTIONS_GetLogicalAddress(char* szModule, unsigned long
 {
     D2MemoryBasicInfoStrc tInfo;
 
-    SStrCopy(szModule, gszUnknown_006CD5FC, nSize);
+// build: symbol ?gszUnknown@* 0x006CD5FC
+    SStrCopy(szModule, gszUnknown, nSize);
     *pnSection = 0;
     *pnOffset = 0;
     if (!VirtualQuery(pAddress, &tInfo, sizeof(tInfo)))
@@ -1062,7 +1066,7 @@ static void __stdcall EXCEPTIONS_GetLogicalAddress(char* szModule, unsigned long
 
     if (!GetModuleFileNameA(hModule, szModule, nSize))
     {
-        SStrCopy(szModule, gszUnknown_006CD5FC, nSize);
+        SStrCopy(szModule, gszUnknown, nSize);
         return;
     }
 
@@ -1097,29 +1101,29 @@ static void __stdcall EXCEPTIONS_GetLogicalAddress(char* szModule, unsigned long
 int __cdecl s_DoSymInitialize()
 {
     int bResult = 0;
-    EnterCriticalSection(&gtImageHlpLock_0075CFBC);
-    if (gbImageHlpLoaded_0075D014)
+    EnterCriticalSection(&gtImageHlpLock);
+    if (gbImageHlpLoaded)
     {
         bResult = 1;
-        if (gnSymInitCount_0075CFD4++ <= 0)
+        if (gnSymInitCount++ <= 0)
         {
-            if (!gszSymSearchPath_0075BFB8[0])
+            if (!gszImageHlpSymSearchPath[0])
             {
-                EXCEPTIONS_ComposeSymbolPath(gszSymSearchPath_0075BFB8);
+                EXCEPTIONS_ComposeSymbolPath(gszImageHlpSymSearchPath);
             }
 
             void* hProcess = GetCurrentProcess();
-            if (!gpfnSymInitialize_0075CFF8(hProcess, gszSymSearchPath_0075BFB8, 0))
+            if (!gpfnImageHlpSymInitialize(hProcess, gszImageHlpSymSearchPath, 0))
             {
                 sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "s_DoSymInitialize(): err = %lu", GetLastError());
-                gpfnSymCleanup_0075CFDC(hProcess);
+                gpfnImageHlpSymCleanup(hProcess);
                 bResult = 0;
-                gnSymInitCount_0075CFD4 = 0;
+                gnSymInitCount = 0;
             }
             else
             {
-                ++gnSymInitCount_0075CFD4;
-                gpfnSymSetOptions_0075D004(gpfnSymGetOptions_0075CFF0() | 0x10);
+                ++gnSymInitCount;
+                gpfnImageHlpSymSetOptions(gpfnImageHlpSymGetOptions() | 0x10);
                 D2ModuleInfoStrc* pModule = EXCEPTIONS_LoadModuleSymbols(GetCurrentProcessId(), hProcess);
                 if (pModule)
                 {
@@ -1135,7 +1139,7 @@ int __cdecl s_DoSymInitialize()
         }
     }
 
-    LeaveCriticalSection(&gtImageHlpLock_0075CFBC);
+    LeaveCriticalSection(&gtImageHlpLock);
     return bResult;
 }
 
@@ -1143,44 +1147,44 @@ int __cdecl s_DoSymInitialize()
 int __fastcall EXCEPTIONS_ReleaseSymbols(int all)
 {
     int result = 0;
-    if (!gbImageHlpLoaded_0075D014)
+    if (!gbImageHlpLoaded)
     {
         return 0;
     }
-    EnterCriticalSection(&gtImageHlpLock_0075CFBC);
-    int nCount = gnSymInitCount_0075CFD4;
+    EnterCriticalSection(&gtImageHlpLock);
+    int nCount = gnSymInitCount;
     do
     {
         if (!nCount)
         {
             break;
         }
-        gnSymInitCount_0075CFD4 = --nCount;
+        gnSymInitCount = --nCount;
         if (nCount)
         {
             result = 1;
             break;
         }
-        gpfnSymCleanup_0075CFDC(GetCurrentProcess());
+        gpfnImageHlpSymCleanup(GetCurrentProcess());
         if (!all)
         {
             break;
         }
-        nCount = gnSymInitCount_0075CFD4;
+        nCount = gnSymInitCount;
     } while (nCount);
-    LeaveCriticalSection(&gtImageHlpLock_0075CFBC);
+    LeaveCriticalSection(&gtImageHlpLock);
     return result;
 }
 
 // 0x0040C7A0
 int __fastcall QuickStackWalk(const char* szPrefix, void* hThread, D2ThreadContextStrc* pContext)
 {
-    if (gnStackWalkDepth_0075D018 > 0)
+    if (gnStackWalkDepth > 0)
     {
         return 0;
     }
 
-    ++gnStackWalkDepth_0075D018;
+    ++gnStackWalkDepth;
 
     __int64 aTotals[4] = {};
     __int64 aStart[4] = {};
@@ -1189,7 +1193,7 @@ int __fastcall QuickStackWalk(const char* szPrefix, void* hThread, D2ThreadConte
     void* hProcess = GetCurrentProcess();
     if (!s_DoSymInitialize())
     {
-        --gnStackWalkDepth_0075D018;
+        --gnStackWalkDepth;
         return 0;
     }
     aTotals[3] += aEnd[3] - aStart[3];
@@ -1218,7 +1222,7 @@ int __fastcall QuickStackWalk(const char* szPrefix, void* hThread, D2ThreadConte
             break;
         }
 
-        if (!gpfnStackWalk_0075D008(0x14C, hProcess, hThread, &tFrame, pContext, 0, gpfnSymFunctionTableAccess_0075CFE0, gpfnSymGetModuleBase_0075CFE8, 0))
+        if (!gpfnStackWalk(0x14C, hProcess, hThread, &tFrame, pContext, 0, gpfnSymFunctionTableAccess, gpfnSymGetModuleBase, 0))
         {
             aTotals[0] += aEnd[0] - aStart[0];
             break;
@@ -1233,7 +1237,7 @@ int __fastcall QuickStackWalk(const char* szPrefix, void* hThread, D2ThreadConte
             D2ImageHlpLineStrc tLine;
             memset(&tLine, 0, sizeof(tLine));
             tLine.dwSizeOfStruct = sizeof(tLine);
-            if (gpfnSymGetSymFromAddr_0075CFF4(hProcess, tFrame.tAddrPC.dwOffset, &dwDisplacement, pSymbol))
+            if (gpfnSymGetSymFromAddr(hProcess, tFrame.tAddrPC.dwOffset, &dwDisplacement, pSymbol))
             {
                 szSymbol = pSymbol->szName;
                 unsigned long dwLineDisplacement = dwDisplacement;
@@ -1245,14 +1249,14 @@ int __fastcall QuickStackWalk(const char* szPrefix, void* hThread, D2ThreadConte
             else
             {
                 ++nFailures;
-                szSymbol = gszUnknown_006CD5FC;
+                szSymbol = gszUnknown;
             }
             aTotals[1] += aEnd[1] - aStart[1];
 
             D2ImageHlpModuleStrc tModule;
             memset(&tModule, 0, sizeof(tModule));
             tModule.dwSizeOfStruct = sizeof(tModule);
-            if (!gpfnSymGetModuleInfo_0075CFEC(hProcess, tFrame.tAddrPC.dwOffset, &tModule))
+            if (!gpfnSymGetModuleInfo(hProcess, tFrame.tAddrPC.dwOffset, &tModule))
             {
                 GetLastError();
                 tModule.szModuleName[0] = 0;
@@ -1278,7 +1282,7 @@ int __fastcall QuickStackWalk(const char* szPrefix, void* hThread, D2ThreadConte
 
     EXCEPTIONS_ReleaseSymbols(0);
     sub_00410660_LogWritePrefixed(szPrefix, "QuickStackWalk: %d entries, %I64d+%I64d+%I64d+%I64d cycles, %I64d avg", nEntries, aTotals[0], aTotals[1], aTotals[2], aTotals[3], (aTotals[0] + aTotals[1] + aTotals[2] + aTotals[3]) / nEntries);
-    --gnStackWalkDepth_0075D018;
+    --gnStackWalkDepth;
     return 1;
 }
 
@@ -1293,7 +1297,7 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
         return 0;
     }
 
-    if (!gbImageHlpLoaded_0075D014)
+    if (!gbImageHlpLoaded)
     {
         sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "sShowStack: imagehlp.dll not loaded");
         return 0;
@@ -1304,15 +1308,15 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
 
     char szSearchPath[0x1000];
     const char* szPath = EXCEPTIONS_ComposeSymbolPath(szSearchPath);
-    if (!gpfnSymInitialize_0075CFF8(hProcess, szPath, 0))
+    if (!gpfnImageHlpSymInitialize(hProcess, szPath, 0))
     {
         sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "SymInitialize(): gle = %lu", GetLastError());
-        gpfnSymCleanup_0075CFDC(hProcess);
+        gpfnImageHlpSymCleanup(hProcess);
         CloseHandle(hProcess);
         return 0;
     }
 
-    gpfnSymSetOptions_0075D004(gpfnSymGetOptions_0075CFF0() | 0x10);
+    gpfnImageHlpSymSetOptions(gpfnImageHlpSymGetOptions() | 0x10);
     const unsigned long dwProcessId = GetCurrentProcessId();
     D2ModuleInfoStrc* pModules = EXCEPTIONS_LoadModuleSymbols(dwProcessId, hProcess);
     EXCEPTIONS_DumpAnnotatedStack(hProcess, pContext, pModules);
@@ -1348,7 +1352,7 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
             break;
         }
 
-        if (!gpfnStackWalk_0075D008(0x14C, hProcess, hThread, &tFrame, pContext, 0, gpfnSymFunctionTableAccess_0075CFE0, gpfnSymGetModuleBase_0075CFE8, 0))
+        if (!gpfnStackWalk(0x14C, hProcess, hThread, &tFrame, pContext, 0, gpfnSymFunctionTableAccess, gpfnSymGetModuleBase, 0))
         {
             sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "Stack walk error: %d", GetLastError());
             break;
@@ -1358,7 +1362,7 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
         D2ImageHlpLineStrc tLine;
         memset(&tLine, 0, sizeof(tLine));
         const char* szSymbol;
-        if (gpfnSymGetSymFromAddr_0075CFF4(hProcess, tFrame.tAddrPC.dwOffset, &dwSymDisplacement, pSymbol))
+        if (gpfnSymGetSymFromAddr(hProcess, tFrame.tAddrPC.dwOffset, &dwSymDisplacement, pSymbol))
         {
             szSymbol = pSymbol->szName;
             unsigned long dwLineDisplacement = dwSymDisplacement;
@@ -1371,7 +1375,7 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
         else
         {
             ++nUnknown;
-            szSymbol = gszUnknown_006CD5FC;
+            szSymbol = gszUnknown;
         }
 
         unsigned long nSection;
@@ -1381,7 +1385,7 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
         LOGMANAGER_LogWritePrefixedNoNewline(&gszEmptyAssertText, "%08x %08x %-12s ", tFrame.tAddrPC.dwOffset, tFrame.tAddrFrame.dwOffset, szModuleName ? szModuleName + 1 : szModule);
 
         tModule.dwSizeOfStruct = 0x23C;
-        if (gpfnSymGetModuleInfo_0075CFEC(hProcess, tFrame.tAddrPC.dwOffset, &tModule))
+        if (gpfnSymGetModuleInfo(hProcess, tFrame.tAddrPC.dwOffset, &tModule))
         {
             MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "%s!", tModule.szModuleName);
         }
@@ -1434,15 +1438,17 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
                 nPad = 1;
             }
 
-            MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "%*s %s, %d", nPad, gszSpace_006FFC44, szFile, tLine.dwLineNumber);
+// build: symbol ?gszSpace@* 0x006FFC44
+            MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "%*s %s, %d", nPad, gszSpace, szFile, tLine.dwLineNumber);
         }
 
-        MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszNewline_006FFCB0);
+// build: symbol ?gszNewline@* 0x006FFCB0
+        MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszNewline);
     }
 
     sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "%d frames dumped", nFrames);
     LOGMANAGER_CloseLogFiles();
-    gpfnSymCleanup_0075CFDC(hProcess);
+    gpfnImageHlpSymCleanup(hProcess);
     CloseHandle(hProcess);
     return 1;
 }
@@ -1495,7 +1501,7 @@ int __fastcall EXCEPTIONS_ReadCrashDump(char* pBuffer, unsigned int* pnSize)
 
     const long nFileSize = ftell(pFile);
     fseek(pFile, 0, 0);
-    char* pData = (char*)FOG_Alloc(nFileSize, gSource_006CD628, 0x75B, 0);
+    char* pData = (char*)FOG_Alloc(nFileSize, gszExceptionsCppFile, 0x75B, 0);
     fread(pData, 1, nFileSize, pFile);
     fclose(pFile);
     DeleteFileA(szPath);
@@ -1560,7 +1566,7 @@ char* __fastcall FOG_inet_ntoa(int nAddress)
 {
     D2InAddrStrc tAddress;
     tAddress.s_addr = nAddress;
-    return strcpy(gszAddressText_0075D020, inet_ntoa(tAddress));
+    return strcpy(gszAddressText, inet_ntoa(tAddress));
 }
 
 // 0x0040EB90
@@ -1573,7 +1579,7 @@ unsigned int __fastcall EXCEPTIONS_GetLogFilePaths(char** apszFiles, unsigned in
         {
             break;
         }
-        apszFiles[i] = gaszLogFilePaths_0075D340[i];
+        apszFiles[i] = gaszLogFilePaths[i];
     }
     return i;
 }
@@ -1583,12 +1589,14 @@ void __fastcall EXCEPTIONS_CloseNamedLog(const char* szName)
 {
     for (int i = 0; i < 20; i++)
     {
-        if (gapLogFiles_0075E790[i] && !strcmp(gaszLogNames_0075D148[i], szName))
+// build: symbol ?gaszLogNames@* 0x0075D148
+// build: symbol ?gapLogFiles@* 0x0075E790
+        if (gapLogFiles[i] && !strcmp(gaszLogNames[i], szName))
         {
-            if (gapLogFiles_0075E790[i])
+            if (gapLogFiles[i])
             {
-                fclose(gapLogFiles_0075E790[i]);
-                gapLogFiles_0075E790[i] = 0;
+                fclose(gapLogFiles[i]);
+                gapLogFiles[i] = 0;
             }
             return;
         }
@@ -1608,17 +1616,18 @@ void D2TSListStrc::sub_0040FD00_UnlinkAll()
 // 0x00410540
 void __cdecl EXCEPTIONS_InitLogSystem()
 {
-    gbLogThreadStop_0075E830 = 0;
-    ghLogThread_0075D2E8 = CreateThread(0, 0, sub_004101C0_LogThreadProc, 0, 0, &gnLogThreadId_0075E834);
-    gbLogInitialized_0075D2EC = 1;
+// build: symbol ?gbLogThreadStop@* 0x0075E830
+    gbLogThreadStop = 0;
+    ghLogThread = CreateThread(0, 0, sub_004101C0_LogThreadProc, 0, 0, &gnLogThreadId);
+    gbLogInitialized = 1;
     GetLocalTime(&gLogStartTime_0075D288);
     for (unsigned int i = 0; i < 20; i++)
     {
-        ganLogNewFile_0075D298[i] = 1;
+        ganLogNewFile[i] = 1;
     }
     for (unsigned int i = 0; i < 20; i++)
     {
-        gaszLogFilePaths_0075D340[i][0] = 0;
+        gaszLogFilePaths[i][0] = 0;
     }
 }
 
@@ -1628,7 +1637,7 @@ extern "C" void __cdecl sub_0043F800_FreeList()
     while (node)
     {
         List204* next = node->next;
-        FOG_Free(node, gSource_006D5460, 0x1C01, 0);
+        FOG_Free(node, gszChatDlgFile, 0x1C01, 0);
         node = next;
     }
     gList_0077BDB4 = 0;
@@ -1652,7 +1661,7 @@ extern "C" void __cdecl sub_0049A020_FreeList()
     while (node)
     {
         ListCD* next = node->next;
-        FOG_Free(node, gSource_006DA04C, 0x108, 0);
+        FOG_Free(node, gszPartyFile, 0x108, 0);
         node = next;
     }
     gList_007BF014 = 0;

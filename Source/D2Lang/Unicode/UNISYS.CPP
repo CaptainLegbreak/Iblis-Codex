@@ -23,12 +23,12 @@ extern "C" char* __cdecl strtok(char* szText, const char* szDelim);
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 void* __fastcall sub_00517079_LoadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine);
-extern "C" const char gszNewline_006FFCB0[];                                                                // 0x006FFCB0
-static unsigned short gnCharMapCount_00882B20;                                                              // 0x00882B20
-static unsigned char gnLeadByteRangeCount_00882B22;                                                         // 0x00882B22
-extern D2LangByteRangeStrc* gpLeadByteRanges_00882B28;                                                      // 0x00882B28
-extern unsigned short* gpCharMapIndex_00882B2C;                                                             // 0x00882B2C
-char gszCodePageName_00882AF8[0x28];                                                                        // 0x00882AF8
+extern "C" const char gszNewline[];                                                                // 0x006FFCB0
+static unsigned short gnCharMapCount;                                                              // 0x00882B20
+static unsigned char gnLeadByteRangeCount;                                                         // 0x00882B22
+extern D2LangByteRangeStrc* gpLeadByteRanges;                                                      // 0x00882B28
+extern unsigned short* gpCharMapIndex;                                                             // 0x00882B2C
+char gszCodePageName[0x28];                                                                        // 0x00882AF8
 
 // 0x00527790
 int __fastcall UNISYS_LoadSysMap(void* hArchive, const char* szPath)
@@ -65,7 +65,7 @@ int __fastcall UNISYS_LoadSysMap(void* hArchive, const char* szPath)
 
     strncpy(szName, (const char*)pCursor, nLen + 1);
     szName[nLen + 1] = 0;
-    strtok(szName, gszNewline_006FFCB0);
+    strtok(szName, gszNewline);
 
     pCursor += nLen + 5;
     unsigned short* pMapCount = (unsigned short*)pCursor;
@@ -73,9 +73,9 @@ int __fastcall UNISYS_LoadSysMap(void* hArchive, const char* szPath)
     unsigned char* pRangeCount = pCursor;
     pCursor += 1;
 
-    delete[] gpLeadByteRanges_00882B28;
+    delete[] gpLeadByteRanges;
     D2LangByteRangeStrc* pRanges = new D2LangByteRangeStrc[*pRangeCount];
-    gpLeadByteRanges_00882B28 = pRanges;
+    gpLeadByteRanges = pRanges;
     if (!pRanges)
     {
         FOG_Free(pData, ".\\Unicode\\UNISYS.CPP", 0x91, 0);
@@ -85,9 +85,10 @@ int __fastcall UNISYS_LoadSysMap(void* hArchive, const char* szPath)
     memcpy(pRanges, pCursor, *pRangeCount * sizeof(D2LangByteRangeStrc));
     pCursor += *pRangeCount * sizeof(D2LangByteRangeStrc);
 
-    delete[] gpCharMap_00882B24;
+// build: symbol ?gpCharMap@* 0x00882B24
+    delete[] gpCharMap;
     D2LangCharMapEntryStrc* pCharMap = new D2LangCharMapEntryStrc[*pMapCount];
-    gpCharMap_00882B24 = pCharMap;
+    gpCharMap = pCharMap;
     if (!pCharMap)
     {
         FOG_Free(pData, ".\\Unicode\\UNISYS.CPP", 0x9E, 0);
@@ -101,9 +102,9 @@ int __fastcall UNISYS_LoadSysMap(void* hArchive, const char* szPath)
         pCursor += 4;
     }
 
-    delete[] gpCharMapIndex_00882B2C;
+    delete[] gpCharMapIndex;
     unsigned short* pIndex = new unsigned short[*pMapCount];
-    gpCharMapIndex_00882B2C = pIndex;
+    gpCharMapIndex = pIndex;
     if (!pIndex)
     {
         FOG_Free(pData, ".\\Unicode\\UNISYS.CPP", 0xB0, 0);
@@ -116,9 +117,9 @@ int __fastcall UNISYS_LoadSysMap(void* hArchive, const char* szPath)
         pCursor += 2;
     }
 
-    gnCharMapCount_00882B20 = *pMapCount;
-    gnLeadByteRangeCount_00882B22 = *pRangeCount;
-    strcpy(gszCodePageName_00882AF8, szName);
+    gnCharMapCount = *pMapCount;
+    gnLeadByteRangeCount = *pRangeCount;
+    strcpy(gszCodePageName, szName);
     FOG_Free(pData, ".\\Unicode\\UNISYS.CPP", 0xBE, 0);
     return 1;
 }

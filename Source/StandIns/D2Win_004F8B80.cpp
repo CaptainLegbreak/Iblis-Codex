@@ -33,27 +33,27 @@ void __fastcall sub_004F88B0_DrawBlockClipped(D2TileLibraryBlockStrc* pBlock, in
 void __fastcall sub_004F89F0_DrawLitBlockClipped(D2TileLibraryBlockStrc* pBlock, int nX, int nY, unsigned char* pDst, int* pLight); // 0x004F89F0
 
 extern int gdwGlobal_0072DA50; // 0x0072DA50
-extern int gnInnerBlockTop_007C9780; // 0x007C9780
+extern int gnInnerBlockTop; // 0x007C9780
 extern int gnTileClipLeft_007C9788; // 0x007C9788
 extern int gnTileClipRight_007C9798; // 0x007C9798
-extern int gnInnerBlockBottom_007C979C; // 0x007C979C
-extern int gnInnerBlockLeft_007C97A4; // 0x007C97A4
-extern int gnInnerBlockRight_007D2320; // 0x007D2320
+extern int gnInnerBlockBottom; // 0x007C979C
+extern int gnInnerBlockLeft; // 0x007C97A4
+extern int gnInnerBlockRight; // 0x007D2320
 extern int gnTileClipTop_007D2330; // 0x007D2330
 extern int gnTileClipBottom_007D2338; // 0x007D2338
-extern int gnLightingOff_007D2340; // 0x007D2340
-extern unsigned char* gpScreenBuffer_007D5448; // 0x007D5448
-extern int gnScreenPitch_007D544C; // 0x007D544C
+extern int gnLightingOff; // 0x007D2340
+extern unsigned char* gpScreenBuffer; // 0x007D5448
+extern int gnScreenPitch; // 0x007D544C
 
 // 0x004F8B80
 void __fastcall sub_004F8B80_DrawTileBlocks(D2TileLibraryEntryStrc* pTile, int nX, int nY, D2LightCellStrc (*pLight)[8])
 {
-    unsigned char* pScreen = gnScreenPitch_007D544C * nY + gpScreenBuffer_007D5448 + nX;
+    unsigned char* pScreen = gnScreenPitch * nY + gpScreenBuffer + nX;
     for (int i = 0; i < pTile->nBlocks; ++i)
     {
         D2TileLibraryBlockStrc* pBlock = &pTile->pBlocks[i];
         const int nPosX = pBlock->nPosX;
-        unsigned char* pDst = pBlock->nPosY * gnScreenPitch_007D544C + nPosX + pScreen;
+        unsigned char* pDst = pBlock->nPosY * gnScreenPitch + nPosX + pScreen;
         const int nBlockY = nY + pBlock->nPosY;
         if (!(pBlock->nFormat & 1))
             continue;
@@ -64,7 +64,7 @@ void __fastcall sub_004F8B80_DrawTileBlocks(D2TileLibraryEntryStrc* pTile, int n
         int aLight[4];
         int bFlat = 0;
         unsigned char nLight = 0;
-        if (gnLightingOff_007D2340)
+        if (gnLightingOff)
         {
             nLight = pLight[pBlock->nGridY + 1][pBlock->nGridX + 1].nLevel;
             bFlat = 1;
@@ -96,7 +96,7 @@ void __fastcall sub_004F8B80_DrawTileBlocks(D2TileLibraryEntryStrc* pTile, int n
             }
         }
 
-        if (nBlockY >= gnInnerBlockTop_007C9780 && nBlockY < gnInnerBlockBottom_007C979C && nBlockX >= gnInnerBlockLeft_007C97A4 && nBlockX < gnInnerBlockRight_007D2320)
+        if (nBlockY >= gnInnerBlockTop && nBlockY < gnInnerBlockBottom && nBlockX >= gnInnerBlockLeft && nBlockX < gnInnerBlockRight)
         {
             if (bFlat)
                 sub_004F8810_DrawBlock(pBlock, pDst, nLight);

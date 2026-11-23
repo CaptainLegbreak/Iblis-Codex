@@ -9,7 +9,7 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall RaiseException(unsigned long dwCode, unsigned long dwFlags, unsigned long nArgs, const unsigned long* pArgs); // 0x006CC224
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
 void __cdecl MAINMENUS_LogPoolError(const char* szFormat, ...);                                          // 0x00409020
-extern D2PoolDirectoryStrc gtPoolManager_0074F0E8;                                                            // 0x0074F0E8
+extern D2PoolDirectoryStrc gtPoolManager;                                                            // 0x0074F0E8
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -58,30 +58,30 @@ int __cdecl sub_00409DD0_InitPoolSystem(D2PoolSystemStrc** ppPoolSystem, const c
 {
     if (!ppPoolSystem)
     {
-        memset(&gtPoolManager_0074F0E8, 0, sizeof(gtPoolManager_0074F0E8));
-        InitializeCriticalSection(&gtPoolManager_0074F0E8.tLock);
-        gtPoolManager_0074F0E8.bInit = 1;
+        memset(&gtPoolManager, 0, sizeof(gtPoolManager));
+        InitializeCriticalSection(&gtPoolManager.tLock);
+        gtPoolManager.bInit = 1;
     }
-    EnterCriticalSection(&gtPoolManager_0074F0E8.tLock);
+    EnterCriticalSection(&gtPoolManager.tLock);
     D2PoolSystemStrc* pSystem;
-    if (gtPoolManager_0074F0E8.nFreeCount)
+    if (gtPoolManager.nFreeCount)
     {
-        --gtPoolManager_0074F0E8.nFreeCount;
-        pSystem = &gtPoolManager_0074F0E8.aSystems[gtPoolManager_0074F0E8.anFreeIndex[gtPoolManager_0074F0E8.nFreeCount]];
+        --gtPoolManager.nFreeCount;
+        pSystem = &gtPoolManager.aSystems[gtPoolManager.anFreeIndex[gtPoolManager.nFreeCount]];
     }
     else
     {
-        if (gtPoolManager_0074F0E8.nUsed >= 8)
+        if (gtPoolManager.nUsed >= 8)
         {
-            LeaveCriticalSection(&gtPoolManager_0074F0E8.tLock);
+            LeaveCriticalSection(&gtPoolManager.tLock);
             MAINMENUS_LogPoolError("Insufficient pre-allocated pool systems");
             RaiseException(0xE0000001, 0, 0, 0);
             return 0;
         }
-        pSystem = &gtPoolManager_0074F0E8.aSystems[gtPoolManager_0074F0E8.nUsed];
-        ++gtPoolManager_0074F0E8.nUsed;
+        pSystem = &gtPoolManager.aSystems[gtPoolManager.nUsed];
+        ++gtPoolManager.nUsed;
     }
-    LeaveCriticalSection(&gtPoolManager_0074F0E8.tLock);
+    LeaveCriticalSection(&gtPoolManager.tLock);
 
     memset(pSystem, 0, sizeof(*pSystem));
     if (ppPoolSystem)
@@ -140,13 +140,13 @@ extern "C" void __cdecl free(void* pMemory); // 0x00683FC0
 // 0x00409C80
 void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem)
 {
-    if (!gtPoolManager_0074F0E8.bInit)
+    if (!gtPoolManager.bInit)
     {
         return;
     }
     if (!pSystem)
     {
-        pSystem = &gtPoolManager_0074F0E8.aSystems[0];
+        pSystem = &gtPoolManager.aSystems[0];
     }
     if (!pSystem->nPools)
     {
@@ -178,13 +178,13 @@ void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem)
     }
     DeleteCriticalSection(&pSystem->tLock);
     memset(pSystem, 0, sizeof(D2PoolSystemStrc));
-    EnterCriticalSection(&gtPoolManager_0074F0E8.tLock);
-    gtPoolManager_0074F0E8.anFreeIndex[gtPoolManager_0074F0E8.nFreeCount] = ((unsigned int)pSystem - (unsigned int)&gtPoolManager_0074F0E8.aSystems[0]) / sizeof(D2PoolSystemStrc);
-    gtPoolManager_0074F0E8.nFreeCount++;
-    LeaveCriticalSection(&gtPoolManager_0074F0E8.tLock);
-    if (pSystem == &gtPoolManager_0074F0E8.aSystems[0])
+    EnterCriticalSection(&gtPoolManager.tLock);
+    gtPoolManager.anFreeIndex[gtPoolManager.nFreeCount] = ((unsigned int)pSystem - (unsigned int)&gtPoolManager.aSystems[0]) / sizeof(D2PoolSystemStrc);
+    gtPoolManager.nFreeCount++;
+    LeaveCriticalSection(&gtPoolManager.tLock);
+    if (pSystem == &gtPoolManager.aSystems[0])
     {
-        gtPoolManager_0074F0E8.bInit = 0;
-        DeleteCriticalSection(&gtPoolManager_0074F0E8.tLock);
+        gtPoolManager.bInit = 0;
+        DeleteCriticalSection(&gtPoolManager.tLock);
     }
 }

@@ -78,7 +78,7 @@ void __fastcall QSERVER_HackListAddress(D2QueueServerStrc* pServer, const char* 
 
 D2QClientStrc* __fastcall QSrvAddClient(D2QueueServerStrc* pServer, unsigned int s, unsigned int nAddress); // 0x006BFB70
 
-extern "C" const char gszHack_006FC4A8[]; // 0x006FC4A8
+extern "C" const char gszHack[]; // 0x006FC4A8
 
 static int sub_006C2280_PostRead(D2QueueServerStrc* pServer, D2QClientStrc* pClient);
 
@@ -158,13 +158,13 @@ void __cdecl sub_006BE300_Nop(const char* unused1, const char* unused2, int unus
 
 D2HashNode006BE540Strc* __fastcall QSERVER_FindClient(D2HashTable006BE540Strc* pTable, unsigned int nKey); // 0x006BE540
 
-extern "C" const char gszDeletedSocketFmt_006FC8C0[]; // 0x006FC8C0
+extern "C" const char gszDeletedSocketFmt[]; // 0x006FC8C0
 
-extern "C" const char gszHackList_006FC938[]; // 0x006FC938
+extern "C" const char gszHackList[]; // 0x006FC938
 
-extern "C" const char gszLoggedTwice_006FC920[]; // 0x006FC920
+extern "C" const char gszLoggedTwice[]; // 0x006FC920
 
-extern "C" const char gszSpamming_006FC900[]; // 0x006FC900
+extern "C" const char gszSpamming[]; // 0x006FC900
 
 struct D2QThreadArgStrc
 {
@@ -236,7 +236,8 @@ static int sub_006C2280_PostRead(D2QueueServerStrc* pServer, D2QClientStrc* ptCl
     unsigned long nRoom = sizeof(ptClient->pBuffer) - ptClient->nReadBytes;
     if (!nRoom)
     {
-        sub_006C0420_Disconnect(pServer, ptClient->nId, gszQServerNTFile_006FC8A0, 0x3ED);
+// build: symbol ?gszQServerNTFile@* 0x006FC8A0
+        sub_006C0420_Disconnect(pServer, ptClient->nId, gszQServerNTFile, 0x3ED);
         LeaveCriticalSection(pLock);
         return 0;
     }
@@ -247,7 +248,7 @@ static int sub_006C2280_PostRead(D2QueueServerStrc* pServer, D2QClientStrc* ptCl
     {
         unsigned int nId = ptClient->nId;
         LeaveCriticalSection(pLock);
-        sub_006C0420_Disconnect(pServer, nId, gszQServerNTFile_006FC8A0, 0x408);
+        sub_006C0420_Disconnect(pServer, nId, gszQServerNTFile, 0x408);
         sub_006C0360_Release(pServer, ptClient);
         return 0;
     }
@@ -262,7 +263,7 @@ static int sub_006C2280_PostRead(D2QueueServerStrc* pServer, D2QClientStrc* ptCl
         else
         {
             sub_006C0360_Release(pServer, ptClient);
-            sub_006C0420_Disconnect(pServer, ptClient->nId, gszQServerNTFile_006FC8A0, 0x430);
+            sub_006C0420_Disconnect(pServer, ptClient->nId, gszQServerNTFile, 0x430);
             return 0;
         }
     }
@@ -329,14 +330,14 @@ static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, D2QueueServe
 
     if (!nReason && QSERVER_CheckRecordThreshold(pServer, &pAddr->sin_addr.s_addr))
     {
-        QSERVER_BanAddress(pServer, &pAddr->sin_addr.s_addr, gszQServerNTFile_006FC8A0, 0x4A9);
+        QSERVER_BanAddress(pServer, &pAddr->sin_addr.s_addr, gszQServerNTFile, 0x4A9);
         nReason = 2;
     }
     QueryPerformanceCounter(&pServer->aStats[nSlot].aTimes[3]);
 
     if (!nReason && !sub_006BFFA0_CheckReconnects(pServer, (unsigned int*)&pAddr->sin_addr.s_addr) && !pServer->sub_006BF660_CheckAddress(pAddr->sin_addr.s_addr))
     {
-        QSERVER_HackListAddress(pServer, gszQServerNTFile_006FC8A0, pAddr->sin_addr.s_addr, 0x4B2);
+        QSERVER_HackListAddress(pServer, gszQServerNTFile, pAddr->sin_addr.s_addr, 0x4B2);
         nReason = 3;
     }
     QueryPerformanceCounter(&pServer->aStats[nSlot].aTimes[4]);
@@ -347,7 +348,7 @@ static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, D2QueueServe
         ++pServer->aStats[nSlot].nRejected;
         LeaveCriticalSection(pLock);
         const char* szReason = nReason == 1 ? "user on hack list" : (nReason == 2 ? "user logged on twice" : "user spamming with reconnects");
-        sub_00410660_LogWritePrefixed(gszHack_006FC4A8, "[sQSNTAccept]               *** Deleted socket %d (%s) - %s ***", (unsigned int)pAddrLen, inet_ntoa(pAddr->sin_addr.s_addr), szReason);
+        sub_00410660_LogWritePrefixed(gszHack, "[sQSNTAccept]               *** Deleted socket %d (%s) - %s ***", (unsigned int)pAddrLen, inet_ntoa(pAddr->sin_addr.s_addr), szReason);
         sub_0040D880((unsigned int)pAddrLen);
         return (unsigned int)-1;
     }
@@ -378,7 +379,7 @@ static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, D2QueueServe
     QueryPerformanceCounter(&pServer->aStats[nSlot].aTimes[7]);
 
     if (pServer->pfnOnAccept)
-        pServer->pfnOnAccept(pServer, ptClient->nId, gszQServerNTFile_006FC8A0, 0x4F9);
+        pServer->pfnOnAccept(pServer, ptClient->nId, gszQServerNTFile, 0x4F9);
     QueryPerformanceCounter(&pServer->aStats[nSlot].aTimes[8]);
 
     EnterCriticalSection(pLock);
@@ -428,7 +429,7 @@ static int sub_006C2810_PopWrite(D2QClientStrc* pClient)
     pClient->tWrite.nFlags &= ~4;
     LeaveCriticalSection(&pClient->tLock);
     if (pNode)
-        FOG_Free(pNode, gszQServerNTFile_006FC8A0, 0x578, 0);
+        FOG_Free(pNode, gszQServerNTFile, 0x578, 0);
     return 1;
 }
 
@@ -445,7 +446,7 @@ unsigned long __stdcall sub_006C2860_AcceptThread(D2QThreadArgStrc* pArg)
 {
     D2QueueServerStrc* pServer = pArg->pServer;
     int nSlot = pArg->nSlot;
-    FOG_Free(pArg, gszQServerNTFile_006FC8A0, 0x10D, 0);
+    FOG_Free(pArg, gszQServerNTFile, 0x10D, 0);
 
     D2QTickStrc tNext;
     tNext.nTick = GetTickCount();
@@ -646,7 +647,7 @@ int __fastcall sub_006C2D70_ServiceSlot(D2QueueServerStrc* pServer, int nSlot, u
                     sub_006BE300_Log("QSRV", "[NTRdQ]          0 bytes on client %d refcount=%d %s", pClient->nId, pClient->nRefCount,
                                      bRead ? "READ" : (bWrite ? "WRITE" : "*UNKNOWN*"));
                     if (pClient->hSocket != (void*)-1)
-                        sub_006C0420_Disconnect(pServer, pClient->nId, gszQServerNTFile_006FC8A0, 0x35D);
+                        sub_006C0420_Disconnect(pServer, pClient->nId, gszQServerNTFile, 0x35D);
                     sub_006C0360_Release(pServer, pClient);
                 }
                 else if (bWrite)
@@ -658,7 +659,7 @@ int __fastcall sub_006C2D70_ServiceSlot(D2QueueServerStrc* pServer, int nSlot, u
                     pClient->tWrite.nFlags &= ~4;
                     LeaveCriticalSection(&pClient->tLock);
                     if (pNode)
-                        FOG_Free(pNode, gszQServerNTFile_006FC8A0, 0x578, 0);
+                        FOG_Free(pNode, gszQServerNTFile, 0x578, 0);
                     EnterCriticalSection(&pClient->tLock);
                     if (!pClient->bClosing)
                         sQSNTWriteFromQueue(pServer, (T006BFAD0*)pClient);
@@ -691,7 +692,7 @@ int __fastcall sub_006C2D70_ServiceSlot(D2QueueServerStrc* pServer, int nSlot, u
                 if (pOverlapped && pClient)
                 {
                     sub_006BE300_Log("QSRV", "[NTRdQ]          I/O err %d on client %d refcount=%d", nError, pClient->nId, pClient->nRefCount);
-                    sub_006C0420_Disconnect(pServer, pClient->nId, gszQServerNTFile_006FC8A0, 0x3BD);
+                    sub_006C0420_Disconnect(pServer, pClient->nId, gszQServerNTFile, 0x3BD);
                     sub_006C0360_Release(pServer, pClient);
                 }
                 else

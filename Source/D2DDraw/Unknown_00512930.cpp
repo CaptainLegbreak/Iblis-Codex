@@ -7,8 +7,10 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 static void __fastcall DDRAW_PutPixel(int nX, int nY, unsigned char nColor)
 {
-    if (nX >= 0 && nX < gnScreenWidth_007C9138 && nY >= 0 && nY < gnScreenHeight_007C913C)
-        gpScreenBuffer_007C9154[gnScreenWidth_007C9138 * nY + nX] = nColor;
+// build: symbol ?gnRenderWidth@* 0x007C9138
+// build: symbol ?gnRenderHeight@* 0x007C913C
+    if (nX >= 0 && nX < gnRenderWidth && nY >= 0 && nY < gnRenderHeight)
+        gpScreenBuffer_007C9154[gnRenderWidth * nY + nX] = nColor;
 }
 
 // 0x00512930
@@ -81,25 +83,25 @@ void __fastcall sub_00512D90_DDrawUtilFilledRect(tagRECT* pRect, unsigned char n
 {
     D2_ASSERT(pRect->left <= pRect->right, 0x165);
     D2_ASSERT(pRect->top <= pRect->bottom, 0x166);
-    if (pRect->right < 0 || pRect->left >= gnScreenWidth_007C9138 || pRect->bottom < 0 || pRect->top >= gnScreenHeight_007C913C)
+    if (pRect->right < 0 || pRect->left >= gnRenderWidth || pRect->bottom < 0 || pRect->top >= gnRenderHeight)
         return;
     if (pRect->left < 0)
         pRect->left = 0;
-    if (pRect->right >= gnScreenWidth_007C9138)
-        pRect->right = gnScreenWidth_007C9138 - 1;
+    if (pRect->right >= gnRenderWidth)
+        pRect->right = gnRenderWidth - 1;
     if (pRect->top < 0)
         pRect->top = 0;
-    if (pRect->bottom >= gnScreenHeight_007C913C)
-        pRect->bottom = gnScreenHeight_007C913C - 1;
+    if (pRect->bottom >= gnRenderHeight)
+        pRect->bottom = gnRenderHeight - 1;
     const unsigned int nWidth = pRect->right - pRect->left;
     int nHeight = pRect->bottom - pRect->top;
     if (!nWidth || !nHeight)
         return;
-    unsigned char* pDst = &gpScreenBuffer_007C9154[pRect->top * gnScreenWidth_007C9138 + pRect->left];
+    unsigned char* pDst = &gpScreenBuffer_007C9154[pRect->top * gnRenderWidth + pRect->left];
     while (nHeight--)
     {
         for (unsigned int x = 0; x < nWidth; ++x)
             pDst[x] = nColor;
-        pDst += gnScreenWidth_007C9138;
+        pDst += gnRenderWidth;
     }
 }

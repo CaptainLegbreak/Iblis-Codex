@@ -135,9 +135,9 @@ int __stdcall MAINMENUS_ShowLevelScreen(int nArg); // 0x00431600
 
 extern "C" const char gszPercentS_006FFC58[]; // 0x006FFC58
 
-extern "C" const char gszKernel32_006CD6E4[]; // 0x006CD6E4
+extern "C" const char gszKernel32[]; // 0x006CD6E4
 
-extern char gszServiceName_007065DC[]; // 0x007065DC
+extern char gszServiceName[]; // 0x007065DC
 
 extern D2ServiceStatusStrc gD2ServerServiceStatus; // 0x007065FC
 
@@ -145,7 +145,7 @@ extern void* ghD2ServerServiceStatus; // 0x0074C714
 
 extern void* ghCurrentProcess_0074C718; // 0x0074C718
 
-extern int gbD2ServerStopEvent_0074C720; // 0x0074C720
+extern int gbRunningAsService; // 0x0074C720
 
 extern int gnStormDirectFlags_0074C82C; // 0x0074C82C
 
@@ -161,9 +161,9 @@ struct D2SlotEntryStrc
     int nField04;
 };
 
-extern void** gppSlots_00779988; // 0x00779988
+extern void** gppSlots; // 0x00779988
 
-extern int gdwGlobal_0077998C; // 0x0077998C
+extern int gnSlotCount; // 0x0077998C
 
 void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
 
@@ -214,11 +214,11 @@ extern "C" __declspec(dllimport) int __stdcall PeekMessageA(D2WinMsgStrc* pMsg, 
 
 extern "C" __declspec(dllimport) int __stdcall GetCursorPos(D2CoordPairStrc* pPoint); // 0x006CC48C
 
-int gnLastClickX_00779998; // 0x00779998
+int gnLastClickX; // 0x00779998
 
-int gnLastClickY_0077999C; // 0x0077999C
+int gnLastClickY; // 0x0077999C
 
-int gnLastClickTick_007799A0; // 0x007799A0
+int gnLastClickTick; // 0x007799A0
 
 void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
 
@@ -238,7 +238,7 @@ void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback); // 0x004FA590
 
 void __cdecl MAINMENUS_CreateArchivePopup(); // 0x00431970
 
-extern int gnLoaderFlag_007798E0; // 0x007798E0
+extern int gnLoaderFlag; // 0x007798E0
 
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
@@ -248,7 +248,7 @@ extern D2WinControlStrc* gpEdit_007799D0; // 0x007799D0
 
 extern D2WinControlStrc* gpControl_007799D4; // 0x007799D4
 
-extern D2LaunchRecordStrc* gpLaunchRecord_007795D4; // 0x007795D4
+extern D2LaunchRecordStrc* gpLaunchRecord; // 0x007795D4
 
 void __cdecl D2SOUND_FadeOutWaves(); // 0x00515020
 
@@ -282,19 +282,19 @@ void __cdecl MAINMENUS_UpdateEmailOk(); // 0x00436EB0
 
 void __cdecl MAINMENUS_UpdatePasswordOk(); // 0x004371E0
 
-D2WinControlStrc* gpEdit_007795A8; // 0x007795A8
+D2WinControlStrc* gpCreatePasswordConfirmEdit; // 0x007795A8
 
-extern D2WinControlStrc* gpPasswordOk_007799A4; // 0x007799A4
+extern D2WinControlStrc* gpPasswordOk; // 0x007799A4
 
-extern D2WinControlStrc* gpStatusText_007799A8; // 0x007799A8
+extern D2WinControlStrc* gpStatusText; // 0x007799A8
 
-extern D2WinControlStrc* gpCounterText_007799AC; // 0x007799AC
+extern D2WinControlStrc* gpCounterText; // 0x007799AC
 
-extern int gnStatusStringId_007799B0; // 0x007799B0
+extern int gnStatusStringId; // 0x007799B0
 
-extern int gnStatusDots_007799B4; // 0x007799B4
+extern int gnStatusDots; // 0x007799B4
 
-extern unsigned long gdwStatusStart_007799B8; // 0x007799B8
+extern unsigned long gdwStatusStart; // 0x007799B8
 
 extern D2WinControlStrc* gpButton_007799E4; // 0x007799E4
 
@@ -345,7 +345,7 @@ int __stdcall MAINMENUS_OnWait(int nArg); // 0x00432450
 
 void __stdcall CHATDLG_StartThread(D2LaunchThreadRecordStrc* pRecord); // 0x0044A130
 
-int gnCmdShow_0074C71C; // 0x0074C71C
+int gnCmdShow; // 0x0074C71C
 
 struct D2LaunchControlTemplateStrc;
 
@@ -384,15 +384,15 @@ int __stdcall CHATDLG_GetUserDataReply(int nUnused); // 0x0043F590
 
 void __fastcall CHATDLG_ShowTimedMessage(const Unicode* pText, D2LaunchCallback pfnDone); // 0x004401C0
 
-extern D2LaunchControlTemplateStrc gtControlTemplates_00708D10[]; // 0x00708D10
+extern D2LaunchControlTemplateStrc gatControlTemplates[]; // 0x00708D10
 
-extern int gnTextMode_00708D0C; // 0x00708D0C
+extern int gnTextMode; // 0x00708D0C
 
 extern char gKey_0070CD54; // 0x0070CD54
 
 void __cdecl CHARSEL_InitCharSelectScreen(); // 0x0043B080
 
-extern void (__cdecl* gpfnGatewayDone_007795BC)(); // 0x007795BC
+extern void (__cdecl* gpfnGatewayDone)(); // 0x007795BC
 
 int __cdecl sub_00449C10(); // 0x00449C10
 
@@ -402,11 +402,11 @@ int __cdecl sub_00449C30(); // 0x00449C30
 
 void __stdcall CHATDLG_SetCharLogonReceived(int nValue); // 0x00449C40
 
-D2WinControlStrc* gpTextControl1_007795D8; // 0x007795D8
+D2WinControlStrc* gpTextControl1; // 0x007795D8
 
-D2WinControlStrc* gpTextControl2_007795DC; // 0x007795DC
+D2WinControlStrc* gpTextControl2; // 0x007795DC
 
-char gszName_00779C88[256]; // 0x00779C88
+char gszEnteredName[256]; // 0x00779C88
 
 int gbFlag_0077ADA4; // 0x0077ADA4
 
@@ -414,11 +414,11 @@ D2LaunchRecord3Strc gtRecord_0077B0A8; // 0x0077B0A8
 
 struct D2WinTextBoxStrc;
 
-int gdwGlobal_0077932C;                                                                                     // 0x0077932C
+int gbStopMainLoop;                                                                                     // 0x0077932C
 
-D2WinControlStrc* gapControlsB_00779350[0x40];                                                              // 0x00779350
+D2WinControlStrc* gapControlsB[0x40];                                                              // 0x00779350
 
-extern int gnControlCountB_00779944;                                                                        // 0x00779944
+extern int gnControlCountB;                                                                        // 0x00779944
 
 int __stdcall CONTROL_GetType(D2WinControlStrc* pControl);                                                  // 0x004FA490
 
@@ -440,9 +440,9 @@ void __cdecl MAINMENUS_ShowLoginScreen();                                       
 
 void __cdecl sub_004325B0_CreateScreen();                                                                   // 0x004325B0
 
-char gszOldPassword_00779550[24];                                                                           // 0x00779550
+char gszOldPassword[24];                                                                           // 0x00779550
 
-extern int gdwGlobal_007795F4;                                                                              // 0x007795F4
+extern int gbConnectCancelled;                                                                              // 0x007795F4
 
 typedef unsigned short U16;
 
@@ -506,35 +506,35 @@ D2WinControlStrc* gpControl_00779968; // 0x00779968
 
 int gnFlag_007798D4; // 0x007798D4
 
-void* gpfnArchiveLoader_007798D8; // 0x007798D8
+void* gpfnArchiveLoader; // 0x007798D8
 
-int gbConnected_0077959C; // 0x0077959C
+int gbConnectResult; // 0x0077959C
 
 D2WinControlStrc* gpControl_00779344; // 0x00779344
 
-D2WinControlStrc* gpAddressEdit_00779958; // 0x00779958
+D2WinControlStrc* gpAddressEdit; // 0x00779958
 
-char gszAddress_007795F8[255]; // 0x007795F8
+char gszLastTcpIpAddress[255]; // 0x007795F8
 
 int __stdcall sub_00432040_OnCancel2(int nArg);
 
 int __stdcall MAINMENUS_OnLoginScreen(int nArg); // 0x00432300
 
-D2WinControlStrc* gpEdit_00779340; // 0x00779340
+D2WinControlStrc* gpCreatePasswordEdit; // 0x00779340
 
-D2WinControlStrc* gpPasswordEdit_007799BC; // 0x007799BC
+D2WinControlStrc* gpChangePwAccountEdit; // 0x007799BC
 
-D2WinControlStrc* gpPasswordEdit_007799C0; // 0x007799C0
+D2WinControlStrc* gpOldPasswordEdit; // 0x007799C0
 
-D2WinControlStrc* gpPasswordEdit_007799C4; // 0x007799C4
+D2WinControlStrc* gpNewPasswordConfirmEdit; // 0x007799C4
 
-D2WinControlStrc* gpPasswordEdit_007799C8; // 0x007799C8
+D2WinControlStrc* gpNewPasswordEdit; // 0x007799C8
 
 D2WinControlStrc* gpEdit_007799DC; // 0x007799DC
 
 D2WinControlStrc* gpEdit_007799E0; // 0x007799E0
 
-static int gnWaitDone_00779994; // 0x00779994
+static int gnWaitDone; // 0x00779994
 
 struct D2WinAnimImageStrc;
 
@@ -552,7 +552,7 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
 extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0;                                                      // 0x0077ABF0
 
-extern int gnLaunchMode_007795EC;                                                                           // 0x007795EC
+extern int gnLaunchMode;                                                                           // 0x007795EC
 
 const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
 
@@ -560,51 +560,51 @@ void __cdecl MAINMENUS_ShowMainMenu();                                          
 
 void __cdecl MAINMENUS_CreateCharCreateScreen();                                                                                // 0x00435580
 
-extern int gnControlCountA_00779948; // 0x00779948
+extern int gnControlCountA; // 0x00779948
 
 D2WinControlStrc* __stdcall CONTROL_Create(D2LaunchControlTemplateStrc* pTemplate); // 0x004F93C0
 
-extern D2WinControlStrc* gapControlsA_00779450[0x40]; // 0x00779450
+extern D2WinControlStrc* gapControlsA[0x40]; // 0x00779450
 
 int __stdcall BACKGROUND_SetCellFile(D2CelFileStrc* pCellFile); // 0x004F9140
 
-extern int gbPaletteBusy_00779970; // 0x00779970
+extern int gbPaletteBusy; // 0x00779970
 
-extern "C" const char gszPalFeCharDat_006D39E8[]; // 0x006D39E8
+extern "C" const char gszFeCharPalDat[]; // 0x006D39E8
 
 void __cdecl CHARSEL_FreeCharList(); // 0x00438EA0
 
 void __cdecl CHARSEL_FreeCache(); // 0x00437B90
 
-extern int gbFeCharPalette_007795F0; // 0x007795F0
+extern int gbFeCharPalette; // 0x007795F0
 
-extern D2CelFileStrc* gpCellFile_007797A0; // 0x007797A0
+extern D2CelFileStrc* gpPopUpWideCelFile; // 0x007797A0
 
 void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
 
-extern D2CelFileStrc* gpCellFile_007797A4; // 0x007797A4
+extern D2CelFileStrc* gpPopUpLargestCelFile; // 0x007797A4
 
-extern D2CelFileStrc* gpCellFile_007797A8; // 0x007797A8
+extern D2CelFileStrc* gpTileableDialogCelFile; // 0x007797A8
 
-extern D2CelFileStrc* gpCellFile_007797AC; // 0x007797AC
+extern D2CelFileStrc* gpPopUpOk2CelFile; // 0x007797AC
 
-extern D2CelFileStrc* gpCellFile_00779780; // 0x00779780
+extern D2CelFileStrc* gpPopUpOkCancelCelFile; // 0x00779780
 
-extern D2CelFileStrc* gpCellFile_00779784; // 0x00779784
+extern D2CelFileStrc* gpPopUpOkCancel2CelFile; // 0x00779784
 
-extern D2CelFileStrc* gpCellFile_007797B0; // 0x007797B0
+extern D2CelFileStrc* gpOkCancelButtonBlankCelFile; // 0x007797B0
 
-extern D2CelFileStrc* gpCellFile_007797B4; // 0x007797B4
+extern D2CelFileStrc* gpCancelButtonBlankCelFile; // 0x007797B4
 
-extern D2CelFileStrc* gpCellFile_00779788; // 0x00779788
+extern D2CelFileStrc* gpSelectCharArrowsCelFile; // 0x00779788
 
-extern D2CelFileStrc* gpCellFile_0077978C; // 0x0077978C
+extern D2CelFileStrc* gpRealmSelectCelFile; // 0x0077978C
 
-extern D2CelFileStrc* gpCellFile_00779790; // 0x00779790
+extern D2CelFileStrc* gpRealmSelectButtonThinCelFile; // 0x00779790
 
-extern D2CelFileStrc* gpCellFile_007797B8; // 0x007797B8
+extern D2CelFileStrc* gpPasswordCelFile; // 0x007797B8
 
-extern D2CelFileStrc* gpCellFile_00779794; // 0x00779794
+extern D2CelFileStrc* gpCreateNewCharImageCelFile; // 0x00779794
 
 extern D2CelFileStrc* gapCellFiles_00779808[5]; // 0x00779808
 
@@ -617,72 +617,72 @@ extern D2CelFileStrc* gapCellFiles_00779844[5]; // 0x00779844
 extern D2CelFileStrc* gapCellFiles_00779858[5]; // 0x00779858
 extern D2CelFileStrc* gapCellFiles_00779888[3]; // 0x00779888
 extern D2CelFileStrc* gapCellFiles_0077989C[3]; // 0x0077989C
-extern D2CelFileStrc* gpCellFile_007796F8; // 0x007796F8
-extern D2CelFileStrc* gpCellFile_007796FC; // 0x007796FC
-extern D2CelFileStrc* gpCellFile_00779704; // 0x00779704
-extern D2CelFileStrc* gpCellFile_00779708; // 0x00779708
-extern D2CelFileStrc* gpCellFile_0077970C; // 0x0077970C
-extern D2CelFileStrc* gpCellFile_00779710; // 0x00779710
-extern D2CelFileStrc* gpCellFile_00779714; // 0x00779714
-extern D2CelFileStrc* gpCellFile_00779718; // 0x00779718
-extern D2CelFileStrc* gpCellFile_0077971C; // 0x0077971C
-extern D2CelFileStrc* gpCellFile_00779720; // 0x00779720
-extern D2CelFileStrc* gpCellFile_0077972C; // 0x0077972C
-extern D2CelFileStrc* gpCellFile_00779730; // 0x00779730
-extern D2CelFileStrc* gpCellFile_00779734; // 0x00779734
-extern D2CelFileStrc* gpCellFile_00779738; // 0x00779738
-extern D2CelFileStrc* gpCellFile_0077973C; // 0x0077973C
-extern D2CelFileStrc* gpCellFile_00779740; // 0x00779740
-extern D2CelFileStrc* gpCellFile_00779748; // 0x00779748
-extern D2CelFileStrc* gpCellFile_0077974C; // 0x0077974C
-extern D2CelFileStrc* gpCellFile_00779750; // 0x00779750
-extern D2CelFileStrc* gpCellFile_00779754; // 0x00779754
-extern D2CelFileStrc* gpCellFile_00779758; // 0x00779758
-extern D2CelFileStrc* gpCellFile_0077975C; // 0x0077975C
-extern D2CelFileStrc* gpCellFile_00779764; // 0x00779764
-extern D2CelFileStrc* gpCellFile_00779768; // 0x00779768
-extern D2CelFileStrc* gpCellFile_0077976C; // 0x0077976C
-extern D2CelFileStrc* gpCellFile_00779770; // 0x00779770
-extern D2CelFileStrc* gpCellFile_00779774; // 0x00779774
-extern D2CelFileStrc* gpCellFile_00779778; // 0x00779778
-extern D2CelFileStrc* gpCellFile_0077977C; // 0x0077977C
-extern D2CelFileStrc* gpCellFile_00779798; // 0x00779798
-extern D2CelFileStrc* gpCellFile_0077979C; // 0x0077979C
-extern D2CelFileStrc* gpCellFile_007797C8; // 0x007797C8
-extern D2CelFileStrc* gpCellFile_007797CC; // 0x007797CC
-extern D2CelFileStrc* gpCellFile_007797D0; // 0x007797D0
-extern D2CelFileStrc* gpCellFile_007797D4; // 0x007797D4
-extern D2CelFileStrc* gpCellFile_007797D8; // 0x007797D8
-extern D2CelFileStrc* gpCellFile_007797DC; // 0x007797DC
+extern D2CelFileStrc* gpBlizNoCelFile; // 0x007796F8
+extern D2CelFileStrc* gpTrademarkCelFile; // 0x007796FC
+extern D2CelFileStrc* gpDiablo2LogoCelFile; // 0x00779704
+extern D2CelFileStrc* gpD2LogoBlackLeftCelFile; // 0x00779708
+extern D2CelFileStrc* gpD2LogoFireLeftCelFile; // 0x0077970C
+extern D2CelFileStrc* gpD2LogoBlackRightCelFile; // 0x00779710
+extern D2CelFileStrc* gpD2LogoFireRightCelFile; // 0x00779714
+extern D2CelFileStrc* gpTitleScreenCelFile; // 0x00779718
+extern D2CelFileStrc* gpCursorOHandCelFile; // 0x0077971C
+extern D2CelFileStrc* gpCreditsBckgCelFile; // 0x00779720
+extern D2CelFileStrc* gpRealmSelectButtonCelFile; // 0x0077972C
+extern D2CelFileStrc* gpTallButtonBlankCelFile; // 0x00779730
+extern D2CelFileStrc* gpCharacterSelectScreenExpCelFile; // 0x00779734
+extern D2CelFileStrc* gpWideButtonBlankCelFile; // 0x00779738
+extern D2CelFileStrc* gpMediumButtonBlankCelFile; // 0x0077973C
+extern D2CelFileStrc* gpShortButtonBlankCelFile; // 0x00779740
+extern D2CelFileStrc* gpTextBox2CelFile; // 0x00779748
+extern D2CelFileStrc* gp3WideButtonBlankCelFile; // 0x0077974C
+extern D2CelFileStrc* gpEditTextBoxWideCelFile; // 0x00779750
+extern D2CelFileStrc* gpWideButtonBlank02CelFile; // 0x00779754
+extern D2CelFileStrc* gpNarrowButtonBlankCelFile; // 0x00779758
+extern D2CelFileStrc* gpGWListBoxCelFile; // 0x0077975C
+extern D2CelFileStrc* gpTermsOfUseBckgCelFile; // 0x00779764
+extern D2CelFileStrc* gpCharSelectBckgCelFile; // 0x00779768
+extern D2CelFileStrc* gpDifficultyLevelsCelFile; // 0x0077976C
+extern D2CelFileStrc* gpCinematicsSelectionCelFile; // 0x00779770
+extern D2CelFileStrc* gpCinematicsSelectionExpCelFile; // 0x00779774
+extern D2CelFileStrc* gpCharSelectBoxCelFile; // 0x00779778
+extern D2CelFileStrc* gpCharSelectBoxGreyCelFile; // 0x0077977C
+extern D2CelFileStrc* gpPopUpOkCelFile; // 0x00779798
+extern D2CelFileStrc* gpPopUp340x224CelFile; // 0x0077979C
+extern D2CelFileStrc* gpRealmBckgCelFile; // 0x007797C8
+extern D2CelFileStrc* gpJoinGameScrollBarsCelFile; // 0x007797CC
+extern D2CelFileStrc* gpTcpIpBckgCelFile; // 0x007797D0
+extern D2CelFileStrc* gpIPAddressBoxCelFile; // 0x007797D4
+extern D2CelFileStrc* gpDownloadPatchBckgCelFile; // 0x007797D8
+extern D2CelFileStrc* gpDownloadPatchBall2CelFile; // 0x007797DC
 extern D2CelFileStrc* gpCellFile_00779700; // 0x00779700
-extern D2CelFileStrc* gpCellFile_00779728; // 0x00779728
-extern D2CelFileStrc* gpCellFile_00779744; // 0x00779744
-extern D2CelFileStrc* gpCellFile_007797BC; // 0x007797BC
-extern D2CelFileStrc* gpCellFile_007797C0; // 0x007797C0
-extern D2CelFileStrc* gpCellFile_007797C4; // 0x007797C4
-extern D2CelFileStrc* gpCellFile_007798B0; // 0x007798B0
-extern D2CelFileStrc* gpCellFile_007798C4; // 0x007798C4
+extern D2CelFileStrc* gpFireCelFile; // 0x00779728
+extern D2CelFileStrc* gpMediumSelButtonBlankCelFile; // 0x00779744
+extern D2CelFileStrc* gpTextBoxCelFile; // 0x007797BC
+extern D2CelFileStrc* gpClickBoxCelFile; // 0x007797C0
+extern D2CelFileStrc* gpJoinGameClickBoxGreyCelFile; // 0x007797C4
+extern D2CelFileStrc* gpBaFwSCelFile; // 0x007798B0
+extern D2CelFileStrc* gpPaFwSCelFile; // 0x007798C4
 
-extern D2CelFileStrc* gpCellFile_00779724; // 0x00779724
+extern D2CelFileStrc* gpCharacterCreateCelFile; // 0x00779724
 extern int gnGatewayValue_007795BC; // 0x007795BC
 
 // 0x004065E0
 void __stdcall D2ServerServiceMain(unsigned long dwArgc, char** lpszArgv)
 {
-    gbD2ServerStopEvent_0074C720 = 1;
-    ghD2ServerServiceStatus = RegisterServiceCtrlHandlerA(gszServiceName_007065DC, D2ServerServiceHandlerProc);
+    gbRunningAsService = 1;
+    ghD2ServerServiceStatus = RegisterServiceCtrlHandlerA(gszServiceName, D2ServerServiceHandlerProc);
     SetServiceStatus(ghD2ServerServiceStatus, &gD2ServerServiceStatus);
     GameInit(dwArgc, (const char**)lpszArgv);
     gD2ServerServiceStatus.dwCurrentState = 1;
     SetServiceStatus(ghD2ServerServiceStatus, &gD2ServerServiceStatus);
-    gbD2ServerStopEvent_0074C720 = 0;
+    gbRunningAsService = 0;
 }
 
 // 0x004066E0
 extern "C" int __stdcall WinMain(void* hInstance, void* hPrevInstance, char* lpCmdLine, int nShowCmd)
 {
     ghCurrentProcess_0074C718 = hInstance;
-    gnCmdShow_0074C71C = nShowCmd;
+    gnCmdShow = nShowCmd;
     if (!ERRORMANAGER_StartServiceDispatcher())
     {
         const char* argv[2];
@@ -798,7 +798,7 @@ unsigned __int64 __cdecl MAINMENUS_GetSaveDiskFreeSpace()
     char szPath[0x400];
 // build: symbol ?FOG_GetSavePath@* 0x00407050
     FOG_GetSavePath(szPath, sizeof(szPath));
-    void* hKernel = LoadLibraryA(gszKernel32_006CD6E4);
+    void* hKernel = LoadLibraryA(gszKernel32);
     if (hKernel)
     {
         D2GetDiskFreeSpaceExFn pfnGetDiskFreeSpaceEx = (D2GetDiskFreeSpaceExFn)GetProcAddress(hKernel, "GetDiskFreeSpaceExA");
@@ -830,7 +830,7 @@ unsigned __int64 __cdecl MAINMENUS_GetSaveDiskFreeSpace()
 
 int gnValue_0077994C; // 0x0077994C
 int gnValue_00779950; // 0x00779950
-int gbGatewayFlag_00779954; // 0x00779954
+int gbGatewayFlag; // 0x00779954
 
 // 0x0042E6A0
 void __fastcall MAINMENUS_SetGatewayValue(int nValue)
@@ -841,68 +841,68 @@ void __fastcall MAINMENUS_SetGatewayValue(int nValue)
 // 0x0042E6B0
 void __cdecl MAINMENUS_SetGatewayFlag()
 {
-    gbGatewayFlag_00779954 = 1;
+    gbGatewayFlag = 1;
 }
 
 // 0x0042EF50
 void __cdecl MAINMENUS_FreeFrontEndCells()
 {
-    ARCHIVE_FreeCellFile(gpCellFile_007796F8);
-    ARCHIVE_FreeCellFile(gpCellFile_007796FC);
+    ARCHIVE_FreeCellFile(gpBlizNoCelFile);
+    ARCHIVE_FreeCellFile(gpTrademarkCelFile);
     ARCHIVE_FreeCellFile(gpCellFile_00779700);
-    ARCHIVE_FreeCellFile(gpCellFile_0077971C);
-    ARCHIVE_FreeCellFile(gpCellFile_00779704);
-    ARCHIVE_FreeCellFile(gpCellFile_00779708);
-    ARCHIVE_FreeCellFile(gpCellFile_0077970C);
-    ARCHIVE_FreeCellFile(gpCellFile_00779710);
-    ARCHIVE_FreeCellFile(gpCellFile_00779714);
-    ARCHIVE_FreeCellFile(gpCellFile_00779718);
-    ARCHIVE_FreeCellFile(gpCellFile_00779720);
-    ARCHIVE_FreeCellFile(gpCellFile_00779738);
-    ARCHIVE_FreeCellFile(gpCellFile_00779754);
-    ARCHIVE_FreeCellFile(gpCellFile_00779758);
-    ARCHIVE_FreeCellFile(gpCellFile_0077975C);
+    ARCHIVE_FreeCellFile(gpCursorOHandCelFile);
+    ARCHIVE_FreeCellFile(gpDiablo2LogoCelFile);
+    ARCHIVE_FreeCellFile(gpD2LogoBlackLeftCelFile);
+    ARCHIVE_FreeCellFile(gpD2LogoFireLeftCelFile);
+    ARCHIVE_FreeCellFile(gpD2LogoBlackRightCelFile);
+    ARCHIVE_FreeCellFile(gpD2LogoFireRightCelFile);
+    ARCHIVE_FreeCellFile(gpTitleScreenCelFile);
+    ARCHIVE_FreeCellFile(gpCreditsBckgCelFile);
+    ARCHIVE_FreeCellFile(gpWideButtonBlankCelFile);
+    ARCHIVE_FreeCellFile(gpWideButtonBlank02CelFile);
+    ARCHIVE_FreeCellFile(gpNarrowButtonBlankCelFile);
+    ARCHIVE_FreeCellFile(gpGWListBoxCelFile);
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     if (FOG_IsExpansion())
     {
-        ARCHIVE_FreeCellFile(gpCellFile_0077972C);
-        ARCHIVE_FreeCellFile(gpCellFile_00779730);
-        ARCHIVE_FreeCellFile(gpCellFile_00779734);
-        ARCHIVE_FreeCellFile(gpCellFile_00779774);
+        ARCHIVE_FreeCellFile(gpRealmSelectButtonCelFile);
+        ARCHIVE_FreeCellFile(gpTallButtonBlankCelFile);
+        ARCHIVE_FreeCellFile(gpCharacterSelectScreenExpCelFile);
+        ARCHIVE_FreeCellFile(gpCinematicsSelectionExpCelFile);
     }
-    ARCHIVE_FreeCellFile(gpCellFile_0077973C);
-    ARCHIVE_FreeCellFile(gpCellFile_00779740);
-    ARCHIVE_FreeCellFile(gpCellFile_00779748);
-    ARCHIVE_FreeCellFile(gpCellFile_0077974C);
-    ARCHIVE_FreeCellFile(gpCellFile_00779764);
-    ARCHIVE_FreeCellFile(gpCellFile_00779768);
-    ARCHIVE_FreeCellFile(gpCellFile_0077976C);
-    ARCHIVE_FreeCellFile(gpCellFile_00779770);
-    ARCHIVE_FreeCellFile(gpCellFile_00779778);
-    ARCHIVE_FreeCellFile(gpCellFile_0077977C);
-    ARCHIVE_FreeCellFile(gpCellFile_00779798);
-    ARCHIVE_FreeCellFile(gpCellFile_0077979C);
-    ARCHIVE_FreeCellFile(gpCellFile_007797A0);
-    ARCHIVE_FreeCellFile(gpCellFile_007797A4);
-    ARCHIVE_FreeCellFile(gpCellFile_007797A8);
-    ARCHIVE_FreeCellFile(gpCellFile_007797AC);
-    ARCHIVE_FreeCellFile(gpCellFile_00779780);
-    ARCHIVE_FreeCellFile(gpCellFile_00779784);
-    ARCHIVE_FreeCellFile(gpCellFile_007797B0);
-    ARCHIVE_FreeCellFile(gpCellFile_007797B4);
-    ARCHIVE_FreeCellFile(gpCellFile_00779788);
-    ARCHIVE_FreeCellFile(gpCellFile_0077978C);
-    ARCHIVE_FreeCellFile(gpCellFile_00779790);
-    ARCHIVE_FreeCellFile(gpCellFile_007797B8);
-    ARCHIVE_FreeCellFile(gpCellFile_00779794);
-    if (gpCellFile_00779724)
+    ARCHIVE_FreeCellFile(gpMediumButtonBlankCelFile);
+    ARCHIVE_FreeCellFile(gpShortButtonBlankCelFile);
+    ARCHIVE_FreeCellFile(gpTextBox2CelFile);
+    ARCHIVE_FreeCellFile(gp3WideButtonBlankCelFile);
+    ARCHIVE_FreeCellFile(gpTermsOfUseBckgCelFile);
+    ARCHIVE_FreeCellFile(gpCharSelectBckgCelFile);
+    ARCHIVE_FreeCellFile(gpDifficultyLevelsCelFile);
+    ARCHIVE_FreeCellFile(gpCinematicsSelectionCelFile);
+    ARCHIVE_FreeCellFile(gpCharSelectBoxCelFile);
+    ARCHIVE_FreeCellFile(gpCharSelectBoxGreyCelFile);
+    ARCHIVE_FreeCellFile(gpPopUpOkCelFile);
+    ARCHIVE_FreeCellFile(gpPopUp340x224CelFile);
+    ARCHIVE_FreeCellFile(gpPopUpWideCelFile);
+    ARCHIVE_FreeCellFile(gpPopUpLargestCelFile);
+    ARCHIVE_FreeCellFile(gpTileableDialogCelFile);
+    ARCHIVE_FreeCellFile(gpPopUpOk2CelFile);
+    ARCHIVE_FreeCellFile(gpPopUpOkCancelCelFile);
+    ARCHIVE_FreeCellFile(gpPopUpOkCancel2CelFile);
+    ARCHIVE_FreeCellFile(gpOkCancelButtonBlankCelFile);
+    ARCHIVE_FreeCellFile(gpCancelButtonBlankCelFile);
+    ARCHIVE_FreeCellFile(gpSelectCharArrowsCelFile);
+    ARCHIVE_FreeCellFile(gpRealmSelectCelFile);
+    ARCHIVE_FreeCellFile(gpRealmSelectButtonThinCelFile);
+    ARCHIVE_FreeCellFile(gpPasswordCelFile);
+    ARCHIVE_FreeCellFile(gpCreateNewCharImageCelFile);
+    if (gpCharacterCreateCelFile)
     {
-        ARCHIVE_FreeCellFile(gpCellFile_00779724);
-        gpCellFile_00779724 = 0;
-        ARCHIVE_FreeCellFile(gpCellFile_00779728);
-        ARCHIVE_FreeCellFile(gpCellFile_00779744);
-        ARCHIVE_FreeCellFile(gpCellFile_007797BC);
-        ARCHIVE_FreeCellFile(gpCellFile_007797C0);
+        ARCHIVE_FreeCellFile(gpCharacterCreateCelFile);
+        gpCharacterCreateCelFile = 0;
+        ARCHIVE_FreeCellFile(gpFireCelFile);
+        ARCHIVE_FreeCellFile(gpMediumSelButtonBlankCelFile);
+        ARCHIVE_FreeCellFile(gpTextBoxCelFile);
+        ARCHIVE_FreeCellFile(gpClickBoxCelFile);
         for (int i = 0; i < 5; ++i)
             ARCHIVE_FreeCellFile(gapCellFiles_00779808[i]);
         for (int i = 0; i < 5; ++i)
@@ -917,24 +917,24 @@ void __cdecl MAINMENUS_FreeFrontEndCells()
             ARCHIVE_FreeCellFile(gapCellFiles_0077989C[i]);
         for (int i = 0; i < 3; ++i)
             ARCHIVE_FreeCellFile(gapCellFiles_00779888[i]);
-        ARCHIVE_FreeCellFile(gpCellFile_007798B0);
-        ARCHIVE_FreeCellFile(gpCellFile_007798C4);
+        ARCHIVE_FreeCellFile(gpBaFwSCelFile);
+        ARCHIVE_FreeCellFile(gpPaFwSCelFile);
         if (FOG_IsExpansion())
         {
             for (int i = 0; i < 5; ++i)
                 ARCHIVE_FreeCellFile(gapCellFiles_007797E0[i]);
             for (int i = 0; i < 5; ++i)
                 ARCHIVE_FreeCellFile(gapCellFiles_007797F4[i]);
-            ARCHIVE_FreeCellFile(gpCellFile_007797C4);
+            ARCHIVE_FreeCellFile(gpJoinGameClickBoxGreyCelFile);
         }
     }
-    ARCHIVE_FreeCellFile(gpCellFile_007797C8);
-    ARCHIVE_FreeCellFile(gpCellFile_007797CC);
-    ARCHIVE_FreeCellFile(gpCellFile_007797D0);
-    ARCHIVE_FreeCellFile(gpCellFile_007797D4);
-    ARCHIVE_FreeCellFile(gpCellFile_007797D8);
-    ARCHIVE_FreeCellFile(gpCellFile_007797DC);
-    ARCHIVE_FreeCellFile(gpCellFile_00779750);
+    ARCHIVE_FreeCellFile(gpRealmBckgCelFile);
+    ARCHIVE_FreeCellFile(gpJoinGameScrollBarsCelFile);
+    ARCHIVE_FreeCellFile(gpTcpIpBckgCelFile);
+    ARCHIVE_FreeCellFile(gpIPAddressBoxCelFile);
+    ARCHIVE_FreeCellFile(gpDownloadPatchBckgCelFile);
+    ARCHIVE_FreeCellFile(gpDownloadPatchBall2CelFile);
+    ARCHIVE_FreeCellFile(gpEditTextBoxWideCelFile);
 }
 
 // 0x0042F6C0
@@ -946,7 +946,7 @@ void __cdecl MAINMENUS_SetDone()
 // 0x0042F790
 int __stdcall MAINMENUS_ShowCantConnect(SMSGHANDLER_PARAMS* pMsg)
 {
-    gpfnGatewayDone_007795BC = MAINMENUS_SetDone;
+    gpfnGatewayDone = MAINMENUS_SetDone;
     MAINMENUS_DestroyControls();
     D2WinControlStrc* pControl = MAINMENUS_CreateFromTemplate(0xDE);
     D2Win_10033(pControl, 1);
@@ -962,45 +962,45 @@ int __stdcall MAINMENUS_ShowCantConnect(SMSGHANDLER_PARAMS* pMsg)
 // 0x0042F3A0
 D2WinControlStrc* __fastcall MAINMENUS_CreateFromTemplate(int nTemplateId)
 {
-    D2_ASSERT(gnControlCountA_00779948 < 0x40, 0x610);
-    D2WinControlStrc* pControl = CONTROL_Create(&gtControlTemplates_00708D10[nTemplateId]);
-    gapControlsA_00779450[gnControlCountA_00779948++] = pControl;
+    D2_ASSERT(gnControlCountA < 0x40, 0x610);
+    D2WinControlStrc* pControl = CONTROL_Create(&gatControlTemplates[nTemplateId]);
+    gapControlsA[gnControlCountA++] = pControl;
     return pControl;
 }
 
 // 0x0042F3F0
 void __cdecl MAINMENUS_DestroyControls()
 {
-    for (int i = 0; i < gnControlCountA_00779948; ++i)
-        sub_004F95C0_ControlDestroy(&gapControlsA_00779450[i]);
-    gnControlCountA_00779948 = 0;
+    for (int i = 0; i < gnControlCountA; ++i)
+        sub_004F95C0_ControlDestroy(&gapControlsA[i]);
+    gnControlCountA = 0;
 }
 
 // 0x0042F430
 D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId)
 {
-    D2_ASSERT(gnControlCountB_00779944 < 0x40, 0x627);
-    D2WinControlStrc* pControl = CONTROL_Create(&gtControlTemplates_00708D10[nId]);
-    gapControlsB_00779350[gnControlCountB_00779944++] = pControl;
+    D2_ASSERT(gnControlCountB < 0x40, 0x627);
+    D2WinControlStrc* pControl = CONTROL_Create(&gatControlTemplates[nId]);
+    gapControlsB[gnControlCountB++] = pControl;
     return pControl;
 }
 
 // 0x0042F480
 void __cdecl MAINMENUS_Reset()
 {
-    for (int i = 0; i < gnControlCountB_00779944; ++i)
-        sub_004F95C0_ControlDestroy(&gapControlsB_00779350[i]);
+    for (int i = 0; i < gnControlCountB; ++i)
+        sub_004F95C0_ControlDestroy(&gapControlsB[i]);
     gnValue_0077994C = 0;
     gnValue_00779950 = 0;
-    gnControlCountB_00779944 = 0;
-    for (int i = 0; i < gnControlCountA_00779948; ++i)
-        sub_004F95C0_ControlDestroy(&gapControlsA_00779450[i]);
-    gnControlCountA_00779948 = 0;
+    gnControlCountB = 0;
+    for (int i = 0; i < gnControlCountA; ++i)
+        sub_004F95C0_ControlDestroy(&gapControlsA[i]);
+    gnControlCountA = 0;
     BACKGROUND_SetCellFile(0);
-    if (gbPaletteBusy_00779970)
+    if (gbPaletteBusy)
     {
-        sub_0042F2E0_ReadPaletteFiles(gszPalFeCharDat_006D39E8, "palette\\fechar\\pal.pl2");
-        gbPaletteBusy_00779970 = 0;
+        sub_0042F2E0_ReadPaletteFiles(gszFeCharPalDat, "palette\\fechar\\pal.pl2");
+        gbPaletteBusy = 0;
     }
     CHARSEL_FreeCharList();
     CHARSEL_FreeCache();
@@ -1022,12 +1022,12 @@ void __fastcall MAINMENUS_ShowMessageBox(const Unicode* pTitle, const Unicode* p
         D2WinControlStrc* pControl = MAINMENUS_CreateFromTemplate(0xE7);
         D2Win_10033(pControl, 1);
         D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
-        gtControlTemplates_00708D10[0x11A].nStringId = nButton1StringId;
+        gatControlTemplates[0x11A].nStringId = nButton1StringId;
         if (bFlag2)
-            gtControlTemplates_00708D10[0x11A].nFlags = 0x1B;
+            gatControlTemplates[0x11A].nFlags = 0x1B;
         else
-            gtControlTemplates_00708D10[0x11A].nFlags = bFlag1 ? 0xD : 0;
-        gtControlTemplates_00708D10[0x11A].pfnCallback = pfnButton1;
+            gatControlTemplates[0x11A].nFlags = bFlag1 ? 0xD : 0;
+        gatControlTemplates[0x11A].pfnCallback = pfnButton1;
         pControl = MAINMENUS_CreateFromTemplate(0x11A);
         D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
         break;
@@ -1037,14 +1037,14 @@ void __fastcall MAINMENUS_ShowMessageBox(const Unicode* pTitle, const Unicode* p
         D2WinControlStrc* pControl = MAINMENUS_CreateFromTemplate(0x119);
         D2Win_10033(pControl, 1);
         D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
-        gtControlTemplates_00708D10[0x11B].nStringId = nButton1StringId;
-        gtControlTemplates_00708D10[0x11B].nFlags = bFlag1 ? 0xD : 0;
-        gtControlTemplates_00708D10[0x11B].pfnCallback = pfnButton1;
+        gatControlTemplates[0x11B].nStringId = nButton1StringId;
+        gatControlTemplates[0x11B].nFlags = bFlag1 ? 0xD : 0;
+        gatControlTemplates[0x11B].pfnCallback = pfnButton1;
         pControl = MAINMENUS_CreateFromTemplate(0x11B);
         D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
-        gtControlTemplates_00708D10[0x11C].nStringId = nButton2StringId;
-        gtControlTemplates_00708D10[0x11C].nFlags = bFlag1 ? 0x1B : 0;
-        gtControlTemplates_00708D10[0x11C].pfnCallback = pfnButton2;
+        gatControlTemplates[0x11C].nStringId = nButton2StringId;
+        gatControlTemplates[0x11C].nFlags = bFlag1 ? 0x1B : 0;
+        gatControlTemplates[0x11C].pfnCallback = pfnButton2;
         pControl = MAINMENUS_CreateFromTemplate(0x11C);
         D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
         break;
@@ -1065,12 +1065,12 @@ void __fastcall MAINMENUS_ShowMessageBox(const Unicode* pTitle, const Unicode* p
 void __cdecl MAINMENUS_ShowConnectingPopup()
 {
     MAINMENUS_DestroyControls();
-    gbGatewayFlag_00779954 = 1;
+    gbGatewayFlag = 1;
     gdwGlobal_00779974 = 0;
     D2WinControlStrc* pControlA;
     D2WinControlStrc* pControlB;
     D2WinControlStrc* pControlC;
-    if (gbFeCharPalette_007795F0)
+    if (gbFeCharPalette)
     {
         pControlA = MAINMENUS_CreateFromTemplate(0xF7);
         D2Win_10033(pControlA, 0);
@@ -1088,7 +1088,7 @@ void __cdecl MAINMENUS_ShowConnectingPopup()
     D2Win_10030_CONTROL_ToggleFourthFlag(pControlB, 1);
     D2Win_10030_CONTROL_ToggleFourthFlag(pControlC, 1);
     sub_004FD060_SetText(pControlC, D2LANG_GetStringFromTblIndex(0x147B));
-    gpfnGatewayDone_007795BC = MAINMENUS_SetDone;
+    gpfnGatewayDone = MAINMENUS_SetDone;
 }
 
 // 0x00430430
@@ -1102,9 +1102,9 @@ int __stdcall MAINMENUS_OnBack(int nArg)
 int __stdcall MAINMENUS_ScrollUp(int nArg)
 {
     D2WinControlStrc* pControl = 0;
-    for (int i = 0; i <= gnControlCountB_00779944; ++i)
+    for (int i = 0; i <= gnControlCountB; ++i)
     {
-        pControl = gapControlsB_00779350[i];
+        pControl = gapControlsB[i];
         if (CONTROL_GetType(pControl) == 4)
             break;
     }
@@ -1119,9 +1119,9 @@ int __stdcall MAINMENUS_ScrollUp(int nArg)
 int __stdcall MAINMENUS_ScrollDown(int nArg)
 {
     D2WinControlStrc* pControl = 0;
-    for (int i = 0; i <= gnControlCountB_00779944; ++i)
+    for (int i = 0; i <= gnControlCountB; ++i)
     {
-        pControl = gapControlsB_00779350[i];
+        pControl = gapControlsB[i];
         if (CONTROL_GetType(pControl) == 4)
             break;
     }
@@ -1148,14 +1148,14 @@ static inline int MAINMENUS_CountNameSeparators(const char* szText, int nLength)
 // 0x00430730
 int __stdcall MAINMENUS_ToggleHardcore(int nArg)
 {
-    *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF ^= 4;
+    *(unsigned short*)gpLaunchRecord->aFlags1EF ^= 4;
     return 1;
 }
 
 // 0x00430750
 int __stdcall MAINMENUS_ToggleLadder(int nArg)
 {
-    *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF ^= 0x40;
+    *(unsigned short*)gpLaunchRecord->aFlags1EF ^= 0x40;
     return 1;
 }
 
@@ -1164,28 +1164,29 @@ int __stdcall MAINMENUS_ToggleExpansion(int nArg)
 {
     if (!FOG_IsExpansion())
         return 0;
-    *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF ^= 0x20;
+    *(unsigned short*)gpLaunchRecord->aFlags1EF ^= 0x20;
     return 1;
 }
 
 // 0x004307A0
 int __fastcall MAINMENUS_ShowOptionDescription(unsigned int nArg, int nMode, int nStringId1, int nStringId2)
 {
-    if (gnTextSentinel_0070CB80 == -1)
+// build: symbol ?gnTextSentinel@* 0x0070CB80
+    if (gnTextSentinel == -1)
     {
         if (nArg)
         {
-            sub_004FB6A0_ClearText(gpTextControl1_007795D8);
-            sub_004FC9B0_SetText(gpTextControl1_007795D8, D2LANG_GetStringFromTblIndex(nStringId1), 0, 0, 0);
-            sub_004FB6A0_ClearText(gpTextControl2_007795DC);
-            sub_004FC9B0_SetText(gpTextControl2_007795DC, D2LANG_GetStringFromTblIndex(nStringId2), 0, 0, 0);
-            gnTextMode_00708D0C = nMode;
+            sub_004FB6A0_ClearText(gpTextControl1);
+            sub_004FC9B0_SetText(gpTextControl1, D2LANG_GetStringFromTblIndex(nStringId1), 0, 0, 0);
+            sub_004FB6A0_ClearText(gpTextControl2);
+            sub_004FC9B0_SetText(gpTextControl2, D2LANG_GetStringFromTblIndex(nStringId2), 0, 0, 0);
+            gnTextMode = nMode;
             return 1;
         }
-        if (gnTextMode_00708D0C == nMode)
+        if (gnTextMode == nMode)
         {
-            sub_004FB6A0_ClearText(gpTextControl1_007795D8);
-            sub_004FB6A0_ClearText(gpTextControl2_007795DC);
+            sub_004FB6A0_ClearText(gpTextControl1);
+            sub_004FB6A0_ClearText(gpTextControl2);
         }
     }
     return 1;
@@ -1216,7 +1217,8 @@ int __stdcall MAINMENUS_OnSelectDruid(D2MenuCallbackArgStrc* pArg)
 // 0x004309B0
 void __cdecl MAINMENUS_ClearLaunchState()
 {
-    gnLaunchState_007795E8 = 0;
+// build: symbol ?gnLaunchState@* 0x007795E8
+    gnLaunchState = 0;
 }
 
 // 0x0042FDD0
@@ -1274,38 +1276,40 @@ void __cdecl MAINMENUS_CreateMultiplayerScreen()
     pControl = MAINMENUS_CreateControl(0x20);
     sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x1467), 0, 0, 0);
 
-    gpEdit_0077958C = MAINMENUS_CreateControl(0x54);
-    sub_004FDAD0_SetKeyCallback(gpEdit_0077958C, sub_0042FE70_FilterChar);
-    sub_004FDD50_SetMaxLength(gpEdit_0077958C, 0x10);
-    sub_004FFE10_SetTextA(gpEdit_0077958C, gpLaunchRecord_007795D4->szAccount);
+// build: symbol ?gpAccountEdit@* 0x0077958C
+    gpAccountEdit = MAINMENUS_CreateControl(0x54);
+    sub_004FDAD0_SetKeyCallback(gpAccountEdit, sub_0042FE70_FilterChar);
+    sub_004FDD50_SetMaxLength(gpAccountEdit, 0x10);
+    sub_004FFE10_SetTextA(gpAccountEdit, gpLaunchRecord->szAccount);
 
-    gpEdit_00779334 = MAINMENUS_CreateControl(0x55);
-    sub_004FDAD0_SetKeyCallback(gpEdit_00779334, sub_0042FF00_FilterChar);
-    sub_004FDD50_SetMaxLength(gpEdit_00779334, 0x0D);
-    sub_004FFE10_SetTextA(gpEdit_00779334, gpLaunchRecord_007795D4->szPassword);
+// build: symbol ?gpPasswordEdit@* 0x00779334
+    gpPasswordEdit = MAINMENUS_CreateControl(0x55);
+    sub_004FDAD0_SetKeyCallback(gpPasswordEdit, sub_0042FF00_FilterChar);
+    sub_004FDD50_SetMaxLength(gpPasswordEdit, 0x0D);
+    sub_004FFE10_SetTextA(gpPasswordEdit, gpLaunchRecord->szPassword);
 
-    gpEdit_007795A8 = MAINMENUS_CreateControl(0x56);
-    sub_004FDD50_SetMaxLength(gpEdit_007795A8, 0x0D);
+    gpCreatePasswordConfirmEdit = MAINMENUS_CreateControl(0x56);
+    sub_004FDD50_SetMaxLength(gpCreatePasswordConfirmEdit, 0x0D);
 
-    if (gpLaunchRecord_007795D4->szAccount[0])
+    if (gpLaunchRecord->szAccount[0])
     {
-        if (gpLaunchRecord_007795D4->szPassword[0])
+        if (gpLaunchRecord->szPassword[0])
         {
-            CONTROL_SetFocusedEditBox(gpEdit_007795A8);
+            CONTROL_SetFocusedEditBox(gpCreatePasswordConfirmEdit);
         }
         else
         {
-            CONTROL_SetFocusedEditBox(gpEdit_00779334);
+            CONTROL_SetFocusedEditBox(gpPasswordEdit);
         }
     }
     else
     {
-        CONTROL_SetFocusedEditBox(gpEdit_0077958C);
+        CONTROL_SetFocusedEditBox(gpAccountEdit);
     }
 
-    sub_004FDDD0_LinkTab(gpEdit_0077958C, gpEdit_00779334);
-    sub_004FDDD0_LinkTab(gpEdit_00779334, gpEdit_007795A8);
-    sub_004FDDD0_LinkTab(gpEdit_007795A8, gpEdit_0077958C);
+    sub_004FDDD0_LinkTab(gpAccountEdit, gpPasswordEdit);
+    sub_004FDDD0_LinkTab(gpPasswordEdit, gpCreatePasswordConfirmEdit);
+    sub_004FDDD0_LinkTab(gpCreatePasswordConfirmEdit, gpAccountEdit);
     MAINMENUS_CreateControl(0x57);
     MAINMENUS_CreateControl(0x58);
 }
@@ -1325,7 +1329,7 @@ void __cdecl MAINMENUS_CreateTermsControls()
 // 0x00430400
 int __stdcall MAINMENUS_PollDownloadDone(int nArg)
 {
-    if (gpFuncTable_0077ABF0->pfnSlot4C() == 0x65 || gdwGlobal_0077932C)
+    if (gpFuncTable_0077ABF0->pfnSlot4C() == 0x65 || gbStopMainLoop)
         D2Win_StopMessageLoop();
     return 1;
 }
@@ -1339,22 +1343,22 @@ extern "C" int __fastcall sub_0043DAD0_SetControlFlag(int value)
 // 0x00430A20
 int __cdecl MAINMENUS_FreeSlots()
 {
-    if (!gppSlots_00779988)
+    if (!gppSlots)
         return 1;
-    for (int i = 0; i < gdwGlobal_0077998C; i++)
+    for (int i = 0; i < gnSlotCount; i++)
     {
-        D2LaunchSlotStrc* pSlot = ((D2LaunchSlotStrc**)gppSlots_00779988)[i];
+        D2LaunchSlotStrc* pSlot = ((D2LaunchSlotStrc**)gppSlots)[i];
         if (pSlot)
         {
             D2_ASSERT(pSlot->pData, 0x1139);
             sub_0040B3C0(pSlot->pData, ".\\Src\\MainMenus.cpp", 0x113A, 0);
-            D2_ASSERT(((D2LaunchSlotStrc**)gppSlots_00779988)[i]->szName, 0x113B);
-            sub_0040B3C0(((D2LaunchSlotStrc**)gppSlots_00779988)[i]->szName, ".\\Src\\MainMenus.cpp", 0x113C, 0);
-            sub_0040B3C0(gppSlots_00779988[i], ".\\Src\\MainMenus.cpp", 0x113E, 0);
+            D2_ASSERT(((D2LaunchSlotStrc**)gppSlots)[i]->szName, 0x113B);
+            sub_0040B3C0(((D2LaunchSlotStrc**)gppSlots)[i]->szName, ".\\Src\\MainMenus.cpp", 0x113C, 0);
+            sub_0040B3C0(gppSlots[i], ".\\Src\\MainMenus.cpp", 0x113E, 0);
         }
     }
-    sub_0040B3C0(gppSlots_00779988, ".\\Src\\MainMenus.cpp", 0x1141, 0);
-    gppSlots_00779988 = 0;
+    sub_0040B3C0(gppSlots, ".\\Src\\MainMenus.cpp", 0x1141, 0);
+    gppSlots = 0;
     return 1;
 }
 
@@ -1363,7 +1367,7 @@ int __stdcall sub_M121_Emit_00430600(const char* szText, int nLength) { return M
 // 0x00430B80
 int __fastcall MAINMENUS_GetSlotValue(int nSlot)
 {
-    D2SlotEntryStrc* pSlot = (D2SlotEntryStrc*)gppSlots_00779988[nSlot];
+    D2SlotEntryStrc* pSlot = (D2SlotEntryStrc*)gppSlots[nSlot];
     D2_ASSERT(pSlot, 0x1162);
     return pSlot->nField04;
 }
@@ -1584,8 +1588,8 @@ int __cdecl MAINMENUS_ShowArchiveMessage()
     MAINMENUS_CreateArchivePopup();
     gnFlag_007798D0 = 0;
     gnFlag_007798D4 = 0;
-    gpfnArchiveLoader_007798D8 = (void*)ARCHIVE_LoadVideoArchives;
-    gnLoaderFlag_007798E0 = 1;
+    gpfnArchiveLoader = (void*)ARCHIVE_LoadVideoArchives;
+    gnLoaderFlag = 1;
     sub_004FA590_RunLoop(MAINMENUS_LoopCallback);
     MAINMENUS_DestroyControls();
     return gnFlag_007798D4;
@@ -1594,7 +1598,7 @@ int __cdecl MAINMENUS_ShowArchiveMessage()
 // 0x00431C30
 int __stdcall MAINMENUS_Leave(int nArg)
 {
-    gnLaunchState_007795E8 = 0;
+    gnLaunchState = 0;
     sub_00515F50(0xB4);
     D2Win_StopMessageLoop();
     return 1;
@@ -1627,7 +1631,7 @@ int __stdcall MAINMENUS_StopLoop(int nArg)
 // 0x00431A40
 int __stdcall MAINMENUS_OpenTcpIpScreen(int nArg)
 {
-    gnLaunchMode_007795EC = 2;
+    gnLaunchMode = 2;
 // build: symbol ?CHARSEL_CreateTcpIpScreen@* 0x0042FFE0
     CHARSEL_CreateTcpIpScreen();
     return 1;
@@ -1640,15 +1644,15 @@ int __fastcall MAINMENUS_IsDoubleClick(SMSGHANDLER_PARAMS* pMsg)
     if (pMsg->uMessage != 0x201)
         bResult = 0;
     int nTick = GetTickCount();
-    if (nTick - gnLastClickTick_007799A0 > 300)
+    if (nTick - gnLastClickTick > 300)
         bResult = 0;
     D2CoordPairStrc tPoint;
     GetCursorPos(&tPoint);
-    if (abs(tPoint.nY - gnLastClickY_0077999C) + abs(tPoint.nX - gnLastClickX_00779998) > 4)
+    if (abs(tPoint.nY - gnLastClickY) + abs(tPoint.nX - gnLastClickX) > 4)
         bResult = 0;
-    gnLastClickY_0077999C = tPoint.nY;
-    gnLastClickTick_007799A0 = nTick;
-    gnLastClickX_00779998 = tPoint.nX;
+    gnLastClickY = tPoint.nY;
+    gnLastClickTick = nTick;
+    gnLastClickX = tPoint.nX;
     return bResult;
 }
 
@@ -1662,12 +1666,12 @@ int __stdcall MAINMENUS_CreateTcpIpScreen(int nArg)
     MAINMENUS_CreateFromTemplate(0x10E);
     pControl = MAINMENUS_CreateFromTemplate(0x10C);
     sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B1F));
-    gpAddressEdit_00779958 = MAINMENUS_CreateFromTemplate(0x10D);
-    if (!gszAddress_007795F8[0])
-        SRegLoadString("Diablo II", "LastTcpIp", 0, gszAddress_007795F8, 0x100);
-    sub_004FFE10_SetTextA(gpAddressEdit_00779958, gszAddress_007795F8);
-    CONTROL_SetFocusedEditBox(gpAddressEdit_00779958);
-    D2Win_10082(gpAddressEdit_00779958);
+    gpAddressEdit = MAINMENUS_CreateFromTemplate(0x10D);
+    if (!gszLastTcpIpAddress[0])
+        SRegLoadString("Diablo II", "LastTcpIp", 0, gszLastTcpIpAddress, 0x100);
+    sub_004FFE10_SetTextA(gpAddressEdit, gszLastTcpIpAddress);
+    CONTROL_SetFocusedEditBox(gpAddressEdit);
+    D2Win_10082(gpAddressEdit);
     sub_004FA450_SetActive(MAINMENUS_CreateFromTemplate(0x110));
     MAINMENUS_CreateFromTemplate(0x111);
     return 1;
@@ -1689,13 +1693,13 @@ int __stdcall MAINMENUS_PollConnection(int nArg)
     const int nStatus = CLIENT_GetConnectionStatus();
     if (!nStatus)
     {
-        gbConnected_0077959C = nStatus;
+        gbConnectResult = nStatus;
         D2Win_StopMessageLoop();
         return 1;
     }
     if (nStatus == 2)
     {
-        gbConnected_0077959C = 1;
+        gbConnectResult = 1;
         D2Win_StopMessageLoop();
     }
     return 1;
@@ -1704,48 +1708,48 @@ int __stdcall MAINMENUS_PollConnection(int nArg)
 // 0x00431E70
 static void MAINMENUS_SetModeFlags(char nMode)
 {
-    gpLaunchRecord_007795D4->nMode = nMode;
-    gpLaunchRecord_007795D4->nFlag085 = 0;
-    gpLaunchRecord_007795D4->nFlag089 = 0;
-    gpLaunchRecord_007795D4->nFlag088 = 0;
-    gpLaunchRecord_007795D4->nFlag086 = 0;
-    gpLaunchRecord_007795D4->nFlag087 = 0;
-    gpLaunchRecord_007795D4->nFlag08A = 0;
-    gpLaunchRecord_007795D4->nFlag08B = 0;
+    gpLaunchRecord->nMode = nMode;
+    gpLaunchRecord->nFlag085 = 0;
+    gpLaunchRecord->nFlag089 = 0;
+    gpLaunchRecord->nFlag088 = 0;
+    gpLaunchRecord->nFlag086 = 0;
+    gpLaunchRecord->nFlag087 = 0;
+    gpLaunchRecord->nFlag08A = 0;
+    gpLaunchRecord->nFlag08B = 0;
 
     if (nMode == 0)
     {
-        gpLaunchRecord_007795D4->nFlag085 = 1;
+        gpLaunchRecord->nFlag085 = 1;
     }
     else if (nMode == 4)
     {
-        gpLaunchRecord_007795D4->nFlag089 = 1;
+        gpLaunchRecord->nFlag089 = 1;
     }
     else if (nMode == 2)
     {
-        gpLaunchRecord_007795D4->nFlag088 = 1;
+        gpLaunchRecord->nFlag088 = 1;
     }
     else if (nMode == 3)
     {
-        gpLaunchRecord_007795D4->nFlag086 = 1;
+        gpLaunchRecord->nFlag086 = 1;
     }
     else if (nMode == 1)
     {
-        gpLaunchRecord_007795D4->nFlag087 = 1;
+        gpLaunchRecord->nFlag087 = 1;
     }
     else if (nMode == 5)
     {
-        gpLaunchRecord_007795D4->nFlag08A = 1;
+        gpLaunchRecord->nFlag08A = 1;
     }
     else if (nMode == 6)
     {
-        gpLaunchRecord_007795D4->nFlag08B = 1;
+        gpLaunchRecord->nFlag08B = 1;
     }
 }
 
 void __cdecl sub_I03_Emit_00431E70(char nMode)
 {
-    MAINMENUS_SetModeFlags(gnTextSentinel_0070CB80);
+    MAINMENUS_SetModeFlags(gnTextSentinel);
     MAINMENUS_SetModeFlags(nMode);
 }
 
@@ -1779,8 +1783,8 @@ int __stdcall sub_00432040_OnCancel2(int nArg)
 // 0x00432060
 int __stdcall MAINMENUS_CallGatewayDone(int nArg)
 {
-    if (gpfnGatewayDone_007795BC)
-        gpfnGatewayDone_007795BC();
+    if (gpfnGatewayDone)
+        gpfnGatewayDone();
     return 1;
 }
 
@@ -1790,14 +1794,14 @@ static void MAINMENUS_StoreAccountTexts(D2WinControlStrc* pAccountEdit, D2WinCon
     if (pAccountEdit)
     {
         const Unicode* pText = sub_004FDD90_GetEditText(pAccountEdit);
-        sub_00526F70(gpLaunchRecord_007795D4->szAccount, pText, 0x100);
+        sub_00526F70(gpLaunchRecord->szAccount, pText, 0x100);
     }
     if (pPasswordEdit)
     {
         const Unicode* pText = sub_004FDD90_GetEditText(pPasswordEdit);
-        sub_00526F70(gpLaunchRecord_007795D4->szPassword, pText, 0x100);
-        gpLaunchRecord_007795D4->dwPasswordHash = SStrHashHT(gpLaunchRecord_007795D4->szPassword);
-        gpLaunchRecord_007795D4->nPasswordLength = SStrLen(gpLaunchRecord_007795D4->szPassword);
+        sub_00526F70(gpLaunchRecord->szPassword, pText, 0x100);
+        gpLaunchRecord->dwPasswordHash = SStrHashHT(gpLaunchRecord->szPassword);
+        gpLaunchRecord->nPasswordLength = SStrLen(gpLaunchRecord->szPassword);
     }
 }
 
@@ -1822,25 +1826,25 @@ void __cdecl MAINMENUS_CreateLoginScreen()
     else
         pControl = MAINMENUS_CreateControl(0x1F);
     D2Win_10051(pControl, D2LANG_GetStringFromTblIndex(0x2B2B), 0x0, 0x0, 0x0);
-    gpEdit_0077958C = MAINMENUS_CreateControl(0x59);
-    sub_004FDAD0_SetKeyCallback(gpEdit_0077958C, sub_0042FE70_FilterChar);
-    sub_004FDD50_SetMaxLength(gpEdit_0077958C, 0x10);
-    sub_004FFE10_SetTextA(gpEdit_0077958C, gpLaunchRecord_007795D4->szAccount);
-    gpEdit_00779334 = MAINMENUS_CreateControl(0x5A);
-    sub_004FDAD0_SetKeyCallback(gpEdit_00779334, sub_0042FF00_FilterChar);
-    sub_004FDD50_SetMaxLength(gpEdit_00779334, 0xD);
-    gpEdit_00779340 = MAINMENUS_CreateControl(0x5B);
-    sub_004FDD50_SetMaxLength(gpEdit_00779340, 0xD);
-    gpEdit_007795A8 = MAINMENUS_CreateControl(0x5C);
-    sub_004FDD50_SetMaxLength(gpEdit_007795A8, 0xD);
-    if (gpLaunchRecord_007795D4->szAccount[0] != 0x0)
-        CONTROL_SetFocusedEditBox(gpEdit_00779334);
+    gpAccountEdit = MAINMENUS_CreateControl(0x59);
+    sub_004FDAD0_SetKeyCallback(gpAccountEdit, sub_0042FE70_FilterChar);
+    sub_004FDD50_SetMaxLength(gpAccountEdit, 0x10);
+    sub_004FFE10_SetTextA(gpAccountEdit, gpLaunchRecord->szAccount);
+    gpPasswordEdit = MAINMENUS_CreateControl(0x5A);
+    sub_004FDAD0_SetKeyCallback(gpPasswordEdit, sub_0042FF00_FilterChar);
+    sub_004FDD50_SetMaxLength(gpPasswordEdit, 0xD);
+    gpCreatePasswordEdit = MAINMENUS_CreateControl(0x5B);
+    sub_004FDD50_SetMaxLength(gpCreatePasswordEdit, 0xD);
+    gpCreatePasswordConfirmEdit = MAINMENUS_CreateControl(0x5C);
+    sub_004FDD50_SetMaxLength(gpCreatePasswordConfirmEdit, 0xD);
+    if (gpLaunchRecord->szAccount[0] != 0x0)
+        CONTROL_SetFocusedEditBox(gpPasswordEdit);
     else
-        CONTROL_SetFocusedEditBox(gpEdit_0077958C);
-    sub_004FDDD0_LinkTab(gpEdit_0077958C, gpEdit_00779334);
-    sub_004FDDD0_LinkTab(gpEdit_00779334, gpEdit_00779340);
-    sub_004FDDD0_LinkTab(gpEdit_00779340, gpEdit_007795A8);
-    sub_004FDDD0_LinkTab(gpEdit_007795A8, gpEdit_0077958C);
+        CONTROL_SetFocusedEditBox(gpAccountEdit);
+    sub_004FDDD0_LinkTab(gpAccountEdit, gpPasswordEdit);
+    sub_004FDDD0_LinkTab(gpPasswordEdit, gpCreatePasswordEdit);
+    sub_004FDDD0_LinkTab(gpCreatePasswordEdit, gpCreatePasswordConfirmEdit);
+    sub_004FDDD0_LinkTab(gpCreatePasswordConfirmEdit, gpAccountEdit);
     MAINMENUS_CreateControl(0x5D);
     MAINMENUS_CreateControl(0x5E);
 }
@@ -1855,8 +1859,8 @@ int __stdcall MAINMENUS_OnLoginScreen(int nArg)
 // 0x00432310
 int __stdcall MAINMENUS_StoreAccount(int nArg)
 {
-    const Unicode* pText = sub_004FDD90_GetEditText(gpEdit_0077958C);
-    sub_00526F70(gpLaunchRecord_007795D4->szAccount, pText, 0x100);
+    const Unicode* pText = sub_004FDD90_GetEditText(gpAccountEdit);
+    sub_00526F70(gpLaunchRecord->szAccount, pText, 0x100);
     sub_004370C0();
     return 1;
 }
@@ -1888,7 +1892,7 @@ static int sub_00432350_IsListedCode(int nCode)
 // 0x00432400
 int __cdecl MAINMENUS_PollStatus()
 {
-    if (gnWaitDone_00779994)
+    if (gnWaitDone)
         return 1;
     if (!sub_00449AC0_GetHandle())
         return 2;
@@ -1909,7 +1913,7 @@ int __cdecl MAINMENUS_PollStatus()
 // 0x00432480
 int __fastcall MAINMENUS_ConnectToRealm(const char* szName, int bFlag)
 {
-    if (*szName && (&gpLaunchRecord_007795D4->nByte22D)[0] && !strcmp(szName, (&gpLaunchRecord_007795D4->nByte22D)) && sub_00449B30_QueryAddress())
+    if (*szName && (&gpLaunchRecord->nByte22D)[0] && !strcmp(szName, (&gpLaunchRecord->nByte22D)) && sub_00449B30_QueryAddress())
     {
         return 0;
     }
@@ -1920,12 +1924,12 @@ int __fastcall MAINMENUS_ConnectToRealm(const char* szName, int bFlag)
     }
 
     D2MCPClientCloseMCP();
-    gnWaitDone_00779994 = 0;
+    gnWaitDone = 0;
 
     if (!*szName)
     {
-        (&gpLaunchRecord_007795D4->nByte22D)[0] = 0;
-        (gpLaunchRecord_007795D4->szPassword + 0x30)[0] = 0;
+        (&gpLaunchRecord->nByte22D)[0] = 0;
+        (gpLaunchRecord->szPassword + 0x30)[0] = 0;
         if (!bFlag)
         {
             MAINMENUS_DestroyControls();
@@ -1947,8 +1951,8 @@ fail:
             MAINMENUS_DestroyControls();
         return 2;
     }
-    SStrCopy((&gpLaunchRecord_007795D4->nByte22D), szName, 0x100);
-    SStrCopy((gpLaunchRecord_007795D4->szPassword + 0x30), szName, 0x100);
+    SStrCopy((&gpLaunchRecord->nByte22D), szName, 0x100);
+    SStrCopy((gpLaunchRecord->szPassword + 0x30), szName, 0x100);
     CHATDLG_StartThread(&pPayload->tRecord);
     int nResult = 3;
     if (!bFlag)
@@ -1964,7 +1968,7 @@ fail:
 int __stdcall MAINMENUS_OnWait(int nArg)
 {
     if (gdwGlobal_00779974)
-        gnWaitDone_00779994 = 1;
+        gnWaitDone = 1;
     if (sub_00432400_GetStatus() != 3)
         D2Win_StopMessageLoop();
     return 1;
@@ -2027,7 +2031,7 @@ int __stdcall MAINMENUS_PollCharLogon(int nArg)
 
 int __cdecl sub_00432400_GetWaitStatus()
 {
-    if (gnWaitDone_00779994)
+    if (gnWaitDone)
         return 1;
 
     if (GAME_GetWaitHandle())
@@ -2091,7 +2095,7 @@ int __stdcall MAINMENUS_OnNameChanged(int nArg)
 // 0x00437550
 void __cdecl MAINMENUS_CreateStatusScreen()
 {
-    gdwStatusStart_007799B8 = GetTickCount();
+    gdwStatusStart = GetTickCount();
     MAINMENUS_DestroyControls();
     sub_0042E6B0(0x1);
     D2WinControlStrc* pFrame = MAINMENUS_CreateFromTemplate(0xE2);
@@ -2102,12 +2106,12 @@ void __cdecl MAINMENUS_CreateStatusScreen()
     D2WinControlStrc* pText = MAINMENUS_CreateFromTemplate(0xE4);
     D2Win_10030_CONTROL_ToggleFourthFlag(pText, 0x1);
     D2Win_10051(pText, D2LANG_GetStringFromTblIndex(0x1433), 0x0, 0x0, 0x0);
-    gpStatusText_007799A8 = MAINMENUS_CreateFromTemplate(0xE5);
-    D2Win_10030_CONTROL_ToggleFourthFlag(gpStatusText_007799A8, 0x1);
-    gpCounterText_007799AC = MAINMENUS_CreateFromTemplate(0xE6);
-    D2Win_10030_CONTROL_ToggleFourthFlag(gpCounterText_007799AC, 0x1);
-    gnStatusStringId_007799B0 = -1;
-    gnStatusDots_007799B4 = 0x0;
+    gpStatusText = MAINMENUS_CreateFromTemplate(0xE5);
+    D2Win_10030_CONTROL_ToggleFourthFlag(gpStatusText, 0x1);
+    gpCounterText = MAINMENUS_CreateFromTemplate(0xE6);
+    D2Win_10030_CONTROL_ToggleFourthFlag(gpCounterText, 0x1);
+    gnStatusStringId = -1;
+    gnStatusDots = 0x0;
     sub_0042E6A0(CHARSEL_SetCancelled);
     MAINMENUS_UpdateStatus();
 }
@@ -2115,9 +2119,10 @@ void __cdecl MAINMENUS_CreateStatusScreen()
 // 0x0043B4C0
 int __stdcall MAINMENUS_OnRealmListClick(SMSGHANDLER_PARAMS* pMsg)
 {
-    const Unicode* pText = sub_004FBB30_GetText(gpNameControl_007799E8);
-    sub_005263E0(gszName_00779C88, pText, 0x100);
-    CHARSEL_UseName(gszName_00779C88);
+// build: symbol ?gpNameControl@* 0x007799E8
+    const Unicode* pText = sub_004FBB30_GetText(gpNameControl);
+    sub_005263E0(gszEnteredName, pText, 0x100);
+    CHARSEL_UseName(gszEnteredName);
     CHARSEL_RefreshCharEntry();
     if (MAINMENUS_IsDoubleClick(pMsg))
         return CHARSEL_OnRealmChosen(pMsg);
@@ -2130,7 +2135,8 @@ int __fastcall MAINMENUS_RequestProfile(int nA, int nB, int nC, int nD)
     gtRecord_0077B0A8.nValue0 = nB;
     gtRecord_0077B0A8.nValue1 = nC;
     gtRecord_0077B0A8.f_8 = nD;
-    gpLaunchFuncs_0077B09C->pfn0x78(nA, 3, 1, &gKey_0070CD54);
+// build: symbol ?gpLaunchFuncs@* 0x0077B09C
+    gpLaunchFuncs->pfn0x78(nA, 3, 1, &gKey_0070CD54);
     gbFlag_0077ADA4 = 0;
     CHATDLG_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), CHATDLG_SetUserDataFlag);
     sub_004FA590_RunLoop(CHATDLG_GetUserDataReply);
@@ -2163,7 +2169,7 @@ int __stdcall sub_00443C10_AlwaysOne(int nArg)
 // 0x00435CD0
 int __stdcall MAINMENUS_OnSinglePlayer(int nArg)
 {
-    gnLaunchMode_007795EC = 0;
+    gnLaunchMode = 0;
     if (MAINMENUS_HasSaveFiles() == 1)
     {
         D2SOUND_FadeOutWaves();
@@ -2179,7 +2185,7 @@ int __stdcall MAINMENUS_OnSinglePlayer(int nArg)
 // 0x00435D10
 int __stdcall MAINMENUS_OnOpenBattleNet(int nArg)
 {
-    gnLaunchMode_007795EC = 3;
+    gnLaunchMode = 3;
     MAINMENUS_ShowLoginScreen();
     return 1;
 }
@@ -2187,7 +2193,7 @@ int __stdcall MAINMENUS_OnOpenBattleNet(int nArg)
 // 0x00435D30
 int __stdcall MAINMENUS_OnBattleNet(int nArg)
 {
-    gnLaunchMode_007795EC = 1;
+    gnLaunchMode = 1;
     MAINMENUS_ShowLoginScreen();
     return 1;
 }
@@ -2202,11 +2208,11 @@ int __stdcall MAINMENUS_LoginOk(int nArg)
     }
     if (!sub_004F9710_TestFlag(gpControl_00779594))
         return 0;
-    MAINMENUS_StoreAccountTexts(gpEdit_0077958C, gpEdit_00779334);
-    if (sub_0043C180_Connect(gpLaunchRecord_007795D4, 0, 0))
+    MAINMENUS_StoreAccountTexts(gpAccountEdit, gpPasswordEdit);
+    if (sub_0043C180_Connect(gpLaunchRecord, 0, 0))
     {
-        SRegSaveString("Diablo II", "Last BNet", 0, gpLaunchRecord_007795D4->szAccount);
-        if (gnLaunchMode_007795EC == 1)
+        SRegSaveString("Diablo II", "Last BNet", 0, gpLaunchRecord->szAccount);
+        if (gnLaunchMode == 1)
         {
             sub_00515020();
             MAINMENUS_Reset();
@@ -2239,10 +2245,10 @@ int __stdcall MAINMENUS_CreateAccountOk(int nArg)
         MAINMENUS_ShowLoginScreen();
         return 1;
     }
-    MAINMENUS_StoreAccountTexts(gpEdit_0077958C, gpEdit_00779334);
-    const Unicode* pAccount = sub_004FDD90_GetEditText(gpEdit_0077958C);
-    const Unicode* pPassword = sub_004FDD90_GetEditText(gpEdit_00779334);
-    const Unicode* pConfirm = sub_004FDD90_GetEditText(gpEdit_007795A8);
+    MAINMENUS_StoreAccountTexts(gpAccountEdit, gpPasswordEdit);
+    const Unicode* pAccount = sub_004FDD90_GetEditText(gpAccountEdit);
+    const Unicode* pPassword = sub_004FDD90_GetEditText(gpPasswordEdit);
+    const Unicode* pConfirm = sub_004FDD90_GetEditText(gpCreatePasswordConfirmEdit);
     int nLength = sub_00526800(pAccount);
     if (nLength < 2)
     {
@@ -2304,7 +2310,7 @@ void __cdecl MAINMENUS_CreateEmailScreen()
     sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B57));
     gpEdit_007799E0 = MAINMENUS_CreateControl(0x134);
     sub_004FDB00_SetEnterCallback(gpEdit_007799E0, MAINMENUS_OnEditChange);
-    sub_004FFE10_SetTextA(gpEdit_007799DC, gpLaunchRecord_007795D4->szAccount);
+    sub_004FFE10_SetTextA(gpEdit_007799DC, gpLaunchRecord->szAccount);
     CONTROL_SetFocusedEditBox(gpEdit_007799DC);
     sub_004FDDD0_LinkTab(gpEdit_007799DC, gpEdit_007799E0);
     sub_004FDDD0_LinkTab(gpEdit_007799E0, gpEdit_007799DC);
@@ -2352,33 +2358,33 @@ void __cdecl MAINMENUS_CreatePasswordScreen()
     MAINMENUS_CreateControl(0x13F);
     pControl = MAINMENUS_CreateControl(0x140);
     sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x1468));
-    gpPasswordEdit_007799BC = MAINMENUS_CreateControl(0x141);
-    sub_004FFE10_SetTextA(gpPasswordEdit_007799BC, gpLaunchRecord_007795D4->szAccount);
-    sub_004FDD50_SetMaxLength(gpPasswordEdit_007799BC, 0x10);
-    sub_004FDAD0_SetKeyCallback(gpPasswordEdit_007799BC, MAINMENUS_FilterRestrictedChar);
-    sub_004FDB00_SetEnterCallback(gpPasswordEdit_007799BC, sub_004372A0_OnEnter);
+    gpChangePwAccountEdit = MAINMENUS_CreateControl(0x141);
+    sub_004FFE10_SetTextA(gpChangePwAccountEdit, gpLaunchRecord->szAccount);
+    sub_004FDD50_SetMaxLength(gpChangePwAccountEdit, 0x10);
+    sub_004FDAD0_SetKeyCallback(gpChangePwAccountEdit, MAINMENUS_FilterRestrictedChar);
+    sub_004FDB00_SetEnterCallback(gpChangePwAccountEdit, sub_004372A0_OnEnter);
     MAINMENUS_CreateControl(0x142);
     pControl = MAINMENUS_CreateControl(0x143);
     sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B6D));
-    gpPasswordEdit_007799C0 = MAINMENUS_CreateControl(0x144);
-    sub_004FDB00_SetEnterCallback(gpPasswordEdit_007799C0, sub_004372A0_OnEnter);
+    gpOldPasswordEdit = MAINMENUS_CreateControl(0x144);
+    sub_004FDB00_SetEnterCallback(gpOldPasswordEdit, sub_004372A0_OnEnter);
     MAINMENUS_CreateControl(0x145);
     pControl = MAINMENUS_CreateControl(0x146);
     sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B6E));
-    gpPasswordEdit_007799C8 = MAINMENUS_CreateControl(0x147);
-    sub_004FDB00_SetEnterCallback(gpPasswordEdit_007799C8, sub_004372A0_OnEnter);
+    gpNewPasswordEdit = MAINMENUS_CreateControl(0x147);
+    sub_004FDB00_SetEnterCallback(gpNewPasswordEdit, sub_004372A0_OnEnter);
     MAINMENUS_CreateControl(0x148);
     pControl = MAINMENUS_CreateControl(0x149);
     sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B6F));
-    gpPasswordEdit_007799C4 = MAINMENUS_CreateControl(0x14A);
-    sub_004FDB00_SetEnterCallback(gpPasswordEdit_007799C4, sub_004372A0_OnEnter);
-    gpPasswordOk_007799A4 = MAINMENUS_CreateControl(0x14B);
+    gpNewPasswordConfirmEdit = MAINMENUS_CreateControl(0x14A);
+    sub_004FDB00_SetEnterCallback(gpNewPasswordConfirmEdit, sub_004372A0_OnEnter);
+    gpPasswordOk = MAINMENUS_CreateControl(0x14B);
     MAINMENUS_CreateControl(0x14C);
-    CONTROL_SetFocusedEditBox(gpPasswordEdit_007799BC);
-    sub_004FDDD0_LinkTab(gpPasswordEdit_007799BC, gpPasswordEdit_007799C0);
-    sub_004FDDD0_LinkTab(gpPasswordEdit_007799C0, gpPasswordEdit_007799C8);
-    sub_004FDDD0_LinkTab(gpPasswordEdit_007799C8, gpPasswordEdit_007799C4);
-    sub_004FDDD0_LinkTab(gpPasswordEdit_007799C4, gpPasswordEdit_007799BC);
+    CONTROL_SetFocusedEditBox(gpChangePwAccountEdit);
+    sub_004FDDD0_LinkTab(gpChangePwAccountEdit, gpOldPasswordEdit);
+    sub_004FDDD0_LinkTab(gpOldPasswordEdit, gpNewPasswordEdit);
+    sub_004FDDD0_LinkTab(gpNewPasswordEdit, gpNewPasswordConfirmEdit);
+    sub_004FDDD0_LinkTab(gpNewPasswordConfirmEdit, gpChangePwAccountEdit);
     MAINMENUS_UpdatePasswordOk();
 }
 
@@ -2390,12 +2396,12 @@ int __stdcall MAINMENUS_ChangePasswordOk(int nArg)
         sub_004370C0();
         return 1;
     }
-    MAINMENUS_StoreAccountTexts(gpEdit_0077958C, gpEdit_00779340);
-    const Unicode* pAccount = sub_004FDD90_GetEditText(gpEdit_0077958C);
-    const Unicode* pOldPassword = sub_004FDD90_GetEditText(gpEdit_00779334);
-    const Unicode* pPassword = sub_004FDD90_GetEditText(gpEdit_00779340);
-    const Unicode* pConfirm = sub_004FDD90_GetEditText(gpEdit_007795A8);
-    sub_00526F70(gszOldPassword_00779550, pOldPassword, 0x100);
+    MAINMENUS_StoreAccountTexts(gpAccountEdit, gpCreatePasswordEdit);
+    const Unicode* pAccount = sub_004FDD90_GetEditText(gpAccountEdit);
+    const Unicode* pOldPassword = sub_004FDD90_GetEditText(gpPasswordEdit);
+    const Unicode* pPassword = sub_004FDD90_GetEditText(gpCreatePasswordEdit);
+    const Unicode* pConfirm = sub_004FDD90_GetEditText(gpCreatePasswordConfirmEdit);
+    sub_00526F70(gszOldPassword, pOldPassword, 0x100);
     int nLength = sub_00526800(pAccount);
     if (nLength < 2)
     {
@@ -2428,10 +2434,10 @@ int __stdcall MAINMENUS_ChangePasswordOk(int nArg)
         MAINMENUS_ShowMessage(pMessage, MAINMENUS_CreateLoginScreen, 1);
         return 1;
     }
-    gdwGlobal_007795F4 = 0;
-    if (!sub_0043C180_Connect(gpLaunchRecord_007795D4, 0, 1))
+    gbConnectCancelled = 0;
+    if (!sub_0043C180_Connect(gpLaunchRecord, 0, 1))
     {
-        if (gdwGlobal_007795F4)
+        if (gbConnectCancelled)
         {
             MAINMENUS_CreateLoginScreen();
             return 1;
@@ -2439,7 +2445,7 @@ int __stdcall MAINMENUS_ChangePasswordOk(int nArg)
     }
     else
     {
-        SRegSaveString("Diablo II", "Last BNet", 0, gpLaunchRecord_007795D4->szAccount);
+        SRegSaveString("Diablo II", "Last BNet", 0, gpLaunchRecord->szAccount);
         MAINMENUS_DestroyControls();
         MAINMENUS_ReturnToCharSelect();
     }
@@ -2450,7 +2456,7 @@ int __stdcall MAINMENUS_ChangePasswordOk(int nArg)
 int __stdcall MAINMENUS_CancelDownload(int nArg)
 {
     gpFuncTable_0077ABF0->pfnSlot70();
-    gdwGlobal_0077932C = 1;
+    gbStopMainLoop = 1;
     MAINMENUS_ShowMainMenu();
     return 1;
 }
@@ -2458,10 +2464,10 @@ int __stdcall MAINMENUS_CancelDownload(int nArg)
 // 0x00435D80
 int __stdcall MAINMENUS_OnTcpIpHost(int nArg)
 {
-    gpLaunchRecord_007795D4->nState19 = 8;
-    strcpy(gpLaunchRecord_007795D4->szName, FOG_GetHostIPAddress());
-    gnLaunchMode_007795EC = 2;
-    gpLaunchRecord_007795D4->nValue209 = 4;
+    gpLaunchRecord->nState19 = 8;
+    strcpy(gpLaunchRecord->szName, FOG_GetHostIPAddress());
+    gnLaunchMode = 2;
+    gpLaunchRecord->nValue209 = 4;
     if (!MAINMENUS_HasSaveFiles())
     {
         MAINMENUS_CreateCharCreateScreen();

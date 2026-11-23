@@ -18,13 +18,13 @@ void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...);              
 int __fastcall sub_0060BDB0_EncodeFrame(D2DccFrameStrc* pFrame, D2Dc6FrameStrc* pHeader, unsigned char* pDst); // 0x0060BDB0
 
 extern D2CriticalSectionStrc gtCodecLock_008F03CC;                                                          // 0x008F03CC
-extern unsigned char gabDccPixels_008F03E8[];                                                               // 0x008F03E8
-extern unsigned char gabDccRunBuffer_0090D8A8[];                                                            // 0x0090D8A8
-extern D2DccCellStrc gtDccCells_0094D8A8[5625];                                                             // 0x0094D8A8
-extern D2DccFrameStrc gtDccFrames_00969020[];                                                               // 0x00969020
-extern const int gnDccFieldWidths_006E5F70[16];                                                             // 0x006E5F70
-extern const unsigned int gdwDccSignBits_006E5FB0[32];                                                      // 0x006E5FB0
-extern const unsigned int gdwDccSignExtend_006E60B8[33];                                                    // 0x006E60B8
+extern unsigned char gabDccPixels[];                                                               // 0x008F03E8
+extern unsigned char gabDccRunBuffer[];                                                            // 0x0090D8A8
+extern D2DccCellStrc gatDccCells[5625];                                                             // 0x0094D8A8
+extern D2DccFrameStrc gatDccFrames[];                                                               // 0x00969020
+extern const int ganDccFieldWidths[16];                                                             // 0x006E5F70
+extern const unsigned int gadwDccSignBits[32];                                                      // 0x006E5FB0
+extern const unsigned int gadwDccSignExtend[33];                                                    // 0x006E60B8
 extern "C" const unsigned int gData_006E6030[33]; // 0x006E6030
 
 // 0x0060B200

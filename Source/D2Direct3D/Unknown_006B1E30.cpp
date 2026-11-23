@@ -1,7 +1,7 @@
 struct D2Device006B2030Strc;
 struct D2DeviceVtbl006B2030Strc;
 
-extern unsigned int gdwColors_009702C0[256]; // 0x009702C0
+extern unsigned int gadwColors[256]; // 0x009702C0
 
 struct D2DeviceVtbl006B2030Strc
 {
@@ -35,7 +35,7 @@ void __fastcall sub_006B1E30_Blit8To32(const unsigned char* pSource, unsigned in
                 int x = nWidth;
                 do
                 {
-                    *pDst++ = gdwColors_009702C0[*pSrc++];
+                    *pDst++ = gadwColors[*pSrc++];
                     --x;
                 } while (x);
             }
@@ -46,5 +46,5 @@ void __fastcall sub_006B1E30_Blit8To32(const unsigned char* pSource, unsigned in
     }
 }
 
-int gnFilterMode_00970E5C; // 0x00970E5C
+int gnFilterMode; // 0x00970E5C
 

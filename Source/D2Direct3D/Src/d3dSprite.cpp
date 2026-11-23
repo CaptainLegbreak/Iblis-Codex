@@ -39,14 +39,14 @@ int __fastcall sub_006B3730_CreateSurface(void** ppSurface, void** ppTexture, in
 void __fastcall sub_006B39B0_ShowD3DError(const char* szText, long nResult); // 0x006B39B0
 void __fastcall sub_006B5BB0_FreePixelData(void* pData); // 0x006B5BB0
 extern D2Direct3D006B7110Strc* gpDirect3D_00970E64; // 0x00970E64
-extern void* gpSpriteBuffer_00970F34; // 0x00970F34
-extern void* gpSpriteBuffer_00970F38; // 0x00970F38
-extern void* gpVertexBuffer_00970F3C; // 0x00970F3C
+extern void* gpSpriteBuffer; // 0x00970F34
+extern void* gpSpriteOutlineBuffer; // 0x00970F38
+extern void* gpVertexBuffer; // 0x00970F3C
 extern int gnVertexCount_00970F40; // 0x00970F40
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-extern D2D3DObjStrc* gpSpriteTextures_00970F1C[3]; // 0x00970F1C
-extern D2D3DObjStrc* gpSpriteSurfaces_00970F28[3]; // 0x00970F28
+extern D2D3DObjStrc* gapSpriteTextures[3]; // 0x00970F1C
+extern D2D3DObjStrc* gapSpriteSurfaces[3]; // 0x00970F28
 extern D2D3DObjStrc* gpSpriteObject_00970F3C; // 0x00970F3C
 
 int __stdcall sub_006001F0_Prepare(D2CelContextStrc* pContext, int a2, int a3); // 0x006001F0
@@ -62,9 +62,9 @@ static void __stdcall sub_006B5CF0_SetTextureSize(D2SpriteInfoStrc* pInfo);
 static __declspec(noinline) int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg1, int nArg2);
 static __declspec(noinline) int __stdcall sub_006B63F0_DrawTexture(D2SpriteInfoStrc* pInfo, int nX, int nY, int nArg3, int nArg4, int nArg5, int nArg6);
 
-void* gpSpriteBuffer_00970F34; // 0x00970F34
+void* gpSpriteBuffer; // 0x00970F34
 
-void* gpSpriteBuffer_00970F38; // 0x00970F38
+void* gpSpriteOutlineBuffer; // 0x00970F38
 
 // 0x006B5B10
 void __cdecl D3D_ReleaseSprites()
@@ -75,30 +75,30 @@ void __cdecl D3D_ReleaseSprites()
         gpSpriteObject_00970F3C = 0;
     }
 
-    if (gpSpriteBuffer_00970F34)
+    if (gpSpriteBuffer)
     {
-        FOG_Free(gpSpriteBuffer_00970F34, ".\\Src\\d3dSprite.cpp", 136, 0);
-        gpSpriteBuffer_00970F34 = 0;
+        FOG_Free(gpSpriteBuffer, ".\\Src\\d3dSprite.cpp", 136, 0);
+        gpSpriteBuffer = 0;
     }
 
-    if (gpSpriteBuffer_00970F38)
+    if (gpSpriteOutlineBuffer)
     {
-        FOG_Free(gpSpriteBuffer_00970F38, ".\\Src\\d3dSprite.cpp", 142, 0);
-        gpSpriteBuffer_00970F38 = 0;
+        FOG_Free(gpSpriteOutlineBuffer, ".\\Src\\d3dSprite.cpp", 142, 0);
+        gpSpriteOutlineBuffer = 0;
     }
 
     for (int i = 0; i < 3; ++i)
     {
-        if (gpSpriteTextures_00970F1C[i])
+        if (gapSpriteTextures[i])
         {
-            gpSpriteTextures_00970F1C[i]->lpVtbl->Release(gpSpriteTextures_00970F1C[i]);
-            gpSpriteTextures_00970F1C[i] = 0;
+            gapSpriteTextures[i]->lpVtbl->Release(gapSpriteTextures[i]);
+            gapSpriteTextures[i] = 0;
         }
 
-        if (gpSpriteSurfaces_00970F28[i])
+        if (gapSpriteSurfaces[i])
         {
-            gpSpriteSurfaces_00970F28[i]->lpVtbl->Release(gpSpriteSurfaces_00970F28[i]);
-            gpSpriteSurfaces_00970F28[i] = 0;
+            gapSpriteSurfaces[i]->lpVtbl->Release(gapSpriteSurfaces[i]);
+            gapSpriteSurfaces[i] = 0;
         }
     }
 }
@@ -190,7 +190,9 @@ unsigned char __fastcall EmitSetBlendAndAlpha(int mode)
 static inline int D3D_IsOutsideScreen(int nX, int nY, D2GlideRectViewStrc* pRect)
 {
     nX += pRect->nOffsetX;
-    if (nX > gnScreenWidth_007C9138 || pRect->nLeft + nX < 0 || (nY += pRect->nOffsetY) < 0 || nY - pRect->nTop >= gnScreenHeight_007C913C)
+// build: symbol ?gnRenderWidth@* 0x007C9138
+// build: symbol ?gnRenderHeight@* 0x007C913C
+    if (nX > gnRenderWidth || pRect->nLeft + nX < 0 || (nY += pRect->nOffsetY) < 0 || nY - pRect->nTop >= gnRenderHeight)
         return 1;
     return 0;
 }
@@ -245,32 +247,32 @@ void __cdecl D3D_DebugFillBackBuffer()
 
 void* gpTexture_00970F1C; // 0x00970F1C
 
-void* gpTexture_00970F20; // 0x00970F20
+void* gpSpriteTexture128; // 0x00970F20
 
-void* gpTexture_00970F24; // 0x00970F24
+void* gpSpriteTexture32; // 0x00970F24
 
 void* gpSurface_00970F28; // 0x00970F28
 
-void* gpSurface_00970F2C; // 0x00970F2C
+void* gpSpriteSurface128; // 0x00970F2C
 
-void* gpSurface_00970F30; // 0x00970F30
+void* gpSpriteSurface32; // 0x00970F30
 
 // 0x006B7110
 void __cdecl D3D_InitSprites()
 {
-    D2_ASSERT(!gpSpriteBuffer_00970F34, 0x55);
-    D2_ASSERT(!gpSpriteBuffer_00970F38, 0x56);
-    gpSpriteBuffer_00970F34 = FOG_Alloc(0x10000, ".\\Src\\d3dSprite.cpp", 0x57, 0);
-    gpSpriteBuffer_00970F38 = FOG_Alloc(0x10000, ".\\Src\\d3dSprite.cpp", 0x58, 0);
+    D2_ASSERT(!gpSpriteBuffer, 0x55);
+    D2_ASSERT(!gpSpriteOutlineBuffer, 0x56);
+    gpSpriteBuffer = FOG_Alloc(0x10000, ".\\Src\\d3dSprite.cpp", 0x57, 0);
+    gpSpriteOutlineBuffer = FOG_Alloc(0x10000, ".\\Src\\d3dSprite.cpp", 0x58, 0);
     D2_ASSERT(sub_006B3730_CreateSurface(&gpSurface_00970F28, &gpTexture_00970F1C, 0x100, 0x100), 0x5E);
-    D2_ASSERT(sub_006B3730_CreateSurface(&gpSurface_00970F2C, &gpTexture_00970F20, 0x80, 0x80), 0x61);
-    D2_ASSERT(sub_006B3730_CreateSurface(&gpSurface_00970F30, &gpTexture_00970F24, 0x20, 0x20), 0x64);
+    D2_ASSERT(sub_006B3730_CreateSurface(&gpSpriteSurface128, &gpSpriteTexture128, 0x80, 0x80), 0x61);
+    D2_ASSERT(sub_006B3730_CreateSurface(&gpSpriteSurface32, &gpSpriteTexture32, 0x20, 0x20), 0x64);
 
     D2VertexBufferDescStrc tDesc = { sizeof(tDesc) };
     tDesc.dwCaps = 0x10800;
     tDesc.dwFVF = 0x1C4;
     tDesc.dwNumVertices = 0x30;
-    const long nResult = gpDirect3D_00970E64->lpVtbl->CreateVertexBuffer(gpDirect3D_00970E64, &tDesc, &gpVertexBuffer_00970F3C, 4, 0);
+    const long nResult = gpDirect3D_00970E64->lpVtbl->CreateVertexBuffer(gpDirect3D_00970E64, &tDesc, &gpVertexBuffer, 4, 0);
     if (nResult)
     {
         sub_006B39B0_ShowD3DError("CreateVertexBuffer failed!", nResult);

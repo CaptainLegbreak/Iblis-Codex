@@ -74,112 +74,112 @@ int __fastcall sub_0044A400_SendLogin(D2LaunchLoginStrc* pLogin, unsigned short 
 int __fastcall WINMAIN_SendMcpGameInfoRequest(char* szText, unsigned short wRequestId);                              // 0x0044A610
 void __stdcall sub_006BC780(void* pConnection);                                                             // 0x006BC780
 
-extern "C" const char gszPassword_006D423C[];                                                               // 0x006D423C
+extern "C" const char gszPassword[];                                                               // 0x006D423C
 extern int gnRequestId_0070CD60;                                                                            // 0x0070CD60
-extern int gnPendingId_0070EBD8;                                                                            // 0x0070EBD8
+extern int gnPendingId;                                                                            // 0x0070EBD8
 extern D2WinControlInitStrc gtControlInit_0070E860;                                                         // 0x0070E860
 extern D2WinControlInitStrc gtControlInit_0070E890;                                                         // 0x0070E890
 extern D2WinControlInitStrc gtControlInit_0070E8C0;                                                         // 0x0070E8C0
 extern D2WinControlInitStrc gtControlInit_0070E8F0;                                                         // 0x0070E8F0
 extern D2WinControlInitStrc gtControlInit_0070E9B0;                                                         // 0x0070E9B0
-extern D2WinControlStrc* gpChatControl_0077B058;                                                            // 0x0077B058
+extern D2WinControlStrc* gapChatDlgControls;                                                            // 0x0077B058
 extern D2WinControlStrc* gpChatControl_0077B05C;                                                            // 0x0077B05C
 extern D2WinControlStrc* gpChatControl_0077B064;                                                            // 0x0077B064
 extern D2WinControlStrc* gpChatControl_0077B068;                                                            // 0x0077B068
 extern D2WinControlStrc* gpChatControl_0077B06C;                                                            // 0x0077B06C
-extern D2WinControlStrc* gpControlA_0077B070;                                                               // 0x0077B070
+extern D2WinControlStrc* gpCreateScreenButton;                                                               // 0x0077B070
 extern D2WinControlStrc* gpChatControl_0077B074;                                                            // 0x0077B074
-extern D2WinControlStrc* gpControlB_0077B078;                                                               // 0x0077B078
+extern D2WinControlStrc* gpJoinScreenButton;                                                               // 0x0077B078
 extern D2WinControlStrc* gpControlC_0077B07C;                                                               // 0x0077B07C
-D2WinControlStrc* gpControl_0077B080;                                                                       // 0x0077B080
-extern D2WinControlStrc* gpChatControl_0077B084;                                                            // 0x0077B084
-extern D2WinControlStrc* gpChatControl_0077B088;                                                            // 0x0077B088
-extern D2WinControlStrc* gpChatControl_0077B08C;                                                            // 0x0077B08C
-extern D2WinControlStrc* gpChatControl_0077B090;                                                            // 0x0077B090
-extern D2LaunchFuncsStrc* gpLaunchFuncs_0077B09C;                                                           // 0x0077B09C
-extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8;                                                           // 0x0077BBD8
-extern unsigned short gwSavedRequestId_0077BBDC;                                                            // 0x0077BBDC
-extern unsigned short gwOtherRequestId_0077BBE0;                                                            // 0x0077BBE0
-extern int gnLaunchMode_0077BBE4;                                                                           // 0x0077BBE4
+D2WinControlStrc* gpQuitButton;                                                                       // 0x0077B080
+extern D2WinControlStrc* gpChatUpButtonA;                                                            // 0x0077B084
+extern D2WinControlStrc* gpChatDownButtonA;                                                            // 0x0077B088
+extern D2WinControlStrc* gpChatUpButtonB;                                                            // 0x0077B08C
+extern D2WinControlStrc* gpChatDownButtonB;                                                            // 0x0077B090
+extern D2LaunchFuncsStrc* gpLaunchFuncs;                                                           // 0x0077B09C
+extern D2LaunchCharInfoStrc* gpCharInfo;                                                           // 0x0077BBD8
+extern unsigned short gwSavedRequestId;                                                            // 0x0077BBDC
+extern unsigned short gwOtherRequestId;                                                            // 0x0077BBE0
+extern int gnChatLaunchMode;                                                                           // 0x0077BBE4
 extern int gnFlag_0077BD60;                                                                                 // 0x0077BD60
-extern int gbDone_0077BDA0;                                                                                 // 0x0077BDA0
-extern D2LaunchCallback gpfnLaunchCallback_0077BDA4;                                                        // 0x0077BDA4
-extern D2LaunchReplyEntryStrc gaReplyEntries_0077BDC9[];                                                    // 0x0077BDC9
-char gszPendingText_00798AB8[264];                                                                          // 0x00798AB8
+extern int gbDone;                                                                                 // 0x0077BDA0
+extern D2LaunchCallback gpfnLaunchCallback;                                                        // 0x0077BDA4
+extern D2LaunchReplyEntryStrc gatReplyEntries[];                                                    // 0x0077BDC9
+char gszPendingText[264];                                                                          // 0x00798AB8
 extern D2WinControlStrc* gpControl_00798BC0;                                                                // 0x00798BC0
-D2WinControlStrc* gpControl_00798BC8;                                                                       // 0x00798BC8
+D2WinControlStrc* gpJoinGameBckgImage;                                                                       // 0x00798BC8
 D2WinControlStrc* gpControl_00798BD0;                                                                       // 0x00798BD0
 extern D2WinControlStrc* gpControl_00798BD4;                                                                // 0x00798BD4
-extern D2WinControlStrc* gpControl_00798BD8;                                                                // 0x00798BD8
-extern D2WinControlStrc* gpControl_00798BDC;                                                                // 0x00798BDC
-extern D2WinControlStrc* gpControl_00798BE0;                                                                // 0x00798BE0
-extern D2WinControlStrc* gpControl_00798BE4;                                                                // 0x00798BE4
+extern D2WinControlStrc* gpJoinPassword;                                                                // 0x00798BD8
+extern D2WinControlStrc* gpJoinGameTitle;                                                                // 0x00798BDC
+extern D2WinControlStrc* gpJoinNameLabel;                                                                // 0x00798BE0
+extern D2WinControlStrc* gpJoinPasswordLabel;                                                                // 0x00798BE4
 extern D2WinControlStrc* gpControl_00798BE8;                                                                // 0x00798BE8
 extern D2WinControlStrc* gpControl_00798BEC;                                                                // 0x00798BEC
-extern D2WinControlStrc* gpControl_00798BF8;                                                                // 0x00798BF8
-extern D2WinControlStrc* gpControl_00798BFC;                                                                // 0x00798BFC
-extern D2WinControlStrc* gpControl_00798C00;                                                                // 0x00798C00
-extern D2WinControlStrc* gpControl_00798C04;                                                                // 0x00798C04
+extern D2WinControlStrc* gpCreatePasswordLabel;                                                                // 0x00798BF8
+extern D2WinControlStrc* gpCreateDescLabel;                                                                // 0x00798BFC
+extern D2WinControlStrc* gpMaxPlayersLabel;                                                                // 0x00798C00
+extern D2WinControlStrc* gpLevelDiffLabel;                                                                // 0x00798C04
 extern D2WinControlStrc* gpControl_00798C08;                                                                // 0x00798C08
-extern D2WinControlStrc* gpControl_00798C0C;                                                                // 0x00798C0C
+extern D2WinControlStrc* gpMaxPlayersBoxImage;                                                                // 0x00798C0C
 extern D2WinControlStrc* gpControl_00798C10;                                                                // 0x00798C10
-extern D2WinControlStrc* gpControl_00798C14;                                                                // 0x00798C14
-extern D2WinControlStrc* gpControl_00798C18;                                                                // 0x00798C18
-D2WinControlStrc* gpControl_00798C1C;                                                                       // 0x00798C1C
-D2WinControlStrc* gpControl_00798C20;                                                                       // 0x00798C20
-extern D2WinControlStrc* gpControl_00798C24;                                                                // 0x00798C24
+extern D2WinControlStrc* gpMaxPlayersUpButton;                                                                // 0x00798C14
+extern D2WinControlStrc* gpMaxPlayersDownButton;                                                                // 0x00798C18
+D2WinControlStrc* gpLevelDiffUpButton;                                                                       // 0x00798C1C
+D2WinControlStrc* gpLevelDiffDownButton;                                                                       // 0x00798C20
+extern D2WinControlStrc* gpLevelDiffGreyArrows;                                                                // 0x00798C24
 extern D2WinControlStrc* gpControl_00798C2C;                                                                // 0x00798C2C
-extern D2WinControlStrc* gpControl_00798C30;                                                                // 0x00798C30
-extern D2WinControlStrc* gpControl_00798C34;                                                                // 0x00798C34
-extern D2WinControlStrc* gpControl_00798C38;                                                                // 0x00798C38
-extern D2WinControlStrc* gpControl_00798C3C;                                                                // 0x00798C3C
-extern D2WinControlStrc* gpButton_00798C40;                                                                 // 0x00798C40
-extern D2WinControlStrc* gpControl_00798C44;                                                                // 0x00798C44
-extern D2WinControlStrc* gpControl_00798C4C;                                                                // 0x00798C4C
-extern D2WinControlStrc* gpControl_00798C50;                                                                // 0x00798C50
-extern D2WinControlStrc* gpControl_00798C54;                                                                // 0x00798C54
-extern D2WinControlStrc* gpControl_00798C58;                                                                // 0x00798C58
-extern D2WinControlStrc* gpControl_00798C5C;                                                                // 0x00798C5C
-extern D2WinControlStrc* gpControl_00798C60;                                                                // 0x00798C60
-D2WinControlStrc* gpControl_00798C64;                                                                       // 0x00798C64
+extern D2WinControlStrc* gpCreatePassword;                                                                // 0x00798C30
+extern D2WinControlStrc* gpCreateDesc;                                                                // 0x00798C34
+extern D2WinControlStrc* gpMaxPlayerControl;                                                                // 0x00798C38
+extern D2WinControlStrc* gpLevelDiffEdit;                                                                // 0x00798C3C
+extern D2WinControlStrc* gpLevelDiffCheck;                                                                 // 0x00798C40
+extern D2WinControlStrc* gpLevelDiffBoxImage;                                                                // 0x00798C44
+extern D2WinControlStrc* gpNormalRadio;                                                                // 0x00798C4C
+extern D2WinControlStrc* gpNightmareRadio;                                                                // 0x00798C50
+extern D2WinControlStrc* gpHellRadio;                                                                // 0x00798C54
+extern D2WinControlStrc* gpNormalLabel;                                                                // 0x00798C58
+extern D2WinControlStrc* gpNightmareLabel;                                                                // 0x00798C5C
+extern D2WinControlStrc* gpHellLabel;                                                                // 0x00798C60
+D2WinControlStrc* gpProfileViewBckg;                                                                       // 0x00798C64
 D2WinControlStrc* gpControl_00798C68;                                                                       // 0x00798C68
 D2WinControlStrc* gpControl_00798C6C;                                                                       // 0x00798C6C
 D2WinControlStrc* gpControl_00798C70;                                                                       // 0x00798C70
 extern D2WinControlStrc* gpControl_00798C74;                                                                // 0x00798C74
-D2WinControlStrc* gpControl_00798C78;                                                                       // 0x00798C78
+D2WinControlStrc* gpProfileEditBckg;                                                                       // 0x00798C78
 D2WinControlStrc* gpControl_00798C7C;                                                                       // 0x00798C7C
-extern D2WinControlStrc* gpSubmitEditA_00798C80;                                                            // 0x00798C80
-extern D2WinControlStrc* gpSubmitEditB_00798C84;                                                            // 0x00798C84
-extern D2WinControlStrc* gpSubmitEditC_00798C88;                                                            // 0x00798C88
-D2WinControlStrc* gpControl_00798C8C;                                                                       // 0x00798C8C
+extern D2WinControlStrc* gpSubmitEditA;                                                            // 0x00798C80
+extern D2WinControlStrc* gpSubmitEditB;                                                            // 0x00798C84
+extern D2WinControlStrc* gpSubmitEditC;                                                            // 0x00798C88
+D2WinControlStrc* gpRefreshButton;                                                                       // 0x00798C8C
 D2WinControlStrc* gpControl_00798C90;                                                                       // 0x00798C90
 D2WinControlStrc* gpControl_00798C94;                                                                       // 0x00798C94
 D2WinControlStrc* gpControl_00798C98;                                                                       // 0x00798C98
 D2WinControlStrc* gpControl_00798C9C;                                                                       // 0x00798C9C
-extern D2WinControlStrc* gpControl_00798CA0;                                                                // 0x00798CA0
-extern D2WinControlStrc* gpControl_00798CA4;                                                                // 0x00798CA4
+extern D2WinControlStrc* gpSubmitButton;                                                                // 0x00798CA0
+extern D2WinControlStrc* gpSelectButton;                                                                // 0x00798CA4
 D2WinControlStrc* gpControl_00798CA8;                                                                       // 0x00798CA8
-int gnSubmitMode_00798CAC;                                                                                  // 0x00798CAC
+int gnSubmitMode;                                                                                  // 0x00798CAC
 extern D2WinControlStrc* gpControl_00798CB0;                                                                // 0x00798CB0
 extern D2WinControlStrc* gpControl_00798CB4;                                                                // 0x00798CB4
 extern D2WinControlStrc* gpControl_00798CB8;                                                                // 0x00798CB8
-extern D2WinControlStrc* gpControl_00798CBC;                                                                // 0x00798CBC
+extern D2WinControlStrc* gpHelpBckgImage;                                                                // 0x00798CBC
 extern int gnValue_00798CC0;                                                                                // 0x00798CC0
-extern char gszName_00798CD4[];                                                                             // 0x00798CD4
-extern int gnChannelLines_00798F40;                                                                         // 0x00798F40
-int gnChannelScroll_00798F44;                                                                               // 0x00798F44
+extern char gszPendingEntryName[];                                                                             // 0x00798CD4
+extern int gnChannelUserCount;                                                                         // 0x00798F40
+int gnChannelScroll;                                                                               // 0x00798F44
 extern unsigned short gwMcpReplyRequestId;                                                                 // 0x00798F80
 extern void* gpMcpConnection;                                                                         // 0x00798FB4
 extern char gabMcpReply[];                                                                               // 0x00799108
-void* ghThread_007992A4;                                                                                    // 0x007992A4
-extern void* ghConnectEvent_007992EC;                                                                       // 0x007992EC
+void* ghThread;                                                                                    // 0x007992A4
+extern void* ghConnectEvent;                                                                       // 0x007992EC
 
 static inline int LAUNCH_SetCallback_inl(int nUnused, D2LaunchCallback pfnCallback)
 {
     D2_ASSERT(pfnCallback, 0x559);
 // build: symbol ?CHARSEL_ResetLaunchState@* 0x0043F8C0
     CHARSEL_ResetLaunchState();
-    gpfnLaunchCallback_0077BDA4 = pfnCallback;
+    gpfnLaunchCallback = pfnCallback;
     return 1;
 }
 
@@ -187,30 +187,30 @@ static inline int LAUNCH_SetCallback_inl(int nUnused, D2LaunchCallback pfnCallba
 int __fastcall CHATDLG_SetupLogin(D2LaunchLoginStrc* pLogin, const char* szText0x37)
 {
     LAUNCH_SetCallback_inl(0, sub_0043DAF0_OnConnect);
-    strcpy(gpCharInfo_0077BBD8->szText0x1F, pLogin->szText0x00);
-    strcpy(gpCharInfo_0077BBD8->szText0x245, pLogin->szText0x10);
-    strcpy(gpCharInfo_0077BBD8->szText0x25D, pLogin->szText0x20);
-    gnLaunchMode_0077BBE4 = 1;
-    if (gpCharInfo_0077BBD8->szRealm0x22D[0])
+    strcpy(gpCharInfo->szText0x1F, pLogin->szText0x00);
+    strcpy(gpCharInfo->szText0x245, pLogin->szText0x10);
+    strcpy(gpCharInfo->szText0x25D, pLogin->szText0x20);
+    gnChatLaunchMode = 1;
+    if (gpCharInfo->szRealm0x22D[0])
     {
         if (sub_00449B30_QueryAddress())
         {
-            *(int*)gpCharInfo_0077BBD8->nState = 2;
+            *(int*)gpCharInfo->nState = 2;
             while (++*(unsigned short*)&gnRequestId_0070CD60 == 0)
             {
             }
             sub_00449E50_SetValue(0);
             sub_0044A400_SendLogin(pLogin, gnRequestId_0070CD60);
-            gwSavedRequestId_0077BBDC = gnRequestId_0070CD60;
+            gwSavedRequestId = gnRequestId_0070CD60;
             return 1;
         }
-        gnLaunchMode_0077BBE4 = 0;
+        gnChatLaunchMode = 0;
         CHATDLG_ShowWait(D2LANG_GetStringFromTblIndex(0x2B0C), sub_0043DAF0_OnConnect);
         return 0;
     }
-    *(int*)gpCharInfo_0077BBD8->nState = 6;
-    strcpy(gpCharInfo_0077BBD8->szText0x37, szText0x37);
-    gbDone_0077BDA0 = 1;
+    *(int*)gpCharInfo->nState = 6;
+    strcpy(gpCharInfo->szText0x37, szText0x37);
+    gbDone = 1;
     sub_004F9160_SetLoopValue(0);
     D2Win_StopMessageLoop();
     return 1;
@@ -219,29 +219,29 @@ int __fastcall CHATDLG_SetupLogin(D2LaunchLoginStrc* pLogin, const char* szText0
 // 0x004411E0
 void __fastcall CHATDLG_JoinChannel(const char* szText)
 {
-    gpLaunchFuncs_0077B09C->pfn0x1C((int)szText, 0, 0);
+    gpLaunchFuncs->pfn0x1C((int)szText, 0, 0);
     CHARSEL_ResetLaunchState();
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
-    BUTTON_SetIsPressed(gpControlA_0077B070, 0);
-    BUTTON_SetIsPressed(gpControlB_0077B078, 0);
+    BUTTON_SetIsPressed(gpCreateScreenButton, 0);
+    BUTTON_SetIsPressed(gpJoinScreenButton, 0);
     BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
-    gnLaunchMode_0077BBE4 = 0;
+    gnChatLaunchMode = 0;
 }
 
 // 0x00441A90
 int __cdecl CHATDLG_ConnectRealm()
 {
-    if (!gpCharInfo_0077BBD8->szRealm0x22D[0])
+    if (!gpCharInfo->szRealm0x22D[0])
         return 1;
-    if (!gpLaunchFuncs_0077B09C)
+    if (!gpLaunchFuncs)
         return 0;
-    if (!gpLaunchFuncs_0077B09C->pfn0x68())
+    if (!gpLaunchFuncs->pfn0x68())
         return 0;
     if (sub_00449B30_QueryAddress())
         return 1;
     gnFlag_0077BD60 = 0;
     CHATDLG_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), sub_0043D9A0);
-    D2LaunchPayloadStrc* pPayload = gpLaunchFuncs_0077B09C->pfn0x44(gpCharInfo_0077BBD8->szRealm0x22D, gszPassword_006D423C);
+    D2LaunchPayloadStrc* pPayload = gpLaunchFuncs->pfn0x44(gpCharInfo->szRealm0x22D, gszPassword);
     if (!pPayload)
         return 0;
     if (pPayload->nSize <= 8)
@@ -256,7 +256,7 @@ int __cdecl CHATDLG_ConnectRealm()
         CHARSEL_DestroyPopupControls();
         return 0;
     }
-    CHATDLG_RequestCharLogon(gpCharInfo_0077BBD8->szName0xBD);
+    CHATDLG_RequestCharLogon(gpCharInfo->szName0xBD);
     sub_004FA590_RunLoop(sub_0043DBF0);
     CHARSEL_DestroyPopupControls();
     return GAME_GetConnectError() == 0;
@@ -277,50 +277,50 @@ void __fastcall CHATDLG_HandleGameListReply(D2LaunchReplyStrc* pReply)
     const int nCount = gnValue_00798CCC;
     for (int i = 0; i < nCount; ++i)
     {
-        if (gaReplyEntries_0077BDC9[i].f_32 == pReply->f_8)
+        if (gatReplyEntries[i].f_32 == pReply->f_8)
             return;
     }
-    gaReplyEntries_0077BDC9[nCount].f_32 = pReply->f_8;
-    gaReplyEntries_0077BDC9[nCount].nValue = 0;
-    gaReplyEntries_0077BDC9[nCount].wValue = pReply->wValue;
-    strcpy(gaReplyEntries_0077BDC9[nCount].szName, pReply->szName);
-    strcpy(gaReplyEntries_0077BDC9[nCount].szDesc, pReply->szDesc);
+    gatReplyEntries[nCount].f_32 = pReply->f_8;
+    gatReplyEntries[nCount].nValue = 0;
+    gatReplyEntries[nCount].wValue = pReply->wValue;
+    strcpy(gatReplyEntries[nCount].szName, pReply->szName);
+    strcpy(gatReplyEntries[nCount].szDesc, pReply->szDesc);
     gnValue_00798CCC = nCount + 1;
 }
 
 // 0x00442DD0
 void __fastcall CHATDLG_SetPendingText(const char* szText, unsigned short wRequestId)
 {
-    strncpy(gszPendingText_00798AB8, szText, 0x100);
-    gnPendingId_0070EBD8 = wRequestId;
+    strncpy(gszPendingText, szText, 0x100);
+    gnPendingId = wRequestId;
 }
 
 // 0x00442E00
 void __cdecl CHATDLG_SendPendingText()
 {
-    if (gnPendingId_0070EBD8 != -1)
+    if (gnPendingId != -1)
     {
-        WINMAIN_SendMcpGameInfoRequest(gszPendingText_00798AB8, gnPendingId_0070EBD8);
-        gwOtherRequestId_0077BBE0 = gnPendingId_0070EBD8;
-        gnPendingId_0070EBD8 = -1;
+        WINMAIN_SendMcpGameInfoRequest(gszPendingText, gnPendingId);
+        gwOtherRequestId = gnPendingId;
+        gnPendingId = -1;
     }
 }
 
 // 0x00443130
 void __cdecl CHATDLG_DestroyJoinControls()
 {
-    sub_004F95C0_ControlDestroy(&gpControl_00798BC8);
+    sub_004F95C0_ControlDestroy(&gpJoinGameBckgImage);
     sub_004F95C0_ControlDestroy(&gpControl_00798BD4);
-    sub_004F95C0_ControlDestroy(&gpControl_00798BD8);
+    sub_004F95C0_ControlDestroy(&gpJoinPassword);
     sub_004F95C0_ControlDestroy(&gpControl_00798BC0);
     sub_004F95C0_ControlDestroy(&gpControl_00798BC4);
     sub_004F95C0_ControlDestroy(&gpControl_00798BCC);
     sub_004F95C0_ControlDestroy(&gpControl_00798BD0);
-    sub_004F95C0_ControlDestroy(&gpControl_00798BDC);
-    sub_004F95C0_ControlDestroy(&gpControl_00798BE0);
-    sub_004F95C0_ControlDestroy(&gpControl_00798BE4);
+    sub_004F95C0_ControlDestroy(&gpJoinGameTitle);
+    sub_004F95C0_ControlDestroy(&gpJoinNameLabel);
+    sub_004F95C0_ControlDestroy(&gpJoinPasswordLabel);
     sub_004F95C0_ControlDestroy(&gpControl_00798BE8);
-    sub_004FA450_SetActive(gpControl_0077B080);
+    sub_004FA450_SetActive(gpQuitButton);
 }
 
 // 0x00443220
@@ -329,34 +329,34 @@ void __cdecl CHATDLG_DestroyCreateControls()
     sub_004F95C0_ControlDestroy(&gpControl_00798BEC);
     sub_004F95C0_ControlDestroy(&gpControl_00798BF0);
     sub_004F95C0_ControlDestroy(&gpControl_00798BF4);
-    sub_004F95C0_ControlDestroy(&gpControl_00798BF8);
-    sub_004F95C0_ControlDestroy(&gpControl_00798BFC);
-    sub_004F95C0_ControlDestroy(&gpControl_00798C00);
-    sub_004F95C0_ControlDestroy(&gpControl_00798C04);
+    sub_004F95C0_ControlDestroy(&gpCreatePasswordLabel);
+    sub_004F95C0_ControlDestroy(&gpCreateDescLabel);
+    sub_004F95C0_ControlDestroy(&gpMaxPlayersLabel);
+    sub_004F95C0_ControlDestroy(&gpLevelDiffLabel);
     sub_004F95C0_ControlDestroy(&gpControl_00798C08);
     sub_004F95C0_ControlDestroy(&gpControl_00798C2C);
-    sub_004F95C0_ControlDestroy(&gpControl_00798C30);
-    sub_004F95C0_ControlDestroy(&gpControl_00798C34);
-    sub_004F95C0_ControlDestroy(&gpControl_00798C38);
-    sub_004F95C0_ControlDestroy(&gpControl_00798C3C);
+    sub_004F95C0_ControlDestroy(&gpCreatePassword);
+    sub_004F95C0_ControlDestroy(&gpCreateDesc);
+    sub_004F95C0_ControlDestroy(&gpMaxPlayerControl);
+    sub_004F95C0_ControlDestroy(&gpLevelDiffEdit);
     sub_004F95C0_ControlDestroy(&gpControl_00798C28);
     sub_004F95C0_ControlDestroy(&gpControl_00798C48);
-    sub_004F95C0_ControlDestroy(&gpButton_00798C40);
-    sub_004F95C0_ControlDestroy(&gpControl_00798C4C);
-    sub_004F95C0_ControlDestroy(&gpControl_00798C50);
-    sub_004F95C0_ControlDestroy(&gpControl_00798C54);
-    sub_004F95C0_ControlDestroy(&gpControl_00798C58);
-    sub_004F95C0_ControlDestroy(&gpControl_00798C5C);
-    sub_004F95C0_ControlDestroy(&gpControl_00798C60);
-    sub_004F95C0_ControlDestroy(&gpControl_00798C44);
-    sub_004F95C0_ControlDestroy(&gpControl_00798C14);
-    sub_004F95C0_ControlDestroy(&gpControl_00798C18);
-    sub_004F95C0_ControlDestroy(&gpControl_00798C1C);
-    sub_004F95C0_ControlDestroy(&gpControl_00798C20);
-    sub_004F95C0_ControlDestroy(&gpControl_00798C24);
-    sub_004F95C0_ControlDestroy(&gpControl_00798C0C);
+    sub_004F95C0_ControlDestroy(&gpLevelDiffCheck);
+    sub_004F95C0_ControlDestroy(&gpNormalRadio);
+    sub_004F95C0_ControlDestroy(&gpNightmareRadio);
+    sub_004F95C0_ControlDestroy(&gpHellRadio);
+    sub_004F95C0_ControlDestroy(&gpNormalLabel);
+    sub_004F95C0_ControlDestroy(&gpNightmareLabel);
+    sub_004F95C0_ControlDestroy(&gpHellLabel);
+    sub_004F95C0_ControlDestroy(&gpLevelDiffBoxImage);
+    sub_004F95C0_ControlDestroy(&gpMaxPlayersUpButton);
+    sub_004F95C0_ControlDestroy(&gpMaxPlayersDownButton);
+    sub_004F95C0_ControlDestroy(&gpLevelDiffUpButton);
+    sub_004F95C0_ControlDestroy(&gpLevelDiffDownButton);
+    sub_004F95C0_ControlDestroy(&gpLevelDiffGreyArrows);
+    sub_004F95C0_ControlDestroy(&gpMaxPlayersBoxImage);
     sub_004F95C0_ControlDestroy(&gpControl_00798C10);
-    sub_004FA450_SetActive(gpControl_0077B080);
+    sub_004FA450_SetActive(gpQuitButton);
     sub_0043D990();
 }
 
@@ -378,11 +378,11 @@ void __cdecl CHATDLG_CreateProfileControls()
 // 0x00443E10
 void __cdecl CHATDLG_DestroyProfileControls()
 {
-    if (gnSubmitMode_00798CAC)
+    if (gnSubmitMode)
     {
-        if (gnSubmitMode_00798CAC == 1)
+        if (gnSubmitMode == 1)
         {
-            sub_004F95C0_ControlDestroy(&gpControl_00798C64);
+            sub_004F95C0_ControlDestroy(&gpProfileViewBckg);
             sub_004F95C0_ControlDestroy(&gpControl_00798C68);
             sub_004F95C0_ControlDestroy(&gpControl_00798C6C);
             sub_004F95C0_ControlDestroy(&gpControl_00798C70);
@@ -390,70 +390,70 @@ void __cdecl CHATDLG_DestroyProfileControls()
         }
         else
         {
-            sub_004F95C0_ControlDestroy(&gpControl_00798C78);
+            sub_004F95C0_ControlDestroy(&gpProfileEditBckg);
             sub_004F95C0_ControlDestroy(&gpControl_00798C7C);
-            sub_004F95C0_ControlDestroy(&gpSubmitEditA_00798C80);
-            sub_004F95C0_ControlDestroy(&gpSubmitEditB_00798C84);
-            sub_004F95C0_ControlDestroy(&gpSubmitEditC_00798C88);
-            sub_004F95C0_ControlDestroy(&gpControl_00798C8C);
+            sub_004F95C0_ControlDestroy(&gpSubmitEditA);
+            sub_004F95C0_ControlDestroy(&gpSubmitEditB);
+            sub_004F95C0_ControlDestroy(&gpSubmitEditC);
+            sub_004F95C0_ControlDestroy(&gpRefreshButton);
         }
-        gnSubmitMode_00798CAC = 0;
+        gnSubmitMode = 0;
         sub_004F95C0_ControlDestroy(&gpControl_00798C90);
         sub_004F95C0_ControlDestroy(&gpControl_00798C94);
         sub_004F95C0_ControlDestroy(&gpControl_00798C98);
         sub_004F95C0_ControlDestroy(&gpControl_00798C9C);
-        sub_004F95C0_ControlDestroy(&gpControl_00798CA0);
-        sub_004F95C0_ControlDestroy(&gpControl_00798CA4);
+        sub_004F95C0_ControlDestroy(&gpSubmitButton);
+        sub_004F95C0_ControlDestroy(&gpSelectButton);
         sub_004F95C0_ControlDestroy(&gpControl_00798CA8);
     }
-    sub_004FA450_SetActive(gpControl_0077B080);
+    sub_004FA450_SetActive(gpQuitButton);
     sub_0043D990();
 }
 
 // 0x00443F50
 void __fastcall CHATDLG_CopyName(char* szDest)
 {
-    SStrCopy(szDest, gszName_00798CD4, 0x7FFFFFFF);
+    SStrCopy(szDest, gszPendingEntryName, 0x7FFFFFFF);
 }
 
 // 0x00444E20
 int __cdecl CHATDLG_DestroyGameListControls()
 {
-    sub_004F95C0_ControlDestroy(&gpControl_00798CBC);
+    sub_004F95C0_ControlDestroy(&gpHelpBckgImage);
     sub_004F95C0_ControlDestroy(&gpControl_00798CB0);
     sub_004F95C0_ControlDestroy(&gpControl_00798CB4);
     sub_004F95C0_ControlDestroy(&gpControl_00798CB8);
     gnValue_00798CC0 = 0;
-    sub_004FA450_SetActive(gpControl_0077B080);
+    sub_004FA450_SetActive(gpQuitButton);
     return 1;
 }
 
 // 0x00445550
 int __stdcall CHATDLG_OnLevelRestrictToggle(int nArg)
 {
-    if (sub_00500960_IsPressed(gpButton_00798C40))
+    if (sub_00500960_IsPressed(gpLevelDiffCheck))
     {
-        sub_004F9740_SetControlState(gpControl_00798C44, 0);
-        sub_004F9740_SetControlState(gpControl_00798C24, 0);
-        sub_004F9740_SetControlState(gpControl_00798C1C, 1);
-        sub_004F9740_SetControlState(gpControl_00798C20, 1);
+        sub_004F9740_SetControlState(gpLevelDiffBoxImage, 0);
+        sub_004F9740_SetControlState(gpLevelDiffGreyArrows, 0);
+        sub_004F9740_SetControlState(gpLevelDiffUpButton, 1);
+        sub_004F9740_SetControlState(gpLevelDiffDownButton, 1);
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
-        CONTROL_SetEnabled(gpControl_00798C3C, 1);
-        CONTROL_SetEnabled(gpControl_00798C1C, 1);
-        CONTROL_SetEnabled(gpControl_00798C20, 1);
-        sub_004FC9B0_SetText(gpControl_00798C04, D2LANG_GetStringFromTblIndex(0x148B), 4, 0, 0);
+        CONTROL_SetEnabled(gpLevelDiffEdit, 1);
+        CONTROL_SetEnabled(gpLevelDiffUpButton, 1);
+        CONTROL_SetEnabled(gpLevelDiffDownButton, 1);
+        sub_004FC9B0_SetText(gpLevelDiffLabel, D2LANG_GetStringFromTblIndex(0x148B), 4, 0, 0);
         sub_004FC9B0_SetText(gpControl_00798C08, D2LANG_GetStringFromTblIndex(0x148C), 4, 0, 0);
     }
     else
     {
-        sub_004F9740_SetControlState(gpControl_00798C44, 1);
-        sub_004F9740_SetControlState(gpControl_00798C24, 1);
-        sub_004F9740_SetControlState(gpControl_00798C1C, 0);
-        sub_004F9740_SetControlState(gpControl_00798C20, 0);
-        CONTROL_SetEnabled(gpControl_00798C3C, 0);
-        CONTROL_SetEnabled(gpControl_00798C1C, 0);
-        CONTROL_SetEnabled(gpControl_00798C20, 0);
-        sub_004FC9B0_SetText(gpControl_00798C04, D2LANG_GetStringFromTblIndex(0x148B), 5, 0, 0);
+        sub_004F9740_SetControlState(gpLevelDiffBoxImage, 1);
+        sub_004F9740_SetControlState(gpLevelDiffGreyArrows, 1);
+        sub_004F9740_SetControlState(gpLevelDiffUpButton, 0);
+        sub_004F9740_SetControlState(gpLevelDiffDownButton, 0);
+        CONTROL_SetEnabled(gpLevelDiffEdit, 0);
+        CONTROL_SetEnabled(gpLevelDiffUpButton, 0);
+        CONTROL_SetEnabled(gpLevelDiffDownButton, 0);
+        sub_004FC9B0_SetText(gpLevelDiffLabel, D2LANG_GetStringFromTblIndex(0x148B), 5, 0, 0);
         sub_004FC9B0_SetText(gpControl_00798C08, D2LANG_GetStringFromTblIndex(0x148C), 5, 0, 0);
     }
     sub_00443630_UpdateCreateButton();
@@ -494,26 +494,26 @@ void __fastcall CHATDLG_UpdateScroll(int nDelta)
 {
     int bUp = 0;
     int bDown = 0;
-    const int nOld = gnChannelScroll_00798F44;
-    if (gnChannelLines_00798F40 <= 11)
+    const int nOld = gnChannelScroll;
+    if (gnChannelUserCount <= 11)
     {
-        gnChannelScroll_00798F44 = 0;
+        gnChannelScroll = 0;
     }
     else
     {
-        gnChannelScroll_00798F44 = D2_MIN(D2_MAX(gnChannelScroll_00798F44 + nDelta, 0), gnChannelLines_00798F40 - 11);
-        if (gnChannelScroll_00798F44 > 0)
+        gnChannelScroll = D2_MIN(D2_MAX(gnChannelScroll + nDelta, 0), gnChannelUserCount - 11);
+        if (gnChannelScroll > 0)
             bUp = 1;
-        if (gnChannelScroll_00798F44 < gnChannelLines_00798F40 - 11)
+        if (gnChannelScroll < gnChannelUserCount - 11)
             bDown = 1;
     }
-    if (gnChannelScroll_00798F44 != nOld)
+    if (gnChannelScroll != nOld)
 // build: symbol ?COMCALLBACK_RefreshChannelList@* 0x00447BB0
         COMCALLBACK_RefreshChannelList();
-    CONTROL_SetEnabled(gpChatControl_0077B084, bUp);
-    CONTROL_SetEnabled(gpChatControl_0077B088, bDown);
-    CONTROL_SetEnabled(gpChatControl_0077B08C, bUp);
-    CONTROL_SetEnabled(gpChatControl_0077B090, bDown);
+    CONTROL_SetEnabled(gpChatUpButtonA, bUp);
+    CONTROL_SetEnabled(gpChatDownButtonA, bDown);
+    CONTROL_SetEnabled(gpChatUpButtonB, bUp);
+    CONTROL_SetEnabled(gpChatDownButtonB, bDown);
 }
 
 // 0x00449AD0
@@ -524,16 +524,16 @@ void __cdecl D2MCPClientCloseMCP()
         sub_006BC780(gpMcpConnection);
         gpMcpConnection = 0;
     }
-    if (ghThread_007992A4)
+    if (ghThread)
     {
-        WaitForSingleObject(ghThread_007992A4, 0xFFFFFFFF);
-        CloseHandle(ghThread_007992A4);
-        ghThread_007992A4 = 0;
+        WaitForSingleObject(ghThread, 0xFFFFFFFF);
+        CloseHandle(ghThread);
+        ghThread = 0;
     }
-    if (ghConnectEvent_007992EC)
+    if (ghConnectEvent)
     {
-        CloseHandle(ghConnectEvent_007992EC);
-        ghConnectEvent_007992EC = 0;
+        CloseHandle(ghConnectEvent);
+        ghConnectEvent = 0;
     }
 }
 

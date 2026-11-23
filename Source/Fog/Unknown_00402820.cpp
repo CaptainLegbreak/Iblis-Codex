@@ -45,11 +45,11 @@ extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent); // 0x006C
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 bool __cdecl sub_00401B00_LoadDbgHelp(); // 0x00401B00
-extern bool gbMiniDumpEnabled_0098A6B1; // 0x0098A6B1
-extern D2CriticalSectionStrc gtDbgHelpRequestLock_0098A6C4; // 0x0098A6C4
-extern void* ghDbgHelpWorkEvent_0098A6C0; // 0x0098A6C0
-extern void* ghDbgHelpDoneEvent_0098A6BC; // 0x0098A6BC
-extern void* gpDbgHelpRequest_0098A6E4; // 0x0098A6E4
+extern bool gbMiniDumpEnabled; // 0x0098A6B1
+extern D2CriticalSectionStrc gtDbgHelpRequestLock; // 0x0098A6C4
+extern void* ghDbgHelpWorkEvent; // 0x0098A6C0
+extern void* ghDbgHelpDoneEvent; // 0x0098A6BC
+extern void* gpMiniDumpRequest; // 0x0098A6E4
 
 struct D2CrashGuidStrc
 {
@@ -100,7 +100,7 @@ extern "C" __declspec(dllimport) void* __stdcall CreateEventW(void* pAttributes,
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes, unsigned long nStackSize, unsigned long (__stdcall* pfnStart)(void* pParam), void* pParam, unsigned long dwFlags, unsigned long* pThreadId); // 0x006CC250
 unsigned long __stdcall LOGMANAGER_DbgHelpThreadProc(void* pParam); // 0x004027C0
 void __stdcall sub_M127_EmitSink(D2CrashGuidStrc* pGuid);
-extern D2CriticalSectionStrc gtSymbolLock_0098A6F0; // 0x0098A6F0
+extern D2CriticalSectionStrc gtSymbolLock; // 0x0098A6F0
 
 extern int gbRightClickConsumed; // 0x007A0670
 extern int gbPopupDismissed; // 0x007A5254
@@ -130,7 +130,7 @@ union D2WordArgStrc
     unsigned short wValue;
 };
 extern "C" const char gszNewLine_006FFCB0[]; // 0x006FFCB0
-extern "C" const char gszNewLine2_006FFCD8[]; // 0x006FFCD8
+extern "C" const char gszNewLine2[]; // 0x006FFCD8
 
 struct D2ExceptionRecordStrc
 {
@@ -159,7 +159,7 @@ typedef int (__fastcall* D2CrashHandlerFn)(T00403AC0* pReport, void* pContext);
 
 extern "C" int __cdecl strncpy_s(char* szDest, size_t nDestSize, const char* szSource, size_t nCount); // 0x006859D2
 extern "C" __declspec(dllimport) unsigned long __stdcall FormatMessageA(unsigned long dwFlags, const void* pSource, unsigned long dwMessageId, unsigned long dwLanguageId, char* pBuffer, unsigned long nSize, void* pArguments); // 0x006CC2B0
-extern void* gpCrashContext_00992B14; // 0x00992B14
+extern void* gpCrashContext; // 0x00992B14
 
 struct D2CrashSubmitInfoStrc
 {
@@ -172,7 +172,7 @@ struct D2CrashSubmitInfoStrc
 };
 
 extern "C" size_t __cdecl strlen(const char* szString);
-extern char gszTextBuffer_0098A280[0x400]; // 0x0098A280
+extern char gszTextBuffer[0x400]; // 0x0098A280
 bool __stdcall sub_00404330_FileExistsUtf8(const char* szPath); // 0x00404330
 bool __fastcall ERRORMANAGER_CreateProcessUtf8(const char* szApplicationName, const char* szCommandLine); // 0x00404210
 static size_t __stdcall sub_00404150_StrlCat(const char* szSource, char* szDest, size_t nSize);
@@ -191,7 +191,7 @@ static bool __stdcall sub_004049A0_ReadImageInfo(D2CrashModuleStrc* pModule, con
 static bool sub_00404F80_ReadNb10(D2CrashModuleStrc* pModule, const D2CvNb10Strc* pCv);
 static bool sub_00404FF0_ReadRsds(const D2CvRsdsStrc* pCv, D2CrashModuleStrc* pModule);
 
-D2CriticalSectionStrc gtSymbolLock_0098A6F0; // 0x0098A6F0
+D2CriticalSectionStrc gtSymbolLock; // 0x0098A6F0
 
 // 0x004013A0
 int __cdecl sub_004013A0_IsDebuggerAttached()
@@ -203,17 +203,18 @@ int __cdecl sub_004013A0_IsDebuggerAttached()
 bool __fastcall sub_00402820_WriteMiniDump(const char* szPath, const char* szComment, void* pExceptionPointers, unsigned long dwThreadId)
 {
     wchar_t wszPath[0x104];
-    if (!gbMiniDumpEnabled_0098A6B1)
+    if (!gbMiniDumpEnabled)
     {
         return false;
     }
-    EnterCriticalSection(&gtSymbolLock_0098A6F0);
-    if (!ghDbgHelp_0098A680 && !sub_00401B00_LoadDbgHelp())
+    EnterCriticalSection(&gtSymbolLock);
+// build: symbol ?ghDbgHelp@* 0x0098A680
+    if (!ghDbgHelp && !sub_00401B00_LoadDbgHelp())
     {
-        LeaveCriticalSection(&gtSymbolLock_0098A6F0);
+        LeaveCriticalSection(&gtSymbolLock);
         return false;
     }
-    LeaveCriticalSection(&gtSymbolLock_0098A6F0);
+    LeaveCriticalSection(&gtSymbolLock);
     if (MultiByteToWideChar(0xFDE9, 0, szPath, -1, wszPath, 0x104) <= 0)
     {
         return false;
@@ -223,70 +224,72 @@ bool __fastcall sub_00402820_WriteMiniDump(const char* szPath, const char* szCom
     {
         return false;
     }
-    EnterCriticalSection(&gtDbgHelpRequestLock_0098A6C4);
+    EnterCriticalSection(&gtDbgHelpRequestLock);
     D2DbgHelpRequestStrc tRequest;
     tRequest.hFile = hFile;
     tRequest.dwThreadId = dwThreadId ? dwThreadId : GetCurrentThreadId();
     tRequest.szComment = szComment;
     tRequest.pExceptionPointers = pExceptionPointers;
     tRequest.bResult = false;
-    gpDbgHelpRequest_0098A6E4 = &tRequest;
-    SetEvent(ghDbgHelpWorkEvent_0098A6C0);
-    WaitForSingleObject(ghDbgHelpDoneEvent_0098A6BC, (unsigned long)-1);
-    gpDbgHelpRequest_0098A6E4 = 0;
-    LeaveCriticalSection(&gtDbgHelpRequestLock_0098A6C4);
+    gpMiniDumpRequest = &tRequest;
+    SetEvent(ghDbgHelpWorkEvent);
+    WaitForSingleObject(ghDbgHelpDoneEvent, (unsigned long)-1);
+    gpMiniDumpRequest = 0;
+    LeaveCriticalSection(&gtDbgHelpRequestLock);
     CloseHandle(hFile);
     return tRequest.bResult;
 }
 
-bool gbMiniDumpEnabled_0098A6B1; // 0x0098A6B1
+bool gbMiniDumpEnabled; // 0x0098A6B1
 
-void* gpfnSymCleanup_0098A6B8; // 0x0098A6B8
+void* gpfnSymCleanup; // 0x0098A6B8
 
-void* ghDbgHelpDoneEvent_0098A6BC; // 0x0098A6BC
+void* ghDbgHelpDoneEvent; // 0x0098A6BC
 
-void* ghDbgHelpWorkEvent_0098A6C0; // 0x0098A6C0
+void* ghDbgHelpWorkEvent; // 0x0098A6C0
 
-D2CriticalSectionStrc gtDbgHelpRequestLock_0098A6C4; // 0x0098A6C4
+D2CriticalSectionStrc gtDbgHelpRequestLock; // 0x0098A6C4
 
-void* ghDbgHelpThread_00992B08; // 0x00992B08
+void* ghDbgHelpThread; // 0x00992B08
 
-unsigned long gdwDbgHelpThreadId_00992B0C; // 0x00992B0C
+unsigned long gdwDbgHelpThreadId; // 0x00992B0C
 
 // 0x00402980
 void __cdecl sub_00402980_StartDbgHelpWorker()
 {
-    InitializeCriticalSection(&gtSymbolLock_0098A6F0);
-    InitializeCriticalSection(&gtDbgHelpRequestLock_0098A6C4);
-    ghDbgHelpWorkEvent_0098A6C0 = CreateEventW(0, 0, 0, 0);
-    ghDbgHelpDoneEvent_0098A6BC = CreateEventW(0, 0, 0, 0);
-    ghDbgHelpThread_00992B08 = CreateThread(0, 0x40000, LOGMANAGER_DbgHelpThreadProc, 0, 0x10000, &gdwDbgHelpThreadId_00992B0C);
-    gbMiniDumpEnabled_0098A6B1 = IsDebuggerPresent() != 1;
+    InitializeCriticalSection(&gtSymbolLock);
+    InitializeCriticalSection(&gtDbgHelpRequestLock);
+    ghDbgHelpWorkEvent = CreateEventW(0, 0, 0, 0);
+    ghDbgHelpDoneEvent = CreateEventW(0, 0, 0, 0);
+    ghDbgHelpThread = CreateThread(0, 0x40000, LOGMANAGER_DbgHelpThreadProc, 0, 0x10000, &gdwDbgHelpThreadId);
+    gbMiniDumpEnabled = IsDebuggerPresent() != 1;
 }
 
 // 0x004029F0
 void __cdecl sub_004029F0_StopDbgHelpWorker()
 {
-    SetEvent(ghDbgHelpWorkEvent_0098A6C0);
-    WaitForSingleObject(ghDbgHelpThread_00992B08, 0xFFFFFFFF);
-    CloseHandle(ghDbgHelpThread_00992B08);
-    ghDbgHelpThread_00992B08 = 0;
-    gdwDbgHelpThreadId_00992B0C = 0;
-    CloseHandle(ghDbgHelpDoneEvent_0098A6BC);
-    CloseHandle(ghDbgHelpWorkEvent_0098A6C0);
-    DeleteCriticalSection(&gtDbgHelpRequestLock_0098A6C4);
-    DeleteCriticalSection(&gtSymbolLock_0098A6F0);
-    if (gbSymInitialized_0098A6B0)
+    SetEvent(ghDbgHelpWorkEvent);
+    WaitForSingleObject(ghDbgHelpThread, 0xFFFFFFFF);
+    CloseHandle(ghDbgHelpThread);
+    ghDbgHelpThread = 0;
+    gdwDbgHelpThreadId = 0;
+    CloseHandle(ghDbgHelpDoneEvent);
+    CloseHandle(ghDbgHelpWorkEvent);
+    DeleteCriticalSection(&gtDbgHelpRequestLock);
+    DeleteCriticalSection(&gtSymbolLock);
+// build: symbol ?gbSymInitialized@* 0x0098A6B0
+    if (gbSymInitialized)
     {
-        ((SymCleanupFn)gpfnSymCleanup_0098A6B8)(ghProcess_0074C6F0);
-        gbSymInitialized_0098A6B0 = false;
+// build: symbol ?ghProcess@* 0x0074C6F0
+        ((SymCleanupFn)gpfnSymCleanup)(ghProcess);
+        gbSymInitialized = false;
     }
 }
 
 // 0x00402B50
 static inline void sub_00402B50_SetProcessHandle(void* hProcess)
 {
-    ghProcess_0074C6F0 = hProcess;
+    ghProcess = hProcess;
 }
 
 // 0x00402B60
@@ -365,7 +368,7 @@ void __fastcall sub_M127_Emit_00402B50(void* hProcess, D2CrashGuidStrc* pGuid)
 // 0x00402A80
 int __cdecl sub_00402A80_IsDbgHelpLoaded()
 {
-    return ghDbgHelp_0098A680 != 0;
+    return ghDbgHelp != 0;
 }
 
 // 0x0044BFF0
@@ -396,9 +399,9 @@ int __cdecl INV_HasHoverItem()
 bool __stdcall sub_00402A90_GetDbgHelpModuleRange(void** ppBase, unsigned long* pSize)
 {
     D2PsapiModuleInfoStrc tInfo;
-    if (!ghDbgHelp_0098A680)
+    if (!ghDbgHelp)
         return false;
-    if (!GetModuleInformation(GetCurrentProcess(), ghDbgHelp_0098A680, &tInfo, sizeof(tInfo)))
+    if (!GetModuleInformation(GetCurrentProcess(), ghDbgHelp, &tInfo, sizeof(tInfo)))
         return false;
     // stands for the original reading both module-info fields before it loads the out pointers (no plain-C form found)
     *ppBase = *(void* volatile*)&tInfo.lpBaseOfDll;
@@ -472,7 +475,7 @@ void __fastcall sub_004032F0_DumpRegisters(unsigned long dwThreadId, D2CrashPrin
         n += _snprintf_s(szText + n, 0x400 - n, -1, gszNewLine_006FFCB0);
         n += _snprintf_s(szText + n, 0x400 - n, -1, "%6s:0x%08x", "ESI", tContext.Esi);
         n += _snprintf_s(szText + n, 0x400 - n, -1, "%6s:0x%08x", "EDI", tContext.Edi);
-        _snprintf_s(szText + n, 0x400 - n, -1, gszNewLine2_006FFCD8);
+        _snprintf_s(szText + n, 0x400 - n, -1, gszNewLine2);
         pfnPrint(pContext, szText);
     }
     if (tContext.ContextFlags & 0x10001)
@@ -484,7 +487,7 @@ void __fastcall sub_004032F0_DumpRegisters(unsigned long dwThreadId, D2CrashPrin
         n += _snprintf_s(szText + n, 0x400 - n, -1, gszNewLine_006FFCB0);
         n += _snprintf_s(szText + n, 0x400 - n, -1, "%6s:0x%08x", "CS", tContext.SegCs);
         n += _snprintf_s(szText + n, 0x400 - n, -1, "%6s:0x%08x", "SS", tContext.SegSs);
-        _snprintf_s(szText + n, 0x400 - n, -1, gszNewLine2_006FFCD8);
+        _snprintf_s(szText + n, 0x400 - n, -1, gszNewLine2);
         pfnPrint(pContext, szText);
     }
     if (tContext.ContextFlags & 0x10004)
@@ -493,7 +496,7 @@ void __fastcall sub_004032F0_DumpRegisters(unsigned long dwThreadId, D2CrashPrin
         n += _snprintf_s(szText + n, 0x400 - n, -1, "%6s:0x%08x", "ES", tContext.SegEs);
         n += _snprintf_s(szText + n, 0x400 - n, -1, "%6s:0x%08x", "FS", tContext.SegFs);
         n += _snprintf_s(szText + n, 0x400 - n, -1, "%6s:0x%08x", "GS", tContext.SegGs);
-        _snprintf_s(szText + n, 0x400 - n, -1, gszNewLine2_006FFCD8);
+        _snprintf_s(szText + n, 0x400 - n, -1, gszNewLine2);
         pfnPrint(pContext, szText);
     }
     if (tContext.ContextFlags & 0x10008)
@@ -544,7 +547,7 @@ void __fastcall sub_004032F0_DumpRegisters(unsigned long dwThreadId, D2CrashPrin
     }
 }
 
-D2CrashHandlerFn gpfnCrashHandler_00992B10; // 0x00992B10
+D2CrashHandlerFn gpfnCrashHandler; // 0x00992B10
 
 // 0x00403AC0
 static void sub_00403AC0_GetExceptionName(char* szBuffer, unsigned long dwCode)
@@ -590,7 +593,7 @@ static void sub_00403AC0_GetExceptionName(char* szBuffer, unsigned long dwCode)
 // 0x00403E90
 long __stdcall sub_00403E90_UnhandledExceptionFilter(void* pExceptionPointers)
 {
-    if (!gpfnCrashHandler_00992B10)
+    if (!gpfnCrashHandler)
         return 0;
     D2ExceptionPointersStrc* pPointers = (D2ExceptionPointersStrc*)pExceptionPointers;
     char szName[0x100];
@@ -604,7 +607,7 @@ long __stdcall sub_00403E90_UnhandledExceptionFilter(void* pExceptionPointers)
     tReport.nUnk08 = 0;
     tReport.nUnk0C = 0;
     tReport.nUnk10 = 0;
-    const int nResult = gpfnCrashHandler_00992B10(&tReport, gpCrashContext_00992B14);
+    const int nResult = gpfnCrashHandler(&tReport, gpCrashContext);
     if (!nResult)
         return 0;
     return nResult == 1 ? -1 : 1;
@@ -645,7 +648,7 @@ bool __fastcall sub_00401790_SubmitReport(const char* szText, D2CrashSubmitInfoS
 {
     char szPath[0x400];
     char* pDest = szPath;
-    const char* pSource = gszTextBuffer_0098A280;
+    const char* pSource = gszTextBuffer;
     size_t nLeft = 0x400;
     if (nLeft != 0 && --nLeft != 0)
     {
@@ -665,7 +668,7 @@ bool __fastcall sub_00401790_SubmitReport(const char* szText, D2CrashSubmitInfoS
         {
         }
     }
-    const size_t nLength = pSource - gszTextBuffer_0098A280 - 1;
+    const size_t nLength = pSource - gszTextBuffer - 1;
     if (nLength >= 0x400)
         return false;
     if (szPath[nLength - 1] != '/' && szPath[nLength - 1] != '\\')

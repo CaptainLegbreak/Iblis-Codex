@@ -11,7 +11,7 @@ int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
 int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
 int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
-extern int gnScreenHeight_007C913C; // 0x007C913C
+extern int gnRenderHeight; // 0x007C913C
 static int __stdcall sub_006C8310_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY, int bCenter);
 
 struct D2ClipRectStrc { int left, right, top, bottom; };
@@ -27,9 +27,9 @@ extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 int __stdcall sub_00608C00_Draw(unsigned char* pPixel, int nStride); // 0x00608C00
 int __fastcall sub_006C84B0_Draw(void* context, int second, int third, int fourth, int fifth, int last); // 0x006C84B0
 extern "C" __declspec(dllimport) void* __stdcall CreateFontA(int height, int width, int escapement, int orientation, int weight, unsigned long italic, unsigned long underline, unsigned long strikeout, unsigned long charset, unsigned long outPrecision, unsigned long clipPrecision, unsigned long quality, unsigned long pitchAndFamily, const char* face); // 0x006CC0E0
-extern const char gszCourier_006DD52C[]; // 0x006DD52C
+extern const char gszCourier[]; // 0x006DD52C
 extern "C" __declspec(dllimport) int __stdcall DeleteObject(void* object); // 0x006CC0D4
-extern void* gpGraphicObject_0098A170; // 0x0098A170
+extern void* ghGdiDebugFont; // 0x0098A170
 
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const char* szFormat, char* args); // 0x006CC4AC
 extern "C" __declspec(dllimport) void* __stdcall GetDC(void* hWnd); // 0x006CC44C
@@ -42,16 +42,17 @@ extern "C" __declspec(dllimport) int __stdcall SetBkMode(void* hdc, int mode); /
 extern "C" __declspec(dllimport) int __stdcall DrawTextA(void* hdc, const char* lpchText, int cchText, tagRECT* lprc, unsigned int format); // 0x006CC534
 extern "C" __declspec(dllimport) int __stdcall DeleteDC(void* hdc); // 0x006CC0D8
 void* __cdecl sub_006C8020(); // 0x006C8020
-extern unsigned long gdwGdiDebugTextColor_0074C5C0; // 0x0074C5C0
+extern unsigned long gdwGdiDebugTextColor; // 0x0074C5C0
 extern void* ghGdiDebugFont_0098A170; // 0x0098A170
 
-extern D2GfxSettingsStrc* gpGfxSettings_007C9148; // 0x007C9148
+extern D2GfxSettingsStrc* gpGfxSettings; // 0x007C9148
 void __fastcall sub_006C8A60_Draw(int nX1, int nY1, int nX2, int nY2, unsigned char nColor, int nLevel); // 0x006C8A60
 
 // 0x006C8250
 int __fastcall sub_006C8250_GetSetting(unsigned int nSelector, int* pValue)
 {
-    *pValue = gaSelectorValues_0074C5A0[nSelector];
+// build: symbol ?gaSelectorValues@* 0x0074C5A0
+    *pValue = gaSelectorValues[nSelector];
     switch (nSelector)
     {
     case 0:
@@ -72,25 +73,25 @@ int __fastcall sub_006C8250_GetSetting(unsigned int nSelector, int* pValue)
 
 #include "gen/data/Source/D2Gdi/Unknown_006C8250.inc"
 
-int gnValue_0098A168; // 0x0098A168
+int gnGdiOriginX; // 0x0098A168
 
-int gnWidth_0098A16C; // 0x0098A16C
+int gnModeWidth; // 0x0098A16C
 
 // 0x006C82D0
 void __fastcall sub_006C82D0_SetResolution(int nMode)
 {
     if (nMode != 0)
     {
-        gnValue_0098A168 = 0;
+        gnGdiOriginX = 0;
         if (nMode != 3)
-            gnWidth_0098A16C = 800;
+            gnModeWidth = 800;
         else
             gnWideWidth_0098A16C = 1344;
     }
     else
     {
-        gnValue_0098A168 = 0;
-        gnWidth_0098A16C = 640;
+        gnGdiOriginX = 0;
+        gnModeWidth = 640;
     }
 }
 
@@ -107,10 +108,11 @@ static int __stdcall sub_006C8310_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY
     }
 
     nX += CelGetOffsetX(pCel);
-    if (nX < gnScreenWidth_007C9138 && nWidth + nX >= 0)
+// build: symbol ?gnRenderWidth@* 0x007C9138
+    if (nX < gnRenderWidth && nWidth + nX >= 0)
     {
         nY += CelGetOffsetY(pCel);
-        if (nY >= 0 && nY - nHeight < gnScreenHeight_007C913C)
+        if (nY >= 0 && nY - nHeight < gnRenderHeight)
             return 0;
     }
 
@@ -177,10 +179,10 @@ static int __stdcall sub_006C85A0_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY
     }
 
     nX += CelGetOffsetX(pCel);
-    if (nX < gnScreenWidth_007C9138 && nWidth + nX >= 0)
+    if (nX < gnRenderWidth && nWidth + nX >= 0)
     {
         nY += CelGetOffsetY(pCel);
-        if (nY >= 0 && nY - nHeight < gnScreenHeight_007C913C)
+        if (nY >= 0 && nY - nHeight < gnRenderHeight)
             return 0;
     }
 
@@ -211,7 +213,7 @@ int __fastcall sub_006C85A0_DrawImage(void* pData, int nX, int nY, unsigned int 
             pPaletteTable = gpGfxPaletteView_007C9150->pStandardShiftPalettes[nPalette];
 
         CelDraw((D2CmpCelContextStrc*)pContext, nX, nY, gnOriginX_0098A168, gnModeWidth_0098A16C,
-            gpScreenBuffer_007C9154, gnScreenHeight_007C913C, gnScreenWidth_007C9138, (int)pGammaTable, nCaps, (int)pPaletteTable);
+            gpScreenBuffer_007C9154, gnRenderHeight, gnRenderWidth, (int)pGammaTable, nCaps, (int)pPaletteTable);
     }
     return 1;
 }
@@ -230,21 +232,21 @@ int __fastcall sub_006C8910_ForwardDraw(void* context, int second, int third, in
     return sub_006C84B0_Draw(context, second, third, fourth, fifth, last);
 }
 
-void* gpGraphicObject_0098A170; // 0x0098A170
+void* ghGdiDebugFont; // 0x0098A170
 
 // 0x006C8930
 void __cdecl sub_006C8930_CreateGraphicFont()
 {
-    gpGraphicObject_0098A170 = CreateFontA(10, 0, 0, 0, 400, 0, 0, 0, 0, 0, 0, 0, 1, gszCourier_006DD52C);
+    ghGdiDebugFont = CreateFontA(10, 0, 0, 0, 400, 0, 0, 0, 0, 0, 0, 0, 1, gszCourier);
 }
 
 // 0x006C8960
 void __cdecl sub_006C8960_DeleteGraphicObject()
 {
-    DeleteObject(gpGraphicObject_0098A170);
+    DeleteObject(ghGdiDebugFont);
 }
 
-unsigned long gdwGdiDebugBkColor_0098A174; // 0x0098A174
+unsigned long gdwGdiDebugBkColor; // 0x0098A174
 
 // 0x006C8970
 void __fastcall sub_006C8970_GdiDebugPrintf(int nX, int nY, const char* szFormat, char* args)
@@ -255,11 +257,11 @@ void __fastcall sub_006C8970_GdiDebugPrintf(int nX, int nY, const char* szFormat
     void* hDC = CreateCompatibleDC(hScreenDC);
     SelectObject(hDC, sub_006C8020());
     SelectObject(hDC, ghGdiDebugFont_0098A170);
-    SetTextColor(hDC, gdwGdiDebugTextColor_0074C5C0);
-    SetBkColor(hDC, gdwGdiDebugBkColor_0098A174);
+    SetTextColor(hDC, gdwGdiDebugTextColor);
+    SetBkColor(hDC, gdwGdiDebugBkColor);
     SetBkMode(hDC, 1);
     tagRECT tRect;
-    SetRect(&tRect, nX, nY, gnScreenWidth_007C9138 - nX, gnScreenHeight_007C913C - nY);
+    SetRect(&tRect, nX, nY, gnRenderWidth - nX, gnRenderHeight - nY);
     DrawTextA(hDC, (char*)anText, -1, &tRect, 0);
     DeleteDC(hDC);
     ReleaseDC(0, hScreenDC);
@@ -268,7 +270,7 @@ void __fastcall sub_006C8970_GdiDebugPrintf(int nX, int nY, const char* szFormat
 // 0x006C8A50
 int __cdecl sub_006C8A50_GetBlendedShadows()
 {
-    return gpGfxSettings_007C9148->bBlendedShadows;
+    return gpGfxSettings->bBlendedShadows;
 }
 
 // 0x006C8C00

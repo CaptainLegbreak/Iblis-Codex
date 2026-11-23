@@ -7,12 +7,12 @@ struct D2HslStrc;
 struct D2PalRgbaStrc;
 struct D2ColorBlockStrc;
 
-extern unsigned char gaPcxPalette_008E9938[256 * 4]; // 0x008E9938
+extern unsigned char gaPcxPalette[256 * 4]; // 0x008E9938
 
 typedef unsigned char (__stdcall* MapFn)(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);
 
 unsigned char __stdcall Palette24BitTo8BitPixel(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x006056D0
-extern int gbPaletteLoaded_008E9934; // 0x008E9934
+extern int gbPaletteLoaded; // 0x008E9934
 
 unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
 
@@ -23,7 +23,7 @@ struct D2ColorBlockStrc
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
-extern const D2ColorBlockStrc gtColorBlock_007434D8; // 0x007434D8
+extern const D2ColorBlockStrc gtColorBlock; // 0x007434D8
 double __stdcall sub_00604FE0_HueToRgb(double n1, double n2, double hue); // 0x00604FE0
 void __stdcall PaletteBuildTintTables(unsigned char* pData); // 0x00605D20
 void __stdcall sub_00605DE0_BuildDarkenTables(unsigned char* pData); // 0x00605DE0
@@ -35,41 +35,41 @@ void __stdcall sub_00605AA0_BuildTablesC(unsigned char* pTables);
 void __stdcall sub_00605B70_BuildTablesD(unsigned char* pTables);
 void __stdcall sub_00605F00_BuildTablesE(unsigned char* pTables, D2HslStrc* pHsl);
 
-unsigned int gnPaletteStart_008E9930; // 0x008E9930
+unsigned int gnPaletteStart; // 0x008E9930
 
-unsigned int gnPaletteEnd_008E902C; // 0x008E902C
+unsigned int gnPaletteEnd; // 0x008E902C
 
-int gbTableSet_008E9D40; // 0x008E9D40
+int gbTableSet; // 0x008E9D40
 
-unsigned char gaTable_008E9830[0x100]; // 0x008E9830
+unsigned char gabPaletteMask[0x100]; // 0x008E9830
 
-int gnGlobal_008E9028; // 0x008E9028
+int gbPaletteTestBackground; // 0x008E9028
 
-unsigned int gdwSwappedColor_008E9D38; // 0x008E9D38
+unsigned int gdwSwappedColor; // 0x008E9D38
 
-int gnSquareTable_008E9034[511]; // 0x008E9034
+int ganSquareTable[511]; // 0x008E9034
 
 // 0x006056D0
 unsigned char __stdcall Palette24BitTo8BitPixel(unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
 {
     unsigned int nBestDistance = 0x7FFFFFFF;
     unsigned int nBestIndex = 0;
-    for (unsigned int i = gnPaletteStart_008E9930; i <= gnPaletteEnd_008E902C; ++i)
+    for (unsigned int i = gnPaletteStart; i <= gnPaletteEnd; ++i)
     {
-        if (gbTableSet_008E9D40 && !gaTable_008E9830[i])
+        if (gbTableSet && !gabPaletteMask[i])
         {
             continue;
         }
 
-        if (gnGlobal_008E9028 && gdwSwappedColor_008E9D38 == ((((nRed << 8) | nGreen) << 8) | nBlue))
+        if (gbPaletteTestBackground && gdwSwappedColor == ((((nRed << 8) | nGreen) << 8) | nBlue))
         {
             nBestIndex = 0;
             break;
         }
 
-        unsigned int nDistance = gnSquareTable_008E9034[nRed - gaPcxPalette_008E9938[i * 4 + 2] + 255]
-            + gnSquareTable_008E9034[nGreen - gaPcxPalette_008E9938[i * 4 + 1] + 255]
-            + gnSquareTable_008E9034[nBlue - gaPcxPalette_008E9938[i * 4] + 255];
+        unsigned int nDistance = ganSquareTable[nRed - gaPcxPalette[i * 4 + 2] + 255]
+            + ganSquareTable[nGreen - gaPcxPalette[i * 4 + 1] + 255]
+            + ganSquareTable[nBlue - gaPcxPalette[i * 4] + 255];
         if (nDistance < nBestDistance)
         {
             nBestDistance = nDistance;
@@ -80,14 +80,14 @@ unsigned char __stdcall Palette24BitTo8BitPixel(unsigned char nRed, unsigned cha
     return (unsigned char)nBestIndex;
 }
 
-int gbDarkTest_008E9D3C; // 0x008E9D3C
+int gbDarkTest; // 0x008E9D3C
 
 // 0x006057A0
 int __stdcall Palette24BitTo8BitImage(const unsigned char* pSource, unsigned char* pDest, unsigned int nCount, MapFn pfnMap)
 {
     const unsigned char* pSrc = pSource;
     unsigned char* pDst = pDest;
-    if (gbPaletteLoaded_008E9934)
+    if (gbPaletteLoaded)
     {
         MapFn pfn = !pfnMap ? Palette24BitTo8BitPixel : pfnMap;
 
@@ -96,7 +96,7 @@ int __stdcall Palette24BitTo8BitImage(const unsigned char* pSource, unsigned cha
             unsigned char nRed = *pSrc++;
             unsigned char nGreen = *pSrc++;
             unsigned char nBlue = *pSrc++;
-            if (gbDarkTest_008E9D3C && nRed <= 10 && nGreen <= 10 && nBlue <= 10)
+            if (gbDarkTest && nRed <= 10 && nGreen <= 10 && nBlue <= 10)
             {
                 nRed = 4;
                 nBlue = 0;
@@ -312,7 +312,7 @@ void* __stdcall CreateD2Palette(void* pSource)
     sub_00605F00_BuildTablesE(pTables, tHsl);
     sub_00606890_BuildBrightnessTable(pTables, tHsl);
     sub_00605B70_BuildTablesD(pTables);
-    *(D2ColorBlockStrc*)(pTables + 0x6B600) = gtColorBlock_007434D8;
+    *(D2ColorBlockStrc*)(pTables + 0x6B600) = gtColorBlock;
     PaletteBuildTintTables(pTables);
     return pTables;
 }

@@ -1238,11 +1238,12 @@ static void __fastcall sub_004E96E0_DrawDamageRange(int nMin, int nMax, int nCol
     }
     else if (nMin >= 10000)
     {
-        wsprintfA(szText, "%s%dK-%dK", gszEmpty_006CC837, (nMin + 500) / 1000, (nMax + 500) / 1000);
+// build: symbol ?gszEmptyString@* 0x006CC837
+        wsprintfA(szText, "%s%dK-%dK", gszEmptyString, (nMin + 500) / 1000, (nMax + 500) / 1000);
     }
     else if (nMax >= 10000)
     {
-        wsprintfA(szText, "%s%d-%dK", gszEmpty_006CC837, nMin, (nMax + 500) / 1000);
+        wsprintfA(szText, "%s%d-%dK", gszEmptyString, nMin, (nMax + 500) / 1000);
     }
     else
     {

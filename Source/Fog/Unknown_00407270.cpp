@@ -66,8 +66,8 @@ struct T004013C0
 extern "C" __declspec(dllimport) int __stdcall GetVersionExA(D2OsVersionInfoStrc* pInfo); // 0x006CC1F8
 extern "C" __declspec(dllimport) void __stdcall GlobalMemoryStatus(D2MemoryStatusStrc* pStatus); // 0x006CC1F4
 extern "C" __declspec(dllimport) void __stdcall GetSystemInfo(T004013C0* pInfo); // 0x006CC1F0
-extern unsigned long gdwTotalPhys_0074D898; // 0x0074D898
-extern T004013C0 gtSystemInfo_0074D8A0; // 0x0074D8A0
+extern unsigned long gdwTotalPhys; // 0x0074D898
+extern T004013C0 gtSystemInfo; // 0x0074D8A0
 int gnOsKind; // 0x0074D890
 float gfOsVersion; // 0x0074D894
 int gbSystemInfoCaptured; // 0x0074D88C
@@ -193,7 +193,7 @@ void __cdecl AUTOMAP_CaptureSystemInfo()
         }
     }
     GlobalMemoryStatus(&tMemory);
-    gdwTotalPhys_0074D898 = tMemory.dwTotalPhys;
-    GetSystemInfo(&gtSystemInfo_0074D8A0);
+    gdwTotalPhys = tMemory.dwTotalPhys;
+    GetSystemInfo(&gtSystemInfo);
     gbSystemInfoCaptured = 1;
 }

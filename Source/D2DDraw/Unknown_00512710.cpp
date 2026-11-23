@@ -10,8 +10,8 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
-extern int gnScreenWidth_007C9138;                                                                          // 0x007C9138
-extern int gnScreenHeight_007C913C;                                                                         // 0x007C913C
+extern int gnRenderWidth;                                                                          // 0x007C9138
+extern int gnRenderHeight;                                                                         // 0x007C913C
 extern unsigned char* gpScreenBuffer_007C9154;                                                              // 0x007C9154
 
 int __fastcall DDRAW_GetDrawModePalette(int nIndex, int* pType);                                           // 0x00511D70
@@ -22,19 +22,19 @@ void __fastcall sub_00512710_DDrawDrawBox(int nXStart, int nYStart, int nXEnd, i
     int nTransMode;
     const unsigned char* pTable = (const unsigned char*)DDRAW_GetDrawModePalette(nDrawMode, &nTransMode);
 
-    const int nX1 = D2_MIN(D2_MAX(nXStart, 0), gnScreenWidth_007C9138 - 1);
-    const int nX2 = D2_MIN(D2_MAX(nXEnd, 0), gnScreenWidth_007C9138 - 1);
+    const int nX1 = D2_MIN(D2_MAX(nXStart, 0), gnRenderWidth - 1);
+    const int nX2 = D2_MIN(D2_MAX(nXEnd, 0), gnRenderWidth - 1);
     if (nX1 == nX2)
         return;
 
-    const int nY1 = D2_MIN(D2_MAX(nYStart, 0), gnScreenHeight_007C913C - 1);
-    const int nY2 = D2_MIN(D2_MAX(nYEnd, 0), gnScreenHeight_007C913C - 1);
+    const int nY1 = D2_MIN(D2_MAX(nYStart, 0), gnRenderHeight - 1);
+    const int nY2 = D2_MIN(D2_MAX(nYEnd, 0), gnRenderHeight - 1);
     if (nY2 == nY1)
         return;
 
     D2_ASSERT(nY2 > nY1, 0x39);
 
-    unsigned char* pDst = gpScreenBuffer_007C9154 + gnScreenWidth_007C9138 * nY1 + nX1;
+    unsigned char* pDst = gpScreenBuffer_007C9154 + gnRenderWidth * nY1 + nX1;
     int nRows = nY2 - nY1;
 
     switch (nTransMode)
@@ -43,7 +43,7 @@ void __fastcall sub_00512710_DDrawDrawBox(int nXStart, int nYStart, int nXEnd, i
         while (nRows--)
         {
             memset(pDst, (unsigned char)dwColor, nX2 - nX1);
-            pDst += gnScreenWidth_007C9138;
+            pDst += gnRenderWidth;
         }
         break;
 
@@ -57,7 +57,7 @@ void __fastcall sub_00512710_DDrawDrawBox(int nXStart, int nYStart, int nXEnd, i
                 *p = pTable[(*p << 8) + (unsigned char)dwColor];
                 ++p;
             }
-            pDst += gnScreenWidth_007C9138;
+            pDst += gnRenderWidth;
         }
         break;
 
@@ -71,7 +71,7 @@ void __fastcall sub_00512710_DDrawDrawBox(int nXStart, int nYStart, int nXEnd, i
                 *p = pTable[*p];
                 ++p;
             }
-            pDst += gnScreenWidth_007C9138;
+            pDst += gnRenderWidth;
         }
         break;
     }

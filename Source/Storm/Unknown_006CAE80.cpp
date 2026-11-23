@@ -24,7 +24,7 @@ void __cdecl sub_006CB450_StaticFiniNewsCache(); // 0x006CB450
 extern unsigned char gCriticalSection_00881F64[24]; // 0x00881F64
 void __cdecl sub_006CB470_DestroyLock(); // 0x006CB470
 
-extern D2BigPairStrc gtBigPair_0088273C; // 0x0088273C
+extern D2BigPairStrc gtBigPair; // 0x0088273C
 void __cdecl sub_006CB480_DestroyBigPair(); // 0x006CB480
 extern int gnDivisor_00731014; // 0x00731014
 extern int gnQuotient_00883D60; // 0x00883D60
@@ -123,7 +123,7 @@ inline void* __cdecl operator new(unsigned int, void* location) { return locatio
 // 0x006CAEF0
 void __cdecl sub_006CAEF0_InitializeBigPair()
 {
-    new (&gtBigPair_0088273C) D2BigPairStrc;
+    new (&gtBigPair) D2BigPairStrc;
     atexit(sub_006CB480_DestroyBigPair);
 }
 

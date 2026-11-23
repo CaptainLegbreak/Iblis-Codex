@@ -4,13 +4,14 @@ struct D2LangCharMapEntryStrc;
 struct D2SrpSeedRecordStrc;
 struct D2BigLoginRecordStrc;
 
-extern unsigned char gnLeadByteRangeCount_00882B22; // 0x00882B22
+extern unsigned char gnLeadByteRangeCount; // 0x00882B22
 extern "C" unsigned int __cdecl strlen(const char* szString);
-extern unsigned short gnCharMapCount_00882B20; // 0x00882B20
-extern D2LangCharMapEntryStrc* gpCharMap_00882B24; // 0x00882B24
+extern unsigned short gnCharMapCount; // 0x00882B20
+extern D2LangCharMapEntryStrc* gpCharMap; // 0x00882B24
 extern "C" long __cdecl _time32(long* pTime);
 extern "C" int __cdecl tolower(int nChar);
-extern const char gacCDKeyMap_006DF238[];
+// build: symbol ?gacCDKeyMap@* 0x006DF238
+extern const char gacCDKeyMap[];
 
 struct D2SrpSeedRecordStrc
 {
@@ -27,16 +28,16 @@ void* __fastcall sub_0052A240_BigFromUnsigned(unsigned int nValue); // 0x0052A24
 void* __fastcall sub_0052A270_BigFromBinary(const void* pData, unsigned int nSize); // 0x0052A270
 unsigned int __fastcall sub_0052A2A0_BigToBinary(void* hBig, void* pBuffer, unsigned int nSize); // 0x0052A2A0
 void __fastcall sub_0052A590_BigOp_425330(void* hResult, void* hArg1, void* hArg2, void* hArg3); // 0x0052A590
-extern const char* gpszSrpSeparator_00730ADC; // 0x00730ADC
+extern const char* gpszSrpSeparator; // 0x00730ADC
 int __fastcall sub_0052A2E0_BigCompare(void* hLeft, void* hRight); // 0x0052A2E0
 int __fastcall sub_0052A2F0_BigCompareUnsigned(void* hBig, unsigned int nValue); // 0x0052A2F0
 int __fastcall sub_0052A350_BigOp_423790(void* hResult, void* hLeft, void* hRight); // 0x0052A350
 int __fastcall sub_0052A3B0_BigOp_423AC0(void* hResult, void* hLeft, void* hRight); // 0x0052A3B0
 void __fastcall sub_0052A430_BigOpUnsigned_424F10(void* hResult, void* hLeft, unsigned int nValue); // 0x0052A430
 
-unsigned short gnCharMapCount_00882B20; // 0x00882B20
+unsigned short gnCharMapCount; // 0x00882B20
 
-D2LangCharMapEntryStrc* gpCharMap_00882B24; // 0x00882B24
+D2LangCharMapEntryStrc* gpCharMap; // 0x00882B24
 
 // 0x005276E0
 static int sub_005276E0_IsLeadByte(unsigned char nByte)
@@ -45,9 +46,10 @@ static int sub_005276E0_IsLeadByte(unsigned char nByte)
     {
         return 0;
     }
-    for (int i = 0; i < gnLeadByteRangeCount_00882B22; ++i)
+    for (int i = 0; i < gnLeadByteRangeCount; ++i)
     {
-        if (gpLeadByteRanges_00882B28[i].nLow <= nByte && nByte <= gpLeadByteRanges_00882B28[i].nHigh)
+// build: symbol ?gpLeadByteRanges@* 0x00882B28
+        if (gpLeadByteRanges[i].nLow <= nByte && nByte <= gpLeadByteRanges[i].nHigh)
         {
             return 0;
         }
@@ -64,7 +66,7 @@ static int sub_00527B00_MapUnicodeChar(int nChar)
     }
     D2LangCharMapEntryStrc tKey;
     tKey.f_2 = wChar;
-    const D2LangCharMapEntryStrc* pEntry = (const D2LangCharMapEntryStrc*)bsearch(&tKey, gpCharMap_00882B24, gnCharMapCount_00882B20, sizeof(D2LangCharMapEntryStrc), sub_00527AE0_CompareKey);
+    const D2LangCharMapEntryStrc* pEntry = (const D2LangCharMapEntryStrc*)bsearch(&tKey, gpCharMap, gnCharMapCount, sizeof(D2LangCharMapEntryStrc), sub_00527AE0_CompareKey);
     if (!pEntry)
     {
         return -1;
@@ -75,7 +77,7 @@ static int sub_00527B00_MapUnicodeChar(int nChar)
 // 0x00527BE0
 char* __fastcall sub_00527BE0_UnicodeToCodePage(char* szDest, const Unicode* pSrc, int nCount)
 {
-    if (!gpCharMap_00882B24)
+    if (!gpCharMap)
     {
         return sub_00526F70(szDest, pSrc, nCount);
     }
@@ -112,7 +114,7 @@ terminate:
 // 0x00527CA0
 int __fastcall sub_00527CA0_GetCodePageLength(const Unicode* pSrc, int nCount)
 {
-    if (!gpCharMap_00882B24)
+    if (!gpCharMap)
     {
         return sub_00526800(pSrc);
     }
@@ -166,7 +168,7 @@ static int sub_0051DD20_HexToNibble(char cChar)
 
 static int sub_0051DD40_MapKeyChar(unsigned char cChar)
 {
-    return gacCDKeyMap_006DF238[cChar];
+    return gacCDKeyMap[cChar];
 }
 
 long __stdcall sub_M106_Emit_0051DC70(long* pTime)
@@ -247,7 +249,7 @@ void D2BigPowModStrc::sub_00527F40_ComputePrivateKey(const unsigned char* pSalt,
     unsigned char abDigest[0x14];
     sub_00529F50_Sha1Init(&tContext);
     sub_00529F80_Sha1Update(&tContext, (const unsigned char*)szName, SStrLen(szName));
-    sub_00529F80_Sha1Update(&tContext, (const unsigned char*)gpszSrpSeparator_00730ADC, SStrLen(gpszSrpSeparator_00730ADC));
+    sub_00529F80_Sha1Update(&tContext, (const unsigned char*)gpszSrpSeparator, SStrLen(gpszSrpSeparator));
     sub_00529F80_Sha1Update(&tContext, (const unsigned char*)szPassword, SStrLen(szPassword));
     sub_0052A040_Sha1Final(abDigest, &tContext);
     sub_00529F50_Sha1Init(&tContext);

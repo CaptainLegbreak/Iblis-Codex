@@ -12,18 +12,18 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern D2CriticalSectionStrc* gpLock_007C9134; // 0x007C9134
 extern D2D3DDeviceStrc* gpD3DDevice_00970E78; // 0x00970E78
 extern const char gszAssertExpr_006CC837[]; // 0x006CC837
-extern const char gszFloorPoolSourceFile_006FC3E4[]; // 0x006FC3E4
-extern const char gszSubtilePoolSourceFile_006FC3A8[]; // 0x006FC3A8
-extern const char gszTexPoolSourceFile_006FC36C[]; // 0x006FC36C
-extern const unsigned int gnRenderFlag_006CE290; // 0x006CE290
+extern const char gszFloorPoolSourceFile[]; // 0x006FC3E4
+extern const char gszSubtilePoolSourceFile[]; // 0x006FC3A8
+extern const char gszTexPoolSourceFile[]; // 0x006FC36C
+extern const unsigned int gnRenderFlag; // 0x006CE290
 extern int gaGlyphWidths_00970FC8[]; // 0x00970FC8
-extern int gbRenderPaused_007C9144; // 0x007C9144
-extern int gnBytesPerPixel_00970E80; // 0x00970E80
-extern int gnGlobal_0096F4DC; // 0x0096F4DC
-extern int gnGlobal_009702B8; // 0x009702B8
+extern int gbRenderPaused; // 0x007C9144
+extern int gnBytesPerPixel; // 0x00970E80
+extern int gnFloorTextureWidth; // 0x0096F4DC
+extern int gnFloorTextureHeight; // 0x009702B8
 extern int gnHeight_007C913C; // 0x007C913C
-extern int gnScreenHeight_007C913C; // 0x007C913C
-extern int gnScreenWidth_007C9138; // 0x007C9138
+extern int gnRenderHeight; // 0x007C913C
+extern int gnRenderWidth; // 0x007C9138
 extern int gnWidth_007C9138; // 0x007C9138
 extern unsigned int gnRenderFlags_0096F3A8; // 0x0096F3A8
 extern void* gapGlyphTextures_009712D0[]; // 0x009712D0
@@ -48,7 +48,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError(); // 0x00
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
-extern const char gszEmpty_006CC837[]; // 0x006CC837
+extern const char gszEmptyString[]; // 0x006CC837
 extern int gnHeight_009702B8; // 0x009702B8
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }

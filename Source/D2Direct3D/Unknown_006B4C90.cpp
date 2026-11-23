@@ -33,12 +33,12 @@ void __fastcall sub_006B20E0_ReportError(const char* szMessage, long hResult) th
 void __fastcall sub_006B2F60_SaveVideoConfig(int nRender, int nDevice);                                     // 0x006B2F60
 int __stdcall sub_006B42F0_DDrawEnumCallback(void* pGuid, char* szDescription, char* szName, void* pContext); // 0x006B42F0
 
-extern char gszEnumerationClass_0074C044[];                                                                 // 0x0074C044
-extern char gszEnumerationWindow_0074C058[];                                                                // 0x0074C058
-extern HWND ghEnumWindow_00970E84;                                                                          // 0x00970E84
-extern int gnD3DDeviceCount_00970E88;                                                                       // 0x00970E88
-extern int gnDeviceStatus2_0096F83C;                                                                        // 0x0096F83C
-extern int gnDeviceStatus3_0096F95C;                                                                        // 0x0096F95C
+extern char gszEnumerationClass[];                                                                 // 0x0074C044
+extern char gszEnumerationWindow[];                                                                // 0x0074C058
+extern HWND ghEnumWindow;                                                                          // 0x00970E84
+extern int gnD3DDeviceCount;                                                                       // 0x00970E88
+extern int gnDeviceStatus2;                                                                        // 0x0096F83C
+extern int gnDeviceStatus3;                                                                        // 0x0096F95C
 
 struct T004013C0 { int unk00; int mode; };
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -50,12 +50,12 @@ int __stdcall SRegLoadData(const char*,const char*,unsigned int,void*,unsigned i
 #pragma pack(push,1)
 struct D2VideoKeyStrc { unsigned int words[5]; unsigned short tail; };
 #pragma pack(pop)
-extern const D2VideoKeyStrc gVideoKey_006DD634; // 0x006DD634
-extern int gbConfigured_00970EB8;        // 0x00970EB8
-extern int gbSeen_00970EBC;        // 0x00970EBC
-extern char gszDevice_0096F3BC[264];     // 0x0096F3BC
-extern unsigned long gnFlags_0096F3A8;        // 0x0096F3A8
-extern unsigned int gGuid_0096F3AC[4];        // 0x0096F3AC
+extern const D2VideoKeyStrc gtVideoKey; // 0x006DD634
+extern int gbConfigured;        // 0x00970EB8
+extern int gbSeen;        // 0x00970EBC
+extern char gszDeviceName[264];     // 0x0096F3BC
+extern unsigned long gdwRenderFlags;        // 0x0096F3A8
+extern unsigned int gtDeviceGuid[4];        // 0x0096F3AC
 
 static int __stdcall sub_006B4C90_DetectDirect3D(HINSTANCE hInstance);
 
@@ -69,7 +69,7 @@ static int __stdcall sub_006B4C90_DetectDirect3D(HINSTANCE hInstance)
         sub_00410610_WriteLogLine("Detecting boards which support Direct3D...");
 
         memset(&wc, 0, sizeof(wc));
-        gnD3DDeviceCount_00970E88 = 0;
+        gnD3DDeviceCount = 0;
         wc.style = 0;
         wc.lpfnWndProc = DefWindowProcA;
         wc.cbClsExtra = 0;
@@ -78,7 +78,7 @@ static int __stdcall sub_006B4C90_DetectDirect3D(HINSTANCE hInstance)
         wc.hIcon = 0;
         wc.hbrBackground = (HBRUSH)GetStockObject(5);
         wc.lpszMenuName = 0;
-        wc.lpszClassName = gszEnumerationClass_0074C044;
+        wc.lpszClassName = gszEnumerationClass;
         if (!RegisterClassA(&wc))
         {
             sub_0051793E_FormatAndRaise(GetLastError());
@@ -86,8 +86,8 @@ static int __stdcall sub_006B4C90_DetectDirect3D(HINSTANCE hInstance)
         }
 
         SetLastError(0);
-        ghEnumWindow_00970E84 = CreateWindowExA(0x40000, gszEnumerationClass_0074C044, gszEnumerationWindow_0074C058, 0xA0000000, 0, 0, 640, 480, 0, 0, hInstance, 0);
-        if (!ghEnumWindow_00970E84)
+        ghEnumWindow = CreateWindowExA(0x40000, gszEnumerationClass, gszEnumerationWindow, 0xA0000000, 0, 0, 640, 480, 0, 0, hInstance, 0);
+        if (!ghEnumWindow)
         {
             sub_00410610_WriteLogLine("***** Failed to create window for D3D enumeration= %d", GetLastError());
             return 0;
@@ -106,13 +106,13 @@ static int __stdcall sub_006B4C90_DetectDirect3D(HINSTANCE hInstance)
 
     try
     {
-        if (ghEnumWindow_00970E84)
+        if (ghEnumWindow)
         {
-            DestroyWindow(ghEnumWindow_00970E84);
+            DestroyWindow(ghEnumWindow);
             sub_00410610_WriteLogLine("Destroyed D3D window.");
         }
 
-        if (!gnD3DDeviceCount_00970E88)
+        if (!gnD3DDeviceCount)
         {
             sub_00410610_WriteLogLine("Found no valid Direct3D devices to use!");
             return 0;
@@ -122,15 +122,15 @@ static int __stdcall sub_006B4C90_DetectDirect3D(HINSTANCE hInstance)
     {
     }
 
-    UnregisterClassA(gszEnumerationClass_0074C044, hInstance);
+    UnregisterClassA(gszEnumerationClass, hInstance);
 
-    if (gnDeviceStatus2_0096F83C == 2)
+    if (gnDeviceStatus2 == 2)
     {
         sub_006B2F60_SaveVideoConfig(1, 2);
         return 2;
     }
 
-    if (gnDeviceStatus3_0096F95C == 2)
+    if (gnDeviceStatus3 == 2)
     {
         sub_006B2F60_SaveVideoConfig(1, 3);
         return 2;
@@ -143,30 +143,31 @@ static int __stdcall sub_006B4C90_DetectDirect3D(HINSTANCE hInstance)
 int __fastcall sub_006B4E80_LoadVideoConfiguration(void* window) {
 // build: symbol ?FOG_GetSystemInfo@* 0x00407360
     T004013C0* info=FOG_GetSystemInfo();
-    if (!info) { sub_00408A60(gszEmpty_006CC837,sub_00408090(),1032); exit(-1); }
+// build: symbol ?gszEmptyString@* 0x006CC837
+    if (!info) { sub_00408A60(gszEmptyString,sub_00408090(),1032); exit(-1); }
     if (info->mode==1) return 0;
-    D2VideoKeyStrc key=gVideoKey_006DD634;
-    if (gbSeen_00970EBC && !gbConfigured_00970EB8) {
+    D2VideoKeyStrc key=gtVideoKey;
+    if (gbSeen && !gbConfigured) {
         sub_006B4C90_DetectDirect3D(window);
-        gbConfigured_00970EB8=1;
+        gbConfigured=1;
     }
-    gbSeen_00970EBC=1;
+    gbSeen=1;
     for (;;) {
-        if (!SRegLoadString((const char*)&key,"DeviceName",0,gszDevice_0096F3BC,256)) {
-            if (gbConfigured_00970EB8) return 0;
+        if (!SRegLoadString((const char*)&key,"DeviceName",0,gszDeviceName,256)) {
+            if (gbConfigured) return 0;
             int result=sub_006B4C90_DetectDirect3D(window);
-            gbConfigured_00970EB8=1;
+            gbConfigured=1;
             if (result!=2) return 0;
-        } else if (!SRegLoadValue((const char*)&key,"dwFlags",0,&gnFlags_0096F3A8)) {
-            if (gbConfigured_00970EB8) return 0;
+        } else if (!SRegLoadValue((const char*)&key,"dwFlags",0,&gdwRenderFlags)) {
+            if (gbConfigured) return 0;
             int result=sub_006B4C90_DetectDirect3D(window);
-            gbConfigured_00970EB8=1;
+            gbConfigured=1;
             if (result!=2) return 0;
         } else break;
     }
-    if (!(gnFlags_0096F3A8 & gdwBitMasks_006CE268[0])) {
+    if (!(gdwRenderFlags & gdwBitMasks_006CE268[0])) {
         unsigned int length=16;
-        if (!SRegLoadData((const char*)&key,"GUID",0,gGuid_0096F3AC,16,&length) || length!=16) return 0;
+        if (!SRegLoadData((const char*)&key,"GUID",0,gtDeviceGuid,16,&length) || length!=16) return 0;
     }
     return 1;
 }

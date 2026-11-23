@@ -6,7 +6,7 @@ struct D2CmpFindTilesNodeStrc;
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 void __stdcall TileProjectDestroy(D2TileLibraryHeaderStrc* pLibrary, int bKeep);                    // 0x00609E90
 void __fastcall FindTileDestroyTable(D2CmpFindTilesNodeStrc** ppBuckets);                        // 0x0060CE00
-static D2TileRecordStrc* gpTileRecords_008ADBB4;                                                                   // 0x008ADBB4
+static D2TileRecordStrc* gpTileRecords;                                                                   // 0x008ADBB4
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
@@ -24,7 +24,7 @@ D2TileLibraryHashStrc* __fastcall TileProjectBuildFindTable(D2TileLibraryHeaderS
 // 0x006006B0
 void __cdecl D2CMPDestroyTileHeaders()
 {
-    D2TileRecordStrc* pRecord = gpTileRecords_008ADBB4;
+    D2TileRecordStrc* pRecord = gpTileRecords;
     while (pRecord)
     {
         D2TileRecordStrc* pNext = pRecord->pPrev;
@@ -35,13 +35,13 @@ void __cdecl D2CMPDestroyTileHeaders()
         FOG_Free(pRecord, ".\\SRC\\TileProjects.cpp", 0x2A, 0);
         pRecord = pNext;
     }
-    gpTileRecords_008ADBB4 = 0;
+    gpTileRecords = 0;
 }
 
 // 0x00600710
 static D2TileRecordStrc* D2CMPFindTileRecord(const char* szName)
 {
-    for (D2TileRecordStrc* pRecord = gpTileRecords_008ADBB4; pRecord; pRecord = pRecord->pPrev)
+    for (D2TileRecordStrc* pRecord = gpTileRecords; pRecord; pRecord = pRecord->pPrev)
     {
         if (!strcmp(pRecord->szLibraryName, szName))
         {
@@ -85,10 +85,10 @@ D2TileLibraryHeaderStrc* __stdcall D2CMPLoadProjectRecord(D2TileLibraryHashStrc*
     D2TileRecordStrc* pNew = (D2TileRecordStrc*)FOG_Alloc(sizeof(D2TileRecordStrc), ".\\SRC\\TileProjects.cpp", 0x7B, 0);
     D2_ASSERT(pNew, 0x7C);
     memset(pNew, 0, sizeof(D2TileRecordStrc));
-    pNew->pPrev = gpTileRecords_008ADBB4;
+    pNew->pPrev = gpTileRecords;
     pNew->pLibrary = pLibrary;
     pNew->pHashBlock = pHashBlock;
-    gpTileRecords_008ADBB4 = pNew;
+    gpTileRecords = pNew;
     strcpy(pNew->szLibraryName, szName);
     *ppHashBlock = pNew->pHashBlock;
     return pLibrary;

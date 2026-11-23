@@ -16,9 +16,9 @@ const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl); 
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 void __fastcall CHATDLG_JoinChannel(const char* szText); // 0x004411E0
 
-extern D2WinControlStrc* gpControl_0077BCFC; // 0x0077BCFC
-extern int gnLastSelection_0070EB90; // 0x0070EB90
-extern unsigned long gdwLastClickTick_0077BDA8; // 0x0077BDA8
+extern D2WinControlStrc* gpChannelListBox; // 0x0077BCFC
+extern int gnChannelListLastSelection; // 0x0070EB90
+extern unsigned long gdwChannelListLastClickTick; // 0x0077BDA8
 
 static __forceinline int DoubleClick()
 {
@@ -36,7 +36,7 @@ static __forceinline int DoubleClick()
 // 0x00441320
 int __stdcall sub_00441320_ListClick(D2ListMessage00441320Strc* pMsg)
 {
-    const int nSelection = sub_004FB990_GetSelection(gpControl_0077BCFC);
+    const int nSelection = sub_004FB990_GetSelection(gpChannelListBox);
     if (nSelection == -1)
     {
         return 0;
@@ -47,11 +47,11 @@ int __stdcall sub_00441320_ListClick(D2ListMessage00441320Strc* pMsg)
     case 0x201:
         {
             const unsigned long dwTick = GetTickCount();
-            const int bDoubleClick = nSelection == gnLastSelection_0070EB90 && dwTick - gdwLastClickTick_0077BDA8 <= 500;
+            const int bDoubleClick = nSelection == gnChannelListLastSelection && dwTick - gdwChannelListLastClickTick <= 500;
             if (!bDoubleClick)
             {
-                gnLastSelection_0070EB90 = nSelection;
-                gdwLastClickTick_0077BDA8 = dwTick;
+                gnChannelListLastSelection = nSelection;
+                gdwChannelListLastClickTick = dwTick;
             }
             if (bDoubleClick)
             {
@@ -61,7 +61,7 @@ int __stdcall sub_00441320_ListClick(D2ListMessage00441320Strc* pMsg)
         break;
     }
 
-    const Unicode* pText = sub_004FBB30_GetText(gpControl_0077BCFC);
+    const Unicode* pText = sub_004FBB30_GetText(gpChannelListBox);
     if (!pText)
     {
         return 0;

@@ -52,7 +52,7 @@ extern "C" const char gszDrlgRoomTileSourceFile; // 0x006EF540
 extern "C" const char gszExcelDirectory_006D8ED4[]; // 0x006D8ED4
 extern "C" const char gszInventorySourceFile[]; // 0x006EA918
 extern "C" const char gszMonsterTblsSourceFile[]; // 0x006EBE70
-extern "C" const char gszNewline_006FFCB0[]; // 0x006FFCB0
+extern "C" const char gszNewline[]; // 0x006FFCB0
 extern "C" const char gszOutRoomSourceFile; // 0x006F1F68
 extern "C" const char gszPathFormat_006D4124[]; // 0x006D4124
 extern "C" const char gszTxtField_Expansion[]; // 0x006DCF44

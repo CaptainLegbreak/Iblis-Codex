@@ -335,7 +335,7 @@ struct D2TreeNode006BD330Strc
     D2TreeNode006BD330Strc* pRight28;
 };
 
-extern D2TreeNode006BD330Strc* const gpTreeSentinel_0074C3D8; // 0x0074C3D8
+extern D2TreeNode006BD330Strc* const gpszFallback; // 0x0074C3D8
 
 struct D2StringTableStrc { int count; int unk4; int unk8; void* data; };
 
@@ -864,7 +864,7 @@ D2TreeNode006BD330Strc* __fastcall EXCEL_FindLinkNode(D2TreeNode006BD330Strc* pN
 {
     if (!pNode)
     {
-        return gpTreeSentinel_0074C3D8;
+        return gpszFallback;
     }
     if (pNode->nId20 == nId)
     {
@@ -874,7 +874,7 @@ D2TreeNode006BD330Strc* __fastcall EXCEL_FindLinkNode(D2TreeNode006BD330Strc* pN
     if (pNode->pLeft24)
     {
         pFound = EXCEL_FindLinkNode(pNode->pLeft24, nId);
-        if (pFound != gpTreeSentinel_0074C3D8)
+        if (pFound != gpszFallback)
         {
             return pFound;
         }
@@ -882,12 +882,12 @@ D2TreeNode006BD330Strc* __fastcall EXCEL_FindLinkNode(D2TreeNode006BD330Strc* pN
     if (pNode->pRight28)
     {
         pFound = EXCEL_FindLinkNode(pNode->pRight28, nId);
-        if (pFound != gpTreeSentinel_0074C3D8)
+        if (pFound != gpszFallback)
         {
             return pFound;
         }
     }
-    return gpTreeSentinel_0074C3D8;
+    return gpszFallback;
 }
 
 // build: context sub_006BD490_Shim
@@ -1010,23 +1010,23 @@ D2Block006BD040Strc* __stdcall FOG_AllocLinker(const char* szFile, int nLine)
     return pBlock;
 }
 
-static int gnLockCount_0074C3E0; // 0x0074C3E0
+static int gnLockCount; // 0x0074C3E0
 
-static int gnGlobal_0074C3E4; // 0x0074C3E4
+static int gnQServerClientCapacity; // 0x0074C3E4
 
-static int gnGlobal_0074C3E8; // 0x0074C3E8
+static int gnQServerSlotCount; // 0x0074C3E8
 
-static int gnGlobal_0074C3EC; // 0x0074C3EC
+static int gnQServerBucketCount; // 0x0074C3EC
 
 static int gnGlobal_00989C28; // 0x00989C28
 
 // 0x006BE310
 void __stdcall FOG_SetServerConfig(D2QServerConfigStrc* pConfig)
 {
-    gnLockCount_0074C3E0 = pConfig->nClientCapacity;
-    gnGlobal_0074C3E4 = pConfig->nClientCapacity - 1;
-    gnGlobal_0074C3E8 = pConfig->nValue04;
-    gnGlobal_0074C3EC = pConfig->nValue08;
+    gnLockCount = pConfig->nClientCapacity;
+    gnQServerClientCapacity = pConfig->nClientCapacity - 1;
+    gnQServerSlotCount = pConfig->nValue04;
+    gnQServerBucketCount = pConfig->nValue08;
     gnGlobal_00989C28 = pConfig->nValue0C;
 }
 

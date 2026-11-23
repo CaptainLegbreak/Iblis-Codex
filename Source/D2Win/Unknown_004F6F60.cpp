@@ -2,7 +2,8 @@
 #include "D2GfxTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define gnRowOffsets_007C9828 (gnRowOffsets_007C97A8 + 32)
+// build: symbol ?ganRowOffsets@* 0x007C97A8
+#define gnRowOffsets_007C9828 (ganRowOffsets + 32)
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
 #define DISPLAYTYPE_GLIDE 4
 struct D2PaletteStrc;
@@ -18,17 +19,17 @@ void __fastcall CMNSUBTILE_DrawIsoBlockFlat(unsigned char* pSrc, unsigned char* 
 void __fastcall sub_004F6BB0_DrawLitSubtileRows(unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep); // 0x004F6BB0
 void __fastcall sub_004F71A0_DrawLitRleRows(unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep, int nRows, int nArg); // 0x004F71A0
 void __fastcall sub_004F7580_DrawRleRowsClipped(int nX, int nY, unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette, int nRows); // 0x004F7580
-extern int gnClipBottom_007C978C; // 0x007C978C
-extern int gnClipLeft_007C9794; // 0x007C9794
-extern int gnInnerRight_007C9784; // 0x007C9784
-extern int gnInnerBottom_007C9790; // 0x007C9790
-extern int gnInnerTop_007CA31C; // 0x007CA31C
-extern int gnClipRight_007D2324; // 0x007D2324
-extern int gnInnerLeft_007D2328; // 0x007D2328
-extern int gnClipTop_007D232C; // 0x007D232C
-extern D2PaletteStrc gLightPalettes_007D2348[]; // 0x007D2348
-extern unsigned char* gpScreenBuffer_007D5448; // 0x007D5448
-extern int gnScreenPitch_007D544C; // 0x007D544C
+extern int gnClipBottom; // 0x007C978C
+extern int gnClipLeft; // 0x007C9794
+extern int gnInnerRight; // 0x007C9784
+extern int gnInnerBottom; // 0x007C9790
+extern int gnInnerTop; // 0x007CA31C
+extern int gnClipRight; // 0x007D2324
+extern int gnInnerLeft; // 0x007D2328
+extern int gnClipTop; // 0x007D232C
+extern D2PaletteStrc gatLightPalettes[]; // 0x007D2348
+extern unsigned char* gpScreenBuffer; // 0x007D5448
+extern int gnScreenPitch; // 0x007D544C
 void __fastcall sub_004F7850_DrawLitRleRowsClipped(int nX, int nY, unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep, int nRows, int nArg);
 void __fastcall sub_004F7EA0_DrawVisTile(unsigned char* pSrc, int nX, int nY);
 void __fastcall sub_004F8050_DrawRleVisTile(unsigned char* pSrc, int nX, int nY, unsigned char nLight); // 0x004F8050
@@ -44,9 +45,9 @@ void __cdecl sub_004142A0_InitPowTable(); // 0x004142A0
 extern "C" void __cdecl CMNSUBTILE_BuildGouraudCache(); // 0x004F7CC0
 extern "C" void __cdecl sub_004E4280(); // 0x004E4280
 int __stdcall GAME_Shutdown(); // 0x0052C030
-extern D2PaletteTableStrc gPaletteTables_007D5458; // 0x007D5458
+extern D2PaletteTableStrc gtPaletteTables; // 0x007D5458
 
-extern int gnViewMatrixAdjustDefault_0072DBFC; // 0x0072DBFC
+extern int gnViewMatrixAdjustDefault; // 0x0072DBFC
 extern int gnDisplayType; // 0x007C8CB0
 extern D2GfxSettingsStrc gGfxSettings; // 0x0072DA48
 int __stdcall D2GFX_SetGamma(int nGamma); // 0x004F5230
@@ -65,7 +66,7 @@ void __fastcall sub_004F6F60_DrawRleRows(unsigned char* pSrc, unsigned char* pDs
         if (!nSkip && !nCount)
         {
             --nRows;
-            pDst += gnScreenPitch_007D544C;
+            pDst += gnScreenPitch;
             p = pDst;
         }
         else
@@ -115,13 +116,13 @@ void __fastcall sub_004F6F60_DrawRleRows(unsigned char* pSrc, unsigned char* pDs
 // 0x004F8050
 void __fastcall sub_004F8050_DrawRleVisTile(unsigned char* pSrc, int nX, int nY, unsigned char nLight)
 {
-    if (nY < gnClipTop_007D232C || nY >= gnClipBottom_007C978C || nX < gnClipLeft_007C9794 || nX >= gnClipRight_007D2324)
+    if (nY < gnClipTop || nY >= gnClipBottom || nX < gnClipLeft || nX >= gnClipRight)
         return;
 
-    unsigned char* pPalette = gLightPalettes_007D2348[nLight >> 3].unk0x00;
-    unsigned char* pDst = gnRowOffsets_007C9828[nY] + gpScreenBuffer_007D5448 + nX;
-    D2_ASSERT(gpScreenBuffer_007D5448, 0x373);
-    if (nY >= gnInnerTop_007CA31C && nY < gnInnerBottom_007C9790 && nX >= gnInnerLeft_007D2328 && nX < gnInnerRight_007C9784)
+    unsigned char* pPalette = gatLightPalettes[nLight >> 3].unk0x00;
+    unsigned char* pDst = gnRowOffsets_007C9828[nY] + gpScreenBuffer + nX;
+    D2_ASSERT(gpScreenBuffer, 0x373);
+    if (nY >= gnInnerTop && nY < gnInnerBottom && nX >= gnInnerLeft && nX < gnInnerRight)
         sub_004F6F60_DrawRleRows(pSrc, pDst, pPalette, 0x20);
     else
         sub_004F7580_DrawRleRowsClipped(nX, nY, pSrc, pDst, pPalette, 0x20);
@@ -130,7 +131,7 @@ void __fastcall sub_004F8050_DrawRleVisTile(unsigned char* pSrc, int nX, int nY,
 // 0x004F8810
 void __fastcall sub_004F8810_DrawBlock(D2TileLibraryBlockStrc* pBlock, unsigned char* pDst, unsigned char nLight)
 {
-    unsigned char* pPalette = gLightPalettes_007D2348[nLight >> 3].unk0x00;
+    unsigned char* pPalette = gatLightPalettes[nLight >> 3].unk0x00;
     if (pBlock->nFormat & 4)
         sub_004F6F60_DrawRleRows(pBlock->pData, pDst, pPalette, 0xF);
     else
@@ -150,14 +151,14 @@ void __fastcall sub_004F8850_DrawLitBlock(D2TileLibraryBlockStrc* pBlock, unsign
         sub_004F6BB0_DrawLitSubtileRows(pBlock->pData, pDst, nLightX, nLightXStep, nLightY, nLightYStep);
 }
 
-unsigned char* gpScreenBuffer_007D5448; // 0x007D5448
+unsigned char* gpScreenBuffer; // 0x007D5448
 
-int gnLightingOff_007D2340; // 0x007D2340
+int gnLightingOff; // 0x007D2340
 
 // 0x004F8120
 void __fastcall sub_004F8120_TileDrawLit(unsigned char* pSrc, int nX, int nY, int* pLight)
 {
-    if (gnLightingOff_007D2340)
+    if (gnLightingOff)
     {
         const unsigned char nLight = *(unsigned char*)pLight;
         if ((nLight & 0xF8) == 0xF8)
@@ -180,14 +181,14 @@ void __fastcall sub_004F8120_TileDrawLit(unsigned char* pSrc, int nX, int nY, in
     const int nDiff3 = D2_ABS(nLightYStep);
     if (!gdwGlobal_0072DA50 && nDiff3 + nDiff2 + nDiff1 >= 10)
     {
-        if (nY < gnClipTop_007D232C || nY >= gnClipBottom_007C978C || nX < gnClipLeft_007C9794 || nX >= gnClipRight_007D2324)
+        if (nY < gnClipTop || nY >= gnClipBottom || nX < gnClipLeft || nX >= gnClipRight)
         {
             return;
         }
 
-        D2_ASSERT(gpScreenBuffer_007D5448, 958);
-        unsigned char* pDst = gnRowOffsets_007C9828[nY] + gpScreenBuffer_007D5448 + nX;
-        if (nY >= gnInnerTop_007CA31C && nY < gnInnerBottom_007C9790 && nX >= gnInnerLeft_007D2328 && nX < gnInnerRight_007C9784)
+        D2_ASSERT(gpScreenBuffer, 958);
+        unsigned char* pDst = gnRowOffsets_007C9828[nY] + gpScreenBuffer + nX;
+        if (nY >= gnInnerTop && nY < gnInnerBottom && nX >= gnInnerLeft && nX < gnInnerRight)
         {
             sub_004F71A0_DrawLitRleRows(pSrc, pDst, nLightX, nLightXStep, nLightY, nLightYStep, 0x20, 8);
         }
@@ -229,33 +230,33 @@ void __cdecl sub_004F8DD0_Empty()
 // 0x004F8E90
 void __cdecl sub_004F8E90_SetDefaultPalettes()
 {
-    D2GFX_SetPaletteTables(&gPaletteTables_007D5458);
+    D2GFX_SetPaletteTables(&gtPaletteTables);
 }
 
-int gnYBufferArg3_007D5450; // 0x007D5450
+int gnYBufferArg3; // 0x007D5450
 
-int gnYBufferArg4_007D5454; // 0x007D5454
+int gnYBufferArg4; // 0x007D5454
 
-int gnYBufferPitch_007D557C; // 0x007D557C
+int gnYBufferPitch; // 0x007D557C
 
-int gnViewMatrixAdjust_007C8CC4; // 0x007C8CC4
+int gnViewMatrixAdjust; // 0x007C8CC4
 
 // 0x004F8DE0
 void __fastcall sub_004F8DE0(unsigned char* a1, int a2, int a3, int a4)
 {
-    gpScreenBuffer_007D5448 = a1;
-    gnScreenPitch_007D544C = a2;
-    gnYBufferArg3_007D5450 = a3;
-    gnYBufferArg4_007D5454 = a4;
+    gpScreenBuffer = a1;
+    gnScreenPitch = a2;
+    gnYBufferArg3 = a3;
+    gnYBufferArg4 = a4;
 
-    if (a2 != gnYBufferPitch_007D557C)
+    if (a2 != gnYBufferPitch)
     {
-        gnScreenPitch_007D544C = a2;
-        gnYBufferPitch_007D557C = a2;
+        gnScreenPitch = a2;
+        gnYBufferPitch = a2;
         CMNSUBTILE_BuildLineOffsets();
     }
 
-    if (gnViewMatrixAdjust_007C8CC4 != gnViewMatrixAdjustDefault_0072DBFC)
+    if (gnViewMatrixAdjust != gnViewMatrixAdjustDefault)
     {
         sub_004F7DA0_SetPanelCoords(a2, a3);
     }

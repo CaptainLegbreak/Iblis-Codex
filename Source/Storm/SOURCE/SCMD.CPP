@@ -163,12 +163,12 @@ void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 
 extern "C" const char gszDelete[]; // 0x006CC824
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern const char gszEmpty_006CC837[]; // 0x006CC837
+extern const char gszEmptyString[]; // 0x006CC837
 extern const char* gszErrorDefaults_006FCC24[]; // 0x006FCC24
 extern const char gszSCmdFile_006FCC30[]; // 0x006FCC30
 extern "C" const char gszCmdWhitespace_006FCC4C[];                                                         // 0x006FCC4C
 extern const char gszPercentS_006FFC58[]; // 0x006FFC58
-extern const char gszNewline_006FFCB0[]; // 0x006FFCB0
+extern const char gszNewline[]; // 0x006FFCB0
 
 extern TSList<CMDDEF> gOptionList_0074C48C; // 0x0074C48C
 extern TSList<CMDDEF> gOptionList_0074C498; // 0x0074C498
@@ -367,7 +367,7 @@ static void __stdcall GenerateError(D2ErrorCallback callback, unsigned int error
     else
         SStrCopy(message, format, 256);
     if (message[0])
-        SStrPack(message, gszNewline_006FFCB0, 256);
+        SStrPack(message, gszNewline, 256);
     sub_0041C340_SetLastError(error);
     report.error = error;
     report.context = context;
@@ -496,7 +496,7 @@ void D2FogUnlinkStrc::sub_006C4480_Unlink() { tLink.Unlink(); }
 int __stdcall SCmdRegisterArgument(unsigned int dwFlags, unsigned int dwId, const char* szName, void* pVariable, unsigned int nBytes, int nSetValue, int nSetMask, OptionCallback pfnCallback)
 {
     if (!szName)
-        szName = gszEmpty_006CC837;
+        szName = gszEmptyString;
     int nNameLength = SStrLen(szName);
 
     VALIDATEBEGIN;

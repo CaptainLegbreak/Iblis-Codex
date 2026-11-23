@@ -471,7 +471,8 @@ int __fastcall WINMAIN_DecodeCdKey(const char* szCdKey, unsigned int* pProduct, 
     const char* p = szKey;
     while (*p)
     {
-        if (gnCdKeyMap_006D59F0[(unsigned char)*p++] > 0x17)
+// build: symbol ?gabCdKeyMap@* 0x006D59F0
+        if (gabCdKeyMap[(unsigned char)*p++] > 0x17)
         {
             return 0;
         }
@@ -955,7 +956,8 @@ int __stdcall WINMAIN_ProcessCommandLine(void* pArg)
         unsigned long nSize = 0xF;
         if (!gszClientCharName[0] && !GetUserNameA(gszClientCharName, &nSize))
         {
-            wsprintfA(gszClientCharName, gszStringFormat_006FFC58, "noname");
+// build: symbol ?gszStringFormat@* 0x006FFC58
+            wsprintfA(gszClientCharName, gszStringFormat, "noname");
         }
     }
     return 1;

@@ -7,7 +7,7 @@ struct D2CelFileStrc;
 struct D2WinMsgStrc;
 struct SMSGHANDLER_PARAMS;
 
-extern D2ModuleInterfaceStrc gtInterface_0070CD14; // 0x0070CD14
+extern D2ModuleInterfaceStrc gtInterface; // 0x0070CD14
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
@@ -33,15 +33,15 @@ int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 int __cdecl sub_00449C30(); // 0x00449C30
 void __stdcall CHATDLG_SetCharLogonReceived(int nValue); // 0x00449C40
 extern D2WinControlStrc* gpControlMain_0077BC4C; // 0x0077BC4C
-extern D2WinControlStrc* gpControl_0077BCFC; // 0x0077BCFC
+extern D2WinControlStrc* gpChannelListBox; // 0x0077BCFC
 
-void* gpInstance_0077AD68; // 0x0077AD68
+void* gpInstance; // 0x0077AD68
 
 // 0x0043CBE0
 D2ModuleInterfaceStrc* __fastcall sub_0043CBE0_Init(void* hInstance)
 {
-    gpInstance_0077AD68 = hInstance;
-    return &gtInterface_0070CD14;
+    gpInstance = hInstance;
+    return &gtInterface;
 }
 
 #include "gen/data/Source/D2Multi/Unknown_0043CBE0.inc"
@@ -91,277 +91,277 @@ int __fastcall sub_0043CC20_TestBit2(int nValue)
     return nValue & 4;
 }
 
-D2CelFileStrc* gpCellFile_0077BC04; // 0x0077BC04
+D2CelFileStrc* gpChatBackground; // 0x0077BC04
 
-D2CelFileStrc* gpCellFile_0077BC08; // 0x0077BC08
+D2CelFileStrc* gpWaitingRoomBkgdCelFile; // 0x0077BC08
 
-D2CelFileStrc* gpCellFile_0077BC0C; // 0x0077BC0C
+D2CelFileStrc* gpPopUpLargest2CelFile; // 0x0077BC0C
 
-D2CelFileStrc* gpCellFile_0077BC10; // 0x0077BC10
+D2CelFileStrc* gpMediumButtonBlank2CelFile; // 0x0077BC10
 
-D2CelFileStrc* gpCellFile_0077BC14; // 0x0077BC14
+D2CelFileStrc* gpBnetCursorOHandCelFile; // 0x0077BC14
 
-D2CelFileStrc* gpCellFile_0077BC18; // 0x0077BC18
+D2CelFileStrc* gpCursorLRotateCelFile; // 0x0077BC18
 
-D2CelFileStrc* gpCellFile_0077BC1C; // 0x0077BC1C
+D2CelFileStrc* gpScrollBarCelFile; // 0x0077BC1C
 
-D2CelFileStrc* gpCellFile_0077BC20; // 0x0077BC20
+D2CelFileStrc* gpBnetJoinGameScrollBarsCelFile; // 0x0077BC20
 
 D2CelFileStrc* gpCellFile_0077BC24; // 0x0077BC24
 
-D2CelFileStrc* gpCellFile_0077BC28; // 0x0077BC28
+D2CelFileStrc* gpChatLeftButtonsCelFile; // 0x0077BC28
 
-D2CelFileStrc* gpCellFile_0077BC2C; // 0x0077BC2C
+D2CelFileStrc* gpChatLeftButtons1CelFile; // 0x0077BC2C
 
-D2CelFileStrc* gpCellFile_0077BC30; // 0x0077BC30
+D2CelFileStrc* gpChatLeftButtons2CelFile; // 0x0077BC30
 
-D2CelFileStrc* gpCellFile_0077BC34; // 0x0077BC34
+D2CelFileStrc* gpChatRightButtonsCelFile; // 0x0077BC34
 
-D2CelFileStrc* gpCellFile_0077BC38; // 0x0077BC38
+D2CelFileStrc* gpChatRightTopButtonsCelFile; // 0x0077BC38
 
-D2CelFileStrc* gpCellFile_0077BC3C; // 0x0077BC3C
+D2CelFileStrc* gpChatArrowsCelFile; // 0x0077BC3C
 
-D2CelFileStrc* gpCellFile_0077BC50; // 0x0077BC50
+D2CelFileStrc* gpJoinGameBckgCelFile; // 0x0077BC50
 
-D2CelFileStrc* gpCellFile_0077BC54; // 0x0077BC54
+D2CelFileStrc* gpBlankBckg2CelFile; // 0x0077BC54
 
-D2CelFileStrc* gpCellFile_0077BC58; // 0x0077BC58
+D2CelFileStrc* gpGemButtonCelFile; // 0x0077BC58
 
-D2CelFileStrc* gpCellFile_0077BC5C; // 0x0077BC5C
+D2CelFileStrc* gpGameButtonBlankCelFile; // 0x0077BC5C
 
-D2CelFileStrc* gpCellFile_0077BC60; // 0x0077BC60
+D2CelFileStrc* gpJoinGameClickBoxCelFile; // 0x0077BC60
 
-D2CelFileStrc* gpCellFile_0077BC64; // 0x0077BC64
+D2CelFileStrc* gpGreyLevelBoxCelFile; // 0x0077BC64
 
-D2CelFileStrc* gpCellFile_0077BC68; // 0x0077BC68
+D2CelFileStrc* gpRadioButtonCelFile; // 0x0077BC68
 
-D2CelFileStrc* gpCellFile_0077BC6C; // 0x0077BC6C
+D2CelFileStrc* gpRadioButtonGreyCelFile; // 0x0077BC6C
 
-D2CelFileStrc* gpCellFile_0077BC70; // 0x0077BC70
+D2CelFileStrc* gpBnetPopUpOkCelFile; // 0x0077BC70
 
-D2CelFileStrc* gpCellFile_0077BC74; // 0x0077BC74
+D2CelFileStrc* gpBnetCancelButtonBlankCelFileA; // 0x0077BC74
 
-D2CelFileStrc* gpCellFile_0077BC78; // 0x0077BC78
+D2CelFileStrc* gpOverallTabCelFile; // 0x0077BC78
 
-D2CelFileStrc* gpCellFile_0077BC7C; // 0x0077BC7C
+D2CelFileStrc* gpAmazonTabCelFile; // 0x0077BC7C
 
-D2CelFileStrc* gpCellFile_0077BC80; // 0x0077BC80
+D2CelFileStrc* gpSorceressTabCelFile; // 0x0077BC80
 
-D2CelFileStrc* gpCellFile_0077BC84; // 0x0077BC84
+D2CelFileStrc* gpNecromancerTabCelFile; // 0x0077BC84
 
-D2CelFileStrc* gpCellFile_0077BC88; // 0x0077BC88
+D2CelFileStrc* gpPaladinTabCelFile; // 0x0077BC88
 
-D2CelFileStrc* gpCellFile_0077BC8C; // 0x0077BC8C
+D2CelFileStrc* gpBarbarianTabCelFile; // 0x0077BC8C
 
-D2CelFileStrc* gpCellFile_0077BC90; // 0x0077BC90
+D2CelFileStrc* gpDruidTabCelFile; // 0x0077BC90
 
-D2CelFileStrc* gpCellFile_0077BC94; // 0x0077BC94
+D2CelFileStrc* gpAssassinTabCelFile; // 0x0077BC94
 
-D2CelFileStrc* gpCellFile_0077BCB8; // 0x0077BCB8
+D2CelFileStrc* gpSquelchAuraCelFile; // 0x0077BCB8
 
-D2CelFileStrc* gpCellFile_0077BCBC; // 0x0077BCBC
+D2CelFileStrc* gpSelectAuraCelFile; // 0x0077BCBC
 
-D2CelFileStrc* gpCellFile_0077BCC0; // 0x0077BCC0
+D2CelFileStrc* gpNumberArrowsCelFileA; // 0x0077BCC0
 
-D2CelFileStrc* gpCellFile_0077BCC4; // 0x0077BCC4
+D2CelFileStrc* gpNumberArrowsCelFileB; // 0x0077BCC4
 
-D2CelFileStrc* gpCellFile_0077BCC8; // 0x0077BCC8
+D2CelFileStrc* gpNumberArrowsCelFileC; // 0x0077BCC8
 
-D2CelFileStrc* gpCellFile_0077BCCC; // 0x0077BCCC
+D2CelFileStrc* gpNumberArrowsCelFileD; // 0x0077BCCC
 
-D2CelFileStrc* gpCellFile_0077BCD0; // 0x0077BCD0
+D2CelFileStrc* gpNumberGreyArrowsCelFile; // 0x0077BCD0
 
-D2CelFileStrc* gpCellFile_0077BCD4; // 0x0077BCD4
+D2CelFileStrc* gpCreateJoinBckgCelFile; // 0x0077BCD4
 
-D2CelFileStrc* gpCellFile_0077BCD8; // 0x0077BCD8
+D2CelFileStrc* gpOkayButtonCelFile; // 0x0077BCD8
 
-D2CelFileStrc* gpCellFile_0077BD0C; // 0x0077BD0C
+D2CelFileStrc* gpCreateGameBckgCelFile; // 0x0077BD0C
 
-D2CelFileStrc* gpCellFile_0077BD10; // 0x0077BD10
+D2CelFileStrc* gpCreateGameButtonCelFile; // 0x0077BD10
 
-D2CelFileStrc* gpCellFile_0077BD18; // 0x0077BD18
+D2CelFileStrc* gpBnetWideButtonBlankCelFile; // 0x0077BD18
 
-D2CelFileStrc* gpCellFile_0077BD2C; // 0x0077BD2C
+D2CelFileStrc* gpBnetCancelButtonBlankCelFileB; // 0x0077BD2C
 
-D2CelFileStrc* gpCellFile_0077BD30; // 0x0077BD30
+D2CelFileStrc* gpYesNoButtonBlankCelFile; // 0x0077BD30
 
-D2CelFileStrc* gpCellFile_0077BD34; // 0x0077BD34
+D2CelFileStrc* gpLadderChoiceExpCelFile; // 0x0077BD34
 
-D2CelFileStrc* gpCellFile_0077BD38; // 0x0077BD38
+D2CelFileStrc* gpHardcoreLadderBckgCelFile; // 0x0077BD38
 
-D2CelFileStrc* gpCellFile_0077BD3C; // 0x0077BD3C
+D2CelFileStrc* gpPlayerProfileBckgCelFileA; // 0x0077BD3C
 
-D2CelFileStrc* gpCellFile_0077BD40; // 0x0077BD40
+D2CelFileStrc* gpPlayerProfileBckgCelFileB; // 0x0077BD40
 
-D2CelFileStrc* gpCellFile_0077BD44; // 0x0077BD44
+D2CelFileStrc* gpHelpBckgCelFile; // 0x0077BD44
 
-D2CelFileStrc* gpCellFile_0077BD48; // 0x0077BD48
+D2CelFileStrc* gpD2LogoBlackBnetCelFile; // 0x0077BD48
 
-D2CelFileStrc* gpCellFile_0077BD4C; // 0x0077BD4C
+D2CelFileStrc* gpD2LogoBnetCelFile; // 0x0077BD4C
 
 // 0x0043D510
 void __cdecl sub_0043D510_FreeCellFiles()
 {
-    if (gpCellFile_0077BC0C)
+    if (gpPopUpLargest2CelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC0C);
-        gpCellFile_0077BC0C = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpPopUpLargest2CelFile);
+        gpPopUpLargest2CelFile = 0;
     }
 
-    if (gpCellFile_0077BC10)
+    if (gpMediumButtonBlank2CelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC10);
-        gpCellFile_0077BC10 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpMediumButtonBlank2CelFile);
+        gpMediumButtonBlank2CelFile = 0;
     }
 
-    if (gpCellFile_0077BC04)
+    if (gpChatBackground)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC04);
-        gpCellFile_0077BC04 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpChatBackground);
+        gpChatBackground = 0;
     }
 
-    if (gpCellFile_0077BC08)
+    if (gpWaitingRoomBkgdCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC08);
-        gpCellFile_0077BC08 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpWaitingRoomBkgdCelFile);
+        gpWaitingRoomBkgdCelFile = 0;
     }
 
-    if (gpCellFile_0077BC14)
+    if (gpBnetCursorOHandCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC14);
-        gpCellFile_0077BC14 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpBnetCursorOHandCelFile);
+        gpBnetCursorOHandCelFile = 0;
     }
 
-    if (gpCellFile_0077BC18)
+    if (gpCursorLRotateCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC18);
-        gpCellFile_0077BC18 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCursorLRotateCelFile);
+        gpCursorLRotateCelFile = 0;
     }
 
-    if (gpCellFile_0077BC1C)
+    if (gpScrollBarCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC1C);
-        gpCellFile_0077BC1C = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpScrollBarCelFile);
+        gpScrollBarCelFile = 0;
     }
 
-    if (gpCellFile_0077BC20)
+    if (gpBnetJoinGameScrollBarsCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC20);
-        gpCellFile_0077BC20 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpBnetJoinGameScrollBarsCelFile);
+        gpBnetJoinGameScrollBarsCelFile = 0;
     }
 
-    if (gpCellFile_0077BC28)
+    if (gpChatLeftButtonsCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC28);
-        gpCellFile_0077BC28 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpChatLeftButtonsCelFile);
+        gpChatLeftButtonsCelFile = 0;
     }
 
-    if (gpCellFile_0077BC2C)
+    if (gpChatLeftButtons1CelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC2C);
-        gpCellFile_0077BC2C = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpChatLeftButtons1CelFile);
+        gpChatLeftButtons1CelFile = 0;
     }
 
-    if (gpCellFile_0077BC30)
+    if (gpChatLeftButtons2CelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC30);
-        gpCellFile_0077BC30 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpChatLeftButtons2CelFile);
+        gpChatLeftButtons2CelFile = 0;
     }
 
-    if (gpCellFile_0077BC34)
+    if (gpChatRightButtonsCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC34);
-        gpCellFile_0077BC34 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpChatRightButtonsCelFile);
+        gpChatRightButtonsCelFile = 0;
     }
 
-    if (gpCellFile_0077BC38)
+    if (gpChatRightTopButtonsCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC38);
-        gpCellFile_0077BC38 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpChatRightTopButtonsCelFile);
+        gpChatRightTopButtonsCelFile = 0;
     }
 
-    if (gpCellFile_0077BC3C)
+    if (gpChatArrowsCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC3C);
-        gpCellFile_0077BC3C = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpChatArrowsCelFile);
+        gpChatArrowsCelFile = 0;
     }
 
-    if (gpCellFile_0077BC50)
+    if (gpJoinGameBckgCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC50);
-        gpCellFile_0077BC50 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpJoinGameBckgCelFile);
+        gpJoinGameBckgCelFile = 0;
     }
 
-    if (gpCellFile_0077BC5C)
+    if (gpGameButtonBlankCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC5C);
-        gpCellFile_0077BC5C = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpGameButtonBlankCelFile);
+        gpGameButtonBlankCelFile = 0;
     }
 
-    if (gpCellFile_0077BC60)
+    if (gpJoinGameClickBoxCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC60);
-        gpCellFile_0077BC60 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpJoinGameClickBoxCelFile);
+        gpJoinGameClickBoxCelFile = 0;
     }
 
-    if (gpCellFile_0077BCC0)
+    if (gpNumberArrowsCelFileA)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BCC0);
-        gpCellFile_0077BCC0 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpNumberArrowsCelFileA);
+        gpNumberArrowsCelFileA = 0;
     }
 
-    if (gpCellFile_0077BCC4)
+    if (gpNumberArrowsCelFileB)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BCC4);
-        gpCellFile_0077BCC4 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpNumberArrowsCelFileB);
+        gpNumberArrowsCelFileB = 0;
     }
 
-    if (gpCellFile_0077BCC8)
+    if (gpNumberArrowsCelFileC)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BCC8);
-        gpCellFile_0077BCC8 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpNumberArrowsCelFileC);
+        gpNumberArrowsCelFileC = 0;
     }
 
-    if (gpCellFile_0077BCCC)
+    if (gpNumberArrowsCelFileD)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BCCC);
-        gpCellFile_0077BCCC = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpNumberArrowsCelFileD);
+        gpNumberArrowsCelFileD = 0;
     }
 
-    if (gpCellFile_0077BCD0)
+    if (gpNumberGreyArrowsCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BCD0);
-        gpCellFile_0077BCD0 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpNumberGreyArrowsCelFile);
+        gpNumberGreyArrowsCelFile = 0;
     }
 
-    if (gpCellFile_0077BC64)
+    if (gpGreyLevelBoxCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC64);
-        gpCellFile_0077BC64 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpGreyLevelBoxCelFile);
+        gpGreyLevelBoxCelFile = 0;
     }
 
-    if (gpCellFile_0077BCD4)
+    if (gpCreateJoinBckgCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BCD4);
-        gpCellFile_0077BCD4 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCreateJoinBckgCelFile);
+        gpCreateJoinBckgCelFile = 0;
     }
 
-    if (gpCellFile_0077BCD8)
+    if (gpOkayButtonCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BCD8);
-        gpCellFile_0077BCD8 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpOkayButtonCelFile);
+        gpOkayButtonCelFile = 0;
     }
 
-    if (gpCellFile_0077BD0C)
+    if (gpCreateGameBckgCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BD0C);
-        gpCellFile_0077BD0C = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCreateGameBckgCelFile);
+        gpCreateGameBckgCelFile = 0;
     }
 
-    if (gpCellFile_0077BD10)
+    if (gpCreateGameButtonCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BD10);
-        gpCellFile_0077BD10 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCreateGameButtonCelFile);
+        gpCreateGameButtonCelFile = 0;
     }
 
     if (gpCellFile_0077BC24)
@@ -370,160 +370,160 @@ void __cdecl sub_0043D510_FreeCellFiles()
         gpCellFile_0077BC24 = 0;
     }
 
-    if (gpCellFile_0077BD18)
+    if (gpBnetWideButtonBlankCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BD18);
-        gpCellFile_0077BD18 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpBnetWideButtonBlankCelFile);
+        gpBnetWideButtonBlankCelFile = 0;
     }
 
-    if (gpCellFile_0077BD2C)
+    if (gpBnetCancelButtonBlankCelFileB)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BD2C);
-        gpCellFile_0077BD2C = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpBnetCancelButtonBlankCelFileB);
+        gpBnetCancelButtonBlankCelFileB = 0;
     }
 
-    if (gpCellFile_0077BD30)
+    if (gpYesNoButtonBlankCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BD30);
-        gpCellFile_0077BD30 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpYesNoButtonBlankCelFile);
+        gpYesNoButtonBlankCelFile = 0;
     }
 
-    if (gpCellFile_0077BD48)
+    if (gpD2LogoBlackBnetCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BD48);
-        gpCellFile_0077BD48 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpD2LogoBlackBnetCelFile);
+        gpD2LogoBlackBnetCelFile = 0;
     }
 
-    if (gpCellFile_0077BD4C)
+    if (gpD2LogoBnetCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BD4C);
-        gpCellFile_0077BD4C = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpD2LogoBnetCelFile);
+        gpD2LogoBnetCelFile = 0;
     }
 
-    if (gpCellFile_0077BC54)
+    if (gpBlankBckg2CelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC54);
-        gpCellFile_0077BC54 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpBlankBckg2CelFile);
+        gpBlankBckg2CelFile = 0;
     }
 
-    if (gpCellFile_0077BC58)
+    if (gpGemButtonCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC58);
-        gpCellFile_0077BC58 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpGemButtonCelFile);
+        gpGemButtonCelFile = 0;
     }
 
-    if (gpCellFile_0077BD34)
+    if (gpLadderChoiceExpCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BD34);
-        gpCellFile_0077BD34 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpLadderChoiceExpCelFile);
+        gpLadderChoiceExpCelFile = 0;
     }
 
-    if (gpCellFile_0077BD38)
+    if (gpHardcoreLadderBckgCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BD38);
-        gpCellFile_0077BD38 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpHardcoreLadderBckgCelFile);
+        gpHardcoreLadderBckgCelFile = 0;
     }
 
-    if (gpCellFile_0077BD3C)
+    if (gpPlayerProfileBckgCelFileA)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BD3C);
-        gpCellFile_0077BD3C = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpPlayerProfileBckgCelFileA);
+        gpPlayerProfileBckgCelFileA = 0;
     }
 
-    if (gpCellFile_0077BD44)
+    if (gpHelpBckgCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BD44);
-        gpCellFile_0077BD44 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpHelpBckgCelFile);
+        gpHelpBckgCelFile = 0;
     }
 
-    if (gpCellFile_0077BD40)
+    if (gpPlayerProfileBckgCelFileB)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BD40);
-        gpCellFile_0077BD40 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpPlayerProfileBckgCelFileB);
+        gpPlayerProfileBckgCelFileB = 0;
     }
 
-    if (gpCellFile_0077BC68)
+    if (gpRadioButtonCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC68);
-        gpCellFile_0077BC68 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpRadioButtonCelFile);
+        gpRadioButtonCelFile = 0;
     }
 
-    if (gpCellFile_0077BC6C)
+    if (gpRadioButtonGreyCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC6C);
-        gpCellFile_0077BC68 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpRadioButtonGreyCelFile);
+        gpRadioButtonCelFile = 0;
     }
 
-    if (gpCellFile_0077BC70)
+    if (gpBnetPopUpOkCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC70);
-        gpCellFile_0077BC70 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpBnetPopUpOkCelFile);
+        gpBnetPopUpOkCelFile = 0;
     }
 
-    if (gpCellFile_0077BC74)
+    if (gpBnetCancelButtonBlankCelFileA)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC74);
-        gpCellFile_0077BC74 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpBnetCancelButtonBlankCelFileA);
+        gpBnetCancelButtonBlankCelFileA = 0;
     }
 
-    if (gpCellFile_0077BC78)
+    if (gpOverallTabCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC78);
-        gpCellFile_0077BC78 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpOverallTabCelFile);
+        gpOverallTabCelFile = 0;
     }
 
-    if (gpCellFile_0077BC7C)
+    if (gpAmazonTabCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC7C);
-        gpCellFile_0077BC7C = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpAmazonTabCelFile);
+        gpAmazonTabCelFile = 0;
     }
 
-    if (gpCellFile_0077BC80)
+    if (gpSorceressTabCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC80);
-        gpCellFile_0077BC80 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpSorceressTabCelFile);
+        gpSorceressTabCelFile = 0;
     }
 
-    if (gpCellFile_0077BC84)
+    if (gpNecromancerTabCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC84);
-        gpCellFile_0077BC84 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpNecromancerTabCelFile);
+        gpNecromancerTabCelFile = 0;
     }
 
-    if (gpCellFile_0077BC88)
+    if (gpPaladinTabCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC88);
-        gpCellFile_0077BC88 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpPaladinTabCelFile);
+        gpPaladinTabCelFile = 0;
     }
 
-    if (gpCellFile_0077BC8C)
+    if (gpBarbarianTabCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC8C);
-        gpCellFile_0077BC8C = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpBarbarianTabCelFile);
+        gpBarbarianTabCelFile = 0;
     }
 
-    if (gpCellFile_0077BC90)
+    if (gpDruidTabCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC90);
-        gpCellFile_0077BC90 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpDruidTabCelFile);
+        gpDruidTabCelFile = 0;
     }
 
-    if (gpCellFile_0077BC94)
+    if (gpAssassinTabCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC94);
-        gpCellFile_0077BC94 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpAssassinTabCelFile);
+        gpAssassinTabCelFile = 0;
     }
 
-    if (gpCellFile_0077BCB8)
+    if (gpSquelchAuraCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BCB8);
-        gpCellFile_0077BCB8 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpSquelchAuraCelFile);
+        gpSquelchAuraCelFile = 0;
     }
 
-    if (gpCellFile_0077BCBC)
+    if (gpSelectAuraCelFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BCBC);
-        gpCellFile_0077BCBC = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpSelectAuraCelFile);
+        gpSelectAuraCelFile = 0;
     }
 }
 
@@ -546,7 +546,7 @@ int __stdcall sub_0043DA20_ScrollUp(SMSGHANDLER_PARAMS* pMsg)
 // 0x0043DBA0
 int __stdcall sub_0043DBA0_ClearSelection(int nArg1, int nArg2, int nArg3)
 {
-    sub_004FB9D0_Select(gpControl_0077BCFC, -1);
+    sub_004FB9D0_Select(gpChannelListBox, -1);
     return 1;
 }
 

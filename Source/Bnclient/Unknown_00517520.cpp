@@ -2,7 +2,8 @@
 
 void* __stdcall SMemAlloc(unsigned int,const char*,int,unsigned int);
 int __stdcall SMemFree(void*,const char*,int,unsigned int);
-extern const char gszRecordType_0072F9FC[];
+// build: symbol ?gszRecordType@* 0x0072F9FC
+extern const char gszRecordType[];
 struct D2StormRecordStrc {
  D2StormLinkStrc tLink;
  int unk0x08;
@@ -22,7 +23,7 @@ inline void* operator new(unsigned int,void* p) throw() {return p;}
 
 char* D2StormListStrc::sub_00517669_NewNode(unsigned int linkType,unsigned int extraBytes,unsigned int flags) {
  const unsigned int mask=8;
- void* memory=SMemAlloc(sizeof(D2StormRecordStrc)+extraBytes,gszRecordType_0072F9FC,-2,flags|mask);
+ void* memory=SMemAlloc(sizeof(D2StormRecordStrc)+extraBytes,gszRecordType,-2,flags|mask);
  D2StormRecordStrc* record=memory?new(memory) D2StormRecordStrc:0;
  if(linkType) sub_0051755C_LinkNode((char*)record,linkType,0);
  return (char*)record;

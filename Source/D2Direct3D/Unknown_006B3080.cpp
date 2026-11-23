@@ -105,19 +105,19 @@ void __cdecl sub_006B3080()
  TileSetHardwareFreeCallback((void*)D3D_InvalidateTileCaches);
 }
 
-int gbVideoUp_00970E40; // 0x00970E40
+int gbVideoUp; // 0x00970E40
 
-int gnVideoState_00970E44; // 0x00970E44
+int gnVideoState; // 0x00970E44
 
-D2ComObjectStrc* gpInterface_00970E68; // 0x00970E68
+D2ComObjectStrc* gpPrimarySurface; // 0x00970E68
 
-D2ComObjectStrc* gpInterface_00970E6C; // 0x00970E6C
+D2ComObjectStrc* gpRenderSurface; // 0x00970E6C
 
-D2ComObjectStrc* gpInterface_00970E70; // 0x00970E70
+D2ComObjectStrc* gpInterface; // 0x00970E70
 
-D2ComObjectStrc* gpGammaControl_00970E74; // 0x00970E74
+D2ComObjectStrc* gpGammaControl; // 0x00970E74
 
-D2ComObjectStrc* gpInterface_00970E7C; // 0x00970E7C
+D2ComObjectStrc* gpViewport; // 0x00970E7C
 
-char gabGammaRamp_0096FCB8[1536]; // 0x0096FCB8
+char gabGammaRamp[1536]; // 0x0096FCB8
 

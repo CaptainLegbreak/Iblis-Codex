@@ -8,13 +8,13 @@ void __cdecl sub_005140D0_InitDirectSound(); // 0x005140D0
 int __fastcall D2SOUND_GetVxdFileVersion(const char* szPath, unsigned int* pMajor, unsigned int* pMinor, unsigned int* pBuild); // 0x00516CA0
 
 extern int gnSoundArg_008816DC;                                                                             // 0x008816DC
-int gbSoundReady_00881764;                                                                                  // 0x00881764
+int gbSoundReady;                                                                                  // 0x00881764
 extern int gdwGlobal_0088176C;                                                                              // 0x0088176C
-int gbEaxEnabled_00881770;                                                                                  // 0x00881770
-extern int gbSoundEnumDone_00881780;                                                                        // 0x00881780
-int gbOldSoundDriver_00881784;                                                                              // 0x00881784
-int gbCheckEmu10k1_00881788;                                                                                // 0x00881788
-extern int gbCheckCrlds3d_0088178C;                                                                         // 0x0088178C
+int gbEaxEnabled;                                                                                  // 0x00881770
+extern int gbSoundEnumDone;                                                                        // 0x00881780
+int gbOldSoundDriver;                                                                              // 0x00881784
+int gbCheckEmu10k1;                                                                                // 0x00881788
+extern int gbCheckCrlds3d;                                                                         // 0x0088178C
 extern int gdwGlobal_00881790;                                                                              // 0x00881790
 
 // 0x00514530
@@ -22,14 +22,14 @@ void __fastcall sub_00514530_InitSound(int nArg1, int nArg2)
 {
     gdwGlobal_00881790 = nArg1;
     gnSoundArg_008816DC = nArg2;
-    gbSoundEnumDone_00881780 = 0;
+    gbSoundEnumDone = 0;
     DirectSoundEnumerateA(sub_00513A20_EnumCallback, 0);
 
     char szPath[260];
     unsigned int nMajor;
     unsigned int nMinor;
     unsigned int nBuild;
-    if (gbCheckEmu10k1_00881788)
+    if (gbCheckEmu10k1)
     {
         GetWindowsDirectoryA(szPath, sizeof(szPath));
         strcat(szPath, "\\SYSTEM\\EMU10K1.VXD");
@@ -39,46 +39,46 @@ void __fastcall sub_00514530_InitSound(int nArg1, int nArg2)
             {
                 if (nBuild - 622 <= 88)
                 {
-                    gbOldSoundDriver_00881784 = 1;
+                    gbOldSoundDriver = 1;
                 }
             }
             else if (nMinor == 11)
             {
                 if (nBuild - 628 <= 1)
                 {
-                    gbOldSoundDriver_00881784 = 1;
+                    gbOldSoundDriver = 1;
                 }
             }
         }
     }
 
-    if (gbCheckCrlds3d_0088178C)
+    if (gbCheckCrlds3d)
     {
         GetWindowsDirectoryA(szPath, sizeof(szPath));
         strcat(szPath, "\\SYSTEM\\CRLDS3D.VXD");
         if (D2SOUND_GetVxdFileVersion(szPath, &nMajor, &nMinor, &nBuild)
             && (nMajor < 4 || nMajor == 4 && (nMinor < 12 || nMinor == 12 && nBuild < 0x40B)))
         {
-            gbOldSoundDriver_00881784 = 1;
+            gbOldSoundDriver = 1;
         }
     }
 
-    if (!gbSoundReady_00881764)
+    if (!gbSoundReady)
     {
         gdwGlobal_0088176C = 1;
-        gbEaxEnabled_00881770 = 1;
+        gbEaxEnabled = 1;
         sub_005140D0_InitDirectSound();
-        if (!gbSoundReady_00881764)
+        if (!gbSoundReady)
         {
             gdwGlobal_0088176C = 1;
-            gbEaxEnabled_00881770 = 0;
+            gbEaxEnabled = 0;
             sub_005140D0_InitDirectSound();
-            if (!gbSoundReady_00881764)
+            if (!gbSoundReady)
             {
                 gdwGlobal_0088176C = 0;
-                gbEaxEnabled_00881770 = 0;
+                gbEaxEnabled = 0;
                 sub_005140D0_InitDirectSound();
-                if (!gbSoundReady_00881764)
+                if (!gbSoundReady)
                 {
                     sub_00410610_WriteLogLine("\tCouldn't initialize DirectSound");
                 }

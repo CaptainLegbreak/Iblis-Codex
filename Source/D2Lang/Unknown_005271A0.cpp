@@ -8,7 +8,7 @@ struct D2LangCharSetStrc;
 
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource); // 0x005267E0
-extern "C" const char szEndCharsS_006E03A8[]; // 0x006E03A8
+extern "C" const char gszEndCharsS[]; // 0x006E03A8
 
 struct UnicodeZ
 {
@@ -62,7 +62,7 @@ static bool sub_005271A0_EndsWithCharOf(const char* szChars, const Unicode* pTex
 void __fastcall sub_I11_Emit_005271A0(Unicode* pDst, const Unicode* pText)
 {
     sub_005267E0(pDst, pText);
-    if (sub_005271A0_EndsWithCharOf(szEndCharsS_006E03A8, pText))
+    if (sub_005271A0_EndsWithCharOf(gszEndCharsS, pText))
     {
         sub_005267E0(pDst, pText);
     }

@@ -4,9 +4,9 @@
 
 extern "C" __int64 __cdecl _time64(__int64* pTime);                                                        // 0x0068568B
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC214
-extern void* gpfnSymCleanup_0098A6B8;                                                                       // 0x0098A6B8
-extern D2CriticalSectionStrc gtSymbolLock_0098A6F0;                                                         // 0x0098A6F0
-extern char gszLogDirectory_00992708[0x400];                                                                // 0x00992708
+extern void* gpfnSymCleanup;                                                                       // 0x0098A6B8
+extern D2CriticalSectionStrc gtSymbolLock;                                                         // 0x0098A6F0
+extern char gszLogDirectory[0x400];                                                                // 0x00992708
 
 static inline size_t StrLCopy(char* szDest, const char* szSource, size_t nSize)
 {
@@ -52,7 +52,7 @@ __int64 __cdecl sub_00401010_GetTime64()
 // 0x00401020
 static inline bool sub_00401020_SetLogDirectory(const char* szPath)
 {
-    return StrLCopy(gszLogDirectory_00992708, szPath, 0x400) < 0x400 ? true : false;
+    return StrLCopy(gszLogDirectory, szPath, 0x400) < 0x400 ? true : false;
 }
 
 // build: context sub_M123_Emit_00401020
@@ -69,18 +69,20 @@ void __cdecl sub_004016B0_Nothing()
 // 0x00401A60
 void __cdecl sub_00401A60_UnlockSymbols()
 {
-    LeaveCriticalSection(&gtSymbolLock_0098A6F0);
+    LeaveCriticalSection(&gtSymbolLock);
 }
 
 // 0x00401C80
 void __cdecl sub_00401C80_FreeDbgHelp()
 {
-    if (gbSymInitialized_0098A6B0)
+// build: symbol ?gbSymInitialized@* 0x0098A6B0
+    if (gbSymInitialized)
     {
-        if (ghDbgHelp_0098A680)
+// build: symbol ?ghDbgHelp@* 0x0098A680
+        if (ghDbgHelp)
         {
-            FreeLibrary(ghDbgHelp_0098A680);
-            ghDbgHelp_0098A680 = 0;
+            FreeLibrary(ghDbgHelp);
+            ghDbgHelp = 0;
         }
     }
 }
@@ -88,9 +90,10 @@ void __cdecl sub_00401C80_FreeDbgHelp()
 // 0x00401DD0
 void __cdecl sub_00401DD0_CleanupSymbols()
 {
-    if (gbSymInitialized_0098A6B0)
+    if (gbSymInitialized)
     {
-        ((SymCleanupFn)gpfnSymCleanup_0098A6B8)(ghProcess_0074C6F0);
-        gbSymInitialized_0098A6B0 = false;
+// build: symbol ?ghProcess@* 0x0074C6F0
+        ((SymCleanupFn)gpfnSymCleanup)(ghProcess);
+        gbSymInitialized = false;
     }
 }

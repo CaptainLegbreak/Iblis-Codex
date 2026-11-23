@@ -54,9 +54,9 @@ void __fastcall LOGMANAGER_GetLogDirectory(char* szDirectory, int nSize);       
 void __fastcall LOGMANAGER_SweepLogFile(const D2FileTimeStrc* pNow, const char* szFile);                  // 0x0040F3D0
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
-D2PoolDirectoryStrc gtPoolManager_0074F0E8;                                                                   // 0x0074F0E8
-extern char gszResolvedHostIP_0075D040[];                                                                   // 0x0075D040
-extern D2CriticalSectionStrc gtLogLock_0075E850;                                                            // 0x0075E850
+D2PoolDirectoryStrc gtPoolManager;                                                                   // 0x0074F0E8
+extern char gszResolvedHostIP[];                                                                   // 0x0075D040
+extern D2CriticalSectionStrc gtLogLock;                                                            // 0x0075E850
 
 
 
@@ -124,7 +124,8 @@ _iobuf* __fastcall sub_0040EBD0_OpenDatedLogFile(const char* szName, D2SystemTim
 {
     char szPath[0x104];
     GetLocalTime(pTime);
-    SStrPrintf(szPath, sizeof(szPath), "%s%s%02d%02d%02d.txt", gszLogPrefix_00708018, szName, pTime->wYear % 100, pTime->wMonth, pTime->wDay);
+// build: symbol ?gszLogPrefix@* 0x00708018
+    SStrPrintf(szPath, sizeof(szPath), "%s%s%02d%02d%02d.txt", gszLogPrefix, szName, pTime->wYear % 100, pTime->wMonth, pTime->wDay);
     if (szPathOut)
     {
         SStrCopy(szPathOut, szPath, nPathOutSize);

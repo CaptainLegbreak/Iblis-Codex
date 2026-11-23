@@ -29,9 +29,9 @@ struct D2Config006B1C30Strc
 };
 
 extern D2Config006B1C30Strc* gpConfig_007C9148; // 0x007C9148
-extern D2Interface006B1C30Strc* gpInterface_00970E68; // 0x00970E68
-extern int gnScreenHeight_007C913C; // 0x007C913C
-extern unsigned int gdwColors_009702C0[]; // 0x009702C0
+extern D2Interface006B1C30Strc* gpPrimarySurface; // 0x00970E68
+extern int gnRenderHeight; // 0x007C913C
+extern unsigned int gadwColors[]; // 0x009702C0
 
 extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
@@ -67,23 +67,24 @@ unsigned int __cdecl sub_006B1C20_GetMaskedFlags()
 int __cdecl sub_006B1C30_SetMode()
 {
     if (gpConfig_007C9148->nFlag10)
-        gpInterface_00970E68->pVtbl->pfnMethod2C(gpInterface_00970E68, 0, 1);
+        gpPrimarySurface->pVtbl->pfnMethod2C(gpPrimarySurface, 0, 1);
     else
-        gpInterface_00970E68->pVtbl->pfnMethod2C(gpInterface_00970E68, 0, 9);
+        gpPrimarySurface->pVtbl->pfnMethod2C(gpPrimarySurface, 0, 9);
     return 1;
 }
 
 // 0x006B1C60
 void __fastcall sub_006B1C60_GetScreenSize(int* width, int* height)
 {
-    *width = gnScreenWidth_007C9138;
-    *height = gnScreenHeight_007C913C;
+// build: symbol ?gnRenderWidth@* 0x007C9138
+    *width = gnRenderWidth;
+    *height = gnRenderHeight;
 }
 
 // 0x006B1D50
 unsigned int __fastcall sub_006B1D50_GetColor(unsigned int index)
 {
-    return gdwColors_009702C0[index];
+    return gadwColors[index];
 }
 
 D2PaletteTableStrc gPaletteView_0096F280; // 0x0096F280

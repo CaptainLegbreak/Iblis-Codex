@@ -143,7 +143,7 @@ void __cdecl IGNORELIST_FreeIgnoreList(); // 0x0060DDB0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetVersion(); // 0x006CC138
 extern "C" __declspec(dllimport) void* __stdcall OpenSCManagerA(const char* szMachineName, const char* szDatabaseName, unsigned long dwDesiredAccess); // 0x006CC028
 extern "C" __declspec(dllimport) void* __stdcall OpenServiceA(void* hSCManager, const char* szServiceName, unsigned long dwDesiredAccess); // 0x006CC04C
-extern char gszServiceName_007065DC[]; // 0x007065DC
+extern char gszServiceName[]; // 0x007065DC
 
 void __cdecl operator delete(void* pMemory);
 void* __cdecl operator new(size_t nSize);
@@ -837,7 +837,7 @@ static int sub_00406470_OpenServiceHandles(void** phService, void** phManager)
     {
         return 0;
     }
-    *phService = OpenServiceA(hManager, gszServiceName_007065DC, 0xF01FF);
+    *phService = OpenServiceA(hManager, gszServiceName, 0xF01FF);
     return 1;
 }
 

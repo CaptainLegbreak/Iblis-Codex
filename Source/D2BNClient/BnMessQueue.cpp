@@ -16,10 +16,10 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
-extern "C" const char szBnMessQueueFile_006DF78C[]; // 0x006DF78C
-extern void* gpBnStateArg_00882000; // 0x00882000
-extern D2CriticalSectionStrc gMessageLock_00882004; // 0x00882004
-extern int gnBnState_0088201C; // 0x0088201C
+extern "C" const char gszBnMessQueueFile[]; // 0x006DF78C
+extern void* gpBnStateArg; // 0x00882000
+extern D2CriticalSectionStrc gtMessageLock; // 0x00882004
+extern int gnBnState; // 0x0088201C
 
 struct D2BnMessage00520440Strc
 {
@@ -28,16 +28,16 @@ struct D2BnMessage00520440Strc
 };
 extern D2BnMessage00520440Strc* gpMessQueueHead_00882020; // 0x00882020
 
-char gszEmptyStateText_00881F80[128]; // 0x00881F80
+char gszEmptyStateText[128]; // 0x00881F80
 
-D2BnMessageStrc* gpMessageHead_00882020; // 0x00882020
+D2BnMessageStrc* gpMessageHead; // 0x00882020
 
-D2BnMessageStrc* gpMessageTail_00882024; // 0x00882024
+D2BnMessageStrc* gpMessageTail; // 0x00882024
 
 // 0x00520210
 int __fastcall BNMESSQUEUE_QueueMessage(int nId, const void* pData, unsigned int nLength)
 {
-    D2BnMessageStrc* pMessage = (D2BnMessageStrc*)FOG_Alloc(sizeof(D2BnMessageStrc), szBnMessQueueFile_006DF78C, 0x37, 0);
+    D2BnMessageStrc* pMessage = (D2BnMessageStrc*)FOG_Alloc(sizeof(D2BnMessageStrc), gszBnMessQueueFile, 0x37, 0);
     if (nLength > 0x120)
         nLength = 0x120;
     if (nLength)
@@ -48,33 +48,33 @@ int __fastcall BNMESSQUEUE_QueueMessage(int nId, const void* pData, unsigned int
     pMessage->nId = nId;
     pMessage->pNext = 0;
     D2_ASSERT(nLength <= 0x120, 0x44);
-    EnterCriticalSection(&gMessageLock_00882004);
-    if (!gpMessageHead_00882020)
-        gpMessageHead_00882020 = pMessage;
+    EnterCriticalSection(&gtMessageLock);
+    if (!gpMessageHead)
+        gpMessageHead = pMessage;
     else
-        gpMessageTail_00882024->pNext = pMessage;
-    gpMessageTail_00882024 = pMessage;
-    LeaveCriticalSection(&gMessageLock_00882004);
+        gpMessageTail->pNext = pMessage;
+    gpMessageTail = pMessage;
+    LeaveCriticalSection(&gtMessageLock);
     return 1;
 }
 
 // 0x005202F0
 int __fastcall BNMESSQUEUE_QueueText(int nId, const char* szText)
 {
-    D2BnMessageStrc* pMessage = (D2BnMessageStrc*)FOG_Alloc(sizeof(D2BnMessageStrc), szBnMessQueueFile_006DF78C, 0x5C, 0);
+    D2BnMessageStrc* pMessage = (D2BnMessageStrc*)FOG_Alloc(sizeof(D2BnMessageStrc), gszBnMessQueueFile, 0x5C, 0);
     SStrCopy(pMessage->szText, szText, 0x120);
     unsigned int nLength = strlen(pMessage->szText) + 1;
     pMessage->nLength = nLength;
     pMessage->nId = nId;
     pMessage->pNext = 0;
     D2_ASSERT(nLength <= 0x120, 0x62);
-    EnterCriticalSection(&gMessageLock_00882004);
-    if (!gpMessageHead_00882020)
-        gpMessageHead_00882020 = pMessage;
+    EnterCriticalSection(&gtMessageLock);
+    if (!gpMessageHead)
+        gpMessageHead = pMessage;
     else
-        gpMessageTail_00882024->pNext = pMessage;
-    gpMessageTail_00882024 = pMessage;
-    LeaveCriticalSection(&gMessageLock_00882004);
+        gpMessageTail->pNext = pMessage;
+    gpMessageTail = pMessage;
+    LeaveCriticalSection(&gtMessageLock);
     return 1;
 }
 
@@ -82,29 +82,29 @@ int __fastcall BNMESSQUEUE_QueueText(int nId, const char* szText)
 unsigned int __fastcall BNMESSQUEUE_TakeMessage(int* pId, void* pBuffer)
 {
     unsigned int nLength;
-    EnterCriticalSection(&gMessageLock_00882004);
-    D2BnMessageStrc* pMessage = gpMessageHead_00882020;
+    EnterCriticalSection(&gtMessageLock);
+    D2BnMessageStrc* pMessage = gpMessageHead;
     if (pMessage)
     {
         memcpy(pBuffer, pMessage->szText, pMessage->nLength);
         *pId = pMessage->nId;
         nLength = pMessage->nLength;
         D2BnMessageStrc* pNext = pMessage->pNext;
-        FOG_Free(gpMessageHead_00882020, szBnMessQueueFile_006DF78C, 0x86, 0);
-        gpMessageHead_00882020 = pNext;
+        FOG_Free(gpMessageHead, gszBnMessQueueFile, 0x86, 0);
+        gpMessageHead = pNext;
     }
     else
     {
         nLength = 0;
     }
-    LeaveCriticalSection(&gMessageLock_00882004);
+    LeaveCriticalSection(&gtMessageLock);
     return nLength;
 }
 
 // 0x00520440
 int __cdecl BNMESSQUEUE_FreeAllMessages()
 {
-    EnterCriticalSection(&gMessageLock_00882004);
+    EnterCriticalSection(&gtMessageLock);
     D2BnMessage00520440Strc* pMessage = gpMessQueueHead_00882020;
     while (gpMessQueueHead_00882020)
     {
@@ -112,35 +112,35 @@ int __cdecl BNMESSQUEUE_FreeAllMessages()
         FOG_Free(gpMessQueueHead_00882020, ".\\BnMessQueue.cpp", 0x9F, 0);
         gpMessQueueHead_00882020 = pMessage;
     }
-    LeaveCriticalSection(&gMessageLock_00882004);
+    LeaveCriticalSection(&gtMessageLock);
     return 1;
 }
 
 // 0x005204A0
 int __fastcall BNMESSQUEUE_SetError(int nError)
 {
-    EnterCriticalSection(&gMessageLock_00882004);
-    if (!gnBnState_0088201C)
-        gnBnState_0088201C = nError;
-    LeaveCriticalSection(&gMessageLock_00882004);
+    EnterCriticalSection(&gtMessageLock);
+    if (!gnBnState)
+        gnBnState = nError;
+    LeaveCriticalSection(&gtMessageLock);
     return 1;
 }
 
 // 0x00520520
 int __fastcall BNMESSQUEUE_SetState(int nState)
 {
-    EnterCriticalSection(&gMessageLock_00882004);
-    gnBnState_0088201C = nState;
-    LeaveCriticalSection(&gMessageLock_00882004);
+    EnterCriticalSection(&gtMessageLock);
+    gnBnState = nState;
+    LeaveCriticalSection(&gtMessageLock);
     return 1;
 }
 
 // 0x00520550
 int __fastcall BNMESSQUEUE_SetStateArg(void* pArg)
 {
-    EnterCriticalSection(&gMessageLock_00882004);
-    gpBnStateArg_00882000 = pArg;
-    LeaveCriticalSection(&gMessageLock_00882004);
+    EnterCriticalSection(&gtMessageLock);
+    gpBnStateArg = pArg;
+    LeaveCriticalSection(&gtMessageLock);
     return 1;
 }
 
@@ -148,12 +148,12 @@ int __fastcall BNMESSQUEUE_SetStateArg(void* pArg)
 int __fastcall BNMESSQUEUE_TakeState(D2BnStateStrc* pState)
 {
     D2_ASSERT(pState, 0xE2);
-    EnterCriticalSection(&gMessageLock_00882004);
-    pState->nState = gnBnState_0088201C;
-    pState->pArg = gpBnStateArg_00882000;
-    if (gnBnState_0088201C == 0x1B)
-        pState->pArg = gszEmptyStateText_00881F80;
-    gnBnState_0088201C = 0;
-    LeaveCriticalSection(&gMessageLock_00882004);
+    EnterCriticalSection(&gtMessageLock);
+    pState->nState = gnBnState;
+    pState->pArg = gpBnStateArg;
+    if (gnBnState == 0x1B)
+        pState->pArg = gszEmptyStateText;
+    gnBnState = 0;
+    LeaveCriticalSection(&gtMessageLock);
     return 1;
 }

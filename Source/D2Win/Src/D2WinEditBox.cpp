@@ -131,7 +131,7 @@ enum { FIRST_DIGIT = 48, LAST_DIGIT = 57 };
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
 
-extern tagPOINT gMousePosition_6F8FE234; // 0x007D55A4
+extern tagPOINT gtMousePosition; // 0x007D55A4
 
 void __cdecl EDITBOX_UpdateVisibleChars(); // 0x004FE7C0
 
@@ -153,9 +153,9 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 
 void __fastcall D2Win_10133(const Unicode* wszText, int nX, int nY, int nColor, int nDrawMode, int nTextColor); // 0x00502480
 
-D2WinEditBoxStrc* gpLastClickedEditBox_00841B78; // 0x00841B78
+D2WinEditBoxStrc* gpLastClickedEditBox; // 0x00841B78
 
-static unsigned long gdwLastClickTick_00841B7C; // 0x00841B7C
+static unsigned long gdwEditBoxLastClickTick; // 0x00841B7C
 
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
@@ -212,9 +212,9 @@ extern "C" __declspec(dllimport) int __stdcall GlobalUnlock(void* hMem);        
 
 extern "C" __declspec(dllimport) int __stdcall IsClipboardFormatAvailable(unsigned int uFormat);            // 0x006CC528
 
-static void* ghClipboardData_00841D80;                                                                      // 0x00841D80
+static void* ghClipboardData;                                                                      // 0x00841D80
 
-char gszClipboardText_00841B80[0x200];                                                                      // 0x00841B80
+char gszClipboardText[0x200];                                                                      // 0x00841B80
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                          // 0x006829C0
 
@@ -1077,37 +1077,37 @@ const char* __cdecl EDITBOX_GetClipboardText()
         const char* szData = (const char*)GlobalLock(hData);
         if (szData)
         {
-            strncpy(gszClipboardText_00841B80, szData, 0x200);
+            strncpy(gszClipboardText, szData, 0x200);
             GlobalUnlock(hData);
         }
     }
     CloseClipboard();
-    return gszClipboardText_00841B80;
+    return gszClipboardText;
 }
 
 // 0x004FDBB0
 int __fastcall EDITBOX_SetClipboardText(const char* szText)
 {
-    if (ghClipboardData_00841D80)
+    if (ghClipboardData)
     {
-        GlobalFree(ghClipboardData_00841D80);
-        ghClipboardData_00841D80 = 0;
+        GlobalFree(ghClipboardData);
+        ghClipboardData = 0;
     }
     if (!OpenClipboard(WINDOW_GetWindow()))
         return 0;
     EmptyClipboard();
     const int nLength = strlen(szText);
-    ghClipboardData_00841D80 = GlobalAlloc(0x2000, nLength + 1);
-    if (!ghClipboardData_00841D80)
+    ghClipboardData = GlobalAlloc(0x2000, nLength + 1);
+    if (!ghClipboardData)
     {
         CloseClipboard();
         return 0;
     }
-    char* pData = (char*)GlobalLock(ghClipboardData_00841D80);
+    char* pData = (char*)GlobalLock(ghClipboardData);
     memcpy(pData, szText, nLength);
     pData[nLength] = 0;
-    GlobalUnlock(ghClipboardData_00841D80);
-    SetClipboardData(1, ghClipboardData_00841D80);
+    GlobalUnlock(ghClipboardData);
+    SetClipboardData(1, ghClipboardData);
     CloseClipboard();
     return 1;
 }
@@ -1125,8 +1125,8 @@ int __stdcall EDITBOX_HandleSingleLineMouseDown(SMSGHANDLER_PARAMS* pMsg)
         return 0;
     }
 
-    int nX = gMousePosition_6F8FE234.x;
-    int nY = gMousePosition_6F8FE234.y;
+    int nX = gtMousePosition.x;
+    int nY = gtMousePosition.y;
     CONTROL_SetFocusedEditBox(ptEditData);
     nX -= ptEditData->controlHeader.nImageX + ptEditData->nTextInsetX;
     nY += ptEditData->controlHeader.nHeight - ptEditData->nTextInsetY - ptEditData->controlHeader.nImageY;
@@ -1134,7 +1134,7 @@ int __stdcall EDITBOX_HandleSingleLineMouseDown(SMSGHANDLER_PARAMS* pMsg)
     const int bInside = nX >= -ptEditData->nTextInsetX && nX < nRight && nY > -ptEditData->nTextInsetY && nY < ptEditData->controlHeader.nHeight - ptEditData->nTextInsetY;
 
     const unsigned long dwTick = GetTickCount();
-    if (bInside && !ptEditData->bMouseSelecting && ptEditData == gpLastClickedEditBox_00841B78 && dwTick - gdwLastClickTick_00841B7C < 300)
+    if (bInside && !ptEditData->bMouseSelecting && ptEditData == gpLastClickedEditBox && dwTick - gdwEditBoxLastClickTick < 300)
     {
         D2Win_10082(ptEditData);
     }
@@ -1190,8 +1190,8 @@ int __stdcall EDITBOX_HandleSingleLineMouseDown(SMSGHANDLER_PARAMS* pMsg)
         }
     }
 
-    gpLastClickedEditBox_00841B78 = ptEditData;
-    gdwLastClickTick_00841B7C = dwTick;
+    gpLastClickedEditBox = ptEditData;
+    gdwEditBoxLastClickTick = dwTick;
     if (ptEditData->controlHeader.field_34)
     {
         return ptEditData->controlHeader.field_34(pMsg);

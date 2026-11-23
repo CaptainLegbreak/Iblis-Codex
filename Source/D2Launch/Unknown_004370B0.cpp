@@ -6,7 +6,7 @@ struct D2FuncTable_0077ABF0Strc;
 void __cdecl MAINMENUS_ShowLoginScreen(); // 0x00435330
 
 extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
-extern int gnStatusDots_007799B4; // 0x007799B4
+extern int gnStatusDots; // 0x007799B4
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 void __cdecl MAINMENUS_CreateLoginScreen(); // 0x00432100

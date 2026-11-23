@@ -15,10 +15,10 @@ struct D2D3DDeviceVtbl {
 struct D2D3DDeviceStrc { D2D3DDeviceVtbl* vtbl; };
 extern int gnWidth_007C9138; // 0x007C9138
 extern int gnHeight_007C913C; // 0x007C913C
-extern int gaGeometry_0074C100[10][6][3]; // 0x0074C100
-extern D2TLVertexStrc gaGrid_00971450[15]; // 0x00971450
-extern D2TLVertexStrc gaQuad_00971630[4]; // 0x00971630
-extern unsigned short gaIndices_0074C0D0[22]; // 0x0074C0D0
+extern int gaGeometry[10][6][3]; // 0x0074C100
+extern D2TLVertexStrc gaGrid[15]; // 0x00971450
+extern D2TLVertexStrc gatQuad[4]; // 0x00971630
+extern unsigned short gaIndices[22]; // 0x0074C0D0
 extern D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
 extern const char gszAssert_006CC837[]; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -95,15 +95,15 @@ static int __stdcall sub_006B87A0_Flat(D2TileStrc* tile,int x,int y,U32* light,i
    U32 leftColor=light[bx>>5],rightColor=light[(bx>>5)+1];
    int top=bottom-32,end=right+32; result=1;
    sub_006BBA00_BindTile(&tile->blocks[i]);
-   gaQuad_00971630[0].x=(float)right;gaQuad_00971630[0].y=(float)top;
-   gaQuad_00971630[1].x=(float)right;gaQuad_00971630[1].y=(float)bottom;
-   gaQuad_00971630[2].x=(float)end;gaQuad_00971630[2].y=(float)bottom;
-   gaQuad_00971630[3].x=(float)end;gaQuad_00971630[3].y=(float)top;
-   sub_006B9780_SetColor(&gaQuad_00971630[0],leftColor,alpha);
-   sub_006B9780_SetColor(&gaQuad_00971630[1],leftColor,alpha);
-   sub_006B9780_SetColor(&gaQuad_00971630[2],rightColor,alpha);
-   sub_006B9780_SetColor(&gaQuad_00971630[3],rightColor,alpha);
-   gpDevice_00970E78->vtbl->DrawPrimitive(gpDevice_00970E78,6,0x1c4,gaQuad_00971630,4,0x1c);
+   gatQuad[0].x=(float)right;gatQuad[0].y=(float)top;
+   gatQuad[1].x=(float)right;gatQuad[1].y=(float)bottom;
+   gatQuad[2].x=(float)end;gatQuad[2].y=(float)bottom;
+   gatQuad[3].x=(float)end;gatQuad[3].y=(float)top;
+   sub_006B9780_SetColor(&gatQuad[0],leftColor,alpha);
+   sub_006B9780_SetColor(&gatQuad[1],leftColor,alpha);
+   sub_006B9780_SetColor(&gatQuad[2],rightColor,alpha);
+   sub_006B9780_SetColor(&gatQuad[3],rightColor,alpha);
+   gpDevice_00970E78->vtbl->DrawPrimitive(gpDevice_00970E78,6,0x1c4,gatQuad,4,0x1c);
   }
  }
  return result;
@@ -129,32 +129,32 @@ static int __stdcall sub_006B8950_Lit(int nScreenPanels, D2TileStrc* pTile, int 
         const int nHeight = pTile->blocks[i].y;
         D2ASSERT(nCol >= 0 && nCol <= 4, 0x21B);
 
-        const int nX0 = gaGeometry_0074C100[nType][nCol][0] + nPosX;
-        const int nY0 = gaGeometry_0074C100[nType][nCol][1] + nPosY;
-        const int nZ0 = gaGeometry_0074C100[nType][nCol][2] - nHeight;
-        const int nX1 = gaGeometry_0074C100[nType][nCol + 1][0] + nPosX;
-        const int nY1 = gaGeometry_0074C100[nType][nCol + 1][1] + nPosY;
-        const int nZ1 = gaGeometry_0074C100[nType][nCol + 1][2] - nHeight;
+        const int nX0 = gaGeometry[nType][nCol][0] + nPosX;
+        const int nY0 = gaGeometry[nType][nCol][1] + nPosY;
+        const int nZ0 = gaGeometry[nType][nCol][2] - nHeight;
+        const int nX1 = gaGeometry[nType][nCol + 1][0] + nPosX;
+        const int nY1 = gaGeometry[nType][nCol + 1][1] + nPosY;
+        const int nZ1 = gaGeometry[nType][nCol + 1][2] - nHeight;
         int nScreenX;
         int nScreenY;
 
         sub_006B9860_Project(nX0, nY0, nZ0, &nScreenX, &nScreenY);
-        gaGrid_00971450[0].x = (float)nScreenX;
-        gaGrid_00971450[0].y = (float)nScreenY;
+        gaGrid[0].x = (float)nScreenX;
+        gaGrid[0].y = (float)nScreenY;
         sub_006B9860_Project(nX0, nY0, nZ0 - 0x20, &nScreenX, &nScreenY);
-        gaGrid_00971450[12].x = (float)nScreenX;
-        gaGrid_00971450[12].y = (float)nScreenY;
+        gaGrid[12].x = (float)nScreenX;
+        gaGrid[12].y = (float)nScreenY;
         sub_006B9860_Project(nX1, nY1, nZ1 - 0x20, &nScreenX, &nScreenY);
-        gaGrid_00971450[14].x = (float)nScreenX;
-        gaGrid_00971450[14].y = (float)nScreenY;
+        gaGrid[14].x = (float)nScreenX;
+        gaGrid[14].y = (float)nScreenY;
         sub_006B9860_Project(nX1, nY1, nZ1, &nScreenX, &nScreenY);
-        gaGrid_00971450[2].x = (float)nScreenX;
-        gaGrid_00971450[2].y = (float)nScreenY;
+        gaGrid[2].x = (float)nScreenX;
+        gaGrid[2].y = (float)nScreenY;
 
-        if (D3D_VERTEX_IN_RECT(gaGrid_00971450[0], tRect)
-            || D3D_VERTEX_IN_RECT(gaGrid_00971450[12], tRect)
-            || D3D_VERTEX_IN_RECT(gaGrid_00971450[14], tRect)
-            || D3D_VERTEX_IN_RECT(gaGrid_00971450[2], tRect))
+        if (D3D_VERTEX_IN_RECT(gaGrid[0], tRect)
+            || D3D_VERTEX_IN_RECT(gaGrid[12], tRect)
+            || D3D_VERTEX_IN_RECT(gaGrid[14], tRect)
+            || D3D_VERTEX_IN_RECT(gaGrid[2], tRect))
         {
             const int nMidX = (nX0 + nX1) >> 1;
             const int nMidY = (nY0 + nY1) >> 1;
@@ -175,25 +175,25 @@ static int __stdcall sub_006B8950_Lit(int nScreenPanels, D2TileStrc* pTile, int 
                 if (nGridRow != 0 && nGridRow != 4)
                 {
                     sub_006B9860_Project(nX0, nY0, nZ0 - nDepth, &nScreenX, &nScreenY);
-                    gaGrid_00971450[nGridRow * 3].x = (float)nScreenX;
-                    gaGrid_00971450[nGridRow * 3].y = (float)nScreenY;
+                    gaGrid[nGridRow * 3].x = (float)nScreenX;
+                    gaGrid[nGridRow * 3].y = (float)nScreenY;
                     sub_006B9860_Project(nX1, nY1, nZ1 - nDepth, &nScreenX, &nScreenY);
-                    gaGrid_00971450[nGridRow * 3 + 2].x = (float)nScreenX;
-                    gaGrid_00971450[nGridRow * 3 + 2].y = (float)nScreenY;
+                    gaGrid[nGridRow * 3 + 2].x = (float)nScreenX;
+                    gaGrid[nGridRow * 3 + 2].y = (float)nScreenY;
                 }
 
                 sub_006B9860_Project(nMidX, nMidY, nMidZ - nDepth, &nScreenX, &nScreenY);
-                gaGrid_00971450[nGridRow * 3 + 1].x = (float)nScreenX;
-                gaGrid_00971450[nGridRow * 3 + 1].y = (float)nScreenY;
+                gaGrid[nGridRow * 3 + 1].x = (float)nScreenX;
+                gaGrid[nGridRow * 3 + 1].y = (float)nScreenY;
                 for (int nGridCol = 0; nGridCol < 3; ++nGridCol)
                 {
-                    D2TLVertexStrc* pVertex = &gaGrid_00971450[nGridRow * 3 + nGridCol];
+                    D2TLVertexStrc* pVertex = &gaGrid[nGridRow * 3 + nGridCol];
                     pVertex->x = pVertex->x + (float)nOffset;
                     sub_006B9780_SetColor(pVertex, aColors[nGridCol], nAlpha);
                 }
             }
 
-            gpDevice_00970E78->vtbl->DrawIndexedPrimitive(gpDevice_00970E78, 5, 0x1c4, gaGrid_00971450, 15, gaIndices_0074C0D0, 22, 0x1c);
+            gpDevice_00970E78->vtbl->DrawIndexedPrimitive(gpDevice_00970E78, 5, 0x1c4, gaGrid, 15, gaIndices, 22, 0x1c);
             nResult = 1;
         }
     }

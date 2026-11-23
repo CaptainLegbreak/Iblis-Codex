@@ -52,12 +52,12 @@ int __stdcall sub_006C9B6A_Accept(int,D2SocketAddressStrc*,int*); // 0x006C9B6A
 void __stdcall sub_006C9B7C_SetLastSocketError(int); // 0x006C9B7C
 int __cdecl sub_006823FD_Format(char*,const char*,...); // 0x006823FD
 void __cdecl sub_00410660_LogWritePrefixed(const char*,const char*,...); // 0x00410660
-extern const char gszSource_006FCB1C[]; // 0x006FCB1C
-extern const char gszHack_006FC4A8[]; // 0x006FC4A8
-extern const char gszReconnect_006FCB6C[]; // 0x006FCB6C
-extern const char gszAcceptError_006FCB50[]; // 0x006FCB50
-extern const char gszFatal_006FCB38[]; // 0x006FCB38
-extern const char gszStopped_006FCBA8[]; // 0x006FCBA8
+extern const char gszSource[]; // 0x006FCB1C
+extern const char gszHack[]; // 0x006FC4A8
+extern const char gszReconnect[]; // 0x006FCB6C
+extern const char gszAcceptError[]; // 0x006FCB50
+extern const char gszFatal[]; // 0x006FCB38
+extern const char gszStopped[]; // 0x006FCBA8
 
 // 0x006C3440
 static void __stdcall sub_006C3440_AddClient(D2QueueServerStrc* pServer, unsigned int s, D2QAddressArg tAddress)
@@ -152,7 +152,7 @@ void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
             EnterCriticalSection(&server->tLock);
             int stop=server->bStop; server->bStop=0;
             LeaveCriticalSection(&server->tLock);
-            if(stop) { OutputDebugStringA(gszStopped_006FCBA8); ERRORMANAGER_UnregisterThread(0); ExitThread(0); }
+            if(stop) { OutputDebugStringA(gszStopped); ERRORMANAGER_UnregisterThread(0); ExitThread(0); }
             continue;
         }
         if(selected==-1) continue;
@@ -174,8 +174,8 @@ void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
                     if(accepted==-1) {
                         int error=sub_006B0168_GetLastSocketError();
                         if(error!=0x2733) {
-                            sub_006823FD_Format(buffers.errorText,gszAcceptError_006FCB50,error);
-                            OutputDebugStringA(gszFatal_006FCB38);
+                            sub_006823FD_Format(buffers.errorText,gszAcceptError,error);
+                            OutputDebugStringA(gszFatal);
                             LeaveCriticalSection(&server->tLock); ExitThread(0);
                         }
                         if(++retries>100) {
@@ -188,17 +188,17 @@ void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
 // build: symbol ?RefreshRecord@* 0x006BE980
                     if(server->RefreshRecord(buffers.address.address)) sub_0040D880(accepted);
                     else if(QSERVER_CheckRecordThreshold(server,&buffers.address.address)) {
-                        QSERVER_BanAddress(server,&buffers.address.address,gszSource_006FCB1C,0x138);
+                        QSERVER_BanAddress(server,&buffers.address.address,gszSource,0x138);
                         sub_0040D880(accepted);
                     }
                     else if(!sub_006BFFA0_CheckAddress(server,&buffers.address.address)) {
-                        sub_00410660_LogWritePrefixed(gszHack_006FC4A8,gszReconnect_006FCB6C);
-                        QSERVER_HackListAddress(server,gszSource_006FCB1C,buffers.address.address,0x142);
+                        sub_00410660_LogWritePrefixed(gszHack,gszReconnect);
+                        QSERVER_HackListAddress(server,gszSource,buffers.address.address,0x142);
                         sub_0040D880(accepted);
                     }
                     else {
                         node=sub_006BFB70_AddSocket(server,accepted,buffers.address.address);
-                        if(server->pfnOnNewClient) server->pfnOnNewClient(server,node->iId,gszSource_006FCB1C,0x91);
+                        if(server->pfnOnNewClient) server->pfnOnNewClient(server,node->iId,gszSource,0x91);
                     }
                     LeaveCriticalSection(&server->tLock);
                     bDone=1;
@@ -217,9 +217,9 @@ void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
                             EnterCriticalSection(&node->tLock); node->nReadBytes+=received; LeaveCriticalSection(&node->tLock);
                             sub_006C08A0_ProcessReceived(server,node); SetEvent(server->hEvent);
                         }
-                        else sub_006C0420_CloseClient(server,node->iId,gszSource_006FCB1C,0x192);
+                        else sub_006C0420_CloseClient(server,node->iId,gszSource,0x192);
                     }
-                    else sub_006C0420_CloseClient(server,node->iId,gszSource_006FCB1C,0x192);
+                    else sub_006C0420_CloseClient(server,node->iId,gszSource,0x192);
                 }
                 else sub_006B0174_Receive(socket,buffers.discard,0x5b4,0);
                 LeaveCriticalSection(&server->tLock);

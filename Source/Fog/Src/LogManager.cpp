@@ -17,7 +17,7 @@ struct D2FindDataStrc
 };
 extern "C" __declspec(dllimport) void* __stdcall FindFirstFileA(const char* szFileName, D2FindDataStrc* pFindData); // 0x006CC1CC
 extern "C" __declspec(dllimport) int __stdcall FindNextFileA(void* hFindFile, D2FindDataStrc* pFindData);  // 0x006CC1C8
-unsigned long gdwLastLogSweep_0075E874;                                                                     // 0x0075E874
+unsigned long gdwLastLogSweep;                                                                     // 0x0075E874
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -151,7 +151,7 @@ void __fastcall EXCEPTIONS_CloseNamedLog(const char* szName); // 0x0040F470
 void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle, unsigned long dwAddress, unsigned int nSize, int nArg5, int nArg6, int nArg7); // 0x00410040
 void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410660
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern int gbImageHlpLoaded_0075D014; // 0x0075D014
+extern int gbImageHlpLoaded; // 0x0075D014
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -181,9 +181,9 @@ int __fastcall FOG_CreatePathHierarchy(const char* szPath); // 0x00406A10
 int __fastcall ERRORMANAGER_AppendBackslash(char* szPath, unsigned int nSize); // 0x00406B20
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
-extern int gbLogInitialized_0075D2EC; // 0x0075D2EC
-extern int gnLogQueueCount_0075E870; // 0x0075E870
-extern D2CriticalSectionStrc gtLogQueueLock_0075E838; // 0x0075E838
+extern int gbLogInitialized; // 0x0075D2EC
+extern int gnLogQueueCount; // 0x0075E870
+extern D2CriticalSectionStrc gtLogQueueLock; // 0x0075E838
 _iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot); // 0x0040EDE0
 
 struct sub_0040F530
@@ -922,9 +922,9 @@ struct D2LogMsgNodeStrc
     ~D2LogMsgNodeStrc();
 };
 
-D2CriticalSectionStrc gtLogLock_0075E850; // 0x0075E850
+D2CriticalSectionStrc gtLogLock; // 0x0075E850
 
-void* gpDbgHelpRequest_0098A6E4; // 0x0098A6E4
+void* gpMiniDumpRequest; // 0x0098A6E4
 
 struct D2LogMsgListStrc
 {
@@ -945,9 +945,9 @@ struct D2LogMemoryInfoStrc
 
 extern "C" __declspec(dllimport) int __stdcall IsBadReadPtr(const void* pAddress, unsigned int nSize); // 0x006CC238
 
-extern int gnLogQueuedBytes_0075D144; // 0x0075D144
+extern int gnLogQueuedBytes; // 0x0075D144
 
-extern int gnLogQueued_0075D140; // 0x0075D140
+extern int gnLogQueued; // 0x0075D140
 
 extern D2LogMsgListStrc gtLogMsgQueue_0075E868; // 0x0075E868
 
@@ -962,12 +962,14 @@ unsigned long __stdcall LOGMANAGER_DbgHelpThreadProc(void* pParam)
     volatile int nDummy = 0;
     nDummy;
     ERRORMANAGER_SetMiniDumpThreadName();
-    WaitForSingleObject(ghDbgHelpWorkEvent_0098A6C0, 0xFFFFFFFF);
-    while (gpDbgHelpRequest_0098A6E4)
+// build: symbol ?ghDbgHelpWorkEvent@* 0x0098A6C0
+    WaitForSingleObject(ghDbgHelpWorkEvent, 0xFFFFFFFF);
+    while (gpMiniDumpRequest)
     {
         sub_004026D0_WriteMiniDump();
-        SetEvent(ghDbgHelpDoneEvent_0098A6BC);
-        WaitForSingleObject(ghDbgHelpWorkEvent_0098A6C0, 0xFFFFFFFF);
+// build: symbol ?ghDbgHelpDoneEvent@* 0x0098A6BC
+        SetEvent(ghDbgHelpDoneEvent);
+        WaitForSingleObject(ghDbgHelpWorkEvent, 0xFFFFFFFF);
     }
     return 0;
 }
@@ -1064,7 +1066,7 @@ void __fastcall LOGMANAGER_DumpThreadStackAndCode(void* hThread)
 // 0x0040D540
 void __cdecl LOGMANAGER_SETranslator(unsigned int nCode, D2ExceptionPointersStrc* pExceptionInfo)
 {
-    if (!gbImageHlpLoaded_0075D014)
+    if (!gbImageHlpLoaded)
     {
         sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "ExceptionHandler: imagehlp.dll not loaded");
         return;
@@ -1120,14 +1122,15 @@ void __fastcall LOGMANAGER_SetLogPrefix(const char* szName)
 {
     char szDirectory[0x104];
     LOGMANAGER_GetLogDirectory(szDirectory, 0x104);
-    SStrPrintf(gszLogPrefix_00708018, 0x104, "%s%s", szDirectory, szName);
+// build: symbol ?gszLogPrefix@* 0x00708018
+    SStrPrintf(gszLogPrefix, 0x104, "%s%s", szDirectory, szName);
 }
 
 // 0x0040F600
 long __fastcall LOGMANAGER_MeasureLogFile(const char* szName)
 {
     D2SystemTimeStrc tTime;
-    EnterCriticalSection(&gtLogLock_0075E850);
+    EnterCriticalSection(&gtLogLock);
     EXCEPTIONS_CloseNamedLog(szName);
     long nSize = 0;
     _iobuf* pFile = sub_0040EBD0_OpenDatedLogFile(szName, &tTime, "r", 0, 0, 0);
@@ -1137,7 +1140,7 @@ long __fastcall LOGMANAGER_MeasureLogFile(const char* szName)
         nSize = ftell(pFile);
         fclose(pFile);
     }
-    LeaveCriticalSection(&gtLogLock_0075E850);
+    LeaveCriticalSection(&gtLogLock);
     return nSize;
 }
 
@@ -1148,7 +1151,7 @@ char* __fastcall LOGMANAGER_ReadLogRange(const char* szName, long nStart, long n
     long nLength = nEnd - nStart;
     char* pBuffer = (char*)FOG_Alloc(nLength + 1, ".\\Src\\LogManager.cpp", 0x10A, 0);
     memset(pBuffer, 0, nLength + 1);
-    EnterCriticalSection(&gtLogLock_0075E850);
+    EnterCriticalSection(&gtLogLock);
     EXCEPTIONS_CloseNamedLog(szName);
     _iobuf* pFile = sub_0040EBD0_OpenDatedLogFile(szName, &tTime, "r", 0, 0, 0);
     if (pFile)
@@ -1157,20 +1160,20 @@ char* __fastcall LOGMANAGER_ReadLogRange(const char* szName, long nStart, long n
             fread(pBuffer, 1, nLength, pFile);
         fclose(pFile);
     }
-    LeaveCriticalSection(&gtLogLock_0075E850);
+    LeaveCriticalSection(&gtLogLock);
     return pBuffer;
 }
 
 // 0x0040F8A0
 void __cdecl LOGMANAGER_CloseLogFilesNow()
 {
-    D2_ASSERT(gbLogInitialized_0075D2EC, 456);
+    D2_ASSERT(gbLogInitialized, 456);
     const unsigned long dwStart = GetTickCount();
     while (GetTickCount() - dwStart < 1000)
     {
-        EnterCriticalSection(&gtLogQueueLock_0075E838);
-        const int nQueued = gnLogQueueCount_0075E870 > 0 ? gnLogQueueCount_0075E870 : 0;
-        LeaveCriticalSection(&gtLogQueueLock_0075E838);
+        EnterCriticalSection(&gtLogQueueLock);
+        const int nQueued = gnLogQueueCount > 0 ? gnLogQueueCount : 0;
+        LeaveCriticalSection(&gtLogQueueLock);
         if (!nQueued)
         {
             break;
@@ -1179,13 +1182,14 @@ void __cdecl LOGMANAGER_CloseLogFilesNow()
     }
     for (int i = 0; i < 20; i++)
     {
-        EnterCriticalSection(&gtLogLock_0075E850);
-        if (gapLogFiles_0075E790[i])
+        EnterCriticalSection(&gtLogLock);
+// build: symbol ?gapLogFiles@* 0x0075E790
+        if (gapLogFiles[i])
         {
-            fclose(gapLogFiles_0075E790[i]);
-            gapLogFiles_0075E790[i] = 0;
+            fclose(gapLogFiles[i]);
+            gapLogFiles[i] = 0;
         }
-        LeaveCriticalSection(&gtLogLock_0075E850);
+        LeaveCriticalSection(&gtLogLock);
     }
 }
 
@@ -1857,7 +1861,8 @@ sub_00602760::~sub_00602760()
 // 0x00410040
 void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle, unsigned long dwAddress, unsigned int nSize, int nArg5, int bBadPointer, int nArg7)
 {
-    if (gbLogThreadStop_0075E830 || !gbLogInitialized_0075D2EC)
+// build: symbol ?gbLogThreadStop@* 0x0075E830
+    if (gbLogThreadStop || !gbLogInitialized)
         return;
     if (!bBadPointer && IsBadReadPtr((const void*)dwAddress, nSize))
         bBadPointer = 1;
@@ -1865,9 +1870,9 @@ void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle,
     nExtraBytes += SStrLen(szTitle) + 1;
     if (!bBadPointer)
         nExtraBytes += nSize;
-    EnterCriticalSection(&gtLogQueueLock_0075E838);
+    EnterCriticalSection(&gtLogQueueLock);
     D2LogMessageStrc* pMessage = (D2LogMessageStrc*)gtLogMsgQueue_0075E868.sub_0040FF40_NewNode(0, nExtraBytes, 0);
-    LeaveCriticalSection(&gtLogQueueLock_0075E838);
+    LeaveCriticalSection(&gtLogQueueLock);
     pMessage->nSize = nExtraBytes + 0x24;
     pMessage->nType = 2;
     pMessage->bTimeStamp = 1;
@@ -1884,7 +1889,7 @@ void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle,
     pText += SStrCopy(pText, szTitle, 0x7FFFFFFF) + 1;
     if (!bBadPointer)
         memcpy(pText, (const void*)dwAddress, nSize);
-    EnterCriticalSection(&gtLogQueueLock_0075E838);
+    EnterCriticalSection(&gtLogQueueLock);
     D2StormLinkStrc* pLink = &pMessage->f_0;
     if (pLink->m_prevlink)
     {
@@ -1898,9 +1903,9 @@ void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle,
     pLink->m_next = pPrev->m_next;
     pPrev->m_next = (char*)pMessage;
     gtLogMsgQueue_0075E868.m_terminator.m_prevlink = pLink;
-    ++gnLogQueued_0075D140;
-    gnLogQueuedBytes_0075D144 += pMessage->nSize;
-    LeaveCriticalSection(&gtLogQueueLock_0075E838);
+    ++gnLogQueued;
+    gnLogQueuedBytes += pMessage->nSize;
+    LeaveCriticalSection(&gtLogQueueLock);
 }
 
 // 0x004106B0
@@ -1929,7 +1934,8 @@ void __fastcall LOGMANAGER_WriteMessage(D2LogMessageStrc* pMessage)
         if (pMessage->bTimeStamp)
             fprintf(pFile, "%02d:%02d:%02d.%03d  ", pMessage->f_14.wHour, pMessage->f_14.wMinute, pMessage->f_14.wSecond, pMessage->f_14.wMilliseconds);
         fwrite(szText, SStrLen(szText), 1, pFile);
-        gadwLogWriteTick_0075D2F0[nSlot] = GetTickCount();
+// build: symbol ?gadwLogWriteTick@* 0x0075D2F0
+        gadwLogWriteTick[nSlot] = GetTickCount();
     }
 }
 
@@ -1962,14 +1968,14 @@ void D2ChatStormListAStrc::IGNORELIST_ResetStringList()
 // 0x0040F970
 void __cdecl LOGMANAGER_SweepOldLogFiles()
 {
-    if (gdwLastLogSweep_0075E874 && GetTickCount() - gdwLastLogSweep_0075E874 < 86400000)
+    if (gdwLastLogSweep && GetTickCount() - gdwLastLogSweep < 86400000)
     {
         return;
     }
-    gdwLastLogSweep_0075E874 = GetTickCount();
-    LeaveCriticalSection(&gtLogLock_0075E850);
+    gdwLastLogSweep = GetTickCount();
+    LeaveCriticalSection(&gtLogLock);
     LOGMANAGER_CloseLogFilesNow();
-    EnterCriticalSection(&gtLogLock_0075E850);
+    EnterCriticalSection(&gtLogLock);
     D2SystemTimeStrc tNow;
     GetLocalTime(&tNow);
     D2FileTimeStrc ftNow;

@@ -46,14 +46,14 @@ void __stdcall sub_0041A930_CancelRead(void* pBuffer); // 0x0041A930
 void __fastcall ASYNCDATA_Finish(AsyncData* pAsyncData); // 0x0040A4C0
 int __fastcall FOG_AsyncDataTestLoaded(AsyncData* pAsyncData); // 0x0040A7F0
 void __fastcall FOG_AsyncDataWaitAndGetBuffer(AsyncData* pAsyncData); // 0x0040A960
-extern AsyncData* gpAsyncDataPostponed_0075AF90; // 0x0075AF90
+extern AsyncData* gpAsyncDataPostponed; // 0x0075AF90
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" __declspec(dllimport) int __stdcall ResetEvent(void* hEvent); // 0x006CC22C
 int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
 
-int gnAsyncDataPostponeCount_0075AF8C; // 0x0075AF8C
+int gnAsyncDataPostponeCount; // 0x0075AF8C
 
-AsyncData* gpAsyncDataPostponed_0075AF90; // 0x0075AF90
+AsyncData* gpAsyncDataPostponed; // 0x0075AF90
 
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);            // 0x0040B480
 
@@ -82,7 +82,7 @@ void __fastcall FOG_AsyncDataSetPriority(AsyncData* pAsyncData, int nPriority)
     D2_ASSERT(pAsyncData, 0x1DA);
     D2_ASSERT((pAsyncData->dwFlags & 0xFFFFFFF0) == 0x41737960, 0x1DB);
     D2_ASSERT(nPriority <= 0, 0x1DC);
-    if (gnAsyncDataPostponeCount_0075AF8C > 0)
+    if (gnAsyncDataPostponeCount > 0)
     {
         if (pAsyncData->dwFlags & 8)
         {
@@ -96,8 +96,8 @@ void __fastcall FOG_AsyncDataSetPriority(AsyncData* pAsyncData, int nPriority)
             pAsyncData->nPreviousPriority = pAsyncData->nPriority;
             pAsyncData->nPriority = nPriority;
             pAsyncData->dwFlags |= 8;
-            pAsyncData->pNextPostponedPriorityChange = gpAsyncDataPostponed_0075AF90;
-            gpAsyncDataPostponed_0075AF90 = pAsyncData;
+            pAsyncData->pNextPostponedPriorityChange = gpAsyncDataPostponed;
+            gpAsyncDataPostponed = pAsyncData;
         }
     }
     else if (nPriority != pAsyncData->nPriority)
@@ -112,14 +112,14 @@ void __fastcall FOG_AsyncDataHandlePriorityChanges(int bPostpone)
 {
     if (bPostpone)
     {
-        ++gnAsyncDataPostponeCount_0075AF8C;
+        ++gnAsyncDataPostponeCount;
         return;
     }
-    D2_ASSERT(gnAsyncDataPostponeCount_0075AF8C > 0, 0x211);
-    if (--gnAsyncDataPostponeCount_0075AF8C == 0)
+    D2_ASSERT(gnAsyncDataPostponeCount > 0, 0x211);
+    if (--gnAsyncDataPostponeCount == 0)
     {
         AsyncData* pNext;
-        for (AsyncData* p = gpAsyncDataPostponed_0075AF90; p; p = pNext)
+        for (AsyncData* p = gpAsyncDataPostponed; p; p = pNext)
         {
             pNext = p->pNextPostponedPriorityChange;
             if (p->nPriority != p->nPreviousPriority)
@@ -130,7 +130,7 @@ void __fastcall FOG_AsyncDataHandlePriorityChanges(int bPostpone)
             p->nPreviousPriority = 0;
             p->pNextPostponedPriorityChange = 0;
         }
-        gpAsyncDataPostponed_0075AF90 = 0;
+        gpAsyncDataPostponed = 0;
     }
 }
 
@@ -176,7 +176,7 @@ void __cdecl sub_0040ADA0_Nop()
 
 static int sgfAsyncDataEnabled; // 0x0075AF94
 
-static unsigned int s_nAsyncEventSlots_0075AF98; // 0x0075AF98
+static unsigned int gnAsyncEventSlots; // 0x0075AF98
 
 static AsyncDataEventSlot* sgptAsyncEventArray; // 0x0075AF9C
 
@@ -196,7 +196,7 @@ void __fastcall FOG_AsyncDataInitialize(int bEnable, int nUnused)
             pSlot->hEvent = CreateEventA(0, 1, 0, 0);
             pSlot->bSlotAvailable = 1;
         }
-        s_nAsyncEventSlots_0075AF98 = 0x100;
+        gnAsyncEventSlots = 0x100;
         sgfAsyncDataEnabled = 1;
     }
 }
@@ -206,7 +206,7 @@ void __cdecl FOG_AsyncDataDestroy()
 {
     if (sgptAsyncEventArray)
     {
-        for (unsigned int i = 0; i < s_nAsyncEventSlots_0075AF98; i++)
+        for (unsigned int i = 0; i < gnAsyncEventSlots; i++)
         {
             AsyncDataEventSlot* pSlot = &sgptAsyncEventArray[i];
             if (pSlot && pSlot->hEvent)
@@ -217,7 +217,7 @@ void __cdecl FOG_AsyncDataDestroy()
         }
         FOG_Free(sgptAsyncEventArray, ".\\Src\\AsyncData.cpp", 174, 0);
         sgptAsyncEventArray = 0;
-        s_nAsyncEventSlots_0075AF98 = 0;
+        gnAsyncEventSlots = 0;
     }
     sgfAsyncDataEnabled = 0;
 }
@@ -257,7 +257,7 @@ AsyncDataEventSlot* __cdecl ASYNCDATA_GetEventSlot()
 {
     if (sgfAsyncDataEnabled)
     {
-        for (unsigned int i = 0; i < s_nAsyncEventSlots_0075AF98; i++)
+        for (unsigned int i = 0; i < gnAsyncEventSlots; i++)
         {
             AsyncDataEventSlot* pSlot = &sgptAsyncEventArray[i];
             if (pSlot->bSlotAvailable)
@@ -266,7 +266,7 @@ AsyncDataEventSlot* __cdecl ASYNCDATA_GetEventSlot()
                 return pSlot;
             }
         }
-        for (unsigned int i = 0; i < s_nAsyncEventSlots_0075AF98; i++)
+        for (unsigned int i = 0; i < gnAsyncEventSlots; i++)
         {
             AsyncDataEventSlot* pSlot = &sgptAsyncEventArray[i];
             if (!WaitForSingleObject(pSlot->hEvent, 0))
@@ -276,9 +276,9 @@ AsyncDataEventSlot* __cdecl ASYNCDATA_GetEventSlot()
                 return pSlot;
             }
         }
-        if (s_nAsyncEventSlots_0075AF98 < 0x400)
+        if (gnAsyncEventSlots < 0x400)
         {
-            AsyncDataEventSlot* pSlot = &sgptAsyncEventArray[s_nAsyncEventSlots_0075AF98++];
+            AsyncDataEventSlot* pSlot = &sgptAsyncEventArray[gnAsyncEventSlots++];
             pSlot->hEvent = CreateEventA(0, 1, 0, 0);
             pSlot->bSlotAvailable = 0;
             return pSlot;
@@ -429,7 +429,7 @@ void __fastcall FOG_AsyncDataFree(AsyncData* ptAsyncData)
     D2_ASSERT((ptAsyncData->dwFlags & 0xFFFFFFF0) == 0x41737960, 657);
     if (ptAsyncData->dwFlags & 8)
     {
-        for (AsyncData** ppLink = &gpAsyncDataPostponed_0075AF90; ppLink; ppLink = &(*ppLink)->pNextPostponedPriorityChange)
+        for (AsyncData** ppLink = &gpAsyncDataPostponed; ppLink; ppLink = &(*ppLink)->pNextPostponedPriorityChange)
         {
             if (*ppLink == ptAsyncData)
             {

@@ -5,44 +5,44 @@
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 extern unsigned char* gpMulTable_00880B5C; // 0x00880B5C
-extern unsigned char gnGlideAmbient_00880B58; // 0x00880B58
-extern unsigned char gnGlideAmbient_00880B59; // 0x00880B59
-extern unsigned char gnGlideAmbient_00880B5A; // 0x00880B5A
-extern int* gpnPerspectiveTable_00880B6C; // 0x00880B6C
+extern unsigned char gbGlideAmbientGreen; // 0x00880B58
+extern unsigned char gbGlideAmbientBlue; // 0x00880B59
+extern unsigned char gbGlideAmbientRed; // 0x00880B5A
+extern int* gpnPerspectiveTable; // 0x00880B6C
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __fastcall sub_00511FB0_DrawImage(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, void* pPalette); // 0x00511FB0
-extern int gnProjectOriginX_00880B60; // 0x00880B60
-extern int gnProjectOriginY_00880B68; // 0x00880B68
+extern int gnProjectOriginX; // 0x00880B60
+extern int gnProjectOriginY; // 0x00880B68
 
 
 // 0x0050DBC0
 void __fastcall sub_0050DBC0_GlideSetAmbientColor(int nRed, int nGreen, int nBlue)
 {
-    gnGlideAmbient_00880B5A = nRed;
-    gnGlideAmbient_00880B58 = nGreen;
-    gnGlideAmbient_00880B59 = nBlue;
+    gbGlideAmbientRed = nRed;
+    gbGlideAmbientGreen = nGreen;
+    gbGlideAmbientBlue = nBlue;
 }
 
-int gnProjectOriginX_00880B60; // 0x00880B60
+int gnProjectOriginX; // 0x00880B60
 
-int gnGlideSpriteScale_00880B64; // 0x00880B64
+int gnGlideSpriteScale; // 0x00880B64
 
-int gnProjectOriginY_00880B68; // 0x00880B68
+int gnProjectOriginY; // 0x00880B68
 
 
 // 0x0050DD50
 void __fastcall sub_0050DD50_SetProjectOrigin(int nX, int nY)
 {
-    gnProjectOriginX_00880B60 = nX;
-    gnProjectOriginY_00880B68 = nY;
+    gnProjectOriginX = nX;
+    gnProjectOriginY = nY;
 }
 
 // 0x0050DF00
 void __cdecl sub_0050DF00_ResetSpriteScale()
 {
-    gnGlideSpriteScale_00880B64 = 0x100;
+    gnGlideSpriteScale = 0x100;
 }
 
 

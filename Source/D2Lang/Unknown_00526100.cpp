@@ -15,11 +15,11 @@ struct Unicode
     }
 };
 
-extern D2UtfConvertSpecStrc gaUtf8ConvertTable_007309B8[7]; // 0x007309B8
+extern D2UtfConvertSpecStrc gaUtf8ConvertTable[7]; // 0x007309B8
 
-extern unsigned short gnCharMapCount_00882B20; // 0x00882B20
-extern D2LangByteRangeStrc* gpLeadByteRanges_00882B28; // 0x00882B28
-extern unsigned short* gpCharMapIndex_00882B2C; // 0x00882B2C
+extern unsigned short gnCharMapCount; // 0x00882B20
+extern D2LangByteRangeStrc* gpLeadByteRanges; // 0x00882B28
+extern unsigned short* gpCharMapIndex; // 0x00882B2C
 extern "C" void* __cdecl bsearch(const void* pKey, const void* pBase, unsigned int nCount, unsigned int nSize, int (__cdecl* pfCompare)(const void*, const void*)); // 0x006881B1
 int __cdecl sub_00527AE0_CompareKey(const void* pLeft, const void* pRight); // 0x00527AE0
 Unicode* __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
@@ -35,7 +35,7 @@ static int __stdcall sub_00526100_Utf8ToUnicodeChar(Unicode* pDest, int nCount, 
 
     const unsigned short c = (unsigned char)*pSrc;
     int nCode = (short)c;
-    for (const D2UtfConvertSpecStrc* pSpec = gaUtf8ConvertTable_007309B8; pSpec->nMask; ++pSpec)
+    for (const D2UtfConvertSpecStrc* pSpec = gaUtf8ConvertTable; pSpec->nMask; ++pSpec)
     {
         const short nLead = pSpec->nMask & c;
         ++n;
@@ -64,7 +64,7 @@ static int __stdcall sub_00526190_UnicodeCharToUtf8(Unicode ch, char* pDest)
 {
     const int nCode = ch.wChar;
     int n = 0;
-    for (const D2UtfConvertSpecStrc* pSpec = gaUtf8ConvertTable_007309B8; pSpec->nMask; ++pSpec)
+    for (const D2UtfConvertSpecStrc* pSpec = gaUtf8ConvertTable; pSpec->nMask; ++pSpec)
     {
         ++n;
         if (nCode <= pSpec->nLast)
@@ -91,7 +91,7 @@ static int __stdcall sub_00526200_Utf8CharLength(int nCount, const char* pSrc)
 
     const int c = (unsigned char)*pSrc;
     int nCode = c;
-    for (const D2UtfConvertSpecStrc* pSpec = gaUtf8ConvertTable_007309B8; pSpec->nMask; ++pSpec)
+    for (const D2UtfConvertSpecStrc* pSpec = gaUtf8ConvertTable; pSpec->nMask; ++pSpec)
     {
         ++n;
         if (((short)pSpec->nMask & c) == pSpec->nLeading)
@@ -194,7 +194,7 @@ extern "C" __declspec(dllexport) unsigned short* __fastcall sub_005267E0(unsigne
     return pDst;
 }
 
-unsigned char gnLeadByteRangeCount_00882B22; // 0x00882B22
+unsigned char gnLeadByteRangeCount; // 0x00882B22
 
 // 0x005276E0
 static int sub_005276E0_IsLeadByte(unsigned char nByte)
@@ -203,9 +203,9 @@ static int sub_005276E0_IsLeadByte(unsigned char nByte)
     {
         return 0;
     }
-    for (int i = 0; i < gnLeadByteRangeCount_00882B22; ++i)
+    for (int i = 0; i < gnLeadByteRangeCount; ++i)
     {
-        if (gpLeadByteRanges_00882B28[i].nLow <= nByte && nByte <= gpLeadByteRanges_00882B28[i].nHigh)
+        if (gpLeadByteRanges[i].nLow <= nByte && nByte <= gpLeadByteRanges[i].nHigh)
         {
             return 0;
         }
@@ -216,18 +216,19 @@ static int sub_005276E0_IsLeadByte(unsigned char nByte)
 static __forceinline int FindCharIndex(unsigned short wChar)
 {
     int nLow = 0;
-    int nHigh = gnCharMapCount_00882B20 - 1;
-    if (wChar < gpCharMap_00882B24[gpCharMapIndex_00882B2C[0]].wValue || wChar > gpCharMap_00882B24[gpCharMapIndex_00882B2C[nHigh]].wValue)
+    int nHigh = gnCharMapCount - 1;
+// build: symbol ?gpCharMap@* 0x00882B24
+    if (wChar < gpCharMap[gpCharMapIndex[0]].wValue || wChar > gpCharMap[gpCharMapIndex[nHigh]].wValue)
     {
         return -1;
     }
     int nMid = nHigh;
-    if (wChar != gpCharMap_00882B24[gpCharMapIndex_00882B2C[nHigh]].wValue)
+    if (wChar != gpCharMap[gpCharMapIndex[nHigh]].wValue)
     {
         nMid = (nLow + nHigh) >> 1;
         do
         {
-            if (wChar >= gpCharMap_00882B24[gpCharMapIndex_00882B2C[nMid]].wValue)
+            if (wChar >= gpCharMap[gpCharMapIndex[nMid]].wValue)
             {
                 nLow = nMid;
             }
@@ -238,7 +239,7 @@ static __forceinline int FindCharIndex(unsigned short wChar)
             nMid = (nLow + nHigh) >> 1;
         }
         while (nHigh - nLow > 1);
-        if (gpCharMap_00882B24[gpCharMapIndex_00882B2C[nMid]].wValue != wChar)
+        if (gpCharMap[gpCharMapIndex[nMid]].wValue != wChar)
         {
             return -1;
         }
@@ -258,7 +259,7 @@ static int sub_00527A50_MapCodePageChar(unsigned short wChar)
     {
         return -1;
     }
-    return gpCharMap_00882B24[gpCharMapIndex_00882B2C[nIndex]].f_2;
+    return gpCharMap[gpCharMapIndex[nIndex]].f_2;
 }
 
 // 0x00527B00
@@ -270,7 +271,7 @@ static int sub_00527B00_MapUnicodeChar(unsigned short wChar)
     }
     D2LangCharMapEntryStrc tKey;
     tKey.f_2 = wChar;
-    const D2LangCharMapEntryStrc* pEntry = (const D2LangCharMapEntryStrc*)bsearch(&tKey, gpCharMap_00882B24, gnCharMapCount_00882B20, sizeof(D2LangCharMapEntryStrc), sub_00527AE0_CompareKey);
+    const D2LangCharMapEntryStrc* pEntry = (const D2LangCharMapEntryStrc*)bsearch(&tKey, gpCharMap, gnCharMapCount, sizeof(D2LangCharMapEntryStrc), sub_00527AE0_CompareKey);
     if (!pEntry)
     {
         return -1;
@@ -281,7 +282,7 @@ static int sub_00527B00_MapUnicodeChar(unsigned short wChar)
 // 0x00527B50
 Unicode* __fastcall sub_00527B50_CodePageToUnicode(Unicode* pDest, const char* szSrc, int nCount)
 {
-    if (!gpCharMapIndex_00882B2C)
+    if (!gpCharMapIndex)
     {
         return sub_00526F20_ToUnicode(pDest, szSrc, nCount);
     }
@@ -328,7 +329,7 @@ terminate:
 
 char* __fastcall sub_00527BE0_UnicodeToCodePage(char* szDest, const Unicode* pSrc, int nCount)
 {
-    if (!gpCharMap_00882B24)
+    if (!gpCharMap)
     {
         return sub_00526F70(szDest, pSrc, nCount);
     }
@@ -360,7 +361,7 @@ char* __fastcall sub_00527BE0_UnicodeToCodePage(char* szDest, const Unicode* pSr
 
 int __fastcall sub_00527CA0_GetCodePageLength(const Unicode* pSrc, int nCount)
 {
-    if (!gpCharMap_00882B24)
+    if (!gpCharMap)
     {
         return sub_00526800(pSrc);
     }
@@ -392,7 +393,7 @@ int __fastcall sub_00527CA0_GetCodePageLength(const Unicode* pSrc, int nCount)
 // 0x00527D50
 int __fastcall sub_00527D50_GetCodePageCharCount(const char* szSrc, int nCount)
 {
-    if (!gpCharMapIndex_00882B2C)
+    if (!gpCharMapIndex)
     {
         return strlen(szSrc);
     }

@@ -36,7 +36,7 @@ void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
 D2WinControlStrc* __fastcall MAINMENUS_CreateFromTemplate(int nTemplateId); // 0x0042F3A0
 int __fastcall D2Win_10051(D2WinControlStrc* pTextBox, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent); // 0x004FC9B0
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
-extern int gbFeCharPalette_007795F0; // 0x007795F0
+extern int gbFeCharPalette; // 0x007795F0
 
 struct D2FuncTable { char unk00[0x50]; void (__fastcall* pfnRequest)(const char*, int); char unk54[0x14]; int (__cdecl* pfnAvailable)(); };
 
@@ -80,10 +80,10 @@ struct D2LaunchRecordStrc
 
 #pragma pack(pop)
 extern D2WinControlStrc* gpClassImages_0077956C[7]; // 0x0077956C
-extern D2LaunchRecordStrc* gpLaunchRecord_007795D4; // 0x007795D4
-extern D2WinControlStrc* gpControl_00779330; // 0x00779330
+extern D2LaunchRecordStrc* gpLaunchRecord; // 0x007795D4
+extern D2WinControlStrc* gpOkButton; // 0x00779330
 extern D2WinControlStrc* gpControl_0077933C; // 0x0077933C
-extern D2WinControlStrc* gpControl_0077934C; // 0x0077934C
+extern D2WinControlStrc* gpNameEdit; // 0x0077934C
 extern D2WinControlStrc* gpControl_007795B0; // 0x007795B0
 extern D2WinControlStrc* gpControl_007795B8; // 0x007795B8
 extern D2WinControlStrc* gpControl_007795C4; // 0x007795C4
@@ -128,7 +128,8 @@ void __cdecl MAINMENUS_ShowCurrentGateway()
     for (int i = 0; i < sub_00526800(wszOut); ++i)
     {
         const unsigned short wChar = wszOut[i].wChar;
-        wszOut[i].wChar = wChar < 0x100 ? gwToUpperTable_00730578[wChar] : wChar;
+// build: symbol ?gawToUpperTable@* 0x00730578
+        wszOut[i].wChar = wChar < 0x100 ? gawToUpperTable[wChar] : wChar;
     }
 
     sub_005009D0_SetValue(gpControl_007795AC, 10, wszOut, 0);
@@ -233,7 +234,7 @@ int __stdcall MAINMENUS_FindCdKeyInText(const char* szText)
     return 0;
 }
 
-D2LaunchDoneFn gpfnGatewayDone_007795BC; // 0x007795BC
+D2LaunchDoneFn gpfnGatewayDone; // 0x007795BC
 
 // 0x004330A0
 static int __stdcall MAINMENUS_SetMultilineText(D2WinControlStrc* pControl, int nArg, const Unicode* pText, bool bWrapped)
@@ -274,7 +275,7 @@ void __fastcall MAINMENUS_ShowTwoTexts(const Unicode* pText1, const Unicode* pTe
     pControl = MAINMENUS_CreateFromTemplate(0xEA);
     D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
     MAINMENUS_SetMultilineText(pControl, 0, pText2, false);
-    gpfnGatewayDone_007795BC = pfnDone;
+    gpfnGatewayDone = pfnDone;
 }
 
 // 0x004331C0
@@ -297,13 +298,13 @@ void __fastcall MAINMENUS_ShowThreeTexts(const Unicode* pText1, const Unicode* p
         pControl = MAINMENUS_CreateFromTemplate(0xF0);
         D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
         MAINMENUS_SetMultilineText(pControl, 4, pText3, false);
-        gpfnGatewayDone_007795BC = pfnDone;
+        gpfnGatewayDone = pfnDone;
         return;
     }
     pControl = MAINMENUS_CreateFromTemplate(0xEE);
     D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
     MAINMENUS_SetMultilineText(pControl, 0, pText2, false);
-    gpfnGatewayDone_007795BC = pfnDone;
+    gpfnGatewayDone = pfnDone;
 }
 
 // 0x004332B0
@@ -327,7 +328,7 @@ void __fastcall MAINMENUS_ShowFourTexts(const Unicode* pText1, const Unicode* pT
     pControl = MAINMENUS_CreateFromTemplate(0xF6);
     D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
     MAINMENUS_SetMultilineText(pControl, 4, pText4, false);
-    gpfnGatewayDone_007795BC = pfnDone;
+    gpfnGatewayDone = pfnDone;
 }
 
 // 0x00433380
@@ -337,7 +338,7 @@ void __fastcall MAINMENUS_ShowMessage(const Unicode* pText, D2LaunchDoneFn pfnDo
     D2WinControlStrc* pButton;
     D2WinControlStrc* pTextBox;
     MAINMENUS_DestroyControls();
-    if (gbFeCharPalette_007795F0)
+    if (gbFeCharPalette)
     {
         pFrame = MAINMENUS_CreateFromTemplate(0xF7);
         D2Win_10033(pFrame, 1);
@@ -355,7 +356,7 @@ void __fastcall MAINMENUS_ShowMessage(const Unicode* pText, D2LaunchDoneFn pfnDo
     D2Win_10030_CONTROL_ToggleFourthFlag(pButton, 1);
     D2Win_10030_CONTROL_ToggleFourthFlag(pTextBox, 1);
     MAINMENUS_SetMultilineText(pTextBox, 0, pText, false);
-    gpfnGatewayDone_007795BC = pfnDone;
+    gpfnGatewayDone = pfnDone;
 }
 
 // 0x00433460
@@ -370,7 +371,7 @@ void __fastcall MAINMENUS_ShowTextBox(const Unicode* pText, D2LaunchDoneFn pfnDo
     pControl = MAINMENUS_CreateFromTemplate(0xF9);
     D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
     MAINMENUS_SetMultilineText(pControl, 0, pText, false);
-    gpfnGatewayDone_007795BC = pfnDone;
+    gpfnGatewayDone = pfnDone;
 }
 
 // 0x00435180
@@ -385,7 +386,7 @@ void __fastcall MAINMENUS_ShowExpansionMessage(const Unicode* pText, D2LaunchDon
     D2Win_10030_CONTROL_ToggleFourthFlag(pButton, 1);
     D2Win_10030_CONTROL_ToggleFourthFlag(pTextBox, 1);
     MAINMENUS_SetMultilineText(pTextBox, 0, pText, false);
-    gpfnGatewayDone_007795BC = pfnDone;
+    gpfnGatewayDone = pfnDone;
 }
 
 // 0x00433810
@@ -511,21 +512,21 @@ D2WinControlStrc* gpControl_007795C8; // 0x007795C8
 // 0x00431E70
 static void MAINMENUS_SetModeFlags(char nMode)
 {
-    gpLaunchRecord_007795D4->nMode = nMode;
-    gpLaunchRecord_007795D4->nFlag085 = 0;
-    gpLaunchRecord_007795D4->nFlag089 = 0;
-    gpLaunchRecord_007795D4->nFlag088 = 0;
-    gpLaunchRecord_007795D4->nFlag086 = 0;
-    gpLaunchRecord_007795D4->nFlag087 = 0;
-    gpLaunchRecord_007795D4->nFlag08A = 0;
-    gpLaunchRecord_007795D4->nFlag08B = 0;
-    if (nMode == 0) gpLaunchRecord_007795D4->nFlag085 = 1;
-    else if (nMode == 4) gpLaunchRecord_007795D4->nFlag089 = 1;
-    else if (nMode == 2) gpLaunchRecord_007795D4->nFlag088 = 1;
-    else if (nMode == 3) gpLaunchRecord_007795D4->nFlag086 = 1;
-    else if (nMode == 1) gpLaunchRecord_007795D4->nFlag087 = 1;
-    else if (nMode == 5) gpLaunchRecord_007795D4->nFlag08A = 1;
-    else if (nMode == 6) gpLaunchRecord_007795D4->nFlag08B = 1;
+    gpLaunchRecord->nMode = nMode;
+    gpLaunchRecord->nFlag085 = 0;
+    gpLaunchRecord->nFlag089 = 0;
+    gpLaunchRecord->nFlag088 = 0;
+    gpLaunchRecord->nFlag086 = 0;
+    gpLaunchRecord->nFlag087 = 0;
+    gpLaunchRecord->nFlag08A = 0;
+    gpLaunchRecord->nFlag08B = 0;
+    if (nMode == 0) gpLaunchRecord->nFlag085 = 1;
+    else if (nMode == 4) gpLaunchRecord->nFlag089 = 1;
+    else if (nMode == 2) gpLaunchRecord->nFlag088 = 1;
+    else if (nMode == 3) gpLaunchRecord->nFlag086 = 1;
+    else if (nMode == 1) gpLaunchRecord->nFlag087 = 1;
+    else if (nMode == 5) gpLaunchRecord->nFlag08A = 1;
+    else if (nMode == 6) gpLaunchRecord->nFlag08B = 1;
 }
 
 // 0x00433BF0
@@ -543,9 +544,10 @@ int __stdcall MAINMENUS_SelectCharacterClass(D2MenuCallbackArgStrc* pArg)
         for (int i = 0; i < 5; ++i)
             if (!D2Win_10104(gpClassImages_0077956C[i])) return 0;
     }
-    int nPreviousClass = gnTextSentinel_0070CB80;
+// build: symbol ?gnTextSentinel@* 0x0070CB80
+    int nPreviousClass = gnTextSentinel;
     int nClass = -1;
-    gnTextSentinel_0070CB80 = -1;
+    gnTextSentinel = -1;
     if (nPreviousClass != -1)
     {
         D2SOUND_FadeOutWaves();
@@ -607,20 +609,21 @@ int __stdcall MAINMENUS_SelectCharacterClass(D2MenuCallbackArgStrc* pArg)
         case 6: D2SOUND_10039("data\\global\\sfx\\cursor\\intro\\assassin select.wav"); break;
         case 5: D2SOUND_10039("data\\global\\sfx\\cursor\\intro\\druid select.wav"); break;
         }
-        gnTextSentinel_0070CB80 = nClass;
+        gnTextSentinel = nClass;
     }
     else if (nImageState != 2 && nImageState != 3 && nImageState != 4)
-        gnTextSentinel_0070CB80 = nClass;
-    MAINMENUS_SetModeFlags((char)gnTextSentinel_0070CB80);
-    if (gnTextSentinel_0070CB80 == -1 && nImageState != 1)
+        gnTextSentinel = nClass;
+    MAINMENUS_SetModeFlags((char)gnTextSentinel);
+    if (gnTextSentinel == -1 && nImageState != 1)
     {
         CONTROL_SetVisible(gpControl_00779598, 0);
         CONTROL_SetVisible(gpControl_007795CC, 0);
         CONTROL_SetVisible(gpControl_007795B0, 0);
         CONTROL_SetVisible(gpControl_007795C4, 0);
-        CONTROL_SetVisible(gpControl_0077934C, 0);
-        CONTROL_SetVisible(gpControl_00779330, 0);
-        if (gnLaunchMode_007795EC == 1)
+        CONTROL_SetVisible(gpNameEdit, 0);
+        CONTROL_SetVisible(gpOkButton, 0);
+// build: symbol ?gnLaunchMode@* 0x007795EC
+        if (gnLaunchMode == 1)
         {
             CONTROL_SetVisible(gpControl_007795B8, 0);
             CONTROL_SetVisible(gpControl_00779348, 0);
@@ -632,7 +635,7 @@ int __stdcall MAINMENUS_SelectCharacterClass(D2MenuCallbackArgStrc* pArg)
             CONTROL_SetVisible(gpControl_007795B4, 0);
         }
         CONTROL_SetFocusedEditBox(0);
-        if (gnLaunchMode_007795EC == 1) CONTROL_SetVisible(gpControl_0077933C, 1);
+        if (gnLaunchMode == 1) CONTROL_SetVisible(gpControl_0077933C, 1);
     }
     else
     {
@@ -643,38 +646,38 @@ int __stdcall MAINMENUS_SelectCharacterClass(D2MenuCallbackArgStrc* pArg)
             CONTROL_SetVisible(gpControl_007795B0, 1);
             CONTROL_SetVisible(gpControl_007795C4, 1);
         }
-        if (gnLaunchMode_007795EC == 1)
+        if (gnLaunchMode == 1)
         {
             CONTROL_SetVisible(gpControl_007795B8, 1);
             CONTROL_SetVisible(gpControl_00779348, 1);
         }
-        CONTROL_SetVisible(gpControl_0077934C, 1);
-        CONTROL_SetFocusedEditBox(gpControl_0077934C);
-        CONTROL_SetVisible(gpControl_00779330, 1);
-        if (gnLaunchMode_007795EC == 1) CONTROL_SetVisible(gpControl_0077933C, 0);
+        CONTROL_SetVisible(gpNameEdit, 1);
+        CONTROL_SetFocusedEditBox(gpNameEdit);
+        CONTROL_SetVisible(gpOkButton, 1);
+        if (gnLaunchMode == 1) CONTROL_SetVisible(gpControl_0077933C, 0);
     }
     if (FOG_IsExpansion())
     {
-        if (gnTextSentinel_0070CB80 == 6 || gnTextSentinel_0070CB80 == 5)
+        if (gnTextSentinel == 6 || gnTextSentinel == 5)
         {
             CONTROL_SetVisible(gpControl_00779568, 1);
             CONTROL_SetVisible(gpControl_007795C8, 0);
             CONTROL_SetVisible(gpControl_007795B4, 1);
-            gpLaunchRecord_007795D4->nFlags |= 0x20;
+            gpLaunchRecord->nFlags |= 0x20;
         }
-        else if (gnTextSentinel_0070CB80 != -1)
+        else if (gnTextSentinel != -1)
         {
             CONTROL_SetVisible(gpControl_00779568, 1);
             CONTROL_SetVisible(gpControl_007795C8, 1);
             CONTROL_SetVisible(gpControl_007795B4, 0);
             BUTTON_SetIsPressed(gpControl_007795C8, 1);
-            gpLaunchRecord_007795D4->nFlags |= 0x20;
+            gpLaunchRecord->nFlags |= 0x20;
         }
     }
-    if (gnLaunchMode_007795EC == 1)
+    if (gnLaunchMode == 1)
     {
         BUTTON_SetIsPressed(gpControl_00779348, 1);
-        gpLaunchRecord_007795D4->nFlags |= 0x40;
+        gpLaunchRecord->nFlags |= 0x40;
     }
     return 1;
 }

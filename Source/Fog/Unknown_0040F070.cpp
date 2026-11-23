@@ -45,16 +45,16 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 _iobuf* __fastcall sub_0040EBD0_OpenDatedLogFile(const char* szName, D2SystemTimeStrc* pTime, const char* szMode, int* pbNew, char* szPathOut, unsigned int nPathOutSize); // 0x0040EBD0
 void __fastcall sub_0040ECC0_LogWriteHeader(_iobuf* pFile, const D2SystemTimeStrc* pTime); // 0x0040ECC0
 void __fastcall sub_0040ED40_LogWriteStartup(_iobuf* pFile); // 0x0040ED40
-extern int ganLogNewFile_0075D298[20]; // 0x0075D298
-extern char gaszLogFilePaths_0075D340[20][0x104]; // 0x0075D340
-extern unsigned long gadwLogOpenTick_0075E7E0[20]; // 0x0075E7E0
-extern "C" const char gszLogTimeStampFormat_006CE1DC[]; // 0x006CE1DC
-extern "C" const char gszLogBlankStamp_006CE1CC[]; // 0x006CE1CC
-extern "C" const char gszLogDumpAddress16_006CE1C0[]; // 0x006CE1C0
-extern "C" const char gszLogDumpAddress32_006CE1B4[]; // 0x006CE1B4
-extern "C" const char gszLogUnreadable_006CD880[]; // 0x006CD880
-extern "C" const char gszLogDumpByte_006CE1AC[]; // 0x006CE1AC
-extern "C" const char gszLogDumpByteSpaced_006CE1A4[]; // 0x006CE1A4
+extern int ganLogNewFile[20]; // 0x0075D298
+extern char gaszLogFilePaths[20][0x104]; // 0x0075D340
+extern unsigned long gadwLogOpenTick[20]; // 0x0075E7E0
+extern "C" const char gszLogTimeStampFormat[]; // 0x006CE1DC
+extern "C" const char gszLogBlankStamp[]; // 0x006CE1CC
+extern "C" const char gszLogDumpAddress16[]; // 0x006CE1C0
+extern "C" const char gszLogDumpAddress32[]; // 0x006CE1B4
+extern "C" const char gszLogUnreadable[]; // 0x006CD880
+extern "C" const char gszLogDumpByte[]; // 0x006CE1AC
+extern "C" const char gszLogDumpByteSpaced[]; // 0x006CE1A4
 extern "C" const char gszLogLineFormat_006CD90C[]; // 0x006CD90C
 
 
@@ -78,10 +78,12 @@ _iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot)
     nOldest = 1;
     for (; i < 20; ++i)
     {
-        if (!strcmp(gaszLogNames_0075D148[i], szName))
+// build: symbol ?gaszLogNames@* 0x0075D148
+        if (!strcmp(gaszLogNames[i], szName))
         {
             nSlot = i;
-            pFile = gapLogFiles_0075E790[i];
+// build: symbol ?gapLogFiles@* 0x0075E790
+            pFile = gapLogFiles[i];
             if (pFile)
             {
                 goto done;
@@ -89,25 +91,26 @@ _iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot)
             break;
         }
 
-        if (!gaszLogNames_0075D148[i][0])
+        if (!gaszLogNames[i][0])
         {
             if (nEmpty < 0)
             {
                 nEmpty = i;
             }
         }
-        else if (!gapLogFiles_0075E790[i])
+        else if (!gapLogFiles[i])
         {
             if (nFree < 0)
             {
                 nFree = i;
             }
-            else if (dwTick - gadwLogWriteTick_0075D2F0[i] > gadwLogWriteTick_0075D2F0[nFree])
+// build: symbol ?gadwLogWriteTick@* 0x0075D2F0
+            else if (dwTick - gadwLogWriteTick[i] > gadwLogWriteTick[nFree])
             {
                 nFree = i;
             }
         }
-        else if (dwTick - gadwLogWriteTick_0075D2F0[i] > dwTick - gadwLogWriteTick_0075D2F0[nOldest])
+        else if (dwTick - gadwLogWriteTick[i] > dwTick - gadwLogWriteTick[nOldest])
         {
             nOldest = i;
         }
@@ -126,10 +129,10 @@ _iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot)
                 nOldest = nFree;
             }
 
-            if (gapLogFiles_0075E790[nOldest])
+            if (gapLogFiles[nOldest])
             {
-                fclose(gapLogFiles_0075E790[nOldest]);
-                gapLogFiles_0075E790[nOldest] = 0;
+                fclose(gapLogFiles[nOldest]);
+                gapLogFiles[nOldest] = 0;
             }
 
             nSlot = nOldest;
@@ -138,18 +141,18 @@ _iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot)
 
     {
         D2_ASSERT(SStrLen(szName) < 16, 0x34C);
-        strcpy(gaszLogNames_0075D148[nSlot], szName);
+        strcpy(gaszLogNames[nSlot], szName);
 
         D2SystemTimeStrc tTime;
         int bNew;
-        _iobuf* pNewFile = sub_0040EBD0_OpenDatedLogFile(szName, &tTime, "a", &bNew, gaszLogFilePaths_0075D340[nSlot], 0x104);
-        gapLogFiles_0075E790[nSlot] = pNewFile;
-        gadwLogOpenTick_0075E7E0[nSlot] = dwTick;
-        gadwLogWriteTick_0075D2F0[nSlot] = dwTick;
-        if (ganLogNewFile_0075D298[nSlot] && pNewFile)
+        _iobuf* pNewFile = sub_0040EBD0_OpenDatedLogFile(szName, &tTime, "a", &bNew, gaszLogFilePaths[nSlot], 0x104);
+        gapLogFiles[nSlot] = pNewFile;
+        gadwLogOpenTick[nSlot] = dwTick;
+        gadwLogWriteTick[nSlot] = dwTick;
+        if (ganLogNewFile[nSlot] && pNewFile)
         {
             sub_0040ED40_LogWriteStartup(pNewFile);
-            ganLogNewFile_0075D298[nSlot] = 0;
+            ganLogNewFile[nSlot] = 0;
         }
         else if (bNew)
         {
@@ -157,7 +160,7 @@ _iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot)
         }
     }
 
-    pFile = gapLogFiles_0075E790[nSlot];
+    pFile = gapLogFiles[nSlot];
 
 done:
     if (pFile && pnSlot)
@@ -194,9 +197,9 @@ void __fastcall sub_0040F070_WriteDumpMessage(D2LogMessageStrc* pMessage)
     }
 
     char szTime[32];
-    SStrPrintf(szTime, sizeof(szTime), gszLogTimeStampFormat_006CE1DC, pStamp->wHour, pStamp->wMinute, pStamp->wSecond, pStamp->wMilliseconds);
+    SStrPrintf(szTime, sizeof(szTime), gszLogTimeStampFormat, pStamp->wHour, pStamp->wMinute, pStamp->wSecond, pStamp->wMilliseconds);
     char szWhite[32];
-    SStrCopy(szWhite, gszLogBlankStamp_006CE1CC, sizeof(szWhite));
+    SStrCopy(szWhite, gszLogBlankStamp, sizeof(szWhite));
 
     const unsigned char* pCur = pData;
     unsigned int nRemain = pDump->nSize;
@@ -204,7 +207,7 @@ void __fastcall sub_0040F070_WriteDumpMessage(D2LogMessageStrc* pMessage)
     while (nRemain > 0)
     {
         const unsigned int nOffset = pCur - pData;
-        fprintf(pFile, pDump->bShortAddress ? gszLogDumpAddress16_006CE1C0 : gszLogDumpAddress32_006CE1B4, bFirst ? szTime : szWhite, szLabel, pDump->bShortAddress ? nOffset : (unsigned int)pDump->pAddress + nOffset);
+        fprintf(pFile, pDump->bShortAddress ? gszLogDumpAddress16 : gszLogDumpAddress32, bFirst ? szTime : szWhite, szLabel, pDump->bShortAddress ? nOffset : (unsigned int)pDump->pAddress + nOffset);
         bFirst = 0;
         unsigned int nLine = nRemain < 16 ? nRemain : 16;
 
@@ -212,7 +215,7 @@ void __fastcall sub_0040F070_WriteDumpMessage(D2LogMessageStrc* pMessage)
         szLine[0] = 0;
         if (IsBadReadPtr(pCur, nLine))
         {
-            SStrCopy(szLine, gszLogUnreadable_006CD880, 0x7FFFFFFF);
+            SStrCopy(szLine, gszLogUnreadable, 0x7FFFFFFF);
         }
         else
         {
@@ -220,14 +223,15 @@ void __fastcall sub_0040F070_WriteDumpMessage(D2LogMessageStrc* pMessage)
             for (i = 0; i < nLine; ++i)
             {
                 const unsigned int nLen = strlen(szLine);
-                SStrPrintf(&szLine[nLen], sizeof(szLine) - nLen, (i & 3) ? gszLogDumpByte_006CE1AC : gszLogDumpByteSpaced_006CE1A4, pCur[i]);
+                SStrPrintf(&szLine[nLen], sizeof(szLine) - nLen, (i & 3) ? gszLogDumpByte : gszLogDumpByteSpaced, pCur[i]);
             }
 
             if (pDump->bShowAscii)
             {
                 for (i = (16 - nLine) * 9 / 4 + 2; i; --i)
                 {
-                    SStrPack(szLine, gszSpace_006FFC44, sizeof(szLine));
+// build: symbol ?gszSpace@* 0x006FFC44
+                    SStrPack(szLine, gszSpace, sizeof(szLine));
                 }
 
                 const int nLen = strlen(szLine);
@@ -271,16 +275,16 @@ void __cdecl AUTOMAP_CloseStaleLogs()
     unsigned long nNow = GetTickCount();
     for (int i = 0; i < 20; ++i)
     {
-        if (gapLogFiles_0075E790[i])
+        if (gapLogFiles[i])
         {
-            if (nNow - gadwLogOpenTick_0075E7E0[i] > 15000 || nNow - gadwLogWriteTick_0075D2F0[i] > 5000)
+            if (nNow - gadwLogOpenTick[i] > 15000 || nNow - gadwLogWriteTick[i] > 5000)
             {
                 if (bLog)
                 {
                     OutputDebugStringA(szPath);
                 }
-                fclose(gapLogFiles_0075E790[i]);
-                gapLogFiles_0075E790[i] = 0;
+                fclose(gapLogFiles[i]);
+                gapLogFiles[i] = 0;
             }
         }
     }

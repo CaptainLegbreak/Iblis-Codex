@@ -30,7 +30,7 @@ struct Unicode
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource); // 0x005267E0
 
-extern D2UtfConvertSpecStrc gaUtf8ConvertTable_007309B8[7]; // 0x007309B8
+extern D2UtfConvertSpecStrc gaUtf8ConvertTable[7]; // 0x007309B8
 
 struct D2LangCharRangeStrc
 {
@@ -96,7 +96,8 @@ void __stdcall sub_00525FB0_FormatInt(Unicode* pOut, int nValue, int nSize)
         Unicode wszStar[2];
         wszStar[0].wChar = 0;
         wszStar[1].wChar = 0;
-        sub_00526320_ToUnicode(wszStar, szStar_006D5830, 2);
+// build: symbol ?gszStar@* 0x006D5830
+        sub_00526320_ToUnicode(wszStar, gszStar, 2);
         sub_005267E0(pOut, wszStar);
     }
 }
@@ -127,7 +128,7 @@ static int __stdcall sub_00526190_UnicodeCharToUtf8(char* pDest, Unicode ch)
 {
     const int nCode = ch.wChar;
     int n = 0;
-    for (const D2UtfConvertSpecStrc* pSpec = gaUtf8ConvertTable_007309B8; pSpec->nMask; ++pSpec)
+    for (const D2UtfConvertSpecStrc* pSpec = gaUtf8ConvertTable; pSpec->nMask; ++pSpec)
     {
         ++n;
         if (nCode <= pSpec->nLast)
@@ -231,8 +232,9 @@ int __fastcall Unicode::stricmp(const Unicode* str1, const Unicode* str2)
 {
     while (str1->wChar && str2->wChar)
     {
-        const unsigned short ch1 = str1->wChar < 0x100 ? gwToUpperTable_00730578[str1->wChar] : str1->wChar;
-        const unsigned short ch2 = str2->wChar < 0x100 ? gwToUpperTable_00730578[str2->wChar] : str2->wChar;
+// build: symbol ?gawToUpperTable@* 0x00730578
+        const unsigned short ch1 = str1->wChar < 0x100 ? gawToUpperTable[str1->wChar] : str1->wChar;
+        const unsigned short ch2 = str2->wChar < 0x100 ? gawToUpperTable[str2->wChar] : str2->wChar;
         if (ch1 != ch2)
             return ch1 < ch2 ? -1 : 1;
         ++str1;
@@ -318,8 +320,8 @@ Unicode* __fastcall sub_00526820_StrStrI(const Unicode* str, const Unicode* subs
         const Unicode first = *substr;
         for (;;)
         {
-            const unsigned short ch1 = c.wChar < 0x100 ? gwToUpperTable_00730578[c.wChar] : c.wChar;
-            const unsigned short ch2 = first.wChar < 0x100 ? gwToUpperTable_00730578[first.wChar] : first.wChar;
+            const unsigned short ch1 = c.wChar < 0x100 ? gawToUpperTable[c.wChar] : c.wChar;
+            const unsigned short ch2 = first.wChar < 0x100 ? gawToUpperTable[first.wChar] : first.wChar;
             if (ch1 == ch2)
             {
                 break;
@@ -337,8 +339,8 @@ Unicode* __fastcall sub_00526820_StrStrI(const Unicode* str, const Unicode* subs
         {
             const unsigned short s1 = str->wChar;
             const unsigned short s2 = substr->wChar;
-            const unsigned short ch1 = s1 < 0x100 ? gwToUpperTable_00730578[s1] : s1;
-            const unsigned short ch2 = s2 < 0x100 ? gwToUpperTable_00730578[s2] : s2;
+            const unsigned short ch1 = s1 < 0x100 ? gawToUpperTable[s1] : s1;
+            const unsigned short ch2 = s2 < 0x100 ? gawToUpperTable[s2] : s2;
             if (ch1 != ch2 || !s1)
             {
                 break;
@@ -694,26 +696,27 @@ void* __cdecl operator new[](size_t nSize)
     return SMemAlloc(nSize, "new[]", -1, 0);
 }
 
-D2LangByteRangeStrc* gpLeadByteRanges_00882B28; // 0x00882B28
+D2LangByteRangeStrc* gpLeadByteRanges; // 0x00882B28
 
-unsigned short* gpCharMapIndex_00882B2C; // 0x00882B2C
+unsigned short* gpCharMapIndex; // 0x00882B2C
 
 // 0x00527720
 void __cdecl sub_00527720_FreeCodePageTables()
 {
-    if (gpLeadByteRanges_00882B28)
+    if (gpLeadByteRanges)
     {
-        SMemFree(gpLeadByteRanges_00882B28, "delete[]", -1, 0);
-        gpLeadByteRanges_00882B28 = 0;
+        SMemFree(gpLeadByteRanges, "delete[]", -1, 0);
+        gpLeadByteRanges = 0;
     }
-    if (gpCharMap_00882B24)
+// build: symbol ?gpCharMap@* 0x00882B24
+    if (gpCharMap)
     {
-        SMemFree(gpCharMap_00882B24, "delete[]", -1, 0);
-        gpCharMap_00882B24 = 0;
+        SMemFree(gpCharMap, "delete[]", -1, 0);
+        gpCharMap = 0;
     }
-    if (gpCharMapIndex_00882B2C)
+    if (gpCharMapIndex)
     {
-        SMemFree(gpCharMapIndex_00882B2C, "delete[]", -1, 0);
-        gpCharMapIndex_00882B2C = 0;
+        SMemFree(gpCharMapIndex, "delete[]", -1, 0);
+        gpCharMapIndex = 0;
     }
 }

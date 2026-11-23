@@ -9,11 +9,11 @@ extern "C" __declspec(dllimport) void __stdcall SmackDoFrame(D2SmackStrc* hSmack
 extern "C" __declspec(dllimport) void __stdcall SmackNextFrame(D2SmackStrc* hSmack); // 0x006CC600
 void __fastcall sub_006C9640_GdiCloseSmacker(D2SmackRecordStrc* pRecord); // 0x006C9640
 extern unsigned char* gpScreenBuffer_007C9154; // 0x007C9154
-extern unsigned char gaGdiSmackPaletteMap_0098A178[256]; // 0x0098A178
-extern int gbRemapValid_0098A27C; // 0x0098A27C
+extern unsigned char gabGdiSmackPaletteMap[256]; // 0x0098A178
+extern int gbRemapValid; // 0x0098A27C
 extern unsigned char gabGamePalette_007C8CC8[]; // 0x007C8CC8
 extern int gbSurfaceActive_007C9140; // 0x007C9140
-extern int gbRenderPaused_007C9144; // 0x007C9144
+extern int gbRenderPaused; // 0x007C9144
 static void __stdcall sub_006C9690_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows);
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -23,15 +23,15 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 int __stdcall SFileLoadFileEx(void* hMpq, const char* szFileName, void** ppBuffer, int* pnSize, int nExtraBytes, int nFlags, void* pOverlapped); // 0x0041B680
 int __stdcall SBmpDecodeImage(int nMode, void* pData, int nSize, tagPALETTEENTRY* pPalette, unsigned char* pDest, int nDestSize, int* pWidth, int* pHeight, int* pDepth); // 0x006C6A80
 
-static unsigned char* gpGdiSmackBuffer_0098A278; // 0x0098A278
+static unsigned char* gpGdiSmackBuffer; // 0x0098A278
 
 // 0x006C9640
 void __fastcall sub_006C9640_GdiCloseSmacker(D2SmackRecordStrc* pRecord)
 {
-    if (gpGdiSmackBuffer_0098A278)
+    if (gpGdiSmackBuffer)
     {
-        FOG_Free(gpGdiSmackBuffer_0098A278, ".\\Src\\gdiSmack.cpp", 0xF0, 0);
-        gpGdiSmackBuffer_0098A278 = 0;
+        FOG_Free(gpGdiSmackBuffer, ".\\Src\\gdiSmack.cpp", 0xF0, 0);
+        gpGdiSmackBuffer = 0;
     }
     if (pRecord->nType == 's' && pRecord->pSmack)
     {
@@ -46,26 +46,27 @@ static inline void sub_006C9690_RemapSpan(unsigned char* pDst, const unsigned ch
     while (nCount)
     {
         --nCount;
-        *pDst++ = gaGdiSmackPaletteMap_0098A178[*pSrc++];
+        *pDst++ = gabGdiSmackPaletteMap[*pSrc++];
     }
 }
 
 // 0x006C9690
 static void __stdcall sub_006C9690_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows)
 {
-    unsigned char* pSrc = gpGdiSmackBuffer_0098A278;
-    unsigned char* pDst = (pRect->nY - nRows) * gnScreenWidth_007C9138 + pRect->nX + gpScreenBuffer_007C9154;
+    unsigned char* pSrc = gpGdiSmackBuffer;
+// build: symbol ?gnRenderWidth@* 0x007C9138
+    unsigned char* pDst = (pRect->nY - nRows) * gnRenderWidth + pRect->nX + gpScreenBuffer_007C9154;
     unsigned int nLeft = nRows;
     while (nLeft)
     {
         --nLeft;
         sub_006C9690_RemapSpan(pDst, pSrc, nWidth);
-        pDst += gnScreenWidth_007C9138;
+        pDst += gnRenderWidth;
         pSrc += nWidth;
     }
 }
 
-unsigned char gaGdiSmackPaletteMap_0098A178[256]; // 0x0098A178
+unsigned char gabGdiSmackPaletteMap[256]; // 0x0098A178
 
 // 0x006C9710
 void __fastcall sub_006C9710_GdiDecodeSmacker(const char* szFile, D2SmackRecordStrc* pSmack, unsigned char nType)
@@ -85,17 +86,17 @@ void __fastcall sub_006C9710_GdiDecodeSmacker(const char* szFile, D2SmackRecordS
         {
             break;
         }
-        gpGdiSmackBuffer_0098A278 = (unsigned char*)FOG_Alloc(hSmack->nWidth * hSmack->nHeight, ".\\Src\\gdiSmack.cpp", 67, 0);
-        memset(gpGdiSmackBuffer_0098A278, 0, hSmack->nWidth * hSmack->nHeight);
-        SmackToBuffer(pSmack->pSmack, 0, 0, hSmack->nWidth, hSmack->nHeight, gpGdiSmackBuffer_0098A278, 0);
-        gbRemapValid_0098A27C = 0;
+        gpGdiSmackBuffer = (unsigned char*)FOG_Alloc(hSmack->nWidth * hSmack->nHeight, ".\\Src\\gdiSmack.cpp", 67, 0);
+        memset(gpGdiSmackBuffer, 0, hSmack->nWidth * hSmack->nHeight);
+        SmackToBuffer(pSmack->pSmack, 0, 0, hSmack->nWidth, hSmack->nHeight, gpGdiSmackBuffer, 0);
+        gbRemapValid = 0;
         return;
     }
 
     case 'p':
     {
-        gpGdiSmackBuffer_0098A278 = (unsigned char*)FOG_Alloc(0x6DB0, ".\\Src\\gdiSmack.cpp", 81, 0);
-        memset(gpGdiSmackBuffer_0098A278, 0, 0x6DB0);
+        gpGdiSmackBuffer = (unsigned char*)FOG_Alloc(0x6DB0, ".\\Src\\gdiSmack.cpp", 81, 0);
+        memset(gpGdiSmackBuffer, 0, 0x6DB0);
 
         void* pBuffer = 0;
         int nSize = 0;
@@ -108,7 +109,7 @@ void __fastcall sub_006C9710_GdiDecodeSmacker(const char* szFile, D2SmackRecordS
         int nWidth;
         int nHeight;
         int nDepth;
-        const int bDecoded = SBmpDecodeImage(2, pBuffer, nSize, aPalette, gpGdiSmackBuffer_0098A278, 0x6DB0, &nWidth, &nHeight, &nDepth);
+        const int bDecoded = SBmpDecodeImage(2, pBuffer, nSize, aPalette, gpGdiSmackBuffer, 0x6DB0, &nWidth, &nHeight, &nDepth);
         SMemFree(pBuffer, ".\\Src\\gdiSmack.cpp", 120, 0);
         if (!bDecoded || nWidth != 468 || nHeight != 60 || nDepth != 8)
         {
@@ -117,7 +118,7 @@ void __fastcall sub_006C9710_GdiDecodeSmacker(const char* szFile, D2SmackRecordS
 
         for (int i = 0; i < 256; ++i)
         {
-            gaGdiSmackPaletteMap_0098A178[i] = GetClosestColor(gabGamePalette_007C8CC8, 0x100, aPalette[i].peRed, aPalette[i].peGreen, aPalette[i].peBlue);
+            gabGdiSmackPaletteMap[i] = GetClosestColor(gabGamePalette_007C8CC8, 0x100, aPalette[i].peRed, aPalette[i].peGreen, aPalette[i].peBlue);
         }
         return;
     }
@@ -126,10 +127,10 @@ void __fastcall sub_006C9710_GdiDecodeSmacker(const char* szFile, D2SmackRecordS
         return;
     }
 
-    if (gpGdiSmackBuffer_0098A278)
+    if (gpGdiSmackBuffer)
     {
-        FOG_Free(gpGdiSmackBuffer_0098A278, ".\\Src\\gdiSmack.cpp", 240, 0);
-        gpGdiSmackBuffer_0098A278 = 0;
+        FOG_Free(gpGdiSmackBuffer, ".\\Src\\gdiSmack.cpp", 240, 0);
+        gpGdiSmackBuffer = 0;
     }
 
     if (pSmack->nType == 's' && pSmack->pSmack)
@@ -158,9 +159,9 @@ void __fastcall sub_006C9900_GdiPlaySmacker(D2SmackRecordStrc* pRecord)
             {
                 for (int i = 0; i < 256; ++i)
                 {
-                    gaGdiSmackPaletteMap_0098A178[i] = GetClosestColor(gabGamePalette_007C8CC8, 256, hSmack->aPalette[i].nRed, hSmack->aPalette[i].nGreen, hSmack->aPalette[i].nBlue);
+                    gabGdiSmackPaletteMap[i] = GetClosestColor(gabGamePalette_007C8CC8, 256, hSmack->aPalette[i].nRed, hSmack->aPalette[i].nGreen, hSmack->aPalette[i].nBlue);
                 }
-                gbRemapValid_0098A27C = 1;
+                gbRemapValid = 1;
             }
             SmackDoFrame(hSmack);
             if (hSmack->nFrameNum == hSmack->nFrames)
@@ -168,15 +169,15 @@ void __fastcall sub_006C9900_GdiPlaySmacker(D2SmackRecordStrc* pRecord)
             else
                 SmackNextFrame(hSmack);
         }
-        if (gbRenderPaused_007C9144)
+        if (gbRenderPaused)
             return;
-        if (!gbRemapValid_0098A27C)
+        if (!gbRemapValid)
             return;
         sub_006C9690_RemapRows(hSmack->nWidth, pRecord, hSmack->nHeight);
         return;
     }
     case 'p':
-        if (!gbRenderPaused_007C9144)
+        if (!gbRenderPaused)
             sub_006C9690_RemapRows(468, pRecord, 60);
         break;
     }

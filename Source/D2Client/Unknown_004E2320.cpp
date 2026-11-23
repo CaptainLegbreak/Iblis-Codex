@@ -105,7 +105,7 @@ int __stdcall sub_004FB1E0_LoadPaletteFiles(const char* szDatFileName, const cha
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
 Unicode* __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526E40
 D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nGemId); // 0x006372C0
-extern tagPALETTEENTRY gRGBAPalette_0081E668[]; // 0x0081E668
+extern tagPALETTEENTRY gatRGBAPalette[]; // 0x0081E668
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 extern "C" const char szFmtD_006D57BC[]; // 0x006D57BC
@@ -1372,7 +1372,7 @@ int __fastcall D2Win_10177(unsigned char nAct)
     sprintf(szDatFilename, "%s\\palette\\act%d\\%s", gszDataGlobal, nActNo, "pal.dat");
     sprintf(szPL2Filename, "%s\\palette\\act%d\\%s", gszDataGlobal, nActNo, "pal.pl2");
     const int nResult = sub_004FB1E0_LoadPaletteFiles(szDatFilename, szPL2Filename);
-    D2GFX_SetPalette(gRGBAPalette_0081E668);
+    D2GFX_SetPalette(gatRGBAPalette);
     return nResult;
 }
 

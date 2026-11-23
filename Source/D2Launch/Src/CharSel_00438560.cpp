@@ -95,15 +95,15 @@ struct D2LaunchCharEntryStrc
     };
     D2LaunchCharEntryStrc* pNext;                           // 0x34C
 };
-extern int gnSelected_0070CC00; // 0x0070CC00
-extern int gnSelectionA_0070CC04; // 0x0070CC04
-extern int gnSelectionB_0070CC08; // 0x0070CC08
-extern int gnVisibleRows_0070CC0C; // 0x0070CC0C
+extern int gnSelected; // 0x0070CC00
+extern int gnSelectionA; // 0x0070CC04
+extern int gnSelectionB; // 0x0070CC08
+extern int gnVisibleRows; // 0x0070CC0C
 extern int gnCount_00779DC4; // 0x00779DC4
-extern int gnTopRow_00779DC8; // 0x00779DC8
+extern int gnTopRow; // 0x00779DC8
 extern int gbFlag_00779DD8; // 0x00779DD8
-extern D2LaunchCharEntryStrc* gpCharList_00779DBC; // 0x00779DBC
-static D2LaunchCharEntryStrc* gpCurrent_00779DC0; // 0x00779DC0
+extern D2LaunchCharEntryStrc* gpCharList; // 0x00779DBC
+static D2LaunchCharEntryStrc* gpCurrentCharEntry; // 0x00779DC0
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern unsigned int gdwInverseMasks[]; // 0x006CE2E8
 extern "C" const char gszCharSelFile[]; // 0x006D4DBC
@@ -136,18 +136,18 @@ void __stdcall sub_005052F0_SetAnimY(void*,int); // 0x005052F0
 void __stdcall sub_00505360_SetAnimFlags(void*,unsigned int); // 0x00505360
 Unicode* __fastcall sub_00526700(Unicode*,const Unicode*); // 0x00526700
 void __fastcall sub_00526F20_ToUnicode(Unicode*,const char*,int); // 0x00526F20
-extern D2WinControlStrc* gpControl_007799F0; // 0x007799F0
+extern D2WinControlStrc* gpCharDescriptionText; // 0x007799F0
 extern D2WinControlStrc* gpControl_007799F4; // 0x007799F4
-extern D2WinControlStrc* gpControl_00779A1C; // 0x00779A1C
-extern D2WinControlStrc* gpControl_00779B60; // 0x00779B60
-extern D2WinControlStrc* gpControl_00779B64; // 0x00779B64
+extern D2WinControlStrc* gpScrollUpButton; // 0x00779A1C
+extern D2WinControlStrc* gpCharNameText; // 0x00779B60
+extern D2WinControlStrc* gpScrollDownButton; // 0x00779B64
 extern D2WinControlStrc* gpControl_00779C68; // 0x00779C68
 extern D2WinControlStrc* gpControl_00779C70; // 0x00779C70
 extern D2WinControlStrc* gpControl_00779C78; // 0x00779C78
 extern D2WinControlStrc* gpControl_00779D94; // 0x00779D94
 extern int gaSlotY_007799FC[]; // 0x007799FC
 
-extern int gnLaunchMode_007795EC; // 0x007795EC
+extern int gnLaunchMode; // 0x007795EC
 extern int gnBusy_00779DAC; // 0x00779DAC
 extern D2WinControlStrc* gpControl_00779D90; // 0x00779D90
 extern D2WinControlStrc* gpControl_00779DD0; // 0x00779DD0
@@ -177,21 +177,21 @@ static inline int GetCharType(D2LaunchCharEntryStrc* entry)
 void __cdecl sub_00438560_Refresh()
 {
     if(FOG_IsExpansion()) {CHARSEL_UpdateCharList();return;}
-    D2LaunchCharEntryStrc* entry=gpCharList_00779DBC;
+    D2LaunchCharEntryStrc* entry=gpCharList;
     int y=gaSlotY_007799FC[0]-13;
     int index=0;
     char unusedText[256];
     sub_005263E0(unusedText,D2LANG_GetStringFromTblIndex(0x1419),256);
     CONTROL_SetVisible(gpControl_00779D90,0);
-    for(int i=0;i<gnVisibleRows_0070CC0C;++i) {
+    for(int i=0;i<gnVisibleRows;++i) {
         sub_004FB6A0_ClearText(gaRowControls_00779A20[i]);
         if(STRTABLE_GetLanguage()==7) sub_004FB740_SetTextOffset(gaRowControls_00779A20[i],-1,-5);
     }
     if(gpControl_00779DD0) sub_004FB6A0_ClearText(gpControl_00779DD0);
-    if(gnLaunchMode_007795EC==1 && gnBusy_00779DAC) return;
+    if(gnLaunchMode==1 && gnBusy_00779DAC) return;
     for(;entry;entry=entry->pNext,++index) {
-        if(index>=gnTopRow_00779DC8 && index<gnTopRow_00779DC8+gnVisibleRows_0070CC0C) {
-            int row=index-gnTopRow_00779DC8;
+        if(index>=gnTopRow && index<gnTopRow+gnVisibleRows) {
+            int row=index-gnTopRow;
             sub_005052B0_SetAnimX(entry->pAnim,0x221);
             sub_005052F0_SetAnimY(entry->pAnim,y);
             if(entry->nState==1) {
@@ -199,7 +199,7 @@ void __cdecl sub_00438560_Refresh()
                 sub_004FD0B0_SetSprite(gpControl_00779D90,0x200,(void*)(gaSlotY_007799FC[row]-3));
                 CONTROL_SetVisible(gpControl_00779D90,1);
                 sub_004FC9B0_SetText(gaRowControls_00779A20[row],D2LANG_GetStringFromTblIndex(0x1419),1,0,0);
-                if(gnLaunchMode_007795EC==1 && gbFlag_00779DD8) {
+                if(gnLaunchMode==1 && gbFlag_00779DD8) {
                     sub_004FC9B0_SetText(gaRowControls_00779A20[row],D2LANG_GetStringFromTblIndex(0x1416),0,0,0);
                     sub_004FC9B0_SetText(gaRowControls_00779A20[row],D2LANG_GetStringFromTblIndex(0x1417),0,0,0);
                 } else {
@@ -242,7 +242,7 @@ void __cdecl sub_00438560_Refresh()
             if(entry->wFlags&32) sub_004FC9B0_SetText(gaRowControls_00779A20[row],D2LANG_GetStringFromTblIndex(0x2B45),2,0,0);
             if(entry->nByte32E) sub_004FC9B0_SetText(gaRowControls_00779A20[row],D2LANG_GetStringFromTblIndex(0x2AAF),4,0,0);
             unsigned int days=CHARSEL_GetDaysLeft(entry->nExpireTime);
-            if(gnLaunchMode_007795EC==1 && days<=60) {
+            if(gnLaunchMode==1 && days<=60) {
                 int color=1;unsigned short str;
                 if(days==0) str=0x2B7E;
                 else if(days<2) str=0x2B7C;

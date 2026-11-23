@@ -1,8 +1,8 @@
 #include "Fog.h"
 
-int gdwGlobal_00992B1C;           // 0x00992B1C
+int gdwMainThreadId;           // 0x00992B1C
 int __stdcall SFileCloseFile(void* pArg);    // 0x004198D0
-int gdwGlobal_0074C82C;           // 0x0074C82C
+int gnStormDirectFlags;           // 0x0074C82C
 extern "C" int __stdcall closesocket(unsigned int s);    // 0x006B012C
 extern "C" int __stdcall WSACleanup(void);    // 0x006B0138
 struct PairStrc_0040F570
@@ -28,13 +28,14 @@ int __cdecl sub_00405EF0()
 // 0x00406D20
 int __cdecl sub_00406D20()
 {
-    return gdwGlobal_0074C82C;
+    return gnStormDirectFlags;
 }
 
 // 0x00407FF0
 int __cdecl sub_00407FF0()
 {
-    return gdwGlobal_0074F0C8;
+// build: symbol ?gbWritingCrashReport@* 0x0074F0C8
+    return gbWritingCrashReport;
 }
 
 // 0x004080A0

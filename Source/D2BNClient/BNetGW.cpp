@@ -80,13 +80,13 @@ int __stdcall SRegDeleteValue(const char* szKeyName, const char* szValueName, un
 
 int __stdcall SRegSaveData(const char* szKeyName, const char* szValueName, unsigned int nFlags, const void* pData, unsigned long nSize); // 0x00415000
 
-extern "C" const char szGatewayIsClosest_006DED44[]; // 0x006DED44
+extern "C" const char gszGatewayIsClosest[]; // 0x006DED44
 
-extern "C" const char szFindClosestGateway_006DED78[]; // 0x006DED78
+extern "C" const char gszFindClosestGateway[]; // 0x006DED78
 
-extern "C" const char szAutoPickGateway_006DED9C[]; // 0x006DED9C
+extern "C" const char gszAutoPickGateway[]; // 0x006DED9C
 
-extern "C" const char szObsoleteGatewayList_006DEDC0[]; // 0x006DEDC0
+extern "C" const char gszObsoleteGatewayList[]; // 0x006DEDC0
 
 int __cdecl BNDOWNLOAD_ConfigureLog(int nChannel, int nIndent); // 0x00518C70
 
@@ -94,9 +94,9 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax);                     // 0x004135D0
 
-extern "C" const char szBNetGWFile_006DEC6C[];                                                              // 0x006DEC6C
+extern "C" const char gszBNetGWFile[];                                                              // 0x006DEC6C
 
-extern "C" const char szZero_006D5D64[];                                                                    // 0x006D5D64
+extern "C" const char gszZero[];                                                                    // 0x006D5D64
 
 // build: symbol ??4BNGatewayAccess@@QAEAAV0@ABV0@@Z 0x00517E40
 // 0x00517E40
@@ -129,9 +129,12 @@ void __stdcall BNGatewayAccess::Unload()
         pCurGateway += SStrLen(pCurGateway) + 1;
         pCurGateway[0] = m_nCurGateway / 10 + '0';
         pCurGateway[1] = m_nCurGateway % 10 + '0';
-        const char* szValueName = m_bOverride ? szOverrideGateways_006DECAC : szDiabloGateways_006DEC8C;
+// build: symbol ?gszDiabloGateways@* 0x006DEC8C
+// build: symbol ?gszOverrideGateways@* 0x006DECAC
+        const char* szValueName = m_bOverride ? gszOverrideGateways : gszDiabloGateways;
         D2_ASSERT(!m_pGatewayList[m_nGatewayListSize - 1] && !m_pGatewayList[m_nGatewayListSize - 2], 0xB9);
-        SRegSaveData(szConfiguration_006DEC7C, szValueName, 0x82, m_pGatewayList, m_nGatewayListSize);
+// build: symbol ?gszConfiguration@* 0x006DEC7C
+        SRegSaveData(gszConfiguration, szValueName, 0x82, m_pGatewayList, m_nGatewayListSize);
     }
 
     if (m_pGatewayList)
@@ -207,11 +210,11 @@ void BNGatewayAccess::GetGatewayList(const char* szValueName)
 {
     D2_ASSERT(!m_pGatewayList, 0x146);
     unsigned int nSize = 0;
-    if (!SRegLoadData(szConfiguration_006DEC7C, szValueName, 0x82, 0, 0, &nSize) || !nSize)
+    if (!SRegLoadData(gszConfiguration, szValueName, 0x82, 0, 0, &nSize) || !nSize)
         return;
     m_nGatewayListSize = nSize;
     m_pGatewayList = (char*)SMemAlloc(nSize, ".\\BNetGW.cpp", 0x156, 0);
-    if (!SRegLoadData(szConfiguration_006DEC7C, szValueName, 0x82, m_pGatewayList, m_nGatewayListSize, 0))
+    if (!SRegLoadData(gszConfiguration, szValueName, 0x82, m_pGatewayList, m_nGatewayListSize, 0))
     {
         SMemFree(m_pGatewayList, ".\\BNetGW.cpp", 0x15E, 0);
         m_pGatewayList = 0;
@@ -231,13 +234,13 @@ void BNGatewayAccess::GetGatewayList(const char* szValueName)
 void BNGatewayAccess::GetBattlenetGatewayList()
 {
     m_bOverride = 0;
-    GetGatewayList(szOverrideGateways_006DECAC);
+    GetGatewayList(gszOverrideGateways);
     if (m_pGatewayList)
     {
         m_bOverride = 1;
         return;
     }
-    GetGatewayList(szDiabloGateways_006DEC8C);
+    GetGatewayList(gszDiabloGateways);
 }
 
 // 0x005182B0
@@ -264,7 +267,8 @@ char* __stdcall BNETGW_LoadGatewayFile(unsigned int* pSize)
 void BNGatewayAccess::WriteDefaultGatewayList()
 {
     unsigned int nSize;
-    BNDOWNLOAD_LogPrintf(szWritingDefaultGateways_006DED24);
+// build: symbol ?gszWritingDefaultGateways@* 0x006DED24
+    BNDOWNLOAD_LogPrintf(gszWritingDefaultGateways);
     char* szText = BNETGW_LoadGatewayFile(&nSize);
     if (szText)
         UpdateGatewaysFromIni(szText);
@@ -489,7 +493,7 @@ void __stdcall BNGatewayAccess::UpdateGatewaysFromIni(char* szText)
                 m_bModified = 1;
 
                 const int nSize = 2 * strlen(tLocals.szTextCopy);
-                pVersionSection = (char*)SMemAlloc(nSize, szBNetGWFile_006DEC6C, 0x297, 0);
+                pVersionSection = (char*)SMemAlloc(nSize, gszBNetGWFile, 0x297, 0);
                 sprintf(pVersionSection, "%d", nVersion);
                 pDest = pVersionSection + SStrLen(pVersionSection) + 1;
                 *pDest = '0';
@@ -524,7 +528,7 @@ void __stdcall BNGatewayAccess::UpdateGatewaysFromIni(char* szText)
                             else
                             {
                                 nLen = 1;
-                                SStrCopy(pDest, szZero_006D5D64, 2);
+                                SStrCopy(pDest, gszZero, 2);
                             }
                             pDest += nLen;
                             pDest = pDest + 1;
