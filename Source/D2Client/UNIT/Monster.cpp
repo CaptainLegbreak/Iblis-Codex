@@ -2960,12 +2960,6 @@ int __cdecl sub_004BF9B0()
     return 0;
 }
 
-// 0x004C2530
-int __cdecl sub_004C2530()
-{
-    return 0;
-}
-
 // 0x004CCF30
 int __cdecl sub_004CCF30()
 {
