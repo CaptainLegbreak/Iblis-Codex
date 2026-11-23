@@ -296,8 +296,6 @@ extern int gdwSecondaryTradeGold; // 0x007C0E78
 
 extern int gdwPrimaryTradeGold; // 0x007C0E68
 
-extern int gdwGlobal_0072A348; // 0x0072A348
-
 extern char gData_0072AE40[]; // 0x0072AE40
 
 extern char gData_0072AF18[]; // 0x0072AF18
@@ -2853,12 +2851,6 @@ int __cdecl MONSTER_GetPrimaryTradeGold()
 int __cdecl sub_004BF9B0()
 {
     return 0;
-}
-
-// 0x004CCF30
-int __cdecl sub_004CCF30()
-{
-    return gdwGlobal_0072A348;
 }
 
 // 0x004E0680
