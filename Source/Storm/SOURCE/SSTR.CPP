@@ -118,6 +118,8 @@ extern "C" const unsigned int gdwSStrHashTable_006CEE30[16]; // 0x006CEE30
 
 void* __stdcall SMemHeapAlloc(unsigned int hHeap, unsigned int dwFlags, unsigned int nSize);
 
+extern double gadPowTable_007788E0[20][10]; // 0x007788E0
+
 // 0x00413550
 int __stdcall SStrCmp(const char* szString1, const char* szString2, int nMaxChars)
 {
@@ -675,7 +677,6 @@ inline T StormPowInt(T x, int nExp)
     }
 }
 
-
 // 0x004144B0
 extern "C" inline void __cdecl sub_004144B0_EnsureInit()
 {
@@ -932,4 +933,32 @@ unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsig
     return nValid ? nResult : 0;
 }
 
+// build: context PowIntT*
+template <class T>
+inline T PowIntT(T x, int nExp)
+{
+    unsigned int n;
+    if (nExp >= 0)
+        n = (unsigned int)nExp;
+    else
+        n = (unsigned int)(-nExp);
+    for (T z = T(1); ; x *= x)
+    {
+        if ((n & 1) != 0)
+            z *= x;
+        if ((n >>= 1) == 0)
+            return (nExp < 0 ? T(1) / z : z);
+    }
+}
 
+// 0x004142A0
+void __cdecl sub_004142A0_InitPowTable()
+{
+    for (int nExp = 0; nExp < 20; ++nExp)
+    {
+        for (int i = 0; i < 10; ++i)
+        {
+            gadPowTable_007788E0[nExp][i] = PowIntT(10.0, -(nExp + 1)) * i;
+        }
+    }
+}
