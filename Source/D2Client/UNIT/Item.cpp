@@ -837,49 +837,6 @@ void __fastcall ITEM_HitTestHotspots(int nX, int nY)
     }
 }
 
-// 0x004C01E0
-void __cdecl ITEM_DrawPanelUnit()
-{
-    if (gnUseItemDialogState)
-    {
-        if (CUNIT_IsPlayerDeadOrMissing())
-        {
-            sub_004C0090();
-            return;
-        }
-
-        USEITEM_DrawUseItemPanel();
-        if (gnUseItemDialogState == 2)
-        {
-            D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnAnvilItemId, 4);
-            if (pUnit)
-            {
-                D2PanelGfxStrc tGfx;
-                int nOut;
-                memset(&tGfx, 0, sizeof(tGfx));
-                if (sub_004DBB50(&tGfx, pUnit, 0, 0, 0, &nOut, 1, -1) && sub_006001F0(&tGfx, 0, 1) && tGfx.f_3C)
-                {
-                    unsigned int nWidth;
-                    unsigned int nHeight;
-                    sub_004DBEA0(pUnit, 0, 0, &nWidth, &nHeight);
-                    UNITS_ChangeAnimMode(pUnit, 0);
-                    int nOffsetY = 0;
-                    if (nHeight < 0x70)
-                    {
-                        nOffsetY = (0x72 - nHeight) >> 1;
-                    }
-                    GFX_DrawItemCel(pUnit, 0xA7 - (nWidth >> 1), nOffsetY + 0x6A);
-                    UNITS_ChangeAnimMode(pUnit, 4);
-                }
-            }
-        }
-    }
-    else
-    {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x31D);
-        exit(-1);
-    }
-}
 
 static inline int GetUnitType(D2UnitStrc* p)
 {

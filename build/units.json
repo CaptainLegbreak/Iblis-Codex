@@ -29651,6 +29651,11 @@
      "name": "?USEITEM_OnPanelCloseMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x004C01E0",
+     "length": 263,
+     "name": "ITEM_DrawPanelUnit"
+    },
+    {
      "va": "0x004C02F0",
      "length": 133,
      "name": "?USEITEM_ClosePanel@@YAHXZ"
@@ -29952,11 +29957,6 @@
      "va": "0x004BFBC0",
      "length": 132,
      "name": "ITEM_HitTestHotspots"
-    },
-    {
-     "va": "0x004C01E0",
-     "length": 263,
-     "name": "ITEM_DrawPanelUnit"
     },
     {
      "va": "0x004C0D20",
