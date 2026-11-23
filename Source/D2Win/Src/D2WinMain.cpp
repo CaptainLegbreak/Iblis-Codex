@@ -1,4 +1,5 @@
 #include "D2Win.h"
+
 #include "D2GameTypes.h"
 
 #include "D2Win32Types.h"
@@ -1424,6 +1425,14 @@ int __fastcall CONTROL_IsVisible(D2WinControlStrc* pControl)
 int __stdcall CONTROL_MouseInsideRect(const tagRECT* pRect)
 {
     return PtInRect(pRect, gtMousePosition);
+}
+
+extern int gdwGlobal_007D55E4; // 0x007D55E4
+
+// 0x004F97D0
+int __cdecl D2Win_IsCtrlKeyDown()
+{
+    return gdwGlobal_007D55E4;
 }
 
 // 0x004F97E0

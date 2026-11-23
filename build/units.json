@@ -34450,11 +34450,6 @@
      "name": "D2GFX_CheckLowQuality"
     },
     {
-     "va": "0x004F97D0",
-     "length": 6,
-     "name": "D2Win_IsCtrlKeyDown"
-    },
-    {
      "va": "0x004FA460",
      "length": 6,
      "name": "D2Win_IsMouseButtonPressed"
@@ -35619,6 +35614,11 @@
      "va": "0x004F97B0",
      "length": 30,
      "name": "CONTROL_MouseInsideRect"
+    },
+    {
+     "va": "0x004F97D0",
+     "length": 6,
+     "name": "D2Win_IsCtrlKeyDown"
     },
     {
      "va": "0x004F97E0",
