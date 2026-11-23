@@ -68525,11 +68525,6 @@
      "name": "?DATATBLS_LoadAllTxts@@YGXPAXHH@Z"
     },
     {
-     "va": "0x00625520",
-     "length": 59,
-     "name": "STATLIST_GetStatBonus"
-    },
-    {
      "va": "0x00625560",
      "length": 61,
      "name": "STATLIST_GetUnitStatBonus"
@@ -70592,6 +70587,11 @@
      "va": "0x00625500",
      "length": 27,
      "name": "STATLIST_UnitGetItemStatOrSkillStatValue"
+    },
+    {
+     "va": "0x00625520",
+     "length": 59,
+     "name": "STATLIST_GetStatBonus"
     },
     {
      "va": "0x006255A0",
