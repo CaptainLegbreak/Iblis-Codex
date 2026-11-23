@@ -188,23 +188,6 @@ void __fastcall PLAYERLIST_RemoveRosterInfo(int nUnitId1, int nUnitId2)
     }
 }
 
-// 0x004DC480
-unsigned short __fastcall PLAYERLIST_GetRelationFlagWord(int nUnitId1, int nUnitId2)
-{
-    D2RosterInfoStrc** ppRosterInfo = ROSTER_GetRosterInfoList(nUnitId1);
-    if (!ppRosterInfo || nUnitId1 == nUnitId2)
-    {
-        return 0;
-    }
-    for (D2RosterInfoStrc* pRosterInfo = *ppRosterInfo; pRosterInfo; pRosterInfo = pRosterInfo->pNext)
-    {
-        if (pRosterInfo->dwUnitId == nUnitId2)
-        {
-            return pRosterInfo->wPartyFlags;
-        }
-    }
-    return 0;
-}
 
 // 0x004DCA20
 int __fastcall PLAYERLIST_CallDrawSimpleShadow(D2UnitStrc* pUnit)
