@@ -32449,6 +32449,14 @@
      "name": "?sub_004DD060_Occludes@@YGHPAURoom@@PAUTile@@@Z"
     },
     {
+     "va": "0x004DD350",
+     "length": 257
+    },
+    {
+     "va": "0x004DD460",
+     "length": 231
+    },
+    {
      "va": "0x004DD600",
      "length": 214,
      "name": "?sub_004DD600_AddSpecial@@YGXPAUCell@@PAUContext@@PAUUnit@@@Z"
@@ -32518,34 +32526,6 @@
     {
      "va": "0x004DE260",
      "length": 430
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004DD350.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004DD350",
-     "length": 257
-    },
-    {
-     "va": "0x004DD460",
-     "length": 231
     }
    ],
    "flags": [

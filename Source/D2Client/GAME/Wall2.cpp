@@ -461,6 +461,30 @@ static void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,Room* roo
 }
 
 // @ref 0x004DD350
+static __forceinline void sub_004DD460_InsertSorted(Node** list,Node* node)
+{
+    Node* last=*list;
+    if(!last) { *list=node; return; }
+    Node* previous=0;
+    s32 order=(FIELD(u32,node->object,20)>>14)&7;
+    Node* next=last->next;
+    if(next) do
+    {
+        if(order<s32((FIELD(u32,last->object,20)>>14)&7))
+        {
+            node->next=last;
+            if(previous) previous->next=node;
+            else *list=node;
+            break;
+        }
+        previous=last;
+        last=previous->next;
+        next=last->next;
+    } while(next);
+    if(!last->next) last->next=node;
+}
+
+// 0x004DD350
 static void __stdcall sub_004DD350_AddUpper(Cell* cell,Room* room,Context* context,Tile* tile)
 {
     if(FIELD(s32,tile,28)!=0 && FIELD(s32,tile,28)!=13 && !(FIELD(u32,tile,20)&4)) FIELD(u32,cell,0)|=4;
@@ -470,31 +494,18 @@ static void __stdcall sub_004DD350_AddUpper(Cell* cell,Room* room,Context* conte
     node->type=1;
     node->object=tile;
     node->next=0;
-    RoomCoordinates coordinates;
-    sub_00619730_Coordinates(room,&coordinates);
-    node->x=8*(coordinates.x+5*FIELD(s32,tile,8));
-    node->y=8*(coordinates.y+5*FIELD(s32,tile,12));
-    FIELD(u32,context,0)|=gVar_006CE268_Flags;
-    Node* last=FIELD(Node*,cell,32);
-    if(!last) { FIELD(Node*,cell,32)=node; return; }
-    s32 order=(FIELD(u32,node->object,20)>>14)&7;
-    Node* previous=0;
-    while(last->next)
     {
-        if(order<s32((FIELD(u32,last->object,20)>>14)&7))
-        {
-            node->next=last;
-            if(previous) previous->next=node;
-            else FIELD(Node*,cell,32)=node;
-            break;
-        }
-        previous=last;
-        last=last->next;
+        RoomCoordinates coordinates;
+        sub_00619730_Coordinates(room,&coordinates);
+        node->x=8*(coordinates.x+5*FIELD(s32,tile,8));
+        node->y=8*(coordinates.y+5*FIELD(s32,tile,12));
     }
-    if(!last->next) last->next=node;
+    FIELD(u32,context,0)|=gVar_006CE268_Flags;
+    sub_004DD460_InsertSorted(&FIELD(Node*,cell,32),node);
 }
 
 // @ref 0x004DD460
+// 0x004DD460
 static void __stdcall sub_004DD460_AddRoof(Cell* cell,Room* room,Context* context,Tile* tile)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
@@ -503,28 +514,14 @@ static void __stdcall sub_004DD460_AddRoof(Cell* cell,Room* room,Context* contex
     node->type=1;
     node->object=tile;
     node->next=0;
-    RoomCoordinates coordinates;
-    sub_00619730_Coordinates(room,&coordinates);
-    node->x=8*(coordinates.x+5*FIELD(s32,tile,8));
-    node->y=8*(coordinates.y+5*FIELD(s32,tile,12));
-    FIELD(u32,context,0)|=gVar_006CE26C_Flags;
-    Node* last=FIELD(Node*,cell,28);
-    if(!last) { FIELD(Node*,cell,28)=node; return; }
-    s32 order=(FIELD(u32,node->object,20)>>14)&7;
-    Node* previous=0;
-    while(last->next)
     {
-        if(order<s32((FIELD(u32,last->object,20)>>14)&7))
-        {
-            node->next=last;
-            if(previous) previous->next=node;
-            else FIELD(Node*,cell,28)=node;
-            break;
-        }
-        previous=last;
-        last=last->next;
+        RoomCoordinates coordinates;
+        sub_00619730_Coordinates(room,&coordinates);
+        node->x=8*(coordinates.x+5*FIELD(s32,tile,8));
+        node->y=8*(coordinates.y+5*FIELD(s32,tile,12));
     }
-    if(!last->next) last->next=node;
+    FIELD(u32,context,0)|=gVar_006CE26C_Flags;
+    sub_004DD460_InsertSorted(&FIELD(Node*,cell,28),node);
 }
 
 // @ref 0x004DD550
