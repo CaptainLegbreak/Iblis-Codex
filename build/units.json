@@ -36841,6 +36841,11 @@
      "name": "?D2Win_10177@@YIHE@Z"
     },
     {
+     "va": "0x004FB500",
+     "length": 136,
+     "name": "?D2Win_10028@@YGHPBD0@Z"
+    },
+    {
      "va": "0x004FB5A0",
      "length": 248,
      "name": "?TEXTBOX_SetLineGapForFont@@YAXH@Z"
@@ -37055,31 +37060,6 @@
     {
      "va": "0x004FB1E0",
      "length": 665
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Win/Unknown_004FB500.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004FB500",
-     "length": 136,
-     "name": "?D2Win_10028@@YGHPBD0@Z"
     }
    ],
    "flags": [
