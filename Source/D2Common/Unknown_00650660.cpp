@@ -338,37 +338,6 @@ static BOOL sub_6FD5DB70(D2DynamicPathStrc* pPath)
     return D2Common_10236(pUnit, TRUE);
 }
 
-// 0x00650590
-void __stdcall PATH_RecacheRoomIfNeeded(D2DynamicPathStrc* pPath)
-{
-    PATH_RecacheRoomAtCoordIfNeeded(PATH_MakeCoord(PATH_FP16FitToCenter(pPath->tGameCoords.dwPrecisionX), PATH_FP16FitToCenter(pPath->tGameCoords.dwPrecisionY)), 0, pPath);
-}
-
-// 0x006505E0
-void __stdcall D2Common_10235_PATH_UpdateRiderPath(D2UnitStrc* pRiderUnit, D2UnitStrc* pMountUnit)
-{
-    D2_ASSERT(pRiderUnit, 0x54E);
-    D2_ASSERT(pMountUnit, 0x54F);
-
-    D2DynamicPathStrc* pRiderPath = pRiderUnit->pDynamicPath;
-    D2DynamicPathStrc* pMountPath = pMountUnit->pDynamicPath;
-    if (pRiderPath->tGameCoords.wPosX == pMountPath->tGameCoords.wPosX && pRiderPath->tGameCoords.wPosY == pMountPath->tGameCoords.wPosY)
-    {
-        pRiderPath->dwFlags &= 0xFFFFFFF7;
-    }
-    else
-    {
-        pRiderPath->dwFlags |= 8;
-    }
-
-    if (pRiderPath->pRoom != pMountPath->pRoom)
-    {
-        pRiderPath->dwFlags |= 1;
-    }
-
-    PATH_RecacheRoomAtCoordIfNeeded(pMountPath->tGameCoords, pMountPath->pRoom, pRiderPath);
-}
-
 static BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16* pOutCoord, int* pSteps, D2DynamicPathStrc* pPath);
 // 0x00650660
 static BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16* pOutCoord, int* pSteps, D2DynamicPathStrc* pPath)
@@ -524,49 +493,6 @@ static BOOL __stdcall D2Common_10231_Impl(D2ActiveRoomStrc* pRoomDest, D2PathPoi
     PATH_RecacheRoomAtCoordIfNeeded(PATH_MakeCoord(PATH_ToFP16Center(tDest.X), PATH_ToFP16Center(tDest.Y)), pRoomDest, pPath);
     D2_ASSERT((!tDest.X && !tDest.Y) || sub_00463740_FindRoomAtPoint(pRoomDest, tDest.X, tDest.Y), 0x4CC);
     PATH_ResetMovement(pPath);
-    return 1;
-}
-
-// 0x00650BE0
-BOOL __stdcall D2Common_10229(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pDestRoom, unsigned int nDestX, unsigned int nDestY)
-{
-    D2PathPointStrc tCoords;
-    tCoords.X = (unsigned short)nDestX;
-    tCoords.Y = (unsigned short)nDestY;
-    const BOOL bResult = sub_6FDAD5E0(pDestRoom, tCoords, pDynamicPath);
-    if (!bResult)
-    {
-        return bResult;
-    }
-
-    pDynamicPath->dwPathPoints = 0;
-    return 1;
-}
-
-// 0x00650C20
-int __stdcall D2Common_10231(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit_unused, D2ActiveRoomStrc* pRooms, unsigned short nX, unsigned short nY)
-{
-    D2PathPointStrc tDest;
-    tDest.X = nX;
-    tDest.Y = nY;
-    D2Common_10231_Impl(pRooms, tDest, pDynamicPath);
-    pDynamicPath->dwPathPoints = 0;
-    return 1;
-}
-
-// 0x00650C60
-BOOL __stdcall D2Common_10230(D2DynamicPathStrc* pDynamicPath, int a2, D2ActiveRoomStrc* pRoom, unsigned int a4, short a5)
-{
-    D2PathPointStrc tPos;
-    tPos.X = (unsigned short)a4;
-    tPos.Y = a5;
-    const BOOL bResult = sub_6FDAD5E0(pRoom, tPos, pDynamicPath);
-    if (!bResult)
-    {
-        return bResult;
-    }
-
-    pDynamicPath->unk0x38 = 15;
     return 1;
 }
 

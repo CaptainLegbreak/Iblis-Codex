@@ -118,23 +118,6 @@ char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLeng
     return szDest;
 }
 
-// 0x00526430
-int __fastcall sub_00526430_UnicodeUtf8Length(const Unicode* pSource, int nCount)
-{
-    char szBuffer[12];
-    int nLength = 0;
-    for (int i = 0; pSource[i].wChar; ++i)
-    {
-        if (i >= nCount)
-            break;
-        const int nUnits = sub_00526190_UnicodeCharToUtf8(szBuffer, pSource[i]);
-        if (nUnits == -1)
-            break;
-        nLength += nUnits;
-    }
-    return nLength;
-}
-
 // 0x005264F0
 int __fastcall Unicode::strcmp(const Unicode* str1, const Unicode* str2)
 {
