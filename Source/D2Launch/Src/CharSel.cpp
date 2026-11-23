@@ -49,7 +49,7 @@ struct Unicode;
 
 struct D2FuncTable_0077ABF0Strc;
 
-struct D2LaunchCharInfoStrc;
+struct D2LaunchRecordStrc;
 
 struct D2FuncRecordStrc;
 
@@ -3212,8 +3212,8 @@ void __cdecl CHARSEL_DisconnectBattleNet()
     if (gpFuncTable_0077ABF0)
     {
         gdwGlobal_00779DA4 = 1;
-        gpLaunchRecord->nByte361 = 0;
-        gpLaunchRecord->nByte381 = 0;
+        gpLaunchRecord->szRealm0x361[0] = 0;
+        gpLaunchRecord->szRealm0x381[0] = 0;
         OutputDebugStringA("Disconnect from BNET\n");
         D2MCPClientCloseMCP();
         gpFuncTable_0077ABF0->pfnSlot10();
@@ -3571,7 +3571,7 @@ int __stdcall CHARSEL_SubmitProfile(int nArg)
         const Unicode* pTextB = sub_004FDD90_GetEditText(gpSubmitEditB);
         const Unicode* pTextC = sub_004FDD90_GetEditText(gpSubmitEditC);
 // build: symbol ?gpCharInfo@* 0x0077BBD8
-        char* szName = gpCharInfo->szText0x8D;
+        char* szName = gpCharInfo->szAccount;
         sub_00526F70(szA, pTextA, 0x8);
         sub_00526F70(szB, pTextB, 0x28);
         sub_00526F70(szC, pTextC, 0xC8);

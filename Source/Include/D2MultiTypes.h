@@ -13,7 +13,6 @@ struct D2MenuListStrc;
 struct D2StatusStrc;
 struct Unicode;
 struct SMSGHANDLER_PARAMS;
-struct D2LaunchCharInfoStrc;
 struct D2LaunchFuncsStrc;
 struct D2WinControlInitStrc;
 struct D2LaunchRecordStrc;
@@ -21,84 +20,6 @@ struct D2FuncTable_0077ABF0Strc;
 struct D2CompositeStrc;
 struct D2MultiChannelUserStrc;
 struct D2LaunchGameRecStrc;
-
-#pragma pack(push, 1)
-struct D2LaunchCharInfoStrc
-{
-    int unk0x00[6]; // 0x00
-    unsigned char unk0x18; // 0x18
-    char nState[4]; // 0x19
-    char wValue[2]; // 0x1D
-    char szText0x1F[24]; // 0x1F
-    union
-    {
-        struct
-        {
-            unsigned char unk0x37; // 0x37
-            int unk0x38[21]; // 0x38
-            unsigned char unk0x8C; // 0x8C
-        };
-        char szText0x37[0x56]; // 0x37
-    };
-    char szText0x8D[16]; // 0x8D
-    unsigned char unk0x9D; // 0x9D
-    unsigned short unk0x9E; // 0x9E
-    int unk0xA0[7]; // 0xA0
-    unsigned char unk0xBC; // 0xBC
-    char szName0xBD[305]; // 0xBD
-    unsigned char nValue0x1EE; // 0x1EE
-    char wFlags[2]; // 0x1EF
-    unsigned char unk0x1F1; // 0x1F1
-    unsigned short unk0x1F2; // 0x1F2
-    int unk0x1F4[5]; // 0x1F4
-    unsigned char unk0x208; // 0x208
-    unsigned int dwFlags; // 0x209
-    unsigned char unk0x20D; // 0x20D
-    unsigned short unk0x20E; // 0x20E
-    char nByte210; // 0x210
-    unsigned char unk0x211; // 0x211
-    unsigned short unk0x212; // 0x212
-    int unk0x214[5]; // 0x214
-    unsigned char unk0x228; // 0x228
-    char nValue0x229[4]; // 0x229
-    union
-    {
-        struct
-        {
-            char nByte22D; // 0x22D
-            unsigned short unk0x22E; // 0x22E
-            int unk0x230[5]; // 0x230
-            unsigned char unk0x244; // 0x244
-        };
-        char szRealm0x22D[0x18]; // 0x22D
-    };
-    char szText0x245[16]; // 0x245
-    unsigned char unk0x255; // 0x255
-    unsigned short unk0x256; // 0x256
-    int unk0x258; // 0x258
-    unsigned char unk0x25C; // 0x25C
-    char szText0x25D[16]; // 0x25D
-    unsigned char unk0x26D; // 0x26D
-    unsigned short unk0x26E; // 0x26E
-    int unk0x270[59]; // 0x270
-    unsigned short unk0x35C; // 0x35C
-    char nType0x35E; // 0x35E
-    unsigned char unk0x35F; // 0x35F
-    unsigned char unk0x360; // 0x360
-    char szRealm0x361[32]; // 0x361
-    char szRealm0x381[32]; // 0x381
-    char szText0x3A1[16]; // 0x3A1
-    unsigned char nComponentColors; // 0x3B1
-    unsigned short unk0x3B2; // 0x3B2
-    int unk0x3B4[3]; // 0x3B4
-    unsigned char unk0x3C0; // 0x3C0
-    unsigned char nValue0x3C1; // 0x3C1
-    char nValue3C2; // 0x3C2
-    unsigned int nWordHash; // 0x3C3
-    int nWordLength; // 0x3C7
-    unsigned char wFlags0x3CB[2]; // 0x3CB
-};
-#pragma pack(pop)
 
 struct D2LaunchFuncsStrc
 {
@@ -157,19 +78,9 @@ struct D2LaunchRecordStrc
         char aState19[4]; // 0x19
         int nState19;
     };
-    char aWord1D[2]; // 0x1D
-    char nByte1F; // 0x1F
-    int unk0x20[5]; // 0x20
-    unsigned short unk0x34; // 0x34
-    unsigned char unk0x36; // 0x36
-    union
-    {
-        char szName[16]; // 0x37
-        char nByte37;
-    };
-    unsigned char unk0x47; // 0x47
-    int unk0x48[15]; // 0x48
-    unsigned char unk0x84; // 0x84
+    unsigned short wValue; // 0x1D
+    char szText0x1F[24]; // 0x1F
+    char szText0x37[0x4E]; // 0x37
     unsigned char nFlag085; // 0x85
     unsigned char nFlag086; // 0x86
     unsigned char nFlag087; // 0x87
@@ -245,16 +156,27 @@ struct D2LaunchRecordStrc
     char bFlag223; // 0x223
     unsigned char nSoundArg; // 0x224
     D2FuncTable_0077ABF0Strc* pFuncTable; // 0x225
-    unsigned char unk0x229; // 0x229
-    unsigned short unk0x22A; // 0x22A
-    unsigned char unk0x22C; // 0x22C
-    char nByte22D; // 0x22D
-    unsigned short unk0x22E; // 0x22E
-    int unk0x230[5]; // 0x230
-    unsigned char unk0x244; // 0x244
-    char nByte245; // 0x245
-    unsigned short unk0x246; // 0x246
-    int unk0x248[69]; // 0x248
+    char nValue0x229[4]; // 0x229
+    union
+    {
+        struct
+        {
+            char nByte22D; // 0x22D
+            unsigned short unk0x22E; // 0x22E
+            int unk0x230[5]; // 0x230
+            unsigned char unk0x244; // 0x244
+        };
+        char szRealm0x22D[0x18]; // 0x22D
+    };
+    char szText0x245[16]; // 0x245
+    unsigned char unk0x255; // 0x255
+    unsigned short unk0x256; // 0x256
+    int unk0x258; // 0x258
+    unsigned char unk0x25C; // 0x25C
+    char szText0x25D[16]; // 0x25D
+    unsigned char unk0x26D; // 0x26D
+    unsigned short unk0x26E; // 0x26E
+    int unk0x270[59]; // 0x270
     unsigned char unk0x35C; // 0x35C
     char bRegistryMode; // 0x35D
     union
@@ -264,23 +186,17 @@ struct D2LaunchRecordStrc
     };
     char bIntroPlayed; // 0x35F
     unsigned char unk0x360; // 0x360
-    char nByte361; // 0x361
-    unsigned short unk0x362; // 0x362
-    int unk0x364[7]; // 0x364
-    unsigned char unk0x380; // 0x380
-    char nByte381; // 0x381
-    unsigned short unk0x382; // 0x382
-    int unk0x384[7]; // 0x384
-    unsigned char unk0x3A0; // 0x3A0
-    char aData3A1[16]; // 0x3A1
-    char aData3B1[16]; // 0x3B1
-    char nByte3C1; // 0x3C1
+    char szRealm0x361[32]; // 0x361
+    char szRealm0x381[32]; // 0x381
+    char szText0x3A1[16]; // 0x3A1
+    unsigned char nComponentColors[16]; // 0x3B1
+    unsigned char nLevel; // 0x3C1
     char nByte3C2; // 0x3C2
     unsigned int dwPasswordHash; // 0x3C3
     int nPasswordLength; // 0x3C7
     union
     {
-        char aWord3CB[2]; // 0x3CB
+        unsigned char aFlags3CB[2]; // 0x3CB
         unsigned short wFlags3CB;
     };
 };
@@ -375,7 +291,6 @@ struct D2LaunchGameRecStrc
 
 D2_CHECK_SIZE(D2MultiChannelUserStrc, 0xB4);
 D2_CHECK_SIZE(D2LaunchGameRecStrc, 0x3B);
-D2_CHECK_SIZE(D2LaunchCharInfoStrc, 0x3CD);
 D2_CHECK_SIZE(D2LaunchFuncsStrc, 0xB0);
 D2_CHECK_SIZE(D2WinControlInitStrc, 0x30);
 D2_CHECK_SIZE(D2LaunchRecordStrc, 0x3CD);

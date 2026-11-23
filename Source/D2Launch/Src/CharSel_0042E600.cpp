@@ -21,7 +21,7 @@ struct D2GridCellStrc;
 struct D2CelFileStrc;
 struct Unicode;
 struct D2FuncTable_0077ABF0Strc;
-struct D2LaunchCharInfoStrc;
+struct D2LaunchRecordStrc;
 struct D2FuncRecordStrc;
 struct D2LaunchCharEntryStrc;
 struct Unicode
