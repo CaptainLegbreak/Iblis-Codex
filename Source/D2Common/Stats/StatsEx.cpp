@@ -1,9 +1,15 @@
 #include "D2StateIds.h"
+
 #include "D2Common.h"
+
 #include "D2Structs.h"
+
 #include "D2DataTbls.h"
+
 #include "D2Txt.h"
+
 #include "D2LevelTxt.h"
+
 #include "D2Skills.h"
 
 #define STATLIST_SET 0x2000
@@ -33,7 +39,6 @@ struct Obj006252D0;
 struct Obj006252F0;
 
 struct Obj00625330;
-
 
 struct Obj00625CE0;
 
@@ -88,7 +93,6 @@ struct Obj00625330 { unsigned char bUnknown00[0x18]; unsigned int dwValue18; };
 int __stdcall STATLIST_GetStatValueWithPercent(D2StatListStrc* pStatList, int nStatId, int nPercentStatId, int bAddBonus); // 0x006255A0
 
 D2StatListStrc* __stdcall STATLIST_FindStatListByFlag(D2StatListStrc* pStatList, int nFlag); // 0x006256E0
-
 
 extern void* gpItemsCalcFunctions[]; // 0x0074463C
 
@@ -228,7 +232,6 @@ void __stdcall D2Common_10512(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nStatI
 
 void __stdcall D2Common_10513(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, StatListUnitCallback pfCallback);
 
-
 int __stdcall D2COMMON_11269_CopyStats(D2StatListStrc* pStatList, int nStatId, D2StatStrc* pBuffer, int nBufferSize);
 
 int __stdcall STATLIST_CopyStats(D2UnitStrc* pUnit, int nStatId, D2StatStrc* pBuffer, int nBufferSize);
@@ -327,6 +330,7 @@ static int __stdcall STATLIST_FindFirstStatIndex(D2StatsArrayStrc* pStatsArray, 
     return nMin;
 }
 
+// 0x00624C60
 static D2StatStrc* sub_00624C60_FindStat(D2StatsArrayStrc* pStatsArray, int nLayer_StatId)
 {
     const int nIndex = sub_00624B90_FindStatIndex(pStatsArray, nLayer_StatId);

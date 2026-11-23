@@ -1,5 +1,7 @@
 #include "D2Direct3D.h"
+
 #include "D2DDrawTypes.h"
+
 #include "D2Win32Types.h"
 
 #define DD_CHECK(expr,message) { error=(expr); if(error) { sub_006B20E0_DDrawLogError(message,error); goto Fail; } }
@@ -389,7 +391,7 @@ void __fastcall sub_006BBCE0_Run(int a, int b, int c); // 0x006BBCE0
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 
-extern D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
+D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
 
 int __cdecl D3D_Close(); // 0x006B5550
 
@@ -429,11 +431,11 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 
 void __fastcall sub_006B55E0_InitializeWindow(int, int); // 0x006B55E0
 
-extern int gnState_00970E54; // 0x00970E54
+int gnState_00970E54; // 0x00970E54
 
 int gnFilterMode; // 0x00970E5C
 
-extern int gnState_00970E58; // 0x00970E58
+int gnState_00970E58; // 0x00970E58
 
 void __fastcall sub_006B7F70_ClearTarget(int); // 0x006B7F70
 
@@ -473,6 +475,14 @@ extern int gbVideoUp; // 0x00970E40
 extern int gnVideoState; // 0x00970E44
 
 extern D2ComObjectStrc* gpPrimarySurface; // 0x00970E68
+
+typedef long (__stdcall* D2DDFlipFn)(D2ComObjectStrc* pThis, D2ComObjectStrc* pTarget, unsigned long dwFlags);
+
+extern int gdwGlobal_007B57E4; // 0x007B57E4
+
+extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
+
+D2PaletteTableStrc gPaletteView_0096F280; // 0x0096F280
 
 extern D2ComObjectStrc* gpRenderSurface; // 0x00970E6C
 
@@ -691,6 +701,35 @@ extern int gnRenderHeight; // 0x007C913C
 
 void __fastcall sub_006B2F60_SaveVideoConfig(int nRender, int nDevice); // 0x006B2F60
 
+// 0x006B1C10
+void __fastcall sub_006B1C10_SetGlobal(int nValue)
+{
+    gdwGlobal_007B57E4 = nValue;
+}
+
+// 0x006B1C20
+unsigned int __cdecl sub_006B1C20_GetMaskedFlags()
+{
+    return gnDeviceFlags_0096F3A8 & gnGammaMask_006CE278;
+}
+
+// 0x006B1C30
+int __cdecl sub_006B1C30_SetMode()
+{
+    if (gpConfig_007C9148->bVSync)
+        ((D2DDFlipFn)gpPrimarySurface->lpVtbl[11])(gpPrimarySurface, 0, 1);
+    else
+        ((D2DDFlipFn)gpPrimarySurface->lpVtbl[11])(gpPrimarySurface, 0, 9);
+    return 1;
+}
+
+// 0x006B1C60
+void __fastcall sub_006B1C60_GetScreenSize(int* pWidth, int* pHeight)
+{
+    *pWidth = gnRenderWidth;
+    *pHeight = gnRenderHeight;
+}
+
 // 0x006B1C70
 void __fastcall D3D_SetPalette(tagPALETTEENTRY* pPalette)
 {
@@ -714,6 +753,30 @@ void __fastcall D3D_SetPalette(tagPALETTEENTRY* pPalette)
             gadwColors[i] = 0;
             gawColors16[i] = 0;
         }
+    }
+}
+
+// 0x006B1D50
+unsigned int __fastcall sub_006B1D50_GetColor(unsigned int nIndex)
+{
+    return gadwColors[nIndex];
+}
+
+// 0x006B1D60
+void __fastcall sub_006B1D60_SetPaletteView(const D2PaletteTableStrc* pSource)
+{
+    gPaletteView_0096F280 = *pSource;
+    gpGfxPaletteView_007C9150 = &gPaletteView_0096F280;
+}
+
+// 0x006B1D80
+void __fastcall sub_006B1D80_CopyRows(char* pSrc, char* pDst, int nBytes, int nRows, int nDstPitch, int nUnused)
+{
+    for (int i = 0; i < nRows; ++i)
+    {
+        memcpy(pDst, pSrc, nBytes);
+        pSrc += nBytes;
+        pDst += nDstPitch;
     }
 }
 
@@ -1103,6 +1166,142 @@ void __fastcall sub_006B38A0_Copy(D2DDSurfaceStrc* pDst, D2DDSurfaceStrc* pSrc, 
     pDst->lpVtbl->Unlock(pDst, 0);
 }
 
+struct D2SurfaceDescStrc { unsigned int size, flags, height, width, pitch, backBuffers, refresh; unsigned int reserved1[14]; unsigned int bits; unsigned int reserved2[4]; unsigned int caps; unsigned int reserved3[4]; };
+struct D2CapsStrc { unsigned int caps, caps2, caps3, caps4; };
+struct D2DeviceStrc;
+struct D2SurfaceStrc;
+struct D2DeviceStrc
+{
+    virtual long __stdcall QueryInterface(const void* riid, void** ppvObject) = 0;
+    virtual unsigned long __stdcall AddRef() = 0;
+    virtual unsigned long __stdcall Release() = 0;
+};
+struct D2SurfaceStrc
+{
+    virtual long __stdcall QueryInterface(const void* riid, void** ppvObject) = 0;
+    virtual unsigned long __stdcall AddRef() = 0;
+    virtual unsigned long __stdcall Release() = 0;
+    virtual void __stdcall Unused0C() = 0;
+    virtual void __stdcall Unused10() = 0;
+    virtual void __stdcall Unused14() = 0;
+    virtual void __stdcall Unused18() = 0;
+    virtual void __stdcall Unused1C() = 0;
+    virtual void __stdcall Unused20() = 0;
+    virtual void __stdcall Unused24() = 0;
+    virtual void __stdcall Unused28() = 0;
+    virtual void __stdcall Unused2C() = 0;
+    virtual long __stdcall GetAttachedSurface(D2CapsStrc* pCaps, D2SurfaceStrc** ppSurface) = 0;
+};
+struct D2DrawStrc
+{
+    virtual long __stdcall QueryInterface(const void* riid, void** ppvObject) = 0;
+    virtual unsigned long __stdcall AddRef() = 0;
+    virtual unsigned long __stdcall Release() = 0;
+    virtual void __stdcall Unused0C() = 0;
+    virtual void __stdcall Unused10() = 0;
+    virtual void __stdcall Unused14() = 0;
+    virtual long __stdcall CreateSurface(D2SurfaceDescStrc* pDesc, D2SurfaceStrc** ppSurface, void* pOuter) = 0;
+    virtual void __stdcall Unused1C() = 0;
+    virtual void __stdcall Unused20() = 0;
+    virtual void __stdcall Unused24() = 0;
+    virtual void __stdcall Unused28() = 0;
+    virtual void __stdcall Unused2C() = 0;
+    virtual void __stdcall Unused30() = 0;
+    virtual void __stdcall Unused34() = 0;
+    virtual void __stdcall Unused38() = 0;
+    virtual void __stdcall Unused3C() = 0;
+    virtual void __stdcall Unused40() = 0;
+    virtual void __stdcall Unused44() = 0;
+    virtual void __stdcall Unused48() = 0;
+    virtual void __stdcall Unused4C() = 0;
+    virtual long __stdcall SetCooperativeLevel(void* hWnd, unsigned int dwFlags) = 0;
+    virtual long __stdcall SetDisplayMode(unsigned int nWidth, unsigned int nHeight, unsigned int nBpp, unsigned int nRefresh, unsigned int dwFlags) = 0;
+};
+struct D2D3DStrc
+{
+    virtual long __stdcall QueryInterface(const void* riid, void** ppvObject) = 0;
+    virtual unsigned long __stdcall AddRef() = 0;
+    virtual unsigned long __stdcall Release() = 0;
+    virtual void __stdcall Unused0C() = 0;
+    virtual void __stdcall Unused10() = 0;
+    virtual void __stdcall Unused14() = 0;
+    virtual void __stdcall Unused18() = 0;
+    virtual void __stdcall Unused1C() = 0;
+    virtual long __stdcall CreateDevice(const void* rclsid, D2SurfaceStrc* pSurface, D2DeviceStrc** ppDevice, void* pOuter) = 0;
+};
+struct D2DisplayModeStrc { unsigned int flags,bits,width,height,refresh; };
+struct D2DisplayContextStrc { unsigned int reserved[0x13c/4]; D2DisplayModeStrc modes[32]; int count; };
+extern D2DrawStrc* gpDraw_00970E60; // 0x00970E60
+extern D2D3DStrc* gpD3D_00970E64; // 0x00970E64
+extern void* ghWindow_00970E84; // 0x00970E84
+extern unsigned int ganWidths[2]; // 0x0074C000
+extern unsigned int ganHeights[2]; // 0x0074C010
+extern const unsigned int gadwHalGuid[4]; // 0x006FF518
+extern const char gszTooMany[]; // 0x006FB86C
+extern const char gszCoop[]; // 0x006FB83C
+extern const char gszSetDisplayModeFailed[]; // 0x006FB810
+extern const char gszPrimary[]; // 0x006FB7DC
+extern const char gszAttached[]; // 0x006FB7AC
+extern const char gszCreateHalDeviceFailed[]; // 0x006FB77C
+extern const char gszCutscene[]; // 0x006DE0F4
+
+// 0x006B3FD0
+int __stdcall sub_006B3FD0_EnumerateDisplayMode(D2SurfaceDescStrc* mode,D2DisplayContextStrc* context)
+{
+    D2SurfaceStrc* primary=0;
+    D2SurfaceStrc* attached=0;
+    D2DeviceStrc* device=0;
+    D2CapsStrc caps;
+    D2SurfaceDescStrc desc;
+    unsigned int flags=0;
+    long result;
+    if(!context) goto done;
+    if(!mode || mode->size!=0x7c) return 0;
+    if(context->count>=32) {
+        sub_00410610_WriteLogLine(gszTooMany,context->count,32);
+        if(device) { device->Release(); device=0; }
+        if(attached) attached=0;
+        if(primary) primary->Release();
+        return 0;
+    }
+    if(mode->bits==32 && mode->width==640 && mode->height==480) flags=gdwBitMasks_006CE268[2];
+    else if(mode->bits==24 && mode->width==640 && mode->height==480) flags=gdwBitMasks_006CE268[3];
+    if(mode->bits==32 && mode->width==ganWidths[0] && mode->height==ganHeights[0]) flags|=gdwBitMasks_006CE268[1];
+    if(mode->bits==32 && mode->width==ganWidths[1] && mode->height==ganHeights[1]) flags|=gdwBitMasks_006CE268[0];
+    if(!flags) goto done;
+    result=gpDraw_00970E60->SetCooperativeLevel(ghWindow_00970E84,0x11);
+    if(result && result!=(long)0x88760245) { sub_006B20E0(gszCoop,result); goto cleanup; }
+    result=gpDraw_00970E60->SetDisplayMode(mode->width,mode->height,mode->bits,mode->refresh,0);
+    if(result) { sub_006B20E0(gszSetDisplayModeFailed,result); goto cleanup; }
+    if(!(flags&gdwBitMasks_006CE268[0]) && !(flags&gdwBitMasks_006CE268[1])) {
+        desc.size=sizeof(desc); memset(&desc.flags,0,sizeof(desc)-4); desc.flags=1; desc.caps=0x4200;
+        result=gpDraw_00970E60->CreateSurface(&desc,&primary,0);
+        if(result) { sub_006B20E0(gszCutscene,result); goto cleanup; }
+    }
+    else {
+        desc.size=sizeof(desc); memset(&desc.flags,0,sizeof(desc)-4); desc.flags=0x21; desc.caps=0x6218; desc.backBuffers=1;
+        result=gpDraw_00970E60->CreateSurface(&desc,&primary,0);
+        if(result) { sub_006B20E0(gszPrimary,result); goto cleanup; }
+        memset(&caps,0,sizeof(caps)); caps.caps=4;
+        result=primary->GetAttachedSurface(&caps,&attached);
+        if(result) { sub_006B20E0(gszAttached,result); goto cleanup; }
+        gpD3D_00970E64->CreateDevice(gadwHalGuid,attached,&device,0);
+        if(!device) { sub_006B39B0_ShowD3DError(gszCreateHalDeviceFailed,0); goto cleanup; }
+    }
+    {
+        D2DisplayModeStrc* out=&context->modes[context->count];
+        out->flags=flags; out->width=mode->width; out->height=mode->height; out->bits=mode->bits; out->refresh=mode->refresh;
+        ++context->count;
+    }
+cleanup:
+    if(device) { device->Release(); device=0; }
+    if(attached) attached=0;
+    if(primary) primary->Release();
+done:
+
+    return 1;
+}
+
 // 0x006B4FD0
 static int D3D_InitFullscreen(void* window,int mode)
 {
@@ -1406,6 +1605,15 @@ int __fastcall D3D_Init(int nArg1, int nArg2)
     D3D_SmackInit();
     gpCriticalSection_007C9134 = (D2CriticalSectionStrc*)FOG_Alloc(0x18, gszD3DCoreFile, 0x6EA, 0);
     InitializeCriticalSection(gpCriticalSection_007C9134);
+    return 1;
+}
+
+// 0x006B20C0
+int __fastcall sub_006B20C0_SetOption(int nId, int nValue)
+{
+    if (nId != 11)
+        return 0;
+    gnGammaScale_0074C020 = nValue;
     return 1;
 }
 

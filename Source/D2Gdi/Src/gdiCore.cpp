@@ -1,6 +1,9 @@
 #include "D2Gdi.h"
+
 #include "D2SysTypes.h"
+
 #include "D2Win32Base.h"
+
 #include "D2GfxTypes.h"
 #include "D2CelContext.h"
 
@@ -210,6 +213,11 @@ int __cdecl GDI_Close()
 struct D2PaletteEntry006C7C10Strc;
 
 struct D2LogPalette006C7C10Strc;
+
+// 0x006C7AF0
+void __cdecl sub_006C7AF0_Nop()
+{
+}
 
 // 0x006C7B00
 static void GDI_CreateBackBuffer(int nResolution)

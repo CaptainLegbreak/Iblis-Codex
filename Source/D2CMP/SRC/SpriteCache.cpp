@@ -1,10 +1,17 @@
 #include "D2CMP.h"
+
 #include "D2CmpTiles.h"
+
 #include "D2CmpCelFile.h"
+
 #include "D2GameTypes.h"
+
 #include "D2WinTypes.h"
+
 #include "D2CmpTypes.h"
+
 #include "D2CmpCache.h"
+
 #include "D2SpriteCache.h"
 
 #pragma intrinsic(strcpy)
@@ -34,8 +41,6 @@ struct D2CmpCacheKeyStrc;
 
 struct D2CmpCacheListEntryStrc;
 
-
-
 struct D2CmpCelContextStrc;
 
 struct D2TileListHeaderStrc;
@@ -47,7 +52,6 @@ struct D2CmpTileBlockStrc;
 struct D2CmpTileLibraryStrc;
 
 struct D2CmpBlockTableAStrc;
-
 
 struct D2CmpValueObjStrc;
 
@@ -181,6 +185,7 @@ void __fastcall GfxHashInit(D2CmpBlockTableBStrc* pTable); // 0x0060AAF0
 void __fastcall D2CMPTileFreePoolEntry(void* pEntry); // 0x005FE1D0
 
 struct D2CelDataHashStrc;
+
 struct T00604AE0;
 
 struct D2TilePoolEntryStrc
@@ -196,7 +201,6 @@ struct D2CelDataViewStrc
 };
 
 void __fastcall CelDataHashRemove(void* pMemPool, D2CelDataHashStrc* pHash, T00604AE0* pEntry); // 0x0060B0B0
-
 
 void __fastcall D2CMPSpriteCacheFreeAll(D2SpriteCacheStrc* pCache); // 0x005FFBE0
 
@@ -317,7 +321,6 @@ static int __stdcall D2CMPSpriteReadFrames(D2CmpSpriteContextStrc* pContext, int
 
 struct D2CmpGfxHashStrc;
 
-
 int __stdcall D2CMPSpriteCanConvertDirections(int nDirections, int nNewDirections); // 0x00600D30
 
 void* __fastcall GfxHashFind(D2CmpBlockTableBStrc* pHash, D2CmpSpriteContextStrc* pContext, int* pDirection, unsigned int* pFrames, D2CmpSpriteFileStrc* pFile); // 0x0060ACE0
@@ -344,7 +347,6 @@ struct HashNode { char pad00[0x20]; D2CmpSpriteEntryStrc* entry; void* link; };
 struct HashTable { int unused; };
 
 struct SpriteCache { int unused; };
-
 
 extern HashTable gtHash; // 0x0088DB58
 
@@ -396,12 +398,7 @@ int gbCmpSmallCelCache; // 0x0089DB58
 
 static int __stdcall D2CMPSpriteLoadDc6CacheEntry(D2CmpSpriteFileStrc* pFile, int nDirection, int nFrames, const char* szName, D2CmpSpriteContextStrc* pContext); // 0x005FFFA0
 
-
-
-
-
 int __stdcall D2CMPSpriteBuildPath(const char* szName, D2CmpSpriteContextStrc* pContext, char* szOut); // 0x005FE610
-
 
 static int __stdcall D2CMPSpriteBuildPath(const char* szName, D2CmpSpriteContextStrc* pContext, char* szOut); // 0x005FE610
 
@@ -463,6 +460,33 @@ void __stdcall sub_005EF310(int nUnused1)
 void __fastcall D2CMPTileCacheSetFreeCallback(void* pfnCallback)
 {
     gpfnTileFreeCallback = pfnCallback;
+}
+
+typedef char check_int_width[(sizeof(int) == 4) ? 1 : -1];
+typedef char check_long_width[(sizeof(long) == 4) ? 1 : -1];
+typedef char check_uchar_width[(sizeof(unsigned char) == 1) ? 1 : -1];
+// build: symbol _gnPendingCount 0x00881D5C
+extern "C" long gnPendingCount;
+extern "C" int gnFlag_00882528;
+// build: symbol _ganSlotArrayA 0x00882128
+extern "C" int ganSlotArrayA[94];
+// build: symbol _ganSlotArrayB 0x008822A8
+extern "C" int ganSlotArrayB[94];
+extern "C" int gnValue_00882744;
+extern "C" int gnValue_0088274C;
+extern "C" int gnValue_0088CB0C; // 0x0088CB0C
+extern "C" int gnValue_0088CB10; // 0x0088CB10
+extern "C" int __cdecl BNDOWNLOAD_HasPendingDownloads(); // 0x0051E5E0
+extern "C" int __cdecl BNDOWNLOAD_SetDisconnected(); // 0x00520AD0
+extern "C" void __fastcall BNDOWNLOAD_ClearReply(unsigned char nSlot); // 0x00520C00
+extern "C" int __fastcall BNDOWNLOAD_GetReplyValue(unsigned char nSlot); // 0x00520C20
+extern "C" int __fastcall GRID_GetCDKey(int bSecond); // 0x00523AB0
+
+// 0x005FE060
+extern "C" void __cdecl D2CMPResetTileCacheHits()
+{
+    gnValue_0088CB10 = 0;
+    gnValue_0088CB0C = 0;
 }
 
 // 0x005FE070
@@ -754,7 +778,6 @@ static inline int SpriteCache_CopyName(char* szDst, const char* szSrc)
     strcpy(szDst, szSrc);
     return 1;
 }
-
 
 static inline int SpriteCache_BuildDccOrDc6Path(char* szOut, const char* szDir, const char* szName, D2CmpSpriteContextStrc* pContext, int bAllowDcc)
 {

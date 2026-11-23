@@ -17,6 +17,7 @@ struct D2QAddressArg
 static void __stdcall sub_006C3440_AddClient(D2QueueServerStrc* pServer, unsigned int s, D2QAddressArg tAddress);
 
 #include "D2SysTypes.h"
+#include "D2NetTypes.h"
 
 
 struct D2SocketSetStrc { unsigned int count; int sockets[64]; };
@@ -30,6 +31,9 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char*);
 extern "C" __declspec(dllimport) __declspec(noreturn) void __stdcall ExitThread(unsigned int);
 extern "C" __declspec(dllimport) int __stdcall SetEvent(void*);
+extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds);
+extern "C" __declspec(dllimport) void* __stdcall CreateEventA(void* pAttributes, int bManualReset, int bInitialState, const char* szName);
+extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes, unsigned long nStackSize, unsigned long (__stdcall* pfStart)(void*), void* pParameter, unsigned long nFlags, unsigned long* pThreadId);
 extern unsigned int __security_cookie; // 0x00749DE0
 void __fastcall sub_006BE700_UpdateServer(D2QueueServerStrc*); // 0x006BE700
 void __fastcall QSERVER_AddReference(D2QueueServerStrc*,D2QClientStrc*); // 0x006BE640
@@ -48,6 +52,15 @@ int __stdcall sub_006B0186_Select(int,D2SocketSetStrc*,void*,D2SocketSetStrc*,D2
 int __stdcall sub_006B0180_IsSocketSet(int,D2SocketSetStrc*); // 0x006B0180
 int __stdcall sub_006B0174_Receive(int,char*,int,int); // 0x006B0174
 int __stdcall sub_006B0168_GetLastSocketError(); // 0x006B0168
+int __stdcall sub_006B017A_Send(int nSocket, const void* pBuffer, int nLength, int nFlags); // 0x006B017A
+unsigned int __stdcall sub_006B016E_Socket(int nFamily, int nType, int nProtocol); // 0x006B016E
+int __stdcall sub_006B0162_SetOption(unsigned int nSocket, int nLevel, int nOption, const char* pValue, int nSize); // 0x006B0162
+int __stdcall sub_006B015C_Ioctl(unsigned int nSocket, unsigned int nCommand, unsigned long* pArgument); // 0x006B015C
+unsigned short __stdcall sub_006B0156_Htons(unsigned short nValue); // 0x006B0156
+int __stdcall sub_006C9B76_Bind(unsigned int nSocket, const D2SockAddrInStrc* pAddress, int nSize); // 0x006C9B76
+int __stdcall sub_006C9B70_Listen(unsigned int nSocket, int nBacklog); // 0x006C9B70
+void __fastcall ERRORMANAGER_RegisterThread(unsigned int nId, void* hThread); // 0x00407F80
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 int __stdcall sub_006C9B6A_Accept(int,D2SocketAddressStrc*,int*); // 0x006C9B6A
 void __stdcall sub_006C9B7C_SetLastSocketError(int); // 0x006C9B7C
 int __cdecl sub_006823FD_Format(char*,const char*,...); // 0x006823FD
@@ -58,6 +71,26 @@ extern const char gszReconnect[]; // 0x006FCB6C
 extern const char gszAcceptError[]; // 0x006FCB50
 extern const char gszFatal[]; // 0x006FCB38
 extern const char gszStopped[]; // 0x006FCBA8
+
+// 0x006C33D0
+void __fastcall sub_006C33D0_Stop(D2QueueServerStrc* pServer)
+{
+    EnterCriticalSection(&pServer->tLock);
+    pServer->bStop = 1;
+    LeaveCriticalSection(&pServer->tLock);
+    WaitForSingleObject(pServer->hAcceptThreads[0], 2000);
+}
+
+// 0x006C3410
+int __fastcall sub_006C3410_Send(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pData, int nSize)
+{
+    if (sub_006B017A_Send(pClient->iSocket, pData, nSize, 0) == -1)
+    {
+        sub_006B0168_GetLastSocketError();
+        return 0;
+    }
+    return 1;
+}
 
 // 0x006C3440
 static void __stdcall sub_006C3440_AddClient(D2QueueServerStrc* pServer, unsigned int s, D2QAddressArg tAddress)
@@ -229,3 +262,37 @@ void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
 }
 
 #include "gen/data/Source/Fog/Src/QServer/QServer98.inc"
+
+// 0x006C3B50
+int __fastcall sub_006C3B50_StartServer(D2QueueServerStrc* pServer, int nPort)
+{
+    pServer->bRunning = 1;
+    unsigned int s = sub_006B016E_Socket(2, 1, 0);
+    if (s == (unsigned int)-1)
+        return 0;
+    pServer->hListenSockets[0] = s;
+    int bNoDelay = 1;
+    sub_006B0162_SetOption(s, 6, 1, (const char*)&bNoDelay, 4);
+    int bKeepAlive = 1;
+    sub_006B0162_SetOption(s, 0xFFFF, 8, (const char*)&bKeepAlive, 4);
+    int bReuse = 1;
+    sub_006B0162_SetOption(pServer->hListenSockets[0], 0xFFFF, 4, (const char*)&bReuse, 4);
+    unsigned long bNonBlocking = 1;
+    sub_006B015C_Ioctl(s, 0x8004667E, &bNonBlocking);
+    D2SockAddrInStrc tAddress;
+    memset(&tAddress, 0, sizeof(tAddress));
+    tAddress.sin_family = 2;
+    tAddress.sin_port = sub_006B0156_Htons((unsigned short)nPort);
+    pServer->aPorts[0] = (unsigned short)nPort;
+    if (sub_006C9B76_Bind(pServer->hListenSockets[0], &tAddress, sizeof(tAddress)) == -1)
+    {
+        sub_0040D880(s);
+        return 0;
+    }
+    if (sub_006C9B70_Listen(s, 25) == -1)
+        sub_0040D880(s);
+    pServer->hEvent = CreateEventA(0, 0, 0, 0);
+    pServer->hAcceptThreads[0] = CreateThread(0, 0, (unsigned long (__stdcall*)(void*))sub_006C3470_ServerThread, pServer, 0, &pServer->aThreadIds[0]);
+    ERRORMANAGER_RegisterThread(pServer->aThreadIds[0], pServer->hAcceptThreads[0]);
+    return 1;
+}

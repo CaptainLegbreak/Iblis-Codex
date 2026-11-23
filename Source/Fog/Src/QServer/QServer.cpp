@@ -325,9 +325,9 @@ int __cdecl sub_00410960_IsPlatformNT(); // 0x00410960
 
 extern "C" int __stdcall WSAStartup(unsigned short wVersionRequested, D2WSADataStrc* pData); // 0x006B0132
 
-int __fastcall sub_006C3360_Startup(QServer* pServer, int nPort); // 0x006C3360
+int __fastcall sub_006C3360_Startup(D2QueueServerStrc* pServer, int nPort); // 0x006C3360
 
-int __fastcall sub_006C3B50_StartServer(QServer* pServer, int nPort); // 0x006C3B50
+int __fastcall sub_006C3B50_StartServer(D2QueueServerStrc* pServer, int nPort); // 0x006C3B50
 
 extern "C" const char gszQServerTag[]; // 0x006FC47C
 
@@ -671,11 +671,6 @@ int __cdecl sub_006B2F20()
 
 // 0x006B76C0
 void __stdcall sub_006B76C0(int nUnused1, int nUnused2)
-{
-}
-
-// 0x006BC850
-void __stdcall sub_006BC850(int nUnused1)
 {
 }
 
@@ -1511,11 +1506,11 @@ static void QSERVER_StartServer(QServer* pServer, int nValue)
 
     if (pServer->bUseNt)
     {
-        sub_006C3360_Startup(pServer, nValue);
+        sub_006C3360_Startup((D2QueueServerStrc*)pServer, nValue);
     }
     else
     {
-        sub_006C3B50_StartServer(pServer, nValue);
+        sub_006C3B50_StartServer((D2QueueServerStrc*)pServer, nValue);
     }
 }
 
@@ -1682,9 +1677,9 @@ QServer* __stdcall QSInit(int nState, int nSlots, int nPort, int bDisableNt, D2N
         if (!WSAStartup(0x101, &tWsaData))
         {
             if (pServer->bUseNt)
-                sub_006C3360_Startup(pServer, nPort);
+                sub_006C3360_Startup((D2QueueServerStrc*)pServer, nPort);
             else
-                sub_006C3B50_StartServer(pServer, nPort);
+                sub_006C3B50_StartServer((D2QueueServerStrc*)pServer, nPort);
         }
     }
     return pServer;

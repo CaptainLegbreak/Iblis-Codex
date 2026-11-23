@@ -1,12 +1,21 @@
 #include "D2BNClient.h"
+
 #include "D2Structs.h"
+
 #include "D2DataTbls.h"
+
 #include "D2Primitives.h"
+
 #include "D2ClientMenus.h"
+
 #include "D2BnCryptTypes.h"
+
 #include "D2NetTypes.h"
+
 #include "D2Records.h"
+
 #include "D2LevelTxt.h"
+
 #include "D2StormSha1.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -1910,6 +1919,18 @@ int __fastcall BNSEND_GetChangePasswordResult(int* pResult)
         return BNDOWNLOAD_IsReplyReceived(0x56);
     }
     return 0;
+}
+
+extern long volatile gpSocket_00881BF0; // 0x00881BF0
+extern const char gszLineEnd_006FFCB0[]; // 0x006FFCB0
+
+// 0x0051C570
+int __fastcall sub_0051C570_SendLine(const char* szLine)
+{
+    FSafeSock* pSocket = (FSafeSock*)InterlockedCompareExchange(&gpSocket_00881BF0, 0, 0);
+    FOG_SOCKET_Send(pSocket, (char *)szLine, strlen(szLine));
+    FOG_SOCKET_Send(pSocket, (char *)gszLineEnd_006FFCB0, 1);
+    return 1;
 }
 
 // 0x0051C5C0
