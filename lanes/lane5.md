@@ -4,6 +4,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/a3q5-orb caddfed2 570->569 a3q5.cpp takes in the Compelling Orb functions (0x5BB980 from a1q4.cpp, 0x5BBB70/0x5BBBA0 from Unknown_005BBB70.cpp); assert lines 465/501/851/913 run in order through a3q5.cpp; VERIFIED 6b9416cf4705f3729bc019e141033063e6320b8e. Based on main #296, not stacked, D2Game only.
 - lane5/a2q4-run c6d82c5d 580->580 a2q4.cpp takes in 4 ACT2Q4 Jerhyn functions in its run (from a1q6.cpp and Unknown_0059F440.cpp; 0x59F440 onto shared quest records); VERIFIED a26dc147c1cbf75c63cf0a484317ab738ea6c176. Based on main #294, not stacked, D2Game only.
 - Skip `lane5/a4q3-a3q6-2` (327abb67): a rebase of `a4q3-a3q6` made before I saw #294; redundant.
 
