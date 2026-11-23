@@ -20647,6 +20647,11 @@
      "name": "GFXUTIL_GetMotionFirstParam"
     },
     {
+     "va": "0x004DA340",
+     "length": 13,
+     "name": "?MISSILE_ClearMotionFlagTwo@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004DA350",
      "length": 596
     },
@@ -31378,17 +31383,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004DA340.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004DA340",
-     "length": 13,
-     "name": "?MISSILE_ClearMotionFlagTwo@@YIXPAUD2UnitStrc@@@Z"
-    }
    ]
   },
   {

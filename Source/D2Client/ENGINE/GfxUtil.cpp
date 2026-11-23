@@ -732,6 +732,15 @@ extern "C" int __stdcall PARTICLE_GetGfxOffsetX(D2UnitStrc* pUnit);             
 
 void __stdcall DUNGEON_GameToClientCoords(int* pX, int* pY);                                                // 0x00643290
 
+// 0x004DA340
+void __fastcall MISSILE_ClearMotionFlagTwo(D2UnitStrc* pMissile)
+{
+    D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pMissile);
+    if (pMotion)
+        pMotion->dwFlags &= ~2;
+}
+
+
 // 0x004DA350
 void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit)
 {
