@@ -9562,6 +9562,11 @@
      "name": "CHARSEL_CacheStore"
     },
     {
+     "va": "0x00437B90",
+     "length": 81,
+     "name": "?CHARSEL_FreeCache@@YAXXZ"
+    },
+    {
      "va": "0x00437BF0",
      "length": 152,
      "name": "?CHARSEL_CreateCharInfoControls@@YAXXZ"
@@ -9570,6 +9575,11 @@
      "va": "0x00437C90",
      "length": 26,
      "name": "?CHARSEL_ScrollNameControl@@YAXXZ"
+    },
+    {
+     "va": "0x00437D20",
+     "length": 524,
+     "name": "?CHARSEL_IsTestRealm@@YAHPBUUnicode@@@Z"
     },
     {
      "va": "0x00437F30",
@@ -9597,6 +9607,14 @@
      "name": "?CHARSEL_GetDaysLeft@@YAII@Z"
     },
     {
+     "va": "0x004380F0",
+     "length": 1124
+    },
+    {
+     "va": "0x00438AD0",
+     "length": 970
+    },
+    {
      "va": "0x00438EA0",
      "length": 148,
      "name": "?CHARSEL_FreeCharList@@YAXXZ"
@@ -9607,14 +9625,27 @@
      "name": "?CHARSEL_IsValidCharName@@YIHPBD@Z"
     },
     {
+     "va": "0x00438F70",
+     "length": 298
+    },
+    {
      "va": "0x004390A0",
      "length": 358,
      "name": "?CHARSEL_UpdateSelection@@YAHXZ"
     },
     {
+     "va": "0x00439210",
+     "length": 1381
+    },
+    {
      "va": "0x00439780",
      "length": 189,
      "name": "?CHARSEL_PickClass@@YIXHH@Z"
+    },
+    {
+     "va": "0x00439AF0",
+     "length": 131,
+     "name": "?CHARSEL_JoinSelectedWithDifficulty@@YIXPAUSMSGHANDLER_PARAMS@@H@Z"
     },
     {
      "va": "0x00439B80",
@@ -9717,14 +9748,33 @@
      "name": "?CHARSEL_RefreshCharEntry@@YAXXZ"
     },
     {
+     "va": "0x0043A730",
+     "length": 174,
+     "name": "?CHARSEL_UpdateButtons@@YAXXZ"
+    },
+    {
+     "va": "0x0043A7E0",
+     "length": 30,
+     "name": "?CHARSEL_ResetRealmScreen@@YAXXZ"
+    },
+    {
      "va": "0x0043A950",
      "length": 79,
      "name": "?CHARSEL_OnRealmChosen@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x0043A9A0",
+     "length": 33,
+     "name": "?CHARSEL_CopyName@@YGHH@Z"
+    },
+    {
      "va": "0x0043A9D0",
      "length": 209,
      "name": "?CHARSEL_OnListClick@@YGHPAUD2ListMsgStrc@@@Z"
+    },
+    {
+     "va": "0x0043AAB0",
+     "length": 328
     },
     {
      "va": "0x0043AC00",
@@ -9737,14 +9787,49 @@
      "name": "?CHARSEL_InitCharList@@YAXXZ"
     },
     {
+     "va": "0x0043B490",
+     "length": 47,
+     "name": "?CHARSEL_OnName@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x0043B7A0",
      "length": 81,
      "name": "?CHARSEL_InitFuncTable@@YIHPAUD2LaunchRecordStrc@@@Z"
     },
     {
+     "va": "0x0043B800",
+     "length": 15,
+     "name": "?CHARSEL_ClearFuncTable@@YAXXZ"
+    },
+    {
+     "va": "0x0043B810",
+     "length": 11,
+     "name": "?CHARSEL_SetCancelled@@YAXXZ"
+    },
+    {
      "va": "0x0043B820",
      "length": 11,
      "name": "?CHARSEL_ClearCancelled@@YAXXZ"
+    },
+    {
+     "va": "0x0043B850",
+     "length": 50,
+     "name": "?CHARSEL_OnDownloadTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043B890",
+     "length": 65,
+     "name": "?CHARSEL_OnLogonTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043B8E0",
+     "length": 85,
+     "name": "CHARSEL_OnCreateAccountTick"
+    },
+    {
+     "va": "0x0043B940",
+     "length": 88,
+     "name": "CHARSEL_OnChangePasswordTick"
     },
     {
      "va": "0x0043B9A0",
@@ -9782,6 +9867,11 @@
      "name": "?CHARSEL_ResetChatControls@@YAXXZ"
     },
     {
+     "va": "0x0043E660",
+     "length": 87,
+     "name": "?CHARSEL_UpdateOkEnabled@@YAXXZ"
+    },
+    {
      "va": "0x0043EA20",
      "length": 71,
      "name": "?CHARSEL_DestroyPopupControls@@YAXXZ"
@@ -9802,9 +9892,84 @@
      "name": "?CHARSEL_CancelGameCreate@@YAHXZ"
     },
     {
+     "va": "0x0043F8C0",
+     "length": 109,
+     "name": "?CHARSEL_ResetLaunchState@@YAXXZ"
+    },
+    {
+     "va": "0x00441240",
+     "length": 85,
+     "name": "?CHARSEL_UseEditText@@YGHH@Z"
+    },
+    {
+     "va": "0x004412A0",
+     "length": 128,
+     "name": "?CHARSEL_UseRegistryChannel@@YGHH@Z"
+    },
+    {
+     "va": "0x004429A0",
+     "length": 205,
+     "name": "?CHARSEL_OnChatLine@@YGHPBUUnicode@@@Z"
+    },
+    {
+     "va": "0x00442C20",
+     "length": 422,
+     "name": "?CHARSEL_FillGameListControl@@YAXXZ"
+    },
+    {
+     "va": "0x00443360",
+     "length": 45,
+     "name": "?CHARSEL_GetMaxPlayers@@YAHXZ"
+    },
+    {
+     "va": "0x00443390",
+     "length": 45,
+     "name": "?CHARSEL_GetLevelRange@@YAHXZ"
+    },
+    {
+     "va": "0x004433C0",
+     "length": 95,
+     "name": "?CHARSEL_IncrementMaxPlayers@@YGHH@Z"
+    },
+    {
+     "va": "0x00443420",
+     "length": 95,
+     "name": "?CHARSEL_DecrementMaxPlayers@@YGHH@Z"
+    },
+    {
+     "va": "0x00443480",
+     "length": 95,
+     "name": "?CHARSEL_IncrementLevelRange@@YGHH@Z"
+    },
+    {
+     "va": "0x004434E0",
+     "length": 94,
+     "name": "?CHARSEL_DecrementLevelRange@@YGHH@Z"
+    },
+    {
+     "va": "0x004437E0",
+     "length": 93,
+     "name": "?CHARSEL_UpdateJoinButtonState@@YAXXZ"
+    },
+    {
+     "va": "0x004439F0",
+     "length": 537,
+     "name": "?CHARSEL_JoinByName@@YGHH@Z"
+    },
+    {
+     "va": "0x00443F80",
+     "length": 160,
+     "name": "?CHARSEL_SubmitProfile@@YGHH@Z"
+    },
+    {
      "va": "0x00445020",
      "length": 126,
      "name": "CHARSEL_RequestGameList"
+    },
+    {
+     "va": "0x00446890",
+     "length": 88,
+     "name": "?CHARSEL_SendChatLine@@YGHH@Z"
     },
     {
      "va": "0x00451920",
@@ -9830,6 +9995,108 @@
      "va": "0x00478160",
      "length": 101,
      "name": "CHARSEL_ShowProgressSteps"
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Launch/Src/CharSel_004378D0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004378D0",
+     "length": 233,
+     "name": "?CHARSEL_SubmitPasswordReset@@YGHH@Z"
+    },
+    {
+     "va": "0x00437A20",
+     "length": 55
+    },
+    {
+     "va": "0x00437CB0",
+     "length": 74
+    },
+    {
+     "va": "0x0043A800",
+     "length": 331
+    },
+    {
+     "va": "0x0043B520",
+     "length": 398,
+     "name": "?CHARSEL_OnCharSelect@@YGHH@Z"
+    },
+    {
+     "va": "0x0043B6B0",
+     "length": 229,
+     "name": "?CHARSEL_JoinSelected@@YGHH@Z"
+    },
+    {
+     "va": "0x0043B9F0",
+     "length": 1356,
+     "name": "?CHARSEL_HandleStatus@@YIHPAUD2StatusStrc@@@Z"
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Launch/Src/CharSel_0042FFE0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0042FFE0",
+     "length": 317,
+     "name": "?CHARSEL_CreateTcpIpScreen@@YAXXZ"
+    },
+    {
+     "va": "0x00436D50",
+     "length": 312,
+     "name": "?CHARSEL_CreateConnectScreen@@YAXXZ"
+    },
+    {
+     "va": "0x0043AD10",
+     "length": 155,
+     "name": "?CHARSEL_RequestCharList@@YAXPAD@Z"
+    },
+    {
+     "va": "0x0043ADB0",
+     "length": 114,
+     "name": "?CHARSEL_UseName@@YIXPAD@Z"
+    },
+    {
+     "va": "0x0043B080",
+     "length": 1039,
+     "name": "?CHARSEL_InitCharSelectScreen@@YAXXZ"
+    },
+    {
+     "va": "0x0043C530",
+     "length": 10,
+     "name": "?BNDOWNLOAD_GetTime@@YAJPAJ@Z"
     }
    ]
   },
@@ -11509,102 +11776,6 @@
    ]
   },
   {
-   "file": "Source/D2Launch/Src/CharSel_0042FFE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0042FFE0",
-     "length": 317,
-     "name": "?CHARSEL_CreateTcpIpScreen@@YAXXZ"
-    },
-    {
-     "va": "0x00436D50",
-     "length": 312,
-     "name": "?CHARSEL_CreateConnectScreen@@YAXXZ"
-    },
-    {
-     "va": "0x00437B90",
-     "length": 81,
-     "name": "?CHARSEL_FreeCache@@YAXXZ"
-    },
-    {
-     "va": "0x0043A730",
-     "length": 174,
-     "name": "?CHARSEL_UpdateButtons@@YAXXZ"
-    },
-    {
-     "va": "0x0043A7E0",
-     "length": 30,
-     "name": "?CHARSEL_ResetRealmScreen@@YAXXZ"
-    },
-    {
-     "va": "0x0043A9A0",
-     "length": 33,
-     "name": "?CHARSEL_CopyName@@YGHH@Z"
-    },
-    {
-     "va": "0x0043AD10",
-     "length": 155,
-     "name": "?CHARSEL_RequestCharList@@YAXPAD@Z"
-    },
-    {
-     "va": "0x0043ADB0",
-     "length": 114,
-     "name": "?CHARSEL_UseName@@YIXPAD@Z"
-    },
-    {
-     "va": "0x0043B080",
-     "length": 1039,
-     "name": "?CHARSEL_InitCharSelectScreen@@YAXXZ"
-    },
-    {
-     "va": "0x0043B490",
-     "length": 47,
-     "name": "?CHARSEL_OnName@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0043B800",
-     "length": 15,
-     "name": "?CHARSEL_ClearFuncTable@@YAXXZ"
-    },
-    {
-     "va": "0x0043B810",
-     "length": 11,
-     "name": "?CHARSEL_SetCancelled@@YAXXZ"
-    },
-    {
-     "va": "0x0043B850",
-     "length": 50,
-     "name": "?CHARSEL_OnDownloadTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0043B890",
-     "length": 65,
-     "name": "?CHARSEL_OnLogonTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0043B8E0",
-     "length": 85,
-     "name": "CHARSEL_OnCreateAccountTick"
-    },
-    {
-     "va": "0x0043B940",
-     "length": 88,
-     "name": "CHARSEL_OnChangePasswordTick"
-    },
-    {
-     "va": "0x0043C530",
-     "length": 10,
-     "name": "?BNDOWNLOAD_GetTime@@YAJPAJ@Z"
-    },
-    {
-     "va": "0x0043F8C0",
-     "length": 109,
-     "name": "?CHARSEL_ResetLaunchState@@YAXXZ"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Launch/Src/MainMenus_00431AF0.cpp",
    "rank": 0,
    "functions": [
@@ -12086,163 +12257,6 @@
      "va": "0x00437730",
      "length": 413,
      "name": "?sub_00437730_ChangePassword@@YGHH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Src/CharSel_004378D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004378D0",
-     "length": 233,
-     "name": "?CHARSEL_SubmitPasswordReset@@YGHH@Z"
-    },
-    {
-     "va": "0x00437A20",
-     "length": 55
-    },
-    {
-     "va": "0x00437CB0",
-     "length": 74
-    },
-    {
-     "va": "0x00437D20",
-     "length": 524,
-     "name": "?CHARSEL_IsTestRealm@@YAHPBUUnicode@@@Z"
-    },
-    {
-     "va": "0x004380F0",
-     "length": 1124
-    },
-    {
-     "va": "0x00438AD0",
-     "length": 970
-    },
-    {
-     "va": "0x00438F70",
-     "length": 298
-    },
-    {
-     "va": "0x00439210",
-     "length": 1381
-    },
-    {
-     "va": "0x00439AF0",
-     "length": 131,
-     "name": "?CHARSEL_JoinSelectedWithDifficulty@@YIXPAUSMSGHANDLER_PARAMS@@H@Z"
-    },
-    {
-     "va": "0x0043A800",
-     "length": 331
-    },
-    {
-     "va": "0x0043AAB0",
-     "length": 328
-    },
-    {
-     "va": "0x0043B520",
-     "length": 398,
-     "name": "?CHARSEL_OnCharSelect@@YGHH@Z"
-    },
-    {
-     "va": "0x0043B6B0",
-     "length": 229,
-     "name": "?CHARSEL_JoinSelected@@YGHH@Z"
-    },
-    {
-     "va": "0x0043B9F0",
-     "length": 1356,
-     "name": "?CHARSEL_HandleStatus@@YIHPAUD2StatusStrc@@@Z"
-    },
-    {
-     "va": "0x0043E660",
-     "length": 87,
-     "name": "?CHARSEL_UpdateOkEnabled@@YAXXZ"
-    },
-    {
-     "va": "0x00441240",
-     "length": 85,
-     "name": "?CHARSEL_UseEditText@@YGHH@Z"
-    },
-    {
-     "va": "0x004412A0",
-     "length": 128,
-     "name": "?CHARSEL_UseRegistryChannel@@YGHH@Z"
-    },
-    {
-     "va": "0x004429A0",
-     "length": 205,
-     "name": "?CHARSEL_OnChatLine@@YGHPBUUnicode@@@Z"
-    },
-    {
-     "va": "0x00442C20",
-     "length": 422,
-     "name": "?CHARSEL_FillGameListControl@@YAXXZ"
-    },
-    {
-     "va": "0x00443360",
-     "length": 45,
-     "name": "?CHARSEL_GetMaxPlayers@@YAHXZ"
-    },
-    {
-     "va": "0x00443390",
-     "length": 45,
-     "name": "?CHARSEL_GetLevelRange@@YAHXZ"
-    },
-    {
-     "va": "0x004433C0",
-     "length": 95,
-     "name": "?CHARSEL_IncrementMaxPlayers@@YGHH@Z"
-    },
-    {
-     "va": "0x00443420",
-     "length": 95,
-     "name": "?CHARSEL_DecrementMaxPlayers@@YGHH@Z"
-    },
-    {
-     "va": "0x00443480",
-     "length": 95,
-     "name": "?CHARSEL_IncrementLevelRange@@YGHH@Z"
-    },
-    {
-     "va": "0x004434E0",
-     "length": 94,
-     "name": "?CHARSEL_DecrementLevelRange@@YGHH@Z"
-    },
-    {
-     "va": "0x004437E0",
-     "length": 93,
-     "name": "?CHARSEL_UpdateJoinButtonState@@YAXXZ"
-    },
-    {
-     "va": "0x004439F0",
-     "length": 537,
-     "name": "?CHARSEL_JoinByName@@YGHH@Z"
-    },
-    {
-     "va": "0x00443F80",
-     "length": 160,
-     "name": "?CHARSEL_SubmitProfile@@YGHH@Z"
-    },
-    {
-     "va": "0x00446890",
-     "length": 88,
-     "name": "?CHARSEL_SendChatLine@@YGHH@Z"
     }
    ],
    "flags": [
