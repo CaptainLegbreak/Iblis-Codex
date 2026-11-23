@@ -6,6 +6,13 @@
 #include "D2DrlgMaps.h"
 #include "D2Win32Types.h"
 
+void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
+
+void __stdcall D2Common_10052(D2ActiveRoomStrc* pRoom, Rectangle* pRect); // 0x00619C40
+
+Unit* __stdcall DUNGEON_GetFirstUnitInRoom(D2ActiveRoomStrc* pRoom); // 0x00619EA0
+
+
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2WallCellStrc;
@@ -98,18 +105,6 @@ struct Frame;
 
 #define FIELD(T,p,off) (*(T*)((u8*)(p)+(off)))
 
-struct RoomCoordinates
-{
-    s32 x;
-    s32 y;
-    s32 width;
-    s32 height;
-    s32 tileX;
-    s32 tileY;
-    s32 tileWidth;
-    s32 tileHeight;
-};
-
 struct Node
 {
     s32 type;
@@ -140,9 +135,9 @@ extern s32 __fastcall sub_00464860_Classify(Unit*); // 0x00464860
 
 extern s32 __stdcall sub_00604CB0_Height(TileRecord*); // 0x00604CB0
 
-extern Tile* __stdcall sub_006196A0_WallTiles(Room*,u32*); // 0x006196A0
+extern Tile* __stdcall sub_006196A0_WallTiles(D2ActiveRoomStrc*,u32*); // 0x006196A0
 
-extern Tile* __stdcall sub_006196E0_FloorTiles(Room*,u32*); // 0x006196E0
+extern Tile* __stdcall sub_006196E0_FloorTiles(D2ActiveRoomStrc*,u32*); // 0x006196E0
 
 extern s32 __stdcall sub_00620650_PixelX(Unit*); // 0x00620650
 
@@ -166,7 +161,7 @@ struct WallContext
     u32 count;
 };
 
-static void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,Room* room,Tile* tile);
+static void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,D2ActiveRoomStrc* room,Tile* tile);
 
 // 0x004DCE60
 static void WALL2_ResizeWallCells(D2WallCtxStrc* pCtx)
@@ -365,7 +360,7 @@ static void __cdecl sub_004DCFA0_AddUnit(Cell* cell,Context* context,Unit* unit)
 }
 
 // 0x004DD060
-static s32 __stdcall sub_004DD060_Occludes(Room* room,Tile* tile)
+static s32 __stdcall sub_004DD060_Occludes(D2ActiveRoomStrc* room,Tile* tile)
 {
     if(gVar_0072A968_Mode)
     {
@@ -375,10 +370,10 @@ static s32 __stdcall sub_004DD060_Occludes(Room* room,Tile* tile)
         if(gVar_007C8A08_X<FIELD(s32,frame,0)) return 1;
         return gVar_007C8A10_Y<FIELD(s32,frame,4);
     }
-    RoomCoordinates coordinates;
-    sub_00619730_Coordinates(room,&coordinates);
-    s32 x=coordinates.x+5*FIELD(s32,tile,8);
-    s32 y=coordinates.y+5*FIELD(s32,tile,12);
+    D2DrlgCoordsStrc coordinates;
+    DUNGEON_GetRoomCoordinates(room, &coordinates);
+    s32 x=coordinates.nSubtileX+5*FIELD(s32,tile,8);
+    s32 y=coordinates.nSubtileY+5*FIELD(s32,tile,12);
     s32 viewX=5*gVar_007C8A08_X;
     s32 viewY=5*gVar_007C8A10_Y;
     if(viewX<x && viewX>x-20)
@@ -400,7 +395,7 @@ static s32 __stdcall sub_004DD060_Occludes(Room* room,Tile* tile)
 
 // @ref 0x004DD180
 // 0x004DD180
-static void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,Room* room,Tile* tile)
+static void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,D2ActiveRoomStrc* room,Tile* tile)
 {
     if(FIELD(s32,tile,28)!=0 && FIELD(s32,tile,28)!=13 && !(FIELD(u32,tile,20)&4)) FIELD(u32,cell,0)|=4;
     WallContext* wallContext=(WallContext*)context;
@@ -438,10 +433,10 @@ static void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,Room* roo
         }
     }
     {
-        RoomCoordinates coordinates;
-        sub_00619730_Coordinates(room,&coordinates);
-        node->x=8*(coordinates.x+5*FIELD(s32,tile,8));
-        node->y=8*(coordinates.y+5*FIELD(s32,tile,12));
+        D2DrlgCoordsStrc coordinates;
+        DUNGEON_GetRoomCoordinates(room, &coordinates);
+        node->x=8*(coordinates.nSubtileX+5*FIELD(s32,tile,8));
+        node->y=8*(coordinates.nSubtileY+5*FIELD(s32,tile,12));
     }
     Node* last=FIELD(Node*,cell,20);
     if(!last) { FIELD(Node*,cell,20)=node; return; }
@@ -489,7 +484,7 @@ static __forceinline void sub_004DD460_InsertSorted(Node** list,Node* node)
 }
 
 // 0x004DD350
-static void __stdcall sub_004DD350_AddUpper(Cell* cell,Room* room,Context* context,Tile* tile)
+static void __stdcall sub_004DD350_AddUpper(Cell* cell,D2ActiveRoomStrc* room,Context* context,Tile* tile)
 {
     if(FIELD(s32,tile,28)!=0 && FIELD(s32,tile,28)!=13 && !(FIELD(u32,tile,20)&4)) FIELD(u32,cell,0)|=4;
     u32 index=FIELD(u32,context,0xEA64)++;
@@ -499,10 +494,10 @@ static void __stdcall sub_004DD350_AddUpper(Cell* cell,Room* room,Context* conte
     node->object=tile;
     node->next=0;
     {
-        RoomCoordinates coordinates;
-        sub_00619730_Coordinates(room,&coordinates);
-        node->x=8*(coordinates.x+5*FIELD(s32,tile,8));
-        node->y=8*(coordinates.y+5*FIELD(s32,tile,12));
+        D2DrlgCoordsStrc coordinates;
+        DUNGEON_GetRoomCoordinates(room, &coordinates);
+        node->x=8*(coordinates.nSubtileX+5*FIELD(s32,tile,8));
+        node->y=8*(coordinates.nSubtileY+5*FIELD(s32,tile,12));
     }
     FIELD(u32,context,0)|=gVar_006CE268_Flags;
     sub_004DD460_InsertSorted(&FIELD(Node*,cell,32),node);
@@ -510,7 +505,7 @@ static void __stdcall sub_004DD350_AddUpper(Cell* cell,Room* room,Context* conte
 
 // @ref 0x004DD460
 // 0x004DD460
-static void __stdcall sub_004DD460_AddRoof(Cell* cell,Room* room,Context* context,Tile* tile)
+static void __stdcall sub_004DD460_AddRoof(Cell* cell,D2ActiveRoomStrc* room,Context* context,Tile* tile)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
     if(index>=3000) return;
@@ -519,33 +514,46 @@ static void __stdcall sub_004DD460_AddRoof(Cell* cell,Room* room,Context* contex
     node->object=tile;
     node->next=0;
     {
-        RoomCoordinates coordinates;
-        sub_00619730_Coordinates(room,&coordinates);
-        node->x=8*(coordinates.x+5*FIELD(s32,tile,8));
-        node->y=8*(coordinates.y+5*FIELD(s32,tile,12));
+        D2DrlgCoordsStrc coordinates;
+        DUNGEON_GetRoomCoordinates(room, &coordinates);
+        node->x=8*(coordinates.nSubtileX+5*FIELD(s32,tile,8));
+        node->y=8*(coordinates.nSubtileY+5*FIELD(s32,tile,12));
     }
     FIELD(u32,context,0)|=gVar_006CE26C_Flags;
     sub_004DD460_InsertSorted(&FIELD(Node*,cell,28),node);
 }
 
 // @ref 0x004DD550
-static void __stdcall sub_004DD550_AddFloor(Cell* cell,Room* room,Context* context,Tile* tile)
+// 0x004DD550
+static void __stdcall sub_004DD550_AddFloor(Cell* cell, D2ActiveRoomStrc* room, Context* context, Tile* tile)
 {
-    u32 index=FIELD(u32,context,0xEA64)++;
-    if(index>=3000) return;
-    Node* node=&FIELD(Node,context,4)+index;
-    node->type=1;
-    node->object=tile;
-    node->next=0;
-    RoomCoordinates coordinates;
-    sub_00619730_Coordinates(room,&coordinates);
-    node->x=8*(coordinates.x+5*FIELD(s32,tile,8));
-    node->y=8*(coordinates.y+5*FIELD(s32,tile,12));
-    FIELD(u32,context,0)|=gVar_006CE274_Flags;
-    Node* last=FIELD(Node*,cell,16);
-    if(!last) { FIELD(Node*,cell,16)=node; return; }
-    while(last->next) last=last->next;
-    last->next=node;
+    unsigned int index = FIELD(unsigned int, context, 0xEA64)++;
+    if (index >= 3000)
+    {
+        return;
+    }
+    Node* node = &FIELD(Node, context, 4) + index;
+    node->type = 1;
+    node->object = tile;
+    node->next = 0;
+    {
+        D2DrlgCoordsStrc coordinates;
+        DUNGEON_GetRoomCoordinates(room, &coordinates);
+        node->x = 8 * (coordinates.nSubtileX + 5 * FIELD(int, tile, 8));
+        node->y = 8 * (coordinates.nSubtileY + 5 * FIELD(int, tile, 12));
+    }
+    FIELD(unsigned int, context, 0) |= gVar_006CE274_Flags;
+    Node* last = FIELD(Node*, cell, 16);
+    if (!last)
+    {
+        FIELD(Node*, cell, 16) = node;
+        return;
+    }
+    while (last->next)
+    {
+        last = last->next;
+    }
+    last->next = node;
 }
 
 // @ref 0x004DD600
@@ -606,11 +614,11 @@ static void __stdcall sub_004DD6E0_AddOverlay(Cell* cell,Context* context,Unit* 
 }
 
 // 0x004DD7C0
-s32 __stdcall WALL2_VisitRoom(Room* room,View* view)
+s32 __stdcall WALL2_VisitRoom(D2ActiveRoomStrc* room,View* view)
 {
     Context* context=(Context*)((u8*)FIELD(void*,view,0)+56);
     Rectangle rectangle;
-    sub_00619C40_Rectangle(room,&rectangle);
+    D2Common_10052(room, &rectangle);
     if(rectangle.left>FIELD(s32,view,12)) return 1;
     if(rectangle.top>FIELD(s32,view,16)+400) return 1;
     if(rectangle.right<FIELD(s32,view,4)-200) return 1;
@@ -666,7 +674,7 @@ s32 __stdcall WALL2_VisitRoom(Room* room,View* view)
         sub_004DD550_AddFloor(cell,room,context,tile);
     }
     if(FIELD(s32,view,24)) return 1;
-    for(Unit* unit=sub_00619EA0_Units(room);unit;unit=FIELD(Unit*,unit,232))
+    for(Unit* unit=DUNGEON_GetFirstUnitInRoom(room);unit;unit=FIELD(Unit*,unit,232))
     {
         s32 x=sub_00620650_PixelX(unit);
         s32 y=sub_006206B0_PixelY(unit);
@@ -867,8 +875,6 @@ int __cdecl D2GFX_CheckLowQuality(); // 0x004F5210
 
 D2DrlgTileDataStrc* __stdcall DUNGEON_GetFloorTilesFromRoom(D2ActiveRoomStrc* pRoom, int* pFloorCount); // 0x00619660
 
-void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
-
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pnNumRooms); // 0x00619790
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
@@ -920,6 +926,7 @@ static void __stdcall sub_004DDFD0_BuildSmallFlatGrid(D2GridCoordStrc tX, int nY
     }
 }
 
+// 0x004DE190
 static void __stdcall sub_004DE190_BuildSmallGrid(int nSubX, int nSubY, int nZ, int bCorners, D2GridCellStrc* pCells, int nMode)
 {
     int nShift = 0;
@@ -948,6 +955,14 @@ static void __stdcall sub_004DE190_BuildSmallGrid(int nSubX, int nSubY, int nZ, 
                 pCells->nB2 = 0xFF;
             }
         }
+    }
+}
+
+void __stdcall sub_004DD550_Emit(D2ActiveRoomStrc* room, Context* context, Tile* tile, unsigned int count, Cell* cells)
+{
+    for (unsigned int i = 0; i < count; ++i, tile = (Tile*)((unsigned char*)tile + 48))
+    {
+        sub_004DD550_AddFloor((Cell*)((unsigned char*)cells + 36 * i), room, context, tile);
     }
 }
 
