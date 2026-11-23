@@ -3604,13 +3604,6 @@ int __stdcall CHARSEL_SendChatLine(int nArg)
     return 1;
 }
 
-// 0x00451920
-void __stdcall CHARSEL_RecordHandler(int nArg1, int nArg2, int nArg3)
-{
-    RECORD_WriteRecordFile();
-    if (gpfnPrevHandler)
-        gpfnPrevHandler(nArg1, nArg2, nArg3);
-}
 
 
 // 0x00458CD0

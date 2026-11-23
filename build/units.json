@@ -9887,11 +9887,6 @@
      "name": "?CHARSEL_SendChatLine@@YGHH@Z"
     },
     {
-     "va": "0x00451920",
-     "length": 24,
-     "name": "CHARSEL_RecordHandler"
-    },
-    {
      "va": "0x00458CD0",
      "length": 30,
      "name": "CHARSEL_SetAutomapContext"
@@ -16071,6 +16066,11 @@
      "va": "0x00451910",
      "length": 6,
      "name": "UI_IsRecordingEnabled"
+    },
+    {
+     "va": "0x00451920",
+     "length": 24,
+     "name": "CHARSEL_RecordHandler"
     },
     {
      "va": "0x00451960",
