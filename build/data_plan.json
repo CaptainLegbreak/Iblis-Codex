@@ -263,8 +263,8 @@
    "state": "included"
   },
   "Source/Storm/SOURCE/SFILE.CPP": {
-   "bytes": 424,
-   "definitions": 13,
+   "bytes": 432,
+   "definitions": 14,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
@@ -353,17 +353,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/Storm/SOURCE/SFILE_004177E0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/Storm/Unknown_0041A450.cpp": {
-   "bytes": 8,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_0041A450.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -9298,7 +9287,7 @@
    "cname": "gData_00708390",
    "declared": false,
    "decorated": null,
-   "file": "Source/Storm/Unknown_0041A450.cpp",
+   "file": "Source/Storm/SOURCE/SFILE.CPP",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00708390_t gData_00708390; // 0x00708390",
    "head": "extern \"C\" struct d2data_00708390_t gData_00708390 = ",

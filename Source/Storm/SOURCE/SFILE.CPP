@@ -526,7 +526,7 @@ struct CHuffman : THuffmannTree
 
 extern D2StormNodeListStrc gStormList_00708354; // 0x00708354
 
-extern void* ghStormThread_00779034; // 0x00779034
+static void* ghStormThread_00779034; // 0x00779034
 
 int gnStormDirectFlags_00779058;                                                                            // 0x00779058
 
@@ -3522,6 +3522,111 @@ static void MarkRequestPriority(int nValue, void* pBuffer)
             p->nArg9 = nValue;
     }
     LeaveCriticalSection(&gBasePathLock_00779068);
+}
+
+inline EVENTREC* D2StormEventListStrc::NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
+{
+    void* pMemory = SMemAlloc(sizeof(EVENTREC) + nExtraBytes, gszStormEventRecTypeName, -2, nFlags | 8);
+    EVENTREC* pRecord = pMemory ? new (pMemory) EVENTREC : 0;
+    if (nLinkType)
+        LinkNode((char*)pRecord, nLinkType, 0);
+    return pRecord;
+}
+
+// 0x0041A300
+int __stdcall CancelRequest(void* pBuffer, void* pOther)
+{
+    if (!pBuffer && !pOther)
+        return 0;
+    EnterCriticalSection(&gBasePathLock_00779068);
+    int bResult = 0;
+    REQUEST* pRequest = gRequestList_00708360.Head();
+    while ((int)pRequest > 0)
+    {
+        if ((pBuffer && (void*)pRequest->nDestSize == pBuffer) || (pOther && pRequest->pBuffer == pOther))
+        {
+            bResult = 1;
+            if (pRequest->hEvent)
+            {
+                EVENTREC* pEvent = gEventList_00708378.NewNode(2, 0, 0);
+                pEvent->hEvent = pRequest->hEvent;
+            }
+            REQUEST* pNext = (REQUEST*)pRequest->tLink.Next();
+            pRequest->~REQUEST();
+            SMemFree(pRequest, gszTypeNameRequest_007083F0, -2, 0);
+            pRequest = pNext;
+        }
+        else
+        {
+            pRequest = (REQUEST*)gRequestList_00708360.Link((char*)pRequest)->m_next;
+        }
+    }
+    LeaveCriticalSection(&gBasePathLock_00779068);
+    return bResult;
+}
+
+// 0x0041A8D0
+void __fastcall sub_0041A8D0_GetThread(unsigned long* pdwThreadId, void** phThread)
+{
+    sub_0041A880_StartThread();
+    *pdwThreadId = gdwStormThreadId_00779040;
+    *phThread = ghStormThread_00779034;
+}
+
+// 0x0041A930
+void __stdcall sub_0041A930_CancelRead(void* pBuffer)
+{
+    VALIDATEBEGIN;
+    VALIDATE(pBuffer);
+    VALIDATEENDVOID;
+
+    if (nValid)
+        CancelRequest(pBuffer, 0);
+}
+
+// 0x0041A960
+int __stdcall sub_0041A960_CancelReadResult(void* pBuffer)
+{
+    VALIDATEBEGIN;
+    VALIDATE(pBuffer);
+    VALIDATEEND;
+
+    if (nValid)
+        return CancelRequest(pBuffer, 0);
+    return 0;
+}
+
+// 0x0041A990
+int __stdcall sub_0041A990_DdaClose(void* hFile)
+{
+    EnterCriticalSection(&gBasePathLock_00779068);
+    FILEREC* pFile;
+    if (!sub_00415950_GetFileRec(hFile, &pFile))
+    {
+        LeaveCriticalSection(&gBasePathLock_00779068);
+        return 0;
+    }
+    AUDIOSTREAM* pStream = gpDdaHead_0070838C;
+    if ((int)pStream > 0)
+    {
+        do
+        {
+            AUDIOSTREAM* pNext = (AUDIOSTREAM*)pStream->tLink.Next();
+            if (pStream->pFile == pFile)
+            {
+                if (gpCurrentRequest_0077902C && gpCurrentRequest_0077902C->pBuffer && gpCurrentRequest_0077902C->pBuffer == pStream->pBuffer)
+                    gpCurrentRequest_0077902C->pBuffer = 0;
+                CancelRequest(0, pStream->pBuffer);
+                pStream->tLink.Unlink();
+                if (!--pStream->nRefCount)
+                    delete pStream;
+            }
+            pStream = pNext;
+        } while (pStream);
+    }
+    pFile->bDdaActive = 0;
+    LeaveCriticalSection(&gBasePathLock_00779068);
+    return 1;
 }
 
 // 0x0041AA80
