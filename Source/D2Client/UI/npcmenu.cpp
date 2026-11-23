@@ -1916,6 +1916,12 @@ static int NPCMENU_ItemNeedsRepair(D2UnitStrc* pItem)
     return 0;
 }
 
+// 0x004B2010
+int __cdecl sub_004B2010()
+{
+    return 0;
+}
+
 // 0x004B2020
 int __cdecl NPCMENU_IdentifyItemsWait()
 {
