@@ -488,7 +488,6 @@ void __fastcall sub_0052E050_RemoveUnit(D2UnitStrc*,D2GameStrc*); // 0x0052E050
 void __fastcall sub_00539230_SetWeaponSwitch(D2ClientStrc*, unsigned char); // 0x00539230
 void __fastcall sub_0053B240_SendHeaderOnly0x06(int nClientId); // 0x0053B240
 void __fastcall sub_00540E60(D2GameStrc*,D2UnitStrc*,int,int); // 0x00540E60
-void __fastcall sub_00543790(Quest*,Text*,int,int); // 0x00543790
 void __fastcall sub_00547390_Increment(Game*,int); // 0x00547390
 void __fastcall sub_00547490_Add(Game*,int,int,int); // 0x00547490
 void __fastcall sub_00553220(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553220
