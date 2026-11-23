@@ -60,7 +60,6 @@ struct D2SkillListStrc;
 struct D2ServerCallbackFunctions;
 struct D2DrlgCoordsStrc;
 struct D2ObjectControlStrc;
-struct D2W11QuestEx5BD040Strc;
 struct D2StaticPathStrc;
 struct D2ClientUnitUpdateStrc;
 struct D2ClientUnitUpdateSortStrc;
@@ -101,17 +100,6 @@ extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...); // 0x006CC468
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-
-struct D2W11QuestEx5BD040Strc
-{
-    unsigned char unk0x00[0x20];
-    unsigned char bNpcSpawned;
-    unsigned char unk0x21[0x03];
-    D2MapAIStrc* pMapAI;
-    int unk0x28;
-    int nNpcGUID;
-    unsigned char bMapAIChanged;
-};
 
 typedef D2UnitStrc* (__fastcall* OBJECTPOPULATEFN)(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char nDensity, unsigned int nObjectId, unsigned short nProbability);
 
@@ -3572,24 +3560,6 @@ void __fastcall SKILLS_SetMonsterComponent(D2UnitStrc* pUnit, unsigned char nCom
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && nComponent < MONSTER_COMPONENT_COUNT && pUnit->pMonsterData)
     {
         pUnit->pMonsterData->nComponent[nComponent] = nValue;
-    }
-}
-
-// 0x005BD040
-void __fastcall ACT3Q6_ChangeNatalyaMapAI(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MapAIStrc* pMapAI)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x14);
-    if (!pQuestData)
-        return;
-    D2W11QuestEx5BD040Strc* pQuestDataEx = (D2W11QuestEx5BD040Strc*)pQuestData->pQuestDataEx;
-    pQuestDataEx->pMapAI = pMapAI;
-    if (!pQuestDataEx->bNpcSpawned)
-        return;
-    D2UnitStrc* pNpc = SUNIT_GetServerUnit(pQuestData->pGame, 1, pQuestDataEx->nNpcGUID);
-    if (pNpc && pQuestDataEx->pMapAI && pQuestDataEx->pMapAI->pPosition && !pQuestDataEx->bMapAIChanged)
-    {
-        DRLGPRESET_ChangeMapAI(&pQuestDataEx->pMapAI, AIGENERAL_GetMapAiFromUnit(pNpc));
-        pQuestDataEx->bMapAIChanged = 1;
     }
 }
 
