@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2LevelTxt.h"
 #include "D2ItemsWorld.h"
 #include "D2Win32Types.h"
 
@@ -31,7 +32,6 @@ void __stdcall sub_M96_UseBounds_0054DAC0(int nX, int nY, int nWidth, int nHeigh
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
-int __fastcall sub_0054DC40_FindSpawnPosition(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pCoordList, int nMonsterId, int* pX, int* pY, int a7); // 0x0054DC40
 D2UnitStrc* __fastcall MONSTERSPAWN_SpawnInCoordList(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pCoordList, int nX, int nY, int nMonsterId, int nAnimMode, int a8, short nFlags); // 0x005B3040
 int __fastcall CUNIT_ValidateMonsterId(int nMonsterId); // 0x00463900
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
@@ -74,20 +74,35 @@ static void __stdcall sub_0054DAC0_GetSpawnBounds(D2ActiveRoomStrc* pRoom, int* 
     }
 }
 
-struct D2ActiveRoomViewStrc
+struct D2GameActsViewStrc;
+
+struct D2RoomWarpCoordsStrc;
+
+struct D2LevelsTxt;
+
+struct D2GameActsViewStrc
 {
-    char unk0x00[0x6C];
-    D2SeedStrc pSeed;
+    char unk0x00[0xBC];
+    D2DrlgActStrc* pAct[5];
 };
 
-struct D2FormationOffsetStrc
+struct D2RoomWarpCoordsStrc
 {
-    int nX;
-    int nY;
-    int unk0x08;
+    int nX[9];
+    int nY[9];
+    int nCount;
 };
 
-int __stdcall D2Common_10095(D2ActiveRoomStrc* pRoom, int nX, int nY);                                       // 0x0061B130
+D2RoomWarpCoordsStrc* __stdcall DUNGEON_GetWarpCoordinatesFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061AC10
+
+D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId); // 0x0061DB70
+
+unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
+
+void __stdcall sub_00643560_GameTileToSubtileCoords(int* pX, int* pY); // 0x00643560
+
+static int __stdcall sub_0054DB50_IsNearWarpOrSpawn(D2GameStrc* pGame, int nX, int nY, D2ActiveRoomStrc* pRoom);
+
 static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
@@ -95,7 +110,6 @@ static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     pSeed->nLowSeed = (unsigned int)lSeed;
     return (unsigned int)lSeed;
 }
-
 
 static inline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed, int nMax)
 {
@@ -111,6 +125,121 @@ static inline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed
 
     return SEED_RollRandomNumber(pSeed) & (nMax - 1);
 }
+
+int __stdcall D2Common_10095(D2ActiveRoomStrc* pRoom, int nX, int nY);                                       // 0x0061B130
+
+// 0x0054DB50
+static int __stdcall sub_0054DB50_IsNearWarpOrSpawn(D2GameStrc* pGame, int nX, int nY, D2ActiveRoomStrc* pRoom)
+{
+    if (!pRoom)
+    {
+        return 0;
+    }
+
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
+    if (!nLevelId)
+    {
+        return 0;
+    }
+
+    D2RoomWarpCoordsStrc* pWarps = DUNGEON_GetWarpCoordinatesFromRoom(pRoom);
+    if (!pWarps)
+    {
+        return 0;
+    }
+
+    const int nDistSq = DATATBLS_GetLevelsTxtRecord(nLevelId)->dwWarpDist;
+    for (int i = 0; i < pWarps->nCount; ++i)
+    {
+        const int nDX = nX - pWarps->nX[i];
+        const int nDY = nY - pWarps->nY[i];
+        if (nDY * nDY + nDX * nDX < nDistSq)
+        {
+            return 1;
+        }
+    }
+
+    int nSpawnX;
+    int nSpawnY;
+    DUNGEON_FindActSpawnLocation(((D2GameActsViewStrc*)pGame)->pAct[DRLG_GetActNoFromLevelId(nLevelId)], nLevelId, 11, &nSpawnX, &nSpawnY);
+    if (nSpawnX > 0 && nSpawnY > 0)
+    {
+        sub_00643560_GameTileToSubtileCoords(&nSpawnX, &nSpawnY);
+        const int nDX = nX - nSpawnX;
+        const int nDY = nY - nSpawnY;
+        if (nDY * nDY + nDX * nDX < nDistSq)
+        {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+// 0x0054DC40
+int __fastcall MONSTERREGION_FindSpawnLocation(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pArea, int nClassId, int* pX, int* pY, int bAvoidWarps)
+{
+    int nX, nY, nWidth, nHeight;
+    sub_0054DAC0_GetSpawnBounds(pRoom, &nWidth, pArea, &nX, &nY, &nHeight);
+
+    int bHasArea = 0;
+    int nAreaIndex = 0;
+    if (pArea)
+    {
+        nAreaIndex = pArea->nIndex;
+        bHasArea = 1;
+    }
+
+    D2SeedStrc* pSeed = pRoom ? &pRoom->pSeed : 0;
+    for (int nTry = 0; nTry < 20; ++nTry)
+    {
+        const int nPosX = SEED_RollLimitedRandomNumber_Inline(pSeed, nWidth) + nX;
+        const int nPosY = SEED_RollLimitedRandomNumber_Inline(pSeed, nHeight) + nY;
+
+        if (bAvoidWarps && sub_0054DB50_IsNearWarpOrSpawn(pGame, nPosX, nPosY, pRoom))
+        {
+            continue;
+        }
+
+        D2UnitStrc* pMonster;
+        if (bHasArea)
+        {
+            if (D2Common_10095(pRoom, nPosX, nPosY) != nAreaIndex)
+            {
+                continue;
+            }
+
+            pMonster = MONSTERSPAWN_SpawnInCoordList(pGame, pRoom, pArea, nPosX, nPosY, nClassId, 1, -1, 1);
+        }
+        else
+        {
+            pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nPosX, nPosY, nClassId, 1, -1, 1);
+        }
+
+        if (pMonster)
+        {
+            *pX = nPosX;
+            *pY = nPosY;
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+struct D2ActiveRoomViewStrc
+{
+    char unk0x00[0x6C];
+    D2SeedStrc pSeed;
+};
+
+struct D2FormationOffsetStrc
+{
+    int nX;
+    int nY;
+    int unk0x08;
+};
+
 
 
 
@@ -205,7 +334,7 @@ static D2UnitStrc* __stdcall sub_0054DF80_SpawnGroupInCoordList(D2GameStrc* pGam
 
     int nX;
     int nY;
-    if (!sub_0054DC40_FindSpawnPosition(pGame, pRoom, pCoordList, nMonsterId, &nX, &nY, 1))
+    if (!MONSTERREGION_FindSpawnLocation(pGame, pRoom, pCoordList, nMonsterId, &nX, &nY, 1))
         return 0;
 
     D2UnitStrc* pMonster = MONSTERSPAWN_SpawnInCoordList(pGame, pRoom, pCoordList, nX, nY, nMonsterId, 1, -1, 0);
