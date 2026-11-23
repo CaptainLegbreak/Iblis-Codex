@@ -31101,6 +31101,10 @@
      "name": "MISSILE_SubmitTargetRequest"
     },
     {
+     "va": "0x004CDDB0",
+     "length": 672
+    },
+    {
      "va": "0x004CE050",
      "length": 226,
      "name": "?MISSILE_SpawnFollowUp@@YIXPAUD2UnitStrc@@HHH@Z"
@@ -31166,6 +31170,10 @@
      "va": "0x004CF640",
      "length": 433,
      "name": "?MISSILE_CltHitPatternSubMissiles@@YIHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x004CF800",
+     "length": 417
     },
     {
      "va": "0x004CFC80",
@@ -31312,6 +31320,10 @@
      "name": "?MISSILE_SpawnBaalBolt@@YGXHHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004D2610",
+     "length": 334
+    },
+    {
      "va": "0x004D2760",
      "length": 556,
      "name": "?MISSILE_CltDoEightWaySpawn@@YIHPAUD2UnitStrc@@@Z"
@@ -31432,6 +31444,10 @@
      "va": "0x004D46D0",
      "length": 280,
      "name": "MISSILE_CltDoRing"
+    },
+    {
+     "va": "0x004D47F0",
+     "length": 192
     },
     {
      "va": "0x004D49F0",
@@ -32168,28 +32184,12 @@
    ]
   },
   {
-   "file": "Source/D2Client/UNIT/Missile_004CDDB0.cpp",
+   "file": "Source/D2Client/UNIT/Missile_004CF9B0.cpp",
    "rank": 1,
    "functions": [
     {
-     "va": "0x004CDDB0",
-     "length": 672
-    },
-    {
-     "va": "0x004CF800",
-     "length": 417
-    },
-    {
      "va": "0x004CF9B0",
      "length": 707
-    },
-    {
-     "va": "0x004D2610",
-     "length": 334
-    },
-    {
-     "va": "0x004D47F0",
-     "length": 192
     }
    ],
    "flags": [
