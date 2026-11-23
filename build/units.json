@@ -68556,11 +68556,6 @@
      "name": "STATLIST_GetUnitStatBonus"
     },
     {
-     "va": "0x00625A50",
-     "length": 22,
-     "name": "STATLIST_GetTotalStatValue_Layer0"
-    },
-    {
      "va": "0x006260D0",
      "length": 16,
      "name": "STATLIST_SetSkillId"
@@ -70703,6 +70698,11 @@
      "va": "0x00625A20",
      "length": 36,
      "name": "D2COMMON_10530_D2CheckStatlistFlagDMGRed"
+    },
+    {
+     "va": "0x00625A50",
+     "length": 22,
+     "name": "STATLIST_GetTotalStatValue_Layer0"
     },
     {
      "va": "0x00625A70",

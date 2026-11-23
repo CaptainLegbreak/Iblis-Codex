@@ -1191,6 +1191,12 @@ int __stdcall D2COMMON_10530_D2CheckStatlistFlagDMGRed(D2UnitStrc* pUnit)
     return (pStatListEx->dwFlags & STATLIST_UNK_0x100) != 0;
 }
 
+// 0x00625A50
+int __stdcall STATLIST_GetTotalStatValue_Layer0(D2StatListStrc* pStatListEx, int nStatId)
+{
+    return STATLIST_GetTotalStatValue(pStatListEx, nStatId, 0);
+}
+
 // 0x00625A70
 void __stdcall STATLIST_ToggleState(D2UnitStrc* pUnit, int nState, int bSet)
 {
