@@ -12077,9 +12077,19 @@
      "name": "?sub_0043DA20_ScrollUp@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x0043DA30",
+     "length": 18,
+     "name": "?sub_0043DA30_ScrollForward@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x0043DA50",
      "length": 114,
      "name": "?CHATDLG_ReadRegValueHKLM@@YGHPBD0PAEKPAK@Z"
+    },
+    {
+     "va": "0x0043DAD0",
+     "length": 19,
+     "name": "?sub_0043DAD0_SetMainState@@YIHH@Z"
     },
     {
      "va": "0x0043DAF0",
@@ -12746,16 +12756,6 @@
    "file": "Source/D2Multi/Unknown_0043DA30.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0043DA30",
-     "length": 18,
-     "name": "?sub_0043DA30_ScrollForward@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0043DAD0",
-     "length": 19,
-     "name": "?sub_0043DAD0_SetMainState@@YIHH@Z"
-    },
     {
      "va": "0x0043DCE0",
      "length": 28,

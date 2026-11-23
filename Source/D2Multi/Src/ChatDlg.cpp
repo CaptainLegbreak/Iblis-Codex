@@ -902,6 +902,12 @@ int __stdcall sub_0043DBC0_OnWaitTick(SMSGHANDLER_PARAMS* pMsg); // 0x0043DBC0
 
 int __stdcall sub_0043DBF0_OnReceiveTick(SMSGHANDLER_PARAMS* pMsg); // 0x0043DBF0
 
+struct D2CompositeUnitStrc;
+
+void __stdcall D2Win_10142_CompUnitDestroy(D2CompositeUnitStrc* pCompositeUnit, int bUnlink); // 0x005041B0
+
+void __cdecl sub_0043DCE0_FreeChatCellFile(); // 0x0043DCE0
+
 static __forceinline int CONSOLE_FindSecondTokenInline(const char* szText, char* szCopy, const char** ppArg)
 {
     strcpy(szCopy, szText);
@@ -1167,6 +1173,13 @@ int __stdcall sub_0043DA20_ScrollUp(SMSGHANDLER_PARAMS* pMsg)
     return 1;
 }
 
+// 0x0043DA30
+int __stdcall sub_0043DA30_ScrollForward(SMSGHANDLER_PARAMS* pMsg)
+{
+    CHATDLG_UpdateScroll(1);
+    return 1;
+}
+
 // 0x0043DA50
 static int __stdcall CHATDLG_ReadRegValueHKLM(const char* szSubKey, const char* szValueName, unsigned char* pData, unsigned long nSize, unsigned long* pcbData)
 {
@@ -1184,6 +1197,13 @@ static int __stdcall CHATDLG_ReadRegValueHKLM(const char* szSubKey, const char* 
         return 0;
     }
     return RegCloseKey(hKey) == 0;
+}
+
+// 0x0043DAD0
+int __fastcall sub_0043DAD0_SetMainState(int bSet)
+{
+    sub_004F9740_SetControlState(gpControlMain_0077BC4C, bSet);
+    return 1;
 }
 
 // 0x0043DAF0
