@@ -1,12 +1,16 @@
 #include "D2Common.h"
+
 #include "D2Drlg.h"
+
 #include "D2Structs.h"
+
 #include "D2DrlgRooms.h"
 
 struct D2DrlgOutdoorInfoStrc;
-struct D2PresetPairStrc;
-union D2SeedStrc;
 
+struct D2PresetPairStrc;
+
+union D2SeedStrc;
 
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
 
@@ -16,10 +20,9 @@ struct D2PresetPairStrc
     int nSecond;
 };
 
-
 extern D2PresetPairStrc gaPresetPairs_006F2680[]; // 0x006F2680
-void __stdcall sub_M127_EmitSink(int nValue);
 
+void __stdcall sub_M127_EmitSink(int nValue);
 
 extern D2OutdoorColumnFilesStrc gaPresetPairs[]; // 0x006F2680
 
@@ -74,6 +77,60 @@ static inline int __stdcall sub_0067FCD0_GetPresetPairValue(int bFirst, int nInd
     return (nFlags & 0x100) ? 0 : 3;
 }
 
+static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+static inline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0)
+    {
+        return 0;
+    }
+
+    if ((nMax - 1) & nMax)
+    {
+        return SEED_RollRandomNumber_Inline(pSeed) % nMax;
+    }
+
+    return SEED_RollRandomNumber_Inline(pSeed) & (nMax - 1);
+}
+
+// 0x0067FD20
+static void __stdcall sub_0067FD20_PlacePair(int nColumn, D2DrlgLevelStrc* pLevel)
+{
+    D2DrlgOutdoorInfoStrc* pOutdoor = pLevel->pOutdoors;
+    const int bBridge = pOutdoor->dwFlags & 4;
+    const int nRowRange = pOutdoor->nGridHeight - 2;
+    const int nRand = SEED_RollLimitedRandomNumber_Inline(&pLevel->pSeed, nRowRange);
+    for (int i = 0; i < nRowRange; ++i)
+    {
+        const int nY = (nRand + i) % nRowRange + 1;
+        if (bBridge)
+        {
+            if (!sub_00674200_IsValid(pLevel, nColumn - 1, nY))
+                continue;
+        }
+        else
+        {
+            if (!sub_00674200_IsValid(pLevel, nColumn - 1, nY))
+                continue;
+            if (!sub_00674200_IsValid(pLevel, nColumn + 2, nY))
+                continue;
+        }
+        if ((sub_0067C570_GetGrid(&pOutdoor->pGrid[2], nColumn, nY) & 0xF0000) == 0x30000
+            && (sub_0067C570_GetGrid(&pOutdoor->pGrid[2], nColumn + 1, nY) & 0xF0000) == 0x30000)
+        {
+            sub_006743C0_PlacePreset(pLevel, nColumn, nY, 28, 1, 0);
+            sub_006743C0_PlacePreset(pLevel, nColumn + 1, nY, 28, bBridge ? 3 : 2, 0);
+            return;
+        }
+    }
+}
+
 // 0x0067FFB0
 static inline int sub_0067FFB0_IsRectAdjacent(D2DrlgOutRectStrc* pRect, D2DrlgOutRectStrc* pOther)
 {
@@ -115,35 +172,6 @@ static inline unsigned int RollLimitedInline(D2SeedStrc* pSeed, int nLimit)
     if ((nLimit - 1) & nLimit)
         return (unsigned int)RollSeedInline(pSeed) % nLimit;
     return RollSeedInline(pSeed) & (nLimit - 1);
-}
-
-// @ref 0x0067FD20
-static void __stdcall sub_0067FD20_PlacePair(int nColumn, D2DrlgLevelStrc* pLevel)
-{
-    D2DrlgOutdoorInfoStrc* pOutdoor = pLevel->pOutdoors;
-    const int nFlag = pOutdoor->dwFlags & 4;
-    const int nLimit = pOutdoor->nGridHeight - 2;
-    const int nStart = RollLimitedInline(&pLevel->pSeed, nLimit);
-    for (int i = 0; i < nLimit; ++i)
-    {
-        const int nRow = (i + nStart) % nLimit + 1;
-        int nCheckColumn = nColumn - 1;
-        if (!nFlag)
-        {
-            if (!sub_00674200_IsValid(pLevel, nCheckColumn, nRow))
-                continue;
-            nCheckColumn = nColumn + 2;
-        }
-        if (!sub_00674200_IsValid(pLevel, nCheckColumn, nRow))
-            continue;
-        if ((sub_0067C570_GetGrid(&pOutdoor->pGrid[2], nColumn, nRow) & 0xF0000) != 0x30000)
-            continue;
-        if ((sub_0067C570_GetGrid(&pOutdoor->pGrid[2], nColumn + 1, nRow) & 0xF0000) != 0x30000)
-            continue;
-        sub_006743C0_PlacePreset(pLevel, nColumn, nRow, 28, 1, 0);
-        sub_006743C0_PlacePreset(pLevel, nColumn + 1, nRow, 28, 2 + (nFlag != 0), 0);
-        return;
-    }
 }
 
 // 0x0067FE90
