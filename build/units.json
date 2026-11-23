@@ -24446,6 +24446,11 @@
      "name": "?TEXT_SetWidthFromWord@@YAXPAUD2TextWidthStrc@@@Z"
     },
     {
+     "va": "0x0049D490",
+     "length": 56,
+     "name": "?TEXT_FreeTextNode@@YAXPAUD2TextNodeStrc@@@Z"
+    },
+    {
      "va": "0x0049D570",
      "length": 25,
      "name": "?TEXT_SaveTextDisplaySetting@@YIXK@Z"
@@ -24486,6 +24491,10 @@
      "name": "TEXT_CloneStringList"
     },
     {
+     "va": "0x0049E070",
+     "length": 469
+    },
+    {
      "va": "0x0049E250",
      "length": 35
     },
@@ -24498,6 +24507,10 @@
      "va": "0x0049E390",
      "length": 12,
      "name": "?TEXT_GetTimeoutTick@@YAKXZ"
+    },
+    {
+     "va": "0x0049E3A0",
+     "length": 541
     },
     {
      "va": "0x0049E7F0",
@@ -24523,6 +24536,10 @@
      "va": "0x0049F960",
      "length": 165,
      "name": "?TEXT_ResetTextBox@@YAXXZ"
+    },
+    {
+     "va": "0x0049FBA0",
+     "length": 619
     },
     {
      "va": "0x0049FE10",
@@ -24555,6 +24572,10 @@
      "name": "?TEXT_OpenMessageLogDialog@@YAXXZ"
     },
     {
+     "va": "0x004A0320",
+     "length": 689
+    },
+    {
      "va": "0x004A05E0",
      "length": 151,
      "name": "?TEXT_CreateTextBox@@YIPAUD2TextBoxStrc@@PBUUnicode@@H@Z"
@@ -24563,6 +24584,11 @@
      "va": "0x004A0680",
      "length": 227,
      "name": "?TEXT_FreeTextResources@@YAXXZ"
+    },
+    {
+     "va": "0x004A0B30",
+     "length": 485,
+     "name": "?TEXT_DrawUnitHoverText@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004A1510",
@@ -24582,6 +24608,252 @@
      "va": "0x004A3050",
      "length": 29,
      "name": "?sub_004A3050@@YAXXZ"
+    },
+    {
+     "va": "0x004A3FE0",
+     "length": 229,
+     "name": "?TEXT_ToggleQuestLog@@YIXH@Z"
+    },
+    {
+     "va": "0x004A40D0",
+     "length": 64,
+     "name": "?TEXT_SetQuestRecord@@YIXPBUD2Record42Strc@@@Z"
+    },
+    {
+     "va": "0x004A4260",
+     "length": 51,
+     "name": "??0D2QuestTextBufferStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x004A42A0",
+     "length": 320,
+     "name": "?TEXT_QuestLButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004A44C0",
+     "length": 55,
+     "name": "?TEXT_GetMaxFirstEntry@@YAHXZ"
+    },
+    {
+     "va": "0x004A4500",
+     "length": 177,
+     "name": "?TEXT_ScrollKeyConfigList@@YIXH@Z"
+    },
+    {
+     "va": "0x004A45C0",
+     "length": 350
+    },
+    {
+     "va": "0x004A4720",
+     "length": 83,
+     "name": "?TEXT_GetKeyConfigLineAt@@YAHH@Z"
+    },
+    {
+     "va": "0x004A47C0",
+     "length": 48,
+     "name": "?TEXT_GetKeyConfigButtonAt@@YAHHH@Z"
+    },
+    {
+     "va": "0x004A47F0",
+     "length": 102,
+     "name": "?TEXT_IsInKeyConfigList@@YAHHH@Z"
+    },
+    {
+     "va": "0x004A4860",
+     "length": 75,
+     "name": "?TEXT_IsOnUpArrow@@YAHHH@Z"
+    },
+    {
+     "va": "0x004A48B0",
+     "length": 80,
+     "name": "?TEXT_IsOnDownArrow@@YAHHH@Z"
+    },
+    {
+     "va": "0x004A4900",
+     "length": 76,
+     "name": "?TEXT_IsAboveThumb@@YAHHH@Z"
+    },
+    {
+     "va": "0x004A4950",
+     "length": 71,
+     "name": "?TEXT_IsOnThumb@@YAHHH@Z"
+    },
+    {
+     "va": "0x004A49A0",
+     "length": 91,
+     "name": "?TEXT_IsBelowThumb@@YAHHH@Z"
+    },
+    {
+     "va": "0x004A4A00",
+     "length": 16,
+     "name": "?TEXT_IsOnKeyConfigButton@@YAHHH@Z"
+    },
+    {
+     "va": "0x004A4A10",
+     "length": 103,
+     "name": "?TEXT_IsOnSelectedLine@@YAHHH@Z"
+    },
+    {
+     "va": "0x004A4A80",
+     "length": 32,
+     "name": "?TEXT_IsOnPressedButton@@YAHHH@Z"
+    },
+    {
+     "va": "0x004A4AA0",
+     "length": 33,
+     "name": "?TEXT_IsOnlyPressed@@YIHH@Z"
+    },
+    {
+     "va": "0x004A4FA0",
+     "length": 110,
+     "name": "?TEXT_GetKeyConfigEntryState@@YAHHH@Z"
+    },
+    {
+     "va": "0x004A5010",
+     "length": 7,
+     "name": "?TEXT_ResetKeyConfigDefaults@@YAXXZ"
+    },
+    {
+     "va": "0x004A5020",
+     "length": 30,
+     "name": "?TEXT_AcceptKeyConfig@@YAXXZ"
+    },
+    {
+     "va": "0x004A5040",
+     "length": 32,
+     "name": "?TEXT_CancelKeyConfig@@YAXXZ"
+    },
+    {
+     "va": "0x004A51E0",
+     "length": 26,
+     "name": "?TEXT_FreeTextSliderCel@@YAXXZ"
+    },
+    {
+     "va": "0x004A5200",
+     "length": 107,
+     "name": "?TEXT_ToggleKeyConfigPanel@@YIXH@Z"
+    },
+    {
+     "va": "0x004A59D0",
+     "length": 105,
+     "name": "?TEXT_KeyConfigWheelMsg@@YGHPAUD2HotkeyActionStrc@@@Z"
+    },
+    {
+     "va": "0x004A5C70",
+     "length": 133,
+     "name": "?TEXT_CancelKeyConfigMsg@@YGXPAUMessage@@@Z"
+    },
+    {
+     "va": "0x004A5D00",
+     "length": 97,
+     "name": "?TEXT_RegisterKeyCaptureHandlers@@YAXXZ"
+    },
+    {
+     "va": "0x004A5DE0",
+     "length": 121,
+     "name": "?TEXT_CloseKeyCaptureHandlers@@YAXXZ"
+    },
+    {
+     "va": "0x004A5E60",
+     "length": 175,
+     "name": "?TEXT_ReleaseKeyConfigPress@@YAXHH@Z"
+    },
+    {
+     "va": "0x004A5F10",
+     "length": 91,
+     "name": "?TEXT_KeyConfigButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004A6460",
+     "length": 31,
+     "name": "?TEXT_LoadLevelCels@@YAXXZ"
+    },
+    {
+     "va": "0x004A6480",
+     "length": 51,
+     "name": "?TEXT_FreeLevelCels@@YAXXZ"
+    },
+    {
+     "va": "0x004A64C0",
+     "length": 177,
+     "name": "?TEXT_UpdateLevelUpButtons@@YAXXZ"
+    },
+    {
+     "va": "0x004A65E0",
+     "length": 74,
+     "name": "?TEXT_IsMouseOnStatButton@@YAHXZ"
+    },
+    {
+     "va": "0x004A6690",
+     "length": 74,
+     "name": "?TEXT_IsMouseOnSkillButton@@YAHXZ"
+    },
+    {
+     "va": "0x004A66E0",
+     "length": 167
+    },
+    {
+     "va": "0x004A6790",
+     "length": 166
+    },
+    {
+     "va": "0x004A6840",
+     "length": 223,
+     "name": "?TEXT_StatButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004A6920",
+     "length": 222,
+     "name": "?TEXT_SkillButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004A6A00",
+     "length": 102,
+     "name": "?TEXT_IsStatButtonHidden@@YG_NH@Z"
+    },
+    {
+     "va": "0x004A6B30",
+     "length": 537,
+     "name": "?TEXT_DrawStatButton@@YAXXZ"
+    },
+    {
+     "va": "0x004A6D50",
+     "length": 73,
+     "name": "?TEXT_IsSkillButtonHidden@@YG_NH@Z"
+    },
+    {
+     "va": "0x004A6E60",
+     "length": 538,
+     "name": "?TEXT_DrawSkillButton@@YAXXZ"
+    },
+    {
+     "va": "0x004A7180",
+     "length": 379,
+     "name": "?TEXT_DrawBlockChanceHover@@YAXHHH@Z"
+    },
+    {
+     "va": "0x004A7300",
+     "length": 50,
+     "name": "?TEXT_AddToHitFactor@@YAHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004A7660",
+     "length": 84,
+     "name": "?TEXT_SplitAtNewline@@YIHPAUUnicode@@PAPAU1@@Z"
+    },
+    {
+     "va": "0x004A7A90",
+     "length": 11,
+     "name": "?TEXT_SetGoldDialogFlag@@YAXXZ"
+    },
+    {
+     "va": "0x004A7AD0",
+     "length": 1,
+     "name": "?sub_004A7AD0@@YAXXZ"
+    },
+    {
+     "va": "0x004BF2F0",
+     "length": 306
     }
    ],
    "flags": [
@@ -26065,298 +26337,6 @@
      "length": 87,
      "name": "?sub_0049D310_CopyTextLine@@YGXPAUUnicode@@HPAPBU1@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/text_0049D490.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0049D490",
-     "length": 56,
-     "name": "?TEXT_FreeTextNode@@YAXPAUD2TextNodeStrc@@@Z"
-    },
-    {
-     "va": "0x0049E070",
-     "length": 469
-    },
-    {
-     "va": "0x0049E3A0",
-     "length": 541
-    },
-    {
-     "va": "0x0049FBA0",
-     "length": 619
-    },
-    {
-     "va": "0x004A0320",
-     "length": 689
-    },
-    {
-     "va": "0x004A0B30",
-     "length": 485,
-     "name": "?TEXT_DrawUnitHoverText@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004A3FE0",
-     "length": 229,
-     "name": "?TEXT_ToggleQuestLog@@YIXH@Z"
-    },
-    {
-     "va": "0x004A40D0",
-     "length": 64,
-     "name": "?TEXT_SetQuestRecord@@YIXPBUD2Record42Strc@@@Z"
-    },
-    {
-     "va": "0x004A4260",
-     "length": 51,
-     "name": "??0D2QuestTextBufferStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x004A42A0",
-     "length": 320,
-     "name": "?TEXT_QuestLButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004A44C0",
-     "length": 55,
-     "name": "?TEXT_GetMaxFirstEntry@@YAHXZ"
-    },
-    {
-     "va": "0x004A4500",
-     "length": 177,
-     "name": "?TEXT_ScrollKeyConfigList@@YIXH@Z"
-    },
-    {
-     "va": "0x004A45C0",
-     "length": 350
-    },
-    {
-     "va": "0x004A4720",
-     "length": 83,
-     "name": "?TEXT_GetKeyConfigLineAt@@YAHH@Z"
-    },
-    {
-     "va": "0x004A47C0",
-     "length": 48,
-     "name": "?TEXT_GetKeyConfigButtonAt@@YAHHH@Z"
-    },
-    {
-     "va": "0x004A47F0",
-     "length": 102,
-     "name": "?TEXT_IsInKeyConfigList@@YAHHH@Z"
-    },
-    {
-     "va": "0x004A4860",
-     "length": 75,
-     "name": "?TEXT_IsOnUpArrow@@YAHHH@Z"
-    },
-    {
-     "va": "0x004A48B0",
-     "length": 80,
-     "name": "?TEXT_IsOnDownArrow@@YAHHH@Z"
-    },
-    {
-     "va": "0x004A4900",
-     "length": 76,
-     "name": "?TEXT_IsAboveThumb@@YAHHH@Z"
-    },
-    {
-     "va": "0x004A4950",
-     "length": 71,
-     "name": "?TEXT_IsOnThumb@@YAHHH@Z"
-    },
-    {
-     "va": "0x004A49A0",
-     "length": 91,
-     "name": "?TEXT_IsBelowThumb@@YAHHH@Z"
-    },
-    {
-     "va": "0x004A4A00",
-     "length": 16,
-     "name": "?TEXT_IsOnKeyConfigButton@@YAHHH@Z"
-    },
-    {
-     "va": "0x004A4A10",
-     "length": 103,
-     "name": "?TEXT_IsOnSelectedLine@@YAHHH@Z"
-    },
-    {
-     "va": "0x004A4A80",
-     "length": 32,
-     "name": "?TEXT_IsOnPressedButton@@YAHHH@Z"
-    },
-    {
-     "va": "0x004A4AA0",
-     "length": 33,
-     "name": "?TEXT_IsOnlyPressed@@YIHH@Z"
-    },
-    {
-     "va": "0x004A4FA0",
-     "length": 110,
-     "name": "?TEXT_GetKeyConfigEntryState@@YAHHH@Z"
-    },
-    {
-     "va": "0x004A5010",
-     "length": 7,
-     "name": "?TEXT_ResetKeyConfigDefaults@@YAXXZ"
-    },
-    {
-     "va": "0x004A5020",
-     "length": 30,
-     "name": "?TEXT_AcceptKeyConfig@@YAXXZ"
-    },
-    {
-     "va": "0x004A5040",
-     "length": 32,
-     "name": "?TEXT_CancelKeyConfig@@YAXXZ"
-    },
-    {
-     "va": "0x004A51E0",
-     "length": 26,
-     "name": "?TEXT_FreeTextSliderCel@@YAXXZ"
-    },
-    {
-     "va": "0x004A5200",
-     "length": 107,
-     "name": "?TEXT_ToggleKeyConfigPanel@@YIXH@Z"
-    },
-    {
-     "va": "0x004A59D0",
-     "length": 105,
-     "name": "?TEXT_KeyConfigWheelMsg@@YGHPAUD2HotkeyActionStrc@@@Z"
-    },
-    {
-     "va": "0x004A5C70",
-     "length": 133,
-     "name": "?TEXT_CancelKeyConfigMsg@@YGXPAUMessage@@@Z"
-    },
-    {
-     "va": "0x004A5D00",
-     "length": 97,
-     "name": "?TEXT_RegisterKeyCaptureHandlers@@YAXXZ"
-    },
-    {
-     "va": "0x004A5DE0",
-     "length": 121,
-     "name": "?TEXT_CloseKeyCaptureHandlers@@YAXXZ"
-    },
-    {
-     "va": "0x004A5E60",
-     "length": 175,
-     "name": "?TEXT_ReleaseKeyConfigPress@@YAXHH@Z"
-    },
-    {
-     "va": "0x004A5F10",
-     "length": 91,
-     "name": "?TEXT_KeyConfigButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004A6460",
-     "length": 31,
-     "name": "?TEXT_LoadLevelCels@@YAXXZ"
-    },
-    {
-     "va": "0x004A6480",
-     "length": 51,
-     "name": "?TEXT_FreeLevelCels@@YAXXZ"
-    },
-    {
-     "va": "0x004A64C0",
-     "length": 177,
-     "name": "?TEXT_UpdateLevelUpButtons@@YAXXZ"
-    },
-    {
-     "va": "0x004A65E0",
-     "length": 74,
-     "name": "?TEXT_IsMouseOnStatButton@@YAHXZ"
-    },
-    {
-     "va": "0x004A6690",
-     "length": 74,
-     "name": "?TEXT_IsMouseOnSkillButton@@YAHXZ"
-    },
-    {
-     "va": "0x004A66E0",
-     "length": 167
-    },
-    {
-     "va": "0x004A6790",
-     "length": 166
-    },
-    {
-     "va": "0x004A6840",
-     "length": 223,
-     "name": "?TEXT_StatButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004A6920",
-     "length": 222,
-     "name": "?TEXT_SkillButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004A6A00",
-     "length": 102,
-     "name": "?TEXT_IsStatButtonHidden@@YG_NH@Z"
-    },
-    {
-     "va": "0x004A6B30",
-     "length": 537,
-     "name": "?TEXT_DrawStatButton@@YAXXZ"
-    },
-    {
-     "va": "0x004A6D50",
-     "length": 73,
-     "name": "?TEXT_IsSkillButtonHidden@@YG_NH@Z"
-    },
-    {
-     "va": "0x004A6E60",
-     "length": 538,
-     "name": "?TEXT_DrawSkillButton@@YAXXZ"
-    },
-    {
-     "va": "0x004A7180",
-     "length": 379,
-     "name": "?TEXT_DrawBlockChanceHover@@YAXHHH@Z"
-    },
-    {
-     "va": "0x004A7300",
-     "length": 50,
-     "name": "?TEXT_AddToHitFactor@@YAHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004A7660",
-     "length": 84,
-     "name": "?TEXT_SplitAtNewline@@YIHPAUUnicode@@PAPAU1@@Z"
-    },
-    {
-     "va": "0x004A7A90",
-     "length": 11,
-     "name": "?TEXT_SetGoldDialogFlag@@YAXXZ"
-    },
-    {
-     "va": "0x004A7AD0",
-     "length": 1,
-     "name": "?sub_004A7AD0@@YAXXZ"
-    },
-    {
-     "va": "0x004BF2F0",
-     "length": 306
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
