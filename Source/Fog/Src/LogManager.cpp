@@ -303,7 +303,19 @@ extern int gbLogInitialized; // 0x0075D2EC
 
 extern int gnLogQueueCount; // 0x0075E870
 
-D2CriticalSectionStrc gtLogQueueLock; // 0x0075E838
+extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
+extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
+
+// A critical section for the whole run: initialized before main, deleted at exit.
+struct CCritSect : D2CriticalSectionStrc
+{
+    CCritSect() { InitializeCriticalSection(this); }
+    ~CCritSect() { DeleteCriticalSection(this); }
+};
+
+// build: symbol ??__EgtLogQueueLock@@YAXXZ 0x006CA700
+// build: symbol ??__FgtLogQueueLock@@YAXXZ 0x006CB070
+CCritSect gtLogQueueLock; // 0x0075E838
 
 _iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot); // 0x0040EDE0
 
@@ -1063,7 +1075,9 @@ inline void* operator new(unsigned int, void* pWhere) throw()
     return pWhere;
 }
 
-D2CriticalSectionStrc gtLogLock; // 0x0075E850
+// build: symbol ??__EgtLogLock@@YAXXZ 0x006CA720
+// build: symbol ??__FgtLogLock@@YAXXZ 0x006CB080
+CCritSect gtLogLock; // 0x0075E850
 
 void* gpMiniDumpRequest; // 0x0098A6E4
 

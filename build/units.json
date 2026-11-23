@@ -2072,8 +2072,24 @@
      "name": "??1sub_00426D80@@QAE@XZ"
     },
     {
+     "va": "0x006CA700",
+     "length": 23
+    },
+    {
+     "va": "0x006CA720",
+     "length": 23
+    },
+    {
      "va": "0x006CA740",
      "length": 101
+    },
+    {
+     "va": "0x006CB070",
+     "length": 12
+    },
+    {
+     "va": "0x006CB080",
+     "length": 12
     },
     {
      "va": "0x006CB090",
@@ -4908,6 +4924,22 @@
      "va": "0x00426920",
      "length": 14,
      "name": "sub_00426920"
+    },
+    {
+     "va": "0x006CA7F0",
+     "length": 23
+    },
+    {
+     "va": "0x006CA870",
+     "length": 23
+    },
+    {
+     "va": "0x006CB0A0",
+     "length": 12
+    },
+    {
+     "va": "0x006CB0B0",
+     "length": 12
     }
    ]
   },
@@ -5250,6 +5282,14 @@
      "va": "0x0041EED0",
      "length": 77,
      "name": "sub_0041EED0_NewItem"
+    },
+    {
+     "va": "0x006CA8C0",
+     "length": 23
+    },
+    {
+     "va": "0x006CB300",
+     "length": 12
     }
    ]
   },
@@ -8288,6 +8328,14 @@
     {
      "va": "0x00426F90",
      "length": 453
+    },
+    {
+     "va": "0x006CA920",
+     "length": 23
+    },
+    {
+     "va": "0x006CB370",
+     "length": 12
     }
    ]
   },
@@ -82363,12 +82411,8 @@
      "length": 37
     },
     {
-     "va": "0x006CA700",
-     "length": 23
-    },
-    {
-     "va": "0x006CA720",
-     "length": 23
+     "va": "0x006CA6F0",
+     "length": 12
     },
     {
      "va": "0x006CA7B0",
@@ -82379,10 +82423,6 @@
      "va": "0x006CA7D0",
      "length": 24,
      "name": "?sub_006CA7D0_InitializeList@@YAXXZ"
-    },
-    {
-     "va": "0x006CA7F0",
-     "length": 23
     },
     {
      "va": "0x006CA810",
@@ -82400,17 +82440,9 @@
      "name": "?sub_006CA850_InitializeList@@YAXXZ"
     },
     {
-     "va": "0x006CA870",
-     "length": 23
-    },
-    {
      "va": "0x006CA8A0",
      "length": 24,
      "name": "?sub_006CA8A0_InitializeList@@YAXXZ"
-    },
-    {
-     "va": "0x006CA8C0",
-     "length": 23
     },
     {
      "va": "0x006CA8E0",
@@ -82421,10 +82453,6 @@
      "va": "0x006CA900",
      "length": 24,
      "name": "?sub_006CA900_InitializeList@@YAXXZ"
-    },
-    {
-     "va": "0x006CA920",
-     "length": 23
     },
     {
      "va": "0x006CA940",
@@ -82694,22 +82722,6 @@
      "name": "?sub_006CB050_InitializeList@@YAXXZ"
     },
     {
-     "va": "0x006CB070",
-     "length": 12
-    },
-    {
-     "va": "0x006CB080",
-     "length": 12
-    },
-    {
-     "va": "0x006CB0A0",
-     "length": 12
-    },
-    {
-     "va": "0x006CB0B0",
-     "length": 12
-    },
-    {
      "va": "0x006CB0C0",
      "length": 81,
      "name": "?sub_006CB0C0_DestroyList@@YAXXZ"
@@ -82740,17 +82752,9 @@
      "name": "?sub_006CB2A0_DestroyList@@YAXXZ"
     },
     {
-     "va": "0x006CB300",
-     "length": 12
-    },
-    {
      "va": "0x006CB310",
      "length": 81,
      "name": "?sub_006CB310_DestroyList@@YAXXZ"
-    },
-    {
-     "va": "0x006CB370",
-     "length": 12
     },
     {
      "va": "0x006CB380",
