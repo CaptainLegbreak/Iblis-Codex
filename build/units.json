@@ -2714,6 +2714,11 @@
      "name": "MAINMENUS_SetGatewayFlag"
     },
     {
+     "va": "0x0042E6C0",
+     "length": 6,
+     "name": "sub_0042E6C0_GetGatewayFlag"
+    },
+    {
      "va": "0x0042E6D0",
      "length": 2175,
      "name": "?MAINMENUS_LoadFrontEndCells@@YAXXZ"
@@ -10090,11 +10095,6 @@
      "va": "0x0042E690",
      "length": 13,
      "name": "CurGateway"
-    },
-    {
-     "va": "0x0042E6C0",
-     "length": 6,
-     "name": "sub_0042E6C0_GetGatewayFlag"
     }
    ]
   },
