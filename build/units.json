@@ -39390,6 +39390,10 @@
      "name": "sub_00518BA0_LogWrite"
     },
     {
+     "va": "0x00518C30",
+     "length": 55
+    },
+    {
      "va": "0x00518C70",
      "length": 207,
      "name": "BNDOWNLOAD_ConfigureLog"
@@ -39946,10 +39950,6 @@
    "file": "Source/D2BNClient/Unknown_00518C30.cpp",
    "rank": 1,
    "functions": [
-    {
-     "va": "0x00518C30",
-     "length": 55
-    },
     {
      "va": "0x00518EC0",
      "length": 108
