@@ -1,55 +1,36 @@
 #include "D2Launch.h"
+
 #include "D2MultiTypes.h"
+
 #include "D2Unicode.h"
 
 struct D2FuncTable_0077ABF0Strc;
+
 struct Unicode;
 
 extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
+
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
+
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
+
 int __cdecl sub_0043B830(); // 0x0043B830
 
 void __fastcall MAINMENUS_ShowMessageBox(const Unicode* pTitle, const Unicode* pMessage, int nButton1StringId, int nButton2StringId, D2LaunchCallback pfnButton1, D2LaunchCallback pfnButton2, int bFlag1, int bFlag2); // 0x0042F540
+
 void __fastcall CHARSEL_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
+
 void __cdecl MAINMENUS_ShowLoginScreen(); // 0x00435330
+
 const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl); // 0x004FDD90
+
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
+
 char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
+
 int __fastcall sub_005264F0_Compare(const Unicode* pString1, const Unicode* pString2); // 0x005264F0
 
 int gnStatusDots; // 0x007799B4
-
-// 0x004374F0
-int __stdcall sub_004374F0_UpdateStatusWait(int nArg)
-{
-// build: symbol ?MAINMENUS_UpdateStatus@* 0x00436AD0
-    MAINMENUS_UpdateStatus();
-    if (!gnStatusDots)
-    {
-// build: symbol ?CHARSEL_ClearCancelled@* 0x0043B820
-        CHARSEL_ClearCancelled();
-        gnStatusDots = (int)gpFuncTable_0077ABF0->pfnSlot04();
-        if (!gnStatusDots)
-        {
-            D2Win_StopMessageLoop();
-            return 1;
-        }
-    }
-
-    if (WaitForSingleObject((void*)gnStatusDots, 0) == 0)
-    {
-        D2Win_StopMessageLoop();
-    }
-
-    if (sub_0043B830())
-    {
-        gpFuncTable_0077ABF0->pfnSlot10();
-        D2Win_StopMessageLoop();
-    }
-
-    return 1;
-}
 
 D2WinControlStrc* gpPasswordOk; // 0x007799A4
 

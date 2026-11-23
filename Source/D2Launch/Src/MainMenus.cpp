@@ -5370,6 +5370,40 @@ int __stdcall sub_004374E0_OnInfoScreen(int nArg)
     return 1;
 }
 
+int __cdecl sub_0043B830(); // 0x0043B830
+int gnStatusDots; // 0x007799B4
+
+// 0x004374F0
+int __stdcall sub_004374F0_UpdateStatusWait(int nArg)
+{
+// build: symbol ?MAINMENUS_UpdateStatus@* 0x00436AD0
+    MAINMENUS_UpdateStatus();
+    if (!gnStatusDots)
+    {
+// build: symbol ?CHARSEL_ClearCancelled@* 0x0043B820
+        CHARSEL_ClearCancelled();
+        gnStatusDots = (int)gpFuncTable_0077ABF0->pfnSlot04();
+        if (!gnStatusDots)
+        {
+            D2Win_StopMessageLoop();
+            return 1;
+        }
+    }
+
+    if (WaitForSingleObject((void*)gnStatusDots, 0) == 0)
+    {
+        D2Win_StopMessageLoop();
+    }
+
+    if (sub_0043B830())
+    {
+        gpFuncTable_0077ABF0->pfnSlot10();
+        D2Win_StopMessageLoop();
+    }
+
+    return 1;
+}
+
 // 0x00437550
 void __cdecl MAINMENUS_CreateStatusScreen()
 {
