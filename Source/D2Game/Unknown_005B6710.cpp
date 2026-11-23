@@ -33,49 +33,6 @@ static inline unsigned int RollSeed(D2SeedStrc* pSeed)
     return (unsigned int)seed;
 }
 
-// 0x005B6710
-void __fastcall sub_005B6710_DropHellforgeReward(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
-{
-    D2Act4Quest3Strc* pQuestDataEx = (D2Act4Quest3Strc*)pQuestData->pQuestDataEx;
-    if (pQuestDataEx->bRewardPending) UNITS_ChangeAnimMode(pUnit, 4);
-    if (pQuestDataEx->bRewardDropsPending)
-    {
-        int nItemLevel = 50;
-        int nDropped = 0;
-        for (int i = 0; i < pQuestDataEx->nPlayersInAct; ++i)
-        {
-            switch (pQuestDataEx->nRewardState)
-            {
-            case 4: pUnit->dwDropItemCode = gnHellforgeGemsFirst[RollSeed(QUESTS_GetGlobalSeed(pQuestData->pGame)) % 7]; break;
-            case 2:
-            case 3: pUnit->dwDropItemCode = gnHellforgeGemsMiddle[RollSeed(QUESTS_GetGlobalSeed(pQuestData->pGame)) % 7]; break;
-            case 1: pUnit->dwDropItemCode = gnHellforgeGemsLast[RollSeed(QUESTS_GetGlobalSeed(pQuestData->pGame)) % 7]; break;
-            default: return;
-            }
-            if (D2GAME_DropItemAtUnit_6FC4FEC0(pQuestData->pGame, pUnit, 2, &nItemLevel, 0, -1, 0)) ++nDropped;
-        }
-        if (!nDropped) return;
-        --pQuestDataEx->nRewardState;
-        if (pQuestDataEx->nRewardState <= 0)
-        {
-            pQuestDataEx->bRewardDropsPending = 0;
-            if (pQuestData->pGame->bExpansion)
-            {
-                unsigned int* pCodes = gnHellforgeRunesNormal;
-                switch (pQuestData->pGame->nDifficulty)
-                {
-                case 1: pCodes = gnHellforgeRunesNightmare; break;
-                case 2: pCodes = gnHellforgeRunesHell; break;
-                }
-                pUnit->dwDropItemCode = pCodes[SEED_RollLimitedRandomNumber(QUESTS_GetGlobalSeed(pQuestData->pGame), 11)];
-                D2GAME_DropItemAtUnit_6FC4FEC0(pQuestData->pGame, pUnit, 2, &nItemLevel, 0, -1, 0);
-            }
-        }
-        else
-            EVENT_SetEvent(pQuestData->pGame, pUnit, 7, pQuestData->pGame->dwGameFrame + 20, 0, 0);
-    }
-}
-
 #include "gen/data/Source/D2Game/Unknown_005B6710.inc"
 struct D2ItemDropStrc;
 struct D2UnitStrc;

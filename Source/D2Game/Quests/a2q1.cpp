@@ -224,6 +224,12 @@ bool __fastcall ACT2Q1_ActiveFilterCallback(Quest* quest,int npc,Unit* player,Fl
     return false;
 }
 
+// 0x00598980
+void __fastcall ACT3Q5_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    QUESTS_RemovePlayerGUID(pQuestData, pQuestArg);
+}
+
 // 0x00598990
 void __fastcall ACT2Q1_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {

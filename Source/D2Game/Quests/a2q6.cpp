@@ -664,6 +664,14 @@ int __fastcall ACT2Q6_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
     return 0;
 }
 
+void __fastcall QUESTS_RemovePlayerGUID(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00545530
+
+// 0x0059C6B0
+void __fastcall sub_0059C6B0_RemovePlayerGUID(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    QUESTS_RemovePlayerGUID(pQuestData, pQuestArg);
+}
+
 // 0x0059D050
 void __fastcall ACT2Q6_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
