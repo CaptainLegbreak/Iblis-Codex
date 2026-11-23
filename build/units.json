@@ -80296,11 +80296,6 @@
     {
      "va": "0x0067D7E0",
      "length": 79
-    },
-    {
-     "va": "0x0067DA70",
-     "length": 137,
-     "name": "?DRLGOUTSIEGE_PlaceCaves@@YAXPAUD2DrlgLevelStrc@@@Z"
     }
    ]
   },
@@ -80340,6 +80335,11 @@
    "file": "Source/D2Common/DRLG/OutSiege.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x0067DA70",
+     "length": 137,
+     "name": "?DRLGOUTSIEGE_PlaceCaves@@YAXPAUD2DrlgLevelStrc@@@Z"
+    },
     {
      "va": "0x0067DB00",
      "length": 69,

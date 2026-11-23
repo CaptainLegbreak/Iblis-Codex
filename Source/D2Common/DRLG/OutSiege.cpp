@@ -1,8 +1,15 @@
 #include "D2LevelIds.h"
+#include "D2DrlgPresets.h"
+#include "D2DrlgRooms.h"
+
 #include "D2Common.h"
+
 #include "D2Structs.h"
+
 #include "D2Path.h"
+
 #include "D2Drlg.h"
+
 #include "D2DrlgMaps.h"
 
 struct D2CoordStrc;
@@ -184,6 +191,36 @@ static const D2Act5CornerPresetStrc gAct5CornerPresets[3] =
     { 117, 0, 1, 983, 984 },
     { 117, 0, 0, 985, 986 },
 };
+
+// 0x0067DA70
+static void DRLGOUTSIEGE_PlaceCaves(D2DrlgLevelStrc* pLevel)
+{
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
+    for (int i = 0; i < 3; ++i)
+    {
+        if (pLevel->eLevelId == gaOutSiegeCaves[i].nLevelId)
+        {
+            int nLevelPrestId;
+            int nX;
+            int nY;
+            if (pLevel->nWidth > pLevel->nHeight)
+            {
+                nLevelPrestId = gaOutSiegeCaves[i].nLevelPrestId2;
+                DATATBLS_GetLvlPrestTxtRecord(nLevelPrestId);
+                nX = gaOutSiegeCaves[i].field_8 ? pOutdoors->nGridWidth - 2 : 0;
+                nY = 2;
+            }
+            else
+            {
+                nLevelPrestId = gaOutSiegeCaves[i].nLevelPrestId1;
+                DATATBLS_GetLvlPrestTxtRecord(nLevelPrestId);
+                nX = 2;
+                nY = gaOutSiegeCaves[i].field_8 ? pOutdoors->nGridHeight - 2 : 0;
+            }
+            DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY, nLevelPrestId, gaOutSiegeCaves[i].field_4, 0);
+        }
+    }
+}
 
 // build: symbol ?DRLGOUTSIEGE_InitAct5OutdoorLevel@@YIXPAUD2DrlgLevelStrc@@@Z 0x0067E600
 // build: symbol ?DRLGOUTSIEGE_PlaceSpecialPresets@@YGXPAUD2DrlgLevelStrc@@@Z 0x0067E160
@@ -658,35 +695,6 @@ void __stdcall DRLGOUTSIEGE_PlaceSiegeToTownPresets(D2DrlgLevelStrc* pLevel)
 
         DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, 0, 0x361 + i, 0, 0);
         nX -= nStep;
-    }
-}
-
-static void DRLGOUTSIEGE_PlaceCaves(D2DrlgLevelStrc* pLevel)
-{
-    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
-    for (int i = 0; i < 3; ++i)
-    {
-        if (pLevel->eLevelId == gaOutSiegeCaves[i].nLevelId)
-        {
-            int nLevelPrestId;
-            int nX;
-            int nY;
-            if (pLevel->nWidth > pLevel->nHeight)
-            {
-                nLevelPrestId = gaOutSiegeCaves[i].nLevelPrestId2;
-                sub_0061F0B0(nLevelPrestId);
-                nX = gaOutSiegeCaves[i].field_8 ? pOutdoors->nGridWidth - 2 : 0;
-                nY = 2;
-            }
-            else
-            {
-                nLevelPrestId = gaOutSiegeCaves[i].nLevelPrestId1;
-                sub_0061F0B0(nLevelPrestId);
-                nX = 2;
-                nY = gaOutSiegeCaves[i].field_8 ? pOutdoors->nGridHeight - 2 : 0;
-            }
-            DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY, nLevelPrestId, gaOutSiegeCaves[i].field_4, 0);
-        }
     }
 }
 
