@@ -3,20 +3,15 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DrlgPresets.h"
+#include "D2PathFind.h"
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
 struct D2CoordStrc;
 struct D2StaticPathStrc;
 struct D2CollisionTestStrc;
 struct D2PathInfoStrc;
 union D2FP32_16;
-struct D2PathFoWallNodeStrc;
 struct D2PathFoWallContextStrc;
 struct D2PathMovStrc;
-
-
-
-
-
 
 
 struct D2CollisionTestStrc
@@ -48,18 +43,6 @@ void __fastcall PATH_GetScaledDirectionVector(int nVelocity, D2CoordStrc* pDirec
 
 typedef int BOOL;
 
-struct D2PathFoWallNodeStrc
-{
-    D2PathPointStrc tPoint;
-    short nFScore;
-    short nHeuristicDistanceToTarget;
-    short nBestDistanceFromStart;
-    unsigned short wPad;
-    D2PathFoWallNodeStrc* pBestParent;
-    D2PathFoWallNodeStrc* pChildren[8];
-    D2PathFoWallNodeStrc* pNextCachePoint;
-    D2PathFoWallNodeStrc* pNextSortedByFScore;
-};
 
 struct D2PathFoWallContextStrc
 {
