@@ -158,6 +158,8 @@ int __fastcall ACT3Q5_UnitIterate_DetermineFlailAndCubeDropCounts(D2GameStrc* pG
 
 #define QFLAG_ENTERAREA 4
 
+#define QFLAG_PRIMARYGOALDONE 13
+
 void __fastcall QUESTS_NPCActivateSpeeches(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pTarget); // 0x00545780
 
 void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc* pQuestRecord, int nQuest, int nState); // 0x0065C3A0
@@ -274,35 +276,13 @@ int __fastcall ACT3Q5_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
     return 0;
 }
 
-struct Bits;
-
-struct Player;
-
-struct QuestEx;
-
-struct Args;
-
 struct D2ObjInitFnStrc;
 
-struct Game { char pad0[0x6D]; unsigned char difficulty; };
+extern unsigned int gnA3Q5NpcActivateIndices[8]; // 0x00740ED8
 
-struct Unit { int type,classId; void* pool; int id; };
+void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeaderStrc* pTextControl, int nNPCID, int nIndex); // 0x00543790
 
-struct Player { char pad0[0x10]; Bits* quests[3]; };
-
-struct QuestEx { char pad0[0xC]; unsigned char flag; };
-
-struct Quest { char pad0[9]; unsigned char notIntro; char padA[2]; unsigned char state; char padD[0xB]; QuestEx* ex; char pad1C[0xC4]; int filter; };
-
-struct Args { Game* game; int event; Unit* target; Unit* player; int unknown; Text* text; };
-
-extern unsigned indices[]; // 0x00740ED8
-
-Player* __stdcall sub_006221A0(Unit*); // 0x006221A0
-
-int __stdcall sub_0065C310(Bits*,int,int); // 0x0065C310
-
-int __fastcall QUESTS_CheckPlayerGUID(Quest*,int); // 0x005452C0
+int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc* pQuest, int dwGUID); // 0x005452C0
 
 typedef void (__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
 
@@ -314,29 +294,37 @@ void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc
 
 short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
 
-int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
-
 // 0x005BAFD0
-void __fastcall sub_005BAFD0(Quest* quest,Args* args)
+void __fastcall ACT3Q5_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
-    Game* game=args->game;
-    Bits* flags=sub_006221A0(args->player)->quests[game->difficulty];
-    int reward=sub_0065C310(flags,QUESTSTATEFLAG_A3Q5,0);
-    int goal=sub_0065C310(flags,QUESTSTATEFLAG_A3Q5,13);
-    int npc=!args->target ? -1 : args->target->classId;
-    if(sub_0065C310(flags,quest->filter,4)) {
-        if(!quest->ex->flag) sub_00543790(quest,args->text,npc,5);
+    D2GameStrc* pGame = pQuestArg->pGame;
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
+    int bRewardGranted = QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, QFLAG_REWARDGRANTED);
+    int bPrimaryGoalDone = QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, QFLAG_PRIMARYGOALDONE);
+    int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_ENTERAREA))
+    {
+        if (!((D2Act3Quest5Strc*)pQuestData->pQuestDataEx)->bOrbSmashed)
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 5);
         return;
     }
-    if(reward==1 && !QUESTS_CheckPlayerGUID(quest,!args->player ? -1 : args->player->id)) return;
-    unsigned char state=quest->state;
-    if(state>=6) {
-        if(goal==1) sub_00543790(quest,args->text,npc,6);
+
+    if (bRewardGranted == 1 && !QUESTS_CheckPlayerGUID(pQuestData, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId))
+        return;
+
+    unsigned char nState = pQuestData->fState;
+    if (nState >= 6)
+    {
+        if (bPrimaryGoalDone == 1)
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 6);
         return;
     }
-    if(quest->notIntro) {
-        unsigned index=indices[state];
-        if(index!=-1 && index<8) sub_00543790(quest,args->text,npc,index);
+
+    if (pQuestData->bNotIntro)
+    {
+        unsigned int nIndex = gnA3Q5NpcActivateIndices[nState];
+        if (nIndex != -1 && nIndex < 8)
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);
     }
 }
 
