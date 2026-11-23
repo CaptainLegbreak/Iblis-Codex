@@ -23,14 +23,6 @@ int gnGlideSpriteScale; // 0x00880B64
 
 int gnProjectOriginY; // 0x00880B68
 
-
-// 0x0050DD50
-void __fastcall sub_0050DD50_SetProjectOrigin(int nX, int nY)
-{
-    gnProjectOriginX = nX;
-    gnProjectOriginY = nY;
-}
-
 // 0x0050DF00
 void __cdecl sub_0050DF00_ResetSpriteScale()
 {
