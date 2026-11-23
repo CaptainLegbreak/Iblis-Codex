@@ -65594,11 +65594,6 @@
      "name": "DATATBLS_GetAnimData"
     },
     {
-     "va": "0x0063DB80",
-     "length": 3,
-     "name": "sub_0063DB80"
-    },
-    {
      "va": "0x0063E050",
      "length": 3,
      "name": "sub_0063E050"
@@ -72610,6 +72605,11 @@
     {
      "va": "0x0063DA70",
      "length": 259
+    },
+    {
+     "va": "0x0063DB80",
+     "length": 3,
+     "name": "sub_0063DB80"
     },
     {
      "va": "0x0063DB90",
