@@ -1,10 +1,17 @@
 #include "D2Win.h"
+
 #include "D2Win32Types.h"
+
 #include "D2Records.h"
+
 #include "D2CmpTypes.h"
+
 #include "D2ItemTypes.h"
+
 #include "D2Txt.h"
+
 #include "D2StormTypes.h"
+
 #include "D2TxtTables.h"
 
 #include "D2WinTypes.h"
@@ -219,7 +226,9 @@ int __fastcall D2Win_10141(D2WinListStrc* ptListData)
 }
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
+
 extern tagPOINT gtMousePosition; // 0x007D55A4
+
 unsigned long gdwListLastClickTick; // 0x0087E970
 
 // 0x005072F0
@@ -243,6 +252,19 @@ int __stdcall LIST_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
     gdwListLastClickTick = dwTickCount;
     if (pList->controlHeader.field_34)
         return pList->controlHeader.field_34(pMsg);
+    return 0;
+}
+
+// 0x005073B0
+int __stdcall LIST_HandleCharInput(SMSGHANDLER_PARAMS* pMsg)
+{
+    D2WinListStrc* pList = (D2WinListStrc*)pMsg->hWnd;
+    D2_ASSERT(pList->controlHeader.eType == D2WIN_LIST, 0x179);
+    for (D2WinListDataStrc* pData = pList->pDataList; pData; pData = pData->pNext)
+    {
+        if (pData->field_218 == (char)pMsg->wParam && pData->field_204)
+            return pData->field_204(pMsg);
+    }
     return 0;
 }
 
