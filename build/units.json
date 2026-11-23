@@ -15021,6 +15021,11 @@
      "name": "INV_HelpCloseButtonMsg"
     },
     {
+     "va": "0x004967A0",
+     "length": 52,
+     "name": "?sub_004967A0_KeyCloseHelp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x004967F0",
      "length": 395,
      "name": "?INV_LoadPanelCels@@YAXXZ"
@@ -24617,11 +24622,6 @@
      "va": "0x00495320",
      "length": 155,
      "name": "sub_00495320_ButtonUpMsg"
-    },
-    {
-     "va": "0x004967A0",
-     "length": 52,
-     "name": "?sub_004967A0_KeyCloseHelp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     }
    ]
   },
