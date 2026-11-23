@@ -10665,6 +10665,11 @@
      "name": "?0D2StormListAStrc"
     },
     {
+     "va": "0x0044F820",
+     "length": 106,
+     "name": "??1D2SGameDataStrc@@QAE@XZ"
+    },
+    {
      "va": "0x0044F890",
      "length": 72,
      "name": "sub_0044F890_sub_006C4290"
@@ -15527,11 +15532,6 @@
    "file": "Source/D2Client/GAME/Game_0044F8E0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0044F820",
-     "length": 106,
-     "name": "??1D2SGameDataStrc@@QAE@XZ"
-    },
     {
      "va": "0x0044F8E0",
      "length": 66,

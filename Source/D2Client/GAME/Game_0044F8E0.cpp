@@ -27,16 +27,6 @@ struct D2StormLinkStrc
     }
 };
 
-struct D2SGameDataStrc
-{
-    unsigned int f_0;
-    D2StormLinkStrc m_linktoslot;
-    D2StormLinkStrc f_C;
-    char unk0x14[0x1DE0];
-
-    ~D2SGameDataStrc();
-};
-
 struct D2StormListAStrc
 {
     int m_linkoffset;
@@ -68,11 +58,6 @@ struct D2StormChunkListStrc
     }
     void UnlinkAll();
 };
-
-// 0x0044F820
-D2SGameDataStrc::~D2SGameDataStrc()
-{
-}
 
 // build: symbol ?UnlinkAll@D2StormListAStrc@@QAEXXZ 0x0044F8E0
 void D2StormListAStrc::UnlinkAll()

@@ -402,6 +402,10 @@ struct D2StormLinkStrc
         m_prevlink = 0;
         m_next = 0;
     }
+    ~D2StormLinkStrc()
+    {
+        Unlink();
+    }
     D2StormLinkStrc* NextLink(int nLinkOffset)
     {
         if ((int)m_next < 0)
@@ -2313,6 +2317,21 @@ void __fastcall sub_0044D980_ApplyConfigNop(D2ConfigStrc* pConfig)
 
 // 0x0044D990
 void __fastcall sub_0044D990_ApplyConfigNop(D2ConfigStrc* pConfig)
+{
+}
+
+struct D2SGameDataStrc
+{
+    unsigned int f_0;
+    D2StormLinkStrc m_linktoslot;
+    D2StormLinkStrc f_C;
+    char unk0x14[0x1DE0];
+
+    ~D2SGameDataStrc();
+};
+
+// 0x0044F820
+D2SGameDataStrc::~D2SGameDataStrc()
 {
 }
 
