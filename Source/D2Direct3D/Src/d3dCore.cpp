@@ -431,9 +431,9 @@ void __fastcall sub_006B55E0_InitializeWindow(int, int); // 0x006B55E0
 
 extern int gnState_00970E54; // 0x00970E54
 
-extern int gnFilterMode; // 0x00970E5C
-extern int gnState_00970E58; // 0x00970E58
+int gnFilterMode; // 0x00970E5C
 
+extern int gnState_00970E58; // 0x00970E58
 
 void __fastcall sub_006B7F70_ClearTarget(int); // 0x006B7F70
 
@@ -452,6 +452,412 @@ extern unsigned int gadwColors[256]; // 0x009702C0
 extern unsigned short gawColors16[256]; // 0x0096FA80
 
 extern D2DDSurfaceStrc* gpSurface_00970E6C; // 0x00970E6C
+
+struct D2Device006B2030Strc;
+
+struct D2DeviceVtbl006B2030Strc;
+
+struct D2DeviceVtbl006B2030Strc
+{
+    void* unk_00[40];
+    long (__stdcall* SetTextureStageState)(D2Device006B2030Strc* pDevice, unsigned long nStage, unsigned long nType, unsigned long nValue);
+};
+
+struct D2Device006B2030Strc
+{
+    D2DeviceVtbl006B2030Strc* lpVtbl;
+};
+
+
+extern int gbVideoUp; // 0x00970E40
+
+extern int gnVideoState; // 0x00970E44
+
+extern D2ComObjectStrc* gpPrimarySurface; // 0x00970E68
+
+extern D2ComObjectStrc* gpRenderSurface; // 0x00970E6C
+
+extern D2ComObjectStrc* gpInterface; // 0x00970E70
+
+extern D2ComObjectStrc* gpGammaControl; // 0x00970E74
+
+extern D2ComObjectStrc* gpViewport; // 0x00970E7C
+
+extern char gabGammaRamp[1536]; // 0x0096FCB8
+
+typedef long (__stdcall* D2DDSetGammaRampFn)(D2ComObjectStrc* pThis, unsigned long dwFlags, void* pRamp);
+
+extern unsigned int gnCapabilities_0096F3A8;                                                                // 0x0096F3A8
+
+extern const unsigned int gdwBitMask7_006CE284;                                                             // 0x006CE284
+
+extern const unsigned int gdwBitMask8;                                                             // 0x006CE288
+
+void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...);                                          // 0x00410610
+
+extern const unsigned int gnGammaMask_006CE278;                                                             // 0x006CE278
+
+extern int gnGammaScale_0074C020;                                                                           // 0x0074C020
+
+void __fastcall sub_006BE190_BuildGammaTable(int nGamma, void* pTable, double dScale, int nStride, int nEntries, int nMask); // 0x006BE190
+
+extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nBytes);
+
+D2ComObject006B5550Strc* gpObject_00970E64; // 0x00970E64
+
+int gbD3DBusy; // 0x00970E50
+
+int gnDeviceTextureFlag; // 0x00970E4C
+
+int gpTileDrawFunctions; // 0x007C914C
+
+int gbD3DInitialized_00970E48; // 0x00970E48
+
+D2ComObjectStrc* gpDirectDraw4_00970E60; // 0x00970E60
+
+// 0x006B1C70
+void __fastcall D3D_SetPalette(tagPALETTEENTRY* pPalette)
+{
+    for (int i = 0; i < 256; ++i)
+    {
+        gadwColors[i] = 0xFF000000 | (pPalette[i].peRed << 16) | (pPalette[i].peGreen << 8) | pPalette[i].peBlue;
+
+        int nRed = pPalette[i].peRed >> 3;
+        int nBlue = pPalette[i].peBlue >> 3;
+        int nGreen = pPalette[i].peGreen >> 3;
+        if (nRed < 31 && (pPalette[i].peRed & 7) >= 4)
+            ++nRed;
+        if (nBlue < 31 && (pPalette[i].peBlue & 7) >= 4)
+            ++nBlue;
+        if (nGreen < 31 && (pPalette[i].peGreen & 7) >= 4)
+            ++nGreen;
+        gawColors16[i] = (unsigned short)(0x8000 | (nRed << 10) | (nGreen << 5) | nBlue);
+
+        if (!pPalette[i].peRed && !pPalette[i].peGreen && !pPalette[i].peBlue)
+        {
+            gadwColors[i] = 0;
+            gawColors16[i] = 0;
+        }
+    }
+}
+
+// 0x006B1DC0
+void __fastcall D3D_BlitIndexedToHighColor(const unsigned char* pSrc, unsigned short* pDst, int nWidth, int nHeight, int nDstPitch, int nUnused)
+{
+    unsigned short* pRowDst = pDst;
+    const unsigned char* pRowSrc = pSrc;
+    for (int y = 0; y < nHeight; ++y)
+    {
+        unsigned short* d = pRowDst;
+        const unsigned char* s = pRowSrc;
+        for (int x = 0; x < nWidth; ++x)
+        {
+            *d++ = gawColors16[*s++];
+        }
+        pRowSrc += nWidth;
+        pRowDst += nDstPitch;
+    }
+}
+
+// 0x006B1E30
+void __fastcall sub_006B1E30_Blit8To32(const unsigned char* pSource, unsigned int* pDest, int nWidth, int nHeight, int nPitch, int nUnused)
+{
+    unsigned int* pDRow = pDest;
+    const unsigned char* pRow = pSource;
+    if (nHeight > 0)
+    {
+        nPitch *= 4;
+        int y = nHeight;
+        do
+        {
+            unsigned int* pDst = (unsigned int*)pDRow;
+            const unsigned char* pSrc = pRow;
+            if (nWidth > 0)
+            {
+                int x = nWidth;
+                do
+                {
+                    *pDst++ = gadwColors[*pSrc++];
+                    --x;
+                } while (x);
+            }
+            pRow += nWidth;
+            pDRow = (unsigned int*)((char*)pDRow + nPitch);
+            --y;
+        } while (y);
+    }
+}
+
+// 0x006B1EA0
+void __fastcall D3D_SetColorCombineMode(int nState)
+{
+    if (gnState_00970E54 && nState == gnState_00970E54)
+        return;
+    switch (nState)
+    {
+    case 1:
+        gpDevice->SetTextureStageState(0, 1, 4);
+        gpDevice->SetTextureStageState(0, 4, 4);
+        gpDevice->SetRenderState(15, 1);
+        break;
+    case 2:
+        gpDevice->SetTextureStageState(0, 1, 3);
+        gpDevice->SetTextureStageState(0, 4, 3);
+        gpDevice->SetRenderState(15, 0);
+        break;
+    }
+    gnState_00970E54 = nState;
+}
+
+// 0x006B1F40
+void __fastcall D3D_SetAlphaBlendMode(int nState)
+{
+    if (gnState_00970E58 && nState == gnState_00970E58)
+        return;
+    switch (nState)
+    {
+    case 1:
+        gpDevice->SetRenderState(27, 0);
+        gpDevice->SetRenderState(19, 2);
+        gpDevice->SetRenderState(20, 1);
+        break;
+    case 2:
+        gpDevice->SetRenderState(27, 1);
+        gpDevice->SetRenderState(19, 2);
+        gpDevice->SetRenderState(20, 2);
+        break;
+    case 3:
+        gpDevice->SetRenderState(27, 1);
+        gpDevice->SetRenderState(19, 1);
+        gpDevice->SetRenderState(20, 3);
+        break;
+    case 4:
+        gpDevice->SetRenderState(27, 1);
+        gpDevice->SetRenderState(19, 5);
+        gpDevice->SetRenderState(20, 6);
+        break;
+    }
+    gnState_00970E58 = nState;
+}
+
+// 0x006B2030
+void __fastcall D3D_SetTextureFilterMode(int nMode)
+{
+    if (gnFilterMode && nMode == gnFilterMode)
+    {
+        return;
+    }
+    switch (nMode)
+    {
+    case 1:
+        gpDevice->SetTextureStageState(0, 16, 1);
+        gpDevice->SetTextureStageState(0, 17, 1);
+        break;
+    case 2:
+        gpDevice->SetTextureStageState(0, 16, 2);
+        gpDevice->SetTextureStageState(0, 17, 2);
+        break;
+    }
+    gnFilterMode = nMode;
+}
+
+// 0x006B3320
+void __cdecl D3D_ReleaseResources()
+{
+    if (!gbVideoUp)
+    {
+        return;
+    }
+
+    sub_006B9150_ReleaseResource();
+    D3D_ReleaseTileSurfaces();
+    sub_006B32B0_ReleaseRenderer();
+
+    if (gpViewport)
+    {
+        ((D2ComReleaseFn)gpViewport->lpVtbl[2])(gpViewport);
+        gpViewport = 0;
+    }
+
+    if (gpInterface_00970E78)
+    {
+        ((D2ComReleaseFn)gpInterface_00970E78->lpVtbl[2])(gpInterface_00970E78);
+        gpInterface_00970E78 = 0;
+    }
+
+    if (gpGammaControl)
+    {
+        const long hResult = ((D2DDSetGammaRampFn)gpGammaControl->lpVtbl[4])(gpGammaControl, 0, gabGammaRamp);
+        if (hResult && hResult != (long)0x887601C2)
+        {
+            sub_006B20E0_DDrawLogError("Failed to restore original gamma ramp", hResult);
+        }
+        ((D2ComReleaseFn)gpGammaControl->lpVtbl[2])(gpGammaControl);
+        gpGammaControl = 0;
+    }
+
+    if (gpInterface)
+    {
+        ((D2ComReleaseFn)gpInterface->lpVtbl[2])(gpInterface);
+        gpInterface = 0;
+    }
+
+    if (gpRenderSurface)
+    {
+        ((D2ComReleaseFn)gpRenderSurface->lpVtbl[2])(gpRenderSurface);
+        gpRenderSurface = 0;
+    }
+
+    if (gpPrimarySurface)
+    {
+        ((D2ComReleaseFn)gpPrimarySurface->lpVtbl[2])(gpPrimarySurface);
+        gpPrimarySurface = 0;
+    }
+
+    gbVideoUp = 0;
+    gnVideoState = 0;
+}
+
+// 0x006B3420
+int __cdecl D3D_InitCutsceneMode()
+{
+    D2_ASSERT(!gbVideoUp, 0x7CB);
+
+// build: symbol ?gnRenderWidth@* 0x007C9138
+    gnRenderWidth = 640;
+// build: symbol ?gnRenderHeight@* 0x007C913C
+    gnRenderHeight = 480;
+
+    unsigned int nBpp = 16;
+    if (gdwBitMask7_006CE284 & gnCapabilities_0096F3A8)
+    {
+        nBpp = 32;
+    }
+    else if (gdwBitMask8 & gnCapabilities_0096F3A8)
+    {
+        nBpp = 24;
+    }
+
+    const char* szError;
+    long hResult = gpDraw->SetDisplayMode(640, 480, nBpp, 0, 0);
+    if (hResult)
+    {
+        szError = "SetDisplayMode failed!";
+        goto fail;
+    }
+
+    {
+        SurfaceDesc tDesc = { sizeof(tDesc) };
+        tDesc.flags = 1;
+        tDesc.caps = 0x4200;
+        hResult = gpDraw->CreateSurface(&tDesc, &gpPrimary, 0);
+    }
+    if (hResult)
+    {
+        szError = "Failed to create primary surface for cutscenes";
+fail:
+        sub_006B20E0_DDrawLogError(szError, hResult);
+        sub_00410610_WriteLogLine("Opening Direct3D window for cutscenes failed!");
+        return 0;
+    }
+
+    gbVideoUp = 1;
+    gnVideoState = 1;
+    return 1;
+}
+
+struct D2GammaRampStrc
+{
+    int red[128];
+    int green[128];
+    int blue[128];
+};
+
+// 0x006B3570
+void __fastcall D3D_SetGamma(int nGamma)
+{
+    D2GammaRampStrc ramp;
+    if (gnCapabilities_0096F3A8 & gnGammaMask_006CE278)
+    {
+        sub_006BE190_BuildGammaTable(nGamma, (unsigned short*)ramp.red, gnGammaScale_0074C020, 2, 256, 65535);
+        memcpy(ramp.green, ramp.red, sizeof(ramp.red));
+        memcpy(ramp.blue, ramp.red, sizeof(ramp.red));
+        if (gpGammaControl)
+        {
+            int nResult = ((D2DDSetGammaRampFn)gpGammaControl->lpVtbl[4])(gpGammaControl, 0, &ramp);
+            if (nResult)
+                sub_006B20E0_DDrawLogError("Failed to set gamma ramp", nResult);
+        }
+    }
+}
+
+// 0x006B3610
+int __fastcall D3D_GetBackBuffer(unsigned char* pDst)
+{
+    D2DDSurfaceDesc2Strc tDesc = { sizeof(D2DDSurfaceDesc2Strc) };
+    if (!gpSurface_00970E6C)
+    {
+        return 0;
+    }
+
+    long hResult = gpSurface_00970E6C->lpVtbl->Lock(gpSurface_00970E6C, 0, &tDesc, 0x11, 0);
+    if (hResult)
+    {
+        sub_006B20E0_DDrawLogError("Lock failed!", hResult);
+        return 0;
+    }
+
+    int nPitch = tDesc.lPitch / 4;
+    unsigned char* pOutRow = pDst;
+    unsigned int* pSrcRow = (unsigned int*)tDesc.lpSurface;
+    for (int y = 0; y < gnRenderHeight; ++y)
+    {
+        unsigned char* pOut = pOutRow;
+        unsigned int* pSrc = pSrcRow;
+        for (int x = 0; x < gnRenderWidth; ++x)
+        {
+            unsigned int dwPixel = *pSrc++;
+            *pOut++ = (unsigned char)(dwPixel >> 16);
+            *pOut++ = (unsigned char)(dwPixel >> 8);
+            *pOut++ = (unsigned char)dwPixel;
+        }
+        pOutRow += gnRenderWidth * 3;
+        pSrcRow += nPitch;
+    }
+
+    hResult = gpSurface_00970E6C->lpVtbl->Unlock(gpSurface_00970E6C, 0);
+    if (hResult)
+    {
+        sub_006B20E0_DDrawLogError("Unlock failed!", hResult);
+        return 0;
+    }
+    return 1;
+}
+
+// 0x006B3730
+int __fastcall D3D_CreateMemoryTexture(D2ComObject006B58A0Strc** ppSurface, D2ComObject006B58A0Strc** ppTexture, unsigned int nWidth, unsigned int nHeight)
+{
+    D2DDSurfaceDesc006B58A0Strc tDesc = { sizeof(tDesc) };
+    tDesc.dwFlags = 0x1007;
+    tDesc.dwCaps = 0x840;
+    tDesc.tPixelFormat = gtWantedFormat_0074C024;
+    tDesc.dwWidth = nWidth;
+    tDesc.dwHeight = nHeight;
+    long hResult = gpDirectDraw4->lpVtbl->CreateSurface(gpDirectDraw4, &tDesc, ppSurface, 0);
+    if (hResult)
+    {
+        sub_006B20E0_DDrawLogError("CreateSurface (memory surface)", hResult);
+        return 0;
+    }
+    hResult = (*ppSurface)->lpVtbl->QueryInterface(*ppSurface, gabIidTexture, (void**)ppTexture);
+    if (hResult)
+    {
+        sub_006B20E0_DDrawLogError("Failed to get texture interface for memory surface", hResult);
+        (*ppSurface)->lpVtbl->Release(*ppSurface);
+        return 0;
+    }
+    return 1;
+}
 
 // 0x006B4FD0
 static int D3D_InitFullscreen(void* window,int mode)
@@ -540,8 +946,6 @@ void __cdecl D3D_FlushAndFlip()
     }
 }
 
-D2ComObject006B5550Strc* gpObject_00970E64; // 0x00970E64
-
 // 0x006B5550
 int __cdecl D3D_Close()
 {
@@ -596,8 +1000,6 @@ void __fastcall D3D_PauseSurface(int window, int mode, int paused)
     }
     LeaveCriticalSection(gpCriticalSection_007C9134);
 }
-
-int gbD3DBusy; // 0x00970E50
 
 // 0x006B56C0
 void __fastcall D3D_OpenSmackCutscene(int a, int b, int c)
@@ -667,8 +1069,6 @@ int __fastcall D3D_ChangeRes(void* window,int mode)
     return 1;
 }
 
-int gnDeviceTextureFlag; // 0x00970E4C
-
 // 0x006B58A0
 int __fastcall D3D_CreateDeviceTexture(D2ComObject006B58A0Strc** ppSurface, D2ComObject006B58A0Strc** ppTexture, unsigned int nWidth, unsigned int nHeight)
 {
@@ -703,12 +1103,6 @@ void __cdecl D3D_CloseAtExit()
 {
     D3D_Close();
 }
-
-int gpTileDrawFunctions; // 0x007C914C
-
-int gbD3DInitialized_00970E48; // 0x00970E48
-
-D2ComObjectStrc* gpDirectDraw4_00970E60; // 0x00970E60
 
 // 0x006B59A0
 int __fastcall D3D_Init(int nArg1, int nArg2)
@@ -768,342 +1162,6 @@ int __fastcall D3D_Init(int nArg1, int nArg2)
     D3D_SmackInit();
     gpCriticalSection_007C9134 = (D2CriticalSectionStrc*)FOG_Alloc(0x18, gszD3DCoreFile, 0x6EA, 0);
     InitializeCriticalSection(gpCriticalSection_007C9134);
-    return 1;
-}
-
-extern int gbVideoUp; // 0x00970E40
-extern int gnVideoState; // 0x00970E44
-extern D2ComObjectStrc* gpPrimarySurface; // 0x00970E68
-extern D2ComObjectStrc* gpRenderSurface; // 0x00970E6C
-extern D2ComObjectStrc* gpInterface; // 0x00970E70
-extern D2ComObjectStrc* gpGammaControl; // 0x00970E74
-extern D2ComObjectStrc* gpViewport; // 0x00970E7C
-extern char gabGammaRamp[1536]; // 0x0096FCB8
-
-typedef long (__stdcall* D2DDSetGammaRampFn)(D2ComObjectStrc* pThis, unsigned long dwFlags, void* pRamp);
-
-// 0x006B3320
-void __cdecl D3D_ReleaseResources()
-{
-    if (!gbVideoUp)
-    {
-        return;
-    }
-
-    sub_006B9150_ReleaseResource();
-    D3D_ReleaseTileSurfaces();
-    sub_006B32B0_ReleaseRenderer();
-
-    if (gpViewport)
-    {
-        ((D2ComReleaseFn)gpViewport->lpVtbl[2])(gpViewport);
-        gpViewport = 0;
-    }
-
-    if (gpInterface_00970E78)
-    {
-        ((D2ComReleaseFn)gpInterface_00970E78->lpVtbl[2])(gpInterface_00970E78);
-        gpInterface_00970E78 = 0;
-    }
-
-    if (gpGammaControl)
-    {
-        const long hResult = ((D2DDSetGammaRampFn)gpGammaControl->lpVtbl[4])(gpGammaControl, 0, gabGammaRamp);
-        if (hResult && hResult != (long)0x887601C2)
-        {
-            sub_006B20E0_DDrawLogError("Failed to restore original gamma ramp", hResult);
-        }
-        ((D2ComReleaseFn)gpGammaControl->lpVtbl[2])(gpGammaControl);
-        gpGammaControl = 0;
-    }
-
-    if (gpInterface)
-    {
-        ((D2ComReleaseFn)gpInterface->lpVtbl[2])(gpInterface);
-        gpInterface = 0;
-    }
-
-    if (gpRenderSurface)
-    {
-        ((D2ComReleaseFn)gpRenderSurface->lpVtbl[2])(gpRenderSurface);
-        gpRenderSurface = 0;
-    }
-
-    if (gpPrimarySurface)
-    {
-        ((D2ComReleaseFn)gpPrimarySurface->lpVtbl[2])(gpPrimarySurface);
-        gpPrimarySurface = 0;
-    }
-
-    gbVideoUp = 0;
-    gnVideoState = 0;
-}
-
-extern unsigned int gnCapabilities_0096F3A8;                                                                // 0x0096F3A8
-extern const unsigned int gdwBitMask7_006CE284;                                                             // 0x006CE284
-extern const unsigned int gdwBitMask8;                                                             // 0x006CE288
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...);                                          // 0x00410610
-
-// 0x006B3420
-int __cdecl D3D_InitCutsceneMode()
-{
-    D2_ASSERT(!gbVideoUp, 0x7CB);
-
-// build: symbol ?gnRenderWidth@* 0x007C9138
-    gnRenderWidth = 640;
-// build: symbol ?gnRenderHeight@* 0x007C913C
-    gnRenderHeight = 480;
-
-    unsigned int nBpp = 16;
-    if (gdwBitMask7_006CE284 & gnCapabilities_0096F3A8)
-    {
-        nBpp = 32;
-    }
-    else if (gdwBitMask8 & gnCapabilities_0096F3A8)
-    {
-        nBpp = 24;
-    }
-
-    const char* szError;
-    long hResult = gpDraw->SetDisplayMode(640, 480, nBpp, 0, 0);
-    if (hResult)
-    {
-        szError = "SetDisplayMode failed!";
-        goto fail;
-    }
-
-    {
-        SurfaceDesc tDesc = { sizeof(tDesc) };
-        tDesc.flags = 1;
-        tDesc.caps = 0x4200;
-        hResult = gpDraw->CreateSurface(&tDesc, &gpPrimary, 0);
-    }
-    if (hResult)
-    {
-        szError = "Failed to create primary surface for cutscenes";
-fail:
-        sub_006B20E0_DDrawLogError(szError, hResult);
-        sub_00410610_WriteLogLine("Opening Direct3D window for cutscenes failed!");
-        return 0;
-    }
-
-    gbVideoUp = 1;
-    gnVideoState = 1;
-    return 1;
-}
-
-struct D2GammaRampStrc
-{
-    int red[128];
-    int green[128];
-    int blue[128];
-};
-
-extern const unsigned int gnGammaMask_006CE278;                                                             // 0x006CE278
-extern int gnGammaScale_0074C020;                                                                           // 0x0074C020
-void __fastcall sub_006BE190_BuildGammaTable(int nGamma, void* pTable, double dScale, int nStride, int nEntries, int nMask); // 0x006BE190
-extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nBytes);
-
-// 0x006B3570
-void __fastcall D3D_SetGamma(int nGamma)
-{
-    D2GammaRampStrc ramp;
-    if (gnCapabilities_0096F3A8 & gnGammaMask_006CE278)
-    {
-        sub_006BE190_BuildGammaTable(nGamma, (unsigned short*)ramp.red, gnGammaScale_0074C020, 2, 256, 65535);
-        memcpy(ramp.green, ramp.red, sizeof(ramp.red));
-        memcpy(ramp.blue, ramp.red, sizeof(ramp.red));
-        if (gpGammaControl)
-        {
-            int nResult = ((D2DDSetGammaRampFn)gpGammaControl->lpVtbl[4])(gpGammaControl, 0, &ramp);
-            if (nResult)
-                sub_006B20E0_DDrawLogError("Failed to set gamma ramp", nResult);
-        }
-    }
-}
-
-// 0x006B1EA0
-void __fastcall D3D_SetColorCombineMode(int nState)
-{
-    if (gnState_00970E54 && nState == gnState_00970E54)
-        return;
-    switch (nState)
-    {
-    case 1:
-        gpDevice->SetTextureStageState(0, 1, 4);
-        gpDevice->SetTextureStageState(0, 4, 4);
-        gpDevice->SetRenderState(15, 1);
-        break;
-    case 2:
-        gpDevice->SetTextureStageState(0, 1, 3);
-        gpDevice->SetTextureStageState(0, 4, 3);
-        gpDevice->SetRenderState(15, 0);
-        break;
-    }
-    gnState_00970E54 = nState;
-}
-
-// 0x006B1F40
-void __fastcall D3D_SetAlphaBlendMode(int nState)
-{
-    if (gnState_00970E58 && nState == gnState_00970E58)
-        return;
-    switch (nState)
-    {
-    case 1:
-        gpDevice->SetRenderState(27, 0);
-        gpDevice->SetRenderState(19, 2);
-        gpDevice->SetRenderState(20, 1);
-        break;
-    case 2:
-        gpDevice->SetRenderState(27, 1);
-        gpDevice->SetRenderState(19, 2);
-        gpDevice->SetRenderState(20, 2);
-        break;
-    case 3:
-        gpDevice->SetRenderState(27, 1);
-        gpDevice->SetRenderState(19, 1);
-        gpDevice->SetRenderState(20, 3);
-        break;
-    case 4:
-        gpDevice->SetRenderState(27, 1);
-        gpDevice->SetRenderState(19, 5);
-        gpDevice->SetRenderState(20, 6);
-        break;
-    }
-    gnState_00970E58 = nState;
-}
-
-// 0x006B2030
-void __fastcall D3D_SetTextureFilterMode(int nMode)
-{
-    if (gnFilterMode && nMode == gnFilterMode)
-    {
-        return;
-    }
-    switch (nMode)
-    {
-    case 1:
-        gpDevice->SetTextureStageState(0, 16, 1);
-        gpDevice->SetTextureStageState(0, 17, 1);
-        break;
-    case 2:
-        gpDevice->SetTextureStageState(0, 16, 2);
-        gpDevice->SetTextureStageState(0, 17, 2);
-        break;
-    }
-    gnFilterMode = nMode;
-}
-
-// 0x006B1C70
-void __fastcall D3D_SetPalette(tagPALETTEENTRY* pPalette)
-{
-    for (int i = 0; i < 256; ++i)
-    {
-        gadwColors[i] = 0xFF000000 | (pPalette[i].peRed << 16) | (pPalette[i].peGreen << 8) | pPalette[i].peBlue;
-
-        int nRed = pPalette[i].peRed >> 3;
-        int nBlue = pPalette[i].peBlue >> 3;
-        int nGreen = pPalette[i].peGreen >> 3;
-        if (nRed < 31 && (pPalette[i].peRed & 7) >= 4)
-            ++nRed;
-        if (nBlue < 31 && (pPalette[i].peBlue & 7) >= 4)
-            ++nBlue;
-        if (nGreen < 31 && (pPalette[i].peGreen & 7) >= 4)
-            ++nGreen;
-        gawColors16[i] = (unsigned short)(0x8000 | (nRed << 10) | (nGreen << 5) | nBlue);
-
-        if (!pPalette[i].peRed && !pPalette[i].peGreen && !pPalette[i].peBlue)
-        {
-            gadwColors[i] = 0;
-            gawColors16[i] = 0;
-        }
-    }
-}
-
-// 0x006B1DC0
-void __fastcall D3D_BlitIndexedToHighColor(const unsigned char* pSrc, unsigned short* pDst, int nWidth, int nHeight, int nDstPitch, int nUnused)
-{
-    unsigned short* pRowDst = pDst;
-    const unsigned char* pRowSrc = pSrc;
-    for (int y = 0; y < nHeight; ++y)
-    {
-        unsigned short* d = pRowDst;
-        const unsigned char* s = pRowSrc;
-        for (int x = 0; x < nWidth; ++x)
-        {
-            *d++ = gawColors16[*s++];
-        }
-        pRowSrc += nWidth;
-        pRowDst += nDstPitch;
-    }
-}
-
-// 0x006B3610
-int __fastcall D3D_GetBackBuffer(unsigned char* pDst)
-{
-    D2DDSurfaceDesc2Strc tDesc = { sizeof(D2DDSurfaceDesc2Strc) };
-    if (!gpSurface_00970E6C)
-    {
-        return 0;
-    }
-
-    long hResult = gpSurface_00970E6C->lpVtbl->Lock(gpSurface_00970E6C, 0, &tDesc, 0x11, 0);
-    if (hResult)
-    {
-        sub_006B20E0_DDrawLogError("Lock failed!", hResult);
-        return 0;
-    }
-
-    int nPitch = tDesc.lPitch / 4;
-    unsigned char* pOutRow = pDst;
-    unsigned int* pSrcRow = (unsigned int*)tDesc.lpSurface;
-    for (int y = 0; y < gnRenderHeight; ++y)
-    {
-        unsigned char* pOut = pOutRow;
-        unsigned int* pSrc = pSrcRow;
-        for (int x = 0; x < gnRenderWidth; ++x)
-        {
-            unsigned int dwPixel = *pSrc++;
-            *pOut++ = (unsigned char)(dwPixel >> 16);
-            *pOut++ = (unsigned char)(dwPixel >> 8);
-            *pOut++ = (unsigned char)dwPixel;
-        }
-        pOutRow += gnRenderWidth * 3;
-        pSrcRow += nPitch;
-    }
-
-    hResult = gpSurface_00970E6C->lpVtbl->Unlock(gpSurface_00970E6C, 0);
-    if (hResult)
-    {
-        sub_006B20E0_DDrawLogError("Unlock failed!", hResult);
-        return 0;
-    }
-    return 1;
-}
-
-// 0x006B3730
-int __fastcall D3D_CreateMemoryTexture(D2ComObject006B58A0Strc** ppSurface, D2ComObject006B58A0Strc** ppTexture, unsigned int nWidth, unsigned int nHeight)
-{
-    D2DDSurfaceDesc006B58A0Strc tDesc = { sizeof(tDesc) };
-    tDesc.dwFlags = 0x1007;
-    tDesc.dwCaps = 0x840;
-    tDesc.tPixelFormat = gtWantedFormat_0074C024;
-    tDesc.dwWidth = nWidth;
-    tDesc.dwHeight = nHeight;
-    long hResult = gpDirectDraw4->lpVtbl->CreateSurface(gpDirectDraw4, &tDesc, ppSurface, 0);
-    if (hResult)
-    {
-        sub_006B20E0_DDrawLogError("CreateSurface (memory surface)", hResult);
-        return 0;
-    }
-    hResult = (*ppSurface)->lpVtbl->QueryInterface(*ppSurface, gabIidTexture, (void**)ppTexture);
-    if (hResult)
-    {
-        sub_006B20E0_DDrawLogError("Failed to get texture interface for memory surface", hResult);
-        (*ppSurface)->lpVtbl->Release(*ppSurface);
-        return 0;
-    }
     return 1;
 }
 
