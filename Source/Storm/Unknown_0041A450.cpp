@@ -158,58 +158,6 @@ extern AUDIOSTREAM* gpDdaHead_0070838C; // 0x0070838C
 extern REQUEST* gpCurrentRequest_0077902C; // 0x0077902C
 extern D2StormWindowNodeStrc* gpWindowNodeHead_00708368;
 
-// 0x0041A450
-void __stdcall CheckRequests(D2StormArchive0041A450Strc* pLastArchive, unsigned int nLastOffset, D2StormRequest0041A450Strc** ppDue, D2StormRequest0041A450Strc** ppNear, int* pnDistance)
-{
-    *ppDue = 0;
-    *ppNear = 0;
-    *pnDistance = 0x7FFFFFFF;
-    unsigned int nBest = 0xFFFFFFFF;
-    unsigned long nNow = GetTickCount();
-    for (D2StormRequest0041A450Strc* p = (D2StormRequest0041A450Strc*)gRequestList_00708360.Head(); (int)p > 0; p = (D2StormRequest0041A450Strc*)p->f_0.m_next)
-    {
-        if (p->f_24)
-        {
-            if (p->f_0.Prev() && p->f_24 == ((D2StormRequest0041A450Strc*)p->f_0.Prev())->f_24)
-                continue;
-        }
-
-        unsigned int nDistance = 0;
-        if (gnValue_00708350 && !p->pStream)
-        {
-            D2StormArchive0041A450Strc* pArchive = p->pFile->f_114;
-            unsigned int nSkip = 0;
-            if (pArchive && nLastOffset > pArchive->nBaseOffset)
-                nSkip = nLastOffset - pArchive->nBaseOffset;
-            if (pArchive == pLastArchive)
-            {
-                if (p->nFileOffset < nSkip)
-                    nDistance = p->nFileOffset + 0x8000000;
-                else
-                    nDistance = p->nFileOffset - nSkip;
-            }
-            else
-            {
-                nDistance = 0xFFFFFFFE;
-            }
-        }
-        if (nDistance <= nBest)
-        {
-            nBest = nDistance;
-            *ppDue = p;
-        }
-
-        int nTime = p->nDueTime - nNow;
-        if (p->bClampDue && nTime >= 1000)
-            nTime = 1000;
-        if (nTime < *pnDistance)
-        {
-            *pnDistance = nTime;
-            *ppNear = p;
-        }
-    }
-}
-
 static void* ghStormThread_00779034; // 0x00779034
 
 static unsigned long gdwStormThreadId_00779040; // 0x00779040
