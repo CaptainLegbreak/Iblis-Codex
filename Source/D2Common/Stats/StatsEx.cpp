@@ -1629,6 +1629,12 @@ D2SkillStrc* __stdcall STATLIST_GetSkillId(D2StatListStrc* pStatList)
     return pStatList->pSkill;
 }
 
+// 0x006260F0
+void __stdcall STATLIST_SetSkillLevel(D2StatListStrc* pStatList, int nSkillLevel)
+{
+    pStatList->dwSLvl = nSkillLevel;
+}
+
 // 0x00626100
 int __stdcall STATLIST_GetSkillLevel(D2StatListStrc* pStatList)
 {
