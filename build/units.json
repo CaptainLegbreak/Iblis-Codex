@@ -14932,6 +14932,11 @@
      "name": "?INV_UpdateTradeAcceptSound@@YIXHH@Z"
     },
     {
+     "va": "0x00489840",
+     "length": 29,
+     "name": "?CUNIT_IsInvPanelTradeMode@@YAHXZ"
+    },
+    {
      "va": "0x00489860",
      "length": 13,
      "name": "?INV_IsSellMode@@YAHXZ"
@@ -19497,11 +19502,6 @@
      "va": "0x00483470",
      "length": 36,
      "name": "?DATATBLS_GetUniqueItemsTxtRecord@@YIPAUD2UniqueItemsTxt@@H@Z"
-    },
-    {
-     "va": "0x00489840",
-     "length": 29,
-     "name": "?CUNIT_IsInvPanelTradeMode@@YAHXZ"
     },
     {
      "va": "0x004898A0",
