@@ -33,17 +33,30 @@ public:
     int unk0x04;
 };
 
+#pragma pack(push, 2)
+
 class SpinnerImplementation : public UIWidget
 {
 public:
     virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
 
-    char unk0x08[0x18];
+    int nX;
+    int nY;
+    int nUpX;
+    int nUpY;
+    int nDownX;
+    int nDownY;
     int unk0x20;
-    char unk0x24[0x10];
+    int nArrowHeight;
+    int nArrowWidth;
+    int f_2C;
+    int unk0x30;
     int unk0x34;
     int unk0x38;
 };
+
+#pragma pack(pop)
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
@@ -70,23 +83,7 @@ int SpinnerImplementation::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004BC190
-int __stdcall SKILLS_Return0(int nUnused)
+int SpinnerImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
 {
     return 0;
-}
-
-void __stdcall sub_00646010_Empty(int nUnused1, int nUnused2, int nUnused3)
-{
-}
-
-void __stdcall sub_006460C0_Empty(int nUnused)
-{
-}
-
-void __stdcall sub_006460D0_Empty(int nUnused1, int nUnused2, int nUnused3)
-{
-}
-
-void __stdcall sub_006460E0_Empty(int nUnused)
-{
 }

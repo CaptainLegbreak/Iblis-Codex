@@ -119,13 +119,19 @@ public:
     EditBoxImplementation* pImpl;
 };
 
+#pragma pack(push, 2)
+
 class SpinnerImplementation : public UIWidget
 {
 public:
+    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+
     int HitTestUpArrow(SMSGHANDLER_PARAMS* pMsg);
     int HitTestDownArrow(SMSGHANDLER_PARAMS* pMsg);
 
-    char unk0x08[8];
+    int nX;
+    int nY;
     int nUpX;
     int nUpY;
     int nDownX;
@@ -133,7 +139,13 @@ public:
     int unk0x20;
     int nArrowHeight;
     int nArrowWidth;
+    int f_2C;
+    int unk0x30;
+    int unk0x34;
+    int unk0x38;
 };
+
+#pragma pack(pop)
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __cdecl sub_00468730(); // 0x00468730
