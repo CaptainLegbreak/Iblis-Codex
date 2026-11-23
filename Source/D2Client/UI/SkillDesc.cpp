@@ -1976,6 +1976,65 @@ static int SKILLDESC_FormatIntOrDecimal(Unicode* wszText, int bPrefixSign, int n
     return SKILLDESC_FormatSignedInt(wszText, bPrefixSign, nValue);
 }
 
+static void __stdcall sub_004E74A0_FormatDamageRange(int bPrefixSign, Unicode* wszText, int bUseFormat, int nMinDamage, int nMaxDamage);
+
+// 0x004E74A0
+static void __stdcall sub_004E74A0_FormatDamageRange(int bPrefixSign, Unicode* wszText, int bUseFormat, int nMinDamage, int nMaxDamage)
+{
+    char szText[32];
+    if (bUseFormat && (nMinDamage >= 10000 || nMaxDamage >= 10000))
+    {
+        if (!(nMinDamage < 10000))
+// build: symbol ?gszPlus@* 0x006DBEC4
+            wsprintfA(szText, "%s%dK-%dK", bPrefixSign ? gszPlus : &gszEmptyAssertText, (nMinDamage + 500) / 1000, (nMaxDamage + 500) / 1000);
+        else
+            wsprintfA(szText, "%s%d-%dK", bPrefixSign ? gszPlus : &gszEmptyAssertText, nMinDamage, (nMaxDamage + 500) / 1000);
+    }
+    else if (bPrefixSign)
+        wsprintfA(szText, "+%d-%d", nMinDamage, nMaxDamage);
+    else
+        wsprintfA(szText, gszFmtRange, nMinDamage, nMaxDamage);
+    sub_00526320_ToUnicode(wszText, szText, 32);
+}
+
+// 0x004E75B0
+static int sub_004E75B0_FormatValueOrRange(Unicode* wszText, int bPrefixSign, int nMin, int nMax)
+{
+    if (nMin == nMax)
+    {
+        char szText[32];
+        if (bPrefixSign && nMin >= 0)
+            wsprintfA(szText, "+%d", nMin);
+        else
+            wsprintfA(szText, szFmtD_006D57BC, nMin);
+        sub_00526320_ToUnicode(wszText, szText, 32);
+        return 1;
+    }
+    sub_004E74A0_FormatDamageRange(bPrefixSign, wszText, 1, nMin, nMax);
+    return 1;
+}
+
+extern "C" int __stdcall sub_Z13_EmitA(Unicode* p, int a, int b, int c)
+{
+    return sub_004E75B0_FormatValueOrRange(p, a, b, c);
+}
+
+// 0x004E7610
+static void __stdcall sub_004E7610_FormatDecimalRange(Unicode* wszText, int bPrefixSign, int nMin, int nMinFrac, int nMax, int nMaxFrac)
+{
+    char szText[32];
+    if (bPrefixSign)
+        wsprintfA(szText, "+%d.%d-%d.%d", nMin, nMinFrac, nMax, nMaxFrac);
+    else
+        wsprintfA(szText, "%d.%d-%d.%d", nMin, nMinFrac, nMax, nMaxFrac);
+    sub_00526320_ToUnicode(wszText, szText, 32);
+}
+
+extern "C" void __stdcall sub_K07_EmitB(Unicode* p, int b, int a1, int a2, int a3, int a4)
+{
+    sub_004E7610_FormatDecimalRange(p, b, a1, a2, a3, a4);
+}
+
 // 0x004E7650
 static int __stdcall SKILLDESC_AppendFrameRange(Unicode* wszOut, unsigned short wStr, int nMinFrames, int nMaxFrames)
 {
