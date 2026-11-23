@@ -239,6 +239,11 @@ void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nType);        
 
 int __stdcall D2Common_10142(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, int a3);                   // 0x00649970
 
+// 0x005B0CC0
+void __stdcall sub_005B0CC0(int nUnused1)
+{
+}
+
 // 0x005B0CD0
 void __fastcall AITHINK_Fn001_100_Idle_Buffy(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
