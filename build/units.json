@@ -25097,6 +25097,15 @@
      "va": "0x004A28A0",
      "length": 38,
      "name": "@TEXT_AcceptShortPacket@4"
+    },
+    {
+     "va": "0x004A2CB0",
+     "length": 833
+    },
+    {
+     "va": "0x004A3050",
+     "length": 29,
+     "name": "?sub_004A3050@@YAXXZ"
     }
    ],
    "flags": [
@@ -27171,21 +27180,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/text_004A2CB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004A2CB0",
-     "length": 833
-    },
-    {
-     "va": "0x004A3050",
-     "length": 29,
-     "name": "?sub_004A3050@@YAXXZ"
-    }
    ]
   },
   {
