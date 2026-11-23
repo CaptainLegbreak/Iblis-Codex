@@ -3641,7 +3641,7 @@
   },
   "Source/D2Game/MONSTER/MonsterUnique.cpp": {
    "bytes": 484,
-   "definitions": 6,
+   "definitions": 7,
    "externs": [
     "extern \"C\" void __cdecl PARTYSCREEN_InvitationCancelled(); // 0x005A5B30",
     "extern \"C\" void __cdecl PARTYSCREEN_PlayerLeftParty(); // 0x005A5D20",
@@ -3653,7 +3653,8 @@
     "extern \"C\" void __cdecl PARTYSCREEN_AcceptInvitation(); // 0x005A5A30",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod26_Teleport(); // 0x005A1600",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod38_Possessed(); // 0x005A1230",
-    "extern \"C\" void __cdecl sub_005A1280_UModChampion(); // 0x005A1280"
+    "extern \"C\" void __cdecl sub_005A1280_UModChampion(); // 0x005A1280",
+    "extern \"C\" void __cdecl MONSTERUNIQUE_ApplyCorpseFireDamage(); // 0x005A3D20"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/MONSTER/MonsterUnique.inc",
@@ -3692,46 +3693,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/MONSTER/MonsterMode_005A1080.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Unknown_005A4200.cpp": {
-   "bytes": 1560,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" void __cdecl MONSTERUNIQUE_ApplyCorpseFireDamage(); // 0x005A3D20",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_ApplyElementalDamage(); // 0x005A3040",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_ApplyShatterState(); // 0x005A3A80",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_CastAmplifyDamage(); // 0x005A2530",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_CastBugLightningMissile(); // 0x005A2EE0",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_CastColdUniqueMissile(); // 0x005A2BD0",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_CastCorpseExplode2(); // 0x005A2840",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_CastCorpsePoisonCloud(); // 0x005A2C20",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_CastLightUniqueMissile(); // 0x005A29A0",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_CastNova(); // 0x005A2910",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_CastQueenPoisonCloudMissile(); // 0x005A3490",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_CastSuicideExplodeMissile(); // 0x005A3EF0",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_ColdEnchantedModeChange(); // 0x005A3800",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_FireEnchantedModeChange(); // 0x005A25F0",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_KillMinions(); // 0x005A2D10",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_LightningEnchantedModeChange(); // 0x005A37D0",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_QuestCompleteModeChange(); // 0x005A3250",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_ScarabModeChange(); // 0x005A2EB0",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_SetTrapDamage(); // 0x005A3B50",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_StealBeltItem(); // 0x005A30E0",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_SuicideModeChange(); // 0x005A3E70",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_CastCorpseExplode(); // 0x005A2620",
-    "extern \"C\" void __cdecl sub_005A2BA0(); // 0x005A2BA0",
-    "extern \"C\" void __cdecl sub_005A2D80(); // 0x005A2D80",
-    "extern \"C\" void __cdecl sub_005A2E00(); // 0x005A2E00",
-    "extern \"C\" void __cdecl sub_005A30B0(); // 0x005A30B0",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_CreateMultishotMissiles(); // 0x005A3610",
-    "extern \"C\" void __cdecl sub_005A3840(); // 0x005A3840",
-    "extern \"C\" void __cdecl sub_005A3910(); // 0x005A3910",
-    "extern \"C\" void __cdecl sub_005A3AA0(); // 0x005A3AA0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005A4200.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -107604,7 +107565,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005A4200.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
    "fill": 65,
    "form": "declared",
    "fwd": null,
@@ -107702,8 +107663,8 @@
     [
      424,
      "0x005A2BA0",
-     "queue_function",
-     "sub_005A2BA0",
+     "names.json",
+     "MONSTERUNIQUE_CastLightUniqueMissileIfNotGetHit",
      0,
      "func"
     ],
@@ -107726,16 +107687,16 @@
     [
      456,
      "0x005A2D80",
-     "queue_function",
-     "sub_005A2D80",
+     "names.json",
+     "MONSTERUNIQUE_AddSecondaryDamage",
      0,
      "func"
     ],
     [
      476,
      "0x005A2E00",
-     "queue_function",
-     "sub_005A2E00",
+     "names.json",
+     "MONSTERUNIQUE_AddRogueHireMissileSecondaryDamage",
      0,
      "func"
     ],
@@ -107758,8 +107719,8 @@
     [
      512,
      "0x005A3AA0",
-     "queue_function",
-     "sub_005A3AA0",
+     "names.json",
+     "MONSTERUNIQUE_KillUnitOrRemovePet",
      0,
      "func"
     ],
@@ -107798,8 +107759,8 @@
     [
      668,
      "0x005A30B0",
-     "queue_function",
-     "sub_005A30B0",
+     "names.json",
+     "MONSTERUNIQUE_ApplyMissileElementalDamage",
      0,
      "func"
     ],
@@ -107862,16 +107823,16 @@
     [
      820,
      "0x005A3840",
-     "queue_function",
-     "sub_005A3840",
+     "names.json",
+     "MONSTERUNIQUE_ScheduleSelfResurrection",
      0,
      "func"
     ],
     [
      824,
      "0x005A3910",
-     "queue_function",
-     "sub_005A3910",
+     "names.json",
+     "MONSTERUNIQUE_TrySelfResurrection",
      0,
      "func"
     ],
