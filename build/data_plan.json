@@ -3492,7 +3492,6 @@
    "bytes": 3376,
    "definitions": 10,
    "externs": [
-    "extern \"C\" void __cdecl MISSMODE_SrvDo01_BasicMissile(); // 0x005B0BC0",
     "extern \"C\" void __cdecl MISSMODE_SrvDo37_Unused(); // 0x005B0AA0",
     "extern \"C\" void __cdecl sub_005AE520(); // 0x005AE520",
     "extern \"C\" void __cdecl sub_005AFB80(); // 0x005AFB80",

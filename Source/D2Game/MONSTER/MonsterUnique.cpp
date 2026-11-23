@@ -2200,33 +2200,6 @@ void __fastcall MONSTERUNIQUE_KillMinions(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 }
 
 
-// 0x005A6000
-int __fastcall PARTYSCREEN_CommandHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nCallbackId, int nOtherPlayerGUID, int nParam)
-{
-    int bFailure = 0;
-    D2UnitStrc* pOtherPlayer = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, nOtherPlayerGUID);
-    if (!pOtherPlayer)
-    {
-        return 0;
-    }
-
-    if (gpfnPartyCommands[nCallbackId])
-    {
-        if (IsBadCodePtr((FARPROC)gpfnPartyCommands[nCallbackId]))
-        {
-            return 3;
-        }
-
-        gpfnPartyCommands[nCallbackId](pGame, pUnit, pOtherPlayer, nParam, &bFailure);
-        if (bFailure)
-        {
-            return 3;
-        }
-    }
-
-    return 0;
-}
-
 // 0x005A6130
 int __fastcall FRIENDLY_AreUnitsFriendly(D2GameStrc* pGame, D2UnitStrc* pUnit1, D2UnitStrc* pUnit2)
 {

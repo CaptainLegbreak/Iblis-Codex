@@ -1307,3 +1307,95 @@ D2UnitStrc* __fastcall PLAYER_GetWeaponForSkill(D2UnitStrc* pUnit)
     return pEquippedWeapon;
 }
 
+D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
+
+void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
+
+D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
+
+D2UnitStrc* __stdcall INVENTORY_GetSecondaryWeapon(D2InventoryStrc* pInventory); // 0x0063BF90
+
+// 0x00535D10
+void __fastcall PLAYER_ApplyWeaponStatsForSkill(D2UnitStrc* pAttacker, int bTemporaryWeaponStats)
+{
+    if (bTemporaryWeaponStats)
+    {
+        D2UnitStrc* pLeftHandWeapon = INVENTORY_GetLeftHandWeapon(pAttacker->pInventory);
+        if (pLeftHandWeapon && STATLIST_GetOwner(pLeftHandWeapon, 0))
+        {
+            STATLIST_MergeStatLists(pAttacker, pLeftHandWeapon, 0);
+        }
+
+        D2UnitStrc* pSecondaryWeapon = INVENTORY_GetSecondaryWeapon(pAttacker->pInventory);
+        if (pSecondaryWeapon && pSecondaryWeapon != pLeftHandWeapon && STATLIST_GetOwner(pSecondaryWeapon, 0))
+        {
+            STATLIST_MergeStatLists(pAttacker, pSecondaryWeapon, 0);
+        }
+    }
+
+    if (UNITS_CanDualWield(pAttacker))
+    {
+        D2UnitStrc* pWeapon = PLAYER_GetWeaponForSkill(pAttacker);
+        D2UnitStrc* pLeftHandWeapon = INVENTORY_GetLeftHandWeapon(pAttacker->pInventory);
+        if (!pWeapon)
+        {
+            if (pLeftHandWeapon)
+            {
+                if (STATLIST_GetOwner(pLeftHandWeapon, 0))
+                {
+                    STATLIST_MergeStatLists(pAttacker, pLeftHandWeapon, 1);
+                }
+            }
+        }
+        else if (pWeapon == pLeftHandWeapon)
+        {
+            D2UnitStrc* pSecondaryWeapon = INVENTORY_GetSecondaryWeapon(pAttacker->pInventory);
+            if (STATLIST_GetOwner(pLeftHandWeapon, 0))
+            {
+                STATLIST_MergeStatLists(pAttacker, pLeftHandWeapon, 1);
+            }
+
+            if (pSecondaryWeapon && STATLIST_GetOwner(pSecondaryWeapon, 0))
+            {
+                STATLIST_MergeStatLists(pAttacker, pSecondaryWeapon, 0);
+            }
+        }
+        else
+        {
+            if (STATLIST_GetOwner(pWeapon, 0))
+            {
+                STATLIST_MergeStatLists(pAttacker, pWeapon, 1);
+            }
+
+            if (pLeftHandWeapon && STATLIST_GetOwner(pLeftHandWeapon, 0))
+            {
+                STATLIST_MergeStatLists(pAttacker, pLeftHandWeapon, 0);
+            }
+        }
+    }
+}
+
+// 0x00535E20
+void __fastcall PLAYER_RestoreWeaponStats(D2UnitStrc* pTarget, int bTemporaryWeaponStats)
+{
+    if (!bTemporaryWeaponStats)
+    {
+        return;
+    }
+
+    D2UnitStrc* pLeftHandWeapon = INVENTORY_GetLeftHandWeapon(pTarget->pInventory);
+    if (pLeftHandWeapon && STATLIST_GetOwner(pLeftHandWeapon, 0))
+    {
+        STATLIST_MergeStatLists(pTarget, pLeftHandWeapon, 1);
+    }
+
+    D2UnitStrc* pSecondaryWeapon = INVENTORY_GetSecondaryWeapon(pTarget->pInventory);
+    if (pSecondaryWeapon && pSecondaryWeapon != pLeftHandWeapon)
+    {
+        if (STATLIST_GetOwner(pSecondaryWeapon, 0))
+        {
+            STATLIST_MergeStatLists(pTarget, pSecondaryWeapon, 0);
+        }
+    }
+}
+

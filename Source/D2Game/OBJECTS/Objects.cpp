@@ -2794,27 +2794,6 @@ void __fastcall OBJECTS_AppendPair(int* pCount, D2UnkPairStrc* pPairs, int nSeco
     }
 }
 
-// 0x00555D20
-void __fastcall ITEMMODE_InitializeItemUnit(D2UnitStrc* pUnit, D2GameStrc* pGame, int nUnitGUID, D2ActiveRoomStrc* pRoom)
-{
-    if (pUnit)
-    {
-        pUnit->dwUnitId = nUnitGUID;
-        pUnit->dwFlags = pUnit->dwFlags & ~UNITFLAG_ISVALIDTARGET | UNITFLAG_TARGETABLE;
-    }
-
-    ITEMS_SetItemFlag(pUnit, IFLAG_IDENTIFIED, 1);
-    STATLIST_AllocStatListEx(pUnit, 0, 0, 0);
-
-    const unsigned char nQuest = DATATBLS_GetItemsTxtRecord(!pUnit ? -1 : pUnit->dwClassId)->nQuest;
-    if (nQuest)
-    {
-        QUESTS_CreateChainRecord(pGame, pUnit, nQuest - 1);
-    }
-
-    D2GAME_DeleteTimersOnUnit_6FC34A30(pGame, pUnit);
-}
-
 
 // 0x0055CA00
 int __fastcall OBJECTS_MatchFieldPair(D2UnkFieldPairStrc* pRecord1, D2UnkFieldPairStrc* pRecord2, int nValue1, int nValue2)

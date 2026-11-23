@@ -42763,16 +42763,6 @@
      "va": "0x00530EA0",
      "length": 131,
      "name": "D2GAME_SetStatOrResetGold_6FC7CA70"
-    },
-    {
-     "va": "0x00535EA0",
-     "length": 105,
-     "name": "SUNITPROXY_GetNpcRecordFromClassId"
-    },
-    {
-     "va": "0x00535F10",
-     "length": 25,
-     "name": "SUNITPROXY_GetNpcRecordFromUnit"
     }
    ]
   },
@@ -43899,6 +43889,11 @@
      "name": "sub_0052B6F0"
     },
     {
+     "va": "0x00555D20",
+     "length": 118,
+     "name": "ITEMMODE_InitializeItemUnit"
+    },
+    {
      "va": "0x00555DA0",
      "length": 94,
      "name": "D2GAME_GetFreeSpaceEx_6FC4BF00"
@@ -44440,11 +44435,6 @@
      "va": "0x00564CA0",
      "length": 6,
      "name": "_sub_00564CA0"
-    },
-    {
-     "va": "0x00568DC0",
-     "length": 147,
-     "name": "PLRSAVE2_GetItemIndex"
     },
     {
      "va": "0x00568E60",
@@ -45051,11 +45041,6 @@
      "name": "OBJECTS_AppendPair"
     },
     {
-     "va": "0x00555D20",
-     "length": 118,
-     "name": "ITEMMODE_InitializeItemUnit"
-    },
-    {
      "va": "0x0055CA00",
      "length": 57,
      "name": "OBJECTS_MatchFieldPair"
@@ -45090,11 +45075,6 @@
      "va": "0x00568D70",
      "length": 12,
      "name": "?PLRSAVE2_GetHighestClassSkillCount@@YAHXZ"
-    },
-    {
-     "va": "0x005B0BC0",
-     "length": 5,
-     "name": "?MISSMODE_SrvDo01_BasicMissile@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005DDE50",
@@ -45523,29 +45503,9 @@
      "name": "D2GAME_10029_SAVE_WriteFileInterface"
     },
     {
-     "va": "0x00534650",
-     "length": 45,
-     "name": "DEBUG_GetUnitFromTypeAndGUID"
-    },
-    {
-     "va": "0x00534680",
-     "length": 63,
-     "name": "DEBUG_GetAct"
-    },
-    {
      "va": "0x005350F0",
      "length": 208,
      "name": "PLAYER_CloseInteraction"
-    },
-    {
-     "va": "0x00535D10",
-     "length": 270,
-     "name": "?PLAYER_ApplyWeaponStatsForSkill@@YIXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x00535E20",
-     "length": 89,
-     "name": "?PLAYER_RestoreWeaponStats@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x00537230",
@@ -45582,6 +45542,16 @@
    "file": "Source/D2Game/DEBUG/Debug.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00534650",
+     "length": 45,
+     "name": "DEBUG_GetUnitFromTypeAndGUID"
+    },
+    {
+     "va": "0x00534680",
+     "length": 63,
+     "name": "DEBUG_GetAct"
+    },
     {
      "va": "0x005346C0",
      "length": 97,
@@ -45830,6 +45800,16 @@
      "va": "0x00535BC0",
      "length": 336,
      "name": "?PLAYER_GetWeaponForSkill@@YIPAUD2UnitStrc@@PAU1@@Z"
+    },
+    {
+     "va": "0x00535D10",
+     "length": 270,
+     "name": "?PLAYER_ApplyWeaponStatsForSkill@@YIXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x00535E20",
+     "length": 89,
+     "name": "?PLAYER_RestoreWeaponStats@@YIXPAUD2UnitStrc@@H@Z"
     }
    ]
   },
@@ -45848,6 +45828,16 @@
    "file": "Source/D2Game/UNIT/sunitproxy.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00535EA0",
+     "length": 105,
+     "name": "SUNITPROXY_GetNpcRecordFromClassId"
+    },
+    {
+     "va": "0x00535F10",
+     "length": 25,
+     "name": "SUNITPROXY_GetNpcRecordFromUnit"
+    },
     {
      "va": "0x00535F30",
      "length": 117,
@@ -50784,6 +50774,11 @@
    "file": "Source/D2Game/PLAYER/PlrSave2.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00568DC0",
+     "length": 147,
+     "name": "PLRSAVE2_GetItemIndex"
+    },
     {
      "va": "0x00568F20",
      "length": 1011,
@@ -58097,9 +58092,9 @@
      "name": "?MISSMODE_SrvDo37_CreateTimedSubmissiles@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
-     "va": "0x005B0D70",
-     "length": 48,
-     "name": "AITHINK_SetAiControlParams"
+     "va": "0x005B0BC0",
+     "length": 5,
+     "name": "?MISSMODE_SrvDo01_BasicMissile@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005B0F50",
@@ -58633,11 +58628,6 @@
      "length": 109
     },
     {
-     "va": "0x005A6000",
-     "length": 125,
-     "name": "PARTYSCREEN_CommandHandler"
-    },
-    {
      "va": "0x005A6130",
      "length": 94,
      "name": "FRIENDLY_AreUnitsFriendly"
@@ -58747,11 +58737,6 @@
      "va": "0x005A5650",
      "length": 62,
      "name": "?MONSTERMODE_GetHpPercent128@@YIEPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A5FF0",
-     "length": 12,
-     "name": "?PARTYSCREEN_RefreshPartyRelationsAfterLeave@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005A6190",
@@ -59260,6 +59245,16 @@
      "va": "0x005A5D50",
      "length": 98,
      "name": "PARTYSCREEN_PartyIterate_OpenHostility"
+    },
+    {
+     "va": "0x005A5FF0",
+     "length": 12,
+     "name": "?PARTYSCREEN_RefreshPartyRelationsAfterLeave@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A6000",
+     "length": 125,
+     "name": "PARTYSCREEN_CommandHandler"
     }
    ]
   },
@@ -59332,11 +59327,6 @@
      "va": "0x005B0BD0",
      "length": 231,
      "name": "?AITHINK_GetSquaredDistance@@YIHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x005B0DA0",
-     "length": 95,
-     "name": "?AITHINK_CanUnitSwitchAi@@YIHPAUD2UnitStrc@@PAUD2MonStatsTxt@@HH@Z"
     },
     {
      "va": "0x005B1BC0",
@@ -59629,9 +59619,14 @@
      "name": "?AITHINK_GetSpecialStateFromAiControl@@YIHPAUD2AiControlStrc@@@Z"
     },
     {
-     "va": "0x005E0070",
-     "length": 225,
-     "name": "?QUESTSFX_UberPrimeEvil@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "va": "0x005B0D70",
+     "length": 48,
+     "name": "AITHINK_SetAiControlParams"
+    },
+    {
+     "va": "0x005B0DA0",
+     "length": 95,
+     "name": "?AITHINK_CanUnitSwitchAi@@YIHPAUD2UnitStrc@@PAUD2MonStatsTxt@@HH@Z"
     },
     {
      "va": "0x005E0160",
@@ -62765,11 +62760,6 @@
      "name": "?SKILLITEM_GetMonEquipTxtRecord@@YIPAUD2MonEquipTxt@@H@Z"
     },
     {
-     "va": "0x005FCF30",
-     "length": 168,
-     "name": "AIBAAL_RunSpecialAiState"
-    },
-    {
      "va": "0x005FD0F0",
      "length": 269,
      "name": "?AIBAAL_SpawnUberBaalMinion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -64792,6 +64782,11 @@
      "va": "0x005E0060",
      "length": 1,
      "name": "?QUESTSFX_OnQuestCompleteModeChange@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005E0070",
+     "length": 225,
+     "name": "?QUESTSFX_UberPrimeEvil@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -64923,6 +64918,11 @@
     {
      "va": "0x005FCB60",
      "length": 972
+    },
+    {
+     "va": "0x005FCF30",
+     "length": 168,
+     "name": "AIBAAL_RunSpecialAiState"
     }
    ]
   },

@@ -3064,31 +3064,6 @@ int __stdcall D2GAME_10029_SAVE_WriteFileInterface(D2GameStrc* pGame, D2UnitStrc
     return D2GAME_SAVE_WriteFile_6FC8A500(pGame, pPlayer, szName, 0);
 }
 
-// 0x00534650
-D2UnitStrc* __stdcall DEBUG_GetUnitFromTypeAndGUID(int nUnitType, int nUnitGUID)
-{
-    D2GameStrc* pGame = sub_0052F6E0_LockFirstGame();
-    if (!pGame)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pUnit = SUNIT_GetServerUnit(pGame, nUnitType, nUnitGUID);
-    sub_0052DF40_UnlockFirstGame();
-    return pUnit;
-}
-
-// 0x00534680
-D2DrlgActStrc* __stdcall DEBUG_GetAct(int nAct)
-{
-    D2GameStrc* ptGame = sub_0052F6E0_LockFirstGame();
-    D2_ASSERT(ptGame, 105);
-
-    D2DrlgActStrc* pAct = ptGame->pAct[nAct];
-    sub_0052DF40_UnlockFirstGame();
-    return pAct;
-}
-
 static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
 {
     if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
@@ -3139,89 +3114,6 @@ void __fastcall PLAYER_CloseInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit)
 }
 
 D2UnitStrc* __fastcall PLAYER_GetWeaponForSkill(D2UnitStrc* pUnit); // 0x00535BC0
-// 0x00535D10
-void __fastcall PLAYER_ApplyWeaponStatsForSkill(D2UnitStrc* pAttacker, int bTemporaryWeaponStats)
-{
-    if (bTemporaryWeaponStats)
-    {
-        D2UnitStrc* pLeftHandWeapon = INVENTORY_GetLeftHandWeapon(pAttacker->pInventory);
-        if (pLeftHandWeapon && STATLIST_GetOwner(pLeftHandWeapon, 0))
-        {
-            STATLIST_MergeStatLists(pAttacker, pLeftHandWeapon, 0);
-        }
-
-        D2UnitStrc* pSecondaryWeapon = INVENTORY_GetSecondaryWeapon(pAttacker->pInventory);
-        if (pSecondaryWeapon && pSecondaryWeapon != pLeftHandWeapon && STATLIST_GetOwner(pSecondaryWeapon, 0))
-        {
-            STATLIST_MergeStatLists(pAttacker, pSecondaryWeapon, 0);
-        }
-    }
-
-    if (UNITS_CanDualWield(pAttacker))
-    {
-        D2UnitStrc* pWeapon = PLAYER_GetWeaponForSkill(pAttacker);
-        D2UnitStrc* pLeftHandWeapon = INVENTORY_GetLeftHandWeapon(pAttacker->pInventory);
-        if (!pWeapon)
-        {
-            if (pLeftHandWeapon)
-            {
-                if (STATLIST_GetOwner(pLeftHandWeapon, 0))
-                {
-                    STATLIST_MergeStatLists(pAttacker, pLeftHandWeapon, 1);
-                }
-            }
-        }
-        else if (pWeapon == pLeftHandWeapon)
-        {
-            D2UnitStrc* pSecondaryWeapon = INVENTORY_GetSecondaryWeapon(pAttacker->pInventory);
-            if (STATLIST_GetOwner(pLeftHandWeapon, 0))
-            {
-                STATLIST_MergeStatLists(pAttacker, pLeftHandWeapon, 1);
-            }
-
-            if (pSecondaryWeapon && STATLIST_GetOwner(pSecondaryWeapon, 0))
-            {
-                STATLIST_MergeStatLists(pAttacker, pSecondaryWeapon, 0);
-            }
-        }
-        else
-        {
-            if (STATLIST_GetOwner(pWeapon, 0))
-            {
-                STATLIST_MergeStatLists(pAttacker, pWeapon, 1);
-            }
-
-            if (pLeftHandWeapon && STATLIST_GetOwner(pLeftHandWeapon, 0))
-            {
-                STATLIST_MergeStatLists(pAttacker, pLeftHandWeapon, 0);
-            }
-        }
-    }
-}
-
-// 0x00535E20
-void __fastcall PLAYER_RestoreWeaponStats(D2UnitStrc* pTarget, int bTemporaryWeaponStats)
-{
-    if (!bTemporaryWeaponStats)
-    {
-        return;
-    }
-
-    D2UnitStrc* pLeftHandWeapon = INVENTORY_GetLeftHandWeapon(pTarget->pInventory);
-    if (pLeftHandWeapon && STATLIST_GetOwner(pLeftHandWeapon, 0))
-    {
-        STATLIST_MergeStatLists(pTarget, pLeftHandWeapon, 1);
-    }
-
-    D2UnitStrc* pSecondaryWeapon = INVENTORY_GetSecondaryWeapon(pTarget->pInventory);
-    if (pSecondaryWeapon && pSecondaryWeapon != pLeftHandWeapon)
-    {
-        if (STATLIST_GetOwner(pSecondaryWeapon, 0))
-        {
-            STATLIST_MergeStatLists(pTarget, pSecondaryWeapon, 0);
-        }
-    }
-}
 
 void __stdcall SUNITPROXY_RemoveInventoryItems(D2GameStrc* pGame, D2InventoryStrc* pInventory); // 0x00536510
 // 0x00536580
