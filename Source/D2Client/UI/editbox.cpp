@@ -11,15 +11,41 @@ class EditBoxImplementation;
 class ButtonWrapper;
 class EditBoxWrapper;
 class SpinnerImplementation;
-class D2InterfaceStrc;
-class D2WrapperStrc;
+
+void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
+
+// build: symbol ??1ButtonWrapper@@UAE@XZ 0x004BADD0
+// build: symbol ??1EditBoxImplementation@@UAE@XZ 0x004BB170
+// build: symbol ??1EditBoxWrapper@@UAE@XZ 0x004BB9F0
+// build: symbol ??1UIWidget@@UAE@XZ 0x004BE080
+// build: symbol ??_7ButtonImplementation@@6B@ 0x006DA6F4
+// build: symbol ??_GButtonImplementation@@UAEPAXI@Z 0x004BAFD0
+// build: symbol ??_GButtonWrapper@@UAEPAXI@Z 0x004BAE30
+// build: symbol ??_GEditBoxImplementation@@UAEPAXI@Z 0x004BBD50
+// build: symbol ??_GEditBoxWrapper@@UAEPAXI@Z 0x004BBA50
+
+#pragma pack(push, 2)
 
 class UIWidget
 {
 public:
-    virtual ~UIWidget();
+    static void* operator new(size_t nSize)
+    {
+// build: symbol ?gszNew@* 0x006CC82C
+        return SMemAlloc(nSize, gszNew, -1, 0);
+    }
+
+    static void operator delete(void* pMemory)
+    {
+        if (pMemory)
+        {
+            SMemFree(pMemory, "delete", -1, 0);
+        }
+    }
+
+    virtual ~UIWidget() = 0;
     virtual void Slot01() = 0;
     virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg) = 0;
     virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg) = 0;
@@ -32,30 +58,14 @@ public:
     virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg) = 0;
     virtual int Slot11() = 0;
 
-    void operator delete(void* pMemory)
-    {
-        if (pMemory)
-        {
-            SMemFree(pMemory, "delete", -1, 0);
-        }
-    }
-
     int unk0x04;
 };
 
-// build: symbol ??1ButtonWrapper@@UAE@XZ 0x004BADD0
-// build: symbol ??1EditBoxImplementation@@UAE@XZ 0x004BB170
-// build: symbol ??1EditBoxWrapper@@UAE@XZ 0x004BB9F0
-// build: symbol ??1UIWidget@@UAE@XZ 0x004BE080
-// build: symbol ??_7ButtonImplementation@@6B@ 0x006DA6F4
-// build: symbol ??_GButtonImplementation@@UAEPAXI@Z 0x004BAFD0
-// build: symbol ??_GButtonWrapper@@UAEPAXI@Z 0x004BAE30
-// build: symbol ??_GEditBoxImplementation@@UAEPAXI@Z 0x004BBD50
-// build: symbol ??_GEditBoxWrapper@@UAEPAXI@Z 0x004BBA50
 // 0x004BAFD0
 class ButtonImplementation : public UIWidget
 {
 public:
+    ButtonImplementation(int nX, int nY, int nStringSlot, int (__cdecl* pfnCallback)());
     virtual ~ButtonImplementation();
     virtual void Slot01();
     virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
@@ -74,7 +84,7 @@ public:
 
     int nX;
     int nY;
-    char unk0x10[0x08];
+    int unk0x10[2];
     int nHeight;
     int nWidth;
     int f_20;
@@ -82,50 +92,133 @@ public:
     int (__cdecl* pfnCallback)();
     int unk0x2C;
     unsigned short nBaseFrame;
-    unsigned char nStringSlot[4];
-};
-
-// 0x004BBD50
-class EditBoxImplementation : public UIWidget
-{
-public:
-    EditBoxImplementation();
-    virtual ~EditBoxImplementation();
-    virtual void sub_004BB5B0_Slot12(char* szBuffer);
-
-    char unk0x08[0x20];
-    Unicode* pText;
-    char unk0x2C[8];
-    unsigned short nMaxLength;
+    int nStringSlot;
 };
 
 // 0x004BAE30
 class ButtonWrapper : public UIWidget
 {
 public:
+    ButtonWrapper(int nX, int nY, int nStringSlot, int (__cdecl* pfnCallback)());
     ButtonWrapper();
     virtual ~ButtonWrapper();
+    virtual void Slot01();
+    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
+    virtual int Slot11();
+    virtual void sub_004BAF10_SetUnk24(int nValue);
 
     ButtonImplementation* pImpl;
+};
+
+// 0x004BBD50
+class EditBoxImplementation : public UIWidget
+{
+public:
+    EditBoxImplementation(int nX, int nY, int nTextWidth, int nHeight, int nArg10, unsigned short nMaxLength, int nArg18,
+        int nFont);
+    EditBoxImplementation();
+    virtual ~EditBoxImplementation();
+    virtual void Slot01();
+    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
+    virtual int Slot11();
+    virtual void sub_004BB5B0_Slot12(char* szBuffer);
+    virtual void Slot13();
+    virtual void sub_004BB530_Slot14();
+    virtual void sub_004BB4D0_Slot15();
+    virtual void sub_004BB990_SetUnk18(int nValue);
+    virtual void sub_004BB9A0_SetUnk24(int nValue);
+    virtual void sub_004BB200_SetUnk20(int nValue);
+
+    void sub_004BB980_SetUnk04(int nValue);
+
+    int nX;
+    int nY;
+    int nTextX;
+    int nTextY;
+    int nTextWidth;
+    int nHeight;
+    int unk0x20;
+    int unk0x24;
+    Unicode* pText;
+    Unicode* pTextCopy;
+    int nMaxValue;
+    unsigned short nMaxLength;
+    int unk0x36;
+    int unk0x3A;
+    int unk0x3E;
+    int unk0x42;
+    int unk0x46;
+    int unk0x4A;
+    int nFont;
+    void* pCellFile;
+    int unk0x56;
 };
 
 // 0x004BBA50
 class EditBoxWrapper : public UIWidget
 {
 public:
+    EditBoxWrapper(int nX, int nY, int nTextWidth, int nHeight, int nArg10, unsigned short nMaxLength, int nArg18,
+        int nFont);
     EditBoxWrapper();
     virtual ~EditBoxWrapper();
+    virtual void Slot01();
+    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
+    virtual int Slot11();
+    virtual void sub_004BBB30_Slot12(int nValue);
+    virtual void sub_004BBB50_Slot13();
+    virtual void sub_004BBB40_Slot14();
+    virtual void sub_004BBB60_Slot15();
+    virtual void sub_004BBB80_Forward(int nArg);
+    virtual void sub_004BBB90_SetUnk24(int nValue);
+    virtual void sub_004BBBA0_SetUnk20(int nValue);
+
+    void sub_004BBB70_SetUnk04(int nValue);
 
     EditBoxImplementation* pImpl;
 };
 
-#pragma pack(push, 2)
-
 class SpinnerImplementation : public UIWidget
 {
 public:
+    SpinnerImplementation(int nX, int nY, int bHorizontal, int nArg0C);
+    virtual ~SpinnerImplementation();
+    virtual void Slot01();
     virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
+    virtual int Slot11();
+    virtual int sub_004BBFB0();
 
     int HitTestUpArrow(SMSGHANDLER_PARAMS* pMsg);
     int HitTestDownArrow(SMSGHANDLER_PARAMS* pMsg);
@@ -143,9 +236,38 @@ public:
     int unk0x30;
     int unk0x34;
     int unk0x38;
+    void (__cdecl* pfnCallback)();
+    unsigned int unk0x40;
+    unsigned int unk0x44;
+    unsigned int unk0x48;
+    int unk0x4C;
+    void* pCellFile;
+};
+
+class SpinnerWrapper : public UIWidget
+{
+public:
+    SpinnerWrapper(int nX, int nY, int bHorizontal, int nArg0C);
+    virtual ~SpinnerWrapper();
+    virtual void Slot01();
+    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
+    virtual int Slot11();
+    virtual int sub_004BC330_ForwardSlot30(int nArg);
+
+    SpinnerImplementation* pImpl;
 };
 
 #pragma pack(pop)
+
+
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __cdecl sub_00468730(); // 0x00468730
@@ -158,52 +280,6 @@ int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 extern D2ButtonStringStrc gaButtonStrings[]; // 0x007275A8
-
-class D2InterfaceStrc
-{
-public:
-    virtual void slot00() = 0;
-    virtual void slot01() = 0;
-    virtual void slot02() = 0;
-    virtual void slot03() = 0;
-    virtual void slot04() = 0;
-    virtual void slot05() = 0;
-    virtual void slot06() = 0;
-    virtual void slot07() = 0;
-    virtual void slot08() = 0;
-    virtual void slot09() = 0;
-    virtual void slot10() = 0;
-    virtual void slot11() = 0;
-    virtual void slot12() = 0;
-    virtual void slot13() = 0;
-    virtual void slot14() = 0;
-    virtual void slot15() = 0;
-    virtual void slot16(int nArg) = 0;
-};
-
-class D2WrapperStrc
-{
-public:
-    virtual void slot00() = 0;
-    virtual void slot01() = 0;
-    virtual void slot02() = 0;
-    virtual void slot03() = 0;
-    virtual void slot04() = 0;
-    virtual void slot05() = 0;
-    virtual void slot06() = 0;
-    virtual void slot07() = 0;
-    virtual void slot08() = 0;
-    virtual void slot09() = 0;
-    virtual void slot10() = 0;
-    virtual void slot11() = 0;
-    virtual void slot12() = 0;
-    virtual void slot13() = 0;
-    virtual void slot14() = 0;
-    virtual void slot15() = 0;
-    virtual void sub_004BBB80_Forward(int nArg);
-    int unk0x04;
-    D2InterfaceStrc* pImplementation;
-};
 
 // 0x004BAC00
 int ButtonImplementation::HitTestButton(SMSGHANDLER_PARAMS* pMsg)
@@ -267,7 +343,7 @@ void ButtonImplementation::Slot01()
     if (nPosX >= nX && nPosX <= nX + nWidth && nPosY >= nY - nHeight && nPosY <= nY)
     {
         const int nOldFont = sub_00502EF0(1);
-        const Unicode* wszText = D2LANG_GetStringFromTblIndex(gaButtonStrings[*(int*)nStringSlot].nStringIndex);
+        const Unicode* wszText = D2LANG_GetStringFromTblIndex(gaButtonStrings[nStringSlot].nStringIndex);
         const int nTextWidth = D2Win_10121_GetTextWidth(wszText);
         D2Win_10117_DrawText(wszText, nX + (nWidth - nTextWidth) / 2, nY - nHeight - 5, 0, 0);
         sub_00502EF0(nOldFont);
@@ -319,8 +395,9 @@ EditBoxImplementation::EditBoxImplementation()
     pText = 0;
 }
 
+// build: symbol ?MsgSlot02@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB5F0
 // 0x004BB5F0
-int __stdcall SKILLS_Return0(int nUnused)
+int EditBoxImplementation::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
 {
     return 0;
 }
@@ -342,12 +419,13 @@ void __stdcall sub_006460E0_Empty(int nUnused)
 }
 
 // 0x004BBB80
-void D2WrapperStrc::sub_004BBB80_Forward(int nArg)
+void EditBoxWrapper::sub_004BBB80_Forward(int nArg)
 {
-    pImplementation->slot16(nArg);
+    pImpl->sub_004BB990_SetUnk18(nArg);
 }
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
+// build: symbol ?MsgSlot02@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC050
 // 0x004BC050
 int SpinnerImplementation::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
 {
