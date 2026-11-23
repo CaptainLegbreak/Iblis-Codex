@@ -22681,6 +22681,11 @@
      "name": "?sub_0047B5C0_DrawImeCandidates@@YAXXZ"
     },
     {
+     "va": "0x0047B720",
+     "length": 672,
+     "name": "?sub_0047B720_DrawChatPanel@@YAXXZ"
+    },
+    {
      "va": "0x0047B9C0",
      "length": 50,
      "name": "?CHAT_RecallChatLine@@YAXXZ"
@@ -23218,31 +23223,6 @@
      "va": "0x004BF9C0",
      "length": 1,
      "name": "?sub_004BF9C0_Nop@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0047B720.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0047B720",
-     "length": 672,
-     "name": "?sub_0047B720_DrawChatPanel@@YAXXZ"
     }
    ],
    "flags": [
