@@ -1617,6 +1617,12 @@ extern "C" __declspec(dllexport) void __stdcall STATLIST_SetListExpireFrame(Obj0
     }
 }
 
+// 0x006260D0
+void __stdcall STATLIST_SetSkillId(D2StatListStrc* pStatList, int nSkillId)
+{
+    pStatList->dwSkillNo = nSkillId;
+}
+
 // 0x006260E0
 D2SkillStrc* __stdcall STATLIST_GetSkillId(D2StatListStrc* pStatList)
 {
