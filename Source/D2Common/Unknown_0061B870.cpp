@@ -5,7 +5,6 @@
 struct D2DrlgActStrc;
 struct D2Entry0061B7E0Strc;
 struct D2Owner0061B7E0Strc;
-struct D2DrlgEnvironmentStrc;
 
 struct D2Entry0061B7E0Strc
 {
@@ -23,27 +22,6 @@ struct D2Owner0061B7E0Strc
 {
     unsigned char unk_00[0xA0];
     D2Entry0061B7E0Strc pEntries[4];
-};
-
-struct D2DrlgEnvironmentStrc
-{
-    int nCycleIndex;
-    int nPeriodOfDay;
-    int nTicks;
-    int nIntensity;
-    unsigned int dwInitTick;
-    int unk0x14;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char unk0x1B;
-    float fCos;
-    float fLast;
-    float fSin;
-    int nTimeRate;
-    int nTimeRateIndex;
-    int bEclipse;
-    int nPrev;
 };
 
 
