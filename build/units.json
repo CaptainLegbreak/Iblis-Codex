@@ -32327,6 +32327,10 @@
      "name": "?sub_004DD060_Occludes@@YGHPAURoom@@PAUTile@@@Z"
     },
     {
+     "va": "0x004DD180",
+     "length": 453
+    },
+    {
      "va": "0x004DD350",
      "length": 257
     },
@@ -32379,6 +32383,14 @@
      "name": "?sub_004DDEF0_BuildLargeGrid@@YGXHHHPAUD2GridCellStrc@@@Z"
     },
     {
+     "va": "0x004DDFD0",
+     "length": 160
+    },
+    {
+     "va": "0x004DE260",
+     "length": 430
+    },
+    {
      "va": "0x004DE410",
      "length": 541
     },
@@ -32387,38 +32399,6 @@
      "length": 819,
      "name": "?sub_004DE730_UpdateView@D2FloorTileViewStrc@@QAEXPAX@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004DD180.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004DD180",
-     "length": 453
-    },
-    {
-     "va": "0x004DDFD0",
-     "length": 160
-    },
-    {
-     "va": "0x004DE260",
-     "length": 430
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
