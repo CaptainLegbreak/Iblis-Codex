@@ -65594,11 +65594,6 @@
      "name": "DATATBLS_GetAnimData"
     },
     {
-     "va": "0x0063E050",
-     "length": 3,
-     "name": "sub_0063E050"
-    },
-    {
      "va": "0x0063EBC0",
      "length": 3,
      "name": "sub_0063EBC0"
@@ -72648,6 +72643,11 @@
      "va": "0x0063E020",
      "length": 43,
      "name": "INVENTORY_GetItemNodePage"
+    },
+    {
+     "va": "0x0063E050",
+     "length": 3,
+     "name": "sub_0063E050"
     },
     {
      "va": "0x0063E060",

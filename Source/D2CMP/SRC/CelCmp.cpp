@@ -4158,11 +4158,6 @@ int __cdecl DATATBLS_GetAnimData()
     return gpAnimData;
 }
 
-// 0x0063E050
-void __stdcall sub_0063E050(int nUnused1, int nUnused2)
-{
-}
-
 // 0x0063EBC0
 void __stdcall sub_0063EBC0(int nUnused1, int nUnused2)
 {
