@@ -1,4 +1,8 @@
 #include "D2LevelIds.h"
+#include "D2CmpTileRecord.h"
+#include "D2GameTypes.h"
+#include "D2CmpTypes.h"
+#include "D2LRUNode.h"
 
 #include "D2Common.h"
 
@@ -835,6 +839,12 @@ inline D2DrlgLevelStrc* DRLG_InlineGetLevel(D2DrlgStrc* pDrlg, int nLevelId)
     }
 
     return DRLG_AllocLevel(pDrlg, nLevelId);
+}
+
+// 0x00642740
+int __cdecl sub_00642740()
+{
+    return 0;
 }
 
 // 0x00642750

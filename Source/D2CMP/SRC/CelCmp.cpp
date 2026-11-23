@@ -4164,12 +4164,6 @@ int __cdecl DATATBLS_GetShrinesTxtRecordCount()
     return gdwGlobal_0096D46C;
 }
 
-// 0x00642740
-int __cdecl sub_00642740()
-{
-    return 0;
-}
-
 // 0x00600C00
 void __stdcall D2CMPPalShiftSetAct(int nMode)
 {
