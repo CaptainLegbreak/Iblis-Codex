@@ -11413,6 +11413,11 @@
      "name": "?sub_00445DF0_CreateJoinScreen@@YAXXZ"
     },
     {
+     "va": "0x00445FF0",
+     "length": 1934,
+     "name": "?sub_00445FF0_BuildCreateScreen@@YAXXZ"
+    },
+    {
      "va": "0x00446780",
      "length": 67,
      "name": "?COMCALLBACK_OpenJoinScreen@@YGHH@Z"
@@ -13498,17 +13503,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_00445FF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00445FF0",
-     "length": 1934,
-     "name": "?sub_00445FF0_BuildCreateScreen@@YAXXZ"
-    }
    ]
   },
   {
