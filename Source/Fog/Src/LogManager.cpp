@@ -2,6 +2,7 @@
 #include "D2GameTypes.h"
 #include "D2FogTypes.h"
 #include "D2StormLink.h"
+
 struct D2FindDataStrc
 {
     unsigned long dwFileAttributes;
@@ -15,115 +16,221 @@ struct D2FindDataStrc
     char cFileName[260];
     char cAlternateFileName[14];
 };
+
 extern "C" __declspec(dllimport) void* __stdcall FindFirstFileA(const char* szFileName, D2FindDataStrc* pFindData); // 0x006CC1CC
+
 extern "C" __declspec(dllimport) int __stdcall FindNextFileA(void* hFindFile, D2FindDataStrc* pFindData);  // 0x006CC1C8
+
 unsigned long gdwLastLogSweep;                                                                     // 0x0075E874
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CriticalSectionStrc;
+
 struct D2ExceptionPointersStrc;
+
 struct D2LogMessageStrc;
+
 struct D2StormLinkStrc;
+
 struct sub_0040F530;
+
 struct sub_0040F810;
+
 struct D2ChatStormLinkStrc;
+
 struct D2ChatStormLinkAStrc;
+
 struct D2ChatStormLinkBStrc;
+
 struct D2ChatStormNodeStrc;
+
 struct D2ChatStormBaseArrayAStrc;
+
 struct D2ChatStormBaseArrayBStrc;
+
 struct D2ChatStormListAStrc;
+
 struct D2ChatStormListBStrc;
+
 struct D2ChatStormHashTableStrc;
+
 struct D2ChatStormCtorLinkStrc;
+
 struct D2ChatStormListCStrc;
+
 struct D2ChatStormListDStrc;
+
 struct D2ChatStormListEStrc;
+
 struct D2CommonStormSlotLinkStrc;
+
 struct D2CommonStormSlotListAStrc;
+
 struct D2CommonStormSlotListBStrc;
+
 struct D2CommonMappingEntryNodeBaseStrc;
+
 struct D2CommonMappingEntryNodeStrc;
+
 struct D2CommonStringEntryNodeStrc;
+
 struct D2CommonStormHashTableAStrc;
+
 struct sub_0040F7D0;
+
 struct sub_00417810;
+
 struct sub_00417860;
+
 struct sub_004178C0;
+
 struct sub_00417900;
+
 struct sub_00417950;
+
 struct sub_004179B0;
+
 struct sub_004183F0;
+
 struct sub_00418430;
+
 struct sub_00418780;
+
 struct sub_004187C0;
+
 struct sub_00418800;
+
 struct sub_00418840;
+
 struct sub_00418880;
+
 struct sub_004188C0;
+
 struct sub_00418BA0;
+
 struct sub_00418BE0;
+
 struct sub_00418C20;
+
 struct sub_00418E10;
+
 struct sub_0041C3D0;
+
 struct sub_0041C500;
+
 struct sub_0041C730;
+
 struct sub_0041C800;
+
 struct sub_00420430;
+
 struct sub_004204B0;
+
 struct sub_00420710;
+
 struct sub_004207E0;
+
 struct sub_00426960;
+
 struct sub_00426A80;
+
 struct sub_00426CB0;
+
 struct sub_00426D80;
+
 struct sub_0044DDD0;
+
 struct sub_0044DE90;
+
 struct sub_0044ECC0;
+
 struct sub_0044ED50;
+
 struct sub_00601BF0;
+
 struct sub_00601C70;
+
 struct sub_00601D60;
+
 struct sub_00601F20;
+
 struct sub_00601F60;
+
 struct sub_006020D0;
+
 struct sub_00602140;
+
 struct sub_006024A0;
+
 struct sub_00602760;
+
 struct sub_00417780;
+
 struct sub_00417850;
+
 struct sub_004178B0;
+
 struct sub_00417940;
+
 struct sub_00417990;
+
 struct sub_00418760;
+
 struct sub_00418770;
+
 struct sub_00418A40;
+
 struct sub_00418DE0;
+
 struct sub_00418DF0;
+
 struct sub_00418E00;
+
 struct sub_00418E50;
+
 struct sub_00418FF0;
+
 struct sub_00419060;
+
 struct sub_0041C4F0;
+
 struct sub_0041C720;
+
 struct sub_0041C7F0;
+
 struct sub_004204A0;
+
 struct sub_00420700;
+
 struct sub_004207D0;
+
 struct sub_00426CA0;
+
 struct sub_00426D70;
+
 struct sub_0044BDE0;
+
 struct sub_0044ED40;
+
 struct sub_0044ED90;
+
 struct sub_00601F10;
+
 struct sub_00602130;
+
 struct sub_00602180;
+
 struct sub_00602420;
+
 struct sub_00602750;
+
 struct D2SystemTimeStrc;
+
 struct D2FileTimeStrc;
+
 struct D2LogMsgLinkStrc;
+
 struct D2LogMsgNodeStrc;
 
 struct D2ExceptionPointersStrc
@@ -133,26 +240,47 @@ struct D2ExceptionPointersStrc
 };
 
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
+
 extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent); // 0x006CC130
+
 extern "C" __declspec(dllimport) void* __stdcall GetCurrentProcess(); // 0x006CC13C
+
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
+
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
+
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
+
 extern "C" size_t __cdecl fread(void* pBuffer, size_t nSize, size_t nCount, _iobuf* pFile); // 0x00684782
+
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
+
 void __cdecl ERRORMANAGER_SetMiniDumpThreadName(); // 0x00401A70
+
 void __cdecl sub_004026D0_WriteMiniDump(); // 0x004026D0
+
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
 int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext); // 0x0040CC10
+
 _iobuf* __fastcall sub_0040EBD0_OpenDatedLogFile(const char* szName, D2SystemTimeStrc* pTime, const char* szMode, int* pbNew, char* szPathOut, unsigned int nPathOutSize); // 0x0040EBD0
+
 void __fastcall LOGMANAGER_GetLogDirectory(char* szDirectory, int nSize); // 0x0040F000
+
 void __fastcall EXCEPTIONS_CloseNamedLog(const char* szName); // 0x0040F470
+
 void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle, unsigned long dwAddress, unsigned int nSize, int nArg5, int nArg6, int nArg7); // 0x00410040
+
 void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410660
+
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern int gbImageHlpLoaded; // 0x0075D014
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 struct D2LogMessageStrc
@@ -174,16 +302,27 @@ struct D2LogMessageStrc
 };
 
 extern "C" int __cdecl sscanf(const char* szSource, const char* szFormat, ...); // 0x00684BD5
+
 extern "C" __declspec(dllimport) long __stdcall SHGetFolderPathA(void* hWnd, int nFolder, void* hToken, unsigned long dwFlags, char* szPath); // 0x006CC43C
+
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
+
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
+
 int __fastcall FOG_CreatePathHierarchy(const char* szPath); // 0x00406A10
+
 int __fastcall ERRORMANAGER_AppendBackslash(char* szPath, unsigned int nSize); // 0x00406B20
+
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
+
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
+
 extern int gbLogInitialized; // 0x0075D2EC
+
 extern int gnLogQueueCount; // 0x0075E870
+
 extern D2CriticalSectionStrc gtLogQueueLock; // 0x0075E838
+
 _iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot); // 0x0040EDE0
 
 struct sub_0040F530
@@ -199,6 +338,7 @@ struct sub_0040F810
 };
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
+
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
 struct D2ChatStormLinkStrc
@@ -1724,135 +1864,114 @@ sub_00426D80::~sub_00426D80()
     f_0.Unlink();
 }
 
-// 0x0044BDE0
 sub_0044BDE0::sub_0044BDE0()
 {
     f_0.m_prevlink = 0;
     f_0.m_next = 0;
 }
 
-// 0x0044DDD0
 sub_0044DDD0::~sub_0044DDD0()
 {
     f_0.Unlink();
 }
 
-// 0x0044DE90
 sub_0044DE90::~sub_0044DE90()
 {
     f_0.Unlink();
 }
 
-// 0x0044ECC0
 sub_0044ECC0::~sub_0044ECC0()
 {
     f_0.Unlink();
 }
 
-// 0x0044ED40
 sub_0044ED40::sub_0044ED40()
 {
     f_0.m_prevlink = 0;
     f_0.m_next = 0;
 }
 
-// 0x0044ED50
 sub_0044ED50::~sub_0044ED50()
 {
     f_0.Unlink();
 }
 
-// 0x0044ED90
 sub_0044ED90::sub_0044ED90()
 {
     f_0.m_prevlink = 0;
     f_0.m_next = 0;
 }
 
-// 0x00601BF0
 sub_00601BF0::~sub_00601BF0()
 {
     f_0.Unlink();
 }
 
-// 0x00601C70
 sub_00601C70::~sub_00601C70()
 {
     f_0.Unlink();
 }
 
-// 0x00601D60
 sub_00601D60::~sub_00601D60()
 {
     f_0.Unlink();
 }
 
-// 0x00601F10
 sub_00601F10::sub_00601F10()
 {
     f_0.m_prevlink = 0;
     f_0.m_next = 0;
 }
 
-// 0x00601F20
 sub_00601F20::~sub_00601F20()
 {
     f_0.Unlink();
 }
 
-// 0x00601F60
 sub_00601F60::~sub_00601F60()
 {
     f_0.Unlink();
 }
 
-// 0x006020D0
 sub_006020D0::~sub_006020D0()
 {
     f_0.Unlink();
 }
 
-// 0x00602130
 sub_00602130::sub_00602130()
 {
     f_0.m_prevlink = 0;
     f_0.m_next = 0;
 }
 
-// 0x00602140
 sub_00602140::~sub_00602140()
 {
     f_0.Unlink();
 }
 
-// 0x00602180
 sub_00602180::sub_00602180()
 {
     f_0.m_prevlink = 0;
     f_0.m_next = 0;
 }
 
-// 0x00602420
 sub_00602420::sub_00602420()
 {
     f_0.m_prevlink = 0;
     f_0.m_next = 0;
 }
 
-// 0x006024A0
 sub_006024A0::~sub_006024A0()
 {
     f_0.Unlink();
 }
 
-// 0x00602750
 sub_00602750::sub_00602750()
 {
     f_0.m_prevlink = 0;
     f_0.m_next = 0;
 }
 
-// 0x00602760
 sub_00602760::~sub_00602760()
 {
     f_0.Unlink();
@@ -1998,3 +2117,6 @@ void __cdecl LOGMANAGER_SweepOldLogFiles()
         FindClose(hFind);
     }
 }
+
+// 0x0040F590
+extern "C" void* __fastcall sub_0040F590(void* value) { return value; }

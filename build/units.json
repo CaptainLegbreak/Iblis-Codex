@@ -1392,6 +1392,11 @@
      "name": "??1sub_0040F530@@QAE@XZ"
     },
     {
+     "va": "0x0040F590",
+     "length": 3,
+     "name": "@sub_0040F590@4"
+    },
+    {
      "va": "0x0040F5A0",
      "length": 84,
      "name": "LOGMANAGER_SetLogPrefix"
@@ -5218,17 +5223,6 @@
      "va": "0x0040F580",
      "length": 11,
      "name": "?sub_0040F580_InitTerminator@@YIXPAUD2StormListStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_0040F590.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0040F590",
-     "length": 3,
-     "name": "@sub_0040F590@4"
     }
    ]
   },
