@@ -36786,11 +36786,6 @@
      "name": "ANIMIMAGE_Create"
     },
     {
-     "va": "0x005009A0",
-     "length": 40,
-     "name": "@BUTTON_SetIsPressed@8"
-    },
-    {
      "va": "0x00500B20",
      "length": 40,
      "name": "@BUTTON_SetBaseFrame@8"
@@ -36825,6 +36820,11 @@
      "va": "0x00500960",
      "length": 54,
      "name": "?BUTTON_IsPressed@@YIHPAUD2WinButtonStrc@@@Z"
+    },
+    {
+     "va": "0x005009A0",
+     "length": 40,
+     "name": "@BUTTON_SetIsPressed@8"
     },
     {
      "va": "0x005009D0",

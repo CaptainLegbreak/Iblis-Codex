@@ -1,7 +1,11 @@
 #include "D2Win.h"
+
 #include "D2WinTypes.h"
+
 #include "D2CelContext.h"
+
 #include "D2WinControls.h"
+
 #include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -295,14 +299,6 @@ int __fastcall ANIMIMAGE_Draw(D2WinControlStrc* pControl)
     }
 
     return 1;
-}
-
-// 0x005009A0
-extern "C" void __fastcall BUTTON_SetIsPressed(D2WinButtonStrc* ptBtnData, int bIsPressed)
-{
-    D2_ASSERT(ptBtnData->controlHeader.eType == D2WIN_TYPE_6, 0x72);
-    ptBtnData->bIsPressed = bIsPressed;
-    ptBtnData->bIsCallbackPending = bIsPressed;
 }
 
 // 0x00500B20
