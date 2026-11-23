@@ -41136,11 +41136,6 @@
      "va": "0x0052B100",
      "length": 235,
      "name": "SERVER_ValidateClientPacket"
-    },
-    {
-     "va": "0x0052B720",
-     "length": 37,
-     "name": "SERVER_OnClientConnectedCallback"
     }
    ]
   },
@@ -44024,6 +44019,11 @@
      "va": "0x0052B700",
      "length": 23,
      "name": "D2NET_10029_Return"
+    },
+    {
+     "va": "0x0052B720",
+     "length": 37,
+     "name": "SERVER_OnClientConnectedCallback"
     },
     {
      "va": "0x0052B750",

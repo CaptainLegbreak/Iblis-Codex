@@ -1922,6 +1922,7 @@ int __fastcall BNSEND_GetChangePasswordResult(int* pResult)
 }
 
 extern long volatile gpSocket_00881BF0; // 0x00881BF0
+
 extern const char gszLineEnd_006FFCB0[]; // 0x006FFCB0
 
 // 0x0051C570
@@ -2592,16 +2593,6 @@ int __fastcall SERVER_ValidateClientPacket(D2PacketBufferStrc* pPacketBuffer, in
         }
     }
     return 3;
-}
-
-// 0x0052B720
-int __fastcall SERVER_OnClientConnectedCallback(QServer* pServer, int nClientId, const char* szFile, int nLine)
-{
-    unsigned char data[2];
-    data[0] = 0xAF;
-    data[1] = 1;
-    sub_0052B330(0, nClientId, data, sizeof(data));
-    return 1;
 }
 
 #include "gen/data/Source/D2BNClient/BnSend.inc"
