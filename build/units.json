@@ -27057,22 +27057,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004B82F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BABC0",
-     "length": 26,
-     "name": "?sub_004BABC0_ToggleHints@@YAXXZ"
-    },
-    {
-     "va": "0x004BE060",
-     "length": 26,
-     "name": "?sub_004BE060@@YAXXZ"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004B9200.cpp",
    "functions": [
     {
@@ -27511,6 +27495,11 @@
      "va": "0x004BAA50",
      "length": 86,
      "name": "?SOUNDINST_LockSpeechSounds@@YAXXZ"
+    },
+    {
+     "va": "0x004BABC0",
+     "length": 26,
+     "name": "?sub_004BABC0_ToggleHints@@YAXXZ"
     }
    ]
   },
@@ -28160,6 +28149,11 @@
      "va": "0x004BE020",
      "length": 56,
      "name": "?TEXT_LoadTextSliderCel@@YAXXZ"
+    },
+    {
+     "va": "0x004BE060",
+     "length": 26,
+     "name": "?sub_004BE060@@YAXXZ"
     },
     {
      "va": "0x004BE080",
