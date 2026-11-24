@@ -129,6 +129,17 @@ D2ClientSoundStrc gaHintEntries[200];                                           
 
 int gbRandomSoundTest; // 0x007C5468
 
+struct D2TimedHintEntryStrc
+{
+    int unk0x00;
+    int nHintId;
+    int nKey;
+    char unk0x0C[0x24];
+    int nState;
+};
+
+extern D2TimedHintNodeStrc* gpClientSoundList; // 0x007C5458
+
 // 0x004B93F0
 D2ClientSoundStrc* __cdecl SOUNDINST_AllocSoundEntry()
 {
@@ -222,6 +233,20 @@ void* __fastcall sub_004B9610(int nHintId)
     }
     return 0;
 }
+
+// 0x004B9640
+int __fastcall VIEW_CountHintsForOwner(int nOwnerId)
+{
+    int nCount = 0;
+    for (D2TimedHintNodeStrc* pNode = gpClientSoundList; pNode; pNode = pNode->pNext)
+    {
+        D2TimedHintEntryStrc* pEntry = pNode->pEntry;
+        if (SOUNDHDR_GetSoundRecord(pEntry->nHintId)->nGroupStart == nOwnerId && pEntry->nState == 1)
+            nCount += 1;
+    }
+    return nCount;
+}
+
 
 // 0x004B9690
 D2ClientSoundStrc* __stdcall SOUNDINST_FindOldestEntry(int nGroup, D2UnitStrc* pUnit, D2ClientSoundStrc* pExclude)

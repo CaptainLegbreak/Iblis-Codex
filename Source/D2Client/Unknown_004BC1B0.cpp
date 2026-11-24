@@ -3,6 +3,7 @@
 #include "D2CelContext.h"
 #include "D2StormTypes.h"
 #include "D2ListBoxLine.h"
+#include "D2ClientTextPanel.h"
 
 class UIWidget;
 class ListBoxImplementation;
@@ -363,6 +364,40 @@ void ListBoxImplementation::sub_004BE110_UpdateScrollBar()
     unk0x180752 = nStart;
     unk0x180756 = nEnd;
 }
+
+// 0x004BE340
+int __fastcall PANEL_CountLinesInView(D2TextPanelStrc* pPanel)
+{
+    const int nLineCount = pPanel->nLineCount;
+    int nTotal = 0;
+    for (int i = 0; i < nLineCount; ++i)
+    {
+        if (i >= pPanel->nFirstLine && i < nLineCount)
+        {
+            for (int k = 0; k < 6; ++k)
+            {
+                if (pPanel->pLines[i].wszText[k][0].wChar)
+                {
+                    nTotal += *(int*)pPanel->nLineStep;
+                }
+            }
+            nTotal += *(int*)pPanel->nLineGap;
+        }
+
+        if (nTotal > pPanel->nHeight - 20)
+        {
+            i -= pPanel->nFirstLine;
+            if (i < 1)
+            {
+                i = 1;
+            }
+            return i;
+        }
+    }
+
+    return nLineCount;
+}
+
 
 // 0x004BE410
 void ListBoxImplementation::DrawClippedText(const Unicode* wszSource, int nX, int nY, int nColor)

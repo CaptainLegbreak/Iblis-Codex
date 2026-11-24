@@ -1367,8 +1367,7 @@
    "definitions": 13,
    "externs": [
     "extern \"C\" void __cdecl SKILLDESC_DrawThrowAndElemDamage(); // 0x004EAAA0",
-    "extern \"C\" void __cdecl SKILLSMON_DescIfRecord(); // 0x004EC040",
-    "extern \"C\" void __cdecl SKILLDESC_DrawElemDamage(); // 0x004EB290"
+    "extern \"C\" void __cdecl SKILLSMON_DescIfRecord(); // 0x004EC040"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004E42E0.inc",

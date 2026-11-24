@@ -120,6 +120,12 @@ static inline void sub_004C0640_ClampToScreen(int* pLeft, int* pTop, int* pRight
     }
 }
 
+void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
+
+void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
+
+void __cdecl GAME_RequestExit(); // 0x0044D520
+
 // 0x004C0640
 int __fastcall sub_004C0640_ClampRectToScreen(int* pLeft, int* pTop, int* pRight, int* pBottom, int nMode, int nMaxX, int nMinX)
 {
@@ -343,5 +349,31 @@ Placed:
         D2Win_10129_DrawFramedText(0,0,0,0,0);
     }
 }
+
+struct D2ClientValues40Strc
+{
+    char unk0x00[0x14];
+    int nValues[0x40];
+};
+
+// 0x004C0CE0
+D2ClientValues40Strc* __fastcall sub_004C0CE0_ClearValues(D2ClientValues40Strc* pValues)
+{
+    for (int i = 0; i < 0x40; ++i)
+    {
+        pValues->nValues[i] = 0;
+    }
+    return pValues;
+}
+
+// 0x004C0D00
+void __cdecl USEITEM_LeaveGame()
+{
+    sub_00477EE0();
+    GAME_SetExitApplication(0);
+    GAME_SetCinematicExit(1);
+    GAME_RequestExit();
+}
+
 
 #include "gen/data/Source/D2Client/UI/showitems.inc"

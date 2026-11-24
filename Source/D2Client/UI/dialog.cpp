@@ -250,6 +250,17 @@ int gdwGlobal_007C0E5C; // 0x007C0E5C
 
 extern int gdwGlobal_007C0E54; // 0x007C0E54
 
+struct T0045FED0
+{
+    unsigned int dwTick;
+    char unk0x04[0x50];
+    unsigned int nVersion;
+    char unk0x58[8];
+    void (__cdecl* pfnCallback)();
+};
+
+static T0045FED0* gpTimer_007C0E54;                                                                 // 0x007C0E54
+
 // 0x004B7150
 static inline void DIALOG_HoverFirstEnabledLine(D2ClientDialogStrc* pDialog)
 {
@@ -507,6 +518,34 @@ extern "C" void __stdcall DIALOG_WheelMsg(Message* message)
     message->result = 0;
     sub_00420290_QueueMessage(message);
 }
+
+// 0x004B76D0
+void __stdcall ROSTERPETS_HandleDialogEscape(SMSGHANDLER_PARAMS* pMsg)
+{
+    T0045FED0* pTimer = gpTimer_007C0E54;
+    if (pTimer && pTimer->dwTick + 0x50 > GetTickCount())
+    {
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_00420290_BreakHandlerChain(pMsg);
+        return;
+    }
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+    pTimer = gpTimer_007C0E54;
+    D2_ASSERT(pTimer, 0x1C2);
+    if (pTimer->nVersion >= 5)
+    {
+        void (__cdecl* pfnCallback)() = pTimer->pfnCallback;
+        if (pfnCallback)
+        {
+            pfnCallback();
+            UI_StartUIVarDelay();
+        }
+    }
+}
+
 
 extern "C" { SelectionState* gVar_007C0E54; } // 0x007C0E54
 

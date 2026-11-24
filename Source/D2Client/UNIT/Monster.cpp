@@ -284,9 +284,7 @@ void __stdcall sub_004DA690_ReplaceMotionFlag1With8(D2UnitStrc* pUnit); // 0x004
 
 void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet); // 0x004DA6E0
 
-extern int gdwGlobal_007C0D43; // 0x007C0D43
 
-extern int gdwGlobal_007C0D47; // 0x007C0D47
 
 extern int gbGambleShop; // 0x007C0DB0
 
@@ -3350,18 +3348,6 @@ int __cdecl sub_004B1DC0()
     return 0;
 }
 
-
-// 0x004B32D0
-int __cdecl MONSTER_GetQuestFlags()
-{
-    return gdwGlobal_007C0D43;
-}
-
-// 0x004B32E0
-int __cdecl MONSTER_GetGameQuestFlags()
-{
-    return gdwGlobal_007C0D47;
-}
 
 
 

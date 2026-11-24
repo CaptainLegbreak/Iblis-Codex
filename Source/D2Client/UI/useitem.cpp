@@ -87,11 +87,8 @@ int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); 
 
 void __fastcall sub_00467430_SetSelectionRect(const D2SelectionRectStrc* pRect); // 0x00467430
 
-void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
 
-void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
 
-void __cdecl GAME_RequestExit(); // 0x0044D520
 
 void __cdecl USEITEM_OpenPanel(); // 0x004C0380
 
@@ -706,31 +703,6 @@ void __fastcall USEITEM_OpenNpcItemPanel(int nValue)
     gnUseItemPanelMode = 1;
     gnGlobal_007C5478 = nValue;
     USEITEM_OpenPanel();
-}
-
-struct D2ClientValues40Strc
-{
-    char unk0x00[0x14];
-    int nValues[0x40];
-};
-
-// 0x004C0CE0
-D2ClientValues40Strc* __fastcall sub_004C0CE0_ClearValues(D2ClientValues40Strc* pValues)
-{
-    for (int i = 0; i < 0x40; ++i)
-    {
-        pValues->nValues[i] = 0;
-    }
-    return pValues;
-}
-
-// 0x004C0D00
-void __cdecl USEITEM_LeaveGame()
-{
-    sub_00477EE0();
-    GAME_SetExitApplication(0);
-    GAME_SetCinematicExit(1);
-    GAME_RequestExit();
 }
 
 #include "gen/data/Source/D2Client/UI/useitem.inc"

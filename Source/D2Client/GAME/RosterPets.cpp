@@ -730,31 +730,4 @@ void __stdcall ROSTERPETS_HandlePanelButtonDown(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
-// 0x004B76D0
-void __stdcall ROSTERPETS_HandleDialogEscape(SMSGHANDLER_PARAMS* pMsg)
-{
-    T0045FED0* pTimer = gpTimer_007C0E54;
-    if (pTimer && pTimer->dwTick + 0x50 > GetTickCount())
-    {
-        pMsg->bReturn = 1;
-        pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
-        return;
-    }
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-    pTimer = gpTimer_007C0E54;
-    D2_ASSERT(pTimer, 0x1C2);
-    if (pTimer->nVersion >= 5)
-    {
-        void (__cdecl* pfnCallback)() = pTimer->pfnCallback;
-        if (pfnCallback)
-        {
-            pfnCallback();
-            UI_StartUIVarDelay();
-        }
-    }
-}
-
 #include "gen/data/Source/D2Client/GAME/RosterPets.inc"
