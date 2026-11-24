@@ -4,8 +4,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane3/sfile-dtors ebf9999f 560->560 AUDIOSTREAM::~AUDIOSTREAM (0x4199A0) and REQUEST::~REQUEST (0x41A020) join SFILE.CPP (their records are in D2SFileTypes.h; SFILE.CPP calls both explicitly). Both have an EH frame because the link member is destroyed after the body, so in D2SFileTypes.h each record's link becomes `TSLink<T>` (its destructor unlinks) and the two TSLink destructors map to 0x418BE0/0x418C20. SFILE.CPP now builds with /EHsc, like the piece did; all its other functions stay equal, and so do D2SFileTypes.h's 7 other includers. VERIFIED 2d9e9a48 on base fab0b88c (j69; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 12,878 B), then rebased onto 983bd7b1 (j70) without conflicts and prechecked. Not stacked.
-- lane3/storm-strays b0fe7669 561->560 0x415160 (D2StormQuadStrc copy) joins SFILE.CPP: it sits between 0x415140 (the same record's constructor) and 0x415190, and SFILE.CPP already defines the record. The "%u" format record at 0x6CEF68 that the piece carried is read only by SREG.CPP (0x414ECF), so it moves there; SREG.CPP now includes its generated data. Unknown_00415160 goes away. VERIFIED 9803c037 on base bb83ef1e (j68; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 12,878 B), then rebased onto fab0b88c (j69) without conflicts and prechecked. Not stacked.
+- lane3/text-data 0dc79067 560->560 two lane-3 borrowed-data leads from borrowed-data.md: 0x402D60 (stack-frame formatter) uses its eight format strings (0x6FFC14-0x6FFC5C, 79 B borrowed) as literals, and the SBig random multiplier at 0x6CFF60 is defined in Unknown_00424700, its only reader. Both are now built from source. VERIFIED 506f7eaa on base 983bd7b1 (j70; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 12,527 B), then rebased onto ef2c6741 (j72) without conflicts and prechecked. Not stacked.
 
 ## Questions
 
@@ -23,6 +22,10 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 - **Lanes 1 and 4:** most of `Storm/Unknown_006C9A68.cpp`, `Unknown_006CACE0.cpp`, `Unknown_006CAA30.cpp` and `Unknown_006CAE80.cpp` are D2Client's dynamic initializers (text buffers, layout rects, hashes of "Header"/"Game Time", captions). They belong with the globals they set, in your files.
 
 ## Left in place (and why)
+
+- 0x6CD5FC "unknown" (Exceptions.cpp, 8 B): written as a literal, it isn't placed ("duplicate_definition": another object's identical `??_C@_07CIFAGBMG@unknown?$AA@` wins). It stays a name mapped to the address.
+- 0x6CCBE8 "Unknown" (ErrorManager.cpp) is already a literal, but stays copied for the same reason.
+- The SFILE.CPP pieces (SFILE_004177D0 ... SFILE_00418F20, 22 functions): a trial merge needs one list type per list. 0x418470, 0x418640, 0x4186B0, 0x418CA0 and 0x418D80 are all written as `D2ChatStormListCStrc::D2ChatStormListCStrc()`, which one unit can define only once. They are really TSList<T> constructors for different T, so the merge waits for those types.
 
 - The TSList globals' initializers and destructors (InitializeList 0x6CA7B0-0x6CA900, DestroyList 0x6CB0C0-0x6CB380, plus the SCMD.CPP ones): the compiler initializes part of each list statically (link offset 0 and a prevlink that points at itself, in .data) and only writes `m_next = ~&terminator` at run time. The data plan can't place a C++ object that has both static and dynamic parts, so they stay put.
 - `Source/Storm/zlib/inflate.c` builds with /TP (as C++) although it is a .c file. Built as C, inflate() at 0x429BB0 allocates its registers differently from the original (4,887 bytes differ, starting in the prologue). The other five zlib files build as C.
