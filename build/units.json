@@ -79447,26 +79447,22 @@
     {
      "va": "0x006C8A60",
      "length": 408
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C8C50.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006C8C50",
      "length": 47
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C8C80.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x006C8C80",
      "length": 281
+    },
+    {
+     "va": "0x006C8F70",
+     "length": 179
+    },
+    {
+     "va": "0x006C9030",
+     "length": 163
     },
     {
      "va": "0x006C90E0",
@@ -79489,6 +79485,19 @@
      "va": "0x006C9280",
      "length": 9,
      "name": "?sub_006C9280_Apply@@YIXHEHH@Z"
+    },
+    {
+     "va": "0x006C9290",
+     "length": 272
+    },
+    {
+     "va": "0x006C95C0",
+     "length": 1
+    },
+    {
+     "va": "0x006C95D0",
+     "length": 101,
+     "name": "?sub_006C95D0_DrawShifted@@YIXPAX0HHHHHHH@Z"
     }
    ]
   },
@@ -79507,57 +79516,6 @@
     {
      "va": "0x006C94B0",
      "length": 262
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C8F70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C8F70",
-     "length": 179
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C9030.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C9030",
-     "length": 163
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C9290.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C9290",
-     "length": 272
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C95C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C95C0",
-     "length": 1
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C95D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006C95D0",
-     "length": 101,
-     "name": "?sub_006C95D0_DrawShifted@@YIXPAX0HHHHHHH@Z"
     }
    ]
   },
