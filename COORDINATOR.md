@@ -4,9 +4,9 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #308 (round j71). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 12,616 B (was 15,691 B at #297).
+- `main`: #310 (round j73). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 6,376 B (was 15,691 B at #297).
 - Units 963, placeholder files 562.
-- In progress: round j72 = `lane5/task-locks`, `lane3/storm-strays`, `lane3/sfile-dtors`, `lane4/uiwidget`, `lane6/data-b`. Next: j73 = lane 2's four headers (`party-row`, `msg-record`, `save-header`, `lang-names`) together.
+- In progress: nothing; next round as branches are posted ready.
 - **`lane4/options-split` needs a rebase onto #308:** it conflicts in chat.cpp with #308's gnScreenHeight change. A 94-function move is yours to redo, not mine.
 - **Borrowed data by lane:** [borrowed-data.md](borrowed-data.md), regenerated at #305, lists every block of the 15,691 B still copied from Game.exe, with the file that owns it and how that was decided. Each lane has a section with its leads. Take them after your current branch.
 - Rounds: the coordinator polls `lane*` branches, merges by cherry-pick (skipping commits already on main by subject), checks the data plan, units.json and data includes against main plus each lane's own moves, prechecks, runs one full verify, and ships.
@@ -67,6 +67,7 @@ Work list, in order of value:
 Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the gnScreenHeight/gnPanelOffsetY operand order flips when D2ClientUi.h changes. Lane 2 tried one name for 0x711470 in those two units, among other things, and it broke them. Keep their private declarations if they don't survive the unification, and say so.
 
 ### Lane 2
+- `party-row`, `msg-record`, `save-header` and `lang-names` are in #310. D2LanguageNames.h is on main: lanes can now include it where a unit's original had a copy.
 - Language-name table: yours to start (see Decisions). Lane 5 reports copies at the ends of AiThink.cpp (twice: so it spans two original units), a3q7.cpp and MonsterChoose.cpp.
 - `sets-txt` is in #306.
 - `com-interface` is in #301. The conflict with #299 (Unknown_0043A9D0.cpp folded into CharSel.cpp) was resolved by carrying the type rename into CharSel.cpp.
@@ -100,7 +101,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 - 0x5B9A30 and 0x5947E0: listing them is right; no forcing constructs.
 
 ### Lane 6
-- `data-b` is in j72 (about −4,300 B: the biggest single cut yet).
+- `data-b` is in #309: borrowed data fell to 6,376 B in that round.
 - **Language-table runs as an object count:** yes, go ahead. A run of back-to-back copies with no other data counts objects in link order, so match the copies to code files in order. Two cautions. First, a file that includes the header twice through different paths still gets one copy, because it's one static per translation unit; Ignorelist.cpp's two copies therefore mean two units. Second, objects that define no initialized data of their own still get a copy. A gData_ block holding N copies is N files' data: split it before you place anything.
 - `cands-d` is in #299, `bss-a` in #302; `bss-a-2` and `path-a-2` are in j67. The path split by data reader is the right call.
 - From lane 3: the dynamic initializers and atexit destructors of long-lived critical sections go into the file that owns the lock. `lane3/crt-locks` shows the pattern: a `CCritSect` type plus the `// build: symbol ??__E…`/`??__F…` lines. Yours: 0x6CAE80/0x6CB420 lock 0x881860 and 0x6CAED0/0x6CB470 lock 0x881F64 (BnDownload.cpp); 0x6CAEA0/0x6CB440 lock 0x881894 (CACHE.CPP); 0x6CB010/0x6CB4E0 lock 0x96D610 (Preset.cpp). Wait for crt-locks to merge (j66) and build on its type. CharSel.cpp taking sub_0043B830/0x43B840 from Game.cpp is fine: the run and the globals settle it.
@@ -113,6 +114,8 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #310 j73: D2ClientParty.h, D2MsgRecord.h, D2SaveHeader.h, D2LanguageNames.h (lane 2).
+- #309 j72: data-b (lane 6), task-locks (lane 5), storm-strays and sfile-dtors (lane 3), uiwidget (lane 4). Borrowed data −6,240 B.
 - #308 j71: one declaration of gnScreenHeight, in D2Client.h (lane 1), alone. automap.cpp conflict resolved by the coordinator.
 - #307 j70: fog-strays and cpu-report (lane 3), warden-class (lane 4), prime-nova (lane 5).
 - #306 j69: D2SetsTxt.h, one sets.txt record (lane 2), alone.
