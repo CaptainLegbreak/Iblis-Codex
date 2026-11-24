@@ -4,9 +4,9 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #321 (round j84). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 3,415 B (was 15,691 B at #297).
+- `main`: #322 (round j85). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 3,415 B (was 15,691 B at #297).
 - Units 963, placeholder files 562.
-- In progress: round j85 = `lane4/levelevents`, `lane1/monster-4aff60-2`, `lane3/system-strays`, `lane5/lang-pad`.
+- In progress: nothing; next round as branches are posted ready.
 - **`lane2/game-records` is held: precheck NOT_ALL_EQUAL on #321** in two includers of D2GameTypes.h that the branch doesn't touch, `Source/D2Win/Src/D2Comp.cpp` and `Source/D2Game/Ai/AiThink4.cpp`. It looks like the declaration-count effect. Lane 2: rebuild every includer of D2GameTypes.h on current main. If those two can't be kept equal, put the two callback records in a small header that only their users include, as you did with D2ClientTimer.h.
 - **`lane1/keycfg-object-r` needs a rebase onto #317.** Lane 4's `keyconfig-split` (#317) already made `Unknown_004A43E0.cpp` from the same text.cpp range, so the two branches collide. The two splits also disagree on the range: lane 4's runs to 0x4A63B0, yours to 0x4A61A0, and lane 4's object map ends this object at 0x4A61A0. Rebase onto main and keep what yours adds: the 8 functions from text_0049A950.cpp, the 1 from Unknown_004A6000.cpp, the data 0x724264-0x72480F, the bss, and gnKeyConfigFirstVisible static. Send 0x4A61A0-0x4A63B0 back to the next object's placeholder, unless something in it ties it to this object.
 - **Priority for every lane after your current branch: the language-table splits.** Each one places a file boundary, and often defines borrowed data too. Your rows are in language-objects.md.
@@ -169,6 +169,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #322 j85: levelevents (lane 4), monster-4aff60-2 (lane 1), system-strays (lane 3), lang-pad (lane 5).
 - #321 j84: levelup-split, inv-split (lane 4), scomp-strays, sfile-destroy, sevt-deletenode (lane 3), lang-split-2 (lane 5), codec-a (lane 6), cmp-records-2 (lane 2).
 - #320 j83 (coordinator): 69 shims and context copies removed (shims 115 → 86, context markers 583 → 502). Each was tested alone, then all together.
 - #319 j82: sound-a-2, glcore-a, pathmisc-a (lane 6), fog-records-b (lane 2), lang-split (lane 5), sbig-copy, crypt (lane 3), winmain-split (lane 4), keycfg-extras (lane 1).
