@@ -79285,23 +79285,26 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006B1A00.cpp",
-   "rank": 1,
+   "file": "Source/D2Direct3D/Unknown_006B1A00.cpp",
+   "rank": 0,
    "functions": [
     {
      "va": "0x006B1A00",
      "length": 9
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006B1A10.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x006B1A10",
      "length": 1,
      "name": "?sub_006B1A10_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x006B1A20",
+     "length": 14
+    },
+    {
+     "va": "0x006B1A30",
+     "length": 24,
+     "name": "?sub_006B1A30_ThrowAtlException@@YAXJ@Z"
     },
     {
      "va": "0x006B1A50",
@@ -79310,6 +79313,14 @@
     {
      "va": "0x006B1A60",
      "length": 3
+    },
+    {
+     "va": "0x006B1A70",
+     "length": 26
+    },
+    {
+     "va": "0x006B1A90",
+     "length": 101
     },
     {
      "va": "0x006B1B00",
@@ -79323,47 +79334,6 @@
      "va": "0x006B1B60",
      "length": 96,
      "name": "?sub_006B1B60_EnumTextureFormat@@YGHPAUD2PixelFormat006B1B60Strc@@PAK@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006B1A20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B1A20",
-     "length": 14
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006B1A30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006B1A30",
-     "length": 24,
-     "name": "?sub_006B1A30_ThrowAtlException@@YAXJ@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006B1A70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B1A70",
-     "length": 26
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006B1A90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B1A90",
-     "length": 101
     }
    ]
   },

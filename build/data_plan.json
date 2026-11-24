@@ -4598,12 +4598,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_006B1A10.cpp": {
+  "Source/D2Direct3D/Unknown_006B1A00.cpp": {
    "bytes": 36,
    "definitions": 2,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_006B1A10.inc",
+   "include": "gen/data/Source/D2Direct3D/Unknown_006B1A00.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -152514,7 +152514,7 @@
    "cname": "gData_006CE28C",
    "declared": true,
    "decorated": "?gnFormatCap_006CE28C@@3KB",
-   "file": "Source/Storm/Unknown_006B1A10.cpp",
+   "file": "Source/D2Direct3D/Unknown_006B1A00.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned long gData_006CE28C; // 0x006CE28C",
    "head": "extern \"C\" const unsigned long gData_006CE28C = ",
@@ -152539,7 +152539,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Storm/Unknown_006B1A10.cpp",
+   "file": "Source/D2Direct3D/Unknown_006B1A00.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern D2PixelFormat006B1B60Strc gtWantedFormat_0074C024 = ",
