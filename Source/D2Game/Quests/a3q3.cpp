@@ -354,6 +354,8 @@ void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeader
 
 int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc* pQuest, int dwGUID); // 0x005452C0
 
+#include "gen/data/Source/D2Game/Quests/a3q3.inc"
+
 static int gnAct3Q3NpcMessageIndices[] =                                                                            // 0x007401B8
 {
     -1, 0, 1, 2, 3, 4
@@ -1029,5 +1031,3 @@ void __fastcall OBJECTS_InitFunction39_GidbinnAltar(D2ObjInitFnStrc* pOp)
 
     UNITS_ChangeAnimMode(pOp->pObject, pQuestDataEx->nAltarObjectMode);
 }
-
-#include "gen/data/Source/D2Game/Quests/a3q3.inc"

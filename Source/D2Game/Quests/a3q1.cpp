@@ -338,6 +338,8 @@ void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeader
 
 int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc* pQuest, int dwGUID); // 0x005452C0
 
+#include "gen/data/Source/D2Game/Quests/a3q1.inc"
+
 static int gnAct3Q1NpcMessageIndices[] =                                                                            // 0x0073F188
 {
     -1, 0, 1, 2, 3, 4
@@ -738,7 +740,7 @@ void __fastcall ACT3Q1_UnitIterate_CheckForTomeItem(D2GameStrc* pGame, D2UnitStr
     }
 }
 
-#include "gen/data/Source/D2Game/Quests/a3q1.inc"
+
 struct D2ActiveRoomStrc;
 
 // 0x005B7E90
@@ -833,4 +835,3 @@ bool __fastcall ACT3Q1_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc*
 
     return true;
 }
-

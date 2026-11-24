@@ -463,6 +463,8 @@ void __fastcall ACT1Q5_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, 
 
 void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeaderStrc* pTextControl, int nNPCID, int nIndex); // 0x00543790
 
+#include "gen/data/Source/D2Game/Quests/a1q5.inc"
+
 static unsigned int gnAct1Q5NpcMessageIndices[] =                                                                   // 0x007382AC
 {
     0xFFFFFFFF, 0xFFFFFFFF, 0, 1, 2, 3
@@ -1104,5 +1106,3 @@ void __fastcall OBJECTS_InitFunction04_TowerTome(D2ObjInitFnStrc* pOp)
     }
     D2_ASSERT(pQuestInfo, 1059);
 }
-
-#include "gen/data/Source/D2Game/Quests/a1q5.inc"
