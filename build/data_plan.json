@@ -4094,8 +4094,8 @@
    "state": "included"
   },
   "Source/Storm/SOURCE/SCMD.CPP": {
-   "bytes": 40,
-   "definitions": 3,
+   "bytes": 24,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Storm/SOURCE/SCMD.inc",
@@ -4150,8 +4150,8 @@
    "state": "included"
   },
   "Source/Storm/Unknown_006CAE80.cpp": {
-   "bytes": 8,
-   "definitions": 2,
+   "bytes": 0,
+   "definitions": 0,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Storm/Unknown_006CAE80.inc",
@@ -146442,37 +146442,6 @@
    "va": "0x006FCC24"
   },
   {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/Storm/SOURCE/SCMD.CPP",
-   "fill": 16,
-   "form": "declared_owner",
-   "fwd": null,
-   "head": "extern char gszTypeNameCmdDef_0074C47C[16] = ",
-   "model": {
-    "elem": {
-     "k": "prim",
-     "kind": "c",
-     "name": "char",
-     "size": 1
-    },
-    "k": "arr",
-    "n": 16,
-    "size": 16
-   },
-   "name": "gszTypeNameCmdDef_0074C47C",
-   "pointers": [],
-   "region": "data",
-   "size": 16,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0074C47C",
-   "type": "char",
-   "va": "0x0074C47C"
-  },
-  {
    "alias": true,
    "cname": "gData_006FCC4C",
    "declared": true,
@@ -147357,74 +147326,6 @@
    "tail": "; // 0x00731E60",
    "type": "int",
    "va": "0x00731E60"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/Storm/Unknown_006CAE80.cpp",
-   "form": "declared_owner",
-   "fwd": null,
-   "head": "extern unsigned int gnListTerminator_0074C490 = ",
-   "model": {
-    "k": "prim",
-    "kind": "u",
-    "name": "unsigned int",
-    "size": 4
-   },
-   "name": "gnListTerminator_0074C490",
-   "pointers": [
-    [
-     0,
-     "0x0074C490",
-     "owner",
-     "gnListTerminator_0074C490",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0074C490",
-   "type": "unsigned int",
-   "va": "0x0074C490"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/Storm/Unknown_006CAE80.cpp",
-   "form": "declared_owner",
-   "fwd": null,
-   "head": "extern unsigned int gnListTerminator_0074C49C = ",
-   "model": {
-    "k": "prim",
-    "kind": "u",
-    "name": "unsigned int",
-    "size": 4
-   },
-   "name": "gnListTerminator_0074C49C",
-   "pointers": [
-    [
-     0,
-     "0x0074C49C",
-     "owner",
-     "gnListTerminator_0074C49C",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0074C49C",
-   "type": "unsigned int",
-   "va": "0x0074C49C"
   },
   {
    "alias": false,

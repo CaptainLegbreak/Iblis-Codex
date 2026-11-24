@@ -30,12 +30,6 @@ void __cdecl sub_006CB480_DestroyBigPair(); // 0x006CB480
 extern int gnDivisor_00731014; // 0x00731014
 extern int gnQuotient_00883D60; // 0x00883D60
 void __cdecl sub_006CB4E0_DestroyLock(); // 0x006CB4E0
-extern unsigned int gnListTerminator_0074C490; // 0x0074C490
-extern void* gpListHead_0074C494; // 0x0074C494
-void __cdecl sub_006CB4F0_DestroyList(); // 0x006CB4F0
-extern unsigned int gnListTerminator_0074C49C; // 0x0074C49C
-extern void* gpListHead_0074C4A0; // 0x0074C4A0
-void __cdecl sub_006CB550_DestroyList(); // 0x006CB550
 
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* lpCriticalSection); // 0x006CC1FC
@@ -84,20 +78,6 @@ void __cdecl sub_006CAF10_SetPerSecond()
 }
 
 #include "gen/data/Source/Storm/Unknown_006CAE80.inc"
-
-// 0x006CB030
-void __cdecl sub_006CB030_InitializeList()
-{
-    gpListHead_0074C494 = (void*)~(unsigned int)&gnListTerminator_0074C490;
-    atexit(sub_006CB4F0_DestroyList);
-}
-
-// 0x006CB050
-void __cdecl sub_006CB050_InitializeList()
-{
-    gpListHead_0074C4A0 = (void*)~(unsigned int)&gnListTerminator_0074C49C;
-    atexit(sub_006CB550_DestroyList);
-}
 
 // 0x006CB0C0
 void __cdecl sub_006CB0C0_DestroyList()
