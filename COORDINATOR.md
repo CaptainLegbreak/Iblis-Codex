@@ -7,6 +7,7 @@ Written by the coordinator only. Lanes: read this before starting work and after
 - `main`: #325 (round j87). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 3,415 B (was 15,691 B at #297).
 - Units 963, placeholder files 562.
 - In progress: nothing; next round as branches are posted ready.
+- **`lane2/path-records` needs a rebase onto #328:** it conflicts in D2Common/Unknown_00679380.cpp with lane 6's path regroup (#327). Lane 8 owns D2Common now, so tell lane 8 if the records change its files.
 - **`lane2/game-records` is held: precheck NOT_ALL_EQUAL on #321** in two includers of D2GameTypes.h that the branch doesn't touch, `Source/D2Win/Src/D2Comp.cpp` and `Source/D2Game/Ai/AiThink4.cpp`. It looks like the declaration-count effect. Lane 2: rebuild every includer of D2GameTypes.h on current main. If those two can't be kept equal, put the two callback records in a small header that only their users include, as you did with D2ClientTimer.h.
 - **`lane1/keycfg-object-r` needs a rebase onto #317.** Lane 4's `keyconfig-split` (#317) already made `Unknown_004A43E0.cpp` from the same text.cpp range, so the two branches collide. The two splits also disagree on the range: lane 4's runs to 0x4A63B0, yours to 0x4A61A0, and lane 4's object map ends this object at 0x4A61A0. Rebase onto main and keep what yours adds: the 8 functions from text_0049A950.cpp, the 1 from Unknown_004A6000.cpp, the data 0x724264-0x72480F, the bss, and gnKeyConfigFirstVisible static. Send 0x4A61A0-0x4A63B0 back to the next object's placeholder, unless something in it ties it to this object.
 - **Priority for every lane after your current branch: the language-table splits.** Each one places a file boundary, and often defines borrowed data too. Your rows are in language-objects.md.
@@ -109,7 +110,7 @@ A function belongs to the lane whose address range or file run it sits in, whate
 | 0x5EDC50 | 791 | 5 | D2Game AI, no file constraint |
 | 0x6BD230 | 246 | 3 | Fog export 10215. Every byte equal except one unused 4-byte frame slot; verified functions show such a slot only when they have register parameters |
 
-**Unattended variant search (new, run by the coordinator).** For a function that's close (calls and stack match, registers differ), give me a template and I run it overnight on spare CPU. The search tries every alternative of each marked group, keeps what helps, repeats, then restarts from random points. It scores each try by differing listing lines plus length difference, and rejects any variant that breaks another function in the unit. The best variant goes on this board.
+**Unattended variant search (new, run by the coordinator).** Running: 0x55A6D0 (lane 7's template, 12 groups; start 2,239 / 2,253 B). For a function that's close (calls and stack match, registers differ), give me a template and I run it overnight on spare CPU. The search tries every alternative of each marked group, keeps what helps, repeats, then restarts from random points. It scores each try by differing listing lines plus length difference, and rejects any variant that breaks another function in the unit. The best variant goes on this board.
 - **Template:** the whole unit source on current main, with the function marked `// 0x<VA>`, and alternatives written `<<{as now<<ALT>>variant 1<<ALT>>variant 2}>>`. Good groups: declaration order and type (`const int`/`int`), the order of first use, one local versus two, `a < b + k` versus `a - b < k`, `if`/`else` versus `?:`, reading a global into a local or not, and condition order.
 - **How to submit:** put it on coord at `lanes/vsearch/<va>.cpp` with one line in your board file (unit path, and what each group tries). Templates are not merged into main.
 - **0x4A4AD0, first run done** (210 variants, 9 groups): the best variant (`gaPressed[0] || bInList`) is 1,210 / 1,232 B; nothing in that space matches.
@@ -209,8 +210,14 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 ### Lane 7
 - Not started. 296 B of borrowed data (0x006F13F0) goes when 0x00677880 is written.
 
+### Lanes 7-10
+- **Lane 7:** 0x55A6D0's template is running (see Borrowed functions). Send the next one any time.
+- **Lane 8, lane 9:** handover lists from lane 6 are coming. Start with the language-table rows for your modules.
+- **Lane 10:** storm-sfile and storm-rest are in naming round n1: 150 renames including other spellings, 4 of them names.csv only, since the source already used the name. Good plans; keep the format. Take the next scope.
+
 ## Merge log (newest first)
 
+- #328 j90: skill-do-table (lane 5), sfile-openpath-2 (lane 3). `lane2/path-records` was not applied (conflict with #327's path regroup).
 - #327 j89: view-chat-run (lane 4), unitmode-copy, casetable-to-d2lang-2 (lane 1), lang-00404f40, sfile-unlinkall (lane 3), one-copy-2, data-nonconst-2 (lane 5), path-d-2 (lane 6), multi-records, d3d-records, bn-messages (lane 2). Borrowed data 2,507 → 2,382 B.
 - #326 j88: atl-data (lane 3, −728 B), fog-records-c (lane 2), path-b (lane 6), copies-start (lane 4), unit-strays (lane 1). Borrowed data 3,359 → 2,507 B.
 - #325 j87: atl (lane 3), skilltree (lane 4), tails-a-2 (lane 6), dup-statics (lane 5), umod-names-copy (lane 1), mcp-packets (lane 2).
