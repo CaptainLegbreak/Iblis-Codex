@@ -974,8 +974,8 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_00472210.cpp": {
-   "bytes": 8,
-   "definitions": 1,
+   "bytes": 156,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_00472210.inc",
@@ -988,15 +988,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004A9BD0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/Unknown_00472DA0.cpp": {
-   "bytes": 148,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_00472DA0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -42899,7 +42890,7 @@
    "cname": "gData_006D6E78",
    "declared": true,
    "decorated": "?gaWeatherLines@@3PAUD2WeatherLineStrc@@A",
-   "file": "Source/D2Client/Unknown_00472DA0.cpp",
+   "file": "Source/D2Client/Unknown_00472210.cpp",
    "fill": 9,
    "form": "declared",
    "fwd": "extern \"C\" const D2WeatherLineStrc gData_006D6E78[9]; // 0x006D6E78",
@@ -42971,7 +42962,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_00472DA0.cpp",
+   "file": "Source/D2Client/Unknown_00472210.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gbPlayThunderSound = ",

@@ -2792,11 +2792,6 @@ int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit)
 
 static D2WeatherStrc* gpWeatherParticles;                                                                   // 0x007A8A04
 
-// 0x004723F0
-int __cdecl sub_004723F0_GetPhase()
-{
-    return gnPhase;
-}
 
 struct D2WeatherSplashStrc;
 
@@ -2837,62 +2832,7 @@ static inline unsigned int sub_00472400_SeedStep(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-// 0x00472400
-void __cdecl sub_00472400_ResetPhaseState()
-{
-    int nLevelId = DUNGEON_GetLevelIdFromRoom(CUNIT_GetPlayerRoom());
-    D2SeedStrc* pSeed = &sub_00463DE0_GetPlayerUnit()->pSeed;
-
-    switch (nLevelId)
-    {
-    case LEVEL_HARROGATH:
-    case LEVEL_BLOODYFOOTHILLS:
-    case LEVEL_ID_ACT5_BARRICADE_1:
-    case LEVEL_ARREATPLATEAU:
-        gnBaseWindAngleMin = 42;
-// build: symbol ?gnWindAngleMin@* 0x007A89D8
-        gnWindAngleMin = 42;
-        gnBaseWindAngleMax = 170;
-// build: symbol ?gnWindAngleMax@* 0x007A8998
-        gnWindAngleMax = 170;
-// build: symbol ?gnPhaseLevel@* 0x007A89E0
-        gnPhaseLevel = gnPhaseMax = sub_00472280(pSeed, 0x20, 0x38);
-        return;
-
-    case LEVEL_TUNDRAWASTELANDS:
-        gnWindAngleMin = 170;
-        gnWindAngleMax = 56;
-        gnBaseWindAngleMin = 28;
-        gnBaseWindAngleMax = 56;
-        gnPhaseLevel = gnPhaseMax = sub_00472280(pSeed, 0x20, 0x70);
-        return;
-
-    case LEVEL_ROCKYSUMMIT:
-    case LEVEL_NIHLATHAKSTEMPLE:
-        gnWindAngleMin = 28;
-        gnWindAngleMax = 28;
-        gnBaseWindAngleMin = 28;
-        gnBaseWindAngleMax = 28;
-// build: symbol ?gnTargetAngle@* 0x007A89F8
-        gnTargetAngle = 28;
-// build: symbol ?gnWeatherAngle@* 0x007A89C4
-        gnWeatherAngle = 28;
-        gnPhaseMax = 0x100;
-        gnPhaseLevel = 0x100;
-        return;
-    }
-
-    gnPhaseLevel = gnPhaseMax;
-    if (!gbWeatherSplash)
-    {
-        sub_00472400_SeedStep(pSeed);
-        gbLightningEnabled = 0;
-    }
-    else
-    {
-        gbLightningEnabled = 0;
-    }
-}
+void __cdecl sub_00472400_ResetPhaseState(); // 0x00472400
 
 // 0x00472530
 static inline void sub_00472530_SetPhaseActive(int bValue)
@@ -2902,13 +2842,6 @@ static inline void sub_00472530_SetPhaseActive(int bValue)
         sub_00473D00_SetPhase(2);
 }
 
-// 0x00472550
-void __cdecl sub_00472550_ResetWeather()
-{
-// build: symbol ?DATAARRAYS_Reset@* 0x006BCAC0
-    DATAARRAYS_Reset(gpWeatherParticles);
-    D2_ASSERT(!gpWeatherParticles->nCount, 0x15B);
-}
 
 void __fastcall sub_M110_Emit_00472530(int bValue)
 {
@@ -3067,71 +3000,6 @@ static void sub_00473090_InitParticle(D2SeedStrc* pSeed)
 
 
 
-// 0x00473A70
-void __fastcall sub_00473A70(D2WeatherStrc* pWeather, D2WeatherLayerStateStrc* pState)
-{
-    const int bPerspective = D2GFX_CheckPerspective();
-    int nOffset = 0;
-    int nLeft = 0;
-    int nRight = gnScreenWidth;
-    int nBottom = gnScreenHeight - 47;
-    switch (sub_0045AE90())
-    {
-    case 1:
-    {
-        const int nQuarter = gnScreenWidth / 4;
-        nOffset = -nQuarter;
-        nRight -= nQuarter * 2;
-        break;
-    }
-    case 2:
-        nOffset = gnScreenWidth / 4;
-        nLeft = gnScreenWidth / 4 * 2;
-        break;
-    }
-
-    D2CelContextStrc tGfxData = {};
-    D2WeatherSplashStrc* pRecord = pWeather->pRecords;
-    for (int i = 0; i <= pWeather->nLastParticle; ++i, ++pRecord)
-    {
-        if (!pRecord->bActive)
-        {
-            continue;
-        }
-
-        if (bPerspective)
-        {
-            if (SCALE_CheckPerspectivePosition(pRecord->nX, pRecord->nY))
-            {
-                int nX;
-                int nY;
-                SCALE_AdjustPerspectivePosition(pRecord->nX, pRecord->nY, 0, &nX, &nY);
-                nX += nOffset;
-                if (nX >= nLeft && nX < nRight && nY >= 0 && nY < nBottom)
-                {
-                    tGfxData.pCellFile = pState->pCelFiles[pRecord->nType];
-                    tGfxData.nFrame = pRecord->nFrame;
-                    if (((D2CelDrawRetFn)&TEXTURE_CelDraw)(&tGfxData, nX, nY, -1, 3, 0))
-                    {
-                        continue;
-                    }
-                }
-            }
-            sub_006BCCD0_FreeDataArraySlot(pWeather, i << 16);
-        }
-        else
-        {
-            const int nX = pRecord->nX + nOffset;
-            const int nY = pRecord->nY;
-            if (nX >= nLeft && nX < nRight && nY >= 0 && nY < nBottom)
-            {
-                tGfxData.pCellFile = pState->pCelFiles[pRecord->nType];
-                tGfxData.nFrame = pRecord->nFrame;
-                TEXTURE_CelDraw(&tGfxData, nX, nY, -1, 3, 0);
-            }
-        }
-    }
-}
 
 
 
