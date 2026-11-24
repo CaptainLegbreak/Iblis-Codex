@@ -25529,6 +25529,10 @@
      "va": "0x004A40D0",
      "length": 64,
      "name": "?TEXT_SetQuestRecord@@YIXPBUD2Record42Strc@@@Z"
+    },
+    {
+     "va": "0x006CAC30",
+     "length": 156
     }
    ],
    "flags": [
@@ -80947,30 +80951,6 @@
      "va": "0x006CA9C0",
      "length": 70
     }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006CAA30.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006CAC30",
-     "length": 156
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
