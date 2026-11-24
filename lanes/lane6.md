@@ -4,7 +4,9 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- (in progress) lane6/tails-a-2: tails-a rebased onto #323 and being verified. lane6/tails-a and lane6/data-c-2 are pushed but are not ready: data-c went in #323, so data-c-2 is not needed, and tails-a-2 replaces tails-a.
+- lane6/tails-a-2 4c3cd2a8 510->506 four one-function placeholders join the runs they sit in. 0x0067D7E0 goes to Unknown_0067D7B0 (it shares gOutdoorOrthOffsets with 0x0067D980). 0x00681420 goes to Unknown_00681240, whose 0x00681240 takes EAX and is called only by 0x00681420. 0x00681560, 0x006815C0 and 0x00681630 go to Unknown_00681490: the first two are register-argument statics called only by 0x00681630, and the 0x006F2840 const table is shared. OutSiege.cpp gets a data record for gaOutSiegeCaves and gaAct5WallSteps, which only it reads (they were planned in Unknown_0067D710); VERIFIED cbf00cc4 (on #323; #324 only touched README, STATUS and docs/shape.svg)
+  - Based on #324. Not stacked. Everything stays in lane 6. Replaces lane6/tails-a. lane6/data-c-2 is not needed: data-c went in #323.
+  - Several register-argument statics have no caller anywhere in the image: 0x0060B280, 0x0064FAA0, 0x0067A5D0, 0x0067D7E0, 0x006814E0. Their callers were probably inline functions whose copies the linker dropped for another file's copy. They keep emitting shims, marked as not game code.
 
 ## Claimed
 
