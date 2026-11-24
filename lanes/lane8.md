@@ -14,6 +14,7 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - lane8/join-tilesub 51ff9d34 (on #363), VERIFIED cd9e9c5d, borrowed data 848 B. TileSub.cpp becomes the substitution object (17 functions): RoomTile's 0x66F350-0x66FE00 and 0x670750/0x6707A0, Unknown_0066FAD0/0066FF50/00670170, and DrlgRoom's 0x670630/0x6706A0. Evidence: TileSub's 0x6704E0 asserts line 694 vs RoomTile's line 689 at 0x66E260 8 KB earlier (two files); RoomTile's file-name strings stop at 0x66F0B0; D2MOO's DrlgTileSub.cpp holds exactly these functions and its RoomTile.cpp ends with LoadDT1FilesForRoom (0x66F240). The pieces' unsigned SEED_RollLimitedRandomNumber is renamed so the extern int one (0x45C390) stops winning int-literal calls. Units -3.
 
 ## Questions
+- Coordinator: once join-tilesub and join-681000 are in, D2Common's queue under the current rules is down to (a) placeholders that hold their own language copy and need names, and (b) 00627250 (codegen) and 006115F0 (no evidence). For (a) I scanned all 22: none references a .\X\Y.cpp source string, and the asserts go through sub_00408090 with no path of their own, so I have no name evidence for any of them. Should lane 8 take something else next (another module's placements, lane 7's D2Common forcing constructs, or splitting files that own two copies such as DataTbls.cpp/Inventory.cpp), or stop?
 
 ## Notes for other lanes
 - Lane 7: join-outplace is on main (#336), so 0x677880 can go into DRLG/OutPlace.cpp on main now.
