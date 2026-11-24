@@ -13733,11 +13733,6 @@
      "length": 235
     },
     {
-     "va": "0x00479010",
-     "length": 111,
-     "name": "?VIEW_UpdatePetLife@@YIXHHG@Z"
-    },
-    {
      "va": "0x0047E860",
      "length": 66,
      "name": "VIEW_DrawCelFrame"
@@ -13907,11 +13902,6 @@
      "va": "0x00478010",
      "length": 39,
      "name": "sub_00478010"
-    },
-    {
-     "va": "0x004790B0",
-     "length": 64,
-     "name": "INV_FindNodeValues"
     },
     {
      "va": "0x0047EC40",
@@ -17999,11 +17989,6 @@
      "name": "GFX_BuildLerpRowTable"
     },
     {
-     "va": "0x00478FA0",
-     "length": 108,
-     "name": "GFX_UpdatePetFlags"
-    },
-    {
      "va": "0x004795F0",
      "length": 187,
      "name": "GFX_SortRosterByName"
@@ -18113,6 +18098,76 @@
      "va": "0x00478E40",
      "length": 35,
      "name": "?ROSTERPETS_FindEntry@@YIPAUD2ClientEntryStrc@@H@Z"
+    },
+    {
+     "va": "0x00478E70",
+     "length": 101,
+     "name": "?sub_00478E70_IsPetFriendly@@YIHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x00478EE0",
+     "length": 54,
+     "name": "?sub_00478EE0_CountPets@@YIHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x00478F20",
+     "length": 74,
+     "name": "?sub_00478F20_FindPetIdByOwner@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x00478F70",
+     "length": 42,
+     "name": "?sub_00478F70_HasPets@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00478FA0",
+     "length": 108,
+     "name": "GFX_UpdatePetFlags"
+    },
+    {
+     "va": "0x00479010",
+     "length": 111,
+     "name": "?VIEW_UpdatePetLife@@YIXHHG@Z"
+    },
+    {
+     "va": "0x00479080",
+     "length": 35,
+     "name": "?ROSTER_GetPetLife@@YIHH@Z"
+    },
+    {
+     "va": "0x004790B0",
+     "length": 64,
+     "name": "INV_FindNodeValues"
+    },
+    {
+     "va": "0x004790F0",
+     "length": 35,
+     "name": "?sub_004790F0@@YIHH@Z"
+    },
+    {
+     "va": "0x00479120",
+     "length": 34,
+     "name": "?sub_00479120_GetHirelingClassId@@YIHH@Z"
+    },
+    {
+     "va": "0x00479150",
+     "length": 36,
+     "name": "?sub_00479150_FindRosterIndex@@YIHH@Z"
+    },
+    {
+     "va": "0x00479180",
+     "length": 35,
+     "name": "?ROSTER_GetPetType@@YIHH@Z"
+    },
+    {
+     "va": "0x004791B0",
+     "length": 113,
+     "name": "?sub_004791B0_IsOwnedByPlayer@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00479230",
+     "length": 131,
+     "name": "WARDENCLIENT_UpdateOwnerPetFlags"
     },
     {
      "va": "0x004890B0",
@@ -21595,65 +21650,9 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00478D10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00478E70",
-     "length": 101,
-     "name": "?sub_00478E70_IsPetFriendly@@YIHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x00478EE0",
-     "length": 54,
-     "name": "?sub_00478EE0_CountPets@@YIHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x00478F20",
-     "length": 74,
-     "name": "?sub_00478F20_FindPetIdByOwner@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x00478F70",
-     "length": 42,
-     "name": "?sub_00478F70_HasPets@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00479120",
-     "length": 34,
-     "name": "?sub_00479120_GetHirelingClassId@@YIHH@Z"
-    },
-    {
-     "va": "0x00479150",
-     "length": 36,
-     "name": "?sub_00479150_FindRosterIndex@@YIHH@Z"
-    },
-    {
-     "va": "0x004791B0",
-     "length": 113,
-     "name": "?sub_004791B0_IsOwnedByPlayer@@YIHPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/GAME/Roster.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00479080",
-     "length": 35,
-     "name": "?ROSTER_GetPetLife@@YIHH@Z"
-    },
-    {
-     "va": "0x004790F0",
-     "length": 35,
-     "name": "?sub_004790F0@@YIHH@Z"
-    },
-    {
-     "va": "0x00479180",
-     "length": 35,
-     "name": "?ROSTER_GetPetType@@YIHH@Z"
-    },
     {
      "va": "0x004792C0",
      "length": 27,
@@ -22073,11 +22072,6 @@
     "/GS-"
    ],
    "functions": [
-    {
-     "va": "0x00479230",
-     "length": 131,
-     "name": "WARDENCLIENT_UpdateOwnerPetFlags"
-    },
     {
      "va": "0x0047F8B0",
      "length": 11,

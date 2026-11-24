@@ -512,35 +512,6 @@ int __fastcall WARDENCLIENT_InitWarden(int nValue); // 0x004803C0
 WardenClient gtWardenIface; // 0x00721C98
 
 
-// 0x00479230
-void __fastcall WARDENCLIENT_UpdateOwnerPetFlags(int nOwnerId)
-{
-    for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
-    {
-        if (pPet->dwOwnerId == nOwnerId)
-        {
-            switch (pPet->nClassId)
-            {
-            case 0x16B:
-            case 0x16C:
-            {
-                D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPet->dwUnitId, UNIT_MONSTER);
-                if (pUnit)
-                {
-                    int nFlagB = CUNIT_GetPalShiftIndex(pUnit);
-                    int bSet = !sub_004791B0_IsOwnedByPlayer(pUnit);
-                    if (nFlagB == CUNIT_GetBasePalShiftIndex(pUnit))
-                    {
-                        sub_00463E80_SetUnitFlagB(pUnit, bSet);
-                    }
-                    sub_00463E20_SetUnitFlagA(pUnit, bSet);
-                }
-                break;
-            }
-            }
-        }
-    }
-}
 
 struct D2ChatMessageStrc
 {
