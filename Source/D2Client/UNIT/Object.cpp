@@ -281,6 +281,18 @@ extern "C" __declspec(dllexport) void __fastcall OBJECT_SetUnitFlag(Obj00457460*
 
 
 
+struct D2GSPacketSrv60
+{
+    unsigned char nHeader;
+    unsigned char nFlags;
+    unsigned char nLevel;
+    char dwUnitGUID[4];
+};
+
+unsigned char __stdcall UNITS_GetObjectPortalFlags(D2UnitStrc* pUnit); // 0x006222C0
+
+void __stdcall UNITS_SetObjectPortalFlags(D2UnitStrc* pUnit, unsigned char nPortalFlag); // 0x00622300
+
 // 0x00457810
 static inline void OBJECT_SubtractAutomapOffset(int* pX, int* pY)
 {
@@ -1378,6 +1390,39 @@ char __fastcall OBJECT_RunClientFunction(D2UnitStrc* pUnit)
     }
 
     return 1;
+}
+
+// 0x004BDF30
+void __fastcall ITEM_ApplyTownPortalState(D2GSPacketSrv60* pPacket)
+{
+    D2_ASSERT(pPacket, 0x556);
+
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(*(int*)pPacket->dwUnitGUID, UNIT_OBJECT);
+    if (pUnit)
+    {
+        D2_ASSERT(pUnit->dwClassId == 0x3B || pUnit->dwClassId == 0x3C, 0x560);
+        D2_ASSERT(pPacket->nLevel <= 0xFF, 0x562);
+
+        pUnit->pObjectData->InteractType = pPacket->nLevel;
+
+        unsigned char nPortalFlags = UNITS_GetObjectPortalFlags(pUnit);
+        if (pPacket->nFlags & 2)
+        {
+            nPortalFlags |= 2;
+        }
+        if (pPacket->nFlags & 1)
+        {
+            nPortalFlags |= 1;
+        }
+        UNITS_SetObjectPortalFlags(pUnit, nPortalFlags);
+    }
+}
+
+
+// 0x004BDFD0
+char* __fastcall sub_004BDFD0(D2UnitStrc* pUnit)
+{
+    return pUnit->pObjectData->szOwner;
 }
 
 // 0x004BDFE0

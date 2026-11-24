@@ -711,32 +711,6 @@ int __stdcall UNITROOM_IsUnitInRoom(D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit);
 
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit);                                              // 0x0064C370
 
-// 0x004BDF30
-void __fastcall ITEM_ApplyTownPortalState(D2GSPacketSrv60* pPacket)
-{
-    D2_ASSERT(pPacket, 0x556);
-
-    D2UnitStrc* pUnit = CUNIT_FindClientUnit(*(int*)pPacket->dwUnitGUID, UNIT_OBJECT);
-    if (pUnit)
-    {
-        D2_ASSERT(pUnit->dwClassId == 0x3B || pUnit->dwClassId == 0x3C, 0x560);
-        D2_ASSERT(pPacket->nLevel <= 0xFF, 0x562);
-
-        pUnit->pObjectData->InteractType = pPacket->nLevel;
-
-        unsigned char nPortalFlags = UNITS_GetObjectPortalFlags(pUnit);
-        if (pPacket->nFlags & 2)
-        {
-            nPortalFlags |= 2;
-        }
-        if (pPacket->nFlags & 1)
-        {
-            nPortalFlags |= 1;
-        }
-        UNITS_SetObjectPortalFlags(pUnit, nPortalFlags);
-    }
-}
-
 
 static inline int GetUnitType(D2UnitStrc* p)
 {
