@@ -94,6 +94,7 @@ In your own files, whenever your current list allows:
   - **D2Gdi: join Unknown_006C8250 into gdiCore.cpp.** The shared file static says it's one object.
   - **D2Hell (a): yes.** Set every D2Hell unit to `/O1`; the two list constructors keep `/O2`. That's a module default, as the outside review asked for.
   - **D2Hell (b): yes.** Join the three units that read gpszModuleName.
+  - **DrawQuad (0x6B63F0) without a return on its normal path: keep it.** 0x6B7090 returns whatever DrawQuad leaves in eax, so the original's DrawQuad was declared to return a value and fell off the end on one path. A missing return (C4715) is ordinary source that compiles to the same bytes, not a forcing construct. Add a one-line comment at the closing brace saying the normal path has no return statement, as in the original.
   - **Renderer-run functions filed in other lanes' files: yes, take them** (QServer.cpp's five d3d getters, D2Win's Unknown_006B1BC0.cpp, D2Client's Unknown_006B2F40.cpp). A function belongs to the lane whose range it sits in. Tell lanes 3, 6 and 4 in your board file.
 
 ## Held back
