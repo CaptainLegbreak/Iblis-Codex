@@ -74,9 +74,9 @@ struct D2CellFileStrc
 
 struct D2ChatStormBaseArrayAStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    void* f_8;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    void* m_data;
 
     D2ChatStormBaseArrayAStrc();
     unsigned int IGNORELIST_GetStringSlotArrayCount();
@@ -84,9 +84,9 @@ struct D2ChatStormBaseArrayAStrc
 
 struct D2ChatStormBaseArrayBStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    void* f_8;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    void* m_data;
 
     D2ChatStormBaseArrayBStrc();
     unsigned int IGNORELIST_GetMappingSlotArrayCount();
