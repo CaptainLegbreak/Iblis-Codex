@@ -4,13 +4,11 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane3/sfile-openpath 7aa1b28e 519->519 sub_00419180_OpenPathAsArchive (between 0x419150 and 0x4192F0 in SFILE.CPP's run; no callers) moves from the SFILE_00417800 piece to SFILE.CPP, equal as written. VERIFIED 475fed5b on base f7215edb (j87; 14,918/14,918; borrowed code 12,041 B / 9 functions). Not stacked; touches SFILE.CPP like sfile-unlinkall, in a different place. Part of the claimed SFILE job.
+- lane3/sfile-openpath-2 ecf7b182 519->519 sub_00419180_OpenPathAsArchive (between 0x419150 and 0x4192F0 in SFILE.CPP's run; no callers) moves from the SFILE_00417800 piece to SFILE.CPP, equal as written. VERIFIED 475fed5b on base f7215edb (j87; replaces sfile-openpath: rebased onto cbd4f9ec (j88) and prechecked; 14,918/14,918; borrowed code 12,041 B / 9 functions). Not stacked; touches SFILE.CPP like sfile-unlinkall, in a different place. Part of the claimed SFILE job.
 
 - lane3/sfile-unlinkall 3cc69820 519->518 The five global lists' UnlinkAll members (0x418900-0x418A00, piece SFILE_00418900) join SFILE.CPP, whose five list destructors are their only callers; the piece is removed. They are written inline (they are TSList<T> members, so COMDATs): as ordinary same-unit functions the compiler knows they keep ecx and all five destructors change. VERIFIED 690d2792 on base f7215edb (j87; 14,918/14,918; borrowed code 12,041 B / 9 functions). Not stacked. Part of the claimed SFILE job.
 
 - lane3/lang-00404f40 6bc808c5 519->519 The borrowed language-table copy at 0x705000 becomes Storm/Unknown_00404F40.cpp's (it includes D2LanguageNames.h; the copy starts the data of the object that owns gaIniEntries_00705040). For that, the unit's record for the other copy, 0x706518, moves to ErrorManager.cpp in front of gaModeTable, whose object it starts. Borrowed data -64 B. VERIFIED f2fbba07 on base f7215edb (j87; 14,918/14,918; borrowed code 12,041 B / 9 functions). Not stacked.
-
-- lane3/atl-data 689377cc 519->514 Replaces lane3/atl (same first commit, rebased) and adds the ATL object's .rdata: the 728 B at 0x6FAD20-0x6FAFF7 (statreg.h strings and CRegParser statics, atlbase.h AtlLimits, atlcomcli.h CVarTypeInfo, atliface.h GUIDs) defined in D2Direct3D/Unknown_006B1A00.cpp through 98 plan records, the GUIDs and CRegParser members as ATL's selectany definitions. Borrowed data 3,415 -> 2,687 B on its own (2,631 B on this base). VERIFIED 7a5eb650 on base dab5042f (#324; 14,918/14,918; borrowed code 12,041 B / 9 functions). Not stacked.
 
 - lane3/suni 30f43254 519->518 Storm/Unknown_006C7000.cpp (Storm's Unicode module, 17 functions) is renamed Storm/SOURCE/SUNI.CPP, as approved; its data include follows. VERIFIED 8c45fafc on base 53ae59fd (j84; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 3,415 B). Not stacked.
 
