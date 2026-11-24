@@ -177,7 +177,7 @@ typedef unsigned char BOOLEAN;
 struct D2AdpcmHeaderStrc
 {
     unsigned char nZero;
-    unsigned char f_1;
+    unsigned char nShift;
 };
 
 struct D2BitmapInfoStrc
@@ -715,7 +715,7 @@ struct D2SLogStrc
     unsigned long nUsed;
     unsigned long nPended;
     int indent;
-    int f_18;
+    int bTimestamp;
     char szBuffer[0x10000];
 };
 

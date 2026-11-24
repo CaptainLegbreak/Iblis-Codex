@@ -10,6 +10,7 @@
 #include "D2ItemsWorld.h"
 #include "D2GameAux.h"
 #include "D2UnitData.h"
+#include "D2LanguageNames.h"
 
 #define UNITFLAG_SKSRVDOFUNC 0x40
 
@@ -424,6 +425,93 @@ int __fastcall SKILLS_SrvSt33_FindPotion_GrimWard(D2GameStrc* pGame, D2UnitStrc*
     return 0;
 }
 
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
+unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
+extern int gnPotionTableMax; // 0x00741B54
+extern int gaPotionTable[][3]; // 0x00741B58
+
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+// 0x005D8100
+static int __stdcall sub_005D8100_GetFindItemPotion(D2UnitStrc* pUnit, D2GameStrc* pGame, int nSkillId)
+{
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
+    {
+        return 0;
+    }
+
+    const int nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
+    if (nAct < 0 || nAct >= 5)
+    {
+        return 0;
+    }
+
+    const int nIndex = nAct + 5 * pGame->nDifficulty;
+    int nType = 0;
+    const int nChance = SEED_RollRandomNumber(&pUnit->pSeed) % 100;
+
+    const int nParam3 = SKILLDESC_GetSkillParamThree(nSkillId);
+    if (nChance < nParam3)
+    {
+        nType = 1;
+    }
+    else if (nChance < nParam3 + SKILLDESC_GetSkillParamFour(nSkillId))
+    {
+        nType = 2;
+    }
+
+    if (nIndex > gnPotionTableMax)
+    {
+        return 0;
+    }
+
+    return gaPotionTable[nIndex][nType];
+}
+
+void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
+unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
+D2UnitStrc* __fastcall OBJMODE_DropItemWithCodeAndQuality(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int dwCode, int nItemQuality); // 0x0056DAB0
+
+static inline int SKILLS_IsUnlootedCorpse(D2UnitStrc* pTarget)
+{
+    return pTarget && D2COMMON_11018(pTarget) && !STATES_CheckState(pTarget, STATE_CORPSE_NOSELECT);
+}
+
+// 0x005D81C0
+int __fastcall SKILLS_SrvDo069_FindPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (!SKILLS_IsUnlootedCorpse(pTarget))
+    {
+        return 0;
+    }
+
+    STATES_ToggleState(pTarget, 118, 1);
+    UNITROOM_RefreshUnit(pTarget);
+
+    const int nChance = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
+    if ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < nChance)
+    {
+        const int dwCode = sub_005D8100_GetFindItemPotion(pUnit, pGame, nSkillId);
+        OBJMODE_DropItemWithCodeAndQuality(pGame, pTarget, dwCode, 2);
+    }
+
+    return 1;
+}
+
 // 0x005D8470
 int __fastcall SKILLS_SrvDo070_DoubleSwing(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -590,6 +678,64 @@ int __fastcall SKILLS_SrvSt34_FindItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int
     }
 
     return D2COMMON_11019(pTarget) != 0;
+}
+
+void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
+
+unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
+
+void __fastcall MONSTERMODE_DropTreasureForFindItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nUnused); // 0x005A8000
+
+// 0x005D8780
+int __fastcall sub_005D8780_SrvDoStageRoll(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    if (!D2COMMON_11019(pTarget))
+    {
+        return 0;
+    }
+
+    if (STATES_CheckState(pTarget, STATE_CORPSE_NOSELECT))
+    {
+        return 0;
+    }
+
+    STATES_ToggleState(pTarget, 0x76, 1);
+    UNITROOM_RefreshUnit(pTarget);
+
+    const int nChance = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
+    if ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) >= nChance)
+    {
+        return 0;
+    }
+
+    const int nRoll = SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100);
+    int nStage = 1;
+    int nLow = 0;
+    int nHigh = 0;
+    for (int i = 0; i < 4; ++i)
+    {
+        nHigh += pSkillsTxtRecord->dwParam[i];
+        if (nRoll >= nLow && nRoll < nHigh)
+        {
+            nStage = i + 1;
+        }
+        nLow += pSkillsTxtRecord->dwParam[i];
+    }
+
+    MONSTERMODE_DropTreasureForFindItem(pGame, pTarget, pUnit, nStage);
+    return 1;
 }
 
 struct Skills { char pad0[0x12E]; unsigned short resultFlags; unsigned hitFlags,hitClass; unsigned calc[4]; char pad148[0x5D]; unsigned char srcDamage; char pad1A6[0x36]; unsigned char element; char pad1DD[0x5F]; };
@@ -1979,3 +2125,5 @@ int __fastcall SKILLS_SrvDo004_Unsummon(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     sub_6FC7D260(pGame, pUnit, SKILLS_GetParam1(pSkill), 1);
     return 1;
 }
+
+#include "gen/data/Source/D2Game/SKILLS/SkillBar.inc"

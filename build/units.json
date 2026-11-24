@@ -2501,11 +2501,6 @@
      "name": "?AUTOMAP_RemoveUnitOverlay@@YIXPAUD2UnitStrc@@HH@Z"
     },
     {
-     "va": "0x00498DC0",
-     "length": 187,
-     "name": "?AUTOMAP_IsCursorOverMiniPanelButton@@YIHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
      "va": "0x004C5420",
      "length": 79,
      "name": "?AUTOMAP_RequestAtTarget@@YIPAUD2UnitStrc@@PAU1@HHH@Z"
@@ -13738,91 +13733,6 @@
      "name": "?VIEW_SetNpcMenuMode@@YAHXZ"
     },
     {
-     "va": "0x00492BC0",
-     "length": 12,
-     "name": "?VIEW_GetPetTypeCount@@YAHXZ"
-    },
-    {
-     "va": "0x00492BD0",
-     "length": 51,
-     "name": "?VIEW_IsInPetIcon@@YIHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00492C10",
-     "length": 13,
-     "name": "?VIEW_IsPetIconVisible@@YAHXZ"
-    },
-    {
-     "va": "0x00492F40",
-     "length": 80,
-     "name": "?VIEW_InitLifeColors@@YIXH@Z"
-    },
-    {
-     "va": "0x00492F90",
-     "length": 8,
-     "name": "?VIEW_ResetLifeColors@@YAXXZ"
-    },
-    {
-     "va": "0x004943B0",
-     "length": 310,
-     "name": "VIEW_DrawHelpFrameLowRes"
-    },
-    {
-     "va": "0x004944F0",
-     "length": 251,
-     "name": "VIEW_DrawHelpFrameHighRes"
-    },
-    {
-     "va": "0x004945F0",
-     "length": 42,
-     "name": "?VIEW_DrawHelpShade@@YAXXZ"
-    },
-    {
-     "va": "0x00494680",
-     "length": 886,
-     "name": "VIEW_DrawHelpLinesLowRes"
-    },
-    {
-     "va": "0x00494A00",
-     "length": 1079,
-     "name": "VIEW_DrawHelpLinesHighRes"
-    },
-    {
-     "va": "0x00494E40",
-     "length": 108,
-     "name": "VIEW_DrawHelpPanelCel"
-    },
-    {
-     "va": "0x00495180",
-     "length": 300,
-     "name": "VIEW_DrawHelpButtons"
-    },
-    {
-     "va": "0x00497250",
-     "length": 20,
-     "name": "?VIEW_InitTextColorRed@@YAXXZ"
-    },
-    {
-     "va": "0x004972B0",
-     "length": 80,
-     "name": "?VIEW_InitBeltColors@@YAXXZ"
-    },
-    {
-     "va": "0x00497480",
-     "length": 292,
-     "name": "VIEW_DrawRunButton"
-    },
-    {
-     "va": "0x00498D50",
-     "length": 12,
-     "name": "?VIEW_SetBeltSlotValue@@YIXHH@Z"
-    },
-    {
-     "va": "0x00498D60",
-     "length": 36,
-     "name": "?VIEW_ResetBeltHover@@YAXXZ"
-    },
-    {
      "va": "0x004B9640",
      "length": 77,
      "name": "?VIEW_CountHintsForOwner@@YIHH@Z"
@@ -14693,51 +14603,6 @@
      "va": "0x00492770",
      "length": 69,
      "name": "INV_WeaponSwapKeyMsg"
-    },
-    {
-     "va": "0x00493100",
-     "length": 275,
-     "name": "?INV_DrawIconNumber@@YGXHH@Z"
-    },
-    {
-     "va": "0x004953C0",
-     "length": 78,
-     "name": "?INV_GetCenteredX@@YIHGH@Z"
-    },
-    {
-     "va": "0x00495410",
-     "length": 2472,
-     "name": "?sub_00495410_DrawHelpText@@YAXXZ"
-    },
-    {
-     "va": "0x00495DC0",
-     "length": 2294,
-     "name": "?sub_00495DC0_DrawHelpText@@YAXXZ"
-    },
-    {
-     "va": "0x004966C0",
-     "length": 95,
-     "name": "?sub_004966C0_DrawHelpScreen@@YAXXZ"
-    },
-    {
-     "va": "0x00496720",
-     "length": 127,
-     "name": "INV_HelpCloseButtonMsg"
-    },
-    {
-     "va": "0x004967A0",
-     "length": 52,
-     "name": "?sub_004967A0_KeyCloseHelp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004967F0",
-     "length": 395,
-     "name": "?INV_LoadPanelCels@@YAXXZ"
-    },
-    {
-     "va": "0x00497300",
-     "length": 311,
-     "name": "?INV_DrawKeyBindingPopup@@YAXXZ"
     },
     {
      "va": "0x00497C50",
@@ -18150,16 +18015,6 @@
      "name": "ROSTERPETS_HandleRectClick"
     },
     {
-     "va": "0x00494620",
-     "length": 87,
-     "name": "ROSTERPETS_DrawHelpColumn"
-    },
-    {
-     "va": "0x00494F30",
-     "length": 119,
-     "name": "ROSTERPETS_HandleHelpButtonDown"
-    },
-    {
      "va": "0x0049A460",
      "length": 172,
      "name": "ROSTERPETS_DrawPanelLabel"
@@ -21186,11 +21041,6 @@
      "name": "sub_0048BDF0"
     },
     {
-     "va": "0x00494FB0",
-     "length": 3,
-     "name": "sub_00494FB0"
-    },
-    {
      "va": "0x0049C160",
      "length": 6,
      "name": "sub_0049C160"
@@ -22171,21 +22021,6 @@
      "va": "0x004922A0",
      "length": 108,
      "name": "WARDENCLIENT_HandlePanelAreaClick"
-    },
-    {
-     "va": "0x004936E0",
-     "length": 125,
-     "name": "WARDENCLIENT_HandlePetIconClick"
-    },
-    {
-     "va": "0x00496B10",
-     "length": 200,
-     "name": "WARDENCLIENT_DrawHostileIcon"
-    },
-    {
-     "va": "0x00496BE0",
-     "length": 267,
-     "name": "WARDENCLIENT_DrawSkillInfo"
     },
     {
      "va": "0x004A1320",
@@ -23394,11 +23229,6 @@
      "name": "TEXT_ResetNpcPanel"
     },
     {
-     "va": "0x004939B0",
-     "length": 71,
-     "name": "TEXT_LoadPopupHireling"
-    },
-    {
      "va": "0x0049AAA0",
      "length": 78,
      "name": "?TEXT_GetCenteredStringX@@YIHGH@Z"
@@ -24259,6 +24089,21 @@
    ],
    "functions": [
     {
+     "va": "0x00492BC0",
+     "length": 12,
+     "name": "?VIEW_GetPetTypeCount@@YAHXZ"
+    },
+    {
+     "va": "0x00492BD0",
+     "length": 51,
+     "name": "?VIEW_IsInPetIcon@@YIHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00492C10",
+     "length": 13,
+     "name": "?VIEW_IsPetIconVisible@@YAHXZ"
+    },
+    {
      "va": "0x00492C20",
      "length": 665,
      "name": "?HIREABLES_LoadHirelingIcons@@YAXXZ"
@@ -24267,6 +24112,16 @@
      "va": "0x00492EC0",
      "length": 122,
      "name": "?HIREABLES_FreeHirelingIcons@@YAXXZ"
+    },
+    {
+     "va": "0x00492F40",
+     "length": 80,
+     "name": "?VIEW_InitLifeColors@@YIXH@Z"
+    },
+    {
+     "va": "0x00492F90",
+     "length": 8,
+     "name": "?VIEW_ResetLifeColors@@YAXXZ"
     },
     {
      "va": "0x00492FA0",
@@ -24282,6 +24137,11 @@
      "va": "0x004930A0",
      "length": 92,
      "name": "?HIREABLES_DrawRosterName@@YGXPBDHH@Z"
+    },
+    {
+     "va": "0x00493100",
+     "length": 275,
+     "name": "?INV_DrawIconNumber@@YGXHH@Z"
     },
     {
      "va": "0x00493220",
@@ -24312,8 +24172,28 @@
      "length": 522
     },
     {
+     "va": "0x004936E0",
+     "length": 125,
+     "name": "WARDENCLIENT_HandlePetIconClick"
+    },
+    {
+     "va": "0x00493760",
+     "length": 217,
+     "name": "?sub_00493760_HirelingIconHoverMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x00493840",
      "length": 158
+    },
+    {
+     "va": "0x004938E0",
+     "length": 204,
+     "name": "?sub_004938E0_HirelingIconClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004939B0",
+     "length": 71,
+     "name": "TEXT_LoadPopupHireling"
     },
     {
      "va": "0x00493B00",
@@ -24326,9 +24206,54 @@
      "name": "?HIREABLES_GetHelpMenuSetting@@YAHXZ"
     },
     {
+     "va": "0x00494300",
+     "length": 24,
+     "name": "?sub_00494300_SetHelpMenuSetting@@YAXK@Z"
+    },
+    {
      "va": "0x00494320",
      "length": 129,
      "name": "?HIREABLES_LoadHelpCels@@YAXXZ"
+    },
+    {
+     "va": "0x004943B0",
+     "length": 310,
+     "name": "VIEW_DrawHelpFrameLowRes"
+    },
+    {
+     "va": "0x004944F0",
+     "length": 251,
+     "name": "VIEW_DrawHelpFrameHighRes"
+    },
+    {
+     "va": "0x004945F0",
+     "length": 42,
+     "name": "?VIEW_DrawHelpShade@@YAXXZ"
+    },
+    {
+     "va": "0x00494620",
+     "length": 87,
+     "name": "ROSTERPETS_DrawHelpColumn"
+    },
+    {
+     "va": "0x00494680",
+     "length": 886,
+     "name": "VIEW_DrawHelpLinesLowRes"
+    },
+    {
+     "va": "0x00494A00",
+     "length": 1079,
+     "name": "VIEW_DrawHelpLinesHighRes"
+    },
+    {
+     "va": "0x00494E40",
+     "length": 108,
+     "name": "VIEW_DrawHelpPanelCel"
+    },
+    {
+     "va": "0x00494EB0",
+     "length": 42,
+     "name": "?sub_00494EB0@@YAXXZ"
     },
     {
      "va": "0x00494EE0",
@@ -24336,60 +24261,19 @@
      "name": "?HIREABLES_FreeHelpCels@@YAXXZ"
     },
     {
+     "va": "0x00494F30",
+     "length": 119,
+     "name": "ROSTERPETS_HandleHelpButtonDown"
+    },
+    {
+     "va": "0x00494FB0",
+     "length": 3,
+     "name": "sub_00494FB0"
+    },
+    {
      "va": "0x00494FC0",
      "length": 35,
      "name": "?sub_00494FC0@@YAXXZ"
-    },
-    {
-     "va": "0x00495030",
-     "length": 323,
-     "name": "?sub_00495030_DrawKeyHelp@@YAXXZ"
-    },
-    {
-     "va": "0x00496990",
-     "length": 378,
-     "name": "?HIREABLES_FreePanelCels@@YAXXZ"
-    },
-    {
-     "va": "0x00497270",
-     "length": 23,
-     "name": "?HIREABLES_InitTextColorA@@YAXXZ"
-    },
-    {
-     "va": "0x00497290",
-     "length": 20,
-     "name": "?HIREABLES_InitTextColorB@@YAXXZ"
-    },
-    {
-     "va": "0x004979E0",
-     "length": 12,
-     "name": "?HIREABLES_AreBeltRowsShown@@YAHXZ"
-    },
-    {
-     "va": "0x004979F0",
-     "length": 68,
-     "name": "?HIREABLES_GetBeltRowCount@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00493760.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00493760",
-     "length": 217,
-     "name": "?sub_00493760_HirelingIconHoverMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004938E0",
-     "length": 204,
-     "name": "?sub_004938E0_HirelingIconClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00494300",
-     "length": 24,
-     "name": "?sub_00494300_SetHelpMenuSetting@@YAXK@Z"
     },
     {
      "va": "0x00494FF0",
@@ -24397,14 +24281,84 @@
      "name": "?sub_00494FF0_IsMouseInBox@@YGHHHHH@Z"
     },
     {
+     "va": "0x00495030",
+     "length": 323,
+     "name": "?sub_00495030_DrawKeyHelp@@YAXXZ"
+    },
+    {
+     "va": "0x00495180",
+     "length": 300,
+     "name": "VIEW_DrawHelpButtons"
+    },
+    {
+     "va": "0x004952B0",
+     "length": 107,
+     "name": "sub_004952B0_ButtonDownMsg"
+    },
+    {
+     "va": "0x00495320",
+     "length": 155,
+     "name": "sub_00495320_ButtonUpMsg"
+    },
+    {
+     "va": "0x004953C0",
+     "length": 78,
+     "name": "?INV_GetCenteredX@@YIHGH@Z"
+    },
+    {
+     "va": "0x00495410",
+     "length": 2472,
+     "name": "?sub_00495410_DrawHelpText@@YAXXZ"
+    },
+    {
+     "va": "0x00495DC0",
+     "length": 2294,
+     "name": "?sub_00495DC0_DrawHelpText@@YAXXZ"
+    },
+    {
+     "va": "0x004966C0",
+     "length": 95,
+     "name": "?sub_004966C0_DrawHelpScreen@@YAXXZ"
+    },
+    {
+     "va": "0x00496720",
+     "length": 127,
+     "name": "INV_HelpCloseButtonMsg"
+    },
+    {
+     "va": "0x004967A0",
+     "length": 52,
+     "name": "?sub_004967A0_KeyCloseHelp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x004967E0",
      "length": 1,
      "name": "?sub_004967E0_Empty@@YAXXZ"
     },
     {
+     "va": "0x004967F0",
+     "length": 395,
+     "name": "?INV_LoadPanelCels@@YAXXZ"
+    },
+    {
      "va": "0x00496980",
      "length": 1,
      "name": "?sub_00496980_Empty@@YAXXZ"
+    },
+    {
+     "va": "0x00496990",
+     "length": 378,
+     "name": "?HIREABLES_FreePanelCels@@YAXXZ"
+    },
+    {
+     "va": "0x00496B10",
+     "length": 200,
+     "name": "WARDENCLIENT_DrawHostileIcon"
+    },
+    {
+     "va": "0x00496BE0",
+     "length": 267,
+     "name": "WARDENCLIENT_DrawSkillInfo"
     }
    ]
   },
@@ -24524,33 +24478,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004945F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004952B0",
-     "length": 107,
-     "name": "sub_004952B0_ButtonDownMsg"
-    },
-    {
-     "va": "0x00495320",
-     "length": 155,
-     "name": "sub_00495320_ButtonUpMsg"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00494EB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00494EB0",
-     "length": 42,
-     "name": "?VIEW_DrawHelpShade@@YAXXZ"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/panel.cpp",
    "rank": 0,
    "functions": [
@@ -24575,9 +24502,39 @@
      "name": "?PANEL_DrawManaOrb@@YAXXZ"
     },
     {
+     "va": "0x00497250",
+     "length": 20,
+     "name": "?VIEW_InitTextColorRed@@YAXXZ"
+    },
+    {
+     "va": "0x00497270",
+     "length": 23,
+     "name": "?HIREABLES_InitTextColorA@@YAXXZ"
+    },
+    {
+     "va": "0x00497290",
+     "length": 20,
+     "name": "?HIREABLES_InitTextColorB@@YAXXZ"
+    },
+    {
+     "va": "0x004972B0",
+     "length": 80,
+     "name": "?VIEW_InitBeltColors@@YAXXZ"
+    },
+    {
+     "va": "0x00497300",
+     "length": 311,
+     "name": "?INV_DrawKeyBindingPopup@@YAXXZ"
+    },
+    {
      "va": "0x00497440",
      "length": 55,
      "name": "?sub_00497440_Bounds@@YAHHH@Z"
+    },
+    {
+     "va": "0x00497480",
+     "length": 292,
+     "name": "VIEW_DrawRunButton"
     },
     {
      "va": "0x004975B0",
@@ -24603,6 +24560,16 @@
      "va": "0x00497920",
      "length": 190,
      "name": "?PANEL_DrawCursorBeltBox@@YAXPAUD2InventoryStrc@@@Z"
+    },
+    {
+     "va": "0x004979E0",
+     "length": 12,
+     "name": "?HIREABLES_AreBeltRowsShown@@YAHXZ"
+    },
+    {
+     "va": "0x004979F0",
+     "length": 68,
+     "name": "?HIREABLES_GetBeltRowCount@@YAHXZ"
     },
     {
      "va": "0x00497A40",
@@ -24701,9 +24668,24 @@
      "name": "?PANEL_BeltHotkeyFourth@@YAXXZ"
     },
     {
+     "va": "0x00498D50",
+     "length": 12,
+     "name": "?VIEW_SetBeltSlotValue@@YIXHH@Z"
+    },
+    {
+     "va": "0x00498D60",
+     "length": 36,
+     "name": "?VIEW_ResetBeltHover@@YAXXZ"
+    },
+    {
      "va": "0x00498D90",
      "length": 43,
      "name": "?PANEL_SetBeltType@@YIXH@Z"
+    },
+    {
+     "va": "0x00498DC0",
+     "length": 187,
+     "name": "?AUTOMAP_IsCursorOverMiniPanelButton@@YIHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x00498E80",
@@ -54709,7 +54691,13 @@
      "va": "0x00597B00",
      "length": 368,
      "name": "?D2GAME_INVMODE_Last_6FC416D0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/MONSTER/MonsterMsg.cpp",
+   "rank": 1,
+   "functions": [
     {
      "va": "0x00597C70",
      "length": 118,
@@ -54719,13 +54707,7 @@
      "va": "0x00597CF0",
      "length": 115,
      "name": "?MONSTERMSG_SendLifeUpdate@@YGXPAUD2UnitStrc@@PAUD2ClientStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterMsg.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00597D70",
      "length": 172
@@ -54733,18 +54715,18 @@
     {
      "va": "0x00597E20",
      "length": 1014
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00598220.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00598220",
      "length": 435,
      "name": "?MONSTERMSG_SendMonsterUpdates@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ClientStrc@@H@Z"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Unknown_005985C0.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x005985C0",
      "length": 5,
@@ -62029,6 +62011,14 @@
      "name": "?SKILLS_SrvSt33_FindPotion_GrimWard@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005D8100",
+     "length": 188
+    },
+    {
+     "va": "0x005D81C0",
+     "length": 199
+    },
+    {
      "va": "0x005D8470",
      "length": 155,
      "name": "?SKILLS_SrvDo070_DoubleSwing@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -62047,6 +62037,10 @@
      "va": "0x005D8760",
      "length": 29,
      "name": "?SKILLS_SrvSt34_FindItem@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005D8780",
+     "length": 290
     },
     {
      "va": "0x005D8B10",
@@ -62160,59 +62154,6 @@
      "length": 52,
      "name": "?SKILLS_SrvSt65_Throw_LeftHandThrow@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005D8100.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005D8100",
-     "length": 188
-    },
-    {
-     "va": "0x005D8780",
-     "length": 290
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005D81C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005D81C0",
-     "length": 199
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
@@ -77909,6 +77850,10 @@
      "length": 71
     },
     {
+     "va": "0x00680070",
+     "length": 294
+    },
+    {
      "va": "0x006801A0",
      "length": 76,
      "name": "?DRLGOUTWILD_SpawnCliffCaves@@YGHPAUD2DrlgLevelStrc@@HH@Z"
@@ -77953,30 +77898,6 @@
      "length": 253,
      "name": "?DRLGOUTWILD_InitAct1OutdoorLevel@@YIXPAUD2DrlgLevelStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00680070.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00680070",
-     "length": 294
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

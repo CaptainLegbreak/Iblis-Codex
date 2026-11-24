@@ -1,25 +1,10 @@
 #include "Storm.h"
 #include "stpl.h"
 
-struct BigBuffer;
 struct D2Storm408ElemStrc;
 struct D2StormArray408Strc;
 
 void* __stdcall SMemReAlloc(void* pLocation, unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x004133D0
-
-struct BigBuffer
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    unsigned int* m_data;
-    unsigned int m_chunk;
-    unsigned int m_offset;
-
-    unsigned int At(unsigned int nIndex) const
-    {
-        return m_offset + nIndex < m_count ? m_data[m_offset + nIndex] : 0;
-    }
-};
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
 extern "C" const char gszTypeNewsTableItem_0072FF8C[];

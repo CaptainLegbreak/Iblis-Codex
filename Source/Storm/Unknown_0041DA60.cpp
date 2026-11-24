@@ -15,7 +15,7 @@ static int __stdcall ImaAdpcmCompress(int nOutSize, const short* pIn, int nInSiz
     }
     D2AdpcmHeaderStrc tHeader;
     tHeader.nZero = 0;
-    tHeader.f_1 = nLevel - 1;
+    tHeader.nShift = nLevel - 1;
     *(D2AdpcmHeaderStrc*)pOut = tHeader;
     pOut += 2;
     if (pOut + nChannels * 2 - pOutStart > nOutSize)
@@ -73,7 +73,7 @@ static int __stdcall ImaAdpcmCompress(int nOutSize, const short* pIn, int nInSiz
         }
         unsigned int nMask = 0;
         unsigned int nTotal = 0;
-        const unsigned int nStepRest = nStepSize >> tHeader.f_1;
+        const unsigned int nStepRest = nStepSize >> tHeader.nShift;
         unsigned int nBit = 1;
         const unsigned int nMaxBit = ((unsigned int)(1 << (nLevel - 2)) > 0x20) ? 0x20 : (1 << (nLevel - 2));
         for (;;)

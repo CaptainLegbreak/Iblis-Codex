@@ -373,9 +373,9 @@ struct D2CommonStringEntryNodeStrc
 
 struct D2HslStrc
 {
-    double f_0;
-    double f_8;
-    double f_10;
+    double dHue;
+    double dSaturation;
+    double dLightness;
 };
 
 struct D2PalRgbaStrc

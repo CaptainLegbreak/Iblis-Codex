@@ -2,6 +2,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #include "D2StormTypes.h"
 #include "D2CelContext.h"
 #include "D2LevelTxt.h"
@@ -223,6 +224,38 @@ struct D2HirelingIconRecordStrc
 extern D2HirelingIconRecordStrc* gpHirelingRecords_007BEEAC; // 0x007BEEAC
 extern "C" size_t __cdecl strlen(const char* szString);
 
+
+
+
+static inline int InBox(int nX, int nY, int nLeft, int nRight, int nTop, int nBottom)
+{
+    return nX >= nLeft && nX <= nRight && nY >= nTop && nY <= nBottom;
+}
+
+int __cdecl HIREABLES_GetHelpMenuSetting(); // 0x004942D0
+int __stdcall HIREABLES_CanEquipHirelingItem(int playSound); // 0x004934D0
+void __stdcall sub_K04_EmitUse(int nValue);
+
+// 0x00492BC0
+int __cdecl VIEW_GetPetTypeCount()
+{
+    return sgptDataTables->nPetTypeTxtRecordCount;
+}
+
+// 0x00492BD0
+int __fastcall VIEW_IsInPetIcon(SMSGHANDLER_PARAMS* pMsg)
+{
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
+    return gnPetIconPopupState != 2 && InBox(nX, nY, gnPopupX, gnPopupX + 0x2E, 0x18, 0x18 + 0x24);
+}
+
+// 0x00492C10
+int __cdecl VIEW_IsPetIconVisible()
+{
+    return gnPetIconPopupState != 2;
+}
+
 // 0x00492C20
 void __cdecl HIREABLES_LoadHirelingIcons()
 {
@@ -287,6 +320,27 @@ void __cdecl HIREABLES_FreeHirelingIcons()
     }
 }
 
+// 0x00492F40
+void __fastcall VIEW_InitLifeColors(int nMode)
+{
+    if (!nMode)
+    {
+        if (gbLifeColorsInit)
+            return;
+        gbLifeColorsInit = 1;
+    }
+
+    gnLifeColorHigh = D2Win_10034_MixRGB(0, 0x80, 0);
+    gnLifeColorMid = D2Win_10034_MixRGB(0xC0, 0xC0, 0);
+    gnLifeColorLow = D2Win_10034_MixRGB(0xFF, 0, 0);
+}
+
+// 0x00492F90
+void __cdecl VIEW_ResetLifeColors()
+{
+    gbLifeColorsInit = 0;
+}
+
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x00492FA0
 static void __stdcall HIREABLES_DrawFittedText(int nX, int nY, int nColor, Unicode* pText)
@@ -331,6 +385,42 @@ static void __stdcall HIREABLES_DrawRosterName(const char* szName, int nX, int n
 
 struct D2UnitStrc;
 
+
+int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+
+
+// 0x00493100
+void __stdcall INV_DrawIconNumber(int nValue, int nX)
+{
+    unsigned short wszConvertedBuf[32];
+    Unicode* wszConverted = (Unicode*)wszConvertedBuf;
+    for (int i = 0; i < 32; ++i)
+    {
+        wszConverted[i].wChar = 0;
+    }
+    unsigned short wszTextBuf[32];
+    Unicode* wszText = (Unicode*)wszTextBuf;
+    for (int i = 0; i < 32; ++i)
+    {
+        wszText[i].wChar = 0;
+    }
+    char szNumber[0x20];
+    sprintf(szNumber, szIntFormat_006D57BC, nValue);
+    memset(wszText, 0, sizeof(wszTextBuf));
+    sub_00526320_ToUnicode(wszConverted, szNumber, 32);
+    Unicode::strncpy(wszText, wszConverted, 32);
+    wszText[31].wChar = 0;
+    Unicode* pEnd = &wszText[sub_00526800(wszText)];
+    while (D2Win_10121_GetTextWidth(wszText) > 0x2E)
+    {
+        --pEnd;
+        pEnd->wChar = 0;
+    }
+    const int nOldFont = D2Win_10127_SetFont(6);
+    D2Win_10117_DrawText(wszText, nX + 8, 0x37, 0, 0);
+    D2Win_10127_SetFont(nOldFont);
+}
+
 // 0x00493220
 static inline void HIREABLES_ToggleAmount(int* pTotal, int* pAmount)
 {
@@ -363,6 +453,80 @@ static inline D2PetTypeTxt* sub_00493240_GetPetTypeTxtRecord(int nPetType)
 int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 
 unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
+
+int __cdecl sub_00468730(); // 0x00468730
+
+int __cdecl sub_00468740(); // 0x00468740
+
+void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg); // 0x004785B0
+
+int gnGlobal_007BEED4; // 0x007BEED4
+
+// 0x004936E0
+void __stdcall WARDENCLIENT_HandlePetIconClick(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (!GAME_IsExpansion())
+    {
+        return;
+    }
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
+    pMsg->bReturn = 0;
+    const int bHit = gnPetIconPopupState != 2 && InBox(nX, nY, gnGlobal_007BEED4, gnGlobal_007BEED4 + 0x2E, 0x18, 0x18 + 0x24);
+    if (!bHit)
+    {
+        gnGlobal_007BEEE8 = 0;
+        return;
+    }
+    if (HIREABLES_CanEquipHirelingItem(1))
+    {
+        MSG_SendWord(0x61, 0);
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_00420290_BreakHandlerChain(pMsg);
+    }
+}
+
+// 0x00493760
+void __stdcall sub_00493760_HirelingIconHoverMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (!GAME_IsExpansion())
+    {
+        return;
+    }
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
+    pMsg->bReturn = 0;
+    gbPopupPending = 0;
+    const int bHit = gnPetIconPopupState != 2 && InBox(nX, nY, gnPopupX, gnPopupX + 0x2E, 0x18, 0x18 + 0x24);
+    if (!bHit)
+    {
+        gbPopupShown = 0;
+        gdwPopupTick = 0;
+        return;
+    }
+    if (!gdwPopupTick)
+    {
+        gdwPopupTick = GetTickCount();
+    }
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pCursorItem = pPlayer ? INVENTORY_GetCursorItem(pPlayer->pInventory) : 0;
+    if (!pCursorItem)
+    {
+        if (sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0) != -1)
+        {
+            gbPopupPending = 1;
+            if (GetTickCount() - gdwPopupTick >= 700)
+            {
+                gbPopupShown = 1;
+            }
+        }
+    }
+    if (HIREABLES_CanEquipHirelingItem(0))
+    {
+        gbPopupShown = 1;
+    }
+}
 
 // 0x00493840
 void __cdecl sub_00493840_TogglePopup()
@@ -404,6 +568,80 @@ void __cdecl sub_00493840_TogglePopup()
     }
 }
 
+
+class D2SquelchListStrc
+{
+public:
+    virtual void Squelch(const char* szName);
+    virtual void Unsquelch(const char* szName);
+    virtual int IsNameSquelched(const char* szName);
+    virtual void Unknown0C();
+    virtual void Unknown10();
+    virtual int IsTextSquelched(const char* szText);
+    virtual void AddName(const char* szName, int nSize);
+};
+
+
+// 0x004938E0
+void __stdcall sub_004938E0_HirelingIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (!GAME_IsExpansion())
+    {
+        return;
+    }
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
+    pMsg->bReturn = 0;
+    const int bHit = gnPetIconPopupState != 2 && InBox(nX, nY, gnPopupX, gnPopupX + 0x2E, 0x18, 0x18 + 0x24);
+    if (!bHit)
+    {
+        gdwPopupTick = 0;
+        return;
+    }
+    if (!gdwPopupTick)
+    {
+        gdwPopupTick = GetTickCount();
+    }
+    if (GetTickCount() - gdwPopupTick >= 700)
+    {
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_00420290_BreakHandlerChain(pMsg);
+        if (!GAME_GetUIVarState(0x23) || GAME_GetUIVarState(0x24) || sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0) == -1)
+        {
+            return;
+        }
+        UI_SetUIVar(0x24, 0, 0);
+    }
+    gdwPopupTick = 0;
+}
+
+// 0x004939B0
+void __cdecl TEXT_LoadPopupHireling()
+{
+    gnPetIconPopupState = 0;
+    UI_SetUIVar(0x23, 0, 0);
+    unsigned long dwValue = 0;
+    SRegLoadValue("Diablo II", "PopupHireling", 0, &dwValue);
+    if (!dwValue)
+    {
+        gbOpenMercInvPending = 1;
+    }
+}
+
+// 0x00494300
+static inline void sub_00494300_SetHelpMenuSetting(unsigned long dwValue)
+{
+// build: symbol ?gdwHelpMenu@* 0x00722310
+    gdwHelpMenu = dwValue;
+    SRegSaveValue("Diablo II", "Help Menu", 1, dwValue);
+}
+
+void __fastcall sub_M115_Emit_00494300(unsigned long dwValue)
+{
+    sub_00494300_SetHelpMenuSetting(dwValue);
+}
+
 // 0x00494320
 void __cdecl HIREABLES_LoadHelpCels()
 {
@@ -443,6 +681,204 @@ void __cdecl HIREABLES_LoadHelpCels()
     }
 }
 
+void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
+
+static int gbHelpCloseButtonDown; // 0x007BEEFC
+
+extern void* gpLevelCel; // 0x007C02DC
+
+extern void* gpLevelSocketCel; // 0x007C02E0
+
+int gnGlobal_007BEF04; // 0x007BEF04
+
+int gbHelpButtonVisible; // 0x007BEF08
+
+void __cdecl sub_00499E30();
+
+void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
+
+unsigned char gnHelpShadeColor; // 0x007BEEF8
+
+// 0x004943B0
+void __cdecl VIEW_DrawHelpFrameLowRes()
+{
+    D2CelContextStrc tContext;
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.pCellFile = gpHelpBorderCel;
+    tContext.nDirection = 0;
+    tContext.nFrame = 0;
+    sub_004F6480(&tContext, 0, 0x100, -1, 5, 0);
+    tContext.nFrame = 1;
+    sub_004F6480(&tContext, 0x100, 0x100, -1, 5, 0);
+    tContext.nFrame = 2;
+    sub_004F6480(&tContext, 0, gnScreenHeight - 0x30, -1, 5, 0);
+    tContext.nFrame = 3;
+    sub_004F6480(&tContext, 0x100, gnScreenHeight - 0x30, -1, 5, 0);
+    tContext.nFrame = 4;
+    sub_004F6480(&tContext, 0x140, 0x100, -1, 5, 0);
+    tContext.nFrame = 5;
+    sub_004F6480(&tContext, 0x240, 0x100, -1, 5, 0);
+    tContext.nFrame = 6;
+    sub_004F6480(&tContext, 0x140, gnScreenHeight - 0x30, -1, 5, 0);
+    tContext.nFrame = 7;
+    sub_004F6480(&tContext, 0x240, gnScreenHeight - 0x30, -1, 5, 0);
+}
+
+// 0x004944F0
+void __cdecl VIEW_DrawHelpFrameHighRes()
+{
+    D2CelContextStrc tContext;
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.pCellFile = gpHelpBorderCel;
+    tContext.nDirection = 0;
+    tContext.nFrame = 0;
+    sub_004F6480(&tContext, 0, 0x100, -1, 5, 0);
+    tContext.nFrame = 1;
+    sub_004F6480(&tContext, 0, 0x200, -1, 5, 0);
+    tContext.nFrame = 2;
+    sub_004F6480(&tContext, 0x42, 0x14, -1, 5, 0);
+    tContext.nFrame = 3;
+    sub_004F6480(&tContext, 0x142, 0x14, -1, 5, 0);
+    tContext.nFrame = 4;
+    sub_004F6480(&tContext, 0x217, 0x100, -1, 5, 0);
+    tContext.nFrame = 5;
+    sub_004F6480(&tContext, 0x30C, 0x100, -1, 5, 0);
+    tContext.nFrame = 6;
+    sub_004F6480(&tContext, 0x30C, 0x200, -1, 5, 0);
+}
+
+// 0x004945F0
+void __cdecl VIEW_DrawHelpShade()
+{
+    sub_00499E30();
+    AUTOMAP_DrawFramedBox(0, 0, gnScreenWidth, gnScreenHeight - 0x31, gnHelpShadeColor, 1);
+}
+
+void __cdecl GAME_ResetMouseButtons();                                                                                // 0x0044DA70
+
+// 0x00494620
+void __cdecl ROSTERPETS_DrawHelpColumn()
+{
+    D2CelContextStrc tContext;
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.pCellFile = gpHelpYellowBulletCel;
+    tContext.nDirection = 0;
+    tContext.nFrame = 0;
+    int nY = 0x49;
+    for (int i = 0; i < 8; ++i)
+    {
+        sub_004F6480(&tContext, 0x68, nY, -1, 5, 0);
+        nY += 0x14;
+    }
+}
+
+// 0x00494680
+void __cdecl VIEW_DrawHelpLinesLowRes()
+{
+    D2CelContextStrc tContext;
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.pCellFile = gpHelpWhiteBulletCel;
+    tContext.nDirection = 0;
+    tContext.nFrame = 0;
+    sub_004F6480(&tContext, 0x33, 0x19E, -1, 5, 0);
+    D2GFX_DrawLine(0x36, 0x16D, 0x36, 0x19B, 0xFF, 0xFF);
+    D2GFX_DrawLine(0x37, 0x16D, 0x37, 0x19B, 0xFF, 0xFF);
+    sub_004F6480(&tContext, 0x7F, 0x1BC, -1, 5, 0);
+    D2GFX_DrawLine(0x82, 0x145, 0x82, 0x1B9, 0xFF, 0xFF);
+    D2GFX_DrawLine(0x83, 0x145, 0x83, 0x1B9, 0xFF, 0xFF);
+    sub_004F6480(&tContext, 0xB2, 0x1D0, -1, 5, 0);
+    D2GFX_DrawLine(0xB5, 0x195, 0xB5, 0x1CD, 0xFF, 0xFF);
+    D2GFX_DrawLine(0xB6, 0x195, 0xB6, 0x1CD, 0xFF, 0xFF);
+    sub_004F6480(&tContext, 0xE3, 0x1D0, -1, 5, 0);
+    D2GFX_DrawLine(0xE6, 0x16D, 0xE6, 0x1CD, 0xFF, 0xFF);
+    D2GFX_DrawLine(0xE7, 0x16D, 0xE7, 0x1CD, 0xFF, 0xFF);
+    sub_004F6480(&tContext, 0x11C, 0x1BD, -1, 5, 0);
+    D2GFX_DrawLine(0x11F, 0x195, 0x11F, 0x1BA, 0xFF, 0xFF);
+    D2GFX_DrawLine(0x120, 0x195, 0x120, 0x1BA, 0xFF, 0xFF);
+    sub_004F6480(&tContext, 0x15E, 0x19F, -1, 5, 0);
+    D2GFX_DrawLine(0x161, 0x145, 0x161, 0x19B, 0xFF, 0xFF);
+    D2GFX_DrawLine(0x162, 0x145, 0x162, 0x19B, 0xFF, 0xFF);
+    sub_004F6480(&tContext, 0x1BD, 0x1C2, -1, 5, 0);
+    D2GFX_DrawLine(0x1C0, 0x195, 0x1C0, 0x1BE, 0xFF, 0xFF);
+    D2GFX_DrawLine(0x1C1, 0x195, 0x1C1, 0x1BE, 0xFF, 0xFF);
+    sub_004F6480(&tContext, 0x1F7, 0x1BD, -1, 5, 0);
+    D2GFX_DrawLine(0x1FA, 0x145, 0x1FA, 0x1B9, 0xFF, 0xFF);
+    D2GFX_DrawLine(0x1FB, 0x145, 0x1FB, 0x1B9, 0xFF, 0xFF);
+    sub_004F6480(&tContext, 0x246, 0x19F, -1, 5, 0);
+    D2GFX_DrawLine(0x249, 0x16D, 0x249, 0x19B, 0xFF, 0xFF);
+    D2GFX_DrawLine(0x24A, 0x16D, 0x24A, 0x19B, 0xFF, 0xFF);
+}
+
+// 0x00494A00
+void __cdecl VIEW_DrawHelpLinesHighRes()
+{
+    D2CelContextStrc tContext;
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.pCellFile = gpHelpWhiteBulletCel;
+    tContext.nDirection = 0;
+    tContext.nFrame = 0;
+    sub_004F6480(&tContext, 0x37, 0x217, -1, 5, 0);
+    D2GFX_DrawLine(0x3A, 0x1E6, 0x3A, 0x214, 0xFF, 0xFF);
+    D2GFX_DrawLine(0x3B, 0x1E6, 0x3B, 0x214, 0xFF, 0xFF);
+    sub_004F6480(&tContext, 0x82, 0x234, -1, 5, 0);
+    D2GFX_DrawLine(0x85, 0x1BD, 0x85, 0x231, 0xFF, 0xFF);
+    D2GFX_DrawLine(0x86, 0x1BD, 0x86, 0x231, 0xFF, 0xFF);
+    sub_004F6480(&tContext, 0xD9, 0x23F, -1, 5, 0);
+    D2GFX_DrawLine(0xDC, 0x177, 0xDC, 0x23C, 0xFF, 0xFF);
+    D2GFX_DrawLine(0xDD, 0x177, 0xDD, 0x23C, 0xFF, 0xFF);
+    sub_004F6480(&tContext, 0x104, 0x249, -1, 5, 0);
+    D2GFX_DrawLine(0x107, 0x20E, 0x107, 0x246, 0xFF, 0xFF);
+    D2GFX_DrawLine(0x108, 0x20E, 0x108, 0x246, 0xFF, 0xFF);
+    sub_004F6480(&tContext, 0x136, 0x249, -1, 5, 0);
+    D2GFX_DrawLine(0x139, 0x1E6, 0x139, 0x246, 0xFF, 0xFF);
+    D2GFX_DrawLine(0x13A, 0x1E6, 0x13A, 0x246, 0xFF, 0xFF);
+    sub_004F6480(&tContext, 0x16D, 0x235, -1, 5, 0);
+    D2GFX_DrawLine(0x170, 0x20D, 0x170, 0x232, 0xFF, 0xFF);
+    D2GFX_DrawLine(0x171, 0x20D, 0x171, 0x232, 0xFF, 0xFF);
+    sub_004F6480(&tContext, 0x1BD, 0x21C, -1, 5, 0);
+    D2GFX_DrawLine(0x1C0, 0x1C3, 0x1C0, 0x219, 0xFF, 0xFF);
+    D2GFX_DrawLine(0x1C1, 0x1C3, 0x1C1, 0x219, 0xFF, 0xFF);
+    sub_004F6480(&tContext, 0x212, 0x239, -1, 5, 0);
+    D2GFX_DrawLine(0x215, 0x20D, 0x215, 0x236, 0xFF, 0xFF);
+    D2GFX_DrawLine(0x216, 0x20D, 0x216, 0x236, 0xFF, 0xFF);
+    sub_004F6480(&tContext, 0x23C, 0x23F, -1, 5, 0);
+    D2GFX_DrawLine(0x23F, 0x177, 0x23F, 0x23C, 0xFF, 0xFF);
+    D2GFX_DrawLine(0x240, 0x177, 0x240, 0x23C, 0xFF, 0xFF);
+    sub_004F6480(&tContext, 0x29E, 0x234, -1, 5, 0);
+    D2GFX_DrawLine(0x2A1, 0x1BD, 0x2A1, 0x231, 0xFF, 0xFF);
+    D2GFX_DrawLine(0x2A2, 0x1BD, 0x2A2, 0x231, 0xFF, 0xFF);
+    sub_004F6480(&tContext, 0x2E4, 0x217, -1, 5, 0);
+    D2GFX_DrawLine(0x2E7, 0x1E6, 0x2E7, 0x214, 0xFF, 0xFF);
+    D2GFX_DrawLine(0x2E8, 0x1E6, 0x2E8, 0x214, 0xFF, 0xFF);
+}
+
+// 0x00494E40
+void __cdecl VIEW_DrawHelpPanelCel()
+{
+    D2CelContextStrc tContext;
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.pCellFile = sub_00454600();
+    tContext.nFrame = (gbHelpCloseButtonDown != 0) + 10;
+    tContext.nDirection = 0;
+    if (D2GFX_GetResolutionMode() == 2)
+    {
+        sub_004F6480(&tContext, 0x2AD, 0x38, -1, 5, 0);
+    }
+    else
+    {
+        sub_004F6480(&tContext, 0x20D, 0x38, -1, 5, 0);
+    }
+}
+
+void __cdecl PANEL_SetBlackColour();                                                                                // 0x00499E30
+
+// 0x00494EB0
+void __cdecl sub_00494EB0()
+{
+    PANEL_SetBlackColour();
+    AUTOMAP_DrawFramedBox(0, 0, gnScreenWidth, gnScreenHeight - 0x31, gnHelpShadeColor, 1);
+}
+
 // 0x00494EE0
 void __cdecl HIREABLES_FreeHelpCels()
 {
@@ -465,6 +901,46 @@ void __cdecl HIREABLES_FreeHelpCels()
 
 extern int gbHelpUiOpened;                                                                         // 0x007BEF00
 
+// 0x00494F30
+void __stdcall ROSTERPETS_HandleHelpButtonDown(SMSGHANDLER_PARAMS* pMsg)
+{
+    int nX = pMsg->nXpos;
+    int nY = pMsg->nYpos;
+    if (D2GFX_GetResolutionMode() == 2)
+    {
+        if (nX >= 0x2AD && nX <= 0x2CD && nY >= 0x18 && nY <= 0x38)
+        {
+            gbHelpCloseButtonDown = 1;
+            pMsg->bReturn = 1;
+            pMsg->lResult = 0;
+            sub_00420290_BreakHandlerChain(pMsg);
+            return;
+        }
+    }
+    else
+    {
+        if (nX >= 0x20D && nX <= 0x22D && nY >= 0x18 && nY <= 0x38)
+        {
+            gbHelpCloseButtonDown = 1;
+            pMsg->bReturn = 1;
+            pMsg->lResult = 0;
+            sub_00420290_BreakHandlerChain(pMsg);
+            return;
+        }
+    }
+    GAME_ResetMouseButtons();
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
+
+
+// 0x00494FB0
+void __stdcall sub_00494FB0(int nUnused1)
+{
+}
+
 // 0x00494FC0
 void __cdecl sub_00494FC0()
 {
@@ -475,6 +951,21 @@ void __cdecl sub_00494FC0()
     }
 }
 
+
+// 0x00494FF0
+static int __stdcall sub_00494FF0_IsMouseInBox(int nLeft, int nBottom, int nWidth, int nHeight)
+{
+    const int nMouseX = sub_00468730();
+    const int nMouseY = sub_00468740();
+    if (nMouseX >= nLeft && nMouseX <= nLeft + nWidth && nMouseY >= nBottom - nHeight && nMouseY <= nBottom)
+        return 1;
+    return 0;
+}
+
+void __fastcall sub_K04_EmitIsMouseInBox(int nX, int nY)
+{
+    sub_K04_EmitUse(sub_00494FF0_IsMouseInBox(nX + 0x31, nY - 0x27, 0x23, 0x25));
+}
 
 // 0x00495030
 void __cdecl sub_00495030_DrawKeyHelp()
@@ -496,6 +987,476 @@ void __cdecl sub_00495030_DrawKeyHelp()
     }
     const int nWidth = D2Win_10121_GetTextWidth(wszText);
     D2Win_10117_DrawText(wszText, gnScreenWidth - nWidth / 2 - 0x3A, gnScreenHeight - 0xC5, 0, 0);
+}
+
+// 0x00495180
+void __cdecl VIEW_DrawHelpButtons()
+{
+    if (GAME_GetUIVarState(4) || GAME_GetUIVarState(3) || GAME_GetUIVarState(1) || GAME_GetUIVarState(0xC)
+        || GAME_GetUIVarState(0x17) || GAME_GetUIVarState(0x19))
+    {
+        gbHelpButtonVisible = 1;
+        return;
+    }
+    gbHelpButtonVisible = 0;
+    if (!HIREABLES_GetHelpMenuSetting())
+    {
+        D2CelContextStrc tContext;
+        memset(&tContext, 0, sizeof(tContext));
+        sub_00495030_DrawKeyHelp();
+        tContext.pCellFile = gpLevelSocketCel;
+        tContext.nDirection = 0;
+        tContext.nFrame = 0;
+        sub_004F6480(&tContext, gnScreenWidth - 0x4B, gnScreenHeight - 0xA0, -1, 5, 0);
+        tContext.pCellFile = gpLevelCel;
+        tContext.nFrame = gnGlobal_007BEF04 != 0;
+        sub_004F6480(&tContext, gnScreenWidth - 0x48, gnScreenHeight - 0xA4, -1, 5, 0);
+    }
+    else
+    {
+        UI_SetUIVar(0x22, 1, 0);
+    }
+}
+
+extern int gnGlobal_00722310; // 0x00722310
+
+static int gbHelpButtonPressed; // 0x007BEF04
+
+// 0x004952B0
+void __stdcall sub_004952B0_ButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (gbHelpButtonVisible)
+    {
+        return;
+    }
+    const int nBottom = gnScreenHeight - 0xA0;
+    const int nLeft = gnScreenWidth - 0x4B;
+    const int nX = sub_00468730();
+    const int nY = sub_00468740();
+    if (nX >= nLeft && nX <= nLeft + 0x23 && nY >= nBottom - 0x24 && nY <= nBottom)
+    {
+        gbHelpButtonPressed = 1;
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_00420290_BreakHandlerChain(pMsg);
+    }
+}
+
+// 0x00495320
+void __stdcall sub_00495320_ButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (gbHelpButtonVisible)
+    {
+        return;
+    }
+    const int nBottom = gnScreenHeight - 0xA0;
+    const int nLeft = gnScreenWidth - 0x4B;
+    const int nX = sub_00468730();
+    const int nY = sub_00468740();
+    if (nX >= nLeft && nX <= nLeft + 0x23 && nY >= nBottom - 0x24 && nY <= nBottom)
+    {
+        UI_SetUIVar(0x22, 1, 0);
+        UI_SetUIVar(0x21, 2, 0);
+        gnGlobal_00722310 = 1;
+        SRegSaveValue("Diablo II", "Help Menu", 1, 1);
+        gbHelpButtonPressed = 0;
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_00420290_BreakHandlerChain(pMsg);
+    }
+}
+
+void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
+
+extern void* gpCellFile_007BEF78; // 0x007BEF78
+
+extern void* gpCellFile_007BEF10; // 0x007BEF10
+
+extern void* gpCellFile_007BEF2C; // 0x007BEF2C
+
+extern void* gpCellFile_007BEF20; // 0x007BEF20
+
+int gdwGlobal_007BEEFC; // 0x007BEEFC
+
+int __cdecl STRTABLE_GetLanguage();                                                                         // 0x00525150
+
+const Unicode* __fastcall CMDTBL_GetKeyText(int nKey, int nArg2);                                     // 0x00469DE0
+
+static int __fastcall GetCenteredXInline(unsigned short nString, int nX)
+{
+    unsigned short wszTextBuf[100];
+    Unicode* wszText = (Unicode*)wszTextBuf;
+    for (int i = 0; i < 100; ++i)
+    {
+        wszText[i].wChar = 0;
+    }
+    sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nString));
+    int nWidth = D2Win_10121_GetTextWidth(wszText);
+    nWidth /= 2;
+    return nX - nWidth;
+}
+
+static int __fastcall GetCenteredX_Inl(unsigned short nString, int nX)
+{
+    unsigned short wszTextBuf[100];
+    Unicode* wszText = (Unicode*)wszTextBuf;
+    for (int i = 0; i < 100; ++i)
+    {
+        wszText[i].wChar = 0;
+    }
+    sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nString));
+    int nWidth = D2Win_10121_GetTextWidth(wszText);
+    nWidth /= 2;
+    return nX - nWidth;
+}
+
+// 0x004953C0
+int __fastcall INV_GetCenteredX(unsigned short nString, int nX)
+{
+    unsigned short wszTextBuf[100];
+    Unicode* wszText = (Unicode*)wszTextBuf;
+    for (int i = 0; i < 100; ++i)
+    {
+        wszText[i].wChar = 0;
+    }
+    sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nString));
+    return nX - D2Win_10121_GetTextWidth(wszText) / 2;
+}
+
+// 0x00495410
+void __cdecl sub_00495410_DrawHelpText()
+{
+    unsigned short wszLine1Buf[100];
+    Unicode* wszLine1 = (Unicode*)wszLine1Buf;
+    unsigned short wszLine2Buf[100];
+    Unicode* wszLine2 = (Unicode*)wszLine2Buf;
+    unsigned short wszLine3Buf[100];
+    Unicode* wszLine3 = (Unicode*)wszLine3Buf;
+    unsigned short wszLine4Buf[100];
+    Unicode* wszLine4 = (Unicode*)wszLine4Buf;
+    unsigned short wszLine5Buf[100];
+    Unicode* wszLine5 = (Unicode*)wszLine5Buf;
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1066), GetCenteredX_Inl(0x1066, 0x17C), 0x11, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1030), GetCenteredX_Inl(0x1030, 0x2BD), 0x49, 0, 0);
+
+    const int nOldFont = D2Win_10127_SetFont(5);
+
+    for (int i = 0; i < 100; ++i)
+    {
+        wszLine1[i].wChar = 0;
+    }
+    sub_005269D0(sizeof(wszLine1Buf) / sizeof(wszLine1[0]), wszLine1, D2LANG_GetStringFromTblIndex(0x1067), CMDTBL_GetKeyText(0x22, 1));
+    D2Win_10117_DrawText(wszLine1, 0x75, 0x4E, 0, 0);
+
+    for (int i = 0; i < 100; ++i)
+    {
+        wszLine2[i].wChar = 0;
+    }
+    sub_005269D0(sizeof(wszLine2Buf) / sizeof(wszLine2[0]), wszLine2, D2LANG_GetStringFromTblIndex(0x1068), CMDTBL_GetKeyText(0x25, 1));
+    D2Win_10117_DrawText(wszLine2, 0x75, 0x62, 0, 0);
+
+    for (int i = 0; i < 100; ++i)
+    {
+        wszLine3[i].wChar = 0;
+    }
+    sub_005269D0(sizeof(wszLine3Buf) / sizeof(wszLine3[0]), wszLine3, D2LANG_GetStringFromTblIndex(0x1069), CMDTBL_GetKeyText(0x24, 1));
+    D2Win_10117_DrawText(wszLine3, 0x75, 0x76, 0, 0);
+
+    for (int i = 0; i < 100; ++i)
+    {
+        wszLine4[i].wChar = 0;
+    }
+    sub_005269D0(sizeof(wszLine4Buf) / sizeof(wszLine4[0]), wszLine4, D2LANG_GetStringFromTblIndex(0x106A), CMDTBL_GetKeyText(0x7, 1));
+    D2Win_10117_DrawText(wszLine4, 0x75, 0x8A, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x106B), 0x75, 0x9E, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x106C), 0x75, 0xB2, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x106D), 0x75, 0xC6, 0, 0);
+
+    for (int i = 0; i < 100; ++i)
+    {
+        wszLine5[i].wChar = 0;
+    }
+    sub_005269D0(sizeof(wszLine5Buf) / sizeof(wszLine5[0]), wszLine5, D2LANG_GetStringFromTblIndex(0x106E), CMDTBL_GetKeyText(0x6, 1));
+    D2Win_10117_DrawText(wszLine5, 0x75, 0xDA, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x106F), GetCenteredX_Inl(0x106F, 0x3B), 0x1E1, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1070), GetCenteredX_Inl(0x1070, 0x86), 0x19A, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1071), GetCenteredX_Inl(0x1071, 0x86), 0x1A9, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1072), GetCenteredX_Inl(0x1072, 0x86), 0x1B8, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF92), GetCenteredX_Inl(0xF92, 0xDE), 0x177, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1074), GetCenteredX_Inl(0x1074, 0x108), 0x1FA, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1075), GetCenteredX_Inl(0x1075, 0x108), 0x209, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1076), GetCenteredX_Inl(0x1076, 0x13A), 0x1E1, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1077), GetCenteredX_Inl(0x1077, 0x171), 0x1F9, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1078), GetCenteredX_Inl(0x1078, 0x171), 0x208, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1079), GetCenteredX_Inl(0x1079, 0x1C1), 0x191, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x107A), GetCenteredX_Inl(0x107A, 0x1C1), 0x1A0, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x107B), GetCenteredX_Inl(0x107B, 0x1C1), 0x1AF, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x107C), GetCenteredX_Inl(0x107C, 0x1C1), 0x1BE, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x107D), GetCenteredX_Inl(0x107D, 0x216), 0x208, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF93), GetCenteredX_Inl(0xF93, 0x23C), 0x177, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1073), GetCenteredX_Inl(0x1073, 0x2A2), 0x19A, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1071), GetCenteredX_Inl(0x1071, 0x2A2), 0x1A9, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1072), GetCenteredX_Inl(0x1072, 0x2A2), 0x1B8, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x107E), GetCenteredX_Inl(0x107E, 0x2E8), 0x1E1, 0, 0);
+
+    D2Win_10127_SetFont(nOldFont);
+}
+
+// 0x00495DC0
+void __cdecl sub_00495DC0_DrawHelpText()
+{
+    unsigned short wszLine1Buf[100];
+    Unicode* wszLine1 = (Unicode*)wszLine1Buf;
+    unsigned short wszLine2Buf[100];
+    Unicode* wszLine2 = (Unicode*)wszLine2Buf;
+    unsigned short wszLine3Buf[100];
+    Unicode* wszLine3 = (Unicode*)wszLine3Buf;
+    unsigned short wszLine4Buf[100];
+    Unicode* wszLine4 = (Unicode*)wszLine4Buf;
+    unsigned short wszLine5Buf[100];
+    Unicode* wszLine5 = (Unicode*)wszLine5Buf;
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1066), GetCenteredXInline(0x1066, 0x131), 0x11, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1030), GetCenteredXInline(0x1030, 0x21D), 0x49, 0, 0);
+
+    const int nOldFont = D2Win_10127_SetFont(5);
+
+    for (int i = 0; i < 100; ++i)
+    {
+        wszLine1[i].wChar = 0;
+    }
+    sub_005269D0(sizeof(wszLine1Buf) / sizeof(wszLine1[0]), wszLine1, D2LANG_GetStringFromTblIndex(0x1067), CMDTBL_GetKeyText(0x22, 1));
+    D2Win_10117_DrawText(wszLine1, 0x75, 0x4E, 0, 0);
+
+    for (int i = 0; i < 100; ++i)
+    {
+        wszLine2[i].wChar = 0;
+    }
+    sub_005269D0(sizeof(wszLine2Buf) / sizeof(wszLine2[0]), wszLine2, D2LANG_GetStringFromTblIndex(0x1068), CMDTBL_GetKeyText(0x25, 1));
+    D2Win_10117_DrawText(wszLine2, 0x75, 0x62, 0, 0);
+
+    for (int i = 0; i < 100; ++i)
+    {
+        wszLine3[i].wChar = 0;
+    }
+    sub_005269D0(sizeof(wszLine3Buf) / sizeof(wszLine3[0]), wszLine3, D2LANG_GetStringFromTblIndex(0x1069), CMDTBL_GetKeyText(0x24, 1));
+    D2Win_10117_DrawText(wszLine3, 0x75, 0x76, 0, 0);
+
+    for (int i = 0; i < 100; ++i)
+    {
+        wszLine4[i].wChar = 0;
+    }
+    sub_005269D0(sizeof(wszLine4Buf) / sizeof(wszLine4[0]), wszLine4, D2LANG_GetStringFromTblIndex(0x106A), CMDTBL_GetKeyText(0x7, 1));
+    D2Win_10117_DrawText(wszLine4, 0x75, 0x8A, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x106B), 0x75, 0x9E, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x106C), 0x75, 0xB2, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x106D), 0x75, 0xC6, 0, 0);
+
+    for (int i = 0; i < 100; ++i)
+    {
+        wszLine5[i].wChar = 0;
+    }
+    sub_005269D0(sizeof(wszLine5Buf) / sizeof(wszLine5[0]), wszLine5, D2LANG_GetStringFromTblIndex(0x106E), CMDTBL_GetKeyText(0x6, 1));
+    D2Win_10117_DrawText(wszLine5, 0x75, 0xDA, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x106F), GetCenteredXInline(0x106F, 0x37), 0x168, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1070), GetCenteredXInline(0x1070, 0x83), 0x122, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1071), GetCenteredXInline(0x1071, 0x83), 0x131, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1072), GetCenteredXInline(0x1072, 0x83), 0x140, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1074), GetCenteredXInline(0x1074, 0xB6), 0x181, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1075), GetCenteredXInline(0x1075, 0xB6), 0x190, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1076), GetCenteredXInline(0x1076, 0xE7), 0x168, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1077), GetCenteredXInline(0x1077, 0x120), 0x181, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1078), GetCenteredXInline(0x1078, 0x120), 0x190, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1079), GetCenteredXInline(0x1079, 0x162), 0x113, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x107A), GetCenteredXInline(0x107A, 0x162), 0x122, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x107B), GetCenteredXInline(0x107B, 0x162), 0x131, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x107C), GetCenteredXInline(0x107C, 0x162), 0x140, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x107D), GetCenteredXInline(0x107D, 0x1C1), 0x190, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1073), GetCenteredXInline(0x1073, 0x1FB), 0x122, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1071), GetCenteredXInline(0x1071, 0x1FB), 0x131, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1072), GetCenteredXInline(0x1072, 0x1FB), 0x140, 0, 0);
+
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x107E), GetCenteredXInline(0x107E, 0x24A), 0x168, 0, 0);
+
+    D2Win_10127_SetFont(nOldFont);
+}
+
+// 0x004966C0
+void __cdecl sub_004966C0_DrawHelpScreen()
+{
+    if (!GAME_GetUIVarState(0x15))
+    {
+        UI_SetUIVar(0x15, 0, 0);
+        gbHelpUiOpened = 1;
+    }
+    if (D2GFX_GetResolutionMode() == 2)
+    {
+        VIEW_DrawHelpFrameHighRes();
+        VIEW_DrawHelpPanelCel();
+        ROSTERPETS_DrawHelpColumn();
+        VIEW_DrawHelpLinesHighRes();
+        sub_00495410_DrawHelpText();
+    }
+    else
+    {
+        VIEW_DrawHelpFrameLowRes();
+        VIEW_DrawHelpPanelCel();
+        ROSTERPETS_DrawHelpColumn();
+        VIEW_DrawHelpLinesLowRes();
+        sub_00495DC0_DrawHelpText();
+    }
+}
+
+// 0x00496720
+void __stdcall INV_HelpCloseButtonMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    int nX = pMsg->nXpos;
+    int nY = pMsg->nYpos;
+    if (gdwGlobal_007BEEFC)
+    {
+        if (D2GFX_GetResolutionMode() == 2)
+        {
+            if (nX >= 0x2AD && nX <= 0x2CD && nY >= 0x18 && nY <= 0x38)
+            {
+                UI_SetUIVar(0x21, 2, 0);
+                sub_00494FC0();
+                pMsg->bReturn = 1;
+                pMsg->lResult = 0;
+                sub_00420290_HandleMsg(pMsg);
+                return;
+            }
+        }
+        else
+        {
+            if (nX >= 0x20D && nX <= 0x22D && nY >= 0x18 && nY <= 0x38)
+            {
+                UI_SetUIVar(0x21, 2, 0);
+                sub_00494FC0();
+                pMsg->bReturn = 1;
+                pMsg->lResult = 0;
+                sub_00420290_HandleMsg(pMsg);
+                return;
+            }
+        }
+    }
+    gdwGlobal_007BEEFC = 0;
+    GAME_ResetMouseButtons();
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_HandleMsg(pMsg);
+}
+
+// 0x004967A0
+void __stdcall sub_004967A0_KeyCloseHelp(SMSGHANDLER_PARAMS* pMsg)
+{
+    UI_SetUIVar(0x21, 1, 0);
+    if (gbHelpUiOpened)
+    {
+        UI_SetUIVar(0x15, 1, 0);
+        gbHelpUiOpened = 0;
+    }
+}
+
+// 0x004967E0
+void __cdecl sub_004967E0_Empty()
+{
+}
+
+// 0x004967F0
+void __cdecl INV_LoadPanelCels()
+{
+    char szPath[0x104];
+    gpBtnCel = GAME_LoadUiCelFile("Panel\\btn");
+    const int nLanguage = STRTABLE_GetLanguage();
+    int bExpansion = 0;
+    if (FOG_IsExpansion() && GAME_IsExpansion())
+    {
+        bExpansion = 1;
+    }
+    if (nLanguage >= 6 && nLanguage <= 9)
+    {
+        if (bExpansion)
+        {
+            sprintf(szPath, "%s\\UI\\InvChar6", szDataLocal_006D41A8);
+        }
+        else
+        {
+            sprintf(szPath, "%s\\UI\\InvChar", szDataLocal_006D41A8);
+        }
+        gpCellFile_007BEF64 = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+    else
+    {
+        gpCellFile_007BEF64 = GAME_LoadUiCelFile(bExpansion ? "Panel\\InvChar6" : "Panel\\InvChar");
+    }
+    gpCellFile_007BEF78 = GAME_LoadUiCelFile("Panel\\Arrow");
+    gpCellFile_007BEF24 = GAME_LoadUiCelFile("Panel\\Invwarn");
+    gpCellFile_007BEF60 = GAME_LoadUiCelFile("Panel\\DuroIcon");
+    gpCellFile_007BEF14 = GAME_LoadUiCelFile("Panel\\GemSocket");
+    gpCellFile_007BEF10 = GAME_LoadUiCelFile("Panel\\ctrlpnl_popbelt");
+    gpCellFile_007BEF68 = GAME_LoadUiCelFile("Panel\\Hlthmana");
+    gpCellFile_007BEF80 = GAME_LoadUiCelFile("Panel\\overlap");
+    gpStateButtonCel_007BEF70 = GAME_LoadUiCelFile("Panel\\menubutton");
+    gpCellFile_007BEF2C = GAME_LoadUiCelFile("Panel\\menupanel");
+    gpCellFile_007BEF20 = GAME_LoadUiCelFile("Panel\\skillpoints");
+    gpGlobal_007BEF0C = GAME_LoadUiCelFile("Panel\\runbutton");
+    gpCellFile_007BEF28 = GAME_LoadUiCelFile("Panel\\hostilepic");
+    memset(gabGlobal_007BEF30, 0, sizeof(gabGlobal_007BEF30));
+    SRegLoadValue("Diablo II", "Show HP Text", 0, &gdwShowHpText_007BEFDC);
+    SRegLoadValue("Diablo II", "Show MP Text", 0, &gdwShowMpText_007BEFE0);
+}
+
+// 0x00496980
+void __cdecl sub_00496980_Empty()
+{
 }
 
 // 0x00496990
@@ -521,30 +1482,113 @@ void __cdecl HIREABLES_FreePanelCels()
     memset(gabGlobal_007BEF30, 0, sizeof(gabGlobal_007BEF30));
 }
 
-// 0x004979E0
-int __cdecl HIREABLES_AreBeltRowsShown()
+struct D2SkillsTxt;
+
+int __cdecl ROSTER_IsAnyoneHostile(); // 0x0047A560
+
+int __cdecl CUNIT_IsTrading(); // 0x004B8A10
+
+int __fastcall sub_004A8C80_GetSkillValue(D2SkillsTxt* pSkillsTxt); // 0x004A8C80
+
+int __fastcall sub_004A8D30_GetSkillState(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x004A8D30
+
+void __fastcall sub_004A9690_DrawSkillInfoBase(int nValue, D2SkillsTxt* pSkillsTxt, int nOwnerGUID, int nCharges, int nState, int nX, int nY, int nArg); // 0x004A9690
+
+void __fastcall TEXT_UpdateSkillButtonHover(short* pId, int nState, int nA, int nB, int nX, int nY); // 0x004A8D50
+
+void __fastcall sub_004AA1F0_DrawSkillQuantity(short* pId, int nState, int nQuantity, int nX, int nY); // 0x004AA1F0
+
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+
+int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
+
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
+
+// 0x00496B10
+void __cdecl WARDENCLIENT_DrawHostileIcon()
 {
-    return gbBeltRowsShown != 0;
+    D2CelContextStrc tContext;
+    memset(&tContext, 0, sizeof(tContext));
+    int bPanel = 0;
+    int nYOffset = 0;
+    if (!ROSTER_IsAnyoneHostile())
+    {
+        return;
+    }
+    if (GAME_GetUIVarState(0x19) || GAME_GetUIVarState(0x0C) || GAME_GetUIVarState(0x18) || GAME_GetUIVarState(1) || GAME_GetUIVarState(4))
+    {
+        bPanel = 1;
+    }
+    if (GAME_GetUIVarState(0x17) && !CUNIT_IsTrading())
+    {
+        return;
+    }
+    if (bPanel)
+    {
+        return;
+    }
+    tContext.pCellFile = gpCellFile_007BEF28;
+    tContext.nDirection = 0;
+    tContext.nFrame = 0;
+    if (GAME_GetUIVarState(0x0A))
+    {
+        nYOffset = 0x46;
+    }
+    sub_004F6480(&tContext, gnScreenWidth - 0x3A, nYOffset + 0x2D, -1, 1, 0);
 }
 
-// 0x004979F0
-int __cdecl HIREABLES_GetBeltRowCount()
+// 0x00496BE0
+void __fastcall WARDENCLIENT_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY, int nArg)
 {
-// build: symbol ?gnUiRecordIndex@* 0x00722354
-    switch (gnUiRecordIndex)
+    if (!pUnit || !pSkill)
     {
-    case 2:
-        return 1;
-    case 1:
-    case 4:
-        return 2;
-    case 0:
-    case 5:
-        return 3;
-    default:
-        return 4;
+        return;
+    }
+
+    D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
+    if (!pSkillsTxt)
+    {
+        return;
+    }
+
+    const int nValue = sub_004A8C80_GetSkillValue(pSkillsTxt);
+    int nState = sub_004A8D30_GetSkillState(pUnit, pSkill);
+    if (!(pSkillsTxt->nFlags[1] & gdwBitMasks[0]))
+    {
+        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+        if (pRoom && DUNGEON_IsRoomInTown(pRoom))
+        {
+            nState = 1;
+        }
+    }
+
+    int nOwnerGUID = -1;
+    int nSkillLevel = 0;
+    int nCharges = 0;
+    const int bItemSkill = SKILLS_GetSkillInfo(pSkill, &nOwnerGUID, 0, &nSkillLevel, &nCharges);
+    if (!bItemSkill)
+    {
+        nSkillLevel = SKILLS_GetSkillLevel(pUnit, pSkill, 1);
+    }
+
+    int nQuantity = 0;
+    if (!bItemSkill)
+    {
+        nQuantity = SKILLS_GetQuantity(pSkill);
+    }
+
+    sub_004A9690_DrawSkillInfoBase(nValue, pSkillsTxt, nOwnerGUID, nCharges, nState, nX, nY, nArg);
+    if (nQuantity)
+    {
+        sub_004AA1F0_DrawSkillQuantity(&pSkillsTxt->nSkillId, nState, nQuantity, nX, nY);
+    }
+    else
+    {
+        TEXT_UpdateSkillButtonHover(&pSkillsTxt->nSkillId, nState, nSkillLevel, nCharges, nX, nY);
     }
 }
+
+
 
 static void __stdcall sub_00493A00_DrawLifeBar(int nPetType, int nX, int nUnitId)
 {
@@ -573,17 +1617,7 @@ static void __stdcall sub_00493A00_DrawLifeBar(int nPetType, int nX, int nUnitId
     D2GFX_DrawBox(nXFill, 0xE, nXEnd, 0x13, 0, 5);
 }
 
-// 0x00497270
-void __cdecl HIREABLES_InitTextColorA()
-{
-    gnTextColorA = D2Win_10034_MixRGB(0xF4, 0xC0, 0x4C);
-}
 
-// 0x00497290
-void __cdecl HIREABLES_InitTextColorB()
-{
-    gnTextColorB = D2Win_10034_MixRGB(0, 0, 0xFF);
-}
 
 // 0x00493240
 D2CelFileStrc* __fastcall HIREABLES_GetPetIcon(D2UnitStrc* pOwner, int nPetType, int* pUnitId, int* pSingle)

@@ -137,7 +137,7 @@ static void AppendNewline(D2SLogStrc* pLog)
 // 0x0041FBA0
 static void __stdcall AppendTimestamp(int bText, D2SLogStrc* pLog)
 {
-    if (!pLog->f_18)
+    if (!pLog->bTimestamp)
         return;
     unsigned long dwTick = GetTickCount();
     if (dwTick != gdwSLogLastTick_007792F0)
@@ -221,7 +221,7 @@ int __stdcall SLogCreate(const char* szFileName, unsigned long dwFlags, void** p
         return 0;
     }
     pLog->hFile = hFile;
-    pLog->f_18 = 1;
+    pLog->bTimestamp = 1;
     pLog->indent = 0;
     UnlockLog(nIndex);
     return 1;
@@ -366,7 +366,7 @@ void __stdcall SLogSetTimestamp(void* hLog, int bTimestamp)
     D2SLogStrc* pLog = LockLog(&nIndex, 0, hLog);
     if (pLog)
     {
-        pLog->f_18 = bTimestamp;
+        pLog->bTimestamp = bTimestamp;
         UnlockLog(nIndex);
     }
 }

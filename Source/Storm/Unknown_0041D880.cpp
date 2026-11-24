@@ -3,7 +3,6 @@
 
 struct BigNum;
 struct CBitInput;
-struct D2StormHuffInputStrc;
 struct D2StormLinkStrc;
 struct D2StormNodeListStrc;
 struct HUFFNODE;
@@ -29,15 +28,6 @@ struct CBitInput
 
     CBitInput(void* pInputBuffer);
     int sub_0041D8A0_ReadBit();
-};
-
-struct D2StormHuffInputStrc
-{
-    unsigned char* pInput;
-    unsigned int nBitBuffer;
-    unsigned int nBitCount;
-
-    D2StormHuffInputStrc(void* pInputBuffer);
 };
 
 #include "D2StormBitOutput.h"
@@ -256,7 +246,7 @@ static int __stdcall ImaAdpcmCompress(int nOutSize, const short* pIn, int nInSiz
         return 2;
     }
     D2AdpcmHeaderStrc tHeader;
-    tHeader.f_1 = nLevel - 1;
+    tHeader.nShift = nLevel - 1;
     tHeader.nZero = 0;
     *(D2AdpcmHeaderStrc*)pOut = tHeader;
     pOut += 2;
@@ -324,7 +314,7 @@ static int __stdcall ImaAdpcmCompress(int nOutSize, const short* pIn, int nInSiz
                 nGrowLeft--;
                 *pOut++ = 0x81;
             }
-            const unsigned int nStepRest = nStepSize >> tHeader.f_1;
+            const unsigned int nStepRest = nStepSize >> tHeader.nShift;
             const unsigned int nMaxBit = 1 << (nLevel - 2);
             unsigned int nTotal = 0;
             unsigned int nMask = 0;

@@ -639,8 +639,7 @@ void __cdecl TEXT_DrawWaypointPanel(); // 0x0049C9C0
 
 void __cdecl HIREABLES_LoadHelpCels(); // 0x00494320
 
-// build: symbol ?VIEW_DrawHelpShade@* 0x004945F0
-void __cdecl VIEW_DrawHelpShade(); // 0x00494EB0
+void __cdecl sub_00494EB0(); // 0x00494EB0
 
 void __cdecl PANEL_DrawControlPanel(); // 0x00499450
 
@@ -3513,7 +3512,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
     if (gaUIVarStates[33])
     {
         HIREABLES_LoadHelpCels();
-        VIEW_DrawHelpShade();
+        sub_00494EB0();
     }
     PANEL_DrawControlPanel();
     if (gaUIVarStates[3])

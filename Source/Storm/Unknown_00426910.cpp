@@ -2,26 +2,16 @@
 #include "D2StormAutoLink.h"
 
 struct D2GameStrc;
-struct D2StormListStrc;
 struct D2Storm4167B0Strc;
 struct D2Storm4168F0Strc;
 struct D2Storm416A90Strc;
-struct D2StormTSListStrc;
-struct BREAKCMD;
 struct D2GameLinkStrc;
 struct D2StormGameArrayStrc;
 struct D2StormHashObjectChunkStrc;
-struct D2StormBreakCmdListStrc;
 struct D2GameListStrc;
 struct D2StormChunkListStrc;
 
 extern unsigned short gwValue_0077905C;
-
-struct D2StormListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-};
 
 struct D2Storm4167B0Strc
 {
@@ -37,29 +27,10 @@ struct D2Storm4168F0Strc
     ~D2Storm4168F0Strc();
 };
 
-struct D2StormTSListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    char* Head()
-    {
-        return (int)m_terminator.m_next > 0 ? m_terminator.m_next : 0;
-    }
-
-    void sub_00426CF0_UnlinkAll();
-};
-
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
 extern char gszTypeNameBreakCmd_007088D8[]; // 0x007088D8
 extern "C" const char gszSGameDataTypeName[]; // 0x0070F56C
 extern char gszTypeNameHashObjectChunk_0070F5F4[]; // 0x0070F5F4
-
-struct BREAKCMD
-{
-    D2StormLinkStrc f_0;
-    int nData;
-};
 
 struct D2GameLinkStrc
 {
@@ -101,15 +72,6 @@ struct D2StormHashObjectChunkStrc
 {
     D2StormGameArrayStrc m_array;
     D2StormLinkStrc f_10;
-};
-
-struct D2StormBreakCmdListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    void sub_00426B00_LinkNode(BREAKCMD* pNode, unsigned int nLinkType, BREAKCMD* pExisting); // 0x00426B00
-    BREAKCMD* sub_00426DC0_NewNode(unsigned int nLocation, unsigned int nExtraBytes, unsigned int nFlags);
 };
 
 struct D2GameListStrc

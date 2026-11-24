@@ -1,10 +1,5 @@
 #include "SRP.h"
 
-struct D2Sha1BlockStrc
-{
-    unsigned int l[16];
-};
-
 struct FindSignatureTag
 {
     unsigned int state[5];

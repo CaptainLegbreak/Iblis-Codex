@@ -27,8 +27,6 @@ unsigned long gdwLastLogSweep;                                                  
 
 struct D2CriticalSectionStrc;
 
-struct D2ExceptionPointersStrc;
-
 struct D2LogMessageStrc;
 
 struct D2StormLinkStrc;
@@ -86,12 +84,6 @@ struct D2FileTimeStrc;
 struct D2LogMsgLinkStrc;
 
 struct D2LogMsgNodeStrc;
-
-struct D2ExceptionPointersStrc
-{
-    void* pExceptionRecord;
-    D2ThreadContextStrc* pContextRecord;
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
 

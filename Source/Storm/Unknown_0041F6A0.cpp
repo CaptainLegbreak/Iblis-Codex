@@ -11,7 +11,6 @@ class TOutputStream;
 class THuffmannTree;
 struct D2CriticalSectionStrc;
 struct D2SLogStrc;
-struct D2StormListStrc;
 struct D2Field14Strc;
 struct D2UnitStrc;
 struct D2StormByteArrayStrc;
@@ -22,9 +21,6 @@ struct D2StormFixedUCharArrayStrc;
 struct D2StormGrowUIntArrayStrc;
 struct D2StormGrowUCharArrayStrc;
 struct D2StormArrayBStrc;
-struct D2StormQueueArrayStrc;
-struct D2StormBigStrc;
-
 struct D2StormNodeListStrc
 {
     int nLinkOffset;
@@ -97,12 +93,6 @@ void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFi
 extern D2CriticalSectionStrc gaSLogLocks_00779238[4]; // 0x00779238
 extern D2SLogStrc* gapSLogBuckets_00779298[4]; // 0x00779298
 extern int gbSLogDebugOutput_007790AC; // 0x007790AC
-
-struct D2StormListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-};
 
 typedef int (__stdcall* SMSGHANDLER)(void* pParams);
 
@@ -199,20 +189,7 @@ struct D2StormArrayBStrc
     unsigned char* sub_00421930_New();
 };
 
-struct D2StormQueueArrayStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    unsigned int* m_data;
-    unsigned int m_chunk;
-};
-
 #include "D2StormBigBuffer.h"
-
-struct D2StormBigStrc
-{
-    BigBuffer tPrimary;
-};
 
 // 0x0041F6A0
 void __fastcall sub_0041F6A0_DestroyTree(CHuffman* pTree)

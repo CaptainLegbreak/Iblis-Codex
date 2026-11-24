@@ -243,7 +243,6 @@ extern void* gpGlobal_007BC964; // 0x007BC964
 
 extern void* gpHelpBorderCel; // 0x007BEEEC
 
-extern int gbHelpCloseButtonDown; // 0x007BEEFC
 
 extern int gbRunButtonDown; // 0x007BEFD8
 
@@ -1627,71 +1626,10 @@ int __cdecl VIEW_SetNpcMenuMode()
     return 1;
 }
 
-// 0x00492BC0
-int __cdecl VIEW_GetPetTypeCount()
-{
-    return sgptDataTables->nPetTypeTxtRecordCount;
-}
 
-// 0x00492C10
-int __cdecl VIEW_IsPetIconVisible()
-{
-    return gnPetIconPopupState != 2;
-}
 
-// 0x00492F90
-void __cdecl VIEW_ResetLifeColors()
-{
-    gbLifeColorsInit = 0;
-}
 
-// 0x004943B0
-void __cdecl VIEW_DrawHelpFrameLowRes()
-{
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpHelpBorderCel;
-    tContext.nDirection = 0;
-    tContext.nFrame = 0;
-    sub_004F6480(&tContext, 0, 0x100, -1, 5, 0);
-    tContext.nFrame = 1;
-    sub_004F6480(&tContext, 0x100, 0x100, -1, 5, 0);
-    tContext.nFrame = 2;
-    sub_004F6480(&tContext, 0, gnScreenHeight - 0x30, -1, 5, 0);
-    tContext.nFrame = 3;
-    sub_004F6480(&tContext, 0x100, gnScreenHeight - 0x30, -1, 5, 0);
-    tContext.nFrame = 4;
-    sub_004F6480(&tContext, 0x140, 0x100, -1, 5, 0);
-    tContext.nFrame = 5;
-    sub_004F6480(&tContext, 0x240, 0x100, -1, 5, 0);
-    tContext.nFrame = 6;
-    sub_004F6480(&tContext, 0x140, gnScreenHeight - 0x30, -1, 5, 0);
-    tContext.nFrame = 7;
-    sub_004F6480(&tContext, 0x240, gnScreenHeight - 0x30, -1, 5, 0);
-}
 
-// 0x004944F0
-void __cdecl VIEW_DrawHelpFrameHighRes()
-{
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpHelpBorderCel;
-    tContext.nDirection = 0;
-    tContext.nFrame = 0;
-    sub_004F6480(&tContext, 0, 0x100, -1, 5, 0);
-    tContext.nFrame = 1;
-    sub_004F6480(&tContext, 0, 0x200, -1, 5, 0);
-    tContext.nFrame = 2;
-    sub_004F6480(&tContext, 0x42, 0x14, -1, 5, 0);
-    tContext.nFrame = 3;
-    sub_004F6480(&tContext, 0x142, 0x14, -1, 5, 0);
-    tContext.nFrame = 4;
-    sub_004F6480(&tContext, 0x217, 0x100, -1, 5, 0);
-    tContext.nFrame = 5;
-    sub_004F6480(&tContext, 0x30C, 0x100, -1, 5, 0);
-    tContext.nFrame = 6;
-    sub_004F6480(&tContext, 0x30C, 0x200, -1, 5, 0);
-}
 
 void __cdecl sub_00499E30();
 
@@ -1699,63 +1637,14 @@ void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, i
 
 unsigned char gnHelpShadeColor; // 0x007BEEF8
 
-// 0x004945F0
-void __cdecl VIEW_DrawHelpShade()
-{
-    sub_00499E30();
-    AUTOMAP_DrawFramedBox(0, 0, gnScreenWidth, gnScreenHeight - 0x31, gnHelpShadeColor, 1);
-}
 
 
-// 0x00494680
-void __cdecl VIEW_DrawHelpLinesLowRes()
-{
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpHelpWhiteBulletCel;
-    tContext.nDirection = 0;
-    tContext.nFrame = 0;
-    sub_004F6480(&tContext, 0x33, 0x19E, -1, 5, 0);
-    D2GFX_DrawLine(0x36, 0x16D, 0x36, 0x19B, 0xFF, 0xFF);
-    D2GFX_DrawLine(0x37, 0x16D, 0x37, 0x19B, 0xFF, 0xFF);
-    sub_004F6480(&tContext, 0x7F, 0x1BC, -1, 5, 0);
-    D2GFX_DrawLine(0x82, 0x145, 0x82, 0x1B9, 0xFF, 0xFF);
-    D2GFX_DrawLine(0x83, 0x145, 0x83, 0x1B9, 0xFF, 0xFF);
-    sub_004F6480(&tContext, 0xB2, 0x1D0, -1, 5, 0);
-    D2GFX_DrawLine(0xB5, 0x195, 0xB5, 0x1CD, 0xFF, 0xFF);
-    D2GFX_DrawLine(0xB6, 0x195, 0xB6, 0x1CD, 0xFF, 0xFF);
-    sub_004F6480(&tContext, 0xE3, 0x1D0, -1, 5, 0);
-    D2GFX_DrawLine(0xE6, 0x16D, 0xE6, 0x1CD, 0xFF, 0xFF);
-    D2GFX_DrawLine(0xE7, 0x16D, 0xE7, 0x1CD, 0xFF, 0xFF);
-    sub_004F6480(&tContext, 0x11C, 0x1BD, -1, 5, 0);
-    D2GFX_DrawLine(0x11F, 0x195, 0x11F, 0x1BA, 0xFF, 0xFF);
-    D2GFX_DrawLine(0x120, 0x195, 0x120, 0x1BA, 0xFF, 0xFF);
-    sub_004F6480(&tContext, 0x15E, 0x19F, -1, 5, 0);
-    D2GFX_DrawLine(0x161, 0x145, 0x161, 0x19B, 0xFF, 0xFF);
-    D2GFX_DrawLine(0x162, 0x145, 0x162, 0x19B, 0xFF, 0xFF);
-    sub_004F6480(&tContext, 0x1BD, 0x1C2, -1, 5, 0);
-    D2GFX_DrawLine(0x1C0, 0x195, 0x1C0, 0x1BE, 0xFF, 0xFF);
-    D2GFX_DrawLine(0x1C1, 0x195, 0x1C1, 0x1BE, 0xFF, 0xFF);
-    sub_004F6480(&tContext, 0x1F7, 0x1BD, -1, 5, 0);
-    D2GFX_DrawLine(0x1FA, 0x145, 0x1FA, 0x1B9, 0xFF, 0xFF);
-    D2GFX_DrawLine(0x1FB, 0x145, 0x1FB, 0x1B9, 0xFF, 0xFF);
-    sub_004F6480(&tContext, 0x246, 0x19F, -1, 5, 0);
-    D2GFX_DrawLine(0x249, 0x16D, 0x249, 0x19B, 0xFF, 0xFF);
-    D2GFX_DrawLine(0x24A, 0x16D, 0x24A, 0x19B, 0xFF, 0xFF);
-}
 
 static inline int InBox(int nX, int nY, int nLeft, int nRight, int nTop, int nBottom)
 {
     return nX >= nLeft && nX <= nRight && nY >= nTop && nY <= nBottom;
 }
 
-// 0x00492BD0
-int __fastcall VIEW_IsInPetIcon(SMSGHANDLER_PARAMS* pMsg)
-{
-    const int nX = pMsg->nXpos;
-    const int nY = pMsg->nYpos;
-    return gnPetIconPopupState != 2 && InBox(nX, nY, gnPopupX, gnPopupX + 0x2E, 0x18, 0x18 + 0x24);
-}
 
 void __stdcall sub_M114_Emit_00492BD0(int nMode, int nPopupX)
 {
@@ -1763,146 +1652,13 @@ void __stdcall sub_M114_Emit_00492BD0(int nMode, int nPopupX)
     gnPopupX = nPopupX;
 }
 
-// 0x00492F40
-void __fastcall VIEW_InitLifeColors(int nMode)
-{
-    if (!nMode)
-    {
-        if (gbLifeColorsInit)
-            return;
-        gbLifeColorsInit = 1;
-    }
 
-    gnLifeColorHigh = D2Win_10034_MixRGB(0, 0x80, 0);
-    gnLifeColorMid = D2Win_10034_MixRGB(0xC0, 0xC0, 0);
-    gnLifeColorLow = D2Win_10034_MixRGB(0xFF, 0, 0);
-}
 
-// 0x00494A00
-void __cdecl VIEW_DrawHelpLinesHighRes()
-{
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpHelpWhiteBulletCel;
-    tContext.nDirection = 0;
-    tContext.nFrame = 0;
-    sub_004F6480(&tContext, 0x37, 0x217, -1, 5, 0);
-    D2GFX_DrawLine(0x3A, 0x1E6, 0x3A, 0x214, 0xFF, 0xFF);
-    D2GFX_DrawLine(0x3B, 0x1E6, 0x3B, 0x214, 0xFF, 0xFF);
-    sub_004F6480(&tContext, 0x82, 0x234, -1, 5, 0);
-    D2GFX_DrawLine(0x85, 0x1BD, 0x85, 0x231, 0xFF, 0xFF);
-    D2GFX_DrawLine(0x86, 0x1BD, 0x86, 0x231, 0xFF, 0xFF);
-    sub_004F6480(&tContext, 0xD9, 0x23F, -1, 5, 0);
-    D2GFX_DrawLine(0xDC, 0x177, 0xDC, 0x23C, 0xFF, 0xFF);
-    D2GFX_DrawLine(0xDD, 0x177, 0xDD, 0x23C, 0xFF, 0xFF);
-    sub_004F6480(&tContext, 0x104, 0x249, -1, 5, 0);
-    D2GFX_DrawLine(0x107, 0x20E, 0x107, 0x246, 0xFF, 0xFF);
-    D2GFX_DrawLine(0x108, 0x20E, 0x108, 0x246, 0xFF, 0xFF);
-    sub_004F6480(&tContext, 0x136, 0x249, -1, 5, 0);
-    D2GFX_DrawLine(0x139, 0x1E6, 0x139, 0x246, 0xFF, 0xFF);
-    D2GFX_DrawLine(0x13A, 0x1E6, 0x13A, 0x246, 0xFF, 0xFF);
-    sub_004F6480(&tContext, 0x16D, 0x235, -1, 5, 0);
-    D2GFX_DrawLine(0x170, 0x20D, 0x170, 0x232, 0xFF, 0xFF);
-    D2GFX_DrawLine(0x171, 0x20D, 0x171, 0x232, 0xFF, 0xFF);
-    sub_004F6480(&tContext, 0x1BD, 0x21C, -1, 5, 0);
-    D2GFX_DrawLine(0x1C0, 0x1C3, 0x1C0, 0x219, 0xFF, 0xFF);
-    D2GFX_DrawLine(0x1C1, 0x1C3, 0x1C1, 0x219, 0xFF, 0xFF);
-    sub_004F6480(&tContext, 0x212, 0x239, -1, 5, 0);
-    D2GFX_DrawLine(0x215, 0x20D, 0x215, 0x236, 0xFF, 0xFF);
-    D2GFX_DrawLine(0x216, 0x20D, 0x216, 0x236, 0xFF, 0xFF);
-    sub_004F6480(&tContext, 0x23C, 0x23F, -1, 5, 0);
-    D2GFX_DrawLine(0x23F, 0x177, 0x23F, 0x23C, 0xFF, 0xFF);
-    D2GFX_DrawLine(0x240, 0x177, 0x240, 0x23C, 0xFF, 0xFF);
-    sub_004F6480(&tContext, 0x29E, 0x234, -1, 5, 0);
-    D2GFX_DrawLine(0x2A1, 0x1BD, 0x2A1, 0x231, 0xFF, 0xFF);
-    D2GFX_DrawLine(0x2A2, 0x1BD, 0x2A2, 0x231, 0xFF, 0xFF);
-    sub_004F6480(&tContext, 0x2E4, 0x217, -1, 5, 0);
-    D2GFX_DrawLine(0x2E7, 0x1E6, 0x2E7, 0x214, 0xFF, 0xFF);
-    D2GFX_DrawLine(0x2E8, 0x1E6, 0x2E8, 0x214, 0xFF, 0xFF);
-}
 
-// 0x00494E40
-void __cdecl VIEW_DrawHelpPanelCel()
-{
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = sub_00454600();
-    tContext.nFrame = (gbHelpCloseButtonDown != 0) + 10;
-    tContext.nDirection = 0;
-    if (D2GFX_GetResolutionMode() == 2)
-    {
-        sub_004F6480(&tContext, 0x2AD, 0x38, -1, 5, 0);
-    }
-    else
-    {
-        sub_004F6480(&tContext, 0x20D, 0x38, -1, 5, 0);
-    }
-}
 
-// 0x00495180
-void __cdecl VIEW_DrawHelpButtons()
-{
-    if (GAME_GetUIVarState(4) || GAME_GetUIVarState(3) || GAME_GetUIVarState(1) || GAME_GetUIVarState(0xC)
-        || GAME_GetUIVarState(0x17) || GAME_GetUIVarState(0x19))
-    {
-        gbHelpButtonVisible = 1;
-        return;
-    }
-    gbHelpButtonVisible = 0;
-    if (!HIREABLES_GetHelpMenuSetting())
-    {
-        D2CelContextStrc tContext;
-        memset(&tContext, 0, sizeof(tContext));
-        sub_00495030_DrawKeyHelp();
-        tContext.pCellFile = gpLevelSocketCel;
-        tContext.nDirection = 0;
-        tContext.nFrame = 0;
-        sub_004F6480(&tContext, gnScreenWidth - 0x4B, gnScreenHeight - 0xA0, -1, 5, 0);
-        tContext.pCellFile = gpLevelCel;
-        tContext.nFrame = gnGlobal_007BEF04 != 0;
-        sub_004F6480(&tContext, gnScreenWidth - 0x48, gnScreenHeight - 0xA4, -1, 5, 0);
-    }
-    else
-    {
-        UI_SetUIVar(0x22, 1, 0);
-    }
-}
 
-// 0x00497250
-void __cdecl VIEW_InitTextColorRed()
-{
-    gnTextColorRed = D2Win_10034_MixRGB(0xFF, 0, 0);
-}
 
-// 0x004972B0
-void __cdecl VIEW_InitBeltColors()
-{
-    gabBeltColors[0] = D2Win_10034_MixRGB(0x80, 0, 0);
-    gabBeltColors[1] = D2Win_10034_MixRGB(0, 0x80, 0);
-    gabBeltColors[2] = D2Win_10034_MixRGB(0, 0, 0x80);
-    gabBeltColors[3] = D2Win_10034_MixRGB(0x80, 0x80, 0);
-}
 
-// 0x00498D50
-void __fastcall VIEW_SetBeltSlotValue(int nX, int nArg)
-{
-    if ((unsigned int)nX < 4)
-        gabBeltHotkey[nX] = (unsigned char)nArg;
-}
-
-// 0x00498D60
-void __cdecl VIEW_ResetBeltHover()
-{
-// build: symbol ?gnBeltBox@* 0x0072235C
-    gnBeltBox = -1;
-// build: symbol ?gnBeltRectX@* 0x00722360
-    gnBeltRectX = -1;
-// build: symbol ?gnBeltRectY@* 0x00722364
-    gnBeltRectY = -1;
-    gnBeltHover = 0;
-    gpBeltItemA = 0;
-    gpBeltItemB = 0;
-}
 
 
 
@@ -1926,44 +1682,6 @@ static int ButtonHitTest_00497480(int nX, int nY)
     return nX >= nWidth / 2 - 0x91 && nX <= nWidth / 2 - 0x80 && nY >= nHeight - 0x1C && nY <= nHeight - 8;
 }
 
-// 0x00497480
-void __cdecl VIEW_DrawRunButton()
-{
-    int nX = sub_00468730();
-    int nY = sub_00468740();
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpGlobal_007BEF0C;
-    tContext.nDirection = 0;
-    if (GAME_GetAlwaysRun())
-    {
-        if (gbRunButtonDown && ButtonHitTest_00497480(nX, nY))
-        {
-            tContext.nFrame = 3;
-        }
-        else
-        {
-            tContext.nFrame = 2;
-        }
-    }
-    else
-    {
-        if (gbRunButtonDown && ButtonHitTest_00497480(nX, nY))
-        {
-            tContext.nFrame = 1;
-        }
-        else
-        {
-            tContext.nFrame = 0;
-        }
-    }
-    sub_004F6480(&tContext, gnScreenWidth / 2 - 0x91, gnScreenHeight - 0xA, -1, 5, 0);
-    if (nX >= gnScreenWidth / 2 - 0x91 && nX <= gnScreenWidth / 2 - 0x80
-        && nY >= gnScreenHeight - 0x1C && nY <= gnScreenHeight - 8)
-    {
-        sub_00497300();
-    }
-}
 
 // 0x004C76A0
 int __fastcall VIEW_GetWeaponClassMask(D2UnitStrc* pUnit)
