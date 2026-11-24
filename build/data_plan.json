@@ -4470,20 +4470,11 @@
    "state": "included"
   },
   "Source/D2Direct3D/Unknown_006B7530.cpp": {
-   "bytes": 112,
-   "definitions": 4,
+   "bytes": 832,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Direct3D/Unknown_006B7530.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Direct3D/Unknown_006B8950.cpp": {
-   "bytes": 720,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Direct3D/Unknown_006B8950.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -152103,7 +152094,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Direct3D/Unknown_006B8950.cpp",
+   "file": "Source/D2Direct3D/Unknown_006B7530.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gaGeometry[10][6][3] = ",
