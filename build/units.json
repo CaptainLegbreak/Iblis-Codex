@@ -49347,7 +49347,37 @@
      "va": "0x00564CC0",
      "length": 8,
      "name": "?TASK_SetType@@YIXPAUD2TaskStrc@@H@Z"
+    },
+    {
+     "va": "0x006CAF70",
+     "length": 23
+    },
+    {
+     "va": "0x006CAF90",
+     "length": 36
+    },
+    {
+     "va": "0x006CB490",
+     "length": 12
+    },
+    {
+     "va": "0x006CB4A0",
+     "length": 20
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHsc"
    ]
   },
   {
@@ -82667,10 +82697,6 @@
      "length": 12
     },
     {
-     "va": "0x006CAF70",
-     "length": 23
-    },
-    {
      "va": "0x006CB010",
      "length": 23
     },
@@ -82724,30 +82750,6 @@
      "length": 81,
      "name": "?sub_006CB380_DestroyList@@YAXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006CAF90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006CAF90",
-     "length": 36
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -82837,20 +82839,6 @@
     {
      "va": "0x006CB480",
      "length": 10
-    },
-    {
-     "va": "0x006CB490",
-     "length": 12
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006CB4A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006CB4A0",
-     "length": 20
     }
    ]
   },
