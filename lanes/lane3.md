@@ -4,6 +4,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane3/names2 1f289883 430->430 Names only: SBMP.CPP's GIF encoder state fields at 0x00/0x28 are nCodeWidth and pHashTable (were f_0/f_28); SFILE.CPP's compression buffer info's output position is nOutPos (was f_C). VERIFIED 0b74cd65 on base 7c1cb42a (#351), then rebased onto 25eea120 (#352) without conflicts and prechecked. Not stacked.
+
 - lane3/sbig-fields adc573fa 430->430 Names only: the SBig placeholders' copies of the word array and the big-number stack use D2StormArrayA.h's m_alloc/m_count/m_data/m_chunk and D2StormBigBuffer.h's pRecords instead of f_0..f_C; SCOMP.CPP's zlib arena pointers are pNext/pBase; the huffman node pool is aItems (SCOMP.CPP, SSignature.cpp, two placeholders); SMSG.CPP's 0x4204B0 node link is tLink. VERIFIED 7ab31089 on base 7c1cb42a (#351), then rebased onto 25eea120 (#352) without conflicts and prechecked. Not stacked.
 
 - lane3/rtti-names 182d6a23 430->430 Two Fog/Storm type names from the image's RTTI descriptors (see the note below): LogManager.cpp's D2LogMessageStrc is `LogManager::Message` (descriptor at 0x708124, the name its queue passes to SMemAlloc), and ARCHIVEREC lives in `Storm::SFile` (0x708398; D2SFileTypes.h defines it there, Storm.h and Unknown_006CAE80.cpp forward-declare it with a using-declaration). Symbol lines naming them follow; names.csv: 0x40FE10 Message, 0x40FD40 ~Message, 0x40FE60's decorated name (blizzard). Safesock.cpp's unused message/node copies go. VERIFIED 3d6c85f5 on base 7c1cb42a (#351; 14,918/14,918; borrowed code 12,041 B / 9 functions). Not stacked. (Storm.h changes; its 44 includers precheck equal.)
