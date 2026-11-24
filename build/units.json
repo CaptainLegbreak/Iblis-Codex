@@ -44027,6 +44027,10 @@
      "va": "0x00570850",
      "length": 17,
      "name": "PLAYERSTATS_OnPlayerLeveledUp"
+    },
+    {
+     "va": "0x006CAF30",
+     "length": 45
     }
    ]
   },
@@ -82703,11 +82707,6 @@
      "va": "0x006CAF10",
      "length": 18,
      "name": "?sub_006CAF10_SetPerSecond@@YAXXZ"
-    },
-    {
-     "va": "0x006CAF30",
-     "length": 45,
-     "name": "?sub_006CAF30_SnapshotCounters@@YAXXZ"
     },
     {
      "va": "0x006CB030",

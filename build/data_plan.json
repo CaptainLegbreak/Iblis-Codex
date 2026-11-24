@@ -2540,8 +2540,8 @@
    "state": "included"
   },
   "Source/D2Game/OBJECTS/Objects.cpp": {
-   "bytes": 786,
-   "definitions": 26,
+   "bytes": 894,
+   "definitions": 31,
    "externs": [
     "extern \"C\" void __cdecl OBJECTS_SpawnPresetChest(); // 0x0054F180",
     "extern \"C\" void __cdecl sub_0054F370(); // 0x0054F370",
@@ -4886,11 +4886,9 @@
    "state": "included"
   },
   "Source/Storm/Unknown_006CAE80.cpp": {
-   "bytes": 252,
-   "definitions": 12,
-   "externs": [
-    "extern \"C\" char gData_00731DD0[]; // 0x00731DD0"
-   ],
+   "bytes": 128,
+   "definitions": 3,
+   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Storm/Unknown_006CAE80.inc",
    "lang": "cpp",
@@ -96116,32 +96114,6 @@
   },
   {
    "alias": false,
-   "cname": "gData_00731EB4",
-   "declared": true,
-   "decorated": "?gaCoordInit@@3PAUD2CoordInitStrc@@A",
-   "file": "Source/D2Game/OBJECTS/Objects.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00731EB4_t gData_00731EB4; // 0x00731EB4",
-   "head": "extern \"C\" struct d2data_00731EB4_t gData_00731EB4 = ",
-   "name": "gaCoordInit",
-   "pointers": [
-    [
-     0,
-     "0x00731D9C",
-     "generated_same_file",
-     "gData_00731D9C",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00731EB4_t\n{\n    const void* p0;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00731EB4\n#pragma comment(linker, \"/alternatename:?gaCoordInit@@3PAUD2CoordInitStrc@@A=_gData_00731EB4\")",
-   "va": "0x00731EB4"
-  },
-  {
-   "alias": false,
    "cname": null,
    "declared": true,
    "decorated": null,
@@ -157251,7 +157223,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Storm/Unknown_006CAE80.cpp",
+   "file": "Source/D2Game/OBJECTS/Objects.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnSource_00731DCC = ",
@@ -157276,7 +157248,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Storm/Unknown_006CAE80.cpp",
+   "file": "Source/D2Game/OBJECTS/Objects.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnSource_00731DF8 = ",
@@ -157301,7 +157273,7 @@
    "cname": "gData_00731DFC",
    "declared": false,
    "decorated": null,
-   "file": "Source/Storm/Unknown_006CAE80.cpp",
+   "file": "Source/D2Game/OBJECTS/Objects.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00731DFC_t gData_00731DFC; // 0x00731DFC",
    "head": "extern \"C\" struct d2data_00731DFC_t gData_00731DFC = ",
@@ -157318,7 +157290,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Storm/Unknown_006CAE80.cpp",
+   "file": "Source/D2Game/OBJECTS/Objects.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnSource_00731E24 = ",
@@ -157343,7 +157315,7 @@
    "cname": "gData_00731E28",
    "declared": false,
    "decorated": null,
-   "file": "Source/Storm/Unknown_006CAE80.cpp",
+   "file": "Source/D2Game/OBJECTS/Objects.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00731E28_t gData_00731E28; // 0x00731E28",
    "head": "extern \"C\" struct d2data_00731E28_t gData_00731E28 = ",
@@ -157360,7 +157332,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Storm/Unknown_006CAE80.cpp",
+   "file": "Source/D2Game/OBJECTS/Objects.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnSource_00731E60 = ",
@@ -157379,84 +157351,6 @@
    "tail": "; // 0x00731E60",
    "type": "int",
    "va": "0x00731E60"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00731EBC",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/Storm/Unknown_006CAE80.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00731EBC_t gData_00731EBC; // 0x00731EBC",
-   "head": "extern \"C\" struct d2data_00731EBC_t gData_00731EBC = ",
-   "name": "gData_00731EBC",
-   "pointers": [
-    [
-     0,
-     "0x00731DD0",
-     "generated",
-     "gData_00731DD0",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00731EBC_t\n{\n    const void* p0;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00731EBC",
-   "va": "0x00731EBC"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00731EC4",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/Storm/Unknown_006CAE80.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00731EC4_t gData_00731EC4; // 0x00731EC4",
-   "head": "extern \"C\" struct d2data_00731EC4_t gData_00731EC4 = ",
-   "name": "gData_00731EC4",
-   "pointers": [
-    [
-     0,
-     "0x00731DFC",
-     "generated_same_file",
-     "gData_00731DFC",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00731EC4_t\n{\n    const void* p0;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00731EC4",
-   "va": "0x00731EC4"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00731ECC",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/Storm/Unknown_006CAE80.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00731ECC_t gData_00731ECC; // 0x00731ECC",
-   "head": "extern \"C\" struct d2data_00731ECC_t gData_00731ECC = ",
-   "name": "gData_00731ECC",
-   "pointers": [
-    [
-     0,
-     "0x00731E28",
-     "generated_same_file",
-     "gData_00731E28",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00731ECC_t\n{\n    const void* p0;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00731ECC",
-   "va": "0x00731ECC"
   },
   {
    "alias": false,

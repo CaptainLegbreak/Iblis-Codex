@@ -2843,3 +2843,12 @@ void __fastcall PLAYERSTATS_OnPlayerLeveledUp(void* pUnused, D2UnitStrc* pUnit, 
 }
 
 #include "gen/data/Source/D2Game/OBJECTS/Objects.inc"
+
+// build: symbol ??__EgaCoordInit@@YAXXZ 0x006CAF30
+D2CoordInitStrc gaCoordInit[] =
+{
+    { (D2CoordStrc*)&gData_00731D9C, gnSource_00731DCC },
+    { (D2CoordStrc*)&gData_00731DD0, gnSource_00731DF8 },
+    { (D2CoordStrc*)&gData_00731DFC, gnSource_00731E24 },
+    { (D2CoordStrc*)&gData_00731E28, gnSource_00731E60 },
+};
