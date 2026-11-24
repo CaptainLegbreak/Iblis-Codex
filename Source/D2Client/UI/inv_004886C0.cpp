@@ -9,6 +9,7 @@
 #include "D2ClientUi.h"
 #include "D2Records.h"
 #include "D2ItemsWorld.h"
+#include "D2DataTbls.h"
 
 struct D2CelFileStrc;
 
@@ -330,12 +331,6 @@ struct D2InvCompGridStrc;
 
 struct D2NpcButtonStrc;
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC18];
-    D2SetItemsTxt* pSetItemsTxt;
-    int nSetItemsTxtRecordCount;
-};
 
 #pragma pack(push, 2)
 

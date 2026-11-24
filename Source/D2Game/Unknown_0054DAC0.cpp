@@ -10,6 +10,7 @@
 
 #include "D2GameStrc.h"
 #include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 struct D2ActiveRoomStrc;
 struct D2RoomCoordListStrc;
 struct D2UnitStrc;
@@ -19,14 +20,6 @@ union D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2MonsterRegionStrc;
 
-struct D2RoomCoordListStrc
-{
-    tagRECT pBox[2];
-    int bNode;
-    int bRoomActive;
-    int nIndex;
-    D2RoomCoordListStrc* pNext;
-};
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 void __stdcall sub_M96_UseBounds_0054DAC0(int nX, int nY, int nWidth, int nHeight);
 
