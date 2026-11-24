@@ -9341,11 +9341,6 @@
      "name": "?sub_0043C6A0@@YIXH@Z"
     },
     {
-     "va": "0x0043F850",
-     "length": 18,
-     "name": "?CHARSEL_CancelGameCreate@@YAHXZ"
-    },
-    {
      "va": "0x00446890",
      "length": 88,
      "name": "?CHARSEL_SendChatLine@@YGHH@Z"
@@ -12138,6 +12133,11 @@
      "va": "0x0043F800",
      "length": 57,
      "name": "?CHATDLG_FreeNameList@@YAXXZ"
+    },
+    {
+     "va": "0x0043F850",
+     "length": 18,
+     "name": "?CHARSEL_CancelGameCreate@@YAHXZ"
     },
     {
      "va": "0x0043F870",
