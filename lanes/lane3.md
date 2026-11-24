@@ -10,6 +10,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- **lane3/logmsg-list-2** (will replace logmsg-list): adds five more of LogManager's list stand-ins as TSLink/TSList<LogManager::Message> members (Next 0x40F520, Unlink 0x40F530, InitializeTerminator 0x40F580, Head 0x40F7C0, TSLink() 0x40F810) and drops the unused D2StormListStrc. Full verify running; then a rebase onto #367 (LogManager.cpp changed there).
+
 ## Questions
 
 (none)
