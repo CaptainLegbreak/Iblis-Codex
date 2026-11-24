@@ -4,17 +4,13 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/path-records-2 3e8f3fb9 562->562 Replaces `lane2/path-records`, redone on #327's path regroup: D2PathFind.h gets the wall-following move state (PathWF, Unknown_00679380, Unknown_0067B9C0) and the collision test argument (Unknown_00679380, Unknown_0067B9C0). Each unit had a private copy with the same text; VERIFIED 2479a82dbb66e4c18a06922dde91c85b1f1a9fe3
+  - Verified on #328, rebased onto 5929eec6. All includers of D2PathFind.h build equal there.
+  - Outside lane 2: the three pathfinding units (lane 6).
+
 - lane2/win32-system-2 dbdfa445 562->562 D2Win32System.h: the Win32 PROCESS_INFORMATION (five units) and MEMORYSTATUS (five units) records, which units in Fog, D2Multi, D2Hell, D2Launch and D2Client each defined privately. A small header that only those units include. Ignore `lane2/win32-system`: it missed Unknown_00477620 after #327 moved the memory-status code there; VERIFIED 2995b14acbe8bf4593c0586bafdbc7b178247b82
   - Verified on #328, rebased onto the newest main (f5e0e3e9). Precheck is equal there.
   - Outside lane 2: ErrorManager, ErrorManager_004082E0, Safesock, system.cpp, Unknown_00401070 (lane 3); ChatDlg, MainMenus, D2Hell Unknown_00516D8B (lane 6); Unknown_00477620 (lane 4). In ErrorManager the private copy started mid-line after a declaration; the declaration stays.
-
-- lane2/path-records 7090f593 562->562 D2PathFind.h: the wall-following move state (0x348: direction, points, current/target, 201 points) and the collision test argument. PathWF, Unknown_006793E0, Unknown_00679A60 and Unknown_0067A000 each had private copies with the same text; VERIFIED 87598fa5186031a313e0cd32393c8d26f9cf3312
-  - On #326. All 9 includers of D2PathFind.h build equal.
-  - Outside lane 2: the four pathfinding units (lane 6). Each loses a private struct and gains an include. If lane 6's pathfinding split moves these units first, I'll redo it on top.
-
-- lane2/fog-records-c 9b549bbf 562->562 D2FogTypes.h: seven more crash-handler records that ErrorManager and ErrorManager_004082E0 each had a private copy of, with the same text: thread-name info (for RaiseException 0x406D1388), the run-mode interface and its table entry, the service table entry, the SID authority, the ANSI toolhelp process entry, and the crash report input; VERIFIED 98c4d5bdbef875fd8afcf29f67df772efd1c82c3
-  - On #324. All 17 includers of D2FogTypes.h build equal.
-  - Outside lane 2: ErrorManager, ErrorManager_004082E0 (lane 3).
 
 - lane2/game-records a56b9979 562->562 D2GameTypes.h: the roster-iteration callback argument (Game, Player, PlrSave) and the door-finding callback argument (AiThink, AiUtil, MissMode). Each unit had a private copy with the same text; VERIFIED 18754bec2b45ca97877cb09a77b98459f9cfe41b
   - Verified on #318, rebased onto #320. Precheck of all 202 includers of D2GameTypes.h is equal on #320.
