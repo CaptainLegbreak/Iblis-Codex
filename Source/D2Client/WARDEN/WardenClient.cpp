@@ -684,6 +684,22 @@ void __fastcall WARDENCLIENT_SwapBytes(unsigned char* pA, unsigned char* pB)
     *pB = nTemp;
 }
 
+// 0x0047F8C0
+void D2RC4Strc::ApplyKeystream(unsigned char* pData, unsigned int nSize)
+{
+    for (unsigned int n = 0; n < nSize; ++n)
+    {
+        ++i;
+        j += S[i];
+        unsigned char* pA = &S[i];
+        unsigned char* pB = &S[j];
+        unsigned char t = *pA;
+        *pA = *pB;
+        *pB = t;
+        pData[n] ^= S[(unsigned char)(S[j] + S[i])];
+    }
+}
+
 // 0x0047F930
 D2Warden47F930Strc::D2Warden47F930Strc()
 {

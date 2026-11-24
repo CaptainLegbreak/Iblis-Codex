@@ -14173,11 +14173,6 @@
      "name": "?sub_0047EC40_IsSet@@YAHXZ"
     },
     {
-     "va": "0x0047F8C0",
-     "length": 111,
-     "name": "ApplyKeystream"
-    },
-    {
      "va": "0x00480780",
      "length": 57,
      "name": "INV_SetPathTargetUnit"
@@ -22393,6 +22388,11 @@
      "va": "0x0047F8B0",
      "length": 11,
      "name": "?WARDENCLIENT_SwapBytes@@YIXPAE0@Z"
+    },
+    {
+     "va": "0x0047F8C0",
+     "length": 111,
+     "name": "ApplyKeystream"
     },
     {
      "va": "0x0047F930",
