@@ -45466,7 +45466,7 @@
    "file": "Source/D2Client/UI/chat.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern T0047BAD0 gaChatCommands[3] = ",
+   "head": "extern D2ChatCommandStrc gaChatCommands[3] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -45512,7 +45512,7 @@
        }
       ]
      ],
-     "name": "T0047BAD0",
+     "name": "D2ChatCommandStrc",
      "size": 14
     },
     "k": "arr",
@@ -45551,7 +45551,7 @@
    "stars": 0,
    "struct": null,
    "tail": "; // 0x00712F7C",
-   "type": "T0047BAD0",
+   "type": "D2ChatCommandStrc",
    "va": "0x00712F7C",
    "zero_tail": 2
   },

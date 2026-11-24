@@ -46,7 +46,7 @@ struct D2PalShiftDataStrc
     unsigned char aShiftBlood[8][0x100];
 };
 
-struct T0044A980
+struct D2PalShiftEntryStrc
 {
     int nId;
     D2PalShiftDataStrc* pData;
@@ -82,7 +82,7 @@ D2WheelCallbackFn gpfnWheelUp; // 0x007A7404
 
 D2WheelCallbackFn gpfnWheelDown; // 0x007A7408
 
-extern T0044A980* gpPalShiftEntries;                                                     // 0x007B9578
+extern D2PalShiftEntryStrc* gpPalShiftEntries;                                                     // 0x007B9578
 
 extern unsigned char gaGlobalPalShifts_007B9580[0x1E][0x100];                                               // 0x007B9580
 

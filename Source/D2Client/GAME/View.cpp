@@ -47,7 +47,7 @@ struct D2ClientViewStrc;
 
 struct D2ClientArrayStrc;
 
-struct T0044A980;
+struct D2PalShiftEntryStrc;
 
 struct D2DrlgCoordsStrc;
 
@@ -154,7 +154,7 @@ struct D2ClientArrayStrc
     void sub_00450680_SetCount(unsigned int nCount);
 };
 
-struct T0044A980
+struct D2PalShiftEntryStrc
 {
     int nId;
     int nValue;
@@ -223,7 +223,7 @@ extern void* gpLevelSocketCel; // 0x007C02E0
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-extern T0044A980* gpPalShiftEntries; // 0x007B9578
+extern D2PalShiftEntryStrc* gpPalShiftEntries; // 0x007B9578
 
 extern int gnGlobal_007B957C; // 0x007B957C
 
