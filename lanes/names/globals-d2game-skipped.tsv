@@ -1,0 +1,8 @@
+va	old_name	file	reason
+0x006E0550	gData_006E0550	Source/D2Game/GAME/Clients.cpp	24 zero bytes whose only use is being returned by the unnamed accessor sub_0052BF90
+0x006E0568	gData_006E0568	Source/D2Game/GAME/Clients.cpp	272 zero bytes whose only use is being returned by the unnamed accessor sub_0052BFA0
+0x00730190	gdwGlobal_00730190	Source/D2BNClient/grid.cpp	starts at 1, cleared by GRID's key loading, returned by BNCLIENT_GetExeHash; meaning unclear
+0x00731008	gdwGlobal_00731008	Source/D2Game/GAME/Clients.cpp	a constant 100 returned by the unnamed sub_0052DC10
+0x00882D14	gdwGlobal_00882D14	Source/D2Game/GAME/Clients.cpp	a dword only returned by the unnamed sub_0052BDC0
+0x00883D3C	dword_6FD4581C	Source/D2Game/GAME/Clients.cpp	set by D2Game_10056 from its argument and never read here; D2MOO has no meaning either (dword_6FD4581C)
+0x00883D40	dword_6FD45820	Source/D2Game/GAME/Clients.cpp	cleared by D2Game_10056 and never read here; D2MOO has no meaning either (dword_6FD45820)
