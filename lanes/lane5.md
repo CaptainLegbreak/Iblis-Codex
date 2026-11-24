@@ -4,6 +4,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/small-strays af53db9a 0 placeholders; PlrSave2.cpp takes 0x569EC0 from Objects.cpp (adopts its unmarked copy), a5q2.cpp takes 0x587F60 from a5q1.cpp (its QUESTS_SendLogUpdateEx prototype lacked the // 0x00545920 marker, which is why it failed before); VERIFIED 2e6d3ea629aaa5608194d1654f622d960a27046d. Based on main #301, not stacked, D2Game only.
 - lane5/intro-q0 4c6049d0 545->543; a2q0.cpp and a3q0.cpp take in their acts' intro-quest clusters, which open each q0 file's run (from a1q4, a2q1, a2q3, a4q3, MissMode.cpp and two placeholders); VERIFIED d0c4ee8dc981a8aff29e31a334ac0f8d55ce18c6. Based on main #299, not stacked, D2Game only.
 - lane5/game-defaults 37ddf94b 0 placeholders; Game.cpp takes in 0x52BFB0/0x52BFC0 from D2Net.cpp (inside Game.cpp's run; lane 6 file) and defines the borrowed zero blocks 0x6E0498 (184 B), 0x6E0550 (24 B), 0x6E0568 (272 B) as const char arrays; borrowed data 15,211 B on this branch; VERIFIED db10a6a4d4e916035cbbe1b1002f4b483b683bda. Based on main #298, not stacked; touches D2Net.cpp (removes the two functions only).
 - lane5/a3q2-run b250ff23 561->558 a3q2.cpp takes in four strays in its runs (0x5B7F90 from a3q1.cpp; 0x5B7FE0, 0x5B8B00, 0x5BDB10 from placeholders); VERIFIED eabdc2af95c0bf45405ca91445b37593b91ec622. Based on main #297, not stacked, D2Game only.
@@ -21,6 +22,8 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Left in place (and why)
 
+- Act 1 and Act 5 intro clusters (Unknown_0058F870.cpp 0x58F870-0x58FB80 before a1q1.cpp; 0x586B50/0x586C40/0x586C50 before a5q1.cpp): the Act 2/3 intros open a2q0.cpp/a3q0.cpp, but there is no a1q0.cpp or a5q0.cpp and nothing names the file; left until evidence turns up.
+- 0x5985C0 (Unknown_00598220.cpp): Act 2 intro's empty status filter, named ACT3Q7_StatusFilterCallback like a2q0.cpp's own stub; needs its own name before it can join a2q0.cpp.
 - 0x59F820 (Unknown_0059F440.cpp): memsets 0x7A00 bytes at game+0x1920, past the end of the shared D2GameStrc; needs a look at what that pointer really is.
 - 0x5B9A30 (a3q3.cpp seq callback): a3q3.cpp's copy inlines ACT3Q3_SpawnFetishBoss (0x5B9930); the original calls it. Only the placeholder's `noinline` reproduces that.
 - 0x5947E0 (a1q5.cpp GUID check): custom register convention (static) yet no caller or pointer in the image; neither static nor global form matches in a1q5.cpp.
