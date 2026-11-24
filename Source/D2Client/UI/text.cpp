@@ -16,6 +16,7 @@
 #include "D2MsgRecord.h"
 #include "D2ClientQuestLog.h"
 #include "D2ClientStatButton.h"
+#include "D2WinSplitText.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -51,7 +52,7 @@ struct D2UnitStrc;
 
 struct D2CommonIgnoreListStrc;
 
-struct T0044CB60;
+struct D2SplittedTextStrc;
 
 struct SMSGHANDLER_PARAMS;
 
@@ -208,17 +209,11 @@ extern int gnGameFrame; // 0x007BF20E
 
 static bool TEXT_IsLanguageCompatible(int nLangId);
 
-struct T0044CB60
-{
-    Unicode* pText;
-    T0044CB60* pNext;
-};
-
 #pragma pack(push, 2)
 
 struct T00479230
 {
-    T0044CB60* pFirst;
+    D2SplittedTextStrc* pFirst;
     int nLines;
     int nTextTop;
     int nTextBottom;
@@ -251,7 +246,7 @@ void __stdcall TEXT_FreeTextList(void* pList); // 0x0049D4D0
 
 void __cdecl TEXT_FreeTextPanelCels(); // 0x0049FE10
 
-T0044CB60* __stdcall TEXT_BuildTextLines(const Unicode* wszText, int* pLineCount, unsigned short* pMaxLines); // 0x004A0320
+D2SplittedTextStrc* __stdcall TEXT_BuildTextLines(const Unicode* wszText, int* pLineCount, unsigned short* pMaxLines); // 0x004A0320
 
 void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 
@@ -259,7 +254,7 @@ void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
-T0044CB60* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
+D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
@@ -1179,7 +1174,7 @@ extern "C" void __cdecl sub_0049C650_CloseArchives(); // 0x0049C650
 
 static int TEXT_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect); // 0x0049D9A0
 
-static void TEXT_FreeTextLines(T0044CB60* pLine);
+static void TEXT_FreeTextLines(D2SplittedTextStrc* pLine);
 
 void __stdcall TEXT_FreeTextBox(T00479230* pTextBox); // 0x0049D410
 
@@ -1991,12 +1986,12 @@ void __stdcall sub_L04_EmitCopyTextLine(const Unicode* pText)
 // build: symbol ??0Unicode@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x0049D370
-static void TEXT_FreeTextLines(T0044CB60* pLine)
+static void TEXT_FreeTextLines(D2SplittedTextStrc* pLine)
 {
     while (pLine)
     {
-        T0044CB60* pNext = pLine->pNext;
-        FOG_Free(pLine->pText, ".\\UI\\text.cpp", 0x60F, 0);
+        D2SplittedTextStrc* pNext = pLine->pNextLine;
+        FOG_Free(pLine->wszLine, ".\\UI\\text.cpp", 0x60F, 0);
         FOG_Free(pLine, ".\\UI\\text.cpp", 0x610, 0);
         pLine = pNext;
     }
@@ -2014,9 +2009,9 @@ static void TEXT_MeasureTextBox(T00479230* pBox)
     int nMaxWidth = 0;
     pBox->nTextTop = 0;
     pBox->nTextBottom = pBox->f_14;
-    for (T0044CB60* pLine = pBox->pFirst; pLine; pLine = pLine->pNext)
+    for (D2SplittedTextStrc* pLine = pBox->pFirst; pLine; pLine = pLine->pNextLine)
     {
-        nMaxWidth = nMaxWidth > D2Win_10121_GetTextWidth(pLine->pText) ? nMaxWidth : D2Win_10121_GetTextWidth(pLine->pText);
+        nMaxWidth = nMaxWidth > D2Win_10121_GetTextWidth(pLine->wszLine) ? nMaxWidth : D2Win_10121_GetTextWidth(pLine->wszLine);
     }
     pBox->nWidth = nMaxWidth + 0x14;
     pBox->nHeight = pBox->nLines * 0x0F + 6;
@@ -2068,7 +2063,7 @@ void __fastcall TEXT_DrawTextList(T00479230* pTextBox, int nX, int nY)
 {
     int nLines = (unsigned int)pTextBox->nLines > 10 ? 10 : pTextBox->nLines;
 
-    T0044CB60* pNode = pTextBox->pFirst;
+    D2SplittedTextStrc* pNode = pTextBox->pFirst;
     if (!nLines || !pNode || nY < 0)
     {
         return;
@@ -2085,8 +2080,8 @@ void __fastcall TEXT_DrawTextList(T00479230* pTextBox, int nX, int nY)
     const int nOldFont = D2Win_10127_SetFont(13);
     for (; i < nLines && pNode; ++i)
     {
-        D2Win_10117_DrawText(pNode->pText, nX + 10, nY + 18 + 15 * (i - nLines + pTextBox->nLines), 0, 0);
-        pNode = pNode->pNext;
+        D2Win_10117_DrawText(pNode->wszLine, nX + 10, nY + 18 + 15 * (i - nLines + pTextBox->nLines), 0, 0);
+        pNode = pNode->pNextLine;
     }
     D2Win_10127_SetFont(nOldFont);
 }
@@ -2190,7 +2185,7 @@ void __cdecl TEXT_DrawMessageList()
     int i;
     int nLine;
     D2TextNodeStrc* pNode;
-    T0044CB60* pNextLine;
+    D2SplittedTextStrc* pNextLine;
     int nBaseY;
     int bSplit;
     int nOldFont;
@@ -2198,7 +2193,7 @@ void __cdecl TEXT_DrawMessageList()
     int nX;
     int nWidth;
     int nY;
-    T0044CB60* pTextLine;
+    D2SplittedTextStrc* pTextLine;
 
     if (!gtMessageTextList.wCount)
     {
@@ -2247,16 +2242,16 @@ void __cdecl TEXT_DrawMessageList()
                     nY = 15 * nLine + nBaseY;
                     do
                     {
-                        pNextLine = pTextLine->pNext;
-                        nWidth = D2Win_10123(pTextLine->pText, sub_00526800(pTextLine->pText));
+                        pNextLine = pTextLine->pNextLine;
+                        nWidth = D2Win_10123(pTextLine->wszLine, sub_00526800(pTextLine->wszLine));
                         if (nWidth)
                         {
                             AUTOMAP_DrawFramedBox(nX - 5, nY - 0xE, nWidth + 0xA, 0x10, 0, 1);
-                            D2Win_10117_DrawText(pTextLine->pText, nX, nY, pNode->nColor, 0);
+                            D2Win_10117_DrawText(pTextLine->wszLine, nX, nY, pNode->nColor, 0);
                             ++nLine;
                             nY += 0xF;
                         }
-                        FOG_Free(pTextLine->pText, ".\\UI\\text.cpp", 0xA47, 0);
+                        FOG_Free(pTextLine->wszLine, ".\\UI\\text.cpp", 0xA47, 0);
                         FOG_Free(pTextLine, ".\\UI\\text.cpp", 0xA48, 0);
                         pTextLine = pNextLine;
                     }
@@ -2657,15 +2652,15 @@ void __fastcall TEXT_PrintChatLine(const Unicode* wszText, char nColor)
     int nOldFont = D2Win_10127_SetFont(0xD);
 
     int nLines;
-    T0044CB60* pLine = sub_00502970_SplitText(wszText, &nLines, gnScreenWidth - 0x46);
+    D2SplittedTextStrc* pLine = sub_00502970_SplitText(wszText, &nLines, gnScreenWidth - 0x46);
     pNode->nLines = (unsigned int)nLines > 6 ? 6 : nLines;
     for (int i = 0; i < nLines; i++)
     {
         if (i < pNode->nLines)
-            pNode->pLines[i] = pLine->pText;
+            pNode->pLines[i] = pLine->wszLine;
         else
-            FOG_Free(pLine->pText, ".\\UI\\text.cpp", 0xD5A, 0);
-        T0044CB60* pNext = pLine->pNext;
+            FOG_Free(pLine->wszLine, ".\\UI\\text.cpp", 0xD5A, 0);
+        D2SplittedTextStrc* pNext = pLine->pNextLine;
         FOG_Free(pLine, ".\\UI\\text.cpp", 0xD5D, 0);
         pLine = pNext;
     }
@@ -3555,20 +3550,20 @@ static __forceinline const unsigned short* TEXT_ReadLine(Unicode* pLine, const u
 }
 
 // 0x004A0320
-T0044CB60* __stdcall TEXT_BuildTextLines(const unsigned short* wszText, int* pLineCount, unsigned short* pMaxLines)
+D2SplittedTextStrc* __stdcall TEXT_BuildTextLines(const unsigned short* wszText, int* pLineCount, unsigned short* pMaxLines)
 {
     Unicode szLine[100];
     const unsigned short* pText = wszText;
 
     *pLineCount = 0;
-    T0044CB60* pLast = 0;
-    T0044CB60* pFirst = 0;
+    D2SplittedTextStrc* pLast = 0;
+    D2SplittedTextStrc* pFirst = 0;
     int bFirstLine = 1;
     while (*pText)
     {
         pText = TEXT_ReadLine(szLine, pText);
 
-        T0044CB60* pLine = (T0044CB60*)FOG_Alloc(sizeof(T0044CB60), ".\\UI\\text.cpp", 0x5B8, 0);
+        D2SplittedTextStrc* pLine = (D2SplittedTextStrc*)FOG_Alloc(sizeof(D2SplittedTextStrc), ".\\UI\\text.cpp", 0x5B8, 0);
         if (bFirstLine == 1)
         {
             const int nLength = sub_00526800(szLine);
@@ -3605,12 +3600,12 @@ T0044CB60* __stdcall TEXT_BuildTextLines(const unsigned short* wszText, int* pLi
             wsprintfA(szMessage, "line %d of string is too long", *pLineCount);
         }
 
-        pLine->pText = (Unicode*)FOG_Alloc(sizeof(Unicode) * (nLength + 1), ".\\UI\\text.cpp", 0x5EB, 0);
-        sub_005267E0(pLine->pText, szLine);
-        pLine->pNext = 0;
+        pLine->wszLine = (Unicode*)FOG_Alloc(sizeof(Unicode) * (nLength + 1), ".\\UI\\text.cpp", 0x5EB, 0);
+        sub_005267E0(pLine->wszLine, szLine);
+        pLine->pNextLine = 0;
         if (pLast)
         {
-            pLast->pNext = pLine;
+            pLast->pNextLine = pLine;
         }
         else
         {

@@ -20,6 +20,7 @@
 #include "D2UnitData.h"
 #include "D2CelContext.h"
 #include "D2ClientUiRecords.h"
+#include "D2WinSplitText.h"
 
 #define OFFSET(T, M) ((unsigned int)&(((T*)0)->M))
 
@@ -2027,12 +2028,6 @@ int __fastcall AUTOMAP_SetAutomapFade(int nFade)
     return nFade;
 }
 
-
-struct T0044CB60
-{
-    Unicode* pText;
-    T0044CB60* pNext;
-};
 
 // 0x00457740
 int __cdecl UI_GetAutomapCenters()

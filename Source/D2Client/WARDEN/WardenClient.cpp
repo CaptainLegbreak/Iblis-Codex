@@ -13,6 +13,7 @@
 #include "D2ItemsWorld.h"
 #include "D2MultiTypes.h"
 #include "D2Unicode.h"
+#include "D2WinSplitText.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -541,12 +542,6 @@ void __fastcall WARDENCLIENT_UpdateOwnerPetFlags(int nOwnerId)
     }
 }
 
-struct T0044CB60
-{
-    Unicode* pText;
-    T0044CB60* pNext;
-};
-
 struct D2ChatMessageStrc
 {
     unsigned char unk0x00;
@@ -607,7 +602,7 @@ void __fastcall sub_004787B0_SendStrings(const unsigned char* pData);           
 
 unsigned int __fastcall D2Win_10128(unsigned char nChar);                                                   // 0x00502550
 
-T0044CB60* __fastcall sub_00502970_SplitText(Unicode* pText, unsigned int* pLineCount, int nWidth);    // 0x00502970
+D2SplittedTextStrc* __fastcall sub_00502970_SplitText(Unicode* pText, unsigned int* pLineCount, int nWidth);    // 0x00502970
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 

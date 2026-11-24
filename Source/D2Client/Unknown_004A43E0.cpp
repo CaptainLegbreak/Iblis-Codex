@@ -16,6 +16,7 @@
 #include "D2MsgRecord.h"
 #include "D2ClientQuestLog.h"
 #include "D2ClientStatButton.h"
+#include "D2WinSplitText.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -51,7 +52,7 @@ struct D2UnitStrc;
 
 struct D2CommonIgnoreListStrc;
 
-struct T0044CB60;
+struct D2SplittedTextStrc;
 
 struct SMSGHANDLER_PARAMS;
 
@@ -207,17 +208,11 @@ extern int gnGameFrame; // 0x007BF20E
 
 static bool TEXT_IsLanguageCompatible(int nLangId);
 
-struct T0044CB60
-{
-    Unicode* pText;
-    T0044CB60* pNext;
-};
-
 #pragma pack(push, 2)
 
 struct T00479230
 {
-    T0044CB60* pFirst;
+    D2SplittedTextStrc* pFirst;
     int nLines;
     int nTextTop;
     int nTextBottom;
@@ -250,7 +245,7 @@ void __stdcall TEXT_FreeTextList(void* pList); // 0x0049D4D0
 
 void __cdecl TEXT_FreeTextPanelCels(); // 0x0049FE10
 
-T0044CB60* __stdcall TEXT_BuildTextLines(const Unicode* wszText, int* pLineCount, unsigned short* pMaxLines); // 0x004A0320
+D2SplittedTextStrc* __stdcall TEXT_BuildTextLines(const Unicode* wszText, int* pLineCount, unsigned short* pMaxLines); // 0x004A0320
 
 void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 
@@ -258,7 +253,7 @@ void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
-T0044CB60* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
+D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
@@ -1163,7 +1158,7 @@ extern "C" void __cdecl sub_0049C650_CloseArchives(); // 0x0049C650
 
 static int TEXT_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect); // 0x0049D9A0
 
-static void TEXT_FreeTextLines(T0044CB60* pLine);
+static void TEXT_FreeTextLines(D2SplittedTextStrc* pLine);
 
 void __stdcall TEXT_FreeTextBox(T00479230* pTextBox); // 0x0049D410
 

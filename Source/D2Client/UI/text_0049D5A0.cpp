@@ -1,16 +1,11 @@
 #include "D2Unicode.h"
 #include "D2Client.h"
+#include "D2WinSplitText.h"
 struct D2SelectionRectStrc;
-struct T0044CB60
-{
-    Unicode* wszText;
-    T0044CB60* pNext;
-};
-
 #pragma pack(push, 2)
 struct D2TextScrollStrc
 {
-    T0044CB60* pLines;
+    D2SplittedTextStrc* pLines;
     int nLines;
     unsigned int nPos;
     int nSpeed;
@@ -53,11 +48,11 @@ unsigned int __fastcall TEXT_CalcTextOffset(unsigned int nValue)
 }
 
 // build: context sub_0049D5A0_DrawClippedLine
-static __forceinline void sub_0049D5A0_DrawClippedLine(T0044CB60* pLine, int nY, int nColor, int nSkipLines, int nDrawLines)
+static __forceinline void sub_0049D5A0_DrawClippedLine(D2SplittedTextStrc* pLine, int nY, int nColor, int nSkipLines, int nDrawLines)
 {
     if (gnTextDisplaySetting || gbTextPanelOpen)
     {
-        sub_00501DF0_DrawClippedFontText(pLine->wszText, gnTextLeft + 0x10, gnTextTop + nY, nColor, nSkipLines, nDrawLines);
+        sub_00501DF0_DrawClippedFontText(pLine->wszLine, gnTextLeft + 0x10, gnTextTop + nY, nColor, nSkipLines, nDrawLines);
     }
 }
 
@@ -116,12 +111,12 @@ static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec)
         UI_DrawRectangleBorder(&tRect);
     }
 
-    T0044CB60* pLine = pRec->pLines;
-    T0044CB60* pLast = 0;
+    D2SplittedTextStrc* pLine = pRec->pLines;
+    D2SplittedTextStrc* pLast = 0;
     unsigned int nFirstPos = 0;
     unsigned int nLastPos = 0;
     unsigned int nPos = pRec->nPos;
-    T0044CB60* pFirst = 0;
+    D2SplittedTextStrc* pFirst = 0;
     if (nPos && pLine)
     {
         do
@@ -131,7 +126,7 @@ static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec)
                 int nY = TEXT_CalcTextOffset(nPos);
                 if (gnTextDisplaySetting || gbTextPanelOpen)
                 {
-                    D2Win_10117_DrawText(pLine->wszText, gnTextLeft + 0x10, gnTextTop + nY, 0, 0);
+                    D2Win_10117_DrawText(pLine->wszLine, gnTextLeft + 0x10, gnTextTop + nY, 0, 0);
                 }
 
                 if (!pFirst)
@@ -148,19 +143,19 @@ static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec)
                 break;
             }
 
-            pLine = pLine->pNext;
+            pLine = pLine->pNextLine;
             nPos -= 0x4800;
         }
         while (pLine);
 
         if (pFirst)
         {
-            T0044CB60* pPrev = 0;
-            T0044CB60* pNode = pRec->pLines;
+            D2SplittedTextStrc* pPrev = 0;
+            D2SplittedTextStrc* pNode = pRec->pLines;
             while (pNode != pFirst)
             {
                 pPrev = pNode;
-                pNode = pNode->pNext;
+                pNode = pNode->pNextLine;
             }
 
             if (pPrev)
@@ -172,8 +167,8 @@ static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec)
             }
         }
 
-        T0044CB60* pNext;
-        if (pLast && (pNext = pLast->pNext) != 0)
+        D2SplittedTextStrc* pNext;
+        if (pLast && (pNext = pLast->pNextLine) != 0)
         {
             int nY = TEXT_CalcTextOffset(nLastPos + 0x400);
             int nSkip = nY - 0x5E;
@@ -190,11 +185,11 @@ static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec)
 
     if (!pFirst && !pLast)
     {
-        T0044CB60* pTail = pRec->pLines;
+        D2SplittedTextStrc* pTail = pRec->pLines;
         unsigned int nTailPos = pRec->nPos;
-        while (pTail->pNext)
+        while (pTail->pNextLine)
         {
-            pTail = pTail->pNext;
+            pTail = pTail->pNextLine;
             nTailPos -= 0x4800;
         }
 

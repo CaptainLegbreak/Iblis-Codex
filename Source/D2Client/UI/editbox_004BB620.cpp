@@ -1,10 +1,10 @@
 #include "D2Client.h"
 #include "D2StormTypes.h"
 
-struct T0044CB60
+struct D2SplittedTextStrc
 {
-    unsigned short* pText;
-    T0044CB60* pNext;
+    unsigned short* wszLine;
+    D2SplittedTextStrc* pNextLine;
 };
 
 class EditBoxImplementation;
@@ -48,7 +48,7 @@ public:
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);                                     // 0x00420290
 unsigned int __fastcall D2Win_10128(unsigned char nCharCode); // 0x00502550
-T0044CB60* __fastcall sub_00502970_SplitText(const unsigned short* pText, int* pLineCount, int nWidth); // 0x00502970
+D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const unsigned short* pText, int* pLineCount, int nWidth); // 0x00502970
 int __fastcall D2Win_10127_SetFont(int nFontSize);                                                                 // 0x00502EF0
 void __fastcall sub_005263E0(char* szDest, const unsigned short* pSource, int nMaxLength);         // 0x005263E0
 extern "C" int __fastcall sub_00526800(const unsigned short* pText);                                      // 0x00526800
@@ -163,11 +163,11 @@ int EditBoxImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
         {
             D2Win_10127_SetFont(nFont);
             int nLines;
-            T0044CB60* pLine = sub_00502970_SplitText(pText, &nLines, nTextWidth);
+            D2SplittedTextStrc* pLine = sub_00502970_SplitText(pText, &nLines, nTextWidth);
             while (pLine)
             {
-                T0044CB60* pNext = pLine->pNext;
-                FOG_Free(pLine->pText, ".\\UI\\editbox.cpp", 0x203, 0);
+                D2SplittedTextStrc* pNext = pLine->pNextLine;
+                FOG_Free(pLine->wszLine, ".\\UI\\editbox.cpp", 0x203, 0);
                 FOG_Free(pLine, ".\\UI\\editbox.cpp", 0x204, 0);
                 pLine = pNext;
             }
