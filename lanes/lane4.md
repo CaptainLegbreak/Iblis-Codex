@@ -16,9 +16,11 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 - **Other copies in this range:** text.cpp's 0x724A80, 0x7274B0, 0x7274EC, 0x727528 (all past text.cpp's own data at 0x723768, so they start later objects); `Unknown_004A43E0.cpp` 0x724798, 0x7247D8; useitem.cpp 0x7279B0, 0x7279EC; Wall2.cpp 0x72A96C, 0x72A9A8. 0x7274B0/0x7274EC are ambiguous: I couldn't tie them to code.
 - **Borrowed data in the range:** 0x724CD8 (8 zero bytes between Unknown_004A76C0.cpp and Unknown_00499500.cpp), npcmenu.cpp's zero blocks (112 B, 18 blocks; most should join the record in front, as in zero-gaps), 0x726C54, and the editbox/Object.cpp edge (0x727708 is Object.cpp's copy; editbox-split places the other two).
 
-## Ready
+## Status
 
-- lane4/popup-object 273819389 placeholders -1 (Unknown_0045FB40.cpp): the popup object 0x45FB40-0x46072F gathers into Unknown_00460420.cpp. Its data (copy 0x711D04, gaPopupHandlers, gaOkCancelHandlers) names eight of the run's functions, and its state 0x7A5238-0x7A525F is read by the run's functions and nothing else. The functions come from Unknown_0045FB40.cpp, ui.cpp, SCmd.cpp, View.cpp, inv.cpp, RosterPets.cpp, Player.cpp (lane 1's file: 0x460170, 0x460480 and the gbCinematicExpansion definition) and automap.cpp (including 0x460190 from singles-2); the handler tables point at their own definitions (plan externs dropped, pointers `owner`), and the popup state becomes the unit's statics (as externs, 0x45FED0 schedules its argument push after the stores). 0x45FB80 stays in its placeholder: it is an uncalled copy of the skill tree's mouse test. Borrowed data 848 B (unchanged). VERIFIED 0e6534257f6b on #364; rebased onto #365 (precheck equal). Not stacked.
+- Tue Nov 24 13:42:41 PST 2026: starting the placeholder joins from the object map (report-360), strongest leads first: Gfx.cpp <- Unknown_0046C7D0 and Unknown_0046C660.
+
+## Ready
 
 ## Claimed
 
