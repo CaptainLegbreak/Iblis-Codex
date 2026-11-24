@@ -1614,14 +1614,59 @@
      "name": "LOGMANAGER_DbgHelpThreadProc"
     },
     {
+     "va": "0x0040EB20",
+     "length": 8,
+     "name": "??2@YAPAXIPAX@Z"
+    },
+    {
      "va": "0x0040EB30",
      "length": 1,
      "name": "??3D2LogMessageStrc@@SAXPAX0@Z"
     },
     {
+     "va": "0x0040EB40",
+     "length": 4,
+     "name": "?sub_0040EB40_GetMessageData@@YIPADPAUD2LogMessageStrc@@@Z"
+    },
+    {
+     "va": "0x0040EB50",
+     "length": 14,
+     "name": "??0CCritSect@@QAE@XZ"
+    },
+    {
+     "va": "0x0040EB60",
+     "length": 8,
+     "name": "??1CCritSect@@QAE@XZ"
+    },
+    {
+     "va": "0x0040EB70",
+     "length": 8,
+     "name": "?Enter@CCritSect@@QAEXXZ"
+    },
+    {
+     "va": "0x0040EB80",
+     "length": 8,
+     "name": "?Leave@CCritSect@@QAEXXZ"
+    },
+    {
+     "va": "0x0040EB90",
+     "length": 49,
+     "name": "?LOGMANAGER_GetLogFilePaths@@YIIPAPADI@Z"
+    },
+    {
      "va": "0x0040EBD0",
      "length": 235,
      "name": "sub_0040EBD0_OpenDatedLogFile"
+    },
+    {
+     "va": "0x0040ECC0",
+     "length": 120,
+     "name": "?sub_0040ECC0_LogWriteHeader@@YIXPAU_iobuf@@PBUD2SystemTimeStrc@@@Z"
+    },
+    {
+     "va": "0x0040ED40",
+     "length": 158,
+     "name": "?sub_0040ED40_LogWriteStartup@@YIXPAU_iobuf@@@Z"
     },
     {
      "va": "0x0040EDE0",
@@ -1645,6 +1690,16 @@
      "va": "0x0040F3D0",
      "length": 153,
      "name": "?LOGMANAGER_SweepLogFile@@YIXPBUD2FileTimeStrc@@PBD@Z"
+    },
+    {
+     "va": "0x0040F470",
+     "length": 123,
+     "name": "?LOGMANAGER_CloseNamedLog@@YIXPBD@Z"
+    },
+    {
+     "va": "0x0040F4F0",
+     "length": 36,
+     "name": "?NextLink@D2LogMsgLinkStrc@@QAEPAU1@H@Z"
     },
     {
      "va": "0x0040F520",
@@ -1717,6 +1772,11 @@
      "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
     },
     {
+     "va": "0x0040F880",
+     "length": 17,
+     "name": "?sub_0040F880_Link@D2LogMsgListStrc@@QAEPAUD2LogMsgLinkStrc@@PAD@Z"
+    },
+    {
      "va": "0x0040F8A0",
      "length": 191,
      "name": "?LOGMANAGER_CloseLogFilesNow@@YAXXZ"
@@ -1740,6 +1800,16 @@
      "va": "0x0040FB50",
      "length": 84,
      "name": "??0D2LogMsgListStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0040FBB0",
+     "length": 161,
+     "name": "?sub_0040FBB0_LinkNode@D2LogMsgListStrc@@QAEXPADH0@Z"
+    },
+    {
+     "va": "0x0040FC60",
+     "length": 66,
+     "name": "?sub_0040FC60_UnlinkNode@D2LogMsgListStrc@@QAEXPAD@Z"
     },
     {
      "va": "0x0040FCB0",
@@ -1789,6 +1859,11 @@
     {
      "va": "0x00410040",
      "length": 375
+    },
+    {
+     "va": "0x004101C0",
+     "length": 378,
+     "name": "?sub_004101C0_LogThreadProc@@YGKPAX@Z"
     },
     {
      "va": "0x00410340",
@@ -3925,37 +4000,6 @@
     {
      "va": "0x0040D7D0",
      "length": 162
-    },
-    {
-     "va": "0x0040EB90",
-     "length": 49,
-     "name": "?EXCEPTIONS_GetLogFilePaths@@YIIPAPADI@Z"
-    },
-    {
-     "va": "0x0040F470",
-     "length": 123,
-     "name": "?EXCEPTIONS_CloseNamedLog@@YIXPBD@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_0040E300.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0040EB40",
-     "length": 4,
-     "name": "?sub_0040EB40_GetMessageData@@YIPADPAUD2LogMessageStrc@@@Z"
-    },
-    {
-     "va": "0x0040EB70",
-     "length": 8,
-     "name": "?Enter@CCritSect@@QAEXXZ"
-    },
-    {
-     "va": "0x0040EB80",
-     "length": 8,
-     "name": "?Leave@CCritSect@@QAEXXZ"
     }
    ]
   },
@@ -3963,41 +4007,6 @@
    "file": "Source/Storm/SOURCE/SFILE.CPP",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0040EB20",
-     "length": 8,
-     "name": "sub_0040EB20_ReturnSecond"
-    },
-    {
-     "va": "0x0040ECC0",
-     "length": 120,
-     "name": "sub_0040ECC0_LogWriteHeader"
-    },
-    {
-     "va": "0x0040ED40",
-     "length": 158,
-     "name": "sub_0040ED40_LogWriteStartup"
-    },
-    {
-     "va": "0x0040F4F0",
-     "length": 36,
-     "name": "sub_0040F4F0_NextLink"
-    },
-    {
-     "va": "0x0040F880",
-     "length": 17,
-     "name": "sub_0040F880_Link"
-    },
-    {
-     "va": "0x0040FBB0",
-     "length": 161,
-     "name": "sub_0040FBB0_LinkNode"
-    },
-    {
-     "va": "0x0040FC60",
-     "length": 66,
-     "name": "sub_0040FC60_UnlinkNode"
-    },
     {
      "va": "0x00414260",
      "length": 51,
@@ -5094,46 +5103,6 @@
     "/Ob1",
     "/Gd",
     "/EHsc"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_0040EB50.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0040EB50",
-     "length": 14,
-     "name": "??0CCritSect@@QAE@XZ"
-    },
-    {
-     "va": "0x0040EB60",
-     "length": 8,
-     "name": "??1CCritSect@@QAE@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_004101C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004101C0",
-     "length": 378
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHa"
    ]
   },
   {
