@@ -1466,11 +1466,6 @@
      "name": "?BNDOWNLOAD_GetTime@@YAJPAJ@Z"
     },
     {
-     "va": "0x004107B0",
-     "length": 23,
-     "name": "?sub_004107B0_AtomicStore64@@YIXPA_JPB_J@Z"
-    },
-    {
      "va": "0x00410B10",
      "length": 32,
      "name": "sub_00410B10"
@@ -5054,6 +5049,11 @@
      "va": "0x004107A0",
      "length": 12,
      "name": "?sub_004107A0_DeleteTimeLock@@YAXXZ"
+    },
+    {
+     "va": "0x004107B0",
+     "length": 23,
+     "name": "?sub_004107B0_AtomicStore64@@YIXPA_JPB_J@Z"
     },
     {
      "va": "0x004107D0",
