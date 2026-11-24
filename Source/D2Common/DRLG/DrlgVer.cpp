@@ -311,3 +311,5 @@ void __fastcall DRLGVER_GetCoordDiff(D2DrlgVertexStrc* pVertex, int* pDirectionX
         *pDirectionY = 1;
     }
 }
+
+#include "gen/data/Source/D2Common/DRLG/DrlgVer.inc"

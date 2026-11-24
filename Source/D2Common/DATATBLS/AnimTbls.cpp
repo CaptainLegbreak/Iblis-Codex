@@ -154,3 +154,5 @@ int __stdcall DATATBLS_GetAnimDataInfo(char* szPath, int* pOutLength, int* pOutA
     *pOutFirstFrameTagged = *pOutLength;
     return 0;
 }
+
+#include "gen/data/Source/D2Common/DATATBLS/AnimTbls.inc"

@@ -555,3 +555,5 @@ void __fastcall DRLGGRID_ResetGrid(D2DrlgGridStrc* pGrid)
     pGrid->pCellsFlags = 0;
     pGrid->pCellsRowOffsets = 0;
 }
+
+#include "gen/data/Source/D2Common/DRLG/DrlgGrid.inc"
