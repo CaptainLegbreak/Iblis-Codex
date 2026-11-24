@@ -33885,76 +33885,6 @@
      "name": "DDRAW_CelDrawHilight"
     },
     {
-     "va": "0x00513AE0",
-     "length": 6,
-     "name": "D2SOUND_IsExpansion"
-    },
-    {
-     "va": "0x00513B50",
-     "length": 6,
-     "name": "D2SOUND_GetDirectSound"
-    },
-    {
-     "va": "0x00513B60",
-     "length": 6,
-     "name": "D2SOUND_IsPositionalSoundEnabled"
-    },
-    {
-     "va": "0x00513B70",
-     "length": 6,
-     "name": "D2SOUND_IsEaxEnabled"
-    },
-    {
-     "va": "0x00513B80",
-     "length": 3,
-     "name": "sub_00513B80"
-    },
-    {
-     "va": "0x00513B90",
-     "length": 6,
-     "name": "D2SOUND_GetEaxVersion"
-    },
-    {
-     "va": "0x00513BA0",
-     "length": 6,
-     "name": "D2SOUND_IsEaxRoomOff"
-    },
-    {
-     "va": "0x00513BB0",
-     "length": 6,
-     "name": "sub_00513BB0"
-    },
-    {
-     "va": "0x00514C90",
-     "length": 6,
-     "name": "D2SOUND_GetSoundMixerOption"
-    },
-    {
-     "va": "0x00514CC0",
-     "length": 6,
-     "name": "D2SOUND_GetMasterVolumeOption"
-    },
-    {
-     "va": "0x00514CF0",
-     "length": 6,
-     "name": "D2SOUND_GetMusicVolumeOption"
-    },
-    {
-     "va": "0x00514D20",
-     "length": 6,
-     "name": "D2SOUND_GetPositionalBiasOption"
-    },
-    {
-     "va": "0x00514D50",
-     "length": 6,
-     "name": "D2SOUND_GetNpcSpeechOption"
-    },
-    {
-     "va": "0x00514D80",
-     "length": 6,
-     "name": "D2SOUND_GetOptionsMusicOption"
-    },
-    {
      "va": "0x00518C10",
      "length": 6,
      "name": "BNCLIENT_GetInterfaceTable"
@@ -37896,6 +37826,51 @@
      "va": "0x00513A20",
      "length": 180,
      "name": "?sub_00513A20_EnumCallback@@YGHPAXPBD10@Z"
+    },
+    {
+     "va": "0x00513AE0",
+     "length": 6,
+     "name": "D2SOUND_IsExpansion"
+    },
+    {
+     "va": "0x00513AF0",
+     "length": 82,
+     "name": "?D2SOUND_ReleaseSoundObjects@@YAXXZ"
+    },
+    {
+     "va": "0x00513B50",
+     "length": 6,
+     "name": "D2SOUND_GetDirectSound"
+    },
+    {
+     "va": "0x00513B60",
+     "length": 6,
+     "name": "D2SOUND_IsPositionalSoundEnabled"
+    },
+    {
+     "va": "0x00513B70",
+     "length": 6,
+     "name": "D2SOUND_IsEaxEnabled"
+    },
+    {
+     "va": "0x00513B80",
+     "length": 3,
+     "name": "sub_00513B80"
+    },
+    {
+     "va": "0x00513B90",
+     "length": 6,
+     "name": "D2SOUND_GetEaxVersion"
+    },
+    {
+     "va": "0x00513BA0",
+     "length": 6,
+     "name": "D2SOUND_IsEaxRoomOff"
+    },
+    {
+     "va": "0x00513BB0",
+     "length": 6,
+     "name": "sub_00513BB0"
     }
    ]
   },
@@ -37903,11 +37878,6 @@
    "file": "Source/D2Sound/Src/D2SoundSmp.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00513AF0",
-     "length": 82,
-     "name": "?D2SOUND_ReleaseSoundObjects@@YAXXZ"
-    },
     {
      "va": "0x00513C50",
      "length": 631,
@@ -38376,9 +38346,39 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00514C90",
+     "length": 6,
+     "name": "D2SOUND_GetSoundMixerOption"
+    },
+    {
+     "va": "0x00514CC0",
+     "length": 6,
+     "name": "D2SOUND_GetMasterVolumeOption"
+    },
+    {
+     "va": "0x00514CF0",
+     "length": 6,
+     "name": "D2SOUND_GetMusicVolumeOption"
+    },
+    {
+     "va": "0x00514D20",
+     "length": 6,
+     "name": "D2SOUND_GetPositionalBiasOption"
+    },
+    {
+     "va": "0x00514D50",
+     "length": 6,
+     "name": "D2SOUND_GetNpcSpeechOption"
+    },
+    {
      "va": "0x00514D60",
      "length": 31,
      "name": "?sub_00514D60_SetNpcSpeech@@YIHH@Z"
+    },
+    {
+     "va": "0x00514D80",
+     "length": 6,
+     "name": "D2SOUND_GetOptionsMusicOption"
     }
    ]
   },
