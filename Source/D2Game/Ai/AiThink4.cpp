@@ -14264,6 +14264,74 @@ void __stdcall sub_005EDC40(int nUnused1)
 {
 }
 
+static __forceinline void AI_RollSeedFromHalves(D2UnitStrc* pUnit, unsigned int nLow, unsigned int nHigh, unsigned int& nNextLow, unsigned int& nNextHigh)
+{
+    const unsigned __int64 lSeed = nHigh + 0x6AC690C5i64 * nLow;
+    nNextHigh = (unsigned int)(lSeed >> 32);
+    nNextLow = (unsigned int)lSeed;
+    pUnit->pSeed.nHighSeed = nNextHigh;
+    pUnit->pSeed.nLowSeed = nNextLow;
+}
+
+static __forceinline void AI_RollSeedHalves(D2UnitStrc* pUnit, unsigned int& nLow, unsigned int& nHigh)
+{
+    AI_RollSeedFromHalves(pUnit, pUnit->pSeed.nLowSeed, pUnit->pSeed.nHighSeed, nLow, nHigh);
+}
+
+// 0x005EDC50
+void __fastcall AITHINK_Fn127_NpcBarb(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    const int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    const int nTargetDistance = pAiTickParam->nTargetDistance;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+
+    if (pUnit->dwNodeIndex == 11)
+    {
+        TARGETS_InsertUnitNode(pGame, pUnit, 0, 8);
+    }
+
+    if (pTarget)
+    {
+        if (bCombat)
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
+            AITACTICS_Idle(pGame, pUnit, AI_GetParam(pGame, pMonStatsTxt, 0));
+            return;
+        }
+
+        if (nTargetDistance < AI_GetParam(pGame, pMonStatsTxt, 2)
+            && (int)(ITEMS_RollRandomNumber(&pUnit->pSeed) % 100) < AI_GetParam(pGame, pMonStatsTxt, 1))
+        {
+            AITACTICS_SetVelocity(pUnit, 0, 100, 0);
+            AITACTICS_RunToTargetUnit(pGame, pUnit, pTarget);
+            return;
+        }
+    }
+
+    const int nX = CLIENTS_GetUnitX_005F0A20(pUnit);
+    const int nY = CLIENTS_GetUnitY_005F0A20(pUnit);
+    unsigned int nRollX, nHighX;
+    unsigned int nRollY, nHighY;
+    AI_RollSeedHalves(pUnit, nRollX, nHighX);
+    AI_RollSeedFromHalves(pUnit, nRollX, nHighX, nRollY, nHighY);
+    if (AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(pGame, pUnit, (int)(nRollX % 20) + nX - 40, (int)(nRollY % 20) + nY - 10))
+        return;
+
+    unsigned int nDirectionLow, nDirectionHigh;
+    AI_RollSeedHalves(pUnit, nDirectionLow, nDirectionHigh);
+    const int bDirection = nDirectionLow & 1;
+    AI_RollSeedFromHalves(pUnit, nDirectionLow, nDirectionHigh, nRollX, nHighX);
+    AI_RollSeedFromHalves(pUnit, nRollX, nHighX, nRollY, nHighY);
+    if (AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(pGame, pUnit, nX + (int)(nRollX % 20) - 10, -30 * (bDirection ? 1 : -1) + (int)(nRollY % 20) + nY - 10))
+        return;
+
+    AI_RollSeedHalves(pUnit, nRollX, nHighX);
+    AI_RollSeedFromHalves(pUnit, nRollX, nHighX, nRollY, nHighY);
+    if (!AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(pGame, pUnit, nX + (int)(nRollX % 20) - 10, -30 * (!bDirection ? 1 : -1) + (int)(nRollY % 20) + nY - 10))
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
+}
+
 static inline int CLIENTS_GetUnitX_FrogDemon(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
