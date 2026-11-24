@@ -4,13 +4,9 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane2/small-records-k 89000292 562->562 One commit, six small headers, each included only by the units that had identical private copies: D2CoordPair.h (an x/y pair; D2DDraw Unknown_005125E0, D2Gdi Unknown_006C8DA0, D2Launch MainMenus), D2TileLight.h (a tile's four corner light values; the same D2DDraw and D2Gdi units), D2CmpDC6CacheEntry.h (CelCmp, Unknown_005FE210), D2ColorBlock.h (FastCmp, Unknown_006056D0), D2UnitEventArgs.h (client Item, PlrSkills), D2ClientRange.h (client Game, Game_0044B7B0). D2WeatherLayerStateStrc stays private: shared, one of its units flips; VERIFIED 989e543043c9246561ffd94966d3a0f8e27c642e
-  - Verified on e40ccd0c (#355), rebased onto a6db6df9 (#356): CelCmp.cpp's conflict with small-records-i was include lines only. Precheck of all 11 changed units is equal there.
-  - Outside lane 2: CelCmp, FastCmp, Unknown_005FE210/006056D0 (lane 6), Unknown_005125E0, Unknown_006C8DA0 (lanes 6 and 9), MainMenus (lane 6), client Item, PlrSkills, Game, Game_0044B7B0 (lanes 1 and 4).
-
-- lane2/small-records-j 1e1cec7e 562->562 One commit, nine small headers, each included only by the two units that had identical private copies: D2MonTypeTxt.h (the part of a montype.txt record the client reads; SkillDesc, Unknown_004E2320), D2Win32RgbQuad.h (RGBQUAD; gdiCore, Unknown_006C7CF0), D2ClientBallistic.h (GfxUtil, client Skills), D2QuestLookupEntry.h (View, QuestLog), D2TextIdEntry.h (text, text_0049DA50), D2NpcIndex.h (pack 1; npcmenu, Unknown_004B6DD0), D2HintKeyList.h (Unknown_004B8720, Unknown_004BA890), D2ListBoxLine.h (Unknown_004BC1B0, Unknown_004BC1B0_004BE770), D2WaypointActRange.h (Unknown_0049BB40, WardenClient). D2CltMissileModeStrc stays private: shared, both its units flip; VERIFIED 7e465a62f46450291dcbbdb2e315093ff08f5920
-  - On e40ccd0c (#355). All 18 changed units build equal. Independent of small-records-h and -i.
-  - Outside lane 2: 16 D2Client units (lanes 1 and 4), gdiCore, Unknown_006C7CF0 (lane 6).
+- lane2/text-box c2d6fde2 562->562 Two commits, the last address-named records that more than one unit uses. T00479230 is the client's text box (gpTextBox, gpMainTextBox; TEXT_CreateTextBox, TEXT_FreeTextBox, TEXT_DrawTextList), now D2TextBoxStrc in its five units; text, Unknown_004A43E0 and Unknown_004A6460's identical copy (pack 2) is in D2ClientTextBox.h, WardenClient's differs and stays. T0047BAD0 is gaChatCommands' element (name, code, takes an argument, always allowed), now D2ChatCommandStrc in D2ClientChatCommand.h for chat and Unknown_0047CC90, with the data plan's entry for gaChatCommands following the name. T0044A980 is gpPalShiftEntries' element, which PalShift.cpp already calls D2PalShiftEntryStrc; View and CUnit now use that name (their views differ, so each keeps its own); VERIFIED e25792b88eb8903d669e2bf1a0ca6d0b46badbc1
+  - Verified on a6db6df9 (#356), rebased onto ff65a331 (#357): text.cpp's conflict with small-records-j was include lines only. Precheck of all 9 changed units is equal there.
+  - Outside lane 2: text, text_0049DA50, Unknown_004A43E0/004A6460, WardenClient, chat, Unknown_0047CC90, View, CUnit (lanes 1 and 4), build/data_plan.json (gaChatCommands' type name).
 
 ## Working on
 
