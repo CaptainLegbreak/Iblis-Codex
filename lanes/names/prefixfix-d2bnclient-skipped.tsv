@@ -1,0 +1,2 @@
+va	old_name	file	reason
+0x0051EA70	BNCLIENT_GetDownloadPercent	Source/D2BNClient/BnDownload.cpp	BNCLIENT prefix fits neither BnDownload.cpp nor its sourced names; but BNCLIENT is mostly D2Game's prefix, so the function may be filed in the wrong module; left for the file owner

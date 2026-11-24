@@ -1,0 +1,2 @@
+va	old_name	file	reason
+0x004E9040	PLRSKILLS_DescAttackRating	Source/D2Client/UI/SkillDesc.cpp	PLRSKILLS prefix fits neither SkillDesc.cpp nor its sourced names; SKILLDESC_DescAttackRating is already taken

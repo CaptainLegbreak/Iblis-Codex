@@ -1,0 +1,2 @@
+va	old_name	new_name	source	file	confidence	reason
+0x004F9870	D2COMP_DrawAllCompositeUnits	CONTROL_DrawAllCompositeUnits	inferred	Source/D2Win/Src/D2WinMain.cpp	high	D2COMP prefix fits neither D2WinMain.cpp nor its sourced names; the file's prefix is CONTROL, as its sourced names use (names in the file by prefix: CONTROL 20, CURSOR 2, BACKGROUND 1, D2COMP 1)

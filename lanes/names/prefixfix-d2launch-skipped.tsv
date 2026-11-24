@@ -1,0 +1,2 @@
+va	old_name	file	reason
+0x0042FFE0	CHARSEL_CreateTcpIpScreen	Source/D2Launch/Src/MainMenus.cpp	CHARSEL prefix fits neither MainMenus.cpp nor its sourced names; MAINMENUS_CreateTcpIpScreen is already taken

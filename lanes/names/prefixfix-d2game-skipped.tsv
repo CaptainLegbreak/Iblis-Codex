@@ -1,0 +1,4 @@
+va	old_name	file	reason
+0x0040D530	EXCEPTIONS_ReleaseAllSymbols	Source/D2Game/Ai/AiThink4.cpp	EXCEPTIONS prefix fits neither AiThink4.cpp nor its sourced names; but EXCEPTIONS is mostly Fog's prefix, so the function may be filed in the wrong module; left for the file owner
+0x00515A30	D2SOUND_SetSoundNoLoop	Source/D2Game/GAME/Clients.cpp	D2SOUND prefix fits neither Clients.cpp nor its sourced names; but D2SOUND is mostly D2Sound's prefix, so the function may be filed in the wrong module; left for the file owner
+0x00515A60	D2SOUND_SetSoundLoopStart	Source/D2Game/GAME/Clients.cpp	D2SOUND prefix fits neither Clients.cpp nor its sourced names; but D2SOUND is mostly D2Sound's prefix, so the function may be filed in the wrong module; left for the file owner

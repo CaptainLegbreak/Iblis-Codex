@@ -1,0 +1,4 @@
+va	old_name	file	reason
+0x0043E900	MAINMENUS_FindCdKeyInText	Source/D2Multi/Src/ChatDlg.cpp	MAINMENUS prefix fits neither ChatDlg.cpp nor its sourced names; but MAINMENUS is mostly D2Launch's prefix, so the function may be filed in the wrong module; left for the file owner
+0x00440CA0	MAINMENUS_RequestProfile	Source/D2Multi/Src/ChatDlg.cpp	MAINMENUS prefix fits neither ChatDlg.cpp nor its sourced names; but MAINMENUS is mostly D2Launch's prefix, so the function may be filed in the wrong module; left for the file owner
+0x004431B0	MAINMENUS_LoadMaxPlayers	Source/D2Multi/Src/ChatDlg.cpp	MAINMENUS prefix fits neither ChatDlg.cpp nor its sourced names; but MAINMENUS is mostly D2Launch's prefix, so the function may be filed in the wrong module; left for the file owner
