@@ -2682,7 +2682,6 @@
     "extern \"C\" void __cdecl SKILLS_SrvDo150_Smite(); // 0x005CE9F0",
     "extern \"C\" void __cdecl SKILLS_SrvDo151_Unused(); // 0x005CA260",
     "extern \"C\" void __cdecl SKILLS_SrvDo152_DiabLight(); // 0x005CC690",
-    "extern \"C\" void __cdecl SKILLS_SrvDo028_Meteor_Blizzard_Eruption_BaalTaunt_Catapult(); // 0x005CA3E0",
     "extern \"C\" void __cdecl sub_005C4B00(); // 0x005C4B00",
     "extern \"C\" void __cdecl SKILLS_ExplodeCorpse(); // 0x005C4DF0",
     "extern \"C\" void __cdecl SKILLS_SrvDo057_IronGolem(); // 0x005C5250",
@@ -2709,10 +2708,7 @@
     "extern \"C\" void __cdecl sub_005D3140(); // 0x005D3140",
     "extern \"C\" void __cdecl sub_005D8780(); // 0x005D8780",
     "extern \"C\" void __cdecl SKILLS_SrvDo009_Frenzy(); // 0x005D8E00",
-    "extern \"C\" void __cdecl SKILLS_SrvDo008_MultipleShot_Teeth_ShockWave(); // 0x005DB410",
-    "extern \"C\" void __cdecl SKILLS_SrvDo012_Strafe(); // 0x005DBA40",
     "extern \"C\" void __cdecl sub_005DBC60(); // 0x005DBC60",
-    "extern \"C\" void __cdecl SKILLS_SrvDo015_Dopplezon(); // 0x005DC000",
     "extern \"C\" void __cdecl SKILLS_SrvDo099_PrimePoisonNova(); // 0x005CCD10",
     "extern \"C\" void __cdecl sub_005CDF10(); // 0x005CDF10",
     "extern \"C\" void __cdecl sub_005CDFB0(); // 0x005CDFB0",
@@ -2743,7 +2739,11 @@
     "extern \"C\" void __cdecl SKILLS_SrvDo139_BaalColdMissiles(); // 0x005D2940",
     "extern \"C\" void __cdecl SKILLS_SrvDo140_BaalTentacle(); // 0x005D2C20",
     "extern \"C\" void __cdecl SKILLS_SrvDo141_BaalCorpseExplode(); // 0x005D2E80",
-    "extern \"C\" void __cdecl SKILLS_SrvDo143_FistsOfFire_RoyalStrike_ProgressiveFn(); // 0x005D4F40"
+    "extern \"C\" void __cdecl SKILLS_SrvDo143_FistsOfFire_RoyalStrike_ProgressiveFn(); // 0x005D4F40",
+    "extern \"C\" void __cdecl SKILLS_SrvDo028_Meteor_Blizzard_Eruption_BaalTaunt_Catapult(); // 0x005CA3E0",
+    "extern \"C\" void __cdecl SKILLS_SrvDo008_MultipleShot_Teeth_ShockWave(); // 0x005DB410",
+    "extern \"C\" void __cdecl SKILLS_SrvDo012_Strafe(); // 0x005DBA40",
+    "extern \"C\" void __cdecl SKILLS_SrvDo015_Dopplezon(); // 0x005DC000"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/Skills.inc",
@@ -3085,7 +3085,6 @@
     "extern \"C\" void __cdecl sub_005EDC40(); // 0x005EDC40",
     "extern \"C\" void __cdecl sub_005EDC50(); // 0x005EDC50",
     "extern \"C\" void __cdecl sub_005EE040(); // 0x005EE040",
-    "extern \"C\" void __cdecl AITHINK_Fn130_DeathMauler(); // 0x005EE260",
     "extern \"C\" void __cdecl sub_005EE3C0(); // 0x005EE3C0",
     "extern \"C\" void __cdecl sub_005EE5C0(); // 0x005EE5C0",
     "extern \"C\" void __cdecl sub_005EE5D0(); // 0x005EE5D0",
@@ -3116,7 +3115,8 @@
     "extern \"C\" void __cdecl AITHINK_Fn076_EvilHole(); // 0x005FB410",
     "extern \"C\" void __cdecl sub_005FB900(); // 0x005FB900",
     "extern \"C\" void __cdecl sub_005FB9B0(); // 0x005FB9B0",
-    "extern \"C\" void __cdecl AIBAAL_RunSpecialAiState(); // 0x005FCF30"
+    "extern \"C\" void __cdecl AIBAAL_RunSpecialAiState(); // 0x005FCF30",
+    "extern \"C\" void __cdecl AITHINK_Fn130_DeathMauler(); // 0x005EE260"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/MISSILES/MissMode.inc",
@@ -3417,7 +3417,6 @@
     "extern \"C\" void __cdecl sub_005EE5D0(); // 0x005EE5D0",
     "extern \"C\" void __cdecl AITHINK_InitializeGenericSpawner(); // 0x005E6190",
     "extern \"C\" void __cdecl AITHINK_Fn129_GenericSpawner(); // 0x005E61B0",
-    "extern \"C\" void __cdecl AITHINK_Fn130_DeathMauler(); // 0x005EE260",
     "extern \"C\" void __cdecl sub_005EE3C0(); // 0x005EE3C0",
     "extern \"C\" void __cdecl AITHINK_Fn133_Ancient(); // 0x005EF1A0",
     "extern \"C\" void __cdecl sub_005EF310(); // 0x005EF310",
@@ -3447,7 +3446,8 @@
     "extern \"C\" void __cdecl AITHINK_SpecialState13_Countess(); // 0x005E5C50",
     "extern \"C\" void __cdecl AITHINK_SpecialState14_AttackOrApproach(); // 0x005E2610",
     "extern \"C\" void __cdecl AITHINK_InitializeMountedImpSkills(); // 0x005E2CD0",
-    "extern \"C\" void __cdecl sub_005E2D80(); // 0x005E2D80"
+    "extern \"C\" void __cdecl sub_005E2D80(); // 0x005E2D80",
+    "extern \"C\" void __cdecl AITHINK_Fn130_DeathMauler(); // 0x005EE260"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Ai/AiThink.inc",
@@ -4342,8 +4342,8 @@
    "state": "included"
   },
   "Source/D2Client/GAME/RosterPets.cpp": {
-   "bytes": 4,
-   "definitions": 1,
+   "bytes": -116,
+   "definitions": 0,
    "externs": [
     "extern \"C\" void __cdecl CURSOR_DrawDefaultCursor(); // 0x004683C0",
     "extern \"C\" void __cdecl CURSOR_DrawCursorCel(); // 0x00468460"
@@ -4503,8 +4503,8 @@
    "state": "included"
   },
   "Source/D2Client/GAME/Select.cpp": {
-   "bytes": 184,
-   "definitions": 7,
+   "bytes": -152,
+   "definitions": 5,
    "externs": [
     "extern \"C\" void __cdecl sub_00467EF0_MsgHandler(); // 0x00467EF0",
     "extern \"C\" void __cdecl ROSTERPETS_HandleButtonUp(); // 0x00467FA0",
