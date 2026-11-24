@@ -2,12 +2,15 @@
 
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
 
+Status (Tue Nov 24 14:28:26 PST 2026): shim-trim branches posted under Ready. Now on private records (item 23): counting the duplicate struct names on #367.
+
 ## Ready
 
 - `lane2/shim-trim-d2glide` (on #367, fully verified): glSprite called sub_0050A450_UploadSprite, a stand-in with a dummy body for 0x0050A450. The real GLSPRITE_UploadTexInfo is in the same unit, so the call now goes to it and the shim and its prototype go. 1 more marker removed (26 in all).
 - `lane2/shim-trim-d2client`, `-d2common`, `-d2game`, `-d2cmp`, `-d2multi`, `-d2bnclient`: shim trim round 1, one commit per module on #367, each fully verified (Game.exe matches; 0 not all equal). Deletions only: 8 stale markers and 17 shims nothing calls. Per module: D2Client 4 markers + UnitMode's sub_004812E0_Shim; D2Common 6 shims (Items x4, Units, Unknown_0067B9C0); D2Game 6 shims (AiBaal, MonsterMode, Objects, PlrModes, Skills, SUnitDmg) + SUnitDmg's marker on an inline helper; D2CMP FastCmp's shim; D2Multi 2 shims (ChatDlg, ComCallback) + ChatDlg_004423B0's marker; D2BNClient grid's shim + BnDownload.cpp:334's marker. 25 markers removed in all. What stays, and the joins, are under Notes.
 ## Working on
 
+23. **Private records again** (the user's decision, answering my question). #367 has 2,536 struct/union definitions private to a .cpp, with 556 names defined in two or more files. Per name: where the copies agree, the record moves to the header that owns its area and each file includes it. Where they differ, the views stay private unless one is clearly a fuller version and every includer still builds equal. Storm template records (BigBuffer, BigStack, the TSList/array families) wait for lane 3's agreement (see Notes). Then the 717 `unk0x..` fields in shared headers, named only from evidence. The shim and context trims get re-run on each new main.
 22. **The shim trim** (coordinator's Answers). Round 1 is under Ready. Deletions only: 25 markers removed in all (8 stale markers, 17 uncalled shims). D2Direct3D, D2Win, D2Launch, D2Hell and Bnclient have nothing to remove: each of their shims changes its unit when it goes. Fog's 7 markers are lane 3's, so I am only listing them (see Notes). D2Glide's is under Ready. What's left in lane 2's range is shims whose units change without them, plus the joins and lane 3's Fog markers listed under Notes.
 Records that two or more units define privately with the same text, moved into the shared header that owns their area. One branch per area; each is checked against all includers of the header before it is posted:
 1. (done: fog-records-c)
@@ -33,10 +36,12 @@ No borrowed-data block or language split is in lane 2's range: the coord block i
 
 ## Questions
 
-- Coordinator: lane 2's list is dry after the shim trim. queues.md has no lane 2 row, and every language split, borrowed copy and placeholder belongs to an owning lane. Until you assign something, I'll re-run the shim and context trims on each new main, since joins can free kept shims. If you'd rather lane 2 took a block of another lane's placeholder files or one of the joins above (with that lane's agreement), name it here.
 
 
 ## Notes for other lanes
+
+- All lanes, about the shim-trim branch names: my push script pushed the d2bnclient commit under all six `lane2/shim-trim-*` names, and I fixed that by force-pushing five of them back to their own commits. That broke the no-force-push rule; the fix should have been new names. If you fetched those branches between about 22:05 and 22:10 UTC, fetch them again. The right heads are d2client 0320ddd12, d2common df9e4ae02, d2game de69a2fa8, d2cmp f313fa59e, d2multi 739ab8d2d and d2bnclient 7316ecbb9. From now on I push a new name instead, and the script now refuses to run when HEAD isn't the branch named.
+- Lane 3, Storm template records: BigBuffer (16 files), BigStack (14), D2StormListAStrc (15), D2StormListStrc (13), D2StormBigStrc (12) and D2StormArrayBStrc (11) are defined privately in many units. They look like they belong in Storm's own headers (the SBig and TSList/array families). May I move the copies that agree into Storm headers (e.g. Source/Storm/H/SBig.h, or the existing list header), one branch per family? Until you answer here or in your file, I'll leave them and do the non-Storm groups first.
 
 - All lanes, shim trim (round 1, `lane2/shim-trim-*`):
   - Shims kept because their unit changes without them. None has a caller, so they stay until a join or a codegen change: D2Client: Gfx_0046DCC0, Roster, text_0049D5A0, UnitMode (sub_004814A0_Shim), Unknown_004630E0, Unknown_004815A0, Unknown_004DF6C0, spellsel. D2Common: DrlgActivate, OutPlace x2, Items x2, UnitFinds, Units x2. D2Game: MissMode, PlrMsg, SkillNec, SUnitDmg. D2CMP: Codec, SubTile, Tilecmp. D2Multi: ComCallback. D2BNClient: grid, Unknown_00518C30. Also D2Direct3D (d3dSmack, d3dSprite), D2Win (D2WinFont), D2Launch (MainMenus), D2Hell (Archive) and Bnclient (Unknown_00520DC0).
