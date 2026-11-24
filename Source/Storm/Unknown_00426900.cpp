@@ -2,7 +2,6 @@
 #include "D2GameTypes.h"
 
 struct SEvtBreakCmdStrc;
-struct D2StormLinkStrc;
 struct D2ChatStormLinkStrc;
 struct D2ChatStormLinkAStrc;
 struct D2ChatStormLinkBStrc;
@@ -25,9 +24,6 @@ struct D2CommonStringEntryNodeStrc;
 struct D2CommonStormHashTableAStrc;
 struct D2CriticalSectionStrc;
 struct SEvtLinkStrc;
-
-struct D2StormLinkStrc { D2StormLinkStrc* m_prevlink;
- char* m_next; };
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
 extern "C" const char gszIgnoreListSourceFile_006E6290[];

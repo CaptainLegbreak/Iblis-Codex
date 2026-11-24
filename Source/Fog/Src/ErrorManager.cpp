@@ -463,9 +463,6 @@ extern "C" const char gszThreads[];                                             
 
 struct D2StackFrameStrc;
 
-struct D2ExceptionPointersStrc { void* pRecord; D2ThreadContextStrc* pContext; };
-
-
 void __fastcall sub_00403100_PrintFrames(unsigned long dwThreadId, D2StackFrameStrc* pFrames, unsigned int nFrames, D2CrashPrintFn pfnPrint, void* pContext, bool bSymbols, bool bHeader); // 0x00403100
 
 void __fastcall sub_00402EE0_DumpModules(D2CrashPrintFn pfnPrint,void* pContext); // 0x00402EE0
@@ -648,20 +645,6 @@ int gnSourcePrefixLength; // 0x0074F0D4
 
 
 
-
-struct FSafeSock
-{
-    int bConnected;
-    int bConnecting;
-    unsigned int nSocket;
-    D2CriticalSectionStrc tCriticalSection;
-    void* hThread;
-    unsigned long nThreadId;
-    int bStopping;
-    unsigned long nFogErrorCode;
-    unsigned long nWSALastError;
-    char szName[64];
-};
 
 extern "C" int __cdecl vsprintf(char* szDest, const char* szFormat, va_list args);                          // 0x00682DA1
 
