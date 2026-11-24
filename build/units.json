@@ -180,6 +180,11 @@
      "name": "ERRORMANAGER_RunModeInterface"
     },
     {
+     "va": "0x00405EF0",
+     "length": 6,
+     "name": "sub_00405EF0"
+    },
+    {
      "va": "0x00405F00",
      "length": 305,
      "name": "SaveCmdLine"
@@ -295,6 +300,11 @@
      "name": "?ERRORMANAGER_GetBlizzardDataPath@@YIHPADH@Z"
     },
     {
+     "va": "0x00406D20",
+     "length": 6,
+     "name": "sub_00406D20"
+    },
+    {
      "va": "0x00406D30",
      "length": 161,
      "name": "?SFILE_GetSaveGamePath@@YA_NPADI@Z"
@@ -399,6 +409,11 @@
      "name": "?ERRORMANAGER_LogPrefixedText@@YGXPBD0H@Z"
     },
     {
+     "va": "0x00407FF0",
+     "length": 6,
+     "name": "sub_00407FF0"
+    },
+    {
      "va": "0x00408000",
      "length": 79,
      "name": "?ERRORMANAGER_StripSourcePath@@YIPBDPBD@Z"
@@ -422,6 +437,11 @@
      "va": "0x00408080",
      "length": 1,
      "name": "?sub_00408080_Empty@@YAXXZ"
+    },
+    {
+     "va": "0x004080A0",
+     "length": 3,
+     "name": "sub_004080A0"
     },
     {
      "va": "0x004080B0",
@@ -607,6 +627,11 @@
      "name": "sub_0040A040_GetPoolSystemCount"
     },
     {
+     "va": "0x0040A070",
+     "length": 3,
+     "name": "sub_0040A070"
+    },
+    {
      "va": "0x0040A080",
      "length": 358,
      "name": "?sub_0040A080_PoolAlloc@@YIPAXPAUD2PoolSystemStrc@@HPBDH@Z"
@@ -721,6 +746,11 @@
      "name": "?sub_0040E250_GetCpuVendor@@YAHXZ"
     },
     {
+     "va": "0x0040E300",
+     "length": 1350,
+     "name": "?DecodeCpuModelName@@YGXPADHHIHH@Z"
+    },
+    {
      "va": "0x0040E870",
      "length": 226,
      "name": "ERRORMANAGER_MeasureCpuMHz"
@@ -739,6 +769,10 @@
      "va": "0x0040E9E0",
      "length": 26,
      "name": "?sub_0040E9E0_GetCpuidEdx@@YIII@Z"
+    },
+    {
+     "va": "0x0040EA00",
+     "length": 271
     },
     {
      "va": "0x00413740",
@@ -1126,9 +1160,19 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x0040D880",
+     "length": 7,
+     "name": "sub_0040D880"
+    },
+    {
      "va": "0x0040D890",
      "length": 57,
      "name": "FOG_SOCKET_WSAStartup"
+    },
+    {
+     "va": "0x0040D8D0",
+     "length": 5,
+     "name": "sub_0040D8D0"
     },
     {
      "va": "0x0040D8E0",
@@ -1232,54 +1276,14 @@
      "name": "sub_00402370"
     },
     {
-     "va": "0x00405EF0",
-     "length": 6,
-     "name": "sub_00405EF0"
-    },
-    {
-     "va": "0x00406D20",
-     "length": 6,
-     "name": "sub_00406D20"
-    },
-    {
-     "va": "0x00407FF0",
-     "length": 6,
-     "name": "sub_00407FF0"
-    },
-    {
-     "va": "0x004080A0",
-     "length": 3,
-     "name": "sub_004080A0"
-    },
-    {
-     "va": "0x0040A070",
-     "length": 3,
-     "name": "sub_0040A070"
-    },
-    {
      "va": "0x0040ABE0",
      "length": 3,
      "name": "sub_0040ABE0"
     },
     {
-     "va": "0x0040D880",
-     "length": 7,
-     "name": "sub_0040D880"
-    },
-    {
-     "va": "0x0040D8D0",
-     "length": 5,
-     "name": "sub_0040D8D0"
-    },
-    {
      "va": "0x0040EB10",
      "length": 3,
      "name": "sub_0040EB10"
-    },
-    {
-     "va": "0x0040F570",
-     "length": 14,
-     "name": "sub_0040F570"
     }
    ]
   },
@@ -1656,6 +1660,11 @@
      "va": "0x0040F530",
      "length": 50,
      "name": "??1sub_0040F530@@QAE@XZ"
+    },
+    {
+     "va": "0x0040F570",
+     "length": 14,
+     "name": "sub_0040F570"
     },
     {
      "va": "0x0040F580",
@@ -3873,11 +3882,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0040E300",
-     "length": 1350,
-     "name": "?DecodeCpuModelName@@YGXPADHHIHH@Z"
-    },
-    {
      "va": "0x0040EB40",
      "length": 4,
      "name": "?sub_0040EB40_GetMessageData@@YIPADPAUD2LogMessageStrc@@@Z"
@@ -3891,16 +3895,6 @@
      "va": "0x0040EB80",
      "length": 8,
      "name": "?Leave@CCritSect@@QAEXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_0040EA00.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0040EA00",
-     "length": 271
     }
    ]
   },
@@ -13945,11 +13939,6 @@
      "name": "VIEW_DrawCelFrame"
     },
     {
-     "va": "0x004801C0",
-     "length": 9,
-     "name": "??0D2WardenClientM114Strc@@QAE@XZ"
-    },
-    {
      "va": "0x00480400",
      "length": 26,
      "name": "?VIEW_GetPlayerInteractState@@YIHPAUD2UnitStrc@@@Z"
@@ -18331,11 +18320,6 @@
      "name": "GFX_StepChatIndex"
     },
     {
-     "va": "0x00480000",
-     "length": 18,
-     "name": "GFX_SendWardenPacket"
-    },
-    {
      "va": "0x00480420",
      "length": 112,
      "name": "GFX_RefreshPathTarget"
@@ -22478,34 +22462,44 @@
      "name": "?WARDENCLIENT_LoadModuleByKey@@YGHPBE0@Z"
     },
     {
+     "va": "0x00480000",
+     "length": 18,
+     "name": "?GFX_SendWardenPacket@WardenClient@@UAEHPBXH@Z"
+    },
+    {
      "va": "0x00480020",
      "length": 26,
-     "name": "?WARDENCLIENT_ServiceLoadModule@@YG_NPBE0@Z"
+     "name": "?WARDENCLIENT_ServiceLoadModule@WardenClient@@UAE_NPBE0@Z"
     },
     {
      "va": "0x00480040",
      "length": 122,
-     "name": "?WARDENCLIENT_CallServiceWithHashName@@YGXPBEHH@Z"
+     "name": "?WARDENCLIENT_CallServiceWithHashName@WardenClient@@UAEXPBEHH@Z"
     },
     {
      "va": "0x004800C0",
      "length": 28,
-     "name": "WARDENCLIENT_ServiceAlloc"
+     "name": "?WARDENCLIENT_ServiceAlloc@WardenClient@@UAEPAXH@Z"
     },
     {
      "va": "0x004800E0",
      "length": 28,
-     "name": "WARDENCLIENT_ServiceFree"
+     "name": "?WARDENCLIENT_ServiceFree@WardenClient@@UAEXPAX@Z"
     },
     {
      "va": "0x00480100",
      "length": 79,
-     "name": "WARDENCLIENT_SetWardenBuffer"
+     "name": "?WARDENCLIENT_SetWardenBuffer@WardenClient@@UAEXPBXI@Z"
     },
     {
      "va": "0x00480150",
      "length": 102,
-     "name": "WARDENCLIENT_TakeWardenBuffer"
+     "name": "?WARDENCLIENT_TakeWardenBuffer@WardenClient@@UAE_NPAXPAI@Z"
+    },
+    {
+     "va": "0x004801C0",
+     "length": 9,
+     "name": "??0WardenClient@@QAE@XZ"
     },
     {
      "va": "0x004801D0",

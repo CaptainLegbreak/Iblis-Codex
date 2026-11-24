@@ -325,6 +325,8 @@ extern int gnGlobal_007BEEE8; // 0x007BEEE8
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);         // 0x00413020
 
+int __fastcall sub_00478830_SendPacket66(const void* pData, int nSize); // 0x00478830
+
 struct D2ClientSlotObjStrc
 {
     virtual void Slot0(int* pValue, int nSize);
@@ -333,9 +335,12 @@ struct D2ClientSlotObjStrc
     virtual void Slot3(int nArg);
 };
 
-struct D2WardenIfaceStrc;
+namespace NWardenClient
+{
+struct Library;
+}
 
-typedef D2ClientSlotObjStrc* (__fastcall* WARDENCREATEFN)(D2WardenIfaceStrc* pIface);
+typedef D2ClientSlotObjStrc* (__fastcall* WARDENCREATEFN)(NWardenClient::Library* pIface);
 
 class WardenModule
 {
@@ -388,15 +393,27 @@ namespace NWardenClient
 struct Library
 {
     Library();
-    virtual void Slot00() = 0;
-    virtual void Slot01() = 0;
-    virtual void Slot02() = 0;
-    virtual void Slot03() = 0;
-    virtual void Slot04() = 0;
-    virtual void Slot05() = 0;
-    virtual void Slot06() = 0;
+    virtual int GFX_SendWardenPacket(const void* pData, int nSize) = 0;
+    virtual bool WARDENCLIENT_ServiceLoadModule(const unsigned char* pModuleKey, const unsigned char* pRc4Key) = 0;
+    virtual void WARDENCLIENT_CallServiceWithHashName(const unsigned char* pHash, int nArg2, int nArg3) = 0;
+    virtual void* WARDENCLIENT_ServiceAlloc(int nSize) = 0;
+    virtual void WARDENCLIENT_ServiceFree(void* pMemory) = 0;
+    virtual void WARDENCLIENT_SetWardenBuffer(const void* pData, unsigned int nSize) = 0;
+    virtual bool WARDENCLIENT_TakeWardenBuffer(void* pDst, unsigned int* pSize) = 0;
 };
 }
+
+struct WardenClient : NWardenClient::Library
+{
+    WardenClient();
+    int GFX_SendWardenPacket(const void* pData, int nSize);                                          // 0x00480000
+    bool WARDENCLIENT_ServiceLoadModule(const unsigned char* pModuleKey, const unsigned char* pRc4Key); // 0x00480020
+    void WARDENCLIENT_CallServiceWithHashName(const unsigned char* pHash, int nArg2, int nArg3);     // 0x00480040
+    void* WARDENCLIENT_ServiceAlloc(int nSize);                                                      // 0x004800C0
+    void WARDENCLIENT_ServiceFree(void* pMemory);                                                    // 0x004800E0
+    void WARDENCLIENT_SetWardenBuffer(const void* pData, unsigned int nSize);                        // 0x00480100
+    bool WARDENCLIENT_TakeWardenBuffer(void* pDst, unsigned int* pSize);                             // 0x00480150
+};
 
 struct D2StormHashCtxStrc;
 
@@ -489,11 +506,11 @@ static int __stdcall WARDENCLIENT_LoadModule(const unsigned char* pData, const u
 
 int __fastcall WARDENCLIENT_InitWarden(int nValue); // 0x004803C0
 
-bool __stdcall WARDENCLIENT_ServiceLoadModule(const unsigned char* pModuleKey, const unsigned char* pRc4Key); // 0x00480020
 
 
 
-extern D2WardenIfaceStrc gtWardenIface; // 0x00721C98
+// build: symbol ?gtWardenIface@* 0x00721C98
+WardenClient gtWardenIface; // 0x00721C98
 
 
 // 0x00479230
@@ -659,6 +676,8 @@ int gbSlotBarBlocked; // 0x007BC970
 
 
 // build: symbol ??_7Library@NWardenClient@@6B@ 0x006D8E38
+// build: symbol ??_7WardenClient@@6B@ 0x006D8E68
+// build: symbol ??_R0?AUWardenClient@@@8 0x00721CC0
 // 0x0047F8B0
 void __fastcall WARDENCLIENT_SwapBytes(unsigned char* pA, unsigned char* pB)
 {
@@ -923,14 +942,20 @@ static int __stdcall WARDENCLIENT_LoadModuleByKey(const unsigned char* pRc4Key, 
     return nResult;
 }
 
+// 0x00480000
+int WardenClient::GFX_SendWardenPacket(const void* pData, int nSize)
+{
+    return sub_00478830_SendPacket66(pData, nSize);
+}
+
 // 0x00480020
-bool __stdcall WARDENCLIENT_ServiceLoadModule(const unsigned char* pModuleKey, const unsigned char* pRc4Key)
+bool WardenClient::WARDENCLIENT_ServiceLoadModule(const unsigned char* pModuleKey, const unsigned char* pRc4Key)
 {
     return WARDENCLIENT_LoadModuleByKey(pRc4Key, pModuleKey);
 }
 
 // 0x00480040
-void __stdcall WARDENCLIENT_CallServiceWithHashName(const unsigned char* pHash, int nArg2, int nArg3)
+void WardenClient::WARDENCLIENT_CallServiceWithHashName(const unsigned char* pHash, int nArg2, int nArg3)
 {
     char szName[40];
     for (unsigned int i = 0; i < 16; ++i)
@@ -945,21 +970,21 @@ void __stdcall WARDENCLIENT_CallServiceWithHashName(const unsigned char* pHash, 
 
 
 // 0x004800C0
-void* __stdcall WARDENCLIENT_ServiceAlloc(int nSize)
+void* WardenClient::WARDENCLIENT_ServiceAlloc(int nSize)
 {
     return SMemAlloc(nSize, ".\\WARDEN\\WardenClient.cpp", 0x274, 0);
 }
 
 
 // 0x004800E0
-void __stdcall WARDENCLIENT_ServiceFree(void* pMemory)
+void WardenClient::WARDENCLIENT_ServiceFree(void* pMemory)
 {
     SMemFree(pMemory, ".\\WARDEN\\WardenClient.cpp", 0x27B, 0);
 }
 
 
 // 0x00480100
-void __stdcall WARDENCLIENT_SetWardenBuffer(const void* pData, unsigned int nSize)
+void WardenClient::WARDENCLIENT_SetWardenBuffer(const void* pData, unsigned int nSize)
 {
     if (gpWardenBuffer)
     {
@@ -971,7 +996,7 @@ void __stdcall WARDENCLIENT_SetWardenBuffer(const void* pData, unsigned int nSiz
 }
 
 // 0x00480150
-bool __stdcall WARDENCLIENT_TakeWardenBuffer(void* pDst, unsigned int* pSize)
+bool WardenClient::WARDENCLIENT_TakeWardenBuffer(void* pDst, unsigned int* pSize)
 {
     void* pBuffer = gpWardenBuffer;
     if (!pBuffer)
@@ -985,6 +1010,11 @@ bool __stdcall WARDENCLIENT_TakeWardenBuffer(void* pDst, unsigned int* pSize)
     gpWardenBuffer = 0;
     gnWardenBufferSize = 0;
     return true;
+}
+
+// 0x004801C0
+WardenClient::WardenClient()
+{
 }
 
 struct D2UnitStrc;

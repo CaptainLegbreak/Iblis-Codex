@@ -321,7 +321,6 @@ void __cdecl sub_00472400_ResetPhaseState(); // 0x00472400
 
 void __fastcall sub_00473D00_SetPhase(int nPhase); // 0x00473D00
 
-int __fastcall sub_00478830_SendPacket66(const void* pData, int nSize); // 0x00478830
 
 int __fastcall sub_00478E70_IsPetFriendly(D2UnitStrc* pPlayer, D2UnitStrc* pUnit); // 0x00478E70
 
@@ -3260,12 +3259,6 @@ void __stdcall GFX_StepChatIndex(int nDelta)
     {
         gnChatHistoryCursor = nOld;
     }
-}
-
-// 0x00480000
-int __stdcall GFX_SendWardenPacket(const void* pData, int nSize)
-{
-    return sub_00478830_SendPacket66(pData, nSize);
 }
 
 // 0x00480420

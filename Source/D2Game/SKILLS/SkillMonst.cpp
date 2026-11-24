@@ -416,7 +416,9 @@ int __stdcall MISSILE_GetTargetX(D2UnitStrc* pMissile);                         
 
 D2UnitStrc* __fastcall sub_0059FA30(D2GameStrc*,D2MissileStrc*);  // 0x0059FA30
 
-extern int gnPrimePoisonNovaX[16],data_006E31A8[16];  // 0x006E31A8
+extern const int gnPrimePoisonNovaY[16]; // 0x006E31A8
+
+extern const int gnPrimePoisonNovaX[16]; // 0x006E31E8
 
 typedef char chk_D2SkillsTxt_size[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 
@@ -1499,7 +1501,6 @@ inline D2StatesTxt* DATATBLS_GetStatesTxtRecordInline(int nStateId)
     return 0;
 }
 
-// build: symbol ?gnPrimePoisonNovaX@@3PAHA 0x006E31E8
 // 0x005CCD10
 int __fastcall SKILLS_SrvDo099_PrimePoisonNova(D2GameStrc* game,D2UnitStrc* unit,int skill,int level)
 {
@@ -1524,14 +1525,14 @@ int __fastcall SKILLS_SrvDo099_PrimePoisonNova(D2GameStrc* game,D2UnitStrc* unit
   if(step<1) step=1;
   for(int i=0;i<16;i+=2) {
    params.nTargetX=gnPrimePoisonNovaX[i];
-   params.nTargetY=data_006E31A8[i];
+   params.nTargetY=gnPrimePoisonNovaY[i];
    sub_0059FA30(game,&params);
   }
   params.nVelocity=missileRecord->dwParam[1]<<6;
   if(step>1) {
    for(int i=0;i<15;i+=step) {
     params.nTargetX=gnPrimePoisonNovaX[i+1];
-    params.nTargetY=data_006E31A8[i+1];
+    params.nTargetY=gnPrimePoisonNovaY[i+1];
     sub_0059FA30(game,&params);
    }
   }
