@@ -6,6 +6,7 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 
 ## Ready
 
+- lane10/names-d2common aa98bfc d2common plan: 17 renames applied; nameround dropped 0x00627EF0, 0x00627FB0, 0x00628070, 0x006280A0, 0x006488A0, 0x00648B90, 0x006492A0, 0x0064A730 (units not equal). VERIFIED 1cd8064d on base 7cb8a86b, Game.exe matches.
 - lane10/names-d2cmp 014efd7 d2cmp plan: 18 renames (15 rows plus other spellings, 3 spellings dropped by prepnames), none excluded. VERIFIED d90ccdd3 on base 9aa9a65e, Game.exe matches.
 - lane10/names-rank1 8df1c87 rank-1 plan retried: 106 renames applied (names.csv and call sites), 36 addresses dropped by nameround because their units didn't build equal, 3 dropped by hand because the old spelling is also the file's stem (inv_0048DD90, inv_00491D20, text_0049C9C0: renaming them changes the gen include path; MISSING_GEN in the full verify). VERIFIED 0c3b912a on base 0b750228 (#341), placed all, Game.exe matches.
 
