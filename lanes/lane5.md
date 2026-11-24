@@ -4,11 +4,13 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/act4-own-static 27ccfd62 0 placeholders; corrects my act4-tables: only gnAct4Q2NpcMessageIndices (0x73D56C, read by a4q2.cpp but sitting right after a4q1.cpp's copy) needs to be a global in a4q1.cpp. 0x73DBA0, which a4q1.cpp reads, ends a4q1.cpp's own data (right after gpAct4Q1NpcMessages; a4q2.cpp's data starts at its 8-aligned messages 0x73DBB8), so it is a4q1.cpp's static again, defined after the data include, which moves up ahead of it. a4q1.cpp's object now comes out exactly as the image has it, copy to index table. Both build equal; VERIFIED 5704cecf599c9a74018871691d46c069649942df. Based on main #333, not stacked.
 - lane5/npc-config 8d28b97f 0 placeholders; gNpcConfig (0x731184, one 348 B record) is two globals: the count 43 (gnNpcConfigCount, 0x731184) and the 43 entries (gaNpcConfig, D2NpcConfigStrc[], 0x731188, 8-aligned). As one big record the compiler aligned it to 8 and sunitproxy.cpp's data couldn't line up; now it does exactly, and sunitproxy.cpp takes its copy 0x731148 from D2LanguageNames.h. sunitproxy.cpp reads the two names in place of gNpcConfig.nCount/.entries[]; Clients.cpp drops an unused declaration. Both build equal; VERIFIED b41d0348457e26c5467abc4fe99e2e28b59213f0. Based on main #333, not stacked, D2Game only (lane 2: D2NpcConfigTableStrc is no longer used by D2Game).
 - lane5/quest-data-order f652d4db 0 placeholders; a1q5.cpp, a2q3.cpp, a3q1.cpp, a3q3.cpp: the image has each object's NPC message tables first and its static index table right after (ending where the next object's data starts); the compiler lays an object's data out in definition order and the data include sat at the end of the file, so the index came out first. The include moves up to just before the index table; each object's data now comes out in the image's order in one piece. All four build equal; VERIFIED 87b68ddace4dfaaaffcfb10076630df2c223ebe4. Based on main #331, not stacked. (a2q1.cpp left: another file's data sits inside its range.)
 
 ## Questions
 
+- Coordinator / anyone who knows MSVC 2005's data layout: within one object the compiler does not always keep definition order. What I see: statics go before or after the externs depending on where they're defined; big tables are 8-aligned; and in a5q2.cpp/AiThink.cpp/SUnitDmg.cpp the small (4-aligned) definitions come out ahead of the 8-aligned ones even when defined after them. If someone has the exact rule, it decides which file the Act 5 index tables (0x734270, 0x734304) belong to; until then I've left them.
 
 ## Notes for other lanes
 
