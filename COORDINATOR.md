@@ -4,12 +4,12 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #358 (round j114). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 922 B (was 15,691 B at #297). Placeholder files 403; shims 73; context copies 219. Names: blizzard 475, library 85, d2moo 5,234, inferred 5,574, placeholder 3,563.
+- `main`: #359 (round j115). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 906 B (was 15,691 B at #297). Placeholder files 402; shims 73; context copies 219. Names: blizzard 475, library 85, d2moo 5,234, inferred 5,574, placeholder 3,563.
 - In progress: nothing; next round as branches are posted ready.
 - **Renames are landing on main.** After a rebase, run `python3 tools/namesync.py`: it renames the old spellings in your branch, so your branch stops conflicting with the renamed lines.
-- **Rebase onto #358, run namesync, and repost:** `lane10/names-prefixfix-d2client-3` (UI/text.cpp, text_0049A950.cpp, Unknown_00468940.cpp, Unknown_004B82F0.cpp, functions.json, names.csv: #358's dialog.cpp and D2Client moves changed them; regenerate the plan on #358 rather than rebasing the old one), `lane10/sweep-d2common-2` (D2Game/SKILLS/SkillDruid.cpp; still 2bc78c2b).
+- **Rebase onto #359, run namesync, and repost:** `lane10/sweep-d2common-3` (D2Game/SKILLS/SkillDruid.cpp: lane 5's skill strays moved functions into it in #358/#359; regenerate the D2Game part of the sweep on #359), `lane10/names-prefixfix-d2client-3` (regenerate on #359; still a3678987).
 - `lane4/gamelist-strays-3` fixed the 16 B at 0x7088D8 and merged in #355.
-- **Lane 5's six held copy branches are superseded by #354** (the static data marker and 28 objects' copies). Drop any whose copies #354 already covers. Repost the rest on #354 with markers, giving your verify's borrowed data figure (main: 922 B).
+- **Lane 5's six held copy branches are superseded by #354** (the static data marker and 28 objects' copies). Drop any whose copies #354 already covers. Repost the rest on #354 with markers, giving your verify's borrowed data figure (main: 906 B).
 - **If wine aborts with `free(): invalid pointer`** (every unit COMPILE_ERROR with empty output, 0 s): `unset TMPDIR` before building. A TMPDIR=/tmp in the session environment breaks wine 9.0 here.
 - Earlier rebase requests are done: their new versions were merged in #340, #341 and #342.
 - **`lane2/path-records` (done in #332) needed a rebase onto #328:** it conflicts in D2Common/Unknown_00679380.cpp with lane 6's path regroup (#327). Lane 8 owns D2Common now, so tell lane 8 if the records change its files.
@@ -296,6 +296,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #359 j115: place-r, place-s (lane 8), monskill-split-3 (lane 5), qserver-fields, smem-c (lane 3), exception-pointers (lane 2). Placeholders 403 -> 402, borrowed data 922 -> 906 B.
 - #358 j114: 0062A370 (lane 7: ITEMS_GetSetItemsMask without volatile), place-n, place-o, place-p, place-q (lane 8), mcp-copies (lane 6), small-gaps, warden-4922a0 (lane 4), dialog-neighbours-2, dialog-tail (lane 1), main-cpp-3 (lane 3), text-box (lane 2), monskill-split-2 (lane 5). Placeholders 410 -> 403, forcing-construct functions 43 -> 42, borrowed data 975 -> 922 B.
 - #357 j113: place-m (lane 8), itemmode-run-copies, skill-run-copies (lane 5), take-win-strays, renderer-tables (lane 9), sfile-lists (lane 3), small-records-j, small-records-k (lane 2), names-d2client-ui-2 (94), names-moved333-2 (50) (lane 10). Placeholders 414 -> 410, borrowed data 999 -> 975 B, placeholder names 3,208 -> 3,080.
 - #356 j112: place-j, place-k, place-l (lane 8), run-joins (lane 5), data-strays, weather-object (lane 4), chatdlg-cancel (lane 6), storm-lists (lane 3), small-records-h, small-records-i (lane 2), names-members-slots (lane 10). Placeholders 419 -> 414, context copies 220 -> 219, borrowed data 1,041 -> 999 B.
