@@ -40790,6 +40790,15 @@
      "va": "0x00527090",
      "length": 258,
      "name": "ContainsChar"
+    },
+    {
+     "va": "0x005271A0",
+     "length": 259,
+     "name": "?sub_005271A0_EndsWithCharOf@@YA_NPBDPBUUnicode@@@Z"
+    },
+    {
+     "va": "0x005272B0",
+     "length": 929
     }
    ]
   },
@@ -41019,21 +41028,6 @@
      "va": "0x00526FB0",
      "length": 211,
      "name": "?directionality@Unicode@@QAE?AW4Direction@1@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Lang/Unknown_005271A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005271A0",
-     "length": 259,
-     "name": "?sub_005271A0_EndsWithCharOf@@YA_NPBDPBUUnicode@@@Z"
-    },
-    {
-     "va": "0x005272B0",
-     "length": 929
     }
    ]
   },
