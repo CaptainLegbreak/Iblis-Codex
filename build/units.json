@@ -67916,7 +67916,7 @@
     {
      "va": "0x00624700",
      "length": 7,
-     "name": "?LOG_SetLogValue@@YIXH@Z"
+     "name": "?LOGGING_SetLogValue@@YIXH@Z"
     },
     {
      "va": "0x00624710",
@@ -67926,17 +67926,17 @@
     {
      "va": "0x00624720",
      "length": 15,
-     "name": "?LOG_OpenLogFile@@YAPAU_iobuf@@PBD@Z"
+     "name": "?LOGGING_OpenLogFile@@YAPAU_iobuf@@PBD@Z"
     },
     {
      "va": "0x00624730",
      "length": 8,
-     "name": "?LOG_CloseLogFile@@YAXPAU_iobuf@@@Z"
+     "name": "?LOGGING_CloseLogFile@@YAXPAU_iobuf@@@Z"
     },
     {
      "va": "0x00624740",
      "length": 63,
-     "name": "LOG_FormatLocalTime"
+     "name": "LOGGING_FormatLocalTime"
     },
     {
      "va": "0x00624780",
@@ -67946,7 +67946,7 @@
     {
      "va": "0x006248B0",
      "length": 45,
-     "name": "?LOG_WriteLogEntry@@YAXPAU_iobuf@@HHHHPBDH1ZZ"
+     "name": "?LOGGING_WriteLogEntry@@YAXPAU_iobuf@@HHHHPBDH1ZZ"
     },
     {
      "va": "0x006248E0",
@@ -67956,22 +67956,22 @@
     {
      "va": "0x00624930",
      "length": 400,
-     "name": "?LOG_WriteGameLogLine@@YAXHHHHHPBDZZ"
+     "name": "?LOGGING_WriteGameLogLine@@YAXHHHHHPBDZZ"
     },
     {
      "va": "0x00624AC0",
      "length": 84,
-     "name": "?LOG_OpenLog@@YIHPBD@Z"
+     "name": "?LOGGING_OpenLog@@YIHPBD@Z"
     },
     {
      "va": "0x00624B20",
      "length": 40,
-     "name": "?LOG_CloseLog@@YAXXZ"
+     "name": "?LOGGING_CloseLog@@YAXXZ"
     },
     {
      "va": "0x00624B50",
      "length": 60,
-     "name": "?LOG_SetLoggingEnabled@@YIXH@Z"
+     "name": "?LOGGING_SetLoggingEnabled@@YIXH@Z"
     }
    ]
   },
@@ -69746,7 +69746,7 @@
     {
      "va": "0x0063A7E0",
      "length": 23,
-     "name": "?INVENTORY_GetExtraDataFromItem@@YAPAUD2ItemExtraDataStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?ITEMS_GetExtraDataFromItem@@YAPAUD2ItemExtraDataStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0063A800",
@@ -75134,7 +75134,7 @@
     {
      "va": "0x00667030",
      "length": 36,
-     "name": "SKILLS_GetInnerPair"
+     "name": "DRLGPRESET_GetInnerPair"
     },
     {
      "va": "0x00667060",
@@ -76089,7 +76089,7 @@
     {
      "va": "0x0066E140",
      "length": 20,
-     "name": "SKILLS_GetModeSideChar"
+     "name": "DRLGROOMTILE_GetModeSideChar"
     },
     {
      "va": "0x0066E160",
