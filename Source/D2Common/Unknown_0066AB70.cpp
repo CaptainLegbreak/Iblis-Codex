@@ -64,3 +64,5 @@ void __fastcall DRLGWARP_UpdateWarpRoomDeselect(D2DrlgRoomStrc* pDrlgRoom, int n
         }
     }
 }
+
+#include "gen/data/Source/D2Common/Unknown_0066AB70.inc"

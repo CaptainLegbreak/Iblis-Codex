@@ -4249,8 +4249,8 @@
    "state": "included"
   },
   "Source/D2Common/DATATBLS/FieldTbls.cpp": {
-   "bytes": 612,
-   "definitions": 11,
+   "bytes": 132,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DATATBLS/FieldTbls.inc",
@@ -4267,8 +4267,8 @@
    "state": "included"
   },
   "Source/D2Common/DRLG/DrlgLogic.cpp": {
-   "bytes": 216,
-   "definitions": 3,
+   "bytes": 276,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/DrlgLogic.inc",
@@ -4276,8 +4276,8 @@
    "state": "included"
   },
   "Source/D2Common/DRLG/DrlgAnim.cpp": {
-   "bytes": 20,
-   "definitions": 1,
+   "bytes": 80,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/DrlgAnim.inc",
@@ -4294,8 +4294,8 @@
    "state": "included"
   },
   "Source/D2Common/DRLG/RoomTile.cpp": {
-   "bytes": 1684,
-   "definitions": 6,
+   "bytes": 1744,
+   "definitions": 7,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/RoomTile_0066D960.inc",
@@ -4303,8 +4303,8 @@
    "state": "included"
   },
   "Source/D2Common/DRLG/Maze.cpp": {
-   "bytes": 3820,
-   "definitions": 57,
+   "bytes": 3880,
+   "definitions": 58,
    "externs": [
     "extern \"C\" void __cdecl sub_00672460(); // 0x00672460",
     "extern \"C\" void __cdecl sub_006724A0(); // 0x006724A0"
@@ -4315,8 +4315,8 @@
    "state": "included"
   },
   "Source/D2Common/Unknown_00674040.cpp": {
-   "bytes": 32,
-   "definitions": 1,
+   "bytes": 92,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Unknown_00674040.inc",
@@ -4324,8 +4324,8 @@
    "state": "included"
   },
   "Source/D2Common/DRLG/Outdoors.cpp": {
-   "bytes": 20,
-   "definitions": 3,
+   "bytes": 80,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/Outdoors.inc",
@@ -5285,6 +5285,24 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/PATH/PathUtil.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Common/DRLG/DrlgRoom.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Common/DRLG/DrlgRoom.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Common/Unknown_0066AB70.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Common/Unknown_0066AB70.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -140453,7 +140471,7 @@
    "cname": "gData_00749804",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/DATATBLS/FieldTbls.cpp",
+   "file": "Source/D2Common/Unknown_0066AB70.cpp",
    "form": "bytes",
    "name": "gData_00749804",
    "pointers": [
@@ -140591,7 +140609,7 @@
    "cname": "gData_00749840",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/DATATBLS/FieldTbls.cpp",
+   "file": "Source/D2Common/DRLG/DrlgRoom.cpp",
    "form": "bytes",
    "name": "gData_00749840",
    "pointers": [
@@ -140729,7 +140747,7 @@
    "cname": "gData_0074987C",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/DATATBLS/FieldTbls.cpp",
+   "file": "Source/D2Common/DRLG/DrlgLogic.cpp",
    "form": "bytes",
    "name": "gData_0074987C",
    "pointers": [
@@ -140867,7 +140885,7 @@
    "cname": "gData_007498B8",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/DATATBLS/FieldTbls.cpp",
+   "file": "Source/D2Common/DRLG/DrlgAnim.cpp",
    "form": "bytes",
    "name": "gData_007498B8",
    "pointers": [
@@ -141005,7 +141023,7 @@
    "cname": "gData_007498F4",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/DATATBLS/FieldTbls.cpp",
+   "file": "Source/D2Common/DRLG/RoomTile.cpp",
    "form": "bytes",
    "name": "gData_007498F4",
    "pointers": [
@@ -141143,7 +141161,7 @@
    "cname": "gData_00749930",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/DATATBLS/FieldTbls.cpp",
+   "file": "Source/D2Common/DRLG/Maze.cpp",
    "form": "bytes",
    "name": "gData_00749930",
    "pointers": [
@@ -141281,7 +141299,7 @@
    "cname": "gData_0074996C",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/DATATBLS/FieldTbls.cpp",
+   "file": "Source/D2Common/Unknown_00674040.cpp",
    "form": "bytes",
    "name": "gData_0074996C",
    "pointers": [
@@ -141419,7 +141437,7 @@
    "cname": "gData_007499A8",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/DATATBLS/FieldTbls.cpp",
+   "file": "Source/D2Common/DRLG/Outdoors.cpp",
    "form": "bytes",
    "name": "gData_007499A8",
    "pointers": [
