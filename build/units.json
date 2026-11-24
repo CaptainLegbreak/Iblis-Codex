@@ -18007,11 +18007,6 @@
      "name": "ROSTERPETS_HandleRectClick"
     },
     {
-     "va": "0x0049A460",
-     "length": 172,
-     "name": "ROSTERPETS_DrawPanelLabel"
-    },
-    {
      "va": "0x004A5980",
      "length": 80,
      "name": "ROSTERPETS_HandlePanelButtonDown"
@@ -21053,11 +21048,6 @@
      "name": "sub_0048BDF0"
     },
     {
-     "va": "0x0049C160",
-     "length": 6,
-     "name": "sub_0049C160"
-    },
-    {
      "va": "0x0049E8A0",
      "length": 6,
      "name": "sub_0049E8A0"
@@ -23241,11 +23231,6 @@
      "name": "TEXT_ResetNpcPanel"
     },
     {
-     "va": "0x0049AAA0",
-     "length": 78,
-     "name": "?TEXT_GetCenteredStringX@@YIHGH@Z"
-    },
-    {
      "va": "0x0049D010",
      "length": 329
     },
@@ -24771,36 +24756,6 @@
      "name": "?PANEL_BeltClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
-     "va": "0x00499DE0",
-     "length": 37,
-     "name": "?sub_00499DE0_FindRoster@@YIPAUD2RosterUnitStrc@@H@Z"
-    },
-    {
-     "va": "0x00499E10",
-     "length": 20,
-     "name": "?PANEL_SetRedColour@@YAXXZ"
-    },
-    {
-     "va": "0x00499E30",
-     "length": 17,
-     "name": "?PANEL_SetBlackColour@@YAXXZ"
-    },
-    {
-     "va": "0x0049C0A0",
-     "length": 76,
-     "name": "?PANEL_LoadPartyCels@@YAXXZ"
-    },
-    {
-     "va": "0x0049C0F0",
-     "length": 110,
-     "name": "?PANEL_FreePartyCels@@YAXXZ"
-    },
-    {
-     "va": "0x0049C3D0",
-     "length": 146,
-     "name": "?PANEL_DrawPartyPanel@@YAXXZ"
-    },
-    {
      "va": "0x004BE340",
      "length": 206,
      "name": "PANEL_CountLinesInView"
@@ -24822,9 +24777,24 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00499500.cpp",
+   "file": "Source/D2Client/UI/Party.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00499DE0",
+     "length": 37,
+     "name": "?sub_00499DE0_FindRoster@@YIPAUD2RosterUnitStrc@@H@Z"
+    },
+    {
+     "va": "0x00499E10",
+     "length": 20,
+     "name": "?PANEL_SetRedColour@@YAXXZ"
+    },
+    {
+     "va": "0x00499E30",
+     "length": 17,
+     "name": "?PANEL_SetBlackColour@@YAXXZ"
+    },
     {
      "va": "0x00499E50",
      "length": 240,
@@ -24835,17 +24805,6 @@
      "length": 128,
      "name": "?sub_00499F40_DrawRowSeparator@@YAXH@Z"
     },
-    {
-     "va": "0x0049A9B0",
-     "length": 154,
-     "name": "?sub_0049A9B0_RefreshRosterIndices@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/Party.cpp",
-   "rank": 0,
-   "functions": [
     {
      "va": "0x00499FC0",
      "length": 85,
@@ -24887,6 +24846,11 @@
      "name": "?PARTY_DrawRosterClass@@YGXHHH@Z"
     },
     {
+     "va": "0x0049A460",
+     "length": 172,
+     "name": "ROSTERPETS_DrawPanelLabel"
+    },
+    {
      "va": "0x0049A510",
      "length": 111,
      "name": "?PARTY_DrawPartyButtons@@YAXXZ"
@@ -24906,34 +24870,29 @@
      "length": 404
     },
     {
-     "va": "0x0049C270",
-     "length": 337,
-     "name": "?PARTY_DrawPartyRows@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0049AAF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x0049A830",
      "length": 274,
      "name": "?sub_0049A830_DrawRosterArea@@YGXHPAUD2RosterUnitStrc@@H@Z"
+    },
+    {
+     "va": "0x0049A950",
+     "length": 96,
+     "name": "TEXT_DrawPanelCloseButton"
+    },
+    {
+     "va": "0x0049A9B0",
+     "length": 154,
+     "name": "?sub_0049A9B0_RefreshRosterIndices@@YAXXZ"
+    },
+    {
+     "va": "0x0049AA50",
+     "length": 79,
+     "name": "TEXT_IsMouseInRect"
+    },
+    {
+     "va": "0x0049AAA0",
+     "length": 78,
+     "name": "?TEXT_GetCenteredStringX@@YIHGH@Z"
     },
     {
      "va": "0x0049AAF0",
@@ -24943,6 +24902,10 @@
     {
      "va": "0x0049ABD0",
      "length": 906
+    },
+    {
+     "va": "0x0049B330",
+     "length": 1625
     },
     {
      "va": "0x0049B990",
@@ -24955,9 +24918,34 @@
      "name": "?sub_0049BAD0_SetRosterButtonState@@YAXPAUD2StoredUnitRecordStrc@@PAUD2RosterUnitStrc@@H@Z"
     },
     {
+     "va": "0x0049C0A0",
+     "length": 76,
+     "name": "?PANEL_LoadPartyCels@@YAXXZ"
+    },
+    {
+     "va": "0x0049C0F0",
+     "length": 110,
+     "name": "?PANEL_FreePartyCels@@YAXXZ"
+    },
+    {
+     "va": "0x0049C160",
+     "length": 6,
+     "name": "sub_0049C160"
+    },
+    {
      "va": "0x0049C170",
      "length": 241,
      "name": "?sub_0049C170_DrawRosterLevel@@YGXHHH@Z"
+    },
+    {
+     "va": "0x0049C270",
+     "length": 337,
+     "name": "?PARTY_DrawPartyRows@@YAXXZ"
+    },
+    {
+     "va": "0x0049C3D0",
+     "length": 146,
+     "name": "?PANEL_DrawPartyPanel@@YAXXZ"
     }
    ],
    "flags": [
@@ -24979,16 +24967,6 @@
    "file": "Source/D2Client/UI/text_0049A950.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0049A950",
-     "length": 96,
-     "name": "TEXT_DrawPanelCloseButton"
-    },
-    {
-     "va": "0x0049AA50",
-     "length": 79,
-     "name": "TEXT_IsMouseInRect"
-    },
     {
      "va": "0x004A01A0",
      "length": 54,
@@ -25121,30 +25099,6 @@
     {
      "va": "0x0049B030",
      "length": 759
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0049B330.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0049B330",
-     "length": 1625
     }
    ],
    "flags": [
