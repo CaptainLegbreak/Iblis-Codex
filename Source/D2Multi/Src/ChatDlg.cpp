@@ -5472,7 +5472,6 @@ int __stdcall sub_004438C0_OnCancel(int nArg)
     return 1;
 }
 
-// build: context sub_004438E0_HasProgress
 static inline int sub_004438E0_HasProgress(unsigned short wFlags, unsigned int nClassic, unsigned int nExpansion)
 {
     if (wFlags & 0x20)

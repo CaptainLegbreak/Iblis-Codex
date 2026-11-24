@@ -238,7 +238,6 @@ static int __cdecl sub_005232B0_DecodeAndValidate(unsigned char* pBuffer, unsign
     return 1;
 }
 
-// build: context sub_005232B0_Shim
 // calling-convention shim (not game code)
 int __fastcall sub_005232B0_Shim(unsigned char* pBuffer, unsigned int nSize)
 {

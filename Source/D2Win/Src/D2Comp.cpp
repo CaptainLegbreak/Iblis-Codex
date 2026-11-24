@@ -624,7 +624,6 @@ static inline D2CofNodeStrc* D2COMP_FindCofNode(unsigned int nClass, unsigned in
     return 0;
 }
 
-// build: context sub_M118_Emit_00503310
 // emits the static 0x00503310 (not game code)
 D2CofNodeStrc* __stdcall sub_M118_Emit_00503310(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
 {
@@ -1274,7 +1273,6 @@ void __stdcall D2Win_10154(D2CompositeUnitStrc* hCompositeUnit, const Unicode* a
     hCompositeUnit->dwProductCode = a7;
 }
 
-// build: context sub_D2Win_10143_ApplyCof
 static int sub_D2Win_10143_ApplyCof(D2CompositeUnitStrc* pCompositeUnit, D2CofNodeStrc* pCofNode, int nMode)
 {
     D2CofDataStrc* pCofData = pCofNode->pCofData;

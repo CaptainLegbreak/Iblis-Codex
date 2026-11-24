@@ -144,7 +144,6 @@ static void __cdecl GRID_CopyDecodedKeys(Byte** first, Byte** second)
     }
 }
 
-// build: context sub_00523350_Shim
 // calling-convention shim (not game code)
 void __cdecl sub_00523350_Shim(Byte** first, Byte** second)
 {

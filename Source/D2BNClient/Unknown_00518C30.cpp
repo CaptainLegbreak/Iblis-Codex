@@ -77,7 +77,6 @@ static void sub_00518EC0_EncryptBlock(unsigned int* pData, unsigned int nLength,
     }
 }
 
-// build: context sub_00518EC0_Shim
 // calling-convention shim (not game code)
 void __cdecl sub_00518EC0_Shim(unsigned int* pData, unsigned int nSize)
 {

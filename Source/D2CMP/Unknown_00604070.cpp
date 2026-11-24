@@ -94,7 +94,6 @@ struct D2StormEntry604080Strc
     {
     }
 
-// build: context D2StormEntry604080Strc
     D2StormEntry604080Strc(const D2StormEntry604080Strc& source) : nField18(source.nField18), nField1C(source.nField1C),
         nField20(source.nField20), nField24(source.nField24), nField28(source.nField28), tList(source.tList)
     {

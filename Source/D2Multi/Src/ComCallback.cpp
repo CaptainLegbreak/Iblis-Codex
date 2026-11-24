@@ -2303,7 +2303,6 @@ int __stdcall COMCALLBACK_OnWhisperSent(const char* szTarget, const char* szText
     return 1;
 }
 
-// build: context sub_00446D30_Shim
 // calling-convention shim (not game code)
 int __fastcall sub_00446D30_Shim(D2MultiChannelUserStrc* pLeft, D2MultiChannelUserStrc* pRight)
 {

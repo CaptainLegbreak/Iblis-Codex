@@ -234,7 +234,6 @@ static unsigned char* __stdcall SubTileConvertPixels24To8(unsigned char* pPixels
     return pResult;
 }
 
-// build: context sub_0060D6F0_Shim
 // calling-convention shim (not game code)
 unsigned char* __stdcall sub_0060D6F0_Shim(unsigned char* pPixels, int nBytes, unsigned int nKey, D2PaletteFn pConvert)
 {

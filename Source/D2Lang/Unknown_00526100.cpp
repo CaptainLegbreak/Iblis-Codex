@@ -146,7 +146,6 @@ int __fastcall sub_005262F0_UnicodeCharUtf8Length(const Unicode* pChar)
     return sub_00526190_UnicodeCharToUtf8(*pChar, szBuffer);
 }
 
-// build: context sub_00526320_ToUnicode
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength)
 {
     const int nSourceLength = strlen(szSource);
@@ -247,7 +246,6 @@ static __forceinline int FindCharIndex(unsigned short wChar)
     return nMid;
 }
 
-// build: context sub_00527A50_MapCodePageChar
 static int sub_00527A50_MapCodePageChar(unsigned short wChar)
 {
     if (wChar < 0x20)

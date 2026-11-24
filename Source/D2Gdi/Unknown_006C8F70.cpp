@@ -44,7 +44,6 @@ extern int gnSurfaceWidth_007C9138;                                             
 extern int gnSurfaceHeight_007C913C;                                                                        // 0x007C913C
 extern unsigned char* gpSurfaceBits_007C9154;                                                               // 0x007C9154
 
-// build: context sub_006C8DA0_DrawLine
 static void __stdcall sub_006C8DA0_DrawLine(const D2CoordPairStrc* pFrom, const D2CoordPairStrc* pTo, unsigned char nColor)
 {
     const int nDeltaX = pTo->nX - pFrom->nX;
