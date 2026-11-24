@@ -4420,7 +4420,7 @@
     {
      "va": "0x00417A10",
      "length": 17,
-     "name": "sub_00417A10_Link"
+     "name": "?Link@?$TSList@UARCHIVEREC@SFile@Storm@@U?$TSGetLink@UARCHIVEREC@SFile@Storm@@@@@@QAEPAU?$TSLink@UARCHIVEREC@SFile@Storm@@@@PBUARCHIVEREC@SFile@Storm@@@Z"
     },
     {
      "va": "0x00417A30",
@@ -4430,7 +4430,7 @@
     {
      "va": "0x00417A50",
      "length": 17,
-     "name": "sub_00417A50_Link"
+     "name": "?Link@?$TSList@UREQUEST@@U?$TSGetLink@UREQUEST@@@@@@QAEPAU?$TSLink@UREQUEST@@@@PBUREQUEST@@@Z"
     },
     {
      "va": "0x00417A70",
@@ -4439,7 +4439,7 @@
     {
      "va": "0x00417B20",
      "length": 32,
-     "name": "sub_00417B20_Next"
+     "name": "?Next@?$TSList@UFILEREC@@U?$TSGetLink@UFILEREC@@@@@@QAEPAUFILEREC@@PBU2@@Z"
     },
     {
      "va": "0x00417B40",
@@ -4449,7 +4449,7 @@
     {
      "va": "0x00417B60",
      "length": 17,
-     "name": "sub_00417B60_Link"
+     "name": "?Link@?$TSList@UFILEREC@@U?$TSGetLink@UFILEREC@@@@@@QAEPAU?$TSLink@UFILEREC@@@@PBUFILEREC@@@Z"
     },
     {
      "va": "0x00417B80",
@@ -4463,7 +4463,7 @@
     {
      "va": "0x00417C50",
      "length": 17,
-     "name": "sub_00417C50_Link"
+     "name": "?Link@?$TSList@UEVENTREC@@U?$TSGetLink@UEVENTREC@@@@@@QAEPAU?$TSLink@UEVENTREC@@@@PBUEVENTREC@@@Z"
     },
     {
      "va": "0x00417C70",
@@ -4472,7 +4472,7 @@
     {
      "va": "0x00417D20",
      "length": 32,
-     "name": "sub_00417D20_Next"
+     "name": "?Next@?$TSList@UAUDIOSTREAM@@U?$TSGetLink@UAUDIOSTREAM@@@@@@QAEPAUAUDIOSTREAM@@PBU2@@Z"
     },
     {
      "va": "0x00417D40",
@@ -4482,7 +4482,7 @@
     {
      "va": "0x00417D60",
      "length": 17,
-     "name": "sub_00417D60_Link"
+     "name": "?Link@?$TSList@UAUDIOSTREAM@@U?$TSGetLink@UAUDIOSTREAM@@@@@@QAEPAU?$TSLink@UAUDIOSTREAM@@@@PBUAUDIOSTREAM@@@Z"
     },
     {
      "va": "0x00417D80",
@@ -17061,6 +17061,11 @@
      "name": "?PLAYER_CmdRightSkillMove@@YAHPAUD2PlayerCmdStrc@@@Z"
     },
     {
+     "va": "0x00462D00",
+     "length": 472,
+     "name": "?sub_00462D00_PlayerCommand@@YIHHHHE@Z"
+    },
+    {
      "va": "0x00463830",
      "length": 41,
      "name": "?PLAYER_GetBaseIdFromMonsterId@@YIHH@Z"
@@ -17896,17 +17901,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00462D00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00462D00",
-     "length": 472,
-     "name": "?sub_00462D00_PlayerCommand@@YIHHHHE@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004630E0.cpp",
    "rank": 0,
    "functions": [
@@ -18625,26 +18619,6 @@
      "va": "0x00468B20",
      "length": 99,
      "name": "?sub_00468B20_HandleHotkey@@YAXH@Z"
-    },
-    {
-     "va": "0x00468F40",
-     "length": 5,
-     "name": "?sub_00468F40_BeltHotkey0@@YAXXZ"
-    },
-    {
-     "va": "0x00468F50",
-     "length": 5,
-     "name": "?sub_00468F50_BeltHotkey1@@YAXXZ"
-    },
-    {
-     "va": "0x00468F60",
-     "length": 5,
-     "name": "?sub_00468F60_BeltHotkey2@@YAXXZ"
-    },
-    {
-     "va": "0x00468F70",
-     "length": 5,
-     "name": "?sub_00468F70_BeltHotkey3@@YAXXZ"
     }
    ]
   },
@@ -18982,6 +18956,26 @@
      "va": "0x00468F00",
      "length": 52,
      "name": "?sub_00468F00@@YAXXZ"
+    },
+    {
+     "va": "0x00468F40",
+     "length": 5,
+     "name": "?sub_00468F40_BeltHotkey0@@YAXXZ"
+    },
+    {
+     "va": "0x00468F50",
+     "length": 5,
+     "name": "?sub_00468F50_BeltHotkey1@@YAXXZ"
+    },
+    {
+     "va": "0x00468F60",
+     "length": 5,
+     "name": "?sub_00468F60_BeltHotkey2@@YAXXZ"
+    },
+    {
+     "va": "0x00468F70",
+     "length": 5,
+     "name": "?sub_00468F70_BeltHotkey3@@YAXXZ"
     },
     {
      "va": "0x00468F80",
@@ -24533,6 +24527,10 @@
      "length": 906
     },
     {
+     "va": "0x0049B030",
+     "length": 759
+    },
+    {
      "va": "0x0049B330",
      "length": 1625
     },
@@ -24620,16 +24618,6 @@
      "va": "0x004A18C0",
      "length": 22,
      "name": "TEXT_KeyDownMsg"
-    },
-    {
-     "va": "0x004A6310",
-     "length": 63,
-     "name": "TEXT_WheelCaptureMsg"
-    },
-    {
-     "va": "0x004A6350",
-     "length": 86,
-     "name": "TEXT_ButtonCaptureMsg"
     }
    ]
   },
@@ -24644,30 +24632,6 @@
     {
      "va": "0x0049BDD0",
      "length": 715
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0049B030.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0049B030",
-     "length": 759
     }
    ],
    "flags": [
@@ -25191,23 +25155,27 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004A6000.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004A63B0",
-     "length": 171,
-     "name": "sub_004A63B0_WheelMsgHandler"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004A6260.cpp",
    "rank": 1,
    "functions": [
     {
      "va": "0x004A6260",
      "length": 172
+    },
+    {
+     "va": "0x004A6310",
+     "length": 63,
+     "name": "TEXT_WheelCaptureMsg"
+    },
+    {
+     "va": "0x004A6350",
+     "length": 86,
+     "name": "TEXT_ButtonCaptureMsg"
+    },
+    {
+     "va": "0x004A63B0",
+     "length": 171,
+     "name": "sub_004A63B0_WheelMsgHandler"
     }
    ],
    "flags": [
@@ -33217,33 +33185,6 @@
    ]
   },
   {
-   "file": "Source/D2Glide/Unknown_0050BF50.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0050BF50",
-     "length": 414,
-     "name": "sub_0050BF50_GlideDrawBox"
-    },
-    {
-     "va": "0x0050C0F0",
-     "length": 378,
-     "name": "sub_0050C0F0_GlideDrawBoxAlpha"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Unknown_0050CD40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0050CD40",
-     "length": 141,
-     "name": "sub_0050CD40_GlideShadowTileDraw"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Gfx/SRC/Window.cpp",
    "rank": 0,
    "functions": [
@@ -36131,31 +36072,6 @@
    ]
   },
   {
-   "file": "Source/D2Glide/Unknown_0050BF40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0050BF40",
-     "length": 9,
-     "name": "?sub_0050BF40_GlideGetBlendedShadows@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Unknown_0050C890.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0050C890",
-     "length": 355
-    },
-    {
-     "va": "0x0050D6A0",
-     "length": 1141
-    }
-   ]
-  },
-  {
    "file": "Source/D2Glide/Unknown_0050BD30.cpp",
    "rank": 0,
    "functions": [
@@ -36171,6 +36087,21 @@
     {
      "va": "0x0050BE20",
      "length": 204
+    },
+    {
+     "va": "0x0050BF40",
+     "length": 9,
+     "name": "?sub_0050BF40_GlideGetBlendedShadows@@YAHXZ"
+    },
+    {
+     "va": "0x0050BF50",
+     "length": 414,
+     "name": "sub_0050BF50_GlideDrawBox"
+    },
+    {
+     "va": "0x0050C0F0",
+     "length": 378,
+     "name": "sub_0050C0F0_GlideDrawBoxAlpha"
     },
     {
      "va": "0x0050C270",
@@ -36212,8 +36143,17 @@
      "name": "?sub_0050C760_GlideInitVertices@@YAXXZ"
     },
     {
+     "va": "0x0050C890",
+     "length": 355
+    },
+    {
      "va": "0x0050CA00",
      "length": 831
+    },
+    {
+     "va": "0x0050CD40",
+     "length": 141,
+     "name": "sub_0050CD40_GlideShadowTileDraw"
     },
     {
      "va": "0x0050CDD0",
@@ -36241,7 +36181,26 @@
     {
      "va": "0x0050D540",
      "length": 352
+    },
+    {
+     "va": "0x0050D6A0",
+     "length": 1141
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-",
+    "/Ob1"
    ]
   },
   {

@@ -44,28 +44,8 @@ void __fastcall sub_M115_Emit_00468B20(int nHotkey)
     sub_00468B20_HandleHotkey(nHotkey);
 }
 
-// 0x00468F40
-void __cdecl sub_00468F40_BeltHotkey0()
-{
-    PANEL_BeltHotkeyFirst();
-}
 
-// 0x00468F50
-void __cdecl sub_00468F50_BeltHotkey1()
-{
-    PANEL_BeltHotkeySecond();
-}
 
-// 0x00468F60
-void __cdecl sub_00468F60_BeltHotkey2()
-{
-    PANEL_BeltHotkeyThird();
-}
 
-// 0x00468F70
-void __cdecl sub_00468F70_BeltHotkey3()
-{
-    PANEL_BeltHotkeyFourth();
-}
 
 
