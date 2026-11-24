@@ -160,19 +160,35 @@ void TSList<T, TGetLink>::Clear()
 // build: symbol ??_R0?AUHANDLER@@@8 0x0070842C
 // build: symbol ?SMemAlloc@@YGPAXIPBDHI@Z 0x00413020
 // build: symbol ?SMemFree@@YGHPAXPBDHI@Z 0x00412650
+// build: symbol ?Next@?$TSLink@UHANDLER@@@@QAEPAUHANDLER@@XZ 0x0041C370
+// build: symbol ?RawNext@?$TSLink@UHANDLER@@@@QAEPAUHANDLER@@XZ 0x0041C380
 // build: symbol ?NextLink@?$TSLink@UHANDLER@@@@QAEPAU1@H@Z 0x0041C3A0
+// build: symbol ?Unlink@?$TSLink@UHANDLER@@@@QAEXXZ 0x0041C3D0
+// build: symbol ?Head@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEPAUHANDLER@@XZ 0x0041C4E0
+// build: symbol ??0?$TSLink@UHANDLER@@@@QAE@XZ 0x0041C4F0
 // build: symbol ?Link@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEPAU?$TSLink@UHANDLER@@@@PBUHANDLER@@@Z 0x0041C560
 // build: symbol ?LinkNode@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEXPAUHANDLER@@I0@Z 0x0041C580
 // build: symbol ?Next@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEPAUHANDLER@@PBU2@@Z 0x0041C630
+// build: symbol ??1?$TSLink@UHANDLER@@@@QAE@XZ 0x0041C650
 // build: symbol ?UnlinkNode@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEXPAUHANDLER@@@Z 0x0041C690
 // build: symbol ?RawNext@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEPAUHANDLER@@PBU2@@Z 0x0041C700
+// build: symbol ??0?$TSLinkedNode@UHANDLER@@@@QAE@XZ 0x0041C720
+// build: symbol ??1?$TSLinkedNode@UHANDLER@@@@QAE@XZ 0x0041C730
 // build: symbol ?UnlinkAll@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEXXZ 0x0041C770
 // build: symbol ??1?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAE@XZ 0x0041C7B0
+// build: symbol ??0HANDLER@@QAE@XZ 0x0041C7F0
+// build: symbol ??1HANDLER@@QAE@XZ 0x0041C800
 // build: symbol ?NewNode@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEPAUHANDLER@@III@Z 0x0041C840
 // build: symbol ??_GHANDLER@@QAEPAXI@Z 0x0041C8A0
 // build: symbol ?Clear@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEXXZ 0x0041C9C0
 // build: symbol ?DeleteNode@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEPAUHANDLER@@PAU2@@Z 0x0041CA10
+template HANDLER* TSLink<HANDLER>::Next();
+template HANDLER* TSLink<HANDLER>::RawNext();
 template TSLink<HANDLER>* TSLink<HANDLER>::NextLink(int);
+template void TSLink<HANDLER>::Unlink();
+template HANDLER* TSList<HANDLER>::Head();
+template TSLink<HANDLER>::TSLink();
+template TSLink<HANDLER>::~TSLink();
 template TSLink<HANDLER>* TSList<HANDLER>::Link(const HANDLER*);
 template void TSList<HANDLER>::LinkNode(HANDLER*, unsigned int, HANDLER*);
 template HANDLER* TSList<HANDLER>::Next(const HANDLER*);
@@ -183,6 +199,20 @@ template TSList<HANDLER>::~TSList();
 template HANDLER* TSList<HANDLER>::NewNode(unsigned int, unsigned int, unsigned int);
 template void TSList<HANDLER>::Clear();
 template HANDLER* TSList<HANDLER>::DeleteNode(HANDLER*);
+
+// A link-holding piece of the run that matches no stpl.h member.
+struct sub_0041C500
+{
+    D2StormLinkStrc f_0;
+
+    ~sub_0041C500();
+};
+
+// 0x0041C500
+sub_0041C500::~sub_0041C500()
+{
+    f_0.Unlink();
+}
 
 // 0x0041C0D0
 char* __cdecl sub_0041C0D0_StrPbrk(const char* szString, const char* szCharSet)
@@ -317,18 +347,6 @@ void __stdcall SErrSuppressErrors(int bSuppress)
     gbErrorSuppress_007790F0 = bSuppress;
 }
 
-// 0x0041C370
-char* __fastcall sub_00601B60_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
-
-// 0x0041C380
-char* __fastcall DRLGPRESET_GetLinkRawNext(D2StormLinkStrc* pLink)
-{
-    return pLink->m_next;
-}
-
 // 0x0041C390
 void __fastcall sub_0041C390(PairStrc_0041C390* pPair)
 {
@@ -370,7 +388,6 @@ int __stdcall SErrGetErrorStr(unsigned long error, char* buffer, unsigned long s
     return FormatMessageA(module ? 0x800 : 0x1000, module, error, 0x400, buffer, size, 0) != 0;
 }
 
-// 0x0041C4E0
 char* D2ChatStormListAStrc::IGNORELIST_GetStringListHead()
 {
     return m_terminator.MaskNext();
@@ -381,12 +398,6 @@ void D2ChatStormListAStrc::IGNORELIST_ResetStringList()
 {
     m_linkoffset = 0;
     InitializeTerminator();
-}
-
-// 0x0041C650
-void D2StormLinkStrc::sub_0041C650()
-{
-    Unlink();
 }
 
 // 0x0041C6E0
