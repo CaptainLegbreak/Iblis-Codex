@@ -22,8 +22,6 @@ struct D2SockAddrInStrc;
 
 
 
-struct D2QServerReqStrc;
-
 extern "C" __declspec(dllimport) int __stdcall GetQueuedCompletionStatus(void* hPort, unsigned long* pBytes, unsigned long* pKey, D2QOverlappedStrc** ppOverlapped, unsigned long nTimeout);
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError();
@@ -88,12 +86,6 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 
 static void __stdcall sub_006C23B0_QueueMessage(D2QClientStrc* pConn, const void* pData, unsigned int nSize);
 
-struct D2QServerReqStrc
-{
-    D2QueueServerStrc* pServer;
-    int nSlot;
-};
-
 void __fastcall ERRORMANAGER_UnregisterThread(unsigned int nId); // 0x00407F90
 
 void __fastcall sub_006C2D70(D2QueueServerStrc* pServer, int nSlot, int nWait); // 0x006C2D70
@@ -110,8 +102,6 @@ static int sQSNTWriteFromQueue(D2QueueServerStrc* pServer, D2QClientStrc* pClien
 struct D2HashNode006BE540Strc;
 
 struct D2HashTable006BE540Strc;
-
-struct D2QThreadArgStrc;
 
 struct D2FdSetStrc;
 
@@ -134,12 +124,6 @@ extern "C" const char gszHackList[]; // 0x006FC938
 extern "C" const char gszLoggedTwice[]; // 0x006FC920
 
 extern "C" const char gszSpamming[]; // 0x006FC900
-
-struct D2QThreadArgStrc
-{
-    D2QueueServerStrc* pServer;
-    int nSlot;
-};
 
 union D2QTickStrc
 {
@@ -187,9 +171,9 @@ void __cdecl LOGMANAGER_WriteLogLine(const char* format, ...);                  
 
 void __fastcall ERRORMANAGER_RegisterThread(unsigned int nId, void* hThread); // 0x00407F80
 
-unsigned long __stdcall sub_006C2860_WorkerThread(void* pArg);                                              // 0x006C2860
+unsigned long __stdcall sub_006C2860_AcceptThread(void* pParam);                                              // 0x006C2860
 
-unsigned long __stdcall sub_006C3030_WorkerThread2(void* pArg);                                             // 0x006C3030
+unsigned long __stdcall sub_006C3030_ReleaseSlot(void* pParam);                                              // 0x006C3030
 
 // 0x006C2280
 static int sub_006C2280_PostRead(D2QueueServerStrc* pServer, D2QClientStrc* ptClient)
@@ -406,8 +390,9 @@ void __fastcall sub_Emit_006C2810(D2QueueServerStrc* pServer, D2QClientStrc* pCl
 }
 
 // 0x006C2860
-unsigned long __stdcall sub_006C2860_AcceptThread(D2QThreadArgStrc* pArg)
+unsigned long __stdcall sub_006C2860_AcceptThread(void* pParam)
 {
+    D2QWorkerArgStrc* pArg = (D2QWorkerArgStrc*)pParam;
     D2QueueServerStrc* pServer = pArg->pServer;
     int nSlot = pArg->nSlot;
     FOG_Free(pArg, gszQServerNTFile, 0x10D, 0);
@@ -546,7 +531,7 @@ unsigned int __fastcall sub_006C3120_Start(D2QueueServerStrc* pServer, int nPort
     D2QWorkerArgStrc* pArg = (D2QWorkerArgStrc*)FOG_Alloc(sizeof(D2QWorkerArgStrc), ".\\Src\\QServer\\QServerNT.cpp", 0xA2, 0);
     pArg->pServer = pServer;
     pArg->nSlot = nSlot;
-    pServer->hAcceptThreads[nSlot] = CreateThread(0, 0, sub_006C2860_WorkerThread, pArg, 0, &pServer->aThreadIds[nSlot]);
+    pServer->hAcceptThreads[nSlot] = CreateThread(0, 0, sub_006C2860_AcceptThread, pArg, 0, &pServer->aThreadIds[nSlot]);
     ERRORMANAGER_RegisterThread(pServer->aThreadIds[nSlot], pServer->hAcceptThreads[nSlot]);
 
     if (pServer->bSecondWorker)
@@ -555,7 +540,7 @@ unsigned int __fastcall sub_006C3120_Start(D2QueueServerStrc* pServer, int nPort
         pArg2->pServer = pServer;
         pArg2->nSlot = nSlot;
         unsigned long* pThreadId = &pServer->aThreadIds2[nSlot];
-        pServer->aThreads2[nSlot] = CreateThread(0, 0, sub_006C3030_WorkerThread2, pArg2, 0, pThreadId);
+        pServer->aThreads2[nSlot] = CreateThread(0, 0, sub_006C3030_ReleaseSlot, pArg2, 0, pThreadId);
         ERRORMANAGER_RegisterThread(*pThreadId, pServer->aThreads2[nSlot]);
     }
 
@@ -683,8 +668,9 @@ int __fastcall sub_006C30D0_ServiceSlots(D2QueueServerStrc* pServer, int nTimeou
 }
 
 // 0x006C3030
-int __stdcall sub_006C3030_ReleaseSlot(D2QServerReqStrc* pReq)
+unsigned long __stdcall sub_006C3030_ReleaseSlot(void* pParam)
 {
+    D2QWorkerArgStrc* pReq = (D2QWorkerArgStrc*)pParam;
     D2QueueServerStrc* pServer = pReq->pServer;
     int nSlot = pReq->nSlot;
     FOG_Free(pReq, ".\\Src\\QServer\\QServerNT.cpp", 686, 0);
