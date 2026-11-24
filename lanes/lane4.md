@@ -30,7 +30,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 ## Claimed
 
 - **Verifying (more):** `lane4/waypoint-strays` (Unknown_0049BB40.cpp takes text.cpp's waypoint panel cel and close functions 0x49C580-0x49C756, the readers of its bss 0x7BF071-0x7BF085; built /GS- now). `lane4/run-strays` (CmdTbl.cpp, dLightMap.cpp and View.cpp take the CUnit.cpp/SCmd.cpp strays in their runs that read only their bss).
-- **Verifying (more):** `lane4/party-object` (Party.cpp takes most of 0x499DE0-0x49C46F; Unknown_0049AF60.cpp, Unknown_0049B030.cpp and 0x49BB40/0x49BB60 stay, they compile unequal there).
+- **Verifying (more):** `lane4/party-object-2` (Party.cpp takes most of 0x499DE0-0x49C46F; Unknown_0049AF60.cpp, Unknown_0049B030.cpp and 0x49BB40/0x49BB60 stay, they compile unequal there; the first version verified on #345 and is redone on #349 after the renames).
 - **Level-event object (claimed):** `lane4/level-events`: Unknown_0046ACE0.cpp takes 0x46ACE0-0x46C56F; its bss 0x7A742C-0x7A746C and data 0x7129CC-0x712A27 are read only there, including by the strays filed in RosterPets.cpp, SCmd.cpp and View.cpp. Verifying.
 - Joining 0x49C9C0 into the waypoint object compiled unequal (frame layout and the gnScreenHeight/gnOffsetY operand order), so text_0049C9C0.cpp stays.
 - **Verifying, to post when each passes:** `lane4/session-object-4` (session-object-3 rebased onto #342 now that winmain-object-2 is in, plus WINMAIN.CPP's plan externs for WINMAIN_StartSession/StopSession, which its launch handler table names; the -3 verify failed on exactly that).
