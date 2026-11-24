@@ -658,15 +658,6 @@ void __fastcall TASK_ProcessGame(int nTaskNumber, D2TaskStrc* ptTask)
     sub_005645E0_TASK_ProcessGame(nTaskNumber, ptTask);
 }
 
-// 0x00564CC0
-void __fastcall TASK_SetType(D2TaskStrc* pTask, int nType)
-{
-    if (pTask)
-    {
-        pTask->nType = nType;
-    }
-}
-
 static inline void TASK_CloseGame(int nGameHashKey, int nTaskNumber, D2TaskStrc* ptTask)
 {
     GAME_CloseGame(nGameHashKey);
