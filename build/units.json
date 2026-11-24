@@ -38775,6 +38775,16 @@
      "length": 152
     },
     {
+     "va": "0x0051C760",
+     "length": 117,
+     "name": "sub_0051C760_SplitPackets"
+    },
+    {
+     "va": "0x0051C7E0",
+     "length": 451,
+     "name": "sub_0051C7E0_ReceiveThread"
+    },
+    {
      "va": "0x0051CA20",
      "length": 3,
      "name": "?BNSEND_GetGatewayLetter@@YADXZ"
@@ -38958,22 +38968,6 @@
      "va": "0x0051C460",
      "length": 11,
      "name": "?BNSEND_LeaveChat@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/Unknown_0051C760.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0051C760",
-     "length": 117,
-     "name": "sub_0051C760_SplitPackets"
-    },
-    {
-     "va": "0x0051C7E0",
-     "length": 451,
-     "name": "sub_0051C7E0_ReceiveThread"
     }
    ]
   },
