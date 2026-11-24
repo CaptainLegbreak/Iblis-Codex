@@ -5,6 +5,23 @@ Nothing here is ready to merge yet.
 
 ## Status
 
+- 2026-11-24 02:35 PT: **0x5DD7F0** (lane 7's `lane7/005DD7F0-wip`, 1120/1084, 238 differing lines). Apart from
+  the layout below, the body already has the original's shape: the three node loops and their spill slots
+  line up instruction for instruction. What's left:
+  - **Layout:** the original puts the "flag 0x40 not set" branch (the line-of-sight check, the bit-3 test and
+    the vision toggle) out of line, after the first loop's inner `for (;;)`, and jumps back. Its then-branch
+    falls straight into the join. The draft lays the else branch inline. Writing it as an inverted test, a
+    goto chain, a `do { } while (0)` or an inline helper didn't move it. VC8 won't inline a helper that large
+    into this function, and in a test build an inlined helper's blocks stay in place anyway.
+  - **Registers:** ebx and edi are swapped all through the function. The original has pGame and then pNode in
+    ebx, and pUnit and then the distance in edi.
+  - **Frame:** 4 bytes smaller. The draft shares pRoom's slot with ppNode; the original doesn't.
+  - The ebx/edi swap and the frame probably follow from the layout.
+  - One real fix: the bit-3 test is a null-checking flag helper, `if (!p) return 0; return (p->nAiFlags >> n)
+    & 1;`, compared `== 0`. That gives the original's `shr / and / cmp / sete` (the draft's `& 8` gives
+    `not / and`).
+  - A greedy run over 10 groups (declaration order, the nX/nY and nAct forms, the vision accessor, the
+    min-distance compare) found nothing that changes the listing.
 - 2026-11-24 01:50 PT: still no match. New results, so nobody repeats them:
   - **0x677880:** declaration order doesn't matter. 60 random orders of all 27 locals (hoisted C-style) compile
     byte-identical to each other: same length as the original (4232), 308 differing lines. The differences are
