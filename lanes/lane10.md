@@ -56,6 +56,7 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 - lane10/names-rank1 8df1c87 rank-1 plan retried: 106 renames applied (names.csv and call sites), 36 addresses dropped by nameround because their units didn't build equal, 3 dropped by hand because the old spelling is also the file's stem (inv_0048DD90, inv_00491D20, text_0049C9C0: renaming them changes the gen include path; MISSING_GEN in the full verify). VERIFIED 0c3b912a on base 0b750228 (#341), placed all, Game.exe matches.
 
 ## Claimed
+- Tue Nov 24 11:21:08 PST 2026: file-name plans second pass posted for D2Client, Storm, D2Hell, Fog, D2Game, D2Common, Bnclient, D2Gdi, D2DDraw; now the smaller modules.
 - Tue Nov 24 10:44:50 PST 2026: function-name plans stay posted for merging; starting placeholder file names (files-<module>.tsv), largest modules first.
 - 2026-11-24 10:05 PT: the queue (items 1-5) and the waiting plans are all posted or applied. Next, unless you say otherwise: retry the excluded renames from the sweeps and rounds once the prototype fixes land, and pick up anything you put on the board for lane 10.
 - 2026-11-24 03:00 PT: applying the waiting plans myself per the new round rules (rank1 posted; next d2cmp, d2common, d2game, d2client, moved333, stragglers, members), then the sweep, then queue items 2-5. Queue item 1 (globals) is posted for every module.
