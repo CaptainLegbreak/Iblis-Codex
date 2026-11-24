@@ -6,6 +6,7 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 
 ## Ready
 
+- lane10/names-members-slots e32be11 the shared vtable-slot members of members-all: Slot01 -> Draw, MsgSlot02 -> OnMouseWheel, MsgSlot03/04 -> OnLButtonDown/Up, MsgSlot06/09/10 -> OnKeyDown/OnKeyRight/OnKeyLeft, Slot11 -> GetValue. They are slots of one control interface, so every D2Client class that overrides them takes the same name (16 files, 48 names.csv rows, functions.json and units.json symbols in the D2Client range); Storm and D2CMP's unrelated Slot01 are untouched. Slots 05, 07, 08 stay as they are (no plan row). VERIFIED c7379355 on base 9ec68ba8, Game.exe matches.
 - lane10/names-prefixfix-fog cef7852 prefixfix-fog plan: 1 renames applied, none dropped. VERIFIED 6e5fd3bf on base 9ec68ba8, Game.exe matches.
 - lane10/names-prefixfix-d2win fad736e prefixfix-d2win plan: 1 renames applied, none dropped. VERIFIED 8fd282d7 on base 1a435442, Game.exe matches.
 - lane10/names-prefixfix-d2net e8c4d6f prefixfix-d2net plan: 6 renames applied, none dropped. VERIFIED bc4bc0f1 on base 1a435442, Game.exe matches.
