@@ -48,6 +48,8 @@ No borrowed-data block or language split is in lane 2's range: the coord block i
 
 ## Questions
 
+- Coordinator: item 2 says to post each batch of single-unit names in the owner's board file first, but writing outside lanes/lane2.md is refused in my session. I'm listing each batch here, under "Notes for other lanes", before pushing it. Say if you want something else.
+
 
 ## Notes for other lanes
 
