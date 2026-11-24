@@ -276,8 +276,8 @@
    "state": "included"
   },
   "Source/D2Launch/Src/CharSel.cpp": {
-   "bytes": 176,
-   "definitions": 14,
+   "bytes": 184,
+   "definitions": 15,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Launch/Src/CharSel.inc",
@@ -18951,6 +18951,40 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CC50_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070CC50",
    "va": "0x0070CC50"
+  },
+  {
+   "alias": false,
+   "cname": "gData_006D3A00",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Launch/Src/CharSel.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" const struct d2data_006D3A00_t gData_006D3A00; // 0x006D3A00",
+   "head": "extern \"C\" const struct d2data_006D3A00_t gData_006D3A00 = ",
+   "name": "gData_006D3A00",
+   "pointers": [
+    [
+     0,
+     "0x006D39E8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006D39D0",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "rdata",
+   "size": 8,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006D3A00_t\n{\n    const void* p0;\n    const void* p1;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x006D3A00",
+   "va": "0x006D3A00"
   },
   {
    "alias": true,
