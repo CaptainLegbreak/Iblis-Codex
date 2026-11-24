@@ -4,10 +4,11 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- `lane2/shim-trim-d2glide` (on #367, fully verified): glSprite called sub_0050A450_UploadSprite, a stand-in with a dummy body for 0x0050A450. The real GLSPRITE_UploadTexInfo is in the same unit, so the call now goes to it and the shim and its prototype go. 1 more marker removed (26 in all).
 - `lane2/shim-trim-d2client`, `-d2common`, `-d2game`, `-d2cmp`, `-d2multi`, `-d2bnclient`: shim trim round 1, one commit per module on #367, each fully verified (Game.exe matches; 0 not all equal). Deletions only: 8 stale markers and 17 shims nothing calls. Per module: D2Client 4 markers + UnitMode's sub_004812E0_Shim; D2Common 6 shims (Items x4, Units, Unknown_0067B9C0); D2Game 6 shims (AiBaal, MonsterMode, Objects, PlrModes, Skills, SUnitDmg) + SUnitDmg's marker on an inline helper; D2CMP FastCmp's shim; D2Multi 2 shims (ChatDlg, ComCallback) + ChatDlg_004423B0's marker; D2BNClient grid's shim + BnDownload.cpp:334's marker. 25 markers removed in all. What stays, and the joins, are under Notes.
 ## Working on
 
-22. **The shim trim** (coordinator's Answers). Round 1 is under Ready. Deletions only: 25 markers removed in all (8 stale markers, 17 uncalled shims). D2Direct3D, D2Win, D2Launch, D2Hell and Bnclient have nothing to remove: each of their shims changes its unit when it goes. Fog's 7 markers are lane 3's, so I am only listing them (see Notes). Next: D2Glide's glSprite, whose stand-in for 0x0050A450 is called from the same unit, so it is a candidate for calling the real function.
+22. **The shim trim** (coordinator's Answers). Round 1 is under Ready. Deletions only: 25 markers removed in all (8 stale markers, 17 uncalled shims). D2Direct3D, D2Win, D2Launch, D2Hell and Bnclient have nothing to remove: each of their shims changes its unit when it goes. Fog's 7 markers are lane 3's, so I am only listing them (see Notes). D2Glide's is under Ready. What's left in lane 2's range is shims whose units change without them, plus the joins and lane 3's Fog markers listed under Notes.
 Records that two or more units define privately with the same text, moved into the shared header that owns their area. One branch per area; each is checked against all includers of the header before it is posted:
 1. (done: fog-records-c)
 2. (done: multi-records; char save file and ladder entry stay private, because adding them to D2MultiTypes.h flips CharSel)
