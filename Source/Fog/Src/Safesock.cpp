@@ -1612,3 +1612,15 @@ extern "C" void __cdecl sub_0049A020_FreeList()
     }
     gList_007BF014 = 0;
 }
+
+// 0x0040D880
+int __fastcall sub_0040D880(unsigned int s)
+{
+    return closesocket(s);
+}
+
+// 0x0040D8D0
+int __cdecl sub_0040D8D0()
+{
+    return WSACleanup();
+}
