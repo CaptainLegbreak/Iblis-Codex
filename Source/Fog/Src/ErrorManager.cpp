@@ -6,6 +6,7 @@
 #include "D2Win32Types.h"
 #include "D2Win32System.h"
 #include "D2CmdArg.h"
+#include "D2FogSystemInfo.h"
 
 typedef unsigned int size_t;
 
@@ -503,7 +504,7 @@ struct D2CriticalSectionStrc;
 
 struct D2MiniDumpRequestStrc;
 
-struct T004013C0;
+struct D2FogSystemInfoStrc;
 
 struct D2ProcessEntryWStrc;
 
@@ -520,14 +521,6 @@ struct AsyncData;
 struct D2InspectorInfoStrc;
 
 struct D2CrashSubmitInfoStrc;
-
-struct T004013C0
-{
-    int f_0;
-    int nOsKind;
-    float fOsVersion;
-    unsigned int nTotalMemory;
-};
 
 typedef long (__stdcall* D2ExceptionFilterFn)(void* pExceptionPointers);
 
@@ -571,7 +564,7 @@ extern D2MiniDumpRequestStrc* gpMiniDumpRequest; // 0x0098A6E4
 
 extern void* gpfnCrashHandler; // 0x00992B10
 
-extern T004013C0 gtSystemInfo_0074D88C; // 0x0074D88C
+extern D2FogSystemInfoStrc gtSystemInfo_0074D88C; // 0x0074D88C
 
 
 
@@ -1837,11 +1830,11 @@ bool crashy::Report::WriteInspectorHeader()
     }
 
     sub_00401380("<Application>%s\n", gtInspectorInfo.szApplication);
-    sub_00401380("<Inspector.ProjectId>%d\n", gtInspectorInfo.f_0);
+    sub_00401380("<Inspector.ProjectId>%d\n", gtInspectorInfo.nProjectId);
     sub_00401380("<Inspector.Module>%s\n", gtInspectorInfo.szModule);
     sub_00401380("<Inspector.Milestone>%s\n", gtInspectorInfo.szMilestone);
     sub_00401380("<Inspector.BuildNumber>%s\n", gtInspectorInfo.szBuildNumber);
-    sub_00401380("<Inspector.Platform>%s\n", gtInspectorInfo.f_18);
+    sub_00401380("<Inspector.Platform>%s\n", gtInspectorInfo.szPlatform);
     sub_00401380("<Inspector.IssueType>%s\n", "Exception");
     sub_00401380("<Inspector.Priority>%s\n", "1 - Critical");
     sub_00401380("<Inspector.PrimaryAssignment>%s\n", gtInspectorInfo.szPrimaryAssignment);
@@ -2454,9 +2447,9 @@ void __stdcall D2ServerServiceHandlerProc(unsigned long dwCtrlCode)
 }
 
 // 0x00407360
-T004013C0* __cdecl FOG_GetSystemInfo()
+D2FogSystemInfoStrc* __cdecl FOG_GetSystemInfo()
 {
-    return gtSystemInfo_0074D88C.f_0 ? &gtSystemInfo_0074D88C : 0;
+    return gtSystemInfo_0074D88C.bCaptured ? &gtSystemInfo_0074D88C : 0;
 }
 
 // 0x00407440

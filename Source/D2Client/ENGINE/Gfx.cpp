@@ -2886,7 +2886,7 @@ static void sub_00473090_InitParticle(D2SeedStrc* pSeed)
         return;
     }
 
-    T00473470* pParticle = &gpWeatherParticles->pParticles[(short)(nRecord >> 0x10)];
+    D2WeatherParticleStrc* pParticle = &gpWeatherParticles->pParticles[(short)(nRecord >> 0x10)];
     pParticle->bDrop = 0;
     pParticle->nX = sub_00472280(pSeed, 0, gnScreenWidth);
     pParticle->nYEnd = sub_00472280(pSeed, 0x28, gnScreenHeight - 0x57);
@@ -2957,7 +2957,7 @@ void __stdcall sub_004732C0_StepParticles(D2SeedStrc* pSeed)
         fScale = (float)(gfPhaseLevel * (double)0.15f + (double)0.85f);
     }
 
-    T00473470* pParticle = gpWeatherParticles->pParticles;
+    D2WeatherParticleStrc* pParticle = gpWeatherParticles->pParticles;
     for (int i = 0; i <= gpWeatherParticles->nLastParticle; ++i, ++pParticle)
     {
         if (!pParticle->bActive)
@@ -3172,25 +3172,6 @@ unsigned char** __stdcall GFX_BuildLerpRowTable(unsigned int nCount, int nSteps)
     return pTable;
 }
 
-// 0x00478FA0
-void __cdecl GFX_UpdatePetFlags()
-{
-    D2RosterPetStrc* pPet = gpRosterPets;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    for (; pPet; pPet = pPet->pNext)
-    {
-        if (pPet->nType == 4)
-        {
-            D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPet->dwUnitId, 1);
-            if (pUnit)
-            {
-                int bSet = !sub_00478E70_IsPetFriendly(pPlayer, pUnit);
-                sub_00463E20_SetUnitFlagA(pUnit, bSet);
-                sub_00463E80_SetUnitFlagB(pUnit, bSet);
-            }
-        }
-    }
-}
 
 // 0x004795F0
 D2RosterUnitStrc* __stdcall GFX_SortRosterByName(D2RosterUnitStrc* pList)

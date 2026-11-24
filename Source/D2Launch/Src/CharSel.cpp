@@ -2884,36 +2884,10 @@ int __cdecl CHARSEL_CancelGameCreate()
 // build: symbol ?gpLaunchFuncs@* 0x0077B09C
 // build: symbol ?gnHistoryIndex@* 0x0070CD74
 // build: symbol ?gpChatEdit@* 0x0077BD94
-
 // build: symbol ?gszFormatD@* 0x006D57BC
-
 // build: symbol ?CHATDLG_DestroyJoinControls@* 0x00443130
-
-// 0x00443F80
-int __stdcall CHARSEL_SubmitProfile(int nArg)
-{
-    if (gnSubmitMode == 2)
-    {
-        char szA[0x8 + 1];
-        char szB[0x28 + 1];
-        char szC[0xC8 + 1];
-
-        const Unicode* pTextA = sub_004FDD90_GetEditText(gpSubmitEditA);
-        const Unicode* pTextB = sub_004FDD90_GetEditText(gpSubmitEditB);
-        const Unicode* pTextC = sub_004FDD90_GetEditText(gpSubmitEditC);
 // build: symbol ?gpCharInfo@* 0x0077BBD8
-        char* szName = gpCharInfo->szAccount;
-        sub_00526F70(szA, pTextA, 0x8);
-        sub_00526F70(szB, pTextB, 0x28);
-        sub_00526F70(szC, pTextC, 0xC8);
-        if (!CHATDLG_WriteUserData((int)szName, (int)szA, (int)szB, (int)szC))
-            return 1;
-    }
-
 // build: symbol ?CHATDLG_DestroyProfileControls@* 0x00443E10
-    CHATDLG_DestroyProfileControls();
-    return 1;
-}
 
 // 0x00446890
 int __stdcall CHARSEL_SendChatLine(int nArg)

@@ -1572,25 +1572,6 @@ extern int g_007BB3AC; // 0x007BB3AC
 #define MEMORY_SHIFT 20
 
 
-// 0x00479010
-void __fastcall VIEW_UpdatePetLife(int nUnitId, int nLifePercent, unsigned short nArg)
-{
-    for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
-    {
-        if (pPet->dwUnitId == nUnitId)
-        {
-            pPet->nLifePercent = nLifePercent;
-            pPet->nArg10 = nArg;
-            if (pPet->nType == PET_TYPE_LIFE)
-            {
-                D2UnitStrc* pUnit = CUNIT_FindClientUnit(nUnitId, UNIT_MONSTER);
-                if (pUnit)
-                    STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, STATLIST_GetMaxLifeFromUnit(pUnit) * nLifePercent / 100, 0);
-            }
-            return;
-        }
-    }
-}
 
 // 0x0047E860
 void __stdcall VIEW_DrawCelFrame(int nFrame, int nX, int nY)

@@ -15,6 +15,7 @@
 #include "D2Records.h"
 #include "D2AnimData.h"
 #include "D2WinSplitText.h"
+#include "D2FogSystemInfo.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -34,7 +35,7 @@ struct R00601DC0;
 
 struct D2MissileStrc;
 
-struct T004013C0;
+struct D2FogSystemInfoStrc;
 
 struct D2PacketUnitRecordStrc;
 
@@ -89,13 +90,7 @@ extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, 
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct T004013C0
-{
-    char unk0x00[0x0C];
-    unsigned int nTotalMemory;
-};
-
-T004013C0* __cdecl FOG_GetSystemInfo(); // 0x00407360
+D2FogSystemInfoStrc* __cdecl FOG_GetSystemInfo(); // 0x00407360
 
 void __fastcall SOUNDHDR_SetCacheMax(unsigned int nSize); // 0x00481840
 
@@ -535,14 +530,14 @@ void __stdcall PATH_SetDirection(D2DynamicPathStrc* pDynamicPath, int nDirection
 // 0x00457300
 void __fastcall SKILLS_InitGfxCaches(void* pMemPool, int bCelPool)
 {
-    T004013C0* pInfo = FOG_GetSystemInfo();
+    D2FogSystemInfoStrc* pInfo = FOG_GetSystemInfo();
     D2_ASSERT(pInfo, 0x30);
-    if (pInfo->nTotalMemory < 0x167D000)
+    if (pInfo->dwTotalPhys < 0x167D000)
     {
-        LOGMANAGER_WriteLogLine("This machine doesn't have enough physical memory (> %.2f MB) for minimal performance!", (float)pInfo->nTotalMemory / 1048576.0);
+        LOGMANAGER_WriteLogLine("This machine doesn't have enough physical memory (> %.2f MB) for minimal performance!", (float)pInfo->dwTotalPhys / 1048576.0);
         exit(-1);
     }
-    unsigned int nSize = pInfo->nTotalMemory - 0xB00000;
+    unsigned int nSize = pInfo->dwTotalPhys - 0xB00000;
     unsigned int nCacheSize = nSize * 10 / 100;
     nCacheSize = D2_MIN(D2_MAX(nCacheSize, 0x300000u), 0x500000u);
     SOUNDHDR_SetCacheMax(nCacheSize);

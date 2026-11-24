@@ -378,7 +378,6 @@
     "extern \"C\" void __cdecl CHATDLG_OnLadderSelect(); // 0x00443EF0",
     "extern \"C\" void __cdecl sub_00443F70_OnRefresh(); // 0x00443F70",
     "extern \"C\" void __cdecl CHARSEL_SubmitProfile(); // 0x00443F80",
-    "extern \"C\" void __cdecl CHATDLG_OnChannelDoesNotExist(); // 0x00447700",
     "extern \"C\" void __cdecl sub_00447730(); // 0x00447730",
     "extern \"C\" void __cdecl CHATDLG_OnShowUser(); // 0x00449330",
     "extern \"C\" char gFirstRecordBlock_007A0818[]; // 0x007A0818",
@@ -584,12 +583,9 @@
     "extern \"C\" void __cdecl COMCALLBACK_OpenCreateScreen(); // 0x004467D0",
     "extern \"C\" void __cdecl COMCALLBACK_OnActivate(); // 0x00447A90",
     "extern \"C\" char gData_0077BD84[]; // 0x0077BD84",
-    "extern \"C\" void __cdecl CHARSEL_SubmitProfile(); // 0x00443F80",
-    "extern \"C\" void __cdecl CHATDLG_OnChannelDoesNotExist(); // 0x00447700",
     "extern \"C\" void __cdecl sub_00447730(); // 0x00447730",
     "extern \"C\" char gFirstRecordBlock_007A0818[]; // 0x007A0818",
-    "extern \"C\" void __cdecl sub_004456D0(); // 0x004456D0",
-    "extern \"C\" void __cdecl CHATDLG_OnProfileClose(); // 0x0043F720"
+    "extern \"C\" void __cdecl sub_004456D0(); // 0x004456D0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Multi/Src/ChatDlg_0043C6B0.inc",
@@ -3937,20 +3933,11 @@
    "state": "included"
   },
   "Source/D2Common/DRLG/OutDesr.cpp": {
-   "bytes": 896,
-   "definitions": 4,
+   "bytes": 936,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/OutDesr.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/Unknown_0067FB90.cpp": {
-   "bytes": 40,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_0067FB90.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -143735,7 +143722,7 @@
    "cname": "gData_006F2680",
    "declared": true,
    "decorated": "?gaPresetPairs_006F2680@@3PAUD2PresetPairStrc@@A",
-   "file": "Source/D2Common/Unknown_0067FB90.cpp",
+   "file": "Source/D2Common/DRLG/OutDesr.cpp",
    "fill": 5,
    "form": "declared_owner",
    "fwd": "extern \"C\" const D2PresetPairStrc gData_006F2680[5]; // 0x006F2680",

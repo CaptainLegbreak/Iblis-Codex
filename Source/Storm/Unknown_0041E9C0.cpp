@@ -441,14 +441,15 @@ unsigned int CHuffman::Decompress(void* pOutput, unsigned int nOutputSize, D2Sto
     }
 }
 
-void CBitOutput::sub_0041D9A0_Flush()
+// build: symbol ?Flush@* 0x0041D9A0
+void CBitOutput::Flush()
 {
     while (nBitCount)
     {
-        if (f_4)
+        if (nBytesLeft)
         {
             *pOutput++ = (unsigned char)nBitBuffer;
-            f_4--;
+            nBytesLeft--;
         }
         nBitBuffer >>= 8;
         nBitCount -= nBitCount > 8 ? 8 : nBitCount;
@@ -486,7 +487,7 @@ unsigned int CHuffman::Compress(CBitOutput* pOutput, void* pvIn, int cbIn, unsig
         }
     }
     sub_0041D9E0_EncodeOne(pOutput, 0x100);
-    pOutput->sub_0041D9A0_Flush();
+    pOutput->Flush();
     return pOutput->sub_0041D940_GetSize();
 }
 
@@ -559,26 +560,26 @@ char* D2ChatStormNodeStrc::IGNORELIST_GetStringEntryKey()
 
 D2ChatStormBaseArrayAStrc::D2ChatStormBaseArrayAStrc()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
 }
 
 unsigned int D2ChatStormBaseArrayAStrc::IGNORELIST_GetStringSlotArrayCount()
 {
-    return f_4;
+    return m_count;
 }
 
 D2ChatStormBaseArrayBStrc::D2ChatStormBaseArrayBStrc()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
 }
 
 unsigned int D2ChatStormBaseArrayBStrc::IGNORELIST_GetMappingSlotArrayCount()
 {
-    return f_4;
+    return m_count;
 }
 
 void D2ChatStormListAStrc::IGNORELIST_InitStringListTerminator()

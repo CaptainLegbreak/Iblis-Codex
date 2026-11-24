@@ -293,47 +293,9 @@ void __cdecl ROSTER_SendLeaveParty(); // 0x00479FC0
 
 
 
-// 0x00479080
-int __fastcall ROSTER_GetPetLife(int nUnitId)
-{
-    for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
-    {
-        if (pPet->dwUnitId == nUnitId)
-        {
-            return pPet->nLifePercent;
-        }
-    }
-
-    return 0;
-}
-
-// 0x004790F0
-int __fastcall sub_004790F0(int nUnitId)
-{
-    for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
-    {
-        if (pPet->dwUnitId == nUnitId)
-        {
-            return pPet->nArg10;
-        }
-    }
-    return 0;
-}
 
 
-// 0x00479180
-int __fastcall ROSTER_GetPetType(int nUnitId)
-{
-    for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
-    {
-        if (pPet->dwUnitId == nUnitId)
-        {
-            return pPet->nType;
-        }
-    }
 
-    return 0;
-}
 
 // 0x004792C0
 static inline int ROSTER_HasCorpse(D2RosterUnitStrc* pRosterUnit, unsigned int dwCorpseId)

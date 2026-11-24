@@ -5400,7 +5400,7 @@
     {
      "va": "0x0041EED0",
      "length": 77,
-     "name": "sub_0041EED0_NewItem"
+     "name": "NewItem"
     },
     {
      "va": "0x006CA8C0",
@@ -6243,12 +6243,12 @@
     {
      "va": "0x00420DD0",
      "length": 38,
-     "name": "sub_00420DD0_Push"
+     "name": "Push"
     },
     {
      "va": "0x00420E00",
      "length": 16,
-     "name": "sub_00420E00_Drop"
+     "name": "Drop"
     },
     {
      "va": "0x00420FD0",
@@ -6629,7 +6629,7 @@
     {
      "va": "0x00420D80",
      "length": 11,
-     "name": "?sub_00420D80_Clear@D2Strc00420D80@@QAEXXZ"
+     "name": "?Clear@D2Strc00420D80@@QAEXXZ"
     },
     {
      "va": "0x00420D90",
@@ -6639,7 +6639,7 @@
     {
      "va": "0x00420DA0",
      "length": 7,
-     "name": "?sub_00420DA0_GetSpan@D2Strc00420DA0@@QAEHXZ"
+     "name": "?GetSpan@D2Strc00420DA0@@QAEHXZ"
     }
    ]
   },
@@ -6685,7 +6685,7 @@
     {
      "va": "0x0041D9A0",
      "length": 57,
-     "name": "?sub_0041D9A0_Flush@CBitOutput@@QAEXXZ"
+     "name": "?Flush@CBitOutput@@QAEXXZ"
     },
     {
      "va": "0x0041D9E0",
@@ -9393,11 +9393,6 @@
      "name": "?CHARSEL_CancelGameCreate@@YAHXZ"
     },
     {
-     "va": "0x00443F80",
-     "length": 160,
-     "name": "?CHARSEL_SubmitProfile@@YGHH@Z"
-    },
-    {
      "va": "0x00446890",
      "length": 88,
      "name": "?CHARSEL_SendChatLine@@YGHH@Z"
@@ -9840,7 +9835,7 @@
     {
      "va": "0x0044BDF0",
      "length": 25,
-     "name": "sub_0044BDF0_Set"
+     "name": "Set"
     },
     {
      "va": "0x0044BE10",
@@ -10530,7 +10525,7 @@
     {
      "va": "0x0044DFB0",
      "length": 49,
-     "name": "?sub_0044DFB0_GetRemaining@D2TickTimerStrc@@QAEIXZ"
+     "name": "?GetRemaining@D2TickTimerStrc@@QAEIXZ"
     },
     {
      "va": "0x0044DFF0",
@@ -10813,11 +10808,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x004453B0",
-     "length": 379,
-     "name": "?COMCALLBACK_BuildCreateGamePanel@@YAXXZ"
-    },
-    {
      "va": "0x00445FF0",
      "length": 1934,
      "name": "?COMCALLBACK_BuildCreateScreen@@YAXXZ"
@@ -10923,6 +10913,11 @@
      "va": "0x00447560",
      "length": 395,
      "name": "COMCALLBACK_SplitName"
+    },
+    {
+     "va": "0x00447700",
+     "length": 37,
+     "name": "CHATDLG_OnChannelDoesNotExist"
     },
     {
      "va": "0x00447740",
@@ -11920,6 +11915,11 @@
      "name": "?CHARSEL_GetConnectStatus@@YAHXZ"
     },
     {
+     "va": "0x0043DC50",
+     "length": 135,
+     "name": "?CHATDLG_CreateChatCellFile@@YAXPAUD2LaunchCharInfoStrc@@@Z"
+    },
+    {
      "va": "0x0043DCE0",
      "length": 28,
      "name": "?sub_0043DCE0_FreeChatCellFile@@YAXXZ"
@@ -12032,6 +12032,10 @@
      "va": "0x0043E780",
      "length": 217,
      "name": "?CHATDLG_NotifyCommand@@YAHPBD0@Z"
+    },
+    {
+     "va": "0x0043E860",
+     "length": 155
     },
     {
      "va": "0x0043E900",
@@ -12193,6 +12197,11 @@
      "name": "?CHATDLG_OnToggleButton@@YGHH@Z"
     },
     {
+     "va": "0x0043F720",
+     "length": 13,
+     "name": "?CHATDLG_OnProfileClose@@YGHH@Z"
+    },
+    {
      "va": "0x0043F730",
      "length": 196,
      "name": "?COMCALLBACK_UpdateNameListText@@YAXXZ"
@@ -12302,6 +12311,10 @@
      "name": "?CHATDLG_OnResetCallback@@YGHH@Z"
     },
     {
+     "va": "0x004403F0",
+     "length": 766
+    },
+    {
      "va": "0x004406F0",
      "length": 437,
      "name": "?CHATDLG_CreateClassScreen@@YAXXZ"
@@ -12395,9 +12408,19 @@
      "name": "?sub_004414C0_UpdateEnable@@YAXXZ"
     },
     {
+     "va": "0x00441500",
+     "length": 1409,
+     "name": "?JoinOrCreateGame@@YGHH@Z"
+    },
+    {
      "va": "0x00441A90",
      "length": 223,
      "name": "?CHATDLG_ConnectRealm@@YAHXZ"
+    },
+    {
+     "va": "0x00441B70",
+     "length": 1489,
+     "name": "?CHATDLG_RunChat@@YIHPAUD2LaunchCharInfoStrc@@@Z"
     },
     {
      "va": "0x00442150",
@@ -12427,6 +12450,11 @@
      "va": "0x004428B0",
      "length": 18,
      "name": "?CHATDLG_SendChat@@YGHH@Z"
+    },
+    {
+     "va": "0x004428D0",
+     "length": 207,
+     "name": "?CHATDLG_SendChatText@@YIHPADH@Z"
     },
     {
      "va": "0x004429A0",
@@ -12637,6 +12665,11 @@
      "name": "?sub_00443F70_OnRefresh@@YGHH@Z"
     },
     {
+     "va": "0x00443F80",
+     "length": 160,
+     "name": "?CHARSEL_SubmitProfile@@YGHH@Z"
+    },
+    {
      "va": "0x00444020",
      "length": 3579
     },
@@ -12668,6 +12701,11 @@
      "va": "0x00445300",
      "length": 165,
      "name": "COMCALLBACK_LoadLevelRestriction"
+    },
+    {
+     "va": "0x004453B0",
+     "length": 379,
+     "name": "?COMCALLBACK_BuildCreateGamePanel@@YAXXZ"
     },
     {
      "va": "0x00445530",
@@ -12729,64 +12767,6 @@
      "length": 63,
      "name": "CHATDLG_StartThread"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ChatDlg_00441B70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043DC50",
-     "length": 135,
-     "name": "?CHATDLG_CreateChatCellFile@@YAXPAUD2LaunchCharInfoStrc@@@Z"
-    },
-    {
-     "va": "0x0043E860",
-     "length": 155
-    },
-    {
-     "va": "0x0043F720",
-     "length": 13,
-     "name": "?CHATDLG_OnProfileClose@@YGHH@Z"
-    },
-    {
-     "va": "0x004403F0",
-     "length": 766
-    },
-    {
-     "va": "0x00441500",
-     "length": 1409,
-     "name": "?JoinOrCreateGame@@YGHH@Z"
-    },
-    {
-     "va": "0x00441B70",
-     "length": 1489,
-     "name": "?CHATDLG_RunChat@@YIHPAUD2LaunchCharInfoStrc@@@Z"
-    },
-    {
-     "va": "0x004428D0",
-     "length": 207,
-     "name": "?CHATDLG_SendChatText@@YIHPADH@Z"
-    },
-    {
-     "va": "0x00447700",
-     "length": 37,
-     "name": "CHATDLG_OnChannelDoesNotExist"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -13733,11 +13713,6 @@
      "length": 235
     },
     {
-     "va": "0x00479010",
-     "length": 111,
-     "name": "?VIEW_UpdatePetLife@@YIXHHG@Z"
-    },
-    {
      "va": "0x0047E860",
      "length": 66,
      "name": "VIEW_DrawCelFrame"
@@ -13907,11 +13882,6 @@
      "va": "0x00478010",
      "length": 39,
      "name": "sub_00478010"
-    },
-    {
-     "va": "0x004790B0",
-     "length": 64,
-     "name": "INV_FindNodeValues"
     },
     {
      "va": "0x0047EC40",
@@ -17999,11 +17969,6 @@
      "name": "GFX_BuildLerpRowTable"
     },
     {
-     "va": "0x00478FA0",
-     "length": 108,
-     "name": "GFX_UpdatePetFlags"
-    },
-    {
      "va": "0x004795F0",
      "length": 187,
      "name": "GFX_SortRosterByName"
@@ -18113,6 +18078,76 @@
      "va": "0x00478E40",
      "length": 35,
      "name": "?ROSTERPETS_FindEntry@@YIPAUD2ClientEntryStrc@@H@Z"
+    },
+    {
+     "va": "0x00478E70",
+     "length": 101,
+     "name": "?sub_00478E70_IsPetFriendly@@YIHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x00478EE0",
+     "length": 54,
+     "name": "?sub_00478EE0_CountPets@@YIHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x00478F20",
+     "length": 74,
+     "name": "?sub_00478F20_FindPetIdByOwner@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x00478F70",
+     "length": 42,
+     "name": "?sub_00478F70_HasPets@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00478FA0",
+     "length": 108,
+     "name": "GFX_UpdatePetFlags"
+    },
+    {
+     "va": "0x00479010",
+     "length": 111,
+     "name": "?VIEW_UpdatePetLife@@YIXHHG@Z"
+    },
+    {
+     "va": "0x00479080",
+     "length": 35,
+     "name": "?ROSTER_GetPetLife@@YIHH@Z"
+    },
+    {
+     "va": "0x004790B0",
+     "length": 64,
+     "name": "INV_FindNodeValues"
+    },
+    {
+     "va": "0x004790F0",
+     "length": 35,
+     "name": "?sub_004790F0@@YIHH@Z"
+    },
+    {
+     "va": "0x00479120",
+     "length": 34,
+     "name": "?sub_00479120_GetHirelingClassId@@YIHH@Z"
+    },
+    {
+     "va": "0x00479150",
+     "length": 36,
+     "name": "?sub_00479150_FindRosterIndex@@YIHH@Z"
+    },
+    {
+     "va": "0x00479180",
+     "length": 35,
+     "name": "?ROSTER_GetPetType@@YIHH@Z"
+    },
+    {
+     "va": "0x004791B0",
+     "length": 113,
+     "name": "?sub_004791B0_IsOwnedByPlayer@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00479230",
+     "length": 131,
+     "name": "WARDENCLIENT_UpdateOwnerPetFlags"
     },
     {
      "va": "0x004890B0",
@@ -20218,12 +20253,12 @@
     {
      "va": "0x004DDE80",
      "length": 61,
-     "name": "sub_004DDE80_ExtendBounds"
+     "name": "ExtendBounds"
     },
     {
      "va": "0x004E0700",
      "length": 41,
-     "name": "sub_004E0700_GetEntry"
+     "name": "GetEntry"
     },
     {
      "va": "0x004E0A40",
@@ -21595,65 +21630,9 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00478D10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00478E70",
-     "length": 101,
-     "name": "?sub_00478E70_IsPetFriendly@@YIHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x00478EE0",
-     "length": 54,
-     "name": "?sub_00478EE0_CountPets@@YIHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x00478F20",
-     "length": 74,
-     "name": "?sub_00478F20_FindPetIdByOwner@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x00478F70",
-     "length": 42,
-     "name": "?sub_00478F70_HasPets@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00479120",
-     "length": 34,
-     "name": "?sub_00479120_GetHirelingClassId@@YIHH@Z"
-    },
-    {
-     "va": "0x00479150",
-     "length": 36,
-     "name": "?sub_00479150_FindRosterIndex@@YIHH@Z"
-    },
-    {
-     "va": "0x004791B0",
-     "length": 113,
-     "name": "?sub_004791B0_IsOwnedByPlayer@@YIHPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/GAME/Roster.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00479080",
-     "length": 35,
-     "name": "?ROSTER_GetPetLife@@YIHH@Z"
-    },
-    {
-     "va": "0x004790F0",
-     "length": 35,
-     "name": "?sub_004790F0@@YIHH@Z"
-    },
-    {
-     "va": "0x00479180",
-     "length": 35,
-     "name": "?ROSTER_GetPetType@@YIHH@Z"
-    },
     {
      "va": "0x004792C0",
      "length": 27,
@@ -22073,11 +22052,6 @@
     "/GS-"
    ],
    "functions": [
-    {
-     "va": "0x00479230",
-     "length": 131,
-     "name": "WARDENCLIENT_UpdateOwnerPetFlags"
-    },
     {
      "va": "0x0047F8B0",
      "length": 11,
@@ -25815,7 +25789,7 @@
     {
      "va": "0x004B15F0",
      "length": 46,
-     "name": "?sub_004B15F0@Unicode@@QBE?AU1@XZ"
+     "name": "?toLower@Unicode@@QBE?AU1@XZ"
     },
     {
      "va": "0x004B17D0",
@@ -31213,17 +31187,17 @@
     {
      "va": "0x004DE630",
      "length": 132,
-     "name": "sub_004DE630_DrawTileAt"
+     "name": "DrawTileAt"
     },
     {
      "va": "0x004DE6C0",
      "length": 110,
-     "name": "sub_004DE6C0_DrawTileTriple"
+     "name": "DrawTileTriple"
     },
     {
      "va": "0x004DE730",
      "length": 819,
-     "name": "?sub_004DE730_UpdateView@D2FloorTileViewStrc@@QAEXPAX@Z"
+     "name": "?UpdateView@D2FloorTileViewStrc@@QAEXPAX@Z"
     },
     {
      "va": "0x004DED10",
@@ -38677,7 +38651,7 @@
     {
      "va": "0x00518BA0",
      "length": 22,
-     "name": "sub_00518BA0_LogWrite"
+     "name": "Write"
     },
     {
      "va": "0x00518C30",
@@ -41283,7 +41257,7 @@
     {
      "va": "0x00527090",
      "length": 258,
-     "name": "sub_00527090_ContainsChar"
+     "name": "ContainsChar"
     }
    ]
   },
@@ -41709,7 +41683,7 @@
     {
      "va": "0x00528660",
      "length": 98,
-     "name": "?sub_00528660_MakeVerifier@D2BigPairStrc@@QAEXPBD0PAE1@Z"
+     "name": "?MakeVerifier@D2BigPairStrc@@QAEXPBD0PAE1@Z"
     },
     {
      "va": "0x005289F0",
@@ -65148,7 +65122,7 @@
     {
      "va": "0x0060DD20",
      "length": 33,
-     "name": "sub_0060DD20_EqualsNoCase"
+     "name": "EqualsNoCase"
     },
     {
      "va": "0x0060DD50",
@@ -77774,13 +77748,7 @@
     {
      "va": "0x0067E600",
      "length": 88
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0067E660.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0067E660",
      "length": 62,
@@ -77944,31 +77912,6 @@
      "name": "?DRLGOUTWILD_TestSpawnRiver@@YAHHPAUD2DrlgLevelStrc@@@Z"
     },
     {
-     "va": "0x006801A0",
-     "length": 76,
-     "name": "?DRLGOUTWILD_SpawnCliffCaves@@YGHPAUD2DrlgLevelStrc@@HH@Z"
-    },
-    {
-     "va": "0x006801F0",
-     "length": 16,
-     "name": "?DRLGOUTDESR_GetCliffPresetId@@YIHPAUD2DrlgLevelStrc@@@Z"
-    },
-    {
-     "va": "0x00680200",
-     "length": 451
-    },
-    {
-     "va": "0x006803D0",
-     "length": 269,
-     "name": "?DRLGOUTWILD_SpawnTownTransitionsAndCaves@@YAXPAUD2DrlgLevelStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0067FB90.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x0067FCD0",
      "length": 78,
      "name": "?sub_0067FCD0_GetPresetPairValue@@YGHHHI@Z"
@@ -77986,16 +77929,29 @@
      "va": "0x0067FFB0",
      "length": 61,
      "name": "?sub_0067FFB0_IsRectAdjacent@@YAHPAUD2DrlgOutRectStrc@@0@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0067FFF0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x0067FFF0",
      "length": 71
+    },
+    {
+     "va": "0x006801A0",
+     "length": 76,
+     "name": "?DRLGOUTWILD_SpawnCliffCaves@@YGHPAUD2DrlgLevelStrc@@HH@Z"
+    },
+    {
+     "va": "0x006801F0",
+     "length": 16,
+     "name": "?DRLGOUTDESR_GetCliffPresetId@@YIHPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
+     "va": "0x00680200",
+     "length": 451
+    },
+    {
+     "va": "0x006803D0",
+     "length": 269,
+     "name": "?DRLGOUTWILD_SpawnTownTransitionsAndCaves@@YAXPAUD2DrlgLevelStrc@@@Z"
     }
    ]
   },

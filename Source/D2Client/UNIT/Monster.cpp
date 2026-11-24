@@ -3297,7 +3297,7 @@ void __fastcall MONSTER_UpdateMonsterClient(D2UnitStrc* pUnit)
 }
 
 // 0x004B15F0
-Unicode Unicode::sub_004B15F0() const
+Unicode Unicode::toLower() const
 {
 // build: symbol ?gaCaseTable@* 0x00730778
     return Unicode(wChar < CASE_BOUND ? gaCaseTable[wChar] : wChar);

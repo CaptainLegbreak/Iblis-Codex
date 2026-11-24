@@ -409,7 +409,7 @@ struct D2TickValueStrc
     unsigned int dwTickCount;
     int nValue;
 
-    void sub_0044BDF0_Set(int nValue);
+    void Set(int nValue); // 0x0044BDF0
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -648,7 +648,7 @@ struct D2TickTimerStrc
     unsigned int dwStart;
     unsigned int dwDuration;
 
-    unsigned int sub_0044DFB0_GetRemaining();
+    unsigned int GetRemaining(); // 0x0044DFB0
 };
 
 struct sub_0040F7D0
@@ -2241,7 +2241,7 @@ sub_0044BDE0::sub_0044BDE0()
 }
 
 // 0x0044BDF0
-void D2TickValueStrc::sub_0044BDF0_Set(int nValue)
+void D2TickValueStrc::Set(int nValue)
 {
     dwTickCount = GetTickCount();
     this->nValue = nValue;
@@ -3507,7 +3507,7 @@ void D2StormListAStrc::sub_0044DF90_CopyLinkOffset(const D2StormListAStrc* pSour
 }
 
 // 0x0044DFB0
-unsigned int D2TickTimerStrc::sub_0044DFB0_GetRemaining()
+unsigned int D2TickTimerStrc::GetRemaining()
 {
     unsigned int dwNow = GetTickCount();
     if (dwNow >= dwStart + dwDuration)
@@ -3857,26 +3857,26 @@ char* D2ChatStormNodeStrc::IGNORELIST_GetStringEntryKey()
 
 D2ChatStormBaseArrayAStrc::D2ChatStormBaseArrayAStrc()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
 }
 
 unsigned int D2ChatStormBaseArrayAStrc::IGNORELIST_GetStringSlotArrayCount()
 {
-    return f_4;
+    return m_count;
 }
 
 D2ChatStormBaseArrayBStrc::D2ChatStormBaseArrayBStrc()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
 }
 
 unsigned int D2ChatStormBaseArrayBStrc::IGNORELIST_GetMappingSlotArrayCount()
 {
-    return f_4;
+    return m_count;
 }
 
 void D2ChatStormListAStrc::IGNORELIST_InitStringListTerminator()

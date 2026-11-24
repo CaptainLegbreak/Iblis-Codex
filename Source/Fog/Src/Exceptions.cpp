@@ -1037,7 +1037,7 @@ static void __stdcall EXCEPTIONS_GetLogicalAddress(char* szModule, unsigned long
     }
 
     D2PeDosHeaderStrc* pDosHeader = (D2PeDosHeaderStrc*)hModule;
-    if (!pDosHeader || pDosHeader->f_0 != 0x5A4D || !pDosHeader->nNtHeadersOffset)
+    if (!pDosHeader || pDosHeader->wMagic != 0x5A4D || !pDosHeader->nNtHeadersOffset)
     {
         return;
     }

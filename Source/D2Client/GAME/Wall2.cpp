@@ -801,7 +801,7 @@ struct D2GridLightStrc
     int nMode;
     D2GridOwnerStrc* pOwner;
 
-    void __thiscall sub_004DE410_ApplyUnitLight(D2GridUnitStrc* pUnit, int nArg, int nX, int nY, int nSubX, int nSubY);
+    void __thiscall ApplyUnitLight(D2GridUnitStrc* pUnit, int nArg, int nX, int nY, int nSubX, int nSubY); // 0x004DE410
     void __thiscall sub_004DDE80_UpdateBounds(D2GridUnitStrc* pUnit, int nSubX, int nSubY);     // 0x004DDE80
 };
 
@@ -846,9 +846,9 @@ struct D2FloorTileViewStrc
     int nOffsetX;
     int nOffsetY;
     void __thiscall sub_004DE410_DrawFloorTile(D2TileStrc* pTile, int nArg, int nScreenX, int nScreenY, int nX, int nY);
-    void __thiscall sub_004DE630_DrawTileAt(int nX, int nY);
-    void __thiscall sub_004DE6C0_DrawTileTriple(int nX, int nY, int nStepX, int nStepY);
-    void __thiscall sub_004DE730_UpdateView(void* pArgument);
+    void __thiscall DrawTileAt(int nX, int nY); // 0x004DE630
+    void __thiscall DrawTileTriple(int nX, int nY, int nStepX, int nStepY); // 0x004DE6C0
+    void __thiscall UpdateView(void* pArgument); // 0x004DE730
 };
 
 int __cdecl sub_0044DB00(); // 0x0044DB00
@@ -1050,7 +1050,7 @@ void __stdcall sub_004DE260(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ
 }
 
 // 0x004DE410
-void __thiscall D2GridLightStrc::sub_004DE410_ApplyUnitLight(D2GridUnitStrc* pUnit, int nArg, int nX, int nY, int nSubX, int nSubY)
+void __thiscall D2GridLightStrc::ApplyUnitLight(D2GridUnitStrc* pUnit, int nArg, int nX, int nY, int nSubX, int nSubY)
 {
     if (pUnit->dwFlags & 0x408)
     {
@@ -1136,7 +1136,7 @@ D2TileStrc* __stdcall DUNGEON_GetTileDataFromAct(void* pAct); // 0x00619720
 void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 
 // 0x004DE630
-void __thiscall D2FloorTileViewStrc::sub_004DE630_DrawTileAt(int nX, int nY)
+void __thiscall D2FloorTileViewStrc::DrawTileAt(int nX, int nY)
 {
     int nScreenX = nX;
     int nScreenY = nY + 5;
@@ -1153,17 +1153,17 @@ void __thiscall D2FloorTileViewStrc::sub_004DE630_DrawTileAt(int nX, int nY)
 }
 
 // 0x004DE6C0
-void __thiscall D2FloorTileViewStrc::sub_004DE6C0_DrawTileTriple(int nX, int nY, int nStepX, int nStepY)
+void __thiscall D2FloorTileViewStrc::DrawTileTriple(int nX, int nY, int nStepX, int nStepY)
 {
     const int nBaseX = nX / 5 * 5;
     const int nBaseY = nY / 5 * 5;
-    sub_004DE630_DrawTileAt(nBaseX, nBaseY);
-    sub_004DE630_DrawTileAt(nBaseX + nStepX, nBaseY + nStepY);
-    sub_004DE630_DrawTileAt(nBaseX + 2 * nStepX, nBaseY + 2 * nStepY);
+    DrawTileAt(nBaseX, nBaseY);
+    DrawTileAt(nBaseX + nStepX, nBaseY + nStepY);
+    DrawTileAt(nBaseX + 2 * nStepX, nBaseY + 2 * nStepY);
 }
 
 // 0x004DE730
-void __thiscall D2FloorTileViewStrc::sub_004DE730_UpdateView(void* pArgument)
+void __thiscall D2FloorTileViewStrc::UpdateView(void* pArgument)
 {
     D2ActiveRoomStrc** ppRooms;
     int nRooms;
@@ -1249,13 +1249,13 @@ void __thiscall D2FloorTileViewStrc::sub_004DE730_UpdateView(void* pArgument)
     const int nX = CLIENTS_GetUnitX_FloorView(pUnit);
     const int nY = CLIENTS_GetUnitY_FloorView(pUnit);
     if (nX - nMinX < nRangeA)
-        sub_004DE6C0_DrawTileTriple(nMinX - 5, nY, 0, -5);
+        DrawTileTriple(nMinX - 5, nY, 0, -5);
     if (nMaxX - nX < nRangeB)
-        sub_004DE6C0_DrawTileTriple(nMaxX + 5, nY, 0, 5);
+        DrawTileTriple(nMaxX + 5, nY, 0, 5);
     if (nY - nMinY < nRangeA)
-        sub_004DE6C0_DrawTileTriple(nX, nMinY - 5, -5, 0);
+        DrawTileTriple(nX, nMinY - 5, -5, 0);
     if (nMaxY - nY < nRangeB)
-        sub_004DE6C0_DrawTileTriple(nX, nMaxY + 5, 5, 0);
+        DrawTileTriple(nX, nMaxY + 5, 5, 0);
 }
 
 struct D2SlotObjectStrc;
@@ -1285,7 +1285,7 @@ unsigned char gnRoomColorRed; // 0x007C8A6F
 // 0x004DED10
 void __fastcall sub_004DED10(void* pArg)
 {
-    gObj_007C8A28.sub_004DE730_UpdateView(pArg);
+    gObj_007C8A28.UpdateView(pArg);
 }
 
 // 0x004DED20

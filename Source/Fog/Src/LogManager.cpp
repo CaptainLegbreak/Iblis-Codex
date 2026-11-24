@@ -79,48 +79,6 @@ struct D2CommonStormHashTableAStrc;
 
 struct sub_0040F7D0;
 
-struct sub_0044DDD0;
-
-struct sub_0044DE90;
-
-struct sub_0044ECC0;
-
-struct sub_0044ED50;
-
-struct sub_00601BF0;
-
-struct sub_00601C70;
-
-struct sub_00601D60;
-
-struct sub_00601F20;
-
-struct sub_00601F60;
-
-struct sub_006020D0;
-
-struct sub_00602140;
-
-struct sub_006024A0;
-
-struct sub_00602760;
-
-struct sub_0044BDE0;
-
-struct sub_0044ED40;
-
-struct sub_0044ED90;
-
-struct sub_00601F10;
-
-struct sub_00602130;
-
-struct sub_00602180;
-
-struct sub_00602420;
-
-struct sub_00602750;
-
 struct D2SystemTimeStrc;
 
 struct D2FileTimeStrc;
@@ -312,9 +270,9 @@ struct D2ChatStormNodeStrc
 
 struct D2ChatStormBaseArrayAStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    void* f_8;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    void* m_data;
 
     D2ChatStormBaseArrayAStrc();
     unsigned int IGNORELIST_GetStringSlotArrayCount();
@@ -322,9 +280,9 @@ struct D2ChatStormBaseArrayAStrc
 
 struct D2ChatStormBaseArrayBStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    void* f_8;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    void* m_data;
 
     D2ChatStormBaseArrayBStrc();
     unsigned int IGNORELIST_GetMappingSlotArrayCount();
@@ -489,132 +447,6 @@ struct sub_0040F7D0
 {
     D2StormLinkStrc tLink;
     ~sub_0040F7D0();
-};
-
-struct sub_0044DDD0
-{
-    D2StormLinkStrc tLink;
-    ~sub_0044DDD0();
-};
-
-struct sub_0044DE90
-{
-    D2StormLinkStrc tLink;
-    ~sub_0044DE90();
-};
-
-struct sub_0044ECC0
-{
-    D2StormLinkStrc tLink;
-    ~sub_0044ECC0();
-};
-
-struct sub_0044ED50
-{
-    D2StormLinkStrc tLink;
-    ~sub_0044ED50();
-};
-
-struct sub_00601BF0
-{
-    D2StormLinkStrc tLink;
-    ~sub_00601BF0();
-};
-
-struct sub_00601C70
-{
-    D2StormLinkStrc tLink;
-    ~sub_00601C70();
-};
-
-struct sub_00601D60
-{
-    D2StormLinkStrc tLink;
-    ~sub_00601D60();
-};
-
-struct sub_00601F20
-{
-    D2StormLinkStrc tLink;
-    ~sub_00601F20();
-};
-
-struct sub_00601F60
-{
-    D2StormLinkStrc tLink;
-    ~sub_00601F60();
-};
-
-struct sub_006020D0
-{
-    D2StormLinkStrc tLink;
-    ~sub_006020D0();
-};
-
-struct sub_00602140
-{
-    D2StormLinkStrc tLink;
-    ~sub_00602140();
-};
-
-struct sub_006024A0
-{
-    D2StormLinkStrc tLink;
-    ~sub_006024A0();
-};
-
-struct sub_00602760
-{
-    D2StormLinkStrc tLink;
-    ~sub_00602760();
-};
-
-struct sub_0044BDE0
-{
-    D2StormLinkStrc tLink;
-    sub_0044BDE0();
-};
-
-struct sub_0044ED40
-{
-    D2StormLinkStrc tLink;
-    sub_0044ED40();
-};
-
-struct sub_0044ED90
-{
-    D2StormLinkStrc tLink;
-    sub_0044ED90();
-};
-
-struct sub_00601F10
-{
-    D2StormLinkStrc tLink;
-    sub_00601F10();
-};
-
-struct sub_00602130
-{
-    D2StormLinkStrc tLink;
-    sub_00602130();
-};
-
-struct sub_00602180
-{
-    D2StormLinkStrc tLink;
-    sub_00602180();
-};
-
-struct sub_00602420
-{
-    D2StormLinkStrc tLink;
-    sub_00602420();
-};
-
-struct sub_00602750
-{
-    D2StormLinkStrc tLink;
-    sub_00602750();
 };
 
 struct D2LogMsgLinkStrc
@@ -1052,26 +884,26 @@ char* D2ChatStormNodeStrc::IGNORELIST_GetStringEntryKey()
 
 D2ChatStormBaseArrayAStrc::D2ChatStormBaseArrayAStrc()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
 }
 
 unsigned int D2ChatStormBaseArrayAStrc::IGNORELIST_GetStringSlotArrayCount()
 {
-    return f_4;
+    return m_count;
 }
 
 D2ChatStormBaseArrayBStrc::D2ChatStormBaseArrayBStrc()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
 }
 
 unsigned int D2ChatStormBaseArrayBStrc::IGNORELIST_GetMappingSlotArrayCount()
 {
-    return f_4;
+    return m_count;
 }
 
 void D2ChatStormListAStrc::IGNORELIST_InitStringListTerminator()
@@ -1297,119 +1129,6 @@ void __cdecl LOGMANAGER_ShutdownLogSystem()
     gbLogInitialized = 0;
     gbLogThreadStop = 0;
     LeaveCriticalSection(&gtLogQueueLock);
-}
-
-sub_0044BDE0::sub_0044BDE0()
-{
-    tLink.m_prevlink = 0;
-    tLink.m_next = 0;
-}
-
-sub_0044DDD0::~sub_0044DDD0()
-{
-    tLink.Unlink();
-}
-
-sub_0044DE90::~sub_0044DE90()
-{
-    tLink.Unlink();
-}
-
-sub_0044ECC0::~sub_0044ECC0()
-{
-    tLink.Unlink();
-}
-
-sub_0044ED40::sub_0044ED40()
-{
-    tLink.m_prevlink = 0;
-    tLink.m_next = 0;
-}
-
-sub_0044ED50::~sub_0044ED50()
-{
-    tLink.Unlink();
-}
-
-sub_0044ED90::sub_0044ED90()
-{
-    tLink.m_prevlink = 0;
-    tLink.m_next = 0;
-}
-
-sub_00601BF0::~sub_00601BF0()
-{
-    tLink.Unlink();
-}
-
-sub_00601C70::~sub_00601C70()
-{
-    tLink.Unlink();
-}
-
-sub_00601D60::~sub_00601D60()
-{
-    tLink.Unlink();
-}
-
-sub_00601F10::sub_00601F10()
-{
-    tLink.m_prevlink = 0;
-    tLink.m_next = 0;
-}
-
-sub_00601F20::~sub_00601F20()
-{
-    tLink.Unlink();
-}
-
-sub_00601F60::~sub_00601F60()
-{
-    tLink.Unlink();
-}
-
-sub_006020D0::~sub_006020D0()
-{
-    tLink.Unlink();
-}
-
-sub_00602130::sub_00602130()
-{
-    tLink.m_prevlink = 0;
-    tLink.m_next = 0;
-}
-
-sub_00602140::~sub_00602140()
-{
-    tLink.Unlink();
-}
-
-sub_00602180::sub_00602180()
-{
-    tLink.m_prevlink = 0;
-    tLink.m_next = 0;
-}
-
-sub_00602420::sub_00602420()
-{
-    tLink.m_prevlink = 0;
-    tLink.m_next = 0;
-}
-
-sub_006024A0::~sub_006024A0()
-{
-    tLink.Unlink();
-}
-
-sub_00602750::sub_00602750()
-{
-    tLink.m_prevlink = 0;
-    tLink.m_next = 0;
-}
-
-sub_00602760::~sub_00602760()
-{
-    tLink.Unlink();
 }
 
 // 0x00410040

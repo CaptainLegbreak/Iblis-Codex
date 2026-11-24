@@ -1,23 +1,13 @@
 #include "D2LevelIds.h"
-
 #include "D2DrlgTiles.h"
-
 #include "D2TxtItems.h"
-
 #include "D2DrlgMaps.h"
-
 #include "D2DrlgRooms.h"
-
 #include "D2ItemModes.h"
-
 #include "D2Structs.h"
-
 #include "D2LevelTxt.h"
-
 #include "D2Drlg.h"
-
 #include "D2Common.h"
-
 #include "D2Path.h"
 
 struct D2DrlgStrc;
@@ -113,6 +103,56 @@ static int DRLGOUTWILD_TestSpawnRiver(int nX, D2DrlgLevelStrc* pLevel);
 static int __stdcall DRLGOUTWILD_SpawnCliffCaves(D2DrlgLevelStrc* pLevel, int nX, int nY);
 
 void __stdcall DRLGOUTDESR_SpawnRiverAndCliffCaves(D2DrlgLevelStrc* pLevel); // 0x00680200
+
+struct D2PresetPairStrc;
+
+struct D2PresetPairStrc
+{
+    int nFirst;
+    int nSecond;
+};
+
+extern D2PresetPairStrc gaPresetPairs_006F2680[]; // 0x006F2680
+
+void __stdcall sub_M127_EmitSink(int nValue);
+
+extern D2OutdoorColumnFilesStrc gaPresetPairs[]; // 0x006F2680
+
+typedef int BOOL;
+
+#define M303_OFFSET_CHECK(name, type, field, offset) typedef char name[((unsigned int)&((type*)0)->field == (offset)) ? 1 : -1]
+
+M303_OFFSET_CHECK(M303_check_pOutdoors, D2DrlgLevelStrc, pOutdoors, 0x14);
+
+M303_OFFSET_CHECK(M303_check_pLevelCoords, D2DrlgLevelStrc, pLevelCoords, 0x1C);
+
+M303_OFFSET_CHECK(M303_check_pDrlg, D2DrlgLevelStrc, pDrlg, 0x1B4);
+
+M303_OFFSET_CHECK(M303_check_pSeed, D2DrlgLevelStrc, pSeed, 0x1C4);
+
+M303_OFFSET_CHECK(M303_check_nLevelId, D2DrlgLevelStrc, eLevelId, 0x1D0);
+
+M303_OFFSET_CHECK(M303_check_nGridWidth, D2DrlgOutdoorInfoStrc, nGridWidth, 0x5C);
+
+M303_OFFSET_CHECK(M303_check_nGridHeight, D2DrlgOutdoorInfoStrc, nGridHeight, 0x60);
+
+M303_OFFSET_CHECK(M303_check_pVertex, D2DrlgOutdoorInfoStrc, pVertex, 0x64);
+
+M303_OFFSET_CHECK(M303_check_nDirection, D2DrlgVertexStrc, nDirection, 0x08);
+
+M303_OFFSET_CHECK(M303_check_nFlags, D2DrlgVertexStrc, dwFlags, 0x0C);
+
+M303_OFFSET_CHECK(M303_check_pNext, D2DrlgVertexStrc, pNext, 0x10);
+
+M303_OFFSET_CHECK(M303_check_pBounds, D2DrlgOutRectStrc, pBounds, 0x10);
+
+int __fastcall DRLGOUTDOORS_SpawnRandomOutdoorDS1(D2DrlgLevelStrc* pLevel, int nLvlPrestId, int nRand);
+
+void __fastcall DRLGOUTDOORS_SpawnAct1DirtPaths(D2DrlgLevelStrc* pLevel);                                   // 0x00681420
+
+static inline int sub_0067FFB0_IsRectAdjacent(D2DrlgOutRectStrc* pRect, D2DrlgOutRectStrc* pOther);
+
+static void DRLGOUTWILD_SpawnSpecialPresets(D2DrlgLevelStrc* pLevel); // 0x00680580
 
 static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
 {
@@ -426,6 +466,160 @@ static int DRLGOUTWILD_TestSpawnRiver(int nX, D2DrlgLevelStrc* pLevel)
     return 1;
 }
 
+// 0x0067FCD0
+static inline int __stdcall sub_0067FCD0_GetPresetPairValue(int bFirst, int nIndex, unsigned int nFlags)
+{
+    if (nIndex)
+    {
+        if (nIndex == 7 && (nFlags & 0xF0000) == 0x30000)
+        {
+            return nIndex - 4;
+        }
+        if (bFirst)
+        {
+            return gaPresetPairs_006F2680[nIndex].nFirst;
+        }
+        return gaPresetPairs_006F2680[nIndex].nSecond;
+    }
+    return (nFlags & 0x100) ? 0 : 3;
+}
+
+// 0x0067FD20
+static void __stdcall sub_0067FD20_PlacePair(int nColumn, D2DrlgLevelStrc* pLevel)
+{
+    D2DrlgOutdoorInfoStrc* pOutdoor = pLevel->pOutdoors;
+    const int bBridge = pOutdoor->dwFlags & 4;
+    const int nRowRange = pOutdoor->nGridHeight - 2;
+    const int nRand = SEED_RollLimitedRandomNumber_Inline(&pLevel->pSeed, nRowRange);
+    for (int i = 0; i < nRowRange; ++i)
+    {
+        const int nY = (nRand + i) % nRowRange + 1;
+        if (bBridge)
+        {
+            if (!sub_00674200_IsValid(pLevel, nColumn - 1, nY))
+                continue;
+        }
+        else
+        {
+            if (!sub_00674200_IsValid(pLevel, nColumn - 1, nY))
+                continue;
+            if (!sub_00674200_IsValid(pLevel, nColumn + 2, nY))
+                continue;
+        }
+        if ((sub_0067C570_GetGrid(&pOutdoor->pGrid[2], nColumn, nY) & 0xF0000) == 0x30000
+            && (sub_0067C570_GetGrid(&pOutdoor->pGrid[2], nColumn + 1, nY) & 0xF0000) == 0x30000)
+        {
+            sub_006743C0_PlacePreset(pLevel, nColumn, nY, 28, 1, 0);
+            sub_006743C0_PlacePreset(pLevel, nColumn + 1, nY, 28, bBridge ? 3 : 2, 0);
+            return;
+        }
+    }
+}
+
+void __fastcall sub_M127_Emit_0067FCD0(int nValue, D2DrlgOutRectStrc* pRect, D2DrlgOutRectStrc* pOther, unsigned int nFlags)
+{
+    sub_M127_EmitSink(sub_0067FCD0_GetPresetPairValue(nValue & 1, nValue, nFlags));
+    for (D2DrlgOutRectStrc* p = pOther; p; p = p->pBounds)
+    {
+        sub_M127_EmitSink(sub_0067FFB0_IsRectAdjacent(pRect, p));
+    }
+}
+
+static inline unsigned __int64 RollSeedInline(D2SeedStrc* pSeed)
+{
+    unsigned __int64 nSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(nSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)nSeed;
+    return nSeed;
+}
+
+static inline unsigned int RollLimitedInline(D2SeedStrc* pSeed, int nLimit)
+{
+    if (nLimit <= 0)
+        return 0;
+    if ((nLimit - 1) & nLimit)
+        return (unsigned int)RollSeedInline(pSeed) % nLimit;
+    return RollSeedInline(pSeed) & (nLimit - 1);
+}
+
+// 0x0067FE90
+void __stdcall sub_0067FE90_PlaceColumns(D2DrlgLevelStrc* pLevel, int nColumn)
+{
+    D2DrlgOutdoorInfoStrc* pOutdoor = pLevel->pOutdoors;
+    for (int nRow = 0; nRow < pOutdoor->nGridHeight; ++nRow)
+    {
+        int nFlags = sub_0067C570_GetGrid(&pOutdoor->pGrid[2], nColumn, nRow);
+        int nType = sub_0067C570_GetGrid(&pOutdoor->pGrid[0], nColumn, nRow);
+        int nFile;
+        if (nType)
+        {
+            if (nType == 7 && (nFlags & 0xF0000) == 0x30000)
+                nFile = 3;
+            else
+                nFile = gaPresetPairs[nType].nLeft;
+        }
+        else
+            nFile = (nFlags & 0x100) ? 0 : 3;
+        sub_006743C0_PlacePreset(pLevel, nColumn, nRow, 26, nFile, 0);
+
+        nFlags = sub_0067C570_GetGrid(&pOutdoor->pGrid[2], nColumn + 1, nRow);
+        nType = sub_0067C570_GetGrid(&pOutdoor->pGrid[0], nColumn + 1, nRow);
+        if (nType)
+        {
+            if (nType == 7 && (nFlags & 0xF0000) == 0x30000)
+                nFile = 3;
+            else
+                nFile = gaPresetPairs[nType].nRight;
+        }
+        else
+            nFile = (nFlags & 0x100) ? 0 : 3;
+        sub_006743C0_PlacePreset(pLevel, nColumn + 1, nRow, 27, nFile, 0);
+    }
+    if (pOutdoor->dwFlags & 0x14)
+        sub_0067FD20_PlacePair(nColumn, pLevel);
+}
+
+// 0x0067FFB0
+static inline int sub_0067FFB0_IsRectAdjacent(D2DrlgOutRectStrc* pRect, D2DrlgOutRectStrc* pOther)
+{
+    D2DrlgOutRectStrc* pBounds = pRect->pBounds;
+    if (pRect->nX < pBounds->nX && pOther->nY > pRect->nY && !(pRect->nFlags & 1) && !(pOther->nFlags & 1))
+    {
+        return 1;
+    }
+    if (pRect->nY > pBounds->nY && pOther->nX > pRect->nX && !(pRect->nFlags & 1) && !(pOther->nFlags & 1))
+    {
+        return 1;
+    }
+    return 0;
+}
+
+static inline unsigned int SEED_RollRandomNumber_Wild(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+// 0x0067FFF0
+static inline BOOL sub_0067FFF0_IsSpecialVertex(D2DrlgVertexStrc* pDrlgVertex)
+{
+    D2DrlgVertexStrc* pNext = pDrlgVertex->pNext;
+
+    if (pDrlgVertex->nPosX < pDrlgVertex->pNext->nPosX && pNext->nPosY < pNext->pNext->nPosY && !(pDrlgVertex->dwFlags & 1) && !(pNext->dwFlags & 1))
+    {
+        return 1;
+    }
+
+    if (pDrlgVertex->nPosY > pDrlgVertex->pNext->nPosY && pNext->nPosX < pNext->pNext->nPosX && !(pDrlgVertex->dwFlags & 1) && !(pNext->dwFlags & 1))
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
 // 0x006801A0
 static int __stdcall DRLGOUTWILD_SpawnCliffCaves(D2DrlgLevelStrc* pLevel, int nX, int nY)
 {
@@ -631,6 +825,219 @@ void __fastcall sub_I19_Emit_0067F8D0(D2DrlgLevelStrc* pLevel)
     DRLGOUTDESR_InitAct2OutdoorLevel(pLevel);
     DRLGOUTDESR_PlaceTombEntriesInCanyon(pLevel);
     DRLGOUTDESR_InitAct2OutdoorLevel(pLevel);
+}
+
+static inline BOOL DRLGOUTWILD_IsVertexBlocking(D2DrlgVertexStrc* pDrlgVertex)
+{
+    D2DrlgVertexStrc* pNext = pDrlgVertex->pNext;
+
+    if (pDrlgVertex->nPosY < pNext->nPosY)
+    {
+        return 1;
+    }
+
+    if (pDrlgVertex->nPosX > pNext->nPosX)
+    {
+        return 1;
+    }
+
+    if (pDrlgVertex->dwFlags & 1)
+    {
+        return 1;
+    }
+
+    return pNext->dwFlags & 1;
+}
+
+static void sub_00680070_MarkVertexDirections(D2DrlgLevelStrc* pLevel)
+{
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
+    D2DrlgVertexStrc* pVertex = pOutdoors->pVertex;
+    D2DrlgVertexStrc* pPreviousVertex = pVertex;
+    BOOL bBreak = 0;
+
+    for (D2DrlgVertexStrc* i = pVertex->pNext; i != pVertex; i = i->pNext)
+    {
+        pPreviousVertex = i;
+    }
+
+    do
+    {
+        if (sub_0067FFB0_IsRectAdjacent((D2DrlgOutRectStrc*)pVertex, (D2DrlgOutRectStrc*)pPreviousVertex))
+        {
+            D2DrlgVertexStrc* pFirstVertex = pVertex;
+            D2DrlgVertexStrc* pSpecialVertex = 0;
+            do
+            {
+                if (pVertex == pOutdoors->pVertex)
+                {
+                    bBreak = 1;
+                }
+
+                if (DRLGOUTWILD_IsVertexBlocking(pVertex))
+                {
+                    break;
+                }
+
+                if (sub_0067FFF0_IsSpecialVertex(pVertex))
+                {
+                    pSpecialVertex = pVertex;
+                }
+
+                pVertex = pVertex->pNext;
+            }
+            while (pVertex != pFirstVertex);
+
+            if (pSpecialVertex)
+            {
+                D2DrlgVertexStrc* pTemp = pFirstVertex;
+                for (; pTemp != pSpecialVertex; pTemp = pTemp->pNext)
+                {
+                    pTemp->nDirection = 1;
+                }
+
+                pTemp->nDirection = 1;
+                pOutdoors->dwFlags |= 0x20;
+            }
+        }
+
+        pPreviousVertex = pVertex;
+        pVertex = pVertex->pNext;
+    }
+    while (!bBreak && pVertex != pOutdoors->pVertex);
+}
+
+static void __stdcall DRLGOUTWILD_SpawnCottage(int bExtraCottage, int nLvlPrestId, D2DrlgLevelStrc* pLevel)
+{
+    if (SEED_RollRandomNumber_Wild(&pLevel->pSeed) & 3)
+    {
+        DRLGOUTDOORS_SpawnRandomOutdoorDS1(pLevel, nLvlPrestId, -1);
+
+        if (bExtraCottage && (SEED_RollRandomNumber_Wild(&pLevel->pSeed) & 1))
+        {
+            DRLGOUTDOORS_SpawnRandomOutdoorDS1(pLevel, 0x31, -1);
+        }
+    }
+    else
+    {
+        DRLGOUTDOORS_SpawnRandomOutdoorDS1(pLevel, nLvlPrestId, -1);
+        DRLGOUTDOORS_SpawnRandomOutdoorDS1(pLevel, nLvlPrestId, -1);
+    }
+}
+
+// build: context DRLGOUTWILD_SpawnSpecialPresets
+static void DRLGOUTWILD_SpawnSpecialPresets(D2DrlgLevelStrc* pLevel)
+{
+    switch (pLevel->eLevelId)
+    {
+    case LEVEL_BLOODMOOR:
+        DRLGOUTDOORS_SpawnRandomOutdoorDS1(pLevel, 0x2E, -1);
+        DRLGOUTWILD_SpawnCottage(0, 0x2F, pLevel);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1D, -1, 0, 15);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1E, -1, 0, 15);
+        return;
+
+    case LEVEL_COLDPLAINS:
+        DRLGOUTWILD_SpawnCottage(1, 0x30, pLevel);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x2C, -1, 0, 15);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1D, -1, 0, 15);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1E, -1, 0, 15);
+        return;
+
+    case LEVEL_STONYFIELD:
+        DRLGOUTDOORS_SpawnRandomOutdoorDS1(pLevel, 0xA0, -1);
+        DRLGOUTDOORS_SpawnRandomOutdoorDS1(pLevel, 0x2D, -1);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0xA2, -1, 0, 15);
+        DRLGOUTWILD_SpawnCottage(1, 0x2F, pLevel);
+        DRLGOUTWILD_SpawnCottage(0, 0x2A, pLevel);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1F, -1, 0, 15);
+        return;
+
+    case LEVEL_DARKWOOD:
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0xA1, -1, 0, 15);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x29, -1, 0, 15);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x28, -1, 0, 15);
+        DRLGOUTWILD_SpawnCottage(1, 0x30, pLevel);
+        DRLGOUTWILD_SpawnCottage(0, 0x2B, pLevel);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1D, -1, 0, 15);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1E, -1, 0, 15);
+        return;
+
+    case LEVEL_BLACKMARSH:
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0xA3, -1, 0, 15);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x26, -1, 0, 15);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x27, -1, 0, 15);
+        DRLGOUTWILD_SpawnCottage(1, 0x2F, pLevel);
+        DRLGOUTWILD_SpawnCottage(0, 0x2A, pLevel);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1D, -1, 0, 15);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1E, -1, 0, 15);
+        return;
+
+    case LEVEL_TAMOEHIGHLAND:
+        DRLGOUTWILD_SpawnCottage(1, 0x30, pLevel);
+        DRLGOUTWILD_SpawnCottage(0, 0x2B, pLevel);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1F, -1, 0, 15);
+        return;
+
+    case LEVEL_BURIALGROUNDS:
+        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 1, 1, 0x6C, -1, 0);
+        return;
+
+    case LEVEL_MOOMOOFARM:
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x32, -1, 0, 15);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x2E, -1, 0, 15);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1F, -1, 0, 15);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x26, -1, 0, 15);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x27, -1, 0, 15);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1D, -1, 0, 15);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1E, -1, 0, 15);
+        return;
+
+    default:
+        return;
+    }
+}
+
+void __fastcall DRLGOUTWILD_InitAct1OutdoorLevel(D2DrlgLevelStrc* pLevel)
+{
+    if (pLevel->eLevelId != LEVEL_BLOODMOOR && pLevel->eLevelId != LEVEL_COLDPLAINS && pLevel->eLevelId != LEVEL_BURIALGROUNDS)
+    {
+        sub_00680070_MarkVertexDirections(pLevel);
+    }
+
+    DRLGOUTPLACE_SetOutGridLinkFlags(pLevel);
+    DRLGOUTPLACE_PlaceAct1245OutdoorBorders(pLevel);
+
+    if (pLevel->eLevelId >= LEVEL_BLOODMOOR && pLevel->eLevelId <= LEVEL_TAMOEHIGHLAND)
+    {
+        DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 0, 4);
+        DRLGOUTDESR_SpawnRiverAndCliffCaves(pLevel);
+        DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 1, 4);
+        DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 2, 4);
+        DRLGOUTWILD_SpawnTownTransitionsAndCaves(pLevel);
+        DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 3, 4);
+        DRLGOUTDOORS_SpawnAct1DirtPaths(pLevel);
+    }
+
+    if (pLevel->eLevelId == LEVEL_MOOMOOFARM)
+    {
+        DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 0, 4);
+        DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 1, 4);
+        DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 2, 4);
+        DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 3, 4);
+    }
+
+    if (pLevel->eLevelId >= LEVEL_COLDPLAINS && pLevel->eLevelId <= LEVEL_BLACKMARSH)
+    {
+        DRLGOUTDOORS_SpawnAct12Waypoint(pLevel);
+    }
+
+    if (pLevel->eLevelId >= LEVEL_BLOODMOOR && pLevel->eLevelId <= LEVEL_TAMOEHIGHLAND)
+    {
+        DRLGOUTDOORS_SpawnAct12Shrines(pLevel, 5);
+    }
+
+    DRLGOUTWILD_SpawnSpecialPresets(pLevel);
 }
 
 #include "gen/data/Source/D2Common/DRLG/OutDesr.inc"

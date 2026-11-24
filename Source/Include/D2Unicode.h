@@ -41,7 +41,7 @@ struct Unicode
     int isAlpha() const;
     int isLeftToRight() const; // 0x00526D00
     Direction directionality(); // 0x00526FB0
-    Unicode sub_004B15F0() const;
+    Unicode toLower() const; // 0x004B15F0
 
     static int __fastcall compare(Unicode lhs, Unicode rhs);
     static int __fastcall strcmp(const Unicode* str1, const Unicode* str2);
