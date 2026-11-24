@@ -8,8 +8,6 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 - lane4/spellsel-join 9b657eed no placeholder change: spellsel.cpp (the user of `.\UI\spellsel.cpp`, object 0x4A7AE0-0x4AA900; asserts 236-1316; its data starts with the copy at 0x724A80, which is still planned in Unknown_004A6460.cpp, see the note below) takes 25 functions of its object: the skill select icon and hotkey functions from Unknown_004A76C0.cpp (10), Unknown_004A9BD0.cpp (6), inv.cpp (7, among them 0x4AA8B0-0x4AA8F0 just before the skill tree), Unknown_004A9D70.cpp (0x4AA1F0) and text_0049A950.cpp (0x4A8D50). 0x4A8A30, 0x4A8CF0, 0x4A8DF0 and Unknown_004A7AE0.cpp's 0x4A8ED0-0x4A9870 still differ there. VERIFIED a2211f1a40cd on #321. Not stacked; nothing outside lane 4.
 
-- lane4/levelevents 40f5e749 -1 placeholder (Unknown_0046B630.cpp empties): the level event object 0x46AD10-0x46C140 (timed boxes, level event requests and timers, boss death spawns, throne and Den of Evil checks, countdown) gathers its strays into Unknown_0046ACE0.cpp: six View.cpp functions (including 0x46B630, which runs-sub-2 had put in View.cpp from surrounding View.cpp strays), SCMD_TriggerNearbyMonsterEffect, UI_SetTimerUnitId with gnTimerUnitId, Unknown_0046B630.cpp whole with gpfnLevelEvents, and CUNIT_DrawCountdown (0x46C060, whose 0x200-byte buffer has no cookie, so the unit is built /GS-). Its bss 0x7A742C-0x7A746C and data 0x7129CC-0x712A28 (ending with its own language-table copy) are what they read. 0x46B850, ROSTERPETS_GetPulseColor and SCMD_GetLevelLight belong here too but still differ. VERIFIED c924a9f22788 on #318. Not stacked; nothing outside lane 4.
-
 ## Questions
 
 ## Notes for other lanes
