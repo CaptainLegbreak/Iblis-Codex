@@ -57,7 +57,7 @@ int __fastcall BNDOWNLOAD_HandleClientId(const D2BnClientIdReplyStrc* pData, uns
     unsigned int nRegistrationVersion = pData->dwRegistrationVersion;
     unsigned int nRegistrationAuthority = pData->dwRegistrationAuthority;
     unsigned int nClientId = pData->dwClientId;
-    unsigned int nClientToken = pData->f_C;
+    unsigned int nClientToken = pData->dwRegistrationToken;
     SRegSaveValue(gszConfiguration, "Registration Version", 2, nRegistrationVersion);
     SRegSaveValue(gszConfiguration, "Registration Authority", 2, nRegistrationAuthority);
     SRegSaveValue(gszConfiguration, "Client ID", 2, nClientId);
@@ -114,7 +114,7 @@ int __fastcall BNDOWNLOAD_HandleAuthInfo(const unsigned char* pData, unsigned in
     const D2BnAuthInfoStrc* pInfo = (const D2BnAuthInfoStrc*)pData;
     D2FileTimeStrc tFileTime = pInfo->tFileTime;
     unsigned int nLogonType = pInfo->dwLogonType;
-    unsigned int nServerToken = pInfo->f_4;
+    unsigned int nServerToken = pInfo->dwServerToken;
     const char* szFileName = pInfo->szFileName;
     const char* szValue = szFileName + SStrLen(szFileName) + 1;
     sub_0051A540_SetValue(nServerToken);
