@@ -6015,7 +6015,7 @@ address,name,source,alias
 0x004F97B0,CONTROL_MouseInsideRect,d2moo,
 0x004F97D0,D2Win_IsCtrlKeyDown,inferred,
 0x004F97E0,CURSOR_Draw,inferred,
-0x004F9870,D2COMP_DrawAllCompositeUnits,inferred,
+0x004F9870,CONTROL_DrawAllCompositeUnits,inferred,
 0x004F98E0,D2Win_UpdateAndDraw,d2moo,
 0x004F9A80,D2Win_MAINWINDOW_WndProc_6F8AD9B0,d2moo,
 0x004F9B30,CONTROL_IsActiveListMember,inferred,

@@ -6179,7 +6179,7 @@
   ["0x004F97B0", 30, "verified", "CONTROL_MouseInsideRect"],
   ["0x004F97D0", 6, "verified", "D2Win_IsCtrlKeyDown"],
   ["0x004F97E0", 138, "verified", "CURSOR_Draw"],
-  ["0x004F9870", 109, "verified", "?D2COMP_DrawAllCompositeUnits@@YAXXZ"],
+  ["0x004F9870", 109, "verified", "?CONTROL_DrawAllCompositeUnits@@YAXXZ"],
   ["0x004F98E0", 401, "verified", "D2Win_UpdateAndDraw"],
   ["0x004F9A80", 170, "verified", "D2Win_MAINWINDOW_WndProc_6F8AD9B0"],
   ["0x004F9B30", 34, "verified", "?CONTROL_IsActiveListMember@@YIHPAUD2WinControlStrc@@@Z"],
