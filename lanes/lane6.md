@@ -4,6 +4,7 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane6/bnsend-empty d1c5a247 0 placeholders (plan-only). The 4 zero bytes at 0x006DEF80 sit among BnSend.cpp's .rdata literals (after "Registration Version", before ".\BnSend.cpp") and BnSend reads them first (szEmpty_006DEF80); SRP's SHA1 pad gabSha1Pad00 (lane 3's SHA.cpp, unchanged) reads the same bytes. Planned in BnSend.cpp as one record with both names as alternatenames. Not stacked; independent of celcmp-rtti; no other lane's file changed. VERIFIED 6ecb4ee2 (on #351; borrowed data 1,114 -> 1,107 B).
 - lane6/celcmp-rtti 17995b92 0 placeholders (plan-only). Two RTTI TypeDescriptor headers in CelCmp.cpp's .data (0x741F0C and 0x741FAC: the type_info vftable pointer and the spare word) were copied; their names after them are already planned there as gszTypeNameCelEntry and gszTypeNameCelHashChunk. Planned as two 8-B bytes records in CelCmp.cpp. Not stacked; nothing outside the lane. VERIFIED 5123eb53 (on #351; borrowed data 1,114 -> 1,096 B).
 
 
