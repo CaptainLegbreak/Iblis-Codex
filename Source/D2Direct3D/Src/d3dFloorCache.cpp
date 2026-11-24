@@ -545,6 +545,8 @@ static void D3DFLOORCACHE_DecodeTileBlock(const unsigned char* source, unsigned 
     } while (rows);
 }
 
+int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc*, int, int); // 0x005FDEA0
+
 // 0x006BB720
 void __stdcall D3DFLOORCACHE_RenderTile(D2TileStrc* tile,unsigned short* output,int stride)
 {
@@ -599,6 +601,47 @@ void __stdcall D3DFLOORCACHE_RenderTile(D2TileStrc* tile,unsigned short* output,
    }
   }
  }
+}
+
+// 0x006BB870
+int __fastcall sub_006BB870_BindTileTexture(D2TileLibraryEntryStrc* pTile)
+{
+    int nResult = 0;
+    if (D2CMPTileValidate(pTile, 1, 0))
+    {
+        D2_ASSERT(pTile->nCacheIndex >= 0, 0x191);
+        if (pTile->nCacheIndex == 0)
+        {
+            pTile->nCacheIndex = D3DFLOORCACHE_FloorCacheAdd((D2FloorPoolStrc*)&gTileCache_0096FC9C);
+            const int nIndex = pTile->nCacheIndex - 1;
+            D2_ASSERT(nIndex >= 0, 0x19C);
+            D2_ASSERT(nIndex < gTileCache_0096FC9C.capacity, 0x19D);
+            D2CacheNodeStrc* pNode = &gTileCache_0096FC9C.pNodes[pTile->nCacheIndex - 1];
+            pNode->binding = (D2CacheBindingStrc*)pTile;
+            {
+                D2DDSurfaceDesc2Strc tDesc = { sizeof(D2DDSurfaceDesc2Strc) };
+                long hResult = ((D2DDSurfaceStrc*)gpMemorySurface)->lpVtbl->Lock((D2DDSurfaceStrc*)gpMemorySurface, 0, &tDesc, 0x21, 0);
+                if (hResult) D3DCORE_LogDDrawError(gszFailedToLockMemorySurface_006FC2A4, hResult);
+                D2_ASSERT(tDesc.dwFlags & 8, 0x1AD);
+                D3DFLOORCACHE_RenderTile((D2TileStrc*)pTile, (unsigned short*)tDesc.lpSurface, tDesc.lPitch >> 1);
+                hResult = ((D2DDSurfaceStrc*)gpMemorySurface)->lpVtbl->Unlock((D2DDSurfaceStrc*)gpMemorySurface, 0);
+                if (hResult) D3DCORE_LogDDrawError(gszFailedToUnlockMemorySurface_006FC284, hResult);
+            }
+            if (gnRenderFlags_0096F3A8 & gnRenderFlag)
+                D3DCORE_CopySurface(pNode->pSurface, (D2DDSurfaceStrc*)gpMemorySurface, gnHeight_009702B8);
+            else
+                pNode->pTexture->lpVtbl->Load(pNode->pTexture, (D2D3DTextureStrc*)gpMemoryTexture);
+            gpD3DDevice_00970E78->lpVtbl->SetTexture(gpD3DDevice_00970E78, 0, pNode->pTexture);
+        }
+        else
+        {
+            D2CacheNodeStrc* pNode = &gTileCache_0096FC9C.pNodes[pTile->nCacheIndex - 1];
+            D3DFLOORCACHE_FloorCacheTouch((D2FloorPoolStrc*)&gTileCache_0096FC9C, pTile->nCacheIndex);
+            gpD3DDevice_00970E78->lpVtbl->SetTexture(gpD3DDevice_00970E78, 0, pNode->pTexture);
+        }
+        nResult = 1;
+    }
+    return nResult;
 }
 
 // 0x006BBA00
