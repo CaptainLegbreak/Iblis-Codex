@@ -100,24 +100,8 @@ struct D2QClientStrc
         struct
         {
             D2CriticalSectionStrc tLock;                    // 0x02C
-            union
-            {
-                D2QOverlappedStrc tRead;                    // 0x044
-                struct
-                {
-                    int unk0x044[5];
-                    int bEnabled;                           // 0x058
-                };
-            };
-            union
-            {
-                D2QOverlappedStrc tWrite;                   // 0x05C
-                struct
-                {
-                    int unk0x05C[5];
-                    int nState;                             // 0x070
-                };
-            };
+            D2QOverlappedStrc tRead;                        // 0x044
+            D2QOverlappedStrc tWrite;                       // 0x05C
         };
         char cs[0x48];                                      // 0x02C
     };
@@ -267,7 +251,7 @@ struct D2QueueServerStrc
         int aActive[4];
     };
     D2AddressCallback pfnAddressCallback;                   // 0xBB8
-    int unk0xBBC;                                           // 0xBBC
+    void* pfnRemoveClient;                                  // 0xBBC (FOG_10171 sets it; nothing in Fog calls it)
     D2MessageCallback pfnProcess;                           // 0xBC0
     union
     {
@@ -278,15 +262,8 @@ struct D2QueueServerStrc
     D2QServerHandler pfnHandler;                            // 0xBCC
     int bEnabled;                                           // 0xBD0
     void* hEvent;                                           // 0xBD4
-    union
-    {
-        int unk0xBD8[8];                                    // 0xBD8
-        struct
-        {
-            void* hAcceptThreads[4];                        // 0xBD8
-            unsigned long aThreadIds[4];                    // 0xBE8
-        };
-    };
+    void* hAcceptThreads[4];                                // 0xBD8
+    unsigned long aThreadIds[4];                            // 0xBE8
     union
     {
         struct
@@ -305,15 +282,8 @@ struct D2QueueServerStrc
         int bInitialized;                                   // 0xC18
         int bSecondWorker;
     };
-    union
-    {
-        int unk0xC1C[8];                                    // 0xC1C
-        struct
-        {
-            void* aThreads2[4];                             // 0xC1C
-            unsigned long aThreadIds2[4];                   // 0xC2C
-        };
-    };
+    void* aThreads2[4];                                     // 0xC1C
+    unsigned long aThreadIds2[4];                           // 0xC2C
     int nSlots[4];                                          // 0xC3C
 
     void __thiscall ExpireEntries();                                                                 // 0x006BE700
