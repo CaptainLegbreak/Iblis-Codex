@@ -389,7 +389,7 @@ typedef int (__fastcall *SkillCallback)(D2GameStrc*, D2UnitStrc*, int, int);
 
 extern const SkillCallback gpSkillCallbacks_007322B0[]; // 0x007322B0
 
-extern "C" D2StatesTxt* __fastcall sub_00452040_GetStatesTxtRecord(int nStateId); // 0x00452040
+extern "C" D2StatesTxt* __fastcall GAME_GetStatesTxtRecord(int nStateId); // 0x00452040
 
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 
@@ -3359,7 +3359,7 @@ void __fastcall SKILLS_EventCallback_ActiveState(D2GameStrc* game, D2UnitStrc* u
         return;
     if (state >= sgptDataTables->nStatesTxtRecordCount)
         return;
-    D2StatesTxt* states = sub_00452040_GetStatesTxtRecord(state);
+    D2StatesTxt* states = GAME_GetStatesTxtRecord(state);
     if (!states)
         return;
     SkillCallback callback = GetSkillCallback(states->callback);

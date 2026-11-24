@@ -53,7 +53,7 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);       
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);               // 0x005269D0
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 void __fastcall TEXT_PrintChatLine(const Unicode* pText, char nColor);                              // 0x0049E3A0
-void __fastcall sub_004787B0_SendStrings(const unsigned char* pData);                                       // 0x004787B0
+void __fastcall MSG_SendStrings(const unsigned char* pData);                                       // 0x004787B0
 D2StoredUnitRecordStrc* __fastcall ROSTER_GetNextStoredUnit(D2StoredUnitRecordStrc* pEntry);               // 0x004795A0
 extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
@@ -211,7 +211,7 @@ static int __stdcall sub_0047C1F0_HandleWhisperCommand(int bCheckStored, char* s
                         tSend.nLang = gnLanguageId;
                         tSend.nCode = 2;
                         tSend.nType = 0x15;
-                        sub_004787B0_SendStrings((const unsigned char*)&tSend);
+                        MSG_SendStrings((const unsigned char*)&tSend);
                         return 1;
                     }
                 }
@@ -376,7 +376,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(const Unicode* pLine, char*
         {
             memcpy(tSend.szText, pText, sizeof(tSend.szText) - 1);
             tSend.szText[sizeof(tSend.szText) - 1] = 0;
-            sub_004787B0_SendStrings((const unsigned char*)&tSend);
+            MSG_SendStrings((const unsigned char*)&tSend);
         }
     }
     UI_SetUIVar(5, 1, 0);

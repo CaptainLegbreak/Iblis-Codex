@@ -472,11 +472,11 @@ void __fastcall CUNIT_SetOverlayWithSound(D2UnitStrc* pUnit, int nOverlay, int n
 
 void __fastcall CUNIT_SetPathTargetToTargetUnit(D2UnitStrc* pUnit, int nArg);                        // 0x00465BF0
 
-void __cdecl sub_00466FE0();                                                                                // 0x00466FE0
+void __cdecl SELECT_ClearSelection();                                                                                // 0x00466FE0
 
-D2UnitStrc* __cdecl sub_00467A10();                                                             // 0x00467A10
+D2UnitStrc* __cdecl SELECT_GetSelectedUnit();                                                             // 0x00467A10
 
-void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
+void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 
 void __fastcall GFX_RemoveOverlays(D2UnitStrc* pUnit);                                             // 0x0046F170
 
@@ -2406,16 +2406,16 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
     {
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
         pUnit->dwLastHitClass = pCommand->nParam18;
-        if (sub_00467A10() == pUnit)
+        if (SELECT_GetSelectedUnit() == pUnit)
         {
             if (!(GAME_GetLeftClickState() & 8) && !(GAME_GetRightClickState() & 8))
             {
-                sub_00466FE0();
+                SELECT_ClearSelection();
             }
             else
             {
                 GAME_ResetMouseState();
-                sub_00467A70_RefreshHoverUnit(0);
+                SELECT_RefreshHoverUnit(0);
             }
         }
 

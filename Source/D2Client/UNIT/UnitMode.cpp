@@ -124,7 +124,7 @@ D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType)
 
 int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 
-void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
+void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 
 int __fastcall ROSTER_CanLoot(int nUnitId1, int nUnitId2); // 0x0047A4F0
 
@@ -240,7 +240,7 @@ D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* 
 
 extern D2DrlgActStrc* gpAct; // 0x007A0634
 
-void __fastcall sub_004785D0_SendShortShort(char nHeader, short nArg1, short nArg2); // 0x004785D0
+void __fastcall MSG_SendTwoWords(char nHeader, short nArg1, short nArg2); // 0x004785D0
 
 void __fastcall AUTOMAP_UpdatePathAndMove(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463180
 
@@ -393,7 +393,7 @@ void __fastcall UNITMODE_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsig
 
     if (pUnit == sub_00463DD0_GetPlayerUnit())
     {
-        sub_004785D0_SendShortShort(0x5F, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
+        MSG_SendTwoWords(0x5F, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
         return;
     }
 
@@ -613,13 +613,13 @@ void __fastcall VIEW_SendUnitActionPacket(int nHeader, int nUnused, int nArg1, i
     switch (nHeader)
     {
     case 1: case 3:
-        sub_004785D0_SendShortShort(nHeader, nArg1, nArg2);
+        MSG_SendTwoWords(nHeader, nArg1, nArg2);
         return;
     case 2: case 4: case 6: case 7: case 9: case 10: case 13: case 14: case 16: case 17:
         MSG_SendTwoDwords(nHeader, nArg1, nArg2);
         return;
     default:
-        sub_004785D0_SendShortShort(nHeader, nArg1, nArg2);
+        MSG_SendTwoWords(nHeader, nArg1, nArg2);
         return;
     }
 }
@@ -901,13 +901,13 @@ static int __stdcall sub_004814A0_ActOnMonster(int nAction, int nType, int nId, 
                 goto LABEL_OK;
             }
         }
-        sub_00467A70_RefreshHoverUnit(0);
+        SELECT_RefreshHoverUnit(0);
         return 0;
     }
 
     if (!UMODE_IsTargetable(pUnit))
     {
-        sub_00467A70_RefreshHoverUnit(0);
+        SELECT_RefreshHoverUnit(0);
         return 0;
     }
 
@@ -925,7 +925,7 @@ static int __stdcall sub_004815A0_ActOnObject(D2UnitStrc* pPlayer, int nType, in
 {
     if (!UMODE_IsTargetable(pUnit))
     {
-        sub_00467A70_RefreshHoverUnit(0);
+        SELECT_RefreshHoverUnit(0);
         return 0;
     }
 
@@ -989,7 +989,7 @@ void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer)
     default:
         if (!sub_00451F30_TestUnitFlag(pUnit, 2))
         {
-            sub_00467A70_RefreshHoverUnit(0);
+            SELECT_RefreshHoverUnit(0);
             return;
         }
         break;
@@ -1304,7 +1304,7 @@ static int __stdcall sub_004815A0_TryUnitAction(D2UnitStrc* pUnit, D2UnitStrc* p
         bSelectable = (pUnit->dwFlags >> 1) & 1;
     if (!bSelectable)
     {
-        sub_00467A70_RefreshHoverUnit(0);
+        SELECT_RefreshHoverUnit(0);
         return 0;
     }
     if (UNITMODE_IsTargetInRange(pPlayer, pUnit, nAction))
@@ -1333,7 +1333,7 @@ static int __stdcall UNITMODE_ActOnPlayer(int nAction, int nType, int nId, D2Uni
             return 0;
         }
 
-        sub_00467A70_RefreshHoverUnit(0);
+        SELECT_RefreshHoverUnit(0);
         return 0;
     }
 
@@ -1343,7 +1343,7 @@ static int __stdcall UNITMODE_ActOnPlayer(int nAction, int nType, int nId, D2Uni
             bSelectable = (pUnit->dwFlags >> 1) & 1;
         if (!bSelectable)
         {
-            sub_00467A70_RefreshHoverUnit(0);
+            SELECT_RefreshHoverUnit(0);
             return 0;
         }
     }
@@ -1408,7 +1408,7 @@ static int __stdcall UNITMODE_TryMonsterAction(D2UnitStrc* pUnit, D2UnitStrc* pP
                 goto InRange;
             }
         }
-        sub_00467A70_RefreshHoverUnit(0);
+        SELECT_RefreshHoverUnit(0);
         return 0;
     }
 
@@ -1418,7 +1418,7 @@ static int __stdcall UNITMODE_TryMonsterAction(D2UnitStrc* pUnit, D2UnitStrc* pP
             bSelectable = (pUnit->dwFlags >> 1) & 1;
         if (!bSelectable)
         {
-            sub_00467A70_RefreshHoverUnit(0);
+            SELECT_RefreshHoverUnit(0);
             return 0;
         }
     }

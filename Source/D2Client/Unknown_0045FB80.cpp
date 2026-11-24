@@ -48,7 +48,7 @@ D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);
 D2UnitStrc* __cdecl sub_00463DD0();
 void __stdcall ROSTERPETS_HandleButtonDown(SMSGHANDLER_PARAMS* pMsg); // 0x00467F20
 void __stdcall ROSTERPETS_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
-void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg);
+void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg); // 0x004785B0
 void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2);
 int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg);
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor);
@@ -402,7 +402,7 @@ LNotHandled:
 
                                 if (nLevel <= sub_004AA8B0_GetSkillMaxLevel(pSkillsTxt->nSkillId) && !sub_004AA900_IsStateOrValue())
                                 {
-                                    sub_004785B0_SendPacket3(0x3B, nSkillId);
+                                    MSG_SendWord(0x3B, nSkillId);
                                     gbSkillPointsHighlight = 0;
                                 }
                             }

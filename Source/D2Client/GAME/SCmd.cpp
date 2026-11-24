@@ -426,7 +426,7 @@ extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSiz
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-void __cdecl sub_00466FE0(); // 0x00466FE0
+void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
 int __fastcall CUNIT_HasHotkeyBinding(int nA, int nB); // 0x00469D90
 
@@ -434,7 +434,7 @@ unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
 
 void __cdecl GAME_ResetLeftClick(); // 0x0044C060
 
-void __cdecl sub_00466FF0(); // 0x00466FF0
+void __cdecl SELECT_UnlockHover(); // 0x00466FF0
 
 void __cdecl TEXT_ClearListFlags(); // 0x004A01E0
 
@@ -2175,7 +2175,7 @@ void __stdcall SCMD_HandleQuitMessage(SMSGHANDLER_PARAMS* pMsg)
 enum { USE_RESULT = 0 };
 
 // 0x00451AB0
-void __stdcall sub_00451AB0(SMSGHANDLER_PARAMS* msg)
+void __stdcall SCMD_OnActivateApp(SMSGHANDLER_PARAMS* msg)
 {
 // build: symbol ?gbClientAppActive@* 0x0070F7E0
     gbClientAppActive = msg->wParam != 0;
@@ -2370,7 +2370,7 @@ void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMa
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
 
 // 0x004523A0
-Unicode* __fastcall sub_004523A0_FormatRangeText(Unicode* pText, int nFirst, int nSecond)
+Unicode* __fastcall SCMD_FormatRangeText(Unicode* pText, int nFirst, int nSecond)
 {
     if (pText->wChar)
     {
@@ -3786,7 +3786,7 @@ void __fastcall SCMD_HandleRefreshItems(const D2PacketRecord11Strc* pPacket)
 }
 
 // 0x0045E2D0
-void __fastcall sub_0045E2D0_Packet48(const D2PacketRecord11Strc* pPacket)
+void __fastcall SCMD_HandleRefreshItemsRecord(const D2PacketRecord11Strc* pPacket)
 {
     D2PacketRecord11Strc tPacket = *pPacket;
     ITEM_RefreshUnitItemsFromRecord(&tPacket);

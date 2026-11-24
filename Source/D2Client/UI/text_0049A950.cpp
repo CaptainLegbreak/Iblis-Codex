@@ -65,7 +65,7 @@ int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); 
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
-void __cdecl sub_00466FE0(); // 0x00466FE0
+void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
 void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
 
@@ -350,7 +350,7 @@ int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsi
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
-void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg); // 0x004785B0
+void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg); // 0x004785B0
 
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
 
@@ -643,7 +643,7 @@ void __cdecl TEXT_SetPanelRect()
     tRect.nLeft = gnTextLeft - 10;
     tRect.nRight = gnTextLeft + 335;
     sub_00467430(&tRect);
-    sub_00466FE0();
+    SELECT_ClearSelection();
 }
 
 // 0x0049FE60

@@ -25,7 +25,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
-void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
+void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740

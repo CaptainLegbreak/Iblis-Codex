@@ -497,7 +497,7 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
-void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
+void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 
 void __cdecl INV_ResetHover(); // 0x00487990
 
@@ -902,7 +902,7 @@ static D2UnitStrc* __stdcall ITEM_CreateWorldItem(unsigned short nX, unsigned sh
     {
         ITEMS_SetItemFlag(pItem, 2, 0);
         if (bNotify && !ITEMS_CheckItemFlag(pItem, 0x10, 0xD8, ".\\UNIT\\Item.cpp"))
-            sub_00478680_SendPacket5(0x37, pPacket->nItemId);
+            MSG_SendDword(0x37, pPacket->nItemId);
     }
     return pItem;
 }
@@ -931,7 +931,7 @@ static D2UnitStrc* __stdcall ITEM_CreateOwnedItem(unsigned short nX, unsigned sh
     {
         ITEMS_SetItemFlag(pItem, 2, 0);
         if (bNotify && !ITEMS_CheckItemFlag(pItem, 0x10, 0xFE, ".\\UNIT\\Item.cpp"))
-            sub_00478680_SendPacket5(0x37, pPacket->nItemId);
+            MSG_SendDword(0x37, pPacket->nItemId);
     }
     return pItem;
 }

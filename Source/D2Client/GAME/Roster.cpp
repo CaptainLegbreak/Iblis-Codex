@@ -58,7 +58,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 
-void __fastcall sub_00478780_SendPartyCommand(int nCommand, int nUnitId); // 0x00478780
+void __fastcall MSG_SendPartyCommand(int nCommand, int nUnitId); // 0x00478780
 
 void __cdecl ROSTER_RebuildRosterOrder(); // 0x00479AB0
 
@@ -133,7 +133,7 @@ public:
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
-void __fastcall sub_00478740_SendPvpCommand(int nCommand, int nUnitId, int bSet); // 0x00478740
+void __fastcall MSG_SendPvpCommand(int nCommand, int nUnitId, int bSet); // 0x00478740
 
 void __cdecl GFX_UpdatePetFlags(); // 0x00478FA0
 
@@ -1004,7 +1004,7 @@ void __fastcall ROSTER_ToggleLoot(D2StoredUnitRecordStrc* pEntry)
     {
         ROSTER_ToggleRelationFlag(pEntry, 1);
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        sub_00478740_SendPvpCommand(1, pEntry->dwUnitId, GFXUTIL_TestRelationFlags(!pPlayer ? -1 : pPlayer->dwUnitId, pEntry->dwUnitId, 1));
+        MSG_SendPvpCommand(1, pEntry->dwUnitId, GFXUTIL_TestRelationFlags(!pPlayer ? -1 : pPlayer->dwUnitId, pEntry->dwUnitId, 1));
     }
 }
 
@@ -1015,7 +1015,7 @@ void __fastcall ROSTER_ToggleMute(D2StoredUnitRecordStrc* pEntry)
     {
         ROSTER_ToggleRelationFlag(pEntry, 2);
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        sub_00478740_SendPvpCommand(2, pEntry->dwUnitId, GFXUTIL_TestRelationFlags(!pPlayer ? -1 : pPlayer->dwUnitId, pEntry->dwUnitId, 2));
+        MSG_SendPvpCommand(2, pEntry->dwUnitId, GFXUTIL_TestRelationFlags(!pPlayer ? -1 : pPlayer->dwUnitId, pEntry->dwUnitId, 2));
     }
 }
 
@@ -1026,7 +1026,7 @@ void __fastcall ROSTER_ToggleSquelch(D2StoredUnitRecordStrc* pEntry)
     {
         ROSTER_ToggleRelationFlag(pEntry, 4);
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        sub_00478740_SendPvpCommand(3, pEntry->dwUnitId, GFXUTIL_TestRelationFlags(!pPlayer ? -1 : pPlayer->dwUnitId, pEntry->dwUnitId, 4));
+        MSG_SendPvpCommand(3, pEntry->dwUnitId, GFXUTIL_TestRelationFlags(!pPlayer ? -1 : pPlayer->dwUnitId, pEntry->dwUnitId, 4));
         pPlayer = sub_00463DD0_GetPlayerUnit();
         if (GFXUTIL_TestRelationFlags(!pPlayer ? -1 : pPlayer->dwUnitId, pEntry->dwUnitId, 4))
             sub_00611560_GetSquelchList()->Squelch(pEntry->szNameEx);
@@ -1063,7 +1063,7 @@ void __fastcall ROSTER_HandlePartyButton(D2StoredUnitRecordStrc* pEntry)
         pEntry->dwPartyFlags = 1;
         break;
     }
-    sub_00478780_SendPartyCommand(nCommand, pEntry->dwUnitId);
+    MSG_SendPartyCommand(nCommand, pEntry->dwUnitId);
     ROSTER_RebuildRosterOrder();
     PARTY_RebuildRosterUnits();
 }
@@ -1179,7 +1179,7 @@ D2StoredUnitRecordStrc* __cdecl ROSTER_LeaveParty()
 // 0x00479FC0
 void __cdecl ROSTER_SendLeaveParty()
 {
-    sub_00478780_SendPartyCommand(9, ROSTER_LeaveParty()->dwUnitId);
+    MSG_SendPartyCommand(9, ROSTER_LeaveParty()->dwUnitId);
 }
 
 // 0x00479FE0
@@ -1192,7 +1192,7 @@ void __fastcall ROSTER_ToggleHostile(D2StoredUnitRecordStrc* pEntry)
     if (!GFXUTIL_TestRelationFlags(nPlayerId, pEntry->dwUnitId, 8) && pEntry->wLevel < 9)
         return;
     ROSTER_ToggleRelationFlag(pEntry, 8);
-    sub_00478740_SendPvpCommand(4, pEntry->dwUnitId, GFXUTIL_TestRelationFlags(nPlayerId, pEntry->dwUnitId, 8));
+    MSG_SendPvpCommand(4, pEntry->dwUnitId, GFXUTIL_TestRelationFlags(nPlayerId, pEntry->dwUnitId, 8));
     if (GFXUTIL_TestRelationFlags(nPlayerId, pEntry->dwUnitId, 8) && pEntry->wPartyId != 0xFFFF
         && ROSTER_GetPlayerRosterUnit()->wPartyId == pEntry->wPartyId)
         ROSTER_LeaveParty();

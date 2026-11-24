@@ -806,7 +806,7 @@
     "extern \"C\" void __cdecl SCMD_HandleQuitMessage(); // 0x00451A90",
     "extern \"C\" void __cdecl SCMD_HandleDefaultMessage(); // 0x00451AD0",
     "extern \"C\" void __cdecl SCMD_HandleCloseMessage(); // 0x00451B00",
-    "extern \"C\" void __cdecl sub_00451AB0(); // 0x00451AB0"
+    "extern \"C\" void __cdecl SCMD_OnActivateApp(); // 0x00451AB0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_00451E70.inc",
@@ -37215,7 +37215,7 @@
      864,
      "0x0045E2D0",
      "names.json",
-     "sub_0045E2D0_Packet48",
+     "SCMD_HandleRefreshItemsRecord",
      0,
      "func"
     ],
@@ -38350,7 +38350,7 @@
      20,
      "0x00451AB0",
      "names.json",
-     "sub_00451AB0",
+     "SCMD_OnActivateApp",
      0,
      "func"
     ],

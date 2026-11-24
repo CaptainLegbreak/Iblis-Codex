@@ -43,7 +43,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
 
-D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
+D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
 
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc*,D2ActiveRoomStrc***,unsigned int*); // 0x00619790
 
@@ -69,11 +69,11 @@ void __fastcall UI_BuildItemHoverName(D2UnitStrc*,Unicode*,int); // 0x004527D0
 
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode*,int*,int*); // 0x00502520
 
-void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc*); // 0x00467A70
+void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc*); // 0x00467A70
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode*,int,int,int,int); // 0x00502280
 
-void __cdecl sub_00466FE0(); // 0x00466FE0
+void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc*); // 0x00627E70
 
@@ -227,7 +227,7 @@ void __cdecl SHOWITEMS_DrawUnitNames()
     if(!pPlayer)return;
     D2ActiveRoomStrc* pRoom=UNITS_GetRoom(pPlayer);
     if(!pRoom)return;
-    D2UnitStrc* pSelectedUnit=sub_00467A10();
+    D2UnitStrc* pSelectedUnit=SELECT_GetSelectedUnit();
     int nMouseX=sub_00468730_GetMouseX();
     int nMouseY=sub_00468740_GetMouseY();
     D2ActiveRoomStrc** ppRooms;
@@ -298,14 +298,14 @@ Placed:
             if(!bSelected && nMouseX>=nX && nMouseX<=nRight && nMouseY>=nTop && nMouseY<=nBottom+4)
             {
                 pLabel->nFillColor=nHighlight;pLabel->nDrawMode=5;pLabel->nTextColor=0;
-                sub_00467A70_RefreshHoverUnit(pItem);
+                SELECT_RefreshHoverUnit(pItem);
                 bSelected=1;
             }
             else if(!bSelected && pItem==pSelectedUnit)
             {
                 pLabel->nFillColor=nHighlight;pLabel->nDrawMode=5;pLabel->nTextColor=0;
                 D2Win_10129_DrawFramedText(0,0,0,0,0);
-                sub_00466FE0();
+                SELECT_ClearSelection();
                 bSelected=1;
             }
             else
@@ -339,7 +339,7 @@ Placed:
     }
     if(!bSelected)
     {
-        sub_00466FE0();
+        SELECT_ClearSelection();
         D2Win_10129_DrawFramedText(0,0,0,0,0);
     }
 }

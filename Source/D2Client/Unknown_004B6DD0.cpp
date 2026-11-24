@@ -57,7 +57,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                               
 void __fastcall CUNIT_TurnTowardPlayer(D2UnitStrc* pUnit);                                                 // 0x00464420
 void __fastcall CUNIT_PlayerFaceUnit(D2UnitStrc* pUnit);                                             // 0x004644E0
 void __fastcall CUNIT_ForEachMonster(UNITFN pfnCallback);                                                           // 0x00464990
-void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg);                          // 0x004785B0
+void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg);                          // 0x004785B0
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 void __cdecl INV_ResetHover();                                                                     // 0x00487990
 void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext);                   // 0x0049E7E0
@@ -378,7 +378,7 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
     gnNpcSoundHandle = sub_004B9A00(nSound, sub_00463DD0_GetPlayerUnit(), 0, 1, 0);
     if (nType == 2)
     {
-        sub_004785B0_SendPacket3(0x4D, nNpcId);
+        MSG_SendWord(0x4D, nNpcId);
         gnNpcSoundActive = 1;
         return;
     }

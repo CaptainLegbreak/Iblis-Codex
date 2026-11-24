@@ -15,7 +15,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
-void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
+void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
@@ -241,7 +241,7 @@ void __cdecl HIREABLES_LoadHirelingIcons()
     int nIcon = 0;
     for (int i = 0; i < 5; ++i, ++nIcon)
     {
-        gapHirelingIcons[nIcon] = (D2CelFileStrc*)sub_004520C0_LoadUiCelFile(aszClassIcons[i]);
+        gapHirelingIcons[nIcon] = (D2CelFileStrc*)GAME_LoadUiCelFile(aszClassIcons[i]);
     }
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     if (FOG_IsExpansion())
@@ -252,7 +252,7 @@ void __cdecl HIREABLES_LoadHirelingIcons()
             {
                 break;
             }
-            gapHirelingIcons[nIcon] = (D2CelFileStrc*)sub_004520C0_LoadUiCelFile(aszExpansionIcons[i]);
+            gapHirelingIcons[nIcon] = (D2CelFileStrc*)GAME_LoadUiCelFile(aszExpansionIcons[i]);
         }
     }
     const int nSize = sgptDataTables->nPetTypeTxtRecordCount * sizeof(D2HirelingIconRecordStrc);
@@ -411,35 +411,35 @@ void __cdecl HIREABLES_LoadHelpCels()
     {
         if (!gpHelpBorderCel)
         {
-            gpHelpBorderCel = sub_004520C0_LoadUiCelFile("Menu\\800helpborder");
+            gpHelpBorderCel = GAME_LoadUiCelFile("Menu\\800helpborder");
         }
         else
         {
             ARCHIVE_FreeClientCellFile(gpHelpBorderCel);
             gpHelpBorderCel = 0;
-            gpHelpBorderCel = sub_004520C0_LoadUiCelFile("Menu\\800helpborder");
+            gpHelpBorderCel = GAME_LoadUiCelFile("Menu\\800helpborder");
         }
     }
     else
     {
         if (!gpHelpBorderCel)
         {
-            gpHelpBorderCel = sub_004520C0_LoadUiCelFile("Menu\\helpborder");
+            gpHelpBorderCel = GAME_LoadUiCelFile("Menu\\helpborder");
         }
         else
         {
             ARCHIVE_FreeClientCellFile(gpHelpBorderCel);
             gpHelpBorderCel = 0;
-            gpHelpBorderCel = sub_004520C0_LoadUiCelFile("Menu\\helpborder");
+            gpHelpBorderCel = GAME_LoadUiCelFile("Menu\\helpborder");
         }
     }
     if (!gpHelpWhiteBulletCel)
     {
-        gpHelpWhiteBulletCel = sub_004520C0_LoadUiCelFile("Menu\\helpwhitebullet");
+        gpHelpWhiteBulletCel = GAME_LoadUiCelFile("Menu\\helpwhitebullet");
     }
     if (!gpHelpYellowBulletCel)
     {
-        gpHelpYellowBulletCel = sub_004520C0_LoadUiCelFile("Menu\\helpyellowbullet");
+        gpHelpYellowBulletCel = GAME_LoadUiCelFile("Menu\\helpyellowbullet");
     }
 }
 
@@ -625,7 +625,7 @@ D2CelFileStrc* __fastcall HIREABLES_GetPetIcon(D2UnitStrc* pOwner, int nPetType,
     {
         sprintf((char*)aPath, "hireables\\%s", pPetTypeTxtRecord->szIcon[nIcon]);
         ppCel = &gpHirelingRecords[nSlot];
-        *ppCel = sub_004520C0_LoadUiCelFile((char*)aPath);
+        *ppCel = GAME_LoadUiCelFile((char*)aPath);
     }
     return (D2CelFileStrc*)*ppCel;
 }

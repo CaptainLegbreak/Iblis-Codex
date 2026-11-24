@@ -44,7 +44,7 @@ extern unsigned char gnTextColor; // 0x007C02F8
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const D2HoverBoxStrc gaHoverBoxes[2]; // 0x006DA430
 void __cdecl PANEL_SetBlackColour(); // 0x00499E30
-int __cdecl sub_00466DC0(); // 0x00466DC0
+int __cdecl SELECT_GetHoverMonClassId(); // 0x00466DC0
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -75,7 +75,7 @@ extern D2DataTables* gpDataTables; // 0x00744304
 extern D2SkillIconFile gaSkillIconFiles[7]; // 0x00724AC0
 extern void* gpGenericSkillIcons; // 0x007C07F8
 int __stdcall SKILLS_GetClassIdFromSkillId(int); // 0x00645040
-void* __fastcall sub_004520C0_LoadUiCelFile(const char*); // 0x004520C0
+void* __fastcall GAME_LoadUiCelFile(const char*); // 0x004520C0
 void __stdcall TEXTURE_CelDrawColor(D2CelContext*,int,int,int,int,int); // 0x004F64B0
 extern "C" void* __cdecl memset(void*,int,unsigned int); // 0x00681EF0
 
@@ -156,7 +156,7 @@ static void __stdcall sub_004A7AE0_DrawHoverValueBox(int nValueA, int nValueB, i
     const int nTitleX = gaHoverBoxes[nIndex].nTitleX + gnPanelOffsetX;
     D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x103F), nTitleX, nTitleY, 0, 0);
 
-    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecordInl(sub_00466DC0());
+    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecordInl(SELECT_GetHoverMonClassId());
     D2_ASSERT(pMonStatsTxtRecord, 0xEC);
 
     sub_005269D0(0x80, (Unicode*)aText, D2LANG_GetStringFromTblIndex(0x2777), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), nValue);
@@ -307,7 +307,7 @@ void __fastcall sub_004A9870_DrawSkillSlot(D2SkillsTxt* skills,int owner,int cha
  void* cell;
  unsigned int classId=SKILLS_GetClassIdFromSkillId(skills->nSkillId);
  if(classId<=6) {
-  if(!gaSkillIconFiles[classId].cell)gaSkillIconFiles[classId].cell=sub_004520C0_LoadUiCelFile(gaSkillIconFiles[classId].name);
+  if(!gaSkillIconFiles[classId].cell)gaSkillIconFiles[classId].cell=GAME_LoadUiCelFile(gaSkillIconFiles[classId].name);
   cell=gaSkillIconFiles[classId].cell;
  } else cell=gpGenericSkillIcons;
  int id=skills->nSkillId;
