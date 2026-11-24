@@ -120,7 +120,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 
-extern "C" const unsigned int gnAct1Quest1NpcIndices[]; // 0x00736CD0
+extern "C" unsigned int gnAct1Quest1NpcIndices[]; // 0x00736CD0
 
 void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C3A0
 
