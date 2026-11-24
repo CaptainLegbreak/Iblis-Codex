@@ -1,13 +1,7 @@
 #include "D2Common.h"
-
 #include "D2PathFind.h"
-
 #include "D2Structs.h"
-
 #include "D2Path.h"
-
-#include "D2Structs.h"
-
 #include "D2DrlgPresets.h"
 #include "D2PathFoWallContext.h"
 
@@ -30,7 +24,6 @@ struct D2PathFoWallNodeStrc;
 struct D2PathFoWallContextStrc;
 
 struct D2PathMovStrc;
-
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -62,7 +55,6 @@ int __fastcall sub_6FDAA720(D2PathInfoStrc* pPathInfo); // 0x00679B30
 
 typedef int BOOL;
 
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
@@ -79,10 +71,26 @@ D2PathFoWallNodeStrc* __stdcall PATH_AStar_FindPointInVisitedCache(D2PathFoWallC
 
 D2PathFoWallNodeStrc* __fastcall PATH_AStar_AllocNewNode(D2PathFoWallContextStrc* pContext); // 0x0067B1C0
 
-
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
 
 extern const D2CoordStrc gnDirectionsToAdjacentCellOffsets[16]; // 0x006F1D98
+
+int PATH_CheckCollisionsToNextPosition(D2DynamicPathStrc* pDynamicPath, D2PathPointStrc* pGameCoord); // 0x00679A60
+
+void PATH_AStar_PropagateNewFScoreToChildren(D2PathFoWallContextStrc* pContext, D2PathFoWallNodeStrc* pNewNode); // 0x0067AFE0
+
+int PATH_FindNonCollidingTargetPoint(D2PathInfoStrc* pInfo, D2PathMovStrc* pMov); // 0x0067BBF0
+
+static void __stdcall PATH_ReplaceSubpathPoints(D2PathPointStrc* pPoints, int* pSubPathStartIdx, int nSubPathLastIdx, int* nMaxIndex, D2PathMovStrc* pMov);
+
+// build: symbol ?gaPathDeltaTable@* 0x006F1E28
+int __stdcall PATH_GetAdjacentPointDirection(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2); // 0x0067BBC0
+
+int __fastcall PATH_FindSubpathWithoutObstacles(D2PathInfoStrc* pInfo, D2PathPointStrc tSubPathStart, D2PathPointStrc* pPathPoints, int* pSubPathStartIdx, int* nMaxIndex, int nMaxLength, int nMajorDirection);
+
+int __fastcall PATH_SimplifyToLines(D2PathPointStrc tStartCoord, D2PathPointStrc* pOutPathPoints, D2PathPointStrc* pInputPoints, int nbTempPoints); // 0x0067C1E0
+
+static int __stdcall PATH_BresenhamLine(D2PathPointStrc tStartPoint, D2PathPointStrc tTargetPoint, int nDistMax, int* nMajorDirection, D2PathPointStrc* pOutPoints);
 
 inline const int& PATH_MaxRef(const int& a, const int& b)
 {
@@ -117,8 +125,6 @@ static inline int PATH_TestCollision(const D2CollisionTestStrc* pTest, int nX, i
 {
     return COLLISION_CheckAnyCollisionWithPattern(pTest->pRoom, nX, nY, pTest->nCollisionPattern, pTest->nCollisionMask);
 }
-
-int PATH_CheckCollisionsToNextPosition(D2DynamicPathStrc* pDynamicPath, D2PathPointStrc* pGameCoord); // 0x00679A60
 
 int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo)
 {
@@ -268,8 +274,6 @@ static inline D2PathFoWallNodeStrc* PATH_AStar_RemoveFromPendingCache(D2PathFoWa
     return pPrev;
 }
 
-void PATH_AStar_PropagateNewFScoreToChildren(D2PathFoWallContextStrc* pContext, D2PathFoWallNodeStrc* pNewNode); // 0x0067AFE0
-
 static inline void PATH_AStar_AddChildToNode(D2PathFoWallNodeStrc* pNode, D2PathFoWallNodeStrc* pChild)
 {
     if (!pNode->pChildren[0])
@@ -308,8 +312,6 @@ int __stdcall PATH_GetSquaredDistanceBetweenPoints(D2PathPointStrc tPoint1, D2Pa
     const int nDiffY = tPoint1.Y - tPoint2.Y;
     return nDiffY * nDiffY + nDiffX * nDiffX;
 }
-
-static int __stdcall PATH_BresenhamLine(D2PathPointStrc tStartPoint, D2PathPointStrc tTargetPoint, int nDistMax, int* nMajorDirection, D2PathPointStrc* pOutPoints);
 
 // 0x0067B9F0
 static int __stdcall PATH_BresenhamLine(D2PathPointStrc tStartPoint, D2PathPointStrc tTargetPoint, int nDistMax, int* nMajorDirection, D2PathPointStrc* pOutPoints)
@@ -722,6 +724,63 @@ int __fastcall PATH_SimplifyToLines(D2PathPointStrc* pOutPathPoints, D2PathPoint
     }
 
     return nbOutPoints;
+}
+
+static inline int PATH_TestNewTargetPointWF(D2PathMovStrc* pMov, D2ActiveRoomStrc* pRoom, int nCollisionPattern, int nCollisionMask)
+{
+    pMov->tTargetCoord.X = (unsigned short)(gnDirectionsToAdjacentCellOffsets[pMov->nDirectionIndex].nX + pMov->tCurrentCoord.X);
+    pMov->tTargetCoord.Y = (unsigned short)(gnDirectionsToAdjacentCellOffsets[pMov->nDirectionIndex].nY + pMov->tCurrentCoord.Y);
+    return COLLISION_CheckAnyCollisionWithPattern(pRoom, pMov->tTargetCoord.X, pMov->tTargetCoord.Y, nCollisionPattern, nCollisionMask);
+}
+
+// 0x0067C2D0
+int __fastcall PATH_ComputePathOrSlideAlongObstacles(D2PathInfoStrc* pPathInfo)
+{
+    D2DynamicPathStrc* ptPathInfo = pPathInfo->pDynamicPath;
+    D2_ASSERT(((ptPathInfo->pUnit && ptPathInfo->pUnit->dwUnitType == UNIT_PLAYER) || (ptPathInfo->pUnit && ptPathInfo->pUnit->dwUnitType == UNIT_MONSTER)) != 0, 0x2AD);
+
+    D2ActiveRoomStrc* pRoom = pPathInfo->pStartRoom;
+    const int nCollisionPattern = pPathInfo->nCollisionPattern;
+    const int nCollisionMask = pPathInfo->nCollisionMask;
+    const unsigned char nDist = ptPathInfo->bDistMax;
+    int i = 0;
+    const D2PathPointStrc tStart = pPathInfo->tStartCoord;
+    const D2PathPointStrc tTarget = pPathInfo->tTargetCoord;
+    D2PathPointStrc tPrevious = tStart;
+    int nDistMax = nDist;
+    if (ptPathInfo->hTarget && nDist < 40)
+    {
+        nDistMax = 40;
+    }
+
+    D2PathPointStrc aPathPoints[78];
+    int nMajorDirection;
+    int nPoints = PATH_BresenhamLine(tStart, tTarget, nDistMax, &nMajorDirection, aPathPoints);
+    if (nPoints <= 2)
+    {
+        return 0;
+    }
+
+    for (; i < nPoints; ++i)
+    {
+        const D2PathPointStrc* pPoint = &aPathPoints[i];
+        if (COLLISION_CheckAnyCollisionWithPattern(pRoom, pPoint->X, pPoint->Y, nCollisionPattern, nCollisionMask))
+        {
+            if (!PATH_FindSubpathWithoutObstacles(pPathInfo, tPrevious, aPathPoints, &i, &nPoints, nDistMax - i, nMajorDirection))
+            {
+                return PATH_SimplifyToLines(tStart, ptPathInfo->PathPoints, aPathPoints, i);
+            }
+        }
+
+        tPrevious = aPathPoints[i];
+    }
+
+    if (!nPoints)
+    {
+        return 0;
+    }
+
+    return PATH_SimplifyToLines(tStart, ptPathInfo->PathPoints, aPathPoints, nPoints);
 }
 
 #include "gen/data/Source/D2Common/Unknown_0067B9C0.inc"

@@ -2253,18 +2253,6 @@ void __fastcall D2GAME_SendP0x9C_ItemAction_AddOrRemoveFromShop_6FC3F260(D2Clien
     }
 }
 
-// 0x0054C360
-int __stdcall D2GAME_PACKETCALLBACK_Rcv0x42_Ignored(int nUnused1, int nUnused2)
-{
-    return 0;
-}
-
-// 0x0054C370
-int __stdcall D2GAME_PACKETCALLBACK_Rcv0x43_Ignored(int nUnused1, int nUnused2)
-{
-    return 0;
-}
-
 // 0x00568DB0
 int __cdecl sub_00568DB0()
 {

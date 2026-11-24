@@ -7,7 +7,6 @@
 
 struct D2StormMpqHeaderStrc;
 struct D2StormHashEntryStrc;
-struct D2StormFileSubStrc;
 struct D2StormArchiveFileStrc;
 struct D2StormRequestCallbackStrc;
 namespace Storm { namespace SFile { struct ARCHIVEREC; } }
@@ -24,17 +23,9 @@ struct D2StormBlockStrc
     unsigned int nPackedSize;                   // 0x04
     unsigned int nFileSize;                     // 0x08
     unsigned int dwFlags;                       // 0x0C
-    union
-    {
-        struct
-        {
-            unsigned int unk0x10;               // 0x10
-            unsigned int unk0x14;               // 0x14
-        };
-        D2FileTimeStrc tFileTime;
-    };
+    D2FileTimeStrc tFileTime;                   // 0x10
     unsigned int nCrc;                          // 0x18
-    unsigned int unk0x1C[4];                    // 0x1C
+    unsigned int aMd5[4];                       // 0x1C
 
     void ExpandBlockEntries(unsigned int nCount);                                                    // 0x004156A0
 };
@@ -44,9 +35,8 @@ namespace Storm
 namespace SFile
 {
 // An open archive (0x25C bytes).
-struct ARCHIVEREC
+struct ARCHIVEREC : TSLinkedNode<ARCHIVEREC>
 {
-    D2StormLinkStrc tLink;                      // 0x000
     union
     {
         char szFileName[0x108];                 // 0x008
@@ -67,31 +57,15 @@ struct ARCHIVEREC
         int nPriority;                          // 0x118
         int nInfo;
     };
-    union
-    {
-        FILEREC* pCachedFile;        // 0x11C
-        int nUnk0x11C;
-    };
+    FILEREC* pCachedFile;                       // 0x11C
     unsigned int nCachedOffset;                 // 0x120
     unsigned int sectorsize;                    // 0x124
-    union
-    {
-        unsigned char* pBlockBuffer;            // 0x128
-        void* pBuffer0x128;
-    };
+    unsigned char* pBlockBuffer;                // 0x128
     unsigned int nCachedSize;                   // 0x12C
     unsigned int nArchiveOffset;                // 0x130
     unsigned int nArchiveLimit;                 // 0x134
-    union
-    {
-        D2StormMpqHeaderStrc* pHeader;          // 0x138
-        void* pBuffer0x138;
-    };
-    union
-    {
-        D2StormBlockStrc* pBlockTable;          // 0x13C
-        void* pBuffer0x13C;
-    };
+    D2StormMpqHeaderStrc* pHeader;              // 0x138
+    D2StormBlockStrc* pBlockTable;              // 0x13C
     union
     {
         D2StormHashEntryStrc* pHashTable;       // 0x140
@@ -119,11 +93,6 @@ struct ARCHIVEREC
     char szPrefix[0x104];                       // 0x154
     int nRefs;                                  // 0x258
 
-    ARCHIVEREC()
-    {
-        tLink.m_prevlink = 0;
-        tLink.m_next = 0;
-    }
     ~ARCHIVEREC();                                                                                // 0x00418A50
     void ReadAdditionalAttributes(D2StormBlockStrc* pBlockTable, unsigned int nCount);                    // 0x0041B0B0
     static void operator delete(void* pMemory)
@@ -170,7 +139,6 @@ struct FILEREC : TSLinkedNode<FILEREC>
     union
     {
         D2StormBlockStrc* pBlock;               // 0x118
-        D2StormFileSubStrc* f_118;
         D2StormArchiveFileStrc* pArchiveFile;
         unsigned int* pBlockWords;
     };
@@ -249,7 +217,7 @@ struct AUDIOSTREAM : TSLinkedNode<AUDIOSTREAM>
 {
     FILEREC* pFile;                  // 0x08
     unsigned int nextwrite;                     // 0x0C
-    int unk0x10;                                // 0x10
+    int nBytesPerSec;                           // 0x10
     int bRestart;                               // 0x14
     int fillstatus;                                 // 0x18
     unsigned int nCounter;                      // 0x1C
@@ -302,28 +270,6 @@ struct REQUEST : TSLinkedNode<REQUEST>
     static void operator delete(void* pMemory);
 };
 
-// The list of open archives.
-struct D2StormArchiveListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    ARCHIVEREC* Head()
-    {
-        return (ARCHIVEREC*)m_terminator.Next();
-    }
-    void LinkBefore(ARCHIVEREC* pNode, ARCHIVEREC* pExisting)
-    {
-        pNode->tLink.Unlink();
-        D2StormLinkStrc* pExistingLink = pExisting ? &pExisting->tLink : &m_terminator;
-        D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
-        pNode->tLink.m_prevlink = pPrevLink;
-        pNode->tLink.m_next = pPrevLink->m_next;
-        pPrevLink->m_next = (char*)pNode;
-        pExistingLink->m_prevlink = &pNode->tLink;
-    }
-};
-
 // A request-completion event.
 struct EVENTREC : TSLinkedNode<EVENTREC>
 {
@@ -349,7 +295,6 @@ struct D2StormFixedListStrc
     D2StormLinkStrc* sub_00417C50_Link(char* pNode);
     D2StormLinkStrc* sub_00417D60_Link(char* pNode);
     D2StormLinkStrc* sub_0041C560_Link(char* pNode);
-    void sub_004184B0_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
     void sub_0041C580_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
     char* sub_00417B20_Next(char* pNode);
     char* sub_00417D20_Next(char* pNode);
@@ -365,7 +310,6 @@ struct D2StormFixedListStrc
     char* sub_004186D0_RawNext(char* pNode);
     char* sub_004186F0_RawNext(char* pNode);
     char* sub_0041C700_RawNext(char* pNode);
-    char* sub_00418EC0_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
     char* sub_0041C840_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
     char* sub_0041CA10_DeleteNode(char* pNode);
 };
@@ -416,8 +360,3 @@ struct D2Storm4168F0Strc
 };
 
 // The file's global lists.
-struct D2StormList00708354Strc : D2StormListBaseStrc
-{
-    void sub_00418900_UnlinkAll();
-    ~D2StormList00708354Strc();
-};

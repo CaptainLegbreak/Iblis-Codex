@@ -9,8 +9,6 @@
 
 struct D2FileStrc;
 
-struct D2StormFileSubStrc;
-
 struct D2CriticalSectionStrc;
 
 struct D2StormBufferInfoStrc;
@@ -43,9 +41,7 @@ struct PairStrc_00416960;
 
 struct PairStrc_004169A0;
 
-struct PairStrc_0041C390;
 
-struct PairStrc_00426920;
 
 struct D2IdentityView;
 
@@ -87,13 +83,11 @@ struct D2ChatStormListDStrc;
 
 struct D2ChatStormListEStrc;
 
-struct D2CommonStormSlotLinkStrc;
 
 struct D2CommonStormSlotListAStrc;
 
 struct D2CommonStormSlotListBStrc;
 
-struct D2CommonMappingEntryNodeBaseStrc;
 
 struct D2CommonMappingEntryNodeStrc;
 
@@ -262,7 +256,7 @@ extern int (__stdcall* gpfnReadErrorCallback_00779030)(const char* szName, unsig
 
 extern const D2StormSignatureKeyStrc gaSignatureKeys_006CF07C[]; // 0x006CF07C
 
-extern D2StormArchiveListStrc gArchiveList_00708354; // 0x00708354
+extern TSList<ARCHIVEREC> gArchiveList_00708354; // 0x00708354
 
 extern TSList<EVENTREC> gEventList_00708378; // 0x00708378
 
@@ -291,18 +285,6 @@ struct D2StormQuadStrc
     int n08;
     int n0C;
     D2StormQuadStrc& sub_00415160_Copy(const D2StormQuadStrc& source);
-};
-
-struct D2StormFileSubStrc
-{
-    int pad00;
-    int nSizeLow;
-    unsigned int nSize;
-    unsigned char unk_0C[0x4];
-    __int64 nFileTime;
-    int nValue;
-    D2StormQuadStrc tQuad;
-    unsigned char unk_2C[0x4];
 };
 
 template<class T, class TGetLink>
@@ -344,6 +326,11 @@ T* TSList<T, TGetLink>::DeleteNode(T* ptr)
 // build: symbol ?UnlinkAll@?$TSList@UFILEREC@@U?$TSGetLink@UFILEREC@@@@@@QAEXXZ 0x00418980
 // build: symbol ??1?$TSList@UFILEREC@@U?$TSGetLink@UFILEREC@@@@@@QAE@XZ 0x00418D00
 // build: symbol ?NewNode@?$TSList@UFILEREC@@U?$TSGetLink@UFILEREC@@@@@@QAEPAUFILEREC@@III@Z 0x00418F20
+// build: symbol ??_R0?AUARCHIVEREC@SFile@Storm@@@8 0x00708390
+// build: symbol ?LinkNode@?$TSList@UARCHIVEREC@SFile@Storm@@U?$TSGetLink@UARCHIVEREC@SFile@Storm@@@@@@QAEXPAUARCHIVEREC@SFile@Storm@@I0@Z 0x004184B0
+// build: symbol ?UnlinkAll@?$TSList@UARCHIVEREC@SFile@Storm@@U?$TSGetLink@UARCHIVEREC@SFile@Storm@@@@@@QAEXXZ 0x00418900
+// build: symbol ??1?$TSList@UARCHIVEREC@SFile@Storm@@U?$TSGetLink@UARCHIVEREC@SFile@Storm@@@@@@QAE@XZ 0x00418C60
+// build: symbol ?NewNode@?$TSList@UARCHIVEREC@SFile@Storm@@U?$TSGetLink@UARCHIVEREC@SFile@Storm@@@@@@QAEPAUARCHIVEREC@SFile@Storm@@III@Z 0x00418EC0
 template TSList<FILEREC>::~TSList();
 template TSList<EVENTREC>::~TSList();
 template TSList<REQUEST>::~TSList();
@@ -352,7 +339,7 @@ template TSList<AUDIOSTREAM>::~TSList();
 template AUDIOSTREAM* TSList<AUDIOSTREAM>::DeleteNode(AUDIOSTREAM*);
 extern TSList<AUDIOSTREAM> gDdaList_00708384; // 0x00708384
 
-extern "C" __declspec(dllimport) int __stdcall GetFileTime(void* hFile, __int64* pCreation, __int64* pAccess, __int64* pWrite);
+extern "C" __declspec(dllimport) int __stdcall GetFileTime(void* hFile, D2FileTimeStrc* pCreation, D2FileTimeStrc* pAccess, D2FileTimeStrc* pWrite);
 
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 
@@ -388,19 +375,7 @@ struct PairStrc_004169A0
     int nSecond;
 };
 
-struct PairStrc_0041C390
-{
-    int nFirst;
-    int nSecond;
-};
-
 extern int gdwGlobal_007792F4; // 0x007792F4
-
-struct PairStrc_00426920
-{
-    int nFirst;
-    int nSecond;
-};
 
 struct D2IdentityView {
  D2StormLinkStrc link;
@@ -494,8 +469,6 @@ struct CHuffman : THuffmannTree
 
     CHuffman();
 };
-
-extern D2StormNodeListStrc gStormList_00708354; // 0x00708354
 
 static void* ghStormThread_00779034; // 0x00779034
 
@@ -826,11 +799,6 @@ static REQUEST* gpCurrentRequest_0077902C; // 0x0077902C
 inline void* operator new(unsigned int, void* pWhere) throw()
 {
     return pWhere;
-}
-
-static inline ARCHIVEREC* ArchiveHead()
-{
-    return (int)gpArchiveHead_0070835C > 0 ? gpArchiveHead_0070835C : 0;
 }
 
 // 0x004152D0
@@ -1330,12 +1298,12 @@ int __fastcall s_OpenArchive(ARCHIVEREC* pArchive, unsigned int nFlags, int bKee
         }
     }
     ARCHIVEREC* pExisting;
-    for (pExisting = gArchiveList_00708354.Head(); pExisting; pExisting = (ARCHIVEREC*)pExisting->tLink.Next())
+    for (pExisting = gArchiveList_00708354.Head(); pExisting; pExisting = pExisting->m_link.Next())
     {
         if (pExisting->nPriority <= pArchive->nPriority)
             break;
     }
-    gArchiveList_00708354.LinkBefore(pArchive, pExisting);
+    gArchiveList_00708354.LinkNode(pArchive, 2, pExisting);
     if (pArchive->nMode)
     {
         StartCdThread();
@@ -1430,7 +1398,7 @@ void D2StormBlockStrc::ExpandBlockEntries(unsigned int nCount)
     D2StormBlockStrc* pRec = this + nCount - 1;
     if (nCount > 1)
     {
-        unsigned int* pClear = &pRec->unk0x1C[2];
+        unsigned int* pClear = &pRec->aMd5[2];
         unsigned int nLeft = nCount - 1;
         do
         {
@@ -1449,13 +1417,13 @@ void D2StormBlockStrc::ExpandBlockEntries(unsigned int nCount)
     }
     if (nCount)
     {
-        pRec->unk0x14 = 0;
-        pRec->unk0x10 = 0;
+        pRec->tFileTime.dwHighDateTime = 0;
+        pRec->tFileTime.dwLowDateTime = 0;
         pRec->nCrc = 0;
-        pRec->unk0x1C[0] = 0;
-        pRec->unk0x1C[1] = 0;
-        pRec->unk0x1C[2] = 0;
-        pRec->unk0x1C[3] = 0;
+        pRec->aMd5[0] = 0;
+        pRec->aMd5[1] = 0;
+        pRec->aMd5[2] = 0;
+        pRec->aMd5[3] = 0;
     }
 }
 
@@ -1525,7 +1493,7 @@ int __stdcall sub_00416160_GetFileSubValue(void* hFile)
         LeaveCriticalSection(&gBasePathLock_00779068);
         return 0;
     }
-    const int nValue = pRec->f_118->nValue;
+    const int nValue = pRec->pBlock->nCrc;
     LeaveCriticalSection(&gBasePathLock_00779068);
     return nValue;
 }
@@ -1545,7 +1513,7 @@ int __stdcall sub_004161C0_GetFileSubQuad(void* hFile, D2StormQuadStrc* pQuad)
         LeaveCriticalSection(&gBasePathLock_00779068);
         return 0;
     }
-    *pQuad = pRec->f_118->tQuad;
+    *pQuad = *(D2StormQuadStrc*)pRec->pBlock->aMd5;
     LeaveCriticalSection(&gBasePathLock_00779068);
     return 1;
 }
@@ -1559,7 +1527,7 @@ int __stdcall SFileGetFileCompressedSize(void* hFile, int* pnSizeHigh)
     EnterCriticalSection(&gBasePathLock_00779068);
     FILEREC* pRec;
     if (GetFileRec(hFile, &pRec) && pRec->nKind == -1)
-        nResult = pRec->f_118->nSizeLow;
+        nResult = pRec->pBlock->nPackedSize;
     LeaveCriticalSection(&gBasePathLock_00779068);
     return nResult;
 }
@@ -1719,7 +1687,7 @@ int __stdcall SFileGetFileName(void* hFile, char* dest, unsigned int size)
 }
 
 // 0x00416400
-int __stdcall SFileGetFileTime(void* hFile, __int64* pFileTime)
+int __stdcall SFileGetFileTime(void* hFile, D2FileTimeStrc* pFileTime)
 {
     VALIDATEBEGIN;
     VALIDATE(pFileTime);
@@ -1739,7 +1707,7 @@ int __stdcall SFileGetFileTime(void* hFile, __int64* pFileTime)
         return GetFileTime((void*)pRec->nKind, 0, 0, pFileTime);
     }
 
-    *pFileTime = pRec->f_118->nFileTime;
+    *pFileTime = pRec->pBlock->tFileTime;
     LeaveCriticalSection(&gBasePathLock_00779068);
     return nValid ? 1 : 0;
 }
@@ -1835,13 +1803,13 @@ unsigned long __stdcall SFileSetFilePointer(void* hFile, long nDistance, long* p
         break;
 
     case 2:
-        if (nDistance < 0 && pRec->f_118->nSize < (unsigned long)-nDistance)
+        if (nDistance < 0 && pRec->pBlock->nFileSize < (unsigned long)-nDistance)
         {
             pRec->nPosition = 0;
         }
         else
         {
-            pRec->nPosition = pRec->f_118->nSize + nDistance;
+            pRec->nPosition = pRec->pBlock->nFileSize + nDistance;
         }
         break;
     }
@@ -2096,30 +2064,6 @@ char* D2StormFixedListStrc::sub_00417E30_Next(char* pNode)
 void D2StormFixedListStrc::sub_00417E90_UnlinkNode(char* pNode)
 {
     Link(pNode)->Unlink();
-}
-
-// 0x004184B0
-void D2StormFixedListStrc::sub_004184B0_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode)
-{
-    D2StormLinkStrc* pLink = Link(pNode);
-    pLink->Unlink();
-    D2StormLinkStrc* pExistingLink = Link(pExistingNode);
-    switch (nLinkType)
-    {
-    case 1:
-        pLink->m_prevlink = pExistingLink;
-        pLink->m_next = pExistingLink->m_next;
-        pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
-        pExistingLink->m_next = pNode;
-        break;
-    default:
-        D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
-        pLink->m_prevlink = pPrevLink;
-        pLink->m_next = pPrevLink->m_next;
-        pPrevLink->m_next = pNode;
-        pExistingLink->m_prevlink = pLink;
-        break;
-    }
 }
 
 // 0x00418560
@@ -2576,20 +2520,6 @@ int D2StormList004185B0Strc::sub_004185B0_IsEmpty()
     return m_terminator.Next() == 0;
 }
 
-// 0x00418900
-inline void D2StormList00708354Strc::sub_00418900_UnlinkAll()
-{
-    while (char* pNode = m_terminator.Next())
-        ((D2StormLinkStrc*)pNode)->Unlink();
-}
-
-// 0x00418C60
-D2StormList00708354Strc::~D2StormList00708354Strc()
-{
-    sub_00418900_UnlinkAll();
-    m_terminator.Unlink();
-}
-
 // 0x00418E60
 inline FILEREC::FILEREC()
 {
@@ -2616,16 +2546,15 @@ Storm::SFile::ARCHIVEREC::~ARCHIVEREC()
     {
         if (hFile != (void*)-1 && !bNoClose)
             CloseHandle(hFile);
-        if (pBuffer0x128)
-            SMemFree(pBuffer0x128, ".\\SOURCE\\SFILE.CPP", 0x260, 0);
-        if (pBuffer0x138)
-            SMemFree(pBuffer0x138, ".\\SOURCE\\SFILE.CPP", 0x261, 0);
-        if (pBuffer0x13C)
-            SMemFree(pBuffer0x13C, ".\\SOURCE\\SFILE.CPP", 0x269, 0);
+        if (pBlockBuffer)
+            SMemFree(pBlockBuffer, ".\\SOURCE\\SFILE.CPP", 0x260, 0);
+        if (pHeader)
+            SMemFree(pHeader, ".\\SOURCE\\SFILE.CPP", 0x261, 0);
+        if (pBlockTable)
+            SMemFree(pBlockTable, ".\\SOURCE\\SFILE.CPP", 0x269, 0);
         if (pBuffer0x140)
             SMemFree(pBuffer0x140, ".\\SOURCE\\SFILE.CPP", 0x26A, 0);
     }
-    tLink.Unlink();
 }
 
 // 0x00418B50
@@ -2636,7 +2565,7 @@ int __cdecl GetDefaultOpenFlags()
         nFlags |= 1;
     if (gnStormDirectFlags_00779058 & 2)
         nFlags |= 2;
-    if (!gStormList_00708354.Head() && !gnStormDirectFlags_00779058)
+    if (!gArchiveList_00708354.Head() && !gnStormDirectFlags_00779058)
         nFlags |= 1;
     return nFlags;
 }
@@ -2647,7 +2576,7 @@ FILEREC::~FILEREC()
     if (hFile != (void*)-1)
         CloseHandle(hFile);
     if (archive)
-        archive->nUnk0x11C = 0;
+        archive->pCachedFile = 0;
     if (pBuffer0x12C)
         SMemFree(pBuffer0x12C, ".\\SOURCE\\SFILE.CPP", 0x14B, 0);
     if (pBuffer0x138)
@@ -2721,16 +2650,6 @@ inline HANDLER::~HANDLER()
     tLink.Unlink();
 }
 
-// 0x00418EC0
-char* D2StormFixedListStrc::sub_00418EC0_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
-{
-    void* pMemory = SMemAlloc(sizeof(ARCHIVEREC) + nExtraBytes, gszTypeNameArchiveRec_00708398, -2, nFlags | 8);
-    ARCHIVEREC* pRecord = pMemory ? new (pMemory) ARCHIVEREC : 0;
-    if (nLinkType)
-        sub_004184B0_LinkNode((char*)pRecord, nLinkType, 0);
-    return (char*)pRecord;
-}
-
 void __stdcall SErrReportResourceLeak(const char* szName); // 0x0041D1E0
 void __stdcall SErrReportNamedResourceLeak(const char* szName, const char* szDetail); // 0x0041D010
 int __cdecl SFileDdaDestroy(); // 0x00419F30
@@ -2773,7 +2692,7 @@ int __cdecl SFileDestroy()
         SErrReportNamedResourceLeak("HSFILE", pFile->szName);
         delete pFile;
     }
-    while (ARCHIVEREC* pArchive = (ARCHIVEREC*)gArchiveList_00708354.Head())
+    while (ARCHIVEREC* pArchive = gArchiveList_00708354.Head())
     {
         SErrReportNamedResourceLeak("HSARCHIVE", pArchive->szName);
         delete pArchive;
@@ -2992,7 +2911,7 @@ static int __stdcall ReadAdditionalAttributes(ARCHIVEREC* pArchive, D2StormBlock
                     {
                         for (unsigned int i = 0; i < nCount; ++i, pCursor += 16)
                         {
-                            unsigned int* pDigest = pBlockTable[i].unk0x1C;
+                            unsigned int* pDigest = pBlockTable[i].aMd5;
                             const unsigned int* pSource = (const unsigned int*)pCursor;
                             pDigest[0] = pSource[0];
                             pDigest[1] = pSource[1];
@@ -3103,7 +3022,7 @@ int __stdcall SFileDdaBeginEx(void* hFile, unsigned int nBufferSize, unsigned in
         AUDIOSTREAM* node = gDdaList_00708384.NewNode(2, 0, 0);
         node->pFile = pFile;
         node->soundbuffersize = nBufferSize;
-        node->unk0x10 = format.avgBytesPerSec;
+        node->nBytesPerSec = format.avgBytesPerSec;
         node->bRestart = (nFlags >> 18) & 1;
         node->waveheadersize = chunk[1];
         node->nSize = chunk[0];
@@ -3722,7 +3641,7 @@ static int __stdcall GetFileBlockEntry(void* hArchive, const char* szName, unsig
     ARCHIVEREC* pOnly = 0;
     if (!hArchive || GetArchiveRec(hArchive, &pOnly))
     {
-        ARCHIVEREC* pArchive = ArchiveHead();
+        ARCHIVEREC* pArchive = gArchiveList_00708354.Head();
         do
         {
             if (pOnly && pArchive != pOnly)
@@ -3774,7 +3693,7 @@ static int __stdcall GetFileBlockEntry(void* hArchive, const char* szName, unsig
                 }
             }
         }
-        while (pArchive && (pArchive = (ARCHIVEREC*)pArchive->tLink.Next()) != 0);
+        while (pArchive && (pArchive = pArchive->m_link.Next()) != 0);
         sub_0041C340_SetLastError(2);
     }
 Done:
@@ -4246,7 +4165,7 @@ int __stdcall SFileCloseArchive(void* hArchive)
                 delete pParent;
         }
     }
-    (pRec ? &pRec->tLink : &gStormList_00708354.m_terminator)->Unlink();
+    gArchiveList_00708354.UnlinkNode(pRec);
     if (pRec && !--pRec->nRefCount)
         delete pRec;
     LeaveCriticalSection(&gBasePathLock_00779068);
@@ -4321,8 +4240,7 @@ int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned in
         return 0;
     }
 
-    void* pMemory = SMemAlloc(sizeof(ARCHIVEREC), gszTypeNameArchiveRec_00708398, -2, 8);
-    ARCHIVEREC* pArchive = pMemory ? new (pMemory) ARCHIVEREC : 0;
+    ARCHIVEREC* pArchive = gArchiveList_00708354.NewNode(0, 0, 0);
     SStrCopy(pArchive->szName, szPath, 0x104);
     pArchive->hFile = hFile;
     pArchive->nMode = nVolume ? 3 : 0;
@@ -4388,8 +4306,7 @@ int __stdcall SFileOpenPathAsArchive(void* hArchive, const char* szPrefix, int n
         LeaveCriticalSection(&gBasePathLock_00779068);
         return 0;
     }
-    void* pMemory = SMemAlloc(sizeof(ARCHIVEREC), gszTypeNameArchiveRec_00708398, -2, 8);
-    ARCHIVEREC* pArchive = pMemory ? new (pMemory) ARCHIVEREC : 0;
+    ARCHIVEREC* pArchive = gArchiveList_00708354.NewNode(0, 0, 0);
     SStrCopy(pArchive->szName, pParent->szName, 0x104);
     pArchive->hFile = pParent->hFile;
     pArchive->pParent = pParent;
@@ -4399,20 +4316,20 @@ int __stdcall SFileOpenPathAsArchive(void* hArchive, const char* szPrefix, int n
     pArchive->nRefCount = 1;
     ++pParent->nRefCount;
     ARCHIVEREC* pExisting;
-    for (pExisting = gArchiveList_00708354.Head(); pExisting; pExisting = (ARCHIVEREC*)pExisting->tLink.Next())
+    for (pExisting = gArchiveList_00708354.Head(); pExisting; pExisting = pExisting->m_link.Next())
     {
         if (pExisting->nPriority <= pArchive->nPriority)
             break;
     }
-    pArchive->tLink.Unlink();
-    D2StormLinkStrc* pExistingLink = &pExisting->tLink;
+    pArchive->m_link.Unlink();
+    TSLink<ARCHIVEREC>* pExistingLink = &pExisting->m_link;
     if (!pExisting)
         pExistingLink = &gArchiveList_00708354.m_terminator;
-    D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
-    pArchive->tLink.m_prevlink = pPrevLink;
-    pArchive->tLink.m_next = pPrevLink->m_next;
-    pPrevLink->m_next = (char*)pArchive;
-    pExistingLink->m_prevlink = &pArchive->tLink;
+    TSLink<ARCHIVEREC>* pPrevLink = pExistingLink->m_prevlink;
+    pArchive->m_link.m_prevlink = pPrevLink;
+    pArchive->m_link.m_next = pPrevLink->m_next;
+    pPrevLink->m_next = pArchive;
+    pExistingLink->m_prevlink = &pArchive->m_link;
     *phArchive = pArchive;
     LeaveCriticalSection(&gBasePathLock_00779068);
     return 1;
@@ -4520,8 +4437,7 @@ int __stdcall SFileOpenFileAsArchive(unsigned int hMpq, const char* szName, int 
     }
     if (!(pFile->pBlock->dwFlags & 0x1FF00))
     {
-        void* pMemory = SMemAlloc(sizeof(ARCHIVEREC), gszTypeNameArchiveRec_00708398, -2, 8);
-        ARCHIVEREC* pArchive = pMemory ? new (pMemory) ARCHIVEREC : 0;
+        ARCHIVEREC* pArchive = gArchiveList_00708354.NewNode(0, 0, 0);
         SStrCopy(pArchive->szName, szName, 0x104);
         pArchive->hFile = pFile->archive->hFile;
         pArchive->nMode = pFile->archive->nMode;
@@ -4935,3 +4851,7 @@ TSList<EVENTREC> gEventList_00708378; // 0x00708378
 // build: symbol ??__EgFileList_0070836C@@YAXXZ 0x006CA810
 // build: symbol ??__FgFileList_0070836C@@YAXXZ 0x006CB180
 TSList<FILEREC> gFileList_0070836C; // 0x0070836C
+
+// build: symbol ??__EgArchiveList_00708354@@YAXXZ 0x006CA7B0
+// build: symbol ??__FgArchiveList_00708354@@YAXXZ 0x006CB0C0
+TSList<ARCHIVEREC> gArchiveList_00708354; // 0x00708354
