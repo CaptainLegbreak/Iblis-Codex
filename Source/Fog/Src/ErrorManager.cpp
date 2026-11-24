@@ -415,8 +415,8 @@ struct D2ThreadContextStrc;
 struct D2CrashSubmitInfoStrc
 {
     const char* szName;
-    int nUnk04;
-    int nUnk08;
+    const char* szLocale;
+    const char* szFrom;
     unsigned int dwFlags;
     const char* apszLines[16];
     int nLines;
