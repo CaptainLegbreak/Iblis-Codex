@@ -11643,7 +11643,7 @@ address,name,source,alias
 0x00604D10,TileGetHeightToBottom,blizzard,TileGetHeightToBottom
 0x00604D40,TileGetRoofHeight,blizzard,TileGetRoofHeight
 0x00604D80,TileGetFilename,blizzard,TileGetFilename
-0x00604DB0,sub_00604DB0,placeholder,
+0x00604DB0,PaletteMaxComponent,inferred,
 0x00604DD0,PaletteMinComponent,inferred,
 0x00604DF0,sub_00604DF0_PaletteToHSL,placeholder,
 0x00604FE0,PaletteHueToRgb,inferred,

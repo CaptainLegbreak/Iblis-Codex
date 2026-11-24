@@ -1,7 +1,11 @@
 #include "D2CMP.h"
+
 #include "D2CmpTypes.h"
+
 #include "D2CmpTiles.h"
+
 #include "D2CelDataHash.h"
+
 #include "D2ColorBlock.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -196,7 +200,6 @@ extern int gbPaletteLoaded; // 0x008E9934
 
 unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
 
-
 extern const D2ColorBlockStrc gtColorBlock; // 0x007434D8
 
 double __stdcall PaletteHueToRgb(double n1, double n2, double hue); // 0x00604FE0
@@ -235,10 +238,99 @@ void* __stdcall CreateD2Palette(void* pSource); // 0x00606930
 
 #define PAL_SATURATE(x) ((unsigned int)(x) < 255 ? (x) : 255)
 
+
+
+extern "C" __declspec(dllimport) unsigned long __stdcall SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x006CC1AC
+
+struct D2PcxRgbStrc
+{
+    unsigned char nR;
+    unsigned char nG;
+    unsigned char nB;
+};
+
+struct D2PcxPaletteStrc
+{
+    unsigned char f_0;
+    D2PcxRgbStrc aColors[256];
+};
+
+// 0x00604DB0
+double __stdcall PaletteMaxComponent(double a, double b)
+{
+    return a > b ? a : b;
+}
+
 // 0x00604DD0
 double __stdcall PaletteMinComponent(double a, double b)
 {
     return a < b ? a : b;
+}
+
+// 0x00604DF0
+void __fastcall sub_00604DF0_PaletteToHSL(D2HslStrc* pHSL, const unsigned char* pPalette)
+{
+    for (unsigned int i = 0; i < 256; ++i)
+    {
+        double dLightness;
+        const double dRed = pPalette[0] / 255.0;
+        const double dGreen = pPalette[1] / 255.0;
+        const double dBlue = pPalette[2] / 255.0;
+        const double dMax = PaletteMaxComponent(dRed, PaletteMaxComponent(dGreen, dBlue));
+        const double dMin = PaletteMinComponent(dRed, PaletteMinComponent(dGreen, dBlue));
+        dLightness = (dMax + dMin) / 2.0;
+        D2_ASSERT(dLightness >= 0.0 && dLightness <= 1.0, 63);
+
+        if (dMax == dMin)
+        {
+            pHSL->dHue = 0.0;
+            pHSL->dSaturation = 0.0;
+            pHSL->dLightness = dLightness;
+        }
+        else
+        {
+            const double dDelta = dMax - dMin;
+            double dSaturation;
+            if (dLightness <= 0.5)
+            {
+                dSaturation = dDelta / (dMax + dMin);
+            }
+            else
+            {
+                dSaturation = dDelta / (2.0 - (dMax + dMin));
+            }
+
+            D2_ASSERT(dSaturation >= 0.0 && dSaturation <= 1.0, 77);
+
+            double dHue;
+            if (dRed == dMax)
+            {
+                dHue = (dGreen - dBlue) / dDelta;
+            }
+            else if (dGreen == dMax)
+            {
+                dHue = 2.0 + (dBlue - dRed) / dDelta;
+            }
+            else
+            {
+                dHue = 4.0 + (dRed - dGreen) / dDelta;
+            }
+
+            dHue *= 60.0;
+            if (dHue < 0.0)
+            {
+                dHue += 360.0;
+            }
+
+            D2_ASSERT(dHue >= 0.0 && dHue < 360.0, 92);
+            pHSL->dHue = dHue;
+            pHSL->dSaturation = dSaturation;
+            pHSL->dLightness = dLightness;
+        }
+
+        pPalette += 4;
+        ++pHSL;
+    }
 }
 
 // 0x00604FE0
@@ -257,11 +349,96 @@ double __stdcall PaletteHueToRgb(double n1, double n2, double hue)
     return n1;
 }
 
+// 0x00605080
+static void sub_00605080_HslToRgb(const D2HslStrc* pHsl, D2PalRgbaStrc* pRgb)
+{
+    for (int i = 0; i < 256; ++i)
+    {
+        unsigned char nRed, nGreen, nBlue;
+        if (pHsl->dSaturation == 0.0)
+        {
+            nRed = (unsigned char)(pHsl->dLightness * 255.0);
+            nGreen = nRed;
+            nBlue = nRed;
+        }
+        else
+        {
+            double dM2;
+            if (pHsl->dLightness <= 0.5)
+            {
+                dM2 = (pHsl->dSaturation + 1.0) * pHsl->dLightness;
+            }
+            else
+            {
+                dM2 = pHsl->dLightness + pHsl->dSaturation - pHsl->dLightness * pHsl->dSaturation;
+            }
+
+            const double dM1 = pHsl->dLightness + pHsl->dLightness - dM2;
+            nRed = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->dHue + 120.0) * 255.0);
+            nGreen = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->dHue) * 255.0);
+            nBlue = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->dHue - 120.0) * 255.0);
+        }
+
+        pRgb->nRed = nRed;
+        pRgb->nGreen = nGreen;
+        pRgb->nBlue = nBlue;
+        ++pRgb;
+        ++pHsl;
+    }
+}
+
 // 0x006051F0
 void __stdcall DestroyD2Palette(void* pMemory)
 {
     if (pMemory)
         sub_005179A4_FreeVirtualMemory(pMemory);
+}
+
+// 0x00605210
+unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2)
+{
+    unsigned int nBestDistance = 0xFFFFFFFF;
+    unsigned int nBest = 0;
+    for (unsigned int i = 0; i < nCount; ++i)
+    {
+        const int nDelta0 = pPalette[i * 4 + 0] - nC0;
+        const int nDelta1 = pPalette[i * 4 + 1] - nC1;
+        const int nDelta2 = pPalette[i * 4 + 2] - nC2;
+        const unsigned int nDistance = nDelta2 * nDelta2 + nDelta1 * nDelta1 + nDelta0 * nDelta0;
+        if (nDistance < nBestDistance)
+        {
+            nBest = i;
+            nBestDistance = nDistance;
+        }
+    }
+    return (unsigned char)nBest;
+}
+
+// 0x00605280
+unsigned char __stdcall GetFurthestColor(unsigned char* pPalette, unsigned int nCount, int nRed, int nGreen, int nBlue)
+{
+    unsigned int nBest = 0;
+    unsigned int nBestIndex = 0;
+    for (unsigned int i = 0; i < nCount; ++i)
+    {
+        const int d0 = pPalette[i * 4 + 0] - nRed;
+        const int d1 = pPalette[i * 4 + 1] - nGreen;
+        const int d2 = pPalette[i * 4 + 2] - nBlue;
+        const unsigned int nDist = d0 * d0 + d1 * d1 + d2 * d2;
+        if (nDist > nBest)
+        {
+            nBestIndex = i;
+            nBest = nDist;
+        }
+    }
+    return (unsigned char)nBestIndex;
+}
+
+// 0x006052F0
+void __cdecl sub_006052F0_InitSquareTable()
+{
+    for (int i = -256; i < 256; ++i)
+        gnSquareTableCenter_008E9430[i] = i * i;
 }
 
 // 0x00605320
@@ -271,6 +448,52 @@ void __stdcall PaletteSetTransparency(unsigned int nColor)
     unsigned char nMid = (unsigned char)(nColor >> 8);
     unsigned char nHigh = (unsigned char)(nColor >> 16);
     gdwSwappedColor = (((nLow << 8) | nMid) << 8) | nHigh;
+}
+
+// 0x00605340
+int __fastcall sub_00605340_LoadPcxPalette(const char* szFileName)
+{
+    void* hFile = CreateFileA(szFileName, 0x80000000, 1, 0, 3, 0, 0);
+    if (hFile == (void*)-1)
+    {
+        OutputDebugStringA("Unable to open ");
+        OutputDebugStringA(szFileName);
+// build: symbol ?gszNewline@* 0x006FFCB0
+        OutputDebugStringA(gszNewline);
+        return 0;
+    }
+
+    unsigned char header[128];
+    memset(header, 0, sizeof(header));
+    unsigned long nRead = 0;
+    ReadFile(hFile, header, sizeof(header), &nRead, 0);
+    if (nRead != sizeof(header) || header[0] != 0x0A || header[1] != 5 || header[3] != 8)
+    {
+        OutputDebugStringA("File is not a valid 256-color PCX file.\n");
+        CloseHandle(hFile);
+        return 0;
+    }
+
+    D2PcxPaletteStrc palette;
+    memset(&palette, 0, sizeof(palette));
+    SetFilePointer(hFile, -(long)sizeof(palette), 0, 2);
+    ReadFile(hFile, &palette, sizeof(palette), &nRead, 0);
+    if (nRead != sizeof(palette) || palette.f_0 != 0x0C)
+    {
+        OutputDebugStringA("Unable to extract palette from\n");
+        CloseHandle(hFile);
+        return 0;
+    }
+
+    for (unsigned int i = 0; i < 256; ++i)
+    {
+        gaPcxPalette[i * 4 + 0] = palette.aColors[i].nR;
+        gaPcxPalette[i * 4 + 1] = palette.aColors[i].nG;
+        gaPcxPalette[i * 4 + 2] = palette.aColors[i].nB;
+    }
+
+    CloseHandle(hFile);
+    return 1;
 }
 
 // 0x006056C0
@@ -413,6 +636,21 @@ void __stdcall PaletteBuildAdditiveTable(unsigned char* pTables)
 void __stdcall UpdateD2TransparencyTable(unsigned char* pData, int nUnused)
 {
     PaletteBuildAdditiveTable(pData);
+}
+
+// 0x00605DE0
+void __stdcall sub_00605DE0_BuildDarkenTables(unsigned char* pData)
+{
+    for (unsigned int i = 0; i < 32; ++i)
+    {
+        for (unsigned int j = 0; j < 256; ++j)
+        {
+            pData[0x400 + i * 256 + j] = GetClosestColor(pData, 256,
+                pData[j * 4 + 0] * (i + 1) >> 5,
+                pData[j * 4 + 1] * (i + 1) >> 5,
+                pData[j * 4 + 2] * (i + 1) >> 5);
+        }
+    }
 }
 
 // 0x00606A10
@@ -1909,96 +2147,6 @@ int D2CmpStringStrc::EqualsNoCase(const D2CmpStringStrc* pOther)
 {
     return !SStrCmpI(szText, pOther->szText, 0x7FFFFFFF);
 }
-
-static void sub_00604DF0_RgbToHsl(const unsigned char* pRgb, D2HslStrc* pHsl)
-{
-    for (unsigned int i = 0; i < 256; ++i)
-    {
-        const double dRed = pRgb[0] / 255.0;
-        const double dGreen = pRgb[1] / 255.0;
-        const double dBlue = pRgb[2] / 255.0;
-        double dMax = dRed > dGreen ? dRed : dGreen;
-        if (dBlue > dMax)
-        {
-            dMax = dBlue;
-        }
-
-        double dMin = dRed < dGreen ? dRed : dGreen;
-        if (dBlue < dMin)
-        {
-            dMin = dBlue;
-        }
-
-        const double dLightness = (dMax + dMin) * 0.5;
-        double dHue = 0.0;
-        double dSaturation = 0.0;
-        if (dMax != dMin)
-        {
-            const double dDelta = dMax - dMin;
-            dSaturation = dLightness <= 0.5 ? dDelta / (dMax + dMin) : dDelta / (2.0 - dMax - dMin);
-            if (dRed == dMax)
-            {
-                dHue = (dGreen - dBlue) / dDelta;
-            }
-            else if (dGreen == dMax)
-            {
-                dHue = (dBlue - dRed) / dDelta + 2.0;
-            }
-            else
-            {
-                dHue = (dRed - dGreen) / dDelta + 4.0;
-            }
-
-            dHue *= 60.0;
-            if (dHue < 0.0)
-            {
-                dHue += 360.0;
-            }
-        }
-
-        pHsl->dHue = dHue;
-        pHsl->dSaturation = dSaturation;
-        pHsl->dLightness = dLightness;
-        pRgb += 4;
-        ++pHsl;
-    }
-}
-
-static void sub_00605080_HslToRgb(const D2HslStrc* pHsl, D2PalRgbaStrc* pRgb)
-{
-    for (int i = 0; i < 256; ++i)
-    {
-        unsigned char nRed, nGreen, nBlue;
-        if (pHsl->dSaturation == 0.0)
-        {
-            nRed = nGreen = nBlue = (unsigned char)(pHsl->dLightness * 255.0);
-        }
-        else
-        {
-            double dM2;
-            if (pHsl->dLightness <= 0.5)
-            {
-                dM2 = (pHsl->dSaturation + 1.0) * pHsl->dLightness;
-            }
-            else
-            {
-                dM2 = pHsl->dLightness + pHsl->dSaturation - pHsl->dLightness * pHsl->dSaturation;
-            }
-
-            const double dM1 = pHsl->dLightness + pHsl->dLightness - dM2;
-            nRed = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->dHue + 120.0) * 255.0);
-            nGreen = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->dHue) * 255.0);
-            nBlue = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->dHue - 120.0) * 255.0);
-        }
-
-        pRgb->nRed = nRed;
-        pRgb->nGreen = nGreen;
-        pRgb->nBlue = nBlue;
-        ++pHsl;
-        ++pRgb;
-    }
-}
-
 
 static void sub_00606890_BuildBrightnessTable(unsigned char* pTables, D2HslStrc* pHsl)
 {
