@@ -53,7 +53,7 @@ extern D2UnitSndObjectStrc* gapUnitSndObjects[]; // 0x007295F8
 
 extern D2UnitSndObjectStrc gtUnitSndObject; // 0x00729328
 
-extern int gaUnitSndObject3D[]; // 0x00728338
+extern D2UnitSndObjectStrc gaUnitSndObjects[]; // 0x00727F48
 
 extern D2DirRateStrc gaDirRate[]; // 0x00727ED8
 
@@ -1239,7 +1239,7 @@ static int UNITSND_GetObjectModeSound(D2UnitStrc* pUnit, int nMode)
         if (!pRecord)
             return 0;
         if (nClass == 0x3D)
-            return gaUnitSndObject3D[nMode];
+            return gaUnitSndObjects[21].nModeSound[nMode];
         if (!pRecord->nSoundA && !pRecord->nSoundB)
             return 0;
         if (pRecord->nSoundAMode == nMode || pRecord->nSoundAMode == 8)
