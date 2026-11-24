@@ -3968,8 +3968,8 @@
    "state": "included"
   },
   "Source/D2Common/DATATBLS/LvlTbls.cpp": {
-   "bytes": 980,
-   "definitions": 25,
+   "bytes": 1000,
+   "definitions": 26,
    "externs": [
     "extern \"C\" char gData_0096C8C8[]; // 0x0096C8C8"
    ],
@@ -4335,8 +4335,8 @@
    "state": "included"
   },
   "Source/D2Common/DRLG/OutJung.cpp": {
-   "bytes": 132,
-   "definitions": 2,
+   "bytes": 144,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/OutJung.inc",
@@ -5144,8 +5144,8 @@
    "state": "included"
   },
   "Source/D2Common/Unknown_0067B9C0.cpp": {
-   "bytes": 212,
-   "definitions": 3,
+   "bytes": 228,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Unknown_0067B9C0.inc",
@@ -5492,6 +5492,71 @@
   }
  },
  "definitions": [
+  {
+   "alias": true,
+   "cname": "gData_006E867C",
+   "declared": true,
+   "decorated": "?gszTilesDirectory@@3QBDB",
+   "file": "Source/D2Common/DATATBLS/LvlTbls.cpp",
+   "fill": 20,
+   "form": "declared",
+   "fwd": "extern \"C\" const char gData_006E867C[20]; // 0x006E867C",
+   "head": "extern \"C\" const char gData_006E867C[20] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 20,
+    "size": 20
+   },
+   "name": "gszTilesDirectory",
+   "pointers": [],
+   "region": "rdata",
+   "size": 20,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E867C\n#pragma comment(linker, \"/alternatename:?gszTilesDirectory@@3QBDB=_gData_006E867C\")",
+   "type": "char",
+   "va": "0x006E867C"
+  },
+  {
+   "alias": false,
+   "cname": "gData_006F1E18",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Common/Unknown_0067B9C0.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" const struct d2data_006F1E18_t gData_006F1E18; // 0x006F1E18",
+   "head": "extern \"C\" const struct d2data_006F1E18_t gData_006F1E18 = ",
+   "name": "gData_006F1E18",
+   "pointers": [],
+   "region": "rdata",
+   "size": 16,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006F1E18_t\n{\n    unsigned char b0[16];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x006F1E18",
+   "va": "0x006F1E18"
+  },
+  {
+   "alias": false,
+   "cname": "gData_006F2370",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Common/DRLG/OutJung.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" const struct d2data_006F2370_t gData_006F2370; // 0x006F2370",
+   "head": "extern \"C\" const struct d2data_006F2370_t gData_006F2370 = ",
+   "name": "gData_006F2370",
+   "pointers": [],
+   "region": "rdata",
+   "size": 12,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006F2370_t\n{\n    unsigned char b0[12];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x006F2370",
+   "va": "0x006F2370"
+  },
   {
    "alias": false,
    "cname": null,
