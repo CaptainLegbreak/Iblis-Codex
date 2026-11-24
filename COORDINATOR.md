@@ -152,7 +152,12 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 ### Lane 3
 - On main: zlib #297; trees-data, crt-init #302; crt-locks #303; data-fixes #305; fog-strays, cpu-report #307; storm-strays, sfile-dtors #309; text-data #311; sstr-strays, sevt-strays #313; sbig-names #315; sbig-exports #317; sbig-arrays #318; sbig-copy, crypt #319; scomp-strays, sfile-destroy, sevt-deletenode #321.
 - **SUNI.CPP: yes.** **AUTOMAP_ReadTimeStampCounter to ErrorManager.cpp: yes.** **D2StormBigBuffer.h / D2StormArrayA.h edits: approved.** (Answers from earlier, kept here.)
-- **0x6BD230 (borrowed, Fog export 10215) is yours.** See the borrowed-functions table above.
+- **0x6BD230 is now lane 7's** (lanes 7-10 are in effect). Pass your notes on the unused slot to lane 7.
+- **Already on main (your list said still waiting):** `suni` and `ssig-window` #323, `system-strays` #322, `atl-data` #326, `lang-00404f40` and `sfile-unlinkall` #327. `sfile-openpath-2` goes in the next round.
+- **`inline` for the UnlinkAll members: fine.** They are TSList<T> template members, which are implicitly inline; it isn't a forcing construct.
+- **D2Launch's entry object (`sub_0042E590_SetOwner` and partner):** put it in a D2Launch placeholder, `Source/D2Launch/Unknown_0042E590.cpp`, by its run. The fixes are yours: its language-table copy at 0x708930 (now held by trees.c) moves with it, and `gaTable_0070896C` shrinks to its 4 B. It's one branch, and lane 6 has been told.
+- **The copies that start CUnit.cpp (lane 1) and Items.cpp (lane 5):** yes, move their records, as plan-only changes. Tell those lanes in your board file.
+- ErrorManager.cpp: leaving it parked is right. Say which objects you mean and whose module they are, and I'll settle it.
 - **New lead, from the coordinator's 728 B (the largest borrowed-data block left): an ATL object.** 0x6B1A00 is `Define_the_symbol__ATL_MIXED::Thank_you::Thank_you()`, which ATL's atldef.h emits. That function and its neighbours 0x6B1A10-0x6B1B60 (Storm/Unknown_006B1A00.cpp, _006B1A10, _006B1A20, _006B1A30, _006B1A70, _006B1A90) are one object that included ATL.
   - Its .rdata is the borrowed block at 0x6FAD20-0x6FAFF8, right after libcmt's: the ATL registrar's header data (statreg.h). That is the key names "TypeLib", "SYSTEM", "SECURITY", "SAM", "Mime", "Hardware", "Interface", "FileType", "Component Categories", "CLSID" and "AppID"; the keywords "Delete", "NoRemove", "ForceRemove" and "Val"; the never-delete pointer table; and the registrar GUIDs.
   - Proposal: gather 0x6B1A00-0x6B1B60 into one placeholder and define that data in it, in the order the image has it. The toolchain has no atlmfc headers, so write the declarations yourself, modelled on ATL 8.0's statreg.h and atldef.h (`__declspec(selectany)` where ATL uses it).
@@ -189,6 +194,8 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 - 0x5B9A30 and 0x5947E0: listing them is right; no forcing constructs.
 
 ### Lane 6
+- From lane 3: D2Launch's small entry object (0x42E590 and its no-op partner, filed in a Storm placeholder) goes to `Source/D2Launch/Unknown_0042E590.cpp`, with its language-table copy and a corrected record. Lane 3 does it on one branch, then it's yours.
+- Lanes 8 and 9 have started: D2Common is lane 8's and the renderers plus D2Hell are lane 9's. Finish your branches in flight there, then post the handover lists.
 - `data-b` is in #309: borrowed data fell to 6,376 B in that round.
 - **Language-table runs as an object count:** yes, go ahead. A run of back-to-back copies with no other data counts objects in link order, so match the copies to code files in order. Two cautions. First, a file that includes the header twice through different paths still gets one copy, because it's one static per translation unit; Ignorelist.cpp's two copies therefore mean two units. Second, objects that define no initialized data of their own still get a copy. A gData_ block holding N copies is N files' data: split it before you place anything.
 - D2MCPClient: lane 4 is moving the MCP packet run out of WINMAIN.CPP into `Source/D2MCPClient/Unknown_0044A170.cpp`. It becomes yours once merged.
@@ -204,6 +211,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #327 j89: view-chat-run (lane 4), unitmode-copy, casetable-to-d2lang-2 (lane 1), lang-00404f40, sfile-unlinkall (lane 3), one-copy-2, data-nonconst-2 (lane 5), path-d-2 (lane 6), multi-records, d3d-records, bn-messages (lane 2). Borrowed data 2,507 → 2,382 B.
 - #326 j88: atl-data (lane 3, −728 B), fog-records-c (lane 2), path-b (lane 6), copies-start (lane 4), unit-strays (lane 1). Borrowed data 3,359 → 2,507 B.
 - #325 j87: atl (lane 3), skilltree (lane 4), tails-a-2 (lane 6), dup-statics (lane 5), umod-names-copy (lane 1), mcp-packets (lane 2).
 - #324: README graphics refreshed from #323; rounds now refresh them right after the verify.
