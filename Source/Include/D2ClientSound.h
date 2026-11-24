@@ -4,7 +4,7 @@
 
 #include "D2Check.h"
 
-struct T00481720;
+struct AsyncData;
 
 #pragma pack(push, 1)
 
@@ -39,7 +39,7 @@ struct D2SoundsTxt
     int dwLastUse; // 0x7C
     unsigned char nBlocks; // 0x80
     char bFailed; // 0x81
-    T00481720* pAsync; // 0x82
+    AsyncData* pAsync; // 0x82
     int nState; // 0x86
     unsigned int nRefCount; // 0x8A
 };
