@@ -327,11 +327,11 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
         return;
     }
     // the work stack holds 16 buffers
-    STORM_ASSUME(tStack.nUsed < 16);
+    SASSERT(tStack.nUsed < 16);
     BigBuffer& tRem = tStack.pRecords[tStack.nUsed++];
-    STORM_ASSUME(tStack.nUsed < 16);
+    SASSERT(tStack.nUsed < 16);
     BigBuffer& tDiv = tStack.pRecords[tStack.nUsed++];
-    STORM_ASSUME(tStack.nUsed < 16);
+    SASSERT(tStack.nUsed < 16);
     BigBuffer& tProduct = tStack.pRecords[tStack.nUsed++];
     unsigned int nShift = 31 - (BigHighBitIndex(&d) & 31);
     Shl(tRem, c, nShift);
@@ -368,7 +368,7 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
     }
     Shr(b, tRem, nShift);
     b.sub_00422140_Trim();
-    STORM_ASSUME(3 <= tStack.nUsed);
+    SASSERT(3 <= tStack.nUsed);
     tStack.nUsed -= 3;
 }
 

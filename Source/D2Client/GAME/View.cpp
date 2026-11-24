@@ -75,8 +75,6 @@ struct D2PresetUnitStrc;
 
 struct D2ViewStrc;
 
-
-
 struct D2ClientListLinkStrc
 {
     D2ClientListLinkStrc* pPrevLink;
@@ -115,7 +113,6 @@ struct D2ClientNodeListStrc
     D2ClientListNodeStrc* sub_0045BB50_Next(D2ClientListNodeStrc* pNode);
     void sub_0045BBE0_LinkNode(D2ClientListNodeStrc* pNode, unsigned int nLinkType, D2ClientListNodeStrc* pExisting);
 };
-
 
 struct D2ClientRecordStrc
 {
@@ -214,7 +211,6 @@ extern void* gpGlobal_007BC964; // 0x007BC964
 
 extern void* gpHelpBorderCel; // 0x007BEEEC
 
-
 extern int gbRunButtonDown; // 0x007BEFD8
 
 extern void* gpLevelCel; // 0x007C02DC
@@ -237,7 +233,6 @@ enum D2C_W10Constants
     PET_TYPE_LIFE = 7,
     DRAW_MODE_5 = 5,
 };
-
 
 struct D2TimedHintEntryStrc
 {
@@ -319,7 +314,6 @@ struct D2PalShiftNodeStrc
     char unk0x04[0x1000];
     D2PalShiftNodeStrc* pNext;
 };
-
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
@@ -436,7 +430,6 @@ int gbHelpButtonVisible; // 0x007BEF08
 
 struct D2QuestLookupEntryStrc;
 
-
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
@@ -444,8 +437,6 @@ void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0
 int __fastcall SEED_GetRandomValue(int nValue); // 0x00650DE0
 
 void __stdcall VIEW_ResetStar(int nStar, int bRespawn); // 0x00476190
-
-
 
 extern D2QuestLookupEntryStrc gaQuestLookup_00723F38[0x29]; // 0x00723F38
 
@@ -585,6 +576,9 @@ static int gnPopupX; // 0x007BEED4
 
 void __fastcall VIEW_AdjustViewPos(int* pX, int* pY); // 0x00476D40
 
+void* gpCel_007B9554;                                                                                       // 0x007B9554
+void* gpCel_007B9558;                                                                                       // 0x007B9558
+
 static inline D2ClientListLinkStrc* ListNextLink(D2ClientListLinkStrc* pLink, int nLinkOffset)
 {
     int nOffset = (int)pLink->pNext;
@@ -594,13 +588,6 @@ static inline D2ClientListLinkStrc* ListNextLink(D2ClientListLinkStrc* pLink, in
         nLinkOffset = (int)pLink - (int)pLink->pPrevLink->pNext;
     return (D2ClientListLinkStrc*)(nOffset + nLinkOffset);
 }
-
-
-
-
-
-
-
 
 // 0x004502A0
 void D2ClientOffsetListAStrc::sub_004502A0_LinkNode(D2ClientListNodeStrc* pNode, unsigned int nLinkType, D2ClientListNodeStrc* pExisting)
@@ -691,7 +678,6 @@ void D2ClientOffsetListBStrc::sub_004508A0_LinkNode(D2ClientListNodeStrc* pNode,
     }
 }
 
-
 // 0x0045BB30
 D2ClientListLinkStrc* D2ClientNodeListStrc::sub_0045BB30_Link(D2ClientListNodeStrc* pNode)
 {
@@ -738,8 +724,6 @@ void D2ClientNodeListStrc::sub_0045BBE0_LinkNode(D2ClientListNodeStrc* pNode, un
     }
 }
 
-
-
 // 0x00466820
 void __fastcall VIEW_SpawnRoomPresets(D2ActiveRoomStrc* pRoom)
 {
@@ -768,8 +752,6 @@ typedef void (__cdecl* LEVELEVENT_Fn)();
 extern LEVELEVENT_Fn gpfnLevelEvents[];                                                            // 0x007129D8
 
 unsigned int gdwLevelEventBits;                                                                    // 0x007A7458
-
-
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
@@ -811,8 +793,6 @@ static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     return nResult;
 }
 
-
-
 void __fastcall D2Win_10178_CopyGammaTable(unsigned char (*pRows)[0x100]); // 0x004FB1C0
 
 unsigned char* __stdcall GFX_BuildLerpTable(unsigned int nCount, int nSteps); // 0x00475B80
@@ -824,7 +804,6 @@ unsigned char** __stdcall SCMD_BuildRampTable(unsigned int nSize, int nSteps); /
 extern unsigned char gabRowTable[][0x100]; // 0x007B5C10
 
 extern unsigned char** gppRampTable_007B954C; // 0x007B954C
-
 
 unsigned char** __stdcall GFX_BuildLerpRowTable(unsigned int nCount, int nSteps)
 {
@@ -870,6 +849,15 @@ unsigned char** __stdcall SCMD_BuildRampTable(unsigned int nSize, int nSteps)
     return ppTable;
 }
 
+// 0x00475C30
+void __fastcall sub_00475C30_FreeIfSet(void* pMemory)
+{
+    if (pMemory)
+    {
+        sub_005179A4_VirtualFree(pMemory);
+    }
+}
+
 // 0x00475DF0
 void __cdecl DLIGHTMAP_BuildLerpTables()
 {
@@ -884,6 +872,21 @@ void __cdecl DLIGHTMAP_BuildLerpTables()
     gpLerpTable32 = GFX_BuildLerpTable(0x20, 0x20);
     gppRampTable_007B954C = SCMD_BuildRampTable(0x20, 0x20);
     gpLerpTable40 = GFX_BuildLerpTable(0x20, 0x28);
+}
+
+// 0x00475EB0
+void __cdecl sub_00475EB0_FreeCels()
+{
+    if (gpCel_007B9554)
+    {
+        ARCHIVE_FreeClientCellFile(gpCel_007B9554);
+        gpCel_007B9554 = 0;
+    }
+    if (gpCel_007B9558)
+    {
+        ARCHIVE_FreeClientCellFile(gpCel_007B9558);
+        gpCel_007B9558 = 0;
+    }
 }
 
 // 0x00475EF0
@@ -913,10 +916,6 @@ void __cdecl VIEW_FreeLerpTables()
     ghShakeSound = 0;
     sub_00475EB0_FreeCels();
 }
-
-
-
-
 
 class D2SquelchListStrc
 {
@@ -1497,8 +1496,6 @@ void __fastcall VIEW_AdjustViewPos(int* pX, int* pY)
     VIEW_UpdateShakeSound(nMagnitude);
 }
 
-
-
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 
 void __cdecl D2GFX_OutputString(int nXPos, int nYPos, const char* szFormat, ...);                           // 0x004F6890
@@ -1553,8 +1550,6 @@ extern int g_007BB3AC; // 0x007BB3AC
 
 #define MEMORY_SHIFT 20
 
-
-
 // 0x0047E860
 void __stdcall VIEW_DrawCelFrame(int nFrame, int nX, int nY)
 {
@@ -1580,7 +1575,6 @@ unsigned int __cdecl VIEW_GetPingScaled()
 {
     return (sub_0044CE60_GetPing() + 0x32) >> 7;
 }
-
 
 // 0x004879D0
 void __fastcall VIEW_ResetSelectionForUnit(D2UnitStrc* pUnit)
@@ -1609,25 +1603,16 @@ int __cdecl VIEW_SetNpcMenuMode()
     return 1;
 }
 
-
-
-
-
-
 void __cdecl sub_00499E30();
 
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
 unsigned char gnHelpShadeColor; // 0x007BEEF8
 
-
-
-
 static inline int InBox(int nX, int nY, int nLeft, int nRight, int nTop, int nBottom)
 {
     return nX >= nLeft && nX <= nRight && nY >= nTop && nY <= nBottom;
 }
-
 
 void __stdcall sub_M114_Emit_00492BD0(int nMode, int nPopupX)
 {
@@ -1635,23 +1620,12 @@ void __stdcall sub_M114_Emit_00492BD0(int nMode, int nPopupX)
     gnPopupX = nPopupX;
 }
 
-
-
-
-
-
-
-
-
-
-
 static int ButtonHitTest_00497480(int nX, int nY)
 {
     int nHeight = gnScreenHeight;
     int nWidth = gnScreenWidth;
     return nX >= nWidth / 2 - 0x91 && nX <= nWidth / 2 - 0x80 && nY >= nHeight - 0x1C && nY <= nHeight - 8;
 }
-
 
 // 0x004D1640
 D2UnitStrc* __fastcall VIEW_SpawnDirectionalMissile(D2UnitStrc* pUnit, int nFrame)
@@ -1693,11 +1667,6 @@ void __fastcall VIEW_DrawUnitClickCross(D2UnitStrc* pUnit)
     const int nBoxY = UNITS_GetClientCoordY(pUnit) - PLAYER_GetScreenOffsetY();
     D2GFX_DrawBox(nBoxX, nBoxY, nBoxX + 4, nBoxY + 4, 0xFF, DRAW_MODE_5);
 }
-
-
-
-
-
 
 void __stdcall LIST_UnloadPentspinCellfile()
 {
