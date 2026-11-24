@@ -4602,8 +4602,7 @@
     },
     {
      "va": "0x004184B0",
-     "length": 161,
-     "name": "sub_004184B0_LinkNode"
+     "length": 161
     },
     {
      "va": "0x00418560",
@@ -4697,8 +4696,7 @@
     },
     {
      "va": "0x00418900",
-     "length": 61,
-     "name": "?sub_00418900_UnlinkAll@D2StormList00708354Strc@@QAEXXZ"
+     "length": 61
     },
     {
      "va": "0x00418940",
@@ -4756,8 +4754,7 @@
     },
     {
      "va": "0x00418C60",
-     "length": 60,
-     "name": "??1D2StormList00708354Strc@@QAE@XZ"
+     "length": 60
     },
     {
      "va": "0x00418CA0",
@@ -4822,8 +4819,7 @@
     },
     {
      "va": "0x00418EC0",
-     "length": 85,
-     "name": "sub_00418EC0_NewNode"
+     "length": 85
     },
     {
      "va": "0x00418F20",
@@ -5065,6 +5061,10 @@
      "name": "??0CHuffman@@QAE@XZ"
     },
     {
+     "va": "0x006CA7B0",
+     "length": 24
+    },
+    {
      "va": "0x006CA7D0",
      "length": 24
     },
@@ -5095,6 +5095,10 @@
     {
      "va": "0x006CB0B0",
      "length": 12
+    },
+    {
+     "va": "0x006CB0C0",
+     "length": 81
     },
     {
      "va": "0x006CB120",
@@ -80495,11 +80499,6 @@
      "length": 37
     },
     {
-     "va": "0x006CA7B0",
-     "length": 24,
-     "name": "?sub_006CA7B0_InitializeList@@YAXXZ"
-    },
-    {
      "va": "0x006CA940",
      "length": 17
     },
@@ -80602,11 +80601,6 @@
      "va": "0x006CAF10",
      "length": 18,
      "name": "?sub_006CAF10_SetPerSecond@@YAXXZ"
-    },
-    {
-     "va": "0x006CB0C0",
-     "length": 81,
-     "name": "?sub_006CB0C0_DestroyList@@YAXXZ"
     }
    ]
   },

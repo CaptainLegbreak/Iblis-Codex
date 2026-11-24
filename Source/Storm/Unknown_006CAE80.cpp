@@ -34,16 +34,6 @@ void __cdecl sub_006CB4E0_DestroyLock(); // 0x006CB4E0
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* lpCriticalSection); // 0x006CC1FC
 
-// build: symbol ?UnlinkAll@?$TSList@UARCHIVEREC@SFile@Storm@@U?$TSGetLink@UARCHIVEREC@SFile@Storm@@@@@@QAEXXZ 0x00418900
-// build: symbol ?UnlinkAll@?$TSList@UREQUEST@@U?$TSGetLink@UREQUEST@@@@@@QAEXXZ 0x00418940
-// build: symbol ?UnlinkAll@?$TSList@UFILEREC@@U?$TSGetLink@UFILEREC@@@@@@QAEXXZ 0x00418980
-// build: symbol ?UnlinkAll@?$TSList@UEVENTREC@@U?$TSGetLink@UEVENTREC@@@@@@QAEXXZ 0x004189C0
-// build: symbol ?UnlinkAll@?$TSList@UAUDIOSTREAM@@U?$TSGetLink@UAUDIOSTREAM@@@@@@QAEXXZ 0x00418A00
-// build: symbol ?UnlinkAll@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEXXZ 0x0041C770
-// build: symbol ?UnlinkAll@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEXXZ 0x00420750
-// build: symbol ?UnlinkAll@?$TSList@UBREAKCMD@@U?$TSGetLink@UBREAKCMD@@@@@@QAEXXZ 0x00426CF0
-extern TSList<ARCHIVEREC> gArchiveList_00708354; // 0x00708354
-
 inline void* __cdecl operator new(unsigned int, void* location);
 
 // 0x006CAEC0
@@ -68,10 +58,4 @@ void __cdecl sub_006CAF10_SetPerSecond()
 }
 
 #include "gen/data/Source/Storm/Unknown_006CAE80.inc"
-
-// 0x006CB0C0
-void __cdecl sub_006CB0C0_DestroyList()
-{
-    gArchiveList_00708354.~TSList();
-}
 

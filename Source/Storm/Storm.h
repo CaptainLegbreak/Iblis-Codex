@@ -89,9 +89,7 @@ extern "C" int __stdcall Module32NextW(void* hSnapshot, D2ModuleEntry32Strc* pEn
 extern "C" int gnFlag_007788DC; // 0x007788DC
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
 extern "C" void* __stdcall CreateToolhelp32Snapshot(unsigned long dwFlags, unsigned long dwProcessId); // 0x006B1446
-extern ARCHIVEREC* gpArchiveHead_0070835C; // 0x0070835C
 extern bool gbSymInitialized; // 0x0098A6B0
-extern char gszTypeNameArchiveRec_00708398[]; // 0x00708398
 extern char gszTypeNameChar_0070888C[]; // 0x0070888C
 extern char gszTypeNameUChar_00708880[]; // 0x00708880
 extern char gszTypeNameUInt_00708874[]; // 0x00708874
