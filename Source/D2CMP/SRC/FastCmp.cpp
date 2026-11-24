@@ -238,8 +238,6 @@ void* __stdcall CreateD2Palette(void* pSource); // 0x00606930
 
 #define PAL_SATURATE(x) ((unsigned int)(x) < 255 ? (x) : 255)
 
-
-
 extern "C" __declspec(dllimport) unsigned long __stdcall SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x006CC1AC
 
 struct D2PcxRgbStrc
@@ -2119,6 +2117,30 @@ unsigned char __fastcall FindTileHash(unsigned char a, unsigned char b, unsigned
     return nResult;
 }
 
+// 0x0060D280
+int __fastcall sub_0060D280_ScanSameRun(const unsigned char* pData, const unsigned char* pEnd, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd)
+{
+    D2_ASSERT(pData < pEnd, 0x19);
+    unsigned char nValue = *pData;
+    int nCount = 0;
+    while (pData < pEnd && nValue == *pData && nCount < nMax)
+    {
+        ++pData;
+        ++nCount;
+    }
+    if (pData == pEnd)
+    {
+        *pbRunReachedEnd = 1;
+        *pbRestReachedEnd = 0;
+        return nCount;
+    }
+    *pbRunReachedEnd = 0;
+    while (pData < pEnd && nValue == *pData)
+        ++pData;
+    *pbRestReachedEnd = pData == pEnd;
+    return nCount;
+}
+
 // 0x0060D310
 int __fastcall CmpScanRun(unsigned char nValue, const unsigned char* pData, const unsigned char* pEnd, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd)
 {
@@ -2137,6 +2159,29 @@ int __fastcall CmpScanRun(unsigned char nValue, const unsigned char* pData, cons
     }
     *pbRunReachedEnd = 0;
     while (pData < pEnd && nValue == *pData)
+        ++pData;
+    *pbRestReachedEnd = pData == pEnd;
+    return nCount;
+}
+
+// 0x0060D3A0
+int __fastcall sub_0060D3A0_ScanOtherRun(const unsigned char* pData, const unsigned char* pEnd, unsigned char nValue, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd)
+{
+    D2_ASSERT(pData < pEnd, 0x6F);
+    int nCount = 0;
+    while (pData < pEnd && *pData != nValue && nCount < nMax)
+    {
+        ++pData;
+        ++nCount;
+    }
+    if (pData == pEnd)
+    {
+        *pbRunReachedEnd = 1;
+        *pbRestReachedEnd = 0;
+        return nCount;
+    }
+    *pbRunReachedEnd = 0;
+    while (pData < pEnd && *pData == nValue)
         ++pData;
     *pbRestReachedEnd = pData == pEnd;
     return nCount;
