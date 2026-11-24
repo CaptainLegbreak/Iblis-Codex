@@ -2225,8 +2225,8 @@
    "state": "included"
   },
   "Source/D2Game/GAME/Game.cpp": {
-   "bytes": 624,
-   "definitions": 11,
+   "bytes": 626,
+   "definitions": 12,
    "externs": [
     "extern \"C\" void __cdecl sub_00548090(); // 0x00548090",
     "extern \"C\" void __cdecl sub_005482A0(); // 0x005482A0",
@@ -4725,15 +4725,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a1q5_00594740.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/GAME/Game_0052C170.cpp": {
-   "bytes": 2,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/GAME/Game_0052C170.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -86323,7 +86314,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/GAME/Game_0052C170.cpp",
+   "file": "Source/D2Game/GAME/Game.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern unsigned short gwGameId = ",

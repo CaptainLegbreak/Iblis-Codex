@@ -1542,6 +1542,51 @@ void __stdcall GAME_SetReservedGameGUID(int nGameGUID, unsigned short nGameId)
     D2_ASSERT(0, 394);
 }
 
+
+typedef void* HGAMEDATA;
+
+extern HGAMEDATA hGameArray_6FD447F8[1024];                                                                 // 0x00882D38
+
+// 0x0052C170
+unsigned short __fastcall sub_0052C170_ReserveGameId()
+{
+    EnterCriticalSection(&gGameListLock);
+
+    const unsigned short nBaseId = gwGameId;
+    int nGameId = gwGameId++;
+    if (gwGameId > 1024u)
+    {
+        gwGameId = 1;
+    }
+
+    if (hGameArray_6FD447F8[(unsigned short)nGameId - 1])
+    {
+        while (1)
+        {
+            nGameId = gwGameId++;
+            if (gwGameId > 1024u)
+            {
+                gwGameId = 1;
+            }
+
+            if ((unsigned short)nGameId == (unsigned short)nBaseId)
+            {
+                LeaveCriticalSection(&gGameListLock);
+                return 0;
+            }
+
+            if (!hGameArray_6FD447F8[(unsigned short)nGameId - 1])
+            {
+                break;
+            }
+        }
+    }
+
+    hGameArray_6FD447F8[(unsigned short)nGameId - 1] = (HGAMEDATA)-1;
+    LeaveCriticalSection(&gGameListLock);
+    return nGameId;
+}
+
 // 0x0052C210
 void __fastcall GAME_ClientEnterAct(D2GameStrc* pGame, D2ClientStrc* pClient)
 {

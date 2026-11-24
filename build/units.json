@@ -40834,6 +40834,10 @@
      "name": "GAME_SetReservedGameGUID"
     },
     {
+     "va": "0x0052C170",
+     "length": 157
+    },
+    {
      "va": "0x0052C210",
      "length": 75,
      "name": "?GAME_ClientEnterAct@@YIXPAUD2GameStrc@@PAUD2ClientStrc@@@Z"
@@ -43369,30 +43373,6 @@
     {
      "va": "0x0052BC20",
      "length": 377
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Game_0052C170.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0052C170",
-     "length": 157
     }
    ],
    "flags": [
