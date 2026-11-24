@@ -199,7 +199,9 @@ struct D2PeNtHeadersStrc
     unsigned long dwSignature;
     unsigned short wMachine;
     unsigned short wNumberOfSections;
-    char unk0x08[0x0C];
+    unsigned long dwTimeDateStamp;
+    unsigned long dwPointerToSymbolTable;
+    unsigned long dwNumberOfSymbols;
     unsigned short wSizeOfOptionalHeader;
     unsigned short wCharacteristics;
     char aOptionalHeader[4];
@@ -211,7 +213,12 @@ struct D2PeSectionStrc
     unsigned long dwVirtualSize;
     unsigned long dwVirtualAddress;
     unsigned long dwSizeOfRawData;
-    char unk0x14[0x14];
+    unsigned long dwPointerToRawData;
+    unsigned long dwPointerToRelocations;
+    unsigned long dwPointerToLinenumbers;
+    unsigned short wNumberOfRelocations;
+    unsigned short wNumberOfLinenumbers;
+    unsigned long dwCharacteristics;
 };
 
 struct D2QOverlappedStrc
@@ -303,9 +310,34 @@ struct D2ImageFileHeaderStrc
 struct D2ImageOptionalHeaderStrc
 {
     unsigned short Magic;
-    unsigned char unk0x02[0x36];
+    unsigned char MajorLinkerVersion;
+    unsigned char MinorLinkerVersion;
+    unsigned long SizeOfCode;
+    unsigned long SizeOfInitializedData;
+    unsigned long SizeOfUninitializedData;
+    unsigned long AddressOfEntryPoint;
+    unsigned long BaseOfCode;
+    unsigned long BaseOfData;
+    unsigned long ImageBase;
+    unsigned long SectionAlignment;
+    unsigned long FileAlignment;
+    unsigned short MajorOperatingSystemVersion;
+    unsigned short MinorOperatingSystemVersion;
+    unsigned short MajorImageVersion;
+    unsigned short MinorImageVersion;
+    unsigned short MajorSubsystemVersion;
+    unsigned short MinorSubsystemVersion;
+    unsigned long Win32VersionValue;
     unsigned long SizeOfImage;
-    unsigned char unk0x3C[0x20];
+    unsigned long SizeOfHeaders;
+    unsigned long CheckSum;
+    unsigned short Subsystem;
+    unsigned short DllCharacteristics;
+    unsigned long SizeOfStackReserve;
+    unsigned long SizeOfStackCommit;
+    unsigned long SizeOfHeapReserve;
+    unsigned long SizeOfHeapCommit;
+    unsigned long LoaderFlags;
     unsigned long NumberOfRvaAndSizes;
     D2ImageDataDirStrc DataDirectory[16];
 };
@@ -313,7 +345,33 @@ struct D2ImageOptionalHeaderStrc
 struct D2ImageOptionalHeader64Strc
 {
     unsigned short Magic;
-    unsigned char unk0x02[0x6A];
+    unsigned char MajorLinkerVersion;
+    unsigned char MinorLinkerVersion;
+    unsigned long SizeOfCode;
+    unsigned long SizeOfInitializedData;
+    unsigned long SizeOfUninitializedData;
+    unsigned long AddressOfEntryPoint;
+    unsigned long BaseOfCode;
+    unsigned __int64 ImageBase;
+    unsigned long SectionAlignment;
+    unsigned long FileAlignment;
+    unsigned short MajorOperatingSystemVersion;
+    unsigned short MinorOperatingSystemVersion;
+    unsigned short MajorImageVersion;
+    unsigned short MinorImageVersion;
+    unsigned short MajorSubsystemVersion;
+    unsigned short MinorSubsystemVersion;
+    unsigned long Win32VersionValue;
+    unsigned long SizeOfImage;
+    unsigned long SizeOfHeaders;
+    unsigned long CheckSum;
+    unsigned short Subsystem;
+    unsigned short DllCharacteristics;
+    unsigned __int64 SizeOfStackReserve;
+    unsigned __int64 SizeOfStackCommit;
+    unsigned __int64 SizeOfHeapReserve;
+    unsigned __int64 SizeOfHeapCommit;
+    unsigned long LoaderFlags;
     unsigned long NumberOfRvaAndSizes;
     D2ImageDataDirStrc DataDirectory[16];
 };
