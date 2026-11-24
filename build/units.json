@@ -180,41 +180,6 @@
      "name": "ERRORMANAGER_IsCmdSeparator"
     },
     {
-     "va": "0x004059D0",
-     "length": 126,
-     "name": "ERRORMANAGER_RunModeInterface"
-    },
-    {
-     "va": "0x00405EF0",
-     "length": 6,
-     "name": "sub_00405EF0"
-    },
-    {
-     "va": "0x00405F00",
-     "length": 305,
-     "name": "SaveCmdLine"
-    },
-    {
-     "va": "0x00406040",
-     "length": 327,
-     "name": "MoveBetaSettingsToRelease"
-    },
-    {
-     "va": "0x004061C0",
-     "length": 376,
-     "name": "ERRORMANAGER_DenyProcessAccess"
-    },
-    {
-     "va": "0x00406410",
-     "length": 84,
-     "name": "D2ServerServiceHandlerProc"
-    },
-    {
-     "va": "0x00406650",
-     "length": 131,
-     "name": "ERRORMANAGER_StartServiceDispatcher"
-    },
-    {
      "va": "0x004067C0",
      "length": 11,
      "name": "?ERRORMANAGER_SetBasePathToCurrent@@YAHXZ"
@@ -812,6 +777,78 @@
     "/Ob2",
     "/Gd",
     "/EHa"
+   ]
+  },
+  {
+   "file": "Source/D2Launch/Unknown_00406410.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00405EF0",
+     "length": 6,
+     "name": "sub_00405EF0"
+    },
+    {
+     "va": "0x00405F00",
+     "length": 305,
+     "name": "SaveCmdLine"
+    },
+    {
+     "va": "0x00406040",
+     "length": 327,
+     "name": "MoveBetaSettingsToRelease"
+    },
+    {
+     "va": "0x00406190",
+     "length": 33,
+     "name": "?sub_00406190_GetProc@@YGHPAXPBDPAPAX@Z"
+    },
+    {
+     "va": "0x004061C0",
+     "length": 376,
+     "name": "ERRORMANAGER_DenyProcessAccess"
+    },
+    {
+     "va": "0x00406340",
+     "length": 197,
+     "name": "?sub_00406340_SelectModule@@YGHPBDPAH@Z"
+    },
+    {
+     "va": "0x00406410",
+     "length": 84,
+     "name": "D2ServerServiceHandlerProc"
+    },
+    {
+     "va": "0x00406470",
+     "length": 71,
+     "name": "?sub_00406470_OpenServiceHandles@@YAHPAPAX0@Z"
+    },
+    {
+     "va": "0x004064C0",
+     "length": 277,
+     "name": "?GameInit@@YIHHPAPBD@Z"
+    },
+    {
+     "va": "0x004065E0",
+     "length": 98,
+     "name": "D2ServerServiceMain"
+    },
+    {
+     "va": "0x00406650",
+     "length": 131,
+     "name": "ERRORMANAGER_StartServiceDispatcher"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Launch/Unknown_004059D0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004059D0",
+     "length": 126,
+     "name": "ERRORMANAGER_RunModeInterface"
+    }
    ]
   },
   {
@@ -2657,16 +2694,6 @@
      "va": "0x00405C30",
      "length": 698,
      "name": "?GameStart@@YIHPAXPAUD2ConfigStrc@@H@Z"
-    },
-    {
-     "va": "0x00406190",
-     "length": 33,
-     "name": "?sub_00406190_GetProc@@YGHPAXPBDPAPAX@Z"
-    },
-    {
-     "va": "0x00406470",
-     "length": 71,
-     "name": "?sub_00406470_OpenServiceHandles@@YAHPAPAX0@Z"
     }
    ],
    "flags": [
@@ -2706,16 +2733,6 @@
      "va": "0x00405710",
      "length": 387,
      "name": "?sub_00405710_ParseCmdArgument@@YIHPADPBD0@Z"
-    },
-    {
-     "va": "0x00406340",
-     "length": 197,
-     "name": "?sub_00406340_SelectModule@@YGHPBDPAH@Z"
-    },
-    {
-     "va": "0x004064C0",
-     "length": 277,
-     "name": "?GameInit@@YIHHPAPBD@Z"
     }
    ],
    "flags": [
@@ -2736,11 +2753,6 @@
    "file": "Source/D2Launch/Src/MainMenus.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004065E0",
-     "length": 98,
-     "name": "D2ServerServiceMain"
-    },
     {
      "va": "0x004066E0",
      "length": 71,
