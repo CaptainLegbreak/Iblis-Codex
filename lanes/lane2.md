@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/records-a 22808344 562->562 Three commits; each moves records that units defined privately with the same text into the shared header that owns the area: D2LaunchMsgStrc (0x120) and D2LaunchRecord3Strc (0xC) in D2MultiTypes.h, which only forward-declared them. D2FogTypes.h gets the loader list records ErrorManager walks (list link, counted unicode string, loader entry 0x2C). D2WinControls.h gets the timer control (0x48) and the IMAGE2_Create image control (0x4C); VERIFIED 22cdd7752bad0d037e48dcac046da328fc0f5d0b
+  - On #317, not stacked. All 64 includers of the three headers build equal.
+  - Outside lane 2: Game_0044D080, SCmd (lane 4); MainMenus, ChatDlg, ChatDlg_00441B70, ComCallback, D2Comp, D2WinImage, D2WinMain, D2WinTimer (lane 6); ErrorManager, ErrorManager_004082E0, Unknown_00404AB0 (lane 3). Private-copy removal only.
+
 - lane2/game-timer 058c52dd 562->562 D2ClientTimer.h: the 8-byte client timer (start tick, length) that GAME_IsTimerExpired/Running test. It was defined privately, with the same text, in Game, Game_0044B7B0, Game_0044D080 and Game_0044E5A0. It goes in a small header only these four include, because adding it to D2ClientTypes.h flipped inv and inv_004886C0; VERIFIED 4c999e9c6d63db058d31eb30fcb5386a69f7e0f0
   - Verified on #314, rebased onto #317. None of #315-#317 touches the 4 units; precheck is equal on #317.
   - Outside lane 2: the four D2Client GAME units (lane 4).
