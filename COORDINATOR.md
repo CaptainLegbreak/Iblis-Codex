@@ -4,7 +4,7 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #323 (round j86). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 3,415 B (was 15,691 B at #297).
+- `main`: #325 (round j87). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 3,415 B (was 15,691 B at #297).
 - Units 963, placeholder files 562.
 - In progress: nothing; next round as branches are posted ready.
 - **`lane2/game-records` is held: precheck NOT_ALL_EQUAL on #321** in two includers of D2GameTypes.h that the branch doesn't touch, `Source/D2Win/Src/D2Comp.cpp` and `Source/D2Game/Ai/AiThink4.cpp`. It looks like the declaration-count effect. Lane 2: rebuild every includer of D2GameTypes.h on current main. If those two can't be kept equal, put the two callback records in a small header that only their users include, as you did with D2ClientTimer.h.
@@ -68,6 +68,7 @@ A function belongs to the lane whose address range or file run it sits in, whate
 | `lane2/cmp-records` | replaced by `cmp-records-2` | nothing |
 | `lane2/game-records` | precheck unequal on #321: D2Comp.cpp, AiThink4.cpp | lane 2 (see Current state) |
 | `lane1/monster-4aff60` | replaced by `-2` | nothing |
+| `lane6/tails-a`, `lane6/data-c-2` | replaced / not needed | nothing |
 | `lane1/join-gethitsounds` | 0x4CA560 MISMATCH in UnitSnd.cpp on main | waits until UnitSnd.cpp's headers settle |
 
 ## Decisions in force
@@ -190,6 +191,8 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #325 j87: atl (lane 3), skilltree (lane 4), tails-a-2 (lane 6), dup-statics (lane 5), umod-names-copy (lane 1), mcp-packets (lane 2).
+- #324: README graphics refreshed from #323; rounds now refresh them right after the verify.
 - #323 j86: suni, ssig-window (lane 3), data-c (lane 6), lang-tails (lane 5), spellsel-join (lane 4).
 - #322 j85: levelevents (lane 4), monster-4aff60-2 (lane 1), system-strays (lane 3), lang-pad (lane 5).
 - #321 j84: levelup-split, inv-split (lane 4), scomp-strays, sfile-destroy, sevt-deletenode (lane 3), lang-split-2 (lane 5), codec-a (lane 6), cmp-records-2 (lane 2).
