@@ -1,0 +1,12 @@
+placeholder	reason
+Bnclient/Unknown_00517520.cpp	object map: best Bnclient/Unknown_0051752A.cpp (score 2; next to it)
+Bnclient/Unknown_0051752A.cpp	object map: best Bnclient/Unknown_00517520.cpp (score 2; next to it)
+Bnclient/Unknown_005175E3.cpp	no path string, no assert lines, no language copy, no object-map lead, no name prefix, nothing in D2MOO
+Bnclient/Unknown_00521DC0.cpp	no path string, no assert lines, no language copy, no object-map lead, no name prefix, nothing in D2MOO
+Bnclient/Unknown_00523AF0.cpp	object map: best Bnclient/Unknown_00524140.cpp (score 2; next to it)
+Bnclient/Unknown_00524140.cpp	object map: best Bnclient/Unknown_00523AF0.cpp (score 2; next to it); runner-up Bnclient/Unknown_005241A0.cpp 2
+Bnclient/Unknown_00524760.cpp	object map: best Bnclient/Unknown_005241A0.cpp (score 3; calls #, used only by the two); runner-up Bnclient/Unknown_00524780.cpp 3
+Bnclient/Unknown_00524780.cpp	object map: best Bnclient/Unknown_00520DC0.cpp (score 3; calls #, used only by the two); runner-up Bnclient/Unknown_005241A0.cpp 3
+Bnclient/Unknown_00528010.cpp	object map: best Bnclient/Unknown_00527BE0.cpp (score 2; next to it); runner-up Bnclient/Unknown_00528030.cpp 2
+Bnclient/Unknown_0052A240.cpp	object map: best Bnclient/Unknown_00527BE0.cpp (score 3; # called only from it)
+Bnclient/Unknown_006CB420.cpp	no path string, no assert lines, no language copy, no object-map lead, no name prefix, nothing in D2MOO

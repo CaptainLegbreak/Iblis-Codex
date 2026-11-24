@@ -1,0 +1,7 @@
+placeholder	reason
+D2BNClient/Unknown_00518B60.cpp	object map: best D2BNClient/Unknown_00518B90.cpp (score 4, clear lead; next to it x2); runner-up D2BNClient/BNetGW.cpp 2
+D2BNClient/Unknown_00518B90.cpp	object map: best D2BNClient/BnDownload.cpp (score 6; next to it x3); runner-up D2BNClient/Unknown_00518B60.cpp 4
+D2BNClient/Unknown_00518C30.cpp	object map: best D2BNClient/CACHE.CPP (score 10; # called only from it x2; data # x2; next to it); runner-up D2BNClient/Unknown_00518C00.cpp 10
+D2BNClient/Unknown_0051A470.cpp	object map: best D2BNClient/CACHE.CPP (score 2; next to it); runner-up D2BNClient/Unknown_00518C00.cpp 2
+D2BNClient/Unknown_0051C760.cpp	object map: best D2BNClient/BnSend.cpp (score 5; calls #, used only by the two; next to it); runner-up D2BNClient/Unknown_0051C7E0.cpp 5
+D2BNClient/Unknown_0051C7E0.cpp	object map: best D2BNClient/Unknown_0051C760.cpp (score 5, clear lead; calls #, used only by the two; next to it); runner-up D2BNClient/Unknown_00518C00.cpp 2

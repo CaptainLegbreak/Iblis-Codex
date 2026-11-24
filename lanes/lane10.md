@@ -6,6 +6,27 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 
 ## Ready
 
+- File-name plans, first pass on main #358 (files-<module>.tsv: placeholder, proposal, evidence, confidence). Evidence, strongest first: source path strings the placeholder's code passes, with their assert lines checked against the named file's range; the object map (objmap.py rerun on #358; a clear lead sitting between two runs of a named file is medium, a weaker lead weak); a language-table copy that starts the placeholder's data (it is then its own object, so 'piece of' becomes 'own file next to'); the Blizzard prefix of its function names; D2MOO's file for its 1.14d addresses, same module only, marked '(D2MOO only)' and always weak. Chains through other placeholders are followed to the named file and listed as '(through …)'. Only 2 placeholders pass a path string of their own, so most proposals are medium or weak; owners should treat weak ones as leads to build, not verdicts.
+- files-d2client.tsv (+ -skipped): 54 placeholders with a proposal (1 strong, 26 medium, 27 weak), 63 skipped. Owner: lanes 1 (0x4A0000 up) and 4 (below).
+- files-d2game.tsv (+ -skipped): 35 placeholders with a proposal (1 strong, 9 medium, 25 weak), 13 skipped. Owner: lane 5.
+- files-storm.tsv (+ -skipped): 17 placeholders with a proposal (9 medium, 8 weak), 27 skipped. Owner: lane 3.
+- files-d2hell.tsv (+ -skipped): 3 placeholders with a proposal (3 medium), 27 skipped. Owner: lane 9.
+- files-d2common.tsv (+ -skipped): 23 placeholders with a proposal (4 medium, 19 weak), 6 skipped. Owner: lane 8.
+- files-fog.tsv (+ -skipped): 9 placeholders with a proposal (7 medium, 2 weak), 15 skipped. Owner: lane 3.
+- files-bnclient.tsv (+ -skipped): 4 placeholders with a proposal (1 medium, 3 weak), 11 skipped. Owner: lane 6.
+- files-d2cmp.tsv (+ -skipped): 7 placeholders with a proposal (7 medium), 8 skipped. Owner: lane 6.
+- files-d2gdi.tsv (+ -skipped): 2 placeholders with a proposal (1 medium, 1 weak), 11 skipped. Owner: lane 9.
+- files-d2direct3d.tsv (+ -skipped): 6 placeholders with a proposal (5 medium, 1 weak), 5 skipped. Owner: lane 9.
+- files-d2ddraw.tsv (+ -skipped): 3 placeholders with a proposal (3 medium), 7 skipped. Owner: lane 9.
+- files-d2bnclient.tsv (+ -skipped): 3 placeholders with a proposal (1 medium, 2 weak), 6 skipped. Owner: lane 6.
+- files-d2lang.tsv (+ -skipped): 5 placeholders with a proposal (1 medium, 4 weak), 3 skipped. Owner: lane 6.
+- files-d2glide.tsv (+ -skipped): 2 placeholders with a proposal (2 medium), 6 skipped. Owner: lane 9.
+- files-d2multi.tsv (+ -skipped): 5 placeholders with a proposal (4 medium, 1 weak), 2 skipped. Owner: lane 6.
+- files-d2launch.tsv (+ -skipped): 2 placeholders with a proposal (2 medium), 5 skipped. Owner: lane 6.
+- files-d2sound.tsv (+ -skipped): 1 placeholders with a proposal (1 weak), 2 skipped. Owner: lane 6.
+- files-d2net.tsv (+ -skipped): 1 placeholders with a proposal (1 weak), 1 skipped. Owner: lane 6.
+- files-d2win.tsv (+ -skipped): 0 placeholders with a proposal (), 2 skipped. Owner: lane 6.
+- files-d2mcpclient.tsv (+ -skipped): 0 placeholders with a proposal (), 1 skipped. Owner: lane 6.
 - lane10/sweep-d2common-3 799e716 replaces lane10/sweep-d2common-2 (which conflicted with main): the same plan rebuilt from scratch on current main, 142 renames. VERIFIED b713e60a on base ff65a331, Game.exe matches. lane10/sweep-d2common-2 itself can be deleted.
 - lane10/names-prefixfix-d2client-3 a367898 replaces lane10/names-prefixfix-d2client-2 (which conflicted with main): the same plan rebuilt from scratch on current main, 156 renames. VERIFIED 20bb962f on base a6db6df9, Game.exe matches. lane10/names-prefixfix-d2client-2 itself can be deleted.
 - lane10/names-moved333-2 7ce804f replaces lane10/names-moved333 (which conflicted with main): the same plan rebuilt from scratch on current main, 50 renames. VERIFIED 3dde71df on base e40ccd0c, Game.exe matches. lane10/names-moved333 itself can be deleted.

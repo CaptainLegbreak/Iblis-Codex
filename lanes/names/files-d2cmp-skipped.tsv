@@ -1,0 +1,9 @@
+placeholder	reason
+D2CMP/Unknown_005FE010.cpp	object map: best D2CMP/SRC/SpriteCache.cpp (score 5; data # (only these two use it); data #; next to it); runner-up D2CMP/SRC/TileLib.cpp 3
+D2CMP/Unknown_006008D0.cpp	object map: best D2CMP/Unknown_006009C0.cpp (score 5; calls #, used only by the two; next to it); runner-up D2CMP/SRC/CelCmp.cpp 4
+D2CMP/Unknown_006009C0.cpp	object map: best D2CMP/Unknown_006008D0.cpp (score 5, clear lead; # called only from it; next to it); runner-up D2CMP/SRC/CelCmp.cpp 2
+D2CMP/Unknown_006043B0.cpp	object map: best D2CMP/SRC/CelCmp.cpp (score 7; next to it x2; calls #, used only by the two); runner-up D2CMP/Unknown_00604070.cpp 7
+D2CMP/Unknown_006056D0.cpp	object map: best D2CMP/Unknown_00604DB0.cpp (score 11; calls #, used only by the two x3; next to it); runner-up D2CMP/SRC/FastCmp.cpp 8
+D2CMP/Unknown_0060AE80.cpp	object map: best D2CMP/SRC/CelDataHash.cpp (score 4; next to it x2); runner-up D2CMP/Unknown_0060B160.cpp 4
+D2CMP/Unknown_0060D280.cpp	object map: best D2CMP/SRC/FastCmp.cpp (score 7, clear lead; next to it x2; # called only from it); runner-up D2CMP/SRC/Raw.cpp 2
+D2CMP/Unknown_006CB4C0.cpp	no path string, no assert lines, no language copy, no object-map lead, no name prefix, nothing in D2MOO

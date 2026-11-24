@@ -1,0 +1,3 @@
+placeholder	proposal	evidence	confidence
+D2Launch/Unknown_0042E5A0.cpp	piece of D2Launch/Unknown_0042E5D0.cpp (also a placeholder: same object)	object map: best D2Launch/Unknown_0042E5D0.cpp (score 8, clear lead; sits between two runs of it)	medium
+D2Launch/Unknown_0043B7A0.cpp	piece of D2Launch/Src/MainMenus.cpp	object map: best D2Launch/Src/MainMenus.cpp (score 49, clear lead; calls #, used only by the two x10; # called only from it x4; data # x3; data # (only these two use it) x2); runner-up D2Launch/Unknown_004370B0.cpp 17 | 13 of 15 function names carry CHARSEL_ (file D2Launch/Src/CharSel.cpp exists)	medium

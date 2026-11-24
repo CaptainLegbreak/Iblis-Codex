@@ -1,0 +1,4 @@
+placeholder	proposal	evidence	confidence
+D2Hell/Unknown_005173DF.cpp	piece of D2Hell/Unknown_005173EF.cpp (also a placeholder: same object)	object map: best D2Hell/Unknown_005173EF.cpp (score 13, clear lead; # called only from it; next to it; sits between two runs of it); runner-up D2Hell/Unknown_005173D3.cpp 2	medium
+D2Hell/Unknown_005173EF.cpp	piece of D2Hell/Unknown_005173DF.cpp (also a placeholder: same object)	object map: best D2Hell/Unknown_005173DF.cpp (score 19, clear lead; calls #, used only by the two x3; sits between two runs of it; next to it); runner-up D2Hell/Unknown_00516DE1.cpp 6	medium
+D2Hell/Unknown_0051763C.cpp	piece of D2Hell/Unknown_00517623.cpp (also a placeholder: same object)	object map: best D2Hell/Unknown_00517623.cpp (score 8, clear lead; sits between two runs of it); runner-up D2Hell/Unknown_005175F1.cpp 3	medium

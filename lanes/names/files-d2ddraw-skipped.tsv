@@ -1,0 +1,8 @@
+placeholder	reason
+D2DDraw/Unknown_00511DF0.cpp	object map: best D2DDraw/Src/ddCore.cpp (score 6; # called only from it; data #; next to it); runner-up D2DDraw/Unknown_005120A0.cpp 4
+D2DDraw/Unknown_005120A0.cpp	object map: best D2DDraw/Unknown_00511DF0.cpp (score 3; data #; next to it); runner-up D2DDraw/Unknown_005121A0.cpp 2
+D2DDraw/Unknown_005121A0.cpp	object map: best D2DDraw/Unknown_005120A0.cpp (score 3; data #; next to it); runner-up D2DDraw/Unknown_00511DF0.cpp 3
+D2DDraw/Unknown_005122E0.cpp	object map: best D2DDraw/Unknown_00511DF0.cpp (score 3; data #; next to it); runner-up D2DDraw/Unknown_005120A0.cpp 1
+D2DDraw/Unknown_00512930.cpp	object map: best D2DDraw/Src/ddCore.cpp (score 7, clear lead; next to it x2; # called only from it); runner-up D2DDraw/Unknown_005125E0.cpp 2
+D2DDraw/Unknown_00512C20.cpp	object map: best D2DDraw/Unknown_005125E0.cpp (score 2; next to it); runner-up D2DDraw/Unknown_00512CE0.cpp 2
+D2DDraw/Unknown_00512CE0.cpp	object map: best D2DDraw/Unknown_00512C20.cpp (score 2; next to it); runner-up D2DDraw/Unknown_00512930.cpp 2

@@ -1,0 +1,10 @@
+placeholder	proposal	evidence	confidence
+Fog/Unknown_00401010.cpp	piece of Fog/Src/ErrorManager.cpp	object map: best Fog/Src/ErrorManager.cpp (score 12, clear lead; next to it x2; sits between two runs of it); runner-up Fog/Unknown_00402820.cpp 3	medium
+Fog/Unknown_00401070.cpp	piece of Fog/Src/ErrorManager.cpp	object map: best Fog/Src/ErrorManager.cpp (score 41, clear lead; sits between two runs of it x4; next to it x2; # called only from it; data # (only these two use it)); runner-up Fog/Src/ErrorManager_004082E0.cpp 4 | 1 of 20 function names carry AUTOMAP_	medium
+Fog/Unknown_00401DF0.cpp	piece of Fog/Src/ErrorManager.cpp (through Unknown_00401010.cpp)	object map: best Fog/Unknown_00401010.cpp (score 23, clear lead; data # x11; data # (only these two use it) x5; next to it); runner-up Fog/Unknown_00405250.cpp 9	medium
+Fog/Unknown_00402380.cpp	piece of Fog/Src/ErrorManager.cpp (through Unknown_00401010.cpp)	object map: best Fog/Unknown_00401010.cpp (score 10, clear lead; data # x6; data # (only these two use it) x2); runner-up Fog/Unknown_00402820.cpp 2	weak
+Fog/Unknown_00402820.cpp	piece of Fog/Src/ErrorManager.cpp	object map: best Fog/Src/ErrorManager.cpp (score 39, clear lead; next to it x7; # called only from it x2; sits between two runs of it x2; calls #, used only by the two); runner-up Fog/Unknown_004049A0.cpp 8	medium
+Fog/Unknown_00402D60.cpp	piece of Fog/Unknown_00402C60.cpp (also a placeholder: same object)	object map: best Fog/Unknown_00402C60.cpp (score 8, clear lead; sits between two runs of it); runner-up Fog/Unknown_00403100.cpp 3	medium
+Fog/Unknown_00405250.cpp	piece of Fog/Src/ErrorManager.cpp (through Unknown_00401DF0.cpp)	object map: best Fog/Unknown_00401DF0.cpp (score 9, clear lead; calls #, used only by the two x3); runner-up Fog/Unknown_00403100.cpp 3	weak
+Fog/Unknown_00408090.cpp	piece of Fog/Src/ErrorManager.cpp	object map: best Fog/Src/ErrorManager.cpp (score 8, clear lead; sits between two runs of it)	medium
+Fog/Unknown_006BE190.cpp	piece of Fog/Src/Excel/Excel.cpp	object map: best Fog/Src/Excel/Excel.cpp (score 8, clear lead; sits between two runs of it)	medium

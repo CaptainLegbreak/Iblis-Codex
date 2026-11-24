@@ -1,0 +1,16 @@
+placeholder	reason
+Fog/Unknown_00401220.cpp	object map: best Fog/Unknown_00401070.cpp (score 8; sits between two runs of it); runner-up Fog/Src/ErrorManager.cpp 6
+Fog/Unknown_00402280.cpp	object map: best Fog/Unknown_00401010.cpp (score 7, clear lead; data # x3; data # (only these two use it) x2); runner-up Fog/Unknown_00401DF0.cpp 2
+Fog/Unknown_00402370.cpp	object map: best Fog/Src/ErrorManager.cpp (score 4, clear lead; next to it x2); runner-up Fog/Unknown_00402280.cpp 2
+Fog/Unknown_00402530.cpp	object map: best Fog/Unknown_00401010.cpp (score 5, clear lead; data # x3; data # (only these two use it)); runner-up Fog/Unknown_00402380.cpp 2
+Fog/Unknown_004025F0.cpp	object map: best Fog/Unknown_00401010.cpp (score 14; data # x6; data # (only these two use it) x4); runner-up Fog/Unknown_00402820.cpp 12
+Fog/Unknown_00402C60.cpp	object map: best Fog/Unknown_00404330.cpp (score 12; calls #, used only by the two x4); runner-up Fog/Src/ErrorManager.cpp 8
+Fog/Unknown_00403100.cpp	object map: best Fog/Src/ErrorManager.cpp (score 6, clear lead; data # (only these two use it) x2; next to it); runner-up Fog/Unknown_00402D60.cpp 3
+Fog/Unknown_00404100.cpp	object map: best Fog/Src/ErrorManager.cpp (score 10; sits between two runs of it; next to it); runner-up Fog/Unknown_00402820.cpp 10
+Fog/Unknown_00404330.cpp	object map: best Fog/Src/ErrorManager.cpp (score 10; sits between two runs of it; next to it); runner-up Fog/Unknown_00402C60.cpp 6
+Fog/Unknown_004047D0.cpp	object map: best Fog/Unknown_004049A0.cpp (score 3; # called only from it); runner-up Fog/Unknown_00402820.cpp 2
+Fog/Unknown_004049A0.cpp	object map: best Fog/Unknown_00402820.cpp (score 8; calls #, used only by the two x2; next to it); runner-up Fog/Unknown_00404AB0.cpp 5
+Fog/Unknown_00404AB0.cpp	object map: best Fog/Unknown_004049A0.cpp (score 5, clear lead; calls #, used only by the two; next to it); runner-up Fog/Unknown_00404330.cpp 2
+Fog/Unknown_00410790.cpp	object map: best Fog/Src/ErrorManager_004082E0.cpp (score 3; # called only from it); runner-up Fog/Src/Excel/Excel.cpp 3 | 5 of 28 function names carry BITMANIP_
+Fog/Unknown_006BCD50.cpp	object map: best Fog/Src/DataArrays.cpp (score 2; next to it); runner-up Fog/Src/Excel/Excel.cpp 2
+Fog/Unknown_006C0B80.cpp	object map: best Fog/Src/QServer/QServer.cpp (score 2; next to it); runner-up Fog/Src/D2QSQueue.cpp 2 | 5 of 10 function names carry DATATBLS_ | D2MOO (names only, weak) has 1 of its functions in Fog/src/Calc.cpp

@@ -1,0 +1,4 @@
+placeholder	proposal	evidence	confidence
+D2DDraw/Unknown_00510130.cpp	piece of D2DDraw/Src/ddCore.cpp	object map: best D2DDraw/Src/ddCore.cpp (score 36, clear lead; data # (only these two use it) x5; calls #, used only by the two x2; data # x2; sits between two runs of it x2; next to it) | 4 of 17 function names carry DDRAW_	medium
+D2DDraw/Unknown_005125E0.cpp	piece of D2DDraw/Src/ddCore.cpp	object map: best D2DDraw/Src/ddCore.cpp (score 13, clear lead; # called only from it; data # (only these two use it); sits between two runs of it); runner-up D2DDraw/Unknown_00512930.cpp 2	medium
+D2DDraw/Unknown_00512710.cpp	piece of D2DDraw/Src/ddCore.cpp	object map: best D2DDraw/Src/ddCore.cpp (score 11, clear lead; # called only from it; sits between two runs of it)	medium

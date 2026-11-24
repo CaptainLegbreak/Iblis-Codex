@@ -1,0 +1,3 @@
+placeholder	reason
+D2Sound/Unknown_00513BC0.cpp	object map: best D2Sound/Src/D2SoundSmp.cpp (score 42; data # (only these two use it) x9; calls #, used only by the two x6; # called only from it x2); runner-up D2Sound/Unknown_00513A20.cpp 23 | 13 of 19 function names carry D2SOUND_
+D2Sound/Unknown_00514B60.cpp	object map: best D2Sound/Unknown_00513BC0.cpp (score 5, clear lead; # called only from it; next to it); runner-up D2Sound/Src/D2SoundFast.cpp 2 | 12 of 13 function names carry D2SOUND_

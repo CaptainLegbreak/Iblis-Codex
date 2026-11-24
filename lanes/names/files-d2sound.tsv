@@ -1,0 +1,2 @@
+placeholder	proposal	evidence	confidence
+D2Sound/Unknown_00513A20.cpp	own file next to D2Sound/Unknown_00513BC0.cpp (also a placeholder: same object)	object map: best D2Sound/Unknown_00513BC0.cpp (score 26, clear lead; data # (only these two use it) x9; # called only from it x2; next to it); runner-up D2Sound/Src/D2SoundSmp.cpp 6 | 7 of 10 function names carry D2SOUND_ | language-table copy at 0x72F7F4 starts its data, so it is an object of its own	weak
