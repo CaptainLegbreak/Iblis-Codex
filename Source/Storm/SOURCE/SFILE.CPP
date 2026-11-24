@@ -2889,6 +2889,29 @@ void Sha1::Initialize()
     aState[4] = 0xC3D2E1F0;
 }
 
+// build: symbol ??1?$TSLink@UAUDIOSTREAM@@@@QAE@XZ 0x00418BE0
+// 0x004199A0
+AUDIOSTREAM::~AUDIOSTREAM()
+{
+    FILEREC* pFileRec = pFile;
+    if (pFileRec && --pFileRec->nRefCount == 0)
+        delete pFileRec;
+    if (pBuffer && bBufferOwned)
+        pBuffer->Release();
+}
+
+// build: symbol ??1?$TSLink@UREQUEST@@@@QAE@XZ 0x00418C20
+// 0x0041A020
+REQUEST::~REQUEST()
+{
+    FILEREC* pFileRec = pFile;
+    if (pFileRec && --pFileRec->nRefCount == 0)
+        delete pFileRec;
+    AUDIOSTREAM* pAudio = stream;
+    if (pAudio && --pAudio->nRefCount == 0)
+        delete pAudio;
+}
+
 // build: symbol ??_GAUDIOSTREAM@@QAEPAXI@Z 0x00419A50
 // build: symbol ??_GREQUEST@@QAEPAXI@Z 0x0041A0E0
 // 0x00419A50
@@ -3292,7 +3315,7 @@ int __stdcall SFileDdaBeginEx(void* hFile, unsigned int nBufferSize, unsigned in
         node->nPlayed = offset;
         node->writecursor = offset;
         node->pBuffer = pBuffer;
-        node->unk0x44 = ownsBuffer;
+        node->bBufferOwned = ownsBuffer;
         node->nFill = format.bitsPerSample == 8 ? 0x80 : 0;
         node->nRefs = 1;
         ++pFile->nRefCount;

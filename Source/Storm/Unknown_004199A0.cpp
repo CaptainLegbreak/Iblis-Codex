@@ -168,28 +168,7 @@ struct REQUEST
 };
 
 // build: symbol ??1D2StormBigBufferStrc@@QAE@XZ 0x00421810
-// 0x004199A0
-AUDIOSTREAM::~AUDIOSTREAM()
-{
-    FILEREC* pFile = pFileRec;
-    if (pFile && --pFile->nRefCount == 0)
-        delete pFile;
-    if (pBuffer && bBufferOwned)
-        pBuffer->Release();
-}
-
 // 0x00421D80
 D2StormBigDataStrc::~D2StormBigDataStrc()
 {
-}
-
-// 0x0041A020
-REQUEST::~REQUEST()
-{
-    FILEREC* pFile = pFileRec;
-    if (pFile && --pFile->nRefCount == 0)
-        delete pFile;
-    AUDIOSTREAM* pAudio = stream;
-    if (pAudio && --pAudio->nRefCount == 0)
-        delete pAudio;
 }
