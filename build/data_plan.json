@@ -3886,20 +3886,11 @@
    "state": "included"
   },
   "Source/D2Common/DRLG/DrlgAnim.cpp": {
-   "bytes": 80,
-   "definitions": 2,
+   "bytes": 144,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/DrlgAnim.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/Unknown_0066D7E0.cpp": {
-   "bytes": 64,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_0066D7E0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -134219,7 +134210,7 @@
    "cname": "gData_006EEF88",
    "declared": true,
    "decorated": "?gnTileTypeTable@@3QBHB",
-   "file": "Source/D2Common/Unknown_0066D7E0.cpp",
+   "file": "Source/D2Common/DRLG/DrlgAnim.cpp",
    "fill": 16,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006EEF88[16]; // 0x006EEF88",
