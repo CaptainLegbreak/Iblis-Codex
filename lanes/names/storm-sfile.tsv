@@ -1,0 +1,41 @@
+va	old_name	new_name	source	file	confidence	reason
+0x00415240	sub_00415240_Explode	DecompressLzw	inferred	Source/Storm/SOURCE/SFILE.CPP	medium	runs the PKware explode decoder under a lock with DecompressLzw_BufferRead/BufferWrite (blizzard names of its two callbacks)
+0x004152D0	sub_004152D0_DecryptBlock	DecryptBlock	inferred	Source/Storm/SOURCE/SFILE.CPP	high	decrypts a block in place with the crypt table and a key
+0x00415330	sub_00415330_HashString	HashString	inferred	Source/Storm/SOURCE/SFILE.CPP	high	hashes an upper-cased string through the crypt table (hash type 0/1/2); used by FindHashEntry
+0x00415390	sub_00415390_PrepareCryptTable	PrepareCryptTable	inferred	Source/Storm/SOURCE/SFILE.CPP	high	allocates and fills the 0x500-entry crypt table from a seed
+0x00415560	sub_00415560_ReadFileRec	ReadFileRec	inferred	Source/Storm/SOURCE/SFILE.CPP	medium	reads nSize bytes of a FILEREC at an offset through ReadFileChecked, returns whether all were read
+0x004155B0	sub_004155B0_GetBlockEntry	GetBlockEntry	inferred	Source/Storm/SOURCE/SFILE.CPP	high	returns the block table entry a hash table slot points at
+0x004155D0	sub_004155D0_FindHashEntry	FindHashEntry	inferred	Source/Storm/SOURCE/SFILE.CPP	high	finds a file's hash table slot by name, locale and platform
+0x004156A0	sub_004156A0_ExpandEntries	ExpandBlockEntries	inferred	Source/Storm/SOURCE/SFILE.CPP	medium	D2StormBlockStrc member: widens packed block entries in place into full records, clearing the new fields
+0x00415760	sub_00415760_UpdatePlayed	UpdateStreamPosition	inferred	Source/Storm/SOURCE/SFILE.CPP	medium	reads the DirectSound play cursor and updates the stream's played byte count
+0x004157C0	sub_004157C0_FillStreamBuffer	FillStreamBuffer	inferred	Source/Storm/SOURCE/SFILE.CPP	high	locks the stream's sound buffer, copies a chunk in and pads the rest
+0x004158E0	sub_004158E0_InitBasePath	InitBasePath	inferred	Source/Storm/SOURCE/SFILE.CPP	high	sets the base path to the executable's directory
+0x00415930	sub_00415930_GetArchiveRec	GetArchiveRec	inferred	Source/Storm/SOURCE/SFILE.CPP	high	converts an archive handle to its ARCHIVEREC
+0x00415940	sub_00415940_PathPresent	IsDiskFile	inferred	Source/Storm/SOURCE/SFILE.CPP	medium	GetFileAttributes says the path exists and is not a directory
+0x00415950	sub_00415950_GetFileRec	GetFileRec	inferred	Source/Storm/SOURCE/SFILE.CPP	high	converts a file handle to its FILEREC
+0x00415960	sub_00415960_CheckVolume	CheckCdVolume	inferred	Source/Storm/SOURCE/SFILE.CPP	medium	checks a drive's volume/file-system/free-space key against the two expected values
+0x00415A80	sub_00415A80_BuildPath	BuildBasePath	inferred	Source/Storm/SOURCE/SFILE.CPP	high	joins the base path and a (optionally stripped) file name into a full path
+0x00415B00	sub_00415B00_FindDiskFile	FindDiskFile	inferred	Source/Storm/SOURCE/SFILE.CPP	high	looks for a file on disk by base path and/or given path per the open flags
+0x00415B90	sub_00415B90_InitCryptTable	InitCryptTable	inferred	Source/Storm/SOURCE/SFILE.CPP	high	prepares the crypt table once with the standard seed
+0x00415D50	sub_00415D50_ChecksumFile	CalcFileCrc	inferred	Source/Storm/SOURCE/SFILE.CPP	medium	opens a disk file and returns its CRC computed in 4 KB chunks
+0x00415EC0	sub_00415EC0_SetPair	SetOpenFileCallback	inferred	Source/Storm/SOURCE/SFILE.CPP	medium	stores the open-file callback and its parameter (0x779060/0x779064)
+0x00415F10	sub_00415F10_AdjustArchiveRefs	AdjustArchiveRefs	inferred	Source/Storm/SOURCE/SFILE.CPP	medium	adds or drops one reference on an archive under the base-path lock
+0x00415F70	sub_00415F70	SFileEnableDirectAccess	d2moo	Source/Storm/SOURCE/SFILE.CPP	high	D2MOO Storm.#263; sets the direct-access flags; sits where #263 does between SFileDdaInitialize and SFileGetArchiveInfo
+0x00415F90	sub_00415F90_SetValue	SFileEnableSeekOptimization	d2moo	Source/Storm/SOURCE/SFILE.CPP	high	D2MOO Storm.#286, next to #263 in both builds; sets the flag that gates seek optimisation in the request loop
+0x00416230	sub_00416230_GetFileName	CopyFileRecName	inferred	Source/Storm/SOURCE/SFILE.CPP	medium	copies a FILEREC's name into a buffer (D2Hell Archive.cpp uses it to get the archive path); differs from SFileGetFileName
+0x00416370	sub_00416370_StormGetFileSize	SFileGetFileSize	d2moo	Source/Storm/SOURCE/SFILE.CPP	high	D2MOO Storm.#265; returns a file's size (disk handle or archive block)
+0x00416400	sub_00416400_GetFileTime	SFileGetFileTime	inferred	Source/Storm/SOURCE/SFILE.CPP	medium	returns a file's time (disk handle or archive member's stored time); Storm export style, no D2MOO entry
+0x004164A0	sub_004164A0_SetValue	SFileSetAsyncBudget	d2moo	Source/Storm/SOURCE/SFILE.CPP	high	D2MOO Storm.#284, just before SFileSetBasePath in both builds; Fog AsyncData calls it with 0x40000
+0x00416FB0	sub_00416FB0_LoadBlock	LoadSector	inferred	Source/Storm/SOURCE/SFILE.CPP	high	reads one archive sector into the archive's cache unless it is already cached; used by InternalReadUnaligned
+0x00417EE0	sub_00417EE0_IsNotListHead	IsNotListHead	inferred	Source/Storm/SOURCE/SFILE.CPP	medium	tells whether an archive's key differs from the head archive's key; (also spelled sub_M114_Emit_00417EE0)
+0x00418B50	sub_00418B50	GetDefaultOpenFlags	inferred	Source/Storm/SOURCE/SFILE.CPP	high	builds the default SFileOpenFileEx search flags from the direct-access flags and whether any archive is open
+0x00419180	sub_00419180_OpenPathAsArchive	SFileOpenPathAsArchive	inferred	Source/Storm/SOURCE/SFILE_00417800.CPP	medium	opens a path inside an open archive as a nested archive (validates, takes the base-path lock); Storm export style
+0x00419980	sub_00419980	SFileOpenFile	d2moo	Source/Storm/SOURCE/SFILE.CPP	high	D2MOO Storm.#267; SFileOpenFileEx(0, name, default flags, out)
+0x00419C00	sub_00419C00_PumpStreams	PumpStreams	inferred	Source/Storm/SOURCE/SFILE.CPP	medium	walks the DDA stream list, restarting or ending finished streams and refilling buffers
+0x0041A880	sub_0041A880_StartThread	StartCdThread	inferred	Source/Storm/SOURCE/SFILE.CPP	high	creates the request event and starts CdThreadProc once
+0x0041A8D0	sub_0041A8D0_GetThread	GetCdThread	inferred	Source/Storm/SOURCE/SFILE.CPP	medium	starts the CD thread if needed and returns its id and handle
+0x0041A930	sub_0041A930_CancelRead	SFileCancelRequest	d2moo	Source/Storm/SOURCE/SFILE.CPP	high	D2MOO Storm.#283 (void, one argument); validates and calls CancelRequest
+0x0041A960	sub_0041A960_CancelReadResult	SFileCancelRequestEx	inferred	Source/Storm/SOURCE/SFILE.CPP	medium	same as SFileCancelRequest but returns CancelRequest's result
+0x0041A990	sub_0041A990_DdaClose	SFileDdaEnd	d2moo	Source/Storm/SOURCE/SFILE.CPP	high	D2MOO Storm.#257 (BOOL, handle); stops every DDA stream of a file; the close path calls it when a DDA is active; (also spelled sub_0041A990)
+0x0041B210	sub_0041B210_FindWaveChunk	FindWaveChunk	inferred	Source/Storm/SOURCE/SFILE.CPP	high	scans a RIFF file for a chunk tag and returns its size and position
+0x0041BEB0	sub_0041BEB0_FlushAndNotify	FlushAndNotify	inferred	Source/Storm/SOURCE/SFILE.CPP	medium	suppresses errors, flushes all logs and calls the registered notify callback
