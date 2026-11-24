@@ -80156,6 +80156,22 @@
      "va": "0x006C8A40",
      "length": 3,
      "name": "sub_006C8A40"
+    },
+    {
+     "va": "0x006CB030",
+     "length": 24
+    },
+    {
+     "va": "0x006CB050",
+     "length": 24
+    },
+    {
+     "va": "0x006CB4F0",
+     "length": 81
+    },
+    {
+     "va": "0x006CB550",
+     "length": 81
     }
    ]
   },
@@ -80837,16 +80853,6 @@
      "name": "?sub_006CAF10_SetPerSecond@@YAXXZ"
     },
     {
-     "va": "0x006CB030",
-     "length": 24,
-     "name": "?sub_006CB030_InitializeList@@YAXXZ"
-    },
-    {
-     "va": "0x006CB050",
-     "length": 24,
-     "name": "?sub_006CB050_InitializeList@@YAXXZ"
-    },
-    {
      "va": "0x006CB0C0",
      "length": 81,
      "name": "?sub_006CB0C0_DestroyList@@YAXXZ"
@@ -80962,22 +80968,6 @@
     "/Ob2",
     "/Gd",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006CB4E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006CB4F0",
-     "length": 81,
-     "name": "?sub_006CB4F0_DestroyList@@YAXXZ"
-    },
-    {
-     "va": "0x006CB550",
-     "length": 81,
-     "name": "?sub_006CB550_DestroyList@@YAXXZ"
-    }
    ]
   },
   {

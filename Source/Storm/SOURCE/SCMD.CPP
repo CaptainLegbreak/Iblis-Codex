@@ -175,8 +175,12 @@ extern "C" const char gszCmdWhitespace_006FCC4C[];                              
 extern const char gszPercentS_006FFC58[]; // 0x006FFC58
 extern const char gszNewline[]; // 0x006FFCB0
 
-extern TSList<CMDDEF> gOptionList_0074C48C; // 0x0074C48C
-extern TSList<CMDDEF> gOptionList_0074C498; // 0x0074C498
+// build: symbol ??__EgOptionList_0074C48C@@YAXXZ 0x006CB030
+// build: symbol ??__FgOptionList_0074C48C@@YAXXZ 0x006CB4F0
+TSList<CMDDEF> gOptionList_0074C48C; // 0x0074C48C
+// build: symbol ??__EgOptionList_0074C498@@YAXXZ 0x006CB050
+// build: symbol ??__FgOptionList_0074C498@@YAXXZ 0x006CB550
+TSList<CMDDEF> gOptionList_0074C498; // 0x0074C498
 int gnGlobal_00989C38; // 0x00989C38
 extern int gdwGlobal_0098A164; // 0x0098A164
 extern int gdwGlobal_007C914C; // 0x007C914C

@@ -94,7 +94,6 @@ extern ARCHIVEREC* gpArchiveHead_0070835C; // 0x0070835C
 extern bool gbSymInitialized; // 0x0098A6B0
 extern char gszTypeNameArchiveRec_00708398[]; // 0x00708398
 extern char gszTypeNameChar_0070888C[]; // 0x0070888C
-extern char gszTypeNameCmdDef_0074C47C[]; // 0x0074C47C
 extern char gszTypeNameRequest_007083F0[]; // 0x007083F0
 extern char gszTypeNameUChar_00708880[]; // 0x00708880
 extern char gszTypeNameUInt_00708874[]; // 0x00708874
