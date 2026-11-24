@@ -75818,7 +75818,7 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_0066D290.cpp",
+   "file": "Source/D2Common/DRLG/DrlgAnim.cpp",
    "rank": 0,
    "functions": [
     {
@@ -75837,6 +75837,10 @@
      "name": "DRLGANIM_AnimateTiles"
     },
     {
+     "va": "0x0066D440",
+     "length": 692
+    },
+    {
      "va": "0x0066D700",
      "length": 77,
      "name": "DRLGANIM_AllocAnimationTileGrids"
@@ -75845,23 +75849,7 @@
      "va": "0x0066D750",
      "length": 139,
      "name": "DRLGANIM_UpdateFrameInAdjacentRooms"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/DrlgAnim.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0066D440",
-     "length": 692
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0066D7E0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0066D7E0",
      "length": 8,
