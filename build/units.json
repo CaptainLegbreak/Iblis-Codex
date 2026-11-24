@@ -3637,16 +3637,6 @@
      "va": "0x0043B4C0",
      "length": 82,
      "name": "MAINMENUS_OnRealmListClick"
-    },
-    {
-     "va": "0x004431B0",
-     "length": 112,
-     "name": "MAINMENUS_LoadMaxPlayers"
-    },
-    {
-     "va": "0x00443C10",
-     "length": 8,
-     "name": "?sub_00443C10_AlwaysOne@@YGHH@Z"
     }
    ],
    "flags": [
@@ -9470,104 +9460,9 @@
      "name": "?sub_0043C6A0@@YIXH@Z"
     },
     {
-     "va": "0x0043D990",
-     "length": 16,
-     "name": "?CHARSEL_ActivateChatEdit@@YAXXZ"
-    },
-    {
-     "va": "0x0043DB20",
-     "length": 107,
-     "name": "?CHARSEL_DestroyDialogControls@@YAXXZ"
-    },
-    {
-     "va": "0x0043DC30",
-     "length": 30,
-     "name": "?CHARSEL_GetConnectStatus@@YAHXZ"
-    },
-    {
-     "va": "0x0043E130",
-     "length": 65,
-     "name": "?CHARSEL_ResetChatControls@@YAXXZ"
-    },
-    {
-     "va": "0x0043EA20",
-     "length": 71,
-     "name": "?CHARSEL_DestroyPopupControls@@YAXXZ"
-    },
-    {
-     "va": "0x0043F4D0",
-     "length": 52,
-     "name": "?CHARSEL_ClearHistory@@YAXXZ"
-    },
-    {
-     "va": "0x0043F560",
-     "length": 25,
-     "name": "?CHARSEL_DisableControl@@YIXPAUD2WinControlStrc@@@Z"
-    },
-    {
      "va": "0x0043F850",
      "length": 18,
      "name": "?CHARSEL_CancelGameCreate@@YAHXZ"
-    },
-    {
-     "va": "0x0043F8C0",
-     "length": 109,
-     "name": "?CHARSEL_ResetLaunchState@@YAXXZ"
-    },
-    {
-     "va": "0x00441240",
-     "length": 85,
-     "name": "?CHARSEL_UseEditText@@YGHH@Z"
-    },
-    {
-     "va": "0x004412A0",
-     "length": 128,
-     "name": "?CHARSEL_UseRegistryChannel@@YGHH@Z"
-    },
-    {
-     "va": "0x004429A0",
-     "length": 205,
-     "name": "?CHARSEL_OnChatLine@@YGHPBUUnicode@@@Z"
-    },
-    {
-     "va": "0x00443360",
-     "length": 45,
-     "name": "?CHARSEL_GetMaxPlayers@@YAHXZ"
-    },
-    {
-     "va": "0x00443390",
-     "length": 45,
-     "name": "?CHARSEL_GetLevelRange@@YAHXZ"
-    },
-    {
-     "va": "0x004433C0",
-     "length": 95,
-     "name": "?CHARSEL_IncrementMaxPlayers@@YGHH@Z"
-    },
-    {
-     "va": "0x00443420",
-     "length": 95,
-     "name": "?CHARSEL_DecrementMaxPlayers@@YGHH@Z"
-    },
-    {
-     "va": "0x00443480",
-     "length": 95,
-     "name": "?CHARSEL_IncrementLevelRange@@YGHH@Z"
-    },
-    {
-     "va": "0x004434E0",
-     "length": 94,
-     "name": "?CHARSEL_DecrementLevelRange@@YGHH@Z"
-    },
-    {
-     "va": "0x004437E0",
-     "length": 93,
-     "name": "?CHARSEL_UpdateJoinButtonState@@YAXXZ"
-    },
-    {
-     "va": "0x004439F0",
-     "length": 537,
-     "name": "?CHARSEL_JoinByName@@YGHH@Z"
     },
     {
      "va": "0x00443F80",
@@ -10995,19 +10890,9 @@
      "name": "?COMCALLBACK_FilterNameChar@@YGHPAUD2WinControlStrc@@HPBD@Z"
     },
     {
-     "va": "0x0043F730",
-     "length": 196,
-     "name": "?COMCALLBACK_UpdateNameListText@@YAXXZ"
-    },
-    {
      "va": "0x00443D10",
      "length": 49,
      "name": "?COMCALLBACK_SetPendingName@@YGXHHPBD@Z"
-    },
-    {
-     "va": "0x00445300",
-     "length": 165,
-     "name": "COMCALLBACK_LoadLevelRestriction"
     },
     {
      "va": "0x004453B0",
@@ -11408,11 +11293,6 @@
      "va": "0x0043C750",
      "length": 322,
      "name": "?LAUNCHER_DeleteCharacterFiles@@YIXPBD0@Z"
-    },
-    {
-     "va": "0x0043E900",
-     "length": 201,
-     "name": "?MAINMENUS_FindCdKeyInText@@YGHPBD@Z"
     }
    ],
    "flags": [
@@ -12050,6 +11930,16 @@
      "name": "?CHATDLG_LoadFrontEndCels@@YAXXZ"
     },
     {
+     "va": "0x0043D510",
+     "length": 1139,
+     "name": "?sub_0043D510_FreeCellFiles@@YAXXZ"
+    },
+    {
+     "va": "0x0043D990",
+     "length": 16,
+     "name": "?CHARSEL_ActivateChatEdit@@YAXXZ"
+    },
+    {
      "va": "0x0043D9A0",
      "length": 13,
      "name": "?CHATDLG_OnRealmConnectCancel@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
@@ -12095,9 +11985,53 @@
      "name": "?CHATDLG_EnableMainControl@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x0043DB20",
+     "length": 107,
+     "name": "?CHARSEL_DestroyDialogControls@@YAXXZ"
+    },
+    {
      "va": "0x0043DB90",
      "length": 13,
      "name": "?CHATDLG_OnChatEditEnter@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043DBA0",
+     "length": 22,
+     "name": "?sub_0043DBA0_ClearSelection@@YGHHHH@Z"
+    },
+    {
+     "va": "0x0043DBC0",
+     "length": 40,
+     "name": "?sub_0043DBC0_OnWaitTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043DBF0",
+     "length": 52,
+     "name": "?sub_0043DBF0_OnReceiveTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043DC30",
+     "length": 30,
+     "name": "?CHARSEL_GetConnectStatus@@YAHXZ"
+    },
+    {
+     "va": "0x0043DCE0",
+     "length": 28,
+     "name": "?sub_0043DCE0_FreeChatCellFile@@YAXXZ"
+    },
+    {
+     "va": "0x0043DD00",
+     "length": 196,
+     "name": "?sub_0043DD00_GetClassName@@YAXHPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x0043DDD0",
+     "length": 852
+    },
+    {
+     "va": "0x0043E130",
+     "length": 65,
+     "name": "?CHARSEL_ResetChatControls@@YAXXZ"
     },
     {
      "va": "0x0043E180",
@@ -12195,9 +12129,19 @@
      "name": "?CHATDLG_NotifyCommand@@YAHPBD0@Z"
     },
     {
+     "va": "0x0043E900",
+     "length": 201,
+     "name": "?MAINMENUS_FindCdKeyInText@@YGHPBD@Z"
+    },
+    {
      "va": "0x0043E9D0",
      "length": 80,
      "name": "?CHATDLG_CreateControl@@YAPAUD2WinControlStrc@@H@Z"
+    },
+    {
+     "va": "0x0043EA20",
+     "length": 71,
+     "name": "?CHARSEL_DestroyPopupControls@@YAXXZ"
     },
     {
      "va": "0x0043EA70",
@@ -12309,9 +12253,19 @@
      "name": "?CHATDLG_OnAssassinLadderButton@@YGHPAUD2WinMsgStrc@@@Z"
     },
     {
+     "va": "0x0043F4D0",
+     "length": 52,
+     "name": "?CHARSEL_ClearHistory@@YAXXZ"
+    },
+    {
      "va": "0x0043F510",
      "length": 73,
      "name": "?CHATDLG_PushHistory@@YAXPBD@Z"
+    },
+    {
+     "va": "0x0043F560",
+     "length": 25,
+     "name": "?CHARSEL_DisableControl@@YIXPAUD2WinControlStrc@@@Z"
     },
     {
      "va": "0x0043F580",
@@ -12334,6 +12288,11 @@
      "name": "?CHATDLG_OnToggleButton@@YGHH@Z"
     },
     {
+     "va": "0x0043F730",
+     "length": 196,
+     "name": "?COMCALLBACK_UpdateNameListText@@YAXXZ"
+    },
+    {
      "va": "0x0043F800",
      "length": 57,
      "name": "?CHATDLG_FreeNameList@@YAXXZ"
@@ -12347,6 +12306,11 @@
      "va": "0x0043F8A0",
      "length": 19,
      "name": "?CHATDLG_SaveDefaultChannel@@YAXPBD@Z"
+    },
+    {
+     "va": "0x0043F8C0",
+     "length": 109,
+     "name": "?CHARSEL_ResetLaunchState@@YAXXZ"
     },
     {
      "va": "0x0043F930",
@@ -12376,6 +12340,11 @@
      "va": "0x0043FC20",
      "length": 537,
      "name": "?CHATDLG_CreateChatScreen@@YAXXZ"
+    },
+    {
+     "va": "0x0043FE40",
+     "length": 349,
+     "name": "?CHATDLG_SetupLogin@@YIHPAUD2LaunchLoginStrc@@PBD@Z"
     },
     {
      "va": "0x0043FFA0",
@@ -12497,6 +12466,20 @@
      "name": "?CHATDLG_JoinChannel@@YIXPBD@Z"
     },
     {
+     "va": "0x00441240",
+     "length": 85,
+     "name": "?CHARSEL_UseEditText@@YGHH@Z"
+    },
+    {
+     "va": "0x004412A0",
+     "length": 128,
+     "name": "?CHARSEL_UseRegistryChannel@@YGHH@Z"
+    },
+    {
+     "va": "0x00441320",
+     "length": 178
+    },
+    {
      "va": "0x004413E0",
      "length": 222,
      "name": "CHATDLG_EnableConnection"
@@ -12539,6 +12522,26 @@
      "va": "0x004428B0",
      "length": 18,
      "name": "?CHATDLG_SendChat@@YGHH@Z"
+    },
+    {
+     "va": "0x004429A0",
+     "length": 205,
+     "name": "?CHARSEL_OnChatLine@@YGHPBUUnicode@@@Z"
+    },
+    {
+     "va": "0x00442A70",
+     "length": 15,
+     "name": "?sub_00442A70_SetFlagBits12@@YIXPAIH@Z"
+    },
+    {
+     "va": "0x00442A80",
+     "length": 41,
+     "name": "?sub_00442A80_IsNightmareOpen@@YIHI@Z"
+    },
+    {
+     "va": "0x00442AB0",
+     "length": 41,
+     "name": "?sub_00442AB0_IsHellOpen@@YIHI@Z"
     },
     {
      "va": "0x00442AE0",
@@ -12585,9 +12588,54 @@
      "name": "?CHATDLG_DestroyJoinControls@@YAXXZ"
     },
     {
+     "va": "0x004431B0",
+     "length": 112,
+     "name": "MAINMENUS_LoadMaxPlayers"
+    },
+    {
      "va": "0x00443220",
      "length": 316,
      "name": "?CHATDLG_DestroyCreateControls@@YAXXZ"
+    },
+    {
+     "va": "0x00443360",
+     "length": 45,
+     "name": "?CHARSEL_GetMaxPlayers@@YAHXZ"
+    },
+    {
+     "va": "0x00443390",
+     "length": 45,
+     "name": "?CHARSEL_GetLevelRange@@YAHXZ"
+    },
+    {
+     "va": "0x004433C0",
+     "length": 95,
+     "name": "?CHARSEL_IncrementMaxPlayers@@YGHH@Z"
+    },
+    {
+     "va": "0x00443420",
+     "length": 95,
+     "name": "?CHARSEL_DecrementMaxPlayers@@YGHH@Z"
+    },
+    {
+     "va": "0x00443480",
+     "length": 95,
+     "name": "?CHARSEL_IncrementLevelRange@@YGHH@Z"
+    },
+    {
+     "va": "0x004434E0",
+     "length": 94,
+     "name": "?CHARSEL_DecrementLevelRange@@YGHH@Z"
+    },
+    {
+     "va": "0x00443540",
+     "length": 144,
+     "name": "?sub_00443540_IsNameChar@@YGHPAUD2WinControlStrc@@HPBD@Z"
+    },
+    {
+     "va": "0x004435D0",
+     "length": 38,
+     "name": "?sub_004435D0@@YGHPAX0PBUCharacter@@@Z"
     },
     {
      "va": "0x00443600",
@@ -12595,9 +12643,63 @@
      "name": "CHATDLG_IsPrintableChar"
     },
     {
+     "va": "0x00443630",
+     "length": 420,
+     "name": "?sub_00443630_UpdateCreateButton@@YAXXZ"
+    },
+    {
+     "va": "0x004437E0",
+     "length": 93,
+     "name": "?CHARSEL_UpdateJoinButtonState@@YAXXZ"
+    },
+    {
      "va": "0x00443840",
      "length": 40,
      "name": "CHATDLG_CheckStartAdvResult"
+    },
+    {
+     "va": "0x00443870",
+     "length": 13,
+     "name": "?sub_00443870_SetCancel@@YGHH@Z"
+    },
+    {
+     "va": "0x00443880",
+     "length": 53,
+     "name": "?sub_00443880_PollMcp@@YGHH@Z"
+    },
+    {
+     "va": "0x004438C0",
+     "length": 23,
+     "name": "?sub_004438C0_OnCancel@@YGHH@Z"
+    },
+    {
+     "va": "0x004438E0",
+     "length": 262
+    },
+    {
+     "va": "0x004439F0",
+     "length": 537,
+     "name": "?CHARSEL_JoinByName@@YGHH@Z"
+    },
+    {
+     "va": "0x00443C10",
+     "length": 8,
+     "name": "?sub_00443C10_AlwaysOne@@YGHH@Z"
+    },
+    {
+     "va": "0x00443C20",
+     "length": 69,
+     "name": "?sub_00443C20_SelectNormal@@YGHH@Z"
+    },
+    {
+     "va": "0x00443C70",
+     "length": 72,
+     "name": "?sub_00443C70_SelectNightmare@@YGHH@Z"
+    },
+    {
+     "va": "0x00443CC0",
+     "length": 72,
+     "name": "?sub_00443CC0_SelectHell@@YGHH@Z"
     },
     {
      "va": "0x00443D50",
@@ -12620,14 +12722,67 @@
      "name": "?CHATDLG_CopyName@@YIXPAD@Z"
     },
     {
+     "va": "0x00443F70",
+     "length": 13,
+     "name": "?sub_00443F70_OnRefresh@@YGHH@Z"
+    },
+    {
+     "va": "0x00444020",
+     "length": 3579
+    },
+    {
      "va": "0x00444E20",
      "length": 67,
      "name": "?CHATDLG_DestroyGameListControls@@YAHXZ"
     },
     {
+     "va": "0x00444E70",
+     "length": 421
+    },
+    {
+     "va": "0x004450A0",
+     "length": 23,
+     "name": "?sub_004450A0_JoinNameKey@@YGHPAUD2WinControlStrc@@HPBD@Z"
+    },
+    {
+     "va": "0x004450C0",
+     "length": 13,
+     "name": "?sub_004450C0_JoinNameEnter@@YGHH@Z"
+    },
+    {
+     "va": "0x004451C0",
+     "length": 316,
+     "name": "?sub_004451C0_UpdateLevelControls@@YAXXZ"
+    },
+    {
+     "va": "0x00445300",
+     "length": 165,
+     "name": "COMCALLBACK_LoadLevelRestriction"
+    },
+    {
+     "va": "0x00445530",
+     "length": 18,
+     "name": "?sub_00445530_ResetBuildPanel@@YGHH@Z"
+    },
+    {
      "va": "0x00445550",
      "length": 324,
      "name": "?CHATDLG_OnLevelRestrictToggle@@YGHH@Z"
+    },
+    {
+     "va": "0x004456A0",
+     "length": 13,
+     "name": "?sub_004456A0_OnEnter@@YGHH@Z"
+    },
+    {
+     "va": "0x004456B0",
+     "length": 13,
+     "name": "?sub_004456B0_OnEnter@@YGHH@Z"
+    },
+    {
+     "va": "0x004456C0",
+     "length": 13,
+     "name": "?sub_004456C0_OnEnter@@YGHH@Z"
     },
     {
      "va": "0x00446810",
@@ -12665,115 +12820,9 @@
      "name": "CHATDLG_MixChar"
     },
     {
-     "va": "0x00449AD0",
-     "length": 92,
-     "name": "?D2MCPClientCloseMCP@@YAXXZ"
-    },
-    {
-     "va": "0x00449BD0",
-     "length": 7,
-     "name": "?CHATDLG_GetRequestId@@YAGXZ"
-    },
-    {
-     "va": "0x00449BF0",
-     "length": 15,
-     "name": "CHATDLG_SetMcpResult"
-    },
-    {
-     "va": "0x00449C20",
-     "length": 15,
-     "name": "CHATDLG_SetCharCreateReceived"
-    },
-    {
-     "va": "0x00449C40",
-     "length": 15,
-     "name": "CHATDLG_SetCharLogonReceived"
-    },
-    {
-     "va": "0x00449C60",
-     "length": 15,
-     "name": "CHATDLG_SetCharDeleteReceived"
-    },
-    {
-     "va": "0x00449C80",
-     "length": 15,
-     "name": "CHATDLG_SetCharUpgradeReceived"
-    },
-    {
-     "va": "0x00449C90",
-     "length": 15,
-     "name": "sub_00449C90_SetValue"
-    },
-    {
-     "va": "0x00449CC0",
-     "length": 15,
-     "name": "sub_00449CC0_SetValue"
-    },
-    {
-     "va": "0x00449CD0",
-     "length": 59,
-     "name": "CHATDLG_GetMcpTexts"
-    },
-    {
-     "va": "0x00449D10",
-     "length": 62,
-     "name": "CHATDLG_SetMcpTexts"
-    },
-    {
-     "va": "0x00449D60",
-     "length": 21,
-     "name": "?CHATDLG_ClearReply@@YAXXZ"
-    },
-    {
-     "va": "0x00449D90",
-     "length": 15,
-     "name": "sub_00449D90_SetValue"
-    },
-    {
-     "va": "0x00449DB0",
-     "length": 15,
-     "name": "sub_00449DB0_SetValue"
-    },
-    {
-     "va": "0x00449DD0",
-     "length": 15,
-     "name": "sub_00449DD0_SetValue"
-    },
-    {
-     "va": "0x00449DF0",
-     "length": 22,
-     "name": "CHATDLG_RequestCharCreate"
-    },
-    {
-     "va": "0x00449E10",
-     "length": 15,
-     "name": "CHATDLG_RequestCharLogon"
-    },
-    {
-     "va": "0x00449E30",
-     "length": 15,
-     "name": "sub_00449E30_SetValue"
-    },
-    {
-     "va": "0x00449E50",
-     "length": 15,
-     "name": "sub_00449E50_SetValue"
-    },
-    {
      "va": "0x0044A130",
      "length": 63,
      "name": "CHATDLG_StartThread"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ChatDlg_0043FE40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043FE40",
-     "length": 349,
-     "name": "?CHATDLG_SetupLogin@@YIHPAUD2LaunchLoginStrc@@PBD@Z"
     }
    ]
   },
@@ -12860,171 +12909,6 @@
    ]
   },
   {
-   "file": "Source/D2Multi/Unknown_0043CBE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043D510",
-     "length": 1139,
-     "name": "?sub_0043D510_FreeCellFiles@@YAXXZ"
-    },
-    {
-     "va": "0x0043DBA0",
-     "length": 22,
-     "name": "?sub_0043DBA0_ClearSelection@@YGHHHH@Z"
-    },
-    {
-     "va": "0x0043DBC0",
-     "length": 40,
-     "name": "?sub_0043DBC0_OnWaitTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0043DBF0",
-     "length": 52,
-     "name": "?sub_0043DBF0_OnReceiveTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_0043DA30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043DCE0",
-     "length": 28,
-     "name": "?sub_0043DCE0_FreeChatCellFile@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_0043DD00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043DD00",
-     "length": 196,
-     "name": "?sub_0043DD00_GetClassName@@YAXHPAUUnicode@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_0043DDD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0043DDD0",
-     "length": 852
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_00440FC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004438E0",
-     "length": 262
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_00441320.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00441320",
-     "length": 178
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_004414C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00442A70",
-     "length": 15,
-     "name": "?sub_00442A70_SetFlagBits12@@YIXPAIH@Z"
-    },
-    {
-     "va": "0x00442A80",
-     "length": 41,
-     "name": "?sub_00442A80_IsNightmareOpen@@YIHI@Z"
-    },
-    {
-     "va": "0x00442AB0",
-     "length": 41,
-     "name": "?sub_00442AB0_IsHellOpen@@YIHI@Z"
-    },
-    {
-     "va": "0x00443540",
-     "length": 144,
-     "name": "?sub_00443540_IsNameChar@@YGHPAUD2WinControlStrc@@HPBD@Z"
-    },
-    {
-     "va": "0x004435D0",
-     "length": 38,
-     "name": "?sub_004435D0@@YGHPAX0PBUCharacter@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Multi/Src/ChatDlg_004423B0.cpp",
    "rank": 1,
    "functions": [
@@ -13049,122 +12933,13 @@
    ]
   },
   {
-   "file": "Source/D2Multi/Unknown_00443630.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00443630",
-     "length": 420,
-     "name": "?sub_00443630_UpdateCreateButton@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_00443870.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00443870",
-     "length": 13,
-     "name": "?sub_00443870_SetCancel@@YGHH@Z"
-    },
-    {
-     "va": "0x00443880",
-     "length": 53,
-     "name": "?sub_00443880_PollMcp@@YGHH@Z"
-    },
-    {
-     "va": "0x004438C0",
-     "length": 23,
-     "name": "?sub_004438C0_OnCancel@@YGHH@Z"
-    },
-    {
-     "va": "0x00443C20",
-     "length": 69,
-     "name": "?sub_00443C20_SelectNormal@@YGHH@Z"
-    },
-    {
-     "va": "0x00443C70",
-     "length": 72,
-     "name": "?sub_00443C70_SelectNightmare@@YGHH@Z"
-    },
-    {
-     "va": "0x00443CC0",
-     "length": 72,
-     "name": "?sub_00443CC0_SelectHell@@YGHH@Z"
-    },
-    {
-     "va": "0x00443F70",
-     "length": 13,
-     "name": "?sub_00443F70_OnRefresh@@YGHH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Multi/Unknown_00444020.cpp",
    "rank": 0,
    "functions": [
     {
-     "va": "0x00444020",
-     "length": 3579
-    },
-    {
-     "va": "0x00444E70",
-     "length": 421
-    },
-    {
      "va": "0x00445020",
      "length": 126,
      "name": "CHARSEL_RequestGameList"
-    },
-    {
-     "va": "0x004450A0",
-     "length": 23,
-     "name": "?sub_004450A0_JoinNameKey@@YGHPAUD2WinControlStrc@@HPBD@Z"
-    },
-    {
-     "va": "0x004450C0",
-     "length": 13,
-     "name": "?sub_004450C0_JoinNameEnter@@YGHH@Z"
-    },
-    {
-     "va": "0x004451C0",
-     "length": 316,
-     "name": "?sub_004451C0_UpdateLevelControls@@YAXXZ"
-    },
-    {
-     "va": "0x00445530",
-     "length": 18,
-     "name": "?sub_00445530_ResetBuildPanel@@YGHH@Z"
-    },
-    {
-     "va": "0x004456A0",
-     "length": 13,
-     "name": "?sub_004456A0_OnEnter@@YGHH@Z"
-    },
-    {
-     "va": "0x004456B0",
-     "length": 13,
-     "name": "?sub_004456B0_OnEnter@@YGHH@Z"
-    },
-    {
-     "va": "0x004456C0",
-     "length": 13,
-     "name": "?sub_004456C0_OnEnter@@YGHH@Z"
     }
    ]
   },
@@ -13278,9 +13053,104 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00449AD0",
+     "length": 92,
+     "name": "?D2MCPClientCloseMCP@@YAXXZ"
+    },
+    {
      "va": "0x00449B30",
      "length": 50,
      "name": "sub_00449B30_QueryAddress"
+    },
+    {
+     "va": "0x00449BD0",
+     "length": 7,
+     "name": "?CHATDLG_GetRequestId@@YAGXZ"
+    },
+    {
+     "va": "0x00449BF0",
+     "length": 15,
+     "name": "CHATDLG_SetMcpResult"
+    },
+    {
+     "va": "0x00449C20",
+     "length": 15,
+     "name": "CHATDLG_SetCharCreateReceived"
+    },
+    {
+     "va": "0x00449C40",
+     "length": 15,
+     "name": "CHATDLG_SetCharLogonReceived"
+    },
+    {
+     "va": "0x00449C60",
+     "length": 15,
+     "name": "CHATDLG_SetCharDeleteReceived"
+    },
+    {
+     "va": "0x00449C80",
+     "length": 15,
+     "name": "CHATDLG_SetCharUpgradeReceived"
+    },
+    {
+     "va": "0x00449C90",
+     "length": 15,
+     "name": "sub_00449C90_SetValue"
+    },
+    {
+     "va": "0x00449CC0",
+     "length": 15,
+     "name": "sub_00449CC0_SetValue"
+    },
+    {
+     "va": "0x00449CD0",
+     "length": 59,
+     "name": "CHATDLG_GetMcpTexts"
+    },
+    {
+     "va": "0x00449D10",
+     "length": 62,
+     "name": "CHATDLG_SetMcpTexts"
+    },
+    {
+     "va": "0x00449D60",
+     "length": 21,
+     "name": "?CHATDLG_ClearReply@@YAXXZ"
+    },
+    {
+     "va": "0x00449D90",
+     "length": 15,
+     "name": "sub_00449D90_SetValue"
+    },
+    {
+     "va": "0x00449DB0",
+     "length": 15,
+     "name": "sub_00449DB0_SetValue"
+    },
+    {
+     "va": "0x00449DD0",
+     "length": 15,
+     "name": "sub_00449DD0_SetValue"
+    },
+    {
+     "va": "0x00449DF0",
+     "length": 22,
+     "name": "CHATDLG_RequestCharCreate"
+    },
+    {
+     "va": "0x00449E10",
+     "length": 15,
+     "name": "CHATDLG_RequestCharLogon"
+    },
+    {
+     "va": "0x00449E30",
+     "length": 15,
+     "name": "sub_00449E30_SetValue"
+    },
+    {
+     "va": "0x00449E50",
+     "length": 15,
+     "name": "sub_00449E50_SetValue"
     }
    ]
   },
