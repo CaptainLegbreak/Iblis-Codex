@@ -2,7 +2,7 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 14:37:16 PST 2026): join-00518b90 ready; the rest of the object-map joins are still in the verify queue.
+Status (Tue Nov 24 14:41:51 PST 2026): join-00518b90 ready (verified on #367, merges cleanly on #368), with join-0051c760 and join-0060ae80. Two report-360 leads stay parked (Left in place).
 
 ## Ready
 
@@ -49,7 +49,7 @@ Nothing of mine in flight. Open items:
 
 ## Left in place (and why)
 
-- **More report-360 leads tried and parked:** Unknown_00518B90 <- Unknown_00518B60 (the two files' D2BnLogStrc constructors differ: overload conflict, needs one view of the log struct); Unknown_00527BE0 <- Unknown_00528030 (0x00528760 builds unequal there); Unknown_006008D0 <- Unknown_006009C0 (0x006009C0 unequal with either file's flags). Unknown_0042E5A0/0042E5D0 are the D2Launch entry object's inline COMDATs, already listed below.
+- **More report-360 leads tried and parked:** Unknown_00527BE0 <- Unknown_00528030 (0x00528760 builds unequal there); Unknown_006008D0 <- Unknown_006009C0 (0x006009C0 unequal with either file's flags). Unknown_0042E5A0/0042E5D0 are the D2Launch entry object's inline COMDATs, already listed below.
 - **Object-map leads I'm not joining, because each file starts its own .data with a language-table copy (a copy starts an object):** MainMenus.cpp <- Unknown_0043B7A0 (its copy 0x0070CC10 and gnLogonRetries follow MainMenus' data); Unknown_00513BC0 <- Unknown_00513A20 and Unknown_00514B60 (copies 0x0072F7F4, 0x0072F838, 0x0072F8FC: three D2Sound objects); D2WinEditBox.cpp <- Unknown_004FDA80 (copies 0x0072DF0C and 0x0072DF48); McpConnect.cpp <- Unknown_0044A170 (copies 0x0070EC80 and 0x0070ECC0, #358). The call edges the report counts are real, but they run between neighbouring objects of one module. Unknown_00525FB0 <- Unknown_00526100/00526610/00526D00 (D2Lang) waits on the D2Lang code order (below): 00526100 alone holds four copies.
 - ChatDlg.cpp's second language copy (0x0070EB94) doesn't mark a separate object I can cut out: the data after it (gszLevelDiffText, gszMaxPlayersText, gnPendingId, gnGameListLastSelection, 0x0070EBD0-0x0070EBDF) is read by 0x00442DD0, 0x00442E00, 0x004433C0-0x004434E0, 0x004450D0 and 0x00445FF0, interleaved with readers of ChatDlg's own data before the copy (0x00443D50, 0x00444020, 0x004453B0, 0x00445A80). Left as one object until something else separates them.
 - 0x006FFF80 (64 B) is the linker's RSDS debug record (Game.pdb path), counted as stamp, not borrowed data. 0x00700A6C (4 zero B after ___rtc_tzz) and 0x0070244C (8 zero B before the import descriptors) are CRT/linker tail bytes, not lane 6 objects. 0x0072FFA4 (4 zero B between BNNews.cpp's type name and BnDownload.cpp's gnLastStatus) has no reader; most likely BnDownload's .data alignment, so no record.
