@@ -57974,7 +57974,13 @@
      "va": "0x005EFA90",
      "length": 227,
      "name": "AITHINK_Fn137_PutridDefiler"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Unknown_005EFB80.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x005EFB80",
      "length": 362,
