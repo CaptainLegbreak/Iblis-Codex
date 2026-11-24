@@ -2,7 +2,7 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 10:44:38 PST 2026): on #358; mcp-startthread-2 ready; starting the object-map joins (report-356.md), CelCmp.cpp <- Unknown_00604070 + Unknown_00603F40 first.
+Status (Tue Nov 24 11:06:58 PST 2026): object-map joins: CelCmp.cpp <- Unknown_00604070 + Unknown_00603F40 and Codec.cpp <- Unknown_0060B7B0 build equal, full verifies running on #359; five leads skipped on language-copy evidence (Left in place).
 
 ## Ready
 
@@ -11,6 +11,7 @@ Status (Tue Nov 24 10:44:38 PST 2026): on #358; mcp-startthread-2 ready; startin
 
 ## Claimed
 
+- **Object-map joins (report-356.md), one branch each:** CelCmp.cpp <- Unknown_00604070 + Unknown_00603F40 (lane6/join-celcmp), Codec.cpp <- Unknown_0060B7B0 (lane6/join-codec), then FastCmp.cpp <- Unknown_00604DB0 + Unknown_00604DF0, BnSend.cpp <- Unknown_0051DC70, SpriteCache.cpp <- Unknown_005FE210, BnMessQueue.cpp <- Unknown_005201E0, and the ChatDlg three last.
 - **The MCP connect object (0x00449890-0x0044A16F):** one object by its .bss (0x00798F58-0x007992F4, read across the whole run) and its language copy (0x0070EC80, now swallowed by ComCallback.cpp's gapfnMsgHandlers, which the dispatcher bounds at 24 entries). Its code is split over D2Client/GAME/Game.cpp (the GAME_ getters, lane 4), D2Client/CORE/WINMAIN.CPP (0x00449920, 0x00449B70, lane 4), D2Client/Unknown_00449890.cpp, D2MCPClient/Src/McpConnect.cpp and ChatDlg.cpp (0x0044A130). The data is in (#358). Then the join into McpConnect.cpp; lane 4, I'll list the Game.cpp/WINMAIN.CPP pieces for you to hand over.
 
 - ChatDlg.cpp's object, what's left: 0x004423B0, 0x00445020, 0x004450D0, 0x004456D0 and 0x00445FF0 build unequal (0x0043F850 is in chatdlg-cancel; retried 0x004423B0, 0x00445020 and 0x004456D0 on #354: register allocation and scheduling differ, not inlining) in ChatDlg.cpp even with noinline on their callees. Game.cpp's 0x0043DB10 and 0x0043F840 (lane 4's file) are inside the object: lane 4, they're yours to hand over when convenient.
@@ -46,6 +47,7 @@ Nothing of mine in flight. Open items:
 
 ## Left in place (and why)
 
+- **Object-map leads I'm not joining, because each file starts its own .data with a language-table copy (a copy starts an object):** MainMenus.cpp <- Unknown_0043B7A0 (its copy 0x0070CC10 and gnLogonRetries follow MainMenus' data); Unknown_00513BC0 <- Unknown_00513A20 and Unknown_00514B60 (copies 0x0072F7F4, 0x0072F838, 0x0072F8FC: three D2Sound objects); D2WinEditBox.cpp <- Unknown_004FDA80 (copies 0x0072DF0C and 0x0072DF48); McpConnect.cpp <- Unknown_0044A170 (copies 0x0070EC80 and 0x0070ECC0, #358). The call edges the report counts are real, but they run between neighbouring objects of one module. Unknown_00525FB0 <- Unknown_00526100/00526610/00526D00 (D2Lang) waits on the D2Lang code order (below): 00526100 alone holds four copies.
 - ChatDlg.cpp's second language copy (0x0070EB94) doesn't mark a separate object I can cut out: the data after it (gszLevelDiffText, gszMaxPlayersText, gnPendingId, gnGameListLastSelection, 0x0070EBD0-0x0070EBDF) is read by 0x00442DD0, 0x00442E00, 0x004433C0-0x004434E0, 0x004450D0 and 0x00445FF0, interleaved with readers of ChatDlg's own data before the copy (0x00443D50, 0x00444020, 0x004453B0, 0x00445A80). Left as one object until something else separates them.
 - 0x006FFF80 (64 B) is the linker's RSDS debug record (Game.pdb path), counted as stamp, not borrowed data. 0x00700A6C (4 zero B after ___rtc_tzz) and 0x0070244C (8 zero B before the import descriptors) are CRT/linker tail bytes, not lane 6 objects. 0x0072FFA4 (4 zero B between BNNews.cpp's type name and BnDownload.cpp's gnLastStatus) has no reader; most likely BnDownload's .data alignment, so no record.
 - MainMenus.cpp 0x0070C204 (4 B, the start of gatControlTemplates[0x11A], written by 0x0042F540): a 4-B planned record there, like entry 0x11B's gData_0070C234, verifies but does not place; the bytes stay copied.
