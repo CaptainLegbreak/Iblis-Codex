@@ -1150,6 +1150,76 @@ void __fastcall MONSTERUNIQUE_UMod37_Fanatic(D2UnitStrc* pUnit, int nUMod, int b
     }
 }
 
+static inline D2MonsterDataStrc* MONSTERUNIQUE_GetMonsterData(D2UnitStrc* pUnit)
+{
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
+        return pUnit->pMonsterData;
+    return 0;
+}
+
+
+
+
+
+
+
+enum { MONTYPEFLAG_POSSESSED = 0x20 };
+
+// 0x005A1230
+void __fastcall MONSTERUNIQUE_UMod38_Possessed(D2UnitStrc* pUnit, int nUMod, int bUnique)
+{
+    const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
+    if (!pUnit || nUnitType != UNIT_MONSTER || !bUnique)
+        return;
+
+    D2MonsterDataStrc* pMonsterData = MONSTERUNIQUE_GetMonsterData(pUnit);
+    if (pMonsterData)
+        pMonsterData->nTypeFlag |= MONTYPEFLAG_POSSESSED;
+
+    sub_005A0D20_AddLifePercent(pUnit, 100);
+    sub_005A0E80_ApplyMonsterPenalty(pUnit, nUMod, bUnique);
+}
+
+int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit);                                                             // 0x00463860
+
+int __fastcall CUNIT_ValidateMonsterId(int nMonsterId);                                              // 0x00463900
+D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty);                   // 0x00611D30
+void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x006272B0
+D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit);                                            // 0x00554010
+
+// 0x005A1280
+void __fastcall sub_005A1280_UModChampion(D2UnitStrc* pUnit, int nUMod, int bUnique)
+{
+    if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
+    {
+        return;
+    }
+
+    D2GameStrc* pGame = SUNIT_GetGameFromUnit(pUnit);
+    if (!pGame || !bUnique)
+    {
+        return;
+    }
+
+    sub_005A0D20_AddLifePercent(pUnit, -75);
+
+    int nDamage = 300;
+    int nToHit = nDamage;
+    D2DifficultyLevelsTxt* pRecord = DATATBLS_GetDifficultyLevelsTxtRecord(pGame->nDifficulty);
+    if (pRecord)
+    {
+        nDamage = pRecord->dwChampionDmgBonus * 300 / 100;
+        nToHit = nDamage;
+        if (CUNIT_ValidateMonsterId(CUNIT_GetMonsterBaseId(pUnit)) == 0x76)
+        {
+            nDamage /= 2;
+        }
+    }
+
+    STATLIST_AddUnitStat(pUnit, STAT_DAMAGEPERCENT, nDamage, 0);
+    STATLIST_AddUnitStat(pUnit, STAT_ITEM_TOHIT_PERCENT, nToHit, 0);
+}
+
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 
 // 0x005A1330
@@ -1175,14 +1245,6 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-enum { MONTYPEFLAG_POSSESSED = 0x20 };
-
-static inline D2MonsterDataStrc* MONSTERUNIQUE_GetMonsterData(D2UnitStrc* pUnit)
-{
-    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
-        return pUnit->pMonsterData;
-    return 0;
-}
 
 static inline int MONSTERUNIQUE_ApplyPercentage(int nValue, int nMultiplier, int nDivisor)
 {
