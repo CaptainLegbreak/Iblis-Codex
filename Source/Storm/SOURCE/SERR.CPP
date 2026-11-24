@@ -132,32 +132,6 @@ int gbDebugMemoryLoaded_00779204; // 0x00779204
 // build: symbol ??__FgHandlerList_00708420@@YAXXZ 0x006CB2A0
 TSList<HANDLER> gHandlerList_00708420; // 0x00708420
 
-template<class T, class TGetLink>
-void TSList<T, TGetLink>::UnlinkAll()
-{
-    while (T* ptr = Head())
-        UnlinkNode(ptr);
-}
-
-template<class T, class TGetLink>
-T* TSList<T, TGetLink>::DeleteNode(T* ptr)
-{
-    T* next = Next(ptr);
-    ptr->~T();
-    SMemFree(ptr, STORM_TYPENAME(T), -2, 0);
-    return next;
-}
-
-template<class T, class TGetLink>
-void TSList<T, TGetLink>::Clear()
-{
-    while (T* ptr = Head())
-    {
-        ptr->~T();
-        SMemFree(ptr, STORM_TYPENAME(T), -2, 0);
-    }
-}
-
 // build: symbol ??_R0?AUHANDLER@@@8 0x0070842C
 // build: symbol _SMemAlloc@16 0x00413020
 // build: symbol _SMemFree@16 0x00412650

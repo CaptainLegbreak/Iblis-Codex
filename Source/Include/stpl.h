@@ -268,3 +268,29 @@ T* TSList<T, TGetLink>::RawNext(const T* ptr)
 {
     return ptr ? TGetLink::Link(ptr, m_linkoffset)->m_next : m_terminator.m_next;
 }
+
+template<class T, class TGetLink>
+void TSList<T, TGetLink>::UnlinkAll()
+{
+    while (T* ptr = Head())
+        UnlinkNode(ptr);
+}
+
+template<class T, class TGetLink>
+T* TSList<T, TGetLink>::DeleteNode(T* ptr)
+{
+    T* next = Next(ptr);
+    ptr->~T();
+    SMemFree(ptr, STORM_TYPENAME(T), -2, 0);
+    return next;
+}
+
+template<class T, class TGetLink>
+void TSList<T, TGetLink>::Clear()
+{
+    while (T* ptr = Head())
+    {
+        ptr->~T();
+        SMemFree(ptr, STORM_TYPENAME(T), -2, 0);
+    }
+}

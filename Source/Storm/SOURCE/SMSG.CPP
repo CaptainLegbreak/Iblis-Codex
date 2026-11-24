@@ -59,22 +59,6 @@ inline void* operator new(unsigned int, void* pPlace) throw()
     return pPlace;
 }
 
-template<class T, class TGetLink>
-void TSList<T, TGetLink>::UnlinkAll()
-{
-    while (T* ptr = Head())
-        UnlinkNode(ptr);
-}
-
-template<class T, class TGetLink>
-T* TSList<T, TGetLink>::DeleteNode(T* ptr)
-{
-    T* next = Next(ptr);
-    ptr->~T();
-    SMemFree(ptr, STORM_TYPENAME(T), -2, 0);
-    return next;
-}
-
 // build: symbol ??__EgWndRecList_00708860@@YAXXZ 0x006CA8E0
 // build: symbol ??__FgWndRecList_00708860@@YAXXZ 0x006CB310
 TSList<WNDREC> gWndRecList_00708860; // 0x00708860
