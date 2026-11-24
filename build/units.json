@@ -26778,6 +26778,21 @@
      "name": "?NPCMENU_NpcTextCallback@@YIHPAXHH@Z"
     },
     {
+     "va": "0x004B6C70",
+     "length": 147,
+     "name": "?sub_004B6C70_OpenNpcMenu@@YAHXZ"
+    },
+    {
+     "va": "0x004B6D10",
+     "length": 129,
+     "name": "?sub_004B6D10_OpenConfirm@@YAHXZ"
+    },
+    {
+     "va": "0x004B6DA0",
+     "length": 35,
+     "name": "?sub_004B6DA0_InitHandler@@YAHXZ"
+    },
+    {
      "va": "0x006CAD10",
      "length": 103,
      "name": "?sub_006CAD10_InitBlock@@YAXXZ"
@@ -26837,27 +26852,6 @@
     "/Gd",
     "/EHsc",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004B6390.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004B6C70",
-     "length": 147,
-     "name": "?sub_004B6C70_OpenNpcMenu@@YAHXZ"
-    },
-    {
-     "va": "0x004B6D10",
-     "length": 129,
-     "name": "?sub_004B6D10_OpenConfirm@@YAHXZ"
-    },
-    {
-     "va": "0x004B6DA0",
-     "length": 35,
-     "name": "?sub_004B6DA0_InitHandler@@YAHXZ"
-    }
    ]
   },
   {
