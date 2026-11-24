@@ -1585,6 +1585,9 @@ template <> class TSHashTable<SGAMEDATA, HASHKEY_NONE>
 public:
     virtual void InternalDelete(D2SGameDataStrc* pNode);
     virtual D2SGameDataStrc* InternalNew(D2StormListAStrc* pList, unsigned int nExtraBytes, unsigned int nFlags);
+    virtual ~TSHashTable();
+    virtual void Destroy();
+    static void operator delete(void* pMemory);
 };
 
 template <> class TSHashTableReuse<SGAMEDATA, HASHKEY_NONE, 0> : public TSHashTable<SGAMEDATA, HASHKEY_NONE>
@@ -1592,6 +1595,9 @@ template <> class TSHashTableReuse<SGAMEDATA, HASHKEY_NONE, 0> : public TSHashTa
 public:
     virtual void InternalDelete(D2SGameDataStrc* pNode);                                                    // 0x00450D60
     virtual D2SGameDataStrc* InternalNew(D2StormListAStrc* pList, unsigned int nExtraBytes, unsigned int nFlags); // 0x00451000
+    virtual ~TSHashTableReuse();                                                                            // 0x00450760
+    virtual void Destroy();                                                                                 // 0x004510B0
+    static void operator delete(void* pMemory);
     char unk0x04[0x40];
 
     TSHashTableReuse();                                                                            // 0x00451100
@@ -1605,6 +1611,7 @@ public:
     void* m_wrapper;
 
     TSExportTableSimple();
+    static void operator delete(void* pMemory);
 };
 
 template <> class TSExportTableSync<SGAMEDATA, HSGAMEDATA__*, HSGAMEDATALOCK__*, CCritSect, 0> : public D2StormExportTableSimpleStrc
@@ -1613,7 +1620,24 @@ public:
     D2CriticalSectionStrc m_cs;
 
     TSExportTableSync();
+    ~TSExportTableSync()
+    {
+        DeleteCriticalSection(&m_cs);
+    }
+    static void operator delete(void* pMemory);
 };
+
+inline void D2StormExportTableSimpleStrc::operator delete(void* pMemory)
+{
+    if (pMemory)
+        SMemFree(pMemory, "delete", -1, 0);
+}
+
+inline void D2StormExportTableSyncStrc::operator delete(void* pMemory)
+{
+    if (pMemory)
+        SMemFree(pMemory, "delete", -1, 0);
+}
 
 int __stdcall GAME_Shutdown(); // 0x0052C030
 
