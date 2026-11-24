@@ -8,10 +8,6 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
   - Verified on #314, rebased onto #317. None of #315-#317 touches the 4 units; precheck is equal on #317.
   - Outside lane 2: the four D2Client GAME units (lane 4).
 
-- lane2/fog-records c9defc5f 562->562 D2FogTypes.h: the D2Server service status (passed to SetServiceStatus) and the crash handler's minidump request, shared. Each was defined privately with the same text in four units (ErrorManager, ErrorManager_004082E0, Safesock, plus MainMenus or Unknown_00402820); VERIFIED 255cb65f887771557bc73a1af17a11e35d3349c2
-  - Verified on #312, rebased onto #314. #313/#314 touch none of the 5 units; precheck of all 16 includers is equal on #314.
-  - Outside lane 2: Fog (lane 3) and MainMenus (lane 6). Private-copy removal only.
-
 
 ## Questions
 
