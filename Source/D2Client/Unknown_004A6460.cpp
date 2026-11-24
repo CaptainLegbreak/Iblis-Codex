@@ -16,6 +16,7 @@
 #include "D2StatIds.h"
 #include "D2MsgRecord.h"
 #include "D2ClientQuestLog.h"
+#include "D2ClientStatButton.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -2806,15 +2807,6 @@ int __fastcall TEXT_SplitAtNewline(Unicode* wszText, Unicode** ppNext)
     return 0;
 }
 
-#pragma pack(push, 2)
-struct D2BeltSlotStrc
-{
-    int nX;
-    int nY;
-    int bActive;
-    unsigned short wCode;
-};
-#pragma pack(pop)
 
 static int gbStatScreenButtonDown;                                                                               // 0x007C02F4
 
