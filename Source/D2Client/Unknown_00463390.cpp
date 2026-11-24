@@ -349,7 +349,7 @@ D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
 void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 void __fastcall GFX_ClearPendingAction(D2UnitStrc* pUnit); // 0x0045C470
 int __fastcall UI_CloseUIVars(int, int); // 0x00456300
-int __fastcall INV_SetPathTargetUnit(D2UnitStrc*, int, int); // 0x00480780
+int __fastcall UNITMODE_SetPathTargetUnit(D2UnitStrc*, int, int); // 0x00480780
 void __fastcall UNITMODE_InteractWithUnit(unsigned short, int); // 0x00480930
 void __fastcall UNITMODE_SetModeOverlay(D2UnitStrc*, int); // 0x00480D20
 void __fastcall UNITMODE_MoveToPosition(D2UnitStrc*, int, int, int); // 0x00480EF0
@@ -413,7 +413,7 @@ static inline int PLAYER_QueueMoveInline(int nCommand, D2UnitStrc* pUnit, D2Unit
         PLAYER_SetModeAndSync(1, nNeutralMode, pUnit);
         return 0;
     case 0:
-        if (INV_SetPathTargetUnit(pUnit, pTarget->nX, pTarget->nY))
+        if (UNITMODE_SetPathTargetUnit(pUnit, pTarget->nX, pTarget->nY))
         {
             UNITMODE_SetUnitMode(pUnit, nMoveMode);
             return 1;
@@ -429,7 +429,7 @@ static inline int PLAYER_QueueMoveInline(int nCommand, D2UnitStrc* pUnit, D2Unit
         PLAYER_SetModeAndSync(1, nNeutralMode, pUnit);
         return 0;
     case 24:
-        if (INV_SetPathTargetUnit(pUnit, pTarget->nX, pTarget->nY))
+        if (UNITMODE_SetPathTargetUnit(pUnit, pTarget->nX, pTarget->nY))
         {
             UNITMODE_SetUnitMode(pUnit, 3);
             return 1;

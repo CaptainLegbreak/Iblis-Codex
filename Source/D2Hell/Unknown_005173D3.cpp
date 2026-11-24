@@ -59,9 +59,9 @@ extern "C" int __cdecl sub_00489840_ModeInGroup()
     return 0;
 }
 
-extern "C" void __cdecl TEXT_ResetQuestButtonState(); // 0x004A3000
+extern "C" void __cdecl QUESTLOG_ResetQuestButtonState(); // 0x004A3000
 
-extern "C" void __fastcall TEXT_SetQuestPacketValue(unsigned int value); // 0x004A3100
+extern "C" void __fastcall QUESTLOG_SetQuestPacketValue(unsigned int value); // 0x004A3100
 
 extern "C" void __cdecl sub_004B2250_InitializeControls()
 {

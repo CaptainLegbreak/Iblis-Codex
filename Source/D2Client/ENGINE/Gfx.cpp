@@ -180,7 +180,7 @@ int __fastcall GFX_IsUnitOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, 
 
 void __stdcall TEXTURE_CelDrawHilight(D2CelContextStrc* pContext, int nX, int nY, unsigned char nColor); // 0x004F6570
 
-int __stdcall ITEM_GetGfxClientY(D2UnitStrc* pUnit); // 0x004DA0D0
+int __stdcall PARTICLE_GetGfxClientY(D2UnitStrc* pUnit); // 0x004DA0D0
 
 int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit); // 0x006203B0
 
@@ -202,7 +202,7 @@ D2GfxLayerHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void* pGfx); // 0x0
 
 void __fastcall GFXUTIL_GetLayerInfo(D2UnitStrc* pUnit, int nType, int nClass, int nMode, int* pDirection, int* pA, int* pB, int nArg, int nFlag); // 0x004DB2E0
 
-int __fastcall WARDENCLIENT_UpdateUnitGfx(D2UnitStrc* pUnit, int nLayer); // 0x004DB670
+int __fastcall GFXUTIL_UpdateUnitGfx(D2UnitStrc* pUnit, int nLayer); // 0x004DB670
 
 int __fastcall GFXUTIL_InitUnitCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
 
@@ -258,7 +258,7 @@ void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2UnitOverlayStrc* pOve
 
 int __cdecl D2Win_10185_CheckCharMpq(); // 0x004FAC90
 
-void __cdecl PARTICLE_InitModeTokens(); // 0x004DA790
+void __cdecl GFXUTIL_InitModeTokens(); // 0x004DA790
 
 extern char gData_007A7490[0x460]; // 0x007A7490
 
@@ -613,7 +613,7 @@ D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                               
 
 int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag);                                   // 0x00457490
 
-D2UnitStrc* __fastcall GFXUTIL_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB);// 0x004CDB40
+D2UnitStrc* __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB);// 0x004CDB40
 
 void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ);                    // 0x004DA1D0
 
@@ -621,7 +621,7 @@ void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int n
 
 void __stdcall GFXUTIL_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA2A0
 
-void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet);                                  // 0x004DA6E0
+void __fastcall GFXUTIL_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet);                                  // 0x004DA6E0
 
 void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit);                                                // 0x004DA350
 
@@ -1117,7 +1117,7 @@ static void sub_0046D450_AiType8(D2UnitStrc* pUnit)
         const int nMissileId = ((unsigned int)lSeed & 3) + 0x23A;
         const int nX = CLIENTS_GetUnitXInline(pUnit) + SEED_RollRandomNumber_Inline(&pUnit->pSeed) % 60 - 30;
         const int nY = CLIENTS_GetUnitYInline(pUnit) + SEED_RollRandomNumber_Inline(&pUnit->pSeed) % 60 - 30;
-        D2UnitStrc* pMissile = GFXUTIL_SubmitMissileRequest(pUnit, nMissileId, nX, nY, 0, 1);
+        D2UnitStrc* pMissile = MISSILE_SubmitMissileRequest(pUnit, nMissileId, nX, nY, 0, 1);
         if (pMissile)
         {
             int bFlag;
@@ -1136,7 +1136,7 @@ static void sub_0046D450_AiType8(D2UnitStrc* pUnit)
                 bFlag = 0;
             }
 
-            MISSILE_SetMotionFlagMask(pMissile, bFlag);
+            GFXUTIL_SetMotionFlagMask(pMissile, bFlag);
             sub_004DA350_UpdateMotion(pMissile);
             MISSILE_SetTotalFrames(pMissile, 60);
             MISSILE_SetCurrentFrame(pMissile, 60);
@@ -2187,7 +2187,7 @@ void __fastcall GFX_InitGfxTables(int nValue)
     gpPoolBlock = (D2MonGfxCacheStrc*)sub_0040B430(0, nSize, ".\\ENGINE\\Gfx.cpp", 0x7E1, 0);
     memset(gpPoolBlock, 0, nSize);
     gbCharArchiveLoaded = D2Win_10185_CheckCharMpq();
-    PARTICLE_InitModeTokens();
+    GFXUTIL_InitModeTokens();
 }
 
 // 0x00470290
@@ -2590,12 +2590,12 @@ int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit)
             }
             nY += 0x10;
             nX += sub_004DA0B0_GetUnitGfxOffsetX(pUnit);
-            nY += ITEM_GetGfxClientY(pUnit);
+            nY += PARTICLE_GetGfxClientY(pUnit);
         }
         else
         {
             nX = UNITS_GetClientCoordX(pUnit) - PLAYER_GetScreenOffsetX() + sub_004DA0B0_GetUnitGfxOffsetX(pUnit);
-            nY = UNITS_GetClientCoordY(pUnit) - PLAYER_GetScreenOffsetY() + ITEM_GetGfxClientY(pUnit);
+            nY = UNITS_GetClientCoordY(pUnit) - PLAYER_GetScreenOffsetY() + PARTICLE_GetGfxClientY(pUnit);
             nY += sub_004DA0F0_GetUnitGfxOffsetZ(pUnit);
         }
         if (!GFX_IsUnitOnScreen(pUnit, nX, nY, 0, 0))
@@ -2644,7 +2644,7 @@ int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit)
             for (unsigned int i = 0; i < pHeader->nLayers; ++i)
             {
                 int nLayer = pLayers[i];
-                if (WARDENCLIENT_UpdateUnitGfx(pUnit, nLayer))
+                if (GFXUTIL_UpdateUnitGfx(pUnit, nLayer))
                 {
                     D2CelContextStrc tContext;
                     memset(&tContext, 0, sizeof(tContext));

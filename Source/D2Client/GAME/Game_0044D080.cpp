@@ -80,9 +80,9 @@ extern char gszMcpIP[]; // 0x0070F130
 
 extern unsigned char gnCharClass; // 0x007A0522
 
-void __fastcall GAME_PushStateValue(int nValue); // 0x0044B440
+void __fastcall WINMAIN_PushStateValue(int nValue); // 0x0044B440
 
-void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
+void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
@@ -148,7 +148,7 @@ void __cdecl GAME_UpdateKeyState(); // 0x0044CE90
 
 void __cdecl GAME_CheckConnectionTimeouts(); // 0x0044EEC0
 
-void __cdecl CUNIT_ReplayRecords(); // 0x004519C0
+void __cdecl RECORD_ReplayRecords(); // 0x004519C0
 
 int __fastcall UI_GetUIVarUnchecked(int nUIVar); // 0x00453A90
 
@@ -170,7 +170,7 @@ void __fastcall WARDENCLIENT_TickModule(int nDelta); // 0x00480320
 
 void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer); // 0x00481600
 
-void __cdecl INV_TickSound(); // 0x00482C20
+void __cdecl SOUNDHDR_TickSound(); // 0x00482C20
 
 int __cdecl D2SOUND_IsStreamChannelPlaying(); // 0x00514840
 
@@ -396,7 +396,7 @@ extern "C" D2MsgHandlerEntryStrc gaXButtonHandlers[2]; // 0x0070F360
 
 int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
-extern "C" void __fastcall COMCALLBACK_RegisterMsgHandlers(int hwnd, D2MsgHandlerEntryStrc* table, unsigned int count); // 0x00451DB0
+extern "C" void __fastcall SCMD_RegisterMsgHandlers(int hwnd, D2MsgHandlerEntryStrc* table, unsigned int count); // 0x00451DB0
 
 extern "C" void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
@@ -616,7 +616,7 @@ struct D2MsgRecordChunkStrc;
 struct D2ChatMessageStrc { D2WinControlStrc* pControl; unsigned int nMessage; };
 
 // 0x0044CCA0
-int __fastcall COMCALLBACK_CountLevelThresholds(int nValue, int nUnused, int nLimit)
+int __fastcall GAME_CountLevelThresholds(int nValue, int nUnused, int nLimit)
 {
     int nCount = 0;
     if (nLimit < 7)
@@ -658,7 +658,7 @@ void __fastcall GAME_StorePong(const D2GSPacketSrv8F* pPacket)
 int __cdecl GAME_PushState()
 {
     if (gnState_0070EF18 == 5)
-        GAME_PushStateValue(gnState_0070EF18 - 3);
+        WINMAIN_PushStateValue(gnState_0070EF18 - 3);
     return gnState_0070EF18;
 }
 
@@ -713,7 +713,7 @@ int __stdcall GAME_ShowBetaScreens(int nArg)
                     gaBetaScreens[i].dwTick = 0;
                 }
             }
-            GAME_SetExitApplication(0);
+            WINMAIN_SetExitApplication(0);
             return 1;
         }
     }
@@ -844,9 +844,9 @@ extern "C" void __cdecl GAME_UnregisterMouseHandlers()
 // 0x0044DD20
 extern "C" void __cdecl GAME_RegisterMouseHandlers()
 {
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaGameWheelHandlers, 1);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMiddleButtonHandlers, 2);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaXButtonHandlers, 2);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaGameWheelHandlers, 1);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaMiddleButtonHandlers, 2);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaXButtonHandlers, 2);
 }
 
 bool D2ChatStormLinkStrc::IGNORELIST_IsLinkLinked()
@@ -1061,7 +1061,7 @@ void __fastcall GAME_ShowLoadingMessage(int nIndex)
     gbLeavingGame = 1;
     gbPositionalSound = 0;
     gbGameServerReady = 0;
-    GAME_SetExitApplication(0);
+    WINMAIN_SetExitApplication(0);
 }
 
 // 0x0044E400
@@ -1212,12 +1212,12 @@ int __stdcall GAME_RunGameFrame(int nUnused)
         {
             gdwLastFrame = GetTickCount();
             gpfnClientCallback(0);
-            INV_TickSound();
+            SOUNDHDR_TickSound();
             return 0;
         }
     }
 
-    CUNIT_ReplayRecords();
+    RECORD_ReplayRecords();
     if (gnGlobal_007A0650)
     {
         GAME_StartClick();
@@ -1383,7 +1383,7 @@ int __stdcall GAME_RunGameFrame(int nUnused)
 
         if (bDrawn)
         {
-            INV_TickSound();
+            SOUNDHDR_TickSound();
         }
 
         ++gnSkipped;

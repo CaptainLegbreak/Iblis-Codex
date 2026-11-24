@@ -166,7 +166,7 @@ void __fastcall sub_0046B630_FireLevelEvent(int nIndex); // 0x0046B630
 void __fastcall UNITSND_RemoveUnitHint(D2UnitStrc* pUnit, int nHandle); // 0x004CA8D0
 void __fastcall D2SOUND_ListFree(D2SoundUnitNodeStrc** ppList); // 0x00516A10
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
+void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
 void __cdecl GAME_RequestExit(); // 0x0044D520
 
@@ -184,7 +184,7 @@ void __fastcall sub_004A28A0_OnUiPacket1(D2UiPacketStrc_004B9210* pPacket); // 0
 void __fastcall NPCMENU_ReloadHirelingPopup(unsigned short nArg); // 0x004B3340
 void __fastcall sub_004B25C0_OnUiPacket3(D2UiPacketStrc_004B9210* pPacket); // 0x004B25C0
 void __fastcall sub_0049FF60_OnUiPacket4(D2UiPacketStrc_004B9210* pPacket); // 0x0049FF60
-extern "C" void __fastcall TEXT_SetQuestPacketValue(unsigned int value); // 0x004A3100
+extern "C" void __fastcall QUESTLOG_SetQuestPacketValue(unsigned int value); // 0x004A3100
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 struct D2CinematicPacketStrc
@@ -860,7 +860,7 @@ int __cdecl sub_004B9180_PollWait()
             gnTradeState = 0;
             sub_004B8940_CloseWait(0);
             sub_00477EE0();
-            GAME_SetExitApplication(0);
+            WINMAIN_SetExitApplication(0);
             GAME_SetCinematicExit(1);
             GAME_RequestExit();
         }
@@ -881,7 +881,7 @@ void __fastcall sub_004B9210_DispatchUiPacket(D2UiPacketStrc_004B9210* pPacket)
     switch (pPacket->nType)
     {
     case 36:
-        TEXT_SetQuestPacketValue(pPacket->nArg);
+        QUESTLOG_SetQuestPacketValue(pPacket->nArg);
         return;
 
     case 2:
@@ -904,7 +904,7 @@ void __fastcall sub_004B9210_DispatchUiPacket(D2UiPacketStrc_004B9210* pPacket)
 
     case 23:
         sub_00477EE0();
-        GAME_SetExitApplication(0);
+        WINMAIN_SetExitApplication(0);
         GAME_SetCinematicExit(1);
         GAME_RequestExit();
         return;

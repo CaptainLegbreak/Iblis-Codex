@@ -92,9 +92,9 @@ typedef char cc_M439_D2MissilesTxt_size[sizeof(D2MissilesTxt) == 0x1A4 ? 1 : -1]
 
 typedef char cc_M338_D2MissilesTxt_size[sizeof(D2MissilesTxt) == 0x1A4 ? 1 : -1];
 
-void __fastcall MISSILE_ClearMotionFlagTwo(D2UnitStrc* pMissile);                                                         // 0x004DA340
+void __fastcall GFXUTIL_ClearMotionFlagTwo(D2UnitStrc* pMissile);                                                         // 0x004DA340
 
-void __fastcall SKILLS_SetBallistic(D2UnitStrc* pUnit, int nSpeed, int nFrames);                      // 0x004DA5B0
+void __fastcall GFXUTIL_SetBallistic(D2UnitStrc* pUnit, int nSpeed, int nFrames);                      // 0x004DA5B0
 
 void __fastcall MISSILE_CltDoFallingSpawn(D2UnitStrc* pMissile); // 0x004D66E0
 
@@ -336,8 +336,8 @@ void __fastcall MISSILE_CltDoFallingSpawn(D2UnitStrc* pMissile)
                 int nRoll = SEED_RollLimitedRandomNumber(pSeed, 3);
                 nRoll += 3;
                 sub_004DA250(pNew, 0, 0, -nRoll, 1);
-                SKILLS_SetBallistic(pNew, 0, 0xF);
-                MISSILE_ClearMotionFlagTwo(pNew);
+                GFXUTIL_SetBallistic(pNew, 0, 0xF);
+                GFXUTIL_ClearMotionFlagTwo(pNew);
             }
         }
     }

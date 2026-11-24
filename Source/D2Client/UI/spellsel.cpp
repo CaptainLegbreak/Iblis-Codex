@@ -60,7 +60,7 @@ int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int b
 
 void __fastcall sub_004A9870_DrawSkillSlot(D2SkillsTxt* pSkillsTxt, int nOwner, int nCharges, int nState, int nX, int nY, int bLeft); // 0x004A9870
 
-void __fastcall TEXT_UpdateSkillButtonHover(D2SkillsTxt* pSkillsTxt, int nState, int nLevel, int nCharges, int nX, int nY); // 0x004A8D50
+void __fastcall SPELLSEL_UpdateSkillButtonHover(D2SkillsTxt* pSkillsTxt, int nState, int nLevel, int nCharges, int nX, int nY); // 0x004A8D50
 
 void __fastcall sub_004AA1F0_DrawSkillQuantity(D2SkillsTxt* pSkillsTxt, int nState, int nQuantity, int nX, int nY); // 0x004AA1F0
 
@@ -256,7 +256,7 @@ struct D2TextNodeStrc
 void __fastcall sub_004EF990_SetSkillPopUpText(D2UnitStrc* pUnit, int nId, int nA, int nB, int nState, int nX, int nY); // 0x004EF990
 
 // 0x004A8D50
-void __fastcall TEXT_UpdateSkillButtonHover(short* pId, int nState, int nA, int nB, int nX, int nY)
+void __fastcall SPELLSEL_UpdateSkillButtonHover(short* pId, int nState, int nA, int nB, int nX, int nY)
 {
     int nMouseX = sub_00468730();
     int nMouseY = sub_00468740();
@@ -576,7 +576,7 @@ struct D2RareAffixTxt
 };
 
 // 0x004AA0C0
-void __fastcall INV_SetHotkeySkillSlot(int nSlot, int nValueA, int nValueB, int nValueC)
+void __fastcall SPELLSEL_SetHotkeySkillSlot(int nSlot, int nValueA, int nValueB, int nValueC)
 {
     gaHotkeySkills[nSlot] = nValueA;
     gaHotkeyLeft[nSlot] = nValueB;
@@ -759,7 +759,7 @@ void __fastcall SPELLSEL_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int bLef
             else
             {
                 if (!nQuantity)
-                    TEXT_UpdateSkillButtonHover(pSkillsTxt, nState, SKILLS_GetSkillLevel(pUnit, pSkill, 1), nCharges, nX, nY);
+                    SPELLSEL_UpdateSkillButtonHover(pSkillsTxt, nState, SKILLS_GetSkillLevel(pUnit, pSkill, 1), nCharges, nX, nY);
                 else
                     sub_004AA1F0_DrawSkillQuantity(pSkillsTxt, nState, nQuantity, nX, nY);
                 nX += nStepX;
@@ -904,7 +904,7 @@ void __cdecl sub_004AA8E0_ClearValue7C0C3C()
 }
 
 // 0x004AA8F0
-extern "C" void __cdecl INV_ClearSkillPointsHighlight()
+extern "C" void __cdecl SPELLSEL_ClearSkillPointsHighlight()
 {
     gbSkillPointsHighlight = 0;
 }

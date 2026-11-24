@@ -51,7 +51,7 @@ int __fastcall D2Win_10015(); // 0x004F8FE0
 
 int __stdcall D2Win_10014_SetWndProc(WNDPROC wndProc); // 0x004F8FC0
 
-int __stdcall COMCALLBACK_WindowProc(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam); // 0x00451B30
+int __stdcall SCMD_WindowProc(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam); // 0x00451B30
 
 void* __stdcall sub_004FAC80(int nArg); // 0x004FAC80
 
@@ -216,7 +216,7 @@ int __fastcall GAME_GetCenteredTextX(unsigned short nStringIndex, int nCenterX);
 
 void __cdecl CURSOR_DrawCursor(); // 0x004684C0
 
-void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
+void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
 void __stdcall D2CMPLoadProjectRecord(D2TileLibraryHeaderStrc** ppLibrary, const char* szFilePath); // 0x00600790
 
@@ -338,7 +338,7 @@ extern int gnThreadReady_007A064C; // 0x007A064C
 
 extern D2LoadingTimerStrc gtLoadingTimer_007A0684; // 0x007A0684
 
-void __fastcall GAME_PushStateValue(int); // 0x0044B440
+void __fastcall WINMAIN_PushStateValue(int); // 0x0044B440
 
 void __fastcall GAME_SetResolution(int); // 0x0044BA20
 
@@ -362,17 +362,17 @@ int __stdcall GAME_RunGameFrame(int); // 0x0044EFA0
 
 void __cdecl RECORD_WriteRecordFile(); // 0x00451620
 
-int __cdecl UI_IsRecordingEnabled(); // 0x00451910
+int __cdecl RECORD_IsRecordingEnabled(); // 0x00451910
 
-void __cdecl GAME_InstallRecordHandler(); // 0x00451940
+void __cdecl RECORD_InstallRecordHandler(); // 0x00451940
 
-void __cdecl GAME_SetRecordPlaying(); // 0x00451970
+void __cdecl RECORD_SetRecordPlaying(); // 0x00451970
 
-int __cdecl UI_IsPlaybackEnabled(); // 0x00451980
+int __cdecl RECORD_IsPlaybackEnabled(); // 0x00451980
 
 int __fastcall SCMD_RunMessageLoop(D2IdleHandler); // 0x00451BB0
 
-extern "C" void __fastcall COMCALLBACK_RegisterMsgHandlers(int hwnd, D2MsgHandlerEntryStrc* table, unsigned int count); // 0x00451DB0
+extern "C" void __fastcall SCMD_RegisterMsgHandlers(int hwnd, D2MsgHandlerEntryStrc* table, unsigned int count); // 0x00451DB0
 
 void __fastcall sub_00451E10_UnregisterMsgHandlers(int,D2MsgHandlerEntryStrc*,int); // 0x00451E10
 
@@ -842,14 +842,14 @@ int __stdcall GAME_DrawEndGameScreen(int nUnused)
         ARCHIVE_FreeClientCellFile(s_pEndGameOkCell);
         s_pEndGameOkCell = 0;
     }
-    GAME_SetExitApplication(0);
+    WINMAIN_SetExitApplication(0);
     return 1;
 }
 
 // 0x0044F360
 int __cdecl GAME_RunGameSession()
 {
-    if(TimerExpired(&gtLoadingTimer_007A0684))GAME_SetExitApplication(1);
+    if(TimerExpired(&gtLoadingTimer_007A0684))WINMAIN_SetExitApplication(1);
     GetTickCount();
     gtVersionInfo.dwSize=sizeof(gtVersionInfo);
     if(GetVersionExA(&gtVersionInfo))gnVersionValid=1;
@@ -857,10 +857,10 @@ int __cdecl GAME_RunGameSession()
     INV_ResetCinematicFlags();
     GAME_PushRegisterState();
     CURSOR_InitCursor(0);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(),gaGameMouseHandlers,10);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(),gaGameWheelHandlers,1);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(),gaMiddleButtonHandlers,2);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(),gaXButtonHandlers,2);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(),gaGameMouseHandlers,10);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(),gaGameWheelHandlers,1);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(),gaMiddleButtonHandlers,2);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(),gaXButtonHandlers,2);
     if(gnMode_007A0610!=3 && gnMode_007A0610!=7 && gnMode_007A0610!=9)
     {
         sub_00477CA0_SendPacket67(gszGameName,DLIGHTMAP_GetClientFlags());
@@ -879,12 +879,12 @@ int __cdecl GAME_RunGameSession()
     }
     SOUNDHDR_UpdateSoundSystem(gpClientConfig->bSoundBackground);
     GAME_InitGameState();
-    if(UI_IsRecordingEnabled() || UI_IsPlaybackEnabled())
+    if(RECORD_IsRecordingEnabled() || RECORD_IsPlaybackEnabled())
     {
         D2MessageStrc tMessage;
         while(PeekMessageA(&tMessage,0,0,0,1)){}
-        if(UI_IsPlaybackEnabled())GAME_SetRecordPlaying();
-        else if(UI_IsRecordingEnabled())GAME_InstallRecordHandler();
+        if(RECORD_IsPlaybackEnabled())RECORD_SetRecordPlaying();
+        else if(RECORD_IsRecordingEnabled())RECORD_InstallRecordHandler();
     }
     FOG_SetMemoryPoolSystemMode(0,0);
     if(gnMode_007A0610==6 || gnMode_007A0610==8)
@@ -898,14 +898,14 @@ int __cdecl GAME_RunGameSession()
     D2SOUND_FadeOutMasterVolume(180);
     sub_00481830();
     if(GAME_IsTimerRunning(&gtLoadingTimer_007A0684) && !gnDifficultyDirty_007A0604 && !gnCinematicPlayed_007A062C)SCMD_RunMessageLoop(GAME_LoadingTimerCallback);
-    if(UI_IsRecordingEnabled())RECORD_WriteRecordFile();
+    if(RECORD_IsRecordingEnabled())RECORD_WriteRecordFile();
     if(gnBetaScreens_007A0600)
     {
         sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gaGameMouseHandlers,10);
         sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gaGameWheelHandlers,1);
         sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gaMiddleButtonHandlers,2);
         sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gaXButtonHandlers,2);
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(),gaBetaScreenHandlers,7);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(),gaBetaScreenHandlers,7);
         SCMD_RunMessageLoop(GAME_ShowBetaScreens);
     }
     else if(gnDifficultyDirty_007A0604)
@@ -914,7 +914,7 @@ int __cdecl GAME_RunGameSession()
         sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gaGameMouseHandlers,10);
         GAME_UnregisterMouseHandlers();
         GAME_SetResolution(0);
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(),gaEndScreenHandlers,9);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(),gaEndScreenHandlers,9);
         SCMD_RunMessageLoop(GAME_DrawEndGameScreen);
     }
     else if(gnPlayCinematic_007A0628)
@@ -944,7 +944,7 @@ int __cdecl GAME_RunGameSession()
             sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gaGameMouseHandlers,10);
             GAME_UnregisterMouseHandlers();
             GAME_SetResolution(2);
-            COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(),gaEndScreenHandlers,9);
+            SCMD_RegisterMsgHandlers(WINDOW_GetWindow(),gaEndScreenHandlers,9);
             SCMD_RunMessageLoop(GAME_DrawEndGameScreen);
         }
     }
@@ -953,7 +953,7 @@ int __cdecl GAME_RunGameSession()
     VIEW_FreeLerpTables();
     CURSOR_ShutdownCursor();
     D2Win_10006_ClearDrawCaches();
-    GAME_PushStateValue(4);
+    WINMAIN_PushStateValue(4);
     if(gnBetaScreens_007A0600)
     {
         sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gaBetaScreenHandlers,7);

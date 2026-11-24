@@ -139,7 +139,7 @@ struct D2PanelIconRecordStrc
 
 static unsigned char gnBoxColor_007BF034;                                                                   // 0x007BF034
 
-int __cdecl GAME_IsHardcore();                                                                      // 0x0044B850
+int __cdecl WINMAIN_IsHardcore();                                                                      // 0x0044B850
 
 int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit);                                                 // 0x00451F50
 
@@ -402,7 +402,7 @@ void __stdcall PARTY_DrawPanelIcons(D2PanelIconRecordStrc* pRecord)
                     tGfx.nFrame = 12;
                 }
 
-                if (GAME_IsHardcore())
+                if (WINMAIN_IsHardcore())
                 {
                     TEXTURE_CelDraw(&tGfx, pRecord->pIcons[i].nX + gnPanelOffsetX, pRecord->pIcons[i].nY - gnPanelOffsetY, -1, 5, 0);
                 }

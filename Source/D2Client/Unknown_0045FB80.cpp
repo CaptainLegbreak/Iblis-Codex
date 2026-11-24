@@ -46,8 +46,8 @@ int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 void __fastcall UI_SetUIVar(int nUIVar, int nState, int nArg); // 0x00455F20
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);
 D2UnitStrc* __cdecl sub_00463DD0();
-void __stdcall ROSTERPETS_HandleButtonDown(SMSGHANDLER_PARAMS* pMsg); // 0x00467F20
-void __stdcall ROSTERPETS_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
+void __stdcall CURSOR_HandleButtonDown(SMSGHANDLER_PARAMS* pMsg); // 0x00467F20
+void __stdcall CURSOR_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
 void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg); // 0x004785B0
 void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2);
 int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg);
@@ -288,7 +288,7 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
 
                 gaSkillButtonState[i] = 1;
                 gaSkillButtonFrame[i] = 3;
-                ROSTERPETS_HandleButtonDown(pMsg);
+                CURSOR_HandleButtonDown(pMsg);
                 pMsg->bReturn = 1;
                 pMsg->lResult = 0;
                 sub_004B9A00(5, 0, 0, 0, 0);
@@ -320,7 +320,7 @@ void __stdcall sub_004ABC30_SkillTreeLButtonUp(SMSGHANDLER_PARAMS* pMsg)
         return;
 
     const int nClassId = pPlayer->dwClassId;
-    ROSTERPETS_HandleButtonUp(pMsg);
+    CURSOR_HandleButtonUp(pMsg);
     if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg))
         return;
 

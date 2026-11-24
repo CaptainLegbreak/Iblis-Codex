@@ -234,15 +234,15 @@ static int CHARSEL_FindSlotByName(const char* szName)
     }
     return 0;
 }
-void __stdcall CHARSEL_RecordHandler(int nArg1, int nArg2, int nArg3); // 0x00451920
-void __stdcall CHARSEL_SetAutomapContext(void* pContext); // 0x00458CD0
+void __stdcall RECORD_RecordHandler(int nArg1, int nArg2, int nArg3); // 0x00451920
+void __stdcall AUTOMAP_SetAutomapContext(void* pContext); // 0x00458CD0
 extern unsigned long gdwLastClick; // 0x00779DEC
 int __stdcall CHARSEL_OnListClick(D2ListMsgStrc* pMsg); // 0x0043A9D0
 void __cdecl CHARSEL_InitCharList(); // 0x0043AE30
 void __cdecl CHARSEL_RequestGameList(); // 0x00445020
-void __cdecl CHARSEL_DrawProgressiveStates(); // 0x00453470
-void __cdecl CHARSEL_ScanGridCollision(); // 0x004756D0
-void __fastcall CHARSEL_ShowProgressSteps(int nDone, int nTotal); // 0x00478160
+void __cdecl UI_DrawProgressiveStates(); // 0x00453470
+void __cdecl DLIGHTMAP_ScanGridCollision(); // 0x004756D0
+void __fastcall MSG_ShowProgressSteps(int nDone, int nTotal); // 0x00478160
 // 0x0043A2B0
 int __cdecl CHARSEL_InitRealmScreen()
 {

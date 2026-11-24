@@ -1618,11 +1618,11 @@ void __cdecl sub_0052BDB0_Empty();                                              
 
 void __cdecl PROFCORE_CloseLog();                                                                                // 0x00611600
 
-int __stdcall GAME_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pRecord);                   // 0x0044B8A0
+int __stdcall WINMAIN_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pRecord);                   // 0x0044B8A0
 
-void __cdecl GAME_ToggleRecordPlayback();                                                                    // 0x004519A0
+void __cdecl RECORD_ToggleRecordPlayback();                                                                    // 0x004519A0
 
-void __cdecl WINMAIN_StartPlayback();                                                                  // 0x004518E0
+void __cdecl RECORD_StartPlayback();                                                                  // 0x004518E0
 
 int __cdecl CLIENT_GetConnectionStatus();                                                                   // 0x0052B050
 
@@ -1646,7 +1646,7 @@ void __cdecl CLIENT_Release();                                                  
 
 void __cdecl SERVER_Release();                                                              // 0x0052B2A0
 
-int __cdecl GAME_PopStateValue();                                                                        // 0x0044B480
+int __cdecl WINMAIN_PopStateValue();                                                                        // 0x0044B480
 
 void (__fastcall* gpfnMcpMotdCallback)(void* pArg);                                                       // 0x00799308
 
@@ -1842,7 +1842,7 @@ struct D2MonLvlTxt
 };
 
 // 0x0044B440
-void __fastcall GAME_PushStateValue(int nValue)
+void __fastcall WINMAIN_PushStateValue(int nValue)
 {
     D2_ASSERT(gnStateStackCount < 5, 0xAA);
     gaStateStack[gnStateStackCount] = nValue;
@@ -1850,7 +1850,7 @@ void __fastcall GAME_PushStateValue(int nValue)
 }
 
 // 0x0044B480
-int __cdecl GAME_PopStateValue()
+int __cdecl WINMAIN_PopStateValue()
 {
     D2_ASSERT(gnStateStackCount, 0xB4);
     int nValue = gaStateStack[0];
@@ -1871,7 +1871,7 @@ struct D2CmdLineArgStrc
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
 
 // 0x0044B5E0
-int __stdcall GAME_SaveDefaultCmdLine(D2CmdLineArgStrc* pArg, int nUnused)
+int __stdcall WINMAIN_SaveDefaultCmdLine(D2CmdLineArgStrc* pArg, int nUnused)
 {
     return SRegSaveString("Diablo II", "Default Command Line", 0, pArg->szValue);
 }
@@ -1881,7 +1881,7 @@ void* __cdecl WINDOW_GetWindow(); // 0x004F59A0
 void __stdcall WINDOW_ShowAll(); // 0x004F5F60
 
 // 0x0044B780
-void __cdecl GAME_RaiseGameWindow()
+void __cdecl WINMAIN_RaiseGameWindow()
 {
     void* hWnd = (void*)WINDOW_GetWindow();
     if (hWnd)
@@ -1894,7 +1894,7 @@ struct D2ConfigStrc;
 D2ConfigStrc* gpClientConfig; // 0x007A0438
 
 // 0x0044B7A0
-D2ConfigStrc* __cdecl GAME_GetClientInfo()
+D2ConfigStrc* __cdecl WINMAIN_GetClientInfo()
 {
     return gpClientConfig;
 }
@@ -1902,13 +1902,13 @@ D2ConfigStrc* __cdecl GAME_GetClientInfo()
 struct D2ClientNotifyStrc;
 
 // 0x0044B7B0
-D2ClientNotifyStrc* __cdecl GAME_GetClientNotify()
+D2ClientNotifyStrc* __cdecl WINMAIN_GetClientNotify()
 {
     return (D2ClientNotifyStrc*)gpClientConfig->pComInterface;
 }
 
 // 0x0044B7C0
-const char* __cdecl GAME_GetGameName()
+const char* __cdecl WINMAIN_GetGameName()
 {
     if (gpClientConfig && strlen(gpClientConfig->szGameName) >= 1)
         return gpClientConfig->szGameName;
@@ -1916,7 +1916,7 @@ const char* __cdecl GAME_GetGameName()
 }
 
 // 0x0044B7F0
-const char* __cdecl GAME_GetGameDescription()
+const char* __cdecl WINMAIN_GetGameDescription()
 {
     if (gpClientConfig && strlen(gpClientConfig->szText0x245) >= 1)
         return gpClientConfig->szText0x245;
@@ -1924,7 +1924,7 @@ const char* __cdecl GAME_GetGameDescription()
 }
 
 // 0x0044B820
-const char* __cdecl GAME_GetGamePassword()
+const char* __cdecl WINMAIN_GetGamePassword()
 {
     if (gpClientConfig && strlen(gpClientConfig->szServerIP) >= 1)
         return gpClientConfig->szServerIP;
@@ -1932,19 +1932,19 @@ const char* __cdecl GAME_GetGamePassword()
 }
 
 // 0x0044B850
-int __cdecl GAME_IsHardcore()
+int __cdecl WINMAIN_IsHardcore()
 {
     return gpClientConfig->aFlags1EF[0] & 4;
 }
 
 // 0x0044B860
-void __cdecl GAME_SetCharDiedFlag()
+void __cdecl WINMAIN_SetCharDiedFlag()
 {
     gpClientConfig->wFlags1EF |= 8;
 }
 
 // 0x0044B870
-void __cdecl GAME_SetLaunchStateOne()
+void __cdecl WINMAIN_SetLaunchStateOne()
 {
 // build: symbol ?gnClientLaunchState@* 0x0070EE4C
     gnClientLaunchState = 1;
@@ -1969,14 +1969,14 @@ struct D2ClientInfoStrc
 #pragma pack(pop)
 
 // 0x0044B880
-void __fastcall GAME_SetExitApplication(int nValue)
+void __fastcall WINMAIN_SetExitApplication(int nValue)
 {
 // build: symbol ?gbExitApplication@* 0x0070EE8C
     gbExitApplication = nValue;
 }
 
 // 0x0044B890
-int __cdecl GAME_GetExitApplication()
+int __cdecl WINMAIN_GetExitApplication()
 {
 // build: symbol ?gbExitApplication@* 0x0070EE8C
     return gbExitApplication;
@@ -1996,7 +1996,7 @@ int __fastcall D2Win_10015(); // 0x004F8FE0
 
 int __stdcall D2Win_10014_SetWndProc(WNDPROC wndProc); // 0x004F8FC0
 
-int __stdcall COMCALLBACK_WindowProc(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam); // 0x00451B30
+int __stdcall SCMD_WindowProc(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam); // 0x00451B30
 
 void* __stdcall sub_004FAC80(int nArg); // 0x004FAC80
 
@@ -2103,14 +2103,14 @@ int __stdcall WINMAIN_RunMemoryTest(const D2CmdParamsStrc* pParams, int nUnused)
 // 0x0044B5A0
 int __stdcall WINMAIN_HandleToggleFlagsOption(const D2CmdParamsStrc* pParams, int nUnused)
 {
-    GAME_ToggleRecordPlayback();
+    RECORD_ToggleRecordPlayback();
     return 1;
 }
 
 // 0x0044B5B0
 int __stdcall WINMAIN_HandlePlaybackOption(const D2CmdParamsStrc* pParams, int nUnused)
 {
-    WINMAIN_StartPlayback();
+    RECORD_StartPlayback();
     return 1;
 }
 
@@ -2179,7 +2179,7 @@ int __stdcall WINMAIN_ProcessCommandLine(void* pArg)
 extern int (__cdecl* gpfnLaunchStates[])(); // 0x0070EE54
 
 // 0x0044B8A0
-int __stdcall GAME_LauncherRun(void* hInstance, D2ConfigStrc* pRecord)
+int __stdcall WINMAIN_LauncherRun(void* hInstance, D2ConfigStrc* pRecord)
 {
     gpClientConfig = pRecord;
 // build: symbol ?ERRORMANAGER_FreeUnusedPoolBlocks@* 0x00409B80
@@ -2192,7 +2192,7 @@ int __stdcall GAME_LauncherRun(void* hInstance, D2ConfigStrc* pRecord)
     if (!GAME_LoadLngModule())
         return 0;
     D2Win_10015();
-    D2Win_10014_SetWndProc((WNDPROC)COMCALLBACK_WindowProc);
+    D2Win_10014_SetWndProc((WNDPROC)SCMD_WindowProc);
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     if (!sub_005259C0(sub_004FAC80(FOG_IsExpansion()), 0))
         return 0;
@@ -2339,7 +2339,7 @@ int __cdecl WINMAIN_StartSession()
     gdwStartSessionTick = GetTickCount();
     gbConnectFailed = 0;
     SCMD_RunMessageLoop(WINMAIN_PollSystemPackets);
-    return GAME_PopStateValue();
+    return WINMAIN_PopStateValue();
 }
 
 // 0x0044BD20
@@ -2369,7 +2369,7 @@ int __cdecl WINMAIN_StopSession()
     CLIENT_Release();
     if (gdwGlobal_007A0610 == 0 || gdwGlobal_007A0610 == 1 || gdwGlobal_007A0610 == 6 || gdwGlobal_007A0610 == 8)
         SERVER_Release();
-    return GAME_PopStateValue();
+    return WINMAIN_PopStateValue();
 }
 
 
@@ -2378,6 +2378,6 @@ int __cdecl WINMAIN_StopSession()
 
 
 
-void __cdecl WINMAIN_StartPlayback(); // 0x004518E0
+void __cdecl RECORD_StartPlayback(); // 0x004518E0
 
 #include "gen/data/Source/D2Client/CORE/WINMAIN.inc"

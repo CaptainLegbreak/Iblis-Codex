@@ -30,7 +30,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
-void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
@@ -169,7 +169,7 @@ void __stdcall sub_00467EF0_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00467F20
-void __stdcall ROSTERPETS_HandleButtonDown(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall CURSOR_HandleButtonDown(SMSGHANDLER_PARAMS* pMsg)
 {
     gnCursorX = pMsg->nXpos;
     gnCursorY = pMsg->nYpos;
@@ -184,7 +184,7 @@ void __stdcall ROSTERPETS_HandleButtonDown(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00467FA0
-void __stdcall ROSTERPETS_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall CURSOR_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
     gnCursorX = pMsg->nXpos;
     gnCursorY = pMsg->nYpos;
@@ -224,7 +224,7 @@ struct D2TileRectStrc
     unsigned int nHeight;
 };
 
-void __fastcall UI_SetCursorPosition(int nA, int nB);                                                               // 0x00468770
+void __fastcall CURSOR_SetCursorPosition(int nA, int nB);                                                               // 0x00468770
 
 struct T0044CB60
 {
@@ -261,7 +261,7 @@ struct D2ChatMessageStrc
 };
 
 // 0x00468030
-int __cdecl UI_GetCursorFrame()
+int __cdecl CURSOR_GetCursorFrame()
 {
     return gdwGlobal_007A6AE0;
 }
@@ -298,7 +298,7 @@ int __fastcall CURSOR_InitCursor(int nArg)
 {
     char szPath[0x50];
     gnCursorOffsetX = nArg;
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaCursorMsgHandlers, 3);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaCursorMsgHandlers, 3);
     for (int i = 0; i < NUM_CURSOR_CELLS; ++i)
     {
 // build: symbol ?gszDataGlobal@* 0x006D4118
@@ -588,7 +588,7 @@ void __fastcall sub_00468750_SetCursorPos(int nX, int nY)
 }
 
 // 0x00468770
-void __fastcall UI_SetCursorPosition(int nX, int nY)
+void __fastcall CURSOR_SetCursorPosition(int nX, int nY)
 {
     tagRECT rect;
     D2_ASSERT(nX >= 0, 0x30F);

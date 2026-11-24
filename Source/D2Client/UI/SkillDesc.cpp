@@ -360,7 +360,7 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
-void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
+void* __fastcall UNITSND_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
 
 void __fastcall sub_004BA790_ReleaseUnitSfx(void* pUnitSfx, D2UnitStrc* pUnit, int bForce); // 0x004BA790
 
@@ -720,7 +720,7 @@ static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg); // 0x004E2ED0
 
 // 0x004E2F40
-int __fastcall MISSILE_VolleyAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLDESC_VolleyAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -851,7 +851,7 @@ void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int n
 
 
 // 0x004E3C50
-int __fastcall PLRSKILLS_MissileAtTargetUnit(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLDESC_MissileAtTargetUnit(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -5352,7 +5352,7 @@ static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 }
 
 // 0x004F16F0
-int __fastcall MISSILE_CreateMissileVolley(D2UnitStrc* pUnit, int nCount, int nArg0, int nArg3, int nArg4, int nMissileArg, int bFirst, int bClearPathFlag)
+int __fastcall SKILLDESC_CreateMissileVolley(D2UnitStrc* pUnit, int nCount, int nArg0, int nArg3, int nArg4, int nMissileArg, int bFirst, int bClearPathFlag)
 {
     int nTargetX;
     int nTargetY;
@@ -5486,7 +5486,7 @@ int __fastcall sub_004F1C80_SkillCltDoSpray(D2UnitStrc* pUnit, int nSkillId, int
     const int bInTown = !pRoom || DUNGEON_IsRoomInTown(pRoom);
     if (pSkillsTxt->wPrgSound > 0)
     {
-        void* pUnitSfx = MISSILE_FindUnitSfxInRange(pUnit, pSkillsTxt->wPrgSound);
+        void* pUnitSfx = UNITSND_FindUnitSfxInRange(pUnit, pSkillsTxt->wPrgSound);
         if (bInTown)
         {
             if (pUnitSfx)

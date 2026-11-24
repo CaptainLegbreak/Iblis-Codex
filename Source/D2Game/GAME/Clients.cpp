@@ -443,7 +443,7 @@ extern "C" void __fastcall ROSTER_SetCtrlState(D2PanelCtrlStrc_004B8370* pCtrl, 
 }
 
 // 0x004CA990
-extern "C" void* __fastcall ROSTER_GetLinkFirst(D2OwnerStrc_004CA990* pOwner)
+extern "C" void* __fastcall UNITSND_GetLinkFirst(D2OwnerStrc_004CA990* pOwner)
 {
     D2_ASSERT(pOwner, 3171);
     D2LinkStrc_004CA990* pLink = pOwner->pLink;

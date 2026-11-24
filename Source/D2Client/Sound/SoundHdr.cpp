@@ -754,7 +754,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int nTick); // 0x004E42E0
 
 
 // 0x00482C20
-void __cdecl INV_TickSound()
+void __cdecl SOUNDHDR_TickSound()
 {
     if (sub_004DF870())
     {

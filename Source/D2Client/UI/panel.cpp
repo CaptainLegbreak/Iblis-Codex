@@ -384,7 +384,7 @@ Unicode* __fastcall INV_PrefixColorCode(Unicode* pText, int nDigit); // 0x004521
 
 D2UnitStrc* __fastcall sub_00463DD0(); // 0x00463DD0
 
-int __cdecl CUNIT_IsInvPanelTradeMode(); // 0x00489840
+int __cdecl INV_IsInvPanelTradeMode(); // 0x00489840
 
 void __fastcall INV_BuildItemName(D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x0048C060
 
@@ -988,7 +988,7 @@ void __cdecl PANEL_DrawBeltItemHoverText()
     }
 
     sub_00452170(wszText);
-    if (CUNIT_IsInvPanelTradeMode())
+    if (INV_IsInvPanelTradeMode())
     {
         Unicode wszSocket[0x40] = { 0 };
         int nUnused;

@@ -44,7 +44,7 @@ extern "C" int __cdecl isalpha(int c); // 0x00686DA5
 
 int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
-void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
@@ -543,7 +543,7 @@ void __fastcall CMDTBL_SetHotkeyHandlers(int bEnable, int bFlag)
                 sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaHotkeyUpHandlers, 2);
                 gbHotkeyUpHandlersSet = 0;
             }
-            COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaHotkeyHandlers, 4);
+            SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaHotkeyHandlers, 4);
         }
     }
     else
@@ -554,7 +554,7 @@ void __fastcall CMDTBL_SetHotkeyHandlers(int bEnable, int bFlag)
             sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaHotkeyHandlers, 4);
             if (bFlag && gbHotkeyUpHandlersSet == 0)
             {
-                COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaHotkeyUpHandlers, 2);
+                SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaHotkeyUpHandlers, 2);
                 gbHotkeyUpHandlersSet = 1;
             }
         }
@@ -633,7 +633,7 @@ void __cdecl CMDTBL_EnableHotkeyHandlers()
     if (gbHotkeyHandlersRegistered == 0)
     {
         gbHotkeyHandlersRegistered = 1;
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaHotkeyHandlers, 4);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaHotkeyHandlers, 4);
     }
 }
 

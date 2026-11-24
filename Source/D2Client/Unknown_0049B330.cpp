@@ -22,7 +22,7 @@ int __fastcall ROSTER_PlayerAllowsLoot(D2StoredUnitRecordStrc* pEntry);         
 int __fastcall ROSTER_IsHostileToPlayer(D2StoredUnitRecordStrc* pEntry);                                                // 0x0047A5B0
 int __fastcall ROSTER_AllowsPlayerLoot(D2StoredUnitRecordStrc* pEntry);                                                // 0x0047A610
 int __fastcall ROSTER_IsMaleClass(D2StoredUnitRecordStrc* pEntry);                                                // 0x0047A670
-int __cdecl GAME_IsHardcore();                                                                      // 0x0044B850
+int __cdecl WINMAIN_IsHardcore();                                                                      // 0x0044B850
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
@@ -145,7 +145,7 @@ static void sub_0049B030_DrawRosterTooltip(D2StoredUnitRecordStrc* pEntry)
         const unsigned short nFormat = bE ? gawRosterHostileMale[nA][nC] : gawRosterHostileFemale[nA][nC];
         sub_005269D0(0x80, wszLine1, D2LANG_GetStringFromTblIndex(nFormat), wszName);
     }
-    if (GAME_IsHardcore())
+    if (WINMAIN_IsHardcore())
     {
         nHeight = 0x1E;
         if (nB == nD)
@@ -259,7 +259,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                     }
                     else if (pRow->aSlots[k].nType == 2)
                     {
-                        if (GAME_IsHardcore())
+                        if (WINMAIN_IsHardcore())
                         {
                             if (ROSTER_TestLootFlag(pEntry))
                             {

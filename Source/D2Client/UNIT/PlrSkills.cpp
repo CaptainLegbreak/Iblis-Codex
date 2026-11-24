@@ -38,7 +38,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
-void __fastcall SKILLS_RotateUnitDirection(D2UnitStrc* pUnit, int nArg, int bForward); // 0x004C9060
+void __fastcall SKILLSBAR_RotateUnitDirection(D2UnitStrc* pUnit, int nArg, int bForward); // 0x004C9060
 
 
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
@@ -49,7 +49,7 @@ void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg); // 0x00470610
 void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nMode); // 0x00480E70
 int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-void __stdcall MISSILE_UpdateStateColor(D2UnitStrc* pUnit); // 0x004D97F0
+void __stdcall PLRSKILLS_UpdateStateColor(D2UnitStrc* pUnit); // 0x004D97F0
 void __fastcall PLRSKILLS_StartStateOverlays(D2UnitStrc* pUnit, int nState); // 0x004D9920
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill); // 0x00620210
@@ -79,7 +79,7 @@ void __stdcall sub_K06_EmitPuttier1(int nValue, int nOther);
 int __stdcall sub_K06_EmitGettier2(int nValue);
 void __stdcall sub_K06_EmitPuttier2(int nValue, int nOther);
 void __fastcall sub_004BA790_ReleaseUnitSfx(void* pUnitSfx, D2UnitStrc* pUnit, int bForce); // 0x004BA790
-void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
+void* __fastcall UNITSND_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
 void __stdcall PARTICLE_ResetGfxMotion(D2UnitStrc* pUnit); // 0x004DA000
 void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
 int __stdcall STATES_CheckStateMaskAuraByStateId(int nState); // 0x0063A210
@@ -125,7 +125,7 @@ D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fF
 void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
-int __fastcall ITEM_CallClientStateEvent(void* pArg1, int nArg2, int nArg3, int nArg4, unsigned int nIndex, int nArg6, int nArg7); // 0x004C7C40
+int __fastcall SKILLS_CallClientStateEvent(void* pArg1, int nArg2, int nArg3, int nArg4, unsigned int nIndex, int nArg6, int nArg7); // 0x004C7C40
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
@@ -202,7 +202,7 @@ void __fastcall PLRSKILLS_SkillSeqDoForward(D2UnitStrc* pUnit, int nArg)
     switch (pSkillsTxtRecord->wSrvDoFunc)
     {
     case 0x4C:
-        SKILLS_RotateUnitDirection(pUnit, nArg, 1);
+        SKILLSBAR_RotateUnitDirection(pUnit, nArg, 1);
         break;
     case 0x43:
         if (SKILLS_GetFlags(pSkill) & 1)
@@ -236,7 +236,7 @@ void __fastcall PLRSKILLS_SkillSeqDoBackward(D2UnitStrc* pUnit, int nArg)
     switch (pSkillsTxtRecord->wSrvDoFunc)
     {
     case 0x4C:
-        SKILLS_RotateUnitDirection(pUnit, nArg, 0);
+        SKILLSBAR_RotateUnitDirection(pUnit, nArg, 0);
         break;
     case 0x43:
         if (SKILLS_GetFlags(pSkill) & 1)
@@ -737,7 +737,7 @@ void __fastcall PLRSKILLS_StateStopSkillSound(D2UnitStrc* pUnit, int nState)
     D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecordStd(STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0));
     if (pSkillsTxtRecord && pSkillsTxtRecord->wPrgSound > 0)
     {
-        void* pUnitSfx = MISSILE_FindUnitSfxInRange(pUnit, pSkillsTxtRecord->wPrgSound);
+        void* pUnitSfx = UNITSND_FindUnitSfxInRange(pUnit, pSkillsTxtRecord->wPrgSound);
         if (pUnitSfx)
         {
             sub_004BA790_ReleaseUnitSfx(pUnitSfx, pUnit, 1);
@@ -927,7 +927,7 @@ inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecordInline(int nSkillId)
 }
 
 // 0x004D9180
-void __fastcall MISSILE_StateStartMissile(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateStartMissile(D2UnitStrc* pUnit, int nState)
 {
     D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(nState);
     if (!pStatesTxtRecord || pStatesTxtRecord->wSkill < 0)
@@ -958,7 +958,7 @@ void __fastcall MISSILE_StateStartMissile(D2UnitStrc* pUnit, int nState)
 }
 
 // 0x004D96B0
-void __fastcall MISSILE_StateMissile(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateMissile(D2UnitStrc* pUnit, int nState)
 {
     D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(nState);
     if (!pStatesTxtRecord || pStatesTxtRecord->wMissile < 0 || pStatesTxtRecord->wMissile >= sgptDataTables->nMissilesTxtRecordCount)
@@ -1021,7 +1021,7 @@ void __fastcall PLRSKILLS_StartClientState(D2UnitStrc* pUnit, int nState)
 
     const int nValue1 = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
     const int nValue2 = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
-    ITEM_CallClientStateEvent(pUnit, pStatesTxt->wCltEvent, nValue1, nValue2, pStatesTxt->wCltEventFunc, 1, nState);
+    SKILLS_CallClientStateEvent(pUnit, pStatesTxt->wCltEvent, nValue1, nValue2, pStatesTxt->wCltEventFunc, 1, nState);
 }
 
 // 0x004D9F40
@@ -1062,13 +1062,13 @@ void __fastcall PLRSKILLS_StateCreateMissile(D2UnitStrc* pUnit, int nState); // 
 void __fastcall PLRSKILLS_StateResetValue(D2UnitStrc* pUnit, int nState); // 0x004D97E0
 
 // 0x004D8650
-void __fastcall MISSILE_CallSkillSeqDoBackward(D2UnitStrc* pUnit, int nArg)
+void __fastcall PLRSKILLS_CallSkillSeqDoBackward(D2UnitStrc* pUnit, int nArg)
 {
     PLRSKILLS_SkillSeqDoBackward(pUnit, nArg);
 }
 
 // 0x004D9630
-void __fastcall MISSILE_StateOverlayRanges(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateOverlayRanges(D2UnitStrc* pUnit, int nState)
 {
     D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(nState);
     if (!pStatesTxtRecord)
@@ -1098,7 +1098,7 @@ void __fastcall MISSILE_StateOverlayRanges(D2UnitStrc* pUnit, int nState)
 }
 
 // 0x004D97F0
-void __stdcall MISSILE_UpdateStateColor(D2UnitStrc* pUnit)
+void __stdcall PLRSKILLS_UpdateStateColor(D2UnitStrc* pUnit)
 {
     int nBestState = -1;
     unsigned char nBestPri = 0;
@@ -1158,7 +1158,7 @@ void __fastcall sub_004D9170(D2UnitStrc* pArg)
 }
 
 // 0x004D93B0
-void __fastcall ITEM_SendPositionEvent(D2UnitStrc* pUnit)
+void __fastcall PLRSKILLS_SendPositionEvent(D2UnitStrc* pUnit)
 {
     D2UnitEventArgsStrc tArgs = {};
 
@@ -1392,7 +1392,7 @@ void __fastcall PLRSKILLS_BeginState(D2UnitStrc* pUnit, int nState)
     STATES_ToggleState(pUnit, nState, 1);
     if (pTxt->nColorShift)
     {
-        MISSILE_UpdateStateColor(pUnit);
+        PLRSKILLS_UpdateStateColor(pUnit);
     }
     PLRSKILLS_StartStateOverlays(pUnit, nState);
     if (CUNIT_IsDeadOrDying(pUnit) && STATES_CheckStateMaskHideOnUnit(pUnit))
@@ -1434,7 +1434,7 @@ void __fastcall PLRSKILLS_EndState(D2UnitStrc* pUnit, int nState)
     STATES_ToggleState(pUnit, nState, 0);
     if (pTxt->nColorShift)
     {
-        MISSILE_UpdateStateColor(pUnit);
+        PLRSKILLS_UpdateStateColor(pUnit);
     }
     if ((short)pTxt->wRemoveOverlay >= 0)
     {

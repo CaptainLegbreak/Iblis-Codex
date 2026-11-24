@@ -29,7 +29,7 @@ void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsS
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 
-D2UnitStrc* __fastcall GFXUTIL_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
+D2UnitStrc* __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
@@ -157,7 +157,7 @@ void __fastcall sub_0046B710_SpawnMissileAtObject173(D2UnitStrc* pUnit)
     tMissileParams.nSkillLevel = 1;
     MISSILE_CreateClientMissile(&tMissileParams);
 
-    D2UnitStrc* pMissile = GFXUTIL_SubmitMissileRequest(pUnit, 0x14C, nX, nY, 0, 1);
+    D2UnitStrc* pMissile = MISSILE_SubmitMissileRequest(pUnit, 0x14C, nX, nY, 0, 1);
     if (pMissile)
     {
         MISSILE_SetTargetY(pMissile, 0);
