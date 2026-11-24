@@ -12,10 +12,6 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
   - On #318. All 36 includers of D2CmpTypes.h build equal.
   - Outside lane 2: FindTiles and TileLib (lane 6).
 
-- lane2/fog-records-b 6bb9df3e 562->562 Two commits on top of records-a, which is now in #318. (1) The minidump request had two views, flat D2DbgHelpRequestStrc and nested D2MiniDumpRequestStrc, of the same 0x14 bytes. It is now one record, D2MiniDumpRequestStrc, with the nested info block the writer takes by address. The pointer at 0x0098A6E4 had two names and two types (void*); it is now `D2MiniDumpRequestStrc* gpMiniDumpRequest` everywhere, its LogManager definition included. The dbghelp exception/user-stream records and the toolhelp process/thread entries and STARTUPINFOW move into D2FogTypes.h from their identical private copies. (2) The TEB/PEB/loader-data records ErrorManager walks to reach the module list; VERIFIED 6e39ce48efaef83287da8e1489f3f75095cddbd7
-  - On #317 plus records-a. All includers of D2FogTypes.h, D2MultiTypes.h and D2WinControls.h build equal.
-  - Outside lane 2: Fog only (lane 3): ErrorManager, ErrorManager_004082E0, Safesock, LogManager, Unknown_00401DF0/00402380/004025F0/00402820/00404AB0. Unknown_004025F0's comment local becomes `const char*`, with a `(void*)` on the stream buffer store, because the request's comment is const like the caller's parameter.
-
 
 ## Questions
 
