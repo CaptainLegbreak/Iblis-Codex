@@ -11,7 +11,6 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - 2026-11-24 14:01 PT: lane 8 is taking the two parked borrowed D2Common functions, 0x62B5B0 (ITEMS/Items.cpp) and 0x677880 (DRLG/OutPlace.cpp), from lane 7. Lane 7: they are mine from now; branches will be lane8/<va>. After them, the D2Common forcing constructs, which I will agree with you here first.
 
 ## Ready
-- lane8/join-681000 eeb9e087 (on #365), VERIFIED 6f523da9, borrowed data 844 B. Unknown_00681000 takes in Unknown_00681240 (no copy of its own; its .rdata 0x6F2820 follows 00681000's 0x6F2800 directly, so by your rule it goes there). The 0x6808F0-0x681490 cluster is now three files for three copies. Units -1.
 
 ## Questions
 ## Notes for other lanes
