@@ -1255,8 +1255,8 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_004A76C0.cpp": {
-   "bytes": 288,
-   "definitions": 3,
+   "bytes": 48,
+   "definitions": 1,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004A76C0.inc",
@@ -4958,8 +4958,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/spellsel.cpp": {
-   "bytes": 64,
-   "definitions": 1,
+   "bytes": 302,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/spellsel.inc",
@@ -55063,7 +55063,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004A76C0.cpp",
+   "file": "Source/D2Client/UI/spellsel.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern D2UiCelFileStrc gaSkillIconCels[7] = ",
@@ -55112,23 +55112,6 @@
    "tail": "; // 0x00724AC0",
    "type": "D2UiCelFileStrc",
    "va": "0x00724AC0"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00724BAE",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/Unknown_004A76C0.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00724BAE_t gData_00724BAE; // 0x00724BAE",
-   "head": "extern \"C\" struct d2data_00724BAE_t gData_00724BAE = ",
-   "name": "gData_00724BAE",
-   "pointers": [],
-   "region": "data",
-   "size": 2,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00724BAE_t\n{\n    unsigned char b0[2];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00724BAE",
-   "va": "0x00724BAE"
   },
   {
    "alias": false,
