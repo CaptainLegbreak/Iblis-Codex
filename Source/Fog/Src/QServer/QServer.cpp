@@ -12,8 +12,6 @@ struct D2PacketBufferStrc;
 
 struct D2CriticalSectionStrc;
 
-struct D2RecordStrc;
-
 struct D2QServerConfigStrc;
 
 extern int gdwGlobal_00970E50; // 0x00970E50
@@ -62,8 +60,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
-
-struct D2RecordStrc { unsigned char data[0xac]; int value; };
 
 typedef int (__fastcall* D2NET_ValidatePacketCallback)(D2PacketBufferStrc*, int, int*, int*, int*, int*, int, int, int);
 
@@ -229,25 +225,7 @@ static int __stdcall QSERVER_AccountTraffic(D2QueueServerStrc* pTable, unsigned 
 
 static int QSERVER_ExpireNodes(D2QueueServerStrc* pServer); // 0x006BF260
 
-struct sub_006BF320_Node;
-
-struct sub_006BF320_Server;
-
-struct sub_006BF320_Node
-{
-    char unk_00[0x0C];
-    sub_006BF320_Node* pNext;
-};
-
-struct sub_006BF320_Server
-{
-    char unk_000[0x84C];
-    sub_006BF320_Node* pPending;
-    char unk_850[4];
-    char cs[0x18];
-};
-
-static void QSERVER_FreePending(sub_006BF320_Server* pServer); // 0x006BF320
+static void QSERVER_FreePending(D2QueueServerStrc* pServer); // 0x006BF320
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* lpAddend);
 
@@ -1056,18 +1034,18 @@ int __stdcall sub_Emit_006BF260(D2QueueServerStrc* pServer)
 }
 
 // 0x006BF320
-static void QSERVER_FreePending(sub_006BF320_Server* pServer)
+static void QSERVER_FreePending(D2QueueServerStrc* pServer)
 {
-    EnterCriticalSection((D2CriticalSectionStrc*)pServer->cs);
-    sub_006BF320_Node* pNode = pServer->pPending;
+    EnterCriticalSection(&pServer->tLock);
+    D2QServerNodeStrc* pNode = pServer->pHead;
     while (pNode)
     {
-        sub_006BF320_Node* pFree = pNode;
+        D2QServerNodeStrc* pFree = pNode;
         pNode = pNode->pNext;
         FOG_Free(pFree, ".\\Src\\QServer\\QServer.cpp", 2480, 0);
     }
-    pServer->pPending = 0;
-    LeaveCriticalSection((D2CriticalSectionStrc*)pServer->cs);
+    pServer->pHead = 0;
+    LeaveCriticalSection(&pServer->tLock);
 }
 
 // 0x006BF370
@@ -1226,12 +1204,12 @@ int __fastcall QSERVER_CheckClientMask(D2QueueServerStrc* server, int clientId)
 }
 
 // 0x006BF6D0
-void __fastcall QSERVER_CopyRecords(D2QueueServerStrc* server,D2RecordStrc* destination,int count)
+void __fastcall QSERVER_CopyRecords(D2QueueServerStrc* server,D2QAcceptStatsStrc* destination,int count)
 {
  EnterCriticalSection(&server->tClientLock);
- memcpy(destination,server->aRecords,count*sizeof(D2RecordStrc));
+ memcpy(destination,server->aStats,count*sizeof(D2QAcceptStatsStrc));
  LeaveCriticalSection(&server->tClientLock);
- for (int i=0;i<count;++i) destination[i].value=server->aValues[i];
+ for (int i=0;i<count;++i) destination[i].nActive=server->aActive[i];
 }
 
 // 0x006BF740
@@ -1383,7 +1361,7 @@ int __stdcall QSERVER_BroadcastToAllClients(D2QueueServerStrc* pServer, char* pD
 }
 
 // calling-convention shim (not game code)
-void __fastcall sub_006BF320_Shim(sub_006BF320_Server* pServer)
+void __fastcall sub_006BF320_Shim(D2QueueServerStrc* pServer)
 {
     QSERVER_FreePending(pServer);
     FOG_Free(pServer, ".\\Src\\QServer\\QServer.cpp", 0, 0);

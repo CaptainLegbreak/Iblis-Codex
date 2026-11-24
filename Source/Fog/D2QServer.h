@@ -165,7 +165,7 @@ struct D2QAcceptStatsStrc
     int nRejected;                                          // 0xA0
     int nPostErrors;                                        // 0xA4
     int nAccepted;                                          // 0xA8
-    char unk_AC[0xB0 - 0xAC];                               // 0xAC
+    int nActive;                                            // 0xAC
 };
 #pragma pack(pop)
 
