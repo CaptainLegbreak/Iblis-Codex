@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/client-records-b e7830e6d 562->562 Four commits, each a small header that only the units holding identical private copies include: D2LaunchRequest.h (the realm game-list request WINMAIN_SendMcpGameListRequest takes; 6 units in D2Client/D2Launch/D2MCPClient/D2Multi), D2ClientStatButton.h (gaStatButtons' 0xE-byte pack(2) record, still named D2BeltSlotStrc because the data plan names it; 4 units), D2ClientKeyConfig.h (the 0x47A-byte .key file; CmdTbl, CUnit), D2ClientTextPanel.h (the scrolling text panel and its line; panel, Unknown_00499500); VERIFIED eb6c179ea2512d03654fb1f487c8e4bd83942885
+  - On d4484343. All 14 changed units build equal.
+  - Outside lane 2: lanes 4 and 6 (private-copy removal plus one include per unit).
+
 - lane2/questlog-records f4189478 562->562 D2ClientQuestLog.h: the quest table, the packed 0x26A-byte quest panel entry and the button layout. QuestLog, text, text_0049A950, Unknown_004A43E0 and Unknown_004A6460 each had private copies with the same text, now in a small header only they include. The quest text message stays private (QuestLog types its text as unsigned short where the rest use Unicode), and so does the log state that embeds it; VERIFIED 302c0d5fa0520de1a0083154e92e1ffe2138269b
   - On d4484343. The 5 units build equal.
   - Outside lane 2: the five D2Client UI units (lane 4).
@@ -24,10 +28,9 @@ Records that two or more units define privately with the same text, moved into t
 6. (done: win32-system-2)
 7. (done: win-popup)
 8. (done: questlog-records)
-9. D2LaunchRequestStrc (WINMAIN, Unknown_0044B400, CharSel, CharSel_0042E600, Unknown_0044A170, Unknown_00444020).
-10. D2BeltSlotStrc (text, Unknown_004A43E0/004A6460/004A76C0).
-11. Char save file and ladder entry (ChatDlg, ChatDlg_00441B70).
-12. Key config file (CmdTbl, CUnit), text panel (panel, Unknown_00499500).
+9, 10, 12. (done: client-records-b)
+11. Skipped: ChatDlg's D2CharSaveFileStrc is a 0x2000-byte view of the .d2s file that reads 0x18 as old flags; merging it with D2SaveHeaderStrc needs a union there. The ladder entry alone isn't worth a header.
+13. Next: a fresh scan for identical private copies on current main (the identical-text list is from #318).
 No borrowed-data block or language split is in lane 2's range: the coord block is runtime-library data.
 
 ## Questions
