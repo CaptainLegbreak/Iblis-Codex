@@ -8310,11 +8310,6 @@
      "va": "0x0042B9D0",
      "length": 1,
      "name": "?sub_0042B9D0_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x0042E590",
-     "length": 12,
-     "name": "?sub_0042E590_SetOwner@@YIPAXPAX@Z"
     }
    ],
    "flags": [
@@ -8936,14 +8931,25 @@
    ]
   },
   {
-   "file": "Source/D2Launch/Unknown_0042E5A0.cpp",
+   "file": "Source/D2Launch/Unknown_0042E590.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x0042E590",
+     "length": 12,
+     "name": "?sub_0042E590_SetOwner@@YIPAXPAX@Z"
+    },
     {
      "va": "0x0042E5A0",
      "length": 1,
      "name": "?sub_0042E5A0_Nop@@YAXXZ"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Launch/Unknown_0042E5A0.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x0042E620",
      "length": 10,
