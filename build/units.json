@@ -45392,16 +45392,6 @@
      "name": "D2GAME_SendP0x9C_ItemAction_AddOrRemoveFromShop_6FC3F260"
     },
     {
-     "va": "0x0054C360",
-     "length": 5,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x42_Ignored"
-    },
-    {
-     "va": "0x0054C370",
-     "length": 5,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x43_Ignored"
-    },
-    {
      "va": "0x00568DB0",
      "length": 3,
      "name": "sub_00568DB0"
@@ -47142,6 +47132,16 @@
      "va": "0x0054C300",
      "length": 83,
      "name": "D2GAME_PACKETCALLBACK_Rcv0x5E_InviteToParty_6FC87720"
+    },
+    {
+     "va": "0x0054C360",
+     "length": 5,
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x42_Ignored"
+    },
+    {
+     "va": "0x0054C370",
+     "length": 5,
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x43_Ignored"
     },
     {
      "va": "0x0054C380",
@@ -60755,29 +60755,6 @@
      "name": "SKILLS_AuraCallback_StaticField"
     },
     {
-     "va": "0x005C98F0",
-     "length": 600
-    },
-    {
-     "va": "0x005C9B50",
-     "length": 177,
-     "name": "?SKILLS_SrvDo022_NovaAttack@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005C9C10",
-     "length": 382,
-     "name": "SKILLS_SrvDo023_Blaze_EnergyShield_SpiderLay"
-    },
-    {
-     "va": "0x005CA910",
-     "length": 547
-    },
-    {
-     "va": "0x005CAB40",
-     "length": 262,
-     "name": "SKILLS_EventFunc01_ChillingArmor"
-    },
-    {
      "va": "0x005CAF80",
      "length": 27,
      "name": "?SKILLS_SrvSt43_MaggotEgg@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -60796,25 +60773,6 @@
      "va": "0x005CB170",
      "length": 250,
      "name": "?SKILLS_SrvSt44_MaggotUp@@YIHPAUGame@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005CB300",
-     "length": 186,
-     "name": "SKILLS_SrvDo086_MaggotDown"
-    },
-    {
-     "va": "0x005CB3C0",
-     "length": 271,
-     "name": "SKILLS_SrvDo087_MaggotLay"
-    },
-    {
-     "va": "0x005CB580",
-     "length": 421,
-     "name": "SKILLS_SrvDo088_AndrialSpray"
-    },
-    {
-     "va": "0x005CB730",
-     "length": 525
     },
     {
      "va": "0x005CBF90",
@@ -60840,11 +60798,6 @@
      "va": "0x005D8290",
      "length": 330,
      "name": "SKILLS_ApplyWarcryStats"
-    },
-    {
-     "va": "0x005D83E0",
-     "length": 143,
-     "name": "?SKILLS_SrvDo068_BasicShout@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005E52D0",
@@ -61017,6 +60970,20 @@
      "name": "SKILLS_SrvDo020_StaticField"
     },
     {
+     "va": "0x005C98F0",
+     "length": 600
+    },
+    {
+     "va": "0x005C9B50",
+     "length": 177,
+     "name": "?SKILLS_SrvDo022_NovaAttack@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005C9C10",
+     "length": 382,
+     "name": "SKILLS_SrvDo023_Blaze_EnergyShield_SpiderLay"
+    },
+    {
      "va": "0x005C9D90",
      "length": 260
     },
@@ -61063,6 +61030,15 @@
      "va": "0x005CA6C0",
      "length": 590,
      "name": "?SKILLS_EventFunc24_EnergyShield@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
+    },
+    {
+     "va": "0x005CA910",
+     "length": 547
+    },
+    {
+     "va": "0x005CAB40",
+     "length": 262,
+     "name": "SKILLS_EventFunc01_ChillingArmor"
     },
     {
      "va": "0x005CAC50",
@@ -61118,9 +61094,28 @@
      "name": "?SKILLS_SrvSt45_MaggotDown@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005CB300",
+     "length": 186,
+     "name": "SKILLS_SrvDo086_MaggotDown"
+    },
+    {
+     "va": "0x005CB3C0",
+     "length": 271,
+     "name": "SKILLS_SrvDo087_MaggotLay"
+    },
+    {
      "va": "0x005CB4D0",
      "length": 174,
      "name": "?SKILLS_SrvSt46_AndrialSpray@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005CB580",
+     "length": 421,
+     "name": "SKILLS_SrvDo088_AndrialSpray"
+    },
+    {
+     "va": "0x005CB730",
+     "length": 525
     },
     {
      "va": "0x005CB940",
@@ -61812,16 +61807,6 @@
      "name": "SKILLS_SrvDo142_ApplyAreaCombat"
     },
     {
-     "va": "0x005D88B0",
-     "length": 252,
-     "name": "SKILLS_SrvDo074_DoubleThrow"
-    },
-    {
-     "va": "0x005D89B0",
-     "length": 352,
-     "name": "SKILLS_SrvDo075_GrimWard"
-    },
-    {
      "va": "0x005DA940",
      "length": 243,
      "name": "SKILLS_SrvSt06_PowerStrike_ChargedStrike"
@@ -61899,6 +61884,11 @@
      "length": 199
     },
     {
+     "va": "0x005D83E0",
+     "length": 143,
+     "name": "?SKILLS_SrvDo068_BasicShout@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005D8470",
      "length": 155,
      "name": "?SKILLS_SrvDo070_DoubleSwing@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -61921,6 +61911,16 @@
     {
      "va": "0x005D8780",
      "length": 290
+    },
+    {
+     "va": "0x005D88B0",
+     "length": 252,
+     "name": "SKILLS_SrvDo074_DoubleThrow"
+    },
+    {
+     "va": "0x005D89B0",
+     "length": 352,
+     "name": "SKILLS_SrvDo075_GrimWard"
     },
     {
      "va": "0x005D8B10",

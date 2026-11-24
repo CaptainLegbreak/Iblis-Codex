@@ -2194,8 +2194,6 @@
     "extern \"C\" void __cdecl sub_0054C0E0(); // 0x0054C0E0",
     "extern \"C\" void __cdecl sub_0054C2A0(); // 0x0054C2A0",
     "extern \"C\" void __cdecl sub_0054C300(); // 0x0054C300",
-    "extern \"C\" void __cdecl D2GAME_PACKETCALLBACK_Rcv0x42_Ignored(); // 0x0054C360",
-    "extern \"C\" void __cdecl D2GAME_PACKETCALLBACK_Rcv0x43_Ignored(); // 0x0054C370",
     "extern \"C\" void __cdecl sub_0054C380(); // 0x0054C380",
     "extern \"C\" void __cdecl sub_0054C4B0(); // 0x0054C4B0",
     "extern \"C\" void __cdecl sub_0054C520(); // 0x0054C520",
