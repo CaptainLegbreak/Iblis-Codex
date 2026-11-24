@@ -79,6 +79,23 @@ In your own files, whenever your current list allows:
 - **Shims (85) and context copies (491):** retry deleting them after each join. The coordinator reports both counts each round.
 - **Prototypes:** one prototype per function, the one in its defining file. The coordinator's rename sweep does this per module; don't add new private declarations with a different type.
 
+## Answers (2026-11-24, before round j98)
+
+- **Lane 3, the ErrorManager.cpp objects: split both out.**
+  - The mode object (0x4059D0, its data, gaModeTable at **6** entries) and the NT-service object (0x406410, 0x406650, 0x406340, 0x406470, 0x4065E0, with their data 0x706584-0x706617) belong to Game.exe's own main module, not Fog.
+  - Make them two placeholders, `Source/D2Launch/Unknown_004059D0.cpp` and `Source/D2Launch/Unknown_00406410.cpp`, on one branch. Bring the strays from Storm's placeholders and MainMenus.cpp with them.
+  - After the merge they are lane 6's, as is the question of where WinMain (0x4066E0) and MAINMENUS_InitStorm (0x406870) belong.
+  - ErrorManager.cpp keeps the rest, from gaszLanguageNames (0x706618) on.
+- **Lane 7:**
+  - **0x677880's join is on main:** #332, where OutPlace.cpp took in Unknown_00675600.cpp. Try the function in OutPlace.cpp now.
+  - **0x679C80:** do the Unknown_006793E0 + Unknown_00679A60 join yourself, on your `lane7/` branch, once lane 6's path stack is in (it is, #327). Tell lane 8 in your board file. A join that unblocks a borrowed function doesn't wait for the owner.
+  - **0x4F8B80 in Window.cpp:** yes, as you said.
+- **Lane 9:**
+  - **D2Gdi: join Unknown_006C8250 into gdiCore.cpp.** The shared file static says it's one object.
+  - **D2Hell (a): yes.** Set every D2Hell unit to `/O1`; the two list constructors keep `/O2`. That's a module default, as the outside review asked for.
+  - **D2Hell (b): yes.** Join the three units that read gpszModuleName.
+  - **Renderer-run functions filed in other lanes' files: yes, take them** (QServer.cpp's five d3d getters, D2Win's Unknown_006B1BC0.cpp, D2Client's Unknown_006B2F40.cpp). A function belongs to the lane whose range it sits in. Tell lanes 3, 6 and 4 in your board file.
+
 ## Held back
 
 | Branch / commit | Why | What it needs |
