@@ -4,19 +4,28 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane6/path-d-2 c3256417 497->493 the D2Common path cluster regroup, as a stack of three commits. Taking path-d-2 takes them all. VERIFIED 9d898fc4 (on #325). lane6/path-b-2 54d23651 (first commit alone) is VERIFIED 7f3c726f, if you want it separately. Replaces path-b.
-  - path-b-2: IDA* 0x0067A550-0x0067ADBF -> Unknown_0067A550.cpp (from seven files: the call chain from 0x0067AD00 down, plus the const tables 0x006F17D8/0x006F18D8).
-  - path-c-2: A* 0x0067ADC0-0x0067B9B1 -> Unknown_0067ADC0.cpp; tail 0x0067B9C0-0x0067C1C8 -> Unknown_0067B9C0.cpp. The A* driver 0x0067B850 calls five A* statics. The tail's 0x0067BDF0 calls two statics and shares 0x006F1E28 with 0x0067BBC0. The tail's tables 0x006F1D98/0x006F1E28 move into its record, out of Unknown_00679A60 and Skills.cpp.
-  - path-d-2: ray trace 0x00679380-0x0067A549 -> Unknown_00679380.cpp, including Skills.cpp's 0x00679380 and 0x0067A390.
-  - The cluster now reads as clean runs: Unknown_00675600 | PathUtil.cpp | Unknown_00679380 | Unknown_0067A550 | Unknown_0067ADC0 | Unknown_0067B9C0 | PathWF.cpp. 14 strays drop out. Everything stays in lane 6. Borrowed data 3,359 B (main 3,363).
+(d2comp-a and d2win-b are verifying; ready lines follow.)
 
 ## Claimed
 
-- D2Win (in progress, lane6/d2comp-a). D2Comp.cpp's run (0x005031D0-0x00506A3F), D2WinSmack's, D2WinList's and D2WinScrollbar's each hold pieces filed elsewhere. All the names are inferred or d2moo, so the runs decide. Then the language block gData_0072EFD4 (7 back-to-back copies) is split over the 7 data-less objects after D2Comp in code order: D2WinSmack, D2WinList, D2WinAccountList, D2WinProgressBar, D2WinScrollbar, D2WinPopup and Unknown_00508970. D2WinAnimImage's pieces there are scroll-bar getters. Each copy comes from D2LanguageNames.h.
+- D2Win (in progress). Two branches, stacked: lane6/d2comp-a (D2Comp, Smack, List, Scrollbar, Popup take their pieces; gData_0072EFD4's seven copies split over the seven data-less objects after D2Comp) and lane6/d2win-b on top of it (TextBox, EditBox, Image take their pieces; gData_0072DE94's six copies split over Image, Timer, Unknown_004FDA80, EditBox, AnimImage, Button). Next in D2Win: the WREGISTER run 0x00506C40-0x00506E5F and the rest of D2WinMain.cpp's strays.
 
-## Questions
+## Handover to lane 8 (D2Common)
 
-- Coordinator: PathWF.cpp (0x0067C2D0, its only function) calls the static 0x0067B9F0, and it carries marked copies of 0x0067B9F0 and 0x0067BD80. So it is in the same object as the tail run 0x0067B9C0-0x0067C1C8. "PathWF.cpp" is D2MOO's name and there is no assert. Should the joined file be PathWF.cpp, or the placeholder Unknown_0067B9C0.cpp with 0x0067C2D0 moved in? Until you answer, path-c leaves PathWF.cpp as it is, and the static keeps a shim.
+All my D2Common branches are merged (path-d-2 in #327). Nothing of mine is in flight there. Open items:
+- Question (was mine for the coordinator): PathWF.cpp (0x0067C2D0, its only function) calls the static 0x0067B9F0 and carries marked copies of 0x0067B9F0 and 0x0067BD80, so it is one object with the tail run 0x0067B9C0-0x0067C1C8 (Unknown_0067B9C0.cpp). "PathWF.cpp" is a D2MOO name and there is no assert. Join them under one name; the static's shim goes away with the join.
+- Borrowed functions: 0x0062B5B0 (Items.cpp; 0x00628830 takes nRequiredLevel in eax; same length reached, the original keeps nRequiredLevel in esi, ours spills it). 0x00677880 (needs DRLG/OutPlace.cpp and Unknown_00675600.cpp joined; 296 B of borrowed data at 0x006F13F0 comes with it). 0x00679C80 (needs Unknown_006793E0 (/GS-) and Unknown_00679A60 joined; path-b/c/d regrouped that area, check what is left).
+- Language splits in language-objects.md: FieldTbls.cpp (15 copies), MonsterTbls (5), Waypoint (5) and the other D2Common rows.
+- Left in place, with reasons (also in "Left in place" below): PATHMISC_SetRoom 0x0064FAA0 (callerless static), Unknown_00650D70, Path.cpp 0x00648020, DUNGEON_ 0x00643260-0x00643560, Items.cpp 0x006313E0-0x006314A0, OutDesr.cpp 0x006801A0-0x006803D0.
+- Tools I used for the path cluster (data-reader map, const-table groups) are described in the path-b/c/d commit messages (#326, #327).
+
+## Handover to lane 9 (renderers, D2Hell)
+
+Nothing of mine in flight. Open items:
+- D2DDraw software renderer 0x00511DF0-0x005132C0: ddCore.cpp is asserted only at 0x00511B80-0x00511CE0, and 0x007C9138 is shared by a dozen files; Unknown_00512930, Unknown_00512C20 and the rest of Unknown_005125E0 stay until something ties them.
+- glVertex.cpp 0x0050D6A0 waits on lane 2's shared D2GlideSettingsStrc (the private copy lacks bLowQuality).
+- d3dSprite pieces: shelved join (calling-convention shims, conflicting prototypes), waiting on shared headers.
+- Strays in Storm's range (see the lane 3 note below): D2Gdi Unknown_006C81A0/_006C84B0/_006C86A0/_006C8750, D2Direct3D Unknown_006B1C70, D2Hell Unknown_006CAE5F and Unknown_006CB401.
 
 ## Notes for other lanes
 
