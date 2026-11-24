@@ -2,10 +2,11 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 11:37:47 PST 2026): mcp-startthread-2 merged (#361). The six join branches are rebased on #361 without docs/index.html (the round regenerates it; it made every branch conflict), full verifies queued; posting each as it passes. ChatDlg three retried: still unequal (left in place).
+Status (Tue Nov 24 11:51:52 PST 2026): join-codec ready; the other five joins and the McpConnect accessor join are in the verify queue.
 
 ## Ready
 
+- lane6/join-codec 918ac3a1 400->399 placeholders. Codec.cpp takes Unknown_0060B7B0.cpp (sub_0060B7B0_DecodeCell): Codec's 0x60BFF0, its only caller, passes it arguments in ecx, edx and esi, the compiler's convention for a static function of the same unit. Codec's context copy becomes the definition, with the placeholder's body in Codec's cell type (same layout). No docs/index.html change (left to the round). Not stacked; D2CMP only. VERIFIED e54ee1e0 (on #361; borrowed data 898 B, unchanged).
 
 
 ## Claimed
