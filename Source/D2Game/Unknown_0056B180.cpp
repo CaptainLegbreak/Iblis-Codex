@@ -8,6 +8,8 @@
 #include "D2UnitData.h"
 #include "D2Txt.h"
 #include "D2SaveHeader.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x007320C0
 
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
