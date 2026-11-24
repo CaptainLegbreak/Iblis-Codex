@@ -7,6 +7,7 @@
 #include "D2DataTbls.h"
 #include "D2UnitData.h"
 #include "D2Txt.h"
+#include "D2SaveHeader.h"
 
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
@@ -14,16 +15,6 @@ struct D2PlayerDataStrc;
 struct D2SaveHeaderStrc;
 
 
-struct D2SaveHeaderStrc
-{
-    int dwHeaderMagic;
-    unsigned int dwVersion;
-    char unk0x08[0x21];
-    unsigned char nStats;
-    unsigned char nSkills;
-    char unk0x2B[0x84];
-    unsigned char MercSaveData[0x10];
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const int gnPlrSave2ErrorRemap[PLRSAVE2ERROR_COUNT]; // 0x006E1208

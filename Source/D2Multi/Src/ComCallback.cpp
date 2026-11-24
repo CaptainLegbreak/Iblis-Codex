@@ -7,6 +7,7 @@
 #include "D2StormTypes.h"
 
 #include "D2ClientTypes.h"
+#include "D2MsgRecord.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -489,21 +490,7 @@ struct D2MsgHandlerEntryStrc;
 
 typedef void (__stdcall* SMSGHANDLER)(SMSGHANDLER_PARAMS* pMsg);
 
-struct D2MsgRecordStrc
-{
-    unsigned int dwTick;
-    unsigned int uMessage;
-    unsigned int wParam;
-    int lParam;
-};
 
-struct D2MsgRecordChunkStrc
-{
-    D2MsgRecordStrc tRecords[500];
-    int nCount;
-    int nUnk0x1F44;
-    D2MsgRecordChunkStrc* pNext;
-};
 
 extern "C" __declspec(dllimport) int __stdcall DefWindowProcA(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam); // 0x006CC488
 
@@ -2971,7 +2958,7 @@ void __stdcall COMCALLBACK_RecordMessage(unsigned int uMessage, unsigned int wPa
     if (gpMsgRecordChunk_0070F7A0->nCount >= 500)
         RECORD_AddRecordChunk();
     D2MsgRecordStrc* pRecord = &gpMsgRecordChunk_0070F7A0->tRecords[gpMsgRecordChunk_0070F7A0->nCount++];
-    pRecord->dwTick = sub_0044DA90();
+    pRecord->nTick = sub_0044DA90();
     pRecord->uMessage = uMessage;
     pRecord->wParam = wParam;
     pRecord->lParam = lParam;

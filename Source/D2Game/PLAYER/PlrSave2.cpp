@@ -17,6 +17,7 @@
 #include "D2ItemModes.h"
 #include "D2GameServer.h"
 #include "D2GameClient.h"
+#include "D2SaveHeader.h"
 
 struct D2ClientStrc;
 
@@ -92,50 +93,7 @@ struct D2QuestDataStrc;
 
 struct D2ItemSaveStrc;
 
-struct D2SaveSkillKeyStrc
-{
-    unsigned short nSkill;
-    unsigned short nKey;
-};
 
-#pragma pack(push, 1)
-
-struct D2SaveHeaderStrc
-{
-    unsigned int dwHeaderMagic;
-    unsigned int dwVersion;
-    unsigned int dwSize;
-    unsigned int dwChecksum;
-    unsigned int dwWeaponSwitch;
-    char szName[16];
-    unsigned int dwSaveFlags;
-    unsigned char nClass;
-    unsigned char nStats;
-    unsigned char nSkills;
-    unsigned char nLevel;
-    unsigned int dwCreateTime;
-    unsigned int dwLasTime;
-    unsigned int dwPlayTime;
-    D2SaveSkillKeyStrc SkillKeys[16];
-    unsigned short nLeftSkillId;
-    unsigned short nLeftSkillItemIndex;
-    unsigned short nRightSkillId;
-    unsigned short nRightSkillItemIndex;
-    unsigned short nSwitchLeftSkillId;
-    unsigned short nSwitchLeftSkillItemIndex;
-    unsigned short nSwitchRightSkillId;
-    unsigned short nSwitchRightSkillItemIndex;
-    unsigned char nComponent[16];
-    unsigned char nCompColor[16];
-    unsigned char nTown[3];
-    unsigned int dwMapSeed;
-    unsigned char MercSaveData[0x10];
-    char unk0xBF[0x10];
-    unsigned char nGuildEmblemBgColor;
-    char unk0xD0[0x7F];
-};
-
-#pragma pack(pop)
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 

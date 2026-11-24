@@ -33,6 +33,7 @@
 #include "D2StormLink.h"
 #include "D2InactiveUnits.h"
 #include "D2Packets.h"
+#include "D2SaveHeader.h"
 
 #pragma intrinsic(strcpy)
 
@@ -1717,19 +1718,6 @@ int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 
 __declspec(noalias) int __fastcall PLRSAVE2_CreateSaveFile(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pData, unsigned int* pSize, unsigned int nMaxSize, int a6, int a7); // 0x00569AD0
 
-struct D2SaveHeaderStrc
-{
-    unsigned int dwHeaderMagic;
-    unsigned int dwVersion;
-    unsigned int dwSize;
-    unsigned int dwChecksum;
-    char unk0x10[0x20];
-    unsigned int dwLasTime;
-    unsigned int dwPlayTime;
-    char unk0x38[0x73];
-    unsigned char dwMapSeed[4];
-    unsigned char unk_AF[0x1];
-};
 
 extern D2CriticalSectionStrc gSrvClientListByNameLock_6FD443B8; // 0x008846C0
 
