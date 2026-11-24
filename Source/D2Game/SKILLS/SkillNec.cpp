@@ -883,6 +883,26 @@ int __fastcall SKILLS_CanApplyCurseToTarget(Game* game,Unit* unit,Unit* target)
     return sub_00554200_CheckTarget(game,unit,target)!=0;
 }
 
+inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+
+    return 0;
+}
+
+inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnitInline(D2UnitStrc* pUnit)
+{
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
+    {
+        return pUnit->pMonsterData->pAiControl;
+    }
+
+    return 0;
+}
+
 static inline int AiSpecialStateFromAuraState(int nAuraState)
 {
     switch (nAuraState)
@@ -891,6 +911,16 @@ static inline int AiSpecialStateFromAuraState(int nAuraState)
     case STATE_TERROR: return AISPECIALSTATE_TERROR;
     case STATE_TAUNT: return AISPECIALSTATE_TAUNT;
     default: return AISPECIALSTATE_NONE;
+    }
+}
+
+// 0x005C34B0
+void __fastcall SKILLS_ExecuteCurseTargetAi(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    if (pSkillsTxtRecord)
+    {
+        AITHINK_ExecuteAiFn(pGame, pTarget, AIGENERAL_GetAiControlFromUnitInline(pTarget), AiSpecialStateFromAuraState(pSkillsTxtRecord->wAuraTargetState));
     }
 }
 
@@ -1869,6 +1899,14 @@ int __fastcall SKILLS_ExplodeCorpse(D2GameStrc* pGame, D2UnitStrc* pUnit, int nS
 int __fastcall SKILLS_SrvDo055_CorpseExplosion(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     return SKILLS_ExplodeCorpse(pGame, pUnit, nSkillId, nSkillLevel);
+}
+
+// 0x005C50C0
+void __fastcall SKILLS_SetGolemStats(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nSkillId, int nSkillLevel)
+{
+    D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10(pGame, pUnit, pPet, 0, nSkillLevel);
+    D2GAME_SetSummonPassiveStats_6FD0C530(pGame, pUnit, pPet, nSkillId, nSkillLevel, 0);
+    D2GAME_SetSummonResistance_6FD0C2E0(pUnit, pPet);
 }
 
 // 0x005C5100
