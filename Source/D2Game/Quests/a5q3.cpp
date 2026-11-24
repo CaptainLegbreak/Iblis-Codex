@@ -14,6 +14,7 @@
 #include "D2QuestData.h"
 #include "D2ObjModes.h"
 #include "D2MonModes.h"
+#include "D2Packets.h"
 
 struct D2PlayerDataStrc;
 
@@ -227,7 +228,6 @@ D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster_6FC66560(D2GameStrc* pGame, D2A
 
 void __fastcall ACT5Q3_UnitIterate_CheckForDefrostPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs); // 0x0058A270
 
-struct D2GSPacketSrv5D { unsigned char nHeader, nQuestId, nFlags, nState; unsigned short field_4; };
 
 struct D2QuestRewardItemsStrc { unsigned int* pCodes; int nCount; };
 
@@ -672,7 +672,6 @@ void __fastcall ACT5Q3_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, 
 
 #define ITEMCODE_DEFROST_POTION 0x20656369
 struct D2ObjOperateFnStrc;
-typedef bool(__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
 void __fastcall QUESTS_CreateTimer(D2QuestDataStrc* pQuest, QUESTUPDATE pfnCallback, int nTicks); // 0x00543F10
 void __fastcall QUESTS_DeleteItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, int dwCode); // 0x00544160
 void __fastcall QUESTS_SendScrollMessage(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, unsigned short nMessage); // 0x005456A0

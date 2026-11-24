@@ -3946,26 +3946,6 @@
      "name": "sub_0040FC60_UnlinkNode"
     },
     {
-     "va": "0x00413F30",
-     "length": 532,
-     "name": "bjhash"
-    },
-    {
-     "va": "0x00414150",
-     "length": 131,
-     "name": "SStrHashHT"
-    },
-    {
-     "va": "0x004141E0",
-     "length": 19,
-     "name": "SStrUpper"
-    },
-    {
-     "va": "0x00414200",
-     "length": 19,
-     "name": "SStrLower"
-    },
-    {
      "va": "0x00414260",
      "length": 51,
      "name": "sub_00414260_PowInt"
@@ -5711,6 +5691,26 @@
      "va": "0x00413DC0",
      "length": 367,
      "name": "?SStrHash64@@YG_KPBDI_K@Z"
+    },
+    {
+     "va": "0x00413F30",
+     "length": 532,
+     "name": "bjhash"
+    },
+    {
+     "va": "0x00414150",
+     "length": 131,
+     "name": "SStrHashHT"
+    },
+    {
+     "va": "0x004141E0",
+     "length": 19,
+     "name": "SStrUpper"
+    },
+    {
+     "va": "0x00414200",
+     "length": 19,
+     "name": "SStrLower"
     },
     {
      "va": "0x004142A0",
@@ -8346,6 +8346,11 @@
      "name": "?SEvtPopState@@YGHII@Z"
     },
     {
+     "va": "0x00426E80",
+     "length": 157,
+     "name": "SEvtBreakHandlerChain"
+    },
+    {
      "va": "0x00426F90",
      "length": 453
     },
@@ -8387,11 +8392,6 @@
      "va": "0x00426C60",
      "length": 32,
      "name": "??0D2ChatStormListCStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x00426E80",
-     "length": 157,
-     "name": "SEvtBreakHandlerChain"
     },
     {
      "va": "0x0042B9D0",
@@ -11612,6 +11612,11 @@
      "name": "?SKILLS_ScanFindCallback@@YIHPAXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004C5EB0",
+     "length": 115,
+     "name": "WARDENCLIENT_ScanFindUnit"
+    },
+    {
      "va": "0x004C5F30",
      "length": 63,
      "name": "?SKILLS_CheckWeaponStart@@YIHPAUD2UnitStrc@@HH@Z"
@@ -14187,21 +14192,6 @@
      "va": "0x0047EC40",
      "length": 12,
      "name": "?sub_0047EC40_IsSet@@YAHXZ"
-    },
-    {
-     "va": "0x0047F8C0",
-     "length": 111,
-     "name": "ApplyKeystream"
-    },
-    {
-     "va": "0x0047FFB0",
-     "length": 70,
-     "name": "INV_CallServiceWithTime"
-    },
-    {
-     "va": "0x004802E0",
-     "length": 51,
-     "name": "INV_ProcessWardenRequest"
     },
     {
      "va": "0x00480780",
@@ -20459,6 +20449,11 @@
      "name": "GFXUTIL_GetBodyLocItemShift"
     },
     {
+     "va": "0x004DB670",
+     "length": 318,
+     "name": "WARDENCLIENT_UpdateUnitGfx"
+    },
+    {
      "va": "0x004DB7B0",
      "length": 924
     },
@@ -22445,6 +22440,11 @@
      "name": "?WARDENCLIENT_SwapBytes@@YIXPAE0@Z"
     },
     {
+     "va": "0x0047F8C0",
+     "length": 111,
+     "name": "ApplyKeystream"
+    },
+    {
      "va": "0x0047F930",
      "length": 13,
      "name": "??0D2Warden47F930Strc@@QAE@XZ"
@@ -22510,6 +22510,11 @@
      "name": "?WARDENCLIENT_LoadModuleByKey@@YGHPBE0@Z"
     },
     {
+     "va": "0x0047FFB0",
+     "length": 70,
+     "name": "INV_CallServiceWithTime"
+    },
+    {
      "va": "0x00480000",
      "length": 18,
      "name": "?GFX_SendWardenPacket@WardenClient@@UAEHPBXH@Z"
@@ -22560,6 +22565,11 @@
      "name": "?WARDENCLIENT_ActivatePendingModule@@YAXXZ"
     },
     {
+     "va": "0x004802E0",
+     "length": 51,
+     "name": "INV_ProcessWardenRequest"
+    },
+    {
      "va": "0x00480320",
      "length": 28,
      "name": "?WARDENCLIENT_TickModule@@YIXH@Z"
@@ -22595,34 +22605,14 @@
      "name": "WARDENCLIENT_DrawSkillInfo"
     },
     {
-     "va": "0x0049C7F0",
-     "length": 388,
-     "name": "WARDENCLIENT_BuildWaypointList"
-    },
-    {
      "va": "0x004A1320",
      "length": 481,
      "name": "WARDENCLIENT_OpenTextPanel"
     },
     {
-     "va": "0x004C5EB0",
-     "length": 115,
-     "name": "WARDENCLIENT_ScanFindUnit"
-    },
-    {
-     "va": "0x004DB670",
-     "length": 318,
-     "name": "WARDENCLIENT_UpdateUnitGfx"
-    },
-    {
      "va": "0x004E6560",
      "length": 274,
      "name": "WARDENCLIENT_SetItemPropTexts"
-    },
-    {
-     "va": "0x004F3CE0",
-     "length": 357,
-     "name": "WARDENCLIENT_CreateSkillMissiles"
     }
    ]
   },
@@ -25533,6 +25523,11 @@
      "va": "0x0049C760",
      "length": 140,
      "name": "?sub_0049C760_SetWaypointAct@@YAXH@Z"
+    },
+    {
+     "va": "0x0049C7F0",
+     "length": 388,
+     "name": "WARDENCLIENT_BuildWaypointList"
     },
     {
      "va": "0x0049C980",
@@ -32106,6 +32101,11 @@
      "va": "0x004F3C80",
      "length": 83,
      "name": "SKILLSMON_UseSkillParamsA"
+    },
+    {
+     "va": "0x004F3CE0",
+     "length": 357,
+     "name": "WARDENCLIENT_CreateSkillMissiles"
     },
     {
      "va": "0x004F3E50",

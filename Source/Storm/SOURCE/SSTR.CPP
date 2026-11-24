@@ -969,3 +969,89 @@ extern "C" void __cdecl sub_00414360_CallThenSetFlag()
     sub_004142A0_InitPowTable();
     gnFlag_007788DC = 1;
 }
+
+extern "C" char* __cdecl _strupr(char* szString); // 0x006862A2
+extern "C" char* __cdecl _strlwr(char* szString); // 0x006864E1
+
+#define STORM_LOOKUP2_MIX(a, b, c) \
+{ \
+    a -= b; a -= c; a ^= (c >> 13); \
+    b -= c; b -= a; b ^= (a << 8); \
+    c -= a; c -= b; c ^= (b >> 13); \
+    a -= b; a -= c; a ^= (c >> 12); \
+    b -= c; b -= a; b ^= (a << 16); \
+    c -= a; c -= b; c ^= (b >> 5); \
+    a -= b; a -= c; a ^= (c >> 3); \
+    b -= c; b -= a; b ^= (a << 10); \
+    c -= a; c -= b; c ^= (b >> 15); \
+}
+
+// 0x00413F30
+unsigned int __fastcall bjhash(const unsigned char* k, unsigned int nLength, unsigned int nInitVal)
+{
+    unsigned int a, b, c, len;
+    len = nLength;
+    a = b = 0x9E3779B9;
+    c = nInitVal;
+    while (len >= 12)
+    {
+        a += (k[0] + ((unsigned int)k[1] << 8) + ((unsigned int)k[2] << 16) + ((unsigned int)k[3] << 24));
+        b += (k[4] + ((unsigned int)k[5] << 8) + ((unsigned int)k[6] << 16) + ((unsigned int)k[7] << 24));
+        c += (k[8] + ((unsigned int)k[9] << 8) + ((unsigned int)k[10] << 16) + ((unsigned int)k[11] << 24));
+        STORM_LOOKUP2_MIX(a, b, c);
+        k += 12;
+        len -= 12;
+    }
+    c += nLength;
+    switch (len)
+    {
+    case 11: c += ((unsigned int)k[10] << 24);
+    case 10: c += ((unsigned int)k[9] << 16);
+    case 9: c += ((unsigned int)k[8] << 8);
+    case 8: b += ((unsigned int)k[7] << 24);
+    case 7: b += ((unsigned int)k[6] << 16);
+    case 6: b += ((unsigned int)k[5] << 8);
+    case 5: b += k[4];
+    case 4: a += ((unsigned int)k[3] << 24);
+    case 3: a += ((unsigned int)k[2] << 16);
+    case 2: a += ((unsigned int)k[1] << 8);
+    case 1: a += k[0];
+    }
+    STORM_LOOKUP2_MIX(a, b, c);
+    return c;
+}
+
+// 0x00414150
+unsigned int __stdcall SStrHashHT(const char* szPath)
+{
+    char szBuffer[0x400];
+    char* p = szBuffer;
+    unsigned int nLength = 0;
+    unsigned int c;
+    while ((c = (unsigned char)*szPath) != 0)
+    {
+        ++szPath;
+        if (nLength >= 0x3FF)
+            break;
+        if (c - 'a' <= 25)
+            c -= 0x20;
+        else if (c == '/')
+            c = '\\';
+        *p++ = (char)c;
+        ++nLength;
+    }
+    *p = 0;
+    return bjhash((const unsigned char*)szBuffer, nLength, 0);
+}
+
+// 0x004141E0
+char* __stdcall SStrUpper(char* szString)
+{
+    return _strupr(szString);
+}
+
+// 0x00414200
+char* __stdcall SStrLower(char* szString)
+{
+    return _strlwr(szString);
+}

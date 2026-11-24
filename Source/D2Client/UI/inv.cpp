@@ -1850,42 +1850,8 @@ int __cdecl sub_0047EC40_IsSet()
     return gdwGlobal_007BC974 != 0;
 }
 
-// 0x0047F8C0
-void D2RC4Strc::ApplyKeystream(unsigned char* pData, unsigned int nSize)
-{
-    for (unsigned int n = 0; n < nSize; ++n)
-    {
-        ++i;
-        j += S[i];
-        unsigned char* pA = &S[i];
-        unsigned char* pB = &S[j];
-        unsigned char t = *pA;
-        *pA = *pB;
-        *pB = t;
-        pData[n] ^= S[(unsigned char)(S[j] + S[i])];
-    }
-}
 
-// 0x0047FFB0
-int __stdcall INV_CallServiceWithTime(int nArg1, int nArg2, int nArg3)
-{
-    if (!gpService)
-        return 0;
-    _FILETIME tTime;
-    GetSystemTimeAsFileTime(&tTime);
-    return gpService->pfnCall(nArg1, nArg2, nArg3, &tTime, -1, -1);
-}
 
-// 0x004802E0
-void __fastcall INV_ProcessWardenRequest(int nArg1, int nArg2)
-{
-    if (gpSlotHolder)
-    {
-        int nOut = 0;
-        gpSlotHolder->pObj->Slot2(nArg1, nArg2, &nOut);
-        WARDENCLIENT_ActivatePendingModule();
-    }
-}
 
 // 0x00480780
 int __fastcall INV_SetPathTargetUnit(D2UnitStrc* pUnit, int nUnitType, int nUnitId)

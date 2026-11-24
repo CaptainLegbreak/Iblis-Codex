@@ -39,7 +39,18 @@ struct BREAKCMD
 {
     D2StormLinkStrc f_0;
     void* pData;
+
+    BREAKCMD()
+    {
+        f_0.m_prevlink = 0;
+        f_0.m_next = 0;
+    }
 };
+
+inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()
+{
+    return pWhere;
+}
 
 struct D2StormBreakCmdListStrc
 {
@@ -372,6 +383,23 @@ inline char* D2StormBreakCmdListStrc::DeleteNode(char* pNode)
     ((D2StormLinkStrc*)pNode)->Unlink();
     SMemFree(pNode, gszTypeBreakCmd_007088D8, -2, 0);
     return pNext;
+}
+
+// 0x00426E80
+int __stdcall SEvtBreakHandlerChain(void* pData)
+{
+    EnterCriticalSection(&gtSEvtLock);
+    BREAKCMD* pCmd = new (SMemAlloc(sizeof(BREAKCMD), gszTypeBreakCmd_007088D8, -2, 8)) BREAKCMD;
+    D2StormLinkStrc* pLink = pCmd ? &pCmd->f_0 : &gtSEvtBreakCmdList_007088E8.m_terminator;
+    pLink->Unlink();
+    D2StormLinkStrc* pTail = gtSEvtBreakCmdList_007088E8.m_terminator.m_prevlink;
+    pLink->m_prevlink = pTail;
+    pLink->m_next = pTail->m_next;
+    pTail->m_next = (char*)pCmd;
+    gtSEvtBreakCmdList_007088E8.m_terminator.m_prevlink = pLink;
+    pCmd->pData = pData;
+    LeaveCriticalSection(&gtSEvtLock);
+    return 1;
 }
 
 // 0x00426F90

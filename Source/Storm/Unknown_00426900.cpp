@@ -247,23 +247,6 @@ D2ChatStormListCStrc::D2ChatStormListCStrc()
 
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere) { return pWhere; }
 
-// 0x00426E80
-int __stdcall SEvtBreakHandlerChain(void* pData)
-{
-    EnterCriticalSection(&gtSEvtLock);
-    SEvtBreakCmdStrc* pCmd = new (SMemAlloc(sizeof(SEvtBreakCmdStrc), gszBREAKCMDTypeName, -2, 8)) SEvtBreakCmdStrc;
-    SEvtLinkStrc* pLink = pCmd ? &pCmd->f_0 : &gtSEvtBreakCmdTerminator;
-    pLink->Unlink();
-    SEvtLinkStrc* pTail = gtSEvtBreakCmdTerminator.pPrevLink;
-    pLink->pPrevLink = pTail;
-    pLink->pNext = pTail->pNext;
-    pTail->pNext = pCmd;
-    gtSEvtBreakCmdTerminator.pPrevLink = pLink;
-    pCmd->pData = pData;
-    LeaveCriticalSection(&gtSEvtLock);
-    return 1;
-}
-
 #include "gen/data/Source/Storm/Unknown_00426900.inc"
 
 // 0x00515110

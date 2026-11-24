@@ -457,7 +457,7 @@ struct D2ClientServiceStrc
     char unk0x00[0xC8];
     void (__fastcall* pfnFree)(void* pData, int nSize);
     int (__fastcall* pfnFind)(char* szName, int* pArg, void** ppData, int* pSize);
-    void (__fastcall* pfnCall)(const char* szName, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
+    int (__fastcall* pfnCall)(const char* szName, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
 };
 
 extern WardenModule* gpPendingWarden; // 0x007BC994
@@ -682,6 +682,22 @@ void __fastcall WARDENCLIENT_SwapBytes(unsigned char* pA, unsigned char* pB)
     unsigned char nTemp = *pA;
     *pA = *pB;
     *pB = nTemp;
+}
+
+// 0x0047F8C0
+void D2RC4Strc::ApplyKeystream(unsigned char* pData, unsigned int nSize)
+{
+    for (unsigned int n = 0; n < nSize; ++n)
+    {
+        ++i;
+        j += S[i];
+        unsigned char* pA = &S[i];
+        unsigned char* pB = &S[j];
+        unsigned char t = *pA;
+        *pA = *pB;
+        *pB = t;
+        pData[n] ^= S[(unsigned char)(S[j] + S[i])];
+    }
 }
 
 // 0x0047F930
@@ -940,6 +956,16 @@ static int __stdcall WARDENCLIENT_LoadModuleByKey(const unsigned char* pRc4Key, 
     return nResult;
 }
 
+// 0x0047FFB0
+int __stdcall INV_CallServiceWithTime(const char* szName, int nArg2, int nArg3)
+{
+    if (!gpService)
+        return 0;
+    _FILETIME tTime;
+    GetSystemTimeAsFileTime(&tTime);
+    return gpService->pfnCall(szName, nArg2, nArg3, &tTime, -1, -1);
+}
+
 // 0x00480000
 int WardenClient::GFX_SendWardenPacket(const void* pData, int nSize)
 {
@@ -1052,6 +1078,41 @@ void __cdecl WARDENCLIENT_ActivatePendingModule()
 // build: symbol ?gnWardenIfaceValue@* 0x00721C94
         int nValue = gnWardenIfaceValue;
         gpSlotHolder->pObj->Slot0(&nValue, 4);
+    }
+}
+
+struct D2MsgRecordStrc
+{
+    int nTick;
+    unsigned int uMessage;
+    unsigned int wParam;
+    int lParam;
+};
+
+struct D2MsgRecordChunkStrc
+{
+    D2MsgRecordStrc tRecords[500];
+    int nCount;
+    int nIndex;
+    D2MsgRecordChunkStrc* pNext;
+};
+
+struct D2RareAffixTxt
+{
+    char unk0x00[0x0C];
+    unsigned short wStringId;
+    char unk0x0E[0x18];
+    char szName[0x20];
+};
+
+// 0x004802E0
+void __fastcall INV_ProcessWardenRequest(int nArg1, int nArg2)
+{
+    if (gpSlotHolder)
+    {
+        int nOut = 0;
+        gpSlotHolder->pObj->Slot2(nArg1, nArg2, &nOut);
+        WARDENCLIENT_ActivatePendingModule();
     }
 }
 
@@ -1232,80 +1293,6 @@ void __fastcall WARDENCLIENT_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkil
     }
 }
 
-// 0x0049C7F0
-void __cdecl WARDENCLIENT_BuildWaypointList()
-{
-    gnWaypointCount = 0;
-    gnWaypointEnabledCount = 0;
-    const int nCurrentLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()));
-
-    for (int i = 0; i < 9; ++i)
-    {
-        gaWaypointEntries[i].nLevelId = 0;
-        gaWaypointEntries[i].bEnabled = 0;
-    }
-
-// build: symbol ?gnWaypointAct@* 0x007BF086
-    if ((unsigned int)gnWaypointAct > 5)
-    {
-        gbSent = 0;
-        return;
-    }
-
-    if (!gaWaypointActRanges[gnWaypointAct].bInit)
-    {
-        gaWaypointActRanges[gnWaypointAct].bInit = 1;
-        for (int nLevelId = *(int*)gaWaypointActRanges[gnWaypointAct].nFirstLevelId;
-            nLevelId <= *(int*)gaWaypointActRanges[gnWaypointAct].nLastLevelId; ++nLevelId)
-        {
-            unsigned short wWaypoint;
-            if (WAYPOINTS_GetWaypointNoFromLevelId(nLevelId, &wWaypoint))
-            {
-                const unsigned char nIndex = (unsigned char)wWaypoint;
-                if (gaWaypointActRanges[gnWaypointAct].nMinWaypoint == 0xFF)
-                {
-                    gaWaypointActRanges[gnWaypointAct].nMinWaypoint = nIndex;
-                }
-
-                gaWaypointActRanges[gnWaypointAct].nMaxWaypoint = nIndex > gaWaypointActRanges[gnWaypointAct].nMaxWaypoint ? nIndex : gaWaypointActRanges[gnWaypointAct].nMaxWaypoint;
-            }
-        }
-    }
-
-    for (int i = gaWaypointActRanges[gnWaypointAct].nMinWaypoint; i <= gaWaypointActRanges[gnWaypointAct].nMaxWaypoint; ++i)
-    {
-        const unsigned short wWaypoint = (unsigned short)i;
-// build: symbol ?gpWaypointData@* 0x007BF081
-        if (WAYPOINTS_IsActivated(gpWaypointData, wWaypoint))
-        {
-            int nLevelId;
-            if (WAYPOINTS_GetLevelIdFromWaypointNo(wWaypoint, &nLevelId))
-            {
-                gaWaypointEntries[gnWaypointCount].nLevelId = nLevelId;
-                if (nCurrentLevelId == nLevelId)
-                {
-                    gaWaypointEntries[gnWaypointCount].bEnabled = 0;
-                }
-                else
-                {
-                    ++gnWaypointEnabledCount;
-                    gaWaypointEntries[gnWaypointCount].bEnabled = 1;
-                }
-                ++gnWaypointCount;
-            }
-        }
-        else
-        {
-            int nLevelId;
-            if (WAYPOINTS_GetLevelIdFromWaypointNo(wWaypoint, &nLevelId))
-            {
-                gaWaypointEntries[gnWaypointCount].nLevelId = nLevelId;
-                gaWaypointEntries[gnWaypointCount].bEnabled = 0;
-                ++gnWaypointCount;
-            }
-        }
-    }
-}
 
 // 0x004A1320
 void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, int bSound)
@@ -1390,89 +1377,7 @@ void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, 
     }
 }
 
-// 0x004C5EB0
-int __fastcall WARDENCLIENT_ScanFindUnit(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, int nArg, int* pOut)
-{
-    D2AreaScanFindStrc tFind = { 0, -1, 0, nArg, nArg, 0 };
 
-    if (!nFlags)
-    {
-        nFlags = 0x583;
-    }
-
-    SKILLS_ScanArea(pUnit, nX, nY, nRange, nFlags | 0xA280, SKILLS_ScanFindCallback, &tFind, 0);
-
-    int nResult = tFind.nFirst;
-    if (!nResult)
-    {
-        nResult = tFind.nSecond;
-    }
-
-    if (pOut)
-    {
-        *pOut = tFind.nOut;
-    }
-
-    return nResult;
-}
-
-// 0x004DB670
-int __fastcall WARDENCLIENT_UpdateUnitGfx(D2UnitStrc* pUnit, int nArg)
-{
-    int nX = 0;
-    int nY = 0;
-    if (sub_004F51D0_IsPerspective())
-    {
-        sub_004F6760_PrecisionToScreen(UNITS_GetPrecisionX(pUnit), UNITS_GetPrecisionY(pUnit), 0, &nX, &nY);
-        switch (sub_0045AE90())
-        {
-        case 1:
-            nX -= gnScreenWidth / 4;
-            break;
-
-        case 2:
-            nX += gnScreenWidth / 4;
-            break;
-        }
-    }
-    else
-    {
-        nX = UNITS_GetClientCoordX(pUnit) - PLAYER_GetScreenOffsetX();
-        nY = UNITS_GetClientCoordY(pUnit) - PLAYER_GetScreenOffsetY();
-    }
-
-    if (!sub_004709A0_IsOnScreen(pUnit, nX, nY, 0, 0))
-    {
-        return 0;
-    }
-
-    D2InventoryStrc* pInventory;
-    D2UnitStrc* pOwner;
-    int bShapeshifted = pUnit ? (pUnit->dwFlagEx >> 3) & 1 : 0;
-    if (bShapeshifted && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = CUNIT_GetOwnerUnit(pUnit)) != 0)
-    {
-        pInventory = pOwner->pInventory;
-    }
-    else
-    {
-        pInventory = pUnit->pInventory;
-    }
-
-    int nWeaponClassId[2];
-    const int nId = COMPOSIT_GetWeaponClassId(pUnit, pInventory, nWeaponClassId, -1, 1);
-    if (!sub_0046E5A0_FindGfxNode(pUnit, nId, -1) && !GFX_LoadUnitGfxNode(pUnit, nId, -1))
-    {
-        return 0;
-    }
-
-    void* pEntry = sub_0046E570_GetGfxEntry(pUnit, sub_0046DA60_GetUnitMode(pUnit));
-    if (!pEntry)
-    {
-        return 0;
-    }
-
-    return GFXUTIL_GetCofLayerValue(pEntry, nArg);
-}
 
 // 0x004E6560
 void __fastcall WARDENCLIENT_SetItemPropTexts(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nArg1, int nArg2)
@@ -1555,70 +1460,5 @@ static D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-// 0x004F3CE0
-int __fastcall WARDENCLIENT_CreateSkillMissiles(D2UnitStrc* pUnit, int nSkillId, int nArg4, int nX, int nY, int nMonsterId)
-{
-    D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxt)
-    {
-        return 0;
-    }
-
-    const int nMissile = pSkillsTxt->wCltMissileA;
-    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    if (!MONSTATS_GetTxtRecord(nMonsterId))
-    {
-        return 0;
-    }
-
-    if (!nX || !nY)
-    {
-        return 0;
-    }
-
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 0x40;
-    }
-
-    D2RequestStrc tRequest;
-    memset(&tRequest, 0, sizeof(tRequest));
-    tRequest.nType = 0x2001;
-    tRequest.pUnit = pUnit;
-    tRequest.nArg1 = nX;
-    tRequest.nArg2 = nY;
-    tRequest.nArg3 = nSkillId;
-    tRequest.nArg4 = nArg4;
-    tRequest.nArg0 = nMissile;
-    D2UnitStrc* pMissile = sub_004CD540_HandleRequest(&tRequest);
-
-    const int nMissileC = pSkillsTxt->wCltMissileC;
-    if (nMissileC > 0 && nMissileC < sgptDataTables->nMissilesTxtRecordCount)
-    {
-        tRequest.nArg4 = 2;
-        tRequest.nArg0 = nMissileC;
-        sub_004CD540_HandleRequest(&tRequest);
-    }
-
-    const int nMissileB = pSkillsTxt->wCltMissileB;
-    if (pMissile)
-    {
-        if (nMissileB > 0 && nMissileB < sgptDataTables->nMissilesTxtRecordCount)
-        {
-            MISSILE_AddMissileEffect(pMissile, nMissileB, 0, 2, 0);
-        }
-
-        if (!CUNIT_GetPathTargetUnit(pUnit) && pSkillsTxt->wTgtSound > 0)
-        {
-            sub_004B9A00(pSkillsTxt->wTgtSound, pMissile, 0, 0, 0);
-        }
-    }
-
-    return 1;
-}
 
 #include "gen/data/Source/D2Client/WARDEN/WardenClient.inc"

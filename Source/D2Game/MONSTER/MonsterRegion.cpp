@@ -18,6 +18,7 @@
 #include "D2ObjModes.h"
 #include "D2ItemModes.h"
 #include "D2Packets.h"
+#include "D2QuestData.h"
 
 struct D2DifficultyLevelsTxt;
 
@@ -205,16 +206,7 @@ int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 
 
 short __fastcall MONSTERUNIQUE_GetBossHcIdx(D2UnitStrc* pUnit); // 0x005A01E0
 
-typedef void (__fastcall* QUESTUPDATE)(D2QuestDataStrc* pQuest);
 
-struct D2QuestTimerStrc
-{
-    QUESTUPDATE pfUpdate;
-    D2QuestDataStrc* pQuest;
-    unsigned int dwTicks;
-    unsigned int dwTimeout;
-    D2QuestTimerStrc* pNext;
-};
 
 
 #pragma pack(push, 1)

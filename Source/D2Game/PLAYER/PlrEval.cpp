@@ -11,6 +11,7 @@
 
 #include "D2Primitives.h"
 #include "D2LevelTxt.h"
+#include "D2Packets.h"
 #define MONTYPEFLAG_UNIQUE 8
 #define EVENTTYPE_REMOVESTATE 0x0C
 
@@ -74,7 +75,6 @@ static void sub_00570A50_SpendStatPointsOnStrength(D2UnitStrc* pUnit, int nValue
 static void sub_00570B30_SpendStatPointsOnDexterity(D2UnitStrc* pUnit, int nValue);
 
 #pragma pack(push, 1)
-struct D2GSPacketSrvAA { unsigned char nHeader; unsigned char nUnitType; int nUnitId; unsigned char nSize; unsigned char pStream[244]; };
 
 #pragma pack(pop)
 

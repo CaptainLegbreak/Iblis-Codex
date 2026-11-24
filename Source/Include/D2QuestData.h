@@ -753,6 +753,20 @@ struct D2Act5Quest6Strc
     int nZooMonsterId; // 0xA4
 };
 
+struct D2GameStrc;
+struct D2QuestDataStrc;
+
+typedef bool (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
+
+struct D2QuestTimerStrc
+{
+    QUESTUPDATE pfUpdate; // 0x00
+    D2QuestDataStrc* pQuest; // 0x04
+    unsigned int dwTicks; // 0x08
+    unsigned int dwTimeout; // 0x0C
+    D2QuestTimerStrc* pNext; // 0x10
+};
+
 D2_CHECK_SIZE(D2Act1Quest1Strc, 0x8C);
 D2_CHECK_SIZE(D2Act1Quest2Strc, 0xC);
 D2_CHECK_SIZE(D2Act1Quest3Strc, 0xA4);
@@ -785,3 +799,4 @@ D2_CHECK_SIZE(D2Act5Quest3Strc, 0x114);
 D2_CHECK_SIZE(D2Act5Quest4Strc, 0x90);
 D2_CHECK_SIZE(D2Act5Quest5Strc, 0x64);
 D2_CHECK_SIZE(D2Act5Quest6Strc, 0xA8);
+D2_CHECK_SIZE(D2QuestTimerStrc, 0x14);

@@ -245,7 +245,6 @@ bool __fastcall sub_005BD390(D2GameStrc* pGame, D2QuestDataStrc* pQuestData)
 
 #define QUEST_A3Q7_DARKWANDERER 28
 
-typedef bool(__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
 
 void __fastcall QUESTS_CreateTimer(D2QuestDataStrc* pQuest, QUESTUPDATE pfnCallback, int nTicks); // 0x00543F10
 
