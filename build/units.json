@@ -75121,6 +75121,10 @@
      "name": "?DRLGWARP_GetWaypointRoomExFromLevel@@YGPAUD2DrlgRoomStrc@@PAUD2DrlgLevelStrc@@PAH1@Z"
     },
     {
+     "va": "0x0066AE70",
+     "length": 80
+    },
+    {
      "va": "0x0066AEC0",
      "length": 79,
      "name": "DRLGWARP_GetWarpIdArrayFromLevelId"
@@ -75564,30 +75568,6 @@
      "length": 164,
      "name": "?DRLGTILESUB_PickSubThemes@@YIHPAUD2DrlgRoomStrc@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0066AE70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0066AE70",
-     "length": 80
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
