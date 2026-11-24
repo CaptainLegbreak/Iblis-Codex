@@ -4,6 +4,7 @@
 
 #include "D2CrashTypes.h"
 #include "D2FogTypes.h"
+#include "D2CmdArg.h"
 #define CMD_BOOLEAN 0
 #define CMD_INTEGER 1
 #define CMD_STRING 2
@@ -65,15 +66,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" int __cdecl atoi(const char* szString); // 0x00681EBB
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-struct D2CmdArgStrc
-{
-    char szSection[0x1B];
-    char szKey[0x1B];
-    char szCommand[0x1B];
-    unsigned char nType;
-    int nIndex;
-    int nDefault;
-};
 
 extern D2CmdArgStrc gaCmdArguments[58]; // 0x00705040
 void __stdcall sub_00405450_LoadIniSettings(char* pSettings); // 0x00405450

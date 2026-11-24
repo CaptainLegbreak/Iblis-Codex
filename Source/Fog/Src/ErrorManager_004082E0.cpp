@@ -5,6 +5,7 @@
 #include "D2GameTypes.h"
 #include "D2Win32Types.h"
 #include "D2Win32System.h"
+#include "D2CmdArg.h"
 
 typedef unsigned int size_t;
 
@@ -649,15 +650,6 @@ int gnSourcePrefixLength; // 0x0074F0D4
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 
 
-struct D2CmdArgStrc
-{
-    char szSection[0x1B];
-    char szKey[0x1B];
-    char szCommand[0x1B];
-    unsigned char nType;
-    int nIndex;
-    int nDefault;
-};
 
 
 struct FSafeSock

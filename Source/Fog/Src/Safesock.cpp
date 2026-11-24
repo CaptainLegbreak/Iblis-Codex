@@ -6,6 +6,7 @@
 #include "D2Primitives.h"
 #include "D2StormLink.h"
 #include "D2Win32System.h"
+#include "D2CmdArg.h"
 
 int __stdcall SFileCloseFile(void* pArg);    // 0x004198D0
 
@@ -227,15 +228,6 @@ typedef char* va_list;
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 
 
-struct D2CmdArgStrc
-{
-    char szSection[0x1B];
-    char szKey[0x1B];
-    char szCommand[0x1B];
-    unsigned char nType;
-    int nIndex;
-    int nDefault;
-};
 
 
 struct FSafeSock
