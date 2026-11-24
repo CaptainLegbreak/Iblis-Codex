@@ -590,7 +590,7 @@ typedef int (__fastcall* D2UnitEventCallbackFunction)(D2GameStrc* pGame, int nEv
 
 typedef int (__fastcall* UNITFINDTEST)(D2UnitStrc* pUnit, D2UnitFindArgStrc* pUnitFindArg);
 
-extern const SkillDoFunc gpfnSkillSrvDoFunctions[SKILLSRVDOFN_COUNT]; // 0x007322B0
+extern SkillDoFunc gpfnSkillSrvDoFunctions[SKILLSRVDOFN_COUNT]; // 0x007322B0
 
 extern const D2UnitEventCallbackFunction gpfnSkillEventCallbacks[EVENTFN_COUNT]; // 0x007325B0
 
