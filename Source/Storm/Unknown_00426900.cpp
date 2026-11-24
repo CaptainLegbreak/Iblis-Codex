@@ -70,7 +70,6 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szLogName, int nLogLin
 extern "C" const char gszBREAKCMDTypeName[]; // 0x007088D8
 extern SEvtLinkStrc gtSEvtBreakCmdTerminator; // 0x007088EC
 extern D2CriticalSectionStrc gtSEvtLock; // 0x0077930C
-extern char gaTable_0070896C[]; // 0x0070896C
 
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere);
 
@@ -279,11 +278,3 @@ void __cdecl sub_00650EA0_Nop()
 {
 }
 
-void* gpOwner_00779324; // 0x00779324
-
-// 0x0042E590
-void* __fastcall sub_0042E590_SetOwner(void* pOwner)
-{
-    gpOwner_00779324 = pOwner;
-    return gaTable_0070896C;
-}

@@ -12,11 +12,6 @@ struct Unicode
     int isAlpha() const;
 };
 
-// 0x0042E5A0
-void __cdecl sub_0042E5A0_Nop()
-{
-}
-
 // 0x0042E620
 int Unicode::isNewline() const
 {
