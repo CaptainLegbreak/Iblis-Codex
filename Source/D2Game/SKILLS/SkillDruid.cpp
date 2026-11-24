@@ -3617,7 +3617,7 @@ static void __stdcall SKILLS_ApplyAuraStateToTarget(Unit* owner, Unit* target, i
     request.duration = sub_00646CA0_Evaluate(owner, record->calc, skill, level);
     request.stat = -1;
     request.state = record->state;
-    T005C40D0* list = sub_0056E970_Apply(&request);
+    D2StatListStrc* list = sub_0056E970_Apply(&request);
     if (list)
         sub_005C6CC0_Configure(owner, list, record, skill, level);
 }
@@ -3933,7 +3933,7 @@ static void __stdcall sub_005D1E10_Transform(Unit* owner, int level, int skill, 
         ownerId = owner->id;
         ownerType = owner->type;
     }
-    T005C40D0* list = sub_006251F0_Allocate(game->pool, 0, 0, ownerType, ownerId);
+    D2StatListStrc* list = sub_006251F0_Allocate(game->pool, 0, 0, ownerType, ownerId);
     if (list)
     {
         sub_00626E10_Attach(target, list, 1);
