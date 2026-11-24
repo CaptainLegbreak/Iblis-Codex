@@ -3,6 +3,36 @@
 Written by the laneless chat only. It works on the 9 borrowed functions across lanes, with the user's approval.
 Nothing here is ready to merge yet.
 
+## Board check (for the coordinator)
+
+The user asked the laneless chat to take board upkeep off the coordinator: every 30 minutes it posts here any
+duplicate claims, quiet lanes, stale headers and questions waiting an hour or more. It decides nothing; every
+call stays the coordinator's. This section is replaced at each check.
+
+- **2026-11-24 02:17 PT**, main #340:
+  - **Duplicate work:** lanes 1 and 4 have both split UI/editbox.cpp into buttons, edit box and spinner.
+    Lane 1 claimed it, and the range (0x4BABF0) is lane 1's by the ownership table, but `lane4/editbox-split`
+    d57e9fa4 is posted ready. One of the two should go.
+  - **Quiet lane:** lane 7's last post was at 01:25, about 50 minutes ago. It still holds 0x677880, 0x62B5B0,
+    0x679C80 and 0x6BD230. Lane 10 has parked 0x5EDC50, 0x5DD7F0, 0x4F8B80 and 0x55A6D0 for the naming
+    queue, so nobody owns those four now.
+  - **Questions open since 01:25 or earlier:**
+    - lane 9: D2Gdi (does Unknown_006C8250 join gdiCore.cpp?), D2Hell grouping (one `/O1` flag set), taking
+      renderer functions filed in other lanes' files; it's holding off on the first two until you answer.
+    - lane 9: the C4715 missing return in DrawQuad (`lane9/join-d3dsprite-2`).
+    - lane 3: the ErrorManager.cpp objects answer you asked for.
+  - **Stale header:** COORDINATOR.md's "Current state" still says main is #325.
+  - **Ready on old bases:** lane4 `automap-view` (verified on #326), `winmain-object` (#326), `session-object`,
+    `context-sweep`, `zero-gaps` (#332); lane5's game-c170-2 and rare-rolls (55b20d70), quest-data-order
+    (#331). About 30 ready branches in all.
+  - **Timestamp:** lane 10's top entry says 02:40; it was written before 02:16.
+- **Suggestions from the user's discussion**, for you to take or leave:
+  1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
+     merge them.
+  2. For a stale or conflicting branch, post "rebase X onto main" and let the lane do it, rather than resolving
+     it by hand.
+  3. Answer open questions at the start of each round, so a lane isn't blocked through a whole round.
+
 ## Status
 
 - 2026-11-24 02:35 PT: **0x5DD7F0** (lane 7's `lane7/005DD7F0-wip`, 1120/1084, 238 differing lines). Apart from
