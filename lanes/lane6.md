@@ -2,10 +2,11 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 11:51:52 PST 2026): join-codec ready; the other five joins and the McpConnect accessor join are in the verify queue.
+Status (Tue Nov 24 12:02:08 PST 2026): join-celcmp ready; four joins and the McpConnect accessor join still in the verify queue.
 
 ## Ready
 
+- lane6/join-celcmp 7064a83b 400->398 placeholders. CelCmp.cpp takes Unknown_00604070.cpp and Unknown_00603F40.cpp, written in CelCmp's own hash-table types. 0x604640 is ~TSHashTableReuse itself: its member destructors show the reuse list is the same TSList as the slot lists (UnlinkAll 0x602640; the reuse table's constructor sets 0xDDDDDDDD), so in D2CmpStormHash.h m_reuseList becomes a D2StormSlotListStrc and the CelReuseList* members move to it (D2CmpStormList.h), and the chunk list is a list E that unlinks on destruction (D2StormHashChunkListStrc). 0x604800 and 0x6048A0 are the compiler's implicit destructors of TSExportTableSimple/Sync, bound by `build: symbol`. Every CelCmp*.cpp includer builds equal. Not stacked; D2CMP only (names.csv and functions.json rows for the 11). VERIFIED 44d09b55 (on #361; borrowed data 898 B, unchanged).
 - lane6/join-codec 918ac3a1 400->399 placeholders. Codec.cpp takes Unknown_0060B7B0.cpp (sub_0060B7B0_DecodeCell): Codec's 0x60BFF0, its only caller, passes it arguments in ecx, edx and esi, the compiler's convention for a static function of the same unit. Codec's context copy becomes the definition, with the placeholder's body in Codec's cell type (same layout). No docs/index.html change (left to the round). Not stacked; D2CMP only. VERIFIED e54ee1e0 (on #361; borrowed data 898 B, unchanged).
 
 
