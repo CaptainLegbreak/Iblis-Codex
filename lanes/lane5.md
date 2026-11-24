@@ -4,11 +4,12 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane5/skillitem-tail 588502075 +1 placeholder (Unknown_005FD850.cpp, an object boundary); SkillItem.cpp's five functions at the very end of D2Game (0x5FD850, 0x5FD9C0, 0x5FDA10, 0x5FDA80 SKILLITEM_HandleItemEffectSkill, 0x5FDCA0 SKILLITEM_CastSkillOnTarget, after AiBaal.cpp, far from SkillItem.cpp's run 0x5BE130-0x5C09E0 that holds every use of its path string) plus SKILLITEM_CastSkillOnPosition (0x5FDD60, from Unknown_005FD470.cpp, right after 0x5FDCA0) are one group: the first three are called only by 0x5FDA80, and 0x5FDA80 only by 0x5FDCA0 and 0x5FDD60. They get their own file. VERIFIED fdc55c04f74bc72a6b31c298c177478aca2b823f, borrowed data 848 B (= main #364). Based on main 4f01d3966 (#364), not stacked.
+- lane5/skillitem-tail-2 eecb5635d +1 placeholder (Unknown_005FD850.cpp, an object boundary); SkillItem.cpp's five functions at the very end of D2Game (0x5FD850, 0x5FD9C0, 0x5FDA10, 0x5FDA80 SKILLITEM_HandleItemEffectSkill, 0x5FDCA0 SKILLITEM_CastSkillOnTarget, after AiBaal.cpp, far from SkillItem.cpp's run 0x5BE130-0x5C09E0 that holds every use of its path string) plus SKILLITEM_CastSkillOnPosition (0x5FDD60, from Unknown_005FD470.cpp, right after 0x5FDCA0) are one group: the first three are called only by 0x5FDA80, and 0x5FDA80 only by 0x5FDCA0 and 0x5FDD60. They get their own file. VERIFIED cb21ba9a13a0ba5a8f0603658987d72797464cd3, borrowed data 844 B (= main #365). Based on main ef33aa543 (#365), not stacked; replaces lane5/skillitem-tail (rebased).
 - lane5/monunique-copies-2 d40f6ab14 0 placeholders; MonsterUnique.cpp's three trailing copies (0x73C4C0, 0x73C4FC, 0x73C538) go to MonsterEval.cpp, PartyScreen.cpp and Friendly.cpp, the three data-less objects between MonsterUnique.cpp and MonsterMode.cpp in code order (PartyScreen.cpp's only table is .rdata, before its path string and MonsterMode.cpp's), each from D2LanguageNames.h with a marker. VERIFIED 4395334e77e6e87418bbc77f4a618679783c5da4, borrowed data 844 B (= main #365). Based on main ef33aa543 (#365), not stacked; replaces lane5/monunique-copies (rebased).
 
 ## Claimed
 
+- Join of Unknown_00570420.cpp into PLAYER/PlrEval.cpp (0x570590-0x570E10, one object: one language copy and the word 0x7326B4 that both files' functions read), with the strays inside it (SCmd.cpp 0x570680/0x570690, Objects.cpp 0x570850).
 
 ## Questions
 
