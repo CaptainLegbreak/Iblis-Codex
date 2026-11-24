@@ -2,7 +2,8 @@
 // Fog: the memory pool system, the thread context and stack frame records of the crash handler, its minidump
 // request and the dbghelp records it fills, the service status it sets, the thread, process and loader records it walks
 // for the module list, the toolhelp process and thread entries and startup info it uses, the crash report
-// input, the debugger thread-name record, the service table entry and the run-mode table.
+// input, the debugger thread-name record, the service table entry and the run-mode table, and the imagehlp
+// stack-walk, symbol and module records, the toolhelp module entry and the module list of the exception reporter.
 
 #include "D2Check.h"
 #include "D2SysTypes.h"
@@ -350,3 +351,103 @@ D2_CHECK_SIZE(D2ServiceTableEntryStrc, 0x8);
 D2_CHECK_SIZE(D2SidAuthorityStrc, 0x6);
 D2_CHECK_SIZE(D2ProcessEntryStrc, 0x128);
 D2_CHECK_SIZE(D2CrashInputStrc, 0x1C);
+
+struct D2ImageHlpAddressStrc
+{
+    unsigned long dwOffset;
+    unsigned short wSegment;
+    int nMode;
+};
+
+struct D2ImageHlpStackFrameStrc
+{
+    D2ImageHlpAddressStrc tAddrPC;
+    D2ImageHlpAddressStrc tAddrReturn;
+    D2ImageHlpAddressStrc tAddrFrame;
+    D2ImageHlpAddressStrc tAddrStack;
+    void* pFuncTableEntry;
+    unsigned long dwParams[4];
+    int bFar;
+    int bVirtual;
+    unsigned long dwReserved[3];
+    unsigned long dwKdHelp[19];
+};
+
+struct D2ImageHlpSymbolStrc
+{
+    unsigned long dwSizeOfStruct;
+    unsigned long dwAddress;
+    unsigned long dwSize;
+    unsigned long dwFlags;
+    unsigned long dwMaxNameLength;
+    char szName[1];
+};
+
+struct D2ImageHlpModuleStrc
+{
+    unsigned long dwSizeOfStruct;
+    unsigned long dwBaseOfImage;
+    unsigned long dwImageSize;
+    unsigned long dwTimeDateStamp;
+    unsigned long dwCheckSum;
+    unsigned long dwNumSyms;
+    int nSymType;
+    char szModuleName[32];
+    char szImageName[256];
+    char szLoadedImageName[256];
+};
+
+struct D2ToolhelpModuleEntryStrc
+{
+    unsigned long dwSize;
+    unsigned long th32ModuleID;
+    unsigned long th32ProcessID;
+    unsigned long GlblcntUsage;
+    unsigned long ProccntUsage;
+    unsigned int modBaseAddr;
+    unsigned int modBaseSize;
+    void* hModule;
+    char szModule[0x100];
+    char szExePath[0x104];
+};
+
+struct D2ImageHlpSymbolBufferStrc
+{
+    D2ImageHlpSymbolStrc tSymbol;
+    char szNameBuffer[0x100];
+};
+
+struct D2FpoDataStrc
+{
+    unsigned long dwOffStart;
+    unsigned long dwProcSize;
+    unsigned long dwLocals;
+    unsigned short wParams;
+    unsigned short cbProlog : 8;
+    unsigned short cbRegs : 3;
+    unsigned short fHasSEH : 1;
+    unsigned short fUseBP : 1;
+    unsigned short reserved : 1;
+    unsigned short cbFrame : 2;
+};
+
+struct D2ModuleInfoStrc
+{
+    char szPath[0x104];
+    char szName[0x100];
+    unsigned long dwBase;
+    unsigned long dwSize;
+    D2ModuleInfoStrc* pNext;
+};
+
+#pragma pack(push, 1)
+struct D2CrashDumpEntryStrc
+{
+    unsigned short nHits;
+    unsigned long f_2;
+    unsigned long f_6;
+    unsigned long dwType;
+    unsigned char nCount;
+    unsigned long adwData[8];
+};
+#pragma pack(pop)
