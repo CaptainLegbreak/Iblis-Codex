@@ -2,6 +2,7 @@
 
 #include "D2GameTypes.h"
 #include "D2FogTypes.h"
+#include "D2ExceptionPointers.h"
 
 struct D2CriticalSectionStrc;
 struct D2MiniDumpRequestStrc;
@@ -113,12 +114,6 @@ extern "C" const char gszNewLine2[]; // 0x006FFCD8
 struct D2ExceptionRecordStrc
 {
     unsigned long ExceptionCode;
-};
-
-struct D2ExceptionPointersStrc
-{
-    D2ExceptionRecordStrc* ExceptionRecord;
-    void* ContextRecord;
 };
 
 struct T00403AC0
@@ -574,7 +569,7 @@ long __stdcall sub_00403E90_UnhandledExceptionFilter(void* pExceptionPointers)
         return 0;
     D2ExceptionPointersStrc* pPointers = (D2ExceptionPointersStrc*)pExceptionPointers;
     char szName[0x100];
-    sub_00403AC0_GetExceptionName(szName, pPointers->ExceptionRecord->ExceptionCode);
+    sub_00403AC0_GetExceptionName(szName, pPointers->pExceptionRecord->ExceptionCode);
     T00403AC0 tReport;
     tReport.szBuffer[0] = 0;
     tReport.szName = szName;

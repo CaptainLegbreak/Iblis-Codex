@@ -3,6 +3,7 @@
 #include "D2NetTypes.h"
 #include "D2FogTypes.h"
 #include "D2FogTypes.h"
+#include "D2ExceptionPointers.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -418,12 +419,6 @@ extern "C" __declspec(dllimport) void* __stdcall GetCurrentThread();
 extern "C" __declspec(dllimport) int __stdcall GetThreadContext(void* hThread, D2ThreadContextStrc* pContext);
 
 extern "C" __declspec(dllimport) int __stdcall DuplicateHandle(void* hSourceProcess, void* hSource, void* hTargetProcess, void** phTarget, unsigned long dwAccess, int bInherit, unsigned long dwOptions);
-
-struct D2ExceptionPointersStrc
-{
-    void* pExceptionRecord;
-    D2ThreadContextStrc* pContextRecord;
-};
 
 typedef void (__cdecl* D2SETranslatorFn)(unsigned int, D2ExceptionPointersStrc*);
 
