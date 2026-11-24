@@ -5,7 +5,6 @@
 struct D2DrlgVertexStrc;
 struct D2DrlgOrthStrc;
 struct D2DrlgOutdoorInfoStrc;
-struct D2DrlgRouteNodeStrc;
 
 
 
@@ -18,17 +17,7 @@ void __fastcall DRLGOUTWILD_GetBridgeCoords(D2DrlgLevelStrc* pLevel, int* pX, in
 extern const int gnOutdoorScanXOffsets[4]; // 0x006F2810
 extern const int gnOutdoorScanYOffsets[4]; // 0x006F2800
 
-struct D2DrlgRouteNodeStrc
-{
-    int unk0x00[5];
-    int nTries;
-    unsigned char* pTurn;
-    unsigned char nDirection;
-    unsigned char unk0x1D[3];
-    D2DrlgRouteNodeStrc* pParent;
-};
 
-static D2DrlgRouteNodeStrc* __stdcall sub_00681560(D2DrlgRouteNodeStrc* pNode, D2DrlgRouteNodeStrc** ppStart);
 
 // build: symbol ?DRLGOUTDOORS_CalculatePathCoordinates@@YAXPAUD2DrlgLevelStrc@@PAUD2DrlgVertexStrc@@1@Z 0x00680CC0
 static void DRLGOUTDOORS_CalculatePathCoordinates(D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pVertex1, D2DrlgVertexStrc* pVertex2)
@@ -160,35 +149,3 @@ void __stdcall sub_00681000(D2DrlgLevelStrc* pLevel)
 
 #include "gen/data/Source/D2Common/Unknown_00681000.inc"
 
-// 0x00681560
-static D2DrlgRouteNodeStrc* __stdcall sub_00681560(D2DrlgRouteNodeStrc* pNode, D2DrlgRouteNodeStrc** ppStart)
-{
-    if (pNode->nTries < 4)
-    {
-        ++pNode->pTurn;
-        pNode->nDirection = (*pNode->pTurn + pNode->nDirection) & 3;
-    }
-    ++pNode->nTries;
-
-    while (pNode->nTries == 3)
-    {
-        if (pNode == *ppStart)
-        {
-            return 0;
-        }
-
-        pNode = pNode->pParent;
-        ++pNode->pTurn;
-        pNode->nDirection = (*pNode->pTurn + pNode->nDirection) & 3;
-        ++pNode->nTries;
-    }
-
-    return pNode;
-}
-
-// build: context sub_00681560_Shim
-// calling-convention shim (not game code)
-D2DrlgRouteNodeStrc* __stdcall sub_00681560_Shim(D2DrlgRouteNodeStrc* pNode, D2DrlgRouteNodeStrc** ppStart)
-{
-    return sub_00681560(pNode, ppStart);
-}

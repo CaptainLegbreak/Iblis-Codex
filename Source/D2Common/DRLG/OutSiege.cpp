@@ -716,3 +716,5 @@ void __fastcall DRLGOUTSIEGE_InitAct5OutdoorLevel(D2DrlgLevelStrc* pLevel)
     DRLGOUTSIEGE_PlacePrisons(pLevel);
     DRLGOUTSIEGE_PlaceSpecialPresets(pLevel);
 }
+
+#include "gen/data/Source/D2Common/DRLG/OutSiege.inc"
