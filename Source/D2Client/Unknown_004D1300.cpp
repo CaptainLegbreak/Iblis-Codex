@@ -144,9 +144,9 @@ static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed,
 
 struct D2StormPhaseStrc { int nFrameLimit,nPeriod,bSpawn; };
 
-static int sub_004CD310_UseMissileCharge(D2UnitStrc* pMissile);                                            // 0x004CD310
+static int MISSILE_UseCharge(D2UnitStrc* pMissile);                                            // 0x004CD310
 
-static int sub_004CD310_UseMissileCharge(D2UnitStrc* pMissile);
+static int MISSILE_UseCharge(D2UnitStrc* pMissile); // 0x004CD310
 
 static int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
 {

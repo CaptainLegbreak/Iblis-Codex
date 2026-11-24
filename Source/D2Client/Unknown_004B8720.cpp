@@ -13,7 +13,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
-void __cdecl sub_0048A6F0_ClearValue(); // 0x0048A6F0
+void __cdecl INV_ClearTradeFlag(); // 0x0048A6F0
 void __fastcall sub_00478600_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
 void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 // build: symbol ?DIALOG_CreateDialog@* 0x004B7EB0
@@ -116,7 +116,7 @@ void __fastcall sub_004B8940_CloseWait(int bReopen)
     if (GAME_GetUIVarState(0x17))
     {
         UI_SetUIVar(0x17, 1, 0);
-        sub_0048A6F0_ClearValue();
+        INV_ClearTradeFlag();
         sub_00487B30();
         if (!CUNIT_IsPlayerDeadOrMissing() && bReopen)
         {

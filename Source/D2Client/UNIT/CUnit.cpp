@@ -274,7 +274,7 @@ void __fastcall MONSTER_SetOwnerGUID(D2UnitStrc* pUnit, unsigned int dwValue);  
 
 int __fastcall MONSTER_IsUniqueMonster(D2UnitStrc* pUnit);                                              // 0x004AE360
 
-void __fastcall sub_004AE8D0(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nClassId, int nMode); // 0x004AE8D0
+void __fastcall MONSTER_InitMonster(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nClassId, int nMode); // 0x004AE8D0
 
 void __fastcall MONSTER_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc* pInfo);                    // 0x004B1090
 
@@ -580,7 +580,7 @@ typedef void (__fastcall* UNITFN)(D2UnitStrc* pUnit);
 
 void __stdcall CUNIT_FreeUnitTable(D2UnitStrc** ppTable); // 0x00463CC0
 
-void __fastcall sub_00463D80_OnUnitB(D2UnitStrc* pUnit); // 0x00463D80
+void __fastcall UI_FreeUnitModStats(D2UnitStrc* pUnit); // 0x00463D80
 
 void __fastcall CUNIT_SyncFromServerUnit(D2UnitStrc* pUnit); // 0x00465070
 
@@ -2567,9 +2567,9 @@ void __cdecl CUNIT_ResetUnitTables()
     WalkUnitTable(gpUnitTable_007A6670);
     WalkUnitTable(gpUnitTable_007A5E70);
     WalkUnitTable(gpUnitTable_007A6070);
-    CUNIT_ForEachUnitInTable(gpUnitTable_007A5470, sub_00463D80_OnUnitB);
-    CUNIT_ForEachUnitInTable(gpUnitTable_007A6670, sub_00463D80_OnUnitB);
-    CUNIT_ForEachUnitInTable(gpUnitTable_007A5E70, sub_00463D80_OnUnitB);
+    CUNIT_ForEachUnitInTable(gpUnitTable_007A5470, UI_FreeUnitModStats);
+    CUNIT_ForEachUnitInTable(gpUnitTable_007A6670, UI_FreeUnitModStats);
+    CUNIT_ForEachUnitInTable(gpUnitTable_007A5E70, UI_FreeUnitModStats);
     if (!gdwGlobal_007A0610)
     {
         CUNIT_ForEachUnitInTable(gpUnitTable_007A5E70, CUNIT_SyncFromServerUnit);
@@ -3160,7 +3160,7 @@ D2UnitStrc* __fastcall CUNIT_AddClientMonster(D2UnitSpawnStrc* pSpawn, void* pAr
         }
     }
 
-    sub_004AE8D0(pUnit, pRoom, nX, nY, nClassId, pSpawn->nMode);
+    MONSTER_InitMonster(pUnit, pRoom, nX, nY, nClassId, pSpawn->nMode);
     PATH_SetStepNum(pUnit->pDynamicPath, pMonStats2TxtRecord->nSteps);
     PLAYERLIST_InitGfxData(pUnit);
     CUNIT_ApplyClassEffects(pUnit, nClassId);

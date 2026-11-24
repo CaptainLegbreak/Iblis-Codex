@@ -51,8 +51,8 @@ enum
 };
 
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId);
-void __fastcall sub_00480E70_SetState(D2UnitStrc* pUnit, int nArg);
-void __fastcall sub_00464810(D2UnitStrc* pUnit);
+void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
+void __fastcall CUNIT_MarkUnitDead(D2UnitStrc* pUnit); // 0x00464810
 void __stdcall UNITS_SetAnimationFrame(D2UnitStrc* pUnit, int nFrame);
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); // 0x0064A2B0
@@ -197,8 +197,8 @@ int __fastcall SKILLDESC_CltDoFrameSteps(D2UnitStrc* pUnit, int nSkillId, int nS
         break;
 
     case SKILLDO_FRAME_C:
-        sub_00480E70_SetState(pUnit, SKILLDO_FRAME_C_STATE);
-        sub_00464810(pUnit);
+        UNITMODE_SetUnitMode(pUnit, SKILLDO_FRAME_C_STATE);
+        CUNIT_MarkUnitDead(pUnit);
         break;
     }
 

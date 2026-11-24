@@ -187,7 +187,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 
 extern CodeEntry gTable_0096CC68[]; // 0x0096CC68
 
-s32 __fastcall sub_00451F60_ClassId(Unit*); // 0x00451F60
+s32 __fastcall GAME_GetUnitClassId(Unit*); // 0x00451F60
 
 u8 __stdcall sub_00627D40_Page(Unit*); // 0x00627D40
 
@@ -4223,7 +4223,7 @@ void __stdcall INVENTORY_GetItemSaveGfxInfo(Unit* unit, u8* firstOutput, u8* sec
                             if (COMPOSIT_IsArmorComponent(slot))
                             {
                                 AppearanceRecord* appearanceRecord = sub_0065B620_AppearanceRecord(sub_0064F500_AppearanceIndex(slot, &appearance));
-                                if (sub_00451F60_ClassId(item) > 0)
+                                if (GAME_GetUnitClassId(item) > 0)
                                 {
                                     const u32 appearanceCode = FIELD(u32, appearanceRecord, 0x20);
                                     const s32 code = INVENTORY_FindComponentArrayIndex(appearanceCode, appearanceCode);

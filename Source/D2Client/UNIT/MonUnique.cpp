@@ -105,7 +105,7 @@ extern const D2HoverModeStrc gaHoverModes[];                                    
 
 int __fastcall sub_0045C390_RollRandom(D2SeedStrc* pSeed, int nMax);                                        // 0x0045C390
 
-int __cdecl sub_0048BE80_Sprintf(wchar_t* wszDest, const wchar_t* wszFormat, ...);                          // 0x0048BE80
+int __cdecl INV_FormatArgs(wchar_t* wszDest, const wchar_t* wszFormat, ...);                          // 0x0048BE80
 
 int __fastcall MONSTER_IsChampionMonster(D2UnitStrc* pUnit);                                                             // 0x004AE320
 
@@ -310,7 +310,7 @@ void __fastcall sub_004AC870_SetMonsterHoverName(D2UnitStrc* pUnit, int nMode, i
         }
 
         D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(nClassId);
-        sub_0048BE80_Sprintf(wszName, D2LANG_GetStringFromTblIndex(0x2B40), D2LANG_GetStringFromTblIndex(gaHoverModes[i].wStringId), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), 0);
+        INV_FormatArgs(wszName, D2LANG_GetStringFromTblIndex(0x2B40), D2LANG_GetStringFromTblIndex(gaHoverModes[i].wStringId), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), 0);
         sub_0063E810_SetUnitName(pUnit, wszName);
         return;
     }
@@ -374,10 +374,10 @@ void __fastcall sub_004AC870_SetMonsterHoverName(D2UnitStrc* pUnit, int nMode, i
         return;
 
     default:
-        sub_0048BE80_Sprintf(wszName, D2LANG_GetStringFromTblIndex(0x6B9), sub_00653ED0_GetNamePrefix(pUnit), sub_00653F10_GetNameSuffix(pUnit), 0);
+        INV_FormatArgs(wszName, D2LANG_GetStringFromTblIndex(0x6B9), sub_00653ED0_GetNamePrefix(pUnit), sub_00653F10_GetNameSuffix(pUnit), 0);
         if (sub_0045C390_RollRandom(pSeed, 100) < 50)
         {
-            sub_0048BE80_Sprintf(wszName, D2LANG_GetStringFromTblIndex(0x6BA), sub_00653ED0_GetNamePrefix(pUnit), sub_00653F10_GetNameSuffix(pUnit), sub_00653F50_GetNameAppellation(pUnit), 0);
+            INV_FormatArgs(wszName, D2LANG_GetStringFromTblIndex(0x6BA), sub_00653ED0_GetNamePrefix(pUnit), sub_00653F10_GetNameSuffix(pUnit), sub_00653F50_GetNameAppellation(pUnit), 0);
         }
         sub_0063E810_SetUnitName(pUnit, wszName);
         return;

@@ -1579,7 +1579,8 @@ extern "C" void __cdecl CHATDLG_FreeNameList()
     gList_0077BDB4 = 0;
 }
 
-extern "C" void __cdecl sub_004797C0_FreeList()
+// build: symbol _ROSTER_FreeRosterGroups 0x004797C0
+extern "C" void __cdecl ROSTER_FreeRosterGroups()
 {
     List08* node = gList_007BB5C8;
     while (node)
@@ -1591,7 +1592,8 @@ extern "C" void __cdecl sub_004797C0_FreeList()
     gList_007BB5C8 = 0;
 }
 
-extern "C" void __cdecl sub_0049A020_FreeList()
+// build: symbol _PARTY_FreeRosterUnits 0x0049A020
+extern "C" void __cdecl PARTY_FreeRosterUnits()
 {
     ListCD* node = gList_007BF014;
     while (node)

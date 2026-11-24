@@ -355,7 +355,7 @@ public:
         SMemFree(pMemory, ".\\WARDEN\\WardenClient.cpp", 0x117, 0);
     }
     bool sub_004E0730_Load(void* pData, int nSize);                         // 0x004E0730
-    void* sub_004E0700_GetProc(int nOrdinal);                                // 0x004E0700
+    void* GetEntry(int nOrdinal);                                // 0x004E0700
 
     void* pImage;
     int unk0x04;
@@ -877,7 +877,7 @@ static int __stdcall WARDENCLIENT_LoadModule(const unsigned char* pData, const u
         delete pWarden;
         return 0;
     }
-    pWarden->pfnCreate = (WARDENCREATEFN)pWarden->sub_004E0700_GetProc(1);
+    pWarden->pfnCreate = (WARDENCREATEFN)pWarden->GetEntry(1);
     if (!pWarden->pfnCreate)
     {
         pWarden->~WardenModule();

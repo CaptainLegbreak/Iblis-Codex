@@ -158,7 +158,7 @@ int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
 void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
-void __cdecl sub_00487B80(); // 0x00487B80
+void __cdecl INV_SetNpcStateTrade(); // 0x00487B80
 
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
@@ -616,7 +616,7 @@ void __cdecl USEITEM_OpenPanel()
     gnUseItemDialogState = 1;
     gdwUseItemClickTick = GetTickCount();
     COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaUseItemHandlers, 8);
-    sub_00487B80();
+    INV_SetNpcStateTrade();
     if (!UI_SetUIVar(14, 0, 0))
     {
         if (!gnUseItemPanelMode)

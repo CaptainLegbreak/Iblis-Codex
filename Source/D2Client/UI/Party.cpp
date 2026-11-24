@@ -102,7 +102,7 @@ void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int
 
 int __fastcall ROSTER_IsHostileToPlayer(D2StoredUnitRecordStrc* pEntry); // 0x0047A5B0
 
-void __stdcall sub_0049A690_DrawRosterButtons(D2PartyRowStrc* pRow); // 0x0049A690
+void __stdcall PARTY_DrawPanelIcons(D2PartyRowStrc* pRow); // 0x0049A690
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDest, const char* szFormat, ...); // 0x006CC468
 
@@ -584,7 +584,7 @@ void __cdecl PARTY_DrawPartyRows()
         {
             sub_0049A830_DrawRosterArea(nY, pRow, nColor);
         }
-        sub_0049A690_DrawRosterButtons(pRow);
+        PARTY_DrawPanelIcons(pRow);
         if (nSelfIndex == nIndex)
         {
             ROSTERPETS_DrawPanelLabel(nY, 1, nIndex, pRow->aSlots[0].nState);

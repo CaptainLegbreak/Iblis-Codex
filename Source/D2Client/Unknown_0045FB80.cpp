@@ -49,7 +49,7 @@ D2UnitStrc* __cdecl sub_00463DD0();
 void __stdcall ROSTERPETS_HandleButtonDown(SMSGHANDLER_PARAMS* pMsg); // 0x00467F20
 void __stdcall ROSTERPETS_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
 void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg); // 0x004785B0
-void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2);
+void __fastcall MSG_SendTwoDwords(char nHeader, int nArg1, int nArg2); // 0x004786A0
 int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg);
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor);
 D2SkillDescTxt* __fastcall sub_004A89D0_SkillDescRec(int nSkillId);
@@ -198,7 +198,7 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
                         const int nX = sub_004AAA50_GetSkillColumnX(pDesc->nSkillColumn);
                         if (nMouseX > nX && nMouseX < nX + 0x30 && !gaSkillButtonState[i] && !BITARRAY_CHECK(pSkillsTxt->nFlags, 4))
                         {
-                            sub_004786A0_SendIntInt(0x3C, pSkillsTxt->nSkillId, -1);
+                            MSG_SendTwoDwords(0x3C, pSkillsTxt->nSkillId, -1);
                             UI_SetUIVar(4, 1, 0);
                             continue;
                         }

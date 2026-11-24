@@ -17,7 +17,7 @@ int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
-D2BitBufferStrc* __cdecl sub_004B32D0_GetQuestFlags(); // 0x004B32D0
+D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc*,int,int); // 0x0065C310
 void* __cdecl sub_00454600_GetCloseButtonCell(); // 0x00454600
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc*); // 0x0061A1B0
@@ -106,16 +106,16 @@ void __cdecl TEXT_DrawWaypointPanel()
             switch(nAct)
             {
             case 1:
-                if(!QUESTRECORD_GetQuestState(sub_004B32D0_GetQuestFlags(),7,0))bAllowed=0;
+                if(!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(),7,0))bAllowed=0;
                 break;
             case 2:
-                if(!QUESTRECORD_GetQuestState(sub_004B32D0_GetQuestFlags(),15,0))bAllowed=0;
+                if(!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(),15,0))bAllowed=0;
                 break;
             case 3:
-                if(!QUESTRECORD_GetQuestState(sub_004B32D0_GetQuestFlags(),23,0))bAllowed=0;
+                if(!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(),23,0))bAllowed=0;
                 break;
             case 4:
-                if(!QUESTRECORD_GetQuestState(sub_004B32D0_GetQuestFlags(),26,0))bAllowed=0;
+                if(!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(),26,0))bAllowed=0;
                 if(!FOG_IsExpansion() || !GAME_IsExpansion())bAllowed=0;
                 break;
             }

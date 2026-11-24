@@ -118,7 +118,7 @@ struct D2CharInfo { char pad[0xbd]; char name[0x132]; unsigned short flags; };
 
 #pragma pack(pop)
 
-D2CharInfo* __cdecl sub_0044B7A0_GetCharInfo(); // 0x0044B7A0
+D2CharInfo* __cdecl GAME_GetClientInfo(); // 0x0044B7A0
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode*); // 0x00501820
 
@@ -200,7 +200,7 @@ extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pE
 
 unsigned short __fastcall ROSTER_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
 
-int __fastcall sub_00479B80_GetRecordValue(D2StoredUnitRecordStrc* pEntry); // 0x00479B80
+int __fastcall ROSTER_GetKillCount(D2StoredUnitRecordStrc* pEntry); // 0x00479B80
 
 int __cdecl CHAT_IsNumberDisplayEnabled(); // 0x0047A980
 
@@ -222,7 +222,7 @@ void __stdcall D2CMPLoadProjectRecord(D2TileLibraryHeaderStrc** ppLibrary, const
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
-D2CelFileStrc* __fastcall sub_004788B0_LoadCellFile(const char* szPath, int nType); // 0x004788B0
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szPath, int nType); // 0x004788B0
 
 int __stdcall D2Win_10028(const char* pszPalDatFilename, const char* pszPalPL2Filename); // 0x004FB500
 
@@ -609,7 +609,7 @@ void __stdcall GAME_PreloadActTiles(unsigned char nAct)
 
 // 0x0044E5A0
 void __cdecl GAME_DrawEndGameCharInfo() {
- D2CharInfo* info=sub_0044B7A0_GetCharInfo();
+ D2CharInfo* info=GAME_GetClientInfo();
  Unicode nameText[100];
  char name[100];
  strcpy(name,info->name);
@@ -739,7 +739,7 @@ int __stdcall GAME_DrawEndGameScreen(int nUnused)
                 }
 // build: symbol ?gszDataGlobal@* 0x006D4118
                 sprintf(szPath, "%s\\ui\\menu\\%s", gszDataGlobal, szName);
-                s_pEndGameCell = sub_004788B0_LoadCellFile(szPath, 0);
+                s_pEndGameCell = ARCHIVE_LoadClientCellFile(szPath, 0);
                 sprintf(szPalette, "%s\\Palette\\%s\\pal.dat", gszDataGlobal, szName);
                 sprintf(szPl2, "%s\\Palette\\%s\\pal.pl2", gszDataGlobal, szName);
                 D2Win_10028(szPalette, szPl2);
@@ -748,7 +748,7 @@ int __stdcall GAME_DrawEndGameScreen(int nUnused)
             if (!s_pEndGameOkCell)
             {
                 sprintf(szPalette, "%s\\ui\\menu\\endgameok", gszDataGlobal);
-                s_pEndGameOkCell = sub_004788B0_LoadCellFile(szPalette, 0);
+                s_pEndGameOkCell = ARCHIVE_LoadClientCellFile(szPalette, 0);
             }
 
             memset(&tContext, 0, sizeof(tContext));
@@ -1021,7 +1021,7 @@ void __cdecl GAME_DrawEntryList()
         {
             Unicode wszValue[12] = {};
             char szValue[12];
-            wsprintfA(szValue, gszFormatD, sub_00479B80_GetRecordValue(pEntry));
+            wsprintfA(szValue, gszFormatD, ROSTER_GetKillCount(pEntry));
             sub_00526F20_ToUnicode(wszValue, szValue, 12);
             D2Win_10117_DrawText(wszValue, 0x82, nRowY, 4, 0);
         }
@@ -1042,7 +1042,7 @@ D2CelFileStrc* __cdecl GAME_GetBuySellButtonCells()
     {
         char szPath[0x104];
         wsprintfA(szPath, "%s\\ui\\panel\\buysellbtn", gszDataGlobal);
-        gpBuySellButton = sub_004788B0_LoadCellFile(szPath, 0);
+        gpBuySellButton = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
     return gpBuySellButton;
 }
@@ -1132,7 +1132,7 @@ void __cdecl GAME_DrawLevelLoadingScreen()
 
     if (!gpLoadingCell)
     {
-        gpLoadingCell = sub_004788B0_LoadCellFile(szPath, 0);
+        gpLoadingCell = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
     D2Win_10134_DrawCellFile(gpLoadingCell, gnScreenWidth / 2, gnScreenHeight / 2 - 140, 1, 5, 1);
 }
@@ -1170,7 +1170,7 @@ void __cdecl GAME_LoadLoadingScreen()
     {
         sprintf(szPath, "%s\\UI\\Loading\\Loadingscreen", gszDataGlobal);
     }
-    gpLoadingScreen = sub_004788B0_LoadCellFile(szPath, 0);
+    gpLoadingScreen = ARCHIVE_LoadClientCellFile(szPath, 0);
     gnLoadingFrame = 0;
     gbLoadingScreenActive = 1;
     MSG_SetProgress(0, 0);
