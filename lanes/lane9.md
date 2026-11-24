@@ -11,26 +11,18 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 
 ## Status
 - Setup done; baseline VERIFIED on #325.
-- lane9/atl-d3dcore: ready (below). Next: D2Hell object map; renderer-run strays wait on the question below.
+- atl-d3dcore is in #332. Its 2 B note stands: 0x006FADC2 counts as copied, not padding, now that the ATL data shares d3dCore's object.
 
 ## Ready
-- lane9/join-d3dsprite 9c8c723f 4->2 units (d3dSprite group: Unknown_006B5C80.cpp and d3dSprite_006B5CF0.cpp go;
-  d3dSprite.cpp now owns 0x6B5C80 and 0x6B5CF0, which it already defined). Base main 89693ff5 (#333).
+- lane9/place-gdismack 224c0be7 placeholders 1->0 (D2Gdi/Unknown_006C9900.cpp into gdiSmack.cpp). Base main ff0dd9c4 (#335;
+  verified on #333, rebase crosses only name sweeps). Precheck: 0 not all equal. Full verify: VERIFIED tree 145e8920.
+  GdiPlaySmacker 0x6C9900 calls gdiSmack.cpp's file static RemapRows 0x6C9690 (the placeholder carried a context copy of
+  it), so it is gdiSmack code; gdiSmack already defined it and builds equal with it, and now defines gbRemapValid.
+- lane9/join-d3dsprite dbee0f1a 4->2 units (d3dSprite group: Unknown_006B5C80.cpp and d3dSprite_006B5CF0.cpp go;
+  d3dSprite.cpp now owns 0x6B5C80 and 0x6B5CF0, which it already defined). Base main ff0dd9c4 (#335; verified on #333, the rebase crosses only name sweeps in other files).
   Precheck: no changed units (deletions only; d3dSprite.cpp and the remaining piece built: 0 not all equal).
   Full verify: VERIFIED tree 0eb9d35e. Every d3dSprite unit builds equal with and without /GS-, so flags don't keep
   the group apart; d3dSprite_006B5D40.cpp stays until its shims are reconciled with the main file's.
-- lane9/atl-d3dcore 7581b2b5 1->0 placeholders (D2Direct3D/Unknown_006B1A00.cpp joined into d3dCore.cpp). Base main c4ce2baa (#331).
-  Precheck: 0 not all equal. Full verify on #331: VERIFIED tree 48d58fc0 (borrowed data 2,380 B on the branch; see the 2 B note below).
-  The ATL object is the head of d3dCore.cpp, as lane 3 thought: d3dCore includes atlbase.h, so atldef.h's Thank_you,
-  CAtlException, CRegKey come first in its object, then d3dCore's own code from 0x6B1B60 (the texture-format callback,
-  which reads d3dCore's gtWantedFormat). The merged unit builds equal under d3dCore's /GS-, all 47 functions. Joined by
-  hand (ATL preamble, then d3dCore's preamble, then bodies), because mergegroup's variable hoisting puts d3dCore's
-  externs above the records they use. d3dCore's private 8-dword pixel-format record became the piece's named one.
-  **Borrowed data +2 B:** the 2 zero bytes at 0x006FADC2, in front of AtlLimits at 0x6FADC4, count as alignment padding
-  when the ATL data is its own object and as copied once it shares d3dCore's object (the next piece no longer gets
-  4-byte start alignment in the padding rule). Every byte is still equal. If you want it gone first, say so and I'll
-  look at how the merged object's .rdata pieces get their alignment.
-
 ## Questions
 - Coordinator, D2Hell grouping (I'll hold off joining until you say): every D2Hell unit builds equal under one flag
   set, plain `/O1` (config flags + /O1), including the pieces now carrying /O2, /Os, /O1 /Ob1 /Oy- or /GS- variants. The
