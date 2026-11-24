@@ -742,11 +742,11 @@ struct Skills { char pad0[0x12E]; unsigned short resultFlags; unsigned hitFlags,
 
 struct Tables { char pad0[0xB98]; Skills* skills; void* linker; int skillCount; };
 
-void __stdcall sub_00620C10(Unit*,Unit*);  // 0x00620C10
+void __stdcall UNITS_SetTargetUnitForDynamicUnit(Unit*,Unit*);  // 0x00620C10
 
-int __stdcall sub_006449F0(Unit*,int,int);  // 0x006449F0
+int __stdcall SKILLS_GetToHitFactor(Unit*,int,int);  // 0x006449F0
 
-int __stdcall sub_00646CA0(Unit*,unsigned,int,int);  // 0x00646CA0
+int __stdcall SKILLS_EvaluateSkillFormula(Unit*,unsigned,int,int);  // 0x00646CA0
 
 void __fastcall D2GAME_RollElementalDamage_6FD14DD0(Unit*,D2DamageStrc*,int,int);  // 0x0056E0C0
 
@@ -754,7 +754,7 @@ void __fastcall SUNITDMG_AllocCombat(Game*,Unit*,Unit*,D2DamageStrc*,unsigned ch
 
 void __fastcall SUNITDMG_DrainItemDurability(Game*,Unit*,Unit*,int);  // 0x0057D4F0
 
-void __stdcall sub_00644560(Skill*,int);  // 0x00644560
+void __stdcall SKILLS_SetParam1(Skill*,int);  // 0x00644560
 
 inline Skills* GetSkills(int id) { if(id>=0 && id<tables->skillCount) return &tables->skills[id]; return 0; }
 enum { DEFAULT_SRC = 0x80 };
@@ -766,17 +766,17 @@ int __fastcall SKILLS_RollFrenzyDamage(Game* game,Unit* unit,Unit* target,int id
     Skills* record=GetSkills(id);
     if(!record) return 0;
     if(!target) return 0;
-    sub_00620C10(unit,target);
+    UNITS_SetTargetUnitForDynamicUnit(unit,target);
     D2DamageStrc damage;
     memset(&damage,0,sizeof(damage));
-    damage.wResultFlags=sub_0057EC10(game,unit,target,sub_006449F0(unit,id,level),0);
+    damage.wResultFlags=sub_0057EC10(game,unit,target,SKILLS_GetToHitFactor(unit,id,level),0);
     if(damage.wResultFlags&1) {
         damage.wResultFlags |= record->resultFlags;
         damage.dwHitFlags |= record->hitFlags;
         if(record->hitClass) damage.dwHitClass=record->hitClass;
-        damage.dwEnDmgPct=sub_00646CA0(unit,record->calc[0],id,level);
+        damage.dwEnDmgPct=SKILLS_EvaluateSkillFormula(unit,record->calc[0],id,level);
         if(record->element>0) {
-            damage.dwConvPct=sub_00646CA0(unit,record->calc[3],id,level);
+            damage.dwConvPct=SKILLS_EvaluateSkillFormula(unit,record->calc[3],id,level);
             if(damage.dwConvPct>0) damage.nConvType=record->element;
         }
         D2GAME_RollElementalDamage_6FD14DD0(unit,&damage,id,level);
@@ -787,8 +787,8 @@ int __fastcall SKILLS_RollFrenzyDamage(Game* game,Unit* unit,Unit* target,int id
     SUNITDMG_DrainItemDurability(game,unit,target,0);
     Skill* skill=sub_00620250(unit);
     if(skill) {
-        if(damage.wResultFlags&1) sub_00644560(skill,1);
-        else sub_00644560(skill,0);
+        if(damage.wResultFlags&1) SKILLS_SetParam1(skill,1);
+        else SKILLS_SetParam1(skill,0); // 0x00644560
     }
     return 1;
 }

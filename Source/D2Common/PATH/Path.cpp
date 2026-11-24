@@ -68,7 +68,7 @@ struct D2StaticPathStrc;
 
 struct D2PathInfoStrc;
 
-struct Pad40_00648690;
+struct PATH_SetVelocity;
 
 struct Obj00648690;
 
@@ -94,7 +94,7 @@ struct View_00648700;
 
 struct Obj00648790;
 
-struct Pad40_006487D0;
+struct PATH_GetPathPoints;
 
 struct Obj006487D0;
 
@@ -116,13 +116,13 @@ struct Obj00648A30;
 
 struct Entry00648A40;
 
-struct Pad40_00648A40;
+struct PATH_GetLastPointX;
 
 struct Obj00648A40;
 
 struct Entry00648A60;
 
-struct Pad40_00648A60;
+struct PATH_GetLastPointY;
 
 struct Obj00648A60;
 
@@ -168,7 +168,7 @@ struct D2Record00648E40Strc;
 
 struct PathCollisionView;
 
-struct Pad40_00649070;
+struct PATH_SetStepNum;
 
 struct Obj00649070;
 
@@ -238,7 +238,7 @@ static void PATH_FindValidTargetCoordsByMovingOrthogonally(D2PathInfoStrc* pPath
 
 static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo);
 
-struct Pad40_00648690 {
+struct PATH_SetVelocity {
     unsigned int dw00;
     unsigned int dw04;
     unsigned int dw08;
@@ -418,7 +418,7 @@ typedef char check_size_00648700[sizeof(View_00648700)==0x8C?1:-1];
 
 struct Obj00648790 { unsigned char bUnknown00[0x28]; int nValue28; };
 
-struct Pad40_006487D0 {
+struct PATH_GetPathPoints {
     unsigned int dw00;
     unsigned int dw04;
     unsigned int dw08;
@@ -454,7 +454,7 @@ struct Obj006487D0 {
     unsigned int dwUnknown34;
     unsigned int dwUnknown38;
     unsigned int dwUnknown3C;
-    Pad40_006487D0 tPad040;
+    PATH_GetPathPoints tPad040;
     unsigned int dwUnknown80;
     unsigned int dwUnknown84;
     unsigned int dwUnknown88;
@@ -581,7 +581,7 @@ struct Entry00648A40 {
     unsigned short wSecond;
 };
 
-struct Pad40_00648A40 {
+struct PATH_GetLastPointX {
     unsigned int dw00;
     unsigned int dw04;
     unsigned int dw08;
@@ -617,7 +617,7 @@ struct Obj00648A40 {
     unsigned int dwUnknown34;
     unsigned int dwUnknown38;
     unsigned int dwUnknown3C;
-    Pad40_00648A40 tPad040;
+    PATH_GetLastPointX tPad040;
     unsigned int dwUnknown80;
     unsigned int dwUnknown84;
     unsigned int dwUnknown88;
@@ -632,7 +632,7 @@ struct Entry00648A60 {
     unsigned short wSecond;
 };
 
-struct Pad40_00648A60 {
+struct PATH_GetLastPointY {
     unsigned int dw00;
     unsigned int dw04;
     unsigned int dw08;
@@ -668,7 +668,7 @@ struct Obj00648A60 {
     unsigned int dwUnknown34;
     unsigned int dwUnknown38;
     unsigned int dwUnknown3C;
-    Pad40_00648A60 tPad040;
+    PATH_GetLastPointY tPad040;
     unsigned int dwUnknown80;
     unsigned int dwUnknown84;
     unsigned int dwUnknown88;
@@ -943,7 +943,7 @@ typedef char check_collidedMask[OFFSET(PathCollisionView,collidedMask)==0x54?1:-
 
 typedef char check_velocity[OFFSET(PathCollisionView,velocity)==0x7C?1:-1];
 
-struct Pad40_00649070 {
+struct PATH_SetStepNum {
     unsigned int dw00;
     unsigned int dw04;
     unsigned int dw08;
@@ -963,8 +963,8 @@ struct Pad40_00649070 {
 };
 
 struct Obj00649070 {
-    Pad40_00649070 tPad000;
-    Pad40_00649070 tPad040;
+    PATH_SetStepNum tPad000;
+    PATH_SetStepNum tPad040;
     unsigned int dwUnknown80;
     unsigned int dwUnknown84;
     unsigned int dwUnknown88;
@@ -1836,7 +1836,8 @@ void __stdcall PATH_SetRoom(D2DynamicPathStrc* pDynamicPath, D2ActiveRoomStrc* p
     pDynamicPath->pRoom = pRoom;
 }
 
-extern "C" void __fastcall sub_0061BAC0_portalFlag(RoomFlags* room, int reset)
+// build: symbol @DRLGACTIVATE_ToggleHasPortalFlag@* 0x0061BAC0
+extern "C" void __fastcall DRLGACTIVATE_ToggleHasPortalFlag(RoomFlags* room, int reset)
 {
     if (reset)
         room->flags &= ~0x400000U;

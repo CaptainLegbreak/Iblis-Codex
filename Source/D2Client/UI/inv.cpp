@@ -1346,7 +1346,7 @@ void __cdecl INV_CloseCubePanel(); // 0x0048A050
 
 Unicode* __fastcall INV_PrefixColorCode(Unicode* pText, int nDigit);   // 0x004521C0
 
-int __stdcall sub_00626020_GetUnitDefense(D2UnitStrc* pUnit);
+int __stdcall STATLIST_GetDefenseFromUnit(D2UnitStrc* pUnit); // 0x00626020
 
 #pragma pack(push, 2)
 
@@ -3137,7 +3137,7 @@ void __stdcall INV_AppendDefense(D2UnitStrc* pUnit, D2UnitStrc* pItem, Unicode* 
     }
 
     STATLIST_MergeStatLists(pUnit, gpHoverItem, 1);
-    int nDefense = sub_00626020_GetUnitDefense(gpHoverItem);
+    int nDefense = STATLIST_GetDefenseFromUnit(gpHoverItem);
     if (!bHasOwner)
     {
         STATLIST_ExpireUnitStatlist(pUnit, gpHoverItem);
@@ -4513,7 +4513,8 @@ void __stdcall sub_00486BD0_Emit(D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGr
     INV_GetPlacementCell(pItem, pGrid, nX, nY, pCellX, pCellY);
 }
 
-static int sub_00623C60(D2UnitStrc* pUnit)
+// build: symbol ?UNITS_GetWeaponClass@* 0x00623C60
+static int UNITS_GetWeaponClass(D2UnitStrc* pUnit)
 {
     int nClassId = -1;
     if (pUnit)
@@ -4548,7 +4549,7 @@ void __cdecl INV_SetupPanelButtons()
     }
     else
     {
-        switch (sub_00623C60(pUnit))
+        switch (UNITS_GetWeaponClass(pUnit))
         {
         case 0x93:
         case 0x94:
@@ -6838,7 +6839,7 @@ void __fastcall INV_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int nMaxLen)
         pStrF9B = D2LANG_GetStringFromTblIndex(0xF9B);
         pNewLine = D2LANG_GetStringFromTblIndex(0xF9E);
         nLen = 0;
-        pItemsTxt = DATATBLS_GetItemsTxtRecord(sub_00623C60(pItem));
+        pItemsTxt = DATATBLS_GetItemsTxtRecord(UNITS_GetWeaponClass(pItem));
         D2_ASSERT(pItemsTxt, 0x732);
 
         nItemType = ITEMS_GetItemType(pItem);

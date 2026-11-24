@@ -296,7 +296,7 @@ D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
-int __stdcall sub_00622B50_TestInteractCollision(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMask);
+int __stdcall UNITS_TestCollisionBetweenInteractingUnits(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMask); // 0x00622B50
 
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus); // 0x00622C40
 
@@ -488,7 +488,7 @@ static int __stdcall PLRMSG_CheckTargetUnit(int nMaxDistance, D2GameStrc* pGame,
 
 static inline int PLRMSG_CheckSkillLevel(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);
 
-D2UnitStrc* __stdcall sub_0063BDE0(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
+D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 
 int __stdcall sub_0063BE30_Return(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BE30
 
@@ -4881,7 +4881,7 @@ static int __stdcall PLRMSG_TakeMercItemToCursor(D2GameStrc* pGame, D2UnitStrc* 
         return 3;
     }
 
-    D2UnitStrc* pItem = sub_0063BDE0(pMerc->pInventory, nBodyLoc);
+    D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pMerc->pInventory, nBodyLoc);
     if (!sub_RemoveEquippedItem(pMerc, pItem))
     {
         return 2;

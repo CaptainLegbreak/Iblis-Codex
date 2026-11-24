@@ -435,7 +435,7 @@ void __stdcall D2Common_10884_COMPOSIT_unk(D2UnitStrc* pUnit, int nClassId, int 
 
 int __stdcall DATATBLS_GetAnimDataInfo(char* szPath, int* pOutLength, int* pOutAnimSpeed, int* pOutFirstFrameTagged); // 0x0066AA80
 
-int __stdcall sub_0062AE20(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave, unsigned int dwVersion); // 0x0062AE20
+int __stdcall ITEMS_GetCompactItemDataFromBitstream(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave, unsigned int dwVersion); // 0x0062AE20
 
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
 
@@ -752,7 +752,7 @@ int __fastcall ITEMS_CalculateTransactionCost(D2UnitStrc* pPlayer, D2UnitStrc* p
 
 struct D2SkillsTxt;
 
-unsigned short __stdcall sub_00627F20_GetAutoAffix(D2UnitStrc*); // 0x00627F20
+unsigned short __stdcall ITEMS_GetAutoAffix(D2UnitStrc*); // 0x00627F20
 
 int __stdcall DATATBLS_GetMaxLevel(int); // 0x00611830
 
@@ -861,11 +861,11 @@ extern "C" int __fastcall sub_0045ADF0_GetX(D2UnitStrc* pItem);
 
 extern "C" int __fastcall sub_0045AE20_GetY(D2UnitStrc* pItem);
 
-extern "C" void __stdcall sub_006286C0_GetSize(D2UnitStrc* pItem, unsigned char* pWidth, unsigned char* pHeight, const char* szSource, int nLine);
+extern "C" void __stdcall ITEMS_GetDimensions(D2UnitStrc* pItem, unsigned char* pWidth, unsigned char* pHeight, const char* szSource, int nLine); // 0x006286C0
 
-extern "C" void __stdcall sub_00629ED0_SetItemCell(D2UnitStrc* pItem, int nCell);
+extern "C" void __stdcall ITEMS_SetOwnerId(D2UnitStrc* pItem, int nCell); // 0x00629ED0
 
-extern "C" void __stdcall sub_006277F0_RemoveOwnerStat(D2UnitStrc* pOwner, D2UnitStrc* pItem);
+extern "C" void __stdcall STATLIST_ExpireUnitStatlist(D2UnitStrc* pOwner, D2UnitStrc* pItem); // 0x006277F0
 
 extern "C" const char gszInventorySource_006EA918;
 
@@ -1565,8 +1565,9 @@ int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem)
     return 0;
 }
 
-// build: context sub_00623C60
-static inline int sub_00623C60(D2UnitStrc* pUnit)
+// build: symbol ?UNITS_GetWeaponClass@* 0x00623C60
+// build: context UNITS_GetWeaponClass
+static inline int UNITS_GetWeaponClass(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
@@ -1620,7 +1621,7 @@ static int __fastcall ITEMS_ApplyAffixLevelRequirement(D2MagicAffixTxt* record, 
 {
     if (!record)
         return required;
-    if (record->characterClass != 255 && player && record->characterClass == sub_00623C60(player))
+    if (record->characterClass != 255 && player && record->characterClass == UNITS_GetWeaponClass(player))
     {
         if (required <= record->classLevelReq)
             required = record->classLevelReq;
@@ -4056,7 +4057,7 @@ const D2RunesTxt* __stdcall ITEMS_GetRunesTxtRecordFromItem(D2UnitStrc* pItem)
         return 0;
     }
 
-    if (DATATBLS_GetItemsTxtRecord(sub_00623C60(pItem))->nQuest)
+    if (DATATBLS_GetItemsTxtRecord(UNITS_GetWeaponClass(pItem))->nQuest)
     {
         return 0;
     }
@@ -6888,7 +6889,7 @@ int __stdcall ITEMS_SerializeItemToBitstream(D2UnitStrc* pItem, unsigned char* p
 // 0x0062E410
 int __stdcall ITEMS_GetCompactItemDataFromBitstreamDefault(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave)
 {
-    return sub_0062AE20(pBitstream, nSize, bCheckForHeader, pItemSave, ITEMVERSION);
+    return ITEMS_GetCompactItemDataFromBitstream(pBitstream, nSize, bCheckForHeader, pItemSave, ITEMVERSION);
 }
 
 // 0x0062E430
@@ -8336,7 +8337,7 @@ static void __stdcall INVENTORY_UnlinkGridItem(D2InventoryGridStrc* pGrid, int b
             const int nY = sub_0045AE20_GetY(pItem);
             unsigned char nWidth;
             unsigned char nHeight;
-            sub_006286C0_GetSize(pItem, &nWidth, &nHeight, &gszInventorySource_006EA918, SIZE_LINE);
+            ITEMS_GetDimensions(pItem, &nWidth, &nHeight, &gszInventorySource_006EA918, SIZE_LINE);
             for (int nRow = nY; nRow < nY + nHeight; ++nRow)
             {
                 D2UnitStrc** ppRow = pGrid->ppItems + nRow * pGrid->nGridWidth;
@@ -8397,10 +8398,10 @@ int __fastcall INVENTORY_RemoveItem(D2UnitStrc* pItem)
         pExtra->pParentInv = 0;
         pExtra->nNodePos = 0;
         pExtra->nNodePosOther = 0;
-        sub_00629ED0_SetItemCell(pItem, -1);
+        ITEMS_SetOwnerId(pItem, -1);
         if (pInventory->pOwner)
         {
-            sub_006277F0_RemoveOwnerStat(pInventory->pOwner, pItem);
+            STATLIST_ExpireUnitStatlist(pInventory->pOwner, pItem);
         }
         if (pInventory->dwLeftItemGUID == (!pItem ? -1 : pItem->dwUnitId))
         {

@@ -521,21 +521,21 @@ struct Tables
     int overlayCount;
 };
 
-int __stdcall sub_006444A0(Skill*); // 0x006444A0
+int __stdcall SKILLS_GetParam1(Skill*); // 0x006444A0
 
-int __stdcall sub_006444D0(Skill*); // 0x006444D0
+int __stdcall SKILLS_GetParam2(Skill*); // 0x006444D0
 
-int __stdcall sub_00644500(Skill*); // 0x00644500
+int __stdcall SKILLS_GetParam3(Skill*); // 0x00644500
 
-int __stdcall sub_00644530(Skill*); // 0x00644530
+int __stdcall SKILLS_GetParam4(Skill*); // 0x00644530
 
 Room* __fastcall sub_00463740(Room*,int,int); // 0x00463740
 
 Unit* __fastcall D2GAME_SpawnMonster_6FC69F10(Game*,Room*,int,int,int,int,int,int); // 0x005B2F20
 
-void __stdcall sub_00621CE0(Unit*,Unit*); // 0x00621CE0
+void __stdcall UNITS_StoreOwner(Unit*,Unit*); // 0x00621CE0
 
-void __stdcall sub_00621E40(Unit*,int,int); // 0x00621E40
+void __stdcall UNITS_SetOverlay(Unit*,int,int); // 0x00621E40
 
 enum { MINION_FLAGS = 0x4020000 };
 
@@ -793,10 +793,10 @@ int __fastcall SKILLS_SrvDo135_MinionSpawner(Game* game,Unit* unit,int skillId,i
     if(!record) return 0;
     Skill* skill=sub_00620250(unit);
     if(!skill) return 0;
-    int monsterId=sub_006444A0(skill);
-    int x=sub_006444D0(skill);
-    int y=sub_00644500(skill);
-    int mode=sub_00644530(skill);
+    int monsterId=SKILLS_GetParam1(skill);
+    int x=SKILLS_GetParam2(skill);
+    int y=SKILLS_GetParam3(skill);
+    int mode=SKILLS_GetParam4(skill);
     Room* room=sub_00463740(sub_00620BB0(unit),x,y);
     if(!room) return 0;
     Unit* monster=D2GAME_SpawnMonster_6FC69F10(game,room,x,y,monsterId,mode,-1,0);
@@ -805,8 +805,8 @@ int __fastcall SKILLS_SrvDo135_MinionSpawner(Game* game,Unit* unit,int skillId,i
         if(!monster) return 0;
     }
     monster->flags |= MINION_FLAGS;
-    sub_00621CE0(monster,unit);
-    if(record->overlay>=0 && record->overlay<tables->overlayCount) sub_00621E40(monster,record->overlay,0);
+    UNITS_StoreOwner(monster,unit);
+    if(record->overlay>=0 && record->overlay<tables->overlayCount) UNITS_SetOverlay(monster,record->overlay,0);
     return 1;
 }
 

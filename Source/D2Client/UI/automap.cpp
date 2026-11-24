@@ -1142,7 +1142,7 @@ int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int b
 
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 
-void __stdcall sub_00660CB0_GetUiRecord(int nIndex, int nRow, D2UiRecordStrc* pRecord); // 0x00660CB0
+void __stdcall DATATBLS_GetBeltsTxtRecord(int nIndex, int nRow, D2UiRecordStrc* pRecord); // 0x00660CB0
 
 extern D2AutomapPairStrc gaAutomapPairs[49]; // 0x00711258
 
@@ -1329,7 +1329,7 @@ struct D2AutomapRoomStrc
     D2DrlgLevelStrc* pLevel;
 };
 
-void* __stdcall sub_00642750_GetAutomapLevelType(int nLevelId); // 0x00642750
+void* __stdcall DRLG_GetLevelTypeFromLevelId(int nLevelId); // 0x00642750
 
 int __stdcall TileGetType(D2TileLibraryEntryStrc* pTile); // 0x00604B60
 
@@ -1339,9 +1339,9 @@ int __stdcall TileGetSequence(D2TileLibraryEntryStrc* pTile); // 0x00604C50
 
 int __fastcall DATATBLS_GetAutomapCellId(void* pAutomapLevelType, int nAutomapTileType, int nStyle, int nSequence); // 0x0061FFF0
 
-D2AutomapRoomStrc* __fastcall sub_0061AAE0_GetAutomapRoom(D2ActiveRoomStrc* pRoom); // 0x0061AAE0
+D2AutomapRoomStrc* __fastcall DUNGEON_GetRoomExFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061AAE0
 
-D2DrlgTileDataStrc* __stdcall sub_006196A0_GetWallTiles(D2ActiveRoomStrc* pRoom, unsigned int* pCount); // 0x006196A0
+D2DrlgTileDataStrc* __stdcall DUNGEON_GetWallTilesFromRoom(D2ActiveRoomStrc* pRoom, unsigned int* pCount); // 0x006196A0
 
 void __stdcall AUTOMAP_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2AutomapCellStrc** ppRoot); // 0x00458DC0
 
@@ -2333,7 +2333,7 @@ static void __stdcall AUTOMAP_RevealAutomapTile(D2DrlgTileDataStrc* pTileData, D
         return;
     }
     pTileData->dwFlags |= 0x40000;
-    void* pLevelType = sub_00642750_GetAutomapLevelType(pRoom->pLevel->eLevelId);
+    void* pLevelType = DRLG_GetLevelTypeFromLevelId(pRoom->pLevel->eLevelId);
     const int nType = TileGetType(pTileData->pTile);
     const int nStyle = TileGetStyle(pTileData->pTile);
     const int nSequence = TileGetSequence(pTileData->pTile);
@@ -2933,7 +2933,7 @@ void __stdcall AUTOMAP_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2AutomapCellS
 void __stdcall AUTOMAP_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevealAll, D2AutomapLayerStrc* pLayer)
 {
     unsigned int nCount = 0;
-    D2AutomapRoomStrc* pRoom = sub_0061AAE0_GetAutomapRoom(pActiveRoom);
+    D2AutomapRoomStrc* pRoom = DUNGEON_GetRoomExFromRoom(pActiveRoom);
     D2DrlgTileDataStrc* pTiles = sub_00619660_GetFloorTiles(pActiveRoom, &nCount);
     for (unsigned int i = 0; i < nCount; i++)
     {
@@ -2943,7 +2943,7 @@ void __stdcall AUTOMAP_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevea
             AUTOMAP_RevealAutomapTile(pTileData, pRoom, &pLayer->pFloors);
         }
     }
-    pTiles = sub_006196A0_GetWallTiles(pActiveRoom, &nCount);
+    pTiles = DUNGEON_GetWallTilesFromRoom(pActiveRoom, &nCount);
     for (unsigned int i = 0; i < nCount; i++)
     {
         D2DrlgTileDataStrc* pTileData = &pTiles[i];

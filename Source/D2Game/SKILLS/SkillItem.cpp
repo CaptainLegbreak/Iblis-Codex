@@ -1431,7 +1431,8 @@ static inline int sub_0044BE50(D2UnitStrc* pUnit)
     return pUnit->dwUnitType;
 }
 
-static inline int sub_00623C60(D2UnitStrc* pUnit)
+// build: symbol ?UNITS_GetWeaponClass@* 0x00623C60
+static inline int UNITS_GetWeaponClass(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -1457,7 +1458,7 @@ int __stdcall SKILLITEM_EventFunc07_Knockback(D2UnitStrc* pUnit, D2UnitStrc* pDe
     int nChance = 64;
     if (sub_0044BE50(pDefender) == UNIT_MONSTER)
     {
-        D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(sub_00623C60(pDefender));
+        D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(UNITS_GetWeaponClass(pDefender));
         if (pMonStats2TxtRecord)
         {
             if (pMonStats2TxtRecord->nFlags[MONSTATS2FLAGINDEX_LARGE >> 3] & gdwBitMasks[MONSTATS2FLAGINDEX_LARGE & 7])

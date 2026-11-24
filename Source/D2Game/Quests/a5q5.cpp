@@ -1124,7 +1124,8 @@ int __fastcall ACT5Q5_IsArreatSummitClosed(D2GameStrc* pGame, D2UnitStrc* pUnit,
     return ((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->bAncientsDefeated == 0;
 }
 
-static inline int sub_00623C60(D2UnitStrc* pUnit)
+// build: symbol ?UNITS_GetWeaponClass@* 0x00623C60
+static inline int UNITS_GetWeaponClass(D2UnitStrc* pUnit)
 {
     if (!pUnit) return -1;
     return pUnit->dwClassId;
@@ -1152,7 +1153,7 @@ static void ACT5Q5_SetAncientStatueMode(D2Act5Quest5Strc* pQuestDataEx, D2ObjIni
 {
     D2UnitStrc* pObject = pOp->pObject;
     int nIndex;
-    switch (sub_00623C60(pObject))
+    switch (UNITS_GetWeaponClass(pObject))
     {
     case 0x1DA: nIndex = 1; break;
     case 0x1DB: nIndex = 0; break;

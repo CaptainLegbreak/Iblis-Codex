@@ -89,13 +89,13 @@ struct Tables
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
 
-int __stdcall sub_00646CA0(D2UnitStrc*,unsigned,int,int); // 0x00646CA0
+int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc*,unsigned,int,int); // 0x00646CA0
 
 int __fastcall SKILLS_GetProgressiveSkillMissileId(D2UnitStrc*,int); // 0x005D3CF0
 
 D2UnitStrc* __fastcall sub_0059FA30(D2GameStrc*,D2MissileStrc*); // 0x0059FA30
 
-void __stdcall sub_0064A710(D2UnitStrc*,int); // 0x0064A710
+void __stdcall MISSILE_SetTargetX(D2UnitStrc*,int); // 0x0064A710
 
 enum { MISSILE_FLAGS = 0x20 };
 
@@ -1054,13 +1054,13 @@ int __fastcall SKILLS_SrvDo014_LightningStrike(D2GameStrc* game,D2UnitStrc* unit
     D2UnitStrc* target=SUNIT_GetTargetUnit(game,unit);
     if(!target) return 0;
     SUNITDMG_DrainItemDurability(game,unit,target,0);
-    int range=sub_00646CA0(unit,record->rangeCalc,skillId,level);
+    int range=SKILLS_EvaluateSkillFormula(unit,record->rangeCalc,skillId,level);
     const int targetId=target->dwUnitId;
     D2UnitStrc* other=SKILLS_FindNextAuraTarget(game,unit,UNITS_GetUnitXPosition(target),UNITS_GetUnitYPosition(target),range,3,targetId,0);
     if(!other) return 0;
     int missileId=SKILLS_GetProgressiveSkillMissileId(unit,skillId);
     if(missileId<0 || missileId>=tables->missileCount) return 0;
-    int duration=sub_00646CA0(unit,record->durationCalc,skillId,level);
+    int duration=SKILLS_EvaluateSkillFormula(unit,record->durationCalc,skillId,level);
     D2MissileStrc params;
     memset(&params,0,sizeof(params));
     params.dwFlags=MISSILE_FLAGS;
@@ -1072,7 +1072,7 @@ int __fastcall SKILLS_SrvDo014_LightningStrike(D2GameStrc* game,D2UnitStrc* unit
     params.nTargetX=CLIENTS_GetUnitX(other);
     params.nTargetY=CLIENTS_GetUnitY(other);
     D2UnitStrc* missile=sub_0059FA30(game,&params);
-    if(missile) sub_0064A710(missile,duration);
+    if(missile) MISSILE_SetTargetX(missile,duration);
     return 1;
 }
 
