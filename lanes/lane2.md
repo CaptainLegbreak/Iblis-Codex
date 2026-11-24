@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/game-records a56b9979 562->562 D2GameTypes.h: the roster-iteration callback argument (Game, Player, PlrSave) and the door-finding callback argument (AiThink, AiUtil, MissMode). Each unit had a private copy with the same text; VERIFIED 18754bec2b45ca97877cb09a77b98459f9cfe41b
+  - Verified on #318, rebased onto #320. Precheck of all 202 includers of D2GameTypes.h is equal on #320.
+  - Outside lane 2: the six D2Game units (lane 5). Private-copy removal only.
+
 - lane2/cmp-records-2 12d0f1a3 562->562 D2CmpTypes.h: the find-tiles node and its sub node, which FindTiles and TileLib each defined privately with the same text. Ignore `lane2/cmp-records`: it also moved the subtile block and flips D2Win's D2Comp on #318; VERIFIED 86c772d2bde5a0aa61c3bc01a7d4ae079770bfd9
   - On #318. All 36 includers of D2CmpTypes.h build equal.
   - Outside lane 2: FindTiles and TileLib (lane 6).
