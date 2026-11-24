@@ -4564,58 +4564,7 @@ static void TEXT_SetQuestPage(int nPageArg)
     gnPage = nPage;
 }
 
-// 0x004A23D0
-void __cdecl TEXT_LoadQuestPanelCels()
-{
-    char szPath[0x104];
-    if (sub_00483350())
-    {
-        return;
-    }
-// build: symbol ?gpQuestBackgroundCel@* 0x007BF2D5
-    if (!gpQuestBackgroundCel)
-    {
-        sprintf(szPath, "%s\\ui\\menu\\questbackground", gszDataGlobal);
-        gpQuestBackgroundCel = ARCHIVE_LoadClientCellFile(szPath, 0);
-    }
-// build: symbol ?gpQuestTabsCel@* 0x007BF2D9
-    if (!gpQuestTabsCel)
-    {
-        if (FOG_IsExpansion() && GAME_IsExpansion())
-        {
-            sprintf(szPath, "%s\\ui\\menu\\expquesttabs", gszDataGlobal);
-        }
-        else
-        {
-            sprintf(szPath, "%s\\ui\\menu\\questtabs", gszDataGlobal);
-        }
-        gpQuestTabsCel = ARCHIVE_LoadClientCellFile(szPath, 0);
-    }
-// build: symbol ?gpQuestSocketsCel@* 0x007BF2D1
-    if (!gpQuestSocketsCel)
-    {
-        sprintf(szPath, "%s\\ui\\menu\\questsockets", gszDataGlobal);
-        gpQuestSocketsCel = ARCHIVE_LoadClientCellFile(szPath, 0);
-    }
-// build: symbol ?gpQuestDoneCel@* 0x007BF2DD
-    if (!gpQuestDoneCel)
-    {
-        sprintf(szPath, "%s\\ui\\menu\\questdone", gszDataGlobal);
-        gpQuestDoneCel = ARCHIVE_LoadClientCellFile(szPath, 0);
-    }
-// build: symbol ?gpInvPsCel@* 0x007BF351
-    if (!gpInvPsCel)
-    {
-        sprintf(szPath, "%s\\ui\\menu\\invps", gszDataGlobal);
-        gpInvPsCel = ARCHIVE_LoadClientCellFile(szPath, 0);
-    }
-// build: symbol ?gpQuestLastCel@* 0x007BF34D
-    if (!gpQuestLastCel)
-    {
-        sprintf(szPath, "%s\\ui\\menu\\questlast", gszDataGlobal);
-        gpQuestLastCel = ARCHIVE_LoadClientCellFile(szPath, 0);
-    }
-}
+void __cdecl TEXT_LoadQuestPanelCels(); // 0x004A23D0
 
 extern "C" { unsigned int gValue_007BF2A8; } // 0x007BF2A8
 
@@ -5065,50 +5014,7 @@ void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
-// build: symbol ??0Unicode@@QAE@XZ 0x0042F530
-// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
-// 0x004A3FE0
-void __fastcall TEXT_ToggleQuestLog(int nMode)
-{
-    if (gtQuestLog == 0)
-    {
-// build: symbol ?gdwQuestLogToggleTick@* 0x007C0259
-        if (GetTickCount() - gdwQuestLogToggleTick < 250)
-            return;
-        if (CUNIT_IsPlayerDeadOrMissing())
-            return;
-        if (INV_IsCinematicBusy())
-            return;
-        if (UI_SetUIVar(15, 0, nMode) != 1)
-            return;
-        TEXT_LoadQuestPanelCels();
-        gtQuestLog = 2;
-        TEXT_UpdateQuestPage();
-// build: symbol ?gnPage@* 0x007C0255
-        sub_004A3220(gnPage, 0);
-        MSG_SendHeaderOnly(0x40);
-        return;
-    }
-
-    if (gtQuestLog == 1)
-    {
-        gtQuestLog = 0;
-        if (INV_IsCinematicBusy())
-            return;
-        if (UI_SetUIVar(15, 0, nMode) != 1)
-            return;
-        TEXT_LoadQuestPanelCels();
-        gtQuestLog = 2;
-        TEXT_UpdateQuestPage();
-        sub_004A3220(gnPage, 0);
-        MSG_SendHeaderOnly(0x40);
-        return;
-    }
-
-    TEXT_OpenQuestPanel(nMode);
-    gdwQuestLogToggleTick = GetTickCount();
-    sub_004A1760_Forward();
-}
+void __fastcall TEXT_ToggleQuestLog(int nMode); // 0x004A3FE0
 
 // 0x004A40D0
 void __fastcall TEXT_SetQuestRecord(const D2Record42Strc* pRecord)
