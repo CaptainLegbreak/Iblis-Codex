@@ -37753,56 +37753,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00513C50",
-     "length": 631,
-     "name": "D2SOUND_SetEaxEnvironment"
-    },
-    {
-     "va": "0x00513ED0",
-     "length": 355,
-     "name": "?D2SOUND_GetDirectSoundErrorString@@YIPBDJ@Z"
-    },
-    {
-     "va": "0x00514710",
-     "length": 102,
-     "name": "?sub_00514710_GetChannelEntry@@YAPAUD2SoundChannelEntryStrc@@H@Z"
-    },
-    {
-     "va": "0x00514780",
-     "length": 39,
-     "name": "@D2SOUND_CreateStreamChannel@4"
-    },
-    {
-     "va": "0x005147B0",
-     "length": 30,
-     "name": "?D2SOUND_DestroyStreamChannel@@YAXXZ"
-    },
-    {
-     "va": "0x00514860",
-     "length": 131,
-     "name": "?D2SOUND_ClearChannelTable@@YAXXZ"
-    },
-    {
-     "va": "0x00514B60",
-     "length": 291,
-     "name": "?D2SOUND_LoadRegistrySettings@@YAXXZ"
-    },
-    {
-     "va": "0x00514CA0",
-     "length": 31,
-     "name": "?D2SOUND_SetSoundMixerOption@@YIHH@Z"
-    },
-    {
-     "va": "0x00514D00",
-     "length": 31,
-     "name": "?D2SOUND_SetMusicVolumeOption@@YIHH@Z"
-    },
-    {
-     "va": "0x00514D90",
-     "length": 31,
-     "name": "?D2SOUND_SetOptionsMusicOption@@YIHH@Z"
-    },
-    {
      "va": "0x00515110",
      "length": 1,
      "name": "?sub_00515110_Nop@@YAXXZ"
@@ -38045,75 +37995,9 @@
    ]
   },
   {
-   "file": "Source/D2Sound/Unknown_00513BC0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00513BC0",
-     "length": 135,
-     "name": "?sub_00513BC0_SetEaxRoomOff@@YIHH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Sound/Src/D2SoundFast.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00514040",
-     "length": 1,
-     "name": "?sub_00514040_Nothing@@YAXXZ"
-    },
-    {
-     "va": "0x00514050",
-     "length": 1,
-     "name": "?sub_00514050_Nothing@@YAXXZ"
-    },
-    {
-     "va": "0x00514060",
-     "length": 104,
-     "name": "?D2SOUND_CloseSoundSystem@@YAXXZ"
-    },
-    {
-     "va": "0x005147D0",
-     "length": 103,
-     "name": "?D2SOUND_PlayStreamChannel@@YIHPBDH@Z"
-    },
-    {
-     "va": "0x00514840",
-     "length": 28,
-     "name": "?D2SOUND_IsStreamChannelPlaying@@YAHXZ"
-    },
-    {
-     "va": "0x005148F0",
-     "length": 39,
-     "name": "?D2SOUND_10034@@YIXH@Z"
-    },
-    {
-     "va": "0x00514920",
-     "length": 6,
-     "name": "D2SOUND_GetStreamChannelValue"
-    },
-    {
-     "va": "0x00514930",
-     "length": 41,
-     "name": "?sub_00514930_StopChannel@@YAXXZ"
-    },
-    {
-     "va": "0x00514960",
-     "length": 48,
-     "name": "?D2SOUND_FadeOutStreamChannel@@YAXXZ"
-    },
-    {
-     "va": "0x00514CD0",
-     "length": 31,
-     "name": "?D2SOUND_SetMasterVolumeOption@@YIHH@Z"
-    },
-    {
-     "va": "0x00514D30",
-     "length": 31,
-     "name": "?D2SOUND_SetPositionalBiasOption@@YIHH@Z"
-    },
     {
      "va": "0x00514DB0",
      "length": 90,
@@ -38156,45 +38040,99 @@
    ]
   },
   {
-   "file": "Source/D2Sound/Unknown_005140D0.cpp",
-   "rank": 0,
+   "file": "Source/D2Sound/Unknown_00513BC0.cpp",
+   "rank": 1,
    "functions": [
+    {
+     "va": "0x00513BC0",
+     "length": 135,
+     "name": "?sub_00513BC0_SetEaxRoomOff@@YIHH@Z"
+    },
+    {
+     "va": "0x00513C50",
+     "length": 631,
+     "name": "D2SOUND_SetEaxEnvironment"
+    },
+    {
+     "va": "0x00513ED0",
+     "length": 355,
+     "name": "?D2SOUND_GetDirectSoundErrorString@@YIPBDJ@Z"
+    },
+    {
+     "va": "0x00514040",
+     "length": 1,
+     "name": "?sub_00514040_Nothing@@YAXXZ"
+    },
+    {
+     "va": "0x00514050",
+     "length": 1,
+     "name": "?sub_00514050_Nothing@@YAXXZ"
+    },
+    {
+     "va": "0x00514060",
+     "length": 104,
+     "name": "?D2SOUND_CloseSoundSystem@@YAXXZ"
+    },
     {
      "va": "0x005140D0",
      "length": 1107,
      "name": "?sub_005140D0_InitDirectSound@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Sound/Unknown_00514530.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00514530",
      "length": 474,
      "name": "?sub_00514530_InitSound@@YIXHH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Sound/Unknown_00514990.cpp",
-   "rank": 1,
-   "functions": [
+    },
+    {
+     "va": "0x00514710",
+     "length": 102,
+     "name": "?sub_00514710_GetChannelEntry@@YAPAUD2SoundChannelEntryStrc@@H@Z"
+    },
+    {
+     "va": "0x00514780",
+     "length": 39,
+     "name": "@D2SOUND_CreateStreamChannel@4"
+    },
+    {
+     "va": "0x005147B0",
+     "length": 30,
+     "name": "?D2SOUND_DestroyStreamChannel@@YAXXZ"
+    },
+    {
+     "va": "0x005147D0",
+     "length": 103,
+     "name": "?D2SOUND_PlayStreamChannel@@YIHPBDH@Z"
+    },
+    {
+     "va": "0x00514840",
+     "length": 28,
+     "name": "?D2SOUND_IsStreamChannelPlaying@@YAHXZ"
+    },
+    {
+     "va": "0x00514860",
+     "length": 131,
+     "name": "?D2SOUND_ClearChannelTable@@YAXXZ"
+    },
+    {
+     "va": "0x005148F0",
+     "length": 39,
+     "name": "?D2SOUND_10034@@YIXH@Z"
+    },
+    {
+     "va": "0x00514920",
+     "length": 6,
+     "name": "D2SOUND_GetStreamChannelValue"
+    },
+    {
+     "va": "0x00514930",
+     "length": 41,
+     "name": "?sub_00514930_StopChannel@@YAXXZ"
+    },
+    {
+     "va": "0x00514960",
+     "length": 48,
+     "name": "?D2SOUND_FadeOutStreamChannel@@YAXXZ"
+    },
     {
      "va": "0x00514990",
      "length": 462
@@ -38216,13 +38154,23 @@
    ]
   },
   {
-   "file": "Source/D2Sound/Unknown_00514D60.cpp",
+   "file": "Source/D2Sound/Unknown_00514B60.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00514B60",
+     "length": 291,
+     "name": "?D2SOUND_LoadRegistrySettings@@YAXXZ"
+    },
     {
      "va": "0x00514C90",
      "length": 6,
      "name": "D2SOUND_GetSoundMixerOption"
+    },
+    {
+     "va": "0x00514CA0",
+     "length": 31,
+     "name": "?D2SOUND_SetSoundMixerOption@@YIHH@Z"
     },
     {
      "va": "0x00514CC0",
@@ -38230,14 +38178,29 @@
      "name": "D2SOUND_GetMasterVolumeOption"
     },
     {
+     "va": "0x00514CD0",
+     "length": 31,
+     "name": "?D2SOUND_SetMasterVolumeOption@@YIHH@Z"
+    },
+    {
      "va": "0x00514CF0",
      "length": 6,
      "name": "D2SOUND_GetMusicVolumeOption"
     },
     {
+     "va": "0x00514D00",
+     "length": 31,
+     "name": "?D2SOUND_SetMusicVolumeOption@@YIHH@Z"
+    },
+    {
      "va": "0x00514D20",
      "length": 6,
      "name": "D2SOUND_GetPositionalBiasOption"
+    },
+    {
+     "va": "0x00514D30",
+     "length": 31,
+     "name": "?D2SOUND_SetPositionalBiasOption@@YIHH@Z"
     },
     {
      "va": "0x00514D50",
@@ -38253,6 +38216,11 @@
      "va": "0x00514D80",
      "length": 6,
      "name": "D2SOUND_GetOptionsMusicOption"
+    },
+    {
+     "va": "0x00514D90",
+     "length": 31,
+     "name": "?D2SOUND_SetOptionsMusicOption@@YIHH@Z"
     }
    ]
   },
