@@ -142,3 +142,5 @@ void __fastcall DATATBLS_CubeMainParamLinker(char* pSrc, void* pRecord, int nOff
         }
     }
 }
+
+#include "gen/data/Source/D2Common/Unknown_00668510.inc"
