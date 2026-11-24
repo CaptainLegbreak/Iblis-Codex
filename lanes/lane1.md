@@ -4,13 +4,6 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane1/skilldesc-path ee690ca4b 0->0 gszSkillDescFile (0x6DBF24, SkillDesc.cpp) was planned as char[8], so the build copied the other 12 bytes of ".\UI\SkillDesc.cpp" and its pad byte (0x6DBF2C-0x6DBF37) from Game.exe; it is now the whole 19-byte string. Borrowed data 1,166 -> 1,154 B; VERIFIED 61c6d0ff783549fde9439de7e0dfd5d0e6dd399e
-  - based on main #348.
-
-- lane1/spellsel-strays-3 b10b93b68 -2 placeholders (Unknown_004A76C0.cpp, Unknown_004A7AE0.cpp) from lane 4's handover: spellsel.cpp (code run 0x4A8A30-0x4AA8F0, .bss 0x7C0300-0x7C0833) takes 0x4A8A30 and 0x4A8CF0 (Unknown_004A76C0.cpp; nothing calls 0x4A8CF0, so its calling-convention shim comes along), 0x4A8ED0/0x4A9260/0x4A9300/0x4A9690/0x4A9870 with gaHotkeySkills/Owners/Left (Unknown_004A7AE0.cpp; rewritten on sgptDataTables, D2CelContextStrc, gaSkillIconCels and gpSkillIconCel instead of private overlays) and 0x4A8DF0 (Unknown_004A6000.cpp; its static buffer and guard 0x7C0810-0x7C0833 sit between spellsel's 0x7C07FC and the next object's 0x7C0838). 0x4A7AE0 is the levelup object's (its run; shares gnTextColor 0x7C02F8 with 0x4A7180; 0x4A7D00 calls it with register arguments): it replaces the context copy in Unknown_004A6460.cpp, with gaHoverBoxes (0x6DA430, .rdata between levelup's strings and spellsel's). Shims -2, context copies -1; VERIFIED 908a4077acd24a266bc3e6f60dfa1433841b054e
-  - based on main #348 (the rebase you asked for; conflicts were lane 10's renames in the two files it deletes, carried into spellsel.cpp and Unknown_004A6460.cpp). Replaces lane1/spellsel-strays-2.
-
-
 ## In progress
 
 - **Claimed (analysis first, no branch yet): the SkillsMon/SkillDesc object map, code 0x4E1D30-0x4F2004.** Filed today across SkillsMon.cpp, SkillDesc.cpp, six SkillDesc_*.cpp pieces, SkillsEMon.cpp and a dozen placeholders, all interleaved. Path strings in .rdata: .\SKILLS\SkillsMon.cpp (0x6DBB4C), .\UI\SkillDesc.cpp (0x6DBF24), .\SKILLS\SkillsEMon.cpp (0x6DBF90). SkillDesc.cpp's plan holds 4 language copies and SkillDesc_004E1FF0.cpp's 3 (lane 4's note), so this is about 7 objects plus SkillsMon and SkillsEMon. I'll post the object map before moving anything. Waiting on lane4/spellsel-data before the spellsel strays (it touches spellsel.cpp).
