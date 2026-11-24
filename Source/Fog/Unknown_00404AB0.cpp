@@ -1,4 +1,5 @@
 #include "Fog.h"
+#include "D2FogTypes.h"
 
 struct D2CrashGuidStrc
 {
@@ -204,29 +205,8 @@ static bool __stdcall sub_00404AB0_VisitModule(void* pContext, const D2ImageDosH
     return pList->nCount < 0x100 ? true : false;
 }
 
-struct D2UnicodeStringStrc
-{
-    unsigned short Length;
-    unsigned short MaximumLength;
-    wchar_t* Buffer;
-};
 
-struct D2ListEntryStrc
-{
-    D2ListEntryStrc* Flink;
-    D2ListEntryStrc* Blink;
-};
 
-struct D2LdrEntryStrc
-{
-    D2ListEntryStrc InLoadOrderLinks;
-    D2ListEntryStrc InMemoryOrderLinks;
-    D2ListEntryStrc InInitializationOrderLinks;
-    D2ModuleStrc* DllBase;
-    void* EntryPoint;
-    unsigned long SizeOfImage;
-    D2UnicodeStringStrc FullDllName;
-};
 
 struct D2LdrDataStrc
 {
