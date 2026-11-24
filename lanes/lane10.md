@@ -5,9 +5,10 @@ Written by lane 10 only. Newest entries at the top of each section; delete what 
 Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named functions in known files, as `lanes/names/<scope>.tsv` + `<scope>-skipped.tsv`. Edits no source.
 
 ## Claimed
-- D2Client by area (next), then D2Game, D2CMP, D2Common, the rest.
+- D2Client UI/ (next, 278), then D2Game, D2CMP, D2Common, the rest.
 
 ## Plans
+- plan d2client-units: 35 high, 30 medium, 82 skipped (d2moo 0, inferred 65). D2Client UNIT, ENGINE, SKILLS, DRAW, WARDEN, Sound, CORE (everything outside GAME/ and UI/). Client-AI routines, unexplained flag testers and D2Common-ordinal forwarders are skipped.
 - plan d2client-game: 38 high, 25 medium, 111 skipped (d2moo 0, inferred 63). D2Client GAME/ (Game, SCmd, View, Select, Msg, RosterPets, Roster, Wall2). Prefixes as the files use (GAME_, SCMD_Handle…, VIEW_, MSG_Send…, ROSTERPETS_, WALL2_); SELECT_ for Select.cpp. Many skips are list/array template members and empty stubs.
 - plan fog: 51 high, 17 medium, 106 skipped (d2moo 14, inferred 54). All of Fog in named files, plus 0x0040ECC0/0x0040ED40 (filed in Storm SFILE.CPP, but in LogManager's run; storm-sfile-skipped.tsv now points here). Prefixes as each file already uses (ERRORMANAGER_, LOGMANAGER_, EXCEPTIONS_, SYSTEM_, DATAARRAYS_, D2QSQUEUE_; D2QSSOCKET_ for D2QSSocket.cpp, whose only named functions are FOG_ exports); FOG_ for the exports D2MOO's ordinal list places. FOG_10083_Cos_LUT / FOG_10084_Sin_LUT keep the ordinal style the file already has (FOG_10082_Noop).
 - All three plans re-checked against #327: every old name is still a placeholder, every new name is unused in Source and names.csv.

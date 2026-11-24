@@ -1,0 +1,83 @@
+va	old_name	file	reason
+0x00463D70	sub_00463D70_Empty	Source/D2Client/UNIT/CUnit.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00463DD0	sub_00463DD0_GetPlayerUnit	Source/D2Client/UNIT/CUnit.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00463DD0)
+0x00463DE0	sub_00463DE0_GetPlayerUnit	Source/D2Client/UNIT/CUnit.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00463DE0_GetStoredUnit)
+0x00464280	sub_00464280_SkillSelectProc4	Source/D2Client/UNIT/CUnit.cpp	skill-select callback that forwards to D2Common ordinal 11018, whose meaning is unknown; in data_plan.json
+0x004642A0	sub_004642A0_SkillSelectProc5	Source/D2Client/UNIT/CUnit.cpp	skill-select callback that forwards to D2Common ordinal 11019, whose meaning is unknown; in data_plan.json
+0x0046CE40	sub_0046CE40_AiType3	Source/D2Client/ENGINE/Gfx.cpp	client monster AI routine (type 3 in the hint); which AI it is is not known; (also spelled SEED_RollUnitHL_0046CE40, sub_E19_Emit_0046CE40)
+0x0046D110	sub_0046D110_AiType5	Source/D2Client/ENGINE/Gfx.cpp	client monster AI routine (type 5 in the hint); which AI it is is not known
+0x0046D450	sub_0046D450_AiType8	Source/D2Client/ENGINE/Gfx.cpp	client monster AI routine (type 8 in the hint); which AI it is is not known
+0x0046D780	sub_0046D780	Source/D2Client/ENGINE/Gfx.cpp	client monster AI routine (nearest target, timers, MonStats flag 22 branch); which AI it is is not known
+0x0046EA80	sub_0046EA80_ResetGfxBytes20	Source/D2Client/ENGINE/Gfx.cpp	inline loop clearing the first 20 component bytes; one of three variants told apart only by the count; (also spelled sub_M113_Emit_0046EA80)
+0x0046EAA0	sub_0046EAA0_ResetGfxBytes16	Source/D2Client/ENGINE/Gfx.cpp	inline loop clearing the first 16 component bytes; one of three variants told apart only by the count
+0x0046EB50	sub_0046EB50_ResetGfxBytes8	Source/D2Client/ENGINE/Gfx.cpp	inline loop clearing the first 8 component bytes; one of three variants told apart only by the count
+0x0046F090	sub_0046F090_IsNotMonsterOrNoFlag2	Source/D2Client/ENGINE/Gfx.cpp	tests "not a monster, or its MonStats2 flag 2 is clear"; the flag's meaning is unknown; (also spelled sub_M449_Emit_0046F090)
+0x0046F360	sub_0046F360_Empty	Source/D2Client/ENGINE/Gfx.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0046F9B0	sub_0046F9B0_Empty	Source/D2Client/ENGINE/Gfx.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0046F9C0	sub_0046F9C0_Empty	Source/D2Client/ENGINE/Gfx.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00474380	sub_00474380	Source/D2Client/DRAW/dLightMap.cpp	returns 32; purpose unknown
+0x00475D20	sub_00475D20_FreeIfSet	Source/D2Client/DRAW/dLightMap.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00475DE0	sub_00475DE0_FreeIfSet	Source/D2Client/DRAW/dLightMap.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00478150	sub_00478150	Source/D2Client/DRAW/dLightMap.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0047A9D0	sub_0047A9D0	Source/D2Client/DRAW/dLightMap.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0047F930	D2Warden47F930Strc	Source/D2Client/WARDEN/WardenClient.cpp	constructor/destructor/operator; named by its class
+0x0047F940	~D2WardenModuleHolderAStrc	Source/D2Client/WARDEN/WardenClient.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0047FBC0	WardenModule	Source/D2Client/WARDEN/WardenClient.cpp	constructor/destructor/operator; named by its class
+0x0047FBE0	~D2WardenModuleHolderBStrc	Source/D2Client/WARDEN/WardenClient.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0047FC30	Library	Source/D2Client/WARDEN/WardenClient.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004801C0	WardenClient	Source/D2Client/WARDEN/WardenClient.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x004817D0	sub_004817D0	Source/D2Client/DRAW/dLightMap.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004817E0	sub_004817E0	Source/D2Client/DRAW/dLightMap.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004817F0	sub_004817F0	Source/D2Client/DRAW/dLightMap.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00481800	sub_00481800	Source/D2Client/DRAW/dLightMap.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00481810	sub_00481810	Source/D2Client/DRAW/dLightMap.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00481810_GetTokenData)
+0x00481830	sub_00481830	Source/D2Client/UNIT/UnitMode.cpp	calls two unnamed functions; purpose unknown
+0x00481850	sub_00481850	Source/D2Client/Sound/SoundHdr.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00486E00	sub_00486E00	Source/D2Client/DRAW/dLightMap.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00489870	sub_00489870	Source/D2Client/DRAW/dLightMap.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004898A0	sub_004898A0	Source/D2Client/UNIT/CUnit.cpp	disables the gold button, switches the inventory panel mode 13 to 12 and sets UI var 5; the panel it opens is not certain; (also spelled sub_004898A0_OpenUi)
+0x00489CD0	sub_00489CD0	Source/D2Client/DRAW/dLightMap.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0048BDF0	sub_0048BDF0	Source/D2Client/DRAW/dLightMap.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x00494FB0	sub_00494FB0	Source/D2Client/DRAW/dLightMap.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0049C160	sub_0049C160	Source/D2Client/DRAW/dLightMap.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0049E8A0	sub_0049E8A0	Source/D2Client/DRAW/dLightMap.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004A8A20	sub_004A8A20	Source/D2Client/DRAW/dLightMap.cpp	returns 7; purpose unknown
+0x004B15F0	sub_004B15F0	Source/D2Client/UNIT/Monster.cpp	Unicode member (lower-case through the case table); member names, see the member-function question
+0x004B1DC0	sub_004B1DC0	Source/D2Client/UNIT/Monster.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004B70F0	sub_004B70F0	Source/D2Client/UNIT/Monster.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004B85E0	sub_004B85E0	Source/D2Client/UNIT/Monster.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004BDAF0	sub_004BDAF0_AlwaysOne	Source/D2Client/UNIT/Object.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x004BDB90	sub_004BDB90_AlwaysOne	Source/D2Client/UNIT/Object.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x004BF9B0	sub_004BF9B0	Source/D2Client/UNIT/Monster.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004C16C0	sub_004C16C0_RefreshUnitItems	Source/D2Client/UNIT/Item.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004C1BE0	sub_004C1BE0_RefreshUnitItems	Source/D2Client/UNIT/Item.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004C2150	sub_004C2150_FindInTable	Source/D2Client/UNIT/Item.cpp	returns 4 when a value is in a small table, else 3; meaning unknown
+0x004C2530	sub_004C2530	Source/D2Client/UNIT/Item.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004C6020	sub_004C6020_AlwaysOne	Source/D2Client/SKILLS/Skills.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x004C7C90	sub_004C7C90_TestTarget11018	Source/D2Client/SKILLS/Skills.cpp	skill callback testing the path target with D2Common ordinal 11018, whose meaning is unknown; in data_plan.json
+0x004C7EE0	sub_004C7EE0_TestTarget11019	Source/D2Client/SKILLS/Skills.cpp	skill callback testing the path target with D2Common ordinal 11019, whose meaning is unknown; in data_plan.json
+0x004CA030	sub_004CA030_TickEvent	Source/D2Client/SKILLS/Skills.cpp	skill callback that calls an unnamed function at most every 5 ticks; purpose unknown; in data_plan.json
+0x004D04D0	sub_004D04D0_HitRing64	Source/D2Client/UNIT/Missile.cpp	ring hit function; one of two copies told apart only by their offset tables; in data_plan.json
+0x004D05E0	sub_004D05E0_HitRing64	Source/D2Client/UNIT/Missile.cpp	ring hit function; one of two copies told apart only by their offset tables; in data_plan.json
+0x004D3F10	sub_004D3F10_ClientMissileDo	Source/D2Client/UNIT/Missile.cpp	client missile step whose behaviour is not clear enough to name; in data_plan.json
+0x004D8A30	sub_004D8A30_GetThirdsTier	Source/D2Client/UNIT/PlrSkills.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004D8D60	sub_004D8D60_GetThirdsTier	Source/D2Client/UNIT/PlrSkills.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004D9160	sub_004D9160	Source/D2Client/UNIT/PlrSkills.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x004D9170	sub_004D9170	Source/D2Client/UNIT/PlrSkills.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x004DA620	sub_004DA620_SetMotionFlag10	Source/D2Client/ENGINE/GfxUtil.cpp	sets/clears motion flag 0x10, whose meaning is unknown; (also spelled sub_004DA620)
+0x004DA640	sub_004DA640_SetMotionFlag1	Source/D2Client/ENGINE/GfxUtil.cpp	sets motion flag 1, whose meaning is unknown
+0x004DA660	sub_004DA660_TestMotionFlag1	Source/D2Client/ENGINE/GfxUtil.cpp	tests motion flag 1, whose meaning is unknown
+0x004DA690	sub_004DA690_ReplaceMotionFlag1With8	Source/D2Client/ENGINE/GfxUtil.cpp	replaces motion flag 1 with 8; the flags' meanings are unknown
+0x004DA6B0	sub_004DA6B0_TestMotionFlags	Source/D2Client/ENGINE/GfxUtil.cpp	tests motion flags 1 and 8; their meanings are unknown
+0x004DA700	sub_004DA700_GetGfxMotionFlag5	Source/D2Client/ENGINE/Particle.cpp	returns an unnamed motion flag byte
+0x004DB040	sub_004DB040_identity	Source/D2Client/ENGINE/GfxUtil.cpp	identity helper (returns its argument); (also spelled sub_004DB040_GetLayerHeader)
+0x004DDDF0	sub_004DDDF0	Source/D2Client/UNIT/PlayerList.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004DDE80	sub_004DDE80_ExtendBounds	Source/D2Client/ENGINE/GfxUtil.cpp	D2DrawBoundsStrc member (extend bounds); member names, see the member-function question; (also spelled sub_004DDE80_UpdateBounds)
+0x004E0700	sub_004E0700_GetEntry	Source/D2Client/ENGINE/GfxUtil.cpp	D2OffsetTableRefStrc member (entry by id); member names, see the member-function question; (also spelled sub_004E0700_GetProc)
+0x004E0C60	sub_004E0C60_CltDoResetActionFrame	Source/D2Client/ENGINE/GfxUtil.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x004E12F0	sub_004E12F0_CltDoResetActionFrame2	Source/D2Client/ENGINE/GfxUtil.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x004E39A0	sub_004E39A0_CheckTargetRoom	Source/D2Client/SKILLS/SkillsMon.cpp	target-room check for a skill; one of two variants, which skills each serves unknown; in data_plan.json
+0x004E4040	sub_004E4040	Source/D2Client/UNIT/Monster.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004F3EB0	sub_004F3EB0_CheckTargetRoom	Source/D2Client/SKILLS/SkillsMon.cpp	target-room check for a skill; one of two variants, which skills each serves unknown; in data_plan.json
+0x006CA9A0	sub_006CA9A0_Initialize	Source/D2Client/CORE/WINMAIN.CPP	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgpszHelpCaption@@YAXXZ]; named by its template; in // build: symbol
+0x006CA9B0	sub_006CA9B0_Initialize	Source/D2Client/CORE/WINMAIN.CPP	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgpszCaption_007A0450@@YAXXZ]; named by its template; in // build: symbol

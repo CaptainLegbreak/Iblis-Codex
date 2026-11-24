@@ -1,0 +1,66 @@
+va	old_name	new_name	source	file	confidence	reason
+0x00463E10	sub_00463E10_GetGfxData	CUNIT_GetGfxData	inferred	Source/D2Client/UNIT/CUnit.cpp	high	returns a unit's gfx data, null for no unit
+0x0046C770	sub_0046C770_CommandOnUnit	GFX_CommandMonsterOnUnit	inferred	Source/D2Client/ENGINE/Gfx.cpp	medium	client monster AI: issues a monster command on a target unit (type and id)
+0x0046C960	sub_0046C960_StepRandom	GFX_MonsterStepRandom	inferred	Source/D2Client/ENGINE/Gfx.cpp	medium	client monster AI: steps a monster to a random diagonal offset of a given scale; (also spelled SEED_RollUnitHL_0046C960, SEED_RollUnitLH_0046C960)
+0x0046DB30	sub_0046DB30_GetCompInventory	GFX_GetCompositeInventory	inferred	Source/D2Client/ENGINE/Gfx.cpp	medium	returns the inventory to draw a unit's composite from (the owner's for some shapeshift states)
+0x004723F0	sub_004723F0_GetPhase	GFX_GetWeatherPhase	inferred	Source/D2Client/ENGINE/Gfx.cpp	medium	returns the current weather phase
+0x00472400	sub_00472400_ResetPhaseState	GFX_InitLevelWeather	inferred	Source/D2Client/ENGINE/Gfx.cpp	medium	sets the wind angles and weather parameters for the player's level; (also spelled sub_00472400_SeedStep)
+0x00472530	sub_00472530_SetPhaseActive	GFX_SetWeatherPhaseActive	inferred	Source/D2Client/ENGINE/Gfx.cpp	medium	sets whether the weather phase runs, starting phase 2 when set; (also spelled sub_M110_Emit_00472530)
+0x00472550	sub_00472550_ResetWeather	GFX_ResetWeather	inferred	Source/D2Client/ENGINE/Gfx.cpp	high	resets the weather particle array
+0x004732C0	sub_004732C0_StepParticles	GFX_StepWeatherParticles	inferred	Source/D2Client/ENGINE/Gfx.cpp	high	moves the weather particles for one frame (wind angle, splash scale)
+0x00473A70	sub_00473A70	GFX_DrawWeatherSplashes	inferred	Source/D2Client/ENGINE/Gfx.cpp	medium	draws the active weather splash records, adjusted for perspective and the panel layout
+0x0047F950	sub_0047F950_CheckBlockSignature	WARDENCLIENT_CheckBlockSignature	inferred	Source/D2Client/WARDEN/WardenClient.cpp	high	tells whether a block ends with a 'NGIS' signature tag and returns the data size
+0x00481920	sub_00481920_GetSoundEnvironTxtRecord	SOUNDHDR_GetSoundEnvironTxtRecord	inferred	Source/D2Client/Sound/SoundHdr.cpp	high	returns the SoundEnviron record for an id, or null; (also spelled T00481920)
+0x004ACD50	sub_004ACD50_ClearMonsterField18	MONUNIQUE_ClearDurielFlag	inferred	Source/D2Client/UNIT/MonUnique.cpp	medium	unique-monster callback: clears a monster's Duriel flag; in data_plan.json
+0x004ACDB0	sub_004ACDB0_UMod8_Resistant	MONUNIQUE_ApplyResistantMod	inferred	Source/D2Client/UNIT/MonUnique.cpp	medium	client copy of the "resistant" unique modifier: doubles defence for mod 28 and raises resistances; in data_plan.json
+0x004C7C80	sub_004C7C80_GetMissilesTxtRecordCount	SKILLS_GetMissilesTxtRecordCount	inferred	Source/D2Client/SKILLS/Skills.cpp	high	returns the Missiles.txt record count
+0x004C80D0	sub_004C80D0_AdjustTargetPosition	SKILLS_AdjustTargetPosition	inferred	Source/D2Client/SKILLS/Skills.cpp	high	clamps a skill's target position to its aura range from the unit; (also spelled sub_004C80D0_EmitTargetPosition)
+0x004C8350	sub_004C8350_CanTargetRoom	SKILLSBAR_CanTargetRoom	inferred	Source/D2Client/SKILLS/SkillsBar.cpp	high	tells whether a skill may target the room at a point (town rules)
+0x004C96D0	sub_004C96D0	SKILLS_CreateMissileAtTarget	inferred	Source/D2Client/SKILLS/Skills.cpp	medium	client skill callback: creates the skill's client missile at the path target and stores the target; in data_plan.json
+0x004C97C0	sub_004C97C0_SpawnScatterMissiles	SKILLS_SpawnScatterMissiles	inferred	Source/D2Client/SKILLS/Skills.cpp	high	spawns a skill's missiles scattered around the unit (not in town)
+0x004C9D50	sub_004C9D50_FindDestinationById	SKILLS_FindDestinationById	inferred	Source/D2Client/SKILLS/Skills.cpp	medium	finds a destination unit by id; (also spelled sub_M109_Emit_004C9D50)
+0x004CA270	sub_004CA270_GetLevelsTxtRecordCount	SKILLS_GetLevelsTxtRecordCount	inferred	Source/D2Client/SKILLS/Skills.cpp	high	returns the Levels.txt record count
+0x004CA870	sub_004CA870_GetUnitHintList	UNITSND_GetUnitHintList	inferred	Source/D2Client/UNIT/UnitSnd.cpp	high	returns the address of a unit's timed-hint list; (also spelled sub_M121_Emit_004CA870)
+0x004CAA70	sub_004CAA70_GetUnitByte70	UNITSND_GetUnitSfxFlag	inferred	Source/D2Client/UNIT/UnitSnd.cpp	medium	returns a unit's sound flag byte; (also spelled sub_M121_Emit_004CAA70)
+0x004CAC00	sub_004CAC00_GetUnitField84	UNITSND_GetSfxStepTicks	inferred	Source/D2Client/UNIT/UnitSnd.cpp	medium	returns a unit's sound step ticks; (also spelled sub_M121_Emit_004CAC00)
+0x004CAC70	sub_004CAC70_GetUnitField88	UNITSND_HasActiveSound	inferred	Source/D2Client/UNIT/UnitSnd.cpp	medium	returns whether a unit has an active sound; (also spelled sub_M121_Emit_004CAC70)
+0x004CC790	sub_004CC790_RollRange	MISSILE_RollRange	inferred	Source/D2Client/UNIT/Missile.cpp	high	rolls a number in [min, max] with the unit's seed
+0x004CC7C0	sub_004CC7C0_GetSkillMissileRange	MISSILE_GetSkillMissileRange	inferred	Source/D2Client/UNIT/Missile.cpp	high	a skill's missile range: param 3 + (level - 1) * param 4; (also spelled sub_004CC7C0_GetSkillBonus)
+0x004CC800	sub_004CC800_CheckDistanceAndLineOfSight	MISSILE_CheckDistanceAndLineOfSight	inferred	Source/D2Client/UNIT/Missile.cpp	high	tells whether an offset is within range and its cell is reachable; (also spelled sub_M119_Emit_004CC800)
+0x004CC910	sub_004CC910_GetSpawnDelay	MISSILE_GetSpawnDelay	inferred	Source/D2Client/UNIT/Missile.cpp	high	spawn delay by a missile's elapsed frames
+0x004CC9A0	sub_004CC9A0_CltHitProgOverlay	MISSILE_CltHitProgOverlay	inferred	Source/D2Client/UNIT/Missile.cpp	high	client hit function: adds the missile's progressive overlay to the hit unit; in data_plan.json
+0x004CCCA0	sub_004CCCA0_CltHitFlagOwner	MISSILE_CltHitFlagOwner	inferred	Source/D2Client/UNIT/Missile.cpp	medium	client hit function: sets an extended flag on the missile's owner; in data_plan.json
+0x004CCCC0	sub_004CCCC0_SubmissileInitFunc	MISSILE_InitChargedBoltSubmissile	inferred	Source/D2Client/UNIT/Missile.cpp	medium	submissile init: charged-bolt path with a range from the total frames; the source defines it as MISSMODE_CatapultChargedBall_LightningTrailingJavelin_SubmissileInitFunc
+0x004CCF00	sub_004CCF00_CltHitClearGlobals	MISSILE_CltHitClearGlobals	inferred	Source/D2Client/UNIT/Missile.cpp	medium	client hit function: clears the UI globals when there is no hit unit; in data_plan.json
+0x004CCF20	sub_004CCF20_SetValue	MISSILE_SetMissileLights	inferred	Source/D2Client/UNIT/Missile.cpp	high	sets whether missiles cast light
+0x004CCF30	sub_004CCF30	MISSILE_GetMissileLights	inferred	Source/D2Client/UNIT/Missile.cpp	high	returns whether missiles cast light
+0x004CCF40	sub_004CCF40_CanMissileHitUnit	MISSILE_CanMissileHitUnit	inferred	Source/D2Client/UNIT/Missile.cpp	high	tells whether a missile can hit a unit (valid, attackable, not just hit, not its owner…)
+0x004CCFB0	sub_004CCFB0_CltCanCollideWithMonster	MISSILE_CltCanCollideWithMonster	inferred	Source/D2Client/UNIT/Missile.cpp	high	collision test: monsters the missile can hit; in data_plan.json
+0x004CCFE0	sub_004CCFE0_CltCanCollideWithGoodAlignmentUnit	MISSILE_CltCanCollideWithGoodAlignmentUnit	inferred	Source/D2Client/UNIT/Missile.cpp	high	collision test: good monsters, or players the missile can hit; in data_plan.json
+0x004CD020	sub_004CD020_CltCanCollideWithPlayerOrMonster	MISSILE_CltCanCollideWithPlayerOrMonster	inferred	Source/D2Client/UNIT/Missile.cpp	high	collision test: players or monsters the missile can hit; in data_plan.json
+0x004CD050	sub_004CD050_CltCanMissileDestroy	MISSILE_CltCanMissileDestroy	inferred	Source/D2Client/UNIT/Missile.cpp	medium	collision test: missiles flagged as destroyable; in data_plan.json
+0x004CD380	sub_004CD380_StatRemoveCallback_ToggleStateOff	MISSILE_StatRemoveToggleStateOff	inferred	Source/D2Client/UNIT/Missile.cpp	medium	stat-list remove callback: turns the state off
+0x004CDDB0	sub_004CDDB0	MISSILE_SpawnMissilesInRange	inferred	Source/D2Client/UNIT/Missile.cpp	medium	spawns missiles from a list on reachable cells within range of the unit, by chance
+0x004CEA00	sub_004CEA00_SpawnMissileInRadius	MISSILE_SpawnMissileInRadius	inferred	Source/D2Client/UNIT/Missile.cpp	high	spawns a missile at a free point within a radius of the unit
+0x004CF800	sub_004CF800_HitChain	MISSILE_CltHitChain	inferred	Source/D2Client/UNIT/Missile.cpp	high	client hit function: chains the missile to the next target
+0x004CF9B0	sub_004CF9B0_CltHitRingSubMissiles	MISSILE_CltHitRingSubMissiles	inferred	Source/D2Client/UNIT/Missile.cpp	high	client hit function: spawns the hit submissiles in a ring; in data_plan.json
+0x004D0DB0	sub_004D0DB0_CltHitBurst	MISSILE_CltHitParamBurst	inferred	Source/D2Client/UNIT/Missile.cpp	medium	client hit function: spawns a hit burst from the missile's CltHitPar parameters (MISSILE_CltHitBurst is 0x004D0A80); in data_plan.json
+0x004D0E00	sub_004D0E00_CltHitBurstSub	MISSILE_CltHitBurstSub	inferred	Source/D2Client/UNIT/Missile.cpp	medium	client hit function: spawns the hit submissile burst on a hittable unit; in data_plan.json
+0x004D1BD0	sub_004D1BD0_CltHitScatter	MISSILE_CltHitScatterNoUnit	inferred	Source/D2Client/UNIT/Missile.cpp	medium	(MISSILE_CltHitScatter is 0x004D07E0) client hit function with no unit: scatters submissiles around the missile
+0x004D2610	sub_004D2610_CltDoBaalStorm	MISSILE_CltDoBaalStorm	inferred	Source/D2Client/UNIT/Missile.cpp	medium	client missile step for Baal's storm, by level; (also spelled sub_004D2610_SeedRoll)
+0x004D2D70	sub_004D2D70_CltMissileHit	MISSILE_CltMissileHit	inferred	Source/D2Client/UNIT/Missile.cpp	high	handles a client missile hitting a target or the ground, spawning the explosion missile
+0x004D47F0	sub_004D47F0_CltDoPeriodicRetarget	MISSILE_CltDoPeriodicRetarget	inferred	Source/D2Client/UNIT/Missile.cpp	high	client missile step: retargets every period frames
+0x004D6FA0	sub_004D6FA0_CltDoLinked	MISSILE_CltDoLinked	inferred	Source/D2Client/UNIT/Missile.cpp	high	client missile step: follows its linked unit; in data_plan.json
+0x004D7930	sub_004D7930_CltDoBaalStormMissile	MISSILE_CltDoBaalStormMissile	inferred	Source/D2Client/UNIT/Missile.cpp	medium	client missile step for Baal's storm missiles in four phases; in data_plan.json
+0x004D8260	sub_004D8260_CltDoMissileSpray	MISSILE_CltDoMissileSpray	inferred	Source/D2Client/UNIT/Missile.cpp	high	client missile step: sprays submissiles at random offsets every third frame; in data_plan.json
+0x004D8400	sub_004D8400_CltDoRotateTarget	MISSILE_CltDoRotateTargetPoint	inferred	Source/D2Client/UNIT/Missile.cpp	medium	(another function already has MISSILE_CltDoRotateTarget) client missile step: rotates its target point every other frame; in data_plan.json
+0x004D84C0	sub_004D84C0_IsInSequenceMode	PLRSKILLS_IsInSequenceMode	inferred	Source/D2Client/UNIT/PlrSkills.cpp	high	tells whether a monster or player is in its sequence mode
+0x004D9E60	sub_004D9E60_StartClientState	PLRSKILLS_StartClientState	inferred	Source/D2Client/UNIT/PlrSkills.cpp	high	starts a state's client effects on a unit
+0x004D9F40	sub_004D9F40_EndClientState	PLRSKILLS_EndClientState	inferred	Source/D2Client/UNIT/PlrSkills.cpp	high	ends a state's client effects on a unit
+0x004DA350	sub_004DA350_UpdateMotion	GFXUTIL_UpdateMotion	inferred	Source/D2Client/ENGINE/GfxUtil.cpp	high	steps a unit's gfx motion (position, speed, acceleration)
+0x004DC210	sub_004DC210_RunCltUnitEvents	CUNITEVENT_RunCltUnitEvents	inferred	Source/D2Client/UNIT/CUnitEvent.cpp	high	runs a unit's client timer events of a type
+0x004E1E30	sub_004E1E30_SkillClearSkillFlags	SKILLSMON_ClearUsedSkillFlags	inferred	Source/D2Client/SKILLS/SkillsMon.cpp	medium	skill callback: clears the used skill's flags; in data_plan.json
+0x004E2D40	sub_004E2D40_UpdateState22	SKILLSMON_UpdateSpiderLay	inferred	Source/D2Client/SKILLS/SkillsMon.cpp	medium	on entering a new subtile, lays the Spider Lay missile at the unit
+0x004E3720	sub_004E3720	SKILLSMON_CreateTargetMissile	inferred	Source/D2Client/SKILLS/SkillsMon.cpp	medium	skill callback: creates the skill's client missile at the target, storing a calculated value; in data_plan.json
+0x004F0830	sub_004F0830_CreateTimedMissileLine	SKILLSMON_CreateTimedMissileLine	inferred	Source/D2Client/SKILLS/SkillsMon.cpp	high	creates a line of timed missiles towards the target
+0x004F3FB0	sub_004F3FB0_GetTargetMonster	SKILLSMON_GetTargetMonster	inferred	Source/D2Client/SKILLS/SkillsMon.cpp	medium	returns the path target if it is a monster with MonStats2 flag 8
