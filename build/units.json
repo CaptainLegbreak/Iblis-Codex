@@ -10507,6 +10507,10 @@
     {
      "va": "0x006CB3E0",
      "length": 21
+    },
+    {
+     "va": "0x006CB400",
+     "length": 1
     }
    ],
    "flags": [
@@ -10532,6 +10536,25 @@
      "va": "0x0044E200",
      "length": 372,
      "name": "?GAME_InitGameState@@YAXXZ"
+    },
+    {
+     "va": "0x00451260",
+     "length": 39,
+     "name": "?RECORD_RegisterLngArgument@@YAHXZ"
+    },
+    {
+     "va": "0x00451290",
+     "length": 33
+    },
+    {
+     "va": "0x004512C0",
+     "length": 97,
+     "name": "COMCALLBACK_LoadLngString"
+    },
+    {
+     "va": "0x00451330",
+     "length": 202,
+     "name": "?GAME_LoadLngModule@@YAHXZ"
     },
     {
      "va": "0x00452130",
@@ -13418,9 +13441,19 @@
      "name": "VIEW_SetPetEntryValue"
     },
     {
+     "va": "0x00475C30",
+     "length": 10,
+     "name": "?sub_00475C30_FreeIfSet@@YIXPAX@Z"
+    },
+    {
      "va": "0x00475DF0",
      "length": 185,
      "name": "?DLIGHTMAP_BuildLerpTables@@YAXXZ"
+    },
+    {
+     "va": "0x00475EB0",
+     "length": 51,
+     "name": "?sub_00475EB0_FreeCels@@YAXXZ"
     },
     {
      "va": "0x00475EF0",
@@ -15378,45 +15411,6 @@
      "length": 207,
      "name": "?CUNIT_ReplayRecords@@YAXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00451290.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00451260",
-     "length": 39,
-     "name": "?RECORD_RegisterLngArgument@@YAHXZ"
-    },
-    {
-     "va": "0x00451290",
-     "length": 33
-    },
-    {
-     "va": "0x004512C0",
-     "length": 97,
-     "name": "COMCALLBACK_LoadLngString"
-    },
-    {
-     "va": "0x00451330",
-     "length": 202,
-     "name": "?GAME_LoadLngModule@@YAHXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -20748,22 +20742,6 @@
      "va": "0x004A8A20",
      "length": 6,
      "name": "sub_004A8A20"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00475C30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00475C30",
-     "length": 10,
-     "name": "?sub_00475C30_FreeIfSet@@YIXPAX@Z"
-    },
-    {
-     "va": "0x00475EB0",
-     "length": 51,
-     "name": "?sub_00475EB0_FreeCels@@YAXXZ"
     }
    ]
   },
@@ -26530,6 +26508,10 @@
      "name": "?sub_004B6DA0_InitHandler@@YAHXZ"
     },
     {
+     "va": "0x004B6DD0",
+     "length": 786
+    },
+    {
      "va": "0x006CAD10",
      "length": 103,
      "name": "?sub_006CAD10_InitBlock@@YAXXZ"
@@ -26583,30 +26565,6 @@
     "/Ob2",
     "/Gd",
     "/EHsc",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004B6DD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B6DD0",
-     "length": 786
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
     "/GS-"
    ]
   },
@@ -28264,6 +28222,11 @@
      "name": "?USEITEM_OnHotspotClick@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x004C0550",
+     "length": 200,
+     "name": "?sub_004C0550@@YIXPAUD2PacketRecord7Strc@@@Z"
+    },
+    {
      "va": "0x004C0620",
      "length": 21,
      "name": "?USEITEM_OpenNpcItemPanel@@YIXH@Z"
@@ -28894,17 +28857,6 @@
      "va": "0x004BF990",
      "length": 22,
      "name": "?sub_004BF990_GetPlayerCursorItem@@YAPAUD2UnitStrc@@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004C0440.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004C0550",
-     "length": 200,
-     "name": "?sub_004C0550@@YIXPAUD2PacketRecord7Strc@@@Z"
     }
    ]
   },
@@ -30006,6 +29958,10 @@
      "name": "?UNITSND_GetAnimRate@@YIIPAUD2UnitStrc@@I@Z"
     },
     {
+     "va": "0x004CA560",
+     "length": 677
+    },
+    {
      "va": "0x004CA810",
      "length": 95,
      "name": "?UNITSND_GetModeSound@@YIHPAUD2UnitStrc@@H@Z"
@@ -30225,30 +30181,6 @@
      "va": "0x004CC5B0",
      "length": 466
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004CA560.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004CA560",
-     "length": 677
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -79382,30 +79314,6 @@
      "va": "0x006CAFC0",
      "length": 70
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_006CB3E0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006CB400",
-     "length": 1
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
