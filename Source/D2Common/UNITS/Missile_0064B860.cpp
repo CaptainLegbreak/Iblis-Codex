@@ -28,27 +28,8 @@
 #include "D2Txt.h"
 
 #include "D2Skills.h"
+#include "D2MissileData.h"
 
-struct D2MissileDataStrc
-{
-    unsigned int unk0x00;
-    short nStreamMissile;
-    short nStreamRange;
-    short nActivateFrame;
-    short nSkill;
-    short nLevel;
-    short nTotalFrames;
-    short nCurrentFrame;
-    unsigned short unk0x12;
-    unsigned int fFlags;
-    int nOwnerType;
-    int dwOwnerGUID;
-    int nHomeType;
-    int dwHomeGUID;
-    int nTargetX;
-    int nTargetY;
-    void* pStream;
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
