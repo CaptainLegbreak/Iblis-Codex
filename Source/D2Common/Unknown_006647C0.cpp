@@ -52,58 +52,57 @@ inline D2MonStatsTxt* MONSTERS_GetMonStatsTxtRecordFromUnit(D2UnitStrc* pUnit)
     return 0;
 }
 
-// 0x0063E6B0
-int __stdcall D2Common_11050(D2UnitStrc* pUnit, int a2)
+static D2MonStats2Txt* MONSTERS_GetMonStats2TxtRecordInline(int nMonsterId)
 {
-    if (a2)
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
-        if (!pUnit->nActionFrame)
+        int nMonStatsEx = sgptDataTables->pMonStatsTxt[nMonsterId].wMonStatsEx;
+        if (nMonStatsEx >= 0 && nMonStatsEx < sgptDataTables->nMonStats2TxtRecordCount)
         {
-            return -1;
-        }
-
-        int nFrame;
-        int nFrameCount;
-        UNITS_GetFrameMetrics(pUnit, &nFrame, &nFrameCount);
-
-        int nStart = nFrame - pUnit->wAnimSpeed;
-        nFrame >>= 8;
-        nStart >>= 8;
-
-        if (nStart >= nFrame)
-        {
-            return -1;
-        }
-
-        int nCounter = nStart;
-        while (nCounter <= nFrame)
-        {
-            if (UNITS_GetEventFrameInfo(pUnit, nCounter) == ANIMSEQ_EVENT_MISSILE_ATTACK || UNITS_GetEventFrameInfo(pUnit, nCounter) == ANIMSEQ_EVENT_MELEE_ATTACK)
-            {
-                break;
-            }
-
-            ++nCounter;
-        }
-
-        if (nCounter > nFrame)
-        {
-            return -1;
-        }
-
-        if (nCounter <= nStart)
-        {
-            return -1;
+            return &sgptDataTables->pMonStats2Txt[nMonStatsEx];
         }
     }
 
-    const int nOffset = gnMonStatsMissileOffsets[UNITS_GetAnimModeInline(pUnit)];
-    if (!nOffset)
+    return 0;
+}
+
+// 0x006647C0
+int __stdcall D2COMMON_11068_GetCompInfo(D2UnitStrc* pMonster, int nComponent)
+{
+    if (!pMonster || pMonster->dwUnitType != UNIT_MONSTER)
     {
-        return -1;
+        return 0;
     }
 
-    return *(short*)((char*)MONSTERS_GetMonStatsTxtRecordFromUnit(pUnit) + nOffset);
+    if (nComponent >= sizeof(((D2MonStats2Txt*)0)->nComponentChoiceCounts))
+    {
+        return 0;
+    }
+
+    D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(pMonster->dwClassId);
+    if (!pMonStats2TxtRecord)
+    {
+        return 0;
+    }
+
+    return pMonStats2TxtRecord->nComponentChoiceCounts[nComponent];
+}
+
+// 0x00664800
+int __fastcall sub_00664800_GetCompChoiceCount(int nMonsterId, unsigned int nComponent)
+{
+    if (nComponent >= sizeof(((D2MonStats2Txt*)0)->nComponentChoiceCounts))
+    {
+        return 0;
+    }
+
+    D2MonStats2Txt* pMonStats2TxtRecord = MONSTERS_GetMonStats2TxtRecordInline(nMonsterId);
+    if (!pMonStats2TxtRecord)
+    {
+        return 0;
+    }
+
+    return pMonStats2TxtRecord->nComponentChoiceCounts[nComponent];
 }
 
 // 0x00664860
@@ -164,4 +163,26 @@ unsigned int __stdcall D2Common_11069(D2UnitStrc* pMonster, unsigned int nIndex,
     return 0;
 }
 
-#include "gen/data/Source/D2Common/Unknown_0063E6B0.inc"
+// 0x00664930
+int __stdcall D2Common_11070(int nMonsterId, unsigned int nComponent, unsigned int nIndex)
+{
+    if (nComponent >= sizeof(((D2MonStats2Txt*)0)->nComponentChoiceCounts))
+    {
+        return 0;
+    }
+
+    D2MonStats2Txt* pMonStats2TxtRecord = MONSTERS_GetMonStats2TxtRecordInline(nMonsterId);
+    if (!pMonStats2TxtRecord)
+    {
+        return 0;
+    }
+
+    if (pMonStats2TxtRecord->nComponentChoiceCounts[nComponent] <= nIndex)
+    {
+        return 0;
+    }
+
+    return DATATBLS_GetCodeFromCompCodeTxt(pMonStats2TxtRecord->pComponents[nComponent].nComposit[nIndex]);
+}
+
+#include "gen/data/Source/D2Common/Unknown_006647C0.inc"
