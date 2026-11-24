@@ -1,0 +1,97 @@
+va	old_name	file	reason
+0x0042F530	sub_0042F530_ClearUnicode	Source/D2Client/UI/npcmenu.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??0Unicode@@QAE@XZ]; named by its template; in // build: symbol; (also spelled sub_0042F530_UnicodeCtor)
+0x00457440	sub_00457440_Nop	Source/D2Client/UI/automap.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00457510	sub_00457510	Source/D2Client/UI/ui.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0045AE50	sub_0045AE50_SetGlobal00711428	Source/D2Client/UI/automap.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0045AE60	sub_0045AE60	Source/D2Client/UI/ui.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0045AE70	sub_0045AE70_SetGlobal0071142C	Source/D2Client/UI/automap.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0045AE80	sub_0045AE80	Source/D2Client/UI/ui.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0045B090	sub_0045B090_Nop	Source/D2Client/UI/automap.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0045B0A0	sub_0045B0A0_Nop	Source/D2Client/UI/automap.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0045F7A0	sub_0045F7A0	Source/D2Client/UI/ui.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00468830	sub_00468830	Source/D2Client/UI/ui.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00478010	sub_00478010	Source/D2Client/UI/inv.cpp	sends the one-byte packet 0x6A and counts it; the packet's meaning is not confirmed
+0x0047B4D0	sub_0047B4D0_Nop	Source/D2Client/UI/chat.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0047B4E0	sub_0047B4E0	Source/D2Client/UI/chat.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0047EC40	sub_0047EC40_IsSet	Source/D2Client/UI/inv.cpp	tests an unnamed global; purpose unknown
+0x00483B40	sub_00483B40_IsInRect	Source/D2Client/UI/inv.cpp	point-in-rect test on an unnamed rectangle (expansion and classic variants); which rectangle is not known; (also spelled sub_00483B40_IsInCubeGrid, sub_E04_Emit_00483B40)
+0x00483BA0	sub_00483BA0_IsInRect	Source/D2Client/UI/inv.cpp	point-in-rect test on an unnamed rectangle (expansion and classic variants); which rectangle is not known; (also spelled sub_E04_Emit_00483BA0)
+0x00483BF0	sub_00483BF0_IsInRect	Source/D2Client/UI/inv.cpp	point-in-rect test on an unnamed rectangle; which rectangle is not known; (also spelled sub_00483BF0_IsInGrid7BCB70, sub_E04_Emit_00483BF0)
+0x00486AD0	sub_00486AD0_ToggleFlag	Source/D2Client/UI/inv.cpp	toggles an unnamed flag
+0x00486B80	sub_00486B80_IsNpcStateB	Source/D2Client/UI/inv.cpp	tests the inventory panel mode against a set of numbered modes whose meanings are unknown
+0x00486D70	sub_00486D70_IsNotState11	Source/D2Client/UI/inv.cpp	tests panel mode 0xB, whose meaning is unknown
+0x00486D80	sub_00486D80_IsState1Or2	Source/D2Client/UI/inv.cpp	tests panel modes 1 and 2, whose meanings are unknown
+0x00489FB0	sub_00489FB0_IsOverButtonC	Source/D2Client/UI/inv.cpp	point test on an unnamed panel button; (also spelled sub_E05_Emit_00489FB0)
+0x00490780	sub_00490780	Source/D2Client/UI/inv.cpp	body-location click callback; the slot constants are masked (MV) and which slot each of the three serves is unclear; in data_plan.json
+0x00490BA0	sub_00490BA0	Source/D2Client/UI/inv.cpp	body-location click callback; the slot constants are masked (MV) and which slot each of the three serves is unclear; in data_plan.json
+0x00490FC0	sub_00490FC0	Source/D2Client/UI/inv.cpp	body-location click callback; which slot it serves is unclear; in data_plan.json
+0x00495410	sub_00495410_DrawHelpText	Source/D2Client/UI/inv.cpp	help text drawer; one of two variants (likely classic/expansion) not told apart
+0x00495DC0	sub_00495DC0_DrawHelpText	Source/D2Client/UI/inv.cpp	help text drawer; one of two variants (likely classic/expansion) not told apart
+0x00497440	sub_00497440_Bounds	Source/D2Client/UI/panel.cpp	point test on an unnamed panel button
+0x00497780	sub_00497780_Bounds	Source/D2Client/UI/panel.cpp	point test on an unnamed panel button
+0x00498A20	sub_00498A20_CheckState	Source/D2Client/UI/inv.cpp	tests unnamed client-state flags and may close the state; purpose unclear
+0x00498E80	sub_00498E80_ClearPair	Source/D2Client/UI/panel.cpp	clears an unnamed global and a belt item pointer
+0x0049C6C0	sub_0049C6C0_SendWaypointClose	Source/D2Client/UI/text.cpp	sends the waypoint close packet once; one of two identical copies (0x0049CF50)
+0x0049CF50	sub_0049CF50_SendWaypointClose	Source/D2Client/UI/text.cpp	sends the waypoint close packet once; one of two identical copies (0x0049C6C0)
+0x0049D2F0	sub_0049D2F0_SetFieldA4	Source/D2Client/UI/text.cpp	sets an unnamed field (0xA4)
+0x0049D300	sub_0049D300_GetFieldA4	Source/D2Client/UI/text.cpp	returns an unnamed field (0xA4)
+0x0049DAC0	sub_0049DAC0_IsStateZeroOrOne	Source/D2Client/UI/text.cpp	tests a text record's state for 0 or 1, whose meanings are unknown
+0x0049E7F0	sub_0049E7F0_Nop	Source/D2Client/UI/text.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0049E800	sub_0049E800_Nop	Source/D2Client/UI/text.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0049FF00	sub_0049FF00	Source/D2Client/UI/text_0049DA50.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004A1760	sub_004A1760_Forward	Source/D2Client/UI/text_0049A950.cpp	forwards to an unnamed function
+0x004A17D0	sub_004A17D0	Source/D2Client/UI/inv.cpp	message handler for NPC text that checks the selected unit; purpose unclear
+0x004A2610	sub_004A2610_HitTestButtonA	Source/D2Client/UI/text_0049A950.cpp	hit test on an unnamed quest-log button
+0x004A4260	D2QuestTextBufferStrc	Source/D2Client/UI/text.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in // build: symbol
+0x004A9A90	sub_004A9A90_FindSkill	Source/D2Client/UI/spellsel.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004A9AE0	sub_004A9AE0_FindSkill	Source/D2Client/UI/spellsel.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004A9B30	sub_004A9B30_FindSkill	Source/D2Client/UI/spellsel.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004A9B80	sub_004A9B80_FindSkill	Source/D2Client/UI/spellsel.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004AA6E0	sub_004AA6E0_BuildRightRows2	Source/D2Client/UI/spellsel.cpp	variant of the right-row build with the fourth flag set; the flag's meaning is unknown
+0x004AA710	sub_004AA710_BuildLeftRows2	Source/D2Client/UI/spellsel.cpp	variant of the left-row build with the fourth flag set; the flag's meaning is unknown
+0x004B1680	sub_004B1680	Source/D2Client/UI/npcmenu.cpp	NPC entry selection loop with ten tries; purpose unclear
+0x004B2010	sub_004B2010	Source/D2Client/UI/npcmenu.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004B21C0	sub_004B21C0_SetEntryType2	Source/D2Client/UI/npcmenu.cpp	sets an NPC menu entry to type 2; a name would need the type's meaning; (also spelled sub_M129_Emit_004B21C0)
+0x004B21E0	sub_004B21E0_SetEntryType3	Source/D2Client/UI/npcmenu.cpp	sets an NPC menu entry to type 3; a name would need the type's meaning
+0x004B2200	sub_004B2200_SetEntryType4	Source/D2Client/UI/npcmenu.cpp	sets an NPC menu entry to type 4; a name would need the type's meaning
+0x004B2640	sub_004B2640	Source/D2Client/UI/npcmenu.cpp	forwards to INV_SetRequest
+0x004B29E0	sub_004B29E0	Source/D2Client/UI/npcmenu.cpp	finishes the pending NPC action for a unit on one condition; one of two variants not told apart
+0x004B2A00	sub_004B2A00	Source/D2Client/UI/npcmenu.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004B2A20	sub_004B2A20	Source/D2Client/UI/npcmenu.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004B2A40	sub_004B2A40	Source/D2Client/UI/npcmenu.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004B2A60	sub_004B2A60	Source/D2Client/UI/npcmenu.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004B3330	sub_004B3330_Empty	Source/D2Client/UI/npcmenu.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004B3560	D2ClientValueBlockStrc	Source/D2Client/UI/npcmenu.cpp	constructor/destructor/operator; named by its class
+0x004B3C00	sub_004B3C00	Source/D2Client/UI/npcmenu.cpp	finishes the pending NPC action for a unit on another condition; one of two variants not told apart
+0x004B3DE0	sub_004B3DE0_CloseNpc	Source/D2Client/UI/npcmenu.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004B3FB0	sub_004B3FB0_CloseNpc2	Source/D2Client/UI/npcmenu.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004B3FE0	sub_004B3FE0	Source/D2Client/UI/npcmenu.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004B45D0	sub_004B45D0_NpcMenuCancel	Source/D2Client/UI/npcmenu.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004B4620	sub_004B4620_NpcMenuCancelB	Source/D2Client/UI/npcmenu.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004B4670	sub_004B4670_NpcMenuCancelText	Source/D2Client/UI/npcmenu.cpp	greeting dialog callback; one of two near-identical callbacks of the same dialog
+0x004B46D0	sub_004B46D0_NpcMenuCancelTextB	Source/D2Client/UI/npcmenu.cpp	greeting dialog callback; one of two near-identical callbacks of the same dialog
+0x004B5140	sub_004B5140_NpcMenuAction28	Source/D2Client/UI/npcmenu.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_004B5140)
+0x004B5260	sub_004B5260_NpcMenuAction28b	Source/D2Client/UI/npcmenu.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x004B5850	sub_004B5850	Source/D2Client/UI/npcmenu.cpp	confirm-dialog callback; purpose unclear
+0x004B6650	sub_004B6650_InitHandler	Source/D2Client/UI/npcmenu.cpp	sets three unnamed globals for a handler; in data_plan.json
+0x004BF9C0	sub_004BF9C0_Nop	Source/D2Client/UI/chat.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004C0080	sub_004C0080_Return	Source/D2Client/UI/useitem.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004C0440	sub_004C0440_Thunk	Source/D2Client/UI/useitem.cpp	forwards to USEITEM_ClosePanel; (also spelled Unknown_004C0440, sub_004C0440)
+0x004C0CE0	sub_004C0CE0_ClearValues	Source/D2Client/UI/useitem.cpp	clears a 64-value record and returns it: constructor body
+0x004E4030	sub_004E4030_Nothing	Source/D2Client/UI/SkillDesc_004E1FF0.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004E4180	sub_004E4180	Source/D2Client/UI/SkillDesc.cpp	step-distance arithmetic for unit sounds; purpose not clear enough to name
+0x004E4200	sub_004E4200_GetFloatIfEnabled	Source/D2Client/UI/SkillDesc.cpp	returns an unnamed float when an unnamed check passes
+0x004F2160	sub_004F2160_DecrementParam	Source/D2Client/UI/SkillDesc.cpp	skill callback that decrements an unnamed skill parameter; in data_plan.json
+0x004F2AC0	sub_004F2AC0_MissileInit	Source/D2Client/UI/SkillDesc.cpp	missile init from total frames; purpose not clear enough to name
+0x006CAA10	sub_006CAA10_ClearText	Source/D2Client/UI/ui.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgwszPopUpText@@YAXXZ]; named by its template; in // build: symbol
+0x006CAA30	sub_006CAA30_ClearText	Source/D2Client/UI/ui.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgwszHoverLine@@YAXXZ]; named by its template; in // build: symbol; (also spelled Unknown_006CAA30)
+0x006CAA50	sub_006CAA50_ClearText	Source/D2Client/UI/ui.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgwszHoverText@@YAXXZ]; named by its template; in // build: symbol
+0x006CAA70	sub_006CAA70_ClearText	Source/D2Client/UI/ui.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgwszHoverName@@YAXXZ]; named by its template; in // build: symbol
+0x006CAA90	sub_006CAA90_Initialize	Source/D2Client/UI/automap.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgnAutomapWidth@@YAXXZ]; named by its template; in // build: symbol
+0x006CAAA0	sub_006CAAA0_InitializeHeight	Source/D2Client/UI/automap.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgnAutomapHeight_007A521C@@YAXXZ]; named by its template; in // build: symbol
+0x006CAAD0	sub_006CAAD0_ClearCharacterBuffer	Source/D2Client/UI/CmdTbl.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgwszKeyText_007A741C@@YAXXZ]; named by its template; in // build: symbol
+0x006CAAF0	sub_006CAAF0_ClearBuffer	Source/D2Client/UI/chat.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgwszChatLine_007BB638@@YAXXZ]; named by its template; in // build: symbol
+0x006CAB10	sub_006CAB10_ClearText	Source/D2Client/UI/chat.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgawszChatHistory@@YAXXZ]; named by its template; in // build: symbol
+0x006CAB30	sub_006CAB30_InitBlock	Source/D2Client/UI/chat.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgwszImeComposition@@YAXXZ]; named by its template; in // build: symbol
+0x006CAB90	sub_006CAB90_InitBlock	Source/D2Client/UI/chat.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgwszImeResult@@YAXXZ]; named by its template; in // build: symbol
+0x006CABF0	sub_006CABF0_ClearText	Source/D2Client/UI/inv.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgwszRecipeScrollText@@YAXXZ]; named by its template; in // build: symbol

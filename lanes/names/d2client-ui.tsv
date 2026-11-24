@@ -1,0 +1,87 @@
+va	old_name	new_name	source	file	confidence	reason
+0x004549F0	sub_004549F0_DrawHoverLine	UI_DrawHoverCenteredText	inferred	Source/D2Client/UI/ui.cpp	high	draws a Unicode line centred in the hover rectangle (the source defines it as sub_004549F0_DrawCenteredText); (also spelled sub_004549F0_DrawCenteredText)
+0x00454A70	sub_00454A70_DrawHoverText	UI_DrawHoverText	inferred	Source/D2Client/UI/ui.cpp	high	draws the hovered monster's hover line and name
+0x00454AD0	sub_00454AD0_DrawUnitHoverName	UI_DrawUnitHoverName	inferred	Source/D2Client/UI/ui.cpp	high	builds and draws a unit's hover name with its monster type and state
+0x004554B0	sub_004554B0_DrawHoverName	UI_DrawHoverName	inferred	Source/D2Client/UI/ui.cpp	high	draws the hover name of the selected monster
+0x00456970	sub_00456970_InitUI	UI_InitUI	inferred	Source/D2Client/UI/ui.cpp	high	loads the interface: panel cels, mini panel, text settings, hireling icons, automap…
+0x0045AC90	sub_0045AC90_DrawAutomapUnits	AUTOMAP_DrawAutomapUnits	inferred	Source/D2Client/UI/automap.cpp	high	draws the stored roster units in the rooms around the player on the automap
+0x00469650	sub_00469650_OpenKeyFile	CMDTBL_OpenKeyFile	inferred	Source/D2Client/UI/CmdTbl.cpp	high	opens the key configuration file in the save path (realm subfolder)
+0x00469780	sub_00469780_SaveKeyConfig	CMDTBL_SaveHotkeyFile	inferred	Source/D2Client/UI/CmdTbl.cpp	high	writes the hotkey configuration file
+0x0046AAE0	sub_0046AAE0_LoadKeyConfig	CMDTBL_LoadHotkeyFile	inferred	Source/D2Client/UI/CmdTbl.cpp	high	reads the hotkey configuration file, checking its size and version (CMDTBL_LoadKeyConfig is 0x004698D0)
+0x00477F70	sub_00477F70_SendGameLogon	INV_SendGameLogon	inferred	Source/D2Client/UI/inv.cpp	high	sends the 0x68 game logon packet (token, hash, version, keys); filed in inv.cpp just before Msg.cpp's run
+0x0047AA60	sub_0047AA60_OnImeComposition	CHAT_OnImeComposition	inferred	Source/D2Client/UI/chat.cpp	high	IME composition message handler for the chat line; in data_plan.json
+0x0047B3B0	sub_0047B3B0_CompareCommand	CHAT_CompareCommand	inferred	Source/D2Client/UI/chat.cpp	high	case-insensitive prefix compare of chat input against a command
+0x0047B450	sub_0047B450_DrawBlinkingCaret	CHAT_DrawBlinkingCaret	inferred	Source/D2Client/UI/chat.cpp	high	draws the blinking chat caret
+0x0047B4F0	sub_0047B4F0_DrawImeText	CHAT_DrawImeText	inferred	Source/D2Client/UI/chat.cpp	high	draws the IME result and composition text
+0x0047B5C0	sub_0047B5C0_DrawImeCandidates	CHAT_DrawImeCandidates	inferred	Source/D2Client/UI/chat.cpp	high	draws the IME candidate list page
+0x0047B720	sub_0047B720_DrawChatPanel	CHAT_DrawChatPanel	inferred	Source/D2Client/UI/chat.cpp	high	draws the chat input panel with its IME language
+0x0047BA00	sub_0047BA00_PushChatHistory	CHAT_PushChatHistory	inferred	Source/D2Client/UI/chat.cpp	high	adds a line to the 8-entry chat history ring; (also spelled sub_A23_Emit_0047BA00)
+0x0047BAD0	sub_0047BAD0_ParseChatCommand	CHAT_ParseChatCommand	inferred	Source/D2Client/UI/chat.cpp	high	parses a chat command's code and argument; (also spelled T0047BAD0)
+0x0047BD30	sub_0047BD30_ResetChatHistory	CHAT_ResetChatHistory	inferred	Source/D2Client/UI/chat.cpp	high	resets the chat history ring and caret; (also spelled sub_0047BD30_ResetGlobals)
+0x0047BD60	sub_0047BD60_GetAccountPart	CHAT_GetAccountPart	inferred	Source/D2Client/UI/chat.cpp	high	returns the account part after '*' of a "char*account" name
+0x0047BD80	sub_0047BD80_CopyCharPart	CHAT_CopyCharacterPart	inferred	Source/D2Client/UI/chat.cpp	high	copies the character part before '*' of a "char*account" name; (also spelled sub_M04_Emit_0047BD80)
+0x0047BDF0	sub_0047BDF0_HandleBnetChatMessage	CHAT_HandleBnetChatMessage	inferred	Source/D2Client/UI/chat.cpp	high	reads a Battle.net chat message from the client notify interface and shows it
+0x0047C100	sub_0047C100	CHAT_HandleHelpCommand	inferred	Source/D2Client/UI/chat.cpp	high	handles "/help" and "/?" (its only callers); (also spelled sub_F07_Emit_0047C100, sub_M134_Emit_0047C100)
+0x0047C1F0	sub_0047C1F0_HandleWhisperCommand	CHAT_HandleWhisperCommand	inferred	Source/D2Client/UI/chat.cpp	high	handles "/msg", "/m"… whisper commands
+0x0047C3F0	sub_0047C3F0_CopyCommandArgs	CHAT_CopyCommandArgs	inferred	Source/D2Client/UI/chat.cpp	high	copies the text after a command's first space
+0x0047CA70	sub_0047CA70_OnChatChar	CHAT_OnChatChar	inferred	Source/D2Client/UI/chat.cpp	high	character message handler for the chat line (backspace, editing…); in data_plan.json
+0x00483AB0	sub_00483AB0_IsInInvRect	INV_IsInPlayerInvRect	inferred	Source/D2Client/UI/inv.cpp	high	tells whether a point is in the player inventory rectangle
+0x00483C50	sub_00483C50_DrawCursorPlacement	INV_DrawCursorPlacement	inferred	Source/D2Client/UI/inv.cpp	high	draws where the cursor item would be placed in a grid
+0x00493840	sub_00493840_TogglePopup	HIREABLES_TogglePetIconPopup	inferred	Source/D2Client/UI/Hireables.cpp	medium	steps the pet icon popup state, opening or closing its UI var; in data_plan.json
+0x00494FC0	sub_00494FC0	HIREABLES_CloseHelpUi	inferred	Source/D2Client/UI/Hireables.cpp	medium	closes the help UI (var 0x15) if this code opened it; (also spelled sub_00494FC0_ClearUi)
+0x00495030	sub_00495030_DrawKeyHelp	HIREABLES_DrawKeyHelp	inferred	Source/D2Client/UI/Hireables.cpp	high	draws the key help lines with the bound key names
+0x004966C0	sub_004966C0_DrawHelpScreen	INV_DrawHelpScreen	inferred	Source/D2Client/UI/inv.cpp	high	opens the help UI if needed and draws the help screen for the resolution
+0x004967A0	sub_004967A0_KeyCloseHelp	INV_OnKeyCloseHelp	inferred	Source/D2Client/UI/inv.cpp	medium	key handler that closes the help screen; in data_plan.json
+0x00499500	sub_00499500_Click	PANEL_OnMouseClick	inferred	Source/D2Client/UI/panel.cpp	medium	panel mouse-click handler (overlays, buttons); in data_plan.json; (also spelled Unknown_00499500)
+0x00499DE0	sub_00499DE0_FindRoster	PANEL_FindPartyRow	inferred	Source/D2Client/UI/panel.cpp	medium	finds a party roster row by id
+0x0049C650	sub_0049C650_CloseArchives	TEXT_FreeWaypointCels	inferred	Source/D2Client/UI/text.cpp	high	frees the waypoint panel cel files
+0x0049C6A0	sub_0049C6A0	TEXT_InitWaypointData	inferred	Source/D2Client/UI/text.cpp	medium	allocates the waypoint data and clears the sent flag; (also spelled sub_0049C6A0_InitWaypoint)
+0x0049C700	sub_0049C700_CloseWaypointPanel	TEXT_CloseWaypointPanel	inferred	Source/D2Client/UI/text.cpp	high	sends the close packet, frees the waypoint data and cels
+0x0049D010	sub_0049D010_WaypointMouseUp	TEXT_OnWaypointMouseUp	inferred	Source/D2Client/UI/text.cpp	high	mouse-up handler of the waypoint panel; in data_plan.json
+0x0049D310	sub_0049D310_CopyTextLine	TEXT_CopyTextLine	inferred	Source/D2Client/UI/text.cpp	high	copies one line of Unicode text up to a newline
+0x004A2690	sub_004A2690_HitTestButtonB	TEXT_HitTestQuestCloseButton	inferred	Source/D2Client/UI/text_0049A950.cpp	medium	hit test on the quest-log button that closes the quest log
+0x004A3050	sub_004A3050	TEXT_ResetQuestPageDefaults	inferred	Source/D2Client/UI/text.cpp	medium	sets the five default quest pages to -1
+0x004A8C00	sub_004A8C00_FreeSkillIcons	SPELLSEL_FreeSkillIcons	inferred	Source/D2Client/UI/spellsel.cpp	high	frees the skill icon cel files
+0x004A8C80	sub_004A8C80_GetSkillValue	SPELLSEL_GetSkillIconCel	inferred	Source/D2Client/UI/spellsel.cpp	high	returns the skill icon cel file for a skill's class
+0x004A8CE0	sub_004A8CE0_SetValue	SPELLSEL_SetSkillSelectRight	inferred	Source/D2Client/UI/spellsel.cpp	high	sets whether the right skill is being selected
+0x004A8D30	sub_004A8D30_GetSkillState	SPELLSEL_GetSkillState	inferred	Source/D2Client/UI/spellsel.cpp	medium	maps a skill's usability state to the icon state
+0x004A9D70	sub_004A9D70_ClearSkillHotkeys	SPELLSEL_ClearChargedSkillHotkeys	inferred	Source/D2Client/UI/spellsel.cpp	medium	clears the hotkey slots of a charged skill when its quantity runs out
+0x004A9DF0	sub_004A9DF0_UpdateSkillIcons	SPELLSEL_UpdateSkillIcons	inferred	Source/D2Client/UI/spellsel.cpp	medium	walks the player's skills and updates the icon entries
+0x004A9E60	sub_004A9E60_AssignHotkey	SPELLSEL_AssignHotkey	inferred	Source/D2Client/UI/spellsel.cpp	high	assigns a hotkey to the skill under the cursor
+0x004A9FC0	sub_004A9FC0_IsHotkeyUsable	SPELLSEL_IsHotkeyUsable	inferred	Source/D2Client/UI/spellsel.cpp	high	tells whether a hotkey slot's skill can be used now
+0x004AA030	sub_004AA030_SelectHotkey	SPELLSEL_SelectHotkey	inferred	Source/D2Client/UI/spellsel.cpp	high	selects the skill of a hotkey slot and tells the server
+0x004AA0F0	sub_004AA0F0_AssignFreeHotkey	SPELLSEL_AssignFreeHotkey	inferred	Source/D2Client/UI/spellsel.cpp	high	assigns a skill to an empty hotkey slot
+0x004AA160	sub_004AA160_FillHotkeys	SPELLSEL_FillHotkeys	inferred	Source/D2Client/UI/spellsel.cpp	high	fills empty hotkey slots with the player's skills
+0x004AA1F0	sub_004AA1F0_DrawSkillQuantity	SPELLSEL_DrawSkillQuantity	inferred	Source/D2Client/UI/spellsel.cpp	medium	draws a skill icon's quantity and hover state
+0x004AA680	sub_004AA680_BuildRightRows	SPELLSEL_BuildRightRows	inferred	Source/D2Client/UI/spellsel.cpp	high	builds the right-hand skill rows
+0x004AA6B0	sub_004AA6B0_BuildLeftRows	SPELLSEL_BuildLeftRows	inferred	Source/D2Client/UI/spellsel.cpp	high	builds the left-hand skill rows
+0x004AA740	sub_004AA740_CycleHotkey	SPELLSEL_CycleHotkey	inferred	Source/D2Client/UI/spellsel.cpp	high	selects the next or previous usable hotkey
+0x004AA7E0	sub_004AA7E0_ResetSkillIcons	SPELLSEL_ResetSkillIcons	inferred	Source/D2Client/UI/spellsel.cpp	medium	clears the hotkey slot table and rebuilds the rows
+0x004AA8B0	sub_004AA8B0_GetSkillMaxLevel	SPELLSEL_GetSkillMaxLevel	inferred	Source/D2Client/UI/spellsel.cpp	high	returns a skill's max level, 20 when unset; (also spelled sub_004AA8B0_GetPositiveValue)
+0x004AA8E0	sub_004AA8E0_ClearValue7C0C3C	SPELLSEL_ClearSkillPointsHighlight	inferred	Source/D2Client/UI/spellsel.cpp	high	clears the skill points highlight
+0x004B3870	sub_004B3870_HandleTradeClick	NPCMENU_HandleTradeClick	inferred	Source/D2Client/UI/npcmenu.cpp	high	handles a click in the NPC trade screen (buy, sell, repair…); (also spelled sub_004B3870)
+0x004B4FD0	sub_004B4FD0_OpenNpcWindow	NPCMENU_OpenNpcWindow	inferred	Source/D2Client/UI/npcmenu.cpp	high	opens the NPC window for a unit, or ends the interaction; (also spelled sub_004B4FD0)
+0x004B5640	sub_004B5640_OpenNpcMenu	NPCMENU_OpenNpcMenu	inferred	Source/D2Client/UI/npcmenu.cpp	medium	opens or refreshes the NPC menu for the pending action; (also spelled sub_004B5640_RefreshNpcMenu)
+0x004B5C00	sub_004B5C00_OpenConfirm	NPCMENU_StartConfirm	inferred	Source/D2Client/UI/npcmenu.cpp	medium	sets the menu state, finds the entry and opens the confirm dialog
+0x004B6390	sub_004B6390_HandleNpcTransaction	NPCMENU_HandleNpcTransaction	inferred	Source/D2Client/UI/npcmenu.cpp	high	NPC transaction packet: stores it, snapshots gold and updates the menu; (also spelled Unknown_004B6390, sub_004B6390)
+0x004B6440	sub_004B6440_ToggleNpcHandler	NPCMENU_ToggleNpcHandler	inferred	Source/D2Client/UI/npcmenu.cpp	medium	adds or removes an NPC menu handler (expansion only)
+0x004B66B0	sub_004B66B0_OpenNpcInteract	NPCMENU_OpenNpcInteract	inferred	Source/D2Client/UI/npcmenu.cpp	high	starts or reopens an NPC interaction
+0x004B69E0	sub_004B69E0_CloseTrade	NPCMENU_CloseTrade	inferred	Source/D2Client/UI/npcmenu.cpp	high	closes the trade dialog and frees its object
+0x004BFAF0	sub_004BFAF0_ShowConfirmation	USEITEM_ShowConfirmation	inferred	Source/D2Client/UI/useitem.cpp	high	shows the use-item confirmation dialog
+0x004C0450	sub_004C0450_ClickHotspots	USEITEM_ClickHotspots	inferred	Source/D2Client/UI/useitem.cpp	high	finds and triggers the pressed hotspot under a point
+0x004C04E0	sub_004C04E0_OnHotspotClick	USEITEM_OnHotspotClick	inferred	Source/D2Client/UI/useitem.cpp	high	click handler for the use-item hotspots; in data_plan.json
+0x004E3AB0	sub_004E3AB0_CreateStateSkillMissile	SKILLDESC_CreateBlazeMissile	inferred	Source/D2Client/UI/SkillDesc.cpp	medium	on entering a new subtile with the Blaze state, creates its missile; (also spelled sub_004E3AB0_UpdateState13)
+0x004E6CE0	sub_004E6CE0_GetStringId	SKILLDESC_GetSkillDescStringId	inferred	Source/D2Client/UI/SkillDesc.cpp	high	returns a skill's SkillDesc string id
+0x004E74A0	sub_004E74A0_FormatDamageRange	SKILLDESC_FormatDamageRange	inferred	Source/D2Client/UI/SkillDesc.cpp	high	formats a min-max damage range, with K for thousands
+0x004E75B0	sub_004E75B0_FormatValueOrRange	SKILLDESC_FormatValueOrRange	inferred	Source/D2Client/UI/SkillDesc.cpp	high	formats a value or a min-max range
+0x004E7610	sub_004E7610_FormatDecimalRange	SKILLDESC_FormatDecimalRange	inferred	Source/D2Client/UI/SkillDesc.cpp	high	formats a range with one decimal
+0x004E82A0	sub_004E82A0_AppendSecondsTwentieths	SKILLDESC_AppendSecondsTwentieths	inferred	Source/D2Client/UI/SkillDesc.cpp	medium	appends a frame count as seconds (scaled by 20/3) with a string; (also spelled sub_Emit_004E82A0)
+0x004E83E0	sub_004E83E0_AppendSecondsTenths	SKILLDESC_AppendSecondsTenths	inferred	Source/D2Client/UI/SkillDesc.cpp	medium	appends a frame count as seconds (scaled by 10/3) with a string; (also spelled sub_004E83E0_AppendSecondsThirds, sub_Emit_004E83E0)
+0x004EDA80	sub_004EDA80_CallSkillDescFunc	SKILLDESC_CallSkillDescFunc	inferred	Source/D2Client/UI/SkillDesc.cpp	medium	calls the left or right skill's description function for a unit; (also spelled Unknown_004EDA80)
+0x004F2010	sub_004F2010_CheckTarget	SKILLDESC_CanTargetHostile	inferred	Source/D2Client/UI/SkillDesc.cpp	medium	skill callback: the target is a hostile player or monster outside town; in data_plan.json
+0x004F23E0	sub_004F23E0_AuraStateOff	SKILLDESC_IsAuraStateOff	inferred	Source/D2Client/UI/SkillDesc.cpp	medium	skill callback: the skill's aura state is not set; in data_plan.json
+0x004F2440	sub_004F2440_ClearState	SKILLDESC_ToggleStateOff	inferred	Source/D2Client/UI/SkillDesc.cpp	medium	state callback: turns the state off; (also spelled sub_004F2440_OnStateRemove)
+0x004F2870	sub_004F2870_TargetIsPlayerOrMonster	SKILLDESC_IsTargetPlayerOrMonster	inferred	Source/D2Client/UI/SkillDesc.cpp	high	skill callback: the target is a player or monster; in data_plan.json
+0x004F4A30	sub_004F4A30_CltDoChargedMissile	SKILLDESC_CltDoChargedMissile	inferred	Source/D2Client/UI/SkillDesc.cpp	medium	client skill callback: creates the charged missile; in data_plan.json
+0x004F4D90	sub_004F4D90_MissileAtTarget	SKILLDESC_CreateMissileAtTarget	inferred	Source/D2Client/UI/SkillDesc.cpp	medium	client skill callback: creates the skill missile at the target; in data_plan.json
+0x004F4EC0	sub_004F4EC0_GetSkillOverlay	SKILLDESC_GetSkillOverlay	inferred	Source/D2Client/UI/SkillDesc.cpp	medium	returns a skill's overlay, special-casing Blood Raven's nest; (also spelled Unknown_004F4EC0)
