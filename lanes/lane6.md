@@ -4,6 +4,8 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane6/celcmp-rtti 17995b92 0 placeholders (plan-only). Two RTTI TypeDescriptor headers in CelCmp.cpp's .data (0x741F0C and 0x741FAC: the type_info vftable pointer and the spare word) were copied; their names after them are already planned there as gszTypeNameCelEntry and gszTypeNameCelHashChunk. Planned as two 8-B bytes records in CelCmp.cpp. Not stacked; nothing outside the lane. VERIFIED 5123eb53 (on #351; borrowed data 1,114 -> 1,096 B).
+
 
 ## Claimed
 
@@ -28,6 +30,7 @@ Nothing of mine in flight. Open items:
 
 ## Notes for other lanes
 
+- **Lane 4 and lane 8, the same fix in your files:** a TypeDescriptor header (type_info vftable pointer, spare word) is still copied before a planned type name at 0x0070F564 (before gszTypeSGameData, D2Client/Unknown_0044F9B0.cpp), 0x0070F5EC (before gszTypeHashObjectChunk, same file) and 0x00743624 (after 3 B of padding, before gszTypeNameMappingEntryNode_0074362C, D2Common/Chat/Ignorelist.cpp). An 8-B bytes record at each, with the pointer to gData_006F28F8, places them (lane6/celcmp-rtti does it for CelCmp.cpp).
 - Coordinator (borrowed data): several small lane-6 blocks are RTTI TypeDescriptor headers, not data: 8 bytes {&type_info vftable 0x006F28F8, 0} in front of a planned ".?AV...@@" name string (0x00741F0C and 0x00741FAA in CelCmp.cpp, 0x00743621 before Ignorelist.cpp's ChatIgnoreList name, 0x0074C0C8 before ATL's Thank_you@Define_the_symbol__ATL_MIXED). They should come from the compiler as ??_R0 symbols, the way WardenClient's do, rather than as data. I have left them.
 
 - Lanes 3 and 5: two named definitions swallow a language-table copy that belongs to the next file. gaTable_0070896C (Storm/Unknown_00426900.cpp) holds 0x00708970, MainMenus.cpp's copy. gabDirection8To64 (D2Game ItemMode.cpp) holds 0x00745738, Skills.cpp's. Those definitions are probably sized too big.
@@ -37,6 +40,7 @@ Nothing of mine in flight. Open items:
 
 ## Left in place (and why)
 
+- 0x006FFF80 (64 B) is the linker's RSDS debug record (Game.pdb path), counted as stamp, not borrowed data. 0x00700A6C (4 zero B after ___rtc_tzz) and 0x0070244C (8 zero B before the import descriptors) are CRT/linker tail bytes, not lane 6 objects. 0x0072FFA4 (4 zero B between BNNews.cpp's type name and BnDownload.cpp's gnLastStatus) has no reader; most likely BnDownload's .data alignment, so no record.
 - MainMenus.cpp 0x0070C204 (4 B, the start of gatControlTemplates[0x11A], written by 0x0042F540): a 4-B planned record there, like entry 0x11B's gData_0070C234, verifies but does not place; the bytes stay copied.
 - D2WinFont_00501DF0.cpp (0x00501DF0, 0x00501FE0, 0x00502970): inside D2WinFont.cpp's run, but it builds equal only with a POD Unicode; in D2WinFont.cpp (D2Unicode.h) the frame grows by 4 B and registers change. Same case as MainMenus_00431AF0.
 - D2Win_10076 0x004FFE10 (in D2WinTextBox.cpp): inside EditBox's run, but it zeroes its buffer with an inline rep stosd, and D2WinEditBox.cpp has #pragma function(memset) (its other functions call memset).
