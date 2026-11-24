@@ -9,6 +9,8 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2MultiTypes.h"
+#include "D2ClientTypes.h"
+#include "D2TxtTables.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -2028,6 +2030,38 @@ int __stdcall sub_00447730(int nUnused1, int nUnused2)
 {
     return 0;
 }
+
+// build: symbol ?COMCALLBACK_NibbleToHex@* 0x00449840
+unsigned int __fastcall COMCALLBACK_NibbleToHex(unsigned int nValue)
+{
+    unsigned int nResult = nValue & 0xF;
+    if (nResult >= 10)
+        nResult += 0x37;
+    else
+        nResult += 0x30;
+    return nResult;
+}
+
+// 0x00449890
+void __fastcall sub_00449890_CdKeyChecksum(char* szKey, unsigned int* pChecksum)
+{
+    unsigned int nBit = 1;
+    *pChecksum = 0;
+    for (int i = 0; i < 16; i += 2, nBit <<= 1)
+    {
+// build: symbol ?gabCdKeyMap@* 0x006D59F0
+        unsigned int nValue = (char)gabCdKeyMap[(unsigned char)szKey[i]] * 3;
+        nValue = (char)gabCdKeyMap[(unsigned char)szKey[i + 1]] + nValue * 8;
+        if (nValue >= 0x100)
+        {
+            nValue -= 0x100;
+            *pChecksum |= nBit;
+        }
+        szKey[i] = (char)COMCALLBACK_NibbleToHex(nValue >> 4);
+        szKey[i + 1] = (char)COMCALLBACK_NibbleToHex(nValue);
+    }
+}
+
 
 // 0x00449AC0
 int __cdecl GAME_GetWaitHandle()
@@ -4279,6 +4313,66 @@ void __cdecl GAME_RegisterWindowHandlers()
     sub_00420320_RegisterHandlers(WINDOW_GetWindow());
 }
 
+struct Pad40_00451F30;
+
+struct Obj00451F30;
+
+struct Obj00451F70;
+
+struct D2MonStats2Txt;
+
+struct D2StatesTxt;
+
+struct D2MonLvlTxt;
+
+struct Pad40_00451F30 {
+    unsigned int dw00;
+    unsigned int dw04;
+    unsigned int dw08;
+    unsigned int f_C;
+    unsigned int dw10;
+    unsigned int dw14;
+    unsigned int dw18;
+    unsigned int dw1C;
+    unsigned int dw20;
+    unsigned int dw24;
+    unsigned int dw28;
+    unsigned int dw2C;
+    unsigned int dw30;
+    unsigned int dw34;
+    unsigned int dw38;
+    unsigned int dw3C;
+};
+
+struct Obj00451F30 {
+    Pad40_00451F30 tPad000;
+    Pad40_00451F30 tPad040;
+    Pad40_00451F30 tPad080;
+    unsigned int dwUnknownC0;
+    unsigned int dwFlagsC4;
+};
+
+struct Obj00451F70 {
+    unsigned int dwUnknown00;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int dwValue10;
+};
+
+struct D2MonLvlTxt
+{
+    char unk0x00[0x78];
+};
+
+// 0x00451F30
+extern "C" __declspec(dllexport) int __fastcall sub_00451F30(Obj00451F30* pObj, unsigned int dwMask) {
+    if (!pObj) {
+        return 0;
+    }
+    return (pObj->dwFlagsC4 & dwMask) != 0;
+}
+
 // 0x00451F50
 int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit)
 {
@@ -4295,6 +4389,14 @@ int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit)
     return pUnit->dwClassId;
 }
 
+// 0x00451F70
+extern "C" __declspec(dllexport) unsigned int __fastcall sub_00451F70(Obj00451F70* pObj) {
+    if (!pObj) {
+        return 0;
+    }
+    return pObj->dwValue10;
+}
+
 // 0x00451F80
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 {
@@ -4306,6 +4408,93 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 }
 
 void __cdecl GAME_InitColors(); // 0x00452130
+
+struct D2CelFileStrc;
+
+extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);           // 0x006CC468
+
+unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
+
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
+
+// 0x00451FB0
+D2MonStats2Txt* __fastcall sub_00451FB0(int nId)
+{
+    if (nId >= 0 && nId < sgptDataTables->nMonStats2TxtRecordCount)
+    {
+        return &sgptDataTables->pMonStats2Txt[nId];
+    }
+    return 0;
+}
+
+// 0x00451FE0
+D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        const int nId = sgptDataTables->pMonStatsTxt[nMonsterId].wMonStatsEx;
+        if (nId >= 0 && nId < sgptDataTables->nMonStats2TxtRecordCount)
+        {
+            return &sgptDataTables->pMonStats2Txt[nId];
+        }
+    }
+    return 0;
+}
+
+// 0x00452020
+int __fastcall sub_00452020_GetOverlayTxtRecordCount()
+{
+    return sgptDataTables->nOverlayTxtRecordCount;
+}
+
+// 0x00452030
+int __fastcall sub_00452030_GetItemStatCostTxtRecordCount()
+{
+    return sgptDataTables->nItemStatCostTxtRecordCount;
+}
+
+// 0x00452040
+extern "C" D2StatesTxt* __fastcall sub_00452040_GetStatesTxtRecord(int nStateId)
+{
+    if (nStateId >= 0 && nStateId < sgptDataTables->nStatesTxtRecordCount)
+    {
+        return &sgptDataTables->pStatesTxt[nStateId];
+    }
+
+    return 0;
+}
+
+// 0x00452070
+int* __fastcall sub_00452070_ClearBlock(int* pData)
+{
+    for (int i = 0; i < 0x80; ++i)
+    {
+        pData[i] = 0;
+    }
+
+    return pData;
+}
+
+// 0x004520C0
+void* __fastcall sub_004520C0_LoadUiCelFile(const char* szFile)
+{
+    char szPath[0x104];
+// build: symbol ?gszDataGlobal@* 0x006D4118
+    wsprintfA(szPath, "%s\\UI\\", gszDataGlobal);
+    char* pDest = &szPath[SStrLen(szPath)];
+    const char* pSrc = szFile;
+    while (*pSrc)
+        *pDest++ = *pSrc++;
+    *pDest = 0;
+    return ARCHIVE_LoadClientCellFile(szPath, 0);
+}
+
+
+// 0x00452160
+void __cdecl sub_00452160_Nop()
+{
+}
+
 
 // 0x00452170
 Unicode* __fastcall sub_00452170(Unicode* pText)

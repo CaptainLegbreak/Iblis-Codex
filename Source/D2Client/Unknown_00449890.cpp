@@ -17,25 +17,6 @@ unsigned int __fastcall COMCALLBACK_NibbleToHex(unsigned int nValue)
     return nResult;
 }
 
-// 0x00449890
-void __fastcall sub_00449890_CdKeyChecksum(char* szKey, unsigned int* pChecksum)
-{
-    unsigned int nBit = 1;
-    *pChecksum = 0;
-    for (int i = 0; i < 16; i += 2, nBit <<= 1)
-    {
-// build: symbol ?gabCdKeyMap@* 0x006D59F0
-        unsigned int nValue = (char)gabCdKeyMap[(unsigned char)szKey[i]] * 3;
-        nValue = (char)gabCdKeyMap[(unsigned char)szKey[i + 1]] + nValue * 8;
-        if (nValue >= 0x100)
-        {
-            nValue -= 0x100;
-            *pChecksum |= nBit;
-        }
-        szKey[i] = (char)COMCALLBACK_NibbleToHex(nValue >> 4);
-        szKey[i + 1] = (char)COMCALLBACK_NibbleToHex(nValue);
-    }
-}
 
 // 0x00449B30
 int __cdecl sub_00449B30_QueryAddress()

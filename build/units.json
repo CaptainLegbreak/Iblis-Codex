@@ -9855,6 +9855,11 @@
      "name": "sub_00447730"
     },
     {
+     "va": "0x00449890",
+     "length": 129,
+     "name": "?sub_00449890_CdKeyChecksum@@YIXPADPAI@Z"
+    },
+    {
      "va": "0x00449AC0",
      "length": 6,
      "name": "GAME_GetWaitHandle"
@@ -10928,6 +10933,11 @@
      "name": "?GAME_RegisterWindowHandlers@@YAXXZ"
     },
     {
+     "va": "0x00451F30",
+     "length": 22,
+     "name": "@sub_00451F30@8"
+    },
+    {
      "va": "0x00451F50",
      "length": 12,
      "name": "?GAME_GetUnitGUID@@YIHPAUD2UnitStrc@@@Z"
@@ -10938,9 +10948,54 @@
      "name": "?GAME_GetUnitClassId@@YIHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00451F70",
+     "length": 11,
+     "name": "@sub_00451F70@4"
+    },
+    {
      "va": "0x00451F80",
      "length": 36,
      "name": "?DATATBLS_GetMonStatsTxtRecord@@YIPAUD2MonStatsTxt@@H@Z"
+    },
+    {
+     "va": "0x00451FB0",
+     "length": 36,
+     "name": "?sub_00451FB0@@YIPAUD2MonStats2Txt@@H@Z"
+    },
+    {
+     "va": "0x00451FE0",
+     "length": 63,
+     "name": "?UNITS_GetMonStats2TxtRecordFromMonsterId@@YIPAUD2MonStats2Txt@@H@Z"
+    },
+    {
+     "va": "0x00452020",
+     "length": 12,
+     "name": "?sub_00452020_GetOverlayTxtRecordCount@@YIHXZ"
+    },
+    {
+     "va": "0x00452030",
+     "length": 12,
+     "name": "?sub_00452030_GetItemStatCostTxtRecordCount@@YIHXZ"
+    },
+    {
+     "va": "0x00452040",
+     "length": 37,
+     "name": "@sub_00452040_GetStatesTxtRecord@4"
+    },
+    {
+     "va": "0x00452070",
+     "length": 18,
+     "name": "?sub_00452070_ClearBlock@@YIPAHPAH@Z"
+    },
+    {
+     "va": "0x004520C0",
+     "length": 101,
+     "name": "?sub_004520C0_LoadUiCelFile@@YIPAXPBD@Z"
+    },
+    {
+     "va": "0x00452160",
+     "length": 1,
+     "name": "?sub_00452160_Nop@@YAXXZ"
     },
     {
      "va": "0x00452170",
@@ -10967,6 +11022,20 @@
      "length": 44,
      "name": "?GAME_GetUIVarState@@YIHI@Z"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
@@ -13293,11 +13362,6 @@
    "file": "Source/D2Client/Unknown_00449890.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00449890",
-     "length": 129,
-     "name": "?sub_00449890_CdKeyChecksum@@YIXPADPAI@Z"
-    },
     {
      "va": "0x00449B30",
      "length": 50,
@@ -17359,51 +17423,6 @@
      "name": "?sub_00451EB0_UnregisterWindowHandlers@@YIXPAX@Z"
     },
     {
-     "va": "0x00451F30",
-     "length": 22,
-     "name": "@sub_00451F30@8"
-    },
-    {
-     "va": "0x00451F70",
-     "length": 11,
-     "name": "@sub_00451F70@4"
-    },
-    {
-     "va": "0x00451FB0",
-     "length": 36,
-     "name": "?sub_00451FB0@@YIPAUD2MonStats2Txt@@H@Z"
-    },
-    {
-     "va": "0x00451FE0",
-     "length": 63,
-     "name": "?UNITS_GetMonStats2TxtRecordFromMonsterId@@YIPAUD2MonStats2Txt@@H@Z"
-    },
-    {
-     "va": "0x00452020",
-     "length": 12,
-     "name": "?sub_00452020_GetOverlayTxtRecordCount@@YIHXZ"
-    },
-    {
-     "va": "0x00452030",
-     "length": 12,
-     "name": "?sub_00452030_GetItemStatCostTxtRecordCount@@YIHXZ"
-    },
-    {
-     "va": "0x00452040",
-     "length": 37,
-     "name": "@sub_00452040_GetStatesTxtRecord@4"
-    },
-    {
-     "va": "0x00452070",
-     "length": 18,
-     "name": "?sub_00452070_ClearBlock@@YIPAHPAH@Z"
-    },
-    {
-     "va": "0x00452160",
-     "length": 1,
-     "name": "?sub_00452160_Nop@@YAXXZ"
-    },
-    {
      "va": "0x00452550",
      "length": 36,
      "name": "?sub_00452550_SetHoverText@@YIXPBUUnicode@@H@Z"
@@ -17418,31 +17437,6 @@
      "length": 36,
      "name": "@sub_004833E0_GetCharStatsTxtRecord@4"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004520C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004520C0",
-     "length": 101,
-     "name": "?sub_004520C0_LoadUiCelFile@@YIPAXPBD@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -61002,13 +60996,7 @@
     {
      "va": "0x005BDB20",
      "length": 856
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005BDE80.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x005BDE80",
      "length": 360,
@@ -61018,32 +61006,11 @@
      "va": "0x005BDFF0",
      "length": 44,
      "name": "?sub_005BDFF0_RollSeedGetTable@@YIPAXPAUD2SeedOwnerStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005BE020.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x005BE020",
      "length": 261
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {

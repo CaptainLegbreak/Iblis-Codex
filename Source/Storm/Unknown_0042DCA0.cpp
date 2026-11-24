@@ -8,6 +8,8 @@
 #define ENOUGH_LENS 852
 #define ENOUGH_DISTS 592
 
+extern const char inflate_copyright[] = " inflate 1.2.8 Copyright 1995-2013 Mark Adler "; // 0x006D3878
+
 typedef enum
 {
     CODES,
