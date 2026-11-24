@@ -4,7 +4,7 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #370 (round j125). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 844 B (was 15,691 B at #297). Placeholder files 273; shims 62; context copies 3. Names: blizzard 475, library 85, d2moo 5,234, inferred 5,574, placeholder 3,563.
+- `main`: #371 (round j126). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 844 B (was 15,691 B at #297). Placeholder files 264; shims 62; context copies 3. Names: blizzard 475, library 85, d2moo 5,234, inferred 5,574, placeholder 3,563.
 - **New: [queues.md](queues.md), what's left per lane** (regenerated on #366): placeholder files, context copies, forcing constructs, shimmed functions, per-file options, with each lane's own list. When your current branch is done, take the next item from your row. The forcing constructs (42) are lane 7's job now: owners, leave them to lane 7 unless you settle it with lane 7 in its file. The context copies outside Storm/Fog/SRP are lane 2's trim first (see Answers), then the owners'. Also regenerated (regenerated on #366): [borrowed-data.md](borrowed-data.md) (906 B, by current owner) and [language-objects.md](language-objects.md) (14 files still hold more than one copy, each a split to make).
 - In progress: nothing; next round as branches are posted ready.
 - **Renames are landing on main.** After a rebase, run `python3 tools/namesync.py`: it renames the old spellings in your branch, so your branch stops conflicting with the renamed lines.
@@ -310,6 +310,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #371 j126: assume-macros-3 (lane 7; replaces the withdrawn first version merged by mistake in #366), ddcore-strays (lane 9), friendly (lane 5), logmanager-cruft (lane 3), files-d2client-2 (lane 10, 7 placeholders). Placeholders 273 -> 264.
 - #370 j125: glide-run (lane 9), join-belt-hotkeys, join-party-b030-2, join-player-2d00-3 (lane 4), keyconfig-join-2 (lane 1), sfile-links, sfile-next (lane 3). Placeholders 280 -> 273.
 - #369 j124: d3d-2f60, d3d-7250, d3d-strays (lane 9), join-00518b90 (lane 6), strays-7-3, strays-8b (lane 5), gamedata-table, join-cmdtbl-2 (lane 4), questlog-join-2 (lane 1), huff-names, logmsg-list-3, names-c, smsg-members (lane 3), sweep-d2common-4 (lane 10, 138 spellings). Placeholders 293 -> 280.
 - #368 j123: join-0051c760, join-0060ae80 (lane 6), join-gfx-c660-2, join-weather-2 (lane 4), sbig-pieces-3 (lane 3), shim-trim-d2client, shim-trim-d2glide (lane 2), files-fog (lane 10). Placeholders 304 -> 293, shims 68 -> 62.
