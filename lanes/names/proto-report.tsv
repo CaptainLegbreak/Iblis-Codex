@@ -1,0 +1,808 @@
+va	name	file	line	declaration	differs_in
+0x00406BA0	FOG_GetInstallPath	Source/Fog/Src/ErrorManager.cpp	3285	int __fastcall FOG_GetInstallPath(char* szPath, unsigned int nSize)	definition
+0x00406BA0	FOG_GetInstallPath	Source/D2Client/D2Client.h	782	void __fastcall FOG_GetInstallPath(char* szPath, int nBufferSize);	return / params
+0x00409810	ERRORMANAGER_PoolFreeLarge	Source/Fog/Src/ErrorManager.cpp	2643	void __fastcall ERRORMANAGER_PoolFreeLarge(D2PoolSystemStrc* pSystem, int* pBlock, const char* szFile, int nLine)	definition
+0x00409810	ERRORMANAGER_PoolFreeLarge	Source/Fog/Fog.h	90	void __fastcall sub_00409810_FreeLarge(D2PoolSystemStrc* pSystem, void* pMemory, const char* szFile, int nLine);	params
+0x004098B0	ERRORMANAGER_PoolReallocLarge	Source/Fog/Src/ErrorManager.cpp	3747	void* __fastcall ERRORMANAGER_PoolReallocLarge(D2PoolSystemStrc* pSystem, int* pBlock, int nSize, const char* szFile, int nLine)	definition
+0x004098B0	ERRORMANAGER_PoolReallocLarge	Source/Fog/Fog.h	97	void* __fastcall sub_004098B0_ReallocLarge(D2PoolSystemStrc* pSystem, void* pMemory, int nSize, const char* szFile, int nLine);	params
+0x0040A620	FOG_AsyncDataLoadFileEx	Source/Fog/Src/AsyncData.cpp	246	AsyncData* __fastcall FOG_AsyncDataLoadFileEx(void* pMemPool, const char* szFileName, int bAllowAsync, long nFileOffset, int nFileSize, void* pBuffer, AsyncDataLoadFileCallback* pAsyncOpDesc, int nPriority, const char* szFile, int nLine)	definition
+0x0040A620	FOG_AsyncDataLoadFileEx	Source/D2CMP/D2CMP.h	8	AsyncData* __fastcall sub_0040A620(void* hArchive, const char* szFileName, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8, const char* szFile, int nLine);	params
+0x0040A620	FOG_AsyncDataLoadFileEx	Source/D2CMP/SRC/SpriteCache.cpp	304	AsyncData* __fastcall sub_0040A620(void* pMemPool, const char* szFileName, int bAllowAsync, long nFileOffset, int nFileSize, void* pBuffer, D2CmpLoadDescStrc* pAsyncOpDesc, int nPriority, const char* szFile, int nLine);	params
+0x0040A620	FOG_AsyncDataLoadFileEx	Source/D2Client/D2Client.h	118	T00481720* __fastcall sub_0040A620(void* hArchive, const char* szFileName, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8, const char* szFile, int nLine);	return / params
+0x0040A7F0	FOG_AsyncDataTestLoaded	Source/Fog/Src/AsyncData.cpp	328	int __fastcall FOG_AsyncDataTestLoaded(AsyncData* ptAsyncData)	definition
+0x0040A7F0	FOG_AsyncDataTestLoaded	Source/D2Client/D2Client.h	509	int __fastcall sub_0040A7F0_AsyncDataCheck(T00481720* pAsyncData);	params
+0x0040A9E0	FOG_AsyncDataGetBuffer	Source/Fog/Src/AsyncData.cpp	360	void* __fastcall FOG_AsyncDataGetBuffer(AsyncData* pAsyncData)	definition
+0x0040A9E0	FOG_AsyncDataGetBuffer	Source/D2CMP/SRC/GfxHash.cpp	30	void* __fastcall FOG_AsyncDataGetBuffer(D2AsyncLoadStrc* pAsync);	params
+0x0040A9E0	FOG_AsyncDataGetBuffer	Source/D2Client/D2Client.h	984	void* __fastcall sub_0040A9E0(T00481720* pAsync);	params
+0x0040AA40	FOG_AsyncDataGetBufferSize	Source/Fog/Src/AsyncData.cpp	373	unsigned int __fastcall FOG_AsyncDataGetBufferSize(AsyncData* pAsyncData)	definition
+0x0040AA40	FOG_AsyncDataGetBufferSize	Source/D2Client/D2Client.h	715	unsigned int __fastcall sub_0040AA40(T00481720* pAsync);	params
+0x0040AB00	FOG_AsyncDataFree	Source/Fog/Src/AsyncData.cpp	381	void __fastcall FOG_AsyncDataFree(AsyncData* ptAsyncData)	definition
+0x0040AB00	FOG_AsyncDataFree	Source/D2CMP/SRC/GfxHash.cpp	32	void __fastcall sub_0040AB00_FreeAsyncData(D2AsyncLoadStrc* pAsync);	params
+0x0040AB00	FOG_AsyncDataFree	Source/D2Client/D2Client.h	784	void __fastcall sub_0040AB00_FreeAsyncData(T00481720* pAsync);	params
+0x0040B380	FOG_Alloc	Source/Fog/Src/ErrorManager.cpp	3028	void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0)	definition
+0x0040B380	FOG_Alloc	Source/D2Client/ENGINE/Particle.cpp	57	extern "C" void* __fastcall sub_0040B380_Alloc(int size, const char* file, int line, int flags);	linkage
+0x0040B3C0	FOG_Free	Source/Fog/Src/ErrorManager.cpp	3039	int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0)	definition
+0x0040B3C0	FOG_Free	Source/D2Launch/D2Launch.h	188	void __fastcall sub_0040B3C0(void* pMemory, const char* szFile, int nLine, int n0);	return
+0x0040B3C0	FOG_Free	Source/Fog/Src/Excel/Excel.cpp	130	extern "C" int __fastcall sub_0040B3C0_Free(void* block,const char* file,int line,int flags);	linkage
+0x0040B430	FOG_AllocPool	Source/Fog/Src/ErrorManager.cpp	3057	void* __fastcall FOG_AllocPool(D2PoolSystemStrc* pMemPool, int nSize, const char* szFile, int nLine, int n0)	definition
+0x0040B430	FOG_AllocPool	Source/D2CMP/D2CMP.h	39	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2CMP/SRC/Codec.cpp	110	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2CMP/SRC/LRUCache.cpp	40	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2CMP/SRC/SpriteCache.cpp	271	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2CMP/SRC/SpriteCache.cpp	288	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Client/D2Client.h	983	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Client/D2Client.h	985	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Client/ENGINE/Particle.cpp	59	extern "C" void* __fastcall sub_0040B430_AllocPool(void* pool, int size, const char* file, int line, int flags);	params / linkage
+0x0040B430	FOG_AllocPool	Source/D2Common/COLLISN/Collisn.cpp	65	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/Chat/Chat.cpp	17	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/Chat/Ignorelist.cpp	685	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DATATBLS/AnimTbls.cpp	22	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DATATBLS/DataTbls.cpp	80	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DATATBLS/DataTbls_00613F80.cpp	50	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DATATBLS/FieldTbls.cpp	27	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DATATBLS/ItemTbls.cpp	83	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DATATBLS/ItemTbls_00633730.cpp	61	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DATATBLS/LvlTbls.cpp	73	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DATATBLS/MonsterTbls.cpp	589	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DATATBLS/TokTbls.cpp	39	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DRLG/Drlg.cpp	174	extern "C" void* __fastcall sub_0040B430_Allocate(void*, unsigned, const char*, int, int);	params / linkage
+0x0040B430	FOG_AllocPool	Source/D2Common/DRLG/Drlg.cpp	209	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DRLG/Drlg.cpp	235	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DRLG/DrlgAnim.cpp	19	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DRLG/DrlgGrid.cpp	29	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DRLG/DrlgLogic.cpp	87	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DRLG/DrlgLogic.cpp	123	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DRLG/DrlgRoom.cpp	74	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DRLG/DrlgVer.cpp	12	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DRLG/Maze.cpp	85	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DRLG/OutJung.cpp	35	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DRLG/OutPlace.cpp	785	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DRLG/OutRoom.cpp	43	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DRLG/Outdoors.cpp	74	extern void* __fastcall sub_0040B430(void* pPool, int nSize, const char* szFile, int nLine, int nZero);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DRLG/Preset.cpp	38	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DRLG/Preset.cpp	75	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DRLG/RoomTile.cpp	101	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/DUNGEON/Dungeon.cpp	104	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/ENVIRONMENT/Env.cpp	23	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/INVENTORY/Inventory.cpp	137	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/INVENTORY/Inventory.cpp	304	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/ITEMS/Items.cpp	185	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/PATH/Path.cpp	1016	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/QuestRecord/QuestRecord.cpp	8	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/SKILLS/Skills.cpp	252	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/SKILLS/Skills.cpp	508	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/Stats/StatsEx.cpp	191	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/Text/Text.cpp	40	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/UNITS/MisStream.cpp	31	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/UNITS/Missile.cpp	43	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/UNITS/Missile_0064B860.cpp	57	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/UNITS/UnitFinds.cpp	35	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/UNITS/Units.cpp	155	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/UNITS/Units.cpp	452	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/Unknown_0067D2D0.cpp	38	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Common/Waypoint/Waypoint.cpp	27	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Ai/AiGeneral.cpp	32	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Ai/AiGeneral.cpp	120	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/D2Game.h	272	extern void* __fastcall sub_0040B430_Alloc(void*, unsigned int, const char*, int, int);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/GAME/Arena.cpp	32	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/GAME/Arena.cpp	38	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/GAME/Clients.cpp	551	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/GAME/Clients.cpp	677	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/GAME/Game.cpp	332	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/GAME/Game.cpp	763	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/GAME/SCmd.cpp	144	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/GAME/Targets.cpp	13	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/GAME/Task.cpp	34	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/MONSTER/MonsterAI.cpp	90	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/MONSTER/MonsterMode.cpp	207	void* __fastcall FOG_AllocPool(void* pPool, int nSize, const char* szFile, int nLine, int nZero);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/MONSTER/MonsterRegion.cpp	51	void* __fastcall FOG_AllocPool(void*,int,const char*,int,int);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/MONSTER/MonsterRegion.cpp	236	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/OBJECTS/Objects.cpp	89	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/OBJECTS/objrgn.cpp	42	void* __fastcall FOG_AllocPool(void* pPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/OBJECTS/objrgn.cpp	374	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/PLAYER/PlayerPets.cpp	80	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/PLAYER/PlrIntro.cpp	17	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/PLAYER/PlrSave.cpp	349	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/PLAYER/PlrTrade.cpp	91	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/PLAYER/PlrTrade.cpp	352	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/QUESTS.CPP	216	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/QUESTS.CPP	545	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a1q1.cpp	192	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a1q2.cpp	112	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a1q3.cpp	108	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a1q4.cpp	209	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a1q5.cpp	186	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a1q6.cpp	206	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a2q0.cpp	26	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a2q1.cpp	55	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a2q2.cpp	31	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a2q3.cpp	127	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a2q4.cpp	175	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a2q5.cpp	55	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a2q6.cpp	140	void* __fastcall sub_0040B430(void*,int,const char*,int,int);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a2q7.cpp	38	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a2q8.cpp	16	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a3q0.cpp	21	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a3q1.cpp	51	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a3q2.cpp	151	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a3q3.cpp	83	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a3q4.cpp	52	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a3q5.cpp	89	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a3q6.cpp	150	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a3q7.cpp	20	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a4q1.cpp	355	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a4q2.cpp	119	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a4q3.cpp	129	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a5q1.cpp	166	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a5q1.cpp	258	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a5q2.cpp	144	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a5q3.cpp	183	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a5q4.cpp	137	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a5q5.cpp	187	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Quests/a5q6.cpp	84	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/SKILLS/SkillItem.cpp	368	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/SKILLS/Skills.cpp	709	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/UNIT/Party.cpp	36	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/UNIT/PlayerList.cpp	17	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/UNIT/SUNITNPC.CPP	291	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/UNIT/SUnit.cpp	461	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/UNIT/SUnitDmg.cpp	272	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/UNIT/SUnitEvent.cpp	383	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/UNIT/SUnitEvent.cpp	774	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/UNIT/SUnitInactive.cpp	98	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/UNIT/SUnitMsg.cpp	136	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/UNIT/SUnitMsg.cpp	282	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/UNIT/sunitproxy.cpp	62	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/UNIT/sunitproxy.cpp	244	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Unknown_005433F0.cpp	39	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Game/Unknown_005B24E0.cpp	355	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Win/Src/D2Comp.cpp	156	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/D2Win/Src/D2WinFont.cpp	179	void* __fastcall FOG_AllocPool(void* pPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/Fog/Src/AsyncData.cpp	72	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/Fog/Src/ErrorManager.cpp	614	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/Fog/Src/ErrorManager_004082E0.cpp	610	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/Fog/Src/Excel/Excel.cpp	159	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/Fog/Src/Exceptions.cpp	300	extern "C" void* __fastcall FOG_AllocPool(void* pool,int size,const char* file,int line,int flags);	params / linkage
+0x0040B430	FOG_AllocPool	Source/Fog/Src/Safesock.cpp	153	void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/Fog/Src/Safesock.cpp	774	extern "C" void* __fastcall FOG_AllocPool(void* pool,int size,const char* file,int line,int flags);	params / linkage
+0x0040B430	FOG_AllocPool	Source/StandIns/D2Common_00677880.cpp	13	void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B430	FOG_AllocPool	Source/Storm/SOURCE/SBMP.CPP	100	void* __fastcall FOG_AllocPool(void* pPool, int nSize, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/Fog/Src/ErrorManager.cpp	3068	int __fastcall FOG_FreePool(D2PoolSystemStrc* pMemPool, void* pFree, const char* szFile, int nLine, int n0)	definition
+0x0040B480	FOG_FreePool	Source/D2CMP/D2CMP.h	30	int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/D2CMP/D2CMP.h	35	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Client/D2Client.h	785	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Client/ENGINE/Gfx.cpp	228	int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/D2Common/Chat/Chat.cpp	18	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/Chat/Ignorelist.cpp	687	void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/DATATBLS/AnimTbls.cpp	23	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/DATATBLS/DataTbls.cpp	173	int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/D2Common/DATATBLS/DataTbls.cpp	266	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/DATATBLS/FieldTbls.cpp	28	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/DATATBLS/ItemTbls.cpp	177	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/DATATBLS/LvlTbls.cpp	156	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/DATATBLS/MissileTbls.cpp	665	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/DATATBLS/MonsterTbls.cpp	782	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/DATATBLS/TokTbls.cpp	69	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/DRLG/Drlg.cpp	176	extern "C" int __fastcall sub_0040B480_Free(void*, void*, const char*, int, int);	params / linkage
+0x0040B480	FOG_FreePool	Source/D2Common/DRLG/DrlgActivate.cpp	126	int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/D2Common/DRLG/DrlgGrid.cpp	31	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/DRLG/DrlgLogic.cpp	112	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/DRLG/DrlgRoom.cpp	111	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/DRLG/DrlgVer.cpp	14	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/DRLG/Maze.cpp	131	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/DRLG/OutJung.cpp	36	int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/D2Common/DRLG/OutPlace.cpp	786	void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/DRLG/OutRoom.cpp	45	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/DRLG/Preset.cpp	77	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/DRLG/RoomTile.cpp	97	void __fastcall sub_0040B480(void*,void*,const char*,int,int);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/DUNGEON/Dungeon.cpp	244	void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/ENVIRONMENT/Env.cpp	66	int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/D2Common/INVENTORY/Inventory.cpp	143	void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/PATH/Path.cpp	1118	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/QuestRecord/QuestRecord.cpp	9	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/SKILLS/Skills.cpp	254	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/SKILLS/Skills.cpp	406	int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/D2Common/Stats/StatsEx.cpp	133	int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/D2Common/Text/Text.cpp	41	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/UNITS/MisStream.cpp	32	void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/UNITS/Missile.cpp	45	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/UNITS/Missile_0064B860.cpp	59	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/UNITS/UnitFinds.cpp	37	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/UNITS/UnitFinds.cpp	49	int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/D2Common/UNITS/Units.cpp	169	extern void __fastcall sub_0040B480_FreePool(void*,void*,const char*,int,int);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/Unknown_0067D2D0.cpp	39	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Common/Waypoint/Waypoint.cpp	28	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Game/Ai/AiGeneral.cpp	124	int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/D2Game/D2Game.h	485	void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Game/GAME/Arena.cpp	34	int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/D2Game/GAME/Clients.cpp	588	void __fastcall FOG_FreePool(void*,void*,const char*,int,int);	return / params
+0x0040B480	FOG_FreePool	Source/D2Game/GAME/Event.cpp	79	void __fastcall FOG_FreePool(void*,void*,const char*,int,int);	return / params
+0x0040B480	FOG_FreePool	Source/D2Game/GAME/Game.cpp	168	int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/D2Game/GAME/SCmd.cpp	283	void __fastcall FOG_FreePool(void*, void*, const char*, int, int);	return / params
+0x0040B480	FOG_FreePool	Source/D2Game/GAME/Targets.cpp	14	void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Game/MONSTER/MonsterAI.cpp	163	int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/D2Game/MONSTER/MonsterRegion.cpp	602	void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int a5);	return / params
+0x0040B480	FOG_FreePool	Source/D2Game/OBJECTS/Objects.cpp	140	void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Game/OBJECTS/objrgn.cpp	228	int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/D2Game/PLAYER/PlrTrade.cpp	436	void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Game/Quests/QUESTS.CPP	613	void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int a5);	return / params
+0x0040B480	FOG_FreePool	Source/D2Game/SKILLS/SkillItem.cpp	370	int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/D2Game/UNIT/PlayerList.cpp	72	void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/D2Game/UNIT/SUnit.cpp	351	int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/D2Game/UNIT/SUnitEvent.cpp	385	int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/D2Game/UNIT/sunitproxy.cpp	143	void __fastcall FOG_FreePool(void*,void*,const char*,int,int);	return / params
+0x0040B480	FOG_FreePool	Source/D2Win/Src/D2Comp.cpp	204	int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/Fog/Src/AsyncData.cpp	58	int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/Fog/Src/ErrorManager.cpp	739	int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/Fog/Src/ErrorManager_004082E0.cpp	729	int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/Fog/Src/Excel/Excel.cpp	91	extern "C" int __fastcall sub_0040B480_FreePool(void* pool,void* block,const char* file,int line,int unused);	params / linkage
+0x0040B480	FOG_FreePool	Source/Fog/Src/Excel/Excel.cpp	329	void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B480	FOG_FreePool	Source/Fog/Src/Safesock.cpp	323	int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);	params
+0x0040B480	FOG_FreePool	Source/StandIns/D2Common_00677880.cpp	14	void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);	return / params
+0x0040B920	EXCEPTIONS_GetModuleListPsapi	Source/Fog/Src/Exceptions.cpp	670	D2ModuleInfoStrc* __stdcall EXCEPTIONS_GetModuleListPsapi(void* hProcess)	definition
+0x00410A80	FOG_GetSyncTime	Source/Fog/Src/System/system.cpp	56	long __cdecl FOG_GetSyncTime()	definition
+0x00410A80	FOG_GetSyncTime	Source/D2Client/D2Client.h	472	int __cdecl sub_00410A80_GetTime();	return
+0x00410A80	FOG_GetSyncTime	Source/Fog/Fog.h	81	unsigned int __cdecl sub_00410A80_GetTime();	return
+0x00412650	SMemFree	Source/Storm/SOURCE/SMEM.CPP	504	int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags)	definition
+0x00412650	SMemFree	Source/D2CMP/SRC/CelCmp.cpp	1138	int __stdcall sub_00412650(void*,const char*,int,unsigned);	params
+0x00412650	SMemFree	Source/D2Client/ENGINE/Gfx.cpp	298	int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags);	params
+0x00412650	SMemFree	Source/D2Client/UI/automap.cpp	1071	int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags);	params
+0x00412650	SMemFree	Source/D2Client/UI/editbox.cpp	21	int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags);	params
+0x00412650	SMemFree	Source/D2Client/Unknown_004BABF0.cpp	19	int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags);	params
+0x00412650	SMemFree	Source/D2Client/Unknown_004BBE10.cpp	20	int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags);	params
+0x00412650	SMemFree	Source/D2Client/Unknown_004BC1B0.cpp	16	int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags);	params
+0x00412650	SMemFree	Source/D2Client/Unknown_004BC1B0_004BE770.cpp	16	int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags);	params
+0x00412650	SMemFree	Source/D2Client/WARDEN/WardenClient.cpp	240	int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags);	params
+0x00412650	SMemFree	Source/D2Lang/Unknown_00525FB0.cpp	48	int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags);	params
+0x00412650	SMemFree	Source/Storm/Unknown_00404F40.cpp	27	int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags);	params
+0x00412650	SMemFree	Source/Storm/Unknown_004199A0.cpp	14	extern "C" int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);	linkage
+0x00413020	SMemAlloc	Source/Storm/SOURCE/SMEM.CPP	1291	void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int dwFlags)	definition
+0x00413020	SMemAlloc	Source/D2BNClient/grid.cpp	10	void* __stdcall sub_00413020_Allocate(UInt size, const char* file, int line, UInt flags);	params
+0x00413020	SMemAlloc	Source/D2Client/ENGINE/Gfx.cpp	296	void* __stdcall SMemAlloc(int nSize, const char* szFile, int nLine, int nFlags);	params
+0x00413020	SMemAlloc	Source/D2Client/UI/editbox.cpp	19	void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags);	params
+0x00413020	SMemAlloc	Source/D2Client/UI/npcmenu_004B5C60.cpp	14	void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags);	params
+0x00413020	SMemAlloc	Source/D2Client/UI/text.cpp	271	void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags);	params
+0x00413020	SMemAlloc	Source/D2Client/Unknown_004A43E0.cpp	269	void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags);	params
+0x00413020	SMemAlloc	Source/D2Client/Unknown_004A6460.cpp	269	void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags);	params
+0x00413020	SMemAlloc	Source/D2Client/Unknown_004BABF0.cpp	17	void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags);	params
+0x00413020	SMemAlloc	Source/D2Client/Unknown_004BBE10.cpp	18	void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags);	params
+0x00413020	SMemAlloc	Source/D2Client/Unknown_004BC1B0.cpp	14	void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, int nFlags);	params
+0x00413020	SMemAlloc	Source/D2Client/Unknown_004BC1B0_004BE770.cpp	14	void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, int nFlags);	params
+0x00413020	SMemAlloc	Source/D2Common/Chat/Ignorelist.cpp	691	extern "C" void* __stdcall sub_00413020(unsigned,const char*,int,unsigned);	params / linkage
+0x00413020	SMemAlloc	Source/D2Lang/Unknown_00525FB0.cpp	49	void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags);	params
+0x00413020	SMemAlloc	Source/Storm/Unknown_00404F40.cpp	28	void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags);	params
+0x004150E0	SRegSaveValue	Source/Storm/SOURCE/SREG.CPP	337	int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue)	definition
+0x004150E0	SRegSaveValue	Source/D2Client/D2Client.h	265	extern int __stdcall sub_004150E0_SaveValue(const char*,const char*,int,int);	params
+0x004150E0	SRegSaveValue	Source/D2Common/Chat/Ignorelist.cpp	20	extern "C" int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue);	linkage
+0x004151D0	DecompressLzw_BufferRead	Source/Storm/SOURCE/SFILE.CPP	660	unsigned int __cdecl DecompressLzw_BufferRead(char* pBuffer, unsigned int* pnSize, D2StormBufferInfoStrc* pInfo)	definition
+0x004151D0	DecompressLzw_BufferRead	Source/Storm/SOURCE/SFILE.CPP	590	unsigned int __cdecl sub_004151D0_ExplodeRead(char* pBuffer, unsigned int* pnSize, void* pParam);	params
+0x00415210	DecompressLzw_BufferWrite	Source/Storm/SOURCE/SFILE.CPP	670	void __cdecl DecompressLzw_BufferWrite(char* pBuffer, unsigned int* pnSize, D2StormBufferInfoStrc* pInfo)	definition
+0x00415210	DecompressLzw_BufferWrite	Source/Storm/SOURCE/SFILE.CPP	592	void __cdecl sub_00415210_ExplodeWrite(char* pBuffer, unsigned int* pnSize, void* pParam);	params
+0x00418140	SFileDdaGetPos	Source/Storm/SOURCE/SFILE.CPP	4180	int __stdcall SFileDdaGetPos(void* hFile, unsigned int* pnPlayed, unsigned int* pnSize)	definition
+0x004192F0	SFileOpenFileEx	Source/Storm/SOURCE/SFILE.CPP	4600	int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, unsigned int dwFlags, void** phFile)	definition
+0x004192F0	SFileOpenFileEx	Source/D2BNClient/D2BNClient.h	68	int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, int nSearchScope, void** phFile);	params
+0x004192F0	SFileOpenFileEx	Source/D2Client/D2Client.h	604	int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, int nSearchScope, void** phFile);	params
+0x004192F0	SFileOpenFileEx	Source/D2Launch/D2Launch.h	159	int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigned int dwFlags, void** phFile);	params
+0x004192F0	SFileOpenFileEx	Source/D2Win/Unknown_0050F910.cpp	47	int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigned int dwFlags, void** phFile);	params
+0x004192F0	SFileOpenFileEx	Source/Storm/Unknown_006BBBF0.cpp	39	int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigned int dwFlags, void** phFile);	params
+0x00419BD0	RemoveStreamRef	Source/Storm/SOURCE/SFILE.CPP	4452	static inline void RemoveStreamRef(AUDIOSTREAM* stream)	definition
+0x00419F30	SFileDdaDestroy	Source/Storm/SOURCE/SFILE.CPP	3265	int __cdecl SFileDdaDestroy()	definition
+0x00419F30	SFileDdaDestroy	Source/D2Sound/Src/D2SoundSmp.cpp	62	void __cdecl sub_00419F30();	return
+0x00419F30	SFileDdaDestroy	Source/D2Sound/Unknown_00513BC0.cpp	61	void __cdecl sub_00419F30();	return
+0x0041D2A0	SMemCopy	Source/Storm/Unknown_0041D200.cpp	59	void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize)	definition
+0x0041D300	SMemZero	Source/Storm/Unknown_0041D200.cpp	77	void __stdcall SMemZero(void* pLocation, unsigned int nLength)	definition
+0x00420120	SLogSetIndent	Source/Storm/SOURCE/SLOG.CPP	350	int __stdcall SLogSetIndent(void* hLog, int nDelta)	definition
+0x00420120	SLogSetIndent	Source/D2BNClient/D2BNClient.h	81	void __stdcall sub_00420120_LogAdjust(void* hLog, int nValue);	return
+0x00424E40	SBigDel	Source/Storm/SOURCE/SBig.cpp	183	void __stdcall SBigDel(D2StormBigStrc* pBig)	definition
+0x00424E40	SBigDel	Source/Bnclient/Unknown_0052A240.cpp	7	void __stdcall sub_00424E40(void* hBig);	params
+0x00424E40	SBigDel	Source/D2Client/D2Client.h	909	void __stdcall SBigDel(void* hBig);	params
+0x00424E40	SBigDel	Source/D2Game/GAME/Clients.cpp	2065	int __stdcall sub_00424E40(void* pArg);	return / params
+0x00424E40	SBigDel	Source/D2Game/GAME/Game.cpp	138	int __stdcall sub_00424E40(void* pArg);	return / params
+0x00424E40	SBigDel	Source/D2Game/OBJECTS/objrgn.cpp	208	int __stdcall sub_00424E40(void* pArg);	return / params
+0x00424E40	SBigDel	Source/Storm/Unknown_0041D880.cpp	14	void __stdcall SBigDel(void* hBig);	params
+0x0042E6A0	MAINMENUS_SetGatewayValue	Source/D2Launch/Src/MainMenus.cpp	1467	void __fastcall MAINMENUS_SetGatewayValue(int nValue)	definition
+0x0042E6A0	MAINMENUS_SetGatewayValue	Source/D2Launch/Src/MainMenus.cpp	267	void __fastcall sub_0042E6A0(void (__cdecl* pfnCallback)());	params
+0x0042E6A0	MAINMENUS_SetGatewayValue	Source/D2Launch/Unknown_004370B0.cpp	57	void __fastcall sub_0042E6A0(void (__cdecl* pfnCallback)());	params
+0x0042E6A0	MAINMENUS_SetGatewayValue	Source/D2Win/Src/D2WinMain.cpp	565	void __fastcall sub_0042E6A0(void (__cdecl* pfnCallback)());	params
+0x0042E6B0	MAINMENUS_SetGatewayFlag	Source/D2Launch/Src/MainMenus.cpp	1473	void __cdecl MAINMENUS_SetGatewayFlag()	definition
+0x0042E6B0	MAINMENUS_SetGatewayFlag	Source/D2Launch/Src/MainMenus.cpp	265	void __fastcall sub_0042E6B0(int nValue);	params / calling convention
+0x0042E6B0	MAINMENUS_SetGatewayFlag	Source/D2Launch/Unknown_004370B0.cpp	55	void __fastcall sub_0042E6B0(int nValue);	params / calling convention
+0x0042E6B0	MAINMENUS_SetGatewayFlag	Source/D2Win/Src/D2WinMain.cpp	563	void __fastcall sub_0042E6B0(int nValue);	params / calling convention
+0x004309B0	MAINMENUS_ClearLaunchState	Source/D2Launch/Src/MainMenus.cpp	2546	void __cdecl MAINMENUS_ClearLaunchState()	definition
+0x004309B0	MAINMENUS_ClearLaunchState	Source/D2Launch/Src/MainMenus.cpp	1379	int __cdecl sub_004309B0_ClearState();	return
+0x00431C90	MAINMENUS_PollSystemPacket	Source/D2Launch/Src/MainMenus.cpp	3270	int __stdcall MAINMENUS_PollSystemPacket(int nUnused)	definition
+0x00431D10	MAINMENUS_StopLoop	Source/D2Launch/Src/MainMenus.cpp	3294	int __stdcall MAINMENUS_StopLoop(int nArg)	definition
+0x00431E30	MAINMENUS_PollConnection	Source/D2Launch/Src/MainMenus.cpp	3332	int __stdcall MAINMENUS_PollConnection(int nArg)	definition
+0x00432400	MAINMENUS_PollStatus	Source/D2Launch/Src/MainMenus.cpp	3556	int __cdecl MAINMENUS_PollStatus()	definition
+0x00433460	MAINMENUS_ShowTextBox	Source/D2Launch/Src/MainMenus_00431AF0.cpp	345	void __fastcall MAINMENUS_ShowTextBox(const Unicode* pText, D2LaunchDoneFn pfnDone)	definition
+0x00433460	MAINMENUS_ShowTextBox	Source/D2Launch/D2Launch.h	189	void __fastcall sub_00433460_ShowMessage(const Unicode* pText, void (__cdecl* pfnDone)());	params
+0x004334D0	MAINMENUS_OnCloseBox	Source/D2Launch/Src/MainMenus.cpp	3899	int __stdcall MAINMENUS_OnCloseBox(int nArg)	definition
+0x004336C0	MAINMENUS_ShowMainMenu	Source/D2Launch/Src/MainMenus.cpp	3964	void __cdecl MAINMENUS_ShowMainMenu()	definition
+0x00434060	MAINMENUS_BuildRealmList	Source/D2Launch/Src/MainMenus.cpp	4023	void __cdecl MAINMENUS_BuildRealmList()	definition
+0x00435580	MAINMENUS_CreateCharCreateScreen	Source/D2Launch/Src/MainMenus.cpp	4894	void __cdecl MAINMENUS_CreateCharCreateScreen()	definition
+0x004370C0	MAINMENUS_CreateInfoScreen	Source/D2Launch/Unknown_004370B0.cpp	365	void __cdecl MAINMENUS_CreateInfoScreen()	definition
+0x00438F70	CHARSEL_ScanCharFiles	Source/D2Launch/Src/CharSel.cpp	1743	int __cdecl CHARSEL_ScanCharFiles()	definition
+0x00438F70	CHARSEL_ScanCharFiles	Source/D2Launch/Src/CharSel.cpp	680	void __cdecl sub_00438F70();	return
+0x00438F70	CHARSEL_ScanCharFiles	Source/D2Launch/Src/CharSel_0042FFE0.cpp	73	void __cdecl sub_00438F70();	return
+0x0043B080	CHARSEL_InitCharSelectScreen	Source/D2Launch/Src/CharSel_0042FFE0.cpp	186	void __cdecl CHARSEL_InitCharSelectScreen()	definition
+0x0043C6B0	CHATDLG_WriteSaveHeader	Source/D2Multi/Unknown_0043C8A0.cpp	73	int __fastcall CHATDLG_WriteSaveHeader(const char* szName)	definition
+0x0043C6B0	CHATDLG_WriteSaveHeader	Source/D2Launch/D2Launch.h	191	void __fastcall sub_0043C6B0(char* szName);	return / params
+0x0043D990	CHARSEL_ActivateChatEdit	Source/D2Multi/Src/ChatDlg.cpp	1767	void __cdecl CHARSEL_ActivateChatEdit()	definition
+0x0043DAF0	CHATDLG_EnableMainControl	Source/D2Multi/Src/ChatDlg.cpp	1847	int __stdcall sub_0043DAF0_OnConnect(int nArg)	definition
+0x0043DB90	CHATDLG_OnChatEditEnter	Source/D2Multi/Src/ChatDlg.cpp	1882	int __stdcall sub_0043DB90(int nArg)	definition
+0x0043E6C0	CHATDLG_OnCancel	Source/D2Multi/Src/ChatDlg.cpp	2357	int __stdcall CHATDLG_OnCancel(SMSGHANDLER_PARAMS* pMsg)	definition
+0x0043E6C0	CHATDLG_OnCancel	Source/D2Launch/Src/CharSel.cpp	818	int __stdcall sub_0043E6C0_OnError(int nArg);	params
+0x0043E6C0	CHATDLG_OnCancel	Source/D2Launch/Src/CharSel_004378D0.cpp	109	int __stdcall sub_0043E6C0_OnError(int nArg);	params
+0x0043E6C0	CHATDLG_OnCancel	Source/D2Multi/D2Multi.h	114	int __stdcall sub_0043E6C0_OnError(int nArg);	params
+0x0043E6C0	CHATDLG_OnCancel	Source/D2Multi/Src/ChatDlg.cpp	3974	int __stdcall sub_0043E6C0_OnError(int nArg);	params
+0x0043E6C0	CHATDLG_OnCancel	Source/D2Multi/Src/ComCallback.cpp	319	int __stdcall sub_0043E6C0_OnError(int nArg);	params
+0x0043EB00	CHATDLG_OnWait	Source/D2Multi/Src/ChatDlg.cpp	2484	int __stdcall CHATDLG_OnWait(SMSGHANDLER_PARAMS* pMsg)	definition
+0x0043EB00	CHATDLG_OnWait	Source/D2Multi/Src/ChatDlg.cpp	541	int __stdcall sub_0043EB00_OnErrorDone(int nArg);	params
+0x0043EB00	CHATDLG_OnWait	Source/D2Multi/Src/ChatDlg_00441B70.cpp	372	int __stdcall sub_0043EB00_OnErrorDone(int nArg);	params
+0x0043F9B0	CHATDLG_ChatEditKeyCallback	Source/D2Multi/Src/ChatDlg.cpp	3174	int __stdcall CHATDLG_ChatEditKeyCallback(void* pArg, int nCursor, const char* pKey)	definition
+0x0043F9B0	CHATDLG_ChatEditKeyCallback	Source/D2Multi/D2Multi.h	115	int __stdcall sub_0043F9B0_EditKey(D2WinControlStrc* pControl, int nPos, const char* pKey);	params
+0x00447FD0	COMCALLBACK_UpdateUser	Source/D2Multi/Src/ComCallback.cpp	1965	static void __stdcall COMCALLBACK_UpdateUser(D2MultiChannelUserStrc* pUser, const unsigned char* pStat, unsigned int nFlags, const char* szName)	definition
+0x004F51D0	D2GFX_CheckPerspective	Source/D2Gfx/SRC/Window.cpp	420	int __stdcall D2GFX_CheckPerspective()	definition
+0x004F51D0	D2GFX_CheckPerspective	Source/D2Client/D2Client.h	494	int __cdecl sub_004F51D0_IsPerspective();	calling convention
+0x004F59A0	WINDOW_GetWindow	Source/D2Gfx/SRC/Window.cpp	786	int __cdecl WINDOW_GetWindow()	definition
+0x004F59A0	WINDOW_GetWindow	Source/D2Client/CORE/WINMAIN.CPP	1879	void* __cdecl WINDOW_GetWindow();	return
+0x004F59A0	WINDOW_GetWindow	Source/D2Client/ENGINE/Cursor.cpp	243	void* __cdecl sub_004F59A0_GetWindow();	return
+0x004F59A0	WINDOW_GetWindow	Source/D2Client/GAME/Game.cpp	467	void* __cdecl WINDOW_GetWindow();	return
+0x004F59A0	WINDOW_GetWindow	Source/D2Client/GAME/Record.cpp	67	void* __cdecl WINDOW_GetWindow();	return
+0x004F59A0	WINDOW_GetWindow	Source/D2Client/UI/text_0049D5A0.cpp	248	void* __stdcall WINDOW_GetWindow();	return / calling convention
+0x004F59A0	WINDOW_GetWindow	Source/D2Client/UI/text_004A10E0.cpp	30	void* __stdcall WINDOW_GetWindow();	return / calling convention
+0x004F59A0	WINDOW_GetWindow	Source/D2Client/UI/ui.cpp	135	void* __cdecl WINDOW_GetWindow();	return
+0x004F59A0	WINDOW_GetWindow	Source/D2Client/UI/ui.cpp	1011	void* __cdecl sub_004F59A0_GetWindow();	return
+0x004F59A0	WINDOW_GetWindow	Source/D2Gdi/Src/gdiCore.cpp	59	void* __stdcall WINDOW_GetWindow();	return / calling convention
+0x004F59A0	WINDOW_GetWindow	Source/D2Gdi/Unknown_006C7CF0.cpp	46	void* __stdcall WINDOW_GetWindow();	return / calling convention
+0x004F59A0	WINDOW_GetWindow	Source/D2Multi/Src/ChatDlg.cpp	879	void* __cdecl WINDOW_GetWindow();	return
+0x004F59A0	WINDOW_GetWindow	Source/D2Sound/Src/D2SoundSmp.cpp	285	extern "C" void* __cdecl sub_004F59A0_GetHwnd();	return / linkage
+0x004F59A0	WINDOW_GetWindow	Source/D2Sound/Src/D2SoundSmp_005153C0.cpp	32	extern "C" void* __cdecl sub_004F59A0_GetHwnd();	return / linkage
+0x004F59A0	WINDOW_GetWindow	Source/D2Sound/Unknown_00513BC0.cpp	202	void* __cdecl WINDOW_GetWindow();	return
+0x004F59A0	WINDOW_GetWindow	Source/D2Win/Src/D2WinEditBox.cpp	224	void* __cdecl WINDOW_GetWindow();	return
+0x004F59A0	WINDOW_GetWindow	Source/D2Win/Src/D2WinMain.cpp	46	void* __cdecl WINDOW_GetWindow();	return
+0x004F59F0	WINDOW_ShowCursor	Source/D2Gfx/SRC/Window.cpp	800	void __stdcall WINDOW_ShowCursor(int bShow)	definition
+0x004F5D60	WINDOW_PlayCutscene	Source/D2Gfx/SRC/Window.cpp	927	void __stdcall WINDOW_PlayCutscene()	definition
+0x004F5D60	WINDOW_PlayCutscene	Source/D2Win/Src/D2WinMain.cpp	571	int __cdecl sub_004F5D60();	return / calling convention
+0x004F5D90	WINDOW_OpenSmackCutscene	Source/D2Gfx/SRC/Window.cpp	934	void __stdcall WINDOW_OpenSmackCutscene(const char* szFile, int nResolution, void* pfFrame)	definition
+0x004F5D90	WINDOW_OpenSmackCutscene	Source/D2Launch/D2Launch.h	211	void __stdcall sub_004F5D90_PlayVideo(const char* szFile, int nMode, int nArg);	params
+0x004F6480	TEXTURE_CelDraw	Source/D2Gfx/SRC/Window.cpp	1290	void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette)	definition
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/ENGINE/Cursor.cpp	73	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/ENGINE/Gfx.cpp	217	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/ENGINE/Gfx.cpp	2695	void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette);	params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/ENGINE/Gfx_0046E300.cpp	52	void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nX, int nY, unsigned int nColor, int nDrawMode, unsigned char* pPalette);	params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/ENGINE/Gfx_00470EC0.cpp	42	void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette);	params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/ENGINE/Gfx_00471EC0.cpp	42	void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette);	params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/GAME/Game_0044D080.cpp	87	void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette);	params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/GAME/Game_0044E5A0.cpp	207	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/GAME/RosterPets.cpp	64	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/GAME/View.cpp	202	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/GAME/View.cpp	532	void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette);	params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/UI/Hireables.cpp	174	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/UI/Party.cpp	26	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/UI/Party.cpp	150	void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette);	params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/UI/QuestLog.cpp	546	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/UI/chat.cpp	997	int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nColor, int nArg6);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/UI/chat.cpp	1578	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/UI/editbox.cpp	231	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/UI/inv.cpp	661	void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette);	params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/UI/inv.cpp	779	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/UI/inv_004886C0.cpp	59	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/UI/inv_0048BC10.cpp	431	int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, unsigned int nGamma, DrawMode eDrawMode, unsigned char* pPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/UI/inv_0048DD90.cpp	344	void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette);	params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/UI/panel.cpp	67	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/UI/text.cpp	670	int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/UI/text_0049A950.cpp	100	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/UI/text_0049C9C0.cpp	44	void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette);	params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/UI/ui.cpp	95	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/UI/useitem.cpp	132	int __stdcall sub_004F6480(D2CelContextStrc*,int,int,int,int,int);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/Unknown_0047CC90.cpp	319	int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nColor, int nArg6);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/Unknown_0047CC90.cpp	714	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/Unknown_00482C70.cpp	649	void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette);	params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/Unknown_00482C70.cpp	766	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/Unknown_00493A00.cpp	31	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/Unknown_00493B50.cpp	33	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/Unknown_00493CE0.cpp	33	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/Unknown_00493E10.cpp	33	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/Unknown_00499500.cpp	34	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/Unknown_004A43E0.cpp	654	int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/Unknown_004A6000.cpp	26	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/Unknown_004A6460.cpp	654	int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/Unknown_004A6460.cpp	2312	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/Unknown_004A76C0.cpp	142	void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette);	params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/Unknown_004AA9C0.cpp	180	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/Unknown_004B8100.cpp	35	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/Unknown_004BABF0.cpp	200	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/Unknown_004BBE10.cpp	146	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/Unknown_004BC1B0.cpp	30	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/Unknown_004BC1B0_004BE770.cpp	30	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Client/WARDEN/WardenClient.cpp	126	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Win/D2WinAnimImage.cpp	49	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Win/Src/D2WinButton.cpp	46	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Win/Src/D2WinEditBox.cpp	157	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Win/Src/D2WinFont.cpp	113	void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette);	params
+0x004F6480	TEXTURE_CelDraw	Source/D2Win/Src/D2WinFont.cpp	143	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Win/Src/D2WinFont_00501DF0.cpp	38	void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, unsigned int nGamma, int nDrawMode, unsigned char* pPalette);	params
+0x004F6480	TEXTURE_CelDraw	Source/D2Win/Src/D2WinImage.cpp	153	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Win/Src/D2WinList.cpp	250	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Win/Src/D2WinMain.cpp	62	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Win/Src/D2WinScrollbar.cpp	57	int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);	return / params
+0x004F6480	TEXTURE_CelDraw	Source/D2Win/Src/D2WinTextBox.cpp	226	void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette);	params
+0x004F64E0	TEXTURE_CelDrawEx	Source/D2Gfx/SRC/Window.cpp	1302	void __stdcall TEXTURE_CelDrawEx(D2GfxDataStrc* pData, int nXPos, int nYPos, int nSkipLines, int nDrawLines, int eDrawMode)	definition
+0x004F64E0	TEXTURE_CelDrawEx	Source/D2Client/D2Client.h	656	int __stdcall sub_004F64E0(D2CelContextStrc* pContext, int nX, int nY, int nTop, int nHeight, int nDrawMode);	return / params
+0x004F64E0	TEXTURE_CelDrawEx	Source/D2Win/Src/D2WinFont_00501DF0.cpp	39	void __stdcall TEXTURE_CelDrawEx(D2CelContextStrc* pContext, int nX, int nY, int nSkipLines, int nDrawLines, int nDrawMode);	params
+0x004F6540	TEXTURE_CelDrawShadow	Source/D2Gfx/SRC/Window.cpp	1317	void __stdcall TEXTURE_CelDrawShadow(D2GfxDataStrc* pData, int nXPos, int nYPos)	definition
+0x004F6540	TEXTURE_CelDrawShadow	Source/D2Client/ENGINE/Gfx.cpp	234	void __stdcall sub_004F6540(D2CelContextStrc* pContext, int nX, int nY);	params
+0x004F6540	TEXTURE_CelDrawShadow	Source/D2Client/ENGINE/Gfx_0046DCC0.cpp	60	void __stdcall TEXTURE_CelDrawShadow(D2CelContextStrc* pContext, int nX, int nY);	params
+0x004F66E0	SCALE_CheckPerspectivePosition	Source/D2Gfx/SRC/Window.cpp	1402	int __stdcall SCALE_CheckPerspectivePosition(int nXPos, int nYPos)	definition
+0x004F6760	SCALE_AdjustPerspectivePosition	Source/D2Gfx/SRC/Window.cpp	1426	void __stdcall SCALE_AdjustPerspectivePosition(int nXPos, int nYPos, int nBias, int* pXAdjust, int* pYAdjust)	definition
+0x004F6830	SCALE_SetDefaultFactorPerspectiveFactor	Source/D2Gfx/SRC/Window.cpp	1444	void __stdcall SCALE_SetDefaultFactorPerspectiveFactor()	definition
+0x004F6830	SCALE_SetDefaultFactorPerspectiveFactor	Source/D2Client/D2Client.h	770	void __cdecl sub_004F6830();	calling convention
+0x004F68E0	D2GFX_FloorTileDraw	Source/D2Gfx/SRC/Window.cpp	1468	int __stdcall D2GFX_FloorTileDraw(D2TileLibraryEntryStrc* pTile, D2GfxLightExStrc* pLight, int nXPos, int nYPos, int nWorldXpos, int nWorldYpos, unsigned char nAlpha, int nScreenPanels, void* pTileData)	definition
+0x004F68E0	D2GFX_FloorTileDraw	Source/D2Client/D2Client.h	958	void __stdcall sub_004F68E0(D2GridInfoStrc* pInfo, D2GridCellStrc* pCells, int nX, int nY, int nSubX, int nSubY, int nAlpha, int nMode, int nArg);	return / params
+0x004F68E0	D2GFX_FloorTileDraw	Source/D2Client/DRAW/dFloor.cpp	85	void __stdcall D2GFX_FloorTileDraw(D2GridInfoStrc* pInfo, D2GridCellStrc* pCells, int nX, int nY, int nSubX, int nSubY, int nAlpha, int nMode, int nArg);	return / params
+0x004F6980	TILE_ShadowTileDraw	Source/D2Gfx/SRC/Window.cpp	1486	int __stdcall TILE_ShadowTileDraw(D2TileLibraryEntryStrc* pTile, int nXPos, int nYPos, int eDrawMode, int nScreenPanels)	definition
+0x004F6980	TILE_ShadowTileDraw	Source/D2Client/D2Client.h	959	void __stdcall sub_004F6980(int nHandle, int nX, int nY, int nArg4, int nArg5);	return / params
+0x004F9160	CURSOR_SetCellFile	Source/D2Win/Src/D2WinMain.cpp	1033	int __stdcall CURSOR_SetCellFile(D2CelFileStrc* pCellFile)	definition
+0x004F9160	CURSOR_SetCellFile	Source/D2Multi/D2Multi.h	150	void __stdcall sub_004F9160_SetLoopValue(int nValue);	return / params
+0x004F95C0	CONTROL_Destroy	Source/D2Win/Src/D2WinMain.cpp	1261	int __stdcall CONTROL_Destroy(D2WinControlStrc** ppControl)	definition
+0x004F9710	CONTROL_IsEnabled	Source/D2Win/Src/D2WinMain.cpp	1365	int __fastcall CONTROL_IsEnabled(D2WinControlStrc* pControl)	definition
+0x004F9740	CONTROL_SetVisible	Source/D2Win/Src/D2WinMain.cpp	1373	void __fastcall CONTROL_SetVisible(D2WinControlStrc* pControl, int bSet)	definition
+0x004F9740	CONTROL_SetVisible	Source/D2Launch/Src/MainMenus.cpp	458	extern "C" void __fastcall sub_004F9740_ControlFlag(UiControl* control,int value);	params / linkage
+0x004FA1B0	CONTROL_IsPointInside	Source/D2Win/Src/D2WinMain.cpp	1927	static inline int CONTROL_IsPointInside(Control* control, const Point* point)	definition
+0x004FA450	CONTROL_SetEscapeButton	Source/D2Win/Src/D2WinMain.cpp	2073	void __stdcall CONTROL_SetEscapeButton(void* a1)	definition
+0x004FA450	CONTROL_SetEscapeButton	Source/D2Launch/D2Launch.h	212	void __stdcall sub_004FA450_SetActive(D2WinControlStrc* pControl);	params
+0x004FA450	CONTROL_SetEscapeButton	Source/D2Multi/D2Multi.h	151	void __stdcall sub_004FA450_SetActive(D2WinControlStrc* pControl);	params
+0x004FA590	D2Win_RunMessageLoop	Source/D2Win/Src/D2WinMain.cpp	2157	int __stdcall D2Win_RunMessageLoop(void (__stdcall* pCallback)(unsigned long))	definition
+0x004FA590	D2Win_RunMessageLoop	Source/D2Launch/Src/CharSel.cpp	457	void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback);	return / params
+0x004FA590	D2Win_RunMessageLoop	Source/D2Launch/Src/MainMenus.cpp	237	void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback);	return / params
+0x004FA590	D2Win_RunMessageLoop	Source/D2Launch/Src/MainMenus_00431AF0.cpp	48	void __stdcall D2Win_RunMessageLoop(D2LaunchDoneFn);	return / params
+0x004FA590	D2Win_RunMessageLoop	Source/D2Launch/Unknown_0043B7A0.cpp	41	void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback);	return / params
+0x004FA590	D2Win_RunMessageLoop	Source/D2Multi/Src/ChatDlg.cpp	737	void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback);	return / params
+0x004FA590	D2Win_RunMessageLoop	Source/D2Multi/Src/ChatDlg_00441B70.cpp	88	void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback);	return / params
+0x004FA590	D2Win_RunMessageLoop	Source/D2Multi/Unknown_004456D0.cpp	34	void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback);	return / params
+0x004FA860	D2Win_COMMANDS_MouseButton_6F8AE070	Source/D2Win/Src/D2WinMain.cpp	2324	void __stdcall D2Win_COMMANDS_MouseButton_6F8AE070(SMSGHANDLER_PARAMS* pMsg)	definition
+0x004FA9B0	ARCHIVE_LoadCellFile	Source/D2Win/Src/D2WinArchive.cpp	17	D2CelFileStrc* __fastcall ARCHIVE_LoadCellFile(const char* szFile, int nType)	definition
+0x004FAAE0	ARCHIVE_FreeCellFile	Source/D2Win/Src/D2WinArchive.cpp	41	void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile)	definition
+0x004FAAE0	ARCHIVE_FreeCellFile	Source/D2Client/ENGINE/Particle.cpp	55	extern "C" void __fastcall sub_004FAAE0_FreeArchive(void* archive);	params / linkage
+0x004FAC80	D2Win_GetArchive	Source/D2Win/Src/D2WinArchive.cpp	113	void* __stdcall D2Win_GetArchive()	definition
+0x004FAC80	D2Win_GetArchive	Source/D2Client/CORE/WINMAIN.CPP	2001	void* __stdcall sub_004FAC80(int nArg);	params
+0x004FAC80	D2Win_GetArchive	Source/D2Client/GAME/Game_0044E5A0.cpp	56	void* __stdcall sub_004FAC80(int nArg);	params
+0x004FAC80	D2Win_GetArchive	Source/D2Launch/Src/MainMenus.cpp	1397	void* __stdcall sub_004FAC80(int nArg);	params
+0x004FAC80	D2Win_GetArchive	Source/D2Multi/Src/ChatDlg.cpp	709	void* __stdcall sub_004FAC80(int nArg);	params
+0x004FAC80	D2Win_GetArchive	Source/D2Multi/Src/ChatDlg_00441B70.cpp	90	void* __stdcall sub_004FAC80(int nArg);	params
+0x004FAD70	ARCHIVE_UnloadExpansionArchives	Source/D2Win/Src/D2WinArchive.cpp	192	void __cdecl ARCHIVE_UnloadExpansionArchives()	definition
+0x004FB9D0	D2Win_10050_TEXTBOX_SetLine	Source/D2Win/Src/D2WinTextBox.cpp	613	void __fastcall D2Win_10050_TEXTBOX_SetLine(D2WinTextBoxStrc* ptTextData, int nLine)	definition
+0x004FB9D0	D2Win_10050_TEXTBOX_SetLine	Source/D2Launch/Src/CharSel.cpp	792	void __fastcall sub_004FB9D0_Select(D2WinControlStrc* pControl, int nLine);	params
+0x004FB9D0	D2Win_10050_TEXTBOX_SetLine	Source/D2Launch/Src/CharSel_004378D0.cpp	94	void __fastcall sub_004FB9D0_Select(D2WinControlStrc* pControl, int nLine);	params
+0x004FB9D0	D2Win_10050_TEXTBOX_SetLine	Source/D2Launch/Src/MainMenus.cpp	1333	void __fastcall sub_004FB9D0_Select(D2WinControlStrc* pControl, int nLine);	params
+0x004FB9D0	D2Win_10050_TEXTBOX_SetLine	Source/D2Multi/D2Multi.h	137	void __fastcall sub_004FB9D0_Select(D2WinControlStrc* pControl, int nLine);	params
+0x004FB9D0	D2Win_10050_TEXTBOX_SetLine	Source/D2Multi/Src/ChatDlg.cpp	4333	void __fastcall sub_004FB9D0_Select(D2WinControlStrc* pControl, int nLine);	params
+0x004FD110	IMAGE_SetFrame	Source/D2Win/Src/D2WinImage.cpp	214	int __stdcall IMAGE_SetFrame(D2WinControl004FD110Strc* pControl, int nFrame)	definition
+0x004FD110	IMAGE_SetFrame	Source/D2Launch/Src/MainMenus.cpp	1907	int __stdcall sub_004FD110_SetBarValue(D2WinControlStrc* pBar, int nValue);	params
+0x004FD110	IMAGE_SetFrame	Source/D2Multi/Src/ComCallback.cpp	112	int __stdcall sub_004FD110_SetBarValue(D2WinControlStrc* pBar, int nValue);	params
+0x004FD170	IMAGE_ForceNormalDrawMode	Source/D2Win/Src/D2WinImage.cpp	569	int __stdcall IMAGE_ForceNormalDrawMode(D2WinImageStrc* ptImageData, int nUnused)	definition
+0x004FD170	IMAGE_ForceNormalDrawMode	Source/D2Launch/Src/MainMenus.cpp	1909	int __stdcall sub_004FD170_SetBarMode(D2WinControlStrc* pBar, int nMode);	params
+0x004FD170	IMAGE_ForceNormalDrawMode	Source/D2Multi/Src/ComCallback.cpp	114	int __stdcall sub_004FD170_SetBarMode(D2WinControlStrc* pBar, int nMode);	params
+0x004FD1B0	IMAGE_GetFrameCount	Source/D2Win/Src/D2WinImage.cpp	577	int __stdcall IMAGE_GetFrameCount(D2WinImageStrc* ptImageData)	definition
+0x004FD1B0	IMAGE_GetFrameCount	Source/D2Launch/Src/MainMenus.cpp	1911	int __stdcall sub_004FD1B0_GetBarMax(D2WinControlStrc* pBar);	params
+0x004FD1B0	IMAGE_GetFrameCount	Source/D2Multi/Src/ComCallback.cpp	116	int __stdcall sub_004FD1B0_GetBarMax(D2WinControlStrc* pBar);	params
+0x004FD830	TIMER_DisableSpaceKey	Source/D2Win/Src/D2WinTimer.cpp	71	void __fastcall TIMER_DisableSpaceKey(D2WinTimerStrc* ptTimerData)	definition
+0x004FD830	TIMER_DisableSpaceKey	Source/D2Launch/D2Launch.h	198	void __fastcall sub_004FD830(D2WinControlStrc* pControl);	params
+0x004FD830	TIMER_DisableSpaceKey	Source/D2Multi/Src/ChatDlg.cpp	533	void __fastcall sub_004FD830(D2WinControlStrc* pControl);	params
+0x004FD830	TIMER_DisableSpaceKey	Source/D2Multi/Src/ChatDlg_00441B70.cpp	368	void __fastcall sub_004FD830(D2WinControlStrc* pControl);	params
+0x004FDA50	TIMER_SetRepeating	Source/D2Win/Src/D2WinTimer.cpp	170	void __fastcall TIMER_SetRepeating(D2WinTimerStrc* ptTimerData)	definition
+0x004FDA50	TIMER_SetRepeating	Source/D2Launch/D2Launch.h	199	void __fastcall sub_004FDA50(D2WinControlStrc* pControl);	params
+0x004FDA50	TIMER_SetRepeating	Source/D2Multi/Src/ChatDlg.cpp	535	void __fastcall sub_004FDA50(D2WinControlStrc* pControl);	params
+0x004FDA50	TIMER_SetRepeating	Source/D2Multi/Src/ChatDlg_00441B70.cpp	369	void __fastcall sub_004FDA50(D2WinControlStrc* pControl);	params
+0x004FDAD0	EDITBOX_SetKeyFilter	Source/D2Win/Src/D2WinEditBox.cpp	1080	void __fastcall EDITBOX_SetKeyFilter(D2WinEditBoxStrc* ptEditData, void* pfKeyFilter)	definition
+0x004FDAD0	EDITBOX_SetKeyFilter	Source/D2Launch/D2Launch.h	200	void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(D2WinControlStrc*, int, const char*));	params
+0x004FDAD0	EDITBOX_SetKeyFilter	Source/D2Launch/Src/MainMenus.cpp	1164	void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(D2WinControlStrc*, int, const char*));	params
+0x004FDAD0	EDITBOX_SetKeyFilter	Source/D2Launch/Unknown_004370B0.cpp	97	void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(D2WinControlStrc*, int, const char*));	params
+0x004FDAD0	EDITBOX_SetKeyFilter	Source/D2Multi/Src/ChatDlg.cpp	89	void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(D2WinControlStrc*, int, const char*));	params
+0x004FDAD0	EDITBOX_SetKeyFilter	Source/D2Multi/Src/ChatDlg_00441B70.cpp	135	void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(D2WinControlStrc*, int, const char*));	params
+0x004FDAD0	EDITBOX_SetKeyFilter	Source/D2Multi/Src/ComCallback.cpp	595	void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(D2WinControlStrc*, int, const char*));	params
+0x004FDAD0	EDITBOX_SetKeyFilter	Source/D2Win/Src/D2WinMain.cpp	541	void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(D2WinControlStrc*, int, const char*));	params
+0x004FDB00	EDITBOX_SetChangeCallback	Source/D2Win/Src/D2WinEditBox.cpp	1088	void __fastcall EDITBOX_SetChangeCallback(D2WinEditBoxStrc* ptEditData, void* pfOnChange)	definition
+0x004FDB00	EDITBOX_SetChangeCallback	Source/D2Launch/D2Launch.h	201	void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int));	params
+0x004FDB00	EDITBOX_SetChangeCallback	Source/D2Launch/Src/MainMenus.cpp	1166	void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int));	params
+0x004FDB00	EDITBOX_SetChangeCallback	Source/D2Launch/Unknown_004370B0.cpp	99	void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int));	params
+0x004FDB00	EDITBOX_SetChangeCallback	Source/D2Multi/Src/ChatDlg.cpp	91	void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int));	params
+0x004FDB00	EDITBOX_SetChangeCallback	Source/D2Multi/Src/ChatDlg_00441B70.cpp	136	void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int));	params
+0x004FDB00	EDITBOX_SetChangeCallback	Source/D2Multi/Src/ComCallback.cpp	597	void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int));	params
+0x004FDB00	EDITBOX_SetChangeCallback	Source/D2Win/Src/D2WinMain.cpp	543	void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int));	params
+0x004FDD50	EDITBOX_SetMaxLength	Source/D2Win/Src/D2WinEditBox.cpp	1426	void __fastcall EDITBOX_SetMaxLength(D2WinEditBoxStrc* pEditBox, int nMaxLength)	definition
+0x004FDD50	EDITBOX_SetMaxLength	Source/D2Launch/D2Launch.h	202	void __fastcall sub_004FDD50_SetMaxLength(D2WinControlStrc* pControl, int nLength);	params
+0x004FDD50	EDITBOX_SetMaxLength	Source/D2Launch/Src/MainMenus.cpp	1168	void __fastcall sub_004FDD50_SetMaxLength(D2WinControlStrc* pControl, int nLength);	params
+0x004FDD50	EDITBOX_SetMaxLength	Source/D2Launch/Unknown_004370B0.cpp	101	void __fastcall sub_004FDD50_SetMaxLength(D2WinControlStrc* pControl, int nLength);	params
+0x004FDD50	EDITBOX_SetMaxLength	Source/D2Multi/D2Multi.h	143	void __fastcall sub_004FDD50_SetMaxLength(D2WinControlStrc* pControl, int nLength);	params
+0x004FDD50	EDITBOX_SetMaxLength	Source/D2Win/Src/D2WinMain.cpp	545	void __fastcall sub_004FDD50_SetMaxLength(D2WinControlStrc* pControl, int nLength);	params
+0x004FDD90	D2Win_10077_EDITBOX_GetText	Source/D2Win/Src/D2WinEditBox.cpp	1723	const Unicode* __fastcall D2Win_10077_EDITBOX_GetText(D2WinEditBoxStrc* pEditBox)	definition
+0x004FDD90	D2Win_10077_EDITBOX_GetText	Source/D2Launch/D2Launch.h	82	const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl);	params
+0x004FDD90	D2Win_10077_EDITBOX_GetText	Source/D2Launch/Src/MainMenus.cpp	1210	const Unicode* __fastcall D2Win_10077_EDITBOX_GetText(D2WinControlStrc*);	params
+0x004FDD90	D2Win_10077_EDITBOX_GetText	Source/D2Launch/Src/MainMenus.cpp	1268	const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl);	params
+0x004FDD90	D2Win_10077_EDITBOX_GetText	Source/D2Launch/Unknown_004370B0.cpp	107	const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl);	params
+0x004FDD90	D2Win_10077_EDITBOX_GetText	Source/D2Launch/Unknown_004370B0.cpp	145	const Unicode* __fastcall D2Win_10077_EDITBOX_GetText(D2WinControlStrc*);	params
+0x004FDD90	D2Win_10077_EDITBOX_GetText	Source/D2Multi/Src/ChatDlg.cpp	568	const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl);	params
+0x004FDD90	D2Win_10077_EDITBOX_GetText	Source/D2Multi/Src/ChatDlg_00441B70.cpp	387	const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl);	params
+0x004FDD90	D2Win_10077_EDITBOX_GetText	Source/D2Multi/Src/ComCallback.cpp	118	const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl);	params
+0x004FDD90	D2Win_10077_EDITBOX_GetText	Source/D2Multi/Unknown_004456D0.cpp	35	const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl);	params
+0x004FDDD0	D2Win_10080_EDITBOX_SetNextEditBox	Source/D2Win/Src/D2WinEditBox.cpp	1731	void __fastcall D2Win_10080_EDITBOX_SetNextEditBox(D2WinEditBoxStrc* pEditBox, D2WinEditBoxStrc* hNext)	definition
+0x004FDDD0	D2Win_10080_EDITBOX_SetNextEditBox	Source/D2Launch/D2Launch.h	203	void __fastcall sub_004FDDD0_LinkTab(D2WinControlStrc* pControl, D2WinControlStrc* pNext);	params
+0x004FDDD0	D2Win_10080_EDITBOX_SetNextEditBox	Source/D2Launch/Src/MainMenus.cpp	1170	void __fastcall sub_004FDDD0_LinkTab(D2WinControlStrc* pControl, D2WinControlStrc* pNext);	params
+0x004FDDD0	D2Win_10080_EDITBOX_SetNextEditBox	Source/D2Launch/Unknown_004370B0.cpp	103	void __fastcall sub_004FDDD0_LinkTab(D2WinControlStrc* pControl, D2WinControlStrc* pNext);	params
+0x004FDDD0	D2Win_10080_EDITBOX_SetNextEditBox	Source/D2Multi/D2Multi.h	144	void __fastcall sub_004FDDD0_LinkTab(D2WinControlStrc* pControl, D2WinControlStrc* pNext);	params
+0x004FDDD0	D2Win_10080_EDITBOX_SetNextEditBox	Source/D2Win/Src/D2WinMain.cpp	551	void __fastcall sub_004FDDD0_LinkTab(D2WinControlStrc* pControl, D2WinControlStrc* pNext);	params
+0x004FE710	EDITBOX_HandleMultiLineMouseDown	Source/D2Win/Src/D2WinEditBox.cpp	469	int __stdcall EDITBOX_HandleMultiLineMouseDown(SMSGHANDLER_PARAMS* pMsg)	definition
+0x004FE770	D2Win_10078_IsNumber	Source/D2Win/Src/D2WinEditBox.cpp	871	int __stdcall D2Win_10078_IsNumber(void* unused1,void* unused2,const Character* text)	definition
+0x004FE770	D2Win_10078_IsNumber	Source/D2Multi/Src/ComCallback.cpp	837	int __stdcall sub_004FE770_IsDigitChar(D2WinControlStrc* pControl, int nArg, const char* pChar);	params
+0x00500960	BUTTON_IsPressed	Source/D2Win/Src/D2WinButton.cpp	349	int __fastcall BUTTON_IsPressed(D2WinButtonStrc* ptBtnData)	definition
+0x00500960	BUTTON_IsPressed	Source/D2Launch/Src/CharSel.cpp	798	int __fastcall sub_00500960_IsPressed(D2WinControlStrc* pButton);	params
+0x00500960	BUTTON_IsPressed	Source/D2Launch/Src/CharSel_004378D0.cpp	97	int __fastcall sub_00500960_IsPressed(D2WinControlStrc* pButton);	params
+0x00500960	BUTTON_IsPressed	Source/D2Multi/D2Multi.h	103	int __fastcall sub_00500960_IsPressed(D2WinControlStrc* pButton);	params
+0x00500B20	BUTTON_SetBaseFrame	Source/D2Win/Src/D2WinButton.cpp	77	extern "C" void __fastcall BUTTON_SetBaseFrame(D2WinButtonStrc* ptBtnData, int nValue)	definition
+0x00500B20	BUTTON_SetBaseFrame	Source/D2Multi/D2Multi.h	146	void __fastcall sub_00500B20_SetValue(D2WinControlStrc* pControl, int nValue);	params / linkage
+0x00501A80	FONT_DrawString	Source/D2Win/Src/D2WinFont.cpp	475	static void __stdcall FONT_DrawString(const Unicode* wszText, int nX, int nY, int nWidth, int nGlobalPaletteShift, int bCentered)	definition
+0x00501A80	FONT_DrawString	Source/D2Win/Src/D2WinFont.cpp	167	static void __stdcall sub_00501A80_DrawTextLine(int nY, int nWidth, int nShift, int bCentre, const Unicode* pText, int nX);	params
+0x00502280	D2Win_10129_DrawFramedText	Source/D2Win/Src/D2WinFont.cpp	700	void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nTextColor, int nAlign)	definition
+0x00502280	D2Win_10129_DrawFramedText	Source/D2Client/UI/QuestLog.cpp	548	void __fastcall sub_00502280_SetPopUpText(const unsigned short* wszText, int nX, int nY, int nArg4, int nArg5);	params
+0x00502280	D2Win_10129_DrawFramedText	Source/D2Client/UI/panel.cpp	167	extern "C" void __fastcall sub_00502280_SetTooltip(const U16* text, int x, int y, int color, int mode);	params / linkage
+0x00502280	D2Win_10129_DrawFramedText	Source/D2Client/UI/ui.cpp	590	void __fastcall sub_00502280_SetPopUpText(const unsigned short* wszText, int nX, int nY, int nArg4, int nArg5);	params
+0x00502EF0	D2Win_10127_SetFont	Source/D2Win/Src/D2WinFont.cpp	1145	int __fastcall D2Win_10127_SetFont(int nFontSize)	definition
+0x005041B0	D2Win_10142_CompUnitDestroy	Source/D2Win/Src/D2Comp.cpp	1231	void __stdcall D2Win_10142_CompUnitDestroy(D2CompositeUnitStrc* pCompositeUnit, int bUnlink)	definition
+0x005041B0	D2Win_10142_CompUnitDestroy	Source/D2Launch/Src/CharSel.cpp	255	int __stdcall sub_005041B0_Destroy(D2CelFileStrc* pCellFile, int nFlag);	return / params
+0x005041B0	D2Win_10142_CompUnitDestroy	Source/D2Launch/Src/CharSel.cpp	984	void __stdcall sub_005041B0_FreeAnim(void*,int);	params
+0x005041B0	D2Win_10142_CompUnitDestroy	Source/D2Launch/Src/CharSel_0042E600.cpp	141	int __stdcall sub_005041B0_Destroy(D2CelFileStrc* pCellFile, int nFlag);	return / params
+0x005041B0	D2Win_10142_CompUnitDestroy	Source/D2Launch/Src/CharSel_004378D0.cpp	230	void __stdcall sub_005041B0_FreeAnim(void*,int);	params
+0x005041B0	D2Win_10142_CompUnitDestroy	Source/D2Multi/Src/ChatDlg.cpp	85	int __stdcall sub_005041B0_Destroy(D2CelFileStrc* pCellFile, int nFlag);	return / params
+0x005041B0	D2Win_10142_CompUnitDestroy	Source/D2Multi/Src/ChatDlg_00441B70.cpp	133	int __stdcall sub_005041B0_Destroy(D2CelFileStrc* pCellFile, int nFlag);	return / params
+0x005041B0	D2Win_10142_CompUnitDestroy	Source/D2Multi/Src/ComCallback.cpp	397	int __stdcall sub_005041B0_Destroy(D2CompositeStrc* pComposite, int nFlag);	return / params
+0x00504A20	D2COMP_IsItemTypeDescendant	Source/D2Win/Src/D2Comp.cpp	1483	int __stdcall D2COMP_IsItemTypeDescendant(int a1, int nItemType)	definition
+0x00505640	D2Win_10160_GetPlayerTitle	Source/D2Win/Src/D2Comp.cpp	1938	const char* __stdcall D2Win_10160_GetPlayerTitle(int nClass, int nTitle, int bExpansion)	definition
+0x005066C0	D2COMP_CreateCompositeUnit	Source/D2Win/Src/D2Comp.cpp	2361	D2CompositeUnitStrc* __stdcall D2COMP_CreateCompositeUnit(unsigned int nUnitIndex, unsigned int nMode, unsigned char* pComponents, const unsigned char* pComponentColors)	definition
+0x005066C0	D2COMP_CreateCompositeUnit	Source/D2Launch/Src/CharSel.cpp	591	D2CompositeUnitStrc* __stdcall sub_005066C0_CreateComposite(int nSel, int nMode, unsigned char* pFlags, unsigned char* pColors);	params
+0x005066C0	D2COMP_CreateCompositeUnit	Source/D2Multi/Src/ChatDlg.cpp	753	void* __stdcall sub_005066C0(int nA, int nMode, char* szA, char* szB);	return / params
+0x005066C0	D2COMP_CreateCompositeUnit	Source/D2Multi/Src/ChatDlg_00441B70.cpp	12	void* __stdcall sub_005066C0(int nA, int nMode, char* szA, char* szB);	return / params
+0x005066C0	D2COMP_CreateCompositeUnit	Source/D2Multi/Src/ComCallback.cpp	363	D2CompositeStrc* __stdcall sub_005066C0(int nA, int nMode, unsigned char* pComponents, unsigned char* pColors);	return / params
+0x00509AA0	GLIDE_CloseSurface	Source/D2Glide/Src/glCore.cpp	892	int __cdecl GLIDE_CloseSurface()	definition
+0x00509AA0	GLIDE_CloseSurface	Source/D2Glide/D2Glide.h	63	void __cdecl sub_00509AA0_GlideSuspend();	return
+0x0050A110	GLIDE_ReleaseTexSlots	Source/D2Glide/Src/glCore.cpp	1185	void __fastcall GLIDE_ReleaseTexSlots(D2GlideTexSlotStrc* pSlots)	definition
+0x0050A110	GLIDE_ReleaseTexSlots	Source/D2Glide/Src/glSprite.cpp	112	void __fastcall sub_0050A110_GlideFreeCelData(void* pData);	params
+0x0050A450	GLIDE_UploadTexInfo	Source/D2Glide/Src/glSprite.cpp	291	static int __stdcall GLIDE_UploadTexInfo(int nPalette, int nColor, int nType, D2GlideTexInfoStrc* pInfo)	definition
+0x0050A450	GLIDE_UploadTexInfo	Source/D2Glide/Src/glSprite.cpp	571	static int __stdcall GLIDE_UploadTexInfo(int nPalette, int nColor, D2GlideTexInfoStrc* pInfo, int nType);	params
+0x0050DBE0	GLIDE_SetVertexAmbientColor	Source/D2Glide/Src/glVertex.cpp	93	void __fastcall GLIDE_SetVertexAmbientColor(D2GlideSpriteVertexStrc* pVertex, unsigned char nIntensity)	definition
+0x00513380	DDRAW_RemapRows	Source/D2DDraw/Src/ddSmack.cpp	53	static void __stdcall DDRAW_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows)	definition
+0x00513B70	D2SOUND_IsEaxEnabled	Source/D2Sound/Unknown_00513A20.cpp	88	int __cdecl D2SOUND_IsEaxEnabled()	definition
+0x00513B70	D2SOUND_IsEaxEnabled	Source/D2Client/D2Client.h	556	int __fastcall sub_00513B70_IsSoundEnvironEnabled();	calling convention
+0x00514C90	D2SOUND_GetSoundMixerOption	Source/D2Sound/Unknown_00514B60.cpp	62	int __cdecl D2SOUND_GetSoundMixerOption()	definition
+0x00514C90	D2SOUND_GetSoundMixerOption	Source/D2Client/D2Client.h	557	int __fastcall sub_00514C90_GetSoundMode();	calling convention
+0x00515020	D2SOUND_FadeOutWaves	Source/D2Sound/Src/D2SoundFast.cpp	264	void __cdecl D2SOUND_FadeOutWaves()	definition
+0x00515A30	D2SOUND_SetSoundNoLoop	Source/D2Client/GAME/Roster.cpp	1563	extern "C" void __fastcall D2SOUND_SetSoundNoLoop(D2SoundObjStrc_00515A30* pSound, int nValue)	definition
+0x00515A30	D2SOUND_SetSoundNoLoop	Source/D2Client/Unknown_004DF6C0.cpp	105	void __fastcall sub_00515A30(D2SoundStrc* pSound, int nValue);	params / linkage
+0x00515A60	D2SOUND_SetSoundLoopStart	Source/D2Client/GAME/Roster.cpp	1570	extern "C" void __fastcall D2SOUND_SetSoundLoopStart(D2SoundObjStrc_00515A30* pSound, int nValue)	definition
+0x00515A60	D2SOUND_SetSoundLoopStart	Source/D2Client/Unknown_004DF6C0.cpp	107	void __fastcall sub_00515A60(D2SoundStrc* pSound, int nValue);	params / linkage
+0x00515EE0	D2SOUND_StopSound	Source/D2Sound/Src/D2SoundSmp.cpp	792	void __fastcall D2SOUND_StopSound(D2SoundStrc* pSound)	definition
+0x00515F50	D2SOUND_FadeOutMasterVolume	Source/D2Sound/Src/D2SoundSmp.cpp	806	void __fastcall D2SOUND_FadeOutMasterVolume(int nTime)	definition
+0x005165F0	D2SOUND_ScaleToDecibels	Source/D2Sound/Src/D2SoundSmp.cpp	1090	float __stdcall D2SOUND_ScaleToDecibels(float fMin, float fMax, float fValue)	definition
+0x00516670	D2SOUND_DecibelsToScale	Source/D2Sound/Src/D2SoundSmp.cpp	1100	float __stdcall D2SOUND_DecibelsToScale(float fVolume)	definition
+0x00517079	ARCHIVE_AllocateBufferAndReadFile	Source/D2Hell/SRC/Archive.cpp	135	void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFilePath, unsigned int* pdwBytesWritten, const char* szSrcPath, int nLine)	definition
+0x00517079	ARCHIVE_AllocateBufferAndReadFile	Source/D2Client/Sound/SoundHdr.cpp	50	void* __fastcall sub_00517079(void* hArchive, const char* szPath, int* pSize, const char* szFile, int nLine);	params
+0x00517079	ARCHIVE_AllocateBufferAndReadFile	Source/D2Common/DATATBLS/FieldTbls.cpp	40	void* __fastcall sub_00517079(void* hArchive, const char* szPath, int* pSize, const char* szFile, int nLine);	params
+0x00517079	ARCHIVE_AllocateBufferAndReadFile	Source/D2Lang/D2Lang.h	19	void* __fastcall sub_00517079(void* hArchive, const char* szPath, int* pSize, const char* szFile, int nLine);	params
+0x00517332	ARCHIVE_LoadMPQFile	Source/D2Hell/SRC/Archive.cpp	239	D2ArchiveHandleStrc* __fastcall ARCHIVE_LoadMPQFile(const char* szName, const char* szModule, ARCHIVE_ShowMessageFunctionPtr pfShowMessage, int nPriority)	definition
+0x00517332	ARCHIVE_LoadMPQFile	Source/D2Lang/StrTable/strtable.cpp	16	D2ArchiveHandleStrc* __fastcall sub_00517332_LoadMpqFile(const char* szFileName, void* hFile, void* pfShowMessage, int nPriority);	params
+0x00517332	ARCHIVE_LoadMPQFile	Source/D2Win/Src/D2WinArchive.cpp	54	D2ArchiveHandleStrc* __fastcall sub_00517332_LoadMpqFile(const char* szFileName, void* hFile, void* pfShowMessage, int nPriority);	params
+0x00517332	ARCHIVE_LoadMPQFile	Source/D2Win/Src/D2WinMain.cpp	288	D2ArchiveHandleStrc* __fastcall sub_00517332_LoadMpqFile(const char* szFileName, void* hFile, void* pfShowMessage, int nPriority);	params
+0x00517332	ARCHIVE_LoadMPQFile	Source/D2Win/Src/D2WinTextBox.cpp	248	D2ArchiveHandleStrc* __fastcall sub_00517332_LoadMpqFile(const char* szFileName, void* hFile, void* pfShowMessage, int nPriority);	params
+0x005174E2	Unlink	Source/D2Hell/Unknown_005174E2.cpp	11	void TSLink::Unlink()	definition
+0x005174E2	Unlink	Source/D2Game/GAME/Clients.cpp	2324	void Unlink(D2GameStrc* pGame);	params
+0x005174E2	Unlink	Source/D2Game/GAME/Game.cpp	546	void Unlink(D2GameStrc* pGame);	params
+0x005174E2	Unlink	Source/D2Game/OBJECTS/objrgn.cpp	530	void Unlink(D2GameStrc* pGame);	params
+0x005174E2	Unlink	Source/D2Hell/Unknown_005175F1.cpp	5	void __thiscall sub_005174E2_Unlink();	calling convention
+0x005174E2	Unlink	Source/D2Hell/Unknown_00517623.cpp	6	void __thiscall sub_005174E2_Unlink();	calling convention
+0x005174E2	Unlink	Source/D2Hell/Unknown_00517623.cpp	30	void __fastcall sub_005174E2_DestroyMember(void* pMember);	params / calling convention
+0x005174E2	Unlink	Source/D2Hell/Unknown_006CB401.cpp	5	void __thiscall Unlink();	calling convention
+0x005174E2	Unlink	Source/Include/D2StormLink.h	54	void __thiscall sub_005174E2_Unlink();	calling convention
+0x00517FD0	Nth	Source/D2BNClient/BNetGW.cpp	155	const char* Table::Nth(int n)	definition
+0x005180E0	Realm	Source/D2BNClient/BNetGW.cpp	598	const char* __stdcall BNGatewayAccess::Realm(int nGateway)	definition
+0x005180E0	Realm	Source/D2Launch/D2Launch.h	84	const char* __stdcall sub_005180E0(D2FuncRecordStrc* pRecord, int nIndex);	params
+0x00518C70	BNDOWNLOAD_ConfigureLog	Source/D2BNClient/BnDownload.cpp	629	int __cdecl BNDOWNLOAD_ConfigureLog(int nMode, int nValue)	definition
+0x00518C70	BNDOWNLOAD_ConfigureLog	Source/D2BNClient/D2BNClient.h	72	void __cdecl sub_00518C70_LogIndent(int nChannel, int nDelta);	return
+0x00519920	CACHE_LoadCachedFile	Source/D2BNClient/CACHE.CPP	621	int __fastcall CACHE_LoadCachedFile(const char* szName,D2FileTimeStrc* time,void** data,unsigned int* size) {	definition
+0x00519DB0	CACHE_WriteCachedFile	Source/D2BNClient/CACHE.CPP	638	int __fastcall CACHE_WriteCachedFile(const char* szName, const void* pData, unsigned int nSize, const D2FileTimeStrc* pFileTime, unsigned int nSeconds1, unsigned int nSeconds2)	definition
+0x00519DB0	CACHE_WriteCachedFile	Source/D2BNClient/BnDownload.cpp	282	void __fastcall sub_00519DB0_HandOnDownload(const char* szFile, const void* pData, unsigned int nSize, const D2FileTimeStrc* pFileTime, int nArg5, int nArg6);	return / params
+0x0051A570	BNCLIENT_GetLogonType	Source/D2Glide/Src/glCore.cpp	1284	int __cdecl BNCLIENT_GetLogonType()	definition
+0x0051B060	BNSEND_SendDisplayAd	Source/D2BNClient/BnSend.cpp	1302	int __cdecl BNSEND_SendDisplayAd()	definition
+0x0051B060	BNSEND_SendDisplayAd	Source/D2BNClient/BnDownload.cpp	187	void __fastcall sub_0051B060_SetAdText(const char* szText1, const char* szText2);	return / params / calling convention
+0x0051E370	BNDOWNLOAD_SetDownloadText	Source/D2BNClient/BnDownload.cpp	713	int __fastcall BNDOWNLOAD_SetDownloadText(const void* pSource, unsigned int nSize)	definition
+0x0051E370	BNDOWNLOAD_SetDownloadText	Source/Bnclient/Bnclient.h	22	int __fastcall sub_0051E370_SetText(const char* szText, int nLength);	params
+0x0051E370	BNDOWNLOAD_SetDownloadText	Source/D2BNClient/BnDownload.cpp	357	int __fastcall sub_0051E370_SetText(const char* szText, int nLength);	params
+0x0051E370	BNDOWNLOAD_SetDownloadText	Source/D2BNClient/BnSend.cpp	168	int __fastcall sub_0051E370_SetText(const char* szText, int nLength);	params
+0x0051E3D0	BNDOWNLOAD_SendGetFileTime	Source/D2BNClient/BnDownload.cpp	730	int __fastcall BNDOWNLOAD_SendGetFileTime(const char* szText, int nValue)	definition
+0x00520210	BNMESSQUEUE_QueueMessage	Source/D2BNClient/BnMessQueue.cpp	38	int __fastcall BNMESSQUEUE_QueueMessage(int nId, const void* pData, unsigned int nLength)	definition
+0x00520210	BNMESSQUEUE_QueueMessage	Source/D2BNClient/BnDownload.cpp	191	void __fastcall sub_00520210_PostData(int nType, const void* pData, unsigned int nSize);	return
+0x005202F0	BNMESSQUEUE_QueueText	Source/D2BNClient/BnMessQueue.cpp	62	int __fastcall BNMESSQUEUE_QueueText(int nId, const char* szText)	definition
+0x005202F0	BNMESSQUEUE_QueueText	Source/D2BNClient/BnDownload.cpp	189	void __fastcall sub_005202F0_PostText(int nType, const char* szText);	return
+0x005209D0	BNDOWNLOAD_HashBuffer	Source/D2BNClient/BnDownload.cpp	1800	void __fastcall BNDOWNLOAD_HashBuffer(unsigned int* pOut, const void* pData, unsigned int nSize)	definition
+0x005209D0	BNDOWNLOAD_HashBuffer	Source/D2BNClient/D2BNClient.h	75	void __fastcall sub_005209D0_HashData(unsigned char* pDigest, const void* pData, unsigned int nLength);	params
+0x00520AD0	BNDOWNLOAD_SetDisconnected	Source/D2BNClient/BnDownload.cpp	1853	extern "C" int __cdecl BNDOWNLOAD_SetDisconnected()	definition
+0x00520AD0	BNDOWNLOAD_SetDisconnected	Source/D2BNClient/D2BNClient.h	73	void __cdecl sub_00520AD0_SetDisconnected();	return / linkage
+0x00520C00	BNDOWNLOAD_ClearReply	Source/D2BNClient/BnDownload.cpp	1899	extern "C" void __fastcall BNDOWNLOAD_ClearReply(unsigned char nSlot)	definition
+0x00520C00	BNDOWNLOAD_ClearReply	Source/D2BNClient/D2BNClient.h	76	void __fastcall sub_00520C00_ClearReply(unsigned char nReply);	linkage
+0x005223A0	BNDOWNLOAD_SendAccountUpgrade	Source/D2BNClient/BnDownload.cpp	2637	int __fastcall BNDOWNLOAD_SendAccountUpgrade(int bRetry)	definition
+0x00522AE0	BNDOWNLOAD_DecodeCDKey	Source/D2BNClient/BnDownload_00520CB0.cpp	136	void __fastcall BNDOWNLOAD_DecodeCDKey(const char* szKey, unsigned int* pProduct, unsigned int* pPublic, unsigned char* pPrivate)	definition
+0x00522AE0	BNDOWNLOAD_DecodeCDKey	Source/D2BNClient/D2BNClient.h	63	int __fastcall sub_00522AE0_DecodeCDKey(const char* szKey, void* pArg2, void* pArg3, void* pArg4);	return / params
+0x00523AB0	GRID_GetCDKey	Source/D2BNClient/grid.cpp	298	const char* __fastcall sub_00523AB0_GetCDKey(int nSlot)	definition
+0x00523AB0	GRID_GetCDKey	Source/D2CMP/SRC/SpriteCache.cpp	446	extern "C" int __fastcall GRID_GetCDKey(int bSecond);	return / linkage
+0x00524930	STRTABLE_GetStringFromTable	Source/D2Lang/StrTable/strtable.cpp	215	const Unicode* __fastcall sub_00524930(D2TblHeaderStrc* pTable, void* pIndex, unsigned short nIndex)	definition
+0x00524A30	D2LANG_GetStringFromTblIndex	Source/D2Lang/StrTable/strtable.cpp	258	const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex)	definition
+0x00524A30	D2LANG_GetStringFromTblIndex	Source/D2Client/UI/QuestLog.cpp	36	const unsigned short* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);	return
+0x00524A30	D2LANG_GetStringFromTblIndex	Source/D2Client/UI/SkillDesc_004E1FF0.cpp	265	const wchar_t* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);	return
+0x00524A30	D2LANG_GetStringFromTblIndex	Source/D2Client/UI/panel.cpp	165	extern "C" const U16* __fastcall sub_00524A30_LocalizedText(U16 index);	return / params / linkage
+0x00524A30	D2LANG_GetStringFromTblIndex	Source/D2Client/UNIT/MonUnique.cpp	112	wchar_t* __fastcall D2LANG_GetStringFromTblIndex(unsigned short wIndex);	return
+0x00524E40	STRTABLE_UnloadStringTables	Source/D2Lang/StrTable/strtable.cpp	367	void __cdecl STRTABLE_UnloadStringTables()	definition
+0x00525150	STRTABLE_GetLanguage	Source/D2Lang/StrTable/strtable.cpp	477	int __cdecl STRTABLE_GetLanguage()	definition
+0x00525150	STRTABLE_GetLanguage	Source/D2Launch/Src/MainMenus.cpp	456	extern "C" int __cdecl sub_00525150_Language();	linkage
+0x00525150	STRTABLE_GetLanguage	Source/Fog/Src/ErrorManager.cpp	390	int __stdcall sub_00525150();	calling convention
+0x00525150	STRTABLE_GetLanguage	Source/Fog/Src/ErrorManager_004082E0.cpp	391	int __stdcall sub_00525150();	calling convention
+0x005259C0	STRTABLE_LoadStringTables	Source/D2Lang/StrTable/strtable.cpp	549	int __fastcall STRTABLE_LoadStringTables(void* pMemPool, const char* szLanguage, int bExpansion)	definition
+0x005259C0	STRTABLE_LoadStringTables	Source/D2Client/D2Client.h	558	int __fastcall sub_005259C0(void* pArg, int nArg);	params
+0x005259C0	STRTABLE_LoadStringTables	Source/D2Launch/D2Launch.h	46	int __fastcall sub_005259C0(void* pArg, int nArg);	params
+0x005259C0	STRTABLE_LoadStringTables	Source/D2Multi/Src/ChatDlg.cpp	711	int __fastcall sub_005259C0(void* pArg, int nArg);	params
+0x005259C0	STRTABLE_LoadStringTables	Source/D2Multi/Src/ChatDlg_00441B70.cpp	94	int __fastcall sub_005259C0(void* pArg, int nArg);	params
+0x00526F20	win2Unicode	Source/D2Lang/Unknown_00525FB0.cpp	576	Unicode* __fastcall Unicode::win2Unicode(Unicode* dest, const char* src, int count)	definition
+0x00526F20	win2Unicode	Source/D2Client/CORE/WINMAIN.CPP	1563	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Client/GAME/Game_0044E5A0.cpp	193	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Client/GAME/SCmd.cpp	2368	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Client/UI/Party.cpp	99	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Client/UI/chat.cpp	1078	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Client/UI/editbox.cpp	248	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Client/UI/editbox_004BB620.cpp	55	unsigned short* __fastcall sub_00526F20(unsigned short* pDst, const char* szSrc, int nMaxLength);	return / params
+0x00526F20	win2Unicode	Source/D2Client/UI/inv.cpp	621	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Client/UI/npcmenu.cpp	508	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Client/UI/npcmenu_004B5C60.cpp	93	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Client/UI/text.cpp	630	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Client/UI/ui.cpp	330	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Client/Unknown_0044B400.cpp	159	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Client/Unknown_0047CC90.cpp	350	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Client/Unknown_00482C70.cpp	609	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Client/Unknown_0049AAF0.cpp	68	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Client/Unknown_004A43E0.cpp	616	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Client/Unknown_004A6460.cpp	616	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Client/Unknown_004BABF0.cpp	273	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Client/Unknown_004BBE10.cpp	163	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Lang/Unknown_00525FB0.cpp	28	static Unicode* __fastcall win2Unicode(Unicode* dest, const char* src, int count);	class member
+0x00526F20	win2Unicode	Source/D2Launch/Src/CharSel.cpp	784	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Launch/Src/CharSel_004378D0.cpp	88	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Launch/Src/CharSel_00438560.cpp	138	void __fastcall sub_00526F20_ToUnicode(Unicode*,const char*,int);	return
+0x00526F20	win2Unicode	Source/D2MCPClient/Unknown_0044A170.cpp	169	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Multi/Src/ChatDlg.cpp	464	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Multi/Src/ChatDlg_00441B70.cpp	330	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Multi/Src/ComCallback.cpp	134	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Win/Src/D2Comp.cpp	144	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Win/Src/D2WinAccountList.cpp	28	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Win/Src/D2WinEditBox.cpp	34	static Unicode* __fastcall win2Unicode(Unicode* pDest, const char* szSource, int nCount);	class member
+0x00526F20	win2Unicode	Source/D2Win/Src/D2WinEditBox.cpp	76	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Win/Src/D2WinList.cpp	175	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/D2Win/Src/D2WinTextBox.cpp	198	void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);	return
+0x00526F20	win2Unicode	Source/Include/D2Unicode.h	56	static Unicode* __fastcall win2Unicode(Unicode* dest, const char* src, int count);	class member
+0x0052A640	CLIENT_IsConnected	Source/D2Net/SRC/Client.cpp	155	int __cdecl CLIENT_IsConnected()	definition
+0x0052A750	CLIENT_Initialize	Source/D2Net/SRC/Client.cpp	351	void __stdcall CLIENT_Initialize(int nArg, const char* szIpAddress)	definition
+0x0052A7E0	CLIENT_Release	Source/D2Net/SRC/Client.cpp	368	void __cdecl CLIENT_Release()	definition
+0x0052B330	SERVER_SendPacketToClient	Source/D2Net/SRC/Server.cpp	132	unsigned int __stdcall SERVER_SendPacketToClient(char nSendMode, void* pClientId, void* pPacketArg, unsigned int nPacketSize)	definition
+0x0052B330	SERVER_SendPacketToClient	Source/D2BNClient/BnSend.cpp	396	int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, int nSize);	return / params
+0x0052B330	SERVER_SendPacketToClient	Source/D2Game/GAME/Clients.cpp	2548	int __stdcall sub_0052B330(unsigned char,int,void*,int);	return / params
+0x0052B330	SERVER_SendPacketToClient	Source/D2Game/GAME/Game.cpp	904	int __stdcall sub_0052B330(unsigned char,int,void*,int);	return / params
+0x0052B330	SERVER_SendPacketToClient	Source/D2Game/GAME/Level.cpp	581	int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, int nSize);	return / params
+0x0052B330	SERVER_SendPacketToClient	Source/D2Game/GAME/SCmd.cpp	45	int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, int nSize);	return / params
+0x0052B330	SERVER_SendPacketToClient	Source/D2Game/OBJECTS/objrgn.cpp	788	int __stdcall sub_0052B330(unsigned char,int,void*,int);	return / params
+0x0052B330	SERVER_SendPacketToClient	Source/D2Net/SRC/Server.cpp	279	int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, int nSize);	return / params
+0x0052B810	NET_SetConnectionMode	Source/D2Net/SRC/D2Net.cpp	54	void __fastcall NET_SetConnectionMode(int nConnectionMode)	definition
+0x0052B920	SERVER_GetServerPacketSize	Source/D2Net/Unknown_0052B920.cpp	15	int __fastcall SERVER_GetServerPacketSize(D2PacketBufferStrc* pBuffer, int nBufferSize, int* pSize)	definition
+0x0052B920	SERVER_GetServerPacketSize	Source/D2Client/D2Client.h	559	int __fastcall sub_0052B920(unsigned char* pPacket, unsigned int nLength, int* pSize);	params
+0x005FF2A0	D2CMPSpriteNumAsyncLoads	Source/D2CMP/SRC/CelCmp_005FF2A0.cpp	108	int __cdecl D2CMPSpriteNumAsyncLoads()	definition
+0x005FF2A0	D2CMPSpriteNumAsyncLoads	Source/D2Client/D2Client.h	714	unsigned int __cdecl sub_005FF2A0_CountPending();	return
+0x006001F0	D2CMPSpriteValidate	Source/D2CMP/SRC/SpriteCache.cpp	1813	int __stdcall D2CMPSpriteValidate(D2CmpSpriteContextStrc* context, int async, int flags)	definition
+0x006001F0	D2CMPSpriteValidate	Source/D2Client/ENGINE/Cursor.cpp	94	int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);	params
+0x006001F0	D2CMPSpriteValidate	Source/D2Client/ENGINE/Gfx.cpp	209	int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);	params
+0x006001F0	D2CMPSpriteValidate	Source/D2Client/ENGINE/GfxUtil.cpp	422	int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);	params
+0x006001F0	D2CMPSpriteValidate	Source/D2Client/ENGINE/Gfx_0046DB90.cpp	86	int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);	params
+0x006001F0	D2CMPSpriteValidate	Source/D2Client/ENGINE/Gfx_0046F870.cpp	58	int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);	params
+0x006001F0	D2CMPSpriteValidate	Source/D2Client/ENGINE/Gfx_00470EC0.cpp	44	int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);	params
+0x006001F0	D2CMPSpriteValidate	Source/D2Client/ENGINE/Gfx_00471EC0.cpp	44	int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);	params
+0x006001F0	D2CMPSpriteValidate	Source/D2Client/UI/useitem.cpp	355	int __stdcall sub_006001F0(D2PanelGfxStrc* pGfx, int nArg2, int nArg3);	params
+0x006001F0	D2CMPSpriteValidate	Source/D2Client/UNIT/CUnit.cpp	121	int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);	params
+0x006001F0	D2CMPSpriteValidate	Source/D2Client/UNIT/Item.cpp	290	int __stdcall sub_006001F0(D2PanelGfxStrc* pGfx, int nArg2, int nArg3);	params
+0x006001F0	D2CMPSpriteValidate	Source/D2DDraw/Unknown_00511DF0.cpp	32	int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);	params
+0x006001F0	D2CMPSpriteValidate	Source/D2DDraw/Unknown_005120A0.cpp	6	int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);	params
+0x006001F0	D2CMPSpriteValidate	Source/D2DDraw/Unknown_005121A0.cpp	3	int __stdcall sub_006001F0_ValidateContext(D2CmpCelContextStrc*, int, int);	params
+0x006001F0	D2CMPSpriteValidate	Source/D2DDraw/Unknown_005122E0.cpp	5	int __stdcall sub_006001F0(D2CmpCelContextStrc* pContext, int nArg2, int nArg3);	params
+0x006001F0	D2CMPSpriteValidate	Source/D2Direct3D/Src/d3dSprite.cpp	66	int __stdcall sub_006001F0_Prepare(D2CelContextStrc* pContext, int a2, int a3);	params
+0x006001F0	D2CMPSpriteValidate	Source/D2Direct3D/Src/d3dSprite.cpp	164	int __stdcall sub_006001F0(D2CelContextStrc* context, int a2, int a3);	params
+0x006001F0	D2CMPSpriteValidate	Source/D2Gdi/D2Gdi.h	37	int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);	params
+0x006001F0	D2CMPSpriteValidate	Source/D2Glide/Src/glSprite.cpp	12	int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);	params
+0x006001F0	D2CMPSpriteValidate	Source/D2Win/D2Win.h	79	int __stdcall sub_006001F0(D2GfxDataStrc* pContext, int nArg2, int nArg3);	params
+0x006004E0	D2CMPSpriteRequest	Source/D2CMP/SRC/SpriteCache.cpp	1895	int __stdcall D2CMPSpriteRequest(D2CmpSpriteContextStrc* context)	definition
+0x006004E0	D2CMPSpriteRequest	Source/D2Client/D2Client.h	660	int __stdcall sub_006004E0_LoadSprite(D2CelContextStrc* pContext);	params
+0x00600C00	D2CMPPalShiftSetAct	Source/D2CMP/SRC/CelCmp.cpp	4168	void __stdcall D2CMPPalShiftSetAct(int nMode)	definition
+0x00601B10	CelGetHardwareData	Source/D2CMP/SRC/CelCmp_005FF2A0.cpp	313	void* __stdcall CelGetHardwareData(D2CelStrc* pCel)	definition
+0x00601B10	CelGetHardwareData	Source/D2Direct3D/Src/d3dSprite.cpp	174	int* __stdcall sub_00601B10_GetCelTextureSlots(D2CelStrc* cel);	return
+0x00601B10	CelGetHardwareData	Source/D2Direct3D/Src/d3dSprite.cpp	212	int __stdcall CelGetHardwareData(D2CelStrc* pCel);	return
+0x006030E0	CelListTableInternalFind	Source/D2CMP/SRC/CelCmp.cpp	3234	char* D2StormHashTable006030E0Strc::CelListTableInternalFind(unsigned int nHashVal, int nKey)	definition
+0x006030E0	CelListTableInternalFind	Source/D2CMP/D2CmpStormHash.h	95	D2StormEntry38Strc* sub_006030E0_InternalFind(unsigned int nHashVal, const int& tKey);	return / params
+0x00604B90	TileGetStyle	Source/D2CMP/SRC/TileLib.cpp	229	int __stdcall TileGetStyle(D2TileLibraryEntryStrc* pTile) { D2_ASSERT(pTile, 122); return pTile->f_18; }	definition
+0x00604B90	TileGetStyle	Source/D2Common/DRLG/Preset.cpp	181	int __stdcall sub_00604B90(void* pTile);	params
+0x00604C50	TileGetSequence	Source/D2CMP/SRC/TileLib.cpp	241	int __stdcall TileGetSequence(D2TileLibraryEntryStrc* hTile) { D2_ASSERT(hTile, 126); return hTile->nSubIndex; }	definition
+0x00609020	LRUCacheInit	Source/D2CMP/SRC/LRUCache.cpp	73	void __fastcall LRUCacheInit(D2LRUCacheStrc* pCache, void* pMemPool, unsigned int nCostLimit, void (__fastcall* pfnRelease)(D2LRUNodeStrc*), unsigned int nNodes)	definition
+0x00609020	LRUCacheInit	Source/D2CMP/D2CMP.h	36	void __fastcall sub_00609020_PoolInit(D2CmpPoolStrc* pPool, void* pMemPool, int nArg, void (__fastcall* pfnFree)(void*), int nBlocks);	params
+0x00609020	LRUCacheInit	Source/D2CMP/SRC/LRUCache.cpp	70	void __fastcall LRUCacheInit(T006090E0* pCache, void* pMemPool, unsigned int nMaxSize, void (__fastcall* pfnRelease)(D2LRUNodeStrc*), unsigned int nNodes);	params
+0x006092D0	LRUCacheRelease	Source/D2CMP/SRC/LRUCache.cpp	281	void __fastcall LRUCacheRelease(T006090E0* pCache, D2LRUNodeStrc* pNode)	definition
+0x006092D0	LRUCacheRelease	Source/D2CMP/D2CMP.h	37	void __fastcall sub_006092D0_PoolFree(D2CmpPoolStrc* pPool, void* pMemory);	params
+0x006093E0	LRUCacheDestroy	Source/D2CMP/SRC/LRUCache.cpp	320	void __fastcall LRUCacheDestroy(T006090E0* pCache)	definition
+0x006093E0	LRUCacheDestroy	Source/D2CMP/D2CMP.h	38	void __fastcall sub_006093E0_PoolFreeAll(D2CmpPoolStrc* pPool);	params
+0x0060A050	TileSerializeSubTiles	Source/D2CMP/SRC/Tilecmp.cpp	574	static int TileSerializeSubTiles(unsigned char* pOut, D2BlockSet0060A050Strc* pSet)	definition
+0x0060AB70	GfxHashDumpStats	Source/D2CMP/SRC/GfxHash.cpp	335	void __stdcall GfxHashDumpStats()	definition
+0x0060AB70	GfxHashDumpStats	Source/Include/D2CmpTiles.h	45	void sub_0060AB70_Destroy();	calling convention
+0x0060CDB0	FindTileCreateTable	Source/D2CMP/SRC/FindTiles.cpp	69	D2FindTileEntryStrc** __cdecl FindTileCreateTable()	definition
+0x0060CDB0	FindTileCreateTable	Source/D2CMP/D2CMP.h	7	D2TileLibraryHashStrc* __cdecl sub_0060CDB0_AllocTileHash();	return
+0x0060D430	SubTileCompress	Source/D2CMP/SRC/SubTile.cpp	87	unsigned char* __fastcall SubTileCompress(const unsigned char* pData, unsigned int* pSize)	definition
+0x0060D430	SubTileCompress	Source/D2CMP/D2CMP.h	40	void* __fastcall sub_0060D430_Compress(const void* pSrc, int* pLength);	return / params
+0x0060D7E0	SubTileHasTransparentPixel	Source/D2CMP/SRC/SubTile.cpp	257	static int SubTileHasTransparentPixel(const unsigned char* pData)	definition
+0x00641500	DATATBLS_GetShrinesTxtRecordCount	Source/D2CMP/SRC/CelCmp.cpp	4162	int __cdecl DATATBLS_GetShrinesTxtRecordCount()	definition
+0x006B1EA0	D3D_SetColorCombineMode	Source/D2Direct3D/Src/d3dCore.cpp	1376	void __fastcall D3D_SetColorCombineMode(int nState)	definition
+0x006B58A0	D3D_CreateDeviceTexture	Source/D2Direct3D/Src/d3dCore.cpp	2399	int __fastcall D3D_CreateDeviceTexture(D2ComObject006B58A0Strc** ppSurface, D2ComObject006B58A0Strc** ppTexture, unsigned int nWidth, unsigned int nHeight)	definition
+0x006B58A0	D3D_CreateDeviceTexture	Source/D2Direct3D/D2Direct3D.h	32	int __fastcall sub_006B58A0_CreateTexture(D2D3DObjStrc** ppTexture, D2D3DObjStrc** ppSurface, int nWidth, int nHeight);	params
+0x006B58A0	D3D_CreateDeviceTexture	Source/D2Direct3D/Src/d3dFloorCache.cpp	166	int __fastcall sub_006B58A0_CreateTexture(D2D3DObjStrc** ppTexture, D2D3DObjStrc** ppSurface, int nWidth, int nHeight);	params
+0x006B58A0	D3D_CreateDeviceTexture	Source/D2Direct3D/Src/d3dSmack.cpp	33	int __fastcall sub_006B58A0_Allocate(void** ppFirst, void** ppSecond, int nCount, int nSize);	params
+0x006B58A0	D3D_CreateDeviceTexture	Source/D2Direct3D/Unknown_006B7250.cpp	64	int __fastcall sub_006B58A0_CreateGlyphTexture(void** ppGlyphA, D2D3DTextureStrc** ppGlyphB, int nWidth, int nHeight);	params
+0x006B6680	D3D_SetBlendAndAlpha	Source/D2Direct3D/Src/d3dSprite.cpp	663	unsigned char D3D_SetBlendAndAlpha(int mode)	definition
+0x006B9F00	D3D_UploadSmackFrameBuffer	Source/D2Direct3D/Src/d3dSmack.cpp	325	void __cdecl D3D_UploadSmackFrameBuffer()	definition
+0x006B9F00	D3D_UploadSmackFrameBuffer	Source/D2Direct3D/D2Direct3D.h	36	void __stdcall sub_006B9F00_PresentFrame();	calling convention
+0x006BAB30	D3D_SubtileCacheAppendUsed	Source/D2Direct3D/Src/d3dSubtileCache.cpp	128	static void D3D_SubtileCacheAppendUsed(D2SubtilePoolStrc* pList, D2SubtilePoolEntryStrc* pNode)	definition
+0x006BABD0	D3D_SubtileCacheUnlink	Source/D2Direct3D/Src/d3dSubtileCache.cpp	224	D2Node006BABD0Strc* __fastcall D3D_SubtileCacheUnlink(D2List006BABD0Strc* pList, int nIndex)	definition
+0x006BABD0	D3D_SubtileCacheUnlink	Source/D2Direct3D/Src/d3dSubtileCache.cpp	57	D2SubtilePoolEntryStrc* __fastcall sub_006BABD0_Unlink(D2SubtilePoolStrc* pList, int nIndex);	return / params
+0x006BABD0	D3D_SubtileCacheUnlink	Source/D2Direct3D/Src/d3dSubtileCache.cpp	59	D2SubtilePoolEntryStrc* __fastcall D3D_SubtileCacheUnlink(D2SubtilePoolStrc* pList);	return / params
+0x006BAC50	D3D_SubtileCacheAlloc	Source/D2Direct3D/Src/d3dSubtileCache.cpp	263	static int D3D_SubtileCacheAlloc(D2SubtilePoolStrc* pPool)	definition
+0x006BAC50	D3D_SubtileCacheAlloc	Source/D2Direct3D/Src/d3dSubtileCache.cpp	67	static int sub_006BAC50_TakeFreeNode(D2CacheListStrc* list);	params
+0x006BAD10	D3D_SubtileCacheEvict	Source/D2Direct3D/Src/d3dSubtileCache.cpp	327	void __fastcall D3D_SubtileCacheEvict(D2SubtilePoolStrc* pList)	definition
+0x006BAF00	D3D_SubtileCacheAdd	Source/D2Direct3D/Src/d3dSubtileCache.cpp	494	int __fastcall D3D_SubtileCacheAdd(D2CacheListStrc* list)	definition
+0x006BB150	D3D_FloorCacheAppendUsed	Source/D2Direct3D/Src/d3dFloorCache.cpp	247	static void D3D_FloorCacheAppendUsed(D2FloorPoolStrc* pPool, D2FloorPoolEntryStrc* pEntry)	definition
+0x006BCCD0	DATAARRAYS_FreeEntry	Source/Fog/Src/DataArrays.cpp	132	void __fastcall DATAARRAYS_FreeEntry(D2DataArrayStrc* pTable, int nHandle)	definition
+0x006BCCD0	DATAARRAYS_FreeEntry	Source/D2Client/D2Client.h	861	void __fastcall sub_006BCCD0_FreeDataArraySlot(D2WeatherStrc* pArray, int nSlot);	params
+0x006BD040	FOG_AllocLinker	Source/Fog/Src/Excel/Excel.cpp	945	D2Block006BD040Strc* __stdcall FOG_AllocLinker(const char* szFile, int nLine)	definition
+0x006BD040	FOG_AllocLinker	Source/D2Common/D2Common.h	38	D2TxtLinkStrc* __stdcall FOG_AllocLinker(const char* szFile, int nLine);	return
+0x006BD040	FOG_AllocLinker	Source/D2Common/D2Common.h	39	D2TxtLinkStrc* __stdcall sub_006BD040(const char* szFile, int nLine);	return
+0x006BD040	FOG_AllocLinker	Source/D2Common/D2Common.h	40	D2TxtLinkStrc* __stdcall FOG_AllocLinker(const char* szFile, int nLine);	return
+0x006BD040	FOG_AllocLinker	Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp	180	D2TxtLinkStrc* __stdcall FOG_AllocLinker(const char* szFile, int nLine);	return
+0x006BD040	FOG_AllocLinker	Source/D2Common/DATATBLS/MissileTbls.cpp	214	D2TxtLinkStrc* __stdcall FOG_AllocLinker(const char* szFile, int nLine);	return
+0x006BD040	FOG_AllocLinker	Source/D2Common/DATATBLS/MonsterTbls.cpp	696	D2TxtLinkStrc* __stdcall FOG_AllocLinker(const char* szFile, int nLine);	return
+0x006BD040	FOG_AllocLinker	Source/D2Win/D2Win.h	15	D2TxtLinkStrc* __stdcall sub_006BD040(const char* szFile, int nLine);	return
+0x006BD040	FOG_AllocLinker	Source/D2Win/Src/D2Comp.cpp	350	D2TxtLinkStrc* __stdcall sub_006BD040(const char* szFile, int nLine);	return
+0x006BE3C0	QSERVER_FreeAllSlots	Source/Fog/Src/QServer/QServer.cpp	688	int __stdcall QSERVER_FreeAllSlots(D2Server006BE3C0Strc* pServer)	definition
+0x006BE3C0	QSERVER_FreeAllSlots	Source/Fog/Src/QServer/QServer.cpp	392	void __stdcall sub_006BE3C0_Shutdown(D2QueueServerStrc* pServer);	return / params
+0x006BE650	QSERVER_DestroyClient	Source/Fog/Src/QServer/QServer.cpp	805	static void sub_006BE650_DestroyClient(D2QClientStrc* pClient)	definition
+0x006BF0F0	QSERVER_FreeRecords	Source/Fog/Src/QServer/QServer.cpp	1277	static void QSERVER_FreeRecords(D2QueueServerStrc* pServer)	definition
+0x006BF180	QSERVER_IncrementPerIpConnCount	Source/Fog/Src/QServer/QServer.cpp	1305	static int __cdecl QSERVER_IncrementPerIpConnCount(D2QueueServerStrc* pServer, D2InAddrStrc* pAddress)	definition
+0x006BF180	QSERVER_IncrementPerIpConnCount	Source/Fog/Src/QServer/QServer.cpp	384	static int __stdcall sub_006BF180_ReferenceAddress(D2QueueServerStrc* server,const unsigned int* address);	params / calling convention
+0x006BF320	QSERVER_FreePending	Source/Fog/Src/QServer/QServer.cpp	1416	static void QSERVER_FreePending(sub_006BF320_Server* pServer)	definition
+0x006BF320	QSERVER_FreePending	Source/Fog/Src/QServer/QServer.cpp	400	static void sub_006BF320_FreeChain(D2QueueServerStrc* pServer);	params
+0x006BF660	HasMaskedKey	Source/Fog/Src/QServer/QServer.cpp	1566	int __thiscall D2MaskPairListStrc::HasMaskedKey(unsigned int nMask)	definition
+0x006BF660	HasMaskedKey	Source/Fog/D2QServer.h	315	int __thiscall sub_006BF660_CheckClient(int nClientId);	params
+0x006BFAD0	QSERVER_BroadcastToAllClients	Source/Fog/Src/QServer/QServer.cpp	1707	int __stdcall QSERVER_BroadcastToAllClients(D2QueueServerStrc* pServer, char* pData, int nSize)	definition
+0x006BFAD0	QSERVER_BroadcastToAllClients	Source/Fog/Src/QServer/QServer.cpp	394	void __stdcall sub_006BFAD0_Notify(D2QueueServerStrc* pServer, int a2, int a3);	return / params
+0x006BFFA0	QSERVER_CheckReconnectFlood	Source/Fog/Src/QServer/QServer.cpp	1909	int __fastcall QSERVER_CheckReconnectFlood(D2QueueServerStrc* pServer, const int* pKey)	definition
+0x006BFFA0	QSERVER_CheckReconnectFlood	Source/Fog/Fog.h	74	int __fastcall sub_006BFFA0_CheckReconnects(D2QueueServerStrc* pServer, unsigned int* pAddress);	params
+0x006BFFA0	QSERVER_CheckReconnectFlood	Source/Fog/Src/QServer/QServer98.cpp	44	int __fastcall sub_006BFFA0_CheckAddress(D2QueueServerStrc*,unsigned int*);	params
+0x006C0360	QSERVER_ReleaseClient	Source/Fog/Src/QServer/QServer.cpp	2142	void __fastcall QSERVER_ReleaseClient(D2QueueServerStrc* pServer, D2QClientStrc* pClient)	definition
+0x006C0360	QSERVER_ReleaseClient	Source/Fog/Fog.h	92	void __fastcall sub_006C0360_RemoveClient(D2QueueServerStrc*, T006BFAD0*);	params
+0x006C0360	QSERVER_ReleaseClient	Source/Fog/Src/QServer/QServer.cpp	630	void __fastcall sub_006C0360_RemoveConnection(D2QSrvServerStrc* pServer, D2QSrvConnectionStrc* pConnection);	params
+0x006C0420	QSrvCloseRemoteConnection	Source/Fog/Src/QServer/QServer.cpp	2177	void __fastcall QSrvCloseRemoteConnection(D2QSrvServerStrc* pServer, int nKey, const char* szFile, int nLine)	definition
+0x006C0420	QSrvCloseRemoteConnection	Source/Fog/Fog.h	93	void __fastcall sub_006C0420_CloseRemote(D2QueueServerStrc*, int token, const char* file, int line);	params
+0x006C0420	QSrvCloseRemoteConnection	Source/Fog/Fog.h	94	void __fastcall sub_006C0420_Disconnect(D2QueueServerStrc* pServer, unsigned int nId, const char* szFile, int nLine);	params
+0x006C0420	QSrvCloseRemoteConnection	Source/Fog/Src/QServer/QServer.cpp	338	int __fastcall sub_006C0420_ProcessClient(QServer* pServer, int nClientId, const char* szFile, int nLine);	return / params
+0x006C0420	QSrvCloseRemoteConnection	Source/Fog/Src/QServer/QServer.cpp	358	void __fastcall QSrvCloseRemoteConnection(D2ConnectionTableStrc* pTable, int nClient, const char* pFile, int nLine);	params
+0x006C0420	QSrvCloseRemoteConnection	Source/Fog/Src/QServer/QServer.cpp	362	void __fastcall sub_006C0420_CloseClient(D2QueueServerStrc* table, int client, const char* file, int line);	params
+0x006C0420	QSrvCloseRemoteConnection	Source/Fog/Src/QServer/QServer98.cpp	47	void __fastcall sub_006C0420_CloseClient(D2QueueServerStrc*,int,const char*,int);	params
+0x006C54D0	DecodeTgaFile	Source/Storm/SOURCE/SBMP.CPP	565	static int __stdcall DecodeTgaFile(void* hFile, D2PaletteColorStrc* pPalette, unsigned char* pBuffer, unsigned int* pWidth, int nBufferSize, unsigned int* pHeight, unsigned int* pBitDepth)	definition
+0x006C5730	DecodeTgaMem	Source/Storm/SOURCE/SBMP.CPP	650	static int __stdcall DecodeTgaMem(const D2TgaFieldsStrc* pHeader, unsigned int nSize, D2PaletteColorStrc* pPalette, unsigned char* pDst, int nDstSize, int* pWidth, int* pHeight, int* pDepth)	definition
+0x006045B0	CelListTableMonitorFullness				no definition found
