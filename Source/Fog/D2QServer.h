@@ -82,7 +82,11 @@ struct D2QClientStrc
         int iSocket;
     };
     int nSlot;                                              // 0x014
-    unsigned int nAddress;                                  // 0x018
+    union
+    {
+        unsigned int nAddress;                              // 0x018
+        D2InAddrStrc tAddress;
+    };
     D2QClientStrc* pNextByAddress;                          // 0x01C
     int nContext;                                           // 0x020
     union
