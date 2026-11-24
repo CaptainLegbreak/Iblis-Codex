@@ -56,7 +56,6 @@ struct D2StaticPathStrc;
 
 struct D2CltMissileModeStrc;
 
-struct D2LobBracketStrc;
 
 struct D2BallisticStrc;
 
@@ -305,13 +304,6 @@ struct D2CltMissileModeStrc
     int nCollisionMask;
 };
 
-struct D2LobBracketStrc
-{
-    int nMaxDistance;
-    int nMultiplier;
-    int nAddend;
-};
-
 struct D2BallisticStrc
 {
     unsigned int dwFlags;
@@ -339,7 +331,6 @@ extern const int gaSpiralOuterA[7]; // 0x006DAE2C
 
 extern const int gaSpiralInnerX[4]; // 0x006DAE48
 
-extern D2LobBracketStrc gaLobBrackets[2]; // 0x006DAE70
 
 extern D2CltMissileModeStrc gaCltMissileModes[]; // 0x0072A350
 
@@ -347,15 +338,9 @@ void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nArg2, int nArg3,
 
 void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4, int nArg5); // 0x004DA200
 
-void __fastcall SKILLS_SetBallistic(D2UnitStrc* pUnit, int nSpeed, int nFrames); // 0x004DA5B0
-
 D2BallisticStrc* __fastcall sub_0046F060(D2UnitStrc* pUnit); // 0x0046F060
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
-
-int __stdcall sub_006444A0(D2UnitStrc* pUnit); // 0x006444A0
-
-int __stdcall sub_006444D0(D2UnitStrc* pUnit); // 0x006444D0
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 
@@ -3103,60 +3088,6 @@ static int __stdcall sub_004C80D0_AdjustTargetPosition(int nSkillId, D2UnitStrc*
 int __fastcall sub_004C80D0_EmitTargetPosition(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int* pX, int* pY)
 {
     return sub_004C80D0_AdjustTargetPosition(nSkillId, pUnit, nSkillLevel, pX, pY);
-}
-
-// 0x004C8670
-void __fastcall SKILLS_SetLobVelocity(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
-{
-    if (!pTarget)
-    {
-        return;
-    }
-
-    D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
-    if (!pDynamicPath)
-    {
-        return;
-    }
-
-    const int nX = sub_006444A0(pTarget);
-    const int nY = sub_006444D0(pTarget);
-    const int nSpeed = PATH_GetVelocity(pDynamicPath) >> 8;
-    if (!nSpeed)
-    {
-        return;
-    }
-
-    int nDistance = UNITS_GetDistanceToCoordinates(pUnit, nX, nY);
-    if (nDistance < 1)
-    {
-        nDistance = 1;
-    }
-
-    int nFrames = (nDistance << 0x10) / (nSpeed << 0x0C);
-    if (nFrames > 1)
-    {
-        nFrames -= 1;
-    }
-
-    int i = 0;
-    for (; i < 1; i++)
-    {
-        if (nDistance < gaLobBrackets[i].nMaxDistance)
-        {
-            break;
-        }
-    }
-
-    int nVelocity = gaLobBrackets[i].nMultiplier * nDistance + gaLobBrackets[i].nAddend;
-    if (nVelocity < 0x1F4)
-    {
-        nVelocity = 0x1F4;
-    }
-
-    sub_004DA000(pUnit);
-    sub_004DA250(pUnit, 0, 0, -nVelocity, 0);
-    SKILLS_SetBallistic(pUnit, 0, nFrames);
 }
 
 // build: context sub_004C9D50_FindDestinationById
