@@ -360,12 +360,6 @@ D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);            
 
 struct D2DoorObjectAiCallbackArgStrc;
 
-struct D2DoorObjectAiCallbackArgStrc
-{
-    D2UnitStrc* pDoor;
-    int nDistance;
-    int unk0x08[8];
-};
 
 unsigned short __stdcall D2Common_10201(D2DynamicPathStrc* pDynamicPath); // 0x00648EB0
 

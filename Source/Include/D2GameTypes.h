@@ -1,6 +1,7 @@
 #pragma once
 // Game-logic records passed between the server's systems: damage, missile creation parameters, mode changes,
-// AI control and commands, object and quest event arguments.
+// AI control and commands, object and quest event arguments, and the arguments of the roster and door-finding
+// unit callbacks.
 
 #include "D2Check.h"
 #include "D2SysTypes.h"
@@ -182,6 +183,19 @@ struct D2PartyControlStrc
     short nNextPartyId; // 0x00
     short unk0x02; // 0x02
     D2PartyStrc* pParties; // 0x04
+};
+
+struct D2RosterIterateStrc
+{
+    int bFlag; // 0x00
+    D2UnitStrc* pUnit; // 0x04
+};
+
+struct D2DoorObjectAiCallbackArgStrc
+{
+    D2UnitStrc* pDoor; // 0x00
+    int nDistance; // 0x04
+    int unk0x08[8]; // 0x08
 };
 
 D2_CHECK_SIZE(D2DamageStrc, 0x70);

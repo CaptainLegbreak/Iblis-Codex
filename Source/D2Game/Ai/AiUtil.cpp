@@ -1029,12 +1029,6 @@ D2UnitStrc* __fastcall AIUTIL_TargetCallback_SelectHighThreatTargetWithClearAppr
 
 struct D2DoorObjectAiCallbackArgStrc;
 
-struct D2DoorObjectAiCallbackArgStrc
-{
-    D2UnitStrc* pDoor;
-    int nDistance;
-    int unk0x08[8];
-};
 
 int __stdcall UnitIsDoor(D2UnitStrc* pUnit); // 0x00621A70
 

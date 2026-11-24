@@ -1125,11 +1125,6 @@ struct D2NpcControlStrc
     D2NpcRecordStrc* pFirstRecord;
 };
 
-struct D2RosterIterateStrc
-{
-    int bFlag;
-    D2UnitStrc* pUnit;
-};
 
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);

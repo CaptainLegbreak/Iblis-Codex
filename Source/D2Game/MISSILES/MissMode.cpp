@@ -390,12 +390,6 @@ struct D2Act4Quest3Strc;
 
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
 
-struct D2DoorObjectAiCallbackArgStrc
-{
-    D2UnitStrc* pDoor;
-    int nDistance;
-    int unk0x08[8];
-};
 
 extern "C" const char gszAct3Q2SourceFile[]; // 0x006E2E84
 
