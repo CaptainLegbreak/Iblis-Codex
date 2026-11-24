@@ -92,3 +92,5 @@ void __stdcall CHAT_SetLangIdInHoverMsg(D2HoverTextStrc* pHoverMsg, unsigned cha
 {
     pHoverMsg->nLangId = nLangId;
 }
+
+#include "gen/data/Source/D2Common/Chat/Chat.inc"

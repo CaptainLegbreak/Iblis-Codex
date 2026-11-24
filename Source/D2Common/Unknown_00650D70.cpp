@@ -120,3 +120,5 @@ char* __fastcall DRLGPRESET_GetLinkRawNext(D2StormLinkStrc* pLink)
 void __cdecl sub_00650EA0_Nop()
 {
 }
+
+#include "gen/data/Source/D2Common/Unknown_00650D70.inc"

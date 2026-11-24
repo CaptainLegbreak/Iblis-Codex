@@ -1984,6 +1984,13 @@ char* __fastcall sub_00416860_LinkPrev(D2StormLinkStrc* pLink)
     return (int)pPrev->m_next > 0 ? pPrev->m_next : 0;
 }
 
+// 0x004177A0
+char* __fastcall sub_004177A0_LinkPrev(D2StormLinkStrc* pLink)
+{
+    D2StormLinkStrc* pPrev = pLink->m_prevlink->m_prevlink;
+    return (int)pPrev->m_next > 0 ? pPrev->m_next : 0;
+}
+
 // 0x00416880
 char* __fastcall sub_00416880_LinkRawNext(D2StormLinkStrc* pLink)
 {
@@ -2173,30 +2180,6 @@ void D2StormFixedListStrc::sub_00417B80_LinkNode(char* pNode, unsigned int nLink
 D2StormLinkStrc* D2StormFixedListStrc::sub_00417C50_Link(char* pNode)
 {
     return Link(pNode);
-}
-
-// 0x00417C70
-void D2StormFixedListStrc::sub_00417C70_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode)
-{
-    D2StormLinkStrc* pLink = Link(pNode);
-    pLink->Unlink();
-    D2StormLinkStrc* pExistingLink = Link(pExistingNode);
-    switch (nLinkType)
-    {
-    case 1:
-        pLink->m_prevlink = pExistingLink;
-        pLink->m_next = pExistingLink->m_next;
-        pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
-        pExistingLink->m_next = pNode;
-        break;
-    default:
-        D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
-        pLink->m_prevlink = pPrevLink;
-        pLink->m_next = pPrevLink->m_next;
-        pPrevLink->m_next = pNode;
-        pExistingLink->m_prevlink = pLink;
-        break;
-    }
 }
 
 // 0x00417D20
@@ -2598,6 +2581,134 @@ D2ChatStormListCStrc::D2ChatStormListCStrc()
     m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
 }
 
+// Four more lists whose node types are not known yet; each stands for one TSList<T>, whose head,
+// reset and constructor the original emits here without calling them.
+struct D2SFileList004177D0Strc
+{
+    int m_linkoffset;
+    D2ChatStormCtorLinkStrc m_terminator;
+
+    D2SFileList004177D0Strc();
+    char* sub_004177D0_Head();
+    void sub_00417A30_Reset();
+};
+
+struct D2SFileList004177E0Strc
+{
+    int m_linkoffset;
+    D2ChatStormCtorLinkStrc m_terminator;
+
+    D2SFileList004177E0Strc();
+    char* sub_004177E0_Head();
+    void sub_00417C30_Reset();
+};
+
+struct D2SFileList004177F0Strc
+{
+    int m_linkoffset;
+    D2ChatStormCtorLinkStrc m_terminator;
+
+    D2SFileList004177F0Strc();
+    char* sub_004177F0_Head();
+};
+
+struct D2SFileList00417800Strc
+{
+    int m_linkoffset;
+    D2ChatStormCtorLinkStrc m_terminator;
+
+    D2SFileList00417800Strc();
+    char* sub_00417800_Head();
+};
+
+// 0x004177D0
+char* D2SFileList004177D0Strc::sub_004177D0_Head()
+{
+    return (char*)((((int)m_terminator.m_next <= 0) - 1) & (int)m_terminator.m_next);
+}
+
+// 0x00417A30
+void D2SFileList004177D0Strc::sub_00417A30_Reset()
+{
+    m_linkoffset = 0;
+    m_terminator.m_prevlink = &m_terminator;
+    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+// 0x00418640
+D2SFileList004177D0Strc::D2SFileList004177D0Strc()
+{
+    m_linkoffset = 0;
+    m_terminator.m_prevlink = &m_terminator;
+    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+// 0x004177E0
+char* D2SFileList004177E0Strc::sub_004177E0_Head()
+{
+    return (char*)((((int)m_terminator.m_next <= 0) - 1) & (int)m_terminator.m_next);
+}
+
+// 0x00417C30
+void D2SFileList004177E0Strc::sub_00417C30_Reset()
+{
+    m_linkoffset = 0;
+    m_terminator.m_prevlink = &m_terminator;
+    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+// 0x004186B0
+D2SFileList004177E0Strc::D2SFileList004177E0Strc()
+{
+    m_linkoffset = 0;
+    m_terminator.m_prevlink = &m_terminator;
+    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+// 0x004177F0
+char* D2SFileList004177F0Strc::sub_004177F0_Head()
+{
+    return (char*)((((int)m_terminator.m_next <= 0) - 1) & (int)m_terminator.m_next);
+}
+
+// 0x00418CA0
+D2SFileList004177F0Strc::D2SFileList004177F0Strc()
+{
+    m_linkoffset = 0;
+    m_terminator.m_prevlink = &m_terminator;
+    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+// 0x00417800
+char* D2SFileList00417800Strc::sub_00417800_Head()
+{
+    return (char*)((((int)m_terminator.m_next <= 0) - 1) & (int)m_terminator.m_next);
+}
+
+// 0x00418D80
+D2SFileList00417800Strc::D2SFileList00417800Strc()
+{
+    m_linkoffset = 0;
+    m_terminator.m_prevlink = &m_terminator;
+    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+// 0x00417B40
+void D2StormListBaseStrc::sub_00417B40_Initialize()
+{
+    m_linkoffset = 0;
+    m_terminator.m_prevlink = &m_terminator;
+    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+// 0x00417D40
+void D2StormListBaseStrc::sub_00417D40_Initialize()
+{
+    m_linkoffset = 0;
+    m_terminator.m_prevlink = &m_terminator;
+    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
 // build: symbol ??1ARCHIVEREC@@QAE@XZ 0x00418A50
 // 0x00418490
 int D2StormList00418490Strc::sub_00418490_IsEmpty()
@@ -2682,7 +2793,7 @@ D2StormList00708384Strc::~D2StormList00708384Strc()
 }
 
 // 0x00418E60
-FILEREC::FILEREC()
+inline FILEREC::FILEREC()
 {
     tLink.m_prevlink = 0;
     tLink.m_next = 0;
@@ -2691,6 +2802,16 @@ FILEREC::FILEREC()
     archive = 0;
     pBuffer0x12C = 0;
     pBuffer0x138 = 0;
+}
+
+// 0x00418F20
+char* D2StormFixedListStrc::sub_00418F20_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
+{
+    void* pMemory = SMemAlloc(sizeof(FILEREC) + nExtraBytes, gszStormFileRecTypeName, -2, nFlags | 8);
+    FILEREC* pRecord = pMemory ? new (pMemory) FILEREC : 0;
+    if (nLinkType)
+        sub_00417B80_LinkNode((char*)pRecord, nLinkType, 0);
+    return (char*)pRecord;
 }
 
 // 0x00418E90
@@ -3417,6 +3538,8 @@ static void MarkRequestPriority(int nValue, void* pBuffer)
     LeaveCriticalSection(&gBasePathLock_00779068);
 }
 
+// build: symbol ?NewNode@D2StormEventListStrc@@QAEPAUEVENTREC@@III@Z 0x00418F90
+// build: symbol ?LinkNode@D2StormEventListStrc@@QAEXPADI0@Z 0x00417C70
 inline EVENTREC* D2StormEventListStrc::NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
 {
     void* pMemory = SMemAlloc(sizeof(EVENTREC) + nExtraBytes, gszStormEventRecTypeName, -2, nFlags | 8);

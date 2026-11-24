@@ -763,29 +763,6 @@ void D2ClientOffsetListBStrc::sub_004508A0_LinkNode(D2ClientListNodeStrc* pNode,
     }
 }
 
-// 0x0045B0B0
-void __fastcall VIEW_DrawRoomUnitBoxes(D2ActiveRoomStrc* pRoom)
-{
-    D2ActiveRoomStrc** ppRoomList;
-    unsigned int nNumRooms;
-    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
-    for (unsigned int i = 0; i < nNumRooms; ++i)
-    {
-        for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
-        {
-            const int nX = UNITS_GetClientCoordX(pUnit) - gnAutomapOriginX;
-            const int nY = UNITS_GetClientCoordY(pUnit) - gnAutomapOriginY;
-            D2GFX_DrawBox(nX, nY, nX + 4, nY + 4, 0xFF, DRAW_MODE_5);
-            if (pUnit && pUnit->dwUnitType == UNIT_TILE)
-            {
-                for (D2ClientUnitPointStrc* pPoint = (D2ClientUnitPointStrc*)pUnit->pGfxData; pPoint; pPoint = pPoint->pNext)
-                {
-                    D2GFX_DrawLine(UNITS_GetClientCoordX(pUnit) - gnAutomapOriginX, UNITS_GetClientCoordY(pUnit) - gnAutomapOriginY, pPoint->nX - gnAutomapOriginX, pPoint->nY - gnAutomapOriginY, 0xFF, 0xFF);
-                }
-            }
-        }
-    }
-}
 
 // 0x0045BB30
 D2ClientListLinkStrc* D2ClientNodeListStrc::sub_0045BB30_Link(D2ClientListNodeStrc* pNode)

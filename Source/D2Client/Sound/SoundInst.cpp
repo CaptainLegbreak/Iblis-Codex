@@ -32,11 +32,6 @@ void __fastcall sub_004B9B50_SetValue(int nKey, int nValue); // 0x004B9B50
 
 int __fastcall SOUNDHDR_GetGroupStart(int nId); // 0x00481890
 
-struct D2SoundUnitNodeStrc
-{
-    D2UnitStrc* pUnit;
-    D2SoundUnitNodeStrc* pNext;
-};
 
 #pragma pack(push, 1)
 

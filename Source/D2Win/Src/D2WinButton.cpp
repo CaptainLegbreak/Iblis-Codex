@@ -491,3 +491,5 @@ int __fastcall BUTTON_Destroy(D2WinButtonStrc* ptBtnData)
     D2_ASSERT(ptBtnData->controlHeader.eType == D2WIN_BUTTON, 0x59);
     return CONTROL_RemoveFromList(&ptBtnData->controlHeader);
 }
+
+#include "gen/data/Source/D2Win/Src/D2WinButton.inc"

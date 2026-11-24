@@ -7,3 +7,5 @@ extern "C" __declspec(dllexport) int __fastcall sub_004FDA80(Obj004FDA80* pObj) 
     }
     return 0;
 }
+
+#include "gen/data/Source/D2Win/Unknown_004FDA80.inc"

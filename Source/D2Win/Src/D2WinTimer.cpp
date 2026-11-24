@@ -172,3 +172,5 @@ void __fastcall TIMER_SetRepeating(D2WinTimerStrc* ptTimerData)
     D2_ASSERT(ptTimerData->controlHeader.eType == D2WIN_TIMER, 0x45);
     ptTimerData->controlHeader.pfInitialize = TIMER_UpdateRepeating;
 }
+
+#include "gen/data/Source/D2Win/Src/D2WinTimer.inc"

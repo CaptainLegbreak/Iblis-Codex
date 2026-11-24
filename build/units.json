@@ -2601,56 +2601,6 @@
      "name": "?sub_0045AC90_DrawAutomapUnits@@YAXXZ"
     },
     {
-     "va": "0x0045AE50",
-     "length": 7,
-     "name": "?sub_0045AE50_SetGlobal00711428@@YIXH@Z"
-    },
-    {
-     "va": "0x0045AE70",
-     "length": 7,
-     "name": "?sub_0045AE70_SetGlobal0071142C@@YIXH@Z"
-    },
-    {
-     "va": "0x0045AFE0",
-     "length": 13,
-     "name": "?AUTOMAP_SetAutomapOffsets@@YIXHH@Z"
-    },
-    {
-     "va": "0x0045AFF0",
-     "length": 151,
-     "name": "AUTOMAP_ScreenToMap"
-    },
-    {
-     "va": "0x0045B090",
-     "length": 1,
-     "name": "?sub_0045B090_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x0045B0A0",
-     "length": 1,
-     "name": "?sub_0045B0A0_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x0045B1E0",
-     "length": 510,
-     "name": "AUTOMAP_DrawUnitTileRect"
-    },
-    {
-     "va": "0x0045B3E0",
-     "length": 91,
-     "name": "AUTOMAP_DrawRoomTileRects"
-    },
-    {
-     "va": "0x0045B440",
-     "length": 166,
-     "name": "AUTOMAP_UpdateAutomapOrigin"
-    },
-    {
-     "va": "0x0045B4F0",
-     "length": 244,
-     "name": "AUTOMAP_DrawRoomCollision"
-    },
-    {
      "va": "0x0045D3E0",
      "length": 197,
      "name": "AUTOMAP_RefreshItemStats"
@@ -4485,9 +4435,34 @@
      "name": "?sub_00417790_Next@D2SFileStormLinkM114Strc@@QAEPADXZ"
     },
     {
+     "va": "0x004177A0",
+     "length": 20,
+     "name": "?sub_004177A0_LinkPrev@@YIPADPAUD2StormLinkStrc@@@Z"
+    },
+    {
      "va": "0x004177C0",
      "length": 16,
      "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
+    },
+    {
+     "va": "0x004177D0",
+     "length": 16,
+     "name": "?sub_004177D0_Head@D2SFileList004177D0Strc@@QAEPADXZ"
+    },
+    {
+     "va": "0x004177E0",
+     "length": 16,
+     "name": "?sub_004177E0_Head@D2SFileList004177E0Strc@@QAEPADXZ"
+    },
+    {
+     "va": "0x004177F0",
+     "length": 16,
+     "name": "?sub_004177F0_Head@D2SFileList004177F0Strc@@QAEPADXZ"
+    },
+    {
+     "va": "0x00417800",
+     "length": 16,
+     "name": "?sub_00417800_Head@D2SFileList00417800Strc@@QAEPADXZ"
     },
     {
      "va": "0x004178A0",
@@ -4510,6 +4485,11 @@
      "name": "sub_00417A10_Link"
     },
     {
+     "va": "0x00417A30",
+     "length": 17,
+     "name": "?sub_00417A30_Reset@D2SFileList004177D0Strc@@QAEXXZ"
+    },
+    {
      "va": "0x00417A50",
      "length": 17,
      "name": "sub_00417A50_Link"
@@ -4525,6 +4505,11 @@
      "name": "sub_00417B20_Next"
     },
     {
+     "va": "0x00417B40",
+     "length": 17,
+     "name": "?sub_00417B40_Initialize@D2StormListBaseStrc@@QAEXXZ"
+    },
+    {
      "va": "0x00417B60",
      "length": 17,
      "name": "sub_00417B60_Link"
@@ -4535,6 +4520,11 @@
      "name": "sub_00417B80_LinkNode"
     },
     {
+     "va": "0x00417C30",
+     "length": 17,
+     "name": "?sub_00417C30_Reset@D2SFileList004177E0Strc@@QAEXXZ"
+    },
+    {
      "va": "0x00417C50",
      "length": 17,
      "name": "sub_00417C50_Link"
@@ -4542,12 +4532,17 @@
     {
      "va": "0x00417C70",
      "length": 161,
-     "name": "sub_00417C70_LinkNode"
+     "name": "?LinkNode@D2StormEventListStrc@@QAEXPADI0@Z"
     },
     {
      "va": "0x00417D20",
      "length": 32,
      "name": "sub_00417D20_Next"
+    },
+    {
+     "va": "0x00417D40",
+     "length": 17,
+     "name": "?sub_00417D40_Initialize@D2StormListBaseStrc@@QAEXXZ"
     },
     {
      "va": "0x00417D60",
@@ -4639,9 +4634,19 @@
      "name": "sub_004185F0_sub_006C4290"
     },
     {
+     "va": "0x00418640",
+     "length": 32,
+     "name": "??0D2SFileList004177D0Strc@@QAE@XZ"
+    },
+    {
      "va": "0x00418660",
      "length": 66,
      "name": "sub_00418660_sub_006C4290"
+    },
+    {
+     "va": "0x004186B0",
+     "length": 32,
+     "name": "??0D2SFileList004177E0Strc@@QAE@XZ"
     },
     {
      "va": "0x004186D0",
@@ -4709,6 +4714,11 @@
      "name": "??1D2StormList00708354Strc@@QAE@XZ"
     },
     {
+     "va": "0x00418CA0",
+     "length": 32,
+     "name": "??0D2SFileList004177F0Strc@@QAE@XZ"
+    },
+    {
      "va": "0x00418CC0",
      "length": 60,
      "name": "??1D2StormList00708360Strc@@QAE@XZ"
@@ -4722,6 +4732,11 @@
      "va": "0x00418D40",
      "length": 60,
      "name": "??1D2StormList00708378Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x00418D80",
+     "length": 32,
+     "name": "??0D2SFileList00417800Strc@@QAE@XZ"
     },
     {
      "va": "0x00418DA0",
@@ -4742,6 +4757,16 @@
      "va": "0x00418EC0",
      "length": 85,
      "name": "sub_00418EC0_NewNode"
+    },
+    {
+     "va": "0x00418F20",
+     "length": 112,
+     "name": "sub_00418F20_NewNode"
+    },
+    {
+     "va": "0x00418F90",
+     "length": 82,
+     "name": "?NewNode@D2StormEventListStrc@@QAEPAUEVENTREC@@III@Z"
     },
     {
      "va": "0x00419000",
@@ -5022,17 +5047,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SFILE_00418F20.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00418F20",
-     "length": 112,
-     "name": "sub_00418F20_NewNode"
-    }
-   ]
-  },
-  {
    "file": "Source/Fog/Unknown_0040EB50.cpp",
    "rank": 0,
    "functions": [
@@ -5114,32 +5128,6 @@
      "va": "0x00410A80",
      "length": 132,
      "name": "?FOG_GetSyncTime@@YAJXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_004177D0.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004177A0",
-     "length": 20,
-     "name": "?sub_00416860_LinkPrev@@YIPADPAUD2StormLinkStrc@@@Z"
-    },
-    {
-     "va": "0x004177D0",
-     "length": 16,
-     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
-    },
-    {
-     "va": "0x00417A30",
-     "length": 17,
-     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00418640",
-     "length": 32,
-     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
     }
    ]
   },
@@ -6016,74 +6004,6 @@
      "va": "0x0041D1E0",
      "length": 18,
      "name": "SErrReportResourceLeak"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_004177E0.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004177E0",
-     "length": 16,
-     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
-    },
-    {
-     "va": "0x00417B40",
-     "length": 17,
-     "name": "?sub_00417B40_Initialize@D2StormListBaseStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00417C30",
-     "length": 17,
-     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x004186B0",
-     "length": 32,
-     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x00418F90",
-     "length": 82,
-     "name": "?sub_00418F90@List@@QAEPAUNode@@III@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_004177F0.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004177F0",
-     "length": 16,
-     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
-    },
-    {
-     "va": "0x00417D40",
-     "length": 17,
-     "name": "?sub_00417D40_Initialize@D2StormListBaseStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00418CA0",
-     "length": 32,
-     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_00417800.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00417800",
-     "length": 16,
-     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
-    },
-    {
-     "va": "0x00418D80",
-     "length": 32,
-     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
     }
    ]
   },
@@ -13822,11 +13742,6 @@
      "name": "sub_004508A0_LinkNode"
     },
     {
-     "va": "0x0045B0B0",
-     "length": 231,
-     "name": "?VIEW_DrawRoomUnitBoxes@@YIXPAUD2ActiveRoomStrc@@@Z"
-    },
-    {
      "va": "0x0045BB30",
      "length": 17,
      "name": "sub_0045BB30_Link"
@@ -16275,26 +16190,6 @@
      "name": "UI_GetAutomapMode"
     },
     {
-     "va": "0x0045AE60",
-     "length": 6,
-     "name": "sub_0045AE60"
-    },
-    {
-     "va": "0x0045AE80",
-     "length": 6,
-     "name": "sub_0045AE80"
-    },
-    {
-     "va": "0x0045AFA0",
-     "length": 6,
-     "name": "UI_GetAutomapOffsetX"
-    },
-    {
-     "va": "0x0045AFB0",
-     "length": 6,
-     "name": "UI_GetAutomapOffsetY"
-    },
-    {
      "va": "0x0045BA70",
      "length": 14,
      "name": "UI_ClearPair"
@@ -16410,9 +16305,119 @@
    ],
    "functions": [
     {
+     "va": "0x0045AD60",
+     "length": 142,
+     "name": "?PLAYER_DrawAutomap@@YAXXZ"
+    },
+    {
+     "va": "0x0045ADF0",
+     "length": 41,
+     "name": "?CLIENTS_GetUnitX@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0045AE20",
+     "length": 41,
+     "name": "?CLIENTS_GetUnitY@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0045AE50",
+     "length": 7,
+     "name": "?sub_0045AE50_SetGlobal00711428@@YIXH@Z"
+    },
+    {
+     "va": "0x0045AE60",
+     "length": 6,
+     "name": "sub_0045AE60"
+    },
+    {
+     "va": "0x0045AE70",
+     "length": 7,
+     "name": "?sub_0045AE70_SetGlobal0071142C@@YIXH@Z"
+    },
+    {
+     "va": "0x0045AE80",
+     "length": 6,
+     "name": "sub_0045AE80"
+    },
+    {
      "va": "0x0045AE90",
      "length": 6,
      "name": "sub_0045AE90"
+    },
+    {
+     "va": "0x0045AEA0",
+     "length": 252,
+     "name": "?PLAYER_SetPanelSlide@@YIXH@Z"
+    },
+    {
+     "va": "0x0045AFA0",
+     "length": 6,
+     "name": "UI_GetAutomapOffsetX"
+    },
+    {
+     "va": "0x0045AFB0",
+     "length": 6,
+     "name": "UI_GetAutomapOffsetY"
+    },
+    {
+     "va": "0x0045AFC0",
+     "length": 12,
+     "name": "_PLAYER_GetScreenOffsetX"
+    },
+    {
+     "va": "0x0045AFD0",
+     "length": 9,
+     "name": "_PLAYER_GetScreenOffsetY"
+    },
+    {
+     "va": "0x0045AFE0",
+     "length": 13,
+     "name": "?AUTOMAP_SetAutomapOffsets@@YIXHH@Z"
+    },
+    {
+     "va": "0x0045AFF0",
+     "length": 151,
+     "name": "AUTOMAP_ScreenToMap"
+    },
+    {
+     "va": "0x0045B090",
+     "length": 1,
+     "name": "?sub_0045B090_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x0045B0A0",
+     "length": 1,
+     "name": "?sub_0045B0A0_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x0045B0B0",
+     "length": 231,
+     "name": "?VIEW_DrawRoomUnitBoxes@@YIXPAUD2ActiveRoomStrc@@@Z"
+    },
+    {
+     "va": "0x0045B1A0",
+     "length": 60,
+     "name": "?CUNIT_DrawAutomapDiamond@@YIXHHE@Z"
+    },
+    {
+     "va": "0x0045B1E0",
+     "length": 510,
+     "name": "AUTOMAP_DrawUnitTileRect"
+    },
+    {
+     "va": "0x0045B3E0",
+     "length": 91,
+     "name": "AUTOMAP_DrawRoomTileRects"
+    },
+    {
+     "va": "0x0045B440",
+     "length": 166,
+     "name": "AUTOMAP_UpdateAutomapOrigin"
+    },
+    {
+     "va": "0x0045B4F0",
+     "length": 244,
+     "name": "AUTOMAP_DrawRoomCollision"
     }
    ]
   },
@@ -17414,36 +17419,6 @@
    "file": "Source/D2Client/UNIT/Player.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0045AD60",
-     "length": 142,
-     "name": "?PLAYER_DrawAutomap@@YAXXZ"
-    },
-    {
-     "va": "0x0045ADF0",
-     "length": 41,
-     "name": "?CLIENTS_GetUnitX@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0045AE20",
-     "length": 41,
-     "name": "?CLIENTS_GetUnitY@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0045AEA0",
-     "length": 252,
-     "name": "?PLAYER_SetPanelSlide@@YIXH@Z"
-    },
-    {
-     "va": "0x0045AFC0",
-     "length": 12,
-     "name": "_PLAYER_GetScreenOffsetX"
-    },
-    {
-     "va": "0x0045AFD0",
-     "length": 9,
-     "name": "_PLAYER_GetScreenOffsetY"
-    },
     {
      "va": "0x0045BD00",
      "length": 61,
@@ -18500,11 +18475,6 @@
      "va": "0x004519C0",
      "length": 207,
      "name": "?CUNIT_ReplayRecords@@YAXXZ"
-    },
-    {
-     "va": "0x0045B1A0",
-     "length": 60,
-     "name": "?CUNIT_DrawAutomapDiamond@@YIXHHE@Z"
     },
     {
      "va": "0x004637F0",
@@ -34733,31 +34703,6 @@
      "va": "0x004FA860",
      "length": 324,
      "name": "D2Win_COMMANDS_MouseButton_6F8AE070"
-    },
-    {
-     "va": "0x004FB740",
-     "length": 74,
-     "name": "D2Win_10062"
-    },
-    {
-     "va": "0x004FBB90",
-     "length": 135,
-     "name": "D2Win_10196"
-    },
-    {
-     "va": "0x004FBDE0",
-     "length": 169,
-     "name": "D2Win_10188"
-    },
-    {
-     "va": "0x004FD5D0",
-     "length": 236,
-     "name": "IMAGE2_HandleMouseDown"
-    },
-    {
-     "va": "0x004FE710",
-     "length": 96,
-     "name": "EDITBOX_HandleMultiLineMouseDown"
     }
    ],
    "flags": [
@@ -34962,6 +34907,11 @@
      "name": "?D2Win_10047@@YIHPAUD2WinTextBoxStrc@@@Z"
     },
     {
+     "va": "0x004FB740",
+     "length": 74,
+     "name": "D2Win_10062"
+    },
+    {
      "va": "0x004FB790",
      "length": 224,
      "name": "?D2Win_10058_0@@YIHPAUD2WinTextBoxStrc@@PBUUnicode@@HH@Z"
@@ -35006,6 +34956,11 @@
      "length": 90
     },
     {
+     "va": "0x004FBB90",
+     "length": 135,
+     "name": "D2Win_10196"
+    },
+    {
      "va": "0x004FBC20",
      "length": 87,
      "name": "?D2Win_10056@@YIXPAUD2WinTextBoxStrc@@H@Z"
@@ -35034,6 +34989,11 @@
      "va": "0x004FBDC0",
      "length": 32,
      "name": "?TEXTBOX_AssertUnsupported@@YAXXZ"
+    },
+    {
+     "va": "0x004FBDE0",
+     "length": 169,
+     "name": "D2Win_10188"
     },
     {
      "va": "0x004FBE90",
@@ -35212,6 +35172,11 @@
      "name": "?IMAGE_IsInClickRect@@YAHPBUD2WinImageClickRectStrc@@HH@Z"
     },
     {
+     "va": "0x004FD5D0",
+     "length": 236,
+     "name": "IMAGE2_HandleMouseDown"
+    },
+    {
      "va": "0x004FD6C0",
      "length": 162,
      "name": "IMAGE2_Create"
@@ -35334,6 +35299,11 @@
      "name": "?EDITBOX_HasSelection@@YAHPAUD2WinEditBoxStrc@@@Z"
     },
     {
+     "va": "0x004FDCC0",
+     "length": 62,
+     "name": "?EDITBOX_ClearSelection@@YIXPAUD2WinEditBoxStrc@@@Z"
+    },
+    {
      "va": "0x004FDD00",
      "length": 70,
      "name": "?D2Win_10082@@YIHPAUD2WinEditBoxStrc@@@Z"
@@ -35371,6 +35341,11 @@
     {
      "va": "0x004FE3B0",
      "length": 856
+    },
+    {
+     "va": "0x004FE710",
+     "length": 96,
+     "name": "EDITBOX_HandleMultiLineMouseDown"
     },
     {
      "va": "0x004FE770",
@@ -35424,17 +35399,6 @@
      "va": "0x005001D0",
      "length": 298,
      "name": "D2Win_10070_EDITBOX_Create"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinEditBox_004FDCC0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004FDCC0",
-     "length": 62,
-     "name": "?EDITBOX_ClearSelection@@YIXPAUD2WinEditBoxStrc@@@Z"
     }
    ]
   },
@@ -79638,40 +79602,6 @@
    ]
   },
   {
-   "file": "Source/D2Direct3D/Unknown_006B5C80.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B5C80",
-     "length": 108
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dSprite_006B5CF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B5CF0",
-     "length": 78
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Direct3D/Src/d3dSprite_006B5D40.cpp",
    "rank": 1,
    "functions": [
@@ -79742,6 +79672,14 @@
     {
      "va": "0x006B5BB0",
      "length": 204
+    },
+    {
+     "va": "0x006B5C80",
+     "length": 108
+    },
+    {
+     "va": "0x006B5CF0",
+     "length": 78
     },
     {
      "va": "0x006B6680",
@@ -81013,13 +80951,28 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006C77F0.cpp",
-   "rank": 1,
+   "file": "Source/Storm/zlib/uncompr.c",
+   "rank": 0,
    "functions": [
     {
      "va": "0x006C79C0",
-     "length": 149
+     "length": 149,
+     "name": "uncompress"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/TC"
    ]
   },
   {

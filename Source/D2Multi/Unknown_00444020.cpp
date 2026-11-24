@@ -8,6 +8,7 @@
 #include "D2Unicode.h"
 
 #include "D2MultiTypes.h"
+#include "D2LaunchRequest.h"
 
 extern int gnChatLaunchMode; // 0x0077BBE4
 
@@ -374,11 +375,6 @@ void __cdecl sub_00444E70_FillGameList()
     CHARSEL_FillGameListControl();
 }
 
-struct D2LaunchRequestStrc
-{
-    int nData[5];
-    unsigned int dwFlags;
-};
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void __fastcall WINMAIN_SendMcpGameListRequest(D2LaunchRequestStrc* pRequest, unsigned short wRequestId); // 0x0044A590
 extern unsigned short gwRequestId; // 0x0070CD60

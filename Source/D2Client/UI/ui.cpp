@@ -14,6 +14,7 @@
 #include "D2GameObjs.h"
 #include "D2LevelTxt.h"
 #include "D2ItemsWorld.h"
+#include "D2ClientUiRecords.h"
 
 struct D2CelFileStrc;
 
@@ -576,10 +577,6 @@ void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
 void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
-struct D2UIVarRecordStrc
-{
-    int anCloseKind[0x26];
-};
 
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
@@ -3695,29 +3692,9 @@ int __cdecl UI_GetAutomapMode()
     return gnAutomapMode;
 }
 
-// 0x0045AE60
-int __cdecl sub_0045AE60()
-{
-    return gdwGlobal_00711428;
-}
 
-// 0x0045AE80
-int __cdecl sub_0045AE80()
-{
-    return gdwGlobal_0071142C;
-}
 
-// 0x0045AFA0
-int __cdecl UI_GetAutomapOffsetX()
-{
-    return gnAutomapOriginX;
-}
 
-// 0x0045AFB0
-int __cdecl UI_GetAutomapOffsetY()
-{
-    return gnAutomapOriginY;
-}
 
 // 0x0045BA70
 void __fastcall UI_ClearPair(PairStrc_0045BA70* pPair)

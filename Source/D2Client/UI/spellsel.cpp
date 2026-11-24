@@ -10,6 +10,7 @@
 #include "D2Unicode.h"
 #include "D2ClientGfx.h"
 #include "D2StatIds.h"
+#include "D2ClientUiRecords.h"
 
 struct D2SkillStrc;
 
@@ -122,13 +123,6 @@ static inline D2SkillDescTxt* CLIENT_GetSkillDescTxtRecord(int nSkillId)
 
 struct D2UiCelFileStrc;
 
-#pragma pack(push, 2)
-struct D2UiCelFileStrc
-{
-    void* pCelFile;
-    char szPath[0x1E];
-};
-#pragma pack(pop)
 
 extern D2UiCelFileStrc gaSkillIconCels[7]; // 0x00724AC0
 

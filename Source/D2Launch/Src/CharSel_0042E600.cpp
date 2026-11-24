@@ -5,6 +5,7 @@
 #include "D2Drlg.h"
 #include "D2MultiTypes.h"
 #include "D2LevelTxt.h"
+#include "D2LaunchRequest.h"
 #pragma intrinsic(strlen)
 struct D2UnitStrc;
 struct D2ActiveRoomStrc;
@@ -53,11 +54,6 @@ int __cdecl MAINMENUS_FreeSlots(); // 0x00430A20
 extern D2CharSelCacheStrc* gpCharSelCache; // 0x00779DE8
 static int gbFlag_00779C6C;             // 0x00779C6C
 extern char gszBaseName_00779B68[]; // 0x00779B68
-struct D2LaunchRequestStrc
-{
-    int nData[5];
-    unsigned int dwFlags;
-};
 struct D2UnitDropItemsPacketStrc
 {
     char nHeader;

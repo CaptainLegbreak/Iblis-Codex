@@ -1165,3 +1165,5 @@ D2DrlgStrc* __fastcall DRLGROOM_GetDrlgFromRoomEx(D2DrlgRoomStrc* pRoom)
 
     return pRoom->ptDrlgLevel->pDrlg;
 }
+
+#include "gen/data/Source/D2Common/DRLG/DrlgRoom.inc"
