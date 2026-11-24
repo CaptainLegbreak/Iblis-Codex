@@ -13,10 +13,6 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 - lane2/unit-names-a afe929ea 562->562 Single-unit address names, batch 1 (see Notes for other lanes): LRUCache.cpp's T006090E0 view folds into its own D2LRUCacheStrc; GfxUtil's T004DA110 is D2KeyedNodeStrc; D2SoundUtil's T00516950 is D2SoundListNodeStrc; Cursor.cpp's T0044CB60 copy is D2SplittedTextStrc via D2WinSplitText.h. Names only; VERIFIED 155642104f1c15c2400811384d64d940276231dc
   - On ef7b4a19. All 4 changed units build equal. Outside lane 2: LRUCache (lane 6), GfxUtil, Cursor (lanes 1 and 4), D2SoundUtil (lane 6).
 
-- lane2/exception-pointers faf6ef62 562->562 Three commits, records I had left private before. D2ExceptionPointers.h: Win32's EXCEPTION_POINTERS typed once, both pointers (Exceptions had the record as void*, Unknown_00402820 the context as void*), with Exceptions' field names. D2ClientQuestText.h: the quest text message and the quest log state that holds six of them (gtQuestLog_007BF298), identical in text, Unknown_004A43E0 and Unknown_004A6460; QuestLog types the text as unsigned short and keeps its pair. D2MultiCharSave.h: the .d2s header and 0x2000-byte file views, identical in ChatDlg and Unknown_0043C8A0 (merging with D2SaveHeaderStrc would still need a union for the old flags); VERIFIED 5f87d444cfc899399bdb0fb06be4261a1b6e45a4
-  - Verified on ff65a331 (#357), rebased onto 9a070bac (#358): the three text units' conflicts with text-box were include lines only. Precheck of all 7 changed units is equal there.
-  - Outside lane 2: Exceptions, Unknown_00402820 (lane 3), text, Unknown_004A43E0/004A6460 (lanes 1 and 4), ChatDlg, Unknown_0043C8A0 (lane 6).
-
 ## Working on
 
 Records that two or more units define privately with the same text, moved into the shared header that owns their area. One branch per area; each is checked against all includers of the header before it is posted:
