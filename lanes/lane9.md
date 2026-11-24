@@ -14,14 +14,13 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - atl-d3dcore is in #332. Its 2 B note stands: 0x006FADC2 counts as copied, not padding, now that the ATL data shares d3dCore's object.
 
 ## Ready
-Both on main c2f64d25 (#340), rebased with namesync; precheck on each head: 0 not all equal. Full verifies on #340
-running, tree ids to follow.
+Both on main c2f64d25 (#340), rebased with namesync; precheck on each head: 0 not all equal.
 
-- lane9/join-d3d-3570 7439747e placeholders 1->0 (D2Direct3D/Unknown_006B4C90.cpp into Unknown_006B3570.cpp). Earlier
-  full verify: VERIFIED tree 76f0d84d (on #337). DetectDirect3D 0x6B4C90 is a file static whose only caller is
+- lane9/join-d3d-3570 7439747e placeholders 1->0 (D2Direct3D/Unknown_006B4C90.cpp into Unknown_006B3570.cpp). Full verify on
+  #340: VERIFIED tree c099ac89. DetectDirect3D 0x6B4C90 is a file static whose only caller is
   0x6B4E80. The unit is /EHsc /GS-, as its try/catch blocks need; LOGMANAGER_WriteLogLine keeps its throw() declaration.
-- lane9/join-d3dsprite-2 e4999e3b pieces 2->1 (d3dSprite_006B5D40.cpp joins d3dSprite.cpp; 19 functions). Earlier full
-  verify: VERIFIED tree 2b3357da (on #337). The piece's functions call d3dSprite.cpp's statics 0x6B5C80, 0x6B5CF0,
+- lane9/join-d3dsprite-2 e4999e3b pieces 2->1 (d3dSprite_006B5D40.cpp joins d3dSprite.cpp; 19 functions). Full verify on
+  #340: VERIFIED tree fc81f3b6. The piece's functions call d3dSprite.cpp's statics 0x6B5C80, 0x6B5CF0,
   0x6B6680, and d3dSprite.cpp's 0x6B7090 calls the piece's statics 0x6B5D40 and 0x6B63F0. Shims, context copies,
   emitters and the two noinline prototypes go; the three names for the 0x00970F40 counter become one static.
   **Please look at one point:** DrawQuad 0x6B63F0 returns what its exits leave in eax (the failed Lock's result; on the
