@@ -15,6 +15,7 @@
 #include "D2LevelTxt.h"
 
 #include "D2Unicode.h"
+#include "D2UnitDropPacket.h"
 
 static long BNDOWNLOAD_GetTime(long* pTime);
 
@@ -106,13 +107,6 @@ struct D2LaunchRequestStrc
     unsigned int dwFlags;
 };
 
-struct D2UnitDropItemsPacketStrc
-{
-    char nHeader;
-    char bActive;
-    char nUnitId[4];
-    char nOtherUnitId[4];
-};
 
 struct D2GridCellStrc
 {

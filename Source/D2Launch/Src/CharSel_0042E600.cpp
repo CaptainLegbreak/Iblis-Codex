@@ -5,6 +5,7 @@
 #include "D2Drlg.h"
 #include "D2MultiTypes.h"
 #include "D2LevelTxt.h"
+#include "D2UnitDropPacket.h"
 #pragma intrinsic(strlen)
 struct D2UnitStrc;
 struct D2ActiveRoomStrc;
@@ -57,13 +58,6 @@ struct D2LaunchRequestStrc
 {
     int nData[5];
     unsigned int dwFlags;
-};
-struct D2UnitDropItemsPacketStrc
-{
-    char nHeader;
-    char bActive;
-    char nUnitId[4];
-    char nOtherUnitId[4];
 };
 struct D2GridCellStrc
 {
