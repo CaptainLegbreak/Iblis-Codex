@@ -956,47 +956,6 @@ void __fastcall DRLGROOM_InitNearRooms(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom
     DRLGROOM_FlagIfNearTown(pDrlgRoom);
 }
 
-// 0x00670630
-void __fastcall DRLGTILESUB_FreeDrlgFile(D2LvlSubTxt* pLvlSubTxtRecord)
-{
-    if (pLvlSubTxtRecord->pDrlgFile)
-    {
-        for (int i = 0; i < pLvlSubTxtRecord->pDrlgFile->nWallLayers; ++i)
-        {
-            DRLGGRID_FreeGrid(0, &pLvlSubTxtRecord->pWallGrid[i]);
-            DRLGGRID_FreeGrid(0, &pLvlSubTxtRecord->pTileTypeGrid[i]);
-        }
-
-        DRLGGRID_FreeGrid(0, &pLvlSubTxtRecord->pFloorGrid);
-        DRLGGRID_FreeGrid(0, &pLvlSubTxtRecord->pShadowGrid);
-
-        DRLGPRESET_FreeDrlgFile(&pLvlSubTxtRecord->pDrlgFile);
-    }
-}
-
-// 0x006706A0
-int __fastcall DRLGTILESUB_PickSubThemes(D2DrlgRoomStrc* pDrlgRoom, int nSubType, int nSubTheme)
-{
-    if (nSubType != -1 && nSubTheme != -1)
-    {
-        D2LvlSubTxt* pLvlSubTxtRecord = DATATBLS_GetLvlSubTxtRecord(nSubType);
-        int nMask = 0;
-        int nCounter = 0;
-        while (pLvlSubTxtRecord->dwType == nSubType)
-        {
-            if ((int)((unsigned int)SEED_RollRandomNumber(&pDrlgRoom->pSeed) % 100) < pLvlSubTxtRecord->nProb[nSubTheme])
-            {
-                nMask |= 1 << nCounter;
-                pDrlgRoom->dwDT1Mask |= pLvlSubTxtRecord->dwDt1Mask;
-            }
-            ++pLvlSubTxtRecord;
-            ++nCounter;
-        }
-        return nMask;
-    }
-    return 0;
-}
-
 // 0x0066B610
 void __fastcall DRLGROOM_FreeDrlgOrthToRoom(void* pMemPool, D2DrlgOrthStrc** ppDrlgOrth, D2DrlgRoomStrc* pDrlgRoom)
 {
